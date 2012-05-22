@@ -1,0 +1,27 @@
+﻿<UserControl x:Class = "Grove.Ui.Spell.View"
+             xmlns = "http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:i = "clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cal = "clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
+             xmlns:Ui="clr-namespace:Grove.Ui" >
+	<Border Margin = "0,-260,0,0" >
+
+		<ContentControl Style = "{StaticResource SelectableContent}" >
+			<i:Interaction.Triggers>
+				<i:EventTrigger EventName = "MouseEnter" >
+					<cal:ActionMessage MethodName = "ChangePlayersInterest" />
+				</i:EventTrigger>
+				<i:EventTrigger EventName = "MouseUp" >
+					<cal:ActionMessage MethodName = "Select" />
+				</i:EventTrigger>
+			</i:Interaction.Triggers>
+
+			<Grid>
+                <ContentControl Content = "{Binding Card}" ContentTemplate = "{StaticResource FaceUpCard}" />
+				<Border BorderBrush = "{StaticResource Playable}" Visibility = "{Binding IsPlayable, Converter={x:Static Ui:Converters.BooleanToVisibility}}" BorderThickness="0,2,0,0" />
+			</Grid>
+
+		</ContentControl>
+
+	</Border>
+</UserControl>

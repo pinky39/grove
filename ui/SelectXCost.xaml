@@ -1,0 +1,60 @@
+
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+   <ResourceDictionary.MergedDictionaries>
+      <ResourceDictionary Source="Skin.xaml"/>
+   </ResourceDictionary.MergedDictionaries>
+   <Border x:Key="SelectXCost">
+      <Border.Resources>
+         <Style BasedOn="{StaticResource Text}" TargetType="TextBlock"/>
+         <Style BasedOn="{StaticResource LinkButton}" TargetType="Button">
+          <Setter Property="FontSize" Value="16"/>
+          <Setter Property="Margin" Value="0,0,15,0"/>
+         </Style>
+      </Border.Resources>
+      <Grid Width="400">
+         <Grid.RowDefinitions>
+            <RowDefinition Height="36"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="50"/>
+         </Grid.RowDefinitions>
+         <Border Grid.Row="0" Background="{StaticResource BarBackground}">
+            <StackPanel Margin="10,0,10,0" Orientation="Horizontal">
+               <Image Margin="0,0,10,0" Source="avatar2.png" Style="{StaticResource Icon}"/>
+               <TextBlock Text="Activation cost"/>
+            </StackPanel>
+         </Border>
+         <Border Grid.Row="1" Background="#333">
+            <Grid Margin="30">
+               <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="Auto"/>
+                  <ColumnDefinition Width="*"/>
+               </Grid.ColumnDefinitions>
+               <Image
+                  Height="60"
+                  Grid.Column="0"
+                  HorizontalAlignment="Center"
+                  Margin="10,0,30,0"
+                  VerticalAlignment="Center"
+                  Source="question.png"/>
+               <StackPanel Grid.Column="1">
+               <TextBlock Foreground="#FFD700" FontSize="20" Text="Spell or ability has X in its cost, please choose X:" TextWrapping="Wrap"/>   
+                 <StackPanel Margin="0,10,0,0" Orientation="Horizontal" >
+                 <TextBlock FontSize="30" Text="X is"/>                 
+                   <ComboBox Width="50" Margin="10,0,0,0" >                              
+                      <ComboBoxItem IsSelected="True"><TextBlock FontSize="30" Text="1"/></ComboBoxItem>
+                      <ComboBoxItem><TextBlock FontSize="30" Text="2"/></ComboBoxItem>          
+                   </ComboBox>
+                 </StackPanel>
+               </StackPanel>
+               
+            </Grid>
+         </Border>
+         <Border Grid.Row="2" Background="#1a1a1a">
+           <StackPanel HorizontalAlignment="Right" Orientation="Horizontal"  Margin="0,0,5,0">
+            <Button>Cancel</Button>          
+            <Button>Ok</Button>            
+           </StackPanel>
+         </Border>
+      </Grid>
+   </Border>
+</ResourceDictionary>

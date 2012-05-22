@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="Grove.Ui.MagnifiedCard.View"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Core="clr-namespace:Grove.Core"
+             xmlns:grove="clr-namespace:Grove.Ui" >
+    <UserControl.Resources>
+        <DataTemplate DataType = "{x:Type Core:Card}" >            
+             <ContentControl Content = "{Binding}" ContentTemplate = "{StaticResource FaceUpCard}" Foreground="White" />                                          
+        </DataTemplate>
+
+        <DataTemplate DataType = "{x:Type Core:ActivatedAbility}" >
+            
+                <ContentControl Content = "{Binding}"
+					                ContentTemplate = "{StaticResource Ability}" />
+                                    
+            
+        </DataTemplate>
+
+        <DataTemplate DataType = "{x:Type Core:TriggeredAbility}" >
+            
+                <ContentControl Content = "{Binding}"
+					                ContentTemplate = "{StaticResource Ability}" />            
+        </DataTemplate>
+        
+    </UserControl.Resources>
+    <Grid>        
+        <Grid.Resources>
+            <LinearGradientBrush x:Key = "Background"
+	                     StartPoint = "0.5,0"
+	                     EndPoint = "0.5,1" >
+                <GradientStop Offset = "0.0"
+		              Color = "#111" />                
+                <GradientStop Offset = "1"
+		              Color = "#222" />                
+            </LinearGradientBrush>
+        </Grid.Resources>
+        <Border Grid.Row="0" Background="{StaticResource Background}" Margin="7" BorderThickness="3" CornerRadius="2" BorderBrush="#000">
+            <Image Source="{grove:Media 'card-back.png'}" />
+        </Border>
+
+        <Border Margin="5" BorderBrush="#000" BorderThickness="3" CornerRadius="2" Visibility="{Binding Visual, Converter={x:Static grove:Converters.NullToCollapsed}}" >
+            <ContentControl Content="{Binding Visual}"  />
+        </Border>
+    </Grid>        
+</UserControl>

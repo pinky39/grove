@@ -1,0 +1,71 @@
+
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+   <ResourceDictionary.MergedDictionaries>
+      <ResourceDictionary Source="Skin.xaml"/>
+      <ResourceDictionary Source="Cards.xaml"/>
+   </ResourceDictionary.MergedDictionaries>
+   <Border x:Key="Zones" BorderBrush="#000" BorderThickness="0,3,0,0">
+      <Border.Resources>
+         <Style BasedOn="{StaticResource Zones}" TargetType="{x:Type TabControl}"/>
+         <Style BasedOn="{StaticResource Zone}" TargetType="{x:Type TabItem}"/>
+         <Style BasedOn="{StaticResource ScrollBar}" TargetType="{x:Type ScrollBar}"/>
+         <Style TargetType="Border" >
+          <Setter Property="BorderThickness" Value="1" />
+          <Setter Property="CornerRadius" Value="2" />
+          <Setter Property="BorderBrush" Value="#000" />
+         </Style>
+         
+      </Border.Resources>
+      <TabControl>
+        <TabControl.Resources>
+          <Style x:Key="ZoneName" TargetType="TextBlock" BasedOn="{StaticResource Label}"/>
+          <Style x:Key="ZoneCount" TargetType="TextBlock" BasedOn="{StaticResource NormalData}">            
+            <Setter Property="Margin" Value="5,0,0,0"/>
+            <Setter Property="FontSize" Value="12" />
+          </Style>
+        </TabControl.Resources>
+         <TabItem>
+          <TabItem.Header>
+            <StackPanel Orientation="Horizontal">
+              <TextBlock Style="{StaticResource ZoneName}" Text="Stack"/>
+              <TextBlock Style="{StaticResource ZoneCount}" Text="2" />
+            </StackPanel>
+          </TabItem.Header>
+         </TabItem>
+         <TabItem >
+          <TabItem.Header>
+            <StackPanel Orientation="Horizontal">
+              <TextBlock Style="{StaticResource ZoneName}" Text="Opponent's graveyard"/>
+              <TextBlock Style="{StaticResource ZoneCount}" Text="12" />
+            </StackPanel>
+          </TabItem.Header>
+         </TabItem>
+         <TabItem>
+          <TabItem.Header>
+            <StackPanel Orientation="Horizontal">
+              <TextBlock Style="{StaticResource ZoneName}" Text="Graveyard"/>
+              <TextBlock Style="{StaticResource ZoneCount}" Text="10" />
+            </StackPanel>
+          </TabItem.Header>
+         </TabItem>
+         <TabItem IsSelected="True">   
+         <TabItem.Header>
+            <StackPanel Orientation="Horizontal">
+              <TextBlock Style="{StaticResource ZoneName}" Text="Hand"/>
+              <TextBlock Style="{StaticResource ZoneCount}" Text="2" />
+            </StackPanel>
+          </TabItem.Header>
+            <ScrollViewer VerticalScrollBarVisibility="Visible">             
+               <StackPanel Margin="5,10,10,10">                     
+                     <Border>
+                      <ContentControl Content="{StaticResource 'Forest'}"/>
+                     </Border>
+                     <Border Margin="0,-240,0,0">
+                      <ContentControl Content="{StaticResource 'Llanowar Elves'}" />
+                     </Border>
+               </StackPanel>
+            </ScrollViewer>
+         </TabItem>
+      </TabControl>
+   </Border>
+</ResourceDictionary>

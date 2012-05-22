@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{FF001FE3-F4E8-4768-BE96-CD6FCCCA52D1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Grove.Tests</RootNamespace>
+    <AssemblyName>Grove.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Caliburn.Micro, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\caliburn.micro\Caliburn.Micro.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Core, Version=2.5.1.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\castle.windsor\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor, Version=2.5.1.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\castle.windsor\Castle.Windsor.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\lib\log4net\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="xunit">
+      <HintPath>..\..\lib\xunit\xunit.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.extensions">
+      <HintPath>..\..\lib\xunit\xunit.extensions.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Cards\BlacksSunZenith.cs" />
+    <Compile Include="Cards\Blaze.cs" />
+    <Compile Include="Cards\CreepingTarPit.cs" />
+    <Compile Include="Cards\DarkstyleGargoyle.cs" />
+    <Compile Include="Cards\Dread.cs" />
+    <Compile Include="Cards\Evacuation.cs" />
+    <Compile Include="Cards\GraveTitan.cs" />
+    <Compile Include="Cards\ManaLeak.cs" />
+    <Compile Include="Cards\PhyrexianArena.cs" />
+    <Compile Include="Cards\Recoil.cs" />
+    <Compile Include="Cards\RuptureSpire.cs" />
+    <Compile Include="Cards\SealOfFire.cs" />
+    <Compile Include="Cards\SteamVents.cs" />
+    <Compile Include="Cards\TimeWarp.cs" />
+    <Compile Include="Cards\VividCreek.cs" />
+    <Compile Include="Cards\WallOfDenial.cs" />
+    <Compile Include="Unit\BlockStrategyFacts.cs" />
+    <Compile Include="Unit\ClosedFacts.cs" />
+    <Compile Include="Unit\GameFacts.cs" />
+    <Compile Include="Unit\HashCalculatorFacts.cs" />
+    <Compile Include="Infrastructure\PredefinedAiScenario.cs" />
+    <Compile Include="Unit\KnapsackFacts.cs" />
+    <Compile Include="Sandbox\ClousureFacts.cs" />
+    <Compile Include="Cards\NantukoShade.cs" />
+    <Compile Include="Cards\VampireNightHawk.cs" />
+    <Compile Include="Scenarios\Bugs.cs" />
+    <Compile Include="Scenarios\Performance.cs" />
+    <Compile Include="Unit\CardTypeFacts.cs" />
+    <Compile Include="Cards\AcidicSlime.cs" />
+    <Compile Include="Cards\BirdsOfParadise.cs" />
+    <Compile Include="Cards\BurstLightning.cs" />
+    <Compile Include="Scenarios\Combat.cs" />
+    <Compile Include="Cards\CopperlineGorge.cs" />
+    <Compile Include="Cards\CruelEdict.cs" />
+    <Compile Include="Cards\DoomBlade.cs" />
+    <Compile Include="Cards\DranaKalastriaBloodchief.cs" />
+    <Compile Include="Cards\FiresOfYavimaya.cs" />
+    <Compile Include="Cards\FlametongueKavu.cs" />
+    <Compile Include="Cards\GraspOfDarkness.cs" />
+    <Compile Include="Cards\HypnoticSpecter.cs" />
+    <Compile Include="Infrastructure\ScenarioCard.cs" />
+    <Compile Include="Cards\LilianasSpecter.cs" />
+    <Compile Include="Cards\MarshCasualties.cs" />
+    <Compile Include="Cards\RagingRavine.cs" />
+    <Compile Include="Cards\RavenousBaloth.cs" />
+    <Compile Include="Cards\RootboundCrag.cs" />
+    <Compile Include="Cards\RumblingSlum.cs" />
+    <Compile Include="Cards\SignInBlood.cs" />
+    <Compile Include="Cards\Stupor.cs" />
+    <Compile Include="Cards\SwordOfFeastAndFamine.cs" />
+    <Compile Include="Cards\SwordOfFireAndIce.cs" />
+    <Compile Include="Cards\ThrunTheLastTroll.cs" />
+    <Compile Include="Cards\Vigor.cs" />
+    <Compile Include="Cards\VinesOfVastwood.cs" />
+    <Compile Include="Cards\VolcanicFallout.cs" />
+    <Compile Include="Cards\WurmcoilEngine.cs" />
+    <Compile Include="Infrastructure\AiScenario.cs" />
+    <Compile Include="Infrastructure\PredifinedScenario.cs" />
+    <Compile Include="Cards\BlanchwoodArmor.cs" />
+    <Compile Include="Cards\LlanowarBehemoth.cs" />
+    <Compile Include="Cards\LlanowarElves.cs" />
+    <Compile Include="Unit\CardTextFacts.cs" />
+    <Compile Include="Unit\ManaFacts.cs" />
+    <Compile Include="Unit\ScenarioGeneratorFacts.cs" />
+    <Compile Include="Unit\CopyServiceFacts.cs" />
+    <Compile Include="Unit\DataBindingFactoryFacts.cs" />
+    <Compile Include="Unit\CastleWindsorFacts.cs" />
+    <Compile Include="Unit\DataBindingFacts.cs" />
+    <Compile Include="Unit\ReflectionFacts.cs" />
+    <Compile Include="Unit\StringExFacts.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Unit\ShuffleFacts.cs" />
+    <Compile Include="Unit\ConvertersFacts.cs" />
+    <Compile Include="Infrastructure\Scenario.cs" />
+    <Compile Include="Cards\ShivanDragon.cs" />
+    <Compile Include="Cards\Shock.cs" />
+    <Compile Include="Cards\VerdantForce.cs" />
+    <Compile Include="Unit\TrackableEventFacts.cs" />
+    <Compile Include="Sandbox\UriFacts.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\source\Grove\Grove.csproj">
+      <Project>{08EAEA6C-8725-470C-9346-27AC0320DAFF}</Project>
+      <Name>Grove</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Infrastructure\Logger.Debug.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

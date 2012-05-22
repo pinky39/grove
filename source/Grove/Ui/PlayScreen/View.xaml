@@ -1,0 +1,89 @@
+﻿<UserControl x:Class = "Grove.Ui.PlayScreen.View"
+             xmlns = "http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cl="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
+             xmlns:grove="clr-namespace:Grove.Ui" >
+    <i:Interaction.Triggers>
+        <grove:InputBindingTrigger>
+            <grove:InputBindingTrigger.InputBinding>
+                <KeyBinding Modifiers="Control" Key="D"/>
+            </grove:InputBindingTrigger.InputBinding>
+            <cl:ActionMessage MethodName="GenerateTestScenario"/>
+        </grove:InputBindingTrigger>        
+    </i:Interaction.Triggers>
+
+    <Grid Background="#000">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="32"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="262"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <!-- Topbar -->
+        <Border  Grid.ColumnSpan="2" Grid.Row="0" Style="{StaticResource Bar}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <ContentControl x:Name="ManaPool" Grid.Column="0" Margin="0,0,-1,0"/>
+                <ContentControl x:Name="Turn" Grid.Column="1" Margin="0,0,0,0"/>
+            </Grid>
+        </Border>
+        <!-- End Topbar -->
+        <!-- Sidebar -->
+        <Border Grid.Column="0" Grid.Row="1" Background="{StaticResource BarBackground}" >
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="370"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <ContentControl x:Name="MagnifiedCard" Grid.Row="0" />
+                <ContentControl x:Name="Zones" Grid.Row="1" />
+            </Grid>
+        </Border>
+        <!-- End Sidebar -->
+        <!-- Battlefield -->
+        <Border Grid.Column="1" Grid.Row="1" Style="{StaticResource BattlefieldBorder}">                        
+            <Grid>
+                <Grid>                
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <ContentControl x:Name="OpponentsBattlefield" Grid.Row="0"/>
+                        <ContentControl x:Name="YourBattlefield" Grid.Row="1" />
+                    </Grid>
+
+                    <ContentControl x:Name="LargeDialog" Style="{StaticResource Dialog}"  Visibility="{Binding LargeDialog, Converter={x:Static grove:Converters.NullToCollapsed}}"/>
+                    <ContentControl x:Name="SmallDialog" Style="{StaticResource SmallDialog}"  Visibility="{Binding SmallDialog, Converter={x:Static grove:Converters.NullToCollapsed}}"/>                    
+                    <ContentControl x:Name="Stack"  HorizontalAlignment="Right" Margin="0,60,40,0" VerticalAlignment="Top"/>
+                </Grid>
+
+                <ContentControl Style="{StaticResource SmallDialog}" Visibility="{Binding SearchInProgress,Converter={x:Static grove:Converters.BooleanToVisibility}}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Margin="0,0,10,0" Style="{StaticResource DialogIcon}" />
+                        <TextBlock Style="{StaticResource SmallDialogLabel}">Counting mammoths, please wait...</TextBlock>
+                    </StackPanel>
+                </ContentControl>                
+            </Grid>
+        </Border>
+        <!-- End battlefield -->
+        <!-- Bottom bar -->
+        <Grid Grid.ColumnSpan="2" Grid.Row="2" Background="{StaticResource BarBackground}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>                
+            </Grid.ColumnDefinitions>
+            <ContentControl x:Name="PlayersBox" Grid.Column="0" Margin="15,0,15,0"/>
+            <ContentControl x:Name="Notification" Grid.Column="1" />            
+        </Grid>
+    </Grid>
+    <!-- End bottom bar -->
+
+</UserControl>

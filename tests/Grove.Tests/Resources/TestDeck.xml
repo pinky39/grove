@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Deck>
+    <Cards>
+        <Card Name="Llanowar Elves" />
+        <Card Name="Grizzly Bears" />
+        <Card Name="Elvish Warrior" />
+        <Card Name="Trained Armodon" NumOfCopies="3" />
+        <Card Name="Order of the Sacred Bell" NumOfCopies="4" />
+    </Cards>
+</Deck>

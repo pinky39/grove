@@ -1,0 +1,24 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+   <ResourceDictionary.MergedDictionaries>
+      <ResourceDictionary Source="Skin.xaml"/>      
+   </ResourceDictionary.MergedDictionaries>
+   <Grid x:Key="StartScreen" Background="{StaticResource StartScreenBackground}">  
+   <Grid.Resources>     
+        <Style TargetType="Button" BasedOn="{StaticResource LinkButton}">
+          <Setter Property="FontSize" Value="24"/>
+        </Style>         
+   </Grid.Resources>
+    <StackPanel HorizontalAlignment="Center" Margin="0,280,0,0">
+      <StackPanel>
+        <Image  Source="..\media\images\logo.png" Width="600" />
+        <StackPanel HorizontalAlignment="Right" Margin="0,10,20,0">
+          <Button HorizontalAlignment="Right">Random game</Button>
+          <Button HorizontalAlignment="Right">Quit</Button>        
+        </StackPanel>   
+      </StackPanel>
+      <TextBlock Margin="0,120,0,0" Foreground="#ccc" FontStyle="Italic" FontSize="20" HorizontalAlignment="Center">(press 'f' to toggle fullscreen)</TextBlock>
+    </StackPanel>
+    <TextBlock HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="16" Margin="10,0,20,10" Foreground="#fff">Database has 58 cards.</TextBlock>
+   </Grid>
+      
+</ResourceDictionary>

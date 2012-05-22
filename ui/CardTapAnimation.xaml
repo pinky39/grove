@@ -1,0 +1,41 @@
+
+<Page xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+   <Page.Resources>
+      <ResourceDictionary>
+         <ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary Source="Skin.xaml"/>
+            <ResourceDictionary Source="Cards.xaml"/>
+         </ResourceDictionary.MergedDictionaries>
+      </ResourceDictionary>
+   </Page.Resources>
+   <ContentControl HorizontalAlignment="Center"
+         VerticalAlignment="Center">
+      <ContentControl.LayoutTransform>
+         <RotateTransform x:Name="Tap" Angle="0"/>
+      </ContentControl.LayoutTransform>
+      <ContentControl.Triggers>
+         <EventTrigger RoutedEvent="ContentControl.MouseUp">
+            <BeginStoryboard>
+               <Storyboard>
+                  <DoubleAnimation
+                     Duration="0:0:0.1"
+                     From="0"
+                     Storyboard.TargetName="Tap"
+                     Storyboard.TargetProperty="Angle"
+                     To="90"/>
+               </Storyboard>
+            </BeginStoryboard>
+         </EventTrigger>                    
+      </ContentControl.Triggers>
+      <Border
+         Width="100"         
+         BorderBrush="#000000"
+         BorderThickness="4"
+         CornerRadius="2">
+         <Grid>        
+         <ContentControl Content="{StaticResource Forest}"/>
+         <Border Background="#55FF0000"/>
+         </Grid>
+      </Border>
+   </ContentControl>
+</Page>

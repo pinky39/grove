@@ -1,0 +1,752 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{08EAEA6C-8725-470C-9346-27AC0320DAFF}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Grove</RootNamespace>
+    <AssemblyName>Grove</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;TEST</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Caliburn.Micro">
+      <HintPath>..\..\lib\caliburn.micro\Caliburn.Micro.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Core, Version=2.5.1.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\castle.windsor\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor, Version=2.5.1.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\castle.windsor\Castle.Windsor.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\lib\log4net\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Windows.Interactivity">
+      <HintPath>..\..\lib\caliburn.micro\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Cards\AcidicSlime.cs" />
+    <Compile Include="Cards\BurstLightning.cs" />
+    <Compile Include="Cards\BeaconOfDestruction.cs" />
+    <Compile Include="Cards\BirdsOfParadise.cs" />
+    <Compile Include="Cards\BlackSunsZenith.cs" />
+    <Compile Include="Cards\BlanchwoodArmor.cs" />
+    <Compile Include="Cards\Blaze.cs" />
+    <Compile Include="Cards\Counterspell.cs" />
+    <Compile Include="Cards\CopperlineGorge.cs" />
+    <Compile Include="Cards\CreepingTarPit.cs" />
+    <Compile Include="Cards\CruelEdict.cs" />
+    <Compile Include="Cards\DrownedCatacomb.cs" />
+    <Compile Include="Cards\DarkslickDrake.cs" />
+    <Compile Include="Cards\DarksteelGargoyle.cs" />
+    <Compile Include="Cards\Divination.cs" />
+    <Compile Include="Cards\DoomBlade.cs" />
+    <Compile Include="Cards\DranaKalastriaBloodchief.cs" />
+    <Compile Include="Cards\Dread.cs" />
+    <Compile Include="Cards\ElvishWarrior.cs" />
+    <Compile Include="Cards\Evacuation.cs" />
+    <Compile Include="Cards\Forest.cs" />
+    <Compile Include="Cards\FiresOfYavimaya.cs" />
+    <Compile Include="Cards\FlameSlash.cs" />
+    <Compile Include="Cards\FlametongueKavu.cs" />
+    <Compile Include="Cards\GrizzlyBears.cs" />
+    <Compile Include="Cards\GoForTheThroat.cs" />
+    <Compile Include="Cards\GraspOfDarkness.cs" />
+    <Compile Include="Cards\GraveTitan.cs" />
+    <Compile Include="Cards\HypnoticSpecter.cs" />
+    <Compile Include="Cards\Island.cs" />
+    <Compile Include="Cards\LlanowarElves.cs" />
+    <Compile Include="Cards\LeatherbackBaloth.cs" />
+    <Compile Include="Cards\LightningBolt.cs" />
+    <Compile Include="Cards\LilianasSpecter.cs" />
+    <Compile Include="Cards\LlanowarBehemoth.cs" />
+    <Compile Include="Cards\Mountain.cs" />
+    <Compile Include="Cards\ManaLeak.cs" />
+    <Compile Include="Cards\MarshCasualties.cs" />
+    <Compile Include="Cards\NantukoShade.cs" />
+    <Compile Include="Cards\OrderOfTheSacredBell.cs" />
+    <Compile Include="Cards\PhyrexianArena.cs" />
+    <Compile Include="Cards\RuptureSpire.cs" />
+    <Compile Include="Cards\RagingRavine.cs" />
+    <Compile Include="Cards\RavenousBaloth.cs" />
+    <Compile Include="Cards\Recoil.cs" />
+    <Compile Include="Cards\RootboundCrag.cs" />
+    <Compile Include="Cards\RumblingSlum.cs" />
+    <Compile Include="Cards\SwordOfFireAndIce.cs" />
+    <Compile Include="Cards\SealOfFire.cs" />
+    <Compile Include="Cards\ShivanDragon.cs" />
+    <Compile Include="Cards\Shock.cs" />
+    <Compile Include="Cards\Sift.cs" />
+    <Compile Include="Cards\SignInBlood.cs" />
+    <Compile Include="Cards\SteamVents.cs" />
+    <Compile Include="Cards\Stupor.cs" />
+    <Compile Include="Cards\Swamp.cs" />
+    <Compile Include="Cards\SwordOfFeastAndFamine.cs" />
+    <Compile Include="Cards\TrainedArmodon.cs" />
+    <Compile Include="Cards\ThrunTheLastTroll.cs" />
+    <Compile Include="Cards\TimeWarp.cs" />
+    <Compile Include="Cards\TripNoose.cs" />
+    <Compile Include="Cards\Undermine.cs" />
+    <Compile Include="Cards\Uncastable.cs" />
+    <Compile Include="Cards\VolcanicHammer.cs" />
+    <Compile Include="Cards\VampireNighthawk.cs" />
+    <Compile Include="Cards\VerdantForce.cs" />
+    <Compile Include="Cards\Vigor.cs" />
+    <Compile Include="Cards\VinesOfVastwood.cs" />
+    <Compile Include="Cards\VividCrag.cs" />
+    <Compile Include="Cards\VividCreek.cs" />
+    <Compile Include="Cards\VolcanincFallout.cs" />
+    <Compile Include="Cards\WurmcoilEngine.cs" />
+    <Compile Include="Cards\WallOfDenial.cs" />
+    <Compile Include="Configuration.cs" />
+    <Compile Include="Core\Ability.cs" />
+    <Compile Include="Core\Ai\InnerResult.cs" />
+    <Compile Include="Core\Ai\ISearchResult.cs" />
+    <Compile Include="Core\Ai\LeafResult.cs" />
+    <Compile Include="Core\Ai\Timings.cs" />
+    <Compile Include="Core\Ai\SearchResults.cs" />
+    <Compile Include="Core\Ai\SearchWorker.cs" />
+    <Compile Include="Core\Ai\EffectCategories.cs" />
+    <Compile Include="Core\AssignedDamage.cs" />
+    <Compile Include="Core\Attachment.cs" />
+    <Compile Include="Core\Attachments.cs" />
+    <Compile Include="Core\Attacker.cs" />
+    <Compile Include="Core\Blocker.cs" />
+    <Compile Include="Core\Ai\ISearchNode.cs" />
+    <Compile Include="Core\Controllers\ConsiderPayingCounterCost.cs" />
+    <Compile Include="Core\Controllers\Human\ConsiderPayingLifeOrMana.cs" />
+    <Compile Include="Core\Controllers\Machine\ConsiderPayingLifeOrMana.cs" />
+    <Compile Include="Core\Controllers\Machine\DecisionExecutor.cs" />
+    <Compile Include="Core\Controllers\Machine\DecisionFactory.cs" />
+    <Compile Include="Core\Controllers\Human\DecisionFactory.cs" />
+    <Compile Include="Core\Controllers\Machine\AssignCombatDamage.cs" />
+    <Compile Include="Core\Ai\BlockStrategy.cs" />
+    <Compile Include="Core\Controllers\Machine\DeclareAttackers.cs" />
+    <Compile Include="Core\Controllers\Machine\DeclareBlockers.cs" />
+    <Compile Include="Core\Controllers\Machine\DiscardCards.cs" />
+    <Compile Include="Core\Controllers\Machine\IDecisionExecution.cs" />
+    <Compile Include="Core\Controllers\Machine\SacrificeCreatures.cs" />
+    <Compile Include="Core\Controllers\Machine\SelectStartingPlayer.cs" />
+    <Compile Include="Core\Controllers\Machine\SetDamageAssignmentOrder.cs" />
+    <Compile Include="Core\Controllers\Machine\SetTriggeredAbilityTarget.cs" />
+    <Compile Include="Core\Controllers\PayLifeOrManaArguments.cs" />
+    <Compile Include="Core\Controllers\Scenario\DeclareAttackers.cs" />
+    <Compile Include="Core\Controllers\Scenario\DeclareBlockers.cs" />
+    <Compile Include="Core\Controllers\Scenario\IScenarioDecision.cs" />
+    <Compile Include="Core\Controllers\Scenario\LazyEffect.cs" />
+    <Compile Include="Core\Controllers\Scenario\PlaySpellOrAbility.cs" />
+    <Compile Include="Core\Controllers\Scenario\ScenarioAbility.cs" />
+    <Compile Include="Core\Controllers\Scenario\DecisionFactory.cs" />
+    <Compile Include="Core\Controllers\Scenario\ScenarioSpell.cs" />
+    <Compile Include="Core\Controllers\Scenario\SetTriggeredAbilityTarget.cs" />
+    <Compile Include="Core\Controllers\Scenario\StepDecisions.cs" />
+    <Compile Include="Core\Controllers\Scenario\Verify.cs" />
+    <Compile Include="Core\Costs\TapOwnerRemoveCounter.cs" />
+    <Compile Include="Core\Counters\ChargeCounter.cs" />
+    <Compile Include="Core\Counters\Counter.cs" />
+    <Compile Include="Core\Counters\Counters.cs" />
+    <Compile Include="Core\Counters\ICounterFactory.cs" />
+    <Compile Include="Core\Effects\CounterTargetSpell.cs" />
+    <Compile Include="Core\Effects\PayLifeOrTap.cs" />
+    <Compile Include="Core\Effects\PayManaOrSacrifice.cs" />
+    <Compile Include="Core\Effects\ReturnAllPermanentsToHand.cs" />
+    <Compile Include="Core\Effects\ReturnTargetPermanentToHand.cs" />
+    <Compile Include="Core\Effects\DestroySource.cs" />
+    <Compile Include="Core\Effects\TapTargetCreature.cs" />
+    <Compile Include="Core\Effects\TargetPlayerTakesExtraTurns.cs" />
+    <Compile Include="Core\IActivatedAbilityFactory.cs" />
+    <Compile Include="Core\ITriggeredAbilityFactory.cs" />
+    <Compile Include="Core\Life.cs" />
+    <Compile Include="Core\ManaPayment.cs" />
+    <Compile Include="Core\Messages\PlayerHasActivatedAbility.cs" />
+    <Compile Include="Core\Messages\SearchFinished.cs" />
+    <Compile Include="Core\Messages\SearchStarted.cs" />
+    <Compile Include="Core\Modifiers\AddCounters.cs" />
+    <Compile Include="Core\Counters\PowerToughness.cs" />
+    <Compile Include="Core\DamagePrevention\IDamagePreventionFactory.cs" />
+    <Compile Include="Core\ITarget.cs" />
+    <Compile Include="Core\Ai\VariableCost.cs" />
+    <Compile Include="Infrastructure\AssemblyEx.cs" />
+    <Compile Include="Infrastructure\Chaining.cs" />
+    <Compile Include="Infrastructure\UiScopeAccessor.cs" />
+    <Compile Include="Core\Permanents.cs" />
+    <Compile Include="Core\TurnInfo.cs" />
+    <Compile Include="Infrastructure\Activation.cs" />
+    <Compile Include="Infrastructure\ICopyable.cs" />
+    <Compile Include="Infrastructure\Knapsack.cs" />
+    <Compile Include="Infrastructure\KnapsackItem.cs" />
+    <Compile Include="Core\Controllers\Results\Ability.cs" />
+    <Compile Include="Core\Controllers\AssignCombatDamage.cs" />
+    <Compile Include="Core\Controllers\Decision.cs" />
+    <Compile Include="Core\Controllers\IDecision.cs" />
+    <Compile Include="Core\Controllers\Results\ChosenTarget.cs" />
+    <Compile Include="Core\Controllers\Results\Pass.cs" />
+    <Compile Include="Core\Controllers\Results\Playable.cs" />
+    <Compile Include="Core\Controllers\Results\ChosenPlayable.cs" />
+    <Compile Include="Core\Controllers\PlaySpellOrAbility.cs" />
+    <Compile Include="Core\Controllers\Results\DamageDistribution.cs" />
+    <Compile Include="Core\Controllers\Results\DamageAssignmentOrder.cs" />
+    <Compile Include="Core\Controllers\Results\ChosenBlockers.cs" />
+    <Compile Include="Core\Controllers\DeclareAttackers.cs" />
+    <Compile Include="Core\Controllers\DeclareBlockers.cs" />
+    <Compile Include="Core\Controllers\Results\ChosenCards.cs" />
+    <Compile Include="Core\Controllers\DiscardCards.cs" />
+    <Compile Include="Core\Controllers\Results\ChosenPlayer.cs" />
+    <Compile Include="Core\Controllers\Decisions.cs" />
+    <Compile Include="Core\Controllers\IDecisionFactory.cs" />
+    <Compile Include="Core\Controllers\SacrificeCreatures.cs" />
+    <Compile Include="Core\Controllers\SelectStartingPlayer.cs" />
+    <Compile Include="Core\Controllers\SetDamageAssignmentOrder.cs" />
+    <Compile Include="Core\Controllers\Results\Spell.cs" />
+    <Compile Include="Core\Controllers\SetTriggeredAbilityTarget.cs" />
+    <Compile Include="Core\Controllers\TakeMulligan.cs" />
+    <Compile Include="Core\Controllers\Results\BooleanResult.cs" />
+    <Compile Include="Core\Modifiers\AttachmentLifetime.cs" />
+    <Compile Include="Core\Modifiers\DependantLifetime.cs" />
+    <Compile Include="Core\Modifiers\EndOfTurnLifetime.cs" />
+    <Compile Include="Core\Modifiers\ILifetimeDependency.cs" />
+    <Compile Include="Core\Modifiers\Lifetime.cs" />
+    <Compile Include="Core\Modifiers\PermanentLifetime.cs" />
+    <Compile Include="Core\PropertyModifier.cs" />
+    <Compile Include="Core\CardTypeCharacteristic.cs" />
+    <Compile Include="Core\Combat.cs" />
+    <Compile Include="Core\Costs\ICostFactory.cs" />
+    <Compile Include="Core\Effects\IEffectFactory.cs" />
+    <Compile Include="Core\IAttackerFactory.cs" />
+    <Compile Include="Core\IBlockerFactory.cs" />
+    <Compile Include="Core\ICardFactory.cs" />
+    <Compile Include="Core\ActivatedAbilities.cs" />
+    <Compile Include="Core\CardColors.cs" />
+    <Compile Include="Core\Modifiers\CardTypeAdder.cs" />
+    <Compile Include="Core\Modifiers\IContinuousEffectFactory.cs" />
+    <Compile Include="Core\Modifiers\IModifier.cs" />
+    <Compile Include="Core\Modifiers\IModifierFactory.cs" />
+    <Compile Include="Core\Modifiers\IModifiable.cs" />
+    <Compile Include="Core\Modifiers\Modifiers.cs" />
+    <Compile Include="Core\Modifiers\Increment.cs" />
+    <Compile Include="Core\Modifiers\StrenghtSetter.cs" />
+    <Compile Include="Core\Power.cs" />
+    <Compile Include="Core\Modifiers\ColorsSetter.cs" />
+    <Compile Include="Core\StaticAbility.cs" />
+    <Compile Include="Core\Characteristic.cs" />
+    <Compile Include="Core\Toughness.cs" />
+    <Compile Include="Core\DamagePrevention\DamagePreventions.cs" />
+    <Compile Include="Core\Protections.cs" />
+    <Compile Include="Core\TriggeredAbilities.cs" />
+    <Compile Include="Core\Modifiers\Value.cs" />
+    <Compile Include="Core\Controllers\DecisionQueue.cs" />
+    <Compile Include="Core\ICharacteristicModifier.cs" />
+    <Compile Include="Core\StaticAbilities.cs" />
+    <Compile Include="Infrastructure\ChangeTracker.cs" />
+    <Compile Include="Infrastructure\CopyableAttribute.cs" />
+    <Compile Include="Infrastructure\CopyService.cs" />
+    <Compile Include="Infrastructure\ICopyContributor.cs" />
+    <Compile Include="Infrastructure\ITrackableCollection.cs" />
+    <Compile Include="Infrastructure\ITrackableValue.cs" />
+    <Compile Include="Infrastructure\Trackable.cs" />
+    <Compile Include="Core\Triggers\ITriggerFactory.cs" />
+    <Compile Include="Core\Controllers\Human\UiTargetSelector.cs" />
+    <Compile Include="Core\ManaSources.cs" />
+    <Compile Include="Core\IManaSource.cs" />
+    <Compile Include="Core\ManaAbility.cs" />
+    <Compile Include="Core\ManaPool.cs" />
+    <Compile Include="Core\Costs\SacrificeOwner.cs" />
+    <Compile Include="Core\Costs\SacrificePermanent.cs" />
+    <Compile Include="Core\Damage.cs" />
+    <Compile Include="Core\DamagePrevention\ReplaceDamageWithCounters.cs" />
+    <Compile Include="Core\Effects\AttachEquipment.cs" />
+    <Compile Include="Core\Effects\CompoundEffect.cs" />
+    <Compile Include="Core\Effects\DealDamageToEach.cs" />
+    <Compile Include="Core\Effects\DrawCards.cs" />
+    <Compile Include="Core\Effects\IncreaseLife.cs" />
+    <Compile Include="Core\Effects\IEffectSource.cs" />
+    <Compile Include="Core\Effects\Regenerate.cs" />
+    <Compile Include="Core\Effects\ShuffleIntoLibrary.cs" />
+    <Compile Include="Core\Effects\UntapAllLands.cs" />
+    <Compile Include="Core\DamagePrevention\DamagePrevention.cs" />
+    <Compile Include="Core\Mana.cs" />
+    <Compile Include="Core\ManaAmount.cs" />
+    <Compile Include="Core\ManaBag.cs" />
+    <Compile Include="Core\ManaColors.cs" />
+    <Compile Include="Core\Modifiers\AddStaticAbility.cs" />
+    <Compile Include="Core\Modifiers\AddProtectionFromColors.cs" />
+    <Compile Include="Core\Modifiers\AddTriggeredAbility.cs" />
+    <Compile Include="Core\Modifiers\ChangeToCreature.cs" />
+    <Compile Include="Core\Modifiers\ContinuousEffect.cs" />
+    <Compile Include="Core\Modifiers\Modifier.cs" />
+    <Compile Include="Core\Modifiers\AddDamagePrevention.cs" />
+    <Compile Include="Core\Triggers\OnAttack.cs" />
+    <Compile Include="Core\Controllers\Human\SelectStartingPlayer.cs" />
+    <Compile Include="Core\Controllers\Human\DeclareAttackers.cs" />
+    <Compile Include="Core\Controllers\Human\DeclareBlockers.cs" />
+    <Compile Include="Core\Controllers\Human\DiscardCards.cs" />
+    <Compile Include="Core\Controllers\Human\AssignCombatDamage.cs" />
+    <Compile Include="Core\Controllers\Human\PlaySpellOrAbility.cs" />
+    <Compile Include="Core\Controllers\Human\SacrificeCreatures.cs" />
+    <Compile Include="Core\Controllers\Human\SetTriggeredAbilityTarget.cs" />
+    <Compile Include="Core\Controllers\Human\SetDamageAssignmentOrder.cs" />
+    <Compile Include="Core\Controllers\Human\TakeMulligan.cs" />
+    <Compile Include="Core\Controllers\Machine\PlaySpellOrAbility.cs" />
+    <Compile Include="Core\Ai\Search.cs" />
+    <Compile Include="Core\Controllers\Machine\TakeMulligan.cs" />
+    <Compile Include="Core\Messages\AttachmentAttached.cs" />
+    <Compile Include="Core\Messages\AttachmentDetached.cs" />
+    <Compile Include="Core\CastingRules\CastingRule.cs" />
+    <Compile Include="Core\CardsSource.cs" />
+    <Compile Include="Core\Effects\PutIntoPlay.cs" />
+    <Compile Include="Core\ActivatedAbility.cs" />
+    <Compile Include="Core\Card.cs" />
+    <Compile Include="Core\CardText.cs" />
+    <Compile Include="Core\CardType.cs" />
+    <Compile Include="Core\CastingRules\Instant.cs" />
+    <Compile Include="Core\CastingRules\Land.cs" />
+    <Compile Include="Core\CastingRules\Sorcery.cs" />
+    <Compile Include="Core\Triggers\Trigger.cs" />
+    <Compile Include="Core\Triggers\AtBegginingOfStep.cs" />
+    <Compile Include="Core\Triggers\DealDamageToPlayer.cs" />
+    <Compile Include="Core\Triggers\ChangeZone.cs" />
+    <Compile Include="Core\Costs\Cost.cs" />
+    <Compile Include="Core\Costs\TapOwnerPayMana.cs" />
+    <Compile Include="Core\Costs\TapCreature.cs" />
+    <Compile Include="Core\CardDatabase.cs" />
+    <Compile Include="Core\Deck.cs" />
+    <Compile Include="Core\DeckFactory.cs" />
+    <Compile Include="Core\Effects\AddManaToPool.cs" />
+    <Compile Include="Core\Effects\ApplyModifiersToCreatures.cs" />
+    <Compile Include="Core\Effects\ApplyModifiersToSelfAndToTargets.cs" />
+    <Compile Include="Core\Effects\ApplyModifiersToSelf.cs" />
+    <Compile Include="Core\Effects\ApplyModifiersToTarget.cs" />
+    <Compile Include="Core\Effects\CreateTokens.cs" />
+    <Compile Include="Core\Effects\DealDamageToTarget.cs" />
+    <Compile Include="Core\Effects\DestroyTargetPermanent.cs" />
+    <Compile Include="Core\Effects\Effect.cs" />
+    <Compile Include="Core\Effects\EnchantCreature.cs" />
+    <Compile Include="Core\Effects\OpponentDiscardsCards.cs" />
+    <Compile Include="Core\Effects\OpponentSacrificesCreatures.cs" />
+    <Compile Include="Core\Effects\TargetPlayerDrawsCards.cs" />
+    <Compile Include="Core\Modifiers\Add11ForEachForest.cs" />
+    <Compile Include="Core\Modifiers\AddPowerAndToughness.cs" />
+    <Compile Include="Core\Testing\ScenarioGenerator.cs" />
+    <Compile Include="Infrastructure\Snapshot.cs" />
+    <Compile Include="Core\SpellPrerequisites.cs" />
+    <Compile Include="Core\TriggeredAbility.cs" />
+    <Compile Include="Core\Messages\CardChangedZone.cs" />
+    <Compile Include="Core\Messages\DamageHasBeenDealt.cs" />
+    <Compile Include="Core\Messages\PlayerHasCastASpell.cs" />
+    <Compile Include="Core\RankBounds.cs" />
+    <Compile Include="Core\UiTargetSelector.cs" />
+    <Compile Include="Core\Zones\OrderedZone.cs" />
+    <Compile Include="Core\Zones\UnorderedZone.cs" />
+    <Compile Include="Infrastructure\DelegateEx.cs" />
+    <Compile Include="Infrastructure\EnumEx.cs" />
+    <Compile Include="Core\IHashable.cs" />
+    <Compile Include="Infrastructure\ClosedInterceptor.cs" />
+    <Compile Include="Infrastructure\IReceive.cs" />
+    <Compile Include="Infrastructure\HashCalculator.cs" />
+    <Compile Include="Infrastructure\TrackableEvent.cs" />
+    <Compile Include="Infrastructure\TrackableList.cs" />
+    <Compile Include="IoC.cs" />
+    <Compile Include="Ui\AttackerSelected.cs" />
+    <Compile Include="Ui\AttackerUnselected.cs" />
+    <Compile Include="Ui\BackgroundExtension.cs" />
+    <Compile Include="Ui\Permanent\CombatMarkers.cs" />
+    <Compile Include="Ui\BlockerSelected.cs" />
+    <Compile Include="Ui\BlockerUnselected.cs" />
+    <Compile Include="Ui\CombatDamage\BlockerDamageAssignment.cs" />
+    <Compile Include="Ui\CombatDamage\BlockerDamageAssignments.cs" />
+    <Compile Include="Ui\DamageOrder\BlockerAssignment.cs" />
+    <Compile Include="Ui\Hand\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Hand\ViewModel.cs" />
+    <Compile Include="Ui\DependencyObjectEx.cs" />
+    <Compile Include="Ui\DialogType.cs" />
+    <Compile Include="Ui\InputBindingTrigger.cs" />
+    <Compile Include="Ui\PlayableSelected.cs" />
+    <Compile Include="Ui\PlayersInterestChanged.cs" />
+    <Compile Include="Core\Messages\TurnStarted.cs" />
+    <Compile Include="Core\Ai\AttackStrategy.cs" />
+    <Compile Include="Core\Ai\CastRestrictions.cs" />
+    <Compile Include="Core\Ai\PlayableGenerator.cs" />
+    <Compile Include="Core\Ai\ScoreCalculator.cs" />
+    <Compile Include="Core\Ai\TargetGenerator.cs" />
+    <Compile Include="Core\Ai\ActivationGenerator.cs" />
+    <Compile Include="Core\Dice.cs" />
+    <Compile Include="Core\Game.cs" />
+    <Compile Include="Core\IDamageable.cs" />
+    <Compile Include="Core\Match.cs" />
+    <Compile Include="Core\Messages\AttackerDeclared.cs" />
+    <Compile Include="Core\Messages\BlockerDeclared.cs" />
+    <Compile Include="Core\Messages\EndOfTurn.cs" />
+    <Compile Include="Core\Messages\PlayerHasTakenMulligan.cs" />
+    <Compile Include="Core\Messages\RemovedFromCombat.cs" />
+    <Compile Include="Ui\SelectionMode.cs" />
+    <Compile Include="Ui\SelectionModeChanged.cs" />
+    <Compile Include="Ui\Spell\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Step\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\TargetSelected.cs" />
+    <Compile Include="Core\Messages\TurnStepFinished.cs" />
+    <Compile Include="Core\Messages\StepStarted.cs" />
+    <Compile Include="Core\Player.cs" />
+    <Compile Include="Core\Players.cs" />
+    <Compile Include="Core\Step.cs" />
+    <Compile Include="Core\StateMachine.cs" />
+    <Compile Include="Core\Ai\TargetScores.cs" />
+    <Compile Include="Core\ActivationParameters.cs" />
+    <Compile Include="Core\Zones\Battlefield.cs" />
+    <Compile Include="Core\Zones\Graveyard.cs" />
+    <Compile Include="Core\Zones\Hand.cs" />
+    <Compile Include="Core\Zones\Library.cs" />
+    <Compile Include="Core\Zones\Stack.cs" />
+    <Compile Include="Core\Zones\Zone.cs" />
+    <Compile Include="Infrastructure\EnumerableEx.cs" />
+    <Compile Include="Infrastructure\Predicates.cs" />
+    <Compile Include="Ui\CombatDamage\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\CombatDamage\ViewModel.cs" />
+    <Compile Include="Ui\WindowDimensions.cs" />
+    <Compile Include="Ui\GameResults\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\GameResults\ViewModel.cs" />
+    <Compile Include="Ui\MagnifiedCard\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\MagnifiedCard\ViewModel.cs" />
+    <Compile Include="Ui\ManaPool\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\ManaPool\ViewModel.cs" />
+    <Compile Include="Ui\MatchResults\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\MatchResults\ViewModel.cs" />
+    <Compile Include="Ui\MessageBox\Small.xaml.cs">
+      <DependentUpon>Small.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\MessageBox\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Notification\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Notification\ViewModel.cs" />
+    <Compile Include="Ui\Permanent\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Permanent\ViewModel.cs" />
+    <Compile Include="Ui\Players\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Players\ViewModel.cs" />
+    <Compile Include="Ui\IIsDialogHost.cs" />
+    <Compile Include="Ui\PlayScreen\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\PlayScreen\ViewModel.cs" />
+    <Compile Include="Ui\ResizeBehaviour.cs" />
+    <Compile Include="Ui\SelectAbility\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\SelectAbility\ViewModel.cs" />
+    <Compile Include="Ui\SelectXCost\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\SelectXCost\ViewModel.cs" />
+    <Compile Include="Ui\Spell\ViewModel.cs" />
+    <Compile Include="Ui\Stack\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Stack\ViewModel.cs" />
+    <Compile Include="Ui\Step\ViewModel.cs" />
+    <Compile Include="Ui\Turn\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Turn\ViewModel.cs" />
+    <Compile Include="Infrastructure\BindableObjectExtension.cs" />
+    <Compile Include="Infrastructure\INotifyPropertyChangedRaiser.cs" />
+    <Compile Include="Infrastructure\NotifyPropertyChangedInterceptor.cs" />
+    <Compile Include="Infrastructure\UpdatesAttribute.cs" />
+    <Compile Include="Infrastructure\DictionaryEx.cs" />
+    <Compile Include="Infrastructure\Publisher.cs" />
+    <Compile Include="Infrastructure\XElementEx.cs" />
+    <Compile Include="Ui\Battlefield\Slot.cs" />
+    <Compile Include="Ui\Battlefield\Row.cs" />
+    <Compile Include="Ui\MediaLibrary.cs" />
+    <Compile Include="Ui\MediaExtension.cs" />
+    <Compile Include="Ui\Converters.cs" />
+    <Compile Include="Infrastructure\Bindable.cs" />
+    <Compile Include="Infrastructure\Effects.cs" />
+    <Compile Include="Infrastructure\ParseExtensions.cs" />
+    <Compile Include="Infrastructure\RandomEx.cs" />
+    <Compile Include="Ui\SlotPanel.cs" />
+    <Compile Include="Infrastructure\StackExtension.cs" />
+    <Compile Include="Infrastructure\StringEx.cs" />
+    <Compile Include="Infrastructure\TypeExtensions.cs" />
+    <Compile Include="Ui\Battlefield\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Battlefield\ViewModel.cs" />
+    <Compile Include="Ui\DamageOrder\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\DamageOrder\ViewModel.cs" />
+    <Compile Include="Ui\MessageBox\Large.xaml.cs">
+      <DependentUpon>Large.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\MessageBox\ViewModel.cs" />
+    <Compile Include="Ui\Priority\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Priority\ViewModel.cs" />
+    <Compile Include="Ui\SelectTarget\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\SelectTarget\ViewModel.cs" />
+    <Compile Include="Infrastructure\ThreadBlocker.cs" />
+    <Compile Include="Ui\StartScreen\ViewModel.cs" />
+    <Compile Include="Ui\StartScreen\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\EnumerationExtension.cs" />
+    <Compile Include="Ui\Shell\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Shell\IShell.cs" />
+    <Compile Include="Bootstrapper.cs" />
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Ui\Shell\Shell.cs" />
+    <Compile Include="Ui\Zones\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Zones\ViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="resharper-members-layout.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Ui\Ability.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Battlefield\View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Card.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\DamageOrder\View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\CombatDamage\View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\GameResults\View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Hand\View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\MagnifiedCard\View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\ManaPool\View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\MatchResults\View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\MessageBox\Large.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ui\MessageBox\Small.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\MessageBox\View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Notification\View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Permanent\View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Players\View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\PlayScreen\View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ui\Priority\View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\SelectAbility\View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\SelectTarget\View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\SelectXCost\View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Skin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Shell\View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Spell\View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Stack\View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\StartScreen\View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Step\View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Turn\View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Zones\View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icon.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <UsingTask TaskName="Costura.EmbedTask" AssemblyFile="$(SolutionDir)lib\costura\Costura.dll" />
+  <Target Name="AfterBuild">
+    <Costura.EmbedTask />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

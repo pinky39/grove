@@ -1,0 +1,110 @@
+
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+   <ResourceDictionary.MergedDictionaries>
+      <ResourceDictionary Source="Skin.xaml"/>
+   </ResourceDictionary.MergedDictionaries>
+   <Border x:Key="TurnInfo">
+      <Border.Resources>
+         <Style BasedOn="{StaticResource Label}" TargetType="TextBlock">
+            <Setter Property="Margin" Value="0,0,4,0"/>
+         </Style>
+      </Border.Resources>
+      <StackPanel Orientation="Horizontal">
+   <!-- Turn number -->
+         <ContentControl Style="{StaticResource Separator}">
+         <StackPanel Margin="6,0,4,0" Orientation="Horizontal">
+            <TextBlock Text="Turn:"/>
+            <TextBlock Text="4"/>
+         </StackPanel>
+         </ContentControl>
+   <!-- End Turn number -->
+   <!-- Turn steps -->
+         <StackPanel Orientation="Horizontal">
+            <StackPanel.Resources>
+               <Style TargetType="Image">
+                  <Setter Property="Height" Value="12"/>
+                  <Setter Property="Margin" Value="0,0,5,0"/>
+               </Style>
+               <Style BasedOn="{StaticResource Label}" TargetType="TextBlock">
+                  <Setter Property="FontSize" Value="13"/>
+                  <Setter Property="Foreground" Value="{StaticResource InactiveColor}"/>
+               </Style>                        
+            </StackPanel.Resources>
+            <ContentControl Style="{StaticResource Separator}">
+               <StackPanel Orientation="Horizontal">
+                  <Image Source="..\media\images\Circle-Transparent.png"/>
+                  <TextBlock Text="Untap"/>
+               </StackPanel>
+            </ContentControl>
+            <ContentControl Style="{StaticResource Separator}">
+               <StackPanel Orientation="Horizontal">
+                  <Image Source="..\media\images\Circle-Transparent.png"/>
+                  <TextBlock Text="Upkeep"/>
+               </StackPanel>
+            </ContentControl>
+            <ContentControl Style="{StaticResource Separator}">
+               <StackPanel Orientation="Horizontal">
+                  <Image Source="..\media\images\Circle-Transparent.png"/>
+                  <TextBlock Text="Draw"/>
+               </StackPanel>
+            </ContentControl>
+            <ContentControl Style="{StaticResource Separator}" Background="{StaticResource SelectedBarBackground}">
+               <StackPanel Orientation="Horizontal">
+                  <Image Source="..\media\images\Circle-Green.png"/>
+                  <TextBlock Foreground="{StaticResource HighlightColor}" Text="First main"/>
+               </StackPanel>
+            </ContentControl>
+            <ContentControl Style="{StaticResource Separator}">
+               <StackPanel Orientation="Horizontal">
+                  <Image Source="..\media\images\Circle-Transparent.png"/>
+                  <TextBlock Text="Beg. of combat"/>
+               </StackPanel>
+            </ContentControl>
+            <ContentControl Style="{StaticResource Separator}">
+               <StackPanel Orientation="Horizontal">
+                  <Image Source="..\media\images\Circle-Transparent.png"/>
+                  <TextBlock Text="Declare attackers"/>
+               </StackPanel>
+            </ContentControl>
+            <ContentControl Style="{StaticResource Separator}">
+               <StackPanel Orientation="Horizontal">
+                  <Image Source="..\media\images\Circle-Green.png"/>
+                  <TextBlock Text="Declare blockers"/>
+               </StackPanel>
+            </ContentControl>
+            <ContentControl Style="{StaticResource Separator}">
+               <StackPanel Orientation="Horizontal">
+                  <Image Source="..\media\images\Circle-Transparent.png"/>
+                  <TextBlock Text="Combat damage"/>
+               </StackPanel>
+            </ContentControl>
+            <ContentControl Style="{StaticResource Separator}">
+               <StackPanel Orientation="Horizontal">
+                  <Image Source="..\media\images\Circle-Transparent.png"/>
+                  <TextBlock Text="End of combat"/>
+               </StackPanel>
+            </ContentControl>
+            <ContentControl Style="{StaticResource Separator}">
+               <StackPanel Orientation="Horizontal">
+                  <Image Source="..\media\images\Circle-Red.png"/>
+                  <TextBlock Text="Second main"/>
+               </StackPanel>
+            </ContentControl>
+            <ContentControl Style="{StaticResource Separator}">
+               <StackPanel Orientation="Horizontal">
+                  <Image Source="..\media\images\Circle-Transparent.png"/>
+                  <TextBlock Text="Cleanup"/>
+               </StackPanel>
+            </ContentControl>
+            <ContentControl Style="{StaticResource Separator}">
+               <StackPanel Orientation="Horizontal">
+                  <Image Source="..\media\images\Circle-Transparent.png"/>
+                  <TextBlock Text="End of turn"/>
+               </StackPanel>
+            </ContentControl>
+             <ContentControl Style="{StaticResource Separator}"/>
+         </StackPanel>
+   <!-- End Turn steps -->
+      </StackPanel>
+   </Border>
+</ResourceDictionary>

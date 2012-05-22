@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="Grove.Ui.Notification.View"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:grove="clr-namespace:Grove.Ui" >
+    <Border HorizontalAlignment="Right" Margin="15,0,15,0">
+        <Border.Resources>
+            <Style TargetType="TextBlock" BasedOn="{StaticResource Label}">
+                <Setter Property="FontSize" Value="14"/>
+            </Style>            
+        </Border.Resources>
+        <StackPanel Orientation="Horizontal">
+            <Image Height="15" Source="{grove:Media 'icon.png'}" Margin="0,0,10,0" />
+            <TextBlock Text="{Binding Message}" />
+        </StackPanel>
+    </Border>
+</UserControl>

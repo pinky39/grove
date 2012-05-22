@@ -1,0 +1,31 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+   <ResourceDictionary.MergedDictionaries>
+      <ResourceDictionary Source="Skin.xaml"/>
+   </ResourceDictionary.MergedDictionaries>
+   <ContentControl x:Key="ManaPool"  Style="{StaticResource Separator}">
+      <StackPanel Orientation="Horizontal">
+         <StackPanel.Resources>
+            <Style BasedOn="{StaticResource Label}" TargetType="TextBlock" >
+              <Setter Property="Margin" Value="0,0,5,0"/> 
+            </Style>
+            <Style BasedOn="{StaticResource Icon}" TargetType="Image" >
+              <Setter Property="Margin" Value="0,0,5,0"/>
+            </Style>
+         </StackPanel.Resources>         
+         <Image Source="..\media\images\w.png"/>
+         <TextBlock Text="0"/>
+         <Image Source="..\media\images\u.png"/>
+         <TextBlock Text="0"/>
+         <Image Source="..\media\images\b.png"/>
+         <TextBlock Text="0"/>
+         <Image Source="..\media\images\r.png"/>
+         <TextBlock Text="2"/>
+         <Image Source="..\media\images\g.png"/>
+         <TextBlock Text="4"/>
+         <Image Source="..\media\images\c.png"/>
+         <TextBlock Text="0"/>
+         <Image Source="..\media\images\any.png"/>
+         <TextBlock Text="0"/>
+      </StackPanel>
+   </ContentControl>
+</ResourceDictionary>

@@ -1,0 +1,10 @@
+<Page
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+   xmlns:i="clr-namespace:Grove.Infrastructure;assembly=grove.exe"   >
+  <Grid>  
+    <i:SlotPanel ChildHorizontalOffsetProperty="5" VerticalOffsetProperty="5">
+    
+    </i:SlotPanel>
+  </Grid>
+</Page>

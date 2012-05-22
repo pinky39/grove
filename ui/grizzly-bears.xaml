@@ -1,0 +1,14 @@
+<Page
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:sys="clr-namespace:System;assembly=mscorlib"
+  >
+  <Page.Resources>
+    <ResourceDictionary Source="cards.xaml"/>
+  </Page.Resources>
+  <Grid Background="#FF172103">                         
+      <Border BorderThickness="8" BorderBrush="#88FF0000" HorizontalAlignment="Center" CornerRadius="5">
+        <ContentControl Content="{StaticResource 'Grizzly Bears Dmg'}" />
+      </Border>
+  </Grid>
+</Page>
