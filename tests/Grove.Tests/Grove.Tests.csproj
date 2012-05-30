@@ -80,6 +80,7 @@
     <Compile Include="Cards\TimeWarp.cs" />
     <Compile Include="Cards\VividCreek.cs" />
     <Compile Include="Cards\WallOfDenial.cs" />
+    <Compile Include="Unit\ActivationFacts.cs" />
     <Compile Include="Unit\BlockStrategyFacts.cs" />
     <Compile Include="Unit\ClosedFacts.cs" />
     <Compile Include="Unit\GameFacts.cs" />

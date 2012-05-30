@@ -163,7 +163,7 @@
 
     private bool IsItFeasibleToCreateNewWorker(ISearchNode node, int moveIndex)
     {
-      const int maxWorkers = 4;
+      const int maxWorkers = 1;
       var depth = GetDepth(node.Game.Turn.StateCount);
       return (_workers.Count < maxWorkers && depth == 0 && moveIndex > 0);
     }

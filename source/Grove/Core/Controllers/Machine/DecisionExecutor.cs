@@ -38,7 +38,7 @@
       _decision.ProcessResults();
     }
 
-    private enum State
+    public enum State
     {
       BeforeQuery,
       AfterQuery,

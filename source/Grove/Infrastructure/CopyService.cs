@@ -1,18 +1,20 @@
-﻿namespace Grove.Infrastructure
-{
-  using System;
-  using System.Collections;
-  using System.Collections.Generic;
-  using System.Reflection;
-  using Castle.DynamicProxy;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Reflection;
+using Castle.DynamicProxy;
 
+namespace Grove.Infrastructure
+{
   public class CopyService
   {
-    private static readonly Dictionary<Type, ObjectActivator> ActivatorCache = new Dictionary<Type, ObjectActivator>();
+    private static readonly Dictionary<Type, ParameterlessCtor> ActivatorCache =
+      new Dictionary<Type, ParameterlessCtor>();
+
     private static readonly Dictionary<Type, Autocopy> AutocopyCache = new Dictionary<Type, Autocopy>();
     private readonly Dictionary<object, object> _identityMap = new Dictionary<object, object>();
     private List<Action> _contributors;
-        
+
     public T CopyRoot<T>(T obj)
     {
       _contributors = new List<Action>();
@@ -23,22 +25,22 @@
         contributor();
       }
 
-      return (T)copy;
+      return (T) copy;
     }
-    
+
     public T Copy<T>(T obj)
-    {            
-      return (T) CopyInternal(obj);    
+    {
+      return (T) CopyInternal(obj);
     }
 
     private static object CreateCopy(object obj)
     {
       var type = ProxyUtil.GetUnproxiedType(obj);
 
-      ObjectActivator activator;
-      if (ActivatorCache.TryGetValue(type, out activator) == false)
+      ParameterlessCtor ctor;
+      if (ActivatorCache.TryGetValue(type, out ctor) == false)
       {
-        var ctor = type.GetParameterlessConstructor();
+        ctor = type.GetParameterlessCtor();
 
         if (ctor == null)
         {
@@ -46,11 +48,10 @@
             String.Format("Type {0} is marked with [Copyable] but is missing a parameterless constructor.", type));
         }
 
-        activator = Activation.GetActivator(ctor);
-        ActivatorCache.Add(type, activator);
+        ActivatorCache.Add(type, ctor);
       }
 
-      return activator();
+      return ctor();
     }
 
     private static Autocopy GetAutocopy(Type type)
@@ -79,7 +80,7 @@
 
       if (list != null)
       {
-        var copy = (IList)CreateCopy(obj);
+        var copy = (IList) CreateCopy(obj);
         foreach (var item in list)
         {
           var itemCopy = CopyInternal(item);
@@ -100,7 +101,7 @@
         var copy = CreateCopy(original);
         _identityMap.Add(original, copy);
 
-        autocopy.Copy(original, copy, CopyInternal);        
+        autocopy.Copy(original, copy, CopyInternal);
         return copy;
       }
 
@@ -111,15 +112,15 @@
     {
       if (original is ICopyable)
       {
-        var copy = (ICopyable)CreateCopy(original);
+        var copy = (ICopyable) CreateCopy(original);
 
         _identityMap.Add(original, copy);
-        copy.Copy(original, this);        
+        copy.Copy(original, this);
         return copy;
       }
       return null;
     }
-    
+
     private object CopyCopyable(object original)
     {
       var copy = CopyAutomaticly(original) ?? CopyManualy(original);
@@ -129,22 +130,22 @@
       if (contributor != null)
       {
         _contributors.Add(() =>
-          contributor.AfterMemberCopy(original));
+                          contributor.AfterMemberCopy(original));
       }
-      
+
       return copy;
     }
 
     private object CopyInternal(object obj)
-    {            
+    {
       if (obj == null)
         return null;
 
       return
         GetCopyFromCache(obj) ??
-          CopyCopyable(obj) ??
-            CopyCollection(obj) ??
-              obj;
+        CopyCopyable(obj) ??
+        CopyCollection(obj) ??
+        obj;
     }
 
     private object GetCopyFromCache(object obj)
@@ -156,6 +157,8 @@
       }
       return null;
     }
+
+    #region Nested type: Autocopy
 
     private class Autocopy
     {
@@ -179,7 +182,7 @@
             continue;
 
           CopyField(field, original, copy, copier);
-        }     
+        }
       }
 
       private static List<FieldInfo> GetFields(Type type)
@@ -205,5 +208,7 @@
         field.SetValue(copy, copier(value));
       }
     }
+
+    #endregion
   }
 }
