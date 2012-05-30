@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Castle.DynamicProxy;
 
@@ -8,19 +9,16 @@ namespace Grove.Infrastructure
 {
   public class CopyService
   {
-    private static readonly Dictionary<Type, ParameterlessCtor> ActivatorCache =
-      new Dictionary<Type, ParameterlessCtor>();
-
-    private static readonly Dictionary<Type, Autocopy> AutocopyCache = new Dictionary<Type, Autocopy>();
+    private static readonly TypeCache Cache = new TypeCache();
     private readonly Dictionary<object, object> _identityMap = new Dictionary<object, object>();
-    private List<Action> _contributors;
+    private List<Action> _pendingContributors;
 
     public T CopyRoot<T>(T obj)
     {
-      _contributors = new List<Action>();
+      _pendingContributors = new List<Action>();
       var copy = CopyInternal(obj);
 
-      foreach (var contributor in _contributors)
+      foreach (var contributor in _pendingContributors)
       {
         contributor();
       }
@@ -36,42 +34,9 @@ namespace Grove.Infrastructure
     private static object CreateCopy(object obj)
     {
       var type = ProxyUtil.GetUnproxiedType(obj);
-
-      ParameterlessCtor ctor;
-      if (ActivatorCache.TryGetValue(type, out ctor) == false)
-      {
-        ctor = type.GetParameterlessCtor();
-
-        if (ctor == null)
-        {
-          throw new InvalidOperationException(
-            String.Format("Type {0} is marked with [Copyable] but is missing a parameterless constructor.", type));
-        }
-
-        ActivatorCache.Add(type, ctor);
-      }
+      var ctor = Cache.GetCtor(type);
 
       return ctor();
-    }
-
-    private static Autocopy GetAutocopy(Type type)
-    {
-      Autocopy autocopy = null;
-
-      if (AutocopyCache.TryGetValue(type, out autocopy) == false)
-      {
-        var attributes = type.GetCustomAttributes(typeof (CopyableAttribute), inherit: true);
-        var isCopyable = attributes.Length > 0;
-
-        if (isCopyable)
-        {
-          autocopy = new Autocopy(type);
-        }
-
-        AutocopyCache.Add(type, autocopy);
-      }
-
-      return autocopy;
     }
 
     private object CopyCollection(object obj)
@@ -94,14 +59,17 @@ namespace Grove.Infrastructure
     private object CopyAutomaticly(object original)
     {
       var type = original.GetType();
-      var autocopy = GetAutocopy(type);
+            
+      var copyHandler = Cache.GetCopyHandler(type);
 
-      if (autocopy != null)
+      if (copyHandler != null)
       {
+        Cache.AddCopyable(type);
+        
         var copy = CreateCopy(original);
         _identityMap.Add(original, copy);
 
-        autocopy.Copy(original, copy, CopyInternal);
+        copyHandler.Copy(original, copy, CopyInternal);
         return copy;
       }
 
@@ -112,6 +80,8 @@ namespace Grove.Infrastructure
     {
       if (original is ICopyable)
       {
+        Cache.AddCopyable(original.GetType());
+        
         var copy = (ICopyable) CreateCopy(original);
 
         _identityMap.Add(original, copy);
@@ -129,8 +99,8 @@ namespace Grove.Infrastructure
 
       if (contributor != null)
       {
-        _contributors.Add(() =>
-                          contributor.AfterMemberCopy(original));
+        _pendingContributors.Add(
+          () => contributor.AfterMemberCopy(original));
       }
 
       return copy;
@@ -139,17 +109,20 @@ namespace Grove.Infrastructure
     private object CopyInternal(object obj)
     {
       if (obj == null)
-        return null;
+        return null;      
 
       return
-        GetCopyFromCache(obj) ??
+        GetCopyFromCache(obj) ??        
         CopyCopyable(obj) ??
         CopyCollection(obj) ??
         obj;
     }
 
     private object GetCopyFromCache(object obj)
-    {
+    {            
+      if (!Cache.IsCopyable(obj.GetType()))
+        return null;
+      
       object copy;
       if (_identityMap.TryGetValue(obj, out copy))
       {
@@ -158,57 +131,115 @@ namespace Grove.Infrastructure
       return null;
     }
 
-    #region Nested type: Autocopy
-
-    private class Autocopy
+    private class CopyHandler
     {
-      private readonly List<FieldInfo> _fields;
+      private readonly List<FieldDescriptor> _fields;
 
-      public Autocopy(Type type)
+      public CopyHandler(Type type)
       {
         _fields = GetFields(type);
       }
 
-      public void Copy(object original, object copy, Func<object, object> copier)
+      public void Copy(object source, object target, Func<object, object> copier)
       {
         foreach (var field in _fields)
         {
-          // do not copy field created by castle proxy
-          if (field.Name == "__interceptors")
-            continue;
-
-          // do not copy event registrations
-          if (field.FieldType == typeof (EventHandler))
-            continue;
-
-          CopyField(field, original, copy, copier);
+          field.Copy(source, target, copier);
         }
       }
 
-      private static List<FieldInfo> GetFields(Type type)
+      private static List<FieldDescriptor> GetFields(Type type)
       {
-        var fields = new List<FieldInfo>();
+        var fields = new List<FieldDescriptor>();
         const BindingFlags bindingFlags = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public;
 
-        fields.AddRange(type.GetFields(bindingFlags));
-
-        var baseType = type.BaseType;
+        var baseType = type;
         while (baseType != null)
         {
-          fields.AddRange(baseType.GetFields(bindingFlags));
+          fields.AddRange(
+            baseType.GetFields(bindingFlags)
+              .Where(x => x.Name != "__interceptors")
+              .Where(x => x.FieldType != typeof (EventHandler))
+              .Select(fieldInfo => new FieldDescriptor(fieldInfo)));
           baseType = baseType.BaseType;
         }
-
         return fields;
       }
 
-      private void CopyField(FieldInfo field, object org, object copy, Func<object, object> copier)
+      private class FieldDescriptor
       {
-        var value = field.GetValue(org);
-        field.SetValue(copy, copier(value));
+        public FieldDescriptor(FieldInfo fieldInfo)
+        {
+          Getter = fieldInfo.GetGetter();
+          Setter = fieldInfo.GetSetter();
+        }
+
+        public Func<object, object> Getter { get; private set; }
+        public Action<object, object> Setter { get; private set; }
+
+        public void Copy(object source, object target, Func<object, object> copier)
+        {
+          Setter(target, copier(Getter(source)));
+        }
       }
     }
 
-    #endregion
+    private class TypeCache
+    {
+      // no locking is needed this cache is never written to on multiple threads.
+
+      private readonly Dictionary<Type, ParameterlessCtor> _ctors = new Dictionary<Type, ParameterlessCtor>();
+      private readonly Dictionary<Type, CopyHandler> _handlers = new Dictionary<Type, CopyHandler>();
+      private readonly HashSet<Type> _copyableTypes = new HashSet<Type>();
+
+      public CopyHandler GetCopyHandler(Type type)
+      {
+        CopyHandler copyHandler = null;
+
+        if (_handlers.TryGetValue(type, out copyHandler) == false)
+        {
+          var attributes = type.GetCustomAttributes(typeof (CopyableAttribute), inherit: true);
+          var isCopyable = attributes.Length > 0;
+
+          if (isCopyable)
+          {
+            copyHandler = new CopyHandler(type);
+          }
+
+          _handlers.Add(type, copyHandler);
+        }
+
+        return copyHandler;
+      }
+
+      public bool IsCopyable(Type type)
+      {
+        return _copyableTypes.Contains(type);
+      }
+
+      public void AddCopyable(Type type)
+      {
+        _copyableTypes.Add(type);
+      }
+
+      public ParameterlessCtor GetCtor(Type type)
+      {
+        ParameterlessCtor ctor;
+        if (_ctors.TryGetValue(type, out ctor) == false)
+        {
+          ctor = type.GetParameterlessCtor();
+
+          if (ctor == null)
+          {
+            throw new InvalidOperationException(
+              String.Format("Type {0} is marked with [Copyable] but is missing a parameterless constructor.", type));
+          }
+
+          _ctors.Add(type, ctor);
+        }
+
+        return ctor;
+      }
+    }
   }
 }

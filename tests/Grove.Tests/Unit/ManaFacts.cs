@@ -7,18 +7,7 @@
   using Xunit;
 
   public class ManaFacts
-  {
-    [Fact]
-    public void AmountEquivality()
-    {
-      var amount1 = Mana.Parse("{3}{GR}{RW}{W}{W}{B}");
-      var amount2 = Mana.Parse("{3}{W}{RW}{GR}{B}{W}");
-      var amount3 = Mana.Parse("{3}{W}{RW}{GR}{B}");
-
-      Assert.Equal(amount1, amount2);
-      Assert.NotEqual(amount1, amount3);
-    }
-
+  {    
     [Fact]
     public void Colorless()
     {
