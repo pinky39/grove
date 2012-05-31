@@ -1,4 +1,6 @@
-﻿namespace Grove.Core
+﻿using System.Linq;
+
+namespace Grove.Core
 {
   using System;
   using System.Collections.Generic;
@@ -40,11 +42,12 @@
       RegisterTriggerListener(trigger);
     }
 
-    public override int CalculateHash(HashCalculator hashCalculator)
+    public override int CalculateHash(HashCalculator calc)
     {
-      return hashCalculator.Calculate(
-        _triggers,
-        EffectFactory);
+      var hashcodes = _triggers.Select(calc.Calculate).ToList();
+      hashcodes.Add(calc.Calculate(EffectFactory));
+            
+      return calc.Combine(hashcodes);
     }
 
     protected virtual void Execute()

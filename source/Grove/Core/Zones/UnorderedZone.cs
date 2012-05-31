@@ -47,9 +47,9 @@
       return GetEnumerator();
     }
 
-    public virtual int CalculateHash(HashCalculator hashCalculator)
+    public virtual int CalculateHash(HashCalculator calc)
     {      
-      return hashCalculator.Calculate(_cards);
+      return calc.Calculate(_cards);
     }
 
     public virtual void Add(Card card)

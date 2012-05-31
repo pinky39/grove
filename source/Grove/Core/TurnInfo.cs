@@ -58,12 +58,12 @@
       }
     }
 
-    public int CalculateHash(HashCalculator hashCalculator)
+    public int CalculateHash(HashCalculator calc)
     {
-      return hashCalculator.Calculate(
-        Step,
+      return calc.Combine(
+        Step.GetHashCode(),
         TurnCount,
-        State        
+        State.GetHashCode()        
         );
     }
 

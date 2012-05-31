@@ -1,20 +1,65 @@
-﻿namespace Grove.Infrastructure
-{
-  using System.Collections;
-  using System.Collections.Generic;
-  using Core;
+﻿using System.Collections.Generic;
+using Grove.Core;
 
+namespace Grove.Infrastructure
+{
   public class HashCalculator
   {
     private readonly Dictionary<object, int> _hashCache = new Dictionary<object, int>();
 
-    public int Calculate(params object[] objects)
+    public int Calculate(IHashable hashable)
     {
-      return Calculate((IEnumerable) objects);
-    }    
+      var hash = 0;
 
-    // source 
-    // http://stackoverflow.com/questions/1079192/is-it-possible-to-combine-hash-codes-for-private-members-to-generate-a-new-hash
+      if (hashable == null)
+        return hash;
+
+      if (_hashCache.TryGetValue(hashable, out hash) == false)
+      {
+        hash = hashable.CalculateHash(this);
+        _hashCache.Add(hashable, hash);
+      }
+
+      return hash;
+    }
+
+    
+    public int Combine(IEnumerable<int> values)
+    {
+      uint h = 0;
+
+      foreach (var value in values)
+      {
+        Hash(ref h, value);
+      }
+
+      return Avalanche(h);
+    }
+    
+    
+    public int Combine(params int[] values)
+    {
+      return Combine((IEnumerable<int>) values);
+    }
+
+    public int CombineCommutative(params int[] values)
+    {
+      return CombineCommutative((IEnumerable<int>) values);
+    }
+    
+    public int CombineCommutative(IEnumerable<int> values)
+    {
+      uint h = 0;
+
+      foreach (var value in values)
+      {
+        h = h ^ (uint) value;
+      }
+
+      return Avalanche(h);
+    }
+
+
     private static unsafe int Avalanche(uint h)
     {
       h += (h << 3);
@@ -37,47 +82,6 @@
         h += (h << 10);
         h ^= (h >> 6);
       }
-    }
-
-    private void Append(ref uint h, object obj)
-    {
-      if (obj == null)
-        return;
-
-      int hashcode;
-      var hashable = obj as IHashable;
-      var collection = obj as IEnumerable;
-
-      if (hashable != null)
-      {
-        if (_hashCache.TryGetValue(obj, out hashcode) == false)
-        {
-          hashcode = hashable.CalculateHash(this);
-          _hashCache.Add(obj, hashcode);
-        }
-      }
-      else if (collection != null)
-      {
-        hashcode = Calculate(collection);
-      }
-      else
-      {
-        hashcode = obj.GetHashCode();
-      }
-
-      Hash(ref h, hashcode);
-    }
-
-    private int Calculate(IEnumerable objects)
-    {
-      uint h = 0;
-      
-      foreach (var item in objects)
-      {
-        Append(ref h, item);
-      }
-
-      return Avalanche(h);
     }
   }
 }

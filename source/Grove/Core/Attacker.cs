@@ -37,12 +37,12 @@
     public int LifepointsLeft { get { return _card.LifepointsLeft; } }
     public int TotalDamageThisCanDeal { get { return _card.Power.Value; } }
 
-    public int CalculateHash(HashCalculator hashCalculator)
+    public int CalculateHash(HashCalculator calc)
     {
-      return hashCalculator.Calculate(
-        _card,
-        _blockers,
-        _assignedDamage);
+      return calc.Combine(
+          calc.Calculate(_card),
+          calc.Calculate(_blockers),
+          calc.Calculate(_assignedDamage));
     }
 
     public void AddBlocker(Blocker blocker)

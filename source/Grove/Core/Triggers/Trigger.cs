@@ -18,9 +18,9 @@
       Publisher.Unsubscribe(this);
     }
 
-    public int CalculateHash(HashCalculator hashCalculator)
+    public int CalculateHash(HashCalculator calc)
     {
-      return hashCalculator.Calculate(GetType());
+      return GetType().GetHashCode();
     }
 
     protected void Set()

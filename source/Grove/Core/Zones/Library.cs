@@ -32,7 +32,7 @@
       return top;
     }
 
-    public override int CalculateHash(HashCalculator hashCalculator)
+    public override int CalculateHash(HashCalculator calc)
     {
       return Count;
     }

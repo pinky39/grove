@@ -16,9 +16,9 @@
       _abilities = new TrackableList<TriggeredAbility>(abilities, changeTracker, hashDependancy);
     }
 
-    public int CalculateHash(HashCalculator hashCalculator)
+    public int CalculateHash(HashCalculator calc)
     {
-      return hashCalculator.Calculate(_abilities);
+      return calc.Calculate(_abilities);
     }
 
     public void Accept(IModifier modifier)

@@ -2,7 +2,7 @@
 {
   using Ai;
 
-  public interface IEffectSource
+  public interface IEffectSource : IHashable
   {
     EffectCategories EffectCategories { get; }
     Card OwningCard { get; }

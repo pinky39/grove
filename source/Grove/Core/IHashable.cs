@@ -4,6 +4,6 @@
 
   public interface IHashable
   {
-    int CalculateHash(HashCalculator hashCalculator);
+    int CalculateHash(HashCalculator calc);
   }
 }

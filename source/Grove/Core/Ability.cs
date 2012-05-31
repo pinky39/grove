@@ -20,7 +20,7 @@
     public EffectCategories EffectCategories { get; set; }
     public Card OwningCard { get; protected set; }
     public bool UsesStack { get; set; }
-    public abstract int CalculateHash(HashCalculator hashCalculator);
+    public abstract int CalculateHash(HashCalculator calc);
 
     public void EffectWasCountered() {}
 

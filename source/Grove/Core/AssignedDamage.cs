@@ -18,9 +18,9 @@
     }
 
 
-    public int CalculateHash(HashCalculator hashCalculator)
+    public int CalculateHash(HashCalculator calc)
     {
-      return hashCalculator.Calculate(_assigned);
+      return calc.Calculate(_assigned);
     }
 
     public void Assign(Card source, int amount)

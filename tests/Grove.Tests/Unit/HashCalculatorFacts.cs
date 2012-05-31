@@ -1,4 +1,6 @@
-﻿namespace Grove.Tests.Unit
+﻿using System.Linq;
+
+namespace Grove.Tests.Unit
 {
   using System;
   using System.Collections.Generic;
@@ -31,11 +33,25 @@
       Assert.Equal(hashcode1, hashcode2);
     }
 
+    [Fact]
+    public void CommutativeCombine()
+    {
+      int value1 = 328572304;
+      int value2 = 295389348;
+
+      var calc = new HashCalculator();
+
+      var result1 = calc.CombineCommutative(value1, value2);
+      var result2 = calc.CombineCommutative(value2, value1);      
+
+      Assert.Equal(result1, result2);
+    }
+
     public class Country : IHashable
     {
       private static readonly Random Rnd = new Random();
       
-      public int CalculateHash(HashCalculator hashCalculator)
+      public int CalculateHash(HashCalculator calc)
       {
         return Rnd.Next();
       }
@@ -53,15 +69,15 @@
         }
       }
 
-      public int CalculateHash(HashCalculator hashCalculator)
+      public int CalculateHash(HashCalculator calc)
       {
-        return hashCalculator.Calculate(Wheels);
+        return calc.Combine(Wheels.Select(calc.Calculate));
       }
     }
 
     public class Wheel : IHashable
     {
-      public int CalculateHash(HashCalculator hashCalculator)
+      public int CalculateHash(HashCalculator calc)
       {
         return 1;
       }

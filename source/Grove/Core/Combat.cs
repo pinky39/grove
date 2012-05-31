@@ -31,11 +31,11 @@
 
     public IEnumerable<Attacker> Attackers { get { return _attackers; } }
 
-    public int CalculateHash(HashCalculator hashCalculator)
+    public int CalculateHash(HashCalculator calc)
     {
-      return hashCalculator.Calculate(
-        _attackers,
-        _blockers);
+      return calc.Combine(
+        calc.Calculate(_attackers),
+        calc.Calculate(_blockers));
     }
 
     public void AssignCombatDamage(Decisions decisions)

@@ -18,9 +18,9 @@
     public bool IsLeathal { get { return Source.Has().Deathtouch; } }
     public Card Source { get; private set; }
 
-    public int CalculateHash(HashCalculator hashCalculator)
+    public int CalculateHash(HashCalculator calc)
     {
-      return hashCalculator.Calculate(Amount);
+      return Amount;
     }
   }
 }

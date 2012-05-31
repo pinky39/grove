@@ -14,9 +14,9 @@
 
     public CalculateX XCalculator { get; set; }
 
-    public virtual int CalculateHash(HashCalculator hashCalculator)
+    public virtual int CalculateHash(HashCalculator calc)
     {
-      return hashCalculator.Calculate(GetType());
+      return GetType().GetHashCode();
     }
 
     public abstract bool CanPay(ref int? maxX);

@@ -54,13 +54,12 @@
       effect.Resolve();
     }
 
-    public override int CalculateHash(HashCalculator hashCalculator)
+    public override int CalculateHash(HashCalculator calc)
     {
-      return hashCalculator.Calculate(
-        Cost,
-        EffectFactory,
-        ActivateOnlyAsSorcery
-        );
+      return calc.Combine(
+        calc.Calculate(Cost),
+        calc.Calculate(EffectFactory),
+        ActivateOnlyAsSorcery.GetHashCode());
     }
 
     public virtual SpellPrerequisites CanActivate()

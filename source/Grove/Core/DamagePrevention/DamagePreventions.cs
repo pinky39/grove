@@ -15,9 +15,9 @@
       _preventions = new TrackableList<DamagePrevention>(changeTracker, hashDependancy);
     }
 
-    public int CalculateHash(HashCalculator hashCalculator)
+    public int CalculateHash(HashCalculator calc)
     {
-      return hashCalculator.Calculate(_preventions);
+      return calc.Calculate(_preventions);
     }
 
     public void Accept(IModifier modifier)

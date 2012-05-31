@@ -22,9 +22,9 @@
 
     public Attachment this[Card card] { get { return _attachedCards.Single(x => x.Card == card); } }
 
-    public int CalculateHash(HashCalculator hashCalculator)
+    public int CalculateHash(HashCalculator calc)
     {
-      return hashCalculator.Calculate(_attachedCards);
+      return calc.Calculate(_attachedCards);
     }
 
     public void Add(Attachment attachment)

@@ -48,13 +48,13 @@
 
     public int CalculateHash()
     {
-      var hashCalculator = new HashCalculator();
+      var calc = new HashCalculator();
 
-      return hashCalculator.Calculate(
-        Players,
-        Stack,
-        Turn,
-        Combat
+      return calc.Combine(
+        calc.Calculate(Players),
+        calc.Calculate(Stack),
+        calc.Calculate(Turn),
+        calc.Calculate(Combat)
         );
     }
 

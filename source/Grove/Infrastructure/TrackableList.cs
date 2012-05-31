@@ -29,19 +29,22 @@
 
     private TrackableList() {}
 
-    public int CalculateHash(HashCalculator hashCalculator)
+    public int CalculateHash(HashCalculator calc)
     {
-      if (_orderImpactsHashcode)
+      var hashcodes = new List<int>();
+      
+      foreach (var item in _items)
       {
-        return hashCalculator.Calculate(_items);
+        var hashable = item as IHashable;
+        hashcodes.Add(hashable != null ? hashable.CalculateHash(calc) : item.GetHashCode());
       }
 
-      var hashcodes = _items
-        .Select(x => hashCalculator.Calculate(x))
-        .OrderBy(x => x)
-        .ToArray();
+      if (_orderImpactsHashcode)
+      {
+        return calc.Combine(hashcodes);                        
+      }
 
-      return hashCalculator.Calculate(hashcodes);
+      return calc.CombineCommutative(hashcodes);      
     }
 
     public T this[int index] { get { return _items[index]; } set { throw new NotSupportedException(); } }

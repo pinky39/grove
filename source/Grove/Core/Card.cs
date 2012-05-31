@@ -203,37 +203,35 @@
       return _targetSelector.IsValid(target);
     }
 
-    public int CalculateHash(HashCalculator hashCalculator)
+    public int CalculateHash(HashCalculator calc)
     {
       if (_hash.Value.HasValue == false)
       {
         if (IsHidden)
         {
-          _hash.Value = hashCalculator.Calculate(
-            Zone);
+          _hash.Value = Zone.GetHashCode();
         }
         else
         {
-          _hash.Value = hashCalculator.Calculate(
-            Name,
-            _hasSummoningSickness,
-            IsTapped,
+          _hash.Value = calc.Combine(
+            Name.GetHashCode(),
+            calc.Calculate(_hasSummoningSickness),
+            IsTapped.GetHashCode(),
             Damage,
-            CanRegenerate,
-            HasLeathalDamage,
-            Zone,
-            Power,
-            Toughness,
-            Colors,
-            Counters,
-            Type,
-            IsHidden,
-            _staticAbilities,
-            _triggeredAbilities,
-            _activatedAbilities,
-            _protections,
-            _damagePreventions,
-            _attachments
+            CanRegenerate.GetHashCode(),
+            HasLeathalDamage.GetHashCode(),
+            Zone.GetHashCode(),
+            Power.GetHashCode(),
+            Toughness.GetHashCode(),
+            Colors.GetHashCode(),
+            Counters.GetHashCode(),
+            Type.GetHashCode(),            
+            calc.Calculate(_staticAbilities),
+            calc.Calculate(_triggeredAbilities),
+            calc.Calculate(_activatedAbilities),
+            calc.Calculate(_protections),
+            calc.Calculate(_damagePreventions),
+            calc.Calculate(_attachments)
             );
         }
       }

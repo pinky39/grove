@@ -1,4 +1,6 @@
-﻿namespace Grove.Infrastructure
+﻿using Grove.Core;
+
+namespace Grove.Infrastructure
 {
   public interface IHashDependancy
   {
@@ -41,9 +43,13 @@
 
     T ITrackableValue<T>.Value { get { return _value; } set { _value = value; } }
 
-    public int CalculateHash(HashCalculator hashCalculator)
+    public int CalculateHash(HashCalculator calc)
     {
-      return hashCalculator.Calculate(_value);
+      var hashable = _value as IHashable;
+
+      return hashable != null 
+        ? calc.Calculate(hashable) 
+        : _value.GetHashCode();
     }
 
     public void Rollback(object value)

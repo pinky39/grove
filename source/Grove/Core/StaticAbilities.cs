@@ -31,9 +31,9 @@
       _abilities = new TrackableList<StaticAbility>(staticAbilities, changeTracker, hashDependancy);
     }
 
-    public int CalculateHash(HashCalculator hashCalculator)
+    public int CalculateHash(HashCalculator calc)
     {
-      return hashCalculator.Calculate(_abilities);
+      return calc.Calculate(_abilities);
     }
 
     public bool Deathtouch { get { return Has(StaticAbility.Deathtouch); } }

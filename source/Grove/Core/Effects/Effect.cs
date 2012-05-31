@@ -4,7 +4,7 @@
   using Infrastructure;
 
   [Copyable]
-  public abstract class Effect : ITarget, IHashable
+  public abstract class Effect : ITarget
   {
     private bool _wasKickerPaid;
     public bool CanBeCountered { get; set; }
@@ -17,15 +17,15 @@
     public ITarget Target { get; set; }
     protected int? X { get; private set; }
 
-    public int CalculateHash(HashCalculator hashCalculator)
+    public int CalculateHash(HashCalculator calc)
     {            
-      return hashCalculator.Calculate(
-        GetType(),
-        Source,
-        Target,
-        CanBeCountered,
-        _wasKickerPaid,
-        X);
+      return calc.Combine(
+        GetType().GetHashCode(),
+        calc.Calculate(Source),
+        calc.Calculate(Target),
+        CanBeCountered.GetHashCode(),
+        _wasKickerPaid.GetHashCode(),
+        X.GetHashCode());
     }
 
     public void EffectWasCountered()
@@ -76,12 +76,11 @@
         return effect;
       }
 
-      public int CalculateHash(HashCalculator hashCalculator)
+      public int CalculateHash(HashCalculator calc)
       {
-        return hashCalculator.Calculate(
-          typeof (TEffect),
-          Init
-          );
+        return calc.Combine(
+          typeof (TEffect).GetHashCode(),
+          Init.GetHashCode());
       }
     }
   }

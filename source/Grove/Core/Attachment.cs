@@ -21,9 +21,9 @@
 
     public IEnumerable<Modifier> Modifiers { get { return _modifiers; } }
 
-    public int CalculateHash(HashCalculator hashCalculator)
+    public int CalculateHash(HashCalculator calc)
     {
-      return hashCalculator.Calculate(Card);
+      return calc.Calculate(Card);
     }
   }
 }

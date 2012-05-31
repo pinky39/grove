@@ -121,17 +121,17 @@
       });
     }
 
-    public int CalculateHash(HashCalculator hashCalculator)
+    public int CalculateHash(HashCalculator calc)
     {
-      return hashCalculator.Calculate(
+      return calc.Combine(
         Life,
-        HasPriority,
-        IsActive,
-        _assignedDamage,
-        _battlefield,
-        _graveyard,
-        _library,
-        _hand
+        HasPriority.GetHashCode(),
+        IsActive.GetHashCode(),
+        calc.Calculate(_assignedDamage),
+        calc.Calculate(_battlefield),
+        calc.Calculate(_graveyard),
+        calc.Calculate(_library),
+        calc.Calculate(_hand)
         );
     }
 

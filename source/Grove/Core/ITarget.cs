@@ -4,7 +4,7 @@
   using Controllers.Scenario;
   using Effects;
 
-  public interface ITarget {}
+  public interface ITarget : IHashable {}
 
   public static class TargetEx
   {

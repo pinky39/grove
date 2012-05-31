@@ -16,9 +16,9 @@
       _colors = new TrackableList<ManaColors>(changeTracker, hashDependancy);
     }
 
-    public int CalculateHash(HashCalculator hashCalculator)
+    public int CalculateHash(HashCalculator calc)
     {
-      return hashCalculator.Calculate(_colors);
+      return calc.Calculate(_colors);
     }
 
     public void Accept(IModifier modifier)

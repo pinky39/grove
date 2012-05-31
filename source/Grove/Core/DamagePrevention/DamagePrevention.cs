@@ -8,9 +8,9 @@
     protected Card Card { get; private set; }
     protected Game Game { get; private set; }
 
-    public int CalculateHash(HashCalculator hashCalculator)
+    public int CalculateHash(HashCalculator calc)
     {
-      return hashCalculator.Calculate(GetType());
+      return GetType().GetHashCode();
     }
 
     public abstract int PreventDamage(Card damageDealer, int damageAmount);

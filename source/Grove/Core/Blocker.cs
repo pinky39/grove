@@ -46,12 +46,12 @@
     public int TotalDamageThisCanDeal { get { return Card.Power.Value; } }
     public int Toughness { get { return Card.Toughness.Value; } }
 
-    public int CalculateHash(HashCalculator hashCalculator)
+    public int CalculateHash(HashCalculator calc)
     {
-      return hashCalculator.Calculate(
-        Card,
+      return calc.Combine(
+        calc.Calculate(Card),
         DamageAssignmentOrder,
-        _assignedDamage);
+        calc.Calculate(_assignedDamage));      
     }
 
     public void AssignDamage(int amount)

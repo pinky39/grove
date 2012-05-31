@@ -89,13 +89,12 @@
       return GetEnumerator();
     }
 
-    public int CalculateHash(HashCalculator hashCalculator)
+    public int CalculateHash(HashCalculator calc)
     {
-      return hashCalculator.Calculate(
-        Player1,
-        Player2,
-        _extraTurns
-        );
+      return calc.Combine(
+        calc.Calculate(Player1),
+        calc.Calculate(Player2),
+        calc.Calculate(_extraTurns));
     }
 
     public void SetAiVisibility(Player player)

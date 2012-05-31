@@ -41,9 +41,9 @@
       return GetEnumerator();
     }
 
-    public int CalculateHash(HashCalculator hashCalculator)
+    public int CalculateHash(HashCalculator calc)
     {      
-      return hashCalculator.Calculate(_effects);
+      return calc.Calculate(_effects);
     }
 
     public bool HasOnlySpellsOwnedBy(Player player)
