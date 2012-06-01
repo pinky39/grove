@@ -614,9 +614,6 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="resharper-members-layout.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <Page Include="Ui\Ability.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
