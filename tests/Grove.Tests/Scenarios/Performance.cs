@@ -1,10 +1,13 @@
-﻿namespace Grove.Tests.Scenarios
+﻿using System;
+
+namespace Grove.Tests.Scenarios
 {
   using Infrastructure;
   using Xunit;
 
   public class Performance : AiScenario
   {
+    
     [Fact]
     public void Num1()
     {

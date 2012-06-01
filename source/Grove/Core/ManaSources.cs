@@ -78,24 +78,23 @@
       return GetMaxConvertedMana().ToString();
     }
 
-    private IEnumerable<List<IManaSource>> EnumerateSources(List<IManaSource> current = null, IEnumerable<SourcesWithSameResource> remaining = null)
+    private IEnumerable<List<IManaSource>> EnumerateSources(List<IManaSource> current = null, int currentIndex = 0)
     {
       current = current ?? new List<IManaSource>();
-      remaining = remaining ?? _sources;
-
-      if (remaining.None())
+      
+      if (currentIndex == _sources.Count)
       {
         yield return current;
         yield break;
       }
 
-      var first = remaining.First();
+      var first = _sources[currentIndex];
 
       foreach (var source in first.Sources)
       {
         current.Add(source);
 
-        foreach (var combination in EnumerateSources(current, remaining.Skip(1)))
+        foreach (var combination in EnumerateSources(current, currentIndex + 1))
         {
           yield return combination;
         }

@@ -4,6 +4,7 @@
   using System.Collections.Generic;
   using System.Diagnostics;
   using System.Linq;
+  using Grove.Infrastructure;
 
   public abstract class AiScenario : Scenario
   {
@@ -14,33 +15,93 @@
       player1ControlledByScript: false,
       player2ControlledByScript: false)
     {
-      _stopwatch.Start();
+      Search.Started += delegate
+        {
+          _stopwatch.Start();
+        };
 
-      Search.Finished += delegate {
-        _stopwatch.Stop();
-        _measurements.Add(new Measurement{
-          NodeCount = Search.NodesSearched,
-          WorkerCount = Search.NumWorkersCreated,
-          SubtreesPrunned = Search.SubtreesPrunned,
-          ElapsedTime = _stopwatch.ElapsedMilliseconds
-        });
-        _stopwatch.Restart();
-      };
+      Search.Finished += delegate
+        {
+          _stopwatch.Stop();          
+          _measurements.Add(new Measurement
+            {
+              NodeCount = Search.NodesSearched,
+              WorkerCount = Search.NumWorkersCreated,
+              SubtreesPrunned = Search.SubtreesPrunned,
+              ElapsedTime = _stopwatch.ElapsedMilliseconds
+            });
+
+          _stopwatch.Reset();
+        };
     }
 
-    protected int AvarageNodeCount { get { return SearchCount > 0 ? TotalNodesCount/SearchCount : 0; } }
-    protected double AvarageSpeed { get { return TotalNodesCount > 0 ? TotalNodesCount/TotalElapsedTime : 0; } }
-    protected int AvarageWorkerCount { get { return SearchCount > 0 ? TotalWorkerCount/SearchCount : 0; } }
-    protected int MaxNodeCount { get { return _measurements.Any() ? _measurements.Max(x => x.NodeCount) : 0; } }
-    protected double MaxSearchTime { get { return _measurements.Any() ? _measurements.Max(x => x.ElapsedTime)/1000.0d : 0; } }
-    protected int MaxWorkerCount { get { return _measurements.Any() ? _measurements.Max(x => x.WorkerCount) : 0; } }
+    protected int AvarageNodeCount
+    {
+      get { return SearchCount > 0 ? TotalNodesCount/SearchCount : 0; }
+    }
 
+    protected double AvarageSpeed
+    {
+      get { return TotalNodesCount > 0 ? TotalNodesCount/TotalElapsedTime : 0; }
+    }
 
-    private int SearchCount { get { return _measurements.Count; } }
-    protected double TotalElapsedTime { get { return _measurements.Sum(x => x.ElapsedTime)/1000.0d; } }
-    protected int TotalNodesCount { get { return _measurements.Sum(x => x.NodeCount); } }
-    protected int TotalSubtreesPrunned { get { return _measurements.Sum(x => x.SubtreesPrunned); } }
-    protected int TotalWorkerCount { get { return _measurements.Sum(x => x.WorkerCount); } }
+    protected int AvarageWorkerCount
+    {
+      get { return SearchCount > 0 ? TotalWorkerCount/SearchCount : 0; }
+    }
+
+    protected int MaxNodeCount
+    {
+      get { return _measurements.Any() ? _measurements.Max(x => x.NodeCount) : 0; }
+    }
+
+    protected double MaxSearchTime
+    {
+      get { return _measurements.Any() ? _measurements.Max(x => x.ElapsedTime)/1000.0d : 0; }
+    }
+
+    protected int MaxWorkerCount
+    {
+      get { return _measurements.Any() ? _measurements.Max(x => x.WorkerCount) : 0; }
+    }
+
+    private int SearchCount
+    {
+      get { return _measurements.Count; }
+    }
+
+    protected double TotalElapsedTime
+    {
+      get { return _measurements.Sum(x => x.ElapsedTime)/1000.0d; }
+    }
+
+    protected int TotalNodesCount
+    {
+      get { return _measurements.Sum(x => x.NodeCount); }
+    }
+
+    protected int TotalSubtreesPrunned
+    {
+      get { return _measurements.Sum(x => x.SubtreesPrunned); }
+    }
+
+    protected int TotalWorkerCount
+    {
+      get { return _measurements.Sum(x => x.WorkerCount); }
+    }
+
+    protected override void RunGame(int maxTurnCount)
+    {
+      InitializeCopyCache();      
+      base.RunGame(maxTurnCount);
+    }
+
+    private void InitializeCopyCache()
+    {
+      // this is done to get more accurate performance measurements
+      var copyService = new CopyService();
+      copyService.CopyRoot(Game);
+    }
 
     protected override void OnDispose()
     {
@@ -58,13 +119,13 @@
       Console.WriteLine(@"Avarage worker count: {0}", AvarageWorkerCount);
       Console.WriteLine(@"Avarage speed: {0:f2} nodes/second", AvarageSpeed);
     }
-
+    
     private class Measurement
     {
       public long ElapsedTime { get; set; }
       public int NodeCount { get; set; }
       public int WorkerCount { get; set; }
       public int SubtreesPrunned { get; set; }
-    }
+    }    
   }
 }

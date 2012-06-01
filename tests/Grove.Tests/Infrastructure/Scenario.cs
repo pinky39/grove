@@ -168,9 +168,9 @@
       Assert.Null(obj);
     }
 
-    protected void RunGame(int maxTurnCount)
-    {
-      Game.Start(maxTurnCount, skipPreGame: true);
+    protected virtual void RunGame(int maxTurnCount)
+    {      
+      Game.Start(maxTurnCount, skipPreGame: true);        
     }
 
     protected void True(bool condition, string message = null)

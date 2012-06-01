@@ -22,6 +22,7 @@
     private int _startStateCount;
 
     public event EventHandler Finished = delegate { };
+    public event EventHandler Started = delegate { };
 
     public Search(SearchResults searchResults)
     {
@@ -133,6 +134,8 @@
       _subtreesPrunned = 0;
       _numWorkersCreated = 0;
       _searchResults.Clear();
+
+      Started(this, EventArgs.Empty);
 
       var worker = CreateWorker(searchNode);
       worker.Evaluate();

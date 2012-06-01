@@ -1,13 +1,15 @@
 ﻿namespace Grove.Tests.Unit
 {
+  using System;
   using System.Collections.Generic;
+  using System.Diagnostics;
   using System.Linq;
-  using Grove.Core;
+  using Core;
   using Grove.Infrastructure;
   using Xunit;
 
   public class ManaFacts
-  {    
+  {
     [Fact]
     public void Colorless()
     {
@@ -15,6 +17,38 @@
 
       Assert.False(mana.IsColored);
       Assert.True(mana.IsColorless);
+    }
+
+    [Fact]
+    public void Performance()
+    {
+      var amount = new ManaAmount("{4}{R}{R}");
+      var manaSources = new ManaSources(
+        new[]
+          {
+            Pool("{RG}"),
+            Pool("{G}"),
+            Pool("{RG}"),
+            Pool("{R}"),
+            Pool("{BR}"),
+            Pool("{R}"),
+            Pool("{R}"),
+          });
+
+      var stopwatch = new Stopwatch();
+
+      var iterations = 10000;
+
+      stopwatch.Start();
+
+      for (var i = 0; i < iterations; i++)
+      {
+       manaSources.Has(amount);
+      }
+
+      stopwatch.Stop();
+
+      Console.WriteLine("{0} iterations took: {1}ms", iterations, stopwatch.Elapsed.TotalMilliseconds);
     }
 
     [Fact]
@@ -48,7 +82,7 @@
       ManaPayment.Pay(amount, available);
 
       Assert.Equal(2, available.Amount.Count());
-      Assert.Equal(new[]{Mana.Black, Mana.Red}, available.Amount.ToArray());
+      Assert.Equal(new[] {Mana.Black, Mana.Red}, available.Amount.ToArray());
     }
 
     [Fact]
@@ -107,7 +141,7 @@
     {
       var available = Mana.Parse("{G}{RG}{RG}{G}");
       var amount = Mana.Parse("{2}{G}{G}");
-      
+
       Has(available, amount);
     }
 
@@ -127,14 +161,15 @@
     {
       var parsed = Mana.Parse("{3}{B}{R}{RG}");
 
-      var manaAmount = new ManaAmount(new[]{
-        new Mana(),
-        new Mana(),
-        new Mana(),
-        new Mana(ManaColors.Black),
-        new Mana(ManaColors.Red),
-        new Mana(ManaColors.Green | ManaColors.Red)
-      });
+      var manaAmount = new ManaAmount(new[]
+        {
+          new Mana(),
+          new Mana(),
+          new Mana(),
+          new Mana(ManaColors.Black),
+          new Mana(ManaColors.Red),
+          new Mana(ManaColors.Green | ManaColors.Red)
+        });
 
       Assert.Equal(manaAmount, parsed);
     }
@@ -154,9 +189,10 @@
       var manaCost = new ManaAmount("{5}{B}{G}{G}");
       var result = manaCost.GetSymbolNames();
 
-      var expectedImageNames = new[]{
-        "5", "b", "g", "g"
-      };
+      var expectedImageNames = new[]
+        {
+          "5", "b", "g", "g"
+        };
       Assert.Equal(expectedImageNames, result);
     }
 
@@ -165,7 +201,7 @@
     {
       var manaCost = ManaAmount.Zero;
       var result = manaCost.GetSymbolNames();
-      Assert.Equal(new string[]{}, result);
+      Assert.Equal(new string[] {}, result);
     }
 
     private void Has(ManaAmount available, ManaAmount amount)
@@ -183,6 +219,8 @@
       return new ManaSource(Mana.Parse(str));
     }
 
+    #region Nested type: ManaSource
+
     public class ManaSource : IManaSource
     {
       private readonly ManaBag _bag;
@@ -192,9 +230,22 @@
         _bag = new ManaBag(amount);
       }
 
-      public ManaAmount Amount { get { return GetAvailableMana(); } }
-      public int Priority { get { return 1; } }
-      object IManaSource.Resource { get { return this; } }
+      public ManaAmount Amount
+      {
+        get { return GetAvailableMana(); }
+      }
+
+      #region IManaSource Members
+
+      public int Priority
+      {
+        get { return 1; }
+      }
+
+      object IManaSource.Resource
+      {
+        get { return this; }
+      }
 
       public void Consume(ManaAmount amount)
       {
@@ -206,10 +257,14 @@
         return _bag.Amount;
       }
 
+      #endregion
+
       public void Consume(Dictionary<int, List<Mana>> payment)
       {
         Consume(new ManaAmount(payment[0]));
       }
     }
+
+    #endregion
   }
 }
