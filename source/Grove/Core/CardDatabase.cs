@@ -21,7 +21,7 @@
 
     public int CardCount { get { return _cardSources.Length; } }
 
-    public Card CreateCard(string name, Player controller, bool isUiBindable = true)
+    public Card CreateCard(string name, Player controller)
     {
       var cardFactory = Database
         .Where(x => x.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase))

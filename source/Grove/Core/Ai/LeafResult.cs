@@ -7,8 +7,20 @@
       Score = score;
     }
 
-    public int BestMove { get { return 0; } }
-    public int Score { get; private set; }
-    public int ShortestPath { get { return 0; } }
+    public void Visit()
+    {
+    }
+
+    public int? BestMove
+    {
+      get { return 0; }
+    }
+
+    public int? Score { get; private set; }
+
+    public int? ShortestPath
+    {
+      get { return 0; }
+    }
   }
 }

@@ -717,7 +717,7 @@
       private readonly List<IActivatedAbilityFactory> _activatedAbilityFactories = new List<IActivatedAbilityFactory>();
       private readonly ChangeTracker _changeTracker;
       private readonly List<IContinuousEffectFactory> _continuousEffectFactories = new List<IContinuousEffectFactory>();
-      private readonly Game _game;
+      private readonly Game _game;      
       private readonly List<StaticAbility> _staticAbilities = new List<StaticAbility>();
       private readonly List<ITriggeredAbilityFactory> _triggeredAbilityFactories = new List<ITriggeredAbilityFactory>();
       private ManaColors _colors;
@@ -741,7 +741,7 @@
       public CardFactory(Game game)
       {
         _changeTracker = game.ChangeTracker;
-        _game = game;
+        _game = game;        
       }
 
       #region ICardFactory Members
@@ -752,8 +752,8 @@
       }
 
       public Card CreateCard(Player controller)
-      {
-        var card = Bindable.Create<Card>();
+      {        
+        var card = _game.Search.InProgress ? new Card() : Bindable.Create<Card>();
 
         card._publisher = _game.Publisher;
         card._combat = _game.Combat;

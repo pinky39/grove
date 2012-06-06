@@ -33,6 +33,7 @@
     private readonly string _string;
     private bool _isCreature;
     private bool _isLand;
+    private bool _isLegendary;
 
     private CardType(IEnumerable<string> types)
     {
@@ -54,7 +55,7 @@
     public bool Equipment { get { return Is("equipment"); } }
     public bool Instant { get { return Is("instant"); } }
     public bool Land { get { return _isLand; } }
-    public bool Legendary { get { return Is("legendary"); } }    
+    public bool Legendary { get { return _isLegendary; } }    
     public bool Sorcery { get { return Is("sorcery"); } }
     public bool Token { get { return Is("token"); } }
 
@@ -133,6 +134,7 @@
     {
       _isCreature = Is("creature");
       _isLand = Is("land");
+      _isLegendary = Is("legendary");
     }
 
     public static implicit operator CardType(string cardTypes)

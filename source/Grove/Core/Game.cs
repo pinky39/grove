@@ -1,6 +1,8 @@
 ﻿namespace Grove.Core
 {
+  using System;
   using System.Linq;
+  using Ai;
   using Controllers;
   using Infrastructure;
   using Zones;
@@ -10,6 +12,7 @@
   {
     private readonly StateMachine _stateMachine;
     private readonly TurnInfo _turnInfo;
+    private readonly Search _search;
     private readonly Trackable<bool> _wasStopped;
 
     private Game() {}
@@ -22,7 +25,8 @@
       ChangeTracker changeTracker,
       StateMachine stateMachine,
       Decisions decisions,
-      TurnInfo turnInfo)
+      TurnInfo turnInfo,
+      Search search)
     {
       Combat = combat;
       Players = players;
@@ -33,18 +37,21 @@
 
       _stateMachine = stateMachine;
       _turnInfo = turnInfo;
+      _search = search;
       _wasStopped = new Trackable<bool>(ChangeTracker);
     }
 
     public ChangeTracker ChangeTracker { get; private set; }
     public Combat Combat { get; private set; }
     public Decisions Decisions { get; private set; }
-    public bool IsFinished { get { return Players.Any(x => x.HasLost); } }
+    public bool IsFinished { get { return Players.AnyHasLost(); } }
     public Players Players { get; set; }
     public Publisher Publisher { get; private set; }
     public int Score { get { return Players.Score; } }
     public Stack Stack { get; private set; }
     public TurnInfo Turn { get { return _turnInfo; } }
+
+    public Search Search { get { return _search; } }
 
     public int CalculateHash()
     {

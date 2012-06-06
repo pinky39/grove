@@ -2,8 +2,10 @@
 {
   public interface ISearchResult
   {
-    int BestMove { get; }
-    int Score { get; }
-    int ShortestPath { get; }
+    void Visit();
+    
+    int? BestMove { get; }
+    int? Score { get; }
+    int? ShortestPath { get; }
   }
 }

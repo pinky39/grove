@@ -146,8 +146,11 @@
       Log.Debug("Search finished");
 
       searchNode.Game.ChangeTracker.Disable();
-      
-      return GetCachedResult(searchNode).Value;
+
+      var root = GetSearchNodeResult(searchNode);
+      root.Visit();
+
+      return root.BestMove.Value;
     }
 
     private int? GetCachedResult(ISearchNode searchNode)
@@ -155,8 +158,13 @@
       if (searchNode.ResultCount == 1)
         return 0;
 
-      var result = _searchResults.GetResult(searchNode.Game.CalculateHash());
+      var result = GetSearchNodeResult(searchNode);
       return result == null ? null : (int?) result.BestMove;
+    }
+
+    private ISearchResult GetSearchNodeResult(ISearchNode searchNode)
+    {
+      return _searchResults.GetResult(searchNode.Game.CalculateHash());
     }
 
     public int GetDepth(int stateCount)
@@ -164,7 +172,7 @@
       return stateCount - _startStateCount;
     }
 
-    private static bool IsItFeasibleToCreateNewWorker(ISearchNode node, int moveIndex)
+    private bool IsItFeasibleToCreateNewWorker(ISearchNode node, int moveIndex)
     {
       return SingleThreadedStrategy(node, moveIndex);
       //return MultiThreadedStrategy2(node, moveIndex);

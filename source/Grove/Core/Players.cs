@@ -17,9 +17,14 @@
       _extraTurns = new TrackableList<Player>(changeTracker, orderImpactsHashcode: true);
     }
 
-    private Players() {}
+    private Players()
+    {
+    }
 
-    public Player Active { get { return Player1.IsActive ? Player1 : Player2; } }
+    public Player Active
+    {
+      get { return Player1.IsActive ? Player1 : Player2; }
+    }
 
     public bool AnotherMulliganRound
     {
@@ -27,19 +32,54 @@
       {
         return
           (Player1.CanMulligan) ||
-            (Player2.CanMulligan);
+          (Player2.CanMulligan);
       }
     }
 
-    public Player Attacking { get { return Active; } }
-    public bool BothHaveLost { get { return Player1.HasLost && Player2.HasLost; } }
-    public Player Computer { get { return Player1.IsHuman ? Player2 : Player1; } }
-    public Player Defending { get { return Passive; } }
-    public Player Human { get { return Player1.IsHuman ? Player1 : Player2; } }
-    public Player this[int num] { get { return num == 0 ? Player1 : Player2; } }
-    public Player Max { get { return Player1.IsMax ? Player1 : Player2; } }
-    public Player Min { get { return GetOpponent(Max); } }
-    public Player Passive { get { return GetOpponent(Active); } }
+    public Player Attacking
+    {
+      get { return Active; }
+    }
+
+    public bool BothHaveLost
+    {
+      get { return Player1.HasLost && Player2.HasLost; }
+    }
+
+    public Player Computer
+    {
+      get { return Player1.IsHuman ? Player2 : Player1; }
+    }
+
+    public Player Defending
+    {
+      get { return Passive; }
+    }
+
+    public Player Human
+    {
+      get { return Player1.IsHuman ? Player1 : Player2; }
+    }
+
+    public Player this[int num]
+    {
+      get { return num == 0 ? Player1 : Player2; }
+    }
+
+    public Player Max
+    {
+      get { return Player1.IsMax ? Player1 : Player2; }
+    }
+
+    public Player Min
+    {
+      get { return GetOpponent(Max); }
+    }
+
+    public Player Passive
+    {
+      get { return GetOpponent(Active); }
+    }
 
     public Player Player1
     {
@@ -61,7 +101,10 @@
       }
     }
 
-    public int Score { get { return Player1.Score + Player2.Score; } }
+    public int Score
+    {
+      get { return Player1.Score + Player2.Score; }
+    }
 
     public Player Starting
     {
@@ -75,8 +118,15 @@
       }
     }
 
-    public Player WithPriority { get { return _player1.HasPriority ? _player1 : _player2; } }
-    public Player WithoutPriority { get { return _player1.HasPriority ? _player2 : _player1; } }
+    public Player WithPriority
+    {
+      get { return _player1.HasPriority ? _player1 : _player2; }
+    }
+
+    public Player WithoutPriority
+    {
+      get { return _player1.HasPriority ? _player2 : _player1; }
+    }
 
     public IEnumerator<Player> GetEnumerator()
     {
@@ -127,7 +177,7 @@
 
     public void ScheduleExtraTurns(Player player, int count)
     {
-      for (int i = 0; i < count; i++)
+      for (var i = 0; i < count; i++)
       {
         _extraTurns.Add(player);
       }
@@ -137,6 +187,11 @@
     {
       player.HasPriority = true;
       GetOpponent(player).HasPriority = false;
+    }
+
+    public bool AnyHasLost()
+    {
+      return Player1.HasLost || Player2.HasLost;
     }
   }
 }

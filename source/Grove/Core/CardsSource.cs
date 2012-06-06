@@ -16,11 +16,11 @@
 
   public class Creator
   {
-    private readonly Game _game;
+    private readonly Game _game;    
 
     public Creator(Game game)
     {
-      _game = game;
+      _game = game;      
     }
 
     public Card.CardFactory Card { get { return new Card.CardFactory(_game); } }
@@ -237,7 +237,7 @@
   public abstract class CardsSource
   {
     public Creator C { get { return new Creator(Game); } }
-    public Game Game { get; set; }
+    public Game Game { get; set; }    
 
     public abstract IEnumerable<ICardFactory> GetCards();
 

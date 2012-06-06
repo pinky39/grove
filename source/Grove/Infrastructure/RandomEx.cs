@@ -8,7 +8,9 @@
 
   public static class RandomEx
   {
-    
+    private static readonly Random Rnd = new Random();
+
+
     /// <summary>
     /// Returns an integer between min and max (inclusive).
     /// </summary>
@@ -45,11 +47,16 @@
       // http://en.wikipedia.org/wiki/Fisher-Yates
       for (var i = list.Count - 1; i >= 1; i--)
       {
-        var j = Next(0, i);
+        var j = NextFast(0, i);
         list.Swap(i, j);
       }
 
       return list;
+    }
+
+    private static int NextFast(int min, int max)
+    {
+      return Rnd.Next(min, max + 1);
     }
 
     public static IList<T> ShuffleInPlace<T>(this IList<T> list, IList<int> permutation)

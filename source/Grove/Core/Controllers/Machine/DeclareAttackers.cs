@@ -66,12 +66,17 @@
       // none
       yield return new List<Card>();
 
+      var allAttackers = Player.Battlefield.CreaturesThatCanAttack.ToList();
+      
       // quick heuristic
       yield return new AttackStrategy(
         Player.Life,
         Defender.Life,
-        Player.Battlefield.CreaturesThatCanAttack,
-        Defender.Battlefield.CreaturesThatCanBlock).ToList();      
+        allAttackers,
+        Defender.Battlefield.CreaturesThatCanBlock).ToList();
+
+
+      yield return allAttackers;
     }
   }
 }
