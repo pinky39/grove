@@ -91,7 +91,7 @@
 
     public int CalculateHash(HashCalculator calc)
     {
-      return calc.Combine(
+      return HashCalculator.Combine(
         calc.Calculate(Player1),
         calc.Calculate(Player2),
         calc.Calculate(_extraTurns));

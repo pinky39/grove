@@ -43,7 +43,7 @@
       }            
     }
 
-    public void Consume(ManaAmount amount, IManaSource sourceToAvoid)
+    public void Consume(IManaAmount amount, IManaSource sourceToAvoid)
     {
       foreach (var sources in EnumerateSources())
       {
@@ -60,7 +60,7 @@
         sourcesWithSameResource.Sources.Max(x => x.GetAvailableMana().Converted));
     }
 
-    public bool Has(ManaAmount amount)
+    public bool Has(IManaAmount amount)
     {
       foreach (var sources in EnumerateSources())
       {

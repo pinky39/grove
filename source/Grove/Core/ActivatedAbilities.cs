@@ -57,7 +57,7 @@
       return null;
     }
 
-    public ManaAmount GetManaCost(int index)
+    public IManaAmount GetManaCost(int index)
     {
       if (_abilities.Count <= index)
         throw new InvalidOperationException(String.Format("No ability with index {0} exists.", index));

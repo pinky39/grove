@@ -23,7 +23,7 @@
           StaticAbility.Flying,
           C.ActivatedAbility(
             "{R}: Shivan Dragon gets +1/+0 until end of turn.",
-            C.Cost<TapOwnerPayMana>((c, _) => c.Amount = Mana.Red),
+            C.Cost<TapOwnerPayMana>((c, _) => c.Amount = Mana.Red.ToAmount()),
             C.Effect<ApplyModifiersToSelf>((e, c) => e.Modifiers(
               c.Modifier<AddPowerAndToughness>((m, _) => m.Power = 1, untilEndOfTurn: true))),
             timing: Timings.Combat));

@@ -20,10 +20,11 @@
         .Abilities(
           C.ActivatedAbility(
             "{2},{T}: Tap target creature.",
-            C.Cost<TapOwnerPayMana>((c, _) => {
-              c.Amount = "{2}";
-              c.TapOwner = true;
-            }),
+            C.Cost<TapOwnerPayMana>((c, _) =>
+              {
+                c.Amount = 2.AsColorlessMana();
+                c.TapOwner = true;
+              }),
             C.Effect<TapTargetCreature>(),
             C.Selector(
               target => target.Is().Creature,

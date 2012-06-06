@@ -41,10 +41,10 @@
 
       if (_orderImpactsHashcode)
       {
-        return calc.Combine(hashcodes);                        
+        return HashCalculator.Combine(hashcodes);                        
       }
 
-      return calc.CombineCommutative(hashcodes);      
+      return HashCalculator.CombineCommutative(hashcodes);      
     }
 
     public T this[int index] { get { return _items[index]; } set { throw new NotSupportedException(); } }

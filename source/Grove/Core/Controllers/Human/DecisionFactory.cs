@@ -151,7 +151,7 @@
       };
     }
 
-    public IDecision CreateConsiderPayingLifeOrMana(Player player, Effect effect, PayLifeOrManaHandler handler, int? life, ManaAmount mana)
+    public IDecision CreateConsiderPayingLifeOrMana(Player player, Effect effect, PayLifeOrManaHandler handler, int? life, IManaAmount mana)
     {
       return new ConsiderPayingLifeOrMana{
         Player = player,

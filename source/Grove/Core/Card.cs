@@ -52,51 +52,160 @@
     private CalculateX _xCalculator;
     private Trackable<Zone> _zone;
 
-    protected Card() {}
+    protected Card()
+    {
+    }
 
-    public Card AttachedTo { get { return _attachedTo.Value; } private set { _attachedTo.Value = value; } }
-    public IEnumerable<Card> Attachments { get { return _attachments.Cards; } }
+    public Card AttachedTo
+    {
+      get { return _attachedTo.Value; }
+      private set { _attachedTo.Value = value; }
+    }
+
+    public IEnumerable<Card> Attachments
+    {
+      get { return _attachments.Cards; }
+    }
 
     public bool CanAttack
     {
       get
       {
         return IsPermanent && Is().Creature &&
-          !IsTapped && !HasSummoningSickness && !Has().Defender;
+               !IsTapped && !HasSummoningSickness && !Has().Defender;
       }
     }
 
-    public bool CanBeTapped { get { return IsPermanent && !IsTapped; } }
-    public bool CanRegenerate { get { return _canRegenerate.Value; } set { _canRegenerate.Value = value; } }
-    public bool CanTap { get { return IsPermanent && !HasSummoningSickness && !IsTapped; } }
+    public bool CanBeTapped
+    {
+      get { return IsPermanent && !IsTapped; }
+    }
+
+    public bool CanRegenerate
+    {
+      get { return _canRegenerate.Value; }
+      set { _canRegenerate.Value = value; }
+    }
+
+    public bool CanTap
+    {
+      get { return IsPermanent && !HasSummoningSickness && !IsTapped; }
+    }
+
     public CastingRule CastingRule { get; private set; }
-    public int CharacterCount { get { return FlavorText.CharacterCount + Text.CharacterCount; } }
-    public int ChargeCountersCount { get { return _counters.SpecifiCount<ChargeCounter>(); } }
-    public virtual ManaColors Colors { get { return _colors.Value; } }
-    public Player Controller { get { return _controller.Value; } set { _controller.Value = value; } }
-    public int? Counters { get { return _counters.Count; } }
-    public virtual int Damage { get { return _damage.Value; } protected set { _damage.Value = value; } }
+
+    public int CharacterCount
+    {
+      get { return FlavorText.CharacterCount + Text.CharacterCount; }
+    }
+
+    public int ChargeCountersCount
+    {
+      get { return _counters.SpecifiCount<ChargeCounter>(); }
+    }
+
+    public virtual ManaColors Colors
+    {
+      get { return _colors.Value; }
+    }
+
+    public Player Controller
+    {
+      get { return _controller.Value; }
+      set { _controller.Value = value; }
+    }
+
+    public int? Counters
+    {
+      get { return _counters.Count; }
+    }
+
+    public virtual int Damage
+    {
+      get { return _damage.Value; }
+      protected set { _damage.Value = value; }
+    }
+
     public CardText FlavorText { get; private set; }
-    public bool HasAttachments { get { return _attachments.Count > 0; } }
-    public bool HasKicker { get { return KickerCost != null; } }
-    public bool HasLeathalDamage { get { return _hasLeathalDamage.Value; } }
-    public bool HasSummoningSickness { get { return Is().Creature && _hasSummoningSickness.Value && !Has().Haste; } }
-    public bool HasXInCost { get { return _xCalculator != null; } }
+
+    public bool HasAttachments
+    {
+      get { return _attachments.Count > 0; }
+    }
+
+    public bool HasKicker
+    {
+      get { return KickerCost != null; }
+    }
+
+    public bool HasLeathalDamage
+    {
+      get { return _hasLeathalDamage.Value; }
+    }
+
+    public bool HasSummoningSickness
+    {
+      get { return Is().Creature && _hasSummoningSickness.Value && !Has().Haste; }
+    }
+
+    public bool HasXInCost
+    {
+      get { return _xCalculator != null; }
+    }
+
     public string Illustration { get; private set; }
-    public bool IsAttached { get { return AttachedTo != null; } }
-    public bool IsAttacker { get { return _combat.IsAttacker(this); } }
-    public bool IsBlocker { get { return _combat.IsBlocker(this); } }
-    public bool IsHidden { get { return _isHidden.Value; } private set { _isHidden.Value = value; } }
-    public bool IsManaSource { get { return _manaSources.Count > 0; } }
-    public bool IsPermanent { get { return Zone == Zone.Battlefield; } }
 
-    public virtual bool IsTapped { get { return _isTapped.Value; } protected set { _isTapped.Value = value; } }
+    public bool IsAttached
+    {
+      get { return AttachedTo != null; }
+    }
 
-    public ManaAmount KickerCost { get; private set; }
-    public int LifepointsLeft { get { return Toughness.Value - Damage; } }
-    public ManaAmount ManaCost { get; private set; }
-    public ManaAmount ManaCostWithKicker { get; private set; }
-    public IEnumerable<IManaSource> ManaSources { get { return _manaSources; } }
+    public bool IsAttacker
+    {
+      get { return _combat.IsAttacker(this); }
+    }
+
+    public bool IsBlocker
+    {
+      get { return _combat.IsBlocker(this); }
+    }
+
+    public bool IsHidden
+    {
+      get { return _isHidden.Value; }
+      private set { _isHidden.Value = value; }
+    }
+
+    public bool IsManaSource
+    {
+      get { return _manaSources.Count > 0; }
+    }
+
+    public bool IsPermanent
+    {
+      get { return Zone == Zone.Battlefield; }
+    }
+
+    public virtual bool IsTapped
+    {
+      get { return _isTapped.Value; }
+      protected set { _isTapped.Value = value; }
+    }
+
+    public IManaAmount KickerCost { get; private set; }
+
+    public int LifepointsLeft
+    {
+      get { return Toughness.Value - Damage; }
+    }
+
+    public IManaAmount ManaCost { get; private set; }
+    public IManaAmount ManaCostWithKicker { get; private set; }
+
+    public IEnumerable<IManaSource> ManaSources
+    {
+      get { return _manaSources; }
+    }
 
     private IEnumerable<IModifiable> ModifiableProperties
     {
@@ -116,23 +225,40 @@
     }
 
     public string Name { get; private set; }
-    public int? Power { get { return _power.Value; } }
+
+    public int? Power
+    {
+      get { return _power.Value; }
+    }
 
     public int Score
     {
       get
       {
         return IsPermanent
-          ? Ai.ScoreCalculator.CalculatePermanentScore(this)
-          : Ai.ScoreCalculator.CalculateCardInHandScore(this);
+                 ? Ai.ScoreCalculator.CalculatePermanentScore(this)
+                 : Ai.ScoreCalculator.CalculateCardInHandScore(this);
       }
     }
 
     public CardText Text { get; private set; }
-    public int? Toughness { get { return _toughness.Value; } }
-    public string Type { get { return _type.Value.ToString(); } }
 
-    public Zone Zone { get { return _zone.Value; } }
+    public int? Toughness
+    {
+      get { return _toughness.Value; }
+    }
+
+    public string Type
+    {
+      get { return _type.Value.ToString(); }
+    }
+
+    public Zone Zone
+    {
+      get { return _zone.Value; }
+    }
+
+    #region IDamageable Members
 
     public void DealDamage(Card damageSource, int amount, bool isCombat)
     {
@@ -159,18 +285,27 @@
       }
 
       Publish(
-        new DamageHasBeenDealt{
-          Dealer = damageSource,
-          Amount = dealtAmount,
-          Receiver = this,
-          IsCombat = isCombat
-        });
+        new DamageHasBeenDealt
+          {
+            Dealer = damageSource,
+            Amount = dealtAmount,
+            Receiver = this,
+            IsCombat = isCombat
+          });
 
       this.Updates("Damage");
     }
 
+    #endregion
+
+    #region IEffectSource Members
+
     public EffectCategories EffectCategories { get; private set; }
-    Card IEffectSource.OwningCard { get { return this; } }
+
+    Card IEffectSource.OwningCard
+    {
+      get { return this; }
+    }
 
     public void EffectWasCountered()
     {
@@ -213,7 +348,7 @@
         }
         else
         {
-          _hash.Value = calc.Combine(
+          _hash.Value = HashCalculator.Combine(
             Name.GetHashCode(),
             calc.Calculate(_hasSummoningSickness),
             IsTapped.GetHashCode(),
@@ -225,7 +360,7 @@
             Toughness.GetHashCode(),
             Colors.GetHashCode(),
             Counters.GetHashCode(),
-            Type.GetHashCode(),            
+            Type.GetHashCode(),
             calc.Calculate(_staticAbilities),
             calc.Calculate(_triggeredAbilities),
             calc.Calculate(_activatedAbilities),
@@ -239,10 +374,16 @@
       return _hash.Value.Value;
     }
 
+    #endregion
+
+    #region IHashDependancy Members
+
     public void InvalidateHash()
     {
       _hash.Value = null;
     }
+
+    #endregion
 
     public void ActivateAbility(int index, ActivationParameters activationParameters)
     {
@@ -276,7 +417,7 @@
 
       _attachments.Add(new Attachment(attachment, attachmentModifiers));
 
-      Publish(new AttachmentAttached{Attachment = attachment});
+      Publish(new AttachmentAttached {Attachment = attachment});
     }
 
     public List<SpellPrerequisites> CanActivateAbilities()
@@ -293,9 +434,9 @@
     {
       return
         (!Has().Unblockable) &&
-          (Has().Flying ? card.Has().Flying : true) &&
-            (Has().Fear ? card.HasColor(ManaColors.Black) || card.Is().Artifact : true) &&
-              !HasProtectionFrom(card.Colors);
+        (Has().Flying ? card.Has().Flying : true) &&
+        (Has().Fear ? card.HasColor(ManaColors.Black) || card.Is().Artifact : true) &&
+        !HasProtectionFrom(card.Colors);
     }
 
     public bool CanBeTargetBySpellsOwnedBy(Player player)
@@ -311,34 +452,35 @@
     public SpellPrerequisites CanCast()
     {
       if (!Controller.HasPriority || !CastingRule.CanCast())
-        return new SpellPrerequisites{CanBeSatisfied = false};
+        return new SpellPrerequisites {CanBeSatisfied = false};
 
-      var canCastWithKicker = HasKicker ? Controller.HasEnoughMana(ManaCostWithKicker) : false;
+      var canCastWithKicker = HasKicker ? Controller.HasMana(ManaCostWithKicker) : false;
 
-      return new SpellPrerequisites{
-        CanBeSatisfied = true,
-        EffectTargetSelector = _targetSelector,
-        KickerTargetSelector = _kickerTargetSelector,
-        CanCastWithKicker = canCastWithKicker,
-        MaxX = GetMaxX(),
-        XCalculator = _xCalculator,
-        Timming = _timming,
-      };
+      return new SpellPrerequisites
+        {
+          CanBeSatisfied = true,
+          EffectTargetSelector = _targetSelector,
+          KickerTargetSelector = _kickerTargetSelector,
+          CanCastWithKicker = canCastWithKicker,
+          MaxX = GetMaxX(),
+          XCalculator = _xCalculator,
+          Timming = _timming,
+        };
     }
 
     public bool CanDealLeathalDamageTo(Card creature)
     {
-      return 
-      !creature.Has().Indestructible && (
-        (Power > 0 && Has().Deathtouch) ||
-          (creature.LifepointsLeft <= Power));
+      return
+        !creature.Has().Indestructible && (
+                                            (Power > 0 && Has().Deathtouch) ||
+                                            (creature.LifepointsLeft <= Power));
     }
 
     public void CastInternal(ActivationParameters activationParameters)
     {
       var effect = activationParameters.PayKicker
-        ? _kickerEffectFactory.CreateEffect(this, x: activationParameters.X, wasKickerPaid: true)
-        : _effectFactory.CreateEffect(this, x: activationParameters.X);
+                     ? _kickerEffectFactory.CreateEffect(this, x: activationParameters.X, wasKickerPaid: true)
+                     : _effectFactory.CreateEffect(this, x: activationParameters.X);
 
       effect.Target = activationParameters.EffectTarget;
       CastingRule.Cast(effect);
@@ -366,10 +508,11 @@
         card.Controller.SacrificeCard(card);
       }
 
-      Publish(new AttachmentDetached{
-        AttachedTo = this,
-        Attachment = card
-      });
+      Publish(new AttachmentDetached
+        {
+          AttachedTo = this,
+          Attachment = card
+        });
     }
 
     public void EnchantWithoutPayingTheCost(Card enchantment)
@@ -394,7 +537,7 @@
       effect.Resolve();
     }
 
-    public ManaAmount GetActivatedAbilityManaCost(int index)
+    public IManaAmount GetActivatedAbilityManaCost(int index)
     {
       return _activatedAbilities.GetManaCost(index);
     }
@@ -488,11 +631,12 @@
 
       _zone.Value = newZone;
 
-      Publish(new CardChangedZone{
-        Card = this,
-        From = oldZone,
-        To = Zone
-      });
+      Publish(new CardChangedZone
+        {
+          Card = this,
+          From = oldZone,
+          To = Zone
+        });
     }
 
     public void Show()
@@ -536,7 +680,19 @@
       if (ManaCost == null)
         return ManaColors.None;
 
-      return ManaCost.CardColor;
+      if (ManaCost.Count() == 0)
+      {
+        return ManaColors.Colorless;
+      }
+
+      var cardColor = ManaColors.None;
+
+      foreach (var mana in ManaCost.Colored())
+      {
+        cardColor = cardColor | mana.Colors;
+      }
+
+      return cardColor;
     }
 
     private int? GetMaxX()
@@ -553,6 +709,8 @@
     {
       _publisher.Publish(message);
     }
+
+    #region Nested type: CardFactory
 
     public class CardFactory : ICardFactory
     {
@@ -586,7 +744,12 @@
         _game = game;
       }
 
-      public string Name { get { return _name; } }
+      #region ICardFactory Members
+
+      public string Name
+      {
+        get { return _name; }
+      }
 
       public Card CreateCard(Player controller)
       {
@@ -595,15 +758,15 @@
         card._publisher = _game.Publisher;
         card._combat = _game.Combat;
 
-        card._effectFactory = _effectFactory ?? new Effect.Factory<PutIntoPlay>{Game = _game};
+        card._effectFactory = _effectFactory ?? new Effect.Factory<PutIntoPlay> {Game = _game};
         card._kickerEffectFactory = _kickerEffectFactory;
         card._hash = new Trackable<int?>(_changeTracker);
 
         card.Name = _name;
         card._xCalculator = _xCalculator;
-        card.ManaCost = _manaCost;
-        card.KickerCost = _kickerCost;
-        card.ManaCostWithKicker = card.HasKicker ? card.ManaCost + card.KickerCost : card.ManaCost;
+        card.ManaCost = _manaCost.ParseManaAmount();
+        card.KickerCost = _kickerCost.ParseManaAmount();
+        card.ManaCostWithKicker = card.HasKicker ?  card.ManaCost.Add(card.KickerCost) : card.ManaCost;
         card.Text = _text ?? String.Empty;
         card.FlavorText = _flavorText ?? String.Empty;
         card.Illustration = GetIllustration(_name, _type);
@@ -635,12 +798,12 @@
         card._modifiers = new TrackableList<IModifier>(_changeTracker);
 
         card._targetSelector = _targetSelectorFactory != null
-          ? _targetSelectorFactory.Create(card)
-          : null;
+                                 ? _targetSelectorFactory.Create(card)
+                                 : null;
 
         card._kickerTargetSelector = _kickerSelectorFactory != null
-          ? _kickerSelectorFactory.Create(card)
-          : null;
+                                       ? _kickerSelectorFactory.Create(card)
+                                       : null;
 
         card._staticAbilities = new StaticAbilities(_staticAbilities, _changeTracker, card);
 
@@ -657,6 +820,8 @@
 
         return card;
       }
+
+      #endregion
 
       public CardFactory Abilities(params object[] abilities)
       {
@@ -710,10 +875,11 @@
       {
         init = init ?? delegate { };
 
-        _effectFactory = new Effect.Factory<T>{
-          Game = _game,
-          Init = init,
-        };
+        _effectFactory = new Effect.Factory<T>
+          {
+            Game = _game,
+            Init = init,
+          };
 
         return this;
       }
@@ -735,10 +901,11 @@
       {
         init = init ?? delegate { };
 
-        _kickerEffectFactory = new Effect.Factory<T>{
-          Game = _game,
-          Init = init,
-        };
+        _kickerEffectFactory = new Effect.Factory<T>
+          {
+            Game = _game,
+            Init = init,
+          };
 
         return this;
       }
@@ -828,7 +995,9 @@
 
       private void CreateBindableColors(Card card)
       {
-        card._colors = Bindable.Create<CardColors>(_colors == ManaColors.None ? card.GetCardColorFromManaCost() : _colors, _changeTracker, card);
+        card._colors =
+          Bindable.Create<CardColors>(_colors == ManaColors.None ? card.GetCardColorFromManaCost() : _colors,
+            _changeTracker, card);
 
         card._colors.Property(x => x.Value)
           .Changes(card).Property<Card, ManaColors>(x => x.Colors);
@@ -866,5 +1035,7 @@
           .Changes(card).Property<Card, string>(x => x.Type);
       }
     }
+
+    #endregion
   }
 }

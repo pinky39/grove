@@ -39,7 +39,7 @@
             .Activate(elves)
             .Verify(() => {
               True(P1.Battlefield.Contains(elves));
-              Equal(Mana.Green, P1.ManaPool);
+              True(P1.HasMana(Mana.Green.ToAmount()));
             }));
       }
     }

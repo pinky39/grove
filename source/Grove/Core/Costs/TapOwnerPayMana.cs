@@ -4,7 +4,7 @@
 
   public class TapOwnerPayMana : Cost
   {
-    public ManaAmount Amount;
+    public IManaAmount Amount;
     public bool HasX { get; set; }
     public bool TapOwner { get; set; }
     public bool TryNotToConsumeCardsManaSourceWhenPayingThis { get; set; }
@@ -17,7 +17,7 @@
       if (Amount == null)
         return true;
 
-      if (!Controller.HasEnoughMana(Amount))
+      if (!Controller.HasMana(Amount))
         return false;
 
       if (HasX)
@@ -39,7 +39,7 @@
 
         if (x.HasValue)
         {
-          amount = amount + ManaAmount.Colorless(x.Value);
+          amount = amount.Add(x.Value);
         }
 
         if (TryNotToConsumeCardsManaSourceWhenPayingThis)

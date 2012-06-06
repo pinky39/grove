@@ -60,7 +60,7 @@
 
     public int CalculateHash(HashCalculator calc)
     {
-      return calc.Combine(
+      return HashCalculator.Combine(
         Step.GetHashCode(),
         TurnCount,
         State.GetHashCode()        

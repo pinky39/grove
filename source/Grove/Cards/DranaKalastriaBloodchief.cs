@@ -25,7 +25,7 @@
             "{X}{B}{B}: Target creature gets -0/-X until end of turn and Drana, Kalastria Bloodchief gets +X/+0 until end of turn.",
             C.Cost<TapOwnerPayMana>((cost, c) =>
             {
-              cost.Amount = "{B}{B}";
+              cost.Amount = "{B}{B}".ParseManaAmount();
               cost.HasX = true;
               cost.XCalculator = VariableCost.TargetLifepointsLeft();
             }),

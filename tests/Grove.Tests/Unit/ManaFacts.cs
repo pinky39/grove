@@ -22,17 +22,20 @@
     [Fact]
     public void Performance()
     {
-      var amount = new ManaAmount("{4}{R}{R}");
+      IManaAmount amount = "{4}{R}{R}".ParseManaAmount();
       var manaSources = new ManaSources(
         new[]
           {
-            Pool("{RG}"),
-            Pool("{G}"),
-            Pool("{RG}"),
-            Pool("{R}"),
-            Pool("{BR}"),
-            Pool("{R}"),
-            Pool("{R}"),
+            Immutable("{RG}{G}"),
+            Immutable("{RG}"),
+            Immutable("{R}"),
+            Immutable("{BR}"),
+            Immutable("{R}"),
+            Immutable("{R}"),
+            Immutable("{R}"),
+            Immutable("{R}"),
+            Immutable("{R}"),
+            Immutable("{R}"),
           });
 
       var stopwatch = new Stopwatch();
@@ -43,7 +46,7 @@
 
       for (var i = 0; i < iterations; i++)
       {
-       manaSources.Has(amount);
+        manaSources.Has(amount);
       }
 
       stopwatch.Stop();
@@ -54,42 +57,42 @@
     [Fact]
     public void Consume1()
     {
-      var available = Pool("{R}{R}{R}{R}{G}{G}{G}");
-      var amount = new ManaAmount("{4}{R}{R}");
+      var available = Mutable("{R}{R}{R}{R}{G}{G}{G}");
+      var amount = "{4}{R}{R}".ParseManaAmount();
 
       ManaPayment.Pay(amount, available);
 
-      Assert.Equal(1, available.Amount.Count());
+      Assert.Equal(1, available.GetAvailableMana().Count());
     }
 
     [Fact]
     public void Consume2()
     {
-      var available = Pool("{B}{GRB}{R}");
-      var amount = new ManaAmount("{G}{B}{R}");
+      var available = Mutable("{B}{GRB}{R}");
+      var amount = "{G}{B}{R}".ParseManaAmount();
 
       ManaPayment.Pay(amount, available);
 
-      Assert.Equal(0, available.Amount.Count());
+      Assert.Equal(0, available.GetAvailableMana().Count());
     }
 
     [Fact]
     public void Consume3()
     {
-      var available = Pool("{U}{B}{GRB}{R}");
-      var amount = new ManaAmount("{U}{G}");
+      var available = Mutable("{U}{B}{GRB}{R}");
+      var amount = "{U}{G}".ParseManaAmount();
 
       ManaPayment.Pay(amount, available);
 
-      Assert.Equal(2, available.Amount.Count());
-      Assert.Equal(new[] {Mana.Black, Mana.Red}, available.Amount.ToArray());
+      Assert.Equal(2, available.GetAvailableMana().Count());
+      Assert.Equal(new[] { Mana.Black, Mana.Red }, available.GetAvailableMana().ToArray());
     }
 
     [Fact]
     public void DoesNotHave1()
     {
-      var available = Mana.Parse("{R}{R}{R}{G}{G}{G}");
-      var amount = Mana.Parse("{2}{R}{R}{R}{R}");
+      var available = "{R}{R}{R}{G}{G}{G}".ParseManaAmount();
+      var amount = "{2}{R}{R}{R}{R}".ParseManaAmount();
 
       HasNot(available, amount);
     }
@@ -97,8 +100,8 @@
     [Fact]
     public void DoesNotHave2()
     {
-      var available = Mana.Parse("{2}{WG}{R}");
-      var amount = Mana.Parse("{2}{W}{G}");
+      var available = "{2}{WG}{R}".ParseManaAmount();
+      var amount = "{2}{W}{G}".ParseManaAmount();
 
       HasNot(available, amount);
     }
@@ -112,8 +115,8 @@
     [Fact]
     public void Has1()
     {
-      var available = Mana.Parse("{R}{R}{R}{G}{G}{G}");
-      var amount = Mana.Parse("{4}{R}{R}");
+      var available = "{R}{R}{R}{G}{G}{G}".ParseManaAmount();
+      var amount = "{4}{R}{R}".ParseManaAmount();
 
       Has(available, amount);
     }
@@ -121,8 +124,8 @@
     [Fact]
     public void Has2()
     {
-      var available = Mana.Parse("{3}{RG}{R}{G}");
-      var amount = Mana.Parse("{4}{R}{R}");
+      var available = "{3}{RG}{R}{G}".ParseManaAmount();
+      var amount = "{4}{R}{R}".ParseManaAmount();
 
       Has(available, amount);
     }
@@ -130,8 +133,8 @@
     [Fact]
     public void Has3()
     {
-      var available = Mana.Parse("{RG}{RG}");
-      var amount = Mana.Parse("{G}{G}");
+      var available = "{RG}{RG}".ParseManaAmount();
+      var amount = "{G}{G}".ParseManaAmount();
 
       Has(available, amount);
     }
@@ -139,8 +142,8 @@
     [Fact]
     public void Has4()
     {
-      var available = Mana.Parse("{G}{RG}{RG}{G}");
-      var amount = Mana.Parse("{2}{G}{G}");
+      var available = "{G}{RG}{RG}{G}".ParseManaAmount();
+      var amount = "{2}{G}{G}".ParseManaAmount();
 
       Has(available, amount);
     }
@@ -159,9 +162,9 @@
     [Fact]
     public void Parse()
     {
-      var parsed = Mana.Parse("{3}{B}{R}{RG}");
+      var parsed = "{3}{B}{R}{RG}".ParseManaAmount();
 
-      var manaAmount = new ManaAmount(new[]
+      var manaAmount = new PrimitiveManaAmount(new[]
         {
           new Mana(),
           new Mana(),
@@ -186,7 +189,7 @@
     [Fact]
     public void SymbolNames1()
     {
-      var manaCost = new ManaAmount("{5}{B}{G}{G}");
+      var manaCost = "{5}{B}{G}{G}".ParseManaAmount();
       var result = manaCost.GetSymbolNames();
 
       var expectedImageNames = new[]
@@ -204,33 +207,68 @@
       Assert.Equal(new string[] {}, result);
     }
 
-    private void Has(ManaAmount available, ManaAmount amount)
+    private void Has(IManaAmount available, IManaAmount amount)
     {
-      Assert.True(ManaPayment.CanPay(amount, new ManaSource(available).ToEnumerable()));
+      Assert.True(ManaPayment.CanPay(amount, new MutableSource(available).ToEnumerable()));
     }
 
-    private void HasNot(ManaAmount available, ManaAmount amount)
+    private void HasNot(IManaAmount available, IManaAmount amount)
     {
-      Assert.False(ManaPayment.CanPay(amount, new ManaSource(available).ToEnumerable()));
+      Assert.False(ManaPayment.CanPay(amount, new MutableSource(available).ToEnumerable()));
     }
 
-    private ManaSource Pool(string str)
+    private IManaSource Mutable(string str)
     {
-      return new ManaSource(Mana.Parse(str));
+      return new MutableSource(str.ParseManaAmount());
+    }
+
+    private IManaSource Immutable(string str)
+    {
+      return new ImmutableSource(str.ParseManaAmount());
     }
 
     #region Nested type: ManaSource
 
-    public class ManaSource : IManaSource
+    public class ImmutableSource :IManaSource
+    {
+      private readonly IManaAmount _manaAmount;
+
+      public ImmutableSource(IManaAmount manaAmount)
+      {
+        _manaAmount = manaAmount;
+      }
+
+      public int Priority
+      {
+        get { return 0; }
+      }
+
+      public object Resource
+      {
+        get { return null; }
+      }
+
+      public void Consume(IManaAmount amount)
+      {
+        throw new NotImplementedException();
+      }
+
+      public IManaAmount GetAvailableMana()
+      {
+        return _manaAmount;
+      }
+    }
+    
+    public class MutableSource : IManaSource
     {
       private readonly ManaBag _bag;
 
-      public ManaSource(ManaAmount amount)
+      public MutableSource(IManaAmount amount)
       {
         _bag = new ManaBag(amount);
       }
 
-      public ManaAmount Amount
+      public IManaAmount Amount
       {
         get { return GetAvailableMana(); }
       }
@@ -247,12 +285,12 @@
         get { return this; }
       }
 
-      public void Consume(ManaAmount amount)
+      public void Consume(IManaAmount amount)
       {
         _bag.Consume(amount);
       }
 
-      public ManaAmount GetAvailableMana()
+      public IManaAmount GetAvailableMana()
       {
         return _bag.Amount;
       }
@@ -261,7 +299,7 @@
 
       public void Consume(Dictionary<int, List<Mana>> payment)
       {
-        Consume(new ManaAmount(payment[0]));
+        Consume(new PrimitiveManaAmount(payment[0]));
       }
     }
 

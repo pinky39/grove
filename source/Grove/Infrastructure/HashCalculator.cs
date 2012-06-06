@@ -24,7 +24,7 @@ namespace Grove.Infrastructure
     }
 
     
-    public int Combine(IEnumerable<int> values)
+    public static int Combine(IEnumerable<int> values)
     {
       uint h = 0;
 
@@ -37,17 +37,17 @@ namespace Grove.Infrastructure
     }
     
     
-    public int Combine(params int[] values)
+    public static int Combine(params int[] values)
     {
       return Combine((IEnumerable<int>) values);
     }
 
-    public int CombineCommutative(params int[] values)
+    public static int CombineCommutative(params int[] values)
     {
       return CombineCommutative((IEnumerable<int>) values);
     }
     
-    public int CombineCommutative(IEnumerable<int> values)
+    public static int CombineCommutative(IEnumerable<int> values)
     {
       uint h = 0;
 

@@ -5,13 +5,13 @@
   public class CounterTargetSpell : Effect
   {
     public int? ControllersLifeloss;
-    public ManaAmount DoNotCounterCost;
+    public IManaAmount DoNotCounterCost;
 
     public override void Resolve()
     {
       var targetSpellController = Target.Effect().Controller;
 
-      if (DoNotCounterCost != null && targetSpellController.HasEnoughMana(DoNotCounterCost))
+      if (DoNotCounterCost != null && targetSpellController.HasMana(DoNotCounterCost))
       {
         Decisions.EnqueueConsiderPayingLifeOrMana(
           player: targetSpellController,

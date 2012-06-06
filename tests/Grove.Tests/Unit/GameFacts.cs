@@ -55,7 +55,7 @@ namespace Grove.Tests.Unit
     [Fact]
     public void HashPerformance()
     {
-      var operationCount = 5000;
+      var count = 10000;
       
       // create a copy to remove proxies
       var game = new CopyService().CopyRoot(Game);
@@ -63,13 +63,13 @@ namespace Grove.Tests.Unit
       var stopWatch = new Stopwatch();
       stopWatch.Start();
 
-      for (var i = 0; i < operationCount; i++)
+      for (var i = 0; i < count; i++)
       {
         game.CalculateHash();
       }
 
       stopWatch.Stop();
-      Console.WriteLine("Hashing took: {0} ms/operation.", stopWatch.Elapsed.TotalMilliseconds/operationCount);
+      Console.WriteLine("Hashing of {0} game objects took: {1} ms.", count, stopWatch.Elapsed.TotalMilliseconds);
     }
 
     [Fact]
@@ -82,15 +82,15 @@ namespace Grove.Tests.Unit
 
       stopWatch.Start();
 
-      var numOfInstances = 100;
-      for (var i = 0; i < numOfInstances; i++)
+      var count = 100;
+      for (var i = 0; i < count; i++)
       {
         new CopyService().CopyRoot(Game);
       }
 
       stopWatch.Stop();
 
-      Console.WriteLine("Copying took: {0} ms/instance.", stopWatch.Elapsed.TotalMilliseconds/numOfInstances);
+      Console.WriteLine("Copying of {0} game objects took: {1} ms.", count, stopWatch.Elapsed.TotalMilliseconds);
     }
   }
 }

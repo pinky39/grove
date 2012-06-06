@@ -87,7 +87,7 @@
       };
     }
 
-    public IActivatedAbilityFactory ManaAbility(ManaAmount manaAmount, string text, ICostFactory costFactory = null, int? priority = null)
+    public IActivatedAbilityFactory ManaAbility(Mana mana, string text, ICostFactory costFactory = null, int? priority = null)
     {
       costFactory = costFactory ?? new Cost.Factory<TapOwnerPayMana>{
         Game = _game,
@@ -97,7 +97,7 @@
       return new ActivatedAbility.Factory<ManaAbility>{
         Game = _game,
         Init = ability => {
-          ability.SetManaAmount(manaAmount);
+          ability.SetManaAmount(mana.ToAmount());
           ability.Text = text;
           ability.SetCost(costFactory);
           ability.Priority = priority ?? DefaultManaSourcePriority(ability);

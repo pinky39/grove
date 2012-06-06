@@ -2,7 +2,7 @@
 {
   public class AddManaToPool : Effect
   {
-    public ManaAmount Mana { get; set; }
+    public IManaAmount Mana { get; set; }
 
     public override void Resolve()
     {

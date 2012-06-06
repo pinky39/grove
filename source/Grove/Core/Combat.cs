@@ -33,7 +33,7 @@
 
     public int CalculateHash(HashCalculator calc)
     {
-      return calc.Combine(
+      return HashCalculator.Combine(
         calc.Calculate(_attackers),
         calc.Calculate(_blockers));
     }

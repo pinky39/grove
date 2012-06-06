@@ -20,7 +20,7 @@
         _turn.Step.IsMain() &&
           Controller.IsActive &&
             Stack.IsEmpty &&
-              Controller.HasEnoughMana(Card.ManaCost);
+              Controller.HasMana(Card.ManaCost);
     }
   }
 }

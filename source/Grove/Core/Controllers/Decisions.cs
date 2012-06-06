@@ -39,7 +39,7 @@
       Enqueue(decision);
     }
 
-    public void EnqueueConsiderPayingLifeOrMana(Player player, Effect effect, PayLifeOrManaHandler handler, int? life = null, ManaAmount mana = null)
+    public void EnqueueConsiderPayingLifeOrMana(Player player, Effect effect, PayLifeOrManaHandler handler, int? life = null, IManaAmount mana = null)
     {
       var decision = SelectDecisionFactory(player)
         .CreateConsiderPayingLifeOrMana(player, effect, handler, life, mana);

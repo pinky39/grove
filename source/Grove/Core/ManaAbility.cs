@@ -4,7 +4,7 @@
 
   public class ManaAbility : ActivatedAbility, IManaSource
   {
-    private ManaAmount _manaAmount;
+    private IManaAmount _manaAmount;
 
     public ManaAbility()
     {
@@ -14,7 +14,7 @@
     public int Priority { get; set; }
     object IManaSource.Resource { get { return OwningCard; } }
 
-    public void Consume(ManaAmount amount)
+    public void Consume(IManaAmount amount)
     {
       Cost.Pay(target: null, x: null);
 
@@ -28,7 +28,7 @@
       Controller.AddManaToManaPool(manaBag.Amount);
     }
 
-    public ManaAmount GetAvailableMana()
+    public IManaAmount GetAvailableMana()
     {
       var prerequisites = CanActivate();
       return prerequisites.CanBeSatisfied ? _manaAmount : ManaAmount.Zero;
@@ -50,7 +50,7 @@
       return new SpellPrerequisites{CanBeSatisfied = false};
     }
 
-    public void SetManaAmount(ManaAmount manaAmount)
+    public void SetManaAmount(IManaAmount manaAmount)
     {
       Effect(new Effect.Factory<AddManaToPool>{
         Init = (effect, _) => effect.Mana = manaAmount

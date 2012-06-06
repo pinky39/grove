@@ -46,8 +46,8 @@ namespace Grove.Core
     {
       var hashcodes = _triggers.Select(calc.Calculate).ToList();
       hashcodes.Add(calc.Calculate(EffectFactory));
-            
-      return calc.Combine(hashcodes);
+
+      return HashCalculator.Combine(hashcodes);
     }
 
     protected virtual void Execute()

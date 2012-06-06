@@ -37,12 +37,10 @@ namespace Grove.Tests.Unit
     public void CommutativeCombine()
     {
       int value1 = 328572304;
-      int value2 = 295389348;
+      int value2 = 295389348;      
 
-      var calc = new HashCalculator();
-
-      var result1 = calc.CombineCommutative(value1, value2);
-      var result2 = calc.CombineCommutative(value2, value1);      
+      var result1 = HashCalculator.CombineCommutative(value1, value2);
+      var result2 = HashCalculator.CombineCommutative(value2, value1);      
 
       Assert.Equal(result1, result2);
     }
@@ -71,7 +69,7 @@ namespace Grove.Tests.Unit
 
       public int CalculateHash(HashCalculator calc)
       {
-        return calc.Combine(Wheels.Select(calc.Calculate));
+        return HashCalculator.Combine(Wheels.Select(calc.Calculate));
       }
     }
 

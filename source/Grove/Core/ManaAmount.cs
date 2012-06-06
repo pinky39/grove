@@ -1,118 +1,47 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Grove.Core
+﻿namespace Grove.Core
 {
-  public class ManaAmount : IEnumerable<Mana>
+  using System;
+  using System.Collections.Generic;
+  using System.Linq;
+  using System.Text;
+  using System.Text.RegularExpressions;
+
+  public static class ManaAmount
   {
-    private readonly List<Mana> _amount = new List<Mana>(10);
+    private static readonly Symbol[] Symbols = new[]
+      {
+        new Symbol {Char = 'w', Color = ManaColors.White},
+        new Symbol {Char = 'u', Color = ManaColors.Blue},
+        new Symbol {Char = 'b', Color = ManaColors.Black},
+        new Symbol {Char = 'r', Color = ManaColors.Red},
+        new Symbol {Char = 'g', Color = ManaColors.Green},
+      };
 
-    public ManaAmount(IEnumerable<Mana> amount)
+    public static readonly ZeroManaAmount Zero = new ZeroManaAmount();    
+
+    public static IEnumerable<Mana> Colored(this IManaAmount amount)
     {
-      _amount.AddRange(amount);
+      return amount.Where(mana => mana.IsColored);
     }
 
-    public ManaAmount(Mana mana)
+    public static bool IsZero(this IManaAmount amount)
     {
-      _amount.Add(mana);
+      return amount.Converted == 0;
     }
 
-    public ManaAmount()
+    public static int ColorlessCount(this IManaAmount amount)
     {
+      return amount.Count(mana => mana.IsColorless);
     }
 
-    public ManaAmount(string str) : this(Mana.Parse(str))
+    public static int MaxRank(this IManaAmount amount)
     {
+      return amount.IsZero() ? 0 : amount.Max(x => x.Rank);
     }
 
-    public int WhiteCount
+    public static string[] GetSymbolNames(this IManaAmount amount)
     {
-      get { return _amount.Count(x => x.IsSingleColor(ManaColors.White)); }
-    }
-
-    public int BlueCount
-    {
-      get { return _amount.Count(x => x.IsSingleColor(ManaColors.Blue)); }
-    }
-
-    public int BlackCount
-    {
-      get { return _amount.Count(x => x.IsSingleColor(ManaColors.Black)); }
-    }
-
-    public int RedCount
-    {
-      get { return _amount.Count(x => x.IsSingleColor(ManaColors.Red)); }
-    }
-
-    public int GreenCount
-    {
-      get { return _amount.Count(x => x.IsSingleColor(ManaColors.Green)); }
-    }
-
-    public int MultiCount
-    {
-      get { return _amount.Count(x => x.IsMultiColor); }
-    }
-
-    public ManaColors CardColor
-    {
-      get { return GetCardColor(); }
-    }
-
-    private IEnumerable<Mana> Colored
-    {
-      get { return _amount.Where(mana => mana.IsColored); }
-    }
-
-    public int Converted
-    {
-      get { return _amount.Count; }
-    }
-
-    public static ManaAmount Zero
-    {
-      get { return new ManaAmount(); }
-    }
-
-    public bool None
-    {
-      get { return _amount.Count == 0; }
-    }
-
-    public int ColorlessCount
-    {
-      get { return _amount.Count(mana => mana.IsColorless); }
-    }
-
-    public int MaxRank
-    {
-      get { return _amount.Count == 0 ? 0 : _amount.Max(x => x.Rank); }
-    }
-
-    #region IEnumerable<Mana> Members
-
-    public IEnumerator<Mana> GetEnumerator()
-    {
-      return _amount.GetEnumerator();
-    }
-
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-      return GetEnumerator();
-    }
-
-    #endregion
-
-    public static ManaAmount Colorless(int amount)
-    {
-      return new ManaAmount(Enumerable.Repeat(new Mana(), amount));
-    }
-
-    public string[] GetSymbolNames()
-    {
-      var colorlessCount = _amount.Count(mana => mana.IsColorless);
+      var colorlessCount = amount.Count(mana => mana.IsColorless);
 
       var names = new List<string>();
 
@@ -121,60 +50,127 @@ namespace Grove.Core
         names.Add(colorlessCount.ToString());
       }
 
-      names.AddRange(Colored.OrderBy(Wubrg).Select(mana => mana.Symbol));
+      names.AddRange(amount.Colored().OrderBy(WubrgOrdering).Select(mana => mana.Symbol));
       return names.ToArray();
     }
 
-    public bool HasColor(ManaColors color)
+    public static bool HasColor(this IManaAmount manaAmount, ManaColors color)
     {
-      return this.Any(x => x.HasColor(color));
+      return manaAmount.Any(x => x.HasColor(color));
     }
 
-    public override string ToString()
+    public static IManaAmount Add(this IManaAmount amount1, int amount2)
     {
-      return string.Join(",", _amount.Select(x => x.ToString()));
+      return new AggregateManaAmount(amount1, amount2.AsColorlessMana());
     }
 
-    private static int Wubrg(Mana mana)
+    public static IManaAmount Add(this IManaAmount amount1, IManaAmount amount2)
+    {
+      return new AggregateManaAmount(amount1, amount2);
+    }
+
+    public static IManaAmount AsColorlessMana(this int amount)
+    {
+      return Colorless(amount);
+    }
+
+    public static IManaAmount Colorless(int amount)
+    {
+      return new PrimitiveManaAmount(
+        Enumerable.Repeat(new Mana(), amount));
+    }
+
+    private static int WubrgOrdering(Mana mana)
     {
       return mana.EnumerateColors().Aggregate(1, (sum, color) => sum + ((int) color*10));
     }
 
-    private ManaColors GetCardColor()
+
+    public static IManaAmount ParseManaAmount(this string str)
     {
-      if (Colored.Count() == 0)
+      if (str == null)
+        return null;
+
+      str = str.ToLowerInvariant();
+      var tokens = Regex.Split(str, "}|{").Where(x => x != String.Empty);
+      var parsed = new List<Mana>();
+
+      foreach (var token in tokens)
       {
-        return ManaColors.Colorless;
+        var colorless = ParseColorless(token);
+
+        if (colorless.HasValue)
+        {
+          parsed.AddRange(
+            Colorless(colorless.Value));
+
+          continue;
+        }
+
+        var mana = ParseColored(token);
+
+        parsed.Add(mana);
       }
 
-      var cardColor = ManaColors.None;
+      return new PrimitiveManaAmount(parsed);
+    }
 
-      foreach (var mana in Colored)
+    public static string GetSymbolFromColor(ManaColors color)
+    {
+      var sb = new StringBuilder();
+
+      foreach (var colorChar in Symbols)
       {
-        cardColor = cardColor | mana.Colors;
+        if (color == colorChar.Color)
+          sb.Append(colorChar.Char);
       }
 
-      return cardColor;
+      return sb.ToString();
     }
 
-    public static ManaAmount operator +(ManaAmount left, ManaAmount right)
+    private static Mana ParseColored(string token)
     {
-      return new ManaAmount(left.Concat(right));
+      var color = ManaColors.None;
+
+      foreach (var ch in token)
+      {
+        color = color | GetColorFromSymbol(ch);
+      }
+
+      if (color == ManaColors.Colorless)
+        throw new InvalidOperationException("Invalid color token: " + token);
+
+      return new Mana(color);
     }
 
-    public static implicit operator ManaAmount(Mana mana)
+    public static ManaColors GetColorFromSymbol(char code)
     {
-      return new ManaAmount(new[] {mana});
+      foreach (var colorChar in Symbols)
+      {
+        if (code == colorChar.Char)
+          return colorChar.Color;
+      }
+
+      return ManaColors.Colorless;
     }
 
-    public static implicit operator ManaAmount(string str)
+    private static int? ParseColorless(string token)
     {
-      return str == null ? null : new ManaAmount(str);
+      int count;
+      if (Int32.TryParse(token, out count))
+        return count;
+
+      return null;
     }
 
-    public static implicit operator ManaAmount(int colorless)
+    #region Nested type: Symbol
+
+    private class Symbol
     {
-      return Colorless(colorless);
+      public ManaColors Color { get; set; }
+      public char Char { get; set; }
     }
+
+    #endregion
   }
 }

@@ -19,7 +19,7 @@
     public bool ActivateOnlyAsSorcery { get; set; }
     protected Cost Cost { get; private set; }
 
-    public ManaAmount ManaCost
+    public IManaAmount ManaCost
     {
       get
       {
@@ -56,7 +56,7 @@
 
     public override int CalculateHash(HashCalculator calc)
     {
-      return calc.Combine(
+      return HashCalculator.Combine(
         calc.Calculate(Cost),
         calc.Calculate(EffectFactory),
         ActivateOnlyAsSorcery.GetHashCode());

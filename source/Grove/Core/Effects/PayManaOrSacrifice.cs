@@ -2,12 +2,12 @@
 {
   public class PayManaOrSacrifice : Effect
   {
-    public ManaAmount Amount { get; set; }
+    public IManaAmount Amount { get; set; }
     
     public override void Resolve()
     {
       
-      if (Controller.HasEnoughMana(Amount) == false)
+      if (Controller.HasMana(Amount) == false)
       {
         Source.OwningCard.Sacrifice();
         return;

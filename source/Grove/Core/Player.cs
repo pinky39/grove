@@ -51,8 +51,7 @@
 
       Deck cards = deckFactory.CreateDeck(deck, this);
 
-      SetupZones(cards, changeTracker);
-      SetupDatabinding();
+      SetupZones(cards, changeTracker);      
       InitializeManaSources();
     }
 
@@ -86,7 +85,7 @@
       }
     }
 
-    public ManaAmount ManaPool { get { return _manaPool.Amount; } }
+    public object ManaPool { get { return _manaPool; } }
     public string Name { get; private set; }
 
     public int NumberOfCardsAboveMaximumHandSize { get { return Math.Max(0, _hand.Count - 7); } }
@@ -123,7 +122,7 @@
 
     public int CalculateHash(HashCalculator calc)
     {
-      return calc.Combine(
+      return HashCalculator.Combine(
         Life,
         HasPriority.GetHashCode(),
         IsActive.GetHashCode(),
@@ -140,7 +139,7 @@
       _manaSources.Add(manaSources);
     }
 
-    public void AddManaToManaPool(ManaAmount manaAmount)
+    public void AddManaToManaPool(IManaAmount manaAmount)
     {
       _manaPool.Add(manaAmount);
     }
@@ -160,11 +159,11 @@
       }
       else
       {
-        ManaAmount manaCost = activationParameters.PayKicker ? spell.ManaCostWithKicker : spell.ManaCost;
+        IManaAmount manaCost = activationParameters.PayKicker ? spell.ManaCostWithKicker : spell.ManaCost;
 
         if (activationParameters.X.HasValue)
         {
-          manaCost = manaCost + ManaAmount.Colorless(activationParameters.X.Value);
+          manaCost = manaCost.Add(activationParameters.X.Value);
         }
 
         Consume(manaCost);
@@ -178,7 +177,7 @@
       });
     }
 
-    public void Consume(ManaAmount amount, IManaSource tryNotToConsumeThisSource = null)
+    public void Consume(IManaAmount amount, IManaSource tryNotToConsumeThisSource = null)
     {
       _manaSources.Consume(amount, tryNotToConsumeThisSource);
     }
@@ -275,7 +274,7 @@
       }
     }
 
-    public bool HasEnoughMana(ManaAmount amount)
+    public bool HasMana(IManaAmount amount)
     {
       return _manaSources.Has(amount);
     }
@@ -429,13 +428,7 @@
 
       if (!card.Is().Token)
         _hand.Add(card);
-    }
-
-    private void SetupDatabinding()
-    {
-      _manaPool.Property(x => x.Amount)
-        .Changes(this).Property<Player, ManaAmount>(x => x.ManaPool);
-    }
+    }    
 
     private void SetupZones(IEnumerable<Card> cards, ChangeTracker changeTracker)
     {

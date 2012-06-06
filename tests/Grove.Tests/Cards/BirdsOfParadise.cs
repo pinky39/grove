@@ -1,12 +1,14 @@
 ﻿namespace Grove.Tests.Cards
 {
-  using Grove.Core;
-  using Grove.Core.Zones;
+  using Core;
+  using Core.Zones;
   using Infrastructure;
   using Xunit;
 
   public class BirdsOfParadise
   {
+    #region Nested type: Ai
+
     public class Ai : AiScenario
     {
       [Fact]
@@ -22,6 +24,10 @@
       }
     }
 
+    #endregion
+
+    #region Nested type: Predefined
+
     public class Predefined : PredifinedScenario
     {
       [Fact]
@@ -34,15 +40,18 @@
         Exec(
           At(Step.FirstMain)
             .Activate(bird)
-            .Verify(() => {
-              True(P1.ManaPool.HasColor(ManaColors.White));
-              True(P1.ManaPool.HasColor(ManaColors.Blue));
-              True(P1.ManaPool.HasColor(ManaColors.Black));
-              True(P1.ManaPool.HasColor(ManaColors.Red));
-              True(P1.ManaPool.HasColor(ManaColors.Green));
-            })
+            .Verify(() =>
+              {
+                True(P1.HasMana(Mana.White.ToAmount()));
+                True(P1.HasMana(Mana.Blue.ToAmount()));
+                True(P1.HasMana(Mana.Black.ToAmount()));
+                True(P1.HasMana(Mana.Red.ToAmount()));
+                True(P1.HasMana(Mana.Green.ToAmount()));
+              })
           );
       }
     }
+
+    #endregion
   }
 }

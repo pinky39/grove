@@ -39,7 +39,7 @@
 
     public int CalculateHash(HashCalculator calc)
     {
-      return calc.Combine(
+      return HashCalculator.Combine(
           calc.Calculate(_card),
           calc.Calculate(_blockers),
           calc.Calculate(_assignedDamage));

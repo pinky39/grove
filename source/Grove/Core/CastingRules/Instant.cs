@@ -9,7 +9,7 @@
 
     public override bool CanCast()
     {
-      return Controller.HasEnoughMana(Card.ManaCost);
+      return Controller.HasMana(Card.ManaCost);
     }
   }
 }

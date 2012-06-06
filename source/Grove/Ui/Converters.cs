@@ -168,7 +168,7 @@
     {
       public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
       {
-        var manaAmount = (ManaAmount) value;
+        var manaAmount = (IManaAmount) value;
 
         if (manaAmount == null)
           return new string[]{};

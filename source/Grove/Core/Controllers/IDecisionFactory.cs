@@ -14,6 +14,6 @@
     IDecision CreateSetDamageAssignmentOrder(Player player, Attacker attacker);
     IDecision CreateSetTriggeredAbilityTarget(Player player, Effect effect, TargetSelector targetSelector);
     IDecision CreateTakeMulligan(Player player);
-    IDecision CreateConsiderPayingLifeOrMana(Player player, Effect effect, PayLifeOrManaHandler handler, int? life, ManaAmount mana);
+    IDecision CreateConsiderPayingLifeOrMana(Player player, Effect effect, PayLifeOrManaHandler handler, int? life, IManaAmount mana);
   }
 }

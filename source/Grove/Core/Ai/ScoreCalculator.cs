@@ -122,7 +122,7 @@
       return score;
     }    
 
-    private static int CalculatePermanentScoreFromManaCost(ManaAmount mana)
+    private static int CalculatePermanentScoreFromManaCost(IManaAmount mana)
     {
       var converted = Math.Min(7, mana.Converted);            
       return ManaCostToScore[converted];

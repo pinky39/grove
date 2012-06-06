@@ -20,25 +20,29 @@
       _available = available.Sum(x => x.Amount.Converted);
     }
 
-    private ManaPayment(ManaAmount available)
+    private ManaPayment(IManaAmount available)
     {
       FillTheBucket(available);
 
       _available = available.Converted;
     }
 
-    public static bool CanPay(ManaAmount cost, IEnumerable<IManaSource> manaSources)
+    public static bool CanPay(IManaAmount cost, IEnumerable<IManaSource> manaSources)
     {
-      var amount = new ManaAmount(manaSources.SelectMany(x => x.GetAvailableMana()));
-      return new ManaPayment(amount).CanAssign(cost);      
+      var available = new AggregateManaAmount(manaSources.Select(x => x.GetAvailableMana()));
+
+      if (cost.Converted > available.Converted)
+        return false;
+
+      return new ManaPayment(available).CanAssign(cost);
     }
 
-    public static void Pay(ManaAmount cost, IManaSource manaSource)
+    public static void Pay(IManaAmount cost, IManaSource manaSource)
     {
       Pay(cost, manaSource.ToEnumerable());
     }
 
-    public static bool Pay(ManaAmount cost, IEnumerable<IManaSource> manaSources, IManaSource sourceToAvoid = null)
+    public static bool Pay(IManaAmount cost, IEnumerable<IManaSource> manaSources, IManaSource sourceToAvoid = null)
     {
       var scoredSources = manaSources
         .Select(source =>
@@ -52,35 +56,35 @@
 
             return manasource;
           })
-        .Where(x => !x.Amount.None)
+        .Where(x => !x.Amount.IsZero())
         .OrderBy(x => x.Score)
         .ToList();
-      
+
 
       var payment = new ManaPayment(scoredSources).Assign(cost);
 
       if (payment == null)
-        return false;      
-    
+        return false;
+
       foreach (var pair in payment)
       {
-        pair.Key.Consume(new ManaAmount(pair.Value));
+        pair.Key.Consume(new PrimitiveManaAmount(pair.Value));
       }
 
       return true;
     }
 
-    private static int ScoreSource(IManaSource source, IManaSource sourceToAvoid, ManaAmount availableMana)
+    private static int ScoreSource(IManaSource source, IManaSource sourceToAvoid, IManaAmount availableMana)
     {
       var score = source.Priority;
 
       if (sourceToAvoid == source)
         score += 100000;
 
-      return score + availableMana.MaxRank;
-    }    
-    
-    private Dictionary<IManaSource, List<Mana>> Assign(ManaAmount amount)
+      return score + availableMana.MaxRank();
+    }
+
+    private Dictionary<IManaSource, List<Mana>> Assign(IManaAmount amount)
     {
       if (amount.Converted > _available)
       {
@@ -95,15 +99,15 @@
       return GetAssignments();
     }
 
-    private void AssignColorless(ManaAmount amount)
+    private void AssignColorless(IManaAmount amount)
     {
-      foreach (var bucket in _items.Where(x => !x.IsFilled).Take(amount.ColorlessCount))
+      foreach (var bucket in _items.Where(x => !x.IsFilled).Take(amount.ColorlessCount()))
       {
         bucket.Fill(ManaColors.Colorless);
       }
     }
 
-    private bool CanAssign(ManaAmount amount)
+    private bool CanAssign(IManaAmount amount)
     {
       if (amount.Converted > _available)
       {
@@ -121,17 +125,17 @@
       _bucketsHolders.Add(ManaColors.Red, new List<ManaBucket>());
       _bucketsHolders.Add(ManaColors.Green, new List<ManaBucket>());
     }
-    
-    private void FillTheBucket(ManaAmount available)
+
+    private void FillTheBucket(IManaAmount available)
     {
       CreateBucketHolders();
 
       foreach (var mana in available)
       {
         var bucket = new ManaBucket
-        {
-          Mana = mana
-        };
+          {
+            Mana = mana
+          };
 
         foreach (var color in mana.EnumerateColors())
         {
@@ -141,7 +145,7 @@
         _items.Add(bucket);
       }
     }
-    
+
     private void FillTheBucket(List<ScoredSource> sources)
     {
       CreateBucketHolders();
@@ -153,15 +157,16 @@
               Mana = mana,
               x.Score,
               x.Source
-            }));        
+            }));
 
 
       foreach (var scoredSource in scoredSources)
       {
-        var bucket = new ManaBucket{
-          Source = scoredSource.Source,
-          Mana = scoredSource.Mana
-        };
+        var bucket = new ManaBucket
+          {
+            Source = scoredSource.Source,
+            Mana = scoredSource.Mana
+          };
 
         foreach (var color in scoredSource.Mana.EnumerateColors())
         {
@@ -194,7 +199,7 @@
       return assignments;
     }
 
-    private bool TryAssignColored(ManaAmount amount)
+    private bool TryAssignColored(IManaAmount amount)
     {
       foreach (var mana in amount.Where(mana => mana.IsColored))
       {
@@ -240,10 +245,16 @@
       return true;
     }
 
+    #region Nested type: ManaBucket
+
     private class ManaBucket
     {
       public ManaColors FilledWithColor { get; private set; }
-      public bool IsFilled { get { return FilledWithColor != ManaColors.None; } }
+
+      public bool IsFilled
+      {
+        get { return FilledWithColor != ManaColors.None; }
+      }
 
       public Mana Mana { get; set; }
       public IManaSource Source { get; set; }
@@ -254,18 +265,24 @@
       }
     }
 
+    #endregion
+
+    #region Nested type: ScoredSource
+
     private class ScoredSource
     {
-      public ScoredSource(IManaSource source, ManaAmount amount, int score = 0)
+      public ScoredSource(IManaSource source, IManaAmount amount, int score = 0)
       {
         Source = source;
         Amount = amount;
         Score = score;
       }
 
-      public ManaAmount Amount { get; private set; }
+      public IManaAmount Amount { get; private set; }
       public int Score { get; private set; }
       public IManaSource Source { get; private set; }
     }
+
+    #endregion
   }
 }

@@ -50,7 +50,7 @@
     {
       var calc = new HashCalculator();
 
-      return calc.Combine(
+      return HashCalculator.Combine(
         calc.Calculate(Players),
         calc.Calculate(Stack),
         calc.Calculate(Turn),

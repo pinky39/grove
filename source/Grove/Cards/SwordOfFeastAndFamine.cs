@@ -33,7 +33,7 @@
               ))),
           C.ActivatedAbility(
             "{2}: Attach to target creature you control. Equip only as a sorcery.",
-            C.Cost<TapOwnerPayMana>((cost, _) => cost.Amount = 2),
+            C.Cost<TapOwnerPayMana>((cost, _) => cost.Amount = 2.AsColorlessMana()),
             C.Effect<AttachEquipment>((e, c) => e.Modifiers(
               c.Modifier<AddPowerAndToughness>((m, _) =>
               {

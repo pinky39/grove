@@ -13,7 +13,7 @@
 
     object Resource { get; }
 
-    void Consume(ManaAmount amount);        
-    ManaAmount GetAvailableMana();
+    void Consume(IManaAmount amount);        
+    IManaAmount GetAvailableMana();
   }
 }

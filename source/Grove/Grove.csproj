@@ -168,6 +168,7 @@
     <Compile Include="Cards\WallOfDenial.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Core\Ability.cs" />
+    <Compile Include="Core\AggregateManaAmount.cs" />
     <Compile Include="Core\Ai\InnerResult.cs" />
     <Compile Include="Core\Ai\ISearchResult.cs" />
     <Compile Include="Core\Ai\LeafResult.cs" />
@@ -223,8 +224,10 @@
     <Compile Include="Core\Effects\TapTargetCreature.cs" />
     <Compile Include="Core\Effects\TargetPlayerTakesExtraTurns.cs" />
     <Compile Include="Core\IActivatedAbilityFactory.cs" />
+    <Compile Include="Core\IManaAmount.cs" />
     <Compile Include="Core\ITriggeredAbilityFactory.cs" />
     <Compile Include="Core\Life.cs" />
+    <Compile Include="Core\ManaAmount.cs" />
     <Compile Include="Core\ManaPayment.cs" />
     <Compile Include="Core\Messages\PlayerHasActivatedAbility.cs" />
     <Compile Include="Core\Messages\SearchFinished.cs" />
@@ -234,6 +237,8 @@
     <Compile Include="Core\DamagePrevention\IDamagePreventionFactory.cs" />
     <Compile Include="Core\ITarget.cs" />
     <Compile Include="Core\Ai\VariableCost.cs" />
+    <Compile Include="Core\PrimitiveManaAmount.cs" />
+    <Compile Include="Core\ZeroManaAmount.cs" />
     <Compile Include="Infrastructure\AssemblyEx.cs" />
     <Compile Include="Infrastructure\Chaining.cs" />
     <Compile Include="Infrastructure\UiScopeAccessor.cs" />
@@ -333,7 +338,6 @@
     <Compile Include="Core\Effects\UntapAllLands.cs" />
     <Compile Include="Core\DamagePrevention\DamagePrevention.cs" />
     <Compile Include="Core\Mana.cs" />
-    <Compile Include="Core\ManaAmount.cs" />
     <Compile Include="Core\ManaBag.cs" />
     <Compile Include="Core\ManaColors.cs" />
     <Compile Include="Core\Modifiers\AddStaticAbility.cs" />

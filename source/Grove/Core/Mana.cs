@@ -2,21 +2,10 @@
 {
   using System;
   using System.Collections.Generic;
-  using System.Linq;
-  using System.Text;
-  using System.Text.RegularExpressions;
   using Infrastructure;
 
   public class Mana : IEquatable<Mana>
   {
-    private static readonly ColorChar[] ColorChars = new[]{
-      new ColorChar{Symbol = 'w', Color = ManaColors.White},
-      new ColorChar{Symbol = 'u', Color = ManaColors.Blue},
-      new ColorChar{Symbol = 'b', Color = ManaColors.Black},
-      new ColorChar{Symbol = 'r', Color = ManaColors.Red},
-      new ColorChar{Symbol = 'g', Color = ManaColors.Green},
-    };
-
     private readonly ManaColors _colors;
 
     public Mana(ManaColors colors = ManaColors.Colorless)
@@ -24,27 +13,72 @@
       _colors = colors;
     }
 
-    public static ManaAmount Any { get { return new Mana(ManaColors.White | ManaColors.Blue | ManaColors.Black | ManaColors.Red | ManaColors.Green); } }
+    public static Mana Any
+    {
+      get { return new Mana(ManaColors.White | ManaColors.Blue | ManaColors.Black | ManaColors.Red | ManaColors.Green); }
+    }
 
-    public static Mana Black { get { return new Mana(ManaColors.Black); } }
+    public static Mana Black
+    {
+      get { return new Mana(ManaColors.Black); }
+    }
 
-    public static Mana Blue { get { return new Mana(ManaColors.Blue); } }
-    public ManaColors Colors { get { return _colors; } }
+    public static Mana Blue
+    {
+      get { return new Mana(ManaColors.Blue); }
+    }
 
-    public static Mana Green { get { return new Mana(ManaColors.Green); } }
+    public ManaColors Colors
+    {
+      get { return _colors; }
+    }
 
-    public bool IsColored { get { return !IsColorless; } }
+    public static Mana Green
+    {
+      get { return new Mana(ManaColors.Green); }
+    }
 
-    public bool IsColorless { get { return _colors == ManaColors.Colorless; } }
-    public bool IsMultiColor { get { return Rank > 1; } }
+    public bool IsColored
+    {
+      get { return !IsColorless; }
+    }
 
-    public int Order { get { return (int) _colors; } }
-    public int Rank { get { return EnumEx.GetSetBitCount((long) _colors); } }
+    public bool IsColorless
+    {
+      get { return _colors == ManaColors.Colorless; }
+    }
 
-    public static Mana Red { get { return new Mana(ManaColors.Red); } }
-    public string Symbol { get { return GetSymbolFromColor(_colors); } }
+    public bool IsMultiColor
+    {
+      get { return Rank > 1; }
+    }
 
-    public static Mana White { get { return new Mana(ManaColors.White); } }
+    public int Order
+    {
+      get { return (int) _colors; }
+    }
+
+    public int Rank
+    {
+      get { return EnumEx.GetSetBitCount((long) _colors); }
+    }
+
+    public static Mana Red
+    {
+      get { return new Mana(ManaColors.Red); }
+    }
+
+    public string Symbol
+    {
+      get { return ManaAmount.GetSymbolFromColor(_colors); }
+    }
+
+    public static Mana White
+    {
+      get { return new Mana(ManaColors.White); }
+    }
+
+    #region IEquatable<Mana> Members
 
     public bool Equals(Mana other)
     {
@@ -53,23 +87,7 @@
       return Equals(other._colors, _colors);
     }
 
-    public static ManaAmount Parse(string str)
-    {
-      str = str.ToLowerInvariant();
-      var tokens = Regex.Split(str, "}|{").Where(x => x != String.Empty);
-      var manaBag = new ManaBag();
-
-      foreach (var token in tokens)
-      {
-        var parsed =
-          ParseColorless(token) ??
-            ParseColored(token);
-
-        manaBag.Add(parsed);
-      }
-
-      return manaBag.Amount;
-    }
+    #endregion
 
     public IEnumerable<ManaColors> EnumerateColors()
     {
@@ -117,54 +135,6 @@
       return String.Format("{{{0}}}", _colors);
     }
 
-    private static ManaColors GetColorFromSymbol(char code)
-    {
-      foreach (var colorChar in ColorChars)
-      {
-        if (code == colorChar.Symbol)
-          return colorChar.Color;
-      }
-
-      return ManaColors.Colorless;
-    }
-
-    private static string GetSymbolFromColor(ManaColors color)
-    {
-      var sb = new StringBuilder();
-
-      foreach (var colorChar in ColorChars)
-      {
-        if (color == colorChar.Color)
-          sb.Append(colorChar.Symbol);
-      }
-
-      return sb.ToString();
-    }
-
-    private static ManaAmount ParseColored(string token)
-    {
-      var color = ManaColors.None;
-
-      foreach (var ch in token)
-      {
-        color = color | GetColorFromSymbol(ch);
-      }
-
-      if (color == ManaColors.Colorless)
-        throw new InvalidOperationException("Invalid color token: " + token);
-
-      return new ManaAmount(new Mana(color));
-    }
-
-    private static ManaAmount ParseColorless(string token)
-    {
-      int count;
-      if (Int32.TryParse(token, out count))
-        return ManaAmount.Colorless(count);
-
-      return null;
-    }
-
     public static bool operator ==(Mana left, Mana right)
     {
       return Equals(left, right);
@@ -174,11 +144,11 @@
     {
       return !Equals(left, right);
     }
-
-    private class ColorChar
+    
+    public IManaAmount ToAmount()
     {
-      public ManaColors Color { get; set; }
-      public char Symbol { get; set; }
+      return new PrimitiveManaAmount(this);
     }
+        
   }
 }

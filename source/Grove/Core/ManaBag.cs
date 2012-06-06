@@ -31,7 +31,7 @@
       _bag = new List<Mana>();
     }
 
-    public ManaAmount Amount { get { return new ManaAmount(_bag); } }
+    public IManaAmount Amount { get { return new PrimitiveManaAmount(_bag); } }
     public int Count { get { return _bag.Count; } }
     public bool IsEmpty { get { return _bag.Count == 0; } }
 
@@ -45,7 +45,7 @@
       return GetEnumerator();
     }
 
-    public void Add(ManaAmount manaAmount)
+    public void Add(IManaAmount manaAmount)
     {
       foreach (var mana in manaAmount)
       {
@@ -58,7 +58,7 @@
       _bag.Clear();
     }
 
-    public void Consume(ManaAmount amount)
+    public void Consume(IManaAmount amount)
     {
       foreach (var mana in amount)
       {

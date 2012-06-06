@@ -10,9 +10,9 @@
       return Steps(Step.DeclareBlockers)(game, card, spell);
     }
 
-    public static Func<Game, Card, ActivationParameters, bool> ControllerHasMana(ManaAmount manaAmount)
+    public static Func<Game, Card, ActivationParameters, bool> ControllerHasMana(IManaAmount manaAmount)
     {
-      return (game, card, activationParameters) => card.Controller.HasEnoughMana(manaAmount);
+      return (game, card, activationParameters) => card.Controller.HasMana(manaAmount);
     }
 
     public static Func<Game, Card, ActivationParameters, bool> CounterSpell(int? doNotCounterCost = null)
@@ -21,7 +21,7 @@
         if (!doNotCounterCost.HasValue)
           return true;
 
-        return !game.Players.GetOpponent(card.Controller).HasEnoughMana(doNotCounterCost.Value);
+        return !game.Players.GetOpponent(card.Controller).HasMana(doNotCounterCost.Value.AsColorlessMana());
       };
     }
 

@@ -10,21 +10,21 @@
 
     public override bool CanPlay()
     {
-      var manaCost = ManaAmount.Zero;
+      IManaAmount manaCost = ManaAmount.Zero;
       
       if (Card.ManaCost != null)
       {
-        manaCost = manaCost + Card.ManaCost;
+        manaCost = manaCost.Add(Card.ManaCost);
       }
                 
       if (Card.KickerCost != null)
       {
-        manaCost = manaCost + Card.KickerCost;
+        manaCost = manaCost.Add(Card.KickerCost);
       }
 
 
       if (ActivationParameters.X.HasValue)
-        manaCost = manaCost + ActivationParameters.X.Value;
+        manaCost = manaCost.Add(ActivationParameters.X.Value);
 
       Controller.AddManaToManaPool(manaCost);
       var prerequisites = Card.CanCast();

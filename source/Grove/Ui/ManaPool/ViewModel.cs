@@ -13,7 +13,7 @@
       _player.Property(x => x.ManaPool).Changes(this).Property(x => x.ManaPool);
     }
 
-    public ManaAmount ManaPool
+    public object ManaPool
     {
       get { return _player.ManaPool; }
     }   

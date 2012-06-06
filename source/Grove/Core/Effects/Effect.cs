@@ -18,8 +18,8 @@
     protected int? X { get; private set; }
 
     public int CalculateHash(HashCalculator calc)
-    {            
-      return calc.Combine(
+    {
+      return HashCalculator.Combine(
         GetType().GetHashCode(),
         calc.Calculate(Source),
         calc.Calculate(Target),
@@ -78,7 +78,7 @@
 
       public int CalculateHash(HashCalculator calc)
       {
-        return calc.Combine(
+        return HashCalculator.Combine(
           typeof (TEffect).GetHashCode(),
           Init.GetHashCode());
       }
