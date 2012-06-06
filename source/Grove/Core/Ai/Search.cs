@@ -27,7 +27,7 @@
     public Search(SearchResults searchResults)
     {
       _searchResults = searchResults;
-      SearchDepth = 12;
+      SearchDepth = 16;
     }
 
     public bool InProgress
@@ -174,8 +174,8 @@
 
     private bool IsItFeasibleToCreateNewWorker(ISearchNode node, int moveIndex)
     {
-      return SingleThreadedStrategy(node, moveIndex);
-      //return MultiThreadedStrategy2(node, moveIndex);
+      //return SingleThreadedStrategy(node, moveIndex);
+      return MultiThreadedStrategy2(node, moveIndex);
     }
 
     private static bool SingleThreadedStrategy(ISearchNode node, int moveIndex)
