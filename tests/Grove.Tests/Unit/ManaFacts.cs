@@ -94,7 +94,7 @@
       var available = "{R}{R}{R}{G}{G}{G}".ParseManaAmount();
       var amount = "{2}{R}{R}{R}{R}".ParseManaAmount();
 
-      HasNot(available, amount);
+      AssertHasNot(available, amount);
     }
 
     [Fact]
@@ -103,7 +103,7 @@
       var available = "{2}{WG}{R}".ParseManaAmount();
       var amount = "{2}{W}{G}".ParseManaAmount();
 
-      HasNot(available, amount);
+      AssertHasNot(available, amount);
     }
 
     [Fact]
@@ -118,7 +118,7 @@
       var available = "{R}{R}{R}{G}{G}{G}".ParseManaAmount();
       var amount = "{4}{R}{R}".ParseManaAmount();
 
-      Has(available, amount);
+      AssertHas(available, amount);
     }
 
     [Fact]
@@ -127,7 +127,7 @@
       var available = "{3}{RG}{R}{G}".ParseManaAmount();
       var amount = "{4}{R}{R}".ParseManaAmount();
 
-      Has(available, amount);
+      AssertHas(available, amount);
     }
 
     [Fact]
@@ -136,7 +136,7 @@
       var available = "{RG}{RG}".ParseManaAmount();
       var amount = "{G}{G}".ParseManaAmount();
 
-      Has(available, amount);
+      AssertHas(available, amount);
     }
 
     [Fact]
@@ -145,7 +145,16 @@
       var available = "{G}{RG}{RG}{G}".ParseManaAmount();
       var amount = "{2}{G}{G}".ParseManaAmount();
 
-      Has(available, amount);
+      AssertHas(available, amount);
+    }
+
+    [Fact]
+    public void Has5()
+    {
+      var available = "{R}".ParseManaAmount();
+      var amount = 1.AsColorlessMana();
+
+      AssertHas(available, amount);
     }
 
     [Fact]
@@ -207,14 +216,20 @@
       Assert.Equal(new string[] {}, result);
     }
 
-    private void Has(IManaAmount available, IManaAmount amount)
+    private bool Has(IManaAmount available, IManaAmount amount)
     {
-      Assert.True(ManaPayment.CanPay(amount, new MutableSource(available).ToEnumerable()));
+      var manaSources = new ManaSources(new MutableSource(available).ToEnumerable());
+      return manaSources.Has(amount);
     }
+    
+    private void AssertHas(IManaAmount available, IManaAmount amount)
+    {            
+      Assert.True(Has(available, amount));
+    }    
 
-    private void HasNot(IManaAmount available, IManaAmount amount)
+    private void AssertHasNot(IManaAmount available, IManaAmount amount)
     {
-      Assert.False(ManaPayment.CanPay(amount, new MutableSource(available).ToEnumerable()));
+      Assert.False(Has(available, amount));
     }
 
     private IManaSource Mutable(string str)

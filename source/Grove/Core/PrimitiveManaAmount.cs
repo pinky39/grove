@@ -2,6 +2,7 @@
 {
   using System.Collections;
   using System.Collections.Generic;
+  using System.Linq;
 
   public class PrimitiveManaAmount : IManaAmount
   {
@@ -32,7 +33,22 @@
     public int Converted
     {
       get { return _amount.Count; }
-    }    
+    }
+
+    public bool Has(Mana mana)
+    {
+      return _amount.Any(m => m.HasColor(mana.Colors));
+    }
+
+    public Mana First
+    {
+      get { return _amount[0]; }
+    }
+
+    public bool IsColorless
+    {
+      get { return _amount.All(x => x.IsColorless); }
+    }
 
     #endregion
   }

@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Infrastructure;
@@ -61,6 +62,51 @@
     }
 
     public bool Has(IManaAmount amount)
+    {                        
+      return QuickCheck(amount) ?? SlowCheck(amount);
+    }
+
+    private bool? QuickCheck(IManaAmount amount)
+    {
+      return ColorlessManaCheck(amount) ?? SingleManaCheck(amount);
+    }
+
+    private bool? ColorlessManaCheck(IManaAmount amount)
+    {
+      if (!amount.IsColorless)
+        return null;
+
+      var total = amount.Converted;
+
+      foreach (var sourcesWithSameResource in _sources)
+      {
+        total -= sourcesWithSameResource.Sources[0].GetAvailableMana().Converted;
+
+        if (total <= 0)
+          return true;
+      }
+
+      return false;
+    }
+
+    private bool? SingleManaCheck(IManaAmount amount)
+    {
+      if (amount.Converted > 1)
+        return null;      
+
+      foreach (var sourcesWithSameResource in _sources )
+      {
+        foreach (var source in sourcesWithSameResource.Sources)
+        {
+          if (source.GetAvailableMana().Has(amount.First))
+            return true;
+        }                
+      }
+
+      return false;
+    }
+
+    private bool SlowCheck(IManaAmount amount)
     {
       foreach (var sources in EnumerateSources())
       {
@@ -69,7 +115,6 @@
           return true;
         }
       }
-
       return false;
     }
 

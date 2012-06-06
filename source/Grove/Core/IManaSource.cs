@@ -14,6 +14,6 @@
     object Resource { get; }
 
     void Consume(IManaAmount amount);        
-    IManaAmount GetAvailableMana();
+    IManaAmount GetAvailableMana();    
   }
 }

@@ -5,6 +5,8 @@
 
   public class ZeroManaAmount : IManaAmount
   {
+    #region IManaAmount Members
+
     public IEnumerator<Mana> GetEnumerator()
     {
       yield break;
@@ -19,5 +21,22 @@
     {
       get { return 0; }
     }
+
+    public bool Has(Mana mana)
+    {
+      return false;
+    }
+
+    public Mana First
+    {
+      get { return null; }
+    }
+
+    public bool IsColorless
+    {
+      get { return true; }
+    }
+
+    #endregion
   }
 }
