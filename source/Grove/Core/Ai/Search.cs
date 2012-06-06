@@ -164,11 +164,29 @@
       return stateCount - _startStateCount;
     }
 
-    private bool IsItFeasibleToCreateNewWorker(ISearchNode node, int moveIndex)
+    private static bool IsItFeasibleToCreateNewWorker(ISearchNode node, int moveIndex)
     {
-      const int maxWorkers = 1;
+      return SingleThreadedStrategy(node, moveIndex);
+      //return MultiThreadedStrategy2(node, moveIndex);
+    }
+
+    private static bool SingleThreadedStrategy(ISearchNode node, int moveIndex)
+    {
+      return false;
+    }
+
+    private bool MultiThreadedStrategy1(ISearchNode node, int moveIndex)
+    {
+      const int maxWorkers = 4;
       var depth = GetDepth(node.Game.Turn.StateCount);
       return (_workers.Count < maxWorkers && depth == 0 && moveIndex > 0);
+    }
+
+    private bool MultiThreadedStrategy2(ISearchNode node, int moveIndex)
+    {
+      const int maxWorkers = 6;
+      var depth = GetDepth(node.Game.Turn.StateCount);
+      return (_workers.Count < maxWorkers && depth < 2 && moveIndex < node.ResultCount - 1);
     }
 
     private void RemoveWorker(SearchWorker worker)
