@@ -128,7 +128,7 @@
 
     public ITargetSelectorFactory Selector(TargetValidator validator, ScoreCalculator scorer = null, Zone zone = Zone.Battlefield)
     {
-      scorer = scorer ?? delegate { return RankBounds.BestRank; };
+      scorer = scorer ?? delegate { return WellKnownTargetScores.Good; };
 
       return new TargetSelector.Factory{
         Game = _game,

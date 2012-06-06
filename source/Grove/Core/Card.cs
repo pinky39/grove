@@ -145,7 +145,7 @@
 
     public bool HasSummoningSickness
     {
-      get { return Is().Creature && _hasSummoningSickness.Value && !Has().Haste; }
+      get { return _hasSummoningSickness.Value && Is().Creature && !Has().Haste; }
     }
 
     public bool HasXInCost

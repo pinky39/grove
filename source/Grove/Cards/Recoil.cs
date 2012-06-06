@@ -20,7 +20,7 @@
         .Effect<ReturnTargetPermanentToHand>((e, _) => e.Discard = 1)
         .Target(C.Selector(
           validator: target => target.IsCard(),
-          scorer: TargetScores.OpponentStuffScoresMore()));
+          scorer: Core.Ai.TargetScores.OpponentStuffScoresMore()));
     }
   }
 }

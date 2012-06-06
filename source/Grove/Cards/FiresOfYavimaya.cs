@@ -36,7 +36,7 @@
               }, untilEndOfTurn: true))),
             C.Selector(
               validator: target => target.Is().Creature,
-              scorer: TargetScores.YourStuffScoresMore()),
+              scorer: Core.Ai.TargetScores.YourStuffScoresMore()),
             timing: Any(
               Timings.ResponseToSpell(EffectCategories.PwTReduction),
               Timings.Combat))

@@ -405,7 +405,7 @@
     <Compile Include="Core\Messages\CardChangedZone.cs" />
     <Compile Include="Core\Messages\DamageHasBeenDealt.cs" />
     <Compile Include="Core\Messages\PlayerHasCastASpell.cs" />
-    <Compile Include="Core\RankBounds.cs" />
+    <Compile Include="Core\WellKnownTargetScores.cs" />
     <Compile Include="Core\UiTargetSelector.cs" />
     <Compile Include="Core\Zones\OrderedZone.cs" />
     <Compile Include="Core\Zones\UnorderedZone.cs" />

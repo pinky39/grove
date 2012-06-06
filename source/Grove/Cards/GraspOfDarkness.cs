@@ -25,7 +25,7 @@
           }, untilEndOfTurn: true)))
         .Target(C.Selector(
           validator: target => target.Is().Creature,
-          scorer: TargetScores.OpponentStuffScoresMore(spellsDamage: 4, reducesPwt: true)));
+          scorer: Core.Ai.TargetScores.OpponentStuffScoresMore(spellsDamage: 4, reducesPwt: true)));
     }
   }
 }

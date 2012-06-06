@@ -20,7 +20,7 @@
         .Category(EffectCategories.Destruction)
         .Target(C.Selector(
           validator: target => target.Is().Creature && !target.Is().Artifact,
-          scorer: TargetScores.OpponentStuffScoresMore()));
+          scorer: Core.Ai.TargetScores.OpponentStuffScoresMore()));
     }
   }
 }

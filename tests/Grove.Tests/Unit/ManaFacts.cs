@@ -22,7 +22,7 @@
     [Fact]
     public void Performance()
     {
-      IManaAmount amount = "{4}{R}{R}".ParseManaAmount();
+      var amount = "{4}{R}{R}".ParseManaAmount();
       var manaSources = new ManaSources(
         new[]
           {
@@ -85,7 +85,7 @@
       ManaPayment.Pay(amount, available);
 
       Assert.Equal(2, available.GetAvailableMana().Count());
-      Assert.Equal(new[] { Mana.Black, Mana.Red }, available.GetAvailableMana().ToArray());
+      Assert.Equal(new[] {Mana.Black, Mana.Red}, available.GetAvailableMana().ToArray());
     }
 
     [Fact]
@@ -221,11 +221,11 @@
       var manaSources = new ManaSources(new MutableSource(available).ToEnumerable());
       return manaSources.Has(amount);
     }
-    
+
     private void AssertHas(IManaAmount available, IManaAmount amount)
-    {            
+    {
       Assert.True(Has(available, amount));
-    }    
+    }
 
     private void AssertHasNot(IManaAmount available, IManaAmount amount)
     {
@@ -242,9 +242,7 @@
       return new ImmutableSource(str.ParseManaAmount());
     }
 
-    #region Nested type: ManaSource
-
-    public class ImmutableSource :IManaSource
+    public class ImmutableSource : IManaSource
     {
       private readonly IManaAmount _manaAmount;
 
@@ -273,7 +271,7 @@
         return _manaAmount;
       }
     }
-    
+
     public class MutableSource : IManaSource
     {
       private readonly ManaBag _bag;
@@ -287,8 +285,6 @@
       {
         get { return GetAvailableMana(); }
       }
-
-      #region IManaSource Members
 
       public int Priority
       {
@@ -310,14 +306,10 @@
         return _bag.Amount;
       }
 
-      #endregion
-
       public void Consume(Dictionary<int, List<Mana>> payment)
       {
         Consume(new PrimitiveManaAmount(payment[0]));
       }
     }
-
-    #endregion
   }
 }

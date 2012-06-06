@@ -1,6 +1,6 @@
 ﻿namespace Grove.Tests.Unit
 {
-  using Grove.Core;
+  using Core;
   using Xunit;
 
   public class CardTypeFacts
@@ -19,7 +19,7 @@
     public void IsAny()
     {
       var type = new CardType("Legendary Creature - Vampire Shaman");
-      Assert.True(type.IsAny(new[]{"creature", "land"}));
+      Assert.True(type.IsAny(new[] {"creature", "land"}));
     }
   }
 }

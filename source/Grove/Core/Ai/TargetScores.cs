@@ -9,9 +9,9 @@
     {
       return (target, source, maxX, game) => {
         if (target.Card().Is().Token)
-          return Convert.ToInt32(RankBounds.BestRank - (target.Card().Power + target.Card().Toughness));
+          return Convert.ToInt32(Core.WellKnownTargetScores.Good - (target.Card().Power + target.Card().Toughness));
 
-        return RankBounds.BestRank - target.Card().ManaCost.Count();
+        return Core.WellKnownTargetScores.Good - target.Card().ManaCost.Count();
       };
     }
 
@@ -26,12 +26,12 @@
 
           if (controller != opponent)
           {
-            return considerSpellController ? RankBounds.WorseRank : RankBounds.NotAcceptedRank;
+            return considerSpellController ? Core.WellKnownTargetScores.Bad : Core.WellKnownTargetScores.NotAccepted;
           }
 
           if (target.Card().Has().Indestructible && spellsDamage > 0 && !reducesPwt)
           {
-            return RankBounds.NotAcceptedRank;
+            return Core.WellKnownTargetScores.NotAccepted;
           }
           
           var score = target.Card().Score;
@@ -41,22 +41,22 @@
             score = score/2;
           }
 
-          return RankBounds.BestRank + score;
+          return Core.WellKnownTargetScores.Good + score;
         }
 
         if (target.IsEffect())
         {
           if (target.Effect().Controller != game.Players.GetOpponent(source.Controller))
             return considerSpellController
-              ? RankBounds.WorseRank
-              : RankBounds.NotAcceptedRank;
+              ? Core.WellKnownTargetScores.Bad
+              : Core.WellKnownTargetScores.NotAccepted;
 
-          return RankBounds.BestRank;
+          return Core.WellKnownTargetScores.Good;
         }
 
         if (target.Player() == opponent)
         {
-          var rank = RankBounds.BestRank;
+          var rank = Core.WellKnownTargetScores.Good;
                     
           if (spellsDamage > 0 || maxX > 0)
           {
@@ -67,7 +67,7 @@
           return rank;
         }
 
-        return RankBounds.NotAcceptedRank;
+        return Core.WellKnownTargetScores.NotAccepted;
       };
     }
 
@@ -79,13 +79,13 @@
         if (target.IsCard())
         {
           return target.Card().Controller == opponent
-            ? RankBounds.NotAcceptedRank
-            : RankBounds.BestRank;
+            ? Core.WellKnownTargetScores.NotAccepted
+            : Core.WellKnownTargetScores.Good;
         }
 
         return target.Player() != opponent
-          ? RankBounds.BestRank
-          : RankBounds.NotAcceptedRank;
+          ? Core.WellKnownTargetScores.Good
+          : Core.WellKnownTargetScores.NotAccepted;
       };
     }
   }

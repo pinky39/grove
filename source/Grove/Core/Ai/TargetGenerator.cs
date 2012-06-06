@@ -3,38 +3,19 @@
   using System.Collections;
   using System.Collections.Generic;
   using System.Linq;
-  using Infrastructure;
 
   public class TargetGenerator : IEnumerable<ITarget>
   {
-    private readonly int _maxTargets;
-    private readonly Players _players;
-    private readonly Zones.Stack _stack;
-    private readonly int? _maxX;
-    private readonly List<TargetCandidate> _targets;
+    private readonly List<ITarget> _targets;
 
     public TargetGenerator(TargetSelector selector, Players players, Zones.Stack stack, int? maxX, int maxTargets)
     {
-      _players = players;
-      _stack = stack;
-      _maxX = maxX;
-      _maxTargets = maxTargets;
-      _targets = GetValidTargets(selector);
+      _targets = GetValidTargets(selector, players, stack, maxX, maxTargets);
     }
 
     public IEnumerator<ITarget> GetEnumerator()
     {
-      var filtered = _targets
-        .Where(x => x.Score != RankBounds.NotAcceptedRank);
-
-      if (filtered.None())
-        filtered = _targets;
-
-      return filtered
-        .OrderByDescending(x => x.Score)        
-        .Take(_maxTargets)
-        .Select(x => x.Target)
-        .GetEnumerator();
+      return _targets.GetEnumerator();
     }
 
     IEnumerator IEnumerable.GetEnumerator()
@@ -42,16 +23,22 @@
       return GetEnumerator();
     }
 
-    private List<TargetCandidate> GetValidTargets(TargetSelector specification)
+    private static List<ITarget> GetValidTargets(TargetSelector specification, Players players, Zones.Stack stack, int? maxX,
+                                          int maxTargets)
     {
       return
-        _players.SelectMany(player => player.GetTargets(specification)).Concat(
-        _stack.Where(specification.IsValid))
+        players.SelectMany(player => player.GetTargets(specification)).Concat(
+          stack.Where(specification.IsValid))
           .Select(target =>
-            new TargetCandidate{
-              Target = target,
-              Score = specification.CalculateScore(target, _maxX)
-            })
+                  new TargetCandidate
+                    {
+                      Target = target,
+                      Score = specification.CalculateScore(target, maxX)
+                    })
+          .Where(x => x.Score != WellKnownTargetScores.NotAccepted)
+          .OrderByDescending(x => x.Score)
+          .Take(maxTargets)
+          .Select(x => x.Target)
           .ToList();
     }
 

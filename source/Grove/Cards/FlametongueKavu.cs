@@ -26,7 +26,7 @@
             C.Effect<DealDamageToTarget>((e, _) => e.Amount = 4),
             C.Selector(
               validator: target => target.Is().Creature,
-              scorer: TargetScores.OpponentStuffScoresMore(4)),
+              scorer: Core.Ai.TargetScores.OpponentStuffScoresMore(4)),
             category: EffectCategories.DamageDealing)
         );
     }

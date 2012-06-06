@@ -27,7 +27,7 @@
               validator: (target, self) =>
                 target.Is().Creature && target.Card().CanBeTapped &&
                   target.Card().Controller == self.Controller,
-              scorer: TargetScores.LessValuableCardsScoreMore()))),
+              scorer: Core.Ai.TargetScores.LessValuableCardsScoreMore()))),
             C.Effect<ApplyModifiersToSelf>((e, c) => e.Modifiers(
               c.Modifier<AddPowerAndToughness>((m, _) =>
               {

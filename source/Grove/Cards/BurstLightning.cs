@@ -21,11 +21,11 @@
       .Category(EffectCategories.DamageDealing)
       .Target(C.Selector(
         validator: target => target.IsPlayer() || target.Is().Creature,
-        scorer: TargetScores.OpponentStuffScoresMore(2)))
+        scorer: Core.Ai.TargetScores.OpponentStuffScoresMore(2)))
       .KickerEffect<DealDamageToTarget>((e, _) => e.Amount = 4)
       .KickerTarget(C.Selector(
         validator: target => target.IsPlayer() || target.Is().Creature,
-        scorer: TargetScores.OpponentStuffScoresMore(4)));
+        scorer: Core.Ai.TargetScores.OpponentStuffScoresMore(4)));
     }
   }  
 }

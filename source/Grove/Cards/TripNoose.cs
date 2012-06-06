@@ -28,7 +28,7 @@
             C.Effect<TapTargetCreature>(),
             C.Selector(
               target => target.Is().Creature,
-              TargetScores.OpponentStuffScoresMore()
+              Core.Ai.TargetScores.OpponentStuffScoresMore()
               ),
             timing: Timings.Steps(Step.BeginningOfCombat)
             )

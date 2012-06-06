@@ -19,7 +19,7 @@
         .Effect<TargetPlayerTakesExtraTurns>()
         .Target(C.Selector(
           validator: target => target.IsPlayer(),
-          scorer: TargetScores.YourStuffScoresMore()));
+          scorer: Core.Ai.TargetScores.YourStuffScoresMore()));
     }
   }
 }

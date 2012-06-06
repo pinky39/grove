@@ -43,7 +43,7 @@
             }),
             C.Selector(
               target => target.Is().Creature,
-              TargetScores.OpponentStuffScoresMore()
+              Core.Ai.TargetScores.OpponentStuffScoresMore()
               ),
             timing: Timings.InstantRemoval,
             category: EffectCategories.PwTReduction));

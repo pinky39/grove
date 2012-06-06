@@ -26,7 +26,7 @@
           }, untilEndOfTurn: true)))
         .Target(C.Selector(
           validator: target => target.IsPlayer(),
-          scorer: TargetScores.OpponentStuffScoresMore()))
+          scorer: Core.Ai.TargetScores.OpponentStuffScoresMore()))
         .KickerEffect<ApplyModifiersToCreatures>((e, c) =>
           e.Modifiers(c.Modifier<AddPowerAndToughness>((m, _) =>
           {
@@ -35,7 +35,7 @@
           }, untilEndOfTurn: true)))
         .KickerTarget(C.Selector(
           validator: target => target.IsPlayer(),
-          scorer: TargetScores.OpponentStuffScoresMore()));
+          scorer: Core.Ai.TargetScores.OpponentStuffScoresMore()));
     }
   }
 }

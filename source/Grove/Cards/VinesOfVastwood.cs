@@ -24,7 +24,7 @@
           c.Modifier<AddStaticAbility>((m, _) => m.StaticAbility = StaticAbility.Hexproof, untilEndOfTurn: true)))
         .Target(C.Selector(
           validator: target => target.Is().Creature,
-          scorer: TargetScores.YourStuffScoresMore()))
+          scorer: Core.Ai.TargetScores.YourStuffScoresMore()))
         .KickerEffect<ApplyModifiersToTarget>((e, c) => e.Modifiers(
           c.Modifier<AddStaticAbility>((m, _) => m.StaticAbility = StaticAbility.Hexproof, untilEndOfTurn: true),
           c.Modifier<AddPowerAndToughness>((m, _) => {
@@ -33,7 +33,7 @@
           }, untilEndOfTurn: true)))
         .KickerTarget(C.Selector(
           validator: target => target.Is().Creature,
-          scorer: TargetScores.YourStuffScoresMore()));
+          scorer: Core.Ai.TargetScores.YourStuffScoresMore()));
     }
   }
 }

@@ -32,7 +32,7 @@
               c.Effect<DrawCards>((e2, _) => e2.DrawCount = 1))),
             C.Selector(
               validator: target => target.IsPlayer() || target.Is().Creature,
-              scorer: TargetScores.OpponentStuffScoresMore(spellsDamage: 2)),
+              scorer: Core.Ai.TargetScores.OpponentStuffScoresMore(spellsDamage: 2)),
             category: EffectCategories.DamageDealing),
           C.ActivatedAbility(
             "{2}: Attach to target creature you control. Equip only as a sorcery.",

@@ -20,7 +20,7 @@
         .Timing(Timings.Steps(Step.FirstMain))
         .Target(C.Selector(
           validator: target => target.Is().Creature,
-          scorer: TargetScores.YourStuffScoresMore()));
+          scorer: Core.Ai.TargetScores.YourStuffScoresMore()));
 
     }
   }

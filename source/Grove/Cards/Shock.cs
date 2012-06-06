@@ -19,7 +19,7 @@
         .Category(EffectCategories.DamageDealing)
         .Target(C.Selector(
           validator: target => target.IsPlayer() || target.Is().Creature,
-          scorer: TargetScores.OpponentStuffScoresMore(spellsDamage: 2)));
+          scorer: Core.Ai.TargetScores.OpponentStuffScoresMore(spellsDamage: 2)));
     }
   }
 }

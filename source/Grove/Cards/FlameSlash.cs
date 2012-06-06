@@ -19,7 +19,7 @@
         .Effect<DealDamageToTarget>((e, _) => e.Amount = 4)
         .Target(C.Selector(
           validator: target => target.Is().Creature,
-          scorer: TargetScores.OpponentStuffScoresMore(spellsDamage: 4)));
+          scorer: Core.Ai.TargetScores.OpponentStuffScoresMore(spellsDamage: 4)));
     }
   }
 }

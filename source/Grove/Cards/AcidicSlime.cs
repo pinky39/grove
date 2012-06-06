@@ -30,7 +30,7 @@
               target.Is().Artifact ||
                 target.Is().Enchantment ||
                   target.Is().Land,
-              scorer: TargetScores.OpponentStuffScoresMore()),
+              scorer: Core.Ai.TargetScores.OpponentStuffScoresMore()),
             category: EffectCategories.Destruction)
         );
     }
