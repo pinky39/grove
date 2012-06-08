@@ -33,6 +33,11 @@
 
       return cardFactory.CreateCard(controller);
     }
+
+    public List<string> GetAvailableCardsNames()
+    {
+      return _database.Select(x => x.Name).OrderBy(x => x).ToList();
+    }
     
     private List<ICardFactory> CreateDatabase()
     {

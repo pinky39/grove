@@ -4,11 +4,10 @@
   using System.Collections.Generic;
   using System.Linq;
   using System.Reflection;
-  using Grove;
-  using Grove.Core;
-  using Grove.Core.Ai;
-  using Grove.Core.Controllers.Scenario;
-  using Grove.Core.Zones;
+  using Core;
+  using Core.Ai;
+  using Core.Controllers.Scenario;
+  using Core.Zones;
   using log4net.Config;
   using Xunit;
 
@@ -23,14 +22,45 @@
       CreatePlayers(player1ControlledByScript, player2ControlledByScript);
     }
 
-    private static CardDatabase CardDatabase { get { return Container.Resolve<CardDatabase>(); } }
-    protected DecisionFactory DecisionFactory { get { return Container.Resolve<DecisionFactory>(); } }
-    protected Game Game { get { return Container.Resolve<Game>(); } }
-    protected Player P1 { get { return Game.Players.Player1; } }
-    protected Player P2 { get { return Game.Players.Player2; } }
-    protected Search Search { get { return Container.Resolve<Search>(); } }
-    protected Combat Combat { get { return Game.Combat; } }
-    private static Player.IFactory PlayerFactory { get { return Container.Resolve<Player.IFactory>(); } }
+    protected CardDatabase CardDatabase
+    {
+      get { return Container.Resolve<CardDatabase>(); }
+    }
+
+    protected DecisionFactory DecisionFactory
+    {
+      get { return Container.Resolve<DecisionFactory>(); }
+    }
+
+    protected Game Game
+    {
+      get { return Container.Resolve<Game>(); }
+    }
+
+    protected Player P1
+    {
+      get { return Game.Players.Player1; }
+    }
+
+    protected Player P2
+    {
+      get { return Game.Players.Player2; }
+    }
+
+    protected Search Search
+    {
+      get { return Container.Resolve<Search>(); }
+    }
+
+    protected Combat Combat
+    {
+      get { return Game.Combat; }
+    }
+
+    private static Player.IFactory PlayerFactory
+    {
+      get { return Container.Resolve<Player.IFactory>(); }
+    }
 
     public void Dispose()
     {
@@ -52,38 +82,41 @@
     }
 
     protected void Battlefield(Player player, params ScenarioCard[] cards)
-    {    
+    {
       foreach (var scenarioCard in cards)
       {
-        scenarioCard.Initialize(name => {
-          var card = CardDatabase.CreateCard(name, player);
-
-          if (card.IsManaSource)
-            player.AddManaSources(card.ManaSources);
-
-          player.PutCardIntoPlay(card);
-
-          foreach (var enchantment in scenarioCard.Enchantments)
+        scenarioCard.Initialize(name =>
           {
-            enchantment.Initialize(enchantmentName => {
-              var enchantmentCard = CardDatabase.CreateCard(enchantmentName, player);
-              EnchantCard(card, enchantmentCard);
-              return enchantmentCard;
-            });
-          }
+            var card = CardDatabase.CreateCard(name, player);
 
-          foreach (var equipment in scenarioCard.Equipments)
-          {
-            equipment.Initialize(equipmentName => {
-              var equipmentCard = CardDatabase.CreateCard(equipmentName, player);
-              player.PutCardIntoPlay(equipmentCard);
-              EquipCard(card, equipmentCard);
-              return equipmentCard;
-            });
-          }
+            if (card.IsManaSource)
+              player.AddManaSources(card.ManaSources);
 
-          return card;
-        });
+            player.PutCardIntoPlay(card);
+
+            foreach (var enchantment in scenarioCard.Enchantments)
+            {
+              enchantment.Initialize(enchantmentName =>
+                {
+                  var enchantmentCard = CardDatabase.CreateCard(enchantmentName, player);
+                  EnchantCard(card, enchantmentCard);
+                  return enchantmentCard;
+                });
+            }
+
+            foreach (var equipment in scenarioCard.Equipments)
+            {
+              equipment.Initialize(equipmentName =>
+                {
+                  var equipmentCard = CardDatabase.CreateCard(equipmentName, player);
+                  player.PutCardIntoPlay(equipmentCard);
+                  EquipCard(card, equipmentCard);
+                  return equipmentCard;
+                });
+            }
+
+            return card;
+          });
       }
     }
 
@@ -91,11 +124,11 @@
     {
       foreach (var cardName in cardNames)
       {
-        var battlefield = (Battlefield)controller.Battlefield;
+        var battlefield = (Battlefield) controller.Battlefield;
         var card = CardDatabase.CreateCard(cardName, controller);
         battlefield.Add(card);
-        yield return card; 
-      }             
+        yield return card;
+      }
     }
 
     protected ScenarioCard C(string name)
@@ -110,7 +143,7 @@
 
     protected LazyEffect E(ScenarioCard scenarioCard)
     {
-      return new LazyEffect{Effect = () => Game.Stack.First(x => x.Source.OwningCard == scenarioCard.Card)};
+      return new LazyEffect {Effect = () => Game.Stack.First(x => x.Source.OwningCard == scenarioCard.Card)};
     }
 
     protected void EnableLogging()
@@ -151,15 +184,16 @@
 
       foreach (var scenarioCard in cards)
       {
-        scenarioCard.Initialize(name => {
-          var card = CardDatabase.CreateCard(name, player);
-          hand.Add(card);
+        scenarioCard.Initialize(name =>
+          {
+            var card = CardDatabase.CreateCard(name, player);
+            hand.Add(card);
 
-          if (card.IsManaSource)
-            player.AddManaSources(card.ManaSources);
+            if (card.IsManaSource)
+              player.AddManaSources(card.ManaSources);
 
-          return card;
-        });
+            return card;
+          });
       }
     }
 
@@ -169,8 +203,8 @@
     }
 
     protected virtual void RunGame(int maxTurnCount)
-    {      
-      Game.Start(maxTurnCount, skipPreGame: true);        
+    {
+      Game.Start(maxTurnCount, skipPreGame: true);
     }
 
     protected void True(bool condition, string message = null)

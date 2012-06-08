@@ -1,0 +1,76 @@
+MAGICGROVE v 1.0: Card List
+=====================================
+The following cards can be used to construct new decks:
+
+Acidic Slime
+Beacon of Destruction
+Birds of Paradise
+Black Sun's Zenith
+Blanchwood Armor
+Blaze
+Burst Lightning
+Copperline Gorge
+Counterspell
+Creeping Tar Pit
+Cruel Edict
+Darkslick Drake
+Darksteel Gargoyle
+Divination
+Doom blade
+Drana, Kalastria Bloodchief
+Dread
+Drowned Catacomb
+Elvish Warrior
+Evacuation
+Fires of Yavimaya
+Flame Slash
+Flametongue Kavu
+Forest
+Go for the Throat
+Grasp of Darkness
+Grave Titan
+Grizzly Bears
+Hypnotic Specter
+Island
+Leatherback Baloth
+Lightning Bolt
+Liliana's Specter
+Llanowar Behemoth
+Llanowar Elves
+Mana Leak
+Marsh Casualties
+Mountain
+Nantuko Shade
+Order of the Sacred Bell
+Phyrexian Arena
+Raging Ravine
+Ravenous Baloth
+Recoil
+Rootbound Crag
+Rumbling Slum
+Rupture Spire
+Seal of Fire
+Shivan Dragon
+Shock
+Sift
+Sign in Blood
+Steam Vents
+Stupor
+Swamp
+Sword of Feast and Famine
+Sword of Fire and Ice
+Thrun, the Last Troll
+Time Warp
+Trained Armodon
+Trip Noose
+Undermine
+Vampire Nighthawk
+Verdant Force
+Vigor
+Vines of Vastwood
+Vivid Crag
+Vivid Creek
+Volcanic Fallout
+Volcanic Hammer
+Wall of Denial
+Wurmcoil Engine

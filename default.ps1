@@ -12,7 +12,7 @@ properties {
   $buildartifacts_dir = "$build_dir\" 
   $sln_file = "$base_dir\Grove.sln"   
   $product = "Magicgrove"
-  $humanReadableversion = "1.0"
+  $humanReadableversion = "1.1"
   $tools_dir = "$base_dir\lib"	
   $release_dir = "$base_dir\release"   
   $media_dir = "$base_dir\media"
@@ -54,6 +54,7 @@ task DoRelease -depends Test {
 	
 	cp "$build_dir\grove.exe" $release_dir	
 	cp "$base_dir\readme.txt" $release_dir
+	cp "$base_dir\cards.txt" $release_dir
 	cp -recurse "$media_dir" $release_dir
 	
 	$old = pwd
