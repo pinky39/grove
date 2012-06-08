@@ -17,11 +17,15 @@ Additional battlefield backgrounds can be added to /media/images folder. The fil
 
 Other images can also be replaced, as long as they have the same size as the originals.
 
-3. Source code
+3. Adding new decks
+=====================================
+You can construct your own decks as long as you use only the cards listed in cards.txt file. For a deck to be visible to the game, it must reside inside .\media\deck folder and the filename must have .dec extension.
+
+4. Source code
 =====================================
 The source code is available at http://code.google.com/p/magicgrove/
 
-4. License
+5. License
 =====================================
 The project source code is licensed under MIT License.
 
