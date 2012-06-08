@@ -1,4 +1,4 @@
-MAGICGROVE v 1.0: Card List
+MAGICGROVE v 1.1: Card List
 =====================================
 The following cards can be used to construct new decks:
 
