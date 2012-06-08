@@ -1,5 +1,6 @@
 ﻿namespace Grove.Tests.Cards
 {
+  using System.Linq;
   using Grove.Core;
   using Grove.Core.Zones;
   using Infrastructure;
@@ -79,7 +80,7 @@
 
         Exec(
           At(Step.SecondMain, turn: 2)
-            .Verify(() => Equal(15, P1.Life))
+            .Verify(() => Equal(12, P1.Life))
           );
       }
     }

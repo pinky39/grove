@@ -246,7 +246,7 @@
         Exec(
           At(Step.SecondMain, turn: 2)
             .Verify(() => {
-              Equal(16, P1.Life);              
+              Equal(13, P1.Life);              
               Equal(Zone.Battlefield, C(baloth).Zone);
             })
           );
