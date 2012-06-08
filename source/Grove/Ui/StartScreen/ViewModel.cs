@@ -2,16 +2,19 @@
 {
   using System.Windows;
   using Core;
+  using Shell;
 
   public class ViewModel : IIsDialogHost
   {
-    private readonly Match _match;
+    private readonly IShell _shell;
     private readonly CardDatabase _cardDatabase;
+    private readonly DeckScreen.ViewModel.IFactory _deckScreenFactory;
 
-    public ViewModel(Match match, CardDatabase cardDatabase)
+    public ViewModel(IShell shell, CardDatabase cardDatabase, DeckScreen.ViewModel.IFactory deckScreenFactory)
     {
-      _match = match;
+      _shell = shell;
       _cardDatabase = cardDatabase;
+      _deckScreenFactory = deckScreenFactory;
     }
 
     public void AddDialog(object dialog, DialogType dialogType) {}
@@ -35,7 +38,8 @@
 
     public void Play()
     {
-      _match.Start();
+      var deckScreen = _deckScreenFactory.Create();
+      _shell.ChangeScreen(deckScreen);
     }
 
     public interface IFactory

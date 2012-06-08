@@ -1,19 +1,15 @@
 ﻿namespace Grove.Core
 {
-  using System;
-  using System.IO;
-  using System.Linq;
   using System.Threading.Tasks;
   using System.Windows;
-  using Ui;
   using Ui.GameResults;
   using Ui.Shell;
 
   public class Match
   {
-    private static readonly string[] Decks;
+    public const string Player1Name = "You";
+    public const string Player2Name = "Hal";
 
-    private static readonly Random Rnd = new Random();
     private readonly Game.IFactory _gameFactory;
     private readonly ViewModel.IFactory _gameResultsFactory;
     private readonly Ui.MatchResults.ViewModel.IFactory _matchResultsFactory;
@@ -27,11 +23,6 @@
     private bool _playerLeftMatch;
     private bool _rematch = true;
     private bool _shutdown;
-
-    static Match()
-    {
-      Decks = Directory.EnumerateFiles(MediaLibrary.DecksFolder, "*.dec").ToArray();
-    }
 
     public Match(
       Ui.PlayScreen.ViewModel.IFactory playScreenFactory,
@@ -79,9 +70,11 @@
       }
     }
 
-    public void Start()
+    public void Start(string player1Deck, string player2Deck)
     {
-      RandomizeDecks();
+      _deck1 = player1Deck + ".dec";
+      _deck2 = player2Deck + ".dec";
+
       ResetResults();
       Run();
     }
@@ -98,22 +91,6 @@
       var viewModel = _matchResultsFactory.Create();
       Shell.ShowModalDialog(viewModel);
       _rematch = viewModel.ShouldRematch;
-    }
-
-    private static string RandomDeck()
-    {
-      return Decks[Rnd.Next(0, Decks.Length)];
-    }
-
-    private void RandomizeDecks()
-    {
-      _deck1 = RandomDeck();
-      _deck2 = RandomDeck();
-
-      while (_deck2 == _deck1)
-      {
-        _deck2 = RandomDeck();
-      }
     }
 
     private void ResetResults()
@@ -134,14 +111,14 @@
             Game = _gameFactory.Create();
 
             Game.Players.Player1 = _playerFactory.Create(
-              name: "You",
+              name: Player1Name,
               avatar: "player1.png",
               isHuman: true,
               deck: _deck1
               );
 
             Game.Players.Player2 = _playerFactory.Create(
-              name: "Hal",
+              name: Player2Name,
               avatar: "player2.png",
               isHuman: false,
               deck: _deck2
@@ -151,14 +128,14 @@
             var playScreen = _playScreenFactory.Create();
             Shell.ChangeScreen(playScreen);
 
-            Game.Start(looser: Looser);            
+            Game.Start(looser: Looser);
 
             var looser = UpdateScore();
             SetLooser(looser);
           });
 
       backgroundTask.ContinueWith(task =>
-        {                    
+        {
           if (IsFinished)
           {
             DisplayMatchResults();
@@ -170,7 +147,7 @@
 
             if (_rematch && !_playerLeftMatch)
             {
-              Start();
+              Start(_deck1, _deck2);
               return;
             }
 
@@ -221,6 +198,6 @@
 
       Player1WinCount++;
       return 1;
-    }   
+    }
   }
 }

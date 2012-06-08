@@ -421,6 +421,10 @@
     <Compile Include="Ui\AttackerSelected.cs" />
     <Compile Include="Ui\AttackerUnselected.cs" />
     <Compile Include="Ui\BackgroundExtension.cs" />
+    <Compile Include="Ui\DeckScreen\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\DeckScreen\ViewModel.cs" />
     <Compile Include="Ui\Permanent\CombatMarkers.cs" />
     <Compile Include="Ui\BlockerSelected.cs" />
     <Compile Include="Ui\BlockerUnselected.cs" />
@@ -635,6 +639,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Ui\CombatDamage\View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\DeckScreen\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
