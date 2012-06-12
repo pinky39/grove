@@ -23,6 +23,7 @@
       new AutoPass{Step = Step.DeclareAttackers, Pass = Pass.Always},
       new AutoPass{Step = Step.DeclareBlockers, Pass = Pass.Always},
       new AutoPass{Step = Step.CombatDamage, Pass = Pass.Always},
+      new AutoPass{Step = Step.FirstStrikeCombatDamage, Pass = Pass.Always},
       new AutoPass{Step = Step.EndOfCombat, Pass = Pass.Always},
       new AutoPass{Step = Step.SecondMain, Pass = Pass.Passive},
       new AutoPass{Step = Step.EndOfTurn, Pass = Pass.Always},

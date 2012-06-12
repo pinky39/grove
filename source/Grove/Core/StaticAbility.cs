@@ -14,6 +14,7 @@
     Defender,
     Shroud,
     FirstStrike,
-    DoubleStrike
+    DoubleStrike,
+    Reach
   }
 }

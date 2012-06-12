@@ -1,8 +1,8 @@
 ﻿namespace Grove.Tests.Cards
 {
   using System.Linq;
-  using Grove.Core;
-  using Grove.Core.Zones;
+  using Core;
+  using Core.Zones;
   using Infrastructure;
   using Xunit;
 
@@ -22,7 +22,7 @@
       [Fact]
       public void DoNotTriggerOnNonCombatDamage()
       {
-        Battlefield(P1, 
+        Battlefield(P1,
           C("Rumbling Slum").IsEquipedWith(C("Sword of Fire and Ice")));
 
         RunGame(maxTurnCount: 2);
@@ -47,13 +47,14 @@
           At(Step.FirstMain)
             .Cast(slime)
             .Target(sword)
-            .Verify(() => {
-              Equal(2, C(bear).Power);
-              Equal(Zone.Graveyard, C(sword).Zone);
-            })
+            .Verify(() =>
+              {
+                Equal(2, C(bear).Power);
+                Equal(Zone.Graveyard, C(sword).Zone);
+              })
           );
       }
-      
+
       [Fact]
       public void Equip()
       {
@@ -67,22 +68,24 @@
         Exec(
           At(Step.FirstMain)
             .Activate(sword, target: bear1)
-            .Verify(() => {
-              True(C(bear1).HasAttachments);
-              Equal(4, C(bear1).Power);
-              Equal(4, C(bear1).Toughness);
-              True(C(bear1).HasProtectionFrom(ManaColors.Blue));
-              True(C(bear1).HasProtectionFrom(ManaColors.Red));
-            }),
+            .Verify(() =>
+              {
+                True(C(bear1).HasAttachments);
+                Equal(4, C(bear1).Power);
+                Equal(4, C(bear1).Toughness);
+                True(C(bear1).HasProtectionFrom(ManaColors.Blue));
+                True(C(bear1).HasProtectionFrom(ManaColors.Red));
+              }),
           At(Step.DeclareAttackers)
             .DeclareAttackers(bear1),
           At(Step.CombatDamage)
             .Target(bear2),
           At(Step.SecondMain)
-            .Verify(() => {
-              Equal(Zone.Graveyard, C(bear2).Zone);
-              Equal(1, P1.Hand.Count());
-            })
+            .Verify(() =>
+              {
+                Equal(Zone.Graveyard, C(bear2).Zone);
+                Equal(1, P1.Hand.Count());
+              })
           );
       }
     }

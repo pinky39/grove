@@ -17,6 +17,7 @@
       token => token == "Flying" ? new ImportantTextToken(token) : null,
       token => token == "Lifelink" ? new ImportantTextToken(token) : null,
       token => token == "Deathtouch" ? new ImportantTextToken(token) : null,
+      token => token == "Hexproof" ? new ImportantTextToken(token) : null,
       token => token == "Kicker" ? new ImportantTextToken(token) : null,
       token => token == "Equip" ? new ImportantTextToken(token) : null,
       token => token == "Trample" ? new ImportantTextToken(token) : null,

@@ -439,7 +439,7 @@
     {
       return
         (!Has().Unblockable) &&
-          (Has().Flying ? card.Has().Flying : true) &&
+          (Has().Flying ? card.Has().Flying | card.Has().Reach : true) &&
             (Has().Fear ? card.HasColor(ManaColors.Black) || card.Is().Artifact : true) &&
               !HasProtectionFrom(card.Colors);
     }

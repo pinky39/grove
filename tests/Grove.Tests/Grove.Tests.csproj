@@ -80,6 +80,7 @@
     <Compile Include="Cards\SealOfFire.cs" />
     <Compile Include="Cards\SteamVents.cs" />
     <Compile Include="Cards\StudentOfWarfare.cs" />
+    <Compile Include="Cards\SwordOfBodyAndMind.cs" />
     <Compile Include="Cards\SwordsToPlowshares.cs" />
     <Compile Include="Cards\TimeWarp.cs" />
     <Compile Include="Cards\VividCreek.cs" />

@@ -19,6 +19,7 @@
     bool Unblockable { get; }
     bool FirstStrike { get; }
     bool DoubleStrike { get; }
+    bool Reach { get; }
   }
 
   [Copyable]
@@ -28,7 +29,8 @@
 
     private StaticAbilities() {}
 
-    public StaticAbilities(IEnumerable<StaticAbility> staticAbilities, ChangeTracker changeTracker, IHashDependancy hashDependancy)
+    public StaticAbilities(IEnumerable<StaticAbility> staticAbilities, ChangeTracker changeTracker,
+                           IHashDependancy hashDependancy)
     {
       _abilities = new TrackableList<StaticAbility>(staticAbilities, changeTracker, hashDependancy);
     }
@@ -51,6 +53,7 @@
     public bool Unblockable { get { return Has(StaticAbility.Unblockable); } }
     public bool FirstStrike { get { return Has(StaticAbility.FirstStrike); } }
     public bool DoubleStrike { get { return Has(StaticAbility.DoubleStrike); } }
+    public bool Reach { get { return Has(StaticAbility.Reach); } }
 
     public void Accept(IModifier modifier)
     {

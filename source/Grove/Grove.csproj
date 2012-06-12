@@ -146,7 +146,9 @@
     <Compile Include="Cards\RootboundCrag.cs" />
     <Compile Include="Cards\RumblingSlum.cs" />
     <Compile Include="Cards\SavannahLions.cs" />
+    <Compile Include="Cards\StirringWildwood.cs" />
     <Compile Include="Cards\StudentOfWarfare.cs" />
+    <Compile Include="Cards\SunpetalGrove.cs" />
     <Compile Include="Cards\SwordOfBodyAndMind.cs" />
     <Compile Include="Cards\SwordOfFireAndIce.cs" />
     <Compile Include="Cards\SealOfFire.cs" />
@@ -163,6 +165,7 @@
     <Compile Include="Cards\ThrunTheLastTroll.cs" />
     <Compile Include="Cards\TimeWarp.cs" />
     <Compile Include="Cards\TripNoose.cs" />
+    <Compile Include="Cards\TrollAscetic.cs" />
     <Compile Include="Cards\Undermine.cs" />
     <Compile Include="Cards\Uncastable.cs" />
     <Compile Include="Cards\VolcanicHammer.cs" />

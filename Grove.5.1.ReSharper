@@ -29,6 +29,7 @@
           <Item>unsafe</Item>
           <Item>volatile</Item>
         </MODIFIERS_ORDER>
+        <PLACE_SIMPLE_ACCESSORHOLDER_ON_SINGLE_LINE>True</PLACE_SIMPLE_ACCESSORHOLDER_ON_SINGLE_LINE>
         <WRAP_TERNARY_EXPR_STYLE>WRAP_IF_LONG</WRAP_TERNARY_EXPR_STYLE>
       </FormatSettings>
       <UsingsSettings>
