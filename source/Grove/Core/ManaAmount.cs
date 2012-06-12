@@ -10,14 +10,44 @@
   {
     private static readonly Symbol[] Symbols = new[]
       {
-        new Symbol {Char = 'w', Color = ManaColors.White},
-        new Symbol {Char = 'u', Color = ManaColors.Blue},
-        new Symbol {Char = 'b', Color = ManaColors.Black},
-        new Symbol {Char = 'r', Color = ManaColors.Red},
-        new Symbol {Char = 'g', Color = ManaColors.Green},
+        new Symbol {Char = 'W', Color = ManaColors.White},
+        new Symbol {Char = 'U', Color = ManaColors.Blue},
+        new Symbol {Char = 'B', Color = ManaColors.Black},
+        new Symbol {Char = 'R', Color = ManaColors.Red},
+        new Symbol {Char = 'G', Color = ManaColors.Green},
       };
 
-    public static readonly ZeroManaAmount Zero = new ZeroManaAmount();    
+    public static readonly ZeroManaAmount Zero = new ZeroManaAmount();
+
+    public static IManaAmount Any
+    {
+      get { return Mana.Any.ToAmount(); }
+    }
+
+    public static IManaAmount White
+    {
+      get { return Mana.White.ToAmount(); }
+    }
+
+    public static IManaAmount Black
+    {
+      get { return Mana.Black.ToAmount(); }
+    }
+
+    public static IManaAmount Blue
+    {
+      get { return Mana.Blue.ToAmount(); }
+    }
+
+    public static IManaAmount Red
+    {
+      get { return Mana.Red.ToAmount(); }
+    }
+
+    public static IManaAmount Green
+    {
+      get { return Mana.Green.ToAmount(); }
+    }
 
     public static IEnumerable<Mana> Colored(this IManaAmount amount)
     {
@@ -37,8 +67,8 @@
     public static int MaxRank(this IManaAmount amount)
     {
       return amount.IsZero() ? 0 : amount.Max(x => x.Rank);
-    }
-
+    }    
+    
     public static string[] GetSymbolNames(this IManaAmount amount)
     {
       var colorlessCount = amount.Count(mana => mana.IsColorless);
@@ -115,13 +145,13 @@
       return new PrimitiveManaAmount(parsed);
     }
 
-    public static string GetSymbolFromColor(ManaColors color)
+    public static string GetSymbolsFromColor(ManaColors color)
     {
       var sb = new StringBuilder();
 
       foreach (var colorChar in Symbols)
       {
-        if (color == colorChar.Color)
+        if ((colorChar.Color & color) == colorChar.Color)
           sb.Append(colorChar.Char);
       }
 
@@ -147,7 +177,7 @@
     {
       foreach (var colorChar in Symbols)
       {
-        if (code == colorChar.Char)
+        if (Char.ToUpper(code) == colorChar.Char)
           return colorChar.Color;
       }
 
@@ -163,14 +193,10 @@
       return null;
     }
 
-    #region Nested type: Symbol
-
     private class Symbol
     {
       public ManaColors Color { get; set; }
       public char Char { get; set; }
     }
-
-    #endregion
   }
 }

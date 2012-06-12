@@ -203,7 +203,7 @@
 
       var expectedImageNames = new[]
         {
-          "5", "b", "g", "g"
+          "5", "B", "G", "G"
         };
       Assert.Equal(expectedImageNames, result);
     }

@@ -14,7 +14,7 @@
   using Zones;
 
   [Copyable]
-  public class Card : IEffectSource, ITarget, IHashable, IDamageable, IHashDependancy
+  public class Card : IEffectSource, ITarget, IDamageable, IHashDependancy
   {
     private static readonly Random Random = new Random();
 
@@ -37,6 +37,7 @@
     private Trackable<bool> _isTapped;
     private IEffectFactory _kickerEffectFactory;
     private TargetSelector _kickerTargetSelector;
+    private Level _level;
     private List<IManaSource> _manaSources;
     private TrackableList<IModifier> _modifiers;
     private Power _power;
@@ -52,9 +53,7 @@
     private CalculateX _xCalculator;
     private Trackable<Zone> _zone;
 
-    protected Card()
-    {
-    }
+    protected Card() {}
 
     public Card AttachedTo
     {
@@ -213,6 +212,7 @@
       {
         yield return _power;
         yield return _toughness;
+        yield return _level;
         yield return _counters;
         yield return _colors;
         yield return _type;
@@ -258,7 +258,10 @@
       get { return _zone.Value; }
     }
 
-    #region IDamageable Members
+    public int? Level
+    {
+      get { return _level.Value; }
+    }
 
     public void DealDamage(Card damageSource, int amount, bool isCombat)
     {
@@ -295,10 +298,6 @@
 
       this.Updates("Damage");
     }
-
-    #endregion
-
-    #region IEffectSource Members
 
     public EffectCategories EffectCategories { get; private set; }
 
@@ -358,6 +357,7 @@
             Zone.GetHashCode(),
             Power.GetHashCode(),
             Toughness.GetHashCode(),
+            Level.GetHashCode(),
             Colors.GetHashCode(),
             Counters.GetHashCode(),
             Type.GetHashCode(),
@@ -374,16 +374,10 @@
       return _hash.Value.Value;
     }
 
-    #endregion
-
-    #region IHashDependancy Members
-
     public void InvalidateHash()
     {
       _hash.Value = null;
     }
-
-    #endregion
 
     public void ActivateAbility(int index, ActivationParameters activationParameters)
     {
@@ -710,14 +704,12 @@
       _publisher.Publish(message);
     }
 
-    #region Nested type: CardFactory
-
     public class CardFactory : ICardFactory
     {
       private readonly List<IActivatedAbilityFactory> _activatedAbilityFactories = new List<IActivatedAbilityFactory>();
       private readonly ChangeTracker _changeTracker;
       private readonly List<IContinuousEffectFactory> _continuousEffectFactories = new List<IContinuousEffectFactory>();
-      private readonly Game _game;      
+      private readonly Game _game;
       private readonly List<StaticAbility> _staticAbilities = new List<StaticAbility>();
       private readonly List<ITriggeredAbilityFactory> _triggeredAbilityFactories = new List<ITriggeredAbilityFactory>();
       private ManaColors _colors;
@@ -727,6 +719,7 @@
       private string _kickerCost;
       private IEffectFactory _kickerEffectFactory;
       private ITargetSelectorFactory _kickerSelectorFactory;
+      private bool _isleveler;
       private string _manaCost;
       private string _name;
       private int? _power;
@@ -741,10 +734,8 @@
       public CardFactory(Game game)
       {
         _changeTracker = game.ChangeTracker;
-        _game = game;        
+        _game = game;
       }
-
-      #region ICardFactory Members
 
       public string Name
       {
@@ -752,7 +743,7 @@
       }
 
       public Card CreateCard(Player controller)
-      {        
+      {
         var card = _game.Search.InProgress ? new Card() : Bindable.Create<Card>();
 
         card._publisher = _game.Publisher;
@@ -766,7 +757,7 @@
         card._xCalculator = _xCalculator;
         card.ManaCost = _manaCost.ParseManaAmount();
         card.KickerCost = _kickerCost.ParseManaAmount();
-        card.ManaCostWithKicker = card.HasKicker ?  card.ManaCost.Add(card.KickerCost) : card.ManaCost;
+        card.ManaCostWithKicker = card.HasKicker ? card.ManaCost.Add(card.KickerCost) : card.ManaCost;
         card.Text = _text ?? String.Empty;
         card.FlavorText = _flavorText ?? String.Empty;
         card.Illustration = GetIllustration(_name, _type);
@@ -774,6 +765,7 @@
 
         CreateBindablePower(card);
         CreateBindableToughness(card);
+        CreateBindableLevel(card);
         CreateBindableCounters(card);
         CreateBindableType(card);
         CreateBindableColors(card);
@@ -821,8 +813,6 @@
         return card;
       }
 
-      #endregion
-
       public CardFactory Abilities(params object[] abilities)
       {
         foreach (var ability in abilities)
@@ -868,6 +858,12 @@
       public CardFactory Colors(ManaColors colors)
       {
         _colors = colors;
+        return this;
+      }
+
+      public CardFactory IsLeveler()
+      {
+        _isleveler = true;
         return this;
       }
 
@@ -1019,6 +1015,15 @@
           .Changes(card).Property<Card, int?>(x => x.Power);
       }
 
+      private void CreateBindableLevel(Card card)
+      {
+        card._level = Bindable.Create<Level>(
+          _isleveler ? 0 : (int?)null, _changeTracker, card);
+
+        card._level.Property(x => x.Value)
+          .Changes(card).Property<Card, int?>(x => x.Level);
+      }
+
       private void CreateBindableToughness(Card card)
       {
         card._toughness = Bindable.Create<Toughness>(_toughness, _changeTracker, card);
@@ -1035,7 +1040,5 @@
           .Changes(card).Property<Card, string>(x => x.Type);
       }
     }
-
-    #endregion
   }
 }

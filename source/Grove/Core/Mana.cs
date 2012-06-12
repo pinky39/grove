@@ -70,7 +70,7 @@
 
     public string Symbol
     {
-      get { return ManaAmount.GetSymbolFromColor(_colors); }
+      get { return ManaAmount.GetSymbolsFromColor(_colors); }
     }
 
     public static Mana White
@@ -78,16 +78,12 @@
       get { return new Mana(ManaColors.White); }
     }
 
-    #region IEquatable<Mana> Members
-
     public bool Equals(Mana other)
     {
       if (ReferenceEquals(null, other)) return false;
       if (ReferenceEquals(this, other)) return true;
       return Equals(other._colors, _colors);
     }
-
-    #endregion
 
     public IEnumerable<ManaColors> EnumerateColors()
     {
@@ -132,7 +128,7 @@
 
     public override string ToString()
     {
-      return String.Format("{{{0}}}", _colors);
+      return String.Format("{{{0}}}", ManaAmount.GetSymbolsFromColor(_colors));
     }
 
     public static bool operator ==(Mana left, Mana right)
@@ -144,11 +140,10 @@
     {
       return !Equals(left, right);
     }
-    
+
     public IManaAmount ToAmount()
     {
       return new PrimitiveManaAmount(this);
     }
-        
   }
 }

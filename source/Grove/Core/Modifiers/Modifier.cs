@@ -34,8 +34,9 @@
     public virtual void Apply(DamagePreventions damagePreventions) {}
     public virtual void Apply(Protections protections) {}
     public virtual void Apply(CardTypeCharacteristic cardType) {}
-    public virtual void Apply(Counters counters) {}    
-
+    public virtual void Apply(Counters counters) {}
+    public virtual void Apply(Level level) {}
+    
     public void Dispose()
     {
       Unapply();
@@ -86,6 +87,8 @@
     public class Factory<TModifier> : IModifierFactory where TModifier : Modifier, new()
     {
       public bool EndOfTurn { get; set; }
+      public int? MinLevel { get; set; }
+      public int? MaxLevel { get; set; }
       public Game Game { get; set; }
       public Initializer<TModifier> Init = delegate { };
 
@@ -116,14 +119,21 @@
 
         if (EndOfTurn)
         {
-          yield return new EndOfTurnLifetime(modifier, Game.ChangeTracker);
-          yield break;
+          yield return new EndOfTurnLifetime(modifier, Game.ChangeTracker);          
         }
 
         if (modifier.Source.Is().Attachment)
         {
-          yield return new AttachmentLifetime(modifier, Game.ChangeTracker);
-          yield break;
+          yield return new AttachmentLifetime(modifier, Game.ChangeTracker);          
+        }
+
+        if (MinLevel.HasValue)
+        {
+          yield return new LevelLifetime(modifier, Game.ChangeTracker)
+            {
+              MinLevel = MinLevel.Value,
+              MaxLevel = MaxLevel
+            };
         }
       }
     }

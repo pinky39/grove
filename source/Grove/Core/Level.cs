@@ -3,13 +3,13 @@
   using Infrastructure;
   using Modifiers;
 
-  public class Power : Characteristic<int?>, IModifiable
+  public class Level : Characteristic<int?>, IModifiable
   {
-    private Power() {}
+    private Level() {}
 
-    public Power(int? value, ChangeTracker changeTracker, IHashDependancy hashDependancy)
+    public Level(int? value, ChangeTracker changeTracker, IHashDependancy hashDependancy)
       : base(value, changeTracker, hashDependancy) {}
-
+    
     public void Accept(IModifier modifier)
     {
       modifier.Apply(this);

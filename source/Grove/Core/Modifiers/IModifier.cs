@@ -16,6 +16,7 @@
     void Apply(Protections protections);
     void Apply(CardTypeCharacteristic cardType);
     void Apply(Counters counters);
+    void Apply(Level level);
     void Activate();
   }
 }

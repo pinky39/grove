@@ -22,6 +22,9 @@
       token => token == "Trample" ? new ImportantTextToken(token) : null,
       token => token == "Shroud" ? new ImportantTextToken(token) : null,
       token => token == "Defender" ? new ImportantTextToken(token) : null,
+      token => token == "Level up" ? new ImportantTextToken(token) : null,
+      token => token == "First strike" ? new ImportantTextToken(token) : null,
+      token => token == "Double strike" ? new ImportantTextToken(token) : null,
       token => token == "EOL" ? new EolToken() : null,      
       token => new ManaSymbolToken(token)
     };

@@ -7,14 +7,14 @@
     private Toughness _toughness;
     private Increment _toughnessIncrement;
 
-    public Value Power { get; set; }
-    public Value Toughness { get; set; }
-
     public AddPowerAndToughness()
     {
       Power = 0;
       Toughness = 0;
     }
+
+    public Value Power { get; set; }
+    public Value Toughness { get; set; }
 
     public override void Apply(Power power)
     {

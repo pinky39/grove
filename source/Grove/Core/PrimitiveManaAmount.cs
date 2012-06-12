@@ -18,8 +18,6 @@
       _amount.Add(mana);
     }
 
-    #region IManaAmount Members
-
     public IEnumerator<Mana> GetEnumerator()
     {
       return _amount.GetEnumerator();
@@ -50,6 +48,9 @@
       get { return _amount.All(x => x.IsColorless); }
     }
 
-    #endregion
+    public override string ToString()
+    {
+      return string.Join(string.Empty, _amount);
+    }
   }
 }

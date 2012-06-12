@@ -5,11 +5,9 @@
 
   public class PermanentLifetime : Lifetime, IReceive<CardChangedZone>
   {
-    private PermanentLifetime()
-    {      
-    }
+    private PermanentLifetime() {}
 
-    public PermanentLifetime(Modifier modifier, ChangeTracker changeTracker) : base(modifier, changeTracker) { }
+    public PermanentLifetime(Modifier modifier, ChangeTracker changeTracker) : base(modifier, changeTracker) {}
 
     public void Receive(CardChangedZone message)
     {

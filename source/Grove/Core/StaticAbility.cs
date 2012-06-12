@@ -12,6 +12,8 @@
     Unblockable,
     Indestructible,
     Defender,
-    Shroud
+    Shroud,
+    FirstStrike,
+    DoubleStrike
   }
 }

@@ -17,6 +17,8 @@
     bool Shroud { get; }
     bool Trample { get; }
     bool Unblockable { get; }
+    bool FirstStrike { get; }
+    bool DoubleStrike { get; }
   }
 
   [Copyable]
@@ -47,6 +49,8 @@
     public bool Shroud { get { return Has(StaticAbility.Shroud); } }
     public bool Trample { get { return Has(StaticAbility.Trample); } }
     public bool Unblockable { get { return Has(StaticAbility.Unblockable); } }
+    public bool FirstStrike { get { return Has(StaticAbility.FirstStrike); } }
+    public bool DoubleStrike { get { return Has(StaticAbility.DoubleStrike); } }
 
     public void Accept(IModifier modifier)
     {
