@@ -1,6 +1,7 @@
 ﻿namespace Grove.Core.Costs
 {
   using Ai;
+  using CardDsl;
   using Infrastructure;
 
   [Copyable]
@@ -40,7 +41,7 @@
         cost.Ability = ability;
         cost.Game = Game;
 
-        Init(cost, new Creator(Game));
+        Init(cost, new CardCreationCtx(Game));
         cost.AfterInit();
 
         return cost;

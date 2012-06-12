@@ -1,6 +1,7 @@
 ﻿namespace Grove.Core.Triggers
 {
   using System;
+  using CardDsl;
   using Infrastructure;
 
   [Copyable]
@@ -40,7 +41,7 @@
         trigger.Ability = triggeredAbility;
         trigger.Game = Game;
 
-        Init(trigger, new Creator(Game));
+        Init(trigger, new CardCreationCtx(Game));
 
         Game.Publisher.Subscribe(trigger);
 

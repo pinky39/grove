@@ -10,10 +10,17 @@
     private readonly TrackableList<ManaColors> _colors;
 
     private Protections() {}
-
-    public Protections(ChangeTracker changeTracker, IHashDependancy hashDependancy)
+    
+    public Protections(ManaColors manaColors, ChangeTracker changeTracker, IHashDependancy hashDependancy)
     {
-      _colors = new TrackableList<ManaColors>(changeTracker, hashDependancy);
+      if (manaColors == ManaColors.None)
+      {
+        _colors = new TrackableList<ManaColors>(changeTracker, hashDependancy);
+        return;
+      }
+      
+      _colors = new TrackableList<ManaColors>(manaColors.ToEnumerable(), 
+        changeTracker, hashDependancy);
     }
 
     public int CalculateHash(HashCalculator calc)

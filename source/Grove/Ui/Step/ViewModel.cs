@@ -1,32 +1,33 @@
 ﻿namespace Grove.Ui.Step
 {
   using Core;
+  using System.Linq;
   using Core.Messages;
   using Infrastructure;
 
   public class ViewModel : IReceive<StepStarted>
   {
+    private readonly Step[] _steps;
     private readonly Configuration _configuration;
 
-    public ViewModel(Step step, string displayName, Configuration configuration)
+    public ViewModel(Step[] steps, string displayName, Configuration configuration)
     {
-      _configuration = configuration;
-      Step = step;
+      _steps = steps;
+      _configuration = configuration;      
       DisplayName = displayName;
     }
 
-    public Pass AutoPass { get { return _configuration.GetAutoPassConfiguration(Step); } }
+    public Pass AutoPass { get { return _configuration.GetAutoPassConfiguration(_steps[0]); } }
 
     public string DisplayName { get; set; }
-    public virtual bool IsCurent { get; set; }
-    public Step Step { get; set; }
+    public virtual bool IsCurent { get; set; }    
 
     public void Receive(StepStarted message)
     {
       if (IsCurent)
         IsCurent = false;
 
-      if (message.Step == Step)
+      if (_steps.Any(x => x == message.Step))
       {
         IsCurent = true;
       }
@@ -35,12 +36,18 @@
     [Updates("AutoPass")]
     public virtual void Toggle()
     {
-      _configuration.ToggleAutoPass(Step);
+      foreach (var step in _steps)
+      {
+        _configuration.ToggleAutoPass(step);  
+      }            
     }
 
     public interface IFactory
     {
-      ViewModel Create(Step step, string displayName);
+      // multiple steps can have one visual representation
+      // this is done primarily to joint first strike combat damage
+      // and normal combat damage steps in the ui.
+      ViewModel Create(string displayName, params Step[] steps);
     }
   }
 }

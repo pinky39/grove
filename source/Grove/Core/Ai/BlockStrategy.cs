@@ -146,6 +146,7 @@
             if (IncreasesGain(blocker))
             {
               AssignAdditionalBlocker(blocker, unassignedBlockers);
+              continue;
             }
           }
         }
@@ -166,23 +167,34 @@
           return;
         }
 
-        var blockerScore = attacker.CanDealLeathalDamageTo(blockerCandidate)
-          ? ScoreCalculator.CalculatePermanentScore(blockerCandidate)
-          : 0;
+        var canKillBlocker = attacker.CanDealLeathalDamageTo(blockerCandidate);
 
+        var blockerScore = canKillBlocker
+          ? ScoreCalculator.CalculatePermanentScore(blockerCandidate)
+          : 0;       
+                
         _isFirstBlockerKilled = blockerScore > 0;
 
 
-        var canKillAttacker = blockerCandidate.CanDealLeathalDamageTo(attacker);
+        int attackerScore = 0;
         
-        var attackerScore = canKillAttacker ? ScoreCalculator.CalculatePermanentScore(attacker): 0;        
-        
-        DamageNeededToKillAttacker = canKillAttacker ? 0 : attacker.LifepointsLeft - blockerCandidate.Power.Value;
+        if (attacker.HasFirstStrike && !blockerCandidate.HasFirstStrike && canKillBlocker)
+        {          
+          DamageNeededToKillAttacker = attacker.LifepointsLeft;          
+        }
+        else
+        {
+          var canKillAttacker = blockerCandidate.CanDealLeathalDamageTo(attacker);
+          attackerScore = canKillAttacker ? ScoreCalculator.CalculatePermanentScore(attacker) : 0;
+          DamageNeededToKillAttacker = canKillAttacker ? 0 : attacker.LifepointsLeft - blockerCandidate.Power.Value;  
+        }                
 
-        var lifelossScore = ScoreCalculator.CalculateLifelossScore(defendersLife, attacker.Power.Value);
+        var lifelossScore = ScoreCalculator.CalculateLifelossScore(
+          defendersLife, 
+          MaxAmountOfDamageAttackerCanDealInAllDamageSteps(attacker));
 
         var trampleScore = Attacker.Has().Trample && attacker.Power.Value > blockerCandidate.LifepointsLeft
-          ? ScoreCalculator.CalculateLifelossScore(defendersLife, attacker.Power.Value - blockerCandidate.LifepointsLeft)
+          ? ScoreCalculator.CalculateLifelossScore(defendersLife, MaxAmountOfDamageAttackerCanDealInAllDamageSteps(attacker) - blockerCandidate.LifepointsLeft)
           : 0;
 
         var scoreDefenderLoosesWhenBlocking = blockerScore - attackerScore + trampleScore;
@@ -191,11 +203,17 @@
         Gain = scoreDefenderLoosesWhenNotBlocking - scoreDefenderLoosesWhenBlocking;
       }
 
+      private static int MaxAmountOfDamageAttackerCanDealInAllDamageSteps(Card attacker)
+      {
+        return attacker.Has().DoubleStrike ? 2* attacker.Power.Value : attacker.Power.Value;
+      }
+
       private bool IncreasesGain(Card additionalBlocker)
       {
         return _isFirstBlockerKilled &&
           DamageNeededToKillAttacker > 0 &&
             DamageNeededToKillAttacker <= additionalBlocker.Power.Value &&
+             (!Attacker.HasFirstStrike || additionalBlocker.HasFirstStrike) &&
               ScoreCalculator.CalculatePermanentScore(additionalBlocker) >
                 ScoreCalculator.CalculatePermanentScore(Attacker);
       }

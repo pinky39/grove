@@ -1,8 +1,10 @@
 ﻿namespace Grove.Cards
 {
+  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
+  using Core.CardDsl;
   using Core.Effects;
 
   public class Shock : CardsSource

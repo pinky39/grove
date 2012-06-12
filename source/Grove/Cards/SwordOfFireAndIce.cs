@@ -1,8 +1,10 @@
 ﻿namespace Grove.Cards
 {
+  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
+  using Core.CardDsl;
   using Core.Costs;
   using Core.Effects;
   using Core.Modifiers;
@@ -23,31 +25,31 @@
           C.TriggeredAbility(
             "Whenever equipped creature deals combat damage to a player, Sword of Fire and Ice deals 2 damage to target creature or player and you draw a card.",
             C.Trigger<DealDamageToPlayer>((t, _) =>
-            {
-              t.CombatOnly = true;
-              t.ToAny();
-            }),
+              {
+                t.CombatOnly = true;
+                t.ToAny();
+              }),
             C.Effect<CompoundEffect>((e, c) => e.ChildEffects(
               c.Effect<DealDamageToTarget>((e1, _) => e1.Amount = 2),
               c.Effect<DrawCards>((e2, _) => e2.DrawCount = 1))),
             C.Selector(
               validator: target => target.IsPlayer() || target.Is().Creature,
-              scorer: Core.Ai.TargetScores.OpponentStuffScoresMore(spellsDamage: 2)),
+              scorer: TargetScores.OpponentStuffScoresMore(spellsDamage: 2)),
             category: EffectCategories.DamageDealing),
           C.ActivatedAbility(
             "{2}: Attach to target creature you control. Equip only as a sorcery.",
             C.Cost<TapOwnerPayMana>((cost, _) => cost.Amount = 2.AsColorlessMana()),
             C.Effect<AttachEquipment>((e, c) => e.Modifiers(
               c.Modifier<AddPowerAndToughness>((m, _) =>
-              {
-                m.Power = 2;
-                m.Toughness = 2;
-              }),
+                {
+                  m.Power = 2;
+                  m.Toughness = 2;
+                }),
               C.Modifier<AddProtectionFromColors>((m, _) => m.Colors = ManaColors.Red | ManaColors.Blue)
               )),
             selector: C.Selector(Validator.Equipment()),
             activateAsSorcery: true
             ));
     }
-  }  
+  }
 }

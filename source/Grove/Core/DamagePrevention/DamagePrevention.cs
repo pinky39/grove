@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core.DamagePrevention
 {
+  using CardDsl;
   using Infrastructure;
 
   [Copyable]
@@ -27,7 +28,7 @@
         prevention.Card = card;
         prevention.Game = Game;
 
-        Init(prevention, new Creator(Game));
+        Init(prevention, new CardCreationCtx(Game));
 
         return prevention;
       }

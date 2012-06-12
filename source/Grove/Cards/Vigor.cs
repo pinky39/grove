@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using Core;
+  using Core.CardDsl;
   using Core.Counters;
   using Core.DamagePrevention;
   using Core.Effects;

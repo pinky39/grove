@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using Core;
+  using Core.CardDsl;
   using Core.Effects;
   using Core.Modifiers;
   using Core.Triggers;

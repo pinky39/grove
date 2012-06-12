@@ -19,7 +19,7 @@
     private Combat() {}
 
     public Combat(ChangeTracker changeTracker, IAttackerFactory attackerFactory, IBlockerFactory blockerFactory,
-      Publisher publisher, Players players)
+                  Publisher publisher, Players players)
     {
       _attackerFactory = attackerFactory;
       _blockerFactory = blockerFactory;
@@ -29,7 +29,10 @@
       _blockers = new TrackableList<Blocker>(changeTracker);
     }
 
-    public IEnumerable<Attacker> Attackers { get { return _attackers; } }
+    public IEnumerable<Attacker> Attackers
+    {
+      get { return _attackers; }
+    }
 
     public int CalculateHash(HashCalculator calc)
     {
@@ -38,14 +41,22 @@
         calc.Calculate(_blockers));
     }
 
-    public void AssignCombatDamage(Decisions decisions)
+    public void AssignCombatDamage(Decisions decisions, bool firstStrike = false)
     {
-      foreach (var blocker in _blockers)
+      var blockers = firstStrike
+        ? _blockers.Where(x => x.Card.HasFirstStrike)
+        : _blockers.Where(x => x.Card.HasNormalStrike);
+
+      var attackers = firstStrike
+        ? _attackers.Where(x => x.Card.HasFirstStrike)
+        : _attackers.Where(x => x.Card.HasNormalStrike);
+
+      foreach (var blocker in blockers)
       {
         blocker.DistributeDamageToAttacker();
       }
 
-      foreach (var attacker in _attackers)
+      foreach (var attacker in attackers)
       {
         attacker.DistributeDamageToBlockers(decisions);
       }
@@ -91,9 +102,10 @@
 
       card.Tap();
 
-      PublishMessage(new AttackerDeclared{
-        Attacker = attacker
-      });
+      PublishMessage(new AttackerDeclared
+        {
+          Attacker = attacker
+        });
     }
 
     public void DeclareBlocker(Card cardBlocker, Card cardAttacker)
@@ -104,11 +116,12 @@
       attacker.AddBlocker(blocker);
       _blockers.Add(blocker);
 
-      _publisher.Publish(new BlockerDeclared{
-        Blocker = blocker,
-        Attacker = attacker
-      });
-    }   
+      _publisher.Publish(new BlockerDeclared
+        {
+          Blocker = blocker,
+          Attacker = attacker
+        });
+    }
 
     public bool IsAttacker(Card card)
     {
@@ -190,6 +203,18 @@
     private void PublishMessage<TMessage>(TMessage message)
     {
       _publisher.Publish(message);
+    }
+
+    public bool AnyCreaturesWithFirstStrike()
+    {
+      return _attackers.Any(x => x.Card.HasFirstStrike) ||
+        _blockers.Any(x => x.Card.HasFirstStrike);
+    }
+
+    public bool AnyCreaturesWithNormalStrike()
+    {
+      return _attackers.Any(x => x.Card.HasNormalStrike) ||
+        _blockers.Any(x => x.Card.HasNormalStrike);
     }
   }
 }

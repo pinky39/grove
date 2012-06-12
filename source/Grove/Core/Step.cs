@@ -9,6 +9,7 @@
     BeginningOfCombat,
     DeclareAttackers,
     DeclareBlockers,
+    FirstStrikeCombatDamage,
     CombatDamage,
     EndOfCombat,
     SecondMain,

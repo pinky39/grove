@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core.Counters
 {
+  using CardDsl;
   using Infrastructure;
 
   [Copyable]
@@ -21,7 +22,7 @@
       {
         var counter = new T();
         counter.Game = Game;
-        Init(counter, new Creator(Game));
+        Init(counter, new CardCreationCtx(Game));
 
         return counter;
       }

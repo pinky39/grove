@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Controllers;
@@ -12,6 +13,7 @@
   {
     private readonly TrackableList<Damage> _assignedDamage;
     private readonly TrackableList<Blocker> _blockers;
+    private readonly Trackable<bool> _isBlocked;
     private readonly Card _card;
     private readonly Players _players;
     private readonly Publisher _publisher;
@@ -23,6 +25,7 @@
       _publisher = publisher;
       _blockers = new TrackableList<Blocker>(changeTracker);
       _assignedDamage = new TrackableList<Damage>(changeTracker);
+      _isBlocked = new Trackable<bool>(changeTracker);
     }
 
     private Attacker() {}
@@ -35,11 +38,12 @@
     public bool HasDeathTouch { get { return _card.Has().Deathtouch; } }
     public bool HasTrample { get { return _card.Has().Trample; } }
     public int LifepointsLeft { get { return _card.LifepointsLeft; } }
-    public int TotalDamageThisCanDeal { get { return _card.Power.Value; } }
+    public int TotalDamageThisCanDeal { get { return _card.Power.Value; } }   
 
     public int CalculateHash(HashCalculator calc)
     {
       return HashCalculator.Combine(
+          calc.Calculate(_isBlocked),
           calc.Calculate(_card),
           calc.Calculate(_blockers),
           calc.Calculate(_assignedDamage));
@@ -48,6 +52,7 @@
     public void AddBlocker(Blocker blocker)
     {
       _blockers.Add(blocker);
+      _isBlocked.Value = true;
     }
 
     public void AssignDamage(Card damageSource, int amount)
@@ -85,7 +90,7 @@
 
       var defender = _players.GetOpponent(_card.Controller);
 
-      if (HasTrample || _blockers.Count == 0)
+      if (HasTrample || _isBlocked == false)
       {
         var unassignedDamage = TotalDamageThisCanDeal - distribution.Total;
         defender.AssignDamage(_card, unassignedDamage);

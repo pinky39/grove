@@ -1,6 +1,5 @@
 ﻿namespace Grove.Core
 {
-  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Infrastructure;
@@ -16,10 +15,11 @@
     {
       _sources = manaSources
         .GroupBy(x => x.Resource)
-        .Select(x => new SourcesWithSameResource{
-          Resource = x.Key,
-          Sources = x.OrderBy(y => y.Priority).ToList()
-        }).
+        .Select(x => new SourcesWithSameResource
+          {
+            Resource = x.Key,
+            Sources = x.OrderBy(y => y.Priority).ToList()
+          }).
         ToList();
     }
 
@@ -37,11 +37,11 @@
         }
 
         _sources.Add(new SourcesWithSameResource
-        {
-          Resource = manaSource.Resource,
-          Sources = manaSource.ToEnumerable().ToList()
-        });  
-      }            
+          {
+            Resource = manaSource.Resource,
+            Sources = manaSource.ToEnumerable().ToList()
+          });
+      }
     }
 
     public void Consume(IManaAmount amount, IManaSource sourceToAvoid)
@@ -62,7 +62,7 @@
     }
 
     public bool Has(IManaAmount amount)
-    {                        
+    {
       return QuickCheck(amount) ?? SlowCheck(amount);
     }
 
@@ -92,15 +92,15 @@
     private bool? SingleManaCheck(IManaAmount amount)
     {
       if (amount.Converted > 1)
-        return null;      
+        return null;
 
-      foreach (var sourcesWithSameResource in _sources )
+      foreach (var sourcesWithSameResource in _sources)
       {
         foreach (var source in sourcesWithSameResource.Sources)
         {
           if (source.GetAvailableMana().Has(amount.First))
             return true;
-        }                
+        }
       }
 
       return false;
@@ -126,7 +126,7 @@
     private IEnumerable<List<IManaSource>> EnumerateSources(List<IManaSource> current = null, int currentIndex = 0)
     {
       current = current ?? new List<IManaSource>();
-      
+
       if (currentIndex == _sources.Count)
       {
         yield return current;

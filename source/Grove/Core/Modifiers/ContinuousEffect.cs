@@ -1,6 +1,7 @@
 ﻿namespace Grove.Core.Modifiers
 {
   using System.Linq;
+  using CardDsl;
   using Infrastructure;
   using Messages;
   using Zones;
@@ -118,7 +119,7 @@
         continuousEffect._players = Game.Players;
         continuousEffect._isActive = new Trackable<bool>(Game.ChangeTracker);
 
-        Init(continuousEffect, new Creator(Game));
+        Init(continuousEffect, new CardCreationCtx(Game));
 
         Game.Publisher.Subscribe(continuousEffect);
         return continuousEffect;

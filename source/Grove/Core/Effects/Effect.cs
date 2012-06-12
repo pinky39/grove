@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core.Effects
 {
+  using CardDsl;
   using Controllers;
   using Infrastructure;
 
@@ -71,7 +72,7 @@
           CanBeCountered = true
         };
 
-        Init(effect, new Creator(Game));
+        Init(effect, new CardCreationCtx(Game));
 
         return effect;
       }

@@ -3,6 +3,7 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
+  using Core.CardDsl;
   using Core.Effects;
   using Core.Triggers;
   using Core.Zones;
@@ -30,7 +31,7 @@
               target.Is().Artifact ||
                 target.Is().Enchantment ||
                   target.Is().Land,
-              scorer: Core.Ai.TargetScores.OpponentStuffScoresMore()),
+              scorer: TargetScores.OpponentStuffScoresMore()),
             category: EffectCategories.Destruction)
         );
     }

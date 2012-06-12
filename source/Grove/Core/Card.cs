@@ -4,6 +4,7 @@
   using System.Collections.Generic;
   using System.Linq;
   using Ai;
+  using CardDsl;
   using CastingRules;
   using Counters;
   using DamagePrevention;
@@ -71,8 +72,18 @@
       get
       {
         return IsPermanent && Is().Creature &&
-               !IsTapped && !HasSummoningSickness && !Has().Defender;
+          !IsTapped && !HasSummoningSickness && !Has().Defender;
       }
+    }
+
+    public bool HasFirstStrike
+    {
+      get { return Has().FirstStrike || Has().DoubleStrike; }
+    }
+
+    public bool HasNormalStrike
+    {
+      get { return !Has().FirstStrike || Has().DoubleStrike; }
     }
 
     public bool CanBeTapped
@@ -236,8 +247,8 @@
       get
       {
         return IsPermanent
-                 ? Ai.ScoreCalculator.CalculatePermanentScore(this)
-                 : Ai.ScoreCalculator.CalculateCardInHandScore(this);
+          ? Ai.ScoreCalculator.CalculatePermanentScore(this)
+          : Ai.ScoreCalculator.CalculateCardInHandScore(this);
       }
     }
 
@@ -428,9 +439,9 @@
     {
       return
         (!Has().Unblockable) &&
-        (Has().Flying ? card.Has().Flying : true) &&
-        (Has().Fear ? card.HasColor(ManaColors.Black) || card.Is().Artifact : true) &&
-        !HasProtectionFrom(card.Colors);
+          (Has().Flying ? card.Has().Flying : true) &&
+            (Has().Fear ? card.HasColor(ManaColors.Black) || card.Is().Artifact : true) &&
+              !HasProtectionFrom(card.Colors);
     }
 
     public bool CanBeTargetBySpellsOwnedBy(Player player)
@@ -466,15 +477,15 @@
     {
       return
         !creature.Has().Indestructible && (
-                                            (Power > 0 && Has().Deathtouch) ||
-                                            (creature.LifepointsLeft <= Power));
+          (Power > 0 && Has().Deathtouch) ||
+            (creature.LifepointsLeft <= Power));
     }
 
     public void CastInternal(ActivationParameters activationParameters)
     {
       var effect = activationParameters.PayKicker
-                     ? _kickerEffectFactory.CreateEffect(this, x: activationParameters.X, wasKickerPaid: true)
-                     : _effectFactory.CreateEffect(this, x: activationParameters.X);
+        ? _kickerEffectFactory.CreateEffect(this, x: activationParameters.X, wasKickerPaid: true)
+        : _effectFactory.CreateEffect(this, x: activationParameters.X);
 
       effect.Target = activationParameters.EffectTarget;
       CastingRule.Cast(effect);
@@ -716,10 +727,10 @@
       private EffectCategories _effectCategories;
       private IEffectFactory _effectFactory;
       private string _flavorText;
+      private bool _isleveler;
       private string _kickerCost;
       private IEffectFactory _kickerEffectFactory;
       private ITargetSelectorFactory _kickerSelectorFactory;
-      private bool _isleveler;
       private string _manaCost;
       private string _name;
       private int? _power;
@@ -730,6 +741,7 @@
       private int? _toughness;
       private CardType _type;
       private CalculateX _xCalculator;
+      private ManaColors _protections = ManaColors.None;
 
       public CardFactory(Game game)
       {
@@ -781,7 +793,7 @@
         card._hasSummoningSickness = new Trackable<bool>(true, _changeTracker, card);
         card._controller = new Trackable<Player>(controller, _changeTracker, card);
         card._damagePreventions = new DamagePreventions(_changeTracker, card);
-        card._protections = new Protections(_changeTracker, card);
+        card._protections = new Protections(_protections, _changeTracker, card);
         card._zone = new Trackable<Zone>(_changeTracker, card);
 
         card.EffectCategories = _effectCategories;
@@ -790,12 +802,12 @@
         card._modifiers = new TrackableList<IModifier>(_changeTracker);
 
         card._targetSelector = _targetSelectorFactory != null
-                                 ? _targetSelectorFactory.Create(card)
-                                 : null;
+          ? _targetSelectorFactory.Create(card)
+          : null;
 
         card._kickerTargetSelector = _kickerSelectorFactory != null
-                                       ? _kickerSelectorFactory.Create(card)
-                                       : null;
+          ? _kickerSelectorFactory.Create(card)
+          : null;
 
         card._staticAbilities = new StaticAbilities(_staticAbilities, _changeTracker, card);
 
@@ -811,6 +823,12 @@
         card._continuousEffects = new TrackableList<ContinuousEffect>(continiousEffects, _changeTracker, card);
 
         return card;
+      }
+
+      public CardFactory Protections(ManaColors colors)
+      {
+        _protections = colors;
+        return this;
       }
 
       public CardFactory Abilities(params object[] abilities)
@@ -1018,7 +1036,7 @@
       private void CreateBindableLevel(Card card)
       {
         card._level = Bindable.Create<Level>(
-          _isleveler ? 0 : (int?)null, _changeTracker, card);
+          _isleveler ? 0 : (int?) null, _changeTracker, card);
 
         card._level.Property(x => x.Value)
           .Changes(card).Property<Card, int?>(x => x.Level);
@@ -1039,6 +1057,11 @@
         card._type.Property(x => x.Value)
           .Changes(card).Property<Card, string>(x => x.Type);
       }
+    }
+
+    public void Exile()
+    {
+      Controller.ExileCard(this);
     }
   }
 }

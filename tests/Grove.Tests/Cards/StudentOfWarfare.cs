@@ -1,6 +1,7 @@
 ﻿namespace Grove.Tests.Cards
 {
   using Core;
+  using Core.Zones;
   using Infrastructure;
   using Xunit;
 
@@ -23,6 +24,32 @@
         
     public class Predefined : PredifinedScenario
     {
+      [Fact]
+      public void FirstStrike()
+      {
+        var student = C("Student of Warfare");
+        var armodon = C("Trained Armodon");
+
+        Battlefield(P1, student);
+        Battlefield(P2, armodon);
+
+        Exec(
+          At(Step.FirstMain)
+            .Activate(student)
+            .Activate(student),
+          At(Step.DeclareAttackers)
+            .DeclareAttackers(student),
+          At(Step.DeclareBlockers)
+            .DeclareBlockers(student, armodon),
+          At(Step.SecondMain)
+            .Verify(() =>
+              {
+                Equal(Zone.Graveyard, C(armodon).Zone);
+                Equal(Zone.Battlefield, C(student).Zone);
+              })          
+          );
+      }      
+      
       [Fact]
       public void LevelUp()
       {

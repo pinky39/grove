@@ -3,6 +3,7 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
+  using Core.CardDsl;
   using Core.Effects;
   using Core.Modifiers;
 
@@ -20,8 +21,7 @@
         .Timing(Timings.Steps(Step.FirstMain))
         .Target(C.Selector(
           validator: target => target.Is().Creature,
-          scorer: Core.Ai.TargetScores.YourStuffScoresMore()));
-
+          scorer: TargetScores.YourStuffScoresMore()));
     }
   }
 }

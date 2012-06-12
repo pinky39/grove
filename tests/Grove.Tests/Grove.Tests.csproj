@@ -72,12 +72,15 @@
     <Compile Include="Cards\Evacuation.cs" />
     <Compile Include="Cards\GraveTitan.cs" />
     <Compile Include="Cards\ManaLeak.cs" />
+    <Compile Include="Cards\MirranCrusader.cs" />
     <Compile Include="Cards\PhyrexianArena.cs" />
+    <Compile Include="Cards\Rancor.cs" />
     <Compile Include="Cards\Recoil.cs" />
     <Compile Include="Cards\RuptureSpire.cs" />
     <Compile Include="Cards\SealOfFire.cs" />
     <Compile Include="Cards\SteamVents.cs" />
     <Compile Include="Cards\StudentOfWarfare.cs" />
+    <Compile Include="Cards\SwordsToPlowshares.cs" />
     <Compile Include="Cards\TimeWarp.cs" />
     <Compile Include="Cards\VividCreek.cs" />
     <Compile Include="Cards\WallOfDenial.cs" />

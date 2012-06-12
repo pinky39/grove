@@ -28,7 +28,8 @@
     private StateMachine() {}
 
     public StateMachine(DecisionQueue decisionsQueue, Players players, Stack stack,
-      ChangeTracker changeTracker, Publisher publisher, Combat combat, Decisions decisions, TurnInfo turnInfo)
+                        ChangeTracker changeTracker, Publisher publisher, Combat combat, Decisions decisions,
+                        TurnInfo turnInfo)
     {
       _decisionsQueue = decisionsQueue;
       _stack = stack;
@@ -43,7 +44,11 @@
       InitializeSteps();
     }
 
-    private IDecision CurrentDecision { get { return _curentDecision.Value; } set { _curentDecision.Value = value; } }
+    private IDecision CurrentDecision
+    {
+      get { return _curentDecision.Value; }
+      set { _curentDecision.Value = value; }
+    }
 
     private State State
     {
@@ -55,9 +60,16 @@
       }
     }
 
-    private Step Step { get { return _turnInfo.Step; } set { _turnInfo.Step = value; } }
+    private Step Step
+    {
+      get { return _turnInfo.Step; }
+      set { _turnInfo.Step = value; }
+    }
 
-    private bool WasPriorityPassed { get { return CurrentDecision.WasPriorityPassed; } }
+    private bool WasPriorityPassed
+    {
+      get { return CurrentDecision.WasPriorityPassed; }
+    }
 
     void ICopyContributor.AfterMemberCopy(object original)
     {
@@ -180,36 +192,38 @@
       CreateState(
         name: State.Active,
         proc: () => _decisions.EnqueuePlaySpellOrAbility(_players.Active),
-        next: () => {
-          if (WasPriorityPassed)
+        next: () =>
           {
-            if (_stack.IsEmpty)
-              return State.After;
+            if (WasPriorityPassed)
+            {
+              if (_stack.IsEmpty)
+                return State.After;
 
-            return _stack.TopSpellOwner.IsActive
-              ? State.Passive
-              : State.BeginResolve;
-          }
+              return _stack.TopSpellOwner.IsActive
+                ? State.Passive
+                : State.BeginResolve;
+            }
 
-          return State.Active;
-        });
+            return State.Active;
+          });
 
       CreateState(
         name: State.Passive,
         proc: () => _decisions.EnqueuePlaySpellOrAbility(_players.Passive),
-        next: () => {
-          if (WasPriorityPassed)
+        next: () =>
           {
-            if (_stack.IsEmpty)
-              return State.After;
+            if (WasPriorityPassed)
+            {
+              if (_stack.IsEmpty)
+                return State.After;
 
-            return _stack.TopSpellOwner.IsActive
-              ? State.BeginResolve
-              : State.Active;
-          }
+              return _stack.TopSpellOwner.IsActive
+                ? State.BeginResolve
+                : State.Active;
+            }
 
-          return State.Passive;
-        });
+            return State.Passive;
+          });
 
       CreateState(
         name: State.BeginResolve,
@@ -218,26 +232,29 @@
 
       CreateState(
         name: State.FinishResolve,
-        proc: () => {
-          var effect = _stack.LastResolved;
-          if (effect != null)
+        proc: () =>
           {
-            _players.MoveDeadCreaturesToGraveyard();
-            effect.EffectWasResolved();
-          }
-        },
+            var effect = _stack.LastResolved;
+            if (effect != null)
+            {
+              _players.MoveDeadCreaturesToGraveyard();
+              effect.EffectWasResolved();
+            }
+          },
         next: () => State.Start);
 
       CreateState(
         name: State.After,
-        proc: () => {
-          _players.Player1.EmptyManaPool();
-          _players.Player2.EmptyManaPool();
+        proc: () =>
+          {
+            _players.Player1.EmptyManaPool();
+            _players.Player2.EmptyManaPool();
 
-          Publish(new TurnStepFinished{
-            Step = Step
-          });
-        },
+            Publish(new TurnStepFinished
+              {
+                Step = Step
+              });
+          },
         next: () => State.End
         );
 
@@ -269,16 +286,17 @@
       CreateStep(
         Step.Untap,
         getPriority: false,
-        first: () => Publish(new TurnStarted{TurnCount = _turnInfo.TurnCount}),
-        second: () => {
-          foreach (var permanent in _players.Active.Battlefield)
+        first: () => Publish(new TurnStarted {TurnCount = _turnInfo.TurnCount}),
+        second: () =>
           {
-            permanent.RemoveSummoningSickness();
-            permanent.Untap();
-          }
+            foreach (var permanent in _players.Active.Battlefield)
+            {
+              permanent.RemoveSummoningSickness();
+              permanent.Untap();
+            }
 
-          _players.Active.CanPlayLands = true;
-        },
+            _players.Active.CanPlayLands = true;
+          },
         nextStep: () => Step.Upkeep);
 
       CreateStep(
@@ -287,12 +305,13 @@
 
       CreateStep(
         Step.Draw,
-        first: () => {
-          if (_turnInfo.TurnCount != 1)
+        first: () =>
           {
-            _players.Active.DrawCard();
-          }
-        },
+            if (_turnInfo.TurnCount != 1)
+            {
+              _players.Active.DrawCard();
+            }
+          },
         nextStep: () => Step.FirstMain);
 
       CreateStep(
@@ -315,7 +334,18 @@
         Step.DeclareBlockers,
         first: DeclareBlockers,
         second: SetDamageAssignmentOrder,
-        nextStep: () => Step.CombatDamage);
+        nextStep: () => _combat.AnyCreaturesWithFirstStrike()
+          ? Step.FirstStrikeCombatDamage
+          : Step.CombatDamage);
+
+      CreateStep(
+        Step.FirstStrikeCombatDamage,
+        first: () => _combat.AssignCombatDamage(_decisions, firstStrike: true),
+        second: () => _combat.DealAssignedDamage(),
+        third: () => _players.MoveDeadCreaturesToGraveyard(),
+        nextStep: () => _combat.AnyCreaturesWithNormalStrike()
+          ? Step.CombatDamage
+          : Step.EndOfCombat);
 
       CreateStep(
         Step.CombatDamage,
@@ -340,17 +370,19 @@
       CreateStep(
         Step.CleanUp,
         getPriority: false,
-        first: () => {
-          _players.RemoveDamageFromPermanents();
-          _players.RemoveRegenerationFromPermanents();
+        first: () =>
+          {
+            _players.RemoveDamageFromPermanents();
+            _players.RemoveRegenerationFromPermanents();
 
-          DiscardToMaximumHandSize();
-          Publish(new EndOfTurn());
-        },
-        second: () => {
-          _players.ChangeActivePlayer();
-          _turnInfo.TurnCount++;
-        },
+            DiscardToMaximumHandSize();
+            Publish(new EndOfTurn());
+          },
+        second: () =>
+          {
+            _players.ChangeActivePlayer();
+            _turnInfo.TurnCount++;
+          },
         nextStep: () => Step.Untap);
     }
 
@@ -432,7 +464,12 @@
       }
 
       public bool GetPriority { get; private set; }
-      public Step Next { get { return _next(); } }
+
+      public Step Next
+      {
+        get { return _next(); }
+      }
+
       public Step Step { get; private set; }
 
       public void First()
@@ -470,7 +507,10 @@
       }
 
 
-      public State Next { get { return _next(); } }
+      public State Next
+      {
+        get { return _next(); }
+      }
 
       public void Execute()
       {

@@ -94,6 +94,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Cards\AcidicSlime.cs" />
+    <Compile Include="Cards\BasiliskCollar.cs" />
     <Compile Include="Cards\BurstLightning.cs" />
     <Compile Include="Cards\BeaconOfDestruction.cs" />
     <Compile Include="Cards\BirdsOfParadise.cs" />
@@ -128,6 +129,7 @@
     <Compile Include="Cards\LightningBolt.cs" />
     <Compile Include="Cards\LilianasSpecter.cs" />
     <Compile Include="Cards\LlanowarBehemoth.cs" />
+    <Compile Include="Cards\MirranCrusader.cs" />
     <Compile Include="Cards\Mountain.cs" />
     <Compile Include="Cards\ManaLeak.cs" />
     <Compile Include="Cards\MarshCasualties.cs" />
@@ -135,13 +137,17 @@
     <Compile Include="Cards\OrderOfTheSacredBell.cs" />
     <Compile Include="Cards\PhyrexianArena.cs" />
     <Compile Include="Cards\Plains.cs" />
+    <Compile Include="Cards\Rancor.cs" />
+    <Compile Include="Cards\RazorvergeThicket.cs" />
     <Compile Include="Cards\RuptureSpire.cs" />
     <Compile Include="Cards\RagingRavine.cs" />
     <Compile Include="Cards\RavenousBaloth.cs" />
     <Compile Include="Cards\Recoil.cs" />
     <Compile Include="Cards\RootboundCrag.cs" />
     <Compile Include="Cards\RumblingSlum.cs" />
+    <Compile Include="Cards\SavannahLions.cs" />
     <Compile Include="Cards\StudentOfWarfare.cs" />
+    <Compile Include="Cards\SwordOfBodyAndMind.cs" />
     <Compile Include="Cards\SwordOfFireAndIce.cs" />
     <Compile Include="Cards\SealOfFire.cs" />
     <Compile Include="Cards\ShivanDragon.cs" />
@@ -152,6 +158,7 @@
     <Compile Include="Cards\Stupor.cs" />
     <Compile Include="Cards\Swamp.cs" />
     <Compile Include="Cards\SwordOfFeastAndFamine.cs" />
+    <Compile Include="Cards\SwordsToPlowshares.cs" />
     <Compile Include="Cards\TrainedArmodon.cs" />
     <Compile Include="Cards\ThrunTheLastTroll.cs" />
     <Compile Include="Cards\TimeWarp.cs" />
@@ -184,6 +191,9 @@
     <Compile Include="Core\Attacker.cs" />
     <Compile Include="Core\Blocker.cs" />
     <Compile Include="Core\Ai\ISearchNode.cs" />
+    <Compile Include="Core\CardDsl\CardCreationCtx.cs" />
+    <Compile Include="Core\CardDsl\CardFactoryEx.cs" />
+    <Compile Include="Core\CardDsl\LevelDefinition.cs" />
     <Compile Include="Core\Controllers\ConsiderPayingCounterCost.cs" />
     <Compile Include="Core\Controllers\Human\ConsiderPayingLifeOrMana.cs" />
     <Compile Include="Core\Controllers\Machine\ConsiderPayingLifeOrMana.cs" />
@@ -218,11 +228,14 @@
     <Compile Include="Core\Counters\Counters.cs" />
     <Compile Include="Core\Counters\ICounterFactory.cs" />
     <Compile Include="Core\Effects\CounterTargetSpell.cs" />
+    <Compile Include="Core\Effects\ExileTargetPermanent.cs" />
+    <Compile Include="Core\Effects\MillOpponent.cs" />
     <Compile Include="Core\Effects\PayLifeOrTap.cs" />
     <Compile Include="Core\Effects\PayManaOrSacrifice.cs" />
     <Compile Include="Core\Effects\ReturnAllPermanentsToHand.cs" />
     <Compile Include="Core\Effects\ReturnTargetPermanentToHand.cs" />
     <Compile Include="Core\Effects\DestroySource.cs" />
+    <Compile Include="Core\Effects\ReturnToOwnersHand.cs" />
     <Compile Include="Core\Effects\TapTargetCreature.cs" />
     <Compile Include="Core\Effects\TargetPlayerTakesExtraTurns.cs" />
     <Compile Include="Core\IActivatedAbilityFactory.cs" />
@@ -372,7 +385,7 @@
     <Compile Include="Core\Messages\AttachmentAttached.cs" />
     <Compile Include="Core\Messages\AttachmentDetached.cs" />
     <Compile Include="Core\CastingRules\CastingRule.cs" />
-    <Compile Include="Core\CardsSource.cs" />
+    <Compile Include="Core\CardDsl\CardsSource.cs" />
     <Compile Include="Core\Effects\PutIntoPlay.cs" />
     <Compile Include="Core\ActivatedAbility.cs" />
     <Compile Include="Core\Card.cs" />

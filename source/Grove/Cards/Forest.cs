@@ -3,6 +3,7 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
+  using Core.CardDsl;
 
   public class Forest : CardsSource
   {

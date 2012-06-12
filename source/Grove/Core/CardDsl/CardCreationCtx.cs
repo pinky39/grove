@@ -1,8 +1,7 @@
-﻿namespace Grove.Core
+﻿namespace Grove.Core.CardDsl
 {
   using System;
   using System.Collections.Generic;
-  using System.Linq;
   using Ai;
   using Costs;
   using Counters;
@@ -12,13 +11,11 @@
   using Triggers;
   using Zones;
 
-  public delegate void Initializer<in T>(T target, Creator creationContext);
-
-  public class Creator
+  public class CardCreationCtx
   {
     private readonly Game _game;
 
-    public Creator(Game game)
+    public CardCreationCtx(Game game)
     {
       _game = game;
     }
@@ -134,18 +131,18 @@
     }
 
     public IDamagePreventionFactory Prevention<T>(Initializer<T> init = null)
-      where T : DamagePrevention.DamagePrevention, new()
+      where T : DamagePrevention, new()
     {
       init = init ?? delegate { };
 
-      return new DamagePrevention.DamagePrevention.Factory<T>
+      return new DamagePrevention.Factory<T>
         {
           Game = _game,
           Init = init
         };
     }
 
-    public ITargetSelectorFactory Selector(TargetValidator validator, ScoreCalculator scorer = null,
+    public ITargetSelectorFactory Selector(TargetValidator validator, Core.ScoreCalculator scorer = null,
                                            Zone zone = Zone.Battlefield)
     {
       scorer = scorer ?? delegate { return WellKnownTargetScores.Good; };
@@ -168,13 +165,13 @@
         };
     }
 
-    public ITargetSelectorFactory Selector(Func<ITarget, bool> validator, ScoreCalculator scorer = null,
+    public ITargetSelectorFactory Selector(Func<ITarget, bool> validator, Core.ScoreCalculator scorer = null,
                                            Zone zone = Zone.Battlefield)
     {
       return Selector((target, source, game) => validator(target), scorer, zone);
     }
 
-    public ITargetSelectorFactory Selector(Func<ITarget, Card, bool> validator, ScoreCalculator scorer = null,
+    public ITargetSelectorFactory Selector(Func<ITarget, Card, bool> validator, Core.ScoreCalculator scorer = null,
                                            Zone zone = Zone.Battlefield)
     {
       return Selector((target, source, game) => validator(target, source), scorer, zone);
@@ -263,95 +260,6 @@
     private static int DefaultManaSourcePriority(ManaAbility ability)
     {
       return ability.OwningCard.Is().Land ? ManaSourcePriorities.Land : ManaSourcePriorities.Creature;
-    }
-  }
-
-  public abstract class CardsSource
-  {
-    public Creator C
-    {
-      get { return new Creator(Game); }
-    }
-
-    public Game Game { get; set; }
-
-    public abstract IEnumerable<ICardFactory> GetCards();
-
-    protected Func<Game, Card, ActivationParameters, bool> All(
-      params Func<Game, Card, ActivationParameters, bool>[] predicates)
-    {
-      return
-        (game, card, activationParameters) => predicates.All(predicate => predicate(game, card, activationParameters));
-    }
-
-    protected Func<Game, Card, ActivationParameters, bool> Any(
-      params Func<Game, Card, ActivationParameters, bool>[] predicates)
-    {
-      return
-        (game, card, activationParameters) => predicates.Any(predicate => predicate(game, card, activationParameters));
-    }
-
-    protected T[] L<T>(params T[] elt)
-    {
-      return elt;
-    }
-
-    public LevelDefinition Level(int min, int power, int toughness, StaticAbility ability, int? max = null)
-    {
-      return new LevelDefinition
-        {
-          Min = min,
-          Max = max,
-          Power = power,
-          Thoughness = toughness,
-          StaticAbility = ability
-        };
-    }
-
-    public Card.CardFactory Leveler(Card.CardFactory card, IManaAmount cost, params LevelDefinition[] levelDefinitions)
-    {
-      var abilities = new List<object>();
-
-      abilities.Add(
-        C.ActivatedAbility(
-          String.Format("{0}: Put a level counter on this. Level up only as sorcery.", cost),
-          C.Cost<TapOwnerPayMana>((c, _) => c.Amount = cost),
-          C.Effect<ApplyModifiersToSelf>((e, c) => e.Modifiers(c.Modifier<IncreaseLevel>())),
-          timing: Timings.Steps(Step.FirstMain), activateAsSorcery: true));
-
-
-      foreach (var levelDefinition in levelDefinitions)
-      {
-        var definition = levelDefinition;
-
-        abilities.Add(
-          C.StaticAbility(
-            C.Trigger<OnLevelChanged>((c, _) => c.Level = definition.Min),
-            C.Effect<ApplyModifiersToSelf>((e, c) => e.Modifiers(
-              c.Modifier<AddStaticAbility>((m, _) => m.StaticAbility = definition.StaticAbility,
-                minLevel: definition.Min, maxLevel: definition.Max),
-              c.Modifier<SetPowerAndToughness>((m, _) =>
-                {
-                  m.Power = definition.Power;
-                  m.Tougness = definition.Thoughness;
-                }, minLevel: definition.Min, maxLevel: definition.Max))))
-          );
-      }
-
-      card.IsLeveler().Abilities(abilities.ToArray());
-
-      return card;
-    }
-
-    public class LevelDefinition
-    {
-      public int Min { get; set; }
-      public int? Max { get; set; }
-
-      public int Power { get; set; }
-      public int Thoughness { get; set; }
-
-      public StaticAbility StaticAbility { get; set; }
     }
   }
 }

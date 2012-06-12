@@ -14,6 +14,7 @@
   using Castle.Windsor;
   using Core;
   using Core.Ai;
+  using Core.CardDsl;
   using Core.Controllers;
   using Core.Controllers.Human;
   using Core.Controllers.Machine;

@@ -1,8 +1,8 @@
 ﻿namespace Grove.Tests.Scenarios
 {
   using System.Linq;
-  using Grove.Core;
-  using Grove.Core.Zones;
+  using Core;
+  using Core.Zones;
   using Grove.Infrastructure;
   using Infrastructure;
   using Xunit;
@@ -35,7 +35,7 @@
 
       [Fact]
       public void BugCreaturesWithFlyingCannotBeBlockedByCreaturesWithoutFlying()
-      {        
+      {
         Battlefield(P1, "Mountain", "Shivan Dragon");
         Battlefield(P2, C("Llanowar Behemoth"), C("Grizzly Bears"));
 
@@ -113,10 +113,11 @@
           At(Step.DeclareBlockers)
             .DeclareBlockers(armodon1, armodon2, armodon1, armodon3),
           At(Step.SecondMain)
-            .Verify(() => {
-              Equal(3, P1.Battlefield.Count());
-              Equal(0, P2.Battlefield.Count());
-            }));
+            .Verify(() =>
+              {
+                Equal(3, P1.Battlefield.Count());
+                Equal(0, P2.Battlefield.Count());
+              }));
       }
 
       [Fact]
@@ -172,10 +173,11 @@
           At(Step.DeclareBlockers)
             .DeclareBlockers(behemoth, bear1, behemoth, bear2),
           At(Step.EndOfTurn)
-            .Verify(() => {
-              Equal(0, P1.Battlefield.Count());
-              Equal(0, P2.Battlefield.Count());
-            }));
+            .Verify(() =>
+              {
+                Equal(0, P1.Battlefield.Count());
+                Equal(0, P2.Battlefield.Count());
+              }));
       }
 
       [Fact]
@@ -222,15 +224,16 @@
           At(Step.DeclareAttackers)
             .DeclareAttackers(bear),
           At(Step.DeclareBlockers)
-          .Cast(vines, target: bear, payKicker: true),
+            .Cast(vines, target: bear, payKicker: true),
           At(Step.SecondMain)
-            .Verify(() => {
-              Equal(Zone.Graveyard, C(warrior).Zone);
-              Equal(Zone.Battlefield, C(bear).Zone);
-            })
+            .Verify(() =>
+              {
+                Equal(Zone.Graveyard, C(warrior).Zone);
+                Equal(Zone.Battlefield, C(bear).Zone);
+              })
           );
-      }            
-      
+      }
+
       [Fact]
       public void BugNoAttackWhenPlayingBaloth()
       {
@@ -245,10 +248,11 @@
 
         Exec(
           At(Step.SecondMain, turn: 2)
-            .Verify(() => {
-              Equal(13, P1.Life);              
-              Equal(Zone.Battlefield, C(baloth).Zone);
-            })
+            .Verify(() =>
+              {
+                Equal(13, P1.Life);
+                Equal(Zone.Battlefield, C(baloth).Zone);
+              })
           );
       }
     }

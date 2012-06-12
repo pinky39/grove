@@ -4,6 +4,7 @@
   using System.Linq;
   using Core;
   using Core.Ai;
+  using Core.CardDsl;
   using Core.Effects;
 
   public class DrownedCatacomb : CardsSource

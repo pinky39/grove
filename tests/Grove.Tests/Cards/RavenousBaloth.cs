@@ -1,8 +1,8 @@
 ﻿namespace Grove.Tests.Cards
 {
   using System.Linq;
-  using Grove.Core;
-  using Grove.Core.Zones;
+  using Core;
+  using Core.Zones;
   using Infrastructure;
   using Xunit;
 
@@ -54,10 +54,11 @@
         Exec(
           At(Step.FirstMain)
             .Activate(baloth, costTarget: baloth)
-            .Verify(() => {
-              Equal(24, P1.Life);
-              Equal(Zone.Graveyard, C(baloth).Zone);
-            })
+            .Verify(() =>
+              {
+                Equal(24, P1.Life);
+                Equal(Zone.Graveyard, C(baloth).Zone);
+              })
           );
       }
     }

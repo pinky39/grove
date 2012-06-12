@@ -31,26 +31,26 @@
 
     private static readonly Dictionary<int, int> ManaCostToScore = new Dictionary<int, int>{
       {1, 150},
-      {2, 250},
-      {3, 320},
-      {4, 390},
-      {5, 440},
-      {6, 490},
-      {7, 540},
+      {2, 200},
+      {3, 250},
+      {4, 300},
+      {5, 350},
+      {6, 400},
+      {7, 450},
     };
 
     private static readonly Dictionary<int, int> PowerToughnessToScore = new Dictionary<int, int>{
       {0, 0},
-      {1, 50},
-      {2, 100},
-      {3, 150},
+      {1, 140},
+      {2, 160},
+      {3, 180},
       {4, 200},
-      {5, 250},
-      {6, 300},
-      {7, 350},
-      {8, 400},
-      {9, 450},
-      {10, 500},
+      {5, 220},
+      {6, 240},
+      {7, 260},
+      {8, 280},
+      {9, 300},
+      {10, 320},
     };
 
     public static int CalculateDiscardScore(Card card)
@@ -142,7 +142,7 @@
 
     public static int CalculateCardInHandScore(Card card)
     {
-      return 140;
+      return 120;
     }
 
     public static int CalculateLifelossScore(int life, int loss)

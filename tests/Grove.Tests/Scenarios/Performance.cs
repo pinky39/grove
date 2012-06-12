@@ -1,13 +1,10 @@
-﻿using System;
-
-namespace Grove.Tests.Scenarios
+﻿namespace Grove.Tests.Scenarios
 {
   using Infrastructure;
   using Xunit;
 
   public class Performance : AiScenario
   {
-    
     [Fact]
     public void Num1()
     {
@@ -16,7 +13,7 @@ namespace Grove.Tests.Scenarios
       Battlefield(P2, C("Forest"), C("Forest"), C("Forest"), C("Mountain"), C("Grizzly Bears"),
         C("Llanowar Behemoth"));
 
-      RunGame(maxTurnCount: 2);     
+      RunGame(maxTurnCount: 2);
     }
 
     [Fact]
@@ -70,7 +67,8 @@ namespace Grove.Tests.Scenarios
     public void Num6()
     {
       Hand(P1, "Grasp of Darkness", "Wurmcoil Engine");
-      Battlefield(P2, "Forest", "Rootbound Crag", "Forest", "Forest", "Fires of Yavimaya", "Forest", "Rootbound Crag", "Ravenous Baloth", "Raging Ravine");
+      Battlefield(P2, "Forest", "Rootbound Crag", "Forest", "Forest", "Fires of Yavimaya", "Forest", "Rootbound Crag",
+        "Ravenous Baloth", "Raging Ravine");
       Battlefield(P1, "Swamp", "Swamp", "Swamp", "Swamp", "Swamp", "Nantuko Shade", "Swamp");
 
       RunGame(maxTurnCount: 1);
@@ -81,24 +79,25 @@ namespace Grove.Tests.Scenarios
     {
       Hand(P1, "Sift", "Darksteel Gargoyle", "Divination", "Mana Leak", "Darksteel Gargoyle", "Blaze", "Mana Leak");
       Hand(P2, "Vines of Vastwood", "Volcanic Fallout", "Volcanic Fallout");
-      Battlefield(P1, "Rupture Spire", "Island", "Wall of Denial", "Mountain", "Trip Noose", "Steam Vents", "Mountain", "Steam Vents", "Seal of Fire");
-      Battlefield(P2, "Rootbound Crag", "Llanowar Elves", "Copperline Gorge", "Forest", "Ravenous Baloth", "Forest", "Acidic Slime", "Raging Ravine", "Forest", "Rootbound Crag", "Forest");
+      Battlefield(P1, "Rupture Spire", "Island", "Wall of Denial", "Mountain", "Trip Noose", "Steam Vents", "Mountain",
+        "Steam Vents", "Seal of Fire");
+      Battlefield(P2, "Rootbound Crag", "Llanowar Elves", "Copperline Gorge", "Forest", "Ravenous Baloth", "Forest",
+        "Acidic Slime", "Raging Ravine", "Forest", "Rootbound Crag", "Forest");
 
       RunGame(maxTurnCount: 2);
     }
 
-     [Fact]
-      public void Num8()
-      {        
-                
-        Hand(P1, "Marsh Casualties", "Marsh Casualties", "Cruel Edict", "Marsh Casualties");
-        Hand(P2, "Lightning Bolt", "Darksteel Gargoyle", "Beacon of Destruction", "Seal of Fire");
-                
-        Battlefield(P1, "Swamp", "Swamp", "Swamp", "Swamp", "Swamp", "Swamp", "Wurmcoil Engine", "Nantuko Shade");
-        Battlefield(P2, "Vivid Creek", "Island", "Steam Vents", "Vivid Crag", "Trip Noose", "Trip Noose", "Island", "Mountain", "Mountain", "Wall of Denial");        
-                
-        RunGame(maxTurnCount: 2);
-      }    
+    [Fact]
+    public void Num8()
+    {
+      Hand(P1, "Marsh Casualties", "Marsh Casualties", "Cruel Edict", "Marsh Casualties");
+      Hand(P2, "Lightning Bolt", "Darksteel Gargoyle", "Beacon of Destruction", "Seal of Fire");
 
+      Battlefield(P1, "Swamp", "Swamp", "Swamp", "Swamp", "Swamp", "Swamp", "Wurmcoil Engine", "Nantuko Shade");
+      Battlefield(P2, "Vivid Creek", "Island", "Steam Vents", "Vivid Crag", "Trip Noose", "Trip Noose", "Island",
+        "Mountain", "Mountain", "Wall of Denial");
+
+      RunGame(maxTurnCount: 2);
+    }
   }
 }

@@ -2,6 +2,7 @@
 {
   using System;
   using System.Collections.Generic;
+  using CardDsl;
   using Counters;
   using DamagePrevention;
   using Infrastructure;
@@ -106,7 +107,7 @@
           modifier.AddLifetime(lifetime);
         }
         
-        Init(modifier, new Creator(Game));                
+        Init(modifier, new CardCreationCtx(Game));                
         
         modifier.Initialize();        
 

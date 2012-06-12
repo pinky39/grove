@@ -412,8 +412,13 @@
     {
       _battlefield.Remove(card);
 
-      if (!card.Is().Token)
-        _graveyard.Add(card);
+      if (card.Is().Token)
+      {
+        card.SetZone(Zone.Exiled);
+        return;
+      }
+      
+      _graveyard.Add(card);
     }
 
     private void PutCardToHandFromGraveyard(Card card)
@@ -426,8 +431,13 @@
     {
       _battlefield.Remove(card);
 
-      if (!card.Is().Token)
-        _hand.Add(card);
+      if (card.Is().Token)
+      {
+        card.SetZone(Zone.Exiled);
+        return;
+      }
+            
+      _hand.Add(card);
     }    
 
     private void SetupZones(IEnumerable<Card> cards, ChangeTracker changeTracker)
@@ -441,6 +451,24 @@
     public interface IFactory
     {
       Player Create(string name, string avatar, bool isHuman, string deck);
+    }
+
+    public void ExileCard(Card card)
+    {
+      _battlefield.Remove(card);
+      card.SetZone(Zone.Exiled);        
+    }
+
+    public void Mill(int count)
+    {
+      for (int i = 0; i < count; i++)
+      {
+        var card = _library.Draw();
+        if (card == null)
+          return;
+        
+        PutCardToGraveyard(card);
+      }            
     }
   }
 }
