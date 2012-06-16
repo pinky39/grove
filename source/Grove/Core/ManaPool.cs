@@ -47,6 +47,11 @@
       get { return _manaBag.Count(x => x.IsMultiColor); }
     }
 
+    public int ColorlessCount
+    {
+      get { return _manaBag.Count(x => x.IsColorless); }
+    }
+
     public bool IsEmpty { get { return _manaBag.IsEmpty; } }
 
     public int Priority { get { return 0; } }

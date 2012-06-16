@@ -57,12 +57,33 @@
 						<ImageBrush ImageSource = "{Binding Path=Colors, Converter={x:Static grove:Converters.CardColorToCardTemplate}}" />
 					</StackPanel.Background>
 					<DockPanel>
-                        <TextBlock Foreground = "White"
-						           Margin = "10,4,0,0"
-						           FontSize = "17"
-						           FontFamily = "Arial"                                   
-                                   DockPanel.Dock="Left"
-						           Text = "{Binding Path=Name}" />                                                
+                        <StackPanel Margin = "10,4,0,0" Orientation="Horizontal" DockPanel.Dock="Left">
+                            <StackPanel.Resources>
+                                <Style x:Key="Level" TargetType="TextBlock" >
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Level}"  Value="{x:Null}">
+                                            <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                        </DataTrigger>
+
+                                        <DataTrigger Binding="{Binding Level}"  Value="0">
+                                            <Setter Property="Visibility" Value="Collapsed"></Setter>                                            
+                                        </DataTrigger>
+                                        
+                                    </Style.Triggers>
+                                </Style>
+                                
+                            </StackPanel.Resources>
+                        
+                            <TextBlock Foreground = "White"						           
+						               FontSize = "17"
+						               FontFamily = "Arial"                                                                      
+						               Text = "{Binding Path=Name}" />
+                            <TextBlock Style="{StaticResource Level}"
+                                       Foreground = "White"						           
+                                       FontSize = "17"
+						               FontFamily = "Arial"                                                                                                             
+                                       Text="{Binding Path=Level, StringFormat=' - Level {0}'}" />
+                        </StackPanel>
 
                         <ItemsControl HorizontalAlignment = "Right"
 						              DockPanel.Dock="Right"
@@ -115,8 +136,8 @@
 					           FontSize = "16"
 					           Margin = "20,6,0,0"
 					           Text = "{Binding Path=Type}" />
-					<Viewbox Height = "135"
-					         Margin = "32,6,25,0"
+					<Viewbox Height = "132"
+					         Margin = "32,8,25,0"
 					         Stretch = "Uniform"
 					         HorizontalAlignment = "Left" >
 						<Border>

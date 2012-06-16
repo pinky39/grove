@@ -3,7 +3,11 @@
              xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:Interactivity="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro">
-    <Border>        
+    <Border>
+        <Border.Resources>
+            <Style BasedOn = "{StaticResource ScrollBar}"
+			       TargetType = "{x:Type ScrollBar}" />
+        </Border.Resources>
         <Grid Width="680">
             <Grid.RowDefinitions>
                 <RowDefinition Height="36"/>
@@ -58,25 +62,25 @@
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>                                    
                                     <Grid Margin="10,0,0,0">
+                                        <Interactivity:Interaction.Triggers>
+                                            <Interactivity:EventTrigger EventName = "MouseUp" >
+                                                <cal:ActionMessage MethodName = "AssignRank" >
+                                                    <cal:Parameter Value = "{Binding }" />
+                                                </cal:ActionMessage>
+                                            </Interactivity:EventTrigger>
+                                            <Interactivity:EventTrigger EventName = "MouseEnter" >
+                                                <cal:ActionMessage MethodName = "ChangePlayersInterest" >
+                                                    <cal:Parameter Value = "{Binding Blocker.Card}" />
+                                                </cal:ActionMessage>
+                                            </Interactivity:EventTrigger>
+                                        </Interactivity:Interaction.Triggers>
                                         
                                         <ContentControl Style="{StaticResource SelectableContent}">
-                                            <ContentControl Content="{Binding Blocker.Card}" ContentTemplate = "{StaticResource FaceUpCard}">
-                                                <Interactivity:Interaction.Triggers>
-                                                    <Interactivity:EventTrigger EventName = "MouseUp" >
-                                                        <cal:ActionMessage MethodName = "AssignRank" >
-                                                            <cal:Parameter Value = "{Binding }" />
-                                                        </cal:ActionMessage>                                                                                                                                  
-                                                    </Interactivity:EventTrigger>
-                                                    <Interactivity:EventTrigger EventName = "MouseEnter" >
-                                                         <cal:ActionMessage MethodName = "ChangePlayersInterest" >
-                                                            <cal:Parameter Value = "{Binding Blocker.Card}" />
-                                                        </cal:ActionMessage>                                     
-                                                    </Interactivity:EventTrigger>
-                                                </Interactivity:Interaction.Triggers>
+                                            <ContentControl Content="{Binding Blocker.Card}" ContentTemplate = "{StaticResource FaceUpCard}">                                             
                                             </ContentControl>
                                         </ContentControl>
 
-                                        <TextBlock Style="{StaticResource Label}" HorizontalAlignment = "Center" FontSize = "140"											           
+                                        <TextBlock Style="{StaticResource Label}" HorizontalAlignment = "Center" FontSize = "80"											           
 											           FontWeight = "Bold"
 											           Text = "{Binding AssignmentOrder}" />
                                     </Grid>                                                                        

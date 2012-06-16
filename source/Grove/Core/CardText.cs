@@ -12,22 +12,19 @@
   {
     private static readonly Regex Brackets = new Regex("{(.*)}", RegexOptions.Compiled);
 
-    private static readonly List<Func<string, Token>> TokenFactoy = new List<Func<string, Token>>{
-      token => token == "Fear" ? new ImportantTextToken(token) : null,
-      token => token == "Flying" ? new ImportantTextToken(token) : null,
-      token => token == "Lifelink" ? new ImportantTextToken(token) : null,
-      token => token == "Deathtouch" ? new ImportantTextToken(token) : null,
-      token => token == "Hexproof" ? new ImportantTextToken(token) : null,
-      token => token == "Kicker" ? new ImportantTextToken(token) : null,
-      token => token == "Equip" ? new ImportantTextToken(token) : null,
-      token => token == "Trample" ? new ImportantTextToken(token) : null,
-      token => token == "Shroud" ? new ImportantTextToken(token) : null,
-      token => token == "Defender" ? new ImportantTextToken(token) : null,
-      token => token == "Level up" ? new ImportantTextToken(token) : null,
-      token => token == "First strike" ? new ImportantTextToken(token) : null,
-      token => token == "Double strike" ? new ImportantTextToken(token) : null,
+    private static readonly List<Func<string, Token>> TokenFactoy = new List<Func<string, Token>>{     
       token => token == "EOL" ? new EolToken() : null,      
-      token => new ManaSymbolToken(token)
+      token =>
+        {
+          token = token.ToLowerInvariant();
+          
+          if (token  == "w" || token == "u" || token == "b" || token == "r" || token == "g" || token == "t" || 
+              token == "1" || token == "2" || token == "3" || token == "4" || token == "5" || token == "6" || token == "7" || token == "8")
+          {
+            return new ManaSymbolToken(token);
+          }
+          return null;
+        }
     };
 
     private static readonly Regex Tokenizer = new Regex("( )|({[^}]*})", RegexOptions.Compiled);
@@ -48,7 +45,7 @@
           Tokenizer
             .Split(text)
             .Where(x => x != String.Empty)
-            .Where(x => x != " ")
+            .Where(x => x != " ")                        
             .Select(CreateToken).ToList());
 
       Original = text;
@@ -99,8 +96,7 @@
           return token;
       }
 
-      throw new InvalidOperationException(
-        String.Format("Could not find factory method for token symbol: {0}.", value));
+      return new ImportantTextToken(value);
     }
 
     private static Token CreateToken(string tokenString)

@@ -494,6 +494,7 @@
     public void ClearDamage()
     {
       Damage = 0;
+      _hasLeathalDamage.Value = false;
     }
 
     public void Destroy()
@@ -632,6 +633,11 @@
         DetachSelf();
         Untap();
         ClearDamage();
+      }
+
+      if (newZone == Zone.Battlefield)
+      {
+        _hasSummoningSickness.Value = true;
       }
 
       _zone.Value = newZone;

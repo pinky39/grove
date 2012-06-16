@@ -125,19 +125,19 @@
       {
         var characterCount = (int) value;
 
-        if (characterCount < 50)
+        if (characterCount < 40)
           return 17;
 
-        if (characterCount < 150)
+        if (characterCount < 120)
           return 15;
 
-        if (characterCount < 200)
+        if (characterCount < 160)
           return 14;
 
-        if (characterCount < 250)
+        if (characterCount < 220)
           return 13;
 
-        if (characterCount < 300)
+        if (characterCount < 260)
           return 12;
         
         return 11;

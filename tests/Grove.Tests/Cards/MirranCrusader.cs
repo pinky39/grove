@@ -1,6 +1,8 @@
 ﻿namespace Grove.Tests.Cards
 {
   using System.Linq;
+  using Core;
+  using Core.Zones;
   using Infrastructure;
   using Xunit;
 
@@ -38,6 +40,35 @@
         Equal(1, P1.Battlefield.Count());
         Equal(20, P2.Life);        
       }
+      
+    }
+
+    public class Predefined : PredifinedScenario
+    {
+      [Fact]
+      public void RemoveFromCombatAfterLeathalFirstStrikeDamage()
+      {
+        var troll = C("Troll Ascetic");
+        var mirran = C("Mirran Crusader");
+
+        Battlefield(P1, troll);
+        Battlefield(P2, mirran);        
+        
+        Exec(
+          At(Step.DeclareAttackers)
+            .DeclareAttackers(troll),
+          At(Step.DeclareBlockers)
+            .DeclareBlockers(troll, mirran)
+            .Activate(troll),
+          At(Step.SecondMain)
+            .Verify(() =>
+              {
+                Equal(Zone.Battlefield, C(troll).Zone);
+                True(C(troll).IsTapped);
+              })
+        );
+
+      }      
     }
   }
 }

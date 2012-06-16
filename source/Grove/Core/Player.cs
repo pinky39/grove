@@ -196,7 +196,7 @@
 
       if (card.CanRegenerate)
       {
-        card.Regenerate();
+        card.Regenerate();        
         return;
       }
 
@@ -300,7 +300,7 @@
 
     public void PutCardIntoPlay(Card card)
     {
-      _battlefield.Add(card);
+      _battlefield.Add(card);      
     }
 
     public void PutCardToGraveyard(Card card)

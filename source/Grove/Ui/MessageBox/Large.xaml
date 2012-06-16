@@ -8,7 +8,7 @@
             <Style BasedOn="{StaticResource LinkButton}" TargetType="Button">
                 <Setter Property="FontSize" Value="16"/>
                 <Setter Property="Margin" Value="0,0,20,0"/>
-            </Style>
+            </Style>            
         </Border.Resources>
         <Grid Width="400">
             <Grid.RowDefinitions>
@@ -44,20 +44,20 @@
                   Text="{Binding Message}"
                   TextWrapping="Wrap"/>
                 </Grid>
-            </Border>
-            <Border Grid.Row="2" Background="#1a1a1a">
-                <StackPanel Orientation = "Horizontal" HorizontalAlignment = "Right" Margin="0,0,5,0">
-                    <Button x:Name = "Ok"							        
+            </Border>            
+                <Border Grid.Row="2" Background="#1a1a1a">
+                    <StackPanel Orientation = "Horizontal" HorizontalAlignment = "Right" Margin="0,0,5,0">
+                        <Button x:Name = "Ok"							        
 							        Visibility = "{Binding IsOk, Converter={x:Static grove:Converters.BooleanToVisibility}}"
 							        Content = "Ok" />
-                    <Button x:Name = "Yes"							        
+                        <Button x:Name = "Yes"							        
 							        Visibility = "{Binding IsYesNo, Converter={x:Static grove:Converters.BooleanToVisibility}}"
 							        Content = "Yes" />
-                    <Button x:Name = "No"							        
+                        <Button x:Name = "No"							        
 							        Visibility = "{Binding IsYesNo, Converter={x:Static grove:Converters.BooleanToVisibility}}"
 							        Content = "No" />
-                </StackPanel>                
-            </Border>
+                    </StackPanel>
+                </Border>            
         </Grid>
     </Border>  
 </UserControl>
