@@ -1,8 +1,9 @@
-MAGICGROVE v 1.1: Card List
+MAGICGROVE v 1.2: Card List
 =====================================
 The following cards can be used to construct new decks:
 
 Acidic Slime
+Basilisk Collar
 Beacon of Destruction
 Birds of Paradise
 Black Sun's Zenith
@@ -39,30 +40,41 @@ Llanowar Behemoth
 Llanowar Elves
 Mana Leak
 Marsh Casualties
+Mirran Crusader
 Mountain
 Nantuko Shade
 Order of the Sacred Bell
 Phyrexian Arena
+Plains
 Raging Ravine
+Rancor
 Ravenous Baloth
+Razorverge Thicket
 Recoil
 Rootbound Crag
 Rumbling Slum
 Rupture Spire
+Savannah Lions
 Seal of Fire
 Shivan Dragon
 Shock
 Sift
 Sign in Blood
 Steam Vents
+Stirring Wildwood
+Student of Warfare
 Stupor
+Sunpetal Grove
 Swamp
+Sword of Body and Mind
 Sword of Feast and Famine
 Sword of Fire and Ice
+Swords to Plowshares
 Thrun, the Last Troll
 Time Warp
 Trained Armodon
 Trip Noose
+Troll Ascetic
 Undermine
 Vampire Nighthawk
 Verdant Force

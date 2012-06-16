@@ -11,7 +11,8 @@
     {
       foreach (var cardName in CardDatabase.GetAvailableCardsNames())
       {
-        Console.WriteLine(cardName);
+        if (cardName != "Uncastable")
+          Console.WriteLine(cardName);
       } 
     }
   }
