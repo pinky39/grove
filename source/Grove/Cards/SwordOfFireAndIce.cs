@@ -27,6 +27,7 @@
             C.Trigger<DealDamageToPlayer>((t, _) =>
               {
                 t.CombatOnly = true;
+                t.UseAttachedToAsTriggerSource = true;
                 t.ToAny();
               }),
             C.Effect<CompoundEffect>((e, c) => e.ChildEffects(

@@ -14,6 +14,7 @@
   public class DealDamageToPlayer : Trigger, IReceive<DamageHasBeenDealt>
   {
     public bool CombatOnly { get; set; }
+    public bool UseAttachedToAsTriggerSource { get; set; }
     public Func<Player, TriggeredAbility, bool> IsValidPlayer { get; set; }
 
     public void Receive(DamageHasBeenDealt message)
@@ -51,7 +52,7 @@
 
       // if ability card is equipment or enchantment, set triggerCard to
       // card to which ability card is attached
-      if (triggerCard.Is().Enchantment || triggerCard.Is().Equipment)
+      if (UseAttachedToAsTriggerSource && (triggerCard.Is().Enchantment || triggerCard.Is().Equipment))
       {
         if (!triggerCard.IsAttached)
           return triggerCard;

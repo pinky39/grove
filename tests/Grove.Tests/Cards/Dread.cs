@@ -1,12 +1,42 @@
 ﻿namespace Grove.Tests.Cards
 {
-  using Grove.Core;
-  using Grove.Core.Zones;
+  using System.Linq;
+  using Core;
+  using Core.Zones;
   using Infrastructure;
   using Xunit;
 
   public class Dread
   {
+    public class PredefinedAi : PredefinedAiScenario
+    {
+      [Fact]
+      public void DreadAbilityTriggersTwiceGameEndsBug()
+      {
+        var engine = C("Wurmcoil Engine").IsEquipedWith("Sword of Feast and Famine");
+        var student = C("Student of Warfare");
+        
+        Battlefield(P1, engine, student, "Plains", "Plains");
+        Battlefield(P2, "Dread");
+
+        Exec(
+          At(Step.FirstMain)
+            .Activate(student)
+            .Activate(student),
+          At(Step.DeclareAttackers)
+            .DeclareAttackers(engine),
+          At(Step.SecondMain)
+            .Verify(() =>
+              {
+                Equal(Zone.Graveyard, C(engine).Zone);
+                Equal(6, P1.Battlefield.Count());
+                False(Game.IsFinished);
+                Equal(12, P2.Life);
+              })        
+        );
+      }
+    }
+    
     public class Predefined : PredifinedScenario
     {
       [Fact]
@@ -14,17 +44,18 @@
       {
         var bear1 = C("Grizzly Bears");
         var bear2 = C("Grizzly Bears");
-        
+
         Battlefield(P1, bear1, bear2);
         Battlefield(P2, "Dread");
 
         Exec(
-            At(Step.DeclareAttackers)
-              .DeclareAttackers(bear1, bear2),
-            At(Step.SecondMain)
-              .Verify(() => {
+          At(Step.DeclareAttackers)
+            .DeclareAttackers(bear1, bear2),
+          At(Step.SecondMain)
+            .Verify(() =>
+              {
                 Equal(Zone.Graveyard, C(bear1).Zone);
-                Equal(Zone.Graveyard, C(bear2).Zone);
+                Equal(Zone.Graveyard, C(bear2).Zone);                
               })
           );
       }
@@ -39,7 +70,7 @@
 
         Exec(
           At(Step.FirstMain)
-          .Verify(() => Equal(Zone.Graveyard, C(slum).Zone))
+            .Verify(() => Equal(Zone.Graveyard, C(slum).Zone))
           );
       }      
     }
