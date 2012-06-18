@@ -830,6 +830,27 @@
 
         return card;
       }
+      
+      public Card CreateCardPreview()
+      {
+        var card = Bindable.Create<Card>();        
+
+        card.Name = _name;        
+        card.ManaCost = _manaCost.ParseManaAmount();        
+        card.Text = _text ?? String.Empty;
+        card.FlavorText = _flavorText ?? String.Empty;
+        card.Illustration = GetIllustration(_name, _type);
+        
+        CreateBindablePower(card);
+        CreateBindableToughness(card);                
+        CreateBindableType(card);
+        CreateBindableColors(card);
+        
+        card._damage = new Trackable<int>(_changeTracker, card);
+        card._isTapped = new Trackable<bool>(_changeTracker, card);        
+
+        return card;
+      }
 
       public CardFactory Protections(ManaColors colors)
       {
