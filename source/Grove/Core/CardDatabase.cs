@@ -22,8 +22,19 @@
 
     public int CardCount { get { return _cardSources.Length; } }
 
+    public Card CreateCardPreview(string name)
+    {
+      var cardFactory = GetCardFactory(name);
+      return cardFactory.CreateCardPreview();
+    }
+    
     public Card CreateCard(string name, Player controller)
     {
+      var cardFactory = GetCardFactory(name);
+      return cardFactory.CreateCard(controller);
+    }
+
+    private ICardFactory GetCardFactory(string name) {
       var cardFactory = Database
         .Where(x => x.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase))
         .FirstOrDefault();
@@ -31,8 +42,7 @@
       if (cardFactory == null)
         throw new InvalidOperationException(
           String.Format("Card with name '{0}' was not found in database.", name));
-
-      return cardFactory.CreateCard(controller);
+      return cardFactory;
     }
 
     public List<string> GetAvailableCardsNames()

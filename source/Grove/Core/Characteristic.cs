@@ -18,9 +18,8 @@
     protected Characteristic(T value, ChangeTracker changeTracker, IHashDependancy hashDependancy)
     {
       _modifiers = new TrackableList<PropertyModifier<T>>(changeTracker);
-      _currentValue = new Trackable<T>(changeTracker, hashDependancy);
-      _baseValue = value;
-      _currentValue.Value = value;
+      _currentValue = new Trackable<T>(value, changeTracker, hashDependancy);
+      _baseValue = value;      
     }
 
     public virtual T Value

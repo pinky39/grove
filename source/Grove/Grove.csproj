@@ -230,6 +230,7 @@
     <Compile Include="Core\Counters\Counter.cs" />
     <Compile Include="Core\Counters\Counters.cs" />
     <Compile Include="Core\Counters\ICounterFactory.cs" />
+    <Compile Include="Core\DeckFileReader.cs" />
     <Compile Include="Core\Effects\CounterTargetSpell.cs" />
     <Compile Include="Core\Effects\ExileTargetPermanent.cs" />
     <Compile Include="Core\Effects\MillOpponent.cs" />
@@ -445,10 +446,6 @@
     <Compile Include="Ui\AttackerSelected.cs" />
     <Compile Include="Ui\AttackerUnselected.cs" />
     <Compile Include="Ui\BackgroundExtension.cs" />
-    <Compile Include="Ui\DeckScreen\View.xaml.cs">
-      <DependentUpon>View.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Ui\DeckScreen\ViewModel.cs" />
     <Compile Include="Ui\Permanent\CombatMarkers.cs" />
     <Compile Include="Ui\BlockerSelected.cs" />
     <Compile Include="Ui\BlockerUnselected.cs" />
@@ -480,6 +477,10 @@
     <Compile Include="Core\Messages\EndOfTurn.cs" />
     <Compile Include="Core\Messages\PlayerHasTakenMulligan.cs" />
     <Compile Include="Core\Messages\RemovedFromCombat.cs" />
+    <Compile Include="Ui\SelectDeck\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\SelectDeck\ViewModel.cs" />
     <Compile Include="Ui\SelectionMode.cs" />
     <Compile Include="Ui\SelectionModeChanged.cs" />
     <Compile Include="Ui\Spell\View.xaml.cs">
@@ -666,10 +667,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ui\DeckScreen\View.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Ui\GameResults\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -726,6 +723,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Ui\SelectDeck\View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Ui\SelectTarget\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -770,6 +771,7 @@
   <ItemGroup>
     <Resource Include="icon.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <UsingTask TaskName="Costura.EmbedTask" AssemblyFile="$(SolutionDir)lib\costura\Costura.dll" />
   <Target Name="AfterBuild">

@@ -839,15 +839,17 @@
         card.ManaCost = _manaCost.ParseManaAmount();        
         card.Text = _text ?? String.Empty;
         card.FlavorText = _flavorText ?? String.Empty;
-        card.Illustration = GetIllustration(_name, _type);
+        card.Illustration = GetIllustration(_name, _type);        
         
-        CreateBindablePower(card);
-        CreateBindableToughness(card);                
-        CreateBindableType(card);
-        CreateBindableColors(card);
-        
-        card._damage = new Trackable<int>(_changeTracker, card);
-        card._isTapped = new Trackable<bool>(_changeTracker, card);        
+        card._power = new Power(_power, null, null);
+        card._toughness = new Toughness(_toughness, null, null);
+        card._type = new CardTypeCharacteristic(_type, null, null);
+        card._colors = new CardColors(card.GetCardColorFromManaCost(), null, null);
+        card._level = new Level(null, null, null);
+        card._counters = new Counters.Counters(card._power, card._toughness, null, null);
+                
+        card._damage = new Trackable<int>(null, card);
+        card._isTapped = new Trackable<bool>(null, card);        
 
         return card;
       }
