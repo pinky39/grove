@@ -8,19 +8,30 @@
   public class Protections : IModifiable, IHashable
   {
     private readonly TrackableList<ManaColors> _colors;
+    private readonly TrackableList<string> _cardTypes;
 
     private Protections() {}
-    
-    public Protections(ManaColors manaColors, ChangeTracker changeTracker, IHashDependancy hashDependancy)
+
+    public Protections(ChangeTracker changeTracker, IHashDependancy hashDependancy, ManaColors manaColors = ManaColors.None, string[] cardTypes = null)
     {
       if (manaColors == ManaColors.None)
       {
-        _colors = new TrackableList<ManaColors>(changeTracker, hashDependancy);
-        return;
+        _colors = new TrackableList<ManaColors>(changeTracker, hashDependancy);        
       }
-      
-      _colors = new TrackableList<ManaColors>(manaColors.ToEnumerable(), 
-        changeTracker, hashDependancy);
+      else
+      {
+        _colors = new TrackableList<ManaColors>(manaColors.ToEnumerable(),
+          changeTracker, hashDependancy);  
+      }
+
+      if (cardTypes == null)
+      {
+        _cardTypes = new TrackableList<string>(changeTracker, hashDependancy);
+      }
+      else
+      {
+        _cardTypes = new TrackableList<string>(cardTypes, changeTracker, hashDependancy);
+      }            
     }
 
     public int CalculateHash(HashCalculator calc)
@@ -36,6 +47,11 @@
     public void AddProtectionFromColors(ManaColors color)
     {
       _colors.Add(color);
+    }    
+
+    public bool HasProtectionFrom(CardType type)
+    {
+      return type.IsAny(_cardTypes);
     }
 
     public bool HasProtectionFrom(ManaColors colors)

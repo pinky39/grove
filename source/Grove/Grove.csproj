@@ -94,6 +94,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Cards\AcidicSlime.cs" />
+    <Compile Include="Cards\AngelicWall.cs" />
+    <Compile Include="Cards\BaneslayerAngel.cs" />
     <Compile Include="Cards\BasiliskCollar.cs" />
     <Compile Include="Cards\BurstLightning.cs" />
     <Compile Include="Cards\BeaconOfDestruction.cs" />
@@ -105,6 +107,7 @@
     <Compile Include="Cards\CopperlineGorge.cs" />
     <Compile Include="Cards\CreepingTarPit.cs" />
     <Compile Include="Cards\CruelEdict.cs" />
+    <Compile Include="Cards\DeathlessAngel.cs" />
     <Compile Include="Cards\DrownedCatacomb.cs" />
     <Compile Include="Cards\DarkslickDrake.cs" />
     <Compile Include="Cards\DarksteelGargoyle.cs" />
@@ -176,6 +179,7 @@
     <Compile Include="Cards\VividCrag.cs" />
     <Compile Include="Cards\VividCreek.cs" />
     <Compile Include="Cards\VolcanincFallout.cs" />
+    <Compile Include="Cards\WallOfReverence.cs" />
     <Compile Include="Cards\WurmcoilEngine.cs" />
     <Compile Include="Cards\WallOfDenial.cs" />
     <Compile Include="Configuration.cs" />

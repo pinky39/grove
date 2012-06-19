@@ -278,7 +278,7 @@
     {
       var damage = new Damage(damageSource, amount);
 
-      if (HasProtectionFrom(damage.Source.Colors))
+      if (HasProtectionFrom(damage.Source))
         return;
 
       var dealtAmount = _damagePreventions.PreventDamage(damage.Source, damage.Amount);
@@ -441,7 +441,7 @@
         (!Has().Unblockable) &&
           (Has().Flying ? card.Has().Flying | card.Has().Reach : true) &&
             (Has().Fear ? card.HasColor(ManaColors.Black) || card.Is().Artifact : true) &&
-              !HasProtectionFrom(card.Colors);
+              !HasProtectionFrom(card);
     }
 
     public bool CanBeTargetBySpellsOwnedBy(Player player)
@@ -562,11 +562,18 @@
     {
       return (Colors & color) == color;
     }
-
+    
+    
     public bool HasProtectionFrom(ManaColors colors)
     {
       return _protections.HasProtectionFrom(colors);
     }
+    
+    public bool HasProtectionFrom(Card card)
+    {
+      return _protections.HasProtectionFrom(card.Colors) || 
+        _protections.HasProtectionFrom(card.Type);
+    }    
 
     public void Hide()
     {
@@ -747,7 +754,8 @@
       private int? _toughness;
       private CardType _type;
       private CalculateX _xCalculator;
-      private ManaColors _protections = ManaColors.None;
+      private ManaColors _protectionsFromColors = ManaColors.None;
+      private string[] _protectionsFromCardTypes;
 
       public CardFactory(Game game)
       {
@@ -799,7 +807,7 @@
         card._hasSummoningSickness = new Trackable<bool>(true, _changeTracker, card);
         card._controller = new Trackable<Player>(controller, _changeTracker, card);
         card._damagePreventions = new DamagePreventions(_changeTracker, card);
-        card._protections = new Protections(_protections, _changeTracker, card);
+        card._protections = new Protections(_changeTracker, card, _protectionsFromColors, _protectionsFromCardTypes);
         card._zone = new Trackable<Zone>(_changeTracker, card);
 
         card.EffectCategories = _effectCategories;
@@ -856,7 +864,13 @@
 
       public CardFactory Protections(ManaColors colors)
       {
-        _protections = colors;
+        _protectionsFromColors = colors;
+        return this;
+      }
+
+      public CardFactory Protections(params string[] cardTypes)
+      {
+        _protectionsFromCardTypes = cardTypes;
         return this;
       }
 

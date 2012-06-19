@@ -75,7 +75,7 @@
         return true;
 
       return target.CanBeTargetBySpellsOwnedBy(Controller) &&
-        !target.HasProtectionFrom(Source.Colors);
+        !target.HasProtectionFrom(Source);
     }
     
     public class Factory : ITargetSelectorFactory

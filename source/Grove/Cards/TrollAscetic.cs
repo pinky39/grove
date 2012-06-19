@@ -26,7 +26,7 @@
             "{1}{G}: Regenerate Troll Ascetic.",
             C.Cost<TapOwnerPayMana>((c, _) => c.Amount = "{1}{G}".ParseManaAmount()),
             C.Effect<Regenerate>(),
-            timing: Timings.Regenerate));
+            timing: Timings.Regenerate()));
     }
   }
 }

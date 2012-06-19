@@ -46,13 +46,13 @@
       return opponent.IsActive;
     }
 
-    public static bool Regenerate(Game game, Card card, ActivationParameters spell)
+    public static Func<Game, Card, ActivationParameters, bool> Regenerate(bool considerSelfOnly = true)
     {
-      return ResponseToSpell(EffectCategories.Destruction | EffectCategories.DamageDealing)(game, card, spell) ||
-        Steps(Step.DeclareBlockers)(game, card, spell);
+      return (game, card, activationParameters) => ResponseToSpell(EffectCategories.Destruction | EffectCategories.DamageDealing, considerSelfOnly)(game, card, activationParameters) ||
+        Steps(Step.DeclareBlockers)(game, card, activationParameters);
     }
 
-    public static Func<Game, Card, ActivationParameters, bool> ResponseToSpell(EffectCategories effectCategories = EffectCategories.Generic)
+    public static Func<Game, Card, ActivationParameters, bool> ResponseToSpell(EffectCategories effectCategories = EffectCategories.Generic, bool considerSelfOnly = true)
     {
       return (game, card, activationParameters) => {
         var topSpell = game.Stack.TopSpell;
@@ -60,7 +60,7 @@
         if (topSpell == null)
           return false;
 
-        if (topSpell.HasTarget && (
+        if (considerSelfOnly && topSpell.HasTarget && (
           topSpell.Target != activationParameters.EffectTarget &&
             topSpell.Target != activationParameters.CostTarget &&
               topSpell.Target != card &&

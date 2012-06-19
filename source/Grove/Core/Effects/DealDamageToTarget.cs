@@ -2,10 +2,18 @@
 {
   using Modifiers;
 
+  public class GainLifeEqualToTargetCreaturePower : Effect
+  {
+    public override void Resolve()
+    {
+      Controller.Life += Target.Card().Power.Value;
+    }
+  }
+
   public class DealDamageToTarget : Effect
   {
     public Value Amount { get; set; }
-    
+
     public override void Resolve()
     {
       var damageSource = Source.OwningCard;
@@ -17,6 +25,6 @@
     public override string ToString()
     {
       return GetType().Name;
-    }    
+    }
   }
 }

@@ -64,6 +64,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cards\BaneslayerAngel.cs" />
     <Compile Include="Cards\BlacksSunZenith.cs" />
     <Compile Include="Cards\Blaze.cs" />
     <Compile Include="Cards\CreepingTarPit.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Cards\VividCreek.cs" />
     <Compile Include="Cards\WallOfDenial.cs" />
     <Compile Include="CardListGenerator.cs" />
+    <Compile Include="Cards\WallOfReverence.cs" />
     <Compile Include="Unit\ActivationFacts.cs" />
     <Compile Include="Unit\BlockStrategyFacts.cs" />
     <Compile Include="Unit\ClosedFacts.cs" />

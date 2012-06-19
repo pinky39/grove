@@ -20,10 +20,7 @@
       _game = game;
     }
 
-    public Card.CardFactory Card
-    {
-      get { return new Card.CardFactory(_game); }
-    }
+    public Card.CardFactory Card { get { return new Card.CardFactory(_game); } }
 
     public IActivatedAbilityFactory ActivatedAbility(
       string text,

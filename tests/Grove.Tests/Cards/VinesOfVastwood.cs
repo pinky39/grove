@@ -1,7 +1,7 @@
 ﻿namespace Grove.Tests.Cards
 {
-  using Grove.Core;
-  using Grove.Core.Zones;
+  using Core;
+  using Core.Zones;
   using Infrastructure;
   using Xunit;
 
@@ -25,10 +25,11 @@
           At(Step.FirstMain)
             .Cast(shock, bear)
             .Verify(
-              () => {                
-                Equal(Zone.Battlefield, C(bear).Zone);
-                Equal(Zone.Graveyard, C(vines).Zone);
-              }
+              () =>
+                {
+                  Equal(Zone.Battlefield, C(bear).Zone);
+                  Equal(Zone.Graveyard, C(vines).Zone);
+                }
             ));
       }
     }
@@ -47,11 +48,12 @@
         Exec(
           At(Step.FirstMain)
             .Cast(vines, bear, payKicker: true)
-            .Verify(() => {
-              True(C(bear).Has().Hexproof);
-              Equal(6, C(bear).Power);
-              Equal(6, C(bear).Toughness);
-            })
+            .Verify(() =>
+              {
+                True(C(bear).Has().Hexproof);
+                Equal(6, C(bear).Power);
+                Equal(6, C(bear).Toughness);
+              })
           );
       }
 
