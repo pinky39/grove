@@ -15,6 +15,7 @@
     Shroud,
     FirstStrike,
     DoubleStrike,
-    Reach
+    Reach,
+    Vigilance
   }
 }

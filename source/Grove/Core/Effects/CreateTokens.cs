@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core.Effects
 {
+  using System;
   using System.Collections.Generic;
 
   public class CreateTokens : Effect
@@ -7,6 +8,7 @@
     private readonly List<ICardFactory> _tokenFactories = new List<ICardFactory>();
 
     public int Count = 1;
+    public Action<Card, Game> AfterTokenComesToPlay = delegate { };
 
     public override void Resolve()
     {
@@ -16,6 +18,7 @@
         {
           var token = tokenFactory.CreateCard(Controller);
           Controller.PutCardIntoPlay(token);
+          AfterTokenComesToPlay(token, Game);
         }
       }
     }

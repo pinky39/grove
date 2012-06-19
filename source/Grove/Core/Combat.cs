@@ -91,22 +91,28 @@
       _players.Defending.DealAssignedDamage();
     }
 
+    public Attacker JoinAttack(Card card)
+    {
+      var attacker = _attackerFactory.Create(card);
+      _attackers.Add(attacker);
+
+      if (!card.Has().Vigilance)
+        card.Tap();
+      return attacker;
+    }
 
     public void DeclareAttacker(Card card)
     {
       if (!card.CanAttack)
         return;
 
-      var attacker = _attackerFactory.Create(card);
-      _attackers.Add(attacker);
-
-      card.Tap();
+      var attacker = JoinAttack(card);
 
       PublishMessage(new AttackerDeclared
         {
           Attacker = attacker
         });
-    }
+    }    
 
     public void DeclareBlocker(Card cardBlocker, Card cardAttacker)
     {

@@ -115,6 +115,7 @@
     <Compile Include="Cards\DoomBlade.cs" />
     <Compile Include="Cards\DranaKalastriaBloodchief.cs" />
     <Compile Include="Cards\Dread.cs" />
+    <Compile Include="Cards\EleshNornGrandCenobite.cs" />
     <Compile Include="Cards\ElvishWarrior.cs" />
     <Compile Include="Cards\Evacuation.cs" />
     <Compile Include="Cards\Forest.cs" />
@@ -125,6 +126,7 @@
     <Compile Include="Cards\GoForTheThroat.cs" />
     <Compile Include="Cards\GraspOfDarkness.cs" />
     <Compile Include="Cards\GraveTitan.cs" />
+    <Compile Include="Cards\HeroOfBladehold.cs" />
     <Compile Include="Cards\HypnoticSpecter.cs" />
     <Compile Include="Cards\Island.cs" />
     <Compile Include="Cards\LlanowarElves.cs" />
@@ -180,6 +182,7 @@
     <Compile Include="Cards\VividCreek.cs" />
     <Compile Include="Cards\VolcanincFallout.cs" />
     <Compile Include="Cards\WallOfReverence.cs" />
+    <Compile Include="Cards\WhiteKnight.cs" />
     <Compile Include="Cards\WurmcoilEngine.cs" />
     <Compile Include="Cards\WallOfDenial.cs" />
     <Compile Include="Configuration.cs" />

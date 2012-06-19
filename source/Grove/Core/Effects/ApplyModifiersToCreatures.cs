@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core.Effects
 {
+  using System;
   using System.Collections.Generic;
   using Modifiers;
 
@@ -7,13 +8,15 @@
   {
     private readonly List<IModifierFactory> _modifierFactories = new List<IModifierFactory>();
 
+    public Func<IEffectSource, Card, bool> Filter = delegate { return true; };
+
     public void Modifiers(params IModifierFactory[] modifiers)
     {
       _modifierFactories.AddRange(modifiers);
     }
 
     public override void Resolve()
-    {
+    {            
       if (HasTarget)
       {
         ApplyModifierToPlayersCreatures(Target.Player());
@@ -30,6 +33,9 @@
     {
       foreach (var creature in player.Battlefield.Creatures)
       {
+        if (!Filter(Source, creature))
+          continue;
+        
         foreach (var modifier in _modifierFactories.CreateModifiers(Source.OwningCard, creature, X))
         {
           creature.AddModifier(modifier);

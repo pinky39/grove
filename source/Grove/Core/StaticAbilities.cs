@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core
 {
+  using System;
   using System.Collections.Generic;
   using Infrastructure;
   using Modifiers;
@@ -20,6 +21,7 @@
     bool FirstStrike { get; }
     bool DoubleStrike { get; }
     bool Reach { get; }
+    bool Vigilance { get; }
   }
 
   [Copyable]
@@ -54,6 +56,7 @@
     public bool FirstStrike { get { return Has(StaticAbility.FirstStrike); } }
     public bool DoubleStrike { get { return Has(StaticAbility.DoubleStrike); } }
     public bool Reach { get { return Has(StaticAbility.Reach); } }
+    public bool Vigilance { get { return Has(StaticAbility.Vigilance); } }
 
     public void Accept(IModifier modifier)
     {
