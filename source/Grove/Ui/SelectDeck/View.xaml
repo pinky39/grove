@@ -6,10 +6,60 @@
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
              xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
              Background="#000">
-    <Grid  Background="{StaticResource StartScreenBackground}">
-        <Grid.Resources>
-            <Style TargetType="Button" BasedOn="{StaticResource LinkButton}"/>
-        </Grid.Resources>
+    
+    <UserControl.Resources>
+        <Style x:Key="{x:Type CheckBox}" TargetType="{x:Type CheckBox}">
+            <Setter Property="SnapsToDevicePixels" Value="true"/>
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type CheckBox}">
+                        <BulletDecorator Background="Transparent">
+                            <BulletDecorator.Bullet>
+                                <Border x:Name="Border"  
+              Width="20" 
+              Height="20" 
+              CornerRadius="0" 
+              Background="#222"
+              BorderThickness="1"
+              BorderBrush="#888">
+                                    <Path 
+                Width="7" Height="7" 
+                x:Name="CheckMark"
+                SnapsToDevicePixels="False" 
+                Stroke="#FF4500"
+                StrokeThickness="2"
+                Data="M 0 0 L 7 7 M 0 7 L 7 0" />
+                                </Border>
+                            </BulletDecorator.Bullet>
+                            <ContentPresenter Margin="10,0,0,0"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Left"
+            RecognizesAccessKey="True"/>
+                        </BulletDecorator>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="false">
+                                <Setter TargetName="CheckMark" Property="Visibility" Value="Collapsed"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="{x:Null}">
+                                <Setter TargetName="CheckMark" Property="Data" Value="M 0 7 L 7 0" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="Border" Property="Background" Value="#1a1a1a" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="Border" Property="Background" Value="#EEEEEE" />
+                                <Setter TargetName="Border" Property="BorderBrush" Value="#AAAAAA" />
+                                <Setter Property="Foreground" Value="#888888"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    
+    <Grid  Background="{StaticResource StartScreenBackground}">       
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -46,9 +96,9 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Text="{Binding CurrentDeckList.Name}" Foreground="#FF4500" FontSize="20"/>
-                    <CheckBox Grid.Column="1"  IsChecked="{Binding IsRandomDeck}">
-                        <TextBlock Margin="10,0,0,0" FontSize="20" Foreground="#fff" Text="Random deck"></TextBlock>
+                    <TextBlock Grid.Column="0" Text="{Binding CurrentDeckList.Name}" Foreground="#FF4500" FontSize="25"/>
+                    <CheckBox VerticalAlignment="Center" Grid.Column="1"  IsChecked="{Binding IsRandomDeck}">
+                        <TextBlock FontSize="20" Foreground="#fff" Text="Use random deck"></TextBlock>
                     </CheckBox>
                     
                 </Grid>
@@ -84,8 +134,7 @@
                         
                         <Style x:Key="CardGroup" TargetType="TextBlock">
                             <Setter Property="Foreground" Value="#fff"/>
-                            <Setter Property="FontSize" Value="20"/>
-                            <Setter Property="FontWeight" Value="Bold" />
+                            <Setter Property="FontSize" Value="20"/>                            
                             <Setter Property="Margin" Value="0,10,0,10"/>
                             
                         </Style>
@@ -95,7 +144,7 @@
                     </Border.Resources>
 
                     <ScrollViewer VerticalScrollBarVisibility="Visible">
-                        <StackPanel Margin="20,0,0,0">
+                        <StackPanel Margin="20,10,0,10">
                             <TextBlock Style="{StaticResource CardGroup}" Text="{Binding CurrentDeckList.CreaturesCount, StringFormat='Creatures ({0})'}"/>
                             <ItemsControl ItemsSource = "{Binding Path=CurrentDeckList.Creatures}" />
                             <TextBlock Style="{StaticResource CardGroup}" Text="{Binding CurrentDeckList.SpellsCount, StringFormat='Spells ({0})'}"/>
@@ -107,13 +156,13 @@
 
                 </Border>
 
-                <Grid Grid.Row="2" Margin="5,10,5,0">
+                <Grid Grid.Row="2" Margin="5,15,5,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="PreviousDeck" Grid.Column="0" Foreground="#fff" FontSize="20" >Previous deck</Button>
-                    <Button x:Name="NextDeck" Grid.Column="1" Foreground="#fff" FontSize="20" >Next deck</Button>
+                    <Button x:Name="PreviousDeck" Style="{StaticResource LeftButton}" Grid.Column="0" Foreground="#fff" FontSize="20" >Previous deck</Button>
+                    <Button x:Name="NextDeck" Style="{StaticResource RightButton}" Grid.Column="1" Foreground="#fff" FontSize="20" >Next deck</Button>
                 </Grid>
 
             </Grid>
@@ -122,15 +171,16 @@
         </Grid>
 
 
-        <Border Margin="0,40,0,0" Grid.Row="2" Background="#1affffff" BorderBrush="#33ffffff" BorderThickness="0,4,0,0">
-            <Grid Margin="30">
+        <Border Margin="0,30,0,0" Grid.Row="2" Background="#1affffff" BorderBrush="#33ffffff" BorderThickness="0,4,0,0">
+            <Grid Margin="25">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="Back" Grid.Column="0" Foreground="#fff" FontSize="20" >Back</Button>
-                <Button x:Name="Forward" Grid.Column="1" Foreground="#fff" FontSize="20" Visibility="{Binding CanStart, Converter={x:Static grove:Converters.BooleanToVisibility}}">Forward</Button>
-                <TextBlock Text="Starting, please wait..." FontSize="18" Grid.Column="1" Foreground="#fff" Visibility="{Binding IsStarting, Converter={x:Static grove:Converters.BooleanToVisibility}}"/>
+                <Button x:Name="Back" Style="{StaticResource LeftButton}" Grid.Column="0" Foreground="#fff" FontSize="20" >Back</Button>
+                <Button x:Name="Forward" Style="{StaticResource RightButton}" Grid.Column="2" Foreground="#fff" FontSize="20" Visibility="{Binding CanStart, Converter={x:Static grove:Converters.BooleanToVisibility}}">Forward</Button>
+                <TextBlock Text="Game is starting, please wait..." FontSize="18" Grid.Column="2" Foreground="#fff" Visibility="{Binding IsStarting, Converter={x:Static grove:Converters.BooleanToVisibility}}"/>
             </Grid>
         </Border>
     </Grid>

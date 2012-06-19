@@ -578,7 +578,98 @@
 			</Trigger>
 		</Style.Triggers>
 	</Style>
-    
+
+    <Style x:Key = "LeftButton"
+	       TargetType = "{x:Type Button}" >
+        <Setter Property = "SnapsToDevicePixels"
+		        Value = "true" />
+        <Setter Property = "OverridesDefaultStyle"
+		        Value = "true" />
+        <Setter Property = "Cursor"
+		        Value = "Hand" />
+        <Setter Property = "Template" >
+            <Setter.Value>
+                <ControlTemplate TargetType = "{x:Type Button}" >
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{grove:Media 'arrow-left.png'}" Height="10"/>
+                        <TextBlock Name = "TextBlock"					           
+					               Margin="10,0,0,0"
+                                   FontSize = "{TemplateBinding FontSize}"
+					               Foreground = "#fff"
+					               Style = "{StaticResource Label}" >
+						    <ContentPresenter />
+                        </TextBlock>
+                    </StackPanel>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property = "IsMouseOver"
+						         Value = "true" >
+                            <Setter TargetName = "TextBlock"
+							        Property = "Foreground"
+							        Value = "#FFD700" />
+                        </Trigger>
+                        <Trigger Property = "IsPressed"
+						         Value = "true" >
+                            <Setter TargetName = "TextBlock"
+							        Property = "Foreground"
+							        Value = "#FFA500" />
+                        </Trigger>
+                        <Trigger Property = "IsEnabled"
+						         Value = "false" >
+                            <Setter Property = "Visibility"
+							        Value = "Collapsed" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key = "RightButton"
+	       TargetType = "{x:Type Button}" >
+        <Setter Property = "SnapsToDevicePixels"
+		        Value = "true" />
+        <Setter Property = "OverridesDefaultStyle"
+		        Value = "true" />
+        <Setter Property = "Cursor"
+		        Value = "Hand" />
+        <Setter Property = "Template" >
+            <Setter.Value>
+                <ControlTemplate TargetType = "{x:Type Button}" >
+                    <StackPanel Orientation="Horizontal">                        
+                        <TextBlock Name = "TextBlock"					           
+					               Margin="0,0,10,0"
+                                   FontSize = "{TemplateBinding FontSize}"
+					               Foreground = "#fff"
+					               Style = "{StaticResource Label}" >
+						    <ContentPresenter />
+                        </TextBlock>
+                        <Image Source="{grove:Media 'arrow-right.png'}" Height="10"/>
+                    </StackPanel>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property = "IsMouseOver"
+						         Value = "true" >
+                            <Setter TargetName = "TextBlock"
+							        Property = "Foreground"
+							        Value = "#FFD700" />
+                        </Trigger>
+                        <Trigger Property = "IsPressed"
+						         Value = "true" >
+                            <Setter TargetName = "TextBlock"
+							        Property = "Foreground"
+							        Value = "#FFA500" />
+                        </Trigger>
+                        <Trigger Property = "IsEnabled"
+						         Value = "false" >
+                            <Setter Property = "Visibility"
+							        Value = "Collapsed" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
     <Style x:Key = "LinkButton"
 	       TargetType = "{x:Type Button}" >
 		<Setter Property = "SnapsToDevicePixels"
