@@ -176,7 +176,7 @@
 									</DataTemplate>
 									<DataTemplate DataType = "{x:Type Core:ManaSymbolToken}" >
 										<Image Source = "{Binding Path=Image}"
-										       Height = "18"
+										       Height = "16"
 										       Margin = "0,0,0,0" />
 									</DataTemplate>									
 								</StackPanel.Resources>

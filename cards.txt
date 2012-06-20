@@ -2,7 +2,15 @@ MAGICGROVE v 1.2: Card List
 =====================================
 The following cards can be used to construct new decks:
 
+Absolute Grace
+Absolute Law
+Abyssal Horror
 Acidic Slime
+Acidic Soil
+Acridian
+Albino Troll
+Angelic Wall
+Baneslayer Angel
 Basilisk Collar
 Beacon of Destruction
 Birds of Paradise
@@ -16,21 +24,26 @@ Creeping Tar Pit
 Cruel Edict
 Darkslick Drake
 Darksteel Gargoyle
+Day of Judgment
+Deathless Angel
 Divination
 Doom blade
 Drana, Kalastria Bloodchief
 Dread
 Drowned Catacomb
+Elesh Norn, Grand Cenobite
 Elvish Warrior
 Evacuation
 Fires of Yavimaya
 Flame Slash
 Flametongue Kavu
 Forest
+Glorious Anthem
 Go for the Throat
 Grasp of Darkness
 Grave Titan
 Grizzly Bears
+Hero of Bladehold
 Hypnotic Specter
 Island
 Leatherback Baloth
@@ -40,6 +53,7 @@ Llanowar Behemoth
 Llanowar Elves
 Mana Leak
 Marsh Casualties
+Martial Coup
 Mirran Crusader
 Mountain
 Nantuko Shade
@@ -85,4 +99,6 @@ Vivid Creek
 Volcanic Fallout
 Volcanic Hammer
 Wall of Denial
+Wall of Reverence
+White Knight
 Wurmcoil Engine

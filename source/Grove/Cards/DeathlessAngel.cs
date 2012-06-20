@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -23,6 +22,7 @@
         .Power(5)
         .Toughness(7)
         .Abilities(
+          StaticAbility.Flying,
           C.ActivatedAbility(
             "{W}{W}: Target creature is indestructible this turn.",
             C.Cost<TapOwnerPayMana>((cost, _) => cost.Amount = "{W}{W}".ParseManaAmount()),

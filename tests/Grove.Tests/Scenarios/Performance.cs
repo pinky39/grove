@@ -99,5 +99,31 @@
 
       RunGame(maxTurnCount: 2);
     }
+
+    [Fact]
+    public void Num9()
+    {
+      Hand(P1, "Plains", "Plains", "Deathless Angel", "Baneslayer Angel");
+      Hand(P2, "Volcanic Fallout", "Leatherback Baloth");
+      Battlefield(P1, "Plains", "Student of Warfare", "Plains", "Angelic Wall", "Plains", "Trip Noose", "Plains");
+      Battlefield(P2, "Copperline Gorge", "Llanowar Elves", "Forest", "Sword of Fire and Ice",
+        "Sword of Feast and Famine", "Rootbound Crag", "Raging Ravine", "Fires of Yavimaya", "Raging Ravine");
+
+      RunGame(maxTurnCount: 1);
+    }
+
+    [Fact]
+    public void Num10()
+    {
+      Hand(P1, "Plains", "Plains", "Deathless Angel", "Baneslayer Angel");
+      Hand(P2, "Volcanic Fallout");
+      Battlefield(P1, "Plains", "Student of Warfare", "Plains", "Angelic Wall", "Plains", "Trip Noose", "Plains",
+        "Plains");
+      Battlefield(P2, "Copperline Gorge", "Llanowar Elves", "Forest", "Sword of Fire and Ice",
+        "Sword of Feast and Famine", "Rootbound Crag", "Raging Ravine", "Fires of Yavimaya", "Raging Ravine",
+        "Leatherback Baloth");
+
+      RunGame(maxTurnCount: 1);
+    }
   }
 }
