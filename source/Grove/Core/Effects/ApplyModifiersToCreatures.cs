@@ -15,7 +15,7 @@
       _modifierFactories.AddRange(modifiers);
     }
 
-    public override void Resolve()
+    protected override void ResolveEffect()
     {            
       if (HasTarget)
       {

@@ -7,7 +7,7 @@
 
   public class HeroOfBladeHold
   {
-    public class Prefefined : PredifinedScenario
+    public class Prefefined : PredefinedScenario
     {
       [Fact]
       public void Attack()

@@ -18,7 +18,7 @@
       _selfModifiers.AddRange(modifiers);
     }
 
-    public override void Resolve()
+    protected override void ResolveEffect()
     {
       if (Source.OwningCard.Zone == Zone.Battlefield)
       {

@@ -7,8 +7,8 @@
   public class ReturnAllPermanentsToHand : Effect
   {
     public Func<Card, bool> Filter = (card) => true;
-    
-    public override void Resolve()
+
+    protected override void ResolveEffect()
     {
       foreach (var permanent in Players.Permanents().Where(card => Filter(card)).ToList())
       {

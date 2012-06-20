@@ -4,20 +4,23 @@
   {
     public int Life { get; set; }
 
-    public override void Resolve()
+    protected override void ResolveEffect()
     {
       Decisions.EnqueueConsiderPayingLifeOrMana(
         player: Controller,
-        effect: this,
+        ctx: this,
         life: Life,
         handler: args => {
+          
+          var effect = args.Ctx<Effect>();
+          
           if (args.Answer)
-          {
-            args.Effect.Controller.Life -= Life;
+          {            
+            effect.Controller.Life -= Life;
             return;
           }
 
-          args.Effect.Source.OwningCard.Tap();
+          effect.Source.OwningCard.Tap();
         });
     }
   }

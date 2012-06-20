@@ -6,7 +6,7 @@
   {
     public Func<Player, bool> PutIntoPlayTapped = delegate { return false; };
 
-    public override void Resolve()
+    protected override void ResolveEffect()
     {
       var putIntoPlayTapped = PutIntoPlayTapped(Controller);
       Controller.PutCardIntoPlay(Source.OwningCard);

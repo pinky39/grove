@@ -3,8 +3,8 @@
   public class ReturnTargetPermanentToHand : Effect
   {
     public int Discard = 0;
-    
-    public override void Resolve()
+
+    protected override void ResolveEffect()
     {            
       Target.Card().ReturnToHand();
 

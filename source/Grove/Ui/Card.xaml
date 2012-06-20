@@ -56,8 +56,14 @@
 					<StackPanel.Background>
 						<ImageBrush ImageSource = "{Binding Path=Colors, Converter={x:Static grove:Converters.CardColorToCardTemplate}}" />
 					</StackPanel.Background>
-					<DockPanel>
-                        <StackPanel Margin = "10,4,0,0" Orientation="Horizontal" DockPanel.Dock="Left">
+					<Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>                            
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Margin = "10,4,0,0" Orientation="Horizontal" Grid.Column="0">
                             <StackPanel.Resources>
                                 <Style x:Key="Level" TargetType="TextBlock" >
                                     <Style.Triggers>
@@ -85,8 +91,11 @@
                                        Text="{Binding Path=Level, StringFormat=' - Level {0}'}" />
                         </StackPanel>
 
-                        <ItemsControl HorizontalAlignment = "Right"
-						              DockPanel.Dock="Right"
+                        <Image Source="{grove:Media 'x.png'}"
+                               Height="20" Grid.Column="2" Margin="0,3,2,0"
+                               Visibility="{Binding Path=HasXInCost, Converter={x:Static grove:Converters.BooleanToVisibility}}"/>
+                        
+                        <ItemsControl Grid.Column="3"
                                       Margin = "0,3,10,0"
 						              ItemsSource = "{Binding Path=ManaCost, Converter={x:Static grove:Converters.ManaCostToManaSymbolImages}}" >
 							<ItemsControl.ItemsPanel>
@@ -102,10 +111,8 @@
 							</ItemsControl.ItemTemplate>
 						</ItemsControl>
 
-                        <Image Source="{grove:Media 'x.png'}"
-                               Height="20" DockPanel.Dock="Right" HorizontalAlignment="Right" Margin="0,3,2,0"
-                               Visibility="{Binding Path=HasXInCost, Converter={x:Static grove:Converters.BooleanToVisibility}}"/>
-                    </DockPanel>
+                        
+                    </Grid>
 
 					<Grid Margin = "0,6,0,0" >
 						<Image Source = "{Binding Path=Illustration, Converter={x:Static grove:Converters.CardIllustrationNameToCardImage}}"

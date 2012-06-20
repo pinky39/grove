@@ -12,7 +12,7 @@
       _modifierFactories.AddRange(modifierFactories);
     }
 
-    public override void Resolve()
+    protected override void ResolveEffect()
     {
       var cardToEquip = Target.Card();
       var modifiers = _modifierFactories.CreateModifiers(Source.OwningCard, Target.Card(), X);

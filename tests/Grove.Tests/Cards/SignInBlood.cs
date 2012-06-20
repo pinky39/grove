@@ -7,7 +7,7 @@
 
   public class SignInBlood
   {
-    public class Predefined : PredifinedScenario
+    public class Predefined : PredefinedScenario
     {
       [Fact]
       public void TargetPlayerDrawsCardsAndLoosesLife()

@@ -2,7 +2,7 @@
 {
   public class TapTargetCreature : Effect
   {
-    public override void Resolve()
+    protected override void ResolveEffect()
     {
       Target.Card().Tap();
     }

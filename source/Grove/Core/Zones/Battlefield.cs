@@ -37,12 +37,4 @@
     public bool HasCreaturesThatCanAttack { get { return this.Any(card => card.CanAttack); } }
     public IEnumerable<Card> Legends { get { return this.Where(x => x.Is().Legendary); } }
   }
-
-  public static class BattlefieldEx
-  {
-    public static IEnumerable<Card> Permanents(this Players players)
-    {
-      return players.SelectMany(x => x.Battlefield);
-    }
-  }
 }

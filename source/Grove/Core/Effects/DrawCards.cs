@@ -6,7 +6,7 @@
     public int DrawCount { get; set; }
     public int Lifeloss { get; set; }
 
-    public override void Resolve()
+    protected override void ResolveEffect()
     {
       Controller.DrawCards(DrawCount);
 

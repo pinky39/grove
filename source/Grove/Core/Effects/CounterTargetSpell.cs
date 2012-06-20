@@ -7,7 +7,7 @@
     public int? ControllersLifeloss;
     public IManaAmount DoNotCounterCost;
 
-    public override void Resolve()
+    protected override void ResolveEffect()
     {
       var targetSpellController = Target.Effect().Controller;
 
@@ -15,18 +15,18 @@
       {
         Decisions.EnqueueConsiderPayingLifeOrMana(
           player: targetSpellController,
-          effect: Target.Effect(),
+          ctx: Target.Effect(),
           mana: DoNotCounterCost,
-          handler: (args) => {
-            if (args.Answer)
+          handler: (args) =>
             {
-              args.Player.Consume(DoNotCounterCost);
-              return;
-            }
+              if (args.Answer)
+              {
+                args.Player.Consume(DoNotCounterCost);
+                return;
+              }
 
-            Counter(args.Player, args.Effect, args.Stack);
-            args.Stack.Counter(args.Effect);
-          });
+              Counter(args.Player, args.Ctx<Effect>(), args.Game.Stack);
+            });
         return;
       }
 

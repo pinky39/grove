@@ -3,10 +3,9 @@
   public class PayManaOrSacrifice : Effect
   {
     public IManaAmount Amount { get; set; }
-    
-    public override void Resolve()
+
+    protected override void ResolveEffect()
     {
-      
       if (Controller.HasMana(Amount) == false)
       {
         Source.OwningCard.Sacrifice();
@@ -15,17 +14,19 @@
 
       Decisions.EnqueueConsiderPayingLifeOrMana(
         player: Controller,
-        effect: this,
+        ctx: this,
         mana: Amount,
-        handler: args => {
-          if (args.Answer)
+        handler: args =>
           {
-            args.Effect.Controller.Consume(Amount);
-            return;
-          }
+            var effect = args.Ctx<Effect>();
+            if (args.Answer)
+            {
+              effect.Controller.Consume(Amount);
+              return;
+            }
 
-          args.Effect.Source.OwningCard.Sacrifice();
-        });            
+            effect.Source.OwningCard.Sacrifice();
+          });
     }
   }
 }

@@ -64,11 +64,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cards\AbyssalHorror.cs" />
+    <Compile Include="Cards\Acridian.cs" />
     <Compile Include="Cards\BaneslayerAngel.cs" />
     <Compile Include="Cards\BlacksSunZenith.cs" />
     <Compile Include="Cards\Blaze.cs" />
     <Compile Include="Cards\CreepingTarPit.cs" />
     <Compile Include="Cards\DarkstyleGargoyle.cs" />
+    <Compile Include="Cards\DayOfJudgment.cs" />
     <Compile Include="Cards\DeathlessAngel.cs" />
     <Compile Include="Cards\Dread.cs" />
     <Compile Include="Cards\EleshNornGrandCenobite.cs" />
@@ -76,6 +79,7 @@
     <Compile Include="Cards\GraveTitan.cs" />
     <Compile Include="Cards\HeroOfBladeHold.cs" />
     <Compile Include="Cards\ManaLeak.cs" />
+    <Compile Include="Cards\MartialCoup.cs" />
     <Compile Include="Cards\MirranCrusader.cs" />
     <Compile Include="Cards\PhyrexianArena.cs" />
     <Compile Include="Cards\Rancor.cs" />
@@ -133,7 +137,7 @@
     <Compile Include="Cards\VolcanicFallout.cs" />
     <Compile Include="Cards\WurmcoilEngine.cs" />
     <Compile Include="Infrastructure\AiScenario.cs" />
-    <Compile Include="Infrastructure\PredifinedScenario.cs" />
+    <Compile Include="Infrastructure\PredefinedScenario.cs" />
     <Compile Include="Cards\BlanchwoodArmor.cs" />
     <Compile Include="Cards\LlanowarBehemoth.cs" />
     <Compile Include="Cards\LlanowarElves.cs" />

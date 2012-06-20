@@ -5,7 +5,7 @@
     public int CardCount { get; set; }
     public int LifeLoss { get; set; }
 
-    public override void Resolve()
+    protected override void ResolveEffect()
     {
       var player = (Player) Target;
       player.DrawCards(CardCount);

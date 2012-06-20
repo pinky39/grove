@@ -19,11 +19,11 @@
         .FlavorText("'How can we outrun the sky?'{EOL}—Hadran, sunseeder of Naya")
         .Timing(Timings.InstantRemoval)
         .Category(EffectCategories.DamageDealing)
-        .Effect<DealDamageToEach>((e, _) => {
-          e.Amount = 2;
-          e.DealToCreature = true;
-          e.DealToPlayer = true;
-          e.CanBeCountered = false;
+        .Effect<DealDamageToEach>((e, _) =>
+          {
+            e.AmountPlayer = delegate { return 2; };
+            e.AmountCreature = delegate { return 2; };          
+            e.CanBeCountered = false;
         });
     }
   }

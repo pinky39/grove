@@ -1,13 +1,11 @@
 ﻿namespace Grove.Core.Effects
 {
-  using System;
-
   public class OpponentDiscardsCards : Effect
   {
     public int RandomCount { get; set; }
     public int SelectedCount { get; set; }
 
-    public override void Resolve()
+    protected override void ResolveEffect()
     {
       var opponent = Players.GetOpponent(Controller);
 

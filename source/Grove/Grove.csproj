@@ -93,7 +93,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Cards\AbsoluteGrace.cs" />
+    <Compile Include="Cards\AbsoluteLaw.cs" />
+    <Compile Include="Cards\AbyssalHorror.cs" />
     <Compile Include="Cards\AcidicSlime.cs" />
+    <Compile Include="Cards\AcidicSoil.cs" />
+    <Compile Include="Cards\Acridian.cs" />
+    <Compile Include="Cards\AlbinoTroll.cs" />
     <Compile Include="Cards\AngelicWall.cs" />
     <Compile Include="Cards\BaneslayerAngel.cs" />
     <Compile Include="Cards\BasiliskCollar.cs" />
@@ -107,6 +113,7 @@
     <Compile Include="Cards\CopperlineGorge.cs" />
     <Compile Include="Cards\CreepingTarPit.cs" />
     <Compile Include="Cards\CruelEdict.cs" />
+    <Compile Include="Cards\DayofJudgment.cs" />
     <Compile Include="Cards\DeathlessAngel.cs" />
     <Compile Include="Cards\DrownedCatacomb.cs" />
     <Compile Include="Cards\DarkslickDrake.cs" />
@@ -122,6 +129,7 @@
     <Compile Include="Cards\FiresOfYavimaya.cs" />
     <Compile Include="Cards\FlameSlash.cs" />
     <Compile Include="Cards\FlametongueKavu.cs" />
+    <Compile Include="Cards\GloriousAnthem.cs" />
     <Compile Include="Cards\GrizzlyBears.cs" />
     <Compile Include="Cards\GoForTheThroat.cs" />
     <Compile Include="Cards\GraspOfDarkness.cs" />
@@ -134,6 +142,7 @@
     <Compile Include="Cards\LightningBolt.cs" />
     <Compile Include="Cards\LilianasSpecter.cs" />
     <Compile Include="Cards\LlanowarBehemoth.cs" />
+    <Compile Include="Cards\MartialCoup.cs" />
     <Compile Include="Cards\MirranCrusader.cs" />
     <Compile Include="Cards\Mountain.cs" />
     <Compile Include="Cards\ManaLeak.cs" />
@@ -239,7 +248,9 @@
     <Compile Include="Core\Counters\ICounterFactory.cs" />
     <Compile Include="Core\DeckFileReader.cs" />
     <Compile Include="Core\Effects\CounterTargetSpell.cs" />
+    <Compile Include="Core\Effects\DestroyPermanents.cs" />
     <Compile Include="Core\Effects\ExileTargetPermanent.cs" />
+    <Compile Include="Core\Effects\GainLifeEqualToTargetCreaturePower.cs" />
     <Compile Include="Core\Effects\MillOpponent.cs" />
     <Compile Include="Core\Effects\PayLifeOrTap.cs" />
     <Compile Include="Core\Effects\PayManaOrSacrifice.cs" />
@@ -248,6 +259,7 @@
     <Compile Include="Core\Effects\DestroySource.cs" />
     <Compile Include="Core\Effects\ReturnToOwnersHand.cs" />
     <Compile Include="Core\Effects\TapTargetCreature.cs" />
+    <Compile Include="Core\Effects\TargetPlayerDiscardsCards.cs" />
     <Compile Include="Core\Effects\TargetPlayerTakesExtraTurns.cs" />
     <Compile Include="Core\IActivatedAbilityFactory.cs" />
     <Compile Include="Core\IManaAmount.cs" />
@@ -271,6 +283,7 @@
     <Compile Include="Core\PrimitiveManaAmount.cs" />
     <Compile Include="Core\Triggers\OnLevelChanged.cs" />
     <Compile Include="Core\ZeroManaAmount.cs" />
+    <Compile Include="Core\PlayersEx.cs" />
     <Compile Include="Infrastructure\AssemblyEx.cs" />
     <Compile Include="Infrastructure\Chaining.cs" />
     <Compile Include="Infrastructure\UiScopeAccessor.cs" />

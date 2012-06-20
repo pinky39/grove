@@ -9,7 +9,7 @@
     private readonly List<IModifierFactory> _selfModifiers = new List<IModifierFactory>();
     private readonly List<IModifierFactory> _targetModifiers = new List<IModifierFactory>();
 
-    public override void Resolve()
+    protected override void ResolveEffect()
     {
       if (Source.OwningCard.Zone != Zone.Battlefield)
         return;

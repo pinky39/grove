@@ -2,7 +2,7 @@
 {
   public class ReturnToOwnersHand : Effect
   {
-    public override void Resolve()
+    protected override void ResolveEffect()
     {
       Controller.ReturnToHand(Source.OwningCard);
     }

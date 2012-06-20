@@ -2,17 +2,18 @@
 {
   using System;
   using System.Collections.Generic;
+  using Modifiers;
 
   public class CreateTokens : Effect
   {
     private readonly List<ICardFactory> _tokenFactories = new List<ICardFactory>();
 
-    public int Count = 1;
+    public Value Count = 1;
     public Action<Card, Game> AfterTokenComesToPlay = delegate { };
 
-    public override void Resolve()
+    protected override void ResolveEffect()
     {
-      for (int i = 0; i < Count; i++)
+      for (int i = 0; i < Count.GetValue(X); i++)
       {
         foreach (var tokenFactory in _tokenFactories)
         {

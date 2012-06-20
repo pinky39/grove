@@ -5,9 +5,9 @@
   using Infrastructure;
   using Xunit;
 
-  public class BurstLightning : PredifinedScenario
+  public class BurstLightning : PredefinedScenario
   {
-    public class Predefined : PredifinedScenario
+    public class Predefined : PredefinedScenario
     {
       [Fact]
       public void Deals4DamageWithKicker()

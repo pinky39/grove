@@ -3,9 +3,9 @@
   /// <summary>
   ///   Player1 and Player2 are controlled by scenario script.
   /// </summary>
-  public abstract class PredifinedScenario : Scenario
+  public abstract class PredefinedScenario : Scenario
   {
-    protected PredifinedScenario() : base(
+    protected PredefinedScenario() : base(
       player1ControlledByScript: true,
       player2ControlledByScript: true) {}
   }

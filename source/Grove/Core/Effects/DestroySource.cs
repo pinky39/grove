@@ -2,7 +2,7 @@
 {
   public class DestroySource : Effect
   {
-    public override void Resolve()
+    protected override void ResolveEffect()
     {
       Source.OwningCard.Destroy();
     }

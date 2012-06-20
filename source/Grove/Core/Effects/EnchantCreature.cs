@@ -12,7 +12,7 @@
       _modifierFactories.AddRange(modifierFactories);
     }
 
-    public override void Resolve()
+    protected override void ResolveEffect()
     {            
       Target.Card().Attach(
         Source.OwningCard, 

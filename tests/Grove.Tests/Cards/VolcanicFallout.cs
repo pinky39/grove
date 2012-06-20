@@ -7,7 +7,7 @@
 
   public class VolcanicFallout
   {
-    public class Predefined : PredifinedScenario
+    public class Predefined : PredefinedScenario
     {
       [Fact]
       public void Deals2DamageToEachCreatureAndEachPlayer()

@@ -28,7 +28,7 @@
 
     #region Nested type: Predefined
 
-    public class Predefined : PredifinedScenario
+    public class Predefined : PredefinedScenario
     {
       [Fact]
       public void AddOneAnyManaToPool()

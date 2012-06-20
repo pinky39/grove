@@ -7,7 +7,7 @@
 
   public class EleshNornGrandCenobite
   {
-    public class Predefined : PredifinedScenario
+    public class Predefined : PredefinedScenario
     {
       [Fact]
       public void PumpYourCreaturesDestroyOpponents()

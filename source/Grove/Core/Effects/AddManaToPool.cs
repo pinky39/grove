@@ -4,7 +4,7 @@
   {
     public IManaAmount Mana { get; set; }
 
-    public override void Resolve()
+    protected override void ResolveEffect()
     {
       Controller.AddManaToManaPool(Mana);
     }    

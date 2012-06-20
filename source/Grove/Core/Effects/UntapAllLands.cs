@@ -2,7 +2,7 @@
 {
   public class UntapAllLands : Effect
   {
-    public override void Resolve()
+    protected override void ResolveEffect()
     {
       foreach (var land in Controller.Battlefield.Lands)
       {

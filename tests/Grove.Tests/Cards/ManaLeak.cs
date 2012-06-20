@@ -51,7 +51,7 @@
       }
     }
     
-    public class Predifined : PredifinedScenario
+    public class Predefined : PredefinedScenario
     {
       [Fact]
       public void Counter()

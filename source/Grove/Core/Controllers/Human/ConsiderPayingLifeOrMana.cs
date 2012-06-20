@@ -11,9 +11,9 @@
 
     protected override void ExecuteQuery()
     {
-      var message = Life != null
+      var message = Message ?? (Life != null
         ? String.Format("Pay {0}?", Life)
-        : String.Format("Pay {0} mana?", Mana.Converted);
+        : String.Format("Pay {0} mana?", Mana.Converted));
 
       var result = Shell.ShowMessageBox(
         message: message,

@@ -4,7 +4,7 @@
   {
     public int Count = 1;
 
-    public override void Resolve()
+    protected override void ResolveEffect()
     {      
       Players.ScheduleExtraTurns(Target.Player(), Count);
     }

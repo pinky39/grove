@@ -20,13 +20,14 @@
         .Timing(Timings.InstantRemoval)
         .Category(EffectCategories.PwTReduction)
         .Effect<ApplyModifiersToTarget>((e, c) => e.Modifiers(
-          c.Modifier<AddPowerAndToughness>((m, _) => {
-            m.Power = -4;
-            m.Toughness = -4;
-          }, untilEndOfTurn: true)))
+          c.Modifier<AddPowerAndToughness>((m, _) =>
+            {
+              m.Power = -4;
+              m.Toughness = -4;
+            }, untilEndOfTurn: true)))
         .Target(C.Selector(
           validator: target => target.Is().Creature,
-          scorer: Core.Ai.TargetScores.OpponentStuffScoresMore(spellsDamage: 4, reducesPwt: true)));
+          scorer: TargetScores.OpponentStuffScoresMore(spellsDamage: 4, reducesPwt: true)));
     }
   }
 }

@@ -3,8 +3,8 @@
   public class ExileTargetPermanent : Effect
   {
     public bool ControllerGainsLifeEqualToToughness { get; set; }
-    
-    public override void Resolve()
+
+    protected override void ResolveEffect()
     {
       if (ControllerGainsLifeEqualToToughness)
       {

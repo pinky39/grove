@@ -2,7 +2,7 @@
 {
   public class ShuffleIntoLibrary : Effect
   {
-    public override void Resolve()
+    protected override void ResolveEffect()
     {
       Controller.ShuffleIntoLibrary(Source.OwningCard);
     }    

@@ -36,7 +36,7 @@
       }
     }
 
-    public class Predefined : PredifinedScenario
+    public class Predefined : PredefinedScenario
     {
       [Fact]
       public void CastArmorOnOpponentCreature()

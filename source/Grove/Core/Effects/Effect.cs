@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core.Effects
 {
+  using System;
   using CardDsl;
   using Controllers;
   using Infrastructure;
@@ -13,10 +14,10 @@
     protected Decisions Decisions { get { return Game.Decisions; } }
     protected Game Game { get; set; }
     public bool HasTarget { get { return Target != null; } }
-    protected Players Players { get { return Game.Players; } }
+    public Players Players { get { return Game.Players; } }
     public IEffectSource Source { get; set; }
     public ITarget Target { get; set; }
-    protected int? X { get; private set; }
+    public int? X { get; private set; }
 
     public int CalculateHash(HashCalculator calc)
     {
@@ -54,7 +55,17 @@
       return Source.ToString();
     }
 
-    public abstract void Resolve();
+    public Action<Effect> BeforeResolve = delegate { };
+    public Action<Effect> AfterResolve = delegate { };    
+    
+    public void Resolve()
+    {
+      BeforeResolve(this);
+      ResolveEffect();
+      AfterResolve(this);
+    }
+    
+    protected abstract void ResolveEffect();
 
     [Copyable]
     public class Factory<TEffect> : IEffectFactory, IHashable where TEffect : Effect, new()

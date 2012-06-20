@@ -4,7 +4,7 @@
   {
     public int Amount { get; set; }
 
-    public override void Resolve()
+    protected override void ResolveEffect()
     {
       Controller.Life += Amount;
     }    

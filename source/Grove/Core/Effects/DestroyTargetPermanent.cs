@@ -1,10 +1,8 @@
 ﻿namespace Grove.Core.Effects
 {
-  using System;
-
   public class DestroyTargetPermanent : Effect
   {
-    public override void Resolve()
+    protected override void ResolveEffect()
     {
       Target.Card().Destroy();
     }

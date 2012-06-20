@@ -301,6 +301,32 @@
 
       CreateStep(
         Step.Upkeep,
+        first: () =>
+          {
+            foreach (var permanent in _players.Active.Battlefield)
+            {
+              if (permanent.PlayerNeedsToPayEchoCost())
+              {
+                _decisions.EnqueueConsiderPayingLifeOrMana(
+                  player: permanent.Controller,                  
+                  mana: permanent.EchoCost,    
+                  question: String.Format("Pay echo for {0}?", permanent),
+                  ctx: permanent,
+                  handler: args =>
+                    {
+                      var perm = args.Ctx<Card>();
+                    
+                      if (args.Answer)
+                      {
+                        perm.PayEchoCost();                                                
+                        return;
+                      }
+
+                      perm.Sacrifice();                      
+                  });
+              }
+            }
+          },
         nextStep: () => Step.Draw);
 
       CreateStep(

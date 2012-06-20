@@ -7,7 +7,7 @@
   {
     private readonly List<IModifierFactory> _modifierFactories = new List<IModifierFactory>();
 
-    public override void Resolve()
+    protected override void ResolveEffect()
     {
       foreach (var modifier in _modifierFactories.CreateModifiers(Source.OwningCard, Target.Card(), X))
       {

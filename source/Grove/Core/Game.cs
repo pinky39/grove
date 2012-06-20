@@ -1,7 +1,5 @@
 ﻿namespace Grove.Core
 {
-  using System;
-  using System.Linq;
   using Ai;
   using Controllers;
   using Infrastructure;
@@ -10,9 +8,9 @@
   [Copyable]
   public class Game
   {
+    private readonly Search _search;
     private readonly StateMachine _stateMachine;
     private readonly TurnInfo _turnInfo;
-    private readonly Search _search;
     private readonly Trackable<bool> _wasStopped;
 
     private Game() {}

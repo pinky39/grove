@@ -39,10 +39,11 @@
       Enqueue(decision);
     }
 
-    public void EnqueueConsiderPayingLifeOrMana(Player player, Effect effect, PayLifeOrManaHandler handler, int? life = null, IManaAmount mana = null)
+    public void EnqueueConsiderPayingLifeOrMana(Player player, PayLifeOrManaHandler handler, 
+      string question = null, object ctx = null, int? life = null, IManaAmount mana = null)
     {
       var decision = SelectDecisionFactory(player)
-        .CreateConsiderPayingLifeOrMana(player, effect, handler, life, mana);
+        .CreateConsiderPayingLifeOrMana(player, question, ctx, handler, life, mana);
 
       Enqueue(decision);
     }
@@ -124,6 +125,7 @@
     public void Initialize(Game game)
     {
       _machineDecisionFactory.Initialize(game);
+      _humanDecisionFactory.Initialize(game);
     }
 
     public IDecisionFactory SelectDecisionFactory(Player player)
@@ -137,6 +139,6 @@
     private void Enqueue(IDecision decision)
     {
       _decisionQueue.Enqueue(decision);
-    }
+    }    
   }
 }

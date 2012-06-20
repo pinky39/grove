@@ -11,7 +11,7 @@
       _effectFactories.AddRange(effectFactories);      
     }
 
-    public override void Resolve()
+    protected override void ResolveEffect()
     {
       foreach (var effectFactory in _effectFactories)
       {

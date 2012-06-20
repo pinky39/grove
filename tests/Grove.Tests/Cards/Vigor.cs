@@ -7,7 +7,7 @@
 
   public class Vigor
   {
-    public class Predefined : PredifinedScenario
+    public class Predefined : PredefinedScenario
     {
       [Fact]
       public void DamagePrevention()

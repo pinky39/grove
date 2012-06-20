@@ -6,7 +6,7 @@
 
   public class ShivanDragon
   {
-    public class Predefined : PredifinedScenario
+    public class Predefined : PredefinedScenario
     {
       [Fact]
       public void Gets10ForOneRedManaUntilEot()
