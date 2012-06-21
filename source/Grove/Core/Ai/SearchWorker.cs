@@ -24,7 +24,7 @@
       _searchResults = searchResults;
 
       _root = new CopyService().CopyRoot(rootNode);
-      _game = _root.Game;
+      _game = _root.Game;      
       _parentResult = new Trackable<InnerResult>(new InnerResult(_root.Player.IsMax), _game.ChangeTracker);
       _moveIndex = new Trackable<int>(_game.ChangeTracker);
     }

@@ -121,7 +121,7 @@
     }
 
     private int FindBestMove(ISearchNode searchNode)
-    {
+    {      
       searchNode.Game.ChangeTracker.Enable();
       
       _startStepCount = searchNode.Game.Turn.StepCount;
@@ -174,8 +174,8 @@
 
     private bool IsItFeasibleToCreateNewWorker(ISearchNode node, int moveIndex)
     {
-      return SingleThreadedStrategy(node, moveIndex);
-      //return MultiThreadedStrategy2(node, moveIndex);
+      //return SingleThreadedStrategy(node, moveIndex);
+      return MultiThreadedStrategy2(node, moveIndex);
     }
 
     private static bool SingleThreadedStrategy(ISearchNode node, int moveIndex)

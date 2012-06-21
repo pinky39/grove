@@ -6,23 +6,23 @@
 
   public class ApplyModifiersToSelf : Effect
   {
-    private readonly List<IModifier> _selfModifiers = new List<IModifier>();
+    private readonly List<IModifierFactory> _selfModifiers = new List<IModifierFactory>();
 
     public void Modifiers(params IModifierFactory[] modifiersFactories)
     {
-      var modifiers = modifiersFactories.CreateModifiers(
-        source: Source.OwningCard,
-        target: Source.OwningCard,
-        x: X);
+      _selfModifiers.AddRange(modifiersFactories);
+    }
 
-      _selfModifiers.AddRange(modifiers);
+    private IEnumerable<Modifier> CreateSelfModifiers()
+    {
+      return _selfModifiers.CreateModifiers(Source.OwningCard, Source.OwningCard, X);
     }
 
     protected override void ResolveEffect()
     {
       if (Source.OwningCard.Zone == Zone.Battlefield)
       {
-        foreach (var modifier in _selfModifiers)
+        foreach (var modifier in CreateSelfModifiers())
         {
           Source.OwningCard.AddModifier(modifier);
         }

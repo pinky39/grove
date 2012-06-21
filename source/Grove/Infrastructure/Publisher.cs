@@ -2,9 +2,11 @@
 {
   using System.Linq;
   using Castle.DynamicProxy;
+  using log4net;
 
   public class Publisher : ICopyable
   {
+    private static readonly ILog Log = LogManager.GetLogger(typeof (Publisher));
     private ChangeTracker _changeTracker;
     private TrackableList<object> _subscribers;
 
@@ -25,6 +27,7 @@
       var subscribers = org._subscribers
         .Where(x => IsUiComponent(x) == false)
         .Select(copyService.Copy);
+        
 
       _subscribers = new TrackableList<object>(subscribers, _changeTracker);
     }
@@ -58,7 +61,9 @@
     private void NotifySubscribers<TMessage>(TMessage message)
     {
       var subscribers = _subscribers.ToArray();
-
+      
+      //Log.DebugFormat("Subscribers count: {0}.", subscribers.Count());
+      
       foreach (var reference in subscribers)
       {
         var target = reference as IReceive<TMessage>;

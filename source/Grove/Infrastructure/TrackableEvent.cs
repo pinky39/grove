@@ -10,8 +10,7 @@
     private TrackableList<EventHandler> _handlers;
 
     private TrackableEvent()
-    {
-      
+    {      
     }
     
     public TrackableEvent(object sender, ChangeTracker changeTracker)

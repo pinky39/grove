@@ -45,7 +45,7 @@
                   m.Power = 2;
                   m.Toughness = 2;
                 }),
-              C.Modifier<AddProtectionFromColors>((m, _) => m.Colors = ManaColors.Red | ManaColors.Blue)
+              c.Modifier<AddProtectionFromColors>((m, _) => m.Colors = ManaColors.Red | ManaColors.Blue)
               )),
             selector: C.Selector(Validator.Equipment()),
             activateAsSorcery: true

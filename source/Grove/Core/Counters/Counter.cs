@@ -13,6 +13,7 @@
 
     public abstract void Remove();
 
+    [Copyable]
     public class Factory<T> : ICounterFactory where T : Counter, new()
     {
       public Game Game { get; set; }

@@ -14,7 +14,7 @@
     public void Copy(object original, CopyService copyService)
     {
       var org = (ChangeTracker) original;
-      _isEnabled = org._isEnabled;
+      _isEnabled = org._isEnabled;      
     }
 
     public Snapshot CreateSnapshot()
@@ -29,6 +29,11 @@
 
     public void Disable()
     {
+      if (_changeHistory.Count != 0) 
+        throw new InvalidOperationException(
+          String.Format("Disabling a change tracker with history ({0}) is not allowed. This is a common indication of a leaked copy. The most common cause of this is incorect context use in card definitions (e.g C is used insted of c).", 
+          _changeHistory.Count));
+      
       _isEnabled = false;
       _changeHistory.Clear();
     }
@@ -42,7 +47,9 @@
     public void NotifyCollectionWillBeCleared<T>(ITrackableCollection<T> trackableCollection)
     {
       if (!_isEnabled)
+      {
         return;
+      }
 
       var elements = trackableCollection.ToList();
 
@@ -60,7 +67,9 @@
     public void NotifyValueAdded<T>(ITrackableCollection<T> trackableCollection, T added)
     {
       if (!_isEnabled)
+      {
         return;
+      }
 
       _changeHistory.Push(() => trackableCollection.RemoveWithoutTracking(added));
     }
@@ -68,7 +77,9 @@
     public void NotifyValueChanged<T>(ITrackableValue<T> trackableValue)
     {
       if (!_isEnabled)
+      {
         return;
+      }
 
       var value = trackableValue.Value;
       _changeHistory.Push(() => trackableValue.Value = value);
@@ -77,7 +88,9 @@
     public void NotifyValueWillBeRemoved<T>(ITrackableCollection<T> trackableCollection, T removed)
     {
       if (!_isEnabled)
+      {
         return;
+      }
 
       var index = trackableCollection.IndexOf(removed);
 

@@ -31,7 +31,7 @@
               }),
             C.Effect<CompoundEffect>((e, c) => e.ChildEffects(
               c.Effect<MillOpponent>((e1, _) => e1.Count = 10),
-              C.Effect<CreateTokens>((e1, c1) => e1.Tokens(
+              c.Effect<CreateTokens>((e1, c1) => e1.Tokens(
                 c1.Card
                   .Named("Wolf Token")
                   .FlavorText(
@@ -49,7 +49,7 @@
                   m.Power = 2;
                   m.Toughness = 2;
                 }),
-              C.Modifier<AddProtectionFromColors>((m, _) => m.Colors = ManaColors.Green | ManaColors.Blue)
+              c.Modifier<AddProtectionFromColors>((m, _) => m.Colors = ManaColors.Green | ManaColors.Blue)
               )),
             selector: C.Selector(Validator.Equipment()),
             activateAsSorcery: true

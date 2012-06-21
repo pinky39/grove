@@ -9,11 +9,7 @@
   [Copyable]
   public class ContinuousEffect : IReceive<CardChangedZone>, ILifetimeDependency
   {
-    #region Delegates
-
     public delegate bool ShouldApplyToCard(Card card, Card effectSource);
-
-    #endregion
 
     private readonly ChangeTracker _changeTracker;
 
@@ -76,8 +72,8 @@
 
     private void AddModifierToPermanents()
     {
-      var permanents = Enumerable.ToList<Card>(_players.Permanents()
-          .Where(permanent => Filter(permanent, _source)));
+      var permanents = _players.Permanents()
+        .Where(permanent => Filter(permanent, _source)).ToList();
 
       foreach (var permanent in permanents)
       {

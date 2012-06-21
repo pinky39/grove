@@ -114,7 +114,7 @@
 
     [Fact]
     public void Num10()
-    {
+    {      
       Hand(P1, "Plains", "Plains", "Deathless Angel", "Baneslayer Angel");
       Hand(P2, "Volcanic Fallout");
       Battlefield(P1, "Plains", "Student of Warfare", "Plains", "Angelic Wall", "Plains", "Trip Noose", "Plains",
