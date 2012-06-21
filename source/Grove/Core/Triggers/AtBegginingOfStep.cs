@@ -2,7 +2,6 @@
 {
   using Infrastructure;
   using Messages;
-  using Zones;
 
   public class AtBegginingOfStep : Trigger, IReceive<StepStarted>
   {
@@ -11,9 +10,9 @@
 
     public void Receive(StepStarted message)
     {
-      if (message.Step != Step || Ability.OwningCard.Zone != Zone.Battlefield) 
+      if (message.Step != Step)
         return;
-      
+
       if (AtEach || Ability.OwningCard.Controller.IsActive)
         Set();
     }

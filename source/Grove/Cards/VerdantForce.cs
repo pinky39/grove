@@ -35,7 +35,8 @@
                 .Power(1)
                 .Toughness(1)
                 .Type("Creature - Token - Saproling")
-                .Colors(ManaColors.Green)))));
+                .Colors(ManaColors.Green))),
+            triggerOnlyIfOwningCardIsInPlay: true));
     }
   }
 }

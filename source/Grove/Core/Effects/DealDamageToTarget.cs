@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core.Effects
 {
+  using System;
   using Modifiers;
 
   public class DealDamageToTarget : Effect
@@ -11,7 +12,7 @@
       var damageSource = Source.OwningCard;
       var target = Target;
 
-      target.DealDamage(damageSource, Amount.GetValue(X), isCombat: false);
+      target.DealDamage(damageSource, Amount.GetValue(X));
     }
 
     public override string ToString()

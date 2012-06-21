@@ -2,7 +2,7 @@
 {
   using System;
 
-  public class GainLifeContext<T> : Effect
+  public class GainLifeDependsOnContext<T> : Effect
   {
     public Func<T, int> Selector = delegate { return 0; };
 

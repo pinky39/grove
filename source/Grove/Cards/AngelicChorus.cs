@@ -22,11 +22,11 @@
             "Whenever a creature enters the battlefield under your control, you gain life equal to its toughness.",
             C.Trigger<ChangeZone>((t, _) =>
               {
-                t.Filter = (ability, card) => ability.Controller == card.Controller && card.Is().Creature;
+                t.Filter = (ability, card) => ability.Controller == card.Controller && card.Is().Creature;                
                 t.To = Zone.Battlefield;
               }),
-            C.Effect<GainLifeContext<Card>>((e, _) =>
-              e.Selector = (card) => card.Toughness.Value))
+            C.Effect<GainLifeDependsOnContext<Card>>((e, _) =>
+              e.Selector = (card) => card.Toughness.Value), triggerOnlyIfOwningCardIsInPlay: true)              
         );
     }
   }

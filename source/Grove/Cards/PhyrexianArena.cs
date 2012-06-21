@@ -27,7 +27,7 @@
             C.Effect<DrawCards>((e, c) => {
               e.DrawCount = 1;
               e.Lifeloss = 1;
-            })));
+            }), triggerOnlyIfOwningCardIsInPlay: true));
     }
   }
 }

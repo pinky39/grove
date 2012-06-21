@@ -2,7 +2,7 @@
 
 o Absolute Grace
 o Absolute Law
-x Abundance
+Abundance (library interaction ui needed)
 o Abyssal Horror
 Academy Researchers
 o Acidic Soil
@@ -12,13 +12,13 @@ o Anaconda
 o Angelic Chorus
 o Angelic Page
 o Annul
-Antagonism
-Arc Lightning
-Arcane Laboratory
-Argothian Elder
-Argothian Enchantress
-Argothian Swine
-Argothian Wurm
+o Antagonism
+Arc Lightning (support for multiple targets)
+Arcane Laboratory (support for player modifiers)
+Argothian Elder (support for multiple targets)
+o Argothian Enchantress
+o Argothian Swine
+Argothian Wurm (should change simple decision making to be more customizable)
 Attunement
 Back to Basics
 Barrin, Master Wizard
@@ -116,7 +116,7 @@ Gaea's Cradle
 Gaea's Embrace
 Gamble
 Gilded Drake
-Glorious Anthem
+o Glorious Anthem
 Goblin Cadets
 Goblin Lackey
 Goblin Matron

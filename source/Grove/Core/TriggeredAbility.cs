@@ -7,6 +7,7 @@ namespace Grove.Core
   using Controllers;
   using Infrastructure;
   using Triggers;
+  using Zones;
 
   [Copyable]
   public class TriggeredAbility : Ability, IDisposable, ICopyContributor
@@ -14,6 +15,8 @@ namespace Grove.Core
     private readonly List<Trigger> _triggers = new List<Trigger>();
     private Decisions _decisions;
 
+    public bool TriggerOnlyIfOwningCardIsInPlay { get; set; }
+    
     public TriggeredAbility()
     {
       UsesStack = true;
@@ -52,6 +55,9 @@ namespace Grove.Core
 
     protected virtual void Execute(object context)
     {
+      if (TriggerOnlyIfOwningCardIsInPlay && OwningCard.Zone != Zone.Battlefield)
+        return;
+      
       var effect = EffectFactory.CreateEffect(this, triggerContext: context);      
       
       if (NeedsTarget)

@@ -105,6 +105,9 @@
     <Compile Include="Cards\AngelicPage.cs" />
     <Compile Include="Cards\AngelicWall.cs" />
     <Compile Include="Cards\Annul.cs" />
+    <Compile Include="Cards\Antagonism.cs" />
+    <Compile Include="Cards\ArgothianEnchantress.cs" />
+    <Compile Include="Cards\ArgothianSwine.cs" />
     <Compile Include="Cards\BaneslayerAngel.cs" />
     <Compile Include="Cards\BasiliskCollar.cs" />
     <Compile Include="Cards\BurstLightning.cs" />
@@ -252,9 +255,10 @@
     <Compile Include="Core\Counters\ICounterFactory.cs" />
     <Compile Include="Core\DeckFileReader.cs" />
     <Compile Include="Core\Effects\CounterTargetSpell.cs" />
+    <Compile Include="Core\Effects\DealDamageToActivePlayer.cs" />
     <Compile Include="Core\Effects\DestroyPermanents.cs" />
     <Compile Include="Core\Effects\ExileTargetPermanent.cs" />
-    <Compile Include="Core\Effects\GainLifeContext.cs" />
+    <Compile Include="Core\Effects\GainLifeDependsOnContext.cs" />
     <Compile Include="Core\Effects\GainLifeEqualToTargetCreaturePower.cs" />
     <Compile Include="Core\Effects\MillOpponent.cs" />
     <Compile Include="Core\Effects\PayLifeOrTap.cs" />
@@ -287,6 +291,7 @@
     <Compile Include="Core\Modifiers\SetPowerAndToughness.cs" />
     <Compile Include="Core\PrimitiveManaAmount.cs" />
     <Compile Include="Core\Triggers\OnLevelChanged.cs" />
+    <Compile Include="Core\Triggers\OpponentWasNotDealtDamageThisTurn.cs" />
     <Compile Include="Core\ZeroManaAmount.cs" />
     <Compile Include="Core\PlayersEx.cs" />
     <Compile Include="Infrastructure\AssemblyEx.cs" />

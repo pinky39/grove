@@ -210,7 +210,8 @@
       IEnumerable<ITriggerFactory> triggers,
       IEffectFactory effect,
       ITargetSelectorFactory targetSelector = null,
-      EffectCategories category = EffectCategories.Generic)
+      EffectCategories category = EffectCategories.Generic,
+      bool triggerOnlyIfOwningCardIsInPlay = false)
     {
       return new TriggeredAbility.Factory
         {
@@ -226,6 +227,7 @@
 
               self.Effect(effect);
               self.EffectCategories = category;
+              self.TriggerOnlyIfOwningCardIsInPlay = triggerOnlyIfOwningCardIsInPlay;
               if (targetSelector != null)
                 self.SetTargetSelector(targetSelector);
             }
@@ -237,7 +239,8 @@
       ITriggerFactory trigger,
       IEffectFactory effect,
       ITargetSelectorFactory targetSelector = null,
-      EffectCategories category = EffectCategories.Generic)
+      EffectCategories category = EffectCategories.Generic, 
+      bool triggerOnlyIfOwningCardIsInPlay = false)
     {
       return new TriggeredAbility.Factory
         {
@@ -248,6 +251,7 @@
               self.AddTrigger(trigger);
               self.Effect(effect);
               self.EffectCategories = category;
+              self.TriggerOnlyIfOwningCardIsInPlay = triggerOnlyIfOwningCardIsInPlay;
               if (targetSelector != null)
                 self.SetTargetSelector(targetSelector);
             }
