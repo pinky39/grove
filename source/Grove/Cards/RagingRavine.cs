@@ -52,7 +52,19 @@
                           counter.Toughness = 1;
                         })))));
                 }, untilEndOfTurn: true))),
-            timing: Timings.Steps(Step.BeginningOfCombat)));
+            timing:
+              Any(
+                All(
+                  Timings.Steps(Step.BeginningOfCombat),
+                  Timings.Turn(active: true),
+                  Timings.ControllerHasConvertedMana(5)),
+                All(
+                  Timings.Steps(Step.DeclareAttackers),
+                  Timings.Turn(passive: true),
+                  Timings.ControllerHasConvertedMana(5),
+                  Timings.AtLeastOneAttacker(maxPower: 3, maxToughness: 3)
+                  ))
+            ));
     }
   }
 }

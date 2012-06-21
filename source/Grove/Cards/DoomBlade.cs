@@ -17,7 +17,7 @@
         .Text("Destroy target nonblack creature.")
         .FlavorText("The void is without substance but cuts like steel.")
         .Effect<DestroyTargetPermanent>()
-        .Timing(Timings.InstantRemoval)
+        .Timing(Timings.InstantRemoval())
         .Category(EffectCategories.Destruction)
         .Target(C.Selector(
           validator: target => target.Is().Creature && !target.HasColor(ManaColors.Black),

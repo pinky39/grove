@@ -258,10 +258,7 @@
       _manaPool.Empty();
     }
 
-    public int GetMaxConvertedMana()
-    {
-      return _manaSources.GetMaxConvertedMana();
-    }
+    public int ConvertedMana { get { return _manaSources.GetMaxConvertedMana(); } }
 
     public IEnumerable<ITarget> GetTargets(TargetSelector specification)
     {

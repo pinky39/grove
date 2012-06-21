@@ -18,7 +18,7 @@
       .Text(
         "{Kicker} {4}{EOL}Burst Lightning deals 2 damage to target creature or player. If Burst Lightning was kicked, it deals 4 damage to that creature or player instead.")
       .Effect<DealDamageToTarget>((e, _) => e.Amount = 2)
-      .Timing(Timings.InstantRemoval)
+      .Timing(Timings.InstantRemoval())
       .Category(EffectCategories.DamageDealing)
       .Target(C.Selector(
         validator: target => target.IsPlayer() || target.Is().Creature,

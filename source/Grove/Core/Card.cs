@@ -616,7 +616,7 @@
       int? maxX = null;
       if (HasXInCost)
       {
-        maxX = Controller.GetMaxConvertedMana() - ManaCostWithKicker.Converted;
+        maxX = Controller.ConvertedMana - ManaCostWithKicker.Converted;
       }
       return maxX;
     }

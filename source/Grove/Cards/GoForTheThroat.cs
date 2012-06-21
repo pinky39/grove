@@ -17,7 +17,7 @@
         .Text("Destroy target nonartifact creature.")
         .FlavorText("Having flesh is increasingly a liability on Mirrodin.")
         .Effect<DestroyTargetPermanent>()
-        .Timing(Timings.InstantRemoval)
+        .Timing(Timings.InstantRemoval())
         .Category(EffectCategories.Destruction)
         .Target(C.Selector(
           validator: target => target.Is().Creature && !target.Is().Artifact,

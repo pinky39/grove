@@ -10,24 +10,47 @@
       return Steps(Step.DeclareBlockers)(game, card, spell);
     }
 
-    public static Func<Game, Card, ActivationParameters, bool> ControllerHasMana(IManaAmount manaAmount)
-    {
-      return (game, card, activationParameters) => card.Controller.HasMana(manaAmount);
-    }
-
     public static Func<Game, Card, ActivationParameters, bool> CounterSpell(int? doNotCounterCost = null)
     {
-      return (game, card, activationParameters) => {
-        if (!doNotCounterCost.HasValue)
-          return true;
+      return (game, card, activationParameters) =>
+        {
+          if (!doNotCounterCost.HasValue)
+            return true;
 
-        return !game.Players.GetOpponent(card.Controller).HasMana(doNotCounterCost.Value.AsColorlessMana());
-      };
+          return !game.Players.GetOpponent(card.Controller).HasMana(doNotCounterCost.Value.AsColorlessMana());
+        };
     }
 
-    public static bool InstantRemoval(Game game, Card card, ActivationParameters activationParameters)
+    public static Func<Game, Card, ActivationParameters, bool> AtLeastOneAttacker(int maxPower = int.MaxValue,
+                                                                                  int maxToughness = int.MaxValue)
     {
-      return Steps(Step.BeginningOfCombat, Step.DeclareBlockers)(game, card, activationParameters);
+      return (game, card, activationParameters) =>
+        {
+          Func<Attacker, bool> predicate = (attacker) =>
+            attacker.Card.Power <= maxPower &&
+              attacker.Card.Toughness <= maxToughness;
+
+          return game.Combat.Attackers.Where(predicate).Count() > 1;
+        };
+    }
+
+    public static Func<Game, Card, ActivationParameters, bool> ControllerHasConvertedMana(int converted)
+    {
+      return (game, card, activationParameters) => card.Controller.ConvertedMana >= converted;
+    }
+
+    public static Func<Game, Card, ActivationParameters, bool> InstantRemoval()
+    {
+      return
+        Any(
+          All(
+            Turn(active: true),
+            Steps(Step.BeginningOfCombat)
+            ),
+          All(
+            Turn(passive: true),
+            Steps(Step.DeclareAttackers))
+          );
     }
 
     public static bool Lands(Game game, Card card, ActivationParameters spell)
@@ -48,47 +71,60 @@
 
     public static Func<Game, Card, ActivationParameters, bool> Regenerate(bool considerSelfOnly = true)
     {
-      return (game, card, activationParameters) => ResponseToSpell(EffectCategories.Destruction | EffectCategories.DamageDealing, considerSelfOnly)(game, card, activationParameters) ||
-        Steps(Step.DeclareBlockers)(game, card, activationParameters);
+      return
+        (game, card, activationParameters) =>
+          ResponseToSpell(EffectCategories.Destruction | EffectCategories.DamageDealing, considerSelfOnly)(game, card,
+            activationParameters) ||
+              Steps(Step.DeclareBlockers)(game, card, activationParameters);
     }
 
-    public static Func<Game, Card, ActivationParameters, bool> ResponseToSpell(EffectCategories effectCategories = EffectCategories.Generic, bool considerSelfOnly = true)
+    public static Func<Game, Card, ActivationParameters, bool> ResponseToSpell(
+      EffectCategories effectCategories = EffectCategories.Generic, bool considerSelfOnly = true)
     {
-      return (game, card, activationParameters) => {
-        var topSpell = game.Stack.TopSpell;
-
-        if (topSpell == null)
-          return false;
-
-        if (considerSelfOnly && topSpell.HasTarget && (
-          topSpell.Target != activationParameters.EffectTarget &&
-            topSpell.Target != activationParameters.CostTarget &&
-              topSpell.Target != card &&
-                topSpell.Target != card.Controller))
+      return (game, card, activationParameters) =>
         {
-          return false;
-        }
+          var topSpell = game.Stack.TopSpell;
 
-        if (effectCategories == EffectCategories.Generic)
-          return true;
+          if (topSpell == null)
+            return false;
 
-        return ((effectCategories & topSpell.Source.EffectCategories) != EffectCategories.Generic);
-      };
+          if (considerSelfOnly && topSpell.HasTarget && (
+            topSpell.Target != activationParameters.EffectTarget &&
+              topSpell.Target != activationParameters.CostTarget &&
+                topSpell.Target != card &&
+                  topSpell.Target != card.Controller))
+          {
+            return false;
+          }
+
+          if (effectCategories == EffectCategories.Generic)
+            return true;
+
+          return ((effectCategories & topSpell.Source.EffectCategories) != EffectCategories.Generic);
+        };
     }
 
     public static Func<Game, Card, ActivationParameters, bool> SacrificeCreatures(int count)
     {
-      return (game, card, activationParameters) => {
-        var opponent = game.Players.WithoutPriority;
+      return (game, card, activationParameters) =>
+        {
+          var opponent = game.Players.WithoutPriority;
 
-        if (opponent.Battlefield.Creatures.Count() == 0)
-          return false;
+          if (opponent.Battlefield.Creatures.Count() == 0)
+            return false;
 
-        if (opponent.Battlefield.Creatures.Count() == 1)
-          return game.Turn.Step == Step.FirstMain;
+          if (opponent.Battlefield.Creatures.Count() == 1)
+            return game.Turn.Step == Step.FirstMain;
 
-        return game.Turn.Step == Step.SecondMain;
-      };
+          return game.Turn.Step == Step.SecondMain;
+        };
+    }
+
+    public static Func<Game, Card, ActivationParameters, bool> Turn(bool active = false, bool passive = false)
+    {
+      return
+        (game, card, activationParameters) =>
+          (card.Controller.IsActive && active) || (!card.Controller.IsActive && passive);
     }
 
     public static Func<Game, Card, ActivationParameters, bool> Steps(params Step[] steps)
@@ -104,6 +140,20 @@
       }
 
       return game.Combat.IsCannonfodder(card);
+    }
+
+    public static Func<Game, Card, ActivationParameters, bool> All(
+      params Func<Game, Card, ActivationParameters, bool>[] predicates)
+    {
+      return
+        (game, card, activationParameters) => predicates.All(predicate => predicate(game, card, activationParameters));
+    }
+
+    public static Func<Game, Card, ActivationParameters, bool> Any(
+      params Func<Game, Card, ActivationParameters, bool>[] predicates)
+    {
+      return
+        (game, card, activationParameters) => predicates.Any(predicate => predicate(game, card, activationParameters));
     }
   }
 }

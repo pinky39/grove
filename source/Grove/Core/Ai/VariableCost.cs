@@ -58,7 +58,7 @@
         if (target.IsPlayer())
         {
           const int minDamageToPlayer = 5;        
-          var maxX = source.Controller.GetMaxConvertedMana() - source.ManaCost.Converted;
+          var maxX = source.Controller.ConvertedMana - source.ManaCost.Converted;
 
           var max = Math.Max(minDamageToPlayer, maxX);
           return Math.Min(max, lifepoints);

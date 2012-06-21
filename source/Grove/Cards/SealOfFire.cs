@@ -25,7 +25,7 @@
             selector: C.Selector(
               validator: target => target.IsPlayer() || target.Is().Creature,
               scorer: Core.Ai.TargetScores.OpponentStuffScoresMore(spellsDamage: 2)),
-            timing: Any(Timings.InstantRemoval)));     
+            timing: Timings.InstantRemoval()));     
     }
   }
 }

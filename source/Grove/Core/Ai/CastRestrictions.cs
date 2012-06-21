@@ -44,7 +44,10 @@
         
         case (Step.BeginningOfCombat):
           return true;
-
+        
+        case (Step.DeclareAttackers):
+          return true;
+        
         case (Step.DeclareBlockers):
           return true;
       }

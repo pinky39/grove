@@ -46,7 +46,7 @@
               target => target.Is().Creature,
               Core.Ai.TargetScores.OpponentStuffScoresMore()
               ),
-            timing: Timings.InstantRemoval,
+            timing: Timings.InstantRemoval(),
             category: EffectCategories.PwTReduction));
     }
   }

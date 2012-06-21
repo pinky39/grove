@@ -2,16 +2,13 @@
 {
   using System;
   using System.Collections.Generic;
-  using System.Linq;
+  using Ai;
 
   public delegate void Initializer<in T>(T target, CardCreationCtx creationContext);
 
   public abstract class CardsSource
   {
-    public CardCreationCtx C
-    {
-      get { return new CardCreationCtx(Game); }
-    }
+    public CardCreationCtx C { get { return new CardCreationCtx(Game); } }
 
     public Game Game { get; set; }
 
@@ -20,15 +17,13 @@
     protected Func<Game, Card, ActivationParameters, bool> All(
       params Func<Game, Card, ActivationParameters, bool>[] predicates)
     {
-      return
-        (game, card, activationParameters) => predicates.All(predicate => predicate(game, card, activationParameters));
+      return Timings.All(predicates);
     }
 
     protected Func<Game, Card, ActivationParameters, bool> Any(
       params Func<Game, Card, ActivationParameters, bool>[] predicates)
     {
-      return
-        (game, card, activationParameters) => predicates.Any(predicate => predicate(game, card, activationParameters));
+      return Timings.Any(predicates);
     }
 
     protected T[] L<T>(params T[] elt)

@@ -22,7 +22,7 @@
 
       if (HasX)
       {
-        maxX = Controller.GetMaxConvertedMana() - Amount.Converted;
+        maxX = Controller.ConvertedMana - Amount.Converted;
       }
 
       return true;

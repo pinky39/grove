@@ -16,7 +16,7 @@
         .Type("Instant")
         .Text("Return target permanent to its owner's hand. Then that player discards a card.")
         .FlavorText("Anything sent into a plagued world is bound to come back infected.")
-        .Timing(Timings.InstantRemoval)
+        .Timing(Timings.InstantRemoval())
         .Category(EffectCategories.Bounce)
         .Effect<ReturnTargetPermanentToHand>((e, _) => e.Discard = 1)
         .Target(C.Selector(
