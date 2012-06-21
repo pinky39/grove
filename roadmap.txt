@@ -8,10 +8,10 @@ Academy Researchers
 o Acidic Soil
 o Acridian
 o Albino Troll
-Anaconda
-Angelic Chorus
-Angelic Page
-Annul
+o Anaconda
+o Angelic Chorus
+o Angelic Page
+o Annul
 Antagonism
 Arc Lightning
 Arcane Laboratory

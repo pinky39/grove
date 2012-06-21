@@ -22,10 +22,11 @@
         .Abilities(
           C.TriggeredAbility(
             "At the beginning of each upkeep, put a 1/1 green Saproling creature token onto the battlefield.",
-            C.Trigger<AtBegginingOfStep>((t, _) => {
-              t.Step = Step.Upkeep;
-              t.AtEach = true;
-            }),
+            C.Trigger<AtBegginingOfStep>((t, _) =>
+              {
+                t.Step = Step.Upkeep;
+                t.AtEach = true;
+              }),
             C.Effect<CreateTokens>((e, c) => e.Tokens(
               c.Card
                 .Named("Saproling Token")

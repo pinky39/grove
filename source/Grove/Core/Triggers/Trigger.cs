@@ -2,12 +2,12 @@
 {
   using System;
   using CardDsl;
-  using Infrastructure;
-
+  using Infrastructure;  
+  
   [Copyable]
   public abstract class Trigger : IDisposable, IHashable
   {
-    public event EventHandler Triggered = delegate { };
+    public event EventHandler<TriggerEventArgs> Triggered = delegate { };
 
     protected TriggeredAbility Ability { get; private set; }
     protected Game Game { get; private set; }
@@ -24,9 +24,9 @@
       return GetType().GetHashCode();
     }
 
-    protected void Set()
+    protected void Set(object context = null)
     {
-      Triggered(this, EventArgs.Empty);
+      Triggered(this, new TriggerEventArgs(context));
     }
 
     [Copyable]
@@ -46,6 +46,16 @@
         Game.Publisher.Subscribe(trigger);
 
         return trigger;
+      }
+    }
+
+    public class TriggerEventArgs : EventArgs
+    {
+      public object Context { get; private set; }
+
+      public TriggerEventArgs(object context)
+      {
+        Context = context;
       }
     }
   }

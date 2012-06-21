@@ -66,6 +66,8 @@
   <ItemGroup>
     <Compile Include="Cards\AbyssalHorror.cs" />
     <Compile Include="Cards\Acridian.cs" />
+    <Compile Include="Cards\Anaconda.cs" />
+    <Compile Include="Cards\AngelicChorus.cs" />
     <Compile Include="Cards\BaneslayerAngel.cs" />
     <Compile Include="Cards\BlacksSunZenith.cs" />
     <Compile Include="Cards\Blaze.cs" />

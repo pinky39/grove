@@ -50,9 +50,9 @@ namespace Grove.Core
       return HashCalculator.Combine(hashcodes);
     }
 
-    protected virtual void Execute()
+    protected virtual void Execute(object context)
     {
-      var effect = EffectFactory.CreateEffect(this);      
+      var effect = EffectFactory.CreateEffect(this, triggerContext: context);      
       
       if (NeedsTarget)
       {
@@ -70,7 +70,7 @@ namespace Grove.Core
 
     private void RegisterTriggerListener(Trigger trigger)
     {
-      trigger.Triggered += (o, e) => Execute();
+      trigger.Triggered += (o, e) => Execute(e.Context);
     }
 
     [Copyable]

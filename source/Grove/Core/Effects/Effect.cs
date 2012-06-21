@@ -13,6 +13,7 @@
     public Player Controller { get { return Source.OwningCard.Controller; } }
     protected Decisions Decisions { get { return Game.Decisions; } }
     protected Game Game { get; set; }
+    protected object TriggerContext { get; set; }
     public bool HasTarget { get { return Target != null; } }
     public Players Players { get { return Game.Players; } }
     public IEffectSource Source { get; set; }
@@ -73,11 +74,12 @@
       public Initializer<TEffect> Init = delegate { };
       public Game Game { get; set; }
 
-      public Effect CreateEffect(IEffectSource source, int? x, bool wasKickerPaid)
+      public Effect CreateEffect(IEffectSource source, int? x, bool wasKickerPaid, object triggerContext)
       {
         var effect = new TEffect{
           Game = Game,
           Source = source,
+          TriggerContext = triggerContext,
           X = x,
           _wasKickerPaid = wasKickerPaid,
           CanBeCountered = true

@@ -16,6 +16,7 @@
     FirstStrike,
     DoubleStrike,
     Reach,
-    Vigilance
+    Vigilance,
+    Swampwalk
   }
 }

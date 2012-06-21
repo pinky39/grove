@@ -24,7 +24,7 @@
             target.IsEffect() &&
               target.Effect().CanBeCountered &&
                 target.Effect().Source is Card,
-          scorer: Core.Ai.TargetScores.OpponentStuffScoresMore()));
+          scorer: TargetScores.OpponentStuffScoresMore()));
     }
   }
 }

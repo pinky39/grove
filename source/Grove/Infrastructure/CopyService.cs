@@ -7,6 +7,8 @@ using Castle.DynamicProxy;
 
 namespace Grove.Infrastructure
 {
+  using Core.Triggers;
+
   public class CopyService
   {
     private static readonly TypeCache Cache = new TypeCache();
@@ -160,6 +162,7 @@ namespace Grove.Infrastructure
             baseType.GetFields(bindingFlags)
               .Where(x => x.Name != "__interceptors")
               .Where(x => x.FieldType != typeof (EventHandler))
+              .Where(x => !(x.FieldType.IsGenericType && x.FieldType.GetGenericTypeDefinition() == typeof(EventHandler<>)))
               .Select(fieldInfo => new FieldDescriptor(fieldInfo)));
           baseType = baseType.BaseType;
         }

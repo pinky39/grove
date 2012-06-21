@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core.Triggers
 {
+  using System;
   using Infrastructure;
   using Messages;
   using Zones;
@@ -8,22 +9,24 @@
   {
     public Zone From { get; set; }
     public Zone To { get; set; }
+    
+    public Func<TriggeredAbility, Card, bool> Filter = 
+      (ability, card) => ability.OwningCard == card;
 
     public void Receive(CardChangedZone message)
     {
-      if (Ability.OwningCard != message.Card)
+      if (!Filter(Ability, message.Card))
         return;
-
-      // do not trigger first time
+      
       if (message.From == Zone.Undefined)
         return;
 
       if (From == Zone.Undefined && To == message.To)
-        Set();
+        Set(message.Card);
       else if (From == message.From && To == message.To)
-        Set();
+        Set(message.Card);
       else if (From == message.From && To == Zone.Undefined)
-        Set();
+        Set(message.Card);
     }      
   }
 }

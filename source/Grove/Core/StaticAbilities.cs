@@ -22,6 +22,7 @@
     bool DoubleStrike { get; }
     bool Reach { get; }
     bool Vigilance { get; }
+    bool Swampwalk { get; }
   }
 
   [Copyable]
@@ -57,6 +58,7 @@
     public bool DoubleStrike { get { return Has(StaticAbility.DoubleStrike); } }
     public bool Reach { get { return Has(StaticAbility.Reach); } }
     public bool Vigilance { get { return Has(StaticAbility.Vigilance); } }
+    public bool Swampwalk { get { return Has(StaticAbility.Swampwalk);} }
 
     public void Accept(IModifier modifier)
     {

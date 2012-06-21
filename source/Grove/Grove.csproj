@@ -100,7 +100,11 @@
     <Compile Include="Cards\AcidicSoil.cs" />
     <Compile Include="Cards\Acridian.cs" />
     <Compile Include="Cards\AlbinoTroll.cs" />
+    <Compile Include="Cards\Anaconda.cs" />
+    <Compile Include="Cards\AngelicChorus.cs" />
+    <Compile Include="Cards\AngelicPage.cs" />
     <Compile Include="Cards\AngelicWall.cs" />
+    <Compile Include="Cards\Annul.cs" />
     <Compile Include="Cards\BaneslayerAngel.cs" />
     <Compile Include="Cards\BasiliskCollar.cs" />
     <Compile Include="Cards\BurstLightning.cs" />
@@ -250,6 +254,7 @@
     <Compile Include="Core\Effects\CounterTargetSpell.cs" />
     <Compile Include="Core\Effects\DestroyPermanents.cs" />
     <Compile Include="Core\Effects\ExileTargetPermanent.cs" />
+    <Compile Include="Core\Effects\GainLifeContext.cs" />
     <Compile Include="Core\Effects\GainLifeEqualToTargetCreaturePower.cs" />
     <Compile Include="Core\Effects\MillOpponent.cs" />
     <Compile Include="Core\Effects\PayLifeOrTap.cs" />

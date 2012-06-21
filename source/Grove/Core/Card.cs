@@ -334,11 +334,22 @@
 
     public bool CanBeBlockedBy(Card card)
     {
-      return
-        (!Has().Unblockable) &&
-          (Has().Flying ? card.Has().Flying | card.Has().Reach : true) &&
-            (Has().Fear ? card.HasColor(ManaColors.Black) || card.Is().Artifact : true) &&
-              !HasProtectionFrom(card);
+      if (Has().Unblockable) 
+        return false;      
+      
+      if (Has().Flying && !card.Has().Flying && !card.Has().Reach) 
+        return false;
+      
+      if (Has().Fear && !card.HasColor(ManaColors.Black) && !card.Is().Artifact) 
+        return false;
+
+      if (HasProtectionFrom(card))
+        return false;
+
+      if (Has().Swampwalk && card.Controller.Battlefield.Any(x => x.Is("swamp")))
+        return false;
+
+      return true;
     }
 
     public bool CanBeTargetBySpellsOwnedBy(Player player)
@@ -531,7 +542,7 @@
 
       if (oldZone == Zone.Battlefield)
       {
-        _combat.Remove(this);        
+        _combat.Remove(this);
 
         DetachAttachments();
         DetachSelf();
@@ -634,6 +645,12 @@
     public bool PlayerNeedsToPayEchoCost()
     {
       return EchoCost != null && _wasEchoPaid == false;
+    }
+
+    public void PayEchoCost()
+    {
+      Controller.Consume(EchoCost);
+      _wasEchoPaid.Value = true;
     }
 
     public class CardFactory : ICardFactory
@@ -1015,12 +1032,6 @@
         card._type.Property(x => x.Value)
           .Changes(card).Property<Card, string>(x => x.Type);
       }
-    }
-
-    public void PayEchoCost()
-    {
-      Controller.Consume(EchoCost);
-      _wasEchoPaid.Value = true;
     }
   }
 }
