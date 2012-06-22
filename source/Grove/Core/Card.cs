@@ -54,6 +54,7 @@
     private Trackable<bool> _wasEchoPaid;
     private CalculateX _xCalculator;
     private Trackable<Zone> _zone;
+    private Trackable<int> _usageCount;
 
     protected Card() {}
 
@@ -157,9 +158,23 @@
     {
       get
       {
-        return IsPermanent
-          ? Ai.ScoreCalculator.CalculatePermanentScore(this)
-          : Ai.ScoreCalculator.CalculateCardInHandScore(this);
+        int score = 0;
+        
+        switch (Zone)
+        {
+          case (Zone.Battlefield):
+            score  = Ai.ScoreCalculator.CalculatePermanentScore(this);
+            break;
+            
+          case (Zone.Hand):
+            score = Ai.ScoreCalculator.CalculateCardInHandScore(this);
+            break;                    
+        }                        
+
+        // card usage lowers the score slightly, since we want't to 
+        // avoid activations that do no good
+        
+        return score - _usageCount.Value;
       }
     }
 
@@ -290,6 +305,7 @@
     public void ActivateAbility(int index, ActivationParameters activationParameters)
     {
       _activatedAbilities.Activate(index, activationParameters);
+      _usageCount.Value++;
     }
 
     public virtual void AddModifier(IModifier modifier)
@@ -397,6 +413,7 @@
 
       effect.Target = activationParameters.EffectTarget;
       CastingRule.Cast(effect);
+      _usageCount.Value++;
     }
 
     public void ClearDamage()
@@ -722,6 +739,7 @@
 
         card._putToZoneAfterResolve = _putToZoneAfterResolve;
         card._damage = new Trackable<int>(_changeTracker, card);
+        card._usageCount = new Trackable<int>(_changeTracker);
         card._isTapped = new Trackable<bool>(_changeTracker, card);
         card._hasLeathalDamage = new Trackable<bool>(_changeTracker, card);
         card._attachedTo = new Trackable<Card>(_changeTracker, card);

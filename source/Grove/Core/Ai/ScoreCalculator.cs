@@ -86,7 +86,7 @@
       int score = 5000;
                               
       if (life > 20)
-        return score + (life - 20)*10;
+        return score + (life - 20)*40;
 
       if (life <= 0)
         return 0;

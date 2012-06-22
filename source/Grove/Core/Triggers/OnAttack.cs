@@ -3,11 +3,11 @@
   using Infrastructure;
   using Messages;
 
-  public class OnAttack : Trigger, IReceive<AttackerDeclared>
+  public class OnAttack : Trigger, IReceive<AttackerJoinedCombat>
   {
-    public void Receive(AttackerDeclared message)
+    public void Receive(AttackerJoinedCombat message)
     {
-      if (message.Attacker.Card == Ability.OwningCard)
+      if (message.WasDeclared && message.Attacker.Card == Ability.OwningCard)
       {
         Set();
       }

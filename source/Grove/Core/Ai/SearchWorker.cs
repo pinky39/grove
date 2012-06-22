@@ -3,9 +3,11 @@
   using System.Collections.Generic;
   using System.Threading.Tasks;
   using Infrastructure;
+  using log4net;
 
   public class SearchWorker
   {
+    private static readonly ILog Log = LogManager.GetLogger(typeof (SearchWorker));
     private readonly Game _game;
     private readonly Trackable<int> _moveIndex;
     private readonly Trackable<InnerResult> _parentResult;
@@ -24,9 +26,13 @@
       _searchResults = searchResults;
 
       _root = new CopyService().CopyRoot(rootNode);
-      _game = _root.Game;      
-      _parentResult = new Trackable<InnerResult>(new InnerResult(_root.Player.IsMax), _game.ChangeTracker);
+      _game = _root.Game;
+      _parentResult = new Trackable<InnerResult>(
+        new InnerResult(_game.CalculateHash(),_root.Player.IsMax), _game.ChangeTracker);
+      
       _moveIndex = new Trackable<int>(_game.ChangeTracker);
+
+      Debug("Created");
     }
 
     public object Id { get { return _game; } }
@@ -37,15 +43,31 @@
     public ISearchNode Root { get { return _root; } }
     public int SubTreesPrunned { get { return _subTreesPrunned; } }
 
+    public override string ToString()
+    {
+      return GetHashCode().ToString();
+    }
+
+    private void Debug(string format, params object[] args)
+    {
+      Log.DebugFormat(
+        string.Format("Worker {0}: {1}", this, format),
+        args);
+    }
+
     public void Evaluate(ISearchNode node = null)
     {
       node = node ?? _root;
+
+      Debug("Evaluating node: {0}", node);
 
       _nodesSearched++;
 
       if (_search.MaxDepth < _game.Turn.StepCount)
       {
+        
         ParentResult.AddChild(ResultIndex, new LeafResult(_game.Score));
+        
         _game.Stop();
         return;
       }
@@ -72,15 +94,22 @@
 
     private void EvaluateMove(ISearchNode searchNode)
     {
+      Debug("{0} evaluating the only move", searchNode);
+      
       searchNode.SetResult(0);
       _game.Simulate();
 
       if (_game.IsFinished)
-        ParentResult.AddChild(ResultIndex, new LeafResult(_game.Score));
+      {
+        ParentResult.AddChild(ResultIndex, 
+          new LeafResult(_game.Score));
+      }
     }
 
     private void EvaluateMove(int moveIndex, ISearchNode searchNode, InnerResult parentResult)
     {
+      Debug("{0} start eval move {1}", searchNode, moveIndex);
+      
       var snaphost = _game.Save();
 
       searchNode.SetResult(moveIndex);
@@ -90,22 +119,28 @@
       _game.Simulate();
 
       if (_game.IsFinished)
-        ParentResult.AddChild(ResultIndex, new LeafResult(_game.Score));
+      {
+        ParentResult.AddChild(
+          ResultIndex, new LeafResult(_game.Score));
+      }
 
       _game.Restore(snaphost);
+
+      Debug("{0} stop eval move {1}", searchNode, moveIndex);
     }
 
     private void EvaluateMoves(ISearchNode searchNode)
-    {
+    {            
       InnerResult result;
 
       var statehash = _game.CalculateHash();
+
+      Debug("state {0}, evaluating moves of node {1}", statehash, searchNode);
 
       var isCached = _searchResults.NewResult(
         statehash,
         searchNode.Player.IsMax,
         out result);
-
 
       ParentResult.AddChild(ResultIndex, result);
 
@@ -121,7 +156,8 @@
             parentWorker: this,
             parentNode: searchNode,
             resultIndex: moveIndex,
-            action: (worker, node) => worker.EvaluateMove(moveIndex, node, result));
+            action: (worker, node) =>
+              { if (worker != null) worker.EvaluateMove(moveIndex, node, result); });
 
           tasks.Add(task);
         }
@@ -129,8 +165,9 @@
         Task.WaitAll(tasks.ToArray());
         return;
       }
-
+      
       _subTreesPrunned++;
+      Debug("state {0}, prunning node {1}", statehash, searchNode);
     }
   }
 }

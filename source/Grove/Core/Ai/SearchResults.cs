@@ -15,7 +15,7 @@
           {
             return true;
           }
-          searchResult = new InnerResult(isMax);
+          searchResult = new InnerResult(id, isMax);
           _results.Add(id , searchResult);          
         }
                         

@@ -502,7 +502,7 @@
     <Compile Include="Core\Game.cs" />
     <Compile Include="Core\IDamageable.cs" />
     <Compile Include="Core\Match.cs" />
-    <Compile Include="Core\Messages\AttackerDeclared.cs" />
+    <Compile Include="Core\Messages\AttackerJoinedCombat.cs" />
     <Compile Include="Core\Messages\BlockerDeclared.cs" />
     <Compile Include="Core\Messages\EndOfTurn.cs" />
     <Compile Include="Core\Messages\PlayerHasTakenMulligan.cs" />

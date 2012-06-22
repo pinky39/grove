@@ -16,6 +16,11 @@
     public override void Play()
     {
       Card.Controller.CastSpell(Card, ActivationParameters);
-    }                
+    }
+
+    public override string ToString()
+    {
+      return string.Format("spell {0}", Card);
+    }
   }
 }

@@ -4,10 +4,12 @@
   using System.Linq;
   using Ai;
   using Infrastructure;
+  using log4net;
   using Results;
 
   public class PlaySpellOrAbility : Controllers.PlaySpellOrAbility, ISearchNode, IDecisionExecution
   {
+    private static readonly ILog Log = LogManager.GetLogger(typeof(PlaySpellOrAbility));
     private readonly DecisionExecutor _executor;
     private List<Playable> _playables;
 
@@ -43,6 +45,7 @@
     public void SetResult(int index)
     {
       Result = _playables[index];
+      Log.DebugFormat("Move is {0}", _playables[index]);
     }
 
     public override void Execute()
@@ -74,6 +77,11 @@
       }                                                
 
       yield return new Pass();
+    }
+
+    public override string ToString()
+    {
+      return string.Format("{0}, {1} plays", Game.Turn.Step, Player);
     }
   }
 }

@@ -80,5 +80,10 @@
         yield return target;
       }
     }
+
+    public override string ToString()
+    {
+      return string.Format("{0}: {1} sets trig. ability targets", Game.Turn.Step, Player);
+    }
   }
 }

@@ -36,8 +36,8 @@
 
         RunGame(maxTurnCount: 1);
 
-        Equal(0, P2.Battlefield.Count());
-        Equal(1, P1.Battlefield.Count());
+        Equal(1, P2.Battlefield.Count());
+        Equal(2, P1.Battlefield.Count());
         Equal(20, P2.Life);        
       }
       

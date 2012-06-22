@@ -9,7 +9,7 @@
 
   public class ViewModel : IReceive<SelectionModeChanged>, IReceive<PlayersInterestChanged>, IReceive<AttackerSelected>,
     IReceive<AttackerUnselected>, IReceive<BlockerSelected>, IReceive<BlockerUnselected>, IReceive<RemovedFromCombat>,
-    IReceive<AttackerDeclared>, IReceive<BlockerDeclared>
+    IReceive<AttackerJoinedCombat>, IReceive<BlockerDeclared>
   {
     private readonly CombatMarkers _combatMarkers;
     private readonly Publisher _publisher;
@@ -39,7 +39,7 @@
     public virtual bool IsTargetOfSpell { get; protected set; }
     public virtual int Marker { get; protected set; }
 
-    public void Receive(AttackerDeclared message)
+    public void Receive(AttackerJoinedCombat message)
     {
       if (message.Attacker.Card != Card)
         return;

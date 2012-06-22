@@ -19,5 +19,10 @@
     {      
       Card.ActivateAbility(Index, ActivationParameters);
     }
+
+    public override string ToString()
+    {
+      return string.Format("ability {0} of {1}", Index, Card);
+    }
   }
 }

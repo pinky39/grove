@@ -1,11 +1,12 @@
 ﻿namespace Grove.Core.Ai
 {
+  using System.Text;
+
   public interface ISearchResult
   {
-    void Visit();
-    
     int? BestMove { get; }
     int? Score { get; }
-    int? ShortestPath { get; }
+    void EvaluateSubtree();
+    StringBuilder OutputBestPath(StringBuilder sb = null);
   }
 }

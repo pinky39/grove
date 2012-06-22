@@ -127,7 +127,7 @@
       _startStepCount = searchNode.Game.Turn.StepCount;
       _startStateCount = searchNode.Game.Turn.StateCount;
       
-      Log.DebugFormat("Search started. MaxDepth = {0}", MaxDepth);
+      Log.Debug("Search started");
       searchNode.Game.Publisher.Publish(new SearchStarted());
 
       _nodesSearched = 0;
@@ -148,7 +148,9 @@
       searchNode.Game.ChangeTracker.Disable();
 
       var root = GetSearchNodeResult(searchNode);
-      root.Visit();
+      root.EvaluateSubtree();   
+      
+      Log.DebugFormat("Best path: {0}", root.OutputBestPath());
 
       return root.BestMove.Value;
     }

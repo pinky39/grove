@@ -1,8 +1,8 @@
 ﻿namespace Grove.Tests.Scenarios
 {
   using System.Linq;
-  using Grove.Core;
-  using Grove.Core.Zones;
+  using Core;
+  using Core.Zones;
   using Infrastructure;
   using Xunit;
 
@@ -10,7 +10,24 @@
   {
     public class Ai : AiScenario
     {
-            
+      [Fact]
+      public void BugDoAttackWithTrollsAndWildwood()
+      {
+        
+        Hand(P1, "Birds of Paradise");
+        Hand(P2, "Plains");
+
+        Battlefield(P1, "Forest", "Sunpetal Grove", C("Troll Ascetic").IsEquipedWith("Sword of Feast and Famine"),
+          "Stirring Wildwood", "Stirring Wildwood", "Troll Ascetic", "Forest", "Birds of Paradise");        
+        Battlefield(P2, "Plains", "Plains", "Plains", "Plains", "Plains", "Plains", "Plains", "Wall of Reverence");
+
+        P2.Life = 25;
+
+        RunGame(1);
+        
+        Equal(19, P2.Life);        
+      }
+
       [Fact]
       public void BugDoNotTapLandsUselessly()
       {
@@ -26,7 +43,7 @@
 
       [Fact]
       public void BeastSacWithOpponentAbility()
-      {        
+      {
         Battlefield(P1, "Ravenous Baloth");
         Battlefield(P2, "Leatherback Baloth");
 
@@ -80,17 +97,17 @@
         Battlefield(P2, "Forest", "Forest", thrun);
 
         Exec(
-        At(Step.DeclareAttackers)
-          .DeclareAttackers(baloth),
-        At(Step.SecondMain)
-          .Verify(() =>
-          {
-            Equal(Zone.Graveyard, C(baloth).Zone);
-            Equal(Zone.Battlefield, C(thrun).Zone);
-          })
-        );
+          At(Step.DeclareAttackers)
+            .DeclareAttackers(baloth),
+          At(Step.SecondMain)
+            .Verify(() =>
+              {
+                Equal(Zone.Graveyard, C(baloth).Zone);
+                Equal(Zone.Battlefield, C(thrun).Zone);
+              })
+          );
       }
-      
+
       [Fact]
       public void BugSearchWithoutResults()
       {
