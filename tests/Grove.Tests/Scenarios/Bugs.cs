@@ -13,19 +13,18 @@
       [Fact]
       public void BugDoAttackWithTrollsAndWildwood()
       {
-        
         Hand(P1, "Birds of Paradise");
         Hand(P2, "Plains");
 
         Battlefield(P1, "Forest", "Sunpetal Grove", C("Troll Ascetic").IsEquipedWith("Sword of Feast and Famine"),
-          "Stirring Wildwood", "Stirring Wildwood", "Troll Ascetic", "Forest", "Birds of Paradise");        
+          "Stirring Wildwood", "Stirring Wildwood", "Troll Ascetic", "Forest", "Birds of Paradise");
         Battlefield(P2, "Plains", "Plains", "Plains", "Plains", "Plains", "Plains", "Plains", "Wall of Reverence");
 
         P2.Life = 25;
 
         RunGame(1);
-        
-        Equal(19, P2.Life);        
+
+        Equal(19, P2.Life);
       }
 
       [Fact]
@@ -83,6 +82,18 @@
 
         RunGame(maxTurnCount: 1);
       }
+
+      [Fact]
+      public void BugLeakedCopyBasiliskCollar()
+      {
+        Hand(P2, "Martial Coup", "Deathless Angel", "Plains", "Deathless Angel");
+        Hand(P1, "Stirring Wildwood", "Sunpetal Grove", "Plains", "Basilisk Collar");
+        Battlefield(P2, "Plains", "Plains", "Plains", "Plains", "Hero of Bladehold");
+        Battlefield(P1, "Razorverge Thicket", C("Student of Warfare").IsEnchantedWith("Rancor"), "Razorverge Thicket",
+          "Plains", "Sword of Feast and Famine");
+        
+        RunGame(2);
+      }
     }
 
     public class PredifinedAi : PredefinedAiScenario
@@ -127,6 +138,34 @@
             .Cast(dragon)
             .Verify(() => Equal(Zone.Battlefield, C(dragon).Zone))
           );
+      }
+
+      [Fact]
+      public void BugAttackingCausesEndOfGame()
+      {
+        bool gameEnded = true;
+
+        var knight = C("White Knight");
+        var student = C("Student of Warfare");
+        var hero = C("Hero of Bladehold");
+
+        Hand(P1, "Deathless Angel", "Baneslayer Angel", "Day of Judgment");
+        Hand(P2, "Troll Ascetic");
+        Battlefield(P1, "Plains", "Plains", "Plains", "Glorious Anthem", "Plains", knight, "Plains", student, hero);
+        Battlefield(P2, "Razorverge Thicket", "Llanowar Elves", "Forest", "Troll Ascetic", "Plains", "Troll Ascetic",
+          "Stirring Wildwood", "Plains", "Plains", "Wurmcoil Engine", "Birds of Paradise");
+
+        Exec(
+          At(Step.FirstMain)
+            .Activate(student)
+            .Activate(student),
+          At(Step.DeclareAttackers)
+            .DeclareAttackers(knight, student, hero),
+          At(Step.SecondMain)
+            .Verify(() => { gameEnded = false; })
+          );
+
+        False(gameEnded);
       }
     }
   }

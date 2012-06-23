@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core.Ai
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
   using System.Text;
@@ -7,10 +8,10 @@
   public class InnerResult : ISearchResult
   {
     private readonly object _access = new object();
-    private readonly List<Child> _children = new List<Child>(10);
+    private readonly List<Edge> _children = new List<Edge>(10);
     private readonly int _id;
     private readonly bool _isMax;
-    private Child _bestChild;
+    private Edge _bestEdge;
     private bool _isVisited;
 
     public InnerResult(int id, bool isMax)
@@ -19,31 +20,42 @@
       _isMax = isMax;
     }
 
-    public int? BestMove { get { return _bestChild == null ? (int?) null : _bestChild.MoveIndex; } }
-    public int? Score { get { return _bestChild == null ? null : _bestChild.Result.Score; } }
+    public int? BestMove { get { return _bestEdge == null ? (int?) null : _bestEdge.MoveIndex; } }
+    public int? Score { get { return _bestEdge == null ? null : _bestEdge.Result.Score; } }
+
 
     public void EvaluateSubtree()
-    {
-      if (_isVisited)
-        return;
-
+    {      
       _isVisited = true;
 
       foreach (var child in _children)
       {
+        if (child.Result.IsVisited)
+        {
+          child.IsCycle = true;
+          continue;
+        }
+        
         child.Result.EvaluateSubtree();
       }
 
-      _bestChild = _isMax
-        ? _children.OrderByDescending(x => x.Result.Score).First()
-        : _children.OrderBy(x => x.Result.Score).First();
+      var scoredChildren = _children.Where(x =>!x.IsCycle && x.Result.Score != null).ToList();
+      
+      if (scoredChildren.Count > 0)
+      {
+        _bestEdge = _isMax
+          ? scoredChildren.OrderByDescending(x => x.Result.Score).First()
+          : scoredChildren.OrderBy(x => x.Result.Score).First();
+      }      
     }
+
+    public bool IsVisited { get { return _isVisited; } }
 
     public StringBuilder OutputBestPath(StringBuilder sb = null)
     {
       sb = sb ?? new StringBuilder();
       sb.AppendFormat("{0}, ", _id);
-      return _bestChild.Result.OutputBestPath(sb);
+      return _bestEdge.Result.OutputBestPath(sb);
     }
 
     public void AddChild(int moveIndex, ISearchResult resultNode)
@@ -51,14 +63,15 @@
       lock (_access)
       {
         _children.Add(
-          new Child {MoveIndex = moveIndex, Result = resultNode});
+          new Edge {MoveIndex = moveIndex, Result = resultNode});
       }
     }
 
-    private class Child
+    private class Edge
     {
       public int MoveIndex;
       public ISearchResult Result;
+      public bool IsCycle;
     }
   }
 }

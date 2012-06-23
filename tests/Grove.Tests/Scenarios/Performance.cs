@@ -114,7 +114,7 @@
 
     [Fact]
     public void Num10()
-    {      
+    {
       Hand(P1, "Plains", "Plains", "Deathless Angel", "Baneslayer Angel");
       Hand(P2, "Volcanic Fallout");
       Battlefield(P1, "Plains", "Student of Warfare", "Plains", "Angelic Wall", "Plains", "Trip Noose", "Plains",
@@ -125,5 +125,21 @@
 
       RunGame(maxTurnCount: 1);
     }
+
+    [Fact]
+    public void Num11()
+    {
+      Hand(P1, "Plains", "Forest", "Sword of Feast and Famine", "Sword of Body and Mind");
+      Hand(P2, "Baneslayer Angel", "Deathless Angel");
+      
+      Battlefield(P1, "Razorverge Thicket", "Student of Warfare", "Razorverge Thicket", "Forest",
+        C("Troll Ascetic").IsEquipedWith("Sword of Feast and Famine"), "Sunpetal Grove", "Sunpetal Grove");
+      
+      Battlefield(P2, "Plains", "Plains", "White Knight", "Plains", "Student of Warfare", "Plains", "Trip Noose",
+        "Plains", "Wall of Reverence", "Plains");
+      
+
+      RunGame(maxTurnCount: 1);
+    }    
   }
 }

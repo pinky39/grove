@@ -44,7 +44,8 @@
       if (message.Attacker.Card != Card)
         return;
 
-      if (Card.Controller.IsHuman)
+      // if attacker was declared via UI do not generate marker again
+      if (Card.Controller.IsHuman && message.WasDeclared)
         return;
 
       Marker = _combatMarkers.GenerateMarker(message.Attacker);

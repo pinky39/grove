@@ -1,20 +1,18 @@
 ﻿namespace Grove.Ui.GameResults
 {
   using System;
-  using Castle.Core;
   using Core;
   using Infrastructure;
 
-  [Transient]
   public class ViewModel
   {
     private readonly Match _match;
-    private readonly Players _players;    
+    private readonly Players _players;
 
     public ViewModel(Match match, Players players)
     {
       _match = match;
-      _players = players;      
+      _players = players;
     }
 
     public string OpponentsResult

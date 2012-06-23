@@ -152,6 +152,8 @@
       
       Log.DebugFormat("Best path: {0}", root.OutputBestPath());
 
+      GC.Collect();
+
       return root.BestMove.Value;
     }
 

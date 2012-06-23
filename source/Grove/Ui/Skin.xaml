@@ -639,7 +639,7 @@
                         <TextBlock Name = "TextBlock"					           
 					               Margin="0,0,10,0"
                                    FontSize = "{TemplateBinding FontSize}"
-					               Foreground = "#fff"
+					               Foreground = "{TemplateBinding Foreground}"
 					               Style = "{StaticResource Label}" >
 						    <ContentPresenter />
                         </TextBlock>

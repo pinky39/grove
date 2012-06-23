@@ -57,6 +57,19 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <Style TargetType="Grid">
+            <Setter Property="Opacity" Value="0.0"/>
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="Grid.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.2" To="1.0" Duration="0:0:0.5"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
     
     <Grid  Background="{StaticResource StartScreenBackground}">       
@@ -178,8 +191,8 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="Back" Style="{StaticResource LeftButton}" Grid.Column="0" Foreground="#fff" FontSize="20" >Back</Button>
-                <Button x:Name="Forward" Style="{StaticResource RightButton}" Grid.Column="2" Foreground="#fff" FontSize="20" Visibility="{Binding CanStart, Converter={x:Static grove:Converters.BooleanToVisibility}}">Forward</Button>
+                <Button x:Name="Back" Style="{StaticResource LeftButton}" Grid.Column="0" FontSize="20" >Back</Button>
+                <Button x:Name="Forward" Style="{StaticResource RightButton}" Grid.Column="2" Foreground="#FFEE94"  FontSize="30" Visibility="{Binding CanStart, Converter={x:Static grove:Converters.BooleanToVisibility}}">Select</Button>
                 <TextBlock Text="Game is starting, please wait..." FontSize="18" Grid.Column="2" Foreground="#fff" Visibility="{Binding IsStarting, Converter={x:Static grove:Converters.BooleanToVisibility}}"/>
             </Grid>
         </Border>

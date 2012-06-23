@@ -18,7 +18,7 @@
       abilities.Add(
         ctx.ActivatedAbility(
           String.Format("{0}: Put a level counter on this. Level up only as sorcery.", cost),
-          ctx.Cost<TapOwnerPayMana>((c, _) => c.Amount = cost),
+          ctx.Cost<TapOwnerPayMana>((cst, _) => cst.Amount = cost),
           ctx.Effect<ApplyModifiersToSelf>((e, c) => e.Modifiers(c.Modifier<IncreaseLevel>())),
           timing: Timings.Steps(Step.FirstMain), activateAsSorcery: true));
 

@@ -26,7 +26,7 @@
             C.Cost<TapOwnerPayMana>((cost, _) => cost.Amount = 2.AsColorlessMana()),
             C.Effect<AttachEquipment>((e, c) => e.Modifiers(
               c.Modifier<AddStaticAbility>((m, _) => m.StaticAbility = StaticAbility.Deathtouch),
-              C.Modifier<AddStaticAbility>((m, _) => m.StaticAbility = StaticAbility.Lifelink)
+              c.Modifier<AddStaticAbility>((m, _) => m.StaticAbility = StaticAbility.Lifelink)
               )),
             selector: C.Selector(Validator.Equipment()),
             activateAsSorcery: true));

@@ -12,7 +12,7 @@ properties {
   $buildartifacts_dir = "$build_dir\" 
   $sln_file = "$base_dir\Grove.sln"   
   $product = "Magicgrove"
-  $humanReadableversion = "1.2"
+  $humanReadableversion = "1.3"
   $tools_dir = "$base_dir\lib"	
   $release_dir = "$base_dir\release"   
   $media_dir = "$base_dir\media"

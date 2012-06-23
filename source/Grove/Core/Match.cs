@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core
 {
+  using System;
   using System.Threading.Tasks;
   using System.Windows;
   using Ui.GameResults;
@@ -51,7 +52,7 @@
       {
         return
           Player1WinCount == 2 ||
-          Player2WinCount == 2;
+            Player2WinCount == 2;
       }
     }
 
@@ -136,6 +137,11 @@
 
       backgroundTask.ContinueWith(task =>
         {
+          if (task.Exception != null)
+          {
+            throw new Exception("A fatal error has occured.", task.Exception);
+          }
+
           if (IsFinished)
           {
             DisplayMatchResults();
@@ -170,6 +176,7 @@
 
           Run();
         }, _uiScheduler);
+
 
       backgroundTask.Start(TaskScheduler.Default);
     }

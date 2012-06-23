@@ -102,8 +102,7 @@
       PublishMessage(new AttackerJoinedCombat
       {
         Attacker = attacker,
-        WasDeclared = wasDeclared
-        
+        WasDeclared = wasDeclared        
       });
     }
 

@@ -21,7 +21,7 @@
         .Timing(Timings.Lands)
         .Abilities(
           C.ManaAbility(new Mana(ManaColors.Green | ManaColors.White), "{T}: Add {G} or {W} to your mana pool."))
-        .Effect<PutIntoPlay>((e, c) => e.PutIntoPlayTapped = player => player.Battlefield.Lands.Count() > 2);
+        .Effect<PutIntoPlay>((e, _) => e.PutIntoPlayTapped = player => player.Battlefield.Lands.Count() > 2);
     }
   }
 }
