@@ -28,7 +28,7 @@
     protected override void OnAttached()
     {
       base.OnAttached();
-
+      
       Window.Loaded += (s, e) => WireUpWndProc();
       Window.KeyUp += ToggleFullScreen;
 
@@ -48,6 +48,9 @@
     private void OnMaximized()
     {
       Window.WindowStyle = WindowStyle.None;
+      Window.ResizeMode = ResizeMode.NoResize;  
+      Window.Hide();
+      Window.Show();          
     }
 
     private void OnResized()
@@ -73,6 +76,7 @@
     private void OnRestored()
     {
       Window.WindowStyle = WindowStyle.ThreeDBorderWindow;
+      Window.ResizeMode = ResizeMode.CanResize;            
     }
 
     private void RemoveWndProc()
