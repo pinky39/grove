@@ -28,11 +28,11 @@
               }),
             C.Effect<TapTargetCreature>(),
             C.Selector(
-              target => target.Is().Creature,
-              Core.Ai.TargetScores.OpponentStuffScoresMore()
-              ),
-            timing: Timings.Steps(Step.BeginningOfCombat)
-            )
+              validator: target => target.Is().Creature,
+              scorer: TargetScores.BattlefieldRanker(
+                ranker: card => card.Power.Value,
+                filter: card => !card.IsTapped)),
+            timing: Timings.Steps(Step.BeginningOfCombat))
         );
     }
   }

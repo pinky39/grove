@@ -93,14 +93,37 @@
         };
     }
 
-    public static Core.ScoreCalculator PickCreatureWithGreatestPower()
+    public static Core.ScoreCalculator OnlyCreatureWithGreatestPower()
     {
       return (target, source, maxX, game) =>
         {
-          var greatestPower = source.Controller.Battlefield.Creatures.Max(x => x.Power);
+          var greatestPower = source.Controller.Battlefield.Creatures
+            .Where(x=>x.CanBeTargetBySpellsOwnedBy(source.Controller))
+            .Max(x => x.Power);
+          
           return target.Card().Power == greatestPower
             ? WellKnownTargetScores.Good
             : WellKnownTargetScores.NotAccepted;
+        };
+    }
+
+    public static Core.ScoreCalculator BattlefieldRanker(Func<Card, int> ranker, Func<Card, bool> filter = null, Controller controller = Controller.Opponent)
+    {
+      filter = filter ?? delegate { return true; };
+      
+      return (target, source, maxX, game) =>
+        {
+          var ctrl = controller == Controller.Opponent
+            ? game.Players.GetOpponent(source.Controller)
+            : source.Controller;
+
+          if (target.Card().Controller != ctrl)
+            return WellKnownTargetScores.NotAccepted;
+          
+          if (!filter(target.Card()))
+            return WellKnownTargetScores.NotAccepted;
+
+          return WellKnownTargetScores.Good + ranker(target.Card());
         };
     }
 
@@ -116,5 +139,12 @@
             : WellKnownTargetScores.NotAccepted;
         };
     }
+
+    public enum Controller
+    {
+      SpellOwner,
+      Opponent      
+    }
+        
   }
 }
