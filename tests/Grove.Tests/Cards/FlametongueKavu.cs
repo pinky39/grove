@@ -11,6 +11,18 @@
     public class Ai : AiScenario
     {
       [Fact]
+      public void BugDoNotPlayKavuIfOnlyCreature()
+      {
+        var kavu = C("Flametongue Kavu");
+        
+        Hand(P1, kavu);
+        Battlefield(P1, "Mountain", "Mountain", "Mountain", "Mountain");
+
+        RunGame(1);
+        Equal(Zone.Hand, C(kavu).Zone);
+      }
+      
+      [Fact]
       public void BugGameCrashesWhenPlayingKavu()
       {
         Battlefield(P1, "Forest", "Mountain", "Llanowar Elves", "Llanowar Elves", "Forest");

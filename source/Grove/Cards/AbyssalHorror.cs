@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -26,10 +25,10 @@
           C.TriggeredAbility(
             "When Abyssal Horror enters the battlefield, target player discards two cards.",
             C.Trigger<ChangeZone>((t, _) => t.To = Zone.Battlefield),
-            C.Effect<TargetPlayerDiscardsCards>((e, _) => e.SelectedCount = 2), 
+            C.Effect<TargetPlayerDiscardsCards>((e, _) => e.SelectedCount = 2),
             C.Selector(
-              validator: target => target.IsPlayer(), 
-              scorer: TargetScores.OpponentStuffScoresMore())));
+              validator: target => target.IsPlayer(),
+              scorer: TargetScores.OpponentOnly())));
     }
   }
 }

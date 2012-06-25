@@ -30,7 +30,7 @@
             C.Effect<GainLifeEqualToTargetCreaturePower>(),
             C.Selector(
               validator: (target, card) => target.Is().Creature && target.Card().Controller == card.Controller,
-              scorer: TargetScores.OrderByPower()),
+              scorer: TargetScores.YourCreatureWithGreatestPowerOnly()),
             triggerOnlyIfOwningCardIsInPlay: true));
     }
   }

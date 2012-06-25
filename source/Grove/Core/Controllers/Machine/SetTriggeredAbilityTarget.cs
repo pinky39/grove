@@ -66,7 +66,8 @@
         Game.Players,
         Game.Stack,
         maxX: null,
-        maxTargets: Search.TargetLimit
+        maxTargets: Search.TargetLimit,
+        forcePickIfAnyValid: true
         );
 
       if (targets.None())

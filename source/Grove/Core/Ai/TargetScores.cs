@@ -16,6 +16,18 @@
         };
     }
 
+    public static Core.ScoreCalculator OpponentOnly()
+    {
+      return (target, source, maxX, game) =>
+        {
+          var opponent = game.Players.GetOpponent(source.Controller);
+          
+          return target == opponent 
+            ? WellKnownTargetScores.Good 
+            : WellKnownTargetScores.NotAccepted;
+        };
+    }
+    
     public static Core.ScoreCalculator OpponentStuffScoresMore(
       int? spellsDamage = null, bool considerSpellController = false, bool reducesPwt = false)
     {
@@ -93,12 +105,12 @@
         };
     }
 
-    public static Core.ScoreCalculator OnlyCreatureWithGreatestPower()
+    public static Core.ScoreCalculator YourCreatureWithGreatestPowerOnly()
     {
       return (target, source, maxX, game) =>
         {
           var greatestPower = source.Controller.Battlefield.Creatures
-            .Where(x=>x.CanBeTargetBySpellsOwnedBy(source.Controller))
+            .Where(x => x.CanBeTargetBySpellsOwnedBy(source.Controller))
             .Max(x => x.Power);
           
           return target.Card().Power == greatestPower
@@ -125,6 +137,11 @@
 
           return WellKnownTargetScores.Good + ranker(target.Card());
         };
+    }
+
+    public static Core.ScoreCalculator BattlefieldScoreRanker(Func<Card, bool> filter = null, Controller controller = Controller.Opponent)
+    {
+      return BattlefieldRanker(ranker: (card) => card.Score, filter: filter, controller: controller);
     }
 
     public static Core.ScoreCalculator PreferTopSpellTarget()
