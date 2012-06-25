@@ -47,7 +47,7 @@
     private Zone _putToZoneAfterResolve;
     private StaticAbilities _staticAbilities;
     private TargetSelector _targetSelector;
-    private Func<Game, Card, ActivationParameters, bool> _timming;
+    private TimingDelegate _timming;
     private Toughness _toughness;
     private TriggeredAbilities _triggeredAbilities;
     private CardTypeCharacteristic _type;
@@ -695,7 +695,7 @@
       private Zone _putToZoneAfterResolve = Zone.Graveyard;
       private ITargetSelectorFactory _targetSelectorFactory;
       private string _text;
-      private Func<Game, Card, ActivationParameters, bool> _timming;
+      private TimingDelegate _timing;
       private int? _toughness;
       private CardType _type;
       private CalculateX _xCalculator;
@@ -754,7 +754,7 @@
         card._zone = new Trackable<Zone>(_changeTracker, card);
 
         card.EffectCategories = _effectCategories;
-        card._timming = _timming ?? Timings.MainPhases;
+        card._timming = _timing ?? Timings.MainPhases();
 
         card._modifiers = new TrackableList<IModifier>(_changeTracker);
 
@@ -953,9 +953,9 @@
         return this;
       }
 
-      public CardFactory Timing(Func<Game, Card, ActivationParameters, bool> predicate)
+      public CardFactory Timing(TimingDelegate timing)
       {
-        _timming = predicate;
+        _timing = timing;
         return this;
       }
 

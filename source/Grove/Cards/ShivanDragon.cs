@@ -27,7 +27,7 @@
             C.Cost<TapOwnerPayMana>((c, _) => c.Amount = Mana.Red.ToAmount()),
             C.Effect<ApplyModifiersToSelf>((e, c) => e.Modifiers(
               c.Modifier<AddPowerAndToughness>((m, _) => m.Power = 1, untilEndOfTurn: true))),
-            timing: Timings.Combat));
+            timing: Timings.Combat()));
     }
   }
 }

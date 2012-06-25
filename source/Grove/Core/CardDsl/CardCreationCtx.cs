@@ -29,7 +29,7 @@
       ITargetSelectorFactory selector = null,
       bool activateAsSorcery = false,
       EffectCategories category = EffectCategories.Generic,
-      Func<Game, Card, ActivationParameters, bool> timing = null)
+      TimingDelegate timing = null)
     {
       return new ActivatedAbility.Factory<ActivatedAbility>
         {

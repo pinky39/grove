@@ -13,7 +13,7 @@
         .Named("Swamp")
         .Type("Basic Land - Swamp")
         .Text("{T}: Add {B} to your mana pool.")
-        .Timing(Timings.Lands)
+        .Timing(Timings.Lands())
         .Abilities(
           C.ManaAbility(Mana.Black, "{T}: Add {B} to your mana pool."));
     }

@@ -20,7 +20,7 @@
         .Type("Land")
         .Text("Vivid Creek enters the battlefield tapped with two charge counters on it.{EOL}{T}: Add {U} to your mana pool.{EOL}{T}, Remove a charge counter from Vivid Creek: Add one mana of any color to your mana pool.")
         .Effect<PutIntoPlay>((e, _) => e.PutIntoPlayTapped = (owner) => true)
-        .Timing(Timings.Lands)
+        .Timing(Timings.Lands())
         .Abilities(
           C.ManaAbility(Mana.Blue, "{T}: Add {U} to your mana pool."),
           C.ManaAbility(Mana.Any, "{T}, Remove a charge counter from Vivid Creek: Add one mana of any color to your mana pool.",

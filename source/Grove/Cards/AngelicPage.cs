@@ -32,7 +32,7 @@
                 },                
                 untilEndOfTurn: true))),
             C.Selector((target) => target.Is().Creature && (target.Card().IsAttacker || target.Card().IsBlocker)),                
-            timing: Any(Timings.Combat)));                      
+            timing: Timings.Combat()));                      
     }
   }
 }

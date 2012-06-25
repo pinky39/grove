@@ -23,7 +23,7 @@
            ))
        .Effect<PutIntoPlay>((e, _) => e.PutIntoPlayTapped =
          player => !player.Battlefield.Any(card => card.Is("island") || card.Is("swamp")))
-       .Timing(Timings.Lands);
+       .Timing(Timings.Lands());
     }
   }
 }

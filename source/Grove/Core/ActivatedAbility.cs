@@ -9,7 +9,7 @@
 
   public class ActivatedAbility : Ability
   {
-    private Func<Game, Card, ActivationParameters, bool> _timming = Timings.MainPhases;
+    private TimingDelegate _timming = Timings.MainPhases();
 
     public ActivatedAbility()
     {
@@ -92,10 +92,10 @@
       Cost = costFactory.CreateCost(this);
     }
 
-    public void Timing(Func<Game, Card, ActivationParameters, bool> predicate)
+    public void Timing(TimingDelegate timing)
     {
-      if (predicate != null)
-        _timming = predicate;
+      if (timing != null)
+        _timming = timing;
     }
 
     private bool CanBeActivated(ref int? maxX)

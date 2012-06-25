@@ -28,7 +28,7 @@
             C.Effect<IncreaseLife>((e, _) => e.Amount = 4),
             timing: Any(
               Timings.ResponseToSpell(EffectCategories.Removal),
-              Timings.WillBeDealtLeathalCombatDamage)));
+              Timings.IsCannonFodder())));
     }
   }
 }

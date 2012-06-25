@@ -1,6 +1,5 @@
 ﻿namespace Grove.Core.CardDsl
 {
-  using System;
   using System.Collections.Generic;
   using Ai;
 
@@ -14,14 +13,12 @@
 
     public abstract IEnumerable<ICardFactory> GetCards();
 
-    protected Func<Game, Card, ActivationParameters, bool> All(
-      params Func<Game, Card, ActivationParameters, bool>[] predicates)
+    protected TimingDelegate All(params TimingDelegate[] predicates)
     {
       return Timings.All(predicates);
     }
 
-    protected Func<Game, Card, ActivationParameters, bool> Any(
-      params Func<Game, Card, ActivationParameters, bool>[] predicates)
+    protected TimingDelegate Any(params TimingDelegate[] predicates)
     {
       return Timings.Any(predicates);
     }

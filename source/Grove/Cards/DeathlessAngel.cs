@@ -32,7 +32,7 @@
             C.Selector(
               validator: (target) => target.Is().Creature,
               scorer: TargetScores.PreferTopSpellTarget()),
-            timing: Timings.Regenerate(considerSelfOnly: false)));
+            timing: Timings.Regenerate()));
     }
   }
 }

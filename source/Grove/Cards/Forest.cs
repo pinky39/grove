@@ -13,7 +13,7 @@
         .Named("Forest")
         .Type("Basic Land - Forest")
         .Text("{T}: Add {G} to your mana pool.")
-        .Timing(Timings.Lands)
+        .Timing(Timings.Lands())
         .Abilities(
           C.ManaAbility(Mana.Green, "{T}: Add {G} to your mana pool."));
     }

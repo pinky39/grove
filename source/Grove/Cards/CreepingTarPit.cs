@@ -16,7 +16,7 @@
         .Named("Creeping Tar Pit")
         .Type("Land")
         .Text("Creeping Tar Pit enters the battlefield tapped.{EOL}{T}: Add {U} or {B} to your mana pool.{EOL}{1}{U}{B}: Until end of turn, Creeping Tar Pit becomes a 3/2 blue and black Elemental creature and is unblockable. It's still a land.")
-        .Timing(Timings.Lands)
+        .Timing(Timings.Lands())
         .Effect<PutIntoPlay>((e, _) => e.PutIntoPlayTapped = delegate { return true; })
         .Abilities(
           C.ManaAbility(

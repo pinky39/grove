@@ -294,6 +294,7 @@
     <Compile Include="Core\Modifiers\LevelLifetime.cs" />
     <Compile Include="Core\Modifiers\SetPowerAndToughness.cs" />
     <Compile Include="Core\PrimitiveManaAmount.cs" />
+    <Compile Include="Core\Ai\TimingParameters.cs" />
     <Compile Include="Core\Triggers\OnLevelChanged.cs" />
     <Compile Include="Core\Triggers\OpponentWasNotDealtDamageThisTurn.cs" />
     <Compile Include="Core\ZeroManaAmount.cs" />

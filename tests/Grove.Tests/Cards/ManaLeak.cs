@@ -1,13 +1,37 @@
 ﻿namespace Grove.Tests.Cards
 {
   using System.Linq;
-  using Grove.Core;
-  using Grove.Core.Zones;
+  using Core;
+  using Core.Zones;
   using Infrastructure;
   using Xunit;
 
   public class ManaLeak
   {
+    public class Predefined : PredefinedScenario
+    {
+      [Fact]
+      public void Counter()
+      {
+        var manaLeak = C("Mana Leak");
+        var force = C("Verdant Force");
+
+        Hand(P2, manaLeak);
+        Hand(P1, force);
+
+        Exec(
+          At(Step.FirstMain)
+            .Cast(force)
+            .Cast(manaLeak, target: E(force))
+            .Verify(() =>
+              {
+                Equal(1, P1.Graveyard.Count());
+                Equal(1, P2.Graveyard.Count());
+              })
+          );
+      }
+    }
+
     public class PredifinedAi : PredefinedAiScenario
     {
       [Fact]
@@ -17,17 +41,18 @@
         var force = C("Verdant Force");
 
         Battlefield(P2, "Island", "Island");
-        Hand(P2, manaLeak);        
+        Hand(P2, manaLeak);
         Hand(P1, force);
 
         Exec(
           At(Step.FirstMain)
-            .Cast(force)            
-            .Verify(() => {
-              Equal(1, P1.Graveyard.Count());
-              Equal(1, P2.Graveyard.Count());
-            })
-        );
+            .Cast(force)
+            .Verify(() =>
+              {
+                Equal(1, P1.Graveyard.Count());
+                Equal(1, P2.Graveyard.Count());
+              })
+          );
       }
 
       [Fact]
@@ -37,41 +62,18 @@
         var thrun = C("Thrun, the Last Troll");
 
         Battlefield(P2, "Island", "Island");
-        Hand(P2, manaLeak);        
+        Hand(P2, manaLeak);
         Hand(P1, thrun);
 
         Exec(
           At(Step.FirstMain)
-            .Cast(thrun)            
-            .Verify(() => {
-              Equal(Zone.Battlefield, C(thrun).Zone);
-              Equal(Zone.Hand, C(manaLeak).Zone);
-            })
-        );
-      }
-    }
-    
-    public class Predefined : PredefinedScenario
-    {
-      [Fact]
-      public void Counter()
-      {
-        var manaLeak = C("Mana Leak");
-        var force = C("Verdant Force");
-        
-        Hand(P2, manaLeak);        
-        Hand(P1, force);
-
-        Exec(
-          At(Step.FirstMain)
-            .Cast(force)
-            .Cast(manaLeak, target: E(force))
-            .Verify(() => {
-              Equal(1, P1.Graveyard.Count());
-              Equal(1, P2.Graveyard.Count());
-            })
-        );
-
+            .Cast(thrun)
+            .Verify(() =>
+              {
+                Equal(Zone.Battlefield, C(thrun).Zone);
+                Equal(Zone.Hand, C(manaLeak).Zone);
+              })
+          );
       }
     }
   }

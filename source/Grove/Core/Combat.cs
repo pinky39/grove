@@ -139,7 +139,7 @@
       return FindBlocker(card) != null;
     }
 
-    public bool IsCannonfodder(Card card)
+    public bool IsBlockerThatWillBeDealtLeathalDamageAndWillNotKillAttacker(Card card)
     {
       var blocker = FindBlocker(card);
 

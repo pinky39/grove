@@ -51,7 +51,7 @@
 
       Deck cards = deckFactory.CreateDeck(deck, this);
 
-      SetupZones(cards, changeTracker);      
+      SetupZones(cards, changeTracker);
       InitializeManaSources();
     }
 
@@ -102,6 +102,8 @@
       }
     }
 
+    public int ConvertedMana { get { return _manaSources.GetMaxConvertedMana(); } }
+
     public void DealDamage(Card damageSource, int amount, bool isCombat)
     {
       Life -= amount;
@@ -112,12 +114,13 @@
         controller.Life += amount;
       }
 
-      PublishMessage(new DamageHasBeenDealt{
-        Dealer = damageSource,
-        Receiver = this,
-        Amount = amount,
-        IsCombat = isCombat
-      });
+      PublishMessage(new DamageHasBeenDealt
+        {
+          Dealer = damageSource,
+          Receiver = this,
+          Amount = amount,
+          IsCombat = isCombat
+        });
     }
 
     public int CalculateHash(HashCalculator calc)
@@ -171,10 +174,11 @@
 
       spell.CastInternal(activationParameters);
 
-      PublishMessage(new PlayerHasCastASpell{
-        Spell = spell,
-        Target = activationParameters.EffectTarget
-      });
+      PublishMessage(new PlayerHasCastASpell
+        {
+          Spell = spell,
+          Target = activationParameters.EffectTarget
+        });
     }
 
     public void Consume(IManaAmount amount, IManaSource tryNotToConsumeThisSource = null)
@@ -196,7 +200,7 @@
 
       if (card.CanRegenerate)
       {
-        card.Regenerate();        
+        card.Regenerate();
         return;
       }
 
@@ -258,7 +262,6 @@
       _manaPool.Empty();
     }
 
-    public int ConvertedMana { get { return _manaSources.GetMaxConvertedMana(); } }
 
     public IEnumerable<ITarget> GetTargets(TargetSelector specification)
     {
@@ -269,6 +272,11 @@
       {
         yield return card;
       }
+    }
+
+    public bool HasMana(int amount)
+    {
+      return _manaSources.GetMaxConvertedMana() >= amount;
     }
 
     public bool HasMana(IManaAmount amount)
@@ -297,7 +305,7 @@
 
     public void PutCardIntoPlay(Card card)
     {
-      _battlefield.Add(card);      
+      _battlefield.Add(card);
     }
 
     public void PutCardToGraveyard(Card card)
@@ -414,7 +422,7 @@
         card.SetZone(Zone.Exiled);
         return;
       }
-      
+
       _graveyard.Add(card);
     }
 
@@ -433,9 +441,9 @@
         card.SetZone(Zone.Exiled);
         return;
       }
-            
+
       _hand.Add(card);
-    }    
+    }
 
     private void SetupZones(IEnumerable<Card> cards, ChangeTracker changeTracker)
     {
@@ -445,15 +453,10 @@
       _library = Bindable.Create<Library>(cards, changeTracker);
     }
 
-    public interface IFactory
-    {
-      Player Create(string name, string avatar, bool isHuman, string deck);
-    }
-
     public void ExileCard(Card card)
     {
       _battlefield.Remove(card);
-      card.SetZone(Zone.Exiled);        
+      card.SetZone(Zone.Exiled);
     }
 
     public void Mill(int count)
@@ -463,9 +466,14 @@
         var card = _library.Draw();
         if (card == null)
           return;
-        
+
         PutCardToGraveyard(card);
-      }            
+      }
+    }
+
+    public interface IFactory
+    {
+      Player Create(string name, string avatar, bool isHuman, string deck);
     }
   }
 }

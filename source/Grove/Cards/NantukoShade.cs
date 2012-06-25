@@ -31,7 +31,7 @@
               }, untilEndOfTurn: true))),
             timing: Any(
               Timings.ResponseToSpell(EffectCategories.LifepointReduction),
-              Timings.Combat)));
+              Timings.Combat())));
     }
   }
 }

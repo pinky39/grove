@@ -18,7 +18,7 @@
         .Type("Instant")
         .Timing(Any(
           Timings.ResponseToSpell(EffectCategories.LifepointReduction),
-          Timings.Combat))
+          Timings.Combat()))
         .Text(
           "{Kicker} {G}{EOL}Target creature can't be the target of spells or abilities your opponents control this turn. If Vines of Vastwood was kicked, that creature gets +4/+4 until end of turn.")
         .Effect<ApplyModifiersToTarget>((e, c) => e.Modifiers(

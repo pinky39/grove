@@ -13,7 +13,7 @@
         .Named("Island")
         .Type("Basic Land - Island")
         .Text("{T}: Add {U} to your mana pool.")
-        .Timing(Timings.Lands)
+        .Timing(Timings.Lands())
         .Abilities(
           C.ManaAbility(Mana.Blue, "{T}: Add {U} to your mana pool."));
     }

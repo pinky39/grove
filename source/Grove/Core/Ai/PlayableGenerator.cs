@@ -56,7 +56,7 @@
 
           foreach (var activationParameters in activationGenerator)
           {
-            if (!prerequisites.Timming(_game, card, activationParameters))
+            if (!prerequisites.Timming(new TimingParameters(_game, card, activationParameters)))
               continue;
 
             yield return new Ability(card, activationParameters, abilityIndex);
@@ -82,7 +82,7 @@
 
         foreach (var activationParameters in activationGenerator)
         {
-          if (!prerequisites.Timming(_game, card, activationParameters))
+          if (!prerequisites.Timming(new TimingParameters(_game, card, activationParameters)))
             continue;
 
           yield return new Spell(card, activationParameters);

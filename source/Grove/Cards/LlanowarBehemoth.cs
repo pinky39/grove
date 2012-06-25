@@ -37,7 +37,7 @@
               }, untilEndOfTurn: true))),
             timing: Any(
               Timings.ResponseToSpell(EffectCategories.PwTReduction),
-              Timings.Combat)
+              Timings.Combat())
             ));
     }
   }

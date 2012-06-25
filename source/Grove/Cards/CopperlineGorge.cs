@@ -16,7 +16,7 @@
         .Type("Land")
         .Text(
           "Copperline Gorge enters the battlefield tapped unless you control two or fewer other lands.{EOL}{T}: Add {R} or {G} to your mana pool.")
-        .Timing(Timings.Lands)
+        .Timing(Timings.Lands())
         .Abilities(
           C.ManaAbility(
             new Mana(ManaColors.Red | ManaColors.Green),

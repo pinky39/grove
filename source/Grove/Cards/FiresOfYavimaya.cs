@@ -40,7 +40,7 @@
               scorer: Core.Ai.TargetScores.YourStuffScoresMore()),
             timing: Any(
               Timings.ResponseToSpell(EffectCategories.PwTReduction),
-              Timings.Combat))
+              Timings.Combat()))
         );
     }
   }

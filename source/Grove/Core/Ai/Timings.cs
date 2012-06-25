@@ -3,43 +3,45 @@
   using System;
   using System.Linq;
 
+  public delegate bool TimingDelegate(TimingParameters parameters);
+
   public static class Timings
   {
-    public static bool Combat(Game game, Card card, ActivationParameters spell)
+    public static TimingDelegate Combat()
     {
-      return Steps(Step.DeclareBlockers)(game, card, spell);
+      return Steps(Step.DeclareBlockers);
     }
 
-    public static Func<Game, Card, ActivationParameters, bool> CounterSpell(int? doNotCounterCost = null)
+    public static TimingDelegate CounterSpell(int? counterCost = null)
     {
-      return (game, card, activationParameters) =>
+      return p =>
         {
-          if (!doNotCounterCost.HasValue)
-            return true;
+          if (p.TopSpellController != p.Opponent)
+            return false;
 
-          return !game.Players.GetOpponent(card.Controller).HasMana(doNotCounterCost.Value.AsColorlessMana());
+          return !counterCost.HasValue || !p.Opponent.HasMana(counterCost.Value);
         };
     }
 
-    public static Func<Game, Card, ActivationParameters, bool> AtLeastOneAttacker(int maxPower = int.MaxValue,
-                                                                                  int maxToughness = int.MaxValue)
+    public static TimingDelegate AtLeastOneAttacker(
+      int maxPower = int.MaxValue, int maxToughness = int.MaxValue)
     {
-      return (game, card, activationParameters) =>
+      return p =>
         {
           Func<Attacker, bool> predicate = (attacker) =>
             attacker.Card.Power <= maxPower &&
               attacker.Card.Toughness <= maxToughness;
 
-          return game.Combat.Attackers.Where(predicate).Count() > 1;
+          return p.Attackers.Where(predicate).Count() > 1;
         };
     }
 
-    public static Func<Game, Card, ActivationParameters, bool> ControllerHasConvertedMana(int converted)
+    public static TimingDelegate ControllerHasConvertedMana(int converted)
     {
-      return (game, card, activationParameters) => card.Controller.ConvertedMana >= converted;
+      return p => p.Controller.HasMana(converted);
     }
 
-    public static Func<Game, Card, ActivationParameters, bool> InstantRemoval()
+    public static TimingDelegate InstantRemoval()
     {
       return
         Any(
@@ -53,46 +55,47 @@
           );
     }
 
-    public static bool Lands(Game game, Card card, ActivationParameters spell)
+    public static TimingDelegate Lands()
     {
-      return game.Turn.Step == Step.FirstMain;
+      return p => p.Step == Step.FirstMain;
     }
 
-    public static bool MainPhases(Game game, Card card, ActivationParameters activationParameters)
+    public static TimingDelegate MainPhases()
     {
-      return Steps(Step.FirstMain, Step.SecondMain)(game, card, activationParameters);
+      return Steps(Step.FirstMain, Step.SecondMain);
     }
 
-    public static bool OnlyDuringOpponentTurn(Game game, Card card, ActivationParameters activationParameters)
+    public static TimingDelegate OnlyDuringOpponentTurn()
     {
-      var opponent = game.Players.GetOpponent(card.Controller);
-      return opponent.IsActive;
+      return p => p.Opponent.IsActive;
     }
 
-    public static Func<Game, Card, ActivationParameters, bool> Regenerate(bool considerSelfOnly = true)
+    //public static Func<Game, Card, ActivationParameters, bool> RegenerateBetter()
+    //{
+    //  return (game, card, activationParameters) =>
+    //    {
+
+
+    //    };
+    //}
+
+    public static TimingDelegate Regenerate()
     {
       return
-        (game, card, activationParameters) =>
-          ResponseToSpell(EffectCategories.Destruction | EffectCategories.DamageDealing, considerSelfOnly)(game, card,
-            activationParameters) ||
-              Steps(Step.DeclareBlockers)(game, card, activationParameters);
+        Any(
+          ResponseToSpell(EffectCategories.Destruction | EffectCategories.DamageDealing),
+          Steps(Step.DeclareBlockers)
+          );
     }
 
-    public static Func<Game, Card, ActivationParameters, bool> ResponseToSpell(
-      EffectCategories effectCategories = EffectCategories.Generic, bool considerSelfOnly = true)
+    public static TimingDelegate ResponseToSpell(EffectCategories effectCategories = EffectCategories.Generic)
     {
-      return (game, card, activationParameters) =>
+      return p =>
         {
-          var topSpell = game.Stack.TopSpell;
-
-          if (topSpell == null)
+          if (p.TopSpell == null)
             return false;
 
-          if (considerSelfOnly && topSpell.HasTarget && (
-            topSpell.Target != activationParameters.EffectTarget &&
-              topSpell.Target != activationParameters.CostTarget &&
-                topSpell.Target != card &&
-                  topSpell.Target != card.Controller))
+          if (p.TopSpell.HasTarget && !p.IsTopSpellTarget)
           {
             return false;
           }
@@ -100,60 +103,51 @@
           if (effectCategories == EffectCategories.Generic)
             return true;
 
-          return ((effectCategories & topSpell.Source.EffectCategories) != EffectCategories.Generic);
+          return p.TopSpell.HasCategory(effectCategories);
         };
     }
 
-    public static Func<Game, Card, ActivationParameters, bool> SacrificeCreatures(int count)
+    public static TimingDelegate SacrificeCreatures(int count)
     {
-      return (game, card, activationParameters) =>
+      return p =>
         {
-          var opponent = game.Players.WithoutPriority;
+          var opponentCreatureCount = p.Opponent.Battlefield.Creatures.Count();
 
-          if (opponent.Battlefield.Creatures.Count() == 0)
+          if (opponentCreatureCount == 0)
             return false;
 
-          if (opponent.Battlefield.Creatures.Count() == 1)
-            return game.Turn.Step == Step.FirstMain;
+          if (opponentCreatureCount == 1)
+            return p.Step == Step.FirstMain;
 
-          return game.Turn.Step == Step.SecondMain;
+          return p.Step == Step.SecondMain;
         };
     }
 
-    public static Func<Game, Card, ActivationParameters, bool> Turn(bool active = false, bool passive = false)
+    public static TimingDelegate Turn(bool active = false, bool passive = false)
     {
-      return
-        (game, card, activationParameters) =>
-          (card.Controller.IsActive && active) || (!card.Controller.IsActive && passive);
+      return p => (p.Controller.IsActive && active) || (!p.Controller.IsActive && passive);
     }
 
-    public static Func<Game, Card, ActivationParameters, bool> Steps(params Step[] steps)
+    public static TimingDelegate Steps(params Step[] steps)
     {
-      return (game, card, activationParameters) => steps.Any(step => game.Turn.Step == step);
+      return p => steps.Any(step => p.Step == step);
     }
 
-    public static bool WillBeDealtLeathalCombatDamage(Game game, Card card, ActivationParameters spell)
+    public static TimingDelegate IsCannonFodder()
     {
-      if (!Steps(Step.DeclareBlockers)(game, card, spell))
-      {
-        return false;
-      }
-
-      return game.Combat.IsCannonfodder(card);
+      return All(
+        Steps(Step.DeclareBlockers),
+        p => p.IsCannonfodder());
     }
 
-    public static Func<Game, Card, ActivationParameters, bool> All(
-      params Func<Game, Card, ActivationParameters, bool>[] predicates)
+    public static TimingDelegate All(params TimingDelegate[] predicates)
     {
-      return
-        (game, card, activationParameters) => predicates.All(predicate => predicate(game, card, activationParameters));
+      return p => predicates.All(predicate => predicate(p));
     }
 
-    public static Func<Game, Card, ActivationParameters, bool> Any(
-      params Func<Game, Card, ActivationParameters, bool>[] predicates)
+    public static TimingDelegate Any(params TimingDelegate[] predicates)
     {
-      return
-        (game, card, activationParameters) => predicates.Any(predicate => predicate(game, card, activationParameters));
+      return p => predicates.Any(predicate => predicate(p));
     }
   }
 }

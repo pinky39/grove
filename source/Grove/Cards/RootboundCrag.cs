@@ -24,7 +24,7 @@
             ))
         .Effect<PutIntoPlay>((e, _) => e.PutIntoPlayTapped =
           player => !player.Battlefield.Any(card => card.Is("forest") || card.Is("mountain")))
-        .Timing(Timings.Lands);
+        .Timing(Timings.Lands());
     }
   }
 }

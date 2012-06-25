@@ -1,6 +1,7 @@
 ﻿namespace Grove.Core.Effects
 {
   using System;
+  using Ai;
   using CardDsl;
   using Controllers;
   using Infrastructure;
@@ -8,6 +9,8 @@
   [Copyable]
   public abstract class Effect : ITarget
   {
+    public Action<Effect> AfterResolve = delegate { };
+    public Action<Effect> BeforeResolve = delegate { };
     private bool _wasKickerPaid;
     public bool CanBeCountered { get; set; }
     public Player Controller { get { return Source.OwningCard.Controller; } }
@@ -56,17 +59,19 @@
       return Source.ToString();
     }
 
-    public Action<Effect> BeforeResolve = delegate { };
-    public Action<Effect> AfterResolve = delegate { };    
-    
     public void Resolve()
     {
       BeforeResolve(this);
       ResolveEffect();
       AfterResolve(this);
     }
-    
+
     protected abstract void ResolveEffect();
+
+    public bool HasCategory(EffectCategories effectCategories)
+    {
+      return ((effectCategories & Source.EffectCategories) != EffectCategories.Generic);
+    }
 
     [Copyable]
     public class Factory<TEffect> : IEffectFactory, IHashable where TEffect : Effect, new()
@@ -76,14 +81,15 @@
 
       public Effect CreateEffect(IEffectSource source, int? x, bool wasKickerPaid, object triggerContext)
       {
-        var effect = new TEffect{
-          Game = Game,
-          Source = source,
-          TriggerContext = triggerContext,
-          X = x,
-          _wasKickerPaid = wasKickerPaid,
-          CanBeCountered = true
-        };
+        var effect = new TEffect
+          {
+            Game = Game,
+            Source = source,
+            TriggerContext = triggerContext,
+            X = x,
+            _wasKickerPaid = wasKickerPaid,
+            CanBeCountered = true
+          };
 
         Init(effect, new CardCreationCtx(Game));
 
