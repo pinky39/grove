@@ -142,7 +142,7 @@
     public ITargetSelectorFactory Selector(TargetValidator validator, Core.ScoreCalculator scorer = null,
                                            Zone zone = Zone.Battlefield)
     {
-      scorer = scorer ?? delegate { return WellKnownTargetScores.Good; };
+      scorer = scorer ?? delegate { return WellKnownTargetScores.Neutral; };
 
       return new TargetSelector.Factory
         {

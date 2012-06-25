@@ -31,7 +31,8 @@
               validator: target => target.Is().Creature,
               scorer: TargetScores.BattlefieldRanker(
                 ranker: card => card.Power.Value,
-                filter: card => !card.IsTapped)),
+                filter: card => !card.IsTapped,
+                controller: Controller.Opponent)),
             timing: Timings.Steps(Step.BeginningOfCombat))
         );
     }

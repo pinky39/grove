@@ -5,15 +5,13 @@
   using System.Linq;
 
   public class TargetGenerator : IEnumerable<ITarget>
-  {
-    private readonly bool _forcePickIfAnyValid;
+  {    
     private readonly List<ITarget> _targets;
 
     public TargetGenerator(TargetSelector selector, Players players, Zones.Stack stack, int? maxX, int maxTargets,
                            bool forcePickIfAnyValid = false)
-    {
-      _forcePickIfAnyValid = forcePickIfAnyValid;
-      _targets = GetValidTargets(selector, players, stack, maxX, maxTargets);
+    {      
+      _targets = GetValidTargets(selector, players, stack, maxX, maxTargets, forcePickIfAnyValid);
     }
 
     public IEnumerator<ITarget> GetEnumerator()
@@ -26,8 +24,8 @@
       return GetEnumerator();
     }
 
-    private List<ITarget> GetValidTargets(TargetSelector specification,
-                                          Players players, Zones.Stack stack, int? maxX, int maxTargets)
+    private static List<ITarget> GetValidTargets(TargetSelector specification, Players players, 
+      Zones.Stack stack, int? maxX, int maxTargets, bool forcePickIfAnyValid)
     {
       IEnumerable<TargetCandidate> selected;
 
@@ -44,7 +42,7 @@
 
       var accepted = all.Where(x => x.Score != WellKnownTargetScores.NotAccepted);
 
-      if (accepted.Count() == 0 && _forcePickIfAnyValid)
+      if (accepted.Count() == 0 && forcePickIfAnyValid)
       {
         // if there are no targets with good scores select
         // all

@@ -31,7 +31,7 @@
               target.Is().Artifact ||
                 target.Is().Enchantment ||
                   target.Is().Land,
-              scorer: TargetScores.BattlefieldScoreRanker()),
+              scorer: TargetScores.BattlefieldScoreRanker(controller: Controller.Opponent)),
             category: EffectCategories.Destruction)
         );
     }

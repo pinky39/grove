@@ -41,7 +41,7 @@
     private int? _maxCount = 1;
     private int _minCount = 1;
     private bool _mustBeTargetable = true;
-    private ScoreCalculator _scorer = delegate { return WellKnownTargetScores.Good; };
+    private ScoreCalculator _scorer = delegate { return WellKnownTargetScores.Neutral; };
     private string _textFormat = "Select {0} target(s).";
     private TargetValidator _validator = delegate { return true; };    
     public Player Controller { get { return Source.Controller; } }
