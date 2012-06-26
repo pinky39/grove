@@ -17,8 +17,7 @@
         .Text(
           "Volcanic Fallout can't be countered.{EOL}Volcanic Fallout deals 2 damage to each creature and each player.")
         .FlavorText("'How can we outrun the sky?'{EOL}—Hadran, sunseeder of Naya")
-        .Timing(Timings.InstantRemoval())
-        .Category(EffectCategories.DamageDealing)
+        .Timing(Timings.InstantRemoval())        
         .Effect<DealDamageToEach>((e, _) =>
           {
             e.AmountPlayer = delegate { return 2; };

@@ -328,5 +328,16 @@
 
       return false;
     }
+
+    public bool HasBlockers(Card card)
+    {
+      var attacker = FindAttacker(card);      
+      return attacker.BlockersCount > 0;
+    }
+
+    public bool CanBlockAnyAttacker(Card card)
+    {
+      return Attackers.Any(attacker => attacker.CanBeBlockedBy(card));      
+    }
   }
 }

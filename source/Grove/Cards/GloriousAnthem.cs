@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using Core;
+  using Core.Ai;
   using Core.CardDsl;
   using Core.Modifiers;
 
@@ -15,6 +16,7 @@
         .Type("Enchantment")
         .Text("Creatures you control get +1/+1.")
         .FlavorText("Once heard, the battle song of an angel becomes part of the listener forever.")
+        .Category(EffectCategories.ToughnessIncrease)
         .Abilities(
           C.Continuous((e, c) =>
             {

@@ -28,16 +28,17 @@
               validator: (target, self) =>
                 target.Is().Creature && target.Card().CanBeTapped &&
                   target.Card().Controller == self.Controller,
-              scorer: Core.Ai.TargetScores.LessValuableCardsScoreMore()))),
+              scorer: TargetScores.LessValuableCardsScoreMore()))),
             C.Effect<ApplyModifiersToSelf>((e, c) => e.Modifiers(
               c.Modifier<AddPowerAndToughness>((m, _) =>
-              {
-                m.Power = 1;
-                m.Toughness = 1;
-              }, untilEndOfTurn: true))),
+                {
+                  m.Power = 1;
+                  m.Toughness = 1;
+                }, untilEndOfTurn: true))),
+            category: EffectCategories.ToughnessIncrease,
             timing: Any(
-              Timings.ResponseToSpell(EffectCategories.PwTReduction),
-              Timings.Combat())
+              Timings.PowerUp(),
+              Timings.ToughnessUp())
             ));
     }
   }

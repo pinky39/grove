@@ -17,6 +17,7 @@
     }
 
     public bool ActivateOnlyAsSorcery { get; set; }
+    public bool TargetsSelf { get; set; }
     protected Cost Cost { get; private set; }
 
     public IManaAmount ManaCost
@@ -68,14 +69,15 @@
       var canActivate = CanBeActivated(ref maxX);
 
       return canActivate
-        ? new SpellPrerequisites{
+        ? new SpellPrerequisites{          
           CanBeSatisfied = true,
-          Description = Text,
+          Description = Text,          
           EffectTargetSelector = TargetSelector,
           CostTargetSelector = Cost.TargetSelector,
           XCalculator = Cost.XCalculator,
           MaxX = maxX,
-          Timming = _timming
+          Timming = _timming,
+          TargetsSelf =  TargetsSelf,
         }
         : new SpellPrerequisites{
           CanBeSatisfied = false

@@ -15,12 +15,12 @@
         .ManaCost("{R}")
         .Type("Sorcery")
         .Text("Flame Slash deals 4 damage to target creature.")
-        .FlavorText("After millennia asleep, the Eldrazi had forgotten about Zendikar's fiery temper and dislike of strangers.")
-        .Category(EffectCategories.DamageDealing)
+        .FlavorText(
+          "After millennia asleep, the Eldrazi had forgotten about Zendikar's fiery temper and dislike of strangers.")
         .Effect<DealDamageToTarget>((e, _) => e.Amount = 4)
         .Target(C.Selector(
           validator: target => target.Is().Creature,
-          scorer: Core.Ai.TargetScores.OpponentStuffScoresMore(spellsDamage: 4)));
+          scorer: TargetScores.OpponentStuffScoresMore(spellsDamage: 4)));
     }
   }
 }

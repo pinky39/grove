@@ -17,8 +17,7 @@
         .Type("Instant")
         .Timing(Timings.InstantRemoval())
         .Text("Shock deals 2 damage to target creature or player.")
-        .Effect<DealDamageToTarget>((e, _) => e.Amount = 2)
-        .Category(EffectCategories.DamageDealing)
+        .Effect<DealDamageToTarget>((e, _) => e.Amount = 2)        
         .Target(C.Selector(
           validator: target => target.IsPlayer() || target.Is().Creature,
           scorer: Core.Ai.TargetScores.OpponentStuffScoresMore(spellsDamage: 2)));

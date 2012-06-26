@@ -18,6 +18,7 @@
         .Text("Enchant creature{EOL}Enchanted creature gets +1/+1 for each Forest you control.")
         .FlavorText("'Before armor, there was bark. Before blades, there were thorns.'{EOL}—Molimo, maro-sorcerer")
         .Effect<EnchantCreature>((e, c) => e.Modifiers(c.Modifier<Add11ForEachForest>()))
+        .Category(EffectCategories.ToughnessIncrease)
         .Timing(Timings.Steps(Step.FirstMain))
         .Target(C.Selector(
           validator: target => target.Is().Creature,

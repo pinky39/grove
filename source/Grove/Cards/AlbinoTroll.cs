@@ -25,7 +25,8 @@
             "{1}{G}: Regenerate Albino Troll.",
             C.Cost<TapOwnerPayMana>((c, _) => c.Amount = "{1}{G}".ParseManaAmount()),
             C.Effect<Regenerate>(),
-            timing: Timings.Regenerate()));        
+            timing: Timings.RegenerateThis(), 
+            category: EffectCategories.Protector));        
     }
   }
 }

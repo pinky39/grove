@@ -29,9 +29,8 @@
                 m.Power = 1;
                 m.Toughness = 1;
               }, untilEndOfTurn: true))),
-            timing: Any(
-              Timings.ResponseToSpell(EffectCategories.LifepointReduction),
-              Timings.Combat())));
+            category: EffectCategories.ToughnessIncrease,
+            timing: Any(Timings.PowerUp(), Timings.ToughnessUp())));
     }
   }
 }

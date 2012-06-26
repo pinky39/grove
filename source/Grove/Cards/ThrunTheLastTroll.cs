@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -28,7 +27,7 @@
             "{1}{G}: Regenerate Thrun.",
             C.Cost<TapOwnerPayMana>((c, _) => c.Amount = "{1}{G}".ParseManaAmount()),
             C.Effect<Regenerate>(),
-            timing: Timings.Regenerate()));
+            timing: Timings.RegenerateThis()));
     }
   }
 }

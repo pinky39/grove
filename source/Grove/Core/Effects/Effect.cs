@@ -22,6 +22,7 @@
     public IEffectSource Source { get; set; }
     public ITarget Target { get; set; }
     public int? X { get; private set; }
+    public virtual bool AffectsSelf { get { return false; } }
 
     public int CalculateHash(HashCalculator calc)
     {

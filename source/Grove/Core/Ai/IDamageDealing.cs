@@ -1,4 +1,4 @@
-﻿namespace Grove.Core.Effects
+﻿namespace Grove.Core.Ai
 {
   public interface IDamageDealing
   {

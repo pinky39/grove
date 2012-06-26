@@ -16,6 +16,7 @@
         .Type("Sorcery")
         .Text("Destroy all creatures.")
         .Timing(Timings.Steps(Step.FirstMain))
+        .Category(EffectCategories.Destruction)
         .Effect<DestroyPermanents>((e, _) => e.Filter = (card) => card.Is().Creature);
     }
   }

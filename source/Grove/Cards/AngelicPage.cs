@@ -31,7 +31,8 @@
                 },
                 untilEndOfTurn: true))),
             C.Selector((target) => target.Is().Creature && (target.Card().IsAttacker || target.Card().IsBlocker)),
-            timing: Timings.Combat()));
+            timing: Timings.Combat(), 
+            category: EffectCategories.ToughnessIncrease));
     }
   }
 }

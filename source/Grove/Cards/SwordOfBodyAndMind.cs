@@ -53,7 +53,8 @@
               )),
             selector: C.Selector(Validator.Equipment()),
             timing: Timings.AttachEquipment(),
-            activateAsSorcery: true
+            activateAsSorcery: true,
+            category: EffectCategories.ToughnessIncrease | EffectCategories.Protector
             ));
     }
   }

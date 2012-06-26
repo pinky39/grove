@@ -18,7 +18,7 @@
         .Text("Target creature gets -4/-4 until end of turn.")
         .FlavorText("On a world with five suns, night is compelled to become an aggressive force.")
         .Timing(Timings.InstantRemoval())
-        .Category(EffectCategories.PwTReduction)
+        .Category(EffectCategories.ToughnessReduction)
         .Effect<ApplyModifiersToTarget>((e, c) => e.Modifiers(
           c.Modifier<AddPowerAndToughness>((m, _) =>
             {

@@ -16,25 +16,29 @@
         .ManaCost("{G}")
         .KickerCost("{G}")
         .Type("Instant")
-        .Timing(Any(
-          Timings.ResponseToSpell(EffectCategories.LifepointReduction),
-          Timings.Combat()))
+        .Category(EffectCategories.Protector | EffectCategories.ToughnessIncrease)
+        .Timing(
+          Any(
+            Timings.PowerUp(),
+            Timings.ToughnessUp(),
+            Timings.Hexproof()))
         .Text(
           "{Kicker} {G}{EOL}Target creature can't be the target of spells or abilities your opponents control this turn. If Vines of Vastwood was kicked, that creature gets +4/+4 until end of turn.")
         .Effect<ApplyModifiersToTarget>((e, c) => e.Modifiers(
           c.Modifier<AddStaticAbility>((m, _) => m.StaticAbility = StaticAbility.Hexproof, untilEndOfTurn: true)))
         .Target(C.Selector(
           validator: target => target.Is().Creature,
-          scorer: Core.Ai.TargetScores.YourStuffScoresMore()))
+          scorer: TargetScores.YourStuffScoresMore()))
         .KickerEffect<ApplyModifiersToTarget>((e, c) => e.Modifiers(
           c.Modifier<AddStaticAbility>((m, _) => m.StaticAbility = StaticAbility.Hexproof, untilEndOfTurn: true),
-          c.Modifier<AddPowerAndToughness>((m, _) => {
-            m.Power = 4;
-            m.Toughness = 4;
-          }, untilEndOfTurn: true)))
+          c.Modifier<AddPowerAndToughness>((m, _) =>
+            {
+              m.Power = 4;
+              m.Toughness = 4;
+            }, untilEndOfTurn: true)))
         .KickerTarget(C.Selector(
           validator: target => target.Is().Creature,
-          scorer: Core.Ai.TargetScores.YourStuffScoresMore()));
+          scorer: TargetScores.YourStuffScoresMore()));
     }
   }
 }

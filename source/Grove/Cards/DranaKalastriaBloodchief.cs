@@ -47,7 +47,7 @@
               Core.Ai.TargetScores.OpponentStuffScoresMore()
               ),
             timing: Timings.InstantRemoval(),
-            category: EffectCategories.PwTReduction));
+            category: EffectCategories.ToughnessReduction));
     }
   }
 }

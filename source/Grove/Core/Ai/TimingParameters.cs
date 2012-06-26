@@ -5,12 +5,15 @@
 
   public class TimingParameters
   {
-    public TimingParameters(Game game, Card card, ActivationParameters activation)
+    public TimingParameters(Game game, Card card, ActivationParameters activation, bool targetsSelf)
     {
+      TargetsSelf = targetsSelf;
       Game = game;
       Card = card;
       Activation = activation;
     }
+
+    public bool TargetsSelf { get; private set; }
 
     public Game Game { get; private set; }
     public Card Card { get; private set; }
@@ -21,19 +24,6 @@
     public Effect TopSpell { get { return Game.Stack.TopSpell; } }
     public Player TopSpellController { get { return TopSpell == null ? null : TopSpell.Controller; } }
     public IEnumerable<Attacker> Attackers { get { return Game.Combat.Attackers; } }
-
-    public bool IsTopSpellTarget
-    {
-      get
-      {
-        return
-          TopSpell.Target == Activation.EffectTarget ||
-            TopSpell.Target == Activation.CostTarget ||
-              TopSpell.Target == Card ||
-                TopSpell.Target == Card.Controller;
-      }
-    }
-
     public bool IsAttached { get { return Card.IsAttached; } }
     public ITarget Target { get { return Activation.EffectTarget; } }
 
@@ -72,6 +62,26 @@
     public bool CanThisBeDealtLeathalCombatDamage()
     {
       return Game.Combat.CanBeDealtLeathalCombatDamage(Card);
+    }
+
+    public bool TopSpellCategoryIs(EffectCategories effectCategories)
+    {
+      return TopSpell != null && TopSpell.HasCategory(effectCategories);
+    }
+
+    public bool TopSpellCanAffectThis()
+    {
+      return TopSpell.Target == null || TopSpell.Target == Target || TopSpell.Target == Card;
+    }
+
+    public bool IsAttackerWithoutBlockersOrIsAttackerWithTrample(Card card)
+    {
+      return card.IsAttacker && (!Game.Combat.HasBlockers(card) || card.Has().Trample);
+    }
+
+    public bool CanBlockAnyAttacker(Card card)
+    {
+      return Game.Combat.CanBlockAnyAttacker(card);
     }
   }
 }

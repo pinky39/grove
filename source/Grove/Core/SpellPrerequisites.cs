@@ -4,6 +4,7 @@
 
   public class SpellPrerequisites
   {
+    public bool TargetsSelf { get; set; }
     public bool CanBeSatisfied { get; set; }
     public bool CanCastWithKicker { get; set; }
     public TargetSelector CostTargetSelector { get; set; }

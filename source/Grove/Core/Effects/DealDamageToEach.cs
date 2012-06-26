@@ -1,6 +1,7 @@
 ﻿namespace Grove.Core.Effects
 {
   using System;
+  using Ai;
 
   public class DealDamageToEach : Effect, IDamageDealing
   {

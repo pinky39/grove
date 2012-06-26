@@ -5,13 +5,13 @@
   [Flags]
   public enum EffectCategories
   {
-    Generic = 0,
-    DamageDealing = 1,
-    PwTReduction = 2,
-    Destruction = 4,
-    Bounce = 8,
-    Counterspell = 16,    
-    Removal = DamageDealing | PwTReduction | Destruction | Bounce,
-    LifepointReduction = PwTReduction | DamageDealing,    
+    Generic = 0,    
+    ToughnessReduction = 1,
+    Destruction = 2,
+    Bounce = 4,
+    Counterspell = 8,    
+    ToughnessIncrease = 16,    
+    Protector = 32,
+    Exile = 64
   } 
 }

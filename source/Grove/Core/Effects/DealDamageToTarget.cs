@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core.Effects
 {
+  using Ai;
   using Modifiers;
 
   public class DealDamageToTarget : Effect, IDamageDealing
@@ -8,7 +9,7 @@
 
     public int PlayerDamage(Player player)
     {
-      return 0;
+      return player == Target ? Amount.GetValue(X) : 0;
     }
 
     public int CreatureDamage(Card creature)

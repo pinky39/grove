@@ -34,8 +34,7 @@
               c.Effect<DrawCards>((e2, _) => e2.DrawCount = 1))),
             C.Selector(
               validator: target => target.IsPlayer() || target.Is().Creature,
-              scorer: TargetScores.OpponentStuffScoresMore(spellsDamage: 2)),
-            category: EffectCategories.DamageDealing),
+              scorer: TargetScores.OpponentStuffScoresMore(spellsDamage: 2))),
           C.ActivatedAbility(
             "{2}: Attach to target creature you control. Equip only as a sorcery.",
             C.Cost<TapOwnerPayMana>((cost, _) => cost.Amount = 2.AsColorlessMana()),
@@ -49,7 +48,8 @@
               )),
             selector: C.Selector(Validator.Equipment()),
             timing: Timings.AttachEquipment(),
-            activateAsSorcery: true
+            activateAsSorcery: true,
+            category: EffectCategories.ToughnessIncrease | EffectCategories.Protector
             ));
     }
   }

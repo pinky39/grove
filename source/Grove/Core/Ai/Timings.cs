@@ -14,6 +14,65 @@
       return Steps(Step.DeclareBlockers);
     }
 
+    public static TimingDelegate PowerUp()
+    {
+      return p =>
+        {
+          if (p.Step != Step.DeclareBlockers || !p.Controller.IsActive)
+            return false;
+
+          if (p.TargetsSelf)
+          {
+            return p.IsAttackerWithoutBlockersOrIsAttackerWithTrample(p.Card);
+          }
+
+          return
+            p.Target == null ||
+              p.IsAttackerWithoutBlockersOrIsAttackerWithTrample(p.Target.Card());
+        };
+    }
+
+    public static TimingDelegate ToughnessUp()
+    {
+      return p =>
+        {
+          if (p.Step == Step.DeclareAttackers && !p.Controller.IsActive)
+          {
+            if (p.TargetsSelf)
+            {
+              return p.CanBlockAnyAttacker(p.Card);
+            }
+
+            if (p.Target == null)
+            {
+              return p.Controller.Battlefield.Creatures.Any(x => !x.IsTapped);
+            }
+
+            return p.CanBlockAnyAttacker(p.Target.Card());
+          }
+
+          var damageDealing = p.TopSpell as IDamageDealing;
+
+          if (damageDealing != null)
+          {
+            if (p.TargetsSelf)
+            {
+              return p.Card.LifepointsLeft <= damageDealing.CreatureDamage(p.Card);
+            }
+
+            if (p.Target == null)
+            {
+              return true;
+            }
+
+            var card = p.Target.Card();
+            return card.LifepointsLeft <= damageDealing.CreatureDamage(card);
+          }
+
+          return p.TopSpellCategoryIs(EffectCategories.ToughnessReduction);
+        };
+    }
+
     public static TimingDelegate CounterSpell(int? counterCost = null)
     {
       return p =>
@@ -47,6 +106,24 @@
     {
       return p =>
         {
+          // play as response to some spells
+          if (p.TopSpellCategoryIs(EffectCategories.Protector | EffectCategories.ToughnessIncrease))
+          {
+            if (p.TopSpell.AffectsSelf)
+            {
+              if (p.TopSpell.Source.OwningCard == p.Card)
+                return true;
+            }
+            else if (p.TopSpell.Target == null) /* affects many */
+            {
+              return true;
+            }
+
+            // affects card in question
+            if (p.TopSpell.Target == p.Card)
+              return true;
+          }
+
           // non target instant removal
           if (p.Target == null)
           {
@@ -65,7 +142,7 @@
             return p.Step == Step.DeclareAttackers && p.Target.Card().IsAttacker;
           }
 
-          // target player
+          // deal damage to target player
           return !p.Controller.IsActive && p.Step == Step.EndOfTurn && p.Target.IsPlayer();
         };
     }
@@ -85,7 +162,7 @@
       return p => p.Opponent.IsActive;
     }
 
-    public static TimingDelegate Regenerate()
+    public static TimingDelegate RegenerateThis()
     {
       return p =>
         {
@@ -101,25 +178,6 @@
           }
 
           return false;
-        };
-    }
-
-    public static TimingDelegate ResponseToSpell(EffectCategories effectCategories = EffectCategories.Generic)
-    {
-      return p =>
-        {
-          if (p.TopSpell == null)
-            return false;
-
-          if (p.TopSpell.HasTarget && !p.IsTopSpellTarget)
-          {
-            return false;
-          }
-
-          if (effectCategories == EffectCategories.Generic)
-            return true;
-
-          return p.TopSpell.HasCategory(effectCategories);
         };
     }
 
@@ -149,11 +207,9 @@
       return p => steps.Any(step => p.Step == step);
     }
 
-    public static TimingDelegate IsCannonFodder()
+    public static TimingDelegate CannonFodder()
     {
-      return All(
-        Steps(Step.DeclareBlockers),
-        p => p.IsCannonfodder());
+      return p => p.Step == Step.DeclareBlockers && !p.Controller.IsActive && p.IsCannonfodder();
     }
 
     public static TimingDelegate All(params TimingDelegate[] predicates)
@@ -214,6 +270,56 @@
 
           var manaCost = new AggregateManaAmount(Enumerable.Repeat(activationCost, costToNextLevel.Value));
           return p.Controller.HasMana(manaCost);
+        };
+    }
+
+    public static TimingDelegate ResponseToSpellLeathalDamage()
+    {
+      return p =>
+        {
+          var damageDealing = p.TopSpell as IDamageDealing;
+
+          if (damageDealing == null)
+            return false;
+
+          var card = p.Target.Card() ?? p.Card;
+
+          return damageDealing.CreatureDamage(card) >= card.LifepointsLeft;
+        };
+    }
+
+    public static TimingDelegate ResponseToSpellDestruction()
+    {
+      return p => p.TopSpellCategoryIs(EffectCategories.Destruction) && p.TopSpellCanAffectThis();
+    }
+
+    public static TimingDelegate ResponseToSpellToughnessReduction()
+    {
+      return p => p.TopSpellCategoryIs(EffectCategories.ToughnessReduction) && p.TopSpellCanAffectThis();
+    }
+
+    public static TimingDelegate Hexproof()
+    {
+      return p =>
+        {
+          if (p.TopSpell == null || p.TopSpell.Target == null)
+            return false;
+
+          return p.TopSpell.Target == p.Target && p.TopSpell.Controller == p.Opponent;
+        };
+    }
+
+    public static TimingDelegate ResponseToSpellThatReducesPlayersLifeToZero()
+    {
+      return p =>
+        {
+          var damageDealing = p.TopSpell as IDamageDealing;
+
+          if (damageDealing == null)
+            return false;
+
+          var damage = damageDealing.PlayerDamage(p.Controller);
+          return p.Controller.Life <= damage;
         };
     }
   }

@@ -59,7 +59,7 @@
           
           foreach (var activationParameters in activationGenerator)
           {
-            if (!prerequisites.Timming(new TimingParameters(_game, card, activationParameters)))
+            if (!prerequisites.Timming(new TimingParameters(_game, card, activationParameters, prerequisites.TargetsSelf)))
               continue;
 
             yield return new Ability(card, activationParameters, abilityIndex);
@@ -92,7 +92,7 @@
         var maxCount = prerequisites.CanCastWithKicker ? _maxTargets * 2 : _maxTargets;
         foreach (var activationParameters in activationGenerator)
         {
-          if (!prerequisites.Timming(new TimingParameters(_game, card, activationParameters)))
+          if (!prerequisites.Timming(new TimingParameters(_game, card, activationParameters, prerequisites.TargetsSelf)))
             continue;
 
           yield return new Spell(card, activationParameters);

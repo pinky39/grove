@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using Core;
+  using Core.Ai;
   using Core.CardDsl;
   using Core.Modifiers;
 
@@ -16,6 +17,7 @@
         .Text("All creatures have protection from red.")
         .FlavorText(
           "The strength of law is unwavering. It is an iron bar in a world of water.")
+        .Category(EffectCategories.Protector)
         .Abilities(
           C.Continuous((e, c) =>
             {

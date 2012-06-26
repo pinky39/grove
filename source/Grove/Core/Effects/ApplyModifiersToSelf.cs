@@ -13,6 +13,11 @@
       _selfModifiers.AddRange(modifiersFactories);
     }
 
+    public override bool AffectsSelf
+    {
+      get { return true; }
+    }
+
     private IEnumerable<Modifier> CreateSelfModifiers()
     {
       return _selfModifiers.CreateModifiers(Source.OwningCard, Source.OwningCard, X);

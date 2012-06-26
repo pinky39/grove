@@ -38,9 +38,10 @@
             C.Selector(
               validator: target => target.Is().Creature,
               scorer: Core.Ai.TargetScores.YourStuffScoresMore()),
+            category: EffectCategories.ToughnessIncrease,
             timing: Any(
-              Timings.ResponseToSpell(EffectCategories.PwTReduction),
-              Timings.Combat()))
+              Timings.PowerUp(),
+              Timings.ToughnessUp()))
         );
     }
   }

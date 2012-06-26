@@ -5,7 +5,7 @@
   [Copyable]
   public class ActivationParameters
   {
-    public ITarget CostTarget { get; set; }
+    public ITarget CostTarget { get; set; }    
 
     public static ActivationParameters Default
     {

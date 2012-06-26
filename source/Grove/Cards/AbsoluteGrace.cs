@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using Core;
+  using Core.Ai;
   using Core.CardDsl;
   using Core.Modifiers;
 
@@ -16,6 +17,7 @@
         .Text("All creatures have protection from black.")
         .FlavorText(
           "In pursuit of Urza, the Phyrexians sent countless foul legions into Serra's realm. Though beaten back, they left it tainted with uncleansable evil.")
+        .Category(EffectCategories.Protector)
         .Abilities(
           C.Continuous((e, c) =>
             {

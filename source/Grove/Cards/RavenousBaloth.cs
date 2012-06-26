@@ -27,8 +27,11 @@
               c.Selector((target, baloth) => target.Is().OfType("beast") && target.Card().Controller == baloth.Controller))),
             C.Effect<IncreaseLife>((e, _) => e.Amount = 4),
             timing: Any(
-              Timings.ResponseToSpell(EffectCategories.Removal),
-              Timings.IsCannonFodder())));
+              Timings.ResponseToSpellLeathalDamage(),
+              Timings.ResponseToSpellDestruction(),
+              Timings.ResponseToSpellToughnessReduction(),
+              Timings.ResponseToSpellThatReducesPlayersLifeToZero(),
+              Timings.CannonFodder())));
     }
   }
 }

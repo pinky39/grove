@@ -3,6 +3,7 @@
   using System.Collections.Generic;
   using System.Linq;
   using Core;
+  using Core.Ai;
   using Core.CardDsl;
   using Core.Effects;
   using Core.Modifiers;
@@ -32,6 +33,7 @@
         .Text(
           "Put X 1/1 white Soldier creature tokens onto the battlefield. If X is 5 or more, destroy all other creatures.")
         .FlavorText("Their war forgotten, the nations of Bant stood united in the face of a common threat.")
+        .Category(EffectCategories.Destruction)
         .Effect<CreateTokens>((e, c) =>
           {
             e.Count = Value.PlusX;
@@ -47,7 +49,7 @@
             e.BeforeResolve = (e1) =>
               {
                 if (e1.X >= 5)
-                {
+                {                  
                   e.Players.DestroyPermanents(
                     (permanent) => permanent.Is().Creature);
                 }
