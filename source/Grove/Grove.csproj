@@ -264,6 +264,7 @@
     <Compile Include="Core\Effects\ExileTargetPermanent.cs" />
     <Compile Include="Core\Effects\GainLifeDependsOnContext.cs" />
     <Compile Include="Core\Effects\GainLifeEqualToTargetCreaturePower.cs" />
+    <Compile Include="Core\Effects\IDamageDealing.cs" />
     <Compile Include="Core\Effects\MillOpponent.cs" />
     <Compile Include="Core\Effects\PayLifeOrTap.cs" />
     <Compile Include="Core\Effects\PayManaOrSacrifice.cs" />

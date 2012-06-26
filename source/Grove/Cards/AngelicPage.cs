@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -29,10 +28,10 @@
                 {
                   m.Power = 1;
                   m.Toughness = 1;
-                },                
+                },
                 untilEndOfTurn: true))),
-            C.Selector((target) => target.Is().Creature && (target.Card().IsAttacker || target.Card().IsBlocker)),                
-            timing: Timings.Combat()));                      
+            C.Selector((target) => target.Is().Creature && (target.Card().IsAttacker || target.Card().IsBlocker)),
+            timing: Timings.Combat()));
     }
   }
 }

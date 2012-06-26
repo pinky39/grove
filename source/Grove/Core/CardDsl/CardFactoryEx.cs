@@ -2,6 +2,7 @@
 {
   using System;
   using System.Collections.Generic;
+  using System.Linq;
   using Ai;
   using Costs;
   using Effects;
@@ -13,14 +14,14 @@
     public static Card.CardFactory Leveler(this Card.CardFactory card, CardCreationCtx ctx, IManaAmount cost,
                                            params LevelDefinition[] levels)
     {
-      var abilities = new List<object>();
-
+      var abilities = new List<object>();      
+      
       abilities.Add(
         ctx.ActivatedAbility(
           String.Format("{0}: Put a level counter on this. Level up only as sorcery.", cost),
           ctx.Cost<TapOwnerPayMana>((cst, _) => cst.Amount = cost),
           ctx.Effect<ApplyModifiersToSelf>((e, c) => e.Modifiers(c.Modifier<IncreaseLevel>())),
-          timing: Timings.Steps(Step.FirstMain), activateAsSorcery: true));
+          timing: Timings.Leveler(cost, levels), activateAsSorcery: true));
 
 
       foreach (var levelDefinition in levels)

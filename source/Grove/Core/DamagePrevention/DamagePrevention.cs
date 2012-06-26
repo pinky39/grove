@@ -14,7 +14,7 @@
       return GetType().GetHashCode();
     }
 
-    public abstract int PreventDamage(Card damageDealer, int damageAmount);
+    public abstract int PreventDamage(Card damageDealer, int damageAmount, bool queryOnly);    
 
     public class Factory<T> : IDamagePreventionFactory where T : DamagePrevention, new()
     {

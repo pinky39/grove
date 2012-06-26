@@ -13,7 +13,7 @@
     private readonly SpellPrerequisites _prerequisites;
     private readonly Players _players;
 
-    public ActivationGenerator(Card spell, SpellPrerequisites prerequisites, Players players, Zones.Stack stack, int maxTargets)
+    public ActivationGenerator(Card spell, SpellPrerequisites prerequisites, Players players, Zones.Stack stack)
     {
       _spell = spell;
       _prerequisites = prerequisites;
@@ -25,8 +25,7 @@
           prerequisites.CostTargetSelector,
           players,
           stack,
-          prerequisites.MaxX,
-          maxTargets));
+          prerequisites.MaxX));
       }
 
       if (prerequisites.NeedsEffectTargets)
@@ -35,8 +34,7 @@
           prerequisites.EffectTargetSelector,
           players,
           stack,
-          prerequisites.MaxX,
-          maxTargets));
+          prerequisites.MaxX));
       }
 
       if (prerequisites.NeedsKickerEffectTargets)
@@ -45,8 +43,7 @@
           prerequisites.KickerTargetSelector,
           players,
           stack,
-          prerequisites.MaxX,
-          maxTargets)
+          prerequisites.MaxX)
           );
       }
     }

@@ -178,8 +178,8 @@
 
     private bool IsItFeasibleToCreateNewWorker(ISearchNode node, int moveIndex)
     {
-      //return SingleThreadedStrategy(node, moveIndex);
-      return MultiThreadedStrategy2(node, moveIndex);
+      return SingleThreadedStrategy(node, moveIndex);
+      //return MultiThreadedStrategy2(node, moveIndex);
     }
 
     private static bool SingleThreadedStrategy(ISearchNode node, int moveIndex)

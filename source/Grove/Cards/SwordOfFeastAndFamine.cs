@@ -43,8 +43,7 @@
                 m.Toughness = 2;
               }),
               c.Modifier<AddProtectionFromColors>((m, _) => m.Colors = ManaColors.Black | ManaColors.Green))),
-            selector: C.Selector(Validator.Equipment()),
-            activateAsSorcery: true));
+            selector: C.Selector(Validator.Equipment()), timing: Timings.AttachEquipment(), activateAsSorcery: true));
     }
   }
 }

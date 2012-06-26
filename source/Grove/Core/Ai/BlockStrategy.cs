@@ -3,6 +3,7 @@
   using System.Collections.Generic;
   using System.Linq;
   using Controllers.Results;
+  using Infrastructure;
 
   public class BlockStrategy
   {
@@ -24,33 +25,30 @@
       {
         foreach (var blockerCandidate in blockerCandidates)
         {
-          possibleAssignments.Add(new BlockerAssignment(attacker, blockerCandidate, defendersLife));
+          if (attacker.CanBeBlockedBy(blockerCandidate))
+          {
+            possibleAssignments.Add(new BlockerAssignment(attacker, blockerCandidate, defendersLife));
+          }
         }
       }
 
       var assignments = new Dictionary<Card, BlockerAssignment>();
-      var usedAttackers = new HashSet<Card>();      
+      var usedAttackers = new HashSet<Card>();
 
-      foreach (var assignment in possibleAssignments.OrderByDescending(x => x.Gain))
+      foreach (var assignment in possibleAssignments.Where(x => x.Gain > 0).OrderByDescending(x => x.Gain))
       {
-        if (assignment.Gain <= 0)
-        {
-          break;
-        }
-
-        if (assignments.ContainsKey(assignment.FirstBlocker))
+        if (assignments.ContainsKey(assignment.Blockers.First()))
           continue;
 
         if (usedAttackers.Contains(assignment.Attacker))
           continue;
 
-        assignments[assignment.FirstBlocker] = assignment;
+        assignments[assignment.Blockers.First()] = assignment;
         usedAttackers.Add(assignment.Attacker);
       }
 
-      var unassignedBlockers = possibleAssignments
-        .Where(x => !assignments.ContainsKey(x.FirstBlocker))
-        .Select(x => x.FirstBlocker)
+      var unassignedBlockers = blockerCandidates
+        .Where(x => !assignments.ContainsKey(x))        
         .ToList();
 
       // second pass, assign additional blockers to blocked attackers 
@@ -60,13 +58,8 @@
 
     private static ChosenBlockers ImprooveAssignementsByAddingAditionalBlockers(
       IEnumerable<BlockerAssignment> assignments, List<Card> unassignedBlockers)
-    {
-      var orderedAssignments = assignments
-        .Where(x => x.DamageNeededToKillAttacker > 0)
-        .OrderBy(x => x.DamageNeededToKillAttacker)
-        .ToList();
-
-      foreach (var assignment in orderedAssignments)
+    {      
+      foreach (var assignment in assignments.Where(x => !x.IsAttackerKilled))
       {
         if (unassignedBlockers.Count == 0)
           break;
@@ -95,36 +88,25 @@
 
     private class BlockerAssignment
     {
-      private readonly List<Card> _additionalBlockers = new List<Card>();
+      private readonly List<Card> _blockers = new List<Card>();
+      private bool _isAttackerKilled;
       private bool _isFirstBlockerKilled;
 
-      public BlockerAssignment(Card attacker, Card blocker, int defenderLife)
+      public BlockerAssignment(Card attacker, Card firstBlocker, int defenderLife)
       {
         Attacker = attacker;
-        FirstBlocker = blocker;
+        _blockers.Add(firstBlocker);
 
-        CalculateFirstBlockerGain(attacker, blocker, defenderLife);
+        AssignFirstBlocker(attacker, firstBlocker, defenderLife);
       }
 
       public Card Attacker { get; private set; }
 
-      public IEnumerable<Card> Blockers
-      {
-        get
-        {
-          yield return FirstBlocker;
-
-          foreach (var blocker in _additionalBlockers)
-          {
-            yield return blocker;
-          }
-        }
-      }
-
-      public int DamageNeededToKillAttacker { get; private set; }
-      public Card FirstBlocker { get; private set; }
+      public IEnumerable<Card> Blockers { get { return _blockers; } }
 
       public int Gain { get; private set; }
+
+      public bool IsAttackerKilled { get { return _isAttackerKilled; } }
 
       public void AssignAdditionalBlockers(List<Card> unassignedBlockers)
       {
@@ -155,47 +137,32 @@
       private void AssignAdditionalBlocker(Card blocker, List<Card> unassignedBlockers)
       {
         unassignedBlockers.Remove(blocker);
-        _additionalBlockers.Add(blocker);
-        DamageNeededToKillAttacker -= blocker.Power.Value;
+        _blockers.Add(blocker);
       }
 
-      private void CalculateFirstBlockerGain(Card attacker, Card blockerCandidate, int defendersLife)
+      private void AssignFirstBlocker(Card attacker, Card blocker, int defendersLife)
       {
-        if (!attacker.CanBeBlockedBy(blockerCandidate))
-        {
-          Gain = -1;
-          return;
-        }
+        _isFirstBlockerKilled =
+          Combat.CanBlockerBeDealtLeathalCombatDamage(blocker, attacker);
 
-        var canKillBlocker = attacker.CanDealLeathalDamageTo(blockerCandidate);
+        var blockerScore = _isFirstBlockerKilled
+          ? blocker.Score
+          : 0;
 
-        var blockerScore = canKillBlocker
-          ? ScoreCalculator.CalculatePermanentScore(blockerCandidate)
-          : 0;       
-                
-        _isFirstBlockerKilled = blockerScore > 0;
+        _isAttackerKilled =
+          Combat.CanAttackerBeDealtLeathalCombatDamage(attacker, blocker.ToEnumerable());
 
-
-        int attackerScore = 0;
-        
-        if (attacker.HasFirstStrike && !blockerCandidate.HasFirstStrike && canKillBlocker)
-        {          
-          DamageNeededToKillAttacker = attacker.LifepointsLeft;          
-        }
-        else
-        {
-          var canKillAttacker = blockerCandidate.CanDealLeathalDamageTo(attacker);
-          attackerScore = canKillAttacker ? ScoreCalculator.CalculatePermanentScore(attacker) : 0;
-          DamageNeededToKillAttacker = canKillAttacker ? 0 : attacker.LifepointsLeft - blockerCandidate.Power.Value;  
-        }                
+        var attackerScore = IsAttackerKilled
+          ? attacker.Score
+          : 0;
 
         var lifelossScore = ScoreCalculator.CalculateLifelossScore(
-          defendersLife, 
-          MaxAmountOfDamageAttackerCanDealInAllDamageSteps(attacker));
+          defendersLife,
+          attacker.TotalDamageThisCanDealToPlayerIfNotBlocked);
 
-        var trampleScore = Attacker.Has().Trample && attacker.Power.Value > blockerCandidate.LifepointsLeft
-          ? ScoreCalculator.CalculateLifelossScore(defendersLife, MaxAmountOfDamageAttackerCanDealInAllDamageSteps(attacker) - blockerCandidate.LifepointsLeft)
-          : 0;
+        var trampleScore = ScoreCalculator.CalculateLifelossScore(
+          defendersLife,
+          Combat.CalculateTrampleDamage(Attacker, blocker));
 
         var scoreDefenderLoosesWhenBlocking = blockerScore - attackerScore + trampleScore;
         var scoreDefenderLoosesWhenNotBlocking = lifelossScore;
@@ -203,25 +170,26 @@
         Gain = scoreDefenderLoosesWhenNotBlocking - scoreDefenderLoosesWhenBlocking;
       }
 
-      private static int MaxAmountOfDamageAttackerCanDealInAllDamageSteps(Card attacker)
-      {
-        return attacker.Has().DoubleStrike ? 2* attacker.Power.Value : attacker.Power.Value;
-      }
-
       private bool IncreasesGain(Card additionalBlocker)
       {
-        return _isFirstBlockerKilled &&
-          DamageNeededToKillAttacker > 0 &&
-            DamageNeededToKillAttacker <= additionalBlocker.Power.Value &&
-             (!Attacker.HasFirstStrike || additionalBlocker.HasFirstStrike) &&
-              ScoreCalculator.CalculatePermanentScore(additionalBlocker) >
-                ScoreCalculator.CalculatePermanentScore(Attacker);
+        // attacker was not killed, but blocker was
+        // check if additional blocker changes things
+        
+        if (_isFirstBlockerKilled == false)
+          return false;
+        
+
+        if (additionalBlocker.Score > Attacker.Score)
+          return false;
+
+        return Combat.CanAttackerBeDealtLeathalCombatDamage(
+          Attacker,
+          _blockers.Concat(additionalBlocker.ToEnumerable()));                                
       }
 
       private bool IsSafeBlock(Card additionalBlocker)
       {
-        return !_isFirstBlockerKilled &&
-          additionalBlocker.LifepointsLeft > Attacker.Power.Value;
+        return !Combat.CanBlockerBeDealtLeathalCombatDamage(additionalBlocker, Attacker);
       }
     }
   }

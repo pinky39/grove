@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Controllers;
@@ -221,6 +222,111 @@
     {
       return _attackers.Any(x => x.Card.HasNormalStrike) ||
         _blockers.Any(x => x.Card.HasNormalStrike);
+    }
+
+    public static bool CanAttackerBeDealtLeathalCombatDamage(Card attacker, IEnumerable<Card> blockers)
+    {
+      var total = 0;
+
+      if (!attacker.CanBeDestroyed)
+        return false;
+
+      if (attacker.HasFirstStrike)
+      {
+        // eliminate blockers that will be killed
+        // before they can deal damage
+        blockers = blockers.Where(
+          b => !b.HasFirstStrike && b.Toughness <= attacker.Power);
+      }
+
+      foreach (var blocker in blockers)
+      {
+        var damage = new Damage(blocker, blocker.Power.Value);
+        var dealtAmount = attacker.CalculateDealtDamageAmount(damage);
+
+        if (dealtAmount > 0 && damage.IsLeathal)
+        {
+          return true;
+        }
+        total += dealtAmount;
+      }
+
+      return attacker.LifepointsLeft <= total; ;                  
+    }   
+
+    public static int CalculateTrampleDamage(Card attacker, Card blocker)
+    {
+      if (attacker.Has().Trample == false)
+        return 0;
+
+      return attacker.TotalDamageThisCanDealToPlayerIfNotBlocked - blocker.LifepointsLeft;
+    }
+
+    public static int CalculateDefendingPlayerLifeloss(Card attacker, IEnumerable<Card> blockers)
+    {
+      if (blockers.None())
+        return attacker.Power.Value;
+
+      if (attacker.Has().Trample)
+      {
+        var totalToughness = blockers.Sum(x => x.Toughness);
+        var diff = attacker.Power - totalToughness;
+
+        return (diff > 0 ? diff : 0).Value;
+      }
+
+      return 0;
+    }
+
+    public static bool CanBlockerBeDealtLeathalCombatDamage(Card blocker, Card attacker)
+    {
+      if (!blocker.CanBeDestroyed)
+        return false;
+      
+      if (blocker.HasFirstStrike && !attacker.HasFirstStrike && !attacker.Has().Indestructible)
+      {
+        // can blocker kill attacker before it can even deal damage        
+        var blockerDamage = new Damage(blocker, blocker.Power.Value);
+        var blockerAmount = attacker.CalculateDealtDamageAmount(blockerDamage);
+
+        if (blockerAmount > 0 && blockerDamage.IsLeathal)
+        {
+          return false;
+        }
+
+        if (blockerAmount >= attacker.LifepointsLeft)
+          return false;        
+      }
+
+      var attackerDamage = new Damage(attacker, attacker.Power.Value);
+      var attackerAmount = blocker.CalculateDealtDamageAmount(attackerDamage);
+
+      if (attackerAmount == 0)
+        return false;
+
+      if (attackerDamage.IsLeathal)
+        return true;
+
+      return attackerAmount >= blocker.LifepointsLeft;
+    }    
+    
+    public bool CanBeDealtLeathalCombatDamage(Card card)
+    {
+      var attacker = FindAttacker(card);
+      
+      if (attacker != null)
+      {
+        return attacker.WillBeDealtLeathalCombatDamage();
+      }
+
+      var blocker = FindBlocker(card);
+
+      if (blocker != null)
+      {
+        return blocker.WillBeDealtLeathalCombatDamage();
+      }
+
+      return false;
     }
   }
 }

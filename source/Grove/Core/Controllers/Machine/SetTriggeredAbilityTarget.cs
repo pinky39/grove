@@ -65,8 +65,7 @@
         TargetSelector,
         Game.Players,
         Game.Stack,
-        maxX: null,
-        maxTargets: Search.TargetLimit,
+        maxX: null,        
         forcePickIfAnyValid: true
         );
 
@@ -76,7 +75,7 @@
         yield break;
       }
 
-      foreach (var target in targets)
+      foreach (var target in targets.Take(Search.TargetLimit))
       {
         yield return target;
       }

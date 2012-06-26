@@ -1,7 +1,9 @@
 ﻿namespace Grove.Core.Ai
 {
   using System;
+  using System.Collections.Generic;
   using System.Linq;
+  using CardDsl;
 
   public delegate bool TimingDelegate(TimingParameters parameters);
 
@@ -43,16 +45,29 @@
 
     public static TimingDelegate InstantRemoval()
     {
-      return
-        Any(
-          All(
-            Turn(active: true),
-            Steps(Step.BeginningOfCombat)
-            ),
-          All(
-            Turn(passive: true),
-            Steps(Step.DeclareAttackers))
-          );
+      return p =>
+        {
+          // non target instant removal
+          if (p.Target == null)
+          {
+            return p.Opponent.IsActive && p.Step == Step.EndOfTurn;
+          }
+
+          // remove potential blockers
+          if (p.Controller.IsActive && p.Target.IsCard())
+          {
+            return p.Step == Step.BeginningOfCombat && p.Target.Card().CanBlock();
+          }
+
+          // damage or remove attackers
+          if (!p.Controller.IsActive && p.Target.IsCard())
+          {
+            return p.Step == Step.DeclareAttackers && p.Target.Card().IsAttacker;
+          }
+
+          // target player
+          return !p.Controller.IsActive && p.Step == Step.EndOfTurn && p.Target.IsPlayer();
+        };
     }
 
     public static TimingDelegate Lands()
@@ -70,22 +85,23 @@
       return p => p.Opponent.IsActive;
     }
 
-    //public static Func<Game, Card, ActivationParameters, bool> RegenerateBetter()
-    //{
-    //  return (game, card, activationParameters) =>
-    //    {
-
-
-    //    };
-    //}
-
     public static TimingDelegate Regenerate()
     {
-      return
-        Any(
-          ResponseToSpell(EffectCategories.Destruction | EffectCategories.DamageDealing),
-          Steps(Step.DeclareBlockers)
-          );
+      return p =>
+        {
+          if (p.Card.Has().Indestructible)
+            return false;
+
+          if (p.CanThisBeDestroyedByTopSpell())
+            return true;
+
+          if (p.Step == Step.DeclareBlockers && p.CanThisBeDealtLeathalCombatDamage())
+          {
+            return true;
+          }
+
+          return false;
+        };
     }
 
     public static TimingDelegate ResponseToSpell(EffectCategories effectCategories = EffectCategories.Generic)
@@ -148,6 +164,57 @@
     public static TimingDelegate Any(params TimingDelegate[] predicates)
     {
       return p => predicates.Any(predicate => predicate(p));
+    }
+
+    public static TimingDelegate AttachEquipment()
+    {
+      return p =>
+        {
+          if (p.IsAttached)
+          {
+            // reattach to blocker
+            return p.Step == Step.SecondMain && p.Target.Card().CanBlock();
+          }
+
+          // attach to attacker
+          return p.Step == Step.FirstMain && p.Target.Card().CanAttack;
+        };
+    }
+
+    public static TimingDelegate Leveler(IManaAmount activationCost, IEnumerable<LevelDefinition> levelDefinitions)
+    {
+      return p =>
+        {
+          if (p.Step != Step.FirstMain)
+            return false;
+
+          var level = p.Card.Level ?? 0;
+          int? costToNextLevel = null;
+
+          foreach (var definition in levelDefinitions)
+          {
+            if (definition.Max == null)
+              break;
+
+            if (level < definition.Min)
+            {
+              costToNextLevel = definition.Min - level;
+              break;
+            }
+
+            if (definition.Min <= level && definition.Max >= level)
+            {
+              costToNextLevel = definition.Max + 1 - level;
+              break;
+            }
+          }
+
+          if (costToNextLevel == null)
+            return false;
+
+          var manaCost = new AggregateManaAmount(Enumerable.Repeat(activationCost, costToNextLevel.Value));
+          return p.Controller.HasMana(manaCost);
+        };
     }
   }
 }

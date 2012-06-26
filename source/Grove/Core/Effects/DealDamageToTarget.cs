@@ -1,11 +1,20 @@
 ﻿namespace Grove.Core.Effects
 {
-  using System;
   using Modifiers;
 
-  public class DealDamageToTarget : Effect
+  public class DealDamageToTarget : Effect, IDamageDealing
   {
     public Value Amount { get; set; }
+
+    public int PlayerDamage(Player player)
+    {
+      return 0;
+    }
+
+    public int CreatureDamage(Card creature)
+    {
+      return creature == Target ? Amount.GetValue(X) : 0;
+    }
 
     protected override void ResolveEffect()
     {

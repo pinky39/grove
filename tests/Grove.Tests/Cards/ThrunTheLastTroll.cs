@@ -1,7 +1,7 @@
 ﻿namespace Grove.Tests.Cards
 {
-  using Grove.Core;
-  using Grove.Core.Zones;
+  using Core;
+  using Core.Zones;
   using Infrastructure;
   using Xunit;
 
@@ -46,11 +46,12 @@
             .Cast(shock1, target: thrun)
             .Cast(shock2, target: thrun)
             .Activate(thrun)
-            .Verify(() => {
-              Equals(Zone.Battlefield, C(thrun).Zone);
-              True(C(thrun).IsTapped);
-              Equals(0, C(thrun).Damage);
-            })
+            .Verify(() =>
+              {
+                Equals(Zone.Battlefield, C(thrun).Zone);
+                True(C(thrun).IsTapped);
+                Equals(0, C(thrun).Damage);
+              })
           );
       }
     }

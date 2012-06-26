@@ -50,6 +50,9 @@
         
         case (Step.DeclareBlockers):
           return true;
+
+        case (Step.EndOfTurn):
+          return !player.IsActive;
       }
 
       return false;

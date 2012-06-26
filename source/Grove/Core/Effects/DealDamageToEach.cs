@@ -2,13 +2,23 @@
 {
   using System;
 
-  public class DealDamageToEach : Effect
+  public class DealDamageToEach : Effect, IDamageDealing
   {
-    public Func<Player, int> AmountPlayer;
     public Func<Card, int> AmountCreature;
+    public Func<Player, int> AmountPlayer;
 
     public bool DealToCreature { get { return AmountCreature != null; } }
     public bool DealToPlayer { get { return AmountPlayer != null; } }
+
+    public int PlayerDamage(Player player)
+    {
+      return DealToPlayer ? AmountPlayer(player) : 0;
+    }
+
+    public int CreatureDamage(Card creature)
+    {
+      return DealToCreature ? AmountCreature(creature) : 0;
+    }
 
     protected override void ResolveEffect()
     {

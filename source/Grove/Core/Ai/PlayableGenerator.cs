@@ -52,14 +52,21 @@
             continue;
 
           var activationGenerator = new ActivationGenerator(
-            card, prerequisites, _players, _game.Stack, _maxTargets);
+            card, prerequisites, _players, _game.Stack);
 
+          var count = 0;
+          var maxCount = prerequisites.CanCastWithKicker ? _maxTargets*2 : _maxTargets;
+          
           foreach (var activationParameters in activationGenerator)
           {
             if (!prerequisites.Timming(new TimingParameters(_game, card, activationParameters)))
               continue;
 
             yield return new Ability(card, activationParameters, abilityIndex);
+            count++;
+
+            if (count >= maxCount)
+              break;
           }
         }
       }
@@ -78,14 +85,21 @@
           continue;
 
         var activationGenerator = new ActivationGenerator(
-          card, prerequisites, _players, _game.Stack, _maxTargets);
+          card, prerequisites, _players, _game.Stack);
 
+
+        var count = 0;
+        var maxCount = prerequisites.CanCastWithKicker ? _maxTargets * 2 : _maxTargets;
         foreach (var activationParameters in activationGenerator)
         {
           if (!prerequisites.Timming(new TimingParameters(_game, card, activationParameters)))
             continue;
 
           yield return new Spell(card, activationParameters);
+          count++;
+
+          if (count >= maxCount)
+            break;          
         }
       }
     }

@@ -26,40 +26,50 @@
         Equal(Zone.Battlefield, C(baloth).Zone);
       }
 
-      [Fact]
-      public void SacBalothInResponseToShock()
+      public class Predefined : PredefinedScenario
       {
-        Battlefield(P1, "Ravenous Baloth");
-        Battlefield(P2, "Mountain");
-        Hand(P2, "Shock");
+        [Fact]
+        public void SacBalothToGain4Life()
+        {
+          var baloth = C("Ravenous Baloth");
 
-        P1.Life = 1;
+          Battlefield(P1, baloth);
 
-        RunGame(maxTurnCount: 2);
-
-        Equal(3, P1.Life);
-        Equal(1, P1.Graveyard.Count());
+          Exec(
+            At(Step.FirstMain)
+              .Activate(baloth, costTarget: baloth)
+              .Verify(() =>
+                {
+                  Equal(24, P1.Life);
+                  Equal(Zone.Graveyard, C(baloth).Zone);
+                })
+            );
+        }
       }
-    }
 
-    public class Predefined : PredefinedScenario
-    {
-      [Fact]
-      public void SacBalothToGain4Life()
+      public class PredefinedAi : PredefinedAiScenario
       {
-        var baloth = C("Ravenous Baloth");
+        [Fact]
+        public void SacBalothInResponseToShock()
+        {
+          var shock = C("Shock");
 
-        Battlefield(P1, baloth);
+          Battlefield(P2, "Ravenous Baloth");
+          Battlefield(P1, "Mountain");
+          Hand(P1, shock);
 
-        Exec(
-          At(Step.FirstMain)
-            .Activate(baloth, costTarget: baloth)
-            .Verify(() =>
-              {
-                Equal(24, P1.Life);
-                Equal(Zone.Graveyard, C(baloth).Zone);
-              })
-          );
+          P2.Life = 1;
+
+          Exec(
+            At(Step.EndOfTurn, turn: 2)
+              .Cast(shock, P2)
+              .Verify(() =>
+                {
+                  Equal(3, P2.Life);
+                  Equal(1, P1.Graveyard.Count());
+                })
+            );
+        }
       }
     }
   }

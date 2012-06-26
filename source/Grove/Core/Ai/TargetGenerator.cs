@@ -8,10 +8,10 @@
   {    
     private readonly List<ITarget> _targets;
 
-    public TargetGenerator(TargetSelector selector, Players players, Zones.Stack stack, int? maxX, int maxTargets,
+    public TargetGenerator(TargetSelector selector, Players players, Zones.Stack stack, int? maxX,
                            bool forcePickIfAnyValid = false)
     {      
-      _targets = GetValidTargets(selector, players, stack, maxX, maxTargets, forcePickIfAnyValid);
+      _targets = GetValidTargets(selector, players, stack, maxX, forcePickIfAnyValid);
     }
 
     public IEnumerator<ITarget> GetEnumerator()
@@ -25,7 +25,7 @@
     }
 
     private static List<ITarget> GetValidTargets(TargetSelector specification, Players players, 
-      Zones.Stack stack, int? maxX, int maxTargets, bool forcePickIfAnyValid)
+      Zones.Stack stack, int? maxX, bool forcePickIfAnyValid)
     {
       IEnumerable<TargetCandidate> selected;
 
@@ -54,8 +54,7 @@
           .OrderByDescending(x => x.Score);
       }
 
-      return selected
-        .Take(maxTargets)
+      return selected        
         .Select(x => x.Target)
         .ToList();
     }

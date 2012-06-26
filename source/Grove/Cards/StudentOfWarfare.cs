@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
   using Core.CardDsl;
@@ -19,10 +18,10 @@
         .Toughness(1)
         .Leveler(
           C,
-          ManaAmount.White,          
+          ManaAmount.White,
           Level(min: 2, max: 6, power: 3, toughness: 3, ability: StaticAbility.FirstStrike),
-          Level(min: 7, power: 4, toughness: 4, ability: StaticAbility.DoubleStrike)          
-        );           
+          Level(min: 7, power: 4, toughness: 4, ability: StaticAbility.DoubleStrike)
+        );
     }
   }
 }

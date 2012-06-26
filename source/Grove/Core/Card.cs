@@ -51,10 +51,10 @@
     private Toughness _toughness;
     private TriggeredAbilities _triggeredAbilities;
     private CardTypeCharacteristic _type;
+    private Trackable<int> _usageCount;
     private Trackable<bool> _wasEchoPaid;
     private CalculateX _xCalculator;
     private Trackable<Zone> _zone;
-    private Trackable<int> _usageCount;
 
     protected Card() {}
 
@@ -158,22 +158,22 @@
     {
       get
       {
-        int score = 0;
-        
+        var score = 0;
+
         switch (Zone)
         {
           case (Zone.Battlefield):
-            score  = Ai.ScoreCalculator.CalculatePermanentScore(this);
+            score = Ai.ScoreCalculator.CalculatePermanentScore(this);
             break;
-            
+
           case (Zone.Hand):
             score = Ai.ScoreCalculator.CalculateCardInHandScore(this);
-            break;                    
-        }                        
+            break;
+        }
 
         // card usage lowers the score slightly, since we want't to 
         // avoid activations that do no good
-        
+
         return score - _usageCount.Value;
       }
     }
@@ -188,15 +188,12 @@
 
     public int? Level { get { return _level.Value; } }
     public IManaAmount EchoCost { get; private set; }
-
+            
     public void DealDamage(Card damageSource, int amount, bool isCombat)
     {
       var damage = new Damage(damageSource, amount);
+      var dealtAmount = CalculateDealtDamageAmount(damage, queryOnly: false);
 
-      if (HasProtectionFrom(damage.Source))
-        return;
-
-      var dealtAmount = _damagePreventions.PreventDamage(damage.Source, damage.Amount);
       if (dealtAmount == 0)
         return;
 
@@ -302,6 +299,24 @@
       _hash.Value = null;
     }
 
+    public int CalculateDealtDamageAmount(Damage damage)
+    {
+      return CalculateDealtDamageAmount(damage, queryOnly: true);
+    }
+
+    public bool CanBeDestroyed
+    {
+      get { return !CanRegenerate && !Has().Indestructible; }
+    }
+
+    private int CalculateDealtDamageAmount(Damage damage, bool queryOnly)
+    {
+      if (HasProtectionFrom(damage.Source))
+        return 0;
+
+      return _damagePreventions.PreventDamage(damage.Source, damage.Amount, queryOnly);
+    }
+
     public void ActivateAbility(int index, ActivationParameters activationParameters)
     {
       _activatedAbilities.Activate(index, activationParameters);
@@ -350,13 +365,13 @@
 
     public bool CanBeBlockedBy(Card card)
     {
-      if (Has().Unblockable) 
-        return false;      
-      
-      if (Has().Flying && !card.Has().Flying && !card.Has().Reach) 
+      if (Has().Unblockable)
         return false;
-      
-      if (Has().Fear && !card.HasColor(ManaColors.Black) && !card.Is().Artifact) 
+
+      if (Has().Flying && !card.Has().Flying && !card.Has().Reach)
+        return false;
+
+      if (Has().Fear && !card.HasColor(ManaColors.Black) && !card.Is().Artifact)
         return false;
 
       if (HasProtectionFrom(card))
@@ -396,13 +411,13 @@
           Timming = _timming,
         };
     }
-
-    public bool CanDealLeathalDamageTo(Card creature)
+   
+    public int TotalDamageThisCanDealToPlayerIfNotBlocked
     {
-      return
-        !creature.Has().Indestructible && (
-          (Power > 0 && Has().Deathtouch) ||
-            (creature.LifepointsLeft <= Power));
+      get
+      {                
+        return Has().DoubleStrike ? 2 * Power.Value : Power.Value;
+      }
     }
 
     public void CastInternal(ActivationParameters activationParameters)
@@ -668,7 +683,7 @@
     {
       Controller.Consume(EchoCost);
       _wasEchoPaid.Value = true;
-    }
+    }   
 
     public class CardFactory : ICardFactory
     {

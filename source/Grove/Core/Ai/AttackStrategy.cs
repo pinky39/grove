@@ -89,10 +89,7 @@
         _score = new Lazy<int>(CalculateScore);
       }
 
-      public Card Attacker
-      {
-        get { return _attacker.Card; }
-      }
+      public Card Attacker { get { return _attacker.Card; } }
 
       private int AttackerScore
       {
@@ -112,36 +109,18 @@
           if (_blockers.Count == 0)
             return 0;
 
-          // if attacker can be killed before it deals damage, blocker score is 0
-          var firstStrikeBlockersDamage = _blockers.Where(x => x.Card.HasFirstStrike).Sum(x => x.Card.Power);
-          if (!Attacker.HasFirstStrike && firstStrikeBlockersDamage >= Attacker.LifepointsLeft)
-          {
-            return 0;
-          }
-
-          if (Attacker.Has().Deathtouch)
-          {
-            // attackers with deathtouch can kill every blocker
-            // they can damage, they will either be blocked by 
-            // lowest value creature or by creatures that
-            // can kill and have lowest score
-            return _blockers.Min(x => x.Score);
-          }
-
-          // approximate blocker score by sum of killed blockers. 
-          // Prefer blockers with lower scores
-          var attackerDamage = Attacker.Power;
+          var maxAttackerDamage = Attacker.Power;
           var score = 0;
 
-          if (_blockers.Any(blocker => blocker.Card.LifepointsLeft > attackerDamage))
-            return 0;
-
-          foreach (var blocker in _blockers.OrderBy(x => x.Score))
+          foreach (var blocker in _blockers.Select(x => x.Card).OrderByDescending(x => x.Score))
           {
-            attackerDamage -= blocker.Card.LifepointsLeft;
-            score += blocker.Score;
+            if (Combat.CanBlockerBeDealtLeathalCombatDamage(blocker, Attacker))
+            {
+              maxAttackerDamage -= Attacker.Has().Deathtouch ? 1 : blocker.Toughness;
+              score += blocker.Score;
+            }
 
-            if (attackerDamage <= 0)
+            if (maxAttackerDamage <= 0)
               break;
           }
 
@@ -153,21 +132,8 @@
       {
         get
         {
-          if (Attacker.HasFirstStrike)
-          {
-            var firstStrikeSurvivals =
-              _blockers.Where(x =>
-                x.Card.HasFirstStrike == false &&
-                  x.Card.Toughness > Attacker.Power);
-
-            // approximate total damage blockers can deal
-            // by firststrike damage + survival damage
-            return Attacker.LifepointsLeft <=
-              _blockers.Where(x => x.Card.HasFirstStrike).Sum(x => x.Card.Power) +
-                firstStrikeSurvivals.Sum(x => x.Card.Power);
-          }
-
-          return Attacker.LifepointsLeft <= _blockers.Sum(x => x.Card.Power);
+          return Combat.CanAttackerBeDealtLeathalCombatDamage(
+            Attacker, _blockers.Select(x => x.Card));
         }
       }
 
@@ -175,25 +141,14 @@
       {
         get
         {
-          if (_blockers.Count == 0)
-            return Attacker.Power.Value;
-
-          if (Attacker.Has().Trample)
-          {
-            var totalToughness = _blockers.Sum(x => x.Card.Toughness);
-            var diff = Attacker.Power - totalToughness;
-
-            return (diff > 0 ? diff : 0).Value;
-          }
-
-          return 0;
+          return Combat.CalculateDefendingPlayerLifeloss(
+            Attacker,
+            _blockers.Select(x => x.Card)
+            );
         }
       }
 
-      public int Score
-      {
-        get { return _score.Value; }
-      }
+      public int Score { get { return _score.Value; } }
 
       public void TryAssignBlocker(ScoredCard scoredCard)
       {

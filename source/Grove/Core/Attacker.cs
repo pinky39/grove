@@ -1,6 +1,5 @@
 ﻿namespace Grove.Core
 {
-  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Controllers;
@@ -13,8 +12,8 @@
   {
     private readonly TrackableList<Damage> _assignedDamage;
     private readonly TrackableList<Blocker> _blockers;
-    private readonly Trackable<bool> _isBlocked;
     private readonly Card _card;
+    private readonly Trackable<bool> _isBlocked;
     private readonly Players _players;
     private readonly Publisher _publisher;
 
@@ -38,15 +37,15 @@
     public bool HasDeathTouch { get { return _card.Has().Deathtouch; } }
     public bool HasTrample { get { return _card.Has().Trample; } }
     public int LifepointsLeft { get { return _card.LifepointsLeft; } }
-    public int TotalDamageThisCanDeal { get { return _card.Power.Value; } }   
+    public int TotalDamageThisCanDeal { get { return _card.Power.Value; } }
 
     public int CalculateHash(HashCalculator calc)
     {
       return HashCalculator.Combine(
-          calc.Calculate(_isBlocked),
-          calc.Calculate(_card),
-          calc.Calculate(_blockers),
-          calc.Calculate(_assignedDamage));
+        calc.Calculate(_isBlocked),
+        calc.Calculate(_card),
+        calc.Calculate(_blockers),
+        calc.Calculate(_assignedDamage));
     }
 
     public void AddBlocker(Blocker blocker)
@@ -78,7 +77,7 @@
 
     public void DistributeDamageToBlockers(Decisions decisions)
     {
-      decisions.EnqueueAssignCombatDamage(_card.Controller, this); 
+      decisions.EnqueueAssignCombatDamage(_card.Controller, this);
     }
 
     public void DistributeDamageToBlockers(DamageDistribution distribution)
@@ -109,12 +108,12 @@
 
     public void RemoveFromCombat()
     {
-      _publisher.Publish(new RemovedFromCombat{Card = Card});
-      
+      _publisher.Publish(new RemovedFromCombat {Card = Card});
+
       foreach (var blocker in _blockers)
       {
         blocker.RemoveAttacker();
-      }      
+      }
     }
 
     public void SetDamageAssignmentOrder(DamageAssignmentOrder damageAssignmentOrder)
@@ -128,6 +127,11 @@
     public static implicit operator Card(Attacker attacker)
     {
       return attacker._card;
+    }
+
+    public bool WillBeDealtLeathalCombatDamage()
+    {
+      return Combat.CanAttackerBeDealtLeathalCombatDamage(Card, _blockers.Select(x => x.Card));
     }
 
     [Copyable]

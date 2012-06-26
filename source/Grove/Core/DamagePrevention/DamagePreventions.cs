@@ -30,13 +30,13 @@
       _preventions.Add(prevention);
     }
 
-    public int PreventDamage(Card damageSource, int amount)
+    public int PreventDamage(Card damageSource, int amount, bool queryOnly = false)
     {
       var damageLeft = amount;
 
       foreach (var preventionEffect in _preventions)
       {
-        damageLeft = preventionEffect.PreventDamage(damageSource, damageLeft);
+        damageLeft = preventionEffect.PreventDamage(damageSource, damageLeft, queryOnly);
 
         if (damageLeft == 0)
           break;

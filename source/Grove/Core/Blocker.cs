@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core
 {
+  using System;
   using System.Linq;
   using Infrastructure;
   using Messages;
@@ -115,6 +116,14 @@
       {
         return new Blocker(blocker, attacker, _changeTracker, _publisher);
       }
+    }
+
+    public bool WillBeDealtLeathalCombatDamage()
+    {
+      if (Attacker == null)
+        return false;
+      
+      return Combat.CanBlockerBeDealtLeathalCombatDamage(Card, Attacker.Card);
     }
   }
 }
