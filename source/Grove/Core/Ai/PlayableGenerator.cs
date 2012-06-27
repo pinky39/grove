@@ -41,7 +41,7 @@
 
         var abilitiesPrerequisites = card.CanActivateAbilities();
 
-        for (int abilityIndex = 0; abilityIndex < abilitiesPrerequisites.Count; abilityIndex++)
+        for (var abilityIndex = 0; abilityIndex < abilitiesPrerequisites.Count; abilityIndex++)
         {
           var prerequisites = abilitiesPrerequisites[abilityIndex];
 
@@ -56,10 +56,11 @@
 
           var count = 0;
           var maxCount = prerequisites.CanCastWithKicker ? _maxTargets*2 : _maxTargets;
-          
+
           foreach (var activationParameters in activationGenerator)
           {
-            if (!prerequisites.Timming(new TimingParameters(_game, card, activationParameters, prerequisites.TargetsSelf)))
+            if (
+              !prerequisites.Timming(new TimingParameters(_game, card, activationParameters, prerequisites.TargetsSelf)))
               continue;
 
             yield return new Ability(card, activationParameters, abilityIndex);
@@ -89,7 +90,7 @@
 
 
         var count = 0;
-        var maxCount = prerequisites.CanCastWithKicker ? _maxTargets * 2 : _maxTargets;
+        var maxCount = prerequisites.CanCastWithKicker ? _maxTargets*2 : _maxTargets;
         foreach (var activationParameters in activationGenerator)
         {
           if (!prerequisites.Timming(new TimingParameters(_game, card, activationParameters, prerequisites.TargetsSelf)))
@@ -99,8 +100,31 @@
           count++;
 
           if (count >= maxCount)
-            break;          
+            break;
         }
+      }
+    }
+
+    private IEnumerable<Playable> GetCyclables()
+    {
+      foreach (var card in _player.Hand)
+      {
+        if (card.IsHidden)
+          continue;
+
+        var prerequisites = card.CanCycle();
+
+        if (!prerequisites.CanBeSatisfied)
+        {
+          continue;
+        }
+
+        if (!prerequisites.Timming(new TimingParameters(_game, card)))
+        {
+          continue;
+        }
+
+        yield return new Cyclable(card);
       }
     }
 
@@ -109,6 +133,11 @@
       foreach (var playable in GetPlayableSpells())
       {
         yield return playable;
+      }
+
+      foreach (var cyclable in GetCyclables())
+      {
+        yield return cyclable;
       }
 
       foreach (var playable in GetPlayableAbilities())

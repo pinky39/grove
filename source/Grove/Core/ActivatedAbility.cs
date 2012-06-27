@@ -17,6 +17,7 @@
     }
 
     public bool ActivateOnlyAsSorcery { get; set; }
+    public TargetSelector DamageSourceSelector { get; set; }
     public bool TargetsSelf { get; set; }
     protected Cost Cost { get; private set; }
 
@@ -39,11 +40,12 @@
       Cost.Pay(activation.CostTarget, activation.X);
 
       var effect = EffectFactory.CreateEffect(this, activation.X);
-      effect.Target = activation.EffectTarget;
+      effect.Target = activation.Target;
+      effect.DamageSourceTarget = activation.DamageSourceTarget;
 
       Publisher.Publish(new PlayerHasActivatedAbility{
         Ability = this,
-        Target = activation.EffectTarget
+        Target = activation.Target
       });
 
       if (UsesStack)
@@ -74,6 +76,7 @@
           Description = Text,          
           EffectTargetSelector = TargetSelector,
           CostTargetSelector = Cost.TargetSelector,
+          DamageSourceSelector = DamageSourceSelector,
           XCalculator = Cost.XCalculator,
           MaxX = maxX,
           Timming = _timming,

@@ -9,6 +9,7 @@
     private readonly List<ITarget> _costTargets = new List<ITarget>();
     private readonly List<ITarget> _effectTargets = new List<ITarget>();
     private readonly List<ITarget> _kickerEffectTargets = new List<ITarget>();
+    private readonly List<ITarget> _damageSourceTargets = new List<ITarget>();
     private readonly Card _spell;
     private readonly SpellPrerequisites _prerequisites;
     private readonly Players _players;
@@ -45,6 +46,16 @@
           stack,
           prerequisites.MaxX)
           );
+      }
+
+      if (prerequisites.NeedsDamageSourceTargets)
+      {
+        _damageSourceTargets.AddRange(new TargetGenerator(
+          prerequisites.DamageSourceSelector,
+          players,
+          stack,
+          prerequisites.MaxX)
+          );                
       }
     }
 
@@ -130,7 +141,7 @@
               continue;
           }
 
-          activation.EffectTarget = effectTarget;
+          activation.Target = effectTarget;
           yield return activation;
 
           activation = factory();

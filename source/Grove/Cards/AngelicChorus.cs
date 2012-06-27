@@ -4,6 +4,7 @@
   using Core;
   using Core.CardDsl;
   using Core.Effects;
+  using Core.Messages;
   using Core.Triggers;
   using Core.Zones;
 
@@ -22,11 +23,11 @@
             "Whenever a creature enters the battlefield under your control, you gain life equal to its toughness.",
             C.Trigger<ChangeZone>((t, _) =>
               {
-                t.Filter = (ability, card) => ability.Controller == card.Controller && card.Is().Creature;                
+                t.Filter = (ability, card) => ability.Controller == card.Controller && card.Is().Creature;
                 t.To = Zone.Battlefield;
               }),
-            C.Effect<GainLifeDependsOnContext<Card>>((e, _) =>
-              e.Selector = (card) => card.Toughness.Value), triggerOnlyIfOwningCardIsInPlay: true)              
+            C.Effect<GainLife>((e, _) => e.Amount = ef => ef.Ctx<CardChangedZone>().Card.Toughness.Value),
+            triggerOnlyIfOwningCardIsInPlay: true)
         );
     }
   }

@@ -11,27 +11,40 @@
     SourceCardController
   }
 
-  public class DealDamageToPlayer : Trigger, IReceive<DamageHasBeenDealt>
+  public class DealDamageToCreatureOrPlayer : Trigger, IReceive<DamageHasBeenDealt>
   {
+    public Func<Card, TriggeredAbility, bool> IsValidCreature = delegate { return false; };
+    public Func<Player, TriggeredAbility, bool> IsValidPlayer = delegate { return false; };
     public bool CombatOnly { get; set; }
     public bool UseAttachedToAsTriggerSource { get; set; }
-    public Func<Player, TriggeredAbility, bool> IsValidPlayer { get; set; }
 
     public void Receive(DamageHasBeenDealt message)
     {
-      if (!(message.Receiver is Player))
-        return;
-
       if (CombatOnly && !message.IsCombat)
         return;
 
       var triggerCard = GetTriggerSource();
 
-      if (message.Dealer == triggerCard && IsValidPlayer((Player) message.Receiver, Ability))
-        Set();
+      if (message.Dealer == triggerCard && IsValid(message.Receiver))
+        Set(message);
     }
 
-    public void ToAny()
+    private bool IsValid(object damageReceiver)
+    {
+      var player = damageReceiver as Player;
+
+      if (player != null)
+        return IsValidPlayer(player, Ability);
+
+      var creature = damageReceiver as Card;
+
+      if (creature != null)
+        return IsValidCreature(creature, Ability);
+
+      return false;
+    }
+
+    public void ToAnyPlayer()
     {
       IsValidPlayer = (receiver, ability) => true;
     }
@@ -61,6 +74,11 @@
       }
 
       return triggerCard;
+    }
+
+    public void ToAnyCreature()
+    {
+      IsValidCreature = delegate { return true; };
     }
   }
 }

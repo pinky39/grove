@@ -8,7 +8,7 @@
   using Zones;
 
   [Copyable]
-  public class Player : ITarget, IDamageable, IHashable
+  public class Player : ITarget, IDamageable
   {
     private readonly AssignedDamage _assignedDamage;
     private readonly Trackable<bool> _canPlayLands;
@@ -152,6 +152,15 @@
       _assignedDamage.Assign(source, amount);
     }
 
+    public void CycleSpell(Card spell)
+    {
+      _hand.Remove(spell);
+      Consume(spell.CyclingCost);
+      spell.CycleInternal();
+
+      PublishMessage(new PlayerHasCycledASpell {Spell = spell});
+    }
+    
     public void CastSpell(Card spell, ActivationParameters activationParameters)
     {
       _hand.Remove(spell);
@@ -177,7 +186,7 @@
       PublishMessage(new PlayerHasCastASpell
         {
           Spell = spell,
-          Target = activationParameters.EffectTarget
+          Target = activationParameters.Target
         });
     }
 

@@ -16,39 +16,42 @@
     public Stack Stack { get; set; }
 
     public StepDecisions Activate(Card card, Card target, Card costTarget = null,
-      int? x = null, int abilityIndex = 0)
+                                  int? x = null, int abilityIndex = 0)
     {
-      return Activate(card, (ITarget)target, costTarget, x, abilityIndex);
+      return Activate(card, (ITarget) target, costTarget, x, abilityIndex);
     }
 
     public StepDecisions Activate(Card card, Player target, Card costTarget = null,
-      int? x = null, int abilityIndex = 0)
+                                  int? x = null, int abilityIndex = 0)
     {
-      return Activate(card, (ITarget)target, costTarget, x, abilityIndex);
+      return Activate(card, (ITarget) target, costTarget, x, abilityIndex);
     }
 
     public StepDecisions Activate(Card card, Card costTarget = null,
-      int? x = null, int abilityIndex = 0)
+                                  int? x = null, int abilityIndex = 0)
     {
-      return Activate(card, (ITarget)null, costTarget, x, abilityIndex);
+      return Activate(card, (ITarget) null, costTarget, x, abilityIndex);
     }
 
     private StepDecisions Activate(Card card, ITarget target = null, ITarget costTarget = null,
-      int? x = null, int abilityIndex = 0)
+                                   int? x = null, int abilityIndex = 0)
     {
-      _decisions.Add(new PlaySpellOrAbility{
-        Result = new ChosenPlayable{
-          Playable = new ScenarioAbility(
-            card,
-            new ActivationParameters{
-              CostTarget = costTarget,
-              EffectTarget = target,
-              X = x
-            },
-            abilityIndex
-            )
-        }
-      });
+      _decisions.Add(new PlaySpellOrAbility
+        {
+          Result = new ChosenPlayable
+            {
+              Playable = new ScenarioAbility(
+                card,
+                new ActivationParameters
+                  {
+                    CostTarget = costTarget,
+                    Target = target,
+                    X = x
+                  },
+                abilityIndex
+                )
+            }
+        });
 
       return this;
     }
@@ -65,47 +68,51 @@
 
     public StepDecisions Cast(Card card, Card target, bool payKicker = false, int? x = null)
     {
-      return Cast(card, (ITarget)target, payKicker, x);
+      return Cast(card, (ITarget) target, payKicker, x);
     }
 
     public StepDecisions Cast(Card card, bool payKicker = false, int? x = null)
     {
-      return Cast(card, (ITarget)null, payKicker, x);
+      return Cast(card, (ITarget) null, payKicker, x);
     }
 
     public StepDecisions Cast(Card card, Player target, bool payKicker = false, int? x = null)
     {
-      return Cast(card, (ITarget)target, payKicker, x);
+      return Cast(card, (ITarget) target, payKicker, x);
     }
 
     public StepDecisions Cast(Card card, LazyEffect target, bool payKicker = false, int? x = null)
     {
-      return Cast(card, (ITarget)target, payKicker, x);
+      return Cast(card, (ITarget) target, payKicker, x);
     }
 
     private StepDecisions Cast(Card card, ITarget target, bool payKicker, int? x)
     {
-      _decisions.Add(new PlaySpellOrAbility{
-        Result = new ChosenPlayable{
-          Playable = new ScenarioSpell(
-            card,
-            new ActivationParameters{
-              EffectTarget = target,
-              PayKicker = payKicker,
-              X = x
-            })
-        }
-      });
+      _decisions.Add(new PlaySpellOrAbility
+        {
+          Result = new ChosenPlayable
+            {
+              Playable = new ScenarioSpell(
+                card,
+                new ActivationParameters
+                  {
+                    Target = target,
+                    PayKicker = payKicker,
+                    X = x
+                  })
+            }
+        });
 
       return this;
     }
 
     public StepDecisions DeclareAttackers(params Card[] attackers)
     {
-      _decisions.Add(new DeclareAttackers{
-        Player = attackers[0].Controller,
-        Result = attackers.ToList()
-      });
+      _decisions.Add(new DeclareAttackers
+        {
+          Player = attackers[0].Controller,
+          Result = attackers.ToList()
+        });
       return this;
     }
 
@@ -124,10 +131,11 @@
         chosenBlockers.Add(blocker, attacker);
       }
 
-      _decisions.Add(new DeclareBlockers{        
-        Player = defending,
-        Result = chosenBlockers
-      });
+      _decisions.Add(new DeclareBlockers
+        {
+          Player = defending,
+          Result = chosenBlockers
+        });
       return this;
     }
 
@@ -138,10 +146,10 @@
       if (first == null)
         return null;
 
-      
+
       if ((first is TDecision || first is Verify) && first.CanExecute())
       {
-        _decisions.Remove(first);        
+        _decisions.Remove(first);
         return first;
       }
 
@@ -160,17 +168,33 @@
 
     private StepDecisions Target(ITarget target)
     {
-      _decisions.Add(new SetTriggeredAbilityTarget{
-        Result = new ChosenTarget(target)
-      });
+      _decisions.Add(new SetTriggeredAbilityTarget
+        {
+          Result = new ChosenTarget(target)
+        });
       return this;
     }
 
     public StepDecisions Verify(Action assertion)
     {
-      _decisions.Add(new Verify{
-        Stack = Stack,
-        Assertion = assertion
+      _decisions.Add(new Verify
+        {
+          Stack = Stack,
+          Assertion = assertion
+        });
+
+      return this;
+    }
+
+    public StepDecisions Cycle(Card card)
+    {
+      _decisions.Add(new PlaySpellOrAbility
+      {
+        Result = new ChosenPlayable
+        {
+          Playable = new ScenarioCyclable(
+            card)            
+        }
       });
 
       return this;

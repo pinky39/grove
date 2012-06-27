@@ -114,6 +114,7 @@
     <Compile Include="Cards\ArgothianSwine.cs" />
     <Compile Include="Cards\BaneslayerAngel.cs" />
     <Compile Include="Cards\BasiliskCollar.cs" />
+    <Compile Include="Cards\BloodVassal.cs" />
     <Compile Include="Cards\BurstLightning.cs" />
     <Compile Include="Cards\BeaconOfDestruction.cs" />
     <Compile Include="Cards\BirdsOfParadise.cs" />
@@ -126,6 +127,7 @@
     <Compile Include="Cards\CruelEdict.cs" />
     <Compile Include="Cards\DayofJudgment.cs" />
     <Compile Include="Cards\DeathlessAngel.cs" />
+    <Compile Include="Cards\DiscipleOfGrace.cs" />
     <Compile Include="Cards\DrownedCatacomb.cs" />
     <Compile Include="Cards\DarkslickDrake.cs" />
     <Compile Include="Cards\DarksteelGargoyle.cs" />
@@ -136,6 +138,7 @@
     <Compile Include="Cards\EleshNornGrandCenobite.cs" />
     <Compile Include="Cards\ElvishWarrior.cs" />
     <Compile Include="Cards\Evacuation.cs" />
+    <Compile Include="Cards\FleshReaver.cs" />
     <Compile Include="Cards\Forest.cs" />
     <Compile Include="Cards\FiresOfYavimaya.cs" />
     <Compile Include="Cards\FlameSlash.cs" />
@@ -170,6 +173,7 @@
     <Compile Include="Cards\Recoil.cs" />
     <Compile Include="Cards\RootboundCrag.cs" />
     <Compile Include="Cards\RumblingSlum.cs" />
+    <Compile Include="Cards\SanctumGuardian.cs" />
     <Compile Include="Cards\SavannahLions.cs" />
     <Compile Include="Cards\StirringWildwood.cs" />
     <Compile Include="Cards\StudentOfWarfare.cs" />
@@ -208,6 +212,7 @@
     <Compile Include="Configuration.cs" />
     <Compile Include="Core\Ability.cs" />
     <Compile Include="Core\AggregateManaAmount.cs" />
+    <Compile Include="Core\Controllers\Results\Cyclable.cs" />
     <Compile Include="Core\Ai\InnerResult.cs" />
     <Compile Include="Core\Ai\ISearchResult.cs" />
     <Compile Include="Core\Ai\LeafResult.cs" />
@@ -248,6 +253,7 @@
     <Compile Include="Core\Controllers\Scenario\PlaySpellOrAbility.cs" />
     <Compile Include="Core\Controllers\Scenario\ScenarioAbility.cs" />
     <Compile Include="Core\Controllers\Scenario\DecisionFactory.cs" />
+    <Compile Include="Core\Controllers\Scenario\ScenarioCyclable.cs" />
     <Compile Include="Core\Controllers\Scenario\ScenarioSpell.cs" />
     <Compile Include="Core\Controllers\Scenario\SetTriggeredAbilityTarget.cs" />
     <Compile Include="Core\Controllers\Scenario\StepDecisions.cs" />
@@ -260,10 +266,10 @@
     <Compile Include="Core\DeckFileReader.cs" />
     <Compile Include="Core\Effects\CounterTargetSpell.cs" />
     <Compile Include="Core\Effects\DealDamageToActivePlayer.cs" />
+    <Compile Include="Core\Effects\DealDamageToController.cs" />
     <Compile Include="Core\Effects\DestroyPermanents.cs" />
     <Compile Include="Core\Effects\ExileTargetPermanent.cs" />
-    <Compile Include="Core\Effects\GainLifeDependsOnContext.cs" />
-    <Compile Include="Core\Effects\GainLifeEqualToTargetCreaturePower.cs" />
+    <Compile Include="Core\Effects\GainLifeEqualToTargetPower.cs" />
     <Compile Include="Core\Ai\IDamageDealing.cs" />
     <Compile Include="Core\Effects\MillOpponent.cs" />
     <Compile Include="Core\Effects\PayLifeOrTap.cs" />
@@ -284,6 +290,7 @@
     <Compile Include="Core\ManaPayment.cs" />
     <Compile Include="Core\Messages\CardChangedLevel.cs" />
     <Compile Include="Core\Messages\PlayerHasActivatedAbility.cs" />
+    <Compile Include="Core\Messages\PlayerHasCycledASpell.cs" />
     <Compile Include="Core\Messages\SearchFinished.cs" />
     <Compile Include="Core\Messages\SearchStarted.cs" />
     <Compile Include="Core\Modifiers\AddCounters.cs" />
@@ -392,7 +399,7 @@
     <Compile Include="Core\Effects\CompoundEffect.cs" />
     <Compile Include="Core\Effects\DealDamageToEach.cs" />
     <Compile Include="Core\Effects\DrawCards.cs" />
-    <Compile Include="Core\Effects\IncreaseLife.cs" />
+    <Compile Include="Core\Effects\GainLife.cs" />
     <Compile Include="Core\Effects\IEffectSource.cs" />
     <Compile Include="Core\Effects\Regenerate.cs" />
     <Compile Include="Core\Effects\ShuffleIntoLibrary.cs" />
@@ -436,7 +443,7 @@
     <Compile Include="Core\CastingRules\Sorcery.cs" />
     <Compile Include="Core\Triggers\Trigger.cs" />
     <Compile Include="Core\Triggers\AtBegginingOfStep.cs" />
-    <Compile Include="Core\Triggers\DealDamageToPlayer.cs" />
+    <Compile Include="Core\Triggers\DealDamageToCreatureOrPlayer.cs" />
     <Compile Include="Core\Triggers\ChangeZone.cs" />
     <Compile Include="Core\Costs\Cost.cs" />
     <Compile Include="Core\Costs\TapOwnerPayMana.cs" />

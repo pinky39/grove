@@ -11,16 +11,17 @@
   {
     public Action<Effect> AfterResolve = delegate { };
     public Action<Effect> BeforeResolve = delegate { };
+    private object _triggerContext;
     private bool _wasKickerPaid;
     public bool CanBeCountered { get; set; }
     public Player Controller { get { return Source.OwningCard.Controller; } }
     protected Decisions Decisions { get { return Game.Decisions; } }
     protected Game Game { get; set; }
-    protected object TriggerContext { get; set; }
     public bool HasTarget { get { return Target != null; } }
     public Players Players { get { return Game.Players; } }
     public IEffectSource Source { get; set; }
     public ITarget Target { get; set; }
+    public ITarget DamageSourceTarget { get; set; }
     public int? X { get; private set; }
     public virtual bool AffectsSelf { get { return false; } }
 
@@ -33,6 +34,11 @@
         CanBeCountered.GetHashCode(),
         _wasKickerPaid.GetHashCode(),
         X.GetHashCode());
+    }
+
+    public T Ctx<T>()
+    {
+      return (T) _triggerContext;
     }
 
     public void EffectWasCountered()
@@ -86,7 +92,7 @@
           {
             Game = Game,
             Source = source,
-            TriggerContext = triggerContext,
+            _triggerContext = triggerContext,
             X = x,
             _wasKickerPaid = wasKickerPaid,
             CanBeCountered = true

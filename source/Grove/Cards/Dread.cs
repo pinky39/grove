@@ -27,7 +27,7 @@
             e.ModifierFactory = c.Modifier<AddTriggeredAbility>((m, c0) =>
               m.Ability = c0.TriggeredAbility(
                 "Whenever a creature deals damage to you, destroy it.",
-                c0.Trigger<DealDamageToPlayer>((t, _) => t.ToYou()),
+                c0.Trigger<DealDamageToCreatureOrPlayer>((t, _) => t.ToYou()),
                 c0.Effect<DestroySource>(), 
                 category: EffectCategories.Destruction));
           }),

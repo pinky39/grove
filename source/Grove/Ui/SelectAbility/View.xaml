@@ -48,7 +48,7 @@
             <Border Grid.Row="0" Background="{StaticResource BarBackground}">
                 <StackPanel Margin="10,0,10,0" Orientation="Horizontal">
                     <Image Margin="0,0,10,0"  Style="{StaticResource DialogIcon}"/>
-                    <TextBlock Text="Activate ability"/>
+                    <TextBlock Text="Please select ability"/>
                 </StackPanel>
             </Border>
             <Border Grid.Row="1" Background="#333">

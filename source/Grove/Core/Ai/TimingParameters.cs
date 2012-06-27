@@ -5,12 +5,12 @@
 
   public class TimingParameters
   {
-    public TimingParameters(Game game, Card card, ActivationParameters activation, bool targetsSelf)
+    public TimingParameters(Game game, Card card, ActivationParameters activation = null, bool targetsSelf = false)
     {
       TargetsSelf = targetsSelf;
       Game = game;
       Card = card;
-      Activation = activation;
+      Activation = activation ?? ActivationParameters.Default;
     }
 
     public bool TargetsSelf { get; private set; }
@@ -25,7 +25,7 @@
     public Player TopSpellController { get { return TopSpell == null ? null : TopSpell.Controller; } }
     public IEnumerable<Attacker> Attackers { get { return Game.Combat.Attackers; } }
     public bool IsAttached { get { return Card.IsAttached; } }
-    public ITarget Target { get { return Activation.EffectTarget; } }
+    public ITarget Target { get { return Activation.Target; } }
 
     public bool IsCannonfodder()
     {

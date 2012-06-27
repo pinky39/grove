@@ -23,11 +23,11 @@
         .Abilities(
           C.TriggeredAbility(
             "Whenever equipped creature deals combat damage to a player, you put a 2/2 green Wolf creature token onto the battlefield and that player puts the top ten cards of his or her library into his or her graveyard.",
-            C.Trigger<DealDamageToPlayer>((t, _) =>
+            C.Trigger<DealDamageToCreatureOrPlayer>((t, _) =>
               {
                 t.CombatOnly = true;
                 t.UseAttachedToAsTriggerSource = true;
-                t.ToAny();
+                t.ToAnyPlayer();
               }),
             C.Effect<CompoundEffect>((e, c) => e.ChildEffects(
               c.Effect<MillOpponent>((e1, _) => e1.Count = 10),

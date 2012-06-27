@@ -322,5 +322,10 @@
           return p.Controller.Life <= damage;
         };
     }
+
+    public static TimingDelegate Cycling()
+    {
+      return p => p.Step == Step.EndOfTurn && !p.Controller.IsActive;
+    }
   }
 }

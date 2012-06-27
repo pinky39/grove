@@ -27,7 +27,7 @@
           C.TriggeredAbility(
             "At the beginning of your end step, you may gain life equal to the power of target creature you control.",
             C.Trigger<AtBegginingOfStep>((t, _) => { t.Step = Step.EndOfTurn; }),
-            C.Effect<GainLifeEqualToTargetCreaturePower>(),
+            C.Effect<GainLifeEqualToTargetPower>(),
             C.Selector(
               validator: (target, card) => target.Is().Creature && target.Card().Controller == card.Controller,
               scorer: TargetScores.YourCreatureWithGreatestPowerOnly()),

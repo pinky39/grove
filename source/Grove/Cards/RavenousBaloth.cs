@@ -25,7 +25,7 @@
             "Sacrifice a Beast: You gain 4 life.",
             C.Cost<SacrificePermanent>((cost, c) => cost.SetTargetSelector(
               c.Selector((target, baloth) => target.Is().OfType("beast") && target.Card().Controller == baloth.Controller))),
-            C.Effect<IncreaseLife>((e, _) => e.Amount = 4),
+            C.Effect<GainLife>((e, _) => e.SetAmount(4)),
             timing: Any(
               Timings.ResponseToSpellLeathalDamage(),
               Timings.ResponseToSpellDestruction(),

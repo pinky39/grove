@@ -23,11 +23,11 @@
         .Abilities(
           C.TriggeredAbility(
             "Whenever equipped creature deals combat damage to a player, that player discards a card and you untap all lands you control.",
-            C.Trigger<DealDamageToPlayer>((t, _) =>
+            C.Trigger<DealDamageToCreatureOrPlayer>((t, _) =>
             {
               t.CombatOnly = true;
               t.UseAttachedToAsTriggerSource = true;
-              t.ToAny();
+              t.ToAnyPlayer();
             }),
             C.Effect<CompoundEffect>((e, c) => e.ChildEffects(
               c.Effect<OpponentDiscardsCards>((e1, _) => e1.SelectedCount = 1),

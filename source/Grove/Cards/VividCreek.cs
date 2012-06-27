@@ -24,7 +24,7 @@
         .Abilities(
           C.ManaAbility(Mana.Blue, "{T}: Add {U} to your mana pool."),
           C.ManaAbility(Mana.Any, "{T}, Remove a charge counter from Vivid Creek: Add one mana of any color to your mana pool.",
-            priority: ManaSourcePriorities.Restricted, costFactory: C.Cost<TapOwnerRemoveCounter>()),
+            priority: ManaSourcePriorities.Restricted, cost: C.Cost<TapOwnerRemoveCounter>()),
           C.StaticAbility(
             C.Trigger<ChangeZone>((t, _) => t.To = Zone.Battlefield),
             C.Effect<ApplyModifiersToSelf>((e, c) => e.Modifiers(

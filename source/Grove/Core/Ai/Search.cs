@@ -10,7 +10,7 @@
 
   public class Search
   {
-    public const int TargetLimit = 1;
+    public const int TargetLimit = 2;
     private static readonly ILog Log = LogManager.GetLogger(typeof (Search));
     private readonly SearchResults _searchResults;
     private readonly Dictionary<object, SearchWorker> _workers = new Dictionary<object, SearchWorker>();
@@ -178,8 +178,8 @@
 
     private bool IsItFeasibleToCreateNewWorker(ISearchNode node, int moveIndex)
     {
-      //return SingleThreadedStrategy(node, moveIndex);
-      return MultiThreadedStrategy2(node, moveIndex);
+      return SingleThreadedStrategy(node, moveIndex);
+      //return MultiThreadedStrategy2(node, moveIndex);
     }
 
     private static bool SingleThreadedStrategy(ISearchNode node, int moveIndex)

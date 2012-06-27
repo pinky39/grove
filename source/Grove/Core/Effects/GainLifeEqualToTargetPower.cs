@@ -1,8 +1,6 @@
 ﻿namespace Grove.Core.Effects
 {
-  using System;
-
-  public class GainLifeEqualToTargetCreaturePower : Effect
+  public class GainLifeEqualToTargetPower : Effect
   {
     protected override void ResolveEffect()
     {

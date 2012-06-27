@@ -8,6 +8,7 @@
     public bool CanBeSatisfied { get; set; }
     public bool CanCastWithKicker { get; set; }
     public TargetSelector CostTargetSelector { get; set; }
+    public TargetSelector DamageSourceSelector { get; set; }
     public CardText Description { get; set; }
     public TargetSelector EffectTargetSelector { get; set; }
     public bool HasXInCost { get { return MaxX != null; } }
@@ -17,6 +18,7 @@
     public bool NeedsCostTargets { get { return CostTargetSelector != null; } }
     public bool NeedsEffectTargets { get { return EffectTargetSelector != null; } }
     public bool NeedsKickerEffectTargets { get { return KickerTargetSelector != null; } }
+    public bool NeedsDamageSourceTargets { get { return DamageSourceSelector != null; } }
     public CalculateX XCalculator { get; set; }
     public TargetSelector KickerTargetSelector { get; set; }
   }

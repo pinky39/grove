@@ -103,6 +103,11 @@
       if (permanent.IsTapped)
         score += tappedPermanentValue;
 
+      if (permanent.HasCycling)
+      {
+        score -= 150;
+      }
+      
       if (permanent.ManaCost != null)
       {
         score += CalculatePermanentScoreFromManaCost(permanent.ManaCost);
@@ -143,6 +148,11 @@
     public static int CalculateCardInHandScore(Card card)
     {
       return 120;
+    }
+
+    public static int CalculateCardInGraveyardScore(Card card)
+    {
+      return 5;
     }
 
     public static int CalculateLifelossScore(int life, int loss)

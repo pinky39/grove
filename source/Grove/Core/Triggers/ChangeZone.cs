@@ -22,11 +22,11 @@
         return;
 
       if (From == Zone.Undefined && To == message.To)
-        Set(message.Card);
+        Set(message);
       else if (From == message.From && To == message.To)
-        Set(message.Card);
+        Set(message);
       else if (From == message.From && To == Zone.Undefined)
-        Set(message.Card);
+        Set(message);
     }      
   }
 }

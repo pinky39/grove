@@ -90,13 +90,19 @@
         };
     }
 
-    public IActivatedAbilityFactory ManaAbility(Mana mana, string text, ICostFactory costFactory = null,
+    public IActivatedAbilityFactory ManaAbility(Mana mana, string text, ICostFactory cost = null,
                                                 int? priority = null)
     {
-      costFactory = costFactory ?? new Cost.Factory<TapOwnerPayMana>
+      return ManaAbility(mana.ToAmount(), text, cost, priority);
+    }
+
+    public IActivatedAbilityFactory ManaAbility(IManaAmount manaAmount, string text, ICostFactory cost = null,
+                                                int? priority = null)
+    {
+      cost = cost ?? new Cost.Factory<TapOwnerPayMana>
         {
           Game = _game,
-          Init = (cost, _) => { cost.TapOwner = true; }
+          Init = (cst, _) => { cst.TapOwner = true; }
         };
 
       return new ActivatedAbility.Factory<ManaAbility>
@@ -104,9 +110,9 @@
           Game = _game,
           Init = ability =>
             {
-              ability.SetManaAmount(mana.ToAmount());
+              ability.SetManaAmount(manaAmount);
               ability.Text = text;
-              ability.SetCost(costFactory);
+              ability.SetCost(cost);
               ability.Priority = priority ?? DefaultManaSourcePriority(ability);
             }
         };

@@ -28,6 +28,7 @@
     private TrackableList<ContinuousEffect> _continuousEffects;
     private Trackable<Player> _controller;
     private Counters.Counters _counters;
+    private IEffectFactory _cyclingFactory;
     private Trackable<int> _damage;
     private DamagePreventions _damagePreventions;
     private IEffectFactory _effectFactory;
@@ -45,6 +46,7 @@
     private Protections _protections;
     private Publisher _publisher;
     private Zone _putToZoneAfterResolve;
+    private Stack _stack;
     private StaticAbilities _staticAbilities;
     private TargetSelector _targetSelector;
     private TimingDelegate _timming;
@@ -169,6 +171,10 @@
           case (Zone.Hand):
             score = Ai.ScoreCalculator.CalculateCardInHandScore(this);
             break;
+
+          case (Zone.Graveyard):
+            score = Ai.ScoreCalculator.CalculateCardInGraveyardScore(this);
+            break;
         }
 
         // card usage lowers the score slightly, since we want't to 
@@ -181,14 +187,15 @@
     public CardText Text { get; private set; }
 
     public int? Toughness { get { return _toughness.Value; } }
-
     public string Type { get { return _type.Value.ToString(); } }
-
     public Zone Zone { get { return _zone.Value; } }
 
     public int? Level { get { return _level.Value; } }
     public IManaAmount EchoCost { get; private set; }
-            
+    public bool CanBeDestroyed { get { return !CanRegenerate && !Has().Indestructible; } }
+    public int TotalDamageThisCanDealToPlayerIfNotBlocked { get { return Has().DoubleStrike ? 2*Power.Value : Power.Value; } }
+    public IManaAmount CyclingCost { get; private set; }
+
     public void DealDamage(Card damageSource, int amount, bool isCombat)
     {
       var damage = new Damage(damageSource, amount);
@@ -225,6 +232,7 @@
     public EffectCategories EffectCategories { get; private set; }
 
     Card IEffectSource.OwningCard { get { return this; } }
+    public bool HasCycling { get { return _cyclingFactory != null; } }
 
     public void EffectWasCountered()
     {
@@ -302,11 +310,6 @@
     public int CalculateDealtDamageAmount(Damage damage)
     {
       return CalculateDealtDamageAmount(damage, queryOnly: true);
-    }
-
-    public bool CanBeDestroyed
-    {
-      get { return !CanRegenerate && !Has().Indestructible; }
     }
 
     private int CalculateDealtDamageAmount(Damage damage, bool queryOnly)
@@ -395,7 +398,7 @@
 
     public SpellPrerequisites CanCast()
     {
-      if (!Controller.HasPriority || !CastingRule.CanCast())
+      if (!CastingRule.CanCast())
         return new SpellPrerequisites {CanBeSatisfied = false};
 
       var canCastWithKicker = HasKicker ? Controller.HasMana(ManaCostWithKicker) : false;
@@ -411,13 +414,26 @@
           Timming = _timming,
         };
     }
-   
-    public int TotalDamageThisCanDealToPlayerIfNotBlocked
+
+    public SpellPrerequisites CanCycle()
     {
-      get
-      {                
-        return Has().DoubleStrike ? 2 * Power.Value : Power.Value;
+      if (CyclingCost == null || !Controller.HasMana(CyclingCost))
+      {
+        return new SpellPrerequisites {CanBeSatisfied = false};
       }
+
+      return new SpellPrerequisites
+        {
+          CanBeSatisfied = true,
+          Timming = Timings.Cycling()          
+        };
+    }
+
+    public void CycleInternal()
+    {
+      var effect = _cyclingFactory.CreateEffect(this);
+      _stack.Push(effect);
+      _usageCount.Value++;
     }
 
     public void CastInternal(ActivationParameters activationParameters)
@@ -426,7 +442,7 @@
         ? _kickerEffectFactory.CreateEffect(this, x: activationParameters.X, wasKickerPaid: true)
         : _effectFactory.CreateEffect(this, x: activationParameters.X);
 
-      effect.Target = activationParameters.EffectTarget;
+      effect.Target = activationParameters.Target;
       CastingRule.Cast(effect);
       _usageCount.Value++;
     }
@@ -683,7 +699,7 @@
     {
       Controller.Consume(EchoCost);
       _wasEchoPaid.Value = true;
-    }   
+    }
 
     public class CardFactory : ICardFactory
     {
@@ -694,6 +710,7 @@
       private readonly List<StaticAbility> _staticAbilities = new List<StaticAbility>();
       private readonly List<ITriggeredAbilityFactory> _triggeredAbilityFactories = new List<ITriggeredAbilityFactory>();
       private ManaColors _colors;
+      private string _cyclingCost;
       private string _echoCost;
       private EffectCategories _effectCategories;
       private IEffectFactory _effectFactory;
@@ -729,8 +746,10 @@
 
         card._publisher = _game.Publisher;
         card._combat = _game.Combat;
+        card._stack = _game.Stack;
 
         card._effectFactory = _effectFactory ?? new Effect.Factory<PutIntoPlay> {Game = _game};
+        card._cyclingFactory = _cyclingCost != null ? new Effect.Factory<DrawCards> {Game = _game, Init = (e, _) => e.DrawCount = 1} : null;
         card._kickerEffectFactory = _kickerEffectFactory;
         card._hash = new Trackable<int?>(_changeTracker);
 
@@ -738,6 +757,7 @@
         card._xCalculator = _xCalculator;
         card.ManaCost = _manaCost.ParseManaAmount();
         card.EchoCost = _echoCost.ParseManaAmount();
+        card.CyclingCost = _cyclingCost.ParseManaAmount();
         card.KickerCost = _kickerCost.ParseManaAmount();
         card.ManaCostWithKicker = card.HasKicker ? card.ManaCost.Add(card.KickerCost) : card.ManaCost;
         card.Text = _text ?? String.Empty;
@@ -947,6 +967,12 @@
       public CardFactory Named(string name)
       {
         _name = name;
+        return this;
+      }
+
+      public CardFactory Cycling(string cost)
+      {
+        _cyclingCost = cost;
         return this;
       }
 

@@ -204,7 +204,7 @@
         if (dialog.WasCanceled)
           return;
 
-        activation.EffectTarget = dialog.Selection.Single();
+        activation.Target = dialog.Selection.Single();
       }
 
       if (abilityPrerequisites.NeedsCostTargets)

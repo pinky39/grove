@@ -93,10 +93,12 @@
     <Compile Include="Cards\BaneslayerAngel.cs" />
     <Compile Include="Cards\BlacksSunZenith.cs" />
     <Compile Include="Cards\Blaze.cs" />
+    <Compile Include="Cards\BloodVassal.cs" />
     <Compile Include="Cards\CreepingTarPit.cs" />
     <Compile Include="Cards\DarkstyleGargoyle.cs" />
     <Compile Include="Cards\DayOfJudgment.cs" />
     <Compile Include="Cards\DeathlessAngel.cs" />
+    <Compile Include="Cards\DiscipleOfGrace.cs" />
     <Compile Include="Cards\Dread.cs" />
     <Compile Include="Cards\EleshNornGrandCenobite.cs" />
     <Compile Include="Cards\Evacuation.cs" />
