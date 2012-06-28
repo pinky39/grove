@@ -68,6 +68,24 @@
 
       Assert.Equal(1, count);
     }
+
+    [Fact]
+    public void CopyDictionary()
+    {
+      var org = new HasDictionary();
+      org.Dictionary.Add("dino", new Dinosaur {Age = 5});
+
+      var copy = new CopyService().Copy(org);
+      
+      Assert.NotSame(org.Dictionary, copy.Dictionary);
+      Assert.Equal(5, copy.Dictionary["dino"].Age);
+    }
+  }
+
+  [Copyable]
+  public class HasDictionary
+  {
+    public Dictionary<string, Dinosaur> Dictionary = new Dictionary<string, Dinosaur>();
   }
 
   [Copyable]

@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core.Ai
 {
+  using System;
   using System.Collections.Generic;
   using Effects;
 
@@ -25,39 +26,39 @@
     public Player TopSpellController { get { return TopSpell == null ? null : TopSpell.Controller; } }
     public IEnumerable<Attacker> Attackers { get { return Game.Combat.Attackers; } }
     public bool IsAttached { get { return Card.IsAttached; } }
-    public ITarget Target { get { return Activation.Target; } }
+    public Targets Targets { get { return Activation.Targets; } }    
 
     public bool IsCannonfodder()
     {
       return Game.Combat.IsBlockerThatWillBeDealtLeathalDamageAndWillNotKillAttacker(Card);
     }
 
-    public bool CanThisBeDestroyedByTopSpell()
-    {
-      if (TopSpell == null)
-        return false;
+    //public bool CanThisBeDestroyedByTopSpell()
+    //{
+    //  if (TopSpell == null)
+    //    return false;
 
-      if (!Card.CanBeDestroyed)
-        return false;
+    //  if (!Card.CanBeDestroyed)
+    //    return false;
 
-      if (TopSpell.HasCategory(EffectCategories.Destruction))
-      {
-        if (!TopSpell.HasTarget)
-          return true;
+    //  if (TopSpell.HasCategory(EffectCategories.Destruction))
+    //  {
+    //    if (!TopSpell.HasTargets)
+    //      return true;
 
-        return TopSpell.Target == Card;
-      }
+    //    return TopSpell.HasTarget(Card);
+    //  }
 
-      var damageDealing = TopSpell as IDamageDealing;
+    //  var damageDealing = TopSpell as IDamageDealing;
 
-      if (damageDealing == null)
-        return false;
+    //  if (damageDealing == null)
+    //    return false;
 
-      var damage = new Damage(TopSpell.Source.OwningCard, damageDealing.CreatureDamage(Card));
-      var dealtAmount = Card.CalculateDealtDamageAmount(damage);
+    //  var damage = new Damage(TopSpell.Source.OwningCard, damageDealing.CreatureDamage(Card));
+    //  var dealtAmount = Card.CalculateDealtDamageAmount(damage);
 
-      return damage.IsLeathal || Card.LifepointsLeft <= dealtAmount;
-    }
+    //  return damage.IsLeathal || Card.LifepointsLeft <= dealtAmount;
+    //}
 
     public bool CanThisBeDealtLeathalCombatDamage()
     {
@@ -69,10 +70,10 @@
       return TopSpell != null && TopSpell.HasCategory(effectCategories);
     }
 
-    public bool TopSpellCanAffectThis()
-    {
-      return TopSpell.Target == null || TopSpell.Target == Target || TopSpell.Target == Card;
-    }
+    //public bool TopSpellCanAffectThis()
+    //{
+    //  return !TopSpell.HasTargets || TopSpell.SharesAnyTarget(Targets) || TopSpell.HasTarget(Card);
+    //}
 
     public bool IsAttackerWithoutBlockersOrIsAttackerWithTrample(Card card)
     {

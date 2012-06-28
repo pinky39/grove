@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using Castle.DynamicProxy;
-
-namespace Grove.Infrastructure
+﻿namespace Grove.Infrastructure
 {
-  using Core.Triggers;
+  using System;
+  using System.Collections;
+  using System.Collections.Generic;
+  using System.Linq;
+  using System.Reflection;
+  using Castle.DynamicProxy;
 
   public class CopyService
   {
@@ -58,16 +56,34 @@ namespace Grove.Infrastructure
       return null;
     }
 
+    private object CopyDictionary(object obj)
+    {
+      var dic = obj as IDictionary;
+
+      if (dic != null)
+      {
+        var copy = (IDictionary) CreateCopy(obj);
+        foreach (DictionaryEntry item in dic)
+        {
+          var valueCopy = CopyInternal(item.Value);
+          var keyCopy = CopyInternal(item.Key);
+          copy.Add(keyCopy, valueCopy);
+        }
+        return copy;
+      }
+      return null;
+    }
+
     private object CopyAutomaticly(object original)
     {
       var type = original.GetType();
-            
+
       var copyHandler = Cache.GetCopyHandler(type);
 
       if (copyHandler != null)
       {
         Cache.AddCopyable(type);
-        
+
         var copy = CreateCopy(original);
         _identityMap.Add(original, copy);
 
@@ -83,7 +99,7 @@ namespace Grove.Infrastructure
       if (original is ICopyable)
       {
         Cache.AddCopyable(original.GetType());
-        
+
         var copy = (ICopyable) CreateCopy(original);
 
         _identityMap.Add(original, copy);
@@ -111,20 +127,21 @@ namespace Grove.Infrastructure
     private object CopyInternal(object obj)
     {
       if (obj == null)
-        return null;      
+        return null;
 
       return
-        GetCopyFromCache(obj) ??        
-        CopyCopyable(obj) ??
-        CopyCollection(obj) ??
-        obj;
+        GetCopyFromCache(obj) ??
+          CopyCopyable(obj) ??
+            CopyCollection(obj) ??
+              CopyDictionary(obj) ??
+                obj;
     }
 
     private object GetCopyFromCache(object obj)
-    {            
+    {
       if (!Cache.IsCopyable(obj.GetType()))
         return null;
-      
+
       object copy;
       if (_identityMap.TryGetValue(obj, out copy))
       {
@@ -162,7 +179,8 @@ namespace Grove.Infrastructure
             baseType.GetFields(bindingFlags)
               .Where(x => x.Name != "__interceptors")
               .Where(x => x.FieldType != typeof (EventHandler))
-              .Where(x => !(x.FieldType.IsGenericType && x.FieldType.GetGenericTypeDefinition() == typeof(EventHandler<>)))
+              .Where(
+                x => !(x.FieldType.IsGenericType && x.FieldType.GetGenericTypeDefinition() == typeof (EventHandler<>)))
               .Select(fieldInfo => new FieldDescriptor(fieldInfo)));
           baseType = baseType.BaseType;
         }
@@ -191,9 +209,9 @@ namespace Grove.Infrastructure
     {
       // no locking is needed this cache is never written to on multiple threads.
 
+      private readonly HashSet<Type> _copyableTypes = new HashSet<Type>();
       private readonly Dictionary<Type, ParameterlessCtor> _ctors = new Dictionary<Type, ParameterlessCtor>();
       private readonly Dictionary<Type, CopyHandler> _handlers = new Dictionary<Type, CopyHandler>();
-      private readonly HashSet<Type> _copyableTypes = new HashSet<Type>();
 
       public CopyHandler GetCopyHandler(Type type)
       {

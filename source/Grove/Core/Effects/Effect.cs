@@ -9,32 +9,33 @@
   [Copyable]
   public abstract class Effect : ITarget
   {
+    private readonly Targets _targets = new Targets();
+
     public Action<Effect> AfterResolve = delegate { };
     public Action<Effect> BeforeResolve = delegate { };
     private object _triggerContext;
     private bool _wasKickerPaid;
     public bool CanBeCountered { get; set; }
+    public Targets Targets { get { return _targets; } }
     public Player Controller { get { return Source.OwningCard.Controller; } }
     protected Decisions Decisions { get { return Game.Decisions; } }
     protected Game Game { get; set; }
-    public bool HasTarget { get { return Target != null; } }
     public Players Players { get { return Game.Players; } }
     public IEffectSource Source { get; set; }
-    public ITarget Target { get; set; }
-    public ITarget DamageSourceTarget { get; set; }
     public int? X { get; private set; }
     public virtual bool AffectsSelf { get { return false; } }
+    public ITarget Target { get { return Targets.Effect; } set { Targets.Effect = value; } }
 
     public int CalculateHash(HashCalculator calc)
     {
       return HashCalculator.Combine(
         GetType().GetHashCode(),
         calc.Calculate(Source),
-        calc.Calculate(Target),
+        calc.Calculate(_targets),
         CanBeCountered.GetHashCode(),
         _wasKickerPaid.GetHashCode(),
         X.GetHashCode());
-    }
+    }        
 
     public T Ctx<T>()
     {
@@ -56,9 +57,9 @@
       Source.EffectWasResolved();
     }
 
-    public bool IsTargetStillValid()
+    public bool HasEffectStillValidTargets()
     {
-      return Target == null || Source.IsTargetValid(Target);
+      return _targets.None() || Source.AreTargetsStillValid(_targets);
     }
 
     public override string ToString()
@@ -78,10 +79,10 @@
     public bool HasCategory(EffectCategories effectCategories)
     {
       return ((effectCategories & Source.EffectCategories) != EffectCategories.Generic);
-    }
+    }    
 
     [Copyable]
-    public class Factory<TEffect> : IEffectFactory, IHashable where TEffect : Effect, new()
+    public class Factory<TEffect> : IEffectFactory where TEffect : Effect, new()
     {
       public Initializer<TEffect> Init = delegate { };
       public Game Game { get; set; }

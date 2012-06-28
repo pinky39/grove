@@ -14,7 +14,7 @@
     IDecision CreateSacrificeCreatures(Player player, int count);
     IDecision CreateSelectStartingPlayer(Player player);
     IDecision CreateSetDamageAssignmentOrder(Player player, Attacker attacker);
-    IDecision CreateSetTriggeredAbilityTarget(Player player, Effect effect, TargetSelector targetSelector);
+    IDecision CreateSetTriggeredAbilityTarget(Player player, Effect effect, TargetSelectors targetSelectors);
     IDecision CreateTakeMulligan(Player player);
     IDecision CreateConsiderPayingLifeOrMana(Player player, string question, object ctx, PayLifeOrManaHandler handler, int? life, IManaAmount mana);    
   }

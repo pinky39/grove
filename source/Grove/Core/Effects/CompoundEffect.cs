@@ -13,11 +13,16 @@
 
     protected override void ResolveEffect()
     {
+      
       foreach (var effectFactory in _effectFactories)
       {
-        var effect = effectFactory.CreateEffect(Source, X);
-        effect.Target = Target;
-        effect.Resolve();
+        var effect = effectFactory.CreateEffect(Source, X);                
+        
+        // this should be changed if compund effect would ever need more 
+        // than one target
+        effect.Targets.Effect = Targets.Effect;
+        
+        effect.Resolve();                
       }
     }
   }

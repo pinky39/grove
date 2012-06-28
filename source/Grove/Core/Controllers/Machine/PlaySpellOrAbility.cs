@@ -70,7 +70,7 @@
             
       if (!Restrictions.IsPlayRestrictedFor(Player))
       {
-        foreach (var playable in new PlayableGenerator(Player, Game, Search.TargetLimit))
+        foreach (var playable in new PlayableGenerator(Player, Game))
         {
           yield return playable;
         }

@@ -9,6 +9,6 @@
     void EffectWasCountered();
     void EffectWasPushedOnStack();
     void EffectWasResolved();
-    bool IsTargetValid(ITarget target);
+    bool AreTargetsStillValid(Targets targets);
   }
 }

@@ -14,10 +14,12 @@
     private readonly Action<ITarget> _targetUnselected;
 
     public ViewModel(ITargetSelector targetSelector, bool canCancel) : this(targetSelector, canCancel, null) {}
-    public ViewModel(ITargetSelector targetSelector, bool canCancel, string instructions) : this(targetSelector, canCancel, instructions, null, null) {}
+
+    public ViewModel(ITargetSelector targetSelector, bool canCancel, string instructions)
+      : this(targetSelector, canCancel, instructions, null, null) {}
 
     public ViewModel(ITargetSelector targetSelector, bool canCancel, string instructions,
-      Action<ITarget> targetSelected, Action<ITarget> targetUnselected)
+                     Action<ITarget> targetSelected, Action<ITarget> targetUnselected)
     {
       TargetSelector = targetSelector;
       Instructions = instructions;
@@ -26,8 +28,14 @@
       _targetSelected = targetSelected ?? delegate { };
     }
 
-    private bool CanAutoComplete { get { return TargetSelector.MaxCount.HasValue && 
-      _selection.Count == TargetSelector.MaxCount; } }
+    private bool CanAutoComplete
+    {
+      get
+      {
+        return TargetSelector.MaxCount.HasValue &&
+          _selection.Count == TargetSelector.MaxCount;
+      }
+    }
 
     public string Instructions { get; private set; }
     private bool IsDone { get { return _selection.Count >= TargetSelector.MinCount; } }
@@ -76,13 +84,13 @@
     }
 
     public interface IFactory
-    {
+    {      
       ViewModel Create(
-        ITargetSelector targetSelector,
-        bool canCancel,
-        string instructions = null,
-        Action<ITarget> targetSelected = null,
-        Action<ITarget> targetUnselected = null);
+       ITargetSelector targetSelector,
+       bool canCancel,
+       string instructions = null,
+       Action<ITarget> targetSelected = null,
+       Action<ITarget> targetUnselected = null);
     }
   }
 }

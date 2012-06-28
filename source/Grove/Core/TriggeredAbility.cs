@@ -60,10 +60,10 @@ namespace Grove.Core
       
       var effect = EffectFactory.CreateEffect(this, triggerContext: context);      
       
-      if (NeedsTarget)
+      if (TargetSelectors.NeedsTargets)
       {
         _decisions.EnqueueSetTriggeredAbilityTarget(
-          OwningCard.Controller, effect, TargetSelector);
+          OwningCard.Controller, effect, TargetSelectors);
 
         return;
       }

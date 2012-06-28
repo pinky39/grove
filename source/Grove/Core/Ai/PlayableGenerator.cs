@@ -6,19 +6,14 @@
 
   public class PlayableGenerator : IEnumerable<Playable>
   {
-    private const int Unlimited = 50;
     private readonly Game _game;
-    private readonly int _maxTargets;
 
     private readonly Player _player;
-    private readonly Players _players;
 
-    public PlayableGenerator(Player player, Game game, int maxTargets = Unlimited)
+    public PlayableGenerator(Player player, Game game)
     {
       _player = player;
-      _players = game.Players;
       _game = game;
-      _maxTargets = maxTargets;
     }
 
     public IEnumerator<Playable> GetEnumerator()
@@ -51,23 +46,17 @@
           if (!prerequisites.CanBeSatisfied)
             continue;
 
-          var activationGenerator = new ActivationGenerator(
-            card, prerequisites, _players, _game.Stack);
-
-          var count = 0;
-          var maxCount = prerequisites.CanCastWithKicker ? _maxTargets*2 : _maxTargets;
+          var activationGenerator = new ActivationGenerator(card, prerequisites, _game);
 
           foreach (var activationParameters in activationGenerator)
           {
-            if (
-              !prerequisites.Timming(new TimingParameters(_game, card, activationParameters, prerequisites.TargetsSelf)))
-              continue;
+            var timingParameters = new TimingParameters(
+              _game, card, activationParameters, prerequisites.TargetsSelf);
 
-            yield return new Ability(card, activationParameters, abilityIndex);
-            count++;
-
-            if (count >= maxCount)
-              break;
+            if (prerequisites.Timming(timingParameters))
+            {
+              yield return new Ability(card, activationParameters, abilityIndex);
+            }
           }
         }
       }
@@ -86,21 +75,16 @@
           continue;
 
         var activationGenerator = new ActivationGenerator(
-          card, prerequisites, _players, _game.Stack);
+          card, prerequisites, _game);
 
-
-        var count = 0;
-        var maxCount = prerequisites.CanCastWithKicker ? _maxTargets*2 : _maxTargets;
         foreach (var activationParameters in activationGenerator)
         {
-          if (!prerequisites.Timming(new TimingParameters(_game, card, activationParameters, prerequisites.TargetsSelf)))
-            continue;
+          var timingParameters = new TimingParameters(_game, card, activationParameters, prerequisites.TargetsSelf);
 
-          yield return new Spell(card, activationParameters);
-          count++;
-
-          if (count >= maxCount)
-            break;
+          if (prerequisites.Timming(timingParameters))
+          {
+            yield return new Spell(card, activationParameters);
+          }
         }
       }
     }

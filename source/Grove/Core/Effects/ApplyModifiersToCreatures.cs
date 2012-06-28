@@ -17,7 +17,7 @@
 
     protected override void ResolveEffect()
     {            
-      if (HasTarget)
+      if (Targets.Any())
       {
         ApplyModifierToPlayersCreatures(Target.Player());
         return;

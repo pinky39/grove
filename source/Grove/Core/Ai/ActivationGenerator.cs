@@ -1,62 +1,20 @@
 ﻿namespace Grove.Core.Ai
 {
-  using System;
   using System.Collections;
   using System.Collections.Generic;
+  using System.Linq;
 
   public class ActivationGenerator : IEnumerable<ActivationParameters>
   {
-    private readonly List<ITarget> _costTargets = new List<ITarget>();
-    private readonly List<ITarget> _effectTargets = new List<ITarget>();
-    private readonly List<ITarget> _kickerEffectTargets = new List<ITarget>();
-    private readonly List<ITarget> _damageSourceTargets = new List<ITarget>();
-    private readonly Card _spell;
+    private readonly Game _game;
     private readonly SpellPrerequisites _prerequisites;
-    private readonly Players _players;
+    private readonly Card _spell;
 
-    public ActivationGenerator(Card spell, SpellPrerequisites prerequisites, Players players, Zones.Stack stack)
+    public ActivationGenerator(Card spell, SpellPrerequisites prerequisites, Game game)
     {
       _spell = spell;
       _prerequisites = prerequisites;
-      _players = players;
-
-      if (prerequisites.NeedsCostTargets)
-      {
-        _costTargets.AddRange(new TargetGenerator(
-          prerequisites.CostTargetSelector,
-          players,
-          stack,
-          prerequisites.MaxX));
-      }
-
-      if (prerequisites.NeedsEffectTargets)
-      {
-        _effectTargets.AddRange(new TargetGenerator(
-          prerequisites.EffectTargetSelector,
-          players,
-          stack,
-          prerequisites.MaxX));
-      }
-
-      if (prerequisites.NeedsKickerEffectTargets)
-      {
-        _kickerEffectTargets.AddRange(new TargetGenerator(
-          prerequisites.KickerTargetSelector,
-          players,
-          stack,
-          prerequisites.MaxX)
-          );
-      }
-
-      if (prerequisites.NeedsDamageSourceTargets)
-      {
-        _damageSourceTargets.AddRange(new TargetGenerator(
-          prerequisites.DamageSourceSelector,
-          players,
-          stack,
-          prerequisites.MaxX)
-          );                
-      }
+      _game = game;
     }
 
     IEnumerator IEnumerable.GetEnumerator()
@@ -66,99 +24,67 @@
 
     public IEnumerator<ActivationParameters> GetEnumerator()
     {
-      return GenerateActivations().GetEnumerator();
+      return GenerateActivations().Where(AreValid).GetEnumerator();
     }
 
-    private IEnumerable<Func<ActivationParameters>> ActivationsWithCostTargets()
+    private bool AreValid(ActivationParameters parameters)
     {
-      foreach (var costTarget in _costTargets)
-      {
-        var target = costTarget;
-
-        yield return () => new ActivationParameters{
-          CostTarget = target
-        };
-
-        if (_prerequisites.CanCastWithKicker)
-          yield return () => new ActivationParameters{
-            PayKicker = true,
-            CostTarget = target
-          };
-      }
+      return parameters.X <= _prerequisites.MaxX;
     }
-
-    private IEnumerable<Func<ActivationParameters>> ActivationsWithoutCostTargets()
-    {
-      yield return () => new ActivationParameters();
-
-      if (_prerequisites.CanCastWithKicker)
-        yield return () => new ActivationParameters{
-          PayKicker = true
-        };
-    }
-
 
     private IEnumerable<ActivationParameters> GenerateActivations()
     {
-      foreach (var factory in GetAllPossibleActivationCosts())
+      if (_prerequisites.TargetSelectors.NeedsTargets)
       {
-        var activation = factory();
+        var generator = new TargetGenerator(
+          _prerequisites.TargetSelectors,
+          _game,
+          _prerequisites.MaxX);
 
-        var targets = activation.PayKicker
-          ? _kickerEffectTargets
-          : _effectTargets;
 
-        var needsTargets = activation.PayKicker
-          ? _prerequisites.NeedsKickerEffectTargets
-          : _prerequisites.NeedsEffectTargets;
-
-        if (needsTargets && targets.Count == 0)
-          continue;
-
-        if (targets.Count == 0)
+        foreach (var targets in generator.Take(Search.TargetLimit))
         {
-          if (_prerequisites.HasXInCost)
+          if (_prerequisites.CanCastWithKicker)
           {
-            activation.X = GetX();
-
-            if (activation.X > _prerequisites.MaxX)
-              continue;
+            yield return new ActivationParameters
+              (
+              payKicker: true,
+              targets: targets,
+              x: CalculateX(targets)
+              );
           }
 
-          yield return activation;
-          continue;
+          yield return new ActivationParameters
+            (
+            targets: targets,
+            x: CalculateX(targets)
+            );
         }
-        
-        // since only spells with one target are 
-        // allowed each target represents another combination
-        foreach (var effectTarget in targets)
-        {
-          if (_prerequisites.HasXInCost)
-          {
-            activation.X = GetX(effectTarget);
 
-            if (activation.X > _prerequisites.MaxX)
-              continue;
-          }
-
-          activation.Target = effectTarget;
-          yield return activation;
-
-          activation = factory();
-        }
+        yield break;
       }
+
+      if (_prerequisites.CanCastWithKicker)
+      {
+        yield return new ActivationParameters
+          (
+          payKicker: true,
+          x: CalculateX()
+          );
+      }
+
+      yield return new ActivationParameters
+        (
+        x: CalculateX()
+        );
     }
 
-    private IEnumerable<Func<ActivationParameters>> GetAllPossibleActivationCosts()
+    private int? CalculateX(Targets targets = null)
     {
-      return _costTargets.Count > 0
-        ? ActivationsWithCostTargets()
-        : ActivationsWithoutCostTargets();
-    }
-
-    private int GetX(ITarget target = null)
-    {
-      return _prerequisites.XCalculator(_players, _spell, target);
+      return
+        _prerequisites.XCalculator != null
+          ? _prerequisites.XCalculator(new XCalculatorParameters(_spell, targets, _game))
+          : (int?) null;
     }
   }
 }

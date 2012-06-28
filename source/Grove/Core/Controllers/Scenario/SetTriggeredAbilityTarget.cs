@@ -9,7 +9,7 @@
       get
       {
         return new SetTriggeredAbilityTarget{
-          Result = new ChosenTarget(null)
+          Result = new ChosenTargets(null)
         };
       }
     }

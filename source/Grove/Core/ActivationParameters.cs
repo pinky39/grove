@@ -5,16 +5,21 @@
   [Copyable]
   public class ActivationParameters
   {
-    public ITarget CostTarget { get; set; }
-    public ITarget Target { get; set; }
-    public ITarget DamageSourceTarget { get; set; }
+    private readonly Targets _targets;
 
-    public static ActivationParameters Default
+    public ActivationParameters(Targets targets = null, bool payKicker = false, int? x = null)
     {
-      get { return new ActivationParameters(); }
+      _targets = targets ?? new Targets();
+      PayKicker = payKicker;
+      X = x;
     }
-    
-    public bool PayKicker { get; set; }
-    public int? X { get; set; }
+
+    private ActivationParameters() {}
+
+    public Targets Targets { get { return _targets; } }
+    public static ActivationParameters Default { get { return new ActivationParameters(); } }
+
+    public bool PayKicker { get; private set; }
+    public int? X { get; private set; }
   }
 }

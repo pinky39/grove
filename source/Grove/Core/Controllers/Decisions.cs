@@ -106,10 +106,10 @@
       Enqueue(decision);
     }
 
-    public void EnqueueSetTriggeredAbilityTarget(Player player, Effect effect, TargetSelector targetSelector)
+    public void EnqueueSetTriggeredAbilityTarget(Player player, Effect effect, TargetSelectors targetSelectors)
     {
       var decision = SelectDecisionFactory(player)
-        .CreateSetTriggeredAbilityTarget(player, effect, targetSelector);
+        .CreateSetTriggeredAbilityTarget(player, effect, targetSelectors);
 
       Enqueue(decision);
     }

@@ -20,8 +20,10 @@
 
     private Action _select = delegate { };
 
-    public ViewModel(Card card, IShell shell, Publisher publisher, SelectAbility.ViewModel.IFactory selectAbilityVmFactory,
-      SelectXCost.ViewModel.IFactory selectXCostVmFactory, SelectTarget.ViewModel.IFactory selectTargetVmFactory, CombatMarkers combatMarkers)
+    public ViewModel(Card card, IShell shell, Publisher publisher,
+                     SelectAbility.ViewModel.IFactory selectAbilityVmFactory,
+                     SelectXCost.ViewModel.IFactory selectXCostVmFactory,
+                     SelectTarget.ViewModel.IFactory selectTargetVmFactory, CombatMarkers combatMarkers)
     {
       _shell = shell;
       _publisher = publisher;
@@ -120,7 +122,7 @@
           {
             _select = Activate;
 
-            IsPlayable = Card.Controller.HasPriority ? Card.CanActivateAbilities()
+            IsPlayable = Card.Controller.IsHuman ? Card.CanActivateAbilities()
               .Any(x => x.CanBeSatisfied) : false;
 
             break;
@@ -142,9 +144,10 @@
 
     public void ChangePlayersInterest()
     {
-      _publisher.Publish(new PlayersInterestChanged{
-        Visual = Card
-      });
+      _publisher.Publish(new PlayersInterestChanged
+        {
+          Visual = Card
+        });
     }
 
     public virtual void Close()
@@ -159,76 +162,93 @@
 
     private void Activate()
     {
-      if (!Card.Controller.IsHuman)
+      if (IsPlayable)
         return;
 
-      var prerequisites = Card
-        .CanActivateAbilities()
-        .ToList();
+      int? x = null;
+      var targets = new Targets();
+      SpellPrerequisites selected = null;
+      var index = 0;
 
-      if (prerequisites.None(x => x.CanBeSatisfied))
+      var sucess =
+        SelectAbility(out selected, out index) &&
+          SelectX(selected, out x) &&
+            SelectTargets(selected, targets);
+
+      if (!sucess)
         return;
 
-      var selectedIndex = 0;
+      var activation = new ActivationParameters(targets, x: x);
+      var ability = new Core.Controllers.Results.Ability(Card, activation, index);
 
-      if (prerequisites.Count(x => x.CanBeSatisfied) > 1)
+      _publisher.Publish(new PlayableSelected
+        {
+          Playable = ability
+        });
+    }
+
+    private bool SelectAbility(out SpellPrerequisites selected, out int index)
+    {
+      var prerequisites = Card.CanActivateAbilities().ToList();
+
+      index = 0;
+      selected = prerequisites[index];
+
+      if (prerequisites.Count(p => p.CanBeSatisfied) > 1)
       {
         var dialog = _selectAbilityVmFactory.Create(prerequisites);
         _shell.ShowModalDialog(dialog, DialogType.Large, SelectionMode.Disabled);
 
         if (dialog.WasCanceled)
-          return;
+          return false;
 
-        selectedIndex = prerequisites.IndexOf(dialog.Selected);
+        selected = dialog.Selected;
+        index = prerequisites.IndexOf(selected);
       }
 
-      var activation = new ActivationParameters();
-      var abilityPrerequisites = prerequisites[selectedIndex];
+      return true;
+    }
 
-      if (abilityPrerequisites.HasXInCost)
+    private bool SelectTargets(SpellPrerequisites prerequisites, Targets targets)
+    {
+      foreach (var selector in prerequisites.TargetSelectors)
+      {        
+        var dialog = _selectTargetVmFactory.Create(selector.Value, canCancel: true,
+          instructions: "(Press Esc to cancel.)");
+        
+        _shell.ShowModalDialog(dialog, DialogType.Small, SelectionMode.SelectTarget);
+
+        if (dialog.WasCanceled)
+          return false;
+
+        targets[selector.Key] = dialog.Selection[0];
+      }
+
+      return true;      
+    }
+
+    private bool SelectX(SpellPrerequisites prerequisites, out int? x)
+    {
+      x = null;
+
+      if (prerequisites.HasXInCost)
       {
-        var dialog = _selectXCostVmFactory.Create(abilityPrerequisites.MaxX.Value);
+        var dialog = _selectXCostVmFactory.Create(prerequisites.MaxX.Value);
         _shell.ShowModalDialog(dialog, DialogType.Small, SelectionMode.Disabled);
 
         if (dialog.WasCanceled)
-          return;
+          return false;
 
-        activation.X = dialog.ChosenX;
+        x = dialog.ChosenX;
       }
 
-      if (abilityPrerequisites.NeedsEffectTargets)
-      {
-        var dialog = _selectTargetVmFactory.Create(abilityPrerequisites.EffectTargetSelector, canCancel: true, instructions: "(Press Esc to cancel.)");
-        _shell.ShowModalDialog(dialog, DialogType.Small, SelectionMode.SelectTarget);
-
-        if (dialog.WasCanceled)
-          return;
-
-        activation.Target = dialog.Selection.Single();
-      }
-
-      if (abilityPrerequisites.NeedsCostTargets)
-      {
-        var dialog = _selectTargetVmFactory.Create(abilityPrerequisites.CostTargetSelector, canCancel: true, instructions: "(Press Esc to cancel.)");
-        _shell.ShowModalDialog(dialog, DialogType.Small, SelectionMode.SelectTarget);
-
-        if (dialog.WasCanceled)
-          return;
-
-        activation.CostTarget = dialog.Selection.Single();
-      }
-
-      var playable = new Core.Controllers.Results.Ability(Card, activation, selectedIndex);
-
-      _publisher.Publish(new PlayableSelected{
-        Playable = playable
-      });
+      return true;
     }
 
     private void MarkAsTarget()
     {
       _publisher.Publish(
-        new TargetSelected{Target = Card});
+        new TargetSelected {Target = Card});
     }
 
     public interface IFactory

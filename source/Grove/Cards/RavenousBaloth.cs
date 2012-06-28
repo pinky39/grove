@@ -23,9 +23,11 @@
         .Abilities(
           C.ActivatedAbility(
             "Sacrifice a Beast: You gain 4 life.",
-            C.Cost<SacrificePermanent>((cost, c) => cost.SetTargetSelector(
-              c.Selector((target, baloth) => target.Is().OfType("beast") && target.Card().Controller == baloth.Controller))),
+            C.Cost<SacrificePermanent>(),
             C.Effect<GainLife>((e, _) => e.SetAmount(4)),
+            costSelector:
+              C.Selector(
+                (target, baloth) => target.Is().OfType("beast") && target.Card().Controller == baloth.Controller),
             timing: Any(
               Timings.ResponseToSpellLeathalDamage(),
               Timings.ResponseToSpellDestruction(),

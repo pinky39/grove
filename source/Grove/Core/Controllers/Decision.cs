@@ -7,7 +7,7 @@
   {
     private bool _hasCompleted;
 
-    public Player Player { get; set; }
+    public Player Player { get; set; }    
     public TResult Result { get; set; }
     protected virtual bool ShouldExecuteQuery { get { return true; } }
     public virtual bool HasCompleted { get { return _hasCompleted; } }

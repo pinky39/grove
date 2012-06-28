@@ -4,15 +4,22 @@
   using Results;
   using Zones;
 
-  public abstract class SetTriggeredAbilityTarget : Decision<ChosenTarget>
+  public abstract class SetTriggeredAbilityTarget : Decision<ChosenTargets>
   {        
     public Effect Effect { get; set; }
     public Stack Stack { get; set; }
-    public TargetSelector TargetSelector { get; set; }
+    public TargetSelectors TargetSelectors { get; set; }
 
     public override void ProcessResults()
     {
-      Effect.Target = Result.Target;            
+      if (Result.Targets == null) 
+        return;
+      
+      foreach (var target in Result.Targets)
+      {
+        Effect.Targets[target.Key]  = target.Value;
+      }                        
+        
       Stack.Push(Effect);
     }   
   }

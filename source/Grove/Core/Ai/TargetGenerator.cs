@@ -4,17 +4,28 @@
   using System.Collections.Generic;
   using System.Linq;
 
-  public class TargetGenerator : IEnumerable<ITarget>
+  public class TargetGenerator : IEnumerable<Targets>
   {    
-    private readonly List<ITarget> _targets;
+    private readonly bool _forceOne;
+    private readonly Game _game;
+    private readonly int? _maxX;
+    private readonly TargetSelectors _selectors;
 
-    public TargetGenerator(TargetSelector selector, Players players, Zones.Stack stack, int? maxX,
-                           bool forcePickIfAnyValid = false)
-    {      
-      _targets = GetValidTargets(selector, players, stack, maxX, forcePickIfAnyValid);
+    private readonly List<Targets> _targets;
+
+    public TargetGenerator(TargetSelectors selectors, Game game,
+                           int? maxX, bool forceOne = false)
+    {
+      _selectors = selectors;
+      
+      _game = game;
+      _maxX = maxX;
+      _forceOne = forceOne;
+
+      _targets = GetValidTargets();
     }
 
-    public IEnumerator<ITarget> GetEnumerator()
+    public IEnumerator<Targets> GetEnumerator()
     {
       return _targets.GetEnumerator();
     }
@@ -24,45 +35,23 @@
       return GetEnumerator();
     }
 
-    private static List<ITarget> GetValidTargets(TargetSelector specification, Players players, 
-      Zones.Stack stack, int? maxX, bool forcePickIfAnyValid)
+    private IEnumerable<ITarget> GenerateTargets()
     {
-      IEnumerable<TargetCandidate> selected;
-
-      var all =
-        players.SelectMany(player => player.GetTargets(specification)).Concat(
-          stack.Where(specification.IsValid))
-          .Select(target =>
-            new TargetCandidate
-              {
-                Target = target,
-                Score = specification.CalculateScore(target, maxX)
-              })
-          .ToList();
-
-      var accepted = all.Where(x => x.Score != WellKnownTargetScores.NotAccepted);
-
-      if (accepted.Count() == 0 && forcePickIfAnyValid)
+      foreach (var target in _game.Players.SelectMany(p => p.GetTargets()))
       {
-        // if there are no targets with good scores select
-        // all
-        selected = all;
-      }
-      else
-      {
-        selected = accepted
-          .OrderByDescending(x => x.Score);
+        yield return target;
       }
 
-      return selected        
-        .Select(x => x.Target)
-        .ToList();
+      foreach (var target in _game.Stack)
+      {
+        yield return target;
+      }
     }
 
-    private class TargetCandidate
+    private List<Targets> GetValidTargets()
     {
-      public int Score { get; set; }
-      public ITarget Target { get; set; }
+      var candidates = _selectors.GenerateCandidates(GenerateTargets);
+      return _selectors.Filter(new TargetPickerParameters(candidates, _maxX, _forceOne, _game));
     }
   }
 }

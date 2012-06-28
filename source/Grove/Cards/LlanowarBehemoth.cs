@@ -24,17 +24,18 @@
         .Abilities(
           C.ActivatedAbility(
             "Tap an untapped creature you control: Llanowar Behemoth gets +1/+1 until end of turn.",
-            C.Cost<TapCreature>((cost, c) => cost.SetTargetSelector(c.Selector(
-              validator: (target, self) =>
-                target.Is().Creature && target.Card().CanBeTapped &&
-                  target.Card().Controller == self.Controller,
-              scorer: TargetScores.LessValuableCardsScoreMore()))),
+            C.Cost<TapCreature>(),
             C.Effect<ApplyModifiersToSelf>((e, c) => e.Modifiers(
               c.Modifier<AddPowerAndToughness>((m, _) =>
                 {
                   m.Power = 1;
                   m.Toughness = 1;
                 }, untilEndOfTurn: true))),
+            costSelector: C.Selector(
+              validator: (target, self) =>
+                target.Is().Creature && target.Card().CanBeTapped &&
+                  target.Card().Controller == self.Controller,
+              scorer: TargetScores.LessValuableCardsScoreMore()),
             category: EffectCategories.ToughnessIncrease,
             timing: Any(
               Timings.PowerUp(),

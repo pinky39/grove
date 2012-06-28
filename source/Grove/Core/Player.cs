@@ -186,7 +186,7 @@
       PublishMessage(new PlayerHasCastASpell
         {
           Spell = spell,
-          Target = activationParameters.Target
+          Target = activationParameters.Targets.Effect
         });
     }
 
@@ -272,12 +272,11 @@
     }
 
 
-    public IEnumerable<ITarget> GetTargets(TargetSelector specification)
-    {
-      if (specification.IsValid(this))
-        yield return this;
+    public IEnumerable<ITarget> GetTargets()
+    {      
+      yield return this;
 
-      foreach (Card card in Battlefield.Where(specification.IsValid))
+      foreach (var card in Battlefield)
       {
         yield return card;
       }

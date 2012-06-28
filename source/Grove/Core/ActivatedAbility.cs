@@ -16,8 +16,7 @@
       UsesStack = true;
     }
 
-    public bool ActivateOnlyAsSorcery { get; set; }
-    public TargetSelector DamageSourceSelector { get; set; }
+    public bool ActivateOnlyAsSorcery { get; set; }    
     public bool TargetsSelf { get; set; }
     protected Cost Cost { get; private set; }
 
@@ -37,15 +36,15 @@
 
     public void Activate(ActivationParameters activation)
     {
-      Cost.Pay(activation.CostTarget, activation.X);
+      Cost.Pay(activation.Targets.Cost, activation.X);
 
       var effect = EffectFactory.CreateEffect(this, activation.X);
-      effect.Target = activation.Target;
-      effect.DamageSourceTarget = activation.DamageSourceTarget;
-
+      effect.Target = activation.Targets.Effect;
+      effect.Targets.AddAdditionalEffectTargets(activation.Targets);
+            
       Publisher.Publish(new PlayerHasActivatedAbility{
         Ability = this,
-        Target = activation.Target
+        Target = activation.Targets.Effect
       });
 
       if (UsesStack)
@@ -73,10 +72,8 @@
       return canActivate
         ? new SpellPrerequisites{          
           CanBeSatisfied = true,
-          Description = Text,          
-          EffectTargetSelector = TargetSelector,
-          CostTargetSelector = Cost.TargetSelector,
-          DamageSourceSelector = DamageSourceSelector,
+          Description = Text,    
+          TargetSelectors = TargetSelectors,                
           XCalculator = Cost.XCalculator,
           MaxX = maxX,
           Timming = _timming,

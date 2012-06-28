@@ -14,15 +14,15 @@
     {
       yield return C.Card
         .Named("Martial Coup")
-        .ManaCost("{W}{W}").XCalculator((players, source, _) =>
+        .ManaCost("{W}{W}").XCalculator(p =>
           {
-            var you = source.Controller;
-            var maxX = you.ConvertedMana - source.ManaCost.Converted;
+            var you = p.Controller;
+            var maxX = you.ConvertedMana - p.Source.ManaCost.Converted;
 
             if (maxX >= 5)
             {
               var yourScore = you.Battlefield.Creatures.Sum(x => x.Score);
-              var opponentScore = players.GetOpponent(you).Battlefield.Creatures.Sum(x => x.Score);
+              var opponentScore = p.Opponent.Battlefield.Creatures.Sum(x => x.Score);
 
               return opponentScore >= yourScore ? maxX : 4;
             }
@@ -49,7 +49,7 @@
             e.BeforeResolve = (e1) =>
               {
                 if (e1.X >= 5)
-                {                  
+                {
                   e.Players.DestroyPermanents(
                     (permanent) => permanent.Is().Creature);
                 }

@@ -1,7 +1,6 @@
 ﻿namespace Grove.Ui.Spell
 {
   using System;
-  using System.Linq;
   using System.Windows;
   using Core;
   using Core.Controllers.Results;
@@ -43,7 +42,7 @@
       {
         case (SelectionMode.Play):
           _select = Activate;
-          IsPlayable = Card.Controller.HasPriority
+          IsPlayable = Card.Controller.IsHuman
             ? Card.CanCast().CanBeSatisfied || Card.CanCycle().CanBeSatisfied : false;
           break;
 
@@ -72,41 +71,95 @@
       _select();
     }
 
-    private SpellPrerequisites SelectActivation()
+    private bool SelectActivation(out bool isCast, out SpellPrerequisites prerequisites)
     {
-      var prerequisites = new[] {Card.CanCast(), Card.CanCycle()};
-      var canActivateCount = prerequisites.Count(x => x.CanBeSatisfied);
+      isCast = false;
+      prerequisites = null;
 
-      switch (canActivateCount)
+      var cast = Card.CanCast();
+      var cycle = Card.CanCycle();
+
+      if (cast.CanBeSatisfied && cycle.CanBeSatisfied)
       {
-        case (0):
-          return null;
-        case (1):
-          return prerequisites.First(x => x.CanBeSatisfied);
-        default:
-          {
-            prerequisites[0].Description = String.Format("Cast {0}.", Card);
-            prerequisites[1].Description = String.Format("{{{0}}}, Discard this card: Draw a card.)", Card.CyclingCost);
+        cast.Description = String.Format("Cast {0}.", Card);
+        cycle.Description = String.Format("{{{0}}}, Discard this card: Draw a card.)", Card.CyclingCost);
 
-            var dialog = _selectAbilityVmFactory.Create(prerequisites);
-            _shell.ShowModalDialog(dialog, DialogType.Large, SelectionMode.Disabled);
+        var dialog = _selectAbilityVmFactory.Create(new[] {cast, cycle});
+        _shell.ShowModalDialog(dialog, DialogType.Large, SelectionMode.Disabled);
 
-            return dialog.WasCanceled ? null : dialog.Selected;
-          }
+        if (dialog.WasCanceled)
+          return false;
+
+        if (dialog.Selected == cast)
+        {
+          isCast = true;
+          prerequisites = cast;
+          return true;
+        }
+
+        prerequisites = cycle;
+        return true;
       }
+
+      if (cast.CanBeSatisfied)
+      {
+        isCast = true;
+        prerequisites = cast;
+        return true;
+      }
+
+      prerequisites = cycle;
+      return true;
     }
 
     private void Activate()
     {
-      var prerequisites = SelectActivation();
-
-      if (prerequisites == null)
+      if (!IsPlayable)
         return;
 
-      var activation = new ActivationParameters();
+      bool isCast;
+      int? x = null;
+      SpellPrerequisites prerequisites;
+      var targets = new Targets();
+      var payKicker = false;
 
-      if (prerequisites.CanCastWithKicker)
-        activation.PayKicker = PayKicker();
+      var success =
+        SelectActivation(out isCast, out prerequisites) &&
+          PayKicker(prerequisites, out payKicker) &&
+            SelectX(prerequisites, out x) &&
+              SelectTargets(prerequisites, targets);
+
+      if (!success)
+        return;
+
+      var playable = isCast
+        ? (Playable) new Spell(Card, new ActivationParameters(targets, payKicker, x))
+        : new Cyclable(Card);
+
+      _publisher.Publish(new PlayableSelected {Playable = playable});
+    }
+
+    private bool SelectTargets(SpellPrerequisites prerequisites, Targets targets)
+    {
+      foreach (var selector in prerequisites.TargetSelectors)
+      {
+        var dialog = _selectTargetVmFactory.Create(selector.Value, canCancel: true,
+          instructions: "(Press Esc to cancel.)");
+
+        _shell.ShowModalDialog(dialog, DialogType.Small, SelectionMode.SelectTarget);
+
+        if (dialog.WasCanceled)
+          return false;
+
+        targets[selector.Key] = dialog.Selection[0];
+      }
+
+      return true;
+    }
+
+    private bool SelectX(SpellPrerequisites prerequisites, out int? x)
+    {
+      x = null;
 
       if (prerequisites.HasXInCost)
       {
@@ -114,36 +167,12 @@
         _shell.ShowModalDialog(dialog, DialogType.Small, SelectionMode.Disabled);
 
         if (dialog.WasCanceled)
-          return;
+          return false;
 
-        activation.X = dialog.ChosenX;
+        x = dialog.ChosenX;
       }
 
-      var needsTargets = activation.PayKicker
-        ? prerequisites.NeedsKickerEffectTargets
-        : prerequisites.NeedsEffectTargets;
-
-      if (needsTargets)
-      {
-        ITargetSelector selector = activation.PayKicker
-          ? prerequisites.KickerTargetSelector
-          : prerequisites.EffectTargetSelector;
-
-        var dialog = _selectTargetVmFactory.Create(
-          selector,
-          canCancel: true,
-          instructions: "(Press Esc to cancel.)");
-
-        _shell.ShowModalDialog(dialog, DialogType.Small, SelectionMode.SelectTarget);
-
-        if (dialog.WasCanceled)
-          return;
-
-        activation.Target = dialog.Selection.Single();
-      }
-
-      var spell = new Spell(Card, activation);
-      _publisher.Publish(new PlayableSelected {Playable = spell});
+      return true;
     }
 
     private void MarkAsTarget()
@@ -151,14 +180,21 @@
       _publisher.Publish(new TargetSelected {Target = Card});
     }
 
-    private bool PayKicker()
+    private bool PayKicker(SpellPrerequisites prerequisites, out bool payKicker)
     {
-      var result = _shell.ShowMessageBox(
-        message: "Do you want to pay the kicker?",
-        buttons: MessageBoxButton.YesNo,
-        type: DialogType.Small);
+      payKicker = false;
 
-      return result == MessageBoxResult.Yes;
+      if (prerequisites.CanCastWithKicker)
+      {
+        var result = _shell.ShowMessageBox(
+          message: "Do you want to pay the kicker?",
+          buttons: MessageBoxButton.YesNo,
+          type: DialogType.Small);
+
+        payKicker = result == MessageBoxResult.Yes;
+      }
+
+      return true;
     }
 
     public interface IFactory

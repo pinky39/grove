@@ -28,7 +28,7 @@
               c.Modifier<AddStaticAbility>((m, _) => m.StaticAbility = StaticAbility.Deathtouch),
               c.Modifier<AddStaticAbility>((m, _) => m.StaticAbility = StaticAbility.Lifelink)
               )),
-            selector: C.Selector(Validator.Equipment()),
+            effectSelector: C.Selector(Validator.Equipment()),
             timing: Timings.AttachEquipment(),
             activateAsSorcery: true));
     }

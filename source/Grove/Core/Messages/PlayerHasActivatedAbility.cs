@@ -8,6 +8,6 @@
     }
 
     public ActivatedAbility Ability { get; set; }
-    public object Target { get; set; }
+    public ITarget Target { get; set; }
   }
 }

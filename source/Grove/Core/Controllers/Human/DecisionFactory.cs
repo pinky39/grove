@@ -129,13 +129,13 @@
         };
     }
 
-    public IDecision CreateSetTriggeredAbilityTarget(Player player, Effect effect, TargetSelector targetSelector)
+    public IDecision CreateSetTriggeredAbilityTarget(Player player, Effect effect, TargetSelectors targetSelectors)
     {
       return new SetTriggeredAbilityTarget
         {
           Player = player,
           Effect = effect,
-          TargetSelector = targetSelector,
+          TargetSelectors = targetSelectors,
           DialogFactory = _selectTargetVmFactory,
           Shell = _shell,
           Stack = _game.Stack

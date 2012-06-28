@@ -12,10 +12,17 @@
 
     protected override void ExecuteQuery()
     {
-      var dialog = DialogFactory.Create(TargetSelector, canCancel: false);
-      Shell.ShowModalDialog(dialog, DialogType.Small, SelectionMode.SelectTarget);
+      var targets = new Targets();
 
-      Result = new ChosenTarget(dialog.Selection[0]);
+      foreach (var selector in TargetSelectors)
+      {
+        var dialog = DialogFactory.Create(selector.Value, canCancel: false);
+        Shell.ShowModalDialog(dialog, DialogType.Small, SelectionMode.SelectTarget);
+
+        targets[selector.Key] = dialog.Selection[0];
+      }
+                  
+      Result = new ChosenTargets(targets);
     }
   }
 }

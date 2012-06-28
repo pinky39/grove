@@ -26,7 +26,8 @@
       string text,
       ICostFactory cost,
       IEffectFactory effect,
-      ITargetSelectorFactory selector = null,
+      ITargetSelectorFactory effectSelector = null,
+      ITargetSelectorFactory costSelector = null,
       bool activateAsSorcery = false,
       EffectCategories category = EffectCategories.Generic,
       TimingDelegate timing = null)
@@ -43,8 +44,11 @@
               self.Effect(effect);
               self.ActivateOnlyAsSorcery = activateAsSorcery;
 
-              if (selector != null)
-                self.SetTargetSelector(selector);
+              if (effectSelector != null)
+                self.SetEffectSelector(effectSelector);
+
+              if (costSelector != null)
+                self.SetCostSelector(costSelector);
             }
         };
     }
@@ -235,7 +239,7 @@
               self.EffectCategories = category;
               self.TriggerOnlyIfOwningCardIsInPlay = triggerOnlyIfOwningCardIsInPlay;
               if (targetSelector != null)
-                self.SetTargetSelector(targetSelector);
+                self.SetEffectSelector(targetSelector);
             }
         };
     }
@@ -259,7 +263,7 @@
               self.EffectCategories = category;
               self.TriggerOnlyIfOwningCardIsInPlay = triggerOnlyIfOwningCardIsInPlay;
               if (targetSelector != null)
-                self.SetTargetSelector(targetSelector);
+                self.SetEffectSelector(targetSelector);
             }
         };
     }

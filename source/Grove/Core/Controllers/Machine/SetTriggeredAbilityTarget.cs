@@ -9,7 +9,7 @@
   public class SetTriggeredAbilityTarget : Controllers.SetTriggeredAbilityTarget, ISearchNode, IDecisionExecution
   {
     private readonly DecisionExecutor _executor;
-    private List<ITarget> _targets;
+    private List<Targets> _targets;
 
     private SetTriggeredAbilityTarget() {}
 
@@ -41,7 +41,7 @@
 
     public void SetResult(int index)
     {
-      Result = new ChosenTarget(_targets[index]);
+      Result = new ChosenTargets(_targets[index]);
     }
 
     public override void Execute()
@@ -54,30 +54,29 @@
       Search.SetBestResult(this);
     }
 
-    private static ChosenTarget DefaultResult()
+    private static ChosenTargets DefaultResult()
     {
-      return new ChosenTarget(null);
+      return new ChosenTargets(null);
     }
 
-    private IEnumerable<ITarget> GenerateTargets()
+    private IEnumerable<Targets> GenerateTargets()
     {
-      var targets = new TargetGenerator(
-        TargetSelector,
-        Game.Players,
-        Game.Stack,
-        maxX: null,        
-        forcePickIfAnyValid: true
+      var generator = new TargetGenerator(
+        TargetSelectors,
+        Game,
+        maxX: null,
+        forceOne: true
         );
 
-      if (targets.None())
+      if (generator.None())
       {
         yield return null;
         yield break;
       }
 
-      foreach (var target in targets.Take(Search.TargetLimit))
+      foreach (var targets in generator.Take(Search.TargetLimit))
       {
-        yield return target;
+        yield return targets;
       }
     }
 

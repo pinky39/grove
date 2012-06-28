@@ -111,13 +111,13 @@
         };
     }
 
-    public IDecision CreateSetTriggeredAbilityTarget(Player player, Effect effect, TargetSelector targetSelector)
+    public IDecision CreateSetTriggeredAbilityTarget(Player player, Effect effect, TargetSelectors targetSelectors)
     {
       return new SetTriggeredAbilityTarget(_game.ChangeTracker)
         {
           Player = player,
           Effect = effect,
-          TargetSelector = targetSelector,
+          TargetSelectors = targetSelectors,
           Game = _game,
           Search = _game.Search,
           Stack = _game.Stack

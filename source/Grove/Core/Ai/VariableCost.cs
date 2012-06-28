@@ -2,70 +2,71 @@
 {
   using System;
 
-  public delegate int CalculateX(Players players, Card source, ITarget target);
+  public delegate int CalculateX(XCalculatorParameters parameters);
 
   public static class VariableCost
   {
     public static CalculateX ReduceCreaturesPwT()
     {
-      return (players, source, _) => {
-        const int maxXToTry = 6;
-
-        var yourCreatures = source.Controller.Battlefield.Creatures;
-        var opponentCreatures = players.GetOpponent(source.Controller).Battlefield.Creatures;
-
-        var score = new int[maxXToTry];
-
-        foreach (var creature in opponentCreatures)
+      return p =>
         {
-          if (creature.LifepointsLeft <= maxXToTry)            
-            score[creature.LifepointsLeft - 1]++;
-        }
+          const int maxXToTry = 6;
 
-        foreach (var creature in yourCreatures)
-        {
-          if (creature.LifepointsLeft <= maxXToTry)
-            score[creature.LifepointsLeft - 1]--;
-        }
-        
-        for (int i = 1; i < maxXToTry; i++)
-        {          
-          score[i] += score[i - 1];
-        }
-        
-        var result = int.MaxValue;
-        var best = 0;
+          var yourCreatures = p.Controller.Battlefield.Creatures;
+          var opponentCreatures = p.Opponent.Battlefield.Creatures;
 
-        for (var i = 0; i < maxXToTry; i++)
-        {
-          if (score[i] > best)
+          var score = new int[maxXToTry];
+
+          foreach (var creature in opponentCreatures)
           {
-            best = score[i];
-            result = i + 1;
+            if (creature.LifepointsLeft <= maxXToTry)
+              score[creature.LifepointsLeft - 1]++;
           }
-        }
 
-        return result;
-      };
+          foreach (var creature in yourCreatures)
+          {
+            if (creature.LifepointsLeft <= maxXToTry)
+              score[creature.LifepointsLeft - 1]--;
+          }
+
+          for (var i = 1; i < maxXToTry; i++)
+          {
+            score[i] += score[i - 1];
+          }
+
+          var result = int.MaxValue;
+          var best = 0;
+
+          for (var i = 0; i < maxXToTry; i++)
+          {
+            if (score[i] > best)
+            {
+              best = score[i];
+              result = i + 1;
+            }
+          }
+
+          return result;
+        };
     }
 
     public static CalculateX TargetLifepointsLeft()
     {
-      return (players, source, target) => {
-
-        var lifepoints = target.LifepointsLeft();
-        
-        if (target.IsPlayer())
+      return p =>
         {
-          const int minDamageToPlayer = 5;        
-          var maxX = source.Controller.ConvertedMana - source.ManaCost.Converted;
+          var lifepoints = p.Target.LifepointsLeft();
 
-          var max = Math.Max(minDamageToPlayer, maxX);
-          return Math.Min(max, lifepoints);
-        }
+          if (p.Target.IsPlayer())
+          {
+            const int minDamageToPlayer = 5;
+            var maxX = p.Controller.ConvertedMana - p.Source.ManaCost.Converted;
 
-        return lifepoints;
-      };
+            var max = Math.Max(minDamageToPlayer, maxX);
+            return Math.Min(max, lifepoints);
+          }
+
+          return lifepoints;
+        };
     }
   }
 }

@@ -22,7 +22,7 @@
             "Sacrifice Seal of Fire: Seal of Fire deals 2 damage to target creature or player.",
             C.Cost<SacrificeOwner>(),
             C.Effect<DealDamageToTarget>((e, _) => e.Amount = 2),
-            selector: C.Selector(
+            effectSelector: C.Selector(
               validator: target => target.IsPlayer() || target.Is().Creature,
               scorer: Core.Ai.TargetScores.OpponentStuffScoresMore(spellsDamage: 2)),            
             timing: Timings.InstantRemoval()));     

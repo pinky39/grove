@@ -43,11 +43,10 @@
               Playable = new ScenarioAbility(
                 card,
                 new ActivationParameters
-                  {
-                    CostTarget = costTarget,
-                    Target = target,
-                    X = x
-                  },
+                  (
+                    targets: new Targets {Cost = costTarget, Effect = target},                                        
+                    x: x
+                  ),
                 abilityIndex
                 )
             }
@@ -95,11 +94,11 @@
               Playable = new ScenarioSpell(
                 card,
                 new ActivationParameters
-                  {
-                    Target = target,
-                    PayKicker = payKicker,
-                    X = x
-                  })
+                  (
+                    targets: new Targets{Effect = target, Kicker = target},                                        
+                    payKicker: payKicker,
+                    x: x
+                  ))
             }
         });
 
@@ -170,7 +169,7 @@
     {
       _decisions.Add(new SetTriggeredAbilityTarget
         {
-          Result = new ChosenTarget(target)
+          Result = new ChosenTargets(new Targets{ Effect = target })
         });
       return this;
     }

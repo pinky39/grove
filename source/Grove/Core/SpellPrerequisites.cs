@@ -3,23 +3,21 @@
   using Ai;
 
   public class SpellPrerequisites
-  {
+  {    
+    public SpellPrerequisites()
+    {
+      TargetSelectors = new TargetSelectors();  
+    }
+    
     public bool TargetsSelf { get; set; }
     public bool CanBeSatisfied { get; set; }
     public bool CanCastWithKicker { get; set; }
-    public TargetSelector CostTargetSelector { get; set; }
-    public TargetSelector DamageSourceSelector { get; set; }
+    public TargetSelectors TargetSelectors { get; set; }
     public CardText Description { get; set; }
-    public TargetSelector EffectTargetSelector { get; set; }
     public bool HasXInCost { get { return MaxX != null; } }
     public bool IsManaSource { get; set; }
     public TimingDelegate Timming { get; set; }
     public int? MaxX { get; set; }
-    public bool NeedsCostTargets { get { return CostTargetSelector != null; } }
-    public bool NeedsEffectTargets { get { return EffectTargetSelector != null; } }
-    public bool NeedsKickerEffectTargets { get { return KickerTargetSelector != null; } }
-    public bool NeedsDamageSourceTargets { get { return DamageSourceSelector != null; } }
-    public CalculateX XCalculator { get; set; }
-    public TargetSelector KickerTargetSelector { get; set; }
+    public CalculateX XCalculator { get; set; }    
   }
 }

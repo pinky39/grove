@@ -96,7 +96,7 @@
         };
     }
 
-    public IDecision CreateSetTriggeredAbilityTarget(Player player, Effect effect, TargetSelector targetSelector)
+    public IDecision CreateSetTriggeredAbilityTarget(Player player, Effect effect, TargetSelectors targetSelectors)
     {
       var decision = (SetTriggeredAbilityTarget) Next<SetTriggeredAbilityTarget>() ?? SetTriggeredAbilityTarget.None;
       decision.Effect = effect;

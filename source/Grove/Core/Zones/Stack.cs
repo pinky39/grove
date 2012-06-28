@@ -64,7 +64,7 @@
       var effect = TopSpell;
       Remove(effect);
 
-      if (effect.IsTargetStillValid())
+      if (effect.HasEffectStillValidTargets())
       {
         effect.Resolve();
       }
