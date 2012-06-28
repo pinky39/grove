@@ -989,7 +989,7 @@
         return this;
       }
 
-      public CardFactory TargetsFilter(TargetsFilterDelegate filter)
+      public CardFactory TargetFilter(TargetsFilterDelegate filter)
       {
         _targetsFilter = filter;
         return this;

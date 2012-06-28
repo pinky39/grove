@@ -4,7 +4,7 @@
   using Infrastructure;
 
   public delegate int ScoreCalculator(ITarget target, Card source, int? maxX, Game game);
-  public delegate bool TargetValidator(ITarget target, Card source, Game game);
+  public delegate bool TargetValidatorDelegate(ITarget target, Card source, Game game);
 
   public interface ITargetSelectorFactory
   {
@@ -43,21 +43,15 @@
     private bool _mustBeTargetable = true;
     private ScoreCalculator _scorer = delegate { return WellKnownTargetScores.Neutral; };
     private string _textFormat = "Select {0} target(s).";
-    private TargetValidator _validator = delegate { return true; };    
+    private TargetValidatorDelegate _validator = delegate { return true; };    
     public Player Controller { get { return Source.Controller; } }
     public int? MaxCount { get { return _maxCount; } set { _maxCount = value; } }
     public int MinCount { get { return _minCount; } set { _minCount = value; } }
-    public bool MustBeTargetable { get { return _mustBeTargetable; } set { _mustBeTargetable = value; } }
-    public ScoreCalculator Scorer { get { return _scorer; } set { _scorer = value; } }
+    public bool MustBeTargetable { get { return _mustBeTargetable; } set { _mustBeTargetable = value; } }    
     public Card Source { get; private set; }
     public string Text { get { return string.Format(TextFormat, MinCount, MaxCount); } }
     public string TextFormat { get { return _textFormat; } set { _textFormat = value; } }
-    public TargetValidator Validator { get { return _validator; } set { _validator = value; } }
-
-    public int CalculateScore(ITarget target, int? maxX)
-    {
-      return Scorer(target, Source, maxX, _game);
-    }
+    public TargetValidatorDelegate Validator { get { return _validator; } set { _validator = value; } }    
 
     public bool IsValid(ITarget target)
     {

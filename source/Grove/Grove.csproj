@@ -212,7 +212,9 @@
     <Compile Include="Configuration.cs" />
     <Compile Include="Core\Ability.cs" />
     <Compile Include="Core\AggregateManaAmount.cs" />
-    <Compile Include="Core\Ai\TargetPickerParameters.cs" />
+    <Compile Include="Core\Ai\TargetCandidatesEx.cs" />
+    <Compile Include="Core\Ai\TargetFilterParameters.cs" />
+    <Compile Include="Core\Ai\TargetFilters.cs" />
     <Compile Include="Core\Ai\XCalculatorParameters.cs" />
     <Compile Include="Core\Targets.cs" />
     <Compile Include="Core\Controllers\Results\Cyclable.cs" />

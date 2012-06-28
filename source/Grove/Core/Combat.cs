@@ -224,7 +224,8 @@
         _blockers.Any(x => x.Card.HasNormalStrike);
     }
 
-    public static bool CanAttackerBeDealtLeathalCombatDamage(Card attacker, IEnumerable<Card> blockers)
+    public static bool CanAttackerBeDealtLeathalCombatDamage(Card attacker, IEnumerable<Card> blockers, 
+      int additionalPower = 0, int additionalThougness = 0)
     {
       var total = 0;
 
@@ -236,7 +237,7 @@
         // eliminate blockers that will be killed
         // before they can deal damage
         blockers = blockers.Where(
-          b => !b.HasFirstStrike && b.Toughness <= attacker.Power);
+          b => !b.HasFirstStrike && b.Toughness <= attacker.Power + additionalPower);
       }
 
       foreach (var blocker in blockers)
@@ -251,7 +252,7 @@
         total += dealtAmount;
       }
 
-      return attacker.LifepointsLeft <= total; ;                  
+      return attacker.LifepointsLeft + additionalThougness <= total; ;                  
     }   
 
     public static int CalculateTrampleDamage(Card attacker, Card blocker)
@@ -278,7 +279,8 @@
       return 0;
     }
 
-    public static bool CanBlockerBeDealtLeathalCombatDamage(Card blocker, Card attacker)
+    public static bool CanBlockerBeDealtLeathalCombatDamage(Card blocker, Card attacker, 
+      int additionalPower = 0, int additionalThoughness = 0)
     {
       if (!blocker.CanBeDestroyed)
         return false;
@@ -286,7 +288,7 @@
       if (blocker.HasFirstStrike && !attacker.HasFirstStrike && !attacker.Has().Indestructible)
       {
         // can blocker kill attacker before it can even deal damage        
-        var blockerDamage = new Damage(blocker, blocker.Power.Value);
+        var blockerDamage = new Damage(blocker, blocker.Power.Value + additionalPower);
         var blockerAmount = attacker.CalculateDealtDamageAmount(blockerDamage);
 
         if (blockerAmount > 0 && blockerDamage.IsLeathal)
@@ -307,7 +309,7 @@
       if (attackerDamage.IsLeathal)
         return true;
 
-      return attackerAmount >= blocker.LifepointsLeft;
+      return attackerAmount >= blocker.LifepointsLeft + additionalThoughness;
     }    
     
     public bool CanBeDealtLeathalCombatDamage(Card card)
@@ -338,6 +340,23 @@
     public bool CanBlockAnyAttacker(Card card)
     {
       return Attackers.Any(attacker => attacker.CanBeBlockedBy(card));      
+    }
+
+    public int CalculateGainIfGivenABoost(Card attackerOrBlocker, int power, int thougness)
+    {
+      var attacker = FindAttacker(attackerOrBlocker);
+
+      if (attacker != null)
+      {
+        return attacker.CalculateGainIfGivenABoost(power, thougness);
+      }
+
+      var blocker = FindBlocker(attackerOrBlocker);
+
+      if (blocker != null)
+      {
+        return blocker.CalculateGainIfGivenABoost(power, thougness);
+      }
     }
   }
 }

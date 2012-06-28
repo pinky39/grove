@@ -31,6 +31,7 @@
                 },
                 untilEndOfTurn: true))),
             C.Selector((target) => target.Is().Creature && (target.Card().IsAttacker || target.Card().IsBlocker)),
+            targetFilter: TargetFilters.PumpAttackerOrBlocker(power: 1, thougness: 1),
             timing: Timings.Combat(), 
             category: EffectCategories.ToughnessIncrease));
     }

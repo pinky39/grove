@@ -28,6 +28,7 @@
       IEffectFactory effect,
       ITargetSelectorFactory effectSelector = null,
       ITargetSelectorFactory costSelector = null,
+      TargetsFilterDelegate targetFilter = null,
       bool activateAsSorcery = false,
       EffectCategories category = EffectCategories.Generic,
       TimingDelegate timing = null)
@@ -49,6 +50,9 @@
 
               if (costSelector != null)
                 self.SetCostSelector(costSelector);
+
+              if (targetFilter != null)
+                self.SetTargetsFilter(targetFilter);
             }
         };
     }
@@ -149,11 +153,8 @@
         };
     }
 
-    public ITargetSelectorFactory Selector(TargetValidator validator, Core.ScoreCalculator scorer = null,
-                                           Zone zone = Zone.Battlefield)
-    {
-      scorer = scorer ?? delegate { return WellKnownTargetScores.Neutral; };
-
+    public ITargetSelectorFactory Selector(TargetValidatorDelegate validator,Zone zone = Zone.Battlefield)
+    {      
       return new TargetSelector.Factory
         {
           Game = _game,
@@ -167,21 +168,18 @@
                   }
                   return validator(target, source, game);
                 };
-              selector.Scorer = scorer;
             }
         };
     }
 
-    public ITargetSelectorFactory Selector(Func<ITarget, bool> validator, Core.ScoreCalculator scorer = null,
-                                           Zone zone = Zone.Battlefield)
+    public ITargetSelectorFactory Selector(Func<ITarget, bool> validator, Zone zone = Zone.Battlefield)
     {
-      return Selector((target, source, game) => validator(target), scorer, zone);
+      return Selector((target, source, game) => validator(target), zone);
     }
 
-    public ITargetSelectorFactory Selector(Func<ITarget, Card, bool> validator, Core.ScoreCalculator scorer = null,
-                                           Zone zone = Zone.Battlefield)
+    public ITargetSelectorFactory Selector(Func<ITarget, Card, bool> validator, Zone zone = Zone.Battlefield)
     {
-      return Selector((target, source, game) => validator(target, source), scorer, zone);
+      return Selector((target, source, game) => validator(target, source), zone);
     }
 
     public TriggeredAbility.Factory StaticAbility(
@@ -249,7 +247,8 @@
       ITriggerFactory trigger,
       IEffectFactory effect,
       ITargetSelectorFactory targetSelector = null,
-      EffectCategories category = EffectCategories.Generic, 
+      TargetsFilterDelegate targetFilter = null,
+      EffectCategories category = EffectCategories.Generic,
       bool triggerOnlyIfOwningCardIsInPlay = false)
     {
       return new TriggeredAbility.Factory
@@ -262,8 +261,12 @@
               self.Effect(effect);
               self.EffectCategories = category;
               self.TriggerOnlyIfOwningCardIsInPlay = triggerOnlyIfOwningCardIsInPlay;
+              
               if (targetSelector != null)
                 self.SetEffectSelector(targetSelector);
+
+              if (targetFilter != null)
+                self.SetTargetsFilter(targetFilter);
             }
         };
     }

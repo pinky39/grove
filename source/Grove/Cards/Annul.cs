@@ -21,10 +21,10 @@
         .Effect<CounterTargetSpell>()
         .Target(C.Selector(target =>
           target.IsEffect() &&
-            target.Effect().CanBeCountered &&             
+            target.Effect().CanBeCountered &&
               target.Effect().Source is Card &&
-                (target.Effect().Source.OwningCard.Is().Artifact || target.Effect().Source.OwningCard.Is().Enchantment),                
-          TargetScores.OpponentStuffScoresMore()));
+                (target.Effect().Source.OwningCard.Is().Artifact || target.Effect().Source.OwningCard.Is().Enchantment)))
+        .TargetFilter(TargetFilters.CounterSpell());
     }
   }
 }

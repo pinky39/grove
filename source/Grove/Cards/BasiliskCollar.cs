@@ -29,6 +29,7 @@
               c.Modifier<AddStaticAbility>((m, _) => m.StaticAbility = StaticAbility.Lifelink)
               )),
             effectSelector: C.Selector(Validator.Equipment()),
+            targetFilter: TargetFilters.CombatAttachment(),
             timing: Timings.AttachEquipment(),
             activateAsSorcery: true));
     }

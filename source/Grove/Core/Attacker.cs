@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Controllers;
@@ -154,6 +155,23 @@
       {
         return new Attacker(card, _changeTracker, _players, _publisher);
       }
+    }
+
+    public int CalculateGainIfGivenABoost(int power, int toughness)
+    {                                    
+      if (_blockers.None())
+      {
+        return 1;
+      }
+
+      var blockers = _blockers.Select(x => x.Card);      
+      var withoutBoost = Combat.CanAttackerBeDealtLeathalCombatDamage(Card, blockers);
+
+      if (!withoutBoost)
+        return 0;
+      
+      var withBoost = Combat.CanAttackerBeDealtLeathalCombatDamage(Card, blockers, power, toughness);
+      return !withBoost ? Card.Score : 0;
     }
   }
 }

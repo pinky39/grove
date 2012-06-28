@@ -26,9 +26,8 @@
             "When Abyssal Horror enters the battlefield, target player discards two cards.",
             C.Trigger<ChangeZone>((t, _) => t.To = Zone.Battlefield),
             C.Effect<TargetPlayerDiscardsCards>((e, _) => e.SelectedCount = 2),
-            C.Selector(
-              validator: target => target.IsPlayer(),
-              scorer: TargetScores.OpponentOnly())));
+            C.Selector(target => target.IsPlayer()),
+            targetFilter: TargetFilters.Opponent()));
     }
-  }
+  }  
 }

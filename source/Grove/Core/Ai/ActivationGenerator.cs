@@ -36,8 +36,9 @@
     {
       if (_prerequisites.TargetSelectors.NeedsTargets)
       {
-        var generator = new TargetGenerator(
+        var generator = new TargetGenerator(          
           _prerequisites.TargetSelectors,
+          _spell,
           _game,
           _prerequisites.MaxX);
 

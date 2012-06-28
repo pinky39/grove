@@ -30,8 +30,8 @@
             C.Selector(validator: target =>
               target.Is().Artifact ||
                 target.Is().Enchantment ||
-                  target.Is().Land,
-              scorer: TargetScores.BattlefieldScoreRanker(controller: Controller.Opponent)),
+                  target.Is().Land),
+            targetFilter: TargetFilters.PermanentsByDescendingScore(),
             category: EffectCategories.Destruction)
         );
     }
