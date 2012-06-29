@@ -216,6 +216,8 @@
     <Compile Include="Core\Ai\TargetFilterParameters.cs" />
     <Compile Include="Core\Ai\TargetFilters.cs" />
     <Compile Include="Core\Ai\XCalculatorParameters.cs" />
+    <Compile Include="Core\ITargetSelector.cs" />
+    <Compile Include="Core\ITargetSelectorFactory.cs" />
     <Compile Include="Core\TargetCandidates.cs" />
     <Compile Include="Core\Targets.cs" />
     <Compile Include="Core\Controllers\Results\Cyclable.cs" />
@@ -232,7 +234,7 @@
     <Compile Include="Core\Attacker.cs" />
     <Compile Include="Core\Blocker.cs" />
     <Compile Include="Core\Ai\ISearchNode.cs" />
-    <Compile Include="Core\CardDsl\CardCreationCtx.cs" />
+    <Compile Include="Core\CardDsl\CardCreationContext.cs" />
     <Compile Include="Core\CardDsl\CardFactoryEx.cs" />
     <Compile Include="Core\CardDsl\LevelDefinition.cs" />
     <Compile Include="Core\Controllers\ConsiderPayingCounterCost.cs" />
@@ -312,9 +314,12 @@
     <Compile Include="Core\TargetCandidate.cs" />
     <Compile Include="Core\TargetsCandidates.cs" />
     <Compile Include="Core\TargetNames.cs" />
+    <Compile Include="Core\TargetSelector.cs" />
     <Compile Include="Core\TargetSelectors.cs" />
+    <Compile Include="Core\TargetValidatorParameters.cs" />
     <Compile Include="Core\Triggers\OnLevelChanged.cs" />
     <Compile Include="Core\Triggers\OpponentWasNotDealtDamageThisTurn.cs" />
+    <Compile Include="Core\Selectors.cs" />
     <Compile Include="Core\ZeroManaAmount.cs" />
     <Compile Include="Core\PlayersEx.cs" />
     <Compile Include="Infrastructure\AssemblyEx.cs" />

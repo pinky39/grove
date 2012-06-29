@@ -30,6 +30,11 @@
       return lazyEffect != null ? lazyEffect.Effect() : null;
     }
 
+    public static bool IsPermanent(this ITarget target)
+    {
+      return target.IsCard() && target.Card().IsPermanent;
+    }
+    
     public static bool IsCard(this ITarget target)
     {
       return target is Card;

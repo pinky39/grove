@@ -4,6 +4,7 @@
   using System.Collections;
   using System.Collections.Generic;
   using System.Linq;
+  using Ai;
   using Effects;
   using Infrastructure;
 
@@ -91,6 +92,33 @@
     {
       Remove(effect);
       effect.EffectWasCountered();
+    }
+
+    public bool CanBeDestroyedByTopSpell(Card card)
+    {
+      if (IsEmpty)
+        return false;
+
+      if (!card.CanBeDestroyed)
+        return false;
+
+      if (TopSpell.HasCategory(EffectCategories.Destruction))
+      {
+        if (!TopSpell.HasTargets)
+          return true;
+
+        return TopSpell.HasTarget(card);
+      }
+
+      var damageDealing = TopSpell as IDamageDealing;
+
+      if (damageDealing == null)
+        return false;
+
+      var damage = new Damage(TopSpell.Source.OwningCard, damageDealing.CreatureDamage(card));
+      var dealtAmount = card.CalculateDealtDamageAmount(damage);
+
+      return damage.IsLeathal || card.LifepointsLeft <= dealtAmount;
     }
   }
 }

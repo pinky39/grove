@@ -42,10 +42,8 @@
                   untilEndOfTurn: true)
                 );
             }),
-            C.Selector(
-              target => target.Is().Creature,
-              Core.Ai.TargetScores.OpponentStuffScoresMore()
-              ),
+            C.Selector(Selectors.Creature()),
+            targetFilter: TargetFilters.ReduceToughness(),
             timing: Timings.InstantRemoval(),
             category: EffectCategories.ToughnessReduction));
     }

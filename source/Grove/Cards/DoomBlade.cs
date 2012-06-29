@@ -19,9 +19,9 @@
         .Effect<DestroyTargetPermanent>()
         .Timing(Timings.InstantRemoval())
         .Category(EffectCategories.Destruction)
-        .Targets(C.Selector(
-          validator: target => target.Is().Creature && !target.HasColor(ManaColors.Black),
-          scorer: Core.Ai.TargetScores.OpponentStuffScoresMore()));
+        .Targets(
+         filter: TargetFilters.Destroy(),
+         selectors: C.Selector(Selectors.Creature((creature) => !creature.HasColor(ManaColors.Black))));
     }
   }
 }

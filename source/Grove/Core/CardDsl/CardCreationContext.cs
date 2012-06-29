@@ -11,11 +11,11 @@
   using Triggers;
   using Zones;
 
-  public class CardCreationCtx
+  public class CardCreationContext
   {
     private readonly Game _game;
 
-    public CardCreationCtx(Game game)
+    public CardCreationContext(Game game)
     {
       _game = game;
     }
@@ -153,34 +153,17 @@
         };
     }
 
-    public ITargetSelectorFactory Selector(TargetValidatorDelegate validator,Zone zone = Zone.Battlefield)
+    public ITargetSelectorFactory Selector(TargetValidatorDelegate validator)
     {      
       return new TargetSelector.Factory
         {
           Game = _game,
           Init = selector =>
             {
-              selector.Validator = (target, source, game) =>
-                {
-                  if (target.IsCard() && target.Card().Zone != zone)
-                  {
-                    return false;
-                  }
-                  return validator(target, source, game);
-                };
+              selector.Validator = validator;
             }
         };
-    }
-
-    public ITargetSelectorFactory Selector(Func<ITarget, bool> validator, Zone zone = Zone.Battlefield)
-    {
-      return Selector((target, source, game) => validator(target), zone);
-    }
-
-    public ITargetSelectorFactory Selector(Func<ITarget, Card, bool> validator, Zone zone = Zone.Battlefield)
-    {
-      return Selector((target, source, game) => validator(target, source), zone);
-    }
+    }    
 
     public TriggeredAbility.Factory StaticAbility(
       ITriggerFactory trigger,

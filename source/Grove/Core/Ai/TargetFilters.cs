@@ -6,6 +6,7 @@
   public static class TargetFilters
   {
     public delegate IEnumerable<ITarget> InputSelectorDelegate(TargetsCandidates candidates);
+
     public delegate IEnumerable<Targets> OutputSelectorDelegate(IEnumerable<ITarget> targets);
 
     public static TargetsFilterDelegate PermanentsByDescendingScore(Controller controller = Controller.Opponent)
@@ -164,6 +165,65 @@
             .Select(x => x.Card);
 
           return p.Targets(candidates);
+        };
+    }
+
+    public static TargetsFilterDelegate IndestructibleShield()
+    {
+      return p =>
+        {
+          var candidates = p.Candidates()
+            .Where(x => x.Card().Controller == p.Controller)
+            .Where(x => p.Stack.CanBeDestroyedByTopSpell(x.Card()) || p.Combat.CanBeDealtLeathalCombatDamage(x.Card()))
+            .OrderByDescending(x => x.Card().Score);
+
+          return p.Targets(candidates);
+        };
+    }
+
+    public static TargetsFilterDelegate Destroy()
+    {
+      return p =>
+        {
+          var candidates = p.Candidates()
+            .Where(x => x.Card().Controller == p.Opponent)
+            .OrderByDescending(x => x.Card().Score);
+
+          return p.Targets(candidates);
+        };
+    }
+
+    public static TargetsFilterDelegate ReduceToughness(int? amount = null)
+    {
+      return p =>
+        {
+          amount = amount ?? p.MaxX;
+
+          var candidates = p.Candidates()
+            .Where(x => x.Card().Controller == p.Opponent)
+            .Select(x => new
+              {
+                Target = x,
+                Score = x.Card().LifepointsLeft <= amount ? x.Card().Score : 0
+              })
+            .OrderByDescending(x => x.Score)
+            .Select(x => x.Target);
+
+          return p.Targets(candidates);
+        };
+    }
+
+    public static TargetsFilterDelegate IncreasePowerAndToughness(int? power, int? toughness)
+    {
+      return p =>
+        {
+          power = power ?? p.MaxX;
+          toughness = toughness ?? p.MaxX;
+
+          var candidates = p.Candidates()
+            .Where(x => x.Card().Controller == p.Controller);
+
+          if (toughness > 0) {}
         };
     }
   }

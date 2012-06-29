@@ -35,13 +35,10 @@
                 m.Power = 2;
                 m.Toughness = 2;
               }, untilEndOfTurn: true))),
-            C.Selector(
-              validator: target => target.Is().Creature,
-              scorer: Core.Ai.TargetScores.YourStuffScoresMore()),
-            category: EffectCategories.ToughnessIncrease,
-            timing: Any(
-              Timings.PowerUp(),
-              Timings.ToughnessUp()))
+            C.Selector(Selectors.Creature()),
+            targetFilter: TargetFilters.IncreasePowerAndToughness(2, 2),
+            category: EffectCategories.ToughnessIncrease
+            )
         );
     }
   }

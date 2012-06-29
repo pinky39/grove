@@ -27,10 +27,7 @@
             "When Acidic Slime enters the battlefield, destroy target artifact, enchantment, or land.",
             C.Trigger<ChangeZone>((t, _) => t.To = Zone.Battlefield),
             C.Effect<DestroyTargetPermanent>(),
-            C.Selector(validator: target =>
-              target.Is().Artifact ||
-                target.Is().Enchantment ||
-                  target.Is().Land),
+            C.Selector(Selectors.Permanent("artifact","enchantment", "land")),                        
             targetFilter: TargetFilters.PermanentsByDescendingScore(),
             category: EffectCategories.Destruction)
         );

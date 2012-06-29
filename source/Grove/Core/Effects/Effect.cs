@@ -26,6 +26,7 @@
     public int? X { get; private set; }
     public virtual bool AffectsSelf { get { return false; } }
     public ITarget Target { get { return _targets.Count == 0 ? null : _targets[0]; } }
+    public bool HasTargets { get { return _targets.Count > 0; } }
 
     public int CalculateHash(HashCalculator calc)
     {
@@ -110,7 +111,7 @@
             CanBeCountered = true
           };
 
-        Init(effect, new CardCreationCtx(Game));
+        Init(effect, new CardCreationContext(Game));
 
         return effect;
       }
@@ -121,6 +122,11 @@
           typeof (TEffect).GetHashCode(),
           Init.GetHashCode());
       }
+    }
+
+    public bool HasTarget(Card card)
+    {
+      return _targets.Any(x => x == card);
     }
   }
 }

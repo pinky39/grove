@@ -10,7 +10,7 @@
 
   public static class CardFactoryEx
   {
-    public static Card.CardFactory Leveler(this Card.CardFactory card, CardCreationCtx ctx, IManaAmount cost,
+    public static Card.CardFactory Leveler(this Card.CardFactory card, CardCreationContext ctx, IManaAmount cost,
                                            EffectCategories category = EffectCategories.Generic, params LevelDefinition[] levels)
     {
       var abilities = new List<object>();

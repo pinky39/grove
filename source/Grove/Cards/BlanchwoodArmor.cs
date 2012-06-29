@@ -22,7 +22,7 @@
         .Timing(Timings.Steps(Step.FirstMain))
         .Targets(
           filter: TargetFilters.CombatEnchantment(),
-          selectors: C.Selector(target => target.Is().Creature));
+          selectors: C.Selector(Selectors.EnchantedCreature()));
     }
   }
 }

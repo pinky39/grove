@@ -19,12 +19,9 @@
         .Category(EffectCategories.Counterspell)
         .Timing(Timings.CounterSpell())
         .Effect<CounterTargetSpell>()
-        .Targets(C.Selector(
-          validator: target =>
-            target.IsEffect() &&
-              target.Effect().CanBeCountered &&
-                target.Effect().Source is Card,
-          scorer: Core.Ai.TargetScores.OpponentStuffScoresMore()));
+        .Targets(
+          filter: TargetFilters.CounterSpell(),
+          selectors: C.Selector(Selectors.Counterspell()));                    
     }
   }
 }

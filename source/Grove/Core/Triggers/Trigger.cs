@@ -43,7 +43,7 @@
         trigger.Ability = triggeredAbility;
         trigger.Game = Game;
 
-        Init(trigger, new CardCreationCtx(Game));
+        Init(trigger, new CardCreationContext(Game));
         trigger.Initialize();
 
         Game.Publisher.Subscribe(trigger);

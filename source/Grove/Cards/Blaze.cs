@@ -20,7 +20,7 @@
         .Effect<DealDamageToTarget>((e, _) => e.Amount = Value.PlusX)
         .Targets(
           filter: TargetFilters.DealDamage(),
-          selectors: C.Selector(target => target.IsPlayer() || target.Is().Creature));
+          selectors: C.Selector(Selectors.CreatureOrPlayer()));
     }
   }
 }

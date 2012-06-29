@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using System.Linq;
+  using Zones;
 
   public delegate List<Targets> TargetsFilterDelegate(TargetFilterParameters parameters);
 
@@ -25,6 +26,7 @@
     public Player Controller { get { return Source.Controller; } }
     public Combat Combat { get { return Game.Combat; } }
     public Step Step { get { return Game.Turn.Step; } }
+    public Stack Stack { get { return Game.Stack; } }
 
     public IEnumerable<ITarget> Candidates(TargetFilters.InputSelectorDelegate selector = null)
     {

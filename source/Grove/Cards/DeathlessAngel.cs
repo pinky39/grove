@@ -29,10 +29,9 @@
             C.Effect<ApplyModifiersToTarget>((e, c) => e.Modifiers(
               c.Modifier<AddStaticAbility>((m, _) => { m.StaticAbility = StaticAbility.Indestructible; },
                 untilEndOfTurn: true))),
-            C.Selector(
-              validator: (target) => target.Is().Creature,
-              scorer: TargetScores.PreferTopSpellTarget()),
-            timing: Timings.RegenerateThis(), category: EffectCategories.Protector));
+            C.Selector(validator: Selectors.Creature()),
+            targetFilter: TargetFilters.IndestructibleShield(),
+            category: EffectCategories.Protector));
     }
   }
 }

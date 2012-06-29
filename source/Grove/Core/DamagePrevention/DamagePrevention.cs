@@ -28,7 +28,7 @@
         prevention.Card = card;
         prevention.Game = Game;
 
-        Init(prevention, new CardCreationCtx(Game));
+        Init(prevention, new CardCreationContext(Game));
 
         return prevention;
       }

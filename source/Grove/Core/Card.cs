@@ -968,7 +968,7 @@
         return this;
       }
 
-      public CardFactory KickerTargets(TargetsFilterDelegate filter, ITargetSelectorFactory[] selectors)
+      public CardFactory KickerTargets(TargetsFilterDelegate filter, params ITargetSelectorFactory[] selectors)
       {
         _kickerEffectTargetFactories = selectors;
         _kickertargetsFilter = filter;

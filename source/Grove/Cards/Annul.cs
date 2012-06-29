@@ -21,12 +21,7 @@
         .Effect<CounterTargetSpell>()
         .Targets(
           filter: TargetFilters.CounterSpell(),
-          selectors: C.Selector(target =>
-            target.IsEffect() &&
-              target.Effect().CanBeCountered &&
-                target.Effect().Source is Card &&
-                  (target.Effect().Source.OwningCard.Is().Artifact || target.Effect().Source.OwningCard.Is().Enchantment)))
-        ;
+          selectors: C.Selector(Selectors.Counterspell("artifact", "enchantment")));
     }
   }
 }

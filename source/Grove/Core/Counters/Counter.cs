@@ -23,7 +23,7 @@
       {
         var counter = new T();
         counter.Game = Game;
-        Init(counter, new CardCreationCtx(Game));
+        Init(counter, new CardCreationContext(Game));
 
         return counter;
       }

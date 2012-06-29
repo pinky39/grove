@@ -1,8 +1,6 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
-  using System.Linq;
   using Core;
   using Core.Ai;
   using Core.CardDsl;
@@ -19,15 +17,15 @@
         .Type("Instant")
         .Text(
           "{Kicker} {4}{EOL}Burst Lightning deals 2 damage to target creature or player. If Burst Lightning was kicked, it deals 4 damage to that creature or player instead.")
-        .Effect<DealDamageToTarget>((e, _) => e.Amount = 2)
         .Timing(Timings.InstantRemoval())
-        .Targets(C.Selector(target => target.IsPlayer() || target.Is().Creature))
+        .Effect<DealDamageToTarget>((e, _) => e.Amount = 2)
+        .Targets(
+          filter: TargetFilters.DealDamage(2),
+          selectors: C.Selector(Selectors.CreatureOrPlayer()))
         .KickerEffect<DealDamageToTarget>((e, _) => e.Amount = 4)
-        .KickerTargets(C.Selector(target => target.IsPlayer() || target.Is().Creature))
-        .TargetFilter(TargetFilters.DealDamage(2))
-        .KickerTargetsFilter(TargetFilters.DealDamage(4));
+        .KickerTargets(
+          filter: TargetFilters.DealDamage(4),
+          selectors: C.Selector(Selectors.CreatureOrPlayer()));
     }
-
-    
-  }  
+  }
 }

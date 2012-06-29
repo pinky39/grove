@@ -36,7 +36,7 @@
         cost.Ability = ability;
         cost.Game = Game;
 
-        Init(cost, new CardCreationCtx(Game));
+        Init(cost, new CardCreationContext(Game));
         cost.AfterInit();
 
         return cost;

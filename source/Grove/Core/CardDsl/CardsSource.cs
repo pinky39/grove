@@ -3,11 +3,11 @@
   using System.Collections.Generic;
   using Ai;
 
-  public delegate void Initializer<in T>(T target, CardCreationCtx creationContext);
+  public delegate void Initializer<in T>(T target, CardCreationContext creationContext);
 
   public abstract class CardsSource
   {
-    public CardCreationCtx C { get { return new CardCreationCtx(Game); } }
+    public CardCreationContext C { get { return new CardCreationContext(Game); } }
 
     public Game Game { get; set; }
 
