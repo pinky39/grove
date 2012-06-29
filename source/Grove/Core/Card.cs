@@ -19,6 +19,7 @@
   {
     private static readonly Random Random = new Random();
     private readonly TargetSelectors _targetSelectors = new TargetSelectors();
+    private readonly TargetSelectors _kickerTargetSelectors = new TargetSelectors();
 
     private ActivatedAbilities _activatedAbilities;
     private Trackable<Card> _attachedTo;
@@ -230,9 +231,11 @@
       }
     }
 
-    bool IEffectSource.AreTargetsStillValid(Targets targets)
+    bool IEffectSource.AreTargetsStillValid(IList<ITarget> targets, bool wasKickerPaid)
     {
-      return _targetSelectors.AreTargetsStillValid(targets);
+      return wasKickerPaid
+        ? _kickerTargetSelectors.AreValidEffectTargets(targets)
+        : _targetSelectors.AreValidEffectTargets(targets);            
     }
 
     public int CalculateHash(HashCalculator calc)
@@ -377,6 +380,7 @@
         {
           CanBeSatisfied = true,
           TargetSelectors = _targetSelectors,
+          KickerTargetSelectors = _kickerTargetSelectors,
           CanCastWithKicker = canCastWithKicker,
           MaxX = GetMaxX(),
           XCalculator = _xCalculator,
@@ -407,15 +411,18 @@
 
     public void CastInternal(ActivationParameters activationParameters)
     {
-      var effect = activationParameters.PayKicker
-        ? _kickerEffectFactory.CreateEffect(this, x: activationParameters.X, wasKickerPaid: true)
-        : _effectFactory.CreateEffect(this, x: activationParameters.X);
+      var effect = activationParameters.PayKicker ?
+         
+          _kickerEffectFactory.CreateEffect(
+          source: this, 
+          x: activationParameters.X, 
+          wasKickerPaid: true) :
+        
+          _effectFactory.CreateEffect(
+          source: this, 
+          x: activationParameters.X);
 
-      effect.Target = activationParameters.PayKicker 
-        ? activationParameters.Targets.Kicker : 
-          activationParameters.Targets.Effect;
-
-
+      effect.AddTargets(activationParameters.Targets.Effect());
       
       CastingRule.Cast(effect);
       _usageCount.Value++;
@@ -458,7 +465,7 @@
       if (effect is EnchantCreature == false)
         throw new InvalidOperationException("Card is is not an enchantment.");
 
-      effect.Target = this;
+      effect.AddTarget(this);
       effect.Resolve();
     }
 
@@ -469,7 +476,7 @@
       if (effect == null)
         throw new InvalidOperationException("Card is is not an equipment.");
 
-      effect.Target = this;
+      effect.AddTarget(this);
       effect.Resolve();
     }
 
@@ -681,10 +688,7 @@
       private readonly ChangeTracker _changeTracker;
       private readonly List<IContinuousEffectFactory> _continuousEffectFactories = new List<IContinuousEffectFactory>();
       private readonly Game _game;
-      private readonly List<StaticAbility> _staticAbilities = new List<StaticAbility>();
-
-      private readonly Dictionary<string, ITargetSelectorFactory> _targetSelectorFactories =
-        new Dictionary<string, ITargetSelectorFactory>();
+      private readonly List<StaticAbility> _staticAbilities = new List<StaticAbility>();      
 
       private readonly List<ITriggeredAbilityFactory> _triggeredAbilityFactories = new List<ITriggeredAbilityFactory>();
       private ManaColors _colors;
@@ -695,15 +699,13 @@
       private string _flavorText;
       private bool _isleveler;
       private string _kickerCost;
-      private IEffectFactory _kickerEffectFactory;
-      //private ITargetSelectorFactory _kickerSelectorFactory;
+      private IEffectFactory _kickerEffectFactory;      
       private string _manaCost;
       private string _name;
       private int? _power;
       private string[] _protectionsFromCardTypes;
       private ManaColors _protectionsFromColors = ManaColors.None;
-      private Zone _putToZoneAfterResolve = Zone.Graveyard;
-      //private ITargetSelectorFactory _targetSelectorFactory;
+      private Zone _putToZoneAfterResolve = Zone.Graveyard;      
 
       private string _text;
       private TimingDelegate _timing;
@@ -711,6 +713,9 @@
       private CardType _type;
       private CalculateX _xCalculator;
       private TargetsFilterDelegate _targetsFilter;
+      private TargetsFilterDelegate _kickertargetsFilter;
+      private ITargetSelectorFactory[] _effectTargetFactories;
+      private ITargetSelectorFactory[] _kickerEffectTargetFactories;      
 
       public CardFactory(Game game)
       {
@@ -774,15 +779,19 @@
 
         card._modifiers = new TrackableList<IModifier>(_changeTracker);
 
-        foreach (var keyValuePair in _targetSelectorFactories)
-        {
-          var name = keyValuePair.Key;
-          var factory = keyValuePair.Value;
 
-          card._targetSelectors[name] = factory.Create(card);
+        foreach (var factory in _effectTargetFactories)
+        {
+          card._targetSelectors.AddEffectSelector(factory.Create(card));
         }
 
+        foreach (var factory in _kickerEffectTargetFactories)
+        {
+          card._kickerTargetSelectors.AddEffectSelector(factory.Create(card));
+        }        
+
         card._targetSelectors.Filter = _targetsFilter;
+        card._kickerTargetSelectors.Filter = _kickertargetsFilter;
 
         card._staticAbilities = new StaticAbilities(_staticAbilities, _changeTracker, card);
 
@@ -933,13 +942,7 @@
           };
 
         return this;
-      }
-
-      public CardFactory KickerTarget(ITargetSelectorFactory factory)
-      {
-        _targetSelectorFactories[TargetNames.Kicker] = factory;
-        return this;
-      }
+      }      
 
       public CardFactory ManaCost(string manaCost)
       {
@@ -965,15 +968,17 @@
         return this;
       }
 
-      public CardFactory Target(string name, ITargetSelectorFactory factory)
+      public CardFactory KickerTargets(TargetsFilterDelegate filter, ITargetSelectorFactory[] selectors)
       {
-        _targetSelectorFactories[name] = factory;
+        _kickerEffectTargetFactories = selectors;
+        _kickertargetsFilter = filter;
         return this;
       }
 
-      public CardFactory Target(ITargetSelectorFactory factory)
+      public CardFactory Targets(TargetsFilterDelegate filter, params ITargetSelectorFactory[] selectors)
       {
-        _targetSelectorFactories[TargetNames.Effect] = factory;
+        _effectTargetFactories = selectors;
+        _targetsFilter = filter;
         return this;
       }
 
@@ -987,13 +992,7 @@
       {
         _timing = timing;
         return this;
-      }
-
-      public CardFactory TargetFilter(TargetsFilterDelegate filter)
-      {
-        _targetsFilter = filter;
-        return this;
-      }
+      }      
 
       public CardFactory Toughness(int toughness)
       {
@@ -1085,7 +1084,7 @@
 
         card._type.Property(x => x.Value)
           .Changes(card).Property<Card, string>(x => x.Type);
-      }
-    }
+      }    
+    }    
   }
 }

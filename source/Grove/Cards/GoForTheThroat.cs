@@ -19,7 +19,7 @@
         .Effect<DestroyTargetPermanent>()
         .Timing(Timings.InstantRemoval())
         .Category(EffectCategories.Destruction)
-        .Target(C.Selector(
+        .Targets(C.Selector(
           validator: target => target.Is().Creature && !target.Is().Artifact,
           scorer: TargetScores.OpponentStuffScoresMore()));
     }

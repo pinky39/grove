@@ -17,7 +17,7 @@
         .Text("Lightning Bolt deals 3 damage to target creature or player.")
         .Timing(Timings.InstantRemoval())
         .Effect<DealDamageToTarget>((e, _) => e.Amount = 3)
-        .Target(C.Selector(
+        .Targets(C.Selector(
           validator: target => target.IsPlayer() || target.Is().Creature,
           scorer: TargetScores.OpponentStuffScoresMore(spellsDamage: 3)));
     }

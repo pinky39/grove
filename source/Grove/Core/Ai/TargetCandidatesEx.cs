@@ -5,9 +5,9 @@
 
   public static class TargetCandidatesEx
   {
-    public static IEnumerable<TargetCandidate> RestrictController(this IEnumerable<TargetCandidate> candidates, Player controller)
+    public static IEnumerable<ITarget> RestrictController(this IEnumerable<ITarget> candidates, Player controller)
     {
-      return candidates.Where(x => TargetEx.Card(x.Target).Controller == controller);
+      return candidates.Where(x => x.Card().Controller == controller);
     }
   }
 }

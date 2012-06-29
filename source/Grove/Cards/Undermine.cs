@@ -19,7 +19,7 @@
         .Category(EffectCategories.Counterspell)
         .Timing(Timings.CounterSpell())
         .Effect<CounterTargetSpell>((e, _) => e.ControllersLifeloss = 3)
-        .Target(C.Selector(
+        .Targets(C.Selector(
           validator: target =>
             target.IsEffect() &&
               target.Effect().CanBeCountered &&

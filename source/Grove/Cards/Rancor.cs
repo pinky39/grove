@@ -24,7 +24,7 @@
           c.Modifier<AddPowerAndToughness>((m, _) => m.Power = 2),
           c.Modifier<AddStaticAbility>((m, _) => m.StaticAbility = StaticAbility.Trample)))
         .Timing(Timings.Steps(Step.FirstMain))
-        .Target(C.Selector(
+        .Targets(C.Selector(
           validator: target => target.Is().Creature,
           scorer: TargetScores.YourStuffScoresMore()))
         .Abilities(

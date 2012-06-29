@@ -23,7 +23,7 @@
           e.CardCount = 2;
           e.LifeLoss = 2;
         })
-        .Target(C.Selector(target => target.IsPlayer()));   
+        .Targets(C.Selector(target => target.IsPlayer()));   
     }
   }
 }

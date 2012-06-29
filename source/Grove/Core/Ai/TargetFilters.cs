@@ -1,16 +1,18 @@
 ﻿namespace Grove.Core.Ai
 {
-  using System;
   using System.Collections.Generic;
   using System.Linq;
 
   public static class TargetFilters
   {
+    public delegate IEnumerable<ITarget> InputSelectorDelegate(TargetsCandidates candidates);
+    public delegate IEnumerable<Targets> OutputSelectorDelegate(IEnumerable<ITarget> targets);
+
     public static TargetsFilterDelegate PermanentsByDescendingScore(Controller controller = Controller.Opponent)
     {
       return p =>
         {
-          IEnumerable<TargetCandidate> candidates = p.Candidates.Effect;
+          var candidates = p.Candidates();
 
           switch (controller)
           {
@@ -24,10 +26,8 @@
               break;
           }
 
-          return candidates
-            .OrderByDescending(x => x.Target.Card().Score)
-            .Select(x => new Targets {Effect = x.Target})
-            .ToList();
+          return p.Targets(candidates
+            .OrderByDescending(x => x.Card().Score));
         };
     }
 
@@ -35,10 +35,8 @@
     {
       return p =>
         {
-          return p.Candidates.Effect
-            .Where(x => x.Target.Player() == p.Opponent)
-            .Select(x => new Targets {Effect = x.Target})
-            .ToList();
+          return p.Targets(p.Candidates()
+            .Where(x => x.Player() == p.Opponent));
         };
     }
 
@@ -46,20 +44,19 @@
     {
       return p =>
         {
-          var candidates = p.Candidates.Effect.RestrictController(p.Controller)
+          var candidates = p.Candidates().RestrictController(p.Controller)
             .Select(
               x =>
                 new
                   {
-                    Card = x.Target.Card(),
-                    Gain = p.Combat.CalculateGainIfGivenABoost(x.Target.Card(), power, thougness)
+                    Card = x.Card(),
+                    Gain = p.Combat.CalculateGainIfGivenABoost(x.Card(), power, thougness)
                   })
             .Where(x => x.Gain > 0)
             .OrderByDescending(x => x.Gain)
-            .Select(x => new Targets {Effect = x.Card})
-            .ToList();
+            .Select(x => x.Card);
 
-          return candidates;
+          return p.Targets(candidates);
         };
     }
 
@@ -67,12 +64,10 @@
     {
       return p =>
         {
-          var candidates = p.Candidates.Effect.RestrictController(p.Opponent)
-            .Take(1)
-            .Select(x => new Targets {Effect = x.Target})
-            .ToList();
+          var candidates = p.Candidates().RestrictController(p.Opponent)
+            .Take(1);
 
-          return candidates;
+          return p.Targets(candidates);
         };
     }
 
@@ -80,11 +75,95 @@
     {
       return p =>
         {
-          var candidates = p.Candidates.Effect;
-            .Select()
+          if (p.Step == Step.FirstMain)
+          {
+            return p.Targets(p.Candidates()
+              .Where(x => x.Card().CanAttack)
+              .Select(x => new
+                {
+                  Card = x.Card(),
+                  Score = CalculateAttackerScore(x.Card(), p.Combat)
+                })
+              .OrderByDescending(x => x.Score)
+              .Where(x => x.Score > 0)
+              .Select(x => x.Card));
+          }
 
+          return p.Targets(p.Candidates()
+            .Where(x => x.Card().CanBlock())
+            .Select(x => new
+              {
+                Card = x.Card(),
+                Score = CalculateBlockerScore(x.Card(), p.Combat)
+              })
+            .OrderByDescending(x => x.Score)
+            .Where(x => x.Score > 0)
+            .Select(x => x.Card));
+        };
+    }
 
+    public static TargetsFilterDelegate DealDamage(int? amount = null)
+    {
+      return p =>
+        {
+          amount = amount ?? p.MaxX;
 
+          var candidates = p.Candidates()
+            .Where(x => x == p.Opponent)
+            .Select(x => new
+              {
+                Target = x,
+                Score = ScoreCalculator.CalculateLifelossScore(x.Player().Life, amount.Value)
+              })
+            .Concat(
+              p.Candidates()
+                .Where(x => x.IsCard() && x.Card().Controller == p.Opponent)
+                .Select(x => new
+                  {
+                    Target = x,
+                    Score = x.Card().LifepointsLeft <= amount ? x.Card().Score : 0
+                  }))
+            .OrderByDescending(x => x.Score)
+            .Select(x => x.Target);
+
+          return p.Targets(candidates);
+        };
+    }
+
+    private static int CalculateAttackerScore(Card card, Combat combat)
+    {
+      return combat.CouldBeBlockedByAny(card) ? 5 : 0 + card.Power.Value;
+    }
+
+    private static int CalculateBlockerScore(Card card, Combat combat)
+    {
+      var count = combat.CountHowManyThisCouldBlock(card);
+
+      if (count > 0)
+      {
+        return count*10 + card.Toughness.Value;
+      }
+
+      return 0;
+    }
+
+    public static TargetsFilterDelegate CombatEnchantment()
+    {
+      return p =>
+        {
+          var candidates = p.Candidates()
+            .Where(x => x.Card().Controller == p.Controller)
+            .Where(x => x.Card().CanAttack)
+            .Select(x => new
+              {
+                Card = x.Card(),
+                Score = CalculateAttackerScore(x.Card(), p.Combat)
+              })
+            .OrderByDescending(x => x.Score)
+            .Where(x => x.Score > 0)
+            .Select(x => x.Card);
+
+          return p.Targets(candidates);
         };
     }
   }

@@ -19,7 +19,7 @@
         .Category(EffectCategories.Counterspell)
         .Timing(Timings.CounterSpell(3))
         .Effect<CounterTargetSpell>((e, _) => e.DoNotCounterCost = 3.AsColorlessMana())
-        .Target(C.Selector(
+        .Targets(C.Selector(
           validator: target =>
             target.IsEffect() &&
               target.Effect().CanBeCountered &&

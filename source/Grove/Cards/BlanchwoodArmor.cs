@@ -20,9 +20,9 @@
         .Effect<EnchantCreature>((e, c) => e.Modifiers(c.Modifier<Add11ForEachForest>()))
         .Category(EffectCategories.ToughnessIncrease)
         .Timing(Timings.Steps(Step.FirstMain))
-        .Target(C.Selector(
-          validator: target => target.Is().Creature,
-          scorer: TargetScores.YourStuffScoresMore()));
+        .Targets(
+          filter: TargetFilters.CombatEnchantment(),
+          selectors: C.Selector(target => target.Is().Creature));
     }
   }
 }

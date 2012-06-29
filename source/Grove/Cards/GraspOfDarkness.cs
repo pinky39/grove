@@ -25,7 +25,7 @@
               m.Power = -4;
               m.Toughness = -4;
             }, untilEndOfTurn: true)))
-        .Target(C.Selector(
+        .Targets(C.Selector(
           validator: target => target.Is().Creature,
           scorer: TargetScores.OpponentStuffScoresMore(spellsDamage: 4, reducesPwt: true)));
     }

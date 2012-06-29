@@ -36,15 +36,14 @@
 
     public void Activate(ActivationParameters activation)
     {
-      Cost.Pay(activation.Targets.Cost, activation.X);
-
+      Cost.Pay(activation.Targets.Cost(0), activation.X);
       var effect = EffectFactory.CreateEffect(this, activation.X);
-      effect.Target = activation.Targets.Effect;
-      effect.Targets.AddAdditionalEffectTargets(activation.Targets);
+
+      effect.AddTargets(activation.Targets.Effect());      
             
       Publisher.Publish(new PlayerHasActivatedAbility{
         Ability = this,
-        Target = activation.Targets.Effect
+        Target = effect.Target
       });
 
       if (UsesStack)

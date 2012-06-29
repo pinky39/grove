@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -9,7 +8,6 @@
   using Core.Effects;
   using Core.Modifiers;
   using Core.Zones;
-
 
   public class BlackSunsZenith : CardsSource
   {
@@ -24,15 +22,14 @@
         .Category(EffectCategories.ToughnessReduction)
         .FlavorText("'Under the suns, Mirrodin kneels and begs us for perfection.'{EOL}—Geth, Lord of the Vault")
         .Effect<ApplyModifiersToCreatures>((e, c) => e.Modifiers(c.Modifier<AddCounters>((m, c0) =>
-        {
-          m.Counter = c0.Counter<PowerToughness>((counter, _) =>
           {
-            counter.Power = -1;
-            counter.Toughness = -1;
-          });
-          m.Count = Value.PlusX;
-        })));
-
+            m.Counter = c0.Counter<PowerToughness>((counter, _) =>
+              {
+                counter.Power = -1;
+                counter.Toughness = -1;
+              });
+            m.Count = Value.PlusX;
+          })));
     }
   }
 }

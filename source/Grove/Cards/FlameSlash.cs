@@ -18,7 +18,7 @@
         .FlavorText(
           "After millennia asleep, the Eldrazi had forgotten about Zendikar's fiery temper and dislike of strangers.")
         .Effect<DealDamageToTarget>((e, _) => e.Amount = 4)
-        .Target(C.Selector(
+        .Targets(C.Selector(
           validator: target => target.Is().Creature,
           scorer: TargetScores.OpponentStuffScoresMore(spellsDamage: 4)));
     }

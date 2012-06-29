@@ -2,8 +2,8 @@
 {
   using System.Collections;
   using System.Collections.Generic;
-  using System.Linq;
-
+  using System.Linq;  
+  
   public class TargetGenerator : IEnumerable<Targets>
   {    
     private readonly bool _forceOne;

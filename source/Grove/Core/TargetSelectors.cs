@@ -1,41 +1,98 @@
 ﻿namespace Grove.Core
 {
   using System.Collections.Generic;
-  using System.Linq;
   using Ai;
+  using Infrastructure;
 
   public delegate IEnumerable<ITarget> TargetGeneratorDelegate();
 
-  public class TargetSelectors : TargetBag<TargetSelector>
+  [Copyable]
+  public class TargetSelectors
   {
-    public bool NeedsTargets { get { return Count > 0; } }
+    private readonly List<TargetSelector> _costSelectors = new List<TargetSelector>();
+    private readonly List<TargetSelector> _effectSelectors = new List<TargetSelector>();
+
     public TargetsFilterDelegate Filter { get; set; }
+    public int Count { get { return _costSelectors.Count + _effectSelectors.Count; } }
+    public bool HasCost { get { return _costSelectors.Count > 0; } }
+    public bool HasEffect { get { return _effectSelectors.Count > 0; } }
 
-    public TargetCandidates GenerateCandidates(TargetGeneratorDelegate generator)
+    public IEnumerable<TargetSelector> Effect()
     {
-      var all = new TargetCandidates();
+      return _effectSelectors;
+    }
 
-      foreach (var name in Names)
+    public IEnumerable<TargetSelector> Cost()
+    {
+      return _costSelectors;
+    }
+
+    public TargetSelector Effect(int i)
+    {
+      return i < _effectSelectors.Count ? _effectSelectors[i] : null;
+    }
+
+    public TargetSelector Cost(int i)
+    {
+      return i < _costSelectors.Count ? _costSelectors[i] : null;
+    }
+
+    public TargetsCandidates GenerateCandidates(TargetGeneratorDelegate generator)
+    {
+      var all = new TargetsCandidates();
+
+      foreach (var selector in _costSelectors)
       {
-        var candidates = new List<TargetCandidate>();
+        var candidates = new TargetCandidates();
 
         foreach (var target in generator())
         {
-          if (this[name].IsValid(target))
+          if (selector.IsValid(target))
           {
-            candidates.Add(new TargetCandidate(target));
+            candidates.Add(target);
           }
         }
 
-        all[name] = candidates;
+        all.AddCostCandidates(candidates);
+      }
+
+      foreach (var selector in _effectSelectors)
+      {
+        var candidates = new TargetCandidates();
+
+        foreach (var target in generator())
+        {
+          if (selector.IsValid(target))
+          {
+            candidates.Add(target);
+          }
+        }
+
+        all.AddEffectCandidates(candidates);
       }
 
       return all;
     }
 
-    public bool AreTargetsStillValid(Targets targets)
+    public void AddEffectSelector(TargetSelector selector)
     {
-      return targets.All(target => this[target.Key].IsValid(target.Value));
+      _effectSelectors.Add(selector);
+    }
+
+    public void AddCostSelector(TargetSelector selector)
+    {
+      _costSelectors.Add(selector);
+    }
+
+    public bool AreValidEffectTargets(IList<ITarget> targets)
+    {
+      for (var i = 0; i < targets.Count; i++)
+      {
+        if (_effectSelectors[i].IsValid(targets[i]) == false)
+          return false;
+      }
+
+      return true;
     }
   }
 }

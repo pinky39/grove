@@ -18,7 +18,7 @@
         .FlavorText("Just when you thought you'd survived the first wave.")
         .Timing(Timings.Steps(Step.SecondMain))
         .Effect<TargetPlayerTakesExtraTurns>()
-        .Target(C.Selector(
+        .Targets(C.Selector(
           validator: target => target.IsPlayer(),
           scorer: TargetScores.YourStuffScoresMore()));
     }

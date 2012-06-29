@@ -19,12 +19,14 @@
         .Category(EffectCategories.Counterspell)
         .Timing(Timings.CounterSpell())
         .Effect<CounterTargetSpell>()
-        .Target(C.Selector(target =>
-          target.IsEffect() &&
-            target.Effect().CanBeCountered &&
-              target.Effect().Source is Card &&
-                (target.Effect().Source.OwningCard.Is().Artifact || target.Effect().Source.OwningCard.Is().Enchantment)))
-        .TargetFilter(TargetFilters.CounterSpell());
+        .Targets(
+          filter: TargetFilters.CounterSpell(),
+          selectors: C.Selector(target =>
+            target.IsEffect() &&
+              target.Effect().CanBeCountered &&
+                target.Effect().Source is Card &&
+                  (target.Effect().Source.OwningCard.Is().Artifact || target.Effect().Source.OwningCard.Is().Enchantment)))
+        ;
     }
   }
 }

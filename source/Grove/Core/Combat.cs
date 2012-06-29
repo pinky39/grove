@@ -357,6 +357,20 @@
       {
         return blocker.CalculateGainIfGivenABoost(power, thougness);
       }
+      
+      return 0;
+    }
+
+    public int CountHowManyThisCouldBlock(Card card)
+    {
+      var opponent = _players.GetOpponent(card.Controller);
+      return opponent.Battlefield.CreaturesThatCanAttack.Count(x => x.CanBeBlockedBy(card));
+    }
+
+    public bool CouldBeBlockedByAny(Card card)
+    {
+      var opponent = _players.GetOpponent(card.Controller);
+      return opponent.Battlefield.CreaturesThatCanBlock.Any(card.CanBeBlockedBy);
     }
   }
 }

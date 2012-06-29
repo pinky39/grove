@@ -1,9 +1,8 @@
-﻿using System.Linq;
-
-namespace Grove.Core
+﻿namespace Grove.Core
 {
   using System;
   using System.Collections.Generic;
+  using System.Linq;
   using Controllers;
   using Infrastructure;
   using Triggers;
@@ -15,12 +14,12 @@ namespace Grove.Core
     private readonly List<Trigger> _triggers = new List<Trigger>();
     private Decisions _decisions;
 
-    public bool TriggerOnlyIfOwningCardIsInPlay { get; set; }
-    
     public TriggeredAbility()
     {
       UsesStack = true;
     }
+
+    public bool TriggerOnlyIfOwningCardIsInPlay { get; set; }
 
     void ICopyContributor.AfterMemberCopy(object original)
     {
@@ -57,10 +56,10 @@ namespace Grove.Core
     {
       if (TriggerOnlyIfOwningCardIsInPlay && OwningCard.Zone != Zone.Battlefield)
         return;
-      
-      var effect = EffectFactory.CreateEffect(this, triggerContext: context);      
-      
-      if (TargetSelectors.NeedsTargets)
+
+      var effect = EffectFactory.CreateEffect(this, triggerContext: context);
+
+      if (TargetSelectors.Count > 0)
       {
         _decisions.EnqueueSetTriggeredAbilityTarget(
           OwningCard.Controller, effect, TargetSelectors);
@@ -70,7 +69,7 @@ namespace Grove.Core
 
       if (UsesStack)
         Stack.Push(effect);
-      else 
+      else
         effect.Resolve();
     }
 
@@ -92,7 +91,7 @@ namespace Grove.Core
         ability.SourceCard = sourceCard;
         ability._decisions = Game.Decisions;
         ability.Game = Game;
-        
+
         Init(ability);
 
         return ability;

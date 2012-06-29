@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core.Effects
 {
+  using System.Collections.Generic;
   using Ai;
 
   public interface IEffectSource : IHashable
@@ -9,6 +10,6 @@
     void EffectWasCountered();
     void EffectWasPushedOnStack();
     void EffectWasResolved();
-    bool AreTargetsStillValid(Targets targets);
+    bool AreTargetsStillValid(IList<ITarget> targets, bool wasKickerPaid);
   }
 }

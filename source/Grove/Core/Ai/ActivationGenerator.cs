@@ -34,18 +34,44 @@
 
     private IEnumerable<ActivationParameters> GenerateActivations()
     {
-      if (_prerequisites.TargetSelectors.NeedsTargets)
+      
+      if (_prerequisites.NeedsTargets)
       {
-        var generator = new TargetGenerator(          
-          _prerequisites.TargetSelectors,
+        var generator = new TargetGenerator(
+          _prerequisites.KickerTargetSelectors,
           _spell,
           _game,
           _prerequisites.MaxX);
 
-
         foreach (var targets in generator.Take(Search.TargetLimit))
         {
-          if (_prerequisites.CanCastWithKicker)
+          yield return new ActivationParameters
+            (
+            targets: targets,
+            x: CalculateX(targets)
+            );
+        }
+      }
+      else
+      {
+        yield return new ActivationParameters
+          (
+          x: CalculateX()
+          );
+      }
+
+      if (_prerequisites.CanCastWithKicker)
+      {
+        if (_prerequisites.NeedsKickerTargets)
+        {
+          var generator = new TargetGenerator(
+            _prerequisites.KickerTargetSelectors,
+            _spell,
+            _game,
+            _prerequisites.MaxX);
+
+
+          foreach (var targets in generator.Take(Search.TargetLimit))
           {
             yield return new ActivationParameters
               (
@@ -54,30 +80,15 @@
               x: CalculateX(targets)
               );
           }
-
-          yield return new ActivationParameters
-            (
-            targets: targets,
-            x: CalculateX(targets)
+        }
+        else
+        {
+          yield return new ActivationParameters(
+            payKicker: true,
+            x: CalculateX()
             );
         }
-
-        yield break;
       }
-
-      if (_prerequisites.CanCastWithKicker)
-      {
-        yield return new ActivationParameters
-          (
-          payKicker: true,
-          x: CalculateX()
-          );
-      }
-
-      yield return new ActivationParameters
-        (
-        x: CalculateX()
-        );
     }
 
     private int? CalculateX(Targets targets = null)

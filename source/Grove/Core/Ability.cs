@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core
 {
+  using System.Collections.Generic;
   using Ai;
   using Effects;
   using Infrastructure;
@@ -9,7 +10,7 @@
   public abstract class Ability : IEffectSource
   {
     private readonly TargetSelectors _targetSelectors = new TargetSelectors();
-    public TargetSelectors TargetSelectors {get { return _targetSelectors; }}
+    protected TargetSelectors TargetSelectors {get { return _targetSelectors; }}
     
     public Player Controller { get { return OwningCard.Controller; } }        
     protected IEffectFactory EffectFactory { get; private set; }
@@ -28,32 +29,33 @@
     void IEffectSource.EffectWasPushedOnStack() {}
     void IEffectSource.EffectWasResolved() {}
 
-    bool IEffectSource.AreTargetsStillValid(Targets targets)
-    {
-      return TargetSelectors.AreTargetsStillValid(targets);
+    bool IEffectSource.AreTargetsStillValid(IList<ITarget> targets, bool wasKickerPaid)
+    {            
+      return TargetSelectors.AreValidEffectTargets(targets);
     }
 
     public void Effect(IEffectFactory effectFactory)
     {
       EffectFactory = effectFactory;
-    }
-
-    public void SetTargetSelector(string name, ITargetSelectorFactory factory)
-    {
-      TargetSelectors[name] = factory.Create(OwningCard);
-    }
+    }    
     
-    public void SetEffectSelector(ITargetSelectorFactory factory)
+    public void EffectTargets(params ITargetSelectorFactory[] factories)
     {
-      TargetSelectors.Effect = factory.Create(OwningCard);
+      foreach (var factory in factories)
+      {
+        TargetSelectors.AddEffectSelector(factory.Create(OwningCard));
+      }                  
     }
 
-    public void SetCostSelector(ITargetSelectorFactory factory)
+    public void CostTargets(params ITargetSelectorFactory[] factories)
     {
-      TargetSelectors.Cost = factory.Create(OwningCard);
+      foreach (var factory in factories)
+      {
+        TargetSelectors.AddCostSelector(factory.Create(OwningCard));
+      }            
     }
 
-    public void SetTargetsFilter(TargetsFilterDelegate filter)
+    public void TargetsFilter(TargetsFilterDelegate filter)
     {
       TargetSelectors.Filter = filter;
     }

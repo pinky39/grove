@@ -16,11 +16,11 @@
         .ManaCost("{R}").XCalculator(VariableCost.TargetLifepointsLeft())
         .Type("Sorcery")
         .Text("Blaze deals X damage to target creature or player.")
-        .FlavorText("Fire never dies alone.")        
+        .FlavorText("Fire never dies alone.")
         .Effect<DealDamageToTarget>((e, _) => e.Amount = Value.PlusX)
-        .Target(C.Selector(
-          validator: target => target.IsPlayer() || target.Is().Creature,
-          scorer: Core.Ai.TargetScores.OpponentStuffScoresMore()));
+        .Targets(
+          filter: TargetFilters.DealDamage(),
+          selectors: C.Selector(target => target.IsPlayer() || target.Is().Creature));
     }
   }
 }

@@ -26,7 +26,7 @@
           "{Kicker} {G}{EOL}Target creature can't be the target of spells or abilities your opponents control this turn. If Vines of Vastwood was kicked, that creature gets +4/+4 until end of turn.")
         .Effect<ApplyModifiersToTarget>((e, c) => e.Modifiers(
           c.Modifier<AddStaticAbility>((m, _) => m.StaticAbility = StaticAbility.Hexproof, untilEndOfTurn: true)))
-        .Target(C.Selector(
+        .Targets(C.Selector(
           validator: target => target.Is().Creature,
           scorer: TargetScores.YourStuffScoresMore()))
         .KickerEffect<ApplyModifiersToTarget>((e, c) => e.Modifiers(
@@ -36,7 +36,7 @@
               m.Power = 4;
               m.Toughness = 4;
             }, untilEndOfTurn: true)))
-        .KickerTarget(C.Selector(
+        .KickerTargets(C.Selector(
           validator: target => target.Is().Creature,
           scorer: TargetScores.YourStuffScoresMore()));
     }

@@ -46,13 +46,13 @@
               self.ActivateOnlyAsSorcery = activateAsSorcery;
 
               if (effectSelector != null)
-                self.SetEffectSelector(effectSelector);
+                self.EffectTargets(effectSelector);
 
               if (costSelector != null)
-                self.SetCostSelector(costSelector);
+                self.CostTargets(costSelector);
 
               if (targetFilter != null)
-                self.SetTargetsFilter(targetFilter);
+                self.TargetsFilter(targetFilter);
             }
         };
     }
@@ -237,7 +237,7 @@
               self.EffectCategories = category;
               self.TriggerOnlyIfOwningCardIsInPlay = triggerOnlyIfOwningCardIsInPlay;
               if (targetSelector != null)
-                self.SetEffectSelector(targetSelector);
+                self.EffectTargets(targetSelector);
             }
         };
     }
@@ -263,10 +263,10 @@
               self.TriggerOnlyIfOwningCardIsInPlay = triggerOnlyIfOwningCardIsInPlay;
               
               if (targetSelector != null)
-                self.SetEffectSelector(targetSelector);
+                self.EffectTargets(targetSelector);
 
               if (targetFilter != null)
-                self.SetTargetsFilter(targetFilter);
+                self.TargetsFilter(targetFilter);
             }
         };
     }

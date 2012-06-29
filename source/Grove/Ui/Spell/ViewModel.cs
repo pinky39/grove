@@ -127,7 +127,7 @@
         SelectActivation(out isCast, out prerequisites) &&
           PayKicker(prerequisites, out payKicker) &&
             SelectX(prerequisites, out x) &&
-              SelectTargets(prerequisites, targets);
+              SelectTargets(prerequisites, payKicker, targets);
 
       if (!success)
         return;
@@ -139,22 +139,35 @@
       _publisher.Publish(new PlayableSelected {Playable = playable});
     }
 
-    private bool SelectTargets(SpellPrerequisites prerequisites, Targets targets)
+    private bool SelectTargets(SpellPrerequisites prerequisites, bool payKicker, Targets targets)
     {
-      foreach (var selector in prerequisites.TargetSelectors)
+      var selectors = payKicker
+        ? prerequisites.TargetSelectors
+        : prerequisites.KickerTargetSelectors;     
+
+      if (selectors.HasEffect)
       {
-        var dialog = _selectTargetVmFactory.Create(selector.Value, canCancel: true,
-          instructions: "(Press Esc to cancel.)");
+        foreach (var selector in selectors.Effect())
+        {
+          var dialog = ShowSelectorDialog(selector);
 
-        _shell.ShowModalDialog(dialog, DialogType.Small, SelectionMode.SelectTarget);
+          if (dialog.WasCanceled)
+            return false;
 
-        if (dialog.WasCanceled)
-          return false;
-
-        targets[selector.Key] = dialog.Selection[0];
+          targets.AddEffect(dialog.Selection[0]);
+        }
       }
 
       return true;
+    }
+
+    private SelectTarget.ViewModel ShowSelectorDialog(TargetSelector selector)
+    {
+      var dialog = _selectTargetVmFactory.Create(selector, canCancel: true,
+        instructions: "(Press Esc to cancel.)");
+
+      _shell.ShowModalDialog(dialog, DialogType.Small, SelectionMode.SelectTarget);
+      return dialog;
     }
 
     private bool SelectX(SpellPrerequisites prerequisites, out int? x)

@@ -216,6 +216,7 @@
     <Compile Include="Core\Ai\TargetFilterParameters.cs" />
     <Compile Include="Core\Ai\TargetFilters.cs" />
     <Compile Include="Core\Ai\XCalculatorParameters.cs" />
+    <Compile Include="Core\TargetCandidates.cs" />
     <Compile Include="Core\Targets.cs" />
     <Compile Include="Core\Controllers\Results\Cyclable.cs" />
     <Compile Include="Core\Ai\InnerResult.cs" />
@@ -308,9 +309,8 @@
     <Compile Include="Core\Modifiers\SetPowerAndToughness.cs" />
     <Compile Include="Core\PrimitiveManaAmount.cs" />
     <Compile Include="Core\Ai\TimingParameters.cs" />
-    <Compile Include="Core\TargetBag.cs" />
     <Compile Include="Core\TargetCandidate.cs" />
-    <Compile Include="Core\TargetCandidates.cs" />
+    <Compile Include="Core\TargetsCandidates.cs" />
     <Compile Include="Core\TargetNames.cs" />
     <Compile Include="Core\TargetSelectors.cs" />
     <Compile Include="Core\Triggers\OnLevelChanged.cs" />

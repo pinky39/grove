@@ -209,22 +209,43 @@
       return true;
     }
 
+    private SelectTarget.ViewModel ShowSelectorDialog(TargetSelector selector)
+    {
+      var dialog = _selectTargetVmFactory.Create(selector, canCancel: true,
+        instructions: "(Press Esc to cancel.)");
+
+      _shell.ShowModalDialog(dialog, DialogType.Small, SelectionMode.SelectTarget);
+      return dialog;
+    }
+
     private bool SelectTargets(SpellPrerequisites prerequisites, Targets targets)
     {
-      foreach (var selector in prerequisites.TargetSelectors)
-      {        
-        var dialog = _selectTargetVmFactory.Create(selector.Value, canCancel: true,
-          instructions: "(Press Esc to cancel.)");
-        
-        _shell.ShowModalDialog(dialog, DialogType.Small, SelectionMode.SelectTarget);
+      var selectors = prerequisites.TargetSelectors;
+
+      if (selectors.HasCost)
+      {
+        var dialog = ShowSelectorDialog(selectors.Cost(0));
 
         if (dialog.WasCanceled)
           return false;
 
-        targets[selector.Key] = dialog.Selection[0];
+        targets.AddCost(dialog.Selection[0]);
       }
 
-      return true;      
+      if (selectors.HasEffect)
+      {
+        foreach (var selector in selectors.Effect())
+        {
+          var dialog = ShowSelectorDialog(selector);
+
+          if (dialog.WasCanceled)
+            return false;
+
+          targets.AddEffect(dialog.Selection[0]);
+        }
+      }
+
+      return true;
     }
 
     private bool SelectX(SpellPrerequisites prerequisites, out int? x)

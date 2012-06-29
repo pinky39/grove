@@ -19,7 +19,7 @@
         .Timing(Timings.InstantRemoval())
         .Category(EffectCategories.Bounce)
         .Effect<ReturnTargetPermanentToHand>((e, _) => e.Discard = 1)
-        .Target(C.Selector(
+        .Targets(C.Selector(
           validator: target => target.IsCard(),
           scorer: Core.Ai.TargetScores.OpponentStuffScoresMore()));
     }

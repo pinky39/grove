@@ -1,29 +1,49 @@
 ﻿namespace Grove.Core
 {
-  using System.Linq;
+  using System.Collections.Generic;
   using Infrastructure;
 
-  public class Targets : TargetBag<ITarget>, IHashable
+  [Copyable]
+  public class Targets
   {
-    public int CalculateHash(HashCalculator calc)
+    private readonly List<ITarget> _costTargets = new List<ITarget>();
+    private readonly List<ITarget> _effectTargets = new List<ITarget>();
+    public int Count { get { return _effectTargets.Count + _costTargets.Count; } }
+
+    public bool Any { get { return Count > 0; } }
+
+    public bool None { get { return Count == 0; } }
+
+    public IEnumerable<ITarget> Effect()
     {
-      var hashes = Values.Select(calc.Calculate);
-      return HashCalculator.CombineCommutative(hashes);
+      return _effectTargets;
     }
 
-    public bool Any()
+    public ITarget Effect(int i)
     {
-      return Count > 0;
+      return i < _effectTargets.Count ? _effectTargets[i] : null;
     }
 
-    public bool None()
+    public IEnumerable<ITarget> Cost()
     {
-      return Count == 0;
-    }    
+      return _costTargets;
+    }
 
-    public bool SharesAnyTarget(Targets targets)
+    public ITarget Cost(int i)
     {
-      return targets.Values.Any(Contains);
-    }    
+      return i < _costTargets.Count ? _costTargets[i] : null;
+    }
+
+    public Targets AddCost(ITarget target)
+    {
+      _costTargets.Add(target);
+      return this;
+    }
+
+    public Targets AddEffect(ITarget target)
+    {
+      _effectTargets.Add(target);
+      return this;
+    }
   }
 }
