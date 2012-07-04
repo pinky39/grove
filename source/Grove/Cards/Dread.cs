@@ -20,6 +20,7 @@
         .Text("{Fear}{EOL}Whenever a creature deals damage to you, destroy it.{EOL}When Dread is put into a graveyard from anywhere, shuffle it into its owner's library.")
         .Power(6)
         .Toughness(6)
+        .Timing(Timings.Creatures())
         .Abilities(
           StaticAbility.Fear,
           C.Continuous((e, c) =>

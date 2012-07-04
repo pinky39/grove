@@ -21,6 +21,7 @@
           "'Most people can't build decent weapons out of stone or steel. Trust the elves to do it with only mud and vines.'{EOL}—Gerrard of the Weatherlight")
         .Power(4)
         .Toughness(4)
+        .Timing(Timings.Creatures())
         .Abilities(
           C.ActivatedAbility(
             "Tap an untapped creature you control: Llanowar Behemoth gets +1/+1 until end of turn.",
@@ -31,15 +32,10 @@
                   m.Power = 1;
                   m.Toughness = 1;
                 }, untilEndOfTurn: true))),
-            costSelector: C.Selector(
-              validator: (target, self) =>
-                target.Is().Creature && target.Card().CanBeTapped &&
-                  target.Card().Controller == self.Controller,
-              scorer: TargetScores.LessValuableCardsScoreMore()),
+            costSelector: C.Selector(Selectors.Creature((creature) => !creature.IsTapped, Controller.SpellOwner)),
+            targetFilter: TargetFilters.CostTap(),              
             category: EffectCategories.ToughnessIncrease,
-            timing: Any(
-              Timings.PowerUp(),
-              Timings.ToughnessUp())
+            timing: Timings.IncreaseOwnersPowerAndThougness(1, 1)
             ));
     }
   }

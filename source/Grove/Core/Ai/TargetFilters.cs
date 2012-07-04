@@ -9,26 +9,33 @@
 
     public delegate IEnumerable<Targets> OutputSelectorDelegate(IEnumerable<ITarget> targets);
 
-    public static TargetsFilterDelegate PermanentsByDescendingScore(Controller controller = Controller.Opponent)
+    public static TargetsFilterDelegate PermanentsByDescendingScore(Controller controller = Ai.Controller.Opponent)
     {
       return p =>
         {
-          var candidates = p.Candidates();
+          IEnumerable<ITarget> candidates = p.Candidates();
 
           switch (controller)
           {
-            case Controller.Opponent:
+            case Ai.Controller.Opponent:
               candidates = candidates
                 .RestrictController(p.Opponent);
               break;
-            case Controller.SpellOwner:
+            case Ai.Controller.SpellOwner:
               candidates = candidates
                 .RestrictController(p.Controller);
               break;
           }
 
-          return p.Targets(candidates
+          List<Targets> targets = p.Targets(candidates
             .OrderByDescending(x => x.Card().Score));
+
+          if (targets.Count == 0 && p.ForceOne)
+          {
+            targets = p.Targets(p.Candidates().OrderBy(x => x.Card().Score));
+          }
+
+          return targets;
         };
     }
 
@@ -41,38 +48,45 @@
         };
     }
 
-    public static TargetsFilterDelegate PumpAttackerOrBlocker(int power, int thougness)
+    public static TargetsFilterDelegate PumpAttackerOrBlocker(int? power, int? thougness)
     {
       return p =>
         {
-          var candidates = p.Candidates().RestrictController(p.Controller)
-            .Select(
-              x =>
-                new
-                  {
-                    Card = x.Card(),
-                    Gain = p.Combat.CalculateGainIfGivenABoost(x.Card(), power, thougness)
-                  })
-            .Where(x => x.Gain > 0)
-            .OrderByDescending(x => x.Gain)
-            .Select(x => x.Card);
-
+          power = power ?? p.MaxX;
+          thougness = thougness ?? p.MaxX;
+          IEnumerable<Card> candidates = GetCandidatesPumpAttackerOrBlocker(power, thougness, p);
           return p.Targets(candidates);
         };
+    }
+
+    private static IEnumerable<Card> GetCandidatesPumpAttackerOrBlocker(int? power, int? thougness,
+                                                                        TargetFilterParameters p)
+    {
+      return p.Candidates().RestrictController(p.Controller)
+        .Select(
+          x =>
+            new
+              {
+                Card = x.Card(),
+                Gain = p.Combat.CalculateGainIfGivenABoost(x.Card(), power.Value, thougness.Value)
+              })
+        .Where(x => x.Gain > 0)
+        .OrderByDescending(x => x.Gain)
+        .Select(x => x.Card);
     }
 
     public static TargetsFilterDelegate CounterSpell()
     {
       return p =>
         {
-          var candidates = p.Candidates().RestrictController(p.Opponent)
+          IEnumerable<ITarget> candidates = p.Candidates().RestrictController(p.Opponent)
             .Take(1);
 
           return p.Targets(candidates);
         };
     }
 
-    public static TargetsFilterDelegate CombatAttachment()
+    public static TargetsFilterDelegate CombatEquipment()
     {
       return p =>
         {
@@ -108,8 +122,7 @@
       return p =>
         {
           amount = amount ?? p.MaxX;
-
-          var candidates = p.Candidates()
+          IEnumerable<ITarget> candidates = p.Candidates()
             .Where(x => x == p.Opponent)
             .Select(x => new
               {
@@ -127,7 +140,14 @@
             .OrderByDescending(x => x.Score)
             .Select(x => x.Target);
 
-          return p.Targets(candidates);
+          List<Targets> targets = p.Targets(candidates);
+
+          if (p.ForceOne && targets.Count == 0)
+          {
+            targets = p.Targets(p.Candidates().OrderByDescending(x => x.Card().Toughness));
+          }
+
+          return targets;
         };
     }
 
@@ -138,7 +158,7 @@
 
     private static int CalculateBlockerScore(Card card, Combat combat)
     {
-      var count = combat.CountHowManyThisCouldBlock(card);
+      int count = combat.CountHowManyThisCouldBlock(card);
 
       if (count > 0)
       {
@@ -152,7 +172,7 @@
     {
       return p =>
         {
-          var candidates = p.Candidates()
+          IEnumerable<Card> candidates = p.Candidates()
             .Where(x => x.Card().Controller == p.Controller)
             .Where(x => x.Card().CanAttack)
             .Select(x => new
@@ -168,11 +188,24 @@
         };
     }
 
-    public static TargetsFilterDelegate IndestructibleShield()
+    public static TargetsFilterDelegate ShieldHexproof()
     {
       return p =>
         {
-          var candidates = p.Candidates()
+          IOrderedEnumerable<ITarget> candidates = p.Candidates()
+            .Where(x => x.Card().Controller == p.Controller)
+            .Where(x => p.Stack.CanBeDestroyedByTopSpell(x.Card(), targetOnly: true))
+            .OrderByDescending(x => x.Card().Score);
+
+          return p.Targets(candidates);
+        };
+    }
+
+    public static TargetsFilterDelegate ShieldIndestructible()
+    {
+      return p =>
+        {
+          IOrderedEnumerable<ITarget> candidates = p.Candidates()
             .Where(x => x.Card().Controller == p.Controller)
             .Where(x => p.Stack.CanBeDestroyedByTopSpell(x.Card()) || p.Combat.CanBeDealtLeathalCombatDamage(x.Card()))
             .OrderByDescending(x => x.Card().Score);
@@ -185,11 +218,35 @@
     {
       return p =>
         {
-          var candidates = p.Candidates()
+          IOrderedEnumerable<ITarget> candidates = p.Candidates()
             .Where(x => x.Card().Controller == p.Opponent)
             .OrderByDescending(x => x.Card().Score);
 
           return p.Targets(candidates);
+        };
+    }
+
+    public static TargetsFilterDelegate Any(params TargetsFilterDelegate[] delegates)
+    {
+      return p =>
+        {
+          var result = new List<Targets>();
+          result.AddRange(delegates[0](p));
+
+          for (int i = 1; i < delegates.Length; i++)
+          {
+            TargetsFilterDelegate filterDelegate = delegates[i];
+            List<Targets> targetsList = filterDelegate(p);
+            foreach (Targets targets in targetsList)
+            {
+              if (result.Contains(targets))
+                continue;
+
+              result.Add(targets);
+            }
+          }
+
+          return result;
         };
     }
 
@@ -199,7 +256,7 @@
         {
           amount = amount ?? p.MaxX;
 
-          var candidates = p.Candidates()
+          IEnumerable<ITarget> candidates = p.Candidates()
             .Where(x => x.Card().Controller == p.Opponent)
             .Select(x => new
               {
@@ -217,13 +274,87 @@
     {
       return p =>
         {
-          power = power ?? p.MaxX;
-          toughness = toughness ?? p.MaxX;
+          IEnumerable<ITarget> candidates =
+            GetCandidatesPumpAttackerOrBlocker(power, toughness, p).Concat(
+              p.Candidates()
+                .Where(x => x.Card().Controller == p.Controller)
+                .Where(x => p.Stack.CanBeDealtLeathalDamageByTopSpell(x.Card()))
+              );
+
+          return p.Targets(candidates);
+        };
+    }
+
+    public static TargetsFilterDelegate CostTap()
+    {
+      return p =>
+        {
+          IOrderedEnumerable<ITarget> candidates = p.Candidates()
+            .OrderBy(x => x.Card().Score);
+
+          return p.Targets(candidates);
+        };
+    }
+
+    public static TargetsFilterDelegate CostSacrificeGainLife()
+    {
+      return p =>
+        {
+          if (p.Stack.CanTopSpellReducePlayersLifeToZero(p.Controller))
+          {
+            return p.Targets(p.Candidates()
+              .OrderBy(x => x.Card().Score));
+          }
 
           var candidates = p.Candidates()
-            .Where(x => x.Card().Controller == p.Controller);
+            .Where(x => p.Stack.CanBeDestroyedByTopSpell(x.Card()) || 
+                        p.Combat.CanBeDealtLeathalCombatDamage(x.Card()))
+            .Take(1);
 
-          if (toughness > 0) {}
+          return p.Targets(candidates);          
+        };
+    }
+
+    public static TargetsFilterDelegate Bounce()
+    {
+      return Destroy();
+    }
+
+    public static TargetsFilterDelegate Controller()
+    {
+      return p =>
+        {
+          return p.Targets(p.Candidates()
+            .Where(x => x.Player() == p.Controller));
+        };
+    }
+
+    public static TargetsFilterDelegate Exile()
+    {
+      return Destroy();
+    }
+
+    public static TargetsFilterDelegate TapCreature()
+    {
+      return p =>
+        {
+          IOrderedEnumerable<ITarget> candidates = p.Candidates()
+            .Where(x => x.Card().Controller == p.Opponent)
+            .OrderByDescending(x => x.Card().Power);
+
+          return p.Targets(candidates);
+        };
+    }
+
+    public static TargetsFilterDelegate CreatureWithGreatestPower()
+    {
+      return p =>
+        {
+          IEnumerable<ITarget> candidates = p.Candidates()
+            .OrderByDescending(x => x.Card().Power)
+            .Take(1);
+
+          return p.Targets(candidates);
         };
     }
   }

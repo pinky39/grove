@@ -20,17 +20,19 @@
         .FlavorText("In life, the nantuko study nature by revering it. In death, they study nature by disemboweling it.")
         .Power(2)
         .Toughness(1)
+        .Timing(Timings.Creatures())
         .Abilities(
           C.ActivatedAbility(
             "{B}: Nantuko Shade gets +1/+1 until end of turn.",
             C.Cost<TapOwnerPayMana>((cost, _) => cost.Amount = Mana.Black.ToAmount()),
             C.Effect<ApplyModifiersToSelf>((e, c) => e.Modifiers(
-              c.Modifier<AddPowerAndToughness>((m, _) => {
-                m.Power = 1;
-                m.Toughness = 1;
-              }, untilEndOfTurn: true))),
+              c.Modifier<AddPowerAndToughness>((m, _) =>
+                {
+                  m.Power = 1;
+                  m.Toughness = 1;
+                }, untilEndOfTurn: true))),
             category: EffectCategories.ToughnessIncrease,
-            timing: Any(Timings.PowerUp(), Timings.ToughnessUp())));
+            timing: Timings.IncreaseOwnersPowerAndThougness(1, 1)));
     }
   }
 }

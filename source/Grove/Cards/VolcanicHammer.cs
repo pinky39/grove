@@ -17,9 +17,10 @@
         .Text("Volcanic Hammer deals 3 damage to target creature or player.")
         .FlavorText("Fire finds its form in the heat of the forge.")
         .Effect<DealDamageToTarget>((e, _) => e.Amount = 3)
-        .Targets(C.Selector(
-          validator: target => target.IsPlayer() || target.Is().Creature,
-          scorer: TargetScores.OpponentStuffScoresMore(spellsDamage: 3)));
+        .Timing(Timings.MainPhases())
+        .Targets(filter: TargetFilters.DealDamage(3),
+          selectors: C.Selector(
+            Selectors.CreatureOrPlayer()));
     }
   }
 }

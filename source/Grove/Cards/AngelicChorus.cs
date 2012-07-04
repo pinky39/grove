@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using Core;
+  using Core.Ai;
   using Core.CardDsl;
   using Core.Effects;
   using Core.Messages;
@@ -18,6 +19,7 @@
         .Type("Enchantment")
         .Text("Whenever a creature enters the battlefield under your control, you gain life equal to its toughness.")
         .FlavorText("The very young and the very old know best the song the angels sing.")
+        .Timing(Timings.FirstMain())
         .Abilities(
           C.TriggeredAbility(
             "Whenever a creature enters the battlefield under your control, you gain life equal to its toughness.",

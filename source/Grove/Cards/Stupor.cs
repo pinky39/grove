@@ -21,7 +21,7 @@
           e.RandomCount = 1;
           e.SelectedCount = 1;
         })
-        .Timing(Timings.Steps(Step.FirstMain));
+        .Timing(Timings.FirstMain());
     }
   }
 }

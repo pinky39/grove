@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using Core;
+  using Core.Ai;
   using Core.CardDsl;
 
   public class AngelicWall : CardsSource
@@ -17,6 +18,7 @@
           "'The air stirred as if fanned by angels wings, and the enemy was turned aside.'{EOL}—Tales of Ikarov the Voyager")
         .Power(0)
         .Toughness(4)
+        .Timing(Timings.Creatures())
         .Abilities(
           StaticAbility.Defender,
           StaticAbility.Flying

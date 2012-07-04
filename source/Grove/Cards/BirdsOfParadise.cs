@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using Core;
+  using Core.Ai;
   using Core.CardDsl;
 
   public class BirdsOfParadise : CardsSource
@@ -16,6 +17,7 @@
         .FlavorText("The gods used their feathers to paint all the colors of the world.")
         .Power(0)
         .Toughness(1)
+        .Timing(Timings.SecondMain())
         .Abilities(
           StaticAbility.Flying,
           C.ManaAbility(Mana.Any, "{T}: Add one mana of any color to your mana pool.")

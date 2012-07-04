@@ -19,7 +19,7 @@
         .Type("Artifact - Equipment")
         .Text(
           "Equipped creature gets +2/+2 and has protection from black and from green.{EOL}Whenever equipped creature deals combat damage to a player, that player discards a card and you untap all lands you control.{EOL}{Equip} {2}")
-        .Timing(Timings.Steps(Step.FirstMain))
+        .Timing(Timings.FirstMain())
         .Abilities(
           C.TriggeredAbility(
             "Whenever equipped creature deals combat damage to a player, that player discards a card and you untap all lands you control.",
@@ -43,7 +43,9 @@
                 m.Toughness = 2;
               }),
               c.Modifier<AddProtectionFromColors>((m, _) => m.Colors = ManaColors.Black | ManaColors.Green))),
-            effectSelector: C.Selector(Selectors.Equipment()), timing: Timings.AttachEquipment(), 
+            effectSelector: C.Selector(Selectors.Equipment()), 
+            targetFilter:TargetFilters.CombatEquipment(),
+            timing: Timings.AttachCombatEquipment(), 
             activateAsSorcery: true,
             category: EffectCategories.ToughnessIncrease | EffectCategories.Protector));
     }

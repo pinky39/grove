@@ -18,6 +18,7 @@
         .Type("Creature Angel Spirit")
         .Text("{Flying}{EOL}{T}: Target attacking or blocking creature gets +1/+1 until end of turn.")
         .FlavorText("If only every message were as perfect as its bearers.")
+        .Timing(Timings.Creatures())
         .Abilities(
           StaticAbility.Flying,
           C.ActivatedAbility(
@@ -32,7 +33,7 @@
                 untilEndOfTurn: true))),
             C.Selector(Selectors.AttackerOrBlocker()),
             targetFilter: TargetFilters.PumpAttackerOrBlocker(power: 1, thougness: 1),
-            timing: Timings.Combat(), 
+            timing: Timings.DeclareBlockers(), 
             category: EffectCategories.ToughnessIncrease));
     }
   }

@@ -17,7 +17,7 @@
         .FlavorText("It provides what every discerning mage requires—time to think.")
         .Power(0)
         .Toughness(8)
-        .Timing(Timings.Steps(Step.SecondMain))
+        .Timing(Timings.Creatures())
         .Abilities(
           StaticAbility.Flying,
           StaticAbility.Defender,

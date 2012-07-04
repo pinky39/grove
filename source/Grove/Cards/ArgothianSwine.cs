@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using Core;
+  using Core.Ai;
   using Core.CardDsl;
 
   public class ArgothianSwine : CardsSource
@@ -16,6 +17,7 @@
         .FlavorText("In Argoth, the shortest route between two points is the one the swine make.")
         .Power(3)
         .Toughness(3)
+        .Timing(Timings.Creatures())
         .Abilities(
           StaticAbility.Trample);
     }

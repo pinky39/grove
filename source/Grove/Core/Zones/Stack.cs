@@ -12,12 +12,12 @@
   public class Stack : IEnumerable<Effect>, IHashable
   {
     private readonly TrackableList<Effect> _effects;
-    private readonly Trackable<Effect> _lastResolved;    
+    private readonly Trackable<Effect> _lastResolved;
 
     public Stack(ChangeTracker changeTracker)
     {
       _effects = new TrackableList<Effect>(changeTracker, orderImpactsHashcode: true);
-      _lastResolved = new Trackable<Effect>(changeTracker);      
+      _lastResolved = new Trackable<Effect>(changeTracker);
     }
 
     private Stack()
@@ -30,7 +30,7 @@
 
     public Effect LastResolved { get { return _lastResolved.Value; } private set { _lastResolved.Value = value; } }
     public Effect TopSpell { get { return _effects.LastOrDefault(); } }
-    public Player TopSpellOwner { get { return TopSpell == null ? null : TopSpell.Controller; } }    
+    public Player TopSpellOwner { get { return TopSpell == null ? null : TopSpell.Controller; } }
 
     public IEnumerator<Effect> GetEnumerator()
     {
@@ -43,7 +43,7 @@
     }
 
     public int CalculateHash(HashCalculator calc)
-    {      
+    {
       return calc.Calculate(_effects);
     }
 
@@ -54,23 +54,23 @@
 
     public void Push(Effect effect)
     {
-      Add(effect);          
+      Add(effect);
       effect.EffectWasPushedOnStack();
     }
 
     public void Resolve()
     {
       LastResolved = null;
-      
-      var effect = TopSpell;
+
+      Effect effect = TopSpell;
       Remove(effect);
 
       if (effect.HasEffectStillValidTargets())
       {
         effect.Resolve();
       }
-      
-      LastResolved = effect;      
+
+      LastResolved = effect;
     }
 
     public override string ToString()
@@ -94,21 +94,13 @@
       effect.EffectWasCountered();
     }
 
-    public bool CanBeDestroyedByTopSpell(Card card)
+    public bool CanBeDealtLeathalDamageByTopSpell(Card card, bool targetOnly = false)
     {
-      if (IsEmpty)
+      if (TopSpell == null)
         return false;
 
-      if (!card.CanBeDestroyed)
+      if (!TopSpell.HasTargets && targetOnly)
         return false;
-
-      if (TopSpell.HasCategory(EffectCategories.Destruction))
-      {
-        if (!TopSpell.HasTargets)
-          return true;
-
-        return TopSpell.HasTarget(card);
-      }
 
       var damageDealing = TopSpell as IDamageDealing;
 
@@ -116,9 +108,42 @@
         return false;
 
       var damage = new Damage(TopSpell.Source.OwningCard, damageDealing.CreatureDamage(card));
-      var dealtAmount = card.CalculateDealtDamageAmount(damage);
+      int dealtAmount = card.CalculateDealtDamageAmount(damage);
 
       return damage.IsLeathal || card.LifepointsLeft <= dealtAmount;
+    }
+
+    public bool CanBeDestroyedByTopSpell(Card card, bool targetOnly = false)
+    {
+      if (IsEmpty)
+        return false;
+
+      if (!card.CanBeDestroyed)
+        return false;
+
+
+      if (TopSpell.HasCategory(EffectCategories.Destruction))
+      {
+        if (!TopSpell.HasTargets)
+          return !targetOnly;
+
+        return TopSpell.HasTarget(card);
+      }
+
+      return CanBeDealtLeathalDamageByTopSpell(card);
+    }
+
+    public bool CanTopSpellReducePlayersLifeToZero(Player controller)
+    {
+      var damageDealing = TopSpell as IDamageDealing;
+
+      if (damageDealing == null)
+      {
+        return false;
+      }
+
+      var damage = damageDealing.PlayerDamage(controller);
+      return damage >= controller.Life;
     }
   }
 }

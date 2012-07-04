@@ -18,7 +18,7 @@
         .Type("Enchantment")
         .Text(
           "Creatures you control have haste.{EOL}Sacrifice Fires of Yavimaya: Target creature gets +2/+2 until end of turn.")
-        .Timing(Timings.Steps(Step.FirstMain))
+        .Timing(Timings.FirstMain())
         .Abilities(
           C.Continuous((e, c) =>
           {
@@ -37,6 +37,7 @@
               }, untilEndOfTurn: true))),
             C.Selector(Selectors.Creature()),
             targetFilter: TargetFilters.IncreasePowerAndToughness(2, 2),
+            timing: Timings.NoRestrictions(),
             category: EffectCategories.ToughnessIncrease
             )
         );

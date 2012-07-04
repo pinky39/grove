@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using Core;
+  using Core.Ai;
   using Core.CardDsl;
   using Core.Effects;
   using Core.Triggers;
@@ -19,6 +20,7 @@
           "The Orzhov contract the Izzet to animate slum districts and banish them to the wastes. The Gruul adopt them and send them back to the city for vengeance.")
         .Power(5)
         .Toughness(5)
+        .Timing(Timings.Creatures())
         .Abilities(
           C.TriggeredAbility(
             "At the beginning of your upkeep, Rumbling Slum deals 1 damage to each player.",

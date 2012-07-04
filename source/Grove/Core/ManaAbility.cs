@@ -53,6 +53,7 @@
     public void SetManaAmount(IManaAmount manaAmount)
     {
       Effect(new Effect.Factory<AddManaToPool>{
+        Game = Game,
         Init = (effect, _) => effect.Mana = manaAmount
       });
 

@@ -162,7 +162,7 @@
 
     private void Activate()
     {
-      if (IsPlayable)
+      if (!IsPlayable)
         return;
 
       int? x = null;

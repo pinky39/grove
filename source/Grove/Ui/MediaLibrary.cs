@@ -49,7 +49,7 @@
 
     public static Stream GetDeck(string name)
     {
-      var path = Path.Combine(BasePath, Decks, name);
+      var path = Path.Combine(BasePath, Decks, name + ".dec");
       return File.OpenRead(path);
     }
   }

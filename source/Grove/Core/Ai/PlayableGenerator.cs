@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core.Ai
 {
+  using System;
   using System.Collections;
   using System.Collections.Generic;
   using Controllers.Results;
@@ -29,16 +30,16 @@
 
     private IEnumerable<Playable> GetPlayableAbilities()
     {
-      foreach (var card in _player.Battlefield)
+      foreach (Card card in _player.Battlefield)
       {
         if (card.IsHidden)
           continue;
 
-        var abilitiesPrerequisites = card.CanActivateAbilities();
+        List<SpellPrerequisites> abilitiesPrerequisites = card.CanActivateAbilities();
 
-        for (var abilityIndex = 0; abilityIndex < abilitiesPrerequisites.Count; abilityIndex++)
+        for (int abilityIndex = 0; abilityIndex < abilitiesPrerequisites.Count; abilityIndex++)
         {
-          var prerequisites = abilitiesPrerequisites[abilityIndex];
+          SpellPrerequisites prerequisites = abilitiesPrerequisites[abilityIndex];
 
           if (prerequisites.IsManaSource)
             continue;
@@ -46,17 +47,10 @@
           if (!prerequisites.CanBeSatisfied)
             continue;
 
-          var activationGenerator = new ActivationGenerator(card, prerequisites, _game);
 
-          foreach (var activationParameters in activationGenerator)
+          foreach (Playable playable in GeneratePlayables(card, prerequisites, p => new Ability(card, p, abilityIndex)))
           {
-            var timingParameters = new TimingParameters(
-              _game, card, activationParameters, prerequisites.TargetsSelf);
-
-            if (prerequisites.Timming(timingParameters))
-            {
-              yield return new Ability(card, activationParameters, abilityIndex);
-            }
+            yield return playable;
           }
         }
       }
@@ -64,39 +58,71 @@
 
     private IEnumerable<Playable> GetPlayableSpells()
     {
-      foreach (var card in _player.Hand)
+      foreach (Card card in _player.Hand)
       {
         if (card.IsHidden)
           continue;
 
-        var prerequisites = card.CanCast();
+        SpellPrerequisites prerequisites = card.CanCast();
 
         if (!prerequisites.CanBeSatisfied)
           continue;
 
-        var activationGenerator = new ActivationGenerator(
-          card, prerequisites, _game);
-
-        foreach (var activationParameters in activationGenerator)
+        foreach (Playable playable in GeneratePlayables(card, prerequisites, p => new Spell(card, p)))
         {
-          var timingParameters = new TimingParameters(_game, card, activationParameters, prerequisites.TargetsSelf);
+          yield return playable;
+        }
 
-          if (prerequisites.Timming(timingParameters))
+        if (prerequisites.CanCastWithKicker)
+        {
+          foreach (Playable playable in GeneratePlayables(card, prerequisites,
+            p => new Spell(card, p), payKicker: true))
           {
-            yield return new Spell(card, activationParameters);
+            yield return playable;
           }
+        }
+      }
+    }
+
+    private IEnumerable<Playable> GeneratePlayables(Card card, SpellPrerequisites prerequisites,
+                                                    Func<ActivationParameters, Playable> factory, bool payKicker = false)
+    {
+      var activationGenerator = new ActivationGenerator(
+        card,
+        prerequisites,
+        payKicker: payKicker,
+        game: _game);
+
+      int count = 0;
+      foreach (ActivationParameters activationParameters in activationGenerator)
+      {
+        var timingParameters = new TimingParameters(
+          _game,
+          card,
+          activationParameters,
+          prerequisites.TargetsSelf);
+
+        if (prerequisites.Timming(timingParameters))
+        {
+          yield return factory(activationParameters);
+          count++;
+        }
+
+        if (count >= Search.TargetLimit)
+        {
+          break;
         }
       }
     }
 
     private IEnumerable<Playable> GetCyclables()
     {
-      foreach (var card in _player.Hand)
+      foreach (Card card in _player.Hand)
       {
         if (card.IsHidden)
           continue;
 
-        var prerequisites = card.CanCycle();
+        SpellPrerequisites prerequisites = card.CanCycle();
 
         if (!prerequisites.CanBeSatisfied)
         {
@@ -114,17 +140,17 @@
 
     private IEnumerable<Playable> GetPlayables()
     {
-      foreach (var playable in GetPlayableSpells())
+      foreach (Playable playable in GetPlayableSpells())
       {
         yield return playable;
       }
 
-      foreach (var cyclable in GetCyclables())
+      foreach (Playable cyclable in GetCyclables())
       {
         yield return cyclable;
       }
 
-      foreach (var playable in GetPlayableAbilities())
+      foreach (Playable playable in GetPlayableAbilities())
       {
         yield return playable;
       }

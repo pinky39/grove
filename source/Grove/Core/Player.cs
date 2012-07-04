@@ -186,7 +186,7 @@
       PublishMessage(new PlayerHasCastASpell
         {
           Spell = spell,
-          Target = activationParameters.Targets.Effect
+          Target = activationParameters.Targets.Effect(0)
         });
     }
 

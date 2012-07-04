@@ -15,9 +15,9 @@
       if (Result.Targets == null) 
         return;
       
-      foreach (var target in Result.Targets)
+      foreach (var target in Result.Targets.Effect())
       {
-        Effect.Targets[target.Key]  = target.Value;
+        Effect.AddTarget(target);
       }                        
         
       Stack.Push(Effect);

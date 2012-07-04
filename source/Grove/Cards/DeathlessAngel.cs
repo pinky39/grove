@@ -21,6 +21,7 @@
           "'I should have died that day, but I suffered not a scratch. I awoke in a lake of blood, none of it apparently my own.'{EOL}—The War Diaries")
         .Power(5)
         .Toughness(7)
+        .Timing(Timings.Creatures())
         .Abilities(
           StaticAbility.Flying,
           C.ActivatedAbility(
@@ -30,7 +31,8 @@
               c.Modifier<AddStaticAbility>((m, _) => { m.StaticAbility = StaticAbility.Indestructible; },
                 untilEndOfTurn: true))),
             C.Selector(validator: Selectors.Creature()),
-            targetFilter: TargetFilters.IndestructibleShield(),
+            targetFilter: TargetFilters.ShieldIndestructible(),
+            timing: Timings.NoRestrictions(),
             category: EffectCategories.Protector));
     }
   }

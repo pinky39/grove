@@ -20,7 +20,7 @@
           "{Deathtouch}{EOL}When Acidic Slime enters the battlefield, destroy target artifact, enchantment, or land.")
         .Power(2)
         .Toughness(2)
-        .Timing(Timings.Steps(Step.FirstMain))
+        .Timing(Timings.FirstMain())
         .Abilities(
           StaticAbility.Deathtouch,
           C.TriggeredAbility(

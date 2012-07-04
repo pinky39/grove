@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using Core;
+  using Core.Ai;
   using Core.CardDsl;
   using Core.Costs;
 
@@ -17,6 +18,7 @@
         .FlavorText("'They are bred to suffer and born to die. Much like humans.'{EOL}—Gix, Yawgmoth praetor")
         .Power(2)
         .Toughness(2)
+        .Timing(Timings.Creatures())
         .Abilities(
           C.ManaAbility(
             manaAmount: "{B}{B}".ParseManaAmount(), 

@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -15,12 +14,12 @@
         .Named("Shock")
         .ManaCost("{R}")
         .Type("Instant")
-        .Timing(Timings.InstantRemoval())
+        .Timing(Timings.TargetRemovalInstant())
         .Text("Shock deals 2 damage to target creature or player.")
-        .Effect<DealDamageToTarget>((e, _) => e.Amount = 2)        
-        .Targets(C.Selector(
-          validator: target => target.IsPlayer() || target.Is().Creature,
-          scorer: Core.Ai.TargetScores.OpponentStuffScoresMore(spellsDamage: 2)));
+        .Effect<DealDamageToTarget>((e, _) => e.Amount = 2)
+        .Targets(
+          filter: TargetFilters.DealDamage(2),
+          selectors: C.Selector(Selectors.CreatureOrPlayer()));
     }
   }
 }

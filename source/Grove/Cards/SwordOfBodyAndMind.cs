@@ -19,7 +19,7 @@
         .Type("Artifact - Equipment")
         .Text(
           "Equipped creature gets +2/+2 and has protection from green and from blue.{EOL}Whenever equipped creature deals combat damage to a player, you put a 2/2 green Wolf creature token onto the battlefield and that player puts the top ten cards of his or her library into his or her graveyard.{EOL}{Equip} {2}")
-        .Timing(Timings.Steps(Step.FirstMain))
+        .Timing(Timings.FirstMain())
         .Abilities(
           C.TriggeredAbility(
             "Whenever equipped creature deals combat damage to a player, you put a 2/2 green Wolf creature token onto the battlefield and that player puts the top ten cards of his or her library into his or her graveyard.",
@@ -52,7 +52,8 @@
               c.Modifier<AddProtectionFromColors>((m, _) => m.Colors = ManaColors.Green | ManaColors.Blue)
               )),
             effectSelector: C.Selector(Selectors.Equipment()),
-            timing: Timings.AttachEquipment(),
+            targetFilter: TargetFilters.CombatEquipment(),
+            timing: Timings.AttachCombatEquipment(),
             activateAsSorcery: true,
             category: EffectCategories.ToughnessIncrease | EffectCategories.Protector
             ));

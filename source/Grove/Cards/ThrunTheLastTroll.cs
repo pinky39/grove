@@ -20,6 +20,7 @@
         .FlavorText("His crime was silence, and now he suffers it eternally.")
         .Power(4)
         .Toughness(4)
+        .Timing(Timings.Creatures())
         .Effect<PutIntoPlay>((e, _) => e.CanBeCountered = false)
         .Abilities(
           StaticAbility.Hexproof,
@@ -27,7 +28,7 @@
             "{1}{G}: Regenerate Thrun.",
             C.Cost<TapOwnerPayMana>((c, _) => c.Amount = "{1}{G}".ParseManaAmount()),
             C.Effect<Regenerate>(),
-            timing: Timings.RegenerateThis()));
+            timing: Timings.Regenerate()));
     }
   }
 }

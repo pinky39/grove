@@ -3,6 +3,7 @@
   using System;
   using System.Collections.Generic;
   using Effects;
+  using Zones;
 
   public class TimingParameters
   {
@@ -23,57 +24,16 @@
     public Player Controller { get { return Card.Controller; } }
     public Player Opponent { get { return Game.Players.GetOpponent(Controller); } }
     public Effect TopSpell { get { return Game.Stack.TopSpell; } }
-    public Player TopSpellController { get { return TopSpell == null ? null : TopSpell.Controller; } }
     public IEnumerable<Attacker> Attackers { get { return Game.Combat.Attackers; } }
     public bool IsAttached { get { return Card.IsAttached; } }
-    public Targets Targets { get { return Activation.Targets; } }    
-
-    public bool IsCannonfodder()
-    {
-      return Game.Combat.IsBlockerThatWillBeDealtLeathalDamageAndWillNotKillAttacker(Card);
-    }
-
-    //public bool CanThisBeDestroyedByTopSpell()
-    //{
-    //  if (TopSpell == null)
-    //    return false;
-
-    //  if (!Card.CanBeDestroyed)
-    //    return false;
-
-    //  if (TopSpell.HasCategory(EffectCategories.Destruction))
-    //  {
-    //    if (!TopSpell.HasTargets)
-    //      return true;
-
-    //    return TopSpell.HasTarget(Card);
-    //  }
-
-    //  var damageDealing = TopSpell as IDamageDealing;
-
-    //  if (damageDealing == null)
-    //    return false;
-
-    //  var damage = new Damage(TopSpell.Source.OwningCard, damageDealing.CreatureDamage(Card));
-    //  var dealtAmount = Card.CalculateDealtDamageAmount(damage);
-
-    //  return damage.IsLeathal || Card.LifepointsLeft <= dealtAmount;
-    //}
-
-    public bool CanThisBeDealtLeathalCombatDamage()
-    {
-      return Game.Combat.CanBeDealtLeathalCombatDamage(Card);
-    }
+    public ITarget Target { get { return Activation.Targets.Effect(0); } }
+    public Stack Stack { get { return Game.Stack; } }
+    public Combat Combat { get { return Game.Combat; } }
 
     public bool TopSpellCategoryIs(EffectCategories effectCategories)
     {
       return TopSpell != null && TopSpell.HasCategory(effectCategories);
     }
-
-    //public bool TopSpellCanAffectThis()
-    //{
-    //  return !TopSpell.HasTargets || TopSpell.SharesAnyTarget(Targets) || TopSpell.HasTarget(Card);
-    //}
 
     public bool IsAttackerWithoutBlockersOrIsAttackerWithTrample(Card card)
     {

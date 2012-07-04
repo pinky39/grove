@@ -20,6 +20,7 @@
         .FlavorText("The undisputed master of the mountains of Shiv.")
         .Power(5)
         .Toughness(5)
+        .Timing(Timings.Creatures())
         .Abilities(
           StaticAbility.Flying,
           C.ActivatedAbility(
@@ -27,7 +28,7 @@
             C.Cost<TapOwnerPayMana>((c, _) => c.Amount = Mana.Red.ToAmount()),
             C.Effect<ApplyModifiersToSelf>((e, c) => e.Modifiers(
               c.Modifier<AddPowerAndToughness>((m, _) => m.Power = 1, untilEndOfTurn: true))),
-            timing: Timings.Combat()));
+            timing: Timings.IncreaseOwnersPowerAndThougness(1, 0)));
     }
   }
 }

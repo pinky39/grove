@@ -159,10 +159,13 @@
 
     public int CalculateGainIfGivenABoost(int power, int toughness)
     {                                    
-      if (_blockers.None())
+      if (_blockers.None() && power > 0)
       {
-        return 1;
+        return 2;
       }
+
+      if (toughness < 1)
+        return 0;
 
       var blockers = _blockers.Select(x => x.Card);      
       var withoutBoost = Combat.CanAttackerBeDealtLeathalCombatDamage(Card, blockers);
@@ -171,7 +174,7 @@
         return 0;
       
       var withBoost = Combat.CanAttackerBeDealtLeathalCombatDamage(Card, blockers, power, toughness);
-      return !withBoost ? Card.Score : 0;
+      return !withBoost ? Card.Score : 1;
     }
   }
 }

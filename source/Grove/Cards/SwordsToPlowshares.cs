@@ -14,13 +14,14 @@
         .Named("Swords to Plowshares")
         .ManaCost("{W}")
         .Type("Instant")
-        .Timing(Timings.InstantRemoval())
+        .Timing(Timings.TargetRemovalInstant())
         .Category(EffectCategories.Exile)
         .Text("Exile target creature. Its controller gains life equal to its power.")
         .Effect<ExileTargetPermanent>((e, _) => e.ControllerGainsLifeEqualToToughness = true)
-        .Targets(C.Selector(
-          validator: target => target.Is().Creature,
-          scorer: TargetScores.OpponentStuffScoresMore()));
+        .Targets(
+          filter: TargetFilters.Exile(),
+          selectors: C.Selector(
+            Selectors.Creature()));
     }
   }
 }

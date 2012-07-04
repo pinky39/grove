@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using Core;
+  using Core.Ai;
   using Core.CardDsl;
 
   public class DarksteelGargoyle : CardsSource
@@ -16,6 +17,7 @@
         .FlavorText("The ultimate treasure is one that guards itself.")
         .Power(3)
         .Toughness(3)
+        .Timing(Timings.Creatures())
         .Abilities(
           StaticAbility.Flying,
           StaticAbility.Indestructible

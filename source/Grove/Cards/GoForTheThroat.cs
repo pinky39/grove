@@ -17,11 +17,11 @@
         .Text("Destroy target nonartifact creature.")
         .FlavorText("Having flesh is increasingly a liability on Mirrodin.")
         .Effect<DestroyTargetPermanent>()
-        .Timing(Timings.InstantRemoval())
+        .Timing(Timings.TargetRemovalInstant())
         .Category(EffectCategories.Destruction)
-        .Targets(C.Selector(
-          validator: target => target.Is().Creature && !target.Is().Artifact,
-          scorer: TargetScores.OpponentStuffScoresMore()));
+        .Targets(
+          filter: TargetFilters.Destroy(),
+          selectors: C.Selector(Selectors.Creature(card => !card.Is().Artifact)));
     }
   }
 }

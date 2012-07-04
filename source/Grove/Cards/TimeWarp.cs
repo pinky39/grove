@@ -16,11 +16,11 @@
         .Type("Sorcery")
         .Text("Target player takes an extra turn after this one.")
         .FlavorText("Just when you thought you'd survived the first wave.")
-        .Timing(Timings.Steps(Step.SecondMain))
+        .Timing(Timings.FirstMain())
         .Effect<TargetPlayerTakesExtraTurns>()
-        .Targets(C.Selector(
-          validator: target => target.IsPlayer(),
-          scorer: TargetScores.YourStuffScoresMore()));
+        .Targets(
+          filter: TargetFilters.Controller(),
+          selectors: C.Selector(Selectors.Player()));
     }
   }
 }

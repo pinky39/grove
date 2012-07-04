@@ -17,6 +17,7 @@
         .Text("Creatures you control get +1/+1.")
         .FlavorText("Once heard, the battle song of an angel becomes part of the listener forever.")
         .Category(EffectCategories.ToughnessIncrease)
+        .Timing(Timings.FirstMain())
         .Abilities(
           C.Continuous((e, c) =>
             {

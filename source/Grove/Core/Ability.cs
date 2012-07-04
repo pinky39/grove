@@ -10,7 +10,7 @@
   public abstract class Ability : IEffectSource
   {
     private readonly TargetSelectors _targetSelectors = new TargetSelectors();
-    protected TargetSelectors TargetSelectors {get { return _targetSelectors; }}
+    public TargetSelectors TargetSelectors {get { return _targetSelectors; }}
     
     public Player Controller { get { return OwningCard.Controller; } }        
     protected IEffectFactory EffectFactory { get; private set; }

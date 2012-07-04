@@ -20,6 +20,7 @@
           "{Flying}{EOL}{X}{B}{B}: Target creature gets -0/-X until end of turn and Drana, Kalastria Bloodchief gets +X/+0 until end of turn.")
         .Power(4)
         .Toughness(4)
+        .Timing(Timings.Creatures())
         .Abilities(
           StaticAbility.Flying,
           C.ActivatedAbility(
@@ -44,7 +45,7 @@
             }),
             C.Selector(Selectors.Creature()),
             targetFilter: TargetFilters.ReduceToughness(),
-            timing: Timings.InstantRemoval(),
+            timing: Timings.TargetRemovalInstant(),
             category: EffectCategories.ToughnessReduction));
     }
   }

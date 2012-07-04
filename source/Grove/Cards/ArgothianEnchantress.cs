@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using Core;
+  using Core.Ai;
   using Core.CardDsl;
   using Core.Effects;
   using Core.Triggers;
@@ -19,6 +20,7 @@
           "{Shroud}(This permanent can't be the target of spells or abilities.){EOL}Whenever you cast an enchantment spell, draw a card.")
         .Power(0)
         .Toughness(1)
+        .Timing(Timings.FirstMain())
         .Abilities(
           StaticAbility.Shroud,
           C.TriggeredAbility(

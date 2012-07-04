@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using Core;
+  using Core.Ai;
   using Core.CardDsl;
   using Core.Effects;
   using Core.Triggers;
@@ -19,6 +20,7 @@
         .FlavorText("'Its victims are known by their eyes shattered vessels leaking broken dreams.")
         .Power(2)
         .Toughness(2)
+        .Timing(Timings.Creatures())
         .Abilities(
           StaticAbility.Flying,
           C.TriggeredAbility(

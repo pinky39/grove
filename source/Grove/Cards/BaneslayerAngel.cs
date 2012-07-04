@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using Core;
+  using Core.Ai;
   using Core.CardDsl;
 
   public class BaneslayerAngel : CardsSource
@@ -16,6 +17,7 @@
         .FlavorText("Some angels protect the meek and innocent. Others seek out and smite evil wherever it lurks.")
         .Power(5)
         .Toughness(5)
+        .Timing(Timings.Creatures())
         .Protections("demon", "dragon")
         .Abilities(
           StaticAbility.Flying,

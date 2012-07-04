@@ -1,10 +1,12 @@
 ﻿namespace Grove.Core
 {
+  using System;
   using System.Collections.Generic;
+  using System.Linq;
   using Infrastructure;
 
   [Copyable]
-  public class Targets
+  public class Targets : IEquatable<Targets>
   {
     private readonly List<ITarget> _costTargets = new List<ITarget>();
     private readonly List<ITarget> _effectTargets = new List<ITarget>();
@@ -13,6 +15,14 @@
     public bool Any { get { return Count > 0; } }
 
     public bool None { get { return Count == 0; } }
+
+    public bool Equals(Targets other)
+    {
+      if (ReferenceEquals(null, other)) return false;
+      if (ReferenceEquals(this, other)) return true;
+
+      return other.GetHashCode() == GetHashCode();
+    }
 
     public IEnumerable<ITarget> Effect()
     {
@@ -44,6 +54,22 @@
     {
       _effectTargets.Add(target);
       return this;
+    }
+
+    public override bool Equals(object obj)
+    {
+      if (ReferenceEquals(null, obj)) return false;
+      if (ReferenceEquals(this, obj)) return true;
+      if (obj.GetType() != typeof (Targets)) return false;
+      return Equals((Targets) obj);
+    }
+
+    public override int GetHashCode()
+    {
+      return HashCalculator.Combine(
+        _effectTargets.Select(x => x.GetHashCode())
+          .Concat(_costTargets.Select(x => x.GetHashCode()))
+        );
     }
   }
 }

@@ -122,8 +122,9 @@
 
     private int FindBestMove(ISearchNode searchNode)
     {      
-      searchNode.Game.ChangeTracker.Enable();
-      
+      searchNode.Game.ChangeTracker.Enable();      
+      searchNode.Game.ChangeTracker.Lock();
+
       _startStepCount = searchNode.Game.Turn.StepCount;
       _startStateCount = searchNode.Game.Turn.StateCount;
       
@@ -146,6 +147,7 @@
       Log.Debug("Search finished");
 
       searchNode.Game.ChangeTracker.Disable();
+      searchNode.Game.ChangeTracker.Unlock();
 
       var root = GetSearchNodeResult(searchNode);
       root.EvaluateSubtree();   
@@ -178,8 +180,8 @@
 
     private bool IsItFeasibleToCreateNewWorker(ISearchNode node, int moveIndex)
     {
-      return SingleThreadedStrategy(node, moveIndex);
-      //return MultiThreadedStrategy2(node, moveIndex);
+      //return SingleThreadedStrategy(node, moveIndex);
+      return MultiThreadedStrategy2(node, moveIndex);
     }
 
     private static bool SingleThreadedStrategy(ISearchNode node, int moveIndex)

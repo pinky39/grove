@@ -14,12 +14,12 @@
     {
       var targets = new Targets();
 
-      foreach (var selector in TargetSelectors)
+      foreach (var selector in TargetSelectors.Effect())
       {
-        var dialog = DialogFactory.Create(selector.Value, canCancel: false);
+        var dialog = DialogFactory.Create(selector, canCancel: false);
         Shell.ShowModalDialog(dialog, DialogType.Small, SelectionMode.SelectTarget);
 
-        targets[selector.Key] = dialog.Selection[0];
+        targets.AddEffect(dialog.Selection[0]);
       }
                   
       Result = new ChosenTargets(targets);

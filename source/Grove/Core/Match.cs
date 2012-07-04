@@ -73,8 +73,8 @@
 
     public void Start(string player1Deck, string player2Deck)
     {
-      _deck1 = player1Deck + ".dec";
-      _deck2 = player2Deck + ".dec";
+      _deck1 = player1Deck;
+      _deck2 = player2Deck;
 
       ResetResults();
       Run();

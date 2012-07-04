@@ -40,11 +40,12 @@
         {
           Result = new ChosenPlayable
             {
+      
               Playable = new ScenarioAbility(
                 card,
                 new ActivationParameters
                   (
-                    targets: new Targets {Cost = costTarget, Effect = target},                                        
+                    targets: CreateTargets(target, costTarget),
                     x: x
                   ),
                 abilityIndex
@@ -53,6 +54,17 @@
         });
 
       return this;
+    }
+
+    private Targets CreateTargets(ITarget target = null, ITarget costTarget = null) {
+      var targets = new Targets();
+      
+      if (target != null)
+        targets.AddEffect(target);
+
+      if (costTarget != null)
+        targets.AddCost(costTarget);
+      return targets;
     }
 
     public void AssertAllWereExecuted()
@@ -95,7 +107,7 @@
                 card,
                 new ActivationParameters
                   (
-                    targets: new Targets{Effect = target, Kicker = target},                                        
+                    targets: CreateTargets(target),
                     payKicker: payKicker,
                     x: x
                   ))
@@ -169,7 +181,7 @@
     {
       _decisions.Add(new SetTriggeredAbilityTarget
         {
-          Result = new ChosenTargets(new Targets{ Effect = target })
+          Result = new ChosenTargets(CreateTargets(target))
         });
       return this;
     }

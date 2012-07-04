@@ -17,15 +17,15 @@
         .Type("Enchantment")
         .Text("Sacrifice Seal of Fire: Seal of Fire deals 2 damage to target creature or player.")
         .FlavorText("'I am the romancer, the passion that consumes the flesh.'{EOL}—Seal inscription")
+        .Timing(Timings.NoRestrictions())
         .Abilities(
           C.ActivatedAbility(
             "Sacrifice Seal of Fire: Seal of Fire deals 2 damage to target creature or player.",
             C.Cost<SacrificeOwner>(),
             C.Effect<DealDamageToTarget>((e, _) => e.Amount = 2),
-            effectSelector: C.Selector(
-              validator: target => target.IsPlayer() || target.Is().Creature,
-              scorer: Core.Ai.TargetScores.OpponentStuffScoresMore(spellsDamage: 2)),            
-            timing: Timings.InstantRemoval()));     
+            effectSelector: C.Selector(Selectors.CreatureOrPlayer()),
+            targetFilter: TargetFilters.DealDamage(2),              
+            timing: Timings.TargetRemovalInstant()));
     }
   }
 }

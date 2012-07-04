@@ -15,12 +15,17 @@
 
     protected TimingDelegate All(params TimingDelegate[] predicates)
     {
-      return Timings.All(predicates);
+      return Timings.NoRestrictions(predicates);
     }
 
     protected TimingDelegate Any(params TimingDelegate[] predicates)
     {
       return Timings.Any(predicates);
+    }
+
+    protected TargetsFilterDelegate Any(params  TargetsFilterDelegate[] delegates)
+    {
+      return TargetFilters.Any(delegates);
     }
 
     protected T[] L<T>(params T[] elt)

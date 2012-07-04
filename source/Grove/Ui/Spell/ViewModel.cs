@@ -142,8 +142,8 @@
     private bool SelectTargets(SpellPrerequisites prerequisites, bool payKicker, Targets targets)
     {
       var selectors = payKicker
-        ? prerequisites.TargetSelectors
-        : prerequisites.KickerTargetSelectors;     
+        ? prerequisites.KickerTargetSelectors
+        : prerequisites.TargetSelectors;     
 
       if (selectors.HasEffect)
       {

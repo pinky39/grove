@@ -17,7 +17,7 @@
         .Type("Enchantment")
         .Text("At the beginning of your upkeep, you draw a card and you lose 1 life.")
         .FlavorText("An audience of one with the malice of thousands.")
-        .Timing(Timings.Steps(Step.SecondMain))
+        .Timing(Timings.SecondMain())
         .Abilities(
           C.TriggeredAbility(
             "At the beginning of your upkeep, you draw a card and you lose 1 life.",

@@ -19,6 +19,16 @@
       return i < _effectCandidates.Count ? _effectCandidates[i] : null;
     }
 
+    public bool HasEffect
+    {
+      get { return _effectCandidates.Count > 0; }
+    }
+
+    public bool HasCost
+    {
+      get { return _costCandidates.Count > 0; }
+    }
+
     public void AddCostCandidates(TargetCandidates candidates)
     {
       _costCandidates.Add(candidates);

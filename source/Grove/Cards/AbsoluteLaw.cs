@@ -15,6 +15,7 @@
         .ManaCost("{1}{W}")
         .Type("Enchantment")
         .Text("All creatures have protection from red.")
+        .Timing(Timings.FirstMain())
         .FlavorText(
           "The strength of law is unwavering. It is an iron bar in a world of water.")
         .Category(EffectCategories.Protector)

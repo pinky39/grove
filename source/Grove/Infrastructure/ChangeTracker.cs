@@ -10,6 +10,7 @@
     private static readonly ILog Log = LogManager.GetLogger(typeof (ChangeTracker));
     private readonly Stack<Action> _changeHistory = new Stack<Action>();
     private bool _isEnabled;
+    private bool _isLocked;
 
     public void Copy(object original, CopyService copyService)
     {
@@ -45,11 +46,13 @@
     }
 
     public void NotifyCollectionWillBeCleared<T>(ITrackableCollection<T> trackableCollection)
-    {
+    {      
+      AssertNotLocked();
+      
       if (!_isEnabled)
       {
         return;
-      }
+      }      
 
       var elements = trackableCollection.ToList();
 
@@ -64,8 +67,19 @@
       });
     }
 
+    private void AssertNotLocked()
+    {
+      if (_isLocked)
+      {
+        throw new InvalidOperationException(
+          "Trying to modify a locked change tracker. This is a common indication of a leaked copy. The most common cause of this is incorect context use in card definitions (e.g C is used insted of c).");
+      }
+    }
+
     public void NotifyValueAdded<T>(ITrackableCollection<T> trackableCollection, T added)
     {
+      AssertNotLocked();
+
       if (!_isEnabled)
       {
         return;
@@ -76,6 +90,8 @@
 
     public void NotifyValueChanged<T>(ITrackableValue<T> trackableValue)
     {
+      AssertNotLocked();
+      
       if (!_isEnabled)
       {
         return;
@@ -87,6 +103,8 @@
 
     public void NotifyValueWillBeRemoved<T>(ITrackableCollection<T> trackableCollection, T removed)
     {
+      AssertNotLocked();
+      
       if (!_isEnabled)
       {
         return;
@@ -112,6 +130,16 @@
         var action = _changeHistory.Pop();
         action();
       }
+    }
+
+    public void Lock()
+    {
+      _isLocked = true;
+    }
+
+    public void Unlock()
+    {
+      _isLocked = false;
     }
   }
 }

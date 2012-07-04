@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using Core;
+  using Core.Ai;
   using Core.CardDsl;
 
   public class Acridian : CardsSource
@@ -18,6 +19,7 @@
           "The elves of Argoth were trained to ride these creatures, even when their mounts traveled upside-down.")
         .Power(2)
         .Toughness(4)
+        .Timing(Timings.Creatures())
         .Echo("{1}{G}");
     }
   }

@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using Core;
+  using Core.Ai;
   using Core.CardDsl;
 
   public class VampireNighthawk : CardsSource
@@ -15,6 +16,7 @@
         .Text("{Flying}{EOL}{Deathtouch},{Lifelink}")
         .Power(2)
         .Toughness(3)
+        .Timing(Timings.Creatures())
         .Abilities(
           StaticAbility.Deathtouch,
           StaticAbility.Lifelink,

@@ -215,6 +215,7 @@
     <Compile Include="Core\Ai\TargetCandidatesEx.cs" />
     <Compile Include="Core\Ai\TargetFilterParameters.cs" />
     <Compile Include="Core\Ai\TargetFilters.cs" />
+    <Compile Include="Core\Ai\TargetScores.cs" />
     <Compile Include="Core\Ai\XCalculatorParameters.cs" />
     <Compile Include="Core\ITargetSelector.cs" />
     <Compile Include="Core\ITargetSelectorFactory.cs" />
@@ -311,7 +312,6 @@
     <Compile Include="Core\Modifiers\SetPowerAndToughness.cs" />
     <Compile Include="Core\PrimitiveManaAmount.cs" />
     <Compile Include="Core\Ai\TimingParameters.cs" />
-    <Compile Include="Core\TargetCandidate.cs" />
     <Compile Include="Core\TargetsCandidates.cs" />
     <Compile Include="Core\TargetNames.cs" />
     <Compile Include="Core\TargetSelector.cs" />
@@ -554,7 +554,6 @@
     <Compile Include="Core\Players.cs" />
     <Compile Include="Core\Step.cs" />
     <Compile Include="Core\StateMachine.cs" />
-    <Compile Include="Core\Ai\TargetScores.cs" />
     <Compile Include="Core\ActivationParameters.cs" />
     <Compile Include="Core\Zones\Battlefield.cs" />
     <Compile Include="Core\Zones\Graveyard.cs" />

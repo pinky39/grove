@@ -20,13 +20,14 @@
         .FlavorText("It's no coincidence that the oldest trolls are also the angriest.")
         .Power(3)
         .Toughness(2)        
+        .Timing(Timings.Creatures())
         .Abilities(
           StaticAbility.Hexproof,
           C.ActivatedAbility(
             "{1}{G}: Regenerate Troll Ascetic.",
             C.Cost<TapOwnerPayMana>((c, _) => c.Amount = "{1}{G}".ParseManaAmount()),
             C.Effect<Regenerate>(),
-            timing: Timings.RegenerateThis()));
+            timing: Timings.Regenerate()));
     }
   }
 }

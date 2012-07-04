@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using Core;
+  using Core.Ai;
   using Core.CardDsl;
   using Core.Effects;
   using Core.Triggers;
@@ -19,6 +20,7 @@
           "Left to itself, nature overflows any container, overthrows any restriction, and overreaches any boundary.")
         .Power(7)
         .Toughness(7)
+        .Timing(Timings.Creatures())
         .Abilities(
           C.TriggeredAbility(
             "At the beginning of each upkeep, put a 1/1 green Saproling creature token onto the battlefield.",

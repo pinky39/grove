@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using Core;
+  using Core.Ai;
   using Core.CardDsl;
 
   public class WhiteKnight : CardsSource
@@ -18,6 +19,7 @@
         .Power(2)
         .Toughness(2)
         .Protections(ManaColors.Black)
+        .Timing(Timings.Creatures())
         .Abilities(
           StaticAbility.FirstStrike
         );

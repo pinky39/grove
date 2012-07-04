@@ -51,6 +51,9 @@
         case (Step.DeclareBlockers):
           return true;
 
+        case (Step.CombatDamage):
+          return player.IsActive;
+
         case (Step.EndOfTurn):
           return !player.IsActive;
       }

@@ -3,6 +3,7 @@
   using System.Collections.Generic;
   using System.Linq;
   using Core;
+  using Core.Ai;
   using Core.CardDsl;
   using Core.Effects;
 
@@ -16,6 +17,7 @@
         .Type("Sorcery")
         .Text("Acidic Soil deals damage to each player equal to the number of lands he or she controls.")
         .FlavorText("Phyrexia had tried to take Urza's soul. He was relieved that Shiv tried to claim only his soles.")
+        .Timing(Timings.FirstMain())
         .Effect<DealDamageToEach>((e, _) => e.AmountPlayer = (player) => player.Battlefield.Lands.Count());
     }
   }

@@ -20,6 +20,7 @@
         .Text("Put X -1/-1 counters on each creature. Shuffle Black Sun's Zenith into its owner's library.")
         .AfterResolvePutToZone(Zone.Library)
         .Category(EffectCategories.ToughnessReduction)
+        .Timing(Timings.FirstMain())
         .FlavorText("'Under the suns, Mirrodin kneels and begs us for perfection.'{EOL}—Geth, Lord of the Vault")
         .Effect<ApplyModifiersToCreatures>((e, c) => e.Modifiers(c.Modifier<AddCounters>((m, c0) =>
           {

@@ -19,7 +19,7 @@
         .FlavorText("'Before armor, there was bark. Before blades, there were thorns.'{EOL}—Molimo, maro-sorcerer")
         .Effect<EnchantCreature>((e, c) => e.Modifiers(c.Modifier<Add11ForEachForest>()))
         .Category(EffectCategories.ToughnessIncrease)
-        .Timing(Timings.Steps(Step.FirstMain))
+        .Timing(Timings.FirstMain())
         .Targets(
           filter: TargetFilters.CombatEnchantment(),
           selectors: C.Selector(Selectors.EnchantedCreature()));

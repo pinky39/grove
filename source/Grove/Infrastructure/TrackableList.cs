@@ -10,17 +10,19 @@
   public class TrackableList<T> : ITrackableCollection<T>, IList<T>, IHashable
   {
     private readonly ChangeTracker _changeTracker;
+    private readonly IHashDependancy _hashDependancy;
     private readonly List<T> _items = new List<T>();
     private readonly bool _orderImpactsHashcode;
-    private readonly IHashDependancy _hashDependancy;
 
-    public TrackableList(IEnumerable<T> items, ChangeTracker changeTracker, IHashDependancy hashDependancy = null, bool orderImpactsHashcode = false) 
+    public TrackableList(IEnumerable<T> items, ChangeTracker changeTracker, IHashDependancy hashDependancy = null,
+                         bool orderImpactsHashcode = false)
       : this(changeTracker, hashDependancy, orderImpactsHashcode)
     {
       _items.AddRange(items);
     }
 
-    public TrackableList(ChangeTracker changeTracker, IHashDependancy hashDependancy = null, bool orderImpactsHashcode = false)
+    public TrackableList(ChangeTracker changeTracker, IHashDependancy hashDependancy = null,
+                         bool orderImpactsHashcode = false)
     {
       _changeTracker = changeTracker;
       _orderImpactsHashcode = orderImpactsHashcode;
@@ -32,8 +34,8 @@
     public int CalculateHash(HashCalculator calc)
     {
       var hashcodes = new List<int>();
-      
-      foreach (var item in _items)
+
+      foreach (T item in _items)
       {
         var hashable = item as IHashable;
         hashcodes.Add(hashable != null ? hashable.CalculateHash(calc) : item.GetHashCode());
@@ -41,10 +43,10 @@
 
       if (_orderImpactsHashcode)
       {
-        return HashCalculator.Combine(hashcodes);                        
+        return HashCalculator.Combine(hashcodes);
       }
 
-      return HashCalculator.CombineCommutative(hashcodes);      
+      return HashCalculator.CombineCommutative(hashcodes);
     }
 
     public T this[int index] { get { return _items[index]; } set { throw new NotSupportedException(); } }
@@ -56,7 +58,7 @@
 
     public void RemoveAt(int index)
     {
-      var item = _items[index];
+      T item = _items[index];
       Remove(item);
     }
 
@@ -117,7 +119,7 @@
     {
       _changeTracker.NotifyValueWillBeRemoved(this, item);
       _hashDependancy.InvalidateHash();
-      return _items.Remove(item);      
+      return _items.Remove(item);
     }
 
     bool ITrackableCollection<T>.RemoveWithoutTracking(T item)
@@ -127,30 +129,41 @@
 
     public T Pop()
     {
-      var first = _items[0];
+      T first = _items[0];
       Remove(first);
       return first;
     }
 
     public T PopLast()
     {
-      var last = _items[Count - 1];
+      T last = _items[Count - 1];
       Remove(last);
       return last;
     }
 
     public void Shuffle()
     {
-      var permutation = RandomEx.Permutation(0, Count);
-      var copy = _items.ToList();
+      IList<int> permutation = RandomEx.Permutation(0, Count);
+      List<T> copy = _items.ToList();
 
       Clear();
       copy.ShuffleInPlace(permutation);
 
-      foreach (var item in copy)
+      foreach (T item in copy)
       {
         Add(item);
       }
+    }
+
+    public void AddRange(IEnumerable<T> items)
+    {
+      foreach (T item in items)
+      {
+        _items.Add(item);
+        _changeTracker.NotifyValueAdded(this, item);
+      }
+
+      _hashDependancy.InvalidateHash();
     }
   }
 }

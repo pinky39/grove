@@ -11,7 +11,7 @@
   [Copyable]
   public abstract class Effect : ITarget
   {
-    private readonly List<ITarget> _targets = new List<ITarget>();
+    private TrackableList<ITarget> _targets;
 
     public Action<Effect> AfterResolve = delegate { };
     public Action<Effect> BeforeResolve = delegate { };
@@ -84,7 +84,7 @@
     }
 
     public void AddTargets(IEnumerable<ITarget> targets)
-    {
+    {      
       _targets.AddRange(targets);
     }
 
@@ -106,6 +106,7 @@
             Game = Game,
             Source = source,
             _triggerContext = triggerContext,
+            _targets = new TrackableList<ITarget>(Game.ChangeTracker),
             X = x,
             _wasKickerPaid = wasKickerPaid,
             CanBeCountered = true

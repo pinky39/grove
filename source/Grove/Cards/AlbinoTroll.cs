@@ -20,12 +20,13 @@
         .Power(3)
         .Toughness(3)
         .Echo("{1}{G}")
+        .Timing(Timings.Creatures())
         .Abilities(
           C.ActivatedAbility(
             "{1}{G}: Regenerate Albino Troll.",
             C.Cost<TapOwnerPayMana>((c, _) => c.Amount = "{1}{G}".ParseManaAmount()),
             C.Effect<Regenerate>(),
-            timing: Timings.RegenerateThis(), 
+            timing: Timings.Regenerate(), 
             category: EffectCategories.Protector));        
     }
   }

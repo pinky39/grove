@@ -23,10 +23,10 @@
         .Effect<EnchantCreature>((e, c) => e.Modifiers(
           c.Modifier<AddPowerAndToughness>((m, _) => m.Power = 2),
           c.Modifier<AddStaticAbility>((m, _) => m.StaticAbility = StaticAbility.Trample)))
-        .Timing(Timings.Steps(Step.FirstMain))
-        .Targets(C.Selector(
-          validator: target => target.Is().Creature,
-          scorer: TargetScores.YourStuffScoresMore()))
+        .Timing(Timings.FirstMain())
+        .Targets(
+          filter: TargetFilters.CombatEnchantment(),
+          selectors: C.Selector(Selectors.EnchantedCreature()))
         .Abilities(
           C.TriggeredAbility(
             "When Rancor is put into a graveyard from the battlefield, return Rancor to its owner's hand.",

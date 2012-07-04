@@ -11,7 +11,7 @@
     protected Card Card { get { return Ability.OwningCard; } }
     protected Player Controller { get { return Card.Controller; } }
     protected Game Game { get; private set; }
-    public TargetSelector TargetSelector { get { return Ability.TargetSelectors.Cost; } }
+    public TargetSelector TargetSelector { get { return Ability.TargetSelectors.Cost(0); } }
 
     public CalculateX XCalculator { get; set; }
 
@@ -21,7 +21,7 @@
     }
 
     public abstract bool CanPay(ref int? maxX);
-    public abstract void Pay(ITarget target, int? x);    
+    public abstract void Pay(ITarget target, int? x);
 
     protected virtual void AfterInit() {}
 

@@ -19,12 +19,9 @@
         .Category(EffectCategories.Counterspell)
         .Timing(Timings.CounterSpell(3))
         .Effect<CounterTargetSpell>((e, _) => e.DoNotCounterCost = 3.AsColorlessMana())
-        .Targets(C.Selector(
-          validator: target =>
-            target.IsEffect() &&
-              target.Effect().CanBeCountered &&
-                target.Effect().Source is Card,
-          scorer: TargetScores.OpponentStuffScoresMore()));
+        .Targets(
+          filter: TargetFilters.CounterSpell(),
+          selectors: C.Selector(Selectors.Counterspell()));
     }
   }
 }

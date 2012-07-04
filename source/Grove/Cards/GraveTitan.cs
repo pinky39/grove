@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using Core;
+  using Core.Ai;
   using Core.CardDsl;
   using Core.Effects;
   using Core.Triggers;
@@ -19,6 +20,7 @@
         .FlavorText("Death in form and function.")
         .Power(6)
         .Toughness(6)
+        .Timing(Timings.Creatures())
         .Abilities(
           StaticAbility.Deathtouch,
           C.TriggeredAbility(

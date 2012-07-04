@@ -19,7 +19,7 @@
         .Type("Artifact - Equipment")
         .Text(
           "Equipped creature gets +2/+2 and has protection from red and from blue.{EOL}Whenever equipped creature deals combat damage to a player, Sword of Fire and Ice deals 2 damage to target creature or player and you draw a card.{EOL}{Equip} {2}")
-        .Timing(Timings.Steps(Step.FirstMain))
+        .Timing(Timings.FirstMain())
         .Abilities(
           C.TriggeredAbility(
             "Whenever equipped creature deals combat damage to a player, Sword of Fire and Ice deals 2 damage to target creature or player and you draw a card.",
@@ -33,8 +33,8 @@
               c.Effect<DealDamageToTarget>((e1, _) => e1.Amount = 2),
               c.Effect<DrawCards>((e2, _) => e2.DrawCount = 1))),
             C.Selector(
-              validator: target => target.IsPlayer() || target.Is().Creature,
-              scorer: TargetScores.OpponentStuffScoresMore(spellsDamage: 2))),
+              Selectors.CreatureOrPlayer()),
+              targetFilter: TargetFilters.DealDamage(2)),              
           C.ActivatedAbility(
             "{2}: Attach to target creature you control. Equip only as a sorcery.",
             C.Cost<TapOwnerPayMana>((cost, _) => cost.Amount = 2.AsColorlessMana()),
@@ -47,7 +47,8 @@
               c.Modifier<AddProtectionFromColors>((m, _) => m.Colors = ManaColors.Red | ManaColors.Blue)
               )),
             effectSelector: C.Selector(Selectors.Equipment()),
-            timing: Timings.AttachEquipment(),
+            targetFilter: TargetFilters.CombatEquipment(),
+            timing: Timings.AttachCombatEquipment(),
             activateAsSorcery: true,
             category: EffectCategories.ToughnessIncrease | EffectCategories.Protector
             ));

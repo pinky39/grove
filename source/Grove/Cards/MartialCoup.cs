@@ -34,6 +34,7 @@
           "Put X 1/1 white Soldier creature tokens onto the battlefield. If X is 5 or more, destroy all other creatures.")
         .FlavorText("Their war forgotten, the nations of Bant stood united in the face of a common threat.")
         .Category(EffectCategories.Destruction)
+        .Timing(Timings.MainPhases())
         .Effect<CreateTokens>((e, c) =>
           {
             e.Count = Value.PlusX;

@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using Core;
+  using Core.Ai;
   using Core.CardDsl;
 
   public class SanctumGuardian : CardsSource
@@ -17,6 +18,7 @@
         .FlavorText("'Protect our mother in her womb.'")
         .Power(1)
         .Toughness(4)
+        .Timing(Timings.Creatures())
         .Abilities(
         );
     }

@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using Core;
+  using Core.Ai;
   using Core.CardDsl;
   using Core.Effects;
   using Core.Triggers;
@@ -19,6 +20,7 @@
         .FlavorText("'The finest minions know what I need without me ever saying a thing.'")
         .Power(2)
         .Toughness(1)
+        .Timing(Timings.FirstMain())
         .Abilities(
           StaticAbility.Flying,
           C.TriggeredAbility(

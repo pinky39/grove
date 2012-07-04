@@ -28,14 +28,18 @@
     public Step Step { get { return Game.Turn.Step; } }
     public Stack Stack { get { return Game.Stack; } }
 
-    public IEnumerable<ITarget> Candidates(TargetFilters.InputSelectorDelegate selector = null)
+    public IEnumerable<ITarget> Candidates()
     {
-      return selector == null ? AllCandidates.Effect(0) : selector(AllCandidates);
+      return AllCandidates.HasCost ? AllCandidates.Cost(0) : AllCandidates.Effect(0);
     }
 
-    public List<Targets> Targets(IEnumerable<ITarget> candidates, TargetFilters.OutputSelectorDelegate selector = null)
+    public List<Targets> Targets(IEnumerable<ITarget> candidates)
     {
-      return (selector == null ? candidates.Select(x => new Targets().AddEffect(x)) : selector(candidates)).ToList();
+      var targets = AllCandidates.HasCost 
+        ? candidates.Select(x => new Targets().AddCost(x)) 
+        : candidates.Select(x => new Targets().AddEffect(x));
+
+      return targets.ToList();
     }
   }
 }

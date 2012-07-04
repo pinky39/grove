@@ -17,7 +17,7 @@
         .Type("Artifact")
         .Text("{2},{T}: Tap target creature.")
         .FlavorText("A taut slipknot trigger is the only thing standing between you and standing.")
-        .Timing(Timings.Steps(Step.FirstMain))
+        .Timing(Timings.FirstMain())
         .Abilities(
           C.ActivatedAbility(
             "{2},{T}: Tap target creature.",
@@ -27,12 +27,8 @@
                 c.TapOwner = true;
               }),
             C.Effect<TapTargetCreature>(),
-            C.Selector(
-              validator: target => target.Is().Creature,
-              scorer: TargetScores.BattlefieldRanker(
-                ranker: card => card.Power.Value,
-                filter: card => !card.IsTapped,
-                controller: Controller.Opponent)),
+            C.Selector(Selectors.Creature()),
+            targetFilter: TargetFilters.TapCreature(),
             timing: Timings.Steps(Step.BeginningOfCombat))
         );
     }

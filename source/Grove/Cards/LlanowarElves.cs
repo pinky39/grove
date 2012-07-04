@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using Core;
+  using Core.Ai;
   using Core.CardDsl;
 
   public class LlanowarElves : CardsSource
@@ -16,6 +17,7 @@
       .FlavorText("One bone broken for every twig snapped underfoot.{EOL}—Llanowar penalty for trespassing")
       .Power(1)
       .Toughness(1)
+      .Timing(Timings.Creatures())
       .Abilities(
         C.ManaAbility(Mana.Green, "{T}: Add {G} to your mana pool."));
     }

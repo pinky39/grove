@@ -16,7 +16,7 @@
         .Type("Sorcery")
         .Text("Draw three cards, then discard a card.")
         .FlavorText("Dwell longest on the thoughts that shine brightest.")
-        .Timing(Timings.Steps(Step.FirstMain))
+        .Timing(Timings.FirstMain())
         .Effect<DrawCards>((e, _) =>
         {
           e.DrawCount = 3;

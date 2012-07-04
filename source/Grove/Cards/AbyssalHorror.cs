@@ -18,6 +18,7 @@
         .Type("Creature - Specter")
         .Text("{Flying}{EOL}When Abyssal Horror enters the battlefield, target player discards two cards.")
         .FlavorText("'It has no face of its own—it wears that of its latest victim.'")
+        .Timing(Timings.FirstMain())
         .Power(2)
         .Toughness(2)
         .Abilities(

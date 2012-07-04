@@ -39,7 +39,7 @@
                   m.Type = "Land Creature - Elemental";
                 }, untilEndOfTurn: true),
               c.Modifier<AddStaticAbility>((m, _) => m.StaticAbility = StaticAbility.Reach, untilEndOfTurn: true))),
-            timing: Timings.Steps(Step.BeginningOfCombat)));
+            timing: Timings.ChangeToCreature(minAvailableMana: 4)));
     }
   }
 }

@@ -19,7 +19,7 @@
         .Text("Equipped creature has deathtouch and lifelink.{EOL}{Equip} {2}")
         .FlavorText(
           "During their endless travels, the mages of the Goma Fada caravan have learned ways to harness both life and death.")
-        .Timing(Timings.Steps(Step.FirstMain))
+        .Timing(Timings.FirstMain())
         .Abilities(
           C.ActivatedAbility(
             "{2}: Attach to target creature you control. Equip only as a sorcery.",
@@ -29,8 +29,8 @@
               c.Modifier<AddStaticAbility>((m, _) => m.StaticAbility = StaticAbility.Lifelink)
               )),
             effectSelector: C.Selector(Selectors.Equipment()),
-            targetFilter: TargetFilters.CombatAttachment(),
-            timing: Timings.AttachEquipment(),
+            targetFilter: TargetFilters.CombatEquipment(),
+            timing: Timings.AttachCombatEquipment(),
             activateAsSorcery: true));
     }
   }

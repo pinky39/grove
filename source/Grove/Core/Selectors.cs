@@ -2,6 +2,7 @@
 {
   using System;
   using System.Linq;
+  using Ai;
 
   public static class Selectors
   {
@@ -32,7 +33,7 @@
 
     public static TargetValidatorDelegate Permanent(params string[] types)
     {
-      return p => p.Target.IsPermanent() && types.Any(type => p.Target.Is().OfType(type));
+      return p => p.Target.IsPermanent() &&  (types.Length == 0 || types.Any(type => p.Target.Is().OfType(type)));
     }
 
     public static TargetValidatorDelegate AttackerOrBlocker()
@@ -63,11 +64,24 @@
       return p => p.Target.IsPermanent() && p.Target.Is().Creature;
     }
 
-    public static TargetValidatorDelegate Creature(Func<Card, bool> filter = null)
+    public static TargetValidatorDelegate Creature(Func<Card, bool> filter = null, Controller controller = Controller.Any)
     {
       filter = filter ?? delegate { return true; };
       
-      return p => p.Target.IsPermanent() && p.Target.Is().Creature && filter(p.Target.Card());
+      Func<Player, Player, bool> isValidController  = (spellController, targetController) =>
+        {
+          switch (controller)
+          {
+            case (Controller.SpellOwner):
+              return spellController == targetController;
+            case (Controller.Opponent):
+              return spellController != targetController;
+          }
+          return true;
+        };
+      
+      return p => p.Target.IsPermanent() && p.Target.Is().Creature && 
+        isValidController(p.Controller, p.Target.Card().Controller) && filter(p.Target.Card());
     }
   }
 }

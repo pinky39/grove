@@ -20,20 +20,15 @@
           "All we know about the Krosan Forest we have learned from those few who made it out alive.{EOL}—Elvish refugee")
         .Power(4)
         .Toughness(4)
+        .Timing(Timings.Creatures())
         .Abilities(
           C.ActivatedAbility(
             "Sacrifice a Beast: You gain 4 life.",
             C.Cost<SacrificePermanent>(),
             C.Effect<GainLife>((e, _) => e.SetAmount(4)),
-            costSelector:
-              C.Selector(
-                (target, baloth) => target.Is().OfType("beast") && target.Card().Controller == baloth.Controller),
-            timing: Any(
-              Timings.ResponseToSpellLeathalDamage(),
-              Timings.ResponseToSpellDestruction(),
-              Timings.ResponseToSpellToughnessReduction(),
-              Timings.ResponseToSpellThatReducesPlayersLifeToZero(),
-              Timings.CannonFodder())));
+            costSelector: C.Selector(Selectors.Creature((c)=> c.Is("beast"), Controller.SpellOwner)),
+            targetFilter: TargetFilters.CostSacrificeGainLife(),
+            timing: Timings.NoRestrictions()));
     }
   }
 }

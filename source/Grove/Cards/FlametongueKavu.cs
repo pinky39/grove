@@ -20,17 +20,14 @@
         .FlavorText("'For dim-witted, thick-skulled genetic mutants, they have pretty good aim.{EOL}—Sisay'")
         .Power(4)
         .Toughness(2)
+        .Timing(Timings.DealsDamageWhenEntersBattlefield(4))
         .Abilities(
           C.TriggeredAbility(
             "When Flametongue Kavu enters the battlefield, it deals 4 damage to target creature.",
             C.Trigger<ChangeZone>((t, _) => t.To = Zone.Battlefield),
             C.Effect<DealDamageToTarget>((e, _) => e.Amount = 4),
-            C.Selector(
-              validator: target => target.Is().Creature,
-              scorer: Core.Ai.TargetScores.OpponentStuffScoresMore(4, considerSpellController: true)))
-        );
-    }
-
-   
+            C.Selector(Selectors.Creature()),
+            targetFilter: TargetFilters.DealDamage(4)));
+    }   
   }
 }

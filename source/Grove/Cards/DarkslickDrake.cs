@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using Core;
+  using Core.Ai;
   using Core.CardDsl;
   using Core.Effects;
   using Core.Triggers;
@@ -19,6 +20,7 @@
         .FlavorText("At the edge of the Mephidross, Phyrexia's influence seeps into life and land.")
         .Power(2)
         .Toughness(4)
+        .Timing(Timings.Creatures())
         .Abilities(
           StaticAbility.Flying,
           C.TriggeredAbility(

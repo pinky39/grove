@@ -9,7 +9,7 @@
 
   public class ActivatedAbility : Ability
   {
-    private TimingDelegate _timming = Timings.MainPhases();
+    private TimingDelegate _timming = Timings.NoRestrictions();
 
     public ActivatedAbility()
     {

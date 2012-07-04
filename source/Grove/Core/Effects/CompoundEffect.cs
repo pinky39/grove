@@ -20,7 +20,7 @@
         
         // this should be changed if compund effect would ever need more 
         // than one target
-        effect.Targets.Effect = Targets.Effect;
+        effect.AddTarget(Target);
         
         effect.Resolve();                
       }
