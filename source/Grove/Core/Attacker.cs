@@ -1,6 +1,5 @@
 ﻿namespace Grove.Core
 {
-  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Controllers;
@@ -68,7 +67,7 @@
 
     public void DealAssignedDamage()
     {
-      foreach (var damage in _assignedDamage)
+      foreach (Damage damage in _assignedDamage)
       {
         _card.DealDamage(damage.Source, damage.Amount, isCombat: true);
       }
@@ -83,16 +82,16 @@
 
     public void DistributeDamageToBlockers(DamageDistribution distribution)
     {
-      foreach (var blocker in _blockers)
+      foreach (Blocker blocker in _blockers)
       {
         blocker.AssignDamage(distribution[blocker]);
       }
 
-      var defender = _players.GetOpponent(_card.Controller);
+      Player defender = _players.GetOpponent(_card.Controller);
 
       if (HasTrample || _isBlocked == false)
       {
-        var unassignedDamage = DamageThisWillDealInOneDamageStep - distribution.Total;
+        int unassignedDamage = DamageThisWillDealInOneDamageStep - distribution.Total;
         defender.AssignDamage(_card, unassignedDamage);
       }
     }
@@ -101,7 +100,7 @@
     {
       if (_blockers.Count == 0)
         return _card.TotalDamageThisCanDealInAllDamageSteps;
-      
+
       if (HasTrample)
       {
         return Combat.CalculateTrampleDamage(Card, _blockers.Select(x => x.Card));
@@ -124,7 +123,7 @@
     {
       _publisher.Publish(new RemovedFromCombat {Card = Card});
 
-      foreach (var blocker in _blockers)
+      foreach (Blocker blocker in _blockers)
       {
         blocker.RemoveAttacker();
       }
@@ -132,7 +131,7 @@
 
     public void SetDamageAssignmentOrder(DamageAssignmentOrder damageAssignmentOrder)
     {
-      foreach (var blocker in _blockers)
+      foreach (Blocker blocker in _blockers)
       {
         blocker.DamageAssignmentOrder = damageAssignmentOrder[blocker];
       }
@@ -140,12 +139,42 @@
 
     public static implicit operator Card(Attacker attacker)
     {
-      return attacker._card;
+      return attacker != null ? attacker._card : null;
     }
 
     public bool WillBeDealtLeathalCombatDamage()
     {
       return Combat.CanAttackerBeDealtLeathalCombatDamage(Card, _blockers.Select(x => x.Card));
+    }
+
+    public int CalculateGainIfGivenABoost(int power, int toughness)
+    {
+      if (_blockers.None() && power > 0)
+      {
+        return 2;
+      }
+
+      if (toughness < 1)
+        return 0;
+
+      IEnumerable<Card> blockers = _blockers.Select(x => x.Card);
+      bool withoutBoost = Combat.CanAttackerBeDealtLeathalCombatDamage(Card, blockers);
+
+      if (!withoutBoost)
+        return 0;
+
+      bool withBoost = Combat.CanAttackerBeDealtLeathalCombatDamage(Card, blockers, power, toughness);
+      return !withBoost ? Card.Score : 1;
+    }
+
+    public Card GetBestDamagePreventionCandidate()
+    {
+      if (_blockers.Count == 0)
+        return null;
+
+      Card candidate;
+      Combat.CanAttackerBeDealtLeathalCombatDamage(Card, Blockers.Select(x => x.Card), 0, 0, out candidate);
+      return candidate;
     }
 
     [Copyable]
@@ -168,36 +197,6 @@
       {
         return new Attacker(card, _changeTracker, _players, _publisher);
       }
-    }
-
-    public int CalculateGainIfGivenABoost(int power, int toughness)
-    {                                    
-      if (_blockers.None() && power > 0)
-      {
-        return 2;
-      }
-
-      if (toughness < 1)
-        return 0;
-
-      var blockers = _blockers.Select(x => x.Card);      
-      var withoutBoost = Combat.CanAttackerBeDealtLeathalCombatDamage(Card, blockers);
-
-      if (!withoutBoost)
-        return 0;
-      
-      var withBoost = Combat.CanAttackerBeDealtLeathalCombatDamage(Card, blockers, power, toughness);
-      return !withBoost ? Card.Score : 1;
-    }
-
-    public Card GetBestDamagePreventionCandidate()
-    {
-      if (_blockers.Count == 0)
-        return null;
-
-      Card candidate;
-      Combat.CanAttackerBeDealtLeathalCombatDamage(Card, Blockers.Select(x => x.Card), 0, 0, out candidate);
-      return candidate;
     }
   }
 }

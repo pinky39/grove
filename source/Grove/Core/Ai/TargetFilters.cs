@@ -377,7 +377,7 @@
               sourcePicks.Add(p.Stack.TopSpell);
             }
            
-            var creatureKilledByTopSpell = p.Candidates()
+            var creatureKilledByTopSpell = p.Candidates(1)
               .Where(x => x.IsCard())
               .Where(x => p.Stack.CanBeDealtLeathalDamageByTopSpell(x.Card()))
               .OrderByDescending(x => x.Card().Score)
@@ -403,7 +403,7 @@
               }
             }
             
-            var creatureKilledInCombat = p.Candidates()
+            var creatureKilledInCombat = p.Candidates(1)
               .Where(x => x.IsCard())
               .Select(x => new
                 {
@@ -423,7 +423,7 @@
           
           }
 
-          return p.MultipleTargets(targetPicks, sourcePicks);
+          return p.MultipleTargets(sourcePicks, targetPicks);
         };
     }
   }

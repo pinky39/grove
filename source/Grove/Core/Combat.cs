@@ -426,7 +426,8 @@
 
     public Card GetAttackerWhichWillDealGreatestDamageToDefender()
     {
-      return Attackers.OrderByDescending(x => x.GetDamageThisWillDealToPlayer()).FirstOrDefault();
+      return Attackers.OrderByDescending(x => x.GetDamageThisWillDealToPlayer())
+        .FirstOrDefault();
     }
   }
 }

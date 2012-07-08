@@ -29,8 +29,8 @@
             
             effectSelectors: new []
               {
-                C.Selector(Selectors.CreatureOrPlayer()),
-                C.Selector(Selectors.EffectOrPermanent())
+                C.Selector(Selectors.EffectOrPermanent()),
+                C.Selector(Selectors.CreatureOrPlayer())               
               },
             
             targetFilter: TargetFilters.PreventDamageFromSource(),

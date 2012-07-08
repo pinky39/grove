@@ -5,7 +5,7 @@
 
   public class PreventDamageFromSource : Effect
   {
-    private ITarget DamageSource { get { return Target(1); } }
+    private ITarget DamageSource { get { return Target(0); } }
     public bool OnlyOnce { get; set; }
 
     protected override void ResolveEffect()
@@ -29,10 +29,10 @@
           Game = Game,
           Init = (m, _) => m.Prevention = prevention
         }
-        .CreateModifier(Source.OwningCard, Target());
+        .CreateModifier(Source.OwningCard, Target(1));
 
 
-      Target().AddModifier(modifier);
+      Target(1).AddModifier(modifier);
     }
   }
 }
