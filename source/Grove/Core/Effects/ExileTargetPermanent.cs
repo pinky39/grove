@@ -8,10 +8,10 @@
     {
       if (ControllerGainsLifeEqualToToughness)
       {
-        Target.Card().Controller.Life += Target.Card().Toughness.Value;
+        Target().Card().Controller.Life += Target().Card().Toughness.Value;
       }
       
-      Target.Card().Exile();      
+      Target().Card().Exile();      
     }
   }
 }

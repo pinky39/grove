@@ -44,7 +44,7 @@
 
     public int LifepointsLeft { get { return Card.LifepointsLeft; } }
     public int Score { get { return Ai.ScoreCalculator.CalculatePermanentScore(Card); } }
-    public int TotalDamageThisCanDeal { get { return Card.Power.Value; } }
+    public int DamageThisWillDealInOneDamageStep { get { return Card.Power.Value; } }
     public int Toughness { get { return Card.Toughness.Value; } }
 
     public int CalculateHash(HashCalculator calc)
@@ -79,7 +79,7 @@
     public void DistributeDamageToAttacker()
     {
       if (Attacker != null)
-        Attacker.AssignDamage(Card, TotalDamageThisCanDeal);
+        Attacker.AssignDamage(Card, DamageThisWillDealInOneDamageStep);
     }
 
     public void RemoveAttacker()
@@ -139,6 +139,15 @@
       
       var withBoost = Combat.CanBlockerBeDealtLeathalCombatDamage(Card, Attacker, power, toughness);
       return !withBoost ? Card.Score : 1;
+    }
+
+    public Card GetBestDamagePreventionCandidate()
+    {
+      if (WillBeDealtLeathalCombatDamage())
+      {
+        return Attacker.Card;
+      }
+      return null;
     }
   }
 }

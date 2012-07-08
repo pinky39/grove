@@ -94,6 +94,16 @@
       effect.EffectWasCountered();
     }
 
+    public int GetDamageTopSpellWillDealToPlayer(Player player)
+    {
+      var damageDealing = TopSpell as IDamageDealing;
+
+      if (damageDealing == null)
+        return 0;
+
+      return damageDealing.PlayerDamage(player);
+    }
+
     public bool CanBeDealtLeathalDamageByTopSpell(Card card, bool targetOnly = false)
     {
       if (TopSpell == null)

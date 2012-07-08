@@ -43,7 +43,7 @@
             
       Publisher.Publish(new PlayerHasActivatedAbility{
         Ability = this,
-        Target = effect.Target
+        Target = effect.Target()
       });
 
       if (UsesStack)

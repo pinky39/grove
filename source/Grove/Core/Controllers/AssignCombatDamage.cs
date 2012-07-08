@@ -16,7 +16,7 @@
       else if (Attacker.BlockersCount == 1 && !Attacker.HasTrample)
       {
         Result = new DamageDistribution();
-        Result.Assign(Attacker.Blockers.First(), Attacker.TotalDamageThisCanDeal);
+        Result.Assign(Attacker.Blockers.First(), Attacker.DamageThisWillDealInOneDamageStep);
       }
 
       Attacker.DistributeDamageToBlockers(Result);

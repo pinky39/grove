@@ -7,6 +7,7 @@
   using CardDsl;
   using Controllers;
   using Infrastructure;
+  using Modifiers;
 
   [Copyable]
   public abstract class Effect : ITarget
@@ -25,7 +26,17 @@
     public IEffectSource Source { get; set; }
     public int? X { get; private set; }
     public virtual bool AffectsSelf { get { return false; } }
-    public ITarget Target { get { return _targets.Count == 0 ? null : _targets[0]; } }
+
+    public ITarget Target()
+    {
+      return _targets.Count == 0 ? null : _targets[0];
+    }
+
+    public ITarget Target(int index)
+    {
+      return _targets[index];
+    }
+
     public bool HasTargets { get { return _targets.Count > 0; } }
 
     public int CalculateHash(HashCalculator calc)
@@ -128,6 +139,16 @@
     public bool HasTarget(Card card)
     {
       return _targets.Any(x => x == card);
+    }
+
+    public void AddModifier(IModifier modifier)
+    {
+      // no card needs this yet
+    }
+
+    public void RemoveModifier(IModifier modifier)
+    {
+      // no card needs this yet
     }
   }
 }

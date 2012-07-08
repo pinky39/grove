@@ -19,7 +19,7 @@
       _damageDistribution = damageDistribution;
       _assignments = new BlockerDamageAssignments(attacker);      
       _attacker = attacker;     
-      _damageToAssign = attacker.TotalDamageThisCanDeal;
+      _damageToAssign = attacker.DamageThisWillDealInOneDamageStep;
     }
 
     public Card Attacker { get { return _attacker.Card; } }
@@ -60,7 +60,7 @@
     public virtual void Clear()
     {
       _assignments.Clear();            
-      _damageToAssign = _attacker.TotalDamageThisCanDeal;
+      _damageToAssign = _attacker.DamageThisWillDealInOneDamageStep;
     }
 
     public virtual void Close() {}

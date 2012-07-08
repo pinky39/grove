@@ -1,7 +1,9 @@
 ﻿namespace Grove.Core.Ai
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
+  using Infrastructure;
 
   public static class TargetFilters
   {
@@ -355,6 +357,73 @@
             .Take(1);
 
           return p.Targets(candidates);
+        };
+    }
+
+    public static TargetsFilterDelegate PreventDamageFromSource()
+    {
+      return p =>
+        {          
+          var targetPicks = new List<ITarget>();
+          var sourcePicks = new List<ITarget>();
+
+          if (!p.Stack.IsEmpty && p.Stack.TopSpell is IDamageDealing)
+          {
+            int damageToPlayer = p.Stack.GetDamageTopSpellWillDealToPlayer(p.Controller);
+
+            if (damageToPlayer > 0)
+            {
+              targetPicks.Add(p.Controller);
+              sourcePicks.Add(p.Stack.TopSpell);
+            }
+           
+            var creatureKilledByTopSpell = p.Candidates()
+              .Where(x => x.IsCard())
+              .Where(x => p.Stack.CanBeDealtLeathalDamageByTopSpell(x.Card()))
+              .OrderByDescending(x => x.Card().Score)
+              .FirstOrDefault();
+
+            if (creatureKilledByTopSpell != null)
+            {
+              targetPicks.Add(creatureKilledByTopSpell);
+              sourcePicks.Add(p.Stack.TopSpell);
+            }
+          }
+
+          if (p.Step == Step.DeclareBlockers)
+          {
+            if (!p.Controller.IsActive)
+            {
+              var attacker = p.Combat.GetAttackerWhichWillDealGreatestDamageToDefender();
+
+              if (attacker != null)
+              {
+                targetPicks.Add(p.Controller);
+                sourcePicks.Add(attacker);
+              }
+            }
+            
+            var creatureKilledInCombat = p.Candidates()
+              .Where(x => x.IsCard())
+              .Select(x => new
+                {
+                  Target = x.Card(),
+                  Source = p.Combat.GetBestDamagePreventionCandidateForAttackerOrBlocker(x.Card())  
+                })
+              .Where(x => x.Source != null)
+              .OrderByDescending(x => x.Target.Score)
+              .FirstOrDefault(); 
+            
+            if (creatureKilledInCombat != null)
+            {
+              targetPicks.Add(creatureKilledInCombat.Target);
+              sourcePicks.Add(creatureKilledInCombat.Source);
+            }
+
+          
+          }
+
+          return p.MultipleTargets(targetPicks, sourcePicks);
         };
     }
   }

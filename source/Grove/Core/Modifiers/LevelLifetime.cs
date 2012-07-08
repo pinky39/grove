@@ -17,7 +17,7 @@
       if (message.Card != ModifierTarget)
         return;
       
-      if (ModifierTarget.Level < MinLevel || ModifierTarget.Level > MaxLevel)
+      if (ModifierTarget.Card().Level < MinLevel || ModifierTarget.Card().Level > MaxLevel)
       {
         End();
       }

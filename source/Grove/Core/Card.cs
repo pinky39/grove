@@ -7,11 +7,11 @@
   using CardDsl;
   using CastingRules;
   using Counters;
-  using DamagePrevention;
   using Effects;
   using Infrastructure;
   using Messages;
   using Modifiers;
+  using Preventions;
   using Zones;
 
   [Copyable]
@@ -164,7 +164,7 @@
     public int? Level { get { return _level.Value; } }
     public IManaAmount EchoCost { get; private set; }
     public bool CanBeDestroyed { get { return !CanRegenerate && !Has().Indestructible; } }
-    public int TotalDamageThisCanDealToPlayerIfNotBlocked { get { return Has().DoubleStrike ? 2*Power.Value : Power.Value; } }
+    public int TotalDamageThisCanDealInAllDamageSteps { get { return Has().DoubleStrike ? 2*Power.Value : Power.Value; } }
     public IManaAmount CyclingCost { get; private set; }
     public bool HasCycling { get { return _cyclingFactory != null; } }
 
@@ -1090,6 +1090,6 @@
         card._type.Property(x => x.Value)
           .Changes(card).Property<Card, string>(x => x.Type);
       }
-    }
+    }    
   }
 }

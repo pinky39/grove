@@ -46,7 +46,7 @@
       var message = new PlayersInterestChanged{
         Visual = effect.Source,
         HasLostInterest = hasLostInterest,
-        Target = effect.Target
+        Target = effect.Target()
       };
 
       _publisher.Publish(message);

@@ -28,9 +28,27 @@
     public Step Step { get { return Game.Turn.Step; } }
     public Stack Stack { get { return Game.Stack; } }
 
-    public IEnumerable<ITarget> Candidates()
+    public IEnumerable<ITarget> Candidates(int index = 0)
     {
-      return AllCandidates.HasCost ? AllCandidates.Cost(0) : AllCandidates.Effect(0);
+      return AllCandidates.HasCost ? AllCandidates.Cost(index) : AllCandidates.Effect(index);
+    }
+    
+    public List<Targets> MultipleTargets(params List<ITarget>[] candidates)
+    {
+      var targetsList = new List<Targets>();
+      
+      for (int i = 0; i < candidates[0].Count; i++)
+      {
+        var targets = new Targets();
+
+        for (int j = 0; j < candidates.Length; j++)
+        {
+          targets.AddEffect(candidates[j][i]);
+        }
+
+        targetsList.Add(targets);
+      }
+      return targetsList;
     }
 
     public List<Targets> Targets(IEnumerable<ITarget> candidates)

@@ -25,7 +25,7 @@
 
       foreach (var modifier in targetModifiers)
       {
-        Target.Card().AddModifier(modifier);
+        Target().Card().AddModifier(modifier);
       }
     }
 
@@ -46,7 +46,7 @@
 
     private IEnumerable<Modifier> CreateTargetModifiers()
     {
-      return _targetModifiers.CreateModifiers(Source.OwningCard, Target.Card(), X);
+      return _targetModifiers.CreateModifiers(Source.OwningCard, Target().Card(), X);
     }
   }
 }

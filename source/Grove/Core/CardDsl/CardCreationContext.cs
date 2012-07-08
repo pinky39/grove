@@ -1,15 +1,15 @@
 ﻿namespace Grove.Core.CardDsl
 {
-  using System;
   using System.Collections.Generic;
+  using System.Linq;
   using Ai;
   using Costs;
   using Counters;
-  using DamagePrevention;
   using Effects;
+  using Infrastructure;
   using Modifiers;
+  using Preventions;
   using Triggers;
-  using Zones;
 
   public class CardCreationContext
   {
@@ -22,11 +22,31 @@
 
     public Card.CardFactory Card { get { return new Card.CardFactory(_game); } }
 
-    public IActivatedAbilityFactory ActivatedAbility(
+
+   public IActivatedAbilityFactory ActivatedAbility(
       string text,
       ICostFactory cost,
       IEffectFactory effect,
       ITargetSelectorFactory effectSelector = null,
+      ITargetSelectorFactory costSelector = null,
+      TargetsFilterDelegate targetFilter = null,
+      bool activateAsSorcery = false,
+      EffectCategories category = EffectCategories.Generic,
+      TimingDelegate timing = null)
+   {
+     var effectSelectors = effectSelector == null
+       ? new ITargetSelectorFactory[] {}
+       : new[] {effectSelector};
+     
+     return ActivatedAbility(text, cost, effect, effectSelectors, costSelector,
+       targetFilter, activateAsSorcery, category, timing);
+   }
+
+    public IActivatedAbilityFactory ActivatedAbility(
+      string text,
+      ICostFactory cost,
+      IEffectFactory effect,
+      ITargetSelectorFactory[] effectSelectors,
       ITargetSelectorFactory costSelector = null,
       TargetsFilterDelegate targetFilter = null,
       bool activateAsSorcery = false,
@@ -45,8 +65,10 @@
               self.Effect(effect);
               self.ActivateOnlyAsSorcery = activateAsSorcery;
 
-              if (effectSelector != null)
-                self.EffectTargets(effectSelector);
+              if (effectSelectors.Length > 0)
+              {
+                self.EffectTargets(effectSelectors);
+              }
 
               if (costSelector != null)
                 self.CostTargets(costSelector);
@@ -154,16 +176,13 @@
     }
 
     public ITargetSelectorFactory Selector(TargetValidatorDelegate validator)
-    {      
+    {
       return new TargetSelector.Factory
         {
           Game = _game,
-          Init = selector =>
-            {
-              selector.Validator = validator;
-            }
+          Init = selector => { selector.Validator = validator; }
         };
-    }    
+    }
 
     public TriggeredAbility.Factory StaticAbility(
       ITriggerFactory trigger,
@@ -211,7 +230,7 @@
             {
               self.Text = text;
 
-              foreach (var triggerFactory in triggers)
+              foreach (ITriggerFactory triggerFactory in triggers)
               {
                 self.AddTrigger(triggerFactory);
               }
@@ -244,7 +263,7 @@
               self.Effect(effect);
               self.EffectCategories = category;
               self.TriggerOnlyIfOwningCardIsInPlay = triggerOnlyIfOwningCardIsInPlay;
-              
+
               if (targetSelector != null)
                 self.EffectTargets(targetSelector);
 

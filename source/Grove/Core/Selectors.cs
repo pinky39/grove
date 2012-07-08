@@ -83,5 +83,10 @@
       return p => p.Target.IsPermanent() && p.Target.Is().Creature && 
         isValidController(p.Controller, p.Target.Card().Controller) && filter(p.Target.Card());
     }
+
+    public static TargetValidatorDelegate EffectOrPermanent()
+    {
+      return p => p.Target.IsPermanent() || p.Target.IsEffect();
+    }
   }
 }

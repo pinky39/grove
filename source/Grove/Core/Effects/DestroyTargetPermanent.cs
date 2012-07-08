@@ -4,7 +4,7 @@
   {
     protected override void ResolveEffect()
     {
-      Target.Card().Destroy();
+      Target().Card().Destroy();
     }
   }
 }

@@ -38,7 +38,7 @@
     public bool HasDeathTouch { get { return _card.Has().Deathtouch; } }
     public bool HasTrample { get { return _card.Has().Trample; } }
     public int LifepointsLeft { get { return _card.LifepointsLeft; } }
-    public int TotalDamageThisCanDeal { get { return _card.Power.Value; } }
+    public int DamageThisWillDealInOneDamageStep { get { return _card.Power.Value; } }
 
     public int CalculateHash(HashCalculator calc)
     {
@@ -92,9 +92,22 @@
 
       if (HasTrample || _isBlocked == false)
       {
-        var unassignedDamage = TotalDamageThisCanDeal - distribution.Total;
+        var unassignedDamage = DamageThisWillDealInOneDamageStep - distribution.Total;
         defender.AssignDamage(_card, unassignedDamage);
       }
+    }
+
+    public int GetDamageThisWillDealToPlayer()
+    {
+      if (_blockers.Count == 0)
+        return _card.TotalDamageThisCanDealInAllDamageSteps;
+      
+      if (HasTrample)
+      {
+        return Combat.CalculateTrampleDamage(Card, _blockers.Select(x => x.Card));
+      }
+
+      return 0;
     }
 
     public bool HasBlocker(Blocker blocker)
@@ -175,6 +188,16 @@
       
       var withBoost = Combat.CanAttackerBeDealtLeathalCombatDamage(Card, blockers, power, toughness);
       return !withBoost ? Card.Score : 1;
+    }
+
+    public Card GetBestDamagePreventionCandidate()
+    {
+      if (_blockers.Count == 0)
+        return null;
+
+      Card candidate;
+      Combat.CanAttackerBeDealtLeathalCombatDamage(Card, Blockers.Select(x => x.Card), 0, 0, out candidate);
+      return candidate;
     }
   }
 }

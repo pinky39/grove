@@ -6,7 +6,7 @@
     
     protected override void ResolveEffect()
     {
-      Decisions.EnqueueDiscardCards(Target.Player(), SelectedCount);
+      Decisions.EnqueueDiscardCards(Target().Player(), SelectedCount);
     }
   }
 }

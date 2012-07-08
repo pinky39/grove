@@ -7,6 +7,39 @@
   using Results;
   using Zones;
 
+  public class ScenarioActivation
+  {
+    private readonly Targets _targets = new Targets();
+
+    public Card Card { get; set; }
+    public int? X { get; set; }
+    public int AbilityIndex { get; set; }
+    public bool PayKicker { get; set; }
+
+    public Targets GetTargets()
+    {
+      return _targets;
+    }
+
+    public void Targets(params ITarget[] effectTargets)
+    {
+      foreach (ITarget effectTarget in effectTargets)
+      {
+        if (effectTarget != null)
+          _targets.AddEffect(effectTarget);
+      }
+    }
+
+    public void CostTargets(params ITarget[] costTargets)
+    {
+      foreach (ITarget costTarget in costTargets)
+      {
+        if (costTarget != null)
+          _targets.AddCost(costTarget);
+      }
+    }
+  }
+
   public class StepDecisions
   {
     private readonly List<IScenarioDecision> _decisions = new List<IScenarioDecision>();
@@ -21,34 +54,23 @@
       return Activate(card, (ITarget) target, costTarget, x, abilityIndex);
     }
 
-    public StepDecisions Activate(Card card, Player target, Card costTarget = null,
-                                  int? x = null, int abilityIndex = 0)
+    public StepDecisions Activate(Action<ScenarioActivation> init)
     {
-      return Activate(card, (ITarget) target, costTarget, x, abilityIndex);
-    }
+      var activation = new ScenarioActivation();
+      init(activation);
 
-    public StepDecisions Activate(Card card, Card costTarget = null,
-                                  int? x = null, int abilityIndex = 0)
-    {
-      return Activate(card, (ITarget) null, costTarget, x, abilityIndex);
-    }
-
-    private StepDecisions Activate(Card card, ITarget target = null, ITarget costTarget = null,
-                                   int? x = null, int abilityIndex = 0)
-    {
       _decisions.Add(new PlaySpellOrAbility
         {
           Result = new ChosenPlayable
             {
-      
               Playable = new ScenarioAbility(
-                card,
+                activation.Card,
                 new ActivationParameters
                   (
-                    targets: CreateTargets(target, costTarget),
-                    x: x
+                  targets: activation.GetTargets(),
+                  x: activation.X
                   ),
-                abilityIndex
+                activation.AbilityIndex
                 )
             }
         });
@@ -56,20 +78,47 @@
       return this;
     }
 
-    private Targets CreateTargets(ITarget target = null, ITarget costTarget = null) {
-      var targets = new Targets();
-      
-      if (target != null)
-        targets.AddEffect(target);
+    public StepDecisions Activate(Card card, Player target, Card costTarget = null,
+                                  int? x = null, int abilityIndex = 0)
+    {
+      return Activate(p =>
+        {
+          p.Card = card;
+          p.Targets(target);
+          p.CostTargets(costTarget);
+          p.X = x;
+          p.AbilityIndex = abilityIndex;
+        });
+    }
 
-      if (costTarget != null)
-        targets.AddCost(costTarget);
-      return targets;
+    public StepDecisions Activate(Card card, Card costTarget = null,
+                                  int? x = null, int abilityIndex = 0)
+    {
+      return Activate(p =>
+        {
+          p.Card = card;
+          p.CostTargets(costTarget);
+          p.X = x;
+          p.AbilityIndex = abilityIndex;
+        });
+    }
+
+    private StepDecisions Activate(Card card, ITarget target = null, ITarget costTarget = null,
+                                   int? x = null, int abilityIndex = 0)
+    {
+      return Activate(p =>
+        {
+          p.Card = card;
+          p.Targets(target);
+          p.CostTargets(costTarget);
+          p.X = x;
+          p.AbilityIndex = abilityIndex;
+        });
     }
 
     public void AssertAllWereExecuted()
     {
-      foreach (var decision in _decisions)
+      foreach (IScenarioDecision decision in _decisions)
       {
         if (!decision.HasCompleted)
           throw new InvalidOperationException(
@@ -77,44 +126,70 @@
       }
     }
 
-    public StepDecisions Cast(Card card, Card target, bool payKicker = false, int? x = null)
+    public StepDecisions Cast(Action<ScenarioActivation> init)
     {
-      return Cast(card, (ITarget) target, payKicker, x);
-    }
+      var activation = new ScenarioActivation();
+      init(activation);
 
-    public StepDecisions Cast(Card card, bool payKicker = false, int? x = null)
-    {
-      return Cast(card, (ITarget) null, payKicker, x);
-    }
-
-    public StepDecisions Cast(Card card, Player target, bool payKicker = false, int? x = null)
-    {
-      return Cast(card, (ITarget) target, payKicker, x);
-    }
-
-    public StepDecisions Cast(Card card, LazyEffect target, bool payKicker = false, int? x = null)
-    {
-      return Cast(card, (ITarget) target, payKicker, x);
-    }
-
-    private StepDecisions Cast(Card card, ITarget target, bool payKicker, int? x)
-    {
       _decisions.Add(new PlaySpellOrAbility
         {
           Result = new ChosenPlayable
             {
               Playable = new ScenarioSpell(
-                card,
+                activation.Card,
                 new ActivationParameters
                   (
-                    targets: CreateTargets(target),
-                    payKicker: payKicker,
-                    x: x
+                  targets: activation.GetTargets(),
+                  payKicker: activation.PayKicker,
+                  x: activation.X
                   ))
             }
         });
 
       return this;
+    }
+
+    public StepDecisions Cast(Card card, Card target, bool payKicker = false, int? x = null)
+    {
+      return Cast(p =>
+        {
+          p.Card = card;
+          p.Targets(target);
+          p.PayKicker = payKicker;
+          p.X = x;
+        });
+    }
+
+    public StepDecisions Cast(Card card, bool payKicker = false, int? x = null)
+    {
+      return Cast(p =>
+        {
+          p.Card = card;
+          p.PayKicker = payKicker;
+          p.X = x;
+        });
+    }
+
+    public StepDecisions Cast(Card card, Player target, bool payKicker = false, int? x = null)
+    {
+      return Cast(p =>
+        {
+          p.Card = card;
+          p.Targets(target);
+          p.PayKicker = payKicker;
+          p.X = x;
+        });
+    }
+
+    public StepDecisions Cast(Card card, LazyEffect target, bool payKicker = false, int? x = null)
+    {
+      return Cast(p =>
+        {
+          p.Card = card;
+          p.Targets(target);
+          p.PayKicker = payKicker;
+          p.X = x;
+        });
     }
 
     public StepDecisions DeclareAttackers(params Card[] attackers)
@@ -132,12 +207,12 @@
       Debug.Assert(pairs.Length%2 == 0, "Pairs lenght must be even number, did you forget to match a blocker?");
 
       var chosenBlockers = new ChosenBlockers();
-      var defending = pairs[1].Controller;
+      Player defending = pairs[1].Controller;
 
-      for (var i = 0; i < pairs.Length; i = i + 2)
+      for (int i = 0; i < pairs.Length; i = i + 2)
       {
-        var attacker = pairs[i];
-        var blocker = pairs[i + 1];
+        Card attacker = pairs[i];
+        Card blocker = pairs[i + 1];
 
         chosenBlockers.Add(blocker, attacker);
       }
@@ -152,7 +227,7 @@
 
     public IDecision Next<TDecision>()
     {
-      var first = _decisions.FirstOrDefault();
+      IScenarioDecision first = _decisions.FirstOrDefault();
 
       if (first == null)
         return null;
@@ -181,7 +256,7 @@
     {
       _decisions.Add(new SetTriggeredAbilityTarget
         {
-          Result = new ChosenTargets(CreateTargets(target))
+          Result = new ChosenTargets(new Targets().AddEffect(target))
         });
       return this;
     }
@@ -200,13 +275,13 @@
     public StepDecisions Cycle(Card card)
     {
       _decisions.Add(new PlaySpellOrAbility
-      {
-        Result = new ChosenPlayable
         {
-          Playable = new ScenarioCyclable(
-            card)            
-        }
-      });
+          Result = new ChosenPlayable
+            {
+              Playable = new ScenarioCyclable(
+                card)
+            }
+        });
 
       return this;
     }

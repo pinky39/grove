@@ -89,7 +89,7 @@
         return score + (life - 20)*40;
 
       if (life <= 0)
-        return 0;
+        return 500 + life;
 
       return score + LifeToScore[life];
     }

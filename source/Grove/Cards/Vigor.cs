@@ -5,9 +5,9 @@
   using Core.Ai;
   using Core.CardDsl;
   using Core.Counters;
-  using Core.DamagePrevention;
   using Core.Effects;
   using Core.Modifiers;
+  using Core.Preventions;
   using Core.Triggers;
   using Core.Zones;
 
@@ -28,7 +28,7 @@
           StaticAbility.Trample,
           C.Continuous((e, c) => {
             e.ModifierFactory = c.Modifier<AddDamagePrevention>((m, c0) =>
-              m.Kind = c0.Prevention<ReplaceDamageWithCounters>(
+              m.Prevention = c0.Prevention<ReplaceDamageWithCounters>(
                 (p, c1) => p.CounterFactory = c1.Counter<PowerToughness>((counter, _) => {
                   counter.Power = 1;
                   counter.Toughness = 1;

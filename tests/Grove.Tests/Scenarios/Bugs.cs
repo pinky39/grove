@@ -30,7 +30,7 @@
       [Fact]
       public void BugDoNotTapLandsUselessly()
       {
-        var mountain = C("Mountain");
+        ScenarioCard mountain = C("Mountain");
         Battlefield(P1, C("Forest"), C("Forest"), mountain);
         Hand(P1, C("Llanowar Elves"));
 
@@ -91,7 +91,7 @@
         Battlefield(P2, "Plains", "Plains", "Plains", "Plains", "Hero of Bladehold");
         Battlefield(P1, "Razorverge Thicket", C("Student of Warfare").IsEnchantedWith("Rancor"), "Razorverge Thicket",
           "Plains", "Sword of Feast and Famine");
-        
+
         RunGame(2);
       }
     }
@@ -99,10 +99,63 @@
     public class PredifinedAi : PredefinedAiScenario
     {
       [Fact]
+      public void BugSwordAngelNotHero()
+      {
+        ScenarioCard angel = C("Baneslayer Angel");
+        ScenarioCard swords = C("Swords to Plowshares");
+
+        Hand(P2, swords);
+
+        Battlefield(P1, "Plains", "Plains", "White Knight", "Plains", "Plains",
+          "Hero of Bladehold", "Plains", angel, "Plains", "White Knight", "Plains");
+        Battlefield(P2, "Forest", "Sunpetal Grove", "Plains", "Llanowar Elves", "Plains",
+          "Basilisk Collar", "Acidic Slime", "Wurmcoil Engine", "Thrun, the Last Troll", "Plains", "Troll Ascetic");
+
+        P2.Life = 10;
+        
+        Exec(
+          At(Step.DeclareAttackers)
+            .DeclareAttackers(angel),
+          At(Step.SecondMain, turn: 1)
+            .Verify(() =>
+              {
+                Equal(10, P2.Life);
+                Equal(Zone.Graveyard, C(swords).Zone);
+                Equal(Zone.Exiled, C(angel).Zone);
+              })
+          );
+          
+      }
+
+      [Fact]
+      public void BugDoNotBlockStudentWithTroll()
+      {
+        ScenarioCard student = C("Student of Warfare");
+        ScenarioCard troll = C("Troll Ascetic");
+
+        Battlefield(P1, student);
+        Battlefield(P2, troll);
+
+        Exec(
+          At(Step.FirstMain)
+            .Activate(student)
+            .Activate(student),
+          At(Step.DeclareAttackers)
+            .DeclareAttackers(student),
+          At(Step.SecondMain)
+            .Verify(() =>
+              {
+                Equal(17, P2.Life);
+                Equals(Zone.Battlefield, troll);
+              })
+          );
+      }
+
+      [Fact]
       public void BugRegenerateCombatDamage()
       {
-        var thrun = C("Thrun, the Last Troll");
-        var baloth = C("Ravenous Baloth");
+        ScenarioCard thrun = C("Thrun, the Last Troll");
+        ScenarioCard baloth = C("Ravenous Baloth");
 
         Battlefield(P1, baloth);
         Battlefield(P2, "Forest", "Forest", thrun);
@@ -122,8 +175,8 @@
       [Fact]
       public void BugSearchWithoutResults()
       {
-        var dragon = C("Shivan Dragon");
-        var forest = C("Forest");
+        ScenarioCard dragon = C("Shivan Dragon");
+        ScenarioCard forest = C("Forest");
 
         Battlefield(P1, C("Forest").Tap(), forest, C("Mountain").Tap(), C("Mountain").Tap(),
           C("Mountain").Tap(), C("Llanowar Elves").Tap(), C("Llanowar Elves").Tap());
@@ -145,9 +198,9 @@
       {
         bool gameEnded = true;
 
-        var knight = C("White Knight");
-        var student = C("Student of Warfare");
-        var hero = C("Hero of Bladehold");
+        ScenarioCard knight = C("White Knight");
+        ScenarioCard student = C("Student of Warfare");
+        ScenarioCard hero = C("Hero of Bladehold");
 
         Hand(P1, "Deathless Angel", "Baneslayer Angel", "Day of Judgment");
         Hand(P2, "Troll Ascetic");

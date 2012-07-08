@@ -4,8 +4,8 @@
   using System.Collections.Generic;
   using CardDsl;
   using Counters;
-  using DamagePrevention;
   using Infrastructure;
+  using Preventions;
 
   [Copyable]
   public abstract class Modifier : IModifier, ICopyContributor
@@ -14,7 +14,7 @@
     protected Game Game { get; private set; }
     protected ChangeTracker ChangeTracker { get { return Game.ChangeTracker; } }
     public Card Source { get; set; }
-    public Card Target { get; private set; }
+    public ITarget Target { get; private set; }
     protected Publisher Publisher { get { return Game.Publisher; } }
     protected int? X { get; private set; }
 
@@ -65,8 +65,7 @@
     protected abstract void Unapply();
 
     private void DisposeLifetimes()
-    {
-      // this is not undoable operation, fix this
+    {      
       foreach (var lifetime in _lifetimes)
       {
         Publisher.Unsubscribe(lifetime);
@@ -93,7 +92,7 @@
       public Game Game { get; set; }
       public Initializer<TModifier> Init = delegate { };
 
-      public Modifier CreateModifier(Card modifierSource, Card modifierTarget, int? x = null)
+      public Modifier CreateModifier(Card modifierSource, ITarget modifierTarget, int? x = null)
       {
         var modifier = new TModifier();
         modifier._lifetimes = new TrackableList<Lifetime>(Game.ChangeTracker);

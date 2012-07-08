@@ -4,7 +4,7 @@
   {
     protected override void ResolveEffect()
     {
-      Controller.Life += Target.Card().Power.Value;
+      Controller.Life += Target().Card().Power.Value;
     }
   }
 }

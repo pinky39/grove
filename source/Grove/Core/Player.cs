@@ -5,6 +5,8 @@
   using System.Linq;
   using Infrastructure;
   using Messages;
+  using Modifiers;
+  using Preventions;
   using Zones;
 
   [Copyable]
@@ -24,6 +26,8 @@
     private Hand _hand;
     private Library _library;
     private ManaSources _manaSources;
+    private DamagePreventions _damagePreventions;
+    private TrackableList<IModifier> _modifiers;
 
     public Player(
       string name,
@@ -47,6 +51,8 @@
       _isActive = new Trackable<bool>(changeTracker);
       _hasPriority = new Trackable<bool>(changeTracker);
       _manaPool = Bindable.Create<ManaPool>(changeTracker);
+      _modifiers = new TrackableList<IModifier>(changeTracker);
+      _damagePreventions= new DamagePreventions(changeTracker, null);
       _assignedDamage = new AssignedDamage(this, changeTracker);
 
       Deck cards = deckFactory.CreateDeck(deck, this);
@@ -105,20 +111,25 @@
     public int ConvertedMana { get { return _manaSources.GetMaxConvertedMana(); } }
 
     public void DealDamage(Card damageSource, int amount, bool isCombat)
-    {
-      Life -= amount;
+    {      
+      var dealtAmount =_damagePreventions.PreventDamage(damageSource, amount);
+      
+      if (dealtAmount == 0)
+        return;
+
+      Life -= dealtAmount;
 
       if (damageSource.Has().Lifelink)
       {
         Player controller = damageSource.Controller;
-        controller.Life += amount;
+        controller.Life += dealtAmount;
       }
 
       PublishMessage(new DamageHasBeenDealt
         {
           Dealer = damageSource,
           Receiver = this,
-          Amount = amount,
+          Amount = dealtAmount,
           IsCombat = isCombat
         });
     }
@@ -482,6 +493,32 @@
     public interface IFactory
     {
       Player Create(string name, string avatar, bool isHuman, string deck);
+    }
+
+    
+
+    private IEnumerable<IModifiable> ModifiableProperties
+    {
+      get
+      {
+        yield return _damagePreventions;        
+      }
+    }
+
+    public void AddModifier(IModifier modifier)
+    {
+      foreach (var modifiableProperty in ModifiableProperties)
+      {
+        modifiableProperty.Accept(modifier);
+      }
+
+      _modifiers.Add(modifier);
+    }
+
+    public void RemoveModifier(IModifier modifier)
+    {
+      _modifiers.Remove(modifier);
+      modifier.Dispose();
     }
   }
 }

@@ -6,11 +6,11 @@
 
     protected override void ResolveEffect()
     {            
-      Target.Card().ReturnToHand();
+      Target().Card().ReturnToHand();
 
       if (Discard > 0)
       {
-        Decisions.EnqueueDiscardCards(Target.Card().Controller, Discard);
+        Decisions.EnqueueDiscardCards(Target().Card().Controller, Discard);
       }
     }
   }

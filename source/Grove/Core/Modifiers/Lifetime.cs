@@ -22,7 +22,7 @@
       get { return _modifier.Source; }
     }
 
-    protected Card ModifierTarget
+    protected ITarget ModifierTarget
     {
       get { return _modifier.Target; }
     }

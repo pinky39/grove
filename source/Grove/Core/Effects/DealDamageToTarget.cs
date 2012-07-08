@@ -9,18 +9,18 @@
 
     public int PlayerDamage(Player player)
     {
-      return player == Target ? Amount.GetValue(X) : 0;
+      return player == Target() ? Amount.GetValue(X) : 0;
     }
 
     public int CreatureDamage(Card creature)
     {
-      return creature == Target ? Amount.GetValue(X) : 0;
+      return creature == Target() ? Amount.GetValue(X) : 0;
     }
 
     protected override void ResolveEffect()
     {
       var damageSource = Source.OwningCard;
-      var target = Target;
+      var target = Target();
 
       target.DealDamage(damageSource, Amount.GetValue(X));
     }

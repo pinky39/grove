@@ -111,6 +111,7 @@
     <Compile Include="Cards\Rancor.cs" />
     <Compile Include="Cards\Recoil.cs" />
     <Compile Include="Cards\RuptureSpire.cs" />
+    <Compile Include="Cards\SanctumGuardian.cs" />
     <Compile Include="Cards\SealOfFire.cs" />
     <Compile Include="Cards\SteamVents.cs" />
     <Compile Include="Cards\StudentOfWarfare.cs" />

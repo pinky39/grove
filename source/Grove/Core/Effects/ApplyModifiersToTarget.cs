@@ -9,9 +9,9 @@
 
     protected override void ResolveEffect()
     {
-      foreach (var modifier in _modifierFactories.CreateModifiers(Source.OwningCard, Target.Card(), X))
+      foreach (var modifier in _modifierFactories.CreateModifiers(Source.OwningCard, Target().Card(), X))
       {
-        Target.Card().AddModifier(modifier);
+        Target().Card().AddModifier(modifier);
       }
     }
     

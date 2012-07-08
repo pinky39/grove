@@ -2,7 +2,7 @@
 {
   using System;
   using Counters;
-  using DamagePrevention;
+  using Preventions;
 
   public interface IModifier : IDisposable
   {

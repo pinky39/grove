@@ -14,8 +14,8 @@
 
     protected override void ResolveEffect()
     {
-      var cardToEquip = Target.Card();
-      var modifiers = _modifierFactories.CreateModifiers(Source.OwningCard, Target.Card(), X);
+      var cardToEquip = Target().Card();
+      var modifiers = _modifierFactories.CreateModifiers(Source.OwningCard, Target().Card(), X);
       cardToEquip.Attach(Source.OwningCard, modifiers);
     }
   }

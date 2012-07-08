@@ -4,6 +4,8 @@
   using Core;
   using Core.Ai;
   using Core.CardDsl;
+  using Core.Costs;
+  using Core.Effects;
 
   public class SanctumGuardian : CardsSource
   {
@@ -20,6 +22,20 @@
         .Toughness(4)
         .Timing(Timings.Creatures())
         .Abilities(
+          C.ActivatedAbility(
+            "Sacrifice Sanctum Guardian: The next time a source of your choice would deal damage to target creature or player this turn, prevent that damage.",
+            C.Cost<SacrificeOwner>(),
+            C.Effect<PreventDamageFromSource>((e, _) => e.OnlyOnce = true),
+            
+            effectSelectors: new []
+              {
+                C.Selector(Selectors.CreatureOrPlayer()),
+                C.Selector(Selectors.EffectOrPermanent())
+              },
+            
+            targetFilter: TargetFilters.PreventDamageFromSource(),
+            timing: Timings.NoRestrictions()
+          )      
         );
     }
   }

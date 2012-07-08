@@ -6,7 +6,7 @@
 
     protected override void ResolveEffect()
     {      
-      Players.ScheduleExtraTurns(Target.Player(), Count);
+      Players.ScheduleExtraTurns(Target().Player(), Count);
     }
   }
 }

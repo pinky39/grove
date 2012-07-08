@@ -14,15 +14,15 @@
 
     protected override void ResolveEffect()
     {            
-      Target.Card().Attach(
+      Target().Card().Attach(
         Source.OwningCard, 
         _modifierFactories.CreateModifiers(
           Source.OwningCard, 
-          Target.Card(), 
+          Target().Card(), 
           X)        
         );
       
-      Target.Card().Controller.PutCardIntoPlay(Source.OwningCard);
+      Target().Card().Controller.PutCardIntoPlay(Source.OwningCard);
     }
   }
 }

@@ -1,5 +1,6 @@
-﻿namespace Grove.Core.DamagePrevention
+﻿namespace Grove.Core.Preventions
 {
+  using System.Linq;
   using Infrastructure;
   using Modifiers;
 
@@ -32,9 +33,9 @@
 
     public int PreventDamage(Card damageSource, int amount, bool queryOnly = false)
     {
-      var damageLeft = amount;
+      int damageLeft = amount;
 
-      foreach (var preventionEffect in _preventions)
+      foreach (DamagePrevention preventionEffect in _preventions.ToList())
       {
         damageLeft = preventionEffect.PreventDamage(damageSource, damageLeft, queryOnly);
 

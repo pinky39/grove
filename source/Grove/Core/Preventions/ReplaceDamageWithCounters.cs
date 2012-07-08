@@ -1,4 +1,4 @@
-﻿namespace Grove.Core.DamagePrevention
+﻿namespace Grove.Core.Preventions
 {
   using Counters;
   using Modifiers;
@@ -11,7 +11,6 @@
     {
       if (!queryOnly)
       {
-
         var factory = new Modifier.Factory<AddCounters>
           {
             Game = Game,
@@ -23,8 +22,8 @@
           };
 
 
-        var modifier = factory.CreateModifier(Card, Card);
-        Card.AddModifier(modifier);
+        Modifier modifier = factory.CreateModifier(Target.Card(), Target);
+        Target.AddModifier(modifier);
       }
 
       return 0;

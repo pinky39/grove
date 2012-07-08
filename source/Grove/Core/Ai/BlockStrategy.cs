@@ -158,7 +158,7 @@
 
         var lifelossScore = ScoreCalculator.CalculateLifelossScore(
           defendersLife,
-          attacker.TotalDamageThisCanDealToPlayerIfNotBlocked);
+          attacker.TotalDamageThisCanDealInAllDamageSteps);
 
         var trampleScore = ScoreCalculator.CalculateLifelossScore(
           defendersLife,

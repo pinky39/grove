@@ -9,13 +9,13 @@
 
     protected override void ResolveEffect()
     {
-      var targetSpellController = Target.Effect().Controller;
+      var targetSpellController = Target().Effect().Controller;
 
       if (DoNotCounterCost != null && targetSpellController.HasMana(DoNotCounterCost))
       {
         Decisions.EnqueueConsiderPayingLifeOrMana(
           player: targetSpellController,
-          ctx: Target.Effect(),
+          ctx: Target().Effect(),
           mana: DoNotCounterCost,
           handler: (args) =>
             {
@@ -30,7 +30,7 @@
         return;
       }
 
-      Counter(targetSpellController, Target.Effect(), Game.Stack);
+      Counter(targetSpellController, Target().Effect(), Game.Stack);
     }
 
     private void Counter(Player targetSpellController, Effect spell, Stack stack)

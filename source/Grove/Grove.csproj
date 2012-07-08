@@ -217,8 +217,10 @@
     <Compile Include="Core\Ai\TargetFilters.cs" />
     <Compile Include="Core\Ai\TargetScores.cs" />
     <Compile Include="Core\Ai\XCalculatorParameters.cs" />
+    <Compile Include="Core\Effects\PreventDamageFromSource.cs" />
     <Compile Include="Core\ITargetSelector.cs" />
     <Compile Include="Core\ITargetSelectorFactory.cs" />
+    <Compile Include="Core\Preventions\PreventDamageFromSource.cs" />
     <Compile Include="Core\TargetCandidates.cs" />
     <Compile Include="Core\Targets.cs" />
     <Compile Include="Core\Controllers\Results\Cyclable.cs" />
@@ -304,7 +306,7 @@
     <Compile Include="Core\Messages\SearchStarted.cs" />
     <Compile Include="Core\Modifiers\AddCounters.cs" />
     <Compile Include="Core\Counters\PowerToughness.cs" />
-    <Compile Include="Core\DamagePrevention\IDamagePreventionFactory.cs" />
+    <Compile Include="Core\Preventions\IDamagePreventionFactory.cs" />
     <Compile Include="Core\ITarget.cs" />
     <Compile Include="Core\Ai\VariableCost.cs" />
     <Compile Include="Core\Modifiers\IncreaseLevel.cs" />
@@ -386,7 +388,7 @@
     <Compile Include="Core\StaticAbility.cs" />
     <Compile Include="Core\Characteristic.cs" />
     <Compile Include="Core\Toughness.cs" />
-    <Compile Include="Core\DamagePrevention\DamagePreventions.cs" />
+    <Compile Include="Core\Preventions\DamagePreventions.cs" />
     <Compile Include="Core\Protections.cs" />
     <Compile Include="Core\TriggeredAbilities.cs" />
     <Compile Include="Core\Modifiers\Value.cs" />
@@ -409,7 +411,7 @@
     <Compile Include="Core\Costs\SacrificeOwner.cs" />
     <Compile Include="Core\Costs\SacrificePermanent.cs" />
     <Compile Include="Core\Damage.cs" />
-    <Compile Include="Core\DamagePrevention\ReplaceDamageWithCounters.cs" />
+    <Compile Include="Core\Preventions\ReplaceDamageWithCounters.cs" />
     <Compile Include="Core\Effects\AttachEquipment.cs" />
     <Compile Include="Core\Effects\CompoundEffect.cs" />
     <Compile Include="Core\Effects\DealDamageToEach.cs" />
@@ -419,7 +421,7 @@
     <Compile Include="Core\Effects\Regenerate.cs" />
     <Compile Include="Core\Effects\ShuffleIntoLibrary.cs" />
     <Compile Include="Core\Effects\UntapAllLands.cs" />
-    <Compile Include="Core\DamagePrevention\DamagePrevention.cs" />
+    <Compile Include="Core\Preventions\DamagePrevention.cs" />
     <Compile Include="Core\Mana.cs" />
     <Compile Include="Core\ManaBag.cs" />
     <Compile Include="Core\ManaColors.cs" />

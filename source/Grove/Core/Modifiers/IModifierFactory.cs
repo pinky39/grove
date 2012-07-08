@@ -2,6 +2,6 @@
 {
   public interface IModifierFactory
   {
-    Modifier CreateModifier(Card modifierSource, Card modifierTarget, int? x = null);
+    Modifier CreateModifier(Card modifierSource, ITarget modifierTarget, int? x = null);
   }
 }
