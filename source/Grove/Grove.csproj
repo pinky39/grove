@@ -128,6 +128,7 @@
     <Compile Include="Cards\DayofJudgment.cs" />
     <Compile Include="Cards\DeathlessAngel.cs" />
     <Compile Include="Cards\DiscipleOfGrace.cs" />
+    <Compile Include="Cards\DriftingMeadow.cs" />
     <Compile Include="Cards\DrownedCatacomb.cs" />
     <Compile Include="Cards\DarkslickDrake.cs" />
     <Compile Include="Cards\DarksteelGargoyle.cs" />
@@ -165,6 +166,7 @@
     <Compile Include="Cards\OrderOfTheSacredBell.cs" />
     <Compile Include="Cards\PhyrexianArena.cs" />
     <Compile Include="Cards\Plains.cs" />
+    <Compile Include="Cards\PollutedMire.cs" />
     <Compile Include="Cards\Rancor.cs" />
     <Compile Include="Cards\RazorvergeThicket.cs" />
     <Compile Include="Cards\RuptureSpire.cs" />
@@ -199,6 +201,7 @@
     <Compile Include="Cards\Undermine.cs" />
     <Compile Include="Cards\Uncastable.cs" />
     <Compile Include="Cards\UnworthyDead.cs" />
+    <Compile Include="Cards\VoiceOfGrace.cs" />
     <Compile Include="Cards\VolcanicHammer.cs" />
     <Compile Include="Cards\VampireNighthawk.cs" />
     <Compile Include="Cards\VerdantForce.cs" />
