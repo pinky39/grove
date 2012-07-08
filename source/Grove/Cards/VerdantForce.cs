@@ -27,7 +27,8 @@
             C.Trigger<AtBegginingOfStep>((t, _) =>
               {
                 t.Step = Step.Upkeep;
-                t.AtEach = true;
+                t.PassiveTurn = true;
+                t.ActiveTurn = true;
               }),
             C.Effect<CreateTokens>((e, c) => e.Tokens(
               c.Card

@@ -113,6 +113,7 @@
     <Compile Include="Cards\RuptureSpire.cs" />
     <Compile Include="Cards\SanctumGuardian.cs" />
     <Compile Include="Cards\SealOfFire.cs" />
+    <Compile Include="Cards\SilentAttendant.cs" />
     <Compile Include="Cards\SteamVents.cs" />
     <Compile Include="Cards\StudentOfWarfare.cs" />
     <Compile Include="Cards\SwordOfBodyAndMind.cs" />
@@ -122,6 +123,7 @@
     <Compile Include="Cards\VividCreek.cs" />
     <Compile Include="Cards\WallOfDenial.cs" />
     <Compile Include="CardListGenerator.cs" />
+    <Compile Include="Cards\WallOfJunk.cs" />
     <Compile Include="Cards\WallOfReverence.cs" />
     <Compile Include="Unit\ActivationFacts.cs" />
     <Compile Include="Unit\BlockStrategyFacts.cs" />

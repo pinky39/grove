@@ -8,9 +8,12 @@
   public abstract class Trigger : IDisposable, IHashable
   {
     protected TriggeredAbility Ability { get; private set; }
-    protected Game Game { get; private set; }
+    public Game Game { get; private set; }
+    public Card OwningCard {get { return Ability.OwningCard; }}
+    protected Player Controller {get { return Ability.OwningCard.Controller; }}
     protected Players Players { get { return Game.Players; } }
     protected Publisher Publisher { get { return Game.Publisher; } }
+    public Func<Trigger, bool> Condition = delegate { return true; };
 
     public void Dispose()
     {
@@ -26,7 +29,8 @@
 
     protected void Set(object context = null)
     {
-      Triggered(this, new TriggerEventArgs(context));
+      if (Condition(this))
+        Triggered(this, new TriggerEventArgs(context));
     }
 
     protected virtual void Initialize() {}

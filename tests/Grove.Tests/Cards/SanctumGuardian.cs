@@ -12,8 +12,8 @@
       [Fact]
       public void PreventDamageFromBolt()
       {
-        ScenarioCard guardian = C("Sanctum Guardian");
-        ScenarioCard bolt = C("Lightning Bolt");
+        var guardian = C("Sanctum Guardian");
+        var bolt = C("Lightning Bolt");
 
         Hand(P1, bolt);
         Battlefield(P2, guardian);
@@ -40,9 +40,9 @@
       [Fact]
       public void TradeForBetterCreature()
       {
-        ScenarioCard dragon = C("Shivan Dragon");
-        ScenarioCard bolt1 = C("Lightning Bolt");
-        ScenarioCard bolt2 = C("Lightning Bolt");
+        var dragon = C("Shivan Dragon");
+        var bolt1 = C("Lightning Bolt");
+        var bolt2 = C("Lightning Bolt");
 
         Battlefield(P2, dragon, "Sanctum Guardian");
         Hand(P1, bolt1, bolt2);
@@ -57,11 +57,31 @@
       }
 
       [Fact]
+      public void PreventSpellDamageToPlayerOnce()
+      {
+        var bolt = C("Lightning Bolt");
+        var shock = C("Shock");        
+
+        Hand(P1, bolt, shock);
+        Battlefield(P2, "Sanctum Guardian");
+
+        P2.Life = 3;
+
+        Exec(
+          At(Step.FirstMain)
+            .Cast(bolt, P2)
+            .Cast(shock, P2),            
+          At(Step.SecondMain)
+           .Verify(()=> Equal(1, P2.Life)));
+
+      }
+
+      [Fact]
       public void PreventCombatDamage()
       {
-        ScenarioCard guardian = C("Sanctum Guardian");
-        ScenarioCard baloth1 = C("Leatherback Baloth");
-        ScenarioCard baloth2 = C("Leatherback Baloth");
+        var guardian = C("Sanctum Guardian");
+        var baloth1 = C("Leatherback Baloth");
+        var baloth2 = C("Leatherback Baloth");
 
         P2.Life = 4;
 

@@ -1,6 +1,6 @@
 ﻿namespace Grove.Tests.Cards
 {
-  using Grove.Core.Zones;
+  using Core.Zones;
   using Infrastructure;
   using Xunit;
 
@@ -13,8 +13,8 @@
       {
         var land = C("Mountain");
         var spire = C("Rupture Spire");
-        
-        Hand(P1, spire);        
+
+        Hand(P1, spire);
         Battlefield(P1, land);
 
         RunGame(1);

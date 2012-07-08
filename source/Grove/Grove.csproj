@@ -175,6 +175,7 @@
     <Compile Include="Cards\RumblingSlum.cs" />
     <Compile Include="Cards\SanctumGuardian.cs" />
     <Compile Include="Cards\SavannahLions.cs" />
+    <Compile Include="Cards\SilentAttendant.cs" />
     <Compile Include="Cards\StirringWildwood.cs" />
     <Compile Include="Cards\StudentOfWarfare.cs" />
     <Compile Include="Cards\SunpetalGrove.cs" />
@@ -197,6 +198,7 @@
     <Compile Include="Cards\TrollAscetic.cs" />
     <Compile Include="Cards\Undermine.cs" />
     <Compile Include="Cards\Uncastable.cs" />
+    <Compile Include="Cards\UnworthyDead.cs" />
     <Compile Include="Cards\VolcanicHammer.cs" />
     <Compile Include="Cards\VampireNighthawk.cs" />
     <Compile Include="Cards\VerdantForce.cs" />
@@ -205,6 +207,7 @@
     <Compile Include="Cards\VividCrag.cs" />
     <Compile Include="Cards\VividCreek.cs" />
     <Compile Include="Cards\VolcanincFallout.cs" />
+    <Compile Include="Cards\WallOfJunk.cs" />
     <Compile Include="Cards\WallOfReverence.cs" />
     <Compile Include="Cards\WhiteKnight.cs" />
     <Compile Include="Cards\WurmcoilEngine.cs" />

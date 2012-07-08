@@ -319,5 +319,25 @@
           return false;
         };
     }
+
+    public static TimingDelegate EndOfTurnOrBeforeDeath()
+    {
+      return p =>
+        {
+          if (p.Step == Step.EndOfTurn)
+            return true;
+
+          if (p.Step == Step.DeclareBlockers)
+          {
+            return p.Combat.CanBeDealtLeathalCombatDamage(p.Card);
+          }
+
+          if (p.Stack.IsEmpty)
+            return false;
+
+          return p.Stack.CanBeDealtLeathalDamageByTopSpell(p.Card) ||
+            p.Stack.CanTopSpellReducePlayersLifeToZero(p.Controller);
+        };
+    }
   }
 }
