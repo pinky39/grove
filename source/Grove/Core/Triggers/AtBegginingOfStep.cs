@@ -7,7 +7,7 @@
   public class AtBegginingOfStep : Trigger, IReceive<StepStarted>
   {
     public bool ActiveTurn = true;
-    public bool PassiveTurn = true;
+    public bool PassiveTurn = false;
 
     public Step Step { get; set; }
 
