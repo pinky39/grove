@@ -170,6 +170,7 @@
     <Compile Include="Cards\NantukoShade.cs" />
     <Compile Include="Cards\OpalAcrolith.cs" />
     <Compile Include="Cards\OrderOfTheSacredBell.cs" />
+    <Compile Include="Cards\Pariah.cs" />
     <Compile Include="Cards\PhyrexianArena.cs" />
     <Compile Include="Cards\Plains.cs" />
     <Compile Include="Cards\PollutedMire.cs" />
@@ -234,8 +235,12 @@
     <Compile Include="Core\IStaticAbilities.cs" />
     <Compile Include="Core\ITargetSelector.cs" />
     <Compile Include="Core\ITargetSelectorFactory.cs" />
+    <Compile Include="Core\Modifiers\AddDamageRedirection.cs" />
     <Compile Include="Core\Modifiers\DisableAbilities.cs" />
     <Compile Include="Core\Preventions\PreventDamageFromSource.cs" />
+    <Compile Include="Core\Redirections\DamageRedirection.cs" />
+    <Compile Include="Core\Redirections\IDamageRedirectionFactory.cs" />
+    <Compile Include="Core\Redirections\RedirectDamageToTarget.cs" />
     <Compile Include="Core\StaticAbility.cs" />
     <Compile Include="Core\TargetCandidates.cs" />
     <Compile Include="Core\Targets.cs" />

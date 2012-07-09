@@ -22,8 +22,8 @@
           };
 
 
-        Modifier modifier = factory.CreateModifier(Target.Card(), Target);
-        Target.AddModifier(modifier);
+        Modifier modifier = factory.CreateModifier(Owner.Card(), Owner);
+        Owner.AddModifier(modifier);
       }
 
       return 0;

@@ -7,7 +7,7 @@
   [Copyable]
   public abstract class DamagePrevention : IHashable, ILifetimeDependency
   {
-    protected ITarget Target { get; private set; }
+    protected ITarget Owner { get; private set; }
     protected Game Game { get; private set; }
 
     public int CalculateHash(HashCalculator calc)
@@ -27,11 +27,11 @@
       public bool OnlyOnce { get; set; }
       public Initializer<T> Init { get; set; }
 
-      public DamagePrevention Create(ITarget target)
+      public DamagePrevention Create(ITarget owner)
       {
         var prevention = new T();
 
-        prevention.Target = target;
+        prevention.Owner = owner;
         prevention.Game = Game;
         prevention.EndOfLife = new TrackableEvent(prevention, Game.ChangeTracker);
 

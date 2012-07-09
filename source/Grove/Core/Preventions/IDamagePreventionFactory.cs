@@ -2,6 +2,6 @@
 {
   public interface IDamagePreventionFactory
   {
-    DamagePrevention Create(ITarget target);
+    DamagePrevention Create(ITarget owner);
   }
 }

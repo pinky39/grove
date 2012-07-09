@@ -321,21 +321,16 @@
       modifier.Activate();
     }
 
-    public void Attach(Card attachment, List<Modifier> attachmentModifiers)
+    public void Attach(Card attachment)
     {
       if (attachment.IsAttached)
       {
         attachment.AttachedTo.Detach(attachment);
       }
 
-      attachment.AttachedTo = this;
+      attachment.AttachedTo = this;      
 
-      foreach (Modifier modifier in attachmentModifiers)
-      {
-        AddModifier(modifier);
-      }
-
-      _attachments.Add(new Attachment(attachment, attachmentModifiers));
+      _attachments.Add(new Attachment(attachment));
 
       Publish(new AttachmentAttached {Attachment = attachment});
     }
