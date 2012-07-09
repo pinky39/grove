@@ -26,7 +26,7 @@
             "{T}: You gain 1 life.",
             C.Cost<TapOwnerPayMana>((cost, _) => cost.TapOwner = true),
             C.Effect<GainLife>((e, _) => e.SetAmount(1)),
-            timing: Timings.EndOfTurnOrBeforeDeath()
+            timing: Any(Timings.EndOfTurn(), Timings.BeforeDeath())
             )
         );
     }

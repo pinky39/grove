@@ -6,7 +6,6 @@
   using Core.CardDsl;
   using Core.Effects;
   using Core.Triggers;
-  using Core.Zones;
 
   public class ArgothianEnchantress : CardsSource
   {
@@ -22,15 +21,11 @@
         .Toughness(1)
         .Timing(Timings.FirstMain())
         .Abilities(
-          StaticAbility.Shroud,
+          Static.Shroud,
           C.TriggeredAbility(
             "Whenever you cast an enchantment spell, draw a card.",
-            C.Trigger<ChangeZone>((t, _) =>
-              {
-                t.From = Zone.Hand;
-                t.To = Zone.Stack;
-                t.Filter = (ability, card) => card.Controller == ability.Controller && card.Is().Enchantment;
-              }),
+            C.Trigger<SpellWasCast>(
+              (t, _) => { t.Filter = (ability, card) => card.Controller == ability.Controller && card.Is().Enchantment; }),
             C.Effect<DrawCards>((e, _) => e.DrawCount = 1),
             triggerOnlyIfOwningCardIsInPlay: true
             )

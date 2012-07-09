@@ -20,8 +20,8 @@
         .Toughness(4)
         .Timing(Timings.Creatures())
         .Abilities(
-          StaticAbility.Defender,
-          StaticAbility.Flying
+          Static.Defender,
+          Static.Flying
         );
     }
   }

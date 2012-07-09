@@ -10,6 +10,7 @@
   public class ActivatedAbility : Ability
   {
     private TimingDelegate _timming = Timings.NoRestrictions();
+    private Trackable<bool> _isEnabled;
 
     public ActivatedAbility()
     {
@@ -19,6 +20,7 @@
     public bool ActivateOnlyAsSorcery { get; set; }    
     public bool TargetsSelf { get; set; }
     protected Cost Cost { get; private set; }
+    protected bool IsEnabled { get { return _isEnabled.Value; } private set { _isEnabled.Value = value; } }
 
     public IManaAmount ManaCost
     {
@@ -60,11 +62,12 @@
       return HashCalculator.Combine(
         calc.Calculate(Cost),
         calc.Calculate(EffectFactory),
-        ActivateOnlyAsSorcery.GetHashCode());
+        ActivateOnlyAsSorcery.GetHashCode(),
+        IsEnabled.GetHashCode());
     }
 
     public virtual SpellPrerequisites CanActivate()
-    {
+    {      
       int? maxX = null;
       var canActivate = CanBeActivated(ref maxX);
 
@@ -102,6 +105,7 @@
     private bool CanBeActivated(ref int? maxX)
     {
       return
+        IsEnabled &&
         CanBeActivatedAtThisTime() &&
           Cost.CanPay(ref maxX);
     }
@@ -129,11 +133,22 @@
         ability.OwningCard = card;
         ability.SourceCard = card;
         ability.Game = Game;
+        ability._isEnabled = new Trackable<bool>(true, Game.ChangeTracker);
 
         Init(ability);
 
         return ability;
       }
+    }
+
+    public void Enable()
+    {
+      IsEnabled = true;
+    }
+
+    public void Disable()
+    {
+      IsEnabled = false;
     }
   }
 }

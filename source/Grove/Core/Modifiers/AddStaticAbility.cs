@@ -3,7 +3,7 @@
   public class AddStaticAbility : Modifier
   {
     private StaticAbilities _abilities;
-    public StaticAbility StaticAbility { get; set; }
+    public Static StaticAbility { get; set; }
 
     public override void Apply(StaticAbilities abilities)
     {

@@ -22,7 +22,7 @@
         .Timing(Timings.Creatures())
         .Category(EffectCategories.ToughnessIncrease | EffectCategories.ToughnessReduction)
         .Abilities(
-          StaticAbility.Vigilance,
+          Static.Vigilance,
           C.Continuous((e, c) =>
             {
               e.ModifierFactory = c.Modifier<AddPowerAndToughness>(

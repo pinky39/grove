@@ -22,7 +22,7 @@
         .Toughness(6)
         .Timing(Timings.Creatures())
         .Abilities(
-          StaticAbility.Deathtouch,
+          Static.Deathtouch,
           C.TriggeredAbility(
             "Whenever Grave Titan enters the battlefield or attacks, put two 2/2 black Zombie creature tokens onto the battlefield.",
             L(C.Trigger<ChangeZone>((t, _) => { t.To = Zone.Battlefield; }),

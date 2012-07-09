@@ -22,7 +22,7 @@
         .Toughness(5)
         .Timing(Timings.Creatures())
         .Abilities(
-          StaticAbility.Flying,
+          Static.Flying,
           C.ActivatedAbility(
             "{R}: Shivan Dragon gets +1/+0 until end of turn.",
             C.Cost<TapOwnerPayMana>((c, _) => c.Amount = Mana.Red.ToAmount()),

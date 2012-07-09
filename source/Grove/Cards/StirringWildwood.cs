@@ -38,7 +38,7 @@
                   m.Colors = ManaColors.Green | ManaColors.White;
                   m.Type = "Land Creature - Elemental";
                 }, untilEndOfTurn: true),
-              c.Modifier<AddStaticAbility>((m, _) => m.StaticAbility = StaticAbility.Reach, untilEndOfTurn: true))),
+              c.Modifier<AddStaticAbility>((m, _) => m.StaticAbility = Static.Reach, untilEndOfTurn: true))),
             timing: Timings.ChangeToCreature(minAvailableMana: 4)));
     }
   }

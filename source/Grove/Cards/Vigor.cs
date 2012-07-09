@@ -25,7 +25,7 @@
         .Toughness(6)
         .Timing(Timings.Creatures())
         .Abilities(
-          StaticAbility.Trample,
+          Static.Trample,
           C.Continuous((e, c) => {
             e.ModifierFactory = c.Modifier<AddDamagePrevention>((m, c0) =>
               m.Prevention = c0.Prevention<ReplaceDamageWithCounters>(

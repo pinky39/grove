@@ -22,7 +22,7 @@
         .Toughness(4)
         .Timing(Timings.Creatures())
         .Abilities(
-          StaticAbility.Flying,
+          Static.Flying,
           C.ActivatedAbility(
             "{X}{B}{B}: Target creature gets -0/-X until end of turn and Drana, Kalastria Bloodchief gets +X/+0 until end of turn.",
             C.Cost<TapOwnerPayMana>((cost, c) =>

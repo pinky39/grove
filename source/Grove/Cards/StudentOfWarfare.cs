@@ -22,8 +22,8 @@
           C,
           ManaAmount.White,
           EffectCategories.ToughnessIncrease,
-          Level(min: 2, max: 6, power: 3, toughness: 3, ability: StaticAbility.FirstStrike),
-          Level(min: 7, power: 4, toughness: 4, ability: StaticAbility.DoubleStrike)
+          Level(min: 2, max: 6, power: 3, toughness: 3, ability: Static.FirstStrike),
+          Level(min: 7, power: 4, toughness: 4, ability: Static.DoubleStrike)
         );
     }
   }

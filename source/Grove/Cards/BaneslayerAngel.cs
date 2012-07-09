@@ -20,9 +20,9 @@
         .Timing(Timings.Creatures())
         .Protections("demon", "dragon")
         .Abilities(
-          StaticAbility.Flying,
-          StaticAbility.FirstStrike,
-          StaticAbility.Lifelink
+          Static.Flying,
+          Static.FirstStrike,
+          Static.Lifelink
         );
     }
   }

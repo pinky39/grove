@@ -33,7 +33,7 @@
       return elt;
     }
 
-    public LevelDefinition Level(int min, int power, int toughness, StaticAbility ability, int? max = null)
+    public LevelDefinition Level(int min, int power, int toughness, Static ability, int? max = null)
     {
       return new LevelDefinition
         {

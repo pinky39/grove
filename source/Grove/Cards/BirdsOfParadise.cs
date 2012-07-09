@@ -19,7 +19,7 @@
         .Toughness(1)
         .Timing(Timings.SecondMain())
         .Abilities(
-          StaticAbility.Flying,
+          Static.Flying,
           C.ManaAbility(Mana.Any, "{T}: Add one mana of any color to your mana pool.")
         );
     }

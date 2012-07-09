@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core
 {
+  using System;
   using System.Collections.Generic;
   using Infrastructure;
   using Modifiers;
@@ -35,6 +36,22 @@
     {
       _abilities.Remove(ability);
       ability.Dispose();
+    }
+
+    public void Disable()
+    {
+      foreach (var triggeredAbility in _abilities)
+      {
+        triggeredAbility.Disable();
+      }
+    }
+
+    public void Enable()
+    {
+      foreach (var triggeredAbility in _abilities)
+      {
+        triggeredAbility.Enable();
+      }
     }
   }
 }

@@ -19,7 +19,7 @@
         .Toughness(3)
         .Timing(Timings.Creatures())
         .Abilities(
-          StaticAbility.Trample);
+          Static.Trample);
     }
   }
 }

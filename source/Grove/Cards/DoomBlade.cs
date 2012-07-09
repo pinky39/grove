@@ -20,8 +20,8 @@
         .Timing(Timings.TargetRemovalInstant())
         .Category(EffectCategories.Destruction)
         .Targets(
-         filter: TargetFilters.Destroy(),
-         selectors: C.Selector(Selectors.Creature((creature) => !creature.HasColor(ManaColors.Black))));
+          filter: TargetFilters.Destroy(),
+          selectors: C.Selector(Selectors.Creature((creature) => !creature.HasColor(ManaColors.Black))));
     }
   }
 }

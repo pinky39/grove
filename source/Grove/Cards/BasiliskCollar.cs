@@ -25,8 +25,8 @@
             "{2}: Attach to target creature you control. Equip only as a sorcery.",
             C.Cost<TapOwnerPayMana>((cost, _) => cost.Amount = 2.AsColorlessMana()),
             C.Effect<AttachEquipment>((e, c) => e.Modifiers(
-              c.Modifier<AddStaticAbility>((m, _) => m.StaticAbility = StaticAbility.Deathtouch),
-              c.Modifier<AddStaticAbility>((m, _) => m.StaticAbility = StaticAbility.Lifelink)
+              c.Modifier<AddStaticAbility>((m, _) => m.StaticAbility = Static.Deathtouch),
+              c.Modifier<AddStaticAbility>((m, _) => m.StaticAbility = Static.Lifelink)
               )),
             effectSelector: C.Selector(Selectors.Equipment()),
             targetFilter: TargetFilters.CombatEquipment(),

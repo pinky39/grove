@@ -23,8 +23,8 @@
         .Toughness(6)
         .Timing(Timings.Creatures())
         .Abilities(
-          StaticAbility.Defender,
-          StaticAbility.Flying,
+          Static.Defender,
+          Static.Flying,
           C.TriggeredAbility(
             "At the beginning of your end step, you may gain life equal to the power of target creature you control.",
             C.Trigger<AtBegginingOfStep>((t, _) => { t.Step = Step.EndOfTurn; }),

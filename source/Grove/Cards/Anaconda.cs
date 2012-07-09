@@ -20,7 +20,7 @@
         .Toughness(3)
         .Timing(Timings.Creatures())
         .Abilities(
-          StaticAbility.Swampwalk
+          Static.Swampwalk
         );
     }
   }

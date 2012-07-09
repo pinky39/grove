@@ -64,5 +64,21 @@
 
       return _abilities[index].ManaCost;
     }
+
+    public void Enable()
+    {
+      foreach (var activatedAbility in _abilities)
+      {
+        activatedAbility.Enable();
+      }
+    }
+
+    public void Disable()
+    {
+      foreach (var activatedAbility in _abilities)
+      {
+        activatedAbility.Disable();
+      }
+    }
   }
 }

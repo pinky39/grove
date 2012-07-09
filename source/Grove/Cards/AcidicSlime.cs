@@ -22,12 +22,12 @@
         .Toughness(2)
         .Timing(Timings.FirstMain())
         .Abilities(
-          StaticAbility.Deathtouch,
+          Static.Deathtouch,
           C.TriggeredAbility(
             "When Acidic Slime enters the battlefield, destroy target artifact, enchantment, or land.",
             C.Trigger<ChangeZone>((t, _) => t.To = Zone.Battlefield),
             C.Effect<DestroyTargetPermanent>(),
-            C.Selector(Selectors.Permanent("artifact","enchantment", "land")),                        
+            C.Selector(Selectors.Permanent(card => card.Is().Artifact || card.Is().Enchantment || card.Is().Land)),                        
             targetFilter: TargetFilters.PermanentsByDescendingScore(),
             category: EffectCategories.Destruction)
         );

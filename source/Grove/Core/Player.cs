@@ -110,12 +110,12 @@
 
     public int ConvertedMana { get { return _manaSources.GetMaxConvertedMana(); } }
 
-    public void DealDamage(Card damageSource, int amount, bool isCombat)
+    public int DealDamage(Card damageSource, int amount, bool isCombat)
     {      
       var dealtAmount =_damagePreventions.PreventDamage(damageSource, amount);
       
       if (dealtAmount == 0)
-        return;
+        return 0;
 
       Life -= dealtAmount;
 
@@ -132,6 +132,8 @@
           Amount = dealtAmount,
           IsCombat = isCombat
         });
+
+      return dealtAmount;
     }
 
     public int CalculateHash(HashCalculator calc)
@@ -211,14 +213,14 @@
       _assignedDamage.Deal();
     }
 
-    public void DestroyCard(Card card)
+    public void DestroyCard(Card card, bool allowRegenerate)
     {
       if (card.Has().Indestructible)
       {
         return;
       }
 
-      if (card.CanRegenerate)
+      if (card.CanRegenerate && allowRegenerate)
       {
         card.Regenerate();
         return;
@@ -317,7 +319,7 @@
 
         if (creature.HasLeathalDamage)
         {
-          DestroyCard(creature);
+          DestroyCard(creature, allowRegenerate: true);
         }
       }
     }

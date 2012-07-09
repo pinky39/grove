@@ -1,5 +1,5 @@
 ﻿namespace Grove.Core.Modifiers
-{
+{  
   public class ChangeToCreature : Modifier
   {
     private CardColors _cardColors;

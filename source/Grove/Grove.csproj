@@ -114,6 +114,7 @@
     <Compile Include="Cards\ArgothianSwine.cs" />
     <Compile Include="Cards\BaneslayerAngel.cs" />
     <Compile Include="Cards\BasiliskCollar.cs" />
+    <Compile Include="Cards\Befoul.cs" />
     <Compile Include="Cards\BloodVassal.cs" />
     <Compile Include="Cards\BurstLightning.cs" />
     <Compile Include="Cards\BeaconOfDestruction.cs" />
@@ -121,6 +122,7 @@
     <Compile Include="Cards\BlackSunsZenith.cs" />
     <Compile Include="Cards\BlanchwoodArmor.cs" />
     <Compile Include="Cards\Blaze.cs" />
+    <Compile Include="Cards\Corrupt.cs" />
     <Compile Include="Cards\Counterspell.cs" />
     <Compile Include="Cards\CopperlineGorge.cs" />
     <Compile Include="Cards\CreepingTarPit.cs" />
@@ -128,6 +130,7 @@
     <Compile Include="Cards\DayofJudgment.cs" />
     <Compile Include="Cards\DeathlessAngel.cs" />
     <Compile Include="Cards\DiscipleOfGrace.cs" />
+    <Compile Include="Cards\Disenchant.cs" />
     <Compile Include="Cards\DriftingMeadow.cs" />
     <Compile Include="Cards\DrownedCatacomb.cs" />
     <Compile Include="Cards\DarkslickDrake.cs" />
@@ -139,6 +142,7 @@
     <Compile Include="Cards\EleshNornGrandCenobite.cs" />
     <Compile Include="Cards\ElvishWarrior.cs" />
     <Compile Include="Cards\Evacuation.cs" />
+    <Compile Include="Cards\Expunge.cs" />
     <Compile Include="Cards\FleshReaver.cs" />
     <Compile Include="Cards\Forest.cs" />
     <Compile Include="Cards\FiresOfYavimaya.cs" />
@@ -150,6 +154,7 @@
     <Compile Include="Cards\GraspOfDarkness.cs" />
     <Compile Include="Cards\GraveTitan.cs" />
     <Compile Include="Cards\HeroOfBladehold.cs" />
+    <Compile Include="Cards\Humble.cs" />
     <Compile Include="Cards\HypnoticSpecter.cs" />
     <Compile Include="Cards\Island.cs" />
     <Compile Include="Cards\LlanowarElves.cs" />
@@ -163,6 +168,7 @@
     <Compile Include="Cards\ManaLeak.cs" />
     <Compile Include="Cards\MarshCasualties.cs" />
     <Compile Include="Cards\NantukoShade.cs" />
+    <Compile Include="Cards\OpalAcrolith.cs" />
     <Compile Include="Cards\OrderOfTheSacredBell.cs" />
     <Compile Include="Cards\PhyrexianArena.cs" />
     <Compile Include="Cards\Plains.cs" />
@@ -224,9 +230,13 @@
     <Compile Include="Core\Ai\TargetScores.cs" />
     <Compile Include="Core\Ai\XCalculatorParameters.cs" />
     <Compile Include="Core\Effects\PreventDamageFromSource.cs" />
+    <Compile Include="Core\Effects\RemoveModifier.cs" />
+    <Compile Include="Core\IStaticAbilities.cs" />
     <Compile Include="Core\ITargetSelector.cs" />
     <Compile Include="Core\ITargetSelectorFactory.cs" />
+    <Compile Include="Core\Modifiers\DisableAbilities.cs" />
     <Compile Include="Core\Preventions\PreventDamageFromSource.cs" />
+    <Compile Include="Core\StaticAbility.cs" />
     <Compile Include="Core\TargetCandidates.cs" />
     <Compile Include="Core\Targets.cs" />
     <Compile Include="Core\Controllers\Results\Cyclable.cs" />
@@ -325,6 +335,7 @@
     <Compile Include="Core\TargetSelector.cs" />
     <Compile Include="Core\TargetSelectors.cs" />
     <Compile Include="Core\TargetValidatorParameters.cs" />
+    <Compile Include="Core\Triggers\SpellWasCast.cs" />
     <Compile Include="Core\Triggers\OnLevelChanged.cs" />
     <Compile Include="Core\Triggers\OpponentWasNotDealtDamageThisTurn.cs" />
     <Compile Include="Core\Selectors.cs" />
@@ -391,7 +402,7 @@
     <Compile Include="Core\Modifiers\StrenghtSetter.cs" />
     <Compile Include="Core\Power.cs" />
     <Compile Include="Core\Modifiers\ColorsSetter.cs" />
-    <Compile Include="Core\StaticAbility.cs" />
+    <Compile Include="Core\Static.cs" />
     <Compile Include="Core\Characteristic.cs" />
     <Compile Include="Core\Toughness.cs" />
     <Compile Include="Core\Preventions\DamagePreventions.cs" />

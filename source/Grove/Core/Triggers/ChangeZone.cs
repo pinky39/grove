@@ -5,6 +5,7 @@
   using Messages;
   using Zones;
 
+
   public class ChangeZone : Trigger, IReceive<CardChangedZone>
   {
     public Zone From { get; set; }

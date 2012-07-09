@@ -13,6 +13,7 @@
   {
     private readonly List<Trigger> _triggers = new List<Trigger>();
     private Decisions _decisions;
+    private Trackable<bool> _isEnabled;
 
     public TriggeredAbility()
     {
@@ -20,6 +21,7 @@
     }
 
     public bool TriggerOnlyIfOwningCardIsInPlay { get; set; }
+    private bool IsEnabled { get { return _isEnabled.Value; } set { _isEnabled.Value = value; } }
 
     void ICopyContributor.AfterMemberCopy(object original)
     {
@@ -48,12 +50,16 @@
     {
       var hashcodes = _triggers.Select(calc.Calculate).ToList();
       hashcodes.Add(calc.Calculate(EffectFactory));
+      hashcodes.Add(IsEnabled.GetHashCode());
 
       return HashCalculator.Combine(hashcodes);
     }
 
     protected virtual void Execute(object context)
     {
+      if (!IsEnabled)
+        return;
+
       if (TriggerOnlyIfOwningCardIsInPlay && OwningCard.Zone != Zone.Battlefield)
         return;
 
@@ -78,6 +84,16 @@
       trigger.Triggered += (o, e) => Execute(e.Context);
     }
 
+    public void Disable()
+    {
+      IsEnabled = false;
+    }
+
+    public void Enable()
+    {
+      IsEnabled = true;
+    }
+
     [Copyable]
     public class Factory : ITriggeredAbilityFactory
     {
@@ -91,6 +107,7 @@
         ability.SourceCard = sourceCard;
         ability._decisions = Game.Decisions;
         ability.Game = Game;
+        ability._isEnabled = new Trackable<bool>(true, Game.ChangeTracker);
 
         Init(ability);
 

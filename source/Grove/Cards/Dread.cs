@@ -22,7 +22,7 @@
         .Toughness(6)
         .Timing(Timings.Creatures())
         .Abilities(
-          StaticAbility.Fear,
+          Static.Fear,
           C.Continuous((e, c) =>
           {
             e.ModifierFactory = c.Modifier<AddTriggeredAbility>((m, c0) =>

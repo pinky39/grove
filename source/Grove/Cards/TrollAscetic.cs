@@ -22,7 +22,7 @@
         .Toughness(2)        
         .Timing(Timings.Creatures())
         .Abilities(
-          StaticAbility.Hexproof,
+          Static.Hexproof,
           C.ActivatedAbility(
             "{1}{G}: Regenerate Troll Ascetic.",
             C.Cost<TapOwnerPayMana>((c, _) => c.Amount = "{1}{G}".ParseManaAmount()),

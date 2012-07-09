@@ -22,7 +22,7 @@
         .Power(2)
         .Toughness(2)
         .Abilities(
-          StaticAbility.Flying,
+          Static.Flying,
           C.TriggeredAbility(
             "When Abyssal Horror enters the battlefield, target player discards two cards.",
             C.Trigger<ChangeZone>((t, _) => t.To = Zone.Battlefield),

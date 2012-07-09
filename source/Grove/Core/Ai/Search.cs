@@ -178,11 +178,11 @@
       return stateCount - _startStateCount;
     }
 
-    private static bool IsItFeasibleToCreateNewWorker(ISearchNode node, int moveIndex)
+    private bool IsItFeasibleToCreateNewWorker(ISearchNode node, int moveIndex)
     {
       #if DEBUG
-      return SingleThreadedStrategy(node, moveIndex);
-      //return MultiThreadedStrategy2(node, moveIndex);
+      //return SingleThreadedStrategy(node, moveIndex);
+      return MultiThreadedStrategy2(node, moveIndex);
       #else
       return MultiThreadedStrategy2(node, moveIndex);
       #endif

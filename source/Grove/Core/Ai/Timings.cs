@@ -75,23 +75,10 @@
         };
     }
     
-    public static TimingDelegate TargetRemovalInstant()
+    public static TimingDelegate TargetRemovalInstant(bool combatOnly = false)
     {
       return p =>
         {
-          // play as response to some spells
-          if (p.TopSpell != null && p.TopSpell.Controller == p.Opponent &&
-            p.TopSpellCategoryIs(EffectCategories.Protector | EffectCategories.ToughnessIncrease))
-          {
-            if (p.TopSpell.AffectsSelf)
-            {
-              return p.Target.Card() == p.TopSpell.Source.OwningCard;
-            }
-
-            if (p.TopSpell.HasTarget(p.Target.Card()))
-              return true;
-          }
-
           // remove potential blockers
           if (p.Controller.IsActive && p.Target.IsCard())
           {
@@ -104,8 +91,24 @@
             return p.Step == Step.DeclareAttackers && p.Target.Card().IsAttacker;
           }
 
-          // deal damage to target player
-          return !p.Controller.IsActive && p.Step == Step.EndOfTurn && p.Target.IsPlayer();
+          if (combatOnly)
+            return false;
+                    
+          // play as response to some spells
+          if (p.TopSpell != null && p.TopSpell.Controller == p.Opponent &&
+            p.TopSpellCategoryIs(EffectCategories.Protector | EffectCategories.ToughnessIncrease))
+          {
+            if (p.TopSpell.AffectsSelf)
+            {
+              return p.Target.Card() == p.TopSpell.Source.OwningCard;
+            }
+
+            if (p.TopSpell.HasTarget(p.Target.Card()))
+              return true;
+          }
+         
+          // eot otherwise
+          return !p.Controller.IsActive && p.Step == Step.EndOfTurn;
         };
     }
 
@@ -319,14 +322,22 @@
           return false;
         };
     }
-
-    public static TimingDelegate EndOfTurnOrBeforeDeath()
+    
+    public static TimingDelegate EndOfTurn()
     {
       return p =>
         {
           if (p.Step == Step.EndOfTurn)
             return true;
 
+          return false;
+        };
+    }
+
+    public static TimingDelegate BeforeDeath()
+    {
+      return p =>
+        {                    
           if (p.Step == Step.DeclareBlockers)
           {
             return p.Combat.CanBeDealtLeathalCombatDamage(p.Card);
@@ -335,7 +346,7 @@
           if (p.Stack.IsEmpty)
             return false;
 
-          return p.Stack.CanBeDealtLeathalDamageByTopSpell(p.Card) ||
+          return p.Stack.CanBeDestroyedByTopSpell(p.Card) ||
             p.Stack.CanTopSpellReducePlayersLifeToZero(p.Controller);
         };
     }

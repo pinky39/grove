@@ -31,9 +31,10 @@
         };
     }
 
-    public static TargetValidatorDelegate Permanent(params string[] types)
+    public static TargetValidatorDelegate Permanent(Func<Card, bool> filter = null)
     {
-      return p => p.Target.IsPermanent() &&  (types.Length == 0 || types.Any(type => p.Target.Is().OfType(type)));
+      filter = filter ?? delegate { return true; };
+      return p => p.Target.IsPermanent() && filter(p.Target.Card());
     }
 
     public static TargetValidatorDelegate AttackerOrBlocker()

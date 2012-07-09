@@ -23,7 +23,7 @@
         .Timing(Timings.Creatures())
         .Effect<PutIntoPlay>((e, _) => e.CanBeCountered = false)
         .Abilities(
-          StaticAbility.Hexproof,
+          Static.Hexproof,
           C.ActivatedAbility(
             "{1}{G}: Regenerate Thrun.",
             C.Cost<TapOwnerPayMana>((c, _) => c.Amount = "{1}{G}".ParseManaAmount()),

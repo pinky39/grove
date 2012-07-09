@@ -21,7 +21,7 @@
         .Protections(ManaColors.Black)
         .Timing(Timings.Creatures())
         .Abilities(
-          StaticAbility.FirstStrike
+          Static.FirstStrike
         );
     }
   }

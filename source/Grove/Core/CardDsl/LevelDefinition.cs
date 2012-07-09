@@ -8,6 +8,6 @@
     public int Power { get; set; }
     public int Thoughness { get; set; }
 
-    public StaticAbility StaticAbility { get; set; }
+    public Static StaticAbility { get; set; }
   }
 }

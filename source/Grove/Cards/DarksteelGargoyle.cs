@@ -19,8 +19,8 @@
         .Toughness(3)
         .Timing(Timings.Creatures())
         .Abilities(
-          StaticAbility.Flying,
-          StaticAbility.Indestructible
+          Static.Flying,
+          Static.Indestructible
         );
     }
   }

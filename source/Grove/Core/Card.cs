@@ -53,10 +53,11 @@
     private Toughness _toughness;
     private TriggeredAbilities _triggeredAbilities;
     private CardTypeCharacteristic _type;
-    private Trackable<int> _usageCount;
+    private Trackable<int> _usageScore;
     private Trackable<bool> _wasEchoPaid;
     private CalculateX _xCalculator;
     private Trackable<Zone> _zone;
+    private TurnInfo _turn;
 
     protected Card() {}
 
@@ -73,6 +74,7 @@
       }
     }
 
+    private int UsageScore { get { return _usageScore.Value; } set { _usageScore.Value = value; } }
     public bool HasFirstStrike { get { return Has().FirstStrike || Has().DoubleStrike; } }
     public bool HasNormalStrike { get { return !Has().FirstStrike || Has().DoubleStrike; } }
     public bool CanBeTapped { get { return IsPermanent && !IsTapped; } }
@@ -150,8 +152,7 @@
 
         // card usage lowers the score slightly, since we want't to 
         // avoid activations that do no good
-
-        return score - _usageCount.Value;
+        return score - UsageScore;
       }
     }
 
@@ -168,13 +169,13 @@
     public IManaAmount CyclingCost { get; private set; }
     public bool HasCycling { get { return _cyclingFactory != null; } }
 
-    public void DealDamage(Card damageSource, int amount, bool isCombat)
+    public int DealDamage(Card damageSource, int amount, bool isCombat)
     {
       var damage = new Damage(damageSource, amount);
       int dealtAmount = CalculateDealtDamageAmount(damage, queryOnly: false);
 
       if (dealtAmount == 0)
-        return;
+        return 0;
 
       Damage += dealtAmount;
 
@@ -199,6 +200,8 @@
           });
 
       this.Updates("Damage");
+
+      return dealtAmount;
     }
 
     public EffectCategories EffectCategories { get; private set; }
@@ -296,7 +299,15 @@
     public void ActivateAbility(int index, ActivationParameters activationParameters)
     {
       _activatedAbilities.Activate(index, activationParameters);
-      _usageCount.Value++;
+      IncreaseUsageScore();
+    }
+
+    private void IncreaseUsageScore()
+    {
+      // to avoid useless moves every move lowers the score a bit
+      // this factor increases linearily with elapsed turns
+      // AI will prefer playing spells as soon as possible
+      UsageScore += _turn.TurnCount;
     }
 
     public virtual void AddModifier(IModifier modifier)
@@ -406,7 +417,7 @@
     {
       Effect effect = _cyclingFactory.CreateEffect(this);
       _stack.Push(effect);
-      _usageCount.Value++;
+      IncreaseUsageScore();
     }
 
     public void CastInternal(ActivationParameters activationParameters)
@@ -423,7 +434,7 @@
       effect.AddTargets(activationParameters.Targets.Effect());
 
       CastingRule.Cast(effect);
-      _usageCount.Value++;
+      IncreaseUsageScore();
     }
 
     public void ClearDamage()
@@ -432,9 +443,9 @@
       _hasLeathalDamage.Value = false;
     }
 
-    public void Destroy()
+    public void Destroy(bool allowRegenerate = true)
     {
-      Controller.DestroyCard(this);
+      Controller.DestroyCard(this, allowRegenerate);
     }
 
     public void Detach(Card card)
@@ -483,7 +494,7 @@
       return _activatedAbilities.GetManaCost(index);
     }
 
-    public IHasStaticAbilities Has()
+    public IStaticAbilities Has()
     {
       return _staticAbilities;
     }
@@ -542,7 +553,7 @@
     {
       _modifiers.Remove(modifier);
       modifier.Dispose();
-    }
+    }    
 
     public void RemoveSummoningSickness()
     {
@@ -689,7 +700,7 @@
       private readonly List<ITargetSelectorFactory> _effectTargetFactories = new List<ITargetSelectorFactory>();
       private readonly Game _game;
       private readonly List<ITargetSelectorFactory> _kickerEffectTargetFactories = new List<ITargetSelectorFactory>();
-      private readonly List<StaticAbility> _staticAbilities = new List<StaticAbility>();
+      private readonly List<Static> _staticAbilities = new List<Static>();
 
       private readonly List<ITriggeredAbilityFactory> _triggeredAbilityFactories = new List<ITriggeredAbilityFactory>();
       private ManaColors _colors;
@@ -736,6 +747,7 @@
         card._publisher = _game.Publisher;
         card._combat = _game.Combat;
         card._stack = _game.Stack;
+        card._turn = _game.Turn;
 
         card._effectFactory = _effectFactory ?? new Effect.Factory<PutIntoPlay> {Game = _game};
         card._cyclingFactory = _cyclingCost != null
@@ -764,7 +776,7 @@
 
         card._putToZoneAfterResolve = _putToZoneAfterResolve;
         card._damage = new Trackable<int>(_changeTracker, card);
-        card._usageCount = new Trackable<int>(_changeTracker);
+        card._usageScore = new Trackable<int>(_changeTracker);
         card._isTapped = new Trackable<bool>(_changeTracker, card);
         card._hasLeathalDamage = new Trackable<bool>(_changeTracker, card);
         card._attachedTo = new Trackable<Card>(_changeTracker, card);
@@ -860,9 +872,9 @@
       {
         foreach (object ability in abilities)
         {
-          if (ability is StaticAbility)
+          if (ability is Static)
           {
-            _staticAbilities.Add((StaticAbility) ability);
+            _staticAbilities.Add((Static) ability);
             continue;
           }
 
@@ -1090,6 +1102,16 @@
         card._type.Property(x => x.Value)
           .Changes(card).Property<Card, string>(x => x.Type);
       }
-    }    
+    }
+
+    public void RemoveModifier(Type type)
+    {
+      var modifier = _modifiers.FirstOrDefault(x => x.GetType() == type);
+      
+      if (modifier == null)
+        return;
+
+      RemoveModifier(modifier);
+    }
   }
 }

@@ -19,9 +19,9 @@
         .Toughness(8)
         .Timing(Timings.Creatures())
         .Abilities(
-          StaticAbility.Flying,
-          StaticAbility.Defender,
-          StaticAbility.Shroud
+          Static.Flying,
+          Static.Defender,
+          Static.Shroud
         );
     }
   }

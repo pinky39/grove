@@ -23,12 +23,12 @@
         .Toughness(7)
         .Timing(Timings.Creatures())
         .Abilities(
-          StaticAbility.Flying,
+          Static.Flying,
           C.ActivatedAbility(
             "{W}{W}: Target creature is indestructible this turn.",
             C.Cost<TapOwnerPayMana>((cost, _) => cost.Amount = "{W}{W}".ParseManaAmount()),
             C.Effect<ApplyModifiersToTarget>((e, c) => e.Modifiers(
-              c.Modifier<AddStaticAbility>((m, _) => { m.StaticAbility = StaticAbility.Indestructible; },
+              c.Modifier<AddStaticAbility>((m, _) => { m.StaticAbility = Static.Indestructible; },
                 untilEndOfTurn: true))),
             C.Selector(validator: Selectors.Creature()),
             targetFilter: TargetFilters.ShieldIndestructible(),

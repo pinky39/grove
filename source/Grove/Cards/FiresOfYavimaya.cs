@@ -23,7 +23,7 @@
           C.Continuous((e, c) =>
           {
             e.ModifierFactory = c.Modifier<AddStaticAbility>(
-              (m, _) => m.StaticAbility = StaticAbility.Haste);
+              (m, _) => m.StaticAbility = Static.Haste);
             e.Filter = (card, source) => card.Controller == source.Controller;
           }),
           C.ActivatedAbility(

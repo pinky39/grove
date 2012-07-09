@@ -19,7 +19,7 @@
         .Toughness(2)
         .Timing(Timings.Creatures())
         .Protections(ManaColors.Black | ManaColors.Green)
-        .Abilities(StaticAbility.DoubleStrike);
+        .Abilities(Static.DoubleStrike);
     }
   }
 }

@@ -60,19 +60,20 @@
       return target.Card().HasColor(color);
     }
 
-    public static void DealDamage(this ITarget target, Card damageSource, int amount, bool isCombat = false)
+    public static int DealDamage(this ITarget target, Card damageSource, int amount, bool isCombat = false)
     {
       if (target.IsCard())
       {
-        target.Card().DealDamage(damageSource, amount, isCombat);
-        return;
+        return target.Card().DealDamage(damageSource, amount, isCombat);
+        
       }
 
       if (target.IsPlayer())
       {
-        target.Player().DealDamage(damageSource, amount, isCombat);
-        return;
+        return target.Player().DealDamage(damageSource, amount, isCombat);        
       }
+
+      return 0;
     }
 
     public static int LifepointsLeft(this ITarget target)

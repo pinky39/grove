@@ -35,9 +35,9 @@
     }
 
     public override SpellPrerequisites CanActivate()
-    {
+    {      
       int? maxX = null;
-      if (Cost.CanPay(ref maxX))
+      if (IsEnabled && Cost.CanPay(ref maxX))
       {              
         return new SpellPrerequisites{
           CanBeSatisfied = true,

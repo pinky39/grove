@@ -22,7 +22,7 @@
         .FlavorText("Hatred outlives the hateful.")
         .Effect<EnchantCreature>((e, c) => e.Modifiers(
           c.Modifier<AddPowerAndToughness>((m, _) => m.Power = 2),
-          c.Modifier<AddStaticAbility>((m, _) => m.StaticAbility = StaticAbility.Trample)))
+          c.Modifier<AddStaticAbility>((m, _) => m.StaticAbility = Static.Trample)))
         .Timing(Timings.FirstMain())
         .Targets(
           filter: TargetFilters.CombatEnchantment(),

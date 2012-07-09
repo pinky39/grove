@@ -22,7 +22,7 @@
         .Toughness(1)
         .Timing(Timings.FirstMain())
         .Abilities(
-          StaticAbility.Flying,
+          Static.Flying,
           C.TriggeredAbility(
             "When Liliana's Specter enters the battlefield, each opponent discards a card.",
             C.Trigger<ChangeZone>((t, _) => t.To = Zone.Battlefield),

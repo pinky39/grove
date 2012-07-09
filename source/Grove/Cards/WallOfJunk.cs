@@ -24,7 +24,7 @@
         .Toughness(7)
         .Timing(Timings.Creatures())
         .Abilities(
-          StaticAbility.Defender,
+          Static.Defender,
           C.TriggeredAbility(
             "Whenever Wall of Junk blocks, return it to its owner's hand at end of combat. (Return it only if it's on the battlefield.)",
             C.Trigger<AtBegginingOfStep>((t, _) =>

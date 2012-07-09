@@ -7,7 +7,7 @@
 
   public class DiscipleOfGrace
   {
-    public class Ai :AiScenario
+    public class Ai : AiScenario
     {
       [Fact]
       public void Cycle()
@@ -20,7 +20,7 @@
         Battlefield(P2, dragon);
 
         RunGame(2);
-        
+
         Equal(Zone.Graveyard, C(disciple).Zone);
         Equal(1, P1.Hand.Count);
       }
@@ -28,7 +28,7 @@
       [Fact]
       public void Cast()
       {
-        var titan = C("Grave Titan"); 
+        var titan = C("Grave Titan");
         var disciple = C("Disciple of Grace");
 
         Hand(P1, disciple);
@@ -41,7 +41,7 @@
         Equal(20, P1.Life);
       }
     }
-    
+
     public class Predefined : PredefinedScenario
     {
       [Fact]

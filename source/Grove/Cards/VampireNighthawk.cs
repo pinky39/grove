@@ -18,9 +18,9 @@
         .Toughness(3)
         .Timing(Timings.Creatures())
         .Abilities(
-          StaticAbility.Deathtouch,
-          StaticAbility.Lifelink,
-          StaticAbility.Flying
+          Static.Deathtouch,
+          Static.Lifelink,
+          Static.Flying
         );
     }
   }

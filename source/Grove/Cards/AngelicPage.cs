@@ -20,7 +20,7 @@
         .FlavorText("If only every message were as perfect as its bearers.")
         .Timing(Timings.Creatures())
         .Abilities(
-          StaticAbility.Flying,
+          Static.Flying,
           C.ActivatedAbility(
             "{T}: Target attacking or blocking creature gets +1/+1 until end of turn.",
             C.Cost<TapOwnerPayMana>((cost, _) => cost.TapOwner = true),

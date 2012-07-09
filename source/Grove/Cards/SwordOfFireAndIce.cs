@@ -30,7 +30,7 @@
                 t.ToAnyPlayer();
               }),
             C.Effect<CompoundEffect>((e, c) => e.ChildEffects(
-              c.Effect<DealDamageToTarget>((e1, _) => e1.Amount = 2),
+              c.Effect<DealDamageToTarget>((e1, _) => e1.SetAmount(2)),
               c.Effect<DrawCards>((e2, _) => e2.DrawCount = 1))),
             C.Selector(
               Selectors.CreatureOrPlayer()),
