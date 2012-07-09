@@ -10,7 +10,9 @@
 
     public Static Value { get { return _value.Value; } }
     public bool IsEnabled { get { return _isEnabled.Value; } private set { _isEnabled.Value = value; } }
-
+    
+    private StaticAbility() {}
+    
     public StaticAbility(Static value, ChangeTracker changeTracker)
     {
       _value = new Trackable<Static>(value, changeTracker);
