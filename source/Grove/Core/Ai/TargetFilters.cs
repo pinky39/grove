@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core.Ai
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
 
@@ -358,7 +359,7 @@
         };
     }
 
-    public static TargetsFilterDelegate PreventDamageFromSource()
+    public static TargetsFilterDelegate PreventDamageFromSourceToAnyTarget()
     {
       return p =>
         {
@@ -442,11 +443,7 @@
     }
 
     private static int CalculateDamageRedirectionScore(Card card, TargetFilterParameters p)
-    {
-      // valuable opponent creatures
-      // your creatures with protection from some color
-      // your creatures with big toughness
-
+    {      
       const int protectionOffset = 200;
 
       if (card.Controller == p.Opponent)
@@ -460,6 +457,40 @@
       }
 
       return card.Toughness.Value - 3;
+    }
+
+    public static TargetsFilterDelegate PreventDamageFromSourceToController()
+    {
+       return p =>
+        {                      
+          var targetPicks = new List<ITarget>();          
+
+          if (!p.Stack.IsEmpty && p.Stack.TopSpell is IDamageDealing && p.Candidates().Contains(p.Stack.TopSpell))
+          {
+            var damageToPlayer = p.Stack.GetDamageTopSpellWillDealToPlayer(p.Controller);
+
+            if (damageToPlayer > 0)
+            {              
+              targetPicks.Add(p.Stack.TopSpell);
+            }                        
+          }
+
+          if (p.Step == Step.DeclareBlockers)
+          {
+            if (!p.Controller.IsActive)
+            {
+              var attacker = p.Combat.GetAttackerWhichWillDealGreatestDamageToDefender(
+                card => p.Candidates().Contains(card));
+
+              if (attacker != null)
+              {
+                targetPicks.Add(attacker);                
+              }
+            }            
+          }
+
+          return p.Targets(targetPicks);
+        };
     }
   }
 }

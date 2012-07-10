@@ -98,7 +98,7 @@
           if (p.TopSpell != null && p.TopSpell.Controller == p.Opponent &&
             p.TopSpellCategoryIs(EffectCategories.Protector | EffectCategories.ToughnessIncrease))
           {
-            if (p.TopSpell.AffectsSelf)
+            if (p.TopSpell.AffectsSource)
             {
               return p.Target.Card() == p.TopSpell.Source.OwningCard;
             }

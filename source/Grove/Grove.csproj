@@ -186,6 +186,7 @@
     <Compile Include="Cards\RumblingSlum.cs" />
     <Compile Include="Cards\SanctumGuardian.cs" />
     <Compile Include="Cards\SavannahLions.cs" />
+    <Compile Include="Cards\Sicken.cs" />
     <Compile Include="Cards\SilentAttendant.cs" />
     <Compile Include="Cards\StirringWildwood.cs" />
     <Compile Include="Cards\StudentOfWarfare.cs" />
@@ -210,6 +211,7 @@
     <Compile Include="Cards\Undermine.cs" />
     <Compile Include="Cards\Uncastable.cs" />
     <Compile Include="Cards\UnworthyDead.cs" />
+    <Compile Include="Cards\UrzasArmor.cs" />
     <Compile Include="Cards\VoiceOfGrace.cs" />
     <Compile Include="Cards\VolcanicHammer.cs" />
     <Compile Include="Cards\VampireNighthawk.cs" />
@@ -222,6 +224,7 @@
     <Compile Include="Cards\WallOfJunk.cs" />
     <Compile Include="Cards\WallOfReverence.cs" />
     <Compile Include="Cards\WhiteKnight.cs" />
+    <Compile Include="Cards\Worship.cs" />
     <Compile Include="Cards\WurmcoilEngine.cs" />
     <Compile Include="Cards\WallOfDenial.cs" />
     <Compile Include="Configuration.cs" />
@@ -232,7 +235,8 @@
     <Compile Include="Core\Ai\TargetFilters.cs" />
     <Compile Include="Core\Ai\TargetScores.cs" />
     <Compile Include="Core\Ai\XCalculatorParameters.cs" />
-    <Compile Include="Core\Effects\PreventDamageFromSource.cs" />
+    <Compile Include="Core\Effects\PreventDamageFromSourceToController.cs" />
+    <Compile Include="Core\Effects\PreventDamageFromSourceToTarget.cs" />
     <Compile Include="Core\Effects\RemoveModifier.cs" />
     <Compile Include="Core\Effects\SacrificeSource.cs" />
     <Compile Include="Core\IStaticAbilities.cs" />
@@ -240,6 +244,7 @@
     <Compile Include="Core\ITargetSelectorFactory.cs" />
     <Compile Include="Core\Modifiers\AddDamageRedirection.cs" />
     <Compile Include="Core\Modifiers\DisableAbilities.cs" />
+    <Compile Include="Core\Preventions\PreventDamageFromAnySource.cs" />
     <Compile Include="Core\Preventions\PreventDamageFromSource.cs" />
     <Compile Include="Core\Redirections\DamageRedirection.cs" />
     <Compile Include="Core\Redirections\DamageRedirections.cs" />

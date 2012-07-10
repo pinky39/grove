@@ -31,7 +31,7 @@
                     m.Power = 2;
                     m.Toughness = 2;
                   });
-              e.Filter = (card, source) => card.Controller == source.Controller;
+              e.CardFilter = (card, source) => card.Controller == source.Controller;
             }),
           C.Continuous((e, c) =>
             {
@@ -41,7 +41,7 @@
                     m.Power = -2;
                     m.Toughness = -2;
                   });
-              e.Filter = (card, source) => card.Controller != source.Controller;
+              e.CardFilter = (card, source) => card.Controller != source.Controller;
             })
         );
     }

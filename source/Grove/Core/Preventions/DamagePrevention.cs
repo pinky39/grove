@@ -7,7 +7,7 @@
   [Copyable]
   public abstract class DamagePrevention : IHashable, ILifetimeDependency
   {
-    protected ITarget Owner { get; private set; }
+    public ITarget Owner { get; private set; }
     protected Game Game { get; private set; }
 
     public int CalculateHash(HashCalculator calc)

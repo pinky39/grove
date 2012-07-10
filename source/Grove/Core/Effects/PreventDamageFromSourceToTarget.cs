@@ -3,7 +3,7 @@
   using Modifiers;
   using Preventions;
 
-  public class PreventDamageFromSource : Effect
+  public class PreventDamageFromSourceToTarget : Effect
   {
     private ITarget DamageSource { get { return Target(0); } }
     public bool OnlyOnce { get; set; }
@@ -13,8 +13,8 @@
       var source = DamageSource.IsEffect()
         ? DamageSource.Effect().Source.OwningCard
         : DamageSource.Card();
-      
-      var prevention = new DamagePrevention.Factory<Preventions.PreventDamageFromSource>
+
+      var prevention = new DamagePrevention.Factory<PreventDamageFromSource>
         {
           Game = Game,
           Init = (m, c) =>

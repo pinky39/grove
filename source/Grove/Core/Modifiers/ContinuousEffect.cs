@@ -11,9 +11,13 @@
   {
     public delegate bool ShouldApplyToCard(Card card, Card effectSource);
 
+    public delegate bool ShouldApplyToPlayer(Player player, Card effectSource);
+
     private readonly ChangeTracker _changeTracker;
 
-    public ShouldApplyToCard Filter = delegate { return true; };
+    public ShouldApplyToCard CardFilter = delegate { return true; };
+    public ShouldApplyToPlayer PlayerFilter = delegate { return false; };
+
     private Trackable<bool> _isActive;
     private Players _players;
     private Card _source;
@@ -51,39 +55,51 @@
         return;
       }
 
-      if (CanAddModifier(message))
+      if (CanAddModifierToCard(message))
       {
-        AddModifier(message.Card);
+        AddModifierToTarget(message.Card);
       }
     }
 
     private void Activate()
     {
       AddModifierToPermanents();
+      AddModifierToPlayers();
       _isActive.Value = true;
     }
 
-    private void AddModifier(Card permanent)
+    private void AddModifierToPlayers()
     {
-      var modifier = ModifierFactory.CreateModifier(_source, permanent);
+      foreach (var player in _players)
+      {
+        if (PlayerFilter(player, _source))
+        {
+          AddModifierToTarget(player);
+        }
+      }
+    }
+
+    private void AddModifierToTarget(ITarget target)
+    {
+      var modifier = ModifierFactory.CreateModifier(_source, target);
       modifier.AddLifetime(new DependantLifetime(modifier, this, _changeTracker));
-      permanent.AddModifier(modifier);
+      target.AddModifier(modifier);
     }
 
     private void AddModifierToPermanents()
     {
       var permanents = _players.Permanents()
-        .Where(permanent => Filter(permanent, _source)).ToList();
+        .Where(permanent => CardFilter(permanent, _source)).ToList();
 
       foreach (var permanent in permanents)
       {
-        AddModifier(permanent);
+        AddModifierToTarget(permanent);
       }
     }
 
-    private bool CanAddModifier(CardChangedZone message)
+    private bool CanAddModifierToCard(CardChangedZone message)
     {
-      return message.ToBattlefield && Filter(message.Card, _source);
+      return message.ToBattlefield && CardFilter(message.Card, _source);
     }
 
     private void Deactivate()

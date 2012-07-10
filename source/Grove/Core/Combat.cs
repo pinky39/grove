@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Controllers;
@@ -421,9 +422,13 @@
       return null;
     }
 
-    public Card GetAttackerWhichWillDealGreatestDamageToDefender()
+    public Card GetAttackerWhichWillDealGreatestDamageToDefender(Func<Card, bool> filter = null)
     {
-      return Attackers.OrderByDescending(x => x.GetDamageThisWillDealToPlayer())
+      filter = filter ?? delegate { return true; };
+      
+      return Attackers
+        .Where(x => filter(x))
+        .OrderByDescending(x => x.GetDamageThisWillDealToPlayer())        
         .FirstOrDefault();
     }
   }

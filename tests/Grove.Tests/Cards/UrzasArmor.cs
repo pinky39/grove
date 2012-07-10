@@ -1,37 +1,30 @@
 ﻿namespace Grove.Tests.Cards
 {
   using Core;
-  using Core.Zones;
   using Infrastructure;
   using Xunit;
 
-  public class SealOfFire
+  public class UrzasArmor
   {
     public class PredefinedAi : PredefinedAiScenario
     {
       [Fact]
-      public void SealTheBear()
+      public void Prevent1CombatDamage()
       {
-        var sealOfFire = C("Seal of Fire");
         var bear = C("Grizzly Bears");
+        var armor = C("Urza's armor");
 
         Battlefield(P1, bear);
-        Battlefield(P2, sealOfFire);
-
-        P2.Life = 2;
+        Battlefield(P2, armor);
 
         Exec(
           At(Step.DeclareAttackers)
             .DeclareAttackers(bear),
           At(Step.SecondMain)
-            .Verify(() =>
-              {
-                Equal(2, P2.Life);
-                Equal(Zone.Graveyard, C(bear).Zone);
-                Equal(Zone.Graveyard, C(sealOfFire).Zone);
-              })
+            .Verify(() => Equal(19, P2.Life))
           );
       }
+
     }
   }
 }

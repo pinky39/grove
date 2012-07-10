@@ -85,9 +85,10 @@
         isValidController(p.Controller, p.Target.Card().Controller) && filter(p.Target.Card());
     }
 
-    public static TargetValidatorDelegate EffectOrPermanent()
+    public static TargetValidatorDelegate EffectOrPermanent(Func<ITarget, bool> filter = null)
     {
-      return p => p.Target.IsPermanent() || p.Target.IsEffect();
+      filter = filter ?? delegate { return true; };      
+      return p => (p.Target.IsPermanent() || p.Target.IsEffect()) && filter(p.Target);
     }
   }
 }

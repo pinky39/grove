@@ -25,7 +25,7 @@
           C.ActivatedAbility(
             "Sacrifice Sanctum Guardian: The next time a source of your choice would deal damage to target creature or player this turn, prevent that damage.",
             C.Cost<SacrificeOwner>(),
-            C.Effect<PreventDamageFromSource>((e, _) => e.OnlyOnce = true),
+            C.Effect<PreventDamageFromSourceToTarget>((e, _) => e.OnlyOnce = true),
             
             effectSelectors: new []
               {
@@ -33,7 +33,7 @@
                 C.Selector(Selectors.CreatureOrPlayer())               
               },
             
-            targetFilter: TargetFilters.PreventDamageFromSource(),
+            targetFilter: TargetFilters.PreventDamageFromSourceToAnyTarget(),
             timing: Timings.NoRestrictions()
           )      
         );

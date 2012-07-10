@@ -57,7 +57,8 @@
 
     public static bool HasColor(this ITarget target, ManaColors color)
     {
-      return target.Card().HasColor(color);
+      return (target.IsCard() && target.Card().HasColor(color)) ||
+        (target.IsEffect() && target.Effect().Source.OwningCard.HasColor(color));
     }
 
     public static void DealDamage(this ITarget target, Damage damage)

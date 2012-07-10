@@ -25,7 +25,7 @@
     public Players Players { get { return Game.Players; } }
     public IEffectSource Source { get; set; }
     public int? X { get; private set; }
-    public virtual bool AffectsSelf { get { return false; } }
+    public virtual bool AffectsSource { get { return false; } }
 
     public ITarget Target()
     {

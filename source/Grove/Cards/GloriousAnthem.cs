@@ -23,7 +23,7 @@
             {
               e.ModifierFactory = c.Modifier<AddPowerAndToughness>(
                 (m, _) => { m.Power = 1; m.Toughness = 1; });
-              e.Filter = (card, source) => card.Controller == source.Controller;
+              e.CardFilter = (card, source) => card.Controller == source.Controller;
             }));
     }
   }
