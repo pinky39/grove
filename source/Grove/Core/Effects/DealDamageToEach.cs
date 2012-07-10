@@ -27,7 +27,14 @@
       {
         foreach (var player in Players)
         {
-          player.DealDamage(Source.OwningCard, AmountPlayer(player), isCombat: false);
+          var damage = new Damage(
+            source: Source.OwningCard,
+            amount: AmountPlayer(player),
+            isCombat: false,
+            changeTracker: Game.ChangeTracker
+            );
+
+          player.DealDamage(damage);
         }
       }
 
@@ -37,7 +44,14 @@
         {
           foreach (var creature in player.Battlefield.Creatures)
           {
-            creature.DealDamage(Source.OwningCard, AmountCreature(creature), isCombat: false);
+            var damage = new Damage(
+              source: Source.OwningCard,
+              amount: AmountCreature(creature),
+              isCombat: false,
+              changeTracker: Game.ChangeTracker
+              );
+
+            creature.DealDamage(damage);
           }
         }
       }

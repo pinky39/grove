@@ -2,6 +2,6 @@
 {
   public interface IDamageable
   {
-    int DealDamage(Card damageSource, int amount, bool isCombat);
+    void DealDamage(Damage damage);
   }  
 }

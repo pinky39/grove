@@ -12,17 +12,20 @@
       EndOfLife = new TrackableEvent(this, Game.ChangeTracker);
     }
 
-    public override int PreventDamage(Card damageDealer, int damageAmount, bool queryOnly)
+    public override void PreventDamage(Damage damage)
     {
-      if (damageDealer == Source)
+      if (damage.Source == Source)
       {
-        if (!queryOnly && OnlyOnce)
+        if (OnlyOnce)
           EndOfLife.Raise();
 
-        return 0;
+        damage.PreventAll();
       }
+    }
 
-      return damageAmount;
+    public override int EvaluateHowMuchDamageCanBeDealt(Card source, int amount, bool isCombat)
+    {
+      return source == Source ? 0 : amount;
     }
   }
 }

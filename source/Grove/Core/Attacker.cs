@@ -13,6 +13,7 @@
     private readonly TrackableList<Damage> _assignedDamage;
     private readonly TrackableList<Blocker> _blockers;
     private readonly Card _card;
+    private readonly ChangeTracker _changeTracker;
     private readonly Trackable<bool> _isBlocked;
     private readonly Players _players;
     private readonly Publisher _publisher;
@@ -20,6 +21,7 @@
     private Attacker(Card card, ChangeTracker changeTracker, Players players, Publisher publisher)
     {
       _card = card;
+      _changeTracker = changeTracker;
       _players = players;
       _publisher = publisher;
       _blockers = new TrackableList<Blocker>(changeTracker);
@@ -54,9 +56,8 @@
       _isBlocked.Value = true;
     }
 
-    public void AssignDamage(Card damageSource, int amount)
+    public void AssignDamage(Damage damage)
     {
-      var damage = new Damage(damageSource, amount);
       _assignedDamage.Add(damage);
     }
 
@@ -67,9 +68,9 @@
 
     public void DealAssignedDamage()
     {
-      foreach (Damage damage in _assignedDamage)
+      foreach (var damage in _assignedDamage)
       {
-        _card.DealDamage(damage.Source, damage.Amount, isCombat: true);
+        _card.DealDamage(damage);
       }
 
       _assignedDamage.Clear();
@@ -82,17 +83,29 @@
 
     public void DistributeDamageToBlockers(DamageDistribution distribution)
     {
-      foreach (Blocker blocker in _blockers)
+      foreach (var blocker in _blockers)
       {
-        blocker.AssignDamage(distribution[blocker]);
+        var damage = new Damage(
+          source: Card,
+          amount: distribution[blocker],
+          isCombat: true,
+          changeTracker: _changeTracker
+          );
+
+        blocker.AssignDamage(damage);
       }
 
-      Player defender = _players.GetOpponent(_card.Controller);
+      var defender = _players.GetOpponent(_card.Controller);
 
       if (HasTrample || _isBlocked == false)
       {
-        int unassignedDamage = DamageThisWillDealInOneDamageStep - distribution.Total;
-        defender.AssignDamage(_card, unassignedDamage);
+        var unassignedDamage = new Damage(
+          source: _card,
+          amount: DamageThisWillDealInOneDamageStep - distribution.Total,
+          isCombat: true,
+          changeTracker: _changeTracker);
+
+        defender.AssignDamage(unassignedDamage);
       }
     }
 
@@ -123,7 +136,7 @@
     {
       _publisher.Publish(new RemovedFromCombat {Card = Card});
 
-      foreach (Blocker blocker in _blockers)
+      foreach (var blocker in _blockers)
       {
         blocker.RemoveAttacker();
       }
@@ -131,7 +144,7 @@
 
     public void SetDamageAssignmentOrder(DamageAssignmentOrder damageAssignmentOrder)
     {
-      foreach (Blocker blocker in _blockers)
+      foreach (var blocker in _blockers)
       {
         blocker.DamageAssignmentOrder = damageAssignmentOrder[blocker];
       }
@@ -157,13 +170,13 @@
       if (toughness < 1)
         return 0;
 
-      IEnumerable<Card> blockers = _blockers.Select(x => x.Card);
-      bool withoutBoost = Combat.CanAttackerBeDealtLeathalCombatDamage(Card, blockers);
+      var blockers = _blockers.Select(x => x.Card);
+      var withoutBoost = Combat.CanAttackerBeDealtLeathalCombatDamage(Card, blockers);
 
       if (!withoutBoost)
         return 0;
 
-      bool withBoost = Combat.CanAttackerBeDealtLeathalCombatDamage(Card, blockers, power, toughness);
+      var withBoost = Combat.CanAttackerBeDealtLeathalCombatDamage(Card, blockers, power, toughness);
       return !withBoost ? Card.Score : 1;
     }
 

@@ -3,6 +3,7 @@
   using System;
   using Counters;
   using Preventions;
+  using Redirections;
 
   public interface IModifier : IDisposable
   {
@@ -17,6 +18,7 @@
     void Apply(CardTypeCharacteristic cardType);
     void Apply(Counters counters);
     void Apply(Level level);
+    void Apply(DamageRedirections damageRedirections);
     void Activate();
   }
 }

@@ -31,13 +31,16 @@
 
     protected override void ResolveEffect()
     {
-      var damageSource = Source.OwningCard;
-      var target = Target();
+      var damage = new Damage(
+        source: Source.OwningCard, 
+        amount: GetAmount().GetValue(X),
+        isCombat: false,
+        changeTracker: Game.ChangeTracker);
 
-      var dealtDamage = target.DealDamage(damageSource, GetAmount().GetValue(X));
+      Target().DealDamage(damage);
 
       if (GainLife)
-        Controller.Life += dealtDamage;
+        Controller.Life += damage.Amount;
     }
 
     private Value GetAmount()

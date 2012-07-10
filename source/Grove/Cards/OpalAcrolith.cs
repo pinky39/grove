@@ -33,7 +33,7 @@
                   m.Type = "Creature - Soldier";
                 })              
               ))
-            ),
+            , triggerOnlyIfOwningCardIsInPlay: true),
           C.ActivatedAbility(
             "{0}: Opal Acrolith becomes an enchantment.",
             C.Cost<TapOwnerPayMana>(),

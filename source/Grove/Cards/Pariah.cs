@@ -6,6 +6,7 @@
   using Core.CardDsl;
   using Core.Effects;
   using Core.Modifiers;
+  using Core.Redirections;
 
   public class Pariah : CardsSource
   {
@@ -13,9 +14,9 @@
     {
       yield return C.Card
         .Named("Pariah")
-        .ManaCost("{3}{W}")
+        .ManaCost("{2}{W}")
         .Type("Enchantment - Aura")
-        .Timing(Timings.SecondMain())
+        .Timing(Timings.FirstMain())
         .Text("All damage that would be dealt to you is dealt to enchanted creature instead.")
         .FlavorText(
           "'It is not sad', Radiant chided the lesser angel. 'It is right. Every society must have its outcasts.'")
@@ -23,9 +24,16 @@
           {
             e.ModifiesEnchantmentController = true;
             e.Modifiers(
-              c.Modifier<AddDamageRedirection>()
+              c.Modifier<AddDamageRedirection>((m, c0) => 
+                m.Redirection = c.Redirection<RedirectDamageToTarget>((r, c1) =>
+                  {
+                    r.Target = m.Source.AttachedTo;
+                  }))
               );
-          });
+          })
+          .Targets(
+            filter: TargetFilters.DamageRedirection(), 
+            selectors: C.Selector(Selectors.EnchantedCreature()));
     }
   }
 }

@@ -3,13 +3,12 @@
   public class RedirectDamageToTarget : DamageRedirection
   {
     public ITarget Target { get; set; }
-    
-    public override int RedirectDamage(Card damageDealer, int damageAmount, bool queryOnly)
-    {      
-      if (!queryOnly)
-        Target.DealDamage(damageDealer, damageAmount);
 
-      return 0;
+    protected override bool Redirect(Damage damage)
+    {            
+      Target.DealDamage(damage);
+
+      return true;
     }
   }
 }

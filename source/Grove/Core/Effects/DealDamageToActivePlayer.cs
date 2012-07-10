@@ -19,8 +19,14 @@
 
     protected override void ResolveEffect()
     {
-      var damageSource = Source.OwningCard;
-      Players.Active.DealDamage(damageSource, Amount.GetValue(X));
+      var damage = new Damage(
+        source: Source.OwningCard,
+        amount: Amount.GetValue(X),
+        isCombat: false,
+        changeTracker: Game.ChangeTracker
+        );
+      
+      Players.Active.DealDamage(damage);
     }
   }
 }

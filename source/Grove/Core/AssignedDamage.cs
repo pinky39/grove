@@ -7,13 +7,13 @@
   public class AssignedDamage : IHashable
   {
     private readonly TrackableList<Damage> _assigned;
-    private readonly Player _player;
+    private readonly Player _player;    
 
     private AssignedDamage() {}
 
     public AssignedDamage(Player player, ChangeTracker changeTracker)
     {
-      _player = player;
+      _player = player;      
       _assigned = new TrackableList<Damage>(changeTracker);
     }
 
@@ -23,19 +23,16 @@
       return calc.Calculate(_assigned);
     }
 
-    public void Assign(Card source, int amount)
-    {
-      if (amount <= 0)
-        return;
-
-      _assigned.Add(new Damage(source, amount));
+    public void Assign(Damage damage)
+    {      
+      _assigned.Add(damage);
     }
 
     public void Deal()
     {
       foreach (var damage in _assigned)
       {
-        _player.DealDamage(damage.Source, damage.Amount, isCombat: true);
+        _player.DealDamage(damage);
       }
       _assigned.Clear();
     }

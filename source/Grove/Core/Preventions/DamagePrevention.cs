@@ -19,7 +19,9 @@
 
     protected virtual void Initialize() {}
 
-    public abstract int PreventDamage(Card damageDealer, int damageAmount, bool queryOnly);
+    public abstract void PreventDamage(Damage damage);
+
+    public abstract int EvaluateHowMuchDamageCanBeDealt(Card source, int amount, bool isCombat);
 
     public class Factory<T> : IDamagePreventionFactory where T : DamagePrevention, new()
     {

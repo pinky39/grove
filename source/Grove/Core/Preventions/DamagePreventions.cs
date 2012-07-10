@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core.Preventions
 {
+  using System;
   using System.Linq;
   using Infrastructure;
   using Modifiers;
@@ -31,24 +32,33 @@
       _preventions.Add(prevention);
     }
 
-    public int PreventDamage(Card damageSource, int amount, bool queryOnly = false)
-    {
-      int damageLeft = amount;
-
+    public void PreventDamage(Damage damage)
+    {      
       foreach (DamagePrevention preventionEffect in _preventions.ToList())
       {
-        damageLeft = preventionEffect.PreventDamage(damageSource, damageLeft, queryOnly);
+        preventionEffect.PreventDamage(damage);
 
-        if (damageLeft == 0)
+        if (damage.Amount == 0)
           break;
-      }
-
-      return damageLeft;
+      }      
     }
 
     public void Remove(DamagePrevention preventaion)
     {
       _preventions.Remove(preventaion);
+    }
+
+    public int EvaluateHowMuchDamageCanBeDealt(Card source, int amount, bool isCombat)
+    {            
+      foreach (DamagePrevention preventionEffect in _preventions.ToList())
+      {
+        amount = preventionEffect.EvaluateHowMuchDamageCanBeDealt(source, amount, isCombat);
+        
+        if (amount == 0)
+          break;
+      }
+
+      return amount;
     }
   }
 }

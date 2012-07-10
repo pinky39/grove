@@ -3,13 +3,13 @@
   using System;
   using Ai;
 
-  public class DealDamageToController : Effect, IDamageDealing
+  public class DealExistingDamageToController : Effect, IDamageDealing
   {
-    public Func<DealDamageToController, int> Amount = delegate { return 0; };
-
+    public Func<Effect, Damage> Damage { get; set; }
+    
     public int PlayerDamage(Player player)
     {
-      return player == Controller ? Amount(this) : 0;
+      return player == Controller ? Damage(this).Amount : 0;
     }
 
     public int CreatureDamage(Card creature)
@@ -19,7 +19,7 @@
 
     protected override void ResolveEffect()
     {
-      Controller.DealDamage(Source.OwningCard, Amount(this));
+      Controller.DealDamage(Damage(this));
     }
   }
 }

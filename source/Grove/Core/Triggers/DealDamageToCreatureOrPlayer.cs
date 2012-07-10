@@ -20,12 +20,12 @@
 
     public void Receive(DamageHasBeenDealt message)
     {
-      if (CombatOnly && !message.IsCombat)
+      if (CombatOnly && !message.Damage.IsCombat)
         return;
 
       var triggerCard = GetTriggerSource();
 
-      if (message.Dealer == triggerCard && IsValid(message.Receiver))
+      if (message.Damage.Source == triggerCard && IsValid(message.Receiver))
         Set(message);
     }
 

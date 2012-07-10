@@ -1,9 +1,7 @@
 ﻿namespace Grove.Core.Ai
 {
-  using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Infrastructure;
 
   public static class TargetFilters
   {
@@ -15,7 +13,7 @@
     {
       return p =>
         {
-          IEnumerable<ITarget> candidates = p.Candidates();
+          var candidates = p.Candidates();
 
           switch (controller)
           {
@@ -29,7 +27,7 @@
               break;
           }
 
-          List<Targets> targets = p.Targets(candidates
+          var targets = p.Targets(candidates
             .OrderByDescending(x => x.Card().Score));
 
           if (targets.Count == 0 && p.ForceOne)
@@ -56,7 +54,7 @@
         {
           power = power ?? p.MaxX;
           thougness = thougness ?? p.MaxX;
-          IEnumerable<Card> candidates = GetCandidatesPumpAttackerOrBlocker(power, thougness, p);
+          var candidates = GetCandidatesPumpAttackerOrBlocker(power, thougness, p);
           return p.Targets(candidates);
         };
     }
@@ -81,7 +79,7 @@
     {
       return p =>
         {
-          IEnumerable<ITarget> candidates = p.Candidates().RestrictController(p.Opponent)
+          var candidates = p.Candidates().RestrictController(p.Opponent)
             .Take(1);
 
           return p.Targets(candidates);
@@ -124,7 +122,7 @@
       return p =>
         {
           amount = amount ?? p.MaxX;
-          IEnumerable<ITarget> candidates = p.Candidates()
+          var candidates = p.Candidates()
             .Where(x => x == p.Opponent)
             .Select(x => new
               {
@@ -142,7 +140,7 @@
             .OrderByDescending(x => x.Score)
             .Select(x => x.Target);
 
-          List<Targets> targets = p.Targets(candidates);
+          var targets = p.Targets(candidates);
 
           if (p.ForceOne && targets.Count == 0)
           {
@@ -160,7 +158,7 @@
 
     private static int CalculateBlockerScore(Card card, Combat combat)
     {
-      int count = combat.CountHowManyThisCouldBlock(card);
+      var count = combat.CountHowManyThisCouldBlock(card);
 
       if (count > 0)
       {
@@ -174,7 +172,7 @@
     {
       return p =>
         {
-          IEnumerable<Card> candidates = p.Candidates()
+          var candidates = p.Candidates()
             .Where(x => x.Card().Controller == p.Controller)
             .Where(x => x.Card().CanAttack)
             .Select(x => new
@@ -194,7 +192,7 @@
     {
       return p =>
         {
-          IOrderedEnumerable<ITarget> candidates = p.Candidates()
+          var candidates = p.Candidates()
             .Where(x => x.Card().Controller == p.Controller)
             .Where(x => p.Stack.CanBeDestroyedByTopSpell(x.Card(), targetOnly: true))
             .OrderByDescending(x => x.Card().Score);
@@ -207,7 +205,7 @@
     {
       return p =>
         {
-          IOrderedEnumerable<ITarget> candidates = p.Candidates()
+          var candidates = p.Candidates()
             .Where(x => x.Card().Controller == p.Controller)
             .Where(x => p.Stack.CanBeDestroyedByTopSpell(x.Card()) || p.Combat.CanBeDealtLeathalCombatDamage(x.Card()))
             .OrderByDescending(x => x.Card().Score);
@@ -220,7 +218,7 @@
     {
       return p =>
         {
-          IOrderedEnumerable<ITarget> candidates = p.Candidates()
+          var candidates = p.Candidates()
             .Where(x => x.Card().Controller == p.Opponent)
             .OrderByDescending(x => x.Card().Score);
 
@@ -235,11 +233,11 @@
           var result = new List<Targets>();
           result.AddRange(delegates[0](p));
 
-          for (int i = 1; i < delegates.Length; i++)
+          for (var i = 1; i < delegates.Length; i++)
           {
-            TargetsFilterDelegate filterDelegate = delegates[i];
-            List<Targets> targetsList = filterDelegate(p);
-            foreach (Targets targets in targetsList)
+            var filterDelegate = delegates[i];
+            var targetsList = filterDelegate(p);
+            foreach (var targets in targetsList)
             {
               if (result.Contains(targets))
                 continue;
@@ -258,7 +256,7 @@
         {
           amount = amount ?? p.MaxX;
 
-          IEnumerable<ITarget> candidates = p.Candidates()
+          var candidates = p.Candidates()
             .Where(x => x.Card().Controller == p.Opponent)
             .Select(x => new
               {
@@ -276,7 +274,7 @@
     {
       return p =>
         {
-          IEnumerable<ITarget> candidates =
+          var candidates =
             GetCandidatesPumpAttackerOrBlocker(power, toughness, p).Concat(
               p.Candidates()
                 .Where(x => x.Card().Controller == p.Controller)
@@ -291,7 +289,7 @@
     {
       return p =>
         {
-          IOrderedEnumerable<ITarget> candidates = p.Candidates()
+          var candidates = p.Candidates()
             .OrderBy(x => x.Card().Score);
 
           return p.Targets(candidates);
@@ -309,11 +307,11 @@
           }
 
           var candidates = p.Candidates()
-            .Where(x => p.Stack.CanBeDestroyedByTopSpell(x.Card()) || 
-                        p.Combat.CanBeDealtLeathalCombatDamage(x.Card()))
+            .Where(x => p.Stack.CanBeDestroyedByTopSpell(x.Card()) ||
+              p.Combat.CanBeDealtLeathalCombatDamage(x.Card()))
             .Take(1);
 
-          return p.Targets(candidates);          
+          return p.Targets(candidates);
         };
     }
 
@@ -340,7 +338,7 @@
     {
       return p =>
         {
-          IOrderedEnumerable<ITarget> candidates = p.Candidates()
+          var candidates = p.Candidates()
             .Where(x => x.Card().Controller == p.Opponent)
             .OrderByDescending(x => x.Card().Power);
 
@@ -352,7 +350,7 @@
     {
       return p =>
         {
-          IEnumerable<ITarget> candidates = p.Candidates()
+          var candidates = p.Candidates()
             .OrderByDescending(x => x.Card().Power)
             .Take(1);
 
@@ -363,20 +361,20 @@
     public static TargetsFilterDelegate PreventDamageFromSource()
     {
       return p =>
-        {          
+        {
           var targetPicks = new List<ITarget>();
           var sourcePicks = new List<ITarget>();
 
           if (!p.Stack.IsEmpty && p.Stack.TopSpell is IDamageDealing)
           {
-            int damageToPlayer = p.Stack.GetDamageTopSpellWillDealToPlayer(p.Controller);
+            var damageToPlayer = p.Stack.GetDamageTopSpellWillDealToPlayer(p.Controller);
 
             if (damageToPlayer > 0)
             {
               targetPicks.Add(p.Controller);
               sourcePicks.Add(p.Stack.TopSpell);
             }
-           
+
             var creatureKilledByTopSpell = p.Candidates(1)
               .Where(x => x.IsCard())
               .Where(x => p.Stack.CanBeDealtLeathalDamageByTopSpell(x.Card()))
@@ -402,29 +400,66 @@
                 sourcePicks.Add(attacker);
               }
             }
-            
+
             var creatureKilledInCombat = p.Candidates(1)
               .Where(x => x.IsCard())
               .Select(x => new
                 {
                   Target = x.Card(),
-                  Source = p.Combat.GetBestDamagePreventionCandidateForAttackerOrBlocker(x.Card())  
+                  Source = p.Combat.GetBestDamagePreventionCandidateForAttackerOrBlocker(x.Card())
                 })
               .Where(x => x.Source != null)
               .OrderByDescending(x => x.Target.Score)
-              .FirstOrDefault(); 
-            
+              .FirstOrDefault();
+
             if (creatureKilledInCombat != null)
             {
               targetPicks.Add(creatureKilledInCombat.Target);
               sourcePicks.Add(creatureKilledInCombat.Source);
             }
-
-          
           }
 
           return p.MultipleTargets(sourcePicks, targetPicks);
         };
+    }
+
+    public static TargetsFilterDelegate DamageRedirection()
+    {
+      return p =>
+        {
+          var candidates = p.Candidates()
+            .Select(x => new
+              {
+                Card = x.Card(),
+                Score = CalculateDamageRedirectionScore(x.Card(), p)
+              })
+            .Where(x => x.Score > 0)
+            .OrderByDescending(x => x.Score)
+            .Select(x => x.Card);
+
+          return p.Targets(candidates);
+        };
+    }
+
+    private static int CalculateDamageRedirectionScore(Card card, TargetFilterParameters p)
+    {
+      // valuable opponent creatures
+      // your creatures with protection from some color
+      // your creatures with big toughness
+
+      const int protectionOffset = 200;
+
+      if (card.Controller == p.Opponent)
+      {
+        return card.Score;
+      }
+
+      if (card.HasProtectionFrom(ManaColors.Red | ManaColors.Black))
+      {
+        return protectionOffset + card.Score;
+      }
+
+      return card.Toughness.Value - 3;
     }
   }
 }

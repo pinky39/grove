@@ -171,11 +171,13 @@
     <Compile Include="Cards\OpalAcrolith.cs" />
     <Compile Include="Cards\OrderOfTheSacredBell.cs" />
     <Compile Include="Cards\Pariah.cs" />
+    <Compile Include="Cards\Pestilence.cs" />
     <Compile Include="Cards\PhyrexianArena.cs" />
     <Compile Include="Cards\Plains.cs" />
     <Compile Include="Cards\PollutedMire.cs" />
     <Compile Include="Cards\Rancor.cs" />
     <Compile Include="Cards\RazorvergeThicket.cs" />
+    <Compile Include="Cards\RuneofProtectionBlack.cs" />
     <Compile Include="Cards\RuptureSpire.cs" />
     <Compile Include="Cards\RagingRavine.cs" />
     <Compile Include="Cards\RavenousBaloth.cs" />
@@ -232,6 +234,7 @@
     <Compile Include="Core\Ai\XCalculatorParameters.cs" />
     <Compile Include="Core\Effects\PreventDamageFromSource.cs" />
     <Compile Include="Core\Effects\RemoveModifier.cs" />
+    <Compile Include="Core\Effects\SacrificeSource.cs" />
     <Compile Include="Core\IStaticAbilities.cs" />
     <Compile Include="Core\ITargetSelector.cs" />
     <Compile Include="Core\ITargetSelectorFactory.cs" />
@@ -239,6 +242,7 @@
     <Compile Include="Core\Modifiers\DisableAbilities.cs" />
     <Compile Include="Core\Preventions\PreventDamageFromSource.cs" />
     <Compile Include="Core\Redirections\DamageRedirection.cs" />
+    <Compile Include="Core\Redirections\DamageRedirections.cs" />
     <Compile Include="Core\Redirections\IDamageRedirectionFactory.cs" />
     <Compile Include="Core\Redirections\RedirectDamageToTarget.cs" />
     <Compile Include="Core\StaticAbility.cs" />
@@ -298,7 +302,7 @@
     <Compile Include="Core\DeckFileReader.cs" />
     <Compile Include="Core\Effects\CounterTargetSpell.cs" />
     <Compile Include="Core\Effects\DealDamageToActivePlayer.cs" />
-    <Compile Include="Core\Effects\DealDamageToController.cs" />
+    <Compile Include="Core\Effects\DealExistingDamageToController.cs" />
     <Compile Include="Core\Effects\DestroyPermanents.cs" />
     <Compile Include="Core\Effects\ExileTargetPermanent.cs" />
     <Compile Include="Core\Effects\GainLifeEqualToTargetPower.cs" />

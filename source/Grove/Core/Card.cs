@@ -169,39 +169,40 @@
     public IManaAmount CyclingCost { get; private set; }
     public bool HasCycling { get { return _cyclingFactory != null; } }
 
-    public int DealDamage(Card damageSource, int amount, bool isCombat)
+    public void DealDamage(Damage damage)
     {
-      var damage = new Damage(damageSource, amount);
-      int dealtAmount = CalculateDealtDamageAmount(damage, queryOnly: false);
+      if (HasProtectionFrom(damage.Source))
+      {
+        damage.PreventAll();
+        return;
+      }
 
-      if (dealtAmount == 0)
-        return 0;
+      _damagePreventions.PreventDamage(damage);
 
-      Damage += dealtAmount;
+      if (damage.Amount == 0)
+        return;
+
+      Damage += damage.Amount;
 
       if (Damage >= Toughness || damage.IsLeathal)
       {
         _hasLeathalDamage.Value = true;
       }
 
-      if (damageSource.Has().Lifelink)
+      if (damage.Source.Has().Lifelink)
       {
-        Player controller = damageSource.Controller;
-        controller.Life += dealtAmount;
+        Player controller = damage.Source.Controller;
+        controller.Life += damage.Amount;
       }
 
       Publish(
         new DamageHasBeenDealt
           {
-            Dealer = damageSource,
-            Amount = dealtAmount,
-            Receiver = this,
-            IsCombat = isCombat
+            Damage = damage,            
+            Receiver = this,            
           });
 
-      this.Updates("Damage");
-
-      return dealtAmount;
+      this.Updates("Damage");      
     }
 
     public EffectCategories EffectCategories { get; private set; }
@@ -283,17 +284,14 @@
       _hash.Value = null;
     }
 
-    public int CalculateDealtDamageAmount(Damage damage)
+    public int EvaluateHowMuchDamageCanBeDealt(Card damageSource, int amount, bool isCombat)
     {
-      return CalculateDealtDamageAmount(damage, queryOnly: true);
-    }
-
-    private int CalculateDealtDamageAmount(Damage damage, bool queryOnly)
-    {
-      if (HasProtectionFrom(damage.Source))
+      if (HasProtectionFrom(damageSource))
+      {
         return 0;
+      }
 
-      return _damagePreventions.PreventDamage(damage.Source, damage.Amount, queryOnly);
+      return _damagePreventions.EvaluateHowMuchDamageCanBeDealt(damageSource, amount, isCombat);
     }
 
     public void ActivateAbility(int index, ActivationParameters activationParameters)
@@ -513,7 +511,7 @@
     public bool HasProtectionFrom(Card card)
     {
       return _protections.HasProtectionFrom(card.Colors) ||
-        _protections.HasProtectionFrom(card.Type);
+        _protections.HasProtectionFrom(card._type.Value);
     }
 
     public void Hide()

@@ -1,26 +1,28 @@
 ﻿namespace Grove.Core
 {
-  using System;
   using System.Linq;
+  using Ai;
   using Infrastructure;
   using Messages;
 
   [Copyable]
   public class Blocker : IHashable
   {
-    private readonly Publisher _publisher;
     private readonly TrackableList<Damage> _assignedDamage;
     private readonly Trackable<Attacker> _attacker;
     private readonly Trackable<int> _damageAssignmentOrder;
+    private readonly ChangeTracker _changeTracker;
+    private readonly Publisher _publisher;
 
     private Blocker() {}
 
     private Blocker(Card card, Attacker attacker, ChangeTracker changeTracker, Publisher publisher)
-    {      
+    {
       Card = card;
       _attacker = new Trackable<Attacker>(attacker, changeTracker);
       _assignedDamage = new TrackableList<Damage>(changeTracker);
-      _damageAssignmentOrder = new Trackable<int>(changeTracker);      
+      _damageAssignmentOrder = new Trackable<int>(changeTracker);
+      _changeTracker = changeTracker;
       _publisher = publisher;
     }
 
@@ -43,7 +45,7 @@
     private bool HasAttacker { get { return Attacker != null; } }
 
     public int LifepointsLeft { get { return Card.LifepointsLeft; } }
-    public int Score { get { return Ai.ScoreCalculator.CalculatePermanentScore(Card); } }
+    public int Score { get { return ScoreCalculator.CalculatePermanentScore(Card); } }
     public int DamageThisWillDealInOneDamageStep { get { return Card.Power.Value; } }
     public int Toughness { get { return Card.Toughness.Value; } }
 
@@ -52,12 +54,11 @@
       return HashCalculator.Combine(
         calc.Calculate(Card),
         DamageAssignmentOrder,
-        calc.Calculate(_assignedDamage));      
+        calc.Calculate(_assignedDamage));
     }
 
-    public void AssignDamage(int amount)
-    {
-      var damage = new Damage(Attacker.Card, amount);
+    public void AssignDamage(Damage damage)
+    {      
       _assignedDamage.Add(damage);
     }
 
@@ -70,7 +71,7 @@
     {
       foreach (var damage in _assignedDamage)
       {
-        Card.DealDamage(damage.Source, damage.Amount, isCombat: true);
+        Card.DealDamage(damage);
       }
 
       ClearAssignedDamage();
@@ -79,7 +80,16 @@
     public void DistributeDamageToAttacker()
     {
       if (Attacker != null)
-        Attacker.AssignDamage(Card, DamageThisWillDealInOneDamageStep);
+      {
+        var damage = new Damage(
+          source: Card,
+          amount: DamageThisWillDealInOneDamageStep,
+          isCombat: true,
+          changeTracker: _changeTracker
+          );
+        
+        Attacker.AssignDamage(damage);
+      }
     }
 
     public void RemoveAttacker()
@@ -95,7 +105,39 @@
       {
         Attacker.RemoveBlocker(this);
         Attacker = null;
-      }      
+      }
+    }
+
+    public bool WillBeDealtLeathalCombatDamage()
+    {
+      if (Attacker == null)
+        return false;
+
+      return Combat.CanBlockerBeDealtLeathalCombatDamage(Card, Attacker.Card);
+    }
+
+    public int CalculateGainIfGivenABoost(int power, int toughness)
+    {
+      if (Attacker == null)
+      {
+        return 0;
+      }
+
+      var withoutBoost = Combat.CanBlockerBeDealtLeathalCombatDamage(Card, Attacker);
+      if (!withoutBoost)
+        return 0;
+
+      var withBoost = Combat.CanBlockerBeDealtLeathalCombatDamage(Card, Attacker, power, toughness);
+      return !withBoost ? Card.Score : 1;
+    }
+
+    public Card GetBestDamagePreventionCandidate()
+    {
+      if (WillBeDealtLeathalCombatDamage())
+      {
+        return Attacker.Card;
+      }
+      return null;
     }
 
     [Copyable]
@@ -116,38 +158,6 @@
       {
         return new Blocker(blocker, attacker, _changeTracker, _publisher);
       }
-    }
-
-    public bool WillBeDealtLeathalCombatDamage()
-    {
-      if (Attacker == null)
-        return false;
-      
-      return Combat.CanBlockerBeDealtLeathalCombatDamage(Card, Attacker.Card);
-    }
-
-    public int CalculateGainIfGivenABoost(int power, int toughness)
-    {
-      if (Attacker == null)
-      {
-        return 0;
-      }
-
-      var withoutBoost = Combat.CanBlockerBeDealtLeathalCombatDamage(Card, Attacker);            
-      if (!withoutBoost)
-        return 0;
-      
-      var withBoost = Combat.CanBlockerBeDealtLeathalCombatDamage(Card, Attacker, power, toughness);
-      return !withBoost ? Card.Score : 1;
-    }
-
-    public Card GetBestDamagePreventionCandidate()
-    {
-      if (WillBeDealtLeathalCombatDamage())
-      {
-        return Attacker.Card;
-      }
-      return null;
     }
   }
 }

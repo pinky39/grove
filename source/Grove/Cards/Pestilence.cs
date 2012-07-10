@@ -1,0 +1,47 @@
+﻿namespace Grove.Cards
+{
+  using System.Collections.Generic;
+  using Core;
+  using Core.Ai;
+  using Core.CardDsl;
+  using Core.Costs;
+  using Core.Effects;
+  using Core.Triggers;
+  using Infrastructure;
+
+  public class Pestilence : CardsSource
+  {
+    public override IEnumerable<ICardFactory> GetCards()
+    {
+      yield return C.Card
+        .Named("Pestilence")
+        .ManaCost("{2}{B}{B}")
+        .Type("Enchantment")
+        .Text(
+          "At the beginning of the end step, if no creatures are on the battlefield, sacrifice Pestilence.{EOL}{B}: Pestilence deals 1 damage to each creature and each player.")
+        .Timing(Timings.FirstMain())
+        .Abilities(
+          C.TriggeredAbility(
+            "At the beginning of the end step, if no creatures are on the battlefield, sacrifice Pestilence.",
+            C.Trigger<AtBegginingOfStep>((t, _) =>
+              {
+                t.ActiveTurn = true;
+                t.PassiveTurn = true;
+                t.Step = Step.EndOfTurn;
+                t.Condition = self => self.Game.Players.Permanents().None(x => x.Is().Creature);
+              }),
+            C.Effect<SacrificeSource>()
+            ),
+          C.ActivatedAbility(
+            "{B}: Pestilence deals 1 damage to each creature and each player.",
+            C.Cost<TapOwnerPayMana>((cost, _) => cost.Amount = ManaAmount.Black),
+            C.Effect<DealDamageToEach>((e, _) =>
+              {
+                e.AmountCreature = delegate { return 1; };
+                e.AmountPlayer = delegate { return 1; };
+              }),
+            timing: Any(Timings.MassRemovalInstant(), Timings.EndOfTurn()))
+        );
+    }
+  }
+}

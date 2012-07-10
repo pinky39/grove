@@ -6,6 +6,7 @@
   using Counters;
   using Infrastructure;
   using Preventions;
+  using Redirections;
 
   [Copyable]
   public abstract class Modifier : IModifier, ICopyContributor
@@ -37,6 +38,7 @@
     public virtual void Apply(CardTypeCharacteristic cardType) {}
     public virtual void Apply(Counters counters) {}
     public virtual void Apply(Level level) {}
+    public virtual void Apply(DamageRedirections damageRedirections) {}
     
     public void Dispose()
     {

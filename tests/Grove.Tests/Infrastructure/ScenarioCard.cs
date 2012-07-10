@@ -28,12 +28,7 @@
     {
       return Card.CalculateHash(hashCalculator);
     }
-
-    public void DealDamage(Card damageSource, int amount, bool isCombat)
-    {
-      Card.DealDamage(damageSource, amount, isCombat);
-    }    
-
+    
     public void Initialize(Func<string, Card> cardFactory)
     {
       Card = cardFactory(_name);

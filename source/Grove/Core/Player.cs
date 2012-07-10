@@ -7,6 +7,7 @@
   using Messages;
   using Modifiers;
   using Preventions;
+  using Redirections;
   using Zones;
 
   [Copyable]
@@ -28,6 +29,7 @@
     private ManaSources _manaSources;
     private DamagePreventions _damagePreventions;
     private TrackableList<IModifier> _modifiers;
+    private DamageRedirections _damageRedirections;
 
     public Player(
       string name,
@@ -53,6 +55,7 @@
       _manaPool = Bindable.Create<ManaPool>(changeTracker);
       _modifiers = new TrackableList<IModifier>(changeTracker);
       _damagePreventions= new DamagePreventions(changeTracker, null);
+      _damageRedirections = new DamageRedirections(changeTracker, null);
       _assignedDamage = new AssignedDamage(this, changeTracker);
 
       Deck cards = deckFactory.CreateDeck(deck, this);
@@ -110,30 +113,31 @@
 
     public int ConvertedMana { get { return _manaSources.GetMaxConvertedMana(); } }
 
-    public int DealDamage(Card damageSource, int amount, bool isCombat)
+    public void DealDamage(Damage damage)
     {      
-      var dealtAmount =_damagePreventions.PreventDamage(damageSource, amount);
+      _damagePreventions.PreventDamage(damage);
       
-      if (dealtAmount == 0)
-        return 0;
+      if (damage.Amount == 0)
+        return;
 
-      Life -= dealtAmount;
+      bool wasRedirected = _damageRedirections.RedirectDamage(damage);
 
-      if (damageSource.Has().Lifelink)
+      if (wasRedirected)
+        return;
+      
+      Life -= damage.Amount;
+
+      if (damage.Source.Has().Lifelink)
       {
-        Player controller = damageSource.Controller;
-        controller.Life += dealtAmount;
+        Player controller = damage.Source.Controller;
+        controller.Life += damage.Amount;
       }
 
       PublishMessage(new DamageHasBeenDealt
         {
-          Dealer = damageSource,
-          Receiver = this,
-          Amount = dealtAmount,
-          IsCombat = isCombat
-        });
-
-      return dealtAmount;
+          Damage = damage,                    
+          Receiver = this,          
+        });      
     }
 
     public int CalculateHash(HashCalculator calc)
@@ -160,9 +164,9 @@
       _manaPool.Add(manaAmount);
     }
 
-    public void AssignDamage(Card source, int amount)
+    public void AssignDamage(Damage damage)
     {
-      _assignedDamage.Assign(source, amount);
+      _assignedDamage.Assign(damage);
     }
 
     public void CycleSpell(Card spell)
@@ -503,7 +507,8 @@
     {
       get
       {
-        yield return _damagePreventions;        
+        yield return _damagePreventions;
+        yield return _damageRedirections;
       }
     }
 

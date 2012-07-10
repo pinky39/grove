@@ -9,6 +9,7 @@
   using Infrastructure;
   using Modifiers;
   using Preventions;
+  using Redirections;
   using Triggers;
 
   public class CardCreationContext
@@ -160,6 +161,17 @@
           EndOfTurn = untilEndOfTurn,
           MinLevel = minLevel,
           MaxLevel = maxLevel
+        };
+    }
+
+    public IDamageRedirectionFactory Redirection<T>(Initializer<T> init = null) where T : DamageRedirection, new()
+    {
+      init = init ?? delegate { };
+
+      return new DamageRedirection.Factory<T>()
+        {
+          Game = _game,
+          Init = init
         };
     }
 
