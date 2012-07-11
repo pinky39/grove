@@ -7,6 +7,7 @@
   using Core.Details.Cards.Effects;
   using Core.Details.Cards.Modifiers;
   using Core.Details.Cards.Triggers;
+  using Core.Details.Mana;
   using Core.Dsl;
 
   public class OpalAcrolith : CardsSource
@@ -31,6 +32,7 @@
                   m.Power = 2;
                   m.Tougness = 4;
                   m.Type = "Creature - Soldier";
+                  m.Colors = ManaColors.White;
                 })
               ))
             , triggerOnlyIfOwningCardIsInPlay: true),

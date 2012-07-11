@@ -335,7 +335,7 @@
           continue;
         }
 
-        if (creature.HasLeathalDamage)
+        if (creature.HasLeathalDamage || creature.LifepointsLeft <= 0)
         {
           DestroyCard(creature, allowRegenerate: true);
         }
