@@ -15,7 +15,7 @@
     {
       _match = match;
       _match.Shell = this;
-      
+
       DisplayName = "magicgrove";
     }
 
@@ -37,15 +37,16 @@
       var revert = ChangeMode(selectionMode);
 
       Screen.AddDialog(dialog, type);
-      ((IClosable) dialog).Closed += delegate {
-        Screen.RemoveDialog(dialog);
+      ((IClosable) dialog).Closed += delegate
+        {
+          Screen.RemoveDialog(dialog);
 
-        ChangeMode(revert);
-      };
+          ChangeMode(revert);
+        };
     }
 
     public MessageBoxResult ShowMessageBox(string message, MessageBoxButton buttons,
-      DialogType type = DialogType.Large, string title = "")
+                                           DialogType type = DialogType.Large, string title = "")
     {
       var messageBox = new ViewModel(message, title, buttons, type);
       ShowModalDialog(messageBox, type, SelectionMode.Disabled);
@@ -55,11 +56,12 @@
     public void ShowModalDialog(object dialog, DialogType type, SelectionMode? selectionMode = null)
     {
       var blocker = new ThreadBlocker();
-      
-      blocker.BlockUntilCompleted(() => {
-        ShowDialog(dialog, type, selectionMode);
-        ((IClosable) dialog).Closed += delegate { blocker.Completed(); };
-      });
+
+      blocker.BlockUntilCompleted(() =>
+        {
+          ShowDialog(dialog, type, selectionMode);
+          ((IClosable) dialog).Closed += delegate { blocker.Completed(); };
+        });
 
       Screen.RemoveDialog(dialog);
     }
@@ -82,9 +84,10 @@
         var revert = _selectionMode;
         _selectionMode = selectionMode.Value;
 
-        _match.Game.Publisher.Publish(new SelectionModeChanged{
-          SelectionMode = selectionMode.Value
-        });
+        _match.Game.Publisher.Publish(new SelectionModeChanged
+          {
+            SelectionMode = selectionMode.Value
+          });
 
         return revert;
       }

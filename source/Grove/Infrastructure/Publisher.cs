@@ -27,7 +27,7 @@
       var subscribers = org._subscribers
         .Where(x => IsUiComponent(x) == false)
         .Select(copyService.Copy);
-        
+
 
       _subscribers = new TrackableList<object>(subscribers, _changeTracker);
     }
@@ -61,9 +61,9 @@
     private void NotifySubscribers<TMessage>(TMessage message)
     {
       var subscribers = _subscribers.ToArray();
-      
+
       //Log.DebugFormat("Subscribers count: {0}.", subscribers.Count());
-      
+
       foreach (var reference in subscribers)
       {
         var target = reference as IReceive<TMessage>;

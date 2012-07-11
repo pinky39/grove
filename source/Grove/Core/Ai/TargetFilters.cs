@@ -1,8 +1,9 @@
 ﻿namespace Grove.Core.Ai
 {
-  using System;
   using System.Collections.Generic;
   using System.Linq;
+  using Details.Mana;
+  using Targeting;
 
   public static class TargetFilters
   {
@@ -443,7 +444,7 @@
     }
 
     private static int CalculateDamageRedirectionScore(Card card, TargetFilterParameters p)
-    {      
+    {
       const int protectionOffset = 200;
 
       if (card.Controller == p.Opponent)
@@ -461,18 +462,18 @@
 
     public static TargetsFilterDelegate PreventDamageFromSourceToController()
     {
-       return p =>
-        {                      
-          var targetPicks = new List<ITarget>();          
+      return p =>
+        {
+          var targetPicks = new List<ITarget>();
 
           if (!p.Stack.IsEmpty && p.Stack.TopSpell is IDamageDealing && p.Candidates().Contains(p.Stack.TopSpell))
           {
             var damageToPlayer = p.Stack.GetDamageTopSpellWillDealToPlayer(p.Controller);
 
             if (damageToPlayer > 0)
-            {              
+            {
               targetPicks.Add(p.Stack.TopSpell);
-            }                        
+            }
           }
 
           if (p.Step == Step.DeclareBlockers)
@@ -484,9 +485,9 @@
 
               if (attacker != null)
               {
-                targetPicks.Add(attacker);                
+                targetPicks.Add(attacker);
               }
-            }            
+            }
           }
 
           return p.Targets(targetPicks);

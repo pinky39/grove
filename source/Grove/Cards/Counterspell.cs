@@ -3,8 +3,9 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.CardDsl;
-  using Core.Effects;
+  using Core.Details.Cards.Effects;
+  using Core.Dsl;
+  using Core.Targeting;
 
   public class Counterspell : CardsSource
   {
@@ -21,7 +22,7 @@
         .Effect<CounterTargetSpell>()
         .Targets(
           filter: TargetFilters.CounterSpell(),
-          selectors: C.Selector(Selectors.Counterspell()));                    
+          selectors: C.Selector(Selectors.Counterspell()));
     }
   }
 }

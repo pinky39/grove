@@ -7,9 +7,9 @@
 
   public class ViewModel : IIsDialogHost
   {
-    private readonly IShell _shell;
     private readonly CardDatabase _cardDatabase;
     private readonly SelectDeck.ViewModel.IFactory _selectDeckScreenFactory;
+    private readonly IShell _shell;
 
 
     public ViewModel(IShell shell, CardDatabase cardDatabase, SelectDeck.ViewModel.IFactory selectDeckScreenFactory)
@@ -19,13 +19,9 @@
       _selectDeckScreenFactory = selectDeckScreenFactory;
     }
 
+    public string DatabaseInfo { get { return string.Format("Database has {0} cards.", _cardDatabase.CardCount); } }
     public void AddDialog(object dialog, DialogType dialogType) {}
 
-    public string DatabaseInfo
-    {
-      get { return string.Format("Database has {0} cards.", _cardDatabase.CardCount); }
-    }
-    
     public bool HasFocus(object dialog)
     {
       return false;

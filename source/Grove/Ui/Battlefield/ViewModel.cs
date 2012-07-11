@@ -10,34 +10,35 @@
 
   public class ViewModel : IReceive<AttachmentAttached>, IReceive<AttachmentDetached>
   {
-    private readonly Player _owner;    
+    private readonly Player _owner;
 
-    private readonly Row[] _rows = new[]{
-      new Row(
-        LandSlot(),
-        LandSlot(),
-        LandSlot(),
-        LandSlot(),
-        LandSlot(),
-        LandSlot(),
-        LandSlot(),
-        LandSlot()),
-      new Row(
-        CreatureSlot(),
-        CreatureSlot(),
-        CreatureSlot(),
-        CreatureSlot(),
-        CreatureSlot(),
-        CreatureSlot(),
-        CreatureSlot(),
-        MiscSlot()
-        ),
-    };
+    private readonly Row[] _rows = new[]
+      {
+        new Row(
+          LandSlot(),
+          LandSlot(),
+          LandSlot(),
+          LandSlot(),
+          LandSlot(),
+          LandSlot(),
+          LandSlot(),
+          LandSlot()),
+        new Row(
+          CreatureSlot(),
+          CreatureSlot(),
+          CreatureSlot(),
+          CreatureSlot(),
+          CreatureSlot(),
+          CreatureSlot(),
+          CreatureSlot(),
+          MiscSlot()
+          ),
+      };
 
     private readonly Permanent.ViewModel.IFactory _viewModelFactory;
 
     public ViewModel(Permanent.ViewModel.IFactory viewModelFactory,
-      Player owner, Players players)
+                     Player owner, Players players)
     {
       _viewModelFactory = viewModelFactory;
       _owner = owner;
@@ -67,7 +68,6 @@
       }
     }
 
-    
 
     private static Slot CreatureSlot()
     {
@@ -122,7 +122,7 @@
         }
       }
       return null;
-    }   
+    }
 
     private Permanent.ViewModel Remove(Card card)
     {

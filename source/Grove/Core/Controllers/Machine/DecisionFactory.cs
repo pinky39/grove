@@ -1,8 +1,11 @@
 ﻿namespace Grove.Core.Controllers.Machine
 {
   using Ai;
-  using Effects;
+  using Details.Cards.Effects;
+  using Details.Combat;
+  using Details.Mana;
   using Infrastructure;
+  using Targeting;
 
   public interface IMachineDecisionFactory : IDecisionFactory {}
 
@@ -37,7 +40,7 @@
         {
           Context = context,
           Player = player,
-          Message = message,       
+          Message = message,
           Handler = handler,
           Life = life,
           Mana = mana

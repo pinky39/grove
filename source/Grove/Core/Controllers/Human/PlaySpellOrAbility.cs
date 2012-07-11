@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core.Controllers.Human
 {
+  using Results;
   using Ui;
   using Ui.Priority;
   using Ui.Shell;
@@ -17,7 +18,7 @@
     {
       if (Configuration.ShouldAutoPass(Turn.Step, Player.IsActive) && Stack.IsEmpty)
       {
-        Result = new Results.Pass();
+        Result = new Pass();
         return;
       }
 

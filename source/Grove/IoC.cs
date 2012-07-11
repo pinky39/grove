@@ -14,11 +14,12 @@
   using Castle.Windsor;
   using Core;
   using Core.Ai;
-  using Core.CardDsl;
   using Core.Controllers;
   using Core.Controllers.Human;
   using Core.Controllers.Machine;
   using Core.Controllers.Scenario;
+  using Core.Details.Combat;
+  using Core.Dsl;
   using Core.Testing;
   using Core.Zones;
   using Infrastructure;
@@ -107,7 +108,8 @@
           new CollectionResolver(container.Kernel, allowEmptyCollections: true));
 
         container.AddFacility<TypedFactoryFacility>();
-        container.Register(Component(typeof (ILazyComponentLoader), typeof (LazyOfTComponentLoader), LifestyleType.Singleton));
+        container.Register(Component(typeof (ILazyComponentLoader), typeof (LazyOfTComponentLoader),
+          LifestyleType.Singleton));
 
         if (_configuration == Configuration.Ui)
         {
@@ -143,7 +145,7 @@
         container.Register(Component(typeof (IAttackerFactory), typeof (Attacker.Factory)));
         container.Register(Component(typeof (IBlockerFactory), typeof (Blocker.Factory)));
         container.Register(Component(typeof (CastRestrictions)));
-        container.Register(Component(typeof (StateMachine), lifestyle: LifestyleType.Scoped));        
+        container.Register(Component(typeof (StateMachine), lifestyle: LifestyleType.Scoped));
       }
 
       private void RegisterPlayer(IWindsorContainer container)
@@ -153,9 +155,10 @@
         container.Register(registration);
       }
 
-      private ComponentRegistration<object> Component(Type service, Type implementation = null, LifestyleType lifestyle = LifestyleType.Transient)
+      private ComponentRegistration<object> Component(Type service, Type implementation = null,
+                                                      LifestyleType lifestyle = LifestyleType.Transient)
       {
-        var services = new List<Type>{service};
+        var services = new List<Type> {service};
 
         if (implementation != null)
           services.Add(implementation);
@@ -165,10 +168,10 @@
         var registration = Castle.MicroKernel.Registration.Component
           .For(services)
           .ImplementedBy(implementation);
-        
+
         if (lifestyle == LifestyleType.Scoped)
         {
-          if (_configuration == Configuration.Ui)          
+          if (_configuration == Configuration.Ui)
             return registration.LifestyleScoped<UiScopeAccessor>();
 
           registration.LifestyleScoped();
@@ -226,13 +229,14 @@
 
         if (registration.Implementation.Implements<IReceive>())
         {
-          registration.OnCreate((kernel, instance) => {
-            var publisher = kernel.Resolve<Publisher>();
-            publisher.Subscribe(instance);
+          registration.OnCreate((kernel, instance) =>
+            {
+              var publisher = kernel.Resolve<Publisher>();
+              publisher.Subscribe(instance);
 
-            var disposed = (IClosable) instance;
-            disposed.Closed += delegate { publisher.Unsubscribe(instance); };
-          });
+              var disposed = (IClosable) instance;
+              disposed.Closed += delegate { publisher.Unsubscribe(instance); };
+            });
         }
       }
 
@@ -290,15 +294,17 @@
           );
 
 
-        container.Register(Configure(IsViewModel, registration => {
-          registration.LifestyleTransient();
-          ImplementUiStuff(registration);
-        }));
+        container.Register(Configure(IsViewModel, registration =>
+          {
+            registration.LifestyleTransient();
+            ImplementUiStuff(registration);
+          }));
 
-        container.Register(Configure(IsViewModelFactory, registration => {
-          registration.AsFactory();
-          registration.LifestyleSingleton();
-        }));
+        container.Register(Configure(IsViewModelFactory, registration =>
+          {
+            registration.AsFactory();
+            registration.LifestyleSingleton();
+          }));
       }
     }
   }

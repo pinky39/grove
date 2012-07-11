@@ -8,11 +8,11 @@
     private readonly TrackableList<IDecision> _queue;
 
     private DecisionQueue() {}
-    
+
     public DecisionQueue(ChangeTracker changeTracker)
     {
-      _queue = new TrackableList<IDecision>(changeTracker, 
-         orderImpactsHashcode: true);
+      _queue = new TrackableList<IDecision>(changeTracker,
+        orderImpactsHashcode: true);
     }
 
     public int Count { get { return _queue.Count; } }

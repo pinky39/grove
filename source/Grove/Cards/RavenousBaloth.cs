@@ -3,9 +3,10 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.CardDsl;
-  using Core.Costs;
-  using Core.Effects;
+  using Core.Details.Cards.Costs;
+  using Core.Details.Cards.Effects;
+  using Core.Dsl;
+  using Core.Targeting;
 
   public class RavenousBaloth : CardsSource
   {
@@ -26,7 +27,7 @@
             "Sacrifice a Beast: You gain 4 life.",
             C.Cost<SacrificePermanent>(),
             C.Effect<GainLife>((e, _) => e.SetAmount(4)),
-            costSelector: C.Selector(Selectors.Creature((c)=> c.Is("beast"), Controller.SpellOwner)),
+            costSelector: C.Selector(Selectors.Creature((c) => c.Is("beast"), Controller.SpellOwner)),
             targetFilter: TargetFilters.CostSacrificeGainLife(),
             timing: Timings.NoRestrictions()));
     }

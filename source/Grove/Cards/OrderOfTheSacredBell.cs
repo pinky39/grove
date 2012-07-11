@@ -3,7 +3,7 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.CardDsl;
+  using Core.Dsl;
 
   public class OrderOfTheSacredBell : CardsSource
   {

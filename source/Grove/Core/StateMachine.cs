@@ -44,11 +44,7 @@
       InitializeSteps();
     }
 
-    private IDecision CurrentDecision
-    {
-      get { return _curentDecision.Value; }
-      set { _curentDecision.Value = value; }
-    }
+    private IDecision CurrentDecision { get { return _curentDecision.Value; } set { _curentDecision.Value = value; } }
 
     private State State
     {
@@ -60,16 +56,9 @@
       }
     }
 
-    private Step Step
-    {
-      get { return _turnInfo.Step; }
-      set { _turnInfo.Step = value; }
-    }
+    private Step Step { get { return _turnInfo.Step; } set { _turnInfo.Step = value; } }
 
-    private bool WasPriorityPassed
-    {
-      get { return CurrentDecision.WasPriorityPassed; }
-    }
+    private bool WasPriorityPassed { get { return CurrentDecision.WasPriorityPassed; } }
 
     void ICopyContributor.AfterMemberCopy(object original)
     {
@@ -308,22 +297,22 @@
               if (permanent.PlayerNeedsToPayEchoCost())
               {
                 _decisions.EnqueueConsiderPayingLifeOrMana(
-                  player: permanent.Controller,                  
-                  mana: permanent.EchoCost,    
+                  player: permanent.Controller,
+                  mana: permanent.EchoCost,
                   question: String.Format("Pay echo for {0}?", permanent),
                   ctx: permanent,
                   handler: args =>
                     {
                       var perm = args.Ctx<Card>();
-                    
+
                       if (args.Answer)
                       {
-                        perm.PayEchoCost();                                                
+                        perm.PayEchoCost();
                         return;
                       }
 
-                      perm.Sacrifice();                      
-                  });
+                      perm.Sacrifice();
+                    });
               }
             }
           },
@@ -491,10 +480,7 @@
 
       public bool GetPriority { get; private set; }
 
-      public Step Next
-      {
-        get { return _next(); }
-      }
+      public Step Next { get { return _next(); } }
 
       public Step Step { get; private set; }
 
@@ -533,10 +519,7 @@
       }
 
 
-      public State Next
-      {
-        get { return _next(); }
-      }
+      public State Next { get { return _next(); } }
 
       public void Execute()
       {

@@ -3,9 +3,10 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.CardDsl;
-  using Core.Effects;
-  using Core.Triggers;
+  using Core.Details.Cards.Effects;
+  using Core.Details.Cards.Triggers;
+  using Core.Dsl;
+  using Core.Targeting;
   using Core.Zones;
 
   public class FlametongueKavu : CardsSource
@@ -28,6 +29,6 @@
             C.Effect<DealDamageToTarget>((e, _) => e.SetAmount(4)),
             C.Selector(Selectors.Creature()),
             targetFilter: TargetFilters.DealDamage(4)));
-    }   
+    }
   }
 }

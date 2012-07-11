@@ -4,7 +4,9 @@
   using System.Collections.Generic;
   using System.Diagnostics;
   using System.Linq;
+  using Details.Cards;
   using Results;
+  using Targeting;
   using Zones;
 
   public class ScenarioActivation
@@ -23,7 +25,7 @@
 
     public void Targets(params ITarget[] effectTargets)
     {
-      foreach (ITarget effectTarget in effectTargets)
+      foreach (var effectTarget in effectTargets)
       {
         if (effectTarget != null)
           _targets.AddEffect(effectTarget);
@@ -32,7 +34,7 @@
 
     public void CostTargets(params ITarget[] costTargets)
     {
-      foreach (ITarget costTarget in costTargets)
+      foreach (var costTarget in costTargets)
       {
         if (costTarget != null)
           _targets.AddCost(costTarget);
@@ -118,7 +120,7 @@
 
     public void AssertAllWereExecuted()
     {
-      foreach (IScenarioDecision decision in _decisions)
+      foreach (var decision in _decisions)
       {
         if (!decision.HasCompleted)
           throw new InvalidOperationException(
@@ -207,12 +209,12 @@
       Debug.Assert(pairs.Length%2 == 0, "Pairs lenght must be even number, did you forget to match a blocker?");
 
       var chosenBlockers = new ChosenBlockers();
-      Player defending = pairs[1].Controller;
+      var defending = pairs[1].Controller;
 
-      for (int i = 0; i < pairs.Length; i = i + 2)
+      for (var i = 0; i < pairs.Length; i = i + 2)
       {
-        Card attacker = pairs[i];
-        Card blocker = pairs[i + 1];
+        var attacker = pairs[i];
+        var blocker = pairs[i + 1];
 
         chosenBlockers.Add(blocker, attacker);
       }
@@ -227,7 +229,7 @@
 
     public IDecision Next<TDecision>()
     {
-      IScenarioDecision first = _decisions.FirstOrDefault();
+      var first = _decisions.FirstOrDefault();
 
       if (first == null)
         return null;

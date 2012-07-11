@@ -8,9 +8,10 @@
     {
       get
       {
-        return new SetTriggeredAbilityTarget{
-          Result = new ChosenTargets(null)
-        };
+        return new SetTriggeredAbilityTarget
+          {
+            Result = new ChosenTargets(null)
+          };
       }
     }
 

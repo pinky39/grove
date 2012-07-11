@@ -6,8 +6,8 @@
   {
     int? BestMove { get; }
     int? Score { get; }
-    void EvaluateSubtree();
     bool IsVisited { get; }
+    void EvaluateSubtree();
 
     StringBuilder OutputBestPath(StringBuilder sb = null);
   }

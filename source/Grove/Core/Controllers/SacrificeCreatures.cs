@@ -5,7 +5,8 @@
 
   public abstract class SacrificeCreatures : Decision<ChosenCards>
   {
-    public int Count { get; set; }    
+    public int Count { get; set; }
+    protected override bool ShouldExecuteQuery { get { return Player.Battlefield.Creatures.Count() > Count; } }
 
     public override void ProcessResults()
     {
@@ -28,13 +29,5 @@
         Player.SacrificeCard(creature);
       }
     }
-
-    protected override bool ShouldExecuteQuery
-    {
-      get
-      {
-        return Player.Battlefield.Creatures.Count() > Count;
-      }
-    }    
   }
 }

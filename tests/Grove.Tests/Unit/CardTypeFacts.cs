@@ -1,6 +1,6 @@
 ﻿namespace Grove.Tests.Unit
-{
-  using Core;
+{  
+  using Core.Details.Cards;
   using Xunit;
 
   public class CardTypeFacts

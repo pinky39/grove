@@ -3,10 +3,11 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.CardDsl;
-  using Core.Effects;
-  using Core.Modifiers;
-  using Core.Triggers;
+  using Core.Details.Cards.Effects;
+  using Core.Details.Cards.Modifiers;
+  using Core.Details.Cards.Triggers;
+  using Core.Details.Mana;
+  using Core.Dsl;
 
   public class HeroOfBladehold : CardsSource
   {

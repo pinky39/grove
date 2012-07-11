@@ -1,8 +1,10 @@
 ﻿namespace Grove.Core.Ai
 {
-  using System;
   using System.Collections.Generic;
-  using Effects;
+  using Details.Cards;
+  using Details.Cards.Effects;
+  using Details.Combat;
+  using Targeting;
   using Zones;
 
   public class TimingParameters

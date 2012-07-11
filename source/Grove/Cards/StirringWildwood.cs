@@ -3,10 +3,12 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.CardDsl;
-  using Core.Costs;
-  using Core.Effects;
-  using Core.Modifiers;
+  using Core.Details.Cards;
+  using Core.Details.Cards.Costs;
+  using Core.Details.Cards.Effects;
+  using Core.Details.Cards.Modifiers;
+  using Core.Details.Mana;
+  using Core.Dsl;
 
   public class StirringWildwood : CardsSource
   {
@@ -21,7 +23,7 @@
         .Effect<PutIntoPlay>((e, _) => e.PutIntoPlayTapped = delegate { return true; })
         .Abilities(
           C.ManaAbility(
-            new Mana(ManaColors.Green | ManaColors.White),
+            new ManaUnit(ManaColors.Green | ManaColors.White),
             "{T}: Add {G} or {W} to your mana pool."),
           C.ActivatedAbility(
             "{1}{G}{W}: Until end of turn, Stirring Wildwood becomes a 3/4 green and white Elemental creature with reach. It's still a land.",

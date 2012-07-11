@@ -15,10 +15,7 @@
       TurnNumber = 1;
     }
 
-    public IEnumerable<Ui.Step.ViewModel> Steps
-    {
-      get { return _steps; }
-    }
+    public IEnumerable<Ui.Step.ViewModel> Steps { get { return _steps; } }
 
     public virtual int TurnNumber { get; protected set; }
 

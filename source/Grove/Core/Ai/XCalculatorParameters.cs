@@ -1,5 +1,7 @@
 ﻿namespace Grove.Core.Ai
 {
+  using Targeting;
+
   public class XCalculatorParameters
   {
     public XCalculatorParameters(Card source, Targets targets, Game game)

@@ -8,27 +8,28 @@
   {
     Always = 0,
     Passive = 1,
-    Active = 2,            
+    Active = 2,
     Never = 3,
   }
 
   public class Configuration
   {
-    private readonly List<AutoPass> _autoPassConfiguration = new List<AutoPass>{
-      new AutoPass{Step = Step.Untap, Pass = Pass.Always},
-      new AutoPass{Step = Step.Upkeep, Pass = Pass.Always},
-      new AutoPass{Step = Step.Draw, Pass = Pass.Always},
-      new AutoPass{Step = Step.FirstMain, Pass = Pass.Passive},
-      new AutoPass{Step = Step.BeginningOfCombat, Pass = Pass.Always},
-      new AutoPass{Step = Step.DeclareAttackers, Pass = Pass.Always},
-      new AutoPass{Step = Step.DeclareBlockers, Pass = Pass.Always},
-      new AutoPass{Step = Step.CombatDamage, Pass = Pass.Always},
-      new AutoPass{Step = Step.FirstStrikeCombatDamage, Pass = Pass.Always},
-      new AutoPass{Step = Step.EndOfCombat, Pass = Pass.Always},
-      new AutoPass{Step = Step.SecondMain, Pass = Pass.Passive},
-      new AutoPass{Step = Step.EndOfTurn, Pass = Pass.Always},
-      new AutoPass{Step = Step.CleanUp, Pass = Pass.Always},
-    };
+    private readonly List<AutoPass> _autoPassConfiguration = new List<AutoPass>
+      {
+        new AutoPass {Step = Step.Untap, Pass = Pass.Always},
+        new AutoPass {Step = Step.Upkeep, Pass = Pass.Always},
+        new AutoPass {Step = Step.Draw, Pass = Pass.Always},
+        new AutoPass {Step = Step.FirstMain, Pass = Pass.Passive},
+        new AutoPass {Step = Step.BeginningOfCombat, Pass = Pass.Always},
+        new AutoPass {Step = Step.DeclareAttackers, Pass = Pass.Always},
+        new AutoPass {Step = Step.DeclareBlockers, Pass = Pass.Always},
+        new AutoPass {Step = Step.CombatDamage, Pass = Pass.Always},
+        new AutoPass {Step = Step.FirstStrikeCombatDamage, Pass = Pass.Always},
+        new AutoPass {Step = Step.EndOfCombat, Pass = Pass.Always},
+        new AutoPass {Step = Step.SecondMain, Pass = Pass.Passive},
+        new AutoPass {Step = Step.EndOfTurn, Pass = Pass.Always},
+        new AutoPass {Step = Step.CleanUp, Pass = Pass.Always},
+      };
 
     public Pass GetAutoPassConfiguration(Step step)
     {

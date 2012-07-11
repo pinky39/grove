@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core.Controllers
 {
+  using Details.Mana;
   using Results;
 
   public abstract class ConsiderPayingLifeOrMana : Decision<BooleanResult>

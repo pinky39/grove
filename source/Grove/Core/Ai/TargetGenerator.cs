@@ -2,10 +2,11 @@
 {
   using System.Collections;
   using System.Collections.Generic;
-  using System.Linq;  
-  
+  using System.Linq;
+  using Targeting;
+
   public class TargetGenerator : IEnumerable<Targets>
-  {    
+  {
     private readonly bool _forceOne;
     private readonly Game _game;
     private readonly int? _maxX;
@@ -14,8 +15,8 @@
 
     private readonly List<Targets> _targets;
 
-    public TargetGenerator(TargetSelectors selectors, Card source, 
-       Game game, int? maxX, bool forceOne = false)
+    public TargetGenerator(TargetSelectors selectors, Card source,
+                           Game game, int? maxX, bool forceOne = false)
     {
       _selectors = selectors;
       _source = source;

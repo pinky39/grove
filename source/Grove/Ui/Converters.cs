@@ -9,7 +9,7 @@
   using System.Windows.Controls;
   using System.Windows.Data;
   using System.Windows.Media;
-  using Core;
+  using Core.Details.Mana;
   using Infrastructure;
 
   public static class Converters
@@ -31,12 +31,13 @@
 
     public class AutoPassToImageConverter : IValueConverter
     {
-      private readonly Dictionary<Pass, string> _imageNames = new Dictionary<Pass, string>{
-        {Pass.Always, "circle-transparent.png"},
-        {Pass.Active, "circle-yellow.png"},
-        {Pass.Passive, "circle-green.png"},
-        {Pass.Never, "circle-red.png"},
-      };
+      private readonly Dictionary<Pass, string> _imageNames = new Dictionary<Pass, string>
+        {
+          {Pass.Always, "circle-transparent.png"},
+          {Pass.Active, "circle-yellow.png"},
+          {Pass.Passive, "circle-green.png"},
+          {Pass.Never, "circle-red.png"},
+        };
 
       public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
       {
@@ -77,15 +78,16 @@
         if (EnumEx.GetSetBitCount((long) colors) > 1)
           return Multi;
 
-        var conversions = new Dictionary<ManaColors, string>{
-          {ManaColors.White, White},
-          {ManaColors.Blue, Blue},
-          {ManaColors.Black, Black},
-          {ManaColors.Red, Red},
-          {ManaColors.Green, Green},
-          {ManaColors.Colorless, Artifact},
-          {ManaColors.None, Land},
-        };
+        var conversions = new Dictionary<ManaColors, string>
+          {
+            {ManaColors.White, White},
+            {ManaColors.Blue, Blue},
+            {ManaColors.Black, Black},
+            {ManaColors.Red, Red},
+            {ManaColors.Green, Green},
+            {ManaColors.Colorless, Artifact},
+            {ManaColors.None, Land},
+          };
 
         return conversions[colors];
       }
@@ -139,7 +141,7 @@
 
         if (characterCount < 260)
           return 12;
-        
+
         return 11;
       }
 
@@ -151,8 +153,11 @@
 
     public class LifeToColorConverter : IValueConverter
     {
-      private readonly SolidColorBrush _highLife = new SolidColorBrush(Color.FromArgb(0xff, 0xb1, 0xff, 0x00)); //#ffb1FF00
-      private readonly SolidColorBrush _lowLife = new SolidColorBrush(Color.FromArgb(0xff, 0xe3, 0x00, 0x00)); // #ffE30000
+      private readonly SolidColorBrush _highLife = new SolidColorBrush(Color.FromArgb(0xff, 0xb1, 0xff, 0x00));
+      //#ffb1FF00
+
+      private readonly SolidColorBrush _lowLife = new SolidColorBrush(Color.FromArgb(0xff, 0xe3, 0x00, 0x00));
+      // #ffE30000
 
       public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
       {
@@ -174,7 +179,7 @@
         var manaAmount = (IManaAmount) value;
 
         if (manaAmount == null)
-          return new string[]{};
+          return new string[] {};
 
         return manaAmount.GetSymbolNames().Select(symbolName => MediaLibrary.GetImage(symbolName + ".png"));
       }
@@ -187,15 +192,16 @@
 
     public class MarkerBrushConverter : IValueConverter
     {
-      private readonly SolidColorBrush[] _brushes = new[]{
-        new SolidColorBrush(Color.FromArgb(0x66, 0xff, 0x00, 0x00)), // #ccFF0000
-        new SolidColorBrush(Color.FromArgb(0x66, 0xff, 0xa5, 0x00)), // #ccFFA500
-        new SolidColorBrush(Color.FromArgb(0x66, 0xff, 0x00, 0xff)), // #ccFF00FF
-        new SolidColorBrush(Color.FromArgb(0x66, 0x0f, 0xff, 0xff)), // #cc0FFF00
-        new SolidColorBrush(Color.FromArgb(0x66, 0xff, 0xef, 0xff)), // #ccFFEF00
-        new SolidColorBrush(Color.FromArgb(0x66, 0x00, 0xff, 0xef)), // #cc00FFEF
-        new SolidColorBrush(Color.FromArgb(0x66, 0x00, 0x7b, 0xff)), // #cc007BFF
-      };
+      private readonly SolidColorBrush[] _brushes = new[]
+        {
+          new SolidColorBrush(Color.FromArgb(0x66, 0xff, 0x00, 0x00)), // #ccFF0000
+          new SolidColorBrush(Color.FromArgb(0x66, 0xff, 0xa5, 0x00)), // #ccFFA500
+          new SolidColorBrush(Color.FromArgb(0x66, 0xff, 0x00, 0xff)), // #ccFF00FF
+          new SolidColorBrush(Color.FromArgb(0x66, 0x0f, 0xff, 0xff)), // #cc0FFF00
+          new SolidColorBrush(Color.FromArgb(0x66, 0xff, 0xef, 0xff)), // #ccFFEF00
+          new SolidColorBrush(Color.FromArgb(0x66, 0x00, 0xff, 0xef)), // #cc00FFEF
+          new SolidColorBrush(Color.FromArgb(0x66, 0x00, 0x7b, 0xff)), // #cc007BFF
+        };
 
       private readonly SolidColorBrush _default = new SolidColorBrush(Color.FromArgb(0x00, 0x00, 0x00, 0x00));
 

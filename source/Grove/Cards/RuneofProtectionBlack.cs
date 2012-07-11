@@ -1,12 +1,13 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.CardDsl;
-  using Core.Costs;
-  using Core.Effects;
+  using Core.Details.Cards.Costs;
+  using Core.Details.Cards.Effects;
+  using Core.Details.Mana;
+  using Core.Dsl;
+  using Core.Targeting;
 
   public class RuneofProtectionBlack : CardsSource
   {
@@ -26,7 +27,7 @@
             C.Cost<TapOwnerPayMana>((cost, _) => { cost.Amount = ManaAmount.White; }),
             C.Effect<PreventDamageFromSourceToController>((e, _) => { e.OnlyOnce = true; }),
             effectSelector: C.Selector(
-              Selectors.EffectOrPermanent(target => target.HasColor(ManaColors.Black))),
+              Selectors.EffectOrPermanent(target => target.HasColor(ManaColors.Black)), text: "Select a damage source."),
             targetFilter: TargetFilters.PreventDamageFromSourceToController(),
             timing: Timings.NoRestrictions())
         );

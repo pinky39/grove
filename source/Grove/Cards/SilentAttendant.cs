@@ -3,9 +3,9 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.CardDsl;
-  using Core.Costs;
-  using Core.Effects;
+  using Core.Details.Cards.Costs;
+  using Core.Details.Cards.Effects;
+  using Core.Dsl;
 
   public class SilentAttendant : CardsSource
   {

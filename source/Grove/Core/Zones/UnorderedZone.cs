@@ -8,11 +8,11 @@
   [Copyable]
   public abstract class UnorderedZone : IEnumerable<Card>, IHashable
   {
-    private readonly TrackableList<Card> _cards;    
+    private readonly TrackableList<Card> _cards;
 
     protected UnorderedZone(ChangeTracker changeTracker)
     {
-      _cards = new TrackableList<Card>(changeTracker);      
+      _cards = new TrackableList<Card>(changeTracker);
     }
 
     protected UnorderedZone()
@@ -48,7 +48,7 @@
     }
 
     public virtual int CalculateHash(HashCalculator calc)
-    {      
+    {
       return calc.Calculate(_cards);
     }
 
@@ -63,7 +63,7 @@
       foreach (var card in _cards)
       {
         card.Hide();
-      }      
+      }
     }
 
     public void Show()
@@ -71,7 +71,7 @@
       foreach (var card in _cards)
       {
         card.Show();
-      }      
+      }
     }
 
     public virtual void Remove(Card card)

@@ -5,6 +5,7 @@
   using Ai;
   using Infrastructure;
   using Results;
+  using Targeting;
 
   public class SetTriggeredAbilityTarget : Controllers.SetTriggeredAbilityTarget, ISearchNode, IDecisionExecution
   {

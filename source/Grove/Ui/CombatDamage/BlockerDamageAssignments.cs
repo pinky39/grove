@@ -3,7 +3,7 @@
   using System.Collections;
   using System.Collections.Generic;
   using System.Linq;
-  using Core;
+  using Core.Details.Combat;
   using Infrastructure;
 
   public class BlockerDamageAssignments : IEnumerable<BlockerDamageAssignment>
@@ -17,8 +17,8 @@
 
       _assignments = attacker.Blockers
         .Select(x => Bindable.Create<BlockerDamageAssignment>(x))
-        .OrderBy<BlockerDamageAssignment, int>(x=>x.Blocker.DamageAssignmentOrder)
-        .ToList<BlockerDamageAssignment>();
+        .OrderBy(x => x.Blocker.DamageAssignmentOrder)
+        .ToList();
     }
 
 

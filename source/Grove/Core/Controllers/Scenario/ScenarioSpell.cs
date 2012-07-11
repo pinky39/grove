@@ -1,6 +1,8 @@
 ﻿namespace Grove.Core.Controllers.Scenario
 {
   using System;
+  using Details.Cards;
+  using Details.Mana;
   using Results;
 
   public class ScenarioSpell : Spell
@@ -12,15 +14,15 @@
     public override bool CanPlay()
     {
       IManaAmount manaCost = ManaAmount.Zero;
-      
+
       if (Card == null)
         throw new InvalidOperationException("Did you forget to add card to players hand?");
-      
+
       if (Card.ManaCost != null)
       {
         manaCost = manaCost.Add(Card.ManaCost);
       }
-                
+
       if (Card.KickerCost != null)
       {
         manaCost = manaCost.Add(Card.KickerCost);

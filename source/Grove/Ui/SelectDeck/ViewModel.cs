@@ -54,9 +54,10 @@
 
     public virtual Card SelectedCard { get; protected set; }
     public bool IsRandomDeck { get; set; }
-    
+
     [Updates("CanStart")]
-    public virtual bool IsStarting { get; protected set; }    
+    public virtual bool IsStarting { get; protected set; }
+
     public virtual bool CanStart { get { return !IsStarting; } }
 
     public DeckList CurrentDeckList { get { return _decks[_currentDeckList]; } }
@@ -97,7 +98,7 @@
       _currentDeckList++;
 
       if (_currentDeckList >= _decks.Count)
-        _currentDeckList = 0;            
+        _currentDeckList = 0;
     }
 
     [Updates("CurrentDeckList")]

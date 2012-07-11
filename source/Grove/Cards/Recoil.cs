@@ -3,8 +3,9 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.CardDsl;
-  using Core.Effects;
+  using Core.Details.Cards.Effects;
+  using Core.Dsl;
+  using Core.Targeting;
 
   public class Recoil : CardsSource
   {
@@ -21,7 +22,7 @@
         .Effect<ReturnTargetPermanentToHand>((e, _) => e.Discard = 1)
         .Targets(
           filter: TargetFilters.Bounce(),
-          selectors: C.Selector(Selectors.Permanent()));          
+          selectors: C.Selector(Selectors.Permanent()));
     }
   }
 }

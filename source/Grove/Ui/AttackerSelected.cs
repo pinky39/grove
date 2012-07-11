@@ -4,6 +4,6 @@
 
   public class AttackerSelected
   {
-    public Card Attacker { get; set; }    
+    public Card Attacker { get; set; }
   }
 }

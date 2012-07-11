@@ -13,6 +13,7 @@
   public class Bootstrapper : Bootstrapper<IShell>
   {
     public static IoC Container;
+    private static ILifetimeScope _scope;
 
     protected override void Configure()
     {
@@ -21,7 +22,7 @@
       Container = IoC.Ui();
       ConfigureCaliburn();
     }
-    
+
     protected override void DisplayRootView()
     {
       var shell = Container.Resolve<Shell>();
@@ -50,25 +51,24 @@
 
     private static void ConfigureViewLocator()
     {
-      ViewLocator.LocateForModelType = (presenter, displayLocation, context) => {
-        if (presenter.Name.Contains("Proxy"))
+      ViewLocator.LocateForModelType = (presenter, displayLocation, context) =>
         {
-          presenter = presenter.BaseType;
-        }
+          if (presenter.Name.Contains("Proxy"))
+          {
+            presenter = presenter.BaseType;
+          }
 
-        var viewType = context == null
-          ? Assembly.GetExecutingAssembly().GetType(presenter.Namespace + ".View")
-          : Assembly.GetExecutingAssembly().GetType(presenter.Namespace + "." + context.ToString());
+          var viewType = context == null
+            ? Assembly.GetExecutingAssembly().GetType(presenter.Namespace + ".View")
+            : Assembly.GetExecutingAssembly().GetType(presenter.Namespace + "." + context.ToString());
 
-        if (viewType == null)
-          throw new InvalidOperationException(
-            String.Format("Could not find View for ViewModel: {0}.", presenter));
+          if (viewType == null)
+            throw new InvalidOperationException(
+              String.Format("Could not find View for ViewModel: {0}.", presenter));
 
-        return ViewLocator.GetOrCreateViewType(viewType);
-      };
+          return ViewLocator.GetOrCreateViewType(viewType);
+        };
     }
-
-    private static ILifetimeScope _scope = null;
 
     public static ILifetimeScope GetScope()
     {

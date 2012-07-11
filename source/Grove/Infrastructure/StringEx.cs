@@ -14,7 +14,7 @@
 
     public static string ToPascalCase(this string sentence)
     {
-      var words = sentence.Split(new[]{' '},
+      var words = sentence.Split(new[] {' '},
         StringSplitOptions.RemoveEmptyEntries)
         .Select(x => x.Capitalize());
 

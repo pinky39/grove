@@ -1,6 +1,4 @@
-﻿using Grove.Core;
-
-namespace Grove.Infrastructure
+﻿namespace Grove.Infrastructure
 {
   public interface IHashDependancy
   {
@@ -19,7 +17,8 @@ namespace Grove.Infrastructure
     private readonly IHashDependancy _hashDependency;
     private T _value;
 
-    public Trackable(ChangeTracker changeTracker, IHashDependancy hashDependancy = null) : this(default(T), changeTracker, hashDependancy) {}
+    public Trackable(ChangeTracker changeTracker, IHashDependancy hashDependancy = null)
+      : this(default(T), changeTracker, hashDependancy) {}
 
     public Trackable(T value, ChangeTracker changeTracker, IHashDependancy hashDependancy = null)
     {
@@ -47,8 +46,8 @@ namespace Grove.Infrastructure
     {
       var hashable = _value as IHashable;
 
-      return hashable != null 
-        ? calc.Calculate(hashable) 
+      return hashable != null
+        ? calc.Calculate(hashable)
         : _value.GetHashCode();
     }
 

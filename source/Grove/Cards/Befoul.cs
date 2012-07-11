@@ -3,8 +3,10 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.CardDsl;
-  using Core.Effects;
+  using Core.Details.Cards.Effects;
+  using Core.Details.Mana;
+  using Core.Dsl;
+  using Core.Targeting;
 
   public class Befoul : CardsSource
   {
@@ -21,7 +23,7 @@
         .Category(EffectCategories.Destruction)
         .Targets(
           filter: TargetFilters.Destroy(),
-          selectors: C.Selector(Selectors.Permanent(card => 
+          selectors: C.Selector(Selectors.Permanent(card =>
             card.Is().Land || (card.Is().Creature && !card.HasColor(ManaColors.Black)))));
     }
   }

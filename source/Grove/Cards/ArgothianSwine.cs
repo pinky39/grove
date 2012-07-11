@@ -3,7 +3,8 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.CardDsl;
+  using Core.Details.Cards;
+  using Core.Dsl;
 
   public class ArgothianSwine : CardsSource
   {

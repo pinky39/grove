@@ -3,8 +3,9 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.CardDsl;
-  using Core.Effects;
+  using Core.Details.Cards.Effects;
+  using Core.Dsl;
+  using Core.Targeting;
   using Core.Zones;
 
   public class BeaconOfDestruction : CardsSource

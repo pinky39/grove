@@ -2,6 +2,6 @@
 {
   public class TurnStarted
   {
-    public int TurnCount { get; set; }    
+    public int TurnCount { get; set; }
   }
 }

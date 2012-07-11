@@ -3,11 +3,13 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.CardDsl;
-  using Core.Costs;
-  using Core.Effects;
-  using Core.Modifiers;
-  using Core.Triggers;
+  using Core.Details.Cards.Costs;
+  using Core.Details.Cards.Effects;
+  using Core.Details.Cards.Modifiers;
+  using Core.Details.Cards.Triggers;
+  using Core.Details.Mana;
+  using Core.Dsl;
+  using Core.Targeting;
 
   public class SwordOfFeastAndFamine : CardsSource
   {
@@ -24,11 +26,11 @@
           C.TriggeredAbility(
             "Whenever equipped creature deals combat damage to a player, that player discards a card and you untap all lands you control.",
             C.Trigger<DealDamageToCreatureOrPlayer>((t, _) =>
-            {
-              t.CombatOnly = true;
-              t.UseAttachedToAsTriggerSource = true;
-              t.ToAnyPlayer();
-            }),
+              {
+                t.CombatOnly = true;
+                t.UseAttachedToAsTriggerSource = true;
+                t.ToAnyPlayer();
+              }),
             C.Effect<CompoundEffect>((e, c) => e.ChildEffects(
               c.Effect<OpponentDiscardsCards>((e1, _) => e1.SelectedCount = 1),
               c.Effect<UntapAllLands>()
@@ -38,14 +40,14 @@
             C.Cost<TapOwnerPayMana>((cost, _) => cost.Amount = 2.AsColorlessMana()),
             C.Effect<AttachEquipment>((e, c) => e.Modifiers(
               c.Modifier<AddPowerAndToughness>((m, _) =>
-              {
-                m.Power = 2;
-                m.Toughness = 2;
-              }),
+                {
+                  m.Power = 2;
+                  m.Toughness = 2;
+                }),
               c.Modifier<AddProtectionFromColors>((m, _) => m.Colors = ManaColors.Black | ManaColors.Green))),
-            effectSelector: C.Selector(Selectors.Equipment()), 
-            targetFilter:TargetFilters.CombatEquipment(),
-            timing: Timings.AttachCombatEquipment(), 
+            effectSelector: C.Selector(Selectors.Equipment()),
+            targetFilter: TargetFilters.CombatEquipment(),
+            timing: Timings.AttachCombatEquipment(),
             activateAsSorcery: true,
             category: EffectCategories.ToughnessIncrease | EffectCategories.Protector));
     }

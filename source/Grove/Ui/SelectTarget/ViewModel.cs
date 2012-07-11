@@ -3,7 +3,7 @@
   using System;
   using System.Collections.Generic;
   using Caliburn.Micro;
-  using Core;
+  using Core.Targeting;
   using Infrastructure;
 
   public class ViewModel : IReceive<TargetSelected>
@@ -84,13 +84,13 @@
     }
 
     public interface IFactory
-    {      
+    {
       ViewModel Create(
-       ITargetSelector targetSelector,
-       bool canCancel,
-       string instructions = null,
-       Action<ITarget> targetSelected = null,
-       Action<ITarget> targetUnselected = null);
+        ITargetSelector targetSelector,
+        bool canCancel,
+        string instructions = null,
+        Action<ITarget> targetSelected = null,
+        Action<ITarget> targetUnselected = null);
     }
   }
 }

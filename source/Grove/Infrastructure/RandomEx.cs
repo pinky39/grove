@@ -12,10 +12,10 @@
 
 
     /// <summary>
-    /// Returns an integer between min and max (inclusive).
+    ///   Returns an integer between min and max (inclusive).
     /// </summary>
-    /// <param name="min"></param>
-    /// <param name="max"></param>
+    /// <param name = "min"></param>
+    /// <param name = "max"></param>
     /// <returns></returns>
     public static int Next(int min, int max)
     {
@@ -40,7 +40,7 @@
       var range = Enumerable.Range(0, count);
       return ShuffleInPlace(range.ToArray());
     }
-    
+
     public static IList<T> ShuffleInPlace<T>(this IList<T> list)
     {
       // Fisher-Yates shuffle
@@ -61,13 +61,13 @@
 
     public static IList<T> ShuffleInPlace<T>(this IList<T> list, IList<int> permutation)
     {
-      Debug.Assert(permutation.Count == list.Count, 
+      Debug.Assert(permutation.Count == list.Count,
         "Permutation and list must be of equal lenghts.");
-      
-      var listCopy = list.ToArray();      
-      for (int i = 0; i < permutation.Count; i++)
-      {        
-        list[i] = listCopy[permutation[i]];        
+
+      var listCopy = list.ToArray();
+      for (var i = 0; i < permutation.Count; i++)
+      {
+        list[i] = listCopy[permutation[i]];
       }
       return list;
     }

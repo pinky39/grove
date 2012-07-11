@@ -1,6 +1,5 @@
 ﻿namespace Grove.Core
 {
-  using System;
   using Ai;
   using Controllers;
   using Infrastructure;
@@ -80,7 +79,7 @@
     }
 
     public void Start(int numOfTurns = int.MaxValue, bool skipPreGame = false, Player looser = null)
-    {      
+    {
       Decisions.Initialize(this);
 
       _stateMachine.Start(() => ShouldContinue() &&

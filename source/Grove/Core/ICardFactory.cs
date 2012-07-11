@@ -2,8 +2,8 @@
 {
   public interface ICardFactory
   {
-    string Name { get; }    
-    
+    string Name { get; }
+
     Card CreateCard(Player controller);
     Card CreateCardPreview();
   }

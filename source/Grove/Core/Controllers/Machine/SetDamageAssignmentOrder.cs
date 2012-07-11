@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using System.Linq;
+  using Details.Combat;
   using Infrastructure;
   using Results;
 
@@ -21,12 +22,12 @@
     private DamageAssignmentOrder DeathTouchScenario()
     {
       var damageAssignmentOrder = new DamageAssignmentOrder();
-      
+
       var orderedByScore = Attacker.Blockers
         .OrderByDescending(blocker => blocker.Score)
         .ToList();
 
-      for (int i = 0; i < orderedByScore.Count; i++)
+      for (var i = 0; i < orderedByScore.Count; i++)
       {
         damageAssignmentOrder.Assign(orderedByScore[i], i);
       }
@@ -37,11 +38,11 @@
     private DamageAssignmentOrder DefaultScenario()
     {
       var damageAssignmentOrder = new DamageAssignmentOrder();
-      
+
       var blockers = GetBlockersThatCanBeDealtLeathalDamageProducingTheGreatestScore();
       blockers = IncludeOtherBlockersAfter(blockers);
 
-      for (int i = 0; i < blockers.Count; i++)
+      for (var i = 0; i < blockers.Count; i++)
       {
         damageAssignmentOrder.Assign(blockers[i], i);
       }

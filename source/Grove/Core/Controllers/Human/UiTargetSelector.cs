@@ -1,6 +1,7 @@
 ﻿namespace Grove.Core.Controllers.Human
 {
   using System;
+  using Targeting;
 
   public class UiTargetSelector : ITargetSelector
   {

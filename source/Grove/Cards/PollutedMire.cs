@@ -3,8 +3,9 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.CardDsl;
-  using Core.Effects;
+  using Core.Details.Cards.Effects;
+  using Core.Details.Mana;
+  using Core.Dsl;
 
   public class PollutedMire : CardsSource
   {
@@ -18,7 +19,7 @@
         .Timing(Timings.Lands())
         .Cycling("{2}")
         .Abilities(
-          C.ManaAbility(new Mana(ManaColors.Black), "{T}: Add {B} to your mana pool."))
+          C.ManaAbility(new ManaUnit(ManaColors.Black), "{T}: Add {B} to your mana pool."))
         .Effect<PutIntoPlay>((e, _) => e.PutIntoPlayTapped = delegate { return true; });
     }
   }

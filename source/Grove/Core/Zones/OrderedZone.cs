@@ -1,8 +1,8 @@
 ﻿namespace Grove.Core.Zones
 {
-  using System.Linq;
   using System.Collections;
   using System.Collections.Generic;
+  using System.Linq;
   using Infrastructure;
 
   [Copyable]
@@ -15,7 +15,7 @@
       _cards = new TrackableList<Card>(cards, changeTracker, orderImpactsHashcode: true);
     }
 
-    protected OrderedZone(ChangeTracker changeTracker) : this(new Card[]{}, changeTracker) {}
+    protected OrderedZone(ChangeTracker changeTracker) : this(new Card[] {}, changeTracker) {}
 
     protected OrderedZone()
     {
@@ -40,7 +40,7 @@
 
     public virtual int CalculateHash(HashCalculator calc)
     {
-      return calc.Calculate(_cards);           
+      return calc.Calculate(_cards);
     }
 
     public virtual void Add(Card card)
@@ -57,7 +57,7 @@
     public bool Contains(Card card)
     {
       return _cards.Contains(card);
-    }   
+    }
 
     public void Hide()
     {

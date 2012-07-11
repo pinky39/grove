@@ -67,7 +67,7 @@
       yield return new List<Card>();
 
       var allAttackers = Player.Battlefield.CreaturesThatCanAttack.ToList();
-      
+
       // quick heuristic
       yield return new AttackStrategy(
         Player.Life,

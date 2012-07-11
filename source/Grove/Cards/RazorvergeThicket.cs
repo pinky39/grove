@@ -1,13 +1,12 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Core;
   using Core.Ai;
-  using Core.CardDsl;
-  using Core.Effects;
-
+  using Core.Details.Cards.Effects;
+  using Core.Details.Mana;
+  using Core.Dsl;
 
   public class RazorvergeThicket : CardsSource
   {
@@ -22,7 +21,7 @@
           "Where the Razor Fields beat back the Tangle, the crowded thicket yields to bright scimitars of grass.")
         .Timing(Timings.Lands())
         .Abilities(
-          C.ManaAbility(new Mana(ManaColors.Green | ManaColors.White), "{T}: Add {G} or {W} to your mana pool."))
+          C.ManaAbility(new ManaUnit(ManaColors.Green | ManaColors.White), "{T}: Add {G} or {W} to your mana pool."))
         .Effect<PutIntoPlay>((e, _) => e.PutIntoPlayTapped = player => player.Battlefield.Lands.Count() > 2);
     }
   }

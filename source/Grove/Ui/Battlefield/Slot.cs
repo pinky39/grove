@@ -16,15 +16,9 @@
       _accepts = accepts;
     }
 
-    public int Count
-    {
-      get { return _permanents.Count; }
-    }
+    public int Count { get { return _permanents.Count; } }
 
-    public IEnumerable<Permanent.ViewModel> Permanents
-    {
-      get { return _permanents; }
-    }
+    public IEnumerable<Permanent.ViewModel> Permanents { get { return _permanents; } }
 
     public void Add(Permanent.ViewModel viewModel)
     {
@@ -52,15 +46,15 @@
     {
       return _permanents.FirstOrDefault(x => x.Card == card);
     }
-        
+
     public bool ContainsAttachmentTarget(Card attachment)
     {
-      return _permanents.Any(x => x.Card == attachment.AttachedTo);      
+      return _permanents.Any(x => x.Card == attachment.AttachedTo);
     }
 
     public bool Remove(Permanent.ViewModel viewModel)
-    {      
-      return _permanents.Remove(viewModel);            
+    {
+      return _permanents.Remove(viewModel);
     }
 
     private int? GetEnchantmentOrEquipmentPosition(Card card)
@@ -74,6 +68,6 @@
       }
 
       return insertAt < _permanents.Count ? insertAt : (int?) null;
-    }    
+    }
   }
 }

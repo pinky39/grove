@@ -4,8 +4,8 @@
   using System.Linq;
   using Core;
   using Core.Ai;
-  using Core.CardDsl;
-  using Core.Effects;
+  using Core.Details.Cards.Effects;
+  using Core.Dsl;
 
   public class AcidicSoil : CardsSource
   {

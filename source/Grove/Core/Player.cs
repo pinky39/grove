@@ -3,11 +3,15 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
+  using Details.Cards;
+  using Details.Cards.Modifiers;
+  using Details.Cards.Preventions;
+  using Details.Cards.Redirections;
+  using Details.Combat;
+  using Details.Mana;
   using Infrastructure;
   using Messages;
-  using Modifiers;
-  using Preventions;
-  using Redirections;
+  using Targeting;
   using Zones;
 
   [Copyable]
@@ -15,21 +19,21 @@
   {
     private readonly AssignedDamage _assignedDamage;
     private readonly Trackable<bool> _canPlayLands;
+    private readonly DamagePreventions _damagePreventions;
+    private readonly DamageRedirections _damageRedirections;
     private readonly Trackable<bool> _hasLost;
     private readonly Trackable<bool> _hasMulligan;
     private readonly Trackable<bool> _hasPriority;
     private readonly Trackable<bool> _isActive;
     private readonly Life _life;
     private readonly ManaPool _manaPool;
+    private readonly TrackableList<IModifier> _modifiers;
     private readonly Publisher _publisher;
     private Battlefield _battlefield;
     private Graveyard _graveyard;
     private Hand _hand;
     private Library _library;
     private ManaSources _manaSources;
-    private DamagePreventions _damagePreventions;
-    private TrackableList<IModifier> _modifiers;
-    private DamageRedirections _damageRedirections;
 
     public Player(
       string name,
@@ -54,11 +58,11 @@
       _hasPriority = new Trackable<bool>(changeTracker);
       _manaPool = Bindable.Create<ManaPool>(changeTracker);
       _modifiers = new TrackableList<IModifier>(changeTracker);
-      _damagePreventions= new DamagePreventions(changeTracker, null);
+      _damagePreventions = new DamagePreventions(changeTracker, null);
       _damageRedirections = new DamageRedirections(changeTracker, null);
       _assignedDamage = new AssignedDamage(this, changeTracker);
 
-      Deck cards = deckFactory.CreateDeck(deck, this);
+      var cards = deckFactory.CreateDeck(deck, this);
 
       SetupZones(cards, changeTracker);
       InitializeManaSources();
@@ -103,7 +107,7 @@
     {
       get
       {
-        int score = _life.Score +
+        var score = _life.Score +
           _battlefield.Score +
             _hand.Score;
 
@@ -113,31 +117,40 @@
 
     public int ConvertedMana { get { return _manaSources.GetMaxConvertedMana(); } }
 
+    private IEnumerable<IModifiable> ModifiableProperties
+    {
+      get
+      {
+        yield return _damagePreventions;
+        yield return _damageRedirections;
+      }
+    }
+
     public void DealDamage(Damage damage)
-    {      
+    {
       _damagePreventions.PreventDamage(damage);
-      
+
       if (damage.Amount == 0)
         return;
 
-      bool wasRedirected = _damageRedirections.RedirectDamage(damage);
+      var wasRedirected = _damageRedirections.RedirectDamage(damage);
 
       if (wasRedirected)
         return;
-      
-      Life -= damage.Amount;
+
+      Life -= _damagePreventions.PreventLifeloss(damage.Amount);
 
       if (damage.Source.Has().Lifelink)
       {
-        Player controller = damage.Source.Controller;
+        var controller = damage.Source.Controller;
         controller.Life += damage.Amount;
       }
 
       PublishMessage(new DamageHasBeenDealt
         {
-          Damage = damage,                    
-          Receiver = this,          
-        });      
+          Damage = damage,
+          Receiver = this,
+        });
     }
 
     public int CalculateHash(HashCalculator calc)
@@ -152,6 +165,22 @@
         calc.Calculate(_library),
         calc.Calculate(_hand)
         );
+    }
+
+    public void AddModifier(IModifier modifier)
+    {
+      foreach (var modifiableProperty in ModifiableProperties)
+      {
+        modifiableProperty.Accept(modifier);
+      }
+
+      _modifiers.Add(modifier);
+    }
+
+    public void RemoveModifier(IModifier modifier)
+    {
+      _modifiers.Remove(modifier);
+      modifier.Dispose();
     }
 
     public void AddManaSources(IEnumerable<IManaSource> manaSources)
@@ -177,27 +206,10 @@
 
       PublishMessage(new PlayerHasCycledASpell {Spell = spell});
     }
-    
+
     public void CastSpell(Card spell, ActivationParameters activationParameters)
     {
-      _hand.Remove(spell);
-
-      if (spell.Is().Land)
-      {
-        CanPlayLands = false;
-      }
-      else
-      {
-        IManaAmount manaCost = activationParameters.PayKicker ? spell.ManaCostWithKicker : spell.ManaCost;
-
-        if (activationParameters.X.HasValue)
-        {
-          manaCost = manaCost.Add(activationParameters.X.Value);
-        }
-
-        Consume(manaCost);
-      }
-
+      _hand.Remove(spell);     
       spell.CastInternal(activationParameters);
 
       PublishMessage(new PlayerHasCastASpell
@@ -241,7 +253,7 @@
 
     public void DiscardHand()
     {
-      foreach (Card card in _hand.ToList())
+      foreach (var card in _hand.ToList())
       {
         DiscardCard(card);
       }
@@ -252,13 +264,13 @@
       if (_hand.IsEmpty)
         return;
 
-      Card card = _hand.RandomCard;
+      var card = _hand.RandomCard;
       DiscardCard(card);
     }
 
     public void DrawCard()
     {
-      Card card = _library.Draw();
+      var card = _library.Draw();
 
       if (card == null)
       {
@@ -271,7 +283,7 @@
 
     public void DrawCards(int cardCount)
     {
-      for (int i = 0; i < cardCount; i++)
+      for (var i = 0; i < cardCount; i++)
       {
         DrawCard();
       }
@@ -290,7 +302,7 @@
 
 
     public IEnumerable<ITarget> GetTargets()
-    {      
+    {
       yield return this;
 
       foreach (var card in Battlefield)
@@ -306,14 +318,17 @@
 
     public bool HasMana(IManaAmount amount)
     {
+      if (amount == null)
+        return true;
+
       return _manaSources.Has(amount);
     }
 
     public void MoveCreaturesWithLeathalDamageOrZeroTougnessToGraveyard()
     {
-      List<Card> creatures = _battlefield.Creatures.ToList();
+      var creatures = _battlefield.Creatures.ToList();
 
-      foreach (Card creature in creatures)
+      foreach (var creature in creatures)
       {
         if (creature.Toughness <= 0)
         {
@@ -340,7 +355,7 @@
 
     public void RemoveDamageFromPermanents()
     {
-      foreach (Card card in _battlefield)
+      foreach (var card in _battlefield)
       {
         card.ClearDamage();
       }
@@ -348,7 +363,7 @@
 
     public void RemoveRegenerationFromPermanents()
     {
-      foreach (Card permanent in _battlefield)
+      foreach (var permanent in _battlefield)
       {
         permanent.CanRegenerate = false;
       }
@@ -403,12 +418,12 @@
       if (!CanMulligan)
         return;
 
-      int mulliganSize = _hand.MulliganSize;
+      var mulliganSize = _hand.MulliganSize;
 
       _library.Shuffle(_hand);
       _hand.Discard();
 
-      for (int i = 0; i < mulliganSize; i++)
+      for (var i = 0; i < mulliganSize; i++)
       {
         DrawCard();
       }
@@ -423,7 +438,7 @@
 
     private void InitializeManaSources()
     {
-      IEnumerable<IManaSource> manaSources =
+      var manaSources =
         _manaPool.ToEnumerable().Concat(
           _library
             .Where(x => x.IsManaSource)
@@ -486,7 +501,7 @@
 
     public void Mill(int count)
     {
-      for (int i = 0; i < count; i++)
+      for (var i = 0; i < count; i++)
       {
         var card = _library.Draw();
         if (card == null)
@@ -499,33 +514,6 @@
     public interface IFactory
     {
       Player Create(string name, string avatar, bool isHuman, string deck);
-    }
-
-    
-
-    private IEnumerable<IModifiable> ModifiableProperties
-    {
-      get
-      {
-        yield return _damagePreventions;
-        yield return _damageRedirections;
-      }
-    }
-
-    public void AddModifier(IModifier modifier)
-    {
-      foreach (var modifiableProperty in ModifiableProperties)
-      {
-        modifiableProperty.Accept(modifier);
-      }
-
-      _modifiers.Add(modifier);
-    }
-
-    public void RemoveModifier(IModifier modifier)
-    {
-      _modifiers.Remove(modifier);
-      modifier.Dispose();
     }
   }
 }

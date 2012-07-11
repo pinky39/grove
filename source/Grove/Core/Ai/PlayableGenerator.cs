@@ -4,6 +4,7 @@
   using System.Collections;
   using System.Collections.Generic;
   using Controllers.Results;
+  using Details.Cards;
 
   public class PlayableGenerator : IEnumerable<Playable>
   {
@@ -30,16 +31,16 @@
 
     private IEnumerable<Playable> GetPlayableAbilities()
     {
-      foreach (Card card in _player.Battlefield)
+      foreach (var card in _player.Battlefield)
       {
         if (card.IsHidden)
           continue;
 
-        List<SpellPrerequisites> abilitiesPrerequisites = card.CanActivateAbilities();
+        var abilitiesPrerequisites = card.CanActivateAbilities();
 
-        for (int abilityIndex = 0; abilityIndex < abilitiesPrerequisites.Count; abilityIndex++)
+        for (var abilityIndex = 0; abilityIndex < abilitiesPrerequisites.Count; abilityIndex++)
         {
-          SpellPrerequisites prerequisites = abilitiesPrerequisites[abilityIndex];
+          var prerequisites = abilitiesPrerequisites[abilityIndex];
 
           if (prerequisites.IsManaSource)
             continue;
@@ -48,7 +49,9 @@
             continue;
 
 
-          foreach (Playable playable in GeneratePlayables(card, prerequisites, p => new Ability(card, p, abilityIndex)))
+          foreach (
+            var playable in
+              GeneratePlayables(card, prerequisites, p => new Controllers.Results.Ability(card, p, abilityIndex)))
           {
             yield return playable;
           }
@@ -58,24 +61,24 @@
 
     private IEnumerable<Playable> GetPlayableSpells()
     {
-      foreach (Card card in _player.Hand)
+      foreach (var card in _player.Hand)
       {
         if (card.IsHidden)
           continue;
 
-        SpellPrerequisites prerequisites = card.CanCast();
+        var prerequisites = card.CanCast();
 
         if (!prerequisites.CanBeSatisfied)
           continue;
 
-        foreach (Playable playable in GeneratePlayables(card, prerequisites, p => new Spell(card, p)))
+        foreach (var playable in GeneratePlayables(card, prerequisites, p => new Spell(card, p)))
         {
           yield return playable;
         }
 
         if (prerequisites.CanCastWithKicker)
         {
-          foreach (Playable playable in GeneratePlayables(card, prerequisites,
+          foreach (var playable in GeneratePlayables(card, prerequisites,
             p => new Spell(card, p), payKicker: true))
           {
             yield return playable;
@@ -93,8 +96,8 @@
         payKicker: payKicker,
         game: _game);
 
-      int count = 0;
-      foreach (ActivationParameters activationParameters in activationGenerator)
+      var count = 0;
+      foreach (var activationParameters in activationGenerator)
       {
         var timingParameters = new TimingParameters(
           _game,
@@ -117,12 +120,12 @@
 
     private IEnumerable<Playable> GetCyclables()
     {
-      foreach (Card card in _player.Hand)
+      foreach (var card in _player.Hand)
       {
         if (card.IsHidden)
           continue;
 
-        SpellPrerequisites prerequisites = card.CanCycle();
+        var prerequisites = card.CanCycle();
 
         if (!prerequisites.CanBeSatisfied)
         {
@@ -140,17 +143,17 @@
 
     private IEnumerable<Playable> GetPlayables()
     {
-      foreach (Playable playable in GetPlayableSpells())
+      foreach (var playable in GetPlayableSpells())
       {
         yield return playable;
       }
 
-      foreach (Playable cyclable in GetCyclables())
+      foreach (var cyclable in GetCyclables())
       {
         yield return cyclable;
       }
 
-      foreach (Playable playable in GetPlayableAbilities())
+      foreach (var playable in GetPlayableAbilities())
       {
         yield return playable;
       }

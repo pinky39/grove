@@ -16,7 +16,8 @@
       if (!(methodInfo.IsGetter() || methodInfo.IsSetter()))
         return null;
 
-      return methodInfo.DeclaringType.GetProperty(methodInfo.Name.Substring(4), BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+      return methodInfo.DeclaringType.GetProperty(methodInfo.Name.Substring(4),
+        BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
     }
 
     public static bool HasAttribute<TAttribute>(this MemberInfo memberInfo)

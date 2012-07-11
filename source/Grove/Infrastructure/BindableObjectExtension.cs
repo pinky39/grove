@@ -8,12 +8,12 @@
   {
     public static BindingInformation<T> Changes<T>(this SourceInfo sourceInfo, T obj)
     {
-      var bindingInformation = new BindingInformation<T>{SourceInfo = sourceInfo, Target = obj};
+      var bindingInformation = new BindingInformation<T> {SourceInfo = sourceInfo, Target = obj};
       return bindingInformation;
     }
 
     public static void Property<T, TReturn>(this BindingInformation<T> bindingInformation,
-      Expression<Func<T, TReturn>> expression)
+                                            Expression<Func<T, TReturn>> expression)
     {
       var targetPropertyName = ((MemberExpression) expression.Body).Member.Name;
 
@@ -25,33 +25,35 @@
       if (notifier == null)
         return;
 
-      notifier.PropertyChanged += (s, e) => {
-        if (e.PropertyName == bindingInformation.SourceInfo.PropertyName)
+      notifier.PropertyChanged += (s, e) =>
         {
-          var targetType = typeof (T);
-          var targetProperty = targetType.GetProperty(targetPropertyName);
-
-          if (targetProperty.CanWrite)
+          if (e.PropertyName == bindingInformation.SourceInfo.PropertyName)
           {
-            var sourceProperty = notifier.GetType().GetProperty(bindingInformation.SourceInfo.PropertyName);
-            var sourceValue = sourceProperty.GetValue(bindingInformation.SourceInfo.SourceObject, null);
-            targetProperty.SetValue(bindingInformation.Target, sourceValue, null);
-            return;
-          }
+            var targetType = typeof (T);
+            var targetProperty = targetType.GetProperty(targetPropertyName);
 
-          raiser.RaisePropertyChanged(targetPropertyName);
-        }
-      };
+            if (targetProperty.CanWrite)
+            {
+              var sourceProperty = notifier.GetType().GetProperty(bindingInformation.SourceInfo.PropertyName);
+              var sourceValue = sourceProperty.GetValue(bindingInformation.SourceInfo.SourceObject, null);
+              targetProperty.SetValue(bindingInformation.Target, sourceValue, null);
+              return;
+            }
+
+            raiser.RaisePropertyChanged(targetPropertyName);
+          }
+        };
     }
 
     public static SourceInfo Property<T, TReturn>(this T obj, Expression<Func<T, TReturn>> expression)
     {
       var body = (MemberExpression) expression.Body;
 
-      return new SourceInfo{
-        PropertyName = body.Member.Name,
-        SourceObject = obj
-      };
+      return new SourceInfo
+        {
+          PropertyName = body.Member.Name,
+          SourceObject = obj
+        };
     }
 
     public static void Updates(this object obj, params string[] propertyNames)
@@ -62,8 +64,8 @@
 
       foreach (var propertyName in propertyNames)
       {
-        raiser.RaisePropertyChanged(propertyName);  
-      }            
+        raiser.RaisePropertyChanged(propertyName);
+      }
     }
 
     public class BindingInformation<T>

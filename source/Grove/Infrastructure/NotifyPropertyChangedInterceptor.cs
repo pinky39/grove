@@ -35,7 +35,7 @@
         index++;
       }
       return -1;
-    }    
+    }
 
     private object InterceptCallsToProxiedType(IInvocation invocation)
     {
@@ -45,7 +45,7 @@
       if (invocation.InvocationTarget is IEnumerable)
       {
         var collection = (IEnumerable) invocation.InvocationTarget;
-        
+
         switch (invocation.Method.Name)
         {
           case ("Remove"):
@@ -66,8 +66,8 @@
               removedItem = collection.FirstElement();
               removedIndex = collection.CountElements();
               break;
-            }            
-        }                        
+            }
+        }
       }
 
       invocation.Proceed();

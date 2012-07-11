@@ -3,11 +3,13 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.CardDsl;
-  using Core.Costs;
-  using Core.Effects;
-  using Core.Modifiers;
-  using Core.Triggers;
+  using Core.Details.Cards.Costs;
+  using Core.Details.Cards.Effects;
+  using Core.Details.Cards.Modifiers;
+  using Core.Details.Cards.Triggers;
+  using Core.Details.Mana;
+  using Core.Dsl;
+  using Core.Targeting;
 
   public class SwordOfFireAndIce : CardsSource
   {
@@ -34,7 +36,7 @@
               c.Effect<DrawCards>((e2, _) => e2.DrawCount = 1))),
             C.Selector(
               Selectors.CreatureOrPlayer()),
-              targetFilter: TargetFilters.DealDamage(2)),              
+            targetFilter: TargetFilters.DealDamage(2)),
           C.ActivatedAbility(
             "{2}: Attach to target creature you control. Equip only as a sorcery.",
             C.Cost<TapOwnerPayMana>((cost, _) => cost.Amount = 2.AsColorlessMana()),

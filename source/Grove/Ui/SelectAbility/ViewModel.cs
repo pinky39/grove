@@ -2,7 +2,7 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Core;
+  using Core.Details.Cards;
   using Infrastructure;
 
   public class ViewModel
@@ -11,11 +11,11 @@
 
     public ViewModel(IEnumerable<SpellPrerequisites> prerequisites)
     {
-      _prerequisites.AddRange(prerequisites);      
+      _prerequisites.AddRange(prerequisites);
     }
 
     public IEnumerable<SpellPrerequisites> SatisfyableAbilities { get { return _prerequisites.Where(x => x.CanBeSatisfied); } }
-    
+
     public bool WasCanceled { get; private set; }
     public SpellPrerequisites Selected { get; private set; }
 
@@ -24,7 +24,7 @@
       Selected = selected;
       this.Close();
     }
-    
+
     public void Cancel()
     {
       WasCanceled = true;

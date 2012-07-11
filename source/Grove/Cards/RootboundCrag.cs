@@ -1,12 +1,12 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Core;
   using Core.Ai;
-  using Core.CardDsl;
-  using Core.Effects;
+  using Core.Details.Cards.Effects;
+  using Core.Details.Mana;
+  using Core.Dsl;
 
   public class RootboundCrag : CardsSource
   {
@@ -19,7 +19,7 @@
           "Rootbound Crag enters the battlefield tapped unless you control a Mountain or a Forest.{EOL}{T}: Add {R} or {G} to your mana pool.")
         .Abilities(
           C.ManaAbility(
-            new Mana(ManaColors.Red | ManaColors.Green),
+            new ManaUnit(ManaColors.Red | ManaColors.Green),
             "{T}: Add {R} or {G} to your mana pool."
             ))
         .Effect<PutIntoPlay>((e, _) => e.PutIntoPlayTapped =

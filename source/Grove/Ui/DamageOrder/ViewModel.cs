@@ -4,6 +4,7 @@
   using System.Linq;
   using Core;
   using Core.Controllers.Results;
+  using Core.Details.Combat;
   using Infrastructure;
 
   public class ViewModel
@@ -18,7 +19,7 @@
     {
       _attacker = attacker;
 
-      _blockerAssignments = 
+      _blockerAssignments =
         attacker.Blockers.Select(
           blocker => Bindable.Create<BlockerAssignment>(blocker)).ToList();
 
@@ -52,9 +53,10 @@
 
     public void ChangePlayersInterest(Card card)
     {
-      _publisher.Publish(new PlayersInterestChanged{
-        Visual = card
-      });
+      _publisher.Publish(new PlayersInterestChanged
+        {
+          Visual = card
+        });
     }
 
     [Updates("CanAccept")]
@@ -68,12 +70,11 @@
       }
     }
 
-    public virtual void Close() {}  
+    public virtual void Close() {}
 
     public interface IFactory
     {
       ViewModel Create(Attacker attacker, DamageAssignmentOrder assignmentOrder);
     }
-    
   }
 }

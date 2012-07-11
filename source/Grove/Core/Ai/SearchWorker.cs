@@ -28,8 +28,8 @@
       _root = new CopyService().CopyRoot(rootNode);
       _game = _root.Game;
       _parentResult = new Trackable<InnerResult>(
-        new InnerResult(_game.CalculateHash(),_root.Player.IsMax), _game.ChangeTracker);
-      
+        new InnerResult(_game.CalculateHash(), _root.Player.IsMax), _game.ChangeTracker);
+
       _moveIndex = new Trackable<int>(_game.ChangeTracker);
 
       Debug("Created");
@@ -65,9 +65,8 @@
 
       if (_search.MaxDepth < _game.Turn.StepCount)
       {
-        
         ParentResult.AddChild(ResultIndex, new LeafResult(_game.Score));
-        
+
         _game.Stop();
         return;
       }
@@ -95,13 +94,13 @@
     private void EvaluateMove(ISearchNode searchNode)
     {
       Debug("{0} evaluating the only move", searchNode);
-      
+
       searchNode.SetResult(0);
       _game.Simulate();
 
       if (_game.IsFinished)
       {
-        ParentResult.AddChild(ResultIndex, 
+        ParentResult.AddChild(ResultIndex,
           new LeafResult(_game.Score));
       }
     }
@@ -109,7 +108,7 @@
     private void EvaluateMove(int moveIndex, ISearchNode searchNode, InnerResult parentResult)
     {
       Debug("{0} start eval move {1}", searchNode, moveIndex);
-      
+
       var snaphost = _game.Save();
 
       searchNode.SetResult(moveIndex);
@@ -130,7 +129,7 @@
     }
 
     private void EvaluateMoves(ISearchNode searchNode)
-    {            
+    {
       InnerResult result;
 
       var statehash = _game.CalculateHash();
@@ -156,8 +155,7 @@
             parentWorker: this,
             parentNode: searchNode,
             resultIndex: moveIndex,
-            action: (worker, node) =>
-              { if (worker != null) worker.EvaluateMove(moveIndex, node, result); });
+            action: (worker, node) => { if (worker != null) worker.EvaluateMove(moveIndex, node, result); });
 
           tasks.Add(task);
         }
@@ -165,7 +163,7 @@
         Task.WaitAll(tasks.ToArray());
         return;
       }
-      
+
       _subTreesPrunned++;
       Debug("state {0}, prunning node {1}", statehash, searchNode);
     }

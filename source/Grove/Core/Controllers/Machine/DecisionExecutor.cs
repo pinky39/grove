@@ -5,6 +5,13 @@
   [Copyable]
   public class DecisionExecutor
   {
+    public enum State
+    {
+      BeforeQuery,
+      AfterQuery,
+      Completed
+    }
+
     private readonly IDecisionExecution _decision;
     private readonly Trackable<State> _state;
 
@@ -36,13 +43,6 @@
 
       DecisionState = State.Completed;
       _decision.ProcessResults();
-    }
-
-    public enum State
-    {
-      BeforeQuery,
-      AfterQuery,
-      Completed
     }
   }
 }

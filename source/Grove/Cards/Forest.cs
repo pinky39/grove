@@ -3,7 +3,8 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.CardDsl;
+  using Core.Details.Mana;
+  using Core.Dsl;
 
   public class Forest : CardsSource
   {
@@ -15,7 +16,7 @@
         .Text("{T}: Add {G} to your mana pool.")
         .Timing(Timings.Lands())
         .Abilities(
-          C.ManaAbility(Mana.Green, "{T}: Add {G} to your mana pool."));
+          C.ManaAbility(ManaUnit.Green, "{T}: Add {G} to your mana pool."));
     }
   }
 }

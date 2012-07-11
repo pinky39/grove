@@ -1,22 +1,24 @@
 ﻿namespace Grove.Core.Controllers.Results
 {
+  using Details.Cards;
+
   public class Ability : Playable
   {
-    protected ActivationParameters ActivationParameters { get; private set; }
-    protected Card Card { get; private set; }
-    protected int Index { get; private set; }
-
     private Ability() {}
 
     public Ability(Card card, ActivationParameters activationParameters, int index)
     {
       Card = card;
       ActivationParameters = activationParameters;
-      Index = index;      
+      Index = index;
     }
 
+    protected ActivationParameters ActivationParameters { get; private set; }
+    protected Card Card { get; private set; }
+    protected int Index { get; private set; }
+
     public override void Play()
-    {      
+    {
       Card.ActivateAbility(Index, ActivationParameters);
     }
 

@@ -3,9 +3,11 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.CardDsl;
-  using Core.Effects;
-  using Core.Triggers;
+  using Core.Details.Cards;
+  using Core.Details.Cards.Effects;
+  using Core.Details.Cards.Triggers;
+  using Core.Dsl;
+  using Core.Targeting;
   using Core.Zones;
 
   public class AcidicSlime : CardsSource
@@ -27,7 +29,7 @@
             "When Acidic Slime enters the battlefield, destroy target artifact, enchantment, or land.",
             C.Trigger<ChangeZone>((t, _) => t.To = Zone.Battlefield),
             C.Effect<DestroyTargetPermanent>(),
-            C.Selector(Selectors.Permanent(card => card.Is().Artifact || card.Is().Enchantment || card.Is().Land)),                        
+            C.Selector(Selectors.Permanent(card => card.Is().Artifact || card.Is().Enchantment || card.Is().Land)),
             targetFilter: TargetFilters.PermanentsByDescendingScore(),
             category: EffectCategories.Destruction)
         );

@@ -29,7 +29,7 @@
     public void SelectPlayer(Player player)
     {
       _publisher.Publish(
-        new TargetSelected{Target = player});
+        new TargetSelected {Target = player});
     }
   }
 }

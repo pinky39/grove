@@ -3,10 +3,12 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.CardDsl;
-  using Core.Costs;
-  using Core.Effects;
-  using Core.Modifiers;
+  using Core.Details.Cards;
+  using Core.Details.Cards.Costs;
+  using Core.Details.Cards.Effects;
+  using Core.Details.Cards.Modifiers;
+  using Core.Dsl;
+  using Core.Targeting;
 
   public class FiresOfYavimaya : CardsSource
   {
@@ -21,20 +23,20 @@
         .Timing(Timings.FirstMain())
         .Abilities(
           C.Continuous((e, c) =>
-          {
-            e.ModifierFactory = c.Modifier<AddStaticAbility>(
-              (m, _) => m.StaticAbility = Static.Haste);
-            e.CardFilter = (card, source) => card.Controller == source.Controller;
-          }),
+            {
+              e.ModifierFactory = c.Modifier<AddStaticAbility>(
+                (m, _) => m.StaticAbility = Static.Haste);
+              e.CardFilter = (card, source) => card.Controller == source.Controller;
+            }),
           C.ActivatedAbility(
             "Sacrifice Fires of Yavimaya: Target creature gets +2/+2 until end of turn.",
             C.Cost<SacrificeOwner>(),
             C.Effect<ApplyModifiersToTarget>((e, c) => e.Modifiers(
               c.Modifier<AddPowerAndToughness>((m, _) =>
-              {
-                m.Power = 2;
-                m.Toughness = 2;
-              }, untilEndOfTurn: true))),
+                {
+                  m.Power = 2;
+                  m.Toughness = 2;
+                }, untilEndOfTurn: true))),
             C.Selector(Selectors.Creature()),
             targetFilter: TargetFilters.IncreasePowerAndToughness(2, 2),
             timing: Timings.NoRestrictions(),

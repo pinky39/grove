@@ -1,6 +1,7 @@
 ﻿namespace Grove.Core.Controllers.Results
 {
   using System.Collections.Generic;
+  using Details.Combat;
   using Infrastructure;
 
   [Copyable]
@@ -13,6 +14,6 @@
     public void Assign(Blocker blocker, int order)
     {
       _assignmentOrder[blocker] = order;
-    }       
+    }
   }
 }

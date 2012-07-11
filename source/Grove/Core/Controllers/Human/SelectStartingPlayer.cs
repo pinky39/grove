@@ -9,7 +9,7 @@
 
     protected override void ExecuteQuery()
     {
-      MessageBoxResult result = Shell.ShowMessageBox(
+      var result = Shell.ShowMessageBox(
         title: "Decide who will start the game",
         message: "You won the toss, do you want to start the game?",
         buttons: MessageBoxButton.YesNo);

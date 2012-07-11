@@ -4,7 +4,6 @@
   using System.Collections;
   using System.Collections.Generic;
   using System.Linq;
-  using Core;
 
   [Copyable]
   public class TrackableList<T> : ITrackableCollection<T>, IList<T>, IHashable
@@ -35,7 +34,7 @@
     {
       var hashcodes = new List<int>();
 
-      foreach (T item in _items)
+      foreach (var item in _items)
       {
         var hashable = item as IHashable;
         hashcodes.Add(hashable != null ? hashable.CalculateHash(calc) : item.GetHashCode());
@@ -58,7 +57,7 @@
 
     public void RemoveAt(int index)
     {
-      T item = _items[index];
+      var item = _items[index];
       Remove(item);
     }
 
@@ -129,27 +128,27 @@
 
     public T Pop()
     {
-      T first = _items[0];
+      var first = _items[0];
       Remove(first);
       return first;
     }
 
     public T PopLast()
     {
-      T last = _items[Count - 1];
+      var last = _items[Count - 1];
       Remove(last);
       return last;
     }
 
     public void Shuffle()
     {
-      IList<int> permutation = RandomEx.Permutation(0, Count);
-      List<T> copy = _items.ToList();
+      var permutation = RandomEx.Permutation(0, Count);
+      var copy = _items.ToList();
 
       Clear();
       copy.ShuffleInPlace(permutation);
 
-      foreach (T item in copy)
+      foreach (var item in copy)
       {
         Add(item);
       }
@@ -157,7 +156,7 @@
 
     public void AddRange(IEnumerable<T> items)
     {
-      foreach (T item in items)
+      foreach (var item in items)
       {
         _items.Add(item);
         _changeTracker.NotifyValueAdded(this, item);

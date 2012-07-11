@@ -1,6 +1,7 @@
 ﻿namespace Grove.Core.Controllers.Human
 {
   using Results;
+  using Targeting;
   using Ui;
   using Ui.SelectTarget;
   using Ui.Shell;
@@ -21,7 +22,7 @@
 
         targets.AddEffect(dialog.Selection[0]);
       }
-                  
+
       Result = new ChosenTargets(targets);
     }
   }

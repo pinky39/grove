@@ -4,8 +4,10 @@
   using System.Collections.Generic;
   using System.Linq;
   using Controllers;
+  using Details.Combat;
   using Infrastructure;
   using Messages;
+  using Targeting;
 
   [Copyable]
   public class Combat : IHashable
@@ -425,10 +427,10 @@
     public Card GetAttackerWhichWillDealGreatestDamageToDefender(Func<Card, bool> filter = null)
     {
       filter = filter ?? delegate { return true; };
-      
+
       return Attackers
         .Where(x => filter(x))
-        .OrderByDescending(x => x.GetDamageThisWillDealToPlayer())        
+        .OrderByDescending(x => x.GetDamageThisWillDealToPlayer())
         .FirstOrDefault();
     }
   }

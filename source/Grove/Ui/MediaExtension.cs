@@ -14,10 +14,7 @@
       _name = name;
     }
 
-    public MediaExtension() :this(null)
-    {
-      
-    }
+    public MediaExtension() : this(null) {}
 
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {

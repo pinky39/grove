@@ -15,7 +15,7 @@
     public void Copy(object original, CopyService copyService)
     {
       var org = (ChangeTracker) original;
-      _isEnabled = org._isEnabled;      
+      _isEnabled = org._isEnabled;
     }
 
     public Snapshot CreateSnapshot()
@@ -30,11 +30,12 @@
 
     public void Disable()
     {
-      if (_changeHistory.Count != 0) 
+      if (_changeHistory.Count != 0)
         throw new InvalidOperationException(
-          String.Format("Disabling a change tracker with history ({0}) is not allowed. This is a common indication of a leaked copy. The most common cause of this is incorect context use in card definitions (e.g C is used insted of c).", 
-          _changeHistory.Count));
-      
+          String.Format(
+            "Disabling a change tracker with history ({0}) is not allowed. This is a common indication of a leaked copy. The most common cause of this is incorect context use in card definitions (e.g C is used insted of c).",
+            _changeHistory.Count));
+
       _isEnabled = false;
       _changeHistory.Clear();
     }
@@ -46,25 +47,26 @@
     }
 
     public void NotifyCollectionWillBeCleared<T>(ITrackableCollection<T> trackableCollection)
-    {      
+    {
       AssertNotLocked();
-      
+
       if (!_isEnabled)
       {
         return;
-      }      
+      }
 
       var elements = trackableCollection.ToList();
 
       if (elements.Count == 0)
         return;
 
-      _changeHistory.Push(() => {
-        foreach (var element in elements)
+      _changeHistory.Push(() =>
         {
-          trackableCollection.AddWithoutTracking(element);
-        }
-      });
+          foreach (var element in elements)
+          {
+            trackableCollection.AddWithoutTracking(element);
+          }
+        });
     }
 
     private void AssertNotLocked()
@@ -91,7 +93,7 @@
     public void NotifyValueChanged<T>(ITrackableValue<T> trackableValue)
     {
       AssertNotLocked();
-      
+
       if (!_isEnabled)
       {
         return;
@@ -104,7 +106,7 @@
     public void NotifyValueWillBeRemoved<T>(ITrackableCollection<T> trackableCollection, T removed)
     {
       AssertNotLocked();
-      
+
       if (!_isEnabled)
       {
         return;

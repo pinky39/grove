@@ -18,7 +18,7 @@
 
     public override object ProvideValue(IServiceProvider serviceProvider)
     {
-      var index = Rnd.Next(0, Backgrounds.Count);      
+      var index = Rnd.Next(0, Backgrounds.Count);
       return MediaLibrary.GetImageWithPath(Backgrounds[index]);
     }
   }

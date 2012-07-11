@@ -8,9 +8,10 @@
     {
       get
       {
-        return new DeclareAttackers{
-          Result = new ChosenCards()
-        };
+        return new DeclareAttackers
+          {
+            Result = new ChosenCards()
+          };
       }
     }
 

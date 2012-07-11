@@ -8,11 +8,11 @@
   {
     private static readonly ILog Log = LogManager.GetLogger(typeof (TurnInfo));
     private readonly Trackable<State> _state;
+    private readonly Trackable<int> _stateCount;
 
     private readonly Trackable<Step> _step;
     private readonly Trackable<int> _stepCount;
     private readonly Trackable<int> _turnCount;
-    private readonly Trackable<int> _stateCount;
 
     private TurnInfo() {}
 
@@ -25,11 +25,15 @@
       _stateCount = new Trackable<int>(changeTracker);
     }
 
-    public State State { get { return _state.Value; } set
+    public State State
     {
-      _state.Value = value;
-      StateCount++;
-    } }
+      get { return _state.Value; }
+      set
+      {
+        _state.Value = value;
+        StateCount++;
+      }
+    }
 
     public Step Step
     {
@@ -43,10 +47,7 @@
     }
 
     public int StepCount { get { return _stepCount.Value; } private set { _stepCount.Value = value; } }
-    public int StateCount { get { return _stateCount.Value; } private set
-    {
-      _stateCount.Value = value;
-    } }
+    public int StateCount { get { return _stateCount.Value; } private set { _stateCount.Value = value; } }
 
     public int TurnCount
     {
@@ -63,7 +64,7 @@
       return HashCalculator.Combine(
         Step.GetHashCode(),
         TurnCount,
-        State.GetHashCode()        
+        State.GetHashCode()
         );
     }
 

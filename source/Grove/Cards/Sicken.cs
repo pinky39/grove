@@ -3,7 +3,8 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.CardDsl;
+  using Core.Dsl;
+  using Core.Targeting;
 
   public class Sicken : CardsSource
   {

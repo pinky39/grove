@@ -4,14 +4,14 @@
 
   public class PayLifeOrManaArguments
   {
-    private readonly object _context;    
+    private readonly object _context;
 
     public PayLifeOrManaArguments(bool answer, Player player, Game game, object context)
     {
       Answer = answer;
       Player = player;
       Game = game;
-      
+
       _context = context;
     }
 

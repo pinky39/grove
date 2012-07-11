@@ -1,7 +1,9 @@
 ﻿namespace Grove.Core
 {
+  using System;
   using System.Collections;
   using System.Collections.Generic;
+  using System.Linq;
   using Infrastructure;
 
   [Copyable]
@@ -17,14 +19,9 @@
       _extraTurns = new TrackableList<Player>(changeTracker, orderImpactsHashcode: true);
     }
 
-    private Players()
-    {
-    }
+    private Players() {}
 
-    public Player Active
-    {
-      get { return Player1.IsActive ? Player1 : Player2; }
-    }
+    public Player Active { get { return Player1.IsActive ? Player1 : Player2; } }
 
     public bool AnotherMulliganRound
     {
@@ -32,54 +29,27 @@
       {
         return
           (Player1.CanMulligan) ||
-          (Player2.CanMulligan);
+            (Player2.CanMulligan);
       }
     }
 
-    public Player Attacking
-    {
-      get { return Active; }
-    }
+    public Player Attacking { get { return Active; } }
 
-    public bool BothHaveLost
-    {
-      get { return Player1.HasLost && Player2.HasLost; }
-    }
+    public bool BothHaveLost { get { return Player1.HasLost && Player2.HasLost; } }
 
-    public Player Computer
-    {
-      get { return Player1.IsHuman ? Player2 : Player1; }
-    }
+    public Player Computer { get { return Player1.IsHuman ? Player2 : Player1; } }
 
-    public Player Defending
-    {
-      get { return Passive; }
-    }
+    public Player Defending { get { return Passive; } }
 
-    public Player Human
-    {
-      get { return Player1.IsHuman ? Player1 : Player2; }
-    }
+    public Player Human { get { return Player1.IsHuman ? Player1 : Player2; } }
 
-    public Player this[int num]
-    {
-      get { return num == 0 ? Player1 : Player2; }
-    }
+    public Player this[int num] { get { return num == 0 ? Player1 : Player2; } }
 
-    public Player Max
-    {
-      get { return Player1.IsMax ? Player1 : Player2; }
-    }
+    public Player Max { get { return Player1.IsMax ? Player1 : Player2; } }
 
-    public Player Min
-    {
-      get { return GetOpponent(Max); }
-    }
+    public Player Min { get { return GetOpponent(Max); } }
 
-    public Player Passive
-    {
-      get { return GetOpponent(Active); }
-    }
+    public Player Passive { get { return GetOpponent(Active); } }
 
     public Player Player1
     {
@@ -101,10 +71,7 @@
       }
     }
 
-    public int Score
-    {
-      get { return Player1.Score + Player2.Score; }
-    }
+    public int Score { get { return Player1.Score + Player2.Score; } }
 
     public Player Starting
     {
@@ -118,15 +85,9 @@
       }
     }
 
-    public Player WithPriority
-    {
-      get { return _player1.HasPriority ? _player1 : _player2; }
-    }
+    public Player WithPriority { get { return _player1.HasPriority ? _player1 : _player2; } }
 
-    public Player WithoutPriority
-    {
-      get { return _player1.HasPriority ? _player2 : _player1; }
-    }
+    public Player WithoutPriority { get { return _player1.HasPriority ? _player2 : _player1; } }
 
     public IEnumerator<Player> GetEnumerator()
     {
@@ -192,6 +153,63 @@
     public bool AnyHasLost()
     {
       return Player1.HasLost || Player2.HasLost;
+    }
+
+    public IEnumerable<Card> Permanents()
+    {
+      return this.SelectMany(x => x.Battlefield);
+    }
+
+    public void MoveDeadCreaturesToGraveyard()
+    {
+      foreach (var player in this)
+      {
+        player.MoveCreaturesWithLeathalDamageOrZeroTougnessToGraveyard();
+      }
+
+      RespectLegendaryRule();
+    }
+
+    public void RemoveDamageFromPermanents()
+    {
+      foreach (var player in this)
+      {
+        player.RemoveDamageFromPermanents();
+      }
+    }
+
+    public void RemoveRegenerationFromPermanents()
+    {
+      foreach (var player in this)
+      {
+        player.RemoveRegenerationFromPermanents();
+      }
+    }
+
+    private void RespectLegendaryRule()
+    {
+      var duplicateLegends = this
+        .SelectMany(x => x.Battlefield.Legends)
+        .GetDuplicates(card => card.Name).ToArray();
+
+      foreach (var legend in duplicateLegends)
+      {
+        var controller = legend.Controller;
+        controller.SacrificeCard(legend);
+      }
+    }
+
+    public void DestroyPermanents(Func<Card, bool> filter = null)
+    {
+      filter = filter ?? delegate { return true; };
+
+      foreach (var permanent in Permanents().ToList())
+      {
+        if (filter(permanent))
+        {
+          permanent.Destroy();
+        }
+      }
     }
   }
 }

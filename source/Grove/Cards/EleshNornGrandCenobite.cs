@@ -3,8 +3,9 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.CardDsl;
-  using Core.Modifiers;
+  using Core.Details.Cards;
+  using Core.Details.Cards.Modifiers;
+  using Core.Dsl;
 
   public class EleshNornGrandCenobite : CardsSource
   {

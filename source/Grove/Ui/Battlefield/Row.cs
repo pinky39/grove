@@ -13,10 +13,7 @@
       _slots.AddRange(slots);
     }
 
-    public IEnumerable<Slot> Slots
-    {
-      get { return _slots; }
-    }
+    public IEnumerable<Slot> Slots { get { return _slots; } }
 
     public void Add(Permanent.ViewModel viewModel)
     {
@@ -47,7 +44,7 @@
       foreach (var slot in Slots)
       {
         var viewModel = slot.GetPermanentViewModel(card);
-        
+
         if (viewModel != null)
           return viewModel;
       }
@@ -62,7 +59,7 @@
         var removed = slot.Remove(viewModel);
         if (removed)
           break;
-      }                        
+      }
     }
 
     public void Clear()

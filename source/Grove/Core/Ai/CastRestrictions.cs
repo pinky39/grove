@@ -41,13 +41,13 @@
         case (Step.FirstMain):
         case (Step.SecondMain):
           return player.IsActive;
-        
+
         case (Step.BeginningOfCombat):
           return true;
-        
+
         case (Step.DeclareAttackers):
           return true;
-        
+
         case (Step.DeclareBlockers):
           return true;
 

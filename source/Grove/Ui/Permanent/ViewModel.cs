@@ -3,7 +3,9 @@
   using System;
   using System.Linq;
   using Core;
+  using Core.Details.Cards;
   using Core.Messages;
+  using Core.Targeting;
   using Infrastructure;
   using Shell;
 

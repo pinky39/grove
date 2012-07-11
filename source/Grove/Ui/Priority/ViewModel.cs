@@ -19,13 +19,13 @@
     {
       Playable = message.Playable;
       this.Close();
-    }    
+    }
 
     public void PassPriority()
     {
       if (_shell.HasFocus(this) == false)
         return;
-      
+
       Playable = new Pass();
       this.Close();
     }

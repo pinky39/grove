@@ -3,16 +3,14 @@
   using System.Collections;
   using System.Collections.Generic;
   using System.Linq;
+  using Targeting;
 
   public class ChosenCards : IEnumerable<Card>
   {
     private readonly List<Card> _cards = new List<Card>();
 
-    public ChosenCards()
-    {
-      
-    }
-    
+    public ChosenCards() {}
+
     public ChosenCards(IEnumerable<Card> cards)
     {
       _cards.AddRange(cards);

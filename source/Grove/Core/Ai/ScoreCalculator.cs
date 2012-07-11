@@ -3,55 +3,59 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
+  using Details.Mana;
 
   public static class ScoreCalculator
   {
-    private static readonly Dictionary<int, int> LifeToScore = new Dictionary<int, int>{
-      {20, 0},
-      {19, -40},
-      {18, -80},
-      {17, -120},
-      {16, -160},
-      {15, -200},
-      {14, -250},
-      {13, -300},
-      {12, -350},
-      {11, -420},
-      {10, -490},
-      {9, -560},
-      {8, -650},
-      {7, -740},
-      {6, -830},
-      {5, -920},
-      {4, -1120},
-      {3, -1220},
-      {2, -1350},
-      {1, -1500},
-    };
+    private static readonly Dictionary<int, int> LifeToScore = new Dictionary<int, int>
+      {
+        {20, 0},
+        {19, -40},
+        {18, -80},
+        {17, -120},
+        {16, -160},
+        {15, -200},
+        {14, -250},
+        {13, -300},
+        {12, -350},
+        {11, -420},
+        {10, -490},
+        {9, -560},
+        {8, -650},
+        {7, -740},
+        {6, -830},
+        {5, -920},
+        {4, -1120},
+        {3, -1220},
+        {2, -1350},
+        {1, -1500},
+      };
 
-    private static readonly Dictionary<int, int> ManaCostToScore = new Dictionary<int, int>{
-      {1, 150},
-      {2, 200},
-      {3, 250},
-      {4, 300},
-      {5, 350},
-      {6, 400},
-      {7, 450},
-    };
+    private static readonly Dictionary<int, int> ManaCostToScore = new Dictionary<int, int>
+      {
+        {1, 150},
+        {2, 200},
+        {3, 250},
+        {4, 300},
+        {5, 350},
+        {6, 400},
+        {7, 450},
+      };
 
-    private static readonly Dictionary<int, int> PowerToughnessToScore = new Dictionary<int, int>{
-      {0, 0},
-      {1, 140},
-      {2, 160},
-      {3, 180},
-      {4, 200},
-      {5, 220},
-      {6, 240},
-      {7, 260},
-      {8, 280},
-      {9, 300},
-      {10, 320},
-    };
+    private static readonly Dictionary<int, int> PowerToughnessToScore = new Dictionary<int, int>
+      {
+        {0, 0},
+        {1, 140},
+        {2, 160},
+        {3, 180},
+        {4, 200},
+        {5, 220},
+        {6, 240},
+        {7, 260},
+        {8, 280},
+        {9, 300},
+        {10, 320},
+      };
 
     public static int CalculateDiscardScore(Card card)
     {
@@ -83,8 +87,8 @@
 
     public static int CalculateLifeScore(int life)
     {
-      int score = 5000;
-                              
+      var score = 5000;
+
       if (life > 20)
         return score + (life - 20)*40;
 
@@ -93,16 +97,16 @@
 
       return score + LifeToScore[life];
     }
-    
+
     public static int CalculatePermanentScore(Card permanent)
     {
-      const int landValue = 150;      
+      const int landValue = 150;
       const int tappedPermanentValue = -1;
       var score = 0;
 
       if (permanent.IsTapped)
         score += tappedPermanentValue;
-      
+
       if (permanent.ManaCost != null)
       {
         score += CalculatePermanentScoreFromManaCost(permanent.ManaCost);
@@ -110,7 +114,7 @@
       else if (permanent.Is().Creature)
       {
         score += CalculatePermanentScoreFromPowerToughness(permanent.Power.Value, permanent.Toughness.Value);
-      }      
+      }
       else if (permanent.Is().Land)
       {
         score += landValue;
@@ -120,11 +124,11 @@
       }
 
       return score;
-    }    
+    }
 
     private static int CalculatePermanentScoreFromManaCost(IManaAmount mana)
     {
-      var converted = Math.Min(7, mana.Converted);            
+      var converted = Math.Min(7, mana.Converted);
       return ManaCostToScore[converted];
     }
 
@@ -135,8 +139,8 @@
       if (powerToughness < 0)
         powerToughness = 0;
       else if (powerToughness > 10)
-        powerToughness = 10;           
-      
+        powerToughness = 10;
+
       return PowerToughnessToScore[powerToughness];
     }
 
@@ -151,7 +155,7 @@
     }
 
     public static int CalculateCardInGraveyardScore(Card card)
-    {      
+    {
       return 1;
     }
 

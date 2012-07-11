@@ -1,7 +1,7 @@
 ﻿namespace Grove.Core
 {
+  using Details.Cards.Redirections;
   using Infrastructure;
-  using Redirections;
 
   [Copyable]
   public class Damage : IHashable

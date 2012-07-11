@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using System.Linq;
+  using Targeting;
   using Zones;
 
   public delegate List<Targets> TargetsFilterDelegate(TargetFilterParameters parameters);
@@ -32,16 +33,16 @@
     {
       return AllCandidates.HasCost ? AllCandidates.Cost(index) : AllCandidates.Effect(index);
     }
-    
+
     public List<Targets> MultipleTargets(params List<ITarget>[] candidates)
     {
       var targetsList = new List<Targets>();
-      
-      for (int i = 0; i < candidates[0].Count; i++)
+
+      for (var i = 0; i < candidates[0].Count; i++)
       {
         var targets = new Targets();
 
-        for (int j = 0; j < candidates.Length; j++)
+        for (var j = 0; j < candidates.Length; j++)
         {
           targets.AddEffect(candidates[j][i]);
         }
@@ -53,8 +54,8 @@
 
     public List<Targets> Targets(IEnumerable<ITarget> candidates)
     {
-      var targets = AllCandidates.HasCost 
-        ? candidates.Select(x => new Targets().AddCost(x)) 
+      var targets = AllCandidates.HasCost
+        ? candidates.Select(x => new Targets().AddCost(x))
         : candidates.Select(x => new Targets().AddEffect(x));
 
       return targets.ToList();

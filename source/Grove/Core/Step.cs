@@ -1,7 +1,7 @@
 ﻿namespace Grove.Core
 {
   public enum Step
-  {       
+  {
     Untap = 0,
     Upkeep,
     Draw,
@@ -13,7 +13,7 @@
     CombatDamage,
     EndOfCombat,
     SecondMain,
-    EndOfTurn,  
+    EndOfTurn,
     CleanUp,
     GameStart,
     Mulligan

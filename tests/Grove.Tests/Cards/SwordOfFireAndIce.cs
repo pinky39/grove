@@ -2,6 +2,7 @@
 {
   using System.Linq;
   using Core;
+  using Core.Details.Mana;
   using Core.Zones;
   using Infrastructure;
   using Xunit;

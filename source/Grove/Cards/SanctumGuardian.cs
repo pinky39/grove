@@ -3,9 +3,10 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.CardDsl;
-  using Core.Costs;
-  using Core.Effects;
+  using Core.Details.Cards.Costs;
+  using Core.Details.Cards.Effects;
+  using Core.Dsl;
+  using Core.Targeting;
 
   public class SanctumGuardian : CardsSource
   {
@@ -26,16 +27,14 @@
             "Sacrifice Sanctum Guardian: The next time a source of your choice would deal damage to target creature or player this turn, prevent that damage.",
             C.Cost<SacrificeOwner>(),
             C.Effect<PreventDamageFromSourceToTarget>((e, _) => e.OnlyOnce = true),
-            
-            effectSelectors: new []
+            effectSelectors: new[]
               {
-                C.Selector(Selectors.EffectOrPermanent()),
-                C.Selector(Selectors.CreatureOrPlayer())               
+                C.Selector(Selectors.EffectOrPermanent(), text: "Select damage source."),
+                C.Selector(Selectors.CreatureOrPlayer(), text:  "Select a creature.")
               },
-            
             targetFilter: TargetFilters.PreventDamageFromSourceToAnyTarget(),
             timing: Timings.NoRestrictions()
-          )      
+            )
         );
     }
   }

@@ -6,19 +6,14 @@
 
   public class Library : OrderedZone
   {
-    public Library(IEnumerable<Card> cards, ChangeTracker changeTracker) : base(cards, changeTracker)
-    {     
-    }
+    public Library(IEnumerable<Card> cards, ChangeTracker changeTracker) : base(cards, changeTracker) {}
 
     private Library()
     {
       /* for state copy */
     }
 
-    public override Zone Zone
-    {
-      get { return Zone.Library; }
-    }
+    public override Zone Zone { get { return Zone.Library; } }
 
     public Card Draw()
     {
@@ -27,7 +22,7 @@
       if (top == null)
         return null;
 
-      Remove(top);      
+      Remove(top);
 
       return top;
     }

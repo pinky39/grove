@@ -3,7 +3,10 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using CardDsl;
+  using Details.Combat;
+  using Details.Mana;
+  using Dsl;
+  using Targeting;
 
   public delegate bool TimingDelegate(TimingParameters parameters);
 
@@ -18,7 +21,7 @@
     {
       return Steps(Step.DeclareBlockers);
     }
-    
+
     public static TimingDelegate CounterSpell(int? counterCost = null)
     {
       return p =>
@@ -53,8 +56,8 @@
       return p =>
         {
           // play as response to some spells
-          if (p.TopSpell != null && p.TopSpell.Controller == p.Opponent && 
-              p.TopSpellCategoryIs(EffectCategories.Protector | EffectCategories.ToughnessIncrease))
+          if (p.TopSpell != null && p.TopSpell.Controller == p.Opponent &&
+            p.TopSpellCategoryIs(EffectCategories.Protector | EffectCategories.ToughnessIncrease))
           {
             return true;
           }
@@ -70,11 +73,11 @@
           {
             return p.Combat.Attackers.Count() > 0;
           }
-          
+
           return false;
         };
     }
-    
+
     public static TimingDelegate TargetRemovalInstant(bool combatOnly = false)
     {
       return p =>
@@ -93,7 +96,7 @@
 
           if (combatOnly)
             return false;
-                    
+
           // play as response to some spells
           if (p.TopSpell != null && p.TopSpell.Controller == p.Opponent &&
             p.TopSpellCategoryIs(EffectCategories.Protector | EffectCategories.ToughnessIncrease))
@@ -106,7 +109,7 @@
             if (p.TopSpell.HasTarget(p.Target.Card()))
               return true;
           }
-         
+
           // eot otherwise
           return !p.Controller.IsActive && p.Step == Step.EndOfTurn;
         };
@@ -145,7 +148,7 @@
     {
       return p =>
         {
-          int opponentCreatureCount = p.Opponent.Battlefield.Creatures.Count();
+          var opponentCreatureCount = p.Opponent.Battlefield.Creatures.Count();
 
           if (opponentCreatureCount == 0)
             return false;
@@ -168,7 +171,7 @@
     public static TimingDelegate Steps(params Step[] steps)
     {
       return p => steps.Any(step => p.Step == step);
-    }    
+    }
 
     public static TimingDelegate NoRestrictions(params TimingDelegate[] predicates)
     {
@@ -202,10 +205,10 @@
           if (p.Step != Step.FirstMain)
             return false;
 
-          int level = p.Card.Level ?? 0;
+          var level = p.Card.Level ?? 0;
           int? costToNextLevel = null;
 
-          foreach (LevelDefinition definition in levelDefinitions)
+          foreach (var definition in levelDefinitions)
           {
             if (definition.Max == null)
               break;
@@ -229,7 +232,7 @@
           var manaCost = new AggregateManaAmount(Enumerable.Repeat(activationCost, costToNextLevel.Value));
           return p.Controller.HasMana(manaCost);
         };
-    }                
+    }
 
     public static TimingDelegate Cycling()
     {
@@ -263,8 +266,8 @@
         {
           if (p.Step == Step.CombatDamage && p.Controller.IsActive)
           {
-            int controllerCount = p.Controller.Battlefield.Creatures.Count(x => !x.IsTapped);
-            int opponentCount = p.Opponent.Battlefield.Creatures.Count();
+            var controllerCount = p.Controller.Battlefield.Creatures.Count(x => !x.IsTapped);
+            var opponentCount = p.Opponent.Battlefield.Creatures.Count();
 
             return controllerCount < opponentCount;
           }
@@ -322,7 +325,7 @@
           return false;
         };
     }
-    
+
     public static TimingDelegate EndOfTurn()
     {
       return p =>
@@ -337,7 +340,7 @@
     public static TimingDelegate BeforeDeath()
     {
       return p =>
-        {                    
+        {
           if (p.Step == Step.DeclareBlockers)
           {
             return p.Combat.CanBeDealtLeathalCombatDamage(p.Card);

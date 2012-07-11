@@ -14,5 +14,5 @@
     {
       return Bootstrapper.GetScope();
     }
-  }  
+  }
 }

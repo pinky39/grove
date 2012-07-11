@@ -1,11 +1,11 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.CardDsl;
-  using Core.Effects;
+  using Core.Details.Cards.Effects;
+  using Core.Details.Mana;
+  using Core.Dsl;
 
   public class DriftingMeadow : CardsSource
   {
@@ -19,7 +19,7 @@
         .Timing(Timings.Lands())
         .Cycling("{2}")
         .Abilities(
-          C.ManaAbility(new Mana(ManaColors.White), "{T}: Add {W} to your mana pool."))
+          C.ManaAbility(new ManaUnit(ManaColors.White), "{T}: Add {W} to your mana pool."))
         .Effect<PutIntoPlay>((e, _) => e.PutIntoPlayTapped = delegate { return true; });
     }
   }

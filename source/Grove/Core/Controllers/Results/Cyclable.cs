@@ -2,16 +2,14 @@
 {
   public class Cyclable : Playable
   {
-    private Cyclable()
-    {      
-    }
-    
-    protected Card Card { get; private set; }
+    private Cyclable() {}
 
     public Cyclable(Card card)
     {
-      Card = card;      
+      Card = card;
     }
+
+    protected Card Card { get; private set; }
 
     public override void Play()
     {

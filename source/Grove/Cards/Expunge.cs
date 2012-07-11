@@ -3,7 +3,9 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.CardDsl;
+  using Core.Details.Mana;
+  using Core.Dsl;
+  using Core.Targeting;
 
   public class Expunge : CardsSource
   {

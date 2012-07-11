@@ -9,7 +9,7 @@
 
     public static implicit operator ChosenPlayer(Player player)
     {
-      return new ChosenPlayer{Player = player};
+      return new ChosenPlayer {Player = player};
     }
   }
 }

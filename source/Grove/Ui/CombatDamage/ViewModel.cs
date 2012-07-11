@@ -3,22 +3,23 @@
   using System;
   using Core;
   using Core.Controllers.Results;
+  using Core.Details.Combat;
   using Infrastructure;
 
   public class ViewModel
-  {    
+  {
+    private readonly BlockerDamageAssignments _assignments;
+    private readonly Attacker _attacker;
     private readonly DamageDistribution _damageDistribution;
     private readonly Publisher _publisher;
     private int _damageToAssign;
-    private readonly BlockerDamageAssignments _assignments;
-    private readonly Attacker _attacker;
 
     public ViewModel(Publisher publisher, Attacker attacker, DamageDistribution damageDistribution)
     {
       _publisher = publisher;
       _damageDistribution = damageDistribution;
-      _assignments = new BlockerDamageAssignments(attacker);      
-      _attacker = attacker;     
+      _assignments = new BlockerDamageAssignments(attacker);
+      _attacker = attacker;
       _damageToAssign = attacker.DamageThisWillDealInOneDamageStep;
     }
 
@@ -33,7 +34,7 @@
     {
       foreach (var assignment in _assignments)
       {
-        _damageDistribution.Assign(assignment.Blocker, assignment.Damage);        
+        _damageDistribution.Assign(assignment.Blocker, assignment.Damage);
       }
 
       Close();
@@ -51,26 +52,25 @@
 
     public void ChangePlayersInterest(Card card)
     {
-      _publisher.Publish(new PlayersInterestChanged{
-        Visual = card
-      });
+      _publisher.Publish(new PlayersInterestChanged
+        {
+          Visual = card
+        });
     }
 
     [Updates("CanAccept", "Title")]
     public virtual void Clear()
     {
-      _assignments.Clear();            
+      _assignments.Clear();
       _damageToAssign = _attacker.DamageThisWillDealInOneDamageStep;
     }
 
     public virtual void Close() {}
 
-  
 
     public interface IFactory
     {
       ViewModel Create(Attacker attacker, DamageDistribution damageDistribution);
     }
-    
   }
 }

@@ -6,21 +6,21 @@
   {
     private readonly object _access = new object();
     private readonly Dictionary<int, InnerResult> _results = new Dictionary<int, InnerResult>();
-        
+
     public bool NewResult(int id, bool isMax, out InnerResult searchResult)
     {
-        lock (_access)
-        {          
-          if (_results.TryGetValue(id, out searchResult))
-          {
-            return true;
-          }
-          searchResult = new InnerResult(id, isMax);
-          _results.Add(id , searchResult);          
+      lock (_access)
+      {
+        if (_results.TryGetValue(id, out searchResult))
+        {
+          return true;
         }
-                        
-        return false;
-    }   
+        searchResult = new InnerResult(id, isMax);
+        _results.Add(id, searchResult);
+      }
+
+      return false;
+    }
 
     public ISearchResult GetResult(int id)
     {
@@ -28,10 +28,10 @@
       _results.TryGetValue(id, out result);
       return result;
     }
-    
+
     public void Clear()
-    {      
-       _results.Clear();
+    {
+      _results.Clear();
     }
   }
 }

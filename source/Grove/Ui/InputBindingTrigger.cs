@@ -14,13 +14,9 @@
       DependencyProperty.Register("InputBinding", typeof (InputBinding)
         , typeof (InputBindingTrigger)
         , new UIPropertyMetadata(null));
-    
-    public InputBinding InputBinding
-    {
-      get { return (InputBinding) GetValue(InputBindingProperty); }
-      set { SetValue(InputBindingProperty, value); }
-    }
-    
+
+    public InputBinding InputBinding { get { return (InputBinding) GetValue(InputBindingProperty); } set { SetValue(InputBindingProperty, value); } }
+
     public event EventHandler CanExecuteChanged = delegate { };
 
     public bool CanExecute(object parameter)
@@ -39,25 +35,27 @@
       {
         InputBinding.Command = this;
         Window window = null;
-        AssociatedObject.Loaded += delegate {          
-          window = GetWindow(AssociatedObject);
-          window.InputBindings.Add(InputBinding);
-        };
+        AssociatedObject.Loaded += delegate
+          {
+            window = GetWindow(AssociatedObject);
+            window.InputBindings.Add(InputBinding);
+          };
 
-        AssociatedObject.Unloaded += delegate {          
-          if (window != null)
-            window.InputBindings.Remove(InputBinding);
-        };
+        AssociatedObject.Unloaded += delegate
+          {
+            if (window != null)
+              window.InputBindings.Remove(InputBinding);
+          };
       }
       base.OnAttached();
-    }   
+    }
 
     private Window GetWindow(FrameworkElement frameworkElement)
     {
       if (frameworkElement is Window)
         return frameworkElement as Window;
 
-      var parent = frameworkElement.Parent as FrameworkElement;      
+      var parent = frameworkElement.Parent as FrameworkElement;
       Debug.Assert(parent != null);
 
       return GetWindow(parent);

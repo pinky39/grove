@@ -5,12 +5,6 @@
 
   public class AssemblyEx
   {
-    public static string ProductVersion
-    {
-      get
-      {
-        return FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion;
-      }
-    }
+    public static string ProductVersion { get { return FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion; } }
   }
 }

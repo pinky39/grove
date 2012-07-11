@@ -8,11 +8,14 @@
     {
       get
       {
-        return new DeclareBlockers{
-          Result = new ChosenBlockers()
-        };
+        return new DeclareBlockers
+          {
+            Result = new ChosenBlockers()
+          };
       }
     }
+
+    protected override bool ShouldExecuteQuery { get { return true; } }
 
     public bool CanExecute()
     {
@@ -20,10 +23,5 @@
     }
 
     protected override void ExecuteQuery() {}
-
-    protected override bool ShouldExecuteQuery
-    {
-      get { return true; }
-    }
   }
 }

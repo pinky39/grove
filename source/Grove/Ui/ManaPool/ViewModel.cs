@@ -10,12 +10,9 @@
     public ViewModel(Game game)
     {
       _player = game.Players.Human;
-      _player.Property(x => x.ManaPool).Changes(this).Property(x => x.ManaPool);
+      _player.Property(x => x.ManaPool).Changes(this).Property<ViewModel, object>(x => x.ManaPool);
     }
 
-    public object ManaPool
-    {
-      get { return _player.ManaPool; }
-    }   
+    public object ManaPool { get { return _player.ManaPool; } }
   }
 }

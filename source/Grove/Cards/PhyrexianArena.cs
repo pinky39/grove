@@ -3,9 +3,9 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.CardDsl;
-  using Core.Effects;
-  using Core.Triggers;
+  using Core.Details.Cards.Effects;
+  using Core.Details.Cards.Triggers;
+  using Core.Dsl;
 
   public class PhyrexianArena : CardsSource
   {
@@ -21,13 +21,12 @@
         .Abilities(
           C.TriggeredAbility(
             "At the beginning of your upkeep, you draw a card and you lose 1 life.",
-            C.Trigger<AtBegginingOfStep>((t, _) => {
-              t.Step = Step.Upkeep;
-            }),
-            C.Effect<DrawCards>((e, c) => {
-              e.DrawCount = 1;
-              e.Lifeloss = 1;
-            }), triggerOnlyIfOwningCardIsInPlay: true));
+            C.Trigger<AtBegginingOfStep>((t, _) => { t.Step = Step.Upkeep; }),
+            C.Effect<DrawCards>((e, c) =>
+              {
+                e.DrawCount = 1;
+                e.Lifeloss = 1;
+              }), triggerOnlyIfOwningCardIsInPlay: true));
     }
   }
 }

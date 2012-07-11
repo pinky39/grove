@@ -1,10 +1,10 @@
-﻿using System;
-using System.Linq.Expressions;
-using System.Reflection;
-using System.Reflection.Emit;
-
-namespace Grove.Infrastructure
+﻿namespace Grove.Infrastructure
 {
+  using System;
+  using System.Linq.Expressions;
+  using System.Reflection;
+  using System.Reflection.Emit;
+
   public delegate object ParameterlessCtor();
 
   public delegate void FieldSetter(object target, object value);

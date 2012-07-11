@@ -3,7 +3,7 @@
   using Zones;
 
   public class CardChangedZone
-  {                
+  {
     public Card Card { get; set; }
     public Player Controller { get { return Card.Controller; } }
     public Zone From { get; set; }

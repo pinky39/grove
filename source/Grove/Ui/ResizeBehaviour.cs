@@ -20,23 +20,20 @@
     private HwndSourceHook _hook;
 
 
-    private Window Window
-    {
-      get { return AssociatedObject; }
-    }
+    private Window Window { get { return AssociatedObject; } }
 
     protected override void OnAttached()
     {
       base.OnAttached();
-      
+
       Window.Loaded += (s, e) => WireUpWndProc();
       Window.KeyUp += ToggleFullScreen;
 
       Window.SizeChanged += delegate { OnResized(); };
 
-      #if (DEBUG == FALSE)
+#if (DEBUG == FALSE)
       Window.Loaded += delegate { Window.WindowState = WindowState.Maximized; };
-      #endif
+#endif
     }
 
     protected override void OnDetaching()
@@ -48,9 +45,9 @@
     private void OnMaximized()
     {
       Window.WindowStyle = WindowStyle.None;
-      Window.ResizeMode = ResizeMode.NoResize;  
+      Window.ResizeMode = ResizeMode.NoResize;
       Window.Hide();
-      Window.Show();          
+      Window.Show();
     }
 
     private void OnResized()
@@ -76,7 +73,7 @@
     private void OnRestored()
     {
       Window.WindowStyle = WindowStyle.ThreeDBorderWindow;
-      Window.ResizeMode = ResizeMode.CanResize;            
+      Window.ResizeMode = ResizeMode.CanResize;
     }
 
     private void RemoveWndProc()
@@ -94,8 +91,8 @@
       if (e.Key == Key.F)
       {
         Window.WindowState = Window.WindowState == WindowState.Normal
-                               ? WindowState.Maximized
-                               : WindowState.Normal;
+          ? WindowState.Maximized
+          : WindowState.Normal;
       }
     }
 

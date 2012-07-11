@@ -1,6 +1,7 @@
 ﻿namespace Grove.Core.Ai
 {
   using System;
+  using Targeting;
 
   public delegate int CalculateX(XCalculatorParameters parameters);
 

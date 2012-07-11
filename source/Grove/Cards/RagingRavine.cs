@@ -3,12 +3,13 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.CardDsl;
-  using Core.Costs;
-  using Core.Counters;
-  using Core.Effects;
-  using Core.Modifiers;
-  using Core.Triggers;
+  using Core.Details.Cards.Costs;
+  using Core.Details.Cards.Counters;
+  using Core.Details.Cards.Effects;
+  using Core.Details.Cards.Modifiers;
+  using Core.Details.Cards.Triggers;
+  using Core.Details.Mana;
+  using Core.Dsl;
 
   public class RagingRavine : CardsSource
   {
@@ -23,7 +24,7 @@
         .Effect<PutIntoPlay>((e, _) => e.PutIntoPlayTapped = delegate { return true; })
         .Abilities(
           C.ManaAbility(
-            new Mana(ManaColors.Red | ManaColors.Green),
+            new ManaUnit(ManaColors.Red | ManaColors.Green),
             "{T}: Add {R} or {G} to your mana pool."),
           C.ActivatedAbility(
             "{2}{R}{G}: Until end of turn, Raging Ravine becomes a 3/3 red and green Elemental creature with Whenever this creature attacks, put a +1/+1 counter on it. It's still a land.",
@@ -52,7 +53,7 @@
                           counter.Toughness = 1;
                         })))));
                 }, untilEndOfTurn: true))),
-            timing: Timings.ChangeToCreature(minAvailableMana: 5)             
+            timing: Timings.ChangeToCreature(minAvailableMana: 5)
             ));
     }
   }

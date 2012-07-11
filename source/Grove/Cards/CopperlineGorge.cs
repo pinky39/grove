@@ -4,8 +4,9 @@
   using System.Linq;
   using Core;
   using Core.Ai;
-  using Core.CardDsl;
-  using Core.Effects;
+  using Core.Details.Cards.Effects;
+  using Core.Details.Mana;
+  using Core.Dsl;
 
   public class CopperlineGorge : CardsSource
   {
@@ -19,7 +20,7 @@
         .Timing(Timings.Lands())
         .Abilities(
           C.ManaAbility(
-            new Mana(ManaColors.Red | ManaColors.Green),
+            new ManaUnit(ManaColors.Red | ManaColors.Green),
             "{T}: Add {R} or {G} to your mana pool."))
         .Effect<PutIntoPlay>((e, c) =>
           e.PutIntoPlayTapped = player => player.Battlefield.Lands.Count() > 2);

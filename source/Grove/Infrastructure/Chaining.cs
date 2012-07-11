@@ -1,4 +1,4 @@
-﻿  namespace Grove.Infrastructure
+﻿namespace Grove.Infrastructure
 {
   public static class Chaining
   {

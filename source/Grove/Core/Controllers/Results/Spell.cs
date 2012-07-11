@@ -1,17 +1,19 @@
 ﻿namespace Grove.Core.Controllers.Results
 {
+  using Details.Cards;
+
   public class Spell : Playable
   {
-    protected ActivationParameters ActivationParameters { get; private set; }
-    protected Card Card { get; private set; }
-
     private Spell() {}
-    
+
     public Spell(Card card, ActivationParameters activationParameters)
     {
       Card = card;
       ActivationParameters = activationParameters;
     }
+
+    protected ActivationParameters ActivationParameters { get; private set; }
+    protected Card Card { get; private set; }
 
     public override void Play()
     {

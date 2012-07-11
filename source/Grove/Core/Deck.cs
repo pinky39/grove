@@ -14,11 +14,8 @@
       _cards.AddRange(cards);
     }
 
-    public int Count
-    {
-      get { return _cards.Count; }
-    }
-    
+    public int Count { get { return _cards.Count; } }
+
     public IEnumerator<Card> GetEnumerator()
     {
       return _cards.GetEnumerator();

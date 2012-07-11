@@ -3,12 +3,13 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.CardDsl;
-  using Core.Counters;
-  using Core.Effects;
-  using Core.Modifiers;
-  using Core.Preventions;
-  using Core.Triggers;
+  using Core.Details.Cards;
+  using Core.Details.Cards.Counters;
+  using Core.Details.Cards.Effects;
+  using Core.Details.Cards.Modifiers;
+  using Core.Details.Cards.Preventions;
+  using Core.Details.Cards.Triggers;
+  using Core.Dsl;
   using Core.Zones;
 
   public class Vigor : CardsSource
@@ -26,15 +27,17 @@
         .Timing(Timings.Creatures())
         .Abilities(
           Static.Trample,
-          C.Continuous((e, c) => {
-            e.ModifierFactory = c.Modifier<AddDamagePrevention>((m, c0) =>
-              m.Prevention = c0.Prevention<ReplaceDamageWithCounters>(
-                (p, c1) => p.CounterFactory = c1.Counter<PowerToughness>((counter, _) => {
-                  counter.Power = 1;
-                  counter.Toughness = 1;
-                })));
-            e.CardFilter = (card, vigor) => card.Name != vigor.Name && card.Controller == vigor.Controller;
-          }),
+          C.Continuous((e, c) =>
+            {
+              e.ModifierFactory = c.Modifier<AddDamagePrevention>((m, c0) =>
+                m.Prevention = c0.Prevention<ReplaceDamageWithCounters>(
+                  (p, c1) => p.CounterFactory = c1.Counter<PowerToughness>((counter, _) =>
+                    {
+                      counter.Power = 1;
+                      counter.Toughness = 1;
+                    })));
+              e.CardFilter = (card, vigor) => card.Name != vigor.Name && card.Controller == vigor.Controller;
+            }),
           C.TriggeredAbility(
             "When Vigor is put into a graveyard from anywhere, shuffle it into its owner's library.",
             C.Trigger<ChangeZone>((t, _) => t.To = Zone.Graveyard),

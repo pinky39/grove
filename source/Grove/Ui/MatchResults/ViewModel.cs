@@ -30,8 +30,8 @@
       get
       {
         return _players.Player2.HasLost
-                 ? "Congratulations, you won the match!"
-                 : "Tough luck, you lost the match!";
+          ? "Congratulations, you won the match!"
+          : "Tough luck, you lost the match!";
       }
     }
 
@@ -42,8 +42,8 @@
       get
       {
         return _players.Player1.HasLost
-                 ? _players.Player2.Avatar
-                 : _players.Player1.Avatar;
+          ? _players.Player2.Avatar
+          : _players.Player1.Avatar;
       }
     }
 
@@ -76,13 +76,9 @@
       return String.Format("{0} games", winCount);
     }
 
-    #region Nested type: IFactory
-
     public interface IFactory
     {
       ViewModel Create();
     }
-
-    #endregion
   }
 }

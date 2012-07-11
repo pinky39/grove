@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns = "http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Ui="clr-namespace:Grove.Ui"
-                    xmlns:Core="clr-namespace:Grove.Core">
+                    xmlns:Cards="clr-namespace:Grove.Core.Details.Cards">
 
 	<DataTemplate x:Key = "Ability" >
 		<Viewbox>
@@ -40,23 +40,23 @@
 							<StackPanel HorizontalAlignment = "Left"
 							            VerticalAlignment = "Center" >
 								<StackPanel.Resources>
-									<DataTemplate DataType = "{x:Type Core:TextToken}" >
+									<DataTemplate DataType = "{x:Type Cards:TextToken}" >
 										<TextBlock Margin = "0,0,5,0"
 										           Text = "{Binding Path=.}" />
 									</DataTemplate>
-									<DataTemplate DataType = "{x:Type Core:EolToken}" >
+									<DataTemplate DataType = "{x:Type Cards:EolToken}" >
 										<TextBlock Width = "258"
 										           FontSize = "4" />
 									</DataTemplate>
-                                    <DataTemplate DataType = "{x:Type Core:ManaSymbolGroupStartToken}" >
+                                    <DataTemplate DataType = "{x:Type Cards:ManaSymbolGroupStartToken}" >
                                         <TextBlock FontSize = "15"										          
                                                    Margin = "2,0,0,0"/>
                                     </DataTemplate>
-                                    <DataTemplate DataType = "{x:Type Core:ManaSymbolGroupEndToken}" >
+                                    <DataTemplate DataType = "{x:Type Cards:ManaSymbolGroupEndToken}" >
                                         <TextBlock FontSize = "15"										          
                                                    Margin = "0,0,6,0"/>
                                     </DataTemplate>
-                                    <DataTemplate DataType = "{x:Type Core:ManaSymbolToken}" >
+                                    <DataTemplate DataType = "{x:Type Cards:ManaSymbolToken}" >
                                         <Image Source = "{Binding Path=Image}"
 										       Height = "18"
 										       Margin = "0,0,0,0" />

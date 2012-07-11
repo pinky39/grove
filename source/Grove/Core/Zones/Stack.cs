@@ -5,7 +5,7 @@
   using System.Collections.Generic;
   using System.Linq;
   using Ai;
-  using Effects;
+  using Details.Cards.Effects;
   using Infrastructure;
 
   [Copyable]
@@ -62,7 +62,7 @@
     {
       LastResolved = null;
 
-      Effect effect = TopSpell;
+      var effect = TopSpell;
       Remove(effect);
 
       if (effect.HasEffectStillValidTargets())
@@ -116,7 +116,7 @@
 
       if (damageDealing == null)
         return false;
-      
+
       var dealtAmount = card.EvaluateHowMuchDamageCanBeDealt(
         TopSpell.Source.OwningCard, damageDealing.CreatureDamage(card), isCombat: false);
 

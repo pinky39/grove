@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using Grove.Core;
-
-namespace Grove.Infrastructure
+﻿namespace Grove.Infrastructure
 {
+  using System.Collections.Generic;
+
   public class HashCalculator
   {
     private readonly Dictionary<object, int> _hashCache = new Dictionary<object, int>();
@@ -23,7 +22,7 @@ namespace Grove.Infrastructure
       return hash;
     }
 
-    
+
     public static int Combine(IEnumerable<int> values)
     {
       uint h = 0;
@@ -35,8 +34,8 @@ namespace Grove.Infrastructure
 
       return Avalanche(h);
     }
-    
-    
+
+
     public static int Combine(params int[] values)
     {
       return Combine((IEnumerable<int>) values);
@@ -46,7 +45,7 @@ namespace Grove.Infrastructure
     {
       return CombineCommutative((IEnumerable<int>) values);
     }
-    
+
     public static int CombineCommutative(IEnumerable<int> values)
     {
       uint h = 0;

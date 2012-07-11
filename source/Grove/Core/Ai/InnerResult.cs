@@ -1,6 +1,5 @@
 ﻿namespace Grove.Core.Ai
 {
-  using System;
   using System.Collections.Generic;
   using System.Linq;
   using System.Text;
@@ -25,7 +24,7 @@
 
 
     public void EvaluateSubtree()
-    {      
+    {
       _isVisited = true;
 
       foreach (var child in _children)
@@ -35,18 +34,18 @@
           child.IsCycle = true;
           continue;
         }
-        
+
         child.Result.EvaluateSubtree();
       }
 
-      var scoredChildren = _children.Where(x =>!x.IsCycle && x.Result.Score != null).ToList();
-      
+      var scoredChildren = _children.Where(x => !x.IsCycle && x.Result.Score != null).ToList();
+
       if (scoredChildren.Count > 0)
       {
         _bestEdge = _isMax
           ? scoredChildren.OrderByDescending(x => x.Result.Score).First()
           : scoredChildren.OrderBy(x => x.Result.Score).First();
-      }      
+      }
     }
 
     public bool IsVisited { get { return _isVisited; } }
@@ -69,9 +68,9 @@
 
     private class Edge
     {
+      public bool IsCycle;
       public int MoveIndex;
       public ISearchResult Result;
-      public bool IsCycle;
     }
   }
 }

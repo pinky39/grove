@@ -3,11 +3,11 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.CardDsl;
-  using Core.Costs;
-  using Core.Effects;
-  using Core.Modifiers;
-  using Core.Triggers;
+  using Core.Details.Cards.Costs;
+  using Core.Details.Cards.Effects;
+  using Core.Details.Cards.Modifiers;
+  using Core.Details.Cards.Triggers;
+  using Core.Dsl;
 
   public class OpalAcrolith : CardsSource
   {
@@ -29,17 +29,17 @@
               c.Modifier<ChangeToCreature>((m, _) =>
                 {
                   m.Power = 2;
-                  m.Tougness = 4;                  
+                  m.Tougness = 4;
                   m.Type = "Creature - Soldier";
-                })              
+                })
               ))
             , triggerOnlyIfOwningCardIsInPlay: true),
           C.ActivatedAbility(
             "{0}: Opal Acrolith becomes an enchantment.",
             C.Cost<TapOwnerPayMana>(),
-            C.Effect<RemoveModifier>((e, _) => e.ModifierType = typeof(ChangeToCreature)),
+            C.Effect<RemoveModifier>((e, _) => e.ModifierType = typeof (ChangeToCreature)),
             timing: Timings.BeforeDeath()
-          )
+            )
         );
     }
   }

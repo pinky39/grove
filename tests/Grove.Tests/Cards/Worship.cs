@@ -9,7 +9,7 @@
     public class Predefined : PredefinedScenario
     {
       [Fact]
-      public void PreventDamage()
+      public void PreventLifeloss()
       {
         var bear = C("Grizzly Bears");
         var dread = C("Dread");

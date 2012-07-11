@@ -3,9 +3,11 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.CardDsl;
-  using Core.Effects;
-  using Core.Triggers;
+  using Core.Details.Cards;
+  using Core.Details.Cards.Effects;
+  using Core.Details.Cards.Triggers;
+  using Core.Details.Mana;
+  using Core.Dsl;
   using Core.Zones;
 
   public class WurmcoilEngine : CardsSource
@@ -26,10 +28,11 @@
           Static.Lifelink,
           C.TriggeredAbility(
             "When Wurmcoil Engine dies, put a 3/3 colorless Wurm artifact creature token with deathtouch and a 3/3 colorless Wurm artifact creature token with lifelink onto the battlefield.",
-            C.Trigger<ChangeZone>((t, _) => {
-              t.From = Zone.Battlefield;
-              t.To = Zone.Graveyard;
-            }),
+            C.Trigger<ChangeZone>((t, _) =>
+              {
+                t.From = Zone.Battlefield;
+                t.To = Zone.Graveyard;
+              }),
             C.Effect<CreateTokens>((e, c) => e.Tokens(
               c.Card
                 .Named("Wurm Token")

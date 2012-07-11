@@ -1,9 +1,9 @@
 ﻿namespace Grove.Ui
 {
-  using Core;
+  using Core.Targeting;
 
   public class TargetSelected
   {
-    public ITarget Target { get; set; }    
+    public ITarget Target { get; set; }
   }
 }

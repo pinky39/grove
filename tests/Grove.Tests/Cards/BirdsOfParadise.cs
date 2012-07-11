@@ -1,6 +1,7 @@
 ﻿namespace Grove.Tests.Cards
 {
   using Core;
+  using Core.Details.Mana;
   using Core.Zones;
   using Infrastructure;
   using Xunit;
@@ -42,11 +43,11 @@
             .Activate(bird)
             .Verify(() =>
               {
-                True(P1.HasMana(Mana.White.ToAmount()));
-                True(P1.HasMana(Mana.Blue.ToAmount()));
-                True(P1.HasMana(Mana.Black.ToAmount()));
-                True(P1.HasMana(Mana.Red.ToAmount()));
-                True(P1.HasMana(Mana.Green.ToAmount()));
+                True(P1.HasMana(ManaUnit.White.ToAmount()));
+                True(P1.HasMana(ManaUnit.Blue.ToAmount()));
+                True(P1.HasMana(ManaUnit.Black.ToAmount()));
+                True(P1.HasMana(ManaUnit.Red.ToAmount()));
+                True(P1.HasMana(ManaUnit.Green.ToAmount()));
               })
           );
       }

@@ -41,9 +41,10 @@
 
     public void ChangePlayersInterest(object cardOrAbility)
     {
-      _publisher.Publish(new PlayersInterestChanged{
-        Visual = cardOrAbility
-      });
+      _publisher.Publish(new PlayersInterestChanged
+        {
+          Visual = cardOrAbility
+        });
     }
   }
 }

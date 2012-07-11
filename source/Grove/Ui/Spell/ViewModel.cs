@@ -4,6 +4,8 @@
   using System.Windows;
   using Core;
   using Core.Controllers.Results;
+  using Core.Details.Cards;
+  using Core.Targeting;
   using Infrastructure;
   using Shell;
 
@@ -143,7 +145,7 @@
     {
       var selectors = payKicker
         ? prerequisites.KickerTargetSelectors
-        : prerequisites.TargetSelectors;     
+        : prerequisites.TargetSelectors;
 
       if (selectors.HasEffect)
       {

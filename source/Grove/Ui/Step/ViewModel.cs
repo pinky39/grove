@@ -1,26 +1,26 @@
 ﻿namespace Grove.Ui.Step
 {
-  using Core;
   using System.Linq;
+  using Core;
   using Core.Messages;
   using Infrastructure;
 
   public class ViewModel : IReceive<StepStarted>
   {
-    private readonly Step[] _steps;
     private readonly Configuration _configuration;
+    private readonly Step[] _steps;
 
     public ViewModel(Step[] steps, string displayName, Configuration configuration)
     {
       _steps = steps;
-      _configuration = configuration;      
+      _configuration = configuration;
       DisplayName = displayName;
     }
 
     public Pass AutoPass { get { return _configuration.GetAutoPassConfiguration(_steps[0]); } }
 
     public string DisplayName { get; set; }
-    public virtual bool IsCurent { get; set; }    
+    public virtual bool IsCurent { get; set; }
 
     public void Receive(StepStarted message)
     {
@@ -38,8 +38,8 @@
     {
       foreach (var step in _steps)
       {
-        _configuration.ToggleAutoPass(step);  
-      }            
+        _configuration.ToggleAutoPass(step);
+      }
     }
 
     public interface IFactory

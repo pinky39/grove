@@ -16,7 +16,7 @@
     protected override void ExecuteQuery()
     {
       var result = new ChosenBlockers();
-      
+
       while (true)
       {
         var selectBlocker = DialogFactory.Create(
@@ -28,21 +28,22 @@
               target.Controller == Player
             ), canCancel: false, instructions: "(Press spacebar to finish.)"
           );
-        
+
         Shell.ShowModalDialog(selectBlocker, DialogType.Small, SelectionMode.SelectTarget);
 
         if (selectBlocker.Selection.Count() == 0)
-          break;               
+          break;
 
-        var blocker = (Card)selectBlocker.Selection[0];
+        var blocker = (Card) selectBlocker.Selection[0];
 
         if (result.ContainsBlocker(blocker))
         {
           result.Remove(blocker);
-          
-          Publisher.Publish(new BlockerUnselected{
-            Blocker = blocker
-          });
+
+          Publisher.Publish(new BlockerUnselected
+            {
+              Blocker = blocker
+            });
 
           continue;
         }
@@ -57,20 +58,21 @@
           canCancel: true,
           instructions: "(Press Esc to cancel.)"
           );
-        
+
         Shell.ShowModalDialog(selectAttacker, DialogType.Small, SelectionMode.SelectTarget);
 
         if (selectAttacker.WasCanceled)
           continue;
 
-        var attacker = (Card)selectAttacker.Selection[0];
+        var attacker = (Card) selectAttacker.Selection[0];
 
-        Publisher.Publish(new BlockerSelected{
-          Blocker = blocker,
-          Attacker = attacker
-        });
-        
-        result.Add(blocker, attacker);               
+        Publisher.Publish(new BlockerSelected
+          {
+            Blocker = blocker,
+            Attacker = attacker
+          });
+
+        result.Add(blocker, attacker);
       }
 
       Result = result;

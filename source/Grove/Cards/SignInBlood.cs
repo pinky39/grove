@@ -3,8 +3,9 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.CardDsl;
-  using Core.Effects;
+  using Core.Details.Cards.Effects;
+  using Core.Dsl;
+  using Core.Targeting;
 
   public class SignInBlood : CardsSource
   {
@@ -19,10 +20,10 @@
           "'You know I accept only one currency here, and yet you have sought me out. Why now do you hesitate?'{EOL}—Xathrid demon")
         .Timing(Timings.FirstMain())
         .Effect<TargetPlayerDrawsCards>((e, _) =>
-        {
-          e.CardCount = 2;
-          e.LifeLoss = 2;
-        })
+          {
+            e.CardCount = 2;
+            e.LifeLoss = 2;
+          })
         .Targets(
           filter: TargetFilters.Controller(),
           selectors: C.Selector(Selectors.Player()));

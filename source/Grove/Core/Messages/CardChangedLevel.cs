@@ -2,6 +2,6 @@
 {
   public class CardChangedLevel
   {
-    public Card Card { get; set; }    
+    public Card Card { get; set; }
   }
 }

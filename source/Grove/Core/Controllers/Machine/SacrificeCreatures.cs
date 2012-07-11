@@ -9,13 +9,14 @@
     {
       var creaturesToSacrifice = Player.Battlefield
         .Creatures
-        .Select(card => new{
-          Card = card,
-          Score = ScoreCalculator.CalculatePermanentScore(card)
-        })
+        .Select(card => new
+          {
+            Card = card,
+            Score = ScoreCalculator.CalculatePermanentScore(card)
+          })
         .OrderBy(x => x.Score)
         .Select(x => x.Card).Take(Count);
-                        
+
       Result = creaturesToSacrifice.ToList();
     }
   }

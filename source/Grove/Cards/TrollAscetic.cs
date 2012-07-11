@@ -3,9 +3,11 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.CardDsl;
-  using Core.Costs;
-  using Core.Effects;
+  using Core.Details.Cards;
+  using Core.Details.Cards.Costs;
+  using Core.Details.Cards.Effects;
+  using Core.Details.Mana;
+  using Core.Dsl;
 
   public class TrollAscetic : CardsSource
   {
@@ -19,7 +21,7 @@
           "{Hexproof}{EOL}{1}{G}: Regenerate Troll Ascetic.")
         .FlavorText("It's no coincidence that the oldest trolls are also the angriest.")
         .Power(3)
-        .Toughness(2)        
+        .Toughness(2)
         .Timing(Timings.Creatures())
         .Abilities(
           Static.Hexproof,

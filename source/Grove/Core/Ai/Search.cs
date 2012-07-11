@@ -17,12 +17,9 @@
     private readonly object _workersLock = new object();
     private int _nodesSearched;
     private int _numWorkersCreated;
+    private int _startStateCount;
     private int _startStepCount;
     private int _subtreesPrunned;
-    private int _startStateCount;
-
-    public event EventHandler Finished = delegate { };
-    public event EventHandler Started = delegate { };
 
     public Search(SearchResults searchResults)
     {
@@ -46,11 +43,14 @@
     public int NumWorkersCreated { get { return _numWorkersCreated; } }
     public int SearchDepth { get; set; }
     public int SubtreesPrunned { get { return _subtreesPrunned; } }
+    public event EventHandler Finished = delegate { };
+    public event EventHandler Started = delegate { };
 
-    public Task ExecuteTask(SearchWorker parentWorker, ISearchNode parentNode, int resultIndex, Action<SearchWorker, ISearchNode> action)
+    public Task ExecuteTask(SearchWorker parentWorker, ISearchNode parentNode, int resultIndex,
+                            Action<SearchWorker, ISearchNode> action)
     {
-      SearchWorker worker = parentWorker;
-      ISearchNode node = parentNode;
+      var worker = parentWorker;
+      var node = parentNode;
 
       lock (_workersLock)
       {
@@ -66,14 +66,14 @@
       if (worker != parentWorker)
       {
         var continueWith = task.ContinueWith(
-          t => RemoveWorker(worker), 
+          t => RemoveWorker(worker),
           TaskContinuationOptions.ExecuteSynchronously);
-        
-        task.Start();        
+
+        task.Start();
 
         return continueWith;
       }
-      
+
       task.RunSynchronously();
       return task;
     }
@@ -91,18 +91,18 @@
       if (InProgress)
       {
         var worker = GetWorker(searchNode.Game);
-        
+
         searchNode.GenerateChoices();
         worker.Evaluate(searchNode);
         return;
       }
-            
-      searchNode.Game.Players.SetAiVisibility(searchNode.Player);      
+
+      searchNode.Game.Players.SetAiVisibility(searchNode.Player);
       searchNode.GenerateChoices();
-      
-      var result = 
-        GetCachedResult(searchNode) ?? 
-        FindBestMove(searchNode);          
+
+      var result =
+        GetCachedResult(searchNode) ??
+          FindBestMove(searchNode);
 
       searchNode.SetResult(result);
     }
@@ -116,18 +116,18 @@
         _workers.Add(worker.Id, worker);
         _numWorkersCreated++;
       }
-      
+
       return worker;
     }
 
     private int FindBestMove(ISearchNode searchNode)
-    {      
-      searchNode.Game.ChangeTracker.Enable();      
+    {
+      searchNode.Game.ChangeTracker.Enable();
       searchNode.Game.ChangeTracker.Lock();
 
       _startStepCount = searchNode.Game.Turn.StepCount;
       _startStateCount = searchNode.Game.Turn.StateCount;
-      
+
       Log.Debug("Search started");
       searchNode.Game.Publisher.Publish(new SearchStarted());
 
@@ -150,8 +150,8 @@
       searchNode.Game.ChangeTracker.Unlock();
 
       var root = GetSearchNodeResult(searchNode);
-      root.EvaluateSubtree();   
-      
+      root.EvaluateSubtree();
+
       Log.DebugFormat("Best path: {0}", root.OutputBestPath());
 
       GC.Collect();
@@ -165,7 +165,7 @@
         return 0;
 
       var result = GetSearchNodeResult(searchNode);
-      return result == null ? null : (int?) result.BestMove;
+      return result == null ? null : result.BestMove;
     }
 
     private ISearchResult GetSearchNodeResult(ISearchNode searchNode)
@@ -180,12 +180,12 @@
 
     private bool IsItFeasibleToCreateNewWorker(ISearchNode node, int moveIndex)
     {
-      #if DEBUG
+#if DEBUG
       return SingleThreadedStrategy(node, moveIndex);
       //return MultiThreadedStrategy2(node, moveIndex);
-      #else
+#else
       return MultiThreadedStrategy2(node, moveIndex);
-      #endif
+#endif
     }
 
     private static bool SingleThreadedStrategy(ISearchNode node, int moveIndex)

@@ -27,8 +27,8 @@
       if (e.Action == NotifyCollectionChangedAction.Reset)
       {
         _cards.Clear();
-      }      
-      
+      }
+
       if (e.Action == NotifyCollectionChangedAction.Add)
       {
         foreach (Card card in e.NewItems)

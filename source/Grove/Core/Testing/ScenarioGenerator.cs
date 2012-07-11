@@ -7,7 +7,8 @@
 
   public class ScenarioGenerator
   {
-    private const string ScenarioTemplate = @"
+    private const string ScenarioTemplate =
+      @"
       [Fact]
       public void Scenario#()
       {        
@@ -17,6 +18,7 @@
         [P2Battlefield]        
       }    
     ";
+
     private readonly string _fileName;
     private readonly Game _game;
     private int _scenarioNumber = 1;

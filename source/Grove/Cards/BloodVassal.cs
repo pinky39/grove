@@ -3,8 +3,9 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.CardDsl;
-  using Core.Costs;
+  using Core.Details.Cards.Costs;
+  using Core.Details.Mana;
+  using Core.Dsl;
 
   public class BloodVassal : CardsSource
   {
@@ -21,7 +22,7 @@
         .Timing(Timings.Creatures())
         .Abilities(
           C.ManaAbility(
-            manaAmount: "{B}{B}".ParseManaAmount(), 
+            manaAmount: "{B}{B}".ParseManaAmount(),
             text: "Sacrifice Blood Vassal: Add {B}{B} to your mana pool.",
             cost: C.Cost<SacrificeOwner>(),
             priority: ManaSourcePriorities.OnlyIfNecessary)

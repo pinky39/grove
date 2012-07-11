@@ -3,10 +3,13 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.CardDsl;
-  using Core.Costs;
-  using Core.Effects;
-  using Core.Modifiers;
+  using Core.Details.Cards;
+  using Core.Details.Cards.Costs;
+  using Core.Details.Cards.Effects;
+  using Core.Details.Cards.Modifiers;
+  using Core.Details.Mana;
+  using Core.Dsl;
+  using Core.Targeting;
 
   public class DranaKalastriaBloodchief : CardsSource
   {
@@ -26,23 +29,23 @@
           C.ActivatedAbility(
             "{X}{B}{B}: Target creature gets -0/-X until end of turn and Drana, Kalastria Bloodchief gets +X/+0 until end of turn.",
             C.Cost<TapOwnerPayMana>((cost, c) =>
-            {
-              cost.Amount = "{B}{B}".ParseManaAmount();
-              cost.HasX = true;
-              cost.XCalculator = VariableCost.TargetLifepointsLeft();
-            }),
+              {
+                cost.Amount = "{B}{B}".ParseManaAmount();
+                cost.HasX = true;
+                cost.XCalculator = VariableCost.TargetLifepointsLeft();
+              }),
             C.Effect<ApplyModifiersToSelfAndToTargets>((e, c) =>
-            {
-              e.SelfModifiers(
-                c.Modifier<AddPowerAndToughness>((m, _) =>
-                  m.Power = Value.PlusX,
-                  untilEndOfTurn: true));
-              e.TargetModifiers(
-                c.Modifier<AddPowerAndToughness>(
-                  (m, _) => m.Toughness = Value.MinusX,
-                  untilEndOfTurn: true)
-                );
-            }),
+              {
+                e.SelfModifiers(
+                  c.Modifier<AddPowerAndToughness>((m, _) =>
+                    m.Power = Value.PlusX,
+                    untilEndOfTurn: true));
+                e.TargetModifiers(
+                  c.Modifier<AddPowerAndToughness>(
+                    (m, _) => m.Toughness = Value.MinusX,
+                    untilEndOfTurn: true)
+                  );
+              }),
             C.Selector(Selectors.Creature()),
             targetFilter: TargetFilters.ReduceToughness(),
             timing: Timings.TargetRemovalInstant(),

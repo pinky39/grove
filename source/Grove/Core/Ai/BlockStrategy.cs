@@ -48,7 +48,7 @@
       }
 
       var unassignedBlockers = blockerCandidates
-        .Where(x => !assignments.ContainsKey(x))        
+        .Where(x => !assignments.ContainsKey(x))
         .ToList();
 
       // second pass, assign additional blockers to blocked attackers 
@@ -58,7 +58,7 @@
 
     private static ChosenBlockers ImprooveAssignementsByAddingAditionalBlockers(
       IEnumerable<BlockerAssignment> assignments, List<Card> unassignedBlockers)
-    {      
+    {
       foreach (var assignment in assignments.Where(x => !x.IsAttackerKilled))
       {
         if (unassignedBlockers.Count == 0)
@@ -174,17 +174,17 @@
       {
         // attacker was not killed, but blocker was
         // check if additional blocker changes things
-        
+
         if (_isFirstBlockerKilled == false)
           return false;
-        
+
 
         if (additionalBlocker.Score > Attacker.Score)
           return false;
 
         return Combat.CanAttackerBeDealtLeathalCombatDamage(
           Attacker,
-          _blockers.Concat(additionalBlocker.ToEnumerable()));                                
+          _blockers.Concat(additionalBlocker.ToEnumerable()));
       }
 
       private bool IsSafeBlock(Card additionalBlocker)

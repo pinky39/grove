@@ -1,6 +1,7 @@
 ﻿namespace Grove.Tests.Cards
 {
   using System.Linq;
+  using Core.Details.Mana;
   using Grove.Core;
   using Infrastructure;
   using Xunit;
@@ -39,7 +40,7 @@
             .Activate(elves)
             .Verify(() => {
               True(P1.Battlefield.Contains(elves));
-              True(P1.HasMana(Mana.Green.ToAmount()));
+              True(P1.HasMana(ManaUnit.Green.ToAmount()));
             }));
       }
     }

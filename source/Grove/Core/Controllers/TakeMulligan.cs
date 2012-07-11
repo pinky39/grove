@@ -4,9 +4,11 @@
 
   public abstract class TakeMulligan : Decision<BooleanResult>
   {
+    protected override bool ShouldExecuteQuery { get { return Player.CanMulligan; } }
+
     public override void ProcessResults()
     {
-      if(ShouldExecuteQuery == false)
+      if (ShouldExecuteQuery == false)
         return;
 
       if (Result.IsTrue)
@@ -17,11 +19,6 @@
       {
         Player.HasMulligan = false;
       }
-    }
-
-    protected override bool ShouldExecuteQuery
-    {
-      get { return Player.CanMulligan; }
     }
   }
 }

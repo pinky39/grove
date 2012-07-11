@@ -3,8 +3,8 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.CardDsl;
-  using Core.Effects;
+  using Core.Details.Cards.Effects;
+  using Core.Dsl;
 
   public class Stupor : CardsSource
   {
@@ -17,10 +17,10 @@
         .Text("Target opponent discards a card at random, then discards a card.")
         .FlavorText("There are medicines for all afflictions but idleness.{EOL}—Suq'Ata saying")
         .Effect<OpponentDiscardsCards>((e, _) =>
-        {
-          e.RandomCount = 1;
-          e.SelectedCount = 1;
-        })
+          {
+            e.RandomCount = 1;
+            e.SelectedCount = 1;
+          })
         .Timing(Timings.FirstMain());
     }
   }

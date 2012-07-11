@@ -1,7 +1,9 @@
 ﻿namespace Grove.Core.Controllers.Human
 {
-  using System;
-  using Effects;
+  using Details.Cards.Effects;
+  using Details.Combat;
+  using Details.Mana;
+  using Targeting;
   using Ui.CombatDamage;
   using Ui.Shell;
 
@@ -12,17 +14,17 @@
     private readonly ViewModel.IFactory _combatVmFactory;
     private readonly Configuration _configuration;
     private readonly Ui.DamageOrder.ViewModel.IFactory _damageOrderVmFactory;
-    private Game _game;
     private readonly Ui.Priority.ViewModel.IFactory _priorityVmFactory;
     private readonly Ui.SelectTarget.ViewModel.IFactory _selectTargetVmFactory;
     private readonly IShell _shell;
+    private Game _game;
 
     public DecisionFactory(
       Ui.SelectTarget.ViewModel.IFactory selectTargetVmFactory,
       ViewModel.IFactory combatVmFactory,
       Ui.DamageOrder.ViewModel.IFactory damageOrderVmFactory,
       Ui.Priority.ViewModel.IFactory priorityVmFactory,
-      IShell shell,      
+      IShell shell,
       Configuration configuration)
     {
       _selectTargetVmFactory = selectTargetVmFactory;
@@ -30,7 +32,7 @@
       _priorityVmFactory = priorityVmFactory;
       _configuration = configuration;
       _combatVmFactory = combatVmFactory;
-      _shell = shell;      
+      _shell = shell;
     }
 
     public void Initialize(Game game)
@@ -151,7 +153,8 @@
         };
     }
 
-    public IDecision CreateConsiderPayingLifeOrMana(Player player, string  message, object context, PayLifeOrManaHandler handler,
+    public IDecision CreateConsiderPayingLifeOrMana(Player player, string message, object context,
+                                                    PayLifeOrManaHandler handler,
                                                     int? life, IManaAmount mana)
     {
       return new ConsiderPayingLifeOrMana

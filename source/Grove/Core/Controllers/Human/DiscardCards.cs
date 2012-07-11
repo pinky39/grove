@@ -11,7 +11,7 @@
   {
     public IShell Shell { get; set; }
     public ViewModel.IFactory DialogFactory { get; set; }
-    
+
     protected override void ExecuteQuery()
     {
       var dialog = DialogFactory.Create(new UiTargetSelector(
@@ -20,11 +20,11 @@
         text: String.Format("Select {0} card(s) to discard.", Count),
         isValid: target => target.Zone == Zone.Hand && target.Controller == Player
         ), canCancel: false);
-      
-      
+
+
       Shell.ShowModalDialog(dialog, DialogType.Small, SelectionMode.SelectTarget);
 
-      Result = dialog.Selection.ToList();            
+      Result = dialog.Selection.ToList();
     }
   }
 }

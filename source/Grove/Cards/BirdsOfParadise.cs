@@ -3,7 +3,9 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.CardDsl;
+  using Core.Details.Cards;
+  using Core.Details.Mana;
+  using Core.Dsl;
 
   public class BirdsOfParadise : CardsSource
   {
@@ -20,7 +22,7 @@
         .Timing(Timings.SecondMain())
         .Abilities(
           Static.Flying,
-          C.ManaAbility(Mana.Any, "{T}: Add one mana of any color to your mana pool.")
+          C.ManaAbility(ManaUnit.Any, "{T}: Add one mana of any color to your mana pool.")
         );
     }
   }

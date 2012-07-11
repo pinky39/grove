@@ -18,8 +18,8 @@
 #endif
 
     public static string ImagesFolder { get { return Path.Combine(BasePath, Images); } }
-    public static string DecksFolder {get { return Path.Combine(BasePath, Decks); }}
-    
+    public static string DecksFolder { get { return Path.Combine(BasePath, Decks); } }
+
 
     public static ImageSource GetCardImage(string name)
     {

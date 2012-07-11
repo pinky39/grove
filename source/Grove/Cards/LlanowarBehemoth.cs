@@ -3,10 +3,11 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.CardDsl;
-  using Core.Costs;
-  using Core.Effects;
-  using Core.Modifiers;
+  using Core.Details.Cards.Costs;
+  using Core.Details.Cards.Effects;
+  using Core.Details.Cards.Modifiers;
+  using Core.Dsl;
+  using Core.Targeting;
 
   public class LlanowarBehemoth : CardsSource
   {
@@ -33,7 +34,7 @@
                   m.Toughness = 1;
                 }, untilEndOfTurn: true))),
             costSelector: C.Selector(Selectors.Creature((creature) => !creature.IsTapped, Controller.SpellOwner)),
-            targetFilter: TargetFilters.CostTap(),              
+            targetFilter: TargetFilters.CostTap(),
             category: EffectCategories.ToughnessIncrease,
             timing: Timings.IncreaseOwnersPowerAndThougness(1, 1)
             ));

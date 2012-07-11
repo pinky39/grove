@@ -8,6 +8,6 @@
     Battlefield = 3,
     Graveyard = 4,
     Stack = 5,
-    Exiled = 6,    
+    Exiled = 6,
   }
 }

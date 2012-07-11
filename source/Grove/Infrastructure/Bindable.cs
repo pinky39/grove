@@ -15,12 +15,13 @@
     }
 
     private static object Create(Type type, params object[] arguments)
-    {      
-      return ProxyGenerator.CreateClassProxy(type, new[]{
-        typeof (INotifyPropertyChanged),
-        typeof (INotifyPropertyChangedRaiser),
-        typeof (INotifyCollectionChanged),
-      },ProxyGenerationOptions.Default, arguments, new NotifyPropertyChangedInterceptor());
+    {
+      return ProxyGenerator.CreateClassProxy(type, new[]
+        {
+          typeof (INotifyPropertyChanged),
+          typeof (INotifyPropertyChangedRaiser),
+          typeof (INotifyCollectionChanged),
+        }, ProxyGenerationOptions.Default, arguments, new NotifyPropertyChangedInterceptor());
     }
   }
 }

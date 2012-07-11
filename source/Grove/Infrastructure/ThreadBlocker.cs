@@ -20,10 +20,10 @@
     {
       if (_frame != null)
       {
-        _frame.Continue = false;        
+        _frame.Continue = false;
       }
 
-      if (_autoResetEvent != null)      
+      if (_autoResetEvent != null)
         _autoResetEvent.Set();
     }
 
@@ -51,7 +51,7 @@
       Debug.Assert(_autoResetEvent == null, "Do not reuse existing thread blocker, create a new one instead.");
       _autoResetEvent = new AutoResetEvent(false);
 
-      action.OnUIThread();
+      Execute.OnUIThread(action);
 
       _autoResetEvent.WaitOne();
       _autoResetEvent = null;

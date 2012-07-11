@@ -4,8 +4,9 @@
   using System.Linq;
   using Core;
   using Core.Ai;
-  using Core.CardDsl;
-  using Core.Effects;
+  using Core.Details.Cards.Effects;
+  using Core.Details.Mana;
+  using Core.Dsl;
 
   public class SunpetalGrove : CardsSource
   {
@@ -18,7 +19,7 @@
           "Sunpetal Grove enters the battlefield tapped unless you control a Forest or a Plains.{EOL}{T}: Add {G} or {W} to your mana pool.")
         .Abilities(
           C.ManaAbility(
-            new Mana(ManaColors.White | ManaColors.Green),
+            new ManaUnit(ManaColors.White | ManaColors.Green),
             "{T}: Add {G} or {W} to your mana pool."
             ))
         .Effect<PutIntoPlay>((e, _) => e.PutIntoPlayTapped =

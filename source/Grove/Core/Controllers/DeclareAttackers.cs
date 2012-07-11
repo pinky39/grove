@@ -6,6 +6,8 @@
   {
     public Combat Combat { get; set; }
 
+    protected override bool ShouldExecuteQuery { get { return Player.Battlefield.HasCreaturesThatCanAttack; } }
+
     public override void ProcessResults()
     {
       if (Result == null)
@@ -16,10 +18,5 @@
         Combat.DeclareAttacker(attacker);
       }
     }
-    
-    protected override bool ShouldExecuteQuery
-    {
-      get { return Player.Battlefield.HasCreaturesThatCanAttack; }
-    }  
   }
 }

@@ -8,9 +8,10 @@
     {
       get
       {
-        return new PlaySpellOrAbility{
-          Result = new Pass()
-        };
+        return new PlaySpellOrAbility
+          {
+            Result = new Pass()
+          };
       }
     }
 

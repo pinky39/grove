@@ -26,7 +26,7 @@
         if (_enumType == value)
           return;
 
-        Type enumType = Nullable.GetUnderlyingType(value) ?? value;
+        var enumType = Nullable.GetUnderlyingType(value) ?? value;
 
         if (enumType.IsEnum == false)
           throw new ArgumentException("Type must be an Enum.");
@@ -37,14 +37,15 @@
 
     public override object ProvideValue(IServiceProvider serviceProvider)
     {
-      Array enumValues = Enum.GetValues(EnumType);
+      var enumValues = Enum.GetValues(EnumType);
 
       return (
         from object enumValue in enumValues
-        select new EnumerationMember{
-          Value = enumValue,
-          Description = GetDescription(enumValue)
-        }).ToArray();
+        select new EnumerationMember
+          {
+            Value = enumValue,
+            Description = GetDescription(enumValue)
+          }).ToArray();
     }
 
     private string GetDescription(object enumValue)

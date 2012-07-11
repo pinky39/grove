@@ -3,10 +3,11 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.CardDsl;
-  using Core.Costs;
-  using Core.Effects;
-  using Core.Modifiers;
+  using Core.Details.Cards.Costs;
+  using Core.Details.Cards.Effects;
+  using Core.Details.Cards.Modifiers;
+  using Core.Details.Mana;
+  using Core.Dsl;
 
   public class NantukoShade : CardsSource
   {
@@ -24,7 +25,7 @@
         .Abilities(
           C.ActivatedAbility(
             "{B}: Nantuko Shade gets +1/+1 until end of turn.",
-            C.Cost<TapOwnerPayMana>((cost, _) => cost.Amount = Mana.Black.ToAmount()),
+            C.Cost<TapOwnerPayMana>((cost, _) => cost.Amount = ManaUnit.Black.ToAmount()),
             C.Effect<ApplyModifiersToSelf>((e, c) => e.Modifiers(
               c.Modifier<AddPowerAndToughness>((m, _) =>
                 {

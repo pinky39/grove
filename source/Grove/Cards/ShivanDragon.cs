@@ -3,10 +3,12 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.CardDsl;
-  using Core.Costs;
-  using Core.Effects;
-  using Core.Modifiers;
+  using Core.Details.Cards;
+  using Core.Details.Cards.Costs;
+  using Core.Details.Cards.Effects;
+  using Core.Details.Cards.Modifiers;
+  using Core.Details.Mana;
+  using Core.Dsl;
 
   public class ShivanDragon : CardsSource
   {
@@ -25,7 +27,7 @@
           Static.Flying,
           C.ActivatedAbility(
             "{R}: Shivan Dragon gets +1/+0 until end of turn.",
-            C.Cost<TapOwnerPayMana>((c, _) => c.Amount = Mana.Red.ToAmount()),
+            C.Cost<TapOwnerPayMana>((c, _) => c.Amount = ManaUnit.Red.ToAmount()),
             C.Effect<ApplyModifiersToSelf>((e, c) => e.Modifiers(
               c.Modifier<AddPowerAndToughness>((m, _) => m.Power = 1, untilEndOfTurn: true))),
             timing: Timings.IncreaseOwnersPowerAndThougness(1, 0)));

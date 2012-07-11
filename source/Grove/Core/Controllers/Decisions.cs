@@ -1,10 +1,13 @@
 ﻿namespace Grove.Core.Controllers
 {
   using Ai;
-  using Effects;
+  using Details.Cards.Effects;
+  using Details.Combat;
+  using Details.Mana;
   using Human;
   using Infrastructure;
   using Machine;
+  using Targeting;
 
   [Copyable]
   public class Decisions
@@ -39,8 +42,9 @@
       Enqueue(decision);
     }
 
-    public void EnqueueConsiderPayingLifeOrMana(Player player, PayLifeOrManaHandler handler, 
-      string question = null, object ctx = null, int? life = null, IManaAmount mana = null)
+    public void EnqueueConsiderPayingLifeOrMana(Player player, PayLifeOrManaHandler handler,
+                                                string question = null, object ctx = null, int? life = null,
+                                                IManaAmount mana = null)
     {
       var decision = SelectDecisionFactory(player)
         .CreateConsiderPayingLifeOrMana(player, question, ctx, handler, life, mana);
@@ -139,6 +143,6 @@
     private void Enqueue(IDecision decision)
     {
       _decisionQueue.Enqueue(decision);
-    }    
+    }
   }
 }

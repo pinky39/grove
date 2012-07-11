@@ -1,7 +1,7 @@
 ﻿namespace Grove.Ui.Stack
 {
   using System;
-  using Core.Effects;
+  using Core.Details.Cards.Effects;
   using Core.Zones;
   using Infrastructure;
 
@@ -43,11 +43,12 @@
 
     public void ChangePlayersInterest(Effect effect, bool hasLostInterest)
     {
-      var message = new PlayersInterestChanged{
-        Visual = effect.Source,
-        HasLostInterest = hasLostInterest,
-        Target = effect.Target()
-      };
+      var message = new PlayersInterestChanged
+        {
+          Visual = effect.Source,
+          HasLostInterest = hasLostInterest,
+          Target = effect.Target()
+        };
 
       _publisher.Publish(message);
     }
@@ -55,7 +56,7 @@
     private void MarkAsTarget(Effect effect)
     {
       _publisher.Publish(
-        new TargetSelected{Target = effect});
+        new TargetSelected {Target = effect});
     }
   }
 }

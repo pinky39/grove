@@ -3,9 +3,11 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.CardDsl;
-  using Core.Effects;
-  using Core.Triggers;
+  using Core.Details.Cards;
+  using Core.Details.Cards.Effects;
+  using Core.Details.Cards.Triggers;
+  using Core.Dsl;
+  using Core.Targeting;
 
   public class WallOfReverence : CardsSource
   {

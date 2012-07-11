@@ -5,6 +5,7 @@
   using System.Diagnostics;
   using System.Linq;
   using Core;
+  using Core.Details.Mana;
   using Grove.Infrastructure;
   using Xunit;
 
@@ -13,7 +14,7 @@
     [Fact]
     public void Colorless()
     {
-      var mana = new Mana();
+      var mana = new ManaUnit();
 
       Assert.False(mana.IsColored);
       Assert.True(mana.IsColorless);
@@ -85,7 +86,7 @@
       ManaPayment.Pay(amount, available);
 
       Assert.Equal(2, available.GetAvailableMana().Count());
-      Assert.Equal(new[] {Mana.Black, Mana.Red}, available.GetAvailableMana().ToArray());
+      Assert.Equal(new[] {ManaUnit.Black, ManaUnit.Red}, available.GetAvailableMana().ToArray());
     }
 
     [Fact]
@@ -109,7 +110,7 @@
     [Fact]
     public void Equality()
     {
-      Assert.Equal(new Mana(ManaColors.Red), new Mana(ManaColors.Red));
+      Assert.Equal(new ManaUnit(ManaColors.Red), new ManaUnit(ManaColors.Red));
     }
 
     [Fact]
@@ -160,7 +161,7 @@
     [Fact]
     public void Multicolor()
     {
-      var mana = new Mana(ManaColors.Red | ManaColors.Green | ManaColors.Black);
+      var mana = new ManaUnit(ManaColors.Red | ManaColors.Green | ManaColors.Black);
       Assert.True(mana.IsColored);
       Assert.Equal(3, mana.Rank);
       Assert.True(mana.HasColor(ManaColors.Red));
@@ -175,12 +176,12 @@
 
       var manaAmount = new PrimitiveManaAmount(new[]
         {
-          new Mana(),
-          new Mana(),
-          new Mana(),
-          new Mana(ManaColors.Black),
-          new Mana(ManaColors.Red),
-          new Mana(ManaColors.Green | ManaColors.Red)
+          new ManaUnit(),
+          new ManaUnit(),
+          new ManaUnit(),
+          new ManaUnit(ManaColors.Black),
+          new ManaUnit(ManaColors.Red),
+          new ManaUnit(ManaColors.Green | ManaColors.Red)
         });
 
       Assert.Equal(manaAmount, parsed);
@@ -189,7 +190,7 @@
     [Fact]
     public void SingleColorMana()
     {
-      var mana = Mana.Blue;
+      var mana = ManaUnit.Blue;
 
       Assert.True(mana.HasColor(ManaColors.Blue));
       Assert.True(mana.IsColored);
@@ -306,7 +307,7 @@
         return _bag.Amount;
       }
 
-      public void Consume(Dictionary<int, List<Mana>> payment)
+      public void Consume(Dictionary<int, List<ManaUnit>> payment)
       {
         Consume(new PrimitiveManaAmount(payment[0]));
       }

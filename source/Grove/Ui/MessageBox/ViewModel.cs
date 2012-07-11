@@ -21,15 +21,9 @@
 
     public string Icon { get; private set; }
 
-    public bool IsOk
-    {
-      get { return Buttons == MessageBoxButton.OK; }
-    }
+    public bool IsOk { get { return Buttons == MessageBoxButton.OK; } }
 
-    public bool IsYesNo
-    {
-      get { return Buttons == MessageBoxButton.YesNo; }
-    }
+    public bool IsYesNo { get { return Buttons == MessageBoxButton.YesNo; } }
 
     public string Message { get; private set; }
     public MessageBoxResult Result { get; private set; }

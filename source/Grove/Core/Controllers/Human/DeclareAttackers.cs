@@ -2,6 +2,7 @@
 {
   using System.Linq;
   using Infrastructure;
+  using Targeting;
   using Ui;
   using Ui.SelectTarget;
   using Ui.Shell;
@@ -24,13 +25,15 @@
         canCancel: false,
         instructions: "(Press spacebar when done.)",
         targetSelected: target => Publisher.Publish(
-          new AttackerSelected{
-            Attacker = target.Card()
-          }),
+          new AttackerSelected
+            {
+              Attacker = target.Card()
+            }),
         targetUnselected: target => Publisher.Publish(
-          new AttackerUnselected{
-            Attacker = target.Card()
-          }));
+          new AttackerUnselected
+            {
+              Attacker = target.Card()
+            }));
 
       Shell.ShowModalDialog(dialog, DialogType.Small, SelectionMode.SelectTarget);
 

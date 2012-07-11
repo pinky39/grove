@@ -1,6 +1,6 @@
 ﻿namespace Grove.Ui.DamageOrder
 {
-  using Core;
+  using Core.Details.Combat;
 
   public class BlockerAssignment
   {

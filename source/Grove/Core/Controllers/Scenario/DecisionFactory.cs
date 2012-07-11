@@ -2,8 +2,11 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Effects;
+  using Details.Cards.Effects;
+  using Details.Combat;
+  using Details.Mana;
   using Human;
+  using Targeting;
 
   public class DecisionFactory : IHumanDecisionFactory
   {
@@ -24,8 +27,8 @@
         };
     }
 
-    public IDecision CreateConsiderPayingLifeOrMana(Player player, 
-      string message, object context, PayLifeOrManaHandler handler,
+    public IDecision CreateConsiderPayingLifeOrMana(Player player,
+                                                    string message, object context, PayLifeOrManaHandler handler,
                                                     int? life, IManaAmount mana)
     {
       return new Machine.ConsiderPayingLifeOrMana

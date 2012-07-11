@@ -22,7 +22,7 @@
 
     public void Add(Card blocker, Card attacker)
     {
-      _pairs.Add(new AttackerBlockerPair{Blocker = blocker, Attacker = attacker});
+      _pairs.Add(new AttackerBlockerPair {Blocker = blocker, Attacker = attacker});
     }
 
     public bool ContainsBlocker(Card blocker)

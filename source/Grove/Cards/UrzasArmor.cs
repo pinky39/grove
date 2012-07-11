@@ -1,12 +1,11 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.CardDsl;
-  using Core.Modifiers;
-  using Core.Preventions;
+  using Core.Details.Cards.Modifiers;
+  using Core.Details.Cards.Preventions;
+  using Core.Dsl;
 
   public class UrzasArmor : CardsSource
   {
@@ -24,9 +23,9 @@
           C.Continuous((e, c) =>
             {
               e.ModifierFactory = c.Modifier<AddDamagePrevention>(
-                (m, c0) => m.Prevention = c0.Prevention<PreventDamageFromAnySource>((p, _) => p.SetAmount(1)));
+                (m, c0) => m.Prevention = c0.Prevention<PreventDamageFromAnySource>((p, _) => p.Amount = 1));
               e.CardFilter = delegate { return false; };
-              e.PlayerFilter = (player, armor) => player == armor.Controller;                                          
+              e.PlayerFilter = (player, armor) => player == armor.Controller;
             })
         );
     }

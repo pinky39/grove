@@ -3,10 +3,11 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.CardDsl;
-  using Core.Effects;
-  using Core.Modifiers;
-  using Core.Redirections;
+  using Core.Details.Cards.Effects;
+  using Core.Details.Cards.Modifiers;
+  using Core.Details.Cards.Redirections;
+  using Core.Dsl;
+  using Core.Targeting;
 
   public class Pariah : CardsSource
   {
@@ -24,16 +25,13 @@
           {
             e.ModifiesEnchantmentController = true;
             e.Modifiers(
-              c.Modifier<AddDamageRedirection>((m, c0) => 
-                m.Redirection = c.Redirection<RedirectDamageToTarget>((r, c1) =>
-                  {
-                    r.Target = m.Source.AttachedTo;
-                  }))
+              c.Modifier<AddDamageRedirection>((m, c0) =>
+                m.Redirection = c.Redirection<RedirectDamageToTarget>((r, c1) => { r.Target = m.Source.AttachedTo; }))
               );
           })
-          .Targets(
-            filter: TargetFilters.DamageRedirection(), 
-            selectors: C.Selector(Selectors.EnchantedCreature()));
+        .Targets(
+          filter: TargetFilters.DamageRedirection(),
+          selectors: C.Selector(Selectors.EnchantedCreature()));
     }
   }
 }

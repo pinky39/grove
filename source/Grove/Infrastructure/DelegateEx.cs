@@ -13,14 +13,14 @@
     public static string GetNameOfAnonymousFuncOwner(Delegate del)
     {
       var result = new StringBuilder();
-      
+
       if (del.Target != null)
-      {        
-        result.AppendFormat("{0}.", GetClassName(del.Target.ToString()));        
+      {
+        result.AppendFormat("{0}.", GetClassName(del.Target.ToString()));
       }
-      
+
       result.AppendFormat(GetMethodName(del.Method.ToString()));
-      
+
       return result.ToString();
     }
 
@@ -31,7 +31,7 @@
       {
         return match.Groups[1].Value;
       }
-      
+
       match = ClassName2.Match(generatedClassName);
       if (match.Success)
       {
@@ -40,7 +40,7 @@
 
       return generatedClassName;
     }
-    
+
     private static string GetMethodName(string generatedMethodName)
     {
       var match = MethodName.Match(generatedMethodName);

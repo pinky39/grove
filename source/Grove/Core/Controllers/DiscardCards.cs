@@ -9,10 +9,10 @@
     protected override bool ShouldExecuteQuery { get { return Count > 0 && Player.Hand.Count > Count; } }
 
     public override void ProcessResults()
-    {                  
+    {
       if (Count == 0)
         return;
-      
+
       if (Player.Hand.Count <= Count)
       {
         Player.DiscardHand();
@@ -23,6 +23,6 @@
       {
         Player.DiscardCard(card);
       }
-    }    
+    }
   }
 }

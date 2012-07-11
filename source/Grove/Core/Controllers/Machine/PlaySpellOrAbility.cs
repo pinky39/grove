@@ -9,7 +9,7 @@
 
   public class PlaySpellOrAbility : Controllers.PlaySpellOrAbility, ISearchNode, IDecisionExecution
   {
-    private static readonly ILog Log = LogManager.GetLogger(typeof(PlaySpellOrAbility));
+    private static readonly ILog Log = LogManager.GetLogger(typeof (PlaySpellOrAbility));
     private readonly DecisionExecutor _executor;
     private List<Playable> _playables;
 
@@ -62,19 +62,18 @@
     {
       // this is used when search is stoped when search depth is 
       // reached      
-      return new ChosenPlayable{Playable = new Pass()};
+      return new ChosenPlayable {Playable = new Pass()};
     }
 
     private IEnumerable<Playable> GeneratePlayables()
-    {                                                
-            
+    {
       if (!Restrictions.IsPlayRestrictedFor(Player))
       {
         foreach (var playable in new PlayableGenerator(Player, Game))
         {
           yield return playable;
         }
-      }                                                
+      }
 
       yield return new Pass();
     }

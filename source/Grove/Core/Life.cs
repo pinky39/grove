@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core
 {
+  using Ai;
   using Infrastructure;
 
   [Copyable]
@@ -11,7 +12,7 @@
     public Life(int value, ChangeTracker changeTracker)
     {
       _value = new Trackable<int>(value, changeTracker);
-      _score = new Trackable<int>(Ai.ScoreCalculator.CalculateLifeScore(value), changeTracker);
+      _score = new Trackable<int>(ScoreCalculator.CalculateLifeScore(value), changeTracker);
     }
 
     private Life() {}
@@ -27,7 +28,7 @@
           return;
 
         _value.Value = value;
-        Score = Ai.ScoreCalculator.CalculateLifeScore(value);
+        Score = ScoreCalculator.CalculateLifeScore(value);
       }
     }
   }

@@ -1,9 +1,10 @@
 ﻿namespace Grove.Core.Controllers.Scenario
 {
   using System;
-  using Effects;
+  using Details.Cards.Effects;
+  using Details.Cards.Modifiers;
   using Infrastructure;
-  using Modifiers;
+  using Targeting;
 
   public class LazyEffect : ITarget
   {

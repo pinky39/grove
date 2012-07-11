@@ -3,7 +3,8 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.CardDsl;
+  using Core.Details.Mana;
+  using Core.Dsl;
 
   public class Swamp : CardsSource
   {
@@ -15,7 +16,7 @@
         .Text("{T}: Add {B} to your mana pool.")
         .Timing(Timings.Lands())
         .Abilities(
-          C.ManaAbility(Mana.Black, "{T}: Add {B} to your mana pool."));
+          C.ManaAbility(ManaUnit.Black, "{T}: Add {B} to your mana pool."));
     }
   }
 }

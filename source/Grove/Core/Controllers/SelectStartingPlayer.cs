@@ -9,6 +9,6 @@
     public override void ProcessResults()
     {
       Players.Starting = Result.Player;
-    }    
+    }
   }
 }

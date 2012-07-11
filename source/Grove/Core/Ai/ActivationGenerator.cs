@@ -3,12 +3,14 @@
   using System.Collections;
   using System.Collections.Generic;
   using System.Linq;
+  using Details.Cards;
+  using Targeting;
 
   public class ActivationGenerator : IEnumerable<ActivationParameters>
   {
     private readonly Game _game;
-    private readonly SpellPrerequisites _prerequisites;
     private readonly bool _payKicker;
+    private readonly SpellPrerequisites _prerequisites;
     private readonly Card _spell;
 
     public ActivationGenerator(Card spell, SpellPrerequisites prerequisites, bool payKicker, Game game)
@@ -39,7 +41,7 @@
       var selectors = _payKicker
         ? _prerequisites.KickerTargetSelectors
         : _prerequisites.TargetSelectors;
-      
+
       if (selectors.HasEffect | selectors.HasCost)
       {
         var generator = new TargetGenerator(
@@ -65,7 +67,7 @@
           payKicker: _payKicker,
           x: CalculateX()
           );
-      }            
+      }
     }
 
     private int? CalculateX(Targets targets = null)

@@ -4,14 +4,18 @@
   using System.Collections.Generic;
   using System.Linq;
   using Ai;
-  using CardDsl;
-  using CastingRules;
-  using Counters;
-  using Effects;
+  using Details.Cards;
+  using Details.Cards.Casting;
+  using Details.Cards.Costs;
+  using Details.Cards.Counters;
+  using Details.Cards.Effects;
+  using Details.Cards.Modifiers;
+  using Details.Cards.Preventions;
+  using Details.Mana;
+  using Dsl;
   using Infrastructure;
   using Messages;
-  using Modifiers;
-  using Preventions;
+  using Targeting;
   using Zones;
 
   [Copyable]
@@ -29,7 +33,7 @@
     private Combat _combat;
     private TrackableList<ContinuousEffect> _continuousEffects;
     private Trackable<Player> _controller;
-    private Counters.Counters _counters;
+    private Counters _counters;
     private IEffectFactory _cyclingFactory;
     private Trackable<int> _damage;
     private DamagePreventions _damagePreventions;
@@ -52,12 +56,13 @@
     private TimingDelegate _timming;
     private Toughness _toughness;
     private TriggeredAbilities _triggeredAbilities;
+    private TurnInfo _turn;
     private CardTypeCharacteristic _type;
     private Trackable<int> _usageScore;
     private Trackable<bool> _wasEchoPaid;
     private CalculateX _xCalculator;
     private Trackable<Zone> _zone;
-    private TurnInfo _turn;
+    private Cost _additionalCost;
 
     protected Card() {}
 
@@ -133,7 +138,7 @@
     {
       get
       {
-        int score = 0;
+        var score = 0;
 
         switch (Zone)
         {
@@ -191,18 +196,18 @@
 
       if (damage.Source.Has().Lifelink)
       {
-        Player controller = damage.Source.Controller;
+        var controller = damage.Source.Controller;
         controller.Life += damage.Amount;
       }
 
       Publish(
         new DamageHasBeenDealt
           {
-            Damage = damage,            
-            Receiver = this,            
+            Damage = damage,
+            Receiver = this,
           });
 
-      this.Updates("Damage");      
+      this.Updates("Damage");
     }
 
     public EffectCategories EffectCategories { get; private set; }
@@ -284,6 +289,23 @@
       _hash.Value = null;
     }
 
+    public virtual void AddModifier(IModifier modifier)
+    {
+      foreach (var modifiable in ModifiableProperties)
+      {
+        modifiable.Accept(modifier);
+      }
+      _modifiers.Add(modifier);
+
+      modifier.Activate();
+    }
+
+    public void RemoveModifier(IModifier modifier)
+    {
+      _modifiers.Remove(modifier);
+      modifier.Dispose();
+    }
+
     public int EvaluateHowMuchDamageCanBeDealt(Card damageSource, int amount, bool isCombat)
     {
       if (HasProtectionFrom(damageSource))
@@ -308,17 +330,6 @@
       UsageScore += _turn.TurnCount;
     }
 
-    public virtual void AddModifier(IModifier modifier)
-    {
-      foreach (IModifiable modifiable in ModifiableProperties)
-      {
-        modifiable.Accept(modifier);
-      }
-      _modifiers.Add(modifier);
-
-      modifier.Activate();
-    }
-
     public void Attach(Card attachment)
     {
       if (attachment.IsAttached)
@@ -326,7 +337,7 @@
         attachment.AttachedTo.Detach(attachment);
       }
 
-      attachment.AttachedTo = this;      
+      attachment.AttachedTo = this;
 
       _attachments.Add(new Attachment(attachment));
 
@@ -374,11 +385,13 @@
     }
 
     public SpellPrerequisites CanCast()
-    {
-      if (!CastingRule.CanCast())
-        return new SpellPrerequisites {CanBeSatisfied = false};
-
-      bool canCastWithKicker = HasKicker ? Controller.HasMana(ManaCostWithKicker) : false;
+    {                        
+      if (!CastingRule.CanCast(this))
+        return new SpellPrerequisites {CanBeSatisfied = false};                        
+           
+      var canCastWithKicker = HasKicker 
+        ? Controller.HasMana(ManaCostWithKicker) 
+        : false;
 
       return new SpellPrerequisites
         {
@@ -408,14 +421,16 @@
 
     public void CycleInternal()
     {
-      Effect effect = _cyclingFactory.CreateEffect(this);
+      var effect = _cyclingFactory.CreateEffect(this);
       _stack.Push(effect);
       IncreaseUsageScore();
     }
 
     public void CastInternal(ActivationParameters activationParameters)
     {
-      Effect effect = activationParameters.PayKicker
+      PayCastingCost(activationParameters);
+            
+      var effect = activationParameters.PayKicker
         ? _kickerEffectFactory.CreateEffect(
           source: this,
           x: activationParameters.X,
@@ -443,7 +458,7 @@
 
     public void Detach(Card card)
     {
-      Attachment attachment = _attachments[card];
+      var attachment = _attachments[card];
 
       _attachments.Remove(attachment);
       card.AttachedTo = null;
@@ -462,7 +477,7 @@
 
     public void EnchantWithoutPayingTheCost(Card enchantment)
     {
-      Effect effect = enchantment._effectFactory.CreateEffect(enchantment);
+      var effect = enchantment._effectFactory.CreateEffect(enchantment);
 
       if (effect is EnchantCreature == false)
         throw new InvalidOperationException("Card is is not an enchantment.");
@@ -542,12 +557,6 @@
       _counters.RemoveAny<ChargeCounter>();
     }
 
-    public void RemoveModifier(IModifier modifier)
-    {
-      _modifiers.Remove(modifier);
-      modifier.Dispose();
-    }    
-
     public void RemoveSummoningSickness()
     {
       _hasSummoningSickness.Value = false;
@@ -565,8 +574,8 @@
 
     public void SetZone(Zone value)
     {
-      Zone oldZone = _zone.Value;
-      Zone newZone = value;
+      var oldZone = _zone.Value;
+      var newZone = value;
 
       if (newZone == oldZone)
         return;
@@ -619,7 +628,7 @@
 
     private void DetachAttachments()
     {
-      foreach (Card attachedCard in _attachments.Cards.ToList())
+      foreach (var attachedCard in _attachments.Cards.ToList())
       {
         Detach(attachedCard);
       }
@@ -643,9 +652,9 @@
         return ManaColors.Colorless;
       }
 
-      ManaColors cardColor = ManaColors.None;
+      var cardColor = ManaColors.None;
 
-      foreach (Mana mana in ManaCost.Colored())
+      foreach (var mana in ManaCost.Colored())
       {
         cardColor = cardColor | mana.Colors;
       }
@@ -684,6 +693,16 @@
       _wasEchoPaid.Value = true;
     }
 
+    public void RemoveModifier(Type type)
+    {
+      var modifier = _modifiers.FirstOrDefault(x => x.GetType() == type);
+
+      if (modifier == null)
+        return;
+
+      RemoveModifier(modifier);
+    }
+
     [Copyable]
     public class CardFactory : ICardFactory
     {
@@ -719,11 +738,11 @@
       private int? _toughness;
       private CardType _type;
       private CalculateX _xCalculator;
+      private ICostFactory _additionalCost;
+      private readonly List<ITargetSelectorFactory> _costTargetFactories = new List<ITargetSelectorFactory>();
+      private TargetsFilterDelegate _costTargetsFilter;
 
-      private CardFactory()
-      {
-        
-      }
+      private CardFactory() {}
 
       public CardFactory(Game game)
       {
@@ -735,7 +754,7 @@
 
       public Card CreateCard(Player controller)
       {
-        Card card = _game.Search.InProgress ? new Card() : Bindable.Create<Card>();
+        var card = _game.Search.InProgress ? new Card() : Bindable.Create<Card>();
 
         card._publisher = _game.Publisher;
         card._combat = _game.Combat;
@@ -750,7 +769,8 @@
 
         card.Name = _name;
         card._xCalculator = _xCalculator;
-        card.ManaCost = _manaCost.ParseManaAmount();
+        card.ManaCost = _manaCost.ParseManaAmount();               
+        
         card.EchoCost = _echoCost.ParseManaAmount();
         card.CyclingCost = _cyclingCost.ParseManaAmount();
         card.KickerCost = _kickerCost.ParseManaAmount();
@@ -758,7 +778,7 @@
         card.Text = _text ?? String.Empty;
         card.FlavorText = _flavorText ?? String.Empty;
         card.Illustration = GetIllustration(_name, _type);
-        card.CastingRule = CreateCastingRule(card, _type, _game);
+        card.CastingRule = CreateCastingRule(_type, _game);
 
         CreateBindablePower(card);
         CreateBindableToughness(card);
@@ -789,30 +809,40 @@
         card._modifiers = new TrackableList<IModifier>(_changeTracker);
 
 
-        foreach (ITargetSelectorFactory factory in _effectTargetFactories)
+        foreach (var factory in _effectTargetFactories)
         {
           card._targetSelectors.AddEffectSelector(factory.Create(card));
         }
 
-        foreach (ITargetSelectorFactory factory in _kickerEffectTargetFactories)
+        foreach (var factory in _kickerEffectTargetFactories)
         {
           card._kickerTargetSelectors.AddEffectSelector(factory.Create(card));
+        }
+        
+        // here we simplify that kicker cost targets are same as normal cost targets
+        foreach (var factory in _costTargetFactories)
+        {
+          card._targetSelectors.AddCostSelector(factory.Create(card));                    
+          card._kickerTargetSelectors.AddCostSelector(factory.Create(card));
         }
 
         card._targetSelectors.Filter = _targetsFilter;
         card._kickerTargetSelectors.Filter = _kickertargetsFilter;
 
+        card._additionalCost = _additionalCost == null ? 
+          new NoCost() : _additionalCost.CreateCost(card, card._targetSelectors.Cost(0));
+
         card._staticAbilities = new StaticAbilities(_staticAbilities, _changeTracker, card);
 
-        IEnumerable<TriggeredAbility> triggeredAbilities = _triggeredAbilityFactories.Select(x => x.Create(card, card));
+        var triggeredAbilities = _triggeredAbilityFactories.Select(x => x.Create(card, card));
         card._triggeredAbilities = new TriggeredAbilities(triggeredAbilities, _changeTracker, card);
 
-        List<ActivatedAbility> activatedAbilities = _activatedAbilityFactories.Select(x => x.Create(card)).ToList();
+        var activatedAbilities = _activatedAbilityFactories.Select(x => x.Create(card)).ToList();
         card._activatedAbilities = new ActivatedAbilities(activatedAbilities, _changeTracker, card);
 
         card._manaSources = activatedAbilities.Where(ability => ability is IManaSource).Cast<IManaSource>().ToList();
 
-        List<ContinuousEffect> continiousEffects =
+        var continiousEffects =
           _continuousEffectFactories.Select(factory => factory.Create(card)).ToList();
         card._continuousEffects = new TrackableList<ContinuousEffect>(continiousEffects, _changeTracker, card);
 
@@ -835,7 +865,7 @@
         card._type = new CardTypeCharacteristic(_type, null, null);
         card._colors = new CardColors(card.GetCardColorFromManaCost(), null, null);
         card._level = new Level(null, null, null);
-        card._counters = new Counters.Counters(card._power, card._toughness, null, null);
+        card._counters = new Counters(card._power, card._toughness, null, null);
 
         card._damage = new Trackable<int>(null, card);
         card._isTapped = new Trackable<bool>(null, card);
@@ -863,7 +893,7 @@
 
       public CardFactory Abilities(params object[] abilities)
       {
-        foreach (object ability in abilities)
+        foreach (var ability in abilities)
         {
           if (ability is Static)
           {
@@ -960,6 +990,12 @@
         return this;
       }
 
+      public CardFactory AdditionalCost(ICostFactory cost)
+      {
+        _additionalCost = cost;
+        return this;
+      }
+
       public CardFactory Named(string name)
       {
         _name = name;
@@ -989,6 +1025,13 @@
       {
         _effectTargetFactories.AddRange(selectors);
         _targetsFilter = filter;
+        return this;
+      }
+
+      public CardFactory CostTargets(TargetsFilterDelegate filter, params  ITargetSelectorFactory[] selectors)
+      {
+        _costTargetFactories.AddRange(selectors);
+        _costTargetsFilter = filter;
         return this;
       }
 
@@ -1022,15 +1065,15 @@
         return this;
       }
 
-      private static CastingRule CreateCastingRule(Card card, CardType type, Game game)
-      {
+      private static CastingRule CreateCastingRule(CardType type, Game game)
+      {        
         if (type.Instant)
-          return new Instant(card, game.Stack);
+          return new Instant(game.Stack);
 
         if (type.Land)
-          return new Land(card, game.Stack, game.Turn);
+          return new Land(game.Stack, game.Turn);
 
-        return new Sorcery(card, game.Stack, game.Turn);
+        return new Default(game.Stack, game.Turn);
       }
 
       private static string GetIllustration(string cardName, CardType cardType)
@@ -1057,7 +1100,7 @@
 
       private void CreateBindableCounters(Card card)
       {
-        card._counters = Bindable.Create<Counters.Counters>(card._power, card._toughness, _changeTracker, card);
+        card._counters = Bindable.Create<Counters>(card._power, card._toughness, _changeTracker, card);
 
         card._counters.Property(x => x.Count)
           .Changes(card).Property<Card, int?>(x => x.Counters);
@@ -1097,14 +1140,31 @@
       }
     }
 
-    public void RemoveModifier(Type type)
-    {
-      var modifier = _modifiers.FirstOrDefault(x => x.GetType() == type);
-      
-      if (modifier == null)
-        return;
+    public bool CanPayCastingCost()
+    {      
+      return _additionalCost.CanPay() && 
+        Controller.HasMana(ManaCost);
+    }    
 
-      RemoveModifier(modifier);
+    public void PayCastingCost(ActivationParameters activationParameters)
+    {
+      if (Is().Land)
+      {
+        Controller.CanPlayLands = false;
+      }
+      else
+      {
+        var manaCost = activationParameters.PayKicker ? ManaCostWithKicker : ManaCost;
+        if (activationParameters.X.HasValue)
+        {
+          manaCost = manaCost.Add(activationParameters.X.Value);
+        }
+        Controller.Consume(manaCost);
+      }
+
+      _additionalCost.Pay(
+        activationParameters.Targets.Cost(0), 
+        activationParameters.X);
     }
   }
 }

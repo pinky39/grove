@@ -2,6 +2,6 @@
 {
   public class RemovedFromCombat
   {
-    public Card Card { get; set; }   
+    public Card Card { get; set; }
   }
 }

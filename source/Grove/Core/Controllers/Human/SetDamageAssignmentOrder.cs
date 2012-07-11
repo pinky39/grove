@@ -12,7 +12,7 @@
     protected override void ExecuteQuery()
     {
       var result = new DamageAssignmentOrder();
-      
+
       var dialog = DialogFactory.Create(Attacker, result);
       Shell.ShowModalDialog(dialog);
 

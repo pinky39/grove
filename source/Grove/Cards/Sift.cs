@@ -3,8 +3,8 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.CardDsl;
-  using Core.Effects;
+  using Core.Details.Cards.Effects;
+  using Core.Dsl;
 
   public class Sift : CardsSource
   {
@@ -18,10 +18,10 @@
         .FlavorText("Dwell longest on the thoughts that shine brightest.")
         .Timing(Timings.FirstMain())
         .Effect<DrawCards>((e, _) =>
-        {
-          e.DrawCount = 3;
-          e.DiscardCount = 1;
-        });
+          {
+            e.DrawCount = 3;
+            e.DiscardCount = 1;
+          });
     }
   }
 }

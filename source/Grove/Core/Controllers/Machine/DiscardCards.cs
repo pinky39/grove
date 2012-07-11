@@ -9,10 +9,11 @@
     {
       var cardsToDiscard = Player.Hand.Select(
         card =>
-          new{
-            Card = card,
-            Score = ScoreCalculator.CalculateDiscardScore(card)
-          })
+          new
+            {
+              Card = card,
+              Score = ScoreCalculator.CalculateDiscardScore(card)
+            })
         .OrderBy(x => x.Score)
         .Take(Count)
         .Select(x => x.Card);
