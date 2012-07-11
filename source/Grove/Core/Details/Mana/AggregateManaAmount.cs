@@ -36,6 +36,11 @@
       return _amounts.Any(amount => amount.Has(mana));
     }
 
+    public override string ToString()
+    {
+      return ManaAmount.ToString(this);
+    }
+
     public ManaUnit First { get { return this.First(); } }
 
     public bool IsColorless { get { return _amounts.All(amount => amount.IsColorless); } }

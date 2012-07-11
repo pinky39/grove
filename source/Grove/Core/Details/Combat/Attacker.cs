@@ -39,7 +39,10 @@
     public bool HasDeathTouch { get { return _card.Has().Deathtouch; } }
     public bool HasTrample { get { return _card.Has().Trample; } }
     public int LifepointsLeft { get { return _card.LifepointsLeft; } }
-    public int DamageThisWillDealInOneDamageStep { get { return _card.Power.Value; } }
+    public int DamageThisWillDealInOneDamageStep { get
+    {
+      return  _card.Power.HasValue ? _card.Power.Value : 0;
+    } }
 
     public int CalculateHash(HashCalculator calc)
     {

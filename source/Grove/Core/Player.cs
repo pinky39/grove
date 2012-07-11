@@ -175,6 +175,7 @@
       }
 
       _modifiers.Add(modifier);
+      modifier.Activate();
     }
 
     public void RemoveModifier(IModifier modifier)
@@ -200,10 +201,8 @@
 
     public void CycleSpell(Card spell)
     {
-      _hand.Remove(spell);
-      Consume(spell.CyclingCost);
+      _hand.Remove(spell);      
       spell.CycleInternal();
-
       PublishMessage(new PlayerHasCycledASpell {Spell = spell});
     }
 

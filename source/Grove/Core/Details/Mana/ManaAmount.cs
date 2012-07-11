@@ -46,6 +46,21 @@
       return amount.IsZero() ? 0 : amount.Max(x => x.Rank);
     }
 
+    public static string ToString(this IManaAmount amount)
+    {
+      var sb = new StringBuilder();
+
+      
+      foreach (var symbolName in amount.GetSymbolNames())
+      {
+        sb.Append("{");
+        sb.Append(symbolName);
+        sb.Append("}");
+      }
+
+      return sb.ToString();
+    }
+    
     public static string[] GetSymbolNames(this IManaAmount amount)
     {
       var colorlessCount = amount.Count(mana => mana.IsColorless);

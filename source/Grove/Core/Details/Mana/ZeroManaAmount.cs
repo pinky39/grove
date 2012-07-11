@@ -25,5 +25,10 @@
     public ManaUnit First { get { return null; } }
 
     public bool IsColorless { get { return true; } }
+
+    public override string ToString()
+    {
+      return "{0}";
+    }
   }
 }

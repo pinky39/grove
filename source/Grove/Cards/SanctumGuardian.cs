@@ -30,7 +30,7 @@
             effectSelectors: new[]
               {
                 C.Selector(Selectors.EffectOrPermanent(), text: "Select damage source."),
-                C.Selector(Selectors.CreatureOrPlayer(), text:  "Select a creature.")
+                C.Selector(Selectors.CreatureOrPlayer(), text:  "Select a creature or player.")
               },
             targetFilter: TargetFilters.PreventDamageFromSourceToAnyTarget(),
             timing: Timings.NoRestrictions()

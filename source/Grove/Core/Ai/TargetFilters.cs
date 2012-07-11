@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core.Ai
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Details.Mana;
@@ -119,11 +120,17 @@
         };
     }
 
+    public static TargetsFilterDelegate DealDamage(Func<TargetFilterParameters, int> amount)
+    {
+      return p => DealDamage(amount(p))(p);
+    }
+    
     public static TargetsFilterDelegate DealDamage(int? amount = null)
     {
       return p =>
         {
           amount = amount ?? p.MaxX;
+                              
           var candidates = p.Candidates()
             .Where(x => x == p.Opponent)
             .Select(x => new

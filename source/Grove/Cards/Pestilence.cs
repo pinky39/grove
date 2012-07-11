@@ -31,7 +31,8 @@
                 t.Step = Step.EndOfTurn;
                 t.Condition = self => self.Game.Players.Permanents().None(x => x.Is().Creature);
               }),
-            C.Effect<SacrificeSource>()
+            C.Effect<SacrificeSource>(), 
+            triggerOnlyIfOwningCardIsInPlay: true
             ),
           C.ActivatedAbility(
             "{B}: Pestilence deals 1 damage to each creature and each player.",

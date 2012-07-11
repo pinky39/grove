@@ -176,6 +176,9 @@
 
     public void DealDamage(Damage damage)
     {
+      if (!Is().Creature)
+        return;
+      
       if (HasProtectionFrom(damage.Source))
       {
         damage.PreventAll();
@@ -421,9 +424,17 @@
 
     public void CycleInternal()
     {
+      PayCyclingCost();
+      
       var effect = _cyclingFactory.CreateEffect(this);
       _stack.Push(effect);
+
       IncreaseUsageScore();
+    }
+
+    private void PayCyclingCost()
+    {
+      Controller.Consume(CyclingCost);
     }
 
     public void CastInternal(ActivationParameters activationParameters)

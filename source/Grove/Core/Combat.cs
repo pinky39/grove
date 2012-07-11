@@ -224,6 +224,9 @@
 
       var total = 0;
 
+      if (!attacker.Is().Creature)
+        return false;
+      
       if (!attacker.CanBeDestroyed)
         return false;
 
@@ -316,6 +319,9 @@
     public static bool CanBlockerBeDealtLeathalCombatDamage(Card blocker, Card attacker,
                                                             int additionalPower = 0, int additionalThoughness = 0)
     {
+      if (!blocker.Is().Creature)
+        return false;
+      
       if (!blocker.CanBeDestroyed)
         return false;
 

@@ -21,7 +21,7 @@
                     <Image Source = "{Binding Path=Image}" Height = "18" Margin = "0,0,0,0" />
                 </DataTemplate>
             </DataTemplate.Resources>
-            <ItemsControl ItemsSource = "{Binding Path=Description.AbilityTokens}" >
+            <ItemsControl ItemsSource = "{Binding Path=Description.Tokens}" >
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel Orientation = "Horizontal" />
@@ -48,7 +48,7 @@
             <Border Grid.Row="0" Background="{StaticResource BarBackground}">
                 <StackPanel Margin="10,0,10,0" Orientation="Horizontal">
                     <Image Margin="0,0,10,0"  Style="{StaticResource DialogIcon}"/>
-                    <TextBlock Text="Please select ability"/>
+                    <TextBlock Text="What do you want to do?"/>
                 </StackPanel>
             </Border>
             <Border Grid.Row="1" Background="#333">

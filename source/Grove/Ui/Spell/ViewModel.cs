@@ -83,8 +83,8 @@
 
       if (cast.CanBeSatisfied && cycle.CanBeSatisfied)
       {
-        cast.Description = String.Format("Cast {0}.", Card);
-        cycle.Description = String.Format("{{{0}}}, Discard this card: Draw a card.)", Card.CyclingCost);
+        cast.Description = String.Format("Cast {0}.", Card );
+        cycle.Description = String.Format("{0}, Discard this card: Draw a card.", Card.CyclingCost);
 
         var dialog = _selectAbilityVmFactory.Create(new[] {cast, cycle});
         _shell.ShowModalDialog(dialog, DialogType.Large, SelectionMode.Disabled);

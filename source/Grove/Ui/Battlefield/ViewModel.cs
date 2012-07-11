@@ -107,22 +107,10 @@
     private void Detach(Card equipment)
     {
       var viewModel = Remove(equipment);
-      Add(viewModel);
-    }
-
-    private Permanent.ViewModel Find(Card card)
-    {
-      foreach (var row in _rows)
-      {
-        var viewModel = row.GetPermanent(card);
-
-        if (viewModel != null)
-        {
-          return viewModel;
-        }
-      }
-      return null;
-    }
+      
+      if (viewModel != null)
+        Add(viewModel);
+    }   
 
     private Permanent.ViewModel Remove(Card card)
     {
@@ -137,7 +125,7 @@
         }
       }
 
-      throw new InvalidOperationException(String.Format("Permanent {0} not found on battlefield", card));
+      return null;
     }
 
     private void Synchronize(object sender, NotifyCollectionChangedEventArgs e)

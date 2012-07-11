@@ -62,7 +62,8 @@
         if (indexOfColon > 0)
           return Tokens.Skip(indexOfColon + 1);
 
-        return Enumerable.Empty<Token>();
+
+        return Tokens;
       }
     }
 

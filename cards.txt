@@ -20,12 +20,15 @@ Argothian Swine
 Baneslayer Angel
 Basilisk Collar
 Beacon of Destruction
+Befoul
 Birds of Paradise
 Black Sun's Zenith
 Blanchwood Armor
 Blaze
+Blood Vassal
 Burst Lightning
 Copperline Gorge
+Corrupt
 Counterspell
 Creeping Tar Pit
 Cruel Edict
@@ -33,17 +36,22 @@ Darkslick Drake
 Darksteel Gargoyle
 Day of Judgment
 Deathless Angel
+Disciple of Grace
+Disenchant
 Divination
 Doom blade
 Drana, Kalastria Bloodchief
 Dread
+Drifting Meadow
 Drowned Catacomb
 Elesh Norn, Grand Cenobite
 Elvish Warrior
 Evacuation
+Expunge
 Fires of Yavimaya
 Flame Slash
 Flametongue Kavu
+Flesh Reaver
 Forest
 Glorious Anthem
 Go for the Throat
@@ -51,6 +59,7 @@ Grasp of Darkness
 Grave Titan
 Grizzly Bears
 Hero of Bladehold
+Humble
 Hypnotic Specter
 Island
 Leatherback Baloth
@@ -64,9 +73,13 @@ Martial Coup
 Mirran Crusader
 Mountain
 Nantuko Shade
+Opal Acrolith
 Order of the Sacred Bell
+Pariah
+Pestilence
 Phyrexian Arena
 Plains
+Polluted Mire
 Raging Ravine
 Rancor
 Ravenous Baloth
@@ -74,13 +87,17 @@ Razorverge Thicket
 Recoil
 Rootbound Crag
 Rumbling Slum
+Rune of Protection: Black
 Rupture Spire
+Sanctum Guardian
 Savannah Lions
 Seal of Fire
 Shivan Dragon
 Shock
+Sicken
 Sift
 Sign in Blood
+Silent Attendant
 Steam Vents
 Stirring Wildwood
 Student of Warfare
@@ -97,15 +114,20 @@ Trained Armodon
 Trip Noose
 Troll Ascetic
 Undermine
+Unworthy Dead
+Urza's Armor
 Vampire Nighthawk
 Verdant Force
 Vigor
 Vines of Vastwood
 Vivid Crag
 Vivid Creek
+Voice of Grace
 Volcanic Fallout
 Volcanic Hammer
 Wall of Denial
+Wall of Junk
 Wall of Reverence
 White Knight
+Worship
 Wurmcoil Engine

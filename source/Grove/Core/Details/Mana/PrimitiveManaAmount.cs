@@ -41,7 +41,7 @@
 
     public override string ToString()
     {
-      return string.Join(string.Empty, _amount);
+      return ManaAmount.ToString(this);
     }
   }
 }
