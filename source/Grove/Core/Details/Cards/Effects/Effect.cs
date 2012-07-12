@@ -28,6 +28,7 @@
     public virtual bool AffectsSource { get { return false; } }
 
     public bool HasTargets { get { return _targets.Count > 0; } }
+    public IEnumerable<ITarget> Targets { get { return _targets; } }
 
     public int CalculateHash(HashCalculator calc)
     {

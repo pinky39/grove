@@ -10,7 +10,8 @@
       <ResourceDictionary Source="Battlefield.xaml"/>
       <ResourceDictionary Source="Zones.xaml"/>      
    </ResourceDictionary.MergedDictionaries>
-   <Grid x:Key="Playground" Background="#000">
+   <Grid x:Key="Playground">
+   <Grid Background="#000">
       <Grid.RowDefinitions>
          <RowDefinition Height="32"/>
          <RowDefinition Height="*"/>
@@ -72,9 +73,13 @@
             <ColumnDefinition Width="Auto"/>                                    
             <ColumnDefinition Width="*"/>                        
          </Grid.ColumnDefinitions>
-         <ContentControl Grid.Column="0" Content="{StaticResource PlayerBox}" Margin="15,0,15,0"/>         
-         <ContentControl Grid.Column="1" Content="{StaticResource Notification}" />         
+         <ContentControl Grid.Column="0" Content="{StaticResource PlayerBox}" Margin="15,0,15,0"/>                     
       </Grid>
-   </Grid>
+      
+      
+   </Grid>    
+     <ContentControl VerticalAlignment="Bottom" HorizontalAlignment="Right" Content="{StaticResource Notification}" />
+   
+   </Grid>   
    <!-- End bottom bar -->
 </ResourceDictionary>

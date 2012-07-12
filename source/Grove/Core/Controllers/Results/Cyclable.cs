@@ -13,7 +13,7 @@
 
     public override void Play()
     {
-      Card.Controller.CycleSpell(Card);
+      Card.Controller.CycleCard(Card);
     }
 
     public override string ToString()

@@ -203,12 +203,7 @@
         controller.Life += damage.Amount;
       }
 
-      Publish(
-        new DamageHasBeenDealt
-          {
-            Damage = damage,
-            Receiver = this,
-          });
+      Publish(new DamageHasBeenDealt(this, damage));
 
       this.Updates("Damage");
     }

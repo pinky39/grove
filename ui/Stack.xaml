@@ -39,8 +39,20 @@
                   <ContentControl Content="{StaticResource 'Forest'}"/>
                </Border>
                <Border Margin="0,-220,0,0">
-                  <ContentControl Content="{StaticResource 'Llanowar Elves'}"/>
+                  <Grid>
+                    <ContentControl Content="{StaticResource 'Llanowar Elves'}"/>
+                    <Border  Width="125" Height="80" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,40,20,0">
+                      <Viewbox VerticalAlignment="Center" HorizontalAlignment="Right">
+                        <StackPanel Orientation="Horizontal"  >
+                            <ContentControl Content="{StaticResource 'Grizzly Bears'}"/>
+                                                                      
+                        </StackPanel>                      
+                      </Viewbox>
+                    </Border>
+                    
+                  </Grid>                  
                </Border>
+               
             </StackPanel>
          </Border>
       </Grid>

@@ -244,6 +244,7 @@
     <Compile Include="Core\Details\Cards\Effects\SacrificeSource.cs" />
     <Compile Include="Core\Details\Cards\IStaticAbilities.cs" />
     <Compile Include="Core\Details\Mana\ManaSourcePriorities.cs" />
+    <Compile Include="Core\Messages\AssignedCombatDamageWasDealt.cs" />
     <Compile Include="Core\Targeting\ITargetSelector.cs" />
     <Compile Include="Core\Targeting\ITargetSelectorFactory.cs" />
     <Compile Include="Core\Details\Cards\Modifiers\AddDamageRedirection.cs" />
@@ -335,7 +336,7 @@
     <Compile Include="Core\Details\Mana\ManaPayment.cs" />
     <Compile Include="Core\Messages\CardChangedLevel.cs" />
     <Compile Include="Core\Messages\PlayerHasActivatedAbility.cs" />
-    <Compile Include="Core\Messages\PlayerHasCycledASpell.cs" />
+    <Compile Include="Core\Messages\PlayerHasCycledCard.cs" />
     <Compile Include="Core\Messages\SearchFinished.cs" />
     <Compile Include="Core\Messages\SearchStarted.cs" />
     <Compile Include="Core\Details\Cards\Modifiers\AddCounters.cs" />

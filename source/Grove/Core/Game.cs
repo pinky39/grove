@@ -20,9 +20,9 @@
       Players players,
       Publisher publisher,
       Stack stack,
-      ChangeTracker changeTracker,
-      StateMachine stateMachine,
+      ChangeTracker changeTracker,      
       Decisions decisions,
+      StateMachine stateMachine,
       TurnInfo turnInfo,
       Search search)
     {
@@ -32,11 +32,11 @@
       Stack = stack;
       ChangeTracker = changeTracker;
       Decisions = decisions;
-
-      _stateMachine = stateMachine;
+      
       _turnInfo = turnInfo;
       _search = search;
       _wasStopped = new Trackable<bool>(ChangeTracker);
+      _stateMachine = stateMachine.Init(this);
     }
 
     public ChangeTracker ChangeTracker { get; private set; }

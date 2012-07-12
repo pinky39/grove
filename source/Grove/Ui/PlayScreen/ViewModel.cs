@@ -1,8 +1,8 @@
 ﻿namespace Grove.Ui.PlayScreen
 {
-  using System;
   using System.Collections.Generic;
   using System.Linq;
+  using System.Threading;
   using Core;
   using Core.Messages;
   using Core.Testing;
@@ -10,10 +10,10 @@
   using Shell;
 
   public class ViewModel : IIsDialogHost, IReceive<PlayerHasCastASpell>, IReceive<PlayerHasActivatedAbility>,
-    IReceive<SearchStarted>, IReceive<SearchFinished>
+    IReceive<PlayerHasCycledCard>, IReceive<SearchStarted>, IReceive<SearchFinished>, IReceive<DamageHasBeenDealt>,
+    IReceive<AssignedCombatDamageWasDealt>
   {
     private readonly List<object> _largeDialogs = new List<object>();
-    private readonly Match _match;
     private readonly List<object> _notifications = new List<object>();
     private readonly ScenarioGenerator _scenarioGenerator;
     private readonly IShell _shell;
@@ -21,11 +21,10 @@
     private readonly List<object> _smallDialogs = new List<object>();
 
     public ViewModel(IShell shell, Players players, Battlefield.ViewModel.IFactory battlefieldFactory,
-                     ScenarioGenerator scenarioGenerator, Match match)
+                     ScenarioGenerator scenarioGenerator)
     {
       _shell = shell;
       _scenarioGenerator = scenarioGenerator;
-      _match = match;
 
       OpponentsBattlefield = battlefieldFactory.Create(players.Computer);
       YourBattlefield = battlefieldFactory.Create(players.Human);
@@ -87,33 +86,32 @@
       _largeDialogs.Remove(dialog);
     }
 
+    public void Receive(AssignedCombatDamageWasDealt message)
+    {
+      // pause the game a bit after dealing combat damage
+      // before creatures go to graveyards
+      Thread.Sleep(500);
+    }
+
+    public void Receive(DamageHasBeenDealt message)
+    {
+      _shell.ShowNotification(message.ToString());
+    }
+
     public void Receive(PlayerHasActivatedAbility message)
     {
-      if (message.HasTarget)
-      {
-        _shell.ShowNotification(
-          String.Format("{0} find(s) that {2} is a great target for {1}.", message.Ability.Controller, message.Ability,
-            message.Target));
-        return;
-      }
-
-      _shell.ShowNotification(
-        String.Format("{0} think(s) {1} might resolve the issue.", message.Ability.Controller, message.Ability));
+      _shell.ShowNotification(message.ToString());
     }
 
 
     public void Receive(PlayerHasCastASpell message)
     {
-      if (message.HasTarget)
-      {
-        _shell.ShowNotification(
-          String.Format("{0} find(s) that {2} is a great target for {1}.", message.Spell.Controller, message.Spell,
-            message.Target));
-        return;
-      }
+      _shell.ShowNotification(message.ToString());
+    }
 
-      _shell.ShowNotification(
-        String.Format("{0} think(s) {1} will solve this mess.", message.Spell.Controller, message.Spell));
+    public void Receive(PlayerHasCycledCard message)
+    {
+      _shell.ShowNotification(message.ToString());
     }
 
     public void Receive(SearchFinished message)

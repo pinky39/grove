@@ -2,6 +2,7 @@
 {
   using System;
   using Core.Details.Cards.Effects;
+  using Core.Targeting;
   using Core.Zones;
   using Infrastructure;
 
@@ -39,6 +40,22 @@
     public void Select(Effect effect)
     {
       _select(effect);
+    }
+
+    public void ChangePlayersInterestTarget(ITarget target, bool hasLostInterest)
+    {
+      if (target.IsPlayer())
+        return;
+
+      var card = target.IsCard() ? target.Card() : target.Effect().Source.OwningCard;
+      
+      var message = new PlayersInterestChanged
+      {
+        Visual = card,
+        HasLostInterest = hasLostInterest,        
+      };
+
+      _publisher.Publish(message);
     }
 
     public void ChangePlayersInterest(Effect effect, bool hasLostInterest)

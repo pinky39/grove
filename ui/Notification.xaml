@@ -2,17 +2,48 @@
    <ResourceDictionary.MergedDictionaries>
       <ResourceDictionary Source="Skin.xaml"/>
    </ResourceDictionary.MergedDictionaries>
-   <Border x:Key="Notification" HorizontalAlignment="Right" Margin="15,0,15,0">
+   <Border x:Key="Notification" HorizontalAlignment="Right" Margin="15,0,15,0">   
       <Border.Resources>
+        <Style TargetType="Expander" BasedOn="{StaticResource Expander}"/>
+      </Border.Resources>
+       <Expander Width="700" VerticalAlignment="Bottom" FontSize="15" Foreground="#FFD700" Header="This is your last message">            
+               <Grid>
+                  <Grid.RowDefinitions>
+                     <RowDefinition Height="Auto"/>
+                     <RowDefinition Height="Auto"/>
+                  </Grid.RowDefinitions>
+                  <Border
+                     Grid.Row="0"
+                     Background="#444"                                   
+                     BorderBrush="#111"
+                     BorderThickness="0,0,0,1"
+                     Padding="10,6,10,6">
+                     <TextBlock Foreground="#FFD700" Text="Message log"/>
+                  </Border>
+                  <ScrollViewer Background="#222" Grid.Row="1" VerticalScrollBarVisibility="Visible" Height="200">
+                     <TextBlock Margin="8" TextWrapping="Wrap" Foreground="#fff"> ojopjfweopjqfopq fwef wef we ntrz ntrz nrt zntzntz n tz nnnnnnn tznrt n  tz werfe gfwerg ewr gwe rgw er qwefqwe  wjBla bla agerjogpoa ejopjr gfopaerj opfjaerop jferopa jrpoa ejop fjaer                                                               
+                     </TextBlock>
+                  </ScrollViewer>
+               </Grid>            
+         </Expander>
+      
+      
+      <!--<Border.Resources>
+        
+      
+      
         <Style TargetType="TextBlock" BasedOn="{StaticResource Label}">
           <Setter Property="FontSize" Value="15"/>
         </Style>  
         <Style TargetType="Image" BasedOn="{StaticResource Icon}" />
       </Border.Resources>      
-      <StackPanel Orientation="Horizontal">
+     
+     
+     
+     <StackPanel Orientation="Horizontal">
         <Image Source="..\media\images\icon.png" Margin="0,0,10,0" />
         <TextBlock Text="Mateja took a mulligan." />
-      </StackPanel>
+      </StackPanel>-->
       
    </Border>
 </ResourceDictionary>

@@ -146,11 +146,7 @@
         controller.Life += damage.Amount;
       }
 
-      PublishMessage(new DamageHasBeenDealt
-        {
-          Damage = damage,
-          Receiver = this,
-        });
+      Publish(new DamageHasBeenDealt(this, damage));
     }
 
     public int CalculateHash(HashCalculator calc)
@@ -199,23 +195,18 @@
       _assignedDamage.Assign(damage);
     }
 
-    public void CycleSpell(Card spell)
+    public void CycleCard(Card card)
     {
-      _hand.Remove(spell);      
-      spell.CycleInternal();
-      PublishMessage(new PlayerHasCycledASpell {Spell = spell});
+      _hand.Remove(card);      
+      card.CycleInternal();
+      Publish(new PlayerHasCycledCard(card));
     }
 
     public void CastSpell(Card spell, ActivationParameters activationParameters)
     {
       _hand.Remove(spell);     
       spell.CastInternal(activationParameters);
-
-      PublishMessage(new PlayerHasCastASpell
-        {
-          Spell = spell,
-          Target = activationParameters.Targets.Effect(0)
-        });
+      Publish(new PlayerHasCastASpell(spell, activationParameters.Targets.Effect()));
     }
 
     public void Consume(IManaAmount amount, IManaSource tryNotToConsumeThisSource = null)
@@ -447,7 +438,7 @@
       _manaSources = new ManaSources(manaSources);
     }
 
-    private void PublishMessage<T>(T message)
+    private void Publish<T>(T message)
     {
       _publisher.Publish(message);
     }

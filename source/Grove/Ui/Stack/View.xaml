@@ -5,6 +5,7 @@
              xmlns:cal = "clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
              xmlns:Core="clr-namespace:Grove.Core" 
              xmlns:Cards="clr-namespace:Grove.Core.Details.Cards" 
+             xmlns:Ui="clr-namespace:Grove.Ui"
              xmlns:Effects="clr-namespace:Grove.Core.Details.Cards.Effects">
 	<UserControl.Resources>
 		<Style TargetType = "Border"
@@ -26,9 +27,8 @@
 		<Border.Resources>
 
 			<DataTemplate DataType = "{x:Type Core:Card}" >
-				<ContentControl Content = "{Binding}"
-				                ContentTemplate = "{StaticResource FaceUpCard}" />
-			</DataTemplate>
+                <ContentControl Content = "{Binding}" ContentTemplate = "{StaticResource FaceUpCard}" />                                    
+            </DataTemplate>
 
 			<DataTemplate DataType = "{x:Type Cards:ActivatedAbility}" >
 				<ContentControl Content = "{Binding}"
@@ -41,28 +41,76 @@
 			</DataTemplate>
 
 			<DataTemplate DataType = "{x:Type Effects:Effect}" >
-				<ContentControl Content = "{Binding Source}" >
-					<i:Interaction.Triggers>
-						<i:EventTrigger EventName = "MouseEnter" >
-							<cal:ActionMessage MethodName = "ChangePlayersInterest" >
-								<cal:Parameter Value = "{Binding}" />
-								<cal:Parameter Value = "false" />
-							</cal:ActionMessage>
-						</i:EventTrigger>
-						<i:EventTrigger EventName = "MouseLeave" >
-							<cal:ActionMessage MethodName = "ChangePlayersInterest" >
-								<cal:Parameter Value = "{Binding}" />
-								<cal:Parameter Value = "true" />
-							</cal:ActionMessage>
-						</i:EventTrigger>
-                        <i:EventTrigger EventName = "MouseDown" >
-                            <cal:ActionMessage MethodName = "Select" >
-                                <cal:Parameter Value = "{Binding}" />                                
-                            </cal:ActionMessage>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-				</ContentControl>
-			</DataTemplate>
+                <Grid>
+                    
+                    <ContentControl Content = "{Binding Source}" >
+					    <i:Interaction.Triggers>
+						    <i:EventTrigger EventName = "MouseEnter" >
+							    <cal:ActionMessage MethodName = "ChangePlayersInterest" >
+								    <cal:Parameter Value = "{Binding}" />
+								    <cal:Parameter Value = "false" />
+							    </cal:ActionMessage>
+						    </i:EventTrigger>
+						    <i:EventTrigger EventName = "MouseLeave" >
+							    <cal:ActionMessage MethodName = "ChangePlayersInterest" >
+								    <cal:Parameter Value = "{Binding}" />
+								    <cal:Parameter Value = "true" />
+							    </cal:ActionMessage>
+						    </i:EventTrigger>
+                            <i:EventTrigger EventName = "MouseDown" >
+                                <cal:ActionMessage MethodName = "Select" >
+                                    <cal:Parameter Value = "{Binding}" />                                
+                                </cal:ActionMessage>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+				    </ContentControl>
+
+                    <Border  Width="125" Height="80" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,40,20,0">
+                        <Viewbox VerticalAlignment="Center" HorizontalAlignment="Right">
+                            <ItemsControl ItemsSource="{Binding Targets}">
+                                
+                                <ItemsControl.Resources>
+                                    <DataTemplate DataType = "{x:Type Core:Player}" >
+                                        <Image Source="{Binding Avatar, Converter={Ui:Media}}"/>
+                                    </DataTemplate>
+                                    <DataTemplate DataType="{x:Type Effects:Effect}">
+                                        <ContentControl Content = "{Binding Source}" />
+                                    </DataTemplate>
+                                </ItemsControl.Resources>
+                                
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Horizontal" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <ContentControl Style = "{StaticResource SelectableContent}" Margin = "5,0,0,0" >
+                                            <ContentControl Content = "{Binding}" >
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName = "MouseEnter" >
+                                                        <cal:ActionMessage MethodName = "ChangePlayersInterestTarget" >
+                                                            <cal:Parameter Value = "{Binding}" />
+                                                            <cal:Parameter Value = "false" />
+                                                        </cal:ActionMessage>
+                                                    </i:EventTrigger>
+                                                    <i:EventTrigger EventName = "MouseLeave" >
+                                                        <cal:ActionMessage MethodName = "ChangePlayersInterestTarget" >
+                                                            <cal:Parameter Value = "{Binding}" />
+                                                            <cal:Parameter Value = "true" />
+                                                        </cal:ActionMessage>
+                                                    </i:EventTrigger>                                                   
+                                                </i:Interaction.Triggers>
+                                            </ContentControl>
+                                        </ContentControl>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>                            
+                        </Viewbox>
+                    </Border>
+                </Grid>
+            </DataTemplate>
 		</Border.Resources>
 		<Grid Width = "200" >
 			<Grid.RowDefinitions>

@@ -11,7 +11,7 @@
 
     public void Receive(PlayerHasCastASpell message)
     {
-      if (!Filter(Ability, message.Spell))
+      if (!Filter(Ability, message.Card))
         return;
 
       Set(message);
