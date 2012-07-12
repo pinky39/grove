@@ -269,9 +269,18 @@
         return true;
       }
 
-      if (lifepoints <= total && lifepoints > total - greatestDamage)
+      if (lifepoints <= total)
       {
-        singleBlockerThatDealsKillingBlow = blockerThatDealsGreatestDamage;
+
+        // would attacker be killed if a blocker which deals 
+        // greatest damage be removed
+        if (lifepoints > total - greatestDamage)
+        {
+          // attacker won't be killed mark the blocker as the one that
+          // deals the killing blow
+          singleBlockerThatDealsKillingBlow = blockerThatDealsGreatestDamage;
+        }
+
         return true;
       }
 

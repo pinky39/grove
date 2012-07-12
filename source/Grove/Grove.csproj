@@ -539,6 +539,10 @@
     <Compile Include="Ui\AttackerSelected.cs" />
     <Compile Include="Ui\AttackerUnselected.cs" />
     <Compile Include="Ui\BackgroundExtension.cs" />
+    <Compile Include="Ui\MessageLog\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\MessageLog\ViewModel.cs" />
     <Compile Include="Ui\Permanent\CombatMarkers.cs" />
     <Compile Include="Ui\BlockerSelected.cs" />
     <Compile Include="Ui\BlockerUnselected.cs" />
@@ -625,10 +629,6 @@
     <Compile Include="Ui\MessageBox\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ui\Notification\View.xaml.cs">
-      <DependentUpon>View.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Ui\Notification\ViewModel.cs" />
     <Compile Include="Ui\Permanent\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
@@ -791,7 +791,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ui\Notification\View.xaml">
+    <Page Include="Ui\MessageLog\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

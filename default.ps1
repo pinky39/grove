@@ -18,7 +18,8 @@ properties {
   $media_dir = "$base_dir\media"
 } 
 
-task default -depends DoRelease
+task default -depends DoReleaseTest
+task defaultNoTest -depends DoRelease
 
 task Clean { 
   remove-item -force -recurse $buildartifacts_dir -ErrorAction SilentlyContinue 
@@ -40,7 +41,7 @@ task Compile -depends Init {
   }
 } 
 
-task Test -depends Compile {
+task Test -depends DoRelease {
   $old = pwd
   cd $build_dir
   &.\xunit.console.clr4.x86.exe "$build_dir\Grove.Tests.dll"
@@ -50,7 +51,10 @@ task Test -depends Compile {
   cd $old
 }
 
-task DoRelease -depends Test {			
+task DoReleaseTest -depends Test {			
+}
+
+task DoRelease -depends Compile {			
 	
 	cp "$build_dir\grove.exe" $release_dir	
 	cp "$base_dir\readme.txt" $release_dir

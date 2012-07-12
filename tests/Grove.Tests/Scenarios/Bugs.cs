@@ -99,6 +99,26 @@
     public class PredifinedAi : PredefinedAiScenario
     {
       [Fact]
+      public void BugBaneslayerAngelWontAttackAlone()
+      {
+        var angel = C("Baneslayer Angel");
+        
+        Hand(P1, "Copperline Gorge", "Thrun, the Last Troll");
+        Hand(P2);
+        Battlefield(P1, "Copperline Gorge", "Birds of Paradise", "Forest", "Copperline Gorge", "Rumbling Slum", "Rootbound Crag", "Forest", "Ravenous Baloth", "Forest", "Thrun, the Last Troll");
+        Battlefield(P2, "Plains", "Plains", "White Knight", "Plains", "Glorious Anthem", "Plains", "White Knight", "Wall of Reverence", "Plains", "Plains", angel);       
+
+        Exec(
+          At(Step.SecondMain, turn: 2)
+           .Verify(() =>
+             {
+               Equal(13, P1.Life);
+               True(C(angel).IsTapped);
+             })
+        );
+      }
+      
+      [Fact]
       public void BugOpalAcrolithCausesCombatException()
       {
         Hand(P1, "Pestilence", "Voice of Grace", "Corrupt", "Rune of Protection: Black");

@@ -33,7 +33,10 @@
                   m.Power = 1;
                   m.Toughness = 1;
                 }, untilEndOfTurn: true))),
-            costSelector: C.Selector(Selectors.Creature((creature) => !creature.IsTapped, Controller.SpellOwner)),
+            
+            costSelector: C.Selector(Selectors.Creature((creature) => !creature.IsTapped, Controller.SpellOwner), 
+              mustBeTargetable: false),
+            
             targetFilter: TargetFilters.CostTap(),
             category: EffectCategories.ToughnessIncrease,
             timing: Timings.IncreaseOwnersPowerAndThougness(1, 1)

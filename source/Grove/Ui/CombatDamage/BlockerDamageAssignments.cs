@@ -8,13 +8,10 @@
 
   public class BlockerDamageAssignments : IEnumerable<BlockerDamageAssignment>
   {
-    private readonly List<BlockerDamageAssignment> _assignments;
-    private readonly Attacker _attacker;
+    private readonly List<BlockerDamageAssignment> _assignments;    
 
     public BlockerDamageAssignments(Attacker attacker)
-    {
-      _attacker = attacker;
-
+    {      
       _assignments = attacker.Blockers
         .Select(x => Bindable.Create<BlockerDamageAssignment>(x))
         .OrderBy(x => x.Blocker.DamageAssignmentOrder)
@@ -33,10 +30,7 @@
     }
 
     public bool CanAssignCombatDamageTo(BlockerDamageAssignment blocker)
-    {
-      if (_attacker.HasDeathTouch)
-        return true;
-
+    {      
       var ordered = _assignments.OrderBy(x => x.Blocker.DamageAssignmentOrder);
 
       foreach (var assignment in ordered)
@@ -44,7 +38,7 @@
         if (assignment == blocker)
           return true;
 
-        if (assignment.Blocker.HasAssignedLeathalDamage == false)
+        if (assignment.HasAssignedLeathalDamage == false)
           return false;
       }
 

@@ -44,8 +44,14 @@
                     <Border  Width="125" Height="80" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,40,20,0">
                       <Viewbox VerticalAlignment="Center" HorizontalAlignment="Right">
                         <StackPanel Orientation="Horizontal"  >
-                            <ContentControl Content="{StaticResource 'Grizzly Bears'}"/>
-                                                                      
+                            <Border VerticalAlignment="Top" HorizontalAlignment="Right" BorderBrush="#FFD700" BorderThickness="10" CornerRadius="4" Opacity="0.9">
+                              <Viewbox>
+                                <Border Width="324" Height="458" Background="#66401201">
+                                  <Image Source="..\media\images\player2.png"/>
+                                </Border>
+                              </Viewbox>
+                              <!--<ContentControl Content="{StaticResource 'Grizzly Bears'}"/>-->
+                            </Border>                                                                      
                         </StackPanel>                      
                       </Viewbox>
                     </Border>

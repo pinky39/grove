@@ -65,13 +65,7 @@
 
       Screen.RemoveDialog(dialog);
     }
-
-    public void ShowNotification(string message)
-    {
-      var dialog = new Notification.ViewModel(message);
-      ShowDialog(dialog, DialogType.Notification);
-    }
-
+    
     public bool HasFocus(object dialog)
     {
       return Screen.HasFocus(dialog);

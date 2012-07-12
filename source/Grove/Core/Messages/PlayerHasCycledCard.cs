@@ -11,7 +11,7 @@
 
     public override string ToString()
     {
-      return string.Format("Player: {0} has cycled {1}.", Card.Controller, Card);
+      return string.Format("{0} cycled {1}.", Card.Controller, Card);
     }
   }
 }

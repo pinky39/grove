@@ -7,23 +7,19 @@
   using Core.Messages;
   using Core.Testing;
   using Infrastructure;
-  using Shell;
 
   public class ViewModel : IIsDialogHost, IReceive<PlayerHasCastASpell>, IReceive<PlayerHasActivatedAbility>,
     IReceive<PlayerHasCycledCard>, IReceive<SearchStarted>, IReceive<SearchFinished>, IReceive<DamageHasBeenDealt>,
     IReceive<AssignedCombatDamageWasDealt>
   {
     private readonly List<object> _largeDialogs = new List<object>();
-    private readonly List<object> _notifications = new List<object>();
     private readonly ScenarioGenerator _scenarioGenerator;
-    private readonly IShell _shell;
 
     private readonly List<object> _smallDialogs = new List<object>();
 
-    public ViewModel(IShell shell, Players players, Battlefield.ViewModel.IFactory battlefieldFactory,
+    public ViewModel(Players players, Battlefield.ViewModel.IFactory battlefieldFactory,
                      ScenarioGenerator scenarioGenerator)
     {
-      _shell = shell;
       _scenarioGenerator = scenarioGenerator;
 
       OpponentsBattlefield = battlefieldFactory.Create(players.Computer);
@@ -33,17 +29,17 @@
     public object LargeDialog { get { return _largeDialogs.FirstOrDefault(); } }
     public MagnifiedCard.ViewModel MagnifiedCard { get; set; }
     public ManaPool.ViewModel ManaPool { get; set; }
-    public virtual object Notification { get { return _notifications.FirstOrDefault(); } }
     public Battlefield.ViewModel OpponentsBattlefield { get; private set; }
     public Ui.Players.ViewModel PlayersBox { get; set; }
     public virtual bool SearchInProgress { get; set; }
     public object SmallDialog { get { return _smallDialogs.FirstOrDefault(); } }
     public Stack.ViewModel Stack { get; set; }
     public Turn.ViewModel Turn { get; set; }
+    public MessageLog.ViewModel MessageLog { get; set; }
     public Battlefield.ViewModel YourBattlefield { get; private set; }
     public Zones.ViewModel Zones { get; set; }
 
-    [Updates("SmallDialog", "Notification", "LargeDialog")]
+    [Updates("SmallDialog", "LargeDialog")]
     public virtual void AddDialog(object dialog, DialogType dialogType)
     {
       switch (dialogType)
@@ -59,12 +55,6 @@
             _largeDialogs.Insert(0, dialog);
             break;
           }
-
-        case (DialogType.Notification):
-          {
-            _notifications.Insert(0, dialog);
-            break;
-          }
       }
     }
 
@@ -78,11 +68,10 @@
       return dialog == SmallDialog;
     }
 
-    [Updates("SmallDialog", "Notification", "LargeDialog")]
+    [Updates("SmallDialog", "LargeDialog")]
     public virtual void RemoveDialog(object dialog)
     {
       _smallDialogs.Remove(dialog);
-      _notifications.Remove(dialog);
       _largeDialogs.Remove(dialog);
     }
 
@@ -95,23 +84,22 @@
 
     public void Receive(DamageHasBeenDealt message)
     {
-      _shell.ShowNotification(message.ToString());
+      MessageLog.AddMessage(message.ToString());
     }
 
     public void Receive(PlayerHasActivatedAbility message)
     {
-      _shell.ShowNotification(message.ToString());
+      MessageLog.AddMessage(message.ToString());
     }
-
 
     public void Receive(PlayerHasCastASpell message)
     {
-      _shell.ShowNotification(message.ToString());
+      MessageLog.AddMessage(message.ToString());
     }
 
     public void Receive(PlayerHasCycledCard message)
     {
-      _shell.ShowNotification(message.ToString());
+      MessageLog.AddMessage(message.ToString());
     }
 
     public void Receive(SearchFinished message)

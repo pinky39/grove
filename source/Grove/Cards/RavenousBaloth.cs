@@ -27,8 +27,11 @@
             "Sacrifice a Beast: You gain 4 life.",
             C.Cost<SacrificePermanent>(),
             C.Effect<GainLife>((e, _) => e.SetAmount(4)),
-            costSelector: C.Selector(Selectors.Creature((c) => c.Is("beast"), Controller.SpellOwner)),
-            targetFilter: TargetFilters.CostSacrificeGainLife(),
+            
+            costSelector: C.Selector(Selectors.Creature((c) => c.Is("beast"), Controller.SpellOwner), 
+              mustBeTargetable: false),
+            
+            targetFilter: TargetFilters.CostSacrificeGainLife(),            
             timing: Timings.NoRestrictions()));
     }
   }

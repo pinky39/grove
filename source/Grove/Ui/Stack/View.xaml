@@ -71,7 +71,11 @@
                                 
                                 <ItemsControl.Resources>
                                     <DataTemplate DataType = "{x:Type Core:Player}" >
-                                        <Image Source="{Binding Avatar, Converter={Ui:Media}}"/>
+                                        <Viewbox>
+                                            <Border Width="324" Height="458">
+                                                <Image Source="{Binding Avatar, Converter={Ui:Media}}"/>
+                                            </Border>
+                                        </Viewbox>                                        
                                     </DataTemplate>
                                     <DataTemplate DataType="{x:Type Effects:Effect}">
                                         <ContentControl Content = "{Binding Source}" />
@@ -85,25 +89,27 @@
                                 </ItemsControl.ItemsPanel>
 
                                 <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <ContentControl Style = "{StaticResource SelectableContent}" Margin = "5,0,0,0" >
-                                            <ContentControl Content = "{Binding}" >
-                                                <i:Interaction.Triggers>
-                                                    <i:EventTrigger EventName = "MouseEnter" >
-                                                        <cal:ActionMessage MethodName = "ChangePlayersInterestTarget" >
-                                                            <cal:Parameter Value = "{Binding}" />
-                                                            <cal:Parameter Value = "false" />
-                                                        </cal:ActionMessage>
-                                                    </i:EventTrigger>
-                                                    <i:EventTrigger EventName = "MouseLeave" >
-                                                        <cal:ActionMessage MethodName = "ChangePlayersInterestTarget" >
-                                                            <cal:Parameter Value = "{Binding}" />
-                                                            <cal:Parameter Value = "true" />
-                                                        </cal:ActionMessage>
-                                                    </i:EventTrigger>                                                   
-                                                </i:Interaction.Triggers>
+                                    <DataTemplate>                                        
+                                        <Border Margin = "5,0,0,0" BorderBrush="#000" BorderThickness="15" CornerRadius="4" Background="#66000000">
+                                            <ContentControl>
+                                                <ContentControl Content = "{Binding}" >
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName = "MouseEnter" >
+                                                            <cal:ActionMessage MethodName = "ChangePlayersInterestTarget" >
+                                                                <cal:Parameter Value = "{Binding}" />
+                                                                <cal:Parameter Value = "false" />
+                                                            </cal:ActionMessage>
+                                                        </i:EventTrigger>
+                                                        <i:EventTrigger EventName = "MouseLeave" >
+                                                            <cal:ActionMessage MethodName = "ChangePlayersInterestTarget" >
+                                                                <cal:Parameter Value = "{Binding}" />
+                                                                <cal:Parameter Value = "true" />
+                                                            </cal:ActionMessage>
+                                                        </i:EventTrigger>                                                   
+                                                    </i:Interaction.Triggers>
+                                                </ContentControl>
                                             </ContentControl>
-                                        </ContentControl>
+                                        </Border>                                        
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>                            

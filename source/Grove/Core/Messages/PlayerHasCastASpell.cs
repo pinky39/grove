@@ -21,7 +21,7 @@
     public override string ToString()
     {
       var sb = new StringBuilder();
-      sb.AppendFormat("Player: '{0}' has cast {1}", Card.Controller, Card);
+      sb.AppendFormat("{0} casted {1}", Card.Controller, Card);
       
       if (HasTargets)
       {

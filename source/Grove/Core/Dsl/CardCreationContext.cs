@@ -189,7 +189,7 @@
         };
     }
 
-    public ITargetSelectorFactory Selector(TargetValidatorDelegate validator, string text = null)
+    public ITargetSelectorFactory Selector(TargetValidatorDelegate validator, string text = null, bool mustBeTargetable = true)
     {
       return new TargetSelector.Factory
         {
@@ -198,6 +198,8 @@
             {
               selector.Validator = validator;
 
+              selector.MustBeTargetable = mustBeTargetable;
+              
               if (text != null)
                 selector.TextFormat = text;
             }
