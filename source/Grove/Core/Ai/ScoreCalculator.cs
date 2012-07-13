@@ -109,7 +109,7 @@
 
       if (permanent.ManaCost != null)
       {
-        score += CalculatePermanentScoreFromManaCost(permanent.ManaCost);
+        score += CalculatePermanentScoreFromManaCost(permanent.ManaCost);             
       }
       else if (permanent.Is().Creature)
       {

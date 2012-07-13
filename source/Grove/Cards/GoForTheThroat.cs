@@ -22,7 +22,7 @@
         .Category(EffectCategories.Destruction)
         .Targets(
           filter: TargetFilters.Destroy(),
-          selectors: C.Selector(Selectors.Creature(card => !card.Is().Artifact)));
+          effect: C.Selector(Selectors.Creature(card => !card.Is().Artifact)));
     }
   }
 }

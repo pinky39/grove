@@ -147,6 +147,16 @@
         ? prerequisites.KickerTargetSelectors
         : prerequisites.TargetSelectors;
 
+      if (selectors.HasCost)
+      {
+        var dialog = ShowSelectorDialog(selectors.Cost(0));
+
+        if (dialog.WasCanceled)
+          return false;
+
+        targets.AddCost(dialog.Selection[0]);
+      }
+            
       if (selectors.HasEffect)
       {
         foreach (var selector in selectors.Effect())
@@ -156,6 +166,10 @@
           if (dialog.WasCanceled)
             return false;
 
+          // this can occur when game is terminated
+          if (dialog.Selection.Count == 0)
+            return false;
+         
           targets.AddEffect(dialog.Selection[0]);
         }
       }

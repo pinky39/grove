@@ -20,7 +20,7 @@
         .Effect<DealDamageToTarget>((e, _) => e.SetAmount(3))
         .Targets(
           filter: TargetFilters.DealDamage(3),
-          selectors: C.Selector(Selectors.CreatureOrPlayer()));
+          effect: C.Selector(Selectors.CreatureOrPlayer()));
     }
   }
 }

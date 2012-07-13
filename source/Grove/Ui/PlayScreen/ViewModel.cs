@@ -13,14 +13,16 @@
     IReceive<AssignedCombatDamageWasDealt>
   {
     private readonly List<object> _largeDialogs = new List<object>();
+    private readonly QuitGame.ViewModel.IFactory _quitGameFactory;
     private readonly ScenarioGenerator _scenarioGenerator;
 
     private readonly List<object> _smallDialogs = new List<object>();
 
     public ViewModel(Players players, Battlefield.ViewModel.IFactory battlefieldFactory,
-                     ScenarioGenerator scenarioGenerator)
+                     ScenarioGenerator scenarioGenerator, QuitGame.ViewModel.IFactory quitGameFactory)
     {
       _scenarioGenerator = scenarioGenerator;
+      _quitGameFactory = quitGameFactory;
 
       OpponentsBattlefield = battlefieldFactory.Create(players.Computer);
       YourBattlefield = battlefieldFactory.Create(players.Human);
@@ -38,6 +40,7 @@
     public MessageLog.ViewModel MessageLog { get; set; }
     public Battlefield.ViewModel YourBattlefield { get; private set; }
     public Zones.ViewModel Zones { get; set; }
+    public virtual QuitGame.ViewModel QuitGameDialog { get; protected set; }
 
     [Updates("SmallDialog", "LargeDialog")]
     public virtual void AddDialog(object dialog, DialogType dialogType)
@@ -66,6 +69,19 @@
       }
 
       return dialog == SmallDialog;
+    }
+
+    public void CloseAllDialogs()
+    {
+      foreach (var largeDialog in _largeDialogs.ToList())
+      {        
+        largeDialog.Close();
+      }
+
+      foreach (var smallDialog in _smallDialogs.ToList())
+      {
+        smallDialog.Close();
+      }
     }
 
     [Updates("SmallDialog", "LargeDialog")]
@@ -115,6 +131,17 @@
     public void GenerateTestScenario()
     {
       _scenarioGenerator.WriteScenario();
+    }
+
+    public void QuitGame()
+    {
+      var dialog = _quitGameFactory.Create();
+      ((IClosable) dialog).Closed += delegate
+        {
+          QuitGameDialog = null;
+        };
+
+      QuitGameDialog = dialog;
     }
 
     public interface IFactory

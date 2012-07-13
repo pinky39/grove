@@ -23,7 +23,7 @@
         .Category(EffectCategories.Destruction)
         .Targets(
           filter: TargetFilters.Destroy(),
-          selectors: C.Selector(Selectors.Creature((creature) => !creature.HasColor(ManaColors.Black))));
+          effect: C.Selector(Selectors.Creature((creature) => !creature.HasColor(ManaColors.Black))));
     }
   }
 }

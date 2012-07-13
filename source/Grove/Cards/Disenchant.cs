@@ -22,7 +22,7 @@
         .Timing(Timings.TargetRemovalInstant())
         .Targets(
           filter: TargetFilters.PermanentsByDescendingScore(),
-          selectors:
+          effect:
             C.Selector(Selectors.Permanent(card => card.Is().Artifact || card.Is().Enchantment)));
     }
   }

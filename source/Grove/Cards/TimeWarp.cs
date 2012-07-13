@@ -21,7 +21,7 @@
         .Effect<TargetPlayerTakesExtraTurns>()
         .Targets(
           filter: TargetFilters.Controller(),
-          selectors: C.Selector(Selectors.Player()));
+          effect: C.Selector(Selectors.Player()));
     }
   }
 }

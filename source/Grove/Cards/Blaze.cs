@@ -22,7 +22,7 @@
         .Timing(Timings.MainPhases())
         .Targets(
           filter: TargetFilters.DealDamage(),
-          selectors: C.Selector(Selectors.CreatureOrPlayer()));
+          effect: C.Selector(Selectors.CreatureOrPlayer()));
     }
   }
 }

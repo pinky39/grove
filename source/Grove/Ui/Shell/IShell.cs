@@ -13,5 +13,6 @@
     void ShowModalDialog(object dialog, DialogType type = DialogType.Large, SelectionMode? selectionMode = null);    
 
     bool HasFocus(object dialog);
+    void CloseAllDialogs();
   }
 }

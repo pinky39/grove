@@ -67,7 +67,7 @@
 
                     <Border  Width="125" Height="80" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,40,20,0">
                         <Viewbox VerticalAlignment="Center" HorizontalAlignment="Right">
-                            <ItemsControl ItemsSource="{Binding Targets}">
+                            <ItemsControl ItemsSource="{Binding AllTargets}">
                                 
                                 <ItemsControl.Resources>
                                     <DataTemplate DataType = "{x:Type Core:Player}" >

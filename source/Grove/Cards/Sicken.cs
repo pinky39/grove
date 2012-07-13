@@ -29,7 +29,7 @@
         .Timing(Timings.MainPhases())
         .Targets(
           filter: TargetFilters.ReduceToughness(1),
-          selectors: C.Selector(Selectors.EnchantedCreature())
+          effect: C.Selector(Selectors.EnchantedCreature())
         );
     }
   }

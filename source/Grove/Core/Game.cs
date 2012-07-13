@@ -40,6 +40,7 @@
     }
 
     public ChangeTracker ChangeTracker { get; private set; }
+    public bool WasStopped { get { return _wasStopped.Value; } }
     public Combat Combat { get; private set; }
     public Decisions Decisions { get; private set; }
     public bool IsFinished { get { return Players.AnyHasLost(); } }
@@ -48,7 +49,6 @@
     public int Score { get { return Players.Score; } }
     public Stack Stack { get; private set; }
     public TurnInfo Turn { get { return _turnInfo; } }
-
     public Search Search { get { return _search; } }
 
     public int CalculateHash()

@@ -26,6 +26,7 @@
     private readonly TargetSelectors _targetSelectors = new TargetSelectors();
 
     private ActivatedAbilities _activatedAbilities;
+    private Cost _additionalCost;
     private Trackable<Card> _attachedTo;
     private Attachments _attachments;
     private Trackable<bool> _canRegenerate;
@@ -42,6 +43,7 @@
     private Trackable<bool> _hasSummoningSickness;
     private Trackable<int?> _hash;
     private Trackable<bool> _isHidden;
+    private Trackable<bool> _isRevealed;
     private Trackable<bool> _isTapped;
     private IEffectFactory _kickerEffectFactory;
     private Level _level;
@@ -62,7 +64,6 @@
     private Trackable<bool> _wasEchoPaid;
     private CalculateX _xCalculator;
     private Trackable<Zone> _zone;
-    private Cost _additionalCost;
 
     protected Card() {}
 
@@ -173,12 +174,13 @@
     public int TotalDamageThisCanDealInAllDamageSteps { get { return Has().DoubleStrike ? 2*Power.Value : Power.Value; } }
     public IManaAmount CyclingCost { get; private set; }
     public bool HasCycling { get { return _cyclingFactory != null; } }
+    public bool IsRevealed { get { return _isRevealed.Value; } set { _isRevealed.Value = value; } }
 
     public void DealDamage(Damage damage)
     {
       if (!Is().Creature)
         return;
-      
+
       if (HasProtectionFrom(damage.Source))
       {
         damage.PreventAll();
@@ -269,6 +271,7 @@
             Colors.GetHashCode(),
             Counters.GetHashCode(),
             Type.GetHashCode(),
+            IsRevealed.GetHashCode(),
             calc.Calculate(_staticAbilities),
             calc.Calculate(_triggeredAbilities),
             calc.Calculate(_activatedAbilities),
@@ -383,12 +386,12 @@
     }
 
     public SpellPrerequisites CanCast()
-    {                        
+    {
       if (!CastingRule.CanCast(this))
-        return new SpellPrerequisites {CanBeSatisfied = false};                        
-           
-      var canCastWithKicker = HasKicker 
-        ? Controller.HasMana(ManaCostWithKicker) 
+        return new SpellPrerequisites {CanBeSatisfied = false};
+
+      var canCastWithKicker = HasKicker
+        ? Controller.HasMana(ManaCostWithKicker)
         : false;
 
       return new SpellPrerequisites
@@ -420,7 +423,7 @@
     public void CycleInternal()
     {
       PayCyclingCost();
-      
+
       var effect = _cyclingFactory.CreateEffect(this);
       _stack.Push(effect);
 
@@ -435,7 +438,7 @@
     public void CastInternal(ActivationParameters activationParameters)
     {
       PayCastingCost(activationParameters);
-            
+
       var effect = activationParameters.PayKicker
         ? _kickerEffectFactory.CreateEffect(
           source: this,
@@ -446,9 +449,12 @@
           x: activationParameters.X);
 
       effect.AddTargets(activationParameters.Targets.Effect());
+      effect.AddCostTargets(activationParameters.Targets.Cost());
 
       CastingRule.Cast(effect);
       IncreaseUsageScore();
+
+      Publish(new PlayerHasCastASpell(this, effect.AllTargets));
     }
 
     public void ClearDamage()
@@ -537,6 +543,9 @@
 
     public void Hide()
     {
+      if (IsRevealed)
+        return;
+
       IsHidden = true;
     }
 
@@ -586,14 +595,18 @@
       if (newZone == oldZone)
         return;
 
-      if (oldZone == Zone.Battlefield)
+      switch (oldZone)
       {
-        _combat.Remove(this);
-
-        DetachAttachments();
-        DetachSelf();
-        Untap();
-        ClearDamage();
+        case Zone.Battlefield:
+          _combat.Remove(this);
+          DetachAttachments();
+          DetachSelf();
+          Untap();
+          ClearDamage();
+          break;
+        case Zone.Hand:
+          IsRevealed = false;
+          break;
       }
 
       if (newZone == Zone.Battlefield)
@@ -709,19 +722,53 @@
       RemoveModifier(modifier);
     }
 
+    public bool CanPayCastingCost()
+    {
+      return _additionalCost.CanPay() &&
+        Controller.HasMana(ManaCost);
+    }
+
+    public void PayCastingCost(ActivationParameters activationParameters)
+    {
+      if (Is().Land)
+      {
+        Controller.CanPlayLands = false;
+      }
+      else
+      {
+        var manaCost = activationParameters.PayKicker ? ManaCostWithKicker : ManaCost;
+        if (activationParameters.X.HasValue)
+        {
+          manaCost = manaCost.Add(activationParameters.X.Value);
+        }
+        Controller.Consume(manaCost);
+      }
+
+      _additionalCost.Pay(
+        activationParameters.Targets.Cost(0),
+        activationParameters.X);
+    }
+
+    public void Reveal()
+    {
+      IsRevealed = true;
+    }
+
     [Copyable]
     public class CardFactory : ICardFactory
     {
       private readonly List<IActivatedAbilityFactory> _activatedAbilityFactories = new List<IActivatedAbilityFactory>();
       private readonly ChangeTracker _changeTracker;
       private readonly List<IContinuousEffectFactory> _continuousEffectFactories = new List<IContinuousEffectFactory>();
+      private readonly List<ITargetSelectorFactory> _costTargetFactories = new List<ITargetSelectorFactory>();
       private readonly List<ITargetSelectorFactory> _effectTargetFactories = new List<ITargetSelectorFactory>();
       private readonly Game _game;
       private readonly List<ITargetSelectorFactory> _kickerEffectTargetFactories = new List<ITargetSelectorFactory>();
       private readonly List<Static> _staticAbilities = new List<Static>();
 
       private readonly List<ITriggeredAbilityFactory> _triggeredAbilityFactories = new List<ITriggeredAbilityFactory>();
-      private ManaColors _colors;
+      private ICostFactory _additionalCost;
+      private ManaColors _colors;      
       private string _cyclingCost;
       private string _echoCost;
       private EffectCategories _effectCategories;
@@ -744,9 +791,6 @@
       private int? _toughness;
       private CardType _type;
       private CalculateX _xCalculator;
-      private ICostFactory _additionalCost;
-      private readonly List<ITargetSelectorFactory> _costTargetFactories = new List<ITargetSelectorFactory>();
-      private TargetsFilterDelegate _costTargetsFilter;
 
       private CardFactory() {}
 
@@ -775,8 +819,8 @@
 
         card.Name = _name;
         card._xCalculator = _xCalculator;
-        card.ManaCost = _manaCost.ParseManaAmount();               
-        
+        card.ManaCost = _manaCost.ParseManaAmount();
+
         card.EchoCost = _echoCost.ParseManaAmount();
         card.CyclingCost = _cyclingCost.ParseManaAmount();
         card.KickerCost = _kickerCost.ParseManaAmount();
@@ -801,6 +845,7 @@
         card._attachedTo = new Trackable<Card>(_changeTracker, card);
         card._attachments = new Attachments(_changeTracker);
         card._isHidden = new Trackable<bool>(_changeTracker, card);
+        card._isRevealed = new Trackable<bool>(_changeTracker, card);
         card._canRegenerate = new Trackable<bool>(_changeTracker, card);
         card._hasSummoningSickness = new Trackable<bool>(true, _changeTracker, card);
         card._wasEchoPaid = new Trackable<bool>(_changeTracker, card);
@@ -824,19 +869,19 @@
         {
           card._kickerTargetSelectors.AddEffectSelector(factory.Create(card));
         }
-        
+
         // here we simplify that kicker cost targets are same as normal cost targets
         foreach (var factory in _costTargetFactories)
         {
-          card._targetSelectors.AddCostSelector(factory.Create(card));                    
+          card._targetSelectors.AddCostSelector(factory.Create(card));
           card._kickerTargetSelectors.AddCostSelector(factory.Create(card));
         }
 
         card._targetSelectors.Filter = _targetsFilter;
         card._kickerTargetSelectors.Filter = _kickertargetsFilter;
 
-        card._additionalCost = _additionalCost == null ? 
-          new NoCost() : _additionalCost.CreateCost(card, card._targetSelectors.Cost(0));
+        card._additionalCost = _additionalCost == null ? new NoCost()
+          : _additionalCost.CreateCost(card, card._targetSelectors.Cost(0));
 
         card._staticAbilities = new StaticAbilities(_staticAbilities, _changeTracker, card);
 
@@ -996,10 +1041,17 @@
         return this;
       }
 
-      public CardFactory AdditionalCost(ICostFactory cost)
+      public CardFactory AdditionalCost<T>(Initializer<T> init = null) where T : Cost, new()
       {
-        _additionalCost = cost;
-        return this;
+        init = init ?? delegate { };
+
+        _additionalCost = new Cost.Factory<T>
+        {
+          Game = _game,
+          Init = init,
+        };
+
+        return this;                        
       }
 
       public CardFactory Named(string name)
@@ -1029,17 +1081,23 @@
 
       public CardFactory Targets(TargetsFilterDelegate filter, params ITargetSelectorFactory[] selectors)
       {
-        _effectTargetFactories.AddRange(selectors);
+        _effectTargetFactories.AddRange(selectors);        
         _targetsFilter = filter;
         return this;
       }
 
-      public CardFactory CostTargets(TargetsFilterDelegate filter, params  ITargetSelectorFactory[] selectors)
+
+      public CardFactory Targets(TargetsFilterDelegate filter, ITargetSelectorFactory effect = null, ITargetSelectorFactory cost = null)
       {
-        _costTargetFactories.AddRange(selectors);
-        _costTargetsFilter = filter;
+        if (effect != null)
+          _effectTargetFactories.Add(effect);
+        
+        if (cost != null)
+          _costTargetFactories.Add(cost);        
+        
+        _targetsFilter = filter;
         return this;
-      }
+      }            
 
       public CardFactory Text(string text)
       {
@@ -1072,7 +1130,7 @@
       }
 
       private static CastingRule CreateCastingRule(CardType type, Game game)
-      {        
+      {
         if (type.Instant)
           return new Instant(game.Stack);
 
@@ -1144,33 +1202,6 @@
         card._type.Property(x => x.Value)
           .Changes(card).Property<Card, string>(x => x.Type);
       }
-    }
-
-    public bool CanPayCastingCost()
-    {      
-      return _additionalCost.CanPay() && 
-        Controller.HasMana(ManaCost);
-    }    
-
-    public void PayCastingCost(ActivationParameters activationParameters)
-    {
-      if (Is().Land)
-      {
-        Controller.CanPlayLands = false;
-      }
-      else
-      {
-        var manaCost = activationParameters.PayKicker ? ManaCostWithKicker : ManaCost;
-        if (activationParameters.X.HasValue)
-        {
-          manaCost = manaCost.Add(activationParameters.X.Value);
-        }
-        Controller.Consume(manaCost);
-      }
-
-      _additionalCost.Pay(
-        activationParameters.Targets.Cost(0), 
-        activationParameters.X);
     }
   }
 }

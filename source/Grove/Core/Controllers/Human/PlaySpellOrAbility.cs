@@ -15,7 +15,7 @@
     public TurnInfo Turn { get; set; }
 
     protected override void ExecuteQuery()
-    {
+    {            
       if (Configuration.ShouldAutoPass(Turn.Step, Player.IsActive) && Stack.IsEmpty)
       {
         Result = new Pass();
@@ -24,7 +24,7 @@
 
       var dialog = DialogFactory.Create();
       Shell.ShowModalDialog(dialog, DialogType.Small, SelectionMode.Play);
-      Result = dialog.Playable;
+      Result = dialog.Playable ?? new Pass();
     }
   }
 }

@@ -7,10 +7,17 @@
     <i:Interaction.Triggers>
         <grove:InputBindingTrigger>
             <grove:InputBindingTrigger.InputBinding>
-                <KeyBinding Modifiers="Control" Key="D"/>
+                <KeyBinding Modifiers="Control" Key="D"/>                
             </grove:InputBindingTrigger.InputBinding>
             <cl:ActionMessage MethodName="GenerateTestScenario"/>
-        </grove:InputBindingTrigger>        
+        </grove:InputBindingTrigger>
+
+        <grove:InputBindingTrigger>
+            <grove:InputBindingTrigger.InputBinding>
+                <KeyBinding Modifiers="Alt"  Key="Q"/>
+            </grove:InputBindingTrigger.InputBinding>
+            <cl:ActionMessage MethodName="QuitGame"/>
+        </grove:InputBindingTrigger>
     </i:Interaction.Triggers>
     <Grid>
         <Grid Background="#000">
@@ -82,8 +89,8 @@
                 <ContentControl x:Name="PlayersBox" Grid.Column="0" Margin="15,0,15,0"/>
             </Grid>
         </Grid>
-        <!-- End bottom bar -->
-
+                
         <ContentControl VerticalAlignment="Bottom" HorizontalAlignment="Right" x:Name="MessageLog" Margin="0,0,10,0"  />
+        <ContentControl x:Name="QuitGameDialog" />
     </Grid>
 </UserControl>

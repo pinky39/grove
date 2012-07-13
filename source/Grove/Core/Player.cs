@@ -205,8 +205,7 @@
     public void CastSpell(Card spell, ActivationParameters activationParameters)
     {
       _hand.Remove(spell);     
-      spell.CastInternal(activationParameters);
-      Publish(new PlayerHasCastASpell(spell, activationParameters.Targets.Effect()));
+      spell.CastInternal(activationParameters);      
     }
 
     public void Consume(IManaAmount amount, IManaSource tryNotToConsumeThisSource = null)
@@ -296,6 +295,11 @@
       yield return this;
 
       foreach (var card in Battlefield)
+      {
+        yield return card;
+      }
+
+      foreach (var card in Hand)
       {
         yield return card;
       }

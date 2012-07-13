@@ -27,7 +27,7 @@
         .Timing(Timings.MainPhases())
         .Targets(
           filter: TargetFilters.DealDamage(p => p.Controller.Battlefield.Count(x => x.Is("swamp"))),
-          selectors: C.Selector(Selectors.CreatureOrPlayer()));
+          effect: C.Selector(Selectors.CreatureOrPlayer()));
     }
   }
 }

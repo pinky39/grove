@@ -27,6 +27,8 @@
       return false;
     }
 
+    public void CloseAllDialogs() {}
+
     public void RemoveDialog(object dialog) {}
 
     public void Exit()

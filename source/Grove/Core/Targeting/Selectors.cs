@@ -3,6 +3,7 @@
   using System;
   using System.Linq;
   using Ai;
+  using Zones;
 
   public static class Selectors
   {
@@ -90,6 +91,13 @@
     {
       filter = filter ?? delegate { return true; };
       return p => (p.Target.IsPermanent() || p.Target.IsEffect()) && filter(p.Target);
+    }
+
+    public static TargetValidatorDelegate CardInHand(Func<Card, bool> filter = null)
+    {
+      filter = filter ?? delegate { return true; };
+      
+      return p => p.Target.IsCard() && (p.Target.Card().Zone == Zone.Hand) && filter(p.Target.Card());
     }
   }
 }

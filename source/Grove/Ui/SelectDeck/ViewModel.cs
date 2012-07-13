@@ -70,6 +70,10 @@
       return false;
     }
 
+    public void CloseAllDialogs()
+    {      
+    }
+
     private string GetRandomDeck()
     {
       return _decks[Rnd.Next(0, _decks.Count)].Name;

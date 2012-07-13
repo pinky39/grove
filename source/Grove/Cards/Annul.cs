@@ -22,7 +22,7 @@
         .Effect<CounterTargetSpell>()
         .Targets(
           filter: TargetFilters.CounterSpell(),
-          selectors: C.Selector(Selectors.Counterspell("artifact", "enchantment")));
+          effect: C.Selector(Selectors.Counterspell("artifact", "enchantment")));
     }
   }
 }

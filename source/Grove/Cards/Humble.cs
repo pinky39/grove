@@ -30,7 +30,7 @@
           ))
         .Targets(
           filter: TargetFilters.Destroy(),
-          selectors: C.Selector(Selectors.Creature()));
+          effect: C.Selector(Selectors.Creature()));
     }
   }
 }

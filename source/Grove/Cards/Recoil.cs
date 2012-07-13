@@ -22,7 +22,7 @@
         .Effect<ReturnTargetPermanentToHand>((e, _) => e.Discard = 1)
         .Targets(
           filter: TargetFilters.Bounce(),
-          selectors: C.Selector(Selectors.Permanent()));
+          effect: C.Selector(Selectors.Permanent()));
     }
   }
 }

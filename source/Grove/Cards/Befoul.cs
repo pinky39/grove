@@ -23,7 +23,7 @@
         .Category(EffectCategories.Destruction)
         .Targets(
           filter: TargetFilters.Destroy(),
-          selectors: C.Selector(Selectors.Permanent(card =>
+          effect: C.Selector(Selectors.Permanent(card =>
             card.Is().Land || (card.Is().Creature && !card.HasColor(ManaColors.Black)))));
     }
   }

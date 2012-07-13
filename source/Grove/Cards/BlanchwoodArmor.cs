@@ -23,7 +23,7 @@
         .Timing(Timings.FirstMain())
         .Targets(
           filter: TargetFilters.CombatEnchantment(),
-          selectors: C.Selector(Selectors.EnchantedCreature()));
+          effect: C.Selector(Selectors.EnchantedCreature()));
     }
   }
 }

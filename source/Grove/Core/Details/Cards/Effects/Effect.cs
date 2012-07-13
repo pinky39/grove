@@ -15,6 +15,7 @@
   {
     public Action<Effect> AfterResolve = delegate { };
     public Action<Effect> BeforeResolve = delegate { };
+    private TrackableList<ITarget> _costTargets;
     private TrackableList<ITarget> _targets;
     private object _triggerContext;
     private bool _wasKickerPaid;
@@ -28,7 +29,23 @@
     public virtual bool AffectsSource { get { return false; } }
 
     public bool HasTargets { get { return _targets.Count > 0; } }
-    public IEnumerable<ITarget> Targets { get { return _targets; } }
+
+
+    public IEnumerable<ITarget> AllTargets
+    {
+      get
+      {
+        foreach (var costTarget in _costTargets)
+        {
+          yield return costTarget;
+        }
+
+        foreach (var target in _targets)
+        {
+          yield return target;
+        }
+      }
+    }
 
     public int CalculateHash(HashCalculator calc)
     {
@@ -54,6 +71,11 @@
     public ITarget Target()
     {
       return _targets.Count == 0 ? null : _targets[0];
+    }
+
+    public ITarget CostTarget()
+    {
+      return _costTargets.Count == 0 ? null : _costTargets[0];
     }
 
     public ITarget Target(int index)
@@ -115,6 +137,11 @@
       _targets.Add(target);
     }
 
+    public void AddCostTargets(IEnumerable<ITarget> targets)
+    {
+      _costTargets.AddRange(targets);
+    }
+
     public bool HasTarget(Card card)
     {
       return _targets.Any(x => x == card);
@@ -134,6 +161,7 @@
             Source = source,
             _triggerContext = triggerContext,
             _targets = new TrackableList<ITarget>(Game.ChangeTracker),
+            _costTargets = new TrackableList<ITarget>(Game.ChangeTracker),
             X = x,
             _wasKickerPaid = wasKickerPaid,
             CanBeCountered = true

@@ -105,6 +105,7 @@
     <Compile Include="Cards\Evacuation.cs" />
     <Compile Include="Cards\GraveTitan.cs" />
     <Compile Include="Cards\HeroOfBladeHold.cs" />
+    <Compile Include="Cards\LivingDestiny.cs" />
     <Compile Include="Cards\ManaLeak.cs" />
     <Compile Include="Cards\MartialCoup.cs" />
     <Compile Include="Cards\MirranCrusader.cs" />

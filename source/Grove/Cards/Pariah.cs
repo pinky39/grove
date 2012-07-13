@@ -31,7 +31,7 @@
           })
         .Targets(
           filter: TargetFilters.DamageRedirection(),
-          selectors: C.Selector(Selectors.EnchantedCreature()));
+          effect: C.Selector(Selectors.EnchantedCreature()));
     }
   }
 }

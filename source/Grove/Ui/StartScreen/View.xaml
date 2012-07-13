@@ -16,7 +16,8 @@
             </Style.Triggers>
         </Style>
         <Style TargetType="Button" BasedOn="{StaticResource LinkButton}">
-            <Setter Property="FontSize" Value="24"/>                      
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="Foreground" Value="#fff"/>
         </Style>      
     </UserControl.Resources>
     <Grid Background="{StaticResource StartScreenBackground}">        

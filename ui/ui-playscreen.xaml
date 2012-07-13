@@ -14,6 +14,7 @@
         <ResourceDictionary Source="EndOfGame.xaml" />
         <ResourceDictionary Source="EndOfMatch.xaml" />
         <ResourceDictionary Source="Stack.xaml" />
+        <ResourceDictionary Source="QuitGame.xaml" />
       </ResourceDictionary.MergedDictionaries> 
     </ResourceDictionary>
   </Page.Resources>
@@ -30,7 +31,8 @@
         <!--<ContentControl Style="{StaticResource Dialog}" Content="{StaticResource CastWithTarget}" />-->
         <!--<ContentControl Style="{StaticResource Dialog}" Content="{StaticResource DamageAssignmentOrder}" />-->
         <!--<ContentControl Style="{StaticResource Dialog}" Content="{StaticResource EndOfGame}" />-->
-        <!--<ContentControl Style="{StaticResource Dialog}" Content="{StaticResource EndOfMatch}" />-->
+        <!--<ContentControl Style="{StaticResource Dialog}" Content="{StaticResource EndOfMatch}" />-->        
+       <ContentControl Content="{StaticResource QuitGame}" />
       </Grid>
     </Border>
   </Viewbox>

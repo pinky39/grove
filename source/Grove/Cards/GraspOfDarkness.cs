@@ -28,7 +28,7 @@
             }, untilEndOfTurn: true)))
         .Targets(
           filter: TargetFilters.ReduceToughness(4),
-          selectors: C.Selector(Selectors.Creature()));
+          effect: C.Selector(Selectors.Creature()));
     }
   }
 }

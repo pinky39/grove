@@ -28,7 +28,7 @@
         .Timing(Timings.FirstMain())
         .Targets(
           filter: TargetFilters.CombatEnchantment(),
-          selectors: C.Selector(Selectors.EnchantedCreature()))
+          effect: C.Selector(Selectors.EnchantedCreature()))
         .Abilities(
           C.TriggeredAbility(
             "When Rancor is put into a graveyard from the battlefield, return Rancor to its owner's hand.",

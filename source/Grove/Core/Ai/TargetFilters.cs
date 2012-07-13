@@ -500,5 +500,17 @@
           return p.Targets(targetPicks);
         };
     }
+
+    public static TargetsFilterDelegate GreatestConvertedManaCost()
+    {
+      return p =>
+        {
+          var candidates = p.Candidates()
+            .OrderBy(x => x.Card().ManaCost.Converted)
+            .Take(1);
+
+          return p.Targets(candidates);
+        };
+    }
   }
 }

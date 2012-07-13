@@ -29,7 +29,7 @@
             }, untilEndOfTurn: true)))
         .Targets(
           filter: TargetFilters.Opponent(),
-          selectors: C.Selector(Selectors.Player()))
+          effect: C.Selector(Selectors.Player()))
         .KickerEffect<ApplyModifiersToCreatures>((e, c) =>
           e.Modifiers(c.Modifier<AddPowerAndToughness>((m, _) =>
             {

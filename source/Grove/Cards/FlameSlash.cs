@@ -22,7 +22,7 @@
         .Timing(Timings.TargetRemovalInstant())
         .Targets(
           filter: TargetFilters.DealDamage(4),
-          selectors: C.Selector(
+          effect: C.Selector(
             Selectors.Creature()));
     }
   }

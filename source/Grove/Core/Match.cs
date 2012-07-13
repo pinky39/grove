@@ -3,6 +3,7 @@
   using System;
   using System.Threading.Tasks;
   using System.Windows;
+  using Infrastructure;
   using Ui.GameResults;
   using Ui.Shell;
 
@@ -24,6 +25,8 @@
     private bool _playerLeftMatch;
     private bool _rematch = true;
     private bool _shutdown;
+    private Task _backgroundTask;
+    private ThreadBlocker _threadBlocker;
 
     public Match(
       Ui.PlayScreen.ViewModel.IFactory playScreenFactory,
@@ -71,6 +74,7 @@
       }
     }
 
+
     public void Start(string player1Deck, string player2Deck)
     {
       _deck1 = player1Deck;
@@ -106,40 +110,50 @@
     {
       Bootstrapper.NewGame();
 
-      var backgroundTask =
-        new Task(() =>
-          {
-            Game = _gameFactory.Create();
+      _backgroundTask = new Task(() =>
+        {
+          Game = _gameFactory.Create();
 
-            Game.Players.Player1 = _playerFactory.Create(
-              name: Player1Name,
-              avatar: "player1.png",
-              isHuman: true,
-              deck: _deck1
-              );
+          Game.Players.Player1 = _playerFactory.Create(
+            name: Player1Name,
+            avatar: "player1.png",
+            isHuman: true,
+            deck: _deck1
+            );
 
-            Game.Players.Player2 = _playerFactory.Create(
-              name: Player2Name,
-              avatar: "player2.png",
-              isHuman: false,
-              deck: _deck2
-              );
+          Game.Players.Player2 = _playerFactory.Create(
+            name: Player2Name,
+            avatar: "player2.png",
+            isHuman: false,
+            deck: _deck2
+            );
 
 
-            var playScreen = _playScreenFactory.Create();
-            Shell.ChangeScreen(playScreen);
+          var playScreen = _playScreenFactory.Create();
+          Shell.ChangeScreen(playScreen);
 
-            Game.Start(looser: Looser);
+          Game.Start(looser: Looser);
 
-            var looser = UpdateScore();
-            SetLooser(looser);
-          });
+          if (Game.WasStopped)
+            return;
+          
+          
+          var looser = UpdateScore();
+          SetLooser(looser);          
+        });
 
-      backgroundTask.ContinueWith(task =>
+      _backgroundTask.ContinueWith(task =>
         {
           if (task.Exception != null)
           {
             throw new Exception("A fatal error has occured.", task.Exception);
+          }
+
+          if (Game.WasStopped)
+          {            
+            _threadBlocker.Completed();            
+            _backgroundTask = null;
+            return;
           }
 
           if (IsFinished)
@@ -153,7 +167,7 @@
 
             if (_rematch && !_playerLeftMatch)
             {
-              Start(_deck1, _deck2);
+              Rematch();
               return;
             }
 
@@ -178,7 +192,12 @@
         }, _uiScheduler);
 
 
-      backgroundTask.Start(TaskScheduler.Default);
+      _backgroundTask.Start(TaskScheduler.Default);            
+    }
+
+    public void Rematch()
+    {
+      Start(_deck1, _deck2);
     }
 
     private void SetLooser(int? looser)
@@ -205,6 +224,24 @@
 
       Player1WinCount++;
       return 1;
+    }
+
+    public void ForceCurrentGameToEnd()
+    {
+      Game.Stop();
+      Shell.CloseAllDialogs();
+
+      WaitForGameToFinish();
+    }
+
+    private void WaitForGameToFinish()
+    {
+      if (_backgroundTask != null)
+      {
+        _threadBlocker = new ThreadBlocker();
+        _threadBlocker.BlockUntilCompleted();
+        _threadBlocker = null;
+      }
     }
   }
 }

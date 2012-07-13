@@ -21,7 +21,7 @@
         .Effect<ExileTargetPermanent>((e, _) => e.ControllerGainsLifeEqualToToughness = true)
         .Targets(
           filter: TargetFilters.Exile(),
-          selectors: C.Selector(
+          effect: C.Selector(
             Selectors.Creature()));
     }
   }

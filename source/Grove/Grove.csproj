@@ -157,6 +157,7 @@
     <Compile Include="Cards\Humble.cs" />
     <Compile Include="Cards\HypnoticSpecter.cs" />
     <Compile Include="Cards\Island.cs" />
+    <Compile Include="Cards\LivingDestiny.cs" />
     <Compile Include="Cards\LlanowarElves.cs" />
     <Compile Include="Cards\LeatherbackBaloth.cs" />
     <Compile Include="Cards\LightningBolt.cs" />
@@ -523,7 +524,6 @@
     <Compile Include="Core\Messages\CardChangedZone.cs" />
     <Compile Include="Core\Messages\DamageHasBeenDealt.cs" />
     <Compile Include="Core\Messages\PlayerHasCastASpell.cs" />
-    <Compile Include="Core\Targeting\WellKnownTargetScores.cs" />
     <Compile Include="Core\Targeting\UiTargetSelector.cs" />
     <Compile Include="Core\Zones\OrderedZone.cs" />
     <Compile Include="Core\Zones\UnorderedZone.cs" />
@@ -574,6 +574,10 @@
     <Compile Include="Core\Messages\EndOfTurn.cs" />
     <Compile Include="Core\Messages\PlayerHasTakenMulligan.cs" />
     <Compile Include="Core\Messages\RemovedFromCombat.cs" />
+    <Compile Include="Ui\QuitGame\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\QuitGame\ViewModel.cs" />
     <Compile Include="Ui\SelectDeck\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
@@ -808,6 +812,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Ui\Priority\View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\QuitGame\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

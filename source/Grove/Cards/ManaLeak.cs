@@ -23,7 +23,7 @@
         .Effect<CounterTargetSpell>((e, _) => e.DoNotCounterCost = 3.AsColorlessMana())
         .Targets(
           filter: TargetFilters.CounterSpell(),
-          selectors: C.Selector(Selectors.Counterspell()));
+          effect: C.Selector(Selectors.Counterspell()));
     }
   }
 }

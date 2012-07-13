@@ -24,7 +24,7 @@
         .Effect<DestroyTargetPermanent>()
         .Targets(
           filter: TargetFilters.Destroy(),
-          selectors:
+          effect:
             C.Selector(Selectors.Creature((creature) => !creature.HasColor(ManaColors.Black) && !creature.Is().Artifact)))
         ;
     }

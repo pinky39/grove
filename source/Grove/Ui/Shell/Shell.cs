@@ -22,6 +22,11 @@
     public virtual IIsDialogHost Screen { get; protected set; }
     public string DisplayName { get; set; }
 
+    public void CloseAllDialogs()
+    {
+      Screen.CloseAllDialogs();
+    }
+
     public void ChangeScreen(IIsDialogHost screen)
     {
       if (Screen != null)

@@ -43,7 +43,9 @@
       var effect = EffectFactory.CreateEffect(this, activation.X);
 
       effect.AddTargets(activation.Targets.Effect());
-      Publisher.Publish(new PlayerHasActivatedAbility(this, effect.Targets));
+      effect.AddCostTargets(activation.Targets.Cost());
+
+      Publisher.Publish(new PlayerHasActivatedAbility(this, effect.AllTargets));
 
       if (UsesStack)
       {
