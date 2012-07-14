@@ -23,8 +23,7 @@
     private string _deck2;
     private int? _looser;
     private bool _playerLeftMatch;
-    private bool _rematch = true;
-    private bool _shutdown;
+    private bool _rematch = true;    
     private Task _backgroundTask;
     private ThreadBlocker _threadBlocker;
 
@@ -44,7 +43,10 @@
       _matchResultsFactory = matchResultsFactory;
       _uiScheduler = TaskScheduler.FromCurrentSynchronizationContext();
 
-      Application.Current.Exit += delegate { _shutdown = true; };
+      Application.Current.Exit += delegate
+        {
+          ForceCurrentGameToEnd();          
+        };
     }
 
     public Game Game { get; private set; }
@@ -135,8 +137,7 @@
           Game.Start(looser: Looser);
 
           if (Game.WasStopped)
-            return;
-          
+            return;          
           
           var looser = UpdateScore();
           SetLooser(looser);          
@@ -149,21 +150,15 @@
             throw new Exception("A fatal error has occured.", task.Exception);
           }
 
-          if (Game.WasStopped)
-          {            
-            _threadBlocker.Completed();            
-            _backgroundTask = null;
+          if (HasGameBeenStopped()) 
             return;
-          }
 
           if (IsFinished)
           {
             DisplayMatchResults();
 
-            if (_shutdown)
-            {
+            if (HasGameBeenStopped()) 
               return;
-            }
 
             if (_rematch && !_playerLeftMatch)
             {
@@ -177,10 +172,8 @@
 
           DisplayGameResults();
 
-          if (_shutdown)
-          {
+          if (HasGameBeenStopped()) 
             return;
-          }
 
           if (_playerLeftMatch)
           {
@@ -189,11 +182,28 @@
           }
 
           Run();
+          
+
         }, _uiScheduler);
 
 
       _backgroundTask.Start(TaskScheduler.Default);            
     }
+
+    private bool HasGameBeenStopped()
+    {
+      if (Game.WasStopped)
+      {
+        if (_threadBlocker != null)
+        {
+          _threadBlocker.Completed();
+          _backgroundTask = null;
+        }        
+        return true;
+      }
+      
+      return false;
+    }  
 
     public void Rematch()
     {
@@ -228,10 +238,18 @@
 
     public void ForceCurrentGameToEnd()
     {
-      Game.Stop();
+      bool isFinished = true;
+
+      if (Game != null)
+      {
+        isFinished = Game.IsFinished;
+        Game.Stop();
+      }
+
       Shell.CloseAllDialogs();
 
-      WaitForGameToFinish();
+      if (!isFinished)
+        WaitForGameToFinish();
     }
 
     private void WaitForGameToFinish()
