@@ -36,12 +36,14 @@
       Amount = 0;
     }
 
-    public void Prevent(int amount)
+    public int Prevent(int amount)
     {
       if (amount > Amount)
         amount = Amount;
 
       Amount = Amount - amount;
+
+      return amount;
     }
 
     public bool WasAlreadyRedirected(DamageRedirection damageRedirection)

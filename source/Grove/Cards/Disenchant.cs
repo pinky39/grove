@@ -21,7 +21,7 @@
         .Category(EffectCategories.Destruction)
         .Timing(Timings.TargetRemovalInstant())
         .Targets(
-          filter: TargetFilters.PermanentsByDescendingScore(),
+          filter: TargetFilters.OrderByDescendingScore(),
           effect:
             C.Selector(Selectors.Permanent(card => card.Is().Artifact || card.Is().Enchantment)));
     }

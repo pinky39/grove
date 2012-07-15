@@ -178,6 +178,25 @@
       Assert.False(condition, message);
     }
 
+    protected void Graveyard(Player player, params ScenarioCard[] cards)
+    {
+      var graveyard = (Graveyard) player.Graveyard;
+
+      foreach (var scenarioCard in cards)
+      {
+          scenarioCard.Initialize(name =>
+          {
+            var card = CardDatabase.CreateCard(name, player);
+            graveyard.Add(card);
+
+            if (card.IsManaSource)
+              player.AddManaSources(card.ManaSources);
+
+            return card;
+          });
+      }
+    }
+    
     protected void Hand(Player player, params ScenarioCard[] cards)
     {
       var hand = (Hand) player.Hand;

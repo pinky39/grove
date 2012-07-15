@@ -104,22 +104,31 @@
       return damageDealing.PlayerDamage(player);
     }
 
-    public bool CanBeDealtLeathalDamageByTopSpell(Card card, bool targetOnly = false)
+    public int GetDamageTopSpellWillDealToCreature(Card card, bool targetOnly = false)
     {
       if (TopSpell == null)
-        return false;
+        return 0;
 
       if (!TopSpell.HasTargets && targetOnly)
-        return false;
+        return 0;
 
       var damageDealing = TopSpell as IDamageDealing;
 
       if (damageDealing == null)
-        return false;
+        return 0;
 
       var dealtAmount = card.EvaluateHowMuchDamageCanBeDealt(
         TopSpell.Source.OwningCard, damageDealing.CreatureDamage(card), isCombat: false);
 
+      return dealtAmount;
+    }
+    
+    public bool CanBeDealtLeathalDamageByTopSpell(Card card, bool targetOnly = false)
+    {
+      var dealtAmount = GetDamageTopSpellWillDealToCreature(card, targetOnly);      
+      if (dealtAmount == 0)
+        return false;
+      
       return card.LifepointsLeft <= dealtAmount;
     }
 

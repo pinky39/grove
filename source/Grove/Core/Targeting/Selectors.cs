@@ -99,5 +99,16 @@
       
       return p => p.Target.IsCard() && (p.Target.Card().Zone == Zone.Hand) && filter(p.Target.Card());
     }
+
+    public static TargetValidatorDelegate CardInGraveyard(Func<Card, bool> filter = null)
+    {
+      filter = filter ?? delegate { return true; };
+      
+      return
+        p => p.Target.IsCard() && 
+          p.Target.Card().Zone == Zone.Graveyard && 
+            p.Target.Card().Controller == p.Controller && 
+              filter(p.Target.Card());
+    }
   }
 }

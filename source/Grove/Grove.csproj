@@ -130,6 +130,7 @@
     <Compile Include="Cards\DayofJudgment.cs" />
     <Compile Include="Cards\DeathlessAngel.cs" />
     <Compile Include="Cards\DiscipleOfGrace.cs" />
+    <Compile Include="Cards\DiscipleOfLaw.cs" />
     <Compile Include="Cards\Disenchant.cs" />
     <Compile Include="Cards\DriftingMeadow.cs" />
     <Compile Include="Cards\DrownedCatacomb.cs" />
@@ -165,6 +166,8 @@
     <Compile Include="Cards\LlanowarBehemoth.cs" />
     <Compile Include="Cards\MartialCoup.cs" />
     <Compile Include="Cards\MirranCrusader.cs" />
+    <Compile Include="Cards\MonkIdealist.cs" />
+    <Compile Include="Cards\MonkRealist.cs" />
     <Compile Include="Cards\Mountain.cs" />
     <Compile Include="Cards\ManaLeak.cs" />
     <Compile Include="Cards\MarshCasualties.cs" />
@@ -172,6 +175,7 @@
     <Compile Include="Cards\OpalAcrolith.cs" />
     <Compile Include="Cards\OrderOfTheSacredBell.cs" />
     <Compile Include="Cards\Pariah.cs" />
+    <Compile Include="Cards\PegasusCharger.cs" />
     <Compile Include="Cards\Pestilence.cs" />
     <Compile Include="Cards\PhyrexianArena.cs" />
     <Compile Include="Cards\Plains.cs" />
@@ -185,6 +189,7 @@
     <Compile Include="Cards\Recoil.cs" />
     <Compile Include="Cards\RootboundCrag.cs" />
     <Compile Include="Cards\RumblingSlum.cs" />
+    <Compile Include="Cards\SanctumCustodian.cs" />
     <Compile Include="Cards\SanctumGuardian.cs" />
     <Compile Include="Cards\SavannahLions.cs" />
     <Compile Include="Cards\Sicken.cs" />
@@ -232,6 +237,7 @@
     <Compile Include="Core\Details\Cards\Ability.cs" />
     <Compile Include="Core\Details\Cards\Costs\NoCost.cs" />
     <Compile Include="Core\Details\Cards\Costs\RevealCardFromHand.cs" />
+    <Compile Include="Core\Details\Cards\Effects\MoveCardFromGraveyardToHand.cs" />
     <Compile Include="Core\Details\Cards\Preventions\PreventLifelossBelowOne.cs" />
     <Compile Include="Core\Details\Mana\AggregateManaAmount.cs" />
     <Compile Include="Core\Ai\TargetCandidatesEx.cs" />
@@ -250,7 +256,7 @@
     <Compile Include="Core\Targeting\ITargetSelectorFactory.cs" />
     <Compile Include="Core\Details\Cards\Modifiers\AddDamageRedirection.cs" />
     <Compile Include="Core\Details\Cards\Modifiers\DisableAbilities.cs" />
-    <Compile Include="Core\Details\Cards\Preventions\PreventDamageFromAnySource.cs" />
+    <Compile Include="Core\Details\Cards\Preventions\PreventDamageToTarget.cs" />
     <Compile Include="Core\Details\Cards\Preventions\PreventDamageFromSource.cs" />
     <Compile Include="Core\Details\Cards\Redirections\DamageRedirection.cs" />
     <Compile Include="Core\Details\Cards\Redirections\DamageRedirections.cs" />
@@ -539,6 +545,10 @@
     <Compile Include="Ui\AttackerSelected.cs" />
     <Compile Include="Ui\AttackerUnselected.cs" />
     <Compile Include="Ui\BackgroundExtension.cs" />
+    <Compile Include="Ui\Graveyard\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Graveyard\ViewModel.cs" />
     <Compile Include="Ui\MessageLog\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
@@ -767,6 +777,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Ui\Graveyard\View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Ui\Hand\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -871,9 +885,7 @@
   <ItemGroup>
     <Resource Include="icon.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Core\Details\Cards\Replacements\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <UsingTask TaskName="Costura.EmbedTask" AssemblyFile="$(SolutionDir)lib\costura\Costura.dll" />
   <Target Name="AfterBuild">

@@ -303,6 +303,11 @@
       {
         yield return card;
       }
+
+      foreach (var card in Graveyard)
+      {
+        yield return card;
+      }
     }
 
     public bool HasMana(int amount)
@@ -508,6 +513,12 @@
     public interface IFactory
     {
       Player Create(string name, string avatar, bool isHuman, string deck);
+    }
+
+    public void MoveCardFromGraveyardToHand(Card card)
+    {
+      _graveyard.Remove(card);
+      _hand.Add(card);
     }
   }
 }

@@ -44,6 +44,7 @@
         prevention.EndOfLife = new TrackableEvent(prevention, Game.ChangeTracker);
 
         Init(prevention, new CardCreationContext(Game));
+        prevention.Initialize();
 
         return prevention;
       }

@@ -12,7 +12,7 @@
 
     public delegate IEnumerable<Targets> OutputSelectorDelegate(IEnumerable<ITarget> targets);
 
-    public static TargetsFilterDelegate PermanentsByDescendingScore(Controller controller = Ai.Controller.Opponent)
+    public static TargetsFilterDelegate OrderByDescendingScore(Controller controller = Ai.Controller.Opponent)
     {
       return p =>
         {
@@ -367,7 +367,7 @@
         };
     }
 
-    public static TargetsFilterDelegate PreventDamageFromSourceToAnyTarget()
+    public static TargetsFilterDelegate PreventAllDamageFromSourceToTarget()
     {
       return p =>
         {
@@ -510,6 +510,77 @@
             .Take(1);
 
           return p.Targets(candidates);
+        };
+    }
+
+    public static TargetsFilterDelegate PreventNextDamage(int amount)
+    {
+        return p =>
+        {
+          var targetPicks = new List<ITarget>();          
+
+          if (!p.Stack.IsEmpty && p.Stack.TopSpell is IDamageDealing)
+          {
+            foreach (var candidate in p.Candidates())
+            {
+              if (candidate.IsPlayer())
+              {
+                var damageToPlayer = p.Stack.GetDamageTopSpellWillDealToPlayer(p.Controller);
+
+                if (damageToPlayer > 0)
+                {
+                  targetPicks.Add(p.Controller);              
+                }
+              }
+              else
+              {
+                var damageToCreature = p.Stack.GetDamageTopSpellWillDealToCreature(candidate.Card());
+                if ((damageToCreature >= candidate.Card().LifepointsLeft) && 
+                   (damageToCreature - amount < candidate.Card().LifepointsLeft))
+                {
+                  targetPicks.Add(candidate);
+                }
+              }
+            }                                                                        
+          }
+
+          // todo, combat
+          
+          return p.Targets(targetPicks);
+
+          //if (p.Step == Step.DeclareBlockers)
+          //{
+          //  if (!p.Controller.IsActive)
+          //  {
+          //    var attacker = p.Combat.GetAttackerWhichWillDealGreatestDamageToDefender();
+
+          //    if (attacker != null)
+          //    {
+          //      targetPicks.Add(p.Controller);                
+          //    }
+          //  }
+
+          //  var creatureKilledInCombat = p.Candidates(1)
+          //    .Where(x => x.IsCard())
+          //    .Select(x => new
+          //      {
+          //        Target = x.Card(),
+          //        Source = p.Combat.GetBestDamagePreventionCandidateForAttackerOrBlocker(x.Card())
+          //      })
+          //    .Where(x => x.Source != null)
+          //    .OrderByDescending(x => x.Target.Score)
+          //    .FirstOrDefault();
+
+          //  if (creatureKilledInCombat != null)
+          //  {
+          //    targetPicks.Add(creatureKilledInCombat.Target);
+          //    sourcePicks.Add(creatureKilledInCombat.Source);
+          //  }
+          //}
+
+          //return p.MultipleTargets(sourcePicks, targetPicks);
+
+
         };
     }
   }
