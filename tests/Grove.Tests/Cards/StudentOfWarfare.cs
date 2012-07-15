@@ -10,6 +10,21 @@
     public class Ai : AiScenario
     {
       [Fact]
+      public void CastAndLevelUpStudentInSameTurn()
+      {
+        var student = C("Student of Warfare");
+
+        Hand(P1, student);
+        Battlefield(P1, "Plains", "Plains", "Plains");
+
+        RunGame(1);
+
+        Equal(Zone.Battlefield, C(student).Zone);
+        Equal(3, C(student).Power);
+      }
+      
+      
+      [Fact]
       public void LevelUpAndAttack()
       {
         var student = C("Student of Warfare");

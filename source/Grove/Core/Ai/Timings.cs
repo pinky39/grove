@@ -201,10 +201,7 @@
     public static TimingDelegate Leveler(IManaAmount activationCost, IEnumerable<LevelDefinition> levelDefinitions)
     {
       return p =>
-        {
-          if (p.Step != Step.FirstMain)
-            return false;
-
+        {          
           var level = p.Card.Level ?? 0;
           int? costToNextLevel = null;
 

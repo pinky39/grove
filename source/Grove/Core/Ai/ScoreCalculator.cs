@@ -107,6 +107,9 @@
       if (permanent.IsTapped)
         score += tappedPermanentValue;
 
+      if (permanent.Level > 0)
+        score += 10*permanent.Level.Value;
+      
       if (permanent.ManaCost != null)
       {
         score += CalculatePermanentScoreFromManaCost(permanent.ManaCost);             
