@@ -6,7 +6,7 @@
   public abstract class SacrificeCreatures : Decision<ChosenCards>
   {
     public int Count { get; set; }
-    protected override bool ShouldExecuteQuery { get { return Player.Battlefield.Creatures.Count() > Count; } }
+    protected override bool ShouldExecuteQuery { get { return Controller.Battlefield.Creatures.Count() > Count; } }
 
     public override void ProcessResults()
     {
@@ -18,15 +18,15 @@
 
       foreach (var creature in Result)
       {
-        Player.SacrificeCard(creature);
+        Controller.SacrificeCard(creature);
       }
     }
 
     private void SacrificeAll()
     {
-      foreach (var creature in Player.Battlefield.Creatures.ToList())
+      foreach (var creature in Controller.Battlefield.Creatures.ToList())
       {
-        Player.SacrificeCard(creature);
+        Controller.SacrificeCard(creature);
       }
     }
   }

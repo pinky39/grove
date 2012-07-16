@@ -121,7 +121,7 @@
         }
 
         RegisterCardsSources(container);
-        RegisterDecisionFactories(container);
+        RegisterDecisions(container);
 
         container.Register(Component(typeof (Game), lifestyle: LifestyleType.Scoped));
         container.Register(Component(typeof (Game.IFactory)).AsFactory());
@@ -146,6 +146,17 @@
         container.Register(Component(typeof (IBlockerFactory), typeof (Blocker.Factory)));
         container.Register(Component(typeof (CastRestrictions)));
         container.Register(Component(typeof (StateMachine), lifestyle: LifestyleType.Scoped));
+      }
+
+      private void RegisterDecisions(IWindsorContainer container) {
+        container.Register(Component(typeof (DecisionFactory), lifestyle: LifestyleType.Scoped));
+        container.Register(Component(typeof (DecisionFactoryComponentSelector)));
+        container.Register(Component(typeof (StepDecisions), lifestyle: LifestyleType.Scoped));
+        container.Register(Component(typeof (IDecisionFactory)).AsFactory(typeof(DecisionFactoryComponentSelector)));
+
+        container.Register(Classes.FromThisAssembly()
+          .BasedOn(typeof (IDecision))          
+          .LifestyleTransient());
       }
 
       private void RegisterPlayer(IWindsorContainer container)
@@ -238,28 +249,7 @@
               disposed.Closed += delegate { publisher.Unsubscribe(instance); };
             });
         }
-      }
-
-      private void RegisterDecisionFactories(IWindsorContainer container)
-      {
-        var humanDecisionFactory = _configuration == Configuration.Ui
-          ? typeof (Core.Controllers.Human.DecisionFactory)
-          : typeof (Core.Controllers.Scenario.DecisionFactory);
-
-        container.Register(Component(
-          typeof (IHumanDecisionFactory),
-          humanDecisionFactory, LifestyleType.Scoped));
-
-        if (_configuration == Configuration.Test)
-        {
-          container.Register(
-            Component(typeof (StepDecisions)));
-        }
-
-        container.Register(Component(
-          typeof (IMachineDecisionFactory),
-          typeof (Core.Controllers.Machine.DecisionFactory), LifestyleType.Scoped));
-      }
+      }     
 
       private void RegisterShell(IWindsorContainer container)
       {

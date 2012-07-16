@@ -6,22 +6,22 @@
   {
     public int Count { get; set; }
 
-    protected override bool ShouldExecuteQuery { get { return Count > 0 && Player.Hand.Count > Count; } }
+    protected override bool ShouldExecuteQuery { get { return Count > 0 && Controller.Hand.Count > Count; } }
 
     public override void ProcessResults()
     {
       if (Count == 0)
         return;
 
-      if (Player.Hand.Count <= Count)
+      if (Controller.Hand.Count <= Count)
       {
-        Player.DiscardHand();
+        Controller.DiscardHand();
         return;
       }
 
       foreach (var card in Result)
       {
-        Player.DiscardCard(card);
+        Controller.DiscardCard(card);
       }
     }
   }

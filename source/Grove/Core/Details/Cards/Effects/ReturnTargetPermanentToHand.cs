@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core.Details.Cards.Effects
 {
+  using Controllers;
   using Targeting;
 
   public class ReturnTargetPermanentToHand : Effect
@@ -12,7 +13,9 @@
 
       if (Discard > 0)
       {
-        Decisions.EnqueueDiscardCards(Target().Card().Controller, Discard);
+        Decisions.Enqueue<DiscardCards>(
+          controller: Target().Card().Controller, 
+          init: p => p.Count = Discard);
       }
     }
   }

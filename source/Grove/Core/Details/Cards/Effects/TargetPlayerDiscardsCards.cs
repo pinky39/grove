@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core.Details.Cards.Effects
 {
+  using Controllers;
   using Targeting;
 
   public class TargetPlayerDiscardsCards : Effect
@@ -8,7 +9,9 @@
 
     protected override void ResolveEffect()
     {
-      Decisions.EnqueueDiscardCards(Target().Player(), SelectedCount);
+      Decisions.Enqueue<DiscardCards>(
+        controller:Target().Player(), 
+        init: p => p.Count = SelectedCount);
     }
   }
 }

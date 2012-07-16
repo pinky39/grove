@@ -3,21 +3,17 @@
   using System.Collections.Generic;
   using System.Linq;
   using Ai;
-  using Infrastructure;
   using log4net;
   using Results;
 
   public class PlaySpellOrAbility : Controllers.PlaySpellOrAbility, ISearchNode, IDecisionExecution
   {
     private static readonly ILog Log = LogManager.GetLogger(typeof (PlaySpellOrAbility));
-    private readonly DecisionExecutor _executor;
+    private DecisionExecutor _executor;
     private List<Playable> _playables;
 
-    private PlaySpellOrAbility() {}
-
-    public PlaySpellOrAbility(ChangeTracker changeTracker)
+    public PlaySpellOrAbility()
     {
-      _executor = new DecisionExecutor(this, changeTracker);
       Result = DefaultResult();
     }
 
@@ -33,8 +29,6 @@
       ExecuteQuery();
     }
 
-    public Game Game { get; set; }
-
     public int ResultCount { get { return _playables.Count; } }
 
     public void GenerateChoices()
@@ -46,6 +40,11 @@
     {
       Result = _playables[index];
       Log.DebugFormat("Move is {0}", _playables[index]);
+    }
+
+    protected override void Init()
+    {
+      _executor = new DecisionExecutor(this, Game.ChangeTracker);
     }
 
     public override void Execute()
@@ -67,9 +66,9 @@
 
     private IEnumerable<Playable> GeneratePlayables()
     {
-      if (!Restrictions.IsPlayRestrictedFor(Player))
+      if (!Restrictions.IsPlayRestrictedFor(Controller))
       {
-        foreach (var playable in new PlayableGenerator(Player, Game))
+        foreach (var playable in new PlayableGenerator(Controller, Game))
         {
           yield return playable;
         }
@@ -80,7 +79,7 @@
 
     public override string ToString()
     {
-      return string.Format("{0}, {1} plays", Game.Turn.Step, Player);
+      return string.Format("{0}, {1} plays", Game.Turn.Step, Controller);
     }
   }
 }

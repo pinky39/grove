@@ -178,8 +178,11 @@
     {
       foreach (var attacker in _attackers)
       {
-        decisions.EnqueueSetDamageAssignmentOrder(
-          attacker.Controller, attacker);
+        var attackerCopy = attacker;
+        
+        decisions.Enqueue<SetDamageAssignmentOrder>(
+          controller: attacker.Controller,
+          init: p => p.Attacker = attackerCopy);
       }
     }
 

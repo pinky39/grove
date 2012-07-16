@@ -16,11 +16,11 @@
 
       if (result == MessageBoxResult.Yes)
       {
-        Result = Player;
+        Result = Controller;
         return;
       }
 
-      Result = Players.GetOpponent(Player);
+      Result = Game.Players.GetOpponent(Controller);
     }
   }
 }

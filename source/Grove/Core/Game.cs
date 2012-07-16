@@ -79,9 +79,9 @@
     }
 
     public void Start(int numOfTurns = int.MaxValue, bool skipPreGame = false, Player looser = null)
-    {
-      Decisions.Initialize(this);
-
+    {      
+      Decisions.Init(this);
+      
       _stateMachine.Start(() => ShouldContinue() &&
         numOfTurns >= Turn.TurnCount, skipPreGame, looser);
     }

@@ -6,8 +6,8 @@
   {
     protected override void ExecuteQuery()
     {
-      var landCount = Player.Hand.Lands.Count();
-      Result = landCount < 2 && Player.Hand.Count > 4;
+      var landCount = Controller.Hand.Lands.Count();
+      Result = landCount < 2 && Controller.Hand.Count > 4;
     }
   }
 }

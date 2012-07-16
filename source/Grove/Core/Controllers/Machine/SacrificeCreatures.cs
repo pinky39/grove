@@ -7,7 +7,7 @@
   {
     protected override void ExecuteQuery()
     {
-      var creaturesToSacrifice = Player.Battlefield
+      var creaturesToSacrifice = Controller.Battlefield
         .Creatures
         .Select(card => new
           {

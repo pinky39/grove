@@ -68,8 +68,13 @@
 
       if (TargetSelectors.Count > 0)
       {
-        _decisions.EnqueueSetTriggeredAbilityTarget(
-          OwningCard.Controller, effect, TargetSelectors);
+        _decisions.Enqueue<SetTriggeredAbilityTarget>(
+          controller: OwningCard.Controller,
+          init: p =>
+            {
+              p.Effect = effect;
+              p.TargetSelectors = TargetSelectors;
+            });                    
 
         return;
       }

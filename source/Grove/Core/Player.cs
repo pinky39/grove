@@ -14,6 +14,13 @@
   using Targeting;
   using Zones;
 
+  public enum PlayerType
+  {
+    Computer,
+    Human,
+    Scenario
+  }
+  
   [Copyable]
   public class Player : ITarget, IDamageable
   {
@@ -34,11 +41,12 @@
     private Hand _hand;
     private Library _library;
     private ManaSources _manaSources;
+    private readonly PlayerType _type;
 
     public Player(
       string name,
       string avatar,
-      bool isHuman,
+      PlayerType type,
       string deck,
       ChangeTracker changeTracker,
       Publisher publisher,
@@ -48,7 +56,7 @@
 
       Name = name;
       Avatar = avatar;
-      IsHuman = isHuman;
+      _type = type;
 
       _life = new Life(20, changeTracker);
       _canPlayLands = new Trackable<bool>(true, changeTracker);
@@ -81,7 +89,9 @@
     public bool HasMulligan { get { return _hasMulligan.Value; } set { _hasMulligan.Value = value; } }
     public bool HasPriority { get { return _hasPriority.Value; } set { _hasPriority.Value = value; } }
     public virtual bool IsActive { get { return _isActive.Value; } set { _isActive.Value = value; } }
-    public bool IsHuman { get; private set; }
+    public bool IsHuman { get { return _type == PlayerType.Human; } }
+    public bool IsComputer { get { return _type == PlayerType.Computer; } }
+    public bool IsScenario { get { return _type == PlayerType.Scenario; } }
     public bool IsMax { get; set; }
 
     public IEnumerable<Card> Library { get { return _library; } }
@@ -512,7 +522,7 @@
 
     public interface IFactory
     {
-      Player Create(string name, string avatar, bool isHuman, string deck);
+      Player Create(string name, string avatar, PlayerType type, string deck);
     }
 
     public void MoveCardFromGraveyardToHand(Card card)

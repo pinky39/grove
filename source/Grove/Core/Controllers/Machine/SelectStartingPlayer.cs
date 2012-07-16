@@ -4,7 +4,7 @@
   {
     protected override void ExecuteQuery()
     {
-      Result = Player;
+      Result = Controller;
     }
   }
 }

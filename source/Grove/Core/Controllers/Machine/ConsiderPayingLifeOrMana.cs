@@ -5,7 +5,7 @@
     protected override void ExecuteQuery()
     {
       Result = Life != null
-        ? Player.Life > 10
+        ? Controller.Life > 10
         : true;
     }
   }

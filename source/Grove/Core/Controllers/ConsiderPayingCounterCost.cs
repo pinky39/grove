@@ -9,12 +9,11 @@
     public PayLifeOrManaHandler Handler { get; set; }
     public int? Life { get; set; }
     public IManaAmount Mana { get; set; }
-    public string Message { get; set; }
-    public Game Game { get; set; }
+    public string Message { get; set; }    
 
     public override void ProcessResults()
     {
-      Handler(new PayLifeOrManaArguments(Result.IsTrue, Player, Game, Context));
+      Handler(new PayLifeOrManaArguments(Result.IsTrue, Controller, Game, Context));
     }
   }
 }

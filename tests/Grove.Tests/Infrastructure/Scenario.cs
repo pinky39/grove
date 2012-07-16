@@ -6,6 +6,7 @@
   using System.Reflection;
   using Core;
   using Core.Ai;
+  using Core.Controllers;
   using Core.Controllers.Scenario;
   using Core.Zones;
   using log4net.Config;
@@ -254,13 +255,13 @@
       Game.Players.Player1 = PlayerFactory.Create(
         name: "Player 1",
         avatar: String.Empty,
-        isHuman: p1IsControlledByScript,
+        type: p1IsControlledByScript ? PlayerType.Scenario : PlayerType.Computer,
         deck: "dummy");
 
       Game.Players.Player2 = PlayerFactory.Create(
         name: "Player 2",
         avatar: String.Empty,
-        isHuman: p2IsControlledByScript,
+        type: p2IsControlledByScript ? PlayerType.Scenario : PlayerType.Computer,
         deck: "dummy");
 
 

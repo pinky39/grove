@@ -9,9 +9,9 @@
     {
       Result = new BlockStrategy
         (
-        Combat.Attackers.Select(x => x.Card),
-        Player.Battlefield.CreaturesThatCanBlock,
-        Player.Life
+        Game.Combat.Attackers.Select(x => x.Card),
+        Controller.Battlefield.CreaturesThatCanBlock,
+        Controller.Life
         );
     }
   }

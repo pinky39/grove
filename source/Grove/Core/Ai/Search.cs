@@ -97,7 +97,7 @@
         return;
       }
 
-      searchNode.Game.Players.SetAiVisibility(searchNode.Player);
+      searchNode.Game.Players.SetAiVisibility(searchNode.Controller);
       searchNode.GenerateChoices();
 
       var result =

@@ -2,13 +2,11 @@
 {
   using Details.Cards.Effects;
   using Results;
-  using Targeting;
-  using Zones;
+  using Targeting;  
 
   public abstract class SetTriggeredAbilityTarget : Decision<ChosenTargets>
   {
-    public Effect Effect { get; set; }
-    public Stack Stack { get; set; }
+    public Effect Effect { get; set; }    
     public TargetSelectors TargetSelectors { get; set; }
 
     public override void ProcessResults()
@@ -21,7 +19,7 @@
         Effect.AddTarget(target);
       }
 
-      Stack.Push(Effect);
+      Game.Stack.Push(Effect);
     }
   }
 }

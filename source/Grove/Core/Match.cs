@@ -119,14 +119,14 @@
           Game.Players.Player1 = _playerFactory.Create(
             name: Player1Name,
             avatar: "player1.png",
-            isHuman: true,
+            type: PlayerType.Human,
             deck: _deck1
             );
 
           Game.Players.Player2 = _playerFactory.Create(
             name: Player2Name,
             avatar: "player2.png",
-            isHuman: false,
+            type: PlayerType.Computer,
             deck: _deck2
             );
 

@@ -9,19 +9,22 @@
 
   public class SetTriggeredAbilityTarget : Controllers.SetTriggeredAbilityTarget, ISearchNode, IDecisionExecution
   {
-    private readonly DecisionExecutor _executor;
-    private List<Targets> _targets;
+    private DecisionExecutor _executor;
+    private List<Targets> _targets;    
 
-    private SetTriggeredAbilityTarget() {}
-
-    public SetTriggeredAbilityTarget(ChangeTracker changeTracker)
+    public SetTriggeredAbilityTarget()
     {
-      _executor = new DecisionExecutor(this, changeTracker);
+      
       Result = DefaultResult();
     }
 
+    protected override void Init()
+    {
+      _executor = new DecisionExecutor(this, Game.ChangeTracker);
+    }
+
     public override bool HasCompleted { get { return _executor.HasCompleted; } }
-    public bool IsMax { get { return Player.IsMax; } }
+    public bool IsMax { get { return Controller.IsMax; } }
     public Search Search { get; set; }
 
     bool IDecisionExecution.ShouldExecuteQuery { get { return ShouldExecuteQuery; } }
@@ -30,9 +33,7 @@
     {
       ExecuteQuery();
     }
-
-
-    public Game Game { get; set; }
+    
     public int ResultCount { get { return _targets.Count; } }
 
     public void GenerateChoices()
@@ -84,7 +85,7 @@
 
     public override string ToString()
     {
-      return string.Format("{0}: {1} sets trig. ability targets", Game.Turn.Step, Player);
+      return string.Format("{0}: {1} sets trig. ability targets", Game.Turn.Step, Controller);
     }
   }
 }

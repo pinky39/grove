@@ -80,7 +80,9 @@
 
     public void DistributeDamageToBlockers(Decisions decisions)
     {
-      decisions.EnqueueAssignCombatDamage(_card.Controller, this);
+      decisions.Enqueue<AssignCombatDamage>(
+         controller: _card.Controller,  
+         init: p => p.Attacker = this);
     }
 
     public void DistributeDamageToBlockers(DamageDistribution distribution)

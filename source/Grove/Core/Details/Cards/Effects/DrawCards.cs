@@ -1,5 +1,7 @@
 ﻿namespace Grove.Core.Details.Cards.Effects
 {
+  using Controllers;
+
   public class DrawCards : Effect
   {
     public int DiscardCount { get; set; }
@@ -14,7 +16,9 @@
         Controller.Life -= Lifeloss;
 
       if (DiscardCount > 0)
-        Decisions.EnqueueDiscardCards(Controller, DiscardCount);
+        Decisions.Enqueue<DiscardCards>(
+          controller: Controller, 
+          init: p => p.Count = DiscardCount);
     }
   }
 }

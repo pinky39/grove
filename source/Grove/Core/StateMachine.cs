@@ -11,8 +11,8 @@
   public class StateMachine : ICopyContributor
   {
     private static readonly ILog Log = LogManager.GetLogger(typeof (StateMachine));
-    private Trackable<IDecision> _curentDecision;
     private readonly DecisionQueue _decisionQueue;
+    private Trackable<IDecision> _curentDecision;
     private Game _game;
     private Player _looser;
     private Dictionary<State, StepState> _states;
@@ -21,18 +21,8 @@
     private StateMachine() {}
 
     public StateMachine(DecisionQueue decisionQueue)
-    {      
-      _decisionQueue = decisionQueue;      
-    }
-
-    public StateMachine Init(Game game)
     {
-      _game = game;
-      _curentDecision = new Trackable<IDecision>(_game.ChangeTracker);
-
-      InitializeStepStates();
-      InitializeSteps();
-      return this;
+      _decisionQueue = decisionQueue;
     }
 
     private IDecision CurrentDecision { get { return _curentDecision.Value; } set { _curentDecision.Value = value; } }
@@ -55,6 +45,16 @@
     {
       InitializeStepStates();
       InitializeSteps();
+    }
+
+    public StateMachine Init(Game game)
+    {
+      _game = game;
+      _curentDecision = new Trackable<IDecision>(_game.ChangeTracker);
+
+      InitializeStepStates();
+      InitializeSteps();
+      return this;
     }
 
     public void Resume(Func<bool> shouldContinue)
@@ -99,18 +99,23 @@
 
     private void DeclareAttackers()
     {
-      _game.Decisions.EnqueueDeclareAttackers(_game.Players.Attacking);
+      _game.Decisions.Enqueue<DeclareAttackers>(
+        controller: _game.Players.Attacking);
     }
 
     private void DeclareBlockers()
     {
-      _game.Decisions.EnqueueDeclareBlockers(_game.Players.Defending);
+      _game.Decisions.Enqueue<DeclareBlockers>(
+        controller: _game.Players.Defending);
     }
 
     private void DiscardToMaximumHandSize()
     {
-      _game.Decisions.EnqueueDiscardCards(_game.Players.Active,
-        _game.Players.Active.NumberOfCardsAboveMaximumHandSize);
+      var activePlayer = _game.Players.Active;
+
+      _game.Decisions.Enqueue<DiscardCards>(
+        controller: _game.Players.Active,
+        init: p => p.Count = activePlayer.NumberOfCardsAboveMaximumHandSize);
     }
 
     private void DrawStartingHands()
@@ -164,14 +169,14 @@
 
       CreateState(
         name: State.Start,
-        proc: () => _game.Decisions.EnqueuePlaySpellOrAbility(_game.Players.Active),
+        proc: () => _game.Decisions.Enqueue<PlaySpellOrAbility>(_game.Players.Active),
         next: () =>
           WasPriorityPassed ? State.Passive : State.Active
         );
 
       CreateState(
         name: State.Active,
-        proc: () => _game.Decisions.EnqueuePlaySpellOrAbility(_game.Players.Active),
+        proc: () => _game.Decisions.Enqueue<PlaySpellOrAbility>(_game.Players.Active),
         next: () =>
           {
             if (WasPriorityPassed)
@@ -189,7 +194,7 @@
 
       CreateState(
         name: State.Passive,
-        proc: () => _game.Decisions.EnqueuePlaySpellOrAbility(_game.Players.Passive),
+        proc: () => _game.Decisions.Enqueue<PlaySpellOrAbility>(_game.Players.Passive),
         next: () =>
           {
             if (WasPriorityPassed)
@@ -287,22 +292,26 @@
             {
               if (permanent.PlayerNeedsToPayEchoCost())
               {
-                _game.Decisions.EnqueueConsiderPayingLifeOrMana(
-                  player: permanent.Controller,
-                  mana: permanent.EchoCost,
-                  question: String.Format("Pay echo for {0}?", permanent),
-                  ctx: permanent,
-                  handler: args =>
+                var permanentCopy = permanent;
+                _game.Decisions.Enqueue<ConsiderPayingLifeOrMana>(
+                  controller: permanent.Controller,
+                  init: p =>
                     {
-                      var perm = args.Ctx<Card>();
+                      p.Mana = permanentCopy.EchoCost;
+                      p.Message = String.Format("Pay echo for {0}?", permanentCopy);
+                      p.Context = permanentCopy;
+                      p.Handler = args =>
+                        {
+                          var perm = args.Ctx<Card>();
 
-                      if (args.Answer)
-                      {
-                        perm.PayEchoCost();
-                        return;
-                      }
+                          if (args.Answer)
+                          {
+                            perm.PayEchoCost();
+                            return;
+                          }
 
-                      perm.Sacrifice();
+                          perm.Sacrifice();
+                        };
                     });
               }
             }
@@ -395,7 +404,7 @@
     private void DealAssignedCombatDamage()
     {
       _game.Combat.DealAssignedDamage();
-            
+
       if (_game.Combat.AnyCreaturesWithFirstStrike() && Step == Step.FirstStrikeCombatDamage)
         Publish(new AssignedCombatDamageWasDealt(Step));
 
@@ -430,7 +439,7 @@
     private void SelectStartingPlayer()
     {
       var winner = _looser ?? RollDice();
-      _game.Decisions.EnqueueSelectStartingPlayer(winner);
+      _game.Decisions.Enqueue<SelectStartingPlayer>(winner);
     }
 
     private void SetDamageAssignmentOrder()
@@ -451,8 +460,8 @@
       var starting = _game.Players.Starting;
       var nonStarting = _game.Players.GetOpponent(starting);
 
-      _game.Decisions.EnqueueTakeMulligan(starting);
-      _game.Decisions.EnqueueTakeMulligan(nonStarting);
+      _game.Decisions.Enqueue<TakeMulligan>(starting);
+      _game.Decisions.Enqueue<TakeMulligan>(nonStarting);
     }
 
 

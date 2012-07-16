@@ -7,7 +7,7 @@
   {
     protected override void ExecuteQuery()
     {
-      var cardsToDiscard = Player.Hand.Select(
+      var cardsToDiscard = Controller.Hand.Select(
         card =>
           new
             {

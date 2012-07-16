@@ -1,147 +1,33 @@
 ﻿namespace Grove.Core.Controllers
 {
-  using Ai;
-  using Details.Cards.Effects;
-  using Details.Combat;
-  using Details.Mana;
-  using Human;
+  using System;
   using Infrastructure;
-  using Machine;
-  using Targeting;
 
   [Copyable]
   public class Decisions
   {
+    private readonly DecisionFactory _decisionFactory;
     private readonly DecisionQueue _decisionQueue;
-    private readonly IHumanDecisionFactory _humanDecisionFactory;
-    private readonly IMachineDecisionFactory _machineDecisionFactory;
-    private readonly Players _players;
-    private readonly Search _search;
 
     private Decisions() {}
 
-    public Decisions(
-      DecisionQueue decisionQueue,
-      Search search,
-      Players players,
-      IHumanDecisionFactory humanDecisionFactory,
-      IMachineDecisionFactory machineDecisionFactory)
+    public Decisions(DecisionQueue decisionQueue, DecisionFactory decisionFactory)
     {
       _decisionQueue = decisionQueue;
-      _machineDecisionFactory = machineDecisionFactory;
-      _humanDecisionFactory = humanDecisionFactory;
-      _search = search;
-      _players = players;
+      _decisionFactory = decisionFactory;
     }
 
-    public void EnqueueAssignCombatDamage(Player player, Attacker attacker)
+    public void Init(Game game)
     {
-      var decision = SelectDecisionFactory(player)
-        .CreateAssignCombatDamage(player, attacker);
-
-      Enqueue(decision);
+      _decisionFactory.Init(game);
     }
 
-    public void EnqueueConsiderPayingLifeOrMana(Player player, PayLifeOrManaHandler handler,
-                                                string question = null, object ctx = null, int? life = null,
-                                                IManaAmount mana = null)
+    public void Enqueue<TDecision>(Player controller, Action<TDecision> init = null)
+      where TDecision : IDecision
     {
-      var decision = SelectDecisionFactory(player)
-        .CreateConsiderPayingLifeOrMana(player, question, ctx, handler, life, mana);
+      init = init ?? delegate { };
 
-      Enqueue(decision);
-    }
-
-    public void EnqueueDeclareAttackers(Player player)
-    {
-      var decision = SelectDecisionFactory(player)
-        .CreateDeclareAttackers(player);
-
-      Enqueue(decision);
-    }
-
-    public void EnqueueDeclareBlockers(Player player)
-    {
-      var decision = SelectDecisionFactory(player)
-        .CreateDeclareBlockers(player);
-
-      Enqueue(decision);
-    }
-
-    public void EnqueueDiscardCards(Player player, int count)
-    {
-      var decision = SelectDecisionFactory(player)
-        .CreateDiscardCards(player, count);
-
-      Enqueue(decision);
-    }
-
-    public void EnqueuePlaySpellOrAbility(Player player)
-    {
-      _players.SetPriority(player);
-
-      var decision = SelectDecisionFactory(player)
-        .CreatePlaySpellOrAbility(player);
-
-      Enqueue(decision);
-    }
-
-    public void EnqueueSacrificeCreatures(Player player, int count)
-    {
-      var decision = SelectDecisionFactory(player)
-        .CreateSacrificeCreatures(player, count);
-
-      Enqueue(decision);
-    }
-
-    public void EnqueueSelectStartingPlayer(Player player)
-    {
-      var decision = SelectDecisionFactory(player).
-        CreateSelectStartingPlayer(player);
-
-      Enqueue(decision);
-    }
-
-    public void EnqueueSetDamageAssignmentOrder(Player player, Attacker attacker)
-    {
-      var decision = SelectDecisionFactory(player)
-        .CreateSetDamageAssignmentOrder(player, attacker);
-
-      Enqueue(decision);
-    }
-
-    public void EnqueueSetTriggeredAbilityTarget(Player player, Effect effect, TargetSelectors targetSelectors)
-    {
-      var decision = SelectDecisionFactory(player)
-        .CreateSetTriggeredAbilityTarget(player, effect, targetSelectors);
-
-      Enqueue(decision);
-    }
-
-    public void EnqueueTakeMulligan(Player player)
-    {
-      var decision = SelectDecisionFactory(player)
-        .CreateTakeMulligan(player);
-
-      Enqueue(decision);
-    }
-
-    public void Initialize(Game game)
-    {
-      _machineDecisionFactory.Initialize(game);
-      _humanDecisionFactory.Initialize(game);
-    }
-
-    public IDecisionFactory SelectDecisionFactory(Player player)
-    {
-      if (_search.InProgress)
-        return _machineDecisionFactory;
-
-      return player.IsHuman ? (IDecisionFactory) _humanDecisionFactory : _machineDecisionFactory;
-    }
-
-    private void Enqueue(IDecision decision)
-    {
+      var decision = _decisionFactory.Create(controller, init);
       _decisionQueue.Enqueue(decision);
     }
   }

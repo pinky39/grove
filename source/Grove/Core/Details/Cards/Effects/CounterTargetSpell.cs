@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core.Details.Cards.Effects
 {
+  using Controllers;
   using Mana;
   using Targeting;
   using Zones;
@@ -15,21 +16,23 @@
 
       if (DoNotCounterCost != null && targetSpellController.HasMana(DoNotCounterCost))
       {
-        Decisions.EnqueueConsiderPayingLifeOrMana(
-          player: targetSpellController,
-          ctx: Target().Effect(),
-          mana: DoNotCounterCost,
-          handler: (args) =>
+        Decisions.Enqueue<ConsiderPayingLifeOrMana>(
+          controller: targetSpellController,
+          init: p =>
             {
-              if (args.Answer)
-              {
-                args.Player.Consume(DoNotCounterCost);
-                return;
-              }
+              p.Context = Target().Effect();
+              p.Mana = DoNotCounterCost;
+              p.Handler = (args) =>
+                {
+                  if (args.Answer)
+                  {
+                    args.Player.Consume(DoNotCounterCost);
+                    return;
+                  }
 
-              Counter(args.Player, args.Ctx<Effect>(), args.Game.Stack);
+                  Counter(args.Player, args.Ctx<Effect>(), args.Game.Stack);
+                };
             });
-        return;
       }
 
       Counter(targetSpellController, Target().Effect(), Game.Stack);

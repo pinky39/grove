@@ -28,7 +28,7 @@
       _root = new CopyService().CopyRoot(rootNode);
       _game = _root.Game;
       _parentResult = new Trackable<InnerResult>(
-        new InnerResult(_game.CalculateHash(), _root.Player.IsMax), _game.ChangeTracker);
+        new InnerResult(_game.CalculateHash(), _root.Controller.IsMax), _game.ChangeTracker);
 
       _moveIndex = new Trackable<int>(_game.ChangeTracker);
 
@@ -138,7 +138,7 @@
 
       var isCached = _searchResults.NewResult(
         statehash,
-        searchNode.Player.IsMax,
+        searchNode.Controller.IsMax,
         out result);
 
       ParentResult.AddChild(ResultIndex, result);

@@ -3,10 +3,8 @@
   using Results;
 
   public abstract class DeclareAttackers : Decision<ChosenCards>
-  {
-    public Combat Combat { get; set; }
-
-    protected override bool ShouldExecuteQuery { get { return Player.Battlefield.HasCreaturesThatCanAttack; } }
+  {    
+    protected override bool ShouldExecuteQuery { get { return Controller.Battlefield.HasCreaturesThatCanAttack; } }
 
     public override void ProcessResults()
     {
@@ -15,7 +13,7 @@
 
       foreach (var attacker in Result)
       {
-        Combat.DeclareAttacker(attacker);
+        Game.Combat.DeclareAttacker(attacker);
       }
     }
   }

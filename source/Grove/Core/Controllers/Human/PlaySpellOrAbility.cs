@@ -16,7 +16,7 @@
 
     protected override void ExecuteQuery()
     {            
-      if (Configuration.ShouldAutoPass(Turn.Step, Player.IsActive) && Stack.IsEmpty)
+      if (Configuration.ShouldAutoPass(Turn.Step, Controller.IsActive) && Stack.IsEmpty)
       {
         Result = new Pass();
         return;

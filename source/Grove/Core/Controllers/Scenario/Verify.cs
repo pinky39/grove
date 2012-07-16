@@ -1,31 +1,30 @@
 ﻿namespace Grove.Core.Controllers.Scenario
 {
   using System;
-  using Infrastructure;
-  using Zones;
 
   public class Verify : IScenarioDecision
   {
+    private Game _game;
     public Action Assertion { get; set; }
-    public Stack Stack { get; set; }
+
+
+    public void Init(Game game, Player controller)
+    {
+      _game = game;
+    }
+
     public bool HasCompleted { get; private set; }
     public bool WasPriorityPassed { get { return true; } }
 
-
     public bool CanExecute()
     {
-      return Stack.IsEmpty;
+      return _game.Stack.IsEmpty;
     }
 
     public void Execute()
     {
       Assertion();
       HasCompleted = true;
-    }
-
-    public IDecision Init(ChangeTracker changeTracker)
-    {
-      return this;
     }
   }
 }

@@ -48,7 +48,7 @@
 
     public Step Step { get; set; }
     public int Turn { get; set; }
-    public Stack Stack { get; set; }
+    public Game Game { get; set; }
 
     public StepDecisions Activate(Card card, Card target, Card costTarget = null,
                                   int? x = null, int abilityIndex = 0)
@@ -63,6 +63,8 @@
 
       _decisions.Add(new PlaySpellOrAbility
         {
+          Game = Game,
+          Controller = activation.Card.Controller,
           Result = new ChosenPlayable
             {
               Playable = new ScenarioAbility(
@@ -135,6 +137,8 @@
 
       _decisions.Add(new PlaySpellOrAbility
         {
+          Game = Game,
+          Controller = activation.Card.Controller,
           Result = new ChosenPlayable
             {
               Playable = new ScenarioSpell(
@@ -198,7 +202,8 @@
     {
       _decisions.Add(new DeclareAttackers
         {
-          Player = attackers[0].Controller,
+          Controller = attackers[0].Controller,
+          Game = Game,
           Result = attackers.ToList()
         });
       return this;
@@ -221,7 +226,8 @@
 
       _decisions.Add(new DeclareBlockers
         {
-          Player = defending,
+          Game = Game,
+          Controller = defending,
           Result = chosenBlockers
         });
       return this;
@@ -258,6 +264,7 @@
     {
       _decisions.Add(new SetTriggeredAbilityTarget
         {
+          Game = Game,          
           Result = new ChosenTargets(new Targets().AddEffect(target))
         });
       return this;
@@ -266,9 +273,9 @@
     public StepDecisions Verify(Action assertion)
     {
       _decisions.Add(new Verify
-        {
-          Stack = Stack,
-          Assertion = assertion
+        {          
+          Assertion = assertion,
+          Game = Game
         });
 
       return this;
@@ -278,6 +285,8 @@
     {
       _decisions.Add(new PlaySpellOrAbility
         {
+          Game = Game,
+          Controller = card.Controller,
           Result = new ChosenPlayable
             {
               Playable = new ScenarioCyclable(

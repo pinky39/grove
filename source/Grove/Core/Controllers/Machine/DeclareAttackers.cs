@@ -3,23 +3,19 @@
   using System.Collections.Generic;
   using System.Linq;
   using Ai;
-  using Infrastructure;
   using Results;
 
   public class DeclareAttackers : Controllers.DeclareAttackers, ISearchNode, IDecisionExecution
   {
-    private readonly DecisionExecutor _executor;
     private List<List<Card>> _declarations;
+    private DecisionExecutor _executor;
 
-    private DeclareAttackers() {}
-
-    public DeclareAttackers(ChangeTracker changeTracker)
+    public DeclareAttackers()
     {
-      _executor = new DecisionExecutor(this, changeTracker);
       Result = FinalResult();
     }
 
-    private Player Defender { get { return Game.Players.GetOpponent(Player); } }
+    private Player Defender { get { return Game.Players.GetOpponent(Controller); } }
     public override bool HasCompleted { get { return _executor.HasCompleted; } }
 
     public Search Search { get; set; }
@@ -29,8 +25,6 @@
     {
       ExecuteQuery();
     }
-
-    public Game Game { get; set; }
 
     public int ResultCount { get { return _declarations.Count; } }
 
@@ -42,6 +36,11 @@
     public void SetResult(int index)
     {
       Result = _declarations[index];
+    }
+
+    protected override void Init()
+    {
+      _executor = new DecisionExecutor(this, Game.ChangeTracker);
     }
 
     public override void Execute()
@@ -66,11 +65,11 @@
       // none
       yield return new List<Card>();
 
-      var allAttackers = Player.Battlefield.CreaturesThatCanAttack.ToList();
+      var allAttackers = Controller.Battlefield.CreaturesThatCanAttack.ToList();
 
       // quick heuristic
       yield return new AttackStrategy(
-        Player.Life,
+        Controller.Life,
         Defender.Life,
         allAttackers,
         Defender.Battlefield.CreaturesThatCanBlock).ToList();
@@ -81,7 +80,7 @@
 
     public override string ToString()
     {
-      return string.Format("{0}: {1} declares attackers", Game.Turn.Step, Player);
+      return string.Format("{0}: {1} declares attackers", Game.Turn.Step, Controller);
     }
   }
 }

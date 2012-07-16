@@ -7,16 +7,14 @@
     protected DeclareBlockers()
     {
       Result = NoBlockers();
-    }
-
-    public Combat Combat { get; set; }
+    }    
 
     protected override bool ShouldExecuteQuery
     {
       get
       {
-        return Combat.CanAnyAttackerBeBlockedByAny(
-          Player.Battlefield.Creatures);
+        return Game.Combat.CanAnyAttackerBeBlockedByAny(
+          Controller.Battlefield.Creatures);
       }
     }
 
@@ -32,7 +30,7 @@
 
       foreach (var pair in Result)
       {
-        Combat.DeclareBlocker(pair.Blocker, pair.Attacker);
+        Game.Combat.DeclareBlocker(pair.Blocker, pair.Attacker);
       }
     }
   }

@@ -236,8 +236,9 @@
     <Compile Include="Configuration.cs" />
     <Compile Include="Core\Ai\AttackerEvaluation.cs" />
     <Compile Include="Core\Ai\BlockerEvaluation.cs" />
-    <Compile Include="Core\Ai\DamagePreventionPerformance.cs" />
     <Compile Include="Core\Ai\QuickCombat.cs" />
+    <Compile Include="Core\Controllers\DecisionFactory.cs" />
+    <Compile Include="Core\Controllers\DecisionFactoryComponentSelector.cs" />
     <Compile Include="Core\Details\Cards\Ability.cs" />
     <Compile Include="Core\Details\Cards\Costs\NoCost.cs" />
     <Compile Include="Core\Details\Cards\Costs\RevealCardFromHand.cs" />
@@ -309,7 +310,7 @@
     <Compile Include="Core\Controllers\Scenario\LazyEffect.cs" />
     <Compile Include="Core\Controllers\Scenario\PlaySpellOrAbility.cs" />
     <Compile Include="Core\Controllers\Scenario\ScenarioAbility.cs" />
-    <Compile Include="Core\Controllers\Scenario\DecisionFactory.cs" />
+    <Compile Include="Core\Controllers\Scenario\DefaultScenarioDecision.cs" />
     <Compile Include="Core\Controllers\Scenario\ScenarioCyclable.cs" />
     <Compile Include="Core\Controllers\Scenario\ScenarioSpell.cs" />
     <Compile Include="Core\Controllers\Scenario\SetTriggeredAbilityTarget.cs" />
