@@ -44,7 +44,7 @@
 
     public bool CanBlockAnyAttacker(Card card)
     {
-      return Game.Combat.CanBlockAnyAttacker(card);
+      return Game.Combat.CanBlockAtLeastOneAttacker(card);
     }
   }
 }

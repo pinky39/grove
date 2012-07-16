@@ -52,6 +52,11 @@
       return targetsList;
     }
 
+    public List<Targets> NoTargets()
+    {
+      return new List<Targets>();
+    }
+    
     public List<Targets> Targets(IEnumerable<ITarget> candidates)
     {
       var targets = AllCandidates.HasCost

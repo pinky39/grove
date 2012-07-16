@@ -57,21 +57,63 @@
         {
           power = power ?? p.MaxX;
           thougness = thougness ?? p.MaxX;
-          var candidates = GetCandidatesPumpAttackerOrBlocker(power, thougness, p);
-          return p.Targets(candidates);
+
+
+          if (p.Controller.IsActive && p.Step == Step.DeclareBlockers)
+          {
+            var candidates = GetCandidatesForAttackerPowerToughnessIncrease(power, thougness, p);
+            return p.Targets(candidates);
+          }
+
+          if (!p.Controller.IsActive && p.Step == Step.DeclareBlockers)
+          {
+            var candidates = GetCandidatesForBlockerPowerToughnessIncrease(power, thougness, p);
+            return p.Targets(candidates);
+          }
+
+          return p.NoTargets();
         };
     }
 
-    private static IEnumerable<Card> GetCandidatesPumpAttackerOrBlocker(int? power, int? thougness,
-                                                                        TargetFilterParameters p)
+    private static IEnumerable<Card> GetCandidatesForBlockerPowerToughnessIncrease(int? powerIncrease,
+      int? toughnessIncrease, TargetFilterParameters p)
     {
       return p.Candidates().RestrictController(p.Controller)
+        .Where(x => x.Card().IsBlocker)
         .Select(
           x =>
             new
               {
                 Card = x.Card(),
-                Gain = p.Combat.CalculateGainIfGivenABoost(x.Card(), power.Value, thougness.Value)
+                Gain =
+                  QuickCombat.CalculateGainBlockerWouldGetIfPowerAndThougnessWouldIncrease(
+                    blocker: x.Card(),
+                    attacker: p.Combat.GetAttacker(x.Card()),
+                    powerIncrease: powerIncrease.Value,
+                    toughnessIncrease: toughnessIncrease.Value)
+              })
+        .Where(x => x.Gain > 0)
+        .OrderByDescending(x => x.Gain)
+        .Select(x => x.Card);
+    }
+
+
+    private static IEnumerable<Card> GetCandidatesForAttackerPowerToughnessIncrease(int? powerIncrease,
+      int? toughnessIncrease, TargetFilterParameters p)
+    {
+      return p.Candidates().RestrictController(p.Controller)
+        .Where(x => x.Card().IsAttacker)
+        .Select(
+          x =>
+            new
+              {
+                Card = x.Card(),
+                Gain =
+                  QuickCombat.CalculateGainAttackerWouldGetIfPowerAndThoughnessWouldIncrease(
+                    attacker: x.Card(),
+                    blockers: p.Combat.GetBlockers(x.Card()),
+                    powerIncrease: powerIncrease.Value,
+                    toughnessIncrease: toughnessIncrease.Value)
               })
         .Where(x => x.Gain > 0)
         .OrderByDescending(x => x.Gain)
@@ -124,13 +166,13 @@
     {
       return p => DealDamage(amount(p))(p);
     }
-    
+
     public static TargetsFilterDelegate DealDamage(int? amount = null)
     {
       return p =>
         {
           amount = amount ?? p.MaxX;
-                              
+
           var candidates = p.Candidates()
             .Where(x => x == p.Opponent)
             .Select(x => new
@@ -283,14 +325,22 @@
     {
       return p =>
         {
-          var candidates =
-            GetCandidatesPumpAttackerOrBlocker(power, toughness, p).Concat(
-              p.Candidates()
-                .Where(x => x.Card().Controller == p.Controller)
-                .Where(x => p.Stack.CanBeDealtLeathalDamageByTopSpell(x.Card()))
-              );
+          if (p.Controller.IsActive && p.Step == Step.DeclareBlockers)
+          {
+            var candidates = GetCandidatesForAttackerPowerToughnessIncrease(power, toughness, p);
+            return p.Targets(candidates);
+          }
 
-          return p.Targets(candidates);
+          if (!p.Controller.IsActive && p.Step == Step.DeclareBlockers)
+          {
+            var candidates = GetCandidatesForBlockerPowerToughnessIncrease(power, toughness, p);
+            return p.Targets(candidates);
+          }
+
+          return p.Targets(p.Candidates()
+            .Where(x => x.Card().Controller == p.Controller)
+            .Where(x => p.Stack.CanBeDealtLeathalDamageByTopSpell(x.Card()))
+            );
         };
     }
 
@@ -399,7 +449,7 @@
 
           if (p.Step == Step.DeclareBlockers)
           {
-            if (!p.Controller.IsActive)
+            if (p.Controller.IsActive == false)
             {
               var attacker = p.Combat.GetAttackerWhichWillDealGreatestDamageToDefender();
 
@@ -408,23 +458,44 @@
                 targetPicks.Add(p.Controller);
                 sourcePicks.Add(attacker);
               }
+
+              var blockerAttackerPair = p.Candidates(1)
+                .Where(x => x.IsCard() && x.Card().IsBlocker)
+                .Select(x => new
+                  {
+                    Target = x.Card(),
+                    Source =
+                      QuickCombat.GetAttackerThatDealsLeathalDamageToBlocker(x.Card(), p.Combat.GetAttacker(x.Card()))
+                  })
+                .Where(x => x.Source != null)
+                .OrderByDescending(x => x.Target.Score)
+                .FirstOrDefault();
+
+              if (blockerAttackerPair != null)
+              {
+                targetPicks.Add(blockerAttackerPair.Target);
+                sourcePicks.Add(blockerAttackerPair.Source);
+              }
             }
-
-            var creatureKilledInCombat = p.Candidates(1)
-              .Where(x => x.IsCard())
-              .Select(x => new
-                {
-                  Target = x.Card(),
-                  Source = p.Combat.GetBestDamagePreventionCandidateForAttackerOrBlocker(x.Card())
-                })
-              .Where(x => x.Source != null)
-              .OrderByDescending(x => x.Target.Score)
-              .FirstOrDefault();
-
-            if (creatureKilledInCombat != null)
+            else
             {
-              targetPicks.Add(creatureKilledInCombat.Target);
-              sourcePicks.Add(creatureKilledInCombat.Source);
+              var blockerAttackerPair = p.Candidates(1)
+                .Where(x => x.IsCard() && x.Card().IsAttacker)
+                .Select(x => new
+                  {
+                    Target = x.Card(),
+                    Source =
+                      QuickCombat.GetBlockerThatDealsLeathalDamageToAttacker(x.Card(), p.Combat.GetBlockers(x.Card()))
+                  })
+                .Where(x => x.Source != null)
+                .OrderByDescending(x => x.Target.Score)
+                .FirstOrDefault();
+
+              if (blockerAttackerPair != null)
+              {
+                targetPicks.Add(blockerAttackerPair.Target);
+                sourcePicks.Add(blockerAttackerPair.Source);
+              }
             }
           }
 
@@ -513,74 +584,74 @@
         };
     }
 
-    public static TargetsFilterDelegate PreventNextDamage(int amount)
+    public static TargetsFilterDelegate PreventNextDamageToCreatureOrPlayer(int amount)
     {
-        return p =>
+      return p =>
         {
-          var targetPicks = new List<ITarget>();          
-
           if (!p.Stack.IsEmpty && p.Stack.TopSpell is IDamageDealing)
           {
-            foreach (var candidate in p.Candidates())
-            {
-              if (candidate.IsPlayer())
-              {
-                var damageToPlayer = p.Stack.GetDamageTopSpellWillDealToPlayer(p.Controller);
+            var playerCandidate = p.Candidates()
+              .Where(x => x == p.Controller)
+              .Where(x => p.Stack.GetDamageTopSpellWillDealToPlayer(x.Player()) > 0);
 
-                if (damageToPlayer > 0)
+            var cardCandidates = p.Candidates()
+              .Where(x => x.IsCard() && x.Card().Controller == p.Controller)
+              .Select(x => x.Card())
+              .Where(x =>
                 {
-                  targetPicks.Add(p.Controller);              
-                }
-              }
-              else
-              {
-                var damageToCreature = p.Stack.GetDamageTopSpellWillDealToCreature(candidate.Card());
-                if ((damageToCreature >= candidate.Card().LifepointsLeft) && 
-                   (damageToCreature - amount < candidate.Card().LifepointsLeft))
-                {
-                  targetPicks.Add(candidate);
-                }
-              }
-            }                                                                        
+                  var damageToCreature = p.Stack.GetDamageTopSpellWillDealToCreature(x);
+                  return (damageToCreature >= x.LifepointsLeft) &&
+                    (damageToCreature - amount < x.LifepointsLeft);
+                })
+              .OrderByDescending(x => x.Score);
+
+            return p.Targets(playerCandidate.Concat(cardCandidates));
           }
 
-          // todo, combat
-          
-          return p.Targets(targetPicks);
+          if (p.Step == Step.DeclareBlockers)
+          {
+            if (p.Controller.IsActive)
+            {
+              var cardCandidates = p.Candidates()
+                .Where(x => x.IsCard() && x.Card().Controller == p.Controller && x.Card().IsAttacker)
+                .Select(x => x.Card())
+                .Where(x =>
+                  {
+                    var prevented = QuickCombat.GetAmountOfDamageThatNeedsToBePreventedToSafeAttackerFromDying(
+                      attacker: x.Card(),
+                      blockers: p.Combat.GetBlockers(x.Card()));
 
-          //if (p.Step == Step.DeclareBlockers)
-          //{
-          //  if (!p.Controller.IsActive)
-          //  {
-          //    var attacker = p.Combat.GetAttackerWhichWillDealGreatestDamageToDefender();
+                    return 0 < prevented && prevented <= amount;
+                  })
+                .OrderByDescending(x => x.Score);
 
-          //    if (attacker != null)
-          //    {
-          //      targetPicks.Add(p.Controller);                
-          //    }
-          //  }
+              return p.Targets(cardCandidates);
+            }
+            else
+            {
+              var playerCandidate = p.Candidates()
+                .Where(x => x == p.Controller)
+                .Where(x => p.Combat.WillAnyAttackerDealDamageToDefender());
 
-          //  var creatureKilledInCombat = p.Candidates(1)
-          //    .Where(x => x.IsCard())
-          //    .Select(x => new
-          //      {
-          //        Target = x.Card(),
-          //        Source = p.Combat.GetBestDamagePreventionCandidateForAttackerOrBlocker(x.Card())
-          //      })
-          //    .Where(x => x.Source != null)
-          //    .OrderByDescending(x => x.Target.Score)
-          //    .FirstOrDefault();
-
-          //  if (creatureKilledInCombat != null)
-          //  {
-          //    targetPicks.Add(creatureKilledInCombat.Target);
-          //    sourcePicks.Add(creatureKilledInCombat.Source);
-          //  }
-          //}
-
-          //return p.MultipleTargets(sourcePicks, targetPicks);
+              var cardCandidates = p.Candidates()
+                .Where(x => x.IsCard() && x.Card().Controller == p.Controller && x.Card().IsBlocker)
+                .Select(x => x.Card())
+                .Where(x =>
+                  {
+                    var prevented = QuickCombat.GetAmountOfDamageThatNeedsToBePreventedToSafeBlockerFromDying(
+                      blocker: x.Card(),
+                      attacker: p.Combat.GetAttacker(x.Card()));
 
 
+                    return 0 < prevented && prevented <= amount;
+                  })
+                .OrderByDescending(x => x.Score);
+
+              return p.Targets(playerCandidate.Concat(cardCandidates));
+            }
+          }
+
+          return p.NoTargets();
         };
     }
   }

@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core.Details.Combat
 {
+  using System;
   using System.Linq;
   using Ai;
   using Infrastructure;
@@ -113,32 +114,54 @@
       if (Attacker == null)
         return false;
 
-      return Core.Combat.CanBlockerBeDealtLeathalCombatDamage(Card, Attacker.Card);
-    }
+      return QuickCombat.CanBlockerBeDealtLeathalCombatDamage(Card, Attacker.Card);
+    }    
+    
+    //public int GetMaxAmountOfDamageThatWillBeDealtToBlocker(Action<Card, int> leathalDamageHandler = null)
+    //{
+    //  if (Attacker == null)
+    //    return 0;
 
-    public int CalculateGainIfGivenABoost(int power, int toughness)
-    {
-      if (Attacker == null)
-      {
-        return 0;
-      }
+    //  return GetMaxAmountOfDamageThatWillBeDealtToBlocker(Attacker.Card, Card, leathalDamageHandler);
+    //}
 
-      var withoutBoost = Core.Combat.CanBlockerBeDealtLeathalCombatDamage(Card, Attacker);
-      if (!withoutBoost)
-        return 0;
+    //public static int GetMaxAmountOfDamageThatWillBeDealtToBlocker(Card attacker, Card blocker,
+    //  Action<Card, int> leathalDamageHandler = null)
+    //{
+    //  leathalDamageHandler = leathalDamageHandler ?? delegate { };
 
-      var withBoost = Core.Combat.CanBlockerBeDealtLeathalCombatDamage(Card, Attacker, power, toughness);
-      return !withBoost ? Card.Score : 1;
-    }
+    //  if (blocker.Is().Creature == false)
+    //    return 0;
 
-    public Card GetBestDamagePreventionCandidate()
-    {
-      if (WillBeDealtLeathalCombatDamage())
-      {
-        return Attacker.Card;
-      }
-      return null;
-    }
+    //  if (blocker.CanBeDestroyed == false)
+    //    return 0;
+
+    //  if (blocker.HasFirstStrike && !attacker.HasFirstStrike && !attacker.Has().Indestructible)
+    //  {
+    //    var blockerDealtAmount = attacker.EvaluateHowMuchDamageCanBeDealt(
+    //      blocker, blocker.Power.Value, isCombat: true);
+
+    //    if (blockerDealtAmount > 0 && blocker.Has().Deathtouch)
+    //    {
+    //      return 0;
+    //    }
+
+    //    if (blockerDealtAmount >= attacker.LifepointsLeft)
+    //      return 0;
+    //  }
+
+    //  var attackerDealtAmount = blocker.EvaluateHowMuchDamageCanBeDealt(attacker, attacker.Power.Value, isCombat: true);
+
+    //  if (attackerDealtAmount == 0)
+    //    return 0;
+
+    //  if (attacker.Has().Deathtouch)
+    //  {
+    //    leathalDamageHandler(attacker, attackerDealtAmount);
+    //  }
+
+    //  return attackerDealtAmount;
+    //}
 
     [Copyable]
     public class Factory : IBlockerFactory

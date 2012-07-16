@@ -143,14 +143,14 @@
       private void AssignFirstBlocker(Card attacker, Card blocker, int defendersLife)
       {
         _isFirstBlockerKilled =
-          Combat.CanBlockerBeDealtLeathalCombatDamage(blocker, attacker);
+          QuickCombat.CanBlockerBeDealtLeathalCombatDamage(blocker, attacker);
 
         var blockerScore = _isFirstBlockerKilled
           ? blocker.Score
           : 0;
 
         _isAttackerKilled =
-          Combat.CanAttackerBeDealtLeathalCombatDamage(attacker, blocker.ToEnumerable());
+          QuickCombat.CanAttackerBeDealtLeathalDamage(attacker, blocker.ToEnumerable());
 
         var attackerScore = IsAttackerKilled
           ? attacker.Score
@@ -162,7 +162,7 @@
 
         var trampleScore = ScoreCalculator.CalculateLifelossScore(
           defendersLife,
-          Combat.CalculateTrampleDamage(Attacker, blocker));
+          QuickCombat.CalculateTrampleDamage(Attacker, blocker));
 
         var scoreDefenderLoosesWhenBlocking = blockerScore - attackerScore + trampleScore;
         var scoreDefenderLoosesWhenNotBlocking = lifelossScore;
@@ -182,14 +182,14 @@
         if (additionalBlocker.Score > Attacker.Score)
           return false;
 
-        return Combat.CanAttackerBeDealtLeathalCombatDamage(
+        return QuickCombat.CanAttackerBeDealtLeathalDamage(
           Attacker,
           _blockers.Concat(additionalBlocker.ToEnumerable()));
       }
 
       private bool IsSafeBlock(Card additionalBlocker)
       {
-        return !Combat.CanBlockerBeDealtLeathalCombatDamage(additionalBlocker, Attacker);
+        return !QuickCombat.CanBlockerBeDealtLeathalCombatDamage(additionalBlocker, Attacker);
       }
     }
   }

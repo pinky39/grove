@@ -1,7 +1,9 @@
 ﻿namespace Grove.Core.Details.Combat
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
+  using Ai;
   using Controllers;
   using Controllers.Results;
   using Infrastructure;
@@ -39,10 +41,7 @@
     public bool HasDeathTouch { get { return _card.Has().Deathtouch; } }
     public bool HasTrample { get { return _card.Has().Trample; } }
     public int LifepointsLeft { get { return _card.LifepointsLeft; } }
-    public int DamageThisWillDealInOneDamageStep { get
-    {
-      return  _card.Power.HasValue ? _card.Power.Value : 0;
-    } }
+    public int DamageThisWillDealInOneDamageStep { get { return _card.Power.HasValue ? _card.Power.Value : 0; } }
 
     public int CalculateHash(HashCalculator calc)
     {
@@ -119,7 +118,7 @@
 
       if (HasTrample)
       {
-        return Core.Combat.CalculateTrampleDamage(Card, _blockers.Select(x => x.Card));
+        return QuickCombat.CalculateTrampleDamage(Card, _blockers.Select(x => x.Card));
       }
 
       return 0;
@@ -158,39 +157,9 @@
       return attacker != null ? attacker._card : null;
     }
 
-    public bool WillBeDealtLeathalCombatDamage()
+    public bool CanBeDealtLeathalCombatDamage()
     {
-      return Core.Combat.CanAttackerBeDealtLeathalCombatDamage(Card, _blockers.Select(x => x.Card));
-    }
-
-    public int CalculateGainIfGivenABoost(int power, int toughness)
-    {
-      if (_blockers.None() && power > 0)
-      {
-        return 2;
-      }
-
-      if (toughness < 1)
-        return 0;
-
-      var blockers = _blockers.Select(x => x.Card);
-      var withoutBoost = Core.Combat.CanAttackerBeDealtLeathalCombatDamage(Card, blockers);
-
-      if (!withoutBoost)
-        return 0;
-
-      var withBoost = Core.Combat.CanAttackerBeDealtLeathalCombatDamage(Card, blockers, power, toughness);
-      return !withBoost ? Card.Score : 1;
-    }
-
-    public Card GetBestDamagePreventionCandidate()
-    {
-      if (_blockers.Count == 0)
-        return null;
-
-      Card candidate;
-      Core.Combat.CanAttackerBeDealtLeathalCombatDamage(Card, Blockers.Select(x => x.Card), 0, 0, out candidate);
-      return candidate;
+      return QuickCombat.CanAttackerBeDealtLeathalDamage(Card, _blockers.Select(x => x.Card));
     }
 
     [Copyable]

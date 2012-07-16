@@ -295,10 +295,22 @@
             return true;
           }
 
-          if (p.Step == Step.DeclareBlockers)
+          if (p.Step == Step.DeclareBlockers && p.Controller.IsActive && p.Card.IsAttacker)
           {
-            return p.Combat.CalculateGainIfGivenABoost(
-              p.Card, power.Value, thougness.Value) > 0;
+            return QuickCombat.CalculateGainAttackerWouldGetIfPowerAndThoughnessWouldIncrease(
+              attacker: p.Card, 
+              blockers: p.Combat.GetBlockers(p.Card),              
+              powerIncrease: power.Value, 
+              toughnessIncrease: thougness.Value) > 0;
+          }
+
+          if (p.Step == Step.DeclareBlockers && !p.Controller.IsActive && p.Card.IsBlocker)
+          {
+            return QuickCombat.CalculateGainBlockerWouldGetIfPowerAndThougnessWouldIncrease(
+              blocker: p.Card,
+              attacker: p.Combat.GetAttacker(p.Card),
+              powerIncrease: power.Value,
+              toughnessIncrease: thougness.Value) > 0;
           }
 
           return false;

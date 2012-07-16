@@ -234,6 +234,10 @@
     <Compile Include="Cards\WurmcoilEngine.cs" />
     <Compile Include="Cards\WallOfDenial.cs" />
     <Compile Include="Configuration.cs" />
+    <Compile Include="Core\Ai\AttackerEvaluation.cs" />
+    <Compile Include="Core\Ai\BlockerEvaluation.cs" />
+    <Compile Include="Core\Ai\DamagePreventionPerformance.cs" />
+    <Compile Include="Core\Ai\QuickCombat.cs" />
     <Compile Include="Core\Details\Cards\Ability.cs" />
     <Compile Include="Core\Details\Cards\Costs\NoCost.cs" />
     <Compile Include="Core\Details\Cards\Costs\RevealCardFromHand.cs" />

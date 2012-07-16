@@ -7,7 +7,6 @@
   using Details.Combat;
   using Infrastructure;
   using Messages;
-  using Targeting;
 
   [Copyable]
   public class Combat : IHashable
@@ -22,7 +21,7 @@
     private Combat() {}
 
     public Combat(ChangeTracker changeTracker, IAttackerFactory attackerFactory, IBlockerFactory blockerFactory,
-                  Publisher publisher, Players players)
+      Publisher publisher, Players players)
     {
       _attackerFactory = attackerFactory;
       _blockerFactory = blockerFactory;
@@ -211,161 +210,13 @@
         _blockers.Any(x => x.Card.HasNormalStrike);
     }
 
-    public static bool CanAttackerBeDealtLeathalCombatDamage(
-      Card attacker, IEnumerable<Card> blockers, int additionalPower, int additionalToughness,
-      out Card singleBlockerThatDealsKillingBlow)
-    {
-      var blockersThatDealLeathalDamage = new List<Card>();
-      var leathalDamage = 0;
-      var greatestDamage = 0;
-      Card blockerThatDealsGreatestDamage = null;
-
-      singleBlockerThatDealsKillingBlow = null;
-
-      var total = 0;
-
-      if (!attacker.Is().Creature)
-        return false;
-      
-      if (!attacker.CanBeDestroyed)
-        return false;
-
-      if (attacker.HasFirstStrike)
-      {
-        // eliminate blockers that will be killed
-        // before they can deal damage
-        blockers = blockers.Where(
-          b => (b.HasFirstStrike || b.LifepointsLeft > (attacker.Power + additionalPower)));
-      }
-
-      foreach (var blocker in blockers)
-      {
-        var dealtAmount = attacker.EvaluateHowMuchDamageCanBeDealt(blocker, blocker.Power.Value, isCombat: true);
-
-        if (dealtAmount > 0 && blocker.Has().Deathtouch)
-        {
-          blockersThatDealLeathalDamage.Add(blocker.Card());
-          leathalDamage += dealtAmount;
-        }
-        if (dealtAmount > greatestDamage)
-        {
-          greatestDamage = dealtAmount;
-          blockerThatDealsGreatestDamage = blocker;
-        }
-        total += dealtAmount;
-      }
-
-      if (blockersThatDealLeathalDamage.Count > 1)
-        return true;
-
-      var lifepoints = attacker.LifepointsLeft + additionalToughness;
-
-      if (blockersThatDealLeathalDamage.Count == 1)
-      {
-        if (lifepoints > total - leathalDamage)
-        {
-          singleBlockerThatDealsKillingBlow = blockersThatDealLeathalDamage[0];
-        }
-        return true;
-      }
-
-      if (lifepoints <= total)
-      {
-
-        // would attacker be killed if a blocker which deals 
-        // greatest damage be removed
-        if (lifepoints > total - greatestDamage)
-        {
-          // attacker won't be killed mark the blocker as the one that
-          // deals the killing blow
-          singleBlockerThatDealsKillingBlow = blockerThatDealsGreatestDamage;
-        }
-
-        return true;
-      }
-
-      return false;
-    }
-
-    public static bool CanAttackerBeDealtLeathalCombatDamage(Card attacker, IEnumerable<Card> blockers,
-                                                             int additionalPower = 0, int additionalThougness = 0)
-    {
-      Card killerBlocker;
-
-      return CanAttackerBeDealtLeathalCombatDamage(attacker, blockers, additionalPower, additionalThougness,
-        out killerBlocker);
-    }
-
-    public static int CalculateTrampleDamage(Card attacker, Card blocker)
-    {
-      return CalculateTrampleDamage(attacker, blocker.ToEnumerable());
-    }
-
-    public static int CalculateTrampleDamage(Card attacker, IEnumerable<Card> blockers)
-    {
-      if (attacker.Has().Trample == false)
-        return 0;
-
-      return attacker.TotalDamageThisCanDealInAllDamageSteps - blockers.Sum(x => x.LifepointsLeft);
-    }
-
-    public static int CalculateDefendingPlayerLifeloss(Card attacker, IEnumerable<Card> blockers)
-    {
-      if (blockers.None())
-        return attacker.Power.Value;
-
-      if (attacker.Has().Trample)
-      {
-        var totalToughness = blockers.Sum(x => x.Toughness);
-        var diff = attacker.Power - totalToughness;
-
-        return (diff > 0 ? diff : 0).Value;
-      }
-
-      return 0;
-    }
-
-    public static bool CanBlockerBeDealtLeathalCombatDamage(Card blocker, Card attacker,
-                                                            int additionalPower = 0, int additionalThoughness = 0)
-    {
-      if (!blocker.Is().Creature)
-        return false;
-      
-      if (!blocker.CanBeDestroyed)
-        return false;
-
-      if (blocker.HasFirstStrike && !attacker.HasFirstStrike && !attacker.Has().Indestructible)
-      {
-        var blockerDealtAmount = attacker.EvaluateHowMuchDamageCanBeDealt(
-          blocker, blocker.Power.Value + additionalPower, isCombat: true);
-
-        if (blockerDealtAmount > 0 && blocker.Has().Deathtouch)
-        {
-          return false;
-        }
-
-        if (blockerDealtAmount >= attacker.LifepointsLeft)
-          return false;
-      }
-
-      var attackerDealtAmount = blocker.EvaluateHowMuchDamageCanBeDealt(attacker, attacker.Power.Value, isCombat: true);
-
-      if (attackerDealtAmount == 0)
-        return false;
-
-      if (attacker.Has().Deathtouch)
-        return true;
-
-      return attackerDealtAmount >= blocker.LifepointsLeft + additionalThoughness;
-    }
-
     public bool CanBeDealtLeathalCombatDamage(Card card)
     {
       var attacker = FindAttacker(card);
 
       if (attacker != null)
       {
-        return attacker.WillBeDealtLeathalCombatDamage();
+        return attacker.CanBeDealtLeathalCombatDamage();
       }
 
       var blocker = FindBlocker(card);
@@ -384,28 +235,9 @@
       return attacker.BlockersCount > 0;
     }
 
-    public bool CanBlockAnyAttacker(Card card)
+    public bool CanBlockAtLeastOneAttacker(Card card)
     {
       return Attackers.Any(attacker => attacker.CanBeBlockedBy(card));
-    }
-
-    public int CalculateGainIfGivenABoost(Card attackerOrBlocker, int power, int thougness)
-    {
-      var attacker = FindAttacker(attackerOrBlocker);
-
-      if (attacker != null)
-      {
-        return attacker.CalculateGainIfGivenABoost(power, thougness);
-      }
-
-      var blocker = FindBlocker(attackerOrBlocker);
-
-      if (blocker != null)
-      {
-        return blocker.CalculateGainIfGivenABoost(power, thougness);
-      }
-
-      return 0;
     }
 
     public int CountHowManyThisCouldBlock(Card card)
@@ -420,23 +252,9 @@
       return opponent.Battlefield.CreaturesThatCanBlock.Any(card.CanBeBlockedBy);
     }
 
-    public Card GetBestDamagePreventionCandidateForAttackerOrBlocker(Card attackerOrBlocker)
+    public bool WillAnyAttackerDealDamageToDefender()
     {
-      var attacker = FindAttacker(attackerOrBlocker);
-
-      if (attacker != null)
-      {
-        return attacker.GetBestDamagePreventionCandidate();
-      }
-
-      var blocker = FindBlocker(attackerOrBlocker);
-
-      if (blocker != null)
-      {
-        return blocker.GetBestDamagePreventionCandidate();
-      }
-
-      return null;
+      return GetAttackerWhichWillDealGreatestDamageToDefender() != null;
     }
 
     public Card GetAttackerWhichWillDealGreatestDamageToDefender(Func<Card, bool> filter = null)
@@ -447,6 +265,17 @@
         .Where(x => filter(x))
         .OrderByDescending(x => x.GetDamageThisWillDealToPlayer())
         .FirstOrDefault();
+    }
+
+    public IEnumerable<Card> GetBlockers(Card attacker)
+    {
+      return FindAttacker(attacker).Blockers.Select(x => x.Card);
+    }
+
+    public Card GetAttacker(Card blocker)
+    {
+      var attacker = FindBlocker(blocker).Attacker;
+      return attacker != null ? attacker.Card : null;
     }
   }
 }

@@ -116,6 +116,7 @@
     <Compile Include="Cards\Recoil.cs" />
     <Compile Include="Cards\RuneOfProtectionBlack.cs" />
     <Compile Include="Cards\RuptureSpire.cs" />
+    <Compile Include="Cards\SanctumCustodian.cs" />
     <Compile Include="Cards\SanctumGuardian.cs" />
     <Compile Include="Cards\SealOfFire.cs" />
     <Compile Include="Cards\SilentAttendant.cs" />

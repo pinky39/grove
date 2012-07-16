@@ -114,7 +114,7 @@
 
           foreach (var blocker in _blockers.Select(x => x.Card).OrderByDescending(x => x.Score))
           {
-            if (Combat.CanBlockerBeDealtLeathalCombatDamage(blocker, Attacker))
+            if (QuickCombat.CanBlockerBeDealtLeathalCombatDamage(blocker, Attacker))
             {
               maxAttackerDamage -= Attacker.Has().Deathtouch ? 1 : blocker.Toughness;
               score += blocker.Score;
@@ -132,7 +132,7 @@
       {
         get
         {
-          return Combat.CanAttackerBeDealtLeathalCombatDamage(
+          return QuickCombat.CanAttackerBeDealtLeathalDamage(
             Attacker, _blockers.Select(x => x.Card));
         }
       }
@@ -141,7 +141,7 @@
       {
         get
         {
-          return Combat.CalculateDefendingPlayerLifeloss(
+          return QuickCombat.CalculateDefendingPlayerLifeloss(
             Attacker,
             _blockers.Select(x => x.Card)
             );
