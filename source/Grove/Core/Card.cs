@@ -259,7 +259,7 @@
         {
           _hash.Value = HashCalculator.Combine(
             Name.GetHashCode(),
-            calc.Calculate(_hasSummoningSickness),
+            calc.Calculate(_hasSummoningSickness),            
             IsTapped.GetHashCode(),
             Damage,
             CanRegenerate.GetHashCode(),

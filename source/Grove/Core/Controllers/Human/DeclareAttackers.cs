@@ -10,7 +10,7 @@
   public class DeclareAttackers : Controllers.DeclareAttackers
   {
     public ViewModel.IFactory DialogFactory { get; set; }
-    public Publisher Publisher { get; set; }
+    public Publisher Publisher { get { return Game.Publisher; } }
     public IShell Shell { get; set; }
 
     protected override void ExecuteQuery()

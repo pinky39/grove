@@ -64,7 +64,7 @@
       return HashCalculator.Combine(
         Step.GetHashCode(),
         TurnCount,
-        State.GetHashCode()
+        State.GetHashCode()        
         );
     }
 

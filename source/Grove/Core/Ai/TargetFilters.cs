@@ -399,6 +399,7 @@
         {
           var candidates = p.Candidates()
             .Where(x => x.Card().Controller == p.Opponent)
+            /*.Where(x => !x.Card().IsTapped)*/
             .OrderByDescending(x => x.Card().Power);
 
           return p.Targets(candidates);

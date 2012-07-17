@@ -4,6 +4,7 @@
   using System.Collections.Generic;
   using System.Collections.Specialized;
   using System.ComponentModel;
+  using System.Linq;
   using Castle.Core;
   using Castle.Facilities.TypedFactory;
   using Castle.MicroKernel.Lifestyle;
@@ -15,8 +16,6 @@
   using Core;
   using Core.Ai;
   using Core.Controllers;
-  using Core.Controllers.Human;
-  using Core.Controllers.Machine;
   using Core.Controllers.Scenario;
   using Core.Details.Combat;
   using Core.Dsl;
@@ -107,7 +106,7 @@
         container.Kernel.Resolver.AddSubResolver(
           new CollectionResolver(container.Kernel, allowEmptyCollections: true));
 
-        container.AddFacility<TypedFactoryFacility>();
+        container.AddFacility<TypedFactoryFacility>();        
         container.Register(Component(typeof (ILazyComponentLoader), typeof (LazyOfTComponentLoader),
           LifestyleType.Singleton));
 
@@ -148,15 +147,25 @@
         container.Register(Component(typeof (StateMachine), lifestyle: LifestyleType.Scoped));
       }
 
-      private void RegisterDecisions(IWindsorContainer container) {
+      private void RegisterDecisions(IWindsorContainer container)
+      {
         container.Register(Component(typeof (DecisionFactory), lifestyle: LifestyleType.Scoped));
-        container.Register(Component(typeof (DecisionFactoryComponentSelector)));
-        container.Register(Component(typeof (StepDecisions), lifestyle: LifestyleType.Scoped));
-        container.Register(Component(typeof (IDecisionFactory)).AsFactory(typeof(DecisionFactoryComponentSelector)));
+        container.Register(Component(typeof (ScenarioDecisions), lifestyle: LifestyleType.Scoped));
+        container.Register(Component(typeof(IDecisionFactory), lifestyle: LifestyleType.Scoped).AsFactory(new DecisionSelector()));
+        container.Register(Component(typeof (StepDecisions)));
 
         container.Register(Classes.FromThisAssembly()
-          .BasedOn(typeof (IDecision))          
+          .BasedOn(typeof (IDecision))                    
+          .Configure(r => r.Named(GetDecisionName(r.Implementation)))                   
           .LifestyleTransient());
+      }
+
+      private string GetDecisionName(Type implementation)
+      {
+        var ns = implementation.Namespace;
+        var category = ns.Substring(ns.LastIndexOf(".") + 1);
+
+        return String.Format("{0}#{1}", category, implementation.Name);
       }
 
       private void RegisterPlayer(IWindsorContainer container)
@@ -167,7 +176,7 @@
       }
 
       private ComponentRegistration<object> Component(Type service, Type implementation = null,
-                                                      LifestyleType lifestyle = LifestyleType.Transient)
+        LifestyleType lifestyle = LifestyleType.Transient)
       {
         var services = new List<Type> {service};
 
@@ -249,7 +258,7 @@
               disposed.Closed += delegate { publisher.Unsubscribe(instance); };
             });
         }
-      }     
+      }
 
       private void RegisterShell(IWindsorContainer container)
       {

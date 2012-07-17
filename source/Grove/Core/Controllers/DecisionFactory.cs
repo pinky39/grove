@@ -2,30 +2,30 @@
 {
   using System;
   using System.Collections.Generic;
-  using System.Linq;
   using Infrastructure;
   using Scenario;
 
   [Copyable]
   public class DecisionFactory
   {
-    private readonly List<StepDecisions> _decisions = new List<StepDecisions>();
     private readonly IDecisionFactory _factory;
+    private readonly CachedMachineResolver _cachedMachineResolver;
+    private readonly ScenarioDecisions _scenarioDecisions;
     private Game _game;
 
-    private DecisionFactory()
+    private DecisionFactory() {}
+
+    public DecisionFactory(ScenarioDecisions scenarioDecisions, IDecisionFactory factory)
     {
-      
-    }
-    
-    public DecisionFactory(IDecisionFactory factory)
-    {      
+      _scenarioDecisions = scenarioDecisions;
+      _cachedMachineResolver = new CachedMachineResolver(factory);
       _factory = factory;
     }
 
     public void Init(Game game)
     {
       _game = game;
+      _scenarioDecisions.Init(_game);
     }
 
     public IDecision Create<TDecision>(Player controller, Action<TDecision> init) where TDecision : IDecision
@@ -34,65 +34,58 @@
 
       if (_game.Search.InProgress || controller.IsComputer)
       {
-        var type = GetDecisionType<TDecision>(typeof (Machine.DeclareAttackers).Namespace);
-        decision = (TDecision) _factory.Create(type);
+        decision = _cachedMachineResolver.Resolve<TDecision>();
       }
       else if (controller.IsHuman)
       {
-        var type = GetDecisionType<TDecision>(typeof (Human.DeclareAttackers).Namespace);
-        decision = (TDecision) _factory.Create(type);
+        decision = _factory.CreateHuman<TDecision>();
       }
       else
       {
-        var type = GetDecisionType<TDecision>(typeof (Scenario.DeclareAttackers).Namespace);      
-        
-        if (type == null)
-        {
-          // no special scenario decision, this will be handled by machine decision
-          type = GetDecisionType<TDecision>(typeof (Machine.DeclareAttackers).Namespace);        
-          decision = (TDecision) _factory.Create(type);
-        }
-        else
-        {
-          var scenarioDecision = Next<TDecision>();      
-          
-          if (scenarioDecision == null)
-            return new DefaultScenarioDecision();
-          
-          if (scenarioDecision is Verify)
-            return (IDecision)scenarioDecision;
-
-          decision = (TDecision) scenarioDecision;
-        }
+        var scenariodecision = _scenarioDecisions.Get(init);
+        scenariodecision.Init(_game, controller);
+        return scenariodecision;
       }
 
       decision.Init(_game, controller);
       init(decision);
       return decision;
-    }   
+    }
 
     public void AddDecisions(IEnumerable<StepDecisions> decisions)
     {
-      _decisions.AddRange(decisions);
+      _scenarioDecisions.AddDecisions(decisions);
     }
 
-    private object Next<TDecision>()
+    // resolving decisions via typed factories is slow
+    // resolve machine decisions with typed factories only the first time
+    // then use cached ctor
+    private class CachedMachineResolver
     {
-      var decisions = _decisions
-        .Where(x => x.Step == _game.Turn.Step && x.Turn == _game.Turn.TurnCount)
-        .SingleOrDefault();
+      private readonly Dictionary<Type, ParameterlessCtor> _cache = new Dictionary<Type, ParameterlessCtor>();
+      private readonly IDecisionFactory _factory;
+      private readonly object _lock = new object();
 
-      if (decisions == null)
-        return null;
+      public CachedMachineResolver(IDecisionFactory factory)
+      {
+        _factory = factory;
+      }
 
-      return decisions.Next<TDecision>();
-    }
+      public TDecision Resolve<TDecision>()
+      {
+        lock (_lock)
+        {
+          ParameterlessCtor ctor;
+          if (_cache.TryGetValue(typeof(TDecision), out ctor))
+          {
+            return (TDecision)ctor();
+          }
 
-    private static Type GetDecisionType<TDecision>(string @namespace)
-    {
-      return Type.GetType(String.Format("{0}.{1}",
-        @namespace,
-        typeof (TDecision).Name));
+          var decision = _factory.CreateMachine<TDecision>();
+          _cache.Add(typeof(TDecision), decision.GetType().GetParameterlessCtor());
+          return decision;  
+        }        
+      }
     }
   }
 }

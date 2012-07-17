@@ -19,8 +19,8 @@
 
     public override bool HasCompleted { get { return _executor.HasCompleted; } }
 
-    public CastRestrictions Restrictions { get; set; }
-    public Search Search { get; set; }
+    public CastRestrictions Restrictions { get { return Game.CastRestrictions; } }
+    public Search Search { get { return Game.Search; } }
 
     bool IDecisionExecution.ShouldExecuteQuery { get { return ShouldExecuteQuery; } }
 

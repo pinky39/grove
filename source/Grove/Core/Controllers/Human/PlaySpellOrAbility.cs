@@ -11,8 +11,8 @@
     public Configuration Configuration { get; set; }
     public ViewModel.IFactory DialogFactory { get; set; }
     public IShell Shell { get; set; }
-    public Stack Stack { get; set; }
-    public TurnInfo Turn { get; set; }
+    public Stack Stack { get { return Game.Stack; } }
+    public TurnInfo Turn { get { return Game.Turn; } }
 
     protected override void ExecuteQuery()
     {            

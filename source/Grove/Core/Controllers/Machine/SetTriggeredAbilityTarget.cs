@@ -25,7 +25,7 @@
 
     public override bool HasCompleted { get { return _executor.HasCompleted; } }
     public bool IsMax { get { return Controller.IsMax; } }
-    public Search Search { get; set; }
+    public Search Search { get { return Game.Search; } }
 
     bool IDecisionExecution.ShouldExecuteQuery { get { return ShouldExecuteQuery; } }
 

@@ -11,7 +11,7 @@
   {
     public ViewModel.IFactory DialogFactory { get; set; }
     public IShell Shell { get; set; }
-    public Publisher Publisher { get; set; }
+    public Publisher Publisher { get { return Game.Publisher; } }
 
     protected override void ExecuteQuery()
     {

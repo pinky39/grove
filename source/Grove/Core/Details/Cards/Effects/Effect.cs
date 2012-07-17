@@ -52,7 +52,8 @@
       return HashCalculator.Combine(
         GetType().GetHashCode(),
         calc.Calculate(Source),
-        HashCalculator.Combine(_targets.Select(calc.Calculate)),
+        calc.Calculate(_targets),
+        calc.Calculate(_costTargets),
         CanBeCountered.GetHashCode(),
         _wasKickerPaid.GetHashCode(),
         X.GetHashCode());
@@ -160,8 +161,8 @@
             Game = Game,
             Source = source,
             _triggerContext = triggerContext,
-            _targets = new TrackableList<ITarget>(Game.ChangeTracker),
-            _costTargets = new TrackableList<ITarget>(Game.ChangeTracker),
+            _targets = new TrackableList<ITarget>(Game.ChangeTracker, orderImpactsHashcode: true),
+            _costTargets = new TrackableList<ITarget>(Game.ChangeTracker, orderImpactsHashcode: true),
             X = x,
             _wasKickerPaid = wasKickerPaid,
             CanBeCountered = true

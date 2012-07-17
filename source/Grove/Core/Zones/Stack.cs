@@ -125,10 +125,10 @@
     
     public bool CanBeDealtLeathalDamageByTopSpell(Card card, bool targetOnly = false)
     {
-      var dealtAmount = GetDamageTopSpellWillDealToCreature(card, targetOnly);      
-      if (dealtAmount == 0)
+      if (!card.Is().Creature)
         return false;
       
+      var dealtAmount = GetDamageTopSpellWillDealToCreature(card, targetOnly);                  
       return card.LifepointsLeft <= dealtAmount;
     }
 

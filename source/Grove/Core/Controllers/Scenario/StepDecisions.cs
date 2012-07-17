@@ -61,10 +61,8 @@
       var activation = new ScenarioActivation();
       init(activation);
 
-      _decisions.Add(new PlaySpellOrAbility
-        {
-          Game = Game,
-          Controller = activation.Card.Controller,
+      var decision = new PlaySpellOrAbility
+        {          
           Result = new ChosenPlayable
             {
               Playable = new ScenarioAbility(
@@ -77,8 +75,11 @@
                 activation.AbilityIndex
                 )
             }
-        });
-
+        };
+                
+      decision.Init(Game, activation.Card.Controller);
+      
+     _decisions.Add(decision);
       return this;
     }
 
@@ -135,10 +136,8 @@
       var activation = new ScenarioActivation();
       init(activation);
 
-      _decisions.Add(new PlaySpellOrAbility
-        {
-          Game = Game,
-          Controller = activation.Card.Controller,
+      var decision = new PlaySpellOrAbility
+        {          
           Result = new ChosenPlayable
             {
               Playable = new ScenarioSpell(
@@ -150,8 +149,11 @@
                   x: activation.X
                   ))
             }
-        });
+        };
 
+      decision.Init(Game, activation.Card.Controller);
+
+     _decisions.Add(decision);
       return this;
     }
 
@@ -200,12 +202,13 @@
 
     public StepDecisions DeclareAttackers(params Card[] attackers)
     {
-      _decisions.Add(new DeclareAttackers
-        {
-          Controller = attackers[0].Controller,
-          Game = Game,
+      var decision = new DeclareAttackers
+        {          
           Result = attackers.ToList()
-        });
+        };
+
+      decision.Init(Game, attackers[0].Controller);
+      _decisions.Add(decision);
       return this;
     }
 
@@ -214,7 +217,7 @@
       Debug.Assert(pairs.Length%2 == 0, "Pairs lenght must be even number, did you forget to match a blocker?");
 
       var chosenBlockers = new ChosenBlockers();
-      var defending = pairs[1].Controller;
+      var defender = pairs[1].Controller;
 
       for (var i = 0; i < pairs.Length; i = i + 2)
       {
@@ -224,12 +227,15 @@
         chosenBlockers.Add(blocker, attacker);
       }
 
-      _decisions.Add(new DeclareBlockers
-        {
-          Game = Game,
-          Controller = defending,
+      var decision = new DeclareBlockers
+        {          
           Result = chosenBlockers
-        });
+        };
+      
+      _decisions.Add(decision);
+      
+      decision.Init(Game, defender);
+      
       return this;
     }
 
@@ -262,38 +268,42 @@
 
     private StepDecisions Target(ITarget target)
     {
-      _decisions.Add(new SetTriggeredAbilityTarget
-        {
-          Game = Game,          
+      var decision = new SetTriggeredAbilityTarget
+        {          
           Result = new ChosenTargets(new Targets().AddEffect(target))
-        });
+        };
+      
+      decision.Init(Game, null);
+      _decisions.Add(decision);
       return this;
     }
 
     public StepDecisions Verify(Action assertion)
     {
-      _decisions.Add(new Verify
+      var decision = new Verify
         {          
-          Assertion = assertion,
-          Game = Game
-        });
-
+          Assertion = assertion,          
+        };
+      
+      decision.Init(Game, null);
+      
+      _decisions.Add(decision);
       return this;
     }
 
     public StepDecisions Cycle(Card card)
     {
-      _decisions.Add(new PlaySpellOrAbility
-        {
-          Game = Game,
-          Controller = card.Controller,
+      var decision = new PlaySpellOrAbility
+        {          
           Result = new ChosenPlayable
             {
               Playable = new ScenarioCyclable(
                 card)
             }
-        });
+        };
 
+      decision.Init(Game, card.Controller);
+      _decisions.Add(decision);
       return this;
     }
   }

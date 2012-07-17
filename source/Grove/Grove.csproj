@@ -238,7 +238,9 @@
     <Compile Include="Core\Ai\BlockerEvaluation.cs" />
     <Compile Include="Core\Ai\QuickCombat.cs" />
     <Compile Include="Core\Controllers\DecisionFactory.cs" />
-    <Compile Include="Core\Controllers\DecisionFactoryComponentSelector.cs" />
+    <Compile Include="Core\Controllers\DecisionSelector.cs" />
+    <Compile Include="Core\Controllers\IDecisionFactory.cs" />
+    <Compile Include="Core\Controllers\ScenarioDecisions.cs" />
     <Compile Include="Core\Details\Cards\Ability.cs" />
     <Compile Include="Core\Details\Cards\Costs\NoCost.cs" />
     <Compile Include="Core\Details\Cards\Costs\RevealCardFromHand.cs" />
@@ -291,8 +293,6 @@
     <Compile Include="Core\Controllers\Human\ConsiderPayingLifeOrMana.cs" />
     <Compile Include="Core\Controllers\Machine\ConsiderPayingLifeOrMana.cs" />
     <Compile Include="Core\Controllers\Machine\DecisionExecutor.cs" />
-    <Compile Include="Core\Controllers\Machine\DecisionFactory.cs" />
-    <Compile Include="Core\Controllers\Human\DecisionFactory.cs" />
     <Compile Include="Core\Controllers\Machine\AssignCombatDamage.cs" />
     <Compile Include="Core\Ai\BlockStrategy.cs" />
     <Compile Include="Core\Controllers\Machine\DeclareAttackers.cs" />
@@ -396,7 +396,6 @@
     <Compile Include="Core\Controllers\DiscardCards.cs" />
     <Compile Include="Core\Controllers\Results\ChosenPlayer.cs" />
     <Compile Include="Core\Controllers\Decisions.cs" />
-    <Compile Include="Core\Controllers\IDecisionFactory.cs" />
     <Compile Include="Core\Controllers\SacrificeCreatures.cs" />
     <Compile Include="Core\Controllers\SelectStartingPlayer.cs" />
     <Compile Include="Core\Controllers\SetDamageAssignmentOrder.cs" />

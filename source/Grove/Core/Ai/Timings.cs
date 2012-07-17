@@ -283,14 +283,14 @@
         };
     }
 
-    public static TimingDelegate IncreaseOwnersPowerAndThougness(int? power, int? thougness)
+    public static TimingDelegate IncreaseOwnersPowerAndThougness(int? power, int? toughness)
     {
       return p =>
         {
           power = power ?? p.Activation.X;
-          thougness = thougness ?? p.Activation.X;
+          toughness = toughness ?? p.Activation.X;
 
-          if (p.Stack.CanBeDealtLeathalDamageByTopSpell(p.Card) && thougness > 0)
+          if (toughness > 0 && p.Stack.CanBeDealtLeathalDamageByTopSpell(p.Card))
           {
             return true;
           }
@@ -301,7 +301,7 @@
               attacker: p.Card, 
               blockers: p.Combat.GetBlockers(p.Card),              
               powerIncrease: power.Value, 
-              toughnessIncrease: thougness.Value) > 0;
+              toughnessIncrease: toughness.Value) > 0;
           }
 
           if (p.Step == Step.DeclareBlockers && !p.Controller.IsActive && p.Card.IsBlocker)
@@ -310,7 +310,7 @@
               blocker: p.Card,
               attacker: p.Combat.GetAttacker(p.Card),
               powerIncrease: power.Value,
-              toughnessIncrease: thougness.Value) > 0;
+              toughnessIncrease: toughness.Value) > 0;
           }
 
           return false;

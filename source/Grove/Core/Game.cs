@@ -8,6 +8,7 @@
   [Copyable]
   public class Game
   {
+    private readonly CastRestrictions _castRestrictions;
     private readonly Search _search;
     private readonly StateMachine _stateMachine;
     private readonly TurnInfo _turnInfo;
@@ -20,9 +21,10 @@
       Players players,
       Publisher publisher,
       Stack stack,
-      ChangeTracker changeTracker,      
+      ChangeTracker changeTracker,
       Decisions decisions,
       StateMachine stateMachine,
+      CastRestrictions castRestrictions,
       TurnInfo turnInfo,
       Search search)
     {
@@ -32,7 +34,8 @@
       Stack = stack;
       ChangeTracker = changeTracker;
       Decisions = decisions;
-      
+
+      _castRestrictions = castRestrictions;
       _turnInfo = turnInfo;
       _search = search;
       _wasStopped = new Trackable<bool>(ChangeTracker);
@@ -50,6 +53,7 @@
     public Stack Stack { get; private set; }
     public TurnInfo Turn { get { return _turnInfo; } }
     public Search Search { get { return _search; } }
+    public CastRestrictions CastRestrictions { get { return _castRestrictions; } }
 
     public int CalculateHash()
     {
@@ -59,7 +63,7 @@
         calc.Calculate(Players),
         calc.Calculate(Stack),
         calc.Calculate(Turn),
-        calc.Calculate(Combat)
+        calc.Calculate(Combat)        
         );
     }
 
@@ -79,9 +83,9 @@
     }
 
     public void Start(int numOfTurns = int.MaxValue, bool skipPreGame = false, Player looser = null)
-    {      
+    {
       Decisions.Init(this);
-      
+
       _stateMachine.Start(() => ShouldContinue() &&
         numOfTurns >= Turn.TurnCount, skipPreGame, looser);
     }

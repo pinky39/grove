@@ -23,13 +23,13 @@
 
       [Fact]
       public void TripNoosePickToughestTarget()
-      {        
-        Battlefield(P1, "Forest", "Student of Warfare", "Forest", "Birds of Paradise", "Birds of Paradise", "Troll Ascetic");
-        Battlefield(P2, "Island", "Island", "Trip Noose", "Island",  "Vivid Crag", "Island", "Mountain");
+      {                
+        Battlefield(P1, "Student of Warfare", "Birds of Paradise", "Birds of Paradise");
+        Battlefield(P2, "Island", "Island", "Trip Noose");
 
         RunGame(1);
         
-        Equal(17, P2.Life);
+        Equal(20, P2.Life);        
       }
     }
   }
