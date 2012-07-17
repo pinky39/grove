@@ -187,7 +187,7 @@
         return;
       }
 
-      _damagePreventions.PreventDamage(damage);
+      _damagePreventions.PreventReceivedDamage(damage);
 
       if (damage.Amount == 0)
         return;

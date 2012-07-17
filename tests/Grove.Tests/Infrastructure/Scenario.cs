@@ -94,6 +94,7 @@
               player.AddManaSources(card.ManaSources);
 
             player.PutCardIntoPlay(card);
+            card.RemoveSummoningSickness();
 
             foreach (var enchantment in scenarioCard.Enchantments)
             {

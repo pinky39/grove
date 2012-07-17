@@ -35,11 +35,11 @@
       public bool OnlyOnce { get; set; }
       public Initializer<T> Init { get; set; }
 
-      public DamagePrevention Create(ITarget owner)
+      public DamagePrevention Create(ITarget preventionOwner)
       {
         var prevention = new T();
 
-        prevention.Owner = owner;
+        prevention.Owner = preventionOwner;
         prevention.Game = Game;
         prevention.EndOfLife = new TrackableEvent(prevention, Game.ChangeTracker);
 

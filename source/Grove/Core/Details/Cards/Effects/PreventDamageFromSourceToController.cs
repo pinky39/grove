@@ -15,7 +15,7 @@
         ? DamageSource.Effect().Source.OwningCard
         : DamageSource.Card();
 
-      var prevention = new DamagePrevention.Factory<PreventDamageFromSource>
+      var prevention = new DamagePrevention.Factory<Preventions.PreventDamageFromSource>
         {
           Game = Game,
           Init = (m, c) =>

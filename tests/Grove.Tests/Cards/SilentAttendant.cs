@@ -16,7 +16,7 @@
         Battlefield(P2, attendant);
 
         Exec(
-          At(Step.FirstMain, 4)
+          At(Step.FirstMain, 2)
             .Verify(() => Equal(21, P2.Life))
           );
       }

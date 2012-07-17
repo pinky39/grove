@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Modifiers;
-  using Targeting;
 
   public class ApplyModifiersToTarget : Effect
   {
@@ -10,9 +9,9 @@
 
     protected override void ResolveEffect()
     {
-      foreach (var modifier in _modifierFactories.CreateModifiers(Source.OwningCard, Target().Card(), X))
+      foreach (var modifier in _modifierFactories.CreateModifiers(Source.OwningCard, Target(), X))
       {
-        Target().Card().AddModifier(modifier);
+        Target().AddModifier(modifier);
       }
     }
 

@@ -364,7 +364,7 @@
             return p.Targets(p.Candidates()
               .OrderBy(x => x.Card().Score));
           }
-
+                                        
           var candidates = p.Candidates()
             .Where(x => p.Stack.CanBeDestroyedByTopSpell(x.Card()) ||
               p.Combat.CanBeDealtLeathalCombatDamage(x.Card()))

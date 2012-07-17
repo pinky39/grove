@@ -138,7 +138,7 @@
 
     public void DealDamage(Damage damage)
     {
-      _damagePreventions.PreventDamage(damage);
+      _damagePreventions.PreventReceivedDamage(damage);
 
       if (damage.Amount == 0)
         return;
