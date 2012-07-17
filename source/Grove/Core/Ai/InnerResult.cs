@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core.Ai
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
   using System.Text;
@@ -19,32 +20,39 @@
       _isMax = isMax;
     }
 
-    public int? BestMove { get { return _bestEdge == null ? (int?) null : _bestEdge.MoveIndex; } }
-    public int? Score { get { return _bestEdge == null ? null : _bestEdge.Result.Score; } }
-
+    public int? BestMove { get { return _bestEdge != null ? _bestEdge.MoveIndex : (int?) null; } }
+    public int? Score { get; set; }
 
     public void EvaluateSubtree()
     {
       _isVisited = true;
 
-      foreach (var child in _children)
+      foreach (var child in _children.ToList())
       {
-        if (child.Result.IsVisited)
+        if (!child.Result.Score.HasValue)
         {
-          child.IsCycle = true;
-          continue;
-        }
+          if (child.Result.IsVisited)
+          {
+            // cycle detected remove this child
+            _children.Remove(child);
+            continue;
+          }
 
-        child.Result.EvaluateSubtree();
+          // calculate child score
+          child.Result.EvaluateSubtree();
+        }
       }
 
-      var scoredChildren = _children.Where(x => !x.IsCycle && x.Result.Score != null).ToList();
+      if (_children.Count == 0)
+        return;
+      
+      Score = _isMax 
+        ? _children.Max(x => x.Result.Score) 
+        : _children.Min(x => x.Result.Score);
 
-      if (scoredChildren.Count > 0)
+      if (Score != null)
       {
-        _bestEdge = _isMax
-          ? scoredChildren.OrderByDescending(x => x.Result.Score).First()
-          : scoredChildren.OrderBy(x => x.Result.Score).First();
+        _bestEdge = _children.First(x => x.Result.Score == Score);
       }
     }
 
@@ -68,7 +76,6 @@
 
     private class Edge
     {
-      public bool IsCycle;
       public int MoveIndex;
       public ISearchResult Result;
     }
