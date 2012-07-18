@@ -57,7 +57,7 @@
       Effect(new Effect.Factory<AddManaToPool>
         {
           Game = Game,
-          Init = (effect, _) => effect.Mana = manaAmount
+          Init = p => p.Effect.Mana = manaAmount
         });
 
       _manaAmount = manaAmount;

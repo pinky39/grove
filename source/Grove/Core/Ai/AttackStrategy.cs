@@ -109,14 +109,14 @@
           if (_blockers.Count == 0)
             return 0;
 
-          var maxAttackerDamage = Attacker.Power;
+          var maxAttackerDamage = Attacker.CalculateCombatDamage(allDamageSteps: true);
           var score = 0;
 
           foreach (var blocker in _blockers.Select(x => x.Card).OrderByDescending(x => x.Score))
           {
             if (QuickCombat.CanBlockerBeDealtLeathalCombatDamage(blocker, Attacker))
             {
-              maxAttackerDamage -= Attacker.Has().Deathtouch ? 1 : blocker.Toughness;
+              maxAttackerDamage -= Attacker.Has().Deathtouch ? 1 : blocker.CalculateLifepointsLeft();
               score += blocker.Score;
             }
 

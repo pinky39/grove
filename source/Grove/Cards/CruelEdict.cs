@@ -18,7 +18,7 @@
         .FlavorText("'Choose your next words carefully. They will be your last.'{EOL}—Phage the Untouchable")
         .Category(EffectCategories.Destruction)
         .Timing(Timings.SacrificeCreatures(1))
-        .Effect<OpponentSacrificesCreatures>((e, c) => e.Count = 1);
+        .Effect<OpponentSacrificesCreatures>(e => e.Count = 1);
     }
   }
 }

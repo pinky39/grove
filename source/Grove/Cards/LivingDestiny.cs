@@ -21,7 +21,7 @@
         .FlavorText("'That our enemies are great only brings us greater hope.'")
         .Timing(Timings.EndOfTurn())
         .AdditionalCost<RevealCardFromHand>()
-        .Effect<GainLife>((e,_) => e.Amount = self => self.CostTarget().Card().ManaCost.Converted)
+        .Effect<GainLife>(e => e.Amount = e.CostTarget().Card().ManaCost.Converted)
         .Targets(
           filter: TargetFilters.GreatestConvertedManaCost(),
           cost: C.Selector(Selectors.CardInHand(card => card.Is().Creature))

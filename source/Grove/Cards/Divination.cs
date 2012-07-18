@@ -18,7 +18,7 @@
         .FlavorText(
           "Even the House of Galan, who takes the most scholarly approach to the mystic traditions, has resorted to exploring more primitive methods in Avacyn's absence.")
         .Timing(Timings.FirstMain())
-        .Effect<DrawCards>((e, _) => { e.DrawCount = 2; });
+        .Effect<DrawCards>(e => e.DrawCount = 2);
     }
   }
 }

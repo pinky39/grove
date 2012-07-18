@@ -12,7 +12,7 @@
       EndOfLife = new TrackableEvent(this, Game.ChangeTracker);
     }
 
-    public override void PreventDamage(Damage damage)
+    public override void PreventReceivedDamage(Damage damage)
     {
       if (damage.Source == Source)
       {
@@ -23,7 +23,7 @@
       }
     }
 
-    public override int EvaluateHowMuchDamageCanBeDealt(Card source, int amount, bool isCombat)
+    public override int EvaluateReceivedDamage(Card source, int amount, bool isCombat)
     {
       return source == Source ? 0 : amount;
     }

@@ -26,7 +26,7 @@
           C.ActivatedAbility(
             "Sacrifice a Beast: You gain 4 life.",
             C.Cost<SacrificePermanent>(),
-            C.Effect<GainLife>((e, _) => e.SetAmount(4)),
+            C.Effect<GainLife>(e => e.Amount = 4),
             
             costSelector: C.Selector(Selectors.Creature((c) => c.Is("beast"), Controller.SpellOwner), 
               mustBeTargetable: false),

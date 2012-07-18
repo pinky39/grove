@@ -28,7 +28,7 @@
       return lifeloss;
     }
 
-    public override int EvaluateHowMuchDamageCanBeDealt(Card source, int amount, bool isCombat)
+    public override int EvaluateReceivedDamage(Card source, int amount, bool isCombat)
     {
       var dealt = amount - CalculateLifeloss(amount);
       return dealt > 0 ? dealt : 0;

@@ -27,7 +27,7 @@
           C.TriggeredAbility(
             "Whenever Hypnotic Specter deals damage to an opponent, that player discards a card at random.",
             C.Trigger<DealDamageToCreatureOrPlayer>((t, c) => t.ToOpponent()),
-            C.Effect<OpponentDiscardsCards>((e, _) => e.RandomCount = 1)));
+            C.Effect<OpponentDiscardsCards>(e => e.RandomCount = 1)));
     }
   }
 }

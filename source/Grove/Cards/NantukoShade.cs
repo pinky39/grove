@@ -26,8 +26,8 @@
           C.ActivatedAbility(
             "{B}: Nantuko Shade gets +1/+1 until end of turn.",
             C.Cost<TapOwnerPayMana>((cost, _) => cost.Amount = ManaUnit.Black.ToAmount()),
-            C.Effect<ApplyModifiersToSelf>((e, c) => e.Modifiers(
-              c.Modifier<AddPowerAndToughness>((m, _) =>
+            C.Effect<ApplyModifiersToSelf>(p => p.Effect.Modifiers(
+              p.Builder.Modifier<AddPowerAndToughness>((m, _) =>
                 {
                   m.Power = 1;
                   m.Toughness = 1;

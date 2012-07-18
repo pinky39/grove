@@ -17,7 +17,7 @@
         .Text("Draw three cards, then discard a card.")
         .FlavorText("Dwell longest on the thoughts that shine brightest.")
         .Timing(Timings.FirstMain())
-        .Effect<DrawCards>((e, _) =>
+        .Effect<DrawCards>(e =>
           {
             e.DrawCount = 3;
             e.DiscardCount = 1;

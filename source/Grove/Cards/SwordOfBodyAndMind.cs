@@ -31,10 +31,10 @@
                 t.UseAttachedToAsTriggerSource = true;
                 t.ToAnyPlayer();
               }),
-            C.Effect<CompoundEffect>((e, c) => e.ChildEffects(
-              c.Effect<MillOpponent>((e1, _) => e1.Count = 10),
-              c.Effect<CreateTokens>((e1, c1) => e1.Tokens(
-                c1.Card
+            C.Effect<CompoundEffect>(p => p.Effect.ChildEffects(
+              p.Builder.Effect<MillOpponent>(p1 => p1.Count = 10),
+              p.Builder.Effect<CreateTokens>(p1 => p1.Effect.Tokens(
+                p1.Builder.Card
                   .Named("Wolf Token")
                   .FlavorText(
                     "No matter where we cat warriors go in the world, those stupid slobberers find us.{EOL}—Mirri of the Weatherlight")
@@ -45,13 +45,13 @@
           C.ActivatedAbility(
             "{2}: Attach to target creature you control. Equip only as a sorcery.",
             C.Cost<TapOwnerPayMana>((cost, _) => cost.Amount = 2.AsColorlessMana()),
-            C.Effect<AttachEquipment>((e, c) => e.Modifiers(
-              c.Modifier<AddPowerAndToughness>((m, _) =>
+            C.Effect<AttachEquipment>(p => p.Effect.Modifiers(
+              p.Builder.Modifier<AddPowerAndToughness>((m, _) =>
                 {
                   m.Power = 2;
                   m.Toughness = 2;
                 }),
-              c.Modifier<AddProtectionFromColors>((m, _) => m.Colors = ManaColors.Green | ManaColors.Blue)
+              p.Builder.Modifier<AddProtectionFromColors>((m, _) => m.Colors = ManaColors.Green | ManaColors.Blue)
               )),
             effectSelector: C.Selector(Selectors.Equipment()),
             targetFilter: TargetFilters.CombatEquipment(),

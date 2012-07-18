@@ -113,15 +113,18 @@
     <Compile Include="Cards\ArgothianEnchantress.cs" />
     <Compile Include="Cards\ArgothianSwine.cs" />
     <Compile Include="Cards\BaneslayerAngel.cs" />
+    <Compile Include="Cards\BarrinsCodex.cs" />
     <Compile Include="Cards\BasiliskCollar.cs" />
     <Compile Include="Cards\Befoul.cs" />
     <Compile Include="Cards\BloodVassal.cs" />
+    <Compile Include="Cards\BrilliantHalo.cs" />
     <Compile Include="Cards\BurstLightning.cs" />
     <Compile Include="Cards\BeaconOfDestruction.cs" />
     <Compile Include="Cards\BirdsOfParadise.cs" />
     <Compile Include="Cards\BlackSunsZenith.cs" />
     <Compile Include="Cards\BlanchwoodArmor.cs" />
     <Compile Include="Cards\Blaze.cs" />
+    <Compile Include="Cards\Clear.cs" />
     <Compile Include="Cards\Corrupt.cs" />
     <Compile Include="Cards\Counterspell.cs" />
     <Compile Include="Cards\CopperlineGorge.cs" />
@@ -132,6 +135,7 @@
     <Compile Include="Cards\DiscipleOfGrace.cs" />
     <Compile Include="Cards\DiscipleOfLaw.cs" />
     <Compile Include="Cards\Disenchant.cs" />
+    <Compile Include="Cards\DragonBlood.cs" />
     <Compile Include="Cards\DriftingMeadow.cs" />
     <Compile Include="Cards\DrownedCatacomb.cs" />
     <Compile Include="Cards\DarkslickDrake.cs" />
@@ -245,7 +249,11 @@
     <Compile Include="Core\Details\Cards\Ability.cs" />
     <Compile Include="Core\Details\Cards\Costs\NoCost.cs" />
     <Compile Include="Core\Details\Cards\Costs\RevealCardFromHand.cs" />
+    <Compile Include="Core\Details\Cards\Costs\TapAndSacOwnerPayMana.cs" />
+    <Compile Include="Core\Details\Cards\EffectCreationContext.cs" />
+    <Compile Include="Core\Details\Cards\EffectParameters.cs" />
     <Compile Include="Core\Details\Cards\Effects\MoveCardFromGraveyardToHand.cs" />
+    <Compile Include="Core\Details\Cards\Preventions\PreventDealtDamage.cs" />
     <Compile Include="Core\Details\Cards\Preventions\PreventLifelossBelowOne.cs" />
     <Compile Include="Core\Details\Mana\AggregateManaAmount.cs" />
     <Compile Include="Core\Ai\TargetCandidatesEx.cs" />
@@ -287,7 +295,7 @@
     <Compile Include="Core\Details\Combat\Attacker.cs" />
     <Compile Include="Core\Details\Combat\Blocker.cs" />
     <Compile Include="Core\Ai\ISearchNode.cs" />
-    <Compile Include="Core\Dsl\CardCreationContext.cs" />
+    <Compile Include="Core\Dsl\CardBuilder.cs" />
     <Compile Include="Core\Dsl\CardFactoryEx.cs" />
     <Compile Include="Core\Dsl\LevelDefinition.cs" />
     <Compile Include="Core\Controllers\ConsiderPayingCounterCost.cs" />

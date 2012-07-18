@@ -16,20 +16,18 @@
     public Action<Effect> AfterResolve = delegate { };
     public Action<Effect> BeforeResolve = delegate { };
     private TrackableList<ITarget> _costTargets;
-    private TrackableList<ITarget> _targets;
-    private object _triggerContext;
-    private bool _wasKickerPaid;
+    private TrackableList<ITarget> _targets;        
     public bool CanBeCountered { get; set; }
     public Player Controller { get { return Source.OwningCard.Controller; } }
     protected Decisions Decisions { get { return Game.Decisions; } }
     protected Game Game { get; set; }
     public Players Players { get { return Game.Players; } }
     public IEffectSource Source { get; set; }
-    public int? X { get; private set; }
+    public int? X { get; set; }
     public virtual bool AffectsSource { get { return false; } }
-
     public bool HasTargets { get { return _targets.Count > 0; } }
 
+    protected IEnumerable<ITarget> Targets { get { return _targets; } }
 
     public IEnumerable<ITarget> AllTargets
     {
@@ -47,6 +45,8 @@
       }
     }
 
+    public bool WasKickerPaid { get; set;}
+
     public int CalculateHash(HashCalculator calc)
     {
       return HashCalculator.Combine(
@@ -55,7 +55,7 @@
         calc.Calculate(_targets),
         calc.Calculate(_costTargets),
         CanBeCountered.GetHashCode(),
-        _wasKickerPaid.GetHashCode(),
+        WasKickerPaid.GetHashCode(),
         X.GetHashCode());
     }
 
@@ -83,12 +83,7 @@
     {
       return _targets[index];
     }
-
-    public T Ctx<T>()
-    {
-      return (T) _triggerContext;
-    }
-
+    
     public void EffectWasCountered()
     {
       Source.EffectWasCountered();
@@ -106,7 +101,7 @@
 
     public bool HasEffectStillValidTargets()
     {
-      return _targets.Count == 0 || Source.AreTargetsStillValid(_targets, _wasKickerPaid);
+      return _targets.Count == 0 || Source.AreTargetsStillValid(_targets, WasKickerPaid);
     }
 
     public override string ToString()
@@ -151,24 +146,26 @@
     [Copyable]
     public class Factory<TEffect> : IEffectFactory where TEffect : Effect, new()
     {
-      public Initializer<TEffect> Init = delegate { };
+      public EffectInitializer<TEffect> Init = delegate { };
       public Game Game { get; set; }
 
-      public Effect CreateEffect(IEffectSource source, int? x, bool wasKickerPaid, object triggerContext)
-      {
+      public Effect CreateEffect(EffectParameters parameters)
+      {                
         var effect = new TEffect
           {
             Game = Game,
-            Source = source,
-            _triggerContext = triggerContext,
-            _targets = new TrackableList<ITarget>(Game.ChangeTracker, orderImpactsHashcode: true),
-            _costTargets = new TrackableList<ITarget>(Game.ChangeTracker, orderImpactsHashcode: true),
-            X = x,
-            _wasKickerPaid = wasKickerPaid,
+            Source = parameters.Source,            
+            _targets = new TrackableList<ITarget>(parameters.Targets, Game.ChangeTracker, orderImpactsHashcode: true),
+            _costTargets = new TrackableList<ITarget>(parameters.CostTargets, Game.ChangeTracker, orderImpactsHashcode: true),   
+            WasKickerPaid  = parameters.Activation.PayKicker,
+            X = parameters.Activation.X,
             CanBeCountered = true
           };
-
-        Init(effect, new CardCreationContext(Game));
+                
+        Init(new EffectCreationContext<TEffect>(
+          effect, 
+          parameters, 
+          new CardBuilder(Game)));
 
         return effect;
       }

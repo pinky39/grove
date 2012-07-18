@@ -22,8 +22,8 @@
           C.ManaAbility(
             new ManaUnit(ManaColors.Red | ManaColors.Green),
             "{T}: Add {R} or {G} to your mana pool."))
-        .Effect<PutIntoPlay>((e, c) =>
-          e.PutIntoPlayTapped = player => player.Battlefield.Lands.Count() > 2);
+        .Effect<PutIntoPlay>(e =>
+          e.PutIntoPlayTapped = e.Controller.Battlefield.Lands.Count() > 2);
     }
   }
 }

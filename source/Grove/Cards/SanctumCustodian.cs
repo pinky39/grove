@@ -27,13 +27,13 @@
           C.ActivatedAbility(
             "{T}: Prevent the next 2 damage that would be dealt to target creature or player this turn.",
             C.Cost<TapOwnerPayMana>((cost, _) => cost.TapOwner = true),
-            C.Effect<ApplyModifiersToTarget>((e, c) => e.Modifiers(
-              c.Modifier<AddDamagePrevention>((m, c0) =>
+            C.Effect<ApplyModifiersToTarget>(p => p.Effect.Modifiers(
+              p.Builder.Modifier<AddDamagePrevention>((m, c0) =>
                 {
-                  m.Prevention = c0.Prevention<PreventDamageToTarget>((p, _) =>
+                  m.Prevention = c0.Prevention<PreventDamageToTarget>((pr, _) =>
                     {
-                      p.AmountIsDepletable = true;
-                      p.Amount = 2;
+                      pr.AmountIsDepletable = true;
+                      pr.Amount = 2;
                     });
                 }, untilEndOfTurn: true))),
             effectSelector: C.Selector(Selectors.CreatureOrPlayer()),

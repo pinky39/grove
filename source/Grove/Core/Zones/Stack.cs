@@ -117,7 +117,7 @@
       if (damageDealing == null)
         return 0;
 
-      var dealtAmount = card.EvaluateHowMuchDamageCanBeDealt(
+      var dealtAmount = card.EvaluateReceivedDamage(
         TopSpell.Source.OwningCard, damageDealing.CreatureDamage(card), isCombat: false);
 
       return dealtAmount;
@@ -129,7 +129,7 @@
         return false;
       
       var dealtAmount = GetDamageTopSpellWillDealToCreature(card, targetOnly);                  
-      return card.LifepointsLeft <= dealtAmount;
+      return card.CalculateLifepointsLeft() <= dealtAmount;
     }
 
     public bool CanBeDestroyedByTopSpell(Card card, bool targetOnly = false)

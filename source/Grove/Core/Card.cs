@@ -108,7 +108,7 @@
     public bool IsPermanent { get { return Zone == Zone.Battlefield; } }
     public virtual bool IsTapped { get { return _isTapped.Value; } protected set { _isTapped.Value = value; } }
     public IManaAmount KickerCost { get; private set; }
-    public int LifepointsLeft { get { return Toughness.Value - Damage; } }
+
     public IManaAmount ManaCost { get; private set; }
     public IManaAmount ManaCostWithKicker { get; private set; }
     public IEnumerable<IManaSource> ManaSources { get { return _manaSources; } }
@@ -164,14 +164,13 @@
 
     public CardText Text { get; private set; }
 
-    public int? Toughness { get { return _toughness.Value; } }
+    public int? Toughness { get { return _toughness.Value; } }    
     public string Type { get { return _type.Value.ToString(); } }
     public Zone Zone { get { return _zone.Value; } }
 
     public int? Level { get { return _level.Value; } }
     public IManaAmount EchoCost { get; private set; }
     public bool CanBeDestroyed { get { return !CanRegenerate && !Has().Indestructible; } }
-    public int TotalDamageThisCanDealInAllDamageSteps { get { return Has().DoubleStrike ? 2*Power.Value : Power.Value; } }
     public IManaAmount CyclingCost { get; private set; }
     public bool HasCycling { get { return _cyclingFactory != null; } }
     public bool IsRevealed { get { return _isRevealed.Value; } set { _isRevealed.Value = value; } }
@@ -259,7 +258,7 @@
         {
           _hash.Value = HashCalculator.Combine(
             Name.GetHashCode(),
-            calc.Calculate(_hasSummoningSickness),            
+            calc.Calculate(_hasSummoningSickness),
             IsTapped.GetHashCode(),
             Damage,
             CanRegenerate.GetHashCode(),
@@ -307,14 +306,19 @@
       modifier.Dispose();
     }
 
-    public int EvaluateHowMuchDamageCanBeDealt(Card damageSource, int amount, bool isCombat)
+    public int CalculateLifepointsLeft()
+    {
+      return Toughness.Value - Damage;
+    }
+
+    public int EvaluateReceivedDamage(Card damageSource, int amount, bool isCombat)
     {
       if (HasProtectionFrom(damageSource))
       {
         return 0;
       }
 
-      return _damagePreventions.EvaluateHowMuchDamageCanBeDealt(damageSource, amount, isCombat);
+      return _damagePreventions.EvaluateReceivedDamage(damageSource, amount, isCombat);
     }
 
     public void ActivateAbility(int index, ActivationParameters activationParameters)
@@ -424,9 +428,10 @@
     {
       PayCyclingCost();
 
-      var effect = _cyclingFactory.CreateEffect(this);
+      var effect = _cyclingFactory.CreateEffect(
+        new EffectParameters(source: this));
+      
       _stack.Push(effect);
-
       IncreaseUsageScore();
     }
 
@@ -439,18 +444,16 @@
     {
       PayCastingCost(activationParameters);
 
+      var parameters = new EffectParameters(
+        source: this,
+        activation: activationParameters,
+        targets: activationParameters.Targets.Effect(),
+        costTargets: activationParameters.Targets.Cost());
+
       var effect = activationParameters.PayKicker
-        ? _kickerEffectFactory.CreateEffect(
-          source: this,
-          x: activationParameters.X,
-          wasKickerPaid: true)
-        : _effectFactory.CreateEffect(
-          source: this,
-          x: activationParameters.X);
-
-      effect.AddTargets(activationParameters.Targets.Effect());
-      effect.AddCostTargets(activationParameters.Targets.Cost());
-
+        ? _kickerEffectFactory.CreateEffect(parameters)
+        : _effectFactory.CreateEffect(parameters);
+          
       CastingRule.Cast(effect);
       IncreaseUsageScore();
 
@@ -489,7 +492,8 @@
 
     public void EnchantWithoutPayingTheCost(Card enchantment)
     {
-      var effect = enchantment._effectFactory.CreateEffect(enchantment);
+      var effect = enchantment._effectFactory.CreateEffect(
+        new EffectParameters(enchantment));
 
       if (effect is EnchantCreature == false)
         throw new InvalidOperationException("Card is is not an enchantment.");
@@ -754,6 +758,22 @@
       IsRevealed = true;
     }
 
+    public int CalculateCombatDamage(bool allDamageSteps = false, int powerIncrease = 0)
+    {
+      if (!Power.HasValue)
+        return 0;
+
+      var amount = Power.Value + powerIncrease;
+      amount = _damagePreventions.PreventDealtCombatDamage(amount);
+
+      if (allDamageSteps)
+      {
+        amount = Has().DoubleStrike ? amount*2 : amount;
+      }
+
+      return amount;
+    }
+
     [Copyable]
     public class CardFactory : ICardFactory
     {
@@ -768,7 +788,7 @@
 
       private readonly List<ITriggeredAbilityFactory> _triggeredAbilityFactories = new List<ITriggeredAbilityFactory>();
       private ICostFactory _additionalCost;
-      private ManaColors _colors;      
+      private ManaColors _colors;
       private string _cyclingCost;
       private string _echoCost;
       private EffectCategories _effectCategories;
@@ -813,7 +833,7 @@
 
         card._effectFactory = _effectFactory ?? new Effect.Factory<PutIntoPlay> {Game = _game};
         card._cyclingFactory = _cyclingCost != null
-          ? new Effect.Factory<DrawCards> {Game = _game, Init = (e, _) => e.DrawCount = 1} : null;
+          ? new Effect.Factory<DrawCards> {Game = _game, Init = p => p.Effect.DrawCount = 1} : null;
         card._kickerEffectFactory = _kickerEffectFactory;
         card._hash = new Trackable<int?>(_changeTracker);
 
@@ -996,15 +1016,28 @@
         return this;
       }
 
-      public CardFactory Effect<T>(Initializer<T> init = null) where T : Effect, new()
+      public CardFactory Effect<T>(Action<T> init = null) where T : Effect, new()
       {
         init = init ?? delegate { };
 
         _effectFactory = new Effect.Factory<T>
           {
             Game = _game,
-            Init = init,
+            Init = p => init(p.Effect)
           };
+
+        return this;
+      }
+
+      public CardFactory Effect<T>(EffectInitializer<T> init) where T : Effect, new()
+      {
+        init = init ?? delegate { };
+
+        _effectFactory = new Effect.Factory<T>
+        {
+          Game = _game,
+          Init = init
+        };
 
         return this;
       }
@@ -1021,8 +1054,20 @@
         return this;
       }
 
+      public CardFactory KickerEffect<T>(Action<T> init = null) where T : Effect, new()
+      {
+        init = init ?? delegate { };
+        
+        _kickerEffectFactory = new Effect.Factory<T>
+        {
+          Game = _game,
+          Init = p => init(p.Effect)
+        };
 
-      public CardFactory KickerEffect<T>(Initializer<T> init = null) where T : Effect, new()
+        return this;
+      }
+
+      public CardFactory KickerEffect<T>(EffectInitializer<T> init) where T : Effect, new()
       {
         init = init ?? delegate { };
 
@@ -1046,12 +1091,12 @@
         init = init ?? delegate { };
 
         _additionalCost = new Cost.Factory<T>
-        {
-          Game = _game,
-          Init = init,
-        };
+          {
+            Game = _game,
+            Init = init,
+          };
 
-        return this;                        
+        return this;
       }
 
       public CardFactory Named(string name)
@@ -1081,23 +1126,24 @@
 
       public CardFactory Targets(TargetsFilterDelegate filter, params ITargetSelectorFactory[] selectors)
       {
-        _effectTargetFactories.AddRange(selectors);        
+        _effectTargetFactories.AddRange(selectors);
         _targetsFilter = filter;
         return this;
       }
 
 
-      public CardFactory Targets(TargetsFilterDelegate filter, ITargetSelectorFactory effect = null, ITargetSelectorFactory cost = null)
+      public CardFactory Targets(TargetsFilterDelegate filter, ITargetSelectorFactory effect = null,
+        ITargetSelectorFactory cost = null)
       {
         if (effect != null)
           _effectTargetFactories.Add(effect);
-        
+
         if (cost != null)
-          _costTargetFactories.Add(cost);        
-        
+          _costTargetFactories.Add(cost);
+
         _targetsFilter = filter;
         return this;
-      }            
+      }
 
       public CardFactory Text(string text)
       {

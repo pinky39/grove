@@ -4,11 +4,11 @@
   using Ai;
   using Details.Cards;
 
-  public delegate void Initializer<in T>(T target, CardCreationContext creationContext);
+  public delegate void Initializer<in T>(T target, CardBuilder builder);
 
   public abstract class CardsSource
   {
-    public CardCreationContext C { get { return new CardCreationContext(Game); } }
+    public CardBuilder C { get { return new CardBuilder(Game); } }
 
     public Game Game { get; set; }
 

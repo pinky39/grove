@@ -18,7 +18,7 @@
         .Type("Sorcery")
         .Text("Blaze deals X damage to target creature or player.")
         .FlavorText("Fire never dies alone.")
-        .Effect<DealDamageToTarget>((e, _) => e.SetAmount(Value.PlusX))
+        .Effect<DealDamageToTarget>(p => p.Amount = Value.PlusX)
         .Timing(Timings.MainPhases())
         .Targets(
           filter: TargetFilters.DealDamage(),

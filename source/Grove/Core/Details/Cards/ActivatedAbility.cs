@@ -13,6 +13,7 @@
     private Trackable<bool> _isEnabled;
     private TimingDelegate _timming = Timings.NoRestrictions();
 
+
     public ActivatedAbility()
     {
       UsesStack = true;
@@ -39,13 +40,15 @@
 
     public void Activate(ActivationParameters activation)
     {
+      var effect = EffectFactory.CreateEffect(
+        new EffectParameters(
+          source: this,
+          activation: activation,
+          targets: activation.Targets.Effect(),
+          costTargets: activation.Targets.Cost()
+          ));
+
       Cost.Pay(activation.Targets.Cost(0), activation.X);
-      var effect = EffectFactory.CreateEffect(this, activation.X);
-
-      effect.AddTargets(activation.Targets.Effect());
-      effect.AddCostTargets(activation.Targets.Cost());
-
-      Publisher.Publish(new PlayerHasActivatedAbility(this, effect.AllTargets));
 
       if (UsesStack)
       {
@@ -54,6 +57,8 @@
       }
 
       effect.Resolve();
+
+      Publisher.Publish(new PlayerHasActivatedAbility(this, effect.AllTargets));
     }
 
     public override int CalculateHash(HashCalculator calc)
@@ -89,7 +94,9 @@
 
     public T GetEffect<T>() where T : Effect
     {
-      return EffectFactory.CreateEffect(this) as T;
+      return EffectFactory.CreateEffect(new EffectParameters(
+        source: this
+        )) as T;
     }
 
     public void SetCost(ICostFactory costFactory)

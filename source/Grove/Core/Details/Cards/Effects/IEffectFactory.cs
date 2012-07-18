@@ -4,6 +4,6 @@
 
   public interface IEffectFactory : IHashable
   {
-    Effect CreateEffect(IEffectSource source, int? x = null, bool wasKickerPaid = false, object triggerContext = null);
+    Effect CreateEffect(EffectParameters parameters);
   }
 }

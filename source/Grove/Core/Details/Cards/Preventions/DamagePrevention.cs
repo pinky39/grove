@@ -20,14 +20,22 @@
 
     protected virtual void Initialize() {}
 
-    public virtual void PreventDamage(Damage damage) {}
-    
+    public virtual void PreventReceivedDamage(Damage damage) {}
+
     public virtual int PreventLifeloss(int lifeloss)
     {
       return lifeloss;
     }
 
-    public abstract int EvaluateHowMuchDamageCanBeDealt(Card source, int amount, bool isCombat);
+    public virtual int EvaluateReceivedDamage(Card source, int amount, bool isCombat)
+    {
+      return amount;
+    }
+
+    public virtual int PreventDealtCombatDamage(int amount)
+    {
+      return amount;
+    }
 
     public class Factory<T> : IDamagePreventionFactory where T : DamagePrevention, new()
     {
@@ -43,7 +51,7 @@
         prevention.Game = Game;
         prevention.EndOfLife = new TrackableEvent(prevention, Game.ChangeTracker);
 
-        Init(prevention, new CardCreationContext(Game));
+        Init(prevention, new CardBuilder(Game));
         prevention.Initialize();
 
         return prevention;

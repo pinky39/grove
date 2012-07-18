@@ -30,8 +30,8 @@
           C.ActivatedAbility(
             "{W}{W}: Target creature is indestructible this turn.",
             C.Cost<TapOwnerPayMana>((cost, _) => cost.Amount = "{W}{W}".ParseManaAmount()),
-            C.Effect<ApplyModifiersToTarget>((e, c) => e.Modifiers(
-              c.Modifier<AddStaticAbility>((m, _) => { m.StaticAbility = Static.Indestructible; },
+            C.Effect<ApplyModifiersToTarget>(p => p.Effect.Modifiers(
+              p.Builder.Modifier<AddStaticAbility>((m, _) => { m.StaticAbility = Static.Indestructible; },
                 untilEndOfTurn: true))),
             C.Selector(validator: Selectors.Creature()),
             targetFilter: TargetFilters.ShieldIndestructible(),

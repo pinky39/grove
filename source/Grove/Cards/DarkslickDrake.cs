@@ -27,7 +27,7 @@
           C.TriggeredAbility(
             "When Darkslick Drake is put into a graveyard from the battlefield, draw a card.",
             C.Trigger<ChangeZone>((t, _) => t.To = Zone.Graveyard),
-            C.Effect<DrawCards>((e, _) => e.DrawCount = 1)));
+            C.Effect<DrawCards>(e => e.DrawCount = 1)));
     }
   }
 }

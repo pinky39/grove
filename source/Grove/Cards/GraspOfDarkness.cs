@@ -20,8 +20,8 @@
         .FlavorText("On a world with five suns, night is compelled to become an aggressive force.")
         .Timing(Timings.TargetRemovalInstant())
         .Category(EffectCategories.ToughnessReduction)
-        .Effect<ApplyModifiersToTarget>((e, c) => e.Modifiers(
-          c.Modifier<AddPowerAndToughness>((m, _) =>
+        .Effect<ApplyModifiersToTarget>(p => p.Effect.Modifiers(
+          p.Builder.Modifier<AddPowerAndToughness>((m, _) =>
             {
               m.Power = -4;
               m.Toughness = -4;

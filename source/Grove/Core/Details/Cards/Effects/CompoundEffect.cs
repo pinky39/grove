@@ -15,11 +15,10 @@
     {
       foreach (var effectFactory in _effectFactories)
       {
-        var effect = effectFactory.CreateEffect(Source, X);
-
-        // this should be changed if compund effect would ever need more 
-        // than one target
-        effect.AddTarget(Target());
+        var effect = effectFactory.CreateEffect(
+          new EffectParameters(
+            source: Source,
+            targets: Targets));
 
         effect.Resolve();
       }

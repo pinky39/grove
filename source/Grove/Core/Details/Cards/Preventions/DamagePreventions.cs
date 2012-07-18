@@ -7,20 +7,18 @@
   [Copyable]
   public class DamagePreventions : IModifiable, IHashable
   {
-    private readonly TrackableList<DamagePrevention> _receivedPreventions;
-    private readonly TrackableList<DamagePrevention> _dealtPreventions;
+    private readonly TrackableList<DamagePrevention> _preventions;    
     
     private DamagePreventions() {}
 
     public DamagePreventions(ChangeTracker changeTracker, IHashDependancy hashDependancy)
     {
-      _receivedPreventions = new TrackableList<DamagePrevention>(changeTracker, hashDependancy);
-      _dealtPreventions = new TrackableList<DamagePrevention>(changeTracker, hashDependancy);
+      _preventions = new TrackableList<DamagePrevention>(changeTracker, hashDependancy);      
     }
 
     public int CalculateHash(HashCalculator calc)
     {
-      return calc.Calculate(_receivedPreventions);
+      return calc.Calculate(_preventions);
     }
 
     public void Accept(IModifier modifier)
@@ -28,41 +26,39 @@
       modifier.Apply(this);
     }
 
-    public void AddReceivedPrevention(DamagePrevention prevention)
+    public void AddPrevention(DamagePrevention prevention)
     {
-      _receivedPreventions.Add(prevention);
-    }
-
-    public void AddDealtPrevention(DamagePrevention prevention)
-    {
-      _dealtPreventions.Add(prevention);
-    }
+      _preventions.Add(prevention);
+    }   
 
     public void PreventReceivedDamage(Damage damage)
     {
-      foreach (var preventionEffect in _receivedPreventions.ToList())
+      foreach (var preventionEffect in _preventions.ToList())
       {
-        preventionEffect.PreventDamage(damage);
+        preventionEffect.PreventReceivedDamage(damage);
 
         if (damage.Amount == 0)
           break;
       }
     }
 
-    public void PreventDealtDamage(Damage damage)
+    public int PreventDealtCombatDamage(int amount)
     {
-      foreach (var preventionEffect in _dealtPreventions.ToList())
+      
+      foreach (var preventionEffect in _preventions.ToList())
       {
-        preventionEffect.PreventDamage(damage);
+        amount = preventionEffect.PreventDealtCombatDamage(amount);
 
-        if (damage.Amount == 0)
+        if (amount == 0)
           break;
       }
+
+      return amount;
     }
 
     public int PreventLifeloss(int lifeloss)
     {
-      foreach (var preventionEffect in _receivedPreventions.ToList())
+      foreach (var preventionEffect in _preventions.ToList())
       {
         lifeloss = preventionEffect.PreventLifeloss(lifeloss);
 
@@ -75,14 +71,14 @@
 
     public void Remove(DamagePrevention preventaion)
     {
-      _receivedPreventions.Remove(preventaion);
+      _preventions.Remove(preventaion);
     }
 
-    public int EvaluateHowMuchDamageCanBeDealt(Card source, int amount, bool isCombat)
+    public int EvaluateReceivedDamage(Card source, int amount, bool isCombat)
     {
-      foreach (var preventionEffect in _receivedPreventions.ToList())
+      foreach (var preventionEffect in _preventions.ToList())
       {
-        amount = preventionEffect.EvaluateHowMuchDamageCanBeDealt(source, amount, isCombat);
+        amount = preventionEffect.EvaluateReceivedDamage(source, amount, isCombat);
 
         if (amount == 0)
           break;

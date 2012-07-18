@@ -20,7 +20,7 @@
         .Cycling("{2}")
         .Abilities(
           C.ManaAbility(new ManaUnit(ManaColors.White), "{T}: Add {W} to your mana pool."))
-        .Effect<PutIntoPlay>((e, _) => e.PutIntoPlayTapped = delegate { return true; });
+        .Effect<PutIntoPlay>(e => e.PutIntoPlayTapped = true);
     }
   }
 }

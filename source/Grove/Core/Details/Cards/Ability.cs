@@ -7,6 +7,7 @@
   using Targeting;
   using Zones;
 
+
   [Copyable]
   public abstract class Ability : IEffectSource
   {

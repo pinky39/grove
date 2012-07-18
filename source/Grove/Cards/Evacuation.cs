@@ -18,7 +18,7 @@
         .FlavorText("The first step of every exodus is from the blood and the fire onto the trail.")
         .Category(EffectCategories.Bounce)
         .Timing(Timings.InstantBounceAllCreatures())
-        .Effect<ReturnAllPermanentsToHand>((e, _) => e.Filter = (permanent) => permanent.Is().Creature);
+        .Effect<ReturnAllPermanentsToHand>(e => e.Filter = (permanent) => permanent.Is().Creature);
     }
   }
 }

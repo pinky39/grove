@@ -13,8 +13,8 @@
       _attacker = attacker;            
     }
 
-    public Func<Card, int> DamageInSingleDamageStep = card => card.Power.Value;
-    public Func<Card, int> LifepointsLeft = card => card.LifepointsLeft;    
+    public Func<Card, int> CalculateCombatDamage = card => card.CalculateCombatDamage();
+    public Func<Card, int> LifepointsLeft = card => card.CalculateLifepointsLeft();    
 
     public CalculationResults Evaluate()
     {
@@ -28,20 +28,20 @@
 
       if (_blocker.HasFirstStrike && !_attacker.HasFirstStrike && !_attacker.Has().Indestructible)
       {
-        var blockerDealtAmount = _attacker.EvaluateHowMuchDamageCanBeDealt(
-          _blocker, DamageInSingleDamageStep(_blocker), isCombat: true);
+        var blockerDealtAmount = _attacker.EvaluateReceivedDamage(
+          _blocker, CalculateCombatDamage(_blocker), isCombat: true);
 
         if (blockerDealtAmount > 0 && _blocker.Has().Deathtouch)
         {
           return results;
         }
 
-        if (blockerDealtAmount >= _attacker.LifepointsLeft)
+        if (blockerDealtAmount >= _attacker.CalculateLifepointsLeft())
           return results;
       }
 
-      var attackerDealtAmount = _blocker.EvaluateHowMuchDamageCanBeDealt(_attacker, 
-        _attacker.Power.Value, isCombat: true);
+      var attackerDealtAmount = _blocker.EvaluateReceivedDamage(_attacker, 
+        _attacker.CalculateCombatDamage(), isCombat: true);
 
       if (attackerDealtAmount == 0)
         return results;

@@ -33,8 +33,8 @@
                 t.From = Zone.Battlefield;
                 t.To = Zone.Graveyard;
               }),
-            C.Effect<CreateTokens>((e, c) => e.Tokens(
-              c.Card
+            C.Effect<CreateTokens>(p => p.Effect.Tokens(
+              p.Builder.Card
                 .Named("Wurm Token")
                 .Text("{Deathtouch}")
                 .FlavorText("When wurms aren't hungry{EOL}—Nantuko expression meaning 'never'")
@@ -43,7 +43,7 @@
                 .Type("Artifact Creature - Wurm Token")
                 .Colors(ManaColors.Colorless)
                 .Abilities(Static.Deathtouch),
-              c.Card
+              p.Builder.Card
                 .Named("Wurm Token")
                 .Text("{Lifelink}")
                 .FlavorText("When wurms aren't hungry{EOL}—Nantuko expression meaning 'never'")

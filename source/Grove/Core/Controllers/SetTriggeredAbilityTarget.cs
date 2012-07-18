@@ -1,12 +1,15 @@
 ﻿namespace Grove.Core.Controllers
 {
+  using Details.Cards;
   using Details.Cards.Effects;
   using Results;
-  using Targeting;  
+  using Targeting;
 
   public abstract class SetTriggeredAbilityTarget : Decision<ChosenTargets>
   {
-    public Effect Effect { get; set; }    
+    public IEffectSource Source { get; set; }
+    public object TriggerMessage { get; set; }
+    public IEffectFactory Factory { get; set; }
     public TargetSelectors TargetSelectors { get; set; }
 
     public override void ProcessResults()
@@ -14,12 +17,14 @@
       if (Result.Targets == null)
         return;
 
-      foreach (var target in Result.Targets.Effect())
-      {
-        Effect.AddTarget(target);
-      }
+      var effect = Factory.CreateEffect(
+        new EffectParameters(
+          source: Source,
+          triggerMessage: TriggerMessage,
+          targets: Result.Targets.Effect()));
+      
 
-      Game.Stack.Push(Effect);
+      Game.Stack.Push(effect);
     }
   }
 }

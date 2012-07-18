@@ -7,6 +7,7 @@
   using Core.Details.Cards.Effects;
   using Core.Details.Mana;
   using Core.Dsl;
+  using Infrastructure;
 
   public class RootboundCrag : CardsSource
   {
@@ -22,8 +23,7 @@
             new ManaUnit(ManaColors.Red | ManaColors.Green),
             "{T}: Add {R} or {G} to your mana pool."
             ))
-        .Effect<PutIntoPlay>((e, _) => e.PutIntoPlayTapped =
-          player => !player.Battlefield.Any(card => card.Is("forest") || card.Is("mountain")))
+        .Effect<PutIntoPlay>(e => e.PutIntoPlayTapped = e.Controller.Battlefield.None(card => card.Is("forest") || card.Is("mountain")))
         .Timing(Timings.Lands());
     }
   }

@@ -21,7 +21,7 @@
         .FlavorText("Urza dared to attack Phyrexia. Slowly, it retaliated.")
         .Category(EffectCategories.ToughnessReduction)
         .Cycling("{2}")
-        .Effect<EnchantCreature>((e, c) => e.Modifiers(c.Modifier<AddPowerAndToughness>((m, _) =>
+        .Effect<EnchantCreature>(p => p.Effect.Modifiers(p.Builder.Modifier<AddPowerAndToughness>((m, _) =>
           {
             m.Power = -1;
             m.Toughness = -1;

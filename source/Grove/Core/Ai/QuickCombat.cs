@@ -11,8 +11,8 @@
       int toughnessIncrease)
     {
       var performance = new AttackerEvaluation(attacker, blockers);
-      performance.LifepointsLeft = card => card.LifepointsLeft + toughnessIncrease;
-      performance.DamageInSingleDamageStep = card => card.Power.Value + powerIncrease;
+      performance.CalculateLifepointsLeft = card => card.CalculateLifepointsLeft() + toughnessIncrease;
+      performance.CalculateCombatDamage = card => card.CalculateCombatDamage(powerIncrease: powerIncrease);
 
       var results = performance.Evaluate();
       return results.ReceivesLeathalDamage;
@@ -41,9 +41,9 @@
     {
       var leathalAmount = 0;
       var evaluation = new AttackerEvaluation(attacker, blockers);
-      evaluation.LeathalDamageHandler = ((_, amount) => leathalAmount += amount);
+      evaluation.BlockerHasDealtLeathalDamage = ((_, amount) => leathalAmount += amount);
       var results = evaluation.Evaluate();                  
-      var prevented = results.DamageDealt - attacker.LifepointsLeft;
+      var prevented = results.DamageDealt - attacker.CalculateLifepointsLeft();
       return Math.Max(leathalAmount, prevented);                        
     }
 
@@ -75,20 +75,20 @@
       if (attacker.Has().Trample == false)
         return 0;
 
-      return attacker.TotalDamageThisCanDealInAllDamageSteps - blockers.Sum(x => x.LifepointsLeft);
+      return attacker.CalculateCombatDamage(allDamageSteps: true) - blockers.Sum(x => x.CalculateLifepointsLeft());
     }
 
     public static int CalculateDefendingPlayerLifeloss(Card attacker, IEnumerable<Card> blockers)
     {
       if (blockers.None())
-        return attacker.Power.Value;
+        return attacker.CalculateCombatDamage(allDamageSteps: true);
 
       if (attacker.Has().Trample)
       {
-        var totalToughness = blockers.Sum(x => x.Toughness);
-        var diff = attacker.Power - totalToughness;
+        var totalLifepoints = blockers.Sum(x => x.CalculateLifepointsLeft());
+        var diff = attacker.CalculateCombatDamage(allDamageSteps: true) - totalLifepoints;
 
-        return (diff > 0 ? diff : 0).Value;
+        return diff > 0 ? diff : 0;
       }
 
       return 0;
@@ -144,12 +144,12 @@
       return results.ReceivesLeathalDamage;
     }
 
-    private static bool CanBlockerBeDealtLeathalCombatDamage(Card blocker, Card attacker, int additionalPower,
+    private static bool CanBlockerBeDealtLeathalCombatDamage(Card blocker, Card attacker, int powerIncrease,
       int additionalThoughness)
     {
       var performance = new BlockerEvaluation(blocker, attacker);
-      performance.DamageInSingleDamageStep = card => card.Power.Value + additionalPower;
-      performance.LifepointsLeft = card => card.LifepointsLeft + additionalThoughness;
+      performance.CalculateCombatDamage = card => card.CalculateCombatDamage(powerIncrease: powerIncrease);
+      performance.LifepointsLeft = card => card.CalculateLifepointsLeft() + additionalThoughness;
 
       return performance.Evaluate().ReceivesLeathalDamage;
     }

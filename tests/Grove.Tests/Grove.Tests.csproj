@@ -91,6 +91,7 @@
     <Compile Include="Cards\Antagonism.cs" />
     <Compile Include="Cards\ArgothianEnchantress.cs" />
     <Compile Include="Cards\BaneslayerAngel.cs" />
+    <Compile Include="Cards\BarrinsCodex.cs" />
     <Compile Include="Cards\Befoul.cs" />
     <Compile Include="Cards\BlacksSunZenith.cs" />
     <Compile Include="Cards\Blaze.cs" />
@@ -120,6 +121,7 @@
     <Compile Include="Cards\SanctumGuardian.cs" />
     <Compile Include="Cards\SealOfFire.cs" />
     <Compile Include="Cards\SilentAttendant.cs" />
+    <Compile Include="Cards\Songstitcher.cs" />
     <Compile Include="Cards\SteamVents.cs" />
     <Compile Include="Cards\StudentOfWarfare.cs" />
     <Compile Include="Cards\SwordOfBodyAndMind.cs" />

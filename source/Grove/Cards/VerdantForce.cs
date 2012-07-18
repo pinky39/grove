@@ -31,8 +31,8 @@
                 t.PassiveTurn = true;
                 t.ActiveTurn = true;
               }),
-            C.Effect<CreateTokens>((e, c) => e.Tokens(
-              c.Card
+            C.Effect<CreateTokens>(p => p.Effect.Tokens(
+              p.Builder.Card
                 .Named("Saproling Token")
                 .FlavorText(
                   "The nauseating wriggling of a saproling is exceeded only by the nauseating wriggling of its prey.")

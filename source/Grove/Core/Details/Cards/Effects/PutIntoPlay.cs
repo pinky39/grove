@@ -1,17 +1,14 @@
 ﻿namespace Grove.Core.Details.Cards.Effects
 {
-  using System;
-
   public class PutIntoPlay : Effect
   {
-    public Func<Player, bool> PutIntoPlayTapped = delegate { return false; };
+    public bool PutIntoPlayTapped;
 
     protected override void ResolveEffect()
     {
-      var putIntoPlayTapped = PutIntoPlayTapped(Controller);
       Controller.PutCardIntoPlay(Source.OwningCard);
 
-      if (putIntoPlayTapped)
+      if (PutIntoPlayTapped)
       {
         Source.OwningCard.Tap();
       }

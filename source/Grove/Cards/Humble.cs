@@ -20,9 +20,9 @@
         .FlavorText("'It is not your place to rule, Radiant. It may not even be mine.'{EOL}—Serra")
         .Timing(Timings.TargetRemovalInstant(combatOnly: true))
         .Category(EffectCategories.ToughnessReduction)
-        .Effect<ApplyModifiersToTarget>((e, c) => e.Modifiers(
-          c.Modifier<DisableAbilities>(untilEndOfTurn: true),
-          c.Modifier<SetPowerAndToughness>((m, _) =>
+        .Effect<ApplyModifiersToTarget>(p => p.Effect.Modifiers(
+          p.Builder.Modifier<DisableAbilities>(untilEndOfTurn: true),
+          p.Builder.Modifier<SetPowerAndToughness>((m, _) =>
             {
               m.Power = 0;
               m.Tougness = 1;

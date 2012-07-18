@@ -27,7 +27,7 @@
             "Whenever you cast an enchantment spell, draw a card.",
             C.Trigger<SpellWasCast>(
               (t, _) => { t.Filter = (ability, card) => card.Controller == ability.Controller && card.Is().Enchantment; }),
-            C.Effect<DrawCards>((e, _) => e.DrawCount = 1),
+            C.Effect<DrawCards>(p => p.DrawCount = 1),
             triggerOnlyIfOwningCardIsInPlay: true
             )
         );

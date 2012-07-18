@@ -81,7 +81,7 @@
     {
       if (target.IsCard())
       {
-        return target.Card().LifepointsLeft;
+        return target.Card().CalculateLifepointsLeft();
       }
 
       if (target.IsPlayer())

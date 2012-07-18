@@ -8,7 +8,7 @@
   {
     public ICounterFactory CounterFactory { get; set; }
 
-    public override void PreventDamage(Damage damage)
+    public override void PreventReceivedDamage(Damage damage)
     {
       var factory = new Modifier.Factory<AddCounters>
         {
@@ -28,7 +28,7 @@
       damage.PreventAll();
     }
 
-    public override int EvaluateHowMuchDamageCanBeDealt(Card source, int amount, bool isCombat)
+    public override int EvaluateReceivedDamage(Card source, int amount, bool isCombat)
     {
       return 0;
     }

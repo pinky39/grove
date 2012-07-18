@@ -26,19 +26,19 @@
           C.TriggeredAbility(
             "Whenever this creature attacks, each other attacking creature gets +1/+0 until end of turn.",
             C.Trigger<OnAttack>(),
-            C.Effect<ApplyModifiersToCreatures>((e, c) =>
+            C.Effect<ApplyModifiersToCreatures>(p =>
               {
-                e.Modifiers(c.Modifier<AddPowerAndToughness>((m, _) =>
+                p.Effect.Modifiers(p.Builder.Modifier<AddPowerAndToughness>((m, _) =>
                   m.Power = 1, untilEndOfTurn: true));
 
-                e.Filter = (source, card) => source.OwningCard != card && card.IsAttacker;
+                p.Effect.Filter = (source, card) => source.OwningCard != card && card.IsAttacker;
               })),
           C.TriggeredAbility(
             "{Battle cry}Whenever Hero of Bladehold attacks, put two 1/1 white Soldier creature tokens onto the battlefield tapped and attacking.",
             C.Trigger<OnAttack>(),
-            C.Effect<CreateTokens>((e, c) =>
+            C.Effect<CreateTokens>(p =>
               {
-                e.Tokens(c.Card
+                p.Effect.Tokens(p.Builder.Card
                   .Named("Soldier Token")
                   .FlavorText(
                     "If you need an example to lead others to the front lines, consider the precedent set.")
@@ -47,9 +47,9 @@
                   .Type("Creature Token Soldier")
                   .Colors(ManaColors.White));
 
-                e.Count = 2;
+                p.Effect.Count = 2;
 
-                e.AfterTokenComesToPlay = (token, game) => { game.Combat.JoinAttack(token); };
+                p.Effect.AfterTokenComesToPlay = (token, game) => { game.Combat.JoinAttack(token); };
               })
             )
         );

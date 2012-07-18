@@ -40,8 +40,8 @@
     public Player Controller { get { return _card.Controller; } }
     public bool HasDeathTouch { get { return _card.Has().Deathtouch; } }
     public bool HasTrample { get { return _card.Has().Trample; } }
-    public int LifepointsLeft { get { return _card.LifepointsLeft; } }
-    public int DamageThisWillDealInOneDamageStep { get { return _card.Power.HasValue ? _card.Power.Value : 0; } }
+    public int LifepointsLeft { get { return _card.CalculateLifepointsLeft(); } }
+    public int DamageThisWillDealInOneDamageStep { get { return _card.CalculateCombatDamage(); } }
 
     public int CalculateHash(HashCalculator calc)
     {
@@ -116,7 +116,7 @@
     public int GetDamageThisWillDealToPlayer()
     {
       if (_blockers.Count == 0)
-        return _card.TotalDamageThisCanDealInAllDamageSteps;
+        return _card.CalculateCombatDamage(allDamageSteps: true);
 
       if (HasTrample)
       {

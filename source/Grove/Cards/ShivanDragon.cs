@@ -28,8 +28,8 @@
           C.ActivatedAbility(
             "{R}: Shivan Dragon gets +1/+0 until end of turn.",
             C.Cost<TapOwnerPayMana>((c, _) => c.Amount = ManaUnit.Red.ToAmount()),
-            C.Effect<ApplyModifiersToSelf>((e, c) => e.Modifiers(
-              c.Modifier<AddPowerAndToughness>((m, _) => m.Power = 1, untilEndOfTurn: true))),
+            C.Effect<ApplyModifiersToSelf>(p => p.Effect.Modifiers(
+              p.Builder.Modifier<AddPowerAndToughness>((m, _) => m.Power = 1, untilEndOfTurn: true))),
             timing: Timings.IncreaseOwnersPowerAndThougness(1, 0)));
     }
   }

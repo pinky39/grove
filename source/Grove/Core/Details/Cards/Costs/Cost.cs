@@ -43,7 +43,7 @@
         cost.Game = Game;
         cost.Selector = selector;
 
-        Init(cost, new CardCreationContext(Game));
+        Init(cost, new CardBuilder(Game));
         cost.AfterInit();
 
         return cost;

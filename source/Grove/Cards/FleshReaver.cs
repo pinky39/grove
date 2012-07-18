@@ -31,13 +31,11 @@
                 t.ToAnyCreature();
                 t.ToOpponent();
               }),
-            C.Effect<DealExistingDamageToController>((e, _) =>
+            C.Effect<DealExistingDamageToController>(p =>
               {
-                e.Damage = (effect) =>
-                  {
-                    var message = effect.Ctx<DamageHasBeenDealt>();
-                    return message.Damage;
-                  };
+                p.Effect.Damage = p.Parameters
+                  .Trigger<DamageHasBeenDealt>()
+                  .Damage;                  
               })
             )
         );

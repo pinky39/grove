@@ -1,19 +1,12 @@
 ﻿namespace Grove.Core.Details.Cards.Effects
 {
-  using System;
-
   public class GainLife : Effect
   {
-    public Func<GainLife, int> Amount = delegate { return 0; };
-
-    public void SetAmount(int value)
-    {
-      Amount = delegate { return value; };
-    }
+    public int Amount { get; set; }
 
     protected override void ResolveEffect()
     {
-      Controller.Life += Amount(this);
+      Controller.Life += Amount;
     }
   }
 }

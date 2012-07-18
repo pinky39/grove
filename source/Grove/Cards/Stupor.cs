@@ -16,7 +16,7 @@
         .Type("Sorcery")
         .Text("Target opponent discards a card at random, then discards a card.")
         .FlavorText("There are medicines for all afflictions but idleness.{EOL}—Suq'Ata saying")
-        .Effect<OpponentDiscardsCards>((e, _) =>
+        .Effect<OpponentDiscardsCards>(e =>
           {
             e.RandomCount = 1;
             e.SelectedCount = 1;

@@ -23,7 +23,7 @@
         .Power(4)
         .Toughness(4)
         .Timing(Timings.Creatures())
-        .Effect<PutIntoPlay>((e, _) => e.CanBeCountered = false)
+        .Effect<PutIntoPlay>(e => e.CanBeCountered = false)
         .Abilities(
           Static.Hexproof,
           C.ActivatedAbility(

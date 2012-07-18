@@ -109,7 +109,7 @@
           modifier.AddLifetime(lifetime);
         }
 
-        Init(modifier, new CardCreationContext(Game));
+        Init(modifier, new CardBuilder(Game));
 
         modifier.Initialize();
 

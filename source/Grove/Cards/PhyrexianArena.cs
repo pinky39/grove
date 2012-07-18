@@ -22,7 +22,7 @@
           C.TriggeredAbility(
             "At the beginning of your upkeep, you draw a card and you lose 1 life.",
             C.Trigger<AtBegginingOfStep>((t, _) => { t.Step = Step.Upkeep; }),
-            C.Effect<DrawCards>((e, c) =>
+            C.Effect<DrawCards>(e =>
               {
                 e.DrawCount = 1;
                 e.Lifeloss = 1;

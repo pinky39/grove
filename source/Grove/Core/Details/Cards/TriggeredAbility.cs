@@ -56,7 +56,7 @@
       return HashCalculator.Combine(hashcodes);
     }
 
-    protected virtual void Execute(object context)
+    protected virtual void Execute(object triggerMessage)
     {
       if (!IsEnabled)
         return;
@@ -64,20 +64,26 @@
       if (TriggerOnlyIfOwningCardIsInPlay && OwningCard.Zone != Zone.Battlefield)
         return;
 
-      var effect = EffectFactory.CreateEffect(this, triggerContext: context);
-
       if (TargetSelectors.Count > 0)
       {
         _decisions.Enqueue<SetTriggeredAbilityTarget>(
           controller: OwningCard.Controller,
           init: p =>
             {
-              p.Effect = effect;
+              p.Source = this;
+              p.Factory = EffectFactory;
+              p.TriggerMessage = triggerMessage;
               p.TargetSelectors = TargetSelectors;
-            });                    
+            });
 
         return;
       }
+
+      var effect = EffectFactory.CreateEffect(new EffectParameters
+        (
+        source: this,
+        triggerMessage: triggerMessage
+        ));
 
       if (UsesStack)
         Stack.Push(effect);

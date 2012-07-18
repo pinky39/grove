@@ -45,9 +45,9 @@
 
     private bool HasAttacker { get { return Attacker != null; } }
 
-    public int LifepointsLeft { get { return Card.LifepointsLeft; } }
+    public int LifepointsLeft { get { return Card.CalculateLifepointsLeft(); } }
     public int Score { get { return ScoreCalculator.CalculatePermanentScore(Card); } }
-    public int DamageThisWillDealInOneDamageStep { get { return Card.Power.HasValue ? Card.Power.Value : 0; } }
+    public int DamageThisWillDealInOneDamageStep { get { return Card.CalculateCombatDamage(); } }
     public int Toughness { get { return Card.Toughness.Value; } }
 
     public int CalculateHash(HashCalculator calc)

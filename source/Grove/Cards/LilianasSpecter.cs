@@ -27,7 +27,7 @@
           C.TriggeredAbility(
             "When Liliana's Specter enters the battlefield, each opponent discards a card.",
             C.Trigger<ChangeZone>((t, _) => t.To = Zone.Battlefield),
-            C.Effect<OpponentDiscardsCards>((e, _) => e.SelectedCount = 1)));
+            C.Effect<OpponentDiscardsCards>(e => e.SelectedCount = 1)));
     }
   }
 }

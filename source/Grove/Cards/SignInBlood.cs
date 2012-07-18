@@ -19,7 +19,7 @@
         .FlavorText(
           "'You know I accept only one currency here, and yet you have sought me out. Why now do you hesitate?'{EOL}—Xathrid demon")
         .Timing(Timings.FirstMain())
-        .Effect<TargetPlayerDrawsCards>((e, _) =>
+        .Effect<TargetPlayerDrawsCards>(e =>
           {
             e.CardCount = 2;
             e.LifeLoss = 2;

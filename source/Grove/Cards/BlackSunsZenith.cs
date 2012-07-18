@@ -22,7 +22,7 @@
         .Category(EffectCategories.ToughnessReduction)
         .Timing(Timings.FirstMain())
         .FlavorText("'Under the suns, Mirrodin kneels and begs us for perfection.'{EOL}—Geth, Lord of the Vault")
-        .Effect<ApplyModifiersToCreatures>((e, c) => e.Modifiers(c.Modifier<AddCounters>((m, c0) =>
+        .Effect<ApplyModifiersToCreatures>(p => p.Effect.Modifiers(p.Builder.Modifier<AddCounters>((m, c0) =>
           {
             m.Counter = c0.Counter<PowerToughness>((counter, _) =>
               {

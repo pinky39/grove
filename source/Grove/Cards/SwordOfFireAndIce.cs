@@ -31,22 +31,22 @@
                 t.UseAttachedToAsTriggerSource = true;
                 t.ToAnyPlayer();
               }),
-            C.Effect<CompoundEffect>((e, c) => e.ChildEffects(
-              c.Effect<DealDamageToTarget>((e1, _) => e1.SetAmount(2)),
-              c.Effect<DrawCards>((e2, _) => e2.DrawCount = 1))),
+            C.Effect<CompoundEffect>(p => p.Effect.ChildEffects(
+              p.Builder.Effect<DealDamageToTarget>(e1 => e1.Amount = 2),
+              p.Builder.Effect<DrawCards>(e1 => e1.DrawCount = 1))),
             C.Selector(
               Selectors.CreatureOrPlayer()),
             targetFilter: TargetFilters.DealDamage(2)),
           C.ActivatedAbility(
             "{2}: Attach to target creature you control. Equip only as a sorcery.",
             C.Cost<TapOwnerPayMana>((cost, _) => cost.Amount = 2.AsColorlessMana()),
-            C.Effect<AttachEquipment>((e, c) => e.Modifiers(
-              c.Modifier<AddPowerAndToughness>((m, _) =>
+            C.Effect<AttachEquipment>(p => p.Effect.Modifiers(
+              p.Builder.Modifier<AddPowerAndToughness>((m, _) =>
                 {
                   m.Power = 2;
                   m.Toughness = 2;
                 }),
-              c.Modifier<AddProtectionFromColors>((m, _) => m.Colors = ManaColors.Red | ManaColors.Blue)
+              p.Builder.Modifier<AddProtectionFromColors>((m, _) => m.Colors = ManaColors.Red | ManaColors.Blue)
               )),
             effectSelector: C.Selector(Selectors.Equipment()),
             targetFilter: TargetFilters.CombatEquipment(),

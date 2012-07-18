@@ -1,12 +1,12 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using System.Linq;
   using Core;
   using Core.Ai;
   using Core.Details.Cards.Effects;
   using Core.Details.Mana;
   using Core.Dsl;
+  using Infrastructure;
 
   public class SunpetalGrove : CardsSource
   {
@@ -22,8 +22,8 @@
             new ManaUnit(ManaColors.White | ManaColors.Green),
             "{T}: Add {G} or {W} to your mana pool."
             ))
-        .Effect<PutIntoPlay>((e, _) => e.PutIntoPlayTapped =
-          player => !player.Battlefield.Any(card => card.Is("forest") || card.Is("plains")))
+        .Effect<PutIntoPlay>(
+          e => e.PutIntoPlayTapped = e.Controller.Battlefield.None(card => card.Is("forest") || card.Is("plains")))
         .Timing(Timings.Lands());
     }
   }

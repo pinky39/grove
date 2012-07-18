@@ -18,10 +18,10 @@
           "Volcanic Fallout can't be countered.{EOL}Volcanic Fallout deals 2 damage to each creature and each player.")
         .FlavorText("'How can we outrun the sky?'{EOL}—Hadran, sunseeder of Naya")
         .Timing(Timings.MassRemovalInstant())
-        .Effect<DealDamageToEach>((e, _) =>
+        .Effect<DealDamageToEach>(e =>
           {
-            e.AmountPlayer = delegate { return 2; };
-            e.AmountCreature = delegate { return 2; };
+            e.AmountPlayer = 2;
+            e.AmountCreature = 2;
             e.CanBeCountered = false;
           });
     }

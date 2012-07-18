@@ -27,8 +27,8 @@
           C.ActivatedAbility(
             "Tap an untapped creature you control: Llanowar Behemoth gets +1/+1 until end of turn.",
             C.Cost<TapCreature>(),
-            C.Effect<ApplyModifiersToSelf>((e, c) => e.Modifiers(
-              c.Modifier<AddPowerAndToughness>((m, _) =>
+            C.Effect<ApplyModifiersToSelf>(p => p.Effect.Modifiers(
+              p.Builder.Modifier<AddPowerAndToughness>((m, _) =>
                 {
                   m.Power = 1;
                   m.Toughness = 1;

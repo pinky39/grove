@@ -22,7 +22,7 @@
         .Abilities(
           C.StaticAbility(
             C.Trigger<ChangeZone>((t, _) => t.To = Zone.Battlefield),
-            C.Effect<PayLifeOrTap>((e, _) => e.Life = 2)),
+            C.Effect<PayLifeOrTap>(e => e.Life = 2)),
           C.ManaAbility(new ManaUnit(ManaColors.Blue | ManaColors.Red), "{T}: Add {U} or {R} to your mana pool."));
     }
   }

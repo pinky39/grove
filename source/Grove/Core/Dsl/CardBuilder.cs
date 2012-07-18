@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core.Dsl
 {
+  using System;
   using System.Collections.Generic;
   using Ai;
   using Details.Cards;
@@ -13,11 +14,11 @@
   using Details.Mana;
   using Targeting;
 
-  public class CardCreationContext
+  public class CardBuilder
   {
     private readonly Game _game;
 
-    public CardCreationContext(Game game)
+    public CardBuilder(Game game)
     {
       _game = game;
     }
@@ -111,8 +112,15 @@
           Init = init
         };
     }
+    
+    public IEffectFactory Effect<T>(Action<T> init = null) where T : Effect, new()
+    {
+      init = init ?? delegate { };
 
-    public IEffectFactory Effect<T>(Initializer<T> init = null) where T : Effect, new()
+      return Effect<T>(p => init(p.Effect));
+    }
+
+    public IEffectFactory Effect<T>(EffectInitializer<T> init) where T : Effect, new()
     {
       init = init ?? delegate { };
 

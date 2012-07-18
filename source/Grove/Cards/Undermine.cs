@@ -19,7 +19,7 @@
         .FlavorText("'Which would you like first, the insult or the injury?'")
         .Category(EffectCategories.Counterspell)
         .Timing(Timings.CounterSpell())
-        .Effect<CounterTargetSpell>((e, _) => e.ControllersLifeloss = 3)
+        .Effect<CounterTargetSpell>(e => e.ControllersLifeloss = 3)
         .Targets(
           filter: TargetFilters.CounterSpell(),
           effect: C.Selector(Selectors.Counterspell()));

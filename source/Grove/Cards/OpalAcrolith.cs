@@ -26,8 +26,8 @@
             "Whenever an opponent casts a creature spell, if Opal Acrolith is an enchantment, Opal Acrolith becomes a 2/4 Soldier creature.",
             C.Trigger<SpellWasCast>((t, _) => t.Filter =
               (ability, card) => ability.Controller != card.Controller && ability.OwningCard.Is().Enchantment && card.Is().Creature),
-            C.Effect<ApplyModifiersToSelf>((e, c) => e.Modifiers(
-              c.Modifier<ChangeToCreature>((m, _) =>
+            C.Effect<ApplyModifiersToSelf>(p => p.Effect.Modifiers(
+              p.Builder.Modifier<ChangeToCreature>((m, _) =>
                 {
                   m.Power = 2;
                   m.Tougness = 4;
@@ -39,7 +39,7 @@
           C.ActivatedAbility(
             "{0}: Opal Acrolith becomes an enchantment.",
             C.Cost<TapOwnerPayMana>(),
-            C.Effect<RemoveModifier>((e, _) => e.ModifierType = typeof (ChangeToCreature)),
+            C.Effect<RemoveModifier>(e => e.ModifierType = typeof (ChangeToCreature)),
             timing: Timings.BeforeDeath()
             )
         );

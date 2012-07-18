@@ -34,14 +34,16 @@
                 cost.HasX = true;
                 cost.XCalculator = VariableCost.TargetLifepointsLeft();
               }),
-            C.Effect<ApplyModifiersToSelfAndToTargets>((e, c) =>
+            C.Effect<ApplyModifiersToSelfAndToTargets>(p =>
               {
-                e.SelfModifiers(
-                  c.Modifier<AddPowerAndToughness>((m, _) =>
+                
+                p.Effect.SelfModifiers(
+                  p.Builder.Modifier<AddPowerAndToughness>((m, _) =>
                     m.Power = Value.PlusX,
                     untilEndOfTurn: true));
-                e.TargetModifiers(
-                  c.Modifier<AddPowerAndToughness>(
+                
+                p.Effect.TargetModifiers(
+                  p.Builder.Modifier<AddPowerAndToughness>(
                     (m, _) => m.Toughness = Value.MinusX,
                     untilEndOfTurn: true)
                   );

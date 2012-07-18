@@ -30,10 +30,10 @@
             "Whenever Grave Titan enters the battlefield or attacks, put two 2/2 black Zombie creature tokens onto the battlefield.",
             L(C.Trigger<ChangeZone>((t, _) => { t.To = Zone.Battlefield; }),
               C.Trigger<OnAttack>()),
-            C.Effect<CreateTokens>((e, c) =>
+            C.Effect<CreateTokens>(p =>
               {
-                e.Tokens(
-                  c.Card
+                p.Effect.Tokens(
+                  p.Builder.Card
                     .Named("Zombie Token")
                     .FlavorText(
                       "'Your brain is rotting?!.'{EOL}'...enough.'{EOL}-Y.A, 'The seven zombies'")
@@ -42,7 +42,7 @@
                     .Type("Creature - Token - Zombie")
                     .Colors(ManaColors.Black)
                   );
-                e.Count = 2;
+                p.Effect.Count = 2;
               })));
     }
   }

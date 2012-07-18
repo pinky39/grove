@@ -186,7 +186,7 @@
                 .Select(x => new
                   {
                     Target = x,
-                    Score = x.Card().LifepointsLeft <= amount ? x.Card().Score : 0
+                    Score = x.Card().CalculateLifepointsLeft() <= amount ? x.Card().Score : 0
                   }))
             .OrderByDescending(x => x.Score)
             .Select(x => x.Target);
@@ -204,7 +204,7 @@
 
     private static int CalculateAttackerScore(Card card, Combat combat)
     {
-      return combat.CouldBeBlockedByAny(card) ? 5 : 0 + card.Power.Value;
+      return combat.CouldBeBlockedByAny(card) ? 5 : 0 + card.CalculateCombatDamage(allDamageSteps: true);
     }
 
     private static int CalculateBlockerScore(Card card, Combat combat)
@@ -312,7 +312,7 @@
             .Select(x => new
               {
                 Target = x,
-                Score = x.Card().LifepointsLeft <= amount ? x.Card().Score : 0
+                Score = x.Card().CalculateLifepointsLeft() <= amount ? x.Card().Score : 0
               })
             .OrderByDescending(x => x.Score)
             .Select(x => x.Target);
@@ -364,7 +364,7 @@
             return p.Targets(p.Candidates()
               .OrderBy(x => x.Card().Score));
           }
-                                        
+
           var candidates = p.Candidates()
             .Where(x => p.Stack.CanBeDestroyedByTopSpell(x.Card()) ||
               p.Combat.CanBeDealtLeathalCombatDamage(x.Card()))
@@ -399,8 +399,8 @@
         {
           var candidates = p.Candidates()
             .Where(x => x.Card().Controller == p.Opponent)
-            /*.Where(x => !x.Card().IsTapped)*/
-            .OrderByDescending(x => x.Card().Power);
+            .Where(x => !x.Card().IsTapped)
+            .OrderByDescending(x => x.Card().CalculateCombatDamage(allDamageSteps: true));
 
           return p.Targets(candidates);
         };
@@ -601,8 +601,8 @@
               .Where(x =>
                 {
                   var damageToCreature = p.Stack.GetDamageTopSpellWillDealToCreature(x);
-                  return (damageToCreature >= x.LifepointsLeft) &&
-                    (damageToCreature - amount < x.LifepointsLeft);
+                  return (damageToCreature >= x.CalculateLifepointsLeft()) &&
+                    (damageToCreature - amount < x.CalculateLifepointsLeft());
                 })
               .OrderByDescending(x => x.Score);
 
@@ -653,6 +653,17 @@
           }
 
           return p.NoTargets();
+        };
+    }
+
+    public static TargetsFilterDelegate PreventAttackerDamage()
+    {
+      return p =>
+        {
+          var candidates = p.Candidates()            
+            .OrderByDescending(x => x.Card().CalculateCombatDamage(allDamageSteps: true));
+
+          return p.Targets(candidates);
         };
     }
   }

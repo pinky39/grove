@@ -37,10 +37,10 @@
           C.ActivatedAbility(
             "{B}: Pestilence deals 1 damage to each creature and each player.",
             C.Cost<TapOwnerPayMana>((cost, _) => cost.Amount = ManaAmount.Black),
-            C.Effect<DealDamageToEach>((e, _) =>
+            C.Effect<DealDamageToEach>(e =>
               {
-                e.AmountCreature = delegate { return 1; };
-                e.AmountPlayer = delegate { return 1; };
+                e.AmountCreature = 1;
+                e.AmountPlayer = 1;
               }),
             timing: Any(Timings.MassRemovalInstant(), Timings.EndOfTurn()))
         );

@@ -65,7 +65,7 @@
     {
       var generator = new TargetGenerator(
         TargetSelectors,
-        Effect.Source.OwningCard,
+        Source.OwningCard,
         Game,
         maxX: null,
         forceOne: true

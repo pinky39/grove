@@ -22,9 +22,9 @@
         .Text(
           "Enchant creature{EOL}Enchanted creature gets +2/+0 and has trample.{EOL}When Rancor is put into a graveyard from the battlefield, return Rancor to its owner's hand.")
         .FlavorText("Hatred outlives the hateful.")
-        .Effect<EnchantCreature>((e, c) => e.Modifiers(
-          c.Modifier<AddPowerAndToughness>((m, _) => m.Power = 2),
-          c.Modifier<AddStaticAbility>((m, _) => m.StaticAbility = Static.Trample)))
+        .Effect<EnchantCreature>(p => p.Effect.Modifiers(
+          p.Builder.Modifier<AddPowerAndToughness>((m, _) => m.Power = 2),
+          p.Builder.Modifier<AddStaticAbility>((m, _) => m.StaticAbility = Static.Trample)))
         .Timing(Timings.FirstMain())
         .Targets(
           filter: TargetFilters.CombatEnchantment(),

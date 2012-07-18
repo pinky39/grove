@@ -31,20 +31,7 @@
 
           return !counterCost.HasValue || !p.Opponent.HasMana(counterCost.Value);
         };
-    }
-
-    public static TimingDelegate AtLeastOneAttacker(
-      int maxPower = int.MaxValue, int maxToughness = int.MaxValue)
-    {
-      return p =>
-        {
-          Func<Attacker, bool> predicate = (attacker) =>
-            attacker.Card.Power <= maxPower &&
-              attacker.Card.Toughness <= maxToughness;
-
-          return p.Attackers.Where(predicate).Count() > 1;
-        };
-    }
+    }   
 
     public static TimingDelegate ControllerHasConvertedMana(int converted)
     {
@@ -76,7 +63,7 @@
 
           return false;
         };
-    }
+    }   
 
     public static TimingDelegate TargetRemovalInstant(bool combatOnly = false)
     {
@@ -125,7 +112,7 @@
       return Steps(Step.FirstMain, Step.SecondMain);
     }
 
-    public static TimingDelegate OnlyDuringOpponentTurn()
+    public static TimingDelegate PassiveTurn()
     {
       return p => p.Opponent.IsActive;
     }
@@ -279,7 +266,7 @@
       return p =>
         {
           amount = amount ?? p.Activation.X;
-          return p.Opponent.Battlefield.Creatures.Any(x => x.LifepointsLeft <= amount);
+          return p.Opponent.Battlefield.Creatures.Any(x => x.CalculateLifepointsLeft() <= amount);
         };
     }
 
@@ -360,6 +347,25 @@
 
           return p.Stack.CanBeDestroyedByTopSpell(p.Card) ||
             p.Stack.CanTopSpellReducePlayersLifeToZero(p.Controller);
+        };
+    }
+
+    public static TimingDelegate DeclareAttackers()
+    {
+      return p => p.Step == Step.DeclareAttackers;
+    }
+
+    public static TimingDelegate EotWithAtLeast3CountersOrIfDestroyed()
+    {
+      return p =>
+        {
+          if (p.Card.Counters >= 3 && p.Step == Step.EndOfTurn && !p.Controller.IsActive)
+            return true;
+
+          if (p.Card.Counters >= 1 && p.Stack.CanBeDestroyedByTopSpell(p.Card, targetOnly: true))
+            return true;
+
+          return false;
         };
     }
   }

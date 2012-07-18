@@ -31,20 +31,20 @@
                 t.UseAttachedToAsTriggerSource = true;
                 t.ToAnyPlayer();
               }),
-            C.Effect<CompoundEffect>((e, c) => e.ChildEffects(
-              c.Effect<OpponentDiscardsCards>((e1, _) => e1.SelectedCount = 1),
-              c.Effect<UntapAllLands>()
+            C.Effect<CompoundEffect>(p => p.Effect.ChildEffects(
+              p.Builder.Effect<OpponentDiscardsCards>(e1 => e1.SelectedCount = 1),
+              p.Builder.Effect<UntapAllLands>()
               ))),
           C.ActivatedAbility(
             "{2}: Attach to target creature you control. Equip only as a sorcery.",
             C.Cost<TapOwnerPayMana>((cost, _) => cost.Amount = 2.AsColorlessMana()),
-            C.Effect<AttachEquipment>((e, c) => e.Modifiers(
-              c.Modifier<AddPowerAndToughness>((m, _) =>
+            C.Effect<AttachEquipment>(p => p.Effect.Modifiers(
+              p.Builder.Modifier<AddPowerAndToughness>((m, _) =>
                 {
                   m.Power = 2;
                   m.Toughness = 2;
                 }),
-              c.Modifier<AddProtectionFromColors>((m, _) => m.Colors = ManaColors.Black | ManaColors.Green))),
+              p.Builder.Modifier<AddProtectionFromColors>((m, _) => m.Colors = ManaColors.Black | ManaColors.Green))),
             effectSelector: C.Selector(Selectors.Equipment()),
             targetFilter: TargetFilters.CombatEquipment(),
             timing: Timings.AttachCombatEquipment(),

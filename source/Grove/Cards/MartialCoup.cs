@@ -36,10 +36,10 @@
         .FlavorText("Their war forgotten, the nations of Bant stood united in the face of a common threat.")
         .Category(EffectCategories.Destruction)
         .Timing(Timings.MainPhases())
-        .Effect<CreateTokens>((e, c) =>
+        .Effect<CreateTokens>(p =>
           {
-            e.Count = Value.PlusX;
-            e.Tokens(c.Card
+            p.Effect.Count = Value.PlusX;
+            p.Effect.Tokens(p.Builder.Card
               .Named("Soldier Token")
               .FlavorText(
                 "If you need an example to lead others to the front lines, consider the precedent set.")
@@ -48,11 +48,11 @@
               .Type("Creature Token Soldier")
               .Colors(ManaColors.White));
 
-            e.BeforeResolve = (e1) =>
+            p.Effect.BeforeResolve = self =>
               {
-                if (e1.X >= 5)
+                if (self.X >= 5)
                 {
-                  e.Players.DestroyPermanents(
+                  self.Players.DestroyPermanents(
                     (permanent) => permanent.Is().Creature);
                 }
               };

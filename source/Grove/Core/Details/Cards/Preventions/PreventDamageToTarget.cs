@@ -9,7 +9,7 @@
     public int Amount;
     public bool AmountIsDepletable;
 
-    public override void PreventDamage(Damage damage)
+    public override void PreventReceivedDamage(Damage damage)
     {      
       var prevented = damage.Prevent(_amountLeft.Value);
 
@@ -24,7 +24,7 @@
       _amountLeft = new Trackable<int>(Amount, Game.ChangeTracker);
     }
 
-    public override int EvaluateHowMuchDamageCanBeDealt(Card source, int amount, bool isCombat)
+    public override int EvaluateReceivedDamage(Card source, int amount, bool isCombat)
     {
       var dealt = amount - _amountLeft.Value;
       return dealt > 0 ? dealt : 0;

@@ -11,7 +11,7 @@
 
   public static class CardFactoryEx
   {
-    public static Card.CardFactory Leveler(this Card.CardFactory card, CardCreationContext ctx, IManaAmount cost,
+    public static Card.CardFactory Leveler(this Card.CardFactory card, CardBuilder ctx, IManaAmount cost,
                                            EffectCategories category = EffectCategories.Generic,
                                            params LevelDefinition[] levels)
     {
@@ -21,7 +21,7 @@
         ctx.ActivatedAbility(
           String.Format("{0}: Put a level counter on this. Level up only as sorcery.", cost),
           ctx.Cost<TapOwnerPayMana>((cst, _) => cst.Amount = cost),
-          ctx.Effect<ApplyModifiersToSelf>((e, c) => e.Modifiers(c.Modifier<IncreaseLevel>())),
+          ctx.Effect<ApplyModifiersToSelf>(p => p.Effect.Modifiers(p.Builder.Modifier<IncreaseLevel>())),
           timing: Timings.Leveler(cost, levels), activateAsSorcery: true, category: category));
 
 
@@ -32,10 +32,10 @@
         abilities.Add(
           ctx.StaticAbility(
             ctx.Trigger<OnLevelChanged>((c, _) => c.Level = definition.Min),
-            ctx.Effect<ApplyModifiersToSelf>((e, c) => e.Modifiers(
-              c.Modifier<AddStaticAbility>((m, _) => m.StaticAbility = definition.StaticAbility,
+            ctx.Effect<ApplyModifiersToSelf>(p => p.Effect.Modifiers(
+              p.Builder.Modifier<AddStaticAbility>((m, _) => m.StaticAbility = definition.StaticAbility,
                 minLevel: definition.Min, maxLevel: definition.Max),
-              c.Modifier<SetPowerAndToughness>((m, _) =>
+              p.Builder.Modifier<SetPowerAndToughness>((m, _) =>
                 {
                   m.Power = definition.Power;
                   m.Tougness = definition.Thoughness;

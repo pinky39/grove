@@ -17,7 +17,7 @@
         .Text("Destroy all creatures.")
         .Timing(Timings.MainPhases())
         .Category(EffectCategories.Destruction)
-        .Effect<DestroyPermanents>((e, _) => e.Filter = (card) => card.Is().Creature);
+        .Effect<DestroyPermanents>(e => e.Filter = (card) => card.Is().Creature);
     }
   }
 }

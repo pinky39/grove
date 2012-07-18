@@ -18,7 +18,7 @@
         .Text("Flame Slash deals 4 damage to target creature.")
         .FlavorText(
           "After millennia asleep, the Eldrazi had forgotten about Zendikar's fiery temper and dislike of strangers.")
-        .Effect<DealDamageToTarget>((e, _) => e.SetAmount(4))
+        .Effect<DealDamageToTarget>(e => e.Amount = 4)
         .Timing(Timings.TargetRemovalInstant())
         .Targets(
           filter: TargetFilters.DealDamage(4),

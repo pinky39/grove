@@ -260,6 +260,11 @@
       return GetAttackerWhichWillDealGreatestDamageToDefender() != null;
     }
 
+    public int CalculateDamageAttackerWillDealToPlayer(Card attacker)
+    {
+      return FindAttacker(attacker).GetDamageThisWillDealToPlayer();
+    }
+
     public Card GetAttackerWhichWillDealGreatestDamageToDefender(Func<Card, bool> filter = null)
     {
       filter = filter ?? delegate { return true; };

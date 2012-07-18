@@ -17,7 +17,7 @@
         .Type("Instant")
         .Text("Lightning Bolt deals 3 damage to target creature or player.")
         .Timing(Timings.TargetRemovalInstant())
-        .Effect<DealDamageToTarget>((e, _) => e.SetAmount(3))
+        .Effect<DealDamageToTarget>(e => e.Amount = 3)
         .Targets(
           filter: TargetFilters.DealDamage(3),
           effect: C.Selector(Selectors.CreatureOrPlayer()));

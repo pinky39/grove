@@ -16,7 +16,7 @@
       AddLifetime(
         new DependantLifetime(this, _damagePrevention, ChangeTracker));
 
-      damagePreventions.AddReceivedPrevention(_damagePrevention);
+      damagePreventions.AddPrevention(_damagePrevention);
     }
 
     protected override void Unapply()

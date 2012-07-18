@@ -20,7 +20,7 @@
         .FlavorText("The fatal flaw in every plan is the assumption that you know more than your enemy.")
         .Category(EffectCategories.Counterspell)
         .Timing(Timings.CounterSpell(3))
-        .Effect<CounterTargetSpell>((e, _) => e.DoNotCounterCost = 3.AsColorlessMana())
+        .Effect<CounterTargetSpell>(e => e.DoNotCounterCost = 3.AsColorlessMana())
         .Targets(
           filter: TargetFilters.CounterSpell(),
           effect: C.Selector(Selectors.Counterspell()));

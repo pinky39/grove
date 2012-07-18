@@ -43,7 +43,7 @@
         prevention.Owner = owner;
         prevention.Game = Game;
 
-        Init(prevention, new CardCreationContext(Game));
+        Init(prevention, new CardBuilder(Game));
 
         return prevention;
       }

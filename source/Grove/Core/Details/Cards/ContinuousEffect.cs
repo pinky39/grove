@@ -133,7 +133,7 @@
         continuousEffect._players = Game.Players;
         continuousEffect._isActive = new Trackable<bool>(Game.ChangeTracker);
 
-        Init(continuousEffect, new CardCreationContext(Game));
+        Init(continuousEffect, new CardBuilder(Game));
 
         Game.Publisher.Subscribe(continuousEffect);
         return continuousEffect;
