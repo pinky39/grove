@@ -2,22 +2,30 @@
 {
   using Infrastructure;
   using Messages;
-  using Targeting;
 
   public class LevelLifetime : Lifetime, IReceive<CardChangedLevel>
   {
+    private readonly int? _maxLevel;
+    private readonly int _minLevel;
+    private readonly Card _modifierTarget;
     private LevelLifetime() {}
-    public LevelLifetime(Modifier modifier, ChangeTracker changeTracker) : base(modifier, changeTracker) {}
 
-    public int MinLevel { get; set; }
-    public int? MaxLevel { get; set; }
+    public LevelLifetime(int minLevel, int? maxLevel, Card modifierTarget,
+      ChangeTracker changeTracker) : base(changeTracker)
+    {
+      _minLevel = minLevel;
+      _maxLevel = maxLevel;
+      _modifierTarget = modifierTarget;
+    }
+
 
     public void Receive(CardChangedLevel message)
     {
-      if (message.Card != ModifierTarget)
+      if (message.Card != _modifierTarget)
         return;
 
-      if (ModifierTarget.Card().Level < MinLevel || ModifierTarget.Card().Level > MaxLevel)
+      if (_modifierTarget.Level < _minLevel ||
+        _modifierTarget.Level > _maxLevel)
       {
         End();
       }

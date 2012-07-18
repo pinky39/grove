@@ -35,7 +35,8 @@
       if (typeof (TDecision) == typeof (PlaySpellOrAbility) ||
         typeof (TDecision) == typeof (DeclareAttackers) ||
           typeof (TDecision) == typeof (DeclareBlockers) ||
-            typeof (TDecision) == typeof (SetTriggeredAbilityTarget))
+            typeof (TDecision) == typeof (SetTriggeredAbilityTarget) || 
+            typeof(TDecision) == typeof(ChooseToUntap))
       {
         var scenarioDecision = Next<TDecision>();
 
@@ -62,7 +63,9 @@
         .SingleOrDefault();
 
       if (decisions == null)
+      {                        
         return null;
+      }
 
       return decisions.Next<TDecision>();
     }

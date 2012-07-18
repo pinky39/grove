@@ -5,13 +5,22 @@
 
   public class AttachmentLifetime : Lifetime, IReceive<AttachmentDetached>
   {
-    public AttachmentLifetime(Modifier modifier, ChangeTracker changeTracker) : base(modifier, changeTracker) {}
+    private readonly Card _attachment;
+    private readonly Card _attachmentTarget;
+
+    public AttachmentLifetime(Card attachment, Card attachmentTarget, ChangeTracker changeTracker)
+      : base(changeTracker)
+    {
+      _attachment = attachment;
+      _attachmentTarget = attachmentTarget;
+    }
+
     private AttachmentLifetime() {}
 
     public void Receive(AttachmentDetached message)
     {
-      if (ModifierTarget == message.AttachedTo &&
-        message.Attachment == ModifierSource)
+      if (_attachmentTarget == message.AttachedTo &&
+        message.Attachment == _attachment)
       {
         End();
       }

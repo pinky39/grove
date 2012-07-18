@@ -12,6 +12,7 @@
   using Details.Cards.Redirections;
   using Details.Cards.Triggers;
   using Details.Mana;
+  using Infrastructure;
   using Targeting;
 
   public class CardBuilder
@@ -24,6 +25,7 @@
     }
 
     public Card.CardFactory Card { get { return new Card.CardFactory(_game); } }
+    public ChangeTracker ChangeTracker { get { return _game.ChangeTracker; } }
 
 
     public IActivatedAbilityFactory ActivatedAbility(
@@ -92,6 +94,11 @@
         };
     }
 
+    public ICostFactory Cost<T>(Action<T> init) where T : Cost, new()
+    {
+      return Cost<T>((cost, _) => init(cost));
+    }
+    
     public ICostFactory Cost<T>(Initializer<T> init = null) where T : Cost, new()
     {
       init = init ?? delegate { };
@@ -157,6 +164,11 @@
               ability.Priority = priority ?? DefaultManaSourcePriority(ability);
             }
         };
+    }
+
+    public IModifierFactory Modifier<T>(Action<T> init, bool untilEndOfTurn = false) where T : Modifier, new()
+    {
+      return Modifier<T>((m, c) => init(m), untilEndOfTurn);
     }
 
     public IModifierFactory Modifier<T>(Initializer<T> init = null, bool untilEndOfTurn = false, int? minLevel = null,

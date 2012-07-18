@@ -1,9 +1,7 @@
 ﻿namespace Grove.Core.Ai
 {
-  using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Details.Combat;
   using Details.Mana;
   using Dsl;
   using Targeting;
@@ -31,7 +29,7 @@
 
           return !counterCost.HasValue || !p.Opponent.HasMana(counterCost.Value);
         };
-    }   
+    }
 
     public static TimingDelegate ControllerHasConvertedMana(int converted)
     {
@@ -63,7 +61,7 @@
 
           return false;
         };
-    }   
+    }
 
     public static TimingDelegate TargetRemovalInstant(bool combatOnly = false)
     {
@@ -188,7 +186,7 @@
     public static TimingDelegate Leveler(IManaAmount activationCost, IEnumerable<LevelDefinition> levelDefinitions)
     {
       return p =>
-        {          
+        {
           var level = p.Card.Level ?? 0;
           int? costToNextLevel = null;
 
@@ -285,9 +283,9 @@
           if (p.Step == Step.DeclareBlockers && p.Controller.IsActive && p.Card.IsAttacker)
           {
             return QuickCombat.CalculateGainAttackerWouldGetIfPowerAndThoughnessWouldIncrease(
-              attacker: p.Card, 
-              blockers: p.Combat.GetBlockers(p.Card),              
-              powerIncrease: power.Value, 
+              attacker: p.Card,
+              blockers: p.Combat.GetBlockers(p.Card),
+              powerIncrease: power.Value,
               toughnessIncrease: toughness.Value) > 0;
           }
 
@@ -366,6 +364,20 @@
             return true;
 
           return false;
+        };
+    }
+
+    public static TimingDelegate SummonBlockers()
+    {
+      return p =>
+        {
+          if (p.Controller.IsActive)
+            return false;
+
+          if (p.Step != Step.DeclareAttackers)
+            return false;
+
+          return p.Combat.Attackers.Any();
         };
     }
   }

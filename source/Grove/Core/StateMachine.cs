@@ -277,7 +277,18 @@
             foreach (var permanent in _game.Players.Active.Battlefield)
             {
               permanent.RemoveSummoningSickness();
-              permanent.Untap();
+              
+              if (permanent.MayChooseNotToUntapDuringUntapStep)
+              {
+                var permanentCopy = permanent;
+                _game.Decisions.Enqueue<ChooseToUntap>(
+                  controller: _game.Players.Active, 
+                  init: p => p.Permanent = permanentCopy);
+              }
+              else
+              {
+                permanent.Untap();
+              }
             }
 
             _game.Players.Active.CanPlayLands = true;

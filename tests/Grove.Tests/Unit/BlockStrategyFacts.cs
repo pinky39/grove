@@ -75,7 +75,7 @@
       var attackers = Permanents(P1, "Vigor");
       var blockerCandidates = Permanents(P2, "Grizzly Bears");
 
-      P2.Life = 12;
+      P2.Life = 20;
 
       var chosenBlockers = new BlockStrategy(
         attackers,

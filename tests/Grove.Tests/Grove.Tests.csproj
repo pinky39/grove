@@ -103,6 +103,7 @@
     <Compile Include="Cards\DiscipleOfGrace.cs" />
     <Compile Include="Cards\Dread.cs" />
     <Compile Include="Cards\EleshNornGrandCenobite.cs" />
+    <Compile Include="Cards\Endoskeleton.cs" />
     <Compile Include="Cards\Evacuation.cs" />
     <Compile Include="Cards\GraveTitan.cs" />
     <Compile Include="Cards\HeroOfBladeHold.cs" />

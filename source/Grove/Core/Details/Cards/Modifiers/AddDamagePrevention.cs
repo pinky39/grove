@@ -14,7 +14,7 @@
       _damagePrevention = Prevention.Create(Target);
 
       AddLifetime(
-        new DependantLifetime(this, _damagePrevention, ChangeTracker));
+        new DependantLifetime(_damagePrevention, ChangeTracker));
 
       damagePreventions.AddPrevention(_damagePrevention);
     }

@@ -7,7 +7,6 @@
   using Details.Cards;
   using Results;
   using Targeting;
-  using Zones;
 
   public class ScenarioActivation
   {
@@ -51,7 +50,7 @@
     public Game Game { get; set; }
 
     public StepDecisions Activate(Card card, Card target, Card costTarget = null,
-                                  int? x = null, int abilityIndex = 0)
+      int? x = null, int abilityIndex = 0)
     {
       return Activate(card, (ITarget) target, costTarget, x, abilityIndex);
     }
@@ -62,7 +61,7 @@
       init(activation);
 
       var decision = new PlaySpellOrAbility
-        {          
+        {
           Result = new ChosenPlayable
             {
               Playable = new ScenarioAbility(
@@ -76,15 +75,37 @@
                 )
             }
         };
-                
+
       decision.Init(Game, activation.Card.Controller);
-      
-     _decisions.Add(decision);
+
+      _decisions.Add(decision);
+      return this;
+    }
+
+    public StepDecisions Untap()
+    {
+      var decision = new ChooseToUntap
+        {
+          Result = true
+        };
+
+      _decisions.Add(decision);
+      return this;
+    }    
+
+    public StepDecisions DoNotUntap()
+    {
+      var decision = new ChooseToUntap
+        {
+          Result = false
+        };
+
+      _decisions.Add(decision);
       return this;
     }
 
     public StepDecisions Activate(Card card, Player target, Card costTarget = null,
-                                  int? x = null, int abilityIndex = 0)
+      int? x = null, int abilityIndex = 0)
     {
       return Activate(p =>
         {
@@ -97,7 +118,7 @@
     }
 
     public StepDecisions Activate(Card card, Card costTarget = null,
-                                  int? x = null, int abilityIndex = 0)
+      int? x = null, int abilityIndex = 0)
     {
       return Activate(p =>
         {
@@ -109,7 +130,7 @@
     }
 
     private StepDecisions Activate(Card card, ITarget target = null, ITarget costTarget = null,
-                                   int? x = null, int abilityIndex = 0)
+      int? x = null, int abilityIndex = 0)
     {
       return Activate(p =>
         {
@@ -137,7 +158,7 @@
       init(activation);
 
       var decision = new PlaySpellOrAbility
-        {          
+        {
           Result = new ChosenPlayable
             {
               Playable = new ScenarioSpell(
@@ -153,7 +174,7 @@
 
       decision.Init(Game, activation.Card.Controller);
 
-     _decisions.Add(decision);
+      _decisions.Add(decision);
       return this;
     }
 
@@ -203,7 +224,7 @@
     public StepDecisions DeclareAttackers(params Card[] attackers)
     {
       var decision = new DeclareAttackers
-        {          
+        {
           Result = attackers.ToList()
         };
 
@@ -228,14 +249,14 @@
       }
 
       var decision = new DeclareBlockers
-        {          
+        {
           Result = chosenBlockers
         };
-      
+
       _decisions.Add(decision);
-      
+
       decision.Init(Game, defender);
-      
+
       return this;
     }
 
@@ -269,10 +290,10 @@
     private StepDecisions Target(ITarget target)
     {
       var decision = new SetTriggeredAbilityTarget
-        {          
+        {
           Result = new ChosenTargets(new Targets().AddEffect(target))
         };
-      
+
       decision.Init(Game, null);
       _decisions.Add(decision);
       return this;
@@ -281,12 +302,12 @@
     public StepDecisions Verify(Action assertion)
     {
       var decision = new Verify
-        {          
-          Assertion = assertion,          
+        {
+          Assertion = assertion,
         };
-      
+
       decision.Init(Game, null);
-      
+
       _decisions.Add(decision);
       return this;
     }
@@ -294,7 +315,7 @@
     public StepDecisions Cycle(Card card)
     {
       var decision = new PlaySpellOrAbility
-        {          
+        {
           Result = new ChosenPlayable
             {
               Playable = new ScenarioCyclable(

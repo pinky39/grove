@@ -84,7 +84,7 @@
     private void AddModifierToTarget(ITarget target)
     {
       var modifier = ModifierFactory.CreateModifier(_source, target);
-      modifier.AddLifetime(new DependantLifetime(modifier, this, _changeTracker));
+      modifier.AddLifetime(new DependantLifetime(this, _changeTracker));
       target.AddModifier(modifier);
     }
 

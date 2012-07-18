@@ -17,6 +17,8 @@
     DoubleStrike,
     Reach,
     Vigilance,
-    Swampwalk
+    Swampwalk,
+    CannotBlock,
+    CannotAttack
   }
 }

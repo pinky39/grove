@@ -9,8 +9,8 @@
 
     private DependantLifetime() {}
 
-    public DependantLifetime(Modifier modifier, ILifetimeDependency lifetimeDependency, ChangeTracker changeTracker)
-      : base(modifier, changeTracker)
+    public DependantLifetime(ILifetimeDependency lifetimeDependency, ChangeTracker changeTracker)
+      : base(changeTracker)
     {
       _lifetimeDependency = lifetimeDependency;
       _lifetimeDependency.EndOfLife += OnEndOfLife;

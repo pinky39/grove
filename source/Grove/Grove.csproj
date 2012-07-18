@@ -146,6 +146,7 @@
     <Compile Include="Cards\Dread.cs" />
     <Compile Include="Cards\EleshNornGrandCenobite.cs" />
     <Compile Include="Cards\ElvishWarrior.cs" />
+    <Compile Include="Cards\Endoskeleton.cs" />
     <Compile Include="Cards\Evacuation.cs" />
     <Compile Include="Cards\Expunge.cs" />
     <Compile Include="Cards\FleshReaver.cs" />
@@ -177,7 +178,11 @@
     <Compile Include="Cards\MarshCasualties.cs" />
     <Compile Include="Cards\NantukoShade.cs" />
     <Compile Include="Cards\OpalAcrolith.cs" />
+    <Compile Include="Cards\OpalCaryatid.cs" />
+    <Compile Include="Cards\OpalGargoyle.cs" />
+    <Compile Include="Cards\OpalTitan.cs" />
     <Compile Include="Cards\OrderOfTheSacredBell.cs" />
+    <Compile Include="Cards\Pacifism.cs" />
     <Compile Include="Cards\Pariah.cs" />
     <Compile Include="Cards\PegasusCharger.cs" />
     <Compile Include="Cards\Pestilence.cs" />
@@ -196,6 +201,7 @@
     <Compile Include="Cards\SanctumCustodian.cs" />
     <Compile Include="Cards\SanctumGuardian.cs" />
     <Compile Include="Cards\SavannahLions.cs" />
+    <Compile Include="Cards\SerrasEmbrace.cs" />
     <Compile Include="Cards\Sicken.cs" />
     <Compile Include="Cards\SilentAttendant.cs" />
     <Compile Include="Cards\Songstitcher.cs" />
@@ -234,6 +240,7 @@
     <Compile Include="Cards\VolcanincFallout.cs" />
     <Compile Include="Cards\WallOfJunk.cs" />
     <Compile Include="Cards\WallOfReverence.cs" />
+    <Compile Include="Cards\Waylay.cs" />
     <Compile Include="Cards\WhiteKnight.cs" />
     <Compile Include="Cards\Worship.cs" />
     <Compile Include="Cards\WurmcoilEngine.cs" />
@@ -242,10 +249,14 @@
     <Compile Include="Core\Ai\AttackerEvaluation.cs" />
     <Compile Include="Core\Ai\BlockerEvaluation.cs" />
     <Compile Include="Core\Ai\QuickCombat.cs" />
+    <Compile Include="Core\Controllers\ChooseToUntap.cs" />
     <Compile Include="Core\Controllers\DecisionFactory.cs" />
     <Compile Include="Core\Controllers\DecisionSelector.cs" />
+    <Compile Include="Core\Controllers\Human\ChooseToUntap.cs" />
     <Compile Include="Core\Controllers\IDecisionFactory.cs" />
+    <Compile Include="Core\Controllers\Machine\ChooseToUntap.cs" />
     <Compile Include="Core\Controllers\ScenarioDecisions.cs" />
+    <Compile Include="Core\Controllers\Scenario\ChooseToUntap.cs" />
     <Compile Include="Core\Details\Cards\Ability.cs" />
     <Compile Include="Core\Details\Cards\Costs\NoCost.cs" />
     <Compile Include="Core\Details\Cards\Costs\RevealCardFromHand.cs" />
@@ -253,6 +264,7 @@
     <Compile Include="Core\Details\Cards\EffectCreationContext.cs" />
     <Compile Include="Core\Details\Cards\EffectParameters.cs" />
     <Compile Include="Core\Details\Cards\Effects\MoveCardFromGraveyardToHand.cs" />
+    <Compile Include="Core\Details\Cards\Modifiers\PermanentGetsUntapedLifetime.cs" />
     <Compile Include="Core\Details\Cards\Preventions\PreventDealtDamage.cs" />
     <Compile Include="Core\Details\Cards\Preventions\PreventLifelossBelowOne.cs" />
     <Compile Include="Core\Details\Mana\AggregateManaAmount.cs" />
@@ -268,6 +280,7 @@
     <Compile Include="Core\Details\Cards\IStaticAbilities.cs" />
     <Compile Include="Core\Details\Mana\ManaSourcePriorities.cs" />
     <Compile Include="Core\Messages\AssignedCombatDamageWasDealt.cs" />
+    <Compile Include="Core\Messages\PermanentGetsUntapped.cs" />
     <Compile Include="Core\Targeting\ITargetSelector.cs" />
     <Compile Include="Core\Targeting\ITargetSelectorFactory.cs" />
     <Compile Include="Core\Details\Cards\Modifiers\AddDamageRedirection.cs" />
@@ -417,7 +430,7 @@
     <Compile Include="Core\Details\Cards\Modifiers\EndOfTurnLifetime.cs" />
     <Compile Include="Core\Details\Cards\Modifiers\ILifetimeDependency.cs" />
     <Compile Include="Core\Details\Cards\Modifiers\Lifetime.cs" />
-    <Compile Include="Core\Details\Cards\Modifiers\PermanentLifetime.cs" />
+    <Compile Include="Core\Details\Cards\Modifiers\DefaultLifetime.cs" />
     <Compile Include="Core\Details\Cards\PropertyModifier.cs" />
     <Compile Include="Core\Details\Cards\CardTypeCharacteristic.cs" />
     <Compile Include="Core\Combat.cs" />

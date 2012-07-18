@@ -7,7 +7,7 @@
   {
     private EndOfTurnLifetime() {}
 
-    public EndOfTurnLifetime(Modifier modifier, ChangeTracker changeTracker) : base(modifier, changeTracker) {}
+    public EndOfTurnLifetime(ChangeTracker changeTracker) : base(changeTracker) {}
 
     public void Receive(EndOfTurn message)
     {

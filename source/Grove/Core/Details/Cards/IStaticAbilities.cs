@@ -18,5 +18,7 @@
     bool Reach { get; }
     bool Vigilance { get; }
     bool Swampwalk { get; }
+    bool CannotAttack { get; }
+    bool CannotBlock { get; }
   }
 }

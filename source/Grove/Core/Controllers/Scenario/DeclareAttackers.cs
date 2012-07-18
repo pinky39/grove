@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core.Controllers.Scenario
 {
+  using System;
   using Results;
 
   public class DeclareAttackers : Controllers.DeclareAttackers, IScenarioDecision

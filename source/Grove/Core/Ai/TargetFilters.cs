@@ -660,11 +660,46 @@
     {
       return p =>
         {
-          var candidates = p.Candidates()            
+          var candidates = p.Candidates()
             .OrderByDescending(x => x.Card().CalculateCombatDamage(allDamageSteps: true));
 
           return p.Targets(candidates);
         };
+    }
+
+    public static TargetsFilterDelegate Pacifism()
+    {
+      return p =>
+        {
+          var candidates = p.Candidates()
+            .Where(x => x.Card().Controller == p.Opponent)
+            .Select(x => x.Card())
+            .Select(x => new
+              {
+                Card = x,
+                Score = CalculatePasifismScore(x)
+              })
+            .OrderByDescending(x => x.Score)
+            .Select(x => x.Card);
+
+          return p.Targets(candidates);
+        };
+    }
+
+    private static int CalculatePasifismScore(Card card)
+    {
+      if (card.CanAttack)
+      {
+        if (card.Has().Flying || card.Has().Trample)
+        {
+          return 4*card.CalculateCombatDamage(allDamageSteps: true);
+        }
+
+        return 2*card.CalculateCombatDamage(allDamageSteps: true) + 
+          card.Toughness.GetValueOrDefault();
+      }
+
+      return 1;
     }
   }
 }

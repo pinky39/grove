@@ -130,7 +130,7 @@
       }
       
       [Fact]
-      public void BugSwordAngelNotHero()
+      public void BugSwordAngel()
       {
         ScenarioCard angel = C("Baneslayer Angel");
         ScenarioCard swords = C("Swords to Plowshares");
@@ -142,17 +142,17 @@
         Battlefield(P2, "Forest", "Sunpetal Grove", "Plains", "Llanowar Elves", "Plains",
           "Basilisk Collar", "Acidic Slime", "Wurmcoil Engine", "Thrun, the Last Troll", "Plains", "Troll Ascetic");
 
-        P2.Life = 10;
+        P2.Life = 5;
         
         Exec(
           At(Step.DeclareAttackers)
             .DeclareAttackers(angel),
           At(Step.SecondMain, turn: 1)
             .Verify(() =>
-              {
-                Equal(10, P2.Life);
+              {               
                 Equal(Zone.Graveyard, C(swords).Zone);
                 Equal(Zone.Exiled, C(angel).Zone);
+                Equal(5, P2.Life);
               })
           );
           

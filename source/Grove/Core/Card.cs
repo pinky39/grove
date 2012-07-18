@@ -66,6 +66,7 @@
     private Trackable<Zone> _zone;
 
     protected Card() {}
+    public bool MayChooseNotToUntapDuringUntapStep { get; private set; }
 
     public Card AttachedTo { get { return _attachedTo.Value; } private set { _attachedTo.Value = value; } }
 
@@ -76,7 +77,7 @@
       get
       {
         return IsPermanent && Is().Creature &&
-          !IsTapped && !HasSummoningSickness && !Has().Defender;
+          !IsTapped && !HasSummoningSickness && !Has().Defender && !Has().CannotAttack;
       }
     }
 
@@ -164,7 +165,7 @@
 
     public CardText Text { get; private set; }
 
-    public int? Toughness { get { return _toughness.Value; } }    
+    public int? Toughness { get { return _toughness.Value; } }
     public string Type { get { return _type.Value.ToString(); } }
     public Zone Zone { get { return _zone.Value; } }
 
@@ -258,7 +259,7 @@
         {
           _hash.Value = HashCalculator.Combine(
             Name.GetHashCode(),
-            calc.Calculate(_hasSummoningSickness),
+            calc.Calculate(_hasSummoningSickness),            
             IsTapped.GetHashCode(),
             Damage,
             CanRegenerate.GetHashCode(),
@@ -327,7 +328,7 @@
       IncreaseUsageScore();
     }
 
-    private void IncreaseUsageScore()
+    public void IncreaseUsageScore()
     {
       // to avoid useless moves every move lowers the score a bit
       // this factor increases linearily with elapsed turns
@@ -386,7 +387,7 @@
 
     public bool CanBlock()
     {
-      return IsPermanent && !IsTapped && Is().Creature;
+      return IsPermanent && !IsTapped && Is().Creature && !Has().CannotBlock;
     }
 
     public SpellPrerequisites CanCast()
@@ -430,7 +431,7 @@
 
       var effect = _cyclingFactory.CreateEffect(
         new EffectParameters(source: this));
-      
+
       _stack.Push(effect);
       IncreaseUsageScore();
     }
@@ -453,7 +454,7 @@
       var effect = activationParameters.PayKicker
         ? _kickerEffectFactory.CreateEffect(parameters)
         : _effectFactory.CreateEffect(parameters);
-          
+
       CastingRule.Cast(effect);
       IncreaseUsageScore();
 
@@ -647,6 +648,7 @@
     public void Untap()
     {
       IsTapped = false;
+      Publish(new PermanentGetsUntapped {Permanent = this});
     }
 
     private void DetachAttachments()
@@ -799,6 +801,7 @@
       private IEffectFactory _kickerEffectFactory;
       private TargetsFilterDelegate _kickertargetsFilter;
       private string _manaCost;
+      private bool _mayChooseNotToUntap;
       private string _name;
       private int? _power;
       private string[] _protectionsFromCardTypes;
@@ -840,6 +843,7 @@
         card.Name = _name;
         card._xCalculator = _xCalculator;
         card.ManaCost = _manaCost.ParseManaAmount();
+        card.MayChooseNotToUntapDuringUntapStep = _mayChooseNotToUntap;
 
         card.EchoCost = _echoCost.ParseManaAmount();
         card.CyclingCost = _cyclingCost.ParseManaAmount();
@@ -1034,10 +1038,10 @@
         init = init ?? delegate { };
 
         _effectFactory = new Effect.Factory<T>
-        {
-          Game = _game,
-          Init = init
-        };
+          {
+            Game = _game,
+            Init = init
+          };
 
         return this;
       }
@@ -1057,12 +1061,12 @@
       public CardFactory KickerEffect<T>(Action<T> init = null) where T : Effect, new()
       {
         init = init ?? delegate { };
-        
+
         _kickerEffectFactory = new Effect.Factory<T>
-        {
-          Game = _game,
-          Init = p => init(p.Effect)
-        };
+          {
+            Game = _game,
+            Init = p => init(p.Effect)
+          };
 
         return this;
       }
@@ -1247,6 +1251,12 @@
 
         card._type.Property(x => x.Value)
           .Changes(card).Property<Card, string>(x => x.Type);
+      }
+
+      public CardFactory MayChooseNotToUntapDuringUntap()
+      {
+        _mayChooseNotToUntap = true;
+        return this;
       }
     }
   }

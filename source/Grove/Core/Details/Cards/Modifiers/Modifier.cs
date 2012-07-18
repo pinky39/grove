@@ -118,25 +118,28 @@
 
       private IEnumerable<Lifetime> CreateLifetimes(TModifier modifier)
       {
-        yield return new PermanentLifetime(modifier, Game.ChangeTracker);
+        yield return new DefaultLifetime(modifier.Target, Game.ChangeTracker);
 
         if (EndOfTurn)
         {
-          yield return new EndOfTurnLifetime(modifier, Game.ChangeTracker);
+          yield return new EndOfTurnLifetime(Game.ChangeTracker);
         }
 
         if (modifier.Source.Is().Attachment)
         {
-          yield return new AttachmentLifetime(modifier, Game.ChangeTracker);
+          yield return new AttachmentLifetime(
+           attachment: modifier.Source,
+           attachmentTarget: modifier.Target.Card(), 
+           changeTracker: Game.ChangeTracker);
         }
 
         if (MinLevel.HasValue)
         {
-          yield return new LevelLifetime(modifier, Game.ChangeTracker)
-            {
-              MinLevel = MinLevel.Value,
-              MaxLevel = MaxLevel
-            };
+          yield return new LevelLifetime(
+            MinLevel.Value, 
+            MaxLevel, 
+            modifier.Target.Card(), 
+            Game.ChangeTracker);
         }
       }
     }

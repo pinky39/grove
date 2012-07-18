@@ -18,6 +18,7 @@
     public void Consume(IManaAmount amount)
     {
       Cost.Pay(target: null, x: null);
+      OwningCard.IncreaseUsageScore();
 
       if (amount.Converted == _manaAmount.Converted)
         return;
@@ -26,7 +27,7 @@
       // add overflow mana to manapool.          
       var manaBag = new ManaBag(amount);
       manaBag.Consume(amount);
-      Controller.AddManaToManaPool(manaBag.Amount);
+      Controller.AddManaToManaPool(manaBag.Amount);      
     }
 
     public IManaAmount GetAvailableMana()

@@ -14,7 +14,7 @@
     private StaticAbilities() {}
 
     public StaticAbilities(IEnumerable<Static> staticAbilities, ChangeTracker changeTracker,
-                           IHashDependancy hashDependancy)
+      IHashDependancy hashDependancy)
     {
       _changeTracker = changeTracker;
       _abilities = new TrackableList<StaticAbility>(
@@ -47,6 +47,8 @@
     public bool Reach { get { return Has(Static.Reach); } }
     public bool Vigilance { get { return Has(Static.Vigilance); } }
     public bool Swampwalk { get { return Has(Static.Swampwalk); } }
+    public bool CannotAttack { get { return Has(Static.CannotAttack); } }
+    public bool CannotBlock { get { return Has(Static.CannotBlock); } }
 
     public void Add(Static ability)
     {

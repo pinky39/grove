@@ -20,15 +20,15 @@
         {12, -350},
         {11, -420},
         {10, -490},
-        {9, -560},
-        {8, -650},
-        {7, -740},
-        {6, -830},
-        {5, -920},
-        {4, -1120},
-        {3, -1220},
-        {2, -1350},
-        {1, -1500},
+        {9, -590},
+        {8, -690},
+        {7, -790},
+        {6, -850},
+        {5, -1000},
+        {4, -1150},
+        {3, -1400},
+        {2, -1750},
+        {1, -2300},
       };
 
     private static readonly Dictionary<int, int> ManaCostToScore = new Dictionary<int, int>
@@ -112,7 +112,12 @@
       
       if (permanent.ManaCost != null)
       {
-        score += CalculatePermanentScoreFromManaCost(permanent.ManaCost);             
+        score += CalculatePermanentScoreFromManaCost(permanent.ManaCost);
+        
+        if (permanent.Is().Creature)
+        {
+          score += (permanent.Power.Value + permanent.Toughness.Value);
+        }
       }
       else if (permanent.Is().Creature)
       {
@@ -151,7 +156,7 @@
     {
       if (card.IsHidden)
       {
-        return 200;
+        return 220;
       }
 
       return 120;
