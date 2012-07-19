@@ -11,6 +11,7 @@
   using Details.Cards.Effects;
   using Details.Cards.Modifiers;
   using Details.Cards.Preventions;
+  using Details.Cards.Triggers;
   using Details.Mana;
   using Dsl;
   using Infrastructure;
@@ -60,8 +61,7 @@
     private TriggeredAbilities _triggeredAbilities;
     private TurnInfo _turn;
     private CardTypeCharacteristic _type;
-    private Trackable<int> _usageScore;
-    private Trackable<bool> _wasEchoPaid;
+    private Trackable<int> _usageScore;    
     private CalculateX _xCalculator;
     private Trackable<Zone> _zone;
 
@@ -169,12 +169,12 @@
     public string Type { get { return _type.Value.ToString(); } }
     public Zone Zone { get { return _zone.Value; } }
 
-    public int? Level { get { return _level.Value; } }
-    public IManaAmount EchoCost { get; private set; }
+    public int? Level { get { return _level.Value; } }    
     public bool CanBeDestroyed { get { return !CanRegenerate && !Has().Indestructible; } }
     public IManaAmount CyclingCost { get; private set; }
     public bool HasCycling { get { return _cyclingFactory != null; } }
     public bool IsRevealed { get { return _isRevealed.Value; } set { _isRevealed.Value = value; } }
+    public int? OverrideScore { get; private set; }
 
     public void DealDamage(Damage damage)
     {
@@ -259,7 +259,7 @@
         {
           _hash.Value = HashCalculator.Combine(
             Name.GetHashCode(),
-            calc.Calculate(_hasSummoningSickness),            
+            calc.Calculate(_hasSummoningSickness),
             IsTapped.GetHashCode(),
             Damage,
             CanRegenerate.GetHashCode(),
@@ -616,8 +616,7 @@
 
       if (newZone == Zone.Battlefield)
       {
-        _hasSummoningSickness.Value = true;
-        _wasEchoPaid.Value = false;
+        _hasSummoningSickness.Value = true;        
       }
 
       _zone.Value = newZone;
@@ -705,18 +704,7 @@
     public void Exile()
     {
       Controller.ExileCard(this);
-    }
-
-    public bool PlayerNeedsToPayEchoCost()
-    {
-      return EchoCost != null && _wasEchoPaid == false;
-    }
-
-    public void PayEchoCost()
-    {
-      Controller.Consume(EchoCost);
-      _wasEchoPaid.Value = true;
-    }
+    }        
 
     public void RemoveModifier(Type type)
     {
@@ -791,8 +779,7 @@
       private readonly List<ITriggeredAbilityFactory> _triggeredAbilityFactories = new List<ITriggeredAbilityFactory>();
       private ICostFactory _additionalCost;
       private ManaColors _colors;
-      private string _cyclingCost;
-      private string _echoCost;
+      private string _cyclingCost;      
       private EffectCategories _effectCategories;
       private IEffectFactory _effectFactory;
       private string _flavorText;
@@ -803,6 +790,7 @@
       private string _manaCost;
       private bool _mayChooseNotToUntap;
       private string _name;
+      private int? _overrideScore;
       private int? _power;
       private string[] _protectionsFromCardTypes;
       private ManaColors _protectionsFromColors = ManaColors.None;
@@ -844,8 +832,8 @@
         card._xCalculator = _xCalculator;
         card.ManaCost = _manaCost.ParseManaAmount();
         card.MayChooseNotToUntapDuringUntapStep = _mayChooseNotToUntap;
-
-        card.EchoCost = _echoCost.ParseManaAmount();
+        card.OverrideScore = _overrideScore;
+        
         card.CyclingCost = _cyclingCost.ParseManaAmount();
         card.KickerCost = _kickerCost.ParseManaAmount();
         card.ManaCostWithKicker = card.HasKicker ? card.ManaCost.Add(card.KickerCost) : card.ManaCost;
@@ -871,12 +859,12 @@
         card._isHidden = new Trackable<bool>(_changeTracker, card);
         card._isRevealed = new Trackable<bool>(_changeTracker, card);
         card._canRegenerate = new Trackable<bool>(_changeTracker, card);
-        card._hasSummoningSickness = new Trackable<bool>(true, _changeTracker, card);
-        card._wasEchoPaid = new Trackable<bool>(_changeTracker, card);
+        card._hasSummoningSickness = new Trackable<bool>(true, _changeTracker, card);        
         card._controller = new Trackable<Player>(controller, _changeTracker, card);
         card._damagePreventions = new DamagePreventions(_changeTracker, card);
         card._protections = new Protections(_changeTracker, card, _protectionsFromColors, _protectionsFromCardTypes);
         card._zone = new Trackable<Zone>(_changeTracker, card);
+
 
         card.EffectCategories = _effectCategories;
         card._timming = _timing ?? Timings.NoRestrictions();
@@ -909,7 +897,7 @@
 
         card._staticAbilities = new StaticAbilities(_staticAbilities, _changeTracker, card);
 
-        var triggeredAbilities = _triggeredAbilityFactories.Select(x => x.Create(card, card));
+        var triggeredAbilities = _triggeredAbilityFactories.Select(x => x.Create(card, card));                        
         card._triggeredAbilities = new TriggeredAbilities(triggeredAbilities, _changeTracker, card);
 
         var activatedAbilities = _activatedAbilityFactories.Select(x => x.Create(card)).ToList();
@@ -921,6 +909,9 @@
           _continuousEffectFactories.Select(factory => factory.Create(card)).ToList();
         card._continuousEffects = new TrackableList<ContinuousEffect>(continiousEffects, _changeTracker, card);
 
+        
+
+        
         return card;
       }
 
@@ -962,7 +953,20 @@
 
       public CardFactory Echo(string manaCost)
       {
-        _echoCost = manaCost;
+        var c = new CardBuilder(_game);
+        var amount = manaCost.ParseManaAmount();
+
+        var echoFactory = c.TriggeredAbility(
+          "At the beginning of your upkeep, if this came under your control since the beginning of your last upkeep, sacrifice it unless you pay its echo cost.",
+          c.Trigger<AtBegginingOfStep>(t =>
+            {
+              t.Step = Step.Upkeep;
+              t.OnlyOnceWhenInPlay = true;
+            }),
+          c.Effect<PayManaOrSacrifice>(e => e.Amount = amount), 
+          triggerOnlyIfOwningCardIsInPlay: true);
+        
+        _triggeredAbilityFactories.Add(echoFactory);        
         return this;
       }
 
@@ -1256,6 +1260,12 @@
       public CardFactory MayChooseNotToUntapDuringUntap()
       {
         _mayChooseNotToUntap = true;
+        return this;
+      }
+
+      public CardFactory OverrideScore(int score)
+      {
+        _overrideScore = score;
         return this;
       }
     }

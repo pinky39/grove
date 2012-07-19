@@ -296,37 +296,7 @@
         nextStep: () => Step.Upkeep);
 
       CreateStep(
-        Step.Upkeep,
-        first: () =>
-          {
-            foreach (var permanent in _game.Players.Active.Battlefield)
-            {
-              if (permanent.PlayerNeedsToPayEchoCost())
-              {
-                var permanentCopy = permanent;
-                _game.Decisions.Enqueue<ConsiderPayingLifeOrMana>(
-                  controller: permanent.Controller,
-                  init: p =>
-                    {
-                      p.Mana = permanentCopy.EchoCost;
-                      p.Message = String.Format("Pay echo for {0}?", permanentCopy);
-                      p.Context = permanentCopy;
-                      p.Handler = args =>
-                        {
-                          var perm = args.Ctx<Card>();
-
-                          if (args.Answer)
-                          {
-                            perm.PayEchoCost();
-                            return;
-                          }
-
-                          perm.Sacrifice();
-                        };
-                    });
-              }
-            }
-          },
+        Step.Upkeep,   
         nextStep: () => Step.Draw);
 
       CreateStep(

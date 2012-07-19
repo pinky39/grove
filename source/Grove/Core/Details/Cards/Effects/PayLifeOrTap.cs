@@ -1,6 +1,10 @@
 ﻿namespace Grove.Core.Details.Cards.Effects
 {
+  using System.Linq;
+  using System.Windows;
   using Controllers;
+  using Controllers.Results;
+  using Ui;
 
   public class PayLifeOrTap : Effect
   {
@@ -8,23 +12,50 @@
 
     protected override void ResolveEffect()
     {
-      Decisions.Enqueue<ConsiderPayingLifeOrMana>(
+      Decisions.Enqueue<AdHocDecision<BooleanResult>>(
         controller: Controller,
         init: p =>
           {
-            p.Context = this;
-            p.Life = Life;
-            p.Handler = args =>
+            p.Param("card", Source.OwningCard);
+            p.QueryAi = self =>
               {
-                var effect = args.Ctx<Effect>();
-                
-                if (args.Answer)
+                var controller = self.Controller;
+
+                var spellsWithCost = controller.Hand
+                  .Where(x => x.ManaCost != null)
+                  .ToList();
+
+                if (spellsWithCost.Count == 0)
                 {
-                  effect.Controller.Life -= Life;
+                  return false;
+                }
+
+                // one less is available because the land
+                // is already counted
+                var available = controller.ConvertedMana - 1;
+                
+                return spellsWithCost.Any(x =>
+                  x.ManaCost.Converted == available + 1);
+              };
+            p.QueryUi = shell =>
+              {
+                var result = shell.ShowMessageBox(
+                  message: string.Format("Pay {0} life?", Life),
+                  buttons: MessageBoxButton.YesNo,
+                  type: DialogType.Small);
+
+                return result == MessageBoxResult.Yes;
+              };
+
+            p.Process = self =>
+              {
+                if (self.Result.IsTrue)
+                {
+                  Controller.Life -= Life;
                   return;
                 }
 
-                effect.Source.OwningCard.Tap();
+                self.Param<Card>("card").Tap();
               };
           });
     }

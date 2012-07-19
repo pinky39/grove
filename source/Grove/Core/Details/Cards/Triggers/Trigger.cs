@@ -8,12 +8,16 @@
   public abstract class Trigger : IDisposable, IHashable
   {
     public Func<Trigger, bool> Condition = delegate { return true; };
+    
     protected TriggeredAbility Ability { get; private set; }
     public Game Game { get; private set; }
     public Card OwningCard { get { return Ability.OwningCard; } }
     protected Player Controller { get { return Ability.OwningCard.Controller; } }
     protected Players Players { get { return Game.Players; } }
     protected Publisher Publisher { get { return Game.Publisher; } }
+
+    private Trackable<bool> _canTrigger;
+    protected bool CanTrigger { get { return _canTrigger.Value; } set { _canTrigger.Value = value; } }
 
     public void Dispose()
     {
@@ -29,7 +33,7 @@
 
     protected void Set(object context = null)
     {
-      if (Condition(this))
+      if (CanTrigger && Condition(this))
         Triggered(this, new TriggerEventArgs(context));
     }
 
@@ -46,6 +50,7 @@
         var trigger = new TTrigger();
         trigger.Ability = triggeredAbility;
         trigger.Game = Game;
+        trigger._canTrigger = new Trackable<bool>(true, Game.ChangeTracker);
 
         Init(trigger, new CardBuilder(Game));
         trigger.Initialize();

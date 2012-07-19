@@ -109,7 +109,7 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Text="{Binding CurrentDeckList.Name}" Foreground="#FF4500" FontSize="25"/>
+                    <TextBlock Grid.Column="0" Text="{Binding CurrentDeckList.DisplayName}" Foreground="#FF4500" FontSize="25"/>
                     <CheckBox VerticalAlignment="Center" Grid.Column="1"  IsChecked="{Binding IsRandomDeck}">
                         <TextBlock FontSize="20" Foreground="#fff" Text="Use random deck"></TextBlock>
                     </CheckBox>

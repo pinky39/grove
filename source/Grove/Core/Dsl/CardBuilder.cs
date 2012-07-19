@@ -168,7 +168,9 @@
 
     public IModifierFactory Modifier<T>(Action<T> init, bool untilEndOfTurn = false) where T : Modifier, new()
     {
-      return Modifier<T>((m, c) => init(m), untilEndOfTurn);
+      return Modifier<T>(
+        init: (m, c) => init(m), 
+        untilEndOfTurn: untilEndOfTurn);
     }
 
     public IModifierFactory Modifier<T>(Initializer<T> init = null, bool untilEndOfTurn = false, int? minLevel = null,
@@ -246,6 +248,11 @@
         };
     }
 
+    public ITriggerFactory Trigger<T>(Action<T> init) where T :Trigger, new()
+    {
+      return Trigger<T>(init: (t, _) => init(t));
+    }
+    
     public ITriggerFactory Trigger<T>(Initializer<T> init = null) where T : Trigger, new()
     {
       init = init ?? delegate { };

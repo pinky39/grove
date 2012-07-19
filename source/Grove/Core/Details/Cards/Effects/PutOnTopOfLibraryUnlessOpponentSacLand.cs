@@ -1,33 +1,25 @@
 ﻿namespace Grove.Core.Details.Cards.Effects
 {
+  using System.Linq;
   using System.Windows;
   using Controllers;
   using Controllers.Results;
-  using Mana;
   using Ui;
 
-  public class PayManaOrSacrifice : Effect
+  public class PutOnTopOfLibraryUnlessOpponentSacLand : Effect
   {
-    public IManaAmount Amount { get; set; }
-
     protected override void ResolveEffect()
     {
-      if (Controller.HasMana(Amount) == false)
-      {
-        Source.OwningCard.Sacrifice();
-        return;
-      }
-
       Decisions.Enqueue<AdHocDecision<BooleanResult>>(
-        controller: Controller,
+        controller: Players.GetOpponent(Controller),
         init: p =>
           {
             p.Param("card", Source.OwningCard);
-            p.QueryAi = self => { return true; };
+            p.QueryAi = self => { return self.Controller.Battlefield.Lands.Count() >= 4; };
             p.QueryUi = shell =>
               {
                 var result = shell.ShowMessageBox(
-                  message: string.Format("Pay {0}?", Amount),
+                  message: "Sacrifice a land?",
                   buttons: MessageBoxButton.YesNo,
                   type: DialogType.Small);
 
@@ -38,11 +30,9 @@
               {
                 if (self.Result.IsTrue)
                 {
-                  self.Controller.Consume(Amount);
-                  return;
+                  self.Controller.MoveCardFromBattlefieldOnTopOfLibrary(
+                    self.Param<Card>("card"));
                 }
-
-                self.Param<Card>("card").Sacrifice();
               };
           });
     }

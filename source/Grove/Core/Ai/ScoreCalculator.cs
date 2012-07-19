@@ -104,6 +104,9 @@
       const int tappedPermanentValue = -1;
       var score = 0;
 
+      if (permanent.OverrideScore.HasValue)
+        return permanent.OverrideScore.Value;
+      
       if (permanent.IsTapped)
         score += tappedPermanentValue;
 

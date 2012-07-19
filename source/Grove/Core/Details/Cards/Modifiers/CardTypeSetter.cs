@@ -2,13 +2,13 @@
 {
   using Infrastructure;
 
-  public class CardTypeAdder : PropertyModifier<CardType>
+  public class CardTypeSetter : PropertyModifier<CardType>
   {
     private readonly CardType _type;
 
-    private CardTypeAdder() : base(null) {}
+    private CardTypeSetter() : base(null) {}
 
-    public CardTypeAdder(CardType type, ChangeTracker changeTracker) : base(changeTracker)
+    public CardTypeSetter(CardType type, ChangeTracker changeTracker) : base(changeTracker)
     {
       _type = type;
     }
@@ -17,7 +17,7 @@
 
     public override CardType Apply(CardType before)
     {
-      return before + _type;
+      return _type;
     }
   }
 }

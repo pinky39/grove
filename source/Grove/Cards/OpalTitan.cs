@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -9,6 +8,7 @@
   using Core.Details.Cards.Triggers;
   using Core.Details.Mana;
   using Core.Dsl;
+  using Core.Messages;
 
   public class OpalTitan : CardsSource
   {
@@ -31,14 +31,12 @@
               p.Builder.Modifier<ChangeToCreature>(m =>
                 {
                   m.Power = 2;
-                  m.Tougness = 2;                  
+                  m.Tougness = 2;
                   m.Type = "Creature - Giant";
                   m.Colors = ManaColors.White;
                 }),
-              p.Builder.Modifier<AddProtectionFromColors>(m =>
-                {
-                  m.Colors = p.Parameters.Trigger<SpellWasCast>().OwningCard.Colors;
-                })
+              p.Builder.Modifier<AddProtectionFromColors>(
+                m => { m.Colors = p.Parameters.Trigger<PlayerHasCastASpell>().Card.Colors; })
               ))
             , triggerOnlyIfOwningCardIsInPlay: true)
         );

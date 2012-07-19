@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -28,10 +27,8 @@
             "At the beginning of your upkeep, put a page counter on Barrin's Codex.",
             C.Trigger<AtBegginingOfStep>((t, _) => t.Step = Step.Upkeep),
             C.Effect<ApplyModifiersToSelf>(p => p.Effect.Modifiers(
-              p.Builder.Modifier<AddCounters>((m, c0) =>
-                {
-                  m.Counter = c0.Counter<ChargeCounter>();
-                })))
+              p.Builder.Modifier<AddCounters>((m, c0) => { m.Counter = c0.Counter<ChargeCounter>(); }))),
+            triggerOnlyIfOwningCardIsInPlay: true
             ),
           C.ActivatedAbility(
             "{4},{T}, Sacrifice Barrin's Codex: Draw X cards, where X is the number of page counters on Barrin's Codex.",

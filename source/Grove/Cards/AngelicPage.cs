@@ -21,6 +21,8 @@
         .Text("{Flying}{EOL}{T}: Target attacking or blocking creature gets +1/+1 until end of turn.")
         .FlavorText("If only every message were as perfect as its bearers.")
         .Timing(Timings.Creatures())
+        .Power(1)
+        .Toughness(1)
         .Abilities(
           Static.Flying,
           C.ActivatedAbility(

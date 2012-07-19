@@ -8,6 +8,11 @@
   {
     public IShell Shell { get; set; }
 
+    public ChooseToUntap()
+    {
+      Result = false;
+    }
+
     protected override void ExecuteQuery()
     {
       var result = Shell.ShowMessageBox(

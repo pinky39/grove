@@ -29,6 +29,7 @@
                 .FlavorText("'You reek of corruption,' spat the knight. 'Why are you even here?'")
                 .Power(2)
                 .Toughness(2)
+                .OverrideScore(20)
                 .Type("Creature - Token - Knight")
                 .Colors(ManaColors.White)
                 .Abilities(

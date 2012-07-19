@@ -43,6 +43,12 @@
       return calc.Calculate(_cards);
     }
 
+    public virtual void AddToFront(Card card)
+    {
+      _cards.AddToFront(card);
+      card.SetZone(Zone);
+    }
+
     public virtual void Add(Card card)
     {
       _cards.Add(card);

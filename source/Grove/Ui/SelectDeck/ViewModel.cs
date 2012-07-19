@@ -144,6 +144,7 @@
       public DeckList(string filename, CardDatabase cardDatabase)
       {
         Name = Path.GetFileNameWithoutExtension(filename);
+        DisplayName = Name.Replace("-", " ").Capitalize();
 
         var all = DeckFileReader.Read(filename);
 
@@ -170,6 +171,7 @@
       public IEnumerable<DeckFileRow> Lands { get { return _lands; } }
 
       public string Name { get; private set; }
+      public string DisplayName { get; private set; }
     }
 
     public interface IFactory

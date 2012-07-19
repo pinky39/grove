@@ -11,7 +11,7 @@
     private ColorsSetter _colorsSetter;
     private StrenghtSetter _powerSetter;
     private StrenghtSetter _toughnessSetter;
-    private CardTypeAdder _typeAdder;
+    private CardTypeSetter _typeSetter;
 
     public ManaColors Colors { get; set; }
     public Value Power { get; set; }
@@ -42,8 +42,8 @@
     public override void Apply(CardTypeCharacteristic cardType)
     {
       _cardType = cardType;
-      _typeAdder = new CardTypeAdder(Type, ChangeTracker);
-      _cardType.AddModifier(_typeAdder);
+      _typeSetter = new CardTypeSetter(Type, ChangeTracker);
+      _cardType.AddModifier(_typeSetter);
     }
 
     protected override void Unapply()
@@ -51,7 +51,7 @@
       _cardColors.RemoveModifier(_colorsSetter);
       _cardPower.RemoveModifier(_powerSetter);
       _cardToughness.RemoveModifier(_toughnessSetter);
-      _cardType.RemoveModifier(_typeAdder);
+      _cardType.RemoveModifier(_typeSetter);
     }
   }
 }

@@ -530,5 +530,11 @@
       _graveyard.Remove(card);
       _hand.Add(card);
     }
+
+    public void MoveCardFromBattlefieldOnTopOfLibrary(Card card)
+    {
+      _battlefield.Remove(card);
+      _library.PutOnTop(card);
+    }
   }
 }

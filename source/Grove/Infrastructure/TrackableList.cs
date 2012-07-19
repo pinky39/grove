@@ -72,6 +72,13 @@
       _hashDependancy.InvalidateHash();
     }
 
+    public void AddToFront(T item)
+    {
+      _items.Insert(0, item);
+      _changeTracker.NotifyValueAdded(this, item);
+      _hashDependancy.InvalidateHash();
+    }
+
     void ITrackableCollection<T>.AddWithoutTracking(T item)
     {
       _items.Add(item);

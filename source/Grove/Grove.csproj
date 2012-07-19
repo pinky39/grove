@@ -112,6 +112,7 @@
     <Compile Include="Cards\Antagonism.cs" />
     <Compile Include="Cards\ArgothianEnchantress.cs" />
     <Compile Include="Cards\ArgothianSwine.cs" />
+    <Compile Include="Cards\ArgothianWurm.cs" />
     <Compile Include="Cards\BaneslayerAngel.cs" />
     <Compile Include="Cards\BarrinsCodex.cs" />
     <Compile Include="Cards\BasiliskCollar.cs" />
@@ -252,11 +253,14 @@
     <Compile Include="Core\Controllers\ChooseToUntap.cs" />
     <Compile Include="Core\Controllers\DecisionFactory.cs" />
     <Compile Include="Core\Controllers\DecisionSelector.cs" />
+    <Compile Include="Core\Controllers\Human\AdHocDecision.cs" />
     <Compile Include="Core\Controllers\Human\ChooseToUntap.cs" />
     <Compile Include="Core\Controllers\IDecisionFactory.cs" />
+    <Compile Include="Core\Controllers\Machine\AdHocDecision.cs" />
     <Compile Include="Core\Controllers\Machine\ChooseToUntap.cs" />
     <Compile Include="Core\Controllers\ScenarioDecisions.cs" />
     <Compile Include="Core\Controllers\Scenario\ChooseToUntap.cs" />
+    <Compile Include="Core\Controllers\AdHocDecision.cs" />
     <Compile Include="Core\Details\Cards\Ability.cs" />
     <Compile Include="Core\Details\Cards\Costs\NoCost.cs" />
     <Compile Include="Core\Details\Cards\Costs\RevealCardFromHand.cs" />
@@ -264,6 +268,7 @@
     <Compile Include="Core\Details\Cards\EffectCreationContext.cs" />
     <Compile Include="Core\Details\Cards\EffectParameters.cs" />
     <Compile Include="Core\Details\Cards\Effects\MoveCardFromGraveyardToHand.cs" />
+    <Compile Include="Core\Details\Cards\Effects\PutOnTopOfLibraryUnlessOpponentSacLand.cs" />
     <Compile Include="Core\Details\Cards\Modifiers\PermanentGetsUntapedLifetime.cs" />
     <Compile Include="Core\Details\Cards\Preventions\PreventDealtDamage.cs" />
     <Compile Include="Core\Details\Cards\Preventions\PreventLifelossBelowOne.cs" />
@@ -311,9 +316,6 @@
     <Compile Include="Core\Dsl\CardBuilder.cs" />
     <Compile Include="Core\Dsl\CardFactoryEx.cs" />
     <Compile Include="Core\Dsl\LevelDefinition.cs" />
-    <Compile Include="Core\Controllers\ConsiderPayingCounterCost.cs" />
-    <Compile Include="Core\Controllers\Human\ConsiderPayingLifeOrMana.cs" />
-    <Compile Include="Core\Controllers\Machine\ConsiderPayingLifeOrMana.cs" />
     <Compile Include="Core\Controllers\Machine\DecisionExecutor.cs" />
     <Compile Include="Core\Controllers\Machine\AssignCombatDamage.cs" />
     <Compile Include="Core\Ai\BlockStrategy.cs" />
@@ -325,7 +327,6 @@
     <Compile Include="Core\Controllers\Machine\SelectStartingPlayer.cs" />
     <Compile Include="Core\Controllers\Machine\SetDamageAssignmentOrder.cs" />
     <Compile Include="Core\Controllers\Machine\SetTriggeredAbilityTarget.cs" />
-    <Compile Include="Core\Controllers\PayLifeOrManaArguments.cs" />
     <Compile Include="Core\Controllers\Scenario\DeclareAttackers.cs" />
     <Compile Include="Core\Controllers\Scenario\DeclareBlockers.cs" />
     <Compile Include="Core\Controllers\Scenario\IScenarioDecision.cs" />
@@ -441,7 +442,7 @@
     <Compile Include="Core\ICardFactory.cs" />
     <Compile Include="Core\Details\Cards\ActivatedAbilities.cs" />
     <Compile Include="Core\Details\Cards\CardColors.cs" />
-    <Compile Include="Core\Details\Cards\Modifiers\CardTypeAdder.cs" />
+    <Compile Include="Core\Details\Cards\Modifiers\CardTypeSetter.cs" />
     <Compile Include="Core\Details\Cards\Modifiers\IContinuousEffectFactory.cs" />
     <Compile Include="Core\Details\Cards\Modifiers\IModifier.cs" />
     <Compile Include="Core\Details\Cards\Modifiers\IModifierFactory.cs" />
