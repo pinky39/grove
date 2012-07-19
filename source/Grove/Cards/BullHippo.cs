@@ -7,22 +7,21 @@
   using Core.Details.Cards;
   using Core.Dsl;
 
-  public class Anaconda : CardsSource
+  public class BullHippo : CardsSource
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
       yield return C.Card
-        .Named("Anaconda")
+        .Named("Bull Hippo")
         .ManaCost("{3}{G}")
-        .Type("Creature Snake")
-        .Text("{Swampwalk} (This creature is unblockable as long as defending player controls a Swamp.)")
-        .FlavorText(
-          "If you're smaller than the anaconda, it considers you food. If you're larger than the anaconda, it considers you a lot of food.")
+        .Type("Creature Hippo")
+        .Text("{Islandwalk} (This creature is unblockable as long as defending player controls an Island.)")
+        .FlavorText("'How could you not hear it approach? It's a hippo!'{EOL}—Argivian commander")
         .Power(3)
         .Toughness(3)
         .Timing(Timings.Creatures())
         .Abilities(
-          Static.Swampwalk
+          Static.Islandwalk
         );
     }
   }

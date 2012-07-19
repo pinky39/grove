@@ -37,9 +37,9 @@
                 return spellsWithCost.Any(x =>
                   x.ManaCost.Converted == available + 1);
               };
-            p.QueryUi = shell =>
+            p.QueryUi = self =>
               {
-                var result = shell.ShowMessageBox(
+                var result = self.Shell.ShowMessageBox(
                   message: string.Format("Pay {0} life?", Life),
                   buttons: MessageBoxButton.YesNo,
                   type: DialogType.Small);

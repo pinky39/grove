@@ -17,7 +17,7 @@
           minTargetCount: Count,
           maxTargetCount: Count,
           text: string.Format("Select {0} creature(s) to sacrifice.", Count),
-          isValid: target => target.Is().Creature),
+          isValid: target => target.Is().Creature && target.Controller == Controller),
         canCancel: false
         );
 

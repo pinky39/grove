@@ -20,5 +20,6 @@
     bool Swampwalk { get; }
     bool CannotAttack { get; }
     bool CannotBlock { get; }
+    bool Islandwalk { get;  }
   }
 }

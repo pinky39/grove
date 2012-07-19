@@ -119,6 +119,7 @@
     <Compile Include="Cards\Befoul.cs" />
     <Compile Include="Cards\BloodVassal.cs" />
     <Compile Include="Cards\BrilliantHalo.cs" />
+    <Compile Include="Cards\BullHippo.cs" />
     <Compile Include="Cards\BurstLightning.cs" />
     <Compile Include="Cards\BeaconOfDestruction.cs" />
     <Compile Include="Cards\BirdsOfParadise.cs" />
@@ -129,6 +130,7 @@
     <Compile Include="Cards\Corrupt.cs" />
     <Compile Include="Cards\Counterspell.cs" />
     <Compile Include="Cards\CopperlineGorge.cs" />
+    <Compile Include="Cards\CradleGuard.cs" />
     <Compile Include="Cards\CreepingTarPit.cs" />
     <Compile Include="Cards\CruelEdict.cs" />
     <Compile Include="Cards\DayofJudgment.cs" />
@@ -156,6 +158,8 @@
     <Compile Include="Cards\FlameSlash.cs" />
     <Compile Include="Cards\FlametongueKavu.cs" />
     <Compile Include="Cards\GloriousAnthem.cs" />
+    <Compile Include="Cards\GoblinPatrol.cs" />
+    <Compile Include="Cards\GoblinWarBuggy.cs" />
     <Compile Include="Cards\GrizzlyBears.cs" />
     <Compile Include="Cards\GoForTheThroat.cs" />
     <Compile Include="Cards\GraspOfDarkness.cs" />
@@ -190,6 +194,7 @@
     <Compile Include="Cards\PhyrexianArena.cs" />
     <Compile Include="Cards\Plains.cs" />
     <Compile Include="Cards\PollutedMire.cs" />
+    <Compile Include="Cards\PouncingJaguar.cs" />
     <Compile Include="Cards\Rancor.cs" />
     <Compile Include="Cards\RazorvergeThicket.cs" />
     <Compile Include="Cards\RuneofProtectionBlack.cs" />
@@ -268,7 +273,7 @@
     <Compile Include="Core\Details\Cards\EffectCreationContext.cs" />
     <Compile Include="Core\Details\Cards\EffectParameters.cs" />
     <Compile Include="Core\Details\Cards\Effects\MoveCardFromGraveyardToHand.cs" />
-    <Compile Include="Core\Details\Cards\Effects\PutOnTopOfLibraryUnlessOpponentSacLand.cs" />
+    <Compile Include="Core\Details\Cards\Effects\PutOnTopOfLibraryUnlessOpponentSacsLand.cs" />
     <Compile Include="Core\Details\Cards\Modifiers\PermanentGetsUntapedLifetime.cs" />
     <Compile Include="Core\Details\Cards\Preventions\PreventDealtDamage.cs" />
     <Compile Include="Core\Details\Cards\Preventions\PreventLifelossBelowOne.cs" />

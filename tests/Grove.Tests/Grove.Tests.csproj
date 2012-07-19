@@ -90,6 +90,7 @@
     <Compile Include="Cards\AngelicChorus.cs" />
     <Compile Include="Cards\Antagonism.cs" />
     <Compile Include="Cards\ArgothianEnchantress.cs" />
+    <Compile Include="Cards\ArgothianWurm.cs" />
     <Compile Include="Cards\BaneslayerAngel.cs" />
     <Compile Include="Cards\BarrinsCodex.cs" />
     <Compile Include="Cards\Befoul.cs" />

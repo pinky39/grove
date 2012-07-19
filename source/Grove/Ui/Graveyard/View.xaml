@@ -17,7 +17,9 @@
                                 </cal:ActionMessage>
                             </i:EventTrigger>
                             <i:EventTrigger EventName = "MouseUp" >
-                                <cal:ActionMessage MethodName = "Select" />
+                                <cal:ActionMessage MethodName = "Select" >
+                                    <cal:Parameter Value = "{Binding}" />
+                                </cal:ActionMessage>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </ContentControl>

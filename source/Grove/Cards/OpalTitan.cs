@@ -30,8 +30,8 @@
             C.Effect<ApplyModifiersToSelf>(p => p.Effect.Modifiers(
               p.Builder.Modifier<ChangeToCreature>(m =>
                 {
-                  m.Power = 2;
-                  m.Tougness = 2;
+                  m.Power = 4;
+                  m.Tougness = 4;
                   m.Type = "Creature - Giant";
                   m.Colors = ManaColors.White;
                 }),

@@ -377,6 +377,9 @@
       if (Has().Swampwalk && card.Controller.Battlefield.Any(x => x.Is("swamp")))
         return false;
 
+      if (Has().Islandwalk && card.Controller.Battlefield.Any(x => x.Is("island")))
+        return false;
+
       return true;
     }
 

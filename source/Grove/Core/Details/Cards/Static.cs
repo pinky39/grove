@@ -19,6 +19,7 @@
     Vigilance,
     Swampwalk,
     CannotBlock,
-    CannotAttack
+    CannotAttack,
+    Islandwalk
   }
 }

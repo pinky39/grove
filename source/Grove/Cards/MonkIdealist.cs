@@ -29,7 +29,7 @@
             C.Trigger<ChangeZone>((t, _) => t.To = Zone.Battlefield),
             C.Effect<MoveCardFromGraveyardToHand>(),
             targetSelector: C.Selector(
-              Selectors.CardInGraveyard(card => card.Is().Enchantment), mustBeTargetable: false),
+              Selectors.CardInGraveyard(card => card.Is().Enchantment), mustBeTargetable: false, text: "Select an enchantment in your graveyard."),
             targetFilter: TargetFilters.OrderByDescendingScore()
             )
         );

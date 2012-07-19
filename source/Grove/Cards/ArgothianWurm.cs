@@ -27,8 +27,7 @@
           C.TriggeredAbility(
             "When Argothian Wurm enters the battlefield, any player may sacrifice a land. If a player does, put Argothian Wurm on top of its owner's library.",
             C.Trigger<ChangeZone>(t => t.To = Zone.Battlefield),
-            C.Effect<PutOnTopOfLibraryUnlessOpponentSacLand>()
-            ));
+            C.Effect<PutOnTopOfLibraryUnlessOpponentSacsLand>()));
     }
   }
 }

@@ -29,8 +29,8 @@
           CreatureSlot(),
           CreatureSlot(),
           CreatureSlot(),
-          CreatureSlot(),
-          CreatureSlot(),
+          MiscSlot(),
+          MiscSlot(),
           MiscSlot()
           ),
       };
