@@ -9,7 +9,7 @@
     public Value Amount = 0;
     public bool GainLife;
 
-    public int PlayerDamage(Player player)
+    public int PlayerDamage(IPlayer player)
     {
       return player == Target() ? Amount.GetValue(X) : 0;
     }

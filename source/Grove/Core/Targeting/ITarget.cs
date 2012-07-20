@@ -7,6 +7,7 @@
   using Details.Cards.Modifiers;
   using Details.Mana;
   using Infrastructure;
+  using Zones;
 
   public interface ITarget : IHashable
   {
@@ -40,7 +41,7 @@
 
     public static bool IsPermanent(this ITarget target)
     {
-      return target.IsCard() && target.Card().IsPermanent;
+      return target.IsCard() && target.Card().Zone == Zone.Battlefield;
     }
 
     public static bool IsCard(this ITarget target)
@@ -116,6 +117,7 @@
       public bool Legendary { get { return false; } }
       public bool Sorcery { get { return false; } }
       public bool Token { get { return false; } }
+      public bool Aura { get { return false; } }
 
       public bool OfType(string type)
       {

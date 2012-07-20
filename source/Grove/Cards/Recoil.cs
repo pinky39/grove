@@ -19,7 +19,7 @@
         .FlavorText("Anything sent into a plagued world is bound to come back infected.")
         .Timing(Timings.TargetRemovalInstant())
         .Category(EffectCategories.Bounce)
-        .Effect<ReturnTargetPermanentToHand>(e => e.Discard = 1)
+        .Effect<ReturnTargetCardToHand>(e => e.Discard = 1)
         .Targets(
           filter: TargetFilters.Bounce(),
           effect: C.Selector(Selectors.Permanent()));

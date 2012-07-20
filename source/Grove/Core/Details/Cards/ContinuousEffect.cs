@@ -13,7 +13,7 @@
   {
     public delegate bool ShouldApplyToCard(Card card, Card effectSource);
 
-    public delegate bool ShouldApplyToPlayer(Player player, Card effectSource);
+    public delegate bool ShouldApplyToPlayer(IPlayer player, Card effectSource);
 
     private readonly ChangeTracker _changeTracker;
 

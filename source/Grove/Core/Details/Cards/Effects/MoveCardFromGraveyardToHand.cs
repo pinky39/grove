@@ -6,7 +6,7 @@
   {
     protected override void ResolveEffect()
     {
-      Controller.MoveCardFromGraveyardToHand(Target().Card());      
+      Target().Card().ReturnToHand();            
     }
   }
 }

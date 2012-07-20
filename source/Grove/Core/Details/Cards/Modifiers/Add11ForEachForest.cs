@@ -41,7 +41,8 @@
 
     protected override void Initialize()
     {
-      _increment = new Increment(GetForestCount(Source.Controller), ChangeTracker);
+      _increment = new Increment(
+        GetForestCount(Source.Controller), ChangeTracker);
     }
 
     protected override void Unapply()
@@ -50,7 +51,7 @@
       _tougness.RemoveModifier(_increment);
     }
 
-    private static int GetForestCount(Player player)
+    private static int GetForestCount(IPlayer player)
     {
       return player.Battlefield.Count(x => x.Is("forest"));
     }

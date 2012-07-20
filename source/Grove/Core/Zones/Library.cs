@@ -6,7 +6,7 @@
 
   public class Library : OrderedZone
   {
-    public Library(IEnumerable<Card> cards, ChangeTracker changeTracker) : base(cards, changeTracker) {}
+    public Library(IEnumerable<Card> cards, Game game) : base(cards, game) {}
 
     private Library()
     {
@@ -14,33 +14,12 @@
     }
 
     public override Zone Zone { get { return Zone.Library; } }
-
-    public Card Draw()
-    {
-      var top = this.FirstOrDefault();
-
-      if (top == null)
-        return null;
-
-      Remove(top);
-
-      return top;
-    }
+    public Card Top { get { return this.FirstOrDefault(); } }       
 
     public override int CalculateHash(HashCalculator calc)
     {
       return Count;
-    }
-
-    public void Shuffle(IEnumerable<Card> cards)
-    {
-      foreach (var card in cards)
-      {
-        Add(card);
-      }
-
-      Shuffle();
-    }
+    }   
 
     public void PutOnTop(Card card)
     {

@@ -8,7 +8,7 @@
     public Action Assertion { get; set; }
 
 
-    public void Init(Game game, Player controller)
+    public void Init(Game game, IPlayer controller)
     {
       _game = game;
     }

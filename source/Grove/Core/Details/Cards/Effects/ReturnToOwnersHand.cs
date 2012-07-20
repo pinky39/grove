@@ -4,7 +4,7 @@
   {
     protected override void ResolveEffect()
     {
-      Controller.ReturnToHand(Source.OwningCard);
+      Source.OwningCard.ReturnToHand();
     }
   }
 }

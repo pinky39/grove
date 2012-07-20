@@ -2,7 +2,7 @@
 {
   public interface IDamageDealing
   {
-    int PlayerDamage(Player player);
+    int PlayerDamage(IPlayer player);
     int CreatureDamage(Card creature);
   }
 }

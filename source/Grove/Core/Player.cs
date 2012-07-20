@@ -3,7 +3,6 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Details.Cards;
   using Details.Cards.Modifiers;
   using Details.Cards.Preventions;
   using Details.Cards.Redirections;
@@ -14,15 +13,8 @@
   using Targeting;
   using Zones;
 
-  public enum PlayerType
-  {
-    Computer,
-    Human,
-    Scenario
-  }
-  
   [Copyable]
-  public class Player : ITarget, IDamageable
+  public class Player : ICardOwner, ICardController
   {
     private readonly AssignedDamage _assignedDamage;
     private readonly Trackable<bool> _canPlayLands;
@@ -36,47 +28,63 @@
     private readonly ManaPool _manaPool;
     private readonly TrackableList<IModifier> _modifiers;
     private readonly Publisher _publisher;
+    private readonly PlayerType _type;
     private Battlefield _battlefield;
+    private Exile _exile;
     private Graveyard _graveyard;
     private Hand _hand;
     private Library _library;
     private ManaSources _manaSources;
-    private readonly PlayerType _type;
 
     public Player(
       string name,
       string avatar,
       PlayerType type,
       string deck,
-      ChangeTracker changeTracker,
-      Publisher publisher,
+      Game game, 
       DeckFactory deckFactory)
     {
-      _publisher = publisher;
+      _publisher = game.Publisher;
 
       Name = name;
       Avatar = avatar;
       _type = type;
 
-      _life = new Life(20, changeTracker);
-      _canPlayLands = new Trackable<bool>(true, changeTracker);
-      _hasMulligan = new Trackable<bool>(true, changeTracker);
-      _hasLost = new Trackable<bool>(changeTracker);
-      _isActive = new Trackable<bool>(changeTracker);
-      _hasPriority = new Trackable<bool>(changeTracker);
-      _manaPool = Bindable.Create<ManaPool>(changeTracker);
-      _modifiers = new TrackableList<IModifier>(changeTracker);
-      _damagePreventions = new DamagePreventions(changeTracker, null);
-      _damageRedirections = new DamageRedirections(changeTracker, null);
-      _assignedDamage = new AssignedDamage(this, changeTracker);
+      _life = new Life(20, game.ChangeTracker);
+      _canPlayLands = new Trackable<bool>(true, game.ChangeTracker);
+      _hasMulligan = new Trackable<bool>(true, game.ChangeTracker);
+      _hasLost = new Trackable<bool>(game.ChangeTracker);
+      _isActive = new Trackable<bool>(game.ChangeTracker);
+      _hasPriority = new Trackable<bool>(game.ChangeTracker);
+      _manaPool = Bindable.Create<ManaPool>(game.ChangeTracker);
+      _modifiers = new TrackableList<IModifier>(game.ChangeTracker);
+      _damagePreventions = new DamagePreventions(game.ChangeTracker, null);
+      _damageRedirections = new DamageRedirections(game.ChangeTracker, null);
+      _assignedDamage = new AssignedDamage(this, game.ChangeTracker);
 
       var cards = deckFactory.CreateDeck(deck, this);
 
-      SetupZones(cards, changeTracker);
+      CreateZones(cards, game);
       InitializeManaSources();
     }
 
     private Player() {}
+    public object ManaPool { get { return _manaPool; } }
+    public string Name { get; private set; }
+
+    private IEnumerable<IModifiable> ModifiableProperties
+    {
+      get
+      {
+        yield return _damagePreventions;
+        yield return _damageRedirections;
+      }
+    }
+
+    public void PutCardToBattlefield(Card card)
+    {
+      _battlefield.Add(card);
+    }
 
     public string Avatar { get; private set; }
     public IBattlefieldQuery Battlefield { get { return _battlefield; } }
@@ -85,7 +93,6 @@
     public IEnumerable<Card> Graveyard { get { return _graveyard; } }
     public IHandQuery Hand { get { return _hand; } }
     public bool HasLost { get { return _hasLost.Value; } set { _hasLost.Value = value; } }
-    public bool HasManaInPool { get { return !_manaPool.IsEmpty; } }
     public bool HasMulligan { get { return _hasMulligan.Value; } set { _hasMulligan.Value = value; } }
     public bool HasPriority { get { return _hasPriority.Value; } set { _hasPriority.Value = value; } }
     public virtual bool IsActive { get { return _isActive.Value; } set { _isActive.Value = value; } }
@@ -108,9 +115,6 @@
       }
     }
 
-    public object ManaPool { get { return _manaPool; } }
-    public string Name { get; private set; }
-
     public int NumberOfCardsAboveMaximumHandSize { get { return Math.Max(0, _hand.Count - 7); } }
 
     public int Score
@@ -126,15 +130,6 @@
     }
 
     public int ConvertedMana { get { return _manaSources.GetMaxConvertedMana(); } }
-
-    private IEnumerable<IModifiable> ModifiableProperties
-    {
-      get
-      {
-        yield return _damagePreventions;
-        yield return _damageRedirections;
-      }
-    }
 
     public void DealDamage(Damage damage)
     {
@@ -190,11 +185,6 @@
       modifier.Dispose();
     }
 
-    public void AddManaSources(IEnumerable<IManaSource> manaSources)
-    {
-      _manaSources.Add(manaSources);
-    }
-
     public void AddManaToManaPool(IManaAmount manaAmount)
     {
       _manaPool.Add(manaAmount);
@@ -203,19 +193,6 @@
     public void AssignDamage(Damage damage)
     {
       _assignedDamage.Assign(damage);
-    }
-
-    public void CycleCard(Card card)
-    {
-      _hand.Remove(card);      
-      card.CycleInternal();
-      Publish(new PlayerHasCycledCard(card));
-    }
-
-    public void CastSpell(Card spell, ActivationParameters activationParameters)
-    {
-      _hand.Remove(spell);     
-      spell.CastInternal(activationParameters);      
     }
 
     public void Consume(IManaAmount amount, IManaSource tryNotToConsumeThisSource = null)
@@ -228,25 +205,8 @@
       _assignedDamage.Deal();
     }
 
-    public void DestroyCard(Card card, bool allowRegenerate)
-    {
-      if (card.Has().Indestructible)
-      {
-        return;
-      }
-
-      if (card.CanRegenerate && allowRegenerate)
-      {
-        card.Regenerate();
-        return;
-      }
-
-      PutCardToGraveyardFromPlay(card);
-    }
-
     public void DiscardCard(Card card)
     {
-      _hand.Remove(card);
       _graveyard.Add(card);
     }
 
@@ -269,7 +229,7 @@
 
     public void DrawCard()
     {
-      var card = _library.Draw();
+      var card = _library.Top;
 
       if (card == null)
       {
@@ -341,24 +301,25 @@
       {
         if (creature.Toughness <= 0)
         {
-          SacrificeCard(creature);
+          creature.Sacrifice();
           continue;
         }
 
         if (creature.HasLeathalDamage || creature.CalculateLifepointsLeft() <= 0)
         {
-          DestroyCard(creature, allowRegenerate: true);
+          creature.Destroy(allowToRegenerate: true);
         }
       }
     }
 
-    public void PutCardIntoPlay(Card card)
-    {
-      _battlefield.Add(card);
-    }
-
     public void PutCardToGraveyard(Card card)
     {
+      if (card.Is().Token)
+      {
+        _exile.Add(card);
+        return;
+      }
+
       _graveyard.Add(card);
     }
 
@@ -378,26 +339,7 @@
       }
     }
 
-    public void ReturnToHand(Card card)
-    {
-      switch (card.Zone)
-      {
-        case (Zone.Battlefield):
-          PutCardToHandFromPlay(card);
-          break;
-
-        case (Zone.Graveyard):
-          PutCardToHandFromGraveyard(card);
-          break;
-      }
-    }
-
-    public void SacrificeCard(Card card)
-    {
-      PutCardToGraveyardFromPlay(card);
-    }
-
-    public void SetAiVisibility(Player playerOnTheMove)
+    public void SetAiVisibility(IPlayer playerOnTheMove)
     {
       _library.Hide();
       _battlefield.Show();
@@ -414,7 +356,8 @@
 
     public void ShuffleIntoLibrary(Card card)
     {
-      _library.Shuffle(card.ToEnumerable());
+      _library.Add(card);
+      _library.Shuffle();
     }
 
     public void ShuffleLibrary()
@@ -429,8 +372,12 @@
 
       var mulliganSize = _hand.MulliganSize;
 
-      _library.Shuffle(_hand);
-      _hand.Discard();
+      foreach (var card in Hand)
+      {
+        _library.Add(card);
+      }
+
+      _library.Shuffle();
 
       for (var i = 0; i < mulliganSize; i++)
       {
@@ -438,6 +385,50 @@
       }
 
       HasMulligan = true;
+    }
+
+    public void PutCardToExile(Card card)
+    {
+      _exile.Add(card);
+    }
+
+    public void Mill(int count)
+    {
+      for (var i = 0; i < count; i++)
+      {
+        var card = _library.Top;
+
+        if (card == null)
+          return;
+
+        _graveyard.Add(card);
+      }
+    }
+
+    public void PutCardToHand(Card card)
+    {
+      if (card.Is().Token)
+      {
+        _exile.Add(card);
+        return;
+      }
+
+      _hand.Add(card);
+    }
+
+    public void PutCardOnTopOfLibrary(Card card)
+    {
+      _library.PutOnTop(card);
+    }
+
+    public void GainControl(Card card)
+    {
+      // todo
+    }
+
+    public void AddManaSources(IEnumerable<IManaSource> manaSources)
+    {
+      _manaSources.Add(manaSources);
     }
 
     public override string ToString()
@@ -462,79 +453,18 @@
       _publisher.Publish(message);
     }
 
-    private void PutCardToGraveyardFromPlay(Card card)
+    private void CreateZones(IEnumerable<Card> cards, Game game)
     {
-      _battlefield.Remove(card);
-
-      if (card.Is().Token)
-      {
-        card.SetZone(Zone.Exiled);
-        return;
-      }
-
-      _graveyard.Add(card);
-    }
-
-    private void PutCardToHandFromGraveyard(Card card)
-    {
-      _graveyard.Remove(card);
-      _hand.Add(card);
-    }
-
-    private void PutCardToHandFromPlay(Card card)
-    {
-      _battlefield.Remove(card);
-
-      if (card.Is().Token)
-      {
-        card.SetZone(Zone.Exiled);
-        return;
-      }
-
-      _hand.Add(card);
-    }
-
-    private void SetupZones(IEnumerable<Card> cards, ChangeTracker changeTracker)
-    {
-      _battlefield = Bindable.Create<Battlefield>(changeTracker);
-      _hand = Bindable.Create<Hand>(changeTracker);
-      _graveyard = Bindable.Create<Graveyard>(changeTracker);
-      _library = Bindable.Create<Library>(cards, changeTracker);
-    }
-
-    public void ExileCard(Card card)
-    {
-      _battlefield.Remove(card);
-      card.SetZone(Zone.Exiled);
-    }
-
-    public void Mill(int count)
-    {
-      for (var i = 0; i < count; i++)
-      {
-        var card = _library.Draw();
-        if (card == null)
-          return;
-
-        PutCardToGraveyard(card);
-      }
+      _battlefield = Bindable.Create<Battlefield>(game);
+      _hand = Bindable.Create<Hand>(game);
+      _graveyard = Bindable.Create<Graveyard>(game);
+      _library = Bindable.Create<Library>(cards, game);
+      _exile = Bindable.Create<Exile>(game);
     }
 
     public interface IFactory
     {
       Player Create(string name, string avatar, PlayerType type, string deck);
-    }
-
-    public void MoveCardFromGraveyardToHand(Card card)
-    {
-      _graveyard.Remove(card);
-      _hand.Add(card);
-    }
-
-    public void MoveCardFromBattlefieldOnTopOfLibrary(Card card)
-    {
-      _battlefield.Remove(card);
-      _library.PutOnTop(card);
     }
   }
 }

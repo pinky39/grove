@@ -23,8 +23,8 @@
     public Card Card { get; private set; }
     public ActivationParameters Activation { get; private set; }
     public Step Step { get { return Game.Turn.Step; } }
-    public Player Controller { get { return Card.Controller; } }
-    public Player Opponent { get { return Game.Players.GetOpponent(Controller); } }
+    public IPlayer Controller { get { return Card.Controller; } }
+    public IPlayer Opponent { get { return Game.Players.GetOpponent(Controller); } }
     public Effect TopSpell { get { return Game.Stack.TopSpell; } }
     public IEnumerable<Attacker> Attackers { get { return Game.Combat.Attackers; } }
     public bool IsAttached { get { return Card.IsAttached; } }

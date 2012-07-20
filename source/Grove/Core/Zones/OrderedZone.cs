@@ -4,18 +4,21 @@
   using System.Collections.Generic;
   using System.Linq;
   using Infrastructure;
+  using Messages;
 
   [Copyable]
-  public abstract class OrderedZone : IEnumerable<Card>, IHashable
+  public abstract class OrderedZone : IEnumerable<Card>, IHashable, IZone
   {
     private readonly TrackableList<Card> _cards;
+    private readonly Publisher _publisher;
 
-    protected OrderedZone(IEnumerable<Card> cards, ChangeTracker changeTracker)
-    {
-      _cards = new TrackableList<Card>(cards, changeTracker, orderImpactsHashcode: true);
+    protected OrderedZone(IEnumerable<Card> cards, Game game)
+    {      
+      _cards = new TrackableList<Card>(cards, game.ChangeTracker, orderImpactsHashcode: true);
+      _publisher = game.Publisher;
     }
 
-    protected OrderedZone(ChangeTracker changeTracker) : this(new Card[] {}, changeTracker) {}
+    protected OrderedZone(Game game) : this(new Card[] {}, game) {}
 
     protected OrderedZone()
     {
@@ -25,8 +28,6 @@
     public int Count { get { return _cards.Count; } }
 
     public bool IsEmpty { get { return _cards.Count == 0; } }
-
-    public abstract Zone Zone { get; }
 
     public IEnumerator<Card> GetEnumerator()
     {
@@ -43,16 +44,32 @@
       return calc.Calculate(_cards);
     }
 
+    public abstract Zone Zone { get; }
+
+    void IZone.Remove(Card card)
+    {
+      Remove(card);
+    }
+
     public virtual void AddToFront(Card card)
     {
+      card.ChangeZoneTo(this);
       _cards.AddToFront(card);
-      card.SetZone(Zone);
     }
 
     public virtual void Add(Card card)
     {
+      var oldZone = card.Zone;
+      
+      card.ChangeZoneTo(this);
       _cards.Add(card);
-      card.SetZone(Zone);
+
+      _publisher.Publish(new CardChangedZone
+      {
+        Card = card,
+        From = oldZone,
+        To = Zone
+      });
     }
 
     public virtual void Clear()
@@ -81,7 +98,8 @@
       }
     }
 
-    public virtual void Remove(Card card)
+
+    protected virtual void Remove(Card card)
     {
       _cards.Remove(card);
     }

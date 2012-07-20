@@ -37,9 +37,7 @@
         {
           Target().Card().AddModifier(modifier);
         }
-      }
-
-      Target().Card().Controller.PutCardIntoPlay(Source.OwningCard);
+      }      
     }
   }
 }

@@ -4,7 +4,7 @@
   {
     string Name { get; }
 
-    Card CreateCard(Player controller);
+    Card CreateCard(IPlayer owner);
     Card CreateCardPreview();
   }
 }

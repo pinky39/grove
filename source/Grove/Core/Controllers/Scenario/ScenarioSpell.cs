@@ -9,7 +9,7 @@
   {
     public ScenarioSpell(Card card, ActivationParameters activationParameters) : base(card, activationParameters) {}
 
-    private Player Controller { get { return Card.Controller; } }
+    private IPlayer Controller { get { return Card.Controller; } }
 
     public override bool CanPlay()
     {

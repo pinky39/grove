@@ -4,15 +4,18 @@
   using System.Collections.Generic;
   using System.Linq;
   using Infrastructure;
+  using Messages;
 
   [Copyable]
-  public abstract class UnorderedZone : IEnumerable<Card>, IHashable
+  public abstract class UnorderedZone : IEnumerable<Card>, IHashable, IZone
   {
     private readonly TrackableList<Card> _cards;
+    private readonly Publisher _publisher;
 
-    protected UnorderedZone(ChangeTracker changeTracker)
+    protected UnorderedZone(Game game)
     {
-      _cards = new TrackableList<Card>(changeTracker);
+      _publisher = game.Publisher;
+      _cards = new TrackableList<Card>(game.ChangeTracker);
     }
 
     protected UnorderedZone()
@@ -35,8 +38,6 @@
       }
     }
 
-    public abstract Zone Zone { get; }
-
     public IEnumerator<Card> GetEnumerator()
     {
       return _cards.GetEnumerator();
@@ -52,10 +53,31 @@
       return calc.Calculate(_cards);
     }
 
+    public abstract Zone Zone { get; }
+
+    void IZone.Remove(Card card)
+    {
+      Remove(card);
+    }
+
+    protected virtual void AfterAdd(Card card) {}
+    protected virtual void AfterRemove(Card card) {}
+
     public virtual void Add(Card card)
     {
+      var oldZone = card.Zone;
+
+      card.ChangeZoneTo(this);
       _cards.Add(card);
-      card.SetZone(Zone);
+
+      AfterAdd(card);
+
+      _publisher.Publish(new CardChangedZone
+        {
+          Card = card,
+          From = oldZone,
+          To = Zone
+        });
     }
 
     public void Hide()
@@ -74,7 +96,8 @@
       }
     }
 
-    public virtual void Remove(Card card)
+
+    protected virtual void Remove(Card card)
     {
       _cards.Remove(card);
     }
@@ -83,11 +106,6 @@
     {
       return string.Join(",", _cards.Select(
         card => card.ToString()));
-    }
-
-    protected virtual void Clear()
-    {
-      _cards.Clear();
     }
   }
 }

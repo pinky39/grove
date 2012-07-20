@@ -19,7 +19,7 @@
         
         RunGame(maxTurnCount: 2);
 
-        Equal(Zone.Exiled, C(force).Zone);
+        Equal(Zone.Exile, C(force).Zone);
         Equal(27, P2.Life);
       }
     }

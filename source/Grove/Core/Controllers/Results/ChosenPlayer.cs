@@ -5,11 +5,11 @@
   [Copyable]
   public class ChosenPlayer
   {
-    public Player Player { get; set; }
-
-    public static implicit operator ChosenPlayer(Player player)
+    public ChosenPlayer(IPlayer player)
     {
-      return new ChosenPlayer {Player = player};
+      Player = player;
     }
+
+    public IPlayer Player { get; private set; }    
   }
 }

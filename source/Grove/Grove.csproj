@@ -208,6 +208,7 @@
     <Compile Include="Cards\SanctumGuardian.cs" />
     <Compile Include="Cards\SavannahLions.cs" />
     <Compile Include="Cards\SerrasEmbrace.cs" />
+    <Compile Include="Cards\ShivanRaptor.cs" />
     <Compile Include="Cards\Sicken.cs" />
     <Compile Include="Cards\SilentAttendant.cs" />
     <Compile Include="Cards\Songstitcher.cs" />
@@ -226,6 +227,7 @@
     <Compile Include="Cards\Swamp.cs" />
     <Compile Include="Cards\SwordOfFeastAndFamine.cs" />
     <Compile Include="Cards\SwordsToPlowshares.cs" />
+    <Compile Include="Cards\ThunderingGiant.cs" />
     <Compile Include="Cards\TrainedArmodon.cs" />
     <Compile Include="Cards\ThrunTheLastTroll.cs" />
     <Compile Include="Cards\TimeWarp.cs" />
@@ -248,6 +250,7 @@
     <Compile Include="Cards\WallOfReverence.cs" />
     <Compile Include="Cards\Waylay.cs" />
     <Compile Include="Cards\WhiteKnight.cs" />
+    <Compile Include="Cards\WildDogs.cs" />
     <Compile Include="Cards\Worship.cs" />
     <Compile Include="Cards\WurmcoilEngine.cs" />
     <Compile Include="Cards\WallOfDenial.cs" />
@@ -272,6 +275,7 @@
     <Compile Include="Core\Details\Cards\Costs\TapAndSacOwnerPayMana.cs" />
     <Compile Include="Core\Details\Cards\EffectCreationContext.cs" />
     <Compile Include="Core\Details\Cards\EffectParameters.cs" />
+    <Compile Include="Core\Details\Cards\Effects\ChangeOwnership.cs" />
     <Compile Include="Core\Details\Cards\Effects\MoveCardFromGraveyardToHand.cs" />
     <Compile Include="Core\Details\Cards\Effects\PutOnTopOfLibraryUnlessOpponentSacsLand.cs" />
     <Compile Include="Core\Details\Cards\Modifiers\PermanentGetsUntapedLifetime.cs" />
@@ -289,8 +293,12 @@
     <Compile Include="Core\Details\Cards\Effects\SacrificeSource.cs" />
     <Compile Include="Core\Details\Cards\IStaticAbilities.cs" />
     <Compile Include="Core\Details\Mana\ManaSourcePriorities.cs" />
+    <Compile Include="Core\ICardController.cs" />
+    <Compile Include="Core\ICardOwner.cs" />
+    <Compile Include="Core\IPlayer.cs" />
     <Compile Include="Core\Messages\AssignedCombatDamageWasDealt.cs" />
     <Compile Include="Core\Messages\PermanentGetsUntapped.cs" />
+    <Compile Include="Core\PlayerType.cs" />
     <Compile Include="Core\Targeting\ITargetSelector.cs" />
     <Compile Include="Core\Targeting\ITargetSelectorFactory.cs" />
     <Compile Include="Core\Details\Cards\Modifiers\AddDamageRedirection.cs" />
@@ -361,7 +369,7 @@
     <Compile Include="Core\Details\Cards\Effects\PayLifeOrTap.cs" />
     <Compile Include="Core\Details\Cards\Effects\PayManaOrSacrifice.cs" />
     <Compile Include="Core\Details\Cards\Effects\ReturnAllPermanentsToHand.cs" />
-    <Compile Include="Core\Details\Cards\Effects\ReturnTargetPermanentToHand.cs" />
+    <Compile Include="Core\Details\Cards\Effects\ReturnTargetCardToHand.cs" />
     <Compile Include="Core\Details\Cards\Effects\DestroySource.cs" />
     <Compile Include="Core\Details\Cards\Effects\ReturnToOwnersHand.cs" />
     <Compile Include="Core\Details\Cards\Effects\TapTargetCreature.cs" />
@@ -398,6 +406,10 @@
     <Compile Include="Core\Details\Cards\Triggers\OpponentWasNotDealtDamageThisTurn.cs" />
     <Compile Include="Core\Targeting\Selectors.cs" />
     <Compile Include="Core\Details\Mana\ZeroManaAmount.cs" />
+    <Compile Include="Core\Zones\Exile.cs" />
+    <Compile Include="Core\Zones\IBattlefieldQuery.cs" />
+    <Compile Include="Core\Zones\IHandQuery.cs" />
+    <Compile Include="Core\Zones\IZone.cs" />
     <Compile Include="Infrastructure\AssemblyEx.cs" />
     <Compile Include="Infrastructure\Chaining.cs" />
     <Compile Include="Infrastructure\UiScopeAccessor.cs" />

@@ -12,7 +12,7 @@
     private bool _mustBeTargetable = true;
     private string _textFormat = "Select a target.";
     private TargetValidatorDelegate _validator = delegate { return true; };
-    public Player Controller { get { return Source.Controller; } }
+    public IPlayer Controller { get { return Source.Controller; } }
     public bool MustBeTargetable { get { return _mustBeTargetable; } set { _mustBeTargetable = value; } }
     public Card Source { get; private set; }
     public string TextFormat { get { return _textFormat; } set { _textFormat = value; } }

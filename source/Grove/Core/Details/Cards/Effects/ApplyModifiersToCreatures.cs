@@ -30,7 +30,7 @@
       }
     }
 
-    private void ApplyModifierToPlayersCreatures(Player player)
+    private void ApplyModifierToPlayersCreatures(IPlayer player)
     {
       foreach (var creature in player.Battlefield.Creatures)
       {

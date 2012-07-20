@@ -18,7 +18,8 @@
         foreach (var tokenFactory in _tokenFactories)
         {
           var token = tokenFactory.CreateCard(Controller);
-          Controller.PutCardIntoPlay(token);
+          token.PutToBattlefield();
+          
           AfterTokenComesToPlay(token, Game);
         }
       }

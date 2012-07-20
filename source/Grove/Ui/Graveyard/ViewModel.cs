@@ -7,7 +7,7 @@
 
   public class ViewModel : IReceive<SelectionModeChanged>
   {
-    private readonly Player _player;
+    private readonly IPlayer _player;
     private readonly Publisher _publisher;
     private Action<Card> _select = delegate { };
 
@@ -55,7 +55,7 @@
 
     public interface IFactory
     {
-      ViewModel Create(Player player);
+      ViewModel Create(IPlayer player);
     }
   }
 }

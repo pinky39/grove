@@ -18,14 +18,14 @@
       if (!Filter(Ability, message.Card))
         return;
 
-      if (message.From == Zone.Undefined)
+      if (message.From == Zone.None)
         return;
 
-      if (From == Zone.Undefined && To == message.To)
+      if (From == Zone.None && To == message.To)
         Set(message);
       else if (From == message.From && To == message.To)
         Set(message);
-      else if (From == message.From && To == Zone.Undefined)
+      else if (From == message.From && To == Zone.None)
         Set(message);
     }
   }

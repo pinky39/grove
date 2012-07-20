@@ -10,7 +10,7 @@
     public bool DealToCreature { get { return AmountCreature != null; } }
     public bool DealToPlayer { get { return AmountPlayer != null; } }
 
-    public int PlayerDamage(Player player)
+    public int PlayerDamage(IPlayer player)
     {
       return DealToPlayer ? AmountPlayer.Value : 0;
     }

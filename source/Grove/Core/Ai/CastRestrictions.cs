@@ -17,7 +17,7 @@
       _turn = turn;
     }
 
-    public bool IsPlayRestrictedFor(Player player)
+    public bool IsPlayRestrictedFor(IPlayer player)
     {
       if (IsTopSpellControlledBy(player))
         return true;
@@ -28,13 +28,13 @@
       return !IsThisAppropriateTimeToPlaySpells(player);
     }
 
-    private bool IsResponseToOpponentSpell(Player player)
+    private bool IsResponseToOpponentSpell(IPlayer player)
     {
       return
         !_stack.IsEmpty && _stack.TopSpellOwner != player;
     }
 
-    private bool IsThisAppropriateTimeToPlaySpells(Player player)
+    private bool IsThisAppropriateTimeToPlaySpells(IPlayer player)
     {
       switch (_turn.Step)
       {
@@ -61,7 +61,7 @@
       return false;
     }
 
-    private bool IsTopSpellControlledBy(Player player)
+    private bool IsTopSpellControlledBy(IPlayer player)
     {
       return _stack.TopSpellOwner == player;
     }

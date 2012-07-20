@@ -18,6 +18,7 @@
     bool Legendary { get; }
     bool Sorcery { get; }
     bool Token { get; }
+    bool Aura { get; }
 
     bool OfType(string type);
   }
@@ -69,6 +70,7 @@
     public bool Legendary { get { return _isLegendary; } }
     public bool Sorcery { get { return Is("sorcery"); } }
     public bool Token { get { return Is("token"); } }
+    public bool Aura { get { return Is("aura"); } }
 
     public bool OfType(string type)
     {

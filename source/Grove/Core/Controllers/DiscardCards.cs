@@ -20,8 +20,8 @@
       }
 
       foreach (var card in Result)
-      {
-        Controller.DiscardCard(card);
+      {                
+        card.Discard();
       }
     }
   }

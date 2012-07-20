@@ -17,7 +17,7 @@
 
     public override void Play()
     {
-      Card.Controller.CastSpell(Card, ActivationParameters);
+      Card.Cast(ActivationParameters);      
     }
 
     public override string ToString()

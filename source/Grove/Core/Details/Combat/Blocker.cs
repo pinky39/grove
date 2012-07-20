@@ -29,7 +29,7 @@
 
     public Attacker Attacker { get { return _attacker.Value; } private set { _attacker.Value = value; } }
     public Card Card { get; private set; }
-    public Player Controller { get { return Card.Controller; } }
+    public ICardController Controller { get { return Card.Controller; } }
 
     public int DamageAssignmentOrder { get { return _damageAssignmentOrder.Value; } set { _damageAssignmentOrder.Value = value; } }
 

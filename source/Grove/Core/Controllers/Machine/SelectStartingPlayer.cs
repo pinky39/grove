@@ -1,10 +1,12 @@
 ﻿namespace Grove.Core.Controllers.Machine
 {
+  using Results;
+
   public class SelectStartingPlayer : Controllers.SelectStartingPlayer
   {
     protected override void ExecuteQuery()
     {
-      Result = Controller;
+      Result = new ChosenPlayer(Controller);
     }
   }
 }

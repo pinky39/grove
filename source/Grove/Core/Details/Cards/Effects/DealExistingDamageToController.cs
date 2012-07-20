@@ -6,7 +6,7 @@
   {
     public Damage Damage { get; set; }
 
-    public int PlayerDamage(Player player)
+    public int PlayerDamage(IPlayer player)
     {
       return player == Controller ? Damage.Amount : 0;
     }

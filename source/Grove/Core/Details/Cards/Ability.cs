@@ -7,14 +7,13 @@
   using Targeting;
   using Zones;
 
-
   [Copyable]
   public abstract class Ability : IEffectSource
   {
     private readonly TargetSelectors _targetSelectors = new TargetSelectors();
     public TargetSelectors TargetSelectors { get { return _targetSelectors; } }
 
-    public Player Controller { get { return OwningCard.Controller; } }
+    public ICardController Controller { get { return OwningCard.Controller; } }
     protected IEffectFactory EffectFactory { get; private set; }
     protected Game Game { get; set; }
     protected Publisher Publisher { get { return Game.Publisher; } }

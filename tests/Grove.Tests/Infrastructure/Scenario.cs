@@ -40,12 +40,12 @@
 
     protected Player P1
     {
-      get { return Game.Players.Player1; }
+      get { return (Player)Game.Players.Player1; }
     }
 
     protected Player P2
     {
-      get { return Game.Players.Player2; }
+      get { return (Player)Game.Players.Player2; }
     }
 
     protected Search Search
@@ -93,8 +93,8 @@
             if (card.IsManaSource)
               player.AddManaSources(card.ManaSources);
 
-            player.PutCardIntoPlay(card);
-            card.RemoveSummoningSickness();
+            player.PutCardToBattlefield(card);
+            card.HasSummoningSickness = false;
 
             foreach (var enchantment in scenarioCard.Enchantments)
             {
@@ -111,7 +111,7 @@
               equipment.Initialize(equipmentName =>
                 {
                   var equipmentCard = CardDatabase.CreateCard(equipmentName, player);
-                  player.PutCardIntoPlay(equipmentCard);
+                  player.PutCardToBattlefield(equipmentCard);
                   EquipCard(card, equipmentCard);
                   return equipmentCard;
                 });

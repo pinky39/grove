@@ -8,6 +8,7 @@
   using Ui;
   using Zones;
 
+
   public class CounterTargetSpell : Effect
   {
     public int? ControllersLifeloss;
@@ -55,7 +56,7 @@
       Counter(targetSpellController, Target().Effect(), Game.Stack);
     }
 
-    private void Counter(Player targetSpellController, Effect spell, Stack stack)
+    private void Counter(IPlayer targetSpellController, Effect spell, Stack stack)
     {
       if (ControllersLifeloss.HasValue)
       {

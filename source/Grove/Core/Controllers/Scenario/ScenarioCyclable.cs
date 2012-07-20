@@ -7,7 +7,7 @@
   {
     public ScenarioCyclable(Card card) : base(card) {}
 
-    private Player Controller { get { return Card.Controller; } }
+    private IPlayer Controller { get { return Card.Controller; } }
 
     public override bool CanPlay()
     {

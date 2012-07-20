@@ -18,7 +18,7 @@
 
       foreach (var creature in Result)
       {
-        Controller.SacrificeCard(creature);
+        creature.Sacrifice();                
       }
     }
 
@@ -26,7 +26,7 @@
     {
       foreach (var creature in Controller.Battlefield.Creatures.ToList())
       {
-        Controller.SacrificeCard(creature);
+        creature.Sacrifice();
       }
     }
   }

@@ -14,7 +14,7 @@
     private readonly DecisionQueue _decisionQueue;
     private Trackable<IDecision> _curentDecision;
     private Game _game;
-    private Player _looser;
+    private IPlayer _looser;
     private Dictionary<State, StepState> _states;
     private Dictionary<Step, StepDefinition> _steps;
 
@@ -71,7 +71,7 @@
       }
     }
 
-    public void Start(Func<bool> shouldContinue, bool skipPreGame, Player looser = null)
+    public void Start(Func<bool> shouldContinue, bool skipPreGame, IPlayer looser = null)
     {
       Step = skipPreGame ? Step.Untap : Step.GameStart;
       State = State.Begin;
@@ -276,7 +276,7 @@
           {
             foreach (var permanent in _game.Players.Active.Battlefield)
             {
-              permanent.RemoveSummoningSickness();
+              permanent.HasSummoningSickness = false;
               
               if (permanent.MayChooseNotToUntapDuringUntapStep)
               {
@@ -398,7 +398,7 @@
       _game.Publisher.Publish(message);
     }
 
-    private Player RollDice()
+    private IPlayer RollDice()
     {
       var dice1 = new Dice();
       var dice2 = new Dice();

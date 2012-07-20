@@ -9,10 +9,9 @@
   public class PlayableGenerator : IEnumerable<Playable>
   {
     private readonly Game _game;
+    private readonly IPlayer _player;
 
-    private readonly Player _player;
-
-    public PlayableGenerator(Player player, Game game)
+    public PlayableGenerator(IPlayer player, Game game)
     {
       _player = player;
       _game = game;

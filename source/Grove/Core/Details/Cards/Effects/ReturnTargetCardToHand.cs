@@ -3,7 +3,7 @@
   using Controllers;
   using Targeting;
 
-  public class ReturnTargetPermanentToHand : Effect
+  public class ReturnTargetCardToHand : Effect
   {
     public int Discard;
 

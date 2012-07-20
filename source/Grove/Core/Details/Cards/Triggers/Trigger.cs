@@ -12,7 +12,7 @@
     protected TriggeredAbility Ability { get; private set; }
     public Game Game { get; private set; }
     public Card OwningCard { get { return Ability.OwningCard; } }
-    protected Player Controller { get { return Ability.OwningCard.Controller; } }
+    protected IPlayer Controller { get { return Ability.OwningCard.Controller; } }
     protected Players Players { get { return Game.Players; } }
     protected Publisher Publisher { get { return Game.Publisher; } }
 

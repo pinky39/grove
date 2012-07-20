@@ -61,12 +61,12 @@
               {
                 if (self.Result.None())
                   return;
+                
+                var wurm = self.Param<Card>("card");
+                var land = self.Result.First();
 
-                var opponent = self.Game.Players.GetOpponent(self.Controller);
-                opponent.MoveCardFromBattlefieldOnTopOfLibrary(
-                  self.Param<Card>("card"));
-
-                self.Controller.SacrificeCard(self.Result.First());
+                wurm.PutOnTopOfLibrary();
+                land.Sacrifice();                                
               };
           })
         ;

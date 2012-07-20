@@ -2,7 +2,7 @@
 {
   public class DefaultScenarioDecision : IDecision
   {
-    public void Init(Game game, Player controller) {}
+    public void Init(Game game, IPlayer controller) {}
 
     public bool HasCompleted { get { return true; } }
     public bool WasPriorityPassed { get { return true; } }

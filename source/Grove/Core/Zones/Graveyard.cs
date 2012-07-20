@@ -1,10 +1,8 @@
 ﻿namespace Grove.Core.Zones
 {
-  using Infrastructure;
-
   public class Graveyard : OrderedZone
   {
-    public Graveyard(ChangeTracker changeTracker) : base(changeTracker) {}
+    public Graveyard(Game game) : base(game) {}
 
     private Graveyard()
     {

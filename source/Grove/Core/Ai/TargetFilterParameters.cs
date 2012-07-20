@@ -23,8 +23,8 @@
     public Card Source { get; private set; }
     public int? MaxX { get; private set; }
     public bool ForceOne { get; private set; }
-    public Player Opponent { get { return Game.Players.GetOpponent(Source.Controller); } }
-    public Player Controller { get { return Source.Controller; } }
+    public IPlayer Opponent { get { return Game.Players.GetOpponent(Source.Controller); } }
+    public ICardController Controller { get { return Source.Controller; } }
     public Combat Combat { get { return Game.Combat; } }
     public Step Step { get { return Game.Turn.Step; } }
     public Stack Stack { get { return Game.Stack; } }

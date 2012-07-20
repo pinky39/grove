@@ -3,7 +3,7 @@
   public interface ISearchNode
   {
     Game Game { get; }
-    Player Controller { get; }
+    IPlayer Controller { get; }
     int ResultCount { get; }
     void SetResult(int index);
 

@@ -18,7 +18,7 @@
     private TrackableList<ITarget> _costTargets;
     private TrackableList<ITarget> _targets;        
     public bool CanBeCountered { get; set; }
-    public Player Controller { get { return Source.OwningCard.Controller; } }
+    public IPlayer Controller { get { return Source.OwningCard.Controller; } }
     protected Decisions Decisions { get { return Game.Decisions; } }
     protected Game Game { get; set; }
     public Players Players { get { return Game.Players; } }

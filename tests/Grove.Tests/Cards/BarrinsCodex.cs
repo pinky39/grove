@@ -12,7 +12,6 @@
       public void Draw3Cards()
       {
         var codex = C("Barrin's Codex");
-
         Battlefield(P1, "Plains", "Plains", "Plains", "Plains", codex);
 
         RunGame(6);

@@ -151,7 +151,7 @@
             .Verify(() =>
               {               
                 Equal(Zone.Graveyard, C(swords).Zone);
-                Equal(Zone.Exiled, C(angel).Zone);
+                Equal(Zone.Exile, C(angel).Zone);
                 Equal(5, P2.Life);
               })
           );

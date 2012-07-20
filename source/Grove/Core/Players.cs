@@ -7,12 +7,12 @@
   using Infrastructure;
 
   [Copyable]
-  public class Players : IEnumerable<Player>, IHashable
+  public class Players : IEnumerable<IPlayer>, IHashable
   {
     private readonly TrackableList<Player> _extraTurns;
-    private Player _player1;
-    private Player _player2;
-    private Player _starting;
+    private IPlayer _player1;
+    private IPlayer _player2;
+    private IPlayer _starting;
 
     public Players(ChangeTracker changeTracker)
     {
@@ -21,7 +21,7 @@
 
     private Players() {}
 
-    public Player Active { get { return Player1.IsActive ? Player1 : Player2; } }
+    public IPlayer Active { get { return Player1.IsActive ? Player1 : Player2; } }
 
     public bool AnotherMulliganRound
     {
@@ -33,25 +33,16 @@
       }
     }
 
-    public Player Attacking { get { return Active; } }
-
+    public IPlayer Attacking { get { return Active; } }
     public bool BothHaveLost { get { return Player1.HasLost && Player2.HasLost; } }
-
-    public Player Computer { get { return Player1.IsHuman ? Player2 : Player1; } }
-
-    public Player Defending { get { return Passive; } }
-
-    public Player Human { get { return Player1.IsHuman ? Player1 : Player2; } }
-
-    public Player this[int num] { get { return num == 0 ? Player1 : Player2; } }
-
-    public Player Max { get { return Player1.IsMax ? Player1 : Player2; } }
-
-    public Player Min { get { return GetOpponent(Max); } }
-
-    public Player Passive { get { return GetOpponent(Active); } }
-
-    public Player Player1
+    public IPlayer Computer { get { return Player1.IsHuman ? Player2 : Player1; } }
+    public IPlayer Defending { get { return Passive; } }
+    public IPlayer Human { get { return Player1.IsHuman ? Player1 : Player2; } }
+    public IPlayer this[int num] { get { return num == 0 ? Player1 : Player2; } }
+    public IPlayer Max { get { return Player1.IsMax ? Player1 : Player2; } }
+    public IPlayer Min { get { return GetOpponent(Max); } }
+    public IPlayer Passive { get { return GetOpponent(Active); } }
+    public IPlayer Player1
     {
       get { return _player1; }
       set
@@ -61,7 +52,7 @@
       }
     }
 
-    public Player Player2
+    public IPlayer Player2
     {
       get { return _player2; }
       set
@@ -73,7 +64,7 @@
 
     public int Score { get { return Player1.Score + Player2.Score; } }
 
-    public Player Starting
+    public IPlayer Starting
     {
       get { return _starting; }
       set
@@ -85,11 +76,11 @@
       }
     }
 
-    public Player WithPriority { get { return _player1.HasPriority ? _player1 : _player2; } }
+    public IPlayer WithPriority { get { return _player1.HasPriority ? _player1 : _player2; } }
 
-    public Player WithoutPriority { get { return _player1.HasPriority ? _player2 : _player1; } }
+    public IPlayer WithoutPriority { get { return _player1.HasPriority ? _player2 : _player1; } }
 
-    public IEnumerator<Player> GetEnumerator()
+    public IEnumerator<IPlayer> GetEnumerator()
     {
       yield return Player1;
       yield return Player2;
@@ -108,7 +99,7 @@
         calc.Calculate(_extraTurns));
     }
 
-    public void SetAiVisibility(Player player)
+    public void SetAiVisibility(IPlayer player)
     {
       Player1.SetAiVisibility(player);
       Player2.SetAiVisibility(player);
@@ -131,7 +122,7 @@
       Player2.IsActive = !Player2.IsActive;
     }
 
-    public Player GetOpponent(Player player)
+    public IPlayer GetOpponent(IPlayer player)
     {
       return player == Player1 ? Player2 : Player1;
     }
@@ -144,7 +135,7 @@
       }
     }
 
-    public void SetPriority(Player player)
+    public void SetPriority(IPlayer player)
     {
       player.HasPriority = true;
       GetOpponent(player).HasPriority = false;
@@ -193,9 +184,8 @@
         .GetDuplicates(card => card.Name).ToArray();
 
       foreach (var legend in duplicateLegends)
-      {
-        var controller = legend.Controller;
-        controller.SacrificeCard(legend);
+      {        
+        legend.Sacrifice();        
       }
     }
 

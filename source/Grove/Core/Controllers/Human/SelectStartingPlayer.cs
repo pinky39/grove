@@ -1,6 +1,7 @@
 ﻿namespace Grove.Core.Controllers.Human
 {
   using System.Windows;
+  using Results;
   using Ui.Shell;
 
   public class SelectStartingPlayer : Controllers.SelectStartingPlayer
@@ -16,11 +17,11 @@
 
       if (result == MessageBoxResult.Yes)
       {
-        Result = Controller;
+        Result = new ChosenPlayer(Controller);
         return;
       }
 
-      Result = Game.Players.GetOpponent(Controller);
+      Result = new ChosenPlayer(Game.Players.GetOpponent(Controller));
     }
   }
 }

@@ -15,7 +15,7 @@
       Result = FinalResult();
     }
 
-    private Player Defender { get { return Game.Players.GetOpponent(Controller); } }
+    private IPlayer Defender { get { return Game.Players.GetOpponent(Controller); } }
     public override bool HasCompleted { get { return _executor.HasCompleted; } }
 
     public Search Search { get { return Game.Search; } }

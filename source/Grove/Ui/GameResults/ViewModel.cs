@@ -20,7 +20,7 @@
       get
       {
         return string.Format("{0} won {1}",
-          _players.Player2.Name,
+          _players.Player2,
           GetWinCountText(_match.Player2WinCount));
       }
     }
@@ -57,7 +57,7 @@
       get
       {
         return string.Format("{0} won {1}",
-          _players.Player1.Name,
+          _players.Player1,
           GetWinCountText(_match.Player1WinCount));
       }
     }

@@ -12,6 +12,6 @@
     public ITarget Target { get; private set; }
     public Card Source { get; private set; }
     public Game Game { get; internal set; }
-    public Player Controller { get { return Source.Controller; } }
+    public IPlayer Controller { get { return Source.Controller; } }
   }
 }

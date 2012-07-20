@@ -1,6 +1,5 @@
 ﻿namespace Grove.Ui.Battlefield
 {
-  using System;
   using System.Collections.Specialized;
   using System.Linq;
   using Core;
@@ -10,7 +9,7 @@
 
   public class ViewModel : IReceive<AttachmentAttached>, IReceive<AttachmentDetached>
   {
-    private readonly Player _owner;
+    private readonly IPlayer _owner;
 
     private readonly Row[] _rows = new[]
       {
@@ -38,7 +37,7 @@
     private readonly Permanent.ViewModel.IFactory _viewModelFactory;
 
     public ViewModel(Permanent.ViewModel.IFactory viewModelFactory,
-                     Player owner, Players players)
+      Player owner, Players players)
     {
       _viewModelFactory = viewModelFactory;
       _owner = owner;
@@ -107,10 +106,10 @@
     private void Detach(Card equipment)
     {
       var viewModel = Remove(equipment);
-      
+
       if (viewModel != null)
         Add(viewModel);
-    }   
+    }
 
     private Permanent.ViewModel Remove(Card card)
     {
@@ -151,7 +150,7 @@
 
     public interface IFactory
     {
-      ViewModel Create(Player owner);
+      ViewModel Create(IPlayer owner);
     }
   }
 }

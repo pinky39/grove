@@ -37,7 +37,7 @@
     public int BlockersCount { get { return _blockers.Count; } }
     public IEnumerable<Blocker> BlockersInDamageAssignmentOrder { get { return _blockers.OrderBy(x => x.DamageAssignmentOrder); } }
     public Card Card { get { return _card; } }
-    public Player Controller { get { return _card.Controller; } }
+    public ICardController Controller { get { return _card.Controller; } }
     public bool HasDeathTouch { get { return _card.Has().Deathtouch; } }
     public bool HasTrample { get { return _card.Has().Trample; } }
     public int LifepointsLeft { get { return _card.CalculateLifepointsLeft(); } }

@@ -7,7 +7,7 @@
   {
     public Value Amount { get; set; }
 
-    int IDamageDealing.PlayerDamage(Player player)
+    int IDamageDealing.PlayerDamage(IPlayer player)
     {
       return Amount.GetValue(X);
     }

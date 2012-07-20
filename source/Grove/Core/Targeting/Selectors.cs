@@ -71,7 +71,7 @@
     {
       filter = filter ?? delegate { return true; };
 
-      Func<Player, Player, bool> isValidController = (spellController, targetController) =>
+      Func<IPlayer, IPlayer, bool> isValidController = (spellController, targetController) =>
         {
           switch (controller)
           {

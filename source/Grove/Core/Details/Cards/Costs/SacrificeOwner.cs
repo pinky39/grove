@@ -11,7 +11,7 @@
 
     public override void Pay(ITarget target, int? x)
     {
-      Controller.SacrificeCard(Card);
+      Card.Sacrifice();      
     }
   }
 }

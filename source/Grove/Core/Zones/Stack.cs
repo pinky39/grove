@@ -9,7 +9,7 @@
   using Infrastructure;
 
   [Copyable]
-  public class Stack : IEnumerable<Effect>, IHashable
+  public class Stack : IEnumerable<Effect>, IHashable, IZone
   {
     private readonly TrackableList<Effect> _effects;
     private readonly Trackable<Effect> _lastResolved;
@@ -30,7 +30,7 @@
 
     public Effect LastResolved { get { return _lastResolved.Value; } private set { _lastResolved.Value = value; } }
     public Effect TopSpell { get { return _effects.LastOrDefault(); } }
-    public Player TopSpellOwner { get { return TopSpell == null ? null : TopSpell.Controller; } }
+    public IPlayer TopSpellOwner { get { return TopSpell == null ? null : TopSpell.Controller; } }
 
     public IEnumerator<Effect> GetEnumerator()
     {
@@ -94,7 +94,7 @@
       effect.EffectWasCountered();
     }
 
-    public int GetDamageTopSpellWillDealToPlayer(Player player)
+    public int GetDamageTopSpellWillDealToPlayer(IPlayer player)
     {
       var damageDealing = TopSpell as IDamageDealing;
 
@@ -152,7 +152,7 @@
       return CanBeDealtLeathalDamageByTopSpell(card);
     }
 
-    public bool CanTopSpellReducePlayersLifeToZero(Player controller)
+    public bool CanTopSpellReducePlayersLifeToZero(IPlayer player)
     {
       var damageDealing = TopSpell as IDamageDealing;
 
@@ -161,8 +161,14 @@
         return false;
       }
 
-      var damage = damageDealing.PlayerDamage(controller);
-      return damage >= controller.Life;
+      var damage = damageDealing.PlayerDamage(player);
+      return damage >= player.Life;
+    }
+
+    public Zone Zone { get { return Zone.Stack; } }
+
+    public void Remove(Card card)
+    {      
     }
   }
 }

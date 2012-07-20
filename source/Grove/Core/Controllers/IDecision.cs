@@ -2,7 +2,7 @@
 {
   public interface IDecision
   {
-    void Init(Game game, Player controller);
+    void Init(Game game, IPlayer controller);
             
     bool HasCompleted { get; }
     bool WasPriorityPassed { get; }
