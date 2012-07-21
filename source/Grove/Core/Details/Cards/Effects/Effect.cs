@@ -16,7 +16,8 @@
     public Action<Effect> AfterResolve = delegate { };
     public Action<Effect> BeforeResolve = delegate { };
     private TrackableList<ITarget> _costTargets;
-    private TrackableList<ITarget> _targets;        
+    private TrackableList<ITarget> _targets;
+    private Trackable<bool> _wasResolved;
     public bool CanBeCountered { get; set; }
     public IPlayer Controller { get { return Source.OwningCard.Controller; } }
     protected Decisions Decisions { get { return Game.Decisions; } }
@@ -26,6 +27,7 @@
     public int? X { get; set; }
     public virtual bool AffectsSource { get { return false; } }
     public bool HasTargets { get { return _targets.Count > 0; } }
+    private bool WasResolved { get { return _wasResolved.Value; } set { _wasResolved.Value = value; } }
 
     protected IEnumerable<ITarget> Targets { get { return _targets; } }
 
@@ -92,11 +94,17 @@
     public void EffectWasPushedOnStack()
     {
       Source.EffectWasPushedOnStack();
-    }
-
-    public void EffectWasResolved()
+    }    
+    
+    public void FinishResolve()
     {
-      Source.EffectWasResolved();
+      if (WasResolved)
+      {
+        Source.EffectWasResolved();
+        return;
+      }
+
+      Source.EffectWasCountered();
     }
 
     public bool HasEffectStillValidTargets()
@@ -114,6 +122,7 @@
       BeforeResolve(this);
       ResolveEffect();
       AfterResolve(this);
+      WasResolved = true;
     }
 
     protected abstract void ResolveEffect();
@@ -150,13 +159,15 @@
       public Game Game { get; set; }
 
       public Effect CreateEffect(EffectParameters parameters)
-      {                
+      {
         var effect = new TEffect
           {
             Game = Game,
-            Source = parameters.Source,            
+            Source = parameters.Source,
             _targets = new TrackableList<ITarget>(parameters.Targets, Game.ChangeTracker, orderImpactsHashcode: true),
-            _costTargets = new TrackableList<ITarget>(parameters.CostTargets, Game.ChangeTracker, orderImpactsHashcode: true),   
+            _costTargets =
+              new TrackableList<ITarget>(parameters.CostTargets, Game.ChangeTracker, orderImpactsHashcode: true),
+            _wasResolved = new Trackable<bool>(Game.ChangeTracker),
             WasKickerPaid  = parameters.Activation.PayKicker,
             X = parameters.Activation.X,
             CanBeCountered = true

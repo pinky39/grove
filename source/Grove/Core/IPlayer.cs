@@ -34,8 +34,7 @@
     void DrawCard();
     void DrawCards(int cardCount);
     void DrawStartingHand();
-    void EmptyManaPool();
-    void GainControl(Card card);
+    void EmptyManaPool();    
     void AssignDamage(Damage damage);
     void AddManaToManaPool(IManaAmount manaAmount);
     void Mill(int count);

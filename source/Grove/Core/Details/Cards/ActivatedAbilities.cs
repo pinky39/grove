@@ -8,10 +8,12 @@
   using Mana;
   using Modifiers;
 
+  
   [Copyable]
   public class ActivatedAbilities : IModifiable, IHashable
   {
     private readonly TrackableList<ActivatedAbility> _abilities;
+
 
     private ActivatedAbilities() {}
 
@@ -24,7 +26,7 @@
     public int CalculateHash(HashCalculator calc)
     {
       return calc.Calculate(_abilities);
-    }
+    }    
 
     public void Accept(IModifier modifier)
     {

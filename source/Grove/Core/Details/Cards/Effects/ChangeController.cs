@@ -1,11 +1,12 @@
 ﻿namespace Grove.Core.Details.Cards.Effects
 {  
-  public class ChangeOwnership : Effect
+  public class ChangeController : Effect
   {
     protected override void ResolveEffect()
     {                        
       var opponent = Game.Players.GetOpponent(Controller);
-      opponent.GainControl(Source.OwningCard);
+
+      Source.OwningCard.ChangeController((ICardController)opponent);      
     }
   }
 }

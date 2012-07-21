@@ -55,9 +55,9 @@
 
     public abstract Zone Zone { get; }
 
-    void IZone.Remove(Card card)
+    void IZone.Remove(Card card, bool moveToSameOpponentsZone)
     {
-      Remove(card);
+      Remove(card, moveToSameOpponentsZone);
     }
 
     protected virtual void AfterAdd(Card card) {}
@@ -69,9 +69,12 @@
 
       card.ChangeZoneTo(this);
       _cards.Add(card);
-
+           
       AfterAdd(card);
-
+            
+      if (oldZone == Zone)
+        return;
+      
       _publisher.Publish(new CardChangedZone
         {
           Card = card,
@@ -96,10 +99,14 @@
       }
     }
 
-
-    protected virtual void Remove(Card card)
+    protected virtual void Remove(Card card, bool moveToSameOpponentsZone)
     {
       _cards.Remove(card);
+
+      if (moveToSameOpponentsZone)
+        return;
+      
+      AfterRemove(card);
     }
 
     public override string ToString()

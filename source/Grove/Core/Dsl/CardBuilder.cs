@@ -14,6 +14,7 @@
   using Details.Mana;
   using Infrastructure;
   using Targeting;
+  using Zones;
 
   public class CardBuilder
   {
@@ -37,14 +38,15 @@
       TargetsFilterDelegate targetFilter = null,
       bool activateAsSorcery = false,
       EffectCategories category = EffectCategories.Generic,
-      TimingDelegate timing = null)
+      TimingDelegate timing = null,
+      Zone activationZone = Zone.Battlefield)
     {
       var effectSelectors = effectSelector == null
         ? new ITargetSelectorFactory[] {}
         : new[] {effectSelector};
 
       return ActivatedAbility(text, cost, effect, effectSelectors, costSelector,
-        targetFilter, activateAsSorcery, category, timing);
+        targetFilter, activateAsSorcery, category, timing, activationZone);
     }
 
     public IActivatedAbilityFactory ActivatedAbility(
@@ -56,7 +58,8 @@
       TargetsFilterDelegate targetFilter = null,
       bool activateAsSorcery = false,
       EffectCategories category = EffectCategories.Generic,
-      TimingDelegate timing = null)
+      TimingDelegate timing = null,
+      Zone activationZone = Zone.Battlefield)
     {
       return new ActivatedAbility.Factory<ActivatedAbility>
         {
@@ -68,6 +71,7 @@
               self.Timing(timing);
               self.Effect(effect);
               self.ActivateOnlyAsSorcery = activateAsSorcery;
+              self.ActivationZone = activationZone;
 
               if (effectSelectors.Length > 0)
               {

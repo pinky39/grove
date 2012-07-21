@@ -3,6 +3,7 @@
   using System;
   using System.Collections;
   using System.Collections.Generic;
+  using System.Linq;
   using Controllers.Results;
   using Details.Cards;
 
@@ -30,7 +31,9 @@
 
     private IEnumerable<Playable> GetPlayableAbilities()
     {
-      foreach (var card in _player.Battlefield)
+      var zones = _player.Battlefield.Concat(_player.Hand);
+
+      foreach (var card in zones)
       {
         if (card.IsHidden)
           continue;
@@ -48,9 +51,8 @@
             continue;
 
 
-          foreach (
-            var playable in
-              GeneratePlayables(card, prerequisites, p => new Controllers.Results.Ability(card, p, abilityIndex)))
+          foreach (var playable in GeneratePlayables(
+            card, prerequisites, p => new Controllers.Results.Ability(card, p, abilityIndex)))
           {
             yield return playable;
           }
@@ -87,7 +89,7 @@
     }
 
     private IEnumerable<Playable> GeneratePlayables(Card card, SpellPrerequisites prerequisites,
-                                                    Func<ActivationParameters, Playable> factory, bool payKicker = false)
+      Func<ActivationParameters, Playable> factory, bool payKicker = false)
     {
       var activationGenerator = new ActivationGenerator(
         card,
@@ -117,39 +119,12 @@
       }
     }
 
-    private IEnumerable<Playable> GetCyclables()
-    {
-      foreach (var card in _player.Hand)
-      {
-        if (card.IsHidden)
-          continue;
-
-        var prerequisites = card.CanCycle();
-
-        if (!prerequisites.CanBeSatisfied)
-        {
-          continue;
-        }
-
-        if (!prerequisites.Timming(new TimingParameters(_game, card)))
-        {
-          continue;
-        }
-
-        yield return new Cyclable(card);
-      }
-    }
 
     private IEnumerable<Playable> GetPlayables()
     {
       foreach (var playable in GetPlayableSpells())
       {
         yield return playable;
-      }
-
-      foreach (var cyclable in GetCyclables())
-      {
-        yield return cyclable;
       }
 
       foreach (var playable in GetPlayableAbilities())

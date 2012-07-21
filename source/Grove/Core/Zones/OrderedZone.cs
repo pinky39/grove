@@ -12,13 +12,11 @@
     private readonly TrackableList<Card> _cards;
     private readonly Publisher _publisher;
 
-    protected OrderedZone(IEnumerable<Card> cards, Game game)
+    protected OrderedZone(Game game)
     {      
-      _cards = new TrackableList<Card>(cards, game.ChangeTracker, orderImpactsHashcode: true);
+      _cards = new TrackableList<Card>(game.ChangeTracker, orderImpactsHashcode: true);
       _publisher = game.Publisher;
-    }
-
-    protected OrderedZone(Game game) : this(new Card[] {}, game) {}
+    }    
 
     protected OrderedZone()
     {
@@ -46,16 +44,21 @@
 
     public abstract Zone Zone { get; }
 
-    void IZone.Remove(Card card)
+    void IZone.Remove(Card card, bool moveToOpponentZone)
     {
-      Remove(card);
+      Remove(card, moveToOpponentZone);
     }
 
     public virtual void AddToFront(Card card)
     {
       card.ChangeZoneTo(this);
       _cards.AddToFront(card);
+
+      AfterAdd(card);
     }
+
+     protected virtual void AfterAdd(Card card) {}
+    protected virtual void AfterRemove(Card card) {}
 
     public virtual void Add(Card card)
     {
@@ -63,6 +66,8 @@
       
       card.ChangeZoneTo(this);
       _cards.Add(card);
+
+      AfterAdd(card);
 
       _publisher.Publish(new CardChangedZone
       {
@@ -99,9 +104,14 @@
     }
 
 
-    protected virtual void Remove(Card card)
+    protected virtual void Remove(Card card, bool moveToOpponentZone)
     {
       _cards.Remove(card);
+      
+      if (moveToOpponentZone)
+        return;
+      
+      AfterRemove(card);
     }
 
     public virtual void Shuffle()

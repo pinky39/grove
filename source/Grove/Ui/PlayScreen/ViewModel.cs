@@ -8,9 +8,8 @@
   using Core.Testing;
   using Infrastructure;
 
-  public class ViewModel : IIsDialogHost, IReceive<PlayerHasCastASpell>, IReceive<PlayerHasActivatedAbility>,
-    IReceive<PlayerHasCycledCard>, IReceive<SearchStarted>, IReceive<SearchFinished>, IReceive<DamageHasBeenDealt>,
-    IReceive<AssignedCombatDamageWasDealt>
+  public class ViewModel : IIsDialogHost, IReceive<PlayerHasCastASpell>, IReceive<PlayerHasActivatedAbility>, 
+    IReceive<SearchStarted>, IReceive<SearchFinished>, IReceive<DamageHasBeenDealt>, IReceive<AssignedCombatDamageWasDealt>
   {
     private readonly List<object> _largeDialogs = new List<object>();
     private readonly QuitGame.ViewModel.IFactory _quitGameFactory;
@@ -111,12 +110,7 @@
     public void Receive(PlayerHasCastASpell message)
     {
       MessageLog.AddMessage(message.ToString());
-    }
-
-    public void Receive(PlayerHasCycledCard message)
-    {
-      MessageLog.AddMessage(message.ToString());
-    }
+    }  
 
     public void Receive(SearchFinished message)
     {

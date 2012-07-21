@@ -51,7 +51,7 @@
               {
                 if (self.Result.IsTrue)
                 {
-                  Controller.Life -= Life;
+                  self.Controller.Life -= Life;
                   return;
                 }
 

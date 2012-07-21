@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core.Details.Cards
 {
+  using System;
   using Ai;
   using Targeting;
 
@@ -11,6 +12,7 @@
       KickerTargetSelectors = new TargetSelectors();
     }
 
+    public bool IsAbility { get; set; }
     public bool TargetsSelf { get; set; }
     public bool CanBeSatisfied { get; set; }
     public bool CanCastWithKicker { get; set; }
@@ -24,5 +26,6 @@
     public TargetSelectors KickerTargetSelectors { get; set; }
     public bool NeedsKickerTargets { get { return KickerTargetSelectors.Count > 0; } }
     public bool NeedsTargets { get { return TargetSelectors.Count > 0; } }
+    public bool IsSpell { get { return !IsAbility; } }
   }
 }

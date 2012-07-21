@@ -419,12 +419,7 @@
     public void PutCardOnTopOfLibrary(Card card)
     {
       _library.PutOnTop(card);
-    }
-
-    public void GainControl(Card card)
-    {
-      // todo
-    }
+    }    
 
     public void AddManaSources(IEnumerable<IManaSource> manaSources)
     {
@@ -458,8 +453,13 @@
       _battlefield = Bindable.Create<Battlefield>(game);
       _hand = Bindable.Create<Hand>(game);
       _graveyard = Bindable.Create<Graveyard>(game);
-      _library = Bindable.Create<Library>(cards, game);
+      _library = Bindable.Create<Library>(game);
       _exile = Bindable.Create<Exile>(game);
+
+      foreach (var card in cards)
+      {
+        _library.Add(card);
+      }
     }
 
     public interface IFactory

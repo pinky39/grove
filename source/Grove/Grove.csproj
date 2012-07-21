@@ -258,6 +258,7 @@
     <Compile Include="Core\Ai\AttackerEvaluation.cs" />
     <Compile Include="Core\Ai\BlockerEvaluation.cs" />
     <Compile Include="Core\Ai\QuickCombat.cs" />
+    <Compile Include="Core\Messages\ControllerChanged.cs" />
     <Compile Include="Core\Controllers\ChooseToUntap.cs" />
     <Compile Include="Core\Controllers\DecisionFactory.cs" />
     <Compile Include="Core\Controllers\DecisionSelector.cs" />
@@ -266,16 +267,17 @@
     <Compile Include="Core\Controllers\IDecisionFactory.cs" />
     <Compile Include="Core\Controllers\Machine\AdHocDecision.cs" />
     <Compile Include="Core\Controllers\Machine\ChooseToUntap.cs" />
-    <Compile Include="Core\Controllers\ScenarioDecisions.cs" />
+    <Compile Include="Core\Controllers\Scenario\ScenarioDecisions.cs" />
     <Compile Include="Core\Controllers\Scenario\ChooseToUntap.cs" />
     <Compile Include="Core\Controllers\AdHocDecision.cs" />
     <Compile Include="Core\Details\Cards\Ability.cs" />
+    <Compile Include="Core\Details\Cards\Costs\DiscardOwnerPayMana.cs" />
     <Compile Include="Core\Details\Cards\Costs\NoCost.cs" />
     <Compile Include="Core\Details\Cards\Costs\RevealCardFromHand.cs" />
     <Compile Include="Core\Details\Cards\Costs\TapAndSacOwnerPayMana.cs" />
     <Compile Include="Core\Details\Cards\EffectCreationContext.cs" />
     <Compile Include="Core\Details\Cards\EffectParameters.cs" />
-    <Compile Include="Core\Details\Cards\Effects\ChangeOwnership.cs" />
+    <Compile Include="Core\Details\Cards\Effects\ChangeController.cs" />
     <Compile Include="Core\Details\Cards\Effects\MoveCardFromGraveyardToHand.cs" />
     <Compile Include="Core\Details\Cards\Effects\PutOnTopOfLibraryUnlessOpponentSacsLand.cs" />
     <Compile Include="Core\Details\Cards\Modifiers\PermanentGetsUntapedLifetime.cs" />
@@ -312,7 +314,6 @@
     <Compile Include="Core\Details\Cards\StaticAbility.cs" />
     <Compile Include="Core\Targeting\TargetCandidates.cs" />
     <Compile Include="Core\Targeting\Targets.cs" />
-    <Compile Include="Core\Controllers\Results\Cyclable.cs" />
     <Compile Include="Core\Ai\InnerResult.cs" />
     <Compile Include="Core\Ai\ISearchResult.cs" />
     <Compile Include="Core\Ai\LeafResult.cs" />
@@ -347,7 +348,6 @@
     <Compile Include="Core\Controllers\Scenario\PlaySpellOrAbility.cs" />
     <Compile Include="Core\Controllers\Scenario\ScenarioAbility.cs" />
     <Compile Include="Core\Controllers\Scenario\DefaultScenarioDecision.cs" />
-    <Compile Include="Core\Controllers\Scenario\ScenarioCyclable.cs" />
     <Compile Include="Core\Controllers\Scenario\ScenarioSpell.cs" />
     <Compile Include="Core\Controllers\Scenario\SetTriggeredAbilityTarget.cs" />
     <Compile Include="Core\Controllers\Scenario\StepDecisions.cs" />
@@ -384,7 +384,6 @@
     <Compile Include="Core\Details\Mana\ManaPayment.cs" />
     <Compile Include="Core\Messages\CardChangedLevel.cs" />
     <Compile Include="Core\Messages\PlayerHasActivatedAbility.cs" />
-    <Compile Include="Core\Messages\PlayerHasCycledCard.cs" />
     <Compile Include="Core\Messages\SearchFinished.cs" />
     <Compile Include="Core\Messages\SearchStarted.cs" />
     <Compile Include="Core\Details\Cards\Modifiers\AddCounters.cs" />

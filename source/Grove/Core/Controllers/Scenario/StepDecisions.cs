@@ -314,18 +314,11 @@
 
     public StepDecisions Cycle(Card card)
     {
-      var decision = new PlaySpellOrAbility
+      return Activate(p =>
         {
-          Result = new ChosenPlayable
-            {
-              Playable = new ScenarioCyclable(
-                card)
-            }
-        };
-
-      decision.Init(Game, card.Controller);
-      _decisions.Add(decision);
-      return this;
+          p.Card = card;      
+          p.AbilityIndex = 0;
+        });
     }
   }
 }

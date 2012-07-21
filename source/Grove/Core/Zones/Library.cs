@@ -6,7 +6,7 @@
 
   public class Library : OrderedZone
   {
-    public Library(IEnumerable<Card> cards, Game game) : base(cards, game) {}
+    public Library(Game game) : base(game) {}
 
     private Library()
     {

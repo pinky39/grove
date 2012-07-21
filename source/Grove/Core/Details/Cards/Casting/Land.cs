@@ -28,7 +28,7 @@
     public override void Cast(Effect effect)
     {
       effect.Resolve();
-      effect.EffectWasResolved();
+      effect.FinishResolve();
     }
   }
 }

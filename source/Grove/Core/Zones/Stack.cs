@@ -47,6 +47,10 @@
       return calc.Calculate(_effects);
     }
 
+    public Zone Zone { get { return Zone.Stack; } }
+
+    public void Remove(Card card, bool moveToOpponentZone) {}
+
     public bool HasOnlySpellsOwnedBy(Player player)
     {
       return _effects.All(x => x.Controller == player);
@@ -122,13 +126,13 @@
 
       return dealtAmount;
     }
-    
+
     public bool CanBeDealtLeathalDamageByTopSpell(Card card, bool targetOnly = false)
     {
       if (!card.Is().Creature)
         return false;
-      
-      var dealtAmount = GetDamageTopSpellWillDealToCreature(card, targetOnly);                  
+
+      var dealtAmount = GetDamageTopSpellWillDealToCreature(card, targetOnly);
       return card.CalculateLifepointsLeft() <= dealtAmount;
     }
 
@@ -163,12 +167,6 @@
 
       var damage = damageDealing.PlayerDamage(player);
       return damage >= player.Life;
-    }
-
-    public Zone Zone { get { return Zone.Stack; } }
-
-    public void Remove(Card card)
-    {      
     }
   }
 }

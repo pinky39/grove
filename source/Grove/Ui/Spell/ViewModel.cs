@@ -1,6 +1,8 @@
 ﻿namespace Grove.Ui.Spell
 {
   using System;
+  using System.Collections.Generic;
+  using System.Linq;
   using System.Windows;
   using Core;
   using Core.Controllers.Results;
@@ -45,7 +47,7 @@
         case (SelectionMode.Play):
           _select = Activate;
           IsPlayable = Card.Controller.IsHuman
-            ? Card.CanCast().CanBeSatisfied || Card.CanCycle().CanBeSatisfied : false;
+            ? Card.CanCast().CanBeSatisfied || Card.CanActivateAbilities().Any(x => x.CanBeSatisfied) : false;
           break;
 
         case (SelectionMode.SelectTarget):
@@ -73,70 +75,67 @@
       _select();
     }
 
-    private bool SelectActivation(out bool isCast, out SpellPrerequisites prerequisites)
+    private SpellPrerequisites SelectActivation(out int abilityIndex)
     {
-      isCast = false;
-      prerequisites = null;
+      abilityIndex = 0;
+      var prerequsites = new List<SpellPrerequisites>();
 
-      var cast = Card.CanCast();
-      var cycle = Card.CanCycle();
+      var canCast = Card.CanCast();
 
-      if (cast.CanBeSatisfied && cycle.CanBeSatisfied)
+      if (canCast.CanBeSatisfied)
       {
-        cast.Description = String.Format("Cast {0}.", Card );
-        cycle.Description = String.Format("{0}, Discard this card: Draw a card.", Card.CyclingCost);
-
-        var dialog = _selectAbilityVmFactory.Create(new[] {cast, cycle});
-        _shell.ShowModalDialog(dialog, DialogType.Large, SelectionMode.Disabled);
-
-        if (dialog.WasCanceled)
-          return false;
-
-        if (dialog.Selected == cast)
-        {
-          isCast = true;
-          prerequisites = cast;
-          return true;
-        }
-
-        prerequisites = cycle;
-        return true;
+        prerequsites.Add(canCast);        
       }
 
-      if (cast.CanBeSatisfied)
+      var canActivateAbilities = Card.CanActivateAbilities().ToList();
+      prerequsites.AddRange(canActivateAbilities.Where(x => x.CanBeSatisfied));
+
+      if (prerequsites.Count == 1)
+        return prerequsites[0];
+
+      var dialog = _selectAbilityVmFactory.Create(prerequsites);
+      _shell.ShowModalDialog(dialog, DialogType.Large, SelectionMode.Disabled);
+
+      if (dialog.WasCanceled)
+        return null;
+
+      var selected = dialog.Selected;
+      
+      if (selected.IsAbility)
       {
-        isCast = true;
-        prerequisites = cast;
-        return true;
+        abilityIndex = canActivateAbilities.IndexOf(selected);
       }
 
-      prerequisites = cycle;
-      return true;
+      return selected;
     }
 
     private void Activate()
     {
       if (!IsPlayable)
         return;
-
-      bool isCast;
+      
       int? x = null;
-      SpellPrerequisites prerequisites;
       var targets = new Targets();
       var payKicker = false;
+      int ablityIndex = 0;
 
-      var success =
-        SelectActivation(out isCast, out prerequisites) &&
-          PayKicker(prerequisites, out payKicker) &&
-            SelectX(prerequisites, out x) &&
-              SelectTargets(prerequisites, payKicker, targets);
+      var prerequisites = SelectActivation(out ablityIndex);
+
+      if (prerequisites.CanCastWithKicker)
+      {
+        payKicker = PayKicker(prerequisites);
+      }
+
+      var success =        
+          SelectX(prerequisites, out x) &&
+            SelectTargets(prerequisites, payKicker, targets);
 
       if (!success)
         return;
 
-      var playable = isCast
+      var playable = prerequisites.IsSpell
         ? (Playable) new Spell(Card, new ActivationParameters(targets, payKicker, x))
-        : new Cyclable(Card);
+        : new Core.Controllers.Results.Ability(Card, new ActivationParameters(targets, payKicker, x), ablityIndex);
 
       _publisher.Publish(new PlayableSelected {Playable = playable});
     }
@@ -156,7 +155,7 @@
 
         targets.AddCost(dialog.Selection[0]);
       }
-            
+
       if (selectors.HasEffect)
       {
         foreach (var selector in selectors.Effect())
@@ -169,7 +168,7 @@
           // this can occur when game is terminated
           if (dialog.Selection.Count == 0)
             return false;
-         
+
           targets.AddEffect(dialog.Selection[0]);
         }
       }
@@ -209,21 +208,15 @@
       _publisher.Publish(new TargetSelected {Target = Card});
     }
 
-    private bool PayKicker(SpellPrerequisites prerequisites, out bool payKicker)
+    private bool PayKicker(SpellPrerequisites prerequisites)
     {
-      payKicker = false;
+      var result = _shell.ShowMessageBox(
+        message: "Do you want to pay the kicker?",
+        buttons: MessageBoxButton.YesNo,
+        type: DialogType.Small);
 
-      if (prerequisites.CanCastWithKicker)
-      {
-        var result = _shell.ShowMessageBox(
-          message: "Do you want to pay the kicker?",
-          buttons: MessageBoxButton.YesNo,
-          type: DialogType.Small);
 
-        payKicker = result == MessageBoxResult.Yes;
-      }
-
-      return true;
+      return result == MessageBoxResult.Yes;
     }
 
     public interface IFactory

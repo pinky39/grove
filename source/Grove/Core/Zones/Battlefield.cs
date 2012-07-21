@@ -4,9 +4,8 @@
   using System.Linq;
 
   public class Battlefield : UnorderedZone, IBattlefieldQuery
-  {
+  {    
     private readonly Combat _combat;
-
     public Battlefield(Game game) : base(game)
     {
       _combat = game.Combat;
@@ -34,7 +33,7 @@
 
     protected override void AfterRemove(Card card)
     {
-      _combat.Remove(card);
+       _combat.Remove(card);
       card.DetachAttachments();
       card.Detach();
       card.Untap();

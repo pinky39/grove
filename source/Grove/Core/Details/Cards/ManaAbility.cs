@@ -46,7 +46,8 @@
             CanBeSatisfied = true,
             Description = Text,
             Timming = delegate { return true; },
-            IsManaSource = true
+            IsManaSource = true,
+            IsAbility = true
           };
       }
 

@@ -36,7 +36,6 @@
     private TrackableList<ContinuousEffect> _continuousEffects;
     private Trackable<ICardController> _controller;
     private Counters _counters;
-    private IEffectFactory _cyclingFactory;
     private Trackable<int> _damage;
     private DamagePreventions _damagePreventions;
     private IEffectFactory _effectFactory;
@@ -53,7 +52,7 @@
     private Power _power;
     private Protections _protections;
     private Publisher _publisher;
-    private Zone _putToZoneAfterResolve;
+    private Zone? _resolveToZone;
     private Stack _stack;
     private StaticAbilities _staticAbilities;
     private TimingDelegate _timming;
@@ -61,7 +60,7 @@
     private TriggeredAbilities _triggeredAbilities;
     private TurnInfo _turn;
     private CardTypeCharacteristic _type;
-    private Trackable<int> _usageScore;    
+    private Trackable<int> _usageScore;
     private CalculateX _xCalculator;
     private Trackable<IZone> _zone;
 
@@ -74,25 +73,27 @@
     {
       get
       {
-        return Is().Creature &&
-          !IsTapped && 
-          (!HasSummoningSickness || Has().Haste) && 
-          !Has().Defender && 
-          !Has().CannotAttack;
+        return IsPermanent &&
+          Is().Creature &&
+            !IsTapped &&
+              (!HasSummoningSickness || Has().Haste) &&
+                !Has().Defender &&
+                  !Has().CannotAttack;
       }
     }
 
     private int UsageScore { get { return _usageScore.Value; } set { _usageScore.Value = value; } }
     public bool HasFirstStrike { get { return Has().FirstStrike || Has().DoubleStrike; } }
     public bool HasNormalStrike { get { return !Has().FirstStrike || Has().DoubleStrike; } }
-    public bool CanBeTapped { get { return !IsTapped; } }
+    public bool CanBeTapped { get { return IsPermanent && !IsTapped; } }
     public bool CanRegenerate { get { return _canRegenerate.Value; } set { _canRegenerate.Value = value; } }
-    public bool CanTap { get { return (!Is().Creature || !HasSummoningSickness || Has().Haste) && !IsTapped; } }
+    public bool CanTap { get { return IsPermanent && (!Is().Creature || !HasSummoningSickness || Has().Haste) && !IsTapped; } }
+    private bool IsPermanent { get { return Zone == Zone.Battlefield; } }
     public CastingRule CastingRule { get; private set; }
     public int CharacterCount { get { return FlavorText.CharacterCount + Text.CharacterCount; } }
     public int ChargeCountersCount { get { return _counters.SpecifiCount<ChargeCounter>(); } }
     public virtual ManaColors Colors { get { return _colors.Value; } }
-    public ICardController Controller { get { return _controller.Value; } set { _controller.Value = value; } }
+    public ICardController Controller { get { return _controller.Value; } private set { _controller.Value = value; } }
     public ICardOwner Owner { get; private set; }
     public int? Counters { get { return _counters.Count; } }
     public virtual int Damage { get { return _damage.Value; } protected set { _damage.Value = value; } }
@@ -107,7 +108,7 @@
     public bool IsAttacker { get { return _combat.IsAttacker(this); } }
     public bool IsBlocker { get { return _combat.IsBlocker(this); } }
     public bool IsHidden { get { return _isHidden.Value; } private set { _isHidden.Value = value; } }
-    public bool IsManaSource { get { return _manaSources.Count > 0; } }    
+    public bool IsManaSource { get { return _manaSources.Count > 0; } }
     public virtual bool IsTapped { get { return _isTapped.Value; } protected set { _isTapped.Value = value; } }
     public IManaAmount KickerCost { get; private set; }
 
@@ -134,7 +135,6 @@
     }
 
     public string Name { get; private set; }
-
     public int? Power { get { return _power.Value; } }
 
     public int Score
@@ -170,10 +170,8 @@
     public string Type { get { return _type.Value.ToString(); } }
     public Zone Zone { get { return _zone.Value == null ? Zone.None : _zone.Value.Zone; } }
 
-    public int? Level { get { return _level.Value; } }    
+    public int? Level { get { return _level.Value; } }
     public bool CanBeDestroyed { get { return !CanRegenerate && !Has().Indestructible; } }
-    public IManaAmount CyclingCost { get; private set; }
-    public bool HasCycling { get { return _cyclingFactory != null; } }
     public bool IsRevealed { get { return _isRevealed.Value; } set { _isRevealed.Value = value; } }
     public int? OverrideScore { get; private set; }
 
@@ -223,31 +221,45 @@
     void IEffectSource.EffectWasPushedOnStack()
     {
       var oldZone = Zone;
-      
+
       ChangeZoneTo(_stack);
 
       _publisher.Publish(new CardChangedZone
-      {
-        Card = this,
-        From = oldZone,
-        To = Zone
-      });
+        {
+          Card = this,
+          From = oldZone,
+          To = Zone
+        });
     }
 
     void IEffectSource.EffectWasResolved()
-    {                        
-      switch (_putToZoneAfterResolve)
+    {
+      if (Is().Aura)
       {
-        case (Zone.Battlefield):
-          Controller.PutCardToBattlefield(this);
-          break;
-        case (Zone.Library):
-          Owner.ShuffleIntoLibrary(this);
-          break;
-        case  (Zone.Graveyard):
-          Owner.PutCardToGraveyard(this);        
-          break;
-      }      
+        AttachedTo.Controller.PutCardToBattlefield(this);
+        return;
+      }
+
+      if (Is().Instant || Is().Sorcery)
+      {
+        if (_resolveToZone.HasValue)
+        {
+          switch (_resolveToZone)
+          {
+            case (Zone.Library):
+              Owner.ShuffleIntoLibrary(this);
+              return;
+            case (Zone.Hand):
+              Owner.PutCardToHand(this);
+              return;
+          }
+        }
+
+        Owner.PutCardToGraveyard(this);
+        return;
+      }
+
+      Controller.PutCardToBattlefield(this);
     }
 
     bool IEffectSource.AreTargetsStillValid(IList<ITarget> targets, bool wasKickerPaid)
@@ -268,7 +280,7 @@
         else
         {
           _hash.Value = HashCalculator.Combine(
-            Name.GetHashCode(),            
+            Name.GetHashCode(),
             calc.Calculate(_hasSummoningSickness),
             IsTapped.GetHashCode(),
             Damage,
@@ -350,13 +362,18 @@
     {
       if (attachment.IsAttached)
       {
+        var controller = attachment.AttachedTo.Controller;
+        
         attachment.AttachedTo.Detach(attachment);
+
+        if (controller != Controller)
+        {
+          Controller.PutCardToBattlefield(attachment);
+        }
       }
 
       attachment.AttachedTo = this;
-
       _attachments.Add(new Attachment(attachment));
-
       Publish(new AttachmentAttached {Attachment = attachment});
     }
 
@@ -385,13 +402,13 @@
         return false;
 
       if (Has().Swampwalk &&
-          card.Controller.Battlefield.Any(x => x.Is("swamp")))
+        card.Controller.Battlefield.Any(x => x.Is("swamp")))
       {
         return false;
       }
 
       if (Has().Islandwalk &&
-          card.Controller.Battlefield.Any(x => x.Is("island")))
+        card.Controller.Battlefield.Any(x => x.Is("island")))
       {
         return false;
       }
@@ -406,7 +423,7 @@
 
     public bool CanBlock()
     {
-      return !IsTapped && Is().Creature && !Has().CannotBlock;
+      return IsPermanent && !IsTapped && Is().Creature && !Has().CannotBlock;
     }
 
     public SpellPrerequisites CanCast()
@@ -421,6 +438,7 @@
       return new SpellPrerequisites
         {
           CanBeSatisfied = true,
+          Description = String.Format("Cast {0}.", this),
           TargetSelectors = _targetSelectors,
           KickerTargetSelectors = _kickerTargetSelectors,
           CanCastWithKicker = canCastWithKicker,
@@ -428,38 +446,6 @@
           XCalculator = _xCalculator,
           Timming = _timming,
         };
-    }
-
-    public SpellPrerequisites CanCycle()
-    {
-      if (CyclingCost == null || !Controller.HasMana(CyclingCost))
-      {
-        return new SpellPrerequisites {CanBeSatisfied = false};
-      }
-
-      return new SpellPrerequisites
-        {
-          CanBeSatisfied = true,
-          Timming = Timings.Cycling()
-        };
-    }
-
-    public void Cycle()
-    {
-      PayCyclingCost();
-
-      var effect = _cyclingFactory.CreateEffect(
-        new EffectParameters(source: this));
-
-      _stack.Push(effect);
-      IncreaseUsageScore();
-
-      Publish(new PlayerHasCycledCard(this));
-    }
-
-    private void PayCyclingCost()
-    {
-      Owner.Consume(CyclingCost);
     }
 
     public void Cast(ActivationParameters activationParameters)
@@ -486,7 +472,7 @@
     {
       Damage = 0;
       _hasLeathalDamage.Value = false;
-    }    
+    }
 
     public void Detach(Card card)
     {
@@ -497,7 +483,7 @@
 
       if (card.Is().Enchantment)
       {
-        card.Sacrifice();        
+        card.Sacrifice();
       }
 
       Publish(new AttachmentDetached
@@ -591,7 +577,7 @@
     public void RemoveChargeCounter()
     {
       _counters.RemoveAny<ChargeCounter>();
-    }        
+    }
 
     public void Destroy(bool allowToRegenerate = true)
     {
@@ -608,8 +594,8 @@
 
       Owner.PutCardToGraveyard(this);
     }
-    
-    
+
+
     public void Sacrifice()
     {
       Owner.PutCardToGraveyard(this);
@@ -618,12 +604,12 @@
     public void ChangeZoneTo(IZone newZone)
     {
       if (_zone.Value != null)
-      {
-        _zone.Value.Remove(this);        
+      {        
+        _zone.Value.Remove(this, newZone.Zone == _zone.Value.Zone);
       }
 
       _zone.Value = newZone;
-    }  
+    }
 
     public void Show()
     {
@@ -700,7 +686,7 @@
     public void Exile()
     {
       Owner.PutCardToExile(this);
-    }        
+    }
 
     public void RemoveModifier(Type type)
     {
@@ -760,6 +746,49 @@
       return amount;
     }
 
+    public void ReturnToHand()
+    {
+      Owner.PutCardToHand(this);
+    }
+
+    public void PutOnTopOfLibrary()
+    {
+      Owner.PutCardOnTopOfLibrary(this);
+    }
+
+    public void Discard()
+    {
+      Owner.DiscardCard(this);
+    }
+
+    public void ShuffleIntoLibrary()
+    {
+      Owner.ShuffleIntoLibrary(this);
+    }
+
+    public void PutToBattlefield()
+    {
+      Controller.PutCardToBattlefield(this);
+    }
+
+    public void ChangeController(ICardController newController)
+    {
+      if (newController == Controller)
+        return;
+
+      Controller = newController;
+      newController.PutCardToBattlefield(this);
+
+      foreach (var attachment in Attachments)
+      {
+        // for attachments just change battlefield
+        // do not change the control
+        newController.PutCardToBattlefield(attachment);
+      }
+
+      Publish(new ControllerChanged(this));
+    }
+
     [Copyable]
     public class CardFactory : ICardFactory
     {
@@ -775,7 +804,6 @@
       private readonly List<ITriggeredAbilityFactory> _triggeredAbilityFactories = new List<ITriggeredAbilityFactory>();
       private ICostFactory _additionalCost;
       private ManaColors _colors;
-      private string _cyclingCost;      
       private EffectCategories _effectCategories;
       private IEffectFactory _effectFactory;
       private string _flavorText;
@@ -790,7 +818,7 @@
       private int? _power;
       private string[] _protectionsFromCardTypes;
       private ManaColors _protectionsFromColors = ManaColors.None;
-      private Zone? _putToZoneAfterResolve;
+      private Zone? _resolveZone;
       private TargetsFilterDelegate _targetsFilter;
 
       private string _text;
@@ -817,11 +845,9 @@
         card._combat = _game.Combat;
         card._stack = _game.Stack;
         card._turn = _game.Turn;
-        card.Owner = (ICardOwner)owner;
+        card.Owner = (ICardOwner) owner;
 
         card._effectFactory = _effectFactory ?? new Effect.Factory<PutIntoPlay> {Game = _game};
-        card._cyclingFactory = _cyclingCost != null
-          ? new Effect.Factory<DrawCards> {Game = _game, Init = p => p.Effect.DrawCount = 1} : null;
         card._kickerEffectFactory = _kickerEffectFactory;
         card._hash = new Trackable<int?>(_changeTracker);
 
@@ -830,8 +856,6 @@
         card.ManaCost = _manaCost.ParseManaAmount();
         card.MayChooseNotToUntapDuringUntapStep = _mayChooseNotToUntap;
         card.OverrideScore = _overrideScore;
-        
-        card.CyclingCost = _cyclingCost.ParseManaAmount();
         card.KickerCost = _kickerCost.ParseManaAmount();
         card.ManaCostWithKicker = card.HasKicker ? card.ManaCost.Add(card.KickerCost) : card.ManaCost;
         card.Text = _text ?? String.Empty;
@@ -845,7 +869,7 @@
         CreateBindableCounters(card);
         CreateBindableType(card);
         CreateBindableColors(card);
-        
+
         card._damage = new Trackable<int>(_changeTracker, card);
         card._usageScore = new Trackable<int>(_changeTracker);
         card._isTapped = new Trackable<bool>(_changeTracker, card);
@@ -855,8 +879,8 @@
         card._isHidden = new Trackable<bool>(_changeTracker, card);
         card._isRevealed = new Trackable<bool>(_changeTracker, card);
         card._canRegenerate = new Trackable<bool>(_changeTracker, card);
-        card._hasSummoningSickness = new Trackable<bool>(true, _changeTracker, card);        
-        card._controller = new Trackable<ICardController>((ICardController)owner, _changeTracker, card);
+        card._hasSummoningSickness = new Trackable<bool>(true, _changeTracker, card);
+        card._controller = new Trackable<ICardController>((ICardController) owner, _changeTracker, card);
         card._damagePreventions = new DamagePreventions(_changeTracker, card);
         card._protections = new Protections(_changeTracker, card, _protectionsFromColors, _protectionsFromCardTypes);
         card._zone = new Trackable<IZone>(_changeTracker, card);
@@ -893,36 +917,18 @@
 
         card._staticAbilities = new StaticAbilities(_staticAbilities, _changeTracker, card);
 
-        var triggeredAbilities = _triggeredAbilityFactories.Select(x => x.Create(card, card));                        
+        var triggeredAbilities = _triggeredAbilityFactories.Select(x => x.Create(card, card));
         card._triggeredAbilities = new TriggeredAbilities(triggeredAbilities, _changeTracker, card);
 
         var activatedAbilities = _activatedAbilityFactories.Select(x => x.Create(card)).ToList();
         card._activatedAbilities = new ActivatedAbilities(activatedAbilities, _changeTracker, card);
-
         card._manaSources = activatedAbilities.Where(ability => ability is IManaSource).Cast<IManaSource>().ToList();
-
-        var continiousEffects =
-          _continuousEffectFactories.Select(factory => factory.Create(card)).ToList();
+        var continiousEffects = _continuousEffectFactories.Select(factory => factory.Create(card)).ToList();
         card._continuousEffects = new TrackableList<ContinuousEffect>(continiousEffects, _changeTracker, card);
 
+        card._resolveToZone = _resolveZone;
 
-        card._putToZoneAfterResolve = _putToZoneAfterResolve ?? ChooseZoneToWhichCardWillResolve(card);
-                
         return card;
-      }
-
-      private static Zone ChooseZoneToWhichCardWillResolve(Card card)
-      {                
-        if (card.Is().Creature || 
-            card.Is().Artifact ||             
-            card.Is().Enchantment || 
-            card.Is().Equipment || 
-            card.Is().Land)
-        {
-          return Zone.Battlefield;
-        }
-
-        return Zone.Graveyard;
       }
 
       public Card CreateCardPreview()
@@ -973,10 +979,10 @@
               t.Step = Step.Upkeep;
               t.OnlyOnceWhenInPlay = true;
             }),
-          c.Effect<PayManaOrSacrifice>(e => e.Amount = amount), 
+          c.Effect<PayManaOrSacrifice>(e => e.Amount = amount),
           triggerOnlyIfOwningCardIsInPlay: true);
-        
-        _triggeredAbilityFactories.Add(echoFactory);        
+
+        _triggeredAbilityFactories.Add(echoFactory);
         return this;
       }
 
@@ -1012,7 +1018,7 @@
 
       public CardFactory AfterResolvePutToZone(Zone zone)
       {
-        _putToZoneAfterResolve = zone;
+        _resolveZone = zone;
         return this;
       }
 
@@ -1125,7 +1131,17 @@
 
       public CardFactory Cycling(string cost)
       {
-        _cyclingCost = cost;
+        var b = new CardBuilder(_game);
+
+        var cycling = b.ActivatedAbility(
+          string.Format("Cycling {0} ({0}, Discard this card: Draw a card.)", cost),
+          b.Cost<DiscardOwnerPayMana>(c => c.Amount = cost.ParseManaAmount()),
+          b.Effect<DrawCards>(e => e.DrawCount = 1),
+          timing: Timings.Cycling(),
+          activationZone: Zone.Hand);
+
+        _activatedAbilityFactories.Add(cycling);
+
         return this;
       }
 
@@ -1278,31 +1294,6 @@
         _overrideScore = score;
         return this;
       }
-    }
-
-    public void ReturnToHand()
-    {
-      Owner.PutCardToHand(this);
-    }
-
-    public void PutOnTopOfLibrary()
-    {
-      Owner.PutCardOnTopOfLibrary(this);
-    }
-
-    public void Discard()
-    {
-      Owner.DiscardCard(this);
-    }
-
-    public void ShuffleIntoLibrary()
-    {      
-      Owner.ShuffleIntoLibrary(this);
-    }
-
-    public void PutToBattlefield()
-    {
-      Controller.PutCardToBattlefield(this);
     }
   }
 }

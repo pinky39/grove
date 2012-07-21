@@ -11,10 +11,10 @@
       (ability, card) => ability.OwningCard == card;
 
     public Zone From { get; set; }
-    public Zone To { get; set; }
+    public Zone To { get; set; }    
 
     public void Receive(CardChangedZone message)
-    {
+    {            
       if (!Filter(Ability, message.Card))
         return;
 

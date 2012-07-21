@@ -221,9 +221,9 @@
           {
             var effect = _game.Stack.LastResolved;
             if (effect != null)
-            {
+            {              
+              effect.FinishResolve();
               _game.Players.MoveDeadCreaturesToGraveyard();
-              effect.EffectWasResolved();
             }
           },
         next: () => State.Start);

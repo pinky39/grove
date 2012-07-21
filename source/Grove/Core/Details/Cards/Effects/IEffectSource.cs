@@ -9,9 +9,11 @@
   {
     EffectCategories EffectCategories { get; }
     Card OwningCard { get; }
+    
     void EffectWasCountered();
     void EffectWasPushedOnStack();
     void EffectWasResolved();
+    
     bool AreTargetsStillValid(IList<ITarget> targets, bool wasKickerPaid);
   }
 }

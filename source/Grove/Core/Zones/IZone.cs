@@ -3,6 +3,6 @@
   public interface IZone
   {
     Zone Zone { get; }    
-    void Remove(Card card);
+    void Remove(Card card, bool moveToOpponentZone);    
   }
 }

@@ -7,12 +7,13 @@
   using Infrastructure;
   using Mana;
   using Messages;
+  using Zones;
 
   public class ActivatedAbility : Ability
   {
+    public Zone ActivationZone = Zone.Battlefield;
     private Trackable<bool> _isEnabled;
     private TimingDelegate _timming = Timings.NoRestrictions();
-
 
     public ActivatedAbility()
     {
@@ -85,6 +86,7 @@
             MaxX = maxX,
             Timming = _timming,
             TargetsSelf = TargetsSelf,
+            IsAbility = true,
           }
         : new SpellPrerequisites
           {
@@ -120,6 +122,9 @@
 
     private bool CanBeActivatedAtThisTime()
     {
+      if (OwningCard.Zone != ActivationZone)
+        return false;
+
       if (ActivateOnlyAsSorcery)
       {
         return Turn.Step.IsMain() &&

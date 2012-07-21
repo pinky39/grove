@@ -1,10 +1,9 @@
-﻿namespace Grove.Core.Controllers
+﻿namespace Grove.Core.Controllers.Scenario
 {
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Infrastructure;
-  using Scenario;
+  using Grove.Infrastructure;
 
   [Copyable]
   public class ScenarioDecisions
@@ -32,11 +31,11 @@
 
     public IDecision Get<TDecision>(Action<TDecision> init) where TDecision : IDecision
     {
-      if (typeof (TDecision) == typeof (PlaySpellOrAbility) ||
-        typeof (TDecision) == typeof (DeclareAttackers) ||
-          typeof (TDecision) == typeof (DeclareBlockers) ||
-            typeof (TDecision) == typeof (SetTriggeredAbilityTarget) || 
-            typeof(TDecision) == typeof(ChooseToUntap))
+      if (typeof (TDecision) == typeof (Controllers.PlaySpellOrAbility) ||
+        typeof (TDecision) == typeof (Controllers.DeclareAttackers) ||
+          typeof (TDecision) == typeof (Controllers.DeclareBlockers) ||
+            typeof (TDecision) == typeof (Controllers.SetTriggeredAbilityTarget) || 
+            typeof(TDecision) == typeof(Controllers.ChooseToUntap))
       {
         var scenarioDecision = Next<TDecision>();
 
