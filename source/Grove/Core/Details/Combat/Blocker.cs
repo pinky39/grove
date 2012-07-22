@@ -115,53 +115,7 @@
         return false;
 
       return QuickCombat.CanBlockerBeDealtLeathalCombatDamage(Card, Attacker.Card);
-    }    
-    
-    //public int GetMaxAmountOfDamageThatWillBeDealtToBlocker(Action<Card, int> leathalDamageHandler = null)
-    //{
-    //  if (Attacker == null)
-    //    return 0;
-
-    //  return GetMaxAmountOfDamageThatWillBeDealtToBlocker(Attacker.Card, Card, leathalDamageHandler);
-    //}
-
-    //public static int GetMaxAmountOfDamageThatWillBeDealtToBlocker(Card attacker, Card blocker,
-    //  Action<Card, int> leathalDamageHandler = null)
-    //{
-    //  leathalDamageHandler = leathalDamageHandler ?? delegate { };
-
-    //  if (blocker.Is().Creature == false)
-    //    return 0;
-
-    //  if (blocker.CanBeDestroyed == false)
-    //    return 0;
-
-    //  if (blocker.HasFirstStrike && !attacker.HasFirstStrike && !attacker.Has().Indestructible)
-    //  {
-    //    var blockerDealtAmount = attacker.EvaluateHowMuchDamageCanBeDealt(
-    //      blocker, blocker.Power.Value, isCombat: true);
-
-    //    if (blockerDealtAmount > 0 && blocker.Has().Deathtouch)
-    //    {
-    //      return 0;
-    //    }
-
-    //    if (blockerDealtAmount >= attacker.LifepointsLeft)
-    //      return 0;
-    //  }
-
-    //  var attackerDealtAmount = blocker.EvaluateHowMuchDamageCanBeDealt(attacker, attacker.Power.Value, isCombat: true);
-
-    //  if (attackerDealtAmount == 0)
-    //    return 0;
-
-    //  if (attacker.Has().Deathtouch)
-    //  {
-    //    leathalDamageHandler(attacker, attackerDealtAmount);
-    //  }
-
-    //  return attackerDealtAmount;
-    //}
+    }         
 
     [Copyable]
     public class Factory : IBlockerFactory
@@ -181,6 +135,14 @@
       {
         return new Blocker(blocker, attacker, _changeTracker, _publisher);
       }
+    }
+
+    public bool CanKillAttacker()
+    {
+      if (Attacker == null)
+        return false;
+
+      return QuickCombat.CanAttackerBeDealtLeathalDamage(Attacker.Card, Card.ToEnumerable());
     }
   }
 }

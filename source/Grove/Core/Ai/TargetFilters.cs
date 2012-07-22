@@ -343,7 +343,7 @@
               .Where(x => x.Card().Controller == p.Controller)
               .OrderByDescending(x => x.Card().Score));
           }
-                    
+
           return p.Targets(p.Candidates()
             .Where(x => x.Card().Controller == p.Controller)
             .Where(x => p.Stack.CanBeDealtLeathalDamageByTopSpell(x.Card()))
@@ -372,10 +372,19 @@
               .OrderBy(x => x.Card().Score));
           }
 
-          var candidates = p.Candidates()
-            .Where(x => p.Stack.CanBeDestroyedByTopSpell(x.Card()) ||
-              p.Combat.CanBeDealtLeathalCombatDamage(x.Card()))
-            .Take(1);
+          var candidates = new List<ITarget>();
+
+          if (p.Step == Step.DeclareBlockers)
+          {
+            candidates.AddRange(
+              p.Candidates()
+                .Where(x => p.Combat.CanBeDealtLeathalCombatDamage(x.Card()))
+                .Where(x => !p.Combat.CanKillAny(x.Card())));
+          }
+
+          candidates.AddRange(
+            p.Candidates()
+              .Where(x => p.Stack.CanBeDestroyedByTopSpell(x.Card())));
 
           return p.Targets(candidates);
         };
@@ -702,7 +711,7 @@
           return 4*card.CalculateCombatDamage(allDamageSteps: true);
         }
 
-        return 2*card.CalculateCombatDamage(allDamageSteps: true) + 
+        return 2*card.CalculateCombatDamage(allDamageSteps: true) +
           card.Toughness.GetValueOrDefault();
       }
 

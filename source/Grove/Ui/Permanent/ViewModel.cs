@@ -194,7 +194,7 @@
       var prerequisites = Card.CanActivateAbilities().ToList();
 
       index = 0;
-      selected = prerequisites[index];
+      selected = null;
 
       if (prerequisites.Count(p => p.CanBeSatisfied) > 1)
       {
@@ -204,10 +204,14 @@
         if (dialog.WasCanceled)
           return false;
 
-        selected = dialog.Selected;
-        index = prerequisites.IndexOf(selected);
+        selected = dialog.Selected;        
+      }
+      else
+      {        
+        selected = prerequisites.FirstOrDefault(x => x.CanBeSatisfied);        
       }
 
+      index = prerequisites.IndexOf(selected);
       return true;
     }
 

@@ -185,5 +185,10 @@
         return new Attacker(card, _changeTracker, _players, _publisher);
       }
     }
+
+    public bool CanKillAnyBlocker()
+    {
+      return QuickCombat.CanAttackerKillAnyBlocker(Card, _blockers.Select(x => x.Card));
+    }
   }
 }

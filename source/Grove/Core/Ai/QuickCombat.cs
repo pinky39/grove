@@ -153,5 +153,19 @@
 
       return performance.Evaluate().ReceivesLeathalDamage;
     }
+
+    public static bool CanAttackerKillAnyBlocker(Card attacker, IEnumerable<Card> blockers)
+    {
+      foreach (var blocker in blockers)
+      {
+        var eval = new BlockerEvaluation(blocker, attacker)
+          .Evaluate();  
+
+        if (eval.ReceivesLeathalDamage)
+          return true;
+      }
+
+      return false;
+    }    
   }
 }

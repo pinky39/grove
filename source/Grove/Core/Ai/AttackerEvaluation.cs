@@ -76,6 +76,6 @@
       public int  DamageDealt { get; set; }
       public bool ReceivesLeathalDamage { get; set; }
       public Card LeathalBlocker { get; set; }      
-    }
   }
+}
 }

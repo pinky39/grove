@@ -285,5 +285,24 @@
       var attacker = FindBlocker(blocker).Attacker;
       return attacker != null ? attacker.Card : null;
     }
+
+    public bool CanKillAny(Card attackerOrBlocker)
+    {
+      var attacker = FindAttacker(attackerOrBlocker);
+
+      if (attacker != null)
+      {
+        return attacker.CanKillAnyBlocker();
+      }
+
+      var blocker = FindBlocker(attackerOrBlocker);
+
+      if (blocker != null)
+      {
+        return blocker.CanKillAttacker();
+      }
+
+      return false;
+    }
   }
 }
