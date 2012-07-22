@@ -302,7 +302,7 @@
         container.Register(Configure(IsViewModelFactory, registration =>
           {
             registration.AsFactory();
-            registration.LifestyleSingleton();
+            registration.LifestyleTransient();
           }));
       }
     }

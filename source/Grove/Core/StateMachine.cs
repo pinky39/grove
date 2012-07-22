@@ -13,6 +13,7 @@
     private static readonly ILog Log = LogManager.GetLogger(typeof (StateMachine));
     private readonly DecisionQueue _decisionQueue;
     private Trackable<IDecision> _curentDecision;
+    private Trackable<int> _passesCount;
     private Game _game;
     private IPlayer _looser;
     private Dictionary<State, StepState> _states;
@@ -51,6 +52,7 @@
     {
       _game = game;
       _curentDecision = new Trackable<IDecision>(_game.ChangeTracker);
+      _passesCount = new Trackable<int>(_game.ChangeTracker);
 
       InitializeStepStates();
       InitializeSteps();
@@ -171,8 +173,15 @@
         name: State.Start,
         proc: () => _game.Decisions.Enqueue<PlaySpellOrAbility>(_game.Players.Active),
         next: () =>
-          WasPriorityPassed ? State.Passive : State.Active
-        );
+          {
+            if (WasPriorityPassed)
+            {
+              _passesCount.Value++;
+              return State.Passive;
+            }
+            
+            return State.Active;
+          });
 
       CreateState(
         name: State.Active,
@@ -181,14 +190,21 @@
           {
             if (WasPriorityPassed)
             {
-              if (_game.Stack.IsEmpty)
-                return State.After;
+              _passesCount.Value++;
+              
+              if (_passesCount.Value == 2)
+              {
+                _passesCount.Value = 0;
+                
+                return _game.Stack.IsEmpty 
+                  ? State.After 
+                  : State.BeginResolve;
+              }
 
-              return _game.Stack.TopSpellOwner.IsActive
-                ? State.Passive
-                : State.BeginResolve;
+              return State.Passive;                
             }
 
+            _passesCount.Value = 0;
             return State.Active;
           });
 
@@ -199,14 +215,21 @@
           {
             if (WasPriorityPassed)
             {
-              if (_game.Stack.IsEmpty)
-                return State.After;
+              _passesCount.Value++;
+              
+              if (_passesCount.Value == 2)
+              {
+                _passesCount.Value = 0;
+                
+                return _game.Stack.IsEmpty 
+                  ? State.After 
+                  : State.BeginResolve;
+              }
 
-              return _game.Stack.TopSpellOwner.IsActive
-                ? State.BeginResolve
-                : State.Active;
+              return State.Active;                                            
             }
 
+            _passesCount.Value = 0;
             return State.Passive;
           });
 

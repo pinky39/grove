@@ -121,6 +121,9 @@
 
       var prerequisites = SelectActivation(out ablityIndex);
 
+      if (prerequisites == null)
+        return;
+      
       if (prerequisites.CanCastWithKicker)
       {
         payKicker = PayKicker(prerequisites);

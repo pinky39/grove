@@ -20,6 +20,11 @@
     {
       var results = new CalculationResults();
       
+      if (_attacker == null)
+      {
+        return results;
+      }
+      
       if (_blocker.Is().Creature == false)
         return results;
 

@@ -102,6 +102,7 @@
     <Compile Include="Cards\DayOfJudgment.cs" />
     <Compile Include="Cards\DeathlessAngel.cs" />
     <Compile Include="Cards\DiscipleOfGrace.cs" />
+    <Compile Include="Cards\DragonBlood.cs" />
     <Compile Include="Cards\Dread.cs" />
     <Compile Include="Cards\EleshNornGrandCenobite.cs" />
     <Compile Include="Cards\Endoskeleton.cs" />
@@ -115,6 +116,7 @@
     <Compile Include="Cards\MonkIdealist.cs" />
     <Compile Include="Cards\OpalCaryatid.cs" />
     <Compile Include="Cards\Pariah.cs" />
+    <Compile Include="Cards\Pestilence.cs" />
     <Compile Include="Cards\PhyrexianArena.cs" />
     <Compile Include="Cards\Rancor.cs" />
     <Compile Include="Cards\Recoil.cs" />

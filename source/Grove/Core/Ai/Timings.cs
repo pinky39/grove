@@ -4,6 +4,7 @@
   using System.Linq;
   using Details.Mana;
   using Dsl;
+  using Infrastructure;
   using Targeting;
 
   public delegate bool TimingDelegate(TimingParameters parameters);
@@ -36,7 +37,7 @@
       return p => p.Controller.HasMana(converted);
     }
 
-    public static TimingDelegate MassRemovalInstant()
+    public static TimingDelegate MassRemovalInstantSpeed()
     {
       return p =>
         {
@@ -59,8 +60,19 @@
             return p.Combat.Attackers.Count() > 0;
           }
 
+          // eot or when owner of ability is in trouble
+          if ((!p.Controller.IsActive && p.Step == Step.EndOfTurn) || p.Stack.CanBeDestroyedByTopSpell(p.Card))
+          {
+            return true;
+          }
+
           return false;
         };
+    }
+
+    public static TimingDelegate OnlyOneOfKind()
+    {
+      return p => p.Controller.Battlefield.None(x => x.Name == p.Card.Name);
     }
 
     public static TimingDelegate TargetRemovalInstant(bool combatOnly = false)

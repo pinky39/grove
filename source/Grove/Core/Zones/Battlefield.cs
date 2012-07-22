@@ -4,10 +4,13 @@
   using System.Linq;
 
   public class Battlefield : UnorderedZone, IBattlefieldQuery
-  {    
+  {
     private readonly Combat _combat;
-    public Battlefield(Game game) : base(game)
+    private readonly Player _owner;
+
+    public Battlefield(Player owner, Game game) : base(game)
     {
+      _owner = owner;
       _combat = game.Combat;
     }
 
@@ -16,7 +19,7 @@
       /* for state copy */
     }
 
-    public int Score { get { return this.Sum(x => x.Score); } }
+    public int Score { get { return this.Where(x => x.Controller == _owner).Sum(x => x.Score); } }
     public override Zone Zone { get { return Zone.Battlefield; } }
 
     public IEnumerable<Card> Attackers { get { return this.Where(card => card.IsAttacker); } }
@@ -33,7 +36,7 @@
 
     protected override void AfterRemove(Card card)
     {
-       _combat.Remove(card);
+      _combat.Remove(card);
       card.DetachAttachments();
       card.Detach();
       card.Untap();

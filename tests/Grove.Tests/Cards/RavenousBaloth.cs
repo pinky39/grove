@@ -61,8 +61,9 @@
           P2.Life = 1;
 
           Exec(
-            At(Step.EndOfTurn, turn: 2)
-              .Cast(shock, P2)
+            At(Step.FirstMain)
+              .Cast(shock, P2),
+            At(Step.SecondMain )
               .Verify(() =>
                 {
                   Equal(3, P2.Life);

@@ -18,7 +18,7 @@
         .Text(
           "If you control a creature, damage that would reduce your life total to less than 1 reduces it to 1 instead.")
         .FlavorText("'Believe in the ideal, not the idol.'{EOL}—Serra")
-        .Timing(Timings.FirstMain())
+        .Timing(All(Timings.FirstMain(), Timings.OnlyOneOfKind()))
         .Abilities(
           C.Continuous((e, c) =>
             {

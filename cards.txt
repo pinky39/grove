@@ -1,4 +1,4 @@
-MAGICGROVE v 1.4: Card List
+MAGICGROVE v 1.5: Card List
 =====================================
 The following cards can be used to construct new decks:
 
@@ -17,7 +17,9 @@ Annul
 Antagonism
 Argothian Enchantress
 Argothian Swine
+Argothian Wurm
 Baneslayer Angel
+Barrin's Codex
 Basilisk Collar
 Beacon of Destruction
 Befoul
@@ -26,10 +28,14 @@ Black Sun's Zenith
 Blanchwood Armor
 Blaze
 Blood Vassal
+Brilliant Halo
+Bull Hippo
 Burst Lightning
+Clear
 Copperline Gorge
 Corrupt
 Counterspell
+Cradle Guard
 Creeping Tar Pit
 Cruel Edict
 Darkslick Drake
@@ -37,15 +43,18 @@ Darksteel Gargoyle
 Day of Judgment
 Deathless Angel
 Disciple of Grace
+Disciple of Law
 Disenchant
 Divination
 Doom blade
+Dragon Blood
 Drana, Kalastria Bloodchief
 Dread
 Drifting Meadow
 Drowned Catacomb
 Elesh Norn, Grand Cenobite
 Elvish Warrior
+Endoskeleton
 Evacuation
 Expunge
 Fires of Yavimaya
@@ -55,6 +64,8 @@ Flesh Reaver
 Forest
 Glorious Anthem
 Go for the Throat
+Goblin War Buggy
+Gobling Patrol
 Grasp of Darkness
 Grave Titan
 Grizzly Bears
@@ -72,15 +83,23 @@ Mana Leak
 Marsh Casualties
 Martial Coup
 Mirran Crusader
+Monk Idealist
+Monk Realist
 Mountain
 Nantuko Shade
 Opal Acrolith
+Opal Caryatid
+Opal Gargoyle
+Opal Titan
 Order of the Sacred Bell
+Pacifism
 Pariah
+Pegasus Charger
 Pestilence
 Phyrexian Arena
 Plains
 Polluted Mire
+Pouncing Jaguar
 Raging Ravine
 Rancor
 Ravenous Baloth
@@ -90,15 +109,19 @@ Rootbound Crag
 Rumbling Slum
 Rune of Protection: Black
 Rupture Spire
+Sanctum Custodian
 Sanctum Guardian
 Savannah Lions
 Seal of Fire
+Serra's Embrace
 Shivan Dragon
+Shivan Raptor
 Shock
 Sicken
 Sift
 Sign in Blood
 Silent Attendant
+Songstitcher
 Steam Vents
 Stirring Wildwood
 Student of Warfare
@@ -110,6 +133,7 @@ Sword of Feast and Famine
 Sword of Fire and Ice
 Swords to Plowshares
 Thrun, the Last Troll
+Thundering Giant
 Time Warp
 Trained Armodon
 Trip Noose
@@ -129,6 +153,8 @@ Volcanic Hammer
 Wall of Denial
 Wall of Junk
 Wall of Reverence
+Waylay
 White Knight
+Wild Dogs
 Worship
 Wurmcoil Engine

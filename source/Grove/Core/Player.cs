@@ -372,7 +372,7 @@
 
       var mulliganSize = _hand.MulliganSize;
 
-      foreach (var card in Hand)
+      foreach (var card in Hand.ToList())
       {
         _library.Add(card);
       }
@@ -450,7 +450,7 @@
 
     private void CreateZones(IEnumerable<Card> cards, Game game)
     {
-      _battlefield = Bindable.Create<Battlefield>(game);
+      _battlefield = Bindable.Create<Battlefield>(this, game);
       _hand = Bindable.Create<Hand>(game);
       _graveyard = Bindable.Create<Graveyard>(game);
       _library = Bindable.Create<Library>(game);

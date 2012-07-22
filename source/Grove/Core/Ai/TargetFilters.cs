@@ -337,6 +337,13 @@
             return p.Targets(candidates);
           }
 
+          if ((!p.Controller.IsActive && p.Step == Step.EndOfTurn) || p.Stack.CanBeDestroyedByTopSpell(p.Source))
+          {
+            return p.Targets(p.Candidates()
+              .Where(x => x.Card().Controller == p.Controller)
+              .OrderByDescending(x => x.Card().Score));
+          }
+                    
           return p.Targets(p.Candidates()
             .Where(x => x.Card().Controller == p.Controller)
             .Where(x => p.Stack.CanBeDealtLeathalDamageByTopSpell(x.Card()))

@@ -1,5 +1,7 @@
 ﻿namespace Grove.Ui.StartScreen
 {
+  using System.Diagnostics;
+  using System.Reflection;
   using System.Windows;
   using Core;
   using SelectDeck;
@@ -19,7 +21,16 @@
       _selectDeckScreenFactory = selectDeckScreenFactory;
     }
 
-    public string DatabaseInfo { get { return string.Format("Database has {0} cards.", _cardDatabase.CardCount); } }
+    public string DatabaseInfo
+    {
+      get
+      {
+        return string.Format("Release {0} ({1} cards)",
+          FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion,
+          _cardDatabase.CardCount);
+      }
+    }
+
     public void AddDialog(object dialog, DialogType dialogType) {}
 
     public bool HasFocus(object dialog)

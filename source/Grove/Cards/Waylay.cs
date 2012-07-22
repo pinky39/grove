@@ -41,7 +41,7 @@
                         t.PassiveTurn = true;
                         t.ActiveTurn = true;
                       }),
-                    p.Builder.Effect<SacrificeSource>())
+                    p.Builder.Effect<SacrificeSource>(), triggerOnlyIfOwningCardIsInPlay: true)
                 ));
           });
     }

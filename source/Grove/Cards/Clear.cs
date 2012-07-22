@@ -19,6 +19,7 @@
         .Effect<DestroyTargetPermanent>()
         .Category(EffectCategories.Destruction)
         .Timing(Timings.TargetRemovalInstant())
+        .Cycling("{2}")
         .Targets(
           filter: TargetFilters.OrderByDescendingScore(),
           effect:

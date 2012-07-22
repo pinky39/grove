@@ -20,7 +20,7 @@
         .Type("Enchantment")
         .Text(
           "At the beginning of the end step, if no creatures are on the battlefield, sacrifice Pestilence.{EOL}{B}: Pestilence deals 1 damage to each creature and each player.")
-        .Timing(Timings.FirstMain())
+        .Timing(All(Timings.FirstMain(), Timings.OnlyOneOfKind()))
         .Abilities(
           C.TriggeredAbility(
             "At the beginning of the end step, if no creatures are on the battlefield, sacrifice Pestilence.",
@@ -42,7 +42,7 @@
                 e.AmountCreature = 1;
                 e.AmountPlayer = 1;
               }),
-            timing: Any(Timings.MassRemovalInstant(), Timings.EndOfTurn()))
+            timing: Any(Timings.MassRemovalInstantSpeed(), Timings.EndOfTurn()))
         );
     }
   }

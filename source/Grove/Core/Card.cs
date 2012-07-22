@@ -389,6 +389,9 @@
 
     public bool CanBeBlockedBy(Card card)
     {
+      if (card.IsTapped)
+        return false;
+      
       if (Has().Unblockable)
         return false;
 
@@ -658,6 +661,11 @@
         return ManaColors.Colorless;
       }
 
+      if (ManaCost.None(x=>x.IsColored))
+      {
+        return ManaColors.Colorless;
+      }
+      
       var cardColor = ManaColors.None;
 
       foreach (var mana in ManaCost.Colored())

@@ -5,6 +5,7 @@
   using System.Collections.Generic;
   using System.Linq;
   using Infrastructure;
+  using Targeting;
 
   [Copyable]
   public class Players : IEnumerable<IPlayer>, IHashable
@@ -89,6 +90,11 @@
     IEnumerator IEnumerable.GetEnumerator()
     {
       return GetEnumerator();
+    }
+
+    public IEnumerable<ITarget> GetTargets()
+    {
+      return this.SelectMany(x => x.GetTargets());
     }
 
     public int CalculateHash(HashCalculator calc)
