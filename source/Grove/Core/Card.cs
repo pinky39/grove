@@ -332,6 +332,9 @@
 
     public int CalculateLifepointsLeft()
     {
+      if (!Toughness.HasValue)
+        return 0;
+      
       return Toughness.Value - Damage;
     }
 
