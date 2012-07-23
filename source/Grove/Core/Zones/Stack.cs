@@ -100,12 +100,10 @@
 
     public int GetDamageTopSpellWillDealToPlayer(IPlayer player)
     {
-      var damageDealing = TopSpell as IDamageDealing;
-
-      if (damageDealing == null)
+      if (TopSpell == null)
         return 0;
-
-      return damageDealing.PlayerDamage(player);
+      
+      return TopSpell.CalculatePlayerDamage(player);
     }
 
     public int GetDamageTopSpellWillDealToCreature(Card card, bool targetOnly = false)
@@ -116,13 +114,9 @@
       if (!TopSpell.HasTargets && targetOnly)
         return 0;
 
-      var damageDealing = TopSpell as IDamageDealing;
-
-      if (damageDealing == null)
-        return 0;
-
+      
       var dealtAmount = card.EvaluateReceivedDamage(
-        TopSpell.Source.OwningCard, damageDealing.CreatureDamage(card), isCombat: false);
+        TopSpell.Source.OwningCard, TopSpell.CalculateCreatureDamage(card), isCombat: false);
 
       return dealtAmount;
     }
@@ -153,19 +147,27 @@
         return TopSpell.HasTarget(card);
       }
 
-      return CanBeDealtLeathalDamageByTopSpell(card);
+      if (card.Is().Creature == false)
+        return false;
+      
+      return CanThougnessBeReducedToLeathalByTopSpell(card) || CanBeDealtLeathalDamageByTopSpell(card);
+    }
+
+    private bool CanThougnessBeReducedToLeathalByTopSpell(Card card)
+    {
+      if (TopSpell == null)
+        return false;
+
+      return card.CalculateLifepointsLeft() <= 
+        TopSpell.CalculateToughnessReduction(card);      
     }
 
     public bool CanTopSpellReducePlayersLifeToZero(IPlayer player)
     {
-      var damageDealing = TopSpell as IDamageDealing;
-
-      if (damageDealing == null)
-      {
+      if (TopSpell == null)
         return false;
-      }
 
-      var damage = damageDealing.PlayerDamage(player);
+      var damage = TopSpell.CalculatePlayerDamage(player);
       return damage >= player.Life;
     }
   }

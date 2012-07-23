@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -22,7 +21,7 @@
         .FlavorText("We plant the seeds of doubt to harvest the crop of wisdom.")
         .Power(1)
         .Toughness(1)
-        .Timing(Timings.FirstMain())
+        .Timing(All(Timings.FirstMain(), Timings.OpponentControlsPermanent(card => card.Is().Enchantment)))
         .Abilities(
           C.TriggeredAbility(
             "When Monk Realist enters the battlefield, destroy target enchantment.",

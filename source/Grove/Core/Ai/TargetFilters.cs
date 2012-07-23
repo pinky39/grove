@@ -337,7 +337,7 @@
             return p.Targets(candidates);
           }
 
-          if ((!p.Controller.IsActive && p.Step == Step.EndOfTurn) || p.Stack.CanBeDestroyedByTopSpell(p.Source))
+          if ((!p.Controller.IsActive && p.Step == Step.EndOfTurn) || (p.Source.IsPermanent && p.Stack.CanBeDestroyedByTopSpell(p.Source)))
           {
             return p.Targets(p.Candidates()
               .Where(x => x.Card().Controller == p.Controller)
@@ -441,7 +441,7 @@
           var targetPicks = new List<ITarget>();
           var sourcePicks = new List<ITarget>();
 
-          if (!p.Stack.IsEmpty && p.Stack.TopSpell is IDamageDealing)
+          if (!p.Stack.IsEmpty)
           {
             var damageToPlayer = p.Stack.GetDamageTopSpellWillDealToPlayer(p.Controller);
 
@@ -561,7 +561,7 @@
         {
           var targetPicks = new List<ITarget>();
 
-          if (!p.Stack.IsEmpty && p.Stack.TopSpell is IDamageDealing && p.Candidates().Contains(p.Stack.TopSpell))
+          if (!p.Stack.IsEmpty && p.Candidates().Contains(p.Stack.TopSpell))
           {
             var damageToPlayer = p.Stack.GetDamageTopSpellWillDealToPlayer(p.Controller);
 
@@ -605,7 +605,7 @@
     {
       return p =>
         {
-          if (!p.Stack.IsEmpty && p.Stack.TopSpell is IDamageDealing)
+          if (!p.Stack.IsEmpty)
           {
             var playerCandidate = p.Candidates()
               .Where(x => x == p.Controller)

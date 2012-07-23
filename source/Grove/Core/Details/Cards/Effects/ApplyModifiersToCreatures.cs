@@ -10,6 +10,17 @@
     private readonly List<IModifierFactory> _modifierFactories = new List<IModifierFactory>();
 
     public Func<IEffectSource, Card, bool> Filter = delegate { return true; };
+    public Value ToughnessReduction = 0;
+
+    public override int CalculateToughnessReduction(Card creature)
+    {
+      if ((Target() == null || creature.Controller == Target()) && Filter(Source, creature))
+      {
+        return ToughnessReduction.GetValue(X);
+      }
+
+      return 0;
+    }
 
     public void Modifiers(params IModifierFactory[] modifiers)
     {

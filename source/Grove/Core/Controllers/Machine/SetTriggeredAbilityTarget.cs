@@ -77,7 +77,7 @@
         yield break;
       }
 
-      foreach (var targets in generator.Take(Search.TargetLimit))
+      foreach (var targets in generator.Take(Search.TargetCountLimit))
       {
         yield return targets;
       }

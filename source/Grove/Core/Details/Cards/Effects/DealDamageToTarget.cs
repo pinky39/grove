@@ -1,20 +1,19 @@
 ﻿namespace Grove.Core.Details.Cards.Effects
 {
-  using Ai;
   using Modifiers;
   using Targeting;
 
-  public class DealDamageToTarget : Effect, IDamageDealing
+  public class DealDamageToTarget : Effect
   {
     public Value Amount = 0;
     public bool GainLife;
 
-    public int PlayerDamage(IPlayer player)
+    public override int CalculatePlayerDamage(IPlayer player)
     {
       return player == Target() ? Amount.GetValue(X) : 0;
     }
 
-    public int CreatureDamage(Card creature)
+    public override int CalculateCreatureDamage(Card creature)
     {
       return creature == Target() ? Amount.GetValue(X) : 0;
     }

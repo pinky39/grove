@@ -6,6 +6,12 @@
   public class ApplyModifiersToTarget : Effect
   {
     private readonly List<IModifierFactory> _modifierFactories = new List<IModifierFactory>();
+    public Value ToughnessReduction = 0;
+
+    public override int CalculateToughnessReduction(Card creature)
+    {
+      return Target() == creature ? ToughnessReduction.GetValue(X) : 0;
+    }
 
     protected override void ResolveEffect()
     {

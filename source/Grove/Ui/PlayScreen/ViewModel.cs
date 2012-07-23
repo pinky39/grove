@@ -32,7 +32,7 @@
     public ManaPool.ViewModel ManaPool { get; set; }
     public Battlefield.ViewModel OpponentsBattlefield { get; private set; }
     public Ui.Players.ViewModel PlayersBox { get; set; }
-    public virtual bool SearchInProgress { get; set; }
+    public virtual string SearchInProgressMessage { get; set; }
     public object SmallDialog { get { return _smallDialogs.FirstOrDefault(); } }
     public Stack.ViewModel Stack { get; set; }
     public Turn.ViewModel Turn { get; set; }
@@ -114,12 +114,13 @@
 
     public void Receive(SearchFinished message)
     {
-      SearchInProgress = false;
+      SearchInProgressMessage = null;
     }
 
     public void Receive(SearchStarted message)
     {
-      SearchInProgress = true;
+      SearchInProgressMessage = string.Format("Counting mammoths ({0},{1})... ", 
+        message.SearchDepthLimit, message.TargetCountLimit);      
     }
 
     public void GenerateTestScenario()

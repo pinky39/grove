@@ -1,17 +1,15 @@
 ﻿namespace Grove.Core.Details.Cards.Effects
 {
-  using Ai;
-
-  public class DealExistingDamageToController : Effect, IDamageDealing
+  public class DealExistingDamageToController : Effect
   {
     public Damage Damage { get; set; }
 
-    public int PlayerDamage(IPlayer player)
+    public override int CalculatePlayerDamage(IPlayer player)
     {
       return player == Controller ? Damage.Amount : 0;
     }
 
-    public int CreatureDamage(Card creature)
+    public override int CalculateCreatureDamage(Card creature)
     {
       return 0;
     }

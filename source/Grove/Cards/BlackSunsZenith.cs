@@ -18,19 +18,22 @@
         .ManaCost("{B}{B}").XCalculator(VariableCost.ReduceCreaturesPwT())
         .Type("Sorcery")
         .Text("Put X -1/-1 counters on each creature. Shuffle Black Sun's Zenith into its owner's library.")
-        .AfterResolvePutToZone(Zone.Library)
-        .Category(EffectCategories.ToughnessReduction)
+        .AfterResolvePutToZone(Zone.Library)        
         .Timing(Timings.FirstMain())
         .FlavorText("'Under the suns, Mirrodin kneels and begs us for perfection.'{EOL}—Geth, Lord of the Vault")
-        .Effect<ApplyModifiersToCreatures>(p => p.Effect.Modifiers(p.Builder.Modifier<AddCounters>((m, c0) =>
+        .Effect<ApplyModifiersToCreatures>(p =>
           {
-            m.Counter = c0.Counter<PowerToughness>((counter, _) =>
+            p.Effect.ToughnessReduction = Value.PlusX;
+            p.Effect.Modifiers(p.Builder.Modifier<AddCounters>((m, c0) =>
               {
-                counter.Power = -1;
-                counter.Toughness = -1;
-              });
-            m.Count = Value.PlusX;
-          })));
+                m.Counter = c0.Counter<PowerToughness>((counter, _) =>
+                  {
+                    counter.Power = -1;
+                    counter.Toughness = -1;
+                  });
+                m.Count = Value.PlusX;
+              }));
+          });
     }
   }
 }

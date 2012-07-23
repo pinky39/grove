@@ -22,6 +22,19 @@
 
         Equal(Zone.Hand, C(pariah).Zone);
       }
+
+      [Fact]
+      public void DoNotCastIdealistWithNoEnchantmentsInYourGraveyard()
+      {
+        var idealist = C("Monk Idealist");
+        
+        Hand(P1, idealist);
+        Battlefield(P1, "Plains", "Plains", "Plains");
+
+        RunGame(1);
+
+        Equal(Zone.Hand, C(idealist).Zone);
+      }
     }
   }
 }

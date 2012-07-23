@@ -114,6 +114,7 @@
     <Compile Include="Cards\MartialCoup.cs" />
     <Compile Include="Cards\MirranCrusader.cs" />
     <Compile Include="Cards\MonkIdealist.cs" />
+    <Compile Include="Cards\MonkRealist.cs" />
     <Compile Include="Cards\OpalCaryatid.cs" />
     <Compile Include="Cards\Pariah.cs" />
     <Compile Include="Cards\Pestilence.cs" />

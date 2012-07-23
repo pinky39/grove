@@ -18,14 +18,17 @@
         .Type("Enchantment Aura")
         .Text(
           "Enchant creature{EOL}Enchanted creature gets -1/-1.{EOL}Cycling {2} ({2}, Discard this card: Draw a card.)")
-        .FlavorText("Urza dared to attack Phyrexia. Slowly, it retaliated.")
-        .Category(EffectCategories.ToughnessReduction)
+        .FlavorText("Urza dared to attack Phyrexia. Slowly, it retaliated.")        
         .Cycling("{2}")
-        .Effect<EnchantCreature>(p => p.Effect.Modifiers(p.Builder.Modifier<AddPowerAndToughness>((m, _) =>
+        .Effect<EnchantCreature>(p =>
           {
-            m.Power = -1;
-            m.Toughness = -1;
-          })))
+            p.Effect.ToughnessReduction = 1;
+            p.Effect.Modifiers(p.Builder.Modifier<AddPowerAndToughness>((m, _) =>
+              {
+                m.Power = -1;
+                m.Toughness = -1;
+              }));
+          })
         .Timing(Timings.MainPhases())
         .Targets(
           filter: TargetFilters.ReduceToughness(1),

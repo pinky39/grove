@@ -18,14 +18,17 @@
         .Type("Instant")
         .Text("Target creature gets -4/-4 until end of turn.")
         .FlavorText("On a world with five suns, night is compelled to become an aggressive force.")
-        .Timing(Timings.TargetRemovalInstant())
-        .Category(EffectCategories.ToughnessReduction)
-        .Effect<ApplyModifiersToTarget>(p => p.Effect.Modifiers(
-          p.Builder.Modifier<AddPowerAndToughness>((m, _) =>
-            {
-              m.Power = -4;
-              m.Toughness = -4;
-            }, untilEndOfTurn: true)))
+        .Timing(Timings.TargetRemovalInstant())        
+        .Effect<ApplyModifiersToTarget>(p =>
+          {
+            p.Effect.ToughnessReduction = 4;
+            p.Effect.Modifiers(
+              p.Builder.Modifier<AddPowerAndToughness>((m, _) =>
+                {
+                  m.Power = -4;
+                  m.Toughness = -4;
+                }, untilEndOfTurn: true));
+          })
         .Targets(
           filter: TargetFilters.ReduceToughness(4),
           effect: C.Selector(Selectors.Creature()));

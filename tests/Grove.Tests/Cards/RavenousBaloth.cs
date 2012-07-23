@@ -50,6 +50,24 @@
       public class PredefinedAi : PredefinedAiScenario
       {
         [Fact]
+        public void SacBalothInResponseToPwtReduce()
+        {
+          var baloth = C("Ravenous Baloth");
+          var grasp = C("Grasp of Darkness");
+
+          Hand(P1, grasp);
+          Battlefield(P1, "Swamp", "Swamp");
+          Battlefield(P2, baloth);
+
+          Exec(
+            At(Step.DeclareAttackers)
+              .Cast(grasp, target: baloth)
+            );
+          
+          Equal(24, P2.Life);
+        }
+        
+        [Fact]
         public void SacBalothInResponseToShock()
         {
           var shock = C("Shock");

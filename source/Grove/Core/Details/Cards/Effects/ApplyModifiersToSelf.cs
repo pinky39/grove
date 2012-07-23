@@ -6,9 +6,15 @@
 
   public class ApplyModifiersToSelf : Effect
   {
+    public Value ToughnessReduction = 0;
     private readonly List<IModifierFactory> _selfModifiers = new List<IModifierFactory>();
 
     public override bool AffectsSource { get { return true; } }
+
+    public override int CalculateToughnessReduction(Card creature)
+    {
+      return creature == Source.OwningCard ? ToughnessReduction.GetValue(X) : 0;
+    }
 
     public void Modifiers(params IModifierFactory[] modifiersFactories)
     {

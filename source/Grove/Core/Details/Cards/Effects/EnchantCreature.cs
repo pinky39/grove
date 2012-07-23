@@ -9,6 +9,17 @@
     private readonly List<IModifierFactory> _modifierFactories = new List<IModifierFactory>();
 
     public bool ModifiesEnchantmentController;
+    public Value ToughnessReduction = 0;
+
+    public override int CalculateToughnessReduction(Card creature)
+    {
+      if (Target() == creature)
+      {
+        return ToughnessReduction.GetValue(X);
+      }
+
+      return 0;
+    }
 
     public void Modifiers(params IModifierFactory[] modifierFactories)
     {
@@ -37,7 +48,7 @@
         {
           Target().Card().AddModifier(modifier);
         }
-      }      
+      }
     }
   }
 }

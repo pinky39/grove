@@ -1,7 +1,8 @@
 ﻿namespace Grove.Tests.Cards
 {
-  using Grove.Core;
-  using Grove.Core.Zones;
+  using System.Linq;
+  using Core;
+  using Core.Zones;
   using Infrastructure;
   using Xunit;
 
@@ -38,7 +39,7 @@
 
         P2.Life = 10;
 
-        RunGame(maxTurnCount: 1);        
+        RunGame(maxTurnCount: 1);
         Equal(6, P2.Life);
       }
     }
@@ -58,15 +59,39 @@
           At(Step.DeclareAttackers)
             .DeclareAttackers(ravine),
           At(Step.SecondMain)
-            .Verify(() => {
-              Equal(16, P2.Life);
-              Equal(1, C(ravine).Counters);
-            }),
+            .Verify(() =>
+              {
+                Equal(16, P2.Life);
+                Equal(1, C(ravine).Counters);
+              }),
           At(Step.FirstMain, turn: 2)
-            .Verify(() => {
-              Null(C(ravine).Power);
-              Null(C(ravine).Toughness);
-            })
+            .Verify(() =>
+              {
+                Null(C(ravine).Power);
+                Null(C(ravine).Toughness);
+              })
+          );
+      }
+    }
+
+    public class PredefinedAi : PredefinedAiScenario
+    {
+      [Fact]
+      public void DoNotChangeToCreatureIfCannotBlock()
+      {
+        var ravine = C("Raging Ravine");
+        var charger1 = C("Pegasus Charger");
+        var charger2 = C("Pegasus Charger");
+        var charger3 = C("Pegasus Charger");
+
+        Battlefield(P1, charger1, charger2, charger3);
+        Battlefield(P2, ravine, "Forest", "Forest", "Forest", "Forest", "Forest");
+
+        Exec(
+          At(Step.DeclareAttackers)
+            .DeclareAttackers(charger1, charger2, charger3),
+          At(Step.SecondMain)
+            .Verify(() => Equal(0, P2.Battlefield.Count(x => x.IsTapped)))
           );
       }
     }

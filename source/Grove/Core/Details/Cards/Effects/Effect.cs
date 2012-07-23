@@ -14,7 +14,7 @@
   public abstract class Effect : ITarget
   {
     public Action<Effect> AfterResolve = delegate { };
-    public Action<Effect> BeforeResolve = delegate { };
+    public Action<Effect> BeforeResolve = delegate { };    
     private TrackableList<ITarget> _costTargets;
     private TrackableList<ITarget> _targets;
     private Trackable<bool> _wasResolved;
@@ -47,7 +47,7 @@
       }
     }
 
-    public bool WasKickerPaid { get; set;}
+    public bool WasKickerPaid { get; set; }
 
     public int CalculateHash(HashCalculator calc)
     {
@@ -71,6 +71,21 @@
       // no card needs this yet
     }
 
+    public virtual int CalculatePlayerDamage(IPlayer player)
+    {
+      return 0;
+    }
+
+    public virtual int CalculateCreatureDamage(Card creature)
+    {
+      return 0;
+    }
+
+    public virtual int CalculateToughnessReduction(Card creature)
+    {
+      return 0;
+    }
+
     public ITarget Target()
     {
       return _targets.Count == 0 ? null : _targets[0];
@@ -85,7 +100,7 @@
     {
       return _targets[index];
     }
-    
+
     public void EffectWasCountered()
     {
       Source.EffectWasCountered();
@@ -94,8 +109,8 @@
     public void EffectWasPushedOnStack()
     {
       Source.EffectWasPushedOnStack();
-    }    
-    
+    }
+
     public void FinishResolve()
     {
       if (WasResolved)
@@ -168,14 +183,14 @@
             _costTargets =
               new TrackableList<ITarget>(parameters.CostTargets, Game.ChangeTracker, orderImpactsHashcode: true),
             _wasResolved = new Trackable<bool>(Game.ChangeTracker),
-            WasKickerPaid  = parameters.Activation.PayKicker,
+            WasKickerPaid = parameters.Activation.PayKicker,
             X = parameters.Activation.X,
             CanBeCountered = true
           };
-                
+
         Init(new EffectCreationContext<TEffect>(
-          effect, 
-          parameters, 
+          effect,
+          parameters,
           new CardBuilder(Game)));
 
         return effect;

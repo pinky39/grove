@@ -116,18 +116,7 @@
                True(C(angel).IsTapped);
              })
         );
-      }
-      
-      [Fact]
-      public void BugOpalAcrolithCausesCombatException()
-      {
-        Hand(P1, "Pestilence", "Voice of Grace", "Corrupt", "Rune of Protection: Black");
-        Hand(P2, "Day of Judgment", "Elesh Norn, Grand Cenobite", "Student of Warfare");
-        Battlefield(P1, "Swamp", "Swamp", "Swamp", "Swamp", "Plains", "Plains", "Opal Acrolith", "Pestilence");
-        Battlefield(P2, "Plains", "Plains", "Plains", "Plains", "Wall of Reverence", "Plains", "Wall of Reverence", "Hero of Bladehold", "Trip Noose");      
-        
-        Exec();
-      }
+      }           
       
       [Fact]
       public void BugSwordAngel()

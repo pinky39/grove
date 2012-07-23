@@ -88,7 +88,7 @@
     public bool CanBeTapped { get { return IsPermanent && !IsTapped; } }
     public bool CanRegenerate { get { return _canRegenerate.Value; } set { _canRegenerate.Value = value; } }
     public bool CanTap { get { return IsPermanent && (!Is().Creature || !HasSummoningSickness || Has().Haste) && !IsTapped; } }
-    private bool IsPermanent { get { return Zone == Zone.Battlefield; } }
+    public bool IsPermanent { get { return Zone == Zone.Battlefield; } }
     public CastingRule CastingRule { get; private set; }
     public int CharacterCount { get { return FlavorText.CharacterCount + Text.CharacterCount; } }
     public int ChargeCountersCount { get { return _counters.SpecifiCount<ChargeCounter>(); } }
@@ -282,6 +282,7 @@
           _hash.Value = HashCalculator.Combine(
             Name.GetHashCode(),
             calc.Calculate(_hasSummoningSickness),
+            UsageScore.GetHashCode(),
             IsTapped.GetHashCode(),
             Damage,
             CanRegenerate.GetHashCode(),
@@ -879,7 +880,7 @@
         CreateBindableColors(card);
 
         card._damage = new Trackable<int>(_changeTracker, card);
-        card._usageScore = new Trackable<int>(_changeTracker);
+        card._usageScore = new Trackable<int>(_changeTracker, card);
         card._isTapped = new Trackable<bool>(_changeTracker, card);
         card._hasLeathalDamage = new Trackable<bool>(_changeTracker, card);
         card._attachedTo = new Trackable<Card>(_changeTracker, card);

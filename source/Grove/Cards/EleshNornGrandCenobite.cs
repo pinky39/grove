@@ -4,6 +4,7 @@
   using Core;
   using Core.Ai;
   using Core.Details.Cards;
+  using Core.Details.Cards.Effects;
   using Core.Details.Cards.Modifiers;
   using Core.Dsl;
 
@@ -21,7 +22,12 @@
         .Power(4)
         .Toughness(7)
         .Timing(Timings.Creatures())
-        .Category(EffectCategories.ToughnessIncrease | EffectCategories.ToughnessReduction)
+        .Category(EffectCategories.ToughnessIncrease)
+        .Effect<PutIntoPlay>(e =>
+          {
+            e.ToughnessReductionFilter = (self, card) => card.Controller != self.Controller;
+            e.ToughnessReduction = 2;
+          })
         .Abilities(
           Static.Vigilance,
           C.Continuous((e, c) =>

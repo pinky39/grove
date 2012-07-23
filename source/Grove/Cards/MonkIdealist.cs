@@ -22,7 +22,7 @@
         .FlavorText("Belief is the strongest mortar.")
         .Power(2)
         .Toughness(2)
-        .Timing(Timings.Creatures())
+        .Timing(All(Timings.FirstMain(), Timings.ControllerHasAtLeastOneCardInGraveyard(card => card.Is().Enchantment)))
         .Abilities(
           C.TriggeredAbility(
             "When Monk Idealist enters the battlefield, return target enchantment card from your graveyard to your hand.",

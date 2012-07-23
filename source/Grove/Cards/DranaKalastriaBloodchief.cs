@@ -36,7 +36,8 @@
               }),
             C.Effect<ApplyModifiersToSelfAndToTargets>(p =>
               {
-                
+                p.Effect.ToughnessReductionTargets = Value.PlusX;
+
                 p.Effect.SelfModifiers(
                   p.Builder.Modifier<AddPowerAndToughness>((m, _) =>
                     m.Power = Value.PlusX,
@@ -50,8 +51,7 @@
               }),
             C.Selector(Selectors.Creature()),
             targetFilter: TargetFilters.ReduceToughness(),
-            timing: Timings.TargetRemovalInstant(),
-            category: EffectCategories.ToughnessReduction));
+            timing: Timings.TargetRemovalInstant()));
     }
   }
 }

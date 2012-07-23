@@ -1,8 +1,6 @@
 ﻿namespace Grove.Core.Details.Cards.Effects
 {
-  using Ai;
-
-  public class DealDamageToEach : Effect, IDamageDealing
+  public class DealDamageToEach : Effect
   {
     public int? AmountCreature;
     public int? AmountPlayer;
@@ -10,12 +8,12 @@
     public bool DealToCreature { get { return AmountCreature != null; } }
     public bool DealToPlayer { get { return AmountPlayer != null; } }
 
-    public int PlayerDamage(IPlayer player)
+    public override int CalculatePlayerDamage(IPlayer player)
     {
       return DealToPlayer ? AmountPlayer.Value : 0;
     }
 
-    public int CreatureDamage(Card creature)
+    public override int CalculateCreatureDamage(Card creature)
     {
       return DealToCreature ? AmountCreature.Value : 0;
     }

@@ -3,16 +3,16 @@
   using Ai;
   using Modifiers;
 
-  public class DealDamageToActivePlayer : Effect, IDamageDealing
+  public class DealDamageToActivePlayer : Effect
   {
     public Value Amount { get; set; }
 
-    int IDamageDealing.PlayerDamage(IPlayer player)
+    public override int CalculatePlayerDamage(IPlayer player)
     {
       return Amount.GetValue(X);
     }
 
-    int IDamageDealing.CreatureDamage(Card creature)
+    public override int CalculateCreatureDamage(Card creature)
     {
       return 0;
     }

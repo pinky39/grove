@@ -112,7 +112,7 @@
           count++;
         }
 
-        if (count >= Search.TargetLimit)
+        if (count >= _game.Search.TargetCountLimit)
         {
           break;
         }

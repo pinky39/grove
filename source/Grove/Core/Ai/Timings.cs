@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core.Ai
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Details.Mana;
@@ -315,7 +316,7 @@
     }
 
     public static TimingDelegate ChangeToCreature(int minAvailableMana)
-    {
+    {            
       return p =>
         {
           if (p.Step == Step.BeginningOfCombat && p.Controller.IsActive)
@@ -325,7 +326,7 @@
 
           if (p.Step == Step.DeclareAttackers && !p.Controller.IsActive)
           {
-            return p.Controller.HasMana(minAvailableMana) && p.Combat.Attackers.Count() > 0;
+            return p.Controller.HasMana(minAvailableMana) && p.Combat.Attackers.Any();
           }
 
           return false;
@@ -391,6 +392,21 @@
 
           return p.Combat.Attackers.Any();
         };
+    }
+
+    public static TimingDelegate OpponentControlsPermanent(Func<Card, bool> filter)
+    {
+      return p => p.Players.Permanents().Any(x => filter(x) && x.Controller == p.Opponent);
+    }
+
+    public static TimingDelegate ControllerHasAtLeastOneCardInGraveyard(Func<Card, bool> filter)
+    {
+      return p => p.Controller.Graveyard.Any(filter);
+    }
+
+    public static TimingDelegate IsCreature()
+    {
+      return p => p.Card.Is().Creature;
     }
   }
 }

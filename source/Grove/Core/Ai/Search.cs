@@ -2,6 +2,7 @@
 {
   using System;
   using System.Collections.Generic;
+  using System.Diagnostics;
   using System.Linq;
   using System.Threading;
   using System.Threading.Tasks;
@@ -10,11 +11,14 @@
 
   public class Search
   {
-    public const int TargetLimit = 2;
+    private const int MaxSearchDepthLimit = 16;
+    private const int MaxTargetCountLimit = 2;
     private static readonly ILog Log = LogManager.GetLogger(typeof (Search));
     private readonly SearchResults _searchResults;
+    private readonly Stopwatch _stopwatch = new Stopwatch();
     private readonly Dictionary<object, SearchWorker> _workers = new Dictionary<object, SearchWorker>();
     private readonly object _workersLock = new object();
+    private int _lastSearchDuration;
     private int _nodesSearched;
     private int _numWorkersCreated;
     private int _startStateCount;
@@ -24,8 +28,11 @@
     public Search(SearchResults searchResults)
     {
       _searchResults = searchResults;
-      SearchDepth = 16;
+      SearchDepthLimit = MaxSearchDepthLimit;
+      TargetCountLimit = MaxTargetCountLimit;
     }
+
+    public int TargetCountLimit { get; private set; }
 
     public bool InProgress
     {
@@ -38,16 +45,16 @@
       }
     }
 
-    public int MaxDepth { get { return _startStepCount + SearchDepth; } }
+    public int MaxDepth { get { return _startStepCount + SearchDepthLimit; } }
     public int NodesSearched { get { return _nodesSearched; } }
     public int NumWorkersCreated { get { return _numWorkersCreated; } }
-    public int SearchDepth { get; set; }
+    public int SearchDepthLimit { get; private set; }
     public int SubtreesPrunned { get { return _subtreesPrunned; } }
     public event EventHandler Finished = delegate { };
     public event EventHandler Started = delegate { };
 
     public Task ExecuteTask(SearchWorker parentWorker, ISearchNode parentNode, int resultIndex,
-                            Action<SearchWorker, ISearchNode> action)
+      Action<SearchWorker, ISearchNode> action)
     {
       var worker = parentWorker;
       var node = parentNode;
@@ -122,25 +129,33 @@
 
     private int FindBestMove(ISearchNode searchNode)
     {
-      searchNode.Game.ChangeTracker.Enable();
-      searchNode.Game.ChangeTracker.Lock();
+      var worker = InitSearch(searchNode);
+      RunSearch(worker);
+      FinishSearch(searchNode, worker);
 
-      _startStepCount = searchNode.Game.Turn.StepCount;
-      _startStateCount = searchNode.Game.Turn.StateCount;
+      return GetBestMove(searchNode);
+    }
 
-      Log.Debug("Search started");
-      searchNode.Game.Publisher.Publish(new SearchStarted());
-
-      _nodesSearched = 0;
-      _subtreesPrunned = 0;
-      _numWorkersCreated = 0;
-      _searchResults.Clear();
-
-      Started(this, EventArgs.Empty);
-
-      var worker = CreateWorker(searchNode);
+    private static void RunSearch(SearchWorker worker)
+    {
       worker.Evaluate();
+    }
+
+    private int GetBestMove(ISearchNode searchNode)
+    {
+      var root = GetSearchNodeResult(searchNode);
+      root.EvaluateSubtree();
+
+      Log.DebugFormat("Best path: {0}", root.OutputBestPath());
+      return root.BestMove.Value;
+    }
+
+    private void FinishSearch(ISearchNode searchNode, SearchWorker worker)
+    {
       RemoveWorker(worker);
+
+      _stopwatch.Stop();
+      _lastSearchDuration = (int) _stopwatch.Elapsed.TotalMilliseconds;
 
       Finished(this, EventArgs.Empty);
       searchNode.Game.Publisher.Publish(new SearchFinished());
@@ -149,14 +164,64 @@
       searchNode.Game.ChangeTracker.Disable();
       searchNode.Game.ChangeTracker.Unlock();
 
-      var root = GetSearchNodeResult(searchNode);
-      root.EvaluateSubtree();
-
-      Log.DebugFormat("Best path: {0}", root.OutputBestPath());
-
       GC.Collect();
+    }
 
-      return root.BestMove.Value;
+    private SearchWorker InitSearch(ISearchNode searchNode)
+    {
+      AdjustPerformance();
+
+      Log.Debug("Search started");
+
+      searchNode.Game.Publisher.Publish(new SearchStarted
+        {
+          SearchDepthLimit = SearchDepthLimit,
+          TargetCountLimit = TargetCountLimit
+        });
+
+      Started(this, EventArgs.Empty);
+
+      _stopwatch.Reset();
+      _stopwatch.Start();
+
+      _nodesSearched = 0;
+      _subtreesPrunned = 0;
+      _numWorkersCreated = 0;
+      _searchResults.Clear();
+
+      searchNode.Game.ChangeTracker.Enable();
+      searchNode.Game.ChangeTracker.Lock();
+      _startStepCount = searchNode.Game.Turn.StepCount;
+      _startStateCount = searchNode.Game.Turn.StateCount;
+
+      return CreateWorker(searchNode);
+    }
+
+    private void AdjustPerformance()
+    {
+      if (_lastSearchDuration > 3000)
+      {
+        if (TargetCountLimit > 1)
+        {
+          TargetCountLimit--;
+        }
+        else if (SearchDepthLimit > 1)
+        {
+          SearchDepthLimit -= 2;
+        }
+      }
+
+      if (_lastSearchDuration < 1500)
+      {
+        if (SearchDepthLimit < MaxSearchDepthLimit)
+        {
+          SearchDepthLimit += 2;
+        }
+        else if (TargetCountLimit < MaxTargetCountLimit)
+        {
+          TargetCountLimit++;
+        }
+      }
     }
 
     private int? GetCachedResult(ISearchNode searchNode)

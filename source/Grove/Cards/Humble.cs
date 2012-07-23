@@ -18,16 +18,19 @@
         .Type("Instant")
         .Text("Target creature loses all abilities and becomes 0/1 until end of turn.")
         .FlavorText("'It is not your place to rule, Radiant. It may not even be mine.'{EOL}—Serra")
-        .Timing(Timings.TargetRemovalInstant(combatOnly: true))
-        .Category(EffectCategories.ToughnessReduction)
-        .Effect<ApplyModifiersToTarget>(p => p.Effect.Modifiers(
-          p.Builder.Modifier<DisableAbilities>(untilEndOfTurn: true),
-          p.Builder.Modifier<SetPowerAndToughness>((m, _) =>
-            {
-              m.Power = 0;
-              m.Tougness = 1;
-            }, untilEndOfTurn: true)
-          ))
+        .Timing(Timings.TargetRemovalInstant(combatOnly: true))        
+        .Effect<ApplyModifiersToTarget>(p =>
+          {
+            p.Effect.ToughnessReduction = p.Effect.Target().Card().Toughness.Value - 1;
+            p.Effect.Modifiers(
+              p.Builder.Modifier<DisableAbilities>(untilEndOfTurn: true),
+              p.Builder.Modifier<SetPowerAndToughness>((m, _) =>
+                {
+                  m.Power = 0;
+                  m.Tougness = 1;
+                }, untilEndOfTurn: true)
+              );
+          })
         .Targets(
           filter: TargetFilters.Destroy(),
           effect: C.Selector(Selectors.Creature()));

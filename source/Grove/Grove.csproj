@@ -364,7 +364,6 @@
     <Compile Include="Core\Details\Cards\Effects\DestroyPermanents.cs" />
     <Compile Include="Core\Details\Cards\Effects\ExileTargetPermanent.cs" />
     <Compile Include="Core\Details\Cards\Effects\GainLifeEqualToTargetPower.cs" />
-    <Compile Include="Core\Ai\IDamageDealing.cs" />
     <Compile Include="Core\Details\Cards\Effects\MillOpponent.cs" />
     <Compile Include="Core\Details\Cards\Effects\PayLifeOrTap.cs" />
     <Compile Include="Core\Details\Cards\Effects\PayManaOrSacrifice.cs" />

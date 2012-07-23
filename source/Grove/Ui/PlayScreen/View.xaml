@@ -72,10 +72,10 @@
                         <ContentControl x:Name="Stack"  HorizontalAlignment="Right" Margin="0,60,40,0" VerticalAlignment="Top"/>
                     </Grid>
 
-                    <ContentControl Style="{StaticResource SmallDialog}" Visibility="{Binding SearchInProgress,Converter={x:Static grove:Converters.BooleanToVisibility}}">
+                    <ContentControl Style="{StaticResource SmallDialog}" Visibility="{Binding SearchInProgressMessage,Converter={x:Static grove:Converters.NullToCollapsed}}">
                         <StackPanel Orientation="Horizontal">
                             <Image Margin="0,0,10,0" Style="{StaticResource DialogIcon}" />
-                            <TextBlock Style="{StaticResource SmallDialogLabel}">Counting mammoths, please wait...</TextBlock>
+                            <TextBlock Style="{StaticResource SmallDialogLabel}" Text="{Binding SearchInProgressMessage}"/>
                         </StackPanel>
                     </ContentControl>
                 </Grid>

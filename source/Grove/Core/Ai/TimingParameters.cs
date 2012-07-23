@@ -31,6 +31,7 @@
     public ITarget Target { get { return Activation.Targets.Effect(0); } }
     public Stack Stack { get { return Game.Stack; } }
     public Combat Combat { get { return Game.Combat; } }
+    public Players Players { get { return Game.Players; } }
 
     public bool TopSpellCategoryIs(EffectCategories effectCategories)
     {

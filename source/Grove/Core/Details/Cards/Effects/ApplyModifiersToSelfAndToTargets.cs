@@ -10,6 +10,22 @@
     private readonly List<IModifierFactory> _selfModifiers = new List<IModifierFactory>();
     private readonly List<IModifierFactory> _targetModifiers = new List<IModifierFactory>();
 
+    public Value ToughnessReductionSelf = 0;
+    public Value ToughnessReductionTargets = 0;
+
+    public override int CalculateToughnessReduction(Card creature)
+    {
+      if (creature == Source.OwningCard)
+        return ToughnessReductionSelf.GetValue(X);
+
+      if (creature == Target())
+      {
+        return ToughnessReductionTargets.GetValue(X);
+      }
+
+      return 0;
+    }
+
     protected override void ResolveEffect()
     {
       if (Source.OwningCard.Zone != Zone.Battlefield)
