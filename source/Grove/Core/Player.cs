@@ -40,9 +40,9 @@
       string name,
       string avatar,
       PlayerType type,
-      string deck,
-      Game game, 
-      DeckFactory deckFactory)
+      Deck deck,
+      Game game,
+      CardDatabase cardDatabase)
     {
       _publisher = game.Publisher;
 
@@ -62,7 +62,7 @@
       _damageRedirections = new DamageRedirections(game.ChangeTracker, null);
       _assignedDamage = new AssignedDamage(this, game.ChangeTracker);
 
-      var cards = deckFactory.CreateDeck(deck, this);
+      var cards = LoadCards(deck, cardDatabase);
 
       CreateZones(cards, game);
       InitializeManaSources();
@@ -419,7 +419,12 @@
     public void PutCardOnTopOfLibrary(Card card)
     {
       _library.PutOnTop(card);
-    }    
+    }
+
+    private IEnumerable<Card> LoadCards(Deck deck, CardDatabase cardDatabase)
+    {
+      return deck.Select(card => cardDatabase.CreateCard(card, this));
+    }
 
     public void AddManaSources(IEnumerable<IManaSource> manaSources)
     {
@@ -464,7 +469,7 @@
 
     public interface IFactory
     {
-      Player Create(string name, string avatar, PlayerType type, string deck);
+      Player Create(string name, string avatar, PlayerType type, Deck deck);
     }
   }
 }

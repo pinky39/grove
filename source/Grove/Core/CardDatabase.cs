@@ -19,7 +19,7 @@
 
     public int CardCount { get { return _cardSources.Length; } }
 
-    public Card CreateCardPreview(string name)
+    public Card CreatePreview(string name)
     {
       var cardFactory = GetCardFactory(name);
       return cardFactory.CreateCardPreview();

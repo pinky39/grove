@@ -1,10 +1,10 @@
 ﻿namespace Grove.Ui
 {
   using System;
+  using System.Linq;
   using System.Collections.Generic;
   using System.Globalization;
-  using System.IO;
-  using System.Linq;
+  using System.IO;  
   using System.Windows;
   using System.Windows.Controls;
   using System.Windows.Data;
@@ -20,13 +20,11 @@
     public static CardNameToCardImageConverter CardIllustrationNameToCardImage = new CardNameToCardImageConverter();
     public static CharacterCountToFontSizeConverter CharacterCountToFontSize = new CharacterCountToFontSizeConverter();
     public static LifeToColorConverter LifeToColor = new LifeToColorConverter();
-
-    public static ManaCostToManaSymbolImagesConverter ManaCostToManaSymbolImages =
-      new ManaCostToManaSymbolImagesConverter();
-
+    public static ManaCostToManaSymbolImagesConverter ManaCostToManaSymbolImages = new ManaCostToManaSymbolImagesConverter();
+    public static ManaSymbolListToImagesConverter ManaSymbolListToImages = new ManaSymbolListToImagesConverter();
     public static MarkerBrushConverter MarkerBrush = new MarkerBrushConverter();
-
     public static NullToCollapsedConverter NullToCollapsed = new NullToCollapsedConverter();
+    public static RatingConverter Rating = new RatingConverter();
 
 
     public class AutoPassToImageConverter : IValueConverter
@@ -170,8 +168,48 @@
       {
         throw new NotImplementedException();
       }
-    }
+    }   
 
+    public class RatingConverter : IValueConverter
+    {
+      public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+      {
+        var rating = (int) value;
+
+        var stars = new List<ImageSource>();
+        
+        for (int i = 0; i < rating; i++)
+        {
+          stars.Add(MediaLibrary.GetImage("star.png"));
+        }
+
+        return stars;
+      }
+
+      public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+      {
+        throw new NotImplementedException();
+      }
+    }
+    
+    public class ManaSymbolListToImagesConverter : IValueConverter
+    {
+      public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+      {
+        var symbols = (IEnumerable<string>) value;
+
+        if (symbols.None())
+          return new ImageSource[] {};
+
+        return symbols.Select(symbolName => MediaLibrary.GetImage(symbolName + ".png"));
+      }
+
+      public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+      {
+        throw new NotImplementedException();
+      }
+    }
+    
     public class ManaCostToManaSymbolImagesConverter : IValueConverter
     {
       public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -179,7 +217,7 @@
         var manaAmount = (IManaAmount) value;
 
         if (manaAmount == null)
-          return new string[] {};
+          return new ImageSource[] { };
 
         return manaAmount.GetSymbolNames().Select(symbolName => MediaLibrary.GetImage(symbolName + ".png"));
       }

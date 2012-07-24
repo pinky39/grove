@@ -19,8 +19,8 @@
     private readonly Player.IFactory _playerFactory;
     private readonly Ui.StartScreen.ViewModel.IFactory _startScreenFactory;
     private readonly TaskScheduler _uiScheduler;
-    private string _deck1;
-    private string _deck2;
+    private Deck _deck1;
+    private Deck _deck2;
     private int? _looser;
     private bool _playerLeftMatch;
     private bool _rematch = true;    
@@ -77,7 +77,7 @@
     }
 
 
-    public void Start(string player1Deck, string player2Deck)
+    public void Start(Deck player1Deck, Deck player2Deck)
     {
       _deck1 = player1Deck;
       _deck2 = player2Deck;

@@ -35,7 +35,7 @@
 
     public static ManaUnit Red { get { return new ManaUnit(ManaColors.Red); } }
 
-    public string Symbol { get { return ManaAmount.GetSymbolsFromColor(_colors); } }
+    public string Symbol { get { return String.Join(String.Empty, ManaAmount.GetSymbolsFromColor(_colors)); } }
 
     public static ManaUnit White { get { return new ManaUnit(ManaColors.White); } }
 

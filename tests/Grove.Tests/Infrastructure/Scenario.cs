@@ -257,13 +257,13 @@
         name: "Player 1",
         avatar: String.Empty,
         type: p1IsControlledByScript ? PlayerType.Scenario : PlayerType.Computer,
-        deck: "dummy");
+        deck: new Deck("dummy", CardDatabase));
 
       Game.Players.Player2 = PlayerFactory.Create(
         name: "Player 2",
         avatar: String.Empty,
         type: p2IsControlledByScript ? PlayerType.Scenario : PlayerType.Computer,
-        deck: "dummy");
+        deck: new Deck("dummy", CardDatabase));
 
 
       Game.Players.Starting = Game.Players.Player1;

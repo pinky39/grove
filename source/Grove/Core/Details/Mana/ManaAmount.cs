@@ -136,18 +136,18 @@
 
       return new PrimitiveManaAmount(parsed);
     }
-
-    public static string GetSymbolsFromColor(ManaColors color)
+        
+    public static List<string> GetSymbolsFromColor(ManaColors color)
     {
-      var sb = new StringBuilder();
+      var list = new List<string>();
 
       foreach (var colorChar in Symbols)
       {
         if ((colorChar.Color & color) == colorChar.Color)
-          sb.Append(colorChar.Char);
+          list.Add(colorChar.Char.ToString());
       }
 
-      return sb.ToString();
+      return list;
     }
 
     private static ManaUnit ParseColored(string token)

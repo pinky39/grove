@@ -136,8 +136,7 @@
         container.Register(Component(typeof (Publisher), lifestyle: LifestyleType.Scoped));
         RegisterStack(container);
         container.Register(Component(typeof (ChangeTracker), lifestyle: LifestyleType.Scoped));
-        container.Register(Component(typeof (CardDatabase), lifestyle: LifestyleType.Scoped));
-        container.Register(Component(typeof (DeckFactory), lifestyle: LifestyleType.Scoped));
+        container.Register(Component(typeof (CardDatabase), lifestyle: LifestyleType.Scoped));        
         RegisterPlayer(container);
         container.Register(Component(typeof (TurnInfo), lifestyle: LifestyleType.Scoped));
         container.Register(Component(typeof (Player.IFactory)).AsFactory());

@@ -258,6 +258,8 @@
     <Compile Include="Core\Ai\AttackerEvaluation.cs" />
     <Compile Include="Core\Ai\BlockerEvaluation.cs" />
     <Compile Include="Core\Ai\QuickCombat.cs" />
+    <Compile Include="Core\DeckFile.cs" />
+    <Compile Include="Core\DeckRow.cs" />
     <Compile Include="Core\Messages\ControllerChanged.cs" />
     <Compile Include="Core\Controllers\ChooseToUntap.cs" />
     <Compile Include="Core\Controllers\DecisionFactory.cs" />
@@ -548,8 +550,6 @@
     <Compile Include="Core\Details\Cards\Costs\TapOwnerPayMana.cs" />
     <Compile Include="Core\Details\Cards\Costs\TapCreature.cs" />
     <Compile Include="Core\CardDatabase.cs" />
-    <Compile Include="Core\Deck.cs" />
-    <Compile Include="Core\DeckFactory.cs" />
     <Compile Include="Core\Details\Cards\Effects\AddManaToPool.cs" />
     <Compile Include="Core\Details\Cards\Effects\ApplyModifiersToCreatures.cs" />
     <Compile Include="Core\Details\Cards\Effects\ApplyModifiersToSelfAndToTargets.cs" />
@@ -630,6 +630,7 @@
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ui\QuitGame\ViewModel.cs" />
+    <Compile Include="Core\Deck.cs" />
     <Compile Include="Ui\SelectDeck\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>

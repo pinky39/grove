@@ -24,55 +24,94 @@
       </StackPanel>
       </Border>
      
-     <Grid Grid.Row="1" HorizontalAlignment="Center" Margin="0,20,0,0">
+     <Grid Grid.Row="1" HorizontalAlignment="Center" Margin="0,40,0,40">
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="Auto"/>
         <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="Auto"/>
       </Grid.ColumnDefinitions>
+                  
+      <Border Grid.Column="0"  BorderBrush="#33ffffff" Background="#11ffffff" CornerRadius="2" BorderThickness="2" Width="350">
+        <StackPanel>
+          <Border Background="#11ffffff" BorderThickness="0,0,0,2" BorderBrush="#33ffffff" Height="70">
+            <Grid Margin="15,5,10,5">
+              <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+              </Grid.RowDefinitions>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+              </Grid.ColumnDefinitions>
+              
+              <TextBlock Text="kuno-b-control.dec" Foreground="#fff" FontSize="18" />
+              <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                 <Image Height="20" Source="..\media\images\g.png"/>
+              </StackPanel>
+              
+              <TextBlock Grid.Row="1" Text="60 cards" Foreground="#ccc" FontSize="17"/>
+              <StackPanel Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" Orientation="Horizontal">
+                <Image Margin="5,0,0,0" Height="18" Source="..\media\images\star.png"/>
+                <Image Margin="5,0,0,0" Height="18" Source="..\media\images\star.png"/>
+                <Image Margin="5,0,0,0" Height="18" Source="..\media\images\star.png"/>
+                <Image Margin="5,0,0,0" Height="18" Source="..\media\images\star.png"/>
+                <Image Margin="5,0,0,0" Height="18" Source="..\media\images\star.png"/>
+              </StackPanel>
+            </Grid>
+          </Border>
+          
+            <Border Background="#11000000" BorderThickness="0,0,0,2" BorderBrush="#33ffffff" Height="70">
+          
+          
+          </Border>
+          
+           
+            <Border Background="#11000000" BorderThickness="0,0,0,2" BorderBrush="#33ffffff" Height="70">
+          
+          
+          </Border>
+          
+           
+            <Border Background="#11000000" BorderThickness="0,0,0,2" BorderBrush="#33ffffff" Height="70">
+          
+          
+          </Border>
+        
+        
+        </StackPanel>
       
-      <Border Grid.Column="0" Margin="0,50,50,0" Width="250" VerticalAlignment="Top">
-        <ContentControl Content="{StaticResource 'Llanowar Elves'}" />
       </Border>
+
       
-      <Grid Grid.Column="1" > 
-        <Grid.RowDefinitions>
-          <RowDefinition Height="Auto"/>
-          <RowDefinition Height="*"/>
-          <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-      
-          <CheckBox Grid.Row="0"  HorizontalAlignment="Right"><TextBlock Margin="10,0,0,0" FontSize="20" Foreground="#fff" Text="Select a random deck"></TextBlock></CheckBox>
-          <Border Grid.Row="1" Margin="0,10,0,0" BorderBrush="#22ffffff" CornerRadius="4" BorderThickness="4" Width="700" >
+                
+          <Border Grid.Column="1" Margin="20,0,20,0" BorderBrush="#22ffffff" CornerRadius="2" BorderThickness="3" Width="450"  >
             <StackPanel Margin="20">
             
-               <StackPanel Margin="10,10,0,0" Orientation="Horizontal">
+               <StackPanel Margin="10,0,0,0" Orientation="Horizontal">
                 <TextBlock Foreground="#fff" FontSize="25">4x</TextBlock>
                 <TextBlock Foreground="#FFD700" Margin="10,0,0,0" FontSize="25">Llanowar Elves</TextBlock>
               </StackPanel>
-               <StackPanel Margin="10,10,0,0" Orientation="Horizontal">
+               <StackPanel Margin="10,0,0,0" Orientation="Horizontal">
                 <TextBlock Foreground="#fff" FontSize="25">4x</TextBlock>
                 <TextBlock Foreground="#FFD700" Margin="10,0,0,0" FontSize="25">Grizzly Bears</TextBlock>
               </StackPanel>
             
             </StackPanel>                        
-          </Border>
-          
-          <Grid Grid.Row="2" Margin="0,10,0,0">
-            <Grid.ColumnDefinitions>
-              <ColumnDefinition Width="*"/>
-              <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Text="Previous deck" Foreground="#fff" FontSize="20" />
-            <TextBlock Grid.Column="1" Text="Next deck" Foreground="#fff" FontSize="20" />
-          </Grid>
+          </Border>                 
               
-      </Grid>
-     
       
+     
+      <Border Grid.Column="2" Margin="0,0,0,0" Width="250" VerticalAlignment="Top">
+        <StackPanel>
+          <ContentControl Content="{StaticResource 'Llanowar Elves'}" />
+          <TextBlock Foreground="#eee" FontSize="16" TextWrapping="Wrap" Margin="0,20,0,0">Acknowledgement: This deck was taken from a mtg program magarena.</TextBlock>
+        </StackPanel>
+        
+      </Border>
     </Grid>
      
       
-      <Border Margin="0,40,0,0" Grid.Row="2" Background="#1affffff" BorderBrush="#33ffffff" BorderThickness="0,4,0,0">
+      <Border Margin="0,0,0,0" Grid.Row="2" Background="#1affffff" BorderBrush="#33ffffff" BorderThickness="0,4,0,0">
         <Grid Margin="30">
             <Grid.ColumnDefinitions>
               <ColumnDefinition Width="*"/>
