@@ -84,7 +84,7 @@
 
       ResetResults();
       Run();
-    }
+    }    
 
     private void DisplayGameResults()
     {

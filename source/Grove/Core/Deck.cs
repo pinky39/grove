@@ -12,6 +12,8 @@
     private readonly Dictionary<string, Card> _previews = new Dictionary<string, Card>();
     private readonly List<DeckRow> _rows = new List<DeckRow>();
 
+    private Deck() {}
+
     public Deck(string filename, CardDatabase cardDatabase)
     {
       Name = Path.GetFileName(filename);
@@ -93,6 +95,13 @@
     public Card GetPreview()
     {
       return _previews[_rows[0].CardName.ToLowerInvariant()];
+    }
+
+    public static Deck Dummy()
+    {
+      var deck = new Deck();
+      deck._rows.Add(new DeckRow {CardName = "Uncastable", Count = 60});
+      return deck;
     }
   }
 }

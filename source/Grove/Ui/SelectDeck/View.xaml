@@ -57,7 +57,7 @@
                                 <ControlTemplate TargetType="{x:Type ListBox}">                                    
                                         <ScrollViewer 
                                                 Margin="0"
-                                                Focusable="false"  VerticalScrollBarVisibility="Visible">
+                                                Focusable="false"  VerticalScrollBarVisibility="Auto">
                                             <StackPanel IsItemsHost="True" />
                                         </ScrollViewer>                                    
                                 </ControlTemplate>
@@ -71,7 +71,7 @@
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                    <Border  Name="Border" SnapsToDevicePixels="true" Background="#11000000"  BorderThickness="0,0,0,2" BorderBrush="#33ffffff" Height="50" Cursor="Hand">
+                                    <Border  Name="Border" SnapsToDevicePixels="true" Background="#11000000"  BorderThickness="0,0,0,2" BorderBrush="#33ffffff" Cursor="Hand">
                                         <ContentPresenter />
                                     </Border>
                                     <ControlTemplate.Triggers>
@@ -118,7 +118,7 @@
                                         </ItemsControl>
 
 
-                                        <TextBlock Grid.Row="1" Text="{Binding CardCount, StringFormat={}{0} cards}" Foreground="#ccc" FontSize="15"/>
+                                        <TextBlock Grid.Row="1" Text="{Binding CardCount, StringFormat={}{0} cards}" Foreground="#aaa" FontSize="15"/>
                                                                                                                                 
                                         <ItemsControl Grid.Column="1" Grid.Row="1"                                     
 						              ItemsSource = "{Binding Path=Rating, Converter={x:Static grove:Converters.Rating}}" >
@@ -179,7 +179,7 @@
                     </Style>                
                 </Border.Resources>
 
-                <ScrollViewer VerticalScrollBarVisibility="Visible">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel Margin="30,0,0,10">
                         <TextBlock Style="{StaticResource CardGroup}" Text="{Binding Selected.CreaturesCount, StringFormat='Creatures ({0})'}"/>
                         <ItemsControl ItemsSource = "{Binding Path=Selected.Creatures}" />

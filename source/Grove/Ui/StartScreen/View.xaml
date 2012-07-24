@@ -26,6 +26,7 @@
                  <Image  Source = "{grove:Media 'logo.png'}" Width="600" />
                 <StackPanel HorizontalAlignment="Right" Margin="0,10,20,0">
                     <Button HorizontalAlignment="Right" x:Name="Play">New game</Button>
+                    <Button HorizontalAlignment="Right" x:Name="PlayRandom">Random game</Button>
                     <Button HorizontalAlignment="Right" x:Name="Exit">Quit</Button>
                 </StackPanel>
             </StackPanel>
