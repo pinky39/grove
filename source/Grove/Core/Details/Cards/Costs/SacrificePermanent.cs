@@ -11,7 +11,7 @@
         permanent => Selector.IsValid(permanent));
     }
 
-    public override void Pay(ITarget target, int? x)
+    public override void Pay(Target target, int? x)
     {
       var creature = target.Card();
       creature.Sacrifice();

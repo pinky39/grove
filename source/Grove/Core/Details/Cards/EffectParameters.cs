@@ -9,20 +9,20 @@
 
   public class EffectParameters
   {
-    public EffectParameters(IEffectSource source, ActivationParameters activation = null, object triggerMessage = null, IEnumerable<ITarget> targets = null, IEnumerable<ITarget> costTargets = null)
+    public EffectParameters(IEffectSource source, ActivationParameters activation = null, object triggerMessage = null, IEnumerable<Target> targets = null, IEnumerable<Target> costTargets = null)
     {
       TriggerMessage = triggerMessage;
       Source = source;
       Activation = activation ?? ActivationParameters.Default;
-      Targets = targets ?? Enumerable.Empty<ITarget>();
-      CostTargets = costTargets ?? Enumerable.Empty<ITarget>();
+      Targets = targets ?? Enumerable.Empty<Target>();
+      CostTargets = costTargets ?? Enumerable.Empty<Target>();
     }
 
     public object TriggerMessage { get; set; }
     public IEffectSource Source { get; set; }
     public ActivationParameters Activation { get; set; }
-    public IEnumerable<ITarget> Targets { get; set; }
-    public IEnumerable<ITarget> CostTargets { get; set; }
+    public IEnumerable<Target> Targets { get; set; }
+    public IEnumerable<Target> CostTargets { get; set; }
 
     public TMessage Trigger<TMessage>()
     {

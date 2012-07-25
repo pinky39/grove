@@ -314,6 +314,8 @@
     <Compile Include="Core\Details\Cards\Redirections\IDamageRedirectionFactory.cs" />
     <Compile Include="Core\Details\Cards\Redirections\RedirectDamageToTarget.cs" />
     <Compile Include="Core\Details\Cards\StaticAbility.cs" />
+    <Compile Include="Core\Targeting\NotCardTargetType.cs" />
+    <Compile Include="Core\Targeting\Target.cs" />
     <Compile Include="Core\Targeting\TargetCandidates.cs" />
     <Compile Include="Core\Targeting\Targets.cs" />
     <Compile Include="Core\Ai\InnerResult.cs" />
@@ -346,7 +348,7 @@
     <Compile Include="Core\Controllers\Scenario\DeclareAttackers.cs" />
     <Compile Include="Core\Controllers\Scenario\DeclareBlockers.cs" />
     <Compile Include="Core\Controllers\Scenario\IScenarioDecision.cs" />
-    <Compile Include="Core\Controllers\Scenario\LazyEffect.cs" />
+    <Compile Include="Core\Controllers\Scenario\ScenarioEffect.cs" />
     <Compile Include="Core\Controllers\Scenario\PlaySpellOrAbility.cs" />
     <Compile Include="Core\Controllers\Scenario\ScenarioAbility.cs" />
     <Compile Include="Core\Controllers\Scenario\DefaultScenarioDecision.cs" />
@@ -390,7 +392,6 @@
     <Compile Include="Core\Details\Cards\Modifiers\AddCounters.cs" />
     <Compile Include="Core\Details\Cards\Counters\PowerToughness.cs" />
     <Compile Include="Core\Details\Cards\Preventions\IDamagePreventionFactory.cs" />
-    <Compile Include="Core\Targeting\ITarget.cs" />
     <Compile Include="Core\Ai\VariableCost.cs" />
     <Compile Include="Core\Details\Cards\Modifiers\IncreaseLevel.cs" />
     <Compile Include="Core\Details\Cards\Modifiers\LevelLifetime.cs" />

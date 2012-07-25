@@ -76,12 +76,12 @@
       {
         if (PlayerFilter(player, _source))
         {
-          AddModifierToTarget(player);
+          AddModifierToTarget(new Target(player));
         }
       }
     }
 
-    private void AddModifierToTarget(ITarget target)
+    private void AddModifierToTarget(Target target)
     {
       var modifier = ModifierFactory.CreateModifier(_source, target);
       modifier.AddLifetime(new DependantLifetime(this, _changeTracker));

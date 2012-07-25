@@ -11,7 +11,7 @@
         x => x.CanBeTapped && x.Is().Creature);
     }
 
-    public override void Pay(ITarget target, int? x)
+    public override void Pay(Target target, int? x)
     {
       target.Card().Tap();
     }

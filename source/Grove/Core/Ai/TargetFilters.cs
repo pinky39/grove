@@ -8,9 +8,9 @@
 
   public static class TargetFilters
   {
-    public delegate IEnumerable<ITarget> InputSelectorDelegate(TargetsCandidates candidates);
+    public delegate IEnumerable<Target> InputSelectorDelegate(TargetsCandidates candidates);
 
-    public delegate IEnumerable<Targets> OutputSelectorDelegate(IEnumerable<ITarget> targets);
+    public delegate IEnumerable<Targets> OutputSelectorDelegate(IEnumerable<Target> targets);
 
     public static TargetsFilterDelegate OrderByDescendingScore(Controller controller = Ai.Controller.Opponent)
     {
@@ -372,7 +372,7 @@
               .OrderBy(x => x.Card().Score));
           }
 
-          var candidates = new List<ITarget>();
+          var candidates = new List<Target>();
 
           if (p.Step == Step.DeclareBlockers)
           {
@@ -438,8 +438,8 @@
     {
       return p =>
         {
-          var targetPicks = new List<ITarget>();
-          var sourcePicks = new List<ITarget>();
+          var targetPicks = new List<Target>();
+          var sourcePicks = new List<Target>();
 
           if (!p.Stack.IsEmpty)
           {
@@ -447,7 +447,7 @@
 
             if (damageToPlayer > 0)
             {
-              targetPicks.Add(p.Controller);
+              targetPicks.Add(new Target(p.Controller));
               sourcePicks.Add(p.Stack.TopSpell);
             }
 
@@ -472,7 +472,7 @@
 
               if (attacker != null)
               {
-                targetPicks.Add(p.Controller);
+                targetPicks.Add(new Target(p.Controller));
                 sourcePicks.Add(attacker);
               }
 
@@ -559,7 +559,7 @@
     {
       return p =>
         {
-          var targetPicks = new List<ITarget>();
+          var targetPicks = new List<Target>();
 
           if (!p.Stack.IsEmpty && p.Candidates().Contains(p.Stack.TopSpell))
           {
@@ -620,7 +620,8 @@
                   return (damageToCreature >= x.CalculateLifepointsLeft()) &&
                     (damageToCreature - amount < x.CalculateLifepointsLeft());
                 })
-              .OrderByDescending(x => x.Score);
+              .OrderByDescending(x => x.Score)
+              .Select(x => new Target(x));
 
             return p.Targets(playerCandidate.Concat(cardCandidates));
           }
@@ -635,8 +636,8 @@
                 .Where(x =>
                   {
                     var prevented = QuickCombat.GetAmountOfDamageThatNeedsToBePreventedToSafeAttackerFromDying(
-                      attacker: x.Card(),
-                      blockers: p.Combat.GetBlockers(x.Card()));
+                      attacker: x,
+                      blockers: p.Combat.GetBlockers(x));
 
                     return 0 < prevented && prevented <= amount;
                   })
@@ -656,13 +657,14 @@
                 .Where(x =>
                   {
                     var prevented = QuickCombat.GetAmountOfDamageThatNeedsToBePreventedToSafeBlockerFromDying(
-                      blocker: x.Card(),
-                      attacker: p.Combat.GetAttacker(x.Card()));
+                      blocker: x,
+                      attacker: p.Combat.GetAttacker(x));
 
 
                     return 0 < prevented && prevented <= amount;
                   })
-                .OrderByDescending(x => x.Score);
+                .OrderByDescending(x => x.Score)
+                .Select(x => new Target(x));
 
               return p.Targets(playerCandidate.Concat(cardCandidates));
             }

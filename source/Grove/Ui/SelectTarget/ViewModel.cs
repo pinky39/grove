@@ -9,9 +9,9 @@
   public class ViewModel : IReceive<TargetSelected>
   {
     private readonly bool _canCancel;
-    private readonly BindableCollection<ITarget> _selection = new BindableCollection<ITarget>();
-    private readonly Action<ITarget> _targetSelected;
-    private readonly Action<ITarget> _targetUnselected;
+    private readonly BindableCollection<Target> _selection = new BindableCollection<Target>();
+    private readonly Action<Target> _targetSelected;
+    private readonly Action<Target> _targetUnselected;
 
     public ViewModel(ITargetSelector targetSelector, bool canCancel) : this(targetSelector, canCancel, null) {}
 
@@ -19,7 +19,7 @@
       : this(targetSelector, canCancel, instructions, null, null) {}
 
     public ViewModel(ITargetSelector targetSelector, bool canCancel, string instructions,
-                     Action<ITarget> targetSelected, Action<ITarget> targetUnselected)
+                     Action<Target> targetSelected, Action<Target> targetUnselected)
     {
       TargetSelector = targetSelector;
       Instructions = instructions;
@@ -39,7 +39,7 @@
 
     public string Instructions { get; private set; }
     private bool IsDone { get { return _selection.Count >= TargetSelector.MinCount; } }
-    public IList<ITarget> Selection { get { return _selection; } }
+    public IList<Target> Selection { get { return _selection; } }
     public ITargetSelector TargetSelector { get; private set; }
     public bool WasCanceled { get; private set; }
 
@@ -89,8 +89,8 @@
         ITargetSelector targetSelector,
         bool canCancel,
         string instructions = null,
-        Action<ITarget> targetSelected = null,
-        Action<ITarget> targetUnselected = null);
+        Action<Target> targetSelected = null,
+        Action<Target> targetUnselected = null);
     }
   }
 }

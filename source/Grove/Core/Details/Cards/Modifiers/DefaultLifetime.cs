@@ -6,10 +6,10 @@
 
   public class DefaultLifetime : Lifetime, IReceive<CardChangedZone>
   {
-    private readonly ITarget _target;
+    private readonly Target _target;
     private DefaultLifetime() {}
 
-    public DefaultLifetime(ITarget target, ChangeTracker changeTracker) 
+    public DefaultLifetime(Target target, ChangeTracker changeTracker) 
       : base(changeTracker)
     {
       _target = target;
@@ -17,7 +17,7 @@
 
     public void Receive(CardChangedZone message)
     {
-      if (message.Card != _target)
+      if (message.Card != _target.Card())
         return;
 
       if (message.FromBattlefield)

@@ -7,16 +7,15 @@
   using Controllers;
   using Dsl;
   using Infrastructure;
-  using Modifiers;
   using Targeting;
 
   [Copyable]
-  public abstract class Effect : ITarget
+  public abstract class Effect
   {
     public Action<Effect> AfterResolve = delegate { };
-    public Action<Effect> BeforeResolve = delegate { };    
-    private TrackableList<ITarget> _costTargets;
-    private TrackableList<ITarget> _targets;
+    public Action<Effect> BeforeResolve = delegate { };
+    private TrackableList<Target> _costTargets;
+    private TrackableList<Target> _targets;
     private Trackable<bool> _wasResolved;
     public bool CanBeCountered { get; set; }
     public IPlayer Controller { get { return Source.OwningCard.Controller; } }
@@ -29,9 +28,9 @@
     public bool HasTargets { get { return _targets.Count > 0; } }
     private bool WasResolved { get { return _wasResolved.Value; } set { _wasResolved.Value = value; } }
 
-    protected IEnumerable<ITarget> Targets { get { return _targets; } }
+    protected IEnumerable<Target> Targets { get { return _targets; } }
 
-    public IEnumerable<ITarget> AllTargets
+    public IEnumerable<Target> AllTargets
     {
       get
       {
@@ -61,16 +60,6 @@
         X.GetHashCode());
     }
 
-    public void AddModifier(IModifier modifier)
-    {
-      // no card needs this yet
-    }
-
-    public void RemoveModifier(IModifier modifier)
-    {
-      // no card needs this yet
-    }
-
     public virtual int CalculatePlayerDamage(IPlayer player)
     {
       return 0;
@@ -86,17 +75,17 @@
       return 0;
     }
 
-    public ITarget Target()
+    public Target Target()
     {
       return _targets.Count == 0 ? null : _targets[0];
     }
 
-    public ITarget CostTarget()
+    public Target CostTarget()
     {
       return _costTargets.Count == 0 ? null : _costTargets[0];
     }
 
-    public ITarget Target(int index)
+    public Target Target(int index)
     {
       return _targets[index];
     }
@@ -147,22 +136,22 @@
       return ((effectCategories & Source.EffectCategories) != EffectCategories.Generic);
     }
 
-    public void AddTargets(IEnumerable<ITarget> targets)
+    public void AddTargets(IEnumerable<Target> targets)
     {
       _targets.AddRange(targets);
     }
 
-    public void AddTarget(ITarget target)
+    public void AddTarget(Target target)
     {
       _targets.Add(target);
     }
 
-    public void AddCostTargets(IEnumerable<ITarget> targets)
+    public void AddCostTargets(IEnumerable<Target> targets)
     {
       _costTargets.AddRange(targets);
     }
 
-    public bool HasTarget(Card card)
+    public bool HasTarget(Target card)
     {
       return _targets.Any(x => x == card);
     }
@@ -179,9 +168,9 @@
           {
             Game = Game,
             Source = parameters.Source,
-            _targets = new TrackableList<ITarget>(parameters.Targets, Game.ChangeTracker, orderImpactsHashcode: true),
+            _targets = new TrackableList<Target>(parameters.Targets, Game.ChangeTracker, orderImpactsHashcode: true),
             _costTargets =
-              new TrackableList<ITarget>(parameters.CostTargets, Game.ChangeTracker, orderImpactsHashcode: true),
+              new TrackableList<Target>(parameters.CostTargets, Game.ChangeTracker, orderImpactsHashcode: true),
             _wasResolved = new Trackable<bool>(Game.ChangeTracker),
             WasKickerPaid = parameters.Activation.PayKicker,
             X = parameters.Activation.X,

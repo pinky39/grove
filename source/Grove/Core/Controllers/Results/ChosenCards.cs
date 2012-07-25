@@ -31,7 +31,7 @@
       _cards.Add(card);
     }
 
-    public static implicit operator ChosenCards(List<ITarget> cards)
+    public static implicit operator ChosenCards(List<Target> cards)
     {
       return new ChosenCards(cards.Select(x => x.Card()));
     }

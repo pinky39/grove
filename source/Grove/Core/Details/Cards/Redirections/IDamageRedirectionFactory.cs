@@ -4,6 +4,6 @@
 
   public interface IDamageRedirectionFactory
   {
-    DamageRedirection Create(ITarget owner);
+    DamageRedirection Create(Target owner);
   }
 }

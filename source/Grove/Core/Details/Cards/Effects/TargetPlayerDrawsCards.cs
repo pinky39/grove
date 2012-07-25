@@ -7,7 +7,7 @@
 
     protected override void ResolveEffect()
     {
-      var player = (Player) Target();
+      var player = Target().Player();
       player.DrawCards(CardCount);
       player.Life -= LifeLoss;
     }

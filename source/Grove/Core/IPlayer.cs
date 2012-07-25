@@ -1,11 +1,13 @@
 ﻿namespace Grove.Core
 {
   using System.Collections.Generic;
+  using Details.Cards.Modifiers;
   using Details.Mana;
+  using Infrastructure;
   using Targeting;
   using Zones;
 
-  public interface IPlayer : ITarget, IDamageable
+  public interface IPlayer : IHashable, IDamageable
   {
     string Avatar { get; }
     IBattlefieldQuery Battlefield { get; }
@@ -40,11 +42,13 @@
     void Mill(int count);
     void TakeMulligan();
     void DealAssignedDamage();
-    IEnumerable<ITarget> GetTargets();
+    IEnumerable<Target> GetTargets();
     void MoveCreaturesWithLeathalDamageOrZeroTougnessToGraveyard();
     void ShuffleLibrary();
     void RemoveDamageFromPermanents();
     void RemoveRegenerationFromPermanents();
     void SetAiVisibility(IPlayer playerOnTheMove);
+    void AddModifier(IModifier modifier);
+    void RemoveModifier(IModifier modifier);
   }
 }

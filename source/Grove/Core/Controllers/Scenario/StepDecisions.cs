@@ -22,7 +22,7 @@
       return _targets;
     }
 
-    public void Targets(params ITarget[] effectTargets)
+    public void Targets(params Target[] effectTargets)
     {
       foreach (var effectTarget in effectTargets)
       {
@@ -31,7 +31,7 @@
       }
     }
 
-    public void CostTargets(params ITarget[] costTargets)
+    public void CostTargets(params Target[] costTargets)
     {
       foreach (var costTarget in costTargets)
       {
@@ -52,7 +52,7 @@
     public StepDecisions Activate(Card card, Card target, Card costTarget = null,
       int? x = null, int abilityIndex = 0)
     {
-      return Activate(card, (ITarget) target, costTarget, x, abilityIndex);
+      return Activate(card, (Target) target, costTarget, x, abilityIndex);
     }
 
     public StepDecisions Activate(Action<ScenarioActivation> init)
@@ -129,7 +129,7 @@
         });
     }
 
-    private StepDecisions Activate(Card card, ITarget target = null, ITarget costTarget = null,
+    private StepDecisions Activate(Card card, Target target = null, Target costTarget = null,
       int? x = null, int abilityIndex = 0)
     {
       return Activate(p =>
@@ -210,7 +210,7 @@
         });
     }
 
-    public StepDecisions Cast(Card card, LazyEffect target, bool payKicker = false, int? x = null)
+    public StepDecisions Cast(Card card, ScenarioEffect target, bool payKicker = false, int? x = null)
     {
       return Cast(p =>
         {
@@ -279,15 +279,15 @@
 
     public StepDecisions Target(Card target)
     {
-      return Target((ITarget) target);
+      return Target((Target) target);
     }
 
     public StepDecisions Target(Player target)
     {
-      return Target((ITarget) target);
+      return Target((Target) target);
     }
 
-    private StepDecisions Target(ITarget target)
+    private StepDecisions Target(Target target)
     {
       var decision = new SetTriggeredAbilityTarget
         {

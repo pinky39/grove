@@ -25,13 +25,12 @@
 
     public string Text { get { return _text; } }
 
-    public bool IsValid(ITarget target)
+    public bool IsValid(Target target)
     {
-      var card = target as Card;
-      if (card == null)
+      if (!target.IsCard())
         return false;
-
-      return _isValid(card);
+      
+      return _isValid(target.Card());
     }
   }
 }

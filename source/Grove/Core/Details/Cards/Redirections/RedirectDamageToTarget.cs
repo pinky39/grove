@@ -4,7 +4,7 @@
 
   public class RedirectDamageToTarget : DamageRedirection
   {
-    public ITarget Target { get; set; }
+    public Target Target { get; set; }
 
     protected override bool Redirect(Damage damage)
     {

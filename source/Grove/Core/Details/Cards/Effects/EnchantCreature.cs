@@ -13,7 +13,7 @@
 
     public override int CalculateToughnessReduction(Card creature)
     {
-      if (Target() == creature)
+      if (Target().Card() == creature)
       {
         return ToughnessReduction.GetValue(X);
       }

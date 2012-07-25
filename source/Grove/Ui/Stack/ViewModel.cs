@@ -42,7 +42,7 @@
       _select(effect);
     }
 
-    public void ChangePlayersInterestTarget(ITarget target, bool hasLostInterest)
+    public void ChangePlayersInterestTarget(Target target, bool hasLostInterest)
     {
       if (target.IsPlayer())
         return;

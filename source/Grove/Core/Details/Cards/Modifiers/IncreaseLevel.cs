@@ -16,7 +16,7 @@
 
       Publisher.Publish(new CardChangedLevel
         {
-          Card = (Card) Target,
+          Card = Target.Card(),
         });
     }
 

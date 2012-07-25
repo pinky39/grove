@@ -10,7 +10,7 @@
 
     public override int CalculateToughnessReduction(Card creature)
     {
-      return Target() == creature ? ToughnessReduction.GetValue(X) : 0;
+      return Target().Card() == creature ? ToughnessReduction.GetValue(X) : 0;
     }
 
     protected override void ResolveEffect()

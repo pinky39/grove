@@ -4,6 +4,6 @@
 
   public class TargetSelected
   {
-    public ITarget Target { get; set; }
+    public Target Target { get; set; }
   }
 }

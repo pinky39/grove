@@ -30,7 +30,7 @@
     void IEffectSource.EffectWasPushedOnStack() {}
     void IEffectSource.EffectWasResolved() {}
 
-    bool IEffectSource.AreTargetsStillValid(IList<ITarget> targets, bool wasKickerPaid)
+    bool IEffectSource.AreTargetsStillValid(IList<Target> targets, bool wasKickerPaid)
     {
       return TargetSelectors.AreValidEffectTargets(targets);
     }

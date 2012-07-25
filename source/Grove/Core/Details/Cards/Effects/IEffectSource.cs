@@ -14,6 +14,6 @@
     void EffectWasPushedOnStack();
     void EffectWasResolved();
     
-    bool AreTargetsStillValid(IList<ITarget> targets, bool wasKickerPaid);
+    bool AreTargetsStillValid(IList<Target> targets, bool wasKickerPaid);
   }
 }

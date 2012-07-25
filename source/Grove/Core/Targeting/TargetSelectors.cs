@@ -4,7 +4,7 @@
   using Ai;
   using Infrastructure;
 
-  public delegate IEnumerable<ITarget> TargetGeneratorDelegate();
+  public delegate IEnumerable<Target> TargetGeneratorDelegate();
 
   [Copyable]
   public class TargetSelectors
@@ -84,7 +84,7 @@
       _costSelectors.Add(selector);
     }
 
-    public bool AreValidEffectTargets(IList<ITarget> targets)
+    public bool AreValidEffectTargets(IList<Target> targets)
     {
       for (var i = 0; i < targets.Count; i++)
       {

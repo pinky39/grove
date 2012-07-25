@@ -5,11 +5,11 @@
   using Infrastructure;
 
   [Copyable]
-  public class TargetCandidates : IEnumerable<ITarget>
+  public class TargetCandidates : IEnumerable<Target>
   {
-    private readonly List<ITarget> _candidates = new List<ITarget>();
+    private readonly List<Target> _candidates = new List<Target>();
 
-    public IEnumerator<ITarget> GetEnumerator()
+    public IEnumerator<Target> GetEnumerator()
     {
       return _candidates.GetEnumerator();
     }
@@ -19,7 +19,7 @@
       return GetEnumerator();
     }
 
-    public void Add(ITarget target)
+    public void Add(Target target)
     {
       _candidates.Add(target);
     }
