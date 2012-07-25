@@ -34,7 +34,7 @@
         if (selectBlocker.Selection.Count() == 0)
           break;
 
-        var blocker = selectBlocker.Selection[0].Card();
+        var blocker = (Card) selectBlocker.Selection[0];
 
         if (result.ContainsBlocker(blocker))
         {
@@ -64,7 +64,7 @@
         if (selectAttacker.WasCanceled)
           continue;
 
-        var attacker = selectAttacker.Selection[0].Card();
+        var attacker = (Card) selectAttacker.Selection[0];
 
         Publisher.Publish(new BlockerSelected
           {

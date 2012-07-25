@@ -7,9 +7,9 @@
 
   public class PlayerHasActivatedAbility
   {
-    private readonly List<Target> _targets = new List<Target>();
+    private readonly List<ITarget> _targets = new List<ITarget>();
 
-    public PlayerHasActivatedAbility(ActivatedAbility ability, IEnumerable<Target> targets)
+    public PlayerHasActivatedAbility(ActivatedAbility ability, IEnumerable<ITarget> targets)
     {
       Ability = ability;      
       _targets.AddRange(targets);
@@ -18,7 +18,7 @@
     public bool HasTargets { get { return _targets.Count > 0; } }
 
     public ActivatedAbility Ability { get; private set; }
-    public IEnumerable<Target> Targets { get { return _targets; } }
+    public IEnumerable<ITarget> Targets { get { return _targets; } }
 
     public override string ToString()
     {

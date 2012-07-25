@@ -6,7 +6,7 @@
 
   public static class TargetCandidatesEx
   {
-    public static IEnumerable<Target> RestrictController(this IEnumerable<Target> candidates, IPlayer controller)
+    public static IEnumerable<ITarget> RestrictController(this IEnumerable<ITarget> candidates, IPlayer controller)
     {
       return candidates
         .Where(x => (x.IsCard() && x.Card().Controller == controller) ||

@@ -260,7 +260,7 @@
     }
 
 
-    public IEnumerable<Target> GetTargets()
+    public IEnumerable<ITarget> GetTargets()
     {
       yield return this;
 

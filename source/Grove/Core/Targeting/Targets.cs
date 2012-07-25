@@ -8,8 +8,8 @@
   [Copyable]
   public class Targets : IEquatable<Targets>
   {
-    private readonly List<Target> _costTargets = new List<Target>();
-    private readonly List<Target> _effectTargets = new List<Target>();
+    private readonly List<ITarget> _costTargets = new List<ITarget>();
+    private readonly List<ITarget> _effectTargets = new List<ITarget>();
     public int Count { get { return _effectTargets.Count + _costTargets.Count; } }
 
     public bool Any { get { return Count > 0; } }
@@ -24,33 +24,33 @@
       return other.GetHashCode() == GetHashCode();
     }
 
-    public IEnumerable<Target> Effect()
+    public IEnumerable<ITarget> Effect()
     {
       return _effectTargets;
     }
 
-    public Target Effect(int i)
+    public ITarget Effect(int i)
     {
       return i < _effectTargets.Count ? _effectTargets[i] : null;
     }
 
-    public IEnumerable<Target> Cost()
+    public IEnumerable<ITarget> Cost()
     {
       return _costTargets;
     }
 
-    public Target Cost(int i)
+    public ITarget Cost(int i)
     {
       return i < _costTargets.Count ? _costTargets[i] : null;
     }
 
-    public Targets AddCost(Target target)
+    public Targets AddCost(ITarget target)
     {
       _costTargets.Add(target);
       return this;
     }
 
-    public Targets AddEffect(Target target)
+    public Targets AddEffect(ITarget target)
     {
       _effectTargets.Add(target);
       return this;

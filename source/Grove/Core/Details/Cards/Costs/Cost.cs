@@ -27,7 +27,7 @@
     }
 
     public abstract bool CanPay(ref int? maxX);
-    public abstract void Pay(Target target, int? x);
+    public abstract void Pay(ITarget target, int? x);
 
     protected virtual void AfterInit() {}
 

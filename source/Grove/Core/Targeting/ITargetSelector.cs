@@ -5,6 +5,6 @@
     int? MaxCount { get; }
     int MinCount { get; }
     string Text { get; }
-    bool IsValid(Target target);
+    bool IsValid(ITarget target);
   }
 }

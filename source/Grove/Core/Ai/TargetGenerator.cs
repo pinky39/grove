@@ -38,7 +38,7 @@
       return GetEnumerator();
     }
 
-    private IEnumerable<Target> GenerateTargets()
+    private IEnumerable<ITarget> GenerateTargets()
     {
       foreach (var target in _game.Players.SelectMany(p => p.GetTargets()))
       {

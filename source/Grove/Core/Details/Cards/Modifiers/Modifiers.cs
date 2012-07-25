@@ -7,7 +7,7 @@
   public static class Modifiers
   {
     public static List<Modifier> CreateModifiers(this IEnumerable<IModifierFactory> modifierFactories, Card source,
-                                                 Target target, int? x)
+                                                 ITarget target, int? x)
     {
       return modifierFactories.Select(factory => factory.CreateModifier(source, target, x)).ToList();
     }

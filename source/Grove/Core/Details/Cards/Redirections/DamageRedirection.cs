@@ -7,7 +7,7 @@
   [Copyable]
   public abstract class DamageRedirection : IHashable
   {
-    protected Target Owner { get; private set; }
+    protected ITarget Owner { get; private set; }
     protected Game Game { get; private set; }
 
     public int CalculateHash(HashCalculator calc)
@@ -36,7 +36,7 @@
       public bool OnlyOnce { get; set; }
       public Initializer<T> Init { get; set; }
 
-      public DamageRedirection Create(Target owner)
+      public DamageRedirection Create(ITarget owner)
       {
         var prevention = new T();
 

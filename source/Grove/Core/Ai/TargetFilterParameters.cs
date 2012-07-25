@@ -29,12 +29,12 @@
     public Step Step { get { return Game.Turn.Step; } }
     public Stack Stack { get { return Game.Stack; } }
 
-    public IEnumerable<Target> Candidates(int index = 0)
+    public IEnumerable<ITarget> Candidates(int index = 0)
     {
       return AllCandidates.HasCost ? AllCandidates.Cost(index) : AllCandidates.Effect(index);
     }
 
-    public List<Targets> MultipleTargets(params List<Target>[] candidates)
+    public List<Targets> MultipleTargets(params List<ITarget>[] candidates)
     {
       var targetsList = new List<Targets>();
 
@@ -57,12 +57,7 @@
       return new List<Targets>();
     }
     
-    public List<Targets> Targets(IEnumerable<Card> candidates)
-    {
-      return Targets(candidates.Select(x => new Target(x)));
-    }
-        
-    public List<Targets> Targets(IEnumerable<Target> candidates)
+    public List<Targets> Targets(IEnumerable<ITarget> candidates)
     {
       var targets = AllCandidates.HasCost
         ? candidates.Select(x => new Targets().AddCost(x))

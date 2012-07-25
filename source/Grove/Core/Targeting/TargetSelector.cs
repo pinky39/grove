@@ -21,7 +21,7 @@
     public int MinCount { get { return _minCount; } set { _minCount = value; } }
     public string Text { get { return string.Format(TextFormat, MinCount, MaxCount); } }
 
-    public bool IsValid(Target target)
+    public bool IsValid(ITarget target)
     {
       var valid = Validator(new TargetValidatorParameters(target, Source, _game));
 

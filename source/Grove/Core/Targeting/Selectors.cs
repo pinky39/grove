@@ -57,7 +57,7 @@
           if (p.Target.Card().Controller != equipment.Controller)
             return false;
 
-          return !equipment.IsAttached || equipment.AttachedTo != p.Target.Card();
+          return !equipment.IsAttached || equipment.AttachedTo != p.Target;
         };
     }
 
@@ -87,7 +87,7 @@
         isValidController(p.Controller, p.Target.Card().Controller) && filter(p.Target.Card());
     }
 
-    public static TargetValidatorDelegate EffectOrPermanent(Func<Target, bool> filter = null)
+    public static TargetValidatorDelegate EffectOrPermanent(Func<ITarget, bool> filter = null)
     {
       filter = filter ?? delegate { return true; };
       return p => (p.Target.IsPermanent() || p.Target.IsEffect()) && filter(p.Target);

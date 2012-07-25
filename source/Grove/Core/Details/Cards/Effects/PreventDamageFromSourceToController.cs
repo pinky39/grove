@@ -6,7 +6,7 @@
 
   public class PreventDamageFromSourceToController : Effect
   {
-    private Target DamageSource { get { return Target(0); } }
+    private ITarget DamageSource { get { return Target(0); } }
     public bool OnlyOnce { get; set; }
 
     protected override void ResolveEffect()
@@ -30,7 +30,7 @@
           Game = Game,
           Init = (m, _) => m.Prevention = prevention
         }
-        .CreateModifier(Source.OwningCard, new Target(Controller));
+        .CreateModifier(Source.OwningCard, Controller);
 
 
       Controller.AddModifier(modifier);

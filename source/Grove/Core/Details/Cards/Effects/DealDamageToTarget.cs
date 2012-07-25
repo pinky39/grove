@@ -15,7 +15,7 @@
 
     public override int CalculateCreatureDamage(Card creature)
     {
-      return creature == Target().Card() ? Amount.GetValue(X) : 0;
+      return creature == Target() ? Amount.GetValue(X) : 0;
     }
 
     protected override void ResolveEffect()

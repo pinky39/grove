@@ -18,7 +18,7 @@
       if (creature == Source.OwningCard)
         return ToughnessReductionSelf.GetValue(X);
 
-      if (creature == Target().Card())
+      if (creature == Target())
       {
         return ToughnessReductionTargets.GetValue(X);
       }

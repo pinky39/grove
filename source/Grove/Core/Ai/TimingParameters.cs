@@ -28,7 +28,7 @@
     public Effect TopSpell { get { return Game.Stack.TopSpell; } }
     public IEnumerable<Attacker> Attackers { get { return Game.Combat.Attackers; } }
     public bool IsAttached { get { return Card.IsAttached; } }
-    public Target Target { get { return Activation.Targets.Effect(0); } }
+    public ITarget Target { get { return Activation.Targets.Effect(0); } }
     public Stack Stack { get { return Game.Stack; } }
     public Combat Combat { get { return Game.Combat; } }
     public Players Players { get { return Game.Players; } }

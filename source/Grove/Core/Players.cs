@@ -10,14 +10,14 @@
   [Copyable]
   public class Players : IEnumerable<IPlayer>, IHashable
   {
-    private readonly TrackableList<IPlayer> _extraTurns;
+    private readonly TrackableList<Player> _extraTurns;
     private IPlayer _player1;
     private IPlayer _player2;
     private IPlayer _starting;
 
     public Players(ChangeTracker changeTracker)
     {
-      _extraTurns = new TrackableList<IPlayer>(changeTracker, orderImpactsHashcode: true);
+      _extraTurns = new TrackableList<Player>(changeTracker, orderImpactsHashcode: true);
     }
 
     private Players() {}
@@ -92,7 +92,7 @@
       return GetEnumerator();
     }
 
-    public IEnumerable<Target> GetTargets()
+    public IEnumerable<ITarget> GetTargets()
     {
       return this.SelectMany(x => x.GetTargets());
     }
@@ -133,7 +133,7 @@
       return player == Player1 ? Player2 : Player1;
     }
 
-    public void ScheduleExtraTurns(IPlayer player, int count)
+    public void ScheduleExtraTurns(Player player, int count)
     {
       for (var i = 0; i < count; i++)
       {

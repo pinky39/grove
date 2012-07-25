@@ -9,7 +9,7 @@
       return Controller.Hand.Count > 0;
     }
 
-    public override void Pay(Target target, int? x)
+    public override void Pay(ITarget target, int? x)
     {
       target.Card().Reveal();
     }

@@ -20,7 +20,7 @@
   using Zones;
 
   [Copyable]
-  public class Card : IEffectSource, IDamageable, IHashDependancy
+  public class Card : IEffectSource, ITarget, IDamageable, IHashDependancy
   {
     private static readonly Random Random = new Random();
     private readonly TargetSelectors _kickerTargetSelectors = new TargetSelectors();
@@ -262,7 +262,7 @@
       Controller.PutCardToBattlefield(this);
     }
 
-    bool IEffectSource.AreTargetsStillValid(IList<Target> targets, bool wasKickerPaid)
+    bool IEffectSource.AreTargetsStillValid(IList<ITarget> targets, bool wasKickerPaid)
     {
       return wasKickerPaid
         ? _kickerTargetSelectors.AreValidEffectTargets(targets)

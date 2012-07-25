@@ -2,14 +2,14 @@
 {
   public class TargetValidatorParameters
   {
-    public TargetValidatorParameters(Target target, Card source, Game game)
+    public TargetValidatorParameters(ITarget target, Card source, Game game)
     {
       Target = target;
       Source = source;
       Game = game;
     }
 
-    public Target Target { get; private set; }
+    public ITarget Target { get; private set; }
     public Card Source { get; private set; }
     public Game Game { get; internal set; }
     public IPlayer Controller { get { return Source.Controller; } }
