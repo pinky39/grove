@@ -4,6 +4,7 @@
   using System.Collections.Generic;
   using System.Linq;
   using Details.Mana;
+  using Infrastructure;
   using Targeting;
 
   public static class AiTargetSelectors
@@ -337,7 +338,8 @@
             return p.Targets(candidates);
           }
 
-          if ((!p.Controller.IsActive && p.Step == Step.EndOfTurn) || (p.Source.IsPermanent && p.Stack.CanBeDestroyedByTopSpell(p.Source)))
+          if ((!p.Controller.IsActive && p.Step == Step.EndOfTurn) ||
+            (p.Source.IsPermanent && p.Stack.CanBeDestroyedByTopSpell(p.Source)))
           {
             return p.Targets(p.Candidates()
               .Where(x => x.Card().Controller == p.Controller)
@@ -516,7 +518,7 @@
             }
           }
 
-          return p.MultipleTargets(sourcePicks, targetPicks);
+          return p.MultipleTargetsManyChoices(sourcePicks, targetPicks);
         };
     }
 
@@ -716,6 +718,60 @@
       }
 
       return 1;
+    }
+
+    public static AiTargetSelectorDelegate DealDamageDistribute(int? amount = null)
+    {
+      return p =>
+        {
+          amount = amount ?? p.MaxX;
+
+          // this is a 0-1 knapsack optimization problem
+          
+          var targets = p.Candidates()
+            .Where(x => x.Is().Creature && x.Life() <= amount)
+            .Select(x => new KnapsackItem<ITarget>(
+              item: x,
+              weight: x.Life(),
+              value: x.Card().Score))
+            .ToList();
+
+          targets.AddRange(p.Candidates()
+            .Where(x => x == p.Opponent)
+            .SelectMany(x =>
+              {
+                var items = new List<KnapsackItem<ITarget>>();
+
+                const int decrementSoPlayerAtMostOnce = 1;
+                
+                for (int i = 1; i <= amount.Value; i++)
+                {
+                  items.Add(
+                    new KnapsackItem<ITarget>(
+                      item: x,
+                      weight: i,
+                      value: ScoreCalculator.CalculateLifelossScore(x.Player().Life, i) - decrementSoPlayerAtMostOnce)); 
+                }
+
+                return items;
+              })
+            );
+
+          if (targets.Count == 0)
+            return p.NoTargets();
+
+          var solution = Knapsack.Solve(targets, amount.Value);
+          var selected = solution.Select(x => x.Item).ToList();          
+
+          var distribution = new AiDamageDistributor
+            {
+              Distribution = (t, a) => solution
+                .Select(x => x.Weight)
+                .ToList()
+            };
+
+          return p.MultipleTargetsOneChoice(distribution, selected);
+        };
     }
   }
 }

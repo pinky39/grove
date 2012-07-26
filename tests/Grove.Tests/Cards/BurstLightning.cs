@@ -1,11 +1,11 @@
 ﻿namespace Grove.Tests.Cards
 {
-  using Grove.Core;
-  using Grove.Core.Zones;
+  using Core;
+  using Core.Zones;
   using Infrastructure;
   using Xunit;
 
-  public class BurstLightning : PredefinedScenario
+  public class BurstLightning
   {
     public class Predefined : PredefinedScenario
     {

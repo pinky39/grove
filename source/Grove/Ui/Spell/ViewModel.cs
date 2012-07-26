@@ -8,6 +8,7 @@
   using Core.Controllers.Results;
   using Core.Details.Cards;
   using Core.Targeting;
+  using DistributeDamage;
   using Infrastructure;
   using Shell;
 
@@ -15,6 +16,7 @@
   {
     private readonly Publisher _publisher;
     private readonly SelectAbility.ViewModel.IFactory _selectAbilityVmFactory;
+    private readonly UiDamageDistribution _uiDamageDistribution;
     private readonly SelectTarget.ViewModel.IFactory _selectTargetVmFactory;
     private readonly SelectXCost.ViewModel.IFactory _selectXCostVmFactory;
     private readonly IShell _shell;
@@ -26,13 +28,15 @@
       Publisher publisher,
       SelectTarget.ViewModel.IFactory selectTargetVmFactory,
       SelectXCost.ViewModel.IFactory selectXCostVmFactory,
-      SelectAbility.ViewModel.IFactory selectAbilityVmFactory)
+      SelectAbility.ViewModel.IFactory selectAbilityVmFactory,
+      UiDamageDistribution uiDamageDistribution)
     {
       _shell = shell;
       _publisher = publisher;
       _selectTargetVmFactory = selectTargetVmFactory;
       _selectXCostVmFactory = selectXCostVmFactory;
       _selectAbilityVmFactory = selectAbilityVmFactory;
+      _uiDamageDistribution = uiDamageDistribution;
       _select = delegate { };
       Card = card;
     }
@@ -180,6 +184,11 @@
             targets.AddEffect(target);
           }                              
         }
+      }
+
+      if (prerequisites.DistributeDamage)
+      {
+        targets.DamageDistributor = _uiDamageDistribution;
       }
 
       return true;

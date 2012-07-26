@@ -26,14 +26,13 @@
     public int? X { get; set; }
     public virtual bool AffectsSource { get { return false; } }
     public bool HasTargets { get { return _targets.Count > 0; } }
-    private bool WasResolved { get { return _wasResolved.Value; } set { _wasResolved.Value = value; } }
-
-    // ui uses this to display targets of an effect
+    private bool WasResolved { get { return _wasResolved.Value; } set { _wasResolved.Value = value; } }    
+    
+    // this is used by ui to display effect targets
     public object UiTargets { get { return _targets; } }
-
+    
     public bool WasKickerPaid { get; set; }
     protected IList<ITarget> Targets { get { return _targets.Effect; } }
-
     protected IList<ITarget> CostTargets { get { return _targets.Cost; } }
 
     public bool HasColors(ManaColors colors)
@@ -103,9 +102,11 @@
       Source.EffectWasCountered();
     }
 
-    public bool HasEffectStillValidTargets()
+    public bool CanBeResolved()
     {
-      return _targets.Count == 0 || Source.AreTargetsStillValid(_targets.Effect, WasKickerPaid);
+      return _targets.Effect.Count == 0 || 
+        _targets.Effect.Count > 1 || 
+        Source.IsTargetStillValid(_targets.Effect[0], WasKickerPaid);
     }
 
     public override string ToString()
@@ -135,6 +136,8 @@
 
     protected virtual void Init() {}
 
+    protected virtual void DistributeDamage(IDamageDistributor damageDistributor) {}
+
     [Copyable]
     public class Factory<TEffect> : IEffectFactory where TEffect : Effect, new()
     {
@@ -161,6 +164,7 @@
 
         effect.Init();
 
+        effect.DistributeDamage(parameters.Targets.DamageDistributor);
         return effect;
       }
 

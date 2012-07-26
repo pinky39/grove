@@ -2,10 +2,11 @@
 {
   using System.Collections.Generic;
   using System.Linq;
+  using Infrastructure;
   using Targeting;
   using Zones;
-    
-  public delegate List<Targets> AiTargetSelectorDelegate(AiTargetSelectorParameters parameters);  
+
+  public delegate List<Targets> AiTargetSelectorDelegate(AiTargetSelectorParameters parameters);
 
   public class AiTargetSelectorParameters
   {
@@ -34,7 +35,20 @@
       return AllCandidates.HasCost ? AllCandidates.Cost(index) : AllCandidates.Effect(index);
     }
 
-    public List<Targets> MultipleTargets(params List<ITarget>[] candidates)
+    public List<Targets> MultipleTargetsOneChoice(IDamageDistributor distributor, List<ITarget> candidates)
+    {
+      var targets = new Targets();
+
+      foreach (var candidate in candidates)
+      {
+        targets.AddEffect(candidate);
+      }
+
+      targets.DamageDistributor = distributor;
+      return targets.ToEnumerable().ToList();
+    }
+
+    public List<Targets> MultipleTargetsManyChoices(params List<ITarget>[] candidates)
     {
       var targetsList = new List<Targets>();
 
@@ -56,7 +70,7 @@
     {
       return new List<Targets>();
     }
-    
+
     public List<Targets> Targets(IEnumerable<ITarget> candidates)
     {
       var targets = AllCandidates.HasCost

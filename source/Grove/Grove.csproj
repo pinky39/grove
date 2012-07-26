@@ -110,6 +110,7 @@
     <Compile Include="Cards\AngelicWall.cs" />
     <Compile Include="Cards\Annul.cs" />
     <Compile Include="Cards\Antagonism.cs" />
+    <Compile Include="Cards\ArcLightning.cs" />
     <Compile Include="Cards\ArgothianEnchantress.cs" />
     <Compile Include="Cards\ArgothianSwine.cs" />
     <Compile Include="Cards\ArgothianWurm.cs" />
@@ -260,6 +261,7 @@
     <Compile Include="Core\Ai\QuickCombat.cs" />
     <Compile Include="Core\DeckFile.cs" />
     <Compile Include="Core\DeckRow.cs" />
+    <Compile Include="Core\Targeting\IDamageDistributor.cs" />
     <Compile Include="Core\Dsl\UiTargetPostProcessors.cs" />
     <Compile Include="Core\IAcceptsModifiers.cs" />
     <Compile Include="Core\IHasColors.cs" />
@@ -304,7 +306,7 @@
     <Compile Include="Core\Messages\AssignedCombatDamageWasDealt.cs" />
     <Compile Include="Core\Messages\PermanentGetsUntapped.cs" />
     <Compile Include="Core\PlayerType.cs" />
-    <Compile Include="Core\Targeting\DistributeDamage.cs" />
+    <Compile Include="Core\Ai\AiDamageDistributor.cs" />
     <Compile Include="Core\Targeting\ITargetValidator.cs" />
     <Compile Include="Core\Targeting\ITargetValidatorFactory.cs" />
     <Compile Include="Core\Details\Cards\Modifiers\AddDamageRedirection.cs" />
@@ -316,7 +318,7 @@
     <Compile Include="Core\Details\Cards\Redirections\IDamageRedirectionFactory.cs" />
     <Compile Include="Core\Details\Cards\Redirections\RedirectDamageToTarget.cs" />
     <Compile Include="Core\Details\Cards\StaticAbility.cs" />
-    <Compile Include="Core\Targeting\UiTargetPostprocessor.cs" />
+    <Compile Include="Core\Targeting\NoDamageDistribution.cs" />
     <Compile Include="Core\Targeting\TargetCandidates.cs" />
     <Compile Include="Core\Targeting\Targets.cs" />
     <Compile Include="Core\Ai\InnerResult.cs" />
@@ -407,6 +409,7 @@
     <Compile Include="Core\Details\Cards\Triggers\SpellWasCast.cs" />
     <Compile Include="Core\Details\Cards\Triggers\OnLevelChanged.cs" />
     <Compile Include="Core\Details\Cards\Triggers\OpponentWasNotDealtDamageThisTurn.cs" />
+    <Compile Include="Ui\DistributeDamage\UiDamageDistribution.cs" />
     <Compile Include="Core\Targeting\Validators.cs" />
     <Compile Include="Core\Details\Mana\ZeroManaAmount.cs" />
     <Compile Include="Core\Zones\Exile.cs" />
@@ -559,7 +562,7 @@
     <Compile Include="Core\Details\Cards\Effects\ApplyModifiersToSelf.cs" />
     <Compile Include="Core\Details\Cards\Effects\ApplyModifiersToTarget.cs" />
     <Compile Include="Core\Details\Cards\Effects\CreateTokens.cs" />
-    <Compile Include="Core\Details\Cards\Effects\DealDamageToTarget.cs" />
+    <Compile Include="Core\Details\Cards\Effects\DealDamageToTargets.cs" />
     <Compile Include="Core\Details\Cards\Effects\DestroyTargetPermanent.cs" />
     <Compile Include="Core\Details\Cards\Effects\Effect.cs" />
     <Compile Include="Core\Details\Cards\Effects\EnchantCreature.cs" />
@@ -589,7 +592,7 @@
     <Compile Include="Ui\AttackerSelected.cs" />
     <Compile Include="Ui\AttackerUnselected.cs" />
     <Compile Include="Ui\BackgroundExtension.cs" />
-    <Compile Include="Ui\DistributeAmount\ViewModel.cs" />
+    <Compile Include="Ui\DistributeDamage\ViewModel.cs" />
     <Compile Include="Ui\Graveyard\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>

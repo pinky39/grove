@@ -41,17 +41,17 @@
 
     protected TurnInfo Turn { get { return Game.Turn; } }
 
-    public void Activate(ActivationParameters activation)
+    public void Activate(ActivationParameters parameters)
     {
       var effect = EffectFactory.CreateEffect(
         new EffectParameters(
           source: this,
-          activation: activation,
-          targets: activation.Targets
+          activation: parameters,
+          targets: parameters.Targets
           ));
 
-      Cost.Pay(activation.Targets.Cost.FirstOrDefault(), activation.X);
-
+      Cost.Pay(parameters.Targets.Cost.FirstOrDefault(), parameters.X);      
+      
       if (UsesStack)
       {
         Stack.Push(effect);
@@ -60,7 +60,7 @@
 
       effect.Resolve();
 
-      Publisher.Publish(new PlayerHasActivatedAbility(this, activation.Targets));
+      Publisher.Publish(new PlayerHasActivatedAbility(this, parameters.Targets));
     }
 
     public override int CalculateHash(HashCalculator calc)

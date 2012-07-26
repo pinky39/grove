@@ -21,7 +21,7 @@
         .FlavorText("The Great Furnace's blessing is a spectacular sight, but the best view comes at a high cost.")
         .Timing(Timings.TargetRemovalInstant())
         .AfterResolvePutToZone(Zone.Library)
-        .Effect<DealDamageToTarget>(p => p.Amount = 5)
+        .Effect<DealDamageToTargets>(p => p.Amount = 5)
         .Targets(
           aiTargetSelector: AiTargetSelectors.DealDamage(5),
           effectValidator: C.Validator(Validators.CreatureOrPlayer()));

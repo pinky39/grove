@@ -19,7 +19,7 @@
         .Text(
           "Corrupt deals damage equal to the number of Swamps you control to target creature or player. You gain life equal to the damage dealt this way.")
         .FlavorText("Yawgmoth brushed Urza's mind, and Urza's world convulsed.")
-        .Effect<DealDamageToTarget>(p =>
+        .Effect<DealDamageToTargets>(p =>
           {
             p.Amount = p.Controller.Battlefield.Count(x => x.Is("swamp"));                            
             p.GainLife = true;

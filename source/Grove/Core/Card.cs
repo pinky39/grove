@@ -63,6 +63,7 @@
     private Trackable<int> _usageScore;
     private CalculateX _xCalculator;
     private Trackable<IZone> _zone;
+    private bool _distributeDamage;
 
     protected Card() {}
     public bool MayChooseNotToUntapDuringUntapStep { get; private set; }
@@ -177,7 +178,7 @@
 
     public void DealDamage(Damage damage)
     {
-      if (!Is().Creature)
+      if (!Is().Creature || !IsPermanent)
         return;
 
       if (HasProtectionFrom(damage.Source))
@@ -262,11 +263,11 @@
       Controller.PutCardToBattlefield(this);
     }
 
-    bool IEffectSource.AreTargetsStillValid(IList<ITarget> targets, bool wasKickerPaid)
+    bool IEffectSource.IsTargetStillValid(ITarget target, bool wasKickerPaid)
     {
       return wasKickerPaid
-        ? _kickerTargetSelector.AreValidEffectTargets(targets)
-        : _targetSelector.AreValidEffectTargets(targets);
+        ? _kickerTargetSelector.IsValidEffectTarget(target)
+        : _targetSelector.IsValidEffectTarget(target);
     }
 
     public int CalculateHash(HashCalculator calc)
@@ -453,6 +454,7 @@
           KickerTargetSelector = _kickerTargetSelector,
           CanCastWithKicker = canCastWithKicker,
           MaxX = GetMaxX(),
+          DistributeDamage = _distributeDamage,
           XCalculator = _xCalculator,
           Timming = _timming,
         };
@@ -464,13 +466,14 @@
 
       var parameters = new EffectParameters(
         source: this,
-        activation: activationParameters,
+        activation: activationParameters,        
         targets: activationParameters.Targets);
 
       var effect = activationParameters.PayKicker
         ? _kickerEffectFactory.CreateEffect(parameters)
         : _effectFactory.CreateEffect(parameters);
-
+      
+      
       CastingRule.Cast(effect);
       IncreaseUsageScore();
 
@@ -837,8 +840,8 @@
       private TimingDelegate _timing;
       private int? _toughness;
       private CardType _type;
-      private CalculateX _xCalculator;
-      private Func<UiTargetPostprocessor> _uiPostProcessor;
+      private CalculateX _xCalculator;      
+      private bool _distributeSpellsDamage;
 
       private CardFactory() {}
 
@@ -863,6 +866,7 @@
         card._effectFactory = _effectFactory ?? new Effect.Factory<PutIntoPlay> {Game = _game};
         card._kickerEffectFactory = _kickerEffectFactory;
         card._hash = new Trackable<int?>(_changeTracker);
+        card._distributeDamage = _distributeSpellsDamage;
 
         card.Name = _name;
         card._xCalculator = _xCalculator;
@@ -1079,6 +1083,12 @@
         return this;
       }
 
+      public CardFactory DistributeSpellsDamage()
+      {
+        _distributeSpellsDamage = true;
+        return this;
+      }
+
       public CardFactory FlavorText(string flavorText)
       {
         _flavorText = flavorText;
@@ -1171,12 +1181,10 @@
         return this;
       }
 
-      public CardFactory Targets(AiTargetSelectorDelegate aiTargetSelector, Func<UiTargetPostprocessor> uiPostProcessor = null,  
-        params ITargetValidatorFactory[] effectValidators)
+      public CardFactory Targets(AiTargetSelectorDelegate aiTargetSelector, params ITargetValidatorFactory[] effectValidators)
       {
         _effectTargetFactories.AddRange(effectValidators);
-        _aiTargetSelector = aiTargetSelector;
-        _uiPostProcessor = uiPostProcessor;
+        _aiTargetSelector = aiTargetSelector;        
         return this;
       }
 

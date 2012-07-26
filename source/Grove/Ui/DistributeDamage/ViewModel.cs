@@ -1,22 +1,20 @@
-﻿namespace Grove.Ui.DistributeAmount
+﻿namespace Grove.Ui.DistributeDamage
 {
   using System.Collections.Generic;
+  using System.Linq;
   using Core.Targeting;
   using Infrastructure;
 
   public class ViewModel
   {
+    private readonly int _amount;
     private readonly List<TargetWithValue> _targets = new List<TargetWithValue>();
-    private readonly string _title;
-    private readonly int _totalAmount;
     private int _toBeAssigned;
 
-    public ViewModel(IEnumerable<ITarget> targets, int totalAmount, string title)
+    public ViewModel(IEnumerable<ITarget> targets, int amount)
     {
-      _totalAmount = totalAmount;
-      _toBeAssigned = totalAmount;
-      _title = title;
-      WasCanceled = true;
+      _amount = amount;
+      _toBeAssigned = amount;
 
       foreach (var target in targets)
       {
@@ -24,11 +22,10 @@
       }
     }
 
-    public string Title { get { return string.Format("{0} ({1} left)", _title, _toBeAssigned); } }
-    public bool WasCanceled { get; private set; }
-
+    public string Title { get { return string.Format("Distribute damage ({0} left)", _toBeAssigned); } }
     public IEnumerable<TargetWithValue> Targets { get { return _targets; } }
     public bool CanAccept { get { return _toBeAssigned == 0; } }
+    public IList<int> Distribution { get { return _targets.Select(x => x.Value).ToList(); } }
 
     [Updates("Title", "CanAccept")]
     public void AssignOne(TargetWithValue target)
@@ -40,7 +37,7 @@
     [Updates("Title", "CanAccept")]
     public void Clear()
     {
-      _toBeAssigned = _totalAmount;
+      _toBeAssigned = _amount;
 
       foreach (var target in _targets)
       {
@@ -48,16 +45,14 @@
       }
     }
 
-
-    public void Cancel()
+    public void Accept()
     {
       this.Close();
     }
 
-    public void Accept()
+    public interface IFactory
     {
-      WasCanceled = false;
-      this.Close();
+      ViewModel Create(IEnumerable<ITarget> targets, int amount);
     }
 
     public class TargetWithValue

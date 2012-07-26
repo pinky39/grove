@@ -9,8 +9,7 @@
   public abstract class CardsSource
   {
     public CardBuilder C { get { return new CardBuilder(Game); } }
-    public Game Game { get; set; }
-    public UiTargetPostProcessors UiTargetPostprocessors { get; set; }
+    public Game Game { get; set; }    
     
     public abstract IEnumerable<ICardFactory> GetCards();        
 

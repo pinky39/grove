@@ -5,8 +5,8 @@
     public int? AmountCreature;
     public int? AmountPlayer;
 
-    public bool DealToCreature { get { return AmountCreature != null; } }
-    public bool DealToPlayer { get { return AmountPlayer != null; } }
+    private bool DealToCreature { get { return AmountCreature != null; } }
+    private bool DealToPlayer { get { return AmountPlayer != null; } }
 
     public override int CalculatePlayerDamage(Player player)
     {

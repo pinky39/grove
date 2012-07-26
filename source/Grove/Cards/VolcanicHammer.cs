@@ -17,7 +17,7 @@
         .Type("Sorcery")
         .Text("Volcanic Hammer deals 3 damage to target creature or player.")
         .FlavorText("Fire finds its form in the heat of the forge.")
-        .Effect<DealDamageToTarget>(e => e.Amount = 3)
+        .Effect<DealDamageToTargets>(e => e.Amount = 3)
         .Timing(Timings.MainPhases())
         .Targets(aiTargetSelector: AiTargetSelectors.DealDamage(3),
           effectValidator: C.Validator(

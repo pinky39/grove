@@ -30,9 +30,9 @@
     void IEffectSource.EffectWasPushedOnStack() {}
     void IEffectSource.EffectWasResolved() {}
 
-    bool IEffectSource.AreTargetsStillValid(IList<ITarget> targets, bool wasKickerPaid)
+    bool IEffectSource.IsTargetStillValid(ITarget target, bool wasKickerPaid)
     {
-      return TargetSelector.AreValidEffectTargets(targets);
+      return TargetSelector.IsValidEffectTarget(target);
     }
 
     public void Effect(IEffectFactory effectFactory)

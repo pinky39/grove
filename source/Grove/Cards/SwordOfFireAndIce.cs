@@ -32,7 +32,7 @@
                 t.ToAnyPlayer();
               }),
             C.Effect<CompoundEffect>(p => p.Effect.ChildEffects(
-              p.Builder.Effect<DealDamageToTarget>(e1 => e1.Amount = 2),
+              p.Builder.Effect<DealDamageToTargets>(e1 => e1.Amount = 2),
               p.Builder.Effect<DrawCards>(e1 => e1.DrawCount = 1))),
             C.Validator(
               Validators.CreatureOrPlayer()),

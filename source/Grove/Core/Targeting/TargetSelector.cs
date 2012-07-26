@@ -12,8 +12,7 @@
     private readonly List<TargetValidator> _costValidators = new List<TargetValidator>();
     private readonly List<TargetValidator> _effectValidators = new List<TargetValidator>();
 
-    public AiTargetSelectorDelegate AiSelector { get; set; }
-    public UiTargetPostprocessor UiPostprocessor { get; set; }
+    public AiTargetSelectorDelegate AiSelector { get; set; }    
 
     public int Count { get { return _costValidators.Count + _effectValidators.Count; } }
     public bool HasCost { get { return _costValidators.Count > 0; } }
@@ -69,15 +68,9 @@
       _costValidators.Add(validator);
     }
 
-    public bool AreValidEffectTargets(IList<ITarget> targets)
+    public bool IsValidEffectTarget(ITarget target)
     {
-      for (var i = 0; i < targets.Count; i++)
-      {
-        if (_effectValidators[i].IsValid(targets[i]) == false)
-          return false;
-      }
-
-      return true;
+      return _effectValidators[0].IsValid(target);
     }
   }
 }
