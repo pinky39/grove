@@ -21,8 +21,8 @@
         .Category(EffectCategories.Bounce)
         .Effect<ReturnTargetCardToHand>(e => e.Discard = 1)
         .Targets(
-          filter: TargetFilters.Bounce(),
-          effect: C.Selector(Selectors.Permanent()));
+          aiTargetSelector: AiTargetSelectors.Bounce(),
+          effectValidator: C.Validator(Validators.Permanent()));
     }
   }
 }

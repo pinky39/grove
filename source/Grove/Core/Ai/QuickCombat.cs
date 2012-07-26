@@ -11,7 +11,7 @@
       int toughnessIncrease)
     {
       var performance = new AttackerEvaluation(attacker, blockers);
-      performance.CalculateLifepointsLeft = card => card.CalculateLifepointsLeft() + toughnessIncrease;
+      performance.CalculateLifepointsLeft = card => card.Life + toughnessIncrease;
       performance.CalculateCombatDamage = card => card.CalculateCombatDamage(powerIncrease: powerIncrease);
 
       var results = performance.Evaluate();
@@ -43,7 +43,7 @@
       var evaluation = new AttackerEvaluation(attacker, blockers);
       evaluation.BlockerHasDealtLeathalDamage = ((_, amount) => leathalAmount += amount);
       var results = evaluation.Evaluate();                  
-      var prevented = results.DamageDealt - attacker.CalculateLifepointsLeft();
+      var prevented = results.DamageDealt - attacker.Life;
       return Math.Max(leathalAmount, prevented);                        
     }
 
@@ -75,7 +75,7 @@
       if (attacker.Has().Trample == false)
         return 0;
 
-      return attacker.CalculateCombatDamage(allDamageSteps: true) - blockers.Sum(x => x.CalculateLifepointsLeft());
+      return attacker.CalculateCombatDamage(allDamageSteps: true) - blockers.Sum(x => x.Life);
     }
 
     public static int CalculateDefendingPlayerLifeloss(Card attacker, IEnumerable<Card> blockers)
@@ -85,7 +85,7 @@
 
       if (attacker.Has().Trample)
       {
-        var totalLifepoints = blockers.Sum(x => x.CalculateLifepointsLeft());
+        var totalLifepoints = blockers.Sum(x => x.Life);
         var diff = attacker.CalculateCombatDamage(allDamageSteps: true) - totalLifepoints;
 
         return diff > 0 ? diff : 0;
@@ -149,7 +149,7 @@
     {
       var performance = new BlockerEvaluation(blocker, attacker);
       performance.CalculateCombatDamage = card => card.CalculateCombatDamage(powerIncrease: powerIncrease);
-      performance.LifepointsLeft = card => card.CalculateLifepointsLeft() + additionalThoughness;
+      performance.LifepointsLeft = card => card.Life + additionalThoughness;
 
       return performance.Evaluate().ReceivesLeathalDamage;
     }

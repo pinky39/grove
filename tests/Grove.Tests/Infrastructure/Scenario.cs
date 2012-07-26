@@ -143,9 +143,9 @@
       return scenarioCard;
     }
 
-    protected LazyEffect E(ScenarioCard scenarioCard)
+    protected ScenarioEffect E(ScenarioCard scenarioCard)
     {
-      return new LazyEffect {Effect = () => Game.Stack.First(x => x.Source.OwningCard == scenarioCard.Card)};
+      return new ScenarioEffect {Effect = () => Game.Stack.First(x => x.Source.OwningCard == scenarioCard.Card)};
     }
 
     protected void EnableLogging()

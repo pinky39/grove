@@ -31,8 +31,8 @@
               p.Builder.Modifier<AddStaticAbility>((m, _) => m.StaticAbility = Static.Deathtouch),
               p.Builder.Modifier<AddStaticAbility>((m, _) => m.StaticAbility = Static.Lifelink)
               )),
-            effectSelector: C.Selector(Selectors.Equipment()),
-            targetFilter: TargetFilters.CombatEquipment(),
+            effectValidator: C.Validator(Validators.Equipment()),
+            aiTargetFilter: AiTargetSelectors.CombatEquipment(),
             timing: Timings.AttachCombatEquipment(),
             activateAsSorcery: true));
     }

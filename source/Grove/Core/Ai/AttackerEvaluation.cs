@@ -12,7 +12,7 @@
     public Func<Card, int> CalculateCombatDamage = card => card.CalculateCombatDamage();
     public Action<Card, int> BlockerHasDealtDamage = delegate { };
     public Action<Card, int> BlockerHasDealtLeathalDamage = delegate { };
-    public Func<Card, int> CalculateLifepointsLeft = card => card.CalculateLifepointsLeft();
+    public Func<Card, int> CalculateLifepointsLeft = card => card.Life;
 
     public AttackerEvaluation(Card attacker, IEnumerable<Card> blockers)
     {
@@ -41,7 +41,7 @@
         // before they can deal damage
 
         blockers = blockers.Where(
-          b => (b.HasFirstStrike || b.Has().Indestructible || b.CalculateLifepointsLeft() > CalculateCombatDamage(_attacker)));
+          b => (b.HasFirstStrike || b.Has().Indestructible || b.Life > CalculateCombatDamage(_attacker)));
       }
 
       foreach (var blocker in blockers)

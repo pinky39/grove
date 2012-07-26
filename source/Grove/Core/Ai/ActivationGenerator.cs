@@ -39,8 +39,8 @@
     private IEnumerable<ActivationParameters> GenerateActivations()
     {
       var selectors = _payKicker
-        ? _prerequisites.KickerTargetSelectors
-        : _prerequisites.TargetSelectors;
+        ? _prerequisites.KickerTargetSelector
+        : _prerequisites.TargetSelector;
 
       if (selectors.HasEffect | selectors.HasCost)
       {

@@ -9,7 +9,7 @@
 
   public class ViewModel : IReceive<AttachmentAttached>, IReceive<AttachmentDetached>
   {
-    private readonly IPlayer _owner;
+    private readonly Player _owner;
 
     private readonly Row[] _rows = new[]
       {
@@ -150,7 +150,7 @@
 
     public interface IFactory
     {
-      ViewModel Create(IPlayer owner);
+      ViewModel Create(Player owner);
     }
   }
 }

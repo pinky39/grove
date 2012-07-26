@@ -30,8 +30,8 @@
               }, untilEndOfTurn: true));
           })
         .Targets(
-          filter: TargetFilters.Opponent(),
-          effect: C.Selector(Selectors.Player()))
+          aiTargetSelector: AiTargetSelectors.Opponent(),
+          effectValidator: C.Validator(Validators.Player()))
         .KickerEffect<ApplyModifiersToCreatures>(p =>
           {
             p.Effect.ToughnessReduction = 2;     
@@ -42,8 +42,8 @@
               }, untilEndOfTurn: true));
           })
         .KickerTargets(
-          filter: TargetFilters.Opponent(),
-          selectors: C.Selector(Selectors.Player()));
+          aiTargetSelector: AiTargetSelectors.Opponent(),
+          effectValidators: C.Validator(Validators.Player()));
     }
   }
 }

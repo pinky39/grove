@@ -7,19 +7,18 @@
   using Controllers;
   using Dsl;
   using Infrastructure;
-  using Modifiers;
+  using Mana;
   using Targeting;
 
   [Copyable]
-  public abstract class Effect : ITarget
+  public abstract class Effect : ITarget, IHasColors
   {
     public Action<Effect> AfterResolve = delegate { };
-    public Action<Effect> BeforeResolve = delegate { };    
-    private TrackableList<ITarget> _costTargets;
-    private TrackableList<ITarget> _targets;
+    public Action<Effect> BeforeResolve = delegate { };
+    private Targets _targets;
     private Trackable<bool> _wasResolved;
     public bool CanBeCountered { get; set; }
-    public IPlayer Controller { get { return Source.OwningCard.Controller; } }
+    public Player Controller { get { return Source.OwningCard.Controller; } }
     protected Decisions Decisions { get { return Game.Decisions; } }
     protected Game Game { get; set; }
     public Players Players { get { return Game.Players; } }
@@ -29,25 +28,18 @@
     public bool HasTargets { get { return _targets.Count > 0; } }
     private bool WasResolved { get { return _wasResolved.Value; } set { _wasResolved.Value = value; } }
 
-    protected IEnumerable<ITarget> Targets { get { return _targets; } }
-
-    public IEnumerable<ITarget> AllTargets
-    {
-      get
-      {
-        foreach (var costTarget in _costTargets)
-        {
-          yield return costTarget;
-        }
-
-        foreach (var target in _targets)
-        {
-          yield return target;
-        }
-      }
-    }
+    // ui uses this to display targets of an effect
+    public object UiTargets { get { return _targets; } }
 
     public bool WasKickerPaid { get; set; }
+    protected IList<ITarget> Targets { get { return _targets.Effect; } }
+
+    protected IList<ITarget> CostTargets { get { return _targets.Cost; } }
+
+    public bool HasColors(ManaColors colors)
+    {
+      return Source.OwningCard.HasColors(colors);
+    }
 
     public int CalculateHash(HashCalculator calc)
     {
@@ -55,23 +47,12 @@
         GetType().GetHashCode(),
         calc.Calculate(Source),
         calc.Calculate(_targets),
-        calc.Calculate(_costTargets),
         CanBeCountered.GetHashCode(),
         WasKickerPaid.GetHashCode(),
         X.GetHashCode());
     }
 
-    public void AddModifier(IModifier modifier)
-    {
-      // no card needs this yet
-    }
-
-    public void RemoveModifier(IModifier modifier)
-    {
-      // no card needs this yet
-    }
-
-    public virtual int CalculatePlayerDamage(IPlayer player)
+    public virtual int CalculatePlayerDamage(Player player)
     {
       return 0;
     }
@@ -86,19 +67,19 @@
       return 0;
     }
 
+    protected Targets GetAllTargets()
+    {
+      return _targets;
+    }
+
     public ITarget Target()
     {
-      return _targets.Count == 0 ? null : _targets[0];
+      return _targets.Effect.Count == 0 ? null : _targets.Effect[0];
     }
 
     public ITarget CostTarget()
     {
-      return _costTargets.Count == 0 ? null : _costTargets[0];
-    }
-
-    public ITarget Target(int index)
-    {
-      return _targets[index];
+      return _targets.Cost.Count == 0 ? null : _targets.Cost[0];
     }
 
     public void EffectWasCountered()
@@ -124,7 +105,7 @@
 
     public bool HasEffectStillValidTargets()
     {
-      return _targets.Count == 0 || Source.AreTargetsStillValid(_targets, WasKickerPaid);
+      return _targets.Count == 0 || Source.AreTargetsStillValid(_targets.Effect, WasKickerPaid);
     }
 
     public override string ToString()
@@ -147,25 +128,12 @@
       return ((effectCategories & Source.EffectCategories) != EffectCategories.Generic);
     }
 
-    public void AddTargets(IEnumerable<ITarget> targets)
-    {
-      _targets.AddRange(targets);
-    }
-
-    public void AddTarget(ITarget target)
-    {
-      _targets.Add(target);
-    }
-
-    public void AddCostTargets(IEnumerable<ITarget> targets)
-    {
-      _costTargets.AddRange(targets);
-    }
-
     public bool HasTarget(Card card)
     {
       return _targets.Any(x => x == card);
     }
+
+    protected virtual void Init() {}
 
     [Copyable]
     public class Factory<TEffect> : IEffectFactory where TEffect : Effect, new()
@@ -179,10 +147,8 @@
           {
             Game = Game,
             Source = parameters.Source,
-            _targets = new TrackableList<ITarget>(parameters.Targets, Game.ChangeTracker, orderImpactsHashcode: true),
-            _costTargets =
-              new TrackableList<ITarget>(parameters.CostTargets, Game.ChangeTracker, orderImpactsHashcode: true),
             _wasResolved = new Trackable<bool>(Game.ChangeTracker),
+            _targets = parameters.Targets,
             WasKickerPaid = parameters.Activation.PayKicker,
             X = parameters.Activation.X,
             CanBeCountered = true
@@ -192,6 +158,8 @@
           effect,
           parameters,
           new CardBuilder(Game)));
+
+        effect.Init();
 
         return effect;
       }

@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core.Ai
 {
+  using System.Linq;
   using Targeting;
 
   public class XCalculatorParameters
@@ -13,9 +14,9 @@
 
     public Card Source { get; private set; }
     public Targets Targets { get; private set; }
-    public ITarget Target { get { return Targets.Effect(0); } }
+    public ITarget Target { get { return Targets.Effect.FirstOrDefault(); } }
     public Game Game { get; private set; }
-    public IPlayer Controller { get { return Source.Controller; } }
-    public IPlayer Opponent { get { return Game.Players.GetOpponent(Controller); } }
+    public Player Controller { get { return Source.Controller; } }
+    public Player Opponent { get { return Game.Players.GetOpponent(Controller); } }
   }
 }

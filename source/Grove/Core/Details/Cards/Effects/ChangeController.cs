@@ -6,7 +6,7 @@
     {                        
       var opponent = Game.Players.GetOpponent(Controller);
 
-      Source.OwningCard.ChangeController((ICardController)opponent);      
+      Source.OwningCard.ChangeController((Player)opponent);      
     }
   }
 }

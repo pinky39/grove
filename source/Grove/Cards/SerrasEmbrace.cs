@@ -32,8 +32,8 @@
           p.Builder.Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Flying)))
         .Timing(Timings.FirstMain())
         .Targets(
-          filter: TargetFilters.CombatEnchantment(),
-          effect: C.Selector(Selectors.EnchantedCreature()));
+          aiTargetSelector: AiTargetSelectors.CombatEnchantment(),
+          effectValidator: C.Validator(Validators.EnchantedCreature()));
     }
   }
 }

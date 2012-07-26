@@ -210,7 +210,7 @@
         });
     }
 
-    public StepDecisions Cast(Card card, LazyEffect target, bool payKicker = false, int? x = null)
+    public StepDecisions Cast(Card card, ScenarioEffect target, bool payKicker = false, int? x = null)
     {
       return Cast(p =>
         {

@@ -21,9 +21,9 @@
         .Timing(Timings.TargetRemovalInstant())
         .Cycling("{2}")
         .Targets(
-          filter: TargetFilters.OrderByDescendingScore(),
-          effect:
-            C.Selector(Selectors.Permanent(card => card.Is().Enchantment)));
+          aiTargetSelector: AiTargetSelectors.OrderByDescendingScore(),
+          effectValidator:
+            C.Validator(Validators.Permanent(card => card.Is().Enchantment)));
     }
   }
 }

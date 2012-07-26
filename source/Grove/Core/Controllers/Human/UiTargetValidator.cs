@@ -3,14 +3,14 @@
   using System;
   using Targeting;
 
-  public class UiTargetSelector : ITargetSelector
+  public class UiTargetValidator : ITargetValidator
   {
     private readonly Func<Card, bool> _isValid;
     private readonly int? _maxTargetCount;
     private readonly int _minTargetCount;
     private readonly string _text;
 
-    public UiTargetSelector(int minTargetCount, int? maxTargetCount, string text, Func<Card, bool> isValid)
+    public UiTargetValidator(int minTargetCount, int? maxTargetCount, string text, Func<Card, bool> isValid)
     {
       _minTargetCount = minTargetCount;
       _maxTargetCount = maxTargetCount;

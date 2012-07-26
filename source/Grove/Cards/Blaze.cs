@@ -21,8 +21,8 @@
         .Effect<DealDamageToTarget>(p => p.Amount = Value.PlusX)
         .Timing(Timings.MainPhases())
         .Targets(
-          filter: TargetFilters.DealDamage(),
-          effect: C.Selector(Selectors.CreatureOrPlayer()));
+          aiTargetSelector: AiTargetSelectors.DealDamage(),
+          effectValidator: C.Validator(Validators.CreatureOrPlayer()));
     }
   }
 }

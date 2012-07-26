@@ -51,7 +51,7 @@
       _tougness.RemoveModifier(_increment);
     }
 
-    private static int GetForestCount(IPlayer player)
+    private static int GetForestCount(Player player)
     {
       return player.Battlefield.Count(x => x.Is("forest"));
     }

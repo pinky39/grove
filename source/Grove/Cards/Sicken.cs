@@ -31,8 +31,8 @@
           })
         .Timing(Timings.MainPhases())
         .Targets(
-          filter: TargetFilters.ReduceToughness(1),
-          effect: C.Selector(Selectors.EnchantedCreature())
+          aiTargetSelector: AiTargetSelectors.ReduceToughness(1),
+          effectValidator: C.Validator(Validators.EnchantedCreature())
         );
     }
   }

@@ -56,7 +56,7 @@
       Counter(targetSpellController, Target().Effect(), Game.Stack);
     }
 
-    private void Counter(IPlayer targetSpellController, Effect spell, Stack stack)
+    private void Counter(Player targetSpellController, Effect spell, Stack stack)
     {
       if (ControllersLifeloss.HasValue)
       {

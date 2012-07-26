@@ -277,7 +277,7 @@
       return p =>
         {
           amount = amount ?? p.Activation.X;
-          return p.Opponent.Battlefield.Creatures.Any(x => x.CalculateLifepointsLeft() <= amount);
+          return p.Opponent.Battlefield.Creatures.Any(x => x.Life <= amount);
         };
     }
 

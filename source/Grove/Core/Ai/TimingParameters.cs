@@ -1,6 +1,7 @@
 ﻿namespace Grove.Core.Ai
 {
   using System.Collections.Generic;
+  using System.Linq;
   using Details.Cards;
   using Details.Cards.Effects;
   using Details.Combat;
@@ -23,12 +24,12 @@
     public Card Card { get; private set; }
     public ActivationParameters Activation { get; private set; }
     public Step Step { get { return Game.Turn.Step; } }
-    public IPlayer Controller { get { return Card.Controller; } }
-    public IPlayer Opponent { get { return Game.Players.GetOpponent(Controller); } }
+    public Player Controller { get { return Card.Controller; } }
+    public Player Opponent { get { return Game.Players.GetOpponent(Controller); } }
     public Effect TopSpell { get { return Game.Stack.TopSpell; } }
     public IEnumerable<Attacker> Attackers { get { return Game.Combat.Attackers; } }
     public bool IsAttached { get { return Card.IsAttached; } }
-    public ITarget Target { get { return Activation.Targets.Effect(0); } }
+    public ITarget Target { get { return Activation.Targets.Effect.FirstOrDefault(); } }
     public Stack Stack { get { return Game.Stack; } }
     public Combat Combat { get { return Game.Combat; } }
     public Players Players { get { return Game.Players; } }

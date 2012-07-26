@@ -10,10 +10,10 @@
   [Copyable]
   public abstract class Ability : IEffectSource
   {
-    private readonly TargetSelectors _targetSelectors = new TargetSelectors();
-    public TargetSelectors TargetSelectors { get { return _targetSelectors; } }
+    private readonly TargetSelector _targetSelector = new TargetSelector();
+    public TargetSelector TargetSelector { get { return _targetSelector; } }
 
-    public ICardController Controller { get { return OwningCard.Controller; } }
+    public Player Controller { get { return OwningCard.Controller; } }
     protected IEffectFactory EffectFactory { get; private set; }
     protected Game Game { get; set; }
     protected Publisher Publisher { get { return Game.Publisher; } }
@@ -32,7 +32,7 @@
 
     bool IEffectSource.AreTargetsStillValid(IList<ITarget> targets, bool wasKickerPaid)
     {
-      return TargetSelectors.AreValidEffectTargets(targets);
+      return TargetSelector.AreValidEffectTargets(targets);
     }
 
     public void Effect(IEffectFactory effectFactory)
@@ -40,25 +40,19 @@
       EffectFactory = effectFactory;
     }
 
-    public void EffectTargets(params ITargetSelectorFactory[] factories)
+    public void Targets(IEnumerable<ITargetValidatorFactory> effectValidators, IEnumerable<ITargetValidatorFactory> costValidators, AiTargetSelectorDelegate aiTargetFilter)
     {
-      foreach (var factory in factories)
+      foreach (var factory in effectValidators)
       {
-        TargetSelectors.AddEffectSelector(factory.Create(OwningCard));
+        TargetSelector.AddEffectSelector(factory.Create(OwningCard));
       }
-    }
 
-    public void CostTargets(params ITargetSelectorFactory[] factories)
-    {
-      foreach (var factory in factories)
+      foreach (var factory in costValidators)
       {
-        TargetSelectors.AddCostSelector(factory.Create(OwningCard));
+        TargetSelector.AddCostSelector(factory.Create(OwningCard));
       }
-    }
 
-    public void TargetsFilter(TargetsFilterDelegate filter)
-    {
-      TargetSelectors.Filter = filter;
+      TargetSelector.AiSelector = aiTargetFilter;
     }
 
     public override string ToString()

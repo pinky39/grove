@@ -5,7 +5,7 @@
   using Ai;
   using Zones;
 
-  public static class Selectors
+  public static class Validators
   {
     public static TargetValidatorDelegate Player()
     {
@@ -71,7 +71,7 @@
     {
       filter = filter ?? delegate { return true; };
 
-      Func<IPlayer, IPlayer, bool> isValidController = (spellController, targetController) =>
+      Func<Player, Player, bool> isValidController = (spellController, targetController) =>
         {
           switch (controller)
           {

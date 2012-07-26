@@ -15,7 +15,7 @@
     private Trackable<IDecision> _curentDecision;
     private Trackable<int> _passesCount;
     private Game _game;
-    private IPlayer _looser;
+    private Player _looser;
     private Dictionary<State, StepState> _states;
     private Dictionary<Step, StepDefinition> _steps;
 
@@ -73,7 +73,7 @@
       }
     }
 
-    public void Start(Func<bool> shouldContinue, bool skipPreGame, IPlayer looser = null)
+    public void Start(Func<bool> shouldContinue, bool skipPreGame, Player looser = null)
     {
       Step = skipPreGame ? Step.Untap : Step.GameStart;
       State = State.Begin;
@@ -421,7 +421,7 @@
       _game.Publisher.Publish(message);
     }
 
-    private IPlayer RollDice()
+    private Player RollDice()
     {
       var dice1 = new Dice();
       var dice2 = new Dice();

@@ -21,9 +21,9 @@
         .Effect<DealDamageToTarget>(e => e.Amount = 4)
         .Timing(Timings.TargetRemovalInstant())
         .Targets(
-          filter: TargetFilters.DealDamage(4),
-          effect: C.Selector(
-            Selectors.Creature()));
+          aiTargetSelector: AiTargetSelectors.DealDamage(4),
+          effectValidator: C.Validator(
+            Validators.Creature()));
     }
   }
 }

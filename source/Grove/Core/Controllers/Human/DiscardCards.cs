@@ -14,7 +14,7 @@
 
     protected override void ExecuteQuery()
     {
-      var dialog = DialogFactory.Create(new UiTargetSelector(
+      var dialog = DialogFactory.Create(new UiTargetValidator(
         minTargetCount: Count,
         maxTargetCount: Count,
         text: String.Format("Select {0} card(s) to discard.", Count),

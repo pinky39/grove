@@ -45,7 +45,7 @@
                   return chosenCards;
 
                 var dialog = self.TargetDialog.Create(
-                  new UiTargetSelector(
+                  new UiTargetValidator(
                     minTargetCount: 1,
                     maxTargetCount: 1,
                     text: "Select a land to sacrifice.",

@@ -33,8 +33,8 @@
             C.Effect<ApplyModifiersToTarget>(p => p.Effect.Modifiers(
               p.Builder.Modifier<AddStaticAbility>((m, _) => { m.StaticAbility = Static.Indestructible; },
                 untilEndOfTurn: true))),
-            C.Selector(validator: Selectors.Creature()),
-            targetFilter: TargetFilters.ShieldIndestructible(),
+            C.Validator(validator: Validators.Creature()),
+            aiTargetFilter: AiTargetSelectors.ShieldIndestructible(),
             timing: Timings.NoRestrictions(),
             category: EffectCategories.Protector));
     }

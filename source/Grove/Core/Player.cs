@@ -14,7 +14,7 @@
   using Zones;
 
   [Copyable]
-  public class Player : ICardOwner, ICardController
+  public class Player : ITarget, IDamageable, IAcceptsModifiers, IHasLife
   {
     private readonly AssignedDamage _assignedDamage;
     private readonly Trackable<bool> _canPlayLands;
@@ -305,7 +305,7 @@
           continue;
         }
 
-        if (creature.HasLeathalDamage || creature.CalculateLifepointsLeft() <= 0)
+        if (creature.HasLeathalDamage || creature.Life <= 0)
         {
           creature.Destroy(allowToRegenerate: true);
         }
@@ -339,7 +339,7 @@
       }
     }
 
-    public void SetAiVisibility(IPlayer playerOnTheMove)
+    public void SetAiVisibility(Player playerOnTheMove)
     {
       _library.Hide();
       _battlefield.Show();

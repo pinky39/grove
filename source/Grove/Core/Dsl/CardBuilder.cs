@@ -2,6 +2,7 @@
 {
   using System;
   using System.Collections.Generic;
+  using System.Linq;
   using Ai;
   using Details.Cards;
   using Details.Cards.Costs;
@@ -26,36 +27,35 @@
     }
 
     public Card.CardFactory Card { get { return new Card.CardFactory(_game); } }
-    public ChangeTracker ChangeTracker { get { return _game.ChangeTracker; } }
-
+    public ChangeTracker ChangeTracker { get { return _game.ChangeTracker; } }            
 
     public IActivatedAbilityFactory ActivatedAbility(
       string text,
       ICostFactory cost,
       IEffectFactory effect,
-      ITargetSelectorFactory effectSelector = null,
-      ITargetSelectorFactory costSelector = null,
-      TargetsFilterDelegate targetFilter = null,
+      ITargetValidatorFactory effectValidator = null,
+      ITargetValidatorFactory costValidator = null,
+      AiTargetSelectorDelegate aiTargetFilter = null,
       bool activateAsSorcery = false,
       EffectCategories category = EffectCategories.Generic,
       TimingDelegate timing = null,
       Zone activationZone = Zone.Battlefield)
     {
-      var effectSelectors = effectSelector == null
-        ? new ITargetSelectorFactory[] {}
-        : new[] {effectSelector};
+      var effectSelectors = effectValidator == null
+        ? new ITargetValidatorFactory[] {}
+        : new[] {effectValidator};
 
-      return ActivatedAbility(text, cost, effect, effectSelectors, costSelector,
-        targetFilter, activateAsSorcery, category, timing, activationZone);
+      return ActivatedAbility(text, cost, effect, effectSelectors, costValidator,
+        aiTargetFilter, activateAsSorcery, category, timing, activationZone);
     }
 
     public IActivatedAbilityFactory ActivatedAbility(
       string text,
       ICostFactory cost,
       IEffectFactory effect,
-      ITargetSelectorFactory[] effectSelectors,
-      ITargetSelectorFactory costSelector = null,
-      TargetsFilterDelegate targetFilter = null,
+      ITargetValidatorFactory[] effectValidators,
+      ITargetValidatorFactory costValidator = null,
+      AiTargetSelectorDelegate aiTargetFilter = null,
       bool activateAsSorcery = false,
       EffectCategories category = EffectCategories.Generic,
       TimingDelegate timing = null,
@@ -72,19 +72,15 @@
               self.Effect(effect);
               self.ActivateOnlyAsSorcery = activateAsSorcery;
               self.ActivationZone = activationZone;
-
-              if (effectSelectors.Length > 0)
-              {
-                self.EffectTargets(effectSelectors);
-              }
-
-              if (costSelector != null)
-                self.CostTargets(costSelector);
+              
+              var costValidators = new List<ITargetValidatorFactory>();
+              
+              if (costValidator != null)
+                costValidators.Add(costValidator);
+              
+              self.Targets(effectValidators, costValidators, aiTargetFilter);                                                        
 
               self.SetCost(cost);
-
-              if (targetFilter != null)
-                self.TargetsFilter(targetFilter);
             }
         };
     }
@@ -215,9 +211,9 @@
         };
     }
 
-    public ITargetSelectorFactory Selector(TargetValidatorDelegate validator, string text = null, bool mustBeTargetable = true)
+    public ITargetValidatorFactory Validator(TargetValidatorDelegate validator, string text = null, bool mustBeTargetable = true, int minCount = 1, int maxCount = 1)
     {
-      return new TargetSelector.Factory
+      return new TargetValidator.Factory
         {
           Game = _game,
           Init = selector =>
@@ -225,6 +221,8 @@
               selector.Validator = validator;
 
               selector.MustBeTargetable = mustBeTargetable;
+              selector.MinCount = minCount;
+              selector.MaxCount = maxCount;
               
               if (text != null)
                 selector.TextFormat = text;
@@ -271,8 +269,7 @@
     public TriggeredAbility.Factory TriggeredAbility(
       string text,
       IEnumerable<ITriggerFactory> triggers,
-      IEffectFactory effect,
-      ITargetSelectorFactory targetSelector = null,
+      IEffectFactory effect,      
       EffectCategories category = EffectCategories.Generic,
       bool triggerOnlyIfOwningCardIsInPlay = false)
     {
@@ -290,9 +287,7 @@
 
               self.Effect(effect);
               self.EffectCategories = category;
-              self.TriggerOnlyIfOwningCardIsInPlay = triggerOnlyIfOwningCardIsInPlay;
-              if (targetSelector != null)
-                self.EffectTargets(targetSelector);
+              self.TriggerOnlyIfOwningCardIsInPlay = triggerOnlyIfOwningCardIsInPlay;                                                        
             }
         };
     }
@@ -301,9 +296,9 @@
       string text,
       ITriggerFactory trigger,
       IEffectFactory effect,
-      ITargetSelectorFactory targetSelector = null,
-      TargetsFilterDelegate targetFilter = null,
-      EffectCategories category = EffectCategories.Generic,
+      ITargetValidatorFactory targetValidator = null,
+      AiTargetSelectorDelegate aiTargetSelector = null,
+      EffectCategories abilityCategory = EffectCategories.Generic,
       bool triggerOnlyIfOwningCardIsInPlay = false)
     {
       return new TriggeredAbility.Factory
@@ -314,14 +309,15 @@
               self.Text = text;
               self.AddTrigger(trigger);
               self.Effect(effect);
-              self.EffectCategories = category;
+              self.EffectCategories = abilityCategory;
               self.TriggerOnlyIfOwningCardIsInPlay = triggerOnlyIfOwningCardIsInPlay;
+              
+              var effectValidators = new List<ITargetValidatorFactory>();                            
+                            
+              if (targetValidator != null)
+                effectValidators.Add(targetValidator);
 
-              if (targetSelector != null)
-                self.EffectTargets(targetSelector);
-
-              if (targetFilter != null)
-                self.TargetsFilter(targetFilter);
+              self.Targets(effectValidators, Enumerable.Empty<ITargetValidatorFactory>(), aiTargetSelector);                            
             }
         };
     }

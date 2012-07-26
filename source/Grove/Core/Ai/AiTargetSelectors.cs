@@ -6,13 +6,13 @@
   using Details.Mana;
   using Targeting;
 
-  public static class TargetFilters
+  public static class AiTargetSelectors
   {
     public delegate IEnumerable<ITarget> InputSelectorDelegate(TargetsCandidates candidates);
 
     public delegate IEnumerable<Targets> OutputSelectorDelegate(IEnumerable<ITarget> targets);
 
-    public static TargetsFilterDelegate OrderByDescendingScore(Controller controller = Ai.Controller.Opponent)
+    public static AiTargetSelectorDelegate OrderByDescendingScore(Controller controller = Ai.Controller.Opponent)
     {
       return p =>
         {
@@ -42,7 +42,7 @@
         };
     }
 
-    public static TargetsFilterDelegate Opponent()
+    public static AiTargetSelectorDelegate Opponent()
     {
       return p =>
         {
@@ -51,7 +51,7 @@
         };
     }
 
-    public static TargetsFilterDelegate PumpAttackerOrBlocker(int? power, int? thougness)
+    public static AiTargetSelectorDelegate PumpAttackerOrBlocker(int? power, int? thougness)
     {
       return p =>
         {
@@ -76,7 +76,7 @@
     }
 
     private static IEnumerable<Card> GetCandidatesForBlockerPowerToughnessIncrease(int? powerIncrease,
-      int? toughnessIncrease, TargetFilterParameters p)
+      int? toughnessIncrease, AiTargetSelectorParameters p)
     {
       return p.Candidates().RestrictController(p.Controller)
         .Where(x => x.Card().IsBlocker)
@@ -99,7 +99,7 @@
 
 
     private static IEnumerable<Card> GetCandidatesForAttackerPowerToughnessIncrease(int? powerIncrease,
-      int? toughnessIncrease, TargetFilterParameters p)
+      int? toughnessIncrease, AiTargetSelectorParameters p)
     {
       return p.Candidates().RestrictController(p.Controller)
         .Where(x => x.Card().IsAttacker)
@@ -120,7 +120,7 @@
         .Select(x => x.Card);
     }
 
-    public static TargetsFilterDelegate CounterSpell()
+    public static AiTargetSelectorDelegate CounterSpell()
     {
       return p =>
         {
@@ -131,7 +131,7 @@
         };
     }
 
-    public static TargetsFilterDelegate CombatEquipment()
+    public static AiTargetSelectorDelegate CombatEquipment()
     {
       return p =>
         {
@@ -162,12 +162,12 @@
         };
     }
 
-    public static TargetsFilterDelegate DealDamage(Func<TargetFilterParameters, int> amount)
+    public static AiTargetSelectorDelegate DealDamage(Func<AiTargetSelectorParameters, int> amount)
     {
       return p => DealDamage(amount(p))(p);
     }
 
-    public static TargetsFilterDelegate DealDamage(int? amount = null)
+    public static AiTargetSelectorDelegate DealDamage(int? amount = null)
     {
       return p =>
         {
@@ -186,7 +186,7 @@
                 .Select(x => new
                   {
                     Target = x,
-                    Score = x.Card().CalculateLifepointsLeft() <= amount ? x.Card().Score : 0
+                    Score = x.Card().Life <= amount ? x.Card().Score : 0
                   }))
             .OrderByDescending(x => x.Score)
             .Select(x => x.Target);
@@ -219,7 +219,7 @@
       return 0;
     }
 
-    public static TargetsFilterDelegate CombatEnchantment()
+    public static AiTargetSelectorDelegate CombatEnchantment()
     {
       return p =>
         {
@@ -239,7 +239,7 @@
         };
     }
 
-    public static TargetsFilterDelegate ShieldHexproof()
+    public static AiTargetSelectorDelegate ShieldHexproof()
     {
       return p =>
         {
@@ -252,7 +252,7 @@
         };
     }
 
-    public static TargetsFilterDelegate ShieldIndestructible()
+    public static AiTargetSelectorDelegate ShieldIndestructible()
     {
       return p =>
         {
@@ -265,7 +265,7 @@
         };
     }
 
-    public static TargetsFilterDelegate Destroy()
+    public static AiTargetSelectorDelegate Destroy()
     {
       return p =>
         {
@@ -277,7 +277,7 @@
         };
     }
 
-    public static TargetsFilterDelegate Any(params TargetsFilterDelegate[] delegates)
+    public static AiTargetSelectorDelegate Any(params AiTargetSelectorDelegate[] delegates)
     {
       return p =>
         {
@@ -301,7 +301,7 @@
         };
     }
 
-    public static TargetsFilterDelegate ReduceToughness(int? amount = null)
+    public static AiTargetSelectorDelegate ReduceToughness(int? amount = null)
     {
       return p =>
         {
@@ -312,7 +312,7 @@
             .Select(x => new
               {
                 Target = x,
-                Score = x.Card().CalculateLifepointsLeft() <= amount ? x.Card().Score : 0
+                Score = x.Card().Life <= amount ? x.Card().Score : 0
               })
             .OrderByDescending(x => x.Score)
             .Select(x => x.Target);
@@ -321,7 +321,7 @@
         };
     }
 
-    public static TargetsFilterDelegate IncreasePowerAndToughness(int? power, int? toughness)
+    public static AiTargetSelectorDelegate IncreasePowerAndToughness(int? power, int? toughness)
     {
       return p =>
         {
@@ -351,7 +351,7 @@
         };
     }
 
-    public static TargetsFilterDelegate CostTap()
+    public static AiTargetSelectorDelegate CostTap()
     {
       return p =>
         {
@@ -362,7 +362,7 @@
         };
     }
 
-    public static TargetsFilterDelegate CostSacrificeGainLife()
+    public static AiTargetSelectorDelegate CostSacrificeGainLife()
     {
       return p =>
         {
@@ -390,12 +390,12 @@
         };
     }
 
-    public static TargetsFilterDelegate Bounce()
+    public static AiTargetSelectorDelegate Bounce()
     {
       return Destroy();
     }
 
-    public static TargetsFilterDelegate Controller()
+    public static AiTargetSelectorDelegate Controller()
     {
       return p =>
         {
@@ -404,12 +404,12 @@
         };
     }
 
-    public static TargetsFilterDelegate Exile()
+    public static AiTargetSelectorDelegate Exile()
     {
       return Destroy();
     }
 
-    public static TargetsFilterDelegate TapCreature()
+    public static AiTargetSelectorDelegate TapCreature()
     {
       return p =>
         {
@@ -422,7 +422,7 @@
         };
     }
 
-    public static TargetsFilterDelegate CreatureWithGreatestPower()
+    public static AiTargetSelectorDelegate CreatureWithGreatestPower()
     {
       return p =>
         {
@@ -434,7 +434,7 @@
         };
     }
 
-    public static TargetsFilterDelegate PreventAllDamageFromSourceToTarget()
+    public static AiTargetSelectorDelegate PreventAllDamageFromSourceToTarget()
     {
       return p =>
         {
@@ -520,7 +520,7 @@
         };
     }
 
-    public static TargetsFilterDelegate DamageRedirection()
+    public static AiTargetSelectorDelegate DamageRedirection()
     {
       return p =>
         {
@@ -538,7 +538,7 @@
         };
     }
 
-    private static int CalculateDamageRedirectionScore(Card card, TargetFilterParameters p)
+    private static int CalculateDamageRedirectionScore(Card card, AiTargetSelectorParameters p)
     {
       const int protectionOffset = 200;
 
@@ -555,7 +555,7 @@
       return card.Toughness.Value - 3;
     }
 
-    public static TargetsFilterDelegate PreventDamageFromSourceToController()
+    public static AiTargetSelectorDelegate PreventDamageFromSourceToController()
     {
       return p =>
         {
@@ -589,7 +589,7 @@
         };
     }
 
-    public static TargetsFilterDelegate GreatestConvertedManaCost()
+    public static AiTargetSelectorDelegate GreatestConvertedManaCost()
     {
       return p =>
         {
@@ -601,7 +601,7 @@
         };
     }
 
-    public static TargetsFilterDelegate PreventNextDamageToCreatureOrPlayer(int amount)
+    public static AiTargetSelectorDelegate PreventNextDamageToCreatureOrPlayer(int amount)
     {
       return p =>
         {
@@ -617,8 +617,8 @@
               .Where(x =>
                 {
                   var damageToCreature = p.Stack.GetDamageTopSpellWillDealToCreature(x);
-                  return (damageToCreature >= x.CalculateLifepointsLeft()) &&
-                    (damageToCreature - amount < x.CalculateLifepointsLeft());
+                  return (damageToCreature >= x.Life) &&
+                    (damageToCreature - amount < x.Life);
                 })
               .OrderByDescending(x => x.Score);
 
@@ -672,7 +672,7 @@
         };
     }
 
-    public static TargetsFilterDelegate PreventAttackerDamage()
+    public static AiTargetSelectorDelegate PreventAttackerDamage()
     {
       return p =>
         {
@@ -683,7 +683,7 @@
         };
     }
 
-    public static TargetsFilterDelegate Pacifism()
+    public static AiTargetSelectorDelegate Pacifism()
     {
       return p =>
         {

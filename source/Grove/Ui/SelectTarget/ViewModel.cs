@@ -13,15 +13,15 @@
     private readonly Action<ITarget> _targetSelected;
     private readonly Action<ITarget> _targetUnselected;
 
-    public ViewModel(ITargetSelector targetSelector, bool canCancel) : this(targetSelector, canCancel, null) {}
+    public ViewModel(ITargetValidator targetValidator, bool canCancel) : this(targetValidator, canCancel, null) {}
 
-    public ViewModel(ITargetSelector targetSelector, bool canCancel, string instructions)
-      : this(targetSelector, canCancel, instructions, null, null) {}
+    public ViewModel(ITargetValidator targetValidator, bool canCancel, string instructions)
+      : this(targetValidator, canCancel, instructions, null, null) {}
 
-    public ViewModel(ITargetSelector targetSelector, bool canCancel, string instructions,
+    public ViewModel(ITargetValidator targetValidator, bool canCancel, string instructions,
                      Action<ITarget> targetSelected, Action<ITarget> targetUnselected)
     {
-      TargetSelector = targetSelector;
+      TargetValidator = targetValidator;
       Instructions = instructions;
       _canCancel = canCancel;
       _targetUnselected = targetUnselected ?? delegate { };
@@ -32,20 +32,20 @@
     {
       get
       {
-        return TargetSelector.MaxCount.HasValue &&
-          _selection.Count == TargetSelector.MaxCount;
+        return TargetValidator.MaxCount.HasValue &&
+          _selection.Count == TargetValidator.MaxCount;
       }
     }
 
     public string Instructions { get; private set; }
-    private bool IsDone { get { return _selection.Count >= TargetSelector.MinCount; } }
+    private bool IsDone { get { return _selection.Count >= TargetValidator.MinCount; } }
     public IList<ITarget> Selection { get { return _selection; } }
-    public ITargetSelector TargetSelector { get; private set; }
+    public ITargetValidator TargetValidator { get; private set; }
     public bool WasCanceled { get; private set; }
 
     public virtual void Receive(TargetSelected message)
     {
-      if (_selection.Count >= TargetSelector.MaxCount)
+      if (_selection.Count >= TargetValidator.MaxCount)
         return;
 
       if (_selection.Contains(message.Target))
@@ -55,7 +55,7 @@
         return;
       }
 
-      if (!TargetSelector.IsValid(message.Target))
+      if (!TargetValidator.IsValid(message.Target))
         return;
 
       _targetSelected(message.Target);
@@ -86,7 +86,7 @@
     public interface IFactory
     {
       ViewModel Create(
-        ITargetSelector targetSelector,
+        ITargetValidator targetValidator,
         bool canCancel,
         string instructions = null,
         Action<ITarget> targetSelected = null,

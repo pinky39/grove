@@ -22,7 +22,7 @@
       _decisionFactory.Init(game);
     }
 
-    public void Enqueue<TDecision>(IPlayer controller, Action<TDecision> init = null)
+    public void Enqueue<TDecision>(Player controller, Action<TDecision> init = null)
       where TDecision : IDecision
     {
       init = init ?? delegate { };

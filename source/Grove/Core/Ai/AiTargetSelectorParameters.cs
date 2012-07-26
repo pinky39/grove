@@ -4,12 +4,12 @@
   using System.Linq;
   using Targeting;
   using Zones;
+    
+  public delegate List<Targets> AiTargetSelectorDelegate(AiTargetSelectorParameters parameters);  
 
-  public delegate List<Targets> TargetsFilterDelegate(TargetFilterParameters parameters);
-
-  public class TargetFilterParameters
+  public class AiTargetSelectorParameters
   {
-    public TargetFilterParameters(TargetsCandidates candidates, Card source, int? maxX, bool forceOne, Game game)
+    public AiTargetSelectorParameters(TargetsCandidates candidates, Card source, int? maxX, bool forceOne, Game game)
     {
       AllCandidates = candidates;
       Source = source;
@@ -23,8 +23,8 @@
     public Card Source { get; private set; }
     public int? MaxX { get; private set; }
     public bool ForceOne { get; private set; }
-    public IPlayer Opponent { get { return Game.Players.GetOpponent(Source.Controller); } }
-    public ICardController Controller { get { return Source.Controller; } }
+    public Player Opponent { get { return Game.Players.GetOpponent(Source.Controller); } }
+    public Player Controller { get { return Source.Controller; } }
     public Combat Combat { get { return Game.Combat; } }
     public Step Step { get { return Game.Turn.Step; } }
     public Stack Stack { get { return Game.Stack; } }

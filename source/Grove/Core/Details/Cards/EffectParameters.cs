@@ -1,7 +1,5 @@
 ﻿namespace Grove.Core.Details.Cards
 {
-  using System.Collections.Generic;
-  using System.Linq;
   using Effects;
   using Targeting;
 
@@ -9,20 +7,19 @@
 
   public class EffectParameters
   {
-    public EffectParameters(IEffectSource source, ActivationParameters activation = null, object triggerMessage = null, IEnumerable<ITarget> targets = null, IEnumerable<ITarget> costTargets = null)
+    public EffectParameters(IEffectSource source, ActivationParameters activation = null, object triggerMessage = null,
+      Targets targets = null)
     {
       TriggerMessage = triggerMessage;
       Source = source;
       Activation = activation ?? ActivationParameters.Default;
-      Targets = targets ?? Enumerable.Empty<ITarget>();
-      CostTargets = costTargets ?? Enumerable.Empty<ITarget>();
+      Targets = targets ?? new Targets();
     }
 
     public object TriggerMessage { get; set; }
     public IEffectSource Source { get; set; }
     public ActivationParameters Activation { get; set; }
-    public IEnumerable<ITarget> Targets { get; set; }
-    public IEnumerable<ITarget> CostTargets { get; set; }
+    public Targets Targets { get; private set; }
 
     public TMessage Trigger<TMessage>()
     {

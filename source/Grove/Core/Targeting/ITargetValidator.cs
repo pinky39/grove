@@ -1,6 +1,6 @@
 ﻿namespace Grove.Core.Targeting
 {
-  public interface ITargetSelector
+  public interface ITargetValidator
   {
     int? MaxCount { get; }
     int MinCount { get; }

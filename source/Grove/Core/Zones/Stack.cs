@@ -30,7 +30,7 @@
 
     public Effect LastResolved { get { return _lastResolved.Value; } private set { _lastResolved.Value = value; } }
     public Effect TopSpell { get { return _effects.LastOrDefault(); } }
-    public IPlayer TopSpellOwner { get { return TopSpell == null ? null : TopSpell.Controller; } }
+    public Player TopSpellOwner { get { return TopSpell == null ? null : TopSpell.Controller; } }
 
     public IEnumerator<Effect> GetEnumerator()
     {
@@ -98,7 +98,7 @@
       effect.EffectWasCountered();
     }
 
-    public int GetDamageTopSpellWillDealToPlayer(IPlayer player)
+    public int GetDamageTopSpellWillDealToPlayer(Player player)
     {
       if (TopSpell == null)
         return 0;
@@ -127,7 +127,7 @@
         return false;
 
       var dealtAmount = GetDamageTopSpellWillDealToCreature(card, targetOnly);
-      return card.CalculateLifepointsLeft() <= dealtAmount;
+      return card.Life <= dealtAmount;
     }
 
     public bool CanBeDestroyedByTopSpell(Card card, bool targetOnly = false)
@@ -158,11 +158,11 @@
       if (TopSpell == null)
         return false;
 
-      return card.CalculateLifepointsLeft() <= 
+      return card.Life <= 
         TopSpell.CalculateToughnessReduction(card);      
     }
 
-    public bool CanTopSpellReducePlayersLifeToZero(IPlayer player)
+    public bool CanTopSpellReducePlayersLifeToZero(Player player)
     {
       if (TopSpell == null)
         return false;

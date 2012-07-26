@@ -16,7 +16,7 @@
     protected override void ExecuteQuery()
     {
       var dialog = DialogFactory.Create(
-        new UiTargetSelector(
+        new UiTargetValidator(
           minTargetCount: 0,
           maxTargetCount: null,
           text: "Select attackers.",

@@ -8,7 +8,7 @@
     public override bool CanPay(ref int? maxX)
     {
       return Controller.Battlefield.Any(
-        permanent => Selector.IsValid(permanent));
+        permanent => Validator.IsValid(permanent));
     }
 
     public override void Pay(ITarget target, int? x)

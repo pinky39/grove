@@ -7,7 +7,7 @@
   {
     public Value Amount { get; set; }
 
-    public override int CalculatePlayerDamage(IPlayer player)
+    public override int CalculatePlayerDamage(Player player)
     {
       return Amount.GetValue(X);
     }

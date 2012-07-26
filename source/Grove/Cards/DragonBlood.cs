@@ -38,8 +38,8 @@
                     ct.Toughness = 1;
                   })
                 ))),
-            effectSelector: C.Selector(Selectors.Creature()),
-            targetFilter: TargetFilters.IncreasePowerAndToughness(1, 1),
+            effectValidator: C.Validator(Validators.Creature()),
+            aiTargetFilter: AiTargetSelectors.IncreasePowerAndToughness(1, 1),
             timing: Timings.NoRestrictions()
             ));
     }

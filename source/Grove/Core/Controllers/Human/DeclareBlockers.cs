@@ -20,7 +20,7 @@
       while (true)
       {
         var selectBlocker = DialogFactory.Create(
-          new UiTargetSelector(
+          new UiTargetValidator(
             minTargetCount: 0,
             maxTargetCount: 1,
             text: "Select a blocker.",
@@ -49,7 +49,7 @@
         }
 
         var selectAttacker = DialogFactory.Create(
-          new UiTargetSelector(
+          new UiTargetValidator(
             minTargetCount: 1,
             maxTargetCount: 1,
             text: "Select an attacker to block.",

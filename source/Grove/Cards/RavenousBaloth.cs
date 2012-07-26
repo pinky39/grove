@@ -28,10 +28,10 @@
             C.Cost<SacrificePermanent>(),
             C.Effect<GainLife>(e => e.Amount = 4),
             
-            costSelector: C.Selector(Selectors.Creature((c) => c.Is("beast"), Controller.SpellOwner), 
+            costValidator: C.Validator(Validators.Creature((c) => c.Is("beast"), Controller.SpellOwner), 
               mustBeTargetable: false),
             
-            targetFilter: TargetFilters.CostSacrificeGainLife(),            
+            aiTargetFilter: AiTargetSelectors.CostSacrificeGainLife(),            
             timing: Timings.NoRestrictions()));
     }
   }

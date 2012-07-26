@@ -32,8 +32,8 @@
               );
           })
         .Targets(
-          filter: TargetFilters.Destroy(),
-          effect: C.Selector(Selectors.Creature()));
+          aiTargetSelector: AiTargetSelectors.Destroy(),
+          effectValidator: C.Validator(Validators.Creature()));
     }
   }
 }

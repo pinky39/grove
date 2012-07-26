@@ -1,47 +1,46 @@
 ﻿namespace Grove.Core.Targeting
 {
-  using System;
+  using System.Collections;
   using System.Collections.Generic;
   using System.Linq;
   using Infrastructure;
 
   [Copyable]
-  public class Targets : IEquatable<Targets>
+  public class Targets : IEnumerable<ITarget>, IHashable
   {
+    private readonly List<int> _assignedDamage = new List<int>();
     private readonly List<ITarget> _costTargets = new List<ITarget>();
     private readonly List<ITarget> _effectTargets = new List<ITarget>();
     public int Count { get { return _effectTargets.Count + _costTargets.Count; } }
-
     public bool Any { get { return Count > 0; } }
-
     public bool None { get { return Count == 0; } }
+    public IList<ITarget> Effect { get { return _effectTargets; } }
+    public IList<ITarget> Cost { get { return _costTargets; } }
+    public IList<int> AssignedDamage { get { return _assignedDamage; } }
 
-    public bool Equals(Targets other)
+    public IEnumerator<ITarget> GetEnumerator()
     {
-      if (ReferenceEquals(null, other)) return false;
-      if (ReferenceEquals(this, other)) return true;
+      foreach (var costTarget in _costTargets)
+      {
+        yield return costTarget;
+      }
 
-      return other.GetHashCode() == GetHashCode();
+      foreach (var effectTarget in _effectTargets)
+      {
+        yield return effectTarget;
+      }
     }
 
-    public IEnumerable<ITarget> Effect()
+    IEnumerator IEnumerable.GetEnumerator()
     {
-      return _effectTargets;
+      return GetEnumerator();
     }
 
-    public ITarget Effect(int i)
+    public int CalculateHash(HashCalculator calc)
     {
-      return i < _effectTargets.Count ? _effectTargets[i] : null;
-    }
-
-    public IEnumerable<ITarget> Cost()
-    {
-      return _costTargets;
-    }
-
-    public ITarget Cost(int i)
-    {
-      return i < _costTargets.Count ? _costTargets[i] : null;
+      return HashCalculator.Combine(
+        HashCalculator.Combine(_effectTargets.Select(calc.Calculate)),
+        HashCalculator.Combine(_costTargets.Select(calc.Calculate)));
     }
 
     public Targets AddCost(ITarget target)
@@ -56,20 +55,9 @@
       return this;
     }
 
-    public override bool Equals(object obj)
+    public void AssignDamage(IEnumerable<int> damage)
     {
-      if (ReferenceEquals(null, obj)) return false;
-      if (ReferenceEquals(this, obj)) return true;
-      if (obj.GetType() != typeof (Targets)) return false;
-      return Equals((Targets) obj);
-    }
-
-    public override int GetHashCode()
-    {
-      return HashCalculator.Combine(
-        _effectTargets.Select(x => x.GetHashCode())
-          .Concat(_costTargets.Select(x => x.GetHashCode()))
-        );
+      _assignedDamage.AddRange(damage);
     }
   }
 }

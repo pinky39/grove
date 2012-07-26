@@ -82,7 +82,7 @@
       _stateMachine.Resume(ShouldContinue);
     }
 
-    public void Start(int numOfTurns = int.MaxValue, bool skipPreGame = false, IPlayer looser = null)
+    public void Start(int numOfTurns = int.MaxValue, bool skipPreGame = false, Player looser = null)
     {
       Decisions.Init(this);
 

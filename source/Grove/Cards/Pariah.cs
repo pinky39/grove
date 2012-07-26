@@ -30,8 +30,8 @@
               );
           })
         .Targets(
-          filter: TargetFilters.DamageRedirection(),
-          effect: C.Selector(Selectors.EnchantedCreature()));
+          aiTargetSelector: AiTargetSelectors.DamageRedirection(),
+          effectValidator: C.Validator(Validators.EnchantedCreature()));
     }
   }
 }

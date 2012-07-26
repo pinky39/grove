@@ -10,7 +10,7 @@
     public IEffectSource Source { get; set; }
     public object TriggerMessage { get; set; }
     public IEffectFactory Factory { get; set; }
-    public TargetSelectors TargetSelectors { get; set; }
+    public TargetSelector TargetSelector { get; set; }
 
     public override void ProcessResults()
     {
@@ -21,7 +21,7 @@
         new EffectParameters(
           source: Source,
           triggerMessage: TriggerMessage,
-          targets: Result.Targets.Effect()));
+          targets: Result.Targets));
       
 
       Game.Stack.Push(effect);

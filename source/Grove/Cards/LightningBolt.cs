@@ -19,8 +19,8 @@
         .Timing(Timings.TargetRemovalInstant())
         .Effect<DealDamageToTarget>(e => e.Amount = 3)
         .Targets(
-          filter: TargetFilters.DealDamage(3),
-          effect: C.Selector(Selectors.CreatureOrPlayer()));
+          aiTargetSelector: AiTargetSelectors.DealDamage(3),
+          effectValidator: C.Validator(Validators.CreatureOrPlayer()));
     }
   }
 }

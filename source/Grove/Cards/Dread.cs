@@ -32,7 +32,7 @@
                   "Whenever a creature deals damage to you, destroy it.",
                   c0.Trigger<DealDamageToCreatureOrPlayer>((t, _) => t.ToYou()),
                   c0.Effect<DestroySource>(),
-                  category: EffectCategories.Destruction));
+                  abilityCategory: EffectCategories.Destruction));
             }),
           C.TriggeredAbility(
             "When Dread is put into a graveyard from anywhere, shuffle it into its owner's library.",

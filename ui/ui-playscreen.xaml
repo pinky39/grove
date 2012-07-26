@@ -15,6 +15,7 @@
         <ResourceDictionary Source="EndOfMatch.xaml" />
         <ResourceDictionary Source="Stack.xaml" />
         <ResourceDictionary Source="QuitGame.xaml" />
+        <ResourceDictionary Source="DamageDistribution.xaml"/>
       </ResourceDictionary.MergedDictionaries> 
     </ResourceDictionary>
   </Page.Resources>
@@ -24,15 +25,16 @@
         <!--<ContentControl Content="{StaticResource StartScreen}" />-->
         <ContentControl Content="{StaticResource Playground}" />
        <ContentControl Content="{StaticResource Stack}" />
+       <ContentControl Style="{StaticResource Dialog}" Content="{StaticResource DamageDistribution}" />
         <!--<ContentControl Style="{StaticResource Dialog}" Content="{StaticResource MessageBox}" />-->        
         <!--<ContentControl Style="{StaticResource Dialog}" Content="{StaticResource SelectAbility}" />-->
-        <ContentControl Style="{StaticResource DialogSmall}" Content="{StaticResource SelectAttackers}" />
+        <!--<ContentControl Style="{StaticResource DialogSmall}" Content="{StaticResource SelectAttackers}" />-->
         <!--<ContentControl Style="{StaticResource Dialog}" Content="{StaticResource CastWithoutTarget}" />-->
         <!--<ContentControl Style="{StaticResource Dialog}" Content="{StaticResource CastWithTarget}" />-->
         <!--<ContentControl Style="{StaticResource Dialog}" Content="{StaticResource DamageAssignmentOrder}" />-->
         <!--<ContentControl Style="{StaticResource Dialog}" Content="{StaticResource EndOfGame}" />-->
         <!--<ContentControl Style="{StaticResource Dialog}" Content="{StaticResource EndOfMatch}" />-->        
-       <ContentControl Content="{StaticResource QuitGame}" />
+       <!--<ContentControl Content="{StaticResource QuitGame}" />-->
       </Grid>
     </Border>
   </Viewbox>

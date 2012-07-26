@@ -19,9 +19,9 @@
         .FlavorText("Fire finds its form in the heat of the forge.")
         .Effect<DealDamageToTarget>(e => e.Amount = 3)
         .Timing(Timings.MainPhases())
-        .Targets(filter: TargetFilters.DealDamage(3),
-          effect: C.Selector(
-            Selectors.CreatureOrPlayer()));
+        .Targets(aiTargetSelector: AiTargetSelectors.DealDamage(3),
+          effectValidator: C.Validator(
+            Validators.CreatureOrPlayer()));
     }
   }
 }

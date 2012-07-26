@@ -28,7 +28,7 @@
       _scenarioDecisions.Init(_game);
     }
 
-    public IDecision Create<TDecision>(IPlayer controller, Action<TDecision> init) where TDecision : IDecision
+    public IDecision Create<TDecision>(Player controller, Action<TDecision> init) where TDecision : IDecision
     {
       TDecision decision;
 

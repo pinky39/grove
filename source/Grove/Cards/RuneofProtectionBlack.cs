@@ -26,9 +26,9 @@
             "{W}: The next time a black source of your choice would deal damage to you this turn, prevent that damage.",
             C.Cost<TapOwnerPayMana>((cost, _) => { cost.Amount = ManaAmount.White; }),
             C.Effect<PreventDamageFromSourceToController>(e => e.OnlyOnce = true),
-            effectSelector: C.Selector(
-              Selectors.EffectOrPermanent(target => target.HasColor(ManaColors.Black)), text: "Select a damage source."),
-            targetFilter: TargetFilters.PreventDamageFromSourceToController(),
+            effectValidator: C.Validator(
+              Validators.EffectOrPermanent(target => target.HasColor(ManaColors.Black)), text: "Select a damage source."),
+            aiTargetFilter: AiTargetSelectors.PreventDamageFromSourceToController(),
             timing: Timings.NoRestrictions())
         );
     }

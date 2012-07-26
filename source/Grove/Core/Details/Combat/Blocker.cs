@@ -29,7 +29,7 @@
 
     public Attacker Attacker { get { return _attacker.Value; } private set { _attacker.Value = value; } }
     public Card Card { get; private set; }
-    public ICardController Controller { get { return Card.Controller; } }
+    public Player Controller { get { return Card.Controller; } }
 
     public int DamageAssignmentOrder { get { return _damageAssignmentOrder.Value; } set { _damageAssignmentOrder.Value = value; } }
 
@@ -45,7 +45,7 @@
 
     private bool HasAttacker { get { return Attacker != null; } }
 
-    public int LifepointsLeft { get { return Card.CalculateLifepointsLeft(); } }
+    public int LifepointsLeft { get { return Card.Life; } }
     public int Score { get { return ScoreCalculator.CalculatePermanentScore(Card); } }
     public int DamageThisWillDealInOneDamageStep { get { return Card.CalculateCombatDamage(); } }
     public int Toughness { get { return Card.Toughness.Value; } }

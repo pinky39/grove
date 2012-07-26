@@ -6,7 +6,7 @@
 
   public class PreventDamageFromSourceToController : Effect
   {
-    private ITarget DamageSource { get { return Target(0); } }
+    private ITarget DamageSource { get { return Target(); } }
     public bool OnlyOnce { get; set; }
 
     protected override void ResolveEffect()

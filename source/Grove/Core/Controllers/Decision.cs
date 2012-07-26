@@ -7,13 +7,13 @@
   {
     private bool _hasCompleted;
 
-    public IPlayer Controller { get; private set; }
+    public Player Controller { get; private set; }
     public Game Game { get; private set; }
 
     public TResult Result { get; set; }
     protected virtual bool ShouldExecuteQuery { get { return true; } }
     
-    public void Init(Game game, IPlayer controller)
+    public void Init(Game game, Player controller)
     {
       Game = game;
       Controller = controller;

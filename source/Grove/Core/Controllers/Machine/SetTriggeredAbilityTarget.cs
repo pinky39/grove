@@ -64,7 +64,7 @@
     private IEnumerable<Targets> GenerateTargets()
     {
       var generator = new TargetGenerator(
-        TargetSelectors,
+        TargetSelector,
         Source.OwningCard,
         Game,
         maxX: null,

@@ -20,8 +20,8 @@
         .Timing(Timings.FirstMain())
         .Effect<TargetPlayerTakesExtraTurns>()
         .Targets(
-          filter: TargetFilters.Controller(),
-          effect: C.Selector(Selectors.Player()));
+          aiTargetSelector: AiTargetSelectors.Controller(),
+          effectValidator: C.Validator(Validators.Player()));
     }
   }
 }

@@ -23,9 +23,9 @@
         .Category(EffectCategories.Destruction)
         .Effect<DestroyTargetPermanent>()
         .Targets(
-          filter: TargetFilters.Destroy(),
-          effect:
-            C.Selector(Selectors.Creature((creature) => !creature.HasColor(ManaColors.Black) && !creature.Is().Artifact)))
+          aiTargetSelector: AiTargetSelectors.Destroy(),
+          effectValidator:
+            C.Validator(Validators.Creature((creature) => !creature.HasColors(ManaColors.Black) && !creature.Is().Artifact)))
         ;
     }
   }

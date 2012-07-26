@@ -35,8 +35,8 @@
                   m.Toughness = 3;
                   m.AddLifetime(new PermanentGetsUntapedLifetime(m.Source, c.ChangeTracker));
                 }))),
-            effectSelector: C.Selector(Selectors.Creature()),
-            targetFilter: TargetFilters.IncreasePowerAndToughness(0, 3),
+            effectValidator: C.Validator(Validators.Creature()),
+            aiTargetFilter: AiTargetSelectors.IncreasePowerAndToughness(0, 3),
             timing: Timings.NoRestrictions()));
     }
   }

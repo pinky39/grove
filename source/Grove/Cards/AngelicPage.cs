@@ -35,8 +35,8 @@
                   m.Toughness = 1;
                 },
                 untilEndOfTurn: true))),
-            C.Selector(Selectors.AttackerOrBlocker()),
-            targetFilter: TargetFilters.PumpAttackerOrBlocker(power: 1, thougness: 1),
+            C.Validator(Validators.AttackerOrBlocker()),
+            aiTargetFilter: AiTargetSelectors.PumpAttackerOrBlocker(power: 1, thougness: 1),
             timing: Timings.DeclareBlockers(),
             category: EffectCategories.ToughnessIncrease));
     }

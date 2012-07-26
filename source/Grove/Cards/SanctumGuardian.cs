@@ -27,12 +27,12 @@
             "Sacrifice Sanctum Guardian: The next time a source of your choice would deal damage to target creature or player this turn, prevent that damage.",
             C.Cost<SacrificeOwner>(),
             C.Effect<PreventDamageFromSourceToTarget>(e => e.OnlyOnce = true),
-            effectSelectors: new[]
+            effectValidators: new[]
               {
-                C.Selector(Selectors.EffectOrPermanent(), text: "Select damage source."),
-                C.Selector(Selectors.CreatureOrPlayer(), text:  "Select a creature or player.")
+                C.Validator(Validators.EffectOrPermanent(), text: "Select damage source."),
+                C.Validator(Validators.CreatureOrPlayer(), text:  "Select a creature or player.")
               },
-            targetFilter: TargetFilters.PreventAllDamageFromSourceToTarget(),
+            aiTargetFilter: AiTargetSelectors.PreventAllDamageFromSourceToTarget(),
             timing: Timings.NoRestrictions()
             )
         );

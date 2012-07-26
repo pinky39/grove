@@ -16,7 +16,7 @@
     {
       var targets = new Targets();
 
-      foreach (var selector in TargetSelectors.Effect())
+      foreach (var selector in TargetSelector.Effect)
       {        
         if (NoValidTargets(selector))
           continue;
@@ -30,11 +30,11 @@
       Result = new ChosenTargets(targets);
     }
 
-    private bool NoValidTargets(TargetSelector selector)
+    private bool NoValidTargets(TargetValidator validator)
     {
       foreach (var target in Game.Players.GetTargets())
       {
-        if (selector.IsValid(target))
+        if (validator.IsValid(target))
           return false;
       }
 

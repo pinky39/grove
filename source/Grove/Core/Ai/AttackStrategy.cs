@@ -116,7 +116,7 @@
           {
             if (QuickCombat.CanBlockerBeDealtLeathalCombatDamage(blocker, Attacker))
             {
-              maxAttackerDamage -= Attacker.Has().Deathtouch ? 1 : blocker.CalculateLifepointsLeft();
+              maxAttackerDamage -= Attacker.Has().Deathtouch ? 1 : blocker.Life;
               score += blocker.Score;
             }
 

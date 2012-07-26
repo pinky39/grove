@@ -5,11 +5,11 @@
   [Copyable]
   public class ChosenPlayer
   {
-    public ChosenPlayer(IPlayer player)
+    public ChosenPlayer(Player player)
     {
       Player = player;
     }
 
-    public IPlayer Player { get; private set; }    
+    public Player Player { get; private set; }    
   }
 }

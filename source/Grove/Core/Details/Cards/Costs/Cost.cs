@@ -9,9 +9,9 @@
   public abstract class Cost : IHashable
   {
     protected Card Card { get; private set; }
-    protected ICardController Controller { get { return Card.Controller; } }
+    protected Player Controller { get { return Card.Controller; } }
     protected Game Game { get; private set; }
-    public TargetSelector Selector { get; private set;  }
+    public TargetValidator Validator { get; private set;  }
 
     public CalculateX XCalculator { get; set; }
 
@@ -36,12 +36,12 @@
       public Initializer<TCost> Init = delegate { };
       public Game Game { get; set; }
 
-      public Cost CreateCost(Card card, TargetSelector selector)
+      public Cost CreateCost(Card card, TargetValidator validator)
       {
         var cost = new TCost();
         cost.Card = card;
         cost.Game = Game;
-        cost.Selector = selector;
+        cost.Validator = validator;
 
         Init(cost, new CardBuilder(Game));
         cost.AfterInit();

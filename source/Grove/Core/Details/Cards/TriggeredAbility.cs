@@ -64,7 +64,7 @@
       if (TriggerOnlyIfOwningCardIsInPlay && OwningCard.Zone != Zone.Battlefield)
         return;
 
-      if (TargetSelectors.Count > 0)
+      if (TargetSelector.Count > 0)
       {
         _decisions.Enqueue<SetTriggeredAbilityTarget>(
           controller: OwningCard.Controller,
@@ -73,7 +73,7 @@
               p.Source = this;
               p.Factory = EffectFactory;
               p.TriggerMessage = triggerMessage;
-              p.TargetSelectors = TargetSelectors;
+              p.TargetSelector = TargetSelector;
             });
 
         return;

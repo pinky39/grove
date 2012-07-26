@@ -260,6 +260,10 @@
     <Compile Include="Core\Ai\QuickCombat.cs" />
     <Compile Include="Core\DeckFile.cs" />
     <Compile Include="Core\DeckRow.cs" />
+    <Compile Include="Core\Dsl\UiTargetPostProcessors.cs" />
+    <Compile Include="Core\IAcceptsModifiers.cs" />
+    <Compile Include="Core\IHasColors.cs" />
+    <Compile Include="Core\IHasLife.cs" />
     <Compile Include="Core\Messages\ControllerChanged.cs" />
     <Compile Include="Core\Controllers\ChooseToUntap.cs" />
     <Compile Include="Core\Controllers\DecisionFactory.cs" />
@@ -287,8 +291,8 @@
     <Compile Include="Core\Details\Cards\Preventions\PreventLifelossBelowOne.cs" />
     <Compile Include="Core\Details\Mana\AggregateManaAmount.cs" />
     <Compile Include="Core\Ai\TargetCandidatesEx.cs" />
-    <Compile Include="Core\Ai\TargetFilterParameters.cs" />
-    <Compile Include="Core\Ai\TargetFilters.cs" />
+    <Compile Include="Core\Ai\AiTargetSelectorParameters.cs" />
+    <Compile Include="Core\Ai\AiTargetSelectors.cs" />
     <Compile Include="Core\Ai\TargetScores.cs" />
     <Compile Include="Core\Ai\XCalculatorParameters.cs" />
     <Compile Include="Core\Details\Cards\Effects\PreventDamageFromSourceToController.cs" />
@@ -297,14 +301,12 @@
     <Compile Include="Core\Details\Cards\Effects\SacrificeSource.cs" />
     <Compile Include="Core\Details\Cards\IStaticAbilities.cs" />
     <Compile Include="Core\Details\Mana\ManaSourcePriorities.cs" />
-    <Compile Include="Core\ICardController.cs" />
-    <Compile Include="Core\ICardOwner.cs" />
-    <Compile Include="Core\IPlayer.cs" />
     <Compile Include="Core\Messages\AssignedCombatDamageWasDealt.cs" />
     <Compile Include="Core\Messages\PermanentGetsUntapped.cs" />
     <Compile Include="Core\PlayerType.cs" />
-    <Compile Include="Core\Targeting\ITargetSelector.cs" />
-    <Compile Include="Core\Targeting\ITargetSelectorFactory.cs" />
+    <Compile Include="Core\Targeting\DistributeDamage.cs" />
+    <Compile Include="Core\Targeting\ITargetValidator.cs" />
+    <Compile Include="Core\Targeting\ITargetValidatorFactory.cs" />
     <Compile Include="Core\Details\Cards\Modifiers\AddDamageRedirection.cs" />
     <Compile Include="Core\Details\Cards\Modifiers\DisableAbilities.cs" />
     <Compile Include="Core\Details\Cards\Preventions\PreventDamageToTarget.cs" />
@@ -314,6 +316,7 @@
     <Compile Include="Core\Details\Cards\Redirections\IDamageRedirectionFactory.cs" />
     <Compile Include="Core\Details\Cards\Redirections\RedirectDamageToTarget.cs" />
     <Compile Include="Core\Details\Cards\StaticAbility.cs" />
+    <Compile Include="Core\Targeting\UiTargetPostprocessor.cs" />
     <Compile Include="Core\Targeting\TargetCandidates.cs" />
     <Compile Include="Core\Targeting\Targets.cs" />
     <Compile Include="Core\Ai\InnerResult.cs" />
@@ -346,7 +349,7 @@
     <Compile Include="Core\Controllers\Scenario\DeclareAttackers.cs" />
     <Compile Include="Core\Controllers\Scenario\DeclareBlockers.cs" />
     <Compile Include="Core\Controllers\Scenario\IScenarioDecision.cs" />
-    <Compile Include="Core\Controllers\Scenario\LazyEffect.cs" />
+    <Compile Include="Core\Controllers\Scenario\ScenarioEffect.cs" />
     <Compile Include="Core\Controllers\Scenario\PlaySpellOrAbility.cs" />
     <Compile Include="Core\Controllers\Scenario\ScenarioAbility.cs" />
     <Compile Include="Core\Controllers\Scenario\DefaultScenarioDecision.cs" />
@@ -398,13 +401,13 @@
     <Compile Include="Core\Details\Mana\PrimitiveManaAmount.cs" />
     <Compile Include="Core\Ai\TimingParameters.cs" />
     <Compile Include="Core\Targeting\TargetsCandidates.cs" />
+    <Compile Include="Core\Targeting\TargetValidator.cs" />
     <Compile Include="Core\Targeting\TargetSelector.cs" />
-    <Compile Include="Core\Targeting\TargetSelectors.cs" />
     <Compile Include="Core\Targeting\TargetValidatorParameters.cs" />
     <Compile Include="Core\Details\Cards\Triggers\SpellWasCast.cs" />
     <Compile Include="Core\Details\Cards\Triggers\OnLevelChanged.cs" />
     <Compile Include="Core\Details\Cards\Triggers\OpponentWasNotDealtDamageThisTurn.cs" />
-    <Compile Include="Core\Targeting\Selectors.cs" />
+    <Compile Include="Core\Targeting\Validators.cs" />
     <Compile Include="Core\Details\Mana\ZeroManaAmount.cs" />
     <Compile Include="Core\Zones\Exile.cs" />
     <Compile Include="Core\Zones\IBattlefieldQuery.cs" />
@@ -487,7 +490,7 @@
     <Compile Include="Infrastructure\ITrackableValue.cs" />
     <Compile Include="Infrastructure\Trackable.cs" />
     <Compile Include="Core\Details\Cards\Triggers\ITriggerFactory.cs" />
-    <Compile Include="Core\Controllers\Human\UiTargetSelector.cs" />
+    <Compile Include="Core\Controllers\Human\UiTargetValidator.cs" />
     <Compile Include="Core\Details\Mana\ManaSources.cs" />
     <Compile Include="Core\Details\Mana\IManaSource.cs" />
     <Compile Include="Core\Details\Cards\ManaAbility.cs" />
@@ -572,7 +575,6 @@
     <Compile Include="Core\Messages\CardChangedZone.cs" />
     <Compile Include="Core\Messages\DamageHasBeenDealt.cs" />
     <Compile Include="Core\Messages\PlayerHasCastASpell.cs" />
-    <Compile Include="Core\Targeting\UiTargetSelector.cs" />
     <Compile Include="Core\Zones\OrderedZone.cs" />
     <Compile Include="Core\Zones\UnorderedZone.cs" />
     <Compile Include="Infrastructure\DelegateEx.cs" />
@@ -587,6 +589,7 @@
     <Compile Include="Ui\AttackerSelected.cs" />
     <Compile Include="Ui\AttackerUnselected.cs" />
     <Compile Include="Ui\BackgroundExtension.cs" />
+    <Compile Include="Ui\DistributeAmount\ViewModel.cs" />
     <Compile Include="Ui\Graveyard\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>

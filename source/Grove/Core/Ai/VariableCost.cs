@@ -20,14 +20,14 @@
 
           foreach (var creature in opponentCreatures)
           {
-            if (creature.CalculateLifepointsLeft() <= maxXToTry)
-              score[creature.CalculateLifepointsLeft() - 1]++;
+            if (creature.Life <= maxXToTry)
+              score[creature.Life - 1]++;
           }
 
           foreach (var creature in yourCreatures)
           {
-            if (creature.CalculateLifepointsLeft() <= maxXToTry)
-              score[creature.CalculateLifepointsLeft() - 1]--;
+            if (creature.Life <= maxXToTry)
+              score[creature.Life - 1]--;
           }
 
           for (var i = 1; i < maxXToTry; i++)
@@ -55,7 +55,7 @@
     {
       return p =>
         {
-          var lifepoints = p.Target.LifepointsLeft();
+          var lifepoints = p.Target.Life();
 
           if (p.Target.IsPlayer())
           {

@@ -14,7 +14,7 @@
     }
 
     public Func<Card, int> CalculateCombatDamage = card => card.CalculateCombatDamage();
-    public Func<Card, int> LifepointsLeft = card => card.CalculateLifepointsLeft();    
+    public Func<Card, int> LifepointsLeft = card => card.Life;    
 
     public CalculationResults Evaluate()
     {
@@ -41,7 +41,7 @@
           return results;
         }
 
-        if (blockerDealtAmount >= _attacker.CalculateLifepointsLeft())
+        if (blockerDealtAmount >= _attacker.Life)
           return results;
       }
 

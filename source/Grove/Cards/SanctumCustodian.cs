@@ -36,8 +36,8 @@
                       pr.Amount = 2;
                     });
                 }, untilEndOfTurn: true))),
-            effectSelector: C.Selector(Selectors.CreatureOrPlayer()),
-            targetFilter: TargetFilters.PreventNextDamageToCreatureOrPlayer(2)
+            effectValidator: C.Validator(Validators.CreatureOrPlayer()),
+            aiTargetFilter: AiTargetSelectors.PreventNextDamageToCreatureOrPlayer(2)
             )
         );
     }

@@ -20,9 +20,9 @@
         .Text("Exile target creature. Its controller gains life equal to its power.")
         .Effect<ExileTargetPermanent>(e => e.ControllerGainsLifeEqualToToughness = true)
         .Targets(
-          filter: TargetFilters.Exile(),
-          effect: C.Selector(
-            Selectors.Creature()));
+          aiTargetSelector: AiTargetSelectors.Exile(),
+          effectValidator: C.Validator(
+            Validators.Creature()));
     }
   }
 }

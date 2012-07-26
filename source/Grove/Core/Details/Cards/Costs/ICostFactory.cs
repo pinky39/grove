@@ -4,6 +4,6 @@
 
   public interface ICostFactory
   {
-    Cost CreateCost(Card card, TargetSelector selector);
+    Cost CreateCost(Card card, TargetValidator validator);
   }
 }

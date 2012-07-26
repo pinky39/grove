@@ -29,8 +29,8 @@
                 c.TapOwner = true;
               }),
             C.Effect<TapTargetCreature>(),
-            C.Selector(Selectors.Creature()),
-            targetFilter: TargetFilters.TapCreature(),
+            C.Validator(Validators.Creature()),
+            aiTargetFilter: AiTargetSelectors.TapCreature(),
             timing: Timings.Steps(Step.BeginningOfCombat))
         );
     }

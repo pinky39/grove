@@ -26,8 +26,8 @@
           })
         .Timing(Timings.MainPhases())
         .Targets(
-          filter: TargetFilters.DealDamage(p => p.Controller.Battlefield.Count(x => x.Is("swamp"))),
-          effect: C.Selector(Selectors.CreatureOrPlayer()));
+          aiTargetSelector: AiTargetSelectors.DealDamage(p => p.Controller.Battlefield.Count(x => x.Is("swamp"))),
+          effectValidator: C.Validator(Validators.CreatureOrPlayer()));
     }
   }
 }

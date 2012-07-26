@@ -8,7 +8,7 @@
     public bool DealToCreature { get { return AmountCreature != null; } }
     public bool DealToPlayer { get { return AmountPlayer != null; } }
 
-    public override int CalculatePlayerDamage(IPlayer player)
+    public override int CalculatePlayerDamage(Player player)
     {
       return DealToPlayer ? AmountPlayer.Value : 0;
     }

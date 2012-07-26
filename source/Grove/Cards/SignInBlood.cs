@@ -25,8 +25,8 @@
             e.LifeLoss = 2;
           })
         .Targets(
-          filter: TargetFilters.Controller(),
-          effect: C.Selector(Selectors.Player()));
+          aiTargetSelector: AiTargetSelectors.Controller(),
+          effectValidator: C.Validator(Validators.Player()));
     }
   }
 }

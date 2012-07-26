@@ -146,22 +146,25 @@
     private bool SelectTargets(SpellPrerequisites prerequisites, bool payKicker, Targets targets)
     {
       var selectors = payKicker
-        ? prerequisites.KickerTargetSelectors
-        : prerequisites.TargetSelectors;
+        ? prerequisites.KickerTargetSelector
+        : prerequisites.TargetSelector;
 
       if (selectors.HasCost)
       {
-        var dialog = ShowSelectorDialog(selectors.Cost(0));
+        var dialog = ShowSelectorDialog(selectors.Cost.FirstOrDefault());
 
         if (dialog.WasCanceled)
           return false;
 
-        targets.AddCost(dialog.Selection[0]);
+        foreach (var target in dialog.Selection)
+        {
+          targets.AddCost(target);  
+        }                
       }
 
       if (selectors.HasEffect)
       {
-        foreach (var selector in selectors.Effect())
+        foreach (var selector in selectors.Effect)
         {
           var dialog = ShowSelectorDialog(selector);
 
@@ -172,16 +175,19 @@
           if (dialog.Selection.Count == 0)
             return false;
 
-          targets.AddEffect(dialog.Selection[0]);
+          foreach (var target in dialog.Selection)
+          {
+            targets.AddEffect(target);
+          }                              
         }
       }
 
       return true;
     }
 
-    private SelectTarget.ViewModel ShowSelectorDialog(TargetSelector selector)
+    private SelectTarget.ViewModel ShowSelectorDialog(TargetValidator validator)
     {
-      var dialog = _selectTargetVmFactory.Create(selector, canCancel: true,
+      var dialog = _selectTargetVmFactory.Create(validator, canCancel: true,
         instructions: "(Press Esc to cancel.)");
 
       _shell.ShowModalDialog(dialog, DialogType.Small, SelectionMode.SelectTarget);

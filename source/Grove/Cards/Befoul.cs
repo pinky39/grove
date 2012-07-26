@@ -22,9 +22,9 @@
         .Timing(Timings.FirstMain())
         .Category(EffectCategories.Destruction)
         .Targets(
-          filter: TargetFilters.Destroy(),
-          effect: C.Selector(Selectors.Permanent(card =>
-            card.Is().Land || (card.Is().Creature && !card.HasColor(ManaColors.Black)))));
+          aiTargetSelector: AiTargetSelectors.Destroy(),
+          effectValidator: C.Validator(Validators.Permanent(card =>
+            card.Is().Land || (card.Is().Creature && !card.HasColors(ManaColors.Black)))));
     }
   }
 }

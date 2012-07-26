@@ -27,9 +27,9 @@
             "When Monk Realist enters the battlefield, destroy target enchantment.",
             C.Trigger<ChangeZone>((t, _) => t.To = Zone.Battlefield),
             C.Effect<DestroyTargetPermanent>(),
-            C.Selector(Selectors.Permanent(card => card.Is().Enchantment)),
-            targetFilter: TargetFilters.OrderByDescendingScore(),
-            category: EffectCategories.Destruction)
+            C.Validator(Validators.Permanent(card => card.Is().Enchantment)),
+            aiTargetSelector: AiTargetSelectors.OrderByDescendingScore(),
+            abilityCategory: EffectCategories.Destruction)
         );
     }
   }

@@ -45,8 +45,8 @@
                   m.Toughness = 2;
                 }),
               p.Builder.Modifier<AddProtectionFromColors>((m, _) => m.Colors = ManaColors.Black | ManaColors.Green))),
-            effectSelector: C.Selector(Selectors.Equipment()),
-            targetFilter: TargetFilters.CombatEquipment(),
+            effectValidator: C.Validator(Validators.Equipment()),
+            aiTargetFilter: AiTargetSelectors.CombatEquipment(),
             timing: Timings.AttachCombatEquipment(),
             activateAsSorcery: true,
             category: EffectCategories.ToughnessIncrease | EffectCategories.Protector));

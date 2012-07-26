@@ -65,7 +65,7 @@
     public int Player2WinCount { get; private set; }
     public IShell Shell { get; set; }
 
-    protected IPlayer Looser
+    protected Player Looser
     {
       get
       {

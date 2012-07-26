@@ -7,8 +7,9 @@
   using Infrastructure;
   using Mana;
   using Modifiers;
+  using Targeting;
 
-  
+
   [Copyable]
   public class ActivatedAbilities : IModifiable, IHashable
   {
@@ -48,11 +49,11 @@
       return _abilities[abilityIndex].CanActivate();
     }
 
-    public T GetEffect<T>() where T : Effect
+    public T CreateEffect<T>(ITarget target) where T : Effect
     {
       foreach (var ability in _abilities)
       {
-        var effect = ability.GetEffect<T>();
+        var effect = ability.CreateEffect<T>(target);
 
         if (effect != null)
           return effect;

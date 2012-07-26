@@ -10,15 +10,15 @@
     private readonly bool _forceOne;
     private readonly Game _game;
     private readonly int? _maxX;
-    private readonly TargetSelectors _selectors;
+    private readonly TargetSelector _selector;
     private readonly Card _source;
 
     private readonly List<Targets> _targets;
 
-    public TargetGenerator(TargetSelectors selectors, Card source,
+    public TargetGenerator(TargetSelector selector, Card source,
                            Game game, int? maxX, bool forceOne = false)
     {
-      _selectors = selectors;
+      _selector = selector;
       _source = source;
 
       _game = game;
@@ -53,8 +53,8 @@
 
     private List<Targets> GetValidTargets()
     {
-      var candidates = _selectors.GenerateCandidates(GenerateTargets);
-      return _selectors.Filter(new TargetFilterParameters(candidates, _source, _maxX, _forceOne, _game));
+      var candidates = _selector.GenerateCandidates(GenerateTargets);
+      return _selector.AiSelector(new AiTargetSelectorParameters(candidates, _source, _maxX, _forceOne, _game));
     }
   }
 }

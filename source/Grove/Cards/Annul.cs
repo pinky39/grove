@@ -21,8 +21,8 @@
         .Timing(Timings.CounterSpell())
         .Effect<CounterTargetSpell>()
         .Targets(
-          filter: TargetFilters.CounterSpell(),
-          effect: C.Selector(Selectors.Counterspell("artifact", "enchantment")));
+          aiTargetSelector: AiTargetSelectors.CounterSpell(),
+          effectValidator: C.Validator(Validators.Counterspell("artifact", "enchantment")));
     }
   }
 }

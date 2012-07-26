@@ -3,20 +3,26 @@
   using System;
   using Details.Cards.Effects;
   using Details.Cards.Modifiers;
+  using Details.Mana;
   using Infrastructure;
   using Targeting;
 
-  public class LazyEffect : ITarget
+  public class ScenarioEffect : ITarget, IHasColors
   {
     public Func<Effect> Effect { get; set; }
 
     public int CalculateHash(HashCalculator calc)
     {
-      return 0;
+      return Effect().CalculateHash(calc);
     }
 
     public void AddModifier(IModifier modifier) {}
 
     public void RemoveModifier(IModifier modifier) {}
+    
+    public bool HasColors(ManaColors colors)
+    {
+      return Effect().HasColors(colors);
+    }
   }
 }

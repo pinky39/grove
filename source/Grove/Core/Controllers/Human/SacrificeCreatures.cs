@@ -13,7 +13,7 @@
     protected override void ExecuteQuery()
     {
       var dialog = DialogFactory.Create(
-        new UiTargetSelector(
+        new UiTargetValidator(
           minTargetCount: Count,
           maxTargetCount: Count,
           text: string.Format("Select {0} creature(s) to sacrifice.", Count),

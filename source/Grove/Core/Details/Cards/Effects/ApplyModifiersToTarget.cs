@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using Modifiers;
+  using Targeting;
 
   public class ApplyModifiersToTarget : Effect
   {

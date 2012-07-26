@@ -8,7 +8,7 @@
     public Value Amount = 0;
     public bool GainLife;
 
-    public override int CalculatePlayerDamage(IPlayer player)
+    public override int CalculatePlayerDamage(Player player)
     {
       return player == Target() ? Amount.GetValue(X) : 0;
     }

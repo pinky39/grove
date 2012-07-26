@@ -4,7 +4,7 @@
   {
     public Damage Damage { get; set; }
 
-    public override int CalculatePlayerDamage(IPlayer player)
+    public override int CalculatePlayerDamage(Player player)
     {
       return player == Controller ? Damage.Amount : 0;
     }

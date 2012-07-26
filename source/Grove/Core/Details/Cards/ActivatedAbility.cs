@@ -1,12 +1,14 @@
 ﻿namespace Grove.Core.Details.Cards
 {
   using System;
+  using System.Linq;
   using Ai;
   using Costs;
   using Effects;
   using Infrastructure;
   using Mana;
   using Messages;
+  using Targeting;
   using Zones;
 
   public class ActivatedAbility : Ability
@@ -45,11 +47,10 @@
         new EffectParameters(
           source: this,
           activation: activation,
-          targets: activation.Targets.Effect(),
-          costTargets: activation.Targets.Cost()
+          targets: activation.Targets
           ));
 
-      Cost.Pay(activation.Targets.Cost(0), activation.X);
+      Cost.Pay(activation.Targets.Cost.FirstOrDefault(), activation.X);
 
       if (UsesStack)
       {
@@ -59,7 +60,7 @@
 
       effect.Resolve();
 
-      Publisher.Publish(new PlayerHasActivatedAbility(this, effect.AllTargets));
+      Publisher.Publish(new PlayerHasActivatedAbility(this, activation.Targets));
     }
 
     public override int CalculateHash(HashCalculator calc)
@@ -81,7 +82,7 @@
           {
             CanBeSatisfied = true,
             Description = Text,
-            TargetSelectors = TargetSelectors,
+            TargetSelector = TargetSelector,
             XCalculator = Cost.XCalculator,
             MaxX = maxX,
             Timming = _timming,
@@ -94,16 +95,17 @@
           };
     }
 
-    public T GetEffect<T>() where T : Effect
+    public T CreateEffect<T>(ITarget target) where T : Effect
     {
       return EffectFactory.CreateEffect(new EffectParameters(
-        source: this
+        source: this,
+        targets: new Targets().AddEffect(target)
         )) as T;
     }
 
     public void SetCost(ICostFactory costFactory)
     {
-      Cost = costFactory.CreateCost(OwningCard, TargetSelectors.Cost(0));
+      Cost = costFactory.CreateCost(OwningCard, TargetSelector.Cost.FirstOrDefault());
     }
 
     public void Timing(TimingDelegate timing)

@@ -1,6 +1,5 @@
 ﻿namespace Grove.Core.Targeting
 {
-  using System;
   using Controllers.Scenario;
   using Details.Cards;
   using Details.Cards.Effects;
@@ -9,14 +8,28 @@
   using Infrastructure;
   using Zones;
 
-  public interface ITarget : IHashable
-  {
-    void AddModifier(IModifier modifier);
-    void RemoveModifier(IModifier modifier);
-  }
+  public interface ITarget : IHashable {}
 
-  public static class TargetEx
+  public static class Target
   {
+    public static void AddModifier(this ITarget target, IModifier modifier)
+    {
+      var acceptsModifiers = target as IAcceptsModifiers;
+      if (acceptsModifiers != null)
+      {
+        acceptsModifiers.AddModifier(modifier);
+      }
+    }
+
+    public static void RemoveModifier(this ITarget target, IModifier modifier)
+    {
+      var acceptsModifiers = target as IAcceptsModifiers;
+      if (acceptsModifiers != null)
+      {
+        acceptsModifiers.RemoveModifier(modifier);
+      }
+    }
+
     public static Card Card(this ITarget target)
     {
       return target as Card;
@@ -34,7 +47,7 @@
       if (effect != null)
         return effect;
 
-      var lazyEffect = target as LazyEffect;
+      var lazyEffect = target as ScenarioEffect;
 
       return lazyEffect != null ? lazyEffect.Effect() : null;
     }
@@ -56,41 +69,37 @@
 
     public static bool IsEffect(this ITarget target)
     {
-      return target is Effect || target is LazyEffect;
+      return target is Effect || target is ScenarioEffect;
     }
 
-    public static bool HasColor(this ITarget target, ManaColors color)
+    public static bool HasColor(this ITarget target, ManaColors colors)
     {
-      return (target.IsCard() && target.Card().HasColor(color)) ||
-        (target.IsEffect() && target.Effect().Source.OwningCard.HasColor(color));
+      var hasColors = target as IHasColors;
+
+      if (hasColors != null)
+        return hasColors.HasColors(colors);
+
+      return false;
     }
 
     public static void DealDamage(this ITarget target, Damage damage)
     {
-      if (target.IsCard())
-      {
-        target.Card().DealDamage(damage);
-      }
+      var damageable = target as IDamageable;
 
-      if (target.IsPlayer())
+      if (damageable != null)
       {
-        target.Player().DealDamage(damage);
+        damageable.DealDamage(damage);
       }
     }
 
-    public static int LifepointsLeft(this ITarget target)
+    public static int Life(this ITarget target)
     {
-      if (target.IsCard())
-      {
-        return target.Card().CalculateLifepointsLeft();
-      }
+      var haslife = target as IHasLife;
 
-      if (target.IsPlayer())
-      {
-        return target.Player().Life;
-      }
+      if (haslife != null)
+        return haslife.Life;
 
-      throw new InvalidOperationException("Not a valid target");
+      return 0;
     }
 
     public static ITargetType Is(this ITarget target)
