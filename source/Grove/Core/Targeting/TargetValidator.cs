@@ -11,18 +11,19 @@
     private Game _game;
     private int? _maxCount = 1;
     private int _minCount = 1;
-    private bool _mustBeTargetable = true;
-    private string _textFormat = "Select a target.";
+    private bool _mustBeTargetable = true;    
+    private const string DefaultMessageOneTarget = "Select a target.";
+    private const string DefaultMessageMultipleTargets = "Select target: {0} of {1}.";
+    
     private TargetValidatorDelegate _validator = delegate { return true; };
     public Player Controller { get { return Source.Controller; } }
     public bool MustBeTargetable { get { return _mustBeTargetable; } set { _mustBeTargetable = value; } }
     public Card Source { get; private set; }
-    public string TextFormat { get { return _textFormat; } set { _textFormat = value; } }
+    public string MessageFormat { get; set; }
     public TargetValidatorDelegate Validator { get { return _validator; } set { _validator = value; } }
     public int? MaxCount { get { return _maxCount; } set { _maxCount = value; } }
-    public int MinCount { get { return _minCount; } set { _minCount = value; } }
-    public string Text { get { return string.Format(TextFormat, MinCount, MaxCount); } }
-
+    public int MinCount { get { return _minCount; } set { _minCount = value; } }        
+           
     public bool IsValid(ITarget target)
     {
       var valid = Validator(new TargetValidatorParameters(target, Source, _game));
@@ -31,6 +32,17 @@
         valid = valid && IsTargetable(target.Card());
 
       return valid;
+    }
+
+    public string GetMessage(int targetNumber)
+    {
+      var messageFormat = 
+        MessageFormat ??
+        (_maxCount == 1 ? DefaultMessageOneTarget : DefaultMessageMultipleTargets);
+
+      var maxNumber = MinCount == MaxCount ? MaxCount.ToString() : "max. " + MaxCount.ToString();
+
+      return string.Format(messageFormat, targetNumber, maxNumber);           
     }
 
     private bool IsTargetable(Card target)
@@ -52,9 +64,10 @@
         var targetSelector = new TargetValidator();
         targetSelector._game = Game;
         targetSelector.Source = source;
-        targetSelector.MustBeTargetable = true;
+        targetSelector.MustBeTargetable = true;        
 
         Init(targetSelector);
+        
 
         return targetSelector;
       }

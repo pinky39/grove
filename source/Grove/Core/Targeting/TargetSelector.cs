@@ -12,14 +12,19 @@
     private readonly List<TargetValidator> _costValidators = new List<TargetValidator>();
     private readonly List<TargetValidator> _effectValidators = new List<TargetValidator>();
 
-    public AiTargetSelectorDelegate AiSelector { get; set; }    
+    public AiTargetSelectorDelegate SelectAiTargets { get; set; }
 
     public int Count { get { return _costValidators.Count + _effectValidators.Count; } }
     public bool HasCost { get { return _costValidators.Count > 0; } }
-    public bool HasEffect { get { return _effectValidators.Count > 0; } }
+    public bool HasEffect { get { return _effectValidators.Count > 0; } }    
+    
+    public int GetEffectTargetCount(int selectorIndex = 0)
+    {
+      return Effect[selectorIndex].MinCount;
+    }
 
-    public IEnumerable<TargetValidator> Effect { get { return _effectValidators; } }
-    public IEnumerable<TargetValidator> Cost { get { return _costValidators; } }
+    public IList<TargetValidator> Effect { get { return _effectValidators; } }
+    public IList<TargetValidator> Cost { get { return _costValidators; } }
 
     public TargetsCandidates GenerateCandidates(TargetGeneratorDelegate generator)
     {

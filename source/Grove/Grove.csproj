@@ -153,6 +153,7 @@
     <Compile Include="Cards\Endoskeleton.cs" />
     <Compile Include="Cards\Evacuation.cs" />
     <Compile Include="Cards\Expunge.cs" />
+    <Compile Include="Cards\FieryMantle.cs" />
     <Compile Include="Cards\FleshReaver.cs" />
     <Compile Include="Cards\Forest.cs" />
     <Compile Include="Cards\FiresOfYavimaya.cs" />
@@ -165,10 +166,15 @@
     <Compile Include="Cards\GoForTheThroat.cs" />
     <Compile Include="Cards\GraspOfDarkness.cs" />
     <Compile Include="Cards\GraveTitan.cs" />
+    <Compile Include="Cards\HeatRay.cs" />
     <Compile Include="Cards\HeroOfBladehold.cs" />
+    <Compile Include="Cards\HiddenAncients.cs" />
+    <Compile Include="Cards\HiddenSpider.cs" />
     <Compile Include="Cards\Humble.cs" />
+    <Compile Include="Cards\Hush.cs" />
     <Compile Include="Cards\HypnoticSpecter.cs" />
     <Compile Include="Cards\Island.cs" />
+    <Compile Include="Cards\JaggedLightning.cs" />
     <Compile Include="Cards\LivingDestiny.cs" />
     <Compile Include="Cards\LlanowarElves.cs" />
     <Compile Include="Cards\LeatherbackBaloth.cs" />
@@ -208,8 +214,10 @@
     <Compile Include="Cards\SanctumCustodian.cs" />
     <Compile Include="Cards\SanctumGuardian.cs" />
     <Compile Include="Cards\SavannahLions.cs" />
+    <Compile Include="Cards\Scrap.cs" />
     <Compile Include="Cards\SerrasEmbrace.cs" />
     <Compile Include="Cards\ShivanRaptor.cs" />
+    <Compile Include="Cards\ShivsEmbrace.cs" />
     <Compile Include="Cards\Sicken.cs" />
     <Compile Include="Cards\SilentAttendant.cs" />
     <Compile Include="Cards\Songstitcher.cs" />
@@ -261,9 +269,11 @@
     <Compile Include="Core\Ai\QuickCombat.cs" />
     <Compile Include="Core\DeckFile.cs" />
     <Compile Include="Core\DeckRow.cs" />
+    <Compile Include="Core\Details\Cards\Effects\DealDistributedDamageToTargets.cs" />
+    <Compile Include="Core\Details\Cards\Modifiers\AddActivatedAbility.cs" />
     <Compile Include="Core\Targeting\IDamageDistributor.cs" />
     <Compile Include="Core\Dsl\UiTargetPostProcessors.cs" />
-    <Compile Include="Core\IAcceptsModifiers.cs" />
+    <Compile Include="Core\Details\Cards\IAcceptsModifiers.cs" />
     <Compile Include="Core\IHasColors.cs" />
     <Compile Include="Core\IHasLife.cs" />
     <Compile Include="Core\Messages\ControllerChanged.cs" />
@@ -293,7 +303,7 @@
     <Compile Include="Core\Details\Cards\Preventions\PreventLifelossBelowOne.cs" />
     <Compile Include="Core\Details\Mana\AggregateManaAmount.cs" />
     <Compile Include="Core\Ai\TargetCandidatesEx.cs" />
-    <Compile Include="Core\Ai\AiTargetSelectorParameters.cs" />
+    <Compile Include="Core\Ai\SelectorParameters.cs" />
     <Compile Include="Core\Ai\AiTargetSelectors.cs" />
     <Compile Include="Core\Ai\TargetScores.cs" />
     <Compile Include="Core\Ai\XCalculatorParameters.cs" />
@@ -318,7 +328,7 @@
     <Compile Include="Core\Details\Cards\Redirections\IDamageRedirectionFactory.cs" />
     <Compile Include="Core\Details\Cards\Redirections\RedirectDamageToTarget.cs" />
     <Compile Include="Core\Details\Cards\StaticAbility.cs" />
-    <Compile Include="Core\Targeting\NoDamageDistribution.cs" />
+    <Compile Include="Core\Targeting\NoDamageDistributor.cs" />
     <Compile Include="Core\Targeting\TargetCandidates.cs" />
     <Compile Include="Core\Targeting\Targets.cs" />
     <Compile Include="Core\Ai\InnerResult.cs" />
@@ -592,6 +602,9 @@
     <Compile Include="Ui\AttackerSelected.cs" />
     <Compile Include="Ui\AttackerUnselected.cs" />
     <Compile Include="Ui\BackgroundExtension.cs" />
+    <Compile Include="Ui\DistributeDamage\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Ui\DistributeDamage\ViewModel.cs" />
     <Compile Include="Ui\Graveyard\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
@@ -819,6 +832,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Ui\CombatDamage\View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\DistributeDamage\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

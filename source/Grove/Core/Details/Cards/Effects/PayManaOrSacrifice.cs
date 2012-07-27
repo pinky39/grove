@@ -9,6 +9,7 @@
   public class PayManaOrSacrifice : Effect
   {
     public IManaAmount Amount { get; set; }
+    public string Message = "Pay {0}?";
 
     protected override void ResolveEffect()
     {
@@ -27,7 +28,7 @@
             p.QueryUi = self =>
               {
                 var result = self.Shell.ShowMessageBox(
-                  message: string.Format("Pay {0}?", Amount),
+                  message: string.Format(Message, Amount),
                   buttons: MessageBoxButton.YesNo,
                   type: DialogType.Small);
 

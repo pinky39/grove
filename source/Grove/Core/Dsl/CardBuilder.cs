@@ -225,7 +225,7 @@
               selector.MaxCount = maxCount;
               
               if (text != null)
-                selector.TextFormat = text;
+                selector.MessageFormat = text;
             }
         };
     }

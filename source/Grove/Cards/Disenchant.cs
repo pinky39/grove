@@ -5,8 +5,8 @@
   using Core.Ai;
   using Core.Details.Cards.Effects;
   using Core.Dsl;
-  using Core.Targeting;
-
+  using Core.Targeting;  
+  
   public class Disenchant : CardsSource
   {
     public override IEnumerable<ICardFactory> GetCards()

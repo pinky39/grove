@@ -6,24 +6,27 @@
   using Targeting;
   using Zones;
 
-  public delegate List<Targets> AiTargetSelectorDelegate(AiTargetSelectorParameters parameters);
+  public delegate List<Targets> AiTargetSelectorDelegate(SelectorParameters parameters);
 
-  public class AiTargetSelectorParameters
+  public class SelectorParameters
   {
-    public AiTargetSelectorParameters(TargetsCandidates candidates, Card source, int? maxX, bool forceOne, Game game)
+    public SelectorParameters(TargetsCandidates candidates, TargetSelector selector, Card source, 
+      int? maxX, bool forceOne, Game game)
     {
       AllCandidates = candidates;
+      Selector = selector;
       Source = source;
       MaxX = maxX;
-      ForceOne = forceOne;
+      ForceAny = forceOne;
       Game = game;
     }
 
     public Game Game { get; private set; }
     public TargetsCandidates AllCandidates { get; private set; }
+    public TargetSelector Selector { get; private set; }
     public Card Source { get; private set; }
     public int? MaxX { get; private set; }
-    public bool ForceOne { get; private set; }
+    public bool ForceAny { get; private set; }
     public Player Opponent { get { return Game.Players.GetOpponent(Source.Controller); } }
     public Player Controller { get { return Source.Controller; } }
     public Combat Combat { get { return Game.Combat; } }
@@ -35,11 +38,11 @@
       return AllCandidates.HasCost ? AllCandidates.Cost(index) : AllCandidates.Effect(index);
     }
 
-    public List<Targets> MultipleTargetsOneChoice(IDamageDistributor distributor, List<ITarget> candidates)
+    public List<Targets> MultipleTargets(IDamageDistributor distributor, IList<ITarget> choice)
     {
       var targets = new Targets();
 
-      foreach (var candidate in candidates)
+      foreach (var candidate in choice)
       {
         targets.AddEffect(candidate);
       }
@@ -48,17 +51,22 @@
       return targets.ToEnumerable().ToList();
     }
 
-    public List<Targets> MultipleTargetsManyChoices(params List<ITarget>[] candidates)
+    public List<Targets> MultipleTargets(params IList<ITarget>[] choices)
+    {
+      return MultipleTargets((IList<IList<ITarget>>)choices);
+    }
+    
+    public List<Targets> MultipleTargets(IList<IList<ITarget>> choices)
     {
       var targetsList = new List<Targets>();
 
-      for (var i = 0; i < candidates[0].Count; i++)
+      for (var i = 0; i < choices[0].Count; i++)
       {
         var targets = new Targets();
 
-        for (var j = 0; j < candidates.Length; j++)
+        for (var j = 0; j < choices.Count; j++)
         {
-          targets.AddEffect(candidates[j][i]);
+          targets.AddEffect(choices[j][i]);
         }
 
         targetsList.Add(targets);

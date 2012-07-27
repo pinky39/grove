@@ -926,8 +926,8 @@
           card._kickerTargetSelector.AddCostSelector(factory.Create(card));
         }
 
-        card._targetSelector.AiSelector = _aiTargetSelector;
-        card._kickerTargetSelector.AiSelector = _kickerAiTargetSelector;
+        card._targetSelector.SelectAiTargets = _aiTargetSelector;
+        card._kickerTargetSelector.SelectAiTargets = _kickerAiTargetSelector;
 
         card._additionalCost = _additionalCost == null ? new NoCost()
           : _additionalCost.CreateCost(card, card._targetSelector.Cost.FirstOrDefault());
@@ -996,7 +996,11 @@
               t.Step = Step.Upkeep;
               t.OnlyOnceWhenInPlay = true;
             }),
-          c.Effect<PayManaOrSacrifice>(e => e.Amount = amount),
+          c.Effect<PayManaOrSacrifice>(e =>
+            {
+              e.Amount = amount;
+              e.Message = String.Format("Pay {0}'s echo?", e.Source.OwningCard);
+            }),
           triggerOnlyIfOwningCardIsInPlay: true);
 
         _triggeredAbilityFactories.Add(echoFactory);

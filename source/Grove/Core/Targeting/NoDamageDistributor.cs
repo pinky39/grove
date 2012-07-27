@@ -2,7 +2,7 @@
 {
   using System.Collections.Generic;
 
-  public class NoDamageDistribution : IDamageDistributor
+  public class NoDamageDistributor : IDamageDistributor
   {
     public IList<int> DistributeDamage(IList<ITarget> targets, int damage)
     {

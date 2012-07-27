@@ -18,12 +18,8 @@
       _isValid = isValid;
     }
 
-
     public int? MaxCount { get { return _maxTargetCount; } }
-
     public int MinCount { get { return _minTargetCount; } }
-
-    public string Text { get { return _text; } }
 
     public bool IsValid(ITarget target)
     {
@@ -32,6 +28,11 @@
         return false;
 
       return _isValid(card);
+    }
+
+    public string GetMessage(int targetNumber)
+    {
+      return _text;
     }
   }
 }

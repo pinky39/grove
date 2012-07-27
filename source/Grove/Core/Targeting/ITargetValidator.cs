@@ -3,8 +3,9 @@
   public interface ITargetValidator
   {
     int? MaxCount { get; }
-    int MinCount { get; }
-    string Text { get; }
+    int MinCount { get; }    
     bool IsValid(ITarget target);
+
+    string GetMessage(int targetNumber);
   }
 }

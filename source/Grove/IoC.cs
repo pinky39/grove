@@ -22,6 +22,7 @@
   using Core.Testing;
   using Core.Zones;
   using Infrastructure;
+  using Ui.DistributeDamage;
   using Ui.Permanent;
   using Ui.Shell;
 
@@ -117,10 +118,11 @@
           RegisterConfiguration(container);
 
           container.Register(Component(typeof (Match), lifestyle: LifestyleType.Singleton));
+          container.Register(Component(typeof (UiDamageDistribution)));
         }
 
         RegisterCardsSources(container);
-        RegisterDecisions(container);
+        RegisterDecisions(container);        
 
         container.Register(Component(typeof (Game), lifestyle: LifestyleType.Scoped));
         container.Register(Component(typeof (Game.IFactory)).AsFactory());
@@ -143,7 +145,7 @@
         container.Register(Component(typeof (IAttackerFactory), typeof (Attacker.Factory)));
         container.Register(Component(typeof (IBlockerFactory), typeof (Blocker.Factory)));
         container.Register(Component(typeof (CastRestrictions)));
-        container.Register(Component(typeof (StateMachine), lifestyle: LifestyleType.Scoped));
+        container.Register(Component(typeof (StateMachine), lifestyle: LifestyleType.Scoped));        
       }
 
       private void RegisterDecisions(IWindsorContainer container)

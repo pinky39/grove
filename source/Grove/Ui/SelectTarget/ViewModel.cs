@@ -19,7 +19,7 @@
       : this(targetValidator, canCancel, instructions, null, null) {}
 
     public ViewModel(ITargetValidator targetValidator, bool canCancel, string instructions,
-                     Action<ITarget> targetSelected, Action<ITarget> targetUnselected)
+      Action<ITarget> targetSelected, Action<ITarget> targetUnselected)
     {
       TargetValidator = targetValidator;
       Instructions = instructions;
@@ -37,12 +37,15 @@
       }
     }
 
+    public string Text { get { return TargetValidator.GetMessage(_selection.Count + 1); } }
     public string Instructions { get; private set; }
     private bool IsDone { get { return _selection.Count >= TargetValidator.MinCount; } }
     public IList<ITarget> Selection { get { return _selection; } }
     public ITargetValidator TargetValidator { get; private set; }
     public bool WasCanceled { get; private set; }
 
+
+    [Updates("Text")]
     public virtual void Receive(TargetSelected message)
     {
       if (_selection.Count >= TargetValidator.MaxCount)

@@ -197,7 +197,7 @@
     private SelectTarget.ViewModel ShowSelectorDialog(TargetValidator validator)
     {
       var dialog = _selectTargetVmFactory.Create(validator, canCancel: true,
-        instructions: "(Press Esc to cancel.)");
+        instructions: "(Press space when done, press Esc to cancel.)");
 
       _shell.ShowModalDialog(dialog, DialogType.Small, SelectionMode.SelectTarget);
       return dialog;

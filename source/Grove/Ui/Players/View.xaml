@@ -55,7 +55,7 @@
                     </DataTemplate.Resources>
                     
                     <Border>                            
-                        <Button>                            
+                        <Button Focusable="False">                            
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click">
                                     <cal:ActionMessage MethodName="SelectPlayer">

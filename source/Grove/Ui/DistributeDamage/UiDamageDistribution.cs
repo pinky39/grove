@@ -17,6 +17,11 @@
 
     public IList<int> DistributeDamage(IList<ITarget> targets, int damage)
     {
+      if (targets.Count == 1)
+      {
+        return new[] {damage};
+      }
+      
       var dialog = _distributeDamageDialog.Create(targets, damage);
       _shell.ShowModalDialog(dialog, DialogType.Large, SelectionMode.Disabled);
 

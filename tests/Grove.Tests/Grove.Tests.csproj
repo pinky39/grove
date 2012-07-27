@@ -108,8 +108,10 @@
     <Compile Include="Cards\EleshNornGrandCenobite.cs" />
     <Compile Include="Cards\Endoskeleton.cs" />
     <Compile Include="Cards\Evacuation.cs" />
+    <Compile Include="Cards\FieryMantle.cs" />
     <Compile Include="Cards\GraveTitan.cs" />
     <Compile Include="Cards\HeroOfBladeHold.cs" />
+    <Compile Include="Cards\JaggedLightning.cs" />
     <Compile Include="Cards\LivingDestiny.cs" />
     <Compile Include="Cards\ManaLeak.cs" />
     <Compile Include="Cards\MartialCoup.cs" />

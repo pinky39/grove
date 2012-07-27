@@ -15,8 +15,7 @@
 
     private readonly List<Targets> _targets;
 
-    public TargetGenerator(TargetSelector selector, Card source,
-                           Game game, int? maxX, bool forceOne = false)
+    public TargetGenerator(TargetSelector selector, Card source, Game game, int? maxX, bool forceOne = false)
     {
       _selector = selector;
       _source = source;
@@ -52,9 +51,18 @@
     }
 
     private List<Targets> GetValidTargets()
-    {
+    {            
       var candidates = _selector.GenerateCandidates(GenerateTargets);
-      return _selector.AiSelector(new AiTargetSelectorParameters(candidates, _source, _maxX, _forceOne, _game));
+      
+      var parameters = new SelectorParameters(        
+        candidates, 
+        _selector,
+        _source, 
+        _maxX, 
+        _forceOne, 
+        _game);
+      
+      return _selector.SelectAiTargets(parameters);
     }
   }
 }

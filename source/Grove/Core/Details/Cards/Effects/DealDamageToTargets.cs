@@ -1,37 +1,31 @@
 ﻿namespace Grove.Core.Details.Cards.Effects
 {
-  using System.Collections.Generic;
+  using System.Linq;
   using Modifiers;
   using Targeting;
 
   public class DealDamageToTargets : Effect
   {
-    public Value Amount = 0;
-    public bool GainLife;
-    private readonly List<int> _damageDistribution = new List<int>();
+    public Value  Amount = 0;    
+    public bool   GainLife;    
 
     public override int CalculatePlayerDamage(Player player)
     {
-      return player == Target() ? Amount.GetValue(X) : 0;
+      return Targets.Any(x=> x == player) ? Amount.GetValue(X) : 0;
     }
 
     public override int CalculateCreatureDamage(Card creature)
     {
-      return creature == Target() ? Amount.GetValue(X) : 0;
-    }
-
-    protected override void DistributeDamage(IDamageDistributor damageDistributor)
-    {
-      _damageDistribution.AddRange(damageDistributor.DistributeDamage(Targets, Amount.GetValue(X)));
-    }
+      return Targets.Any(x => x == creature) ? Amount.GetValue(X) : 0;
+    }  
 
     protected override void ResolveEffect()
-    {
+    {                  
       for (int i = 0; i < Targets.Count; i++)
       {
         var damage = new Damage(
           source: Source.OwningCard,
-          amount: _damageDistribution[i],
+          amount: Amount.GetValue(X),
           isCombat: false,
           changeTracker: Game.ChangeTracker);
                 

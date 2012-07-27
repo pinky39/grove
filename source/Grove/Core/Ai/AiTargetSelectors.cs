@@ -34,7 +34,7 @@
           var targets = p.Targets(candidates
             .OrderByDescending(x => x.Card().Score));
 
-          if (targets.Count == 0 && p.ForceOne)
+          if (targets.Count == 0 && p.ForceAny)
           {
             targets = p.Targets(p.Candidates().OrderBy(x => x.Card().Score));
           }
@@ -77,7 +77,7 @@
     }
 
     private static IEnumerable<Card> GetCandidatesForBlockerPowerToughnessIncrease(int? powerIncrease,
-      int? toughnessIncrease, AiTargetSelectorParameters p)
+      int? toughnessIncrease, SelectorParameters p)
     {
       return p.Candidates().RestrictController(p.Controller)
         .Where(x => x.Card().IsBlocker)
@@ -100,7 +100,7 @@
 
 
     private static IEnumerable<Card> GetCandidatesForAttackerPowerToughnessIncrease(int? powerIncrease,
-      int? toughnessIncrease, AiTargetSelectorParameters p)
+      int? toughnessIncrease, SelectorParameters p)
     {
       return p.Candidates().RestrictController(p.Controller)
         .Where(x => x.Card().IsAttacker)
@@ -163,7 +163,7 @@
         };
     }
 
-    public static AiTargetSelectorDelegate DealDamage(Func<AiTargetSelectorParameters, int> amount)
+    public static AiTargetSelectorDelegate DealDamage(Func<SelectorParameters, int> amount)
     {
       return p => DealDamage(amount(p))(p);
     }
@@ -190,16 +190,43 @@
                     Score = x.Card().Life <= amount ? x.Card().Score : 0
                   }))
             .OrderByDescending(x => x.Score)
-            .Select(x => x.Target);
+            .Select(x => x.Target)
+            .ToList();
 
-          var targets = p.Targets(candidates);
 
-          if (p.ForceOne && targets.Count == 0)
+          var targetCount = p.Selector.GetEffectTargetCount();
+
+          if (targetCount == 1)
           {
-            targets = p.Targets(p.Candidates().OrderByDescending(x => x.Card().Toughness));
+            var targets = p.Targets(candidates);
+            if (p.ForceAny && targets.Count == 0)
+            {
+              targets = p.Targets(p.Candidates().OrderByDescending(x => x.Card().Toughness));
+            }
+            return targets;  
+          }                           
+
+          if (candidates.Count < targetCount)
+          {
+            return p.NoTargets();
           }
 
-          return targets;
+          // vary only the last target          
+          var targetsCandidates = new List<IList<ITarget>>();
+          for (int i = 0; i < candidates.Count - 1; i++)
+          {
+            var targetCandidates = Enumerable
+              .Repeat(candidates[i], candidates.Count - targetCount + 1)
+              .ToList();
+
+            targetsCandidates.Add(targetCandidates);
+          }
+
+          targetsCandidates.Add(candidates.Skip(candidates.Count - 1)
+            .ToList());
+                    
+          
+          return p.MultipleTargets(targetsCandidates);
         };
     }
 
@@ -518,7 +545,7 @@
             }
           }
 
-          return p.MultipleTargetsManyChoices(sourcePicks, targetPicks);
+          return p.MultipleTargets(sourcePicks, targetPicks);
         };
     }
 
@@ -540,7 +567,7 @@
         };
     }
 
-    private static int CalculateDamageRedirectionScore(Card card, AiTargetSelectorParameters p)
+    private static int CalculateDamageRedirectionScore(Card card, SelectorParameters p)
     {
       const int protectionOffset = 200;
 
@@ -770,7 +797,7 @@
                 .ToList()
             };
 
-          return p.MultipleTargetsOneChoice(distribution, selected);
+          return p.MultipleTargets(distribution, selected);
         };
     }
   }

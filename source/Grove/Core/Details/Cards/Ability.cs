@@ -52,7 +52,7 @@
         TargetSelector.AddCostSelector(factory.Create(OwningCard));
       }
 
-      TargetSelector.AiSelector = aiTargetFilter;
+      TargetSelector.SelectAiTargets = aiTargetFilter;
     }
 
     public override string ToString()

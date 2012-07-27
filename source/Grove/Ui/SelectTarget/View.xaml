@@ -26,7 +26,7 @@
 		</Border.Resources>
         <StackPanel Orientation="Horizontal">
             <Image Margin="0,0,10,0" Style="{StaticResource DialogIcon}"/>
-            <TextBlock Foreground="#FFD700" Text = "{Binding TargetSelector.Text}" />
+            <TextBlock Foreground="#FFD700" Text = "{Binding Text}" />
             <TextBlock Margin="10,0,0,0" FontStyle="Italic" Text = "{Binding Instructions}" Visibility="{Binding Instructions, Converter={x:Static grove:Converters.NullToCollapsed}}" />
         </StackPanel>
         

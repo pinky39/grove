@@ -8,11 +8,11 @@
   [Copyable]
   public class Targets : IEnumerable<ITarget>, IHashable
   {
-    private static readonly NoDamageDistribution NoDistribution = new NoDamageDistribution();
+    private static readonly NoDamageDistributor NoDistributor = new NoDamageDistributor();
 
     private readonly List<ITarget> _costTargets = new List<ITarget>();
     private readonly List<ITarget> _effectTargets = new List<ITarget>();
-    private IDamageDistributor _damageDistributor = NoDistribution;
+    private IDamageDistributor _damageDistributor = NoDistributor;
     public int Count { get { return _effectTargets.Count + _costTargets.Count; } }
     public IList<ITarget> Effect { get { return _effectTargets; } }
     public IList<ITarget> Cost { get { return _costTargets; } }

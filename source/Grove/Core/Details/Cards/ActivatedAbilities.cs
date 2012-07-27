@@ -85,5 +85,15 @@
         activatedAbility.Disable();
       }
     }
+
+    public void Add(ActivatedAbility ability)
+    {
+      _abilities.Add(ability);
+    }
+
+    public void Remove(ActivatedAbility ability)
+    {
+      _abilities.Remove(ability);
+    }
   }
 }
