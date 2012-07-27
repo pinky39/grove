@@ -16,19 +16,12 @@
     }
 
     public int WhiteCount { get { return _manaBag.Count(x => x.IsSingleColor(ManaColors.White)); } }
-
     public int BlueCount { get { return _manaBag.Count(x => x.IsSingleColor(ManaColors.Blue)); } }
-
     public int BlackCount { get { return _manaBag.Count(x => x.IsSingleColor(ManaColors.Black)); } }
-
     public int RedCount { get { return _manaBag.Count(x => x.IsSingleColor(ManaColors.Red)); } }
-
     public int GreenCount { get { return _manaBag.Count(x => x.IsSingleColor(ManaColors.Green)); } }
-
     public int MultiCount { get { return _manaBag.Count(x => x.IsMultiColor); } }
-
     public int ColorlessCount { get { return _manaBag.Count(x => x.IsColorless); } }
-
     public bool IsEmpty { get { return _manaBag.IsEmpty; } }
 
     public int Priority { get { return 0; } }

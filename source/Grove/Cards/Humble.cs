@@ -19,7 +19,7 @@
         .Text("Target creature loses all abilities and becomes 0/1 until end of turn.")
         .FlavorText("'It is not your place to rule, Radiant. It may not even be mine.'{EOL}—Serra")
         .Timing(Timings.TargetRemovalInstant(combatOnly: true))        
-        .Effect<ApplyModifiersToTarget>(p =>
+        .Effect<ApplyModifiersToTargets>(p =>
           {
             p.Effect.ToughnessReduction = p.Effect.Target().Card().Toughness.Value - 1;
             p.Effect.Modifiers(

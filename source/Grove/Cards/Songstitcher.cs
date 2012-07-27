@@ -29,7 +29,7 @@
           C.ActivatedAbility(
             "{1}{W}: Prevent all combat damage that would be dealt this turn by target attacking creature with flying.",
             C.Cost<TapOwnerPayMana>((cost, _) => cost.Amount = "{1}{W}".ParseManaAmount()),
-            C.Effect<ApplyModifiersToTarget>(p => p.Effect.Modifiers(
+            C.Effect<ApplyModifiersToTargets>(p => p.Effect.Modifiers(
               p.Builder.Modifier<AddDamagePrevention>((m, c0) => m.Prevention = c0.Prevention<PreventDealtDamage>(),
                 untilEndOfTurn: true))),
             effectValidator: C.Validator(Validators.Creature(card => card.IsAttacker && card.Has().Flying)),

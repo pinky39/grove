@@ -10,7 +10,7 @@
 
   public class SelectorParameters
   {
-    public SelectorParameters(TargetsCandidates candidates, TargetSelector selector, Card source, 
+    public SelectorParameters(TargetsCandidates candidates, TargetSelector selector, Card source,
       int? maxX, bool forceOne, Game game)
     {
       AllCandidates = candidates;
@@ -33,9 +33,12 @@
     public Step Step { get { return Game.Turn.Step; } }
     public Stack Stack { get { return Game.Stack; } }
 
-    public IEnumerable<ITarget> Candidates(int index = 0)
+
+    public IList<TargetCandidates> EffectCandidates { get { return AllCandidates.Effect; } }
+
+    public IEnumerable<ITarget> Candidates()
     {
-      return AllCandidates.HasCost ? AllCandidates.Cost(index) : AllCandidates.Effect(index);
+      return AllCandidates.HasCost ? AllCandidates.Cost[0] : AllCandidates.Effect[0];
     }
 
     public List<Targets> MultipleTargets(IDamageDistributor distributor, IList<ITarget> choice)
@@ -53,9 +56,27 @@
 
     public List<Targets> MultipleTargets(params IList<ITarget>[] choices)
     {
-      return MultipleTargets((IList<IList<ITarget>>)choices);
+      return MultipleTargets((IList<IList<ITarget>>) choices);
     }
-    
+
+    public List<Targets> MultipleTargets(IList<IList<Card>> choices)
+    {
+      var targetsList = new List<Targets>();
+
+      for (var i = 0; i < choices[0].Count; i++)
+      {
+        var targets = new Targets();
+
+        for (var j = 0; j < choices.Count; j++)
+        {
+          targets.AddEffect(choices[j][i]);
+        }
+
+        targetsList.Add(targets);
+      }
+      return targetsList;
+    }
+
     public List<Targets> MultipleTargets(IList<IList<ITarget>> choices)
     {
       var targetsList = new List<Targets>();

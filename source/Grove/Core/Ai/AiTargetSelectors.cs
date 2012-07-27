@@ -163,55 +163,109 @@
         };
     }
 
-    public static AiTargetSelectorDelegate DealDamage(Func<SelectorParameters, int> amount)
+    public static AiTargetSelectorDelegate DealDamageSingleSelector(Func<SelectorParameters, int> amount)
     {
-      return p => DealDamage(amount(p))(p);
+      return p => DealDamageSingleSelector(amount(p))(p);
     }
 
-    public static AiTargetSelectorDelegate DealDamage(int? amount = null)
+    public static AiTargetSelectorDelegate DealDamageMultipleSelectors(int amount)
+    {
+      return p =>
+        {
+          // multiple selectors, vary targets only from first
+          // since the combinatorial complexity would be too great
+          // otherwise
+
+          var all = new List<IList<ITarget>>();
+
+          var firstSelectorCandidates = p.EffectCandidates[0]
+            .OrderByDamageScore(amount, p)
+            .ToList();
+
+          if (firstSelectorCandidates.Count == 0)
+            return p.NoTargets();
+
+          all.Add(firstSelectorCandidates);
+
+          for (int i = 1; i < p.EffectCandidates.Count; i++)
+          {
+            var otherSelectorCandidate = p.EffectCandidates[i]
+              .OrderByDamageScore(amount, p)
+              .FirstOrDefault();
+
+
+            if (otherSelectorCandidate == null)
+              return p.NoTargets();
+
+            // replicate the candidate for each target in
+            // first selector
+
+            all.Add(
+              Enumerable.Repeat(
+                otherSelectorCandidate,
+                firstSelectorCandidates.Count).ToList());
+          }
+
+          return p.MultipleTargets(all);
+        };
+    }
+
+    private static IEnumerable<ITarget> OrderByDamageScore(this IEnumerable<ITarget> targets, int amount,
+      SelectorParameters p)
+    {
+      var candidates = targets
+        .Where(x => x == p.Opponent)
+        .Select(x => new
+          {
+            Target = x,
+            Score = ScoreCalculator.CalculateLifelossScore(x.Player().Life, amount)
+          })
+        .Concat(
+          targets
+            .Where(x => x.IsCard() && x.Card().Controller == p.Opponent)
+            .Select(x => new
+              {
+                Target = x,
+                Score = x.Card().Life <= amount ? x.Card().Score : 0
+              }))
+        .OrderByDescending(x => x.Score)
+        .Select(x => x.Target);
+
+      return candidates;
+    }
+
+    public static AiTargetSelectorDelegate DealDamageSingleSelector(int? amount = null)
     {
       return p =>
         {
           amount = amount ?? p.MaxX;
 
           var candidates = p.Candidates()
-            .Where(x => x == p.Opponent)
-            .Select(x => new
-              {
-                Target = x,
-                Score = ScoreCalculator.CalculateLifelossScore(x.Player().Life, amount.Value)
-              })
-            .Concat(
-              p.Candidates()
-                .Where(x => x.IsCard() && x.Card().Controller == p.Opponent)
-                .Select(x => new
-                  {
-                    Target = x,
-                    Score = x.Card().Life <= amount ? x.Card().Score : 0
-                  }))
-            .OrderByDescending(x => x.Score)
-            .Select(x => x.Target)
+            .OrderByDamageScore(amount.Value, p)
             .ToList();
 
-
           var targetCount = p.Selector.GetEffectTargetCount();
-
-          if (targetCount == 1)
-          {
-            var targets = p.Targets(candidates);
-            if (p.ForceAny && targets.Count == 0)
-            {
-              targets = p.Targets(p.Candidates().OrderByDescending(x => x.Card().Toughness));
-            }
-            return targets;  
-          }                           
 
           if (candidates.Count < targetCount)
           {
             return p.NoTargets();
           }
-
-          // vary only the last target          
+          
+          if (targetCount == 1)
+          {
+            var targets = p.Targets(candidates);
+            
+            // triggered abilities force you to choose a target even if its
+            // not favorable e.g Flaming Kavu
+            if (p.ForceAny && targets.Count == 0)
+            {
+              targets = p.Targets(p.Candidates().OrderByDescending(x => x.Card().Toughness));
+            }
+            
+            return targets;
+          }
+          
+          // if multiple targets vary only the last target          
           var targetsCandidates = new List<IList<ITarget>>();
           for (int i = 0; i < candidates.Count - 1; i++)
           {
@@ -224,8 +278,8 @@
 
           targetsCandidates.Add(candidates.Skip(candidates.Count - 1)
             .ToList());
-                    
-          
+
+
           return p.MultipleTargets(targetsCandidates);
         };
     }
@@ -353,30 +407,65 @@
     {
       return p =>
         {
+          IList<Card> candidates;
+          
           if (p.Controller.IsActive && p.Step == Step.DeclareBlockers)
           {
-            var candidates = GetCandidatesForAttackerPowerToughnessIncrease(power, toughness, p);
-            return p.Targets(candidates);
+            candidates = GetCandidatesForAttackerPowerToughnessIncrease(power, toughness, p)             
+            .ToList();
+
           }
 
-          if (!p.Controller.IsActive && p.Step == Step.DeclareBlockers)
+          else if (!p.Controller.IsActive && p.Step == Step.DeclareBlockers)
           {
-            var candidates = GetCandidatesForBlockerPowerToughnessIncrease(power, toughness, p);
-            return p.Targets(candidates);
+            candidates = GetCandidatesForBlockerPowerToughnessIncrease(power, toughness, p).ToList();
           }
 
-          if ((!p.Controller.IsActive && p.Step == Step.EndOfTurn) ||
+          else if ((!p.Controller.IsActive && p.Step == Step.EndOfTurn) ||
             (p.Source.IsPermanent && p.Stack.CanBeDestroyedByTopSpell(p.Source)))
           {
-            return p.Targets(p.Candidates()
+            candidates = p.Candidates()
               .Where(x => x.Card().Controller == p.Controller)
-              .OrderByDescending(x => x.Card().Score));
+              .OrderByDescending(x => x.Card().Score)
+              .Select(x => x.Card()).ToList();
+          }
+          else
+          {
+            candidates = p.Candidates()
+              .Where(x => x.Card().Controller == p.Controller)
+              .Where(x => p.Stack.CanBeDealtLeathalDamageByTopSpell(x.Card()))
+              .Select(x => x.Card())
+              .ToList();
           }
 
-          return p.Targets(p.Candidates()
-            .Where(x => x.Card().Controller == p.Controller)
-            .Where(x => p.Stack.CanBeDealtLeathalDamageByTopSpell(x.Card()))
-            );
+          var targetCount = p.Selector.GetEffectTargetCount();
+          
+          if (candidates.Count < targetCount)
+            return p.NoTargets();
+
+        
+          if (targetCount == 1)
+          {
+            return p.Targets(candidates);
+          }
+
+          var targetsCandidates = new List<IList<Card>>();
+          
+          for (int i = 0; i < candidates.Count - 1; i++)
+          {
+            var targetCandidates = Enumerable
+              .Repeat(candidates[i], candidates.Count - targetCount + 1)
+              .ToList();
+
+            targetsCandidates.Add(targetCandidates);
+          }
+          
+          targetsCandidates.Add(candidates.Skip(candidates.Count - 1)
+            .ToList());
+          
+
+          return p.MultipleTargets(targetsCandidates);
+          
         };
     }
 
@@ -480,7 +569,7 @@
               sourcePicks.Add(p.Stack.TopSpell);
             }
 
-            var creatureKilledByTopSpell = p.Candidates(1)
+            var creatureKilledByTopSpell = p.EffectCandidates[1]
               .Where(x => x.IsCard())
               .Where(x => p.Stack.CanBeDealtLeathalDamageByTopSpell(x.Card()))
               .OrderByDescending(x => x.Card().Score)
@@ -505,7 +594,7 @@
                 sourcePicks.Add(attacker);
               }
 
-              var blockerAttackerPair = p.Candidates(1)
+              var blockerAttackerPair = p.EffectCandidates[1]
                 .Where(x => x.IsCard() && x.Card().IsBlocker)
                 .Select(x => new
                   {
@@ -525,7 +614,7 @@
             }
             else
             {
-              var blockerAttackerPair = p.Candidates(1)
+              var blockerAttackerPair = p.EffectCandidates[1]
                 .Where(x => x.IsCard() && x.Card().IsAttacker)
                 .Select(x => new
                   {
@@ -747,14 +836,14 @@
       return 1;
     }
 
-    public static AiTargetSelectorDelegate DealDamageDistribute(int? amount = null)
+    public static AiTargetSelectorDelegate DealDamageSingleSelectorDistribute(int? amount = null)
     {
       return p =>
         {
           amount = amount ?? p.MaxX;
 
           // this is a 0-1 knapsack optimization problem
-          
+
           var targets = p.Candidates()
             .Where(x => x.Is().Creature && x.Life() <= amount)
             .Select(x => new KnapsackItem<ITarget>(
@@ -770,14 +859,14 @@
                 var items = new List<KnapsackItem<ITarget>>();
 
                 const int decrementSoPlayerAtMostOnce = 1;
-                
+
                 for (int i = 1; i <= amount.Value; i++)
                 {
                   items.Add(
                     new KnapsackItem<ITarget>(
                       item: x,
                       weight: i,
-                      value: ScoreCalculator.CalculateLifelossScore(x.Player().Life, i) - decrementSoPlayerAtMostOnce)); 
+                      value: ScoreCalculator.CalculateLifelossScore(x.Player().Life, i) - decrementSoPlayerAtMostOnce));
                 }
 
                 return items;
@@ -788,7 +877,7 @@
             return p.NoTargets();
 
           var solution = Knapsack.Solve(targets, amount.Value);
-          var selected = solution.Select(x => x.Item).ToList();          
+          var selected = solution.Select(x => x.Item).ToList();
 
           var distribution = new AiDamageDistributor
             {

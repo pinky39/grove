@@ -1,5 +1,6 @@
 ﻿namespace Grove.Cards
 {
+  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -22,12 +23,12 @@
         .Timing(Timings.NoRestrictions())
         .Text(
           "{Kicker} {G}{EOL}Target creature can't be the target of spells or abilities your opponents control this turn. If Vines of Vastwood was kicked, that creature gets +4/+4 until end of turn.")
-        .Effect<ApplyModifiersToTarget>(p => p.Effect.Modifiers(
+        .Effect<ApplyModifiersToTargets>(p => p.Effect.Modifiers(
           p.Builder.Modifier<AddStaticAbility>((m, _) => m.StaticAbility = Static.Hexproof, untilEndOfTurn: true)))
         .Targets(
           aiTargetSelector: AiTargetSelectors.ShieldHexproof(),
           effectValidator: C.Validator(Validators.Creature()))
-        .KickerEffect<ApplyModifiersToTarget>(p => p.Effect.Modifiers(
+        .KickerEffect<ApplyModifiersToTargets>(p => p.Effect.Modifiers(
           p.Builder.Modifier<AddStaticAbility>((m, _) => m.StaticAbility = Static.Hexproof, untilEndOfTurn: true),
           p.Builder.Modifier<AddPowerAndToughness>((m, _) =>
             {

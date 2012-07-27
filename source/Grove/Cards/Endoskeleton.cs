@@ -29,7 +29,7 @@
                 cost.Amount = 2.AsColorlessMana();
                 cost.TapOwner = true;
               }),
-            C.Effect<Core.Details.Cards.Effects.ApplyModifiersToTarget>(p => p.Effect.Modifiers(
+            C.Effect<Core.Details.Cards.Effects.ApplyModifiersToTargets>(p => p.Effect.Modifiers(
               p.Builder.Modifier<AddPowerAndToughness>((m, c) =>
                 {
                   m.Toughness = 3;

@@ -19,7 +19,7 @@
         .FlavorText("Fire finds its form in the heat of the forge.")
         .Effect<DealDamageToTargets>(e => e.Amount = 3)
         .Timing(Timings.MainPhases())
-        .Targets(aiTargetSelector: AiTargetSelectors.DealDamage(3),
+        .Targets(aiTargetSelector: AiTargetSelectors.DealDamageSingleSelector(3),
           effectValidator: C.Validator(
             Validators.CreatureOrPlayer()));
     }

@@ -10,18 +10,13 @@
     private readonly List<TargetCandidates> _effectCandidates = new List<TargetCandidates>();
 
     public bool HasEffect { get { return _effectCandidates.Count > 0; } }
-
     public bool HasCost { get { return _costCandidates.Count > 0; } }
 
-    public TargetCandidates Cost(int i)
+    public IList<TargetCandidates> Cost {get { return _costCandidates; }}
+    public IList<TargetCandidates> Effect {get
     {
-      return i < _costCandidates.Count ? _costCandidates[i] : null;
-    }
-
-    public TargetCandidates Effect(int i)
-    {
-      return i < _effectCandidates.Count ? _effectCandidates[i] : null;
-    }
+      return _effectCandidates;
+    }}        
 
     public void AddCostCandidates(TargetCandidates candidates)
     {

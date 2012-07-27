@@ -218,6 +218,7 @@
     <Compile Include="Cards\SerrasEmbrace.cs" />
     <Compile Include="Cards\ShivanRaptor.cs" />
     <Compile Include="Cards\ShivsEmbrace.cs" />
+    <Compile Include="Cards\ShowerOfSparks.cs" />
     <Compile Include="Cards\Sicken.cs" />
     <Compile Include="Cards\SilentAttendant.cs" />
     <Compile Include="Cards\Songstitcher.cs" />
@@ -236,6 +237,7 @@
     <Compile Include="Cards\Swamp.cs" />
     <Compile Include="Cards\SwordOfFeastAndFamine.cs" />
     <Compile Include="Cards\SwordsToPlowshares.cs" />
+    <Compile Include="Cards\Symbiosis.cs" />
     <Compile Include="Cards\ThunderingGiant.cs" />
     <Compile Include="Cards\TrainedArmodon.cs" />
     <Compile Include="Cards\ThrunTheLastTroll.cs" />
@@ -570,7 +572,7 @@
     <Compile Include="Core\Details\Cards\Effects\ApplyModifiersToCreatures.cs" />
     <Compile Include="Core\Details\Cards\Effects\ApplyModifiersToSelfAndToTargets.cs" />
     <Compile Include="Core\Details\Cards\Effects\ApplyModifiersToSelf.cs" />
-    <Compile Include="Core\Details\Cards\Effects\ApplyModifiersToTarget.cs" />
+    <Compile Include="Core\Details\Cards\Effects\ApplyModifiersToTargets.cs" />
     <Compile Include="Core\Details\Cards\Effects\CreateTokens.cs" />
     <Compile Include="Core\Details\Cards\Effects\DealDamageToTargets.cs" />
     <Compile Include="Core\Details\Cards\Effects\DestroyTargetPermanent.cs" />

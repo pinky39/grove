@@ -1,6 +1,7 @@
 ﻿namespace Grove.Core.Targeting
 {
   using System.Collections.Generic;
+  using System.Linq;
   using Ai;
   using Infrastructure;
 
@@ -18,9 +19,9 @@
     public bool HasCost { get { return _costValidators.Count > 0; } }
     public bool HasEffect { get { return _effectValidators.Count > 0; } }    
     
-    public int GetEffectTargetCount(int selectorIndex = 0)
+    public int GetEffectTargetCount()
     {
-      return Effect[selectorIndex].MinCount;
+      return Effect.Sum(x=> x.MinCount);
     }
 
     public IList<TargetValidator> Effect { get { return _effectValidators; } }

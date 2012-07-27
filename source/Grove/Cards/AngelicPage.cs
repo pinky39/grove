@@ -28,7 +28,7 @@
           C.ActivatedAbility(
             "{T}: Target attacking or blocking creature gets +1/+1 until end of turn.",
             C.Cost<TapOwnerPayMana>((cost, _) => cost.TapOwner = true),
-            C.Effect<ApplyModifiersToTarget>(p => p.Effect.Modifiers(
+            C.Effect<ApplyModifiersToTargets>(p => p.Effect.Modifiers(
               p.Builder.Modifier<AddPowerAndToughness>((m, _) =>
                 {
                   m.Power = 1;

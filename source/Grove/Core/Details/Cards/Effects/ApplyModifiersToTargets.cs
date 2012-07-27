@@ -4,21 +4,32 @@
   using Modifiers;
   using Targeting;
 
-  public class ApplyModifiersToTarget : Effect
+  public class ApplyModifiersToTargets : Effect
   {
     private readonly List<IModifierFactory> _modifierFactories = new List<IModifierFactory>();
     public Value ToughnessReduction = 0;
 
     public override int CalculateToughnessReduction(Card creature)
     {
-      return Target() == creature ? ToughnessReduction.GetValue(X) : 0;
+      foreach (var target in Targets)
+      {
+        if (target == creature)
+        {
+          return ToughnessReduction.GetValue(X);
+        }
+      }
+
+      return 0;
     }
 
     protected override void ResolveEffect()
     {
-      foreach (var modifier in _modifierFactories.CreateModifiers(Source.OwningCard, Target(), X))
+      foreach (var target in Targets)
       {
-        Target().AddModifier(modifier);
+        foreach (var modifier in _modifierFactories.CreateModifiers(Source.OwningCard, target, X))
+        {
+          target.AddModifier(modifier);
+        }
       }
     }
 

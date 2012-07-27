@@ -36,7 +36,7 @@
               p.Builder.Effect<DrawCards>(e1 => e1.DrawCount = 1))),
             C.Validator(
               Validators.CreatureOrPlayer()),
-            aiTargetSelector: AiTargetSelectors.DealDamage(2)),
+            aiTargetSelector: AiTargetSelectors.DealDamageSingleSelector(2)),
           C.ActivatedAbility(
             "{2}: Attach to target creature you control. Equip only as a sorcery.",
             C.Cost<TapOwnerPayMana>((cost, _) => cost.Amount = 2.AsColorlessMana()),

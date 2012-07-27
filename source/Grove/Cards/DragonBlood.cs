@@ -30,7 +30,7 @@
                 cost.TapOwner = true;
                 cost.Amount = 3.AsColorlessMana();
               }),
-            C.Effect<ApplyModifiersToTarget>(p => p.Effect.Modifiers(
+            C.Effect<ApplyModifiersToTargets>(p => p.Effect.Modifiers(
               p.Builder.Modifier<AddCounters>((m, c) => m.Counter =
                 c.Counter<PowerToughness>((ct, _) =>
                   {

@@ -129,12 +129,14 @@
     <Compile Include="Cards\SanctumCustodian.cs" />
     <Compile Include="Cards\SanctumGuardian.cs" />
     <Compile Include="Cards\SealOfFire.cs" />
+    <Compile Include="Cards\ShowerOfSparks.cs" />
     <Compile Include="Cards\SilentAttendant.cs" />
     <Compile Include="Cards\Songstitcher.cs" />
     <Compile Include="Cards\SteamVents.cs" />
     <Compile Include="Cards\StudentOfWarfare.cs" />
     <Compile Include="Cards\SwordOfBodyAndMind.cs" />
     <Compile Include="Cards\SwordsToPlowshares.cs" />
+    <Compile Include="Cards\Symbiosis.cs" />
     <Compile Include="Cards\TimeWarp.cs" />
     <Compile Include="Cards\TripNoose.cs" />
     <Compile Include="Cards\UrzasArmor.cs" />
