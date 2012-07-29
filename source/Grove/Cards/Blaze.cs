@@ -5,6 +5,7 @@
   using Core.Ai;
   using Core.Details.Cards.Effects;
   using Core.Details.Cards.Modifiers;
+  using Core.Details.Mana;
   using Core.Dsl;
   using Core.Targeting;
 
@@ -15,7 +16,7 @@
     {
       yield return C.Card
         .Named("Blaze")
-        .ManaCost("{R}").XCalculator(VariableCost.TargetLifepointsLeft())
+        .ManaCost("{R}").XCalculator(VariableCost.TargetLifepointsLeft(ManaUsage.Spells))
         .Type("Sorcery")
         .Text("Blaze deals X damage to target creature or player.")
         .FlavorText("Fire never dies alone.")

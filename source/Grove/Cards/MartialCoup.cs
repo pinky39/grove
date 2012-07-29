@@ -18,7 +18,7 @@
         .ManaCost("{W}{W}").XCalculator(p =>
           {
             var you = p.Controller;
-            var maxX = you.ConvertedMana - p.Source.ManaCost.Converted;
+            var maxX = you.GetConvertedMana(ManaUsage.Spells) - p.Source.ManaCost.Converted;
 
             if (maxX >= 5)
             {

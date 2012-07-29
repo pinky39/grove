@@ -15,7 +15,7 @@
     public int Priority { get; set; }
     object IManaSource.Resource { get { return OwningCard; } }
 
-    public void Consume(IManaAmount amount)
+    public void Consume(IManaAmount amount, ManaUsage usage)
     {
       Cost.Pay(target: null, x: null);
       OwningCard.IncreaseUsageScore();
@@ -27,10 +27,10 @@
       // add overflow mana to manapool.          
       var manaBag = new ManaBag(amount);
       manaBag.Consume(amount);
-      Controller.AddManaToManaPool(manaBag.Amount);      
+      Controller.AddManaToManaPool(manaBag.GetAmount());      
     }
 
-    public IManaAmount GetAvailableMana()
+    public IManaAmount GetAvailableMana(ManaUsage usage)
     {
       var prerequisites = CanActivate();
       return prerequisites.CanBeSatisfied ? _manaAmount : ManaAmount.Zero;
@@ -59,7 +59,7 @@
       Effect(new Effect.Factory<AddManaToPool>
         {
           Game = Game,
-          Init = p => p.Effect.Mana = manaAmount
+          Init = p => p.Effect.Amount = manaAmount
         });
 
       _manaAmount = manaAmount;

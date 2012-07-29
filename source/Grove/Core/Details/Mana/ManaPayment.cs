@@ -27,9 +27,9 @@
       _available = available.Converted;
     }
 
-    public static bool CanPay(IManaAmount cost, IEnumerable<IManaSource> manaSources)
+    public static bool CanPay(IManaAmount cost, IEnumerable<IManaSource> manaSources, ManaUsage usage = ManaUsage.Any)
     {
-      var available = new AggregateManaAmount(manaSources.Select(x => x.GetAvailableMana()));
+      var available = new AggregateManaAmount(manaSources.Select(x => x.GetAvailableMana(usage)));
 
       if (cost.Converted > available.Converted)
         return false;
@@ -37,17 +37,17 @@
       return new ManaPayment(available).CanAssign(cost);
     }
 
-    public static void Pay(IManaAmount cost, IManaSource manaSource)
+    public static void Pay(IManaAmount cost, IManaSource manaSource, ManaUsage usage = ManaUsage.Any)
     {
-      Pay(cost, manaSource.ToEnumerable());
+      Pay(cost, manaSource.ToEnumerable(), usage);
     }
 
-    public static bool Pay(IManaAmount cost, IEnumerable<IManaSource> manaSources, IManaSource sourceToAvoid = null)
+    public static bool Pay(IManaAmount cost, IEnumerable<IManaSource> manaSources, ManaUsage usage = ManaUsage.Any, IManaSource sourceToAvoid = null)
     {
       var scoredSources = manaSources
         .Select(source =>
           {
-            var availableMana = source.GetAvailableMana();
+            var availableMana = source.GetAvailableMana(usage);
 
             var manasource = new ScoredSource(
               source,
@@ -68,7 +68,7 @@
 
       foreach (var pair in payment)
       {
-        pair.Key.Consume(new PrimitiveManaAmount(pair.Value));
+        pair.Key.Consume(new PrimitiveManaAmount(pair.Value), usage);
       }
 
       return true;

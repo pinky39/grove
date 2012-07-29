@@ -29,13 +29,13 @@
           if (p.Stack.TopSpell.Controller != p.Opponent)
             return false;
 
-          return !counterCost.HasValue || !p.Opponent.HasMana(counterCost.Value);
+          return !counterCost.HasValue || !p.Opponent.HasMana(counterCost.Value, ManaUsage.Any);
         };
     }
 
     public static TimingDelegate ControllerHasConvertedMana(int converted)
     {
-      return p => p.Controller.HasMana(converted);
+      return p => p.Controller.HasMana(converted, ManaUsage.Any);
     }
 
     public static TimingDelegate MassRemovalInstantSpeed()
@@ -225,7 +225,7 @@
             return false;
 
           var manaCost = new AggregateManaAmount(Enumerable.Repeat(activationCost, costToNextLevel.Value));
-          return p.Controller.HasMana(manaCost);
+          return p.Controller.HasMana(manaCost, ManaUsage.Abilities);
         };
     }
 
@@ -321,12 +321,12 @@
         {
           if (p.Step == Step.BeginningOfCombat && p.Controller.IsActive)
           {
-            return p.Controller.HasMana(minAvailableMana);
+            return p.Controller.HasMana(minAvailableMana, ManaUsage.Abilities);
           }
 
           if (p.Step == Step.DeclareAttackers && !p.Controller.IsActive)
           {
-            return p.Controller.HasMana(minAvailableMana) && p.Combat.Attackers.Any();
+            return p.Controller.HasMana(minAvailableMana, ManaUsage.Abilities) && p.Combat.Attackers.Any();
           }
 
           return false;
@@ -407,6 +407,11 @@
     public static TimingDelegate IsCreature()
     {
       return p => p.Card.Is().Creature;
+    }
+
+    public static TimingDelegate HasCounters(int count)
+    {
+      return p => p.Card.Counters >= 3;
     }
   }
 }

@@ -1,6 +1,7 @@
 ﻿namespace Grove.Core.Ai
 {
   using System;
+  using Details.Mana;
   using Targeting;
 
   public delegate int CalculateX(XCalculatorParameters parameters);
@@ -51,7 +52,7 @@
         };
     }
 
-    public static CalculateX TargetLifepointsLeft()
+    public static CalculateX TargetLifepointsLeft(ManaUsage usage)
     {
       return p =>
         {
@@ -60,7 +61,7 @@
           if (p.Target.IsPlayer())
           {
             const int minDamageToPlayer = 5;
-            var maxX = p.Controller.ConvertedMana - p.Source.ManaCost.Converted;
+            var maxX = p.Controller.GetConvertedMana(usage) - p.Source.ManaCost.Converted;
 
             var max = Math.Max(minDamageToPlayer, maxX);
             return Math.Min(max, lifepoints);

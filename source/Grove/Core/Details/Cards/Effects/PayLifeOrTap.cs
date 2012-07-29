@@ -4,6 +4,7 @@
   using System.Windows;
   using Controllers;
   using Controllers.Results;
+  using Mana;
   using Ui;
 
   public class PayLifeOrTap : Effect
@@ -32,7 +33,7 @@
 
                 // one less is available because the land
                 // is already counted
-                var available = controller.ConvertedMana - 1;
+                var available = controller.GetConvertedMana(ManaUsage.Any) - 1;
                 
                 return spellsWithCost.Any(x =>
                   x.ManaCost.Converted == available + 1);

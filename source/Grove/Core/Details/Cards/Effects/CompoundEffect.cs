@@ -1,6 +1,7 @@
 ﻿namespace Grove.Core.Details.Cards.Effects
 {
   using System.Collections.Generic;
+  using System.Linq;
 
   public class CompoundEffect : Effect
   {
@@ -10,6 +11,16 @@
     public void ChildEffects(params IEffectFactory[] effectFactories)
     {
       _effectFactories.AddRange(effectFactories);
+    }
+
+    public override int CalculateCreatureDamage(Card creature)
+    {
+      return _childEffects.Sum(x => x.CalculateCreatureDamage(creature));            
+    }
+
+    public override int CalculatePlayerDamage(Player player)
+    {
+      return _childEffects.Sum(x => x.CalculatePlayerDamage(player));
     }
 
     protected override void Init()

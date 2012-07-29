@@ -8,19 +8,19 @@
   using Core.Details.Mana;
   using Core.Dsl;
 
-  public class PollutedMire : CardsSource
+  public class SlipperyKarst : CardsSource
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
       yield return C.Card
-        .Named("Polluted Mire")
+        .Named("Slippery Karst")
         .Type("Land")
         .Text(
-          "Polluted Mire enters the battlefield tapped.{EOL}{T}: Add {B} to your mana pool.{EOL}{Cycling} {2}({2}, Discard this card: Draw a card.)")
+          "Slippery Karst enters the battlefield tapped.{EOL}{T}: Add {G} to your mana pool.{EOL}{Cycling} {2}({2}, Discard this card: Draw a card.)")
         .Timing(Timings.Lands())
         .Cycling("{2}")
         .Abilities(
-          C.ManaAbility(new ManaUnit(ManaColors.Black), "{T}: Add {B} to your mana pool."))
+          C.ManaAbility(new ManaUnit(ManaColors.Green), "{T}: Add {G} to your mana pool."))
         .Effect<PutIntoPlay>(e => e.PutIntoPlayTapped = true);
     }
   }

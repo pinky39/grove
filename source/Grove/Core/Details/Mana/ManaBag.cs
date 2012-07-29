@@ -31,7 +31,11 @@
       _bag = new List<ManaUnit>();
     }
 
-    public IManaAmount Amount { get { return new PrimitiveManaAmount(_bag); } }
+    public IManaAmount GetAmount()
+    {
+      return new PrimitiveManaAmount(_bag);
+    }
+
     public int Count { get { return _bag.Count; } }
     public bool IsEmpty { get { return _bag.Count == 0; } }
 
@@ -62,13 +66,7 @@
     {
       foreach (var mana in amount)
       {
-        var removed = _bag.Remove(mana);
-
-        if (!removed)
-        {
-          throw new InvalidOperationException(
-            String.Format("Mana {0} not found.", mana));
-        }
+        _bag.Remove(mana);        
       }
     }
 

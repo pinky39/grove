@@ -5,7 +5,7 @@
   using Ui.SelectTarget;
   using Ui.Shell;
 
-  public class SacrificeCreatures : Controllers.SacrificeCreatures
+  public class SacrificePermanents : Controllers.SacrificePermanents
   {
     public ViewModel.IFactory DialogFactory { get; set; }
     public IShell Shell { get; set; }
@@ -16,8 +16,8 @@
         new UiTargetValidator(
           minTargetCount: Count,
           maxTargetCount: Count,
-          text: string.Format("Select {0} creature(s) to sacrifice.", Count),
-          isValid: target => target.Is().Creature && target.Controller == Controller),
+          text: string.Format("Select {0} permanents to sacrifice.", Count),
+          isValid: target => Filter(target) && target.Controller == Controller),
         canCancel: false
         );
 

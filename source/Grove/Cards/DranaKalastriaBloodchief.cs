@@ -32,7 +32,7 @@
               {
                 cost.Amount = "{B}{B}".ParseManaAmount();
                 cost.HasX = true;
-                cost.XCalculator = VariableCost.TargetLifepointsLeft();
+                cost.XCalculator = VariableCost.TargetLifepointsLeft(ManaUsage.Abilities);
               }),
             C.Effect<ApplyModifiersToSelfAndToTargets>(p =>
               {

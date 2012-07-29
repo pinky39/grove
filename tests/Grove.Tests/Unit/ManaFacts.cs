@@ -47,7 +47,7 @@
 
       for (var i = 0; i < iterations; i++)
       {
-        manaSources.Has(amount);
+        manaSources.Has(amount, ManaUsage.Any);
       }
 
       stopwatch.Stop();
@@ -220,7 +220,7 @@
     private bool Has(IManaAmount available, IManaAmount amount)
     {
       var manaSources = new ManaSources(new MutableSource(available).ToEnumerable());
-      return manaSources.Has(amount);
+      return manaSources.Has(amount, ManaUsage.Any);
     }
 
     private void AssertHas(IManaAmount available, IManaAmount amount)
@@ -262,12 +262,12 @@
         get { return null; }
       }
 
-      public void Consume(IManaAmount amount)
+      public void Consume(IManaAmount amount, ManaUsage usage)
       {
         throw new NotImplementedException();
       }
 
-      public IManaAmount GetAvailableMana()
+      public IManaAmount GetAvailableMana(ManaUsage usage)
       {
         return _manaAmount;
       }
@@ -284,7 +284,7 @@
 
       public IManaAmount Amount
       {
-        get { return GetAvailableMana(); }
+        get { return GetAvailableMana(ManaUsage.Any); }
       }
 
       public int Priority
@@ -297,19 +297,19 @@
         get { return this; }
       }
 
-      public void Consume(IManaAmount amount)
+      public void Consume(IManaAmount amount, ManaUsage usage)
       {
         _bag.Consume(amount);
       }
 
-      public IManaAmount GetAvailableMana()
+      public IManaAmount GetAvailableMana(ManaUsage usage)
       {
-        return _bag.Amount;
+        return _bag.GetAmount();
       }
 
       public void Consume(Dictionary<int, List<ManaUnit>> payment)
       {
-        Consume(new PrimitiveManaAmount(payment[0]));
+        Consume(new PrimitiveManaAmount(payment[0]), ManaUsage.Any);
       }
     }
   }

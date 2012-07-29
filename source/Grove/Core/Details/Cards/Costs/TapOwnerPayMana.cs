@@ -1,6 +1,5 @@
 ﻿namespace Grove.Core.Details.Cards.Costs
 {
-  using System;
   using System.Linq;
   using Mana;
   using Targeting;
@@ -20,12 +19,12 @@
       if (Amount == null)
         return true;
 
-      if (!Controller.HasMana(Amount))
+      if (!Controller.HasMana(Amount, ManaUsage.Abilities))
         return false;
 
       if (HasX)
       {
-        maxX = Controller.ConvertedMana - Amount.Converted;
+        maxX = Controller.GetConvertedMana(ManaUsage.Abilities) - Amount.Converted;
       }
 
       return true;
@@ -48,11 +47,11 @@
         if (TryNotToConsumeCardsManaSourceWhenPayingThis)
         {
           var manaSource = Card.ManaSources.FirstOrDefault();
-          Controller.Consume(amount, tryNotToConsumeThisSource: manaSource);
+          Controller.Consume(amount, ManaUsage.Abilities, tryNotToConsumeThisSource: manaSource);
           return;
         }
 
-        Controller.Consume(amount);
+        Controller.Consume(amount, ManaUsage.Abilities);
       }
     }
   }

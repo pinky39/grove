@@ -13,7 +13,7 @@
 
     protected override void ResolveEffect()
     {
-      if (Controller.HasMana(Amount) == false)
+      if (Controller.HasMana(Amount, ManaUsage.Any) == false)
       {
         Source.OwningCard.Sacrifice();
         return;
@@ -39,7 +39,7 @@
               {
                 if (self.Result.IsTrue)
                 {
-                  self.Controller.Consume(Amount);
+                  self.Controller.Consume(Amount, ManaUsage.Any);
                   return;
                 }
 

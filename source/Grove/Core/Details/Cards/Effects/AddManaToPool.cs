@@ -4,11 +4,12 @@
 
   public class AddManaToPool : Effect
   {
-    public IManaAmount Mana { get; set; }
+    public IManaAmount Amount;
+    public bool UseOnlyForAbilities;
 
     protected override void ResolveEffect()
-    {
-      Controller.AddManaToManaPool(Mana);
+    {            
+      Controller.AddManaToManaPool(Amount, UseOnlyForAbilities);
     }
   }
 }

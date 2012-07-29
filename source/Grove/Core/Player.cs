@@ -129,7 +129,10 @@
       }
     }
 
-    public int ConvertedMana { get { return _manaSources.GetMaxConvertedMana(); } }
+    public int GetConvertedMana(ManaUsage usage)
+    {
+      return _manaSources.GetMaxConvertedMana(usage);
+    }
 
     public void DealDamage(Damage damage)
     {
@@ -185,8 +188,14 @@
       modifier.Dispose();
     }
 
-    public void AddManaToManaPool(IManaAmount manaAmount)
+    public void AddManaToManaPool(IManaAmount manaAmount, bool useOnlyForAbilities = false)
     {
+      if (useOnlyForAbilities)
+      {
+        _manaPool.AddAbilities(manaAmount);
+        return;
+      }
+      
       _manaPool.Add(manaAmount);
     }
 
@@ -195,9 +204,9 @@
       _assignedDamage.Assign(damage);
     }
 
-    public void Consume(IManaAmount amount, IManaSource tryNotToConsumeThisSource = null)
+    public void Consume(IManaAmount amount, ManaUsage usage, IManaSource tryNotToConsumeThisSource = null)
     {
-      _manaSources.Consume(amount, tryNotToConsumeThisSource);
+      _manaSources.Consume(amount, usage, tryNotToConsumeThisSource);
     }
 
     public void DealAssignedDamage()
@@ -280,17 +289,17 @@
       }
     }
 
-    public bool HasMana(int amount)
+    public bool HasMana(int amount, ManaUsage usage = ManaUsage.Any)
     {
-      return _manaSources.GetMaxConvertedMana() >= amount;
+      return _manaSources.GetMaxConvertedMana(usage) >= amount;
     }
 
-    public bool HasMana(IManaAmount amount)
+    public bool HasMana(IManaAmount amount, ManaUsage usage = ManaUsage.Any)
     {
       if (amount == null)
         return true;
 
-      return _manaSources.Has(amount);
+      return _manaSources.Has(amount, usage);
     }
 
     public void MoveCreaturesWithLeathalDamageOrZeroTougnessToGraveyard()

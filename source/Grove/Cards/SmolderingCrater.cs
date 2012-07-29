@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -8,19 +7,19 @@
   using Core.Details.Mana;
   using Core.Dsl;
 
-  public class PollutedMire : CardsSource
+  public class SmolderingCrater : CardsSource
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
       yield return C.Card
-        .Named("Polluted Mire")
+        .Named("Smoldering Crater")
         .Type("Land")
         .Text(
-          "Polluted Mire enters the battlefield tapped.{EOL}{T}: Add {B} to your mana pool.{EOL}{Cycling} {2}({2}, Discard this card: Draw a card.)")
+          "Smoldering Crater enters the battlefield tapped.{EOL}{T}: Add {R} to your mana pool.{EOL}{Cycling} {2}({2}, Discard this card: Draw a card.)")
         .Timing(Timings.Lands())
         .Cycling("{2}")
         .Abilities(
-          C.ManaAbility(new ManaUnit(ManaColors.Black), "{T}: Add {B} to your mana pool."))
+          C.ManaAbility(new ManaUnit(ManaColors.Red), "{T}: Add {R} to your mana pool."))
         .Effect<PutIntoPlay>(e => e.PutIntoPlayTapped = true);
     }
   }

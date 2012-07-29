@@ -221,6 +221,8 @@
     <Compile Include="Cards\ShowerOfSparks.cs" />
     <Compile Include="Cards\Sicken.cs" />
     <Compile Include="Cards\SilentAttendant.cs" />
+    <Compile Include="Cards\SlipperyKarst.cs" />
+    <Compile Include="Cards\SmolderingCrater.cs" />
     <Compile Include="Cards\Songstitcher.cs" />
     <Compile Include="Cards\StirringWildwood.cs" />
     <Compile Include="Cards\StudentOfWarfare.cs" />
@@ -238,7 +240,9 @@
     <Compile Include="Cards\SwordOfFeastAndFamine.cs" />
     <Compile Include="Cards\SwordsToPlowshares.cs" />
     <Compile Include="Cards\Symbiosis.cs" />
+    <Compile Include="Cards\ThranTurbine.cs" />
     <Compile Include="Cards\ThunderingGiant.cs" />
+    <Compile Include="Cards\TorchSong.cs" />
     <Compile Include="Cards\TrainedArmodon.cs" />
     <Compile Include="Cards\ThrunTheLastTroll.cs" />
     <Compile Include="Cards\TimeWarp.cs" />
@@ -262,6 +266,7 @@
     <Compile Include="Cards\Waylay.cs" />
     <Compile Include="Cards\WhiteKnight.cs" />
     <Compile Include="Cards\WildDogs.cs" />
+    <Compile Include="Cards\WildFire.cs" />
     <Compile Include="Cards\Worship.cs" />
     <Compile Include="Cards\WurmcoilEngine.cs" />
     <Compile Include="Cards\WallOfDenial.cs" />
@@ -271,8 +276,12 @@
     <Compile Include="Core\Ai\QuickCombat.cs" />
     <Compile Include="Core\DeckFile.cs" />
     <Compile Include="Core\DeckRow.cs" />
+    <Compile Include="Core\Details\Cards\Costs\SacOwnerPayMana.cs" />
     <Compile Include="Core\Details\Cards\Effects\DealDistributedDamageToTargets.cs" />
+    <Compile Include="Core\Details\Cards\Effects\PlayersSacrificeLands.cs" />
     <Compile Include="Core\Details\Cards\Modifiers\AddActivatedAbility.cs" />
+    <Compile Include="Core\Details\Cards\Triggers\TriggerOrder.cs" />
+    <Compile Include="Core\Details\Mana\ManaUsage.cs" />
     <Compile Include="Core\Targeting\IDamageDistributor.cs" />
     <Compile Include="Core\Dsl\UiTargetPostProcessors.cs" />
     <Compile Include="Core\Details\Cards\IAcceptsModifiers.cs" />
@@ -356,7 +365,7 @@
     <Compile Include="Core\Controllers\Machine\DeclareBlockers.cs" />
     <Compile Include="Core\Controllers\Machine\DiscardCards.cs" />
     <Compile Include="Core\Controllers\Machine\IDecisionExecution.cs" />
-    <Compile Include="Core\Controllers\Machine\SacrificeCreatures.cs" />
+    <Compile Include="Core\Controllers\Machine\SacrificePermanents.cs" />
     <Compile Include="Core\Controllers\Machine\SelectStartingPlayer.cs" />
     <Compile Include="Core\Controllers\Machine\SetDamageAssignmentOrder.cs" />
     <Compile Include="Core\Controllers\Machine\SetTriggeredAbilityTarget.cs" />
@@ -454,7 +463,7 @@
     <Compile Include="Core\Controllers\DiscardCards.cs" />
     <Compile Include="Core\Controllers\Results\ChosenPlayer.cs" />
     <Compile Include="Core\Controllers\Decisions.cs" />
-    <Compile Include="Core\Controllers\SacrificeCreatures.cs" />
+    <Compile Include="Core\Controllers\SacrificePermanents.cs" />
     <Compile Include="Core\Controllers\SelectStartingPlayer.cs" />
     <Compile Include="Core\Controllers\SetDamageAssignmentOrder.cs" />
     <Compile Include="Core\Controllers\Results\Spell.cs" />
@@ -541,7 +550,7 @@
     <Compile Include="Core\Controllers\Human\DiscardCards.cs" />
     <Compile Include="Core\Controllers\Human\AssignCombatDamage.cs" />
     <Compile Include="Core\Controllers\Human\PlaySpellOrAbility.cs" />
-    <Compile Include="Core\Controllers\Human\SacrificeCreatures.cs" />
+    <Compile Include="Core\Controllers\Human\SacrificePermanents.cs" />
     <Compile Include="Core\Controllers\Human\SetTriggeredAbilityTarget.cs" />
     <Compile Include="Core\Controllers\Human\SetDamageAssignmentOrder.cs" />
     <Compile Include="Core\Controllers\Human\TakeMulligan.cs" />

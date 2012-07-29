@@ -44,34 +44,34 @@
       }
     }
 
-    public void Consume(IManaAmount amount, IManaSource sourceToAvoid)
+    public void Consume(IManaAmount amount, ManaUsage usage, IManaSource sourceToAvoid)
     {
       foreach (var sources in EnumerateSources())
       {
-        if (ManaPayment.Pay(amount, sources, sourceToAvoid))
+        if (ManaPayment.Pay(amount, sources,  usage, sourceToAvoid))
         {
           break;
         }
       }
     }
 
-    public int GetMaxConvertedMana()
+    public int GetMaxConvertedMana(ManaUsage usage)
     {
       return _sources.Sum(sourcesWithSameResource =>
-        sourcesWithSameResource.Sources.Max(x => x.GetAvailableMana().Converted));
+        sourcesWithSameResource.Sources.Max(x => x.GetAvailableMana(usage).Converted));
     }
 
-    public bool Has(IManaAmount amount)
+    public bool Has(IManaAmount amount, ManaUsage usage)
     {
-      return QuickCheck(amount) ?? SlowCheck(amount);
+      return QuickCheck(amount, usage) ?? SlowCheck(amount, usage);
     }
 
-    private bool? QuickCheck(IManaAmount amount)
+    private bool? QuickCheck(IManaAmount amount, ManaUsage usage)
     {
-      return ColorlessManaCheck(amount) ?? SingleManaCheck(amount);
+      return ColorlessManaCheck(amount, usage) ?? SingleManaCheck(amount, usage);
     }
 
-    private bool? ColorlessManaCheck(IManaAmount amount)
+    private bool? ColorlessManaCheck(IManaAmount amount, ManaUsage usage)
     {
       if (!amount.IsColorless)
         return null;
@@ -80,7 +80,7 @@
 
       foreach (var sourcesWithSameResource in _sources)
       {
-        total -= sourcesWithSameResource.Sources[0].GetAvailableMana().Converted;
+        total -= sourcesWithSameResource.Sources[0].GetAvailableMana(usage).Converted;
 
         if (total <= 0)
           return true;
@@ -89,7 +89,7 @@
       return false;
     }
 
-    private bool? SingleManaCheck(IManaAmount amount)
+    private bool? SingleManaCheck(IManaAmount amount, ManaUsage usage)
     {
       if (amount.Converted > 1)
         return null;
@@ -98,7 +98,7 @@
       {
         foreach (var source in sourcesWithSameResource.Sources)
         {
-          if (source.GetAvailableMana().Has(amount.First))
+          if (source.GetAvailableMana(usage).Has(amount.First))
             return true;
         }
       }
@@ -106,11 +106,11 @@
       return false;
     }
 
-    private bool SlowCheck(IManaAmount amount)
+    private bool SlowCheck(IManaAmount amount, ManaUsage usage)
     {
       foreach (var sources in EnumerateSources())
       {
-        if (ManaPayment.CanPay(amount, sources))
+        if (ManaPayment.CanPay(amount, sources, usage))
         {
           return true;
         }
@@ -120,7 +120,7 @@
 
     public override string ToString()
     {
-      return GetMaxConvertedMana().ToString();
+      return GetMaxConvertedMana(ManaUsage.Any).ToString();
     }
 
     private IEnumerable<List<IManaSource>> EnumerateSources(List<IManaSource> current = null, int currentIndex = 0)

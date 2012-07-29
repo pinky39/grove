@@ -6,37 +6,25 @@
 
   public class ManaUnit : IEquatable<ManaUnit>
   {
-    private readonly ManaColors _colors;
+    private readonly ManaColors _colors;    
 
     public ManaUnit(ManaColors colors = ManaColors.Colorless)
     {
-      _colors = colors;
+      _colors = colors;      
     }
-
+    
     public static ManaUnit Any { get { return new ManaUnit(ManaColors.White | ManaColors.Blue | ManaColors.Black | ManaColors.Red | ManaColors.Green); } }
-
     public static ManaUnit Black { get { return new ManaUnit(ManaColors.Black); } }
-
     public static ManaUnit Blue { get { return new ManaUnit(ManaColors.Blue); } }
-
     public ManaColors Colors { get { return _colors; } }
-
     public static ManaUnit Green { get { return new ManaUnit(ManaColors.Green); } }
-
     public bool IsColored { get { return !IsColorless; } }
-
     public bool IsColorless { get { return _colors == ManaColors.Colorless; } }
-
     public bool IsMultiColor { get { return Rank > 1; } }
-
     public int Order { get { return (int) _colors; } }
-
     public int Rank { get { return EnumEx.GetSetBitCount((long) _colors); } }
-
     public static ManaUnit Red { get { return new ManaUnit(ManaColors.Red); } }
-
     public string Symbol { get { return String.Join(String.Empty, ManaAmount.GetSymbolsFromColor(_colors)); } }
-
     public static ManaUnit White { get { return new ManaUnit(ManaColors.White); } }
 
     public bool Equals(ManaUnit other)

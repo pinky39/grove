@@ -1,12 +1,11 @@
 ﻿namespace Grove.Infrastructure
 {
+  using System.Collections.Generic;
   using System.Linq;
   using Castle.DynamicProxy;
-  using log4net;
 
   public class Publisher : ICopyable
   {
-    private static readonly ILog Log = LogManager.GetLogger(typeof (Publisher));
     private ChangeTracker _changeTracker;
     private TrackableList<object> _subscribers;
 
@@ -61,17 +60,29 @@
     private void NotifySubscribers<TMessage>(TMessage message)
     {
       var subscribers = _subscribers.ToArray();
-
-      //Log.DebugFormat("Subscribers count: {0}.", subscribers.Count());
+      var ordered = new List<IOrderedReceive<TMessage>>();
 
       foreach (var reference in subscribers)
       {
+        var orderedTargets = reference as IOrderedReceive<TMessage>;
+
+        if (orderedTargets != null)
+        {
+          ordered.Add(orderedTargets);
+          continue;
+        }
+
         var target = reference as IReceive<TMessage>;
 
         if (target != null)
         {
           target.Receive(message);
         }
+      }
+
+      foreach (var orderedReceive in ordered.OrderBy(x => x.Order))
+      {
+        orderedReceive.Receive(message);
       }
     }
   }

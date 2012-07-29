@@ -18,7 +18,7 @@
     {
       var targetSpellController = Target().Effect().Controller;
 
-      if (DoNotCounterCost != null && targetSpellController.HasMana(DoNotCounterCost))
+      if (DoNotCounterCost != null && targetSpellController.HasMana(DoNotCounterCost, ManaUsage.Any))
       {
         Decisions.Enqueue<AdHocDecision<BooleanResult>>(
           controller: targetSpellController,
@@ -40,7 +40,7 @@
                 {
                   if (self.Result.IsTrue)
                   {
-                    self.Controller.Consume(DoNotCounterCost);
+                    self.Controller.Consume(DoNotCounterCost, ManaUsage.Any);
                     return;
                   }
 

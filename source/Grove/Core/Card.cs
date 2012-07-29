@@ -443,7 +443,7 @@
         return new SpellPrerequisites {CanBeSatisfied = false};
 
       var canCastWithKicker = HasKicker
-        ? Owner.HasMana(ManaCostWithKicker)
+        ? Owner.HasMana(ManaCostWithKicker, ManaUsage.Spells)
         : false;
 
       return new SpellPrerequisites
@@ -688,7 +688,7 @@
       int? maxX = null;
       if (HasXInCost)
       {
-        maxX = Controller.ConvertedMana - ManaCostWithKicker.Converted;
+        maxX = Controller.GetConvertedMana(ManaUsage.Spells) - ManaCostWithKicker.Converted;
       }
       return maxX;
     }
@@ -716,7 +716,7 @@
     public bool CanPayCastingCost()
     {
       return _additionalCost.CanPay() &&
-        Controller.HasMana(ManaCost);
+        Controller.HasMana(ManaCost, ManaUsage.Spells);
     }
 
     public void PayCastingCost(ActivationParameters activationParameters)
@@ -732,7 +732,7 @@
         {
           manaCost = manaCost.Add(activationParameters.X.Value);
         }
-        Controller.Consume(manaCost);
+        Controller.Consume(manaCost, ManaUsage.Spells);
       }
 
       _additionalCost.Pay(

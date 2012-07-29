@@ -8,8 +8,6 @@
 
   public class BirdsOfParadise
   {
-    #region Nested type: Ai
-
     public class Ai : AiScenario
     {
       [Fact]
@@ -24,10 +22,6 @@
         Equal(Zone.Battlefield, C(bear).Zone);
       }
     }
-
-    #endregion
-
-    #region Nested type: Predefined
 
     public class Predefined : PredefinedScenario
     {
@@ -52,7 +46,5 @@
           );
       }
     }
-
-    #endregion
   }
 }

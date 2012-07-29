@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core.Details.Cards.Effects
 {
+  using System;
   using Controllers;
 
   public class OpponentSacrificesCreatures : Effect
@@ -10,9 +11,13 @@
     {
       var opponent = Players.GetOpponent(Controller);
       
-      Decisions.Enqueue<SacrificeCreatures>(
+      Decisions.Enqueue<SacrificePermanents>(
         controller: opponent, 
-        init: p=> p.Count = Count);
+        init: p =>
+          {
+            p.Count = Count;
+            p.Filter = card => card.Is().Creature;
+          });
     }
   }
 }

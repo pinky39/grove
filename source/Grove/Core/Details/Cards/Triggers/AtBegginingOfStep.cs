@@ -3,13 +3,13 @@
   using Infrastructure;
   using Messages;
 
-  public class AtBegginingOfStep : Trigger, IReceive<StepStarted>, IReceive<CardChangedZone>
+  public class AtBegginingOfStep : Trigger, IOrderedReceive<StepStarted>, IReceive<CardChangedZone>
   {
     public bool ActiveTurn = true;
-
     public bool OnlyOnceWhenInPlay;
     public bool PassiveTurn;
-    public Step Step { get; set; }
+    public Step Step { get; set; }    
+    public int Order { get; set; }
 
     public void Receive(CardChangedZone message)
     {

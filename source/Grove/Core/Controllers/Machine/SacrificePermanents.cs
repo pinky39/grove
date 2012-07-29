@@ -3,12 +3,12 @@
   using System.Linq;
   using Ai;
 
-  public class SacrificeCreatures : Controllers.SacrificeCreatures
+  public class SacrificePermanents : Controllers.SacrificePermanents
   {
     protected override void ExecuteQuery()
     {
-      var creaturesToSacrifice = Controller.Battlefield
-        .Creatures
+      var permenents = Controller.Battlefield
+        .Where(Filter)
         .Select(card => new
           {
             Card = card,
@@ -17,7 +17,7 @@
         .OrderBy(x => x.Score)
         .Select(x => x.Card).Take(Count);
 
-      Result = creaturesToSacrifice.ToList();
+      Result = permenents.ToList();
     }
   }
 }
