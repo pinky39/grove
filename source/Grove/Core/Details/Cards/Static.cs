@@ -20,6 +20,7 @@
     Swampwalk,
     CannotBlock,
     CannotAttack,
-    Islandwalk
+    Islandwalk,
+    DoesNotUntap
   }
 }

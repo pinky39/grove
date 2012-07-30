@@ -66,8 +66,12 @@
       return p => p.Target.IsPermanent() && p.Target.Is().Creature;
     }
 
-    public static TargetValidatorDelegate Creature(Func<Card, bool> filter = null,
-                                                   Controller controller = Controller.Any)
+    public static TargetValidatorDelegate Creature(Func<TargetValidatorParameters, bool> filter)
+    {      
+      return p => p.Target.IsPermanent() && p.Target.Is().Creature && filter(p);
+    }
+        
+    public static TargetValidatorDelegate Creature(Func<Card, bool> filter = null, Controller controller = Controller.Any)
     {
       filter = filter ?? delegate { return true; };
 

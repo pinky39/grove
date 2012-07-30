@@ -122,6 +122,7 @@
     <Compile Include="Cards\Pariah.cs" />
     <Compile Include="Cards\Pestilence.cs" />
     <Compile Include="Cards\PhyrexianArena.cs" />
+    <Compile Include="Cards\PhyrexianGhoul.cs" />
     <Compile Include="Cards\Rancor.cs" />
     <Compile Include="Cards\Recoil.cs" />
     <Compile Include="Cards\RuneOfProtectionBlack.cs" />
@@ -131,6 +132,7 @@
     <Compile Include="Cards\SealOfFire.cs" />
     <Compile Include="Cards\ShowerOfSparks.cs" />
     <Compile Include="Cards\SilentAttendant.cs" />
+    <Compile Include="Cards\Somnophore.cs" />
     <Compile Include="Cards\Songstitcher.cs" />
     <Compile Include="Cards\SteamVents.cs" />
     <Compile Include="Cards\StudentOfWarfare.cs" />

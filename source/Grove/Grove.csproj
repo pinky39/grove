@@ -197,8 +197,10 @@
     <Compile Include="Cards\Pacifism.cs" />
     <Compile Include="Cards\Pariah.cs" />
     <Compile Include="Cards\PegasusCharger.cs" />
+    <Compile Include="Cards\PendrellDrake.cs" />
     <Compile Include="Cards\Pestilence.cs" />
     <Compile Include="Cards\PhyrexianArena.cs" />
+    <Compile Include="Cards\PhyrexianGhoul.cs" />
     <Compile Include="Cards\Plains.cs" />
     <Compile Include="Cards\PollutedMire.cs" />
     <Compile Include="Cards\PouncingJaguar.cs" />
@@ -213,6 +215,8 @@
     <Compile Include="Cards\RumblingSlum.cs" />
     <Compile Include="Cards\SanctumCustodian.cs" />
     <Compile Include="Cards\SanctumGuardian.cs" />
+    <Compile Include="Cards\SandbarMerfolk.cs" />
+    <Compile Include="Cards\SandbarSerpent.cs" />
     <Compile Include="Cards\SavannahLions.cs" />
     <Compile Include="Cards\Scrap.cs" />
     <Compile Include="Cards\SerrasEmbrace.cs" />
@@ -223,6 +227,7 @@
     <Compile Include="Cards\SilentAttendant.cs" />
     <Compile Include="Cards\SlipperyKarst.cs" />
     <Compile Include="Cards\SmolderingCrater.cs" />
+    <Compile Include="Cards\Somnophore.cs" />
     <Compile Include="Cards\Songstitcher.cs" />
     <Compile Include="Cards\StirringWildwood.cs" />
     <Compile Include="Cards\StudentOfWarfare.cs" />
@@ -277,9 +282,12 @@
     <Compile Include="Core\DeckFile.cs" />
     <Compile Include="Core\DeckRow.cs" />
     <Compile Include="Core\Details\Cards\Costs\SacOwnerPayMana.cs" />
+    <Compile Include="Core\Details\Cards\Costs\SacrificeCreature.cs" />
     <Compile Include="Core\Details\Cards\Effects\DealDistributedDamageToTargets.cs" />
     <Compile Include="Core\Details\Cards\Effects\PlayersSacrificeLands.cs" />
     <Compile Include="Core\Details\Cards\Modifiers\AddActivatedAbility.cs" />
+    <Compile Include="Core\Details\Cards\Modifiers\PermanentLeavesBattlefieldLifetime.cs" />
+    <Compile Include="Core\Details\Cards\Triggers\PlayerRelationshipToAbility.cs" />
     <Compile Include="Core\Details\Cards\Triggers\TriggerOrder.cs" />
     <Compile Include="Core\Details\Mana\ManaUsage.cs" />
     <Compile Include="Core\Targeting\IDamageDistributor.cs" />

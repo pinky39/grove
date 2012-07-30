@@ -16,8 +16,8 @@
         new UiTargetValidator(
           minTargetCount: Count,
           maxTargetCount: Count,
-          text: string.Format("Select {0} permanents to sacrifice.", Count),
-          isValid: target => Filter(target) && target.Controller == Controller),
+          text: string.Format("Select {0} {1}(s) to sacrifice", Count, PermanentType),
+          isValid: target => target.Is(PermanentType) && target.Controller == Controller),
         canCancel: false
         );
 

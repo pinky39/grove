@@ -412,6 +412,6 @@
     public static TimingDelegate HasCounters(int count)
     {
       return p => p.Card.Counters >= 3;
-    }
+    }    
   }
 }

@@ -28,7 +28,7 @@
       _scenarioDecisions.Init(_game);
     }
 
-    public IDecision Create<TDecision>(Player controller, Action<TDecision> init) where TDecision : IDecision
+    public IDecision Create<TDecision>(Player controller, Action<TDecision> setParameters) where TDecision : IDecision
     {
       TDecision decision;
 
@@ -42,13 +42,17 @@
       }
       else
       {
-        var scenariodecision = _scenarioDecisions.Get(init);
-        scenariodecision.Init(_game, controller);
+        var scenariodecision = _scenarioDecisions.Get(setParameters);
+        scenariodecision.Game = _game;
+        scenariodecision.Controller = controller;
+        scenariodecision.Init();        
         return scenariodecision;
       }
 
-      decision.Init(_game, controller);
-      init(decision);
+      decision.Game = _game;
+      decision.Controller = controller;
+      setParameters(decision);
+      decision.Init();      
       return decision;
     }
 

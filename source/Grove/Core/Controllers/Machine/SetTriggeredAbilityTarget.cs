@@ -18,9 +18,10 @@
       Result = DefaultResult();
     }
 
-    protected override void Init()
+    public override void Init()
     {
       _executor = new DecisionExecutor(this, Game.ChangeTracker);
+      base.Init();
     }
 
     public override bool HasCompleted { get { return _executor.HasCompleted; } }

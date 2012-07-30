@@ -72,7 +72,7 @@
             {
               p.Source = this;
               p.Factory = EffectFactory;
-              p.TriggerMessage = triggerMessage;
+              p.Trigger = triggerMessage;
               p.TargetSelector = TargetSelector;
             });
 

@@ -10,6 +10,7 @@
   using Core.Details.Cards.Triggers;
   using Core.Details.Mana;
   using Core.Dsl;
+  using Core.Targeting;
 
   public class TorchSong : CardsSource
   {
@@ -34,6 +35,7 @@
             "{2}{R}, Sacrifice Torch Song: Torch Song deals X damage to target creature or player, where X is the number of verse counters on Torch Song.",
             C.Cost<SacOwnerPayMana>((cost, _) => cost.Amount = "{2}{R}".ParseManaAmount()),
             C.Effect<DealDamageToTargets>(e => e.Amount = e.Source.OwningCard.Counters.GetValueOrDefault()),
+            C.Validator(Validators.CreatureOrPlayer()),
             aiTargetFilter: AiTargetSelectors.DealDamageSingleSelector(p => p.Source.Counters.GetValueOrDefault()),
             timing: All(Timings.TargetRemovalInstant())
         ));

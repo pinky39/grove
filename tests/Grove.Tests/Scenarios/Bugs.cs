@@ -30,7 +30,7 @@
       [Fact]
       public void BugDoNotTapLandsUselessly()
       {
-        ScenarioCard mountain = C("Mountain");
+        var mountain = C("Mountain");
         Battlefield(P1, C("Forest"), C("Forest"), mountain);
         Hand(P1, C("Llanowar Elves"));
 
@@ -93,7 +93,7 @@
           "Plains", "Sword of Feast and Famine");
 
         RunGame(2);
-      }        
+      }
     }
 
     public class PredifinedAi : PredefinedAiScenario
@@ -102,27 +102,29 @@
       public void BugBaneslayerAngelWontAttackAlone()
       {
         var angel = C("Baneslayer Angel");
-        
+
         Hand(P1, "Copperline Gorge", "Thrun, the Last Troll");
         Hand(P2);
-        Battlefield(P1, "Copperline Gorge", "Birds of Paradise", "Forest", "Copperline Gorge", "Rumbling Slum", "Rootbound Crag", "Forest", "Ravenous Baloth", "Forest", "Thrun, the Last Troll");
-        Battlefield(P2, "Plains", "Plains", "White Knight", "Plains", "Glorious Anthem", "Plains", "White Knight", "Wall of Reverence", "Plains", "Plains", angel);       
+        Battlefield(P1, "Copperline Gorge", "Birds of Paradise", "Forest", "Copperline Gorge", "Rumbling Slum",
+          "Rootbound Crag", "Forest", "Ravenous Baloth", "Forest", "Thrun, the Last Troll");
+        Battlefield(P2, "Plains", "Plains", "White Knight", "Plains", "Glorious Anthem", "Plains", "White Knight",
+          "Wall of Reverence", "Plains", "Plains", angel);
 
         Exec(
           At(Step.SecondMain, turn: 2)
-           .Verify(() =>
-             {
-               Equal(13, P1.Life);
-               True(C(angel).IsTapped);
-             })
-        );
-      }           
-      
+            .Verify(() =>
+              {
+                Equal(13, P1.Life);
+                True(C(angel).IsTapped);
+              })
+          );
+      }
+
       [Fact]
       public void BugSwordAngel()
       {
-        ScenarioCard angel = C("Baneslayer Angel");
-        ScenarioCard swords = C("Swords to Plowshares");
+        var angel = C("Baneslayer Angel");
+        var swords = C("Swords to Plowshares");
 
         Hand(P2, swords);
 
@@ -132,26 +134,25 @@
           "Basilisk Collar", "Acidic Slime", "Wurmcoil Engine", "Thrun, the Last Troll", "Plains", "Troll Ascetic");
 
         P2.Life = 5;
-        
+
         Exec(
           At(Step.DeclareAttackers)
             .DeclareAttackers(angel),
           At(Step.SecondMain, turn: 1)
             .Verify(() =>
-              {               
+              {
                 Equal(Zone.Graveyard, C(swords).Zone);
                 Equal(Zone.Exile, C(angel).Zone);
                 Equal(5, P2.Life);
               })
           );
-          
       }
 
       [Fact]
       public void BugDoNotBlockStudentWithTroll()
       {
-        ScenarioCard student = C("Student of Warfare");
-        ScenarioCard troll = C("Troll Ascetic");
+        var student = C("Student of Warfare");
+        var troll = C("Troll Ascetic");
 
         Battlefield(P1, student);
         Battlefield(P2, troll);
@@ -176,22 +177,23 @@
       {
         Hand(P1, "Angelic Page");
         Hand(P2, "Pestilence");
-        
-        Battlefield(P1, "Drifting Meadow", "Plains", "Plains", "Plains", 
-          C("Voice of Grace").IsEnchantedWith("Brilliant Halo").IsEnchantedWith("Serra's Embrace"), "Plains", 
+
+        Battlefield(P1, "Drifting Meadow", "Plains", "Plains", "Plains",
+          C("Voice of Grace").IsEnchantedWith("Brilliant Halo").IsEnchantedWith("Serra's Embrace"), "Plains",
           C("Sanctum Custodian").IsEnchantedWith("Brilliant Halo"), "Dragon Blood", "Plains", "Plains");
-        
-        Battlefield(P2, "Drifting Meadow", "Swamp", "Rune of Protection: Black", "Swamp", "Disciple of Grace", 
-          "Polluted Mire", "Plains", "Plains", "Urza's Armor", "Plains", "Worship", "Unworthy Dead", "Swamp", "Sanctum Guardian");       
+
+        Battlefield(P2, "Drifting Meadow", "Swamp", "Rune of Protection: Black", "Swamp", "Disciple of Grace",
+          "Polluted Mire", "Plains", "Plains", "Urza's Armor", "Plains", "Worship", "Unworthy Dead", "Swamp",
+          "Sanctum Guardian");
 
         Exec();
-      } 
+      }
 
       [Fact]
       public void BugRegenerateCombatDamage()
       {
-        ScenarioCard thrun = C("Thrun, the Last Troll");
-        ScenarioCard baloth = C("Ravenous Baloth");
+        var thrun = C("Thrun, the Last Troll");
+        var baloth = C("Ravenous Baloth");
 
         Battlefield(P1, baloth);
         Battlefield(P2, "Forest", "Forest", thrun);
@@ -211,8 +213,8 @@
       [Fact]
       public void BugSearchWithoutResults()
       {
-        ScenarioCard dragon = C("Shivan Dragon");
-        ScenarioCard forest = C("Forest");
+        var dragon = C("Shivan Dragon");
+        var forest = C("Forest");
 
         Battlefield(P1, C("Forest").Tap(), forest, C("Mountain").Tap(), C("Mountain").Tap(),
           C("Mountain").Tap(), C("Llanowar Elves").Tap(), C("Llanowar Elves").Tap());
@@ -232,11 +234,11 @@
       [Fact]
       public void BugAttackingCausesEndOfGame()
       {
-        bool gameEnded = true;
+        var gameEnded = true;
 
-        ScenarioCard knight = C("White Knight");
-        ScenarioCard student = C("Student of Warfare");
-        ScenarioCard hero = C("Hero of Bladehold");
+        var knight = C("White Knight");
+        var student = C("Student of Warfare");
+        var hero = C("Hero of Bladehold");
 
         Hand(P1, "Deathless Angel", "Baneslayer Angel", "Day of Judgment");
         Hand(P2, "Troll Ascetic");
@@ -255,6 +257,23 @@
           );
 
         False(gameEnded);
+      }
+
+      [Fact]
+      public void BugLeakedCopyWithShivsEmbrace()
+      {
+
+        var anaconda = C("Anaconda");
+        var shivs = C("Shiv's Embrace");
+        var bear = C("Grizzly Bears");
+        var cradle = C("Cradle Guard");
+
+        
+        Battlefield(P1, anaconda.IsEnchantedWith(shivs), "Mountain", "Mountain", "Forest", "Mountain");
+        Hand(P2, cradle);
+        Battlefield(P2, bear, "Forest", "Forest", "Mountain", "Forest");
+
+        RunGame(2);
       }
     }
   }

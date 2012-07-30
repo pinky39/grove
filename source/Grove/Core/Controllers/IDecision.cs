@@ -2,10 +2,11 @@
 {
   public interface IDecision
   {
-    void Init(Game game, Player controller);
-            
+    void Init();            
     bool HasCompleted { get; }
     bool WasPriorityPassed { get; }
+    Player Controller { get; set; }
+    Game Game { get; set; }
     void Execute();    
   }  
 }

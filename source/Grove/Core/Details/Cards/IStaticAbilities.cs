@@ -21,5 +21,6 @@
     bool CannotAttack { get; }
     bool CannotBlock { get; }
     bool Islandwalk { get;  }
+    bool DoesNotUntap { get; }
   }
 }

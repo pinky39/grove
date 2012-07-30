@@ -29,7 +29,7 @@
               {
                 t.CombatOnly = true;
                 t.UseAttachedToAsTriggerSource = true;
-                t.ToAnyPlayer();
+                t.ToPlayer();
               }),
             C.Effect<CompoundEffect>(p => p.Effect.ChildEffects(
               p.Builder.Effect<OpponentDiscardsCards>(e1 => e1.SelectedCount = 1),

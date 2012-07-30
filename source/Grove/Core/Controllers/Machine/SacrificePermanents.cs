@@ -8,7 +8,7 @@
     protected override void ExecuteQuery()
     {
       var permenents = Controller.Battlefield
-        .Where(Filter)
+        .Where(x => x.Is(PermanentType))
         .Select(card => new
           {
             Card = card,

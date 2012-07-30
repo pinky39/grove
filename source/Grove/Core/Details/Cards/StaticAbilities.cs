@@ -1,6 +1,5 @@
 ﻿namespace Grove.Core.Details.Cards
 {
-  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Infrastructure;
@@ -51,6 +50,7 @@
     public bool CannotAttack { get { return Has(Static.CannotAttack); } }
     public bool CannotBlock { get { return Has(Static.CannotBlock); } }
     public bool Islandwalk { get { return Has(Static.Islandwalk); } }
+    public bool DoesNotUntap { get { return Has(Static.DoesNotUntap); } }
 
     public void Add(Static ability)
     {

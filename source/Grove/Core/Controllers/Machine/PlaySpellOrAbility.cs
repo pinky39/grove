@@ -42,7 +42,7 @@
       Log.DebugFormat("Move is {0}", _playables[index]);
     }
 
-    protected override void Init()
+    public override void Init()
     {
       _executor = new DecisionExecutor(this, Game.ChangeTracker);
     }

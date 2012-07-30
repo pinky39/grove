@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core.Targeting
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Ai;
@@ -77,6 +78,14 @@
     public bool IsValidEffectTarget(ITarget target)
     {
       return _effectValidators[0].IsValid(target);
+    }
+
+    public void SetTrigger(object trigger)
+    {
+      foreach (var targetValidator in Effect)
+      {
+        targetValidator.Trigger = trigger;
+      }
     }
   }
 }

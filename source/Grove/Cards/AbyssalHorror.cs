@@ -30,7 +30,7 @@
             C.Trigger<ChangeZone>((t, _) => t.To = Zone.Battlefield),
             C.Effect<TargetPlayerDiscardsCards>(p => p.Effect.SelectedCount = 2),
             C.Validator(Validators.Player()),
-            aiTargetSelector: AiTargetSelectors.Opponent()));
+            aiSelector: AiTargetSelectors.Opponent()));
     }
   }
 }

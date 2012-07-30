@@ -3,7 +3,7 @@
   public enum Controller
   {
     SpellOwner,
-    Opponent,
+    Opponent,    
     Any
   }
 }

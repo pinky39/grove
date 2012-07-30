@@ -32,7 +32,7 @@
               {
                 e.Amount = 2.AsColorlessMana();
                 e.UseOnlyForAbilities = true;
-              })
+              }), triggerOnlyIfOwningCardIsInPlay: true
             )
         );
     }

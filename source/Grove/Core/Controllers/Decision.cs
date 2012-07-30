@@ -7,22 +7,12 @@
   {
     private bool _hasCompleted;
 
-    public Player Controller { get; private set; }
-    public Game Game { get; private set; }
+    public Player Controller { get; set; }
+    public Game Game { get;  set; }
 
     public TResult Result { get; set; }
     protected virtual bool ShouldExecuteQuery { get { return true; } }
-    
-    public void Init(Game game, Player controller)
-    {
-      Game = game;
-      Controller = controller;
-
-      Init();
-    }
-    
-    protected virtual void Init(){ }
-
+    public virtual void Init(){ }
     public virtual bool HasCompleted { get { return _hasCompleted; } }
     public virtual bool WasPriorityPassed { get { return false; } }
 

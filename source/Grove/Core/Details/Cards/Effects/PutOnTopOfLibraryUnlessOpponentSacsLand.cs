@@ -53,6 +53,7 @@
                   canCancel: false
                   );
 
+                self.Shell.ShowModalDialog(dialog, DialogType.Small, SelectionMode.SelectTarget);
                 chosenCards.Add(dialog.Selection[0].Card());
 
                 return chosenCards;

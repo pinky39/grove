@@ -16,17 +16,26 @@
     private const string DefaultMessageMultipleTargets = "Select target: {0} of {1}.";
     
     private TargetValidatorDelegate _validator = delegate { return true; };
+    private Trackable<object> _trigger;
     public Player Controller { get { return Source.Controller; } }
     public bool MustBeTargetable { get { return _mustBeTargetable; } set { _mustBeTargetable = value; } }
     public Card Source { get; private set; }
     public string MessageFormat { get; set; }
     public TargetValidatorDelegate Validator { get { return _validator; } set { _validator = value; } }
     public int? MaxCount { get { return _maxCount; } set { _maxCount = value; } }
-    public int MinCount { get { return _minCount; } set { _minCount = value; } }        
+    public int MinCount { get { return _minCount; } set { _minCount = value; } }
+    public object Trigger { get { return _trigger.Value; } set { _trigger.Value = value; } }
            
     public bool IsValid(ITarget target)
     {
-      var valid = Validator(new TargetValidatorParameters(target, Source, _game));
+      var parameters = new TargetValidatorParameters(
+        target, 
+        Source, 
+        Trigger,
+        _game
+        );
+      
+      var valid = Validator(parameters);
 
       if (target.IsCard())
         valid = valid && IsTargetable(target.Card());
@@ -65,6 +74,7 @@
         targetSelector._game = Game;
         targetSelector.Source = source;
         targetSelector.MustBeTargetable = true;        
+        targetSelector._trigger = new Trackable<object>(Game.ChangeTracker);
 
         Init(targetSelector);
         

@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core
 {
+  using System;
   using System.Collections;
   using System.Collections.Generic;
   using System.IO;
@@ -11,6 +12,7 @@
     private readonly List<string> _colors;
     private readonly Dictionary<string, Card> _previews = new Dictionary<string, Card>();
     private readonly List<DeckRow> _rows = new List<DeckRow>();
+    private static readonly Random Rnd = new Random();
 
     private Deck() {}
 
@@ -94,7 +96,7 @@
 
     public Card GetPreview()
     {
-      return _previews[_rows[0].CardName.ToLowerInvariant()];
+      return _previews[_rows[Rnd.Next(0, _rows.Count)].CardName.ToLowerInvariant()];
     }
 
     public static Deck Dummy()

@@ -34,7 +34,7 @@
           var targets = p.Targets(candidates
             .OrderByDescending(x => x.Card().Score));
 
-          if (targets.Count == 0 && p.ForceAny)
+          if (targets.Count == 0 && p.IsTriggeredAbilityTarget)
           {
             targets = p.Targets(p.Candidates().OrderBy(x => x.Card().Score));
           }
@@ -257,7 +257,7 @@
             
             // triggered abilities force you to choose a target even if its
             // not favorable e.g Flaming Kavu
-            if (p.ForceAny && targets.Count == 0)
+            if (p.IsTriggeredAbilityTarget && targets.Count == 0)
             {
               targets = p.Targets(p.Candidates().OrderByDescending(x => x.Card().Toughness));
             }
@@ -469,16 +469,17 @@
         };
     }
 
-    public static AiTargetSelectorDelegate CostTap()
+    public static AiTargetSelectorDelegate CostTapOrSacCreature(bool canUseSelf = true)
     {
       return p =>
         {
           var candidates = p.Candidates()
+            .Where(x => canUseSelf || x != p.Source)
             .OrderBy(x => x.Card().Score);
 
           return p.Targets(candidates);
         };
-    }
+    }    
 
     public static AiTargetSelectorDelegate CostSacrificeGainLife()
     {
@@ -814,7 +815,13 @@
                 Score = CalculatePasifismScore(x)
               })
             .OrderByDescending(x => x.Score)
-            .Select(x => x.Card);
+            .Select(x => x.Card)
+            .ToList();
+
+          if (p.IsTriggeredAbilityTarget && candidates.Count == 0)
+          {
+            return p.Targets(p.Candidates().OrderBy(x => x.Card().Power));
+          }
 
           return p.Targets(candidates);
         };

@@ -29,14 +29,14 @@
               {
                 t.CombatOnly = true;
                 t.UseAttachedToAsTriggerSource = true;
-                t.ToAnyPlayer();
+                t.ToPlayer();
               }),
             C.Effect<CompoundEffect>(p => p.Effect.ChildEffects(
               p.Builder.Effect<DealDamageToTargets>(e1 => e1.Amount = 2),
               p.Builder.Effect<DrawCards>(e1 => e1.DrawCount = 1))),
             C.Validator(
               Validators.CreatureOrPlayer()),
-            aiTargetSelector: AiTargetSelectors.DealDamageSingleSelector(2)),
+            aiSelector: AiTargetSelectors.DealDamageSingleSelector(2)),
           C.ActivatedAbility(
             "{2}: Attach to target creature you control. Equip only as a sorcery.",
             C.Cost<TapOwnerPayMana>((cost, _) => cost.Amount = 2.AsColorlessMana()),

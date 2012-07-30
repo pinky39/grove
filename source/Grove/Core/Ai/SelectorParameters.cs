@@ -17,7 +17,7 @@
       Selector = selector;
       Source = source;
       MaxX = maxX;
-      ForceAny = forceOne;
+      IsTriggeredAbilityTarget = forceOne;
       Game = game;
     }
 
@@ -26,7 +26,7 @@
     public TargetSelector Selector { get; private set; }
     public Card Source { get; private set; }
     public int? MaxX { get; private set; }
-    public bool ForceAny { get; private set; }
+    public bool IsTriggeredAbilityTarget { get; private set; }
     public Player Opponent { get { return Game.Players.GetOpponent(Source.Controller); } }
     public Player Controller { get { return Source.Controller; } }
     public Combat Combat { get { return Game.Combat; } }

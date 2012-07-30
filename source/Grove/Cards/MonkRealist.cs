@@ -28,7 +28,7 @@
             C.Trigger<ChangeZone>((t, _) => t.To = Zone.Battlefield),
             C.Effect<DestroyTargetPermanent>(),
             C.Validator(Validators.Permanent(card => card.Is().Enchantment)),
-            aiTargetSelector: AiTargetSelectors.OrderByDescendingScore(),
+            aiSelector: AiTargetSelectors.OrderByDescendingScore(),
             abilityCategory: EffectCategories.Destruction)
         );
     }

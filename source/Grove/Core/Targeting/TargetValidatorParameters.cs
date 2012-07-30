@@ -2,8 +2,11 @@
 {
   public class TargetValidatorParameters
   {
-    public TargetValidatorParameters(ITarget target, Card source, Game game)
+    private readonly object _trigger;
+
+    public TargetValidatorParameters(ITarget target, Card source,  object trigger, Game game)
     {
+      _trigger = trigger;
       Target = target;
       Source = source;
       Game = game;
@@ -13,5 +16,10 @@
     public Card Source { get; private set; }
     public Game Game { get; internal set; }
     public Player Controller { get { return Source.Controller; } }
+
+    public T Trigger<T>()
+    {
+      return (T) _trigger;
+    }
   }
 }

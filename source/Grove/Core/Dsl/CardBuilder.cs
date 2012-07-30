@@ -296,8 +296,8 @@
       string text,
       ITriggerFactory trigger,
       IEffectFactory effect,
-      ITargetValidatorFactory targetValidator = null,
-      AiTargetSelectorDelegate aiTargetSelector = null,
+      ITargetValidatorFactory effectValidator = null,
+      AiTargetSelectorDelegate aiSelector = null,
       EffectCategories abilityCategory = EffectCategories.Generic,
       bool triggerOnlyIfOwningCardIsInPlay = false)
     {
@@ -314,10 +314,10 @@
               
               var effectValidators = new List<ITargetValidatorFactory>();                            
                             
-              if (targetValidator != null)
-                effectValidators.Add(targetValidator);
+              if (effectValidator != null)
+                effectValidators.Add(effectValidator);
 
-              self.Targets(effectValidators, Enumerable.Empty<ITargetValidatorFactory>(), aiTargetSelector);                            
+              self.Targets(effectValidators, Enumerable.Empty<ITargetValidatorFactory>(), aiSelector);                            
             }
         };
     }

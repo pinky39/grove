@@ -76,6 +76,7 @@
     public virtual void Empty()
     {
       _unrestricted.Clear();
+      _restrictedAbilities.Clear();
     }
 
     public override string ToString()

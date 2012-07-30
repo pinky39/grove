@@ -23,10 +23,10 @@
           new UiTargetValidator(
             minTargetCount: 0,
             maxTargetCount: 1,
-            text: "Select a blocker.",
+            text: "Select a blocker",
             isValid: target => target.CanBlock() &&
               target.Controller == Controller
-            ), canCancel: false, instructions: "(Press spacebar to finish.)"
+            ), canCancel: false, instructions: "(Press Spacebar to finish.)"
           );
 
         Shell.ShowModalDialog(selectBlocker, DialogType.Small, SelectionMode.SelectTarget);
@@ -52,7 +52,7 @@
           new UiTargetValidator(
             minTargetCount: 1,
             maxTargetCount: 1,
-            text: "Select an attacker to block.",
+            text: "Select an attacker to block",
             isValid: target => Game.Combat.IsAttacker(target) && target.CanBeBlockedBy(blocker)
             ),
           canCancel: true,

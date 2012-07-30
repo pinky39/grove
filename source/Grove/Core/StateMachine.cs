@@ -300,6 +300,9 @@
             foreach (var permanent in _game.Players.Active.Battlefield)
             {
               permanent.HasSummoningSickness = false;
+
+              if (permanent.Has().DoesNotUntap)
+                continue;
               
               if (permanent.MayChooseNotToUntapDuringUntapStep)
               {
@@ -309,7 +312,7 @@
                   init: p => p.Permanent = permanentCopy);
               }
               else
-              {
+              {                
                 permanent.Untap();
               }
             }

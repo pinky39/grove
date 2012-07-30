@@ -31,8 +31,15 @@
     }
 
     public string GetMessage(int targetNumber)
-    {
-      return _text;
+    {             
+      var maxNumber = MinCount == MaxCount ? MaxCount.ToString() : "max. " + MaxCount.ToString();
+      
+      if (MaxCount > 1)
+      {
+        return string.Format("{0}: {1} of {2}.", _text, targetNumber, maxNumber);        
+      }
+      
+      return _text + ".";      
     }
   }
 }

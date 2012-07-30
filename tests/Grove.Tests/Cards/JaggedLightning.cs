@@ -37,6 +37,22 @@
 
         Equal(Zone.Battlefield, C(armodon).Zone);        
       }
+
+      [Fact]
+      public void DoNotKillYours()
+      {
+        var armodon = C("Trained Armodon");
+        var bear = C("Grizzly Bears");
+
+        Hand(P1, "Jagged Lightning");
+        Battlefield(P1, bear, "Mountain", "Mountain", "Mountain", "Mountain", "Mountain");
+        Battlefield(P2, armodon);
+
+        RunGame(1);
+
+        Equal(Zone.Battlefield, C(armodon).Zone);
+        Equal(Zone.Battlefield, C(bear).Zone);
+      }
     }
   }
 }

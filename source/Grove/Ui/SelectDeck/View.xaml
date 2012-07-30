@@ -209,8 +209,8 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="Back" Style="{StaticResource LeftButton}" Grid.Column="0" FontSize="20" >Back</Button>
-                <Button x:Name="Forward" Style="{StaticResource RightButton}" Grid.Column="2" Foreground="#FFEE94"  FontSize="30" 
+                <Button x:Name="Back" Style="{StaticResource LeftButton}" Foreground="#fff" Grid.Column="0" FontSize="20" >Back</Button>
+                <Button x:Name="Forward" Style="{StaticResource RightButton}" Foreground="#fff" Grid.Column="2"  FontSize="20" 
                         Visibility="{Binding CanStart, Converter={x:Static grove:Converters.BooleanToVisibility}}" Content="{Binding NextCaption}" />
                 <TextBlock Text="Game is starting, please wait..." FontSize="18" Grid.Column="2" Foreground="#fff" Visibility="{Binding IsStarting, Converter={x:Static grove:Converters.BooleanToVisibility}}"/>
             </Grid>

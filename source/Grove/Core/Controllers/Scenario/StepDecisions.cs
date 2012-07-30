@@ -76,7 +76,8 @@
             }
         };
 
-      decision.Init(Game, activation.Card.Controller);
+      decision.Game = Game;
+      decision.Controller = activation.Card.Controller;      
 
       _decisions.Add(decision);
       return this;
@@ -172,7 +173,8 @@
             }
         };
 
-      decision.Init(Game, activation.Card.Controller);
+      decision.Game = Game;
+      decision.Controller = activation.Card.Controller;      
 
       _decisions.Add(decision);
       return this;
@@ -228,7 +230,8 @@
           Result = attackers.ToList()
         };
 
-      decision.Init(Game, attackers[0].Controller);
+      decision.Game = Game;
+      decision.Controller = attackers[0].Controller;      
       _decisions.Add(decision);
       return this;
     }
@@ -255,7 +258,8 @@
 
       _decisions.Add(decision);
 
-      decision.Init(Game, defender);
+      decision.Game = Game;
+      decision.Controller = defender;      
 
       return this;
     }
@@ -294,7 +298,7 @@
           Result = new ChosenTargets(new Targets().AddEffect(target))
         };
 
-      decision.Init(Game, null);
+      decision.Game = Game;      
       _decisions.Add(decision);
       return this;
     }
@@ -306,8 +310,7 @@
           Assertion = assertion,
         };
 
-      decision.Init(Game, null);
-
+      decision.Game = Game;      
       _decisions.Add(decision);
       return this;
     }

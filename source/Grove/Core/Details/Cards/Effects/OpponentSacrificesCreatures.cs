@@ -1,6 +1,5 @@
 ﻿namespace Grove.Core.Details.Cards.Effects
 {
-  using System;
   using Controllers;
 
   public class OpponentSacrificesCreatures : Effect
@@ -10,13 +9,13 @@
     protected override void ResolveEffect()
     {
       var opponent = Players.GetOpponent(Controller);
-      
+
       Decisions.Enqueue<SacrificePermanents>(
-        controller: opponent, 
+        controller: opponent,
         init: p =>
           {
             p.Count = Count;
-            p.Filter = card => card.Is().Creature;
+            p.PermanentType = "creature";
           });
     }
   }

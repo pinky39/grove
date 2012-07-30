@@ -602,7 +602,7 @@
                         <TextBlock Name = "TextBlock"					           
 					               Margin="10,0,0,0"
                                    FontSize = "{TemplateBinding FontSize}"
-					               Foreground = "#fff"
+					               Foreground = "{TemplateBinding Foreground}"
 					               Style = "{StaticResource Label}" >
 						    <ContentPresenter />
                         </TextBlock>

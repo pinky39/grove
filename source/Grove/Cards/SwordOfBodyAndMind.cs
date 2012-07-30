@@ -29,7 +29,7 @@
               {
                 t.CombatOnly = true;
                 t.UseAttachedToAsTriggerSource = true;
-                t.ToAnyPlayer();
+                t.ToPlayer();
               }),
             C.Effect<CompoundEffect>(p => p.Effect.ChildEffects(
               p.Builder.Effect<MillOpponent>(p1 => p1.Count = 10),

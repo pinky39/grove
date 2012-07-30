@@ -1,6 +1,5 @@
 ﻿namespace Grove.Core.Controllers.Human
 {
-  using System;
   using Results;
   using Targeting;
   using Ui;
@@ -16,12 +15,12 @@
     {
       var targets = new Targets();
 
-      foreach (var selector in TargetSelector.Effect)
-      {        
-        if (NoValidTargets(selector))
+      foreach (var validator in TargetSelector.Effect)
+      {
+        if (NoValidTargets(validator))
           continue;
-        
-        var dialog = DialogFactory.Create(selector, canCancel: false);
+
+        var dialog = DialogFactory.Create(validator, canCancel: false);
         Shell.ShowModalDialog(dialog, DialogType.Small, SelectionMode.SelectTarget);
 
         targets.AddEffect(dialog.Selection[0]);

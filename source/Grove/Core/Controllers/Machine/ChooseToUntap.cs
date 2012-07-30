@@ -34,7 +34,7 @@
       _executor.Execute();
     }
 
-    protected override void Init()
+    public override void Init()
     {
       _executor = new DecisionExecutor(this, Game.ChangeTracker);
     }

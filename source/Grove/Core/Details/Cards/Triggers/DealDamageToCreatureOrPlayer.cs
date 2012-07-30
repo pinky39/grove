@@ -4,13 +4,6 @@
   using Infrastructure;
   using Messages;
 
-  public enum PlayerRelationshipToAbility
-  {
-    OwningCardController,
-    OwningCardControllersOpponent,
-    SourceCardController
-  }
-
   public class DealDamageToCreatureOrPlayer : Trigger, IReceive<DamageHasBeenDealt>
   {
     public Func<Card, TriggeredAbility, bool> IsValidCreature = delegate { return false; };
@@ -44,7 +37,7 @@
       return false;
     }
 
-    public void ToAnyPlayer()
+    public void ToPlayer()
     {
       IsValidPlayer = (receiver, ability) => true;
     }

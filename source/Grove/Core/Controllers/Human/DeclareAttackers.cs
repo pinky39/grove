@@ -19,11 +19,11 @@
         new UiTargetValidator(
           minTargetCount: 0,
           maxTargetCount: null,
-          text: "Select attackers.",
+          text: "Select attackers",
           isValid: target => target.CanAttack && target.Controller == Controller
           ),
         canCancel: false,
-        instructions: "(Press spacebar when done.)",
+        instructions: "(Press Spacebar when done.)",
         targetSelected: target => Publisher.Publish(
           new AttackerSelected
             {

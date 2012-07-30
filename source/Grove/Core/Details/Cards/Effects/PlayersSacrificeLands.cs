@@ -17,7 +17,7 @@
           init: p =>
             {
               p.Count = Count;
-              p.Filter = card => card.Is().Land;
+              p.PermanentType = "land";
             });
       }
     }
