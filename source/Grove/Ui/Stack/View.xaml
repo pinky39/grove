@@ -90,7 +90,7 @@
 
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>                                        
-                                        <Border Margin = "5,0,0,0" BorderBrush="#000" BorderThickness="15" CornerRadius="4" Background="#aa000000">
+                                        <Border Margin = "5,0,0,0" BorderBrush="#000" BorderThickness="15" CornerRadius="4" Background="#cc000000">
                                             <ContentControl>
                                                 <ContentControl Content = "{Binding}" >
                                                     <i:Interaction.Triggers>

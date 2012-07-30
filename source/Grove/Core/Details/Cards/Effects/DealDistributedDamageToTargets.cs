@@ -35,6 +35,11 @@
       return 0;                  
     }
 
+    public override bool NeedsTargets
+    {
+      get { return true; }
+    }
+
     protected override void DistributeDamage(IDamageDistributor damageDistributor)
     {
       _damageDistribution.AddRange(damageDistributor.DistributeDamage(Targets, Amount.GetValue(X)));

@@ -10,5 +10,10 @@
     {
       Target().Card().Destroy(AllowRegenerate);
     }
+
+    public override bool NeedsTargets
+    {
+      get { return true; }
+    }
   }
 }

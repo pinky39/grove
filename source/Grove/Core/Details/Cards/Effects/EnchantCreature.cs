@@ -21,6 +21,11 @@
       return 0;
     }
 
+    public override bool NeedsTargets
+    {
+      get { return true; }
+    }
+
     public void Modifiers(params IModifierFactory[] modifierFactories)
     {
       _modifierFactories.AddRange(modifierFactories);

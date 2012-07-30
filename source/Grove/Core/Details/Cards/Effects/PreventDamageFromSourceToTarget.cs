@@ -9,13 +9,15 @@
     private ITarget DamageSource { get { return Targets[0]; } }
     public bool OnlyOnce { get; set; }
 
+    public override bool NeedsTargets { get { return true; } }
+
     protected override void ResolveEffect()
     {
       var source = DamageSource.IsEffect()
         ? DamageSource.Effect().Source.OwningCard
         : DamageSource.Card();
 
-      var prevention = new DamagePrevention.Factory<Preventions.PreventDamageFromSource>
+      var prevention = new DamagePrevention.Factory<PreventDamageFromSource>
         {
           Game = Game,
           Init = (m, c) =>

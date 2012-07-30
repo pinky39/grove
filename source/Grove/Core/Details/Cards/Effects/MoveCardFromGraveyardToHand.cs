@@ -4,9 +4,11 @@
 
   public class MoveCardFromGraveyardToHand : Effect
   {
+    public override bool NeedsTargets { get { return true; } }
+
     protected override void ResolveEffect()
     {
-      Target().Card().ReturnToHand();            
+      Target().Card().ReturnToHand();
     }
   }
 }

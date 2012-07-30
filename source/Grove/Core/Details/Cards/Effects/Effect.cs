@@ -102,11 +102,12 @@
       Source.EffectWasCountered();
     }
 
+    public virtual bool NeedsTargets { get { return false; } }
+
     public bool CanBeResolved()
     {
-      return _targets.Effect.Count == 0 || 
-        _targets.Effect.Count > 1 || 
-        Source.IsTargetStillValid(_targets.Effect[0], WasKickerPaid);
+      return !NeedsTargets ||
+        _targets.Effect.Any(x => Source.IsTargetStillValid(x, WasKickerPaid));        
     }
 
     public override string ToString()

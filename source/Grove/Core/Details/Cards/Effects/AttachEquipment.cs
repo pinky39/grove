@@ -13,6 +13,11 @@
       _modifierFactories.AddRange(modifierFactories);
     }
 
+    public override bool NeedsTargets
+    {
+      get { return true; }
+    }
+
     protected override void ResolveEffect()
     {
       var cardToEquip = Target().Card();

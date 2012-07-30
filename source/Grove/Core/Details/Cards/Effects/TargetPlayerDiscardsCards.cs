@@ -7,10 +7,12 @@
   {
     public int SelectedCount { get; set; }
 
+    public override bool NeedsTargets { get { return true; } }
+
     protected override void ResolveEffect()
     {
       Decisions.Enqueue<DiscardCards>(
-        controller:Target().Player(), 
+        controller: Target().Player(),
         init: p => p.Count = SelectedCount);
     }
   }

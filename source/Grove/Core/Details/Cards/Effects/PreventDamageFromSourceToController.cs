@@ -9,6 +9,11 @@
     private ITarget DamageSource { get { return Target(); } }
     public bool OnlyOnce { get; set; }
 
+    public override bool NeedsTargets
+    {
+      get { return true; }
+    }
+    
     protected override void ResolveEffect()
     {
       var source = DamageSource.IsEffect()

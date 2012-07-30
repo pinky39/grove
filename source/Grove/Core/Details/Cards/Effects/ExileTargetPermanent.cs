@@ -6,6 +6,8 @@
   {
     public bool ControllerGainsLifeEqualToToughness { get; set; }
 
+    public override bool NeedsTargets { get { return true; } }
+
     protected override void ResolveEffect()
     {
       if (ControllerGainsLifeEqualToToughness)

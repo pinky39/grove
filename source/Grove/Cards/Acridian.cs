@@ -14,7 +14,7 @@
         .ManaCost("{1}{G}")
         .Type("Creature Insect")
         .Text(
-          "{Echo} {1}{G} (At the beginning of your upkeep, if this came under your control since the beginning of your last upkeep, sacrifice it unless you pay its echo cost.)")
+          "{Echo} {1}{G}")
         .FlavorText(
           "The elves of Argoth were trained to ride these creatures, even when their mounts traveled upside-down.")
         .Power(2)

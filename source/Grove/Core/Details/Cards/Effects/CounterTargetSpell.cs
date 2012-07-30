@@ -8,12 +8,16 @@
   using Ui;
   using Zones;
 
-
   public class CounterTargetSpell : Effect
   {
     public int? ControllersLifeloss;
     public IManaAmount DoNotCounterCost;
 
+    public override bool NeedsTargets
+    {
+      get { return true; }
+    }
+    
     protected override void ResolveEffect()
     {
       var targetSpellController = Target().Effect().Controller;

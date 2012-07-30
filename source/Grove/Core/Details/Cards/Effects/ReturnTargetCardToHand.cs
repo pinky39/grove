@@ -7,6 +7,8 @@
   {
     public int Discard;
 
+    public override bool NeedsTargets { get { return true; } }
+
     protected override void ResolveEffect()
     {
       Target().Card().ReturnToHand();
@@ -14,7 +16,7 @@
       if (Discard > 0)
       {
         Decisions.Enqueue<DiscardCards>(
-          controller: Target().Card().Controller, 
+          controller: Target().Card().Controller,
           init: p => p.Count = Discard);
       }
     }
