@@ -34,7 +34,7 @@
                 t.ActiveTurn = false;
                 t.Condition = self => self.OwningCard.IsBlocker;
               }),
-            C.Effect<ReturnToOwnersHand>()
+            C.Effect<ReturnToHand>(e => e.ReturnOwner = true)
             )
         );
     }

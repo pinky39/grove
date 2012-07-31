@@ -39,7 +39,7 @@
           p.Builder.Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Flying)
           ))
         .Targets(
-          aiTargetSelector: AiTargetSelectors.CombatEnchantment(),
+          aiTargetSelector: TargetSelectorAi.CombatEnchantment(),
           effectValidator: C.Validator(Validators.EnchantedCreature()));
     }
   }

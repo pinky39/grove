@@ -21,7 +21,7 @@
         .Timing(Timings.CounterSpell())
         .Effect<CounterTargetSpell>()
         .Targets(
-          aiTargetSelector: AiTargetSelectors.CounterSpell(),
+          aiTargetSelector: TargetSelectorAi.CounterSpell(),
           effectValidator: C.Validator(Validators.Counterspell()));
     }
   }

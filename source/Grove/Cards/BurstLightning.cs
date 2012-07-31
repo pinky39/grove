@@ -21,11 +21,11 @@
         .Timing(Timings.TargetRemovalInstant())
         .Effect<DealDamageToTargets>(p => p.Amount = 2)
         .Targets(
-          aiTargetSelector: AiTargetSelectors.DealDamageSingleSelector(2),
+          aiTargetSelector: TargetSelectorAi.DealDamageSingleSelector(2),
           effectValidator: C.Validator(Validators.CreatureOrPlayer()))
         .KickerEffect<DealDamageToTargets>(p => p.Amount = 4)
         .KickerTargets(
-          aiTargetSelector: AiTargetSelectors.DealDamageSingleSelector(4),
+          aiTargetSelector: TargetSelectorAi.DealDamageSingleSelector(4),
           effectValidators: C.Validator(Validators.CreatureOrPlayer()));
     }
   }

@@ -36,7 +36,7 @@
               p.Builder.Effect<DrawCards>(e1 => e1.DrawCount = 1))),
             C.Validator(
               Validators.CreatureOrPlayer()),
-            aiSelector: AiTargetSelectors.DealDamageSingleSelector(2)),
+            aiSelector: TargetSelectorAi.DealDamageSingleSelector(2)),
           C.ActivatedAbility(
             "{2}: Attach to target creature you control. Equip only as a sorcery.",
             C.Cost<TapOwnerPayMana>((cost, _) => cost.Amount = 2.AsColorlessMana()),
@@ -49,7 +49,7 @@
               p.Builder.Modifier<AddProtectionFromColors>((m, _) => m.Colors = ManaColors.Red | ManaColors.Blue)
               )),
             effectValidator: C.Validator(Validators.Equipment()),
-            aiTargetFilter: AiTargetSelectors.CombatEquipment(),
+            targetSelectorAi: TargetSelectorAi.CombatEquipment(),
             timing: Timings.AttachCombatEquipment(),
             activateAsSorcery: true,
             category: EffectCategories.ToughnessIncrease | EffectCategories.Protector

@@ -40,7 +40,7 @@
       EffectFactory = effectFactory;
     }
 
-    public void Targets(IEnumerable<ITargetValidatorFactory> effectValidators, IEnumerable<ITargetValidatorFactory> costValidators, AiTargetSelectorDelegate aiTargetFilter)
+    public void Targets(IEnumerable<ITargetValidatorFactory> effectValidators, IEnumerable<ITargetValidatorFactory> costValidators, TargetSelectorAiDelegate aiTargetFilter)
     {
       foreach (var factory in effectValidators)
       {

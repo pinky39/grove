@@ -28,10 +28,10 @@
           C.TriggeredAbility(
             "When Stern Proctor enters the battlefield, return target artifact or enchantment to its owner's hand.",
             C.Trigger<ChangeZone>((t, _) => t.To = Zone.Battlefield),
-            C.Effect<ReturnTargetCardToHand>(),
+            C.Effect<ReturnToHand>(),
             C.Validator(Validators.Permanent(
               card => card.Is().Artifact || card.Is().Enchantment)),
-            aiSelector: AiTargetSelectors.Bounce(),
+            aiSelector: TargetSelectorAi.Bounce(),
             abilityCategory: EffectCategories.Bounce)
         );
     }

@@ -30,7 +30,7 @@
                 }, untilEndOfTurn: true));
           })
         .Targets(
-          aiTargetSelector: AiTargetSelectors.ReduceToughness(4),
+          aiTargetSelector: TargetSelectorAi.ReduceToughness(4),
           effectValidator: C.Validator(Validators.Creature()));
     }
   }

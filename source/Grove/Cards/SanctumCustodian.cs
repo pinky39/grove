@@ -37,7 +37,7 @@
                     });
                 }, untilEndOfTurn: true))),
             effectValidator: C.Validator(Validators.CreatureOrPlayer()),
-            aiTargetFilter: AiTargetSelectors.PreventNextDamageToCreatureOrPlayer(2)
+            targetSelectorAi: TargetSelectorAi.PreventNextDamageToCreatureOrPlayer(2)
             )
         );
     }

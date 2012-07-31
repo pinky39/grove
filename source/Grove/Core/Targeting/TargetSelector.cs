@@ -14,7 +14,7 @@
     private readonly List<TargetValidator> _costValidators = new List<TargetValidator>();
     private readonly List<TargetValidator> _effectValidators = new List<TargetValidator>();
 
-    public AiTargetSelectorDelegate SelectAiTargets { get; set; }
+    public TargetSelectorAiDelegate SelectAiTargets { get; set; }
 
     public int Count { get { return _costValidators.Count + _effectValidators.Count; } }
     public bool HasCost { get { return _costValidators.Count > 0; } }

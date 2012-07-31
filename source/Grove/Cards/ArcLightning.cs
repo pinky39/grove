@@ -22,7 +22,7 @@
         .Effect<DealDistributedDamageToTargets>(e => e.Amount = 3)
         .DistributeSpellsDamage()
         .Targets(
-          aiTargetSelector: AiTargetSelectors.DealDamageSingleSelectorDistribute(3),
+          aiTargetSelector: TargetSelectorAi.DealDamageSingleSelectorDistribute(3),
           effectValidator: C.Validator(Validators.CreatureOrPlayer(), maxCount: 3)
         );
     }

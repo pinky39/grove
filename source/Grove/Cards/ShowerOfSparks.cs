@@ -20,7 +20,7 @@
         .FlavorText("The viashino had learned how to operate the rig through trial and error—mostly error.")
         .Effect<DealDamageToTargets>(e => e.Amount = 1)
         .Targets(
-          aiTargetSelector: AiTargetSelectors.DealDamageMultipleSelectors(amount: 1),
+          aiTargetSelector: TargetSelectorAi.DealDamageMultipleSelectors(amount: 1),
           effectValidators: new [] { C.Validator(Validators.Creature(), text: "Select target creature."), C.Validator(Validators.Player(), "Select target player.")}
         );
     }

@@ -24,7 +24,7 @@
           p.Builder.Modifier<AddStaticAbility>((m, _) => m.StaticAbility = Static.CannotBlock),
           p.Builder.Modifier<AddStaticAbility>((m, _) => m.StaticAbility = Static.CannotAttack)))
         .Targets(
-          aiTargetSelector: AiTargetSelectors.Pacifism(),
+          aiTargetSelector: TargetSelectorAi.Pacifism(),
           effectValidator: C.Validator(Validators.EnchantedCreature()));
     }
   }

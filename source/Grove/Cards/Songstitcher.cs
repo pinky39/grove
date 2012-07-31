@@ -33,7 +33,7 @@
               p.Builder.Modifier<AddDamagePrevention>((m, c0) => m.Prevention = c0.Prevention<PreventDealtDamage>(),
                 untilEndOfTurn: true))),
             effectValidator: C.Validator(Validators.Creature(card => card.IsAttacker && card.Has().Flying)),
-            aiTargetFilter: AiTargetSelectors.PreventAttackerDamage(),
+            targetSelectorAi: TargetSelectorAi.PreventAttackerDamage(),
             timing: All(Timings.DeclareAttackers(), Timings.PassiveTurn())
             ));
     }

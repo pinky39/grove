@@ -35,7 +35,7 @@
     {
       return _amounts.Any(amount => amount.Has(mana));
     }
-
+    
     public override string ToString()
     {
       return ManaAmount.ToString(this);

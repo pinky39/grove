@@ -31,7 +31,7 @@
             costValidator: C.Validator(Validators.Creature((c) => c.Is("beast"), Controller.SpellOwner), 
               mustBeTargetable: false),
             
-            aiTargetFilter: AiTargetSelectors.CostSacrificeGainLife(),            
+            targetSelectorAi: TargetSelectorAi.CostSacrificeGainLife(),            
             timing: Timings.NoRestrictions()));
     }
   }

@@ -21,7 +21,7 @@
         .Timing(Timings.CounterSpell())
         .Effect<CounterTargetSpell>(e => e.ControllersLifeloss = 3)
         .Targets(
-          aiTargetSelector: AiTargetSelectors.CounterSpell(),
+          aiTargetSelector: TargetSelectorAi.CounterSpell(),
           effectValidator: C.Validator(Validators.Counterspell()));
     }
   }

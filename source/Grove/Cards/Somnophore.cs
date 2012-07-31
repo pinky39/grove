@@ -39,7 +39,7 @@
                   })
                 ))
               )),                        
-            aiSelector: AiTargetSelectors.Pacifism(),
+            aiSelector: TargetSelectorAi.Pacifism(),
             effectValidator: C.Validator(Validators.Creature(
               p => p.Target.Card().Controller == p.Trigger<DamageHasBeenDealt>().Receiver)))
         );

@@ -28,7 +28,7 @@
             C.Effect<PreventDamageFromSourceToController>(e => e.OnlyOnce = true),
             effectValidator: C.Validator(
               Validators.EffectOrPermanent(target => target.HasColor(ManaColors.Black)), text: "Select a damage source."),
-            aiTargetFilter: AiTargetSelectors.PreventDamageFromSourceToController(),
+            targetSelectorAi: TargetSelectorAi.PreventDamageFromSourceToController(),
             timing: Timings.NoRestrictions())
         );
     }

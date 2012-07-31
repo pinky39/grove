@@ -54,7 +54,7 @@
     {            
       var candidates = _selector.GenerateCandidates(GenerateTargets);
       
-      var parameters = new SelectorParameters(        
+      var parameters = new TargetSelectorAiParameters(        
         candidates, 
         _selector,
         _source, 

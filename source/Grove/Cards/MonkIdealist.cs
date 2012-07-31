@@ -30,7 +30,7 @@
             C.Effect<MoveCardFromGraveyardToHand>(),
             effectValidator: C.Validator(
               Validators.CardInGraveyard(card => card.Is().Enchantment), mustBeTargetable: false, text: "Select an enchantment in your graveyard."),
-            aiSelector: AiTargetSelectors.OrderByDescendingScore()
+            aiSelector: TargetSelectorAi.OrderByDescendingScore()
             )
         );
     }

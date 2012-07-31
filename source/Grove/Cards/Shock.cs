@@ -19,7 +19,7 @@
         .Text("Shock deals 2 damage to target creature or player.")
         .Effect<DealDamageToTargets>(e => e.Amount = 2)
         .Targets(
-          aiTargetSelector: AiTargetSelectors.DealDamageSingleSelector(2),
+          aiTargetSelector: TargetSelectorAi.DealDamageSingleSelector(2),
           effectValidators: C.Validator(Validators.CreatureOrPlayer()));
     }
   }

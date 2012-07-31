@@ -31,7 +31,7 @@
             C.Effect<DestroyTargetPermanent>(),
             C.Validator(Validators.Permanent(
               card => card.Is().Artifact || card.Is().Enchantment || card.Is().Land)),
-            aiSelector: AiTargetSelectors.OrderByDescendingScore(),
+            aiSelector: TargetSelectorAi.OrderByDescendingScore(),
             abilityCategory: EffectCategories.Destruction)
         );
     }

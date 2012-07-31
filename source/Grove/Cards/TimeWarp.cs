@@ -20,7 +20,7 @@
         .Timing(Timings.FirstMain())
         .Effect<TargetPlayerTakesExtraTurns>()
         .Targets(
-          aiTargetSelector: AiTargetSelectors.Controller(),
+          aiTargetSelector: TargetSelectorAi.Controller(),
           effectValidator: C.Validator(Validators.Player()));
     }
   }

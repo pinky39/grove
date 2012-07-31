@@ -32,7 +32,7 @@
             C.Trigger<AtBegginingOfStep>((t, _) => { t.Step = Step.EndOfTurn; }),
             C.Effect<GainLifeEqualToTargetPower>(),
             C.Validator(Validators.Creature(controller: Controller.SpellOwner)),
-            aiSelector: AiTargetSelectors.CreatureWithGreatestPower(),
+            aiSelector: TargetSelectorAi.CreatureWithGreatestPower(),
             triggerOnlyIfOwningCardIsInPlay: true));
     }
   }

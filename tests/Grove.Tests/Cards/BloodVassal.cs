@@ -9,15 +9,16 @@
     public class Ai : AiScenario
     {
       [Fact]
-      public void PlayDragon()
+      public void PlayEngine()
       {
-        var dragon = C("Shivan Dragon");
+        var engine = C("Wurmcoil Engine");
         
-        Hand(P1, dragon);
+        Hand(P1, engine);
+        Battlefield(P2, "Llanowar Behemoth");
         Battlefield(P1, "Mountain", "Mountain", "Mountain", "Mountain", "Blood Vassal");
 
         RunGame(2);
-        Equal(Zone.Battlefield, C(dragon).Zone);
+        Equal(Zone.Battlefield, C(engine).Zone);
       }
     }
   }

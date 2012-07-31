@@ -38,18 +38,14 @@
         if (card.IsHidden)
           continue;
 
-        var abilitiesPrerequisites = card.CanActivateAbilities();
+        var abilitiesPrerequisites = card.CanActivateAbilities(ignoreManaAbilities: true);
 
         for (var abilityIndex = 0; abilityIndex < abilitiesPrerequisites.Count; abilityIndex++)
         {
           var prerequisites = abilitiesPrerequisites[abilityIndex];
-
-          if (prerequisites.IsManaSource)
-            continue;
-
+          
           if (!prerequisites.CanBeSatisfied)
             continue;
-
 
           foreach (var playable in GeneratePlayables(
             card, prerequisites, p => new Controllers.Results.Ability(card, p, abilityIndex)))

@@ -6,11 +6,11 @@
   using Targeting;
   using Zones;
 
-  public delegate List<Targets> AiTargetSelectorDelegate(SelectorParameters parameters);
+  public delegate List<Targets> TargetSelectorAiDelegate(TargetSelectorAiParameters parameters);
 
-  public class SelectorParameters
+  public class TargetSelectorAiParameters
   {
-    public SelectorParameters(TargetsCandidates candidates, TargetSelector selector, Card source,
+    public TargetSelectorAiParameters(TargetsCandidates candidates, TargetSelector selector, Card source,
       int? maxX, bool forceOne, Game game)
     {
       AllCandidates = candidates;

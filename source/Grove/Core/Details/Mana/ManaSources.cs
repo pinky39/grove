@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core.Details.Mana
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Infrastructure;
@@ -68,26 +69,14 @@
 
     private bool? QuickCheck(IManaAmount amount, ManaUsage usage)
     {
-      return ColorlessManaCheck(amount, usage) ?? SingleManaCheck(amount, usage);
-    }
+      if (amount.Converted > GetMaxConvertedMana(usage))
+        return false;
 
-    private bool? ColorlessManaCheck(IManaAmount amount, ManaUsage usage)
-    {
-      if (!amount.IsColorless)
-        return null;
+      if (amount.IsColorless)
+        return true;
 
-      var total = amount.Converted;
-
-      foreach (var sourcesWithSameResource in _sources)
-      {
-        total -= sourcesWithSameResource.Sources[0].GetAvailableMana(usage).Converted;
-
-        if (total <= 0)
-          return true;
-      }
-
-      return false;
-    }
+      return SingleManaCheck(amount, usage);
+    }           
 
     private bool? SingleManaCheck(IManaAmount amount, ManaUsage usage)
     {

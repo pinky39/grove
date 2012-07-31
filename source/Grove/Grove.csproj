@@ -273,6 +273,7 @@
     <Compile Include="Cards\WhiteKnight.cs" />
     <Compile Include="Cards\WildDogs.cs" />
     <Compile Include="Cards\WildFire.cs" />
+    <Compile Include="Cards\WizardMentor.cs" />
     <Compile Include="Cards\Worship.cs" />
     <Compile Include="Cards\WurmcoilEngine.cs" />
     <Compile Include="Cards\WallOfDenial.cs" />
@@ -323,8 +324,8 @@
     <Compile Include="Core\Details\Cards\Preventions\PreventLifelossBelowOne.cs" />
     <Compile Include="Core\Details\Mana\AggregateManaAmount.cs" />
     <Compile Include="Core\Ai\TargetCandidatesEx.cs" />
-    <Compile Include="Core\Ai\SelectorParameters.cs" />
-    <Compile Include="Core\Ai\AiTargetSelectors.cs" />
+    <Compile Include="Core\Ai\TargetSelectorAiParameters.cs" />
+    <Compile Include="Core\Ai\TargetSelectorAi.cs" />
     <Compile Include="Core\Ai\TargetScores.cs" />
     <Compile Include="Core\Ai\XCalculatorParameters.cs" />
     <Compile Include="Core\Details\Cards\Effects\PreventDamageFromSourceToController.cs" />
@@ -336,7 +337,7 @@
     <Compile Include="Core\Messages\AssignedCombatDamageWasDealt.cs" />
     <Compile Include="Core\Messages\PermanentGetsUntapped.cs" />
     <Compile Include="Core\PlayerType.cs" />
-    <Compile Include="Core\Ai\AiDamageDistributor.cs" />
+    <Compile Include="Core\Ai\DamageDistributor.cs" />
     <Compile Include="Core\Targeting\ITargetValidator.cs" />
     <Compile Include="Core\Targeting\ITargetValidatorFactory.cs" />
     <Compile Include="Core\Details\Cards\Modifiers\AddDamageRedirection.cs" />
@@ -405,9 +406,8 @@
     <Compile Include="Core\Details\Cards\Effects\PayLifeOrTap.cs" />
     <Compile Include="Core\Details\Cards\Effects\PayManaOrSacrifice.cs" />
     <Compile Include="Core\Details\Cards\Effects\ReturnAllPermanentsToHand.cs" />
-    <Compile Include="Core\Details\Cards\Effects\ReturnTargetCardToHand.cs" />
+    <Compile Include="Core\Details\Cards\Effects\ReturnToHand.cs" />
     <Compile Include="Core\Details\Cards\Effects\DestroySource.cs" />
-    <Compile Include="Core\Details\Cards\Effects\ReturnToOwnersHand.cs" />
     <Compile Include="Core\Details\Cards\Effects\TapTargetCreature.cs" />
     <Compile Include="Core\Details\Cards\Effects\TargetPlayerDiscardsCards.cs" />
     <Compile Include="Core\Details\Cards\Effects\TargetPlayerTakesExtraTurns.cs" />

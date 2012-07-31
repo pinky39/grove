@@ -29,7 +29,7 @@
             })))
         .Timing(Timings.FirstMain())
         .Targets(
-          aiTargetSelector: AiTargetSelectors.CombatEnchantment(),
+          aiTargetSelector: TargetSelectorAi.CombatEnchantment(),
           effectValidator: C.Validator(Validators.EnchantedCreature()))
         .Abilities(
           C.TriggeredAbility(
@@ -39,7 +39,7 @@
                 t.From = Zone.Battlefield;
                 t.To = Zone.Graveyard;
               }),
-            C.Effect<ReturnToOwnersHand>()));
+            C.Effect<ReturnToHand>(e => e.ReturnOwner = true)));
     }
   }
 }

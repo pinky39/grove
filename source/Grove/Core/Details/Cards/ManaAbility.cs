@@ -45,13 +45,12 @@
           {
             CanBeSatisfied = true,
             Description = Text,
-            Timming = delegate { return true; },
-            IsManaSource = true,
+            Timming = delegate { return true; },            
             IsAbility = true
           };
       }
 
-      return new SpellPrerequisites {CanBeSatisfied = false};
+      return SpellPrerequisites.CannotBeSatisfied;
     }
 
     public void SetManaAmount(IManaAmount manaAmount)

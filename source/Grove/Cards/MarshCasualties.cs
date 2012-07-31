@@ -30,7 +30,7 @@
               }, untilEndOfTurn: true));
           })
         .Targets(
-          aiTargetSelector: AiTargetSelectors.Opponent(),
+          aiTargetSelector: TargetSelectorAi.Opponent(),
           effectValidator: C.Validator(Validators.Player()))
         .KickerEffect<ApplyModifiersToCreatures>(p =>
           {
@@ -42,7 +42,7 @@
               }, untilEndOfTurn: true));
           })
         .KickerTargets(
-          aiTargetSelector: AiTargetSelectors.Opponent(),
+          aiTargetSelector: TargetSelectorAi.Opponent(),
           effectValidators: C.Validator(Validators.Player()));
     }
   }

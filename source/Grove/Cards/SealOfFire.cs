@@ -25,7 +25,7 @@
             C.Cost<SacrificeOwner>(),
             C.Effect<DealDamageToTargets>(e => e.Amount = 2),
             effectValidator: C.Validator(Validators.CreatureOrPlayer()),
-            aiTargetFilter: AiTargetSelectors.DealDamageSingleSelector(2),
+            targetSelectorAi: TargetSelectorAi.DealDamageSingleSelector(2),
             timing: Timings.TargetRemovalInstant()));
     }
   }

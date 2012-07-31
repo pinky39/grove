@@ -89,10 +89,7 @@
             TargetsSelf = TargetsSelf,
             IsAbility = true,
           }
-        : new SpellPrerequisites
-          {
-            CanBeSatisfied = false
-          };
+        : SpellPrerequisites.CannotBeSatisfied;
     }
 
     public T CreateEffect<T>(ITarget target) where T : Effect

@@ -21,7 +21,7 @@
         .Category(EffectCategories.Destruction)
         .Timing(Timings.TargetRemovalInstant())
         .Targets(
-          aiTargetSelector: AiTargetSelectors.OrderByDescendingScore(),
+          aiTargetSelector: TargetSelectorAi.OrderByDescendingScore(),
           effectValidator:
             C.Validator(Validators.Permanent(card => card.Is().Artifact || card.Is().Enchantment)));
     }

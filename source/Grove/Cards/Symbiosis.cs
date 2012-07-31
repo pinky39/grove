@@ -28,7 +28,7 @@
               m.Toughness = 2;
             }, untilEndOfTurn: true)))
         .Targets(
-          aiTargetSelector: AiTargetSelectors.IncreasePowerAndToughness(2, 2),
+          aiTargetSelector: TargetSelectorAi.IncreasePowerAndToughness(2, 2),
           effectValidator: C.Validator(Validators.Creature(), minCount: 2, maxCount: 2)
         );
     }

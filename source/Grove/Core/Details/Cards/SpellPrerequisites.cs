@@ -5,6 +5,8 @@
 
   public class SpellPrerequisites
   {
+    public static readonly SpellPrerequisites CannotBeSatisfied = new SpellPrerequisites {CanBeSatisfied = false};
+
     public SpellPrerequisites()
     {
       TargetSelector = new TargetSelector();
@@ -17,8 +19,7 @@
     public bool CanCastWithKicker { get; set; }
     public TargetSelector TargetSelector { get; set; }
     public CardText Description { get; set; }
-    public bool HasXInCost { get { return MaxX != null; } }
-    public bool IsManaSource { get; set; }
+    public bool HasXInCost { get { return MaxX != null; } }    
     public TimingDelegate Timming { get; set; }
     public int? MaxX { get; set; }
     public CalculateX XCalculator { get; set; }

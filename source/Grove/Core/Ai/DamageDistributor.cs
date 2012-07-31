@@ -4,7 +4,7 @@
   using System.Collections.Generic;
   using Targeting;  
   
-  public class AiDamageDistributor : IDamageDistributor
+  public class DamageDistributor : IDamageDistributor
   {
     public Func<IList<ITarget>, int, IList<int>> Distribution { get; set; }
 

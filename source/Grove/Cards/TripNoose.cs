@@ -30,7 +30,7 @@
               }),
             C.Effect<TapTargetCreature>(),
             C.Validator(Validators.Creature()),
-            aiTargetFilter: AiTargetSelectors.TapCreature(),
+            targetSelectorAi: TargetSelectorAi.TapCreature(),
             timing: Timings.Steps(Step.BeginningOfCombat))
         );
     }

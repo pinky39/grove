@@ -143,6 +143,13 @@
       return ManaCostToScore[converted];
     }
 
+    private static int CalculateCardInHandScoreFromManaCost(IManaAmount mana)
+    {
+      var converted = Math.Min(7, mana.Converted);
+      var score = ManaCostToScore[converted] - 100;
+      return score > 120 ? score : 120;
+    }
+
     private static int CalculatePermanentScoreFromPowerToughness(int power, int toughness)
     {
       var powerToughness = power + toughness;
@@ -160,9 +167,14 @@
       if (card.IsHidden)
       {
         return 220;
+      }            
+      
+      if (card.ManaCost == null || card.ManaCost.Converted == 0)
+      {
+        return 120;  
       }
 
-      return 120;
+      return CalculateCardInHandScoreFromManaCost(card.ManaCost);
     }
 
     public static int CalculateCardInGraveyardScore(Card card)

@@ -39,9 +39,24 @@
       _abilities[abilityIndex].Activate(activationParameters);
     }
 
-    public List<SpellPrerequisites> CanActivate()
+    public List<SpellPrerequisites> CanActivate(bool ignoreManaAbilities)
     {
-      return _abilities.Select(ability => ability.CanActivate()).ToList();
+      var result = new List<SpellPrerequisites>();
+      
+      for (int i = 0; i < _abilities.Count; i++)
+      {
+        var ability = _abilities[i];
+
+        if (ignoreManaAbilities && ability is ManaAbility)
+        {
+          result.Add(SpellPrerequisites.CannotBeSatisfied);
+          continue;
+        }
+
+        result.Add(ability.CanActivate());
+      }
+
+      return result;
     }
 
     public SpellPrerequisites CanActivate(int abilityIndex)

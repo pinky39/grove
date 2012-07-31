@@ -385,9 +385,9 @@
       Publish(new AttachmentAttached {Attachment = attachment});
     }
 
-    public List<SpellPrerequisites> CanActivateAbilities()
+    public List<SpellPrerequisites> CanActivateAbilities(bool ignoreManaAbilities = false)
     {
-      return _activatedAbilities.CanActivate();
+      return _activatedAbilities.CanActivate(ignoreManaAbilities);
     }
 
     public SpellPrerequisites CanActivateAbility(int abilityIndex)
@@ -825,7 +825,7 @@
       private bool _isleveler;
       private string _kickerCost;
       private IEffectFactory _kickerEffectFactory;
-      private AiTargetSelectorDelegate _kickerAiTargetSelector;
+      private TargetSelectorAiDelegate _kickerAiTargetSelector;
       private string _manaCost;
       private bool _mayChooseNotToUntap;
       private string _name;
@@ -834,7 +834,7 @@
       private string[] _protectionsFromCardTypes;
       private ManaColors _protectionsFromColors = ManaColors.None;
       private Zone? _resolveZone;
-      private AiTargetSelectorDelegate _aiTargetSelector;
+      private TargetSelectorAiDelegate _aiTargetSelector;
 
       private string _text;
       private TimingDelegate _timing;
@@ -1178,21 +1178,21 @@
         return this;
       }
 
-      public CardFactory KickerTargets(AiTargetSelectorDelegate aiTargetSelector, params ITargetValidatorFactory[] effectValidators)
+      public CardFactory KickerTargets(TargetSelectorAiDelegate aiTargetSelector, params ITargetValidatorFactory[] effectValidators)
       {
         _kickerEffectTargetFactories.AddRange(effectValidators);
         _kickerAiTargetSelector = aiTargetSelector;
         return this;
       }
 
-      public CardFactory Targets(AiTargetSelectorDelegate aiTargetSelector, params ITargetValidatorFactory[] effectValidators)
+      public CardFactory Targets(TargetSelectorAiDelegate aiTargetSelector, params ITargetValidatorFactory[] effectValidators)
       {
         _effectTargetFactories.AddRange(effectValidators);
         _aiTargetSelector = aiTargetSelector;        
         return this;
       }
 
-      public CardFactory Targets(AiTargetSelectorDelegate aiTargetSelector, ITargetValidatorFactory effectValidator = null,
+      public CardFactory Targets(TargetSelectorAiDelegate aiTargetSelector, ITargetValidatorFactory effectValidator = null,
         ITargetValidatorFactory costValidator = null)
       {
         if (effectValidator != null)

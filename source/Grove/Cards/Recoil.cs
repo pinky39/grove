@@ -19,9 +19,13 @@
         .FlavorText("Anything sent into a plagued world is bound to come back infected.")
         .Timing(Timings.TargetRemovalInstant())
         .Category(EffectCategories.Bounce)
-        .Effect<ReturnTargetCardToHand>(e => e.Discard = 1)
+        .Effect<ReturnToHand>(e =>
+          {
+            e.Discard = 1;
+            e.ReturnTarget = true;
+          })
         .Targets(
-          aiTargetSelector: AiTargetSelectors.Bounce(),
+          aiTargetSelector: TargetSelectorAi.Bounce(),
           effectValidator: C.Validator(Validators.Permanent()));
     }
   }

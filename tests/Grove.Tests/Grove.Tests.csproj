@@ -150,6 +150,7 @@
     <Compile Include="Cards\WallOfReverence.cs" />
     <Compile Include="Cards\WayLay.cs" />
     <Compile Include="Cards\WildDogs.cs" />
+    <Compile Include="Cards\WizardMentor.cs" />
     <Compile Include="Cards\Worship.cs" />
     <Compile Include="Unit\ActivationFacts.cs" />
     <Compile Include="Unit\BlockStrategyFacts.cs" />
