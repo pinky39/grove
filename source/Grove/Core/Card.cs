@@ -23,8 +23,8 @@
   public class Card : IEffectSource, ITarget, IDamageable, IHashDependancy, IAcceptsModifiers, IHasColors, IHasLife
   {
     private static readonly Random Random = new Random();
-    private readonly TargetSelector _kickerTargetSelector = new TargetSelector();
-    private readonly TargetSelector _targetSelector = new TargetSelector();
+    private TargetSelector _kickerTargetSelector;
+    private TargetSelector _targetSelector;
 
     private ActivatedAbilities _activatedAbilities;
     private Cost _additionalCost;
@@ -88,7 +88,7 @@
     public bool HasNormalStrike { get { return !Has().FirstStrike || Has().DoubleStrike; } }
     public bool CanBeTapped { get { return IsPermanent && !IsTapped; } }
     public bool CanRegenerate { get { return _canRegenerate.Value; } set { _canRegenerate.Value = value; } }
-    public bool CanTap { get { return IsPermanent && (!Is().Creature || !HasSummoningSickness || Has().Haste) && !IsTapped; } }
+    public bool CanTap { get { return (!Is().Creature || !HasSummoningSickness || Has().Haste) && !IsTapped; } }
     public bool IsPermanent { get { return Zone == Zone.Battlefield; } }
     public CastingRule CastingRule { get; private set; }
     public int CharacterCount { get { return FlavorText.CharacterCount + Text.CharacterCount; } }
@@ -908,26 +908,17 @@
 
         card._modifiers = new TrackableList<IModifier>(_changeTracker);
 
-
-        foreach (var factory in _effectTargetFactories)
-        {
-          card._targetSelector.AddEffectSelector(factory.Create(card));
-        }
-
-        foreach (var factory in _kickerEffectTargetFactories)
-        {
-          card._kickerTargetSelector.AddEffectSelector(factory.Create(card));
-        }
-
-        // here we simplify that kicker cost targets are same as normal cost targets
-        foreach (var factory in _costTargetFactories)
-        {
-          card._targetSelector.AddCostSelector(factory.Create(card));
-          card._kickerTargetSelector.AddCostSelector(factory.Create(card));
-        }
-
-        card._targetSelector.SelectAiTargets = _aiTargetSelector;
-        card._kickerTargetSelector.SelectAiTargets = _kickerAiTargetSelector;
+        card._targetSelector = new TargetSelector(
+          effectValidators: _effectTargetFactories.Select(x => x.Create(card)),
+          costValidators: _costTargetFactories.Select(x => x.Create(card)),
+          aiSelector: _aiTargetSelector
+        );
+        
+        card._kickerTargetSelector = new TargetSelector(
+          effectValidators: _kickerEffectTargetFactories.Select(x => x.Create(card)),
+          costValidators: _costTargetFactories.Select(x => x.Create(card)),
+          aiSelector: _kickerAiTargetSelector
+        );     
 
         card._additionalCost = _additionalCost == null ? new NoCost()
           : _additionalCost.CreateCost(card, card._targetSelector.Cost.FirstOrDefault());

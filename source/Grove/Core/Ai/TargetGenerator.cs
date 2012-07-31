@@ -62,7 +62,7 @@
         _forceOne, 
         _game);
       
-      return _selector.SelectAiTargets(parameters);
+      return _selector.AiSelector(parameters);
     }
   }
 }

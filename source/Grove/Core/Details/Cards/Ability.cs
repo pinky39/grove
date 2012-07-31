@@ -1,6 +1,7 @@
 ﻿namespace Grove.Core.Details.Cards
 {
   using System.Collections.Generic;
+  using System.Linq;
   using Ai;
   using Effects;
   using Infrastructure;
@@ -10,7 +11,7 @@
   [Copyable]
   public abstract class Ability : IEffectSource
   {
-    private readonly TargetSelector _targetSelector = new TargetSelector();
+    private TargetSelector _targetSelector = TargetSelector.NullSelector;
     public TargetSelector TargetSelector { get { return _targetSelector; } }
 
     public Player Controller { get { return OwningCard.Controller; } }
@@ -40,19 +41,14 @@
       EffectFactory = effectFactory;
     }
 
-    public void Targets(IEnumerable<ITargetValidatorFactory> effectValidators, IEnumerable<ITargetValidatorFactory> costValidators, TargetSelectorAiDelegate aiTargetFilter)
+    public void Targets(IEnumerable<ITargetValidatorFactory> effect, IEnumerable<ITargetValidatorFactory> cost,
+      TargetSelectorAiDelegate aiSelector)
     {
-      foreach (var factory in effectValidators)
-      {
-        TargetSelector.AddEffectSelector(factory.Create(OwningCard));
-      }
-
-      foreach (var factory in costValidators)
-      {
-        TargetSelector.AddCostSelector(factory.Create(OwningCard));
-      }
-
-      TargetSelector.SelectAiTargets = aiTargetFilter;
+      _targetSelector = new TargetSelector(
+        effectValidators: effect.Select(x => x.Create(OwningCard)),
+        costValidators: cost.Select(x => x.Create(OwningCard)),
+        aiSelector: aiSelector
+        );
     }
 
     public override string ToString()

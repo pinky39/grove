@@ -1,6 +1,5 @@
 ﻿namespace Grove.Core.Details.Mana
 {
-  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Infrastructure;
@@ -49,7 +48,7 @@
     {
       foreach (var sources in EnumerateSources())
       {
-        if (ManaPayment.Pay(amount, sources,  usage, sourceToAvoid))
+        if (ManaPayment.Pay(amount, sources, usage, sourceToAvoid))
         {
           break;
         }
@@ -76,7 +75,7 @@
         return true;
 
       return SingleManaCheck(amount, usage);
-    }           
+    }
 
     private bool? SingleManaCheck(IManaAmount amount, ManaUsage usage)
     {

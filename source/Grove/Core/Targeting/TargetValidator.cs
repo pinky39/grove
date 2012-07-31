@@ -28,6 +28,11 @@
            
     public bool IsValid(ITarget target)
     {
+      if (target.IsCard() && !IsTargetable(target.Card()))
+      {
+        return false;
+      }
+      
       var parameters = new TargetValidatorParameters(
         target, 
         Source, 
@@ -35,12 +40,7 @@
         _game
         );
       
-      var valid = Validator(parameters);
-
-      if (target.IsCard())
-        valid = valid && IsTargetable(target.Card());
-
-      return valid;
+      return _validator(parameters);            
     }
 
     public string GetMessage(int targetNumber)

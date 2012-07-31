@@ -39,7 +39,7 @@
     public override SpellPrerequisites CanActivate()
     {
       int? maxX = null;
-      if (IsEnabled && Cost.CanPay(ref maxX))
+      if (IsEnabled &&  OwningCard.Zone == ActivationZone && Cost.CanPay(ref maxX))
       {
         return new SpellPrerequisites
           {
