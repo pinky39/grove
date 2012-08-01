@@ -127,7 +127,9 @@
     <Compile Include="Cards\BlackSunsZenith.cs" />
     <Compile Include="Cards\BlanchwoodArmor.cs" />
     <Compile Include="Cards\Blaze.cs" />
+    <Compile Include="Cards\Catalog.cs" />
     <Compile Include="Cards\Clear.cs" />
+    <Compile Include="Cards\Confiscate.cs" />
     <Compile Include="Cards\Corrupt.cs" />
     <Compile Include="Cards\Counterspell.cs" />
     <Compile Include="Cards\CopperlineGorge.cs" />
