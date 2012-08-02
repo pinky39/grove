@@ -80,6 +80,10 @@
     {
       return p =>
         {
+          // eot
+          if (!p.Controller.IsActive && p.Step == Step.EndOfTurn && !combatOnly)
+            return true;
+                    
           // remove potential blockers
           if (p.Controller.IsActive && p.Target.IsCard())
           {
@@ -108,8 +112,7 @@
               return true;
           }
 
-          // eot otherwise
-          return !p.Controller.IsActive && p.Step == Step.EndOfTurn;
+          return false;
         };
     }
 
@@ -412,6 +415,21 @@
     public static TimingDelegate HasCounters(int count)
     {
       return p => p.Card.Counters >= 3;
-    }    
+    }
+
+    public static TimingDelegate HasCreatureInGraveyard()
+    {
+      return p =>
+        {
+          var bestController = p.Controller.Graveyard.Creatures
+            .OrderByDescending(x => x.Score)
+            .FirstOrDefault();          
+
+          if (bestController == null)
+            return false;
+
+          return true;
+        };
+    }
   }
 }

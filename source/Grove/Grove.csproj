@@ -156,6 +156,7 @@
     <Compile Include="Cards\ElvishWarrior.cs" />
     <Compile Include="Cards\Endoskeleton.cs" />
     <Compile Include="Cards\Evacuation.cs" />
+    <Compile Include="Cards\Exhume.cs" />
     <Compile Include="Cards\Expunge.cs" />
     <Compile Include="Cards\FieryMantle.cs" />
     <Compile Include="Cards\FleshReaver.cs" />
@@ -208,8 +209,10 @@
     <Compile Include="Cards\Plains.cs" />
     <Compile Include="Cards\PollutedMire.cs" />
     <Compile Include="Cards\PouncingJaguar.cs" />
+    <Compile Include="Cards\PowerSink.cs" />
     <Compile Include="Cards\Rancor.cs" />
     <Compile Include="Cards\RazorvergeThicket.cs" />
+    <Compile Include="Cards\Rescind.cs" />
     <Compile Include="Cards\RuneofProtectionBlack.cs" />
     <Compile Include="Cards\RuptureSpire.cs" />
     <Compile Include="Cards\RagingRavine.cs" />
@@ -258,6 +261,7 @@
     <Compile Include="Cards\TimeWarp.cs" />
     <Compile Include="Cards\TripNoose.cs" />
     <Compile Include="Cards\TrollAscetic.cs" />
+    <Compile Include="Cards\Turnabout.cs" />
     <Compile Include="Cards\Undermine.cs" />
     <Compile Include="Cards\Uncastable.cs" />
     <Compile Include="Cards\UnworthyDead.cs" />
@@ -291,6 +295,7 @@
     <Compile Include="Core\Details\Cards\Costs\SacOwnerPayMana.cs" />
     <Compile Include="Core\Details\Cards\Costs\SacrificeCreature.cs" />
     <Compile Include="Core\Details\Cards\Effects\DealDistributedDamageToTargets.cs" />
+    <Compile Include="Core\Details\Cards\Effects\EachPlayerReturnsCardFromGraveyardToBattlefield.cs" />
     <Compile Include="Core\Details\Cards\Effects\ExileOwner.cs" />
     <Compile Include="Core\Details\Cards\Effects\PlayersSacrificeLands.cs" />
     <Compile Include="Core\Details\Cards\Effects\PutTargetToBattlefield.cs" />
@@ -447,6 +452,7 @@
     <Compile Include="Core\Details\Cards\Triggers\SpellWasCast.cs" />
     <Compile Include="Core\Details\Cards\Triggers\OnLevelChanged.cs" />
     <Compile Include="Core\Details\Cards\Triggers\OpponentWasNotDealtDamageThisTurn.cs" />
+    <Compile Include="Core\Zones\IGraveyardQuery.cs" />
     <Compile Include="Ui\DistributeDamage\UiDamageDistribution.cs" />
     <Compile Include="Core\Targeting\Validators.cs" />
     <Compile Include="Core\Details\Mana\ZeroManaAmount.cs" />

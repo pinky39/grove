@@ -90,7 +90,7 @@
     public IBattlefieldQuery Battlefield { get { return _battlefield; } }
     public bool CanMulligan { get { return _hand.CanMulligan && HasMulligan; } }
     public bool CanPlayLands { get { return _canPlayLands.Value; } set { _canPlayLands.Value = value; } }
-    public IEnumerable<Card> Graveyard { get { return _graveyard; } }
+    public IGraveyardQuery Graveyard { get { return _graveyard; } }
     public IHandQuery Hand { get { return _hand; } }
     public bool HasLost { get { return _hasLost.Value; } set { _hasLost.Value = value; } }
     public bool HasMulligan { get { return _hasMulligan.Value; } set { _hasMulligan.Value = value; } }

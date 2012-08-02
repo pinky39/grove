@@ -12,7 +12,7 @@
   {
     protected override void ResolveEffect()
     {
-      Decisions.Enqueue<Controllers.AdHocDecision<ChosenCards>>(
+      Decisions.Enqueue<Controllers.AdhocDecision<ChosenCards>>(
         controller: Players.GetOpponent(Controller),
         init: p =>
           {
@@ -48,8 +48,8 @@
                   new UiTargetValidator(
                     minTargetCount: 1,
                     maxTargetCount: 1,
-                    text: "Select a land to sacrifice.",
-                    isValid: target => target.Is().Land && target.Controller == self.Controller),
+                    text: "Select a land to sacrifice",
+                    isValid: target => target.IsPermanent && target.Is().Land && target.Controller == self.Controller),
                   canCancel: false
                   );
 

@@ -1,6 +1,6 @@
 ﻿namespace Grove.Core.Controllers.Machine
 {
-  public class AdHocDecision<T> : Controllers.AdHocDecision<T> where T : class
+  public class AdhocDecision<T> : Controllers.AdhocDecision<T> where T : class
   {        
     protected override void ExecuteQuery()
     {

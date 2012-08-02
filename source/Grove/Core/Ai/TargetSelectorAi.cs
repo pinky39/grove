@@ -190,7 +190,7 @@
           for (var i = 1; i < p.EffectCandidates.Count; i++)
           {
             var otherSelectorCandidate = p.EffectCandidates[i]
-              .OrderByDamageScore(amount, p)
+              .OrderByDamageScore(amount, p)              
               .FirstOrDefault();
 
 
@@ -228,6 +228,7 @@
                 Target = x,
                 Score = x.Card().Life <= amount ? x.Card().Score : 0
               }))
+        .Where(x => x.Score > 0)
         .OrderByDescending(x => x.Score)
         .Select(x => x.Target);
 

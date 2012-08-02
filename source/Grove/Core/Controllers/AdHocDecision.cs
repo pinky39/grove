@@ -3,13 +3,13 @@
   using System;
   using System.Collections.Generic;
 
-  public abstract class AdHocDecision<T> : Decision<T> where T : class
+  public abstract class AdhocDecision<T> : Decision<T> where T : class
   {
     private readonly Dictionary<string, object> _parameters = new Dictionary<string, object>();
 
-    public Action<AdHocDecision<T>> Process = delegate { };
-    public Func<Machine.AdHocDecision<T>, T> QueryAi = (self) => default(T);
-    public Func<Human.AdHocDecision<T>, T> QueryUi = (shell) => default(T);
+    public Action<AdhocDecision<T>> Process = delegate { };
+    public Func<Machine.AdhocDecision<T>, T> QueryAi = (self) => default(T);
+    public Func<Human.AdhocDecision<T>, T> QueryUi = (shell) => default(T);
 
     public void Param(string key, object value)
     {

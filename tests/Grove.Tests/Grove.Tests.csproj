@@ -103,12 +103,14 @@
     <Compile Include="Cards\DarkstyleGargoyle.cs" />
     <Compile Include="Cards\DayOfJudgment.cs" />
     <Compile Include="Cards\DeathlessAngel.cs" />
+    <Compile Include="Cards\DiabolicServitude.cs" />
     <Compile Include="Cards\DiscipleOfGrace.cs" />
     <Compile Include="Cards\DragonBlood.cs" />
     <Compile Include="Cards\Dread.cs" />
     <Compile Include="Cards\EleshNornGrandCenobite.cs" />
     <Compile Include="Cards\Endoskeleton.cs" />
     <Compile Include="Cards\Evacuation.cs" />
+    <Compile Include="Cards\Exhume.cs" />
     <Compile Include="Cards\FieryMantle.cs" />
     <Compile Include="Cards\GraveTitan.cs" />
     <Compile Include="Cards\HeroOfBladeHold.cs" />
@@ -124,6 +126,7 @@
     <Compile Include="Cards\Pestilence.cs" />
     <Compile Include="Cards\PhyrexianArena.cs" />
     <Compile Include="Cards\PhyrexianGhoul.cs" />
+    <Compile Include="Cards\PowerSink.cs" />
     <Compile Include="Cards\Rancor.cs" />
     <Compile Include="Cards\Recoil.cs" />
     <Compile Include="Cards\RuneOfProtectionBlack.cs" />

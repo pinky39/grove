@@ -11,7 +11,9 @@
   public class CounterTargetSpell : Effect
   {
     public int? ControllersLifeloss;
+    public bool TapLandsEmptyPool;
     public IManaAmount DoNotCounterCost;
+
 
     public override bool NeedsTargets
     {
@@ -24,7 +26,7 @@
 
       if (DoNotCounterCost != null && targetSpellController.HasMana(DoNotCounterCost, ManaUsage.Any))
       {
-        Decisions.Enqueue<AdHocDecision<BooleanResult>>(
+        Decisions.Enqueue<AdhocDecision<BooleanResult>>(
           controller: targetSpellController,
           init: p =>
             {
@@ -65,6 +67,16 @@
       if (ControllersLifeloss.HasValue)
       {
         targetSpellController.Life -= ControllersLifeloss.Value;
+      }
+
+      if (TapLandsEmptyPool)
+      {
+        foreach (var land in targetSpellController.Battlefield.Lands)
+        {
+          land.Tap();
+        }
+        
+        targetSpellController.EmptyManaPool();        
       }
 
       stack.Counter(spell);

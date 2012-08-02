@@ -1,5 +1,6 @@
 ﻿namespace Grove.Cards
 {
+  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -38,7 +39,7 @@
                   c.Effect<CompoundEffect>(p2 => p2.Effect.ChildEffects(
                     p2.Builder.Effect<ExileOwner>(),
                     p2.Builder.Effect<ReturnToHand>(e => e.ReturnCard = e.Source.SourceCard)
-                    )), triggerOnlyIfOwningCardIsInPlay: true
+                    ))
                   )),
                 p1.Builder.Modifier<AddTriggeredAbility>((m, c) => m.Ability = c.TriggeredAbility(
                   "When Diabolic Servitude leaves the battlefield, exile the creature put onto the battlefield with Diabolic Servitude.",
@@ -47,7 +48,7 @@
                       t.From = Zone.Battlefield;
                       t.Filter = (ability, card) => card == ability.SourceCard;
                     }),
-                  c.Effect<ExileOwner>(), triggerOnlyIfOwningCardIsInPlay: true
+                  c.Effect<ExileOwner>()
                   ))
                 ))
               )),

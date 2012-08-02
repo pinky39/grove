@@ -70,5 +70,16 @@
           return lifepoints;
         };
     }
+
+    public static CalculateX CounterUnlessPay()
+    {
+      return p =>
+        {          
+          if (p.Game.Stack.IsEmpty || p.Game.Stack.TopSpellOwner == p.Controller)
+            return int.MaxValue;
+
+          return p.Opponent.GetConvertedMana(ManaUsage.Any) + 1;
+        };
+    }
   }
 }

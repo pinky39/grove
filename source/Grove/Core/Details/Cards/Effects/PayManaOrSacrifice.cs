@@ -19,7 +19,7 @@
         return;
       }
 
-      Decisions.Enqueue<AdHocDecision<BooleanResult>>(
+      Decisions.Enqueue<AdhocDecision<BooleanResult>>(
         controller: Controller,
         init: p =>
           {

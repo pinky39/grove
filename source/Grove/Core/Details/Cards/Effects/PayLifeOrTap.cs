@@ -13,7 +13,7 @@
 
     protected override void ResolveEffect()
     {
-      Decisions.Enqueue<AdHocDecision<BooleanResult>>(
+      Decisions.Enqueue<AdhocDecision<BooleanResult>>(
         controller: Controller,
         init: p =>
           {

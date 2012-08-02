@@ -179,7 +179,13 @@
 
     public static int CalculateCardInGraveyardScore(Card card)
     {
-      return 1;
+      if (card.Is().BasicLand)
+        return 1;
+
+      if (card.Is().Land)
+        return 2;
+      
+      return card.ManaCost.Converted;
     }
 
     public static int CalculateLifelossScore(int life, int loss)
