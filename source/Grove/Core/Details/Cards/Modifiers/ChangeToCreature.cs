@@ -1,7 +1,7 @@
 ﻿namespace Grove.Core.Details.Cards.Modifiers
 {
-  using Mana;
-
+  using Mana;  
+  
   public class ChangeToCreature : Modifier
   {
     private CardColors _cardColors;

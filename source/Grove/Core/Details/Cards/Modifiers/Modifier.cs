@@ -28,6 +28,7 @@
       }
     }
 
+    public virtual void Apply(ControllerCharacteristic controller) { }
     public virtual void Apply(TriggeredAbilities abilities) {}
     public virtual void Apply(StaticAbilities abilities) {}
     public virtual void Apply(ActivatedAbilities abilities) {}

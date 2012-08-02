@@ -40,7 +40,7 @@
       card.DetachAttachments();
       card.Detach();
       card.Untap();
-      card.ClearDamage();
+      card.ClearDamage();      
     }
   }
 }

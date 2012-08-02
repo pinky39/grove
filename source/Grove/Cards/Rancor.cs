@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -28,7 +27,7 @@
           p.Builder.Modifier<AddStaticAbility>((m, _) => m.StaticAbility = Static.Trample)))
         .Timing(Timings.FirstMain())
         .Targets(
-          aiTargetSelector: TargetSelectorAi.CombatEnchantment(),
+          selectorAi: TargetSelectorAi.CombatEnchantment(),
           effectValidator: C.Validator(Validators.EnchantedCreature()))
         .Abilities(
           C.TriggeredAbility(

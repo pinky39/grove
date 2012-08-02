@@ -33,7 +33,7 @@
               timing: Timings.IncreaseOwnersPowerAndThougness(1, 0))
             )))
         .Targets(
-          aiTargetSelector: TargetSelectorAi.CombatEnchantment(),
+          selectorAi: TargetSelectorAi.CombatEnchantment(),
           effectValidator: C.Validator(Validators.EnchantedCreature()))
         .Abilities(
           C.TriggeredAbility(

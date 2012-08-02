@@ -32,7 +32,7 @@
               );
           })
         .Targets(
-          aiTargetSelector: TargetSelectorAi.Destroy(),
+          selectorAi: TargetSelectorAi.Destroy(),
           effectValidator: C.Validator(Validators.Creature()));
     }
   }

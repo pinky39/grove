@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -11,29 +10,25 @@
   using Core.Targeting;
   using Core.Zones;
 
-  public class BrilliantHalo : CardsSource
+  public class Despondency : CardsSource
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
       yield return C.Card
-        .Named("Brilliant Halo")
-        .ManaCost("{1}{W}")
+        .Named("Despondency")
+        .ManaCost("{1}{B}")
         .Type("Enchantment Aura")
         .Text(
-          "Enchanted creature{EOL}Enchanted creature gets +1/+2.{EOL}When Brilliant Halo is put into a graveyard from the battlefield, return Brilliant Halo to its owner's hand.")
-        .Effect<EnchantCreature>(p => p.Effect.Modifiers(
-          p.Builder.Modifier<AddPowerAndToughness>((m, _) =>
-            {
-              m.Power = 1;
-              m.Toughness = 2;
-            })))
+          "{Enchant creature}{EOL}Enchanted creature gets -2/-0.{EOL}When Despondency is put into a graveyard from the battlefield, return Despondency to its owner's hand.")
         .Timing(Timings.FirstMain())
         .Targets(
-          selectorAi: TargetSelectorAi.CombatEnchantment(),
+          selectorAi: TargetSelectorAi.ReducePower(2),
           effectValidator: C.Validator(Validators.EnchantedCreature()))
+        .Effect<EnchantCreature>(
+          p => p.Effect.Modifiers(p.Builder.Modifier<AddPowerAndToughness>((m, _) => m.Power = -2)))
         .Abilities(
           C.TriggeredAbility(
-            "When Brilliant Halo is put into a graveyard from the battlefield, return Brilliant Halo to its owner's hand.",
+            "When Despondency is put into a graveyard from the battlefield, return Despondency to its owner's hand.",
             C.Trigger<ChangeZone>((t, _) =>
               {
                 t.From = Zone.Battlefield;

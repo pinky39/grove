@@ -23,7 +23,7 @@
         .AdditionalCost<RevealCardFromHand>()
         .Effect<GainLife>(e => e.Amount = e.CostTarget().Card().ManaCost.Converted)
         .Targets(
-          aiTargetSelector: TargetSelectorAi.GreatestConvertedManaCost(),
+          selectorAi: TargetSelectorAi.GreatestConvertedManaCost(),
           costValidator: C.Validator(Validators.CardInHand(card => card.Is().Creature))
         );
     }

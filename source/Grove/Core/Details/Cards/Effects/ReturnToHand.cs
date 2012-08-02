@@ -6,13 +6,21 @@
   public class ReturnToHand : Effect
   {
     public int Discard;
+    
     public bool ReturnTarget;
     public bool ReturnOwner;
+
+    public Card ReturnCard;
 
     public override bool NeedsTargets { get { return ReturnTarget; } }
 
     protected override void ResolveEffect()
     {
+      if (ReturnCard != null)
+      {
+        ReturnCard.ReturnToHand();
+      }
+      
       if (ReturnTarget)
       {
         Target().Card().ReturnToHand();

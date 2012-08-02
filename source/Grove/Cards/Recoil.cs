@@ -25,7 +25,7 @@
             e.ReturnTarget = true;
           })
         .Targets(
-          aiTargetSelector: TargetSelectorAi.Bounce(),
+          selectorAi: TargetSelectorAi.Bounce(),
           effectValidator: C.Validator(Validators.Permanent()));
     }
   }

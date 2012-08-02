@@ -138,6 +138,8 @@
     <Compile Include="Cards\CruelEdict.cs" />
     <Compile Include="Cards\DayofJudgment.cs" />
     <Compile Include="Cards\DeathlessAngel.cs" />
+    <Compile Include="Cards\Despondency.cs" />
+    <Compile Include="Cards\DiabolicServitude.cs" />
     <Compile Include="Cards\DiscipleOfGrace.cs" />
     <Compile Include="Cards\DiscipleOfLaw.cs" />
     <Compile Include="Cards\Disenchant.cs" />
@@ -285,11 +287,16 @@
     <Compile Include="Core\Ai\QuickCombat.cs" />
     <Compile Include="Core\DeckFile.cs" />
     <Compile Include="Core\DeckRow.cs" />
+    <Compile Include="Core\Details\Cards\ControllerCharacteristic.cs" />
     <Compile Include="Core\Details\Cards\Costs\SacOwnerPayMana.cs" />
     <Compile Include="Core\Details\Cards\Costs\SacrificeCreature.cs" />
     <Compile Include="Core\Details\Cards\Effects\DealDistributedDamageToTargets.cs" />
+    <Compile Include="Core\Details\Cards\Effects\ExileOwner.cs" />
     <Compile Include="Core\Details\Cards\Effects\PlayersSacrificeLands.cs" />
+    <Compile Include="Core\Details\Cards\Effects\PutTargetToBattlefield.cs" />
     <Compile Include="Core\Details\Cards\Modifiers\AddActivatedAbility.cs" />
+    <Compile Include="Core\Details\Cards\Modifiers\ChangeController.cs" />
+    <Compile Include="Core\Details\Cards\Modifiers\ControllerSetter.cs" />
     <Compile Include="Core\Details\Cards\Modifiers\PermanentLeavesBattlefieldLifetime.cs" />
     <Compile Include="Core\Details\Cards\Triggers\PlayerRelationshipToAbility.cs" />
     <Compile Include="Core\Details\Cards\Triggers\TriggerOrder.cs" />
@@ -318,8 +325,7 @@
     <Compile Include="Core\Details\Cards\Costs\TapAndSacOwnerPayMana.cs" />
     <Compile Include="Core\Details\Cards\EffectCreationContext.cs" />
     <Compile Include="Core\Details\Cards\EffectParameters.cs" />
-    <Compile Include="Core\Details\Cards\Effects\ChangeController.cs" />
-    <Compile Include="Core\Details\Cards\Effects\MoveCardFromGraveyardToHand.cs" />
+    <Compile Include="Core\Details\Cards\Effects\SwitchController.cs" />
     <Compile Include="Core\Details\Cards\Effects\PutOnTopOfLibraryUnlessOpponentSacsLand.cs" />
     <Compile Include="Core\Details\Cards\Modifiers\PermanentGetsUntapedLifetime.cs" />
     <Compile Include="Core\Details\Cards\Preventions\PreventDealtDamage.cs" />
@@ -402,7 +408,7 @@
     <Compile Include="Core\Details\Cards\Effects\DealDamageToActivePlayer.cs" />
     <Compile Include="Core\Details\Cards\Effects\DealExistingDamageToController.cs" />
     <Compile Include="Core\Details\Cards\Effects\DestroyPermanents.cs" />
-    <Compile Include="Core\Details\Cards\Effects\ExileTargetPermanent.cs" />
+    <Compile Include="Core\Details\Cards\Effects\ExileTargetCard.cs" />
     <Compile Include="Core\Details\Cards\Effects\GainLifeEqualToTargetPower.cs" />
     <Compile Include="Core\Details\Cards\Effects\MillOpponent.cs" />
     <Compile Include="Core\Details\Cards\Effects\PayLifeOrTap.cs" />

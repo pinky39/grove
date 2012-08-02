@@ -18,9 +18,9 @@
         .Timing(Timings.TargetRemovalInstant())
         .Category(EffectCategories.Exile)
         .Text("Exile target creature. Its controller gains life equal to its power.")
-        .Effect<ExileTargetPermanent>(e => e.ControllerGainsLifeEqualToToughness = true)
+        .Effect<ExileTargetCard>(e => e.ControllerGainsLifeEqualToToughness = true)
         .Targets(
-          aiTargetSelector: TargetSelectorAi.Exile(),
+          selectorAi: TargetSelectorAi.Exile(),
           effectValidator: C.Validator(
             Validators.Creature()));
     }

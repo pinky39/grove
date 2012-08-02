@@ -26,7 +26,7 @@
         .Effect<ApplyModifiersToTargets>(p => p.Effect.Modifiers(
           p.Builder.Modifier<AddStaticAbility>((m, _) => m.StaticAbility = Static.Hexproof, untilEndOfTurn: true)))
         .Targets(
-          aiTargetSelector: TargetSelectorAi.ShieldHexproof(),
+          selectorAi: TargetSelectorAi.ShieldHexproof(),
           effectValidator: C.Validator(Validators.Creature()))
         .KickerEffect<ApplyModifiersToTargets>(p => p.Effect.Modifiers(
           p.Builder.Modifier<AddStaticAbility>((m, _) => m.StaticAbility = Static.Hexproof, untilEndOfTurn: true),

@@ -22,7 +22,7 @@
         .Timing(Timings.CounterSpell(3))
         .Effect<CounterTargetSpell>(e => e.DoNotCounterCost = 3.AsColorlessMana())
         .Targets(
-          aiTargetSelector: TargetSelectorAi.CounterSpell(),
+          selectorAi: TargetSelectorAi.CounterSpell(),
           effectValidator: C.Validator(Validators.Counterspell()));
     }
   }

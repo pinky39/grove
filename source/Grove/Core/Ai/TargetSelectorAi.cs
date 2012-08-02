@@ -817,8 +817,8 @@
             .Select(x => new
               {
                 Card = x,
-                Score = CalculatePasifismScore(x)
-              })
+                Score = CalculateAttackingScore(x)
+              })            
             .OrderByDescending(x => x.Score)
             .Select(x => x.Card)
             .ToList();
@@ -830,23 +830,7 @@
 
           return p.Targets(candidates);
         };
-    }
-
-    private static int CalculatePasifismScore(Card card)
-    {
-      if (card.CanAttack)
-      {
-        if (card.Has().Flying || card.Has().Trample)
-        {
-          return 4*card.CalculateCombatDamage(allDamageSteps: true);
-        }
-
-        return 2*card.CalculateCombatDamage(allDamageSteps: true) +
-          card.Toughness.GetValueOrDefault();
-      }
-
-      return 1;
-    }
+    }    
 
     public static TargetSelectorAiDelegate DealDamageSingleSelectorDistribute(int? amount = null)
     {
@@ -920,6 +904,46 @@
           // otherwise return all except the owner
           return p.Targets(targetCandidates.Where(x => x != p.Source));
         };
+    }
+
+    public static TargetSelectorAiDelegate GainControl()
+    {
+      return Destroy();
+    }
+
+    public static TargetSelectorAiDelegate ReducePower(int? amount)
+    {
+      return p =>
+        {
+          amount = amount ?? p.MaxX;
+
+          var candidates = p.Candidates()
+            .Where(x => x.Card().Controller == p.Opponent)
+            .Select(x => new
+              {
+                Card = x.Card(),
+                Score = CalculateAttackingScore(x.Card())
+              })
+            .Where(x => x.Score > 0)
+            .OrderByDescending(x => x.Score)
+            .Select(x => x.Card);
+
+
+          return p.Targets(candidates);
+        };
+    }
+
+    private static int CalculateAttackingScore(Card card)
+    {
+      if (card.Has().DoesNotUntap || card.Has().CannotAttack)
+        return 0;
+
+      var damage = card.CalculateCombatDamage(allDamageSteps: true);
+
+      if (card.Has().AnyEvadingAbility)
+        return 2 + damage;
+
+      return damage;
     }
   }
 }

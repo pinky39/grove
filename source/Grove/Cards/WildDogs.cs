@@ -35,7 +35,7 @@
                     return controller.Life < opponent.Life;
                   };
               }),
-            C.Effect<ChangeController>(), triggerOnlyIfOwningCardIsInPlay: true));
+            C.Effect<SwitchController>(), triggerOnlyIfOwningCardIsInPlay: true));
     }
   }
 }

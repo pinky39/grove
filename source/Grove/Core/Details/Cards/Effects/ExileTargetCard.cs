@@ -2,7 +2,7 @@
 {
   using Targeting;
 
-  public class ExileTargetPermanent : Effect
+  public class ExileTargetCard : Effect
   {
     public bool ControllerGainsLifeEqualToToughness { get; set; }
 

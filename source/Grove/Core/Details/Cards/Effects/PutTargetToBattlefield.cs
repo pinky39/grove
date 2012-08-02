@@ -2,13 +2,13 @@
 {
   using Targeting;
 
-  public class MoveCardFromGraveyardToHand : Effect
+  public class PutTargetToBattlefield : Effect
   {
     public override bool NeedsTargets { get { return true; } }
 
     protected override void ResolveEffect()
     {
-      Target().Card().ReturnToHand();
+      Controller.PutCardToBattlefield(Target().Card());
     }
   }
 }

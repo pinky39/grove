@@ -22,5 +22,6 @@
     bool CannotBlock { get; }
     bool Islandwalk { get;  }
     bool DoesNotUntap { get; }
+    bool AnyEvadingAbility { get; }
   }
 }

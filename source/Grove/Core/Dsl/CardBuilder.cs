@@ -232,7 +232,8 @@
 
     public TriggeredAbility.Factory StaticAbility(
       ITriggerFactory trigger,
-      IEffectFactory effect
+      IEffectFactory effect,
+      bool triggerOnlyIfOwningCardIsInPlay = false
       )
     {
       // this is not a real triggered ability, 
@@ -246,6 +247,7 @@
               self.AddTrigger(trigger);
               self.Effect(effect);
               self.UsesStack = false;
+              self.TriggerOnlyIfOwningCardIsInPlay = triggerOnlyIfOwningCardIsInPlay;
             }
         };
     }
@@ -297,7 +299,7 @@
       ITriggerFactory trigger,
       IEffectFactory effect,
       ITargetValidatorFactory effectValidator = null,
-      TargetSelectorAiDelegate aiSelector = null,
+      TargetSelectorAiDelegate selectorAi = null,
       EffectCategories abilityCategory = EffectCategories.Generic,
       bool triggerOnlyIfOwningCardIsInPlay = false)
     {
@@ -317,7 +319,7 @@
               if (effectValidator != null)
                 effectValidators.Add(effectValidator);
 
-              self.Targets(effectValidators, Enumerable.Empty<ITargetValidatorFactory>(), aiSelector);                            
+              self.Targets(effectValidators, Enumerable.Empty<ITargetValidatorFactory>(), selectorAi);                            
             }
         };
     }

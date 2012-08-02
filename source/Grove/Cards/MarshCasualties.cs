@@ -30,7 +30,7 @@
               }, untilEndOfTurn: true));
           })
         .Targets(
-          aiTargetSelector: TargetSelectorAi.Opponent(),
+          selectorAi: TargetSelectorAi.Opponent(),
           effectValidator: C.Validator(Validators.Player()))
         .KickerEffect<ApplyModifiersToCreatures>(p =>
           {

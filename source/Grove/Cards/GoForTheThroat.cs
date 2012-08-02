@@ -21,7 +21,7 @@
         .Timing(Timings.TargetRemovalInstant())
         .Category(EffectCategories.Destruction)
         .Targets(
-          aiTargetSelector: TargetSelectorAi.Destroy(),
+          selectorAi: TargetSelectorAi.Destroy(),
           effectValidator: C.Validator(Validators.Creature(card => !card.Is().Artifact)));
     }
   }

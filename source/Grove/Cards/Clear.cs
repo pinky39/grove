@@ -22,7 +22,7 @@
         .Timing(Timings.TargetRemovalInstant())
         .Cycling("{2}")
         .Targets(
-          aiTargetSelector: TargetSelectorAi.OrderByDescendingScore(),
+          selectorAi: TargetSelectorAi.OrderByDescendingScore(),
           effectValidator:
             C.Validator(Validators.Permanent(card => card.Is().Enchantment)));
     }

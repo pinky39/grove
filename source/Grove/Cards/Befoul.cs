@@ -22,7 +22,7 @@
         .Timing(Timings.FirstMain())
         .Category(EffectCategories.Destruction)
         .Targets(
-          aiTargetSelector: TargetSelectorAi.Destroy(),
+          selectorAi: TargetSelectorAi.Destroy(),
           effectValidator: C.Validator(Validators.Permanent(card =>
             card.Is().Land || (card.Is().Creature && !card.HasColors(ManaColors.Black)))));
     }

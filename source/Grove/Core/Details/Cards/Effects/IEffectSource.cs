@@ -8,6 +8,7 @@
   {
     EffectCategories EffectCategories { get; }
     Card OwningCard { get; }
+    Card SourceCard { get; }
 
     void EffectWasCountered();
     void EffectWasPushedOnStack();

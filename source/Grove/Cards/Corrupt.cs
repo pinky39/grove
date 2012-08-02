@@ -26,7 +26,7 @@
           })
         .Timing(Timings.MainPhases())
         .Targets(
-          aiTargetSelector: TargetSelectorAi.DealDamageSingleSelector(p => p.Controller.Battlefield.Count(x => x.Is("swamp"))),
+          selectorAi: TargetSelectorAi.DealDamageSingleSelector(p => p.Controller.Battlefield.Count(x => x.Is("swamp"))),
           effectValidator: C.Validator(Validators.CreatureOrPlayer()));
     }
   }

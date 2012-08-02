@@ -28,7 +28,7 @@
             C.Trigger<ChangeZone>((t, _) => t.To = Zone.Battlefield),
             C.Effect<DealDamageToTargets>(e => e.Amount = 4),
             C.Validator(Validators.Creature()),
-            aiSelector: TargetSelectorAi.DealDamageSingleSelector(4)));
+            selectorAi: TargetSelectorAi.DealDamageSingleSelector(4)));
     }
   }
 }

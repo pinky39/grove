@@ -31,7 +31,7 @@
           })
         .Timing(Timings.MainPhases())
         .Targets(
-          aiTargetSelector: TargetSelectorAi.ReduceToughness(1),
+          selectorAi: TargetSelectorAi.ReduceToughness(1),
           effectValidator: C.Validator(Validators.EnchantedCreature())
         );
     }

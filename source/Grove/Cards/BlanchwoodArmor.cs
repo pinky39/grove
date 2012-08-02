@@ -22,7 +22,7 @@
         .Category(EffectCategories.ToughnessIncrease)
         .Timing(Timings.FirstMain())
         .Targets(
-          aiTargetSelector: TargetSelectorAi.CombatEnchantment(),
+          selectorAi: TargetSelectorAi.CombatEnchantment(),
           effectValidator: C.Validator(Validators.EnchantedCreature()));
     }
   }

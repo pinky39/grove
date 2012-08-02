@@ -20,5 +20,6 @@
     void Apply(Level level);
     void Apply(DamageRedirections damageRedirections);
     void Activate();
+    void Apply(ControllerCharacteristic controller);
   }
 }

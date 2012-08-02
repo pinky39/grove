@@ -31,7 +31,7 @@
             C.Effect<ReturnToHand>(),
             C.Validator(Validators.Permanent(
               card => card.Is().Artifact || card.Is().Enchantment)),
-            aiSelector: TargetSelectorAi.Bounce(),
+            selectorAi: TargetSelectorAi.Bounce(),
             abilityCategory: EffectCategories.Bounce)
         );
     }
