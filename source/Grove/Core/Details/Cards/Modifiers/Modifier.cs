@@ -9,6 +9,8 @@
   using Redirections;
   using Targeting;
 
+  public delegate void ModifierInitializer<in T>(T modifier, object origin, CardBuilder builder);
+
   [Copyable]
   public abstract class Modifier : IModifier, ICopyContributor
   {
@@ -90,18 +92,18 @@
     [Copyable]
     public class Factory<TModifier> : IModifierFactory where TModifier : Modifier, new()
     {
-      public Initializer<TModifier> Init = delegate { };
+      public ModifierInitializer<TModifier> Init = delegate { };
       public bool EndOfTurn { get; set; }
       public int? MinLevel { get; set; }
       public int? MaxLevel { get; set; }
       public Game Game { get; set; }
 
-      public Modifier CreateModifier(Card modifierSource, ITarget modifierTarget, int? x = null)
+      public Modifier CreateModifier(Card source, ITarget target, object origin, int? x)
       {
         var modifier = new TModifier();
         modifier._lifetimes = new TrackableList<Lifetime>(Game.ChangeTracker);
-        modifier.Source = modifierSource;
-        modifier.Target = modifierTarget;
+        modifier.Source = source;
+        modifier.Target = target;        
         modifier.X = x;
         modifier.Game = Game;
 
@@ -110,7 +112,7 @@
           modifier.AddLifetime(lifetime);
         }
 
-        Init(modifier, new CardBuilder(Game));
+        Init(modifier, origin, new CardBuilder(Game));
 
         modifier.Initialize();
 

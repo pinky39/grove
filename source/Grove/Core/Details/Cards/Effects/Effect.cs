@@ -26,14 +26,16 @@
     public int? X { get; set; }
     public virtual bool AffectsSource { get { return false; } }
     public bool HasTargets { get { return _targets.Count > 0; } }
-    private bool WasResolved { get { return _wasResolved.Value; } set { _wasResolved.Value = value; } }    
-    
+    protected CardBuilder Builder { get { return new CardBuilder(Game); } }
+    private bool WasResolved { get { return _wasResolved.Value; } set { _wasResolved.Value = value; } }
+
     // this is used by ui to display effect targets
     public object UiTargets { get { return _targets; } }
-    
+
     public bool WasKickerPaid { get; set; }
     protected IList<ITarget> Targets { get { return _targets.Effect; } }
     protected IList<ITarget> CostTargets { get { return _targets.Cost; } }
+    public virtual bool NeedsTargets { get { return false; } }
 
     public bool HasColors(ManaColors colors)
     {
@@ -102,12 +104,10 @@
       Source.EffectWasCountered();
     }
 
-    public virtual bool NeedsTargets { get { return false; } }
-
     public bool CanBeResolved()
     {
       return !NeedsTargets ||
-        _targets.Effect.Any(x => Source.IsTargetStillValid(x, WasKickerPaid));        
+        _targets.Effect.Any(x => Source.IsTargetStillValid(x, WasKickerPaid));
     }
 
     public override string ToString()

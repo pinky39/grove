@@ -9,33 +9,24 @@
     private ITarget DamageSource { get { return Target(); } }
     public bool OnlyOnce { get; set; }
 
-    public override bool NeedsTargets
-    {
-      get { return true; }
-    }
-    
+    public override bool NeedsTargets { get { return true; } }
+
     protected override void ResolveEffect()
     {
       var source = DamageSource.IsEffect()
         ? DamageSource.Effect().Source.OwningCard
         : DamageSource.Card();
-
-      var prevention = new DamagePrevention.Factory<Preventions.PreventDamageFromSource>
-        {
-          Game = Game,
-          Init = (m, c) =>
-            {
-              m.Source = source;
-              m.OnlyOnce = OnlyOnce;
-            }
-        };
-
-      var modifier = new Modifier.Factory<AddDamagePrevention>
-        {
-          Game = Game,
-          Init = (m, _) => m.Prevention = prevention
-        }
-        .CreateModifier(Source.OwningCard, Controller);
+                  
+      var prevention = Builder
+        .Prevention<PreventDamageFromSource>(p =>
+          {
+            p.Source = source;
+            p.OnlyOnce = OnlyOnce;
+          });
+        
+      var modifier = Builder
+        .Modifier<AddDamagePrevention>(m => m.Prevention = prevention)
+        .CreateModifier(Source.OwningCard, Controller, this, X);
 
 
       Controller.AddModifier(modifier);

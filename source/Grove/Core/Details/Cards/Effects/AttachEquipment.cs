@@ -25,6 +25,7 @@
       var modifiers = _modifierFactories.CreateModifiers(
         Source.OwningCard,
         Target().Card(),
+        this,
         X);
 
       cardToEquip.Attach(Source.OwningCard);

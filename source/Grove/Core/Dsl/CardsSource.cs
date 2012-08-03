@@ -4,6 +4,7 @@
   using Ai;
   using Details.Cards;
 
+    
   public delegate void Initializer<in T>(T target, CardBuilder builder);
 
   public abstract class CardsSource

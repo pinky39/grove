@@ -36,6 +36,7 @@
       var modifiers = _modifierFactories.CreateModifiers(
         Source.OwningCard,
         Target().Card(),
+        this,
         X);
 
       Target().Card().Attach(Source.OwningCard);

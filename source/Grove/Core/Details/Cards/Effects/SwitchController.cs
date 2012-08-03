@@ -8,15 +8,11 @@
     {
       var opponent = Game.Players.GetOpponent(Controller);
 
-      var modifier = new Modifier.Factory<ChangeController>
-        {
-          Game = Game,
-          Init = (m, c) => m.NewController = opponent
-        }
-        .CreateModifier(Source.OwningCard, Source.OwningCard);
-      
-      
-      Source.OwningCard.AddModifier(modifier);            
+      var modifier = Builder
+        .Modifier<ChangeController>(m => m.NewController = opponent)
+        .CreateModifier(Source.OwningCard, Source.OwningCard, this, X);
+
+      Source.OwningCard.AddModifier(modifier);
     }
   }
 }

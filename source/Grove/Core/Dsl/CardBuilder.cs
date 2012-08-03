@@ -181,7 +181,7 @@
       return new Modifier.Factory<T>
         {
           Game = _game,
-          Init = init,
+          Init = (modifier, origin, builder) => init(modifier, builder),
           EndOfTurn = untilEndOfTurn,
           MinLevel = minLevel,
           MaxLevel = maxLevel
@@ -199,6 +199,18 @@
         };
     }
 
+    public IDamagePreventionFactory Prevention<T>(Action<T> init)
+      where T : DamagePrevention, new()
+    {
+      init = init ?? delegate { };
+
+      return new DamagePrevention.Factory<T>
+      {
+        Game = _game,
+        Init = (self, context) => init(self)
+      };
+    }
+    
     public IDamagePreventionFactory Prevention<T>(Initializer<T> init = null)
       where T : DamagePrevention, new()
     {

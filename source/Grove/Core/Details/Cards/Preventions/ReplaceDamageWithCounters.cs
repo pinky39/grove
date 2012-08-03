@@ -10,21 +10,15 @@
 
     public override void PreventReceivedDamage(Damage damage)
     {
-      var factory = new Modifier.Factory<AddCounters>
-        {
-          Game = Game,
-          Init = (m, _) =>
-            {
-              m.Counter = CounterFactory;
-              m.Count = damage.Amount;
-            }
-        };
+      var modifier = Builder
+        .Modifier<AddCounters>(m =>
+          {
+            m.Counter = CounterFactory;
+            m.Count = damage.Amount;
+          })
+          .CreateModifier(Owner.Card(), Owner, this, x: null);
 
-
-      var modifier = factory.CreateModifier(Owner.Card(), Owner);
       Owner.AddModifier(modifier);
-
-
       damage.PreventAll();
     }
 

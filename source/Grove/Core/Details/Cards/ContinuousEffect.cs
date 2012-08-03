@@ -12,7 +12,6 @@
   public class ContinuousEffect : IReceive<CardChangedZone>, ILifetimeDependency
   {
     public delegate bool ShouldApplyToCard(Card card, Card effectSource);
-
     public delegate bool ShouldApplyToPlayer(Player player, Card effectSource);
 
     private readonly ChangeTracker _changeTracker;
@@ -83,7 +82,7 @@
 
     private void AddModifierToTarget(ITarget target)
     {
-      var modifier = ModifierFactory.CreateModifier(_source, target);
+      var modifier = ModifierFactory.CreateModifier(_source, target, this, x: null);
       modifier.AddLifetime(new DependantLifetime(this, _changeTracker));
       target.AddModifier(modifier);
     }

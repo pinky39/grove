@@ -17,23 +17,16 @@
         ? DamageSource.Effect().Source.OwningCard
         : DamageSource.Card();
 
-      var prevention = new DamagePrevention.Factory<PreventDamageFromSource>
-        {
-          Game = Game,
-          Init = (m, c) =>
-            {
-              m.Source = source;
-              m.OnlyOnce = OnlyOnce;
-            }
-        };
+      var prevention = Builder
+        .Prevention<PreventDamageFromSource>(p =>
+          {
+            p.Source = source;
+            p.OnlyOnce = OnlyOnce;
+          });
 
-      var modifier = new Modifier.Factory<AddDamagePrevention>
-        {
-          Game = Game,
-          Init = (m, _) => m.Prevention = prevention
-        }
-        .CreateModifier(Source.OwningCard, Targets[1]);
-
+      var modifier = Builder
+        .Modifier<AddDamagePrevention>(m => m.Prevention = prevention)
+        .CreateModifier(Source.OwningCard, Targets[1], this, X);      
 
       Targets[1].AddModifier(modifier);
     }

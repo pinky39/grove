@@ -10,6 +10,7 @@
   {
     public ITarget Owner { get; private set; }
     protected Game Game { get; private set; }
+    protected CardBuilder Builder { get {return new CardBuilder(Game);} }
 
     public int CalculateHash(HashCalculator calc)
     {
