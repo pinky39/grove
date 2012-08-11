@@ -10,7 +10,7 @@
 
       var modifier = Builder
         .Modifier<ChangeController>(m => m.NewController = opponent)
-        .CreateModifier(Source.OwningCard, Source.OwningCard, this, X);
+        .CreateModifier(Source.OwningCard, Source.OwningCard, X);
 
       Source.OwningCard.AddModifier(modifier);
     }

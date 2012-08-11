@@ -63,12 +63,12 @@
 
     private IEnumerable<Modifier> CreateSelfModifiers()
     {
-      return _selfModifiers.CreateModifiers(Source.OwningCard, Source.OwningCard, this, X);
+      return _selfModifiers.CreateModifiers(Source.OwningCard, Source.OwningCard, X);
     }
 
     private IEnumerable<Modifier> CreateTargetModifiers()
     {
-      return _targetModifiers.CreateModifiers(Source.OwningCard, Target().Card(), this, X);
+      return _targetModifiers.CreateModifiers(Source.OwningCard, Target().Card(), X);
     }
   }
 }

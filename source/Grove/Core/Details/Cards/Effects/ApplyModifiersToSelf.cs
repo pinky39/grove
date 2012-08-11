@@ -25,7 +25,7 @@
     {
       var target = Source.OwningCard;
 
-      return _selfModifiers.CreateModifiers(Source.OwningCard, target, this, X);
+      return _selfModifiers.CreateModifiers(Source.OwningCard, target, X);
     }
 
     protected override void ResolveEffect()

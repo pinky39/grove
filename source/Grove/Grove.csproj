@@ -296,6 +296,7 @@
     <Compile Include="Core\Details\Cards\Costs\SacrificeCreature.cs" />
     <Compile Include="Core\Details\Cards\Effects\DealDistributedDamageToTargets.cs" />
     <Compile Include="Core\Details\Cards\Effects\EachPlayerReturnsCardFromGraveyardToBattlefield.cs" />
+    <Compile Include="Core\Details\Cards\Effects\ExileCard.cs" />
     <Compile Include="Core\Details\Cards\Effects\ExileOwner.cs" />
     <Compile Include="Core\Details\Cards\Effects\PlayersSacrificeLands.cs" />
     <Compile Include="Core\Details\Cards\Effects\PutTargetToBattlefield.cs" />
@@ -413,7 +414,7 @@
     <Compile Include="Core\Details\Cards\Effects\DealDamageToActivePlayer.cs" />
     <Compile Include="Core\Details\Cards\Effects\DealExistingDamageToController.cs" />
     <Compile Include="Core\Details\Cards\Effects\DestroyPermanents.cs" />
-    <Compile Include="Core\Details\Cards\Effects\ExileTargetCard.cs" />
+    <Compile Include="Core\Details\Cards\Effects\ExileTarget.cs" />
     <Compile Include="Core\Details\Cards\Effects\GainLifeEqualToTargetPower.cs" />
     <Compile Include="Core\Details\Cards\Effects\MillOpponent.cs" />
     <Compile Include="Core\Details\Cards\Effects\PayLifeOrTap.cs" />

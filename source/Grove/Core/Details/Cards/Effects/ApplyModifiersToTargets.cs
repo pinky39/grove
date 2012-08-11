@@ -28,7 +28,7 @@
     {
       foreach (var target in Targets)
       {
-        foreach (var modifier in _modifierFactories.CreateModifiers(Source.OwningCard, target, this, X))
+        foreach (var modifier in _modifierFactories.CreateModifiers(Source.OwningCard, target, X))
         {
           target.AddModifier(modifier);
         }

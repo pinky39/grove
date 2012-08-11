@@ -1,8 +1,9 @@
 ﻿namespace Grove.Core.Details.Cards.Effects
 {
+  using System;
   using Targeting;
 
-  public class ExileTargetCard : Effect
+  public class ExileTarget : Effect
   {
     public bool ControllerGainsLifeEqualToToughness { get; set; }
 

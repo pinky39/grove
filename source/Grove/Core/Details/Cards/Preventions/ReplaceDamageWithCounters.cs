@@ -16,7 +16,7 @@
             m.Counter = CounterFactory;
             m.Count = damage.Amount;
           })
-          .CreateModifier(Owner.Card(), Owner, this, x: null);
+          .CreateModifier(Owner.Card(), Owner, x: null);
 
       Owner.AddModifier(modifier);
       damage.PreventAll();

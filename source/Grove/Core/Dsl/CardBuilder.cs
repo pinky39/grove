@@ -173,7 +173,7 @@
         untilEndOfTurn: untilEndOfTurn);
     }
 
-    public IModifierFactory Modifier<T>(Initializer<T> init = null, bool untilEndOfTurn = false, int? minLevel = null,
+    public IModifierFactory Modifier<T>(ModifierInitializer<T> init = null, bool untilEndOfTurn = false, int? minLevel = null,
                                         int? maxLevel = null) where T : Modifier, new()
     {
       init = init ?? delegate { };
@@ -181,13 +181,13 @@
       return new Modifier.Factory<T>
         {
           Game = _game,
-          Init = (modifier, origin, builder) => init(modifier, builder),
+          Init = init,
           EndOfTurn = untilEndOfTurn,
           MinLevel = minLevel,
           MaxLevel = maxLevel
         };
     }
-
+        
     public IDamageRedirectionFactory Redirection<T>(Initializer<T> init = null) where T : DamageRedirection, new()
     {
       init = init ?? delegate { };

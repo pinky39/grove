@@ -48,7 +48,7 @@
         if (!Filter(Source, creature))
           continue;
 
-        foreach (var modifier in _modifierFactories.CreateModifiers(Source.OwningCard, creature, this, X))
+        foreach (var modifier in _modifierFactories.CreateModifiers(Source.OwningCard, creature, X))
         {
           creature.AddModifier(modifier);
         }

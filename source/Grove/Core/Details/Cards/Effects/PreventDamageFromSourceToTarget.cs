@@ -26,7 +26,7 @@
 
       var modifier = Builder
         .Modifier<AddDamagePrevention>(m => m.Prevention = prevention)
-        .CreateModifier(Source.OwningCard, Targets[1], this, X);      
+        .CreateModifier(Source.OwningCard, Targets[1], X);      
 
       Targets[1].AddModifier(modifier);
     }

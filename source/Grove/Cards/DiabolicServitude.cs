@@ -8,6 +8,7 @@
   using Core.Details.Cards.Modifiers;
   using Core.Details.Cards.Triggers;
   using Core.Dsl;
+  using Core.Messages;
   using Core.Targeting;
   using Core.Zones;
 
