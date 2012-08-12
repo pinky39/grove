@@ -24,12 +24,12 @@
         .Targets(
           selectorAi: TargetSelectorAi.ReducePower(2),
           effectValidator: C.Validator(Validators.EnchantedCreature()))
-        .Effect<EnchantCreature>(
+        .Effect<Attach>(
           p => p.Effect.Modifiers(p.Builder.Modifier<AddPowerAndToughness>((m, _) => m.Power = -2)))
         .Abilities(
           C.TriggeredAbility(
             "When Despondency is put into a graveyard from the battlefield, return Despondency to its owner's hand.",
-            C.Trigger<ChangeZone>((t, _) =>
+            C.Trigger<OnZoneChange>((t, _) =>
               {
                 t.From = Zone.Battlefield;
                 t.To = Zone.Graveyard;

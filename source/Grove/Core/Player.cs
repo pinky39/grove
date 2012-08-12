@@ -81,11 +81,6 @@
       }
     }
 
-    public void PutCardToBattlefield(Card card)
-    {
-      _battlefield.Add(card);
-    }
-
     public string Avatar { get; private set; }
     public IBattlefieldQuery Battlefield { get { return _battlefield; } }
     public bool CanMulligan { get { return _hand.CanMulligan && HasMulligan; } }
@@ -103,18 +98,6 @@
 
     public IEnumerable<Card> Library { get { return _library; } }
 
-    public virtual int Life
-    {
-      get { return _life.Value; }
-      set
-      {
-        _life.Value = value;
-
-        if (Life <= 0)
-          HasLost = true;
-      }
-    }
-
     public int NumberOfCardsAboveMaximumHandSize { get { return Math.Max(0, _hand.Count - 7); } }
 
     public int Score
@@ -123,15 +106,28 @@
       {
         var score = _life.Score +
           _battlefield.Score +
-            _hand.Score;
+            _hand.Score +
+              _graveyard.Score;
 
         return IsMax ? score : -score;
       }
+    }    
+
+    public void AddModifier(IModifier modifier)
+    {
+      foreach (var modifiableProperty in ModifiableProperties)
+      {
+        modifiableProperty.Accept(modifier);
+      }
+
+      _modifiers.Add(modifier);
+      modifier.Activate();
     }
 
-    public int GetConvertedMana(ManaUsage usage)
+    public void RemoveModifier(IModifier modifier)
     {
-      return _manaSources.GetMaxConvertedMana(usage);
+      _modifiers.Remove(modifier);
+      modifier.Dispose();
     }
 
     public void DealDamage(Damage damage)
@@ -157,6 +153,18 @@
       Publish(new DamageHasBeenDealt(this, damage));
     }
 
+    public virtual int Life
+    {
+      get { return _life.Value; }
+      set
+      {
+        _life.Value = value;
+
+        if (Life <= 0)
+          HasLost = true;
+      }
+    }
+
     public int CalculateHash(HashCalculator calc)
     {
       return HashCalculator.Combine(
@@ -171,21 +179,14 @@
         );
     }
 
-    public void AddModifier(IModifier modifier)
+    public void PutCardToBattlefield(Card card)
     {
-      foreach (var modifiableProperty in ModifiableProperties)
-      {
-        modifiableProperty.Accept(modifier);
-      }
-
-      _modifiers.Add(modifier);
-      modifier.Activate();
+      _battlefield.Add(card);
     }
 
-    public void RemoveModifier(IModifier modifier)
+    public int GetConvertedMana(ManaUsage usage)
     {
-      _modifiers.Remove(modifier);
-      modifier.Dispose();
+      return _manaSources.GetMaxConvertedMana(usage);
     }
 
     public void AddManaToManaPool(IManaAmount manaAmount, bool useOnlyForAbilities = false)
@@ -195,7 +196,7 @@
         _manaPool.AddAbilities(manaAmount);
         return;
       }
-      
+
       _manaPool.Add(manaAmount);
     }
 

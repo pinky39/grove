@@ -23,7 +23,7 @@
         .Abilities(
           C.TriggeredAbility(
             "Whenever a creature enters the battlefield under your control, you gain life equal to its toughness.",
-            C.Trigger<ChangeZone>((t, _) =>
+            C.Trigger<OnZoneChange>((t, _) =>
               {
                 t.Filter = (ability, card) => ability.Controller == card.Controller && card.Is().Creature;
                 t.To = Zone.Battlefield;

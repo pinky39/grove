@@ -20,7 +20,7 @@
         .FlavorText(
           "'I don't understand why he works so hard on a device to duplicate a sound so easily made with hand and armpit.'{EOL}—Barrin, progress report")
         .Timing(Timings.FirstMain())
-        .Effect<EnchantCreature>(p => p.Effect.Modifiers(
+        .Effect<Attach>(p => p.Effect.Modifiers(
           p.Builder.Modifier<ChangeController>((m, c) => m.NewController = m.Source.Controller)))
         .Targets(
           selectorAi: TargetSelectorAi.GainControl(),

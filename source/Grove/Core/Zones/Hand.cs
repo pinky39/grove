@@ -17,7 +17,7 @@
     public int Score { get { return this.Sum(x => x.Score); } }
     public override Zone Zone { get { return Zone.Hand; } }
 
-    protected override void AfterRemove(Card card)
+    public override void AfterRemove(Card card)
     {
       card.IsRevealed = false;
     }

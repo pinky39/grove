@@ -25,12 +25,10 @@
 
         RunGame(1);
 
-        Equal(Zone.Exile, C(force).Zone);
-        Equal(Zone.Hand, C(servitude).Zone);
         Equal(Zone.Graveyard, C(expunge).Zone);
+        Equal(Zone.Exile, C(force).Zone);
+        Equal(Zone.Hand, C(servitude).Zone);        
       }
-
-
     }
     
     

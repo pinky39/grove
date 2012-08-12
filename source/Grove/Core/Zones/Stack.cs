@@ -49,7 +49,11 @@
 
     public Zone Zone { get { return Zone.Stack; } }
 
-    public void Remove(Card card, bool moveToOpponentZone) {}
+    public void Remove(Card card) {}
+
+    public void AfterRemove(Card card) {}
+
+    public void AfterAdd(Card card) {}
 
     public bool HasOnlySpellsOwnedBy(Player player)
     {
@@ -102,7 +106,7 @@
     {
       if (TopSpell == null)
         return 0;
-      
+
       return TopSpell.CalculatePlayerDamage(player);
     }
 
@@ -114,7 +118,7 @@
       if (!TopSpell.HasTargets && targetOnly)
         return 0;
 
-      
+
       var dealtAmount = card.EvaluateReceivedDamage(
         TopSpell.Source.OwningCard, TopSpell.CalculateCreatureDamage(card), isCombat: false);
 
@@ -149,7 +153,7 @@
 
       if (card.Is().Creature == false)
         return false;
-      
+
       return CanThougnessBeReducedToLeathalByTopSpell(card) || CanBeDealtLeathalDamageByTopSpell(card);
     }
 
@@ -158,8 +162,8 @@
       if (TopSpell == null)
         return false;
 
-      return card.Life <= 
-        TopSpell.CalculateToughnessReduction(card);      
+      return card.Life <=
+        TopSpell.CalculateToughnessReduction(card);
     }
 
     public bool CanTopSpellReducePlayersLifeToZero(Player player)

@@ -20,7 +20,7 @@
         .Text("Enchant creature{EOL}Enchanted creature can't attack or block.")
         .FlavorText("'Fight? I cannot. I do not care if I live or die, so long as I can rest.'{EOL}—Urza, to Serra")
         .Timing(Timings.FirstMain())
-        .Effect<EnchantCreature>(p => p.Effect.Modifiers(
+        .Effect<Attach>(p => p.Effect.Modifiers(
           p.Builder.Modifier<AddStaticAbility>((m, _) => m.StaticAbility = Static.CannotBlock),
           p.Builder.Modifier<AddStaticAbility>((m, _) => m.StaticAbility = Static.CannotAttack)))
         .Targets(

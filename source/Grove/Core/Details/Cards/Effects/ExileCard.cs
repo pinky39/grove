@@ -2,7 +2,8 @@
 {
   public class ExileCard : Effect
   {
-    public Card Card { get; set; }
+    public Card Card;
+    
     protected override void ResolveEffect()
     {
       Card.Exile();

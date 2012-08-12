@@ -21,7 +21,7 @@
           "Enchant creature{EOL}Enchanted creature gets +2/+2 and has flying and vigilance.")
         .FlavorText(
           "'Lifted beyond herself, for that battle Brindri was an angel of light and fury.'{EOL}—Song of All, canto 524")
-        .Effect<EnchantCreature>(p => p.Effect.Modifiers(
+        .Effect<Attach>(p => p.Effect.Modifiers(
           p.Builder.Modifier<AddPowerAndToughness>(m =>
             {
               m.Power = 2;

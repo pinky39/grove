@@ -23,7 +23,7 @@
         .Text(
           "Enchant creature{EOL}{R}: Enchanted creature gets +1/+0 until end of turn.{EOL}When Fiery Mantle is put into a graveyard from the battlefield, return Fiery Mantle to its owner's hand.")
         .Timing(Timings.FirstMain())
-        .Effect<EnchantCreature>(p => p.Effect.Modifiers(
+        .Effect<Attach>(p => p.Effect.Modifiers(
           p.Builder.Modifier<AddActivatedAbility>((m, c) => m.Ability =
             c.ActivatedAbility(
               "{R}: Enchanted creature gets +1/+0 until end of turn.",
@@ -38,7 +38,7 @@
         .Abilities(
           C.TriggeredAbility(
             "When Fiery Mantle is put into a graveyard from the battlefield, return Fiery Mantle to its owner's hand.",
-            C.Trigger<ChangeZone>((t, _) =>
+            C.Trigger<OnZoneChange>((t, _) =>
               {
                 t.From = Zone.Battlefield;
                 t.To = Zone.Graveyard;

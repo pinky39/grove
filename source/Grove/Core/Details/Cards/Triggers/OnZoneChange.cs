@@ -5,7 +5,7 @@
   using Messages;
   using Zones;
 
-  public class ChangeZone : Trigger, IReceive<CardChangedZone>
+  public class OnZoneChange : Trigger, IReceive<CardChangedZone>
   {
     public Func<TriggeredAbility, Card, bool> Filter =
       (ability, card) => ability.OwningCard == card;

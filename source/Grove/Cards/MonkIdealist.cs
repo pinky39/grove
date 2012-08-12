@@ -26,7 +26,7 @@
         .Abilities(
           C.TriggeredAbility(
             "When Monk Idealist enters the battlefield, return target enchantment card from your graveyard to your hand.",
-            C.Trigger<ChangeZone>((t, _) => t.To = Zone.Battlefield),
+            C.Trigger<OnZoneChange>((t, _) => t.To = Zone.Battlefield),
             C.Effect<ReturnToHand>(e => e.ReturnTarget = true),
             effectValidator: C.Validator(
               Validators.CardInGraveyard(card => card.Is().Enchantment), mustBeTargetable: false, text: "Select an enchantment in your graveyard."),

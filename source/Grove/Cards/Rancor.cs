@@ -22,7 +22,7 @@
         .Text(
           "Enchant creature{EOL}Enchanted creature gets +2/+0 and has trample.{EOL}When Rancor is put into a graveyard from the battlefield, return Rancor to its owner's hand.")
         .FlavorText("Hatred outlives the hateful.")
-        .Effect<EnchantCreature>(p => p.Effect.Modifiers(
+        .Effect<Attach>(p => p.Effect.Modifiers(
           p.Builder.Modifier<AddPowerAndToughness>((m, _) => m.Power = 2),
           p.Builder.Modifier<AddStaticAbility>((m, _) => m.StaticAbility = Static.Trample)))
         .Timing(Timings.FirstMain())
@@ -32,7 +32,7 @@
         .Abilities(
           C.TriggeredAbility(
             "When Rancor is put into a graveyard from the battlefield, return Rancor to its owner's hand.",
-            C.Trigger<ChangeZone>((t, _) =>
+            C.Trigger<OnZoneChange>((t, _) =>
               {
                 t.From = Zone.Battlefield;
                 t.To = Zone.Graveyard;

@@ -27,7 +27,7 @@
           Static.Deathtouch,
           C.TriggeredAbility(
             "When Acidic Slime enters the battlefield, destroy target artifact, enchantment, or land.",
-            C.Trigger<ChangeZone>((t, _) => t.To = Zone.Battlefield),
+            C.Trigger<OnZoneChange>((t, _) => t.To = Zone.Battlefield),
             C.Effect<DestroyTargetPermanent>(),
             C.Validator(Validators.Permanent(
               card => card.Is().Artifact || card.Is().Enchantment || card.Is().Land)),

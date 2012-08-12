@@ -28,7 +28,7 @@
           Static.Deathtouch,
           C.TriggeredAbility(
             "Whenever Grave Titan enters the battlefield or attacks, put two 2/2 black Zombie creature tokens onto the battlefield.",
-            L(C.Trigger<ChangeZone>((t, _) => { t.To = Zone.Battlefield; }),
+            L(C.Trigger<OnZoneChange>((t, _) => { t.To = Zone.Battlefield; }),
               C.Trigger<OnAttack>()),
             C.Effect<CreateTokens>(p =>
               {

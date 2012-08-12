@@ -29,12 +29,12 @@
     public bool HasCreaturesThatCanAttack { get { return this.Any(card => card.CanAttack); } }
     public IEnumerable<Card> Legends { get { return this.Where(x => x.Is().Legendary); } }
 
-    protected override void AfterAdd(Card card)
+    public override void AfterAdd(Card card)
     {
       card.HasSummoningSickness = true;
     }
 
-    protected override void AfterRemove(Card card)
+    public override void AfterRemove(Card card)
     {
       _combat.Remove(card);
       card.DetachAttachments();

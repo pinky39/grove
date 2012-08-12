@@ -29,7 +29,7 @@
             "{T}, Remove a charge counter from Vivid Crag: Add one mana of any color to your mana pool.",
             priority: ManaSourcePriorities.Restricted, cost: C.Cost<TapOwnerRemoveCounter>()),
           C.StaticAbility(
-            C.Trigger<ChangeZone>((t, _) => t.To = Zone.Battlefield),
+            C.Trigger<OnZoneChange>((t, _) => t.To = Zone.Battlefield),
             C.Effect<ApplyModifiersToSelf>(p => p.Effect.Modifiers(
               p.Builder.Modifier<AddCounters>((counter, c1) =>
                 {

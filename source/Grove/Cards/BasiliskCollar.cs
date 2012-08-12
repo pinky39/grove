@@ -27,7 +27,7 @@
           C.ActivatedAbility(
             "{2}: Attach to target creature you control. Equip only as a sorcery.",
             C.Cost<TapOwnerPayMana>((cost, _) => cost.Amount = 2.AsColorlessMana()),
-            C.Effect<AttachEquipment>(p => p.Effect.Modifiers(
+            C.Effect<Attach>(p => p.Effect.Modifiers(
               p.Builder.Modifier<AddStaticAbility>((m, _) => m.StaticAbility = Static.Deathtouch),
               p.Builder.Modifier<AddStaticAbility>((m, _) => m.StaticAbility = Static.Lifelink)
               )),

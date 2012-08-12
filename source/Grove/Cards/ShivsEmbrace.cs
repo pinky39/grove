@@ -22,7 +22,7 @@
         .Text("Enchant creature{EOL}Enchanted creature gets +2/+2 and has flying.{EOL}{R}: Enchanted creature gets +1/+0 until end of turn.")
         .FlavorText("Wear the foe's form to best it in battle. So sayeth the bey.")
         .Timing(Timings.FirstMain())
-        .Effect<EnchantCreature>(p => p.Effect.Modifiers(
+        .Effect<Attach>(p => p.Effect.Modifiers(
           p.Builder.Modifier<AddActivatedAbility>((m, c) => m.Ability =
             c.ActivatedAbility(
               "{R}: Enchanted creature gets +1/+0 until end of turn.",

@@ -21,9 +21,9 @@
         .Text("All damage that would be dealt to you is dealt to enchanted creature instead.")
         .FlavorText(
           "'It is not sad', Radiant chided the lesser angel. 'It is right. Every society must have its outcasts.'")
-        .Effect<EnchantCreature>(p =>
+        .Effect<Attach>(p =>
           {
-            p.Effect.ModifiesEnchantmentController = true;
+            p.Effect.ModifiesAttachmentController = true;
             p.Effect.Modifiers(
               p.Builder.Modifier<AddDamageRedirection>((m, c) =>
                 m.Redirection = c.Redirection<RedirectDamageToTarget>((r, c1) => { r.Target = m.Source.AttachedTo; }))

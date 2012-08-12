@@ -25,7 +25,7 @@
         .Abilities(
           C.TriggeredAbility(
             "When Monk Realist enters the battlefield, destroy target enchantment.",
-            C.Trigger<ChangeZone>((t, _) => t.To = Zone.Battlefield),
+            C.Trigger<OnZoneChange>((t, _) => t.To = Zone.Battlefield),
             C.Effect<DestroyTargetPermanent>(),
             C.Validator(Validators.Permanent(card => card.Is().Enchantment)),
             selectorAi: TargetSelectorAi.OrderByDescendingScore(),

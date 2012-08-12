@@ -170,7 +170,7 @@
 
     public int? Toughness { get { return _toughness.Value; } }
     public string Type { get { return _type.Value.ToString(); } }
-    public Zone Zone { get { return _zone.Value == null ? Zone.None : _zone.Value.Zone; } }
+    public Zone Zone { get { return _zone.Value.Zone; } }
 
     public int? Level { get { return _level.Value; } }
     public bool CanBeDestroyed { get { return !CanRegenerate && !Has().Indestructible; } }
@@ -242,7 +242,7 @@
     {
       var oldZone = Zone;
 
-      ChangeZoneTo(_stack);
+      ChangeZone(_stack);
 
       _publisher.Publish(new CardChangedZone
         {
@@ -517,7 +517,7 @@
       var effect = enchantment._effectFactory.CreateEffect(
         new EffectParameters(enchantment, targets: new Targets().AddEffect(this)));
 
-      if (effect is EnchantCreature == false)
+      if (effect is Attach == false)
         throw new InvalidOperationException("Card is is not an enchantment.");
 
       effect.Resolve();
@@ -525,7 +525,7 @@
 
     public void EquipWithoutPayingTheCost(Card equipment)
     {
-      var effect = equipment._activatedAbilities.CreateEffect<AttachEquipment>(
+      var effect = equipment._activatedAbilities.CreateEffect<Attach>(
         target: this);
 
       if (effect == null)
@@ -612,15 +612,28 @@
     {
       Owner.PutCardToGraveyard(this);
     }
-
-    public void ChangeZoneTo(IZone newZone)
+    
+    public void ChangeZone(IZone newZone)
     {
-      if (_zone.Value != null)
-      {
-        _zone.Value.Remove(this, newZone.Zone == _zone.Value.Zone);
-      }
-
+      var oldZone = _zone.Value;            
       _zone.Value = newZone;
+            
+      
+      oldZone.Remove(this);
+                  
+      if (oldZone.Zone != newZone.Zone)
+      {
+        _publisher.Publish(new CardChangedZone
+          {
+            Card = this,
+            From = oldZone.Zone,
+            To = newZone.Zone
+          });
+        
+        oldZone.AfterRemove(this);
+      }                  
+                                
+      newZone.AfterAdd(this);
     }
 
     public void Show()
@@ -852,7 +865,7 @@
         card._hash = new Trackable<int?>(_changeTracker);
         card._distributeDamage = _distributeSpellsDamage;
 
-        card.Name = _name;
+        card.Name = _name;        
         card._xCalculator = _xCalculator;
         card.ManaCost = _manaCost.ParseManaAmount();
         card.MayChooseNotToUntapDuringUntapStep = _mayChooseNotToUntap;
@@ -884,7 +897,7 @@
         card._controller = new ControllerCharacteristic(owner, card, _game.Publisher, _changeTracker, card);
         card._damagePreventions = new DamagePreventions(_changeTracker, card);
         card._protections = new Protections(_changeTracker, card, _protectionsFromColors, _protectionsFromCardTypes);
-        card._zone = new Trackable<IZone>(_changeTracker, card);
+        card._zone = new Trackable<IZone>(new NullZone(), _changeTracker, card);
 
 
         card.EffectCategories = _effectCategories;

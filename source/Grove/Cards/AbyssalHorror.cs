@@ -27,7 +27,7 @@
           Static.Flying,
           C.TriggeredAbility(
             "When Abyssal Horror enters the battlefield, target player discards two cards.",
-            C.Trigger<ChangeZone>((t, _) => t.To = Zone.Battlefield),
+            C.Trigger<OnZoneChange>((t, _) => t.To = Zone.Battlefield),
             C.Effect<TargetPlayerDiscardsCards>(p => p.Effect.SelectedCount = 2),
             C.Validator(Validators.Player()),
             selectorAi: TargetSelectorAi.Opponent()));

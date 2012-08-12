@@ -304,7 +304,7 @@
     <Compile Include="Core\Details\Cards\Modifiers\ChangeController.cs" />
     <Compile Include="Core\Details\Cards\Modifiers\ControllerSetter.cs" />
     <Compile Include="Core\Details\Cards\Modifiers\PermanentLeavesBattlefieldLifetime.cs" />
-    <Compile Include="Core\Details\Cards\Triggers\PlayerRelationshipToAbility.cs" />
+    <Compile Include="Core\Details\Cards\Triggers\OnAttachmentDetached.cs" />
     <Compile Include="Core\Details\Cards\Triggers\TriggerOrder.cs" />
     <Compile Include="Core\Details\Mana\ManaUsage.cs" />
     <Compile Include="Core\Targeting\IDamageDistributor.cs" />
@@ -454,6 +454,7 @@
     <Compile Include="Core\Details\Cards\Triggers\OnLevelChanged.cs" />
     <Compile Include="Core\Details\Cards\Triggers\OpponentWasNotDealtDamageThisTurn.cs" />
     <Compile Include="Core\Zones\IGraveyardQuery.cs" />
+    <Compile Include="Core\Zones\NullZone.cs" />
     <Compile Include="Ui\DistributeDamage\UiDamageDistribution.cs" />
     <Compile Include="Core\Targeting\Validators.cs" />
     <Compile Include="Core\Details\Mana\ZeroManaAmount.cs" />
@@ -547,7 +548,6 @@
     <Compile Include="Core\Details\Cards\Costs\SacrificePermanent.cs" />
     <Compile Include="Core\Damage.cs" />
     <Compile Include="Core\Details\Cards\Preventions\ReplaceDamageWithCounters.cs" />
-    <Compile Include="Core\Details\Cards\Effects\AttachEquipment.cs" />
     <Compile Include="Core\Details\Cards\Effects\CompoundEffect.cs" />
     <Compile Include="Core\Details\Cards\Effects\DealDamageToEach.cs" />
     <Compile Include="Core\Details\Cards\Effects\DrawCards.cs" />
@@ -596,7 +596,7 @@
     <Compile Include="Core\Details\Cards\Triggers\Trigger.cs" />
     <Compile Include="Core\Details\Cards\Triggers\AtBegginingOfStep.cs" />
     <Compile Include="Core\Details\Cards\Triggers\DealDamageToCreatureOrPlayer.cs" />
-    <Compile Include="Core\Details\Cards\Triggers\ChangeZone.cs" />
+    <Compile Include="Core\Details\Cards\Triggers\OnZoneChange.cs" />
     <Compile Include="Core\Details\Cards\Costs\Cost.cs" />
     <Compile Include="Core\Details\Cards\Costs\TapOwnerPayMana.cs" />
     <Compile Include="Core\Details\Cards\Costs\TapCreature.cs" />
@@ -610,7 +610,7 @@
     <Compile Include="Core\Details\Cards\Effects\DealDamageToTargets.cs" />
     <Compile Include="Core\Details\Cards\Effects\DestroyTargetPermanent.cs" />
     <Compile Include="Core\Details\Cards\Effects\Effect.cs" />
-    <Compile Include="Core\Details\Cards\Effects\EnchantCreature.cs" />
+    <Compile Include="Core\Details\Cards\Effects\Attach.cs" />
     <Compile Include="Core\Details\Cards\Effects\OpponentDiscardsCards.cs" />
     <Compile Include="Core\Details\Cards\Effects\OpponentSacrificesCreatures.cs" />
     <Compile Include="Core\Details\Cards\Effects\TargetPlayerDrawsCards.cs" />

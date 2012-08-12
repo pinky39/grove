@@ -20,7 +20,7 @@
           "Enchant creature{EOL}Enchanted creature gets -1/-1.{EOL}Cycling {2} ({2}, Discard this card: Draw a card.)")
         .FlavorText("Urza dared to attack Phyrexia. Slowly, it retaliated.")        
         .Cycling("{2}")
-        .Effect<EnchantCreature>(p =>
+        .Effect<Attach>(p =>
           {
             p.Effect.ToughnessReduction = 1;
             p.Effect.Modifiers(p.Builder.Modifier<AddPowerAndToughness>((m, _) =>

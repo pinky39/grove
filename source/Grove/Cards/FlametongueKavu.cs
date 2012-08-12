@@ -25,7 +25,7 @@
         .Abilities(
           C.TriggeredAbility(
             "When Flametongue Kavu enters the battlefield, it deals 4 damage to target creature.",
-            C.Trigger<ChangeZone>((t, _) => t.To = Zone.Battlefield),
+            C.Trigger<OnZoneChange>((t, _) => t.To = Zone.Battlefield),
             C.Effect<DealDamageToTargets>(e => e.Amount = 4),
             C.Validator(Validators.Creature()),
             selectorAi: TargetSelectorAi.DealDamageSingleSelector(4)));

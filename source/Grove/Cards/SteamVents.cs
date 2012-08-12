@@ -21,7 +21,7 @@
         .Timing(Timings.Lands())
         .Abilities(
           C.StaticAbility(
-            C.Trigger<ChangeZone>((t, _) => t.To = Zone.Battlefield),
+            C.Trigger<OnZoneChange>((t, _) => t.To = Zone.Battlefield),
             C.Effect<PayLifeOrTap>(e => e.Life = 2)),
           C.ManaAbility(new ManaUnit(ManaColors.Blue | ManaColors.Red), "{T}: Add {U} or {R} to your mana pool."));
     }

@@ -4,17 +4,14 @@
   using System.Collections.Generic;
   using System.Linq;
   using Infrastructure;
-  using Messages;
 
   [Copyable]
   public abstract class UnorderedZone : IEnumerable<Card>, IHashable, IZone
   {
     private readonly TrackableList<Card> _cards;
-    private readonly Publisher _publisher;
 
     protected UnorderedZone(Game game)
     {
-      _publisher = game.Publisher;
       _cards = new TrackableList<Card>(game.ChangeTracker);
     }
 
@@ -55,32 +52,18 @@
 
     public abstract Zone Zone { get; }
 
-    void IZone.Remove(Card card, bool moveToSameOpponentsZone)
-    {
-      Remove(card, moveToSameOpponentsZone);
-    }
-
-    protected virtual void AfterAdd(Card card) {}
-    protected virtual void AfterRemove(Card card) {}
+    public virtual void AfterAdd(Card card) {}
+    public virtual void AfterRemove(Card card) {}
 
     public virtual void Add(Card card)
     {
-      var oldZone = card.Zone;
-
-      card.ChangeZoneTo(this);
       _cards.Add(card);
-           
-      AfterAdd(card);
-            
-      if (oldZone == Zone)
-        return;
-      
-      _publisher.Publish(new CardChangedZone
-        {
-          Card = card,
-          From = oldZone,
-          To = Zone
-        });
+      card.ChangeZone(this);
+    }
+
+    void IZone.Remove(Card card)
+    {
+      _cards.Remove(card);
     }
 
     public void Hide()
@@ -97,16 +80,6 @@
       {
         card.Show();
       }
-    }
-
-    protected virtual void Remove(Card card, bool moveToSameOpponentsZone)
-    {
-      _cards.Remove(card);
-
-      if (moveToSameOpponentsZone)
-        return;
-      
-      AfterRemove(card);
     }
 
     public override string ToString()

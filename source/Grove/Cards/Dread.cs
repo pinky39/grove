@@ -36,7 +36,7 @@
             }),
           C.TriggeredAbility(
             "When Dread is put into a graveyard from anywhere, shuffle it into its owner's library.",
-            C.Trigger<ChangeZone>((t, _) => t.To = Zone.Graveyard),
+            C.Trigger<OnZoneChange>((t, _) => t.To = Zone.Graveyard),
             C.Effect<ShuffleIntoLibrary>())
         );
     }

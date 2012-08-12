@@ -4,11 +4,11 @@
   using Modifiers;
   using Targeting;
 
-  public class EnchantCreature : Effect
+  public class Attach : Effect
   {
     private readonly List<IModifierFactory> _modifierFactories = new List<IModifierFactory>();
 
-    public bool ModifiesEnchantmentController;
+    public bool ModifiesAttachmentController;
     public Value ToughnessReduction = 0;
 
     public override int CalculateToughnessReduction(Card creature)
@@ -40,7 +40,7 @@
 
       Target().Card().Attach(Source.OwningCard);
 
-      if (ModifiesEnchantmentController)
+      if (ModifiesAttachmentController)
       {
         foreach (var modifier in modifiers)
         {
