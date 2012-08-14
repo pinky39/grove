@@ -3,8 +3,9 @@
   using System.Collections.Generic;
   using Ai;
   using Details.Cards;
+  using Details.Cards.Effects;
 
-    
+
   public delegate void Initializer<in T>(T target, CardBuilder builder);
 
   public abstract class CardsSource
@@ -33,6 +34,11 @@
     {
       return elt;
     }        
+
+    protected EffectChoice Choice(params EffectChoiceOption[] options)
+    {
+      return new EffectChoice(options);
+    }
 
     public LevelDefinition Level(int min, int power, int toughness, Static ability, int? max = null)
     {

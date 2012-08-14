@@ -289,13 +289,17 @@
     <Compile Include="Core\Ai\AttackerEvaluation.cs" />
     <Compile Include="Core\Ai\BlockerEvaluation.cs" />
     <Compile Include="Core\Ai\QuickCombat.cs" />
+    <Compile Include="Core\Controllers\Results\ChosenOptions.cs" />
     <Compile Include="Core\DeckFile.cs" />
     <Compile Include="Core\DeckRow.cs" />
     <Compile Include="Core\Details\Cards\ControllerCharacteristic.cs" />
     <Compile Include="Core\Details\Cards\Costs\SacOwnerPayMana.cs" />
     <Compile Include="Core\Details\Cards\Costs\SacrificeCreature.cs" />
+    <Compile Include="Core\Details\Cards\Effects\CustomizableEffect.cs" />
     <Compile Include="Core\Details\Cards\Effects\DealDistributedDamageToTargets.cs" />
     <Compile Include="Core\Details\Cards\Effects\EachPlayerReturnsCardFromGraveyardToBattlefield.cs" />
+    <Compile Include="Core\Details\Cards\Effects\EffectChoice.cs" />
+    <Compile Include="Core\Details\Cards\Effects\EffectChoiceOption.cs" />
     <Compile Include="Core\Details\Cards\Effects\ExileCard.cs" />
     <Compile Include="Core\Details\Cards\Effects\ExileOwner.cs" />
     <Compile Include="Core\Details\Cards\Effects\PlayersSacrificeLands.cs" />
@@ -689,6 +693,11 @@
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ui\SelectDeck\ViewModel.cs" />
+    <Compile Include="Ui\SelectEffectChoice\EffectChoiceViewModel.cs" />
+    <Compile Include="Ui\SelectEffectChoice\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\SelectEffectChoice\ViewModel.cs" />
     <Compile Include="Ui\SelectionMode.cs" />
     <Compile Include="Ui\SelectionModeChanged.cs" />
     <Compile Include="Ui\Spell\View.xaml.cs">
@@ -939,6 +948,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Ui\SelectDeck\View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\SelectEffectChoice\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

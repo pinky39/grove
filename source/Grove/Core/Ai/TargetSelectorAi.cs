@@ -43,6 +43,46 @@
         };
     }
 
+    public static TargetSelectorAiDelegate TapOpponentsCreatures()
+    {
+      return p =>
+        {
+          if (p.Step == Step.BeginningOfCombat && p.Controller.IsActive)
+          {
+            return p.Targets(p.Opponent.ToEnumerable());
+          }
+
+          return p.NoTargets();
+        };
+    }
+
+    public static TargetSelectorAiDelegate TapOpponentsLands()
+    {
+      return p =>
+        {
+          if (p.Step == Step.Upkeep && !p.Controller.IsActive)
+          {
+            return p.Targets(p.Opponent.ToEnumerable());
+          }
+
+          return p.NoTargets();
+        };
+    }
+
+    public static TargetSelectorAiDelegate UntapYourCreatures()
+    {
+      return p =>
+        {
+          if (p.Step == Step.DeclareAttackers && !p.Controller.IsActive)
+          {
+            return p.Targets(p.Controller.ToEnumerable());
+          }
+
+          return p.NoTargets();
+        };
+    }
+
+    
     public static TargetSelectorAiDelegate Opponent()
     {
       return p =>

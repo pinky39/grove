@@ -42,6 +42,9 @@
         case (Step.SecondMain):
           return player.IsActive;
 
+        case (Step.Upkeep):
+          return !player.IsActive;
+
         case (Step.BeginningOfCombat):
           return true;
 
