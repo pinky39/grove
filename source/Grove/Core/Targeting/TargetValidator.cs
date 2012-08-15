@@ -51,7 +51,9 @@
 
       var maxNumber = MinCount == MaxCount ? MaxCount.ToString() : "max. " + MaxCount.ToString();
 
-      return string.Format(messageFormat, targetNumber, maxNumber);           
+      return 
+        string.Format("{0}: ", Source) +  
+        string.Format(messageFormat, targetNumber, maxNumber);           
     }
 
     private bool IsTargetable(Card target)

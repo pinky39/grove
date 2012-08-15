@@ -31,15 +31,25 @@
               break;
           }
 
-          var targets = p.Targets(candidates
-            .OrderByDescending(x => x.Card().Score));
+          var orderedCandidates = candidates
+            .OrderByDescending(x => x.Card().Score)
+            .Select(x => x.Card())
+            .ToList();
 
-          if (targets.Count == 0 && p.IsTriggeredAbilityTarget)
+          var targetCount = p.Selector.GetEffectTargetCount();
+
+          if (p.IsTriggeredAbilityTarget && targetCount == 1 && orderedCandidates.Count == 0)
           {
-            targets = p.Targets(p.Candidates().OrderBy(x => x.Card().Score));
+            return p.Targets(p.Candidates().OrderBy(x => x.Card().Score));
           }
 
-          return targets;
+          if (targetCount == 1)
+          {
+            return p.Targets(candidates);
+          }
+
+          var grouped = GroupCandidates(orderedCandidates, targetCount);          
+          return p.MultipleTargets(grouped);
         };
     }
 
@@ -82,7 +92,7 @@
         };
     }
 
-    
+
     public static TargetSelectorAiDelegate Opponent()
     {
       return p =>
@@ -230,7 +240,7 @@
           for (var i = 1; i < p.EffectCandidates.Count; i++)
           {
             var otherSelectorCandidate = p.EffectCandidates[i]
-              .OrderByDamageScore(amount, p)              
+              .OrderByDamageScore(amount, p)
               .FirstOrDefault();
 
 
@@ -496,23 +506,27 @@
             return p.Targets(candidates);
           }
 
-          var targetsCandidates = new List<IList<Card>>();
-
-          for (var i = 0; i < candidates.Count - 1; i++)
-          {
-            var targetCandidates = Enumerable
-              .Repeat(candidates[i], candidates.Count - targetCount + 1)
-              .ToList();
-
-            targetsCandidates.Add(targetCandidates);
-          }
-
-          targetsCandidates.Add(candidates.Skip(candidates.Count - 1)
-            .ToList());
-
-
+          var targetsCandidates = GroupCandidates(candidates, targetCount);
           return p.MultipleTargets(targetsCandidates);
         };
+    }
+
+    private static List<IList<Card>> GroupCandidates(IList<Card> candidates, int targetCount)
+    {
+      var targetsCandidates = new List<IList<Card>>();
+
+      for (var i = 0; i < candidates.Count - 1; i++)
+      {
+        var targetCandidates = Enumerable
+          .Repeat(candidates[i], candidates.Count - targetCount + 1)
+          .ToList();
+
+        targetsCandidates.Add(targetCandidates);
+      }
+
+      targetsCandidates.Add(candidates.Skip(candidates.Count - 1)
+        .ToList());
+      return targetsCandidates;
     }
 
     public static TargetSelectorAiDelegate CostTapOrSacCreature(bool canUseSelf = true)
@@ -859,7 +873,7 @@
               {
                 Card = x,
                 Score = CalculateAttackingScore(x)
-              })            
+              })
             .OrderByDescending(x => x.Score)
             .Select(x => x.Card)
             .ToList();
@@ -871,7 +885,7 @@
 
           return p.Targets(candidates);
         };
-    }    
+    }
 
     public static TargetSelectorAiDelegate DealDamageSingleSelectorDistribute(int? amount = null)
     {

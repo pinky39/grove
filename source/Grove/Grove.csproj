@@ -212,6 +212,7 @@
     <Compile Include="Cards\PowerSink.cs" />
     <Compile Include="Cards\Rancor.cs" />
     <Compile Include="Cards\RazorvergeThicket.cs" />
+    <Compile Include="Cards\RemoteIsle.cs" />
     <Compile Include="Cards\Rescind.cs" />
     <Compile Include="Cards\RuneofProtectionBlack.cs" />
     <Compile Include="Cards\RuptureSpire.cs" />
@@ -266,6 +267,7 @@
     <Compile Include="Cards\Uncastable.cs" />
     <Compile Include="Cards\UnworthyDead.cs" />
     <Compile Include="Cards\UrzasArmor.cs" />
+    <Compile Include="Cards\Victimize.cs" />
     <Compile Include="Cards\VoiceOfGrace.cs" />
     <Compile Include="Cards\VolcanicHammer.cs" />
     <Compile Include="Cards\VampireNighthawk.cs" />
@@ -303,7 +305,7 @@
     <Compile Include="Core\Details\Cards\Effects\ExileCard.cs" />
     <Compile Include="Core\Details\Cards\Effects\ExileOwner.cs" />
     <Compile Include="Core\Details\Cards\Effects\PlayersSacrificeLands.cs" />
-    <Compile Include="Core\Details\Cards\Effects\PutTargetToBattlefield.cs" />
+    <Compile Include="Core\Details\Cards\Effects\PutTargetsToBattlefield.cs" />
     <Compile Include="Core\Details\Cards\Modifiers\AddActivatedAbility.cs" />
     <Compile Include="Core\Details\Cards\Modifiers\ChangeController.cs" />
     <Compile Include="Core\Details\Cards\Modifiers\ControllerSetter.cs" />

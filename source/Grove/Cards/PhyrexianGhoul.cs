@@ -31,7 +31,7 @@
                 {
                   m.Power = 2;
                   m.Toughness = 2;
-                })
+                }, untilEndOfTurn: true)
               )),
             costValidator: C.Validator(Validators.Creature(controller: Controller.SpellOwner)),
             targetSelectorAi: TargetSelectorAi.CostTapOrSacCreature(canUseSelf: false),

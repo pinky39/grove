@@ -78,7 +78,14 @@
 
     public bool IsValidEffectTarget(ITarget target)
     {
-      return _effectValidators[0].IsValid(target);
+      // Currently there is no way to figure out
+      // to which validator the target belongs. 
+      // All validators are tried therefore.
+      // Currently there are no problems with this, if
+      // there are problems in the future this must be 
+      // changed, so the target will know to which
+      // validator it belongs.
+      return _effectValidators.Any(validator => validator.IsValid(target));
     }
 
     public void SetTrigger(object trigger)

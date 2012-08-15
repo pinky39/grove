@@ -31,8 +31,11 @@
                 return chosenCards;
               };
             p.QueryUi = self =>
-              {
+              {                                                  
                 var chosenCards = new ChosenCards();
+
+                if (self.Controller.Graveyard.Creatures.Count() == 0)
+                  return chosenCards;
 
                 var dialog = self.TargetDialog.Create(
                   new UiTargetValidator(
@@ -47,7 +50,9 @@
                   );
 
                 self.Shell.ShowModalDialog(dialog, DialogType.Small, SelectionMode.SelectTarget);
-                chosenCards.Add(dialog.Selection[0].Card());
+                
+                if (dialog.Selection.Count > 0)
+                  chosenCards.Add(dialog.Selection[0].Card());
 
                 return chosenCards;
               };

@@ -19,15 +19,15 @@
         .Type("Enchantment")
         .Text(
           "When Diabolic Servitude enters the battlefield, return target creature card from your graveyard to the battlefield.{EOL}When the creature put onto the battlefield with Diabolic Servitude dies, exile it and return Diabolic Servitude to its owner's hand.{EOL}When Diabolic Servitude leaves the battlefield, exile the creature put onto the battlefield with Diabolic Servitude.")
-        .Timing(Timings.MainPhases())
+        .Timing(All(Timings.MainPhases(), Timings.HasCardInGraveyard(card => card.Is().Creature)))
         .Abilities(
           C.TriggeredAbility(
             "When Diabolic Servitude enters the battlefield, return target creature card from your graveyard to the battlefield.",
             C.Trigger<OnZoneChange>(t => t.To = Zone.Battlefield),
             C.Effect<CompoundEffect>(p => p.Effect.ChildEffects(
-              p.Builder.Effect<PutTargetToBattlefield>(),
+              p.Builder.Effect<PutTargetsToBattlefield>(),
               p.Builder.Effect<Attach>())),
-            selectorAi: TargetSelectorAi.OrderByDescendingScore(),
+            selectorAi: TargetSelectorAi.OrderByDescendingScore(Controller.SpellOwner),
             effectValidator: C.Validator(Validators.CardInGraveyard(card => card.Is().Creature))),
           C.TriggeredAbility(
             "When the creature put onto the battlefield with Diabolic Servitude dies, exile it and return Diabolic Servitude to its owner's hand.",

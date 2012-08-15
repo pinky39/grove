@@ -13,7 +13,7 @@
 
     public override int CalculateToughnessReduction(Card creature)
     {
-      foreach (var target in Targets)
+      foreach (var target in ValidTargets)
       {
         if (target == creature)
         {
@@ -26,7 +26,7 @@
 
     protected override void ResolveEffect()
     {
-      foreach (var target in Targets)
+      foreach (var target in ValidTargets)
       {
         foreach (var modifier in _modifierFactories.CreateModifiers(Source.OwningCard, target, X))
         {

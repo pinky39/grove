@@ -20,16 +20,15 @@
     }  
 
     protected override void ResolveEffect()
-    {                  
-      for (int i = 0; i < Targets.Count; i++)
-      {
+    {
+      foreach (var t in ValidTargets) {
         var damage = new Damage(
           source: Source.OwningCard,
           amount: Amount.GetValue(X),
           isCombat: false,
           changeTracker: Game.ChangeTracker);
                 
-        Targets[i].DealDamage(damage);
+        t.DealDamage(damage);
 
         if (GainLife)
           Controller.Life += damage.Amount;

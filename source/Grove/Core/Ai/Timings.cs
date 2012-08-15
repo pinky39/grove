@@ -417,19 +417,10 @@
       return p => p.Card.Counters >= 3;
     }
 
-    public static TimingDelegate HasCreatureInGraveyard()
+    public static TimingDelegate HasCardInGraveyard(Func<Card,bool> predicate)
     {
-      return p =>
-        {
-          var bestController = p.Controller.Graveyard.Creatures
-            .OrderByDescending(x => x.Score)
-            .FirstOrDefault();          
-
-          if (bestController == null)
-            return false;
-
-          return true;
-        };
+      predicate = predicate ?? delegate { return true; };
+      return p => p.Controller.Graveyard.Count(predicate) > 0;
     }
   }
 }

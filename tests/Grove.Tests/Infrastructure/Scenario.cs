@@ -92,9 +92,12 @@
 
             if (card.IsManaSource)
               player.AddManaSources(card.ManaSources);
-
+                        
             player.PutCardToBattlefield(card);
             card.HasSummoningSickness = false;
+            
+            if (scenarioCard.IsTapped)
+              card.Tap();
 
             foreach (var enchantment in scenarioCard.Enchantments)
             {

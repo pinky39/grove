@@ -33,7 +33,28 @@
     public object UiTargets { get { return _targets; } }
 
     public bool WasKickerPaid { get; set; }
-    protected IList<ITarget> Targets { get { return _targets.Effect; } }
+    
+    protected IList<ITarget> Targets
+    {
+      get
+      {
+        return _targets.Effect;
+      }
+    }
+
+    protected IEnumerable<ITarget> ValidTargets
+    {
+      get
+      {
+        return Targets.Where(IsValid);
+      }
+    }
+
+    public bool IsValid(ITarget target)
+    {
+      return Source.IsTargetStillValid(target, WasKickerPaid);
+    }
+
     protected IList<ITarget> CostTargets { get { return _targets.Cost; } }
     public virtual bool NeedsTargets { get { return false; } }
 
@@ -107,7 +128,7 @@
     public bool CanBeResolved()
     {
       return !NeedsTargets ||
-        _targets.Effect.Any(x => Source.IsTargetStillValid(x, WasKickerPaid));
+        _targets.Effect.Any(IsValid);
     }
 
     public override string ToString()

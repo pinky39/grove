@@ -6,15 +6,15 @@
 
   public class DealDistributedDamageToTargets : Effect
   {
-    public Value Amount = 0;    
-
     private readonly List<int> _damageDistribution = new List<int>();
+    public Value Amount = 0;
+    public override bool NeedsTargets { get { return true; } }
 
     public override int CalculatePlayerDamage(Player player)
-    {      
+    {
       for (int i = 0; i < Targets.Count; i++)
       {
-        if (player == Targets[i])
+        if (player == Targets[i] && IsValid(Targets[i]))
         {
           return _damageDistribution[i];
         }
@@ -26,18 +26,13 @@
     {
       for (int i = 0; i < Targets.Count; i++)
       {
-        if (creature == Targets[i])
+        if (creature == Targets[i] && IsValid(Targets[i]))
         {
           return _damageDistribution[i];
         }
       }
 
-      return 0;                  
-    }
-
-    public override bool NeedsTargets
-    {
-      get { return true; }
+      return 0;
     }
 
     protected override void DistributeDamage(IDamageDistributor damageDistributor)
@@ -55,7 +50,8 @@
           isCombat: false,
           changeTracker: Game.ChangeTracker);
 
-        Targets[i].DealDamage(damage);       
+        if (IsValid(Targets[i]))
+          Targets[i].DealDamage(damage);
       }
     }
 

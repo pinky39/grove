@@ -46,6 +46,11 @@
     
     void IZone.Remove(Card card)
     {
+      Remove(card);
+    }
+
+    protected virtual void Remove(Card card)
+    {
       _cards.Remove(card);
     }
 
