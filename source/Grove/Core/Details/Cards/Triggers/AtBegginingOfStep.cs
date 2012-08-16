@@ -3,21 +3,14 @@
   using Infrastructure;
   using Messages;
 
-  public class AtBegginingOfStep : Trigger, IOrderedReceive<StepStarted>, IReceive<CardChangedZone>
+  public class AtBegginingOfStep : Trigger, IOrderedReceive<StepStarted>, IReceive<CardChangedZone>,
+    IReceive<ControllerChanged>
   {
     public bool ActiveTurn = true;
-    public bool OnlyOnceWhenInPlay;
+    public bool OnlyOnceWhenAfterItComesUnderYourControl;
     public bool PassiveTurn;
-    public Step Step { get; set; }    
+    public Step Step { get; set; }
     public int Order { get; set; }
-
-    public void Receive(CardChangedZone message)
-    {
-      if (OnlyOnceWhenInPlay && message.Card == Ability.OwningCard && message.ToBattlefield)
-      {
-        CanTrigger = true;
-      }
-    }
 
     public void Receive(StepStarted message)
     {
@@ -28,8 +21,24 @@
       {
         Set();
 
-        if (OnlyOnceWhenInPlay)
+        if (OnlyOnceWhenAfterItComesUnderYourControl)
           CanTrigger = false;
+      }
+    }
+
+    public void Receive(CardChangedZone message)
+    {
+      if (OnlyOnceWhenAfterItComesUnderYourControl && message.Card == Ability.OwningCard && message.ToBattlefield)
+      {
+        CanTrigger = true;
+      }
+    }
+
+    public void Receive(ControllerChanged message)
+    {
+      if (OnlyOnceWhenAfterItComesUnderYourControl && message.Card == Ability.OwningCard)
+      {
+        CanTrigger = true;
       }
     }
   }

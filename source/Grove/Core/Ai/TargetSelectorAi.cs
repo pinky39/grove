@@ -43,11 +43,14 @@
             return p.Targets(p.Candidates().OrderBy(x => x.Card().Score));
           }
 
+          if (orderedCandidates.Count < targetCount)
+            return p.NoTargets();
+          
           if (targetCount == 1)
           {
             return p.Targets(candidates);
-          }
-
+          }          
+          
           var grouped = GroupCandidates(orderedCandidates, targetCount);          
           return p.MultipleTargets(grouped);
         };
@@ -499,7 +502,6 @@
 
           if (candidates.Count < targetCount)
             return p.NoTargets();
-
 
           if (targetCount == 1)
           {

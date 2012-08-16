@@ -262,16 +262,30 @@
       [Fact]
       public void BugLeakedCopyWithShivsEmbrace()
       {
-
         var anaconda = C("Anaconda");
         var shivs = C("Shiv's Embrace");
         var bear = C("Grizzly Bears");
         var cradle = C("Cradle Guard");
 
-        
+
         Battlefield(P1, anaconda.IsEnchantedWith(shivs), "Mountain", "Mountain", "Forest", "Mountain");
         Hand(P2, cradle);
         Battlefield(P2, bear, "Forest", "Forest", "Mountain", "Forest");
+
+        RunGame(2);
+      }
+
+      [Fact]
+      public void LeakedCopyTodo()
+      {
+        Hand(P1, "Humble", "Remote Isle", "Confiscate");
+        Hand(P2, "Symbiosis", "Hush", "Thundering Giant", "Torch Song", "Hidden Ancients");
+        
+        Battlefield(P1, "Island", "Swamp", "Island", "Swamp", "Swamp", "Plains", "Swamp",
+          C("Sandbar Serpent").IsTrackedBy("Diabolic Servitude"));
+        
+        Battlefield(P2, "Mountain", "Slippery Karst", "Thran Turbine", "Smoldering Crater", "Goblin War Buggy", "Forest",
+          "Cradle Guard", "Goblin War Buggy");
 
         RunGame(2);
       }

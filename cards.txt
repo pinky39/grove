@@ -1,4 +1,4 @@
-MAGICGROVE v 1.5: Card List
+MAGICGROVE v 1.6: Card List
 =====================================
 The following cards can be used to construct new decks:
 
@@ -15,6 +15,7 @@ Angelic Page
 Angelic Wall
 Annul
 Antagonism
+Arc Lightning
 Argothian Enchantress
 Argothian Swine
 Argothian Wurm
@@ -31,7 +32,9 @@ Blood Vassal
 Brilliant Halo
 Bull Hippo
 Burst Lightning
+Catalog
 Clear
+Confiscate
 Copperline Gorge
 Corrupt
 Counterspell
@@ -42,6 +45,8 @@ Darkslick Drake
 Darksteel Gargoyle
 Day of Judgment
 Deathless Angel
+Despondency
+Diabolic Servitude
 Disciple of Grace
 Disciple of Law
 Disenchant
@@ -56,7 +61,9 @@ Elesh Norn, Grand Cenobite
 Elvish Warrior
 Endoskeleton
 Evacuation
+Exhume
 Expunge
+Fiery Mantle
 Fires of Yavimaya
 Flame Slash
 Flametongue Kavu
@@ -64,15 +71,20 @@ Flesh Reaver
 Forest
 Glorious Anthem
 Go for the Throat
+Goblin Patrol
 Goblin War Buggy
-Gobling Patrol
 Grasp of Darkness
 Grave Titan
 Grizzly Bears
+Heat Ray
 Hero of Bladehold
+Hidden Ancients
+Hidden Spider
 Humble
+Hush
 Hypnotic Specter
 Island
+Jagged Lightning
 Leatherback Baloth
 Lightning Bolt
 Liliana's Specter
@@ -95,34 +107,48 @@ Order of the Sacred Bell
 Pacifism
 Pariah
 Pegasus Charger
+Pendrell Drake
 Pestilence
 Phyrexian Arena
+Phyrexian Ghoul
 Plains
 Polluted Mire
 Pouncing Jaguar
+Power Sink
 Raging Ravine
 Rancor
 Ravenous Baloth
 Razorverge Thicket
 Recoil
+Remote Isle
+Rescind
 Rootbound Crag
 Rumbling Slum
 Rune of Protection: Black
 Rupture Spire
 Sanctum Custodian
 Sanctum Guardian
+Sandbar Merfolk
+Sandbar Serpent
 Savannah Lions
+Scrap
 Seal of Fire
 Serra's Embrace
 Shivan Dragon
 Shivan Raptor
+Shiv's Embrace
 Shock
+Shower of Sparks
 Sicken
 Sift
 Sign in Blood
 Silent Attendant
+Slippery Karst
+Smoldering Crater
+Somnophore
 Songstitcher
 Steam Vents
+Stern Proctor
 Stirring Wildwood
 Student of Warfare
 Stupor
@@ -132,17 +158,22 @@ Sword of Body and Mind
 Sword of Feast and Famine
 Sword of Fire and Ice
 Swords to Plowshares
+Symbiosis
+Thran Turbine
 Thrun, the Last Troll
 Thundering Giant
 Time Warp
+Torch Song
 Trained Armodon
 Trip Noose
 Troll Ascetic
+Turnabout
 Undermine
 Unworthy Dead
 Urza's Armor
 Vampire Nighthawk
 Verdant Force
+Victimize
 Vigor
 Vines of Vastwood
 Vivid Crag
@@ -156,5 +187,7 @@ Wall of Reverence
 Waylay
 White Knight
 Wild Dogs
+Wildfire
+Wizard Mentor
 Worship
 Wurmcoil Engine

@@ -120,6 +120,17 @@
                 });
             }
 
+             foreach (var tracked in scenarioCard.TrackedBy)
+            {
+              tracked.Initialize(trackerName =>
+                {
+                  var tracker = CardDatabase.CreateCard(trackerName, player);
+                  player.PutCardToBattlefield(tracker);
+                  TrackCard(card, tracker);
+                  return tracker;
+                });
+            }
+
             return card;
           });
       }
@@ -168,6 +179,11 @@
     protected void EquipCard(Card card, Card equipment)
     {
       card.EquipWithoutPayingTheCost(equipment);
+    }
+
+    protected void TrackCard(Card card, Card tracker)
+    {
+      card.Attach(tracker);
     }
 
     protected void Exec(params StepDecisions[] decisions)

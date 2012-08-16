@@ -39,7 +39,7 @@
 
     public bool CanAdd(Permanent.ViewModel viewModel)
     {
-      return _accepts(viewModel);
+      return viewModel.Card.Is().Aura ? ContainsAttachmentTarget(viewModel.Card) : _accepts(viewModel);
     }
 
     public Permanent.ViewModel GetPermanentViewModel(Card card)

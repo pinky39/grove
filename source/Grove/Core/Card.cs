@@ -57,7 +57,7 @@
     private StaticAbilities _staticAbilities;
     private TargetSelector _targetSelector;
     private TimingDelegate _timming;
-    private Toughness _toughness;    
+    private Toughness _toughness;
     private TriggeredAbilities _triggeredAbilities;
     private TurnInfo _turn;
     private CardTypeCharacteristic _type;
@@ -67,7 +67,7 @@
 
     protected Card() {}
     public bool MayChooseNotToUntapDuringUntapStep { get; private set; }
-    public Card AttachedTo { get { return _attachedTo.Value; } private set { _attachedTo.Value = value; } }    
+    public Card AttachedTo { get { return _attachedTo.Value; } private set { _attachedTo.Value = value; } }
     public IEnumerable<Card> Attachments { get { return _attachments.Cards; } }
 
     public bool CanAttack
@@ -137,7 +137,7 @@
     }
 
     public string Name { get; private set; }
-    public int? Power { get { return _power.Value; } }
+    public int? Power { get { return _power.Value < 0 ? 0 : _power.Value; } }
 
     public int Score
     {
@@ -314,7 +314,7 @@
             Colors.GetHashCode(),
             Counters.GetHashCode(),
             Type.GetHashCode(),
-            IsRevealed.GetHashCode(),            
+            IsRevealed.GetHashCode(),
             calc.Calculate(_staticAbilities),
             calc.Calculate(_triggeredAbilities),
             calc.Calculate(_activatedAbilities),
@@ -372,7 +372,7 @@
       // AI will prefer playing spells as soon as possible
       UsageScore += _turn.TurnCount;
     }
-    
+
     public void Attach(Card attachment)
     {
       if (attachment.IsAttached)
@@ -500,11 +500,6 @@
       _attachments.Remove(attachment);
       card.AttachedTo = null;
 
-      if (card.Is().Enchantment)
-      {
-        card.Sacrifice();
-      }
-
       Publish(new AttachmentDetached
         {
           AttachedTo = this,
@@ -612,15 +607,14 @@
     {
       Owner.PutCardToGraveyard(this);
     }
-    
+
     public void ChangeZone(IZone newZone)
     {
-      var oldZone = _zone.Value;            
+      var oldZone = _zone.Value;
       _zone.Value = newZone;
-            
-      
+
       oldZone.Remove(this);
-                  
+
       if (oldZone.Zone != newZone.Zone)
       {
         _publisher.Publish(new CardChangedZone
@@ -629,10 +623,10 @@
             From = oldZone.Zone,
             To = newZone.Zone
           });
-        
+
         oldZone.AfterRemove(this);
-      }                  
-                                
+      }
+
       newZone.AfterAdd(this);
     }
 
@@ -661,7 +655,15 @@
     {
       foreach (var attachedCard in _attachments.Cards.ToList())
       {
-        Detach(attachedCard);
+        if (attachedCard.Is().Aura)
+        {
+          // auras are sacrificed        
+          attachedCard.Sacrifice();
+        }
+        else
+        {
+          Detach(attachedCard);
+        }
       }
     }
 
@@ -799,7 +801,7 @@
     public void PutToBattlefield()
     {
       Controller.PutCardToBattlefield(this);
-    }    
+    }
 
     [Copyable]
     public class CardFactory : ICardFactory
@@ -865,7 +867,7 @@
         card._hash = new Trackable<int?>(_changeTracker);
         card._distributeDamage = _distributeSpellsDamage;
 
-        card.Name = _name;        
+        card.Name = _name;
         card._xCalculator = _xCalculator;
         card.ManaCost = _manaCost.ParseManaAmount();
         card.MayChooseNotToUntapDuringUntapStep = _mayChooseNotToUntap;
@@ -888,7 +890,7 @@
         card._usageScore = new Trackable<int>(_changeTracker, card);
         card._isTapped = new Trackable<bool>(_changeTracker, card);
         card._hasLeathalDamage = new Trackable<bool>(_changeTracker, card);
-        card._attachedTo = new Trackable<Card>(_changeTracker, card);        
+        card._attachedTo = new Trackable<Card>(_changeTracker, card);
         card._attachments = new Attachments(_changeTracker);
         card._isHidden = new Trackable<bool>(_changeTracker, card);
         card._isRevealed = new Trackable<bool>(_changeTracker, card);
@@ -982,7 +984,7 @@
           c.Trigger<AtBegginingOfStep>(t =>
             {
               t.Step = Step.Upkeep;
-              t.OnlyOnceWhenInPlay = true;
+              t.OnlyOnceWhenAfterItComesUnderYourControl = true;
             }),
           c.Effect<PayManaOrSacrifice>(e =>
             {

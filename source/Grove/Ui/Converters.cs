@@ -140,7 +140,10 @@
         if (characterCount < 260)
           return 12;
 
-        return 11;
+        if (characterCount < 300)
+          return 11;
+        
+        return 10;
       }
 
       public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

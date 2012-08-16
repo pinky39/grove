@@ -1,8 +1,9 @@
 ﻿namespace Grove.Tests.Infrastructure
 {
   using System;
+  using System.Collections;
   using System.Collections.Generic;
-  using Grove.Core;
+  using Core;
   using Grove.Infrastructure;
 
   [Copyable]
@@ -11,9 +12,10 @@
     private readonly List<ScenarioCard> _enchantments = new List<ScenarioCard>();
     private readonly List<ScenarioCard> _equipments = new List<ScenarioCard>();
     private readonly string _name;
+    private readonly List<ScenarioCard> _trackedBy = new List<ScenarioCard>();
 
     private ScenarioCard() {}
-    
+
     public ScenarioCard(string name)
     {
       _name = name;
@@ -21,14 +23,15 @@
 
     public IEnumerable<ScenarioCard> Enchantments { get { return _enchantments; } }
     public IEnumerable<ScenarioCard> Equipments { get { return _equipments; } }
-    public bool IsTapped { get; private set; }    
-    public Card Card { get; private set; }        
+    public bool IsTapped { get; private set; }
+    public Card Card { get; private set; }
+    public IEnumerable<ScenarioCard> TrackedBy { get { return _trackedBy; } }
 
     public int CalculateHash(HashCalculator hashCalculator)
     {
       return Card.CalculateHash(hashCalculator);
     }
-    
+
     public void Initialize(Func<string, Card> cardFactory)
     {
       Card = cardFactory(_name);
@@ -44,7 +47,13 @@
     {
       _equipments.AddRange(equipments);
       return this;
-    } 
+    }
+
+    public ScenarioCard IsTrackedBy(params ScenarioCard[] trackingCards)
+    {
+      _trackedBy.AddRange(trackingCards);
+      return this;
+    }
 
     public ScenarioCard Tap()
     {

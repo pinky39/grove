@@ -62,7 +62,7 @@
     }
 
     void IZone.Remove(Card card)
-    {
+    {      
       Remove(card);
     }
 

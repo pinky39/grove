@@ -11,15 +11,12 @@
   public class CounterTargetSpell : Effect
   {
     public int? ControllersLifeloss;
-    public bool TapLandsEmptyPool;
     public IManaAmount DoNotCounterCost;
+    public bool TapLandsEmptyPool;
 
 
-    public override bool NeedsTargets
-    {
-      get { return true; }
-    }
-    
+    public override bool NeedsTargets { get { return true; } }
+
     protected override void ResolveEffect()
     {
       var targetSpellController = Target().Effect().Controller;
@@ -57,6 +54,7 @@
                 };
             }
           );
+        return;
       }
 
       Counter(targetSpellController, Target().Effect(), Game.Stack);
@@ -75,8 +73,8 @@
         {
           land.Tap();
         }
-        
-        targetSpellController.EmptyManaPool();        
+
+        targetSpellController.EmptyManaPool();
       }
 
       stack.Counter(spell);

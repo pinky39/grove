@@ -26,7 +26,7 @@
             <ItemsControl ItemsSource="{Binding Message}">
                 <ItemsControl.Resources>
                     <DataTemplate DataType="{x:Type System:String}" >
-                        <TextBlock Margin="4,0,0,0" Text="{Binding }"/>                        
+                        <TextBlock Style="{StaticResource SmallDialogLabel}" Foreground="#FFD700" Margin="4,0,0,0" Text="{Binding }"/>                        
                     </DataTemplate>
                     
                     <DataTemplate DataType="{x:Type SelectEffectChoice:EffectChoiceViewModel}">

@@ -4,7 +4,7 @@
 
   public class EffectChoice
   {
-    private List<EffectChoiceOption> _options = new List<EffectChoiceOption>();
+    private readonly List<EffectChoiceOption> _options = new List<EffectChoiceOption>();
     
     public EffectChoice(IEnumerable<EffectChoiceOption> options)
     {

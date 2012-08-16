@@ -45,11 +45,11 @@
         )
         .Effect<CustomizableEffect>(e =>
           {
-            e.Choices = new[]
-              {
+            e.Choices(
+              
                 Choice(EffectChoiceOption.Tap, EffectChoiceOption.Untap),
                 Choice(EffectChoiceOption.Artifacts, EffectChoiceOption.Creatures, EffectChoiceOption.Lands)
-              };
+              );
 
             e.ChooseAi = (self, game) =>
               {

@@ -1,8 +1,10 @@
 ﻿namespace Grove.Core.Details.Cards
 {
+  using System.Linq;
   using Infrastructure;
   using Messages;
   using Modifiers;
+  using Zones;
 
   public class ControllerCharacteristic : Characteristic<Player>, IModifiable
   {
@@ -30,13 +32,17 @@
 
         base.Value = value;
 
+        if (_card.Zone != Zone.Battlefield)
+          return;                
+        
         if (!_card.IsAttached)
         {
           value.PutCardToBattlefield(_card);
-          foreach (var attachment in _card.Attachments)
+
+          foreach (var attachment in _card.Attachments.Where(x => x.Is().Aura || x.Is().Equipment))
           {
-            // for attachments just change battlefield
-            // do not change the control
+            // for auras and equipments just change battlefield
+            // do not change the control          
             value.PutCardToBattlefield(attachment);
           }
         }

@@ -422,5 +422,11 @@
       predicate = predicate ?? delegate { return true; };
       return p => p.Controller.Graveyard.Count(predicate) > 0;
     }
+
+    public static TimingDelegate HasPermanent(Func<Card,bool> predicate)
+    {
+      predicate = predicate ?? delegate { return true; };
+      return p => p.Controller.Battlefield.Count(predicate) > 0;
+    }
   }
 }

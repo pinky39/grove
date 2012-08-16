@@ -18,7 +18,7 @@
         .Text(
           "Choose two target creature cards in your graveyard. Sacrifice a creature. If you do, return the chosen cards to the battlefield tapped.")
         .FlavorText("The priest cast Xantcha to the ground. 'It is defective. We must scrap it.'")
-        .Timing(Timings.SecondMain())
+        .Timing(All(Timings.SecondMain(), Timings.HasPermanent(card => card.Is().Creature)))
         .Effect<PutTargetsToBattlefield>(e =>
           {
             e.MustSacCreatureOnResolve = true;
