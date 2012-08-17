@@ -516,9 +516,9 @@
     private static List<IList<Card>> GroupCandidates(IList<Card> candidates, int targetCount)
     {
       var targetsCandidates = new List<IList<Card>>();
-
-      for (var i = 0; i < candidates.Count - 1; i++)
-      {
+            
+      for (int i = 0; i < targetCount - 1; i++)
+      {                
         var targetCandidates = Enumerable
           .Repeat(candidates[i], candidates.Count - targetCount + 1)
           .ToList();
@@ -526,8 +526,10 @@
         targetsCandidates.Add(targetCandidates);
       }
 
-      targetsCandidates.Add(candidates.Skip(candidates.Count - 1)
+      targetsCandidates.Add(
+        candidates.Skip(targetCount - 1)
         .ToList());
+                    
       return targetsCandidates;
     }
 

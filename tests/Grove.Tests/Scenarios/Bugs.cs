@@ -276,7 +276,7 @@
       }
 
       [Fact]
-      public void LeakedCopyTodo()
+      public void BugSymbiosisIncorectAiTargetAssignement()
       {
         Hand(P1, "Humble", "Remote Isle", "Confiscate");
         Hand(P2, "Symbiosis", "Hush", "Thundering Giant", "Torch Song", "Hidden Ancients");
