@@ -20,7 +20,7 @@
           minTargetCount: 0,
           maxTargetCount: null,
           text: "Select attackers",
-          isValid: target => target.CanAttack && target.Controller == Controller
+          isValid: target => target.CanAttackThisTurn && target.Controller == Controller
           ),
         canCancel: false,
         instructions: "(Press Spacebar when done.)",

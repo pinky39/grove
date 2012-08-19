@@ -23,7 +23,10 @@
         var dialog = DialogFactory.Create(validator, canCancel: false);
         Shell.ShowModalDialog(dialog, DialogType.Small, SelectionMode.SelectTarget);
 
-        targets.AddEffect(dialog.Selection[0]);
+        foreach (var target in dialog.Selection)
+        {
+          targets.AddEffect(target);
+        }
       }
 
       Result = new ChosenTargets(targets);

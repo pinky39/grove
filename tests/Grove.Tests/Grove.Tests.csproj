@@ -85,11 +85,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cards\AbyssalHorror.cs" />
+    <Compile Include="Cards\AcademyResearchers.cs" />
     <Compile Include="Cards\Acridian.cs" />
     <Compile Include="Cards\Anaconda.cs" />
     <Compile Include="Cards\AngelicChorus.cs" />
     <Compile Include="Cards\Antagonism.cs" />
     <Compile Include="Cards\ArcLightning.cs" />
+    <Compile Include="Cards\ArgothianElder.cs" />
     <Compile Include="Cards\ArgothianEnchantress.cs" />
     <Compile Include="Cards\ArgothianWurm.cs" />
     <Compile Include="Cards\BaneslayerAngel.cs" />

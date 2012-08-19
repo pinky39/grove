@@ -30,7 +30,6 @@
     private Attachments _attachments;
     private Trackable<bool> _canRegenerate;
     private CardColors _colors;
-    private Combat _combat;
     private TrackableList<ContinuousEffect> _continuousEffects;
     private ControllerCharacteristic _controller;
     private Counters _counters;
@@ -38,6 +37,7 @@
     private DamagePreventions _damagePreventions;
     private bool _distributeDamage;
     private IEffectFactory _effectFactory;
+    private Game _game;
     private Trackable<bool> _hasLeathalDamage;
     private Trackable<bool> _hasSummoningSickness;
     private Trackable<int?> _hash;
@@ -51,15 +51,12 @@
     private TrackableList<IModifier> _modifiers;
     private Power _power;
     private Protections _protections;
-    private Publisher _publisher;
     private Zone? _resolveToZone;
-    private Stack _stack;
     private StaticAbilities _staticAbilities;
     private TargetSelector _targetSelector;
     private TimingDelegate _timming;
     private Toughness _toughness;
     private TriggeredAbilities _triggeredAbilities;
-    private TurnInfo _turn;
     private CardTypeCharacteristic _type;
     private Trackable<int> _usageScore;
     private CalculateX _xCalculator;
@@ -70,16 +67,25 @@
     public Card AttachedTo { get { return _attachedTo.Value; } private set { _attachedTo.Value = value; } }
     public IEnumerable<Card> Attachments { get { return _attachments.Cards; } }
 
-    public bool CanAttack
+    public bool CanAttackThisTurn
+    {
+      get
+      {
+        return
+          !IsTapped &&
+            (!HasSummoningSickness || Has().Haste) &&
+              IsAbleToAttack;
+      }
+    }
+
+    public bool IsAbleToAttack
     {
       get
       {
         return IsPermanent &&
           Is().Creature &&
-            !IsTapped &&
-              (!HasSummoningSickness || Has().Haste) &&
-                !Has().Defender &&
-                  !Has().CannotAttack;
+            !Has().Defender &&
+              !Has().CannotAttack;
       }
     }
 
@@ -106,8 +112,8 @@
     public bool HasXInCost { get { return _xCalculator != null; } }
     public string Illustration { get; private set; }
     public bool IsAttached { get { return AttachedTo != null; } }
-    public bool IsAttacker { get { return _combat.IsAttacker(this); } }
-    public bool IsBlocker { get { return _combat.IsBlocker(this); } }
+    public bool IsAttacker { get { return _game.Combat.IsAttacker(this); } }
+    public bool IsBlocker { get { return _game.Combat.IsBlocker(this); } }
     public bool IsHidden { get { return _isHidden.Value; } private set { _isHidden.Value = value; } }
     public bool IsManaSource { get { return _manaSources.Count > 0; } }
     public virtual bool IsTapped { get { return _isTapped.Value; } protected set { _isTapped.Value = value; } }
@@ -242,9 +248,9 @@
     {
       var oldZone = Zone;
 
-      ChangeZone(_stack);
+      ChangeZone(_game.Stack);
 
-      _publisher.Publish(new CardChangedZone
+      Publish(new CardChangedZone
         {
           Card = this,
           From = oldZone,
@@ -370,7 +376,7 @@
       // to avoid useless moves every move lowers the score a bit
       // this factor increases linearily with elapsed turns
       // AI will prefer playing spells as soon as possible
-      UsageScore += _turn.TurnCount;
+      UsageScore += _game.Turn.TurnCount;
     }
 
     public void Attach(Card attachment)
@@ -442,6 +448,11 @@
     public bool CanBlock()
     {
       return IsPermanent && !IsTapped && Is().Creature && !Has().CannotBlock;
+    }
+
+    public bool CanTarget(ITarget target)
+    {
+      return _targetSelector.Effect[0].IsValid(target);
     }
 
     public SpellPrerequisites CanCast()
@@ -578,7 +589,7 @@
       Tap();
       ClearDamage();
       CanRegenerate = false;
-      _combat.Remove(this);
+      _game.Combat.Remove(this);
     }
 
     public void RemoveChargeCounter()
@@ -617,7 +628,7 @@
 
       if (oldZone.Zone != newZone.Zone)
       {
-        _publisher.Publish(new CardChangedZone
+        Publish(new CardChangedZone
           {
             Card = this,
             From = oldZone.Zone,
@@ -712,7 +723,7 @@
 
     private void Publish<T>(T message)
     {
-      _publisher.Publish(message);
+      _game.Publisher.Publish(message);
     }
 
     public void Exile()
@@ -803,6 +814,17 @@
       Controller.PutCardToBattlefield(this);
     }
 
+    public bool IsGoodTarget(ITarget target)
+    {
+      var generator = new TargetGenerator(
+        _targetSelector,
+        this,
+        _game,
+        0);
+
+      return generator.Any(targets => targets.Effect.Contains(target));
+    }
+
     [Copyable]
     public class CardFactory : ICardFactory
     {
@@ -856,10 +878,7 @@
       {
         var card = _game.Search.InProgress ? new Card() : Bindable.Create<Card>();
 
-        card._publisher = _game.Publisher;
-        card._combat = _game.Combat;
-        card._stack = _game.Stack;
-        card._turn = _game.Turn;
+        card._game = _game;
         card.Owner = owner;
 
         card._effectFactory = _effectFactory ?? new Effect.Factory<PutIntoPlay> {Game = _game};

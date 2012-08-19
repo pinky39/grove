@@ -2,9 +2,9 @@
 
 o Absolute Grace
 o Absolute Law
-Abundance (library interaction ui needed)
+Abundance
 o Abyssal Horror
-Academy Researchers
+o Academy Researchers
 o Acidic Soil
 o Acridian
 o Albino Troll
@@ -13,23 +13,23 @@ o Angelic Chorus
 o Angelic Page
 o Annul
 o Antagonism
-Arc Lightning (support for multiple targets)
-Arcane Laboratory (support for player modifiers)
-Argothian Elder (support for multiple targets)
+o Arc Lightning
+Arcane Laboratory
+o Argothian Elder
 o Argothian Enchantress
 o Argothian Swine
-Argothian Wurm (should change simple decision making to be more customizable)
+o Argothian Wurm
 Attunement
 Back to Basics
 Barrin, Master Wizard
-Barrin's Codex
+o Barrin's Codex
 Bedlam
-Befoul
+o Befoul
 Bereavement
-Blanchwood Armor
+o Blanchwood Armor
 Blanchwood Treefolk
 Blasted Landscape
-Blood Vassal
+o Blood Vassal
 Bog Raiders
 Brand
 Bravado

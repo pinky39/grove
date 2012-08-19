@@ -192,7 +192,7 @@
           if (p.Step == Step.FirstMain)
           {
             return p.Targets(p.Candidates()
-              .Where(x => x.Card().CanAttack)
+              .Where(x => x.Card().CanAttackThisTurn)
               .Select(x => new
                 {
                   Card = x.Card(),
@@ -361,7 +361,7 @@
         {
           var candidates = p.Candidates()
             .Where(x => x.Card().Controller == p.Controller)
-            .Where(x => x.Card().CanAttack)
+            .Where(x => x.Card().IsAbleToAttack)
             .Select(x => new
               {
                 Card = x.Card(),
@@ -1003,6 +1003,44 @@
         return 2 + damage;
 
       return damage;
+    }
+
+    public static TargetSelectorAiDelegate AttachToSource()
+    {
+      return p =>
+        {
+          var candidates = p.Candidates()
+            .Where(x => x.Card().IsGoodTarget(p.Source))
+            .OrderByDescending(x => x.Card().Score)
+            .ToList();
+
+          return p.Targets(candidates);
+        };
+    }
+
+    public static TargetSelectorAiDelegate UntapYourLands()
+    {
+      return p =>
+        {                    
+          var targetCount = p.Selector.GetEffectTargetCount();
+
+          var candidates = p.Candidates()
+            .Where(x => x.Card().Controller == p.Controller)
+            .OrderByDescending(x => x.Card().IsTapped ? 1 : 0)
+            .Take(targetCount)
+            .Select(x => x.Card())
+            .ToList();
+
+          if (targetCount == 1)
+          {
+            return p.Targets(candidates);
+          }
+
+          if (candidates.Count < targetCount)
+            return p.NoTargets();
+
+          return p.MultipleTargets(GroupCandidates(candidates, targetCount));
+        };
     }
   }
 }

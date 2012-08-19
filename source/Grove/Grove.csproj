@@ -100,6 +100,7 @@
     <Compile Include="Cards\AbsoluteGrace.cs" />
     <Compile Include="Cards\AbsoluteLaw.cs" />
     <Compile Include="Cards\AbyssalHorror.cs" />
+    <Compile Include="Cards\AcademyResearchers.cs" />
     <Compile Include="Cards\AcidicSlime.cs" />
     <Compile Include="Cards\AcidicSoil.cs" />
     <Compile Include="Cards\Acridian.cs" />
@@ -111,6 +112,7 @@
     <Compile Include="Cards\Annul.cs" />
     <Compile Include="Cards\Antagonism.cs" />
     <Compile Include="Cards\ArcLightning.cs" />
+    <Compile Include="Cards\ArgothianElder.cs" />
     <Compile Include="Cards\ArgothianEnchantress.cs" />
     <Compile Include="Cards\ArgothianSwine.cs" />
     <Compile Include="Cards\ArgothianWurm.cs" />
@@ -302,10 +304,12 @@
     <Compile Include="Core\Details\Cards\Effects\EachPlayerReturnsCardFromGraveyardToBattlefield.cs" />
     <Compile Include="Core\Details\Cards\Effects\EffectChoice.cs" />
     <Compile Include="Core\Details\Cards\Effects\EffectChoiceOption.cs" />
+    <Compile Include="Core\Details\Cards\Effects\EnchantOwnerWithTarget.cs" />
     <Compile Include="Core\Details\Cards\Effects\ExileCard.cs" />
     <Compile Include="Core\Details\Cards\Effects\ExileOwner.cs" />
     <Compile Include="Core\Details\Cards\Effects\PlayersSacrificeLands.cs" />
     <Compile Include="Core\Details\Cards\Effects\PutTargetsToBattlefield.cs" />
+    <Compile Include="Core\Details\Cards\Effects\UntapTargets.cs" />
     <Compile Include="Core\Details\Cards\Modifiers\AddActivatedAbility.cs" />
     <Compile Include="Core\Details\Cards\Modifiers\ChangeController.cs" />
     <Compile Include="Core\Details\Cards\Modifiers\ControllerSetter.cs" />
