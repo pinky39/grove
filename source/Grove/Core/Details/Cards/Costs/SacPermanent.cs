@@ -3,16 +3,18 @@
   using System.Linq;
   using Targeting;
 
-  public class SacrificeCreature : Cost
+  public class SacPermanent : Cost
   {
     public override bool CanPay(ref int? maxX)
     {
-      return Controller.Battlefield.Count(x => x.Is().Creature) > 0;
+      return Controller.Battlefield.Any(
+        permanent => Validator.IsValid(permanent));
     }
 
     public override void Pay(ITarget target, int? x)
     {
-      target.Card().Sacrifice();
+      var creature = target.Card();
+      creature.Sacrifice();
     }
   }
 }

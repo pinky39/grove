@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core.Targeting
 {
+  using System;
   using Controllers.Scenario;
   using Details.Cards;
   using Details.Cards.Effects;
@@ -127,6 +128,7 @@
       public bool Sorcery { get { return false; } }
       public bool Token { get { return false; } }
       public bool Aura { get { return false; } }
+      public bool NonBasicLand { get { return false; } }
 
       public bool OfType(string type)
       {

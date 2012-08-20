@@ -116,7 +116,10 @@
     <Compile Include="Cards\ArgothianEnchantress.cs" />
     <Compile Include="Cards\ArgothianSwine.cs" />
     <Compile Include="Cards\ArgothianWurm.cs" />
+    <Compile Include="Cards\Attunement.cs" />
+    <Compile Include="Cards\BackToBasics.cs" />
     <Compile Include="Cards\BaneslayerAngel.cs" />
+    <Compile Include="Cards\BarrinMasterWizard.cs" />
     <Compile Include="Cards\BarrinsCodex.cs" />
     <Compile Include="Cards\BasiliskCollar.cs" />
     <Compile Include="Cards\Befoul.cs" />
@@ -297,8 +300,9 @@
     <Compile Include="Core\DeckFile.cs" />
     <Compile Include="Core\DeckRow.cs" />
     <Compile Include="Core\Details\Cards\ControllerCharacteristic.cs" />
+    <Compile Include="Core\Details\Cards\Costs\ReturnOwnerToHand.cs" />
     <Compile Include="Core\Details\Cards\Costs\SacOwnerPayMana.cs" />
-    <Compile Include="Core\Details\Cards\Costs\SacrificeCreature.cs" />
+    <Compile Include="Core\Details\Cards\Costs\SacPermanentPayMana.cs" />
     <Compile Include="Core\Details\Cards\Effects\CustomizableEffect.cs" />
     <Compile Include="Core\Details\Cards\Effects\DealDistributedDamageToTargets.cs" />
     <Compile Include="Core\Details\Cards\Effects\EachPlayerReturnsCardFromGraveyardToBattlefield.cs" />
@@ -555,7 +559,7 @@
     <Compile Include="Core\Details\Cards\ManaAbility.cs" />
     <Compile Include="Core\Details\Mana\ManaPool.cs" />
     <Compile Include="Core\Details\Cards\Costs\SacrificeOwner.cs" />
-    <Compile Include="Core\Details\Cards\Costs\SacrificePermanent.cs" />
+    <Compile Include="Core\Details\Cards\Costs\SacPermanent.cs" />
     <Compile Include="Core\Damage.cs" />
     <Compile Include="Core\Details\Cards\Preventions\ReplaceDamageWithCounters.cs" />
     <Compile Include="Core\Details\Cards\Effects\CompoundEffect.cs" />

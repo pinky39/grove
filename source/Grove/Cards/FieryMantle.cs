@@ -43,7 +43,7 @@
                 t.From = Zone.Battlefield;
                 t.To = Zone.Graveyard;
               }),
-            C.Effect<ReturnToHand>(e => e.ReturnOwner = true)));
+            C.Effect<Core.Details.Cards.Effects.ReturnToHand>(e => e.ReturnOwner = true)));
     }
   }
 }

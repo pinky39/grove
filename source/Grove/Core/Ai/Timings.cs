@@ -369,7 +369,12 @@
       return p => p.Step == Step.DeclareAttackers;
     }
 
-    public static TimingDelegate EotWithAtLeast3CountersOrIfDestroyed()
+    public static TimingDelegate CanBeDestroyedByTopSpell()
+    {
+      return p => p.Stack.CanBeDestroyedByTopSpell(p.Card, targetOnly: true);
+    }
+    
+    public static TimingDelegate Has3CountersOr1IfDestroyed()
     {
       return p =>
         {

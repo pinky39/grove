@@ -26,7 +26,7 @@
           C.ActivatedAbility(
             "{T}: Return Wizard Mentor and target creature you control to their owner's hand.",
             C.Cost<TapOwnerPayMana>(c => c.TapOwner = true),
-            C.Effect<ReturnToHand>(e =>
+            C.Effect<Core.Details.Cards.Effects.ReturnToHand>(e =>
               {
                 e.ReturnTarget = true;
                 e.ReturnOwner = true;

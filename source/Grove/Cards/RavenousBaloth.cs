@@ -25,7 +25,7 @@
         .Abilities(
           C.ActivatedAbility(
             "Sacrifice a Beast: You gain 4 life.",
-            C.Cost<SacrificePermanent>(),
+            C.Cost<SacPermanent>(),
             C.Effect<GainLife>(e => e.Amount = 4),
             
             costValidator: C.Validator(Validators.Creature((c) => c.Is("beast"), Controller.SpellOwner), 

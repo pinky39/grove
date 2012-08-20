@@ -34,7 +34,7 @@
             "{4},{T}, Sacrifice Barrin's Codex: Draw X cards, where X is the number of page counters on Barrin's Codex.",
             C.Cost<TapAndSacOwnerPayMana>((cost, _) => cost.Amount = 4.AsColorlessMana()),
             C.Effect<DrawCards>(e => e.DrawCount = e.Source.OwningCard.Counters.GetValueOrDefault()),
-            timing: Timings.EotWithAtLeast3CountersOrIfDestroyed())
+            timing: Timings.Has3CountersOr1IfDestroyed())
         );
     }
   }

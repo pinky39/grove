@@ -1042,5 +1042,16 @@
           return p.MultipleTargets(GroupCandidates(candidates, targetCount));
         };
     }
+
+    public static TargetSelectorAiDelegate SacPermanentToBounce()
+    {
+      return p =>
+        {
+          // TODO
+
+          return p.NoTargets();
+
+        };
+    }
   }
 }

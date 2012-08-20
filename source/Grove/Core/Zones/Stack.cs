@@ -142,7 +142,6 @@
       if (!card.CanBeDestroyed)
         return false;
 
-
       if (TopSpell.HasCategory(EffectCategories.Destruction))
       {
         if (!TopSpell.HasTargets)

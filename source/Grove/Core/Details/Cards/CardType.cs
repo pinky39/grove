@@ -19,6 +19,7 @@
     bool Sorcery { get; }
     bool Token { get; }
     bool Aura { get; }
+    bool NonBasicLand { get;}
 
     bool OfType(string type);
   }
@@ -71,6 +72,7 @@
     public bool Sorcery { get { return Is("sorcery"); } }
     public bool Token { get { return Is("token"); } }
     public bool Aura { get { return Is("aura"); } }
+    public bool NonBasicLand { get { return Land && !BasicLand; } }
 
     public bool OfType(string type)
     {

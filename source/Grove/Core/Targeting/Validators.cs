@@ -32,10 +32,11 @@
         };
     }
 
-    public static TargetValidatorDelegate Permanent(Func<Card, bool> filter = null)
+    public static TargetValidatorDelegate Permanent(Func<Card, bool> filter = null,
+      Controller controller = Controller.Any)
     {
       filter = filter ?? delegate { return true; };
-      return p => p.Target.IsPermanent() && filter(p.Target.Card());
+      return p => p.Target.IsPermanent() && IsValidController(p.Controller, p.Target.Card().Controller, controller) && filter(p.Target.Card());
     }
 
     public static TargetValidatorDelegate AttackerOrBlocker()
@@ -67,28 +68,30 @@
     }
 
     public static TargetValidatorDelegate Creature(Func<TargetValidatorParameters, bool> filter)
-    {      
+    {
       return p => p.Target.IsPermanent() && p.Target.Is().Creature && filter(p);
     }
-        
-    public static TargetValidatorDelegate Creature(Func<Card, bool> filter = null, Controller controller = Controller.Any)
+
+    private static bool IsValidController(Player spellController, Player targetController, Controller controller)
+    {
+      switch (controller)
+      {
+        case (Controller.SpellOwner):
+          return spellController == targetController;
+        case (Controller.Opponent):
+          return spellController != targetController;
+      }
+      return true;
+    }
+
+    public static TargetValidatorDelegate Creature(Func<Card, bool> filter = null,
+      Controller controller = Controller.Any)
     {
       filter = filter ?? delegate { return true; };
 
-      Func<Player, Player, bool> isValidController = (spellController, targetController) =>
-        {
-          switch (controller)
-          {
-            case (Controller.SpellOwner):
-              return spellController == targetController;
-            case (Controller.Opponent):
-              return spellController != targetController;
-          }
-          return true;
-        };
 
       return p => p.Target.IsPermanent() && p.Target.Is().Creature &&
-        isValidController(p.Controller, p.Target.Card().Controller) && filter(p.Target.Card());
+        IsValidController(p.Controller, p.Target.Card().Controller, controller) && filter(p.Target.Card());
     }
 
     public static TargetValidatorDelegate EffectOrPermanent(Func<ITarget, bool> filter = null)
@@ -100,25 +103,25 @@
     public static TargetValidatorDelegate CardInHand(Func<TargetValidatorParameters, bool> filter = null)
     {
       filter = filter ?? delegate { return true; };
-      
+
       return p => p.Target.IsCard() && (p.Target.Card().Zone == Zone.Hand) && filter(p);
     }
-    
+
     public static TargetValidatorDelegate CardInHand(Func<Card, bool> filter = null)
     {
       filter = filter ?? delegate { return true; };
-      
+
       return p => p.Target.IsCard() && (p.Target.Card().Zone == Zone.Hand) && filter(p.Target.Card());
     }
 
     public static TargetValidatorDelegate CardInGraveyard(Func<Card, bool> filter = null)
     {
       filter = filter ?? delegate { return true; };
-      
+
       return
-        p => p.Target.IsCard() && 
-          p.Target.Card().Zone == Zone.Graveyard && 
-            p.Target.Card().Controller == p.Controller && 
+        p => p.Target.IsCard() &&
+          p.Target.Card().Zone == Zone.Graveyard &&
+            p.Target.Card().Controller == p.Controller &&
               filter(p.Target.Card());
     }
   }
