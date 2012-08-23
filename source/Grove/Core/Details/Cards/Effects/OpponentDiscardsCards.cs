@@ -1,7 +1,5 @@
 ﻿namespace Grove.Core.Details.Cards.Effects
 {
-  using Controllers;
-
   public class OpponentDiscardsCards : Effect
   {
     public int RandomCount { get; set; }
@@ -18,9 +16,9 @@
 
       if (SelectedCount > 0)
       {
-        Decisions.Enqueue<DiscardCards>(
-          controller: opponent, 
-          init: p=> p.Count = SelectedCount);
+        Decisions.Enqueue<Controllers.DiscardCards>(
+          controller: opponent,
+          init: p => p.Count = SelectedCount);
       }
     }
   }

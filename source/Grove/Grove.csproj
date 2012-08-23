@@ -122,8 +122,13 @@
     <Compile Include="Cards\BarrinMasterWizard.cs" />
     <Compile Include="Cards\BarrinsCodex.cs" />
     <Compile Include="Cards\BasiliskCollar.cs" />
+    <Compile Include="Cards\Bedlam.cs" />
     <Compile Include="Cards\Befoul.cs" />
+    <Compile Include="Cards\Bereavement.cs" />
+    <Compile Include="Cards\BlanchwoodTreefolk.cs" />
+    <Compile Include="Cards\BlastedLandscape.cs" />
     <Compile Include="Cards\BloodVassal.cs" />
+    <Compile Include="Cards\BogRaiders.cs" />
     <Compile Include="Cards\BrilliantHalo.cs" />
     <Compile Include="Cards\BullHippo.cs" />
     <Compile Include="Cards\BurstLightning.cs" />
@@ -437,7 +442,7 @@
     <Compile Include="Core\Details\Cards\Effects\ReturnToHand.cs" />
     <Compile Include="Core\Details\Cards\Effects\DestroySource.cs" />
     <Compile Include="Core\Details\Cards\Effects\TapTargetCreature.cs" />
-    <Compile Include="Core\Details\Cards\Effects\TargetPlayerDiscardsCards.cs" />
+    <Compile Include="Core\Details\Cards\Effects\DiscardCards.cs" />
     <Compile Include="Core\Details\Cards\Effects\TargetPlayerTakesExtraTurns.cs" />
     <Compile Include="Core\Details\Cards\IActivatedAbilityFactory.cs" />
     <Compile Include="Core\Details\Mana\IManaAmount.cs" />

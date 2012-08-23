@@ -35,6 +35,7 @@
 
 
     public IList<TargetCandidates> EffectCandidates { get { return AllCandidates.Effect; } }
+    public IList<TargetCandidates> CostCandidates {get { return AllCandidates.Cost; }}
 
     public IEnumerable<ITarget> Candidates()
     {
@@ -93,11 +94,28 @@
         targetsList.Add(targets);
       }
       return targetsList;
-    }
+    }    
 
     public List<Targets> NoTargets()
     {
       return new List<Targets>();
+    }
+
+    public List<Targets> Targets(IEnumerable<ITarget> effect, IEnumerable<ITarget> cost)
+    {
+      var targetsList = new List<Targets>();
+
+      foreach (var effectTarget in effect)
+      {
+        foreach (var costTarget in cost)
+        {
+          targetsList.Add(new Targets()
+            .AddEffect(effectTarget)
+            .AddCost(costTarget));
+        }
+      }
+
+      return targetsList;
     }
 
     public List<Targets> Targets(IEnumerable<ITarget> candidates)

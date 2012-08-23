@@ -1,4 +1,4 @@
-﻿A v2.0 goal is to implement draft tournaments. Urza's saga edition was chosen to be a default edition for drafting. Card implementation status is shown below (o before card means the card is already implemented, x means the card probably won't be implemented):
+﻿A v2.0 goal is to implement draft tournaments. Urza's saga edition was chosen to be first edition for drafting. Card implementation status is shown below (o before card means the card is already implemented, x means the card won't be implemented for 2.0):
 
 o Absolute Grace
 o Absolute Law
@@ -21,16 +21,16 @@ o Argothian Swine
 o Argothian Wurm
 o Attunement
 o Back to Basics
-Barrin, Master Wizard
+o Barrin, Master Wizard
 o Barrin's Codex
-Bedlam
+o Bedlam
 o Befoul
-Bereavement
+o Bereavement
 o Blanchwood Armor
-Blanchwood Treefolk
-Blasted Landscape
+o Blanchwood Treefolk
+o Blasted Landscape
 o Blood Vassal
-Bog Raiders
+o Bog Raiders
 Brand
 Bravado
 Breach

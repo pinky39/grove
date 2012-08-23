@@ -45,13 +45,13 @@
 
           if (orderedCandidates.Count < targetCount)
             return p.NoTargets();
-          
+
           if (targetCount == 1)
           {
             return p.Targets(candidates);
-          }          
-          
-          var grouped = GroupCandidates(orderedCandidates, targetCount);          
+          }
+
+          var grouped = GroupCandidates(orderedCandidates, targetCount);
           return p.MultipleTargets(grouped);
         };
     }
@@ -388,13 +388,26 @@
         };
     }
 
-    private static IEnumerable<ITarget> GetPermanentsThatCanBeKilledOrderedByScore(this IEnumerable<ITarget> targets,
+    private static IEnumerable<ITarget> GetPermanentsThatCanBeKilled(this IEnumerable<ITarget> targets,
       TargetSelectorAiParameters p)
     {
       return targets
         .Where(x => x.Card().Controller == p.Controller)
-        .Where(x => p.Stack.CanBeDestroyedByTopSpell(x.Card()) || p.Combat.CanBeDealtLeathalCombatDamage(x.Card()))
-        .OrderByDescending(x => x.Card().Score);
+        .Where(x => p.Stack.CanBeDestroyedByTopSpell(x.Card()) || p.Combat.CanBeDealtLeathalCombatDamage(x.Card()));
+    }
+
+    private static IEnumerable<ITarget> GetBounceCandidates(this IEnumerable<ITarget> targets,
+      TargetSelectorAiParameters p)
+    {
+      return targets
+        .Where(x => x.Card().Controller != p.Controller)
+        .Select(x => new
+          {
+            Card = x.Card(),
+            Score = x.Card().Owner == p.Controller ? 2*x.Card().Score : x.Card().Score
+          })
+        .OrderByDescending(x => x.Score)
+        .Select(x => x.Card);
     }
 
     public static TargetSelectorAiDelegate ShieldIndestructible()
@@ -402,7 +415,9 @@
       return p =>
         {
           var candidates = p.Candidates()
-            .GetPermanentsThatCanBeKilledOrderedByScore(p);
+            .GetPermanentsThatCanBeKilled(p)
+            .OrderByDescending(x => x.Card().Score);
+          ;
 
           return p.Targets(candidates);
         };
@@ -516,9 +531,9 @@
     private static List<IList<Card>> GroupCandidates(IList<Card> candidates, int targetCount)
     {
       var targetsCandidates = new List<IList<Card>>();
-            
+
       for (int i = 0; i < targetCount - 1; i++)
-      {                
+      {
         var targetCandidates = Enumerable
           .Repeat(candidates[i], candidates.Count - targetCount + 1)
           .ToList();
@@ -528,8 +543,8 @@
 
       targetsCandidates.Add(
         candidates.Skip(targetCount - 1)
-        .ToList());
-                    
+          .ToList());
+
       return targetsCandidates;
     }
 
@@ -575,7 +590,7 @@
 
     public static TargetSelectorAiDelegate Bounce()
     {
-      return Destroy();
+      return p => p.Targets(p.Candidates().GetBounceCandidates(p));
     }
 
     public static TargetSelectorAiDelegate Controller()
@@ -950,7 +965,8 @@
       return p =>
         {
           var targetCandidates = p.Candidates()
-            .GetPermanentsThatCanBeKilledOrderedByScore(p)
+            .GetPermanentsThatCanBeKilled(p)
+            .OrderByDescending(x => x.Card().Score)
             .ToList();
 
           if (targetCandidates.Count == 1 && targetCandidates[0] == p.Source)
@@ -1021,7 +1037,7 @@
     public static TargetSelectorAiDelegate UntapYourLands()
     {
       return p =>
-        {                    
+        {
           var targetCount = p.Selector.GetEffectTargetCount();
 
           var candidates = p.Candidates()
@@ -1043,14 +1059,31 @@
         };
     }
 
+
     public static TargetSelectorAiDelegate SacPermanentToBounce()
     {
       return p =>
         {
-          // TODO
+          var costCandidates = p.CostCandidates[0]
+            .GetPermanentsThatCanBeKilled(p)
+            .OrderBy(x => x.Card().Score)
+            .Concat(p.CostCandidates[0].Where(x => x.Card().Is().Land).OrderBy(x => x.Card().IsTapped ? 0 : 1))
+            .Take(2)
+            .ToList();
+          
 
-          return p.NoTargets();
+          if (costCandidates.Count == 0)
+            return p.NoTargets();
 
+          var effectCandidates = p.EffectCandidates[0]
+            .GetBounceCandidates(p)
+            .Take(2)
+            .ToList();
+
+          if (effectCandidates.Count == 0)
+            return p.NoTargets();
+
+          return p.Targets(effectCandidates, costCandidates);
         };
     }
   }

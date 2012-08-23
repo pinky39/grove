@@ -1,5 +1,6 @@
 ﻿namespace Grove.Cards
 {
+  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -22,6 +23,7 @@
           "'Knowledge is no more expensive than ignorance, and at least as satisfying.'{EOL}—Barrin, master wizard")
         .Power(1)
         .Toughness(1)
+        .Timing(Timings.FirstMain())
         .Abilities(
           C.ActivatedAbility(
             "{2}, Sacrifice a permanent: Return target creature to its owner's hand.",
@@ -29,8 +31,8 @@
             C.Effect<ReturnToHand>(e => e.ReturnTarget = true),
             effectValidator: C.Validator(Validators.Creature(), text: "Select a creature to bounce."),
             costValidator: C.Validator(Validators.Permanent(controller: Controller.SpellOwner), text: "Select a permanent to sacrifice."), 
-            targetSelectorAi: TargetSelectorAi.SacPermanentToBounce()
-            )
+            targetSelectorAi: TargetSelectorAi.SacPermanentToBounce(),
+            timing: Any(Timings.TargetRemovalInstant()))
         );
     }
   }

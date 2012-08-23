@@ -95,6 +95,7 @@
     <Compile Include="Cards\ArgothianEnchantress.cs" />
     <Compile Include="Cards\ArgothianWurm.cs" />
     <Compile Include="Cards\BaneslayerAngel.cs" />
+    <Compile Include="Cards\BarrinMasterWizard.cs" />
     <Compile Include="Cards\BarrinsCodex.cs" />
     <Compile Include="Cards\Befoul.cs" />
     <Compile Include="Cards\BlacksSunZenith.cs" />
