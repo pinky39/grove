@@ -479,11 +479,29 @@
         };
     }
 
-    public static TargetSelectorAiDelegate IncreasePowerAndToughness(int? power, int? toughness)
+    public static TargetSelectorAiDelegate IncreasePowerAddEvasion(int? power)
     {
       return p =>
         {
-          IList<Card> candidates;
+          if (p.Controller.IsActive && p.Step == Step.DeclareAttackers)
+          {
+            var candidates = p.Candidates()
+              .Where(x => x.Card().Controller == p.Controller)
+              .Where(x => x.Card().IsAttacker)
+              .OrderByDescending(x => x.Card().CalculateCombatDamage(allDamageSteps: true));
+
+            return p.Targets(candidates);
+          }
+
+          return p.NoTargets();
+        };
+    }
+
+    public static TargetSelectorAiDelegate IncreasePowerAndToughness(int? power, int? toughness, bool untilEot = true)
+    {
+      return p =>
+        {
+          IList<Card> candidates = new List<Card>();
 
           if (p.Controller.IsActive && p.Step == Step.DeclareBlockers)
           {
@@ -491,20 +509,23 @@
               .ToList();
           }
 
-          else if (!p.Controller.IsActive && p.Step == Step.DeclareBlockers)
+          else if (!p.Controller.IsActive && p.Step == Step.DeclareBlockers && toughness > 0)
           {
             candidates = GetCandidatesForBlockerPowerToughnessIncrease(power, toughness, p).ToList();
           }
 
-          else if ((!p.Controller.IsActive && p.Step == Step.EndOfTurn) ||
-            (p.Source.IsPermanent && p.Stack.CanBeDestroyedByTopSpell(p.Source)))
+          else if (untilEot == false)
           {
-            candidates = p.Candidates()
-              .Where(x => x.Card().Controller == p.Controller)
-              .OrderByDescending(x => x.Card().Score)
-              .Select(x => x.Card()).ToList();
+            if ((!p.Controller.IsActive && p.Step == Step.EndOfTurn) ||
+              (p.Source.IsPermanent && p.Stack.CanBeDestroyedByTopSpell(p.Source)))
+            {
+              candidates = p.Candidates()
+                .Where(x => x.Card().Controller == p.Controller)
+                .OrderByDescending(x => x.Card().Score)
+                .Select(x => x.Card()).ToList();
+            }
           }
-          else
+          else if (toughness > 0)
           {
             candidates = p.Candidates()
               .Where(x => x.Card().Controller == p.Controller)
@@ -1070,7 +1091,7 @@
             .Concat(p.CostCandidates[0].Where(x => x.Card().Is().Land).OrderBy(x => x.Card().IsTapped ? 0 : 1))
             .Take(2)
             .ToList();
-          
+
 
           if (costCandidates.Count == 0)
             return p.NoTargets();

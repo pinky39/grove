@@ -39,7 +39,7 @@
                   })
                 ))),
             effectValidator: C.Validator(Validators.Creature()),
-            targetSelectorAi: TargetSelectorAi.IncreasePowerAndToughness(1, 1),
+            targetSelectorAi: TargetSelectorAi.IncreasePowerAndToughness(1, 1, untilEot: false),
             timing: Timings.NoRestrictions()
             ));
     }

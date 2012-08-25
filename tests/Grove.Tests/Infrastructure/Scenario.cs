@@ -104,6 +104,7 @@
               enchantment.Initialize(enchantmentName =>
                 {
                   var enchantmentCard = CardDatabase.CreateCard(enchantmentName, player);
+                  player.PutCardToBattlefield(enchantmentCard);
                   EnchantCard(card, enchantmentCard);
                   return enchantmentCard;
                 });

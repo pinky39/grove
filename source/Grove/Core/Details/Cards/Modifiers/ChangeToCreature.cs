@@ -1,7 +1,9 @@
 ﻿namespace Grove.Core.Details.Cards.Modifiers
 {
-  using Mana;  
-  
+  using Mana;
+  using Messages;
+  using Targeting;
+
   public class ChangeToCreature : Modifier
   {
     private CardColors _cardColors;
@@ -44,6 +46,8 @@
       _cardType = cardType;
       _typeSetter = new CardTypeSetter(Type, ChangeTracker);
       _cardType.AddModifier(_typeSetter);
+
+      Publisher.Publish(new CardChangedType {Card = Target.Card()});
     }
 
     protected override void Unapply()

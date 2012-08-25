@@ -36,7 +36,7 @@
                   m.AddLifetime(new PermanentGetsUntapedLifetime(m.Source, c.ChangeTracker));
                 }))),
             effectValidator: C.Validator(Validators.Creature()),
-            targetSelectorAi: TargetSelectorAi.IncreasePowerAndToughness(0, 3),
+            targetSelectorAi: TargetSelectorAi.IncreasePowerAndToughness(0, 3, untilEot: false),
             timing: Timings.NoRestrictions()));
     }
   }

@@ -1,11 +1,12 @@
 ﻿namespace Grove.Core.Details.Cards.Modifiers
 {
+  using System;
   using System.Linq;
   using Infrastructure;
   using Messages;
-  using Zones;  
-  
-  public class Add11ForEachForest : Modifier, IReceive<CardChangedZone>
+  using Zones;
+
+  public class Add11ForEachForest : Modifier, IReceive<CardChangedZone>, IReceive<ControllerChanged>
   {
     private Increment _increment;
     private Power _power;
@@ -60,6 +61,14 @@
     {
       return permanent.Is("forest") &&
         permanent.Controller == Source.Controller;
+    }
+
+    public void Receive(ControllerChanged message)
+    {
+      if (message.Card.Is("forest") || message.Card == Source)
+      {
+        _increment.Value = GetForestCount(Source.Controller);
+      }
     }
   }
 }

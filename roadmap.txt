@@ -31,11 +31,11 @@ o Blanchwood Treefolk
 o Blasted Landscape
 o Blood Vassal
 o Bog Raiders
-Brand
-Bravado
-Breach
-Brilliant Halo
-Bull Hippo
+o Brand
+o Bravado
+o Breach
+o Brilliant Halo
+o Bull Hippo
 Bulwark
 Cackling Fiend
 Carpet of Flowers

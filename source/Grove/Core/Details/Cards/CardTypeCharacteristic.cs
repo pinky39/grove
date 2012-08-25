@@ -12,7 +12,7 @@
 
     public void Accept(IModifier modifier)
     {
-      modifier.Apply(this);
+      modifier.Apply(this);      
     }
   }
 }
