@@ -7,8 +7,7 @@
   public class DealDistributedDamageToTargets : Effect
   {
     private readonly List<int> _damageDistribution = new List<int>();
-    public Value Amount = 0;
-    public override bool NeedsTargets { get { return true; } }
+    public Value Amount = 0;    
 
     public override int CalculatePlayerDamage(Player player)
     {

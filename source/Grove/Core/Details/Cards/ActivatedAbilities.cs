@@ -9,25 +9,32 @@
   using Modifiers;
   using Targeting;
 
-
   [Copyable]
   public class ActivatedAbilities : IModifiable, IHashable
   {
     private readonly TrackableList<ActivatedAbility> _abilities;
-
+    private readonly TrackableList<IManaSource> _manaSources;
 
     private ActivatedAbilities() {}
 
     public ActivatedAbilities(IEnumerable<ActivatedAbility> abilities, ChangeTracker changeTracker,
-                              IHashDependancy hashDependancy)
+      IHashDependancy hashDependancy)
     {
       _abilities = new TrackableList<ActivatedAbility>(abilities, changeTracker, hashDependancy);
+
+      var manaSources = abilities
+        .Where(x => x is IManaSource)
+        .Cast<IManaSource>();
+
+      _manaSources = new TrackableList<IManaSource>(manaSources, changeTracker);
     }
+
+    public IList<IManaSource> ManaSources { get { return _manaSources; } }
 
     public int CalculateHash(HashCalculator calc)
     {
       return calc.Calculate(_abilities);
-    }    
+    }
 
     public void Accept(IModifier modifier)
     {
@@ -42,7 +49,7 @@
     public List<SpellPrerequisites> CanActivate(bool ignoreManaAbilities)
     {
       var result = new List<SpellPrerequisites>();
-      
+
       for (int i = 0; i < _abilities.Count; i++)
       {
         var ability = _abilities[i];
@@ -104,11 +111,34 @@
     public void Add(ActivatedAbility ability)
     {
       _abilities.Add(ability);
+      AddManaSource(ability);
+    }
+
+    private void AddManaSource(ActivatedAbility ability)
+    {
+      var manaSource = ability as IManaSource;
+      if (manaSource == null)
+        return;
+
+      _manaSources.Add(manaSource);
+      ability.Controller.AddManaSource(manaSource);
     }
 
     public void Remove(ActivatedAbility ability)
     {
       _abilities.Remove(ability);
+
+      RemoveManaSource(ability);
+    }
+
+    private void RemoveManaSource(ActivatedAbility ability)
+    {
+      var manaSource = ability as IManaSource;
+      if (manaSource == null)
+        return;
+
+      _manaSources.Remove(manaSource);
+      ability.Controller.RemoveManaSource(manaSource);
     }
   }
 }

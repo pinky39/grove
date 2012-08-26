@@ -47,7 +47,6 @@
     private IEffectFactory _kickerEffectFactory;
     private TargetSelector _kickerTargetSelector;
     private Level _level;
-    private List<IManaSource> _manaSources;
     private TrackableList<IModifier> _modifiers;
     private Power _power;
     private Protections _protections;
@@ -115,13 +114,13 @@
     public bool IsAttacker { get { return _game.Combat.IsAttacker(this); } }
     public bool IsBlocker { get { return _game.Combat.IsBlocker(this); } }
     public bool IsHidden { get { return _isHidden.Value; } private set { _isHidden.Value = value; } }
-    public bool IsManaSource { get { return _manaSources.Count > 0; } }
+    public bool IsManaSource { get { return _activatedAbilities.ManaSources.Count > 0; } }
     public virtual bool IsTapped { get { return _isTapped.Value; } protected set { _isTapped.Value = value; } }
     public IManaAmount KickerCost { get; private set; }
 
     public IManaAmount ManaCost { get; private set; }
     public IManaAmount ManaCostWithKicker { get; private set; }
-    public IEnumerable<IManaSource> ManaSources { get { return _manaSources; } }
+    public IEnumerable<IManaSource> ManaSources { get { return _activatedAbilities.ManaSources; } }
 
     private IEnumerable<IModifiable> ModifiableProperties
     {
@@ -947,8 +946,8 @@
         card._triggeredAbilities = new TriggeredAbilities(triggeredAbilities, _changeTracker, card);
 
         var activatedAbilities = _activatedAbilityFactories.Select(x => x.Create(card)).ToList();
-        card._activatedAbilities = new ActivatedAbilities(activatedAbilities, _changeTracker, card);
-        card._manaSources = activatedAbilities.Where(ability => ability is IManaSource).Cast<IManaSource>().ToList();
+        card._activatedAbilities = new ActivatedAbilities(activatedAbilities, _changeTracker, card);        
+
         var continiousEffects = _continuousEffectFactories.Select(factory => factory.Create(card)).ToList();
         card._continuousEffects = new TrackableList<ContinuousEffect>(continiousEffects, _changeTracker, card);
 

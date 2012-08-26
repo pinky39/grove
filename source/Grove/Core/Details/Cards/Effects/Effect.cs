@@ -55,8 +55,7 @@
       return Source.IsTargetStillValid(target, WasKickerPaid);
     }
 
-    protected IList<ITarget> CostTargets { get { return _targets.Cost; } }
-    public virtual bool NeedsTargets { get { return false; } }
+    protected IList<ITarget> CostTargets { get { return _targets.Cost; } }    
 
     public bool HasColors(ManaColors colors)
     {
@@ -127,7 +126,7 @@
 
     public bool CanBeResolved()
     {
-      return !NeedsTargets ||
+      return _targets.Effect.None() ||
         _targets.Effect.Any(IsValid);
     }
 

@@ -5,7 +5,7 @@
   public class AddActivatedAbility : Modifier
   {
     private ActivatedAbilities _abilities;
-    private ActivatedAbility _ability;
+    private ActivatedAbility _ability;    
 
     public IActivatedAbilityFactory Ability { get; set; }
 
@@ -13,7 +13,7 @@
     {
       _abilities = abilities;
       _ability = Ability.Create(Target.Card());
-      _abilities.Add(_ability);
+      _abilities.Add(_ability);      
     }
 
     protected override void Unapply()

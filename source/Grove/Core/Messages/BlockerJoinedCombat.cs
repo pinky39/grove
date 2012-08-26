@@ -2,7 +2,7 @@
 {
   using Details.Combat;
 
-  public class BlockerDeclared
+  public class BlockerJoinedCombat
   {
     public Blocker Blocker { get; set; }
     public Attacker Attacker { get; set; }

@@ -121,7 +121,7 @@
       attacker.AddBlocker(blocker);
       _blockers.Add(blocker);
 
-      _publisher.Publish(new BlockerDeclared
+      _publisher.Publish(new BlockerJoinedCombat
         {
           Blocker = blocker,
           Attacker = attacker

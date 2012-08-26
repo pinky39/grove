@@ -7,9 +7,7 @@
   public class ApplyModifiersToTargets : Effect
   {
     private readonly List<IModifierFactory> _modifierFactories = new List<IModifierFactory>();
-    public Value ToughnessReduction = 0;
-
-    public override bool NeedsTargets { get { return true; } }
+    public Value ToughnessReduction = 0;    
 
     public override int CalculateToughnessReduction(Card creature)
     {

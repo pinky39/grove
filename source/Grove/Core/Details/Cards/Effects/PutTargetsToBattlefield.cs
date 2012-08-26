@@ -10,9 +10,7 @@
   public class PutTargetsToBattlefield : Effect
   {
     public bool MustSacCreatureOnResolve;
-    public bool Tapped;
-    
-    public override bool NeedsTargets { get { return true; } }
+    public bool Tapped;       
 
     protected override void ResolveEffect()
     {

@@ -31,7 +31,7 @@
               p.Builder.Modifier<ChangeToCreature>(m =>
                 {
                   m.Power = 4;
-                  m.Tougness = 4;
+                  m.Toughness = 4;
                   m.Type = "Creature - Giant";
                   m.Colors = ManaColors.White;
                 }),

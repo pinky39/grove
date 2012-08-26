@@ -11,7 +11,7 @@
 
   public class ViewModel : IReceive<SelectionModeChanged>, IReceive<PlayersInterestChanged>, IReceive<AttackerSelected>,
     IReceive<AttackerUnselected>, IReceive<BlockerSelected>, IReceive<BlockerUnselected>, IReceive<RemovedFromCombat>,
-    IReceive<AttackerJoinedCombat>, IReceive<BlockerDeclared>
+    IReceive<AttackerJoinedCombat>, IReceive<BlockerJoinedCombat>
   {
     private readonly CombatMarkers _combatMarkers;
     private readonly Publisher _publisher;
@@ -72,7 +72,7 @@
       Marker = 0;
     }
 
-    public void Receive(BlockerDeclared message)
+    public void Receive(BlockerJoinedCombat message)
     {
       if (message.Blocker.Card != Card)
         return;

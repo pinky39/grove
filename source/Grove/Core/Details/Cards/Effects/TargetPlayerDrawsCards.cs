@@ -3,9 +3,7 @@
   public class TargetPlayerDrawsCards : Effect
   {
     public int CardCount { get; set; }
-    public int LifeLoss { get; set; }
-
-    public override bool NeedsTargets { get { return true; } }
+    public int LifeLoss { get; set; }    
 
     protected override void ResolveEffect()
     {

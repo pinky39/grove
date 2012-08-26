@@ -21,12 +21,7 @@
     public override int CalculatePlayerDamage(Player player)
     {
       return _childEffects.Sum(x => x.CalculatePlayerDamage(player));
-    }
-
-    public override bool NeedsTargets
-    {
-      get { return _childEffects.Any(x => x.NeedsTargets); }
-    }
+    }    
 
     protected override void Init()
     {

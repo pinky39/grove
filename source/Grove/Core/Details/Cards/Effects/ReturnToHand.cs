@@ -10,9 +10,7 @@
     public bool ReturnTarget;
     public bool ReturnOwner;
 
-    public Card ReturnCard;
-
-    public override bool NeedsTargets { get { return ReturnTarget; } }
+    public Card ReturnCard;    
 
     protected override void ResolveEffect()
     {

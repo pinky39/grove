@@ -34,12 +34,7 @@
           Controller.Life += damage.Amount;
       }
     }
-
-    public override bool NeedsTargets
-    {
-      get { return true; }
-    }
-
+    
     public override string ToString()
     {
       return GetType().Name;

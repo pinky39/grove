@@ -3,12 +3,7 @@
   using Targeting;
 
   public class EnchantOwnerWithTarget : Effect
-  {
-    public override bool NeedsTargets
-    {
-      get { return true; }
-    }
-    
+  {    
     protected override void ResolveEffect()
     {            
       var enchantment = Target().Card();

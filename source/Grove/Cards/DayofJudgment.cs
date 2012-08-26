@@ -15,7 +15,7 @@
         .ManaCost("{2}{W}{W}")
         .Type("Sorcery")
         .Text("Destroy all creatures.")
-        .Timing(Timings.MainPhases())
+        .Timing(Timings.SecondMain())
         .Category(EffectCategories.Destruction)
         .Effect<DestroyPermanents>(e => e.Filter = (card) => card.Is().Creature);
     }

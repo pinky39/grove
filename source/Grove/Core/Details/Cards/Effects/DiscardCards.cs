@@ -5,9 +5,7 @@
   public class DiscardCards : Effect
   {
     public int Count { get; set; }
-    public Player ChosenPlayer { get; set; }
-
-    public override bool NeedsTargets { get { return ChosenPlayer == null; } }
+    public Player ChosenPlayer { get; set; }    
 
     protected override void ResolveEffect()
     {

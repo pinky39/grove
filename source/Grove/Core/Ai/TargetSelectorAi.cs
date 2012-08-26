@@ -36,7 +36,7 @@
             .Select(x => x.Card())
             .ToList();
 
-          var targetCount = p.Selector.GetEffectTargetCount();
+          var targetCount = p.Selector.GetMinEffectTargetCount();
 
           if (p.IsTriggeredAbilityTarget && targetCount == 1 && orderedCandidates.Count == 0)
           {
@@ -298,7 +298,7 @@
             .OrderByDamageScore(amount.Value, p)
             .ToList();
 
-          var targetCount = p.Selector.GetEffectTargetCount();
+          var targetCount = p.Selector.GetMinEffectTargetCount();
 
           if (candidates.Count < targetCount)
           {
@@ -534,7 +534,7 @@
               .ToList();
           }
 
-          var targetCount = p.Selector.GetEffectTargetCount();
+          var targetCount = p.Selector.GetMinEffectTargetCount();
 
           if (candidates.Count < targetCount)
             return p.NoTargets();
@@ -1059,7 +1059,7 @@
     {
       return p =>
         {
-          var targetCount = p.Selector.GetEffectTargetCount();
+          var targetCount = p.Selector.GetMinEffectTargetCount();
 
           var candidates = p.Candidates()
             .Where(x => x.Card().Controller == p.Controller)
@@ -1105,6 +1105,36 @@
             return p.NoTargets();
 
           return p.Targets(effectCandidates, costCandidates);
+        };
+    }
+
+    public static TargetSelectorAiDelegate RemoveCardsFromOpponentsGraveyard()
+    {
+      return p =>
+        {
+          var candidates = p.Candidates()
+            .Where(x => x.Card().Controller != p.Controller)
+            .OrderByDescending(x => x.Card().Score)
+            .Select(x => x.Card())
+            .ToList();
+
+          var minCount = p.Selector.GetMinEffectTargetCount();
+
+          if (minCount < candidates.Count)
+          {
+            return p.NoTargets();
+          }
+
+          var maxCount = p.Selector.GetMaxEffectTargetCount();
+          var pickedCount = Math.Min(maxCount, candidates.Count);
+
+          if (pickedCount == 1)
+          {
+            return p.Targets(candidates);
+          }
+                    
+          return p.MultipleTargets(GroupCandidates(
+            candidates, pickedCount));
         };
     }
   }

@@ -32,7 +32,7 @@
               p.Builder.Modifier<ChangeToCreature>(m =>
                 {
                   m.Power = 2;
-                  m.Tougness = 2;                  
+                  m.Toughness = 2;                  
                   m.Type = "Creature - Gargoyle";
                   m.Colors = ManaColors.White;
                 }),

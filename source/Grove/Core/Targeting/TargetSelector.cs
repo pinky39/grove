@@ -34,9 +34,15 @@
     public IList<TargetValidator> Effect { get { return _effectValidators; } }
     public IList<TargetValidator> Cost { get { return _costValidators; } }
 
-    public int GetEffectTargetCount()
+    public int GetMinEffectTargetCount()
     {
       return Effect.Sum(x => x.MinCount);
+    }
+
+    public int GetMaxEffectTargetCount()
+    {
+      return Effect.Sum(x => x.MaxCount).Value;
+
     }
 
     public TargetsCandidates GenerateCandidates(TargetGeneratorDelegate generator)

@@ -24,12 +24,7 @@
       }
 
       return 0;
-    }
-
-    public override bool NeedsTargets
-    {
-      get { return true; }
-    }
+    }    
 
     protected override void ResolveEffect()
     {

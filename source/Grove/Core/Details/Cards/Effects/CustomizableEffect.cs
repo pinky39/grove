@@ -11,9 +11,7 @@
     private readonly List<EffectChoice> _choices = new List<EffectChoice>();
     public Func<CustomizableEffect, Game, ChosenOptions> ChooseAi;
     public Action<CustomizableEffect, ChosenOptions> Logic;
-    public string Text;
-
-    public override bool NeedsTargets { get { return true; } }
+    public string Text;        
 
     public void Choices(params EffectChoice[] choices)
     {

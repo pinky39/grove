@@ -195,7 +195,7 @@
       }
     }
 
-    public void DestroyPermanents(Func<Card, bool> filter = null)
+    public void DestroyPermanents(Func<Card, bool> filter = null, bool allowToRegenerate = true)
     {
       filter = filter ?? delegate { return true; };
 
@@ -203,7 +203,7 @@
       {
         if (filter(permanent))
         {
-          permanent.Destroy();
+          permanent.Destroy(allowToRegenerate);
         }
       }
     }

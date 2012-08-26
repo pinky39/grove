@@ -4,9 +4,7 @@
 
   public class TargetPlayerTakesExtraTurns : Effect
   {
-    public int Count = 1;
-
-    public override bool NeedsTargets { get { return true; } }
+    public int Count = 1;    
 
     protected override void ResolveEffect()
     {

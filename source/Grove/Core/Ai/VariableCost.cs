@@ -1,6 +1,7 @@
 ﻿namespace Grove.Core.Ai
 {
   using System;
+  using System.Linq;
   using Details.Mana;
   using Targeting;
 
@@ -80,6 +81,11 @@
 
           return p.Opponent.GetConvertedMana(ManaUsage.Any) + 1;
         };
+    }
+
+    public static CalculateX ChangeToXXCreature()
+    {
+      return p => p.Controller.GetConvertedMana(ManaUsage.Abilities);
     }
   }
 }

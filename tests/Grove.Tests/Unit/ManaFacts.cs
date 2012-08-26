@@ -20,11 +20,16 @@
       Assert.True(mana.IsColorless);
     }
 
+    private ManaSources ManaSources(IEnumerable<IManaSource> manaSources)
+    {
+      return new ManaSources(manaSources, null);
+    }
+
     [Fact]
     public void Performance()
     {
       var amount = "{4}{R}{R}".ParseManaAmount();
-      var manaSources = new ManaSources(
+      var manaSources = ManaSources(
         new[]
           {
             Immutable("{RG}{G}"),
@@ -219,7 +224,7 @@
 
     private bool Has(IManaAmount available, IManaAmount amount)
     {
-      var manaSources = new ManaSources(new MutableSource(available).ToEnumerable());
+      var manaSources = ManaSources(new MutableSource(available).ToEnumerable());
       return manaSources.Has(amount, ManaUsage.Any);
     }
 

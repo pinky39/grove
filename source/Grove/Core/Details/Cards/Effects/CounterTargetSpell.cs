@@ -12,10 +12,7 @@
   {
     public int? ControllersLifeloss;
     public IManaAmount DoNotCounterCost;
-    public bool TapLandsEmptyPool;
-
-
-    public override bool NeedsTargets { get { return true; } }
+    public bool TapLandsEmptyPool;    
 
     protected override void ResolveEffect()
     {

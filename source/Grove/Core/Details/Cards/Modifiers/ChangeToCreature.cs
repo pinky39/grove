@@ -17,7 +17,7 @@
 
     public ManaColors Colors { get; set; }
     public Value Power { get; set; }
-    public Value Tougness { get; set; }
+    public Value Toughness { get; set; }
     public string Type { get; set; }
 
     public override void Apply(CardColors colors)
@@ -37,7 +37,7 @@
     public override void Apply(Toughness toughness)
     {
       _cardToughness = toughness;
-      _toughnessSetter = new StrenghtSetter(Tougness.GetValue(X), ChangeTracker);
+      _toughnessSetter = new StrenghtSetter(Toughness.GetValue(X), ChangeTracker);
       _cardToughness.AddModifier(_toughnessSetter);
     }
 

@@ -33,7 +33,7 @@
               p.Builder.Modifier<ChangeToCreature>(m =>
                 {
                   m.Power = 3;
-                  m.Tougness = 5;
+                  m.Toughness = 5;
                   m.Type = "Creature - Spider";
                   m.Colors = ManaColors.Green;
                 }), 

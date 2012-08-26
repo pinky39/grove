@@ -1,5 +1,6 @@
 ﻿namespace Grove.Cards
 {
+  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -31,7 +32,7 @@
               p.Builder.Modifier<ChangeToCreature>(m =>
                 {
                   m.Power = 5;
-                  m.Tougness = 5;
+                  m.Toughness = 5;
                   m.Type = "Creature - Treefolk";
                   m.Colors = ManaColors.Green;
                 })

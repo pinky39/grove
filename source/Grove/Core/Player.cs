@@ -65,7 +65,7 @@
       var cards = LoadCards(deck, cardDatabase);
 
       CreateZones(cards, game);
-      InitializeManaSources();
+      InitializeManaSources(game.ChangeTracker);
     }
 
     private Player() {}
@@ -111,7 +111,7 @@
 
         return IsMax ? score : -score;
       }
-    }    
+    }
 
     public void AddModifier(IModifier modifier)
     {
@@ -438,7 +438,7 @@
 
     public void AddManaSources(IEnumerable<IManaSource> manaSources)
     {
-      _manaSources.Add(manaSources);
+      _manaSources.AddRange(manaSources);
     }
 
     public override string ToString()
@@ -446,7 +446,7 @@
       return Name;
     }
 
-    private void InitializeManaSources()
+    private void InitializeManaSources(ChangeTracker changeTracker)
     {
       var manaSources =
         _manaPool.ToEnumerable().Concat(
@@ -454,8 +454,7 @@
             .Where(x => x.IsManaSource)
             .SelectMany(x => x.ManaSources));
 
-
-      _manaSources = new ManaSources(manaSources);
+      _manaSources = new ManaSources(manaSources, changeTracker);
     }
 
     private void Publish<T>(T message)
@@ -475,6 +474,16 @@
       {
         _library.Add(card);
       }
+    }
+
+    public void AddManaSource(IManaSource manaSource)
+    {
+      _manaSources.Add(manaSource);
+    }
+
+    public void RemoveManaSource(IManaSource manaSource)
+    {
+      _manaSources.Remove(manaSource);
     }
 
     public interface IFactory

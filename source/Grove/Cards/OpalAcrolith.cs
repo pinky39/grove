@@ -31,7 +31,7 @@
               p.Builder.Modifier<ChangeToCreature>((m, _) =>
                 {
                   m.Power = 2;
-                  m.Tougness = 4;
+                  m.Toughness = 4;
                   m.Type = "Creature - Soldier";
                   m.Colors = ManaColors.White;
                 })

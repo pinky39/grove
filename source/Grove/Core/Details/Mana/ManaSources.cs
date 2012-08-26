@@ -7,13 +7,13 @@
   [Copyable]
   public class ManaSources
   {
-    private readonly List<SourcesWithSameResource> _sources;
+    private readonly TrackableList<SourcesWithSameResource> _sources;
 
     public ManaSources() {}
 
-    public ManaSources(IEnumerable<IManaSource> manaSources)
+    public ManaSources(IEnumerable<IManaSource> manaSources, ChangeTracker changeTracker)
     {
-      _sources = manaSources
+      var sourcesWithSameResource = manaSources
         .GroupBy(x => x.Resource)
         .Select(x => new SourcesWithSameResource
           {
@@ -21,27 +21,41 @@
             Sources = x.OrderBy(y => y.Priority).ToList()
           }).
         ToList();
+
+      _sources = new TrackableList<SourcesWithSameResource>(sourcesWithSameResource, changeTracker);
     }
 
-    public void Add(IEnumerable<IManaSource> manaSources)
+
+    public void AddRange(IEnumerable<IManaSource> manaSources)
     {
       foreach (var manaSource in manaSources)
       {
-        var existing = _sources.FirstOrDefault(x => x.Resource == manaSource.Resource);
-
-        if (existing != null)
-        {
-          existing.Sources.Add(manaSource);
-          existing.Sources.Sort((s1, s2) => s1.Priority.CompareTo(s2.Priority));
-          continue;
-        }
-
-        _sources.Add(new SourcesWithSameResource
-          {
-            Resource = manaSource.Resource,
-            Sources = manaSource.ToEnumerable().ToList()
-          });
+        Add(manaSource);
       }
+    }
+
+    public void Add(IManaSource manaSource)
+    {
+      var existing = _sources.FirstOrDefault(x => x.Resource == manaSource.Resource);
+
+      if (existing != null)
+      {
+        existing.Sources.Add(manaSource);
+        existing.Sources.Sort((s1, s2) => s1.Priority.CompareTo(s2.Priority));
+        return;
+      }
+
+      _sources.Add(new SourcesWithSameResource
+        {
+          Resource = manaSource.Resource,
+          Sources = manaSource.ToEnumerable().ToList()
+        });
+    }
+
+    public void Remove(IManaSource manaSource)
+    {
+      var resource = _sources.FirstOrDefault(x => x.Resource == manaSource.Resource);
+      resource.Sources.Remove(manaSource);
     }
 
     public void Consume(IManaAmount amount, ManaUsage usage, IManaSource sourceToAvoid)

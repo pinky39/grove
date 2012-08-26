@@ -104,6 +104,10 @@
     <Compile Include="Cards\Brand.cs" />
     <Compile Include="Cards\Bravado.cs" />
     <Compile Include="Cards\Breach.cs" />
+    <Compile Include="Cards\CarrionBeetles.cs" />
+    <Compile Include="Cards\Catastrophe.cs" />
+    <Compile Include="Cards\CaveTiger.cs" />
+    <Compile Include="Cards\CitanulHierophants.cs" />
     <Compile Include="Cards\Confiscate.cs" />
     <Compile Include="Cards\CreepingTarPit.cs" />
     <Compile Include="Cards\DarkstyleGargoyle.cs" />

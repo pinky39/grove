@@ -36,19 +36,19 @@ o Bravado
 o Breach
 o Brilliant Halo
 o Bull Hippo
-Bulwark
-Cackling Fiend
+o Bulwark
+o Cackling Fiend
 Carpet of Flowers
-Carrion Beetles
-Catalog
-Catastrophe
-Cathodion
-Cave Tiger
-Child of Gaea
-Chimeric Staff
-Citanul Centaurs
+o Carrion Beetles
+o Catalog
+o Catastrophe
+o Cathodion
+o Cave Tiger
+o Child of Gaea
+o Chimeric Staff
+o Citanul Centaurs
 Citanul Flute
-Citanul Hierophants
+o Citanul Hierophants
 Claws of Gix
 Clear
 Cloak of Mists

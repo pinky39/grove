@@ -134,13 +134,23 @@
     <Compile Include="Cards\Breach.cs" />
     <Compile Include="Cards\BrilliantHalo.cs" />
     <Compile Include="Cards\BullHippo.cs" />
+    <Compile Include="Cards\Bulwark.cs" />
     <Compile Include="Cards\BurstLightning.cs" />
     <Compile Include="Cards\BeaconOfDestruction.cs" />
     <Compile Include="Cards\BirdsOfParadise.cs" />
     <Compile Include="Cards\BlackSunsZenith.cs" />
     <Compile Include="Cards\BlanchwoodArmor.cs" />
     <Compile Include="Cards\Blaze.cs" />
+    <Compile Include="Cards\CacklingFiend.cs" />
+    <Compile Include="Cards\CarrionBeetles.cs" />
     <Compile Include="Cards\Catalog.cs" />
+    <Compile Include="Cards\Catastrophe.cs" />
+    <Compile Include="Cards\Cathodion.cs" />
+    <Compile Include="Cards\CaveTiger.cs" />
+    <Compile Include="Cards\ChildOfGaea.cs" />
+    <Compile Include="Cards\ChimericStaff.cs" />
+    <Compile Include="Cards\CitanulCentaurs.cs" />
+    <Compile Include="Cards\CitanulHierophants.cs" />
     <Compile Include="Cards\Clear.cs" />
     <Compile Include="Cards\Confiscate.cs" />
     <Compile Include="Cards\Corrupt.cs" />
@@ -312,6 +322,7 @@
     <Compile Include="Core\Details\Cards\Costs\SacOwnerPayMana.cs" />
     <Compile Include="Core\Details\Cards\Costs\SacPermanentPayMana.cs" />
     <Compile Include="Core\Details\Cards\Effects\CustomizableEffect.cs" />
+    <Compile Include="Core\Details\Cards\Effects\DealDamageToOpponentEqualToCardDifference.cs" />
     <Compile Include="Core\Details\Cards\Effects\DealDistributedDamageToTargets.cs" />
     <Compile Include="Core\Details\Cards\Effects\EachPlayerReturnsCardFromGraveyardToBattlefield.cs" />
     <Compile Include="Core\Details\Cards\Effects\EffectChoice.cs" />
@@ -328,6 +339,7 @@
     <Compile Include="Core\Details\Cards\Modifiers\ChangeController.cs" />
     <Compile Include="Core\Details\Cards\Modifiers\ControllerSetter.cs" />
     <Compile Include="Core\Details\Cards\Modifiers\PermanentLeavesBattlefieldLifetime.cs" />
+    <Compile Include="Core\Details\Cards\Triggers\GetsBlocked.cs" />
     <Compile Include="Core\Details\Cards\Triggers\OnAttachmentDetached.cs" />
     <Compile Include="Core\Details\Cards\Triggers\TriggerOrder.cs" />
     <Compile Include="Core\Details\Mana\ManaUsage.cs" />
@@ -439,7 +451,7 @@
     <Compile Include="Core\Details\Cards\Effects\DealDamageToActivePlayer.cs" />
     <Compile Include="Core\Details\Cards\Effects\DealExistingDamageToController.cs" />
     <Compile Include="Core\Details\Cards\Effects\DestroyPermanents.cs" />
-    <Compile Include="Core\Details\Cards\Effects\ExileTarget.cs" />
+    <Compile Include="Core\Details\Cards\Effects\ExileTargets.cs" />
     <Compile Include="Core\Details\Cards\Effects\GainLifeEqualToTargetPower.cs" />
     <Compile Include="Core\Details\Cards\Effects\MillOpponent.cs" />
     <Compile Include="Core\Details\Cards\Effects\PayLifeOrTap.cs" />
@@ -701,7 +713,7 @@
     <Compile Include="Core\IDamageable.cs" />
     <Compile Include="Core\Match.cs" />
     <Compile Include="Core\Messages\AttackerJoinedCombat.cs" />
-    <Compile Include="Core\Messages\BlockerDeclared.cs" />
+    <Compile Include="Core\Messages\BlockerJoinedCombat.cs" />
     <Compile Include="Core\Messages\EndOfTurn.cs" />
     <Compile Include="Core\Messages\PlayerHasTakenMulligan.cs" />
     <Compile Include="Core\Messages\RemovedFromCombat.cs" />

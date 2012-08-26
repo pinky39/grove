@@ -36,7 +36,7 @@
               p.Builder.Modifier<ChangeToCreature>((m, c0) =>
                 {
                   m.Power = 3;
-                  m.Tougness = 2;
+                  m.Toughness = 2;
                   m.Colors = ManaColors.Blue | ManaColors.Black;
                   m.Type = "Land Creature - Elemental";
                 }, untilEndOfTurn: true),
