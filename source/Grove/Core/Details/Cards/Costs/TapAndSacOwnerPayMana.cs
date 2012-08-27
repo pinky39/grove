@@ -1,12 +1,12 @@
 ﻿namespace Grove.Core.Details.Cards.Costs
 {
-  using Targeting;
-
+  using Targeting;  
+  
   public class TapAndSacOwnerPayMana : TapOwnerPayMana
-  {
+  {        
     public TapAndSacOwnerPayMana()
     {
-      TapOwner = true;
+      TapOwner = true;  
     }
     
     public override void Pay(ITarget target, int? x)

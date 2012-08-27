@@ -33,29 +33,12 @@
     public object UiTargets { get { return _targets; } }
 
     public bool WasKickerPaid { get; set; }
-    
-    protected IList<ITarget> Targets
-    {
-      get
-      {
-        return _targets.Effect;
-      }
-    }
 
-    protected IEnumerable<ITarget> ValidTargets
-    {
-      get
-      {
-        return Targets.Where(IsValid);
-      }
-    }
+    protected IList<ITarget> Targets { get { return _targets.Effect; } }
 
-    public bool IsValid(ITarget target)
-    {
-      return Source.IsTargetStillValid(target, WasKickerPaid);
-    }
+    protected IEnumerable<ITarget> ValidTargets { get { return Targets.Where(IsValid); } }
 
-    protected IList<ITarget> CostTargets { get { return _targets.Cost; } }    
+    protected IList<ITarget> CostTargets { get { return _targets.Cost; } }
 
     public bool HasColors(ManaColors colors)
     {
@@ -71,6 +54,16 @@
         CanBeCountered.GetHashCode(),
         WasKickerPaid.GetHashCode(),
         X.GetHashCode());
+    }
+
+    protected string FormatDialogMessage(string text)
+    {
+      return String.Format("{0}: {1}", Source.SourceCard, text);
+    }
+
+    public bool IsValid(ITarget target)
+    {
+      return Source.IsTargetStillValid(target, WasKickerPaid);
     }
 
     public virtual int CalculatePlayerDamage(Player player)

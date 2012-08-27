@@ -33,7 +33,7 @@
         };
     }
 
-    public static TimingDelegate ControllerHasConvertedMana(int converted)
+    public static TimingDelegate HasConvertedMana(int converted)
     {
       return p => p.Controller.HasMana(converted, ManaUsage.Any);
     }
@@ -145,7 +145,7 @@
         };
     }
 
-    public static TimingDelegate SacrificeCreatures(int count)
+    public static TimingDelegate RemovalSacrificeCreatures(int count)
     {
       return p =>
         {
@@ -405,12 +405,7 @@
     public static TimingDelegate OpponentControlsPermanent(Func<Card, bool> filter)
     {
       return p => p.Players.Permanents().Any(x => filter(x) && x.Controller == p.Opponent);
-    }
-
-    public static TimingDelegate ControllerHasAtLeastOneCardInGraveyard(Func<Card, bool> filter)
-    {
-      return p => p.Controller.Graveyard.Any(filter);
-    }
+    }  
 
     public static TimingDelegate IsCreature()
     {
@@ -428,10 +423,22 @@
       return p => p.Controller.Graveyard.Count(predicate) > 0;
     }
 
+    public static TimingDelegate HasCardInHand(Func<Card, bool> predicate)
+    {
+      predicate = predicate ?? delegate { return true; };
+      return p => p.Controller.Hand.Count(predicate) > 0;
+    }
+
     public static TimingDelegate HasPermanent(Func<Card,bool> predicate)
     {
       predicate = predicate ?? delegate { return true; };
       return p => p.Controller.Battlefield.Count(predicate) > 0;
+    }
+
+    public static TimingDelegate MinimalPermanentCount(int count, Func<Card, bool> filter = null)
+    {
+      filter = filter ?? delegate { return true; };
+      return p => p.Players.Permanents().Count(filter) >= count;
     }
   }
 }

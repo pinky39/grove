@@ -29,7 +29,7 @@
               p.QueryUi = self =>
                 {
                   var result = self.Shell.ShowMessageBox(
-                    message: string.Format("Pay {0}?", DoNotCounterCost),
+                    message: FormatDialogMessage(string.Format("Pay {0}?", DoNotCounterCost)),
                     buttons: MessageBoxButton.YesNo,
                     type: DialogType.Small);
 

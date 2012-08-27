@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core.Details.Cards.Effects
 {
+  using System;
   using System.Linq;
   using System.Windows;
   using Controllers.Human;
@@ -37,7 +38,7 @@
                 var chosenCards = new ChosenCards();
 
                 var result = self.Shell.ShowMessageBox(
-                  message: "Sacrifice a land?",
+                  message: FormatDialogMessage("Sacrifice a land?"),
                   buttons: MessageBoxButton.YesNo,
                   type: DialogType.Small);
 
@@ -48,7 +49,7 @@
                   new UiTargetValidator(
                     minTargetCount: 1,
                     maxTargetCount: 1,
-                    text: "Select a land to sacrifice",
+                    text: FormatDialogMessage("Select a land to sacrifice"),
                     isValid: target => target.IsPermanent && target.Is().Land && target.Controller == self.Controller),
                   canCancel: false
                   );

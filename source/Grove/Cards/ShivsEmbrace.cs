@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -20,7 +19,8 @@
         .Named("Shiv's Embrace")
         .ManaCost("{2}{R}{R}")
         .Type("Enchantment - Aura")
-        .Text("Enchant creature{EOL}Enchanted creature gets +2/+2 and has flying.{EOL}{R}: Enchanted creature gets +1/+0 until end of turn.")
+        .Text(
+          "Enchant creature{EOL}Enchanted creature gets +2/+2 and has flying.{EOL}{R}: Enchanted creature gets +1/+0 until end of turn.")
         .FlavorText("Wear the foe's form to best it in battle. So sayeth the bey.")
         .Timing(Timings.FirstMain())
         .Effect<Attach>(p => p.Effect.Modifiers(

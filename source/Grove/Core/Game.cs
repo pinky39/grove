@@ -1,8 +1,11 @@
 ﻿namespace Grove.Core
 {
+  using System.Collections.Generic;
+  using System.Linq;
   using Ai;
   using Controllers;
   using Infrastructure;
+  using Targeting;
   using Zones;
 
   [Copyable]
@@ -55,6 +58,20 @@
     public Search Search { get { return _search; } }
     public CastRestrictions CastRestrictions { get { return _castRestrictions; } }
 
+    public IEnumerable<ITarget> GenerateTargets()
+    {
+      foreach (var target in Players.SelectMany(p => p.GetTargets()))
+      {
+        yield return target;
+      }
+
+      foreach (var target in Stack)
+      {
+        yield return target;
+      }
+    }
+
+
     public int CalculateHash()
     {
       var calc = new HashCalculator();
@@ -63,7 +80,7 @@
         calc.Calculate(Players),
         calc.Calculate(Stack),
         calc.Calculate(Turn),
-        calc.Calculate(Combat)        
+        calc.Calculate(Combat)
         );
     }
 

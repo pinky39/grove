@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -30,7 +29,9 @@
             C.Cost<SacPermanentPayMana>(cost => cost.Amount = 2.AsColorlessMana()),
             C.Effect<ReturnToHand>(e => e.ReturnTarget = true),
             effectValidator: C.Validator(Validators.Creature(), text: "Select a creature to bounce."),
-            costValidator: C.Validator(Validators.Permanent(controller: Controller.SpellOwner), text: "Select a permanent to sacrifice."), 
+            costValidator:
+              C.Validator(Validators.Permanent(controller: Controller.SpellOwner),
+                text: "Select a permanent to sacrifice."),
             targetSelectorAi: TargetSelectorAi.SacPermanentToBounce(),
             timing: Any(Timings.TargetRemovalInstant()))
         );

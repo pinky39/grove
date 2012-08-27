@@ -151,8 +151,13 @@
     <Compile Include="Cards\ChimericStaff.cs" />
     <Compile Include="Cards\CitanulCentaurs.cs" />
     <Compile Include="Cards\CitanulHierophants.cs" />
+    <Compile Include="Cards\ClawsOfGix.cs" />
     <Compile Include="Cards\Clear.cs" />
+    <Compile Include="Cards\CloakOfMists.cs" />
     <Compile Include="Cards\Confiscate.cs" />
+    <Compile Include="Cards\Congregate.cs" />
+    <Compile Include="Cards\CopperGnomes.cs" />
+    <Compile Include="Cards\CoralMerfolk.cs" />
     <Compile Include="Cards\Corrupt.cs" />
     <Compile Include="Cards\Counterspell.cs" />
     <Compile Include="Cards\CopperlineGorge.cs" />
@@ -331,6 +336,8 @@
     <Compile Include="Core\Details\Cards\Effects\ExileCard.cs" />
     <Compile Include="Core\Details\Cards\Effects\ExileOwner.cs" />
     <Compile Include="Core\Details\Cards\Effects\GainControlOfOwnedPermanents.cs" />
+    <Compile Include="Core\Details\Cards\Effects\PutCardsToBattlefieldChosenOnResolve.cs" />
+    <Compile Include="Core\Details\Cards\Effects\TargetPlayerGainsLifeEqualToCreatureCount.cs" />
     <Compile Include="Core\Details\Cards\Effects\PlayersSacrificeLands.cs" />
     <Compile Include="Core\Details\Cards\Effects\PutTargetsToBattlefield.cs" />
     <Compile Include="Core\Details\Cards\Effects\UntapTargets.cs" />

@@ -49,16 +49,16 @@ o Chimeric Staff
 o Citanul Centaurs
 Citanul Flute
 o Citanul Hierophants
-Claws of Gix
-Clear
-Cloak of Mists
-Confiscate
-Congregate
+o Claws of Gix
+o Clear
+o Cloak of Mists
+o Confiscate
+o Congregate
 Contamination
-Copper Gnomes
-Coral Merfolk
-Corrupt
-Cradle Guard
+o Copper Gnomes
+o Coral Merfolk
+o Corrupt
+o Cradle Guard
 Crater Hellion
 Crazed Skirge
 Crosswinds

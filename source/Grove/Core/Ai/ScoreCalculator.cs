@@ -33,6 +33,7 @@
 
     private static readonly Dictionary<int, int> ManaCostToScore = new Dictionary<int, int>
       {
+        {0, 140},
         {1, 150},
         {2, 200},
         {3, 250},

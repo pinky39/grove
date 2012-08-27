@@ -35,24 +35,11 @@
     IEnumerator IEnumerable.GetEnumerator()
     {
       return GetEnumerator();
-    }
-
-    private IEnumerable<ITarget> GenerateTargets()
-    {
-      foreach (var target in _game.Players.SelectMany(p => p.GetTargets()))
-      {
-        yield return target;
-      }
-
-      foreach (var target in _game.Stack)
-      {
-        yield return target;
-      }
-    }
+    }    
 
     private List<Targets> GetValidTargets()
     {            
-      var candidates = _selector.GenerateCandidates(GenerateTargets);
+      var candidates = _selector.GenerateCandidates(_game.GenerateTargets);
       
       var parameters = new TargetSelectorAiParameters(        
         candidates, 
