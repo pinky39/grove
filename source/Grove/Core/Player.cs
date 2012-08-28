@@ -3,6 +3,7 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
+  using Details.Cards;
   using Details.Cards.Modifiers;
   using Details.Cards.Preventions;
   using Details.Cards.Redirections;

@@ -65,6 +65,30 @@
             })
           );
       }
+
+      [Fact]
+      public void WhenCreatureGoesToGraveyardItNoLongerHasHaste()
+      {
+        var fires = C("Fires of Yavimaya");
+        var bear = C("Grizzly Bears");
+        var shock = C("Shock");
+
+        Hand(P1, fires);
+        Battlefield(P1, bear);
+        Hand(P2, shock);
+
+        Exec(
+          At(Step.FirstMain)
+            .Cast(fires)
+            .Verify(() => {
+              Equal(Zone.Battlefield, C(fires).Zone);
+              True(C(bear).Has().Haste);
+            }),
+          At(Step.SecondMain)
+            .Cast(shock, target: bear)
+            .Verify(() => False(C(bear).Has().Haste))
+          );
+      }
     }
 
     public class PredefinedAi : PredefinedAiScenario

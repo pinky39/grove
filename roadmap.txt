@@ -59,10 +59,10 @@ o Copper Gnomes
 o Coral Merfolk
 o Corrupt
 o Cradle Guard
-Crater Hellion
-Crazed Skirge
-Crosswinds
-Crystal Chimes
+o Crater Hellion
+o Crazed Skirge
+o Crosswinds
+o Crystal Chimes
 Curfew
 Dark Hatchling
 Dark Ritual

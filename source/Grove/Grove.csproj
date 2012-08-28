@@ -162,8 +162,12 @@
     <Compile Include="Cards\Counterspell.cs" />
     <Compile Include="Cards\CopperlineGorge.cs" />
     <Compile Include="Cards\CradleGuard.cs" />
+    <Compile Include="Cards\CraterHellion.cs" />
+    <Compile Include="Cards\CrazedSkirge.cs" />
     <Compile Include="Cards\CreepingTarPit.cs" />
+    <Compile Include="Cards\Crosswinds.cs" />
     <Compile Include="Cards\CruelEdict.cs" />
+    <Compile Include="Cards\CrystalChimes.cs" />
     <Compile Include="Cards\DayofJudgment.cs" />
     <Compile Include="Cards\DeathlessAngel.cs" />
     <Compile Include="Cards\Despondency.cs" />
@@ -337,6 +341,7 @@
     <Compile Include="Core\Details\Cards\Effects\ExileOwner.cs" />
     <Compile Include="Core\Details\Cards\Effects\GainControlOfOwnedPermanents.cs" />
     <Compile Include="Core\Details\Cards\Effects\PutCardsToBattlefieldChosenOnResolve.cs" />
+    <Compile Include="Core\Details\Cards\Effects\ReturnAllCardsInGraveyardToHand.cs" />
     <Compile Include="Core\Details\Cards\Effects\TargetPlayerGainsLifeEqualToCreatureCount.cs" />
     <Compile Include="Core\Details\Cards\Effects\PlayersSacrificeLands.cs" />
     <Compile Include="Core\Details\Cards\Effects\PutTargetsToBattlefield.cs" />
@@ -351,6 +356,7 @@
     <Compile Include="Core\Details\Cards\Triggers\TriggerOrder.cs" />
     <Compile Include="Core\Details\Mana\ManaUsage.cs" />
     <Compile Include="Core\Messages\CardChangedType.cs" />
+    <Compile Include="Core\Messages\PermanentModified.cs" />
     <Compile Include="Core\Targeting\IDamageDistributor.cs" />
     <Compile Include="Core\Dsl\UiTargetPostProcessors.cs" />
     <Compile Include="Core\Details\Cards\IAcceptsModifiers.cs" />

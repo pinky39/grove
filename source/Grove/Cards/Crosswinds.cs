@@ -1,23 +1,21 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
   using Core.Details.Cards.Modifiers;
   using Core.Dsl;
 
-  public class GloriousAnthem : CardsSource
+  public class Crosswinds : CardsSource
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
       yield return C.Card
-        .Named("Glorious Anthem")
-        .ManaCost("{1}{W}{W}")
+        .Named("Crosswinds")
+        .ManaCost("{1}{G}")
         .Type("Enchantment")
-        .Text("Creatures you control get +1/+1.")
-        .FlavorText("Once heard, the battle song of an angel becomes part of the listener forever.")
-        .Category(EffectCategories.ToughnessIncrease)
+        .Text("Creatures with flying get -2/-0.")
+        .FlavorText("Harbin's ornithopter had been trapped for two days within the currents of the storm. When the skies cleared, all he could see was a horizon of trees.")
         .Timing(Timings.FirstMain())
         .Abilities(
           C.Continuous((e, c) =>
@@ -25,11 +23,12 @@
               e.ModifierFactory = c.Modifier<AddPowerAndToughness>(
                 (m, _) =>
                   {
-                    m.Power = 1;
-                    m.Toughness = 1;
+                    m.Power = -2;                    
                   });
-              e.CardFilter = (card, source) => card.Controller == source.Controller && card.Is().Creature;
+              e.CardFilter = (card, source) => card.Is().Creature && card.Has().Flying;
             }));
+        
+      
     }
   }
 }

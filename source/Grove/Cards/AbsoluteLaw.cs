@@ -23,6 +23,7 @@
         .Abilities(
           C.Continuous((e, c) =>
             {
+              e.CardFilter = (card, source) => card.Is().Creature;
               e.ModifierFactory = c.Modifier<AddProtectionFromColors>(
                 (m, _) => { m.Colors = ManaColors.Red; });
             }));

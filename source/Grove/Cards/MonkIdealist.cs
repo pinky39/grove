@@ -1,5 +1,6 @@
 ﻿namespace Grove.Cards
 {
+  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -22,7 +23,7 @@
         .FlavorText("Belief is the strongest mortar.")
         .Power(2)
         .Toughness(2)
-        .Timing(All(Timings.FirstMain(), Timings.HasCardInGraveyard(card => card.Is().Enchantment)))
+        .Timing(All(Timings.FirstMain(), Timings.HasCardsInGraveyard(card => card.Is().Enchantment)))
         .Abilities(
           C.TriggeredAbility(
             "When Monk Idealist enters the battlefield, return target enchantment card from your graveyard to your hand.",

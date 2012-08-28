@@ -189,14 +189,21 @@
         modifiable.Accept(modifier);
       }
       _modifiers.Add(modifier);
-
       modifier.Activate();
+
+      Publish(new PermanentWasModified
+        {
+          Card = this,
+          Modifier = modifier
+        });
     }
 
     public void RemoveModifier(IModifier modifier)
     {
       _modifiers.Remove(modifier);
       modifier.Dispose();
+
+      Publish(new PermanentWasModified {Card = this, Modifier = modifier});
     }
 
     public void DealDamage(Damage damage)

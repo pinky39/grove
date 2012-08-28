@@ -1,16 +1,14 @@
 ﻿namespace Grove.Core.Details.Cards.Effects
 {
-  using Controllers;
-  using Targeting;
-
+  using Targeting;  
+  
   public class ReturnToHand : Effect
   {
     public int Discard;
-    
-    public bool ReturnTarget;
-    public bool ReturnOwner;
 
-    public Card ReturnCard;    
+    public Card ReturnCard;
+    public bool ReturnOwner;
+    public bool ReturnTarget;
 
     protected override void ResolveEffect()
     {
@@ -18,7 +16,7 @@
       {
         ReturnCard.ReturnToHand();
       }
-      
+
       if (ReturnTarget)
       {
         Target().Card().ReturnToHand();

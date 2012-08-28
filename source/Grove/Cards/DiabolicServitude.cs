@@ -19,7 +19,7 @@
         .Type("Enchantment")
         .Text(
           "When Diabolic Servitude enters the battlefield, return target creature card from your graveyard to the battlefield.{EOL}When the creature put onto the battlefield with Diabolic Servitude dies, exile it and return Diabolic Servitude to its owner's hand.{EOL}When Diabolic Servitude leaves the battlefield, exile the creature put onto the battlefield with Diabolic Servitude.")
-        .Timing(All(Timings.MainPhases(), Timings.HasCardInGraveyard(card => card.Is().Creature)))
+        .Timing(All(Timings.MainPhases(), Timings.HasCardsInGraveyard(card => card.Is().Creature)))
         .Abilities(
           C.TriggeredAbility(
             "When Diabolic Servitude enters the battlefield, return target creature card from your graveyard to the battlefield.",

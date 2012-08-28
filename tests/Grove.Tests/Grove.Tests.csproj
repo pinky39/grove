@@ -112,6 +112,7 @@
     <Compile Include="Cards\Confiscate.cs" />
     <Compile Include="Cards\CopperGnomes.cs" />
     <Compile Include="Cards\CreepingTarPit.cs" />
+    <Compile Include="Cards\Crosswinds.cs" />
     <Compile Include="Cards\DarkstyleGargoyle.cs" />
     <Compile Include="Cards\DayOfJudgment.cs" />
     <Compile Include="Cards\DeathlessAngel.cs" />

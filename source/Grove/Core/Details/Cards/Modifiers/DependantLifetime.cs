@@ -29,6 +29,6 @@
     public override void Dispose()
     {
       _lifetimeDependency.EndOfLife -= OnEndOfLife;
-    }
+    }    
   }
 }

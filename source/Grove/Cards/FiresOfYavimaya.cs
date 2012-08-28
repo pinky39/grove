@@ -26,7 +26,7 @@
             {
               e.ModifierFactory = c.Modifier<AddStaticAbility>(
                 (m, _) => m.StaticAbility = Static.Haste);
-              e.CardFilter = (card, source) => card.Controller == source.Controller;
+              e.CardFilter = (card, source) => card.Controller == source.Controller && card.Is().Creature;
             }),
           C.ActivatedAbility(
             "Sacrifice Fires of Yavimaya: Target creature gets +2/+2 until end of turn.",

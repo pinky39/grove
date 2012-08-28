@@ -1,6 +1,6 @@
-﻿namespace Grove.Core
+﻿namespace Grove.Core.Details.Cards
 {
-  using Details.Cards.Modifiers;
+  using Modifiers;
 
   public interface IAcceptsModifiers
   {

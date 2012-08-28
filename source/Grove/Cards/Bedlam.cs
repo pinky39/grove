@@ -22,6 +22,7 @@
         .Abilities(
           C.Continuous((e, c) =>
             {
+              e.CardFilter = (card, source) => card.Is().Creature;
               e.ModifierFactory = c.Modifier<AddStaticAbility>(
                 (m, _) => { m.StaticAbility = Static.CannotBlock; });
             }));                

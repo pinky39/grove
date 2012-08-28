@@ -417,10 +417,10 @@
       return p => p.Card.Counters >= 3;
     }
 
-    public static TimingDelegate HasCardInGraveyard(Func<Card,bool> predicate)
+    public static TimingDelegate HasCardsInGraveyard(Func<Card,bool> predicate, int count = 1)
     {
       predicate = predicate ?? delegate { return true; };
-      return p => p.Controller.Graveyard.Count(predicate) > 0;
+      return p => p.Controller.Graveyard.Count(predicate) >= count;
     }
 
     public static TimingDelegate HasCardInHand(Func<Card, bool> predicate)
@@ -435,7 +435,7 @@
       return p => p.Controller.Battlefield.Count(predicate) > 0;
     }
 
-    public static TimingDelegate MinimalPermanentCount(int count, Func<Card, bool> filter = null)
+    public static TimingDelegate HasPermanents(int count, Func<Card, bool> filter = null)
     {
       filter = filter ?? delegate { return true; };
       return p => p.Players.Permanents().Count(filter) >= count;

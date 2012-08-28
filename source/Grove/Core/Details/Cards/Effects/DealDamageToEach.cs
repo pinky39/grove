@@ -4,18 +4,27 @@
   {
     public int? AmountCreature;
     public int? AmountPlayer;
+    public bool DealDamageToOwningCreature = true;    
 
     private bool DealToCreature { get { return AmountCreature != null; } }
     private bool DealToPlayer { get { return AmountPlayer != null; } }
 
     public override int CalculatePlayerDamage(Player player)
     {
-      return DealToPlayer ? AmountPlayer.Value : 0;
+      return DealToPlayer ? AmountPlayer.GetValueOrDefault() : 0;
     }
 
     public override int CalculateCreatureDamage(Card creature)
     {
-      return DealToCreature ? AmountCreature.Value : 0;
+      if (DealToCreature == false)
+        return 0;
+      
+      if (DealDamageToOwningCreature || creature != Source.OwningCard)
+      {
+        return AmountCreature.GetValueOrDefault();
+      }
+
+      return 0;
     }
 
     protected override void ResolveEffect()
@@ -40,15 +49,18 @@
         foreach (var player in Players)
         {
           foreach (var creature in player.Battlefield.Creatures)
-          {
-            var damage = new Damage(
-              source: Source.OwningCard,
-              amount: AmountCreature.Value,
-              isCombat: false,
-              changeTracker: Game.ChangeTracker
-              );
+          {            
+            if (DealDamageToOwningCreature || creature != Source.OwningCard)
+            {
+              var damage = new Damage(
+                source: Source.OwningCard,
+                amount: AmountCreature.Value,
+                isCombat: false,
+                changeTracker: Game.ChangeTracker
+                );
 
-            creature.DealDamage(damage);
+              creature.DealDamage(damage);
+            }
           }
         }
       }

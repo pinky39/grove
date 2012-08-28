@@ -4,13 +4,13 @@
   using System.Collections;
   using System.Collections.Generic;
   using System.Linq;
-
+  
   [Copyable]
   public class TrackableList<T> : ITrackableCollection<T>, IList<T>, IHashable
   {
     private readonly ChangeTracker _changeTracker;
     private readonly IHashDependancy _hashDependancy;
-    private readonly List<T> _items = new List<T>();
+    private readonly List<T> _items = new List<T>();        
     private readonly bool _orderImpactsHashcode;
 
     public TrackableList(IEnumerable<T> items, ChangeTracker changeTracker, IHashDependancy hashDependancy = null,

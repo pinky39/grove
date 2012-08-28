@@ -86,6 +86,11 @@
 
     private void RemoveModifier(object sender, EventArgs e)
     {
+      Remove();
+    }
+
+    public void Remove()
+    {
       Target.RemoveModifier(this);
     }
 

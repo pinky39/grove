@@ -27,6 +27,7 @@
           Static.Fear,
           C.Continuous((e, c) =>
             {
+              e.CardFilter = (card, source) => card.Is().Creature;
               e.ModifierFactory = c.Modifier<AddTriggeredAbility>((m, c0) =>
                 m.Ability = c0.TriggeredAbility(
                   "Whenever a creature deals damage to you, destroy it.",

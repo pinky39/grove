@@ -16,7 +16,7 @@
         .Type("Sorcery")
         .Text("Each player puts a creature card from his or her graveyard onto the battlefield.")
         .FlavorText("'Death—an outmoded concept. We sleep, and we change.'{EOL}—Sitrik, birth priest")
-        .Timing(All(Timings.MainPhases(), Timings.HasCardInGraveyard(card => card.Is().Creature)))
+        .Timing(All(Timings.MainPhases(), Timings.HasCardsInGraveyard(card => card.Is().Creature)))
         .Effect<EachPlayerReturnsCardFromGraveyardToBattlefield>();
     }
   }

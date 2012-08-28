@@ -23,8 +23,7 @@
           C.Continuous((e, c) =>
             {
               e.ModifierFactory = c.Modifier<AddDamagePrevention>(
-                (m, c0) => m.Prevention = c0.Prevention<PreventLifelossBelowOne>());
-              e.CardFilter = delegate { return false; };
+                (m, c0) => m.Prevention = c0.Prevention<PreventLifelossBelowOne>());              
               e.PlayerFilter = (player, armor) => player == armor.Controller;
             })
         );
