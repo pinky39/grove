@@ -1,5 +1,6 @@
 ﻿namespace Grove.Cards
 {
+  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -17,7 +18,7 @@
         .Text("Target opponent sacrifices a creature.")
         .FlavorText("'Choose your next words carefully. They will be your last.'{EOL}—Phage the Untouchable")
         .Category(EffectCategories.Destruction)
-        .Timing(Timings.RemovalSacrificeCreatures(1))
+        .Timing(Timings.RemovalPlayerChoosesCreatures(1))
         .Effect<OpponentSacrificesCreatures>(e => e.Count = 1);
     }
   }

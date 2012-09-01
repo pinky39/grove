@@ -4,12 +4,13 @@
   using Ui;
   using Ui.SelectTarget;
   using Ui.Shell;
+  using Zones;
 
-  public class SacrificePermanents : Controllers.SacrificePermanents
+  public class ReturnCardsFromGraveyardToBattlefield : Controllers.ReturnCardsFromGraveyardToBattlefield
   {
     public ViewModel.IFactory DialogFactory { get; set; }
     public IShell Shell { get; set; }
-
+    
     protected override void ExecuteQuery()
     {
       var dialog = DialogFactory.Create(
@@ -17,12 +18,11 @@
           minTargetCount: Count,
           maxTargetCount: Count,
           text: string.Format(Text, Count),
-          isValid: target => target.IsPermanent && Filter(target) && target.Controller == Controller),
+          isValid: target => target.Zone == Zone.Graveyard && Filter(target) && target.Controller == Controller),
         canCancel: false
         );
 
       Shell.ShowModalDialog(dialog, DialogType.Small, SelectionMode.SelectTarget);
-
       Result = dialog.Selection.ToList();
     }
   }

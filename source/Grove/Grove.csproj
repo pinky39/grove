@@ -168,6 +168,7 @@
     <Compile Include="Cards\Crosswinds.cs" />
     <Compile Include="Cards\CruelEdict.cs" />
     <Compile Include="Cards\CrystalChimes.cs" />
+    <Compile Include="Cards\Curfew.cs" />
     <Compile Include="Cards\DayofJudgment.cs" />
     <Compile Include="Cards\DeathlessAngel.cs" />
     <Compile Include="Cards\Despondency.cs" />
@@ -323,7 +324,13 @@
     <Compile Include="Core\Ai\AttackerEvaluation.cs" />
     <Compile Include="Core\Ai\BlockerEvaluation.cs" />
     <Compile Include="Core\Ai\QuickCombat.cs" />
+    <Compile Include="Core\Controllers\Human\ReturnCardsFromGraveyardToBattlefield.cs" />
+    <Compile Include="Core\Controllers\Human\ReturnPermanentsToHand.cs" />
+    <Compile Include="Core\Controllers\Machine\ReturnCardsFromGraveyardToBattlefield.cs" />
+    <Compile Include="Core\Controllers\Machine\ReturnPermanentsToHand.cs" />
     <Compile Include="Core\Controllers\Results\ChosenOptions.cs" />
+    <Compile Include="Core\Controllers\ReturnCardsFromGraveyardToBattlefield.cs" />
+    <Compile Include="Core\Controllers\ReturnPermanentsToHand.cs" />
     <Compile Include="Core\DeckFile.cs" />
     <Compile Include="Core\DeckRow.cs" />
     <Compile Include="Core\Details\Cards\ControllerCharacteristic.cs" />
@@ -334,6 +341,7 @@
     <Compile Include="Core\Details\Cards\Effects\DealDamageToOpponentEqualToCardDifference.cs" />
     <Compile Include="Core\Details\Cards\Effects\DealDistributedDamageToTargets.cs" />
     <Compile Include="Core\Details\Cards\Effects\EachPlayerReturnsCardFromGraveyardToBattlefield.cs" />
+    <Compile Include="Core\Details\Cards\Effects\EachPlayerReturnsCreaturesToHand.cs" />
     <Compile Include="Core\Details\Cards\Effects\EffectChoice.cs" />
     <Compile Include="Core\Details\Cards\Effects\EffectChoiceOption.cs" />
     <Compile Include="Core\Details\Cards\Effects\EnchantOwnerWithTarget.cs" />

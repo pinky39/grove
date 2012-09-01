@@ -5,7 +5,7 @@
   using Ui.SelectTarget;
   using Ui.Shell;
 
-  public class SacrificePermanents : Controllers.SacrificePermanents
+  public class ReturnPermanentsToHand : Controllers.ReturnPermanentsToHand
   {
     public ViewModel.IFactory DialogFactory { get; set; }
     public IShell Shell { get; set; }
@@ -22,7 +22,6 @@
         );
 
       Shell.ShowModalDialog(dialog, DialogType.Small, SelectionMode.SelectTarget);
-
       Result = dialog.Selection.ToList();
     }
   }

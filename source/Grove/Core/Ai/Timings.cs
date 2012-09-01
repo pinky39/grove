@@ -145,7 +145,7 @@
         };
     }
 
-    public static TimingDelegate RemovalSacrificeCreatures(int count)
+    public static TimingDelegate RemovalPlayerChoosesCreatures(int count)
     {
       return p =>
         {

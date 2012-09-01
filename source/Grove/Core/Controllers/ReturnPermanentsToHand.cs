@@ -4,32 +4,33 @@
   using System.Linq;
   using Results;
 
-  public abstract class SacrificePermanents : Decision<ChosenCards>
+  public abstract class ReturnPermanentsToHand : Decision<ChosenCards>
   {
-    public string Text { get; set; }
     public Func<Card, bool> Filter = delegate { return true; };
     public int Count { get; set; }
+    public string Text { get; set; }
+
     protected override bool ShouldExecuteQuery { get { return Controller.Battlefield.Where(Filter).Count() > Count; } }
 
     public override void ProcessResults()
     {
       if (ShouldExecuteQuery == false)
       {
-        SacrificeAll();
+        ReturnAll();
         return;
       }
 
       foreach (var permanent in Result)
       {
-        permanent.Sacrifice();
+        permanent.ReturnToHand();
       }
     }
 
-    private void SacrificeAll()
+    private void ReturnAll()
     {
-      foreach (var creature in Controller.Battlefield.Where(Filter).ToList())
+      foreach (var permanent in Controller.Battlefield.Where(Filter).ToList())
       {
-        creature.Sacrifice();
+        permanent.ReturnToHand();
       }
     }
   }

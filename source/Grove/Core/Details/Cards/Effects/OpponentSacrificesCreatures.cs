@@ -15,7 +15,8 @@
         init: p =>
           {
             p.Count = Count;
-            p.PermanentType = "creature";
+            p.Filter = card => card.Is().Creature;
+            p.Text = "Select {0} creature(s) to sacrifice";            
           });
     }
   }

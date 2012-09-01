@@ -3,7 +3,7 @@
   using System.Linq;
   using Ai;
 
-  public class SacrificePermanents : Controllers.SacrificePermanents
+  public class ReturnPermanentsToHand : Controllers.ReturnPermanentsToHand
   {
     protected override void ExecuteQuery()
     {
