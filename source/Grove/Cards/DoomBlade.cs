@@ -19,7 +19,7 @@
         .Text("Destroy target nonblack creature.")
         .FlavorText("The void is without substance but cuts like steel.")
         .Effect<DestroyTargetPermanent>()
-        .Timing(Timings.TargetRemovalInstant())
+        .Timing(Timings.InstantRemovalTarget())
         .Category(EffectCategories.Destruction)
         .Targets(
           selectorAi: TargetSelectorAi.Destroy(),

@@ -26,7 +26,7 @@
             C.Effect<DealDamageToTargets>(e => e.Amount = 2),
             effectValidator: C.Validator(Validators.CreatureOrPlayer()),
             targetSelectorAi: TargetSelectorAi.DealDamageSingleSelector(2),
-            timing: Timings.TargetRemovalInstant()));
+            timing: Timings.InstantRemovalTarget()));
     }
   }
 }

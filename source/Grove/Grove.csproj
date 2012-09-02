@@ -169,6 +169,8 @@
     <Compile Include="Cards\CruelEdict.cs" />
     <Compile Include="Cards\CrystalChimes.cs" />
     <Compile Include="Cards\Curfew.cs" />
+    <Compile Include="Cards\DarkHatchling.cs" />
+    <Compile Include="Cards\DarkRitual.cs" />
     <Compile Include="Cards\DayofJudgment.cs" />
     <Compile Include="Cards\DeathlessAngel.cs" />
     <Compile Include="Cards\Despondency.cs" />

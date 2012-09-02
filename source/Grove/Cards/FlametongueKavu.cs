@@ -1,10 +1,12 @@
 ﻿namespace Grove.Cards
 {
+  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
   using Core.Details.Cards.Effects;
   using Core.Details.Cards.Triggers;
+  using Core.Details.Mana;
   using Core.Dsl;
   using Core.Targeting;
   using Core.Zones;
@@ -21,7 +23,10 @@
         .FlavorText("'For dim-witted, thick-skulled genetic mutants, they have pretty good aim.{EOL}—Sisay'")
         .Power(4)
         .Toughness(2)
-        .Timing(Timings.DealsDamageWhenEntersBattlefield(4))
+        .Timing(Timings.OpponentControlsAPermanent(
+          card => card.Is().Creature && 
+          card.Life <= 4 && 
+          !card.HasProtectionFrom(ManaColors.Red)))
         .Abilities(
           C.TriggeredAbility(
             "When Flametongue Kavu enters the battlefield, it deals 4 damage to target creature.",

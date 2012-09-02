@@ -16,7 +16,7 @@
         .Type("Instant")
         .Text("Each player returns a creature he or she controls to its owner's hand.")
         .FlavorText(". . . But I'm not tired'")
-        .Timing(Timings.RemovalPlayerChoosesCreatures(1))
+        .Timing(Timings.InstantRemovalPlayerChooses(1))
         .Effect<EachPlayerReturnsCreaturesToHand>(e => e.Count = 1);
     }
   }

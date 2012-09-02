@@ -16,7 +16,7 @@
         .ManaCost("{R}")
         .Type("Instant")
         .Text("Lightning Bolt deals 3 damage to target creature or player.")
-        .Timing(Timings.TargetRemovalInstant())
+        .Timing(Timings.InstantRemovalTarget())
         .Effect<DealDamageToTargets>(e => e.Amount = 3)
         .Targets(
           selectorAi: TargetSelectorAi.DealDamageSingleSelector(3),

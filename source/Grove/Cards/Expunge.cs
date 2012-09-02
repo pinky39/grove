@@ -19,7 +19,7 @@
         .Text(
           "Destroy target nonartifact, nonblack creature. It can't be regenerated.{EOL}Cycling {2} ({2}, Discard this card: Draw a card.)")
         .Cycling("{2}")
-        .Timing(Timings.TargetRemovalInstant())
+        .Timing(Timings.InstantRemovalTarget())
         .Category(EffectCategories.Destruction)
         .Effect<DestroyTargetPermanent>()
         .Targets(

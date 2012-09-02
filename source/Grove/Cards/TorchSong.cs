@@ -37,7 +37,7 @@
             C.Effect<DealDamageToTargets>(e => e.Amount = e.Source.OwningCard.Counters.GetValueOrDefault()),
             C.Validator(Validators.CreatureOrPlayer()),
             targetSelectorAi: TargetSelectorAi.DealDamageSingleSelector(p => p.Source.Counters.GetValueOrDefault()),
-            timing: All(Timings.TargetRemovalInstant())
+            timing: All(Timings.InstantRemovalTarget())
         ));
     }
   }

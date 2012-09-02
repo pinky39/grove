@@ -19,7 +19,7 @@
         .FlavorText(
           "After millennia asleep, the Eldrazi had forgotten about Zendikar's fiery temper and dislike of strangers.")
         .Effect<DealDamageToTargets>(e => e.Amount = 4)
-        .Timing(Timings.TargetRemovalInstant())
+        .Timing(Timings.InstantRemovalTarget())
         .Targets(
           selectorAi: TargetSelectorAi.DealDamageSingleSelector(4),
           effectValidator: C.Validator(

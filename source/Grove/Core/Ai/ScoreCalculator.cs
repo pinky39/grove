@@ -169,10 +169,15 @@
       {
         return 220;
       }            
+
+      if (card.OverrideScore.HasValue)
+      {
+        return card.OverrideScore.Value;
+      }
       
       if (card.ManaCost == null || card.ManaCost.Converted == 0)
       {
-        return 120;  
+        return 110;  
       }
 
       return CalculateCardInHandScoreFromManaCost(card.ManaCost);

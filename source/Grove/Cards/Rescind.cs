@@ -16,7 +16,7 @@
         .ManaCost("{1}{U}{U}")
         .Type("Instant")
         .Text("Return target permanent to its owner's hand.{EOL}Cycling {2}({2}, Discard this card: Draw a card.)")        
-        .Timing(Timings.TargetRemovalInstant())
+        .Timing(Timings.InstantRemovalTarget())
         .Category(EffectCategories.Bounce)
         .Cycling("{2}")
         .Effect<ReturnToHand>(e =>

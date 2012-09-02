@@ -18,7 +18,7 @@
         .Text("Destroy target artifact.{EOL}Cycling {2}({2}, Discard this card: Draw a card.)")
         .Effect<DestroyTargetPermanent>()
         .Category(EffectCategories.Destruction)
-        .Timing(Timings.TargetRemovalInstant())
+        .Timing(Timings.InstantRemovalTarget())
         .Cycling("{2}")
         .Targets(
           selectorAi: TargetSelectorAi.OrderByDescendingScore(),

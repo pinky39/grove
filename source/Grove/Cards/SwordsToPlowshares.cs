@@ -15,7 +15,7 @@
         .Named("Swords to Plowshares")
         .ManaCost("{W}")
         .Type("Instant")
-        .Timing(Timings.TargetRemovalInstant())
+        .Timing(Timings.InstantRemovalTarget())
         .Category(EffectCategories.Exile)
         .Text("Exile target creature. Its controller gains life equal to its power.")
         .Effect<ExileTargets>(e => e.ControllerGainsLifeEqualToToughness = true)

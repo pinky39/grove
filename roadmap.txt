@@ -63,9 +63,9 @@ o Crater Hellion
 o Crazed Skirge
 o Crosswinds
 o Crystal Chimes
-Curfew
-Dark Hatchling
-Dark Ritual
+o Curfew
+o Dark Hatchling
+o Dark Ritual
 Darkest Hour
 Defensive Formation
 Despondency

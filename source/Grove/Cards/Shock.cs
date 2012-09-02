@@ -15,7 +15,7 @@
         .Named("Shock")
         .ManaCost("{R}")
         .Type("Instant")
-        .Timing(Timings.TargetRemovalInstant())
+        .Timing(Timings.InstantRemovalTarget())
         .Text("Shock deals 2 damage to target creature or player.")
         .Effect<DealDamageToTargets>(e => e.Amount = 2)
         .Targets(

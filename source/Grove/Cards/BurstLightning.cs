@@ -18,7 +18,7 @@
         .Type("Instant")
         .Text(
           "{Kicker} {4}{EOL}Burst Lightning deals 2 damage to target creature or player. If Burst Lightning was kicked, it deals 4 damage to that creature or player instead.")
-        .Timing(Timings.TargetRemovalInstant())
+        .Timing(Timings.InstantRemovalTarget())
         .Effect<DealDamageToTargets>(p => p.Amount = 2)
         .Targets(
           selectorAi: TargetSelectorAi.DealDamageSingleSelector(2),

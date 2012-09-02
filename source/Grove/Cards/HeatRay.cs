@@ -20,7 +20,7 @@
         .Text("Heat Ray deals X damage to target creature.")
         .FlavorText("It's not known whether the Thran built the device to forge their wonders or to defend them.")
         .Effect<DealDamageToTargets>(p => p.Amount = Value.PlusX)
-        .Timing(Timings.TargetRemovalInstant())
+        .Timing(Timings.InstantRemovalTarget())
         .Targets(
           selectorAi: TargetSelectorAi.DealDamageSingleSelector(),
           effectValidator: C.Validator(Validators.Creature()));

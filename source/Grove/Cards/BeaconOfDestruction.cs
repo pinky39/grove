@@ -19,7 +19,7 @@
         .Text(
           "Beacon of Destruction deals 5 damage to target creature or player. Shuffle Beacon of Destruction into its owner's library.")
         .FlavorText("The Great Furnace's blessing is a spectacular sight, but the best view comes at a high cost.")
-        .Timing(Timings.TargetRemovalInstant())
+        .Timing(Timings.InstantRemovalTarget())
         .AfterResolvePutToZone(Zone.Library)
         .Effect<DealDamageToTargets>(p => p.Amount = 5)
         .Targets(

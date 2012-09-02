@@ -19,7 +19,7 @@
         .FlavorText("'Let Phyrexia breed evil in the darkness; my holy light will reveal its taint.{EOL}—Serra")
         .Effect<DestroyTargetPermanent>()
         .Category(EffectCategories.Destruction)
-        .Timing(Timings.TargetRemovalInstant())
+        .Timing(Timings.InstantRemovalTarget())
         .Targets(
           selectorAi: TargetSelectorAi.OrderByDescendingScore(),
           effectValidator:

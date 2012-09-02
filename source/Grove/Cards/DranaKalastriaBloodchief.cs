@@ -51,7 +51,7 @@
               }),
             C.Validator(Validators.Creature()),
             targetSelectorAi: TargetSelectorAi.ReduceToughness(),
-            timing: Timings.TargetRemovalInstant()));
+            timing: Timings.InstantRemovalTarget()));
     }
   }
 }

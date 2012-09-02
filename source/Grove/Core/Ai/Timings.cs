@@ -76,7 +76,7 @@
       return p => p.Controller.Battlefield.None(x => x.Name == p.Card.Name);
     }
 
-    public static TimingDelegate TargetRemovalInstant(bool combatOnly = false)
+    public static TimingDelegate InstantRemovalTarget(bool combatOnly = false)
     {
       return p =>
         {
@@ -145,7 +145,29 @@
         };
     }
 
-    public static TimingDelegate RemovalPlayerChoosesCreatures(int count)
+    public static TimingDelegate InstantRemovalPlayerChooses(int count)
+    {
+      return p =>
+        {
+          var opponentCreatureCount = p.Opponent.Battlefield.Creatures.Count();
+
+          if (opponentCreatureCount == 0)
+            return false;
+
+          if (opponentCreatureCount == 1)
+          {
+            return (!p.Controller.IsActive && p.Step == Step.DeclareBlockers) || 
+              (p.Controller.IsActive && p.Step == Step.DeclareAttackers);
+          }
+
+          if (opponentCreatureCount > 2*count + 1)
+            return false;
+
+          return !p.Controller.IsActive && p.Step == Step.EndOfTurn;
+        };
+    }
+    
+    public static TimingDelegate NonInstantRemovalPlayerChooses(int count)
     {
       return p =>
         {
@@ -274,14 +296,11 @@
             p.Attackers.Any();
         };
     }
-
-    public static TimingDelegate DealsDamageWhenEntersBattlefield(int? amount = null)
+        
+    public static TimingDelegate OpponentControlsAPermanent(Func<Card, bool> filter = null)
     {
-      return p =>
-        {
-          amount = amount ?? p.Activation.X;
-          return p.Opponent.Battlefield.Creatures.Any(x => x.Life <= amount);
-        };
+      filter = filter ?? delegate { return true; };
+      return p => p.Opponent.Battlefield.Any(filter);
     }
 
     public static TimingDelegate IncreaseOwnersPowerAndThougness(int? power, int? toughness)
@@ -439,6 +458,20 @@
     {
       filter = filter ?? delegate { return true; };
       return p => p.Players.Permanents().Count(filter) >= count;
+    }
+
+    public static TimingDelegate HasSpellsThatNeedAdditionalMana(int amount)
+    {
+      return p =>
+        {
+          if (p.Step != Step.FirstMain && p.Step != Step.SecondMain)
+            return false;
+          
+          var availableMana = p.Controller.GetConvertedMana(ManaUsage.Any);
+
+          return p.Controller.Hand.Any(x => x.ManaCost.Converted > availableMana &&
+            x.ManaCost.Converted <= availableMana + amount);
+        };
     }
   }
 }

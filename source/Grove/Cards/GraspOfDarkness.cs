@@ -18,7 +18,7 @@
         .Type("Instant")
         .Text("Target creature gets -4/-4 until end of turn.")
         .FlavorText("On a world with five suns, night is compelled to become an aggressive force.")
-        .Timing(Timings.TargetRemovalInstant())        
+        .Timing(Timings.InstantRemovalTarget())        
         .Effect<ApplyModifiersToTargets>(p =>
           {
             p.Effect.ToughnessReduction = 4;

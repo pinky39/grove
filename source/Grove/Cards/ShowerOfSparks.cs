@@ -15,7 +15,7 @@
         .Named("Shower of Sparks")
         .ManaCost("{R}")
         .Type("Instant")
-        .Timing(Timings.TargetRemovalInstant())
+        .Timing(Timings.InstantRemovalTarget())
         .Text("Shower of Sparks deals 1 damage to target creature and 1 damage to target player.")
         .FlavorText("The viashino had learned how to operate the rig through trial and error—mostly error.")
         .Effect<DealDamageToTargets>(e => e.Amount = 1)
