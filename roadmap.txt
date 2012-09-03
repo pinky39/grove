@@ -66,13 +66,13 @@ o Crystal Chimes
 o Curfew
 o Dark Hatchling
 o Dark Ritual
-Darkest Hour
+o Darkest Hour
 Defensive Formation
-Despondency
-Destructive Urge
-Diabolic Servitude
-Disciple of Grace
-Disciple of Law
+o Despondency
+o Destructive Urge
+o Diabolic Servitude
+o Disciple of Grace
+o Disciple of Law
 Discordant Dirge
 Disenchant
 Disorder

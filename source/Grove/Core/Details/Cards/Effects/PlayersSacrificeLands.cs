@@ -1,10 +1,11 @@
 ﻿namespace Grove.Core.Details.Cards.Effects
 {
+  using System;
   using Controllers;
 
   public class PlayersSacrificeLands : Effect
   {
-    public int Count;
+    public int Count;    
 
     protected override void ResolveEffect()
     {

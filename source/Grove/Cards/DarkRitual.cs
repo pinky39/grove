@@ -5,8 +5,8 @@
   using Core.Ai;
   using Core.Details.Cards.Effects;
   using Core.Details.Mana;
-  using Core.Dsl;
-
+  using Core.Dsl;  
+  
   public class DarkRitual : CardsSource
   {
     public override IEnumerable<ICardFactory> GetCards()

@@ -114,10 +114,12 @@
     <Compile Include="Cards\CreepingTarPit.cs" />
     <Compile Include="Cards\Crosswinds.cs" />
     <Compile Include="Cards\Curfew.cs" />
+    <Compile Include="Cards\DarkestHour.cs" />
     <Compile Include="Cards\DarkRitual.cs" />
     <Compile Include="Cards\DarkstyleGargoyle.cs" />
     <Compile Include="Cards\DayOfJudgment.cs" />
     <Compile Include="Cards\DeathlessAngel.cs" />
+    <Compile Include="Cards\DestructiveUrge.cs" />
     <Compile Include="Cards\DiabolicServitude.cs" />
     <Compile Include="Cards\DiscipleOfGrace.cs" />
     <Compile Include="Cards\DragonBlood.cs" />
