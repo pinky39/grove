@@ -88,7 +88,7 @@
     {
       foreach (var card in _cards)
       {
-        card.Show();
+        card.UnHide();
       }
     }
 

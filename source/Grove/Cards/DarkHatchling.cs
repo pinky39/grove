@@ -22,7 +22,7 @@
         .Text("{Flying}{EOL}When Dark Hatchling enters the battlefield, destroy target nonblack creature. It can't be regenerated.")
         .Power(3)
         .Toughness(3)
-        .Timing(Timings.OpponentControlsAPermanent(card => 
+        .Timing(Timings.OpponentControlsPermanent(card => 
           card.Is().Creature && 
             !card.HasColors(ManaColors.Black) && 
               !card.HasProtectionFrom(ManaColors.Black)))

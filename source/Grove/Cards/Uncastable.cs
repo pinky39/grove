@@ -12,6 +12,7 @@
         .Named("Uncastable")
         .ManaCost("{42}{G}")
         .Type("Creature - Uncastable")
+        .OverrideScore(0)
         .Power(2)
         .Toughness(2);
     }

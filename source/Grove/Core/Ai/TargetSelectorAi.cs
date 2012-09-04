@@ -1137,5 +1137,35 @@
             candidates, pickedCount));
         };
     }
+
+    public static TargetSelectorAiDelegate DiscardCardsFromOpponentsHand()
+    {
+       return p =>
+        {
+          var candidates = p.Candidates()
+            .Where(x => x.Card().Controller != p.Controller)
+            .OrderByDescending(x => x.Card().Score)
+            .Select(x => x.Card())
+            .ToList();
+
+          var minCount = p.Selector.GetMinEffectTargetCount();
+
+          if (minCount < candidates.Count)
+          {
+            return p.NoTargets();
+          }
+
+          var maxCount = p.Selector.GetMaxEffectTargetCount();
+          var pickedCount = Math.Min(maxCount, candidates.Count);
+
+          if (pickedCount == 1)
+          {
+            return p.Targets(candidates);
+          }
+                    
+          return p.MultipleTargets(GroupCandidates(
+            candidates, pickedCount));
+        };
+    }
   }
 }

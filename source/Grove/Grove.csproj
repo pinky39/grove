@@ -179,6 +179,7 @@
     <Compile Include="Cards\DiabolicServitude.cs" />
     <Compile Include="Cards\DiscipleOfGrace.cs" />
     <Compile Include="Cards\DiscipleOfLaw.cs" />
+    <Compile Include="Cards\DiscordantDirge.cs" />
     <Compile Include="Cards\Disenchant.cs" />
     <Compile Include="Cards\DragonBlood.cs" />
     <Compile Include="Cards\DriftingMeadow.cs" />
@@ -330,6 +331,7 @@
     <Compile Include="Core\Ai\QuickCombat.cs" />
     <Compile Include="Core\Controllers\Human\ReturnCardsFromGraveyardToBattlefield.cs" />
     <Compile Include="Core\Controllers\Human\ReturnPermanentsToHand.cs" />
+    <Compile Include="Core\Controllers\Machine\DiscardCards.cs" />
     <Compile Include="Core\Controllers\Machine\ReturnCardsFromGraveyardToBattlefield.cs" />
     <Compile Include="Core\Controllers\Machine\ReturnPermanentsToHand.cs" />
     <Compile Include="Core\Controllers\Results\ChosenOptions.cs" />
@@ -451,7 +453,6 @@
     <Compile Include="Core\Ai\BlockStrategy.cs" />
     <Compile Include="Core\Controllers\Machine\DeclareAttackers.cs" />
     <Compile Include="Core\Controllers\Machine\DeclareBlockers.cs" />
-    <Compile Include="Core\Controllers\Machine\DiscardCards.cs" />
     <Compile Include="Core\Controllers\Machine\IDecisionExecution.cs" />
     <Compile Include="Core\Controllers\Machine\SacrificePermanents.cs" />
     <Compile Include="Core\Controllers\Machine\SelectStartingPlayer.cs" />

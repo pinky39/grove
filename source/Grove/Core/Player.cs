@@ -280,9 +280,10 @@
         yield return card;
       }
 
+      // TODO should not return hidden targets?      
       foreach (var card in Hand)
-      {
-        yield return card;
+      {        
+         yield return card;
       }
 
       foreach (var card in Graveyard)
@@ -490,6 +491,14 @@
     public interface IFactory
     {
       Player Create(string name, string avatar, PlayerType type, Deck deck);
+    }
+
+    public void RevealHand()
+    {
+      foreach (var card in _hand)
+      {
+        card.Reveal();
+      }
     }
   }
 }

@@ -18,8 +18,7 @@
       Decisions.Enqueue<Controllers.AdhocDecision<ChosenCards>>(
         controller: Controller,
         init: p =>
-          {
-            p.Param("self", Validator);
+          {            
             p.QueryAi = self =>
               {
                 var chosenCards = new ChosenCards();
@@ -46,7 +45,7 @@
                     minTargetCount: 0,
                     maxTargetCount: 1,
                     text: FormatDialogMessage(Text),
-                    isValid: Validator),
+                    isValid: card => self.Controller == card.Controller && Validator(card)),
                   canCancel: false
                   );
 

@@ -83,7 +83,7 @@
           // eot
           if (!p.Controller.IsActive && p.Step == Step.EndOfTurn && !combatOnly)
             return true;
-                    
+
           // remove potential blockers
           if (p.Controller.IsActive && p.Target.IsCard())
           {
@@ -156,7 +156,7 @@
 
           if (opponentCreatureCount == 1)
           {
-            return (!p.Controller.IsActive && p.Step == Step.DeclareBlockers) || 
+            return (!p.Controller.IsActive && p.Step == Step.DeclareBlockers) ||
               (p.Controller.IsActive && p.Step == Step.DeclareAttackers);
           }
 
@@ -166,7 +166,7 @@
           return !p.Controller.IsActive && p.Step == Step.EndOfTurn;
         };
     }
-    
+
     public static TimingDelegate NonInstantRemovalPlayerChooses(int count)
     {
       return p =>
@@ -295,13 +295,7 @@
           return p.Step == Step.DeclareBlockers && !p.Controller.IsActive &&
             p.Attackers.Any();
         };
-    }
-        
-    public static TimingDelegate OpponentControlsAPermanent(Func<Card, bool> filter = null)
-    {
-      filter = filter ?? delegate { return true; };
-      return p => p.Opponent.Battlefield.Any(filter);
-    }
+    }    
 
     public static TimingDelegate IncreaseOwnersPowerAndThougness(int? power, int? toughness)
     {
@@ -338,7 +332,7 @@
     }
 
     public static TimingDelegate ChangeToCreature(int minAvailableMana)
-    {            
+    {
       return p =>
         {
           if (p.Step == Step.BeginningOfCombat && p.Controller.IsActive)
@@ -359,7 +353,7 @@
     {
       return p =>
         {
-          if (p.Step == Step.EndOfTurn)
+          if (!p.Controller.IsActive && p.Step == Step.EndOfTurn)
             return true;
 
           return false;
@@ -392,7 +386,7 @@
     {
       return p => p.Stack.CanBeDestroyedByTopSpell(p.Card, targetOnly: true);
     }
-    
+
     public static TimingDelegate Has3CountersOr1IfDestroyed()
     {
       return p =>
@@ -424,7 +418,7 @@
     public static TimingDelegate OpponentControlsPermanent(Func<Card, bool> filter)
     {
       return p => p.Players.Permanents().Any(x => filter(x) && x.Controller == p.Opponent);
-    }  
+    }
 
     public static TimingDelegate IsCreature()
     {
@@ -436,7 +430,7 @@
       return p => p.Card.Counters >= 3;
     }
 
-    public static TimingDelegate HasCardsInGraveyard(Func<Card,bool> predicate, int count = 1)
+    public static TimingDelegate HasCardsInGraveyard(Func<Card, bool> predicate, int count = 1)
     {
       predicate = predicate ?? delegate { return true; };
       return p => p.Controller.Graveyard.Count(predicate) >= count;
@@ -448,7 +442,7 @@
       return p => p.Controller.Hand.Count(predicate) > 0;
     }
 
-    public static TimingDelegate HasPermanent(Func<Card,bool> predicate)
+    public static TimingDelegate HasPermanent(Func<Card, bool> predicate)
     {
       predicate = predicate ?? delegate { return true; };
       return p => p.Controller.Battlefield.Count(predicate) > 0;
@@ -466,12 +460,17 @@
         {
           if (p.Step != Step.FirstMain && p.Step != Step.SecondMain)
             return false;
-          
+
           var availableMana = p.Controller.GetConvertedMana(ManaUsage.Any);
 
           return p.Controller.Hand.Any(x => x.ManaCost.Converted > availableMana &&
             x.ManaCost.Converted <= availableMana + amount);
         };
+    }
+
+    public static TimingDelegate OpponentHasCardsInHand(int count)
+    {
+      return p => p.Opponent.Hand.Count >= count;
     }
   }
 }

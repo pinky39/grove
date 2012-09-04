@@ -23,7 +23,7 @@
         .FlavorText("'For dim-witted, thick-skulled genetic mutants, they have pretty good aim.{EOL}—Sisay'")
         .Power(4)
         .Toughness(2)
-        .Timing(Timings.OpponentControlsAPermanent(
+        .Timing(Timings.OpponentControlsPermanent(
           card => card.Is().Creature && 
           card.Life <= 4 && 
           !card.HasProtectionFrom(ManaColors.Red)))

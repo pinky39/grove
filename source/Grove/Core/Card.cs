@@ -647,7 +647,7 @@
       newZone.AfterAdd(this);
     }
 
-    public void Show()
+    public void UnHide()
     {
       IsHidden = false;
     }
@@ -776,7 +776,8 @@
 
     public void Reveal()
     {
-      IsRevealed = true;
+      IsRevealed = true;      
+      UnHide();
     }
 
     public int CalculateCombatDamage(bool allDamageSteps = false, int powerIncrease = 0)

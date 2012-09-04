@@ -4,18 +4,21 @@
 
   public abstract class DiscardCards : Decision<ChosenCards>
   {
-    public int Count { get; set; }
+    public int  Count { get; set; }
+    public bool DiscardOpponentsCards { get; set; }
 
-    protected override bool ShouldExecuteQuery { get { return Count > 0 && Controller.Hand.Count > Count; } }
+    protected Player CardsOwner {get { return DiscardOpponentsCards ? Game.Players.GetOpponent(Controller) : Controller; }}
+
+    protected override bool ShouldExecuteQuery { get { return Count > 0 && CardsOwner.Hand.Count > Count; } }
 
     public override void ProcessResults()
     {
       if (Count == 0)
         return;
 
-      if (Controller.Hand.Count <= Count)
+      if (CardsOwner.Hand.Count <= Count)
       {
-        Controller.DiscardHand();
+        CardsOwner.DiscardHand();
         return;
       }
 

@@ -6,19 +6,23 @@
   public class DiscardCards : Controllers.DiscardCards
   {
     protected override void ExecuteQuery()
-    {
-      var cardsToDiscard = Controller.Hand.Select(
+    {            
+      var cardsToDiscard = CardsOwner.Hand.Select(
         card =>
           new
             {
               Card = card,
               Score = ScoreCalculator.CalculateDiscardScore(card)
-            })
-        .OrderBy(x => x.Score)
-        .Take(Count)
-        .Select(x => x.Card);
+            });
 
-      Result = cardsToDiscard.ToList();
+      cardsToDiscard = DiscardOpponentsCards 
+        ? cardsToDiscard.OrderByDescending(x => x.Score) 
+        : cardsToDiscard.OrderBy(x => x.Score);
+        
+      Result = cardsToDiscard
+        .Take(Count)
+        .Select(x => x.Card)
+        .ToList();
     }
   }
 }
