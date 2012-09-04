@@ -16,10 +16,10 @@
   {
     private readonly Publisher _publisher;
     private readonly SelectAbility.ViewModel.IFactory _selectAbilityVmFactory;
-    private readonly UiDamageDistribution _uiDamageDistribution;
     private readonly SelectTarget.ViewModel.IFactory _selectTargetVmFactory;
     private readonly SelectXCost.ViewModel.IFactory _selectXCostVmFactory;
     private readonly IShell _shell;
+    private readonly UiDamageDistribution _uiDamageDistribution;
     private Action _select;
 
     public ViewModel(
@@ -38,11 +38,16 @@
       _selectAbilityVmFactory = selectAbilityVmFactory;
       _uiDamageDistribution = uiDamageDistribution;
       _select = delegate { };
+
       Card = card;
+
+      card.Property(x => x.IsRevealed)
+        .Changes(this).Property(x => x.IsVisible);
     }
 
     public Card Card { get; private set; }
     public virtual bool IsPlayable { get; protected set; }
+    public bool IsVisible { get { return Card.Controller.IsHuman || Card.IsRevealed; } }
 
     public void Receive(SelectionModeChanged message)
     {
@@ -88,7 +93,7 @@
 
       if (canCast.CanBeSatisfied)
       {
-        prerequsites.Add(canCast);        
+        prerequsites.Add(canCast);
       }
 
       var canActivateAbilities = Card.CanActivateAbilities().ToList();
@@ -104,7 +109,7 @@
         return null;
 
       var selected = dialog.Selected;
-      
+
       if (selected.IsAbility)
       {
         abilityIndex = canActivateAbilities.IndexOf(selected);
@@ -117,7 +122,7 @@
     {
       if (!IsPlayable)
         return;
-      
+
       int? x = null;
       var targets = new Targets();
       var payKicker = false;
@@ -127,15 +132,15 @@
 
       if (prerequisites == null)
         return;
-      
+
       if (prerequisites.CanCastWithKicker)
       {
         payKicker = PayKicker(prerequisites);
       }
 
-      var success =        
-          SelectX(prerequisites, out x) &&
-            SelectTargets(prerequisites, payKicker, targets);
+      var success =
+        SelectX(prerequisites, out x) &&
+          SelectTargets(prerequisites, payKicker, targets);
 
       if (!success)
         return;
@@ -162,8 +167,8 @@
 
         foreach (var target in dialog.Selection)
         {
-          targets.AddCost(target);  
-        }                
+          targets.AddCost(target);
+        }
       }
 
       if (selectors.HasEffect)
@@ -182,7 +187,7 @@
           foreach (var target in dialog.Selection)
           {
             targets.AddEffect(target);
-          }                              
+          }
         }
       }
 

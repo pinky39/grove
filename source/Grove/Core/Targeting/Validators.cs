@@ -100,18 +100,24 @@
       return p => (p.Target.IsPermanent() || p.Target.IsEffect()) && filter(p.Target);
     }
 
-    public static TargetValidatorDelegate CardInHand(Func<TargetValidatorParameters, bool> filter = null)
+    public static TargetValidatorDelegate CardInHand(Func<TargetValidatorParameters, bool> filter = null, bool yourHandOnly = true)
     {
       filter = filter ?? delegate { return true; };
 
-      return p => p.Target.IsCard() && (p.Target.Card().Zone == Zone.Hand) && filter(p);
+      return p => p.Target.IsCard() && 
+        (p.Target.Card().Zone == Zone.Hand) && 
+        (!yourHandOnly || p.Target.Card().Controller == p.Controller) &&
+          filter(p);
     }
 
-    public static TargetValidatorDelegate CardInHand(Func<Card, bool> filter = null)
+    public static TargetValidatorDelegate CardInHand(Func<Card, bool> filter = null, bool yourHandOnly = true)
     {
       filter = filter ?? delegate { return true; };
 
-      return p => p.Target.IsCard() && (p.Target.Card().Zone == Zone.Hand) && filter(p.Target.Card());
+      return p => p.Target.IsCard() && 
+        (p.Target.Card().Zone == Zone.Hand) && 
+        (!yourHandOnly || p.Target.Card().Controller == p.Controller) &&
+          filter(p.Target.Card());
     }
 
     public static TargetValidatorDelegate CardInGraveyard(Func<Card, bool> filter = null, 

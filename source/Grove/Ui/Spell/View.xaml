@@ -4,9 +4,9 @@
              xmlns:i = "clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:cal = "clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
              xmlns:Ui="clr-namespace:Grove.Ui" >
-	<Border Margin = "0,-260,0,0" >
+    <Border Margin = "0,-260,0,0" Visibility="{Binding IsVisible, Converter={x:Static Ui:Converters.BooleanToVisibility}, ConverterParameter=false}" >
 
-		<ContentControl Style = "{StaticResource SelectableContent}" >
+        <ContentControl Style = "{StaticResource SelectableContent}" >
 			<i:Interaction.Triggers>
 				<i:EventTrigger EventName = "MouseEnter" >
 					<cal:ActionMessage MethodName = "ChangePlayersInterest" />
@@ -16,7 +16,7 @@
 				</i:EventTrigger>
 			</i:Interaction.Triggers>
 
-			<Grid>
+            <Grid >
                 <ContentControl Content = "{Binding Card}" ContentTemplate = "{StaticResource FaceUpCard}" />
 				<Border BorderBrush = "{StaticResource Playable}" Visibility = "{Binding IsPlayable, Converter={x:Static Ui:Converters.BooleanToVisibility}}" BorderThickness="0,2,0,0" />
 			</Grid>

@@ -20,20 +20,7 @@
     }
 
     public Graveyard.ViewModel OpponentsGraveyard { get; private set; }
-    public Hand.ViewModel OpponentsHand { get; private set; }
-
-    public bool ShowOpponentsHand
-    {
-      get
-      {
-#if DEBUG
-        return true;
-#else        
-        return false;
-#endif
-      }
-    }
-
+    public Hand.ViewModel OpponentsHand { get; private set; }    
     public Graveyard.ViewModel YourGraveyard { get; private set; }
     public Hand.ViewModel YourHand { get; private set; }
   }

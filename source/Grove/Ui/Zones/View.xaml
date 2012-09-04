@@ -75,10 +75,10 @@
                 </Style>
             </TabControl.Resources>
 
-            <TabItem Visibility="{Binding ShowOpponentsHand, Converter={x:Static Ui:Converters.BooleanToVisibility}}" >
+            <TabItem >
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Style="{StaticResource ZoneName}" Text="Opponent's Hand"/>
+                        <TextBlock Style="{StaticResource ZoneName}" Text="Opp. Hand"/>
                         <TextBlock Style="{StaticResource ZoneCount}" Text="{Binding OpponentsHand.Cards.Count}" />
                     </StackPanel>
                 </TabItem.Header>
@@ -90,7 +90,7 @@
             <TabItem >                
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Style="{StaticResource ZoneName}" Text="Opponent's graveyard"/>
+                        <TextBlock Style="{StaticResource ZoneName}" Text="Opp. Graveyard"/>
                         <TextBlock Style="{StaticResource ZoneCount}" Text="{Binding OpponentsGraveyard.Cards.Count}" />
                     </StackPanel>
                 </TabItem.Header>

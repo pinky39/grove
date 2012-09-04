@@ -179,7 +179,7 @@
 
     public int? Level { get { return _level.Value; } }
     public bool CanBeDestroyed { get { return !CanRegenerate && !Has().Indestructible; } }
-    public bool IsRevealed { get { return _isRevealed.Value; } set { _isRevealed.Value = value; } }
+    public virtual bool IsRevealed { get { return _isRevealed.Value; } set { _isRevealed.Value = value; } }    
     public int? OverrideScore { get; private set; }
 
     public virtual void AddModifier(IModifier modifier)
