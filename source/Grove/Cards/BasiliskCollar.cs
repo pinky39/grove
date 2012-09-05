@@ -32,7 +32,7 @@
               p.Builder.Modifier<AddStaticAbility>((m, _) => m.StaticAbility = Static.Lifelink)
               )),
             effectValidator: C.Validator(Validators.Equipment()),
-            targetSelectorAi: TargetSelectorAi.CombatEquipment(),
+            selectorAi: TargetSelectorAi.CombatEquipment(),
             timing: Timings.AttachCombatEquipment(),
             activateAsSorcery: true));
     }

@@ -32,7 +32,7 @@
                 e.ReturnOwner = true;
               }), 
             C.Validator(Validators.Creature(controller: Controller.SpellOwner)),
-            targetSelectorAi: TargetSelectorAi.BounceSelfAndTargetCreatureYouControl(),
+            selectorAi: TargetSelectorAi.BounceSelfAndTargetCreatureYouControl(),
             timing: Timings.NoRestrictions()
             )
         );

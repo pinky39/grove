@@ -181,6 +181,8 @@
     <Compile Include="Cards\DiscipleOfLaw.cs" />
     <Compile Include="Cards\DiscordantDirge.cs" />
     <Compile Include="Cards\Disenchant.cs" />
+    <Compile Include="Cards\Disorder.cs" />
+    <Compile Include="Cards\DisruptiveStudent.cs" />
     <Compile Include="Cards\DragonBlood.cs" />
     <Compile Include="Cards\DriftingMeadow.cs" />
     <Compile Include="Cards\DrownedCatacomb.cs" />

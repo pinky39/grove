@@ -50,7 +50,7 @@
                   );
               }),
             C.Validator(Validators.Creature()),
-            targetSelectorAi: TargetSelectorAi.ReduceToughness(),
+            selectorAi: TargetSelectorAi.ReduceToughness(),
             timing: Timings.InstantRemovalTarget()));
     }
   }

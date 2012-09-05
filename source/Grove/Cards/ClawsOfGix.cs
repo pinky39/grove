@@ -30,7 +30,7 @@
             costValidator:
               C.Validator(Validators.Permanent(controller: Controller.SpellOwner),
                 text: "Select a permanent to sacrifice."),
-            targetSelectorAi: TargetSelectorAi.CostSacrificeGainLife()
+            selectorAi: TargetSelectorAi.CostSacrificeGainLife()
             )
         );
     }

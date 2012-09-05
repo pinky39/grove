@@ -32,7 +32,7 @@
             costValidator:
               C.Validator(Validators.Permanent(controller: Controller.SpellOwner),
                 text: "Select a permanent to sacrifice."),
-            targetSelectorAi: TargetSelectorAi.SacPermanentToBounce(),
+            selectorAi: TargetSelectorAi.SacPermanentToBounce(),
             timing: Any(Timings.InstantRemovalTarget()))
         );
     }

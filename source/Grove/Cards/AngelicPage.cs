@@ -36,7 +36,7 @@
                 },
                 untilEndOfTurn: true))),
             C.Validator(Validators.AttackerOrBlocker()),
-            targetSelectorAi: TargetSelectorAi.PumpAttackerOrBlocker(power: 1, thougness: 1),
+            selectorAi: TargetSelectorAi.PumpAttackerOrBlocker(power: 1, thougness: 1),
             timing: Timings.DeclareBlockers(),
             category: EffectCategories.ToughnessIncrease));
     }

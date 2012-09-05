@@ -35,7 +35,7 @@
       IEffectFactory effect,
       ITargetValidatorFactory effectValidator = null,
       ITargetValidatorFactory costValidator = null,
-      TargetSelectorAiDelegate targetSelectorAi = null,
+      TargetSelectorAiDelegate selectorAi = null,
       bool activateAsSorcery = false,
       EffectCategories category = EffectCategories.Generic,
       TimingDelegate timing = null,
@@ -46,7 +46,7 @@
         : new[] {effectValidator};
 
       return ActivatedAbility(text, cost, effect, effectSelectors, costValidator,
-        targetSelectorAi, activateAsSorcery, category, timing, activationZone);
+        selectorAi, activateAsSorcery, category, timing, activationZone);
     }
 
     public IActivatedAbilityFactory ActivatedAbility(
@@ -55,7 +55,7 @@
       IEffectFactory effect,
       ITargetValidatorFactory[] effectValidators,
       ITargetValidatorFactory costValidator = null,
-      TargetSelectorAiDelegate targetSelectorAi = null,
+      TargetSelectorAiDelegate selectorAi = null,
       bool activateAsSorcery = false,
       EffectCategories category = EffectCategories.Generic,
       TimingDelegate timing = null,
@@ -78,7 +78,7 @@
               if (costValidator != null)
                 costValidators.Add(costValidator);
               
-              self.Targets(effectValidators, costValidators, targetSelectorAi);                                                        
+              self.Targets(effectValidators, costValidators, selectorAi);                                                        
 
               self.SetCost(cost);
             }

@@ -26,7 +26,7 @@
             C.Cost<TapOwnerPayMana>(cost => cost.TapOwner = true),
             C.Effect<UntapTargets>(),
             effectValidator: C.Validator(Validators.Permanent(card => card.Is().Land), minCount: 2, maxCount: 2),
-            targetSelectorAi: TargetSelectorAi.UntapYourLands(),
+            selectorAi: TargetSelectorAi.UntapYourLands(),
             timing: Timings.SecondMain()
             )
         );

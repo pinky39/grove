@@ -36,7 +36,7 @@
             C.Cost<SacOwnerPayMana>((cost, _) => cost.Amount = "{2}{R}".ParseManaAmount()),
             C.Effect<DealDamageToTargets>(e => e.Amount = e.Source.OwningCard.Counters.GetValueOrDefault()),
             C.Validator(Validators.CreatureOrPlayer()),
-            targetSelectorAi: TargetSelectorAi.DealDamageSingleSelector(p => p.Source.Counters.GetValueOrDefault()),
+            selectorAi: TargetSelectorAi.DealDamageSingleSelector(p => p.Source.Counters.GetValueOrDefault()),
             timing: All(Timings.InstantRemovalTarget())
         ));
     }

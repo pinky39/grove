@@ -30,7 +30,7 @@
             C.Effect<DealDamageToEach>(e =>
               {
                 e.AmountCreature = 4;
-                e.DealDamageToOwningCreature = false;
+                e.FilterCreature = (self, creature) => creature != self.Source.OwningCard;
               })
             )
         );

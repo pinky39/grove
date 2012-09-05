@@ -37,7 +37,7 @@
             costValidator: C.Validator(Validators.Creature((creature) => !creature.IsTapped, Controller.SpellOwner), 
               mustBeTargetable: false),
             
-            targetSelectorAi: TargetSelectorAi.CostTapOrSacCreature(),
+            selectorAi: TargetSelectorAi.CostTapOrSacCreature(),
             category: EffectCategories.ToughnessIncrease,
             timing: Timings.IncreaseOwnersPowerAndThougness(1, 1)
             ));

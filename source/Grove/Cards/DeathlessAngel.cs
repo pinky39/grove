@@ -34,7 +34,7 @@
               p.Builder.Modifier<AddStaticAbility>((m, _) => { m.StaticAbility = Static.Indestructible; },
                 untilEndOfTurn: true))),
             C.Validator(validator: Validators.Creature()),
-            targetSelectorAi: TargetSelectorAi.ShieldIndestructible(),
+            selectorAi: TargetSelectorAi.ShieldIndestructible(),
             timing: Timings.NoRestrictions(),
             category: EffectCategories.Protector));
     }

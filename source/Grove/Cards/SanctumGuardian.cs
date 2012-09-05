@@ -32,7 +32,7 @@
                 C.Validator(Validators.EffectOrPermanent(), text: "Select damage source."),
                 C.Validator(Validators.CreatureOrPlayer(), text:  "Select a creature or player.")
               },
-            targetSelectorAi: TargetSelectorAi.PreventAllDamageFromSourceToTarget(),
+            selectorAi: TargetSelectorAi.PreventAllDamageFromSourceToTarget(),
             timing: Timings.NoRestrictions()
             )
         );

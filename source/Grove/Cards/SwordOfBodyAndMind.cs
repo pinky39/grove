@@ -54,7 +54,7 @@
               p.Builder.Modifier<AddProtectionFromColors>((m, _) => m.Colors = ManaColors.Green | ManaColors.Blue)
               )),
             effectValidator: C.Validator(Validators.Equipment()),
-            targetSelectorAi: TargetSelectorAi.CombatEquipment(),
+            selectorAi: TargetSelectorAi.CombatEquipment(),
             timing: Timings.AttachCombatEquipment(),
             activateAsSorcery: true,
             category: EffectCategories.ToughnessIncrease | EffectCategories.Protector

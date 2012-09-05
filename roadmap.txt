@@ -73,10 +73,10 @@ o Destructive Urge
 o Diabolic Servitude
 o Disciple of Grace
 o Disciple of Law
-Discordant Dirge
-Disenchant
-Disorder
-Disruptive Student
+o Discordant Dirge
+o Disenchant
+o Disorder
+o Disruptive Student
 Douse
 Dragon Blood
 Drifting Djinn

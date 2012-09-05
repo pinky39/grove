@@ -34,7 +34,7 @@
             effectValidator: C.Validator(Validators.CardInGraveyard(yourGraveyardOnly: false),
               minCount: 0,
               maxCount: 3),
-            targetSelectorAi: TargetSelectorAi.RemoveCardsFromOpponentsGraveyard(),
+            selectorAi: TargetSelectorAi.RemoveCardsFromOpponentsGraveyard(),
             timing: Timings.EndOfTurn())
         );
     }
