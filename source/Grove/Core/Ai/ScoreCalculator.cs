@@ -165,7 +165,7 @@
 
     public static int CalculateCardInHandScore(Card card)
     {
-      if (card.IsHidden)
+      if (card.IsHidden && !card.IsRevealed)
       {
         return 220;
       }            

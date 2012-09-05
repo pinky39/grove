@@ -18,7 +18,7 @@
     public override Zone Zone { get { return Zone.Hand; } }
 
     public override void AfterRemove(Card card)
-    {
+    {            
       card.IsRevealed = false;
     }
   }

@@ -280,10 +280,9 @@
         yield return card;
       }
 
-      // TODO should not return hidden targets?      
-      foreach (var card in Hand)
-      {        
-         yield return card;
+      foreach (var card in Hand.Where(x => !x.IsHidden))
+      {
+        yield return card;
       }
 
       foreach (var card in Graveyard)
@@ -488,17 +487,25 @@
       _manaSources.Remove(manaSource);
     }
 
-    public interface IFactory
-    {
-      Player Create(string name, string avatar, PlayerType type, Deck deck);
-    }
-
     public void RevealHand()
     {
       foreach (var card in _hand)
       {
         card.Reveal();
       }
+    }
+
+    public interface IFactory
+    {
+      Player Create(string name, string avatar, PlayerType type, Deck deck);
+    }
+
+    public void ResetAiVisibility()
+    {
+      _library.Show();
+      _battlefield.Show();
+      _graveyard.Show();      
+      _hand.Show();
     }
   }
 }

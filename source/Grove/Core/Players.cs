@@ -207,5 +207,11 @@
         }
       }
     }
+
+    public void ResetAiVisibility()
+    {
+      Player1.ResetAiVisibility();
+      Player2.ResetAiVisibility();
+    }
   }
 }

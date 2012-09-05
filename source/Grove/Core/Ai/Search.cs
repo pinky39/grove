@@ -103,7 +103,7 @@
         worker.Evaluate(searchNode);
         return;
       }
-
+            
       searchNode.Game.Players.SetAiVisibility(searchNode.Controller);
       searchNode.GenerateChoices();
 
@@ -112,6 +112,7 @@
           FindBestMove(searchNode);
 
       searchNode.SetResult(result);
+      searchNode.Game.Players.ResetAiVisibility();
     }
 
     private SearchWorker CreateWorker(ISearchNode searchNode)
