@@ -9,6 +9,8 @@
          <Style BasedOn="{StaticResource LinkButton}" TargetType="Button">
             <Setter Property="FontSize" Value="24"/>
          </Style>
+         <Style BasedOn="{StaticResource ScrollBar}" TargetType="ScrollBar">
+         </Style>
       </Grid.Resources>
       <Grid>
          <Grid.RowDefinitions>
@@ -161,7 +163,39 @@
                   Background="#11ffffff"
                   BorderBrush="#33ffffff"
                   BorderThickness="2"
-                  CornerRadius="2" Margin="0,10,0,0">
+                  CornerRadius="2" Margin="0,10,0,0">                  
+               <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Hidden">
+               <StackPanel>
+                <Border  Background="#11ffffff" BorderBrush="#33ffffff" BorderThickness="0,0,2,2">
+                    <Grid Margin="10,10,10,10">
+                      <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                      </Grid.ColumnDefinitions>
+                      
+                      <TextBlock FontSize="15" Foreground="#fff">Llanowar Elves</TextBlock>
+                      <Image Grid.Column="1" Height="20" Source="..\media\images\g.png" />
+                    </Grid>
+               
+                </Border>
+                <Border  Background="#11ffffff" BorderBrush="#33ffffff" BorderThickness="0,0,2,2">
+                    <Grid Margin="10,10,10,10">
+                      <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                      </Grid.ColumnDefinitions>
+                      
+                      <TextBlock FontSize="15" Foreground="#fff">Grizzly Bears</TextBlock>
+                      <StackPanel Orientation="Horizontal" Grid.Column="1">
+                        <Image Height="20" Source="..\media\images\1.png" />
+                        <Image Height="20" Source="..\media\images\g.png" Margin="2,0,0,0" />
+                      </StackPanel>
+                    </Grid>
+               
+                </Border>
+               
+               </StackPanel>
+               </ScrollViewer>
                
                </Border>
                
@@ -198,14 +232,26 @@
                Margin="0,0,0,0"
                VerticalAlignment="Top">
                <StackPanel>
-                  <ContentControl Content="{StaticResource 'Llanowar Elves'}"/>
-                  <TextBlock
-                     Margin="0,20,0,0"
+                  <ContentControl  Margin="0,0,0,20" Content="{StaticResource 'Llanowar Elves'}"/>
+                  <TextBlock Foreground="#fff" FontSize="15" Margin="0,0,0,10">Description:</TextBlock>
+                  <TextBox                    
                      FontSize="16"
+                     Height="100"
+                     BorderBrush="#33ffffff"                    
+                     Background="#22ffffff"
                      Foreground="#eee"
                      TextWrapping="Wrap">Acknowledgement: This deck was taken from a mtg program magarena.
                   
-                  </TextBlock>
+                  </TextBox>
+                  
+                  <TextBlock Foreground="#fff" FontSize="15" Margin="0,30,0,10">Rating:</TextBlock>
+                  <StackPanel Orientation="Horizontal">
+                    <Image Source="..\media\images\star.png" Height="30" Margin="0,0,15,0"/>
+                    <Image Source="..\media\images\star.png" Height="30" Margin="0,0,15,0"/>
+                    <Image Source="..\media\images\star.png" Height="30" Margin="0,0,15,0"/>
+                    <Image Source="..\media\images\star.png" Height="30" Margin="0,0,15,0"/>
+                    <Image Source="..\media\images\star.png" Height="30" Margin="0,0,0,0"/>
+                  </StackPanel>
                </StackPanel>
             </Border>
          </Grid>
