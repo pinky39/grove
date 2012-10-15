@@ -44,7 +44,7 @@
       set
       {
         _selected = value;
-        SelectedCard = _selected.GetPreview();
+        SelectedCard = _selected.GetCard();
       }
     }    
 
@@ -88,10 +88,11 @@
     private void LoadDecks()
     {
       var deckFiles = Directory.EnumerateFiles(MediaLibrary.DecksFolder, "*.dec");
-
+      var previews = _cardDatabase.CreatePreviewForEveryCard();
+      
       foreach (var fileName in deckFiles)
       {
-        _decks.Add(new Deck(fileName, _cardDatabase));
+        _decks.Add(new Deck(fileName, previews));
       }
 
       Selected = _decks[0];
@@ -99,7 +100,7 @@
 
     public void ChangeSelectedCard(string name)
     {
-      SelectedCard = Selected.GetPreview(name);
+      SelectedCard = Selected.GetCard(name);
     }
 
     public void Forward()

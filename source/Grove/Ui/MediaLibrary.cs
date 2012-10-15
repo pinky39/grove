@@ -47,6 +47,11 @@
       return Path.Combine(BasePath, folder, name);
     }
 
+    public static string GetDeckPath(string name)
+    {
+      return Path.Combine(DecksFolder, name + ".dec");
+    }
+    
     public static Stream GetDeck(string name)
     {
       var path = Path.Combine(BasePath, Decks, name + ".dec");

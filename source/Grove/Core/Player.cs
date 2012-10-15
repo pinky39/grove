@@ -41,7 +41,7 @@
       string name,
       string avatar,
       PlayerType type,
-      Deck deck,
+      IEnumerable<string> deck,
       Game game,
       CardDatabase cardDatabase)
     {
@@ -432,7 +432,7 @@
       _library.PutOnTop(card);
     }
 
-    private IEnumerable<Card> LoadCards(Deck deck, CardDatabase cardDatabase)
+    private IEnumerable<Card> LoadCards(IEnumerable<string> deck, CardDatabase cardDatabase)
     {
       return deck.Select(card => cardDatabase.CreateCard(card, this));
     }
@@ -497,7 +497,7 @@
 
     public interface IFactory
     {
-      Player Create(string name, string avatar, PlayerType type, Deck deck);
+      Player Create(string name, string avatar, PlayerType type, IEnumerable<string> deck);
     }
 
     public void ResetAiVisibility()

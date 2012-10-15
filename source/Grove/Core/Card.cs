@@ -122,6 +122,8 @@
     public IManaAmount ManaCostWithKicker { get; private set; }
     public IEnumerable<IManaSource> ManaSources { get { return _activatedAbilities.ManaSources; } }
 
+    public int ConvertedCost {get { return ManaCost == null ? 0 : ManaCost.Converted; }}
+
     private IEnumerable<IModifiable> ModifiableProperties
     {
       get

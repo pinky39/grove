@@ -20,7 +20,7 @@
         .ManaCost("{3}{G}{G}{G}")
         .Type("Creature Elemental")
         .Text(
-          "{Trample}{EOL}At the beginning of your upkeep, sacrifice Child of Gaea unless you pay {G}{G}.{EOL}{1}{G}: Regenerate Child of Gaea.")
+          "{Trample}{EOL}At the beg. of your upkeep, pay {G}{G} or sacrifice Child of Gaea.{EOL}{1}{G}: Regenerate Child of Gaea.")
         .Power(7)
         .Toughness(7)
         .Timing(Timings.Creatures())
@@ -32,7 +32,7 @@
             C.Effect<Regenerate>(),
             timing: Timings.Regenerate()),
           C.TriggeredAbility(
-            "At the beginning of your upkeep, sacrifice Child of Gaea unless you pay {G}{G}.",
+            "At the beg. of your upkeep, pay {G}{G} or sacrifice Child of Gaea.",
             C.Trigger<AtBegginingOfStep>(t => { t.Step = Step.Upkeep; }),
             C.Effect<PayManaOrSacrifice>(e =>
               {

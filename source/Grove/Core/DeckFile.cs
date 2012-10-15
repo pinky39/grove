@@ -5,9 +5,6 @@
 
   public class DeckFile : IEnumerable<DeckRow>
   {
-    public string Desctiption { get; private set; }
-    public int Rating { get; private set; }
-
     private readonly List<DeckRow> _rows = new List<DeckRow>();
 
     public DeckFile(IEnumerable<DeckRow> rows, string desctiption, int rating)
@@ -16,6 +13,23 @@
       Rating = rating;
 
       _rows.AddRange(rows);
+    }
+
+    public string Desctiption { get; private set; }
+    public int Rating { get; private set; }
+
+    public IEnumerable<string> AllCards
+    {
+      get
+      {
+        foreach (var row in _rows)
+        {
+          for (int i = 0; i < row.Count; i++)
+          {
+            yield return row.CardName;
+          }
+        }
+      }
     }
 
     public IEnumerator<DeckRow> GetEnumerator()

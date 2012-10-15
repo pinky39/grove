@@ -1,6 +1,7 @@
 ﻿namespace Grove.Ui.StartScreen
 {
   using System;
+  using System.Collections.Generic;
   using System.Diagnostics;
   using System.IO;
   using System.Linq;
@@ -16,14 +17,20 @@
     private readonly CardDatabase _cardDatabase;
     private readonly Match _match;
     private readonly SelectDeck.ViewModel.IFactory _selectDeckScreenFactory;
+    private readonly DeckEditor.ViewModel.IFactory _deckEditorScreenFactory;
     private readonly IShell _shell;
 
-    public ViewModel(IShell shell, CardDatabase cardDatabase, SelectDeck.ViewModel.IFactory selectDeckScreenFactory,
+    public ViewModel(
+      IShell shell, 
+      CardDatabase cardDatabase, 
+      SelectDeck.ViewModel.IFactory selectDeckScreenFactory,
+      DeckEditor.ViewModel.IFactory deckEditorScreenFactory,
       Match match)
     {
       _shell = shell;
       _cardDatabase = cardDatabase;
       _selectDeckScreenFactory = selectDeckScreenFactory;
+      _deckEditorScreenFactory = deckEditorScreenFactory;
       _match = match;
     }
 
@@ -61,27 +68,32 @@
 
     public void PlayRandom()
     {
-      Deck firstDeck;
-      Deck secondDeck;
+      List<string> firstDeck;
+      List<string> secondDeck;
 
       ChooseRandomDecks(out firstDeck, out secondDeck);
-
       _match.Start(firstDeck, secondDeck);
     }
 
-    private void ChooseRandomDecks(out Deck firstDeck, out Deck secondDeck)
+    public void DeckEditor()
     {
-      Deck first;
-      Deck second;
+      var deckEditorScreen = _deckEditorScreenFactory.Create();
+      _shell.ChangeScreen(deckEditorScreen);
+    }
+
+    private void ChooseRandomDecks(out List<string> firstDeck, out List<string> secondDeck)
+    {
+      DeckFile first;
+      DeckFile second;
 
       var deckFiles = Directory.EnumerateFiles(MediaLibrary.DecksFolder, "*.dec");
-      var decks = deckFiles.Select(fileName => new Deck(fileName, _cardDatabase)).ToList();
+      var decks = deckFiles.Select(DeckFileReader.Read).ToList();
       first = decks[Rnd.Next(0, decks.Count)];
       var decksWithSameRating = decks.Where(x => x.Rating == first.Rating).ToList();
       second = decksWithSameRating[Rnd.Next(0, decksWithSameRating.Count)];
 
-      firstDeck = first;
-      secondDeck = second;
+      firstDeck = first.AllCards.ToList();
+      secondDeck = second.AllCards.ToList();
     }
 
     public interface IFactory

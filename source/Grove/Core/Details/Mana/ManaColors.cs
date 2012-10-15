@@ -12,5 +12,6 @@
     Red = 8,
     Green = 16,
     Colorless = 32,
+    All = White | Blue | Black | Red | Green
   }
 }

@@ -522,6 +522,11 @@
     <Compile Include="Core\Details\Cards\Triggers\OpponentWasNotDealtDamageThisTurn.cs" />
     <Compile Include="Core\Zones\IGraveyardQuery.cs" />
     <Compile Include="Core\Zones\NullZone.cs" />
+    <Compile Include="Ui\DeckEditor\Library.cs" />
+    <Compile Include="Ui\DeckEditor\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\DeckEditor\ViewModel.cs" />
     <Compile Include="Ui\DistributeDamage\UiDamageDistribution.cs" />
     <Compile Include="Core\Targeting\Validators.cs" />
     <Compile Include="Core\Details\Mana\ZeroManaAmount.cs" />
@@ -752,6 +757,9 @@
     </Compile>
     <Compile Include="Ui\QuitGame\ViewModel.cs" />
     <Compile Include="Core\Deck.cs" />
+    <Compile Include="Ui\RatingControl.xaml.cs">
+      <DependentUpon>RatingControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Ui\SelectDeck\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
@@ -942,6 +950,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Ui\DeckEditor\View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Ui\DistributeDamage\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1003,6 +1015,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Ui\QuitGame\View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\RatingControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

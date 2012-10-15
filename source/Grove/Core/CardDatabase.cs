@@ -25,6 +25,11 @@
       return cardFactory.CreateCardPreview();
     }
 
+    public IEnumerable<Card> CreatePreviewForEveryCard()
+    {
+      return Database.Select(x => x.CreateCardPreview());
+    }
+
     public Card CreateCard(string name, Player controller)
     {
       var cardFactory = GetCardFactory(name);

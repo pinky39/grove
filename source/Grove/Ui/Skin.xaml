@@ -290,14 +290,14 @@
             <Border
                x:Name="Border"
                Grid.ColumnSpan="2"
-               Background="#000"
-               BorderBrush="#333"
+               Background="Transparent"
+               BorderBrush="#ccc"
                BorderThickness="1"
                CornerRadius="2"/>
             <Border
                Grid.Column="0"
                Margin="1"
-               BorderBrush="#333"
+               BorderBrush="#ccc"
                BorderThickness="0,0,1,0"
                CornerRadius="2,0,0,2"/>
             <Path
@@ -310,21 +310,22 @@
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="Grid.IsMouseOver" Value="true">
-                <Setter TargetName="Border" Property="Background" Value="#111"/>
+                <Setter TargetName="Border" Property="Background" Value="#22ffffff"/>
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
     <ControlTemplate x:Key="ComboBoxTextBox" TargetType="{x:Type TextBox}">
         <Border x:Name="PART_ContentHost" Background="{TemplateBinding Background}" Focusable="False"/>
     </ControlTemplate>
+    
     <Style x:Key="{x:Type ComboBox}" TargetType="{x:Type ComboBox}">
         <Setter Property="SnapsToDevicePixels" Value="true"/>
         <Setter Property="OverridesDefaultStyle" Value="true"/>
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
         <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
-        <Setter Property="MinWidth" Value="120"/>
-        <Setter Property="MinHeight" Value="20"/>
+        <Setter Property="MinWidth" Value="70"/>
+        <Setter Property="MinHeight" Value="15"/>
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -760,7 +761,7 @@
         
     </Style>
 
-    <Style x:Key="{x:Type CheckBox}" TargetType="{x:Type CheckBox}">
+    <Style x:Key="CheckBox" TargetType="{x:Type CheckBox}">
         <Setter Property="SnapsToDevicePixels" Value="true"/>
         <Setter Property="OverridesDefaultStyle" Value="true"/>
         <Setter Property="Template">
@@ -810,6 +811,69 @@
         </Setter>
     </Style>
 
+    <ControlTemplate x:Key="ExpanderToggleButton" TargetType="{x:Type ToggleButton}">
+        <Border
+    Name="Border" 
+    CornerRadius="2,0,0,0"
+    Background="Transparent"        
+    BorderThickness="0,0,1,0">
+            <Path 
+      Name="Arrow"
+      Fill="#404040"
+      HorizontalAlignment="Right"
+      Margin="0,0,10,0"
+      VerticalAlignment="Center"
+      Data="M 0 0 L 4 4 L 8 0 Z"/>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsChecked" Value="true">
+                <Setter TargetName="Arrow" Property="Data" Value="M 0 4 L 4 0 L 8 4 Z" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
 
+    <Style TargetType="{x:Type Expander}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Expander}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Name="ContentRow" Height="0"/>
+                        </Grid.RowDefinitions>
+                        <Border 
+            Name="Border" 
+            Grid.Row="0"             
+            CornerRadius="2,2,0,0" >
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <ContentPresenter 
+                Grid.Column="0"
+                Margin="4" 
+                ContentSource="Header" />
+                                <ToggleButton Grid.Column="0"
+                IsChecked="{Binding Path=IsExpanded,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}"
+                OverridesDefaultStyle="True" 
+                Template="{StaticResource ExpanderToggleButton}" 
+                Background="#C0C0C0" />
+                            </Grid>
+                        </Border>
+                        <Border 
+            Name="Content" 
+            Grid.Row="1" >
+                            <ContentPresenter Margin="4" />
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsExpanded" Value="True">
+                            <Setter TargetName="ContentRow" Property="Height" Value="{Binding ElementName=Content,Path=DesiredHeight}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
 </ResourceDictionary>

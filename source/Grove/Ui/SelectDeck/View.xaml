@@ -120,8 +120,7 @@
 
                                         <TextBlock Grid.Row="1" Text="{Binding CardCount, StringFormat={}{0} cards}" Foreground="#aaa" FontSize="15"/>
                                                                                                                                 
-                                        <ItemsControl Grid.Column="1" Grid.Row="1"                                     
-						              ItemsSource = "{Binding Path=Rating, Converter={x:Static grove:Converters.Rating}}" >
+                                        <ItemsControl Grid.Column="1" Grid.Row="1" ItemsSource = "{Binding Path=Rating, Converter={x:Static grove:Converters.Rating}}" >
                                             <ItemsControl.ItemsPanel>
                                                 <ItemsPanelTemplate>
                                                     <StackPanel Orientation = "Horizontal" HorizontalAlignment="Right" />
