@@ -23,33 +23,29 @@
             Background="#11ffffff"
             BorderBrush="#33ffffff"
             BorderThickness="0,0,0,4">
-            <StackPanel Margin="30" Orientation="Horizontal">
-               <Image Height="50" VerticalAlignment="Center" Source="../media/images/icon.png">
+            <Grid Margin="30" >
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="Auto"/>
+              <ColumnDefinition Width="Auto"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+               <Image Grid.Column="0" HorizontalAlignment="Left" Height="50" Source="../media/images/icon.png">
                </Image>
                <TextBlock
-                  Margin="30,0,0,0"
-                  VerticalAlignment="Center"
+                  Grid.Column="1"
+                  Margin="30,0,0,0"                  
                   FontSize="40"
                   Foreground="#fff"
                   Text="Deck editor"/>
-               <Border
-                  Margin="30,0,0,0"
-                  VerticalAlignment="Center"
-                  Background="#333"
-                  BorderBrush="#555"
-                  BorderThickness="2"
-                  CornerRadius="2">
-                  <TextBlock
-                     Margin="20,10,20,10"
-                     FontSize="30"
+               
+                  <TextBlock                   
+                     Grid.Column="3"                     
+                     FontSize="40"
                      Foreground="#FFD700"
                      Text="kuno-b-control.dec"/>
-               </Border>
-               <StackPanel Margin="30,0,0,0" VerticalAlignment="Center">
-                  <TextBlock FontSize="20" Foreground="#fff" Text="New deck"/>
-                  <TextBlock FontSize="20" Foreground="#fff" Text="Open deck..."/>
-               </StackPanel>
-            </StackPanel>
+               
+            </Grid>
          </Border>
          <Grid Grid.Row="1" HorizontalAlignment="Center" Margin="0,40,0,40">
             <Grid.ColumnDefinitions>
@@ -217,12 +213,10 @@
                      </TextBlock>
                   </StackPanel>
                   <StackPanel Margin="10,0,0,0" Orientation="Horizontal">
-                     <TextBlock FontSize="25" Foreground="#fff">4x
-                     
+                     <TextBlock FontSize="25" Foreground="#fff">4x                    
                      </TextBlock>
-                     <TextBlock Margin="10,0,0,0" FontSize="25" Foreground="#FFD700">Grizzly Bears
-                     
-                     </TextBlock>
+                     <TextBlock Margin="10,0,0,0" FontSize="25" Foreground="#FFD700">Grizzly Bears                     
+                     </TextBlock>                 
                   </StackPanel>
                </StackPanel>
             </Border>
@@ -264,25 +258,41 @@
             <Grid Margin="30">
                <Grid.ColumnDefinitions>
                   <ColumnDefinition Width="*"/>
-                  <ColumnDefinition Width="Auto"/>
-                  <ColumnDefinition Width="Auto"/>
+                  <ColumnDefinition Width="Auto"/>                  
                </Grid.ColumnDefinitions>
                <TextBlock
                   Grid.Column="0"
-                  FontSize="20"
+                  FontSize="15"
                   Foreground="#fff"
                   Text="Return to main menu"/>
-               <TextBlock
-                  Grid.Column="1"
-                  FontSize="20"
-                  Foreground="#fff"
-                  Text="Save"/>
-               <TextBlock
-                  Grid.Column="2"
-                  Margin="20,0,0,0"
-                  FontSize="20"
-                  Foreground="#fff"
-                  Text="Save as..."/>
+               <StackPanel Orientation="Horizontal" Grid.Column="1">
+                <Border BorderBrush="#aaa" BorderThickness="0,0,1,0" Padding="0,0,10,0" Margin="10,0,0,0">
+                  <TextBlock
+                    FontSize="15"
+                    Foreground="#fff"
+                    Text="New deck"/>                
+                 </Border>
+                <Border BorderBrush="#aaa" BorderThickness="0,0,1,0" Padding="0,0,10,0" Margin="10,0,0,0">
+                  <TextBlock                    
+                    FontSize="15"
+                    Foreground="#fff"
+                    Text="Open deck"/>                
+                </Border>
+                <Border BorderBrush="#aaa" BorderThickness="0,0,1,0" Padding="0,0,10,0" Margin="10,0,0,0">
+                  <TextBlock                  
+                    FontSize="15"
+                    Foreground="#fff"
+                    Text="Save as"/>                
+                </Border>                
+                <Border BorderBrush="#aaa" BorderThickness="0,0,0,0" Padding="0,0,10,0" Margin="10,0,0,0">
+                  <TextBlock                    
+                    FontSize="15"
+                    Foreground="#fff"
+                    Text="Save"/>
+                </Border>
+               
+               </StackPanel>
+               
             </Grid>
          </Border>
       </Grid>

@@ -244,6 +244,9 @@
         if (manaAmount == null)
           return new ImageSource[] { };
 
+        if (manaAmount.Converted == 0)
+          return new[] {MediaLibrary.GetImage("0.png")};
+
         return manaAmount.GetSymbolNames().Select(symbolName => MediaLibrary.GetImage(symbolName + ".png"));
       }
 

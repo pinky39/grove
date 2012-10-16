@@ -88,7 +88,7 @@
 
     private void ToggleFullScreen(object sender, KeyEventArgs e)
     {
-      if (e.Key == Key.F)
+      if (e.Key == Key.F11)
       {
         Window.WindowState = Window.WindowState == WindowState.Normal
           ? WindowState.Maximized

@@ -44,7 +44,7 @@
       set
       {
         _selected = value;
-        SelectedCard = _selected.GetCard();
+        SelectedCard = _selected.GetPreviewCard();
       }
     }    
 

@@ -6,6 +6,7 @@
   using System.IO;
   using System.Linq;
   using Details.Mana;
+  using Ui;
 
   public class Deck : IEnumerable<string>
   {
@@ -13,7 +14,10 @@
     private readonly Dictionary<string, Card> _cards = new Dictionary<string, Card>();
     private readonly List<DeckRow> _rows = new List<DeckRow>();
 
-    public Deck() {}
+    public Deck()
+    {
+      Name = "fantastic-new-deck.dec";
+    }
     
     public Deck(string filename, IEnumerable<Card> previews)
     {
@@ -74,17 +78,24 @@
       return GetEnumerator();
     }
 
+    
+    
     public void AddCard(Card card)
     {
       if (_cards.ContainsKey(card.Name.ToLowerInvariant()))
       {
-        var row = _rows.First(x => x.CardName.Equals(card.Name, StringComparison.InvariantCultureIgnoreCase));
+        var row = GetCardRow(card.Name);
         row.Count++;
         return;
       }
 
       _cards.Add(card.Name.ToLowerInvariant(), card);
       _rows.Add(new DeckRow {CardName = card.Name, Count = 1});
+    }
+
+    private DeckRow GetCardRow(string cardName)
+    {
+      return _rows.FirstOrDefault(x => x.CardName.Equals(cardName, StringComparison.InvariantCultureIgnoreCase));
     }
 
     private List<string> GetDeckColors()
@@ -104,9 +115,9 @@
       return _cards[cardName.ToLowerInvariant()];
     }
 
-    public Card GetCard()
+    public Card GetPreviewCard()
     {
-      return _cards[_rows[Rnd.Next(0, _rows.Count)].CardName.ToLowerInvariant()];
+      return _cards.Count == 0 ? null : _cards[_rows[Rnd.Next(0, _rows.Count)].CardName.ToLowerInvariant()];
     }
 
     public static Deck Dummy()
@@ -115,5 +126,29 @@
       deck._rows.Add(new DeckRow {CardName = "Uncastable", Count = 60});
       return deck;
     }
+
+    public void RemoveCard(string name)
+    {
+      var row = GetCardRow(name);
+
+      if (row == null)
+        return;
+
+      if (row.Count == 1)
+      {
+        _rows.Remove(row);
+        _cards.Remove(name.ToLowerInvariant());
+        return;
+      }
+      
+      row.Count--;            
+    }
+
+    public static Deck GetRandomDeck(IEnumerable<Card> previews)
+    {
+      var decks = Directory.EnumerateFiles(MediaLibrary.DecksFolder, "*.dec").ToList();
+      return decks.Count > 0 ? new Deck(decks[Rnd.Next(0, decks.Count)], previews) : new Deck();
+    }
+    
   }
 }

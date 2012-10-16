@@ -31,7 +31,7 @@
                     <Button HorizontalAlignment="Right" x:Name="Exit">Quit</Button>
                 </StackPanel>
             </StackPanel>
-            <TextBlock Margin="0,120,0,0" Foreground="#ccc" FontStyle="Italic" FontSize="20" HorizontalAlignment="Center">(press 'f' to toggle fullscreen)</TextBlock>
+            <TextBlock Margin="0,120,0,0" Foreground="#ccc" FontStyle="Italic" FontSize="20" HorizontalAlignment="Center">(press 'F11' to toggle fullscreen)</TextBlock>
         </StackPanel>
         <TextBlock HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="16" Margin="10,0,20,10" Foreground="#fff" Text="{Binding DatabaseInfo}"/>
     </Grid>

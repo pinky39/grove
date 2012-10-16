@@ -77,7 +77,7 @@
 
     public void DeckEditor()
     {
-      var deckEditorScreen = _deckEditorScreenFactory.Create();
+      var deckEditorScreen = _deckEditorScreenFactory.Create(this);
       _shell.ChangeScreen(deckEditorScreen);
     }
 

@@ -61,11 +61,9 @@
         }
 
         return result.Where(x =>
-          {
-            
-            
+          {                        
             if (x.ConvertedCost < MinimumCost || x.ConvertedCost > MaximumCost)
-              return false;
+              return false;            
 
             if (White && x.HasColors(ManaColors.White))
               return true;
@@ -82,6 +80,9 @@
             if (Green && x.HasColors(ManaColors.Green))
               return true;
 
+            if (x.HasColors(ManaColors.Colorless) || x.ManaCost == null)
+              return true;
+            
             return false;
           });
       }
