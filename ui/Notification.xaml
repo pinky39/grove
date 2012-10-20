@@ -4,7 +4,55 @@
    </ResourceDictionary.MergedDictionaries>
    <Border x:Key="Notification" HorizontalAlignment="Right" Margin="15,0,15,0">   
       <Border.Resources>
-        <Style TargetType="Expander" BasedOn="{StaticResource Expander}"/>
+         <ControlTemplate x:Key="ExpanderToggleButton" TargetType="{x:Type ToggleButton}">
+                <Border
+               Name="Border"    
+               Background="#11ffffff"
+               BorderThickness="2,0,2,0"
+               BorderBrush="#000">
+                    <ContentPresenter />
+                </Border>
+                <ControlTemplate.Triggers>
+                    <Trigger Property="ToggleButton.IsMouseOver" Value="true">
+                        <Setter TargetName="Border" Property="Background" Value="#22ffffff"/>
+                    </Trigger>
+                    <Trigger Property="IsPressed" Value="true">
+                        <Setter TargetName="Border" Property="Background" Value="#33ffffff"/>
+                    </Trigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+            <Style TargetType="{x:Type Expander}">
+                <Setter Property="SnapsToDevicePixels" Value="true"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Expander}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Name="ContentRow" Height="0"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <ToggleButton
+                                   Grid.Row="1" 
+                                   Focusable="False"
+                                   Cursor="Hand"                                   
+                                   IsChecked="{Binding Path=IsExpanded,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}"
+                                   OverridesDefaultStyle="True"
+                                   Template="{StaticResource ExpanderToggleButton}">
+                                    <ContentPresenter Margin="10,6,10,6"  ContentSource="Header" RecognizesAccessKey="False" />
+                                </ToggleButton>
+                                <Border Name="Content" Margin="0,0,0,2" Grid.Row="0" BorderBrush="#000" BorderThickness="2,2,2,0" CornerRadius="2,2,0,0">
+                                    <ContentPresenter/>
+                                </Border>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsExpanded" Value="True">
+                                    <Setter TargetName="ContentRow" Property="Height" Value="{Binding ElementName=Content,Path=DesiredHeight}"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
       </Border.Resources>
        <Expander Width="700" VerticalAlignment="Bottom" FontSize="15" Foreground="#FFD700" Header="This is your last message">            
                <Grid>

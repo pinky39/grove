@@ -353,7 +353,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.0858696"
-     inkscape:cx="206.89173"
+     inkscape:cx="96.841683"
      inkscape:cy="375.94498"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -1139,7 +1139,7 @@
        sodipodi:rx="23.214285"
        sodipodi:ry="23.214285"
        d="m 407.14284,729.14789 a 23.214285,23.214285 0 1 1 -46.42857,0 23.214285,23.214285 0 1 1 46.42857,0 z"
-       transform="translate(143.92859,-25.357132)"
+       transform="translate(212.99766,8.7169361)"
        inkscape:export-filename="C:\Users\Gregor\Desktop\c.png"
        inkscape:export-xdpi="107.06319"
        inkscape:export-ydpi="107.06319" />
@@ -1522,5 +1522,38 @@
        inkscape:export-ydpi="179.26126"
        ry="2.0203049"
        transform="matrix(0.74337236,0,0,0.74337236,-253.03792,672.64166)" />
+    <g
+       id="g3225"
+       inkscape:export-filename="C:\Gregor\grove\ui\0.png"
+       inkscape:export-xdpi="106.61539"
+       inkscape:export-ydpi="106.61539">
+      <path
+         inkscape:export-ydpi="107.06319"
+         inkscape:export-xdpi="107.06319"
+         inkscape:export-filename="C:\Users\Gregor\Desktop\6.png"
+         transform="translate(191.647,281.77285)"
+         d="m 407.14284,729.14789 a 23.214285,23.214285 0 1 1 -46.42857,0 23.214285,23.214285 0 1 1 46.42857,0 z"
+         sodipodi:ry="23.214285"
+         sodipodi:rx="23.214285"
+         sodipodi:cy="729.14789"
+         sodipodi:cx="383.92856"
+         id="path6574-4-8-4-3-73-0-4-4-4"
+         style="fill:#ffffff;fill-opacity:1;stroke:none"
+         sodipodi:type="arc" />
+      <text
+         inkscape:export-ydpi="107.06319"
+         inkscape:export-xdpi="107.06319"
+         inkscape:export-filename="C:\Users\Gregor\Desktop\6.png"
+         sodipodi:linespacing="125%"
+         id="text7110-0"
+         y="1025.0516"
+         x="564.57947"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           y="1025.0516"
+           x="564.57947"
+           id="tspan7112-9"
+           sodipodi:role="line">0</tspan></text>
+    </g>
   </g>
 </svg>

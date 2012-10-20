@@ -1,39 +1,35 @@
 ﻿namespace Grove.Ui.SelectDeck
 {
+  using System;
   using System.Collections.Generic;
   using System.IO;
   using Core;
   using Infrastructure;
-  using Shell;
+  using Shell;  
 
-  public enum ScreenType
+  public class Configuration
   {
-    YourDeck,
-    OpponentDeck
+    public string ScreenTitle { get; set; }
+    public string ForwardText { get; set; }
+    public Action<Deck> Forward { get; set; }
+    public IIsDialogHost PreviousScreen { get; set; }
   }
-
+  
   public class ViewModel : IIsDialogHost
   {
     private readonly CardDatabase _cardDatabase;
-    private readonly List<Deck> _decks = new List<Deck>();
-    private readonly Match _match;
-    private readonly IIsDialogHost _previousScreen;
-    private readonly ScreenType _screenType;
-    private readonly IFactory _selectDeckScreenFactory;
+    private readonly List<Deck> _decks = new List<Deck>();            
+    private readonly Configuration _configuration;
     private readonly IShell _shell;
-    private ViewModel _nextScreen;
+    
 
     private Deck _selected;
 
-    public ViewModel(CardDatabase cardDatabase, ScreenType screenType, IShell shell,
-      IIsDialogHost previousScreen, IFactory selectDeckScreenFactory, Match match)
+    public ViewModel(CardDatabase cardDatabase, IShell shell, Configuration configuration)
     {
-      _cardDatabase = cardDatabase;
-      _screenType = screenType;
-      _shell = shell;
-      _previousScreen = previousScreen;
-      _selectDeckScreenFactory = selectDeckScreenFactory;
-      _match = match;
+      _cardDatabase = cardDatabase;      
+      _shell = shell;            
+      _configuration = configuration;
 
       LoadDecks();
     }
@@ -50,22 +46,12 @@
 
     public string NextCaption
     {
-      get
-      {
-        return _screenType == ScreenType.YourDeck
-          ? "Next"
-          : "Start the game";
-      }
+      get { return _configuration.ForwardText; }
     }
 
     public string Title
     {
-      get
-      {
-        return _screenType == ScreenType.YourDeck
-          ? "Select your deck"
-          : "Select opponent's deck";
-      }
+      get { return _configuration.ScreenTitle; }
     }
 
     public virtual Card SelectedCard { get; protected set; }
@@ -105,28 +91,22 @@
 
     public void Forward()
     {
-      if (_screenType == ScreenType.YourDeck)
-      {
-        _nextScreen = _nextScreen ?? _selectDeckScreenFactory.Create(ScreenType.OpponentDeck, this);
-        _shell.ChangeScreen(_nextScreen);
-        return;
-      }
-
+      
       IsStarting = true;
-      var player1Deck = ((ViewModel) _previousScreen).Selected;
-      var player2Deck = Selected;
-
-      _match.Start(player1Deck, player2Deck);
+      
+      _configuration.Forward(Selected);
+      
+      IsStarting = false;            
     }
 
     public void Back()
     {
-      _shell.ChangeScreen(_previousScreen);
+      _shell.ChangeScreen(_configuration.PreviousScreen);
     }
 
     public interface IFactory
     {
-      ViewModel Create(ScreenType screenType, IIsDialogHost previousScreen);
+      ViewModel Create(Configuration configuration);
     }
   }
 }

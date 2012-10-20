@@ -4,7 +4,7 @@
       <ResourceDictionary Source="PlayerBox.xaml"/>
       <ResourceDictionary Source="ManaPool.xaml"/>
       <ResourceDictionary Source="TurnInfo.xaml"/>
-      <ResourceDictionary Source="MagnifiedCard.xaml"/>      
+      <ResourceDictionary Source="MagnifiedCard.xaml"/>
       <ResourceDictionary Source="MessageBoxSmall.xaml" />
       <ResourceDictionary Source="Notification.xaml"/>
       <ResourceDictionary Source="Battlefield.xaml"/>

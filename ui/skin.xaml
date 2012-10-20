@@ -96,6 +96,33 @@
          </Setter.Value>
       </Setter>
    </Style>
+   
+   <Style x:Key="PregameDialog" TargetType="ContentControl">      
+      <Setter Property="Template">
+         <Setter.Value>
+            
+            <ControlTemplate  TargetType="{x:Type ContentControl}">
+              <Border Background="#cc333333">
+                 <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
+                    <Rectangle Margin="5,5,-5,-5" Fill="#aa000000">
+                       <Rectangle.BitmapEffect>
+                          <BlurBitmapEffect KernelType="Box" Radius="8"/>
+                       </Rectangle.BitmapEffect>
+                    </Rectangle>
+                    <Border
+                       Background="#000"
+                       BorderBrush="#000"
+                       BorderThickness="2"
+                       CornerRadius="4">
+                       <ContentPresenter/>
+                    </Border>
+                 </Grid>
+               </Border>
+            </ControlTemplate>
+            
+         </Setter.Value>
+      </Setter>
+   </Style>
    <SolidColorBrush x:Key="HighlightColor" Color="#fff"/>
    <SolidColorBrush x:Key="InactiveColor" Color="#eee"/>
    <SolidColorBrush x:Key="LightSeparatorColor" Color="#444"/>

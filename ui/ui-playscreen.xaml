@@ -3,9 +3,8 @@
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <Page.Resources>
     <ResourceDictionary>
-      <ResourceDictionary.MergedDictionaries>
+      <ResourceDictionary.MergedDictionaries>                
         <ResourceDictionary Source="playground.xaml" />
-        <ResourceDictionary Source="StartScreen.xaml" />
         <ResourceDictionary Source="MessageBox.xaml" />        
         <ResourceDictionary Source="SelectAbility.xaml" />  
         <ResourceDictionary Source="SelectXCost.xaml" />  
@@ -15,7 +14,7 @@
         <ResourceDictionary Source="EndOfMatch.xaml" />
         <ResourceDictionary Source="Stack.xaml" />
         <ResourceDictionary Source="QuitGame.xaml" />
-        <ResourceDictionary Source="DamageDistribution.xaml"/>
+        <ResourceDictionary Source="DamageDistribution.xaml"/>        
       </ResourceDictionary.MergedDictionaries> 
     </ResourceDictionary>
   </Page.Resources>

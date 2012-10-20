@@ -5,6 +5,7 @@
   using System.Linq;
   using Core;
   using Infrastructure;
+  using SelectDeck;
   using Shell;
 
   public class ViewModel : IIsDialogHost
@@ -13,12 +14,15 @@
     private readonly List<object> _largeDialogs = new List<object>();
     private readonly List<Card> _previews;
     private readonly IIsDialogHost _previousScreen;
+    private readonly SelectDeck.ViewModel.IFactory _selectDeckScreenFactory;
     private readonly IShell _shell;
 
-    public ViewModel(CardDatabase cardDatabase, IIsDialogHost previousScreen, IShell shell)
+    public ViewModel(CardDatabase cardDatabase, IIsDialogHost previousScreen, IShell shell,
+      SelectDeck.ViewModel.IFactory selectDeckScreenFactory)
     {
       _previousScreen = previousScreen;
       _shell = shell;
+      _selectDeckScreenFactory = selectDeckScreenFactory;
       _previews = cardDatabase.CreatePreviewForEveryCard().ToList();
 
       Library = Bindable.Create<Library>(_previews);
@@ -73,8 +77,24 @@
       return _previews.First(x => x.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
     }
 
-    public void Open() {}
-        
+    public void OpenDeck()
+    {
+      var configuration = new Configuration
+        {
+          ScreenTitle = "Select a deck to edit",
+          ForwardText = "Select",
+          PreviousScreen = this,
+          Forward = (deck) =>
+            {
+              Deck = deck;
+              _shell.ChangeScreen(this);
+            }
+        };
+
+      var selectDeck = _selectDeckScreenFactory.Create(configuration);
+      _shell.ChangeScreen(selectDeck);
+    }
+
     public void NewDeck()
     {
       Deck = new Deck();

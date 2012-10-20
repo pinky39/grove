@@ -15,14 +15,14 @@
   {
     private static readonly Random Rnd = new Random();
     private readonly CardDatabase _cardDatabase;
+    private readonly DeckEditor.ViewModel.IFactory _deckEditorScreenFactory;
     private readonly Match _match;
     private readonly SelectDeck.ViewModel.IFactory _selectDeckScreenFactory;
-    private readonly DeckEditor.ViewModel.IFactory _deckEditorScreenFactory;
     private readonly IShell _shell;
 
     public ViewModel(
-      IShell shell, 
-      CardDatabase cardDatabase, 
+      IShell shell,
+      CardDatabase cardDatabase,
       SelectDeck.ViewModel.IFactory selectDeckScreenFactory,
       DeckEditor.ViewModel.IFactory deckEditorScreenFactory,
       Match match)
@@ -62,8 +62,34 @@
 
     public void Play()
     {
-      var deckScreen = _selectDeckScreenFactory.Create(ScreenType.YourDeck, this);
-      _shell.ChangeScreen(deckScreen);
+      SelectDeck.ViewModel selectDeck1 = null;
+      SelectDeck.ViewModel selectDeck2 = null;
+
+      var configuration1 = new Configuration
+        {
+          ScreenTitle = "Select your deck",
+          ForwardText = "Next",
+          PreviousScreen = this,
+          Forward = (deck1) =>
+            {
+
+              if (selectDeck2 == null)
+              {
+                selectDeck2 = _selectDeckScreenFactory.Create(new Configuration
+                  {
+                    ScreenTitle = "Select your opponent deck",
+                    ForwardText = "Start the game",
+                    PreviousScreen = selectDeck1,
+                    Forward = (deck2) => _match.Start(deck1, deck2)
+                  });
+              }
+
+              _shell.ChangeScreen(selectDeck2);
+            }
+        };
+
+      selectDeck1 = _selectDeckScreenFactory.Create(configuration1);
+      _shell.ChangeScreen(selectDeck1);
     }
 
     public void PlayRandom()

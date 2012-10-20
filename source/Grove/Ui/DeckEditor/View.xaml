@@ -271,7 +271,7 @@
 						<Button x:Name="NewDeck" FontSize="15" Foreground="#fff" Content="New deck" />
 					</Border>
 					<Border BorderBrush="#aaa" BorderThickness="0,0,1,0" Padding="0,0,10,0" Margin="10,0,0,0">
-						<TextBlock FontSize="15" Foreground="#fff" Text="Open deck" />
+						<Button x:Name="OpenDeck" FontSize="15" Foreground="#fff" Content="Open deck" />
 					</Border>
 					<Border BorderBrush="#aaa" BorderThickness="0,0,1,0" Padding="0,0,10,0" Margin="10,0,0,0">
 						<TextBlock FontSize="15" Foreground="#fff" Text="Save as" />
