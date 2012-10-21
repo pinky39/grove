@@ -118,6 +118,7 @@
           RegisterConfiguration(container);
 
           container.Register(Component(typeof (Match), lifestyle: LifestyleType.Singleton));
+          container.Register(Component(typeof (CardPreviews), lifestyle: LifestyleType.Singleton));
           container.Register(Component(typeof (UiDamageDistribution)));
         }
 

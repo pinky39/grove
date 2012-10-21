@@ -6,6 +6,8 @@
   using System.IO;
   using System.Linq;
   using System.Reflection;
+  using System.Threading;
+  using System.Threading.Tasks;
   using System.Windows;
   using Core;
   using SelectDeck;
@@ -16,7 +18,7 @@
     private static readonly Random Rnd = new Random();
     private readonly CardDatabase _cardDatabase;
     private readonly DeckEditor.ViewModel.IFactory _deckEditorScreenFactory;
-    private readonly Match _match;
+    private readonly Match _match;    
     private readonly SelectDeck.ViewModel.IFactory _selectDeckScreenFactory;
     private readonly IShell _shell;
 
@@ -25,14 +27,28 @@
       CardDatabase cardDatabase,
       SelectDeck.ViewModel.IFactory selectDeckScreenFactory,
       DeckEditor.ViewModel.IFactory deckEditorScreenFactory,
-      Match match)
+      Match match,
+      CardPreviews previews)
     {
       _shell = shell;
       _cardDatabase = cardDatabase;
       _selectDeckScreenFactory = selectDeckScreenFactory;
       _deckEditorScreenFactory = deckEditorScreenFactory;
       _match = match;
+
+      LoadPreviews(previews);
     }
+
+    private void LoadPreviews(CardPreviews previews)
+    {
+      Task.Factory.StartNew(() =>
+        {
+          previews.Load();          
+          HasLoaded = true;
+        });
+    }
+
+    public virtual bool HasLoaded {get; protected set; }
 
     public string DatabaseInfo
     {
@@ -113,7 +129,7 @@
       DeckFile second;
 
       var deckFiles = Directory.EnumerateFiles(MediaLibrary.DecksFolder, "*.dec");
-      var decks = deckFiles.Select(DeckFileReader.Read).ToList();
+      var decks = deckFiles.Select(DeckFile.Read).ToList();
       first = decks[Rnd.Next(0, decks.Count)];
       var decksWithSameRating = decks.Where(x => x.Rating == first.Rating).ToList();
       second = decksWithSameRating[Rnd.Next(0, decksWithSameRating.Count)];

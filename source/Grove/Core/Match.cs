@@ -77,6 +77,7 @@
       }
     }
 
+    public bool InProgress { get { return Game != null && !IsFinished; } }
 
     public void Start(IEnumerable<string> player1Deck, IEnumerable<string> player2Deck)
     {

@@ -83,10 +83,13 @@
         var revert = _selectionMode;
         _selectionMode = selectionMode.Value;
 
-        _match.Game.Publisher.Publish(new SelectionModeChanged
-          {
-            SelectionMode = selectionMode.Value
-          });
+        if (_match.InProgress)
+        {
+          _match.Game.Publisher.Publish(new SelectionModeChanged
+            {
+              SelectionMode = selectionMode.Value
+            });
+        }
 
         return revert;
       }

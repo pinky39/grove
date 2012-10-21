@@ -60,7 +60,11 @@
                                 Focusable="False"
 							        Visibility = "{Binding IsYesNo, Converter={x:Static grove:Converters.BooleanToVisibility}}"
 							        Content = "No" />
-                    </StackPanel>
+                        <Button x:Name = "Cancel"	
+                                Focusable="False"
+							        Visibility = "{Binding IsCancel, Converter={x:Static grove:Converters.BooleanToVisibility}}"
+							        Content = "Cancel" />   
+                </StackPanel>
                 </Border>            
         </Grid>
     </Border>  

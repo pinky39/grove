@@ -23,7 +23,8 @@
 
     public bool IsOk { get { return Buttons == MessageBoxButton.OK; } }
 
-    public bool IsYesNo { get { return Buttons == MessageBoxButton.YesNo; } }
+    public bool IsYesNo { get { return Buttons == MessageBoxButton.YesNo || Buttons == MessageBoxButton.YesNoCancel; } }
+    public bool IsCancel { get { return Buttons == MessageBoxButton.YesNoCancel; } }
 
     public string Message { get; private set; }
     public MessageBoxResult Result { get; private set; }
@@ -48,6 +49,11 @@
     public void Yes()
     {
       Close(MessageBoxResult.Yes);
+    }
+
+    public void Cancel()
+    {
+      Close(MessageBoxResult.Cancel);
     }
 
     private void Close(MessageBoxResult result)

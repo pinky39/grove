@@ -108,7 +108,34 @@
 		</Style.Triggers>
 	</Style>
 
-	<Style x:Key="SmallDialog" TargetType="ContentControl">
+    <Style x:Key="PregameDialog" TargetType="ContentControl">
+        <Setter Property="Template">
+            <Setter.Value>
+
+                <ControlTemplate  TargetType="{x:Type ContentControl}">
+                    <Border Background="#cc222222">
+                        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
+                            <Rectangle Margin="5,5,-5,-5" Fill="#aa000000">
+                                <Rectangle.BitmapEffect>
+                                    <BlurBitmapEffect KernelType="Box" Radius="8"/>
+                                </Rectangle.BitmapEffect>
+                            </Rectangle>
+                            <Border
+                       Background="#000"
+                       BorderBrush="#000"
+                       BorderThickness="2"
+                       CornerRadius="4">
+                                <ContentPresenter/>
+                            </Border>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="SmallDialog" TargetType="ContentControl">
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type ContentControl}">
@@ -587,19 +614,18 @@
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
-	</Style>
+	</Style>    
 
-	<Style x:Key="{x:Type TextBox}" TargetType="{x:Type TextBox}">
+    <Style x:Key="{x:Type TextBox}" TargetType="{x:Type TextBox}">
 		<Setter Property="SnapsToDevicePixels" Value="True" />
-		<Setter Property="OverridesDefaultStyle" Value="True" />
-		<Setter Property="KeyboardNavigation.TabNavigation" Value="None" />
-		<Setter Property="FocusVisualStyle" Value="{x:Null}" />
+		<Setter Property="OverridesDefaultStyle" Value="True" />		
 		<Setter Property="MinWidth" Value="120" />
-		<Setter Property="MinHeight" Value="20" />
-		<Setter Property="AllowDrop" Value="true" />
-		<Setter Property="Background" Value="#000" />
+		<Setter Property="MinHeight" Value="25" />
+        <Setter Property="Padding" Value="2,0,2,0"/>
+        <Setter Property="Background" Value="#000" />
 		<Setter Property="Foreground" Value="#fff" />
-		<Setter Property="Template">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type TextBoxBase}">
 					<Border Name="Border" CornerRadius="2" Padding="2" Background="#111" BorderBrush="#888888" BorderThickness="1">

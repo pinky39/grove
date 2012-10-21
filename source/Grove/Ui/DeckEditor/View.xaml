@@ -4,7 +4,8 @@
 		<Style BasedOn="{StaticResource ScrollBar}" TargetType="ScrollBar"></Style>
         <Style BasedOn="{StaticResource LinkButton}" TargetType="Button"></Style>
 	</UserControl.Resources>
-	<Grid>
+    <Grid>
+        <Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="*" />
@@ -21,7 +22,7 @@
 				<Image Grid.Column="0" HorizontalAlignment="Left" Height="50" Source="{grove:Media 'icon.png'}"></Image>
 				<TextBlock Grid.Column="1" Margin="30,0,0,0" FontSize="40" Foreground="#fff" Text="Deck editor" />
 
-				<TextBlock Grid.Column="3" FontSize="40" Foreground="#FFD700" Text="{Binding Deck.Name}" />
+				<TextBlock Grid.Column="3" FontSize="40" Foreground="#FFD700" Text="{Binding DeckName}" />
 
 			</Grid>
 		</Border>
@@ -255,7 +256,7 @@
 					<TextBlock Foreground="#fff" FontSize="15" Margin="0,0,0,10">Description:</TextBlock>
 					<TextBox FontSize="16" Height="100" TextWrapping="Wrap" Text="{Binding Deck.Description}" />
 					<TextBlock Foreground="#fff" FontSize="15" Margin="0,20,0,10">Rating:</TextBlock>
-					<grove:RatingControl Rating="{Binding Deck.Rating}" />
+					<grove:RatingControl Rating="{Binding Deck.Rating, Mode=TwoWay}" />
 				</StackPanel>
 			</Border>
 		</Grid>
@@ -268,16 +269,16 @@
 				<Button x:Name="Back" Style="{StaticResource LeftButton}" Grid.Column="0" FontSize="15" Foreground="#fff" Content="Return to main menu" />
 				<StackPanel Orientation="Horizontal" Grid.Column="1">
 					<Border BorderBrush="#aaa" BorderThickness="0,0,1,0" Padding="0,0,10,0" Margin="10,0,0,0">
-						<Button x:Name="NewDeck" FontSize="15" Foreground="#fff" Content="New deck" />
+						<Button x:Name="New" FontSize="15" Foreground="#fff" Content="New deck" />
 					</Border>
 					<Border BorderBrush="#aaa" BorderThickness="0,0,1,0" Padding="0,0,10,0" Margin="10,0,0,0">
-						<Button x:Name="OpenDeck" FontSize="15" Foreground="#fff" Content="Open deck" />
+						<Button x:Name="Open" FontSize="15" Foreground="#fff" Content="Open deck" />
 					</Border>
 					<Border BorderBrush="#aaa" BorderThickness="0,0,1,0" Padding="0,0,10,0" Margin="10,0,0,0">
-						<TextBlock FontSize="15" Foreground="#fff" Text="Save as" />
-					</Border>
+                        <Button x:Name="SaveAs" FontSize="15" Foreground="#fff" Content="Save as" />
+                    </Border>
 					<Border BorderBrush="#aaa" BorderThickness="0,0,0,0" Padding="0,0,10,0" Margin="10,0,0,0">
-						<TextBlock FontSize="15" Foreground="#fff" Text="Save" />
+						<Button x:Name="Save" FontSize="15" Foreground="#fff" Content="Save" />
 					</Border>
 
 				</StackPanel>
@@ -285,4 +286,6 @@
 			</Grid>
 		</Border>
 	</Grid>
+        <ContentControl x:Name="Dialog" Style="{StaticResource PregameDialog}" Visibility="{Binding Dialog, Converter={x:Static grove:Converters.NullToCollapsed}}" />
+    </Grid>
 </UserControl>

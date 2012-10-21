@@ -5,7 +5,7 @@
     <ResourceDictionary>
       <ResourceDictionary.MergedDictionaries>       
         <ResourceDictionary Source="DeckEditor.xaml" />     
-        <ResourceDictionary Source="OpenDeck.xaml"/> 
+        <ResourceDictionary Source="SaveAsDeck.xaml"/> 
       </ResourceDictionary.MergedDictionaries> 
     </ResourceDictionary>
   </Page.Resources>
@@ -13,7 +13,7 @@
     <Border Width="1608" Height="906" BorderBrush="#000" BorderThickness="1">
       <Grid>
         <ContentControl Content="{StaticResource DeckEditor}" />  
-        <!--<ContentControl Style="{StaticResource PregameDialog}" Content="{StaticResource OpenDeck}" />-->
+        <ContentControl Style="{StaticResource PregameDialog}" Content="{StaticResource SaveAsDeck}" />
       </Grid>
     </Border>
   </Viewbox>

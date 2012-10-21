@@ -331,6 +331,7 @@
     <Compile Include="Core\Ai\AttackerEvaluation.cs" />
     <Compile Include="Core\Ai\BlockerEvaluation.cs" />
     <Compile Include="Core\Ai\QuickCombat.cs" />
+    <Compile Include="Core\CardPreviews.cs" />
     <Compile Include="Core\Controllers\Human\ReturnCardsFromGraveyardToBattlefield.cs" />
     <Compile Include="Core\Controllers\Human\ReturnPermanentsToHand.cs" />
     <Compile Include="Core\Controllers\Machine\DiscardCards.cs" />
@@ -476,7 +477,6 @@
     <Compile Include="Core\Details\Cards\Counters\Counter.cs" />
     <Compile Include="Core\Details\Cards\Counters\Counters.cs" />
     <Compile Include="Core\Details\Cards\Counters\ICounterFactory.cs" />
-    <Compile Include="Core\DeckFileReader.cs" />
     <Compile Include="Core\Details\Cards\Effects\CounterTargetSpell.cs" />
     <Compile Include="Core\Details\Cards\Effects\DealDamageToActivePlayer.cs" />
     <Compile Include="Core\Details\Cards\Effects\DealExistingDamageToController.cs" />
@@ -713,6 +713,7 @@
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ui\DistributeDamage\ViewModel.cs" />
+    <Compile Include="Ui\FocusBehavior.cs" />
     <Compile Include="Ui\Graveyard\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
@@ -760,6 +761,11 @@
     <Compile Include="Ui\RatingControl.xaml.cs">
       <DependentUpon>RatingControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Ui\SaveDeckAs\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\SaveDeckAs\ViewModel.cs" />
+    <Compile Include="Ui\SelectDeck\Configuration.cs" />
     <Compile Include="Ui\SelectDeck\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
@@ -1019,6 +1025,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Ui\RatingControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\SaveDeckAs\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
