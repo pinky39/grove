@@ -29,9 +29,7 @@
                     <Button HorizontalAlignment="Right" x:Name="PlayRandom">Random game</Button>
                     <Button HorizontalAlignment="Right" x:Name="DeckEditor">Deck editor</Button>
                     <Button HorizontalAlignment="Right" x:Name="Exit">Quit</Button>
-                </StackPanel>
-
-                <TextBlock Foreground="#fff" FontSize="20" HorizontalAlignment="Center" Text="Loading..." Visibility="{Binding HasLoaded, Converter={x:Static grove:Converters.BooleanToVisibility}, ConverterParameter=true}"/>
+                </StackPanel>               
             </StackPanel>
             <TextBlock Margin="0,120,0,0" Foreground="#ccc" FontStyle="Italic" FontSize="20" HorizontalAlignment="Center">(press 'F11' to toggle fullscreen)</TextBlock>
         </StackPanel>

@@ -3,13 +3,15 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
+  using System.Threading.Tasks;
+  using Caliburn.Micro;
   using Core;
   using Core.Details.Mana;
   using Infrastructure;
 
   public class Library
   {
-    private readonly List<Card> _cards = new List<Card>();
+    private readonly List<Card> _cards = new List<Card>();    
 
     public Library(IEnumerable<Card> cards)
     {
@@ -48,44 +50,41 @@
     [Updates("FilteredResult")]
     public virtual int MaximumCost { get; set; }
 
+    public IEnumerable<Card> FilteredResult { get { return LoadView(); } }
 
-    public IEnumerable<Card> FilteredResult
-    {
-      get
-      {
-        IEnumerable<Card> result = _cards;
-
-        if (!string.IsNullOrEmpty(Name))
+    private IEnumerable<Card> LoadView()
+    {      
+      var view = new BindableCollection<Card>();      
+      
+      Task.Factory.StartNew(() =>
         {
-          result = result.Where(x => x.Name.StartsWith(Name, StringComparison.InvariantCultureIgnoreCase));
-        }
+          foreach (var card in _cards)
+          {
+            if (!string.IsNullOrEmpty(Name))
+            {
+              if (!card.Name.StartsWith(Name, StringComparison.InvariantCultureIgnoreCase))
+              {
+                continue;
+              }
+            }
 
-        return result.Where(x =>
-          {                        
-            if (x.ConvertedCost < MinimumCost || x.ConvertedCost > MaximumCost)
-              return false;            
+            if (card.ConvertedCost < MinimumCost || card.ConvertedCost > MaximumCost)
+              continue;
 
-            if (White && x.HasColors(ManaColors.White))
-              return true;
+            if (
+              (White && card.HasColors(ManaColors.White)) ||
+                (Blue && card.HasColors(ManaColors.Blue)) ||
+                  (Red && card.HasColors(ManaColors.Red)) ||
+                    (Green && card.HasColors(ManaColors.Green)) ||
+                      (card.HasColors(ManaColors.Colorless) || card.ManaCost == null)
+              )
+            {
+              view.Add(card);
+            }
+          }
+        });
 
-            if (Blue && x.HasColors(ManaColors.Blue))
-              return true;
-
-            if (Black && x.HasColors(ManaColors.Black))
-              return true;
-
-            if (Red && x.HasColors(ManaColors.Red))
-              return true;
-
-            if (Green && x.HasColors(ManaColors.Green))
-              return true;
-
-            if (x.HasColors(ManaColors.Colorless) || x.ManaCost == null)
-              return true;
-            
-            return false;
-          });
-      }
+      return view;
     }
   }
 }

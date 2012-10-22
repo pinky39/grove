@@ -1,10 +1,11 @@
-MAGICGROVE v 1.6: Card List
+MAGICGROVE v 1.7: Card List
 =====================================
 The following cards can be used to construct new decks:
 
 Absolute Grace
 Absolute Law
 Abyssal Horror
+Academy Researchers
 Acidic Slime
 Acidic Soil
 Acridian
@@ -16,40 +17,79 @@ Angelic Wall
 Annul
 Antagonism
 Arc Lightning
+Argothian Elder
 Argothian Enchantress
 Argothian Swine
 Argothian Wurm
+Attunement
+Back to Basics
 Baneslayer Angel
+Barrin, Master Wizard
 Barrin's Codex
 Basilisk Collar
 Beacon of Destruction
+Bedlam
 Befoul
+Bereavement
 Birds of Paradise
 Black Sun's Zenith
 Blanchwood Armor
+Blanchwood Treefolk
+Blasted Landscape
 Blaze
 Blood Vassal
+Bog Raiders
+Brand
+Bravado
+Breach
 Brilliant Halo
 Bull Hippo
+Bulvark
 Burst Lightning
+Cackling Fiend
+Carrion Beetles
 Catalog
+Catastrophe
+Cathodion
+Cave Tiger
+Child of Gaea
+Chimeric Staff
+Citanul Centaurs
+Citanul Hierophants
+Claws of Gix
 Clear
+Cloak of Mists
 Confiscate
+Congregate
+Copper Gnomes
 Copperline Gorge
+Coral Merfolk
 Corrupt
 Counterspell
 Cradle Guard
+Crater Hellion
+Crazed Skirge
 Creeping Tar Pit
+Crosswinds
 Cruel Edict
+Crystal Chimes
+Curfew
+Dark Hatchling
+Dark Ritual
+Darkest Hour
 Darkslick Drake
 Darksteel Gargoyle
 Day of Judgment
 Deathless Angel
 Despondency
+Destructive Urge
 Diabolic Servitude
 Disciple of Grace
 Disciple of Law
+Discordant Dirge
 Disenchant
+Disorder
+Disruptive Student
 Divination
 Doom blade
 Dragon Blood

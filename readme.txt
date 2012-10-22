@@ -1,4 +1,4 @@
-MAGICGROVE v 1.6
+MAGICGROVE v 1.7
 =====================================
 Magicgrove is a 2 player fantasy card game. You and computer are each given a deck of cards which you use as best as you can to win the game. The most common way to win is to reduce your opponent life to 0.
 
@@ -9,8 +9,7 @@ Unzip to a folder of your choice. Run grove.exe to play the game.
 
 2. Gameplay
 =====================================
-Currently only games with preconstructed decks can be played. You can construct your own decks as long as you use only the cards listed in cards.txt file. For a deck to be visible to the game, it must reside inside .\media\deck folder and the filename must have .dec extension.
-
+Currently only games with preconstructed decks can be played.
 Tapping lands is not needed in most of the cases, just click the spell and the mana will be payed automaticly. If you want to have absolute control, you can tap the lands manualy though.
 
 Shortcuts
@@ -18,6 +17,7 @@ Shortcuts
 Spacebar 		- moves to next step (passes priority)
 Alt+q 			- diplays quit the game screen.
 Ctrl+d 			- generates a test scenario.
+F11				- toggle between window and fullscreen mode
 
 3. Themes
 =====================================
