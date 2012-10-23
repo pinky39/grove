@@ -23,7 +23,8 @@
           C.TriggeredAbility(
             "At the beginning of your upkeep, Bulwark deals X damage to target opponent, where X is the number of cards in your hand minus the number of cards in that player's hand.",
             C.Trigger<AtBegginingOfStep>((t, _) => { t.Step = Step.Upkeep; }),
-            C.Effect<DealDamageToOpponentEqualToCardDifference>()
+            C.Effect<DealDamageToOpponentEqualToCardDifference>(),
+            triggerOnlyIfOwningCardIsInPlay: true
             )
         );
     }

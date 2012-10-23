@@ -56,6 +56,9 @@
     {
       var resource = _sources.FirstOrDefault(x => x.Resource == manaSource.Resource);
       resource.Sources.Remove(manaSource);
+
+      // should remove resource if last source?
+      // todo check hierophants bug
     }
 
     public void Consume(IManaAmount amount, ManaUsage usage, IManaSource sourceToAvoid)
