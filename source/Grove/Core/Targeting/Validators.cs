@@ -23,12 +23,15 @@
         {
           var isValid = p.Target.IsEffect() && p.Target.Effect().CanBeCountered &&
             p.Target.Effect().Source is Card;
-
+                    
+          if (!isValid)
+            return false;
+          
           if (types.Length == 0)
-            return isValid;
+            return true;
 
           var owner = p.Target.Effect().Source.OwningCard;
-          return isValid && types.Any(owner.Is);
+          return types.Any(owner.Is);
         };
     }
 

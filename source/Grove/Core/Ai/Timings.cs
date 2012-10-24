@@ -415,7 +415,7 @@
         };
     }
 
-    public static TimingDelegate OpponentControlsPermanent(Func<Card, bool> filter)
+    public static TimingDelegate OpponentHasPermanent(Func<Card, bool> filter)
     {
       return p => p.Players.Permanents().Any(x => filter(x) && x.Controller == p.Opponent);
     }

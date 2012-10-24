@@ -23,6 +23,27 @@
             .Verify(() => Equal(21, P2.Life))
           );
       }
+
+      [Fact]
+      public void SacLandWhenLifeIsLow()
+      {
+        var shock = C("Shock");
+        
+        Hand(P1, shock);
+        Battlefield(P1, "Mountain");
+        
+        Battlefield(P2, "Claws of Gix", "Mountain");        
+        P2.Life = 2;
+        
+        Exec(
+          At(Step.FirstMain)
+            .Cast(shock, target: P2)
+            .Verify(() =>
+              {
+                Equal(1, P2.Life);
+              })
+        );
+      }
     }
   }
 }

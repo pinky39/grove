@@ -289,6 +289,15 @@
 
         RunGame(2);
       }
+      
+      [Fact]
+      public void AnnulValidatorBug()
+      {
+        Hand(P2, "Copper Gnomes", "Annul");
+        Battlefield(P2, "Island", "Forest", "Forest", "Island");        
+
+        RunGame(2);
+      }      
     }
   }
 }

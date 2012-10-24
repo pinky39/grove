@@ -6,7 +6,7 @@
   using Core.Details.Cards.Effects;
   using Core.Dsl;
   using Core.Targeting;
-
+  
   public class Counterspell : CardsSource
   {
     public override IEnumerable<ICardFactory> GetCards()

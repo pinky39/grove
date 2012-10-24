@@ -19,7 +19,7 @@
         .FlavorText("'By this glyph I affirm your role.'{EOL}—Urza, to Karn")
         .Timing(All(
           Timings.EndOfTurn(), 
-          Timings.OpponentControlsPermanent(card => card.Owner != card.Controller)))
+          Timings.OpponentHasPermanent(card => card.Owner != card.Controller)))
         .Effect<GainControlOfOwnedPermanents>();
     }
   }

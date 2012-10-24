@@ -2,11 +2,29 @@
 {
   using System.Linq;
   using Core;
+  using Core.Zones;
   using Infrastructure;
   using Xunit;
 
   public class Disorder
   {
+    public class Ai : AiScenario
+    {
+      [Fact]
+      public void DoNotCastDisorderWhenNoEffect()
+      {
+        var disorder = C("Disorder");
+        
+        Hand(P1, disorder);
+        Battlefield(P1, "Mountain", "Mountain");
+        Battlefield(P2, "Grizzly Bears", "Grizzly Bears");
+
+        RunGame(2);
+
+        Equal(Zone.Hand, C(disorder).Zone);
+      }
+    }
+    
     public class Predefined : PredefinedScenario
     {
       [Fact]

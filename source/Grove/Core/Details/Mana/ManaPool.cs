@@ -30,7 +30,7 @@
     public int Priority { get { return 0; } }
     object IManaSource.Resource { get { return this; } }
 
-    [Updates("WhiteCount", "BlueCount", "BlackCount", "RedCount", "GreenCount", "MultiCount")]
+    [Updates("WhiteCount", "BlueCount", "BlackCount", "RedCount", "GreenCount", "MultiCount", "ColorlessCount")]
     public virtual void Consume(IManaAmount amount, ManaUsage usage)
     {
       // since the check will be made if pool contains
@@ -72,19 +72,19 @@
       return _unrestricted.Count(selector) + _restrictedAbilities.Count(selector);
     }
 
-    [Updates("WhiteCount", "BlueCount", "BlackCount", "RedCount", "GreenCount", "MultiCount")]
+    [Updates("WhiteCount", "BlueCount", "BlackCount", "RedCount", "GreenCount", "MultiCount", "ColorlessCount")]
     public virtual void Add(IManaAmount amount)
     {
       _unrestricted.Add(amount);
     }
 
-    [Updates("WhiteCount", "BlueCount", "BlackCount", "RedCount", "GreenCount", "MultiCount")]
+    [Updates("WhiteCount", "BlueCount", "BlackCount", "RedCount", "GreenCount", "MultiCount", "ColorlessCount")]
     public virtual void AddAbilities(IManaAmount amount)
     {
       _restrictedAbilities.Add(amount);
     }
 
-    [Updates("WhiteCount", "BlueCount", "BlackCount", "RedCount", "GreenCount", "MultiCount")]
+    [Updates("WhiteCount", "BlueCount", "BlackCount", "RedCount", "GreenCount", "MultiCount", "ColorlessCount")]
     public virtual void Empty()
     {
       _unrestricted.Clear();

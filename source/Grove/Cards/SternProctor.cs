@@ -26,7 +26,7 @@
         .Timing(
           All(
             Timings.FirstMain(), 
-            Timings.OpponentControlsPermanent(card => card.Is().Artifact || card.Is().Enchantment)))
+            Timings.OpponentHasPermanent(card => card.Is().Artifact || card.Is().Enchantment)))
         .Abilities(
           C.TriggeredAbility(
             "When Stern Proctor enters the battlefield, return target artifact or enchantment to its owner's hand.",
