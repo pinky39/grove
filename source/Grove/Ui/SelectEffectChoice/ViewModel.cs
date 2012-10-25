@@ -21,7 +21,7 @@
           {
             if (token.StartsWith("#"))
             {
-              var index = int.Parse(token.Substring(1));
+              var index = int.Parse(token.Substring(1, 1));
               return _choices[index];
             }
 
@@ -36,7 +36,7 @@
     public void Done()
     {
       this.Close();
-    }   
+    }
 
     public interface IFactory
     {

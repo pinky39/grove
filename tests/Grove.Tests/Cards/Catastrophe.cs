@@ -6,7 +6,7 @@
 
   public class Catastrophe
   {
-    public class Ai :AiScenario
+    public class Ai : AiScenario
     {
       [Fact]
       public void DestroyCreatures()
