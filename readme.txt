@@ -14,10 +14,10 @@ Tapping lands is not needed in most of the cases, just click the spell and the m
 
 Shortcuts
 --------------------------------------------------------------------------
-Spacebar 		- moves to next step (passes priority)
-Alt+q 			- diplays quit the game screen.
-Ctrl+d 			- generates a test scenario.
-F11				- toggle between window and fullscreen mode
+Spacebar  - moves to next step (passes priority)
+Alt+q        - diplays quit the game screen.
+Ctrl+d       - generates a test scenario.
+F11          - toggle between window and fullscreen mode
 
 3. Themes
 =====================================

@@ -463,8 +463,8 @@
 
           var availableMana = p.Controller.GetConvertedMana(ManaUsage.Any);
 
-          return p.Controller.Hand.Any(x => x.ManaCost.Converted > availableMana &&
-            x.ManaCost.Converted <= availableMana + amount);
+          return p.Controller.Hand.Any(x => x.ConvertedCost > availableMana &&
+            x.ConvertedCost <= availableMana + amount);
         };
     }
 

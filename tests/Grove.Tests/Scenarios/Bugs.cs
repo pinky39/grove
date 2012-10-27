@@ -320,6 +320,17 @@
 
         RunGame(2);
       }
+
+      [Fact]
+      public void BugDarkRitualCheckSpellsWithNoCastingCost()
+      {
+        Hand(P1, "Argothian Elder", "Copper Gnomes", "Dark Hatchling", "Forest", "Island", "Dark Ritual", "Disorder");
+        Hand(P2, "Congregate", "Dark Ritual", "Island", "Dark Ritual", "Dark Ritual", "Cloak of Mists", "Crater Hellion");
+        Battlefield(P1, "Creeping Tar Pit");
+        Battlefield(P2, "Creeping Tar Pit");    
+
+        RunGame(2);
+      }
       
     }
   }
