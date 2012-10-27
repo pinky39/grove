@@ -19,7 +19,7 @@
 
     public override void ProcessResults()
     {
-      if (Result.Targets == null)
+      if (!Result.HasTargets)
         return;
 
       var effect = Factory.CreateEffect(

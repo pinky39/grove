@@ -9,7 +9,26 @@
     public class Predefined : PredefinedScenario
     {
       [Fact]
-      public void Deals2Damage()
+      public void DealsDamageToBoth()
+      {
+        var antagonism = C("Antagonism");        
+        
+        Hand(P1, antagonism);
+
+        Exec(
+          At(Step.FirstMain)
+            .Cast(antagonism),                      
+          At(Step.FirstMain, turn: 4)
+            .Verify(() =>
+              {
+                Equal(16, P1.Life);
+                Equal(18, P2.Life);
+              })
+          );
+      }
+      
+      [Fact]
+      public void DealsNoDamageToYouAfterShock()
       {
         var antagonism = C("Antagonism");
         var shock = C("Shock");

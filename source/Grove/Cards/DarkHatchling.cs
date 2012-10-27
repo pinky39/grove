@@ -30,9 +30,10 @@
           C.TriggeredAbility(
             "When Dark Hatchling enters the battlefield, destroy target nonblack creature. It can't be regenerated.",
             C.Trigger<OnZoneChange>((t, _) => t.To = Zone.Battlefield),
-            C.Effect<DestroyTargetPermanent>(e => e.AllowRegenerate = false),
+            C.Effect<DestroyTargetPermanents>(e => e.AllowRegenerate = false),
             C.Validator(Validators.Creature((creature) => !creature.HasColors(ManaColors.Black))),
-            selectorAi: TargetSelectorAi.Destroy()));
+            selectorAi: TargetSelectorAi.Destroy(), 
+            abilityCategory: EffectCategories.Destruction));
     }
   }
 }

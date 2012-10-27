@@ -21,7 +21,7 @@
         .Cycling("{2}")
         .Timing(Timings.InstantRemovalTarget())
         .Category(EffectCategories.Destruction)
-        .Effect<DestroyTargetPermanent>()
+        .Effect<DestroyTargetPermanents>()
         .Targets(
           selectorAi: TargetSelectorAi.Destroy(),
           effectValidator:

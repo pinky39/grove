@@ -18,7 +18,7 @@
         .Type("Sorcery")
         .Text("Destroy target land or nonblack creature. It can't be regenerated.")
         .FlavorText("'The land putrefied at its touch, turned into an oily bile in seconds.'{EOL}—Radiant, archangel")
-        .Effect<DestroyTargetPermanent>(p => p.AllowRegenerate = false)
+        .Effect<DestroyTargetPermanents>(p => p.AllowRegenerate = false)
         .Timing(Timings.FirstMain())
         .Category(EffectCategories.Destruction)
         .Targets(

@@ -680,7 +680,7 @@
     <Compile Include="Core\Details\Cards\Effects\ApplyModifiersToTargets.cs" />
     <Compile Include="Core\Details\Cards\Effects\CreateTokens.cs" />
     <Compile Include="Core\Details\Cards\Effects\DealDamageToTargets.cs" />
-    <Compile Include="Core\Details\Cards\Effects\DestroyTargetPermanent.cs" />
+    <Compile Include="Core\Details\Cards\Effects\DestroyTargetPermanents.cs" />
     <Compile Include="Core\Details\Cards\Effects\Effect.cs" />
     <Compile Include="Core\Details\Cards\Effects\Attach.cs" />
     <Compile Include="Core\Details\Cards\Effects\OpponentDiscardsCards.cs" />

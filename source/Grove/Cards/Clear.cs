@@ -17,7 +17,7 @@
         .ManaCost("{1}{W}")
         .Type("Instant")
         .Text("Destroy target enchantment.{EOL}Cycling {2}({2}, Discard this card: Draw a card.)")
-        .Effect<DestroyTargetPermanent>()
+        .Effect<DestroyTargetPermanents>()
         .Category(EffectCategories.Destruction)
         .Timing(Timings.InstantRemovalTarget())
         .Cycling("{2}")

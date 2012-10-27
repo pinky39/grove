@@ -17,7 +17,7 @@
         .Type("Instant")
         .Text("Destroy target artifact or enchantment.")
         .FlavorText("'Let Phyrexia breed evil in the darkness; my holy light will reveal its taint.{EOL}—Serra")
-        .Effect<DestroyTargetPermanent>()
+        .Effect<DestroyTargetPermanents>()
         .Category(EffectCategories.Destruction)
         .Timing(Timings.InstantRemovalTarget())
         .Targets(

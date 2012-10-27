@@ -2,13 +2,16 @@
 {
   using Targeting;
 
-  public class DestroyTargetPermanent : Effect
+  public class DestroyTargetPermanents : Effect
   {
     public bool AllowRegenerate = true;
 
     protected override void ResolveEffect()
     {
-      Target().Card().Destroy(AllowRegenerate);
+      foreach (var target in ValidTargets)
+      {
+        target.Card().Destroy(AllowRegenerate);  
+      }            
     }    
   }
 }
