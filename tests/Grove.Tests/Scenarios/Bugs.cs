@@ -291,13 +291,26 @@
       }
       
       [Fact]
-      public void AnnulValidatorBug()
+      public void BugAnnulValidator()
       {
         Hand(P2, "Copper Gnomes", "Annul");
         Battlefield(P2, "Island", "Forest", "Forest", "Island");        
 
         RunGame(2);
-      }      
+      }    
+      
+      [Fact]
+      public void BugCitanulHierophantsManaSourcesAddRemove()
+      {        
+        Hand(P1, "Bulwark", "Congregate", "Disorder", "Cloak of Mists", "Creeping Tar Pit");
+        Hand(P2, "Plains");
+        Battlefield(P1, "Creeping Tar Pit", "Island", "Island", "Drowned Catacomb", "Creeping Tar Pit", "Mountain", "Back to Basics", "Drowned Catacomb", "Plains", "Forest", "Citanul Hierophants");
+        Battlefield(P2, "Razorverge Thicket", "Forest", "Drowned Catacomb", "Argothian Enchantress",  "Island", "Chimeric Staff", "Drowned Catacomb", "Drowned Catacomb", "Island", "Swamp", "Plains", "Swamp", "Forest");        
+
+        RunGame(2);
+      }    
+
+      
     }
   }
 }

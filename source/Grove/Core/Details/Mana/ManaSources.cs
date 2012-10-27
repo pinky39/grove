@@ -7,18 +7,20 @@
   [Copyable]
   public class ManaSources
   {
+    private readonly ChangeTracker _changeTracker;
     private readonly TrackableList<SourcesWithSameResource> _sources;
 
     public ManaSources() {}
 
     public ManaSources(IEnumerable<IManaSource> manaSources, ChangeTracker changeTracker)
     {
+      _changeTracker = changeTracker;
       var sourcesWithSameResource = manaSources
         .GroupBy(x => x.Resource)
         .Select(x => new SourcesWithSameResource
           {
             Resource = x.Key,
-            Sources = x.OrderBy(y => y.Priority).ToList()
+            Sources = new TrackableList<IManaSource>(x.OrderBy(y => y.Priority), changeTracker)
           }).
         ToList();
 
@@ -40,15 +42,14 @@
 
       if (existing != null)
       {
-        existing.Sources.Add(manaSource);
-        existing.Sources.Sort((s1, s2) => s1.Priority.CompareTo(s2.Priority));
+        existing.Sources.Add(manaSource);        
         return;
       }
 
       _sources.Add(new SourcesWithSameResource
         {
           Resource = manaSource.Resource,
-          Sources = manaSource.ToEnumerable().ToList()
+          Sources = new TrackableList<IManaSource>(manaSource.ToEnumerable(), _changeTracker) 
         });
     }
 
@@ -159,7 +160,7 @@
     public class SourcesWithSameResource
     {
       public object Resource { get; set; }
-      public List<IManaSource> Sources { get; set; }
+      public TrackableList<IManaSource> Sources { get; set; }
     }
   }
 }
