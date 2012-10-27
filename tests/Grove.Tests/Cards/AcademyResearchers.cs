@@ -1,5 +1,6 @@
 ﻿namespace Grove.Tests.Cards
 {
+  using System.Linq;
   using Infrastructure;
   using Xunit;
 
@@ -19,6 +20,21 @@
         RunGame(1);
 
         Equal(4, C(researchers).Power);
+      }
+
+      [Fact]
+      public void AttachDestructiveUrge()
+      {
+        var researchers = C("Academy Researchers");
+        var urge = C("Destructive Urge");
+
+        Hand(P1, researchers, urge);
+        Battlefield(P1, "Island", "Island", "Island");
+        Battlefield(P2, "Island");
+
+        RunGame(3);
+
+        Equal(0, P2.Battlefield.Lands.Count());
       }
 
       [Fact]

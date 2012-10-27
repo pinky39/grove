@@ -535,6 +535,7 @@
         throw new InvalidOperationException("Card is is not an enchantment.");
 
       effect.Resolve();
+      effect.FinishResolve();
     }
 
     public void EquipWithoutPayingTheCost(Card equipment)
