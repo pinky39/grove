@@ -6,7 +6,7 @@
   using Xunit;
 
   public class CitanulHierophants
-  {
+  {    
     public class Predefined : PredefinedScenario
     {
       [Fact]
@@ -45,6 +45,8 @@
             .Verify(() => { False(P2.HasMana(2)); })
           );
       }
+
+     
     }
   }
 }

@@ -51,7 +51,13 @@
 
       if (message.ToBattlefield && CardFilter(message.Card, _source))
       {
-        AddModifier(message.Card);
+        var modifier = FindModifier(message.Card);
+        
+        if (modifier == null)
+        {
+          AddModifier(message.Card);
+        }
+
         return;
       }
 

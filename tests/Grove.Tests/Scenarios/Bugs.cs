@@ -310,6 +310,16 @@
         RunGame(2);
       }    
 
+      [Fact]
+      public void BugContiniousEffectFromCitanulAppliedTwiceToBarrin()
+      {
+        Hand(P1, "Annul", "Back to Basics", "Crater Hellion", "Argothian Elder", "Antagonism", "Cave Tiger", "Bedlam");
+        Hand(P2, "Discordant Dirge", "Annul", "Barrin, Master Wizard", "Crater Hellion");
+        Battlefield(P1, "Creeping Tar Pit", "Mountain", "Rootbound Crag", "Swamp", "Swamp", "Darkest Hour", "Creeping Tar Pit");
+        Battlefield(P2, "Razorverge Thicket", "Creeping Tar Pit", "Mountain", "Disruptive Student", "Island", "Back to Basics", "Crystal Chimes", "Swamp", "Phyrexian Ghoul", "Forest", "Citanul Hierophants", "Island");     
+
+        RunGame(2);
+      }
       
     }
   }
