@@ -29,7 +29,7 @@
             C.Effect<GainLife>(e => e.Amount = 1),
             costValidator:
               C.Validator(Validators.Permanent(controller: Controller.SpellOwner),
-                text: "Select a permanent to sacrifice."),
+                text: "Select a permanent to sacrifice.", mustBeTargetable: false),
             selectorAi: TargetSelectorAi.CostSacrificeGainLife()
             )
         );
