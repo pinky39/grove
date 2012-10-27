@@ -74,6 +74,7 @@
             if (
               (White && card.HasColors(ManaColors.White)) ||
                 (Blue && card.HasColors(ManaColors.Blue)) ||
+                (Black && card.HasColors(ManaColors.Black)) ||
                   (Red && card.HasColors(ManaColors.Red)) ||
                     (Green && card.HasColors(ManaColors.Green)) ||
                       (card.HasColors(ManaColors.Colorless) || card.ManaCost == null)
