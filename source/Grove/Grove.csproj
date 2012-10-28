@@ -183,8 +183,11 @@
     <Compile Include="Cards\Disenchant.cs" />
     <Compile Include="Cards\Disorder.cs" />
     <Compile Include="Cards\DisruptiveStudent.cs" />
+    <Compile Include="Cards\Douse.cs" />
     <Compile Include="Cards\DragonBlood.cs" />
+    <Compile Include="Cards\DriftingDjinn.cs" />
     <Compile Include="Cards\DriftingMeadow.cs" />
+    <Compile Include="Cards\Dromosaur.cs" />
     <Compile Include="Cards\DrownedCatacomb.cs" />
     <Compile Include="Cards\DarkslickDrake.cs" />
     <Compile Include="Cards\DarksteelGargoyle.cs" />
@@ -192,6 +195,9 @@
     <Compile Include="Cards\DoomBlade.cs" />
     <Compile Include="Cards\DranaKalastriaBloodchief.cs" />
     <Compile Include="Cards\Dread.cs" />
+    <Compile Include="Cards\Duress.cs" />
+    <Compile Include="Cards\EasternPaladin.cs" />
+    <Compile Include="Cards\Electryte.cs" />
     <Compile Include="Cards\EleshNornGrandCenobite.cs" />
     <Compile Include="Cards\ElvishWarrior.cs" />
     <Compile Include="Cards\Endoskeleton.cs" />
@@ -480,7 +486,7 @@
     <Compile Include="Core\Details\Cards\Effects\CounterTargetSpell.cs" />
     <Compile Include="Core\Details\Cards\Effects\DealDamageToActivePlayer.cs" />
     <Compile Include="Core\Details\Cards\Effects\DealExistingDamageToController.cs" />
-    <Compile Include="Core\Details\Cards\Effects\DestroyPermanents.cs" />
+    <Compile Include="Core\Details\Cards\Effects\DestroyAllPermanents.cs" />
     <Compile Include="Core\Details\Cards\Effects\ExileTargets.cs" />
     <Compile Include="Core\Details\Cards\Effects\GainLifeEqualToTargetPower.cs" />
     <Compile Include="Core\Details\Cards\Effects\MillOpponent.cs" />

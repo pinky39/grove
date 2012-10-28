@@ -18,7 +18,7 @@
         .Timing(Timings.FirstMain())
         .Cycling("{2}")     
         .Category(EffectCategories.Destruction)
-        .Effect<DestroyPermanents>(e => e.Filter = (card) => card.Is().Enchantment);
+        .Effect<DestroyAllPermanents>(e => e.Filter = (card) => card.Is().Enchantment);
     }
   }
 }

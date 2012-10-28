@@ -77,14 +77,14 @@ o Discordant Dirge
 o Disenchant
 o Disorder
 o Disruptive Student
-Douse
-Dragon Blood
-Drifting Djinn
-Drifting Meadow
-Dromosaur
-Duress
-Eastern Paladin
-Electryte
+o Douse
+o Dragon Blood
+o Drifting Djinn
+o Drifting Meadow
+o Dromosaur
+o Duress
+o Eastern Paladin
+o Electryte
 Elite Archers
 Elvish Herder
 Elvish Lyrist

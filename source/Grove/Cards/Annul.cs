@@ -22,7 +22,7 @@
         .Effect<CounterTargetSpell>()
         .Targets(
           selectorAi: TargetSelectorAi.CounterSpell(),
-          effectValidator: C.Validator(Validators.Counterspell("artifact", "enchantment")));
+          effectValidator: C.Validator(Validators.Counterspell(card => card.Is().Artifact || card.Is().Enchantment)));
     }
   }
 }

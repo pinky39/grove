@@ -106,6 +106,7 @@
     <Compile Include="Cards\Breach.cs" />
     <Compile Include="Cards\CarrionBeetles.cs" />
     <Compile Include="Cards\Catastrophe.cs" />
+    <Compile Include="Cards\Cathodion.cs" />
     <Compile Include="Cards\CaveTiger.cs" />
     <Compile Include="Cards\CitanulHierophants.cs" />
     <Compile Include="Cards\ClawsOfGix.cs" />
@@ -125,8 +126,12 @@
     <Compile Include="Cards\DiscipleOfGrace.cs" />
     <Compile Include="Cards\DiscordantDirge.cs" />
     <Compile Include="Cards\Disorder.cs" />
+    <Compile Include="Cards\Douse.cs" />
     <Compile Include="Cards\DragonBlood.cs" />
     <Compile Include="Cards\Dread.cs" />
+    <Compile Include="Cards\Duress.cs" />
+    <Compile Include="Cards\EasternPaladin.cs" />
+    <Compile Include="Cards\Electryte.cs" />
     <Compile Include="Cards\EleshNornGrandCenobite.cs" />
     <Compile Include="Cards\Endoskeleton.cs" />
     <Compile Include="Cards\Evacuation.cs" />

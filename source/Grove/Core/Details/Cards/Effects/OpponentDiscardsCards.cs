@@ -1,10 +1,13 @@
 ﻿namespace Grove.Core.Details.Cards.Effects
 {
+  using System;
+
   public class OpponentDiscardsCards : Effect
   {
     public int RandomCount { get; set; }
     public int SelectedCount { get; set; }
     public bool YouChooseDiscardedCards { get; set; }
+    public Func<Card, bool> Filter = delegate { return true; };
 
     protected override void ResolveEffect()
     {      
@@ -19,6 +22,7 @@
           init: p =>
             {
               p.Count = SelectedCount;
+              p.Filter = Filter;
               p.DiscardOpponentsCards = true;
             });
 
@@ -35,7 +39,10 @@
 
       Decisions.Enqueue<Controllers.DiscardCards>(
         controller: opponent,
-        init: p => { p.Count = SelectedCount; });
+        init: p => { 
+          p.Count = SelectedCount;
+          p.Filter = Filter;
+        });
     }
   }
 }

@@ -3,6 +3,7 @@
   using System;
   using System.Linq;
   using Ai;
+  using Details.Cards.Effects;
   using Zones;
 
   public static class Validators
@@ -17,22 +18,14 @@
       return p => p.Target.IsPlayer() || (p.Target.IsPermanent() && p.Target.Card().Is().Creature);
     }
 
-    public static TargetValidatorDelegate Counterspell(params string[] types)
+    public static TargetValidatorDelegate Counterspell(Func<Card, bool> filter = null)
     {
-      return p =>
-        {
-          var isValid = p.Target.IsEffect() && p.Target.Effect().CanBeCountered &&
-            p.Target.Effect().Source is Card;
-                    
-          if (!isValid)
-            return false;
-          
-          if (types.Length == 0)
-            return true;
-
-          var owner = p.Target.Effect().Source.OwningCard;
-          return types.Any(owner.Is);
-        };
+      filter = filter ?? delegate { return true; };
+      
+      return p => p.Target.IsEffect() && 
+        p.Target.Effect().CanBeCountered &&
+          p.Target.Effect().Source is Card && 
+            filter(p.Target.Effect().Source.OwningCard);
     }
 
     public static TargetValidatorDelegate Permanent(Func<Card, bool> filter = null,

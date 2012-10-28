@@ -18,7 +18,7 @@
         minTargetCount: Count,
         maxTargetCount: Count,
         text: String.Format("Select {0} card(s) to discard", Count),
-        isValid: target => target.Zone == Zone.Hand && target.Controller == CardsOwner
+        isValid: card => card.Zone == Zone.Hand && card.Controller == CardsOwner && Filter(card)
         ), canCancel: false);
 
 

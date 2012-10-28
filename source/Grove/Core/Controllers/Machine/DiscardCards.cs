@@ -7,7 +7,9 @@
   {
     protected override void ExecuteQuery()
     {            
-      var cardsToDiscard = CardsOwner.Hand.Select(
+      var cardsToDiscard = CardsOwner.Hand
+      .Where(Filter)
+      .Select(
         card =>
           new
             {

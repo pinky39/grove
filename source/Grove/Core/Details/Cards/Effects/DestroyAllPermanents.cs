@@ -2,7 +2,7 @@
 {
   using System;
 
-  public class DestroyPermanents : Effect
+  public class DestroyAllPermanents : Effect
   {
     public Func<Card, bool> Filter;
 

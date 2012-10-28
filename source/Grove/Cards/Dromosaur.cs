@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -9,29 +8,28 @@
   using Core.Details.Cards.Triggers;
   using Core.Dsl;
 
-  public class CaveTiger : CardsSource
+  public class Dromosaur : CardsSource
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
       yield return C.Card
-        .Named("Cave Tiger")
-        .ManaCost("{2}{G}")
-        .Type("Creature Cat")
-        .Text("Whenever Cave Tiger becomes blocked by a creature, Cave Tiger gets +1/+1 until end of turn.")
-        .FlavorText(
-          "The druids found a haven in the cool limestone tunnels beneath Argoth. The invaders found only tigers.")
+        .Named("Dromosaur")
+        .ManaCost("{2}{R}")
+        .Type("Creature Lizard")
+        .Text("Whenever Dromosaur blocks or becomes blocked, it gets +2/-2 until end of turn.")
+        .FlavorText("They say dromosaurs are frightened of dogs, even little ones. There are no dogs in Shiv. Not even little ones.")
         .Power(2)
-        .Toughness(2)
+        .Toughness(3)
         .Timing(Timings.Creatures())
         .Abilities(
           C.TriggeredAbility(
-            "Whenever Cave Tiger becomes blocked by a creature, Cave Tiger gets +1/+1 until end of turn.",
+            "Whenever Dromosaur blocks or becomes blocked, it gets +2/-2 until end of turn.",
             C.Trigger<GetsBlocked>(),
             C.Effect<ApplyModifiersToSelf>(p => p.Effect.Modifiers(
               p.Builder.Modifier<AddPowerAndToughness>(m =>
                 {
-                  m.Power = 1;
-                  m.Toughness = 1;
+                  m.Power = 2;
+                  m.Toughness = -2;
                 }, untilEndOfTurn: true))), triggerOnlyIfOwningCardIsInPlay: true)
         );
     }
