@@ -9,11 +9,13 @@
   public class PayManaOrSacrifice : Effect
   {
     public IManaAmount Amount { get; set; }
+    
     public string Message = "Pay {0}?";
+     
 
     protected override void ResolveEffect()
     {
-      if (Controller.HasMana(Amount, ManaUsage.Any) == false)
+      if (Controller.HasMana(Amount) == false)
       {
         Source.OwningCard.Sacrifice();
         return;

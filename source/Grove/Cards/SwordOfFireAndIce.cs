@@ -1,5 +1,6 @@
 ﻿namespace Grove.Cards
 {
+  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -11,7 +12,7 @@
   using Core.Dsl;
   using Core.Targeting;
 
-  public class SwordOfFireAndIce : CardsSource
+ public class SwordOfFireAndIce : CardsSource
   {
     public override IEnumerable<ICardFactory> GetCards()
     {

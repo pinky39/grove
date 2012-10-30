@@ -133,6 +133,10 @@
     <Compile Include="Cards\EasternPaladin.cs" />
     <Compile Include="Cards\Electryte.cs" />
     <Compile Include="Cards\EleshNornGrandCenobite.cs" />
+    <Compile Include="Cards\EliteArchers.cs" />
+    <Compile Include="Cards\ElvishHerder.cs" />
+    <Compile Include="Cards\ElvishLyrist.cs" />
+    <Compile Include="Cards\EndlessWurm.cs" />
     <Compile Include="Cards\Endoskeleton.cs" />
     <Compile Include="Cards\Evacuation.cs" />
     <Compile Include="Cards\Exhume.cs" />

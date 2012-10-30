@@ -199,7 +199,11 @@
     <Compile Include="Cards\EasternPaladin.cs" />
     <Compile Include="Cards\Electryte.cs" />
     <Compile Include="Cards\EleshNornGrandCenobite.cs" />
+    <Compile Include="Cards\EliteArchers.cs" />
+    <Compile Include="Cards\ElvishHerder.cs" />
+    <Compile Include="Cards\ElvishLyrist.cs" />
     <Compile Include="Cards\ElvishWarrior.cs" />
+    <Compile Include="Cards\EndlessWurm.cs" />
     <Compile Include="Cards\Endoskeleton.cs" />
     <Compile Include="Cards\Evacuation.cs" />
     <Compile Include="Cards\Exhume.cs" />
@@ -366,6 +370,7 @@
     <Compile Include="Core\Details\Cards\Effects\PlayerSacrificeLands.cs" />
     <Compile Include="Core\Details\Cards\Effects\PutCardsToBattlefieldChosenOnResolve.cs" />
     <Compile Include="Core\Details\Cards\Effects\ReturnAllCardsInGraveyardToHand.cs" />
+    <Compile Include="Core\Details\Cards\Effects\SacPermanentOrSacrificeOwner.cs" />
     <Compile Include="Core\Details\Cards\Effects\TargetPlayerGainsLifeEqualToCreatureCount.cs" />
     <Compile Include="Core\Details\Cards\Effects\PlayersSacrificeLands.cs" />
     <Compile Include="Core\Details\Cards\Effects\PutTargetsToBattlefield.cs" />

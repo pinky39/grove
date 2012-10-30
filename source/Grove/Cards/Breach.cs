@@ -26,7 +26,7 @@
             }, untilEndOfTurn: true)))
         .Timing(Timings.NoRestrictions())
         .Targets(
-          selectorAi: TargetSelectorAi.IncreasePowerAddEvasion(2),
+          selectorAi: TargetSelectorAi.AddEvasion(),
           effectValidators: C.Validator(Validators.Creature()));
     }
   }

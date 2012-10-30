@@ -477,9 +477,9 @@
 
           return p.Targets(candidates);
         };
-    }
-
-    public static TargetSelectorAiDelegate IncreasePowerAddEvasion(int? power)
+    }    
+    
+    public static TargetSelectorAiDelegate AddEvasion()
     {
       return p =>
         {
@@ -1054,7 +1054,7 @@
           return p.Targets(candidates);
         };
     }
-
+       
     public static TargetSelectorAiDelegate UntapYourLands()
     {
       return p =>
