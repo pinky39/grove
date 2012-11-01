@@ -58,7 +58,7 @@
                         <Button Focusable="False">                            
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="Click">
-                                    <cal:ActionMessage MethodName="SelectPlayer">
+                                    <cal:ActionMessage MethodName="ChangeSelection">
                                         <cal:Parameter Value="{Binding}" />
                                     </cal:ActionMessage>
                                 </i:EventTrigger>

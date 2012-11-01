@@ -29,7 +29,7 @@
             ), canCancel: false, instructions: "(Press Spacebar to finish.)"
           );
 
-        Shell.ShowModalDialog(selectBlocker, DialogType.Small, SelectionMode.SelectTarget);
+        Shell.ShowModalDialog(selectBlocker, DialogType.Small, InteractionState.SelectTarget);
 
         if (selectBlocker.Selection.Count() == 0)
           break;
@@ -59,7 +59,7 @@
           instructions: "(Press Esc to cancel.)"
           );
 
-        Shell.ShowModalDialog(selectAttacker, DialogType.Small, SelectionMode.SelectTarget);
+        Shell.ShowModalDialog(selectAttacker, DialogType.Small, InteractionState.SelectTarget);
 
         if (selectAttacker.WasCanceled)
           continue;

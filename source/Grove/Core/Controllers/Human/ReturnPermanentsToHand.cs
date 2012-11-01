@@ -21,7 +21,7 @@
         canCancel: false
         );
 
-      Shell.ShowModalDialog(dialog, DialogType.Small, SelectionMode.SelectTarget);
+      Shell.ShowModalDialog(dialog, DialogType.Small, InteractionState.SelectTarget);
       Result = dialog.Selection.ToList();
     }
   }

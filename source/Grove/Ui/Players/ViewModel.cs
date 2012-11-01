@@ -1,35 +1,32 @@
 ﻿namespace Grove.Ui.Players
 {
-  using Castle.Core;
   using Core;
   using Infrastructure;
 
-  [Transient]
-  public class ViewModel : IReceive<SelectionModeChanged>
+  public class ViewModel : IReceive<UiInteractionChanged>
   {
-    private readonly Game _game;
+    private readonly Players _players;
     private readonly Publisher _publisher;
 
-
-    public ViewModel(Game game, Publisher publisher)
+    public ViewModel(Players players, Publisher publisher)
     {
-      _game = game;
+      _players = players;
       _publisher = publisher;
     }
 
-    public virtual bool CanSelectPlayer { get; protected set; }
+    public virtual bool CanChangeSelection { get; protected set; }
 
-    public Players Players { get { return _game.Players; } }
+    public Players Players { get { return _players; } }
 
-    public void Receive(SelectionModeChanged message)
+    public void Receive(UiInteractionChanged message)
     {
-      CanSelectPlayer = message.SelectionMode == SelectionMode.SelectTarget;
+      CanChangeSelection = message.State == InteractionState.SelectTarget;
     }
 
-    public void SelectPlayer(Player player)
+    public void ChangeSelection(Player player)
     {
       _publisher.Publish(
-        new TargetSelected {Target = player});
+        new SelectionChanged {Selection = player});
     }
   }
 }

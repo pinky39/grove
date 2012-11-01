@@ -12,7 +12,7 @@
   using Infrastructure;
   using Shell;
 
-  public class ViewModel : IReceive<SelectionModeChanged>
+  public class ViewModel : IReceive<UiInteractionChanged>, IReceive<TargetSelected>, IReceive<TargetUnselected>
   {
     private readonly Publisher _publisher;
     private readonly SelectAbility.ViewModel.IFactory _selectAbilityVmFactory;
@@ -48,19 +48,20 @@
     public Card Card { get; private set; }
     public virtual bool IsPlayable { get; protected set; }
     public bool IsVisible { get { return Card.Controller.IsHuman || Card.IsRevealed; } }
+    public virtual bool IsSelected { get; protected set; }
 
-    public void Receive(SelectionModeChanged message)
+    public void Receive(UiInteractionChanged message)
     {
-      switch (message.SelectionMode)
+      switch (message.State)
       {
-        case (SelectionMode.Play):
+        case (InteractionState.PlaySpellsOrAbilities):
           _select = Activate;
           IsPlayable = Card.Controller.IsHuman
             ? Card.CanCast().CanBeSatisfied || Card.CanActivateAbilities().Any(x => x.CanBeSatisfied) : false;
           break;
 
-        case (SelectionMode.SelectTarget):
-          _select = MarkAsTarget;
+        case (InteractionState.SelectTarget):
+          _select = ChangeSelection;
           IsPlayable = false;
           break;
 
@@ -69,6 +70,8 @@
           IsPlayable = false;
           break;
       }
+
+      IsSelected = false;
     }
 
     public void ChangePlayersInterest()
@@ -103,7 +106,7 @@
         return prerequsites[0];
 
       var dialog = _selectAbilityVmFactory.Create(prerequsites);
-      _shell.ShowModalDialog(dialog, DialogType.Large, SelectionMode.Disabled);
+      _shell.ShowModalDialog(dialog, DialogType.Large, InteractionState.Disabled);
 
       if (dialog.WasCanceled)
         return null;
@@ -204,7 +207,7 @@
       var dialog = _selectTargetVmFactory.Create(validator, canCancel: true,
         instructions: "(Press Spacebar when done, press Esc to cancel.)");
 
-      _shell.ShowModalDialog(dialog, DialogType.Small, SelectionMode.SelectTarget);
+      _shell.ShowModalDialog(dialog, DialogType.Small, InteractionState.SelectTarget);
       return dialog;
     }
 
@@ -215,7 +218,7 @@
       if (prerequisites.HasXInCost)
       {
         var dialog = _selectXCostVmFactory.Create(prerequisites.MaxX.Value);
-        _shell.ShowModalDialog(dialog, DialogType.Small, SelectionMode.Disabled);
+        _shell.ShowModalDialog(dialog, DialogType.Small, InteractionState.Disabled);
 
         if (dialog.WasCanceled)
           return false;
@@ -226,9 +229,9 @@
       return true;
     }
 
-    private void MarkAsTarget()
+    private void ChangeSelection()
     {
-      _publisher.Publish(new TargetSelected {Target = Card});
+      _publisher.Publish(new SelectionChanged {Selection = Card});
     }
 
     private bool PayKicker(SpellPrerequisites prerequisites)
@@ -245,6 +248,22 @@
     public interface IFactory
     {
       ViewModel Create(Card card);
+    }
+
+    public void Receive(TargetSelected message)
+    {
+      if (message.Target == Card)
+      {
+        IsSelected = true;
+      }
+    }
+
+    public void Receive(TargetUnselected message)
+    {
+      if (message.Target == Card)
+      {
+        IsSelected = false;
+      }
     }
   }
 }

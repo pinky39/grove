@@ -64,7 +64,7 @@
                   canCancel: false
                   );
 
-                self.Shell.ShowModalDialog(dialog, DialogType.Small, SelectionMode.SelectTarget);
+                self.Shell.ShowModalDialog(dialog, DialogType.Small, InteractionState.SelectTarget);
 
                 return new ChosenCards(dialog.Selection.Select(x => x.Card()));
               };

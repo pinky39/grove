@@ -23,7 +23,7 @@
       }
 
       var dialog = DialogFactory.Create();
-      Shell.ShowModalDialog(dialog, DialogType.Small, SelectionMode.Play);
+      Shell.ShowModalDialog(dialog, DialogType.Small, InteractionState.PlaySpellsOrAbilities);
       Result = dialog.Playable ?? new Pass();
     }
   }

@@ -9,7 +9,7 @@
   public class Shell : IShell, IHaveDisplayName
   {
     private readonly Match _match;
-    private SelectionMode _selectionMode = SelectionMode.Disabled;
+    private InteractionState _interactionState = InteractionState.Disabled;
 
     public Shell(Match match)
     {
@@ -37,9 +37,9 @@
       Screen = screen;
     }
 
-    public void ShowDialog(object dialog, DialogType type, SelectionMode? selectionMode = null)
+    public void ShowDialog(object dialog, DialogType type, InteractionState? interactionState = null)
     {
-      var revert = ChangeMode(selectionMode);
+      var revert = ChangeMode(interactionState);
 
       Screen.AddDialog(dialog, type);
       ((IClosable) dialog).Closed += delegate
@@ -54,17 +54,17 @@
                                            DialogType type = DialogType.Large, string title = "")
     {
       var messageBox = new ViewModel(message, title, buttons, type);
-      ShowModalDialog(messageBox, type, SelectionMode.Disabled);
+      ShowModalDialog(messageBox, type, InteractionState.Disabled);
       return messageBox.Result;
     }
 
-    public void ShowModalDialog(object dialog, DialogType type, SelectionMode? selectionMode = null)
+    public void ShowModalDialog(object dialog, DialogType type, InteractionState? interactionState = null)
     {
       var blocker = new ThreadBlocker();
 
       blocker.BlockUntilCompleted(() =>
         {
-          ShowDialog(dialog, type, selectionMode);
+          ShowDialog(dialog, type, interactionState);
           ((IClosable) dialog).Closed += delegate { blocker.Completed(); };
         });
 
@@ -76,18 +76,18 @@
       return Screen.HasFocus(dialog);
     }
 
-    private SelectionMode? ChangeMode(SelectionMode? selectionMode)
+    private InteractionState? ChangeMode(InteractionState? interactionState)
     {
-      if (selectionMode.HasValue)
+      if (interactionState.HasValue)
       {
-        var revert = _selectionMode;
-        _selectionMode = selectionMode.Value;
+        var revert = _interactionState;
+        _interactionState = interactionState.Value;
 
         if (_match.InProgress)
         {
-          _match.Game.Publisher.Publish(new SelectionModeChanged
+          _match.Game.Publisher.Publish(new UiInteractionChanged
             {
-              SelectionMode = selectionMode.Value
+              State = interactionState.Value
             });
         }
 

@@ -5,12 +5,12 @@
   public interface IShell
   {
     void ChangeScreen(IIsDialogHost screen);
-    void ShowDialog(object dialog, DialogType type = DialogType.Large, SelectionMode? selectionMode = null);
+    void ShowDialog(object dialog, DialogType type = DialogType.Large, InteractionState? interactionState = null);
 
     MessageBoxResult ShowMessageBox(string message, MessageBoxButton buttons, DialogType type = DialogType.Large,
                                     string title = "");
 
-    void ShowModalDialog(object dialog, DialogType type = DialogType.Large, SelectionMode? selectionMode = null);    
+    void ShowModalDialog(object dialog, DialogType type = DialogType.Large, InteractionState? interactionState = null);    
 
     bool HasFocus(object dialog);
     void CloseAllDialogs();

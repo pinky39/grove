@@ -6,7 +6,7 @@
   using Core.Zones;
   using Infrastructure;
 
-  public class ViewModel : IReceive<SelectionModeChanged>
+  public class ViewModel : IReceive<UiInteractionChanged>
   {
     private readonly Publisher _publisher;
     private readonly Stack _stack;
@@ -20,16 +20,16 @@
 
     public Stack Stack { get { return _stack; } }
 
-    public void Receive(SelectionModeChanged message)
+    public void Receive(UiInteractionChanged message)
     {
-      switch (message.SelectionMode)
+      switch (message.State)
       {
-        case (SelectionMode.SelectTarget):
+        case (InteractionState.SelectTarget):
           {
-            _select = MarkAsTarget;
+            _select = ChangeSelection;
             break;
           }
-        case (SelectionMode.Disabled):
+        case (InteractionState.Disabled):
           {
             _select = delegate { };
             break;
@@ -70,10 +70,10 @@
       _publisher.Publish(message);
     }
 
-    private void MarkAsTarget(Effect effect)
+    private void ChangeSelection(Effect effect)
     {
       _publisher.Publish(
-        new TargetSelected {Target = effect});
+        new SelectionChanged {Selection = effect});
     }
   }
 }

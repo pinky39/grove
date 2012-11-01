@@ -6,26 +6,28 @@
   using Core.Targeting;
   using Infrastructure;
 
-  public class ViewModel : IReceive<TargetSelected>
+  public class ViewModel : IReceive<SelectionChanged>
   {
     private readonly bool _canCancel;
+    private readonly Publisher _publisher;
     private readonly BindableCollection<ITarget> _selection = new BindableCollection<ITarget>();
     private readonly Action<ITarget> _targetSelected;
     private readonly Action<ITarget> _targetUnselected;
 
-    public ViewModel(ITargetValidator targetValidator, bool canCancel) : this(targetValidator, canCancel, null) {}
+    public ViewModel(ITargetValidator targetValidator, bool canCancel, Publisher publisher) : this(targetValidator, canCancel, null, publisher) {}
 
-    public ViewModel(ITargetValidator targetValidator, bool canCancel, string instructions)
-      : this(targetValidator, canCancel, instructions, null, null) {}
+    public ViewModel(ITargetValidator targetValidator, bool canCancel, string instructions, Publisher publisher)
+      : this(targetValidator, canCancel, instructions, null, null, publisher) {}
 
     public ViewModel(ITargetValidator targetValidator, bool canCancel, string instructions,
-      Action<ITarget> targetSelected, Action<ITarget> targetUnselected)
+      Action<ITarget> targetSelected, Action<ITarget> targetUnselected, Publisher publisher)
     {
       TargetValidator = targetValidator;
       Instructions = instructions;
       _canCancel = canCancel;
-      _targetUnselected = targetUnselected ?? delegate { };
-      _targetSelected = targetSelected ?? delegate { };
+      _publisher = publisher;      
+      _targetSelected = targetSelected ?? DefaultTargetSelected;
+      _targetUnselected = targetUnselected ?? DefaultTargetUnselected;
     }
 
     private bool CanAutoComplete
@@ -42,27 +44,36 @@
     private bool IsDone { get { return _selection.Count >= TargetValidator.MinCount; } }
     public IList<ITarget> Selection { get { return _selection; } }
     public ITargetValidator TargetValidator { get; private set; }
-    public bool WasCanceled { get; private set; }
+    public bool WasCanceled { get; private set; }    
 
+    private void DefaultTargetSelected(ITarget target)
+    {
+      _publisher.Publish(new TargetSelected {Target = target});
+    }
+
+    private void DefaultTargetUnselected(ITarget target)
+    {
+      _publisher.Publish(new TargetUnselected {Target = target});
+    }
 
     [Updates("Text")]
-    public virtual void Receive(TargetSelected message)
+    public virtual void Receive(SelectionChanged message)
     {
       if (_selection.Count >= TargetValidator.MaxCount)
         return;
 
-      if (_selection.Contains(message.Target))
+      if (_selection.Contains(message.Selection))
       {
-        _targetUnselected(message.Target);
-        _selection.Remove(message.Target);
+        _targetUnselected(message.Selection);
+        _selection.Remove(message.Selection);
         return;
       }
 
-      if (!TargetValidator.IsValid(message.Target))
+      if (!TargetValidator.IsValid(message.Selection))
         return;
 
-      _targetSelected(message.Target);
-      _selection.Add(message.Target);
+      _targetSelected(message.Selection);
+      _selection.Add(message.Selection);
 
       if (CanAutoComplete)
         Done();
@@ -76,7 +87,7 @@
       _selection.Clear();
       WasCanceled = true;
       this.Close();
-    }
+    }    
 
     public void Done()
     {

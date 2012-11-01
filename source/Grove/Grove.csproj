@@ -533,6 +533,10 @@
     <Compile Include="Core\Details\Cards\Triggers\OpponentWasNotDealtDamageThisTurn.cs" />
     <Compile Include="Core\Zones\IGraveyardQuery.cs" />
     <Compile Include="Core\Zones\NullZone.cs" />
+    <Compile Include="Ui\CardInGraveyard\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\CardInGraveyard\ViewModel.cs" />
     <Compile Include="Ui\DeckEditor\Library.cs" />
     <Compile Include="Ui\DeckEditor\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
@@ -786,15 +790,15 @@
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ui\SelectEffectChoice\ViewModel.cs" />
-    <Compile Include="Ui\SelectionMode.cs" />
-    <Compile Include="Ui\SelectionModeChanged.cs" />
+    <Compile Include="Ui\InteractionState.cs" />
+    <Compile Include="Ui\UiInteractionChanged.cs" />
     <Compile Include="Ui\Spell\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ui\Step\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ui\TargetSelected.cs" />
+    <Compile Include="Ui\SelectionChanged.cs" />
     <Compile Include="Core\Messages\TurnStepFinished.cs" />
     <Compile Include="Core\Messages\StepStarted.cs" />
     <Compile Include="Core\Player.cs" />
@@ -814,6 +818,8 @@
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ui\CombatDamage\ViewModel.cs" />
+    <Compile Include="Ui\TargetSelected.cs" />
+    <Compile Include="Ui\TargetUnselected.cs" />
     <Compile Include="Ui\WindowDimensions.cs" />
     <Compile Include="Ui\GameResults\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
@@ -956,6 +962,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Ui\Card.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\CardInGraveyard\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

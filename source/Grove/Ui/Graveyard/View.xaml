@@ -1,33 +1,7 @@
 ﻿<UserControl x:Class="Grove.Ui.Graveyard.View"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
-             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
-             xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro" 
-             xmlns:Core="clr-namespace:Grove.Core">
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" >
 
-    <UserControl.Resources>
-        <DataTemplate DataType = "{x:Type Core:Card}" >
-            <Border Margin="0,-260,0,0" >
-                <ContentControl Style="{StaticResource SelectableContent}">
-                    <ContentControl Content = "{Binding}" ContentTemplate="{StaticResource FaceUpCard}" >
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName = "MouseEnter" >
-                                <cal:ActionMessage MethodName = "ChangePlayersInterest" >
-                                    <cal:Parameter Value = "{Binding}" />
-                                </cal:ActionMessage>
-                            </i:EventTrigger>
-                            <i:EventTrigger EventName = "MouseUp" >
-                                <cal:ActionMessage MethodName = "Select" >
-                                    <cal:Parameter Value = "{Binding}" />
-                                </cal:ActionMessage>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </ContentControl>
-                </ContentControl>
-            </Border>
-        </DataTemplate>
-    </UserControl.Resources>
-
-    <ItemsControl ItemsSource = "{Binding Cards}" Style="{StaticResource Zone}" />                            
+    <ItemsControl x:Name="Cards" Style="{StaticResource Zone}" />
 
 </UserControl>

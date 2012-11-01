@@ -9,9 +9,9 @@
   using Infrastructure;
   using Shell;
 
-  public class ViewModel : IReceive<SelectionModeChanged>, IReceive<PlayersInterestChanged>, IReceive<AttackerSelected>,
+  public class ViewModel : IReceive<UiInteractionChanged>, IReceive<PlayersInterestChanged>, IReceive<AttackerSelected>,
     IReceive<AttackerUnselected>, IReceive<BlockerSelected>, IReceive<BlockerUnselected>, IReceive<RemovedFromCombat>,
-    IReceive<AttackerJoinedCombat>, IReceive<BlockerJoinedCombat>
+    IReceive<AttackerJoinedCombat>, IReceive<BlockerJoinedCombat>, IReceive<TargetSelected>, IReceive<TargetUnselected>
   {
     private readonly CombatMarkers _combatMarkers;
     private readonly Publisher _publisher;
@@ -42,6 +42,7 @@
     public virtual bool IsPlayable { get; protected set; }
     public virtual bool IsTargetOfSpell { get; protected set; }
     public virtual int Marker { get; protected set; }
+    public virtual bool IsSelected { get; protected set; }
 
     public void Receive(AttackerJoinedCombat message)
     {
@@ -116,32 +117,34 @@
       Marker = 0;
     }
 
-    public void Receive(SelectionModeChanged message)
+    public void Receive(UiInteractionChanged message)
     {
-      switch (message.SelectionMode)
+      switch (message.State)
       {
-        case (SelectionMode.Play):
+        case (InteractionState.PlaySpellsOrAbilities):
           {
             _select = Activate;
 
             IsPlayable = Card.Controller.IsHuman ? Card.CanActivateAbilities()
               .Any(x => x.CanBeSatisfied) : false;
-
+            
             break;
           }
-        case (SelectionMode.SelectTarget):
+        case (InteractionState.SelectTarget):
           {
-            _select = MarkAsTarget;
+            _select = ChangeSelection;
             IsPlayable = false;
             break;
           }
-        case (SelectionMode.Disabled):
+        case (InteractionState.Disabled):
           {
             _select = delegate { };
-            IsPlayable = false;
+            IsPlayable = false;            
             break;
           }
       }
+
+      IsSelected = false;
     }
 
     public void ChangePlayersInterest()
@@ -199,7 +202,7 @@
       if (prerequisites.Count(p => p.CanBeSatisfied) > 1)
       {
         var dialog = _selectAbilityVmFactory.Create(prerequisites);
-        _shell.ShowModalDialog(dialog, DialogType.Large, SelectionMode.Disabled);
+        _shell.ShowModalDialog(dialog, DialogType.Large, InteractionState.Disabled);
 
         if (dialog.WasCanceled)
           return false;
@@ -220,7 +223,7 @@
       var dialog = _selectTargetVmFactory.Create(validator, canCancel: true,
         instructions: "(Press Spacebar when done, press Esc to cancel.)");
 
-      _shell.ShowModalDialog(dialog, DialogType.Small, SelectionMode.SelectTarget);
+      _shell.ShowModalDialog(dialog, DialogType.Small, InteractionState.SelectTarget);
       return dialog;
     }
 
@@ -267,7 +270,7 @@
       if (prerequisites.HasXInCost)
       {
         var dialog = _selectXCostVmFactory.Create(prerequisites.MaxX.Value);
-        _shell.ShowModalDialog(dialog, DialogType.Small, SelectionMode.Disabled);
+        _shell.ShowModalDialog(dialog, DialogType.Small, InteractionState.Disabled);
 
         if (dialog.WasCanceled)
           return false;
@@ -278,15 +281,31 @@
       return true;
     }
 
-    private void MarkAsTarget()
+    private void ChangeSelection()
     {
       _publisher.Publish(
-        new TargetSelected {Target = Card});
+        new SelectionChanged {Selection = Card});
     }
 
     public interface IFactory
     {
       ViewModel Create(Card card);
+    }
+
+    public void Receive(TargetSelected message)
+    {
+      if (message.Target == Card)
+      {
+        IsSelected = true;
+      }
+    }
+
+    public void Receive(TargetUnselected message)
+    {
+      if (message.Target == Card)
+      {
+        IsSelected = false;
+      }
     }
   }
 }

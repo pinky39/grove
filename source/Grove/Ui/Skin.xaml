@@ -46,6 +46,7 @@
 
 	<SolidColorBrush x:Key="TargetOfSpell" Color="#55FF0000" />
 	<SolidColorBrush x:Key="Playable" Color="#ffcc00" />
+    <SolidColorBrush x:Key="Selected" Color="#66FF0000" />
 
 	<Style x:Key="Label" TargetType="TextBlock">
 		<Setter Property="FontFamily" Value="Myriad Pro" />

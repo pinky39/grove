@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="Grove.Ui.CardInGraveyard.View"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Ui="clr-namespace:Grove.Ui" xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro">
+    <Border Margin = "0,-260,0,0" >
+
+        <ContentControl Style = "{StaticResource SelectableContent}" >
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName = "MouseEnter" >
+                    <cal:ActionMessage MethodName = "ChangePlayersInterest" />
+                </i:EventTrigger>
+                <i:EventTrigger EventName = "MouseUp" >
+                    <cal:ActionMessage MethodName = "Select" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+
+            <Grid >
+                <ContentControl Content = "{Binding Card}" ContentTemplate = "{StaticResource FaceUpCard}" />                
+                <Border Background= "{StaticResource Selected}" Visibility="{Binding IsSelected, Converter={x:Static Ui:Converters.BooleanToVisibility}}"/>
+            </Grid>
+
+        </ContentControl>
+
+    </Border>
+</UserControl>

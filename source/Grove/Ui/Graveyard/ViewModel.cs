@@ -1,61 +1,61 @@
 ﻿namespace Grove.Ui.Graveyard
 {
-  using System;
   using System.Collections.Generic;
+  using System.Collections.Specialized;
+  using System.Linq;
+  using Caliburn.Micro;
   using Core;
   using Infrastructure;
 
-  public class ViewModel : IReceive<SelectionModeChanged>
+  public class ViewModel
   {
-    private readonly Player _player;
-    private readonly Publisher _publisher;
-    private Action<Card> _select = delegate { };
+    private readonly CardInGraveyard.ViewModel.IFactory _cardVmFactory;
 
-    public ViewModel(Player player, Publisher publisher)
+    private readonly BindableCollection<CardInGraveyard.ViewModel> _cards =
+      new BindableCollection<CardInGraveyard.ViewModel>();
+
+    public ViewModel(IEnumerable<Card> graveyard, CardInGraveyard.ViewModel.IFactory cardVmFactory)
     {
-      _player = player;
-      _publisher = publisher;
+      _cardVmFactory = cardVmFactory;
+      _cards.AddRange(graveyard.Select(cardVmFactory.Create));
+
+      ((INotifyCollectionChanged) graveyard).CollectionChanged += Synchronize;
     }
 
-    public IEnumerable<Card> Cards { get { return _player.Graveyard; } }
 
-    public void Receive(SelectionModeChanged message)
+    public IEnumerable<CardInGraveyard.ViewModel> Cards { get { return _cards; } }
+
+    private void Synchronize(object sender, NotifyCollectionChangedEventArgs e)
     {
-      switch (message.SelectionMode)
+      if (e.Action == NotifyCollectionChangedAction.Reset)
       {
-        case (SelectionMode.SelectTarget):
-          {
-            _select = MarkAsTarget;
-            break;
-          }
-        default:
-          _select = delegate { };
-          break;
+        _cards.Clear();
+      }
+
+      if (e.Action == NotifyCollectionChangedAction.Add)
+      {
+        foreach (Card card in e.NewItems)
+        {
+          _cards.Add(_cardVmFactory.Create(card));
+        }
+      }
+
+      if (e.Action == NotifyCollectionChangedAction.Remove)
+      {
+        foreach (Card card in e.OldItems)
+        {
+          var viewModel = _cards.Single(x => x.Card == card);
+
+          _cards.Remove(viewModel);
+          viewModel.Close();
+        }
       }
     }
 
-    public void Select(Card card)
-    {
-      _select(card);
-    }
-
-    private void MarkAsTarget(Card card)
-    {
-      _publisher.Publish(
-        new TargetSelected {Target = card});
-    }
-
-    public void ChangePlayersInterest(Card card)
-    {
-      _publisher.Publish(new PlayersInterestChanged
-        {
-          Visual = card
-        });
-    }
 
     public interface IFactory
     {
-      ViewModel Create(Player player);
+      ViewModel Create(IEnumerable<Card> graveyard);
     }
   }
 }

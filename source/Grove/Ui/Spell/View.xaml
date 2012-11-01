@@ -19,6 +19,7 @@
             <Grid >
                 <ContentControl Content = "{Binding Card}" ContentTemplate = "{StaticResource FaceUpCard}" />
 				<Border BorderBrush = "{StaticResource Playable}" Visibility = "{Binding IsPlayable, Converter={x:Static Ui:Converters.BooleanToVisibility}}" BorderThickness="0,2,0,0" />
+                <Border Background= "{StaticResource Selected}" Visibility="{Binding IsSelected, Converter={x:Static Ui:Converters.BooleanToVisibility}}"/>
 			</Grid>
 
 		</ContentControl>

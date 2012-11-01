@@ -21,7 +21,7 @@
           continue;
 
         var dialog = DialogFactory.Create(validator, canCancel: false);
-        Shell.ShowModalDialog(dialog, DialogType.Small, SelectionMode.SelectTarget);
+        Shell.ShowModalDialog(dialog, DialogType.Small, InteractionState.SelectTarget);
 
         foreach (var target in dialog.Selection)
         {

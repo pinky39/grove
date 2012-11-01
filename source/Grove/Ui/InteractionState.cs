@@ -1,9 +1,9 @@
 ﻿namespace Grove.Ui
 {
-  public enum SelectionMode
+  public enum InteractionState
   {
     Disabled,
-    Play,
+    PlaySpellsOrAbilities,
     SelectTarget,
   }
 }

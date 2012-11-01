@@ -23,7 +23,7 @@
       }
       
       var dialog = _distributeDamageDialog.Create(targets, damage);
-      _shell.ShowModalDialog(dialog, DialogType.Large, SelectionMode.Disabled);
+      _shell.ShowModalDialog(dialog, DialogType.Large, InteractionState.Disabled);
 
       return dialog.Distribution;
     }

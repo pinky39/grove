@@ -29,7 +29,7 @@
             p.QueryUi = self =>
               {
                 var dialog = self.EffectChoiceDialog.Create(_choices, Text);
-                self.Shell.ShowModalDialog(dialog, DialogType.Small, SelectionMode.SelectTarget);
+                self.Shell.ShowModalDialog(dialog, DialogType.Small, InteractionState.SelectTarget);
 
                 return dialog.ChosenOptions;
               };
