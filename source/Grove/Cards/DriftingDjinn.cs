@@ -19,7 +19,7 @@
         .ManaCost("{4}{U}{U}")
         .Type("Creature - Djinn")
         .Text(
-          "{Flying}{EOL}At the beginning of your upkeep, sacrifice Drifting Djinn unless you pay {1}{U}.{EOL}Cycling {2}({2}, Discard this card: Draw a card.)")
+          "{Flying}{EOL}At the beg. of your upkeep, sacrifice Drifting Djinn unless you pay {1}{U}.{EOL}Cycling {2}({2}, Discard this card: Draw a card.)")
         .Power(5)
         .Toughness(5)
         .Timing(Timings.Creatures())
