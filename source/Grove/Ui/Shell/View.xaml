@@ -4,7 +4,7 @@
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:grove="clr-namespace:Grove.Ui"
         Width = "1100"
-        Height = "650"                                   
+        Height = "670"                                   
         Icon = "{grove:Media 'icon.png'}">    
 
     <i:Interaction.Behaviors>
