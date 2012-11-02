@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core.Details.Cards.Preventions
 {
+  using System;
   using Infrastructure;
 
   public class PreventDamageToTarget : DamagePrevention
@@ -8,15 +9,31 @@
 
     public int Amount;
     public bool AmountIsDepletable;
+    
+    public Func<DamagePrevention, Card, bool> SourceFilter = delegate { return true; };
+    public bool PreventAll;
 
     public override void PreventReceivedDamage(Damage damage)
     {      
-      var prevented = damage.Prevent(_amountLeft.Value);
-
-      if (AmountIsDepletable)
-      {        
-        _amountLeft.Value -= prevented;        
+      
+      
+      if (!SourceFilter(this, damage.Source))
+        return;
+      
+      if (PreventAll)
+      {
+        damage.PreventAll();
+        return;
       }
+      
+      if (AmountIsDepletable)
+      {
+        var prevented = damage.Prevent(_amountLeft.Value);  
+        _amountLeft.Value -= prevented;        
+        return;
+      }
+
+      damage.Prevent(Amount);
     }
 
     protected override void Initialize()

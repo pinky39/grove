@@ -205,6 +205,7 @@
     <Compile Include="Cards\ElvishWarrior.cs" />
     <Compile Include="Cards\EndlessWurm.cs" />
     <Compile Include="Cards\Endoskeleton.cs" />
+    <Compile Include="Cards\EnergyField.cs" />
     <Compile Include="Cards\Evacuation.cs" />
     <Compile Include="Cards\Exhume.cs" />
     <Compile Include="Cards\Expunge.cs" />

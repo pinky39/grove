@@ -10,7 +10,17 @@
   {
     public ITarget Owner { get; private set; }
     protected Game Game { get; private set; }
-    protected CardBuilder Builder { get {return new CardBuilder(Game);} }
+    protected CardBuilder Builder { get { return new CardBuilder(Game); } }
+
+    public Player Controller
+    {
+      get
+      {
+        return Owner.IsCard() 
+          ? Owner.Card().Controller 
+          : Owner.Player();
+      }
+    }
 
     public int CalculateHash(HashCalculator calc)
     {

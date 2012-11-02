@@ -91,7 +91,7 @@ o Elvish Lyrist
 Enchantment Alteration
 o Endless Wurm
 o Endoskeleton
-Energy Field
+o Energy Field
 Exhaustion
 Exhume
 Exploration
