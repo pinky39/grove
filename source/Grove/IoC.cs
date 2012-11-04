@@ -117,10 +117,14 @@
           RegisterShell(container);
           RegisterConfiguration(container);
 
-          container.Register(Component(typeof (Match), lifestyle: LifestyleType.Singleton));
+          container.Register(Component(typeof (Match), lifestyle: LifestyleType.Singleton));          
           container.Register(Component(typeof (CardPreviews), lifestyle: LifestyleType.Singleton));
           container.Register(Component(typeof (UiDamageDistribution)));
         }
+
+        
+        container.Register(Component(typeof (MatchSimulator), lifestyle: LifestyleType.Singleton));
+        
 
         RegisterCardsSources(container);
         RegisterDecisions(container);        
@@ -146,7 +150,8 @@
         container.Register(Component(typeof (IAttackerFactory), typeof (Attacker.Factory)));
         container.Register(Component(typeof (IBlockerFactory), typeof (Blocker.Factory)));
         container.Register(Component(typeof (CastRestrictions)));
-        container.Register(Component(typeof (StateMachine), lifestyle: LifestyleType.Scoped));        
+        container.Register(Component(typeof (StateMachine), lifestyle: LifestyleType.Scoped));
+        
       }
 
       private void RegisterDecisions(IWindsorContainer container)
@@ -194,7 +199,7 @@
         if (lifestyle == LifestyleType.Scoped)
         {
           if (_configuration == Configuration.Ui)
-            return registration.LifestyleScoped<UiScopeAccessor>();
+            return registration.LifestyleScoped<UiGameScope>();
 
           registration.LifestyleScoped();
         }

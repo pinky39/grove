@@ -386,6 +386,7 @@
     <Compile Include="Core\Details\Cards\Triggers\OnAttachmentDetached.cs" />
     <Compile Include="Core\Details\Cards\Triggers\TriggerOrder.cs" />
     <Compile Include="Core\Details\Mana\ManaUsage.cs" />
+    <Compile Include="Core\MatchSimulator.cs" />
     <Compile Include="Core\Messages\CardChangedType.cs" />
     <Compile Include="Core\Messages\PermanentModified.cs" />
     <Compile Include="Core\Targeting\IDamageDistributor.cs" />
@@ -552,7 +553,7 @@
     <Compile Include="Core\Zones\IZone.cs" />
     <Compile Include="Infrastructure\AssemblyEx.cs" />
     <Compile Include="Infrastructure\Chaining.cs" />
-    <Compile Include="Infrastructure\UiScopeAccessor.cs" />
+    <Compile Include="Infrastructure\UiGameScope.cs" />
     <Compile Include="Core\TurnInfo.cs" />
     <Compile Include="Infrastructure\Activation.cs" />
     <Compile Include="Infrastructure\ICopyable.cs" />

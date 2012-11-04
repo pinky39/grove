@@ -138,6 +138,7 @@
     <Compile Include="Cards\ElvishLyrist.cs" />
     <Compile Include="Cards\EndlessWurm.cs" />
     <Compile Include="Cards\Endoskeleton.cs" />
+    <Compile Include="Cards\EnergyField.cs" />
     <Compile Include="Cards\Evacuation.cs" />
     <Compile Include="Cards\Exhume.cs" />
     <Compile Include="Cards\FieryMantle.cs" />
@@ -187,6 +188,7 @@
     <Compile Include="Cards\WildDogs.cs" />
     <Compile Include="Cards\WizardMentor.cs" />
     <Compile Include="Cards\Worship.cs" />
+    <Compile Include="MatchSimulatorFacts.cs" />
     <Compile Include="Unit\ActivationFacts.cs" />
     <Compile Include="Unit\BlockStrategyFacts.cs" />
     <Compile Include="Unit\ClosedFacts.cs" />

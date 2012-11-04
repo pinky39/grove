@@ -12,8 +12,7 @@
 
   public class Bootstrapper : Bootstrapper<IShell>
   {
-    public static IoC Container;
-    private static ILifetimeScope _scope;
+    public static IoC Container;    
 
     protected override void Configure()
     {
@@ -48,7 +47,7 @@
     {
       ConfigureViewLocator();
     }
-
+    
     private static void ConfigureViewLocator()
     {
       ViewLocator.LocateForModelType = (presenter, displayLocation, context) =>
@@ -68,19 +67,6 @@
 
           return ViewLocator.GetOrCreateViewType(viewType);
         };
-    }
-
-    public static ILifetimeScope GetScope()
-    {
-      return _scope ?? (_scope = new DefaultLifetimeScope());
-    }
-
-    public static void NewGame()
-    {
-      if (_scope != null)
-        _scope.Dispose();
-
-      _scope = null;
-    }
+    }   
   }
 }

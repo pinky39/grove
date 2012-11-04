@@ -111,11 +111,11 @@
     }
 
     private void Run()
-    {
-      Bootstrapper.NewGame();
-
+    {      
+      UiGameScope.Reset();
+      
       _backgroundTask = new Task(() =>
-        {
+        {                    
           Game = _gameFactory.Create();
 
           Game.Players.Player1 = _playerFactory.Create(
