@@ -343,11 +343,14 @@
     <Compile Include="Core\Ai\BlockerEvaluation.cs" />
     <Compile Include="Core\Ai\QuickCombat.cs" />
     <Compile Include="Core\CardPreviews.cs" />
+    <Compile Include="Core\Controllers\Human\PayCounterCost.cs" />
     <Compile Include="Core\Controllers\Human\ReturnCardsFromGraveyardToBattlefield.cs" />
     <Compile Include="Core\Controllers\Human\ReturnPermanentsToHand.cs" />
     <Compile Include="Core\Controllers\Machine\DiscardCards.cs" />
+    <Compile Include="Core\Controllers\Machine\PayCounterCost.cs" />
     <Compile Include="Core\Controllers\Machine\ReturnCardsFromGraveyardToBattlefield.cs" />
     <Compile Include="Core\Controllers\Machine\ReturnPermanentsToHand.cs" />
+    <Compile Include="Core\Controllers\PayCounterCost.cs" />
     <Compile Include="Core\Controllers\Results\ChosenOptions.cs" />
     <Compile Include="Core\Controllers\ReturnCardsFromGraveyardToBattlefield.cs" />
     <Compile Include="Core\Controllers\ReturnPermanentsToHand.cs" />
@@ -399,7 +402,7 @@
     <Compile Include="Core\IHasLife.cs" />
     <Compile Include="Core\Messages\ControllerChanged.cs" />
     <Compile Include="Core\Controllers\ChooseToUntap.cs" />
-    <Compile Include="Core\Controllers\DecisionFactory.cs" />
+    <Compile Include="Core\Controllers\DecisionSystem.cs" />
     <Compile Include="Core\Controllers\DecisionSelector.cs" />
     <Compile Include="Core\Controllers\Human\AdHocDecision.cs" />
     <Compile Include="Core\Controllers\Human\ChooseToUntap.cs" />

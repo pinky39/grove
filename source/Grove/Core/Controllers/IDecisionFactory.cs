@@ -3,6 +3,6 @@
   public interface IDecisionFactory
   {
     TDecision CreateHuman<TDecision>();
-    TDecision CreateMachine<TDecision>();
+    TDecision CreateMachine<TDecision>();    
   }
 }

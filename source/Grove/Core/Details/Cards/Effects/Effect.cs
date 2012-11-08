@@ -53,12 +53,7 @@
         WasKickerPaid.GetHashCode(),
         X.GetHashCode());
     }
-
-    protected string FormatDialogMessage(string text)
-    {
-      return String.Format("{0}: {1}", Source.SourceCard, text);
-    }
-
+    
     public bool IsValid(ITarget target)
     {
       return Source.IsTargetStillValid(target, WasKickerPaid);

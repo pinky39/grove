@@ -14,7 +14,7 @@
   public class Game
   {
     private CastRestrictions _castRestrictions;
-    private DecisionFactory _decisionFactory;
+    private DecisionSystem _decisionSystem;
     private DecisionQueue _decisionQueue;
     private Search _search;
     private StateMachine _stateMachine;
@@ -36,9 +36,9 @@
     public Search Search { get { return _search; } }
     public CastRestrictions CastRestrictions { get { return _castRestrictions; } }
 
-    public static Game New(IEnumerable<string> humanDeck, IEnumerable<string> cpuDeck, CardDatabase cardDatabase)
+    public static Game New(IEnumerable<string> humanDeck, IEnumerable<string> cpuDeck, CardDatabase cardDatabase, DecisionSystem decisionSystem)
     {
-      var game = CreateGame(cardDatabase, enableDatabinding: true);
+      var game = CreateGame(cardDatabase, decisionSystem, enableDatabinding: true);
 
       game.Players = new Players(
         player1Name: "You",
@@ -53,7 +53,7 @@
       return game;
     }
 
-    private static Game CreateGame(CardDatabase cardDatabase, bool enableDatabinding)
+    private static Game CreateGame(CardDatabase cardDatabase, DecisionSystem decisionSystem, bool enableDatabinding)
     {
       var game = new Game();
             
@@ -66,7 +66,7 @@
       game._castRestrictions = new CastRestrictions(game.Stack, game._turnInfo);
       game.Combat = new Combat(game);
       game._search = new Search();
-      game._decisionFactory = new DecisionFactory(game);
+      game._decisionSystem = decisionSystem;
       game._decisionQueue = new DecisionQueue(game.ChangeTracker);
       game._stateMachine = new StateMachine(game, game._decisionQueue);
 
@@ -78,7 +78,7 @@
     {
       init = init ?? delegate { };
 
-      var decision = _decisionFactory.Create(controller, init);
+      var decision = _decisionSystem.Create(controller, init, this);
       _decisionQueue.Enqueue(decision);
     }
 
@@ -97,9 +97,9 @@
       _publisher.Subscribe(instance);
     }
 
-    public static Game NewSimulation(IEnumerable<string> deck1, IEnumerable<string> deck2, CardDatabase cardDatabase)
+    public static Game NewSimulation(IEnumerable<string> deck1, IEnumerable<string> deck2, CardDatabase cardDatabase, DecisionSystem decisionSystem)
     {
-      var game = CreateGame(cardDatabase, enableDatabinding: false);
+      var game = CreateGame(cardDatabase, decisionSystem, enableDatabinding: false);
 
       game.Players = new Players(
         player1Name: "Player1",
@@ -178,12 +178,12 @@
 
     public void AddScenarioDecisions(IEnumerable<DecisionsForOneStep> prerecordedDecisions)
     {
-      _decisionFactory.AddScenarioDecisions(prerecordedDecisions);
+      _decisionSystem.AddScenarioDecisions(prerecordedDecisions);
     }
 
-    public static Game NewScenario(ControllerType player1Controller, ControllerType player2Controller, CardDatabase cardDatabase)
+    public static Game NewScenario(ControllerType player1Controller, ControllerType player2Controller, CardDatabase cardDatabase, DecisionSystem decisionSystem)
     {
-      var game = CreateGame(cardDatabase, enableDatabinding: false);
+      var game = CreateGame(cardDatabase, decisionSystem, enableDatabinding: false);
 
       game.Players = new Players(
        player1Name: "Player1",
