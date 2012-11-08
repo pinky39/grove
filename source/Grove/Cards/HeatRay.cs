@@ -13,7 +13,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Heat Ray")
         .ManaCost("{R}").XCalculator(VariableCost.TargetLifepointsLeft(ManaUsage.Spells))
         .Type("Instant")
@@ -23,7 +23,7 @@
         .Timing(Timings.InstantRemovalTarget())
         .Targets(
           selectorAi: TargetSelectorAi.DealDamageSingleSelector(),
-          effectValidator: C.Validator(Validators.Creature()));
+          effectValidator: Validator(Validators.Creature()));
     }
   }
 }

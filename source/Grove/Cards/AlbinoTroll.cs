@@ -12,7 +12,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Albino Troll")
         .ManaCost("{1}{G}")
         .Type("Creature Troll")
@@ -23,10 +23,10 @@
         .Echo("{1}{G}")
         .Timing(Timings.Creatures())
         .Abilities(
-          C.ActivatedAbility(
+          ActivatedAbility(
             "{1}{G}: Regenerate Albino Troll.",
-            C.Cost<TapOwnerPayMana>((c, _) => c.Amount = "{1}{G}".ParseManaAmount()),
-            C.Effect<Regenerate>(),
+            Cost<TapOwnerPayMana>(c => c.Amount = "{1}{G}".ParseManaAmount()),
+            Effect<Regenerate>(),
             timing: Timings.Regenerate(),
             category: EffectCategories.Protector));
     }

@@ -29,7 +29,7 @@
 
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Turnabout")
         .ManaCost("{2}{U}{U}")
         .Type("Instant")
@@ -41,7 +41,7 @@
           selectorAi:
             Any(TargetSelectorAi.TapOpponentsCreatures(), TargetSelectorAi.TapOpponentsLands(),
               TargetSelectorAi.UntapYourCreatures()),
-          effectValidator: C.Validator(Validators.Player(), text: "Select a player.")
+          effectValidator: Validator(Validators.Player(), text: "Select a player.")
         )
         .Effect<CustomizableEffect>(e =>
           {

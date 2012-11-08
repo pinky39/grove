@@ -11,7 +11,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Phyrexian Arena")
         .ManaCost("{1}{B}{B}")
         .Type("Enchantment")
@@ -19,10 +19,10 @@
         .FlavorText("An audience of one with the malice of thousands.")
         .Timing(Timings.SecondMain())
         .Abilities(
-          C.TriggeredAbility(
+          TriggeredAbility(
             "At the beginning of your upkeep, you draw a card and you lose 1 life.",
-            C.Trigger<AtBegginingOfStep>((t, _) => { t.Step = Step.Upkeep; }),
-            C.Effect<DrawCards>(e =>
+            Trigger<AtBegginingOfStep>(t => { t.Step = Step.Upkeep; }),
+            Effect<DrawCards>(e =>
               {
                 e.DrawCount = 1;
                 e.Lifeloss = 1;

@@ -12,7 +12,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Mana Leak")
         .ManaCost("{1}{U}")
         .Type("Instant")
@@ -23,7 +23,7 @@
         .Effect<CounterTargetSpell>(e => e.DoNotCounterCost = 3.AsColorlessMana())
         .Targets(
           selectorAi: TargetSelectorAi.CounterSpell(),
-          effectValidator: C.Validator(Validators.Counterspell()));
+          effectValidator: Validator(Validators.Counterspell()));
     }
   }
 }

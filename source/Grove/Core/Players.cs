@@ -9,15 +9,36 @@
 
   [Copyable]
   public class Players : IEnumerable<Player>, IHashable
-  {
+  {    
     private readonly TrackableList<Player> _extraTurns;
     private Player _player1;
     private Player _player2;
     private Player _starting;
 
-    public Players(ChangeTracker changeTracker)
+    public Players(
+      string player1Name, 
+      ControllerType player1Type, 
+      IEnumerable<string> player1Deck,
+      string player2Name,
+      ControllerType player2Type,
+      IEnumerable<string> player2Deck,      
+      Game game, 
+      bool enableDatabinding)
+    {      
+      _extraTurns = new TrackableList<Player>(game.ChangeTracker, orderImpactsHashcode: true);
+
+      Player1 = CreatePlayer(player1Name, "player1.png", player1Type, player1Deck, game, enableDatabinding);
+      Player2 = CreatePlayer(player2Name, "player2.png", player2Type, player2Deck, game, enableDatabinding);
+    }
+
+    private Player CreatePlayer(string name,  string avatar, ControllerType type, IEnumerable<string> deck, Game game, bool enableDatabinding)
     {
-      _extraTurns = new TrackableList<Player>(changeTracker, orderImpactsHashcode: true);
+      if (enableDatabinding)
+      {
+        return Bindable.Create<Player>(name, avatar, type, deck, game);
+      }
+            
+      return new Player(name, avatar, type, deck, game);
     }
 
     private Players() {}
@@ -46,7 +67,7 @@
     public Player Player1
     {
       get { return _player1; }
-      set
+      private set
       {
         _player1 = value;
         _player1.IsMax = true;
@@ -56,7 +77,7 @@
     public Player Player2
     {
       get { return _player2; }
-      set
+      private set
       {
         _player2 = value;
         _player2.IsMax = false;
@@ -213,5 +234,7 @@
       Player1.ResetAiVisibility();
       Player2.ResetAiVisibility();
     }
+
+    
   }
 }

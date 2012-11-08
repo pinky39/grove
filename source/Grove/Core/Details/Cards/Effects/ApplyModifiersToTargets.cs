@@ -26,7 +26,7 @@
     {
       foreach (var target in ValidTargets)
       {
-        foreach (var modifier in _modifierFactories.CreateModifiers(Source.OwningCard, target, X))
+        foreach (var modifier in _modifierFactories.CreateModifiers(Source.OwningCard, target, X, Game))
         {
           target.AddModifier(modifier);
         }

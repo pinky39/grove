@@ -14,7 +14,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Dread")
         .ManaCost("{3}{B}{B}{B}")
         .Type("Creature - Elemental Incarnation")
@@ -25,20 +25,20 @@
         .Timing(Timings.Creatures())
         .Abilities(
           Static.Fear,
-          C.Continuous((e, c) =>
+          Continuous(e =>
             {
               e.CardFilter = (card, source) => card.Is().Creature;
-              e.ModifierFactory = c.Modifier<AddTriggeredAbility>((m, c0) =>
-                m.Ability = c0.TriggeredAbility(
+              e.ModifierFactory = Modifier<AddTriggeredAbility>(m =>
+                m.Ability = TriggeredAbility(
                   "Whenever a creature deals damage to you, destroy it.",
-                  c0.Trigger<DealDamageToCreatureOrPlayer>((t, _) => t.ToYou()),
-                  c0.Effect<DestroySource>(),
+                  Trigger<DealDamageToCreatureOrPlayer>(t => t.ToYou()),
+                  Effect<DestroySource>(),
                   abilityCategory: EffectCategories.Destruction));
             }),
-          C.TriggeredAbility(
+          TriggeredAbility(
             "When Dread is put into a graveyard from anywhere, shuffle it into its owner's library.",
-            C.Trigger<OnZoneChange>((t, _) => t.To = Zone.Graveyard),
-            C.Effect<ShuffleIntoLibrary>())
+            Trigger<OnZoneChange>(t => t.To = Zone.Graveyard),
+            Effect<ShuffleIntoLibrary>())
         );
     }
   }

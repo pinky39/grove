@@ -1,6 +1,5 @@
 ﻿namespace Grove.Core.Details.Cards.Effects
 {
-  using System;
   using System.Collections.Generic;
   using Modifiers;
   using Targeting;
@@ -21,7 +20,7 @@
 
       return 0;
     }
-    
+
     public void Modifiers(params IModifierFactory[] modifierFactories)
     {
       _modifierFactories.AddRange(modifierFactories);
@@ -32,7 +31,8 @@
       var modifiers = _modifierFactories.CreateModifiers(
         Source.OwningCard,
         Target().Card(),
-        X);
+        X, 
+        Game);
 
       Target().Card().Attach(Source.OwningCard);
 

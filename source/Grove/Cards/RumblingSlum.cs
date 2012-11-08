@@ -11,7 +11,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Rumbling Slum")
         .ManaCost("{1}{R}{G}{G}")
         .Type("Creature - Elemental")
@@ -22,10 +22,10 @@
         .Toughness(5)
         .Timing(Timings.Creatures())
         .Abilities(
-          C.TriggeredAbility(
+          TriggeredAbility(
             "At the beginning of your upkeep, Rumbling Slum deals 1 damage to each player.",
-            C.Trigger<AtBegginingOfStep>((t, _) => t.Step = Step.Untap),
-            C.Effect<DealDamageToEach>(e => e.AmountPlayer = 1),
+            Trigger<AtBegginingOfStep>(t => t.Step = Step.Untap),
+            Effect<DealDamageToEach>(e => e.AmountPlayer = 1),
             triggerOnlyIfOwningCardIsInPlay: true));
     }
   }

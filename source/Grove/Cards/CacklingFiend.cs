@@ -12,7 +12,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Cackling Fiend")
         .ManaCost("{2}{B}{B}")
         .Type("Creature - Zombie")
@@ -22,10 +22,10 @@
         .Toughness(1)
         .Timing(Timings.FirstMain())
         .Abilities(
-          C.TriggeredAbility(
+          TriggeredAbility(
             "When Cackling Fiend enters the battlefield, each opponent discards a card.",
-            C.Trigger<OnZoneChange>((t, _) => t.To = Zone.Battlefield),
-            C.Effect<OpponentDiscardsCards>(e => e.SelectedCount = 1)));
+            Trigger<OnZoneChange>(t => t.To = Zone.Battlefield),
+            Effect<OpponentDiscardsCards>(e => e.SelectedCount = 1)));
     }
   }
 }

@@ -12,7 +12,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Living Destiny")
         .ManaCost("{3}{G}")
         .Type("Instant")
@@ -24,7 +24,7 @@
         .Effect<GainLife>(e => e.Amount = e.CostTarget().Card().ManaCost.Converted)
         .Targets(
           selectorAi: TargetSelectorAi.GreatestConvertedManaCost(),
-          costValidator: C.Validator(Validators.CardInHand(card => card.Is().Creature))
+          costValidator: Validator(Validators.CardInHand(card => card.Is().Creature))
         );
     }
   }

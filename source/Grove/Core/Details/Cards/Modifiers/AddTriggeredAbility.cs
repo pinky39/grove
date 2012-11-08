@@ -12,7 +12,7 @@
     public override void Apply(TriggeredAbilities abilities)
     {
       _abilties = abilities;
-      _ability = Ability.Create((Card) Target, Source);
+      _ability = Ability.Create((Card) Target, Source, Game);
       _abilties.Add(_ability);
     }
 

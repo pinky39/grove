@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -12,7 +11,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Absolute Grace")
         .ManaCost("{1}{W}")
         .Type("Enchantment")
@@ -22,11 +21,11 @@
           "In pursuit of Urza, the Phyrexians sent countless foul legions into Serra's realm. Though beaten back, they left it tainted with uncleansable evil.")
         .Category(EffectCategories.Protector)
         .Abilities(
-          C.Continuous((e, c) =>
+          Continuous(e =>
             {
               e.CardFilter = (card, source) => card.Is().Creature;
-              e.ModifierFactory = c.Modifier<AddProtectionFromColors>(
-                (m, _) => { m.Colors = ManaColors.Black; });
+              e.ModifierFactory = Modifier<AddProtectionFromColors>(
+                m => { m.Colors = ManaColors.Black; });
             }));
     }
   }

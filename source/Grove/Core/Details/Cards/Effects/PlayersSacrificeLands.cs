@@ -13,7 +13,7 @@
 
       foreach (var player in players)
       {
-        Decisions.Enqueue<SacrificePermanents>(
+        Game.Enqueue<SacrificePermanents>(
           controller: player,
           init: p =>
             {

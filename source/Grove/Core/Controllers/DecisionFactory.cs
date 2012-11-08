@@ -2,94 +2,128 @@
 {
   using System;
   using System.Collections.Generic;
+  using System.Linq;
+  using System.Reflection;
   using Infrastructure;
   using Scenario;
 
   [Copyable]
   public class DecisionFactory
   {
-    private readonly IDecisionFactory _factory;
-    private readonly CachedMachineResolver _cachedMachineResolver;
-    private readonly ScenarioDecisions _scenarioDecisions;
-    private Game _game;
+    private static readonly Dictionary<Type, Entry> CreateDecision = LoadEntries();
+    private readonly Game _game;
+    private PrerecordedDecisions _prerecordedDecisions = new PrerecordedDecisions();
 
     private DecisionFactory() {}
 
-    public DecisionFactory(ScenarioDecisions scenarioDecisions, IDecisionFactory factory)
-    {
-      _scenarioDecisions = scenarioDecisions;
-      _cachedMachineResolver = new CachedMachineResolver(factory);
-      _factory = factory;
-    }
-
-    public void Init(Game game)
+    public DecisionFactory(Game game)
     {
       _game = game;
-      _scenarioDecisions.Init(_game);
     }
 
-    public IDecision Create<TDecision>(Player controller, Action<TDecision> setParameters) where TDecision : IDecision
+    private static Dictionary<Type, Entry> LoadEntries()
     {
-      TDecision decision;
+      var entries = new Dictionary<Type, Entry>();
 
-      if (_game.Search.InProgress || controller.IsComputer)
+      var decisions = Assembly
+        .GetExecutingAssembly()
+        .GetTypes()
+        .Where(type => type.Implements<IDecision>())        
+        .ToList();
+
+      foreach (var baseDecision in decisions.Where(type => type.Namespace.EndsWith("Controllers")))
       {
-        decision = _cachedMachineResolver.Resolve<TDecision>();
+        entries[baseDecision] = new Entry();
       }
-      else if (controller.IsHuman)
+
+      foreach (var decision in decisions.Where(type => !type.IsAbstract && type.Namespace.EndsWith("Machine")))
       {
-        decision = _factory.CreateHuman<TDecision>();
+        var ctor = decision.GetParameterlessCtor();
+
+        entries[decision.BaseType].CreateMachine = () => (IDecision) ctor();
+        
+        // for all scenario decisions that are not implemented use machine decisions
+        entries[decision.BaseType].CreateScenario = () => (IDecision) ctor();
       }
-      else
+
+      foreach (var decision in decisions.Where(type => !type.IsAbstract && type.Namespace.EndsWith("Human")))
       {
-        var scenariodecision = _scenarioDecisions.Get(setParameters);
-        scenariodecision.Game = _game;
-        scenariodecision.Controller = controller;
-        scenariodecision.Init();        
-        return scenariodecision;
+        var ctor = decision.GetParameterlessCtor();
+
+        entries[decision.BaseType].CreateHuman = () => (IDecision) ctor();
       }
+
+      foreach (var decision in decisions.Where(type => !type.IsAbstract && type.Namespace.EndsWith("Scenario")))
+      {
+        
+        // default scenario decision is NOP.
+        entries[decision.BaseType].CreateScenario = () => new NopScenarioDecision();
+      }
+
+      return entries;
+    }
+
+    public void AddScenarioDecisions(IEnumerable<DecisionsForOneStep> decisions)
+    {
+      _prerecordedDecisions.AddDecisions(decisions);
+    }
+
+    public IDecision Create<TDecision>(Player player, Action<TDecision> setParameters)
+      where TDecision : class, IDecision
+    {
+      var controller = player.Controller == ControllerType.Human && _game.Search.InProgress 
+          ? ControllerType.Machine
+          : player.Controller;      
+
+      var decision = CreateDecision[typeof (TDecision)][controller];
+
+      if (controller == ControllerType.Scenario)
+      {
+        var nextScenarioDecision = _prerecordedDecisions.GetNext<TDecision>(_game.Turn.TurnCount, _game.Turn.Step) ??
+          CreateDecision[typeof (TDecision)].CreateScenario();
+
+        if (nextScenarioDecision != null)
+          decision = nextScenarioDecision;
+      }
+
 
       decision.Game = _game;
-      decision.Controller = controller;
-      setParameters(decision);
-      decision.Init();      
+      decision.Controller = player;
+      SetParameters(decision, setParameters);
+      decision.Init();
+
       return decision;
     }
 
-    public void AddDecisions(IEnumerable<StepDecisions> decisions)
+    private static void SetParameters<TDecision>(IDecision decision, Action<TDecision> setParameters)
+      where TDecision : class
     {
-      _scenarioDecisions.AddDecisions(decisions);
+      var settable = decision as TDecision;
+      if (settable != null)
+      {
+        setParameters(settable);
+      }
     }
 
-    // resolving decisions via typed factories is slow
-    // resolve machine decisions with typed factories only the first time
-    // then use cached ctor
-    private class CachedMachineResolver
+    private class Entry
     {
-      private readonly Dictionary<Type, ParameterlessCtor> _cache = new Dictionary<Type, ParameterlessCtor>();
-      private readonly IDecisionFactory _factory;
-      private readonly object _lock = new object();
+      public Func<IDecision> CreateHuman;
+      public Func<IDecision> CreateMachine;
+      public Func<IDecision> CreateScenario;
 
-      public CachedMachineResolver(IDecisionFactory factory)
+      public IDecision this[ControllerType controllerType]
       {
-        _factory = factory;
-      }
-
-      public TDecision Resolve<TDecision>()
-      {
-        lock (_lock)
+        get
         {
-          ParameterlessCtor ctor;
-          if (_cache.TryGetValue(typeof(TDecision), out ctor))
-          {
-            return (TDecision)ctor();
-          }
+          if (controllerType == ControllerType.Machine)
+            return CreateMachine();
 
-          var decision = _factory.CreateMachine<TDecision>();
-          _cache.Add(typeof(TDecision), decision.GetType().GetParameterlessCtor());
-          return decision;  
-        }        
+          if (controllerType == ControllerType.Human)
+            return CreateHuman();
+
+          return CreateScenario();
+        }
       }
-    }
+    }   
   }
 }

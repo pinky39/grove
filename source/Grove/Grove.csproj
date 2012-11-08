@@ -351,6 +351,7 @@
     <Compile Include="Core\Controllers\Results\ChosenOptions.cs" />
     <Compile Include="Core\Controllers\ReturnCardsFromGraveyardToBattlefield.cs" />
     <Compile Include="Core\Controllers\ReturnPermanentsToHand.cs" />
+    <Compile Include="Core\Controllers\Scenario\ScenarioActivation.cs" />
     <Compile Include="Core\DeckFile.cs" />
     <Compile Include="Core\DeckRow.cs" />
     <Compile Include="Core\Details\Cards\ControllerCharacteristic.cs" />
@@ -376,10 +377,12 @@
     <Compile Include="Core\Details\Cards\Effects\PlayersSacrificeLands.cs" />
     <Compile Include="Core\Details\Cards\Effects\PutTargetsToBattlefield.cs" />
     <Compile Include="Core\Details\Cards\Effects\UntapTargets.cs" />
+    <Compile Include="Core\Details\Cards\INeedsGameContext.cs" />
     <Compile Include="Core\Details\Cards\Modifiers\Add11ForEachOtherCreature.cs" />
     <Compile Include="Core\Details\Cards\Modifiers\AddActivatedAbility.cs" />
     <Compile Include="Core\Details\Cards\Modifiers\ChangeController.cs" />
     <Compile Include="Core\Details\Cards\Modifiers\ControllerSetter.cs" />
+    <Compile Include="Core\Details\Cards\Modifiers\ILifetimeFactory.cs" />
     <Compile Include="Core\Details\Cards\Modifiers\PermanentLeavesBattlefieldLifetime.cs" />
     <Compile Include="Core\Details\Cards\Modifiers\SetColors.cs" />
     <Compile Include="Core\Details\Cards\Triggers\GetsBlocked.cs" />
@@ -403,7 +406,7 @@
     <Compile Include="Core\Controllers\IDecisionFactory.cs" />
     <Compile Include="Core\Controllers\Machine\AdHocDecision.cs" />
     <Compile Include="Core\Controllers\Machine\ChooseToUntap.cs" />
-    <Compile Include="Core\Controllers\Scenario\ScenarioDecisions.cs" />
+    <Compile Include="Core\Controllers\Scenario\PrerecordedDecisions.cs" />
     <Compile Include="Core\Controllers\Scenario\ChooseToUntap.cs" />
     <Compile Include="Core\Controllers\AdHocDecision.cs" />
     <Compile Include="Core\Details\Cards\Ability.cs" />
@@ -432,7 +435,7 @@
     <Compile Include="Core\Details\Mana\ManaSourcePriorities.cs" />
     <Compile Include="Core\Messages\AssignedCombatDamageWasDealt.cs" />
     <Compile Include="Core\Messages\PermanentGetsUntapped.cs" />
-    <Compile Include="Core\PlayerType.cs" />
+    <Compile Include="Core\ControllerType.cs" />
     <Compile Include="Core\Ai\DamageDistributor.cs" />
     <Compile Include="Core\Targeting\ITargetValidator.cs" />
     <Compile Include="Core\Targeting\ITargetValidatorFactory.cs" />
@@ -462,7 +465,6 @@
     <Compile Include="Core\Details\Combat\Blocker.cs" />
     <Compile Include="Core\Ai\ISearchNode.cs" />
     <Compile Include="Core\Dsl\CardBuilder.cs" />
-    <Compile Include="Core\Dsl\CardFactoryEx.cs" />
     <Compile Include="Core\Dsl\LevelDefinition.cs" />
     <Compile Include="Core\Controllers\Machine\DecisionExecutor.cs" />
     <Compile Include="Core\Controllers\Machine\AssignCombatDamage.cs" />
@@ -480,10 +482,10 @@
     <Compile Include="Core\Controllers\Scenario\ScenarioEffect.cs" />
     <Compile Include="Core\Controllers\Scenario\PlaySpellOrAbility.cs" />
     <Compile Include="Core\Controllers\Scenario\ScenarioAbility.cs" />
-    <Compile Include="Core\Controllers\Scenario\DefaultScenarioDecision.cs" />
+    <Compile Include="Core\Controllers\Scenario\NopScenarioDecision.cs" />
     <Compile Include="Core\Controllers\Scenario\ScenarioSpell.cs" />
     <Compile Include="Core\Controllers\Scenario\SetTriggeredAbilityTarget.cs" />
-    <Compile Include="Core\Controllers\Scenario\StepDecisions.cs" />
+    <Compile Include="Core\Controllers\Scenario\DecisionsForOneStep.cs" />
     <Compile Include="Core\Controllers\Scenario\Verify.cs" />
     <Compile Include="Core\Details\Cards\Costs\TapOwnerRemoveCounter.cs" />
     <Compile Include="Core\Details\Cards\Counters\ChargeCounter.cs" />
@@ -553,7 +555,6 @@
     <Compile Include="Core\Zones\IZone.cs" />
     <Compile Include="Infrastructure\AssemblyEx.cs" />
     <Compile Include="Infrastructure\Chaining.cs" />
-    <Compile Include="Infrastructure\UiGameScope.cs" />
     <Compile Include="Core\TurnInfo.cs" />
     <Compile Include="Infrastructure\Activation.cs" />
     <Compile Include="Infrastructure\ICopyable.cs" />
@@ -576,7 +577,6 @@
     <Compile Include="Core\Controllers\Results\ChosenCards.cs" />
     <Compile Include="Core\Controllers\DiscardCards.cs" />
     <Compile Include="Core\Controllers\Results\ChosenPlayer.cs" />
-    <Compile Include="Core\Controllers\Decisions.cs" />
     <Compile Include="Core\Controllers\SacrificePermanents.cs" />
     <Compile Include="Core\Controllers\SelectStartingPlayer.cs" />
     <Compile Include="Core\Controllers\SetDamageAssignmentOrder.cs" />
@@ -595,8 +595,6 @@
     <Compile Include="Core\Combat.cs" />
     <Compile Include="Core\Details\Cards\Costs\ICostFactory.cs" />
     <Compile Include="Core\Details\Cards\Effects\IEffectFactory.cs" />
-    <Compile Include="Core\Details\Combat\IAttackerFactory.cs" />
-    <Compile Include="Core\Details\Combat\IBlockerFactory.cs" />
     <Compile Include="Core\ICardFactory.cs" />
     <Compile Include="Core\Details\Cards\ActivatedAbilities.cs" />
     <Compile Include="Core\Details\Cards\CardColors.cs" />

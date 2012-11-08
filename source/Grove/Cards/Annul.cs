@@ -11,7 +11,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Annul")
         .ManaCost("{U}")
         .Type("Instant")
@@ -22,7 +22,7 @@
         .Effect<CounterTargetSpell>()
         .Targets(
           selectorAi: TargetSelectorAi.CounterSpell(),
-          effectValidator: C.Validator(Validators.Counterspell(card => card.Is().Artifact || card.Is().Enchantment)));
+          effectValidator: Validator(Validators.Counterspell(card => card.Is().Artifact || card.Is().Enchantment)));
     }
   }
 }

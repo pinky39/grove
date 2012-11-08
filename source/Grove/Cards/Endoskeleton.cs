@@ -13,7 +13,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Endoskeleton")
         .ManaCost("{2}")
         .Type("Artifact")
@@ -22,20 +22,20 @@
         .Timing(Timings.FirstMain())
         .MayChooseNotToUntapDuringUntap()
         .Abilities(
-          C.ActivatedAbility(
+          ActivatedAbility(
             "{2},{T}: Target creature gets +0/+3 for as long as Endoskeleton remains tapped.",
-            C.Cost<TapOwnerPayMana>(cost =>
+            Cost<TapOwnerPayMana>(cost =>
               {
                 cost.Amount = 2.AsColorlessMana();
                 cost.TapOwner = true;
               }),
-            C.Effect<Core.Details.Cards.Effects.ApplyModifiersToTargets>(p => p.Effect.Modifiers(
-              p.Builder.Modifier<AddPowerAndToughness>((m, c) =>
+            Effect<Core.Details.Cards.Effects.ApplyModifiersToTargets>(e => e.Modifiers(
+              Modifier<AddPowerAndToughness>(m =>
                 {
                   m.Toughness = 3;
-                  m.AddLifetime(new PermanentGetsUntapedLifetime(m.Source, c.ChangeTracker));
+                  m.AddLifetime(Lifetime<PermanentGetsUntapedLifetime>(l => l.Permanent = m.Source));
                 }))),
-            effectValidator: C.Validator(Validators.Creature()),
+            effectValidator: Validator(Validators.Creature()),
             selectorAi: TargetSelectorAi.IncreasePowerAndToughness(0, 3, untilEot: false),
             timing: Timings.NoRestrictions()));
     }

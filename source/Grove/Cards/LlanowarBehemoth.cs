@@ -13,7 +13,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Llanowar Behemoth")
         .ManaCost("{3}{G}{G}")
         .Type("Creature - Elemental")
@@ -24,17 +24,17 @@
         .Toughness(4)
         .Timing(Timings.Creatures())
         .Abilities(
-          C.ActivatedAbility(
+          ActivatedAbility(
             "Tap an untapped creature you control: Llanowar Behemoth gets +1/+1 until end of turn.",
-            C.Cost<TapCreature>(),
-            C.Effect<ApplyModifiersToSelf>(p => p.Effect.Modifiers(
-              p.Builder.Modifier<AddPowerAndToughness>((m, _) =>
+            Cost<TapCreature>(),
+            Effect<ApplyModifiersToSelf>(p => p.Effect.Modifiers(
+              Modifier<AddPowerAndToughness>(m =>
                 {
                   m.Power = 1;
                   m.Toughness = 1;
                 }, untilEndOfTurn: true))),
             
-            costValidator: C.Validator(Validators.Creature((creature) => !creature.IsTapped, Controller.SpellOwner), 
+            costValidator: Validator(Validators.Creature((creature) => !creature.IsTapped, Controller.SpellOwner), 
               mustBeTargetable: false),
             
             selectorAi: TargetSelectorAi.CostTapOrSacCreature(),

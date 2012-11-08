@@ -1,6 +1,6 @@
 ﻿namespace Grove.Core.Controllers.Scenario
 {
-  public class DefaultScenarioDecision : IDecision
+  public class NopScenarioDecision : IDecision
   {
     public void Init() {}
 

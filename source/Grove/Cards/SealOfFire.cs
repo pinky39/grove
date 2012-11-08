@@ -12,7 +12,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Seal of Fire")
         .ManaCost("{R}")
         .Type("Enchantment")
@@ -20,11 +20,11 @@
         .FlavorText("'I am the romancer, the passion that consumes the flesh.'{EOL}—Seal inscription")
         .Timing(Timings.NoRestrictions())
         .Abilities(
-          C.ActivatedAbility(
+          ActivatedAbility(
             "Sacrifice Seal of Fire: Seal of Fire deals 2 damage to target creature or player.",
-            C.Cost<SacrificeOwner>(),
-            C.Effect<DealDamageToTargets>(e => e.Amount = 2),
-            effectValidator: C.Validator(Validators.CreatureOrPlayer()),
+            Cost<SacrificeOwner>(),
+            Effect<DealDamageToTargets>(e => e.Amount = 2),
+            effectValidator: Validator(Validators.CreatureOrPlayer()),
             selectorAi: TargetSelectorAi.DealDamageSingleSelector(2),
             timing: Timings.InstantRemovalTarget()));
     }

@@ -2,6 +2,6 @@
 {
   public interface ITargetValidatorFactory
   {
-    TargetValidator Create(Card source);
+    TargetValidator Create(Card source, Game game);
   }
 }

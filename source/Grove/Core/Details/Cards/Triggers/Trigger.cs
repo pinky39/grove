@@ -13,15 +13,14 @@
     public Game Game { get; private set; }
     public Card OwningCard { get { return Ability.OwningCard; } }
     protected Player Controller { get { return Ability.OwningCard.Controller; } }
-    protected Players Players { get { return Game.Players; } }
-    protected Publisher Publisher { get { return Game.Publisher; } }
+    protected Players Players { get { return Game.Players; } }    
 
     private Trackable<bool> _canTrigger;
     protected bool CanTrigger { get { return _canTrigger.Value; } set { _canTrigger.Value = value; } }
 
     public void Dispose()
     {
-      Publisher.Unsubscribe(this);
+      Game.Unsubscribe(this);
     }
 
     public int CalculateHash(HashCalculator calc)
@@ -42,20 +41,19 @@
     [Copyable]
     public class Factory<TTrigger> : ITriggerFactory where TTrigger : Trigger, new()
     {
-      public Initializer<TTrigger> Init = delegate { };
-      public Game Game { get; set; }
+      public Initializer<TTrigger> Init = delegate { };      
 
-      public Trigger CreateTrigger(TriggeredAbility triggeredAbility)
+      public Trigger CreateTrigger(TriggeredAbility triggeredAbility, Game game)
       {
         var trigger = new TTrigger();
         trigger.Ability = triggeredAbility;
-        trigger.Game = Game;
-        trigger._canTrigger = new Trackable<bool>(true, Game.ChangeTracker);
+        trigger.Game = game;
+        trigger._canTrigger = new Trackable<bool>(true, game.ChangeTracker);
 
-        Init(trigger, new CardBuilder(Game));
+        Init(trigger);
         trigger.Initialize();
 
-        Game.Publisher.Subscribe(trigger);
+        game.Subscribe(trigger);
 
         return trigger;
       }

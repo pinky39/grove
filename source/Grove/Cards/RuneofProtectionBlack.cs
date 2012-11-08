@@ -13,7 +13,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Rune of Protection: Black")
         .ManaCost("{1}{W}")
         .Type("Enchantment")
@@ -22,11 +22,11 @@
         .Timing(Timings.FirstMain())
         .Cycling("{2}")
         .Abilities(
-          C.ActivatedAbility(
+          ActivatedAbility(
             "{W}: The next time a black source of your choice would deal damage to you this turn, prevent that damage.",
-            C.Cost<TapOwnerPayMana>((cost, _) => { cost.Amount = ManaAmount.White; }),
-            C.Effect<PreventDamageFromSourceToController>(e => e.OnlyOnce = true),
-            effectValidator: C.Validator(
+            Cost<TapOwnerPayMana>(cost => { cost.Amount = ManaAmount.White; }),
+            Effect<PreventDamageFromSourceToController>(e => e.OnlyOnce = true),
+            effectValidator: Validator(
               Validators.EffectOrPermanent(target => target.HasColor(ManaColors.Black)), text: "Select a damage source."),
             selectorAi: TargetSelectorAi.PreventDamageFromSourceToController(),
             timing: Timings.NoRestrictions())

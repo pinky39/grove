@@ -11,7 +11,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Clear")
         .ManaCost("{1}{W}")
         .Type("Instant")
@@ -23,7 +23,7 @@
         .Targets(
           selectorAi: TargetSelectorAi.OrderByDescendingScore(),
           effectValidator:
-            C.Validator(Validators.Permanent(card => card.Is().Enchantment)));
+            Validator(Validators.Permanent(card => card.Is().Enchantment)));
     }
   }
 }

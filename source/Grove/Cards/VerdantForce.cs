@@ -12,7 +12,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Verdant Force")
         .ManaCost("{5}{G}{G}{G}")
         .Type("Creature - Elemental")
@@ -23,16 +23,16 @@
         .Toughness(7)
         .Timing(Timings.Creatures())
         .Abilities(
-          C.TriggeredAbility(
+          TriggeredAbility(
             "At the beginning of each upkeep, put a 1/1 green Saproling creature token onto the battlefield.",
-            C.Trigger<AtBegginingOfStep>((t, _) =>
+            Trigger<AtBegginingOfStep>(t =>
               {
                 t.Step = Step.Upkeep;
                 t.PassiveTurn = true;
                 t.ActiveTurn = true;
               }),
-            C.Effect<CreateTokens>(p => p.Effect.Tokens(
-              p.Builder.Card
+            Effect<CreateTokens>(e => e.Tokens(
+              Card
                 .Named("Saproling Token")
                 .FlavorText(
                   "The nauseating wriggling of a saproling is exceeded only by the nauseating wriggling of its prey.")

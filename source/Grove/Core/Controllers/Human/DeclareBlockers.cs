@@ -10,8 +10,7 @@
   public class DeclareBlockers : Controllers.DeclareBlockers
   {
     public ViewModel.IFactory DialogFactory { get; set; }
-    public IShell Shell { get; set; }
-    public Publisher Publisher { get { return Game.Publisher; } }
+    public IShell Shell { get; set; }    
 
     protected override void ExecuteQuery()
     {
@@ -40,7 +39,7 @@
         {
           result.Remove(blocker);
 
-          Publisher.Publish(new BlockerUnselected
+          Game.Publish(new BlockerUnselected
             {
               Blocker = blocker
             });
@@ -66,7 +65,7 @@
 
         var attacker = (Card) selectAttacker.Selection[0];
 
-        Publisher.Publish(new BlockerSelected
+        Game.Publish(new BlockerSelected
           {
             Blocker = blocker,
             Attacker = attacker

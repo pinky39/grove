@@ -13,7 +13,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Trip Noose")
         .ManaCost("{2}")
         .Type("Artifact")
@@ -21,15 +21,15 @@
         .FlavorText("A taut slipknot trigger is the only thing standing between you and standing.")
         .Timing(Timings.FirstMain())
         .Abilities(
-          C.ActivatedAbility(
+          ActivatedAbility(
             "{2},{T}: Tap target creature.",
-            C.Cost<TapOwnerPayMana>((c, _) =>
+            Cost<TapOwnerPayMana>(cost =>
               {
-                c.Amount = 2.AsColorlessMana();
-                c.TapOwner = true;
+                cost.Amount = 2.AsColorlessMana();
+                cost.TapOwner = true;
               }),
-            C.Effect<TapTargetCreature>(),
-            C.Validator(Validators.Creature()),
+            Effect<TapTargetCreature>(),
+            Validator(Validators.Creature()),
             selectorAi: TargetSelectorAi.TapCreature(),
             timing: Timings.Steps(Step.BeginningOfCombat))
         );

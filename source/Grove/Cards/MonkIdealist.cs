@@ -14,7 +14,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Monk Idealist")
         .ManaCost("{2}{W}")
         .Type("Creature - Human Monk Cleric")
@@ -25,11 +25,11 @@
         .Toughness(2)
         .Timing(All(Timings.FirstMain(), Timings.HasCardsInGraveyard(card => card.Is().Enchantment)))
         .Abilities(
-          C.TriggeredAbility(
+          TriggeredAbility(
             "When Monk Idealist enters the battlefield, return target enchantment card from your graveyard to your hand.",
-            C.Trigger<OnZoneChange>((t, _) => t.To = Zone.Battlefield),
-            C.Effect<ReturnToHand>(e => e.ReturnTarget = true),
-            effectValidator: C.Validator(
+            Trigger<OnZoneChange>(t => t.To = Zone.Battlefield),
+            Effect<ReturnToHand>(e => e.ReturnTarget = true),
+            effectValidator: Validator(
               Validators.CardInGraveyard(card => card.Is().Enchantment), mustBeTargetable: false, text: "Select an enchantment in your graveyard."),
             selectorAi: TargetSelectorAi.OrderByDescendingScore(Controller.SpellOwner)
             )

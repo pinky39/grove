@@ -9,8 +9,8 @@
   using Mana;
   using Messages;
   using Targeting;
-  using Zones;
-
+  using Zones;  
+  
   public class ActivatedAbility : Ability
   {
     public Zone ActivationZone = Zone.Battlefield;
@@ -48,7 +48,7 @@
           source: this,
           activation: parameters,
           targets: parameters.Targets
-          ));
+          ), Game);
 
       Cost.Pay(parameters.Targets.Cost.FirstOrDefault(), parameters.X);      
       
@@ -60,7 +60,7 @@
 
       effect.Resolve();
 
-      Publisher.Publish(new PlayerHasActivatedAbility(this, parameters.Targets));
+      Game.Publish(new PlayerHasActivatedAbility(this, parameters.Targets));
     }
 
     public override int CalculateHash(HashCalculator calc)
@@ -97,12 +97,12 @@
       return EffectFactory.CreateEffect(new EffectParameters(
         source: this,
         targets: new Targets().AddEffect(target)
-        )) as T;
+        ), Game) as T;
     }
 
     public void SetCost(ICostFactory costFactory)
     {
-      Cost = costFactory.CreateCost(OwningCard, TargetSelector.Cost.FirstOrDefault());
+      Cost = costFactory.CreateCost(OwningCard, TargetSelector.Cost.FirstOrDefault(), Game);
     }
 
     public void Timing(TimingDelegate timing)
@@ -143,19 +143,18 @@
     {
       IsEnabled = false;
     }
-
+    
     public class Factory<T> : IActivatedAbilityFactory where T : ActivatedAbility, new()
     {
-      public Action<T> Init = delegate { };
-      public Game Game { get; set; }
+      public Action<T> Init = delegate { };      
 
-      public ActivatedAbility Create(Card card)
+      public ActivatedAbility Create(Card card, Game game)
       {
         var ability = new T();
         ability.OwningCard = card;
         ability.SourceCard = card;
-        ability.Game = Game;
-        ability._isEnabled = new Trackable<bool>(true, Game.ChangeTracker);
+        ability.Game = game;
+        ability._isEnabled = new Trackable<bool>(true, game.ChangeTracker);
 
         Init(ability);
 

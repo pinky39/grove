@@ -12,7 +12,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Ravenous Baloth")
         .ManaCost("{2}{G}{G}")
         .Type("Creature - Beast")
@@ -23,12 +23,12 @@
         .Toughness(4)
         .Timing(Timings.Creatures())
         .Abilities(
-          C.ActivatedAbility(
+          ActivatedAbility(
             "Sacrifice a Beast: You gain 4 life.",
-            C.Cost<SacPermanent>(),
-            C.Effect<GainLife>(e => e.Amount = 4),
+            Cost<SacPermanent>(),
+            Effect<GainLife>(e => e.Amount = 4),
             
-            costValidator: C.Validator(Validators.Creature((c) => c.Is("beast"), Controller.SpellOwner), 
+            costValidator: Validator(Validators.Creature((c) => c.Is("beast"), Controller.SpellOwner), 
               mustBeTargetable: false),
             
             selectorAi: TargetSelectorAi.CostSacrificeGainLife(),            

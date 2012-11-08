@@ -14,7 +14,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Acidic Slime")
         .ManaCost("{3}{G}{G}")
         .Type("Creature Ooze")
@@ -25,11 +25,11 @@
         .Timing(Timings.FirstMain())
         .Abilities(
           Static.Deathtouch,
-          C.TriggeredAbility(
+          TriggeredAbility(
             "When Acidic Slime enters the battlefield, destroy target artifact, enchantment, or land.",
-            C.Trigger<OnZoneChange>((t, _) => t.To = Zone.Battlefield),
-            C.Effect<DestroyTargetPermanents>(),
-            C.Validator(Validators.Permanent(
+            Trigger<OnZoneChange>(t => t.To = Zone.Battlefield),
+            Effect<DestroyTargetPermanents>(),
+            Validator(Validators.Permanent(
               card => card.Is().Artifact || card.Is().Enchantment || card.Is().Land)),
             selectorAi: TargetSelectorAi.OrderByDescendingScore(),
             abilityCategory: EffectCategories.Destruction)

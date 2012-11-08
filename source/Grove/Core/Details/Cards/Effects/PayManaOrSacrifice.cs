@@ -21,7 +21,7 @@
         return;
       }
 
-      Decisions.Enqueue<AdhocDecision<BooleanResult>>(
+      Game.Enqueue<AdhocDecision<BooleanResult>>(
         controller: Controller,
         init: p =>
           {

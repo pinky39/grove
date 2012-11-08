@@ -20,7 +20,7 @@
 
     protected override void ResolveEffect()
     {
-      Decisions.Enqueue<AdhocDecision<ChosenOptions>>(
+      Game.Enqueue<AdhocDecision<ChosenOptions>>(
         controller: Controller,
         init: p =>
           {

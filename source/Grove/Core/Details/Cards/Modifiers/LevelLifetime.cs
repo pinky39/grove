@@ -5,27 +5,17 @@
 
   public class LevelLifetime : Lifetime, IReceive<CardChangedLevel>
   {
-    private readonly int? _maxLevel;
-    private readonly int _minLevel;
-    private readonly Card _modifierTarget;
-    private LevelLifetime() {}
-
-    public LevelLifetime(int minLevel, int? maxLevel, Card modifierTarget,
-      ChangeTracker changeTracker) : base(changeTracker)
-    {
-      _minLevel = minLevel;
-      _maxLevel = maxLevel;
-      _modifierTarget = modifierTarget;
-    }
-
-
+    public int? MaxLevel { get; set; }
+    public int MinLevel { get; set; }
+    public Card ModifierTarget { get; set; }
+        
     public void Receive(CardChangedLevel message)
     {
-      if (message.Card != _modifierTarget)
+      if (message.Card != ModifierTarget)
         return;
 
-      if (_modifierTarget.Level < _minLevel ||
-        _modifierTarget.Level > _maxLevel)
+      if (ModifierTarget.Level < MinLevel ||
+        ModifierTarget.Level > MaxLevel)
       {
         End();
       }

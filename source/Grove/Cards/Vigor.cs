@@ -16,7 +16,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Vigor")
         .ManaCost("{3}{G}{G}{G}")
         .Type("Creature - Elemental Incarnation")
@@ -27,21 +27,21 @@
         .Timing(Timings.Creatures())
         .Abilities(
           Static.Trample,
-          C.Continuous((e, c) =>
+          Continuous(e =>
             {
-              e.ModifierFactory = c.Modifier<AddDamagePrevention>((m, c0) =>
-                m.Prevention = c0.Prevention<ReplaceDamageWithCounters>(
-                  (p, c1) => p.CounterFactory = c1.Counter<PowerToughness>((counter, _) =>
+              e.ModifierFactory = Modifier<AddDamagePrevention>(m =>
+                m.Prevention = Prevention<ReplaceDamageWithCounters>(
+                  p => p.CounterFactory = Counter<PowerToughness>(counter =>
                     {
                       counter.Power = 1;
                       counter.Toughness = 1;
                     })));
               e.CardFilter = (card, vigor) => card.Name != vigor.Name && card.Controller == vigor.Controller && card.Is().Creature;
             }),
-          C.TriggeredAbility(
+          TriggeredAbility(
             "When Vigor is put into a graveyard from anywhere, shuffle it into its owner's library.",
-            C.Trigger<OnZoneChange>((t, _) => t.To = Zone.Graveyard),
-            C.Effect<ShuffleIntoLibrary>()));
+            Trigger<OnZoneChange>(t => t.To = Zone.Graveyard),
+            Effect<ShuffleIntoLibrary>()));
     }
   }
 }

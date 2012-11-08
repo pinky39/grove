@@ -12,7 +12,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Unworthy Dead")
         .ManaCost("{1}{B}")
         .Type("Creature Skeleton")
@@ -23,10 +23,10 @@
         .Toughness(1)
         .Timing(Timings.Creatures())
         .Abilities(
-          C.ActivatedAbility(
+          ActivatedAbility(
             "{B}: Regenerate Unworthy Dead.",
-            C.Cost<TapOwnerPayMana>((c, _) => c.Amount = "{B}".ParseManaAmount()),
-            C.Effect<Regenerate>(),
+            Cost<TapOwnerPayMana>(c => c.Amount = "{B}".ParseManaAmount()),
+            Effect<Regenerate>(),
             timing: Timings.Regenerate(),
             category: EffectCategories.Protector));
     }

@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -13,7 +12,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Crater Hellion")
         .ManaCost("{4}{R}{R}")
         .Type("Creature Hellion Beast")
@@ -24,10 +23,10 @@
         .Timing(Timings.Creatures())
         .Echo("{4}{R}{R}")
         .Abilities(
-          C.TriggeredAbility(
+          TriggeredAbility(
             "When Crater Hellion enters the battlefield, it deals 4 damage to each other creature.",
-            C.Trigger<OnZoneChange>((t, _) => t.To = Zone.Battlefield),
-            C.Effect<DealDamageToEach>(e =>
+            Trigger<OnZoneChange>(t => t.To = Zone.Battlefield),
+            Effect<DealDamageToEach>(e =>
               {
                 e.AmountCreature = 4;
                 e.FilterCreature = (self, creature) => creature != self.Source.OwningCard;

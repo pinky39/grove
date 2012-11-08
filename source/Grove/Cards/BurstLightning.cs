@@ -11,7 +11,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Burst Lightning")
         .ManaCost("{R}")
         .KickerCost("{4}")
@@ -22,11 +22,11 @@
         .Effect<DealDamageToTargets>(p => p.Amount = 2)
         .Targets(
           selectorAi: TargetSelectorAi.DealDamageSingleSelector(2),
-          effectValidator: C.Validator(Validators.CreatureOrPlayer()))
+          effectValidator: Validator(Validators.CreatureOrPlayer()))
         .KickerEffect<DealDamageToTargets>(p => p.Amount = 4)
         .KickerTargets(
           aiTargetSelector: TargetSelectorAi.DealDamageSingleSelector(4),
-          effectValidators: C.Validator(Validators.CreatureOrPlayer()));
+          effectValidators: Validator(Validators.CreatureOrPlayer()));
     }
   }
 }

@@ -11,7 +11,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Go for the Throat")
         .ManaCost("{1}{B}")
         .Type("Instant")
@@ -22,7 +22,7 @@
         .Category(EffectCategories.Destruction)
         .Targets(
           selectorAi: TargetSelectorAi.Destroy(),
-          effectValidator: C.Validator(Validators.Creature(card => !card.Is().Artifact)));
+          effectValidator: Validator(Validators.Creature(card => !card.Is().Artifact)));
     }
   }
 }

@@ -7,12 +7,13 @@
   public class ViewModel
   {
     private readonly Match _match;
-    private readonly Players _players;
+    private readonly Game _game;
 
-    public ViewModel(Match match, Players players)
+
+    public ViewModel(Match match, Game game)
     {
       _match = match;
-      _players = players;
+      _game = game;
     }
 
     public string OpponentsResult
@@ -20,7 +21,7 @@
       get
       {
         return string.Format("{0} won {1}",
-          _players.Player2,
+          _game.Players.Player2,
           GetWinCountText(_match.Player2WinCount));
       }
     }
@@ -29,7 +30,7 @@
     {
       get
       {
-        return _players.Player2.HasLost
+        return _game.Players.Player2.HasLost
           ? "Congratulations, you won the match!"
           : "Tough luck, you lost the match!";
       }
@@ -41,9 +42,9 @@
     {
       get
       {
-        return _players.Player1.HasLost
-          ? _players.Player2.Avatar
-          : _players.Player1.Avatar;
+        return _game.Players.Player1.HasLost
+          ? _game.Players.Player2.Avatar
+          : _game.Players.Player1.Avatar;
       }
     }
 
@@ -52,7 +53,7 @@
       get
       {
         return string.Format("{0} won {1}",
-          _players.Player1,
+          _game.Players.Player1,
           GetWinCountText(_match.Player1WinCount));
       }
     }

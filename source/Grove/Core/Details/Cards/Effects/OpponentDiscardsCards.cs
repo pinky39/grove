@@ -17,7 +17,7 @@
       {
         opponent.RevealHand();
         
-        Decisions.Enqueue<Controllers.DiscardCards>(
+        Game.Enqueue<Controllers.DiscardCards>(
           controller: Controller,
           init: p =>
             {
@@ -37,7 +37,7 @@
       if (SelectedCount == 0) 
         return;                 
 
-      Decisions.Enqueue<Controllers.DiscardCards>(
+      Game.Enqueue<Controllers.DiscardCards>(
         controller: opponent,
         init: p => { 
           p.Count = SelectedCount;

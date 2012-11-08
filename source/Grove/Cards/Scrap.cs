@@ -11,7 +11,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Scrap")
         .ManaCost("{2}{R}")
         .Type("Instant")
@@ -23,7 +23,7 @@
         .Targets(
           selectorAi: TargetSelectorAi.OrderByDescendingScore(),
           effectValidator:
-            C.Validator(Validators.Permanent(card => card.Is().Artifact)));
+            Validator(Validators.Permanent(card => card.Is().Artifact)));
     }
   }
 }

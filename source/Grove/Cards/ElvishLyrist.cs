@@ -13,7 +13,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Elvish Lyrist")
         .ManaCost("{G}")
         .Type("Creature Elf")
@@ -24,12 +24,12 @@
         .Toughness(1)
         .Timing(Timings.Creatures())
         .Abilities(
-          C.ActivatedAbility(
+          ActivatedAbility(
             "{G},{T}, Sacrifice Elvish Lyrist: Destroy target enchantment.",
-            C.Cost<TapAndSacOwnerPayMana>((cost, _) => cost.Amount = "{G}".ParseManaAmount()),
-            C.Effect<DestroyTargetPermanents>(),
+            Cost<TapAndSacOwnerPayMana>(cost => cost.Amount = "{G}".ParseManaAmount()),
+            Effect<DestroyTargetPermanents>(),
             timing: Timings.InstantRemovalTarget(),
-            effectValidator: C.Validator(Validators.Permanent(card => card.Is().Enchantment)),
+            effectValidator: Validator(Validators.Permanent(card => card.Is().Enchantment)),
             selectorAi: TargetSelectorAi.OrderByDescendingScore()            
             )
         );

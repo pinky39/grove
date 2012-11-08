@@ -14,7 +14,7 @@
     private const int MaxSearchDepthLimit = 16;
     private const int MaxTargetCountLimit = 2;
     private static readonly ILog Log = LogManager.GetLogger(typeof (Search));
-    private readonly SearchResults _searchResults;
+    private readonly SearchResults _searchResults = new SearchResults();
     private readonly Stopwatch _stopwatch = new Stopwatch();
     private readonly Dictionary<object, SearchWorker> _workers = new Dictionary<object, SearchWorker>();
     private readonly object _workersLock = new object();
@@ -25,9 +25,8 @@
     private int _startStepCount;
     private int _subtreesPrunned;
 
-    public Search(SearchResults searchResults)
-    {
-      _searchResults = searchResults;
+    public Search()
+    {      
       SearchDepthLimit = MaxSearchDepthLimit;
       TargetCountLimit = MaxTargetCountLimit;
     }
@@ -159,7 +158,7 @@
       _lastSearchDuration = (int) _stopwatch.Elapsed.TotalMilliseconds;
 
       Finished(this, EventArgs.Empty);
-      searchNode.Game.Publisher.Publish(new SearchFinished());
+      searchNode.Game.Publish(new SearchFinished());
       Log.Debug("Search finished");
 
       searchNode.Game.ChangeTracker.Disable();
@@ -174,7 +173,7 @@
 
       Log.Debug("Search started");
 
-      searchNode.Game.Publisher.Publish(new SearchStarted
+      searchNode.Game.Publish(new SearchStarted
         {
           SearchDepthLimit = SearchDepthLimit,
           TargetCountLimit = TargetCountLimit

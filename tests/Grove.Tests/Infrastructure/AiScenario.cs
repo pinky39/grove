@@ -103,7 +103,7 @@
       copyService.CopyRoot(Game);
     }
 
-    protected override void OnDispose()
+    public override void Dispose()
     {
       _stopwatch.Stop();
 

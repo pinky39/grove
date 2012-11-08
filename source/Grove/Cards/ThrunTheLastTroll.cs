@@ -13,7 +13,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Thrun, the Last Troll")
         .ManaCost("{2}{G}{G}")
         .Type("Legendary Creature - Troll Shaman")
@@ -26,10 +26,10 @@
         .Effect<PutIntoPlay>(e => e.CanBeCountered = false)
         .Abilities(
           Static.Hexproof,
-          C.ActivatedAbility(
+          ActivatedAbility(
             "{1}{G}: Regenerate Thrun.",
-            C.Cost<TapOwnerPayMana>((c, _) => c.Amount = "{1}{G}".ParseManaAmount()),
-            C.Effect<Regenerate>(),
+            Cost<TapOwnerPayMana>(c => c.Amount = "{1}{G}".ParseManaAmount()),
+            Effect<Regenerate>(),
             timing: Timings.Regenerate()));
     }
   }

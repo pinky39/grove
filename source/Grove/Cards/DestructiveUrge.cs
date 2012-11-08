@@ -13,7 +13,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Destructive Urge")
         .ManaCost("{1}{R}{R}")
         .Type("Enchantment Aura")
@@ -24,17 +24,17 @@
         .Effect<Attach>()
         .Targets(
           selectorAi: TargetSelectorAi.CombatEnchantment(),
-          effectValidator: C.Validator(Validators.EnchantedCreature()))
+          effectValidator: Validator(Validators.EnchantedCreature()))
         .Abilities(
-          C.TriggeredAbility(
+          TriggeredAbility(
             "Whenever enchanted creature deals combat damage to a player, that player sacrifices a land.",
-            C.Trigger<DealDamageToCreatureOrPlayer>((t, _) =>
+            Trigger<DealDamageToCreatureOrPlayer>(t =>
               {
                 t.CombatOnly = true;
                 t.UseAttachedToAsTriggerSource = true;
                 t.ToPlayer();
               }),
-            C.Effect<PlayerSacrificeLands>(
+            Effect<PlayerSacrificeLands>(
               p =>
                 {
                   p.Effect.Player = (Player) p.Parameters.Trigger<DamageHasBeenDealt>().Receiver;

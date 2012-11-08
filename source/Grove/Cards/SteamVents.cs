@@ -13,17 +13,17 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Steam Vents")
         .Type("Land - Island Mountain")
         .Text(
           "{T}: Add {U} or {R} to your mana pool.{EOL}As Steam Vents enters the battlefield, you may pay 2 life. If you don't, Steam Vents enters the battlefield tapped.")
         .Timing(Timings.Lands())
         .Abilities(
-          C.StaticAbility(
-            C.Trigger<OnZoneChange>((t, _) => t.To = Zone.Battlefield),
-            C.Effect<PayLifeOrTap>(e => e.Life = 2)),
-          C.ManaAbility(new ManaUnit(ManaColors.Blue | ManaColors.Red), "{T}: Add {U} or {R} to your mana pool."));
+          StaticAbility(
+            Trigger<OnZoneChange>(t => t.To = Zone.Battlefield),
+            Effect<PayLifeOrTap>(e => e.Life = 2)),
+          ManaAbility(new ManaUnit(ManaColors.Blue | ManaColors.Red), "{T}: Add {U} or {R} to your mana pool."));
     }
   }
 }

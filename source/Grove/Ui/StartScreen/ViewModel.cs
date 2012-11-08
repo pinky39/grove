@@ -6,7 +6,6 @@
   using System.IO;
   using System.Linq;
   using System.Reflection;
-  using System.Threading;
   using System.Threading.Tasks;
   using System.Windows;
   using Core;
@@ -18,7 +17,7 @@
     private static readonly Random Rnd = new Random();
     private readonly CardDatabase _cardDatabase;
     private readonly DeckEditor.ViewModel.IFactory _deckEditorScreenFactory;
-    private readonly Match _match;    
+    private readonly Match _match;
     private readonly SelectDeck.ViewModel.IFactory _selectDeckScreenFactory;
     private readonly IShell _shell;
 
@@ -39,16 +38,7 @@
       LoadPreviews(previews);
     }
 
-    private void LoadPreviews(CardPreviews previews)
-    {
-      Task.Factory.StartNew(() =>
-        {
-          previews.Load();          
-          HasLoaded = true;
-        });
-    }
-
-    public virtual bool HasLoaded {get; protected set; }
+    public virtual bool HasLoaded { get; protected set; }
 
     public string DatabaseInfo
     {
@@ -71,6 +61,15 @@
 
     public void RemoveDialog(object dialog) {}
 
+    private void LoadPreviews(CardPreviews previews)
+    {
+      Task.Factory.StartNew(() =>
+        {
+          previews.Load();
+          HasLoaded = true;
+        });
+    }
+
     public void Exit()
     {
       Application.Current.Shutdown();
@@ -88,7 +87,6 @@
           PreviousScreen = this,
           Forward = (deck1) =>
             {
-
               if (selectDeck2 == null)
               {
                 selectDeck2 = _selectDeckScreenFactory.Create(new Configuration

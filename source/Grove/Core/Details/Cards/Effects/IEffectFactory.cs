@@ -4,6 +4,6 @@
 
   public interface IEffectFactory : IHashable
   {
-    Effect CreateEffect(EffectParameters parameters);
+    Effect CreateEffect(EffectParameters parameters, Game game);
   }
 }

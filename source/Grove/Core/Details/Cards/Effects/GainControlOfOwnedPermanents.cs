@@ -15,7 +15,7 @@
         {
           var modifier = Builder
             .Modifier<ChangeController>(m => m.NewController = Controller)
-            .CreateModifier(Source.OwningCard, permanent, X);
+            .CreateModifier(Source.OwningCard, permanent, X, Game);
 
           permanent.AddModifier(modifier);
         }

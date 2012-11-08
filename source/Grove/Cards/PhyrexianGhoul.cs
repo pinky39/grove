@@ -13,7 +13,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Phyrexian Ghoul")
         .ManaCost("{2}{B}")
         .Type("Creature - Zombie")
@@ -23,17 +23,17 @@
         .Toughness(2)
         .Timing(Timings.Creatures())
         .Abilities(
-          C.ActivatedAbility(
+          ActivatedAbility(
             "Sacrifice a creature: Phyrexian Ghoul gets +2/+2 until end of turn.",
-            C.Cost<SacPermanent>(),
-            C.Effect<ApplyModifiersToSelf>(p => p.Effect.Modifiers(
-              p.Builder.Modifier<AddPowerAndToughness>(m =>
+            Cost<SacPermanent>(),
+            Effect<ApplyModifiersToSelf>(e => e.Modifiers(
+              Modifier<AddPowerAndToughness>(m =>
                 {
                   m.Power = 2;
                   m.Toughness = 2;
                 }, untilEndOfTurn: true)
               )),
-            costValidator: C.Validator(Validators.Creature(controller: Controller.SpellOwner), mustBeTargetable: false),
+            costValidator: Validator(Validators.Creature(controller: Controller.SpellOwner), mustBeTargetable: false),
             selectorAi: TargetSelectorAi.CostTapOrSacCreature(canUseSelf: false),
             timing: All(Timings.IncreaseOwnersPowerAndThougness(2, 2)),
             category: EffectCategories.ToughnessIncrease

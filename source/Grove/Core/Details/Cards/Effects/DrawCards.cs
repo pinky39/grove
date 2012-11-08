@@ -16,7 +16,7 @@
         Controller.Life -= Lifeloss;
 
       if (DiscardCount > 0)
-        Decisions.Enqueue<Controllers.DiscardCards>(
+        Game.Enqueue<Controllers.DiscardCards>(
           controller: Controller, 
           init: p => p.Count = DiscardCount);
     }

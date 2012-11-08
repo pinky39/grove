@@ -6,7 +6,6 @@
   using System.Reflection;
   using Core;
   using Core.Ai;
-  using Core.Controllers;
   using Core.Controllers.Scenario;
   using Core.Zones;
   using log4net.Config;
@@ -15,66 +14,28 @@
   public abstract class Scenario : IDisposable
   {
     protected static readonly IoC Container = IoC.Test();
-    private readonly IDisposable _scope;
 
     protected Scenario(bool player1ControlledByScript = true, bool player2ControlledByScript = true)
     {
-      _scope = Container.BeginScope();
-      CreatePlayers(player1ControlledByScript, player2ControlledByScript);
+      var player1Controller = player1ControlledByScript ? ControllerType.Scenario : ControllerType.Machine;
+      var player2Controller = player2ControlledByScript ? ControllerType.Scenario : ControllerType.Machine;
+
+      Game = Game.NewScenario(player1Controller, player2Controller, CardDatabase);
     }
 
-    protected CardDatabase CardDatabase
+    protected CardDatabase CardDatabase { get { return Container.Resolve<CardDatabase>(); } }
+
+    protected Game Game { get; private set; }
+    protected Player P1 { get { return Game.Players.Player1; } }
+    protected Player P2 { get { return Game.Players.Player2; } }
+    protected Search Search { get { return Game.Search; } }
+    protected Combat Combat { get { return Game.Combat; } }
+
+    public virtual void Dispose() {}
+
+    protected DecisionsForOneStep At(Step step, int turn = 1)
     {
-      get { return Container.Resolve<CardDatabase>(); }
-    }
-
-    protected DecisionFactory DecisionFactory
-    {
-      get { return Container.Resolve<DecisionFactory>(); }
-    }
-
-    protected Game Game
-    {
-      get { return Container.Resolve<Game>(); }
-    }
-
-    protected Player P1
-    {
-      get { return (Player)Game.Players.Player1; }
-    }
-
-    protected Player P2
-    {
-      get { return (Player)Game.Players.Player2; }
-    }
-
-    protected Search Search
-    {
-      get { return Container.Resolve<Search>(); }
-    }
-
-    protected Combat Combat
-    {
-      get { return Game.Combat; }
-    }
-
-    private static Player.IFactory PlayerFactory
-    {
-      get { return Container.Resolve<Player.IFactory>(); }
-    }
-
-    public void Dispose()
-    {
-      _scope.Dispose();
-
-      OnDispose();
-    }
-
-    protected virtual void OnDispose() {}
-
-    protected StepDecisions At(Step step, int turn = 1)
-    {
-      var stepDecisions = Container.Resolve<StepDecisions>();
+      var stepDecisions = Container.Resolve<DecisionsForOneStep>();
 
       stepDecisions.Step = step;
       stepDecisions.Turn = turn;
@@ -88,14 +49,14 @@
       {
         scenarioCard.Initialize(name =>
           {
-            var card = CardDatabase.CreateCard(name, player);
+            var card = CardDatabase.CreateCard(name, player, Game);
 
             if (card.IsManaSource)
               player.AddManaSources(card.ManaSources);
-                        
+
             player.PutCardToBattlefield(card);
             card.HasSummoningSickness = false;
-            
+
             if (scenarioCard.IsTapped)
               card.Tap();
 
@@ -103,7 +64,7 @@
             {
               enchantment.Initialize(enchantmentName =>
                 {
-                  var enchantmentCard = CardDatabase.CreateCard(enchantmentName, player);
+                  var enchantmentCard = CardDatabase.CreateCard(enchantmentName, player, Game);
                   player.PutCardToBattlefield(enchantmentCard);
                   EnchantCard(card, enchantmentCard);
                   return enchantmentCard;
@@ -114,18 +75,18 @@
             {
               equipment.Initialize(equipmentName =>
                 {
-                  var equipmentCard = CardDatabase.CreateCard(equipmentName, player);
+                  var equipmentCard = CardDatabase.CreateCard(equipmentName, player, Game);
                   player.PutCardToBattlefield(equipmentCard);
                   EquipCard(card, equipmentCard);
                   return equipmentCard;
                 });
             }
 
-             foreach (var tracked in scenarioCard.TrackedBy)
+            foreach (var tracked in scenarioCard.TrackedBy)
             {
               tracked.Initialize(trackerName =>
                 {
-                  var tracker = CardDatabase.CreateCard(trackerName, player);
+                  var tracker = CardDatabase.CreateCard(trackerName, player, Game);
                   player.PutCardToBattlefield(tracker);
                   TrackCard(card, tracker);
                   return tracker;
@@ -142,7 +103,7 @@
       foreach (var cardName in cardNames)
       {
         var battlefield = (Battlefield) controller.Battlefield;
-        var card = CardDatabase.CreateCard(cardName, controller);
+        var card = CardDatabase.CreateCard(cardName, controller, Game);
         battlefield.Add(card);
         yield return card;
       }
@@ -187,10 +148,10 @@
       card.Attach(tracker);
     }
 
-    protected void Exec(params StepDecisions[] decisions)
+    protected void Exec(params DecisionsForOneStep[] decisions)
     {
       const int untilTurn = 5;
-      DecisionFactory.AddDecisions(decisions);
+      Game.AddScenarioDecisions(decisions);
       RunGame(untilTurn);
       AssertAllCommandsHaveRun(decisions);
     }
@@ -206,9 +167,9 @@
 
       foreach (var scenarioCard in cards)
       {
-          scenarioCard.Initialize(name =>
+        scenarioCard.Initialize(name =>
           {
-            var card = CardDatabase.CreateCard(name, player);
+            var card = CardDatabase.CreateCard(name, player, Game);
             graveyard.Add(card);
 
             if (card.IsManaSource)
@@ -218,7 +179,7 @@
           });
       }
     }
-    
+
     protected void Hand(Player player, params ScenarioCard[] cards)
     {
       var hand = (Hand) player.Hand;
@@ -227,7 +188,7 @@
       {
         scenarioCard.Initialize(name =>
           {
-            var card = CardDatabase.CreateCard(name, player);
+            var card = CardDatabase.CreateCard(name, player, Game);
             hand.Add(card);
 
             if (card.IsManaSource)
@@ -258,7 +219,7 @@
       card.Detach(equipment);
     }
 
-    private static void AssertAllCommandsHaveRun(IEnumerable<StepDecisions> commands)
+    private static void AssertAllCommandsHaveRun(IEnumerable<DecisionsForOneStep> commands)
     {
       foreach (var stepCommands in commands)
       {
@@ -269,24 +230,6 @@
     private static void EnchantCard(Card card, Card enchantment)
     {
       card.EnchantWithoutPayingTheCost(enchantment);
-    }
-
-    private void CreatePlayers(bool p1IsControlledByScript, bool p2IsControlledByScript)
-    {
-      Game.Players.Player1 = PlayerFactory.Create(
-        name: "Player 1",
-        avatar: String.Empty,
-        type: p1IsControlledByScript ? PlayerType.Scenario : PlayerType.Computer,
-        deck: Deck.Dummy());
-
-      Game.Players.Player2 = PlayerFactory.Create(
-        name: "Player 2",
-        avatar: String.Empty,
-        type: p2IsControlledByScript ? PlayerType.Scenario : PlayerType.Computer,
-        deck: Deck.Dummy());
-
-
-      Game.Players.Starting = Game.Players.Player1;
     }
   }
 }

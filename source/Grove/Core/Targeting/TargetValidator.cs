@@ -66,17 +66,16 @@
     }
 
     public class Factory : ITargetValidatorFactory
-    {
-      public Game Game { get; set; }
+    {      
       public Action<TargetValidator> Init { get; set; }
 
-      public TargetValidator Create(Card source)
+      public TargetValidator Create(Card source, Game game)
       {
         var targetSelector = new TargetValidator();
-        targetSelector._game = Game;
+        targetSelector._game = game;
         targetSelector.Source = source;
         targetSelector.MustBeTargetable = true;        
-        targetSelector._trigger = new Trackable<object>(Game.ChangeTracker);
+        targetSelector._trigger = new Trackable<object>(game.ChangeTracker);
 
         Init(targetSelector);
         

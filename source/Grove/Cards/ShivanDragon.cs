@@ -14,7 +14,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Shivan Dragon")
         .ManaCost("{4}{R}{R}")
         .Type("Creature - Dragon")
@@ -25,11 +25,11 @@
         .Timing(Timings.Creatures())
         .Abilities(
           Static.Flying,
-          C.ActivatedAbility(
+          ActivatedAbility(
             "{R}: Shivan Dragon gets +1/+0 until end of turn.",
-            C.Cost<TapOwnerPayMana>((c, _) => c.Amount = ManaAmount.Red),
-            C.Effect<ApplyModifiersToSelf>(p => p.Effect.Modifiers(
-              p.Builder.Modifier<AddPowerAndToughness>((m, _) => m.Power = 1, untilEndOfTurn: true))),
+            Cost<TapOwnerPayMana>(c => c.Amount = ManaAmount.Red),
+            Effect<ApplyModifiersToSelf>(e => e.Modifiers(
+              Modifier<AddPowerAndToughness>(m => m.Power = 1, untilEndOfTurn: true))),
             timing: Timings.IncreaseOwnersPowerAndThougness(1, 0)));
     }
   }

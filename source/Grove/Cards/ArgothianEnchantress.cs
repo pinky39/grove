@@ -12,7 +12,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Argothian Enchantress")
         .ManaCost("{1}{G}")
         .Type("Creature Human Druid")
@@ -23,11 +23,11 @@
         .Timing(Timings.FirstMain())
         .Abilities(
           Static.Shroud,
-          C.TriggeredAbility(
+          TriggeredAbility(
             "Whenever you cast an enchantment spell, draw a card.",
-            C.Trigger<SpellWasCast>(
-              (t, _) => { t.Filter = (ability, card) => card.Controller == ability.Controller && card.Is().Enchantment; }),
-            C.Effect<DrawCards>(p => p.DrawCount = 1),
+            Trigger<SpellWasCast>(
+              t => { t.Filter = (ability, card) => card.Controller == ability.Controller && card.Is().Enchantment; }),
+            Effect<DrawCards>(p => p.DrawCount = 1),
             triggerOnlyIfOwningCardIsInPlay: true
             )
         );

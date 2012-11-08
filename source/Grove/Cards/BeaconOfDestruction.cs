@@ -12,7 +12,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Beacon of Destruction")
         .ManaCost("{3}{R}{R}")
         .Type("Instant")
@@ -24,7 +24,7 @@
         .Effect<DealDamageToTargets>(p => p.Amount = 5)
         .Targets(
           selectorAi: TargetSelectorAi.DealDamageSingleSelector(5),
-          effectValidator: C.Validator(Validators.CreatureOrPlayer()));
+          effectValidator: Validator(Validators.CreatureOrPlayer()));
     }
   }
 }

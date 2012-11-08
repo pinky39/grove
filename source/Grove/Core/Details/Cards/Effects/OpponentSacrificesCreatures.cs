@@ -10,7 +10,7 @@
     {
       var opponent = Players.GetOpponent(Controller);
 
-      Decisions.Enqueue<SacrificePermanents>(
+      Game.Enqueue<SacrificePermanents>(
         controller: opponent,
         init: p =>
           {

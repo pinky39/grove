@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -12,7 +11,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Bedlam")
         .ManaCost("{2}{R}{R}")
         .Type("Enchantment")
@@ -20,12 +19,12 @@
         .FlavorText("Sometimes quantity, in the absence of quality, is good enough.")
         .Timing(Timings.FirstMain())
         .Abilities(
-          C.Continuous((e, c) =>
+          Continuous(e =>
             {
               e.CardFilter = (card, source) => card.Is().Creature;
-              e.ModifierFactory = c.Modifier<AddStaticAbility>(
-                (m, _) => { m.StaticAbility = Static.CannotBlock; });
-            }));                
+              e.ModifierFactory = Modifier<AddStaticAbility>(
+                m => { m.StaticAbility = Static.CannotBlock; });
+            }));
     }
   }
 }

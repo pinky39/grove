@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -13,7 +12,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Cave Tiger")
         .ManaCost("{2}{G}")
         .Type("Creature Cat")
@@ -24,11 +23,11 @@
         .Toughness(2)
         .Timing(Timings.Creatures())
         .Abilities(
-          C.TriggeredAbility(
+          TriggeredAbility(
             "Whenever Cave Tiger becomes blocked by a creature, Cave Tiger gets +1/+1 until end of turn.",
-            C.Trigger<GetsBlocked>(),
-            C.Effect<ApplyModifiersToSelf>(p => p.Effect.Modifiers(
-              p.Builder.Modifier<AddPowerAndToughness>(m =>
+            Trigger<GetsBlocked>(),
+            Effect<ApplyModifiersToSelf>(e => e.Modifiers(
+              Modifier<AddPowerAndToughness>(m =>
                 {
                   m.Power = 1;
                   m.Toughness = 1;

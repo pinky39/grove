@@ -12,7 +12,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Symbiosis")
         .ManaCost("{1}{G}")
         .Type("Instant")
@@ -22,14 +22,14 @@
         .FlavorText(
           "Although the elves of Argoth always considered them a nuisance, the pixies made fine allies during the war against the machines.")
         .Effect<ApplyModifiersToTargets>(p => p.Effect.Modifiers(
-          p.Builder.Modifier<AddPowerAndToughness>((m, _) =>
+          Modifier<AddPowerAndToughness>(m =>
             {
               m.Power = 2;
               m.Toughness = 2;
             }, untilEndOfTurn: true)))
         .Targets(
           selectorAi: TargetSelectorAi.IncreasePowerAndToughness(2, 2),
-          effectValidator: C.Validator(Validators.Creature(), minCount: 2, maxCount: 2)
+          effectValidator: Validator(Validators.Creature(), minCount: 2, maxCount: 2)
         );
     }
   }

@@ -8,40 +8,7 @@
   using Results;
   using Targeting;
 
-  public class ScenarioActivation
-  {
-    private readonly Targets _targets = new Targets();
-
-    public Card Card { get; set; }
-    public int? X { get; set; }
-    public int AbilityIndex { get; set; }
-    public bool PayKicker { get; set; }
-
-    public Targets GetTargets()
-    {
-      return _targets;
-    }
-
-    public void Targets(params ITarget[] effectTargets)
-    {
-      foreach (var effectTarget in effectTargets)
-      {
-        if (effectTarget != null)
-          _targets.AddEffect(effectTarget);
-      }
-    }
-
-    public void CostTargets(params ITarget[] costTargets)
-    {
-      foreach (var costTarget in costTargets)
-      {
-        if (costTarget != null)
-          _targets.AddCost(costTarget);
-      }
-    }
-  }
-
-  public class StepDecisions
+  public class DecisionsForOneStep
   {
     private readonly List<IScenarioDecision> _decisions = new List<IScenarioDecision>();
 
@@ -49,13 +16,13 @@
     public int Turn { get; set; }
     public Game Game { get; set; }
 
-    public StepDecisions Activate(Card card, Card target, Card costTarget = null,
+    public DecisionsForOneStep Activate(Card card, Card target, Card costTarget = null,
       int? x = null, int abilityIndex = 0)
     {
       return Activate(card, (ITarget) target, costTarget, x, abilityIndex);
     }
 
-    public StepDecisions Activate(Action<ScenarioActivation> init)
+    public DecisionsForOneStep Activate(Action<ScenarioActivation> init)
     {
       var activation = new ScenarioActivation();
       init(activation);
@@ -83,7 +50,7 @@
       return this;
     }
 
-    public StepDecisions Untap()
+    public DecisionsForOneStep Untap()
     {
       var decision = new ChooseToUntap
         {
@@ -94,7 +61,7 @@
       return this;
     }    
 
-    public StepDecisions DoNotUntap()
+    public DecisionsForOneStep DoNotUntap()
     {
       var decision = new ChooseToUntap
         {
@@ -105,7 +72,7 @@
       return this;
     }
 
-    public StepDecisions Activate(Card card, Player target, Card costTarget = null,
+    public DecisionsForOneStep Activate(Card card, Player target, Card costTarget = null,
       int? x = null, int abilityIndex = 0)
     {
       return Activate(p =>
@@ -118,7 +85,7 @@
         });
     }
 
-    public StepDecisions Activate(Card card, Card costTarget = null,
+    public DecisionsForOneStep Activate(Card card, Card costTarget = null,
       int? x = null, int abilityIndex = 0)
     {
       return Activate(p =>
@@ -130,7 +97,7 @@
         });
     }
 
-    private StepDecisions Activate(Card card, ITarget target = null, ITarget costTarget = null,
+    private DecisionsForOneStep Activate(Card card, ITarget target = null, ITarget costTarget = null,
       int? x = null, int abilityIndex = 0)
     {
       return Activate(p =>
@@ -153,7 +120,7 @@
       }
     }
 
-    public StepDecisions Cast(Action<ScenarioActivation> init)
+    public DecisionsForOneStep Cast(Action<ScenarioActivation> init)
     {
       var activation = new ScenarioActivation();
       init(activation);
@@ -180,7 +147,7 @@
       return this;
     }
 
-    public StepDecisions Cast(Card card, Card target, bool payKicker = false, int? x = null)
+    public DecisionsForOneStep Cast(Card card, Card target, bool payKicker = false, int? x = null)
     {
       return Cast(p =>
         {
@@ -191,7 +158,7 @@
         });
     }
 
-    public StepDecisions Cast(Card card, bool payKicker = false, int? x = null)
+    public DecisionsForOneStep Cast(Card card, bool payKicker = false, int? x = null)
     {
       return Cast(p =>
         {
@@ -201,18 +168,7 @@
         });
     }
 
-    public StepDecisions Cast(Card card, Player target, bool payKicker = false, int? x = null)
-    {
-      return Cast(p =>
-        {
-          p.Card = card;
-          p.Targets(target);
-          p.PayKicker = payKicker;
-          p.X = x;
-        });
-    }
-
-    public StepDecisions Cast(Card card, ScenarioEffect target, bool payKicker = false, int? x = null)
+    public DecisionsForOneStep Cast(Card card, Player target, bool payKicker = false, int? x = null)
     {
       return Cast(p =>
         {
@@ -223,7 +179,18 @@
         });
     }
 
-    public StepDecisions DeclareAttackers(params Card[] attackers)
+    public DecisionsForOneStep Cast(Card card, ScenarioEffect target, bool payKicker = false, int? x = null)
+    {
+      return Cast(p =>
+        {
+          p.Card = card;
+          p.Targets(target);
+          p.PayKicker = payKicker;
+          p.X = x;
+        });
+    }
+
+    public DecisionsForOneStep DeclareAttackers(params Card[] attackers)
     {
       var decision = new DeclareAttackers
         {
@@ -236,7 +203,7 @@
       return this;
     }
 
-    public StepDecisions DeclareBlockers(params Card[] pairs)
+    public DecisionsForOneStep DeclareBlockers(params Card[] pairs)
     {
       Debug.Assert(pairs.Length%2 == 0, "Pairs lenght must be even number, did you forget to match a blocker?");
 
@@ -281,17 +248,17 @@
       return null;
     }
 
-    public StepDecisions Target(Card target)
+    public DecisionsForOneStep Target(Card target)
     {
       return Target((ITarget) target);
     }
 
-    public StepDecisions Target(Player target)
+    public DecisionsForOneStep Target(Player target)
     {
       return Target((ITarget) target);
     }
 
-    private StepDecisions Target(ITarget target)
+    private DecisionsForOneStep Target(ITarget target)
     {
       var decision = new SetTriggeredAbilityTarget
         {
@@ -303,7 +270,7 @@
       return this;
     }
 
-    public StepDecisions Verify(Action assertion)
+    public DecisionsForOneStep Verify(Action assertion)
     {
       var decision = new Verify
         {
@@ -315,7 +282,7 @@
       return this;
     }
 
-    public StepDecisions Cycle(Card card)
+    public DecisionsForOneStep Cycle(Card card)
     {
       return Activate(p =>
         {

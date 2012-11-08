@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -14,7 +13,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Vines of Vastwood")
         .ManaCost("{G}")
         .KickerCost("{G}")
@@ -24,20 +23,20 @@
         .Text(
           "{Kicker} {G}{EOL}Target creature can't be the target of spells or abilities your opponents control this turn. If Vines of Vastwood was kicked, that creature gets +4/+4 until end of turn.")
         .Effect<ApplyModifiersToTargets>(p => p.Effect.Modifiers(
-          p.Builder.Modifier<AddStaticAbility>((m, _) => m.StaticAbility = Static.Hexproof, untilEndOfTurn: true)))
+          Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Hexproof, untilEndOfTurn: true)))
         .Targets(
           selectorAi: TargetSelectorAi.ShieldHexproof(),
-          effectValidator: C.Validator(Validators.Creature()))
+          effectValidator: Validator(Validators.Creature()))
         .KickerEffect<ApplyModifiersToTargets>(p => p.Effect.Modifiers(
-          p.Builder.Modifier<AddStaticAbility>((m, _) => m.StaticAbility = Static.Hexproof, untilEndOfTurn: true),
-          p.Builder.Modifier<AddPowerAndToughness>((m, _) =>
+          Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Hexproof, untilEndOfTurn: true),
+          Modifier<AddPowerAndToughness>(m =>
             {
               m.Power = 4;
               m.Toughness = 4;
             }, untilEndOfTurn: true)))
         .KickerTargets(
           aiTargetSelector: Any(TargetSelectorAi.ShieldHexproof(), TargetSelectorAi.IncreasePowerAndToughness(4, 4)),
-          effectValidators: C.Validator(Validators.Creature()));
+          effectValidators: Validator(Validators.Creature()));
     }
   }
 }

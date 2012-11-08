@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -12,7 +11,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Urza's Armor")
         .ManaCost("{6}")
         .Type("Artifact")
@@ -21,10 +20,10 @@
           "'Tawnos's blueprints were critical to the creation of my armor. As he once sealed himself in steel, I sealed myself in a walking crypt.'{EOL}—Urza")
         .Timing(Timings.FirstMain())
         .Abilities(
-          C.Continuous((e, c) =>
+          Continuous(e =>
             {
-              e.ModifierFactory = c.Modifier<AddDamagePrevention>(
-                (m, c0) => m.Prevention = c0.Prevention<PreventDamageToTarget>((p, _) => p.Amount = 1));
+              e.ModifierFactory = Modifier<AddDamagePrevention>(
+                m => m.Prevention = Prevention<PreventDamageToTarget>(p => p.Amount = 1));
               e.CardFilter = delegate { return false; };
               e.PlayerFilter = (player, armor) => player == armor.Controller;
             })

@@ -10,7 +10,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Wildfire")
         .ManaCost("{4}{R}{R}")
         .Type("Sorcery")
@@ -19,8 +19,8 @@
         .Timing(Timings.NoRestrictions())
         .Effect<CompoundEffect>(p =>
           p.Effect.ChildEffects(
-            p.Builder.Effect<PlayersSacrificeLands>(e => e.Count = 4),
-            p.Builder.Effect<DealDamageToEach>(e => e.AmountCreature = 4))
+            Effect<PlayersSacrificeLands>(e => e.Count = 4),
+            Effect<DealDamageToEach>(e => e.AmountCreature = 4))
         );
     }
   }

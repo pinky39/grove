@@ -14,7 +14,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Grave Titan")
         .ManaCost("{4}{B}{B}")
         .Type("Creature - Giant")
@@ -26,14 +26,14 @@
         .Timing(Timings.Creatures())
         .Abilities(
           Static.Deathtouch,
-          C.TriggeredAbility(
+          TriggeredAbility(
             "Whenever Grave Titan enters the battlefield or attacks, put two 2/2 black Zombie creature tokens onto the battlefield.",
-            L(C.Trigger<OnZoneChange>((t, _) => { t.To = Zone.Battlefield; }),
-              C.Trigger<OnAttack>()),
-            C.Effect<CreateTokens>(p =>
+            L(Trigger<OnZoneChange>(t => { t.To = Zone.Battlefield; }),
+              Trigger<OnAttack>()),
+            Effect<CreateTokens>(e =>
               {
-                p.Effect.Tokens(
-                  p.Builder.Card
+                e.Tokens(
+                  Card
                     .Named("Zombie Token")
                     .FlavorText(
                       "'Your brain is rotting?!.'{EOL}'...enough.'{EOL}-Y.A, 'The seven zombies'")
@@ -42,7 +42,7 @@
                     .Type("Creature - Token - Zombie")
                     .Colors(ManaColors.Black)
                   );
-                p.Effect.Count = 2;
+                e.Count = 2;
               })));
     }
   }

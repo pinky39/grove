@@ -2,6 +2,6 @@
 {
   public interface IContinuousEffectFactory
   {
-    ContinuousEffect Create(Card source);
+    ContinuousEffect Create(Card source, Game game);
   }
 }

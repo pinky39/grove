@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -14,7 +13,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Liliana's Specter")
         .ManaCost("{1}{B}{B}")
         .Type("Creature - Specter")
@@ -25,10 +24,10 @@
         .Timing(Timings.FirstMain())
         .Abilities(
           Static.Flying,
-          C.TriggeredAbility(
+          TriggeredAbility(
             "When Liliana's Specter enters the battlefield, each opponent discards a card.",
-            C.Trigger<OnZoneChange>((t, _) => t.To = Zone.Battlefield),
-            C.Effect<OpponentDiscardsCards>(e => e.SelectedCount = 1)));
+            Trigger<OnZoneChange>(t => t.To = Zone.Battlefield),
+            Effect<OpponentDiscardsCards>(e => e.SelectedCount = 1)));
     }
   }
 }

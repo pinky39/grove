@@ -33,17 +33,16 @@
 
     public class Factory<TCost> : ICostFactory where TCost : Cost, new()
     {
-      public Initializer<TCost> Init = delegate { };
-      public Game Game { get; set; }
+      public Initializer<TCost> Init = delegate { };      
 
-      public Cost CreateCost(Card card, TargetValidator validator)
+      public Cost CreateCost(Card card, TargetValidator validator, Game game)
       {
         var cost = new TCost();
         cost.Card = card;
-        cost.Game = Game;
+        cost.Game = game;
         cost.Validator = validator;
 
-        Init(cost, new CardBuilder(Game));
+        Init(cost);
         cost.AfterInit();
 
         return cost;

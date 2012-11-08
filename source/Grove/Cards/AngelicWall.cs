@@ -10,7 +10,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Angelic Wall")
         .ManaCost("{1}{W}")
         .Type("Creature Wall")

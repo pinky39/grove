@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -11,7 +10,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Glorious Anthem")
         .ManaCost("{1}{W}{W}")
         .Type("Enchantment")
@@ -20,10 +19,10 @@
         .Category(EffectCategories.ToughnessIncrease)
         .Timing(Timings.FirstMain())
         .Abilities(
-          C.Continuous((e, c) =>
+          Continuous(e =>
             {
-              e.ModifierFactory = c.Modifier<AddPowerAndToughness>(
-                (m, _) =>
+              e.ModifierFactory = Modifier<AddPowerAndToughness>(
+                m =>
                   {
                     m.Power = 1;
                     m.Toughness = 1;

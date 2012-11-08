@@ -11,7 +11,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Time Warp")
         .ManaCost("{3}{U}{U}")
         .Type("Sorcery")
@@ -21,7 +21,7 @@
         .Effect<TargetPlayerTakesExtraTurns>()
         .Targets(
           selectorAi: TargetSelectorAi.Controller(),
-          effectValidator: C.Validator(Validators.Player()));
+          effectValidator: Validator(Validators.Player()));
     }
   }
 }

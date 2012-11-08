@@ -10,7 +10,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Wall of Denial")
         .ManaCost("{1}{W}{U}")
         .Type("Creature - Wall")

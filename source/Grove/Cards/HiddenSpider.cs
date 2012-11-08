@@ -14,7 +14,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Hidden Spider")
         .ManaCost("{G}")
         .Type("Enchantment")
@@ -23,21 +23,21 @@
         .FlavorText("It wants only to dress you in silk.")
         .Timing(Timings.SecondMain())
         .Abilities(
-          C.TriggeredAbility(
+          TriggeredAbility(
             "When an opponent casts a creature spell with flying, if Hidden Spider is an enchantment, Hidden Spider becomes a 3/5 Spider creature with reach.",
-            C.Trigger<SpellWasCast>((t, _) => t.Filter =
+            Trigger<SpellWasCast>(t => t.Filter =
               (ability, card) =>
                 ability.Controller != card.Controller && ability.OwningCard.Is().Enchantment && card.Is().Creature &&
                   card.Has().Flying),
-            C.Effect<ApplyModifiersToSelf>(p => p.Effect.Modifiers(
-              p.Builder.Modifier<ChangeToCreature>(m =>
+            Effect<ApplyModifiersToSelf>(p => p.Effect.Modifiers(
+              Modifier<ChangeToCreature>(m =>
                 {
                   m.Power = 3;
                   m.Toughness = 5;
                   m.Type = "Creature - Spider";
                   m.Colors = ManaColors.Green;
                 }), 
-              p.Builder.Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Reach))),               
+              Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Reach))),               
             triggerOnlyIfOwningCardIsInPlay: true)
         );
     }

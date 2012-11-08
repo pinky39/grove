@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -15,14 +14,14 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Brilliant Halo")
         .ManaCost("{1}{W}")
         .Type("Enchantment Aura")
         .Text(
           "Enchanted creature{EOL}Enchanted creature gets +1/+2.{EOL}When Brilliant Halo is put into a graveyard from the battlefield, return Brilliant Halo to its owner's hand.")
-        .Effect<Attach>(p => p.Effect.Modifiers(
-          p.Builder.Modifier<AddPowerAndToughness>((m, _) =>
+        .Effect<Attach>(e => e.Modifiers(
+          Modifier<AddPowerAndToughness>(m =>
             {
               m.Power = 1;
               m.Toughness = 2;
@@ -30,16 +29,16 @@
         .Timing(Timings.FirstMain())
         .Targets(
           selectorAi: TargetSelectorAi.CombatEnchantment(),
-          effectValidator: C.Validator(Validators.EnchantedCreature()))
+          effectValidator: Validator(Validators.EnchantedCreature()))
         .Abilities(
-          C.TriggeredAbility(
+          TriggeredAbility(
             "When Brilliant Halo is put into a graveyard from the battlefield, return Brilliant Halo to its owner's hand.",
-            C.Trigger<OnZoneChange>((t, _) =>
+            Trigger<OnZoneChange>(t =>
               {
                 t.From = Zone.Battlefield;
                 t.To = Zone.Graveyard;
               }),
-            C.Effect<ReturnToHand>(e => e.ReturnOwner = true)));
+            Effect<ReturnToHand>(e => e.ReturnOwner = true)));
     }
   }
 }

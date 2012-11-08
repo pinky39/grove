@@ -11,10 +11,11 @@
     public override void Apply(DamagePreventions damagePreventions)
     {
       _damagePreventions = damagePreventions;
-      _damagePrevention = Prevention.Create(Target);
+      _damagePrevention = Prevention.Create(Target, Game);
 
       AddLifetime(
-        new DependantLifetime(_damagePrevention, ChangeTracker));
+        Builder.Lifetime<DependantLifetime>(
+          l => l.LifetimeDependency = _damagePrevention));
 
       damagePreventions.AddPrevention(_damagePrevention);
     }

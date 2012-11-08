@@ -13,7 +13,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Cloak of Mists")
         .ManaCost("{1}{U}")
         .Type("Enchantment Aura")
@@ -21,11 +21,11 @@
         .FlavorText(
           "'All we could lose, we did. All we could keep, we do. And both are shrouded by mists.'{EOL}—Barrin, master wizard")
         .Timing(Timings.FirstMain())
-        .Effect<Attach>(p => p.Effect.Modifiers(
-          p.Builder.Modifier<AddStaticAbility>((m, c) => m.StaticAbility = Static.Unblockable)))
+        .Effect<Attach>(e => e.Modifiers(
+          Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Unblockable)))
         .Targets(
           selectorAi: TargetSelectorAi.CombatEnchantment(),
-          effectValidator: C.Validator(Validators.EnchantedCreature()));
+          effectValidator: Validator(Validators.EnchantedCreature()));
     }
   }
 }

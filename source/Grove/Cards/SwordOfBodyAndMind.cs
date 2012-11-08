@@ -15,7 +15,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Sword of Body and Mind")
         .ManaCost("{3}")
         .Type("Artifact - Equipment")
@@ -23,18 +23,18 @@
           "Equipped creature gets +2/+2 and has protection from green and from blue.{EOL}Whenever equipped creature deals combat damage to a player, you put a 2/2 green Wolf creature token onto the battlefield and that player puts the top ten cards of his or her library into his or her graveyard.{EOL}{Equip} {2}")
         .Timing(Timings.FirstMain())
         .Abilities(
-          C.TriggeredAbility(
+          TriggeredAbility(
             "Whenever equipped creature deals combat damage to a player, you put a 2/2 green Wolf creature token onto the battlefield and that player puts the top ten cards of his or her library into his or her graveyard.",
-            C.Trigger<DealDamageToCreatureOrPlayer>((t, _) =>
+            Trigger<DealDamageToCreatureOrPlayer>(t =>
               {
                 t.CombatOnly = true;
                 t.UseAttachedToAsTriggerSource = true;
                 t.ToPlayer();
               }),
-            C.Effect<CompoundEffect>(p => p.Effect.ChildEffects(
-              p.Builder.Effect<MillOpponent>(p1 => p1.Count = 10),
-              p.Builder.Effect<CreateTokens>(p1 => p1.Effect.Tokens(
-                p1.Builder.Card
+            Effect<CompoundEffect>(e => e.ChildEffects(
+              Effect<MillOpponent>(e1 => e1.Count = 10),
+              Effect<CreateTokens>(e1 => e1.Tokens(
+                Card
                   .Named("Wolf Token")
                   .FlavorText(
                     "No matter where we cat warriors go in the world, those stupid slobberers find us.{EOL}—Mirri of the Weatherlight")
@@ -42,18 +42,18 @@
                   .Toughness(2)
                   .Type("Creature Token Wolf")
                   .Colors(ManaColors.Green)))))),
-          C.ActivatedAbility(
+          ActivatedAbility(
             "{2}: Attach to target creature you control. Equip only as a sorcery.",
-            C.Cost<TapOwnerPayMana>((cost, _) => cost.Amount = 2.AsColorlessMana()),
-            C.Effect<Attach>(p => p.Effect.Modifiers(
-              p.Builder.Modifier<AddPowerAndToughness>((m, _) =>
+            Cost<TapOwnerPayMana>(cost => cost.Amount = 2.AsColorlessMana()),
+            Effect<Attach>(e => e.Modifiers(
+              Modifier<AddPowerAndToughness>(m =>
                 {
                   m.Power = 2;
                   m.Toughness = 2;
                 }),
-              p.Builder.Modifier<AddProtectionFromColors>((m, _) => m.Colors = ManaColors.Green | ManaColors.Blue)
+              Modifier<AddProtectionFromColors>(m => m.Colors = ManaColors.Green | ManaColors.Blue)
               )),
-            effectValidator: C.Validator(Validators.Equipment()),
+            effectValidator: Validator(Validators.Equipment()),
             selectorAi: TargetSelectorAi.CombatEquipment(),
             timing: Timings.AttachCombatEquipment(),
             activateAsSorcery: true,

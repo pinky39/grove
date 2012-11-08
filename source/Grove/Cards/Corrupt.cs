@@ -12,7 +12,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Corrupt")
         .ManaCost("{5}{B}")
         .Type("Sorcery")
@@ -27,7 +27,7 @@
         .Timing(Timings.MainPhases())
         .Targets(
           selectorAi: TargetSelectorAi.DealDamageSingleSelector(p => p.Controller.Battlefield.Count(x => x.Is("swamp"))),
-          effectValidator: C.Validator(Validators.CreatureOrPlayer()));
+          effectValidator: Validator(Validators.CreatureOrPlayer()));
     }
   }
 }

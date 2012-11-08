@@ -4,7 +4,7 @@
   {
     string Name { get; }
 
-    Card CreateCard(Player owner);
+    Card CreateCard(Player owner, Game game);
     Card CreateCardPreview();
   }
 }

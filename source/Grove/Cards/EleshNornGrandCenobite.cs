@@ -12,7 +12,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Elesh Norn, Grand Cenobite")
         .ManaCost("{5}{W}{W}")
         .Type("Legendary Creature Praetor")
@@ -30,20 +30,20 @@
           })
         .Abilities(
           Static.Vigilance,
-          C.Continuous((e, c) =>
+          Continuous(e =>
             {
-              e.ModifierFactory = c.Modifier<AddPowerAndToughness>(
-                (m, _) =>
+              e.ModifierFactory = Modifier<AddPowerAndToughness>(
+                m =>
                   {
                     m.Power = 2;
                     m.Toughness = 2;
                   });
               e.CardFilter = (card, source) => card.Controller == source.Controller && card.Is().Creature && card != source;
             }),
-          C.Continuous((e, c) =>
+          Continuous(e =>
             {
-              e.ModifierFactory = c.Modifier<AddPowerAndToughness>(
-                (m, _) =>
+              e.ModifierFactory = Modifier<AddPowerAndToughness>(
+                m =>
                   {
                     m.Power = -2;
                     m.Toughness = -2;

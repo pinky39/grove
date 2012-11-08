@@ -14,7 +14,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Despondency")
         .ManaCost("{1}{B}")
         .Type("Enchantment Aura")
@@ -23,18 +23,18 @@
         .Timing(Timings.FirstMain())
         .Targets(
           selectorAi: TargetSelectorAi.ReducePower(2),
-          effectValidator: C.Validator(Validators.EnchantedCreature()))
+          effectValidator: Validator(Validators.EnchantedCreature()))
         .Effect<Attach>(
-          p => p.Effect.Modifiers(p.Builder.Modifier<AddPowerAndToughness>((m, _) => m.Power = -2)))
+          p => p.Effect.Modifiers(Modifier<AddPowerAndToughness>(m => m.Power = -2)))
         .Abilities(
-          C.TriggeredAbility(
+          TriggeredAbility(
             "When Despondency is put into a graveyard from the battlefield, return Despondency to its owner's hand.",
-            C.Trigger<OnZoneChange>((t, _) =>
+            Trigger<OnZoneChange>(t =>
               {
                 t.From = Zone.Battlefield;
                 t.To = Zone.Graveyard;
               }),
-            C.Effect<ReturnToHand>(e => e.ReturnOwner = true)));
+            Effect<ReturnToHand>(e => e.ReturnOwner = true)));
     }
   }
 }

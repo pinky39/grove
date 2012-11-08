@@ -11,7 +11,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Sign in Blood")
         .ManaCost("{B}{B}")
         .Type("Sorcery")
@@ -26,7 +26,7 @@
           })
         .Targets(
           selectorAi: TargetSelectorAi.Controller(),
-          effectValidator: C.Validator(Validators.Player()));
+          effectValidator: Validator(Validators.Player()));
     }
   }
 }

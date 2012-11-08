@@ -13,7 +13,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Eastern Paladin")
         .ManaCost("{2}{B}{B}")
         .Type("Creature Zombie Knight")
@@ -24,15 +24,15 @@
         .Toughness(3)
         .Timing(Timings.Creatures())
         .Abilities(
-          C.ActivatedAbility(
+          ActivatedAbility(
             "{B}{B},{T}: Destroy target green creature.",
-            C.Cost<TapOwnerPayMana>((cost, c) =>
+            Cost<TapOwnerPayMana>(cost =>
               {
                 cost.Amount = "{B}{B}".ParseManaAmount();
                 cost.TapOwner = true;                                
               }),
-            C.Effect<DestroyTargetPermanents>(),            
-            C.Validator(Validators.Creature(card => card.HasColors(ManaColors.Green))),
+            Effect<DestroyTargetPermanents>(),            
+            Validator(Validators.Creature(card => card.HasColors(ManaColors.Green))),
             selectorAi: TargetSelectorAi.Destroy(),
             timing: Timings.InstantRemovalTarget()));
     }

@@ -15,7 +15,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Elvish Herder")
         .ManaCost("{G}")
         .Type("Creature Elf")
@@ -26,13 +26,13 @@
         .Toughness(1)
         .Timing(Timings.Creatures())
         .Abilities(
-          C.ActivatedAbility(
+          ActivatedAbility(
             "{G}: Target creature gains trample until end of turn.",
-            C.Cost<TapOwnerPayMana>(cost => cost.Amount = "{G}".ParseManaAmount()),
-            C.Effect<ApplyModifiersToTargets>(p => p.Effect.Modifiers(
-              p.Builder.Modifier<AddStaticAbility>((m, _) => m.StaticAbility = Static.Trample,
+            Cost<TapOwnerPayMana>(cost => cost.Amount = "{G}".ParseManaAmount()),
+            Effect<ApplyModifiersToTargets>(e => e.Modifiers(
+              Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Trample,
                 untilEndOfTurn: true))),
-            C.Validator(Validators.Creature()),
+            Validator(Validators.Creature()),
             selectorAi: TargetSelectorAi.AddEvasion(),
             timing: Timings.NoRestrictions(),
             category: EffectCategories.ToughnessIncrease));        

@@ -13,7 +13,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Wall of Reverence")
         .ManaCost("{3}{W}")
         .Type("Creature Spirit Wall")
@@ -27,11 +27,11 @@
         .Abilities(
           Static.Defender,
           Static.Flying,
-          C.TriggeredAbility(
+          TriggeredAbility(
             "At the beginning of your end step, you may gain life equal to the power of target creature you control.",
-            C.Trigger<AtBegginingOfStep>((t, _) => { t.Step = Step.EndOfTurn; }),
-            C.Effect<GainLifeEqualToTargetPower>(),
-            C.Validator(Validators.Creature(controller: Controller.SpellOwner)),
+            Trigger<AtBegginingOfStep>(t => { t.Step = Step.EndOfTurn; }),
+            Effect<GainLifeEqualToTargetPower>(),
+            Validator(Validators.Creature(controller: Controller.SpellOwner)),
             selectorAi: TargetSelectorAi.CreatureWithGreatestPower(),
             triggerOnlyIfOwningCardIsInPlay: true));
     }

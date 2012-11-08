@@ -14,7 +14,7 @@
       _level.AddModifier(_levelIncrement);
 
 
-      Publisher.Publish(new CardChangedLevel
+      Game.Publish(new CardChangedLevel
         {
           Card = (Card) Target,
         });

@@ -11,7 +11,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Worship")
         .ManaCost("{3}{W}")
         .Type("Enchantment")
@@ -20,10 +20,10 @@
         .FlavorText("'Believe in the ideal, not the idol.'{EOL}—Serra")
         .Timing(All(Timings.FirstMain(), Timings.OnlyOneOfKind()))
         .Abilities(
-          C.Continuous((e, c) =>
+          Continuous(e =>
             {
-              e.ModifierFactory = c.Modifier<AddDamagePrevention>(
-                (m, c0) => m.Prevention = c0.Prevention<PreventLifelossBelowOne>());              
+              e.ModifierFactory = Modifier<AddDamagePrevention>(
+                m => m.Prevention = Prevention<PreventLifelossBelowOne>());              
               e.PlayerFilter = (player, armor) => player == armor.Controller;
             })
         );

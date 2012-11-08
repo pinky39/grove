@@ -1,9 +1,11 @@
 ﻿namespace Grove.Core
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Ai;
   using Controllers;
+  using Controllers.Scenario;
   using Infrastructure;
   using Targeting;
   using Zones;
@@ -11,52 +13,106 @@
   [Copyable]
   public class Game
   {
-    private readonly CastRestrictions _castRestrictions;
-    private readonly Search _search;
-    private readonly StateMachine _stateMachine;
-    private readonly TurnInfo _turnInfo;
-    private readonly Trackable<bool> _wasStopped;
+    private CastRestrictions _castRestrictions;
+    private DecisionFactory _decisionFactory;
+    private DecisionQueue _decisionQueue;
+    private Search _search;
+    private StateMachine _stateMachine;
+    private TurnInfo _turnInfo;
+    private Trackable<bool> _wasStopped;
 
     private Game() {}
 
-    public Game(
-      Combat combat,
-      Players players,
-      Publisher publisher,
-      Stack stack,
-      ChangeTracker changeTracker,
-      Decisions decisions,
-      StateMachine stateMachine,
-      CastRestrictions castRestrictions,
-      TurnInfo turnInfo,
-      Search search)
-    {
-      Combat = combat;
-      Players = players;
-      Publisher = publisher;
-      Stack = stack;
-      ChangeTracker = changeTracker;
-      Decisions = decisions;
-
-      _castRestrictions = castRestrictions;
-      _turnInfo = turnInfo;
-      _search = search;
-      _wasStopped = new Trackable<bool>(ChangeTracker);
-      _stateMachine = stateMachine.Init(this);
-    }
-
     public ChangeTracker ChangeTracker { get; private set; }
+    public CardDatabase CardDatabase { get; private set; }
     public bool WasStopped { get { return _wasStopped.Value; } }
     public Combat Combat { get; private set; }
-    public Decisions Decisions { get; private set; }
     public bool IsFinished { get { return Players.AnyHasLost(); } }
     public Players Players { get; set; }
-    public Publisher Publisher { get; private set; }
+    private Publisher _publisher;
     public int Score { get { return Players.Score; } }
     public Stack Stack { get; private set; }
     public TurnInfo Turn { get { return _turnInfo; } }
     public Search Search { get { return _search; } }
     public CastRestrictions CastRestrictions { get { return _castRestrictions; } }
+
+    public static Game New(IEnumerable<string> humanDeck, IEnumerable<string> cpuDeck, CardDatabase cardDatabase)
+    {
+      var game = CreateGame(cardDatabase, enableDatabinding: true);
+
+      game.Players = new Players(
+        player1Name: "You",
+        player1Type: ControllerType.Human,
+        player1Deck: humanDeck,
+        player2Name: "Cpu",
+        player2Type: ControllerType.Machine,
+        player2Deck: cpuDeck,
+        game: game,
+        enableDatabinding: true);
+
+      return game;
+    }
+
+    private static Game CreateGame(CardDatabase cardDatabase, bool enableDatabinding)
+    {
+      var game = new Game();
+            
+      game.ChangeTracker = new ChangeTracker();
+      game._publisher = new Publisher(game.ChangeTracker);
+      game.CardDatabase = cardDatabase;      
+      game.Stack = enableDatabinding ? Bindable.Create<Stack>(game.ChangeTracker) : new Stack(game.ChangeTracker);
+      game._turnInfo = new TurnInfo(game.ChangeTracker);
+      game._wasStopped = new Trackable<bool>(game.ChangeTracker);
+      game._castRestrictions = new CastRestrictions(game.Stack, game._turnInfo);
+      game.Combat = new Combat(game);
+      game._search = new Search();
+      game._decisionFactory = new DecisionFactory(game);
+      game._decisionQueue = new DecisionQueue(game.ChangeTracker);
+      game._stateMachine = new StateMachine(game, game._decisionQueue);
+
+      return game;
+    }
+
+    public void Enqueue<TDecision>(Player controller, Action<TDecision> init = null)
+      where TDecision : class, IDecision
+    {
+      init = init ?? delegate { };
+
+      var decision = _decisionFactory.Create(controller, init);
+      _decisionQueue.Enqueue(decision);
+    }
+
+    public void Publish<TMessage>(TMessage message)
+    {
+      _publisher.Publish(message);
+    }
+
+    public void Unsubscribe(object instance)
+    {
+      _publisher.Unsubscribe(instance);
+    }
+
+    public void Subscribe(object instance)
+    {
+      _publisher.Subscribe(instance);
+    }
+
+    public static Game NewSimulation(IEnumerable<string> deck1, IEnumerable<string> deck2, CardDatabase cardDatabase)
+    {
+      var game = CreateGame(cardDatabase, enableDatabinding: false);
+
+      game.Players = new Players(
+        player1Name: "Player1",
+        player1Type: ControllerType.Machine,
+        player1Deck: deck1,
+        player2Name: "Player2",
+        player2Type: ControllerType.Machine,
+        player2Deck: deck2,
+        game: game, 
+        enableDatabinding: false);
+
+      return game;
+    }
 
     public IEnumerable<ITarget> GenerateTargets()
     {
@@ -101,8 +157,6 @@
 
     public void Start(int numOfTurns = int.MaxValue, bool skipPreGame = false, Player looser = null)
     {
-      Decisions.Init(this);
-
       _stateMachine.Start(() => ShouldContinue() &&
         numOfTurns >= Turn.TurnCount, skipPreGame, looser);
     }
@@ -122,9 +176,29 @@
       return !_wasStopped.Value && !IsFinished;
     }
 
-    public interface IFactory
+    public void AddScenarioDecisions(IEnumerable<DecisionsForOneStep> prerecordedDecisions)
     {
-      Game Create();
+      _decisionFactory.AddScenarioDecisions(prerecordedDecisions);
+    }
+
+    public static Game NewScenario(ControllerType player1Controller, ControllerType player2Controller, CardDatabase cardDatabase)
+    {
+      var game = CreateGame(cardDatabase, enableDatabinding: false);
+
+      game.Players = new Players(
+       player1Name: "Player1",
+       player1Type: player1Controller,
+       player1Deck: Deck.Dummy(),
+       player2Name: "Player2",
+       player2Type: player2Controller,
+       player2Deck: Deck.Dummy(),
+       game: game,
+       enableDatabinding: false);
+      
+      
+      game.Players.Starting = game.Players.Player1;
+
+      return game;
     }
   }
 }

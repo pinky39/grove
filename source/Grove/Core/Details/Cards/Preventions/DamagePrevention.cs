@@ -10,7 +10,7 @@
   {
     public ITarget Owner { get; private set; }
     protected Game Game { get; private set; }
-    protected CardBuilder Builder { get { return new CardBuilder(Game); } }
+    protected CardBuilder Builder { get { return new CardBuilder(); } }
 
     public Player Controller
     {
@@ -49,20 +49,19 @@
     }
 
     public class Factory<T> : IDamagePreventionFactory where T : DamagePrevention, new()
-    {
-      public Game Game { get; set; }
+    {      
       public bool OnlyOnce { get; set; }
       public Initializer<T> Init { get; set; }
 
-      public DamagePrevention Create(ITarget preventionOwner)
+      public DamagePrevention Create(ITarget preventionOwner, Game game)
       {
         var prevention = new T();
 
         prevention.Owner = preventionOwner;
-        prevention.Game = Game;
-        prevention.EndOfLife = new TrackableEvent(prevention, Game.ChangeTracker);
+        prevention.Game = game;
+        prevention.EndOfLife = new TrackableEvent(prevention, game.ChangeTracker);
 
-        Init(prevention, new CardBuilder(Game));
+        Init(prevention);
         prevention.Initialize();
 
         return prevention;

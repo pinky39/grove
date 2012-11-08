@@ -30,10 +30,10 @@
       return Database.Select(x => x.CreateCardPreview());
     }
 
-    public Card CreateCard(string name, Player controller)
+    public Card CreateCard(string name, Player controller, Game game)
     {
       var cardFactory = GetCardFactory(name);
-      return cardFactory.CreateCard(controller);
+      return cardFactory.CreateCard(controller, game);
     }
 
     private ICardFactory GetCardFactory(string name)

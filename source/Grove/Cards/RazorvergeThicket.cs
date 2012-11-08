@@ -12,7 +12,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Razorverge Thicket")
         .Type("Land")
         .Text(
@@ -21,7 +21,7 @@
           "Where the Razor Fields beat back the Tangle, the crowded thicket yields to bright scimitars of grass.")
         .Timing(Timings.Lands())
         .Abilities(
-          C.ManaAbility(new ManaUnit(ManaColors.Green | ManaColors.White), "{T}: Add {G} or {W} to your mana pool."))
+          ManaAbility(new ManaUnit(ManaColors.Green | ManaColors.White), "{T}: Add {G} or {W} to your mana pool."))
         .Effect<PutIntoPlay>(e => e.PutIntoPlayTapped = e.Controller.Battlefield.Lands.Count() > 2);
     }
   }

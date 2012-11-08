@@ -13,7 +13,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Academy Researchers")
         .ManaCost("{1}{U}{U}")
         .Type("Creature Human Wizard")
@@ -23,11 +23,11 @@
         .Toughness(2)
         .Timing(Timings.Creatures())
         .Abilities(
-          C.TriggeredAbility(
+          TriggeredAbility(
            "When Academy Researchers enters the battlefield, you may put an Aura card from your hand onto the battlefield attached to Academy Researchers.",
-           C.Trigger<OnZoneChange>((t, _) => t.To = Zone.Battlefield),
-           C.Effect<EnchantOwnerWithTarget>(),
-           effectValidator: C.Validator(
+           Trigger<OnZoneChange>(t => t.To = Zone.Battlefield),
+           Effect<EnchantOwnerWithTarget>(),
+           effectValidator: Validator(
             Validators.CardInHand(p => p.Target.Is().Aura && p.Target.Card().CanTarget(p.Source)), minCount: 0),
            selectorAi: TargetSelectorAi.AttachToSource()
           )

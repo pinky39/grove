@@ -4,7 +4,6 @@
   using System.Collections.Generic;
   using System.Linq;
   using Ai;
-  using Controllers;
   using Dsl;
   using Infrastructure;
   using Mana;
@@ -19,14 +18,13 @@
     private Trackable<bool> _wasResolved;
     public bool CanBeCountered { get; set; }
     public Player Controller { get { return Source.OwningCard.Controller; } }
-    protected Decisions Decisions { get { return Game.Decisions; } }
     protected Game Game { get; set; }
     public Players Players { get { return Game.Players; } }
     public IEffectSource Source { get; set; }
     public int? X { get; set; }
     public virtual bool AffectsSource { get { return false; } }
     public bool HasTargets { get { return _targets.Count > 0; } }
-    protected CardBuilder Builder { get { return new CardBuilder(Game); } }
+    protected CardBuilder Builder { get { return new CardBuilder(); } }
     private bool WasResolved { get { return _wasResolved.Value; } set { _wasResolved.Value = value; } }
 
     // this is used by ui to display effect targets
@@ -156,15 +154,14 @@
     public class Factory<TEffect> : IEffectFactory where TEffect : Effect, new()
     {
       public EffectInitializer<TEffect> Init = delegate { };
-      public Game Game { get; set; }
 
-      public Effect CreateEffect(EffectParameters parameters)
+      public Effect CreateEffect(EffectParameters parameters, Game game)
       {
         var effect = new TEffect
           {
-            Game = Game,
+            Game = game,
             Source = parameters.Source,
-            _wasResolved = new Trackable<bool>(Game.ChangeTracker),
+            _wasResolved = new Trackable<bool>(game.ChangeTracker),
             _targets = parameters.Targets,
             WasKickerPaid = parameters.Activation.PayKicker,
             X = parameters.Activation.X,
@@ -173,8 +170,7 @@
 
         Init(new EffectCreationContext<TEffect>(
           effect,
-          parameters,
-          new CardBuilder(Game)));
+          parameters));
 
         effect.Init();
 

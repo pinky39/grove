@@ -12,7 +12,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Expunge")
         .ManaCost("{2}{B}")
         .Type("Instant")
@@ -25,7 +25,7 @@
         .Targets(
           selectorAi: TargetSelectorAi.Destroy(),
           effectValidator:
-            C.Validator(Validators.Creature((creature) => !creature.HasColors(ManaColors.Black) && !creature.Is().Artifact)))
+            Validator(Validators.Creature((creature) => !creature.HasColors(ManaColors.Black) && !creature.Is().Artifact)))
         ;
     }
   }

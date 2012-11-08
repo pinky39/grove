@@ -12,7 +12,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Endless Wurm")
         .ManaCost("{3}{G}{G}")
         .Type("Creature Wurm")
@@ -23,10 +23,10 @@
         .Timing(Timings.Creatures())
         .Abilities(          
           Static.Trample,
-          C.TriggeredAbility(
+          TriggeredAbility(
             "At the beginning of your upkeep, sacrifice Endless Wurm unless you sacrifice an enchantment.",
-            C.Trigger<AtBegginingOfStep>(t => { t.Step = Step.Upkeep; }),
-            C.Effect<SacPermanentOrSacrificeOwner>(e =>
+            Trigger<AtBegginingOfStep>(t => { t.Step = Step.Upkeep; }),
+            Effect<SacPermanentOrSacrificeOwner>(e =>
               {
                 e.PayUpkeepAi = (owner) => owner.IsAbleToAttack;
                 e.Selector = card => card.Is().Enchantment;

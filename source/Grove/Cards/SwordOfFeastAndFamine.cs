@@ -15,7 +15,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Sword of Feast and Famine")
         .ManaCost("{3}")
         .Type("Artifact - Equipment")
@@ -23,29 +23,29 @@
           "Equipped creature gets +2/+2 and has protection from black and from green.{EOL}Whenever equipped creature deals combat damage to a player, that player discards a card and you untap all lands you control.{EOL}{Equip} {2}")
         .Timing(Timings.FirstMain())
         .Abilities(
-          C.TriggeredAbility(
+          TriggeredAbility(
             "Whenever equipped creature deals combat damage to a player, that player discards a card and you untap all lands you control.",
-            C.Trigger<DealDamageToCreatureOrPlayer>((t, _) =>
+            Trigger<DealDamageToCreatureOrPlayer>(t =>
               {
                 t.CombatOnly = true;
                 t.UseAttachedToAsTriggerSource = true;
                 t.ToPlayer();
               }),
-            C.Effect<CompoundEffect>(p => p.Effect.ChildEffects(
-              p.Builder.Effect<OpponentDiscardsCards>(e1 => e1.SelectedCount = 1),
-              p.Builder.Effect<UntapAllLands>()
+            Effect<CompoundEffect>(e => e.ChildEffects(
+              Effect<OpponentDiscardsCards>(e1 => e1.SelectedCount = 1),
+              Effect<UntapAllLands>()
               ))),
-          C.ActivatedAbility(
+          ActivatedAbility(
             "{2}: Attach to target creature you control. Equip only as a sorcery.",
-            C.Cost<TapOwnerPayMana>((cost, _) => cost.Amount = 2.AsColorlessMana()),
-            C.Effect<Attach>(p => p.Effect.Modifiers(
-              p.Builder.Modifier<AddPowerAndToughness>((m, _) =>
+            Cost<TapOwnerPayMana>(cost => cost.Amount = 2.AsColorlessMana()),
+            Effect<Attach>(e => e.Modifiers(
+              Modifier<AddPowerAndToughness>(m =>
                 {
                   m.Power = 2;
                   m.Toughness = 2;
                 }),
-              p.Builder.Modifier<AddProtectionFromColors>((m, _) => m.Colors = ManaColors.Black | ManaColors.Green))),
-            effectValidator: C.Validator(Validators.Equipment()),
+              Modifier<AddProtectionFromColors>(m => m.Colors = ManaColors.Black | ManaColors.Green))),
+            effectValidator: Validator(Validators.Equipment()),
             selectorAi: TargetSelectorAi.CombatEquipment(),
             timing: Timings.AttachCombatEquipment(),
             activateAsSorcery: true,

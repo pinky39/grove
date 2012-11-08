@@ -14,7 +14,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Pestilence")
         .ManaCost("{2}{B}{B}")
         .Type("Enchantment")
@@ -22,22 +22,22 @@
           "At the beginning of the end step, if no creatures are on the battlefield, sacrifice Pestilence.{EOL}{B}: Pestilence deals 1 damage to each creature and each player.")
         .Timing(All(Timings.FirstMain(), Timings.OnlyOneOfKind()))
         .Abilities(
-          C.TriggeredAbility(
+          TriggeredAbility(
             "At the beginning of the end step, if no creatures are on the battlefield, sacrifice Pestilence.",
-            C.Trigger<AtBegginingOfStep>((t, _) =>
+            Trigger<AtBegginingOfStep>(t =>
               {
                 t.ActiveTurn = true;
                 t.PassiveTurn = true;
                 t.Step = Step.EndOfTurn;
                 t.Condition = self => self.Game.Players.Permanents().None(x => x.Is().Creature);
               }),
-            C.Effect<SacrificeSource>(), 
+            Effect<SacrificeSource>(), 
             triggerOnlyIfOwningCardIsInPlay: true
             ),
-          C.ActivatedAbility(
+          ActivatedAbility(
             "{B}: Pestilence deals 1 damage to each creature and each player.",
-            C.Cost<TapOwnerPayMana>((cost, _) => cost.Amount = ManaAmount.Black),
-            C.Effect<DealDamageToEach>(e =>
+            Cost<TapOwnerPayMana>(cost => cost.Amount = ManaAmount.Black),
+            Effect<DealDamageToEach>(e =>
               {
                 e.AmountCreature = 1;
                 e.AmountPlayer = 1;

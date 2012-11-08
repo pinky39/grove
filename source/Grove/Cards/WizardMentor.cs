@@ -12,7 +12,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Wizard Mentor")
         .ManaCost("{2}{U}")
         .Type("Creature Human Wizard")
@@ -23,15 +23,15 @@
         .Toughness(2)
         .Timing(Timings.Creatures())
         .Abilities(
-          C.ActivatedAbility(
+          ActivatedAbility(
             "{T}: Return Wizard Mentor and target creature you control to their owner's hand.",
-            C.Cost<TapOwnerPayMana>(c => c.TapOwner = true),
-            C.Effect<Core.Details.Cards.Effects.ReturnToHand>(e =>
+            Cost<TapOwnerPayMana>(c => c.TapOwner = true),
+            Effect<ReturnToHand>(e =>
               {
                 e.ReturnTarget = true;
                 e.ReturnOwner = true;
               }), 
-            C.Validator(Validators.Creature(controller: Controller.SpellOwner)),
+            Validator(Validators.Creature(controller: Controller.SpellOwner)),
             selectorAi: TargetSelectorAi.BounceSelfAndTargetCreatureYouControl(),
             timing: Timings.NoRestrictions()
             )

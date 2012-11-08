@@ -13,7 +13,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Darkslick Drake")
         .ManaCost("{2}{U}{U}")
         .Type("Creature - Drake")
@@ -24,10 +24,10 @@
         .Timing(Timings.Creatures())
         .Abilities(
           Static.Flying,
-          C.TriggeredAbility(
+          TriggeredAbility(
             "When Darkslick Drake is put into a graveyard from the battlefield, draw a card.",
-            C.Trigger<OnZoneChange>((t, _) => t.To = Zone.Graveyard),
-            C.Effect<DrawCards>(e => e.DrawCount = 1)));
+            Trigger<OnZoneChange>(t => t.To = Zone.Graveyard),
+            Effect<DrawCards>(e => e.DrawCount = 1)));
     }
   }
 }

@@ -85,7 +85,7 @@
 
         if (_match.InProgress)
         {
-          _match.Game.Publisher.Publish(new UiInteractionChanged
+          _match.Game.Publish(new UiInteractionChanged
             {
               State = interactionState.Value
             });

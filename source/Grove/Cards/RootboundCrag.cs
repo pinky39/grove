@@ -13,13 +13,13 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Rootbound Crag")
         .Type("Land")
         .Text(
           "Rootbound Crag enters the battlefield tapped unless you control a Mountain or a Forest.{EOL}{T}: Add {R} or {G} to your mana pool.")
         .Abilities(
-          C.ManaAbility(
+          ManaAbility(
             new ManaUnit(ManaColors.Red | ManaColors.Green),
             "{T}: Add {R} or {G} to your mana pool."
             ))

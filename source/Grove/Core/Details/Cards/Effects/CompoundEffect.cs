@@ -30,7 +30,7 @@
         _childEffects.Add(effectFactory.CreateEffect(
           new EffectParameters(
             source: Source,
-            targets: GetAllTargets())));
+            targets: GetAllTargets()), Game));
       }
     }
 

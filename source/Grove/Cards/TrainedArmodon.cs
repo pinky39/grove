@@ -9,7 +9,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Trained Armodon")
         .ManaCost("{1}{G}{G}")
         .Type("Creature - Elephant")

@@ -16,7 +16,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Barrin's Codex")
         .ManaCost("{4}")
         .Type("Artifact")
@@ -24,17 +24,17 @@
           "At the beginning of your upkeep, put a page counter on Barrin's Codex.{EOL}{4},{T}, Sacrifice Barrin's Codex: Draw X cards, where X is the number of page counters on Barrin's Codex.")
         .Timing(Timings.SecondMain())
         .Abilities(
-          C.TriggeredAbility(
+          TriggeredAbility(
             "At the beginning of your upkeep, put a page counter on Barrin's Codex.",
-            C.Trigger<AtBegginingOfStep>((t, _) => t.Step = Step.Upkeep),
-            C.Effect<ApplyModifiersToSelf>(p => p.Effect.Modifiers(
-              p.Builder.Modifier<AddCounters>((m, c0) => { m.Counter = c0.Counter<ChargeCounter>(); }))),
+            Trigger<AtBegginingOfStep>(t => t.Step = Step.Upkeep),
+            Effect<ApplyModifiersToSelf>(e => e.Modifiers(
+              Modifier<AddCounters>(m => { m.Counter = Counter<ChargeCounter>(); }))),
             triggerOnlyIfOwningCardIsInPlay: true
             ),
-          C.ActivatedAbility(
+          ActivatedAbility(
             "{4},{T}, Sacrifice Barrin's Codex: Draw X cards, where X is the number of page counters on Barrin's Codex.",
-            C.Cost<TapAndSacOwnerPayMana>((cost, _) => cost.Amount = 4.AsColorlessMana()),
-            C.Effect<DrawCards>(e => e.DrawCount = e.Source.OwningCard.Counters.GetValueOrDefault()),
+            Cost<TapAndSacOwnerPayMana>(cost => cost.Amount = 4.AsColorlessMana()),
+            Effect<DrawCards>(e => e.DrawCount = e.Source.OwningCard.Counters.GetValueOrDefault()),
             timing: Timings.Has3CountersOr1IfDestroyed())
         );
     }

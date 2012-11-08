@@ -13,7 +13,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Douse")
         .ManaCost("{2}{U}")
         .Type("Enchantment")
@@ -22,12 +22,12 @@
           "The academy's libraries were protected by fire-prevention spells. Even after the disaster, the books were intact—though forever sealed in time.")
         .Timing(Timings.FirstMain())
         .Abilities(
-          C.ActivatedAbility(
+          ActivatedAbility(
             "{1}{U}: Counter target red spell.",
-            C.Cost<TapOwnerPayMana>(c => c.Amount = "{1}{U}".ParseManaAmount()),
-            C.Effect<CounterTargetSpell>(),
+            Cost<TapOwnerPayMana>(c => c.Amount = "{1}{U}".ParseManaAmount()),
+            Effect<CounterTargetSpell>(),
             selectorAi: TargetSelectorAi.CounterSpell(),
-            effectValidator: C.Validator(Validators.Counterspell(card => card.HasColors(ManaColors.Red))),
+            effectValidator: Validator(Validators.Counterspell(card => card.HasColors(ManaColors.Red))),
             category: EffectCategories.Counterspell,
             timing: Timings.CounterSpell()
             )

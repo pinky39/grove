@@ -12,7 +12,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Confiscate")
         .ManaCost("{4}{U}{U}")
         .Type("Enchantment Aura")
@@ -20,11 +20,11 @@
         .FlavorText(
           "'I don't understand why he works so hard on a device to duplicate a sound so easily made with hand and armpit.'{EOL}—Barrin, progress report")
         .Timing(Timings.FirstMain())
-        .Effect<Attach>(p => p.Effect.Modifiers(
-          p.Builder.Modifier<ChangeController>((m, c) => m.NewController = m.Source.Controller)))
+        .Effect<Attach>(e => e.Modifiers(
+          Modifier<ChangeController>(m => m.NewController = m.Source.Controller)))
         .Targets(
           selectorAi: TargetSelectorAi.GainControl(),
-          effectValidator: C.Validator(Validators.Permanent())
+          effectValidator: Validator(Validators.Permanent())
         );
     }
   }

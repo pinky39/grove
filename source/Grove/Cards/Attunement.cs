@@ -11,7 +11,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Attunement")
         .ManaCost("{2}{U}")
         .Type("Enchantment")
@@ -19,10 +19,10 @@
         .FlavorText("The solution can hide for only so long.{EOL}—Urza")
         .Timing(Timings.SecondMain())
         .Abilities(
-          C.ActivatedAbility(
+          ActivatedAbility(
             "Return Attunement to its owner's hand: Draw three cards, then discard four cards.",
-            C.Cost<Core.Details.Cards.Costs.ReturnOwnerToHand>(),
-            C.Effect<DrawCards>(e =>
+            Cost<ReturnOwnerToHand>(),
+            Effect<DrawCards>(e =>
               {
                 e.DrawCount = 3;
                 e.DiscardCount = 4;

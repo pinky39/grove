@@ -19,7 +19,7 @@
 
       for (var i = 0; i < count; i++)
       {
-        var counter = Counter.Create();
+        var counter = Counter.Create(Game);
         counters.Add(counter);
 
         _addedCounters.Add(counter);

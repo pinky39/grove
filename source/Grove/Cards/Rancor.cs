@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -16,29 +15,29 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Rancor")
         .ManaCost("{G}")
         .Type("Enchantment - Aura")
         .Text(
           "Enchant creature{EOL}Enchanted creature gets +2/+0 and has trample.{EOL}When Rancor is put into a graveyard from the battlefield, return Rancor to its owner's hand.")
         .FlavorText("Hatred outlives the hateful.")
-        .Effect<Attach>(p => p.Effect.Modifiers(
-          p.Builder.Modifier<AddPowerAndToughness>((m, _) => m.Power = 2),
-          p.Builder.Modifier<AddStaticAbility>((m, _) => m.StaticAbility = Static.Trample)))
+        .Effect<Attach>(e => e.Modifiers(
+          Modifier<AddPowerAndToughness>(m => m.Power = 2),
+          Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Trample)))
         .Timing(Timings.FirstMain())
         .Targets(
           selectorAi: TargetSelectorAi.CombatEnchantment(),
-          effectValidator: C.Validator(Validators.EnchantedCreature()))
+          effectValidator: Validator(Validators.EnchantedCreature()))
         .Abilities(
-          C.TriggeredAbility(
+          TriggeredAbility(
             "When Rancor is put into a graveyard from the battlefield, return Rancor to its owner's hand.",
-            C.Trigger<OnZoneChange>((t, _) =>
+            Trigger<OnZoneChange>(t =>
               {
                 t.From = Zone.Battlefield;
                 t.To = Zone.Graveyard;
               }),
-            C.Effect<ReturnToHand>(e => e.ReturnOwner = true)));
+            Effect<ReturnToHand>(e => e.ReturnOwner = true)));
     }
   }
 }

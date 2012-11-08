@@ -2,6 +2,6 @@
 {
   public interface ICounterFactory
   {
-    Counter Create();
+    Counter Create(Game game);
   }
 }

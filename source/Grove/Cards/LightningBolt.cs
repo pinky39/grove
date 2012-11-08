@@ -11,7 +11,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Lightning Bolt")
         .ManaCost("{R}")
         .Type("Instant")
@@ -20,7 +20,7 @@
         .Effect<DealDamageToTargets>(e => e.Amount = 3)
         .Targets(
           selectorAi: TargetSelectorAi.DealDamageSingleSelector(3),
-          effectValidator: C.Validator(Validators.CreatureOrPlayer()));
+          effectValidator: Validator(Validators.CreatureOrPlayer()));
     }
   }
 }

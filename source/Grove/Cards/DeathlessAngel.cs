@@ -15,7 +15,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Deathless Angel")
         .ManaCost("{4}{W}{W}")
         .Type("Creature Angel")
@@ -27,13 +27,13 @@
         .Timing(Timings.Creatures())
         .Abilities(
           Static.Flying,
-          C.ActivatedAbility(
+          ActivatedAbility(
             "{W}{W}: Target creature is indestructible this turn.",
-            C.Cost<TapOwnerPayMana>((cost, _) => cost.Amount = "{W}{W}".ParseManaAmount()),
-            C.Effect<ApplyModifiersToTargets>(p => p.Effect.Modifiers(
-              p.Builder.Modifier<AddStaticAbility>((m, _) => { m.StaticAbility = Static.Indestructible; },
+            Cost<TapOwnerPayMana>(cost => cost.Amount = "{W}{W}".ParseManaAmount()),
+            Effect<ApplyModifiersToTargets>(p => p.Effect.Modifiers(
+              Modifier<AddStaticAbility>(m => { m.StaticAbility = Static.Indestructible; },
                 untilEndOfTurn: true))),
-            C.Validator(validator: Validators.Creature()),
+            Validator(validator: Validators.Creature()),
             selectorAi: TargetSelectorAi.ShieldIndestructible(),
             timing: Timings.NoRestrictions(),
             category: EffectCategories.Protector));

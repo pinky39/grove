@@ -122,7 +122,7 @@
     public IManaAmount ManaCostWithKicker { get; private set; }
     public IEnumerable<IManaSource> ManaSources { get { return _activatedAbilities.ManaSources; } }
 
-    public int ConvertedCost {get { return ManaCost == null ? 0 : ManaCost.Converted; }}
+    public int ConvertedCost { get { return ManaCost == null ? 0 : ManaCost.Converted; } }
 
     private IEnumerable<IModifiable> ModifiableProperties
     {
@@ -181,7 +181,7 @@
 
     public int? Level { get { return _level.Value; } }
     public bool CanBeDestroyed { get { return !CanRegenerate && !Has().Indestructible; } }
-    public virtual bool IsRevealed { get { return _isRevealed.Value; } set { _isRevealed.Value = value; } }    
+    public virtual bool IsRevealed { get { return _isRevealed.Value; } set { _isRevealed.Value = value; } }
     public int? OverrideScore { get; private set; }
 
     public virtual void AddModifier(IModifier modifier)
@@ -496,8 +496,8 @@
         targets: activationParameters.Targets);
 
       var effect = activationParameters.PayKicker
-        ? _kickerEffectFactory.CreateEffect(parameters)
-        : _effectFactory.CreateEffect(parameters);
+        ? _kickerEffectFactory.CreateEffect(parameters, _game)
+        : _effectFactory.CreateEffect(parameters, _game);
 
 
       CastingRule.Cast(effect);
@@ -529,7 +529,8 @@
     public void EnchantWithoutPayingTheCost(Card enchantment)
     {
       var effect = enchantment._effectFactory.CreateEffect(
-        new EffectParameters(enchantment, targets: new Targets().AddEffect(this)));
+        new EffectParameters(enchantment, targets: new Targets().AddEffect(this)),
+        _game);
 
       if (effect is Attach == false)
         throw new InvalidOperationException("Card is is not an enchantment.");
@@ -732,7 +733,7 @@
 
     private void Publish<T>(T message)
     {
-      _game.Publisher.Publish(message);
+      _game.Publish(message);
     }
 
     public void Exile()
@@ -779,7 +780,7 @@
 
     public void Reveal()
     {
-      IsRevealed = true;      
+      IsRevealed = true;
       UnHide();
     }
 
@@ -839,11 +840,9 @@
     public class CardFactory : ICardFactory
     {
       private readonly List<IActivatedAbilityFactory> _activatedAbilityFactories = new List<IActivatedAbilityFactory>();
-      private readonly ChangeTracker _changeTracker;
       private readonly List<IContinuousEffectFactory> _continuousEffectFactories = new List<IContinuousEffectFactory>();
       private readonly List<ITargetValidatorFactory> _costTargetFactories = new List<ITargetValidatorFactory>();
       private readonly List<ITargetValidatorFactory> _effectTargetFactories = new List<ITargetValidatorFactory>();
-      private readonly Game _game;
       private readonly List<ITargetValidatorFactory> _kickerEffectTargetFactories = new List<ITargetValidatorFactory>();
       private readonly List<Static> _staticAbilities = new List<Static>();
 
@@ -874,26 +873,18 @@
       private CardType _type;
       private CalculateX _xCalculator;
 
-      private CardFactory() {}
-
-      public CardFactory(Game game)
-      {
-        _changeTracker = game.ChangeTracker;
-        _game = game;
-      }
-
       public string Name { get { return _name; } }
 
-      public Card CreateCard(Player owner)
+      public Card CreateCard(Player owner, Game game)
       {
-        var card = _game.Search.InProgress ? new Card() : Bindable.Create<Card>();
+        var card = game.Search.InProgress ? new Card() : Bindable.Create<Card>();
 
-        card._game = _game;
+        card._game = game;
         card.Owner = owner;
 
-        card._effectFactory = _effectFactory ?? new Effect.Factory<PutIntoPlay> {Game = _game};
+        card._effectFactory = _effectFactory ?? new Effect.Factory<PutIntoPlay>();
         card._kickerEffectFactory = _kickerEffectFactory;
-        card._hash = new Trackable<int?>(_changeTracker);
+        card._hash = new Trackable<int?>(game.ChangeTracker);
         card._distributeDamage = _distributeSpellsDamage;
 
         card.Name = _name;
@@ -906,61 +897,63 @@
         card.Text = _text ?? String.Empty;
         card.FlavorText = _flavorText ?? String.Empty;
         card.Illustration = GetIllustration(_name, _type);
-        card.CastingRule = CreateCastingRule(_type, _game);
+        card.CastingRule = CreateCastingRule(_type, game);
 
-        CreateBindablePower(card);
-        CreateBindableToughness(card);
-        CreateBindableLevel(card);
-        CreateBindableCounters(card);
-        CreateBindableType(card);
-        CreateBindableColors(card);
+        CreateBindablePower(card, game.ChangeTracker);
+        CreateBindableToughness(card, game.ChangeTracker);
+        CreateBindableLevel(card, game.ChangeTracker);
+        CreateBindableCounters(card, game.ChangeTracker);
+        CreateBindableType(card, game.ChangeTracker);
+        CreateBindableColors(card, game.ChangeTracker);
 
-        card._damage = new Trackable<int>(_changeTracker, card);
-        card._usageScore = new Trackable<int>(_changeTracker, card);
-        card._isTapped = new Trackable<bool>(_changeTracker, card);
-        card._hasLeathalDamage = new Trackable<bool>(_changeTracker, card);
-        card._attachedTo = new Trackable<Card>(_changeTracker, card);
-        card._attachments = new Attachments(_changeTracker);
-        card._isHidden = new Trackable<bool>(_changeTracker, card);
-        card._isRevealed = new Trackable<bool>(_changeTracker, card);
-        card._canRegenerate = new Trackable<bool>(_changeTracker, card);
-        card._hasSummoningSickness = new Trackable<bool>(true, _changeTracker, card);
-        card._controller = new ControllerCharacteristic(owner, card, _game.Publisher, _changeTracker, card);
-        card._damagePreventions = new DamagePreventions(_changeTracker, card);
-        card._protections = new Protections(_changeTracker, card, _protectionsFromColors, _protectionsFromCardTypes);
-        card._zone = new Trackable<IZone>(new NullZone(), _changeTracker, card);
+        card._damage = new Trackable<int>(game.ChangeTracker, card);
+        card._usageScore = new Trackable<int>(game.ChangeTracker, card);
+        card._isTapped = new Trackable<bool>(game.ChangeTracker, card);
+        card._hasLeathalDamage = new Trackable<bool>(game.ChangeTracker, card);
+        card._attachedTo = new Trackable<Card>(game.ChangeTracker, card);
+        card._attachments = new Attachments(game.ChangeTracker);
+        card._isHidden = new Trackable<bool>(game.ChangeTracker, card);
+        card._isRevealed = new Trackable<bool>(game.ChangeTracker, card);
+        card._canRegenerate = new Trackable<bool>(game.ChangeTracker, card);
+        card._hasSummoningSickness = new Trackable<bool>(true, game.ChangeTracker, card);
+        card._controller = new ControllerCharacteristic(owner, card, game, card);
+        card._damagePreventions = new DamagePreventions(game.ChangeTracker, card);
+        card._protections = new Protections(game.ChangeTracker, card, _protectionsFromColors, _protectionsFromCardTypes);
+        card._zone = new Trackable<IZone>(new NullZone(), game.ChangeTracker, card);
 
 
         card.EffectCategories = _effectCategories;
         card._timming = _timing ?? Timings.NoRestrictions();
 
-        card._modifiers = new TrackableList<IModifier>(_changeTracker);
+        card._modifiers = new TrackableList<IModifier>(game.ChangeTracker);
 
         card._targetSelector = new TargetSelector(
-          effectValidators: _effectTargetFactories.Select(x => x.Create(card)),
-          costValidators: _costTargetFactories.Select(x => x.Create(card)),
+          effectValidators: _effectTargetFactories.Select(x => x.Create(card, game)),
+          costValidators: _costTargetFactories.Select(x => x.Create(card, game)),
           aiSelector: _aiTargetSelector
           );
 
         card._kickerTargetSelector = new TargetSelector(
-          effectValidators: _kickerEffectTargetFactories.Select(x => x.Create(card)),
-          costValidators: _costTargetFactories.Select(x => x.Create(card)),
+          effectValidators: _kickerEffectTargetFactories.Select(x => x.Create(card, game)),
+          costValidators: _costTargetFactories.Select(x => x.Create(card, game)),
           aiSelector: _kickerAiTargetSelector
           );
 
-        card._additionalCost = _additionalCost == null ? new NoCost()
-          : _additionalCost.CreateCost(card, card._targetSelector.Cost.FirstOrDefault());
+        card._additionalCost = _additionalCost == null
+          ? new NoCost()
+          : _additionalCost.CreateCost(card, card._targetSelector.Cost.FirstOrDefault(), game);
 
-        card._staticAbilities = new StaticAbilities(_staticAbilities, _changeTracker, card);
+        card._staticAbilities = new StaticAbilities(_staticAbilities, game.ChangeTracker, card);
 
-        var triggeredAbilities = _triggeredAbilityFactories.Select(x => x.Create(card, card));
-        card._triggeredAbilities = new TriggeredAbilities(triggeredAbilities, _changeTracker, card);
+        var triggeredAbilities = _triggeredAbilityFactories.Select(x => x.Create(card, card, game));
+        card._triggeredAbilities = new TriggeredAbilities(triggeredAbilities, game.ChangeTracker, card);
 
-        var activatedAbilities = _activatedAbilityFactories.Select(x => x.Create(card)).ToList();
-        card._activatedAbilities = new ActivatedAbilities(activatedAbilities, _changeTracker, card);        
+        var activatedAbilities = _activatedAbilityFactories.Select(x => x.Create(card, game)).ToList();
 
-        var continiousEffects = _continuousEffectFactories.Select(factory => factory.Create(card)).ToList();
-        card._continuousEffects = new TrackableList<ContinuousEffect>(continiousEffects, _changeTracker, card);
+        card._activatedAbilities = new ActivatedAbilities(activatedAbilities, game.ChangeTracker, card);
+
+        var continiousEffects = _continuousEffectFactories.Select(factory => factory.Create(card, game)).ToList();
+        card._continuousEffects = new TrackableList<ContinuousEffect>(continiousEffects, game.ChangeTracker, card);
 
         card._resolveToZone = _resolveZone;
 
@@ -1005,7 +998,7 @@
 
       public CardFactory Echo(string manaCost)
       {
-        var c = new CardBuilder(_game);
+        var c = new CardBuilder();
         var amount = manaCost.ParseManaAmount();
 
         var echoFactory = c.TriggeredAbility(
@@ -1086,7 +1079,6 @@
 
         _effectFactory = new Effect.Factory<T>
           {
-            Game = _game,
             Init = p => init(p.Effect)
           };
 
@@ -1099,7 +1091,6 @@
 
         _effectFactory = new Effect.Factory<T>
           {
-            Game = _game,
             Init = init
           };
 
@@ -1130,7 +1121,6 @@
 
         _kickerEffectFactory = new Effect.Factory<T>
           {
-            Game = _game,
             Init = p => init(p.Effect)
           };
 
@@ -1143,7 +1133,6 @@
 
         _kickerEffectFactory = new Effect.Factory<T>
           {
-            Game = _game,
             Init = init,
           };
 
@@ -1162,7 +1151,6 @@
 
         _additionalCost = new Cost.Factory<T>
           {
-            Game = _game,
             Init = init,
           };
 
@@ -1177,7 +1165,7 @@
 
       public CardFactory Cycling(string cost)
       {
-        var b = new CardBuilder(_game);
+        var b = new CardBuilder();
 
         var cycling = b.ActivatedAbility(
           string.Format("Cycling {0} ({0}, Discard this card: Draw a card.)", cost),
@@ -1257,6 +1245,43 @@
         return this;
       }
 
+      public CardFactory Leveler(IManaAmount cost, EffectCategories category = EffectCategories.Generic,
+        params LevelDefinition[] levels)
+      {
+        var abilities = new List<object>();
+        var builder = new CardBuilder();
+
+        abilities.Add(
+          builder.ActivatedAbility(
+            String.Format("{0}: Put a level counter on this. Level up only as sorcery.", cost),
+            builder.Cost<TapOwnerPayMana>(c => c.Amount = cost),
+            builder.Effect<ApplyModifiersToSelf>(p => p.Effect.Modifiers(builder.Modifier<IncreaseLevel>())),
+            timing: Timings.Leveler(cost, levels), activateAsSorcery: true, category: category));
+
+
+        foreach (var levelDefinition in levels)
+        {
+          var definition = levelDefinition;
+
+          abilities.Add(
+            builder.StaticAbility(
+              builder.Trigger<OnLevelChanged>(c => c.Level = definition.Min),
+              builder.Effect<ApplyModifiersToSelf>(p => p.Effect.Modifiers(
+                builder.Modifier<AddStaticAbility>(m => m.StaticAbility = definition.StaticAbility,
+                  minLevel: definition.Min, maxLevel: definition.Max),
+                builder.Modifier<SetPowerAndToughness>(m =>
+                  {
+                    m.Power = definition.Power;
+                    m.Tougness = definition.Thoughness;
+                  }, minLevel: definition.Min, maxLevel: definition.Max))))
+            );
+        }
+
+        IsLeveler().Abilities(abilities.ToArray());
+
+        return this;
+      }
+
       private static CastingRule CreateCastingRule(CardType type, Game game)
       {
         if (type.Instant)
@@ -1280,52 +1305,70 @@
         return cardName;
       }
 
-      private void CreateBindableColors(Card card)
+      private void CreateBindableColors(Card card, ChangeTracker changeTracker)
       {
-        card._colors =
-          Bindable.Create<CardColors>(_colors == ManaColors.None ? card.GetCardColorFromManaCost() : _colors,
-            _changeTracker, card);
+        var cardColors = _colors == ManaColors.None ? card.GetCardColorFromManaCost() : _colors;
+
+        card._colors = Bindable.Create<CardColors>(
+          cardColors,
+          changeTracker,
+          card);
 
         card._colors.Property(x => x.Value)
           .Changes(card).Property<Card, ManaColors>(x => x.Colors);
       }
 
-      private void CreateBindableCounters(Card card)
+      private void CreateBindableCounters(Card card, ChangeTracker changeTracker)
       {
-        card._counters = Bindable.Create<Counters>(card._power, card._toughness, _changeTracker, card);
+        card._counters = Bindable.Create<Counters>(
+          card._power,
+          card._toughness,
+          changeTracker,
+          card);
 
         card._counters.Property(x => x.Count)
           .Changes(card).Property<Card, int?>(x => x.Counters);
       }
 
-      private void CreateBindablePower(Card card)
+      private void CreateBindablePower(Card card, ChangeTracker changeTracker)
       {
-        card._power = Bindable.Create<Power>(_power, _changeTracker, card);
+        card._power = Bindable.Create<Power>(
+          _power,
+          changeTracker,
+          card);
 
         card._power.Property(x => x.Value)
           .Changes(card).Property<Card, int?>(x => x.Power);
       }
 
-      private void CreateBindableLevel(Card card)
+      private void CreateBindableLevel(Card card, ChangeTracker changeTracker)
       {
         card._level = Bindable.Create<Level>(
-          _isleveler ? 0 : (int?) null, _changeTracker, card);
+          _isleveler ? 0 : (int?) null,
+          changeTracker,
+          card);
 
         card._level.Property(x => x.Value)
           .Changes(card).Property<Card, int?>(x => x.Level);
       }
 
-      private void CreateBindableToughness(Card card)
+      private void CreateBindableToughness(Card card, ChangeTracker changeTracker)
       {
-        card._toughness = Bindable.Create<Toughness>(_toughness, _changeTracker, card);
+        card._toughness = Bindable.Create<Toughness>(
+          _toughness,
+          changeTracker,
+          card);
 
         card._toughness.Property(x => x.Value)
           .Changes(card).Property<Card, int?>(x => x.Toughness);
       }
 
-      private void CreateBindableType(Card card)
+      private void CreateBindableType(Card card, ChangeTracker changeTracker)
       {
-        card._type = Bindable.Create<CardTypeCharacteristic>(_type, _changeTracker, card);
+        card._type = Bindable.Create<CardTypeCharacteristic>(
+          _type,
+          changeTracker,
+          card);
 
         card._type.Property(x => x.Value)
           .Changes(card).Property<Card, string>(x => x.Type);

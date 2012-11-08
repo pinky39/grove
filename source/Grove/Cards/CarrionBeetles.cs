@@ -13,7 +13,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Carrion Beetles")
         .ManaCost("{B}")
         .Type("Creature Insect")
@@ -23,15 +23,15 @@
         .Toughness(1)
         .Timing(Timings.Creatures())
         .Abilities(
-          C.ActivatedAbility(
+          ActivatedAbility(
             "{2}{B},{T}: Exile up to three target cards from a single graveyard.",
-            C.Cost<TapOwnerPayMana>(cost =>
+            Cost<TapOwnerPayMana>(cost =>
               {
                 cost.TapOwner = true;
                 cost.Amount = "{2}{B}".ParseManaAmount();
               }),
-            C.Effect<ExileTargets>(),
-            effectValidator: C.Validator(Validators.CardInGraveyard(yourGraveyardOnly: false),
+            Effect<ExileTargets>(),
+            effectValidator: Validator(Validators.CardInGraveyard(yourGraveyardOnly: false),
               minCount: 0,
               maxCount: 3),
             selectorAi: TargetSelectorAi.RemoveCardsFromOpponentsGraveyard(),

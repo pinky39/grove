@@ -13,7 +13,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Angelic Chorus")
         .ManaCost("{3}{W}{W}")
         .Type("Enchantment")
@@ -21,14 +21,14 @@
         .FlavorText("The very young and the very old know best the song the angels sing.")
         .Timing(Timings.FirstMain())
         .Abilities(
-          C.TriggeredAbility(
+          TriggeredAbility(
             "Whenever a creature enters the battlefield under your control, you gain life equal to its toughness.",
-            C.Trigger<OnZoneChange>((t, _) =>
+            Trigger<OnZoneChange>(t =>
               {
                 t.Filter = (ability, card) => ability.Controller == card.Controller && card.Is().Creature;
                 t.To = Zone.Battlefield;
               }),
-            C.Effect<GainLife>(p =>
+            Effect<GainLife>(p =>
               p.Effect.Amount = p.Parameters
                 .Trigger<CardChangedZone>()
                 .Card.Toughness.GetValueOrDefault()),

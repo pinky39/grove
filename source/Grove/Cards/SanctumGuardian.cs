@@ -12,7 +12,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Sanctum Guardian")
         .ManaCost("{1}{W}{W}")
         .Type("Creature Human Cleric")
@@ -23,14 +23,14 @@
         .Toughness(4)
         .Timing(Timings.Creatures())
         .Abilities(
-          C.ActivatedAbility(
+          ActivatedAbility(
             "Sacrifice Sanctum Guardian: The next time a source of your choice would deal damage to target creature or player this turn, prevent that damage.",
-            C.Cost<SacrificeOwner>(),
-            C.Effect<PreventDamageFromSourceToTarget>(e => e.OnlyOnce = true),
+            Cost<SacrificeOwner>(),
+            Effect<PreventDamageFromSourceToTarget>(e => e.OnlyOnce = true),
             effectValidators: new[]
               {
-                C.Validator(Validators.EffectOrPermanent(), text: "Select damage source."),
-                C.Validator(Validators.CreatureOrPlayer(), text:  "Select a creature or player.")
+                Validator(Validators.EffectOrPermanent(), text: "Select damage source."),
+                Validator(Validators.CreatureOrPlayer(), text:  "Select a creature or player.")
               },
             selectorAi: TargetSelectorAi.PreventAllDamageFromSourceToTarget(),
             timing: Timings.NoRestrictions()

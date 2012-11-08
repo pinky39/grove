@@ -11,7 +11,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Mirran Crusader")
         .ManaCost("{1}{W}{W}")
         .Type("Creature Human Knight")

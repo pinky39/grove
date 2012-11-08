@@ -26,7 +26,7 @@
         new EffectParameters(
           source: Source,
           triggerMessage: Trigger,
-          targets: Result.Targets));
+          targets: Result.Targets), Game);
       
 
       Game.Stack.Push(effect);

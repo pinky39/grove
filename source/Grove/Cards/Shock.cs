@@ -11,7 +11,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Shock")
         .ManaCost("{R}")
         .Type("Instant")
@@ -20,7 +20,7 @@
         .Effect<DealDamageToTargets>(e => e.Amount = 2)
         .Targets(
           selectorAi: TargetSelectorAi.DealDamageSingleSelector(2),
-          effectValidators: C.Validator(Validators.CreatureOrPlayer()));
+          effectValidators: Validator(Validators.CreatureOrPlayer()));
     }
   }
 }

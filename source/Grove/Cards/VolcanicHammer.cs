@@ -11,7 +11,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Volcanic Hammer")
         .ManaCost("{1}{R}")
         .Type("Sorcery")
@@ -20,7 +20,7 @@
         .Effect<DealDamageToTargets>(e => e.Amount = 3)
         .Timing(Timings.MainPhases())
         .Targets(selectorAi: TargetSelectorAi.DealDamageSingleSelector(3),
-          effectValidator: C.Validator(
+          effectValidator: Validator(
             Validators.CreatureOrPlayer()));
     }
   }

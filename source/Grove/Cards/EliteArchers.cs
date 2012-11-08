@@ -12,7 +12,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Elite Archers")
         .ManaCost("{5}{W}")
         .Type("Creature Human Soldier Archer")
@@ -22,11 +22,11 @@
         .Toughness(3)
         .Timing(Timings.Creatures())
         .Abilities(
-          C.ActivatedAbility(
+          ActivatedAbility(
             "{T}: Elite Archers deals 3 damage to target attacking or blocking creature.",
-            C.Cost<TapOwnerPayMana>(cost => cost.TapOwner = true),
-            C.Effect<DealDamageToTargets>(e => e.Amount = 3),
-            C.Validator(Validators.AttackerOrBlocker()),
+            Cost<TapOwnerPayMana>(cost => cost.TapOwner = true),
+            Effect<DealDamageToTargets>(e => e.Amount = 3),
+            Validator(Validators.AttackerOrBlocker()),
             selectorAi: TargetSelectorAi.DealDamageSingleSelector(3),
             timing: Timings.DeclareBlockers()
             )

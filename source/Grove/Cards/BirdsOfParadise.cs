@@ -11,7 +11,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Birds of Paradise")
         .ManaCost("{G}")
         .Type("Creature - Bird")
@@ -22,7 +22,7 @@
         .Timing(Timings.SecondMain())
         .Abilities(
           Static.Flying,
-          C.ManaAbility(ManaUnit.Any, "{T}: Add one mana of any color to your mana pool.")
+          ManaAbility(ManaUnit.Any, "{T}: Add one mana of any color to your mana pool.")
         );
     }
   }

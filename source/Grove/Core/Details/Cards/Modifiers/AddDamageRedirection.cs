@@ -12,7 +12,7 @@
     public override void Apply(DamageRedirections damageRedirections)
     {
       _damageRedirections = damageRedirections;
-      _damageRedirection = Redirection.Create(Target);
+      _damageRedirection = Redirection.Create(Target, Game);
 
       damageRedirections.Add(_damageRedirection);
     }

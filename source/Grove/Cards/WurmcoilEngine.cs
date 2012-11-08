@@ -14,7 +14,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Wurmcoil Engine")
         .ManaCost("{6}")
         .Type("Artifact Creature - Wurm")
@@ -26,15 +26,15 @@
         .Abilities(
           Static.Deathtouch,
           Static.Lifelink,
-          C.TriggeredAbility(
+          TriggeredAbility(
             "When Wurmcoil Engine dies, put a 3/3 colorless Wurm artifact creature token with deathtouch and a 3/3 colorless Wurm artifact creature token with lifelink onto the battlefield.",
-            C.Trigger<OnZoneChange>((t, _) =>
+            Trigger<OnZoneChange>(t =>
               {
                 t.From = Zone.Battlefield;
                 t.To = Zone.Graveyard;
               }),
-            C.Effect<CreateTokens>(p => p.Effect.Tokens(
-              p.Builder.Card
+            Effect<CreateTokens>(e => e.Tokens(
+              Card
                 .Named("Wurm Token")
                 .Text("{Deathtouch}")
                 .FlavorText("When wurms aren't hungry{EOL}—Nantuko expression meaning 'never'")
@@ -43,7 +43,7 @@
                 .Type("Artifact Creature - Wurm Token")
                 .Colors(ManaColors.Colorless)
                 .Abilities(Static.Deathtouch),
-              p.Builder.Card
+              Card
                 .Named("Wurm Token")
                 .Text("{Lifelink}")
                 .FlavorText("When wurms aren't hungry{EOL}—Nantuko expression meaning 'never'")

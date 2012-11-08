@@ -20,7 +20,7 @@
 
       if (DoNotCounterCost != null && targetSpellController.HasMana(DoNotCounterCost, ManaUsage.Any))
       {
-        Decisions.Enqueue<AdhocDecision<BooleanResult>>(
+        Game.Enqueue<AdhocDecision<BooleanResult>>(
           controller: targetSpellController,
           init: p =>
             {

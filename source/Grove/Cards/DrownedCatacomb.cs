@@ -12,13 +12,13 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Drowned Catacomb")
         .Type("Land")
         .Text(
           "Drowned Catacomb enters the battlefield tapped unless you control an Island or a Swamp.{EOL}{T}: Add {U} or {B} to your mana pool.")
         .Abilities(
-          C.ManaAbility(
+          ManaAbility(
             new ManaUnit(ManaColors.Blue | ManaColors.Black),
             "{T}: Add {U} or {B} to your mana pool."
             ))

@@ -12,7 +12,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Remote Isle")
         .Type("Land")
         .Text(
@@ -20,7 +20,7 @@
         .Timing(Timings.Lands())
         .Cycling("{2}")
         .Abilities(
-          C.ManaAbility(new ManaUnit(ManaColors.Blue), "{T}: Add {U} to your mana pool."))
+          ManaAbility(new ManaUnit(ManaColors.Blue), "{T}: Add {U} to your mana pool."))
         .Effect<PutIntoPlay>(e => e.PutIntoPlayTapped = true);
     }
   }

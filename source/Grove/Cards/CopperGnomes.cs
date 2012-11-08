@@ -13,7 +13,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Copper Gnomes")
         .ManaCost("{2}")
         .Type("Artifact Creature Gnome")
@@ -24,10 +24,10 @@
         .Toughness(1)
         .Timing(Timings.Creatures())
         .Abilities(
-          C.ActivatedAbility(
+          ActivatedAbility(
             "{4}, Sacrifice Copper Gnomes: You may put an artifact card from your hand onto the battlefield.",
-            C.Cost<SacOwnerPayMana>(cost => cost.Amount = 4.AsColorlessMana()),
-            C.Effect<PutCardToBattlefieldChosenOnResolve>(e =>
+            Cost<SacOwnerPayMana>(cost => cost.Amount = 4.AsColorlessMana()),
+            Effect<PutCardToBattlefieldChosenOnResolve>(e =>
               {
                 e.Validator = card => card.Zone == Zone.Hand && card.Is().Artifact;
                 e.Text = "Select an artifact in your hand";

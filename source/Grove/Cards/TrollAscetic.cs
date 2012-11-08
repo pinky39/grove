@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -14,7 +13,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Troll Ascetic")
         .ManaCost("{1}{G}{G}")
         .Type("Creature - Troll Shaman")
@@ -26,10 +25,10 @@
         .Timing(Timings.Creatures())
         .Abilities(
           Static.Hexproof,
-          C.ActivatedAbility(
+          ActivatedAbility(
             "{1}{G}: Regenerate Troll Ascetic.",
-            C.Cost<TapOwnerPayMana>((c, _) => c.Amount = "{1}{G}".ParseManaAmount()),
-            C.Effect<Regenerate>(),
+            Cost<TapOwnerPayMana>(cost => cost.Amount = "{1}{G}".ParseManaAmount()),
+            Effect<Regenerate>(),
             timing: Timings.Regenerate()));
     }
   }

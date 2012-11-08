@@ -11,7 +11,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Congregate")
         .ManaCost("{3}{W}")
         .Type("Instant")
@@ -21,7 +21,7 @@
         .Timing(All(Timings.EndOfTurn(), Timings.HasPermanents(3, card => card.Is().Creature)))
         .Effect<TargetPlayerGainsLifeEqualToCreatureCount>(e => e.Multiplier = 2)
         .Targets(
-          effectValidator: C.Validator(Validators.Player()),
+          effectValidator: Validator(Validators.Player()),
           selectorAi: TargetSelectorAi.Controller()
         );
     }

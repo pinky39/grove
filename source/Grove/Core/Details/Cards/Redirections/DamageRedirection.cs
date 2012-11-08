@@ -31,19 +31,18 @@
     protected abstract bool Redirect(Damage damage);
 
     public class Factory<T> : IDamageRedirectionFactory where T : DamageRedirection, new()
-    {
-      public Game Game { get; set; }
+    {      
       public bool OnlyOnce { get; set; }
       public Initializer<T> Init { get; set; }
 
-      public DamageRedirection Create(ITarget owner)
+      public DamageRedirection Create(ITarget owner, Game game)
       {
         var prevention = new T();
 
         prevention.Owner = owner;
-        prevention.Game = Game;
+        prevention.Game = game;
 
-        Init(prevention, new CardBuilder(Game));
+        Init(prevention);
 
         return prevention;
       }

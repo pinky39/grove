@@ -11,7 +11,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Flame Slash")
         .ManaCost("{R}")
         .Type("Sorcery")
@@ -22,7 +22,7 @@
         .Timing(Timings.InstantRemovalTarget())
         .Targets(
           selectorAi: TargetSelectorAi.DealDamageSingleSelector(4),
-          effectValidator: C.Validator(
+          effectValidator: Validator(
             Validators.Creature()));
     }
   }

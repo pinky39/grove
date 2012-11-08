@@ -5,20 +5,21 @@
 
   public class DependantLifetime : Lifetime, ICopyContributor
   {
-    private readonly ILifetimeDependency _lifetimeDependency;
+    private ILifetimeDependency _lifetimeDependency;
 
-    private DependantLifetime() {}
-
-    public DependantLifetime(ILifetimeDependency lifetimeDependency, ChangeTracker changeTracker)
-      : base(changeTracker)
+    public ILifetimeDependency LifetimeDependency
     {
-      _lifetimeDependency = lifetimeDependency;
-      _lifetimeDependency.EndOfLife += OnEndOfLife;
+      get { return _lifetimeDependency; }
+      set
+      {
+        _lifetimeDependency = value;
+        _lifetimeDependency.EndOfLife += OnEndOfLife;
+      }
     }
 
     void ICopyContributor.AfterMemberCopy(object original)
     {
-      _lifetimeDependency.EndOfLife += OnEndOfLife;
+      LifetimeDependency.EndOfLife += OnEndOfLife;
     }
 
     private void OnEndOfLife(object sender, EventArgs e)
@@ -28,7 +29,7 @@
 
     public override void Dispose()
     {
-      _lifetimeDependency.EndOfLife -= OnEndOfLife;
-    }    
+      LifetimeDependency.EndOfLife -= OnEndOfLife;
+    }
   }
 }

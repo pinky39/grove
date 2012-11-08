@@ -9,7 +9,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Order of the Sacred Bell")
         .ManaCost("{3}{G}")
         .Type("Creature - Human Monk")

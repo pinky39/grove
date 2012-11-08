@@ -11,7 +11,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Silent Attendant")
         .Type("Creature Human Cleric")
         .ManaCost("{2}{W}")
@@ -22,10 +22,10 @@
         .Toughness(2)
         .Timing(Timings.Creatures())
         .Abilities(
-          C.ActivatedAbility(
+          ActivatedAbility(
             "{T}: You gain 1 life.",
-            C.Cost<TapOwnerPayMana>((cost, _) => cost.TapOwner = true),
-            C.Effect<GainLife>(e => e.Amount = 1),
+            Cost<TapOwnerPayMana>(cost => cost.TapOwner = true),
+            Effect<GainLife>(e => e.Amount = 1),
             timing: Any(Timings.EndOfTurn(), Timings.BeforeDeath())
             )
         );

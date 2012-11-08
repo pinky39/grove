@@ -12,13 +12,13 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Sunpetal Grove")
         .Type("Land")
         .Text(
           "Sunpetal Grove enters the battlefield tapped unless you control a Forest or a Plains.{EOL}{T}: Add {G} or {W} to your mana pool.")
         .Abilities(
-          C.ManaAbility(
+          ManaAbility(
             new ManaUnit(ManaColors.White | ManaColors.Green),
             "{T}: Add {G} or {W} to your mana pool."
             ))

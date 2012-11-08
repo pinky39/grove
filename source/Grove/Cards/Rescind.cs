@@ -11,7 +11,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Rescind")
         .ManaCost("{1}{U}{U}")
         .Type("Instant")
@@ -25,7 +25,7 @@
           })
         .Targets(
           selectorAi: TargetSelectorAi.Bounce(),
-          effectValidator: C.Validator(Validators.Permanent()));
+          effectValidator: Validator(Validators.Permanent()));
     }
   }
 }

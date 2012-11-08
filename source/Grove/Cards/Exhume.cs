@@ -10,7 +10,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Exhume")
         .ManaCost("{1}{B}")
         .Type("Sorcery")

@@ -19,9 +19,9 @@
     private Trackable<Modifier> _doNotUpdate;
 
     private Trackable<bool> _isActive;
-    private TrackableList<Modifier> _modifiers;
-    private Players _players;
+    private TrackableList<Modifier> _modifiers;    
     private Card _source;
+    private Game _game;
 
     private ContinuousEffect()
     {
@@ -125,7 +125,7 @@
 
     private void AddModifierToPlayers()
     {
-      foreach (var player in _players)
+      foreach (var player in _game.Players)
       {
         if (PlayerFilter(player, _source))
         {
@@ -136,7 +136,7 @@
 
     private void AddModifier(ITarget target)
     {
-      var modifier = ModifierFactory.CreateModifier(_source, target, x: null);
+      var modifier = ModifierFactory.CreateModifier(_source, target, x: null, game: _game);
       _modifiers.Add(modifier);
 
       _doNotUpdate.Value = modifier;
@@ -145,7 +145,7 @@
 
     private void AddModifierToPermanents()
     {
-      var permanents = _players.Permanents()
+      var permanents = _game.Players.Permanents()
         .Where(permanent => CardFilter(permanent, _source)).ToList();
 
       foreach (var permanent in permanents)
@@ -173,25 +173,23 @@
     {
       return message.Card == _source && message.From == Zone.Battlefield;
     }
-
-    [Copyable]
+    
     public class Factory : IContinuousEffectFactory
     {
-      public Initializer<ContinuousEffect> Init = delegate { };
-      public Game Game { get; set; }
+      public Initializer<ContinuousEffect> Init = delegate { };      
 
-      public ContinuousEffect Create(Card source)
+      public ContinuousEffect Create(Card source, Game game)
       {
         var continuousEffect = new ContinuousEffect();
-        continuousEffect._doNotUpdate = new Trackable<Modifier>(Game.ChangeTracker);
-        continuousEffect._modifiers = new TrackableList<Modifier>(Game.ChangeTracker);
-        continuousEffect._source = source;
-        continuousEffect._players = Game.Players;
-        continuousEffect._isActive = new Trackable<bool>(Game.ChangeTracker);
+        continuousEffect._doNotUpdate = new Trackable<Modifier>(game.ChangeTracker);
+        continuousEffect._modifiers = new TrackableList<Modifier>(game.ChangeTracker);
+        continuousEffect._source = source;        
+        continuousEffect._game = game;
+        continuousEffect._isActive = new Trackable<bool>(game.ChangeTracker);
 
-        Init(continuousEffect, new CardBuilder(Game));
+        Init(continuousEffect);
 
-        Game.Publisher.Subscribe(continuousEffect);
+        game.Subscribe(continuousEffect);
         return continuousEffect;
       }
     }

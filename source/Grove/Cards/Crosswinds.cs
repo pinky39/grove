@@ -10,7 +10,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Crosswinds")
         .ManaCost("{1}{G}")
         .Type("Enchantment")
@@ -18,10 +18,10 @@
         .FlavorText("Harbin's ornithopter had been trapped for two days within the currents of the storm. When the skies cleared, all he could see was a horizon of trees.")
         .Timing(Timings.FirstMain())
         .Abilities(
-          C.Continuous((e, c) =>
+          Continuous(e =>
             {
-              e.ModifierFactory = c.Modifier<AddPowerAndToughness>(
-                (m, _) =>
+              e.ModifierFactory = Modifier<AddPowerAndToughness>(
+                m =>
                   {
                     m.Power = -2;                    
                   });

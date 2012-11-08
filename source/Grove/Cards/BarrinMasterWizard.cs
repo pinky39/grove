@@ -1,12 +1,10 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
   using Core.Details.Cards.Costs;
   using Core.Details.Cards.Effects;
-  using Core.Details.Cards.Modifiers;
   using Core.Details.Mana;
   using Core.Dsl;
   using Core.Targeting;
@@ -15,7 +13,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Barrin, Master Wizard")
         .ManaCost("{1}{U}{U}")
         .Type("Legendary Creature Human Wizard")
@@ -26,14 +24,14 @@
         .Toughness(1)
         .Timing(Timings.FirstMain())
         .Abilities(
-          C.ActivatedAbility(
+          ActivatedAbility(
             "{2}, Sacrifice a permanent: Return target creature to its owner's hand.",
-            C.Cost<SacPermanentPayMana>(cost => cost.Amount = 2.AsColorlessMana()),
-            C.Effect<ReturnToHand>(e => e.ReturnTarget = true),
-            effectValidator: C.Validator(Validators.Creature(), text: "Select a creature to bounce."),
+            Cost<SacPermanentPayMana>(cost => cost.Amount = 2.AsColorlessMana()),
+            Effect<ReturnToHand>(e => e.ReturnTarget = true),
+            effectValidator: Validator(Validators.Creature(), text: "Select a creature to bounce."),
             costValidator:
-              C.Validator(Validators.Permanent(controller: Controller.SpellOwner),
-                text: "Select a permanent to sacrifice.", 
+              Validator(Validators.Permanent(controller: Controller.SpellOwner),
+                text: "Select a permanent to sacrifice.",
                 mustBeTargetable: false),
             selectorAi: TargetSelectorAi.SacPermanentToBounce(),
             timing: Any(Timings.InstantRemovalTarget()))

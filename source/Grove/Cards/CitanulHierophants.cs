@@ -11,7 +11,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Citanul Hierophants")
         .ManaCost("{3}{G}")
         .Type("Creature Human Druid")
@@ -22,11 +22,11 @@
         .Toughness(2)
         .Timing(Timings.FirstMain())
         .Abilities(
-          C.Continuous((e, c) =>
+          Continuous(e =>
             {
               e.CardFilter = (card, source) => card.Controller == source.Controller && card.Is().Creature;
-              e.ModifierFactory = c.Modifier<AddActivatedAbility>((m, c0) =>
-                m.Ability = C.ManaAbility(ManaUnit.Green, "{T}: Add {G} to your mana pool.")
+              e.ModifierFactory = Modifier<AddActivatedAbility>(m =>
+                m.Ability = ManaAbility(ManaUnit.Green, "{T}: Add {G} to your mana pool.")
                 );
             }));
     }

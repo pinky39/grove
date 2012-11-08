@@ -48,7 +48,7 @@
       _typeSetter = new CardTypeSetter(Type, ChangeTracker);
       _cardType.AddModifier(_typeSetter);
 
-      Publisher.Publish(new CardChangedType {Card = Target.Card()});
+      Game.Publish(new CardChangedType {Card = Target.Card()});
     }
 
     protected override void Unapply()

@@ -12,7 +12,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Befoul")
         .ManaCost("{2}{B}{B}")
         .Type("Sorcery")
@@ -23,7 +23,7 @@
         .Category(EffectCategories.Destruction)
         .Targets(
           selectorAi: TargetSelectorAi.Destroy(),
-          effectValidator: C.Validator(Validators.Permanent(card =>
+          effectValidator: Validator(Validators.Permanent(card =>
             card.Is().Land || (card.Is().Creature && !card.HasColors(ManaColors.Black)))));
     }
   }

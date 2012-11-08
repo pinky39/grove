@@ -16,8 +16,7 @@
 
     public Player Controller { get { return OwningCard.Controller; } }
     protected IEffectFactory EffectFactory { get; private set; }
-    protected Game Game { get; set; }
-    protected Publisher Publisher { get { return Game.Publisher; } }
+    protected Game Game { get; set; }    
     public Card SourceCard { get; protected set; }
     protected Stack Stack { get { return Game.Stack; } }
     public CardText Text { get; set; }
@@ -45,8 +44,8 @@
       TargetSelectorAiDelegate aiSelector)
     {
       _targetSelector = new TargetSelector(
-        effectValidators: effect.Select(x => x.Create(OwningCard)),
-        costValidators: cost.Select(x => x.Create(OwningCard)),
+        effectValidators: effect.Select(x => x.Create(OwningCard, Game)),
+        costValidators: cost.Select(x => x.Create(OwningCard, Game)),
         aiSelector: aiSelector
         );
     }

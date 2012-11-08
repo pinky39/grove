@@ -10,7 +10,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Llanowar Elves")
         .ManaCost("{G}")
         .Type("Creature - Elf Druid")
@@ -20,7 +20,7 @@
         .Toughness(1)
         .Timing(Timings.Creatures())
         .Abilities(
-          C.ManaAbility(ManaUnit.Green, "{T}: Add {G} to your mana pool."));
+          ManaAbility(ManaUnit.Green, "{T}: Add {G} to your mana pool."));
     }
   }
 }

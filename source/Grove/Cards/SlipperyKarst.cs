@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -12,7 +11,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Slippery Karst")
         .Type("Land")
         .Text(
@@ -20,7 +19,7 @@
         .Timing(Timings.Lands())
         .Cycling("{2}")
         .Abilities(
-          C.ManaAbility(new ManaUnit(ManaColors.Green), "{T}: Add {G} to your mana pool."))
+          ManaAbility(new ManaUnit(ManaColors.Green), "{T}: Add {G} to your mana pool."))
         .Effect<PutIntoPlay>(e => e.PutIntoPlayTapped = true);
     }
   }

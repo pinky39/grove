@@ -14,7 +14,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Abyssal Horror")
         .ManaCost("{4}{B}{B}")
         .Type("Creature - Specter")
@@ -25,11 +25,11 @@
         .Toughness(2)
         .Abilities(
           Static.Flying,
-          C.TriggeredAbility(
+          TriggeredAbility(
             "When Abyssal Horror enters the battlefield, target player discards two cards.",
-            C.Trigger<OnZoneChange>((t, _) => t.To = Zone.Battlefield),
-            C.Effect<DiscardCards>(p => p.Effect.Count = 2),
-            C.Validator(Validators.Player()),
+            Trigger<OnZoneChange>(t => t.To = Zone.Battlefield),
+            Effect<DiscardCards>(p => p.Effect.Count = 2),
+            Validator(Validators.Player()),
             selectorAi: TargetSelectorAi.Opponent()));
     }
   }

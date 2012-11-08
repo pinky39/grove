@@ -10,20 +10,27 @@
   [Copyable]
   public class StateMachine : ICopyContributor
   {
-    private static readonly ILog Log = LogManager.GetLogger(typeof (StateMachine));
-    private readonly DecisionQueue _decisionQueue;
-    private Trackable<IDecision> _curentDecision;
-    private Trackable<int> _passesCount;
+    private static readonly ILog Log = LogManager.GetLogger(typeof (StateMachine));    
+    private readonly Trackable<IDecision> _curentDecision;
+    private readonly Trackable<int> _passesCount;
     private Game _game;
+    private readonly DecisionQueue _decisionQueue;
     private Player _looser;
     private Dictionary<State, StepState> _states;
     private Dictionary<Step, StepDefinition> _steps;
 
     private StateMachine() {}
 
-    public StateMachine(DecisionQueue decisionQueue)
+    public StateMachine(Game game, DecisionQueue decisionQueue)
     {
+      _game = game;
       _decisionQueue = decisionQueue;
+
+      _curentDecision = new Trackable<IDecision>(_game.ChangeTracker);
+      _passesCount = new Trackable<int>(_game.ChangeTracker);
+
+      InitializeStepStates();
+      InitializeSteps();
     }
 
     private IDecision CurrentDecision { get { return _curentDecision.Value; } set { _curentDecision.Value = value; } }
@@ -47,18 +54,7 @@
       InitializeStepStates();
       InitializeSteps();
     }
-
-    public StateMachine Init(Game game)
-    {
-      _game = game;
-      _curentDecision = new Trackable<IDecision>(_game.ChangeTracker);
-      _passesCount = new Trackable<int>(_game.ChangeTracker);
-
-      InitializeStepStates();
-      InitializeSteps();
-      return this;
-    }
-
+    
     public void Resume(Func<bool> shouldContinue)
     {
       while (shouldContinue())
@@ -101,13 +97,13 @@
 
     private void DeclareAttackers()
     {
-      _game.Decisions.Enqueue<DeclareAttackers>(
+      _game.Enqueue<DeclareAttackers>(
         controller: _game.Players.Attacking);
     }
 
     private void DeclareBlockers()
     {
-      _game.Decisions.Enqueue<DeclareBlockers>(
+      _game.Enqueue<DeclareBlockers>(
         controller: _game.Players.Defending);
     }
 
@@ -115,7 +111,7 @@
     {
       var activePlayer = _game.Players.Active;
 
-      _game.Decisions.Enqueue<DiscardCards>(
+      _game.Enqueue<DiscardCards>(
         controller: _game.Players.Active,
         init: p => p.Count = activePlayer.NumberOfCardsAboveMaximumHandSize);
     }
@@ -171,7 +167,7 @@
 
       CreateState(
         name: State.Start,
-        proc: () => _game.Decisions.Enqueue<PlaySpellOrAbility>(_game.Players.Active),
+        proc: () => _game.Enqueue<PlaySpellOrAbility>(_game.Players.Active),
         next: () =>
           {
             if (WasPriorityPassed)
@@ -185,7 +181,7 @@
 
       CreateState(
         name: State.Active,
-        proc: () => _game.Decisions.Enqueue<PlaySpellOrAbility>(_game.Players.Active),
+        proc: () => _game.Enqueue<PlaySpellOrAbility>(_game.Players.Active),
         next: () =>
           {
             if (WasPriorityPassed)
@@ -210,7 +206,7 @@
 
       CreateState(
         name: State.Passive,
-        proc: () => _game.Decisions.Enqueue<PlaySpellOrAbility>(_game.Players.Passive),
+        proc: () => _game.Enqueue<PlaySpellOrAbility>(_game.Players.Passive),
         next: () =>
           {
             if (WasPriorityPassed)
@@ -307,7 +303,7 @@
               if (permanent.MayChooseNotToUntapDuringUntapStep)
               {
                 var permanentCopy = permanent;
-                _game.Decisions.Enqueue<ChooseToUntap>(
+                _game.Enqueue<ChooseToUntap>(
                   controller: _game.Players.Active, 
                   init: p => p.Permanent = permanentCopy);
               }
@@ -362,7 +358,7 @@
 
       CreateStep(
         Step.FirstStrikeCombatDamage,
-        first: () => _game.Combat.AssignCombatDamage(_game.Decisions, firstStrike: true),
+        first: () => _game.Combat.AssignCombatDamage(firstStrike: true),
         second: DealAssignedCombatDamage,
         third: () => _game.Players.MoveDeadCreaturesToGraveyard(),
         nextStep: () => _game.Combat.AnyCreaturesWithNormalStrike()
@@ -371,7 +367,7 @@
 
       CreateStep(
         Step.CombatDamage,
-        first: () => _game.Combat.AssignCombatDamage(_game.Decisions),
+        first: () => _game.Combat.AssignCombatDamage(),
         second: DealAssignedCombatDamage,
         third: () => _game.Players.MoveDeadCreaturesToGraveyard(),
         nextStep: () => Step.EndOfCombat);
@@ -421,7 +417,7 @@
 
     private void Publish<T>(T message)
     {
-      _game.Publisher.Publish(message);
+      _game.Publish(message);
     }
 
     private Player RollDice()
@@ -446,12 +442,12 @@
     private void SelectStartingPlayer()
     {
       var winner = _looser ?? RollDice();
-      _game.Decisions.Enqueue<SelectStartingPlayer>(winner);
+      _game.Enqueue<SelectStartingPlayer>(winner);
     }
 
     private void SetDamageAssignmentOrder()
     {
-      _game.Combat.SetDamageAssignmentOrder(_game.Decisions);
+      _game.Combat.SetDamageAssignmentOrder();
     }
 
     private void ShuffleLibraries()
@@ -467,8 +463,8 @@
       var starting = _game.Players.Starting;
       var nonStarting = _game.Players.GetOpponent(starting);
 
-      _game.Decisions.Enqueue<TakeMulligan>(starting);
-      _game.Decisions.Enqueue<TakeMulligan>(nonStarting);
+      _game.Enqueue<TakeMulligan>(starting);
+      _game.Enqueue<TakeMulligan>(nonStarting);
     }
 
 

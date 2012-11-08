@@ -11,7 +11,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Swords to Plowshares")
         .ManaCost("{W}")
         .Type("Instant")
@@ -21,7 +21,7 @@
         .Effect<ExileTargets>(e => e.ControllerGainsLifeEqualToToughness = true)
         .Targets(
           selectorAi: TargetSelectorAi.Exile(),
-          effectValidator: C.Validator(
+          effectValidator: Validator(
             Validators.Creature()));
     }
   }

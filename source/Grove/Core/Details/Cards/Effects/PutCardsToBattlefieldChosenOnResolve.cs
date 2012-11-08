@@ -15,7 +15,7 @@
 
     protected override void ResolveEffect()
     {
-      Decisions.Enqueue<Controllers.AdhocDecision<ChosenCards>>(
+      Game.Enqueue<Controllers.AdhocDecision<ChosenCards>>(
         controller: Controller,
         init: p =>
           {            

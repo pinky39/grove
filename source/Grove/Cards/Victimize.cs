@@ -11,7 +11,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Victimize")
         .ManaCost("{2}{B}")
         .Type("Sorcery")
@@ -26,7 +26,7 @@
           })
         .Targets(
           selectorAi: TargetSelectorAi.OrderByDescendingScore(Controller.SpellOwner),
-          effectValidator: C.Validator(
+          effectValidator: Validator(
             Validators.CardInGraveyard(card => card.Is().Creature),
             minCount: 2,
             maxCount: 2));

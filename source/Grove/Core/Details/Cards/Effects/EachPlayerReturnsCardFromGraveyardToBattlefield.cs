@@ -7,7 +7,7 @@
   {
     private void ChooseCreatureToPutIntoPlay(Player player)
     {
-      Decisions.Enqueue<ReturnCardsFromGraveyardToBattlefield>(
+      Game.Enqueue<ReturnCardsFromGraveyardToBattlefield>(
         controller: player,
         init: p =>
           {

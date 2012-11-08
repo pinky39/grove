@@ -1,6 +1,7 @@
 ﻿namespace Grove.Ui.Stack
 {
   using System;
+  using Core;
   using Core.Details.Cards.Effects;
   using Core.Targeting;
   using Core.Zones;
@@ -8,17 +9,15 @@
 
   public class ViewModel : IReceive<UiInteractionChanged>
   {
-    private readonly Publisher _publisher;
-    private readonly Stack _stack;
+    private readonly Game _game;
     private Action<Effect> _select = delegate { };
 
-    public ViewModel(Stack stack, Publisher publisher)
+    public ViewModel(Game game)
     {
-      _stack = stack;
-      _publisher = publisher;
+      _game = game;
     }
 
-    public Stack Stack { get { return _stack; } }
+    public Stack Stack { get { return _game.Stack; } }
 
     public void Receive(UiInteractionChanged message)
     {
@@ -55,7 +54,7 @@
         HasLostInterest = hasLostInterest,        
       };
 
-      _publisher.Publish(message);
+      _game.Publish(message);
     }
 
     public void ChangePlayersInterest(Effect effect, bool hasLostInterest)
@@ -67,12 +66,12 @@
           Target = effect.Target()
         };
 
-      _publisher.Publish(message);
+      _game.Publish(message);
     }
 
     private void ChangeSelection(Effect effect)
     {
-      _publisher.Publish(
+      _game.Publish(
         new SelectionChanged {Selection = effect});
     }
   }

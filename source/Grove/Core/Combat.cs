@@ -11,27 +11,21 @@
   [Copyable]
   public class Combat : IHashable
   {
-    private readonly IAttackerFactory _attackerFactory;
     private readonly TrackableList<Attacker> _attackers;
-    private readonly IBlockerFactory _blockerFactory;
     private readonly TrackableList<Blocker> _blockers;
-    private readonly Players _players;
-    private readonly Publisher _publisher;
+    private readonly Game _game;
 
     private Combat() {}
 
-    public Combat(ChangeTracker changeTracker, IAttackerFactory attackerFactory, IBlockerFactory blockerFactory,
-      Publisher publisher, Players players)
+    public Combat(Game game)
     {
-      _attackerFactory = attackerFactory;
-      _blockerFactory = blockerFactory;
-      _publisher = publisher;
-      _players = players;
-      _attackers = new TrackableList<Attacker>(changeTracker);
-      _blockers = new TrackableList<Blocker>(changeTracker);
+      _game = game;
+      _attackers = new TrackableList<Attacker>(game.ChangeTracker);
+      _blockers = new TrackableList<Blocker>(game.ChangeTracker);
     }
 
     public IEnumerable<Attacker> Attackers { get { return _attackers; } }
+    private Player DefendingPlayer { get { return _game.Players.Defending; } }
 
     public int CalculateHash(HashCalculator calc)
     {
@@ -40,7 +34,7 @@
         calc.Calculate(_blockers));
     }
 
-    public void AssignCombatDamage(Decisions decisions, bool firstStrike = false)
+    public void AssignCombatDamage(bool firstStrike = false)
     {
       var blockers = firstStrike
         ? _blockers.Where(x => x.Card.HasFirstStrike)
@@ -57,7 +51,7 @@
 
       foreach (var attacker in attackers)
       {
-        attacker.DistributeDamageToBlockers(decisions);
+        attacker.DistributeDamageToBlockers();
       }
     }
 
@@ -87,18 +81,28 @@
         blocker.DealAssignedDamage();
       }
 
-      _players.Defending.DealAssignedDamage();
+      DefendingPlayer.DealAssignedDamage();
+    }
+
+    private Attacker CreateAttacker(Card card)
+    {
+      return new Attacker(card, _game);
+    }
+
+    private Blocker CreateBlocker(Card blocker, Attacker attacker)
+    {
+      return new Blocker(blocker, attacker, _game);
     }
 
     public void JoinAttack(Card card, bool wasDeclared = false)
     {
-      var attacker = _attackerFactory.Create(card);
+      var attacker = CreateAttacker(card);
       _attackers.Add(attacker);
 
       if (!card.Has().Vigilance)
         card.Tap();
 
-      PublishMessage(new AttackerJoinedCombat
+      _game.Publish(new AttackerJoinedCombat
         {
           Attacker = attacker,
           WasDeclared = wasDeclared
@@ -116,12 +120,12 @@
     public void DeclareBlocker(Card cardBlocker, Card cardAttacker)
     {
       var attacker = FindAttacker(cardAttacker);
-      var blocker = _blockerFactory.Create(cardBlocker, attacker);
+      var blocker = CreateBlocker(cardBlocker, attacker);
 
       attacker.AddBlocker(blocker);
       _blockers.Add(blocker);
 
-      _publisher.Publish(new BlockerJoinedCombat
+      _game.Publish(new BlockerJoinedCombat
         {
           Blocker = blocker,
           Attacker = attacker
@@ -174,13 +178,13 @@
       _attackers.Clear();
     }
 
-    public void SetDamageAssignmentOrder(Decisions decisions)
+    public void SetDamageAssignmentOrder()
     {
       foreach (var attacker in _attackers)
       {
         var attackerCopy = attacker;
-        
-        decisions.Enqueue<SetDamageAssignmentOrder>(
+
+        _game.Enqueue<SetDamageAssignmentOrder>(
           controller: attacker.Controller,
           init: p => p.Attacker = attackerCopy);
       }
@@ -194,11 +198,6 @@
     private Blocker FindBlocker(Card cardBlocker)
     {
       return _blockers.FirstOrDefault(b => b.Card == cardBlocker);
-    }
-
-    private void PublishMessage<TMessage>(TMessage message)
-    {
-      _publisher.Publish(message);
     }
 
     public bool AnyCreaturesWithFirstStrike()
@@ -245,13 +244,13 @@
 
     public int CountHowManyThisCouldBlock(Card card)
     {
-      var opponent = _players.GetOpponent(card.Controller);
+      var opponent = _game.Players.GetOpponent(card.Controller);
       return opponent.Battlefield.CreaturesThatCanAttack.Count(x => x.CanBeBlockedBy(card));
     }
 
     public bool CouldBeBlockedByAny(Card card)
     {
-      var opponent = _players.GetOpponent(card.Controller);
+      var opponent = _game.Players.GetOpponent(card.Controller);
       return opponent.Battlefield.CreaturesThatCanBlock.Any(card.CanBeBlockedBy);
     }
 

@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -14,7 +13,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Cathodion")
         .ManaCost("{3}")
         .Type("Artifact Creature Construct")
@@ -25,14 +24,14 @@
         .Toughness(3)
         .Timing(Timings.Creatures())
         .Abilities(
-          C.TriggeredAbility(
+          TriggeredAbility(
             "When Cathodion dies, add {3} to your mana pool.",
-            C.Trigger<OnZoneChange>((t, _) =>
+            Trigger<OnZoneChange>(t =>
               {
                 t.From = Zone.Battlefield;
                 t.To = Zone.Graveyard;
               }),
-            C.Effect<AddManaToPool>(e => e.Amount = 3.AsColorlessMana())
+            Effect<AddManaToPool>(e => e.Amount = 3.AsColorlessMana())
             )
         );
     }

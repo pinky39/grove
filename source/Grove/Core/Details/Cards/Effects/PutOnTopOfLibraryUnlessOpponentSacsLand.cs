@@ -1,6 +1,5 @@
 ﻿namespace Grove.Core.Details.Cards.Effects
 {
-  using System;
   using System.Linq;
   using System.Windows;
   using Controllers.Human;
@@ -13,7 +12,7 @@
   {
     protected override void ResolveEffect()
     {
-      Decisions.Enqueue<Controllers.AdhocDecision<ChosenCards>>(
+      Game.Enqueue<Controllers.AdhocDecision<ChosenCards>>(
         controller: Players.GetOpponent(Controller),
         init: p =>
           {
@@ -63,12 +62,12 @@
               {
                 if (self.Result.None())
                   return;
-                
+
                 var wurm = self.Param<Card>("card");
                 var land = self.Result.First();
 
                 wurm.PutOnTopOfLibrary();
-                land.Sacrifice();                                
+                land.Sacrifice();
               };
           })
         ;

@@ -15,7 +15,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Basilisk Collar")
         .ManaCost("{1}")
         .Type("Artifact - Equipment")
@@ -24,14 +24,14 @@
           "During their endless travels, the mages of the Goma Fada caravan have learned ways to harness both life and death.")
         .Timing(Timings.FirstMain())
         .Abilities(
-          C.ActivatedAbility(
+          ActivatedAbility(
             "{2}: Attach to target creature you control. Equip only as a sorcery.",
-            C.Cost<TapOwnerPayMana>((cost, _) => cost.Amount = 2.AsColorlessMana()),
-            C.Effect<Attach>(p => p.Effect.Modifiers(
-              p.Builder.Modifier<AddStaticAbility>((m, _) => m.StaticAbility = Static.Deathtouch),
-              p.Builder.Modifier<AddStaticAbility>((m, _) => m.StaticAbility = Static.Lifelink)
+            Cost<TapOwnerPayMana>(cost => cost.Amount = 2.AsColorlessMana()),
+            Effect<Attach>(e => e.Modifiers(
+              Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Deathtouch),
+              Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Lifelink)
               )),
-            effectValidator: C.Validator(Validators.Equipment()),
+            effectValidator: Validator(Validators.Equipment()),
             selectorAi: TargetSelectorAi.CombatEquipment(),
             timing: Timings.AttachCombatEquipment(),
             activateAsSorcery: true));

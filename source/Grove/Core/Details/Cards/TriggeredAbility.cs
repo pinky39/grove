@@ -12,8 +12,7 @@
   [Copyable]
   public class TriggeredAbility : Ability, IDisposable, ICopyContributor
   {
-    private readonly List<Trigger> _triggers = new List<Trigger>();
-    private Decisions _decisions;
+    private readonly List<Trigger> _triggers = new List<Trigger>();    
     private Trackable<bool> _isEnabled;
 
     public TriggeredAbility()
@@ -42,7 +41,7 @@
 
     public void AddTrigger(ITriggerFactory triggerFactory)
     {
-      var trigger = triggerFactory.CreateTrigger(this);
+      var trigger = triggerFactory.CreateTrigger(this, Game);
       _triggers.Add(trigger);
       RegisterTriggerListener(trigger);
     }
@@ -66,7 +65,7 @@
 
       if (TargetSelector.Count > 0)
       {
-        _decisions.Enqueue<SetTriggeredAbilityTarget>(
+        Game.Enqueue<SetTriggeredAbilityTarget>(
           controller: OwningCard.Controller,
           init: p =>
             {
@@ -83,7 +82,7 @@
         (
         source: this,
         triggerMessage: triggerMessage
-        ));
+        ), Game);
 
       if (UsesStack)
         Stack.Push(effect);
@@ -105,21 +104,18 @@
     {
       IsEnabled = true;
     }
-
-    [Copyable]
+    
     public class Factory : ITriggeredAbilityFactory
-    {
-      public Game Game { get; set; }
+    {      
       public Action<TriggeredAbility> Init { get; set; }
 
-      public TriggeredAbility Create(Card owningCard, Card sourceCard)
+      public TriggeredAbility Create(Card owningCard, Card sourceCard, Game game)
       {
         var ability = new TriggeredAbility();
         ability.OwningCard = owningCard;
-        ability.SourceCard = sourceCard;
-        ability._decisions = Game.Decisions;
-        ability.Game = Game;
-        ability._isEnabled = new Trackable<bool>(true, Game.ChangeTracker);
+        ability.SourceCard = sourceCard;        
+        ability.Game = game;
+        ability._isEnabled = new Trackable<bool>(true, game.ChangeTracker);
 
         Init(ability);
 

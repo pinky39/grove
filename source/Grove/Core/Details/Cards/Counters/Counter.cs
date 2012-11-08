@@ -15,15 +15,14 @@
 
     [Copyable]
     public class Factory<T> : ICounterFactory where T : Counter, new()
-    {
-      public Game Game { get; set; }
+    {      
       public Initializer<T> Init { get; set; }
 
-      public Counter Create()
+      public Counter Create(Game game)
       {
         var counter = new T();
-        counter.Game = Game;
-        Init(counter, new CardBuilder(Game));
+        counter.Game = game;
+        Init(counter);
 
         return counter;
       }

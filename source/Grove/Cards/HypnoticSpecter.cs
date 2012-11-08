@@ -12,7 +12,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Hypnotic Specter")
         .ManaCost("{1}{B}{B}")
         .Type("Creature - Specter")
@@ -24,10 +24,10 @@
         .Timing(Timings.Creatures())
         .Abilities(
           Static.Flying,
-          C.TriggeredAbility(
+          TriggeredAbility(
             "Whenever Hypnotic Specter deals damage to an opponent, that player discards a card at random.",
-            C.Trigger<DealDamageToCreatureOrPlayer>((t, c) => t.ToOpponent()),
-            C.Effect<OpponentDiscardsCards>(e => e.RandomCount = 1)));
+            Trigger<DealDamageToCreatureOrPlayer>(t => t.ToOpponent()),
+            Effect<OpponentDiscardsCards>(e => e.RandomCount = 1)));
     }
   }
 }

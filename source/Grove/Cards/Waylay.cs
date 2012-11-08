@@ -12,7 +12,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Waylay")
         .ManaCost("{2}{W}")
         .Type("Instant")
@@ -20,11 +20,11 @@
           "Put three Knight tokens into play. Treat these tokens as 2/2 white creatures. Exile them at end of turn.")
         .FlavorText("'You reek of corruption,' spat the knight. 'Why are you even here?'")
         .Timing(Any(Timings.EndOfTurn(), Timings.SummonBlockers()))
-        .Effect<CreateTokens>(p =>
+        .Effect<CreateTokens>(e =>
           {
-            p.Effect.Count = 3;
-            p.Effect.Tokens(
-              p.Builder.Card
+            e.Count = 3;
+            e.Tokens(
+              Card
                 .Named("Knight Token")
                 .FlavorText("'You reek of corruption,' spat the knight. 'Why are you even here?'")
                 .Power(2)
@@ -33,15 +33,15 @@
                 .Type("Creature - Token - Knight")
                 .Colors(ManaColors.White)
                 .Abilities(
-                  p.Builder.TriggeredAbility(
+                  TriggeredAbility(
                     "Exile this at the end of turn.",
-                    p.Builder.Trigger<AtBegginingOfStep>((t, _) =>
+                    Trigger<AtBegginingOfStep>(t =>
                       {
                         t.Step = Step.EndOfTurn;
                         t.PassiveTurn = true;
                         t.ActiveTurn = true;
                       }),
-                    p.Builder.Effect<SacrificeSource>(), triggerOnlyIfOwningCardIsInPlay: true)
+                    Effect<SacrificeSource>(), triggerOnlyIfOwningCardIsInPlay: true)
                 ));
           });
     }

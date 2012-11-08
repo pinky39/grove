@@ -13,7 +13,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Serra's Embrace")
         .ManaCost("{2}{W}{W}")
         .Type("Enchantment - Aura")
@@ -21,18 +21,18 @@
           "Enchant creature{EOL}Enchanted creature gets +2/+2 and has flying and vigilance.")
         .FlavorText(
           "'Lifted beyond herself, for that battle Brindri was an angel of light and fury.'{EOL}—Song of All, canto 524")
-        .Effect<Attach>(p => p.Effect.Modifiers(
-          p.Builder.Modifier<AddPowerAndToughness>(m =>
+        .Effect<Attach>(e => e.Modifiers(
+          Modifier<AddPowerAndToughness>(m =>
             {
               m.Power = 2;
               m.Toughness = 2;
             }),
-          p.Builder.Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Vigilance),
-          p.Builder.Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Flying)))
+          Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Vigilance),
+          Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Flying)))
         .Timing(Timings.FirstMain())
         .Targets(
           selectorAi: TargetSelectorAi.CombatEnchantment(),
-          effectValidator: C.Validator(Validators.EnchantedCreature()));
+          effectValidator: Validator(Validators.EnchantedCreature()));
     }
   }
 }

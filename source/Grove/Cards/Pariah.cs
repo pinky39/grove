@@ -13,7 +13,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Pariah")
         .ManaCost("{2}{W}")
         .Type("Enchantment - Aura")
@@ -21,17 +21,17 @@
         .Text("All damage that would be dealt to you is dealt to enchanted creature instead.")
         .FlavorText(
           "'It is not sad', Radiant chided the lesser angel. 'It is right. Every society must have its outcasts.'")
-        .Effect<Attach>(p =>
+        .Effect<Attach>(e =>
           {
-            p.Effect.ModifiesAttachmentController = true;
-            p.Effect.Modifiers(
-              p.Builder.Modifier<AddDamageRedirection>((m, c) =>
-                m.Redirection = c.Redirection<RedirectDamageToTarget>((r, c1) => { r.Target = m.Source.AttachedTo; }))
+            e.ModifiesAttachmentController = true;
+            e.Modifiers(
+              Modifier<AddDamageRedirection>(m =>
+                m.Redirection = Redirection<RedirectDamageToTarget>(r => { r.Target = m.Source.AttachedTo; }))
               );
           })
         .Targets(
           selectorAi: TargetSelectorAi.DamageRedirection(),
-          effectValidator: C.Validator(Validators.EnchantedCreature()));
+          effectValidator: Validator(Validators.EnchantedCreature()));
     }
   }
 }

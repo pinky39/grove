@@ -1,8 +1,8 @@
 ﻿namespace Grove.Core
 {
-  public enum PlayerType
+  public enum ControllerType
   {
-    Computer,
+    Machine,
     Human,
     Scenario
   }

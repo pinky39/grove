@@ -12,19 +12,19 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Humble")
         .ManaCost("{1}{W}")
         .Type("Instant")
         .Text("Target creature loses all abilities and becomes 0/1 until end of turn.")
         .FlavorText("'It is not your place to rule, Radiant. It may not even be mine.'{EOL}—Serra")
         .Timing(Timings.InstantRemovalTarget(combatOnly: true))        
-        .Effect<ApplyModifiersToTargets>(p =>
+        .Effect<ApplyModifiersToTargets>(e =>
           {
-            p.Effect.ToughnessReduction = p.Effect.Target().Card().Toughness.Value - 1;
-            p.Effect.Modifiers(
-              p.Builder.Modifier<DisableAbilities>(untilEndOfTurn: true),
-              p.Builder.Modifier<SetPowerAndToughness>((m, _) =>
+            e.ToughnessReduction = e.Target().Card().Toughness.Value - 1;
+            e.Modifiers(
+              Modifier<DisableAbilities>(untilEndOfTurn: true),
+              Modifier<SetPowerAndToughness>(m =>
                 {
                   m.Power = 0;
                   m.Tougness = 1;
@@ -33,7 +33,7 @@
           })
         .Targets(
           selectorAi: TargetSelectorAi.Destroy(),
-          effectValidator: C.Validator(Validators.Creature()));
+          effectValidator: Validator(Validators.Creature()));
     }
   }
 }

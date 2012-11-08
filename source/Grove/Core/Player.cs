@@ -17,6 +17,7 @@
   [Copyable]
   public class Player : ITarget, IDamageable, IAcceptsModifiers, IHasLife
   {
+    private readonly Game _game;
     private readonly AssignedDamage _assignedDamage;
     private readonly Trackable<bool> _canPlayLands;
     private readonly DamagePreventions _damagePreventions;
@@ -27,9 +28,7 @@
     private readonly Trackable<bool> _isActive;
     private readonly Life _life;
     private readonly ManaPool _manaPool;
-    private readonly TrackableList<IModifier> _modifiers;
-    private readonly Publisher _publisher;
-    private readonly PlayerType _type;
+    private readonly TrackableList<IModifier> _modifiers;    
     private Battlefield _battlefield;
     private Exile _exile;
     private Graveyard _graveyard;
@@ -40,16 +39,15 @@
     public Player(
       string name,
       string avatar,
-      PlayerType type,
+      ControllerType controller,
       IEnumerable<string> deck,
-      Game game,
-      CardDatabase cardDatabase)
+      Game game)
     {
-      _publisher = game.Publisher;
+      _game = game;      
 
       Name = name;
       Avatar = avatar;
-      _type = type;
+      Controller = controller;
 
       _life = new Life(20, game.ChangeTracker);
       _canPlayLands = new Trackable<bool>(true, game.ChangeTracker);
@@ -63,13 +61,14 @@
       _damageRedirections = new DamageRedirections(game.ChangeTracker, null);
       _assignedDamage = new AssignedDamage(this, game.ChangeTracker);
 
-      var cards = LoadCards(deck, cardDatabase);
+      var cards = LoadCards(deck, _game.CardDatabase);
 
       CreateZones(cards, game);
       InitializeManaSources(game.ChangeTracker);
     }
 
     private Player() {}
+    public ControllerType Controller { get; private set; }
     public object ManaPool { get { return _manaPool; } }
     public string Name { get; private set; }
 
@@ -92,9 +91,9 @@
     public bool HasMulligan { get { return _hasMulligan.Value; } set { _hasMulligan.Value = value; } }
     public bool HasPriority { get { return _hasPriority.Value; } set { _hasPriority.Value = value; } }
     public virtual bool IsActive { get { return _isActive.Value; } set { _isActive.Value = value; } }
-    public bool IsHuman { get { return _type == PlayerType.Human; } }
-    public bool IsComputer { get { return _type == PlayerType.Computer; } }
-    public bool IsScenario { get { return _type == PlayerType.Scenario; } }
+    public bool IsHuman { get { return Controller == ControllerType.Human; } }
+    public bool IsMachine { get { return Controller == ControllerType.Machine; } }
+    public bool IsScenario { get { return Controller == ControllerType.Scenario; } }
     public bool IsMax { get; set; }
 
     public IEnumerable<Card> Library { get { return _library; } }
@@ -151,7 +150,7 @@
         controller.Life += damage.Amount;
       }
 
-      Publish(new DamageHasBeenDealt(this, damage));
+      _game.Publish(new DamageHasBeenDealt(this, damage));
     }
 
     public virtual int Life
@@ -434,7 +433,7 @@
 
     private IEnumerable<Card> LoadCards(IEnumerable<string> deck, CardDatabase cardDatabase)
     {
-      return deck.Select(card => cardDatabase.CreateCard(card, this));
+      return deck.Select(card => cardDatabase.CreateCard(card, this, _game));
     }
 
     public void AddManaSources(IEnumerable<IManaSource> manaSources)
@@ -456,11 +455,6 @@
             .SelectMany(x => x.ManaSources));
 
       _manaSources = new ManaSources(manaSources, changeTracker);
-    }
-
-    private void Publish<T>(T message)
-    {
-      _publisher.Publish(message);
     }
 
     private void CreateZones(IEnumerable<Card> cards, Game game)
@@ -495,17 +489,12 @@
       }
     }
 
-    public interface IFactory
-    {
-      Player Create(string name, string avatar, PlayerType type, IEnumerable<string> deck);
-    }
-
     public void ResetAiVisibility()
     {
       _library.Show();
       _battlefield.Show();
-      _graveyard.Show();      
+      _graveyard.Show();
       _hand.Show();
-    }
+    }    
   }
 }

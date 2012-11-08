@@ -11,7 +11,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Volcanic Fallout")
         .ManaCost("{1}{R}{R}")
         .Type("Instant")

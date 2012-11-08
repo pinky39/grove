@@ -11,7 +11,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Blood Vassal")
         .ManaCost("{2}{B}")
         .Type("Creature - Thrull")
@@ -21,10 +21,10 @@
         .Toughness(2)
         .Timing(Timings.Creatures())
         .Abilities(
-          C.ManaAbility(
+          ManaAbility(
             manaAmount: "{B}{B}".ParseManaAmount(),
             text: "Sacrifice Blood Vassal: Add {B}{B} to your mana pool.",
-            cost: C.Cost<SacrificeOwner>(),
+            cost: Cost<SacrificeOwner>(),
             priority: ManaSourcePriorities.OnlyIfNecessary)
         );
     }

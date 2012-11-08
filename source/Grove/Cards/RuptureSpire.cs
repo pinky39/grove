@@ -13,7 +13,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Rupture Spire")
         .Type("Land")
         .Text(
@@ -21,11 +21,11 @@
         .Effect<PutIntoPlay>(e => e.PutIntoPlayTapped = true)
         .Timing(All(Timings.Lands(), Timings.HasConvertedMana(1)))
         .Abilities(
-          C.ManaAbility(ManaUnit.Any, "{T}: Add one mana of any color to your mana pool."),
-          C.TriggeredAbility(
+          ManaAbility(ManaUnit.Any, "{T}: Add one mana of any color to your mana pool."),
+          TriggeredAbility(
             "When Rupture Spire enters the battlefield, sacrifice it unless you pay {1}.",
-            C.Trigger<OnZoneChange>((t, _) => t.To = Zone.Battlefield),
-            C.Effect<PayManaOrSacrifice>(e => e.Amount = 1.AsColorlessMana()))
+            Trigger<OnZoneChange>(t => t.To = Zone.Battlefield),
+            Effect<PayManaOrSacrifice>(e => e.Amount = 1.AsColorlessMana()))
         );
     }
   }

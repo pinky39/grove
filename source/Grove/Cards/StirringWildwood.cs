@@ -14,7 +14,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Stirring Wildwood")
         .Type("Land")
         .Text(
@@ -22,25 +22,25 @@
         .Timing(Timings.Lands())
         .Effect<PutIntoPlay>(e => e.PutIntoPlayTapped = true)
         .Abilities(
-          C.ManaAbility(
+          ManaAbility(
             new ManaUnit(ManaColors.Green | ManaColors.White),
             "{T}: Add {G} or {W} to your mana pool."),
-          C.ActivatedAbility(
+          ActivatedAbility(
             "{1}{G}{W}: Until end of turn, Stirring Wildwood becomes a 3/4 green and white Elemental creature with reach. It's still a land.",
-            C.Cost<TapOwnerPayMana>((cost, _) =>
+            Cost<TapOwnerPayMana>(cost =>
               {
                 cost.Amount = "{1}{G}{W}".ParseManaAmount();
                 cost.TryNotToConsumeCardsManaSourceWhenPayingThis = true;
               }),
-            C.Effect<ApplyModifiersToSelf>(p => p.Effect.Modifiers(
-              p.Builder.Modifier<ChangeToCreature>((m, _) =>
+            Effect<ApplyModifiersToSelf>(e => e.Modifiers(
+              Modifier<ChangeToCreature>(m =>
                 {
                   m.Power = 3;
                   m.Toughness = 4;
                   m.Colors = ManaColors.Green | ManaColors.White;
                   m.Type = "Land Creature - Elemental";
                 }, untilEndOfTurn: true),
-              p.Builder.Modifier<AddStaticAbility>((m, _) => m.StaticAbility = Static.Reach, untilEndOfTurn: true))),
+              Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Reach, untilEndOfTurn: true))),
             timing: Timings.ChangeToCreature(minAvailableMana: 4)));
     }
   }

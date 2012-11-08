@@ -4,6 +4,6 @@
 
   public interface ITriggeredAbilityFactory
   {
-    TriggeredAbility Create(Card owningCard, Card sourceCard);
+    TriggeredAbility Create(Card owningCard, Card sourceCard, Game game);
   }
 }

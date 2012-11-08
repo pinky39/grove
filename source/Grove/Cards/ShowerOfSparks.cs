@@ -11,7 +11,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Shower of Sparks")
         .ManaCost("{R}")
         .Type("Instant")
@@ -21,7 +21,7 @@
         .Effect<DealDamageToTargets>(e => e.Amount = 1)
         .Targets(
           selectorAi: TargetSelectorAi.DealDamageMultipleSelectors(amount: 1),
-          effectValidators: new [] { C.Validator(Validators.Creature(), text: "Select target creature."), C.Validator(Validators.Player(), "Select target player.")}
+          effectValidators: new [] { Validator(Validators.Creature(), text: "Select target creature."), Validator(Validators.Player(), "Select target player.")}
         );
     }
   }

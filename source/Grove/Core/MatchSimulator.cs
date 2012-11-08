@@ -6,13 +6,11 @@
 
   public class MatchSimulator
   {
-    private readonly Game.IFactory _gameFactory;
-    private readonly Player.IFactory _playerFactory;
+    private readonly CardDatabase _cardDatabase;
 
-    public MatchSimulator(Game.IFactory gameFactory, Player.IFactory playerFactory)
+    public MatchSimulator(CardDatabase cardDatabase)
     {
-      _gameFactory = gameFactory;
-      _playerFactory = playerFactory;
+      _cardDatabase = cardDatabase;
     }
 
     public SimulationResult Simulate(IEnumerable<string> deck1, IEnumerable<string> deck2)
@@ -36,11 +34,9 @@
 
     private void SimulateGame(IEnumerable<string> deck1, IEnumerable<string> deck2, SimulationResult result)
     {
-      var game = _gameFactory.Create();
-
-      game.Players.Player1 = Create("player1", deck1);
-      game.Players.Player2 = Create("player2", deck2);
-
+      var game = Game.NewSimulation(deck1, deck2, _cardDatabase);      
+      
+      
       game.Start();
 
       if (game.Players.BothHaveLost)
@@ -54,16 +50,7 @@
 
       result.Deck1WinCount++;
       return;
-    }
-
-    private Player Create(string name, IEnumerable<string> deck)
-    {
-      return _playerFactory.Create(
-        name: name,
-        avatar: "avatar",
-        type: PlayerType.Computer,
-        deck: deck);
-    }
+    }  
 
     public class SimulationResult
     {

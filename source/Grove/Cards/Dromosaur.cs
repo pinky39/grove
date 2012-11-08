@@ -12,7 +12,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Dromosaur")
         .ManaCost("{2}{R}")
         .Type("Creature Lizard")
@@ -22,11 +22,11 @@
         .Toughness(3)
         .Timing(Timings.Creatures())
         .Abilities(
-          C.TriggeredAbility(
+          TriggeredAbility(
             "Whenever Dromosaur blocks or becomes blocked, it gets +2/-2 until end of turn.",
-            C.Trigger<GetsBlocked>(),
-            C.Effect<ApplyModifiersToSelf>(p => p.Effect.Modifiers(
-              p.Builder.Modifier<AddPowerAndToughness>(m =>
+            Trigger<GetsBlocked>(),
+            Effect<ApplyModifiersToSelf>(e => e.Modifiers(
+              Modifier<AddPowerAndToughness>(m =>
                 {
                   m.Power = 2;
                   m.Toughness = -2;

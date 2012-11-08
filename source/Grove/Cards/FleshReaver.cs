@@ -12,7 +12,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Flesh Reaver")
         .ManaCost("{1}{B}")
         .Type("Creature Horror")
@@ -24,14 +24,14 @@
         .Toughness(4)
         .Timing(Timings.Creatures())
         .Abilities(
-          C.TriggeredAbility(
+          TriggeredAbility(
             "Whenever Flesh Reaver deals damage to a creature or opponent, Flesh Reaver deals that much damage to you.",
-            C.Trigger<DealDamageToCreatureOrPlayer>((t, _) =>
+            Trigger<DealDamageToCreatureOrPlayer>(t =>
               {
                 t.ToAnyCreature();
                 t.ToOpponent();
               }),
-            C.Effect<DealExistingDamageToController>(p =>
+            Effect<DealExistingDamageToController>(p =>
               {
                 p.Effect.Damage = p.Parameters
                   .Trigger<DamageHasBeenDealt>()

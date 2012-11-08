@@ -11,7 +11,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Undermine")
         .ManaCost("{U}{U}{B}")
         .Type("Instant")
@@ -22,7 +22,7 @@
         .Effect<CounterTargetSpell>(e => e.ControllersLifeloss = 3)
         .Targets(
           selectorAi: TargetSelectorAi.CounterSpell(),
-          effectValidator: C.Validator(Validators.Counterspell()));
+          effectValidator: Validator(Validators.Counterspell()));
     }
   }
 }

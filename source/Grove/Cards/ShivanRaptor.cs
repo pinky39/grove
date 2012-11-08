@@ -1,18 +1,16 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
   using Core.Details.Cards;
   using Core.Dsl;
 
-
   public class ShivanRaptor : CardsSource
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Shivan Raptor")
         .ManaCost("{2}{R}")
         .Type("Creature Lizard")

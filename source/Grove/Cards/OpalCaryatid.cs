@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -14,7 +13,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Opal Caryatid")
         .ManaCost("{W}")
         .Type("Enchantment")
@@ -22,13 +21,13 @@
           "When an opponent casts a creature spell, if Opal Caryatid is an enchantment, Opal Caryatid becomes a 2/2 Soldier creature.")
         .Timing(Timings.SecondMain())
         .Abilities(
-          C.TriggeredAbility(
+          TriggeredAbility(
             "When an opponent casts a creature spell, if Opal Caryatid is an enchantment, Opal Caryatid becomes a 2/2 Soldier creature.",
-            C.Trigger<SpellWasCast>((t, _) => t.Filter =
+            Trigger<SpellWasCast>(t => t.Filter =
               (ability, card) =>
                 ability.Controller != card.Controller && ability.OwningCard.Is().Enchantment && card.Is().Creature),
-            C.Effect<ApplyModifiersToSelf>(p => p.Effect.Modifiers(
-              p.Builder.Modifier<ChangeToCreature>(m =>
+            Effect<ApplyModifiersToSelf>(p => p.Effect.Modifiers(
+              Modifier<ChangeToCreature>(m =>
                 {
                   m.Power = 2;
                   m.Toughness = 2;

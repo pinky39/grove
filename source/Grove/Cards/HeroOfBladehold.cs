@@ -13,7 +13,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Hero of Bladehold")
         .ManaCost("{2}{W}{W}")
         .Type("Creature Human Knight")
@@ -23,22 +23,22 @@
         .Toughness(4)
         .Timing(Timings.Creatures())
         .Abilities(
-          C.TriggeredAbility(
+          TriggeredAbility(
             "Whenever this creature attacks, each other attacking creature gets +1/+0 until end of turn.",
-            C.Trigger<OnAttack>(),
-            C.Effect<ApplyModifiersToCreatures>(p =>
+            Trigger<OnAttack>(),
+            Effect<ApplyModifiersToCreatures>(p =>
               {
-                p.Effect.Modifiers(p.Builder.Modifier<AddPowerAndToughness>((m, _) =>
+                p.Effect.Modifiers(Modifier<AddPowerAndToughness>(m =>
                   m.Power = 1, untilEndOfTurn: true));
 
                 p.Effect.Filter = (source, card) => source.OwningCard != card && card.IsAttacker;
               })),
-          C.TriggeredAbility(
+          TriggeredAbility(
             "{Battle cry}Whenever Hero of Bladehold attacks, put two 1/1 white Soldier creature tokens onto the battlefield tapped and attacking.",
-            C.Trigger<OnAttack>(),
-            C.Effect<CreateTokens>(p =>
+            Trigger<OnAttack>(),
+            Effect<CreateTokens>(p =>
               {
-                p.Effect.Tokens(p.Builder.Card
+                p.Effect.Tokens(Card
                   .Named("Soldier Token")
                   .FlavorText(
                     "If you need an example to lead others to the front lines, consider the precedent set.")

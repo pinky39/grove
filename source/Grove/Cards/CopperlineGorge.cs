@@ -12,14 +12,14 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Copperline Gorge")
         .Type("Land")
         .Text(
           "Copperline Gorge enters the battlefield tapped unless you control two or fewer other lands.{EOL}{T}: Add {R} or {G} to your mana pool.")
         .Timing(Timings.Lands())
         .Abilities(
-          C.ManaAbility(
+          ManaAbility(
             new ManaUnit(ManaColors.Red | ManaColors.Green),
             "{T}: Add {R} or {G} to your mana pool."))
         .Effect<PutIntoPlay>(e =>

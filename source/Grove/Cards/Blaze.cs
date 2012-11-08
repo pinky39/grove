@@ -14,7 +14,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Blaze")
         .ManaCost("{R}").XCalculator(VariableCost.TargetLifepointsLeft(ManaUsage.Spells))
         .Type("Sorcery")
@@ -24,7 +24,7 @@
         .Timing(Timings.MainPhases())
         .Targets(
           selectorAi: TargetSelectorAi.DealDamageSingleSelector(),
-          effectValidator: C.Validator(Validators.CreatureOrPlayer()));
+          effectValidator: Validator(Validators.CreatureOrPlayer()));
     }
   }
 }

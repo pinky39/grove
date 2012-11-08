@@ -11,7 +11,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Back to Basics")
         .ManaCost("{2}{U}")
         .Type("Enchantment")
@@ -20,10 +20,10 @@
           "'A ruler wears a crown while the rest of us wear hats, but which would you rather have when it's raining?'{EOL}—Barrin, Principia")
         .Timing(Timings.SecondMain())
         .Abilities(
-          C.Continuous((e, c) =>
+          Continuous(e =>
             {
-              e.ModifierFactory = c.Modifier<AddStaticAbility>(
-                (m, _) => m.StaticAbility = Static.DoesNotUntap);
+              e.ModifierFactory = Modifier<AddStaticAbility>(
+                m => m.StaticAbility = Static.DoesNotUntap);
               e.CardFilter = (card, source) => card.Is().NonBasicLand;
             })
         );

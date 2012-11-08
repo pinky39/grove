@@ -13,22 +13,22 @@
     IReceive<AttackerUnselected>, IReceive<BlockerSelected>, IReceive<BlockerUnselected>, IReceive<RemovedFromCombat>,
     IReceive<AttackerJoinedCombat>, IReceive<BlockerJoinedCombat>, IReceive<TargetSelected>, IReceive<TargetUnselected>
   {
-    private readonly CombatMarkers _combatMarkers;
-    private readonly Publisher _publisher;
+    private readonly CombatMarkers _combatMarkers;    
     private readonly SelectAbility.ViewModel.IFactory _selectAbilityVmFactory;
     private readonly SelectTarget.ViewModel.IFactory _selectTargetVmFactory;
     private readonly SelectXCost.ViewModel.IFactory _selectXCostVmFactory;
     private readonly IShell _shell;
+    private readonly Game _game;
 
     private Action _select = delegate { };
 
-    public ViewModel(Card card, IShell shell, Publisher publisher,
+    public ViewModel(Card card, IShell shell, Game game,
                      SelectAbility.ViewModel.IFactory selectAbilityVmFactory,
                      SelectXCost.ViewModel.IFactory selectXCostVmFactory,
                      SelectTarget.ViewModel.IFactory selectTargetVmFactory, CombatMarkers combatMarkers)
     {
       _shell = shell;
-      _publisher = publisher;
+      _game = game;
       _selectAbilityVmFactory = selectAbilityVmFactory;
       _selectXCostVmFactory = selectXCostVmFactory;
       _selectTargetVmFactory = selectTargetVmFactory;
@@ -149,7 +149,7 @@
 
     public void ChangePlayersInterest()
     {
-      _publisher.Publish(new PlayersInterestChanged
+      _game.Publish(new PlayersInterestChanged
         {
           Visual = Card
         });
@@ -186,7 +186,7 @@
       var activation = new ActivationParameters(targets, x: x);
       var ability = new Core.Controllers.Results.Ability(Card, activation, index);
 
-      _publisher.Publish(new PlayableSelected
+      _game.Publish(new PlayableSelected
         {
           Playable = ability
         });
@@ -283,7 +283,7 @@
 
     private void ChangeSelection()
     {
-      _publisher.Publish(
+      _game.Publish(
         new SelectionChanged {Selection = Card});
     }
 

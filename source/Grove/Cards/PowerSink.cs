@@ -12,7 +12,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Power Sink")
         .ManaCost("{U}").XCalculator(VariableCost.CounterUnlessPay())
         .Type("Instant")
@@ -27,7 +27,7 @@
           })
         .Targets(
           selectorAi: TargetSelectorAi.CounterSpell(),
-          effectValidator: C.Validator(Validators.Counterspell()));
+          effectValidator: Validator(Validators.Counterspell()));
     }
   }
 }

@@ -13,26 +13,26 @@
   using Shell;
 
   public class ViewModel : IReceive<UiInteractionChanged>, IReceive<TargetSelected>, IReceive<TargetUnselected>
-  {
-    private readonly Publisher _publisher;
+  {    
     private readonly SelectAbility.ViewModel.IFactory _selectAbilityVmFactory;
     private readonly SelectTarget.ViewModel.IFactory _selectTargetVmFactory;
     private readonly SelectXCost.ViewModel.IFactory _selectXCostVmFactory;
     private readonly IShell _shell;
+    private readonly Game _game;
     private readonly UiDamageDistribution _uiDamageDistribution;
     private Action _select;
 
     public ViewModel(
       Card card,
       IShell shell,
-      Publisher publisher,
+      Game game,
       SelectTarget.ViewModel.IFactory selectTargetVmFactory,
       SelectXCost.ViewModel.IFactory selectXCostVmFactory,
       SelectAbility.ViewModel.IFactory selectAbilityVmFactory,
       UiDamageDistribution uiDamageDistribution)
     {
       _shell = shell;
-      _publisher = publisher;
+      _game = game;
       _selectTargetVmFactory = selectTargetVmFactory;
       _selectXCostVmFactory = selectXCostVmFactory;
       _selectAbilityVmFactory = selectAbilityVmFactory;
@@ -76,7 +76,7 @@
 
     public void ChangePlayersInterest()
     {
-      _publisher.Publish(new PlayersInterestChanged
+      _game.Publish(new PlayersInterestChanged
         {
           Visual = Card
         });
@@ -152,7 +152,7 @@
         ? (Playable) new Spell(Card, new ActivationParameters(targets, payKicker, x))
         : new Core.Controllers.Results.Ability(Card, new ActivationParameters(targets, payKicker, x), ablityIndex);
 
-      _publisher.Publish(new PlayableSelected {Playable = playable});
+      _game.Publish(new PlayableSelected {Playable = playable});
     }
 
     private bool SelectTargets(SpellPrerequisites prerequisites, bool payKicker, Targets targets)
@@ -231,7 +231,7 @@
 
     private void ChangeSelection()
     {
-      _publisher.Publish(new SelectionChanged {Selection = Card});
+      _game.Publish(new SelectionChanged {Selection = Card});
     }
 
     private bool PayKicker(SpellPrerequisites prerequisites)

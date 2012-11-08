@@ -11,7 +11,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Arc Lightning")
         .ManaCost("{2}{R}")
         .Type("Sorcery")
@@ -23,7 +23,7 @@
         .DistributeSpellsDamage()
         .Targets(
           selectorAi: TargetSelectorAi.DealDamageSingleSelectorDistribute(3),
-          effectValidator: C.Validator(Validators.CreatureOrPlayer(), maxCount: 3)
+          effectValidator: Validator(Validators.CreatureOrPlayer(), maxCount: 3)
         );
     }
   }

@@ -15,7 +15,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Dragon Blood")
         .ManaCost("{3}")
         .Type("Artifact")
@@ -23,22 +23,22 @@
         .FlavorText("Fire in the blood, fire in the belly.")
         .Timing(Timings.FirstMain())
         .Abilities(
-          C.ActivatedAbility(
+          ActivatedAbility(
             "{3},{T} : Put a +1/+1 counter on target creature.",
-            C.Cost<TapOwnerPayMana>((cost, _) =>
+            Cost<TapOwnerPayMana>(cost =>
               {
                 cost.TapOwner = true;
                 cost.Amount = 3.AsColorlessMana();
               }),
-            C.Effect<ApplyModifiersToTargets>(p => p.Effect.Modifiers(
-              p.Builder.Modifier<AddCounters>((m, c) => m.Counter =
-                c.Counter<PowerToughness>((ct, _) =>
+            Effect<ApplyModifiersToTargets>(e => e.Modifiers(
+              Modifier<AddCounters>(m => m.Counter =
+                Counter<PowerToughness>(c =>
                   {
-                    ct.Power = 1;
-                    ct.Toughness = 1;
+                    c.Power = 1;
+                    c.Toughness = 1;
                   })
                 ))),
-            effectValidator: C.Validator(Validators.Creature()),
+            effectValidator: Validator(Validators.Creature()),
             selectorAi: TargetSelectorAi.IncreasePowerAndToughness(1, 1, untilEot: false),
             timing: Timings.NoRestrictions()
             ));

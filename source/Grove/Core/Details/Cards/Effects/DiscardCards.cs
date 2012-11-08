@@ -11,7 +11,7 @@
     {
       var player = ChosenPlayer ?? Target().Player();
 
-      Decisions.Enqueue<Controllers.DiscardCards>(
+      Game.Enqueue<Controllers.DiscardCards>(
         controller: player,
         init: p => p.Count = Count);
     }

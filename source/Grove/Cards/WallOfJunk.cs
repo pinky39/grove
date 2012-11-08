@@ -12,7 +12,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Wall of Junk")
         .Type("Artifact Creature Wall")
         .ManaCost("{2}")
@@ -25,16 +25,16 @@
         .Timing(Timings.Creatures())
         .Abilities(
           Static.Defender,
-          C.TriggeredAbility(
+          TriggeredAbility(
             "Whenever Wall of Junk blocks, return it to its owner's hand at end of combat. (Return it only if it's on the battlefield.)",
-            C.Trigger<AtBegginingOfStep>((t, _) =>
+            Trigger<AtBegginingOfStep>(t =>
               {
                 t.Step = Step.EndOfCombat;
                 t.PassiveTurn = true;
                 t.ActiveTurn = false;
                 t.Condition = self => self.OwningCard.IsBlocker;
               }),
-            C.Effect<ReturnToHand>(e => e.ReturnOwner = true)
+            Effect<ReturnToHand>(e => e.ReturnOwner = true)
             )
         );
     }

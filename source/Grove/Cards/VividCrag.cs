@@ -16,7 +16,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Vivid Crag")
         .Type("Land")
         .Text(
@@ -24,17 +24,17 @@
         .Effect<PutIntoPlay>(e => e.PutIntoPlayTapped = true)
         .Timing(Timings.Lands())
         .Abilities(
-          C.ManaAbility(ManaUnit.Red, "{T}: Add {R} to your mana pool."),
-          C.ManaAbility(ManaUnit.Any,
+          ManaAbility(ManaUnit.Red, "{T}: Add {R} to your mana pool."),
+          ManaAbility(ManaUnit.Any,
             "{T}, Remove a charge counter from Vivid Crag: Add one mana of any color to your mana pool.",
-            priority: ManaSourcePriorities.Restricted, cost: C.Cost<TapOwnerRemoveCounter>()),
-          C.StaticAbility(
-            C.Trigger<OnZoneChange>((t, _) => t.To = Zone.Battlefield),
-            C.Effect<ApplyModifiersToSelf>(p => p.Effect.Modifiers(
-              p.Builder.Modifier<AddCounters>((counter, c1) =>
+            priority: ManaSourcePriorities.Restricted, cost: Cost<TapOwnerRemoveCounter>()),
+          StaticAbility(
+            Trigger<OnZoneChange>(t => t.To = Zone.Battlefield),
+            Effect<ApplyModifiersToSelf>(p => p.Effect.Modifiers(
+              Modifier<AddCounters>(m =>
                 {
-                  counter.Count = 2;
-                  counter.Counter = c1.Counter<ChargeCounter>();
+                  m.Count = 2;
+                  m.Counter = Counter<ChargeCounter>();
                 }))))
         );
     }

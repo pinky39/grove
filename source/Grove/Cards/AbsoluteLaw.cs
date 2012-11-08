@@ -11,7 +11,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Absolute Law")
         .ManaCost("{1}{W}")
         .Type("Enchantment")
@@ -21,11 +21,11 @@
           "The strength of law is unwavering. It is an iron bar in a world of water.")
         .Category(EffectCategories.Protector)
         .Abilities(
-          C.Continuous((e, c) =>
+          Continuous(e =>
             {
               e.CardFilter = (card, source) => card.Is().Creature;
-              e.ModifierFactory = c.Modifier<AddProtectionFromColors>(
-                (m, _) => { m.Colors = ManaColors.Red; });
+              e.ModifierFactory = Modifier<AddProtectionFromColors>(
+                m => { m.Colors = ManaColors.Red; });
             }));
     }
   }

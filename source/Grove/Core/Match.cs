@@ -10,22 +10,18 @@
 
   public class Match
   {
-    public const string Player1Name = "You";
-    public const string Player2Name = "Hal";
-
-    private readonly Game.IFactory _gameFactory;
+    private readonly CardDatabase _cardDatabase;
     private readonly ViewModel.IFactory _gameResultsFactory;
     private readonly Ui.MatchResults.ViewModel.IFactory _matchResultsFactory;
     private readonly Ui.PlayScreen.ViewModel.IFactory _playScreenFactory;
-    private readonly Player.IFactory _playerFactory;
     private readonly Ui.StartScreen.ViewModel.IFactory _startScreenFactory;
     private readonly TaskScheduler _uiScheduler;
+    private Task _backgroundTask;
     private List<string> _deck1;
     private List<string> _deck2;
     private int? _looser;
     private bool _playerLeftMatch;
-    private bool _rematch = true;    
-    private Task _backgroundTask;
+    private bool _rematch = true;
     private ThreadBlocker _threadBlocker;
 
     public Match(
@@ -33,21 +29,16 @@
       Ui.StartScreen.ViewModel.IFactory startScreenFactory,
       ViewModel.IFactory gameResultsFactory,
       Ui.MatchResults.ViewModel.IFactory matchResultsFactory,
-      Game.IFactory gameFactory,
-      Player.IFactory playerFactory)
+      CardDatabase cardDatabase)
     {
-      _gameFactory = gameFactory;
-      _playerFactory = playerFactory;
       _playScreenFactory = playScreenFactory;
       _startScreenFactory = startScreenFactory;
       _gameResultsFactory = gameResultsFactory;
       _matchResultsFactory = matchResultsFactory;
+      _cardDatabase = cardDatabase;
       _uiScheduler = TaskScheduler.FromCurrentSynchronizationContext();
 
-      Application.Current.Exit += delegate
-        {
-          ForceCurrentGameToEnd();          
-        };
+      Application.Current.Exit += delegate { ForceCurrentGameToEnd(); };
     }
 
     public Game Game { get; private set; }
@@ -86,7 +77,7 @@
 
       ResetResults();
       Run();
-    }    
+    }
 
     private void DisplayGameResults()
     {
@@ -111,27 +102,10 @@
     }
 
     private void Run()
-    {      
-      UiGameScope.Reset();
-      
+    {
       _backgroundTask = new Task(() =>
-        {                    
-          Game = _gameFactory.Create();
-
-          Game.Players.Player1 = _playerFactory.Create(
-            name: Player1Name,
-            avatar: "player1.png",
-            type: PlayerType.Human,
-            deck: _deck1
-            );
-
-          Game.Players.Player2 = _playerFactory.Create(
-            name: Player2Name,
-            avatar: "player2.png",
-            type: PlayerType.Computer,
-            deck: _deck2
-            );
-
+        {
+          Game = Game.New(_deck1, _deck2, _cardDatabase);
 
           var playScreen = _playScreenFactory.Create();
           Shell.ChangeScreen(playScreen);
@@ -139,10 +113,10 @@
           Game.Start(looser: Looser);
 
           if (Game.WasStopped)
-            return;          
-          
+            return;
+
           var looser = UpdateScore();
-          SetLooser(looser);          
+          SetLooser(looser);
         });
 
       _backgroundTask.ContinueWith(task =>
@@ -152,14 +126,14 @@
             throw new Exception("A fatal error has occured.", task.Exception);
           }
 
-          if (HasGameBeenStopped()) 
+          if (HasGameBeenStopped())
             return;
 
           if (IsFinished)
           {
             DisplayMatchResults();
 
-            if (HasGameBeenStopped()) 
+            if (HasGameBeenStopped())
               return;
 
             if (_rematch && !_playerLeftMatch)
@@ -174,7 +148,7 @@
 
           DisplayGameResults();
 
-          if (HasGameBeenStopped()) 
+          if (HasGameBeenStopped())
             return;
 
           if (_playerLeftMatch)
@@ -184,12 +158,10 @@
           }
 
           Run();
-          
-
         }, _uiScheduler);
 
 
-      _backgroundTask.Start(TaskScheduler.Default);            
+      _backgroundTask.Start(TaskScheduler.Default);
     }
 
     private bool HasGameBeenStopped()
@@ -200,12 +172,12 @@
         {
           _threadBlocker.Completed();
           _backgroundTask = null;
-        }        
+        }
         return true;
       }
-      
+
       return false;
-    }  
+    }
 
     public void Rematch()
     {
@@ -240,7 +212,7 @@
 
     public void ForceCurrentGameToEnd()
     {
-      bool isFinished = true;
+      var isFinished = true;
 
       if (Game != null)
       {

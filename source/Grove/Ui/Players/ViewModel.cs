@@ -5,18 +5,16 @@
 
   public class ViewModel : IReceive<UiInteractionChanged>
   {
-    private readonly Players _players;
-    private readonly Publisher _publisher;
+    private readonly Game _game;
 
-    public ViewModel(Players players, Publisher publisher)
+    public ViewModel(Game game)
     {
-      _players = players;
-      _publisher = publisher;
+      _game = game;
     }
 
     public virtual bool CanChangeSelection { get; protected set; }
 
-    public Players Players { get { return _players; } }
+    public Players Players { get { return _game.Players; } }
 
     public void Receive(UiInteractionChanged message)
     {
@@ -25,7 +23,7 @@
 
     public void ChangeSelection(Player player)
     {
-      _publisher.Publish(
+      _game.Publish(
         new SelectionChanged {Selection = player});
     }
   }

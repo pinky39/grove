@@ -14,7 +14,7 @@
     // Faster way to dynamicly create objects
     // http://rogeralsing.com/2008/02/28/linq-expressions-creating-objects/
     public static ParameterlessCtor GetParameterlessCtor(this Type type)
-    {
+    {            
       var ctor = type.GetConstructor(
         BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public, null,
         CallingConventions.Any,

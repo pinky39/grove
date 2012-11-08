@@ -1,6 +1,5 @@
 ﻿namespace Grove.Core.Details.Combat
 {
-  using System;
   using System.Linq;
   using Ai;
   using Infrastructure;
@@ -11,20 +10,19 @@
   {
     private readonly TrackableList<Damage> _assignedDamage;
     private readonly Trackable<Attacker> _attacker;
-    private readonly ChangeTracker _changeTracker;
     private readonly Trackable<int> _damageAssignmentOrder;
-    private readonly Publisher _publisher;
+    private readonly Game _game;
 
     private Blocker() {}
 
-    private Blocker(Card card, Attacker attacker, ChangeTracker changeTracker, Publisher publisher)
+    public Blocker(Card card, Attacker attacker, Game game)
     {
       Card = card;
-      _attacker = new Trackable<Attacker>(attacker, changeTracker);
-      _assignedDamage = new TrackableList<Damage>(changeTracker);
-      _damageAssignmentOrder = new Trackable<int>(changeTracker);
-      _changeTracker = changeTracker;
-      _publisher = publisher;
+
+      _game = game;
+      _attacker = new Trackable<Attacker>(attacker, game.ChangeTracker);
+      _assignedDamage = new TrackableList<Damage>(game.ChangeTracker);
+      _damageAssignmentOrder = new Trackable<int>(game.ChangeTracker);
     }
 
     public Attacker Attacker { get { return _attacker.Value; } private set { _attacker.Value = value; } }
@@ -86,7 +84,7 @@
           source: Card,
           amount: DamageThisWillDealInOneDamageStep,
           isCombat: true,
-          changeTracker: _changeTracker
+          changeTracker: _game.ChangeTracker
           );
 
         Attacker.AssignDamage(damage);
@@ -100,7 +98,7 @@
 
     public void RemoveFromCombat()
     {
-      _publisher.Publish(new RemovedFromCombat {Card = Card});
+      _game.Publish(new RemovedFromCombat {Card = Card});
 
       if (HasAttacker)
       {
@@ -115,26 +113,6 @@
         return false;
 
       return QuickCombat.CanBlockerBeDealtLeathalCombatDamage(Card, Attacker.Card);
-    }         
-
-    [Copyable]
-    public class Factory : IBlockerFactory
-    {
-      private readonly ChangeTracker _changeTracker;
-      private readonly Publisher _publisher;
-
-      private Factory() {}
-
-      public Factory(ChangeTracker changeTracker, Publisher publisher)
-      {
-        _changeTracker = changeTracker;
-        _publisher = publisher;
-      }
-
-      public Blocker Create(Card blocker, Attacker attacker)
-      {
-        return new Blocker(blocker, attacker, _changeTracker, _publisher);
-      }
     }
 
     public bool CanKillAttacker()

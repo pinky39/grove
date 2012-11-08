@@ -15,7 +15,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Discordant Dirge")
         .ManaCost("{3}{B}{B}")
         .Type("Enchantment")
@@ -23,17 +23,17 @@
           "At the beginning of your upkeep, you may put a verse counter on Discordant Dirge.{EOL}{B}, Sacrifice Discordant Dirge: Look at target opponent's hand and choose up to X cards from it, where X is the number of verse counters on Discordant Dirge. That player discards those cards.")
         .Timing(Timings.SecondMain())
         .Abilities(
-          C.TriggeredAbility(
+          TriggeredAbility(
             "At the beginning of your upkeep, you may put a verse counter on Discordant Dirge.",
-            C.Trigger<AtBegginingOfStep>((t, _) => t.Step = Step.Upkeep),
-            C.Effect<ApplyModifiersToSelf>(p => p.Effect.Modifiers(
-              p.Builder.Modifier<AddCounters>((m, c0) => { m.Counter = c0.Counter<ChargeCounter>(); }))),
+            Trigger<AtBegginingOfStep>(t => t.Step = Step.Upkeep),
+            Effect<ApplyModifiersToSelf>(e => e.Modifiers(
+              Modifier<AddCounters>(m => { m.Counter = Counter<ChargeCounter>(); }))),
             triggerOnlyIfOwningCardIsInPlay: true
             ),
-          C.ActivatedAbility(
+          ActivatedAbility(
             "{B}, Sacrifice Discordant Dirge: Look at target opponent's hand and choose up to X cards from it, where X is the number of verse counters on Discordant Dirge. That player discards those cards.",
-            C.Cost<SacOwnerPayMana>((cost, _) => cost.Amount = ManaAmount.Black),
-            C.Effect<OpponentDiscardsCards>(e =>
+            Cost<SacOwnerPayMana>(cost => cost.Amount = ManaAmount.Black),
+            Effect<OpponentDiscardsCards>(e =>
               {
                 e.SelectedCount = e.Source.OwningCard.Counters.GetValueOrDefault();
                 e.YouChooseDiscardedCards = true;

@@ -14,7 +14,7 @@
 
     private void ReturnCreatureToHand(Player player)
     {
-      Decisions.Enqueue<ReturnPermanentsToHand>(
+      Game.Enqueue<ReturnPermanentsToHand>(
         controller: player,
         init: p =>
           {

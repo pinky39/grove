@@ -10,13 +10,13 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Swamp")
         .Type("Basic Land - Swamp")
         .Text("{T}: Add {B} to your mana pool.")
         .Timing(Timings.Lands())
         .Abilities(
-          C.ManaAbility(ManaUnit.Black, "{T}: Add {B} to your mana pool."));
+          ManaAbility(ManaUnit.Black, "{T}: Add {B} to your mana pool."));
     }
   }
 }

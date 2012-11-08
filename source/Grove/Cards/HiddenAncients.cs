@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -14,7 +13,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Hidden Ancients")
         .ManaCost("{1}{G}")
         .Type("Enchantment")
@@ -23,13 +22,13 @@
         .FlavorText("The only alert the invaders had was the rustling of leaves on a day without wind.")
         .Timing(Timings.SecondMain())
         .Abilities(
-          C.TriggeredAbility(
+          TriggeredAbility(
             "When an opponent casts an enchantment spell, if Hidden Ancients is an enchantment, Hidden Ancients becomes a 5/5 Treefolk creature.",
-            C.Trigger<SpellWasCast>((t, _) => t.Filter =
+            Trigger<SpellWasCast>(t => t.Filter =
               (ability, card) =>
                 ability.Controller != card.Controller && ability.OwningCard.Is().Enchantment && card.Is().Enchantment),
-            C.Effect<ApplyModifiersToSelf>(p => p.Effect.Modifiers(
-              p.Builder.Modifier<ChangeToCreature>(m =>
+            Effect<ApplyModifiersToSelf>(p => p.Effect.Modifiers(
+              Modifier<ChangeToCreature>(m =>
                 {
                   m.Power = 5;
                   m.Toughness = 5;

@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core.Details.Cards
 {
+  using Dsl;
   using Effects;
   using Mana;
 
@@ -27,7 +28,7 @@
       // add overflow mana to manapool.          
       var manaBag = new ManaBag(amount);
       manaBag.Consume(amount);
-      Controller.AddManaToManaPool(manaBag.GetAmount());      
+      Controller.AddManaToManaPool(manaBag.GetAmount());
     }
 
     public IManaAmount GetAvailableMana(ManaUsage usage)
@@ -39,13 +40,13 @@
     public override SpellPrerequisites CanActivate()
     {
       int? maxX = null;
-      if (IsEnabled &&  OwningCard.Zone == ActivationZone && Cost.CanPay(ref maxX))
+      if (IsEnabled && OwningCard.Zone == ActivationZone && Cost.CanPay(ref maxX))
       {
         return new SpellPrerequisites
           {
             CanBeSatisfied = true,
             Description = Text,
-            Timming = delegate { return true; },            
+            Timming = delegate { return true; },
             IsAbility = true
           };
       }
@@ -55,11 +56,12 @@
 
     public void SetManaAmount(IManaAmount manaAmount)
     {
-      Effect(new Effect.Factory<AddManaToPool>
-        {
-          Game = Game,
-          Init = p => p.Effect.Amount = manaAmount
-        });
+      var builder = new CardBuilder();
+
+      Effect(builder.Effect<AddManaToPool>
+        (
+          e => e.Amount = manaAmount
+        ));
 
       _manaAmount = manaAmount;
     }

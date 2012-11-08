@@ -11,7 +11,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Student of Warfare")
         .ManaCost("{W}")
         .Type("Creature Human Knight")
@@ -20,8 +20,7 @@
         .Power(1)
         .Toughness(1)
         .Timing(Timings.Creatures())
-        .Leveler(
-          C,
+        .Leveler(          
           ManaAmount.White,
           EffectCategories.ToughnessIncrease,
           Level(min: 2, max: 6, power: 3, toughness: 3, ability: Static.FirstStrike),

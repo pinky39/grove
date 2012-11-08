@@ -36,13 +36,12 @@
 
     private readonly Permanent.ViewModel.IFactory _viewModelFactory;
 
-    public ViewModel(Permanent.ViewModel.IFactory viewModelFactory,
-      Player owner, Players players)
+    public ViewModel(Permanent.ViewModel.IFactory viewModelFactory, Player owner, Game game)
     {
       _viewModelFactory = viewModelFactory;
       _owner = owner;
 
-      SwitchRows = owner == players.Player2;
+      SwitchRows = owner == game.Players.Player2;
 
       ((INotifyCollectionChanged) _owner.Battlefield).CollectionChanged += Synchronize;
     }

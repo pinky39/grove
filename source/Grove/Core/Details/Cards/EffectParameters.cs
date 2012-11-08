@@ -11,13 +11,13 @@
       Targets targets = null)
     {
       TriggerMessage = triggerMessage;      
-      Source = source;
+      Source = source;      
       Activation = activation ?? ActivationParameters.Default;
       Targets = targets ?? new Targets();
     }
 
     public object TriggerMessage { get; set; }    
-    public IEffectSource Source { get; set; }
+    public IEffectSource Source { get; set; }    
     public ActivationParameters Activation { get; set; }
     public Targets Targets { get; private set; }
 

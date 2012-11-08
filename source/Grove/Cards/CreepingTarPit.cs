@@ -14,7 +14,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Creeping Tar Pit")
         .Type("Land")
         .Text(
@@ -22,25 +22,25 @@
         .Timing(Timings.Lands())
         .Effect<PutIntoPlay>(e => e.PutIntoPlayTapped = true)
         .Abilities(
-          C.ManaAbility(
+          ManaAbility(
             new ManaUnit(ManaColors.Blue | ManaColors.Black),
             "{T}: Add {U} or {B} to your mana pool."),
-          C.ActivatedAbility(
+          ActivatedAbility(
             "{1}{U}{B}: Until end of turn, Creeping Tar Pit becomes a 3/2 blue and black Elemental creature and is unblockable. It's still a land.",
-            C.Cost<TapOwnerPayMana>((cost, _) =>
+            Cost<TapOwnerPayMana>(cost =>
               {
                 cost.Amount = "{1}{U}{B}".ParseManaAmount();
                 cost.TryNotToConsumeCardsManaSourceWhenPayingThis = true;
               }),
-            C.Effect<ApplyModifiersToSelf>(p => p.Effect.Modifiers(
-              p.Builder.Modifier<ChangeToCreature>((m, c0) =>
+            Effect<ApplyModifiersToSelf>(e => e.Modifiers(
+              Modifier<ChangeToCreature>(m =>
                 {
                   m.Power = 3;
                   m.Toughness = 2;
                   m.Colors = ManaColors.Blue | ManaColors.Black;
                   m.Type = "Land Creature - Elemental";
                 }, untilEndOfTurn: true),
-              p.Builder.Modifier<AddStaticAbility>((m, c0) => { m.StaticAbility = Static.Unblockable; }, untilEndOfTurn: true))),
+              Modifier<AddStaticAbility>(m => { m.StaticAbility = Static.Unblockable; }, untilEndOfTurn: true))),
             timing: Timings.ChangeToCreature(minAvailableMana: 4)));
     }
   }

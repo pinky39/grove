@@ -10,7 +10,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Darksteel Gargoyle")
         .ManaCost("{7}")
         .Type("Artifact Creature - Gargoyle")

@@ -15,7 +15,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Angelic Page")
         .ManaCost("{1}{W}")
         .Type("Creature Angel Spirit")
@@ -26,17 +26,17 @@
         .Toughness(1)
         .Abilities(
           Static.Flying,
-          C.ActivatedAbility(
+          ActivatedAbility(
             "{T}: Target attacking or blocking creature gets +1/+1 until end of turn.",
-            C.Cost<TapOwnerPayMana>((cost, _) => cost.TapOwner = true),
-            C.Effect<ApplyModifiersToTargets>(p => p.Effect.Modifiers(
-              p.Builder.Modifier<AddPowerAndToughness>((m, _) =>
+            Cost<TapOwnerPayMana>(cost => cost.TapOwner = true),
+            Effect<ApplyModifiersToTargets>(e => e.Modifiers(
+              Modifier<AddPowerAndToughness>(m =>
                 {
                   m.Power = 1;
                   m.Toughness = 1;
                 },
                 untilEndOfTurn: true))),
-            C.Validator(Validators.AttackerOrBlocker()),
+            Validator(Validators.AttackerOrBlocker()),
             selectorAi: TargetSelectorAi.PumpAttackerOrBlocker(power: 1, thougness: 1),
             timing: Timings.DeclareBlockers(),
             category: EffectCategories.ToughnessIncrease));

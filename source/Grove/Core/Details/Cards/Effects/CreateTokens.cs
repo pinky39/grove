@@ -17,7 +17,7 @@
       {
         foreach (var tokenFactory in _tokenFactories)
         {
-          var token = tokenFactory.CreateCard(Controller);
+          var token = tokenFactory.CreateCard(Controller, Game);
           token.PutToBattlefield();
           
           AfterTokenComesToPlay(token, Game);

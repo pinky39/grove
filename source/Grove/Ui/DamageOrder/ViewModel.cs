@@ -10,21 +10,21 @@
   public class ViewModel
   {
     private readonly DamageAssignmentOrder _assignmentOrder;
+    private readonly Game _game;
     private readonly Attacker _attacker;
-    private readonly List<BlockerAssignment> _blockerAssignments;
-    private readonly Publisher _publisher;
+    private readonly List<BlockerAssignment> _blockerAssignments;    
     private int _curentRank = 1;
 
-    public ViewModel(Publisher publisher, Attacker attacker, DamageAssignmentOrder assignmentOrder)
+    public ViewModel(Attacker attacker, DamageAssignmentOrder assignmentOrder, Game game)
     {
       _attacker = attacker;
 
       _blockerAssignments =
         attacker.Blockers.Select(
           blocker => Bindable.Create<BlockerAssignment>(blocker)).ToList();
-
-      _publisher = publisher;
+      
       _assignmentOrder = assignmentOrder;
+      _game = game;
     }
 
     public Card Attacker { get { return _attacker; } }
@@ -53,7 +53,7 @@
 
     public void ChangePlayersInterest(Card card)
     {
-      _publisher.Publish(new PlayersInterestChanged
+      _game.Publish(new PlayersInterestChanged
         {
           Visual = card
         });

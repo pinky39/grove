@@ -8,7 +8,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Uncastable")
         .ManaCost("{42}{G}")
         .Type("Creature - Uncastable")

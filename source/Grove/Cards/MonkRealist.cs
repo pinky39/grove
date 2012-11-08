@@ -13,7 +13,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Monk Realist")
         .ManaCost("{1}{W}")
         .Type("Creature Human Monk Cleric")
@@ -23,11 +23,11 @@
         .Toughness(1)
         .Timing(All(Timings.FirstMain(), Timings.OpponentHasPermanent(card => card.Is().Enchantment)))
         .Abilities(
-          C.TriggeredAbility(
+          TriggeredAbility(
             "When Monk Realist enters the battlefield, destroy target enchantment.",
-            C.Trigger<OnZoneChange>((t, _) => t.To = Zone.Battlefield),
-            C.Effect<DestroyTargetPermanents>(),
-            C.Validator(Validators.Permanent(card => card.Is().Enchantment)),
+            Trigger<OnZoneChange>(t => t.To = Zone.Battlefield),
+            Effect<DestroyTargetPermanents>(),
+            Validator(Validators.Permanent(card => card.Is().Enchantment)),
             selectorAi: TargetSelectorAi.OrderByDescendingScore(),
             abilityCategory: EffectCategories.Destruction)
         );

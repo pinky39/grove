@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -15,7 +14,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Flametongue Kavu")
         .ManaCost("{3}{R}")
         .Type("Creature Kavu")
@@ -24,15 +23,15 @@
         .Power(4)
         .Toughness(2)
         .Timing(Timings.OpponentHasPermanent(
-          card => card.Is().Creature && 
-          card.Life <= 4 && 
-          !card.HasProtectionFrom(ManaColors.Red)))
+          card => card.Is().Creature &&
+            card.Life <= 4 &&
+              !card.HasProtectionFrom(ManaColors.Red)))
         .Abilities(
-          C.TriggeredAbility(
+          TriggeredAbility(
             "When Flametongue Kavu enters the battlefield, it deals 4 damage to target creature.",
-            C.Trigger<OnZoneChange>((t, _) => t.To = Zone.Battlefield),
-            C.Effect<DealDamageToTargets>(e => e.Amount = 4),
-            C.Validator(Validators.Creature()),
+            Trigger<OnZoneChange>(t => t.To = Zone.Battlefield),
+            Effect<DealDamageToTargets>(e => e.Amount = 4),
+            Validator(Validators.Creature()),
             selectorAi: TargetSelectorAi.DealDamageSingleSelector(4)));
     }
   }

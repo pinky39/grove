@@ -9,8 +9,7 @@
 
   public class DeclareAttackers : Controllers.DeclareAttackers
   {
-    public ViewModel.IFactory DialogFactory { get; set; }
-    public Publisher Publisher { get { return Game.Publisher; } }
+    public ViewModel.IFactory DialogFactory { get; set; }    
     public IShell Shell { get; set; }
 
     protected override void ExecuteQuery()
@@ -24,12 +23,12 @@
           ),
         canCancel: false,
         instructions: "(Press Spacebar when done.)",
-        targetSelected: target => Publisher.Publish(
+        targetSelected: target => Game.Publish(
           new AttackerSelected
             {
               Attacker = target.Card()
             }),
-        targetUnselected: target => Publisher.Publish(
+        targetUnselected: target => Game.Publish(
           new AttackerUnselected
             {
               Attacker = target.Card()

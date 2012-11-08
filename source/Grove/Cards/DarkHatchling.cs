@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -15,24 +14,25 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Dark Hatchling")
         .ManaCost("{4}{B}{B}")
         .Type("Creature Horror")
-        .Text("{Flying}{EOL}When Dark Hatchling enters the battlefield, destroy target nonblack creature. It can't be regenerated.")
+        .Text(
+          "{Flying}{EOL}When Dark Hatchling enters the battlefield, destroy target nonblack creature. It can't be regenerated.")
         .Power(3)
         .Toughness(3)
-        .Timing(Timings.OpponentHasPermanent(card => 
-          card.Is().Creature && 
-            !card.HasColors(ManaColors.Black) && 
+        .Timing(Timings.OpponentHasPermanent(card =>
+          card.Is().Creature &&
+            !card.HasColors(ManaColors.Black) &&
               !card.HasProtectionFrom(ManaColors.Black)))
         .Abilities(
-          C.TriggeredAbility(
+          TriggeredAbility(
             "When Dark Hatchling enters the battlefield, destroy target nonblack creature. It can't be regenerated.",
-            C.Trigger<OnZoneChange>((t, _) => t.To = Zone.Battlefield),
-            C.Effect<DestroyTargetPermanents>(e => e.AllowRegenerate = false),
-            C.Validator(Validators.Creature((creature) => !creature.HasColors(ManaColors.Black))),
-            selectorAi: TargetSelectorAi.Destroy(), 
+            Trigger<OnZoneChange>(t => t.To = Zone.Battlefield),
+            Effect<DestroyTargetPermanents>(e => e.AllowRegenerate = false),
+            Validator(Validators.Creature((creature) => !creature.HasColors(ManaColors.Black))),
+            selectorAi: TargetSelectorAi.Destroy(),
             abilityCategory: EffectCategories.Destruction));
     }
   }

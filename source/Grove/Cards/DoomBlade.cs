@@ -12,7 +12,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Doom blade")
         .ManaCost("{1}{B}")
         .Type("Instant")
@@ -23,7 +23,7 @@
         .Category(EffectCategories.Destruction)
         .Targets(
           selectorAi: TargetSelectorAi.Destroy(),
-          effectValidator: C.Validator(Validators.Creature((creature) => !creature.HasColors(ManaColors.Black))));
+          effectValidator: Validator(Validators.Creature((creature) => !creature.HasColors(ManaColors.Black))));
     }
   }
 }

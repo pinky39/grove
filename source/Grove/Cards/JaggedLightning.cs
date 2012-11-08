@@ -11,7 +11,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Jagged Lightning")
         .ManaCost("{3}{R}{R}")
         .Type("Sorcery")
@@ -22,7 +22,7 @@
         .Effect<DealDamageToTargets>(e => e.Amount = 3)
         .Targets(
           selectorAi: TargetSelectorAi.DealDamageSingleSelector(3),
-          effectValidator: C.Validator(Validators.Creature(), minCount: 2, maxCount: 2)
+          effectValidator: Validator(Validators.Creature(), minCount: 2, maxCount: 2)
         );
     }
   }

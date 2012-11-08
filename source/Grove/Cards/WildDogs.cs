@@ -11,7 +11,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Wild Dogs")
         .ManaCost("{G}")
         .Type("Creature Hound")
@@ -22,9 +22,9 @@
         .Timing(Timings.Creatures())
         .Cycling("{2}")
         .Abilities(
-          C.TriggeredAbility(
+          TriggeredAbility(
             "At the beginning of your upkeep, if a player has more life than each other player, the player with the most life gains control of Wild Dogs.",
-            C.Trigger<AtBegginingOfStep>(t =>
+            Trigger<AtBegginingOfStep>(t =>
               {
                 t.Step = Step.Upkeep;
                 t.Condition = self =>
@@ -35,7 +35,7 @@
                     return controller.Life < opponent.Life;
                   };
               }),
-            C.Effect<SwitchController>(), triggerOnlyIfOwningCardIsInPlay: true));
+            Effect<SwitchController>(), triggerOnlyIfOwningCardIsInPlay: true));
     }
   }
 }

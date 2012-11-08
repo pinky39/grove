@@ -13,7 +13,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Argothian Wurm")
         .ManaCost("{3}{G}")
         .Type("Creature - Wurm")
@@ -24,10 +24,10 @@
         .Timing(Timings.Creatures())
         .Abilities(
           Static.Trample,
-          C.TriggeredAbility(
+          TriggeredAbility(
             "When Argothian Wurm enters the battlefield, any player may sacrifice a land. If a player does, put Argothian Wurm on top of its owner's library.",
-            C.Trigger<OnZoneChange>(t => t.To = Zone.Battlefield),
-            C.Effect<PutOnTopOfLibraryUnlessOpponentSacsLand>()));
+            Trigger<OnZoneChange>(t => t.To = Zone.Battlefield),
+            Effect<PutOnTopOfLibraryUnlessOpponentSacsLand>()));
     }
   }
 }

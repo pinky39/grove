@@ -9,16 +9,16 @@
   public class ControllerCharacteristic : Characteristic<Player>, IModifiable
   {
     private readonly Card _card;
-    private readonly Publisher _publisher;
+    private readonly Game _game;
 
     private ControllerCharacteristic() {}
 
-    public ControllerCharacteristic(Player value, Card card, Publisher publisher, ChangeTracker changeTracker,
+    public ControllerCharacteristic(Player value, Card card, Game game,
       IHashDependancy hashDependancy)
-      : base(value, changeTracker, hashDependancy)
+      : base(value, game.ChangeTracker, hashDependancy)
     {
       _card = card;
-      _publisher = publisher;
+      _game = game;
     }
 
     public override Player Value
@@ -47,7 +47,7 @@
           }
         }
 
-        _publisher.Publish(new ControllerChanged(_card));
+        _game.Publish(new ControllerChanged(_card));
       }
     }
 

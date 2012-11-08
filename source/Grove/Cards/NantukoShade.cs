@@ -13,7 +13,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Nantuko Shade")
         .ManaCost("{B}{B}")
         .Type("Creature - Insect Shade")
@@ -23,11 +23,11 @@
         .Toughness(1)
         .Timing(Timings.Creatures())
         .Abilities(
-          C.ActivatedAbility(
+          ActivatedAbility(
             "{B}: Nantuko Shade gets +1/+1 until end of turn.",
-            C.Cost<TapOwnerPayMana>((cost, _) => cost.Amount = ManaUnit.Black.ToAmount()),
-            C.Effect<ApplyModifiersToSelf>(p => p.Effect.Modifiers(
-              p.Builder.Modifier<AddPowerAndToughness>((m, _) =>
+            Cost<TapOwnerPayMana>(cost => cost.Amount = ManaUnit.Black.ToAmount()),
+            Effect<ApplyModifiersToSelf>(p => p.Effect.Modifiers(
+              Modifier<AddPowerAndToughness>(m =>
                 {
                   m.Power = 1;
                   m.Toughness = 1;

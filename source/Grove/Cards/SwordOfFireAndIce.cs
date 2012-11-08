@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -12,11 +11,11 @@
   using Core.Dsl;
   using Core.Targeting;
 
- public class SwordOfFireAndIce : CardsSource
+  public class SwordOfFireAndIce : CardsSource
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Sword of Fire and Ice")
         .ManaCost("{3}")
         .Type("Artifact - Equipment")
@@ -24,32 +23,32 @@
           "Equipped creature gets +2/+2 and has protection from red and from blue.{EOL}Whenever equipped creature deals combat damage to a player, Sword of Fire and Ice deals 2 damage to target creature or player and you draw a card.{EOL}{Equip} {2}")
         .Timing(Timings.FirstMain())
         .Abilities(
-          C.TriggeredAbility(
+          TriggeredAbility(
             "Whenever equipped creature deals combat damage to a player, Sword of Fire and Ice deals 2 damage to target creature or player and you draw a card.",
-            C.Trigger<DealDamageToCreatureOrPlayer>((t, _) =>
+            Trigger<DealDamageToCreatureOrPlayer>(t =>
               {
                 t.CombatOnly = true;
                 t.UseAttachedToAsTriggerSource = true;
                 t.ToPlayer();
               }),
-            C.Effect<CompoundEffect>(p => p.Effect.ChildEffects(
-              p.Builder.Effect<DealDamageToTargets>(e1 => e1.Amount = 2),
-              p.Builder.Effect<DrawCards>(e1 => e1.DrawCount = 1))),
-            C.Validator(
+            Effect<CompoundEffect>(e => e.ChildEffects(
+              Effect<DealDamageToTargets>(e1 => e1.Amount = 2),
+              Effect<DrawCards>(e1 => e1.DrawCount = 1))),
+            Validator(
               Validators.CreatureOrPlayer()),
             selectorAi: TargetSelectorAi.DealDamageSingleSelector(2)),
-          C.ActivatedAbility(
+          ActivatedAbility(
             "{2}: Attach to target creature you control. Equip only as a sorcery.",
-            C.Cost<TapOwnerPayMana>((cost, _) => cost.Amount = 2.AsColorlessMana()),
-            C.Effect<Attach>(p => p.Effect.Modifiers(
-              p.Builder.Modifier<AddPowerAndToughness>((m, _) =>
+            Cost<TapOwnerPayMana>(cost => cost.Amount = 2.AsColorlessMana()),
+            Effect<Attach>(p => p.Effect.Modifiers(
+              Modifier<AddPowerAndToughness>(m =>
                 {
                   m.Power = 2;
                   m.Toughness = 2;
                 }),
-              p.Builder.Modifier<AddProtectionFromColors>((m, _) => m.Colors = ManaColors.Red | ManaColors.Blue)
+              Modifier<AddProtectionFromColors>(m => m.Colors = ManaColors.Red | ManaColors.Blue)
               )),
-            effectValidator: C.Validator(Validators.Equipment()),
+            effectValidator: Validator(Validators.Equipment()),
             selectorAi: TargetSelectorAi.CombatEquipment(),
             timing: Timings.AttachCombatEquipment(),
             activateAsSorcery: true,

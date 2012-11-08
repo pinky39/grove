@@ -6,13 +6,10 @@
   using Details.Cards.Effects;
 
 
-  public delegate void Initializer<in T>(T target, CardBuilder builder);
+  public delegate void Initializer<in T>(T target);
 
-  public abstract class CardsSource
-  {
-    public CardBuilder C { get { return new CardBuilder(Game); } }
-    public Game Game { get; set; }    
-    
+  public abstract class CardsSource : CardBuilder
+  {        
     public abstract IEnumerable<ICardFactory> GetCards();        
 
     protected TimingDelegate All(params TimingDelegate[] predicates)

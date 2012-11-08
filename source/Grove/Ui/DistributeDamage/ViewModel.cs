@@ -9,14 +9,14 @@
   public class ViewModel
   {
     private readonly int _amount;
-    private readonly Publisher _publisher;
+    private readonly Game _game;
     private readonly List<TargetWithValue> _targets = new List<TargetWithValue>();
-    private int _toBeAssigned;
+    private int _toBeAssigned;    
 
-    public ViewModel(IEnumerable<ITarget> targets, int amount, Publisher publisher)
+    public ViewModel(IEnumerable<ITarget> targets, int amount, Game game)
     {
       _amount = amount;
-      _publisher = publisher;
+      _game = game;
       _toBeAssigned = amount;
 
       foreach (var target in targets)
@@ -58,7 +58,7 @@
 
     public void ChangePlayersInterest(Card card)
     {
-      _publisher.Publish(new PlayersInterestChanged
+      _game.Publish(new PlayersInterestChanged
         {
           Visual = card
         });

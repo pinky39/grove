@@ -58,12 +58,12 @@
 
     private IEnumerable<Modifier> CreateSelfModifiers()
     {
-      return _selfModifiers.CreateModifiers(Source.OwningCard, Source.OwningCard, X);
+      return _selfModifiers.CreateModifiers(Source.OwningCard, Source.OwningCard, X, Game);
     }
 
     private IEnumerable<Modifier> CreateTargetModifiers()
     {
-      return _targetModifiers.CreateModifiers(Source.OwningCard, Target().Card(), X);
+      return _targetModifiers.CreateModifiers(Source.OwningCard, Target().Card(), X, Game);
     }
   }
 }

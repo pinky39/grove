@@ -9,7 +9,7 @@
         
     protected override void ResolveEffect()
     {
-      Decisions.Enqueue<SacrificePermanents>(
+      Game.Enqueue<SacrificePermanents>(
         controller: Player,
         init: p =>
           {

@@ -1,6 +1,5 @@
 ﻿namespace Grove.Core.Details.Combat
 {
-  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Ai;
@@ -15,20 +14,16 @@
     private readonly TrackableList<Damage> _assignedDamage;
     private readonly TrackableList<Blocker> _blockers;
     private readonly Card _card;
-    private readonly ChangeTracker _changeTracker;
+    private readonly Game _game;
     private readonly Trackable<bool> _isBlocked;
-    private readonly Players _players;
-    private readonly Publisher _publisher;
 
-    private Attacker(Card card, ChangeTracker changeTracker, Players players, Publisher publisher)
+    public Attacker(Card card, Game game)
     {
       _card = card;
-      _changeTracker = changeTracker;
-      _players = players;
-      _publisher = publisher;
-      _blockers = new TrackableList<Blocker>(changeTracker);
-      _assignedDamage = new TrackableList<Damage>(changeTracker);
-      _isBlocked = new Trackable<bool>(changeTracker);
+      _game = game;
+      _blockers = new TrackableList<Blocker>(game.ChangeTracker);
+      _assignedDamage = new TrackableList<Damage>(game.ChangeTracker);
+      _isBlocked = new Trackable<bool>(game.ChangeTracker);
     }
 
     private Attacker() {}
@@ -78,11 +73,11 @@
       _assignedDamage.Clear();
     }
 
-    public void DistributeDamageToBlockers(Decisions decisions)
+    public void DistributeDamageToBlockers()
     {
-      decisions.Enqueue<AssignCombatDamage>(
-         controller: _card.Controller,  
-         init: p => p.Attacker = this);
+      _game.Enqueue<AssignCombatDamage>(
+        controller: _card.Controller,
+        init: p => p.Attacker = this);
     }
 
     public void DistributeDamageToBlockers(DamageDistribution distribution)
@@ -93,13 +88,13 @@
           source: Card,
           amount: distribution[blocker],
           isCombat: true,
-          changeTracker: _changeTracker
+          changeTracker: _game.ChangeTracker
           );
 
         blocker.AssignDamage(damage);
       }
 
-      var defender = _players.GetOpponent(_card.Controller);
+      var defender = _game.Players.GetOpponent(_card.Controller);
 
       if (HasTrample || _isBlocked == false)
       {
@@ -107,7 +102,7 @@
           source: _card,
           amount: DamageThisWillDealInOneDamageStep - distribution.Total,
           isCombat: true,
-          changeTracker: _changeTracker);
+          changeTracker: _game.ChangeTracker);
 
         defender.AssignDamage(unassignedDamage);
       }
@@ -138,7 +133,7 @@
 
     public void RemoveFromCombat()
     {
-      _publisher.Publish(new RemovedFromCombat {Card = Card});
+      _game.Publish(new RemovedFromCombat {Card = Card});
 
       foreach (var blocker in _blockers)
       {
@@ -162,28 +157,6 @@
     public bool CanBeDealtLeathalCombatDamage()
     {
       return QuickCombat.CanAttackerBeDealtLeathalDamage(Card, _blockers.Select(x => x.Card));
-    }
-
-    [Copyable]
-    public class Factory : IAttackerFactory
-    {
-      private readonly ChangeTracker _changeTracker;
-      private readonly Players _players;
-      private readonly Publisher _publisher;
-
-      public Factory(ChangeTracker changeTracker, Players players, Publisher publisher)
-      {
-        _changeTracker = changeTracker;
-        _players = players;
-        _publisher = publisher;
-      }
-
-      private Factory() {}
-
-      public Attacker Create(Card card)
-      {
-        return new Attacker(card, _changeTracker, _players, _publisher);
-      }
     }
 
     public bool CanKillAnyBlocker()

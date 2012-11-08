@@ -13,7 +13,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Martial Coup")
         .ManaCost("{W}{W}").XCalculator(p =>
           {
@@ -36,10 +36,10 @@
         .FlavorText("Their war forgotten, the nations of Bant stood united in the face of a common threat.")
         .Category(EffectCategories.Destruction)
         .Timing(Timings.MainPhases())
-        .Effect<CreateTokens>(p =>
+        .Effect<CreateTokens>(e =>
           {
-            p.Effect.Count = Value.PlusX;
-            p.Effect.Tokens(p.Builder.Card
+            e.Count = Value.PlusX;
+            e.Tokens(Card
               .Named("Soldier Token")
               .FlavorText(
                 "If you need an example to lead others to the front lines, consider the precedent set.")
@@ -48,7 +48,7 @@
               .Type("Creature Token Soldier")
               .Colors(ManaColors.White));
 
-            p.Effect.BeforeResolve = self =>
+            e.BeforeResolve = self =>
               {
                 if (self.X >= 5)
                 {

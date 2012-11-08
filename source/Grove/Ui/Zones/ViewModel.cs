@@ -5,15 +5,15 @@
   public class ViewModel
   {
     public ViewModel(
-      Players players,
+      Game game,
       Hand.ViewModel.IFactory handViewModelFactory,
       Graveyard.ViewModel.IFactory graveyardViewModel)
     {
-      OpponentsHand = handViewModelFactory.Create(players.Computer.Hand);
-      YourHand = handViewModelFactory.Create(players.Human.Hand);
+      OpponentsHand = handViewModelFactory.Create(game.Players.Computer.Hand);
+      YourHand = handViewModelFactory.Create(game.Players.Human.Hand);
 
-      OpponentsGraveyard = graveyardViewModel.Create(players.Computer.Graveyard);
-      YourGraveyard = graveyardViewModel.Create(players.Human.Graveyard);
+      OpponentsGraveyard = graveyardViewModel.Create(game.Players.Computer.Graveyard);
+      YourGraveyard = graveyardViewModel.Create(game.Players.Human.Graveyard);
     }
 
     public Graveyard.ViewModel OpponentsGraveyard { get; private set; }

@@ -13,7 +13,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Black Sun's Zenith")
         .ManaCost("{B}{B}").XCalculator(VariableCost.ReduceCreaturesPwT())
         .Type("Sorcery")
@@ -21,12 +21,12 @@
         .AfterResolvePutToZone(Zone.Library)        
         .Timing(Timings.FirstMain())
         .FlavorText("'Under the suns, Mirrodin kneels and begs us for perfection.'{EOL}—Geth, Lord of the Vault")
-        .Effect<ApplyModifiersToCreatures>(p =>
+        .Effect<ApplyModifiersToCreatures>(e =>
           {
-            p.Effect.ToughnessReduction = Value.PlusX;
-            p.Effect.Modifiers(p.Builder.Modifier<AddCounters>((m, c0) =>
+            e.ToughnessReduction = Value.PlusX;
+            e.Modifiers(Modifier<AddCounters>(m =>
               {
-                m.Counter = c0.Counter<PowerToughness>((counter, _) =>
+                m.Counter = Counter<PowerToughness>(counter =>
                   {
                     counter.Power = -1;
                     counter.Toughness = -1;

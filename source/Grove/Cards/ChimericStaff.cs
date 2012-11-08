@@ -13,7 +13,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Chimeric Staff")
         .ManaCost("{4}")
         .Type("Artifact")
@@ -21,16 +21,16 @@
         .FlavorText("A snake in the grasp.")
         .Timing(Timings.Creatures())
         .Abilities(
-          C.ActivatedAbility(
+          ActivatedAbility(
             "{X}: Chimeric Staff becomes an X/X Construct artifact creature until end of turn.",
-            C.Cost<TapOwnerPayMana>(cost =>
+            Cost<TapOwnerPayMana>(cost =>
               {
                 cost.Amount = ManaAmount.Zero;
                 cost.HasX = true;
                 cost.XCalculator = VariableCost.ChangeToXXCreature();
               }),
-            C.Effect<ApplyModifiersToSelf>(p => p.Effect.Modifiers(
-              p.Builder.Modifier<ChangeToCreature>(m =>
+            Effect<ApplyModifiersToSelf>(e => e.Modifiers(
+              Modifier<ChangeToCreature>(m =>
                 {
                   m.Power = Value.PlusX;
                   m.Toughness = Value.PlusX;

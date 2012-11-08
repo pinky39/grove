@@ -13,7 +13,7 @@
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
-      yield return C.Card
+      yield return Card
         .Named("Disruptive Student")
         .ManaCost("{2}{U}")
         .Type("Creature Human Wizard")
@@ -24,11 +24,11 @@
         .Toughness(1)
         .Timing(Timings.Creatures())
         .Abilities(
-          C.ActivatedAbility(
+          ActivatedAbility(
             "{T}: Counter target spell unless its controller pays {1}.",
-            C.Cost<TapOwnerPayMana>(cost => cost.TapOwner = true),
-            C.Effect<CounterTargetSpell>(e => e.DoNotCounterCost = 1.AsColorlessMana()),
-            effectValidator: C.Validator(Validators.Counterspell()),
+            Cost<TapOwnerPayMana>(cost => cost.TapOwner = true),
+            Effect<CounterTargetSpell>(e => e.DoNotCounterCost = 1.AsColorlessMana()),
+            effectValidator: Validator(Validators.Counterspell()),
             selectorAi: TargetSelectorAi.CounterSpell(),
             timing: Timings.CounterSpell(1)
             )
