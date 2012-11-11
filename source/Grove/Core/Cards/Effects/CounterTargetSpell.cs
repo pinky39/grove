@@ -32,7 +32,8 @@
       Game.Enqueue<PayOr>(targetSpellController, p =>
         {
           p.ManaAmount = DoNotCounterCost;
-          p.Text = FormatText(string.Format("Pay {0}?", DoNotCounterCost));        
+          p.Text = FormatText(string.Format("Pay {0}?", DoNotCounterCost));
+          p.ProcessDecisionResults = this;
         });
       return;
     }

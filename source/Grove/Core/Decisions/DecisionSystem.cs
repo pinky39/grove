@@ -10,13 +10,14 @@
   public class DecisionSystem
   {
     private static readonly HashSet<Type> ScenarioDecisions = new HashSet<Type>(GetScenarioDecisions());
-    private readonly IDecisionFactory _decisionFactory;
+    private static readonly Dictionary<Type, ParameterlessCtor> MachineDecisions = GetMachineDecision();
+    private readonly IUiDecisionFactory _uiDecisionFactory;
 
     private readonly PrerecordedDecisions _prerecordedDecisions = new PrerecordedDecisions();
 
-    public DecisionSystem(IDecisionFactory decisionFactory)
+    public DecisionSystem(IUiDecisionFactory uiDecisionFactory)
     {
-      _decisionFactory = decisionFactory;
+      _uiDecisionFactory = uiDecisionFactory;
     }
 
     private static IEnumerable<Type> GetScenarioDecisions()
@@ -26,6 +27,20 @@
         .Where(x => x.Implements<IDecision>())
         .Where(x => x.Namespace.EndsWith("Scenario"))
         .Select(x => x.BaseType);
+    }
+
+    private static Dictionary<Type, ParameterlessCtor> GetMachineDecision()
+    {
+      return Assembly.GetExecutingAssembly()
+        .GetTypes()
+        .Where(x => x.Implements<IDecision>())
+        .Where(x => x.Namespace.Equals(typeof(Machine.PlaySpellOrAbility).Namespace))
+        .Select(x => new
+          {
+            Type = x.BaseType,
+            Ctor = x.GetParameterlessCtor()
+          })
+        .ToDictionary(x => x.Type, x => x.Ctor);
     }
 
     public void AddScenarioDecisions(IEnumerable<DecisionsForOneStep> decisions)
@@ -38,7 +53,7 @@
     {
       IDecision decision;
 
-      var controller = player.Controller == ControllerType.Human && game.Search.InProgress
+      var controller = game.Search.InProgress
         ? ControllerType.Machine
         : player.Controller;
 
@@ -51,8 +66,8 @@
       else
       {
         decision = controller == ControllerType.Human
-          ? _decisionFactory.CreateHuman<TDecision>()
-          : _decisionFactory.CreateMachine<TDecision>();
+          ? _uiDecisionFactory.Create<TDecision>()
+          : CreateMachine<TDecision>();
       }
 
 
@@ -62,6 +77,11 @@
       decision.Init();
 
       return decision;
+    }
+
+    private IDecision CreateMachine<TDecision>()
+    {
+      return (IDecision)MachineDecisions[typeof (TDecision)]();
     }
 
     private static bool ExistsScenarioDecision<TDecision>()

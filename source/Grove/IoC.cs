@@ -47,12 +47,7 @@
     public static IoC Ui()
     {
       return new IoC(Configuration.Ui);
-    }
-
-    public IDisposable BeginScope()
-    {
-      return Container.BeginScope();
-    }
+    }    
 
     public T Resolve<T>()
     {
@@ -110,7 +105,7 @@
           RegisterShell(container);
           RegisterConfiguration(container);
 
-          container.Register(Component(typeof (Match), lifestyle: LifestyleType.Singleton));
+          container.Register(Component(typeof (Match), lifestyle: LifestyleType.Singleton));          
           container.Register(Component(typeof (CardPreviews), lifestyle: LifestyleType.Singleton));
           container.Register(Component(typeof (UiDamageDistribution)));
         }
@@ -118,6 +113,7 @@
         RegisterCardsSources(container);
         RegisterDecisions(container);
 
+        container.Register(Component(typeof (MatchSimulator), lifestyle: LifestyleType.Singleton));
         container.Register(Component(typeof (CardDatabase), lifestyle: LifestyleType.Singleton));
       }
 
@@ -141,11 +137,10 @@
       private void RegisterDecisions(IWindsorContainer container)
       {
         container.Register(Component(typeof(DecisionSystem), lifestyle: LifestyleType.Singleton));        
-        container.Register(Component(typeof(IDecisionFactory), lifestyle: LifestyleType.Singleton).AsFactory(new DecisionSelector()));        
+        container.Register(Component(typeof(IUiDecisionFactory), lifestyle: LifestyleType.Singleton).AsFactory());        
 
-        container.Register(Classes.FromThisAssembly()
-          .BasedOn(typeof(IDecision))
-          .Configure(r => r.Named(GetDecisionName(r.Implementation)))
+        container.Register(Classes.FromThisAssembly()          
+          .Where(x => x.Namespace.Equals(typeof(Core.Controllers.Human.TakeMulligan).Namespace) && x.Implements<IDecision>())          
           .LifestyleTransient());
       }
 

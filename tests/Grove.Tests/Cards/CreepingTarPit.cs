@@ -26,7 +26,10 @@
           At(Step.DeclareAttackers)
             .DeclareAttackers(pit),          
           At(Step.SecondMain)
-            .Verify(() => Equal(Zone.Graveyard, C(pit).Zone))
+            .Verify(() =>
+              {
+                Equal(Zone.Graveyard, C(pit).Zone);
+              })
           );
       }      
     }

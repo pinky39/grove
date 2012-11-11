@@ -7,17 +7,10 @@
   using Ui;
   using Xunit;
 
-  public class MatchSimulatorFacts : IDisposable
+  public class MatchSimulatorFacts
   {
-    protected static readonly IoC Container = IoC.Test();
-    private readonly IDisposable _scope;
-
-    protected MatchSimulator MatchSimulator {get { return Container.Resolve<MatchSimulator>(); }}
-
-    public MatchSimulatorFacts()
-    {
-      _scope = Container.BeginScope();
-    }
+    private readonly IoC _container = IoC.Test();    
+    protected MatchSimulator MatchSimulator {get { return _container.Resolve<MatchSimulator>(); }}
     
     [Fact]
     public void Simulate()
@@ -41,12 +34,6 @@
     private static List<string> GetDeck(string name)
     {
       return DeckFile.Read(MediaLibrary.GetDeck(name)).AllCards.ToList();
-    }
-
-    public void Dispose()
-    {
-      if (_scope != null)
-        _scope.Dispose();
-    }
+    }    
   }
 }

@@ -32,11 +32,15 @@
 
     public override void ProcessResults()
     {
+      Result = Result ?? false;
+      
       if (Result.IsTrue)
       {
-        Pay();
-        return;
+        Pay();        
       }
+
+      if (ProcessDecisionResults != null)
+        ProcessDecisionResults.ResultProcessed(Result);
     }
 
     private void Pay()

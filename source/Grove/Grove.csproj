@@ -411,9 +411,8 @@
     <Compile Include="Core\Messages\ControllerChanged.cs" />
     <Compile Include="Core\Decisions\ChooseToUntap.cs" />
     <Compile Include="Core\Decisions\DecisionSystem.cs" />
-    <Compile Include="Core\Decisions\DecisionSelector.cs" />
     <Compile Include="Core\Decisions\Human\ChooseToUntap.cs" />
-    <Compile Include="Core\Decisions\IDecisionFactory.cs" />
+    <Compile Include="Core\Decisions\IUiDecisionFactory.cs" />
     <Compile Include="Core\Decisions\Machine\ChooseToUntap.cs" />
     <Compile Include="Core\Decisions\Scenario\PrerecordedDecisions.cs" />
     <Compile Include="Core\Decisions\Scenario\ChooseToUntap.cs" />
