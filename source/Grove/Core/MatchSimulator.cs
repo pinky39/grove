@@ -3,14 +3,17 @@
   using System;
   using System.Collections.Generic;
   using System.Diagnostics;
+  using Controllers;
 
   public class MatchSimulator
   {
     private readonly CardDatabase _cardDatabase;
+    private readonly DecisionSystem _decisionSystem;
 
-    public MatchSimulator(CardDatabase cardDatabase)
+    public MatchSimulator(CardDatabase cardDatabase, DecisionSystem decisionSystem)
     {
       _cardDatabase = cardDatabase;
+      _decisionSystem = decisionSystem;
     }
 
     public SimulationResult Simulate(IEnumerable<string> deck1, IEnumerable<string> deck2)
@@ -34,9 +37,8 @@
 
     private void SimulateGame(IEnumerable<string> deck1, IEnumerable<string> deck2, SimulationResult result)
     {
-      var game = Game.NewSimulation(deck1, deck2, _cardDatabase);      
-      
-      
+      var game = Game.NewSimulation(deck1, deck2, _cardDatabase, _decisionSystem);      
+            
       game.Start();
 
       if (game.Players.BothHaveLost)

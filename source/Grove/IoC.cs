@@ -13,6 +13,7 @@
   using Castle.MicroKernel.SubSystems.Configuration;
   using Castle.Windsor;
   using Core;
+  using Core.Controllers;
   using Core.Dsl;
   using Infrastructure;
   using Ui.DistributeDamage;
@@ -115,6 +116,8 @@
         }
 
         RegisterCardsSources(container);
+        RegisterDecisions(container);
+
         container.Register(Component(typeof (CardDatabase), lifestyle: LifestyleType.Singleton));
       }
 
@@ -133,6 +136,25 @@
           .ImplementedBy(implementation);
 
         return registration.LifeStyle.Is(lifestyle);
+      }
+
+      private void RegisterDecisions(IWindsorContainer container)
+      {
+        container.Register(Component(typeof(DecisionSystem), lifestyle: LifestyleType.Singleton));        
+        container.Register(Component(typeof(IDecisionFactory), lifestyle: LifestyleType.Singleton).AsFactory(new DecisionSelector()));        
+
+        container.Register(Classes.FromThisAssembly()
+          .BasedOn(typeof(IDecision))
+          .Configure(r => r.Named(GetDecisionName(r.Implementation)))
+          .LifestyleTransient());
+      }
+
+      private static string GetDecisionName(Type implementation)
+      {
+        var ns = implementation.Namespace;
+        var category = ns.Substring(ns.LastIndexOf(".") + 1);
+
+        return String.Format("{0}#{1}", category, implementation.Name);
       }
 
       private static BasedOnDescriptor Configure(Predicate<Type> predicate, Action<ComponentRegistration> configurer)

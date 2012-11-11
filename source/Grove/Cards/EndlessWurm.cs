@@ -28,9 +28,9 @@
             Trigger<AtBegginingOfStep>(t => { t.Step = Step.Upkeep; }),
             Effect<SacPermanentOrSacrificeOwner>(e =>
               {
-                e.PayUpkeepAi = (owner) => owner.IsAbleToAttack;
-                e.Selector = card => card.Is().Enchantment;
-                e.Message = "Select enchantment to sacrifice";
+                e.ShouldPayAi = (controller, owner) => owner.IsAbleToAttack;
+                e.Validator = card => card.Is().Enchantment;
+                e.Text = "Select enchantment to sacrifice";
               }),
             triggerOnlyIfOwningCardIsInPlay: true));          
     }

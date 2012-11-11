@@ -6,6 +6,7 @@
   using System.Reflection;
   using Core;
   using Core.Ai;
+  using Core.Controllers;
   using Core.Controllers.Scenario;
   using Core.Zones;
   using log4net.Config;
@@ -20,10 +21,11 @@
       var player1Controller = player1ControlledByScript ? ControllerType.Scenario : ControllerType.Machine;
       var player2Controller = player2ControlledByScript ? ControllerType.Scenario : ControllerType.Machine;
 
-      Game = Game.NewScenario(player1Controller, player2Controller, CardDatabase);
+      Game = Game.NewScenario(player1Controller, player2Controller, CardDatabase, DecisionSystem);
     }
 
     protected CardDatabase CardDatabase { get { return Container.Resolve<CardDatabase>(); } }
+    protected DecisionSystem DecisionSystem { get { return Container.Resolve<DecisionSystem>(); } }
 
     protected Game Game { get; private set; }
     protected Player P1 { get { return Game.Players.Player1; } }
@@ -35,12 +37,7 @@
 
     protected DecisionsForOneStep At(Step step, int turn = 1)
     {
-      var stepDecisions = Container.Resolve<DecisionsForOneStep>();
-
-      stepDecisions.Step = step;
-      stepDecisions.Turn = turn;
-
-      return stepDecisions;
+      return new DecisionsForOneStep(step, turn, Game);
     }
 
     protected void Battlefield(Player player, params ScenarioCard[] cards)

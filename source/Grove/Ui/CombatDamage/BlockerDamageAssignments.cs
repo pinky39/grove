@@ -3,7 +3,7 @@
   using System.Collections;
   using System.Collections.Generic;
   using System.Linq;
-  using Core.Details.Combat;
+  using Core;
   using Infrastructure;
 
   public class BlockerDamageAssignments : IEnumerable<BlockerDamageAssignment>

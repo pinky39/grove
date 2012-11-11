@@ -46,21 +46,20 @@
         .Effect<CustomizableEffect>(e =>
           {
             e.Choices(
-              
-                Choice(EffectChoiceOption.Tap, EffectChoiceOption.Untap),
-                Choice(EffectChoiceOption.Artifacts, EffectChoiceOption.Creatures, EffectChoiceOption.Lands)
+              Choice(EffectChoiceOption.Tap, EffectChoiceOption.Untap),
+              Choice(EffectChoiceOption.Artifacts, EffectChoiceOption.Creatures, EffectChoiceOption.Lands)
               );
 
-            e.ChooseAi = (self, game) =>
+            e.Ai = p =>
               {
-                if (self.Target() == self.Controller)
+                if (p.Effect.Target() == p.Controller)
                 {
                   return new ChosenOptions(
                     EffectChoiceOption.Untap,
                     EffectChoiceOption.Creatures);
                 }
 
-                return game.Turn.Step == Step.Upkeep
+                return p.Game.Turn.Step == Step.Upkeep
                   ? new ChosenOptions(
                     EffectChoiceOption.Tap,
                     EffectChoiceOption.Lands)
@@ -71,15 +70,15 @@
 
             e.Text = "#0 all #1 target player controls.";
 
-            e.Logic =
-              (self, chosen) =>
+            e.ProcessResults =
+              p =>
                 {
-                  var permanents = self.Target().Player().Battlefield
-                    .Where(Filters[chosen.Options[1]]);
+                  var permanents = p.Effect.Target().Player().Battlefield
+                    .Where(Filters[p.Result.Options[1]]);
 
                   foreach (var permanent in permanents)
                   {
-                    Actions[chosen.Options[0]](permanent);
+                    Actions[p.Result.Options[0]](permanent);
                   }
                 };
           });

@@ -4,6 +4,7 @@
   using System.Collections.Generic;
   using System.Threading.Tasks;
   using System.Windows;
+  using Controllers;
   using Infrastructure;
   using Ui.GameResults;
   using Ui.Shell;
@@ -11,6 +12,7 @@
   public class Match
   {
     private readonly CardDatabase _cardDatabase;
+    private readonly DecisionSystem _decisionSystem;
     private readonly ViewModel.IFactory _gameResultsFactory;
     private readonly Ui.MatchResults.ViewModel.IFactory _matchResultsFactory;
     private readonly Ui.PlayScreen.ViewModel.IFactory _playScreenFactory;
@@ -29,13 +31,14 @@
       Ui.StartScreen.ViewModel.IFactory startScreenFactory,
       ViewModel.IFactory gameResultsFactory,
       Ui.MatchResults.ViewModel.IFactory matchResultsFactory,
-      CardDatabase cardDatabase)
+      CardDatabase cardDatabase, DecisionSystem decisionSystem)
     {
       _playScreenFactory = playScreenFactory;
       _startScreenFactory = startScreenFactory;
       _gameResultsFactory = gameResultsFactory;
       _matchResultsFactory = matchResultsFactory;
       _cardDatabase = cardDatabase;
+      _decisionSystem = decisionSystem;
       _uiScheduler = TaskScheduler.FromCurrentSynchronizationContext();
 
       Application.Current.Exit += delegate { ForceCurrentGameToEnd(); };
@@ -105,7 +108,7 @@
     {
       _backgroundTask = new Task(() =>
         {
-          Game = Game.New(_deck1, _deck2, _cardDatabase);
+          Game = Game.New(_deck1, _deck2, _cardDatabase, _decisionSystem);
 
           var playScreen = _playScreenFactory.Create();
           Shell.ChangeScreen(playScreen);

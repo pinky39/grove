@@ -3,7 +3,6 @@
   using System;
   using Core;
   using Core.Controllers.Results;
-  using Core.Details.Combat;
   using Infrastructure;
 
   public class ViewModel

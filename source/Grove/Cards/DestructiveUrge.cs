@@ -34,10 +34,10 @@
                 t.UseAttachedToAsTriggerSource = true;
                 t.ToPlayer();
               }),
-            Effect<PlayerSacrificeLands>(
+            Effect<PlayersSacrificeLands>(
               p =>
                 {
-                  p.Effect.Player = (Player) p.Parameters.Trigger<DamageHasBeenDealt>().Receiver;
+                  p.Effect.OnlyPlayer = (Player) p.Parameters.Trigger<DamageHasBeenDealt>().Receiver;
                   p.Effect.Count = 1;
                 }),
             triggerOnlyIfOwningCardIsInPlay: true)

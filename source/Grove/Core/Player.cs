@@ -7,7 +7,6 @@
   using Details.Cards.Modifiers;
   using Details.Cards.Preventions;
   using Details.Cards.Redirections;
-  using Details.Combat;
   using Details.Mana;
   using Infrastructure;
   using Messages;

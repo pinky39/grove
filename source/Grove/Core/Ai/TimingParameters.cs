@@ -4,7 +4,6 @@
   using System.Linq;
   using Details.Cards;
   using Details.Cards.Effects;
-  using Details.Combat;
   using Targeting;
   using Zones;
 

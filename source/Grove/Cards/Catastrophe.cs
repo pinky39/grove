@@ -25,12 +25,12 @@
           {
             e.Choices(Choice(EffectChoiceOption.Lands, EffectChoiceOption.Creatures));
 
-            e.ChooseAi = (self, game) =>
+            e.Ai = p =>
               {
-                var opponent = self.Players.GetOpponent(self.Controller);
+                var opponent = p.Game.Players.GetOpponent(p.Controller);
 
                 var opponentCreatureCount = opponent.Battlefield.Creatures.Count();
-                var yourCreatureCount = self.Controller.Battlefield.Creatures.Count();
+                var yourCreatureCount = p.Controller.Battlefield.Creatures.Count();
 
                 return opponentCreatureCount - yourCreatureCount > 0
                   ? new ChosenOptions(EffectChoiceOption.Creatures)
@@ -39,15 +39,15 @@
 
             e.Text = "Destroy all #0.";
 
-            e.Logic = (self, chosen) =>
+            e.ProcessResults = p =>
               {
-                if (chosen.Options[0] == EffectChoiceOption.Lands)
+                if (p.Result.Options[0] == EffectChoiceOption.Lands)
                 {
-                  self.Players.DestroyPermanents(card => card.Is().Land);
+                  p.Game.Players.DestroyPermanents(card => card.Is().Land);
                   return;
                 }
 
-                self.Players.DestroyPermanents(
+                p.Game.Players.DestroyPermanents(
                   card => card.Is().Creature,
                   allowToRegenerate: false);
               };
