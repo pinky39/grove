@@ -2,7 +2,7 @@
 {
   using System;
   using Core;
-  using Core.Controllers.Results;
+  using Core.Decisions.Results;
   using Infrastructure;
 
   public class ViewModel

@@ -1,4 +1,4 @@
-﻿namespace Grove.Core.Controllers
+﻿namespace Grove.Core.Decisions
 {
   using System.Linq;
   using Results;

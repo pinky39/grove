@@ -1,6 +1,6 @@
-﻿namespace Grove.Core.Controllers.Results
+﻿namespace Grove.Core.Decisions.Results
 {
-  using Details.Cards;
+  using Cards;
 
   public class Ability : Playable
   {

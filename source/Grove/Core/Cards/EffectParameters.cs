@@ -1,7 +1,7 @@
-﻿namespace Grove.Core.Details.Cards
+﻿namespace Grove.Core.Cards
 {
   using Effects;
-  using Targeting;
+  using Grove.Core.Targeting;
 
   public delegate void EffectInitializer<TEffect>(EffectCreationContext<TEffect> context) where TEffect : Effect;
 

@@ -1,4 +1,4 @@
-﻿namespace Grove.Core.Details.Mana
+﻿namespace Grove.Core.Mana
 {
   using System.Collections;
   using System.Collections.Generic;

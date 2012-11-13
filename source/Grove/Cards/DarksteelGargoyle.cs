@@ -3,7 +3,7 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Details.Cards;
+  using Core.Cards;
   using Core.Dsl;
 
   public class DarksteelGargoyle : CardsSource

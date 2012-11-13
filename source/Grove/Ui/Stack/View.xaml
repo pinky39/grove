@@ -3,10 +3,7 @@
              xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:i = "clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:cal = "clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
-             xmlns:Core="clr-namespace:Grove.Core" 
-             xmlns:Cards="clr-namespace:Grove.Core.Details.Cards" 
-             xmlns:Ui="clr-namespace:Grove.Ui"
-             xmlns:Effects="clr-namespace:Grove.Core.Details.Cards.Effects">
+             xmlns:Core="clr-namespace:Grove.Core" xmlns:Ui="clr-namespace:Grove.Ui" xmlns:Cards="clr-namespace:Grove.Core.Cards" xmlns:Effects="clr-namespace:Grove.Core.Cards.Effects">
 	<UserControl.Resources>
 		<Style TargetType = "Border"
 		       x:Key = "StackChrome" >

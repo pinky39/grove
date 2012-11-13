@@ -1,6 +1,6 @@
-﻿namespace Grove.Core.Controllers.Machine
+﻿namespace Grove.Core.Decisions.Machine
 {
-  public class SelectCardsReturnToHand : Controllers.SelectCardsReturnToHand
+  public class SelectCardsReturnToHand : Decisions.SelectCardsReturnToHand
   {
     protected override void ExecuteQuery()
     {

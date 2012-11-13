@@ -1,6 +1,6 @@
-﻿namespace Grove.Core.Controllers.Machine
+﻿namespace Grove.Core.Decisions.Machine
 {
-  public class SelectCardsToSacrificeAsCost : Controllers.SelectCardsToSacrificeAsCost
+  public class SelectCardsToSacrificeAsCost : Decisions.SelectCardsToSacrificeAsCost
   {
     protected override void ExecuteQuery()
     {

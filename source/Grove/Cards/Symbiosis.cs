@@ -3,8 +3,7 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Details.Cards.Effects;
-  using Core.Details.Cards.Modifiers;
+  using Core.Cards.Modifiers;
   using Core.Dsl;
   using Core.Targeting;
 
@@ -21,7 +20,7 @@
         .Text("Two target creatures each get +2/+2 until end of turn.")
         .FlavorText(
           "Although the elves of Argoth always considered them a nuisance, the pixies made fine allies during the war against the machines.")
-        .Effect<ApplyModifiersToTargets>(p => p.Effect.Modifiers(
+        .Effect<Core.Cards.Effects.ApplyModifiersToTargets>(p => p.Effect.Modifiers(
           Modifier<AddPowerAndToughness>(m =>
             {
               m.Power = 2;

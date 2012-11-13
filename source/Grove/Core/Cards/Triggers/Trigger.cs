@@ -1,8 +1,8 @@
-﻿namespace Grove.Core.Details.Cards.Triggers
+﻿namespace Grove.Core.Cards.Triggers
 {
   using System;
-  using Dsl;
-  using Infrastructure;
+  using Grove.Core.Dsl;
+  using Grove.Infrastructure;
 
   [Copyable]
   public abstract class Trigger : IDisposable, IHashable

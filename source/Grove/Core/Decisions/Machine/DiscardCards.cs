@@ -1,9 +1,9 @@
-﻿namespace Grove.Core.Controllers.Machine
+﻿namespace Grove.Core.Decisions.Machine
 {
   using System.Linq;
-  using Ai;
+  using Grove.Core.Ai;
 
-  public class DiscardCards : Controllers.DiscardCards
+  public class DiscardCards : Decisions.DiscardCards
   {
     protected override void ExecuteQuery()
     {            

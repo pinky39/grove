@@ -5,8 +5,8 @@
   using System.Linq;
   using System.Windows;
   using Core;
-  using Core.Controllers.Results;
-  using Core.Details.Cards;
+  using Core.Cards;
+  using Core.Decisions.Results;
   using Core.Targeting;
   using DistributeDamage;
   using Infrastructure;
@@ -150,7 +150,7 @@
 
       var playable = prerequisites.IsSpell
         ? (Playable) new Spell(Card, new ActivationParameters(targets, payKicker, x))
-        : new Core.Controllers.Results.Ability(Card, new ActivationParameters(targets, payKicker, x), ablityIndex);
+        : new Core.Decisions.Results.Ability(Card, new ActivationParameters(targets, payKicker, x), ablityIndex);
 
       _game.Publish(new PlayableSelected {Playable = playable});
     }

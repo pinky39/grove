@@ -4,13 +4,13 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Details.Cards.Costs;
-  using Core.Details.Cards.Counters;
-  using Core.Details.Cards.Effects;
-  using Core.Details.Cards.Modifiers;
-  using Core.Details.Cards.Triggers;
-  using Core.Details.Mana;
+  using Core.Cards.Costs;
+  using Core.Cards.Counters;
+  using Core.Cards.Effects;
+  using Core.Cards.Modifiers;
+  using Core.Cards.Triggers;
   using Core.Dsl;
+  using Core.Mana;
 
   public class BarrinsCodex : CardsSource
   {

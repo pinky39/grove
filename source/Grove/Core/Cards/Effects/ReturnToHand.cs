@@ -1,7 +1,7 @@
-﻿namespace Grove.Core.Details.Cards.Effects
+﻿namespace Grove.Core.Cards.Effects
 {
-  using Targeting;  
-  
+  using Grove.Core.Targeting;
+
   public class ReturnToHand : Effect
   {
     public int Discard;
@@ -29,7 +29,7 @@
 
       if (Discard > 0)
       {
-        Game.Enqueue<Controllers.DiscardCards>(
+        Game.Enqueue<Decisions.DiscardCards>(
           controller: Target().Card().Controller,
           init: p => p.Count = Discard);
       }

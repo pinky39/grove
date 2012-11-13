@@ -1,8 +1,8 @@
-﻿namespace Grove.Core.Controllers.Machine
+﻿namespace Grove.Core.Decisions.Machine
 {
   using System.Linq;
+  using Grove.Core.Targeting;
   using Results;
-  using Targeting;
 
   public class CardSelector
   {

@@ -3,8 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"             
-             xmlns:grove="clr-namespace:Grove.Ui" 
-             xmlns:Cards="clr-namespace:Grove.Core.Details.Cards">
+             xmlns:grove="clr-namespace:Grove.Ui" xmlns:Cards="clr-namespace:Grove.Core.Cards">
     <UserControl.Resources>
         <DataTemplate DataType="{x:Type Cards:SpellPrerequisites}">
             <DataTemplate.Resources>

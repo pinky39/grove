@@ -1,11 +1,11 @@
-﻿namespace Grove.Core.Controllers.Machine
+﻿namespace Grove.Core.Decisions.Machine
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Infrastructure;
+  using Grove.Infrastructure;
   using Results;
 
-  public class SetDamageAssignmentOrder : Controllers.SetDamageAssignmentOrder
+  public class SetDamageAssignmentOrder : Decisions.SetDamageAssignmentOrder
   {
     protected override void ExecuteQuery()
     {

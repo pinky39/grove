@@ -4,7 +4,7 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Details.Cards.Effects;
+  using Core.Cards.Effects;
   using Core.Dsl;
 
   public class VolcanincFallout : CardsSource

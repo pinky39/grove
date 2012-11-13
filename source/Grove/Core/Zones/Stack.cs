@@ -5,7 +5,7 @@
   using System.Collections.Generic;
   using System.Linq;
   using Ai;
-  using Details.Cards.Effects;
+  using Cards.Effects;
   using Infrastructure;
 
   [Copyable]

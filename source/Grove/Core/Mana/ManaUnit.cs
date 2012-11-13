@@ -1,8 +1,8 @@
-﻿namespace Grove.Core.Details.Mana
+﻿namespace Grove.Core.Mana
 {
   using System;
   using System.Collections.Generic;
-  using Infrastructure;
+  using Grove.Infrastructure;
 
   public class ManaUnit : IEquatable<ManaUnit>
   {

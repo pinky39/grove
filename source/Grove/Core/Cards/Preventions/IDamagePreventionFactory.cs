@@ -1,6 +1,6 @@
-﻿namespace Grove.Core.Details.Cards.Preventions
+﻿namespace Grove.Core.Cards.Preventions
 {
-  using Targeting;
+  using Grove.Core.Targeting;
 
   public interface IDamagePreventionFactory
   {

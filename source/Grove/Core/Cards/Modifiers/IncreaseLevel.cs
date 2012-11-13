@@ -1,6 +1,6 @@
-﻿namespace Grove.Core.Details.Cards.Modifiers
+﻿namespace Grove.Core.Cards.Modifiers
 {
-  using Messages;
+  using Grove.Core.Messages;
 
   public class IncreaseLevel : Modifier
   {

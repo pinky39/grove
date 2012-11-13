@@ -1,9 +1,9 @@
-﻿namespace Grove.Core.Details.Cards.Modifiers
+﻿namespace Grove.Core.Cards.Modifiers
 {
   using System.Linq;
-  using Infrastructure;
-  using Messages;
-  using Zones;
+  using Grove.Infrastructure;
+  using Grove.Core.Messages;
+  using Grove.Core.Zones;
 
   public class Add11ForEachOtherCreature : Modifier, IReceive<CardChangedZone>, 
     IReceive<CardChangedType>, IReceive<ControllerChanged>

@@ -1,4 +1,4 @@
-﻿namespace Grove.Core.Details.Cards.Triggers
+﻿namespace Grove.Core.Cards.Triggers
 {
   public static class TriggerOrder
   {

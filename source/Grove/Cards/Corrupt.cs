@@ -4,7 +4,7 @@
   using System.Linq;
   using Core;
   using Core.Ai;
-  using Core.Details.Cards.Effects;
+  using Core.Cards.Effects;
   using Core.Dsl;
   using Core.Targeting;
 

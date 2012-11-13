@@ -1,12 +1,12 @@
-﻿namespace Grove.Core.Controllers.Human
+﻿namespace Grove.Core.Decisions.Human
 {
+  using Grove.Ui;
+  using Grove.Ui.Priority;
+  using Grove.Ui.Shell;
+  using Grove.Core.Zones;
   using Results;
-  using Ui;
-  using Ui.Priority;
-  using Ui.Shell;
-  using Zones;
 
-  public class PlaySpellOrAbility : Controllers.PlaySpellOrAbility
+  public class PlaySpellOrAbility : Decisions.PlaySpellOrAbility
   {
     public Configuration Configuration { get; set; }
     public ViewModel.IFactory DialogFactory { get; set; }

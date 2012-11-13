@@ -3,9 +3,9 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Details.Cards;
-  using Core.Details.Mana;
+  using Core.Cards;
   using Core.Dsl;
+  using Core.Mana;
 
   public class WhiteKnight : CardsSource
   {

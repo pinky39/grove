@@ -1,7 +1,5 @@
-﻿namespace Grove.Core.Details.Cards.Effects
+﻿namespace Grove.Core.Cards.Effects
 {
-  using System;
-
   public class DestroySource : Effect
   {
     protected override void ResolveEffect()

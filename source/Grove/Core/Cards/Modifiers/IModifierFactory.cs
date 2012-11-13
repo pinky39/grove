@@ -1,6 +1,6 @@
-﻿namespace Grove.Core.Details.Cards.Modifiers
+﻿namespace Grove.Core.Cards.Modifiers
 {
-  using Targeting;
+  using Grove.Core.Targeting;
 
   public interface IModifierFactory
   {

@@ -1,13 +1,13 @@
-﻿namespace Grove.Core.Details.Cards
+﻿namespace Grove.Core.Cards
 {
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Controllers;
-  using Infrastructure;
-  using Targeting;
+  using Grove.Core.Decisions;
+  using Grove.Infrastructure;
+  using Grove.Core.Targeting;
+  using Grove.Core.Zones;
   using Triggers;
-  using Zones;
 
   [Copyable]
   public class TriggeredAbility : Ability, IDisposable, ICopyContributor

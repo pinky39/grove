@@ -1,8 +1,8 @@
-﻿namespace Grove.Core.Details.Cards.Modifiers
+﻿namespace Grove.Core.Cards.Modifiers
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Targeting;
+  using Grove.Core.Targeting;
 
   public static class Modifiers
   {

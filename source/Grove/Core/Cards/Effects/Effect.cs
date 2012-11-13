@@ -1,13 +1,13 @@
-﻿namespace Grove.Core.Details.Cards.Effects
+﻿namespace Grove.Core.Cards.Effects
 {
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Ai;
-  using Dsl;
-  using Infrastructure;
+  using Grove.Core.Ai;
+  using Grove.Core.Dsl;
+  using Grove.Infrastructure;
+  using Grove.Core.Targeting;
   using Mana;
-  using Targeting;
 
   [Copyable]
   public abstract class Effect : ITarget, IHasColors

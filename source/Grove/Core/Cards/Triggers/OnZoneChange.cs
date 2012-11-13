@@ -1,9 +1,9 @@
-﻿namespace Grove.Core.Details.Cards.Triggers
+﻿namespace Grove.Core.Cards.Triggers
 {
   using System;
-  using Infrastructure;
-  using Messages;
-  using Zones;
+  using Grove.Infrastructure;
+  using Grove.Core.Messages;
+  using Grove.Core.Zones;
 
   public class OnZoneChange : Trigger, IReceive<CardChangedZone>
   {

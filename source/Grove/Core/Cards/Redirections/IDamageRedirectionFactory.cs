@@ -1,6 +1,6 @@
-﻿namespace Grove.Core.Details.Cards.Redirections
+﻿namespace Grove.Core.Cards.Redirections
 {
-  using Targeting;
+  using Grove.Core.Targeting;
 
   public interface IDamageRedirectionFactory
   {

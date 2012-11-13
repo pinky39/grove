@@ -1,6 +1,6 @@
-﻿namespace Grove.Core.Controllers.Scenario
+﻿namespace Grove.Core.Decisions.Scenario
 {
-  using Targeting;
+  using Grove.Core.Targeting;
 
   public class ScenarioActivation
   {

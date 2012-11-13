@@ -4,8 +4,8 @@
   using System.Collections.Generic;
   using System.Linq;
   using Ai;
-  using Controllers;
-  using Controllers.Scenario;
+  using Decisions;
+  using Decisions.Scenario;
   using Infrastructure;
   using Targeting;
   using Zones;

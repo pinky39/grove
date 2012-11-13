@@ -1,7 +1,7 @@
-﻿namespace Grove.Core.Details.Cards.Effects
+﻿namespace Grove.Core.Cards.Effects
 {
   using System;
-  using Controllers;
+  using Grove.Core.Decisions;
 
   public class PutTargetCardToBattlefield : Effect
   {

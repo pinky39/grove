@@ -1,6 +1,6 @@
 ﻿namespace Grove.Core.Dsl
 {
-  using Details.Cards;
+  using Cards;
 
   public class LevelDefinition
   {

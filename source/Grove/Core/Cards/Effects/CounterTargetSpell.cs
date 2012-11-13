@@ -1,9 +1,9 @@
-﻿namespace Grove.Core.Details.Cards.Effects
+﻿namespace Grove.Core.Cards.Effects
 {
-  using Controllers;
-  using Controllers.Results;
+  using Grove.Core.Decisions;
+  using Grove.Core.Decisions.Results;
+  using Grove.Core.Targeting;
   using Mana;
-  using Targeting;
 
   public class CounterTargetSpell : Effect, IProcessDecisionResults<BooleanResult>
   {

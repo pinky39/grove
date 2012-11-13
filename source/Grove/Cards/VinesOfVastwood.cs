@@ -3,9 +3,8 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Details.Cards;
-  using Core.Details.Cards.Effects;
-  using Core.Details.Cards.Modifiers;
+  using Core.Cards;
+  using Core.Cards.Modifiers;
   using Core.Dsl;
   using Core.Targeting;
 
@@ -22,12 +21,12 @@
         .Timing(Timings.NoRestrictions())
         .Text(
           "{Kicker} {G}{EOL}Target creature can't be the target of spells or abilities your opponents control this turn. If Vines of Vastwood was kicked, that creature gets +4/+4 until end of turn.")
-        .Effect<ApplyModifiersToTargets>(p => p.Effect.Modifiers(
+        .Effect<Core.Cards.Effects.ApplyModifiersToTargets>(p => p.Effect.Modifiers(
           Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Hexproof, untilEndOfTurn: true)))
         .Targets(
           selectorAi: TargetSelectorAi.ShieldHexproof(),
           effectValidator: Validator(Validators.Creature()))
-        .KickerEffect<ApplyModifiersToTargets>(p => p.Effect.Modifiers(
+        .KickerEffect<Core.Cards.Effects.ApplyModifiersToTargets>(p => p.Effect.Modifiers(
           Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Hexproof, untilEndOfTurn: true),
           Modifier<AddPowerAndToughness>(m =>
             {

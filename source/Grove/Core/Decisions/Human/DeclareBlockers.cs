@@ -1,13 +1,12 @@
-﻿namespace Grove.Core.Controllers.Human
+﻿namespace Grove.Core.Decisions.Human
 {
   using System.Linq;
-  using Infrastructure;
+  using Grove.Ui;
+  using Grove.Ui.SelectTarget;
+  using Grove.Ui.Shell;
   using Results;
-  using Ui;
-  using Ui.SelectTarget;
-  using Ui.Shell;
 
-  public class DeclareBlockers : Controllers.DeclareBlockers
+  public class DeclareBlockers : Decisions.DeclareBlockers
   {
     public ViewModel.IFactory DialogFactory { get; set; }
     public IShell Shell { get; set; }    

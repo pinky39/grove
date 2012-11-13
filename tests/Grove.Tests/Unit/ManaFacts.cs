@@ -5,7 +5,7 @@
   using System.Diagnostics;
   using System.Linq;
   using Core;
-  using Core.Details.Mana;
+  using Core.Mana;
   using Grove.Infrastructure;
   using Xunit;
 

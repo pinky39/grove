@@ -1,7 +1,7 @@
-﻿namespace Grove.Core.Details.Cards
+﻿namespace Grove.Core.Cards
 {
-  using Infrastructure;
-  using Targeting;
+  using Grove.Infrastructure;
+  using Grove.Core.Targeting;
 
   [Copyable]
   public class ActivationParameters

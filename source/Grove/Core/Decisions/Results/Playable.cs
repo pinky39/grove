@@ -1,6 +1,6 @@
-﻿namespace Grove.Core.Controllers.Results
+﻿namespace Grove.Core.Decisions.Results
 {
-  using Infrastructure;
+  using Grove.Infrastructure;
 
   [Copyable]
   public abstract class Playable

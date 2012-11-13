@@ -1,9 +1,9 @@
-﻿namespace Grove.Core.Details.Cards.Preventions
+﻿namespace Grove.Core.Cards.Preventions
 {
-  using Dsl;
-  using Infrastructure;
+  using Grove.Core.Dsl;
+  using Grove.Infrastructure;
+  using Grove.Core.Targeting;
   using Modifiers;
-  using Targeting;
 
   [Copyable]
   public abstract class DamagePrevention : IHashable, ILifetimeDependency

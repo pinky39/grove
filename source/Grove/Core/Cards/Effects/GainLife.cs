@@ -1,7 +1,5 @@
-﻿namespace Grove.Core.Details.Cards.Effects
+﻿namespace Grove.Core.Cards.Effects
 {
-  using System;
-
   public class GainLife : Effect
   {
     public int Amount { get; set; }

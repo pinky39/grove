@@ -1,4 +1,4 @@
-﻿namespace Grove.Core.Details.Cards.Counters
+﻿namespace Grove.Core.Cards.Counters
 {
   public interface ICounterFactory
   {

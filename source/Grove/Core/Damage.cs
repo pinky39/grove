@@ -1,6 +1,6 @@
 ﻿namespace Grove.Core
 {
-  using Details.Cards.Redirections;
+  using Cards.Redirections;
   using Infrastructure;
 
   [Copyable]

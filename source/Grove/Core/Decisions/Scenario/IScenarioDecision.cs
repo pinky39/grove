@@ -1,4 +1,4 @@
-﻿namespace Grove.Core.Controllers.Scenario
+﻿namespace Grove.Core.Decisions.Scenario
 {
   public interface IScenarioDecision : IDecision
   {

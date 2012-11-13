@@ -1,7 +1,7 @@
-﻿namespace Grove.Core.Details.Cards.Casting
+﻿namespace Grove.Core.Cards.Casting
 {
   using Effects;
-  using Infrastructure;
+  using Grove.Infrastructure;
 
   [Copyable]
   public abstract class CastingRule

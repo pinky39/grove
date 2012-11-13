@@ -6,8 +6,8 @@
   using System.Reflection;
   using Core;
   using Core.Ai;
-  using Core.Controllers;
-  using Core.Controllers.Scenario;
+  using Core.Decisions;
+  using Core.Decisions.Scenario;
   using Core.Zones;
   using log4net.Config;
   using Xunit;

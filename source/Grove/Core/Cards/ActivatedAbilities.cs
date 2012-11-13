@@ -1,13 +1,13 @@
-﻿namespace Grove.Core.Details.Cards
+﻿namespace Grove.Core.Cards
 {
   using System;
   using System.Collections.Generic;
   using System.Linq;
   using Effects;
-  using Infrastructure;
+  using Grove.Infrastructure;
+  using Grove.Core.Targeting;
   using Mana;
   using Modifiers;
-  using Targeting;
 
   [Copyable]
   public class ActivatedAbilities : IModifiable, IHashable

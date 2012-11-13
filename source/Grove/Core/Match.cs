@@ -4,7 +4,7 @@
   using System.Collections.Generic;
   using System.Threading.Tasks;
   using System.Windows;
-  using Controllers;
+  using Decisions;
   using Infrastructure;
   using Ui.GameResults;
   using Ui.Shell;

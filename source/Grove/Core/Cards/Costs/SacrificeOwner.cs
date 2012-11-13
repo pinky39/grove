@@ -1,6 +1,6 @@
-﻿namespace Grove.Core.Details.Cards.Costs
+﻿namespace Grove.Core.Cards.Costs
 {
-  using Targeting;
+  using Grove.Core.Targeting;
 
   public class SacrificeOwner : Cost
   {

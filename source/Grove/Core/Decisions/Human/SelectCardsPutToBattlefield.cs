@@ -1,6 +1,6 @@
-﻿namespace Grove.Core.Controllers.Human
+﻿namespace Grove.Core.Decisions.Human
 {
-  public class SelectCardsPutToBattlefield : Controllers.SelectCardsPutToBattlefield
+  public class SelectCardsPutToBattlefield : Decisions.SelectCardsPutToBattlefield
   {
     public CardSelector CardSelector { get; set; }
 

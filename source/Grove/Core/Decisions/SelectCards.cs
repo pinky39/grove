@@ -1,11 +1,11 @@
-﻿namespace Grove.Core.Controllers
+﻿namespace Grove.Core.Decisions
 {
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Infrastructure;
+  using Grove.Infrastructure;
+  using Grove.Core.Targeting;
   using Results;
-  using Targeting;
 
   public abstract class SelectCards : Decision<ChosenCards>
   {

@@ -1,8 +1,8 @@
-﻿namespace Grove.Core.Details.Cards.Redirections
+﻿namespace Grove.Core.Cards.Redirections
 {
-  using Dsl;
-  using Infrastructure;
-  using Targeting;
+  using Grove.Core.Dsl;
+  using Grove.Infrastructure;
+  using Grove.Core.Targeting;
 
   [Copyable]
   public abstract class DamageRedirection : IHashable

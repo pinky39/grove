@@ -6,7 +6,7 @@
   using System.Threading.Tasks;
   using Caliburn.Micro;
   using Core;
-  using Core.Details.Mana;
+  using Core.Mana;
   using Infrastructure;
 
   public class Library

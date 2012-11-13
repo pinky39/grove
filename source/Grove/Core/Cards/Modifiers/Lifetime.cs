@@ -1,9 +1,8 @@
-﻿namespace Grove.Core.Details.Cards.Modifiers
+﻿namespace Grove.Core.Cards.Modifiers
 {
   using System;
-  using Dsl;
-  using Infrastructure;
-
+  using Grove.Core.Dsl;
+  using Grove.Infrastructure;
 
   [Copyable]
   public abstract class Lifetime : IDisposable

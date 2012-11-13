@@ -3,8 +3,8 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Details.Mana;
   using Core.Dsl;
+  using Core.Mana;
 
   public class LlanowarElves : CardsSource
   {

@@ -1,7 +1,7 @@
-﻿namespace Grove.Core.Details.Cards.Preventions
+﻿namespace Grove.Core.Cards.Preventions
 {
   using System.Linq;
-  using Infrastructure;
+  using Grove.Infrastructure;
   using Modifiers;
 
   [Copyable]

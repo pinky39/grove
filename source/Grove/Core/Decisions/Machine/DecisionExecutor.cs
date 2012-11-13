@@ -1,6 +1,6 @@
-﻿namespace Grove.Core.Controllers.Machine
+﻿namespace Grove.Core.Decisions.Machine
 {
-  using Infrastructure;
+  using Grove.Infrastructure;
 
   [Copyable]
   public class DecisionExecutor

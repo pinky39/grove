@@ -1,7 +1,7 @@
-﻿namespace Grove.Core.Details.Cards.Triggers
+﻿namespace Grove.Core.Cards.Triggers
 {
-  using Infrastructure;
-  using Messages;
+  using Grove.Infrastructure;
+  using Grove.Core.Messages;
 
   public class OpponentWasNotDealtDamageThisTurn : Trigger, IReceive<StepStarted>, IReceive<DamageHasBeenDealt>
   {

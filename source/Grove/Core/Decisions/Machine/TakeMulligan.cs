@@ -1,8 +1,8 @@
-﻿namespace Grove.Core.Controllers.Machine
+﻿namespace Grove.Core.Decisions.Machine
 {
   using System.Linq;
 
-  public class TakeMulligan : Controllers.TakeMulligan
+  public class TakeMulligan : Decisions.TakeMulligan
   {
     protected override void ExecuteQuery()
     {

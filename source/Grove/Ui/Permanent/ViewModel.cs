@@ -3,7 +3,7 @@
   using System;
   using System.Linq;
   using Core;
-  using Core.Details.Cards;
+  using Core.Cards;
   using Core.Messages;
   using Core.Targeting;
   using Infrastructure;
@@ -184,7 +184,7 @@
         return;
 
       var activation = new ActivationParameters(targets, x: x);
-      var ability = new Core.Controllers.Results.Ability(Card, activation, index);
+      var ability = new Core.Decisions.Results.Ability(Card, activation, index);
 
       _game.Publish(new PlayableSelected
         {

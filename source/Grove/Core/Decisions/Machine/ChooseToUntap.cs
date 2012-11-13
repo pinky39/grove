@@ -1,8 +1,8 @@
-﻿namespace Grove.Core.Controllers.Machine
+﻿namespace Grove.Core.Decisions.Machine
 {
-  using Ai;
+  using Grove.Core.Ai;
 
-  public class ChooseToUntap : Controllers.ChooseToUntap, ISearchNode, IDecisionExecution
+  public class ChooseToUntap : Decisions.ChooseToUntap, ISearchNode, IDecisionExecution
   {
     private DecisionExecutor _executor;
 

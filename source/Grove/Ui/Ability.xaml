@@ -1,7 +1,6 @@
 ﻿<ResourceDictionary xmlns = "http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:Ui="clr-namespace:Grove.Ui"
-                    xmlns:Cards="clr-namespace:Grove.Core.Details.Cards">
+                    xmlns:Ui="clr-namespace:Grove.Ui" xmlns:Cards="clr-namespace:Grove.Core.Cards">
 
 	<DataTemplate x:Key = "Ability" >
 		<Viewbox>

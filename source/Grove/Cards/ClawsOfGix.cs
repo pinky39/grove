@@ -3,10 +3,10 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Details.Cards.Costs;
-  using Core.Details.Cards.Effects;
-  using Core.Details.Mana;
+  using Core.Cards.Costs;
+  using Core.Cards.Effects;
   using Core.Dsl;
+  using Core.Mana;
   using Core.Targeting;
 
   public class ClawsOfGix : CardsSource

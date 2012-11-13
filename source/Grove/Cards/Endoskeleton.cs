@@ -3,10 +3,11 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Details.Cards.Costs;
-  using Core.Details.Cards.Modifiers;
-  using Core.Details.Mana;
+  using Core.Cards.Costs;
+  using Core.Cards.Effects;
+  using Core.Cards.Modifiers;
   using Core.Dsl;
+  using Core.Mana;
   using Core.Targeting;
 
   public class Endoskeleton : CardsSource
@@ -29,7 +30,7 @@
                 cost.Amount = 2.AsColorlessMana();
                 cost.TapOwner = true;
               }),
-            Effect<Core.Details.Cards.Effects.ApplyModifiersToTargets>(e => e.Modifiers(
+            Effect<ApplyModifiersToTargets>(e => e.Modifiers(
               Modifier<AddPowerAndToughness>(m =>
                 {
                   m.Toughness = 3;

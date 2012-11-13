@@ -5,7 +5,7 @@
   using System.Collections.Generic;
   using System.IO;
   using System.Linq;
-  using Details.Mana;
+  using Mana;
   using Ui;
 
   public class Deck : IEnumerable<string>

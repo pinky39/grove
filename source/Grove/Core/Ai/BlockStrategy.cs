@@ -2,7 +2,7 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Controllers.Results;
+  using Decisions.Results;
   using Infrastructure;
 
   public class BlockStrategy

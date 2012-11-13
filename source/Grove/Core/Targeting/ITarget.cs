@@ -1,12 +1,12 @@
 ﻿namespace Grove.Core.Targeting
 {
   using System;
-  using Controllers.Scenario;
-  using Details.Cards;
-  using Details.Cards.Effects;
-  using Details.Cards.Modifiers;
-  using Details.Mana;
+  using Cards;
+  using Cards.Effects;
+  using Cards.Modifiers;
+  using Decisions.Scenario;
   using Infrastructure;
+  using Mana;
   using Zones;
 
   public interface ITarget : IHashable {}

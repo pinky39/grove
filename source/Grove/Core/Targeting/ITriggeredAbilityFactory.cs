@@ -1,6 +1,6 @@
 ﻿namespace Grove.Core.Targeting
 {
-  using Details.Cards;
+  using Cards;
 
   public interface ITriggeredAbilityFactory
   {

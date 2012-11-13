@@ -1,8 +1,8 @@
-﻿namespace Grove.Core.Details.Cards.Triggers
+﻿namespace Grove.Core.Cards.Triggers
 {
   using System;
-  using Infrastructure;
-  using Messages;
+  using Grove.Infrastructure;
+  using Grove.Core.Messages;
 
   public class SpellWasCast : Trigger, IReceive<PlayerHasCastASpell>
   {

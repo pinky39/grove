@@ -3,9 +3,9 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Details.Cards.Effects;
-  using Core.Details.Cards.Modifiers;
-  using Core.Details.Cards.Triggers;
+  using Core.Cards.Effects;
+  using Core.Cards.Modifiers;
+  using Core.Cards.Triggers;
   using Core.Dsl;
   using Core.Targeting;
   using Core.Zones;
@@ -24,7 +24,7 @@
         .Targets(
           selectorAi: TargetSelectorAi.ReducePower(2),
           effectValidator: Validator(Validators.EnchantedCreature()))
-        .Effect<Attach>(
+        .Effect<Core.Cards.Effects.Attach>(
           p => p.Effect.Modifiers(Modifier<AddPowerAndToughness>(m => m.Power = -2)))
         .Abilities(
           TriggeredAbility(

@@ -1,10 +1,10 @@
-﻿namespace Grove.Core.Controllers.Human
+﻿namespace Grove.Core.Decisions.Human
 {
-  using Ui;
-  using Ui.SelectEffectChoice;
-  using Ui.Shell;
+  using Grove.Ui;
+  using Grove.Ui.SelectEffectChoice;
+  using Grove.Ui.Shell;
 
-  public class ChooseEffectOptions : Controllers.ChooseEffectOptions
+  public class ChooseEffectOptions : Decisions.ChooseEffectOptions
   {
     public ViewModel.IFactory EffectChoiceDialog { get; set; }
     public IShell Shell { get; set; }

@@ -1,9 +1,9 @@
-﻿namespace Grove.Core.Controllers
+﻿namespace Grove.Core.Decisions
 {
-  using Details.Cards;
-  using Details.Cards.Effects;
+  using Cards;
+  using Cards.Effects;
+  using Grove.Core.Targeting;
   using Results;
-  using Targeting;
 
   public abstract class SetTriggeredAbilityTarget : Decision<ChosenTargets>
   {

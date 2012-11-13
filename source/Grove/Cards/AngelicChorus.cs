@@ -3,8 +3,7 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Details.Cards.Effects;
-  using Core.Details.Cards.Triggers;
+  using Core.Cards.Triggers;
   using Core.Dsl;
   using Core.Messages;
   using Core.Zones;
@@ -28,7 +27,7 @@
                 t.Filter = (ability, card) => ability.Controller == card.Controller && card.Is().Creature;
                 t.To = Zone.Battlefield;
               }),
-            Effect<GainLife>(p =>
+            Effect<Core.Cards.Effects.GainLife>(p =>
               p.Effect.Amount = p.Parameters
                 .Trigger<CardChangedZone>()
                 .Card.Toughness.GetValueOrDefault()),

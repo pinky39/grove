@@ -1,10 +1,10 @@
-﻿namespace Grove.Core.Controllers
+﻿namespace Grove.Core.Decisions
 {
   using System;
   using System.Collections.Generic;
   using System.Linq;
   using System.Reflection;
-  using Infrastructure;
+  using Grove.Infrastructure;
   using Scenario;
 
   public class DecisionSystem

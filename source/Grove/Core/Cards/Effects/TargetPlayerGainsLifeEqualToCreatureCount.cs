@@ -1,7 +1,7 @@
-﻿namespace Grove.Core.Details.Cards.Effects
+﻿namespace Grove.Core.Cards.Effects
 {
   using System.Linq;
-  using Targeting;
+  using Grove.Core.Targeting;
 
   public class TargetPlayerGainsLifeEqualToCreatureCount : Effect
   {

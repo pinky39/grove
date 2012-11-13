@@ -1,6 +1,6 @@
-﻿namespace Grove.Core.Controllers
+﻿namespace Grove.Core.Decisions
 {
-  using Infrastructure;
+  using Grove.Infrastructure;
 
   [Copyable]
   public class DecisionQueue

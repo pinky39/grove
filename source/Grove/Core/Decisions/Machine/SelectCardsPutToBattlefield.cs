@@ -1,6 +1,6 @@
-﻿namespace Grove.Core.Controllers.Machine
+﻿namespace Grove.Core.Decisions.Machine
 {
-  public class SelectCardsPutToBattlefield : Controllers.SelectCardsPutToBattlefield
+  public class SelectCardsPutToBattlefield : Decisions.SelectCardsPutToBattlefield
   {
     protected override void ExecuteQuery()
     {

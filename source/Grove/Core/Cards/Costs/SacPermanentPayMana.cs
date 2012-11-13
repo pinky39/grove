@@ -1,7 +1,7 @@
-﻿namespace Grove.Core.Details.Cards.Costs
+﻿namespace Grove.Core.Cards.Costs
 {
+  using Grove.Core.Targeting;
   using Mana;
-  using Targeting;
 
   public class SacPermanentPayMana : SacPermanent
   {

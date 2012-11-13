@@ -1,7 +1,7 @@
-﻿namespace Grove.Core.Controllers
+﻿namespace Grove.Core.Decisions
 {
   using System;
-  using Details.Mana;
+  using Mana;
   using Results;
 
   public abstract class PayOr : Decision<BooleanResult>

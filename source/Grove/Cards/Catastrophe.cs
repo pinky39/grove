@@ -4,8 +4,8 @@
   using System.Linq;
   using Core;
   using Core.Ai;
-  using Core.Controllers.Results;
-  using Core.Details.Cards.Effects;
+  using Core.Cards.Effects;
+  using Core.Decisions.Results;
   using Core.Dsl;
 
   public class Catastrophe : CardsSource

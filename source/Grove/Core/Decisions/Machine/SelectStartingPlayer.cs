@@ -1,8 +1,8 @@
-﻿namespace Grove.Core.Controllers.Machine
+﻿namespace Grove.Core.Decisions.Machine
 {
   using Results;
 
-  public class SelectStartingPlayer : Controllers.SelectStartingPlayer
+  public class SelectStartingPlayer : Decisions.SelectStartingPlayer
   {
     protected override void ExecuteQuery()
     {

@@ -1,7 +1,7 @@
-﻿namespace Grove.Core.Details.Cards
+﻿namespace Grove.Core.Cards
 {
-  using Ai;
-  using Targeting;
+  using Grove.Core.Ai;
+  using Grove.Core.Targeting;
 
   public class SpellPrerequisites
   {

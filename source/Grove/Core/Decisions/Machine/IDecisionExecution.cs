@@ -1,4 +1,4 @@
-﻿namespace Grove.Core.Controllers.Machine
+﻿namespace Grove.Core.Decisions.Machine
 {
   public interface IDecisionExecution
   {

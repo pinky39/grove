@@ -1,12 +1,12 @@
-﻿namespace Grove.Core.Details.Cards
+﻿namespace Grove.Core.Cards
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Ai;
   using Effects;
-  using Infrastructure;
-  using Targeting;
-  using Zones;
+  using Grove.Core.Ai;
+  using Grove.Infrastructure;
+  using Grove.Core.Targeting;
+  using Grove.Core.Zones;
 
   [Copyable]
   public abstract class Ability : IEffectSource

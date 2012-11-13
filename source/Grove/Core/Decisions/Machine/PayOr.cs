@@ -1,6 +1,6 @@
-﻿namespace Grove.Core.Controllers.Machine
+﻿namespace Grove.Core.Decisions.Machine
 {
-  public class PayOr : Controllers.PayOr
+  public class PayOr : Decisions.PayOr
   {
     protected override void ExecuteQuery()
     {

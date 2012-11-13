@@ -1,6 +1,5 @@
-﻿namespace Grove.Core.Details.Cards.Effects
+﻿namespace Grove.Core.Cards.Effects
 {
-  using Ai;
   using Modifiers;
 
   public class DealDamageToActivePlayer : Effect

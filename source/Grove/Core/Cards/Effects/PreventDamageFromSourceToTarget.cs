@@ -1,8 +1,8 @@
-﻿namespace Grove.Core.Details.Cards.Effects
+﻿namespace Grove.Core.Cards.Effects
 {
+  using Grove.Core.Targeting;
   using Modifiers;
   using Preventions;
-  using Targeting;
 
   public class PreventDamageFromSourceToTarget : Effect
   {

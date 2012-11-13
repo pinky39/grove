@@ -1,7 +1,7 @@
-﻿namespace Grove.Core.Details.Cards.Costs
+﻿namespace Grove.Core.Cards.Costs
 {
   using System.Linq;
-  using Targeting;
+  using Grove.Core.Targeting;
 
   public class SacPermanent : Cost
   {

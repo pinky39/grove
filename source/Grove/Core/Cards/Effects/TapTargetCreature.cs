@@ -1,6 +1,6 @@
-﻿namespace Grove.Core.Details.Cards.Effects
+﻿namespace Grove.Core.Cards.Effects
 {
-  using Targeting;
+  using Grove.Core.Targeting;
 
   public class TapTargetCreature : Effect
   {    

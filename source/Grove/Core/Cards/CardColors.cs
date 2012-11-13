@@ -1,6 +1,6 @@
-﻿namespace Grove.Core.Details.Cards
+﻿namespace Grove.Core.Cards
 {
-  using Infrastructure;
+  using Grove.Infrastructure;
   using Mana;
   using Modifiers;
 

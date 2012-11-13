@@ -1,9 +1,9 @@
-﻿namespace Grove.Core.Details.Cards.Effects
+﻿namespace Grove.Core.Cards.Effects
 {
   using System.Collections.Generic;
+  using Grove.Core.Targeting;
+  using Grove.Core.Zones;
   using Modifiers;
-  using Targeting;
-  using Zones;
 
   public class ApplyModifiersToSelfAndToTargets : Effect
   {

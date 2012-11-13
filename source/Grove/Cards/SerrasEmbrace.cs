@@ -3,9 +3,9 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Details.Cards;
-  using Core.Details.Cards.Effects;
-  using Core.Details.Cards.Modifiers;
+  using Core.Cards;
+  using Core.Cards.Effects;
+  using Core.Cards.Modifiers;
   using Core.Dsl;
   using Core.Targeting;
 

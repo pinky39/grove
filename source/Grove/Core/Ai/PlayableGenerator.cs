@@ -4,8 +4,8 @@
   using System.Collections;
   using System.Collections.Generic;
   using System.Linq;
-  using Controllers.Results;
-  using Details.Cards;
+  using Cards;
+  using Decisions.Results;
 
   public class PlayableGenerator : IEnumerable<Playable>
   {
@@ -48,7 +48,7 @@
             continue;
 
           foreach (var playable in GeneratePlayables(
-            card, prerequisites, p => new Controllers.Results.Ability(card, p, abilityIndex)))
+            card, prerequisites, p => new Decisions.Results.Ability(card, p, abilityIndex)))
           {
             yield return playable;
           }

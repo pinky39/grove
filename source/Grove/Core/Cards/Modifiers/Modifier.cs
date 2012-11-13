@@ -1,13 +1,13 @@
-﻿namespace Grove.Core.Details.Cards.Modifiers
+﻿namespace Grove.Core.Cards.Modifiers
 {
   using System;
   using System.Collections.Generic;
   using Counters;
-  using Dsl;
-  using Infrastructure;
+  using Grove.Core.Dsl;
+  using Grove.Infrastructure;
+  using Grove.Core.Targeting;
   using Preventions;
   using Redirections;
-  using Targeting;  
 
   [Copyable]
   public abstract class Modifier : IModifier, ICopyContributor

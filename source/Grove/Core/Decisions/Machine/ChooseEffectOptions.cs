@@ -1,8 +1,6 @@
-﻿namespace Grove.Core.Controllers.Machine
+﻿namespace Grove.Core.Decisions.Machine
 {
-  using System;
-
-  public class ChooseEffectOptions : Controllers.ChooseEffectOptions
+  public class ChooseEffectOptions : Decisions.ChooseEffectOptions
   {
     protected override void ExecuteQuery()
     {

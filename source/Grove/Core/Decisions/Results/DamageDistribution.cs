@@ -1,8 +1,8 @@
-﻿namespace Grove.Core.Controllers.Results
+﻿namespace Grove.Core.Decisions.Results
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Infrastructure;
+  using Grove.Infrastructure;
 
   [Copyable]
   public class DamageDistribution

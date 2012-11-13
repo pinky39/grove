@@ -1,4 +1,4 @@
-﻿namespace Grove.Core.Details.Cards
+﻿namespace Grove.Core.Cards
 {
   public interface INeedsGameContext
   {

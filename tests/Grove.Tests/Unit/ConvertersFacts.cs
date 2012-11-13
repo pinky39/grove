@@ -1,6 +1,6 @@
 ﻿namespace Grove.Tests.Unit
 {
-  using Core.Details.Mana;
+  using Core.Mana;
   using Grove.Core;
   using Grove.Ui;
   using Xunit;

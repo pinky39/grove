@@ -1,8 +1,8 @@
-﻿namespace Grove.Core.Details.Mana
+﻿namespace Grove.Core.Mana
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Infrastructure;
+  using Grove.Infrastructure;
 
   [Copyable]
   public class ManaSources

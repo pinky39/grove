@@ -3,8 +3,7 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Details.Cards.Effects;
-  using Core.Details.Cards.Triggers;
+  using Core.Cards.Triggers;
   using Core.Dsl;
   using Core.Messages;
 
@@ -31,7 +30,7 @@
                 t.ToAnyCreature();
                 t.ToOpponent();
               }),
-            Effect<DealExistingDamageToController>(p =>
+            Effect<Core.Cards.Effects.DealExistingDamageToController>(p =>
               {
                 p.Effect.Damage = p.Parameters
                   .Trigger<DamageHasBeenDealt>()

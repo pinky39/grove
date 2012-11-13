@@ -1,10 +1,10 @@
-﻿namespace Grove.Core.Controllers.Machine
+﻿namespace Grove.Core.Decisions.Machine
 {
   using System.Collections.Generic;
   using System.Linq;
   using Results;
 
-  public class AssignCombatDamage : Controllers.AssignCombatDamage
+  public class AssignCombatDamage : Decisions.AssignCombatDamage
   {
     protected override void ExecuteQuery()
     {

@@ -2,7 +2,7 @@
 {
   using System;
   using Core;
-  using Core.Details.Cards.Effects;
+  using Core.Cards.Effects;
   using Core.Targeting;
   using Core.Zones;
   using Infrastructure;

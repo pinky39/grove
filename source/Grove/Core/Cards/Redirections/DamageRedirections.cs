@@ -1,7 +1,7 @@
-﻿namespace Grove.Core.Details.Cards.Redirections
+﻿namespace Grove.Core.Cards.Redirections
 {
   using System.Linq;
-  using Infrastructure;
+  using Grove.Infrastructure;
   using Modifiers;
 
   [Copyable]

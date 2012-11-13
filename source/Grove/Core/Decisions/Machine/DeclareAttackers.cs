@@ -1,11 +1,11 @@
-﻿namespace Grove.Core.Controllers.Machine
+﻿namespace Grove.Core.Decisions.Machine
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Ai;
+  using Grove.Core.Ai;
   using Results;
 
-  public class DeclareAttackers : Controllers.DeclareAttackers, ISearchNode, IDecisionExecution
+  public class DeclareAttackers : Decisions.DeclareAttackers, ISearchNode, IDecisionExecution
   {
     private List<List<Card>> _declarations;
     private DecisionExecutor _executor;

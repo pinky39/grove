@@ -1,10 +1,9 @@
-﻿namespace Grove.Core.Details.Mana
+﻿namespace Grove.Core.Mana
 {
-  using System;
   using System.Collections;
   using System.Collections.Generic;
   using System.Linq;
-  using Infrastructure;
+  using Grove.Infrastructure;
 
   [Copyable]
   public class ManaBag : IEnumerable<ManaUnit>

@@ -1,8 +1,8 @@
-﻿namespace Grove.Core.Controllers
+﻿namespace Grove.Core.Decisions
 {
   using System;
   using System.Collections.Generic;
-  using Details.Cards.Effects;
+  using Cards.Effects;
   using Results;
 
   public abstract class ChooseEffectOptions : Decision<ChosenOptions>

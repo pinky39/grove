@@ -2,7 +2,7 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Core.Details.Cards.Effects;
+  using Core.Cards.Effects;
 
   public class EffectChoiceViewModel
   {

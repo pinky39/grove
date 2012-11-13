@@ -1,9 +1,9 @@
-﻿namespace Grove.Core.Controllers.Human
+﻿namespace Grove.Core.Decisions.Human
 {
   using System.Windows;
-  using Ui.Shell;
+  using Grove.Ui.Shell;
 
-  public class TakeMulligan : Controllers.TakeMulligan
+  public class TakeMulligan : Decisions.TakeMulligan
   {
     public IShell Shell { get; set; }
 

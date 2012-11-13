@@ -1,6 +1,6 @@
 ﻿namespace Grove.Core
 {
-  using Details.Mana;
+  using Mana;
 
   public interface IHasColors
   {

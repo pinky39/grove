@@ -15,7 +15,7 @@
   using Castle.MicroKernel.SubSystems.Configuration;
   using Castle.Windsor;
   using Core;
-  using Core.Controllers;
+  using Core.Decisions;
   using Core.Dsl;
   using Infrastructure;
   using Ui.DistributeDamage;
@@ -157,7 +157,7 @@
         container.Register(Component(typeof (IUiDecisionFactory), lifestyle: LifestyleType.Singleton).AsFactory());
 
         container.Register(Classes.FromThisAssembly()
-          .Where(x => x.Namespace.Equals(typeof (Core.Controllers.Human.TakeMulligan).Namespace) &&
+          .Where(x => x.Namespace.Equals(typeof (Core.Decisions.Human.TakeMulligan).Namespace) &&
             x.Implements<IDecision>())
           .WithServiceSelect((type, baseTypes) => new[] {type.BaseType})
           .LifestyleTransient());

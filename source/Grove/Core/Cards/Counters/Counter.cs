@@ -1,7 +1,7 @@
-﻿namespace Grove.Core.Details.Cards.Counters
+﻿namespace Grove.Core.Cards.Counters
 {
-  using Dsl;
-  using Infrastructure;
+  using Grove.Core.Dsl;
+  using Grove.Infrastructure;
 
   [Copyable]
   public abstract class Counter

@@ -2,8 +2,8 @@
 {
   using System.Collections.Generic;
   using Ai;
-  using Details.Cards;
-  using Details.Cards.Effects;
+  using Cards;
+  using Cards.Effects;
 
 
   public delegate void Initializer<in T>(T target);

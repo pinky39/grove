@@ -1,4 +1,4 @@
-﻿namespace Grove.Core.Controllers.Results
+﻿namespace Grove.Core.Decisions.Results
 {
   public class Pass : Playable
   {

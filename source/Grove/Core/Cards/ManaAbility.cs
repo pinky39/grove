@@ -1,7 +1,7 @@
-﻿namespace Grove.Core.Details.Cards
+﻿namespace Grove.Core.Cards
 {
-  using Dsl;
   using Effects;
+  using Grove.Core.Dsl;
   using Mana;
 
   public class ManaAbility : ActivatedAbility, IManaSource

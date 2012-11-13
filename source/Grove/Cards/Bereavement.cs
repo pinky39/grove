@@ -3,10 +3,9 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Details.Cards.Effects;
-  using Core.Details.Cards.Triggers;
-  using Core.Details.Mana;
+  using Core.Cards.Triggers;
   using Core.Dsl;
+  using Core.Mana;
   using Core.Messages;
   using Core.Zones;
 
@@ -30,7 +29,7 @@
                 t.From = Zone.Battlefield;
                 t.To = Zone.Graveyard;
               }),
-            Effect<DiscardCards>(p =>
+            Effect<Core.Cards.Effects.DiscardCards>(p =>
               p.Effect.ChosenPlayer = p.Parameters
                 .Trigger<CardChangedZone>()
                 .Card.Controller),

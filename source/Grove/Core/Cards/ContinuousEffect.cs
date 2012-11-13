@@ -1,12 +1,12 @@
-﻿namespace Grove.Core.Details.Cards
+﻿namespace Grove.Core.Cards
 {
   using System.Linq;
-  using Dsl;
-  using Infrastructure;
-  using Messages;
+  using Grove.Core.Dsl;
+  using Grove.Infrastructure;
+  using Grove.Core.Messages;
+  using Grove.Core.Targeting;
+  using Grove.Core.Zones;
   using Modifiers;
-  using Targeting;
-  using Zones;
 
   [Copyable]
   public class ContinuousEffect : IReceive<CardChangedZone>, IReceive<PermanentWasModified>

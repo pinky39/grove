@@ -1,8 +1,8 @@
-﻿namespace Grove.Core.Controllers.Scenario
+﻿namespace Grove.Core.Decisions.Scenario
 {
   using Results;
 
-  public class PlaySpellOrAbility : Controllers.PlaySpellOrAbility, IScenarioDecision
+  public class PlaySpellOrAbility : Decisions.PlaySpellOrAbility, IScenarioDecision
   {
     public static PlaySpellOrAbility Pass
     {

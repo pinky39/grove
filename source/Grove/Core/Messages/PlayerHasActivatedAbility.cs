@@ -2,7 +2,7 @@
 {
   using System.Collections.Generic;
   using System.Text;
-  using Details.Cards;
+  using Cards;
   using Targeting;
 
   public class PlayerHasActivatedAbility

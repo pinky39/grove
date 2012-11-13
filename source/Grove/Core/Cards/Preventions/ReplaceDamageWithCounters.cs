@@ -1,8 +1,8 @@
-﻿namespace Grove.Core.Details.Cards.Preventions
+﻿namespace Grove.Core.Cards.Preventions
 {
   using Counters;
+  using Grove.Core.Targeting;
   using Modifiers;
-  using Targeting;
 
   public class ReplaceDamageWithCounters : DamagePrevention
   {

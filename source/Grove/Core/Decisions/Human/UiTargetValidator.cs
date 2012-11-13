@@ -1,7 +1,7 @@
-﻿namespace Grove.Core.Controllers.Human
+﻿namespace Grove.Core.Decisions.Human
 {
   using System;
-  using Targeting;
+  using Grove.Core.Targeting;
 
   public class UiTargetValidator : ITargetValidator
   {

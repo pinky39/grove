@@ -2,7 +2,7 @@
 {
   using System;
   using System.Linq;
-  using Details.Mana;
+  using Mana;
   using Targeting;
 
   public delegate int CalculateX(XCalculatorParameters parameters);

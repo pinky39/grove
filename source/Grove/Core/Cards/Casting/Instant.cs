@@ -1,7 +1,7 @@
-﻿namespace Grove.Core.Details.Cards.Casting
+﻿namespace Grove.Core.Cards.Casting
 {
   using Effects;
-  using Zones;
+  using Grove.Core.Zones;
 
   public class Instant : CastingRule
   {

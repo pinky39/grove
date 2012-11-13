@@ -1,9 +1,9 @@
-﻿namespace Grove.Core.Details.Cards.Effects
+﻿namespace Grove.Core.Cards.Effects
 {
   using System;
   using System.Collections.Generic;
+  using Grove.Core.Targeting;
   using Modifiers;
-  using Targeting;
 
   public class ApplyModifiersToCreatures : Effect
   {

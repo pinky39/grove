@@ -1,13 +1,13 @@
-﻿namespace Grove.Core.Controllers.Machine
+﻿namespace Grove.Core.Decisions.Machine
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Ai;
-  using Infrastructure;
+  using Grove.Core.Ai;
+  using Grove.Infrastructure;
+  using Grove.Core.Targeting;
   using Results;
-  using Targeting;
 
-  public class SetTriggeredAbilityTarget : Controllers.SetTriggeredAbilityTarget, ISearchNode, IDecisionExecution
+  public class SetTriggeredAbilityTarget : Decisions.SetTriggeredAbilityTarget, ISearchNode, IDecisionExecution
   {
     private DecisionExecutor _executor;
     private List<Targets> _targets;    

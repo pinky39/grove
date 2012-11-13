@@ -1,7 +1,7 @@
-﻿namespace Grove.Core.Details.Cards.Effects
+﻿namespace Grove.Core.Cards.Effects
 {
-  using Controllers;
-  using Zones;
+  using Grove.Core.Decisions;
+  using Grove.Core.Zones;
 
   public class EachPlayerReturnsCardFromGraveyardToBattlefield : Effect
   {

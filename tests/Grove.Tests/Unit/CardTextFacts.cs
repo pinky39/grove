@@ -1,8 +1,8 @@
 ﻿namespace Grove.Tests.Unit
 {
   using System;
-  using System.Linq;  
-  using Core.Details.Cards;  
+  using System.Linq;
+  using Core.Cards;
   using Xunit;
 
   public class CardTextFacts

@@ -1,8 +1,8 @@
-﻿namespace Grove.Core.Details.Cards.Effects
+﻿namespace Grove.Core.Cards.Effects
 {
   using System.Linq;
+  using Grove.Core.Targeting;
   using Modifiers;
-  using Targeting;
 
   public class DealDamageToTargets : Effect
   {

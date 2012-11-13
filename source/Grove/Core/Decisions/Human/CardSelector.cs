@@ -1,10 +1,10 @@
-﻿namespace Grove.Core.Controllers.Human
+﻿namespace Grove.Core.Decisions.Human
 {
+  using Grove.Core.Targeting;
+  using Grove.Ui;
+  using Grove.Ui.SelectTarget;
+  using Grove.Ui.Shell;
   using Results;
-  using Targeting;
-  using Ui;
-  using Ui.SelectTarget;
-  using Ui.Shell;
 
   public class CardSelector
   {

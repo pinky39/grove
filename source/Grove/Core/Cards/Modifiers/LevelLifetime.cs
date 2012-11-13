@@ -1,7 +1,7 @@
-﻿namespace Grove.Core.Details.Cards.Modifiers
+﻿namespace Grove.Core.Cards.Modifiers
 {
-  using Infrastructure;
-  using Messages;
+  using Grove.Infrastructure;
+  using Grove.Core.Messages;
 
   public class LevelLifetime : Lifetime, IReceive<CardChangedLevel>
   {

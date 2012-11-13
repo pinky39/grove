@@ -1,13 +1,13 @@
-﻿namespace Grove.Core.Controllers.Human
+﻿namespace Grove.Core.Decisions.Human
 {
   using System;
   using System.Linq;
-  using Ui;
-  using Ui.SelectTarget;
-  using Ui.Shell;
-  using Zones;
+  using Grove.Ui;
+  using Grove.Ui.SelectTarget;
+  using Grove.Ui.Shell;
+  using Grove.Core.Zones;
 
-  public class DiscardCards : Controllers.DiscardCards
+  public class DiscardCards : Decisions.DiscardCards
   {
     public IShell Shell { get; set; }
     public ViewModel.IFactory DialogFactory { get; set; }

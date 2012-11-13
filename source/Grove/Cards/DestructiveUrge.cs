@@ -3,8 +3,7 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Details.Cards.Effects;
-  using Core.Details.Cards.Triggers;
+  using Core.Cards.Triggers;
   using Core.Dsl;
   using Core.Messages;
   using Core.Targeting;
@@ -21,7 +20,7 @@
           "{Enchant creature}{EOL}Whenever enchanted creature deals combat damage to a player, that player sacrifices a land.")
         .FlavorText("Red sky at night, dragon's delight.")
         .Timing(Timings.FirstMain())
-        .Effect<Attach>()
+        .Effect<Core.Cards.Effects.Attach>()
         .Targets(
           selectorAi: TargetSelectorAi.CombatEnchantment(),
           effectValidator: Validator(Validators.EnchantedCreature()))
@@ -34,7 +33,7 @@
                 t.UseAttachedToAsTriggerSource = true;
                 t.ToPlayer();
               }),
-            Effect<PlayersSacrificeLands>(
+            Effect<Core.Cards.Effects.PlayersSacrificeLands>(
               p =>
                 {
                   p.Effect.OnlyPlayer = (Player) p.Parameters.Trigger<DamageHasBeenDealt>().Receiver;

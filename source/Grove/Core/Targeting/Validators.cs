@@ -3,7 +3,6 @@
   using System;
   using System.Linq;
   using Ai;
-  using Details.Cards.Effects;
   using Zones;
 
   public static class Validators

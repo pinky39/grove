@@ -4,15 +4,15 @@
   using System.Collections.Generic;
   using System.Linq;
   using Ai;
-  using Details.Cards;
-  using Details.Cards.Costs;
-  using Details.Cards.Counters;
-  using Details.Cards.Effects;
-  using Details.Cards.Modifiers;
-  using Details.Cards.Preventions;
-  using Details.Cards.Redirections;
-  using Details.Cards.Triggers;
-  using Details.Mana;
+  using Cards;
+  using Cards.Costs;
+  using Cards.Counters;
+  using Cards.Effects;
+  using Cards.Modifiers;
+  using Cards.Preventions;
+  using Cards.Redirections;
+  using Cards.Triggers;
+  using Mana;
   using Targeting;
   using Zones;
 
@@ -23,7 +23,7 @@
     public IActivatedAbilityFactory ActivatedAbility(
       string text,
       ICostFactory cost,
-      IEffectFactory effect,
+      Cards.Effects.IEffectFactory effect,
       ITargetValidatorFactory effectValidator = null,
       ITargetValidatorFactory costValidator = null,
       TargetSelectorAiDelegate selectorAi = null,
@@ -53,7 +53,7 @@
     public IActivatedAbilityFactory ActivatedAbility(
       string text,
       ICostFactory cost,
-      IEffectFactory effect,
+      Cards.Effects.IEffectFactory effect,
       ITargetValidatorFactory[] effectValidators,
       ITargetValidatorFactory costValidator = null,
       TargetSelectorAiDelegate selectorAi = null,
@@ -112,7 +112,7 @@
         };
     }
 
-    public IEffectFactory Effect<T>(Action<T> init = null) where T : Effect, new()
+    public Cards.Effects.IEffectFactory Effect<T>(Action<T> init = null) where T : Cards.Effects.Effect, new()
     {
       init = init ?? delegate { };
 

@@ -1,10 +1,10 @@
-﻿namespace Grove.Core.Controllers.Human
+﻿namespace Grove.Core.Decisions.Human
 {
+  using Grove.Ui.DamageOrder;
+  using Grove.Ui.Shell;
   using Results;
-  using Ui.DamageOrder;
-  using Ui.Shell;
 
-  public class SetDamageAssignmentOrder : Controllers.SetDamageAssignmentOrder
+  public class SetDamageAssignmentOrder : Decisions.SetDamageAssignmentOrder
   {
     public ViewModel.IFactory DialogFactory { get; set; }
     public IShell Shell { get; set; }

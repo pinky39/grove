@@ -1,6 +1,6 @@
 ﻿namespace Grove.Ui.Priority
 {
-  using Core.Controllers.Results;
+  using Core.Decisions.Results;
   using Infrastructure;
   using Shell;
 

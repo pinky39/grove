@@ -1,6 +1,6 @@
-﻿namespace Grove.Core.Details.Cards.Effects
+﻿namespace Grove.Core.Cards.Effects
 {
-  using Infrastructure;
+  using Grove.Infrastructure;
 
   public interface IEffectFactory : IHashable
   {

@@ -1,4 +1,4 @@
-﻿namespace Grove.Core.Details.Cards.Effects
+﻿namespace Grove.Core.Cards.Effects
 {
   public class DealDamageToOpponentEqualToCardDifference : Effect
   {

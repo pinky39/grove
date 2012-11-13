@@ -1,7 +1,7 @@
-﻿namespace Grove.Core.Details.Cards.Modifiers
+﻿namespace Grove.Core.Cards.Modifiers
 {
   using System;
-  using Infrastructure;
+  using Grove.Infrastructure;
 
   public class DependantLifetime : Lifetime, ICopyContributor
   {

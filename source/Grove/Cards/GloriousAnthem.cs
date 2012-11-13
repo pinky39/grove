@@ -3,7 +3,7 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Details.Cards.Modifiers;
+  using Core.Cards.Modifiers;
   using Core.Dsl;
 
   public class GloriousAnthem : CardsSource

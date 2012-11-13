@@ -1,6 +1,6 @@
-﻿namespace Grove.Core.Controllers.Results
+﻿namespace Grove.Core.Decisions.Results
 {
-  using Targeting;
+  using Grove.Core.Targeting;
 
   public class ChosenTargets
   {

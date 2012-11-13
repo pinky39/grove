@@ -1,12 +1,12 @@
-﻿namespace Grove.Core.Controllers.Scenario
+﻿namespace Grove.Core.Decisions.Scenario
 {
   using System;
   using System.Collections.Generic;
   using System.Diagnostics;
   using System.Linq;
-  using Details.Cards;
+  using Cards;
+  using Grove.Core.Targeting;
   using Results;
-  using Targeting;
 
   public class DecisionsForOneStep
   {

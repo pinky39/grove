@@ -4,9 +4,9 @@
   using System.Linq;
   using Core;
   using Core.Ai;
-  using Core.Details.Cards.Effects;
-  using Core.Details.Mana;
+  using Core.Cards.Effects;
   using Core.Dsl;
+  using Core.Mana;
   using Infrastructure;
 
   public class RootboundCrag : CardsSource

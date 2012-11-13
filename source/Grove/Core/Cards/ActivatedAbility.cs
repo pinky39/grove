@@ -1,16 +1,16 @@
-﻿namespace Grove.Core.Details.Cards
+﻿namespace Grove.Core.Cards
 {
   using System;
   using System.Linq;
-  using Ai;
   using Costs;
   using Effects;
-  using Infrastructure;
+  using Grove.Core.Ai;
+  using Grove.Infrastructure;
+  using Grove.Core.Messages;
+  using Grove.Core.Targeting;
+  using Grove.Core.Zones;
   using Mana;
-  using Messages;
-  using Targeting;
-  using Zones;  
-  
+
   public class ActivatedAbility : Ability
   {
     public Zone ActivationZone = Zone.Battlefield;

@@ -1,9 +1,9 @@
-﻿namespace Grove.Core.Details.Cards.Costs
+﻿namespace Grove.Core.Cards.Costs
 {
-  using Ai;
-  using Dsl;
-  using Infrastructure;
-  using Targeting;
+  using Grove.Core.Ai;
+  using Grove.Core.Dsl;
+  using Grove.Infrastructure;
+  using Grove.Core.Targeting;
 
   [Copyable]
   public abstract class Cost : IHashable

@@ -1,13 +1,8 @@
-﻿namespace Grove.Core.Details.Cards.Effects
+﻿namespace Grove.Core.Cards.Effects
 {
-  using System;
   using System.Linq;
-  using System.Windows;
-  using Controllers;  
-  using Controllers.Results;
-  using Infrastructure;
-  using Targeting;
-  using Ui;
+  using Grove.Core.Decisions;
+  using Grove.Core.Decisions.Results;
 
   public class PutOnTopOfLibraryUnlessOpponentSacsLand : Effect, IProcessDecisionResults<ChosenCards>
   {

@@ -1,7 +1,7 @@
-﻿namespace Grove.Core.Controllers.Results
+﻿namespace Grove.Core.Decisions.Results
 {
   using System.Collections.Generic;
-  using Infrastructure;
+  using Grove.Infrastructure;
 
   [Copyable]
   public class DamageAssignmentOrder

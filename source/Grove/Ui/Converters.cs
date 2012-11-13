@@ -8,7 +8,7 @@
   using System.Windows;  
   using System.Windows.Data;
   using System.Windows.Media;
-  using Core.Details.Mana;
+  using Core.Mana;
   using Infrastructure;
 
   public static class Converters

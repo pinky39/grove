@@ -3,9 +3,9 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Details.Cards.Costs;
-  using Core.Details.Mana;
+  using Core.Cards.Costs;
   using Core.Dsl;
+  using Core.Mana;
 
   public class BloodVassal : CardsSource
   {

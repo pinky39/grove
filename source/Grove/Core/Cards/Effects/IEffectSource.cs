@@ -1,8 +1,8 @@
-﻿namespace Grove.Core.Details.Cards.Effects
+﻿namespace Grove.Core.Cards.Effects
 {
-  using Ai;
-  using Infrastructure;
-  using Targeting;
+  using Grove.Core.Ai;
+  using Grove.Infrastructure;
+  using Grove.Core.Targeting;
 
   public interface IEffectSource : IHashable
   {

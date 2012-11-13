@@ -1,7 +1,7 @@
-﻿namespace Grove.Core.Details.Cards.Preventions
+﻿namespace Grove.Core.Cards.Preventions
 {
   using System.Linq;
-  using Targeting;
+  using Grove.Core.Targeting;
 
   public class PreventLifelossBelowOne : DamagePrevention
   {

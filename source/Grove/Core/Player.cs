@@ -3,12 +3,12 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Details.Cards;
-  using Details.Cards.Modifiers;
-  using Details.Cards.Preventions;
-  using Details.Cards.Redirections;
-  using Details.Mana;
+  using Cards;
+  using Cards.Modifiers;
+  using Cards.Preventions;
+  using Cards.Redirections;
   using Infrastructure;
+  using Mana;
   using Messages;
   using Targeting;
   using Zones;

@@ -1,4 +1,4 @@
-﻿namespace Grove.Core.Details.Cards.Effects
+﻿namespace Grove.Core.Cards.Effects
 {
   using System;
 
@@ -17,7 +17,7 @@
       {
         opponent.RevealHand();
         
-        Game.Enqueue<Controllers.DiscardCards>(
+        Game.Enqueue<Decisions.DiscardCards>(
           controller: Controller,
           init: p =>
             {
@@ -37,7 +37,7 @@
       if (SelectedCount == 0) 
         return;                 
 
-      Game.Enqueue<Controllers.DiscardCards>(
+      Game.Enqueue<Decisions.DiscardCards>(
         controller: opponent,
         init: p => { 
           p.Count = SelectedCount;

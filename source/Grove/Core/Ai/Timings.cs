@@ -3,9 +3,9 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Details.Mana;
   using Dsl;
   using Infrastructure;
+  using Mana;
   using Targeting;
 
   public delegate bool TimingDelegate(TimingParameters parameters);

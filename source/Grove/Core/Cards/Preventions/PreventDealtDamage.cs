@@ -1,4 +1,4 @@
-﻿namespace Grove.Core.Details.Cards.Preventions
+﻿namespace Grove.Core.Cards.Preventions
 {
   public class PreventDealtDamage : DamagePrevention
   {
