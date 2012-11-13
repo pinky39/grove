@@ -4,9 +4,11 @@
   using System.Collections.Generic;
   using System.Collections.Specialized;
   using System.ComponentModel;
+  using System.Linq;
   using Castle.Core;
   using Castle.Facilities.TypedFactory;
-  using Castle.MicroKernel.Lifestyle;
+  using Castle.MicroKernel;
+  using Castle.MicroKernel.ModelBuilder;
   using Castle.MicroKernel.Registration;
   using Castle.MicroKernel.Resolvers;
   using Castle.MicroKernel.Resolvers.SpecializedResolvers;
@@ -17,6 +19,7 @@
   using Core.Dsl;
   using Infrastructure;
   using Ui.DistributeDamage;
+  using Ui.Permanent;
   using Ui.Shell;
 
   public class IoC
@@ -47,7 +50,7 @@
     public static IoC Ui()
     {
       return new IoC(Configuration.Ui);
-    }    
+    }
 
     public T Resolve<T>()
     {
@@ -81,6 +84,17 @@
       Test
     }
 
+    public class RequireViewModelProperties : IContributeComponentModelConstruction
+    {
+      public void ProcessModel(IKernel kernel, ComponentModel model)
+      {
+        foreach (var prop in model.Properties.Where(x => Registration.IsViewModel(x.Dependency.TargetType)))
+        {
+          prop.Dependency.IsOptional = false;
+        }
+      }
+    }
+
     private class Registration : IWindsorInstaller
     {
       private readonly Configuration _configuration;
@@ -92,6 +106,8 @@
 
       public void Install(IWindsorContainer container, IConfigurationStore store)
       {
+        container.Kernel.ComponentModelBuilder.AddContributor(new RequireViewModelProperties());
+        
         container.Kernel.Resolver.AddSubResolver(
           new CollectionResolver(container.Kernel, allowEmptyCollections: true));
 
@@ -105,9 +121,10 @@
           RegisterShell(container);
           RegisterConfiguration(container);
 
-          container.Register(Component(typeof (Match), lifestyle: LifestyleType.Singleton));          
+          container.Register(Component(typeof (Match), lifestyle: LifestyleType.Singleton));
           container.Register(Component(typeof (CardPreviews), lifestyle: LifestyleType.Singleton));
           container.Register(Component(typeof (UiDamageDistribution)));
+          container.Register(Component(typeof (CombatMarkers), lifestyle: LifestyleType.Singleton));
         }
 
         RegisterCardsSources(container);
@@ -136,20 +153,14 @@
 
       private void RegisterDecisions(IWindsorContainer container)
       {
-        container.Register(Component(typeof(DecisionSystem), lifestyle: LifestyleType.Singleton));        
-        container.Register(Component(typeof(IUiDecisionFactory), lifestyle: LifestyleType.Singleton).AsFactory());        
+        container.Register(Component(typeof (DecisionSystem), lifestyle: LifestyleType.Singleton));
+        container.Register(Component(typeof (IUiDecisionFactory), lifestyle: LifestyleType.Singleton).AsFactory());
 
-        container.Register(Classes.FromThisAssembly()          
-          .Where(x => x.Namespace.Equals(typeof(Core.Controllers.Human.TakeMulligan).Namespace) && x.Implements<IDecision>())          
+        container.Register(Classes.FromThisAssembly()
+          .Where(x => x.Namespace.Equals(typeof (Core.Controllers.Human.TakeMulligan).Namespace) &&
+            x.Implements<IDecision>())
+          .WithServiceSelect((type, baseTypes) => new[] {type.BaseType})
           .LifestyleTransient());
-      }
-
-      private static string GetDecisionName(Type implementation)
-      {
-        var ns = implementation.Namespace;
-        var category = ns.Substring(ns.LastIndexOf(".") + 1);
-
-        return String.Format("{0}#{1}", category, implementation.Name);
       }
 
       private static BasedOnDescriptor Configure(Predicate<Type> predicate, Action<ComponentRegistration> configurer)
@@ -160,7 +171,7 @@
           .Configure(configurer);
       }
 
-      private static bool IsViewModel(Type type)
+      public static bool IsViewModel(Type type)
       {
         return type.Name == "ViewModel";
       }
@@ -241,11 +252,11 @@
         container.Register(Configure(IsViewModel, registration =>
           {
             registration.LifestyleTransient();
-            
+
             // inject game into viewmodels
-            registration.DynamicParameters((k, d) => 
+            registration.DynamicParameters((k, d) =>
               d["game"] = k.Resolve<Match>().Game);
-            
+
             ImplementUiStuff(registration);
           }));
 

@@ -3,29 +3,30 @@
   using System;
   using System.Collections.Generic;
   using Caliburn.Micro;
+  using Core;
   using Core.Targeting;
   using Infrastructure;
 
   public class ViewModel : IReceive<SelectionChanged>
   {
     private readonly bool _canCancel;
-    private readonly Publisher _publisher;
+    private readonly Game _game;
     private readonly BindableCollection<ITarget> _selection = new BindableCollection<ITarget>();
     private readonly Action<ITarget> _targetSelected;
     private readonly Action<ITarget> _targetUnselected;
 
-    public ViewModel(ITargetValidator targetValidator, bool canCancel, Publisher publisher) : this(targetValidator, canCancel, null, publisher) {}
+    public ViewModel(ITargetValidator targetValidator, bool canCancel, Game game) : this(targetValidator, canCancel, null, game) {}
 
-    public ViewModel(ITargetValidator targetValidator, bool canCancel, string instructions, Publisher publisher)
-      : this(targetValidator, canCancel, instructions, null, null, publisher) {}
+    public ViewModel(ITargetValidator targetValidator, bool canCancel, string instructions, Game game)
+      : this(targetValidator, canCancel, instructions, null, null, game) {}
 
     public ViewModel(ITargetValidator targetValidator, bool canCancel, string instructions,
-      Action<ITarget> targetSelected, Action<ITarget> targetUnselected, Publisher publisher)
+      Action<ITarget> targetSelected, Action<ITarget> targetUnselected, Game game)
     {
       TargetValidator = targetValidator;
       Instructions = instructions;
       _canCancel = canCancel;
-      _publisher = publisher;      
+      _game = game;      
       _targetSelected = targetSelected ?? DefaultTargetSelected;
       _targetUnselected = targetUnselected ?? DefaultTargetUnselected;
     }
@@ -48,12 +49,12 @@
 
     private void DefaultTargetSelected(ITarget target)
     {
-      _publisher.Publish(new TargetSelected {Target = target});
+      _game.Publish(new TargetSelected {Target = target});
     }
 
     private void DefaultTargetUnselected(ITarget target)
     {
-      _publisher.Publish(new TargetUnselected {Target = target});
+      _game.Publish(new TargetUnselected {Target = target});
     }
 
     [Updates("Text")]

@@ -9,13 +9,13 @@
   {
     private readonly BlockerDamageAssignments _assignments;
     private readonly Attacker _attacker;
-    private readonly DamageDistribution _damageDistribution;
-    private readonly Publisher _publisher;
+    private readonly Game _game;
+    private readonly DamageDistribution _damageDistribution;    
     private int _damageToAssign;
 
-    public ViewModel(Publisher publisher, Attacker attacker, DamageDistribution damageDistribution)
+    public ViewModel(Game game, Attacker attacker, DamageDistribution damageDistribution)
     {
-      _publisher = publisher;
+      _game = game;
       _damageDistribution = damageDistribution;
       _assignments = new BlockerDamageAssignments(attacker);
       _attacker = attacker;
@@ -51,7 +51,7 @@
 
     public void ChangePlayersInterest(Card card)
     {
-      _publisher.Publish(new PlayersInterestChanged
+      _game.Publish(new PlayersInterestChanged
         {
           Visual = card
         });

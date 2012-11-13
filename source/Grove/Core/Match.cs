@@ -15,6 +15,7 @@
     private readonly DecisionSystem _decisionSystem;
     private readonly ViewModel.IFactory _gameResultsFactory;
     private readonly Ui.MatchResults.ViewModel.IFactory _matchResultsFactory;
+    private IShell _shell;
     private readonly Ui.PlayScreen.ViewModel.IFactory _playScreenFactory;
     private readonly Ui.StartScreen.ViewModel.IFactory _startScreenFactory;
     private readonly TaskScheduler _uiScheduler;
@@ -26,13 +27,13 @@
     private bool _rematch = true;
     private ThreadBlocker _threadBlocker;
 
-    public Match(
+    public Match(      
       Ui.PlayScreen.ViewModel.IFactory playScreenFactory,
       Ui.StartScreen.ViewModel.IFactory startScreenFactory,
       ViewModel.IFactory gameResultsFactory,
       Ui.MatchResults.ViewModel.IFactory matchResultsFactory,
       CardDatabase cardDatabase, DecisionSystem decisionSystem)
-    {
+    {      
       _playScreenFactory = playScreenFactory;
       _startScreenFactory = startScreenFactory;
       _gameResultsFactory = gameResultsFactory;
@@ -44,7 +45,7 @@
       Application.Current.Exit += delegate { ForceCurrentGameToEnd(); };
     }
 
-    public Game Game { get; private set; }
+    public Game Game { get; private set; }    
 
     public bool IsFinished
     {
@@ -57,8 +58,7 @@
     }
 
     public int Player1WinCount { get; private set; }
-    public int Player2WinCount { get; private set; }
-    public IShell Shell { get; set; }
+    public int Player2WinCount { get; private set; }    
 
     protected Player Looser
     {
@@ -85,14 +85,14 @@
     private void DisplayGameResults()
     {
       var viewModel = _gameResultsFactory.Create();
-      Shell.ShowModalDialog(viewModel);
+      _shell.ShowModalDialog(viewModel);
       _playerLeftMatch = viewModel.PlayerLeftMatch;
     }
 
     private void DisplayMatchResults()
     {
       var viewModel = _matchResultsFactory.Create();
-      Shell.ShowModalDialog(viewModel);
+      _shell.ShowModalDialog(viewModel);
       _rematch = viewModel.ShouldRematch;
     }
 
@@ -111,7 +111,7 @@
           Game = Game.New(_deck1, _deck2, _cardDatabase, _decisionSystem);
 
           var playScreen = _playScreenFactory.Create();
-          Shell.ChangeScreen(playScreen);
+          _shell.ChangeScreen(playScreen);
 
           Game.Start(looser: Looser);
 
@@ -195,7 +195,7 @@
     private void ShowStartScreen()
     {
       var startScreen = _startScreenFactory.Create();
-      Shell.ChangeScreen(startScreen);
+      _shell.ChangeScreen(startScreen);
     }
 
     private int? UpdateScore()
@@ -223,7 +223,7 @@
         Game.Stop();
       }
 
-      Shell.CloseAllDialogs();
+      _shell.CloseAllDialogs();
 
       if (!isFinished)
         WaitForGameToFinish();
@@ -237,6 +237,11 @@
         _threadBlocker.BlockUntilCompleted();
         _threadBlocker = null;
       }
+    }
+
+    public void SetShell(Shell shell)
+    {
+      _shell = shell;
     }
   }
 }

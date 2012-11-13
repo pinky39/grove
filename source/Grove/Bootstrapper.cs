@@ -6,13 +6,12 @@
   using System.Reflection;
   using System.Windows;
   using Caliburn.Micro;
-  using Castle.MicroKernel.Lifestyle.Scoped;
   using Ui.Shell;
   using Ui.StartScreen;
 
   public class Bootstrapper : Bootstrapper<IShell>
   {
-    public static IoC Container;    
+    public static IoC Container;
 
     protected override void Configure()
     {
@@ -24,7 +23,7 @@
 
     protected override void DisplayRootView()
     {
-      var shell = Container.Resolve<Shell>();
+      var shell = Container.Resolve<Shell>();      
       var start = Container.Resolve<ViewModel>();
 
       shell.ChangeScreen(start);
@@ -47,7 +46,7 @@
     {
       ConfigureViewLocator();
     }
-    
+
     private static void ConfigureViewLocator()
     {
       ViewLocator.LocateForModelType = (presenter, displayLocation, context) =>
@@ -67,6 +66,6 @@
 
           return ViewLocator.GetOrCreateViewType(viewType);
         };
-    }   
+    }
   }
 }

@@ -7,12 +7,13 @@
   public class ViewModel
   {
     private readonly Match _match;
+    
     private readonly Players _players;
 
-    public ViewModel(Match match, Players players)
+    public ViewModel(Match match, Game game)
     {
       _match = match;
-      _players = players;
+      _players = game.Players;
     }
 
     public string OpponentsResult

@@ -9,18 +9,18 @@
   public class Shell : IShell, IHaveDisplayName
   {
     private readonly Match _match;
-    private InteractionState _interactionState = InteractionState.Disabled;
+    private InteractionState _interactionState = InteractionState.Disabled;    
 
     public Shell(Match match)
     {
       _match = match;
-      _match.Shell = this;
+      _match.SetShell(this);
 
       DisplayName = "magicgrove";
     }
 
     public virtual IIsDialogHost Screen { get; protected set; }
-    public string DisplayName { get; set; }
+    public string DisplayName { get; set; }       
 
     public void CloseAllDialogs()
     {
@@ -51,7 +51,7 @@
     }
 
     public MessageBoxResult ShowMessageBox(string message, MessageBoxButton buttons,
-                                           DialogType type = DialogType.Large, string title = "")
+      DialogType type = DialogType.Large, string title = "")
     {
       var messageBox = new ViewModel(message, title, buttons, type);
       ShowModalDialog(messageBox, type, InteractionState.Disabled);
@@ -70,7 +70,7 @@
 
       Screen.RemoveDialog(dialog);
     }
-    
+
     public bool HasFocus(object dialog)
     {
       return Screen.HasFocus(dialog);

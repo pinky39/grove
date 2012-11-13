@@ -6,7 +6,7 @@
 
   public class ViewModel : IReceive<TargetSelected>, IReceive<TargetUnselected>, IReceive<UiInteractionChanged>
   {
-    private readonly Publisher _publisher;
+    private readonly Game _game;
     private Action _select = delegate { };
 
     public interface IFactory
@@ -14,10 +14,10 @@
       ViewModel Create(Card card);
     }
 
-    public ViewModel(Card card, Publisher publisher)
+    public ViewModel(Card card, Game game)
     {
+      _game = game;
       Card = card;
-      _publisher = publisher;
     }
 
     public Card Card { get; private set; }
@@ -25,7 +25,7 @@
 
     private void ChangeSelection()
     {
-      _publisher.Publish(
+      _game.Publish(
         new SelectionChanged {Selection = Card});
     }
 
@@ -69,7 +69,7 @@
 
     public void ChangePlayersInterest()
     {
-      _publisher.Publish(new PlayersInterestChanged
+      _game.Publish(new PlayersInterestChanged
         {
           Visual = Card
         });

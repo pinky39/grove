@@ -17,14 +17,14 @@
 
     private readonly List<object> _smallDialogs = new List<object>();
 
-    public ViewModel(Players players, Battlefield.ViewModel.IFactory battlefieldFactory,
-                     ScenarioGenerator scenarioGenerator, QuitGame.ViewModel.IFactory quitGameFactory)
+    public ViewModel(Game game, Battlefield.ViewModel.IFactory battlefieldFactory,
+                     QuitGame.ViewModel.IFactory quitGameFactory)
     {
-      _scenarioGenerator = scenarioGenerator;
+      _scenarioGenerator = new ScenarioGenerator(game);
       _quitGameFactory = quitGameFactory;
 
-      OpponentsBattlefield = battlefieldFactory.Create(players.Computer);
-      YourBattlefield = battlefieldFactory.Create(players.Human);
+      OpponentsBattlefield = battlefieldFactory.Create(game.Players.Computer);
+      YourBattlefield = battlefieldFactory.Create(game.Players.Human);
     }
 
     public object LargeDialog { get { return _largeDialogs.FirstOrDefault(); } }
