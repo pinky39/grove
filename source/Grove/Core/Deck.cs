@@ -3,150 +3,89 @@
   using System;
   using System.Collections;
   using System.Collections.Generic;
-  using System.IO;
   using System.Linq;
   using Mana;
   using Ui;
 
-  public class Deck : IEnumerable<string>
+  public class Deck : IEnumerable<Card>
   {
-    private readonly CardPreviews _cards;
-    private static readonly Random Rnd = new Random();
-    private readonly DeckFile _deckFile;
-    
-    public Deck(CardPreviews cards)
+    private readonly CardDatabase _cardDatabase;
+    private readonly List<Card> _cards = new List<Card>();
+
+    public Deck(CardDatabase cardDatabase)
     {
-      _cards = cards;
-      _deckFile = new DeckFile();
+      _cardDatabase = cardDatabase;
     }
 
-    public Deck(string filename, CardPreviews cards)
+    public Deck(IEnumerable<string> cards, CardDatabase cardDatabase, string name = null, int rating = 3, string description = null)
     {
-      _cards = cards;
-      Name = Path.GetFileName(filename);
-      _deckFile = DeckFile.Read(filename);            
+      _cards = cards.Select(x => cardDatabase[x]).ToList();
+      _cardDatabase = cardDatabase;
+
+      Name = name;
+      Rating = rating;
+      Description = description;
     }
 
-    public IEnumerable<DeckRow> Creatures { get { return _deckFile.Where(x => GetCard(x.CardName).Is().Creature); } }
-    
-    public void Save()
-    {
-      var name = Name.ToLowerInvariant().Replace(".dec", String.Empty);     
-      _deckFile.Write(MediaLibrary.GetDeckPath(name));
-    }
-
-    public IEnumerable<DeckRow> Spells
-    {
-      get
-      {
-        return _deckFile.Where(x =>
-          {
-            var preview = GetCard(x.CardName);
-            return !preview.Is().Creature && !preview.Is().Land;
-          });
-      }
-    }
-
-    public IEnumerable<DeckRow> Lands { get { return _deckFile.Where(x => GetCard(x.CardName).Is().Land); } }
-
-    public int Rating { get { return _deckFile.Rating; } set { _deckFile.Rating = value; } }
-    public string Description { get { return _deckFile.Description; } set { _deckFile.Description = value; } }
+    public IEnumerable<Card> Creatures { get { return _cards.Where(x => x.Is().Creature); } }
+    public IEnumerable<Card> Spells { get { return _cards.Where(x => !x.Is().Creature && !x.Is().Land); } }
+    public IEnumerable<Card> Lands { get { return _cards.Where(x => x.Is().Land); } }
     public IEnumerable<string> Colors { get { return GetDeckColors(); } }
-    public int CreaturesCount { get { return Creatures.Sum(x => x.Count); } }
-    public int SpellsCount { get { return Spells.Sum(x => x.Count); } }
-    public int LandsCount { get { return Lands.Sum(x => x.Count); } }
-    public int CardCount { get { return _deckFile.Sum(x => x.Count); } }
-    public string Name { get; set; }
 
-    public IEnumerator<string> GetEnumerator()
-    {
-      foreach (var quantity in _deckFile)
-      {
-        for (var i = 0; i < quantity.Count; i++)
-        {
-          yield return quantity.CardName;
-        }
-      }
-    }
+    public int Rating { get; set; }
+    public string Description { get; set; }
+
+    public string Name { get; set; }
+    public IEnumerable<string> CardNames { get { return _cards.Select(x => x.Name); } }
 
     IEnumerator IEnumerable.GetEnumerator()
     {
       return GetEnumerator();
-    }    
-    
-    public void AddCard(string name)
-    {
-      var row = GetCardRow(name);
-
-      if (row == null)
-      {
-        _deckFile.AddRow(new DeckRow {CardName = name, Count = 1});
-        return;
-      }
-                    
-      row.Count++;            
     }
 
-    private DeckRow GetCardRow(string cardName)
+    public IEnumerator<Card> GetEnumerator()
     {
-      return _deckFile.FirstOrDefault(x => x.CardName.Equals(cardName, StringComparison.InvariantCultureIgnoreCase));
+      return _cards.GetEnumerator();
+    }
+
+    public void Save()
+    {
+      var name = Name.ToLowerInvariant()
+        .Replace(".dec", String.Empty);
+
+      new DeckReaderWriter().Write(this, MediaLibrary.GetDeckPath(name));
+    }
+
+    public void AddCard(string name)
+    {
+      _cards.Add(_cardDatabase[name]);
     }
 
     private List<string> GetDeckColors()
     {
       var colors = ManaColors.None;
 
-      foreach (var deckRow in _deckFile)
+      foreach (var card in _cards)
       {
-        colors = colors | _cards[deckRow.CardName].Colors;
-      }            
+        colors = colors | card.Colors;
+      }
 
       return ManaAmount.GetSymbolsFromColor(colors);
     }
 
-    public Card GetCard(string cardName)
+    public static Deck Dummy(CardDatabase cardDatabase)
     {
-      return _cards[cardName.ToLowerInvariant()];
-    }
-
-    public Card GetPreviewCard()
-    {
-      if (_deckFile.RowCount > 0)
-      {
-        return _cards[_deckFile.ElementAt(Rnd.Next(0, _deckFile.RowCount)).CardName];
-      }
-
-      return null;
-    }
-
-    public static Deck Dummy()
-    {
-      var deck = new Deck(null);
-      deck._deckFile.AddRow(new DeckRow {CardName = "Uncastable", Count = 60});
-      return deck;
+      return new Deck(Enumerable.Repeat("Uncastable", 60), cardDatabase);
     }
 
     public void RemoveCard(string name)
     {
-      var row = GetCardRow(name);
+      var card = _cards.FirstOrDefault(x => x.Name == name);
 
-      if (row == null)
-        return;
-
-      if (row.Count == 1)
+      if (card != null)
       {
-        _deckFile.RemoveRow(row);        
-        return;
+        _cards.Remove(card);
       }
-      
-      row.Count--;            
     }
-
-    public static Deck GetRandomDeck(CardPreviews previews)
-    {
-      var decks = Directory.EnumerateFiles(MediaLibrary.DecksFolder, "*.dec").ToList();
-      return decks.Count > 0 ? new Deck(decks[Rnd.Next(0, decks.Count)], previews) : new Deck(previews);
-    }
-    
   }
 }

@@ -23,7 +23,7 @@
 				<TextBlock Grid.Column="1" VerticalAlignment="Center" Margin="30,0,0,0" FontSize="40" Foreground="#fff" Text="Deck editor" />
 
                     <StackPanel Grid.Column="3">
-                        <TextBlock FontSize="40" Foreground="#FFD700" Text="{Binding DeckName}" />
+                        <TextBlock FontSize="40" Foreground="#FFD700" Text="{Binding Deck.Name}" />
                         <TextBlock FontSize="20" Foreground="#fff" TextAlignment="Right" Text="{Binding Deck.CardCount, StringFormat=' {0} cards'}" />
                     </StackPanel>
 
@@ -172,17 +172,17 @@
 									<i:Interaction.Triggers>
 										<i:EventTrigger EventName="MouseEnter">
 											<cal:ActionMessage MethodName="ChangeSelectedCard">
-												<cal:Parameter Value="{Binding Name}" />
+												<cal:Parameter Value="{Binding }" />
 											</cal:ActionMessage>
 										</i:EventTrigger>
                                         <i:EventTrigger EventName="MouseLeftButtonDown">
-											<cal:ActionMessage MethodName="AddToDeck">
-												<cal:Parameter Value="{Binding Name}" />
+											<cal:ActionMessage MethodName="AddCard">
+												<cal:Parameter Value="{Binding }" />
 											</cal:ActionMessage>
 										</i:EventTrigger>
                                         <i:EventTrigger EventName="MouseRightButtonDown">
-                                            <cal:ActionMessage MethodName="RemoveFromDeck">
-                                                <cal:Parameter Value="{Binding Name}" />
+                                            <cal:ActionMessage MethodName="RemoveCard">
+                                                <cal:Parameter Value="{Binding }" />
                                             </cal:ActionMessage>
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
@@ -193,63 +193,8 @@
 				</Border>
 			</Grid>
 			<Border Width="450" Grid.Column="1" Margin="20,0,20,0" BorderBrush="#22ffffff" BorderThickness="3" CornerRadius="2">
-				<ScrollViewer VerticalScrollBarVisibility="Auto">
-					<ScrollViewer.Resources>
-						<DataTemplate DataType="{x:Type Core:DeckRow}">
-							<ContentControl>
-								<StackPanel Margin="5,0,0,0" Orientation="Horizontal">
-									<StackPanel.Resources>
-										<Style x:Key="CardName" TargetType="TextBlock">
-											<Style.Triggers>
-												<Trigger Property="IsMouseOver" Value="True">
-													<Setter Property="TextDecorations" Value="Underline" />
-												</Trigger>
-											</Style.Triggers>
-										</Style>
-
-									</StackPanel.Resources>
-									<TextBlock Foreground="#fff" FontSize="15" Text="{Binding Count, StringFormat=' {0}x'}" />
-
-									<TextBlock Style="{StaticResource CardName}" Cursor="Hand" Foreground="#FFD700" Margin="5,0,0,0" FontSize="15" Text="{Binding CardName}" />
-
-								</StackPanel>
-								<i:Interaction.Triggers>
-									<i:EventTrigger EventName="MouseEnter">
-										<cal:ActionMessage MethodName="ChangeSelectedCard">
-											<cal:Parameter Value="{Binding CardName}" />
-										</cal:ActionMessage>
-									</i:EventTrigger>
-                                    <i:EventTrigger EventName="MouseLeftButtonDown">
-										<cal:ActionMessage MethodName="AddToDeck">
-											<cal:Parameter Value="{Binding CardName}" />
-										</cal:ActionMessage>
-									</i:EventTrigger>
-                                    <i:EventTrigger EventName="MouseRightButtonDown">
-                                    <cal:ActionMessage MethodName="RemoveFromDeck">
-                                        <cal:Parameter Value="{Binding CardName}" />
-                                    </cal:ActionMessage>
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-
-							</ContentControl>
-						</DataTemplate>
-
-						<Style x:Key="CardGroup" TargetType="TextBlock">
-							<Setter Property="Foreground" Value="#fff" />
-							<Setter Property="FontSize" Value="18" />
-							<Setter Property="Margin" Value="0,10,0,5" />
-						</Style>
-					</ScrollViewer.Resources>
-					<StackPanel Margin="30,0,0,10">
-						<TextBlock Style="{StaticResource CardGroup}" Text="{Binding Deck.CreaturesCount, StringFormat='Creatures ({0})'}" />
-						<ItemsControl ItemsSource="{Binding Path=Deck.Creatures}" />
-						<TextBlock Style="{StaticResource CardGroup}" Text="{Binding Deck.SpellsCount, StringFormat='Spells ({0})'}" />
-						<ItemsControl ItemsSource="{Binding Path=Deck.Spells}" />
-						<TextBlock Style="{StaticResource CardGroup}" Text="{Binding Deck.LandsCount, StringFormat='Lands ({0})'}" />
-						<ItemsControl ItemsSource="{Binding Path=Deck.Lands}" />
-					</StackPanel>
-				</ScrollViewer>
-			</Border>
+                    <ContentControl x:Name="Deck" />
+             </Border>
 			<Border Width="300" Grid.Column="2" Margin="0,0,0,0" VerticalAlignment="Top">
 				<StackPanel>
 					<Border Margin="0,0,0,20" BorderBrush="#444" Background="#000" BorderThickness="1" CornerRadius="8" VerticalAlignment="Top">

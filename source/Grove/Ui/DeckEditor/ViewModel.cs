@@ -9,51 +9,35 @@
   using Shell;
 
   public class ViewModel : IIsDialogHost
-  {
-    private const string NewDeckName = "new deck";
+  {        
     private readonly List<object> _dialogs = new List<object>();
-    private readonly CardPreviews _previews;
     private readonly IIsDialogHost _previousScreen;
     private readonly SaveDeckAs.ViewModel.IFactory _saveDeckAsFactory;
+    private readonly Ui.Deck.ViewModel.IFactory _deckVmFactory;
     private readonly SelectDeck.ViewModel.IFactory _selectDeckScreenFactory;
-    private readonly IShell _shell;
-    private bool _isNewDeck;
-    private bool _isSaved;
+    private readonly IShell _shell;    
 
-    public ViewModel(IIsDialogHost previousScreen, IShell shell,
-      SelectDeck.ViewModel.IFactory selectDeckScreenFactory, SaveDeckAs.ViewModel.IFactory saveDeckAsFactory,
-      CardPreviews previews)
+    public ViewModel(
+      IIsDialogHost previousScreen, IShell shell,
+      SelectDeck.ViewModel.IFactory selectDeckScreenFactory, 
+      SaveDeckAs.ViewModel.IFactory saveDeckAsFactory,
+      Ui.Deck.ViewModel.IFactory deckVmFactory,
+      CardDatabase cardDatabase)
     {
       _previousScreen = previousScreen;
       _shell = shell;
       _selectDeckScreenFactory = selectDeckScreenFactory;
       _saveDeckAsFactory = saveDeckAsFactory;
-      _previews = previews;
-      _isSaved = true;
+      _deckVmFactory = deckVmFactory;       
 
-      Library = Bindable.Create<Library>(_previews);
-      Deck = Deck.GetRandomDeck(_previews);
-
-      SelectedCard = Deck.GetPreviewCard() ?? _previews.GetRandomPreview();
+      Library = Bindable.Create<Library>(cardDatabase);
+      Deck = deckVmFactory.Create(MediaLibrary.GetRandomDeck(cardDatabase));
+      SelectedCard = Deck.SelectedCard ?? cardDatabase.Random();
+      Deck.Property(x => x.SelectedCard).Changes(this).Property(x => x.SelectedCard);            
     }
-
-    [Updates("DeckName")]
-    public virtual Deck Deck { get; protected set; }
-
-    public string DeckName
-    {
-      get
-      {
-        var name = Deck.Name;
-
-        if (!_isSaved)
-        {
-          name = name + "*";
-        }
-        return name;
-      }
-    }
-
+    
+    public virtual Ui.Deck.ViewModel Deck { get; protected set; }
+   
     public Library Library { get; private set; }
     public object Dialog { get { return _dialogs.FirstOrDefault(); } }
     public virtual Card SelectedCard { get; protected set; }
@@ -83,14 +67,9 @@
       }
     }
 
-    public void ChangeSelectedCard(string name)
+    public void ChangeSelectedCard(Card card)
     {
-      SelectedCard = GetCard(name);
-    }
-
-    private Card GetCard(string name)
-    {
-      return _previews[name];
+      SelectedCard = card;
     }
 
     public void Open()
@@ -105,9 +84,7 @@
           PreviousScreen = this,
           Forward = (deck) =>
             {
-              Deck = deck;
-              _isNewDeck = false;
-              _isSaved = true;
+              Deck = _deckVmFactory.Create(deck);              
               _shell.ChangeScreen(this);
             }
         };
@@ -121,42 +98,38 @@
       if (!SaveChanges())
         return;
 
-      Deck = new Deck(_previews)
-        {
-          Name = NewDeckName
-        };
-
-      _isNewDeck = true;
-      _isSaved = true;
+      Deck = _deckVmFactory.Create();                  
     }
-
-    [Updates("Deck", "DeckName")]
-    public virtual void Save()
+    
+    public void Save()
     {
-      if (_isNewDeck)
+      if (Deck.IsNew)
       {
         SaveAs();
         return;
       }
 
-      Deck.Save();
-
-      _isSaved = true;
+      Deck.Save();      
     }
-
-    [Updates("Deck", "DeckName")]
+    
     public virtual void SaveAs()
     {
       var deckName = GetDeckName();
 
       if (deckName == null)
         return;
+      
+      Deck.SaveAs(deckName);
+    }
 
-      Deck.Name = deckName;
-      Deck.Save();
+    public void AddCard(Card card)
+    {
+      Deck.AddCard(card.Name);
+    }
 
-      _isNewDeck = false;
-      _isSaved = true;
+    public void RemoveCard(Card card)
+    {
+      Deck.RemoveCard(card.Name);
     }
 
     private string GetDeckName()
@@ -180,7 +153,7 @@
 
     private bool SaveChanges()
     {
-      if (!_isSaved)
+      if (!Deck.IsSaved)
       {
         var result = _shell.ShowMessageBox("Do you want to save your changes?", MessageBoxButton.YesNoCancel,
           DialogType.Large,
@@ -198,21 +171,7 @@
       }
 
       return true;
-    }
-
-    [Updates("Deck", "DeckName")]
-    public virtual void AddToDeck(string name)
-    {
-      Deck.AddCard(name);
-      _isSaved = false;
-    }
-
-    [Updates("Deck", "DeckName")]
-    public virtual void RemoveFromDeck(string name)
-    {
-      Deck.RemoveCard(name);
-      _isSaved = false;
-    }
+    }    
 
     public interface IFactory
     {

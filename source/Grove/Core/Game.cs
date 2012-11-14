@@ -36,7 +36,7 @@
     public Search Search { get { return _search; } }
     public CastRestrictions CastRestrictions { get { return _castRestrictions; } }
 
-    public static Game New(IEnumerable<string> humanDeck, IEnumerable<string> cpuDeck, CardDatabase cardDatabase, DecisionSystem decisionSystem)
+    public static Game New(Deck humanDeck, Deck cpuDeck, CardDatabase cardDatabase, DecisionSystem decisionSystem)
     {
       var game = CreateGame(cardDatabase, decisionSystem, enableDatabinding: true);
 
@@ -97,7 +97,7 @@
       _publisher.Subscribe(instance);
     }
 
-    public static Game NewSimulation(IEnumerable<string> deck1, IEnumerable<string> deck2, CardDatabase cardDatabase, DecisionSystem decisionSystem)
+    public static Game NewSimulation(Deck deck1, Deck deck2, CardDatabase cardDatabase, DecisionSystem decisionSystem)
     {
       var game = CreateGame(cardDatabase, decisionSystem, enableDatabinding: false);
 
@@ -188,10 +188,10 @@
       game.Players = new Players(
        player1Name: "Player1",
        player1Type: player1Controller,
-       player1Deck: Deck.Dummy(),
+       player1Deck: Deck.Dummy(cardDatabase),
        player2Name: "Player2",
        player2Type: player2Controller,
-       player2Deck: Deck.Dummy(),
+       player2Deck: Deck.Dummy(cardDatabase),
        game: game,
        enableDatabinding: false);
       

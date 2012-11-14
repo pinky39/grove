@@ -26,8 +26,7 @@
       CardDatabase cardDatabase,
       SelectDeck.ViewModel.IFactory selectDeckScreenFactory,
       DeckEditor.ViewModel.IFactory deckEditorScreenFactory,
-      Match match,
-      CardPreviews previews)
+      Match match)
     {
       _shell = shell;
       _cardDatabase = cardDatabase;
@@ -35,7 +34,7 @@
       _deckEditorScreenFactory = deckEditorScreenFactory;
       _match = match;
 
-      LoadPreviews(previews);
+      LoadPreviews();
     }
 
     public virtual bool HasLoaded { get; protected set; }
@@ -61,11 +60,11 @@
 
     public void RemoveDialog(object dialog) {}
 
-    private void LoadPreviews(CardPreviews previews)
+    private void LoadPreviews()
     {
       Task.Factory.StartNew(() =>
         {
-          previews.Load();
+          _cardDatabase.LoadPreviews();
           HasLoaded = true;
         });
     }
@@ -108,10 +107,10 @@
 
     public void PlayRandom()
     {
-      List<string> firstDeck;
-      List<string> secondDeck;
+      Deck firstDeck;
+      Deck secondDeck;
 
-      ChooseRandomDecks(out firstDeck, out secondDeck);
+      ChooseRandomDecks(out firstDeck, out secondDeck);      
       _match.Start(firstDeck, secondDeck);
     }
 
@@ -121,19 +120,27 @@
       _shell.ChangeScreen(deckEditorScreen);
     }
 
-    private void ChooseRandomDecks(out List<string> firstDeck, out List<string> secondDeck)
+    private void ChooseRandomDecks(out Deck firstDeck, out Deck secondDeck)
     {
-      DeckFile first;
-      DeckFile second;
+      var reader = new DeckReaderWriter();
+      
+      var deckFiles = Directory
+        .EnumerateFiles(MediaLibrary.DecksFolder, "*.dec");
+      
+      var decks = deckFiles
+        .Select(x => reader.Read(x, _cardDatabase))
+        .ToList();
 
-      var deckFiles = Directory.EnumerateFiles(MediaLibrary.DecksFolder, "*.dec");
-      var decks = deckFiles.Select(DeckFile.Read).ToList();
-      first = decks[Rnd.Next(0, decks.Count)];
-      var decksWithSameRating = decks.Where(x => x.Rating == first.Rating).ToList();
-      second = decksWithSameRating[Rnd.Next(0, decksWithSameRating.Count)];
+      var first = decks[Rnd.Next(0, decks.Count)];
+      
+      var decksWithSameRating = decks
+        .Where(x => x.Rating == first.Rating)
+        .ToList();
+      
+      var second = decksWithSameRating[Rnd.Next(0, decksWithSameRating.Count)];
 
-      firstDeck = first.AllCards.ToList();
-      secondDeck = second.AllCards.ToList();
+      firstDeck = first;
+      secondDeck = second;
     }
 
     public interface IFactory

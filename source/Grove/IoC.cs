@@ -121,8 +121,7 @@
           RegisterShell(container);
           RegisterConfiguration(container);
 
-          container.Register(Component(typeof (Match), lifestyle: LifestyleType.Singleton));
-          container.Register(Component(typeof (CardPreviews), lifestyle: LifestyleType.Singleton));
+          container.Register(Component(typeof (Match), lifestyle: LifestyleType.Singleton));          
           container.Register(Component(typeof (UiDamageDistribution)));
           container.Register(Component(typeof (CombatMarkers), lifestyle: LifestyleType.Singleton));
         }

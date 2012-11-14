@@ -1,33 +1,34 @@
 ﻿namespace Grove.Core
 {
   using System;
+  using System.Collections;
   using System.Collections.Generic;
   using System.Linq;
   using Dsl;
 
-  public class CardDatabase
+  public class CardDatabase : IEnumerable<Card>
   {
     private readonly CardsSource[] _cardSources;
     private List<ICardFactory> _database;
+    private Dictionary<string, Card> _previews;
 
     public CardDatabase(CardsSource[] cardSources)
     {
       _cardSources = cardSources;
     }
 
+    public Card this[string name] { get { return _previews[name.ToLowerInvariant()]; } }
     private IEnumerable<ICardFactory> Database { get { return _database ?? (_database = CreateDatabase()); } }
-
     public int CardCount { get { return _cardSources.Length; } }
 
-    public Card CreatePreview(string name)
+    public IEnumerator<Card> GetEnumerator()
     {
-      var cardFactory = GetCardFactory(name);
-      return cardFactory.CreateCardPreview();
+      return _previews.Values.GetEnumerator();
     }
 
-    public IEnumerable<Card> CreatePreviewForEveryCard()
+    IEnumerator IEnumerable.GetEnumerator()
     {
-      return Database.Select(x => x.CreateCardPreview());
+      return GetEnumerator();
     }
 
     public Card CreateCard(string name, Player controller, Game game)
@@ -64,5 +65,12 @@
 
       return database;
     }
+
+    public void LoadPreviews()
+    {
+      _previews = Database
+        .Select(x => x.CreateCardPreview())
+        .ToDictionary(x => x.Name.ToLowerInvariant());
+    }    
   }
 }

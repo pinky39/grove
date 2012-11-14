@@ -1,93 +1,40 @@
 ﻿namespace Grove.Core
 {
   using System;
-  using System.Collections;
   using System.Collections.Generic;
   using System.IO;
+  using System.Linq;
   using System.Text.RegularExpressions;
 
-  public class DeckFile : IEnumerable<DeckRow>
+  public class DeckReaderWriter
   {
     private static readonly Regex DescriptionRegex = new Regex(@"#.*Description\:\s*(.+)", RegexOptions.Compiled);
     private static readonly Regex RatingRegex = new Regex(@"#.*Rating\:\s*(.+)", RegexOptions.Compiled);
-    private readonly List<DeckRow> _rows = new List<DeckRow>();
 
-    public DeckFile(IEnumerable<DeckRow> rows, string description, int rating)
-    {
-      Description = description;
-      Rating = rating;
-
-      _rows.AddRange(rows);
-    }
-
-    public DeckFile()
-    {
-      Description = String.Empty;
-      Rating = 3;
-    }
-
-    public string Description { get; set; }
-    public int Rating { get; set; }
-
-    public IEnumerable<string> AllCards
-    {
-      get
-      {
-        foreach (var row in _rows)
-        {
-          for (int i = 0; i < row.Count; i++)
-          {
-            yield return row.CardName;
-          }
-        }
-      }
-    }
-
-    public int RowCount  { get { return _rows.Count; }}
-      
-    public IEnumerator<DeckRow> GetEnumerator()
-    {
-      return _rows.GetEnumerator();
-    }
-
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-      return GetEnumerator();
-    }
-
-    public static DeckFile Read(string filename)
+    public Deck Read(string filename, CardDatabase cardDatabase)
     {
       using (var reader = new StreamReader(filename))
       {
-        return ReadFile(reader);
+        return ReadFile(Path.GetFileNameWithoutExtension(filename), reader, cardDatabase);
       }
     }
 
-    public static DeckFile Read(Stream stream)
-    {
-      using (var reader = new StreamReader(stream))
-      {
-        return ReadFile(reader);
-      }
-    }
-    
-    public void Write(string filename)
+    public void Write(Deck deck, string filename)
     {
       using (var writer = new StreamWriter(filename))
       {
-        
-        writer.WriteLine("# Description: {0}", Description);
-        writer.WriteLine("# Rating: {0}", Rating);
+        writer.WriteLine("# Description: {0}", deck.Description);
+        writer.WriteLine("# Rating: {0}", deck.Rating);
         writer.WriteLine();
 
-        foreach (var row in _rows)
+        foreach (var row in deck.AsRows())
         {
           writer.WriteLine("{0} {1}", row.Count, row.CardName);
         }
       }
     }
 
-    private static DeckFile ReadFile(StreamReader reader)
+    private static Deck ReadFile(string name, StreamReader reader, CardDatabase cardDatabase)
     {
       var records = new List<DeckRow>();
       string line;
@@ -123,7 +70,8 @@
 
         records.Add(ParseRecord(line, lineNumber));
       }
-      return new DeckFile(records, description, rating);
+
+      return new Deck(records.SelectMany(x => x), cardDatabase, name, rating, description);
     }
 
     private static void ThrowParsingError(int lineNumber)
@@ -143,16 +91,6 @@
         ThrowParsingError(lineNumber);
 
       return new DeckRow {CardName = tokens[1], Count = numOfCopies};
-    }
-
-    public void AddRow(DeckRow row)
-    {
-      _rows.Add(row);
-    }
-
-    public void RemoveRow(DeckRow row)
-    {
-      _rows.Remove(row);
-    }
+    }   
   }
 }

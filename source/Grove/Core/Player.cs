@@ -39,7 +39,7 @@
       string name,
       string avatar,
       ControllerType controller,
-      IEnumerable<string> deck,
+      Deck deck,
       Game game)
     {
       _game = game;      
@@ -60,7 +60,7 @@
       _damageRedirections = new DamageRedirections(game.ChangeTracker, null);
       _assignedDamage = new AssignedDamage(this, game.ChangeTracker);
 
-      var cards = LoadCards(deck, _game.CardDatabase);
+      var cards = LoadCards(deck.CardNames, _game.CardDatabase);
 
       CreateZones(cards, game);
       InitializeManaSources(game.ChangeTracker);

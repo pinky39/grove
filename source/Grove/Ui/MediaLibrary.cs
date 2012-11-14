@@ -2,11 +2,14 @@
 {
   using System;
   using System.IO;
+  using System.Linq;
   using System.Windows.Media;
   using System.Windows.Media.Imaging;
+  using Core;
 
   public static class MediaLibrary
   {
+    private static readonly Random Rnd = new Random();
     private const string Images = @"images\";
     private const string Cards = @"cards\";
     private const string Decks = @"decks\";
@@ -51,11 +54,21 @@
     {
       return Path.Combine(DecksFolder, name + ".dec");
     }
-    
-    public static Stream GetDeck(string name)
+
+    public static Core.Deck GetDeck(string name, CardDatabase cardDatabase)
     {
-      var path = Path.Combine(BasePath, Decks, name + ".dec");
-      return File.OpenRead(path);
+      name = name.EndsWith(".dec") ? name : name + ".dec";
+
+      var path = Path.Combine(BasePath, Decks, name);
+      return new DeckReaderWriter().Read(path, cardDatabase);
+    }
+
+    public static Core.Deck GetRandomDeck(CardDatabase cardDatabase)
+    {
+      var decks = Directory.EnumerateFiles(DecksFolder, "*.dec").ToList();
+
+      return decks.Count > 0 ? GetDeck(decks[Rnd.Next(0, decks.Count)], cardDatabase)
+        : null;
     }
   }
 }

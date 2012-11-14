@@ -342,7 +342,6 @@
     <Compile Include="Core\Ai\AttackerEvaluation.cs" />
     <Compile Include="Core\Ai\BlockerEvaluation.cs" />
     <Compile Include="Core\Ai\QuickCombat.cs" />
-    <Compile Include="Core\CardPreviews.cs" />
     <Compile Include="Core\Decisions\ChooseEffectOptions.cs" />
     <Compile Include="Core\Decisions\Human\CardSelector.cs" />
     <Compile Include="Core\Decisions\Human\ChooseEffectOptions.cs" />
@@ -365,7 +364,7 @@
     <Compile Include="Core\Decisions\SelectCards.cs" />
     <Compile Include="Core\Decisions\SelectCardsPutToBattlefield.cs" />
     <Compile Include="Core\Decisions\SelectCardsToSacrificeAsCost.cs" />
-    <Compile Include="Core\DeckFile.cs" />
+    <Compile Include="Core\DeckReaderWriter.cs" />
     <Compile Include="Core\DeckRow.cs" />
     <Compile Include="Core\Cards\ControllerCharacteristic.cs" />
     <Compile Include="Core\Cards\Costs\ReturnOwnerToHand.cs" />
@@ -553,6 +552,10 @@
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ui\DeckEditor\ViewModel.cs" />
+    <Compile Include="Ui\Deck\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Deck\ViewModel.cs" />
     <Compile Include="Ui\DistributeDamage\UiDamageDistribution.cs" />
     <Compile Include="Core\Targeting\Validators.cs" />
     <Compile Include="Core\Mana\ZeroManaAmount.cs" />
@@ -985,6 +988,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Ui\DeckEditor\View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Deck\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

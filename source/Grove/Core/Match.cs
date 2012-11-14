@@ -20,8 +20,8 @@
     private readonly Ui.StartScreen.ViewModel.IFactory _startScreenFactory;
     private readonly TaskScheduler _uiScheduler;
     private Task _backgroundTask;
-    private List<string> _deck1;
-    private List<string> _deck2;
+    private Deck _deck1;
+    private Deck _deck2;
     private int? _looser;
     private bool _playerLeftMatch;
     private bool _rematch = true;
@@ -73,10 +73,10 @@
 
     public bool InProgress { get { return Game != null && !IsFinished; } }
 
-    public void Start(IEnumerable<string> player1Deck, IEnumerable<string> player2Deck)
+    public void Start(Deck player1Deck, Deck player2Deck)
     {
-      _deck1 = new List<string>(player1Deck);
-      _deck2 = new List<string>(player2Deck);
+      _deck1 = player1Deck;
+      _deck2 = player2Deck;
 
       ResetResults();
       Run();

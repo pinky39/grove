@@ -2,38 +2,32 @@
 {
   using System.Collections.Generic;
   using System.IO;
+  using System.Linq;
+  using Castle.Core;
   using Core;
   using Infrastructure;
   using Shell;
 
   public class ViewModel : IIsDialogHost
-  {
-    private readonly CardDatabase _cardDatabase;
-    private readonly List<Deck> _decks = new List<Deck>();            
+  {                
     private readonly Configuration _configuration;
-    private readonly IShell _shell;
-    
+    private readonly Ui.Deck.ViewModel.IFactory _deckVmFactory;
+    private readonly CardDatabase _cardDatabase;
+    private readonly IShell _shell;        
+    private List<Ui.Deck.ViewModel> _decks = new List<Ui.Deck.ViewModel>();
 
-    private Deck _selected;
-
-    public ViewModel(CardDatabase cardDatabase, IShell shell, Configuration configuration, CardPreviews previews)
+    public ViewModel(CardDatabase cardDatabase, IShell shell, Configuration configuration, Ui.Deck.ViewModel.IFactory deckVmFactory)
     {
-      _cardDatabase = cardDatabase;      
+      _cardDatabase = cardDatabase;
       _shell = shell;            
       _configuration = configuration;
+      _deckVmFactory = deckVmFactory;
 
-      LoadDecks(previews);
+      LoadDecks();
     }
 
-    public virtual Deck Selected
-    {
-      get { return _selected; }
-      set
-      {
-        _selected = value;
-        SelectedCard = _selected.GetPreviewCard();
-      }
-    }    
+    [DoNotWire]
+    public virtual Ui.Deck.ViewModel Selected { get; set; }        
 
     public string NextCaption
     {
@@ -44,9 +38,8 @@
     {
       get { return _configuration.ScreenTitle; }
     }
-
-    public virtual Card SelectedCard { get; protected set; }
-    public IEnumerable<Deck> Decks { get { return _decks; } }
+    
+    public List<Ui.Deck.ViewModel> Decks { get { return _decks; } }
 
     [Updates("CanStart")]
     public virtual bool IsStarting { get; protected set; }
@@ -62,29 +55,28 @@
 
     public void CloseAllDialogs() {}
 
-    private void LoadDecks(CardPreviews previews)
+    private void LoadDecks()
     {
-      var deckFiles = Directory.EnumerateFiles(MediaLibrary.DecksFolder, "*.dec");      
+      var deckFiles = Directory.EnumerateFiles(MediaLibrary.DecksFolder, "*.dec");
+      var reader = new DeckReaderWriter();
       
       foreach (var fileName in deckFiles)
       {
-        _decks.Add(new Deck(fileName, previews));
+        _decks.Add(_deckVmFactory.Create(
+          reader.Read(fileName, _cardDatabase), 
+          isReadOnly: true));                
       }
 
-      Selected = _decks[0];
+      Selected = _decks.FirstOrDefault();
     }
-
-    public void ChangeSelectedCard(string name)
-    {
-      SelectedCard = Selected.GetCard(name);
-    }
+    
 
     public void Forward()
     {
       
       IsStarting = true;
       
-      _configuration.Forward(Selected);
+      _configuration.Forward(Selected.Deck);
       
       IsStarting = false;            
     }

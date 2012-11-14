@@ -7,6 +7,8 @@
 
   public static class EnumerableEx
   {
+    private static readonly Random Rnd = new Random();
+    
     public static bool ContainsElements<T>(this List<T> collection, List<T> elements)
     {
       if (elements.Count > collection.Count)
@@ -83,6 +85,11 @@
     public static T Single<T>(this IEnumerable<object> enumerable)
     {
       return enumerable.Where(x => x is T).Cast<T>().Single();
+    }
+
+    public static T Random<T>(this IEnumerable<T> enumerable)
+    {
+      return enumerable.ElementAt(Rnd.Next(enumerable.Count()));
     }
 
     public static IEnumerable<T> ToEnumerable<T>(this T obj)

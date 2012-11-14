@@ -16,7 +16,7 @@
       _decisionSystem = decisionSystem;
     }
 
-    public SimulationResult Simulate(IEnumerable<string> deck1, IEnumerable<string> deck2)
+    public SimulationResult Simulate(Deck deck1, Deck deck2)
     {
       var stopwatch = new Stopwatch();
       stopwatch.Start();
@@ -35,7 +35,7 @@
       return result;
     }
 
-    private void SimulateGame(IEnumerable<string> deck1, IEnumerable<string> deck2, SimulationResult result)
+    private void SimulateGame(Deck deck1, Deck deck2, SimulationResult result)
     {
       var game = Game.NewSimulation(deck1, deck2, _cardDatabase, _decisionSystem);      
             

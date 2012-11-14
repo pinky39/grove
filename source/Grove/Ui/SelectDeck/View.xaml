@@ -104,7 +104,7 @@
                                         <TextBlock Text="{Binding Name}" Foreground="#fff" FontSize="15" />
 
                                         <ItemsControl Grid.Column="1"                                      
-						              ItemsSource = "{Binding Path=Colors, Converter={x:Static grove:Converters.ManaSymbolListToImages}}" >
+						              ItemsSource = "{Binding Path=Deck.Colors, Converter={x:Static grove:Converters.ManaSymbolListToImages}}" >
                                             <ItemsControl.ItemsPanel>
                                                 <ItemsPanelTemplate>
                                                     <StackPanel Orientation = "Horizontal" HorizontalAlignment="Right" />
@@ -142,58 +142,12 @@
            
             
             <Border Grid.Column="1" Margin="20,0,20,0" BorderBrush="#22ffffff" CornerRadius="4" BorderThickness="2" Width="450" >
-                <Border.Resources>
-                    <DataTemplate DataType="{x:Type Core:DeckRow}">
-                        <StackPanel Margin="5,0,0,0" Orientation="Horizontal">
-                            <StackPanel.Resources>
-                                <Style x:Key="CardName" TargetType="TextBlock">
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="TextDecorations" Value="Underline"/>                                                
-                                        </Trigger>                                            
-                                    </Style.Triggers>
-                                </Style>
-                                    
-                            </StackPanel.Resources>
-                            <TextBlock Foreground="#fff" FontSize="15" Text="{Binding Count, StringFormat=' {0}x'}"/>
-                                
-                            <TextBlock Style="{StaticResource CardName}" Cursor="Hand" Foreground="#FFD700" Margin="5,0,0,0" FontSize="15" Text="{Binding CardName}" >
-                                <i:Interaction.Triggers>
-				                    <i:EventTrigger EventName = "MouseEnter" >
-					                    <cal:ActionMessage MethodName = "ChangeSelectedCard" >
-                                            <cal:Parameter Value="{Binding CardName}"/>                                                
-                                        </cal:ActionMessage>
-				                    </i:EventTrigger>				
-			                    </i:Interaction.Triggers>                                    
-                            </TextBlock>
-                                
-                        </StackPanel>
-                    </DataTemplate>
-                        
-                    <Style x:Key="CardGroup" TargetType="TextBlock">
-                        <Setter Property="Foreground" Value="#fff"/>
-                        <Setter Property="FontSize" Value="18"/>                            
-                        <Setter Property="Margin" Value="0,10,0,5"/>
-                            
-                    </Style>                
-                </Border.Resources>
-
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <StackPanel Margin="30,0,0,10">
-                        <TextBlock Style="{StaticResource CardGroup}" Text="{Binding Selected.CreaturesCount, StringFormat='Creatures ({0})'}"/>
-                        <ItemsControl ItemsSource = "{Binding Path=Selected.Creatures}" />
-                        <TextBlock Style="{StaticResource CardGroup}" Text="{Binding Selected.SpellsCount, StringFormat='Spells ({0})'}"/>
-                        <ItemsControl ItemsSource = "{Binding Path=Selected.Spells}" />
-                        <TextBlock Style="{StaticResource CardGroup}" Text="{Binding Selected.LandsCount, StringFormat='Lands ({0})'}"/>
-                        <ItemsControl ItemsSource = "{Binding Path=Selected.Lands}" />
-                    </StackPanel>
-                </ScrollViewer>
-
+                <ContentControl x:Name="Selected"/>
             </Border>
 
             <StackPanel Grid.Column="2" Width="300">
                 <Border BorderBrush="#444" Background="#000" BorderThickness="1" CornerRadius="8"   VerticalAlignment="Top" Visibility="{Binding SelectedCard, Converter={x:Static grove:Converters.NullToCollapsed}}" >
-                    <ContentControl Margin="12" Content="{Binding SelectedCard}" ContentTemplate = "{StaticResource FaceUpCard}" />
+                    <ContentControl Margin="12" Content="{Binding Selected.SelectedCard}" ContentTemplate = "{StaticResource FaceUpCard}" />
                 </Border>
                 <TextBlock Foreground="#eee" FontSize="14" TextWrapping="Wrap" Margin="10,20,10,0" Text="{Binding Selected.Description}"/>
             </StackPanel>
