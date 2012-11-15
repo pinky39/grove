@@ -42,6 +42,7 @@ task Compile -depends Init {
 } 
 
 task Test -depends DoRelease {
+  cp -recurse $media_dir $build_dir
   $old = pwd
   cd $build_dir
   &.\xunit.console.clr4.x86.exe "$build_dir\Grove.Tests.dll"

@@ -66,11 +66,13 @@
       return database;
     }
 
-    public void LoadPreviews()
+    public CardDatabase LoadPreviews()
     {
       _previews = Database
         .Select(x => x.CreateCardPreview())
         .ToDictionary(x => x.Name.ToLowerInvariant());
+
+      return this;
     }    
   }
 }

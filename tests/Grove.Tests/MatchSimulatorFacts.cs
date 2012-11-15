@@ -26,9 +26,11 @@
       Assert.True(result.Deck1WinCount + result.Deck2WinCount >= 2);
     }
 
+    private static CardDatabase _cardDatabase;
+
     private readonly IoC _container = IoC.Test();
-    protected MatchSimulator MatchSimulator { get { return _container.Resolve<MatchSimulator>(); } }
-    protected CardDatabase CardDatabase { get { return _container.Resolve<CardDatabase>(); } }
+    private MatchSimulator MatchSimulator { get { return _container.Resolve<MatchSimulator>(); } }
+    private CardDatabase CardDatabase { get { return _cardDatabase ?? (_cardDatabase = _container.Resolve<CardDatabase>().LoadPreviews()); } }
 
     private Deck GetDeck(string name)
     {

@@ -15,6 +15,7 @@
   public abstract class Scenario : IDisposable
   {
     protected readonly IoC Container = IoC.Test();
+    private static CardDatabase _cardDatabase;
 
     protected Scenario(bool player1ControlledByScript = true, bool player2ControlledByScript = true)
     {
@@ -24,7 +25,7 @@
       Game = Game.NewScenario(player1Controller, player2Controller, CardDatabase, DecisionSystem);
     }
 
-    protected CardDatabase CardDatabase { get { return Container.Resolve<CardDatabase>(); } }
+    protected CardDatabase CardDatabase { get { return _cardDatabase ?? (_cardDatabase = Container.Resolve<CardDatabase>().LoadPreviews()); } }
     protected DecisionSystem DecisionSystem { get { return Container.Resolve<DecisionSystem>(); } }
 
     protected Game Game { get; private set; }
