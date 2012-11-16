@@ -71,12 +71,7 @@
       }
 
       return ManaAmount.GetSymbolsFromColor(colors);
-    }
-
-    public static Deck Dummy(CardDatabase cardDatabase)
-    {
-      return new Deck(Enumerable.Repeat("Uncastable", 60), cardDatabase);
-    }
+    }    
 
     public void RemoveCard(string name)
     {

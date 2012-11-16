@@ -14,8 +14,9 @@
   public class Game
   {
     private CastRestrictions _castRestrictions;
-    private DecisionSystem _decisionSystem;
     private DecisionQueue _decisionQueue;
+    private DecisionSystem _decisionSystem;
+    private Publisher _publisher;
     private Search _search;
     private StateMachine _stateMachine;
     private TurnInfo _turnInfo;
@@ -29,14 +30,14 @@
     public Combat Combat { get; private set; }
     public bool IsFinished { get { return Players.AnyHasLost(); } }
     public Players Players { get; set; }
-    private Publisher _publisher;
     public int Score { get { return Players.Score; } }
     public Stack Stack { get; private set; }
     public TurnInfo Turn { get { return _turnInfo; } }
     public Search Search { get { return _search; } }
     public CastRestrictions CastRestrictions { get { return _castRestrictions; } }
 
-    public static Game New(Deck humanDeck, Deck cpuDeck, CardDatabase cardDatabase, DecisionSystem decisionSystem)
+    public static Game New(IEnumerable<string> humanDeck, IEnumerable<string> cpuDeck, CardDatabase cardDatabase,
+      DecisionSystem decisionSystem)
     {
       var game = CreateGame(cardDatabase, decisionSystem, enableDatabinding: true);
 
@@ -56,10 +57,10 @@
     private static Game CreateGame(CardDatabase cardDatabase, DecisionSystem decisionSystem, bool enableDatabinding)
     {
       var game = new Game();
-            
+
       game.ChangeTracker = new ChangeTracker();
       game._publisher = new Publisher(game.ChangeTracker);
-      game.CardDatabase = cardDatabase;      
+      game.CardDatabase = cardDatabase;
       game.Stack = enableDatabinding ? Bindable.Create<Stack>(game.ChangeTracker) : new Stack(game.ChangeTracker);
       game._turnInfo = new TurnInfo(game.ChangeTracker);
       game._wasStopped = new Trackable<bool>(game.ChangeTracker);
@@ -97,7 +98,8 @@
       _publisher.Subscribe(instance);
     }
 
-    public static Game NewSimulation(Deck deck1, Deck deck2, CardDatabase cardDatabase, DecisionSystem decisionSystem)
+    public static Game NewSimulation(IEnumerable<string> deck1, IEnumerable<string> deck2, CardDatabase cardDatabase,
+      DecisionSystem decisionSystem)
     {
       var game = CreateGame(cardDatabase, decisionSystem, enableDatabinding: false);
 
@@ -108,7 +110,7 @@
         player2Name: "Player2",
         player2Type: ControllerType.Machine,
         player2Deck: deck2,
-        game: game, 
+        game: game,
         enableDatabinding: false);
 
       return game;
@@ -181,24 +183,30 @@
       _decisionSystem.AddScenarioDecisions(prerecordedDecisions);
     }
 
-    public static Game NewScenario(ControllerType player1Controller, ControllerType player2Controller, CardDatabase cardDatabase, DecisionSystem decisionSystem)
+    public static Game NewScenario(ControllerType player1Controller, ControllerType player2Controller,
+      CardDatabase cardDatabase, DecisionSystem decisionSystem)
     {
       var game = CreateGame(cardDatabase, decisionSystem, enableDatabinding: false);
 
       game.Players = new Players(
-       player1Name: "Player1",
-       player1Type: player1Controller,
-       player1Deck: Deck.Dummy(cardDatabase),
-       player2Name: "Player2",
-       player2Type: player2Controller,
-       player2Deck: Deck.Dummy(cardDatabase),
-       game: game,
-       enableDatabinding: false);
-      
-      
+        player1Name: "Player1",
+        player1Type: player1Controller,
+        player1Deck: DummyDeck(),
+        player2Name: "Player2",
+        player2Type: player2Controller,
+        player2Deck: DummyDeck(),
+        game: game,
+        enableDatabinding: false);
+
+
       game.Players.Starting = game.Players.Player1;
 
       return game;
+    }
+
+    private static IEnumerable<string> DummyDeck()
+    {
+      return Enumerable.Repeat("Uncastable", 60);
     }
   }
 }

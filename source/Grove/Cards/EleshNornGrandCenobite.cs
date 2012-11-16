@@ -38,7 +38,7 @@
                     m.Power = 2;
                     m.Toughness = 2;
                   });
-              e.CardFilter = (card, source) => card.Controller == source.Controller && card.Is().Creature && card != source;
+              e.CardFilter = (card, effect) => card.Controller == effect.Source.Controller && card.Is().Creature && card != effect.Source;
             }),
           Continuous(e =>
             {
@@ -48,7 +48,7 @@
                     m.Power = -2;
                     m.Toughness = -2;
                   });
-              e.CardFilter = (card, source) => card.Controller != source.Controller;
+              e.CardFilter = (card, effect) => card.Controller != effect.Source.Controller;
             })
         );
     }

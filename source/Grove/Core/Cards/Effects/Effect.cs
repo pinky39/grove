@@ -75,7 +75,7 @@
       return 0;
     }
 
-    public virtual int CalculateToughnessReduction(Card creature)
+    public virtual int CalculateToughnessReduction(Card card)
     {
       return 0;
     }

@@ -1,7 +1,8 @@
 ﻿namespace Grove.Core.Cards
 {
+  using System;
   using System.Collections.Generic;
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Modifiers;
 
   [Copyable]
@@ -12,7 +13,7 @@
     private TriggeredAbilities() {}
 
     public TriggeredAbilities(IEnumerable<TriggeredAbility> abilities, ChangeTracker changeTracker,
-                              IHashDependancy hashDependancy)
+      IHashDependancy hashDependancy)
     {
       _abilities = new TrackableList<TriggeredAbility>(abilities, changeTracker, hashDependancy);
     }

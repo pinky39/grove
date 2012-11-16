@@ -4,14 +4,12 @@
   using System.Linq;
 
   public class Battlefield : UnorderedZone, IBattlefieldQuery
-  {
-    private readonly Combat _combat;
+  {    
     private readonly Player _owner;
 
     public Battlefield(Player owner, Game game) : base(game)
     {
-      _owner = owner;
-      _combat = game.Combat;
+      _owner = owner;      
     }
 
     private Battlefield()
@@ -43,17 +41,13 @@
     public IEnumerable<Card> Legends { get { return this.Where(x => x.Is().Legendary); } }
 
     public override void AfterAdd(Card card)
-    {
-      card.HasSummoningSickness = true;
+    {      
+      card.OnCardJoinedBattlefield();
     }
 
     public override void AfterRemove(Card card)
-    {
-      _combat.Remove(card);
-      card.DetachAttachments();
-      card.Detach();
-      card.Untap();
-      card.ClearDamage();
+    {      
+      card.OnCardLeftBattlefield();
     }
   }
 }

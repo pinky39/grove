@@ -152,7 +152,7 @@
 
       private void RegisterDecisions(IWindsorContainer container)
       {
-        container.Register(Component(typeof (DecisionSystem), lifestyle: LifestyleType.Singleton));
+        container.Register(Component(typeof (DecisionSystem)));
         container.Register(Component(typeof (IUiDecisionFactory), lifestyle: LifestyleType.Singleton).AsFactory());
 
         container.Register(Classes.FromThisAssembly()

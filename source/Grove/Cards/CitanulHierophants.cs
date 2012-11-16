@@ -24,7 +24,7 @@
         .Abilities(
           Continuous(e =>
             {
-              e.CardFilter = (card, source) => card.Controller == source.Controller && card.Is().Creature;
+              e.CardFilter = (card, effect) => card.Controller == effect.Source.Controller && card.Is().Creature;
               e.ModifierFactory = Modifier<AddActivatedAbility>(m =>
                 m.Ability = ManaAbility(ManaUnit.Green, "{T}: Add {G} to your mana pool.")
                 );

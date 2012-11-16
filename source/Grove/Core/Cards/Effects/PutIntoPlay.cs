@@ -11,12 +11,12 @@
     public Func<PutIntoPlay, Card, bool> ToughnessReductionFilter = delegate { return true; };
 
 
-    public override int CalculateToughnessReduction(Card creature)
+    public override int CalculateToughnessReduction(Card card)
     {
       var reduction = ToughnessReduction.GetValue(X);
 
       if (reduction > 0)
-        return ToughnessReductionFilter(this, creature) ? reduction : 0;
+        return ToughnessReductionFilter(this, card) ? reduction : 0;
 
       return 0;
     }

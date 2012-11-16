@@ -25,12 +25,12 @@
           TriggeredAbility(
             "Whenever this creature attacks, each other attacking creature gets +1/+0 until end of turn.",
             Trigger<OnAttack>(),
-            Effect<Core.Cards.Effects.ApplyModifiersToCreatures>(p =>
+            Effect<Core.Cards.Effects.ApplyModifiersToPermanents>(p =>
               {
                 p.Effect.Modifiers(Modifier<AddPowerAndToughness>(m =>
                   m.Power = 1, untilEndOfTurn: true));
 
-                p.Effect.Filter = (source, card) => source.OwningCard != card && card.IsAttacker;
+                p.Effect.Filter = (effect, card) => effect.Source.OwningCard != card && card.IsAttacker;
               })),
           TriggeredAbility(
             "{Battle cry}Whenever Hero of Bladehold attacks, put two 1/1 white Soldier creature tokens onto the battlefield tapped and attacking.",

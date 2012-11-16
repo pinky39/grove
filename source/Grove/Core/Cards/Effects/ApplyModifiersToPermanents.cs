@@ -2,19 +2,19 @@
 {
   using System;
   using System.Collections.Generic;
-  using Grove.Core.Targeting;
   using Modifiers;
+  using Targeting;
 
-  public class ApplyModifiersToCreatures : Effect
+  public class ApplyModifiersToPermanents : Effect
   {
     private readonly List<IModifierFactory> _modifierFactories = new List<IModifierFactory>();
 
-    public Func<IEffectSource, Card, bool> Filter = delegate { return true; };
+    public Func<ApplyModifiersToPermanents, Card, bool> Filter = delegate { return true; };
     public Value ToughnessReduction = 0;
 
-    public override int CalculateToughnessReduction(Card creature)
+    public override int CalculateToughnessReduction(Card card)
     {
-      if ((Target() == null || creature.Controller == Target()) && Filter(Source, creature))
+      if ((Target() == null || card.Controller == Target()) && Filter(this, card))
       {
         return ToughnessReduction.GetValue(X);
       }
@@ -31,21 +31,21 @@
     {
       if (Target() != null)
       {
-        ApplyModifierToPlayersCreatures(Target().Player());
+        ApplyModifierToPlayersPermanents(Target().Player());
         return;
       }
 
       foreach (var player in Players)
       {
-        ApplyModifierToPlayersCreatures(player);
+        ApplyModifierToPlayersPermanents(player);
       }
     }
 
-    private void ApplyModifierToPlayersCreatures(Player player)
+    private void ApplyModifierToPlayersPermanents(Player player)
     {
-      foreach (var creature in player.Battlefield.Creatures)
+      foreach (var creature in player.Battlefield)
       {
-        if (!Filter(Source, creature))
+        if (!Filter(this, creature))
           continue;
 
         foreach (var modifier in _modifierFactories.CreateModifiers(Source.OwningCard, creature, X, Game))

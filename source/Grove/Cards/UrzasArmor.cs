@@ -25,7 +25,7 @@
               e.ModifierFactory = Modifier<AddDamagePrevention>(
                 m => m.Prevention = Prevention<PreventDamageToTarget>(p => p.Amount = 1));
               e.CardFilter = delegate { return false; };
-              e.PlayerFilter = (player, armor) => player == armor.Controller;
+              e.PlayerFilter = (player, effect) => player == effect.Source.Controller;
             })
         );
     }

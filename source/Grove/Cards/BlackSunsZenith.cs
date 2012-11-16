@@ -21,9 +21,10 @@
         .AfterResolvePutToZone(Zone.Library)        
         .Timing(Timings.FirstMain())
         .FlavorText("'Under the suns, Mirrodin kneels and begs us for perfection.'{EOL}—Geth, Lord of the Vault")
-        .Effect<ApplyModifiersToCreatures>(e =>
+        .Effect<ApplyModifiersToPermanents>(e =>
           {
             e.ToughnessReduction = Value.PlusX;
+            e.Filter = (effect, card) => card.Is().Creature;
             e.Modifiers(Modifier<AddCounters>(m =>
               {
                 m.Counter = Counter<PowerToughness>(counter =>

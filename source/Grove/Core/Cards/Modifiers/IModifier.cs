@@ -21,5 +21,6 @@
     void Apply(DamageRedirections damageRedirections);
     void Activate();
     void Apply(ControllerCharacteristic controller);
+    void Apply(ContiniousEffects continiousEffects);
   }
 }

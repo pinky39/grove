@@ -25,6 +25,7 @@
     private readonly Trackable<bool> _hasMulligan;
     private readonly Trackable<bool> _hasPriority;
     private readonly Trackable<bool> _isActive;
+    private readonly ContiniousEffects _continuousEffects;
     private readonly Life _life;
     private readonly ManaPool _manaPool;
     private readonly TrackableList<IModifier> _modifiers;    
@@ -39,7 +40,7 @@
       string name,
       string avatar,
       ControllerType controller,
-      Deck deck,
+      IEnumerable<string> deck,
       Game game)
     {
       _game = game;      
@@ -59,8 +60,9 @@
       _damagePreventions = new DamagePreventions(game.ChangeTracker, null);
       _damageRedirections = new DamageRedirections(game.ChangeTracker, null);
       _assignedDamage = new AssignedDamage(this, game.ChangeTracker);
+      _continuousEffects = new ContiniousEffects(game.ChangeTracker, null);
 
-      var cards = LoadCards(deck.CardNames, _game.CardDatabase);
+      var cards = LoadCards(deck, _game.CardDatabase);
 
       CreateZones(cards, game);
       InitializeManaSources(game.ChangeTracker);
@@ -77,6 +79,7 @@
       {
         yield return _damagePreventions;
         yield return _damageRedirections;
+        yield return _continuousEffects;
       }
     }
 

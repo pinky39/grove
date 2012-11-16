@@ -254,7 +254,7 @@
             _game.Players.Player1.EmptyManaPool();
             _game.Players.Player2.EmptyManaPool();
 
-            Publish(new TurnStepFinished
+            Publish(new StepFinished
               {
                 Step = Step
               });

@@ -1,19 +1,19 @@
 ﻿namespace Grove.Core.Cards.Preventions
 {
   using System.Linq;
-  using Grove.Infrastructure;
-  using Modifiers;
-
+  using Infrastructure;
+  using Modifiers;    
+  
   [Copyable]
   public class DamagePreventions : IModifiable, IHashable
   {
-    private readonly TrackableList<DamagePrevention> _preventions;    
-    
+    private readonly TrackableList<DamagePrevention> _preventions;
+
     private DamagePreventions() {}
 
     public DamagePreventions(ChangeTracker changeTracker, IHashDependancy hashDependancy)
     {
-      _preventions = new TrackableList<DamagePrevention>(changeTracker, hashDependancy);      
+      _preventions = new TrackableList<DamagePrevention>(changeTracker, hashDependancy);
     }
 
     public int CalculateHash(HashCalculator calc)
@@ -29,7 +29,7 @@
     public void AddPrevention(DamagePrevention prevention)
     {
       _preventions.Add(prevention);
-    }   
+    }
 
     public void PreventReceivedDamage(Damage damage)
     {
@@ -44,7 +44,6 @@
 
     public int PreventDealtCombatDamage(int amount)
     {
-      
       foreach (var preventionEffect in _preventions.ToList())
       {
         amount = preventionEffect.PreventDealtCombatDamage(amount);

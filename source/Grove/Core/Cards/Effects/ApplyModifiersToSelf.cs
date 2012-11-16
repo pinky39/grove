@@ -1,19 +1,19 @@
 ﻿namespace Grove.Core.Cards.Effects
 {
   using System.Collections.Generic;
-  using Grove.Core.Zones;
   using Modifiers;
+  using Zones;
 
   public class ApplyModifiersToSelf : Effect
   {
-    public Value ToughnessReduction = 0;
     private readonly List<IModifierFactory> _selfModifiers = new List<IModifierFactory>();
+    public Value ToughnessReduction = 0;
 
     public override bool AffectsSource { get { return true; } }
 
-    public override int CalculateToughnessReduction(Card creature)
+    public override int CalculateToughnessReduction(Card card)
     {
-      return creature == Source.OwningCard ? ToughnessReduction.GetValue(X) : 0;
+      return card == Source.OwningCard ? ToughnessReduction.GetValue(X) : 0;
     }
 
     public void Modifiers(params IModifierFactory[] modifiersFactories)

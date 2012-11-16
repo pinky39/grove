@@ -27,7 +27,7 @@
                     m.Power = 1;
                     m.Toughness = 1;
                   });
-              e.CardFilter = (card, source) => card.Controller == source.Controller && card.Is().Creature;
+              e.CardFilter = (card, effect) => card.Controller == effect.Source.Controller && card.Is().Creature;
             }));
     }
   }

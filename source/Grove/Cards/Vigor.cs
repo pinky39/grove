@@ -36,7 +36,7 @@
                       counter.Power = 1;
                       counter.Toughness = 1;
                     })));
-              e.CardFilter = (card, vigor) => card.Name != vigor.Name && card.Controller == vigor.Controller && card.Is().Creature;
+              e.CardFilter = (card, effect) => card.Name != effect.Source.Name && card.Controller == effect.Source.Controller && card.Is().Creature;
             }),
           TriggeredAbility(
             "When Vigor is put into a graveyard from anywhere, shuffle it into its owner's library.",

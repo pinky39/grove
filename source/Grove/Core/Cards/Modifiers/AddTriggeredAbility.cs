@@ -1,6 +1,8 @@
 ﻿namespace Grove.Core.Cards.Modifiers
 {
-  using Grove.Core.Targeting;
+  using System;
+  using Targeting;
+
 
   public class AddTriggeredAbility : Modifier
   {

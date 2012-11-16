@@ -207,6 +207,7 @@
     <Compile Include="Cards\Endoskeleton.cs" />
     <Compile Include="Cards\EnergyField.cs" />
     <Compile Include="Cards\Evacuation.cs" />
+    <Compile Include="Cards\Exhaustion.cs" />
     <Compile Include="Cards\Exhume.cs" />
     <Compile Include="Cards\Expunge.cs" />
     <Compile Include="Cards\FieryMantle.cs" />
@@ -342,6 +343,10 @@
     <Compile Include="Core\Ai\AttackerEvaluation.cs" />
     <Compile Include="Core\Ai\BlockerEvaluation.cs" />
     <Compile Include="Core\Ai\QuickCombat.cs" />
+    <Compile Include="Core\Cards\ContiniousEffects.cs" />
+    <Compile Include="Core\Cards\Effects\ApplyModifiersToPlayers.cs" />
+    <Compile Include="Core\Cards\Modifiers\AddContiniousEffect.cs" />
+    <Compile Include="Core\Cards\Modifiers\EndOfUntapStep.cs" />
     <Compile Include="Core\Decisions\ChooseEffectOptions.cs" />
     <Compile Include="Core\Decisions\Human\CardSelector.cs" />
     <Compile Include="Core\Decisions\Human\ChooseEffectOptions.cs" />
@@ -699,7 +704,7 @@
     <Compile Include="Core\Cards\Costs\TapCreature.cs" />
     <Compile Include="Core\CardDatabase.cs" />
     <Compile Include="Core\Cards\Effects\AddManaToPool.cs" />
-    <Compile Include="Core\Cards\Effects\ApplyModifiersToCreatures.cs" />
+    <Compile Include="Core\Cards\Effects\ApplyModifiersToPermanents.cs" />
     <Compile Include="Core\Cards\Effects\ApplyModifiersToSelfAndToTargets.cs" />
     <Compile Include="Core\Cards\Effects\ApplyModifiersToSelf.cs" />
     <Compile Include="Core\Cards\Effects\ApplyModifiersToTargets.cs" />
@@ -809,7 +814,7 @@
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ui\SelectionChanged.cs" />
-    <Compile Include="Core\Messages\TurnStepFinished.cs" />
+    <Compile Include="Core\Messages\StepFinished.cs" />
     <Compile Include="Core\Messages\StepStarted.cs" />
     <Compile Include="Core\Player.cs" />
     <Compile Include="Core\Players.cs" />

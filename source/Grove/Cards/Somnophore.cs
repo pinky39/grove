@@ -38,10 +38,10 @@
                     m.AddLifetime(Lifetime<PermanentLeavesBattlefieldLifetime>(l => l.Permanent = m.Source));
                   })
                 ))
-              )),                        
+              )),
             selectorAi: TargetSelectorAi.Pacifism(),
             effectValidator: Validator(
-              Validators.Creature(p => p.Target.Card().Controller == p.Trigger<DamageHasBeenDealt>().Receiver), 
+              Validators.Creature(p => p.Target.Card().Controller == p.Trigger<DamageHasBeenDealt>().Receiver),
               text: "Select creature to tap."))
         );
     }

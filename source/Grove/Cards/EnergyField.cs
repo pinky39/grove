@@ -31,7 +31,7 @@
                     p.SourceFilter = (self, source) => self.Controller != source.Controller;
                   }));
               e.CardFilter = delegate { return false; };
-              e.PlayerFilter = (player, field) => player == field.Controller;
+              e.PlayerFilter = (player, effect) => player == effect.Source.Controller;
             }),
           TriggeredAbility(
             "When a card is put into your graveyard from anywhere, sacrifice Energy Field.",

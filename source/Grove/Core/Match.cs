@@ -108,7 +108,7 @@
     {
       _backgroundTask = new Task(() =>
         {
-          Game = Game.New(_deck1, _deck2, _cardDatabase, _decisionSystem);
+          Game = Game.New(_deck1.CardNames, _deck2.CardNames, _cardDatabase, _decisionSystem);
 
           var playScreen = _playScreenFactory.Create();
           _shell.ChangeScreen(playScreen);

@@ -20,9 +20,10 @@
         .Text(
           "{Kicker} {3}{EOL}Creatures target player controls get -1/-1 until end of turn. If Marsh Casualties was kicked, those creatures get -2/-2 until end of turn instead.")        
         .Timing(Timings.MainPhases())
-        .Effect<ApplyModifiersToCreatures>(e =>
+        .Effect<ApplyModifiersToPermanents>(e =>
           {
-            e.ToughnessReduction = 1;            
+            e.ToughnessReduction = 1; 
+            e.Filter = (effect, card) => card.Is().Creature;
             e.Modifiers(Modifier<AddPowerAndToughness>(m =>
               {
                 m.Power = -1;
@@ -32,10 +33,11 @@
         .Targets(
           selectorAi: TargetSelectorAi.Opponent(),
           effectValidator: Validator(Validators.Player()))
-        .KickerEffect<ApplyModifiersToCreatures>(p =>
+        .KickerEffect<ApplyModifiersToPermanents>(e =>
           {
-            p.Effect.ToughnessReduction = 2;     
-            p.Effect.Modifiers(Modifier<AddPowerAndToughness>(m =>
+            e.ToughnessReduction = 2;
+            e.Filter = (effect, card) => card.Is().Creature;
+            e.Modifiers(Modifier<AddPowerAndToughness>(m =>
               {
                 m.Power = -2;
                 m.Toughness = -2;

@@ -13,12 +13,12 @@
     public Value ToughnessReductionSelf = 0;
     public Value ToughnessReductionTargets = 0;
 
-    public override int CalculateToughnessReduction(Card creature)
+    public override int CalculateToughnessReduction(Card card)
     {
-      if (creature == Source.OwningCard)
+      if (card == Source.OwningCard)
         return ToughnessReductionSelf.GetValue(X);
 
-      if (creature == Target())
+      if (card == Target())
       {
         return ToughnessReductionTargets.GetValue(X);
       }

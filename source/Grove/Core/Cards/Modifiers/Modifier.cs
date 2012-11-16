@@ -3,11 +3,11 @@
   using System;
   using System.Collections.Generic;
   using Counters;
-  using Grove.Core.Dsl;
-  using Grove.Infrastructure;
-  using Grove.Core.Targeting;
+  using Dsl;
+  using Infrastructure;
   using Preventions;
   using Redirections;
+  using Targeting;
 
   [Copyable]
   public abstract class Modifier : IModifier, ICopyContributor
@@ -16,9 +16,9 @@
     protected Game Game { get; private set; }
     protected ChangeTracker ChangeTracker { get { return Game.ChangeTracker; } }
     public Card Source { get; set; }
-    public ITarget Target { get; private set; }    
+    public ITarget Target { get; private set; }
     protected int? X { get; private set; }
-    protected CardBuilder Builder {get {return new CardBuilder();}}
+    protected CardBuilder Builder { get { return new CardBuilder(); } }
 
     void ICopyContributor.AfterMemberCopy(object original)
     {
@@ -28,7 +28,7 @@
       }
     }
 
-    public virtual void Apply(ControllerCharacteristic controller) { }
+    public virtual void Apply(ControllerCharacteristic controller) {}
     public virtual void Apply(TriggeredAbilities abilities) {}
     public virtual void Apply(StaticAbilities abilities) {}
     public virtual void Apply(ActivatedAbilities abilities) {}
@@ -41,6 +41,7 @@
     public virtual void Apply(Counters counters) {}
     public virtual void Apply(Level level) {}
     public virtual void Apply(DamageRedirections damageRedirections) {}
+    public virtual void Apply(ContiniousEffects continiousEffects) {}
 
     public void Dispose()
     {
@@ -98,14 +99,14 @@
       public Initializer<TModifier> Init = delegate { };
       public bool EndOfTurn { get; set; }
       public int? MinLevel { get; set; }
-      public int? MaxLevel { get; set; }      
+      public int? MaxLevel { get; set; }
 
       public Modifier CreateModifier(Card source, ITarget target, int? x, Game game)
       {
         var modifier = new TModifier();
         modifier._lifetimes = new TrackableList<Lifetime>(game.ChangeTracker);
         modifier.Source = source;
-        modifier.Target = target;        
+        modifier.Target = target;
         modifier.X = x;
         modifier.Game = game;
 
@@ -125,10 +126,10 @@
         var builder = new CardBuilder();
 
         yield return builder.Lifetime<DefaultLifetime>(l => l.Target = modifier.Target);
-                    
+
         if (EndOfTurn)
         {
-          yield return builder.Lifetime<EndOfTurnLifetime>();                        
+          yield return builder.Lifetime<EndOfTurnLifetime>();
         }
 
         if (modifier.Source.Is().Attachment)
@@ -137,7 +138,7 @@
             {
               l.Attachment = modifier.Source;
               l.AttachmentTarget = modifier.Target.Card();
-            });                                    
+            });
         }
 
         if (MinLevel.HasValue)

@@ -24,7 +24,7 @@
             {
               e.ModifierFactory = Modifier<AddDamagePrevention>(
                 m => m.Prevention = Prevention<PreventLifelossBelowOne>());              
-              e.PlayerFilter = (player, armor) => player == armor.Controller;
+              e.PlayerFilter = (player, effect) => player == effect.Source.Controller;
             })
         );
     }

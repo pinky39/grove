@@ -1,19 +1,19 @@
 ﻿namespace Grove.Core.Cards.Effects
 {
   using System.Collections.Generic;
-  using Grove.Core.Targeting;
   using Modifiers;
+  using Targeting;
 
   public class ApplyModifiersToTargets : Effect
   {
     private readonly List<IModifierFactory> _modifierFactories = new List<IModifierFactory>();
-    public Value ToughnessReduction = 0;    
+    public Value ToughnessReduction = 0;
 
-    public override int CalculateToughnessReduction(Card creature)
+    public override int CalculateToughnessReduction(Card card)
     {
       foreach (var target in ValidTargets)
       {
-        if (target == creature)
+        if (target == card)
         {
           return ToughnessReduction.GetValue(X);
         }

@@ -11,9 +11,9 @@
     public bool ModifiesAttachmentController;
     public Value ToughnessReduction = 0;
 
-    public override int CalculateToughnessReduction(Card creature)
+    public override int CalculateToughnessReduction(Card card)
     {
-      if (Target() == creature)
+      if (Target() == card)
       {
         return ToughnessReduction.GetValue(X);
       }

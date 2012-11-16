@@ -7,7 +7,7 @@
 
   public class MatchSimulatorFacts
   {
-    [Fact]
+    //[Fact]
     public void Simulate()
     {
       var deck1 = "Kuno-rg-beastfires";
@@ -15,8 +15,8 @@
 
       var result =
         MatchSimulator.Simulate(
-          GetDeck(deck1),
-          GetDeck(deck2));
+          GetDeck(deck1).CardNames,
+          GetDeck(deck2).CardNames);
 
       Console.WriteLine(@"{0} vs {1}", deck1, deck2);
       Console.WriteLine(@"Match duration: {0}.", result.Duration);

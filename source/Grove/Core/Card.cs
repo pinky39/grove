@@ -30,7 +30,7 @@
     private Attachments _attachments;
     private Trackable<bool> _canRegenerate;
     private CardColors _colors;
-    private TrackableList<ContinuousEffect> _continuousEffects;
+    private ContiniousEffects _continuousEffects;
     private ControllerCharacteristic _controller;
     private Counters _counters;
     private Trackable<int> _damage;
@@ -140,6 +140,7 @@
         yield return _activatedAbilities;
         yield return _staticAbilities;
         yield return _controller;
+        yield return _continuousEffects;
       }
     }
 
@@ -651,6 +652,18 @@
       newZone.AfterAdd(this);
     }
 
+    public void OnCardLeftBattlefield()
+    {
+      _game.Combat.Remove(this);
+
+      DetachAttachments();
+      Detach();
+      Untap();
+      ClearDamage();
+      
+      _continuousEffects.Deactivate();
+    }    
+
     public void UnHide()
     {
       IsHidden = false;
@@ -836,6 +849,12 @@
       return generator.Any(targets => targets.Effect.Contains(target));
     }
 
+    public void OnCardJoinedBattlefield()
+    {
+      HasSummoningSickness = true;
+      _continuousEffects.Activate();
+    }    
+
     [Copyable]
     public class CardFactory : ICardFactory
     {
@@ -952,8 +971,8 @@
 
         card._activatedAbilities = new ActivatedAbilities(activatedAbilities, game.ChangeTracker, card);
 
-        var continiousEffects = _continuousEffectFactories.Select(factory => factory.Create(card, game)).ToList();
-        card._continuousEffects = new TrackableList<ContinuousEffect>(continiousEffects, game.ChangeTracker, card);
+        var continiousEffects = _continuousEffectFactories.Select(factory => factory.Create(card, card, game)).ToList();
+        card._continuousEffects = new ContiniousEffects(continiousEffects, game.ChangeTracker, card);
 
         card._resolveToZone = _resolveZone;
 

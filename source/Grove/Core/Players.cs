@@ -18,10 +18,10 @@
     public Players(
       string player1Name, 
       ControllerType player1Type, 
-      Deck player1Deck,
+      IEnumerable<string> player1Deck,
       string player2Name,
       ControllerType player2Type,
-      Deck player2Deck,      
+      IEnumerable<string> player2Deck,      
       Game game, 
       bool enableDatabinding)
     {      
@@ -31,7 +31,7 @@
       Player2 = CreatePlayer(player2Name, "player2.png", player2Type, player2Deck, game, enableDatabinding);
     }
 
-    private Player CreatePlayer(string name,  string avatar, ControllerType type, Deck deck, Game game, bool enableDatabinding)
+    private Player CreatePlayer(string name,  string avatar, ControllerType type, IEnumerable<string> deck, Game game, bool enableDatabinding)
     {
       if (enableDatabinding)
       {

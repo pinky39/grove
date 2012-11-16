@@ -1,27 +1,29 @@
 ﻿namespace Grove.Core.Cards
 {
   using System.Linq;
-  using Grove.Core.Dsl;
-  using Grove.Infrastructure;
-  using Grove.Core.Messages;
-  using Grove.Core.Targeting;
-  using Grove.Core.Zones;
+  using Dsl;
+  using Infrastructure;
+  using Messages;
   using Modifiers;
+  using Targeting;
+  using Zones;
 
   [Copyable]
   public class ContinuousEffect : IReceive<CardChangedZone>, IReceive<PermanentWasModified>
   {
-    public delegate bool ShouldApplyToCard(Card card, Card effectSource);
-    public delegate bool ShouldApplyToPlayer(Player player, Card effectSource);
-
+    public delegate bool ShouldApplyToCard(Card card, ContinuousEffect effect);
+    public delegate bool ShouldApplyToPlayer(Player player, ContinuousEffect effect);
+    
     public ShouldApplyToCard CardFilter = delegate { return false; };
     public ShouldApplyToPlayer PlayerFilter = delegate { return false; };
-    private Trackable<Modifier> _doNotUpdate;
+    
+    private Trackable<Modifier> _doNotUpdate;    
+    private Game _game;
 
     private Trackable<bool> _isActive;
-    private TrackableList<Modifier> _modifiers;    
-    private Card _source;
-    private Game _game;
+    private TrackableList<Modifier> _modifiers;
+    public Card Source { get; private set; }
+    public ITarget Target { get; private set; }
 
     private ContinuousEffect()
     {
@@ -31,28 +33,13 @@
     public IModifierFactory ModifierFactory { get; set; }
 
     public void Receive(CardChangedZone message)
-    {
-      if (SourceJoinedBattlefield(message))
-      {
-        Activate();
-        return;
-      }
-
-      if (!_isActive)
-      {
-        return;
-      }
-
-      if (SourceLeftBattlefield(message))
-      {
-        Deactivate();
-        return;
-      }
-
-      if (message.ToBattlefield && CardFilter(message.Card, _source))
+    {      
+      if (_isActive == false) return;      
+      
+      if (message.ToBattlefield && CardFilter(message.Card, this))
       {
         var modifier = FindModifier(message.Card);
-        
+
         if (modifier == null)
         {
           AddModifier(message.Card);
@@ -88,7 +75,7 @@
     private void UpdatePermanent(Card permanent)
     {
       var modifier = FindModifier(permanent);
-      var shouldEffectBeApliedToPermanent = CardFilter(permanent, _source);
+      var shouldEffectBeApliedToPermanent = CardFilter(permanent, this);
 
       if (modifier == null && shouldEffectBeApliedToPermanent)
       {
@@ -105,9 +92,9 @@
     private void RemoveModifier(Modifier modifier)
     {
       _doNotUpdate.Value = modifier;
-      
+
       _modifiers.Remove(modifier);
-      modifier.Remove();      
+      modifier.Remove();
     }
 
     private Modifier FindModifier(Card permanent)
@@ -116,7 +103,7 @@
         .FirstOrDefault(x => x.Target == permanent);
     }
 
-    private void Activate()
+    public void Activate()
     {
       AddModifierToPermanents();
       AddModifierToPlayers();
@@ -127,7 +114,7 @@
     {
       foreach (var player in _game.Players)
       {
-        if (PlayerFilter(player, _source))
+        if (PlayerFilter(player, this))
         {
           AddModifier(player);
         }
@@ -136,7 +123,7 @@
 
     private void AddModifier(ITarget target)
     {
-      var modifier = ModifierFactory.CreateModifier(_source, target, x: null, game: _game);
+      var modifier = ModifierFactory.CreateModifier(Source, target, x: null, game: _game);
       _modifiers.Add(modifier);
 
       _doNotUpdate.Value = modifier;
@@ -146,7 +133,7 @@
     private void AddModifierToPermanents()
     {
       var permanents = _game.Players.Permanents()
-        .Where(permanent => CardFilter(permanent, _source)).ToList();
+        .Where(permanent => CardFilter(permanent, this)).ToList();
 
       foreach (var permanent in permanents)
       {
@@ -154,36 +141,27 @@
       }
     }
 
-    private void Deactivate()
+    public void Deactivate()
     {
       _isActive.Value = false;
-      
+
       foreach (var modifier in _modifiers.ToList())
       {
         RemoveModifier(modifier);
-      }      
-    }
+      }
+    }   
 
-    private bool SourceJoinedBattlefield(CardChangedZone message)
-    {
-      return message.Card == _source && message.To == Zone.Battlefield;
-    }
-
-    private bool SourceLeftBattlefield(CardChangedZone message)
-    {
-      return message.Card == _source && message.From == Zone.Battlefield;
-    }
-    
     public class Factory : IContinuousEffectFactory
     {
-      public Initializer<ContinuousEffect> Init = delegate { };      
+      public Initializer<ContinuousEffect> Init = delegate { };
 
-      public ContinuousEffect Create(Card source, Game game)
+      public ContinuousEffect Create(Card source, ITarget target, Game game)
       {
         var continuousEffect = new ContinuousEffect();
         continuousEffect._doNotUpdate = new Trackable<Modifier>(game.ChangeTracker);
         continuousEffect._modifiers = new TrackableList<Modifier>(game.ChangeTracker);
-        continuousEffect._source = source;        
+        continuousEffect.Source = source;
+        continuousEffect.Target = target;
         continuousEffect._game = game;
         continuousEffect._isActive = new Trackable<bool>(game.ChangeTracker);
 
