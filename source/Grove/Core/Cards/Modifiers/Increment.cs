@@ -1,6 +1,6 @@
 ﻿namespace Grove.Core.Cards.Modifiers
 {
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   public class Increment : PropertyModifier<int?>
   {

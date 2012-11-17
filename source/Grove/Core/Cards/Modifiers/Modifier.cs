@@ -42,6 +42,7 @@
     public virtual void Apply(Level level) {}
     public virtual void Apply(DamageRedirections damageRedirections) {}
     public virtual void Apply(ContiniousEffects continiousEffects) {}
+    public virtual void Apply(LandLimit landLimit) {}
 
     public void Dispose()
     {

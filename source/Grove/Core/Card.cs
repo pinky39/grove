@@ -335,7 +335,7 @@
             calc.Calculate(_activatedAbilities),
             calc.Calculate(_protections),
             calc.Calculate(_damagePreventions),
-            calc.Calculate(_attachments)
+            calc.Calculate(_attachments)            
             );
         }
       }
@@ -774,7 +774,7 @@
     {
       if (Is().Land)
       {
-        Owner.CanPlayLands = false;
+        Owner.LandsPlayedCount++;
       }
       else
       {

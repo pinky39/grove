@@ -22,5 +22,6 @@
     void Activate();
     void Apply(ControllerCharacteristic controller);
     void Apply(ContiniousEffects continiousEffects);
+    void Apply(LandLimit landLimit);
   }
 }

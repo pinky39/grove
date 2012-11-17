@@ -92,11 +92,11 @@ Enchantment Alteration
 o Endless Wurm
 o Endoskeleton
 o Energy Field
-Exhaustion
-Exhume
-Exploration
-Expunge
-Faith Healer
+o Exhaustion
+o Exhume
+o Exploration
+o Expunge
+o Faith Healer
 Falter
 Fault Line
 Fecundity

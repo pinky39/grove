@@ -313,7 +313,7 @@
               }
             }
 
-            _game.Players.Active.CanPlayLands = true;
+            _game.Players.Active.LandsPlayedCount = 0;
           },
         nextStep: () => Step.Upkeep);
 

@@ -5,15 +5,15 @@
   using Modifiers;
 
   [Copyable]
-  public class ContiniousEffects : IModifiable, IHashable
+  public class ContiniousEffects : IModifiable
   {
     private readonly TrackableList<ContinuousEffect> _continiousEffects;
 
     private ContiniousEffects() {}
 
-    public ContiniousEffects(ChangeTracker changeTracker, IHashDependancy hashDependancy)
+    public ContiniousEffects(ChangeTracker changeTracker)
     {
-      _continiousEffects = new TrackableList<ContinuousEffect>(changeTracker, hashDependancy);
+      _continiousEffects = new TrackableList<ContinuousEffect>(changeTracker);
     }
 
     public ContiniousEffects(IEnumerable<ContinuousEffect> effects, ChangeTracker changeTracker,
@@ -21,12 +21,7 @@
     {
       _continiousEffects = new TrackableList<ContinuousEffect>(effects, changeTracker, hashDependancy);
     }
-
-    public int CalculateHash(HashCalculator calc)
-    {
-      return calc.Calculate(_continiousEffects);
-    }
-
+    
     public void Accept(IModifier modifier)
     {
       modifier.Apply(this);

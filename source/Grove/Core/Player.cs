@@ -17,8 +17,9 @@
   public class Player : ITarget, IDamageable, IAcceptsModifiers, IHasLife
   {
     private readonly Game _game;
+    private readonly LandLimit _landLimit;
     private readonly AssignedDamage _assignedDamage;
-    private readonly Trackable<bool> _canPlayLands;
+    private readonly Trackable<int> _landsPlayedCount;
     private readonly DamagePreventions _damagePreventions;
     private readonly DamageRedirections _damageRedirections;
     private readonly Trackable<bool> _hasLost;
@@ -50,7 +51,7 @@
       Controller = controller;
 
       _life = new Life(20, game.ChangeTracker);
-      _canPlayLands = new Trackable<bool>(true, game.ChangeTracker);
+      _landsPlayedCount = new Trackable<int>(0, game.ChangeTracker);
       _hasMulligan = new Trackable<bool>(true, game.ChangeTracker);
       _hasLost = new Trackable<bool>(game.ChangeTracker);
       _isActive = new Trackable<bool>(game.ChangeTracker);
@@ -60,7 +61,8 @@
       _damagePreventions = new DamagePreventions(game.ChangeTracker, null);
       _damageRedirections = new DamageRedirections(game.ChangeTracker, null);
       _assignedDamage = new AssignedDamage(this, game.ChangeTracker);
-      _continuousEffects = new ContiniousEffects(game.ChangeTracker, null);
+      _continuousEffects = new ContiniousEffects(game.ChangeTracker);
+      _landLimit = new LandLimit(1, game.ChangeTracker, null);
 
       var cards = LoadCards(deck, _game.CardDatabase);
 
@@ -73,6 +75,11 @@
     public object ManaPool { get { return _manaPool; } }
     public string Name { get; private set; }
 
+    public int LandsPlayedCount
+    {
+      get { return _landsPlayedCount.Value; } set { _landsPlayedCount.Value = value; }
+    }
+
     private IEnumerable<IModifiable> ModifiableProperties
     {
       get
@@ -80,13 +87,14 @@
         yield return _damagePreventions;
         yield return _damageRedirections;
         yield return _continuousEffects;
+        yield return _landLimit;
       }
     }
 
     public string Avatar { get; private set; }
     public IBattlefieldQuery Battlefield { get { return _battlefield; } }
-    public bool CanMulligan { get { return _hand.CanMulligan && HasMulligan; } }
-    public bool CanPlayLands { get { return _canPlayLands.Value; } set { _canPlayLands.Value = value; } }
+    public bool CanMulligan { get { return _hand.CanMulligan && HasMulligan; } }        
+    public bool CanPlayLands { get { return LandsPlayedCount < _landLimit.Value; }}
     public IGraveyardQuery Graveyard { get { return _graveyard; } }
     public IHandQuery Hand { get { return _hand; } }
     public bool HasLost { get { return _hasLost.Value; } set { _hasLost.Value = value; } }
@@ -176,8 +184,10 @@
         calc.Calculate(_assignedDamage),
         calc.Calculate(_battlefield),
         calc.Calculate(_graveyard),
-        calc.Calculate(_library),
-        calc.Calculate(_hand)
+        calc.Calculate(_library),        
+        calc.Calculate(_hand),        
+        _landLimit.Value.GetValueOrDefault(),
+        _landsPlayedCount.Value        
         );
     }
 

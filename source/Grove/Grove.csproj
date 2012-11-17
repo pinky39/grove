@@ -209,7 +209,9 @@
     <Compile Include="Cards\Evacuation.cs" />
     <Compile Include="Cards\Exhaustion.cs" />
     <Compile Include="Cards\Exhume.cs" />
+    <Compile Include="Cards\Exploration.cs" />
     <Compile Include="Cards\Expunge.cs" />
+    <Compile Include="Cards\FaithHealer.cs" />
     <Compile Include="Cards\FieryMantle.cs" />
     <Compile Include="Cards\FleshReaver.cs" />
     <Compile Include="Cards\Forest.cs" />
@@ -345,6 +347,8 @@
     <Compile Include="Core\Ai\QuickCombat.cs" />
     <Compile Include="Core\Cards\ContiniousEffects.cs" />
     <Compile Include="Core\Cards\Effects\ApplyModifiersToPlayers.cs" />
+    <Compile Include="Core\Cards\Modifiers\IncreaseLandLimit.cs" />
+    <Compile Include="Core\LandLimit.cs" />
     <Compile Include="Core\Cards\Modifiers\AddContiniousEffect.cs" />
     <Compile Include="Core\Cards\Modifiers\EndOfUntapStep.cs" />
     <Compile Include="Core\Decisions\ChooseEffectOptions.cs" />
@@ -508,7 +512,6 @@
     <Compile Include="Core\Cards\Effects\DealExistingDamageToController.cs" />
     <Compile Include="Core\Cards\Effects\DestroyAllPermanents.cs" />
     <Compile Include="Core\Cards\Effects\ExileTargets.cs" />
-    <Compile Include="Core\Cards\Effects\GainLifeEqualToTargetPower.cs" />
     <Compile Include="Core\Cards\Effects\MillOpponent.cs" />
     <Compile Include="Core\Cards\Effects\PayLifeOrTap.cs" />
     <Compile Include="Core\Cards\Effects\PayManaOrSacrifice.cs" />
