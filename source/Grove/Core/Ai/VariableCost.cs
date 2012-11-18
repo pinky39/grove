@@ -87,5 +87,10 @@
     {
       return p => p.Controller.GetConvertedMana(ManaUsage.Abilities);
     }
+
+    public static CalculateX MaximumAvailableMana(ManaUsage usage = ManaUsage.Spells)
+    {
+      return p => p.Controller.GetConvertedMana(usage);
+    }
   }
 }

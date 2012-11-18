@@ -9,17 +9,19 @@
   using Shell;
 
   public class ViewModel : IIsDialogHost
-  {        
+  {
+    private readonly Ui.Deck.ViewModel.IFactory _deckVmFactory;
     private readonly List<object> _dialogs = new List<object>();
     private readonly IIsDialogHost _previousScreen;
     private readonly SaveDeckAs.ViewModel.IFactory _saveDeckAsFactory;
-    private readonly Ui.Deck.ViewModel.IFactory _deckVmFactory;
     private readonly SelectDeck.ViewModel.IFactory _selectDeckScreenFactory;
-    private readonly IShell _shell;    
+    private readonly IShell _shell;
+
+    private Ui.Deck.ViewModel _deck;
 
     public ViewModel(
       IIsDialogHost previousScreen, IShell shell,
-      SelectDeck.ViewModel.IFactory selectDeckScreenFactory, 
+      SelectDeck.ViewModel.IFactory selectDeckScreenFactory,
       SaveDeckAs.ViewModel.IFactory saveDeckAsFactory,
       Ui.Deck.ViewModel.IFactory deckVmFactory,
       CardDatabase cardDatabase)
@@ -28,16 +30,23 @@
       _shell = shell;
       _selectDeckScreenFactory = selectDeckScreenFactory;
       _saveDeckAsFactory = saveDeckAsFactory;
-      _deckVmFactory = deckVmFactory;       
+      _deckVmFactory = deckVmFactory;
 
       Library = Bindable.Create<Library>(cardDatabase);
       Deck = deckVmFactory.Create(MediaLibrary.GetRandomDeck(cardDatabase));
       SelectedCard = Deck.SelectedCard ?? cardDatabase.Random();
-      Deck.Property(x => x.SelectedCard).Changes(this).Property(x => x.SelectedCard);            
     }
-    
-    public virtual Ui.Deck.ViewModel Deck { get; protected set; }
-   
+
+    public virtual Ui.Deck.ViewModel Deck
+    {
+      get { return _deck; }
+      protected set
+      {
+        _deck = value;
+        _deck.Property(x => x.SelectedCard).Changes(this).Property<ViewModel, Card>(x => x.SelectedCard);
+      }
+    }
+
     public Library Library { get; private set; }
     public object Dialog { get { return _dialogs.FirstOrDefault(); } }
     public virtual Card SelectedCard { get; protected set; }
@@ -84,7 +93,7 @@
           PreviousScreen = this,
           Forward = (deck) =>
             {
-              Deck = _deckVmFactory.Create(deck);              
+              Deck = _deckVmFactory.Create(deck);
               _shell.ChangeScreen(this);
             }
         };
@@ -98,9 +107,9 @@
       if (!SaveChanges())
         return;
 
-      Deck = _deckVmFactory.Create();                  
+      Deck = _deckVmFactory.Create();
     }
-    
+
     public void Save()
     {
       if (Deck.IsNew)
@@ -109,16 +118,16 @@
         return;
       }
 
-      Deck.Save();      
+      Deck.Save();
     }
-    
+
     public virtual void SaveAs()
     {
       var deckName = GetDeckName();
 
       if (deckName == null)
         return;
-      
+
       Deck.SaveAs(deckName);
     }
 
@@ -171,7 +180,7 @@
       }
 
       return true;
-    }    
+    }
 
     public interface IFactory
     {

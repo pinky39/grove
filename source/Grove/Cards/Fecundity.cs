@@ -5,38 +5,38 @@
   using Core.Ai;
   using Core.Cards.Triggers;
   using Core.Dsl;
-  using Core.Mana;
   using Core.Messages;
   using Core.Zones;
 
-  public class Bereavement : CardsSource
+  public class Fecundity : CardsSource
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
       yield return Card
-        .Named("Bereavement")
-        .ManaCost("{1}{B}")
+        .Named("Fecundity")
+        .ManaCost("{2}{G}")
         .Type("Enchantment")
-        .Text("Whenever a green creature dies, its controller discards a card.")
-        .FlavorText("'Grief is as useless as love.'{EOL}—Gix, Yawgmoth praetor")
+        .Text("Whenever a creature dies, that creature's controller may draw a card.")
+        .FlavorText("Life is eternal. A lifetime is ephemeral.")
         .Timing(Timings.FirstMain())
         .Abilities(
           TriggeredAbility(
-            "Whenever a green creature dies, its controller discards a card.",
+            "Whenever a creature dies, that creature's controller may draw a card.",
             Trigger<OnZoneChange>(t =>
               {
-                t.Filter = (ability, card) => card.Is().Creature && card.HasColors(ManaColors.Green);
+                t.Filter = (ability, card) => card.Is().Creature;
                 t.From = Zone.Battlefield;
                 t.To = Zone.Graveyard;
               }),
-            Effect<Core.Cards.Effects.DiscardCards>(p =>
+            Effect<Core.Cards.Effects.DrawCards>(p =>
               {
-                p.Effect.Count = 1;
+                p.Effect.DrawCount = 1;
                 
                 p.Effect.Player = p.Parameters
                   .Trigger<CardChangedZone>()
                   .Card.Controller;
               }),
+            
             triggerOnlyIfOwningCardIsInPlay: true)
         );
     }

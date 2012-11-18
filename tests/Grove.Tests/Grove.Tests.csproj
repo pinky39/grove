@@ -143,6 +143,9 @@
     <Compile Include="Cards\Exhaustion.cs" />
     <Compile Include="Cards\Exhume.cs" />
     <Compile Include="Cards\Exploration.cs" />
+    <Compile Include="Cards\Falter.cs" />
+    <Compile Include="Cards\Fecundity.cs" />
+    <Compile Include="Cards\FertileGround.cs" />
     <Compile Include="Cards\FieryMantle.cs" />
     <Compile Include="Cards\GraveTitan.cs" />
     <Compile Include="Cards\HeroOfBladeHold.cs" />

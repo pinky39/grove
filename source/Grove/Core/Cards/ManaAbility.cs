@@ -1,12 +1,12 @@
 ﻿namespace Grove.Core.Cards
 {
+  using Dsl;
   using Effects;
-  using Grove.Core.Dsl;
   using Mana;
 
   public class ManaAbility : ActivatedAbility, IManaSource
   {
-    private IManaAmount _manaAmount;
+    private ManaAmountCharacteristic _manaAmount;
 
     public ManaAbility()
     {
@@ -21,7 +21,7 @@
       Cost.Pay(target: null, x: null);
       OwningCard.IncreaseUsageScore();
 
-      if (amount.Converted == _manaAmount.Converted)
+      if (amount.Converted == _manaAmount.Value.Converted)
         return;
 
       // if effect produces more mana than needed 
@@ -34,7 +34,7 @@
     public IManaAmount GetAvailableMana(ManaUsage usage)
     {
       var prerequisites = CanActivate();
-      return prerequisites.CanBeSatisfied ? _manaAmount : ManaAmount.Zero;
+      return prerequisites.CanBeSatisfied ? _manaAmount.Value : ManaAmount.Zero;
     }
 
     public override SpellPrerequisites CanActivate()
@@ -54,16 +54,31 @@
       return SpellPrerequisites.CannotBeSatisfied;
     }
 
+    public void AddManaModifier(PropertyModifier<IManaAmount> modifier)
+    {
+      _manaAmount.AddModifier(modifier);
+    }
+
+    public void RemoveManaModifier(PropertyModifier<IManaAmount> modifier)
+    {
+      _manaAmount.RemoveModifier(modifier);
+    }
+
     public void SetManaAmount(IManaAmount manaAmount)
     {
       var builder = new CardBuilder();
 
       Effect(builder.Effect<AddManaToPool>
         (
-          e => e.Amount = manaAmount
-        ));
+          e =>
+            {
+              var manaAbility = (ManaAbility) e.Source;
+              e.Amount = manaAbility._manaAmount.Value;
+            }));
 
-      _manaAmount = manaAmount;
+      _manaAmount = new ManaAmountCharacteristic(
+        manaAmount, 
+        Game.ChangeTracker, null);
     }
   }
 }

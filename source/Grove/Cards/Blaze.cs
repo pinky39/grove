@@ -9,7 +9,6 @@
   using Core.Mana;
   using Core.Targeting;
 
-
   public class Blaze : CardsSource
   {
     public override IEnumerable<ICardFactory> GetCards()

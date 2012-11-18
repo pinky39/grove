@@ -7,7 +7,7 @@
   using Core.Cards.Effects;
   using Core.Dsl;
 
-  public class VolcanincFallout : CardsSource
+  public class VolcanicFallout : CardsSource
   {
     public override IEnumerable<ICardFactory> GetCards()
     {

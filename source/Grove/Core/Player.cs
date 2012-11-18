@@ -87,7 +87,7 @@
         yield return _damagePreventions;
         yield return _damageRedirections;
         yield return _continuousEffects;
-        yield return _landLimit;
+        yield return _landLimit;        
       }
     }
 
@@ -196,7 +196,7 @@
       _battlefield.Add(card);
     }
 
-    public int GetConvertedMana(ManaUsage usage)
+    public int GetConvertedMana(ManaUsage usage = ManaUsage.Any)
     {
       return _manaSources.GetMaxConvertedMana(usage);
     }
@@ -210,6 +210,11 @@
       }
 
       _manaPool.Add(manaAmount);
+    }
+
+    public IManaAmount GetAmountOfManaInPool(ManaUsage manaUsage = ManaUsage.Any)
+    {
+      return _manaPool.GetAvailableMana(manaUsage);
     }
 
     public void AssignDamage(Damage damage)

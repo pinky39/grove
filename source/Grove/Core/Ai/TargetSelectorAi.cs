@@ -1167,5 +1167,18 @@
             candidates, pickedCount));
         };
     }
+
+    public static TargetSelectorAiDelegate EnchantYourLand()
+    {
+       return p =>
+        {
+          var candidates = p.Candidates()
+            .Where(x => x.Card().Controller == p.Controller)
+            .OrderBy(x => x.Card().Attachments.Count())
+            .Take(1);
+
+          return p.Targets(candidates);
+        };
+    }
   }
 }

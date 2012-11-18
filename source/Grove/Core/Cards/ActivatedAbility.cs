@@ -2,14 +2,14 @@
 {
   using System;
   using System.Linq;
+  using Ai;
   using Costs;
   using Effects;
-  using Grove.Core.Ai;
-  using Grove.Infrastructure;
-  using Grove.Core.Messages;
-  using Grove.Core.Targeting;
-  using Grove.Core.Zones;
+  using Infrastructure;
   using Mana;
+  using Messages;
+  using Targeting;
+  using Zones;
 
   public class ActivatedAbility : Ability
   {
@@ -50,8 +50,8 @@
           targets: parameters.Targets
           ), Game);
 
-      Cost.Pay(parameters.Targets.Cost.FirstOrDefault(), parameters.X);      
-      
+      Cost.Pay(parameters.Targets.Cost.FirstOrDefault(), parameters.X);
+
       if (UsesStack)
       {
         Stack.Push(effect);
@@ -143,10 +143,10 @@
     {
       IsEnabled = false;
     }
-    
+
     public class Factory<T> : IActivatedAbilityFactory where T : ActivatedAbility, new()
     {
-      public Action<T> Init = delegate { };      
+      public Action<T> Init = delegate { };
 
       public ActivatedAbility Create(Card card, Game game)
       {

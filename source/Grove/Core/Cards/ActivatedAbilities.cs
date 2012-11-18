@@ -4,10 +4,10 @@
   using System.Collections.Generic;
   using System.Linq;
   using Effects;
-  using Grove.Infrastructure;
-  using Grove.Core.Targeting;
+  using Infrastructure;
   using Mana;
   using Modifiers;
+  using Targeting;
 
   [Copyable]
   public class ActivatedAbilities : IModifiable, IHashable
@@ -30,6 +30,7 @@
     }
 
     public IList<IManaSource> ManaSources { get { return _manaSources; } }
+    public IEnumerable<ManaAbility> ManaAbilities { get { return _abilities.Where(x => x is ManaAbility).Cast<ManaAbility>(); } }
 
     public int CalculateHash(HashCalculator calc)
     {

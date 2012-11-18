@@ -5,11 +5,11 @@
   public class DiscardCards : Effect
   {
     public int Count { get; set; }
-    public Player ChosenPlayer { get; set; }    
+    public Player Player { get; set; }    
 
     protected override void ResolveEffect()
     {
-      var player = ChosenPlayer ?? Target().Player();
+      var player = Player ?? Target().Player();
 
       Game.Enqueue<Decisions.DiscardCards>(
         controller: player,

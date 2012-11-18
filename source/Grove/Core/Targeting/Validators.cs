@@ -126,5 +126,10 @@
            (!yourGraveyardOnly || p.Target.Card().Controller == p.Controller) &&
               filter(p.Target.Card());
     }
+
+    public static TargetValidatorDelegate EnchantedPermanent(Func<Card, bool> predicate)
+    {
+      return p => p.Target.IsPermanent() && predicate(p.Target.Card());
+    }
   }
 }

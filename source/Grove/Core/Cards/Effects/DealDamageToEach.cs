@@ -1,11 +1,12 @@
 ﻿namespace Grove.Core.Cards.Effects
 {
   using System;
+  using Modifiers;
 
   public class DealDamageToEach : Effect
   {
-    public int? AmountCreature;
-    public int? AmountPlayer;
+    public Value AmountCreature = 0;
+    public Value AmountPlayer = 0;
 
     public Func<DealDamageToEach, Card, bool> FilterCreature = delegate { return true; };
     public Func<DealDamageToEach, Player, bool> FilterPlayer = delegate { return true; };
@@ -22,12 +23,12 @@
 
     public override int CalculatePlayerDamage(Player player)
     {
-      return DealToPlayer(player) ? AmountPlayer.GetValueOrDefault() : 0;
+      return DealToPlayer(player) ? AmountPlayer.GetValue(X) : 0;
     }
 
     public override int CalculateCreatureDamage(Card creature)
     {
-      return DealToCreature(creature) ? AmountCreature.GetValueOrDefault() : 0;
+      return DealToCreature(creature) ? AmountCreature.GetValue(X) : 0;
     }
 
     protected override void ResolveEffect()
@@ -38,7 +39,7 @@
         {
           var damage = new Damage(
             source: Source.OwningCard,
-            amount: AmountPlayer.Value,
+            amount: AmountPlayer.GetValue(X),
             isCombat: false,
             changeTracker: Game.ChangeTracker
             );
@@ -55,7 +56,7 @@
           {
             var damage = new Damage(
               source: Source.OwningCard,
-              amount: AmountCreature.Value,
+              amount: AmountCreature.GetValue(X),
               isCombat: false,
               changeTracker: Game.ChangeTracker
               );

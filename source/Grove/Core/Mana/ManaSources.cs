@@ -2,7 +2,7 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   [Copyable]
   public class ManaSources
@@ -27,7 +27,6 @@
       _sources = new TrackableList<SourcesWithSameResource>(sourcesWithSameResource, changeTracker);
     }
 
-
     public void AddRange(IEnumerable<IManaSource> manaSources)
     {
       foreach (var manaSource in manaSources)
@@ -42,14 +41,14 @@
 
       if (existing != null)
       {
-        existing.Sources.Add(manaSource);        
+        existing.Sources.Add(manaSource);
         return;
       }
 
       _sources.Add(new SourcesWithSameResource
         {
           Resource = manaSource.Resource,
-          Sources = new TrackableList<IManaSource>(manaSource.ToEnumerable(), _changeTracker) 
+          Sources = new TrackableList<IManaSource>(manaSource.ToEnumerable(), _changeTracker)
         });
     }
 
@@ -61,7 +60,7 @@
       if (resource.Sources.Count == 0)
       {
         _sources.Remove(resource);
-      }            
+      }
     }
 
     public void Consume(IManaAmount amount, ManaUsage usage, IManaSource sourceToAvoid)

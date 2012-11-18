@@ -212,7 +212,12 @@
     <Compile Include="Cards\Exploration.cs" />
     <Compile Include="Cards\Expunge.cs" />
     <Compile Include="Cards\FaithHealer.cs" />
+    <Compile Include="Cards\Falter.cs" />
+    <Compile Include="Cards\FaultLine.cs" />
+    <Compile Include="Cards\Fecundity.cs" />
+    <Compile Include="Cards\FertileGround.cs" />
     <Compile Include="Cards\FieryMantle.cs" />
+    <Compile Include="Cards\FireAnts.cs" />
     <Compile Include="Cards\FleshReaver.cs" />
     <Compile Include="Cards\Forest.cs" />
     <Compile Include="Cards\FiresOfYavimaya.cs" />
@@ -330,7 +335,7 @@
     <Compile Include="Cards\VinesOfVastwood.cs" />
     <Compile Include="Cards\VividCrag.cs" />
     <Compile Include="Cards\VividCreek.cs" />
-    <Compile Include="Cards\VolcanincFallout.cs" />
+    <Compile Include="Cards\VolcanicFallout.cs" />
     <Compile Include="Cards\WallOfJunk.cs" />
     <Compile Include="Cards\WallOfReverence.cs" />
     <Compile Include="Cards\Waylay.cs" />
@@ -347,7 +352,10 @@
     <Compile Include="Core\Ai\QuickCombat.cs" />
     <Compile Include="Core\Cards\ContiniousEffects.cs" />
     <Compile Include="Core\Cards\Effects\ApplyModifiersToPlayers.cs" />
+    <Compile Include="Core\Cards\ManaAmountCharacteristic.cs" />
     <Compile Include="Core\Cards\Modifiers\IncreaseLandLimit.cs" />
+    <Compile Include="Core\Cards\Modifiers\IncreaseManaOutput.cs" />
+    <Compile Include="Core\Cards\Modifiers\ManaAmountIncrement.cs" />
     <Compile Include="Core\LandLimit.cs" />
     <Compile Include="Core\Cards\Modifiers\AddContiniousEffect.cs" />
     <Compile Include="Core\Cards\Modifiers\EndOfUntapStep.cs" />

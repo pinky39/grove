@@ -97,13 +97,13 @@ o Exhume
 o Exploration
 o Expunge
 o Faith Healer
-Falter
-Fault Line
-Fecundity
-Fertile Ground
-Fiery Mantle
-Fire Ants
-Flesh Reaver
+o Falter
+o Fault Line
+o Fecundity
+o Fertile Ground
+o Fiery Mantle
+o Fire Ants
+o Flesh Reaver
 Fluctuator
 Fog Bank
 Forest

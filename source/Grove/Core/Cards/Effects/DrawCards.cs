@@ -6,16 +6,20 @@
     public int DrawCount { get; set; }
     public int Lifeloss { get; set; }
 
+    public Player Player { get; set; }
+
     protected override void ResolveEffect()
     {
-      Controller.DrawCards(DrawCount);
+      var player = Player ?? Controller;
+      
+      player.DrawCards(DrawCount);
 
       if (Lifeloss > 0)
-        Controller.Life -= Lifeloss;
+        player.Life -= Lifeloss;
 
       if (DiscardCount > 0)
         Game.Enqueue<Decisions.DiscardCards>(
-          controller: Controller, 
+          controller: player, 
           init: p => p.Count = DiscardCount);
     }
   }
