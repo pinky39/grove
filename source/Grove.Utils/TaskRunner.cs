@@ -34,7 +34,8 @@
                   
       var entries = new[]
         {
-          Task("write-card-list", arguments => _tasks.WriteCardList(arguments["filename"]))
+          Task("write-card-list", arguments => _tasks.WriteCardList(arguments["filename"])),
+          Task("write-card-ratings", arguments => _tasks.WriteCardRatings(arguments["filename"]))
         };
 
       return entries.ToDictionary(x => x.Keyword, x => x.Task);

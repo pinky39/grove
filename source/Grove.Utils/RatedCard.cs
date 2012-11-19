@@ -5,6 +5,6 @@
   public class RatedCard
   {
     public string Name { get; set; }
-    public Decimal Rating { get; set; }
+    public Decimal? Rating { get; set; }
   }
 }

@@ -1,10 +1,10 @@
 ﻿namespace Grove.Utils
 {
   using System;
+  using System.Collections.Generic;
+  using System.Globalization;
   using System.IO;
   using System.Linq;
-  using System.Net;
-  using System.Text;
   using Core;
 
   public class Tasks
@@ -25,84 +25,59 @@
       }
     }
 
-    public void FetchCardRatings(string filename)
-    {
+    public void WriteCardRatings(string filename)
+    {      
+      var downloader = new RatingDownloader();
+
       var ratedCards = CardDatabase.GetCardNames()
-        .Select(x => new RatedCard
-          {
-            Name = x,
-          });
+        .Select(x => new RatedCard {Name = x})
+        .ToList();
+
+      if (File.Exists(filename))
+      {
+        Console.WriteLine("Reading existing ratings from {0}...", filename);
+        ReadExistingRatings(filename, ratedCards);
+      }
 
       foreach (var ratedCard in ratedCards)
       {
-        ratedCard.Rating = FetchRatingFromGatherer(ratedCard.Name);
+        ratedCard.Rating = ratedCard.Rating ?? downloader.TryDownloadRating(ratedCard.Name) ?? 3.0m;        
       }
 
-      using (var writer = new StreamWriter(filename, append: true))
+      using (var writer = new StreamWriter(filename))
       {
         foreach (var ratedCard in ratedCards)
         {
-          writer.WriteLine("{0} {1}", ratedCard.Rating, ratedCard.Name);
+          writer.WriteLine("{0} {1}", 
+            ratedCard.Rating.GetValueOrDefault()
+            .ToString("f", CultureInfo.InvariantCulture), ratedCard.Name);
         }
       }
     }
 
-    private decimal FetchRatingFromGatherer(string cardName)
+    private static void ReadExistingRatings(string filename, IEnumerable<RatedCard> ratedCards)
     {
-      var multiverseId = FetchMultiverseId(cardName);
-
-      var url = String.Format(@"http://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid={0}", multiverseId);
-      var request = CreateRequest(url);
-
-      using (var response = request.GetResponse())
-      using (var reader = new StreamReader(response.GetResponseStream()))
+      var ratedCardsDictionary = ratedCards.ToDictionary(x => x.Name);
+      
+      using (var reader = new StreamReader(filename))
       {
-        var content = reader.ReadToEnd();
+        var line = reader.ReadLine();
+        
+        while (line != null)
+        {
+          var ratingAndName = line.Split(new[] {" "}, StringSplitOptions.RemoveEmptyEntries);          
+
+          if (ratingAndName.Length == 2)
+          {
+            if (ratedCardsDictionary.ContainsKey(ratingAndName[1]))
+            {
+              ratedCardsDictionary[ratingAndName[1]].Rating = Decimal.Parse(ratingAndName[0], CultureInfo.InvariantCulture);
+            }
+          }
+
+          line = reader.ReadLine();
+        }
       }
-
-      return 3; // todo
-    }
-
-    private string FetchMultiverseId(string cardName)
-    {
-      var encodedCardName = EncodeCardName(cardName);
-      var searchByNameUrl = String.Format(@"http://gatherer.wizards.com/Pages/Search/Default.aspx?name={0}",
-        encodedCardName);
-      var request = CreateRequest(searchByNameUrl);
-
-      using (var response = request.GetResponse())
-      {
-        return ParseMultiverseIdFromUrl(response.Headers["Location"]);
-      }
-    }
-
-    private HttpWebRequest CreateRequest(string url)
-    {
-      var request = (HttpWebRequest) WebRequest.Create(url);
-      request.UserAgent = "fetch_comunity_ratings";
-      request.Method = "GET";
-      return request;
-    }
-
-    private string ParseMultiverseIdFromUrl(string url)
-    {
-      // /Pages/Card/Details.aspx?multiverseid=221892
-      throw new NotImplementedException();
-    }
-
-    private string EncodeCardName(string cardName)
-    {
-      var parts = cardName.Split(new[] {" "}, StringSplitOptions.RemoveEmptyEntries);
-      var builder = new StringBuilder();
-
-      foreach (var part in parts)
-      {
-        builder.Append("+[");
-        builder.Append(part);
-        builder.Append("]");
-      }
-
-      return builder.ToString();
     }
   }
 }

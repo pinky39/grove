@@ -241,6 +241,7 @@
     <Compile Include="Cards\LlanowarElves.cs" />
     <Compile Include="Unit\CardTextFacts.cs" />
     <Compile Include="Unit\ManaFacts.cs" />
+    <Compile Include="Unit\RatingDownloaderFacts.cs" />
     <Compile Include="Unit\ScenarioGeneratorFacts.cs" />
     <Compile Include="Unit\CopyServiceFacts.cs" />
     <Compile Include="Unit\DataBindingFactoryFacts.cs" />
@@ -259,6 +260,10 @@
     <Compile Include="Sandbox\UriFacts.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\source\Grove.Utils\Grove.Utils.csproj">
+      <Project>{38A405B5-227C-4DF2-8807-BADCDB035530}</Project>
+      <Name>Grove.Utils</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\source\Grove\Grove.csproj">
       <Project>{08EAEA6C-8725-470C-9346-27AC0320DAFF}</Project>
       <Name>Grove</Name>
