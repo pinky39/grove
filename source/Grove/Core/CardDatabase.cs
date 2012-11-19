@@ -49,9 +49,12 @@
       return cardFactory;
     }
 
-    public List<string> GetAvailableCardsNames()
+    public List<string> GetCardNames()
     {
-      return _database.Select(x => x.Name).OrderBy(x => x).ToList();
+      return Database.Select(x => x.Name)
+        .Where(x => !x.Equals("Uncastable", StringComparison.InvariantCultureIgnoreCase))
+        .OrderBy(x => x)
+        .ToList();
     }
 
     private List<ICardFactory> CreateDatabase()

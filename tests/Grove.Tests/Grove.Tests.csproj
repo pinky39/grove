@@ -186,7 +186,6 @@
     <Compile Include="Cards\Victimize.cs" />
     <Compile Include="Cards\VividCreek.cs" />
     <Compile Include="Cards\WallOfDenial.cs" />
-    <Compile Include="CardListGenerator.cs" />
     <Compile Include="Cards\WallOfJunk.cs" />
     <Compile Include="Cards\WallOfReverence.cs" />
     <Compile Include="Cards\WayLay.cs" />

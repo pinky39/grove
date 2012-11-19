@@ -57,6 +57,12 @@
       return Container.Resolve<T>();
     }
 
+    public void Register(Type service, Type implementation = null,
+      LifestyleType lifestyle = LifestyleType.Transient)
+    {
+      Container.Register(Registration.Component(service, implementation, lifestyle));
+    }
+
     public object Resolve(Type type)
     {
       return Container.Resolve(type);
@@ -84,17 +90,6 @@
       Test
     }
 
-    public class RequireViewModelProperties : IContributeComponentModelConstruction
-    {
-      public void ProcessModel(IKernel kernel, ComponentModel model)
-      {
-        foreach (var prop in model.Properties.Where(x => Registration.IsViewModel(x.Dependency.TargetType)))
-        {
-          prop.Dependency.IsOptional = false;
-        }
-      }
-    }
-
     private class Registration : IWindsorInstaller
     {
       private readonly Configuration _configuration;
@@ -107,7 +102,7 @@
       public void Install(IWindsorContainer container, IConfigurationStore store)
       {
         container.Kernel.ComponentModelBuilder.AddContributor(new RequireViewModelProperties());
-        
+
         container.Kernel.Resolver.AddSubResolver(
           new CollectionResolver(container.Kernel, allowEmptyCollections: true));
 
@@ -121,7 +116,7 @@
           RegisterShell(container);
           RegisterConfiguration(container);
 
-          container.Register(Component(typeof (Match), lifestyle: LifestyleType.Singleton));          
+          container.Register(Component(typeof (Match), lifestyle: LifestyleType.Singleton));
           container.Register(Component(typeof (UiDamageDistribution)));
           container.Register(Component(typeof (CombatMarkers), lifestyle: LifestyleType.Singleton));
         }
@@ -133,7 +128,7 @@
         container.Register(Component(typeof (CardDatabase), lifestyle: LifestyleType.Singleton));
       }
 
-      private ComponentRegistration<object> Component(Type service, Type implementation = null,
+      public static ComponentRegistration<object> Component(Type service, Type implementation = null,
         LifestyleType lifestyle = LifestyleType.Transient)
       {
         var services = new List<Type> {service};
@@ -264,6 +259,17 @@
             registration.AsFactory();
             registration.LifestyleTransient();
           }));
+      }
+    }
+
+    public class RequireViewModelProperties : IContributeComponentModelConstruction
+    {
+      public void ProcessModel(IKernel kernel, ComponentModel model)
+      {
+        foreach (var prop in model.Properties.Where(x => Registration.IsViewModel(x.Dependency.TargetType)))
+        {
+          prop.Dependency.IsOptional = false;
+        }
       }
     }
   }

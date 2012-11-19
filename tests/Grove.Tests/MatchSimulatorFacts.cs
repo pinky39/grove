@@ -12,7 +12,7 @@
     {
       var deck1 = "Kuno-rg-beastfires";
       var deck2 = "Kuno-bu-control";
-
+      
       var result =
         MatchSimulator.Simulate(
           GetDeck(deck1).CardNames,
