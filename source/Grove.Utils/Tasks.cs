@@ -26,7 +26,7 @@
     }
 
     public void WriteCardRatings(string filename)
-    {      
+    {
       var downloader = new RatingDownloader();
 
       var ratedCards = CardDatabase.GetCardNames()
@@ -41,16 +41,16 @@
 
       foreach (var ratedCard in ratedCards)
       {
-        ratedCard.Rating = ratedCard.Rating ?? downloader.TryDownloadRating(ratedCard.Name) ?? 3.0m;        
+        ratedCard.Rating = ratedCard.Rating ?? downloader.TryDownloadRating(ratedCard.Name) ?? 3.0m;
       }
 
       using (var writer = new StreamWriter(filename))
       {
         foreach (var ratedCard in ratedCards)
         {
-          writer.WriteLine("{0} {1}", 
+          writer.WriteLine("{0} {1}",
             ratedCard.Rating.GetValueOrDefault()
-            .ToString("f", CultureInfo.InvariantCulture), ratedCard.Name);
+              .ToString("f", CultureInfo.InvariantCulture), ratedCard.Name);
         }
       }
     }
@@ -58,20 +58,21 @@
     private static void ReadExistingRatings(string filename, IEnumerable<RatedCard> ratedCards)
     {
       var ratedCardsDictionary = ratedCards.ToDictionary(x => x.Name);
-      
+
       using (var reader = new StreamReader(filename))
       {
         var line = reader.ReadLine();
-        
+
         while (line != null)
         {
-          var ratingAndName = line.Split(new[] {" "}, StringSplitOptions.RemoveEmptyEntries);          
+          var ratingAndName = line.Split(new[] {" "}, 2, StringSplitOptions.RemoveEmptyEntries);
 
           if (ratingAndName.Length == 2)
           {
             if (ratedCardsDictionary.ContainsKey(ratingAndName[1]))
             {
-              ratedCardsDictionary[ratingAndName[1]].Rating = Decimal.Parse(ratingAndName[0], CultureInfo.InvariantCulture);
+              ratedCardsDictionary[ratingAndName[1]].Rating = Decimal.Parse(ratingAndName[0],
+                CultureInfo.InvariantCulture);
             }
           }
 
