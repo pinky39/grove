@@ -32,8 +32,7 @@
     protected virtual void Initialize() {}
 
     public virtual void PreventReceivedDamage(Damage damage)
-    {
-      damage.Amount = EvaluateReceivedDamage(damage.Source, damage.Amount, damage.IsCombat);       
+    {            
     }
 
     public virtual int PreventLifeloss(int lifeloss)
