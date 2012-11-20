@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core.Cards.Preventions
 {
+  using System.Collections.Generic;
   using System.Linq;
   using Infrastructure;
   using Modifiers;    
@@ -11,6 +12,11 @@
 
     private DamagePreventions() {}
 
+    public DamagePreventions(IEnumerable<DamagePrevention> damagePreventions, ChangeTracker changeTracker, IHashDependancy hashDependancy)
+    {
+      _preventions = new TrackableList<DamagePrevention>(damagePreventions, changeTracker, hashDependancy);
+    }
+    
     public DamagePreventions(ChangeTracker changeTracker, IHashDependancy hashDependancy)
     {
       _preventions = new TrackableList<DamagePrevention>(changeTracker, hashDependancy);
@@ -46,7 +52,7 @@
     {
       foreach (var preventionEffect in _preventions.ToList())
       {
-        amount = preventionEffect.PreventDealtCombatDamage(amount);
+        amount = preventionEffect.PreventDealtDamage(amount);
 
         if (amount == 0)
           break;

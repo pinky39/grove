@@ -864,6 +864,7 @@
       private readonly List<ITargetValidatorFactory> _effectTargetFactories = new List<ITargetValidatorFactory>();
       private readonly List<ITargetValidatorFactory> _kickerEffectTargetFactories = new List<ITargetValidatorFactory>();
       private readonly List<Static> _staticAbilities = new List<Static>();
+      private readonly List<IDamagePreventionFactory> _damagePreventionFactories = new List<IDamagePreventionFactory>();
 
       private readonly List<ITriggeredAbilityFactory> _triggeredAbilityFactories = new List<ITriggeredAbilityFactory>();
       private ICostFactory _additionalCost;
@@ -935,11 +936,12 @@
         card._isRevealed = new Trackable<bool>(game.ChangeTracker, card);
         card._canRegenerate = new Trackable<bool>(game.ChangeTracker, card);
         card._hasSummoningSickness = new Trackable<bool>(true, game.ChangeTracker, card);
-        card._controller = new ControllerCharacteristic(owner, card, game, card);
-        card._damagePreventions = new DamagePreventions(game.ChangeTracker, card);
-        card._protections = new Protections(game.ChangeTracker, card, _protectionsFromColors, _protectionsFromCardTypes);
+        card._controller = new ControllerCharacteristic(owner, card, game, card);        
+        card._protections = new Protections(game.ChangeTracker, card, _protectionsFromColors, _protectionsFromCardTypes);        
         card._zone = new Trackable<IZone>(new NullZone(), game.ChangeTracker, card);
 
+        var damagePreventions = _damagePreventionFactories.Select(x => x.Create(card, game));
+        card._damagePreventions = new DamagePreventions(damagePreventions, game.ChangeTracker, card);
 
         card.EffectCategories = _effectCategories;
         card._timming = _timing ?? Timings.NoRestrictions();
@@ -1006,6 +1008,12 @@
       public CardFactory Protections(ManaColors colors)
       {
         _protectionsFromColors = colors;
+        return this;
+      }
+
+      public CardFactory Preventions(params IDamagePreventionFactory[] preventions)
+      {
+        _damagePreventionFactories.AddRange(preventions);
         return this;
       }
 

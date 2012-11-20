@@ -477,8 +477,8 @@
 
           return p.Targets(candidates);
         };
-    }    
-    
+    }
+
     public static TargetSelectorAiDelegate AddEvasion()
     {
       return p =>
@@ -1054,7 +1054,7 @@
           return p.Targets(candidates);
         };
     }
-       
+
     public static TargetSelectorAiDelegate UntapYourLands()
     {
       return p =>
@@ -1132,7 +1132,7 @@
           {
             return p.Targets(candidates);
           }
-                    
+
           return p.MultipleTargets(GroupCandidates(
             candidates, pickedCount));
         };
@@ -1140,7 +1140,7 @@
 
     public static TargetSelectorAiDelegate DiscardCardsFromOpponentsHand()
     {
-       return p =>
+      return p =>
         {
           var candidates = p.Candidates()
             .Where(x => x.Card().Controller != p.Controller)
@@ -1162,7 +1162,7 @@
           {
             return p.Targets(candidates);
           }
-                    
+
           return p.MultipleTargets(GroupCandidates(
             candidates, pickedCount));
         };
@@ -1170,15 +1170,23 @@
 
     public static TargetSelectorAiDelegate EnchantYourLand()
     {
-       return p =>
+      return p =>
         {
           var candidates = p.Candidates()
             .Where(x => x.Card().Controller == p.Controller)
-            .OrderBy(x => x.Card().Attachments.Count())
+            .OrderBy(x => x.Card().Attachments.Count(a => a.Is().Aura))
             .Take(1);
 
           return p.Targets(candidates);
         };
+    }
+
+    public static TargetSelectorAiDelegate CostSacrificeRegenerate()
+    {
+      return p => p.Targets(p.Candidates()
+        .OrderBy(x => x.Card().Attachments.Count(a => a.Is().Aura))
+        .OrderBy(x => x.Card().Score)
+        .Take(1));
     }
   }
 }

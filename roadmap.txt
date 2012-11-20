@@ -105,12 +105,12 @@ o Fiery Mantle
 o Fire Ants
 o Flesh Reaver
 Fluctuator
-Fog Bank
-Forest
-Forest
-Forest
-Forest
-Fortitude
+o Fog Bank
+o Forest
+o Forest
+o Forest
+o Forest
+o Fortitude
 Gaea's Bounty
 Gaea's Cradle
 Gaea's Embrace

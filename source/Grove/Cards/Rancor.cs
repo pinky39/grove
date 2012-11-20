@@ -1,5 +1,6 @@
 ﻿namespace Grove.Cards
 {
+  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -20,7 +21,7 @@
         .ManaCost("{G}")
         .Type("Enchantment - Aura")
         .Text(
-          "Enchant creature{EOL}Enchanted creature gets +2/+0 and has trample.{EOL}When Rancor is put into a graveyard from the battlefield, return Rancor to its owner's hand.")
+          "{Enchant creature}{EOL}Enchanted creature gets +2/+0 and has trample.{EOL}When Rancor is put into a graveyard from the battlefield, return Rancor to its owner's hand.")
         .FlavorText("Hatred outlives the hateful.")
         .Effect<Attach>(e => e.Modifiers(
           Modifier<AddPowerAndToughness>(m => m.Power = 2),

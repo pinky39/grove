@@ -219,10 +219,12 @@
     <Compile Include="Cards\FieryMantle.cs" />
     <Compile Include="Cards\FireAnts.cs" />
     <Compile Include="Cards\FleshReaver.cs" />
+    <Compile Include="Cards\FogBank.cs" />
     <Compile Include="Cards\Forest.cs" />
     <Compile Include="Cards\FiresOfYavimaya.cs" />
     <Compile Include="Cards\FlameSlash.cs" />
     <Compile Include="Cards\FlametongueKavu.cs" />
+    <Compile Include="Cards\Fortitude.cs" />
     <Compile Include="Cards\GloriousAnthem.cs" />
     <Compile Include="Cards\GoblinPatrol.cs" />
     <Compile Include="Cards\GoblinWarBuggy.cs" />
@@ -356,6 +358,7 @@
     <Compile Include="Core\Cards\Modifiers\IncreaseLandLimit.cs" />
     <Compile Include="Core\Cards\Modifiers\IncreaseManaOutput.cs" />
     <Compile Include="Core\Cards\Modifiers\ManaAmountIncrement.cs" />
+    <Compile Include="Core\Cards\Preventions\PreventReceived.cs" />
     <Compile Include="Core\LandLimit.cs" />
     <Compile Include="Core\Cards\Modifiers\AddContiniousEffect.cs" />
     <Compile Include="Core\Cards\Modifiers\EndOfUntapStep.cs" />
@@ -442,7 +445,7 @@
     <Compile Include="Core\Cards\Effects\SwitchController.cs" />
     <Compile Include="Core\Cards\Effects\PutOnTopOfLibraryUnlessOpponentSacsLand.cs" />
     <Compile Include="Core\Cards\Modifiers\PermanentGetsUntapedLifetime.cs" />
-    <Compile Include="Core\Cards\Preventions\PreventDealtDamage.cs" />
+    <Compile Include="Core\Cards\Preventions\PreventDealt.cs" />
     <Compile Include="Core\Cards\Preventions\PreventLifelossBelowOne.cs" />
     <Compile Include="Core\Mana\AggregateManaAmount.cs" />
     <Compile Include="Core\Ai\TargetCandidatesEx.cs" />

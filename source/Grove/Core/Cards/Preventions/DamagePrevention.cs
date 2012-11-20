@@ -1,9 +1,9 @@
 ﻿namespace Grove.Core.Cards.Preventions
 {
-  using Grove.Core.Dsl;
-  using Grove.Infrastructure;
-  using Grove.Core.Targeting;
+  using Dsl;
+  using Infrastructure;
   using Modifiers;
+  using Targeting;
 
   [Copyable]
   public abstract class DamagePrevention : IHashable, ILifetimeDependency
@@ -16,8 +16,8 @@
     {
       get
       {
-        return Owner.IsCard() 
-          ? Owner.Card().Controller 
+        return Owner.IsCard()
+          ? Owner.Card().Controller
           : Owner.Player();
       }
     }
@@ -31,7 +31,10 @@
 
     protected virtual void Initialize() {}
 
-    public virtual void PreventReceivedDamage(Damage damage) {}
+    public virtual void PreventReceivedDamage(Damage damage)
+    {
+      damage.Amount = EvaluateReceivedDamage(damage.Source, damage.Amount, damage.IsCombat);       
+    }
 
     public virtual int PreventLifeloss(int lifeloss)
     {
@@ -43,13 +46,13 @@
       return amount;
     }
 
-    public virtual int PreventDealtCombatDamage(int amount)
+    public virtual int PreventDealtDamage(int amount)
     {
       return amount;
     }
 
     public class Factory<T> : IDamagePreventionFactory where T : DamagePrevention, new()
-    {      
+    {
       public bool OnlyOnce { get; set; }
       public Initializer<T> Init { get; set; }
 

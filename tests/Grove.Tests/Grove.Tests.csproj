@@ -147,6 +147,8 @@
     <Compile Include="Cards\Fecundity.cs" />
     <Compile Include="Cards\FertileGround.cs" />
     <Compile Include="Cards\FieryMantle.cs" />
+    <Compile Include="Cards\FogBank.cs" />
+    <Compile Include="Cards\Fortitude.cs" />
     <Compile Include="Cards\GraveTitan.cs" />
     <Compile Include="Cards\HeroOfBladeHold.cs" />
     <Compile Include="Cards\JaggedLightning.cs" />

@@ -1,6 +1,6 @@
 ﻿namespace Grove.Core.Cards.Preventions
 {
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   public class PreventDamageFromSource : DamagePrevention
   {
