@@ -3,9 +3,10 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Grove.Infrastructure;
-  using Grove.Core.Targeting;
+  using Infrastructure;
   using Results;
+  using Targeting;
+  using Zones;
 
   public abstract class SelectCards : Decision<ChosenCards>
   {
@@ -14,6 +15,7 @@
     public IProcessDecisionResults<ChosenCards> ProcessDecisionResults;
     public string Text;
     public Func<Card, bool> Validator;
+    public Func<Zone, bool> Zone = delegate { return true; };    
     private List<Card> _validCards;
 
     protected List<Card> ValidCards
@@ -22,10 +24,9 @@
       {
         return
           _validCards ?? (_validCards =
-            Game.GenerateTargets()
-              .Where(x => x.IsCard())
+            Game.GenerateTargets((zone, owner) => owner == Controller && Zone(zone))              
               .Select(x => x.Card())
-              .Where(x => x.Controller == Controller && Validator(x))
+              .Where(x => Validator(x))
               .ToList());
       }
     }
@@ -58,7 +59,7 @@
 
       if (ProcessDecisionResults != null)
         ProcessDecisionResults.ResultProcessed(Result);
-      
+
       ResultProcessed();
     }
 

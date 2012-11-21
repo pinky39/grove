@@ -32,8 +32,8 @@
             Effect<Core.Cards.Effects.ApplyModifiersToTargets>(p => p.Effect.Modifiers(
               Modifier<AddStaticAbility>(m => { m.StaticAbility = Static.Indestructible; },
                 untilEndOfTurn: true))),
-            Validator(validator: Validators.Creature()),
-            selectorAi: TargetSelectorAi.ShieldIndestructible(),
+            TargetValidator(target: TargetIs.Creature()),
+            targetSelectorAi: TargetSelectorAi.ShieldIndestructible(),
             timing: Timings.NoRestrictions(),
             category: EffectCategories.Protector));
     }

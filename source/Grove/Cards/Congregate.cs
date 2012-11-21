@@ -21,7 +21,9 @@
         .Timing(All(Timings.EndOfTurn(), Timings.HasPermanents(3, card => card.Is().Creature)))
         .Effect<TargetPlayerGainsLifeEqualToCreatureCount>(e => e.Multiplier = 2)
         .Targets(
-          effectValidator: Validator(Validators.Player()),
+          effectValidator: TargetValidator(
+            TargetIs.Player(),
+            ZoneIs.Any()),
           selectorAi: TargetSelectorAi.Controller()
         );
     }

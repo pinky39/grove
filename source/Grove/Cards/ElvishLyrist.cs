@@ -29,8 +29,8 @@
             Cost<TapAndSacOwnerPayMana>(cost => cost.Amount = "{G}".ParseManaAmount()),
             Effect<DestroyTargetPermanents>(),
             timing: Timings.InstantRemovalTarget(),
-            effectValidator: Validator(Validators.Permanent(card => card.Is().Enchantment)),
-            selectorAi: TargetSelectorAi.OrderByDescendingScore()            
+            effectValidator: TargetValidator(TargetIs.Permanent(card => card.Is().Enchantment)),
+            targetSelectorAi: TargetSelectorAi.OrderByDescendingScore()            
             )
         );
     }

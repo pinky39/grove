@@ -32,7 +32,7 @@
         .Timing(Timings.FirstMain())
         .Targets(
           selectorAi: TargetSelectorAi.CombatEnchantment(),
-          effectValidator: Validator(Validators.EnchantedCreature()));
+          effectValidator: TargetValidator(TargetIs.EnchantedCreature()));
     }
   }
 }

@@ -23,8 +23,10 @@
         .Category(EffectCategories.Destruction)
         .Targets(
           selectorAi: TargetSelectorAi.Destroy(),
-          effectValidator: Validator(Validators.Permanent(card =>
-            card.Is().Land || (card.Is().Creature && !card.HasColors(ManaColors.Black)))));
+          effectValidator: TargetValidator(
+            TargetIs.Card(card =>
+              card.Is().Land || (card.Is().Creature && !card.HasColors(ManaColors.Black))),
+            ZoneIs.Battlefield()));
     }
   }
 }

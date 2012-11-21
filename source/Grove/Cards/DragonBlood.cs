@@ -38,8 +38,8 @@
                     c.Toughness = 1;
                   })
                 ))),
-            effectValidator: Validator(Validators.Creature()),
-            selectorAi: TargetSelectorAi.IncreasePowerAndToughness(1, 1, untilEot: false),
+            effectValidator: TargetValidator(TargetIs.Creature()),
+            targetSelectorAi: TargetSelectorAi.IncreasePowerAndToughness(1, 1, untilEot: false),
             timing: Timings.NoRestrictions()
             ));
     }

@@ -26,7 +26,7 @@
       Cards.Effects.IEffectFactory effect,
       ITargetValidatorFactory effectValidator = null,
       ITargetValidatorFactory costValidator = null,
-      TargetSelectorAiDelegate selectorAi = null,
+      TargetSelectorAiDelegate targetSelectorAi = null,
       bool activateAsSorcery = false,
       EffectCategories category = EffectCategories.Generic,
       TimingDelegate timing = null,
@@ -37,7 +37,7 @@
         : new[] {effectValidator};
 
       return ActivatedAbility(text, cost, effect, effectSelectors, costValidator,
-        selectorAi, activateAsSorcery, category, timing, activationZone);
+        targetSelectorAi, activateAsSorcery, category, timing, activationZone);
     }
 
     public ILifetimeFactory Lifetime<T>(Initializer<T> init = null) where T : Lifetime, new()
@@ -56,7 +56,7 @@
       Cards.Effects.IEffectFactory effect,
       ITargetValidatorFactory[] effectValidators,
       ITargetValidatorFactory costValidator = null,
-      TargetSelectorAiDelegate selectorAi = null,
+      TargetSelectorAiDelegate targetSelectorAi = null,
       bool activateAsSorcery = false,
       EffectCategories category = EffectCategories.Generic,
       TimingDelegate timing = null,
@@ -78,7 +78,7 @@
               if (costValidator != null)
                 costValidators.Add(costValidator);
 
-              self.Targets(effectValidators, costValidators, selectorAi);
+              self.Targets(effectValidators, costValidators, targetSelectorAi);
 
               self.SetCost(cost);
             }
@@ -191,14 +191,14 @@
         };
     }
 
-    public ITargetValidatorFactory Validator(TargetValidatorDelegate validator, string text = null,
+    public ITargetValidatorFactory TargetValidator(TargetValidatorDelegate target, ZoneValidatorDelegate zone, string text = null,
       bool mustBeTargetable = true, int minCount = 1, int maxCount = 1)
     {
       return new TargetValidator.Factory
         {
           Init = selector =>
             {
-              selector.Validator = validator;
+              selector.Target = target;
 
               selector.MustBeTargetable = mustBeTargetable;
               selector.MinCount = minCount;

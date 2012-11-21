@@ -24,7 +24,7 @@
         .Timing(Timings.FirstMain())
         .Targets(
           selectorAi: TargetSelectorAi.EnchantYourLand(),
-          effectValidator: Validator(Validators.EnchantedPermanent(card => card.Is().Land)));
+          effectValidator: TargetValidator(TargetIs.EnchantedPermanent(card => card.Is().Land)));
     }
   }
 }

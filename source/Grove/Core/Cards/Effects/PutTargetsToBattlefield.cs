@@ -1,9 +1,10 @@
 ﻿namespace Grove.Core.Cards.Effects
 {
   using System.Linq;
-  using Grove.Core.Decisions;
-  using Grove.Core.Decisions.Results;
-  using Grove.Core.Targeting;
+  using Decisions;
+  using Decisions.Results;
+  using Targeting;
+  using Zones;
 
   public class PutTargetsToBattlefield : Effect, IProcessDecisionResults<ChosenCards>
   {
@@ -35,7 +36,8 @@
         {
           p.MinCount = 1;
           p.MaxCount = 1;
-          p.Validator = card => card.IsPermanent && card.Is().Creature;
+          p.Validator = card => card.Is().Creature;
+          p.Zone = zone => zone == Zone.Battlefield;
           p.Text = FormatText("Select a creature to sacrifice");
           p.ProcessDecisionResults = this;
         });

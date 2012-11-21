@@ -36,8 +36,8 @@
                       p.Amount = 2;
                     });
                 }, untilEndOfTurn: true))),
-            effectValidator: Validator(Validators.CreatureOrPlayer()),
-            selectorAi: TargetSelectorAi.PreventNextDamageToCreatureOrPlayer(2)
+            effectValidator: TargetValidator(TargetIs.CreatureOrPlayer()),
+            targetSelectorAi: TargetSelectorAi.PreventNextDamageToCreatureOrPlayer(2)
             )
         );
     }

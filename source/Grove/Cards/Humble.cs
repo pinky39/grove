@@ -33,7 +33,7 @@
           })
         .Targets(
           selectorAi: TargetSelectorAi.Destroy(),
-          effectValidator: Validator(Validators.Creature()));
+          effectValidator: TargetValidator(TargetIs.Creature()));
     }
   }
 }

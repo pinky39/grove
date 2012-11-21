@@ -1,6 +1,7 @@
 ﻿namespace Grove.Core.Cards.Effects
 {
-  using Grove.Core.Decisions;
+  using Decisions;
+  using Zones;
 
   public class EachPlayerReturnsCreaturesToHand : Effect
   {
@@ -21,6 +22,7 @@
             p.MinCount = Count;
             p.MinCount = Count;
             p.Validator = card => card.Is().Creature;
+            p.Zone = zone => zone == Zone.Battlefield;
             p.Text = "Select creature(s) to return to hand";
           });
     }

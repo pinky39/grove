@@ -24,13 +24,14 @@
         .Timing(Timings.Creatures())
         .Abilities(
           TriggeredAbility(
-           "When Academy Researchers enters the battlefield, you may put an Aura card from your hand onto the battlefield attached to Academy Researchers.",
-           Trigger<OnZoneChange>(t => t.To = Zone.Battlefield),
-           Effect<EnchantOwnerWithTarget>(),
-           effectValidator: Validator(
-            Validators.CardInHand(p => p.Target.Is().Aura && p.Target.Card().CanTarget(p.Source)), minCount: 0),
-           selectorAi: TargetSelectorAi.AttachToSource()
-          )
+            "When Academy Researchers enters the battlefield, you may put an Aura card from your hand onto the battlefield attached to Academy Researchers.",
+            Trigger<OnZoneChange>(t => t.To = Zone.Battlefield),
+            Effect<EnchantOwnerWithTarget>(),
+            effectValidator: TargetValidator(
+              TargetIs.Card(p => p.Card.Is().Aura && p.Card.CanTarget(p.Source)),
+              ZoneIs.OwnersHand(),
+              minCount: 0),
+            selectorAi: TargetSelectorAi.AttachToSource())
         );
     }
   }

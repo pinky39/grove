@@ -23,7 +23,7 @@
         .Timing(Timings.FirstMain())
         .Targets(
           selectorAi: TargetSelectorAi.ReducePower(2),
-          effectValidator: Validator(Validators.EnchantedCreature()))
+          effectValidator: TargetValidator(TargetIs.EnchantedCreature()))
         .Effect<Core.Cards.Effects.Attach>(
           p => p.Effect.Modifiers(Modifier<AddPowerAndToughness>(m => m.Power = -2)))
         .Abilities(

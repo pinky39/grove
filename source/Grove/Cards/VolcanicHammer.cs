@@ -20,8 +20,8 @@
         .Effect<DealDamageToTargets>(e => e.Amount = 3)
         .Timing(Timings.MainPhases())
         .Targets(selectorAi: TargetSelectorAi.DealDamageSingleSelector(3),
-          effectValidator: Validator(
-            Validators.CreatureOrPlayer()));
+          effectValidator: TargetValidator(
+            TargetIs.CreatureOrPlayer()));
     }
   }
 }

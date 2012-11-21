@@ -1,17 +1,20 @@
 ﻿namespace Grove.Core.Zones
 {
+  using System;
   using System.Collections;
   using System.Collections.Generic;
   using System.Linq;
   using Infrastructure;
+  using Targeting;
 
   [Copyable]
   public abstract class UnorderedZone : IEnumerable<Card>, IHashable, IZone
   {
     private readonly TrackableList<Card> _cards;
 
-    protected UnorderedZone(Game game)
+    protected UnorderedZone(Player owner, Game game)
     {
+      Owner = owner;
       _cards = new TrackableList<Card>(game.ChangeTracker);
     }
 
@@ -20,9 +23,9 @@
       /* for state copy */
     }
 
+    public Player Owner { get; private set; }
     public int Count { get { return _cards.Count; } }
     public IEnumerable<Card> Creatures { get { return _cards.Where(card => card.Is().Creature); } }
-
     public bool IsEmpty { get { return _cards.Count == 0; } }
     public IEnumerable<Card> Lands { get { return _cards.Where(card => card.Is().Land); } }
 
@@ -55,15 +58,28 @@
     public virtual void AfterAdd(Card card) {}
     public virtual void AfterRemove(Card card) {}
 
+    void IZone.Remove(Card card)
+    {
+      Remove(card);
+    }
+
+    public virtual IEnumerable<Card> GenerateTargets(Func<Zone, Player, bool> zoneFilter)
+    {
+      if (zoneFilter(Zone, Owner))
+      {
+        foreach (var card in this)
+        {
+          yield return card;
+        }
+      }
+
+      yield break;
+    }
+
     public virtual void Add(Card card)
     {
       _cards.Add(card);
       card.ChangeZone(this);
-    }
-
-    void IZone.Remove(Card card)
-    {      
-      Remove(card);
     }
 
     protected virtual void Remove(Card card)

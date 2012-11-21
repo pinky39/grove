@@ -13,9 +13,10 @@
     }
 
     public ITarget Target { get; private set; }
-    public Card Source { get; private set; }
-    public Game Game { get; internal set; }
     public Player Controller { get { return Source.Controller; } }
+    public Card Card {get { return Target.Card(); }}
+    public Card Source { get; private set; }
+    public Game Game { get; internal set; }    
 
     public T Trigger<T>()
     {

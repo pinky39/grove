@@ -27,10 +27,11 @@
             Cost<SacPermanentPayMana>(cost => cost.Amount = 1.AsColorlessMana()),
             Effect<GainLife>(e => e.Amount = 1),
             costValidator:
-              Validator(Validators.Permanent(controller: Controller.SpellOwner),
+              TargetValidator(
+                TargetIs.Card(controller: Controller.SpellOwner),
+                ZoneIs.Battlefield(),
                 text: "Select a permanent to sacrifice.", mustBeTargetable: false),
-            selectorAi: TargetSelectorAi.CostSacrificeGainLife()
-            )
+            targetSelectorAi: TargetSelectorAi.CostSacrificeGainLife())
         );
     }
   }

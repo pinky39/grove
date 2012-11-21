@@ -29,7 +29,7 @@
         .Timing(Timings.FirstMain())
         .Targets(
           selectorAi: TargetSelectorAi.CombatEnchantment(),
-          effectValidator: Validator(Validators.EnchantedCreature()))
+          effectValidator: TargetValidator(TargetIs.EnchantedCreature()))
         .Abilities(
           TriggeredAbility(
             "When Rancor is put into a graveyard from the battlefield, return Rancor to its owner's hand.",

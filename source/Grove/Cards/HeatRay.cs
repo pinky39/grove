@@ -23,7 +23,7 @@
         .Timing(Timings.InstantRemovalTarget())
         .Targets(
           selectorAi: TargetSelectorAi.DealDamageSingleSelector(),
-          effectValidator: Validator(Validators.Creature()));
+          effectValidator: TargetValidator(TargetIs.Creature()));
     }
   }
 }

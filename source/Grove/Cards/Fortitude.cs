@@ -28,15 +28,15 @@
               Cost<SacPermanent>(),
               Effect<Regenerate>(),
               costValidator:
-                Validator(Validators.Permanent(card => card.Is("forest")),
+                TargetValidator(TargetIs.Permanent(card => card.Is("forest")),
                   text: "Select a forest to sacrifice.", mustBeTargetable: false),
-              selectorAi: TargetSelectorAi.CostSacrificeRegenerate(),
+              targetSelectorAi: TargetSelectorAi.CostSacrificeRegenerate(),
               timing: Timings.Regenerate())
             )))
         .Timing(Timings.FirstMain())
         .Targets(
           selectorAi: TargetSelectorAi.CombatEnchantment(),
-          effectValidator: Validator(Validators.EnchantedCreature()))
+          effectValidator: TargetValidator(TargetIs.EnchantedCreature()))
         .Abilities(
           TriggeredAbility(
             "When Fortitude is put into a graveyard from the battlefield, return Fortitude to its owner's hand.",

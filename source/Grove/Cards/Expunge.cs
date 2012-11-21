@@ -25,7 +25,7 @@
         .Targets(
           selectorAi: TargetSelectorAi.Destroy(),
           effectValidator:
-            Validator(Validators.Creature((creature) => !creature.HasColors(ManaColors.Black) && !creature.Is().Artifact)))
+            TargetValidator(TargetIs.Creature((creature) => !creature.HasColors(ManaColors.Black) && !creature.Is().Artifact)))
         ;
     }
   }

@@ -31,7 +31,7 @@
           })
         .Targets(
           selectorAi: TargetSelectorAi.DamageRedirection(),
-          effectValidator: Validator(Validators.EnchantedCreature()));
+          effectValidator: TargetValidator(TargetIs.EnchantedCreature()));
     }
   }
 }

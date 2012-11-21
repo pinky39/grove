@@ -23,7 +23,9 @@
         .Targets(
           selectorAi: TargetSelectorAi.OrderByDescendingScore(),
           effectValidator:
-            Validator(Validators.Permanent(card => card.Is().Enchantment)));
+            TargetValidator(
+              TargetIs.Card(card => card.Is().Enchantment),
+              ZoneIs.Battlefield()));
     }
   }
 }

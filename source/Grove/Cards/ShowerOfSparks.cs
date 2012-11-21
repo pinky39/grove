@@ -21,7 +21,7 @@
         .Effect<DealDamageToTargets>(e => e.Amount = 1)
         .Targets(
           selectorAi: TargetSelectorAi.DealDamageMultipleSelectors(amount: 1),
-          effectValidators: new [] { Validator(Validators.Creature(), text: "Select target creature."), Validator(Validators.Player(), "Select target player.")}
+          effectValidators: new [] { TargetValidator(TargetIs.Creature(), text: "Select target creature."), TargetValidator(TargetIs.Player(), "Select target player.")}
         );
     }
   }

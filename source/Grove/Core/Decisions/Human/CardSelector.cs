@@ -20,7 +20,7 @@
           minTargetCount: selectCards.MinCount,
           maxTargetCount: selectCards.MaxCount,
           text: selectCards.Text,
-          isValid: card => selectCards.Controller == card.Controller && selectCards.Validator(card)),
+          isValid: card => selectCards.Controller == card.Controller && selectCards.Zone(card.Zone) && selectCards.Validator(card)),
         canCancel: false
         );
 

@@ -32,7 +32,7 @@
           })
         .Targets(
           selectorAi: TargetSelectorAi.Opponent(),
-          effectValidator: Validator(Validators.Player()))
+          effectValidator: TargetValidator(TargetIs.Player()))
         .KickerEffect<ApplyModifiersToPermanents>(e =>
           {
             e.ToughnessReduction = 2;
@@ -45,7 +45,7 @@
           })
         .KickerTargets(
           aiTargetSelector: TargetSelectorAi.Opponent(),
-          effectValidators: Validator(Validators.Player()));
+          effectValidators: TargetValidator(TargetIs.Player()));
     }
   }
 }

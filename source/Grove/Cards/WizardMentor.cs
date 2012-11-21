@@ -31,8 +31,8 @@
                 e.ReturnTarget = true;
                 e.ReturnOwner = true;
               }), 
-            Validator(Validators.Creature(controller: Controller.SpellOwner)),
-            selectorAi: TargetSelectorAi.BounceSelfAndTargetCreatureYouControl(),
+            TargetValidator(TargetIs.Creature(controller: Controller.SpellOwner)),
+            targetSelectorAi: TargetSelectorAi.BounceSelfAndTargetCreatureYouControl(),
             timing: Timings.NoRestrictions()
             )
         );

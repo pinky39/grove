@@ -24,7 +24,9 @@
           Modifier<ChangeController>(m => m.NewController = m.Source.Controller)))
         .Targets(
           selectorAi: TargetSelectorAi.GainControl(),
-          effectValidator: Validator(Validators.Permanent())
+          effectValidator: TargetValidator(
+            TargetIs.Card(),
+            ZoneIs.Battlefield())
         );
     }
   }

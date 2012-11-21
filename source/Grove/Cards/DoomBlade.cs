@@ -23,7 +23,7 @@
         .Category(EffectCategories.Destruction)
         .Targets(
           selectorAi: TargetSelectorAi.Destroy(),
-          effectValidator: Validator(Validators.Creature((creature) => !creature.HasColors(ManaColors.Black))));
+          effectValidator: TargetValidator(TargetIs.Creature((creature) => !creature.HasColors(ManaColors.Black))));
     }
   }
 }

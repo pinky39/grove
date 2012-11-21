@@ -22,7 +22,7 @@
         .Category(EffectCategories.Destruction)
         .Targets(
           selectorAi: TargetSelectorAi.Destroy(),
-          effectValidator: Validator(Validators.Creature(card => !card.Is().Artifact)));
+          effectValidator: TargetValidator(TargetIs.Creature(card => !card.Is().Artifact)));
     }
   }
 }

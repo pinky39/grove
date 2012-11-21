@@ -25,7 +25,9 @@
           Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Unblockable)))
         .Targets(
           selectorAi: TargetSelectorAi.CombatEnchantment(),
-          effectValidator: Validator(Validators.EnchantedCreature()));
+          effectValidator: TargetValidator(
+            TargetIs.Card(card => card.Is().Creature),
+            ZoneIs.Battlefield()));
     }
   }
 }

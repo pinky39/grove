@@ -22,7 +22,7 @@
         .Effect<DealDamageToTargets>(e => e.Amount = 3)
         .Targets(
           selectorAi: TargetSelectorAi.DealDamageSingleSelector(3),
-          effectValidator: Validator(Validators.Creature(), minCount: 2, maxCount: 2)
+          effectValidator: TargetValidator(TargetIs.Creature(), minCount: 2, maxCount: 2)
         );
     }
   }

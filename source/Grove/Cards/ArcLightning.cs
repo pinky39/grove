@@ -22,8 +22,11 @@
         .Effect<DealDistributedDamageToTargets>(e => e.Amount = 3)
         .DistributeSpellsDamage()
         .Targets(
-          selectorAi: TargetSelectorAi.DealDamageSingleSelectorDistribute(3),
-          effectValidator: Validator(Validators.CreatureOrPlayer(), maxCount: 3)
+          TargetSelectorAi.DealDamageSingleSelectorDistribute(3),
+          TargetValidator(
+            TargetIs.CreatureOrPlayer(), 
+            ZoneIs.Battlefield(),
+            maxCount: 3)
         );
     }
   }

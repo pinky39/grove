@@ -27,11 +27,11 @@
             Cost<SacPermanent>(),
             Effect<GainLife>(e => e.Amount = e.Target().Card().ConvertedCost),
             costValidator:
-              Validator(Validators.Permanent(
+              TargetValidator(TargetIs.Permanent(
                 controller: Controller.SpellOwner,
                 filter: card => card.Is().Enchantment),
                 text: "Select an enchantment to sacrifice.", mustBeTargetable: false),
-            selectorAi: TargetSelectorAi.CostSacrificeGainLife()
+            targetSelectorAi: TargetSelectorAi.CostSacrificeGainLife()
             )
         );
     }

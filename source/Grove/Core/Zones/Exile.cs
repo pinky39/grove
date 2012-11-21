@@ -4,7 +4,7 @@
 
   public class Exile : UnorderedZone
   {
-    public Exile(Game game) : base(game) {}
+    public Exile(Player owner, Game game) : base(owner, game) {}
 
     private Exile()
     {

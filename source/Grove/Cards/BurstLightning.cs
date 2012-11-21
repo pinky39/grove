@@ -22,11 +22,15 @@
         .Effect<DealDamageToTargets>(p => p.Amount = 2)
         .Targets(
           selectorAi: TargetSelectorAi.DealDamageSingleSelector(2),
-          effectValidator: Validator(Validators.CreatureOrPlayer()))
+          effectValidator: TargetValidator(
+            TargetIs.CreatureOrPlayer(),
+            ZoneIs.Battlefield()))
         .KickerEffect<DealDamageToTargets>(p => p.Amount = 4)
         .KickerTargets(
           aiTargetSelector: TargetSelectorAi.DealDamageSingleSelector(4),
-          effectValidators: Validator(Validators.CreatureOrPlayer()));
+          effectValidators: TargetValidator(
+            TargetIs.CreatureOrPlayer(),
+            ZoneIs.Battlefield()));
     }
   }
 }

@@ -23,8 +23,10 @@
         .AfterResolvePutToZone(Zone.Library)
         .Effect<DealDamageToTargets>(p => p.Amount = 5)
         .Targets(
-          selectorAi: TargetSelectorAi.DealDamageSingleSelector(5),
-          effectValidator: Validator(Validators.CreatureOrPlayer()));
+          TargetSelectorAi.DealDamageSingleSelector(5),
+          TargetValidator(
+            TargetIs.CreatureOrPlayer(),
+            ZoneIs.Battlefield()));
     }
   }
 }

@@ -27,7 +27,7 @@
           })
         .Targets(
           selectorAi: TargetSelectorAi.CounterSpell(),
-          effectValidator: Validator(Validators.Counterspell()));
+          effectValidator: TargetValidator(TargetIs.CounterableSpell()));
     }
   }
 }

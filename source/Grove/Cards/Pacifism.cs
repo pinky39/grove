@@ -25,7 +25,7 @@
           Modifier<AddStaticAbility>(m => m.StaticAbility = Static.CannotAttack)))
         .Targets(
           selectorAi: TargetSelectorAi.Pacifism(),
-          effectValidator: Validator(Validators.EnchantedCreature()));
+          effectValidator: TargetValidator(TargetIs.EnchantedCreature()));
     }
   }
 }

@@ -28,12 +28,16 @@
             "{2}, Sacrifice a permanent: Return target creature to its owner's hand.",
             Cost<SacPermanentPayMana>(cost => cost.Amount = 2.AsColorlessMana()),
             Effect<ReturnToHand>(e => e.ReturnTarget = true),
-            effectValidator: Validator(Validators.Creature(), text: "Select a creature to bounce."),
-            costValidator:
-              Validator(Validators.Permanent(controller: Controller.SpellOwner),
+            effectValidator: TargetValidator(
+              TargetIs.Card(x => x.Is().Creature), 
+              ZoneIs.Battlefield(),
+              text: "Select a creature to bounce."),
+            costValidator: TargetValidator(
+                TargetIs.Card(controller: Controller.SpellOwner),
+                ZoneIs.Battlefield(),
                 text: "Select a permanent to sacrifice.",
                 mustBeTargetable: false),
-            selectorAi: TargetSelectorAi.SacPermanentToBounce(),
+            targetSelectorAi: TargetSelectorAi.SacPermanentToBounce(),
             timing: Any(Timings.InstantRemovalTarget()))
         );
     }

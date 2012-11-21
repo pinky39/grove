@@ -29,7 +29,9 @@
         .Timing(Timings.FirstMain())
         .Targets(
           selectorAi: TargetSelectorAi.CombatEnchantment(),
-          effectValidator: Validator(Validators.EnchantedCreature()))
+          effectValidator: TargetValidator(
+            TargetIs.Card(card => card.Is().Creature),
+            ZoneIs.Battlefield()))
         .Abilities(
           TriggeredAbility(
             "When Brilliant Halo is put into a graveyard from the battlefield, return Brilliant Halo to its owner's hand.",

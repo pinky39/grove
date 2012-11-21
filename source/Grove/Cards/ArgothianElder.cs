@@ -25,10 +25,13 @@
             "{T}: Untap two target lands.",
             Cost<TapOwnerPayMana>(cost => cost.TapOwner = true),
             Effect<UntapTargets>(),
-            effectValidator: Validator(Validators.Permanent(card => card.Is().Land), minCount: 2, maxCount: 2),
-            selectorAi: TargetSelectorAi.UntapYourLands(),
-            timing: Timings.SecondMain()
-            )
+            TargetValidator(
+              TargetIs.Card(card => card.Is().Land),
+              ZoneIs.Battlefield(),
+              minCount: 2,
+              maxCount: 2),
+            targetSelectorAi: TargetSelectorAi.UntapYourLands(),
+            timing: Timings.SecondMain())
         );
     }
   }

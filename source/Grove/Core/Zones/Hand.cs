@@ -1,10 +1,11 @@
 ﻿namespace Grove.Core.Zones
 {
+  using System.Collections.Generic;
   using System.Linq;
 
   public class Hand : UnorderedZone, IHandQuery
   {
-    public Hand(Game game) : base(game) {}
+    public Hand(Player owner, Game game) : base(owner, game) {}
 
     private Hand()
     {
@@ -20,6 +21,11 @@
     public override void AfterRemove(Card card)
     {            
       card.IsRevealed = false;
+    }
+
+    public override IEnumerable<Card> GenerateTargets(System.Func<Zone, Player, bool> zoneFilter)
+    {
+      base.GenerateTargets(zoneFilter).Where(x => !x.IsHidden);
     }
   }
 }

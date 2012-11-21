@@ -1,11 +1,13 @@
 ﻿namespace Grove.Core.Targeting
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Ai;
   using Infrastructure;
+  using Zones;
 
-  public delegate IEnumerable<ITarget> TargetGeneratorDelegate();
+  public delegate IEnumerable<ITarget> TargetGeneratorDelegate(Func<Zone, Player, bool> zoneFilter);
 
   [Copyable]
   public class TargetSelector
@@ -53,7 +55,7 @@
       {
         var candidates = new TargetCandidates();
 
-        foreach (var target in generator())
+        foreach (var target in generator(selector.IsValidZone))
         {
           if (selector.IsValid(target))
           {
@@ -68,7 +70,7 @@
       {
         var candidates = new TargetCandidates();
 
-        foreach (var target in generator())
+        foreach (var target in generator(selector.IsValidZone))
         {
           if (selector.IsValid(target))
           {

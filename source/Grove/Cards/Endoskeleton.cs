@@ -36,8 +36,8 @@
                   m.Toughness = 3;
                   m.AddLifetime(Lifetime<PermanentGetsUntapedLifetime>(l => l.Permanent = m.Source));
                 }))),
-            effectValidator: Validator(Validators.Creature()),
-            selectorAi: TargetSelectorAi.IncreasePowerAndToughness(0, 3, untilEot: false),
+            effectValidator: TargetValidator(TargetIs.Creature()),
+            targetSelectorAi: TargetSelectorAi.IncreasePowerAndToughness(0, 3, untilEot: false),
             timing: Timings.NoRestrictions()));
     }
   }

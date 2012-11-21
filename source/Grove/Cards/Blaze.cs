@@ -23,7 +23,9 @@
         .Timing(Timings.MainPhases())
         .Targets(
           selectorAi: TargetSelectorAi.DealDamageSingleSelector(),
-          effectValidator: Validator(Validators.CreatureOrPlayer()));
+          effectValidator: TargetValidator(
+            TargetIs.CreatureOrPlayer(),
+            ZoneIs.Battlefield()));
     }
   }
 }

@@ -26,7 +26,7 @@
           })
         .Targets(
           selectorAi: TargetSelectorAi.Bounce(),
-          effectValidator: Validator(Validators.Permanent()));
+          effectValidator: TargetValidator(TargetIs.Permanent()));
     }
   }
 }

@@ -23,7 +23,7 @@
         .Targets(
           selectorAi: TargetSelectorAi.OrderByDescendingScore(),
           effectValidator:
-            Validator(Validators.Permanent(card => card.Is().Artifact)));
+            TargetValidator(TargetIs.Permanent(card => card.Is().Artifact)));
     }
   }
 }

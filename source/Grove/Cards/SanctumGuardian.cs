@@ -29,10 +29,10 @@
             Effect<PreventDamageFromSourceToTarget>(e => e.OnlyOnce = true),
             effectValidators: new[]
               {
-                Validator(Validators.EffectOrPermanent(), text: "Select damage source."),
-                Validator(Validators.CreatureOrPlayer(), text:  "Select a creature or player.")
+                TargetValidator(TargetIs.EffectOrPermanent(), text: "Select damage source."),
+                TargetValidator(TargetIs.CreatureOrPlayer(), text:  "Select a creature or player.")
               },
-            selectorAi: TargetSelectorAi.PreventAllDamageFromSourceToTarget(),
+            targetSelectorAi: TargetSelectorAi.PreventAllDamageFromSourceToTarget(),
             timing: Timings.NoRestrictions()
             )
         );

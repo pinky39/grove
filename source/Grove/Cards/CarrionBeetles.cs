@@ -31,10 +31,12 @@
                 cost.Amount = "{2}{B}".ParseManaAmount();
               }),
             Effect<ExileTargets>(),
-            effectValidator: Validator(Validators.CardInGraveyard(yourGraveyardOnly: false),
+            effectValidator: TargetValidator(
+              TargetIs.Card(),
+              ZoneIs.Graveyard(),
               minCount: 0,
               maxCount: 3),
-            selectorAi: TargetSelectorAi.RemoveCardsFromOpponentsGraveyard(),
+            targetSelectorAi: TargetSelectorAi.RemoveCardsFromOpponentsGraveyard(),
             timing: Timings.EndOfTurn())
         );
     }

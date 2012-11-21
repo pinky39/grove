@@ -1,6 +1,7 @@
 ﻿namespace Grove.Core.Cards.Effects
 {
   using Grove.Core.Decisions;
+  using Zones;
 
   public class PlayersSacrificeLands : Effect
   {
@@ -33,6 +34,7 @@
             p.MinCount = Count;
             p.Validator = card => card.Is().Land;
             p.Text = "Select land(s) to sacrifice";
+            p.Zone = zone => zone == Zone.Battlefield;
           });
     }
   }

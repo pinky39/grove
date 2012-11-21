@@ -111,12 +111,7 @@
     IEnumerator IEnumerable.GetEnumerator()
     {
       return GetEnumerator();
-    }
-
-    public IEnumerable<ITarget> GetTargets()
-    {
-      return this.SelectMany(x => x.GetTargets());
-    }
+    }   
 
     public int CalculateHash(HashCalculator calc)
     {

@@ -37,8 +37,8 @@
                   m.Power = 2;
                   m.Toughness = 2;
                 }, untilEndOfTurn: true))),
-            Validator(Validators.Creature()),
-            selectorAi: TargetSelectorAi.IncreasePowerAndToughness(2, 2),
+            TargetValidator(TargetIs.Creature()),
+            targetSelectorAi: TargetSelectorAi.IncreasePowerAndToughness(2, 2),
             timing: Timings.NoRestrictions(),
             category: EffectCategories.ToughnessIncrease
             )

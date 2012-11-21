@@ -26,8 +26,8 @@
           })
         .Targets(
           selectorAi: TargetSelectorAi.OrderByDescendingScore(Controller.SpellOwner),
-          effectValidator: Validator(
-            Validators.CardInGraveyard(card => card.Is().Creature),
+          effectValidator: TargetValidator(
+            TargetIs.CardInGraveyard(card => card.Is().Creature),
             minCount: 2,
             maxCount: 2));
     }

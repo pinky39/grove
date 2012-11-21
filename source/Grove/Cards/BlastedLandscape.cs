@@ -17,7 +17,7 @@
         .Timing(Timings.Lands())
         .Cycling("{2}")
         .Abilities(
-          ManaAbility(new ManaUnit(ManaColors.Colorless), "{T}: Add one colorless mana to your mana pool."));
+          ManaAbility(new ManaUnit(), "{T}: Add one colorless mana to your mana pool."));
     }
   }
 }

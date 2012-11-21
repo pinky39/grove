@@ -21,8 +21,8 @@
         .Effect<ExileTargets>(e => e.ControllerGainsLifeEqualToToughness = true)
         .Targets(
           selectorAi: TargetSelectorAi.Exile(),
-          effectValidator: Validator(
-            Validators.Creature()));
+          effectValidator: TargetValidator(
+            TargetIs.Creature()));
     }
   }
 }

@@ -49,8 +49,8 @@
                     untilEndOfTurn: true)
                   );
               }),
-            Validator(Validators.Creature()),
-            selectorAi: TargetSelectorAi.ReduceToughness(),
+            TargetValidator(TargetIs.Creature()),
+            targetSelectorAi: TargetSelectorAi.ReduceToughness(),
             timing: Timings.InstantRemovalTarget()));
     }
   }

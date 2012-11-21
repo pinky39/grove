@@ -3,6 +3,7 @@
   using System.Linq;
   using Grove.Core.Decisions;
   using Grove.Core.Decisions.Results;
+  using Zones;
 
   public class PutOnTopOfLibraryUnlessOpponentSacsLand : Effect, IProcessDecisionResults<ChosenCards>
   {
@@ -11,6 +12,7 @@
       Game.Enqueue<SelectCardsToSacrificeAsCost>(Players.GetOpponent(Controller), p =>
         {
           p.Validator = card => card.Is().Land;
+          p.Zone = zone => zone == Zone.Battlefield;
           p.Text = "Select a land to sacrifice";
           p.Ai = (controller, card) => controller.Battlefield.Lands.Count() >= 4;
           p.QuestionText = "Sacrifice a land?";

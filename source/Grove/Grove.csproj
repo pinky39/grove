@@ -560,7 +560,9 @@
     <Compile Include="Core\Cards\Triggers\SpellWasCast.cs" />
     <Compile Include="Core\Cards\Triggers\OnLevelChanged.cs" />
     <Compile Include="Core\Cards\Triggers\OpponentWasNotDealtDamageThisTurn.cs" />
+    <Compile Include="Core\Targeting\ZoneValidatorParameters.cs" />
     <Compile Include="Core\Zones\IGraveyardQuery.cs" />
+    <Compile Include="Core\Zones\ILibraryQuery.cs" />
     <Compile Include="Core\Zones\NullZone.cs" />
     <Compile Include="Ui\CardInGraveyard\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
@@ -576,7 +578,7 @@
     </Compile>
     <Compile Include="Ui\Deck\ViewModel.cs" />
     <Compile Include="Ui\DistributeDamage\UiDamageDistribution.cs" />
-    <Compile Include="Core\Targeting\Validators.cs" />
+    <Compile Include="Core\Targeting\TargetIs.cs" />
     <Compile Include="Core\Mana\ZeroManaAmount.cs" />
     <Compile Include="Core\Zones\Exile.cs" />
     <Compile Include="Core\Zones\IBattlefieldQuery.cs" />

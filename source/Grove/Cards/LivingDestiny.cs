@@ -24,7 +24,7 @@
         .Effect<GainLife>(e => e.Amount = e.CostTarget().Card().ManaCost.Converted)
         .Targets(
           selectorAi: TargetSelectorAi.GreatestConvertedManaCost(),
-          costValidator: Validator(Validators.CardInHand(card => card.Is().Creature))
+          costValidator: TargetValidator(TargetIs.Card(card => card.Is().Creature))
         );
     }
   }

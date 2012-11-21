@@ -1,12 +1,11 @@
 ﻿namespace Grove.Core.Zones
 {
-  using System.Collections.Generic;
   using System.Linq;
   using Infrastructure;
 
-  public class Library : OrderedZone
+  public class Library : OrderedZone, ILibraryQuery
   {
-    public Library(Game game) : base(game) {}
+    public Library(Player owner, Game game) : base(owner, game) {}
 
     private Library()
     {
@@ -14,12 +13,12 @@
     }
 
     public override Zone Zone { get { return Zone.Library; } }
-    public Card Top { get { return this.FirstOrDefault(); } }       
+    public Card Top { get { return this.FirstOrDefault(); } }
 
     public override int CalculateHash(HashCalculator calc)
     {
       return Count;
-    }   
+    }
 
     public void PutOnTop(Card card)
     {

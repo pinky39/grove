@@ -23,7 +23,7 @@
         .Effect<Core.Cards.Effects.Attach>()
         .Targets(
           selectorAi: TargetSelectorAi.CombatEnchantment(),
-          effectValidator: Validator(Validators.EnchantedCreature()))
+          effectValidator: TargetValidator(TargetIs.EnchantedCreature()))
         .Abilities(
           TriggeredAbility(
             "Whenever enchanted creature deals combat damage to a player, that player sacrifices a land.",

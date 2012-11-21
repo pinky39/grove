@@ -7,6 +7,7 @@
   using Ai;
   using Cards.Effects;
   using Infrastructure;
+  using Targeting;
 
   [Copyable]
   public class Stack : IEnumerable<Effect>, IHashable, IZone
@@ -84,6 +85,19 @@
     public override string ToString()
     {
       return String.Format("{0}", Count);
+    }
+
+    public IEnumerable<ITarget> GenerateTargets(Func<Zone, Player, bool> zoneFilter)
+    {
+      if (zoneFilter(Zone, null))
+      {
+        foreach (var effect in _effects)
+        {
+          yield return effect;
+        }
+      }
+
+      yield break;
     }
 
     protected virtual void Add(Effect effect)

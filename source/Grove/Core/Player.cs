@@ -16,20 +16,20 @@
   [Copyable]
   public class Player : ITarget, IDamageable, IAcceptsModifiers, IHasLife
   {
-    private readonly Game _game;
-    private readonly LandLimit _landLimit;
     private readonly AssignedDamage _assignedDamage;
-    private readonly Trackable<int> _landsPlayedCount;
+    private readonly ContiniousEffects _continuousEffects;
     private readonly DamagePreventions _damagePreventions;
     private readonly DamageRedirections _damageRedirections;
+    private readonly Game _game;
     private readonly Trackable<bool> _hasLost;
     private readonly Trackable<bool> _hasMulligan;
     private readonly Trackable<bool> _hasPriority;
     private readonly Trackable<bool> _isActive;
-    private readonly ContiniousEffects _continuousEffects;
+    private readonly LandLimit _landLimit;
+    private readonly Trackable<int> _landsPlayedCount;
     private readonly Life _life;
     private readonly ManaPool _manaPool;
-    private readonly TrackableList<IModifier> _modifiers;    
+    private readonly TrackableList<IModifier> _modifiers;
     private Battlefield _battlefield;
     private Exile _exile;
     private Graveyard _graveyard;
@@ -44,7 +44,7 @@
       IEnumerable<string> deck,
       Game game)
     {
-      _game = game;      
+      _game = game;
 
       Name = name;
       Avatar = avatar;
@@ -75,10 +75,7 @@
     public object ManaPool { get { return _manaPool; } }
     public string Name { get; private set; }
 
-    public int LandsPlayedCount
-    {
-      get { return _landsPlayedCount.Value; } set { _landsPlayedCount.Value = value; }
-    }
+    public int LandsPlayedCount { get { return _landsPlayedCount.Value; } set { _landsPlayedCount.Value = value; } }
 
     private IEnumerable<IModifiable> ModifiableProperties
     {
@@ -87,14 +84,14 @@
         yield return _damagePreventions;
         yield return _damageRedirections;
         yield return _continuousEffects;
-        yield return _landLimit;        
+        yield return _landLimit;
       }
     }
 
     public string Avatar { get; private set; }
     public IBattlefieldQuery Battlefield { get { return _battlefield; } }
-    public bool CanMulligan { get { return _hand.CanMulligan && HasMulligan; } }        
-    public bool CanPlayLands { get { return LandsPlayedCount < _landLimit.Value; }}
+    public bool CanMulligan { get { return _hand.CanMulligan && HasMulligan; } }
+    public bool CanPlayLands { get { return LandsPlayedCount < _landLimit.Value; } }
     public IGraveyardQuery Graveyard { get { return _graveyard; } }
     public IHandQuery Hand { get { return _hand; } }
     public bool HasLost { get { return _hasLost.Value; } set { _hasLost.Value = value; } }
@@ -105,8 +102,7 @@
     public bool IsMachine { get { return Controller == ControllerType.Machine; } }
     public bool IsScenario { get { return Controller == ControllerType.Scenario; } }
     public bool IsMax { get; set; }
-
-    public IEnumerable<Card> Library { get { return _library; } }
+    public ILibraryQuery Library { get { return _library; } }
 
     public int NumberOfCardsAboveMaximumHandSize { get { return Math.Max(0, _hand.Count - 7); } }
 
@@ -184,10 +180,10 @@
         calc.Calculate(_assignedDamage),
         calc.Calculate(_battlefield),
         calc.Calculate(_graveyard),
-        calc.Calculate(_library),        
-        calc.Calculate(_hand),        
+        calc.Calculate(_library),
+        calc.Calculate(_hand),
         _landLimit.Value.GetValueOrDefault(),
-        _landsPlayedCount.Value        
+        _landsPlayedCount.Value
         );
     }
 
@@ -287,21 +283,26 @@
     }
 
 
-    public IEnumerable<ITarget> GetTargets()
+    public IEnumerable<ITarget> GetTargets(Func<Zone, Player, bool> zoneFilter)
     {
       yield return this;
 
-      foreach (var card in Battlefield)
+      foreach (var card in _battlefield.GenerateTargets(zoneFilter))
       {
         yield return card;
       }
 
-      foreach (var card in Hand.Where(x => !x.IsHidden))
+      foreach (var card in _hand.GenerateTargets(zoneFilter))
       {
         yield return card;
       }
 
-      foreach (var card in Graveyard)
+      foreach (var card in _graveyard.GenerateTargets(zoneFilter))
+      {
+        yield return card;
+      }
+
+      foreach (var card in _library.GenerateTargets(zoneFilter))
       {
         yield return card;
       }
@@ -512,6 +513,6 @@
       _battlefield.Show();
       _graveyard.Show();
       _hand.Show();
-    }    
+    }
   }
 }

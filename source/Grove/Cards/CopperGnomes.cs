@@ -29,7 +29,8 @@
             Cost<SacOwnerPayMana>(cost => cost.Amount = 4.AsColorlessMana()),
             Effect<PutTargetCardToBattlefield>(e =>
               {
-                e.Validator = card => card.Zone == Zone.Hand && card.Is().Artifact;
+                e.Validator = card => card.Is().Artifact;
+                e.Zone = zone => zone == Zone.Hand;
                 e.Text = "Select an artifact in your hand";
               }),
             timing: All(

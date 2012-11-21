@@ -26,8 +26,8 @@
             "{T}: Elite Archers deals 3 damage to target attacking or blocking creature.",
             Cost<TapOwnerPayMana>(cost => cost.TapOwner = true),
             Effect<DealDamageToTargets>(e => e.Amount = 3),
-            Validator(Validators.AttackerOrBlocker()),
-            selectorAi: TargetSelectorAi.DealDamageSingleSelector(3),
+            TargetValidator(TargetIs.AttackerOrBlocker()),
+            targetSelectorAi: TargetSelectorAi.DealDamageSingleSelector(3),
             timing: Timings.DeclareBlockers()
             )
         );

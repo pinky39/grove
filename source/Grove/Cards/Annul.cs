@@ -21,8 +21,10 @@
         .Timing(Timings.CounterSpell())
         .Effect<CounterTargetSpell>()
         .Targets(
-          selectorAi: TargetSelectorAi.CounterSpell(),
-          effectValidator: Validator(Validators.Counterspell(card => card.Is().Artifact || card.Is().Enchantment)));
+          TargetSelectorAi.CounterSpell(),
+          TargetValidator(
+            TargetIs.CounterableSpell(card => card.Is().Artifact || card.Is().Enchantment),
+            ZoneIs.Stack()));
     }
   }
 }

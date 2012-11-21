@@ -33,8 +33,8 @@
             Effect<Core.Cards.Effects.CompoundEffect>(e => e.ChildEffects(
               Effect<Core.Cards.Effects.DealDamageToTargets>(e1 => e1.Amount = 2),
               Effect<Core.Cards.Effects.DrawCards>(e1 => e1.DrawCount = 1))),
-            Validator(
-              Validators.CreatureOrPlayer()),
+            TargetValidator(
+              TargetIs.CreatureOrPlayer()),
             selectorAi: TargetSelectorAi.DealDamageSingleSelector(2)),
           ActivatedAbility(
             "{2}: Attach to target creature you control. Equip only as a sorcery.",
@@ -47,8 +47,8 @@
                 }),
               Modifier<AddProtectionFromColors>(m => m.Colors = ManaColors.Red | ManaColors.Blue)
               )),
-            effectValidator: Validator(Validators.Equipment()),
-            selectorAi: TargetSelectorAi.CombatEquipment(),
+            effectValidator: TargetValidator(TargetIs.ValidEquipmentTarget()),
+            targetSelectorAi: TargetSelectorAi.CombatEquipment(),
             timing: Timings.AttachCombatEquipment(),
             activateAsSorcery: true,
             category: EffectCategories.ToughnessIncrease | EffectCategories.Protector

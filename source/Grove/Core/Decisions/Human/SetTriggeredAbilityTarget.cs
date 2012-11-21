@@ -1,10 +1,11 @@
 ﻿namespace Grove.Core.Decisions.Human
 {
-  using Grove.Core.Targeting;
-  using Grove.Ui;
-  using Grove.Ui.SelectTarget;
-  using Grove.Ui.Shell;
   using Results;
+  using Targeting;
+  using Ui;
+  using Ui.SelectTarget;
+  using Ui.Shell;
+  using System.Linq;
 
   public class SetTriggeredAbilityTarget : Decisions.SetTriggeredAbilityTarget
   {
@@ -34,7 +35,7 @@
 
     private bool NoValidTargets(TargetValidator validator)
     {
-      foreach (var target in Game.Players.GetTargets())
+      foreach (var target in Game.Players.SelectMany(x => x.GetTargets(validator.IsValidZone)))
       {
         if (validator.IsValid(target))
           return false;

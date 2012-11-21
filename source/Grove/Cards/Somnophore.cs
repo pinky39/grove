@@ -40,8 +40,8 @@
                 ))
               )),
             selectorAi: TargetSelectorAi.Pacifism(),
-            effectValidator: Validator(
-              Validators.Creature(p => p.Target.Card().Controller == p.Trigger<DamageHasBeenDealt>().Receiver),
+            effectValidator: TargetValidator(
+              TargetIs.Creature(p => p.Target.Card().Controller == p.Trigger<DamageHasBeenDealt>().Receiver),
               text: "Select creature to tap."))
         );
     }

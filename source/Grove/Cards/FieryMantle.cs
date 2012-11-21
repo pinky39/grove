@@ -34,7 +34,7 @@
             )))
         .Targets(
           selectorAi: TargetSelectorAi.CombatEnchantment(),
-          effectValidator: Validator(Validators.EnchantedCreature()))
+          effectValidator: TargetValidator(TargetIs.EnchantedCreature()))
         .Abilities(
           TriggeredAbility(
             "When Fiery Mantle is put into a graveyard from the battlefield, return Fiery Mantle to its owner's hand.",

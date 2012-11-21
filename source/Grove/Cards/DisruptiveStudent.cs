@@ -28,8 +28,8 @@
             "{T}: Counter target spell unless its controller pays {1}.",
             Cost<TapOwnerPayMana>(cost => cost.TapOwner = true),
             Effect<CounterTargetSpell>(e => e.DoNotCounterCost = 1.AsColorlessMana()),
-            effectValidator: Validator(Validators.Counterspell()),
-            selectorAi: TargetSelectorAi.CounterSpell(),
+            effectValidator: TargetValidator(TargetIs.CounterableSpell()),
+            targetSelectorAi: TargetSelectorAi.CounterSpell(),
             timing: Timings.CounterSpell(1)
             )
         );

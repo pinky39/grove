@@ -1,7 +1,7 @@
 ﻿namespace Grove.Core.Cards.Effects
 {
-  using Grove.Core.Decisions;
-  using Grove.Core.Zones;
+  using Decisions;
+  using Zones;
 
   public class EachPlayerReturnsCardFromGraveyardToBattlefield : Effect
   {
@@ -14,7 +14,8 @@
             p.MinCount = 1;
             p.MaxCount = 1;
             p.Text = FormatText("Select a creature card in your graveyard");
-            p.Validator = card => card.Zone == Zone.Graveyard && card.Is().Creature;            
+            p.Validator = card => card.Is().Creature;
+            p.Zone = zone => zone == Zone.Graveyard;
           }
         );
     }
