@@ -22,8 +22,10 @@
         .Timing(Timings.InstantRemovalTarget())
         .Category(EffectCategories.Destruction)
         .Targets(
-          selectorAi: TargetSelectorAi.Destroy(),
-          effectValidator: TargetValidator(TargetIs.Creature((creature) => !creature.HasColors(ManaColors.Black))));
+          TargetSelectorAi.Destroy(), 
+          TargetValidator(
+            TargetIs.Card(card => card.Is().Creature && !card.HasColors(ManaColors.Black)),
+            ZoneIs.Battlefield()));
     }
   }
 }

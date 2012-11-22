@@ -27,11 +27,11 @@
             "Sacrifice a Beast: You gain 4 life.",
             Cost<SacPermanent>(),
             Effect<GainLife>(e => e.Amount = 4),
-            
-            costValidator: TargetValidator(TargetIs.Creature((c) => c.Is("beast"), Controller.SpellOwner), 
+            costValidator: TargetValidator(
+              TargetIs.Card(card => card.Is("beast"), Controller.SpellOwner),
+              ZoneIs.Battlefield(),
               mustBeTargetable: false),
-            
-            targetSelectorAi: TargetSelectorAi.CostSacrificeGainLife(),            
+            targetSelectorAi: TargetSelectorAi.CostSacrificeGainLife(),
             timing: Timings.NoRestrictions()));
     }
   }

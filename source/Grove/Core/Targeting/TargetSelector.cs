@@ -93,7 +93,15 @@
       // there are problems in the future this must be 
       // changed, so the target will know to which
       // validator it belongs.
-      return _effectValidators.Any(validator => validator.IsValid(target));
+      
+      // todo
+      var targetZone = target.Zone();
+      var zoneOwner = targetZone != null ? targetZone.Owner;
+      
+      return _effectValidators.Any(
+          validator => validator.IsValidZone(targetZone, zoneOwner) && 
+          validator.IsValid(target)        
+        );
     }
 
     public void SetTrigger(object trigger)

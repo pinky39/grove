@@ -35,7 +35,7 @@
             "{2}{R}, Sacrifice Torch Song: Torch Song deals X damage to target creature or player, where X is the number of verse counters on Torch Song.",
             Cost<SacOwnerPayMana>(cost => cost.Amount = "{2}{R}".ParseManaAmount()),
             Effect<DealDamageToTargets>(e => e.Amount = e.Source.OwningCard.Counters.GetValueOrDefault()),
-            TargetValidator(TargetIs.CreatureOrPlayer()),
+            TargetValidator(TargetIs.CreatureOrPlayer(), ZoneIs.Battlefield()),
             targetSelectorAi: TargetSelectorAi.DealDamageSingleSelector(p => p.Source.Counters.GetValueOrDefault()),
             timing: All(Timings.InstantRemovalTarget())
         ));

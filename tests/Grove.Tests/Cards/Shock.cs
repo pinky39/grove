@@ -100,7 +100,8 @@
         Exec(
           At(Step.FirstMain)
             .Cast(armor, target: bear)
-            .Cast(shock, target: bear)
+            .Cast(shock, target: bear),
+          At(Step.SecondMain)
             .Verify(() => {
               Equal(2, P1.Graveyard.Count());
               Equal(1, P2.Graveyard.Count());

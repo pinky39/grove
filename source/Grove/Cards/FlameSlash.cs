@@ -21,9 +21,8 @@
         .Effect<DealDamageToTargets>(e => e.Amount = 4)
         .Timing(Timings.InstantRemovalTarget())
         .Targets(
-          selectorAi: TargetSelectorAi.DealDamageSingleSelector(4),
-          effectValidator: TargetValidator(
-            TargetIs.Creature()));
+          TargetSelectorAi.DealDamageSingleSelector(4),
+          TargetValidator(TargetIs.Card(x => x.Is().Creature), ZoneIs.Battlefield()));
     }
   }
 }

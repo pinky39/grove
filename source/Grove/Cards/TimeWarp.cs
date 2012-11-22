@@ -21,7 +21,7 @@
         .Effect<TargetPlayerTakesExtraTurns>()
         .Targets(
           selectorAi: TargetSelectorAi.Controller(),
-          effectValidator: TargetValidator(TargetIs.Player()));
+          effectValidator: TargetValidator(TargetIs.Player(), ZoneIs.None()));
     }
   }
 }

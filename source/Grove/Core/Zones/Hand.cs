@@ -25,7 +25,7 @@
 
     public override IEnumerable<Card> GenerateTargets(System.Func<Zone, Player, bool> zoneFilter)
     {
-      base.GenerateTargets(zoneFilter).Where(x => !x.IsHidden);
+      return base.GenerateTargets(zoneFilter).Where(x => !x.IsHidden);
     }
   }
 }

@@ -199,6 +199,7 @@
           Init = selector =>
             {
               selector.Target = target;
+              selector.Zone = zone;
 
               selector.MustBeTargetable = mustBeTargetable;
               selector.MinCount = minCount;

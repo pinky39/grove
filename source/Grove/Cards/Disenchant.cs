@@ -21,9 +21,10 @@
         .Category(EffectCategories.Destruction)
         .Timing(Timings.InstantRemovalTarget())
         .Targets(
-          selectorAi: TargetSelectorAi.OrderByDescendingScore(),
-          effectValidator:
-            TargetValidator(TargetIs.Permanent(card => card.Is().Artifact || card.Is().Enchantment)));
+          TargetSelectorAi.OrderByDescendingScore(),          
+          TargetValidator(
+            TargetIs.Card(card => card.Is().Artifact || card.Is().Enchantment),
+            ZoneIs.Battlefield()));
     }
   }
 }

@@ -42,14 +42,14 @@
                   Modifier<AddPowerAndToughness>(m =>
                     m.Power = Value.PlusX,
                     untilEndOfTurn: true));
-                
+
                 e.TargetModifiers(
                   Modifier<AddPowerAndToughness>(
                     m => m.Toughness = Value.MinusX,
                     untilEndOfTurn: true)
                   );
               }),
-            TargetValidator(TargetIs.Creature()),
+            TargetValidator(TargetIs.Card(x => x.Is().Creature), ZoneIs.Battlefield()),
             targetSelectorAi: TargetSelectorAi.ReduceToughness(),
             timing: Timings.InstantRemovalTarget()));
     }

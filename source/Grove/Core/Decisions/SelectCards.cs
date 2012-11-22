@@ -15,7 +15,7 @@
     public IProcessDecisionResults<ChosenCards> ProcessDecisionResults;
     public string Text;
     public Func<Card, bool> Validator;
-    public Func<Zone, bool> Zone = delegate { return true; };    
+    public Func<Zone, bool> Zone = delegate { return true; };
     private List<Card> _validCards;
 
     protected List<Card> ValidCards
@@ -24,7 +24,8 @@
       {
         return
           _validCards ?? (_validCards =
-            Game.GenerateTargets((zone, owner) => owner == Controller && Zone(zone))              
+            Game.GenerateTargets((zone, owner) => owner == Controller && Zone(zone))
+              .Where(x => x.IsCard())
               .Select(x => x.Card())
               .Where(x => Validator(x))
               .ToList());

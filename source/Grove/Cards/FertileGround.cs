@@ -23,8 +23,10 @@
         .Effect<Attach>(e => e.Modifiers(Modifier<IncreaseManaOutput>(m => m.Amount = ManaAmount.Any)))
         .Timing(Timings.FirstMain())
         .Targets(
-          selectorAi: TargetSelectorAi.EnchantYourLand(),
-          effectValidator: TargetValidator(TargetIs.EnchantedPermanent(card => card.Is().Land)));
+          TargetSelectorAi.EnchantYourLand(), 
+          TargetValidator(
+            TargetIs.Card(card => card.Is().Land),
+            ZoneIs.Battlefield()));
     }
   }
 }

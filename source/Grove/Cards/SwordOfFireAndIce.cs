@@ -34,7 +34,7 @@
               Effect<Core.Cards.Effects.DealDamageToTargets>(e1 => e1.Amount = 2),
               Effect<Core.Cards.Effects.DrawCards>(e1 => e1.DrawCount = 1))),
             TargetValidator(
-              TargetIs.CreatureOrPlayer()),
+              TargetIs.CreatureOrPlayer(), ZoneIs.Battlefield()),
             selectorAi: TargetSelectorAi.DealDamageSingleSelector(2)),
           ActivatedAbility(
             "{2}: Attach to target creature you control. Equip only as a sorcery.",
@@ -47,7 +47,7 @@
                 }),
               Modifier<AddProtectionFromColors>(m => m.Colors = ManaColors.Red | ManaColors.Blue)
               )),
-            effectValidator: TargetValidator(TargetIs.ValidEquipmentTarget()),
+            effectValidator: TargetValidator(TargetIs.ValidEquipmentTarget(), ZoneIs.Battlefield()),
             targetSelectorAi: TargetSelectorAi.CombatEquipment(),
             timing: Timings.AttachCombatEquipment(),
             activateAsSorcery: true,

@@ -31,8 +31,8 @@
           })
         .Timing(Timings.MainPhases())
         .Targets(
-          selectorAi: TargetSelectorAi.ReduceToughness(1),
-          effectValidator: TargetValidator(TargetIs.EnchantedCreature())
+          TargetSelectorAi.ReduceToughness(1),
+          TargetValidator(TargetIs.Card(x => x.Is().Creature), ZoneIs.Battlefield())
         );
     }
   }

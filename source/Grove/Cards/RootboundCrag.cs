@@ -1,7 +1,6 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using System.Linq;
   using Core;
   using Core.Ai;
   using Core.Cards.Effects;
@@ -23,7 +22,8 @@
             new ManaUnit(ManaColors.Red | ManaColors.Green),
             "{T}: Add {R} or {G} to your mana pool."
             ))
-        .Effect<PutIntoPlay>(e => e.PutIntoPlayTapped = e.Controller.Battlefield.None(card => card.Is("forest") || card.Is("mountain")))
+        .Effect<PutIntoPlay>(
+          e => e.PutIntoPlayTapped = e.Controller.Battlefield.None(card => card.Is("forest") || card.Is("mountain")))
         .Timing(Timings.Lands());
     }
   }

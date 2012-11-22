@@ -35,10 +35,9 @@
                       p.AmountIsDepletable = true;
                       p.Amount = 2;
                     });
-                }, untilEndOfTurn: true))),
-            effectValidator: TargetValidator(TargetIs.CreatureOrPlayer()),
-            targetSelectorAi: TargetSelectorAi.PreventNextDamageToCreatureOrPlayer(2)
-            )
+                }, untilEndOfTurn: true))), 
+            TargetValidator(TargetIs.CreatureOrPlayer(), ZoneIs.Battlefield()),
+            targetSelectorAi: TargetSelectorAi.PreventNextDamageToCreatureOrPlayer(2))
         );
     }
   }

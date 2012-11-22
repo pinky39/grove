@@ -30,8 +30,8 @@
               );
           })
         .Targets(
-          selectorAi: TargetSelectorAi.DamageRedirection(),
-          effectValidator: TargetValidator(TargetIs.EnchantedCreature()));
+          TargetSelectorAi.DamageRedirection(),
+          TargetValidator(TargetIs.Card(x => x.Is().Creature), ZoneIs.Battlefield()));
     }
   }
 }

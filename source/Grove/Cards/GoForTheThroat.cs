@@ -21,8 +21,10 @@
         .Timing(Timings.InstantRemovalTarget())
         .Category(EffectCategories.Destruction)
         .Targets(
-          selectorAi: TargetSelectorAi.Destroy(),
-          effectValidator: TargetValidator(TargetIs.Creature(card => !card.Is().Artifact)));
+          TargetSelectorAi.Destroy(), 
+          TargetValidator(
+            TargetIs.Card(card => card.Is().Creature && !card.Is().Artifact), 
+            ZoneIs.Battlefield()));
     }
   }
 }

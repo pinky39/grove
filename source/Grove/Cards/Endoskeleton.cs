@@ -36,7 +36,7 @@
                   m.Toughness = 3;
                   m.AddLifetime(Lifetime<PermanentGetsUntapedLifetime>(l => l.Permanent = m.Source));
                 }))),
-            effectValidator: TargetValidator(TargetIs.Creature()),
+            TargetValidator(TargetIs.Card(x => x.Is().Creature), ZoneIs.Battlefield()),
             targetSelectorAi: TargetSelectorAi.IncreasePowerAndToughness(0, 3, untilEot: false),
             timing: Timings.NoRestrictions()));
     }

@@ -32,7 +32,7 @@
             Effect<ApplyModifiersToTargets>(e => e.Modifiers(
               Modifier<AddDamagePrevention>(m => m.Prevention = Prevention<PreventDealt>(),
                 untilEndOfTurn: true))),
-            effectValidator: TargetValidator(TargetIs.Creature(card => card.IsAttacker && card.Has().Flying)),
+            TargetValidator(TargetIs.Card(card => card.IsAttacker && card.Has().Flying), ZoneIs.Battlefield()),
             targetSelectorAi: TargetSelectorAi.PreventAttackerDamage(),
             timing: All(Timings.DeclareAttackers(), Timings.PassiveTurn())
             ));

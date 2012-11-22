@@ -27,7 +27,9 @@
             Cost<TapOwnerPayMana>(c => c.Amount = "{1}{U}".ParseManaAmount()),
             Effect<CounterTargetSpell>(),
             targetSelectorAi: TargetSelectorAi.CounterSpell(),
-            effectValidator: TargetValidator(TargetIs.CounterableSpell(card => card.HasColors(ManaColors.Red))),
+            effectValidator: TargetValidator(
+              TargetIs.CounterableSpell(card => card.HasColors(ManaColors.Red)),
+              ZoneIs.Stack()),
             category: EffectCategories.Counterspell,
             timing: Timings.CounterSpell()
             )

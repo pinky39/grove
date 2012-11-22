@@ -30,8 +30,8 @@
               {
                 e.ReturnTarget = true;
                 e.ReturnOwner = true;
-              }), 
-            TargetValidator(TargetIs.Creature(controller: Controller.SpellOwner)),
+              }),
+            TargetValidator(TargetIs.Card(card => card.Is().Creature, Controller.SpellOwner), ZoneIs.Battlefield()),
             targetSelectorAi: TargetSelectorAi.BounceSelfAndTargetCreatureYouControl(),
             timing: Timings.NoRestrictions()
             )

@@ -22,8 +22,8 @@
         .Category(EffectCategories.ToughnessIncrease)
         .Timing(Timings.FirstMain())
         .Targets(
-          selectorAi: TargetSelectorAi.CombatEnchantment(),
-          effectValidator: TargetValidator(
+          TargetSelectorAi.CombatEnchantment(), 
+          TargetValidator(
             TargetIs.Card(card => card.Is().Creature),
             ZoneIs.Battlefield()));
     }

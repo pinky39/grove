@@ -21,9 +21,8 @@
         .Timing(Timings.InstantRemovalTarget())
         .Cycling("{2}")
         .Targets(
-          selectorAi: TargetSelectorAi.OrderByDescendingScore(),
-          effectValidator:
-            TargetValidator(TargetIs.Permanent(card => card.Is().Artifact)));
+          TargetSelectorAi.OrderByDescendingScore(), 
+          TargetValidator(TargetIs.Card(card => card.Is().Artifact), ZoneIs.Battlefield()));
     }
   }
 }

@@ -9,7 +9,8 @@
   using Mana;
   using Zones;
 
-  public interface ITarget : IHashable {}
+  public interface ITarget : IHashable {    
+  }
 
   public static class Target
   {
@@ -39,7 +40,7 @@
     public static Player Player(this ITarget target)
     {
       return target as Player;
-    }
+    }    
 
     public static Effect Effect(this ITarget target)
     {

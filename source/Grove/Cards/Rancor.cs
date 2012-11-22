@@ -28,8 +28,8 @@
           Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Trample)))
         .Timing(Timings.FirstMain())
         .Targets(
-          selectorAi: TargetSelectorAi.CombatEnchantment(),
-          effectValidator: TargetValidator(TargetIs.EnchantedCreature()))
+          TargetSelectorAi.CombatEnchantment(),
+          TargetValidator(TargetIs.Card(x => x.Is().Creature), ZoneIs.Battlefield()))
         .Abilities(
           TriggeredAbility(
             "When Rancor is put into a graveyard from the battlefield, return Rancor to its owner's hand.",

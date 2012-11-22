@@ -478,10 +478,10 @@
     private void CreateZones(IEnumerable<Card> cards, Game game)
     {
       _battlefield = Bindable.Create<Battlefield>(this, game);
-      _hand = Bindable.Create<Hand>(game);
-      _graveyard = Bindable.Create<Graveyard>(game);
-      _library = Bindable.Create<Library>(game);
-      _exile = Bindable.Create<Exile>(game);
+      _hand = Bindable.Create<Hand>(this, game);
+      _graveyard = Bindable.Create<Graveyard>(this, game);
+      _library = Bindable.Create<Library>(this, game);
+      _exile = Bindable.Create<Exile>(this, game);
 
       foreach (var card in cards)
       {

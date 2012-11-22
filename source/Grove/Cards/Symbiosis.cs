@@ -27,8 +27,8 @@
               m.Toughness = 2;
             }, untilEndOfTurn: true)))
         .Targets(
-          selectorAi: TargetSelectorAi.IncreasePowerAndToughness(2, 2),
-          effectValidator: TargetValidator(TargetIs.Creature(), minCount: 2, maxCount: 2)
+          TargetSelectorAi.IncreasePowerAndToughness(2, 2), 
+          TargetValidator(TargetIs.Card(x => x.Is().Creature), ZoneIs.Battlefield(), minCount: 2, maxCount: 2)
         );
     }
   }

@@ -28,7 +28,9 @@
             "{T}: Counter target spell unless its controller pays {1}.",
             Cost<TapOwnerPayMana>(cost => cost.TapOwner = true),
             Effect<CounterTargetSpell>(e => e.DoNotCounterCost = 1.AsColorlessMana()),
-            effectValidator: TargetValidator(TargetIs.CounterableSpell()),
+            effectValidator: TargetValidator(
+              TargetIs.CounterableSpell(),
+              ZoneIs.Stack()),
             targetSelectorAi: TargetSelectorAi.CounterSpell(),
             timing: Timings.CounterSpell(1)
             )

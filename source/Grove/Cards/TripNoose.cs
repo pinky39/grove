@@ -29,7 +29,7 @@
                 cost.TapOwner = true;
               }),
             Effect<TapTargetCreature>(),
-            TargetValidator(TargetIs.Creature()),
+            TargetValidator(TargetIs.Card(x=>x.Is().Creature), ZoneIs.Battlefield()),
             targetSelectorAi: TargetSelectorAi.TapCreature(),
             timing: Timings.Steps(Step.BeginningOfCombat))
         );

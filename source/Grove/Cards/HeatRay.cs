@@ -22,8 +22,8 @@
         .Effect<DealDamageToTargets>(p => p.Amount = Value.PlusX)
         .Timing(Timings.InstantRemovalTarget())
         .Targets(
-          selectorAi: TargetSelectorAi.DealDamageSingleSelector(),
-          effectValidator: TargetValidator(TargetIs.Creature()));
+          TargetSelectorAi.DealDamageSingleSelector(),
+          TargetValidator(TargetIs.Card(x => x.Is().Creature), ZoneIs.Battlefield()));
     }
   }
 }

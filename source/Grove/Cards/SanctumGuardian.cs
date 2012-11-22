@@ -29,8 +29,8 @@
             Effect<PreventDamageFromSourceToTarget>(e => e.OnlyOnce = true),
             effectValidators: new[]
               {
-                TargetValidator(TargetIs.EffectOrPermanent(), text: "Select damage source."),
-                TargetValidator(TargetIs.CreatureOrPlayer(), text:  "Select a creature or player.")
+                TargetValidator(TargetIs.Card(), ZoneIs.BattlefieldOrStack(), text: "Select damage source."),
+                TargetValidator(TargetIs.CreatureOrPlayer(), ZoneIs.Battlefield(), text:  "Select a creature or player.")
               },
             targetSelectorAi: TargetSelectorAi.PreventAllDamageFromSourceToTarget(),
             timing: Timings.NoRestrictions()

@@ -40,8 +40,8 @@
           Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Flying)
           ))
         .Targets(
-          selectorAi: TargetSelectorAi.CombatEnchantment(),
-          effectValidator: TargetValidator(TargetIs.EnchantedCreature()));
+          TargetSelectorAi.CombatEnchantment(), 
+          TargetValidator(TargetIs.Card(x => x.Is().Creature), ZoneIs.Battlefield()));
     }
   }
 }

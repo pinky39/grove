@@ -22,8 +22,8 @@
         .Timing(Timings.CounterSpell(3))
         .Effect<CounterTargetSpell>(e => e.DoNotCounterCost = 3.AsColorlessMana())
         .Targets(
-          selectorAi: TargetSelectorAi.CounterSpell(),
-          effectValidator: TargetValidator(TargetIs.CounterableSpell()));
+          TargetSelectorAi.CounterSpell(), 
+          TargetValidator(TargetIs.CounterableSpell(), ZoneIs.Stack()));
     }
   }
 }

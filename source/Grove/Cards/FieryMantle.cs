@@ -33,8 +33,8 @@
               timing: Timings.IncreaseOwnersPowerAndThougness(1, 0))
             )))
         .Targets(
-          selectorAi: TargetSelectorAi.CombatEnchantment(),
-          effectValidator: TargetValidator(TargetIs.EnchantedCreature()))
+          TargetSelectorAi.CombatEnchantment(),
+          TargetValidator(TargetIs.Card(x => x.Is().Creature), ZoneIs.Battlefield()))
         .Abilities(
           TriggeredAbility(
             "When Fiery Mantle is put into a graveyard from the battlefield, return Fiery Mantle to its owner's hand.",

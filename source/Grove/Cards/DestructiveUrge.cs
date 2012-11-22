@@ -3,6 +3,7 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
+  using Core.Cards.Effects;
   using Core.Cards.Triggers;
   using Core.Dsl;
   using Core.Messages;
@@ -20,10 +21,12 @@
           "{Enchant creature}{EOL}Whenever enchanted creature deals combat damage to a player, that player sacrifices a land.")
         .FlavorText("Red sky at night, dragon's delight.")
         .Timing(Timings.FirstMain())
-        .Effect<Core.Cards.Effects.Attach>()
+        .Effect<Attach>()
         .Targets(
-          selectorAi: TargetSelectorAi.CombatEnchantment(),
-          effectValidator: TargetValidator(TargetIs.EnchantedCreature()))
+          TargetSelectorAi.CombatEnchantment(),
+          TargetValidator(
+            TargetIs.Card(x => x.Is().Creature),
+            ZoneIs.Battlefield()))
         .Abilities(
           TriggeredAbility(
             "Whenever enchanted creature deals combat damage to a player, that player sacrifices a land.",
@@ -33,7 +36,7 @@
                 t.UseAttachedToAsTriggerSource = true;
                 t.ToPlayer();
               }),
-            Effect<Core.Cards.Effects.PlayersSacrificeLands>(
+            Effect<PlayersSacrificeLands>(
               p =>
                 {
                   p.Effect.OnlyPlayer = (Player) p.Parameters.Trigger<DamageHasBeenDealt>().Receiver;

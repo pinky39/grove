@@ -22,9 +22,11 @@
           "{Enchant creature}{EOL}Enchanted creature gets -2/-0.{EOL}When Despondency is put into a graveyard from the battlefield, return Despondency to its owner's hand.")
         .Timing(Timings.FirstMain())
         .Targets(
-          selectorAi: TargetSelectorAi.ReducePower(2),
-          effectValidator: TargetValidator(TargetIs.EnchantedCreature()))
-        .Effect<Core.Cards.Effects.Attach>(
+          TargetSelectorAi.ReducePower(2), 
+          TargetValidator(
+            TargetIs.Card(x => x.Is().Creature),
+            ZoneIs.Battlefield()))
+        .Effect<Attach>(
           p => p.Effect.Modifiers(Modifier<AddPowerAndToughness>(m => m.Power = -2)))
         .Abilities(
           TriggeredAbility(

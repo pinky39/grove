@@ -2,36 +2,7 @@
 {
   using System;
   using Ai;
-  using Zones;
 
-  public static class ZoneIs
-  {
-    public static ZoneValidatorDelegate Any()
-    {
-      return delegate { return true; };
-    }
-
-    public static ZoneValidatorDelegate OwnersHand()
-    {
-      return p => p.Zone == Zone.Hand && p.ZoneOwner == p.Source.Controller;
-    }
-
-    public static ZoneValidatorDelegate Battlefield()
-    {
-      return p => p.Zone == Zone.Battlefield;
-    }
-
-    public static ZoneValidatorDelegate Stack()
-    {
-      return p => p.Zone == Zone.Stack;
-    }
-
-    public static ZoneValidatorDelegate Graveyard()
-    {
-      return p => p.Zone == Zone.Graveyard;
-    }
-  }
-  
   public static class TargetIs
   {
     public static TargetValidatorDelegate Player()
@@ -41,7 +12,7 @@
 
     public static TargetValidatorDelegate CreatureOrPlayer()
     {
-      return p => p.Target.IsPlayer() || p.Target.Card().Is().Creature;
+      return p => p.Target.IsPlayer() || (p.Target.IsCard() && p.Target.Card().Is().Creature);
     }
 
     public static TargetValidatorDelegate CounterableSpell(Func<Card, bool> filter = null)
@@ -84,13 +55,7 @@
           return spellController != targetController;
       }
       return true;
-    }    
-
-    public static TargetValidatorDelegate EffectOrPermanent(Func<ITarget, bool> filter = null)
-    {
-      filter = filter ?? delegate { return true; };
-      return p => (p.Target.IsPermanent() || p.Target.IsEffect()) && filter(p.Target);
-    }
+    }        
 
     public static TargetValidatorDelegate Card(Func<TargetValidatorParameters, bool> filter)
     {
@@ -106,11 +71,6 @@
           p.Target.IsCard() &&        
           ValidateController(p.Controller, p.Card.Controller, controller) &&
           filter(p.Target.Card());
-    }    
-
-    public static TargetValidatorDelegate EnchantedPermanent(Func<Card, bool> predicate)
-    {
-      return p => p.Target.IsPermanent() && predicate(p.Target.Card());
-    }
+    }        
   }
 }

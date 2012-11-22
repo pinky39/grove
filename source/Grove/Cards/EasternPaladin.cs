@@ -32,7 +32,9 @@
                 cost.TapOwner = true;                                
               }),
             Effect<DestroyTargetPermanents>(),            
-            TargetValidator(TargetIs.Creature(card => card.HasColors(ManaColors.Green))),
+            TargetValidator(
+              TargetIs.Card(card => card.Is().Creature && card.HasColors(ManaColors.Green)),
+              ZoneIs.Battlefield()),
             targetSelectorAi: TargetSelectorAi.Destroy(),
             timing: Timings.InstantRemovalTarget()));
     }

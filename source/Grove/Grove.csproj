@@ -560,6 +560,7 @@
     <Compile Include="Core\Cards\Triggers\SpellWasCast.cs" />
     <Compile Include="Core\Cards\Triggers\OnLevelChanged.cs" />
     <Compile Include="Core\Cards\Triggers\OpponentWasNotDealtDamageThisTurn.cs" />
+    <Compile Include="Core\Targeting\ZoneIs.cs" />
     <Compile Include="Core\Targeting\ZoneValidatorParameters.cs" />
     <Compile Include="Core\Zones\IGraveyardQuery.cs" />
     <Compile Include="Core\Zones\ILibraryQuery.cs" />

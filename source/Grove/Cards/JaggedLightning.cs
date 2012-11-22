@@ -21,8 +21,8 @@
           "The pungent smell of roasting flesh made both mages realize they'd rather break for dinner than fight.")
         .Effect<DealDamageToTargets>(e => e.Amount = 3)
         .Targets(
-          selectorAi: TargetSelectorAi.DealDamageSingleSelector(3),
-          effectValidator: TargetValidator(TargetIs.Creature(), minCount: 2, maxCount: 2)
+          TargetSelectorAi.DealDamageSingleSelector(3), 
+          TargetValidator(TargetIs.Card(card => card.Is().Creature), ZoneIs.Battlefield(), minCount: 2, maxCount: 2)
         );
     }
   }

@@ -25,9 +25,10 @@
           ActivatedAbility(
             "{W}: The next time a black source of your choice would deal damage to you this turn, prevent that damage.",
             Cost<TapOwnerPayMana>(cost => { cost.Amount = ManaAmount.White; }),
-            Effect<PreventDamageFromSourceToController>(e => e.OnlyOnce = true),
-            effectValidator: TargetValidator(
-              TargetIs.EffectOrPermanent(target => target.HasColor(ManaColors.Black)), text: "Select a damage source."),
+            Effect<PreventDamageFromSourceToController>(e => e.OnlyOnce = true), 
+            TargetValidator(
+              TargetIs.Card(target => target.HasColor(ManaColors.Black)), 
+              ZoneIs.BattlefieldOrStack(), text: "Select a damage source."),
             targetSelectorAi: TargetSelectorAi.PreventDamageFromSourceToController(),
             timing: Timings.NoRestrictions())
         );

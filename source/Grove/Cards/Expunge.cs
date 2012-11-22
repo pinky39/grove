@@ -23,9 +23,10 @@
         .Category(EffectCategories.Destruction)
         .Effect<DestroyTargetPermanents>()
         .Targets(
-          selectorAi: TargetSelectorAi.Destroy(),
-          effectValidator:
-            TargetValidator(TargetIs.Creature((creature) => !creature.HasColors(ManaColors.Black) && !creature.Is().Artifact)))
+          TargetSelectorAi.Destroy(), 
+          TargetValidator(
+            TargetIs.Card(card => !card.HasColors(ManaColors.Black) && !card.Is().Artifact),
+            ZoneIs.Battlefield()))
         ;
     }
   }

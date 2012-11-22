@@ -33,7 +33,9 @@
                   m.Toughness = 1;
                 }, untilEndOfTurn: true))),
             
-            costValidator: TargetValidator(TargetIs.Creature((creature) => !creature.IsTapped, Controller.SpellOwner), 
+            costValidator: TargetValidator(
+              TargetIs.Card(card => !card.IsTapped && card.Is().Creature, Controller.SpellOwner), 
+              ZoneIs.Battlefield(),
               mustBeTargetable: false),
             
             targetSelectorAi: TargetSelectorAi.CostTapOrSacCreature(),

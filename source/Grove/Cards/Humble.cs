@@ -32,8 +32,8 @@
               );
           })
         .Targets(
-          selectorAi: TargetSelectorAi.Destroy(),
-          effectValidator: TargetValidator(TargetIs.Creature()));
+          TargetSelectorAi.Destroy(),
+          TargetValidator(TargetIs.Card(x => x.Is().Creature), ZoneIs.Battlefield()));
     }
   }
 }

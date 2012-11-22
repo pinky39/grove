@@ -38,10 +38,9 @@
         .FlavorText("The best cure for a big ego is a little failure.")
         .Timing(Timings.NoRestrictions())
         .Targets(
-          selectorAi:
-            Any(TargetSelectorAi.TapOpponentsCreatures(), TargetSelectorAi.TapOpponentsLands(),
-              TargetSelectorAi.UntapYourCreatures()),
-          effectValidator: TargetValidator(TargetIs.Player(), text: "Select a player.")
+          Any(TargetSelectorAi.TapOpponentsCreatures(), TargetSelectorAi.TapOpponentsLands(),
+              TargetSelectorAi.UntapYourCreatures()), 
+              TargetValidator(TargetIs.Player(), ZoneIs.None(), text: "Select a player.")
         )
         .Effect<CustomizableEffect>(e =>
           {

@@ -18,7 +18,7 @@
         .Type("Instant")
         .Text("Target creature gets -4/-4 until end of turn.")
         .FlavorText("On a world with five suns, night is compelled to become an aggressive force.")
-        .Timing(Timings.InstantRemovalTarget())        
+        .Timing(Timings.InstantRemovalTarget())
         .Effect<ApplyModifiersToTargets>(e =>
           {
             e.ToughnessReduction = 4;
@@ -30,8 +30,8 @@
                 }, untilEndOfTurn: true));
           })
         .Targets(
-          selectorAi: TargetSelectorAi.ReduceToughness(4),
-          effectValidator: TargetValidator(TargetIs.Creature()));
+          TargetSelectorAi.ReduceToughness(4),
+          TargetValidator(TargetIs.Card(x => x.Is().Creature), ZoneIs.Battlefield()));
     }
   }
 }

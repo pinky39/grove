@@ -22,12 +22,12 @@
         .Timing(Timings.CounterSpell())
         .Effect<CounterTargetSpell>(e =>
           {
-            e.DoNotCounterCost = e.X.Value.AsColorlessMana();
+            e.DoNotCounterCost = e.X.GetValueOrDefault().AsColorlessMana();
             e.TapLandsEmptyPool = true;
           })
         .Targets(
-          selectorAi: TargetSelectorAi.CounterSpell(),
-          effectValidator: TargetValidator(TargetIs.CounterableSpell()));
+          TargetSelectorAi.CounterSpell(), 
+          TargetValidator(TargetIs.CounterableSpell(), ZoneIs.Stack()));
     }
   }
 }

@@ -19,8 +19,8 @@
         .Timing(Timings.InstantRemovalTarget())
         .Effect<DealDamageToTargets>(e => e.Amount = 3)
         .Targets(
-          selectorAi: TargetSelectorAi.DealDamageSingleSelector(3),
-          effectValidator: TargetValidator(TargetIs.CreatureOrPlayer()));
+          TargetSelectorAi.DealDamageSingleSelector(3), 
+          TargetValidator(TargetIs.CreatureOrPlayer(), ZoneIs.Battlefield()));
     }
   }
 }

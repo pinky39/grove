@@ -25,9 +25,9 @@
             e.Tapped = true;
           })
         .Targets(
-          selectorAi: TargetSelectorAi.OrderByDescendingScore(Controller.SpellOwner),
-          effectValidator: TargetValidator(
-            TargetIs.CardInGraveyard(card => card.Is().Creature),
+          TargetSelectorAi.OrderByDescendingScore(Controller.SpellOwner),
+          TargetValidator(
+            TargetIs.Card(card => card.Is().Creature), ZoneIs.YourGraveyard(),
             minCount: 2,
             maxCount: 2));
     }

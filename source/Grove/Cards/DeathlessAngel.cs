@@ -5,6 +5,7 @@
   using Core.Ai;
   using Core.Cards;
   using Core.Cards.Costs;
+  using Core.Cards.Effects;
   using Core.Cards.Modifiers;
   using Core.Dsl;
   using Core.Mana;
@@ -29,10 +30,12 @@
           ActivatedAbility(
             "{W}{W}: Target creature is indestructible this turn.",
             Cost<TapOwnerPayMana>(cost => cost.Amount = "{W}{W}".ParseManaAmount()),
-            Effect<Core.Cards.Effects.ApplyModifiersToTargets>(p => p.Effect.Modifiers(
+            Effect<ApplyModifiersToTargets>(p => p.Effect.Modifiers(
               Modifier<AddStaticAbility>(m => { m.StaticAbility = Static.Indestructible; },
                 untilEndOfTurn: true))),
-            TargetValidator(target: TargetIs.Creature()),
+            TargetValidator(
+              TargetIs.Card(x => x.Is().Creature),
+              ZoneIs.Battlefield()),
             targetSelectorAi: TargetSelectorAi.ShieldIndestructible(),
             timing: Timings.NoRestrictions(),
             category: EffectCategories.Protector));

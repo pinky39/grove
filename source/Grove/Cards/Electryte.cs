@@ -31,7 +31,7 @@
             Effect<DealDamageToEach>(e =>
               {
                 e.FilterCreature = (self, card) => card.IsBlocker;
-                e.AmountCreature = e.Source.OwningCard.Power;
+                e.AmountCreature = e.Source.OwningCard.Power.GetValueOrDefault();
               })              
             ));
     }

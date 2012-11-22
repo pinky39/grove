@@ -31,8 +31,8 @@
           Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Flying)))
         .Timing(Timings.FirstMain())
         .Targets(
-          selectorAi: TargetSelectorAi.CombatEnchantment(),
-          effectValidator: TargetValidator(TargetIs.EnchantedCreature()));
+          TargetSelectorAi.CombatEnchantment(),
+          TargetValidator(TargetIs.Card(x => x.Is().Creature), ZoneIs.Battlefield()));
     }
   }
 }

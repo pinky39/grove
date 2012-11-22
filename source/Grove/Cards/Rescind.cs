@@ -24,8 +24,8 @@
             e.ReturnTarget = true;
           })
         .Targets(
-          selectorAi: TargetSelectorAi.Bounce(),
-          effectValidator: TargetValidator(TargetIs.Permanent()));
+          TargetSelectorAi.Bounce(), 
+          TargetValidator(TargetIs.Card(), ZoneIs.Battlefield()));
     }
   }
 }

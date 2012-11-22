@@ -28,7 +28,9 @@
               Effect<PutTargetsToBattlefield>(),
               Effect<Attach>())),
             selectorAi: TargetSelectorAi.OrderByDescendingScore(Controller.SpellOwner),
-            effectValidator: TargetValidator(TargetIs.CardInGraveyard(card => card.Is().Creature))),
+            effectValidator: TargetValidator(
+              TargetIs.Card(card => card.Is().Creature),
+              ZoneIs.YourGraveyard())),
           TriggeredAbility(
             "When the creature put onto the battlefield with Diabolic Servitude dies, exile it and return Diabolic Servitude to its owner's hand.",
             Trigger<OnZoneChange>(t =>

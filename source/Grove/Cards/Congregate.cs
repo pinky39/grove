@@ -23,7 +23,7 @@
         .Targets(
           effectValidator: TargetValidator(
             TargetIs.Player(),
-            ZoneIs.Any()),
+            ZoneIs.None()),
           selectorAi: TargetSelectorAi.Controller()
         );
     }
