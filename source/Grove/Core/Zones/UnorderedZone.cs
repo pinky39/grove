@@ -5,7 +5,6 @@
   using System.Collections.Generic;
   using System.Linq;
   using Infrastructure;
-  using Targeting;
 
   [Copyable]
   public abstract class UnorderedZone : IEnumerable<Card>, IHashable, IZone

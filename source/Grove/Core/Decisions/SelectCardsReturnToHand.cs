@@ -4,7 +4,7 @@
   {
     protected override void ProcessCard(Card chosenCard)
     {
-      chosenCard.ReturnToHand();
+      chosenCard.PutToHand();
     }
   }
 }

@@ -813,7 +813,7 @@
       return amount;
     }
 
-    public void ReturnToHand()
+    public void PutToHand()
     {
       Owner.PutCardToHand(this);
     }

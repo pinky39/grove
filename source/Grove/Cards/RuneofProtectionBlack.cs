@@ -27,7 +27,7 @@
             Cost<TapOwnerPayMana>(cost => { cost.Amount = ManaAmount.White; }),
             Effect<PreventDamageFromSourceToController>(e => e.OnlyOnce = true), 
             TargetValidator(
-              TargetIs.Card(target => target.HasColor(ManaColors.Black)), 
+              TargetIs.Card(card => card.HasColors(ManaColors.Black)), 
               ZoneIs.BattlefieldOrStack(), text: "Select a damage source."),
             targetSelectorAi: TargetSelectorAi.PreventDamageFromSourceToController(),
             timing: Timings.NoRestrictions())

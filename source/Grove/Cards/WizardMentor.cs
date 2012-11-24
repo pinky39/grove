@@ -26,11 +26,7 @@
           ActivatedAbility(
             "{T}: Return Wizard Mentor and target creature you control to their owner's hand.",
             Cost<TapOwnerPayMana>(c => c.TapOwner = true),
-            Effect<ReturnToHand>(e =>
-              {
-                e.ReturnTarget = true;
-                e.ReturnOwner = true;
-              }),
+            Effect<PutToHand>(e => { e.AlsoReturnOwner = true; }),
             TargetValidator(TargetIs.Card(card => card.Is().Creature, Controller.SpellOwner), ZoneIs.Battlefield()),
             targetSelectorAi: TargetSelectorAi.BounceSelfAndTargetCreatureYouControl(),
             timing: Timings.NoRestrictions()

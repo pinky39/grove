@@ -19,10 +19,7 @@
         .Timing(Timings.InstantRemovalTarget())
         .Category(EffectCategories.Bounce)
         .Cycling("{2}")
-        .Effect<ReturnToHand>(e =>
-          {            
-            e.ReturnTarget = true;
-          })
+        .Effect<PutToHand>()
         .Targets(
           TargetSelectorAi.Bounce(), 
           TargetValidator(TargetIs.Card(), ZoneIs.Battlefield()));

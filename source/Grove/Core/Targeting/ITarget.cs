@@ -1,12 +1,10 @@
 ﻿namespace Grove.Core.Targeting
 {
-  using System;
   using Cards;
   using Cards.Effects;
   using Cards.Modifiers;
   using Decisions.Scenario;
   using Infrastructure;
-  using Mana;
   using Zones;
 
   public interface ITarget : IHashable {    
@@ -23,6 +21,21 @@
       }
     }
 
+    public static Zone? Zone(this ITarget target)
+    {
+      if (target.IsPlayer())
+      {
+        return null;
+      }
+
+      if (target.IsEffect())
+      {
+        return Zones.Zone.Stack;
+      }
+
+      return target.Card().Zone;
+    }
+
     public static void RemoveModifier(this ITarget target, IModifier modifier)
     {
       var acceptsModifiers = target as IAcceptsModifiers;
@@ -30,7 +43,7 @@
       {
         acceptsModifiers.RemoveModifier(modifier);
       }
-    }
+    }   
 
     public static Card Card(this ITarget target)
     {
@@ -40,7 +53,7 @@
     public static Player Player(this ITarget target)
     {
       return target as Player;
-    }    
+    }
 
     public static Effect Effect(this ITarget target)
     {
@@ -52,11 +65,6 @@
       var lazyEffect = target as ScenarioEffect;
 
       return lazyEffect != null ? lazyEffect.Effect() : null;
-    }
-
-    public static bool IsPermanent(this ITarget target)
-    {
-      return target.IsCard() && target.Card().Zone == Zone.Battlefield;
     }
 
     public static bool IsCard(this ITarget target)
@@ -72,16 +80,6 @@
     public static bool IsEffect(this ITarget target)
     {
       return target is Effect || target is ScenarioEffect;
-    }
-
-    public static bool HasColor(this ITarget target, ManaColors colors)
-    {
-      var hasColors = target as IHasColors;
-
-      if (hasColors != null)
-        return hasColors.HasColors(colors);
-
-      return false;
     }
 
     public static void DealDamage(this ITarget target, Damage damage)

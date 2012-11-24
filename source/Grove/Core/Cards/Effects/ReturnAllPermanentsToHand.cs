@@ -11,7 +11,7 @@
     {
       foreach (var permanent in Players.Permanents().Where(card => Filter(card)).ToList())
       {
-        permanent.ReturnToHand();
+        permanent.PutToHand();
       }
     }
   }

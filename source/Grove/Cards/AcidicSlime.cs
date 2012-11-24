@@ -32,8 +32,8 @@
             TargetValidator(
               TargetIs.Card(card => card.Is().Artifact || card.Is().Enchantment || card.Is().Land),
               ZoneIs.Battlefield()),
-            selectorAi: TargetSelectorAi.OrderByDescendingScore(),
-            abilityCategory: EffectCategories.Destruction)
+            TargetSelectorAi.OrderByDescendingScore(),
+            EffectCategories.Destruction)
         );
     }
   }

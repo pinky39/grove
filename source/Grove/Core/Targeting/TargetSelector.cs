@@ -92,16 +92,18 @@
       // Currently there are no problems with this, if
       // there are problems in the future this must be 
       // changed, so the target will know to which
-      // validator it belongs.
-      
-      // todo
-      var targetZone = target.Zone();
-      var zoneOwner = targetZone != null ? targetZone.Owner;
+      // validator it belongs.            
+      var zone = target.Zone();      
       
       return _effectValidators.Any(
-          validator => validator.IsValidZone(targetZone, zoneOwner) && 
-          validator.IsValid(target)        
-        );
+          validator =>
+            {
+              var controller = target.IsCard() ? target.Card().Controller : null;
+              
+              return
+                (zone == null || validator.IsValidZone(zone.Value, controller)) &&
+                 validator.IsValid(target);
+            });
     }
 
     public void SetTrigger(object trigger)

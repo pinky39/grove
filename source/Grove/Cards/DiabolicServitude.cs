@@ -41,7 +41,7 @@
               }),
             Effect<CompoundEffect>(e => e.ChildEffects(
               Effect<ExileCard>(c => { c.Card = c.Source.OwningCard.AttachedTo; }),
-              Effect<ReturnToHand>(c => c.ReturnCard = c.Source.OwningCard)))
+              Effect<PutToHand>(c => c.Card = c.Source.OwningCard)))
             ),
           TriggeredAbility(
             "When Diabolic Servitude leaves the battlefield, exile the creature put onto the battlefield with Diabolic Servitude.",
