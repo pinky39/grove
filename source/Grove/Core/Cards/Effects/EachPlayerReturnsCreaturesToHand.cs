@@ -15,14 +15,14 @@
 
     private void ReturnCreatureToHand(Player player)
     {
-      Game.Enqueue<SelectCardsReturnToHand>(
+      Game.Enqueue<SelectCardsPutToHand>(
         controller: player,
         init: p =>
           {
             p.MinCount = Count;
             p.MinCount = Count;
             p.Validator = card => card.Is().Creature;
-            p.Zone = zone => zone == Zone.Battlefield;
+            p.Zone = Zone.Battlefield;
             p.Text = "Select creature(s) to return to hand";
           });
     }

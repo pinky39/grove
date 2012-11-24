@@ -30,7 +30,7 @@
             Effect<PutTargetCardToBattlefield>(e =>
               {
                 e.Validator = card => card.Is().Artifact;
-                e.Zone = zone => zone == Zone.Hand;
+                e.Zone = Zone.Hand;
                 e.Text = "Select an artifact in your hand";
               }),
             timing: All(

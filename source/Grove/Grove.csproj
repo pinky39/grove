@@ -355,6 +355,7 @@
     <Compile Include="Core\Ai\QuickCombat.cs" />
     <Compile Include="Core\Cards\ContiniousEffects.cs" />
     <Compile Include="Core\Cards\Effects\ApplyModifiersToPlayers.cs" />
+    <Compile Include="Core\Cards\Effects\SearchLibraryPutToHand.cs" />
     <Compile Include="Core\Cards\ManaAmountCharacteristic.cs" />
     <Compile Include="Core\Cards\Modifiers\IncreaseLandLimit.cs" />
     <Compile Include="Core\Cards\Modifiers\IncreaseManaOutput.cs" />
@@ -367,7 +368,7 @@
     <Compile Include="Core\Decisions\Human\CardSelector.cs" />
     <Compile Include="Core\Decisions\Human\ChooseEffectOptions.cs" />
     <Compile Include="Core\Decisions\Human\PayOr.cs" />
-    <Compile Include="Core\Decisions\Human\SelectCardsReturnToHand.cs" />
+    <Compile Include="Core\Decisions\Human\SelectCardsPutToHand.cs" />
     <Compile Include="Core\Decisions\Human\SelectCardsPutToBattlefield.cs" />
     <Compile Include="Core\Decisions\Human\SelectCardsToSacrificeAsCost.cs" />
     <Compile Include="Core\Decisions\IProcessDecisionResults.cs" />
@@ -375,12 +376,12 @@
     <Compile Include="Core\Decisions\Machine\ChooseEffectOptions.cs" />
     <Compile Include="Core\Decisions\Machine\DiscardCards.cs" />
     <Compile Include="Core\Decisions\Machine\PayOr.cs" />
-    <Compile Include="Core\Decisions\Machine\SelectCardsReturnToHand.cs" />
+    <Compile Include="Core\Decisions\Machine\SelectCardsPutToHand.cs" />
     <Compile Include="Core\Decisions\Machine\SelectCardsPutToBattlefield.cs" />
     <Compile Include="Core\Decisions\Machine\SelectCardsToSacrificeAsCost.cs" />
     <Compile Include="Core\Decisions\PayOr.cs" />
     <Compile Include="Core\Decisions\Results\ChosenOptions.cs" />
-    <Compile Include="Core\Decisions\SelectCardsReturnToHand.cs" />
+    <Compile Include="Core\Decisions\SelectCardsPutToHand.cs" />
     <Compile Include="Core\Decisions\Scenario\ScenarioActivation.cs" />
     <Compile Include="Core\Decisions\SelectCards.cs" />
     <Compile Include="Core\Decisions\SelectCardsPutToBattlefield.cs" />
@@ -566,10 +567,10 @@
     <Compile Include="Core\Zones\IGraveyardQuery.cs" />
     <Compile Include="Core\Zones\ILibraryQuery.cs" />
     <Compile Include="Core\Zones\NullZone.cs" />
-    <Compile Include="Ui\CardInGraveyard\View.xaml.cs">
+    <Compile Include="Ui\SelectableCard\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ui\CardInGraveyard\ViewModel.cs" />
+    <Compile Include="Ui\SelectableCard\ViewModel.cs" />
     <Compile Include="Ui\DeckEditor\Library.cs" />
     <Compile Include="Ui\DeckEditor\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
@@ -766,6 +767,10 @@
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ui\Graveyard\ViewModel.cs" />
+    <Compile Include="Ui\Library\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Library\ViewModel.cs" />
     <Compile Include="Ui\MessageLog\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
@@ -998,7 +1003,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ui\CardInGraveyard\View.xaml">
+    <Page Include="Ui\SelectableCard\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1031,6 +1036,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Ui\Hand\View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\Library\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

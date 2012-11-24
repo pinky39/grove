@@ -17,7 +17,7 @@
 					        CornerRadius = "3" >
                                 <ContentPresenter x:Name = "ContentSite"
 							                  HorizontalAlignment = "Center"
-							                  Margin = "7,12,7,12"
+							                  Margin = "7,10,7,10"
 							                  VerticalAlignment = "Center"
 							                  ContentSource = "Header"
 							                  Cursor = "Hand" >
@@ -59,12 +59,16 @@
 			</Style>                                             
                         			
         </Border.Resources>
-		
+
         <TabControl>
             <TabControl.Resources>
                 <Style x:Key="ZoneName" TargetType="TextBlock" BasedOn="{StaticResource Label}"/>
+                <Style x:Key="OpponentZoneName" TargetType="TextBlock" BasedOn="{StaticResource Label}">
+                    <Setter Property="Foreground" Value="#aaa" />
+                    
+                </Style>
                 <Style x:Key="ZoneCount" TargetType="TextBlock" BasedOn="{StaticResource NormalData}">
-                    <Setter Property="Margin" Value="5,0,0,0"/>
+                    <Setter Property="Margin" Value="3,0,0,0"/>
                     <Setter Property="FontSize" Value="12" />                    
                     
                     <Style.Triggers>
@@ -78,7 +82,20 @@
             <TabItem >
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Style="{StaticResource ZoneName}" Text="Opp. Hand"/>
+                        <TextBlock Style="{StaticResource OpponentZoneName}" Text="Library"/>
+                        <TextBlock Style="{StaticResource ZoneCount}" Text="{Binding OpponentsLibrary.Cards.Count}" />
+                    </StackPanel>
+                </TabItem.Header>
+                <ScrollViewer VerticalScrollBarVisibility = "Visible" CanContentScroll="True">
+                    <ContentControl x:Name="OpponentsLibrary" />
+                </ScrollViewer>
+            </TabItem>
+            
+            
+            <TabItem >
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Style="{StaticResource OpponentZoneName}" Text="Hand"/>
                         <TextBlock Style="{StaticResource ZoneCount}" Text="{Binding OpponentsHand.Cards.Count}" />
                     </StackPanel>
                 </TabItem.Header>
@@ -90,7 +107,7 @@
             <TabItem >                
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Style="{StaticResource ZoneName}" Text="Opp. Graveyard"/>
+                        <TextBlock Style="{StaticResource OpponentZoneName}" Text="Graveyard"/>
                         <TextBlock Style="{StaticResource ZoneCount}" Text="{Binding OpponentsGraveyard.Cards.Count}" />
                     </StackPanel>
                 </TabItem.Header>
@@ -100,7 +117,19 @@
 
 			</TabItem>
 
-			<TabItem>                
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Style="{StaticResource ZoneName}" Text="Library"/>
+                        <TextBlock Style="{StaticResource ZoneCount}" Text="{Binding YourLibrary.Cards.Count}" />
+                    </StackPanel>
+                </TabItem.Header>
+                <ScrollViewer VerticalScrollBarVisibility = "Visible" CanContentScroll="True" >
+                    <ContentControl x:Name="YourLibrary" />
+                </ScrollViewer>
+            </TabItem>
+
+            <TabItem>                
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Style="{StaticResource ZoneName}" Text="Graveyard"/>

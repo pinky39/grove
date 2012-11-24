@@ -12,8 +12,8 @@
       Game.Enqueue<SelectCardsToSacrificeAsCost>(Players.GetOpponent(Controller), p =>
         {
           p.Validator = card => card.Is().Land;
-          p.Zone = zone => zone == Zone.Battlefield;
-          p.Text = "Select a land to sacrifice";
+          p.Zone = Zone.Battlefield;
+          p.Text = FormatText("Select a land to sacrifice");
           p.Ai = (controller, card) => controller.Battlefield.Lands.Count() >= 4;
           p.QuestionText = "Sacrifice a land?";
           p.MinCount = 1;

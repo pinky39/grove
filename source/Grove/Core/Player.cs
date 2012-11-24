@@ -514,5 +514,13 @@
       _graveyard.Show();
       _hand.Show();
     }
+
+    public void RevealLibrary()
+    {
+      foreach (var card in _library)
+      {
+        card.Reveal();
+      }
+    }
   }
 }

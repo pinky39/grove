@@ -1,10 +1,10 @@
 ﻿namespace Grove.Core.Decisions.Human
 {
-  using Grove.Core.Targeting;
-  using Grove.Ui;
-  using Grove.Ui.SelectTarget;
-  using Grove.Ui.Shell;
   using Results;
+  using Targeting;
+  using Ui;
+  using Ui.SelectTarget;
+  using Ui.Shell;
 
   public class CardSelector
   {
@@ -20,7 +20,9 @@
           minTargetCount: selectCards.MinCount,
           maxTargetCount: selectCards.MaxCount,
           text: selectCards.Text,
-          isValid: card => selectCards.Controller == card.Controller && selectCards.Zone(card.Zone) && selectCards.Validator(card)),
+          isValid:
+            card =>
+              selectCards.Controller == card.Controller && selectCards.Zone == card.Zone && selectCards.Validator(card)),
         canCancel: false
         );
 

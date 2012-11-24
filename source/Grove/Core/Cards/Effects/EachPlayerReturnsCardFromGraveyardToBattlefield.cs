@@ -15,7 +15,7 @@
             p.MaxCount = 1;
             p.Text = FormatText("Select a creature card in your graveyard");
             p.Validator = card => card.Is().Creature;
-            p.Zone = zone => zone == Zone.Graveyard;
+            p.Zone = Zone.Graveyard;
           }
         );
     }

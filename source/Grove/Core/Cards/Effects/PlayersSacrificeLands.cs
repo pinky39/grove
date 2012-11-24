@@ -33,8 +33,8 @@
             p.MinCount = Count;
             p.MinCount = Count;
             p.Validator = card => card.Is().Land;
-            p.Text = "Select land(s) to sacrifice";
-            p.Zone = zone => zone == Zone.Battlefield;
+            p.Text = FormatText("Select land(s) to sacrifice");
+            p.Zone = Zone.Battlefield;
           });
     }
   }

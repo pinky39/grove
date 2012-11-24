@@ -26,7 +26,8 @@
           TargetSelectorAi.GreatestConvertedManaCost(),
           costValidator: TargetValidator(
             TargetIs.Card(card => card.Is().Creature), 
-            ZoneIs.OwnersHand())
+            ZoneIs.OwnersHand(), 
+            mustBeTargetable: false)
         );
     }
   }

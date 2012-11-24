@@ -1,10 +1,11 @@
-﻿namespace Grove.Ui.Graveyard
+﻿namespace Grove.Ui.Library
 {
   using System.Collections.Generic;
   using System.Collections.Specialized;
   using System.Linq;
   using Caliburn.Micro;
   using Core;
+  using Core.Zones;
   using Infrastructure;
 
   public class ViewModel
@@ -14,14 +15,19 @@
     private readonly BindableCollection<SelectableCard.ViewModel> _cards =
       new BindableCollection<SelectableCard.ViewModel>();
 
-    public ViewModel(IEnumerable<Card> graveyard, SelectableCard.ViewModel.IFactory cardVmFactory)
-    {
-      _cardVmFactory = cardVmFactory;
-      _cards.AddRange(graveyard.Select(cardVmFactory.Create));
+    private readonly ILibraryQuery _library;
 
-      ((INotifyCollectionChanged) graveyard).CollectionChanged += Synchronize;
+    public ViewModel(ILibraryQuery library, SelectableCard.ViewModel.IFactory cardVmFactory)
+    {
+      CardVmFactory = cardVmFactory;
+      _library = library;
+      _cardVmFactory = cardVmFactory;
+      _cards.AddRange(library.Select(cardVmFactory.Create));
+
+      ((INotifyCollectionChanged) library).CollectionChanged += Synchronize;
     }
 
+    public SelectableCard.ViewModel.IFactory CardVmFactory { get; set; }
 
     public IEnumerable<SelectableCard.ViewModel> Cards { get { return _cards; } }
 
@@ -30,6 +36,7 @@
       if (e.Action == NotifyCollectionChangedAction.Reset)
       {
         _cards.Clear();
+        _cards.AddRange(_library.Select(_cardVmFactory.Create));
       }
 
       if (e.Action == NotifyCollectionChangedAction.Add)
@@ -52,10 +59,9 @@
       }
     }
 
-
     public interface IFactory
     {
-      ViewModel Create(IEnumerable<Card> graveyard);
+      ViewModel Create(ILibraryQuery library);
     }
   }
 }

@@ -27,7 +27,7 @@
           p.Ai = ShouldPayAi;
           p.QuestionText = FormatText("Pay upkeep cost?");
           p.Validator = Validator;
-          p.Zone = zone => zone == Zone.Battlefield;
+          p.Zone = Zone.Battlefield;
           p.MinCount = 1;
           p.MaxCount = 1;
           p.CardToPayUpkeepFor = Source.OwningCard;

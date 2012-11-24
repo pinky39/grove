@@ -8,7 +8,7 @@
   {
     public string Text;
     public Func<Card, bool> Validator;
-    public Func<Zone, bool> Zone;
+    public Zone Zone;
 
     protected override void ResolveEffect()
     {

@@ -100,6 +100,11 @@
     public virtual void Shuffle()
     {
       _cards.Shuffle();
+
+      foreach (var card in _cards)
+      {
+        card.Hide();
+      }      
     }
 
     public override string ToString()

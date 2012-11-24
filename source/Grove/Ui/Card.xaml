@@ -4,8 +4,7 @@
     
 
     <DataTemplate x:Key = "FaceDownCard" >
-		<Viewbox>
-			<Image Source = "{grove:Media 'card-back.jpg'}" />
+		<Viewbox>			
 		</Viewbox>
 	</DataTemplate>
 
