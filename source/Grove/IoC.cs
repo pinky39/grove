@@ -16,6 +16,7 @@
   using Castle.Windsor;
   using Core;
   using Core.Decisions;
+  using Core.Decisions.Human;
   using Core.Dsl;
   using Infrastructure;
   using Ui.DistributeDamage;
@@ -119,6 +120,7 @@
           container.Register(Component(typeof (Match), lifestyle: LifestyleType.Singleton));
           container.Register(Component(typeof (UiDamageDistribution)));
           container.Register(Component(typeof (CombatMarkers), lifestyle: LifestyleType.Singleton));
+          container.Register(Component(typeof (CardSelector)));
         }
 
         RegisterCardsSources(container);

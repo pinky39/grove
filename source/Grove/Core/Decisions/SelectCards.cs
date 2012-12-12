@@ -18,6 +18,11 @@
     public Zone Zone;
     private List<Card> _validCards;
 
+    protected SelectCards()
+    {
+      Result = ChosenCards.None;
+    }
+    
     protected List<Card> ValidCards
     {
       get

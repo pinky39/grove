@@ -1,6 +1,6 @@
 ﻿namespace Grove.Core.Decisions
 {
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   [Copyable]
   public abstract class Decision<TResult> : IDecision where TResult : class

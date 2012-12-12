@@ -3,7 +3,7 @@
   using System.Collections;
   using System.Collections.Generic;
   using System.Linq;
-  using Grove.Core.Targeting;
+  using Targeting;
 
   public class ChosenCards : IEnumerable<Card>
   {
@@ -15,6 +15,8 @@
     {
       _cards.AddRange(cards);
     }
+
+    public static ChosenCards None { get { return new ChosenCards(); } }
 
     public IEnumerator<Card> GetEnumerator()
     {
@@ -29,7 +31,7 @@
     public void Add(Card card)
     {
       _cards.Add(card);
-    }    
+    }
 
     public static implicit operator ChosenCards(List<ITarget> cards)
     {

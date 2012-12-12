@@ -936,7 +936,7 @@
           // this is a 0-1 knapsack optimization problem
 
           var targets = p.Candidates()
-            .Where(x => x.Is().Creature && x.Life() <= amount)
+            .Where(x => x.Is().Creature && x.Card().Controller == p.Opponent && x.Life() <= amount)
             .Select(x => new KnapsackItem<ITarget>(
               item: x,
               weight: x.Life(),

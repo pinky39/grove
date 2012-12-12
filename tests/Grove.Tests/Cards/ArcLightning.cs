@@ -28,6 +28,24 @@
       }
 
       [Fact]
+      public void DoNotDmgOwnCreatures()
+      {
+        var elf = C("Llanowar Elves");
+        var bird = C("Birds of Paradise");
+        
+        var arc = C("Arc Lightning");
+
+        Hand(P1, arc);
+        Battlefield(P1, bird, "Mountain", "Mountain", "Mountain");
+        Battlefield(P2, elf);   
+        
+        RunGame(1);     
+
+        Equal(Zone.Graveyard, C(elf).Zone);        
+        Equal(18, P2.Life);
+      }
+
+      [Fact]
       public void KillPlayer()
       {
         var elf = C("Llanowar Elves");
