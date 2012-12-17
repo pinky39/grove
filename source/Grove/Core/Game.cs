@@ -39,7 +39,7 @@
     public static Game New(IEnumerable<string> humanDeck, IEnumerable<string> cpuDeck, CardDatabase cardDatabase,
       DecisionSystem decisionSystem)
     {
-      var game = CreateGame(cardDatabase, decisionSystem, enableDatabinding: true);
+      var game = CreateGame(cardDatabase, decisionSystem);
 
       game.Players = new Players(
         player1Name: "You",
@@ -54,14 +54,14 @@
       return game;
     }
 
-    private static Game CreateGame(CardDatabase cardDatabase, DecisionSystem decisionSystem, bool enableDatabinding)
+    private static Game CreateGame(CardDatabase cardDatabase, DecisionSystem decisionSystem)
     {
       var game = new Game();
 
       game.ChangeTracker = new ChangeTracker();
       game._publisher = new Publisher(game.ChangeTracker);
       game.CardDatabase = cardDatabase;
-      game.Stack = enableDatabinding ? Bindable.Create<Stack>(game.ChangeTracker) : new Stack(game.ChangeTracker);
+      game.Stack = new Stack(game.ChangeTracker);
       game._turnInfo = new TurnInfo(game.ChangeTracker);
       game._wasStopped = new Trackable<bool>(game.ChangeTracker);
       game._castRestrictions = new CastRestrictions(game.Stack, game._turnInfo);
@@ -101,7 +101,7 @@
     public static Game NewSimulation(IEnumerable<string> deck1, IEnumerable<string> deck2, CardDatabase cardDatabase,
       DecisionSystem decisionSystem)
     {
-      var game = CreateGame(cardDatabase, decisionSystem, enableDatabinding: false);
+      var game = CreateGame(cardDatabase, decisionSystem);
 
       game.Players = new Players(
         player1Name: "Player1",
@@ -185,7 +185,7 @@
     public static Game NewScenario(ControllerType player1Controller, ControllerType player2Controller,
       CardDatabase cardDatabase, DecisionSystem decisionSystem)
     {
-      var game = CreateGame(cardDatabase, decisionSystem, enableDatabinding: false);
+      var game = CreateGame(cardDatabase, decisionSystem);
 
       game.Players = new Players(
         player1Name: "Player1",

@@ -11,8 +11,6 @@
   using Cards.Effects;
   using Cards.Modifiers;
   using Cards.Preventions;
-  using Cards.Triggers;
-  using Dsl;
   using Infrastructure;
   using Mana;
   using Messages;
@@ -22,47 +20,153 @@
   [Copyable]
   public class Card : IEffectSource, ITarget, IDamageable, IHashDependancy, IAcceptsModifiers, IHasColors, IHasLife
   {
-    private static readonly Random Random = new Random();
-
-    private ActivatedAbilities _activatedAbilities;
-    private Cost _additionalCost;
-    private Trackable<Card> _attachedTo;
-    private Attachments _attachments;
-    private Trackable<bool> _canRegenerate;
-    private CardColors _colors;
-    private ContiniousEffects _continuousEffects;
-    private ControllerCharacteristic _controller;
-    private Counters _counters;
-    private Trackable<int> _damage;
-    private DamagePreventions _damagePreventions;
-    private bool _distributeDamage;
-    private IEffectFactory _effectFactory;
-    private Game _game;
-    private Trackable<bool> _hasLeathalDamage;
-    private Trackable<bool> _hasSummoningSickness;
-    private Trackable<int?> _hash;
-    private Trackable<bool> _isHidden;
-    private Trackable<bool> _isRevealed;
-    private Trackable<bool> _isTapped;
-    private IEffectFactory _kickerEffectFactory;
-    private TargetSelector _kickerTargetSelector;
-    private Level _level;
-    private TrackableList<IModifier> _modifiers;
-    private Power _power;
-    private Protections _protections;
+    private readonly ActivatedAbilities _activatedAbilities;
+    private readonly Cost _additionalCost;
+    private readonly Trackable<Card> _attachedTo;
+    private readonly Attachments _attachments;
+    private readonly Trackable<bool> _canRegenerate;
+    private readonly CardColors _colors;
+    private readonly ContiniousEffects _continuousEffects;
+    private readonly ControllerCharacteristic _controller;
+    private readonly Counters _counters;
+    private readonly Trackable<int> _damage;
+    private readonly DamagePreventions _damagePreventions;
+    private readonly bool _distributeDamage;
+    private readonly IEffectFactory _effectFactory;
+    private readonly Trackable<bool> _hasLeathalDamage;
+    private readonly Trackable<bool> _hasSummoningSickness;
+    private readonly Trackable<int?> _hash;
+    private readonly Trackable<bool> _isHidden;
+    private readonly Trackable<bool> _isRevealed;
+    private readonly Trackable<bool> _isTapped;
+    private readonly IEffectFactory _kickerEffectFactory;
+    private readonly TargetSelector _kickerTargetSelector;
+    private readonly Level _level;
+    private readonly TrackableList<IModifier> _modifiers;
+    private readonly Power _power;
+    private readonly Protections _protections;
+    private readonly StaticAbilities _staticAbilities;
+    private readonly TargetSelector _targetSelector;
+    private readonly TimingDelegate _timming;
+    private readonly Toughness _toughness;
+    private readonly TriggeredAbilities _triggeredAbilities;
+    private readonly CardTypeCharacteristic _type;
+    private readonly Trackable<int> _usageScore;
+    private readonly CalculateX _xCalculator;
+    private readonly Trackable<IZone> _zone;
+    private readonly Game _game;
     private Zone? _resolveToZone;
-    private StaticAbilities _staticAbilities;
-    private TargetSelector _targetSelector;
-    private TimingDelegate _timming;
-    private Toughness _toughness;
-    private TriggeredAbilities _triggeredAbilities;
-    private CardTypeCharacteristic _type;
-    private Trackable<int> _usageScore;
-    private CalculateX _xCalculator;
-    private Trackable<IZone> _zone;
 
-    protected Card() {}
-    public bool MayChooseNotToUntapDuringUntapStep { get; private set; }
+    public Card(CardParameters p)
+    {
+      Name = p.Name;
+      ManaCost = p.ManaCost;
+      Text = p.Text;
+      FlavorText = p.FlavorText;
+      Illustration = p.Illustration;
+      _xCalculator = p.XCalculator;
+
+      _power = new Power(p.Power, null, null);
+      _toughness = new Toughness(p.Toughness, null, null);
+      _type = new CardTypeCharacteristic(p.Type, null, null);
+      _colors = new CardColors(GetCardColorFromManaCost(), null, null);
+      _level = new Level(null, null, null);
+      _counters = new Counters(_power, _toughness, null, null);
+
+      _damage = new Trackable<int>(null);
+      _isTapped = new Trackable<bool>(null);
+    }
+
+    public Card(Player owner, Game game, CardParameters p)
+    {
+      _game = game;
+      
+      Owner = owner;            
+      Name = p.Name;
+      ManaCost = p.ManaCost;
+      KickerCost = p.KickerCost;
+      MayChooseNotToUntap = p.MayChooseNotToUntap;
+      OverrideScore = p.OverrideScore;
+      ManaCostWithKicker = HasKicker ? ManaCost.Add(KickerCost) : ManaCost;
+      Text = p.Text;
+      FlavorText = p.FlavorText;
+      Illustration = p.Illustration;
+      CastingRule = p.CastingRule(game.Stack, game.Turn);
+
+      _effectFactory = p.EffectFactory;
+      _kickerEffectFactory = p.KickerEffectFactory;
+      _distributeDamage = p.DistributeDamage;
+      _xCalculator = p.XCalculator;
+
+      _power = new Power(p.Power, game.ChangeTracker, this);
+      _toughness = new Toughness(p.Toughness, game.ChangeTracker, this);
+      _level = new Level(p.Isleveler ? 0 : (int?) null, game.ChangeTracker, this);
+      _counters = new Counters(_power, _toughness, game.ChangeTracker, this);
+      _type = new CardTypeCharacteristic(p.Type, game.ChangeTracker, this);
+      _hash = new Trackable<int?>(game.ChangeTracker);
+
+      _colors = new CardColors(
+        p.Colors == ManaColors.None
+          ? GetCardColorFromManaCost()
+          : p.Colors,
+        game.ChangeTracker, this);
+
+      _isHidden = new Trackable<bool>(game.ChangeTracker, this);
+      _isRevealed = new Trackable<bool>(game.ChangeTracker, this);
+
+      _damage = new Trackable<int>(game.ChangeTracker, this);
+      _usageScore = new Trackable<int>(game.ChangeTracker, this);
+      _isTapped = new Trackable<bool>(game.ChangeTracker, this);
+      _hasLeathalDamage = new Trackable<bool>(game.ChangeTracker, this);
+      _attachedTo = new Trackable<Card>(game.ChangeTracker, this);
+      _attachments = new Attachments(game.ChangeTracker);
+      _canRegenerate = new Trackable<bool>(game.ChangeTracker, this);
+      _hasSummoningSickness = new Trackable<bool>(true, game.ChangeTracker, this);
+      _controller = new ControllerCharacteristic(owner, this, game, this);
+      _protections = new Protections(game.ChangeTracker, this, p.ProtectionsFromColors, p.ProtectionsFromCardTypes);
+      _zone = new Trackable<IZone>(new NullZone(), game.ChangeTracker, this);
+      _timming = p.Timing ?? Timings.NoRestrictions();
+      _modifiers = new TrackableList<IModifier>(game.ChangeTracker);
+
+      _resolveToZone = p.ResolveZone;
+
+      _damagePreventions = new DamagePreventions(
+        p.DamagePreventionFactories.Select(x => x.Create(this, game)),
+        game.ChangeTracker, this);
+
+      EffectCategories = p.EffectCategories;
+
+      _targetSelector = new TargetSelector(
+        p.EffectValidatorFactories.Select(x => x.Create(this, game)), 
+        p.CostValidatorFactories.Select(x => x.Create(this, game)), 
+        p.AiTargetSelector
+        );
+
+      _kickerTargetSelector = new TargetSelector(
+        p.KickerEffectValidatorFactories.Select(x => x.Create(this, game)), 
+        p.CostValidatorFactories.Select(x => x.Create(this, game)), 
+        p.KickerAiTargetSelector
+        );
+
+      _additionalCost = _additionalCost == null
+        ? new NoCost()
+        : p.AdditionalCost.CreateCost(this, _targetSelector.Cost.FirstOrDefault(), game);
+
+      _staticAbilities = new StaticAbilities(p.StaticAbilities, game.ChangeTracker, this);
+      IEnumerable<TriggeredAbility> triggeredAbilities =
+        p.TriggeredAbilityFactories.Select(x => x.Create(this, this, game));
+      _triggeredAbilities = new TriggeredAbilities(triggeredAbilities, game.ChangeTracker, this);
+
+      List<ActivatedAbility> activatedAbilities = p.ActivatedAbilityFactories.Select(x => x.Create(this, game)).ToList();
+      _activatedAbilities = new ActivatedAbilities(activatedAbilities, game.ChangeTracker, this);
+
+      List<ContinuousEffect> continiousEffects =
+        p.ContinuousEffectFactories.Select(factory => factory.Create(this, this, game)).ToList();
+
+      _continuousEffects = new ContiniousEffects(continiousEffects, game.ChangeTracker, this);
+    }
+
+    public bool MayChooseNotToUntap { get; private set; }
     public Card AttachedTo { get { return _attachedTo.Value; } private set { _attachedTo.Value = value; } }
     public IEnumerable<Card> Attachments { get { return _attachments.Cards; } }
 
@@ -113,7 +217,6 @@
     public bool IsAttached { get { return AttachedTo != null; } }
     public bool IsAttacker { get { return _game.Combat.IsAttacker(this); } }
     public bool IsBlocker { get { return _game.Combat.IsBlocker(this); } }
-    public bool IsHidden { get { return _isHidden.Value; } private set { _isHidden.Value = value; } }
     public bool IsManaSource { get { return _activatedAbilities.ManaSources.Count > 0; } }
     public virtual bool IsTapped { get { return _isTapped.Value; } protected set { _isTapped.Value = value; } }
     public IManaAmount KickerCost { get; private set; }
@@ -151,7 +254,7 @@
     {
       get
       {
-        var score = 0;
+        int score = 0;
 
         switch (Zone)
         {
@@ -182,12 +285,12 @@
 
     public int? Level { get { return _level.Value; } }
     public bool CanBeDestroyed { get { return !CanRegenerate && !Has().Indestructible; } }
-    public virtual bool IsRevealed { get { return _isRevealed.Value; } set { _isRevealed.Value = value; } }
     public int? OverrideScore { get; private set; }
+    public bool IsVisibleInUi { get { return IsVisibleToPlayer(_game.Players.Human); } }
 
     public virtual void AddModifier(IModifier modifier)
     {
-      foreach (var modifiable in ModifiableProperties)
+      foreach (IModifiable modifiable in ModifiableProperties)
       {
         modifiable.Accept(modifier);
       }
@@ -234,7 +337,7 @@
 
       if (damage.Source.Has().Lifelink)
       {
-        var controller = damage.Source.Controller;
+        Player controller = damage.Source.Controller;
         controller.Life += damage.Amount;
       }
 
@@ -255,7 +358,7 @@
 
     void IEffectSource.EffectWasPushedOnStack()
     {
-      var oldZone = Zone;
+      Zone oldZone = Zone;
 
       ChangeZone(_game.Stack);
 
@@ -308,7 +411,7 @@
     {
       if (_hash.Value.HasValue == false)
       {
-        if (IsHidden)
+        if (_isHidden)
         {
           _hash.Value = Zone.GetHashCode();
         }
@@ -329,13 +432,13 @@
             Colors.GetHashCode(),
             Counters.GetHashCode(),
             Type.GetHashCode(),
-            IsRevealed.GetHashCode(),
+            _isRevealed.GetHashCode(),
             calc.Calculate(_staticAbilities),
             calc.Calculate(_triggeredAbilities),
             calc.Calculate(_activatedAbilities),
             calc.Calculate(_protections),
             calc.Calculate(_damagePreventions),
-            calc.Calculate(_attachments)            
+            calc.Calculate(_attachments)
             );
         }
       }
@@ -392,7 +495,7 @@
     {
       if (attachment.IsAttached)
       {
-        var controller = attachment.AttachedTo.Controller;
+        Player controller = attachment.AttachedTo.Controller;
 
         attachment.AttachedTo.Detach(attachment);
 
@@ -469,7 +572,7 @@
       if (!CastingRule.CanCast(this))
         return new SpellPrerequisites {CanBeSatisfied = false};
 
-      var canCastWithKicker = HasKicker
+      bool canCastWithKicker = HasKicker
         ? Owner.HasMana(ManaCostWithKicker, ManaUsage.Spells)
         : false;
 
@@ -492,11 +595,11 @@
       PayCastingCost(activationParameters);
 
       var parameters = new EffectParameters(
-        source: this,
-        activation: activationParameters,
+        this, 
+        activationParameters,
         targets: activationParameters.Targets);
 
-      var effect = activationParameters.PayKicker
+      Effect effect = activationParameters.PayKicker
         ? _kickerEffectFactory.CreateEffect(parameters, _game)
         : _effectFactory.CreateEffect(parameters, _game);
 
@@ -515,7 +618,7 @@
 
     public void Detach(Card card)
     {
-      var attachment = _attachments[card];
+      Attachment attachment = _attachments[card];
 
       _attachments.Remove(attachment);
       card.AttachedTo = null;
@@ -529,7 +632,7 @@
 
     public void EnchantWithoutPayingTheCost(Card enchantment)
     {
-      var effect = enchantment._effectFactory.CreateEffect(
+      Effect effect = enchantment._effectFactory.CreateEffect(
         new EffectParameters(enchantment, targets: new Targets().AddEffect(this)),
         _game);
 
@@ -579,10 +682,8 @@
 
     public void Hide()
     {
-      if (IsRevealed)
-        return;
-
-      IsHidden = true;
+      _isHidden.Value = true;
+      _isRevealed.Value = false;
     }
 
     public ITargetType Is()
@@ -632,7 +733,7 @@
 
     public void ChangeZone(IZone newZone)
     {
-      var oldZone = _zone.Value;
+      IZone oldZone = _zone.Value;
       _zone.Value = newZone;
 
       oldZone.Remove(this);
@@ -660,13 +761,8 @@
       Detach();
       Untap();
       ClearDamage();
-      
-      _continuousEffects.Deactivate();
-    }    
 
-    public void UnHide()
-    {
-      IsHidden = false;
+      _continuousEffects.Deactivate();
     }
 
     public void Tap()
@@ -687,7 +783,7 @@
 
     public void DetachAttachments()
     {
-      foreach (var attachedCard in _attachments.Cards.ToList())
+      foreach (Card attachedCard in _attachments.Cards.ToList())
       {
         if (attachedCard.Is().Aura)
         {
@@ -724,9 +820,9 @@
         return ManaColors.Colorless;
       }
 
-      var cardColor = ManaColors.None;
+      ManaColors cardColor = ManaColors.None;
 
-      foreach (var mana in ManaCost.Colored())
+      foreach (ManaUnit mana in ManaCost.Colored())
       {
         cardColor = cardColor | mana.Colors;
       }
@@ -756,7 +852,7 @@
 
     public void RemoveModifier(Type type)
     {
-      var modifier = _modifiers.FirstOrDefault(x => x.GetType() == type);
+      IModifier modifier = _modifiers.FirstOrDefault(x => x.GetType() == type);
 
       if (modifier == null)
         return;
@@ -778,7 +874,7 @@
       }
       else
       {
-        var manaCost = activationParameters.PayKicker ? ManaCostWithKicker : ManaCost;
+        IManaAmount manaCost = activationParameters.PayKicker ? ManaCostWithKicker : ManaCost;
         if (activationParameters.X.HasValue)
         {
           manaCost = manaCost.Add(activationParameters.X.Value);
@@ -791,10 +887,53 @@
         activationParameters.X);
     }
 
+    public bool IsVisibleToPlayer(Player player)
+    {
+      if (_isRevealed == true)
+        return true;
+
+      if (_isHidden == true)
+        return false;
+
+
+      if (player == Controller)
+      {
+        switch (Zone)
+        {
+          case Zone.Hand:
+          case Zone.Battlefield:
+          case Zone.Graveyard:
+            return true;
+          case Zone.Library:
+            return false;
+        }
+      }
+      else
+      {
+        switch (Zone)
+        {
+          case Zone.Battlefield:
+          case Zone.Graveyard:
+            return true;
+          case Zone.Hand:
+          case Zone.Library:
+            return false;
+        }
+      }
+
+      return false;
+    }
+
     public void Reveal()
     {
-      IsRevealed = true;
-      UnHide();
+      _isRevealed.Value = true;
+      _isHidden.Value = false;
+    }
+
+    public void SetDefaultVisibility()
+    {
+      _isRevealed.Value = false;
+      _isHidden.Value = false;
     }
 
     public int CalculateCombatDamage(bool allDamageSteps = false, int powerIncrease = 0)
@@ -802,7 +941,7 @@
       if (!Power.HasValue)
         return 0;
 
-      var amount = Power.Value + powerIncrease;
+      int amount = Power.Value + powerIncrease;
       amount = _damagePreventions.PreventDealtCombatDamage(amount);
 
       if (allDamageSteps)
@@ -853,565 +992,6 @@
     {
       HasSummoningSickness = true;
       _continuousEffects.Activate();
-    }    
-
-    [Copyable]
-    public class CardFactory : ICardFactory
-    {
-      private readonly List<IActivatedAbilityFactory> _activatedAbilityFactories = new List<IActivatedAbilityFactory>();
-      private readonly List<IContinuousEffectFactory> _continuousEffectFactories = new List<IContinuousEffectFactory>();
-      private readonly List<ITargetValidatorFactory> _costTargetFactories = new List<ITargetValidatorFactory>();
-      private readonly List<ITargetValidatorFactory> _effectTargetFactories = new List<ITargetValidatorFactory>();
-      private readonly List<ITargetValidatorFactory> _kickerEffectTargetFactories = new List<ITargetValidatorFactory>();
-      private readonly List<Static> _staticAbilities = new List<Static>();
-      private readonly List<IDamagePreventionFactory> _damagePreventionFactories = new List<IDamagePreventionFactory>();
-
-      private readonly List<ITriggeredAbilityFactory> _triggeredAbilityFactories = new List<ITriggeredAbilityFactory>();
-      private ICostFactory _additionalCost;
-      private TargetSelectorAiDelegate _aiTargetSelector;
-      private ManaColors _colors;
-      private bool _distributeSpellsDamage;
-      private EffectCategories _effectCategories;
-      private IEffectFactory _effectFactory;
-      private string _flavorText;
-      private bool _isleveler;
-      private TargetSelectorAiDelegate _kickerAiTargetSelector;
-      private string _kickerCost;
-      private IEffectFactory _kickerEffectFactory;
-      private string _manaCost;
-      private bool _mayChooseNotToUntap;
-      private string _name;
-      private int? _overrideScore;
-      private int? _power;
-      private string[] _protectionsFromCardTypes;
-      private ManaColors _protectionsFromColors = ManaColors.None;
-      private Zone? _resolveZone;
-
-      private string _text;
-      private TimingDelegate _timing;
-      private int? _toughness;
-      private CardType _type;
-      private CalculateX _xCalculator;
-
-      public string Name { get { return _name; } }
-
-      public Card CreateCard(Player owner, Game game)
-      {
-        var card = game.Search.InProgress ? new Card() : Bindable.Create<Card>();
-
-        card._game = game;
-        card.Owner = owner;
-
-        card._effectFactory = _effectFactory ?? new Effect.Factory<PutIntoPlay>();
-        card._kickerEffectFactory = _kickerEffectFactory;
-        card._hash = new Trackable<int?>(game.ChangeTracker);
-        card._distributeDamage = _distributeSpellsDamage;
-
-        card.Name = _name;
-        card._xCalculator = _xCalculator;
-        card.ManaCost = _manaCost.ParseManaAmount();
-        card.MayChooseNotToUntapDuringUntapStep = _mayChooseNotToUntap;
-        card.OverrideScore = _overrideScore;
-        card.KickerCost = _kickerCost.ParseManaAmount();
-        card.ManaCostWithKicker = card.HasKicker ? card.ManaCost.Add(card.KickerCost) : card.ManaCost;
-        card.Text = _text ?? String.Empty;
-        card.FlavorText = _flavorText ?? String.Empty;
-        card.Illustration = GetIllustration(_name, _type);
-        card.CastingRule = CreateCastingRule(_type, game);
-
-        CreateBindablePower(card, game.ChangeTracker);
-        CreateBindableToughness(card, game.ChangeTracker);
-        CreateBindableLevel(card, game.ChangeTracker);
-        CreateBindableCounters(card, game.ChangeTracker);
-        CreateBindableType(card, game.ChangeTracker);
-        CreateBindableColors(card, game.ChangeTracker);
-
-        card._damage = new Trackable<int>(game.ChangeTracker, card);
-        card._usageScore = new Trackable<int>(game.ChangeTracker, card);
-        card._isTapped = new Trackable<bool>(game.ChangeTracker, card);
-        card._hasLeathalDamage = new Trackable<bool>(game.ChangeTracker, card);
-        card._attachedTo = new Trackable<Card>(game.ChangeTracker, card);
-        card._attachments = new Attachments(game.ChangeTracker);
-        card._isHidden = new Trackable<bool>(game.ChangeTracker, card);
-        card._isRevealed = new Trackable<bool>(game.ChangeTracker, card);
-        card._canRegenerate = new Trackable<bool>(game.ChangeTracker, card);
-        card._hasSummoningSickness = new Trackable<bool>(true, game.ChangeTracker, card);
-        card._controller = new ControllerCharacteristic(owner, card, game, card);        
-        card._protections = new Protections(game.ChangeTracker, card, _protectionsFromColors, _protectionsFromCardTypes);        
-        card._zone = new Trackable<IZone>(new NullZone(), game.ChangeTracker, card);
-
-        var damagePreventions = _damagePreventionFactories.Select(x => x.Create(card, game));
-        card._damagePreventions = new DamagePreventions(damagePreventions, game.ChangeTracker, card);
-
-        card.EffectCategories = _effectCategories;
-        card._timming = _timing ?? Timings.NoRestrictions();
-
-        card._modifiers = new TrackableList<IModifier>(game.ChangeTracker);
-
-        card._targetSelector = new TargetSelector(
-          effectValidators: _effectTargetFactories.Select(x => x.Create(card, game)),
-          costValidators: _costTargetFactories.Select(x => x.Create(card, game)),
-          aiSelector: _aiTargetSelector
-          );
-
-        card._kickerTargetSelector = new TargetSelector(
-          effectValidators: _kickerEffectTargetFactories.Select(x => x.Create(card, game)),
-          costValidators: _costTargetFactories.Select(x => x.Create(card, game)),
-          aiSelector: _kickerAiTargetSelector
-          );
-
-        card._additionalCost = _additionalCost == null
-          ? new NoCost()
-          : _additionalCost.CreateCost(card, card._targetSelector.Cost.FirstOrDefault(), game);
-
-        card._staticAbilities = new StaticAbilities(_staticAbilities, game.ChangeTracker, card);
-
-        var triggeredAbilities = _triggeredAbilityFactories.Select(x => x.Create(card, card, game));
-        card._triggeredAbilities = new TriggeredAbilities(triggeredAbilities, game.ChangeTracker, card);
-
-        var activatedAbilities = _activatedAbilityFactories.Select(x => x.Create(card, game)).ToList();
-
-        card._activatedAbilities = new ActivatedAbilities(activatedAbilities, game.ChangeTracker, card);
-
-        var continiousEffects = _continuousEffectFactories.Select(factory => factory.Create(card, card, game)).ToList();
-        card._continuousEffects = new ContiniousEffects(continiousEffects, game.ChangeTracker, card);
-
-        card._resolveToZone = _resolveZone;
-
-        return card;
-      }
-
-      public Card CreateCardPreview()
-      {
-        var card = Bindable.Create<Card>();
-
-        card.Name = _name;
-        card.ManaCost = _manaCost.ParseManaAmount();
-        card.Text = _text ?? String.Empty;
-        card.FlavorText = _flavorText ?? String.Empty;
-        card.Illustration = GetIllustration(_name, _type);
-        card._xCalculator = _xCalculator;
-
-        card._power = new Power(_power, null, null);
-        card._toughness = new Toughness(_toughness, null, null);
-        card._type = new CardTypeCharacteristic(_type, null, null);
-        card._colors = new CardColors(card.GetCardColorFromManaCost(), null, null);
-        card._level = new Level(null, null, null);
-        card._counters = new Counters(card._power, card._toughness, null, null);
-
-        card._damage = new Trackable<int>(null, card);
-        card._isTapped = new Trackable<bool>(null, card);
-
-        return card;
-      }
-
-      public CardFactory Protections(ManaColors colors)
-      {
-        _protectionsFromColors = colors;
-        return this;
-      }
-
-      public CardFactory Preventions(params IDamagePreventionFactory[] preventions)
-      {
-        _damagePreventionFactories.AddRange(preventions);
-        return this;
-      }
-
-      public CardFactory Protections(params string[] cardTypes)
-      {
-        _protectionsFromCardTypes = cardTypes;
-        return this;
-      }
-
-      public CardFactory Echo(string manaCost)
-      {
-        var c = new CardBuilder();
-        var amount = manaCost.ParseManaAmount();
-
-        var echoFactory = c.TriggeredAbility(
-          "At the beginning of your upkeep, if this came under your control since the beginning of your last upkeep, sacrifice it unless you pay its echo cost.",
-          c.Trigger<AtBegginingOfStep>(t =>
-            {
-              t.Step = Step.Upkeep;
-              t.OnlyOnceWhenAfterItComesUnderYourControl = true;
-            }),
-          c.Effect<PayManaOrSacrifice>(e =>
-            {
-              e.Amount = amount;
-              e.Message = String.Format("Pay {0}'s echo?", e.Source.OwningCard);
-            }),
-          triggerOnlyIfOwningCardIsInPlay: true);
-
-        _triggeredAbilityFactories.Add(echoFactory);
-        return this;
-      }
-
-      public CardFactory Abilities(params object[] abilities)
-      {
-        foreach (var ability in abilities)
-        {
-          if (ability is Static)
-          {
-            _staticAbilities.Add((Static) ability);
-            continue;
-          }
-
-          if (ability is IActivatedAbilityFactory)
-          {
-            _activatedAbilityFactories.Add(ability as IActivatedAbilityFactory);
-            continue;
-          }
-
-          if (ability is ITriggeredAbilityFactory)
-          {
-            _triggeredAbilityFactories.Add(ability as ITriggeredAbilityFactory);
-            continue;
-          }
-
-          if (ability is IContinuousEffectFactory)
-          {
-            _continuousEffectFactories.Add((IContinuousEffectFactory) ability);
-          }
-        }
-        return this;
-      }
-
-      public CardFactory AfterResolvePutToZone(Zone zone)
-      {
-        _resolveZone = zone;
-        return this;
-      }
-
-      public CardFactory Category(EffectCategories effectCategories)
-      {
-        _effectCategories = effectCategories;
-        return this;
-      }
-
-      public CardFactory Colors(ManaColors colors)
-      {
-        _colors = colors;
-        return this;
-      }
-
-      public CardFactory IsLeveler()
-      {
-        _isleveler = true;
-        return this;
-      }
-
-      public CardFactory Effect<T>(Action<T> init = null) where T : Effect, new()
-      {
-        init = init ?? delegate { };
-
-        _effectFactory = new Effect.Factory<T>
-          {
-            Init = p => init(p.Effect)
-          };
-
-        return this;
-      }
-
-      public CardFactory Effect<T>(EffectInitializer<T> init) where T : Effect, new()
-      {
-        init = init ?? delegate { };
-
-        _effectFactory = new Effect.Factory<T>
-          {
-            Init = init
-          };
-
-        return this;
-      }
-
-      public CardFactory DistributeSpellsDamage()
-      {
-        _distributeSpellsDamage = true;
-        return this;
-      }
-
-      public CardFactory FlavorText(string flavorText)
-      {
-        _flavorText = flavorText;
-        return this;
-      }
-
-      public CardFactory KickerCost(string kickerCost)
-      {
-        _kickerCost = kickerCost;
-        return this;
-      }
-
-      public CardFactory KickerEffect<T>(Action<T> init = null) where T : Effect, new()
-      {
-        init = init ?? delegate { };
-
-        _kickerEffectFactory = new Effect.Factory<T>
-          {
-            Init = p => init(p.Effect)
-          };
-
-        return this;
-      }
-
-      public CardFactory KickerEffect<T>(EffectInitializer<T> init) where T : Effect, new()
-      {
-        init = init ?? delegate { };
-
-        _kickerEffectFactory = new Effect.Factory<T>
-          {
-            Init = init,
-          };
-
-        return this;
-      }
-
-      public CardFactory ManaCost(string manaCost)
-      {
-        _manaCost = manaCost;
-        return this;
-      }
-
-      public CardFactory AdditionalCost<T>(Initializer<T> init = null) where T : Cost, new()
-      {
-        init = init ?? delegate { };
-
-        _additionalCost = new Cost.Factory<T>
-          {
-            Init = init,
-          };
-
-        return this;
-      }
-
-      public CardFactory Named(string name)
-      {
-        _name = name;
-        return this;
-      }
-
-      public CardFactory Cycling(string cost)
-      {
-        var b = new CardBuilder();
-
-        var cycling = b.ActivatedAbility(
-          string.Format("Cycling {0} ({0}, Discard this card: Draw a card.)", cost),
-          b.Cost<DiscardOwnerPayMana>(c => c.Amount = cost.ParseManaAmount()),
-          b.Effect<DrawCards>(e => e.DrawCount = 1),
-          timing: Timings.Cycling(),
-          activationZone: Zone.Hand);
-
-        _activatedAbilityFactories.Add(cycling);
-
-        return this;
-      }
-
-      public CardFactory Power(int power)
-      {
-        _power = power;
-        return this;
-      }
-
-      public CardFactory KickerTargets(TargetSelectorAiDelegate aiTargetSelector,
-        params ITargetValidatorFactory[] effectValidators)
-      {
-        _kickerEffectTargetFactories.AddRange(effectValidators);
-        _kickerAiTargetSelector = aiTargetSelector;
-        return this;
-      }
-
-      public CardFactory Targets(TargetSelectorAiDelegate selectorAi,
-        params ITargetValidatorFactory[] effectValidators)
-      {
-        _effectTargetFactories.AddRange(effectValidators);
-        _aiTargetSelector = selectorAi;
-        return this;
-      }
-
-      public CardFactory Targets(TargetSelectorAiDelegate selectorAi,
-        ITargetValidatorFactory effectValidator = null,
-        ITargetValidatorFactory costValidator = null)
-      {
-        if (effectValidator != null)
-          _effectTargetFactories.Add(effectValidator);
-
-        if (costValidator != null)
-          _costTargetFactories.Add(costValidator);
-
-        _aiTargetSelector = selectorAi;
-        return this;
-      }
-
-      public CardFactory Text(string text)
-      {
-        _text = text;
-        return this;
-      }
-
-      public CardFactory Timing(TimingDelegate timing)
-      {
-        _timing = timing;
-        return this;
-      }
-
-      public CardFactory Toughness(int toughness)
-      {
-        _toughness = toughness;
-        return this;
-      }
-
-      public CardFactory Type(string type)
-      {
-        _type = type;
-        return this;
-      }
-
-      public CardFactory XCalculator(CalculateX calculateX)
-      {
-        _xCalculator = calculateX;
-        return this;
-      }
-
-      public CardFactory Leveler(IManaAmount cost, EffectCategories category = EffectCategories.Generic,
-        params LevelDefinition[] levels)
-      {
-        var abilities = new List<object>();
-        var builder = new CardBuilder();
-
-        abilities.Add(
-          builder.ActivatedAbility(
-            String.Format("{0}: Put a level counter on this. Level up only as sorcery.", cost),
-            builder.Cost<TapOwnerPayMana>(c => c.Amount = cost),
-            builder.Effect<ApplyModifiersToSelf>(p => p.Effect.Modifiers(builder.Modifier<IncreaseLevel>())),
-            timing: Timings.Leveler(cost, levels), activateAsSorcery: true, category: category));
-
-
-        foreach (var levelDefinition in levels)
-        {
-          var definition = levelDefinition;
-
-          abilities.Add(
-            builder.StaticAbility(
-              builder.Trigger<OnLevelChanged>(c => c.Level = definition.Min),
-              builder.Effect<ApplyModifiersToSelf>(p => p.Effect.Modifiers(
-                builder.Modifier<AddStaticAbility>(m => m.StaticAbility = definition.StaticAbility,
-                  minLevel: definition.Min, maxLevel: definition.Max),
-                builder.Modifier<SetPowerAndToughness>(m =>
-                  {
-                    m.Power = definition.Power;
-                    m.Tougness = definition.Thoughness;
-                  }, minLevel: definition.Min, maxLevel: definition.Max))))
-            );
-        }
-
-        IsLeveler().Abilities(abilities.ToArray());
-
-        return this;
-      }
-
-      private static CastingRule CreateCastingRule(CardType type, Game game)
-      {
-        if (type.Instant)
-          return new Instant(game.Stack);
-
-        if (type.Land)
-          return new Land(game.Stack, game.Turn);
-
-        return new Default(game.Stack, game.Turn);
-      }
-
-      private static string GetIllustration(string cardName, CardType cardType)
-      {
-        const int basicLandVersions = 4;
-
-        if (cardType.BasicLand)
-        {
-          return cardName + Random.Next(1, basicLandVersions + 1);
-        }
-
-        return cardName;
-      }
-
-      private void CreateBindableColors(Card card, ChangeTracker changeTracker)
-      {
-        var cardColors = _colors == ManaColors.None ? card.GetCardColorFromManaCost() : _colors;
-
-        card._colors = Bindable.Create<CardColors>(
-          cardColors,
-          changeTracker,
-          card);
-
-        card._colors.Property(x => x.Value)
-          .Changes(card).Property<Card, ManaColors>(x => x.Colors);
-      }
-
-      private void CreateBindableCounters(Card card, ChangeTracker changeTracker)
-      {
-        card._counters = Bindable.Create<Counters>(
-          card._power,
-          card._toughness,
-          changeTracker,
-          card);
-
-        card._counters.Property(x => x.Count)
-          .Changes(card).Property<Card, int?>(x => x.Counters);
-      }
-
-      private void CreateBindablePower(Card card, ChangeTracker changeTracker)
-      {
-        card._power = Bindable.Create<Power>(
-          _power,
-          changeTracker,
-          card);
-
-        card._power.Property(x => x.Value)
-          .Changes(card).Property<Card, int?>(x => x.Power);
-      }
-
-      private void CreateBindableLevel(Card card, ChangeTracker changeTracker)
-      {
-        card._level = Bindable.Create<Level>(
-          _isleveler ? 0 : (int?) null,
-          changeTracker,
-          card);
-
-        card._level.Property(x => x.Value)
-          .Changes(card).Property<Card, int?>(x => x.Level);
-      }
-
-      private void CreateBindableToughness(Card card, ChangeTracker changeTracker)
-      {
-        card._toughness = Bindable.Create<Toughness>(
-          _toughness,
-          changeTracker,
-          card);
-
-        card._toughness.Property(x => x.Value)
-          .Changes(card).Property<Card, int?>(x => x.Toughness);
-      }
-
-      private void CreateBindableType(Card card, ChangeTracker changeTracker)
-      {
-        card._type = Bindable.Create<CardTypeCharacteristic>(
-          _type,
-          changeTracker,
-          card);
-
-        card._type.Property(x => x.Value)
-          .Changes(card).Property<Card, string>(x => x.Type);
-      }
-
-      public CardFactory MayChooseNotToUntapDuringUntap()
-      {
-        _mayChooseNotToUntap = true;
-        return this;
-      }
-
-      public CardFactory OverrideScore(int score)
-      {
-        _overrideScore = score;
-        return this;
-      }
     }
   }
 }

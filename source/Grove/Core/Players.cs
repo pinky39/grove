@@ -5,40 +5,29 @@
   using System.Collections.Generic;
   using System.Linq;
   using Infrastructure;
-  using Targeting;
 
   [Copyable]
   public class Players : IEnumerable<Player>, IHashable
-  {    
+  {
     private readonly TrackableList<Player> _extraTurns;
     private Player _player1;
     private Player _player2;
     private Player _starting;
 
     public Players(
-      string player1Name, 
-      ControllerType player1Type, 
+      string player1Name,
+      ControllerType player1Type,
       IEnumerable<string> player1Deck,
       string player2Name,
       ControllerType player2Type,
-      IEnumerable<string> player2Deck,      
-      Game game, 
+      IEnumerable<string> player2Deck,
+      Game game,
       bool enableDatabinding)
-    {      
+    {
       _extraTurns = new TrackableList<Player>(game.ChangeTracker, orderImpactsHashcode: true);
 
       Player1 = CreatePlayer(player1Name, "player1.png", player1Type, player1Deck, game, enableDatabinding);
       Player2 = CreatePlayer(player2Name, "player2.png", player2Type, player2Deck, game, enableDatabinding);
-    }
-
-    private Player CreatePlayer(string name,  string avatar, ControllerType type, IEnumerable<string> deck, Game game, bool enableDatabinding)
-    {
-      if (enableDatabinding)
-      {
-        return Bindable.Create<Player>(name, avatar, type, deck, game);
-      }
-            
-      return new Player(name, avatar, type, deck, game);
     }
 
     private Players() {}
@@ -64,6 +53,7 @@
     public Player Max { get { return Player1.IsMax ? Player1 : Player2; } }
     public Player Min { get { return GetOpponent(Max); } }
     public Player Passive { get { return GetOpponent(Active); } }
+
     public Player Player1
     {
       get { return _player1; }
@@ -111,7 +101,7 @@
     IEnumerator IEnumerable.GetEnumerator()
     {
       return GetEnumerator();
-    }   
+    }
 
     public int CalculateHash(HashCalculator calc)
     {
@@ -119,6 +109,17 @@
         calc.Calculate(Player1),
         calc.Calculate(Player2),
         calc.Calculate(_extraTurns));
+    }
+
+    private Player CreatePlayer(string name, string avatar, ControllerType type, IEnumerable<string> deck, Game game,
+      bool enableDatabinding)
+    {
+      if (enableDatabinding)
+      {
+        return new Player(name, avatar, type, deck, game);
+      }
+
+      return new Player(name, avatar, type, deck, game);
     }
 
     public void SetAiVisibility(Player player)
@@ -131,8 +132,8 @@
     {
       if (_extraTurns.Count > 0)
       {
-        var nextActive = _extraTurns.PopLast();
-        var opponent = GetOpponent(nextActive);
+        Player nextActive = _extraTurns.PopLast();
+        Player opponent = GetOpponent(nextActive);
 
         nextActive.IsActive = true;
         opponent.IsActive = false;
@@ -151,7 +152,7 @@
 
     public void ScheduleExtraTurns(Player player, int count)
     {
-      for (var i = 0; i < count; i++)
+      for (int i = 0; i < count; i++)
       {
         _extraTurns.Add(player);
       }
@@ -175,7 +176,7 @@
 
     public void MoveDeadCreaturesToGraveyard()
     {
-      foreach (var player in this)
+      foreach (Player player in this)
       {
         player.MoveCreaturesWithLeathalDamageOrZeroTougnessToGraveyard();
       }
@@ -185,7 +186,7 @@
 
     public void RemoveDamageFromPermanents()
     {
-      foreach (var player in this)
+      foreach (Player player in this)
       {
         player.RemoveDamageFromPermanents();
       }
@@ -193,7 +194,7 @@
 
     public void RemoveRegenerationFromPermanents()
     {
-      foreach (var player in this)
+      foreach (Player player in this)
       {
         player.RemoveRegenerationFromPermanents();
       }
@@ -201,13 +202,13 @@
 
     private void RespectLegendaryRule()
     {
-      var duplicateLegends = this
+      Card[] duplicateLegends = this
         .SelectMany(x => x.Battlefield.Legends)
         .GetDuplicates(card => card.Name).ToArray();
 
-      foreach (var legend in duplicateLegends)
-      {        
-        legend.Sacrifice();        
+      foreach (Card legend in duplicateLegends)
+      {
+        legend.Sacrifice();
       }
     }
 
@@ -215,7 +216,7 @@
     {
       filter = filter ?? delegate { return true; };
 
-      foreach (var permanent in Permanents().ToList())
+      foreach (Card permanent in Permanents().ToList())
       {
         if (filter(permanent))
         {
@@ -229,7 +230,5 @@
       Player1.ResetAiVisibility();
       Player2.ResetAiVisibility();
     }
-
-    
   }
 }

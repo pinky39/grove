@@ -353,6 +353,8 @@
     <Compile Include="Core\Ai\AttackerEvaluation.cs" />
     <Compile Include="Core\Ai\BlockerEvaluation.cs" />
     <Compile Include="Core\Ai\QuickCombat.cs" />
+    <Compile Include="Core\CardFactory.cs" />
+    <Compile Include="Core\CardParameters.cs" />
     <Compile Include="Core\Cards\ContiniousEffects.cs" />
     <Compile Include="Core\Cards\Effects\ApplyModifiersToPlayers.cs" />
     <Compile Include="Core\Cards\Effects\SearchLibraryPutToHand.cs" />
@@ -629,7 +631,6 @@
     <Compile Include="Core\Combat.cs" />
     <Compile Include="Core\Cards\Costs\ICostFactory.cs" />
     <Compile Include="Core\Cards\Effects\IEffectFactory.cs" />
-    <Compile Include="Core\ICardFactory.cs" />
     <Compile Include="Core\Cards\ActivatedAbilities.cs" />
     <Compile Include="Core\Cards\CardColors.cs" />
     <Compile Include="Core\Cards\Modifiers\CardTypeSetter.cs" />

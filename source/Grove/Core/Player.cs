@@ -56,7 +56,7 @@
       _hasLost = new Trackable<bool>(game.ChangeTracker);
       _isActive = new Trackable<bool>(game.ChangeTracker);
       _hasPriority = new Trackable<bool>(game.ChangeTracker);
-      _manaPool = Bindable.Create<ManaPool>(game.ChangeTracker);
+      _manaPool = new ManaPool(game.ChangeTracker);
       _modifiers = new TrackableList<IModifier>(game.ChangeTracker);
       _damagePreventions = new DamagePreventions(game.ChangeTracker, null);
       _damageRedirections = new DamageRedirections(game.ChangeTracker, null);
@@ -477,11 +477,11 @@
 
     private void CreateZones(IEnumerable<Card> cards, Game game)
     {
-      _battlefield = Bindable.Create<Battlefield>(this, game);
-      _hand = Bindable.Create<Hand>(this, game);
-      _graveyard = Bindable.Create<Graveyard>(this, game);
-      _library = Bindable.Create<Library>(this, game);
-      _exile = Bindable.Create<Exile>(this, game);
+      _battlefield = new Battlefield(this, game);
+      _hand = new Hand(this, game);
+      _graveyard = new Graveyard(this, game);
+      _library = new Library(this, game);
+      _exile = new Exile(this, game);
 
       foreach (var card in cards)
       {

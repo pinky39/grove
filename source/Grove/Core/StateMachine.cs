@@ -300,7 +300,7 @@
               if (permanent.Has().DoesNotUntap)
                 continue;
               
-              if (permanent.MayChooseNotToUntapDuringUntapStep)
+              if (permanent.MayChooseNotToUntap)
               {
                 var permanentCopy = permanent;
                 _game.Enqueue<ChooseToUntap>(
