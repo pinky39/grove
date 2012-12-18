@@ -44,6 +44,7 @@
       }
     }
 
+    public Player Searching { get; set; }
     public Player Attacking { get { return Active; } }
     public bool BothHaveLost { get { return Player1.HasLost && Player2.HasLost; } }
     public Player Computer { get { return Player1.IsHuman ? Player2 : Player1; } }
@@ -108,6 +109,7 @@
       return HashCalculator.Combine(
         calc.Calculate(Player1),
         calc.Calculate(Player2),
+        calc.Calculate(Searching),
         calc.Calculate(_extraTurns));
     }
 
@@ -120,13 +122,7 @@
       }
 
       return new Player(name, avatar, type, deck, game);
-    }
-
-    public void SetAiVisibility(Player player)
-    {
-      Player1.SetAiVisibility(player);
-      Player2.SetAiVisibility(player);
-    }
+    }    
 
     public void ChangeActivePlayer()
     {
@@ -224,11 +220,6 @@
         }
       }
     }
-
-    public void ResetAiVisibility()
-    {
-      Player1.ResetAiVisibility();
-      Player2.ResetAiVisibility();
-    }
+    
   }
 }

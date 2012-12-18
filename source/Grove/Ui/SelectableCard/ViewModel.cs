@@ -13,15 +13,12 @@
     public ViewModel(Card card, Game game)
     {
       _game = game;
-      Card = card;
-
-      card.Property(x => x.IsRevealed)
-        .Changes(this).Property<ViewModel, bool>(x => x.IsVisible);
+      Card = card;      
     }
 
     public Card Card { get; private set; }
     public virtual bool IsSelected { get; protected set; }
-    public bool IsVisible { get { return Card.Zone == Zone.Graveyard || Card.IsRevealed; } }
+    //public bool IsVisible { get { return Card.Zone == Zone.Graveyard || Card.IsRevealed; } }
 
     public void Receive(TargetSelected message)
     {

@@ -259,8 +259,13 @@
         HasLost = true;
         return;
       }
-
+            
       _hand.Add(card);
+
+      if (_game.Search.InProgress)
+      {
+        card.Hide();
+      }
     }
 
     public void DrawCards(int cardCount)
@@ -365,22 +370,7 @@
       {
         permanent.CanRegenerate = false;
       }
-    }
-
-    public void SetAiVisibility(Player playerOnTheMove)
-    {
-      _library.Hide();
-      _battlefield.Show();
-      _graveyard.Show();
-
-      if (playerOnTheMove == this)
-      {
-        _hand.Show();
-        return;
-      }
-
-      _hand.Hide();
-    }
+    }    
 
     public void ShuffleIntoLibrary(Card card)
     {
@@ -506,15 +496,7 @@
         card.Reveal();
       }
     }
-
-    public void ResetAiVisibility()
-    {
-      _library.Show();
-      _battlefield.Show();
-      _graveyard.Show();
-      _hand.Show();
-    }
-
+    
     public void RevealLibrary()
     {
       foreach (var card in _library)

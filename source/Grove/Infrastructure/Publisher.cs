@@ -6,7 +6,7 @@
 
   public class Publisher : ICopyable
   {
-    private ChangeTracker _changeTracker;
+    private ChangeTracker _changeTracker;    
     private TrackableList<object> _subscribers;
 
     private Publisher() {}

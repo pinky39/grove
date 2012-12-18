@@ -39,15 +39,13 @@
       _uiDamageDistribution = uiDamageDistribution;
       _select = delegate { };
 
-      Card = card;
-
-      card.Property(x => x.IsRevealed)
-        .Changes(this).Property(x => x.IsVisible);
+      Card = card;      
     }
 
     public Card Card { get; private set; }
     public virtual bool IsPlayable { get; protected set; }
-    public bool IsVisible { get { return Card.Controller.IsHuman || Card.IsRevealed; } }
+    //todo
+    //public bool IsVisible { get { return Card.Controller.IsHuman || Card.IsRevealed; } }
     public virtual bool IsSelected { get; protected set; }
 
     public void Receive(UiInteractionChanged message)

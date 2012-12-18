@@ -35,7 +35,7 @@
 
       foreach (var card in zones)
       {
-        if (card.IsHidden)
+        if (!card.IsVisible)
           continue;
 
         var abilitiesPrerequisites = card.CanActivateAbilities(ignoreManaAbilities: true);
@@ -60,7 +60,7 @@
     {
       foreach (var card in _player.Hand)
       {
-        if (card.IsHidden)
+        if (!card.IsVisible)
           continue;
 
         var prerequisites = card.CanCast();

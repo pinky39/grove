@@ -79,23 +79,7 @@
     public bool Contains(Card card)
     {
       return _cards.Contains(card);
-    }
-
-    public void Hide()
-    {
-      foreach (var card in _cards)
-      {
-        card.Hide();
-      }
-    }
-
-    public void Show()
-    {
-      foreach (var card in _cards)
-      {
-        card.UnHide();
-      }
-    }
+    }       
 
     public virtual void Shuffle()
     {
@@ -103,7 +87,7 @@
 
       foreach (var card in _cards)
       {
-        card.Hide();
+        card.ResetVisibility();
       }      
     }
 

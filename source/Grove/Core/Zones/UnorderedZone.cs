@@ -67,7 +67,7 @@
       if (zoneFilter(Zone, Owner))
       {
         foreach (var card in this)
-        {
+        {          
           yield return card;
         }
       }
@@ -84,23 +84,7 @@
     protected virtual void Remove(Card card)
     {
       _cards.Remove(card);
-    }
-
-    public void Hide()
-    {
-      foreach (var card in _cards)
-      {
-        card.Hide();
-      }
-    }
-
-    public void Show()
-    {
-      foreach (var card in _cards)
-      {
-        card.UnHide();
-      }
-    }
+    }    
 
     public override string ToString()
     {

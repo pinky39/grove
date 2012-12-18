@@ -20,7 +20,7 @@
           "Arc Lightning deals 3 damage divided as you choose among one, two, or three target creatures and/or players.")
         .FlavorText("Rainclouds don't last long in Shiv, but that doesn't stop the lightning.")
         .Effect<DealDistributedDamageToTargets>(e => e.Amount = 3)
-        .DistributeSpellsDamage()
+        .DistributeDamage()
         .Targets(
           TargetSelectorAi.DealDamageSingleSelectorDistribute(3),
           TargetValidator(

@@ -18,12 +18,12 @@
 
   public class CardBuilder
   {
-    public Card.CardFactory Card { get { return new Card.CardFactory(); } }
+    public CardFactory Card { get { return new CardFactory(); } }
 
     public IActivatedAbilityFactory ActivatedAbility(
       string text,
       ICostFactory cost,
-      Cards.Effects.IEffectFactory effect,
+      IEffectFactory effect,
       ITargetValidatorFactory effectValidator = null,
       ITargetValidatorFactory costValidator = null,
       TargetSelectorAiDelegate targetSelectorAi = null,
@@ -53,7 +53,7 @@
     public IActivatedAbilityFactory ActivatedAbility(
       string text,
       ICostFactory cost,
-      Cards.Effects.IEffectFactory effect,
+      IEffectFactory effect,
       ITargetValidatorFactory[] effectValidators,
       ITargetValidatorFactory costValidator = null,
       TargetSelectorAiDelegate targetSelectorAi = null,
@@ -112,7 +112,7 @@
         };
     }
 
-    public Cards.Effects.IEffectFactory Effect<T>(Action<T> init = null) where T : Cards.Effects.Effect, new()
+    public IEffectFactory Effect<T>(Action<T> init = null) where T : Effect, new()
     {
       init = init ?? delegate { };
 
@@ -191,7 +191,8 @@
         };
     }
 
-    public ITargetValidatorFactory TargetValidator(TargetValidatorDelegate target, ZoneValidatorDelegate zone, string text = null,
+    public ITargetValidatorFactory TargetValidator(TargetValidatorDelegate target, ZoneValidatorDelegate zone,
+      string text = null,
       bool mustBeTargetable = true, int minCount = 1, int maxCount = 1)
     {
       return new TargetValidator.Factory

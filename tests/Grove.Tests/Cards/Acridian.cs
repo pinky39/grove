@@ -18,6 +18,8 @@
         Hand(P1, acridian);        
         Battlefield(P1, forest1, forest2);
 
+        var p1score = P1.Score;
+
         RunGame(3);
 
         Equal(Zone.Battlefield, C(acridian).Zone);

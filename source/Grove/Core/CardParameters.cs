@@ -25,7 +25,7 @@
     public IManaAmount ManaCost;
     public bool MayChooseNotToUntap;
     public string Name;
-    public int OverrideScore;
+    public int? OverrideScore;
     public CardText Text = string.Empty;
     public CardType Type;
     public CalculateX XCalculator;
@@ -35,13 +35,13 @@
     public ManaColors Colors;
     public string[] ProtectionsFromCardTypes;
     public ManaColors ProtectionsFromColors = ManaColors.None;
-    public IDamagePreventionFactory[] DamagePreventionFactories;
+    public IDamagePreventionFactory[] DamagePreventionFactories = new IDamagePreventionFactory[] {};
     public EffectCategories EffectCategories;
     public TimingDelegate Timing;
-    public ITargetValidatorFactory[] EffectValidatorFactories;
+    public ITargetValidatorFactory[] EffectValidatorFactories = new ITargetValidatorFactory[] {};
     public TargetSelectorAiDelegate AiTargetSelector;
-    public ITargetValidatorFactory[] CostValidatorFactories;
-    public ITargetValidatorFactory[] KickerEffectValidatorFactories;
+    public ITargetValidatorFactory[] CostValidatorFactories = new ITargetValidatorFactory[] {};
+    public ITargetValidatorFactory[] KickerEffectValidatorFactories = new ITargetValidatorFactory[] {};
     public TargetSelectorAiDelegate KickerAiTargetSelector;
     public ICostFactory AdditionalCost;
     public readonly List<Static> StaticAbilities = new List<Static>();

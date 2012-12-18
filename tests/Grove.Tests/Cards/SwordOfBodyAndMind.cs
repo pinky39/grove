@@ -6,7 +6,7 @@
 
   public class SwordOfBodyAndMind
   {
-    public class Predefined : AiScenario
+    public class Ai : AiScenario
     {
       [Fact]
       public void MillAndTokens()
