@@ -204,11 +204,11 @@
     public CastingRule CastingRule { get; private set; }
     public int CharacterCount { get { return FlavorText.CharacterCount + Text.CharacterCount; } }
     public int ChargeCountersCount { get { return _counters.SpecifiCount<ChargeCounter>(); } }
-    public virtual ManaColors Colors { get { return _colors.Value; } }
+    public ManaColors Colors { get { return _colors.Value; } }
     public Player Controller { get { return _controller.Value; } }
     public Player Owner { get; private set; }
     public int? Counters { get { return _counters.Count; } }
-    public virtual int Damage { get { return _damage.Value; } protected set { _damage.Value = value; } }
+    public int Damage { get { return _damage.Value; } protected set { _damage.Value = value; } }
     public CardText FlavorText { get; private set; }
     public bool HasAttachments { get { return _attachments.Count > 0; } }
     public bool HasKicker { get { return KickerCost != null; } }
@@ -220,7 +220,7 @@
     public bool IsAttacker { get { return _game.Combat.IsAttacker(this); } }
     public bool IsBlocker { get { return _game.Combat.IsBlocker(this); } }
     public bool IsManaSource { get { return _activatedAbilities.ManaSources.Count > 0; } }
-    public virtual bool IsTapped { get { return _isTapped.Value; } protected set { _isTapped.Value = value; } }
+    public bool IsTapped { get { return _isTapped.Value; } protected set { _isTapped.Value = value; } }
     public IManaAmount KickerCost { get; private set; }
 
     public IManaAmount ManaCost { get; private set; }
@@ -291,7 +291,7 @@
     public bool IsVisibleInUi { get { return CanBeSeenBy(_game.Players.Human); } }
     public bool IsVisible { get { return CanBeSeenBy(Controller); } }
 
-    public virtual void AddModifier(IModifier modifier)
+    public void AddModifier(IModifier modifier)
     {
       foreach (var modifiable in ModifiableProperties)
       {

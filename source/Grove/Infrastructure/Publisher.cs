@@ -77,10 +77,18 @@
 
     public void Publish<TMessage>(TMessage message)
     {
-      var subscribers = _subscribers[typeof (TMessage)].ToList();
+      TrackableList<object> subscribers;
+      if (!_subscribers.TryGetValue(typeof (TMessage), out subscribers))
+        return;
+      
+      var subscribersCopy = subscribers.ToList();
+
+      if (subscribersCopy.Count == 0)
+        return;
+      
       var orderedSubscribers = new List<IOrderedReceive<TMessage>>();
             
-      foreach (IReceive<TMessage> subscriber in subscribers)
+      foreach (IReceive<TMessage> subscriber in subscribersCopy)
       {
         var orderered = subscriber as IOrderedReceive<TMessage>;
         if (orderered != null)

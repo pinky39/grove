@@ -10,7 +10,7 @@
   using System.Windows.Media;
   using Core.Mana;
   using Infrastructure;
-
+  
   public static class Converters
   {
     public static AutoPassToImageConverter AutoPassToImage = new AutoPassToImageConverter();

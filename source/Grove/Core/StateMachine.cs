@@ -41,6 +41,8 @@
       set
       {
         _game.Turn.State = value;
+        Publish(new StateChanged());        
+        
         Log.DebugFormat("State: {0}", value);
       }
     }
