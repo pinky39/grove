@@ -569,6 +569,7 @@
     <Compile Include="Core\Zones\IGraveyardQuery.cs" />
     <Compile Include="Core\Zones\ILibraryQuery.cs" />
     <Compile Include="Core\Zones\NullZone.cs" />
+    <Compile Include="Infrastructure\Publisher.cs" />
     <Compile Include="Ui\SelectableCard\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
@@ -919,7 +920,6 @@
     <Compile Include="Infrastructure\NotifyPropertyChangedInterceptor.cs" />
     <Compile Include="Infrastructure\UpdatesAttribute.cs" />
     <Compile Include="Infrastructure\DictionaryEx.cs" />
-    <Compile Include="Infrastructure\Publisher.cs" />
     <Compile Include="Infrastructure\XElementEx.cs" />
     <Compile Include="Ui\Battlefield\Slot.cs" />
     <Compile Include="Ui\Battlefield\Row.cs" />

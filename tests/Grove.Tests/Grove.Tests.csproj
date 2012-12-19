@@ -195,6 +195,7 @@
     <Compile Include="Cards\WizardMentor.cs" />
     <Compile Include="Cards\Worship.cs" />
     <Compile Include="MatchSimulatorFacts.cs" />
+    <Compile Include="Sandbox\PublisherFacts.cs" />
     <Compile Include="Unit\ActivationFacts.cs" />
     <Compile Include="Unit\BlockStrategyFacts.cs" />
     <Compile Include="Unit\ClosedFacts.cs" />

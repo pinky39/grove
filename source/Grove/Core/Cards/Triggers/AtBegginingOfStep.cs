@@ -1,7 +1,7 @@
 ﻿namespace Grove.Core.Cards.Triggers
 {
-  using Grove.Infrastructure;
-  using Grove.Core.Messages;
+  using Infrastructure;
+  using Messages;
 
   public class AtBegginingOfStep : Trigger, IOrderedReceive<StepStarted>, IReceive<CardChangedZone>,
     IReceive<ControllerChanged>
