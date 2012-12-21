@@ -6,30 +6,8 @@
              xmlns:Ui="clr-namespace:Grove.Ui" >
 	<UserControl.Resources>
 
-        <Style TargetType = "ContentControl" x:Key = "SelectableContent" BasedOn = "{StaticResource SelectableContent}" >            
-            <Style.Triggers>
-
-				<!-- this triggers only when value actualy changes, but not the first time 
-				<DataTrigger Binding = "{Binding IsTapped}"
-				             Value = "True" >
-
-					<DataTrigger.EnterActions>
-						<BeginStoryboard>
-							<Storyboard>
-								<DoubleAnimation Duration = "0:0:0.1"
-								                 From = "0"
-								                 Storyboard.TargetProperty = "(LayoutTransform).(RotateTransform.Angle)"
-								                 To = "90"
-								                 FillBehavior = "Stop" />
-							</Storyboard>
-						</BeginStoryboard>
-					</DataTrigger.EnterActions>
-				</DataTrigger>-->
-
-             
-
-                <!-- this triggers every time -->                
-                
+        <Style TargetType = "ContentControl" x:Key = "TapUntap" BasedOn = "{StaticResource SelectableContent}" >            
+            <Style.Triggers>                         
 				<DataTrigger Binding = "{Binding Card.IsTapped}"
 				             Value = "True" >
 					<Setter Property = "LayoutTransform" >
@@ -44,7 +22,7 @@
 
 	</UserControl.Resources>
 
-	<ContentControl Style = "{StaticResource SelectableContent}" Width = "110" >
+    <ContentControl Style = "{StaticResource TapUntap}" Width = "110" >
 
         <i:Interaction.Triggers>
             <i:EventTrigger EventName = "MouseEnter" >
@@ -56,7 +34,8 @@
         </i:Interaction.Triggers>
         
         <Grid>
-            <ContentControl Content = "{Binding Card}" ContentTemplate = "{StaticResource FaceUpCard}" />
+            <ContentControl Content = "{Binding }" Style="{StaticResource Card}" />
+            
             <Border Background = "{StaticResource TargetOfSpell}" Visibility = "{Binding IsTargetOfSpell, Converter={x:Static Ui:Converters.BooleanToVisibility}}" />
             <Border BorderBrush = "{StaticResource Playable}" Visibility = "{Binding IsPlayable, Converter={x:Static Ui:Converters.BooleanToVisibility}}" BorderThickness="0,1,0,0" />
             <Border Background= "{Binding Marker, Converter={x:Static Ui:Converters.MarkerBrush}}"/>

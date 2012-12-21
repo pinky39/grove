@@ -9,36 +9,35 @@
   using Infrastructure;
   using Shell;
 
-  public class ViewModel : IReceive<UiInteractionChanged>, IReceive<PlayersInterestChanged>, IReceive<AttackerSelected>,
+  public class ViewModel : CardViewModel, IReceive<UiInteractionChanged>, IReceive<PlayersInterestChanged>, IReceive<AttackerSelected>,
     IReceive<AttackerUnselected>, IReceive<BlockerSelected>, IReceive<BlockerUnselected>, IReceive<RemovedFromCombat>,
     IReceive<AttackerJoinedCombat>, IReceive<BlockerJoinedCombat>, IReceive<TargetSelected>, IReceive<TargetUnselected>
   {
-    private readonly CombatMarkers _combatMarkers;    
+    private readonly CombatMarkers _combatMarkers;
+    private readonly Game _game;
     private readonly SelectAbility.ViewModel.IFactory _selectAbilityVmFactory;
     private readonly SelectTarget.ViewModel.IFactory _selectTargetVmFactory;
     private readonly SelectXCost.ViewModel.IFactory _selectXCostVmFactory;
     private readonly IShell _shell;
-    private readonly Game _game;
 
     private Action _select = delegate { };
 
-    public ViewModel(Card card, IShell shell, Game game,
-                     SelectAbility.ViewModel.IFactory selectAbilityVmFactory,
-                     SelectXCost.ViewModel.IFactory selectXCostVmFactory,
-                     SelectTarget.ViewModel.IFactory selectTargetVmFactory, CombatMarkers combatMarkers)
+    public ViewModel(
+      Card card,
+      IShell shell,
+      Game game,
+      SelectAbility.ViewModel.IFactory selectAbilityVmFactory,
+      SelectXCost.ViewModel.IFactory selectXCostVmFactory,
+      SelectTarget.ViewModel.IFactory selectTargetVmFactory, CombatMarkers combatMarkers) : base(card)
     {
       _shell = shell;
       _game = game;
       _selectAbilityVmFactory = selectAbilityVmFactory;
       _selectXCostVmFactory = selectXCostVmFactory;
       _selectTargetVmFactory = selectTargetVmFactory;
-      _combatMarkers = combatMarkers;
-
-      Card = card;
+      _combatMarkers = combatMarkers;      
     }
-
-    public Card Card { get; private set; }
-
+    
     public virtual bool IsPlayable { get; protected set; }
     public virtual bool IsTargetOfSpell { get; protected set; }
     public virtual int Marker { get; protected set; }
@@ -117,6 +116,22 @@
       Marker = 0;
     }
 
+    public void Receive(TargetSelected message)
+    {
+      if (message.Target == Card)
+      {
+        IsSelected = true;
+      }
+    }
+
+    public void Receive(TargetUnselected message)
+    {
+      if (message.Target == Card)
+      {
+        IsSelected = false;
+      }
+    }
+
     public void Receive(UiInteractionChanged message)
     {
       switch (message.State)
@@ -127,7 +142,7 @@
 
             IsPlayable = Card.Controller.IsHuman ? Card.CanActivateAbilities()
               .Any(x => x.CanBeSatisfied) : false;
-            
+
             break;
           }
         case (InteractionState.SelectTarget):
@@ -139,7 +154,7 @@
         case (InteractionState.Disabled):
           {
             _select = delegate { };
-            IsPlayable = false;            
+            IsPlayable = false;
             break;
           }
       }
@@ -207,11 +222,11 @@
         if (dialog.WasCanceled)
           return false;
 
-        selected = dialog.Selected;        
+        selected = dialog.Selected;
       }
       else
-      {        
-        selected = prerequisites.FirstOrDefault(x => x.CanBeSatisfied);        
+      {
+        selected = prerequisites.FirstOrDefault(x => x.CanBeSatisfied);
       }
 
       index = prerequisites.IndexOf(selected);
@@ -241,7 +256,7 @@
         foreach (var target in dialog.Selection)
         {
           targets.AddCost(target);
-        }                
+        }
       }
 
       if (selectors.HasEffect)
@@ -290,22 +305,6 @@
     public interface IFactory
     {
       ViewModel Create(Card card);
-    }
-
-    public void Receive(TargetSelected message)
-    {
-      if (message.Target == Card)
-      {
-        IsSelected = true;
-      }
-    }
-
-    public void Receive(TargetUnselected message)
-    {
-      if (message.Target == Card)
-      {
-        IsSelected = false;
-      }
     }
   }
 }

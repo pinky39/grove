@@ -2,7 +2,7 @@
 {
   using System;
   using System.Linq;
-
+ 
   public class TrackableEvent : ICopyable
   {
     private ChangeTracker _changeTracker;

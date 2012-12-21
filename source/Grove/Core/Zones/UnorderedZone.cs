@@ -8,13 +8,14 @@
 
   [Copyable]
   public abstract class UnorderedZone : IEnumerable<Card>, IHashable, IZone
-  {
-    private readonly TrackableList<Card> _cards;
-
+  {    
+    private readonly TrackableList<Card> _cards;    
+    
     protected UnorderedZone(Player owner, Game game)
-    {
+    {      
       Owner = owner;
-      _cards = new TrackableList<Card>(game.ChangeTracker);
+      Game = game;
+      _cards = new TrackableList<Card>(game.ChangeTracker);      
     }
 
     protected UnorderedZone()
@@ -23,6 +24,7 @@
     }
 
     public Player Owner { get; private set; }
+    protected Game Game { get; set; }
     public int Count { get { return _cards.Count; } }
     public IEnumerable<Card> Creatures { get { return _cards.Where(card => card.Is().Creature); } }
     public bool IsEmpty { get { return _cards.Count == 0; } }
@@ -78,12 +80,12 @@
     public virtual void Add(Card card)
     {
       _cards.Add(card);
-      card.ChangeZone(this);
+      card.ChangeZone(this);                  
     }
 
     protected virtual void Remove(Card card)
     {
-      _cards.Remove(card);
+      _cards.Remove(card);      
     }    
 
     public override string ToString()

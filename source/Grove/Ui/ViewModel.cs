@@ -1,18 +1,17 @@
-﻿namespace Grove.Ui.Card
+﻿namespace Grove.Ui
 {
-  using Core;
   using Core.Mana;
   using Core.Messages;
   using Infrastructure;
 
-  public class ViewModel : IReceive<StateChanged>
+  public class CardViewModel : IReceive<StateChanged>
   {
-    public ViewModel(Card card)
+    public CardViewModel(Core.Card card)
     {
       Card = card;
     }
 
-    public Card Card { get; private set; }
+    public Core.Card Card { get; private set; }
 
     public virtual int? Power { get; protected set; }
     public virtual int? Toughness { get; protected set; }
@@ -40,11 +39,6 @@
       Type = Card.Type;
       Damage = Card.Damage;
       IsTapped = Card.IsTapped;
-    }
-
-    public interface IFactory
-    {
-      ViewModel Create(Card card);
     }
   }
 }

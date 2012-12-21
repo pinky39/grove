@@ -426,6 +426,8 @@
     <Compile Include="Core\Mana\ManaUsage.cs" />
     <Compile Include="Core\MatchSimulator.cs" />
     <Compile Include="Core\Messages\CardChangedType.cs" />
+    <Compile Include="Core\Messages\CardEnteredPrivateZone.cs" />
+    <Compile Include="Core\Messages\CardLeftBattlefield.cs" />
     <Compile Include="Core\Messages\StateChanged.cs" />
     <Compile Include="Core\Messages\PermanentModified.cs" />
     <Compile Include="Core\Targeting\IDamageDistributor.cs" />
@@ -571,7 +573,7 @@
     <Compile Include="Core\Zones\ILibraryQuery.cs" />
     <Compile Include="Core\Zones\NullZone.cs" />
     <Compile Include="Infrastructure\Publisher.cs" />
-    <Compile Include="Ui\Card\ViewModel.cs" />
+    <Compile Include="Ui\ViewModel.cs" />
     <Compile Include="Ui\SelectableCard\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>

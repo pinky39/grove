@@ -1,13 +1,13 @@
 ﻿namespace Grove.Ui.Battlefield
 {
-  using System.Collections.Specialized;
   using System.Linq;
   using Core;
   using Core.Messages;
   using Core.Zones;
   using Infrastructure;
 
-  public class ViewModel : IReceive<AttachmentAttached>, IReceive<AttachmentDetached>
+  public class ViewModel : IReceive<AttachmentAttached>, IReceive<AttachmentDetached>, IReceive<CardEnteredBattlefield>,
+    IReceive<CardLeftBattlefield>
   {
     private readonly Player _owner;
 
@@ -42,8 +42,6 @@
       _owner = owner;
 
       SwitchRows = owner == game.Players.Player2;
-
-      ((INotifyCollectionChanged) _owner.Battlefield).CollectionChanged += Synchronize;
     }
 
     public Row Row1 { get { return SwitchRows ? _rows[1] : _rows[0]; } }
@@ -66,6 +64,23 @@
       }
     }
 
+    public void Receive(CardEnteredBattlefield message)
+    {
+      if (message.BattlefieldOwner != _owner)
+        return;
+
+      var viewModel = _viewModelFactory.Create(message.Card);
+      Add(viewModel);
+    }
+
+    public void Receive(CardLeftBattlefield message)
+    {
+      if (message.BattlefieldOwner != _owner)
+        return;
+
+      var viewModel = Remove(message.Card);
+      viewModel.Close();
+    }
 
     private static Slot CreatureSlot()
     {
@@ -124,27 +139,6 @@
       }
 
       return null;
-    }
-
-    private void Synchronize(object sender, NotifyCollectionChangedEventArgs e)
-    {
-      if (e.Action == NotifyCollectionChangedAction.Add)
-      {
-        foreach (Card card in e.NewItems)
-        {
-          var viewModel = _viewModelFactory.Create(card);
-          Add(viewModel);
-        }
-      }
-
-      if (e.Action == NotifyCollectionChangedAction.Remove)
-      {
-        foreach (Card card in e.OldItems)
-        {
-          var viewModel = Remove(card);
-          viewModel.Close();
-        }
-      }
     }
 
     public interface IFactory

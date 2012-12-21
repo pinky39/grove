@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using System.Linq;
+  using Messages;
 
   public class Battlefield : UnorderedZone, IBattlefieldQuery
   {
@@ -37,11 +38,13 @@
     public override void AfterAdd(Card card)
     {
       card.OnCardJoinedBattlefield();
+      Game.Publish(new CardEnteredPrivateZone(Owner, card));
     }
 
     public override void AfterRemove(Card card)
     {
       card.OnCardLeftBattlefield();
+      Game.Publish(new CardLeftBattlefield(Owner, card));
     }
   }
 }

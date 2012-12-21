@@ -10,7 +10,7 @@
   [Copyable]
   public abstract class OrderedZone : IEnumerable<Card>, IHashable, IZone
   {
-    private readonly TrackableList<Card> _cards;
+    private readonly TrackableList<Card> _cards;    
 
     protected OrderedZone(Player owner, Game game)
     {
