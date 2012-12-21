@@ -44,7 +44,7 @@
                                     </DataTemplate>
 
                                     <DataTemplate DataType = "{x:Type Core:Card}" >
-                                        <ContentControl Content = "{Binding}" ContentTemplate = "{StaticResource FaceUpCard}" >
+                                        <ContentControl Content = "{Binding}" Style="{StaticResource Card}" >
                                             <Interactivity:Interaction.Triggers>
                                             <Interactivity:EventTrigger EventName = "MouseEnter" >
                                                 <cal:ActionMessage MethodName = "ChangePlayersInterest" >

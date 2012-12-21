@@ -36,7 +36,7 @@
                   BorderBrush="#000"
                   BorderThickness="0,1,1,0">
                         <ContentControl Margin="20" Style="{StaticResource SelectableContent}">
-                            <ContentControl Content="{Binding Attacker}" ContentTemplate = "{StaticResource FaceUpCard}">
+                            <ContentControl Content="{Binding Attacker}" Style="{StaticResource Card}">
                                 <Interactivity:Interaction.Triggers>
                                     <Interactivity:EventTrigger EventName = "MouseEnter" >                                        
                                         <cal:ActionMessage MethodName = "ChangePlayersInterest" >
@@ -70,13 +70,13 @@
                                             </Interactivity:EventTrigger>
                                             <Interactivity:EventTrigger EventName = "MouseEnter" >
                                                 <cal:ActionMessage MethodName = "ChangePlayersInterest" >
-                                                    <cal:Parameter Value = "{Binding Blocker.Card}" />
+                                                    <cal:Parameter Value = "{Binding Blocker.Card }" />
                                                 </cal:ActionMessage>
                                             </Interactivity:EventTrigger>
                                         </Interactivity:Interaction.Triggers>
                                         
                                         <ContentControl Style="{StaticResource SelectableContent}">
-                                            <ContentControl Content="{Binding Blocker.Card}" ContentTemplate = "{StaticResource FaceUpCard}">                                             
+                                            <ContentControl Content="{Binding Blocker.Card }" Style="{StaticResource Card}">                                             
                                             </ContentControl>
                                         </ContentControl>
 

@@ -38,13 +38,11 @@
     public override void AfterAdd(Card card)
     {
       card.OnCardJoinedBattlefield();
-      Game.Publish(new CardEnteredPrivateZone(Owner, card));
     }
 
     public override void AfterRemove(Card card)
     {
       card.OnCardLeftBattlefield();
-      Game.Publish(new CardLeftBattlefield(Owner, card));
     }
   }
 }

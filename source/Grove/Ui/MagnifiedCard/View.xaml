@@ -5,7 +5,7 @@
              xmlns:grove="clr-namespace:Grove.Ui" xmlns:Cards="clr-namespace:Grove.Core.Cards">
     <UserControl.Resources>
         <DataTemplate DataType = "{x:Type Core:Card}" >            
-             <ContentControl Content = "{Binding}" ContentTemplate = "{StaticResource FaceUpCard}" Foreground="White" />                                          
+             <ContentControl Content = "{Binding}" Style="{StaticResource Card}" Foreground="White" />                                          
         </DataTemplate>
 
         <DataTemplate DataType = "{x:Type Cards:ActivatedAbility}" >

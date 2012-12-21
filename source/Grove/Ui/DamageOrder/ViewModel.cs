@@ -26,7 +26,7 @@
       _game = game;
     }
 
-    public Card Attacker { get { return _attacker; } }
+    public Card Attacker { get { return _attacker.Card; } }
     public IEnumerable<BlockerAssignment> Blockers { get { return _blockerAssignments; } }
 
     public bool CanAccept { get { return _curentRank > _attacker.BlockersCount; } }

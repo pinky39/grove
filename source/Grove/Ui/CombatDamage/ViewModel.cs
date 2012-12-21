@@ -9,8 +9,8 @@
   {
     private readonly BlockerDamageAssignments _assignments;
     private readonly Attacker _attacker;
+    private readonly DamageDistribution _damageDistribution;
     private readonly Game _game;
-    private readonly DamageDistribution _damageDistribution;    
     private int _damageToAssign;
 
     public ViewModel(Game game, Attacker attacker, DamageDistribution damageDistribution)
@@ -33,7 +33,7 @@
     {
       foreach (var assignment in _assignments)
       {
-        _damageDistribution.Assign(assignment.Blocker, assignment.Damage);
+        _damageDistribution.Assign(assignment.Blocker, assignment.AssignedDamage);
       }
 
       Close();
@@ -45,7 +45,7 @@
       if (!HasAllDamageBeenAssigned && _assignments.CanAssignCombatDamageTo(blocker))
       {
         _damageToAssign -= 1;
-        blocker.Damage++;
+        blocker.AssignedDamage++;
       }
     }
 

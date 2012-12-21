@@ -8,14 +8,14 @@
 
   [Copyable]
   public abstract class UnorderedZone : IEnumerable<Card>, IHashable, IZone
-  {    
-    private readonly TrackableList<Card> _cards;    
-    
+  {
+    private readonly TrackableList<Card> _cards;
+
     protected UnorderedZone(Player owner, Game game)
-    {      
+    {
       Owner = owner;
       Game = game;
-      _cards = new TrackableList<Card>(game.ChangeTracker);      
+      _cards = new TrackableList<Card>(game.ChangeTracker);
     }
 
     protected UnorderedZone()
@@ -54,22 +54,26 @@
       return calc.Calculate(_cards);
     }
 
-    public abstract Zone Zone { get; }
-
     public virtual void AfterAdd(Card card) {}
+
     public virtual void AfterRemove(Card card) {}
+
+    public abstract Zone Zone { get; }
 
     void IZone.Remove(Card card)
     {
       Remove(card);
     }
 
+    public event EventHandler<ZoneChangedEventArgs> CardAdded = delegate { };
+    public event EventHandler<ZoneChangedEventArgs> CardRemoved = delegate { };
+
     public virtual IEnumerable<Card> GenerateTargets(Func<Zone, Player, bool> zoneFilter)
     {
       if (zoneFilter(Zone, Owner))
       {
         foreach (var card in this)
-        {          
+        {
           yield return card;
         }
       }
@@ -80,13 +84,16 @@
     public virtual void Add(Card card)
     {
       _cards.Add(card);
-      card.ChangeZone(this);                  
+      card.ChangeZone(this);
+
+      CardAdded(this, new ZoneChangedEventArgs(card));
     }
 
     protected virtual void Remove(Card card)
     {
-      _cards.Remove(card);      
-    }    
+      _cards.Remove(card);
+      CardRemoved(this, new ZoneChangedEventArgs(card));
+    }
 
     public override string ToString()
     {

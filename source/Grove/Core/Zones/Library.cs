@@ -2,6 +2,7 @@
 {
   using System.Linq;
   using Infrastructure;
+  using Messages;
 
   public class Library : OrderedZone, ILibraryQuery
   {
@@ -24,5 +25,6 @@
     {
       AddToFront(card);
     }
+
   }
 }

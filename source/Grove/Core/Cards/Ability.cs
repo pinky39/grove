@@ -2,11 +2,11 @@
 {
   using System.Collections.Generic;
   using System.Linq;
+  using Ai;
   using Effects;
-  using Grove.Core.Ai;
-  using Grove.Infrastructure;
-  using Grove.Core.Targeting;
-  using Grove.Core.Zones;
+  using Infrastructure;
+  using Targeting;
+  using Zones;
 
   [Copyable]
   public abstract class Ability : IEffectSource
@@ -16,11 +16,11 @@
 
     public Player Controller { get { return OwningCard.Controller; } }
     protected IEffectFactory EffectFactory { get; private set; }
-    protected Game Game { get; set; }    
-    public Card SourceCard { get; protected set; }
+    protected Game Game { get; set; }
     protected Stack Stack { get { return Game.Stack; } }
     public CardText Text { get; set; }
     public bool UsesStack { get; set; }
+    public Card SourceCard { get; protected set; }
     public EffectCategories EffectCategories { get; set; }
     public Card OwningCard { get; protected set; }
     public abstract int CalculateHash(HashCalculator calc);

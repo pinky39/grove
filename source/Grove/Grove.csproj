@@ -426,9 +426,6 @@
     <Compile Include="Core\Mana\ManaUsage.cs" />
     <Compile Include="Core\MatchSimulator.cs" />
     <Compile Include="Core\Messages\CardChangedType.cs" />
-    <Compile Include="Core\Messages\CardEnteredPrivateZone.cs" />
-    <Compile Include="Core\Messages\CardLeftBattlefield.cs" />
-    <Compile Include="Core\Messages\StateChanged.cs" />
     <Compile Include="Core\Messages\PermanentModified.cs" />
     <Compile Include="Core\Targeting\IDamageDistributor.cs" />
     <Compile Include="Core\Cards\IAcceptsModifiers.cs" />
@@ -571,9 +568,12 @@
     <Compile Include="Core\Targeting\ZoneValidatorParameters.cs" />
     <Compile Include="Core\Zones\IGraveyardQuery.cs" />
     <Compile Include="Core\Zones\ILibraryQuery.cs" />
+    <Compile Include="Core\Zones\IZoneQuery.cs" />
     <Compile Include="Core\Zones\NullZone.cs" />
+    <Compile Include="Core\Zones\StackChangedEventArgs.cs" />
+    <Compile Include="Core\Zones\ZoneChangedEventArgs.cs" />
     <Compile Include="Infrastructure\Publisher.cs" />
-    <Compile Include="Ui\ViewModel.cs" />
+    <Compile Include="Ui\CardViewModel.cs" />
     <Compile Include="Ui\SelectableCard\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
@@ -931,7 +931,6 @@
     <Compile Include="Ui\MediaExtension.cs" />
     <Compile Include="Ui\Converters.cs" />
     <Compile Include="Infrastructure\Bindable.cs" />
-    <Compile Include="Infrastructure\Effects.cs" />
     <Compile Include="Infrastructure\ParseExtensions.cs" />
     <Compile Include="Infrastructure\RandomEx.cs" />
     <Compile Include="Ui\SlotPanel.cs" />

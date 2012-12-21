@@ -51,10 +51,11 @@
     public Zone Zone { get { return Zone.Stack; } }
 
     public void Remove(Card card) {}
-
+    public void AfterAdd(Card card) {}
     public void AfterRemove(Card card) {}
 
-    public void AfterAdd(Card card) {}
+    public event EventHandler<StackChangedEventArgs> EffectAdded = delegate { };
+    public event EventHandler<StackChangedEventArgs> EffectRemoved = delegate { };
 
     public bool HasOnlySpellsOwnedBy(Player player)
     {
@@ -100,14 +101,16 @@
       yield break;
     }
 
-    protected virtual void Add(Effect effect)
+    private void Add(Effect effect)
     {
       _effects.Add(effect);
+      EffectAdded(this, new StackChangedEventArgs(effect));
     }
 
-    protected virtual void Remove(Effect effect)
+    private void Remove(Effect effect)
     {
       _effects.Remove(effect);
+      EffectRemoved(this, new StackChangedEventArgs(effect));
     }
 
     public void Counter(Effect effect)

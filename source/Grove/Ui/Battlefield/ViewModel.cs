@@ -6,8 +6,7 @@
   using Core.Zones;
   using Infrastructure;
 
-  public class ViewModel : IReceive<AttachmentAttached>, IReceive<AttachmentDetached>, IReceive<CardEnteredBattlefield>,
-    IReceive<CardLeftBattlefield>
+  public class ViewModel : IReceive<AttachmentAttached>, IReceive<AttachmentDetached>
   {
     private readonly Player _owner;
 
@@ -41,6 +40,9 @@
       _viewModelFactory = viewModelFactory;
       _owner = owner;
 
+      _owner.Battlefield.CardAdded += OnCardAdded;
+      _owner.Battlefield.CardRemoved += OnCardRemoved;
+
       SwitchRows = owner == game.Players.Player2;
     }
 
@@ -64,22 +66,16 @@
       }
     }
 
-    public void Receive(CardEnteredBattlefield message)
+    private void OnCardRemoved(object sender, ZoneChangedEventArgs e)
     {
-      if (message.BattlefieldOwner != _owner)
-        return;
-
-      var viewModel = _viewModelFactory.Create(message.Card);
-      Add(viewModel);
+      var viewModel = Remove(e.Card);
+      viewModel.Close();
     }
 
-    public void Receive(CardLeftBattlefield message)
+    private void OnCardAdded(object sender, ZoneChangedEventArgs e)
     {
-      if (message.BattlefieldOwner != _owner)
-        return;
-
-      var viewModel = Remove(message.Card);
-      viewModel.Close();
+      var viewModel = _viewModelFactory.Create(e.Card);
+      Add(viewModel);
     }
 
     private static Slot CreatureSlot()

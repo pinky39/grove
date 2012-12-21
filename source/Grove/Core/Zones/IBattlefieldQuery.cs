@@ -2,7 +2,7 @@
 {
   using System.Collections.Generic;
 
-  public interface IBattlefieldQuery : IEnumerable<Card>
+  public interface IBattlefieldQuery : IZoneQuery
   {
     IEnumerable<Card> Attackers { get; }
     IEnumerable<Card> Blockers { get; }

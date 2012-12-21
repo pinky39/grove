@@ -2,23 +2,20 @@
 {
   using System;
   using Core;
-  using Core.Zones;
   using Infrastructure;
 
-  public class ViewModel : IReceive<TargetSelected>, IReceive<TargetUnselected>, IReceive<UiInteractionChanged>
+  public class ViewModel : CardViewModel, IReceive<TargetSelected>, IReceive<TargetUnselected>,
+    IReceive<UiInteractionChanged>
   {
     private readonly Game _game;
     private Action _select = delegate { };
 
-    public ViewModel(Card card, Game game)
+    public ViewModel(Card card, Game game) : base(card)
     {
       _game = game;
-      Card = card;      
     }
 
-    public Card Card { get; private set; }
-    public virtual bool IsSelected { get; protected set; }
-    //public bool IsVisible { get { return Card.Zone == Zone.Graveyard || Card.IsRevealed; } }
+    public virtual bool IsSelected { get; protected set; }    
 
     public void Receive(TargetSelected message)
     {

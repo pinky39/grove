@@ -10,11 +10,11 @@
   [Copyable]
   public class StateMachine : ICopyContributor
   {
-    private static readonly ILog Log = LogManager.GetLogger(typeof (StateMachine));    
+    private static readonly ILog Log = LogManager.GetLogger(typeof (StateMachine));
     private readonly Trackable<IDecision> _curentDecision;
+    private readonly DecisionQueue _decisionQueue;
     private readonly Trackable<int> _passesCount;
     private Game _game;
-    private readonly DecisionQueue _decisionQueue;
     private Player _looser;
     private Dictionary<State, StepState> _states;
     private Dictionary<Step, StepDefinition> _steps;
@@ -41,8 +41,7 @@
       set
       {
         _game.Turn.State = value;
-        Publish(new StateChanged());        
-        
+
         Log.DebugFormat("State: {0}", value);
       }
     }
@@ -56,7 +55,7 @@
       InitializeStepStates();
       InitializeSteps();
     }
-    
+
     public void Resume(Func<bool> shouldContinue)
     {
       while (shouldContinue())
@@ -177,7 +176,7 @@
               _passesCount.Value++;
               return State.Passive;
             }
-            
+
             return State.Active;
           });
 
@@ -189,17 +188,17 @@
             if (WasPriorityPassed)
             {
               _passesCount.Value++;
-              
+
               if (_passesCount.Value == 2)
               {
                 _passesCount.Value = 0;
-                
-                return _game.Stack.IsEmpty 
-                  ? State.After 
+
+                return _game.Stack.IsEmpty
+                  ? State.After
                   : State.BeginResolve;
               }
 
-              return State.Passive;                
+              return State.Passive;
             }
 
             _passesCount.Value = 0;
@@ -214,17 +213,17 @@
             if (WasPriorityPassed)
             {
               _passesCount.Value++;
-              
+
               if (_passesCount.Value == 2)
               {
                 _passesCount.Value = 0;
-                
-                return _game.Stack.IsEmpty 
-                  ? State.After 
+
+                return _game.Stack.IsEmpty
+                  ? State.After
                   : State.BeginResolve;
               }
 
-              return State.Active;                                            
+              return State.Active;
             }
 
             _passesCount.Value = 0;
@@ -242,7 +241,7 @@
           {
             var effect = _game.Stack.LastResolved;
             if (effect != null)
-            {              
+            {
               effect.FinishResolve();
               _game.Players.MoveDeadCreaturesToGraveyard();
             }
@@ -301,16 +300,16 @@
 
               if (permanent.Has().DoesNotUntap)
                 continue;
-              
+
               if (permanent.MayChooseNotToUntap)
               {
                 var permanentCopy = permanent;
                 _game.Enqueue<ChooseToUntap>(
-                  controller: _game.Players.Active, 
+                  controller: _game.Players.Active,
                   init: p => p.Permanent = permanentCopy);
               }
               else
-              {                
+              {
                 permanent.Untap();
               }
             }
@@ -320,7 +319,7 @@
         nextStep: () => Step.Upkeep);
 
       CreateStep(
-        Step.Upkeep,   
+        Step.Upkeep,
         nextStep: () => Step.Draw);
 
       CreateStep(

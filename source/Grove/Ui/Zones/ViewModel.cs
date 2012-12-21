@@ -10,14 +10,14 @@
       Graveyard.ViewModel.IFactory graveyardViewModel,
       Library.ViewModel.IFactory libraryViewModel)
     {
-      OpponentsHand = handViewModelFactory.Create(game.Players.Computer.Hand);
-      YourHand = handViewModelFactory.Create(game.Players.Human.Hand);
+      OpponentsHand = handViewModelFactory.Create(game.Players.Computer);
+      YourHand = handViewModelFactory.Create(game.Players.Human);
 
-      OpponentsGraveyard = graveyardViewModel.Create(game.Players.Computer.Graveyard);
-      YourGraveyard = graveyardViewModel.Create(game.Players.Human.Graveyard);
+      OpponentsGraveyard = graveyardViewModel.Create(game.Players.Computer);
+      YourGraveyard = graveyardViewModel.Create(game.Players.Human);
 
-      OpponentsLibrary = libraryViewModel.Create(game.Players.Computer.Library);
-      YourLibrary = libraryViewModel.Create(game.Players.Human.Library);
+      OpponentsLibrary = libraryViewModel.Create(game.Players.Computer);
+      YourLibrary = libraryViewModel.Create(game.Players.Human);
     }
 
     public Graveyard.ViewModel OpponentsGraveyard { get; private set; }

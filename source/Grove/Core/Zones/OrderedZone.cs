@@ -11,10 +11,13 @@
   public abstract class OrderedZone : IEnumerable<Card>, IHashable, IZone
   {
     private readonly TrackableList<Card> _cards;    
+    public event EventHandler<ZoneChangedEventArgs> CardAdded = delegate { };
+    public event EventHandler<ZoneChangedEventArgs> CardRemoved = delegate { };
 
     protected OrderedZone(Player owner, Game game)
     {
       Owner = owner;
+      Game = game;
       _cards = new TrackableList<Card>(game.ChangeTracker, orderImpactsHashcode: true);
     }
 
@@ -24,6 +27,7 @@
     }
 
     public Player Owner { get; private set; }
+    protected Game Game { get; private set; }
 
     public int Count { get { return _cards.Count; } }
 
@@ -44,10 +48,17 @@
       return calc.Calculate(_cards);
     }
 
-    public abstract Zone Zone { get; }
+    public abstract Zone Zone { get; }    
 
-    public virtual void AfterAdd(Card card) {}
-    public virtual void AfterRemove(Card card) {}
+    public virtual void AfterAdd(Card card)
+    {
+      
+    }
+
+    public virtual void AfterRemove(Card card)
+    {
+      
+    }
 
     void IZone.Remove(Card card)
     {
@@ -57,23 +68,25 @@
     protected virtual void Remove(Card card)
     {
       _cards.Remove(card);
+      
+      CardRemoved(this, new ZoneChangedEventArgs(card));
+      AfterRemove(card);
     }
 
     public virtual void Add(Card card)
     {
       _cards.Add(card);
       card.ChangeZone(this);
+      
+      CardAdded(this, new ZoneChangedEventArgs(card, _cards.Count - 1));      
     }
 
     public virtual void AddToFront(Card card)
     {
       _cards.AddToFront(card);
       card.ChangeZone(this);
-    }
-
-    public virtual void Clear()
-    {
-      _cards.Clear();
+      
+      CardAdded(this, new ZoneChangedEventArgs(card, _cards.Count));      
     }
 
     public bool Contains(Card card)

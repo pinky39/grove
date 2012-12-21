@@ -8,7 +8,7 @@
 
         <Style TargetType = "ContentControl" x:Key = "TapUntap" BasedOn = "{StaticResource SelectableContent}" >            
             <Style.Triggers>                         
-				<DataTrigger Binding = "{Binding Card.IsTapped}"
+				<DataTrigger Binding = "{Binding IsTapped}"
 				             Value = "True" >
 					<Setter Property = "LayoutTransform" >
 						<Setter.Value>

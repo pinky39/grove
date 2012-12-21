@@ -1,7 +1,6 @@
 ﻿namespace Grove.Ui.Library
 {
   using System.Collections.Generic;
-  using System.Collections.Specialized;
   using System.Linq;
   using Caliburn.Micro;
   using Core;
@@ -15,53 +14,37 @@
     private readonly BindableCollection<SelectableCard.ViewModel> _cards =
       new BindableCollection<SelectableCard.ViewModel>();
 
-    private readonly ILibraryQuery _library;
-
-    public ViewModel(ILibraryQuery library, SelectableCard.ViewModel.IFactory cardVmFactory)
+    public ViewModel(Player owner, SelectableCard.ViewModel.IFactory cardVmFactory)
     {
       CardVmFactory = cardVmFactory;
-      _library = library;
       _cardVmFactory = cardVmFactory;
-      _cards.AddRange(library.Select(cardVmFactory.Create));
 
-      ((INotifyCollectionChanged) library).CollectionChanged += Synchronize;
+      _cards.AddRange(owner.Library.Select(cardVmFactory.Create));
+
+      owner.Library.CardAdded += OnCardAdded;
+      owner.Library.CardRemoved += OnCardRemoved;
     }
 
     public SelectableCard.ViewModel.IFactory CardVmFactory { get; set; }
 
     public IEnumerable<SelectableCard.ViewModel> Cards { get { return _cards; } }
 
-    private void Synchronize(object sender, NotifyCollectionChangedEventArgs e)
+    private void OnCardRemoved(object sender, ZoneChangedEventArgs e)
     {
-      if (e.Action == NotifyCollectionChangedAction.Reset)
-      {
-        _cards.Clear();
-        _cards.AddRange(_library.Select(_cardVmFactory.Create));
-      }
+      var viewModel = _cards.Single(x => x.Card == e.Card);
 
-      if (e.Action == NotifyCollectionChangedAction.Add)
-      {
-        foreach (Card card in e.NewItems)
-        {
-          _cards.Add(_cardVmFactory.Create(card));
-        }
-      }
+      _cards.Remove(viewModel);
+      viewModel.Close();
+    }
 
-      if (e.Action == NotifyCollectionChangedAction.Remove)
-      {
-        foreach (Card card in e.OldItems)
-        {
-          var viewModel = _cards.Single(x => x.Card == card);
-
-          _cards.Remove(viewModel);
-          viewModel.Close();
-        }
-      }
+    private void OnCardAdded(object sender, ZoneChangedEventArgs e)
+    {
+      _cards.Add(_cardVmFactory.Create(e.Card));
     }
 
     public interface IFactory
     {
-      ViewModel Create(ILibraryQuery library);
+      ViewModel Create(Player owner);
     }
   }
 }

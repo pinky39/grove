@@ -24,7 +24,7 @@
 		<Border.Resources>
 
 			<DataTemplate DataType = "{x:Type Core:Card}" >
-                <ContentControl Content = "{Binding}" ContentTemplate = "{StaticResource FaceUpCard}" />                                    
+                <ContentControl Content = "{Binding}" Style="{StaticResource Card}" />                                    
             </DataTemplate>
 
 			<DataTemplate DataType = "{x:Type Cards:ActivatedAbility}" >

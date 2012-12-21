@@ -2,7 +2,7 @@
 {
   using System.Collections.Generic;
 
-  public interface IHandQuery : IEnumerable<Card>
+  public interface IHandQuery : IZoneQuery
   {
     int Count { get; }
     IEnumerable<Card> Lands { get; }

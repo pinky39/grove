@@ -56,9 +56,10 @@
     private readonly CalculateX _xCalculator;
     private readonly Trackable<IZone> _zone;
     private Zone? _resolveToZone;
+    private readonly bool _isPreview;
 
     protected Card() {}
-    
+
     public Card(CardParameters p)
     {
       Name = p.Name;
@@ -77,6 +78,8 @@
 
       _damage = new Trackable<int>(null);
       _isTapped = new Trackable<bool>(null);
+
+      _isPreview = true;
     }
 
     public Card(Player owner, Game game, CardParameters p)
@@ -166,7 +169,7 @@
         p.ContinuousEffectFactories.Select(factory => factory.Create(this, this, game)).ToList();
 
       _continuousEffects = new ContiniousEffects(continiousEffects, game.ChangeTracker, this);
-    }
+    }    
 
     public bool MayChooseNotToUntap { get; private set; }
     public Card AttachedTo { get { return _attachedTo.Value; } private set { _attachedTo.Value = value; } }
@@ -288,7 +291,7 @@
     public int? Level { get { return _level.Value; } }
     public bool CanBeDestroyed { get { return !CanRegenerate && !Has().Indestructible; } }
     public int? OverrideScore { get; private set; }
-    public bool IsVisibleInUi { get { return CanBeSeenBy(_game.Players.Human); } }
+    public bool IsVisibleInUi { get {  return _isPreview || CanBeSeenBy(_game.Players.Human); } }
     public bool IsVisible { get { return CanBeSeenBy(Controller); } }
 
     public void AddModifier(IModifier modifier)
@@ -345,8 +348,6 @@
       }
 
       Publish(new DamageHasBeenDealt(this, damage));
-
-      this.Updates("Damage");
     }
 
     public EffectCategories EffectCategories { get; private set; }
@@ -435,7 +436,7 @@
             Colors.GetHashCode(),
             Counters.GetHashCode(),
             Type.GetHashCode(),
-            _isRevealed.Value.GetHashCode(),            
+            _isRevealed.Value.GetHashCode(),
             calc.Calculate(_staticAbilities),
             calc.Calculate(_triggeredAbilities),
             calc.Calculate(_activatedAbilities),
@@ -752,7 +753,7 @@
 
         oldZone.AfterRemove(this);
       }
-      
+
       newZone.AfterAdd(this);
     }
 
@@ -893,12 +894,12 @@
     public bool CanBeSeenBy(Player player)
     {
       if (_isRevealed == true)
-        return true;
+        return true;      
 
       if (_isHidden == true)
         return false;
 
-      if (Zone == Zone.Battlefield || Zone == Zone.Graveyard || Zone == Zone.Exile)
+      if (Zone == Zone.Battlefield || Zone == Zone.Graveyard || Zone == Zone.Exile || Zone == Zone.Stack)
         return true;
 
       if (Zone == Zone.Library)
@@ -969,8 +970,8 @@
         0);
 
       return generator.Any(targets => targets.Effect.Contains(target));
-    }        
-    
+    }
+
     public void OnCardJoinedBattlefield()
     {
       HasSummoningSickness = true;

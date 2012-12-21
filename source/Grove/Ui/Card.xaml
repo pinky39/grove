@@ -5,17 +5,16 @@
     <Style x:Key="Card" TargetType="ContentControl">
         <Style.Triggers>
 
-            <DataTrigger Binding="{Binding IsFaceUp}" Value="False">
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Content.IsVisibleInUi}" Value="False">
                 <Setter Property="ContentTemplate">
                     <Setter.Value>
-                        <DataTemplate>
-                            <Viewbox></Viewbox>
+                        <DataTemplate>                            
                         </DataTemplate>
                     </Setter.Value>
                 </Setter>
             </DataTrigger>
 
-            <DataTrigger Binding="{Binding IsFaceUp}" Value="True">
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Content.IsVisibleInUi}" Value="True">
                 <Setter Property="ContentTemplate">
                     <Setter.Value>
                         <DataTemplate>
@@ -80,13 +79,13 @@
                                                     </Style>
                                                 </StackPanel.Resources>
 
-                                                <TextBlock Foreground="White" FontSize="17" FontFamily="Arial" Text="{Binding Path=Card.Name}" />
+                                                <TextBlock Foreground="White" FontSize="17" FontFamily="Arial" Text="{Binding Path=Name}" />
                                                 <TextBlock Style="{StaticResource Level}" Foreground="White" FontSize="17" FontFamily="Arial" Text="{Binding Path=Level, StringFormat=' - Level {0}'}" />
                                             </StackPanel>
 
-                                            <Image Source="{grove:Media 'x.png'}" Height="20" Grid.Column="2" Margin="0,3,2,0" Visibility="{Binding Path=Card.HasXInCost, Converter={x:Static grove:Converters.BooleanToVisibility}}" />
+                                            <Image Source="{grove:Media 'x.png'}" Height="20" Grid.Column="2" Margin="0,3,2,0" Visibility="{Binding Path=HasXInCost, Converter={x:Static grove:Converters.BooleanToVisibility}}" />
 
-                                            <ItemsControl Grid.Column="3" Margin="0,3,10,0" ItemsSource="{Binding Path=Card.ManaCost, Converter={x:Static grove:Converters.ManaCostToManaSymbolImages}}">
+                                            <ItemsControl Grid.Column="3" Margin="0,3,10,0" ItemsSource="{Binding Path=ManaCost, Converter={x:Static grove:Converters.ManaCostToManaSymbolImages}}">
                                                 <ItemsControl.ItemsPanel>
                                                     <ItemsPanelTemplate>
                                                         <StackPanel Orientation="Horizontal" />
@@ -101,7 +100,7 @@
                                         </Grid>
 
                                         <Grid Margin="0,6,0,0">
-                                            <Image Source="{Binding Path=Card.Illustration, Converter={x:Static grove:Converters.CardIllustrationNameToCardImage}}" Width="273" Height="220" Stretch="UniformToFill" />
+                                            <Image Source="{Binding Path=Illustration, Converter={x:Static grove:Converters.CardIllustrationNameToCardImage}}" Width="273" Height="220" Stretch="UniformToFill" />
 
                                             <Grid Height="50" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="30,0,0,5" Style="{StaticResource Counters}">
                                                 <Image Source="{grove:Media 'counter.png'}" />
@@ -134,7 +133,7 @@
                                                         </DataTemplate>
                                                     </StackPanel.Resources>
 
-                                                    <ItemsControl ItemsSource="{Binding Path=Card.Text}" FontSize="{Binding CharacterCount, Converter={x:Static grove:Converters.CharacterCountToFontSize}}">
+                                                    <ItemsControl ItemsSource="{Binding Path=Text}" FontSize="{Binding CharacterCount, Converter={x:Static grove:Converters.CharacterCountToFontSize}}">
                                                         <ItemsControl.ItemsPanel>
                                                             <ItemsPanelTemplate>
                                                                 <WrapPanel Width="258" Orientation="Horizontal" />
@@ -142,7 +141,7 @@
                                                         </ItemsControl.ItemsPanel>
                                                     </ItemsControl>
 
-                                                    <ItemsControl ItemsSource="{Binding Path=Card.FlavorText}" FontSize="{Binding CharacterCount, Converter={x:Static grove:Converters.CharacterCountToFontSize}}">
+                                                    <ItemsControl ItemsSource="{Binding Path=FlavorText}" FontSize="{Binding CharacterCount, Converter={x:Static grove:Converters.CharacterCountToFontSize}}">
                                                         <ItemsControl.Resources>
                                                             <DataTemplate DataType="{x:Type Cards:TextToken}">
                                                                 <TextBlock Foreground="#000" Margin="0,0,4,0" Text="{Binding Path=.}" FontStyle="Italic" />

@@ -13,8 +13,8 @@
     public BlockerDamageAssignments(Attacker attacker)
     {      
       _assignments = attacker.Blockers
-        .Select(x => Bindable.Create<BlockerDamageAssignment>(x))
-        .OrderBy(x => x.Blocker.DamageAssignmentOrder)
+        .OrderBy(x => x.DamageAssignmentOrder)
+        .Select(x => Bindable.Create<BlockerDamageAssignment>(x))        
         .ToList();
     }
 
@@ -31,9 +31,8 @@
 
     public bool CanAssignCombatDamageTo(BlockerDamageAssignment blocker)
     {      
-      var ordered = _assignments.OrderBy(x => x.Blocker.DamageAssignmentOrder);
-
-      foreach (var assignment in ordered)
+      
+      foreach (var assignment in _assignments)
       {
         if (assignment == blocker)
           return true;
@@ -49,7 +48,7 @@
     {
       foreach (var blocker in _assignments)
       {
-        blocker.Damage = 0;
+        blocker.AssignedDamage = 0;
       }
     }
   }

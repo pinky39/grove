@@ -12,7 +12,7 @@
   using Infrastructure;
   using Shell;
 
-  public class ViewModel : IReceive<UiInteractionChanged>, IReceive<TargetSelected>, IReceive<TargetUnselected>
+  public class ViewModel : CardViewModel, IReceive<UiInteractionChanged>, IReceive<TargetSelected>, IReceive<TargetUnselected>
   {    
     private readonly SelectAbility.ViewModel.IFactory _selectAbilityVmFactory;
     private readonly SelectTarget.ViewModel.IFactory _selectTargetVmFactory;
@@ -29,7 +29,7 @@
       SelectTarget.ViewModel.IFactory selectTargetVmFactory,
       SelectXCost.ViewModel.IFactory selectXCostVmFactory,
       SelectAbility.ViewModel.IFactory selectAbilityVmFactory,
-      UiDamageDistribution uiDamageDistribution)
+      UiDamageDistribution uiDamageDistribution) : base(card)
     {
       _shell = shell;
       _game = game;
@@ -37,15 +37,10 @@
       _selectXCostVmFactory = selectXCostVmFactory;
       _selectAbilityVmFactory = selectAbilityVmFactory;
       _uiDamageDistribution = uiDamageDistribution;
-      _select = delegate { };
-
-      Card = card;      
+      _select = delegate { };      
     }
-
-    public Card Card { get; private set; }
-    public virtual bool IsPlayable { get; protected set; }
-    //todo
-    //public bool IsVisible { get { return Card.Controller.IsHuman || Card.IsRevealed; } }
+    
+    public virtual bool IsPlayable { get; protected set; }    
     public virtual bool IsSelected { get; protected set; }
 
     public void Receive(UiInteractionChanged message)

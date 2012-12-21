@@ -198,7 +198,7 @@
 			<Border Width="300" Grid.Column="2" Margin="0,0,0,0" VerticalAlignment="Top">
 				<StackPanel>
 					<Border Margin="0,0,0,20" BorderBrush="#444" Background="#000" BorderThickness="1" CornerRadius="8" VerticalAlignment="Top">
-						<ContentControl Margin="12" Content="{Binding SelectedCard}" ContentTemplate="{StaticResource FaceUpCard}" />
+						<ContentControl Margin="12" Content="{Binding SelectedCard}" Style="{StaticResource Card}" />
 					</Border>
 
 					<TextBlock Foreground="#fff" FontSize="15" Margin="0,0,0,5">Description:</TextBlock>

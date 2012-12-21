@@ -1,10 +1,10 @@
 ﻿namespace Grove.Ui.Graveyard
 {
   using System.Collections.Generic;
-  using System.Collections.Specialized;
   using System.Linq;
   using Caliburn.Micro;
   using Core;
+  using Core.Zones;
   using Infrastructure;
 
   public class ViewModel
@@ -14,48 +14,32 @@
     private readonly BindableCollection<SelectableCard.ViewModel> _cards =
       new BindableCollection<SelectableCard.ViewModel>();
 
-    public ViewModel(IEnumerable<Card> graveyard, SelectableCard.ViewModel.IFactory cardVmFactory)
+    public ViewModel(Player owner, SelectableCard.ViewModel.IFactory cardVmFactory)
     {
+      owner.Graveyard.CardAdded += OnCardAdded;
+      owner.Graveyard.CardRemoved += OnCardRemoved;
       _cardVmFactory = cardVmFactory;
-      _cards.AddRange(graveyard.Select(cardVmFactory.Create));
-
-      ((INotifyCollectionChanged) graveyard).CollectionChanged += Synchronize;
     }
-
 
     public IEnumerable<SelectableCard.ViewModel> Cards { get { return _cards; } }
 
-    private void Synchronize(object sender, NotifyCollectionChangedEventArgs e)
+    private void OnCardRemoved(object sender, ZoneChangedEventArgs e)
     {
-      if (e.Action == NotifyCollectionChangedAction.Reset)
-      {
-        _cards.Clear();
-      }
+      var viewModel = _cards.Single(x => x.Card == e.Card);
 
-      if (e.Action == NotifyCollectionChangedAction.Add)
-      {
-        foreach (Card card in e.NewItems)
-        {
-          _cards.Add(_cardVmFactory.Create(card));
-        }
-      }
+      _cards.Remove(viewModel);
+      viewModel.Close();
+    }
 
-      if (e.Action == NotifyCollectionChangedAction.Remove)
-      {
-        foreach (Card card in e.OldItems)
-        {
-          var viewModel = _cards.Single(x => x.Card == card);
-
-          _cards.Remove(viewModel);
-          viewModel.Close();
-        }
-      }
+    private void OnCardAdded(object sender, ZoneChangedEventArgs e)
+    {
+      _cards.Add(_cardVmFactory.Create(e.Card));
     }
 
 
     public interface IFactory
     {
-      ViewModel Create(IEnumerable<Card> graveyard);
+      ViewModel Create(Player owner);
     }
   }
 }
