@@ -1,5 +1,6 @@
 ﻿namespace Grove.Ui.PlayScreen
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
   using System.Threading;
@@ -8,30 +9,37 @@
   using Core.Testing;
   using Infrastructure;
 
-  public class ViewModel : IIsDialogHost, IReceive<PlayerHasCastASpell>, IReceive<PlayerHasActivatedAbility>, 
-    IReceive<SearchStarted>, IReceive<SearchFinished>, IReceive<DamageHasBeenDealt>, IReceive<AssignedCombatDamageWasDealt>
+  public class ViewModel : IIsDialogHost, IReceive<PlayerHasCastASpell>,
+    IReceive<PlayerHasActivatedAbility>,
+    IReceive<SearchStarted>, IReceive<SearchFinished>, IReceive<DamageHasBeenDealt>,
+    IReceive<AssignedCombatDamageWasDealt>
   {
-    private readonly List<object> _largeDialogs = new List<object>();
+    private readonly List<object> _largeDialogs = new List<object>();    
     private readonly QuitGame.ViewModel.IFactory _quitGameFactory;
     private readonly ScenarioGenerator _scenarioGenerator;
 
     private readonly List<object> _smallDialogs = new List<object>();
 
-    public ViewModel(Game game, Battlefield.ViewModel.IFactory battlefieldFactory,
-                     QuitGame.ViewModel.IFactory quitGameFactory)
+    public ViewModel(Game game,
+      Battlefield.ViewModel.IFactory battlefieldFactory,
+      PlayerBox.ViewModel.IFactory playerBoxFactory,
+      QuitGame.ViewModel.IFactory quitGameFactory)
     {
-      _scenarioGenerator = new ScenarioGenerator(game);
+      _scenarioGenerator = new ScenarioGenerator(game);      
       _quitGameFactory = quitGameFactory;
 
       OpponentsBattlefield = battlefieldFactory.Create(game.Players.Computer);
       YourBattlefield = battlefieldFactory.Create(game.Players.Human);
+      You = playerBoxFactory.Create(game.Players.Human);
+      Opponent = playerBoxFactory.Create(game.Players.Computer);
     }
 
     public object LargeDialog { get { return _largeDialogs.FirstOrDefault(); } }
     public MagnifiedCard.ViewModel MagnifiedCard { get; set; }
     public ManaPool.ViewModel ManaPool { get; set; }
     public Battlefield.ViewModel OpponentsBattlefield { get; private set; }
-    public Ui.Players.ViewModel PlayersBox { get; set; }
+    public PlayerBox.ViewModel You { get; private set; }
+    public PlayerBox.ViewModel Opponent { get; private set; }
     public virtual string SearchInProgressMessage { get; set; }
     public object SmallDialog { get { return _smallDialogs.FirstOrDefault(); } }
     public Stack.ViewModel Stack { get; set; }
@@ -73,7 +81,7 @@
     public void CloseAllDialogs()
     {
       foreach (var largeDialog in _largeDialogs.ToList())
-      {        
+      {
         largeDialog.Close();
       }
 
@@ -110,7 +118,7 @@
     public void Receive(PlayerHasCastASpell message)
     {
       MessageLog.AddMessage(message.ToString());
-    }  
+    }
 
     public void Receive(SearchFinished message)
     {
@@ -119,8 +127,8 @@
 
     public void Receive(SearchStarted message)
     {
-      SearchInProgressMessage = string.Format("Counting mammoths ({0},{1})... ", 
-        message.SearchDepthLimit, message.TargetCountLimit);      
+      SearchInProgressMessage = string.Format("Counting mammoths ({0},{1})... ",
+        message.SearchDepthLimit, message.TargetCountLimit);
     }
 
     public void GenerateTestScenario()
@@ -131,10 +139,7 @@
     public void QuitGame()
     {
       var dialog = _quitGameFactory.Create();
-      ((IClosable) dialog).Closed += delegate
-        {
-          QuitGameDialog = null;
-        };
+      ((IClosable) dialog).Closed += delegate { QuitGameDialog = null; };
 
       QuitGameDialog = dialog;
     }

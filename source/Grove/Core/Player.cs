@@ -72,7 +72,7 @@
 
     private Player() {}
     public ControllerType Controller { get; private set; }
-    public object ManaPool { get { return _manaPool; } }
+    public ManaPool ManaPool { get { return _manaPool; } }
     public string Name { get; private set; }
 
     public int LandsPlayedCount { get { return _landsPlayedCount.Value; } set { _landsPlayedCount.Value = value; } }
@@ -159,7 +159,7 @@
       _game.Publish(new DamageHasBeenDealt(this, damage));
     }
 
-    public virtual int Life
+    public int Life
     {
       get { return _life.Value; }
       set

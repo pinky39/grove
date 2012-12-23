@@ -31,17 +31,15 @@
     {
       return _counters.Count(x => x is T);
     }
-
-    [Updates("Count")]
-    public virtual void Add(Counter counter)
+    
+    public void Add(Counter counter)
     {
       counter.ModifyPower(_power);
       counter.ModifyToughness(_toughness);
       _counters.Add(counter);
     }
-
-    [Updates("Count")]
-    public virtual void Remove(Counter counter)
+    
+    public void Remove(Counter counter)
     {
       if (_counters.Remove(counter))
       {

@@ -70,6 +70,7 @@
     {
       var viewModel = Remove(e.Card);
       viewModel.Close();
+      _viewModelFactory.Destroy(viewModel);
     }
 
     private void OnCardAdded(object sender, ZoneChangedEventArgs e)
@@ -140,6 +141,7 @@
     public interface IFactory
     {
       ViewModel Create(Player owner);
+      void Release(ViewModel viewmodel);
     }
   }
 }

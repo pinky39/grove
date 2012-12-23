@@ -3,9 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
              xmlns:Ui="clr-namespace:Grove.Ui" 
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
-             xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro">    
-    
-    <Border>
+             xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro">
+
+    <Border Margin = "0,-260,0,0" Visibility="{Binding IsVisibleInUi, Converter={x:Static Ui:Converters.BooleanToVisibility}}">
         <ContentControl Style = "{StaticResource SelectableContent}" >
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName = "MouseEnter" >

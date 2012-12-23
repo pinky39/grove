@@ -574,6 +574,10 @@
     <Compile Include="Core\Zones\ZoneChangedEventArgs.cs" />
     <Compile Include="Infrastructure\Publisher.cs" />
     <Compile Include="Ui\CardViewModel.cs" />
+    <Compile Include="Ui\PlayerBox\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\PlayerBox\ViewModel.cs" />
     <Compile Include="Ui\SelectableCard\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
@@ -891,10 +895,6 @@
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ui\Permanent\ViewModel.cs" />
-    <Compile Include="Ui\Players\View.xaml.cs">
-      <DependentUpon>View.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Ui\Players\ViewModel.cs" />
     <Compile Include="Ui\IIsDialogHost.cs" />
     <Compile Include="Ui\PlayScreen\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
@@ -1007,6 +1007,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Ui\PlayerBox\View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Ui\SelectableCard\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1076,10 +1080,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Ui\Permanent\View.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Ui\Players\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -58,7 +58,7 @@
 		<Setter Property="Margin" Value="10,0,0,0" />
 		<Setter Property="Orientation" Value="Horizontal" />
 	</Style>
-	<Style x:Key="NormalData" BasedOn="{StaticResource Label}" TargetType="TextBlock">
+	<Style x:Key="Value" BasedOn="{StaticResource Label}" TargetType="TextBlock">
 		<Setter Property="Foreground" Value="#FFD700" />
 	</Style>
 	<Style x:Key="BattlefieldBorder" TargetType="Border">

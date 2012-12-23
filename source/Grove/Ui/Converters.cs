@@ -184,7 +184,7 @@
 
       public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
       {
-        var life = int.Parse((string) value);
+        var life = (int) value;
 
         return life > 9 ? _highLife : _lowLife;
       }

@@ -67,7 +67,7 @@
                     <Setter Property="Foreground" Value="#aaa" />
                     
                 </Style>
-                <Style x:Key="ZoneCount" TargetType="TextBlock" BasedOn="{StaticResource NormalData}">
+                <Style x:Key="ZoneCount" TargetType="TextBlock" BasedOn="{StaticResource Value}">
                     <Setter Property="Margin" Value="3,0,0,0"/>
                     <Setter Property="FontSize" Value="12" />                    
                     

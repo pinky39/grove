@@ -13,6 +13,7 @@
     public CardViewModel(Card card)
     {
       Card = card;
+      
       Update();
 
       _timer = new Timer(delegate { Update(); }, null,
@@ -56,7 +57,7 @@
       Update(() => IsTapped != Card.IsTapped, () => IsTapped = Card.IsTapped);
     }
 
-    private void Update(Func<bool> condition, Action update)
+    private static void Update(Func<bool> condition, Action update)
     {
       if (condition()) update();
     }

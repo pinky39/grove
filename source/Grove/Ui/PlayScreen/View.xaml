@@ -86,7 +86,10 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <ContentControl x:Name="PlayersBox" Grid.Column="0" Margin="15,0,15,0"/>
+                <StackPanel Orientation="Horizontal" Grid.Column="0" Margin="15,0,15,0">
+                    <ContentControl x:Name="You"/>
+                    <ContentControl x:Name="Opponent"/>                    
+                </StackPanel>                
             </Grid>
         </Grid>
                 

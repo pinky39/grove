@@ -305,6 +305,7 @@
     public interface IFactory
     {
       ViewModel Create(Card card);
+      void Destroy(ViewModel viewModel);
     }
   }
 }

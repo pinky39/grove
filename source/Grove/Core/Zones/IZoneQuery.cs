@@ -7,5 +7,7 @@
   {
     event EventHandler<ZoneChangedEventArgs> CardAdded;
     event EventHandler<ZoneChangedEventArgs> CardRemoved;
+
+    int Count { get; }
   }
 }

@@ -27,7 +27,9 @@
       var viewModel = _cards.Single(x => x.Card == e.Card);
 
       _cards.Remove(viewModel);
+      
       viewModel.Close();
+      _spellVmFactory.Destroy(viewModel);
     }
 
     private void OnCardAdded(object sender, ZoneChangedEventArgs e)
@@ -37,7 +39,7 @@
 
     public interface IFactory
     {
-      ViewModel Create(Player owner);
+      ViewModel Create(Player owner);      
     }
   }
 }

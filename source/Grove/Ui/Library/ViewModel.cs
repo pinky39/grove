@@ -35,6 +35,7 @@
 
       _cards.Remove(viewModel);
       viewModel.Close();
+      _cardVmFactory.Destroy(viewModel);
     }
 
     private void OnCardAdded(object sender, ZoneChangedEventArgs e)

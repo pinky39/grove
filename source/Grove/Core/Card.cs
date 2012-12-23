@@ -38,6 +38,7 @@
     private readonly Trackable<bool> _hasSummoningSickness;
     private readonly Trackable<int?> _hash;
     private readonly Trackable<bool> _isHidden;
+    private readonly bool _isPreview;
     private readonly Trackable<bool> _isRevealed;
     private readonly Trackable<bool> _isTapped;
     private readonly IEffectFactory _kickerEffectFactory;
@@ -56,7 +57,6 @@
     private readonly CalculateX _xCalculator;
     private readonly Trackable<IZone> _zone;
     private Zone? _resolveToZone;
-    private readonly bool _isPreview;
 
     protected Card() {}
 
@@ -169,7 +169,7 @@
         p.ContinuousEffectFactories.Select(factory => factory.Create(this, this, game)).ToList();
 
       _continuousEffects = new ContiniousEffects(continiousEffects, game.ChangeTracker, this);
-    }    
+    }
 
     public bool MayChooseNotToUntap { get; private set; }
     public Card AttachedTo { get { return _attachedTo.Value; } private set { _attachedTo.Value = value; } }
@@ -291,8 +291,8 @@
     public int? Level { get { return _level.Value; } }
     public bool CanBeDestroyed { get { return !CanRegenerate && !Has().Indestructible; } }
     public int? OverrideScore { get; private set; }
-    public bool IsVisibleInUi { get {  return _isPreview || CanBeSeenBy(_game.Players.Human); } }
-    public bool IsVisible { get { return CanBeSeenBy(Controller); } }
+    public bool IsVisibleInUi { get { return _isPreview || IsVisibleToPlayer(_game.Players.Human); } }
+    public bool IsVisible { get { return _game.Search.InProgress ? IsVisibleToPlayer(_game.Players.Searching) : IsVisibleToPlayer(Controller); } }
 
     public void AddModifier(IModifier modifier)
     {
@@ -891,10 +891,10 @@
         activationParameters.X);
     }
 
-    public bool CanBeSeenBy(Player player)
+    public bool IsVisibleToPlayer(Player player)
     {
       if (_isRevealed == true)
-        return true;      
+        return true;
 
       if (_isHidden == true)
         return false;
@@ -905,7 +905,7 @@
       if (Zone == Zone.Library)
         return false;
 
-      return player == Controller && (_game.Search.InProgress == false || _game.Players.Searching == Controller);
+      return player == Controller;
     }
 
     public void Reveal()
