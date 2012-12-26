@@ -23,7 +23,7 @@
       Cost.Pay(target: null, x: null);
       OwningCard.IncreaseUsageScore();
 
-      if (amount.Converted == _manaAmountCharacteristic.Value.Converted)
+      if (amount.Converted == GetManaAmount().Converted)
         return;
 
       // if effect produces more mana than needed 
