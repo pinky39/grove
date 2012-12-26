@@ -40,6 +40,25 @@
       return new DecisionsForOneStep(step, turn, Game);
     }
 
+    protected void Library(Player player, params ScenarioCard[] cards)
+    {
+      var library = (Library) player.Library;
+
+      foreach (var scenarioCard in cards)
+      {
+        scenarioCard.Initialize(name =>
+          {
+            var card = CardDatabase.CreateCard(name, player, Game);
+            library.Add(card);
+
+            if (card.IsManaSource)
+              player.AddManaSources(card.ManaSources);
+
+            return card;
+          });
+      }
+    }
+
     protected void Battlefield(Player player, params ScenarioCard[] cards)
     {
       foreach (var scenarioCard in cards)

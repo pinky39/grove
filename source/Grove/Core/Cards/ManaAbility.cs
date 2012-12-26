@@ -1,12 +1,14 @@
 ﻿namespace Grove.Core.Cards
 {
+  using System;
   using Dsl;
   using Effects;
   using Mana;
 
   public class ManaAbility : ActivatedAbility, IManaSource
   {
-    private ManaAmountCharacteristic _manaAmount;
+    private Func<ManaAbility, Game, IManaAmount> _manaAmount;
+    private ManaAmountCharacteristic _manaAmountCharacteristic;
 
     public ManaAbility()
     {
@@ -21,7 +23,7 @@
       Cost.Pay(target: null, x: null);
       OwningCard.IncreaseUsageScore();
 
-      if (amount.Converted == _manaAmount.Value.Converted)
+      if (amount.Converted == _manaAmountCharacteristic.Value.Converted)
         return;
 
       // if effect produces more mana than needed 
@@ -34,7 +36,16 @@
     public IManaAmount GetAvailableMana(ManaUsage usage)
     {
       var prerequisites = CanActivate();
-      return prerequisites.CanBeSatisfied ? _manaAmount.Value : ManaAmount.Zero;
+
+      if (prerequisites.CanBeSatisfied == false)
+        return ManaAmount.Zero;
+
+      return GetManaAmount();
+    }
+
+    private IManaAmount GetManaAmount()
+    {
+      return new AggregateManaAmount(_manaAmountCharacteristic.Value, _manaAmount(this, Game));
     }
 
     public override SpellPrerequisites CanActivate()
@@ -56,29 +67,40 @@
 
     public void AddManaModifier(PropertyModifier<IManaAmount> modifier)
     {
-      _manaAmount.AddModifier(modifier);
+      _manaAmountCharacteristic.AddModifier(modifier);
     }
 
     public void RemoveManaModifier(PropertyModifier<IManaAmount> modifier)
     {
-      _manaAmount.RemoveModifier(modifier);
+      _manaAmountCharacteristic.RemoveModifier(modifier);
+    }
+
+    public void SetManaAmount(Func<ManaAbility, Game, IManaAmount> getManaAmount)
+    {
+      _manaAmount = getManaAmount;
+    }
+
+    protected override void Initialize()
+    {
+      _manaAmountCharacteristic = new ManaAmountCharacteristic(
+        ManaAmount.Zero,
+        Game.ChangeTracker, null);
+
+      CreateEffectFactory();
+    }
+
+    private void CreateEffectFactory()
+    {
+      var builder = new CardBuilder();
+      Effect(builder.Effect<AddManaToPool>(e =>
+        {
+          e.Amount = GetManaAmount();
+        }));
     }
 
     public void SetManaAmount(IManaAmount manaAmount)
     {
-      var builder = new CardBuilder();
-
-      Effect(builder.Effect<AddManaToPool>
-        (
-          e =>
-            {
-              var manaAbility = (ManaAbility) e.Source;
-              e.Amount = manaAbility._manaAmount.Value;
-            }));
-
-      _manaAmount = new ManaAmountCharacteristic(
-        manaAmount, 
-        Game.ChangeTracker, null);
+      _manaAmount = delegate { return manaAmount; };
     }
   }
 }

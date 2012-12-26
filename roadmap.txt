@@ -111,9 +111,9 @@ o Forest
 o Forest
 o Forest
 o Fortitude
-Gaea's Bounty
-Gaea's Cradle
-Gaea's Embrace
+o Gaea's Bounty
+o Gaea's Cradle
+o Gaea's Embrace
 Gamble
 Gilded Drake
 o Glorious Anthem

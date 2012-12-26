@@ -4,9 +4,10 @@
 
   public interface IManaAmount : IEnumerable<ManaUnit>
   {
-    int Converted { get; }
-    ManaUnit First { get; }
+    int Converted { get; }    
     bool IsColorless { get; }
+    
+    ManaUnit First { get; }
     bool Has(ManaUnit mana);
   }
 }

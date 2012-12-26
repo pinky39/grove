@@ -138,6 +138,12 @@
     public IActivatedAbilityFactory ManaAbility(IManaAmount manaAmount, string text, ICostFactory cost = null,
       int? priority = null)
     {
+      return ManaAbility(delegate { return manaAmount; }, text, cost, priority);
+    }
+    
+    public IActivatedAbilityFactory ManaAbility(Func<ManaAbility, Game, IManaAmount> manaAmount, string text, ICostFactory cost = null,
+      int? priority = null)
+    {
       cost = cost ?? new Cost.Factory<TapOwnerPayMana>
         {
           Init = cst => { cst.TapOwner = true; }

@@ -226,6 +226,9 @@
     <Compile Include="Cards\FlametongueKavu.cs" />
     <Compile Include="Cards\Fortitude.cs" />
     <Compile Include="Cards\GaeasBounty.cs" />
+    <Compile Include="Cards\GaeasCradle.cs" />
+    <Compile Include="Cards\GaeasEmbrace.cs" />
+    <Compile Include="Cards\Gamble.cs" />
     <Compile Include="Cards\GloriousAnthem.cs" />
     <Compile Include="Cards\GoblinPatrol.cs" />
     <Compile Include="Cards\GoblinWarBuggy.cs" />

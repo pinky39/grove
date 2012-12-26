@@ -26,6 +26,11 @@
     public static IManaAmount Red { get { return ManaUnit.Red.ToAmount(); } }
     public static IManaAmount Green { get { return ManaUnit.Green.ToAmount(); } }
 
+    public static IManaAmount OfSingleColor(ManaColors color, int count)
+    {
+      return new AggregateManaAmount(Enumerable.Repeat(new ManaUnit(color).ToAmount(), count));
+    }
+
     public static IEnumerable<ManaUnit> Colored(this IManaAmount amount)
     {
       return amount.Where(mana => mana.IsColored);

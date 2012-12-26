@@ -134,6 +134,8 @@
       return true;
     }
 
+    protected virtual void Initialize() {}
+
     public void Enable()
     {
       IsEnabled = true;
@@ -157,6 +159,7 @@
         ability._isEnabled = new Trackable<bool>(true, game.ChangeTracker);
 
         Init(ability);
+        ability.Initialize();
 
         return ability;
       }

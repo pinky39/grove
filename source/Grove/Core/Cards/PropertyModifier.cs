@@ -1,6 +1,6 @@
 ﻿namespace Grove.Core.Cards
 {
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   [Copyable]
   public abstract class PropertyModifier<TValue>
