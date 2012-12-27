@@ -34,6 +34,8 @@
 
       if (_card.Zone != Zone.Battlefield)
         return;
+      
+      _game.Combat.Remove(_card);
 
       if (!_card.IsAttached)
       {

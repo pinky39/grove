@@ -359,12 +359,12 @@
     Card IEffectSource.OwningCard { get { return this; } }
     Card IEffectSource.SourceCard { get { return this; } }
 
-    void IEffectSource.EffectWasCountered()
+    void IEffectSource.EffectCountered(SpellCounterReason reason)
     {
       Owner.PutCardToGraveyard(this);
     }
 
-    void IEffectSource.EffectWasPushedOnStack()
+    void IEffectSource.EffectPushedOnStack()
     {
       var oldZone = Zone;
 
@@ -378,7 +378,7 @@
         });
     }
 
-    void IEffectSource.EffectWasResolved()
+    void IEffectSource.EffectResolved()
     {
       if (Is().Aura)
       {

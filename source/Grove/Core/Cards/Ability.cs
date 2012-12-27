@@ -25,10 +25,10 @@
     public Card OwningCard { get; protected set; }
     public abstract int CalculateHash(HashCalculator calc);
 
-    public void EffectWasCountered() {}
+    public void EffectCountered(SpellCounterReason reason) {}
 
-    void IEffectSource.EffectWasPushedOnStack() {}
-    void IEffectSource.EffectWasResolved() {}
+    void IEffectSource.EffectPushedOnStack() {}
+    void IEffectSource.EffectResolved() {}
 
     bool IEffectSource.IsTargetStillValid(ITarget target, bool wasKickerPaid)
     {

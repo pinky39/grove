@@ -3,11 +3,11 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Grove.Core.Ai;
-  using Grove.Core.Dsl;
-  using Grove.Infrastructure;
-  using Grove.Core.Targeting;
+  using Ai;
+  using Dsl;
+  using Infrastructure;
   using Mana;
+  using Targeting;
 
   [Copyable]
   public abstract class Effect : ITarget, IHasColors
@@ -95,25 +95,28 @@
       return _targets.Cost.Count == 0 ? null : _targets.Cost[0];
     }
 
-    public void EffectWasCountered()
+    public void EffectCountered(SpellCounterReason reason)
     {
-      Source.EffectWasCountered();
+      Source.EffectCountered(reason);
+      OnEffectCountered(reason);
     }
 
+    protected virtual void OnEffectCountered(SpellCounterReason reason) {}
+    
     public void EffectWasPushedOnStack()
     {
-      Source.EffectWasPushedOnStack();
+      Source.EffectPushedOnStack();
     }
 
     public void FinishResolve()
     {
       if (WasResolved)
       {
-        Source.EffectWasResolved();
+        Source.EffectResolved();
         return;
       }
 
-      Source.EffectWasCountered();
+      EffectCountered(SpellCounterReason.IllegalTarget);
     }
 
     public bool CanBeResolved()

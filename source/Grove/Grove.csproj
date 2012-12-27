@@ -229,7 +229,9 @@
     <Compile Include="Cards\GaeasCradle.cs" />
     <Compile Include="Cards\GaeasEmbrace.cs" />
     <Compile Include="Cards\Gamble.cs" />
+    <Compile Include="Cards\GildedDrake.cs" />
     <Compile Include="Cards\GloriousAnthem.cs" />
+    <Compile Include="Cards\GoblinCadets.cs" />
     <Compile Include="Cards\GoblinPatrol.cs" />
     <Compile Include="Cards\GoblinWarBuggy.cs" />
     <Compile Include="Cards\GrizzlyBears.cs" />
@@ -360,7 +362,9 @@
     <Compile Include="Core\CardParameters.cs" />
     <Compile Include="Core\Cards\ContiniousEffects.cs" />
     <Compile Include="Core\Cards\Effects\ApplyModifiersToPlayers.cs" />
+    <Compile Include="Core\Cards\Effects\ExchangeForOpponentsCreature.cs" />
     <Compile Include="Core\Cards\Effects\SearchLibraryPutToHand.cs" />
+    <Compile Include="Core\Cards\SpellCounterReason.cs" />
     <Compile Include="Core\Cards\ManaAmountCharacteristic.cs" />
     <Compile Include="Core\Cards\Modifiers\IncreaseLandLimit.cs" />
     <Compile Include="Core\Cards\Modifiers\IncreaseManaOutput.cs" />
@@ -423,7 +427,7 @@
     <Compile Include="Core\Cards\Modifiers\ILifetimeFactory.cs" />
     <Compile Include="Core\Cards\Modifiers\PermanentLeavesBattlefieldLifetime.cs" />
     <Compile Include="Core\Cards\Modifiers\SetColors.cs" />
-    <Compile Include="Core\Cards\Triggers\GetsBlocked.cs" />
+    <Compile Include="Core\Cards\Triggers\OnBlock.cs" />
     <Compile Include="Core\Cards\Triggers\OnAttachmentDetached.cs" />
     <Compile Include="Core\Cards\Triggers\TriggerOrder.cs" />
     <Compile Include="Core\Mana\ManaUsage.cs" />

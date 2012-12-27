@@ -25,7 +25,7 @@
         .Abilities(
           TriggeredAbility(
             "Whenever Cave Tiger becomes blocked by a creature, Cave Tiger gets +1/+1 until end of turn.",
-            Trigger<GetsBlocked>(),
+            Trigger<OnBlock>(t => t.GetsBlocked = true),
             Effect<ApplyModifiersToSelf>(e => e.Modifiers(
               Modifier<AddPowerAndToughness>(m =>
                 {

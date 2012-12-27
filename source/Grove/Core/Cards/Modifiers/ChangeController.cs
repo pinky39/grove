@@ -1,5 +1,5 @@
 ﻿namespace Grove.Core.Cards.Modifiers
-{
+{    
   public class ChangeController : Modifier
   {
     public Player NewController;

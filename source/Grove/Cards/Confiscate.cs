@@ -20,6 +20,7 @@
         .FlavorText(
           "'I don't understand why he works so hard on a device to duplicate a sound so easily made with hand and armpit.'{EOL}—Barrin, progress report")
         .Timing(Timings.FirstMain())
+        .Category(EffectCategories.Destruction)
         .Effect<Attach>(e => e.Modifiers(
           Modifier<ChangeController>(m => m.NewController = m.Source.Controller)))
         .Targets(

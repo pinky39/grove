@@ -5,6 +5,7 @@
   using System.Collections.Generic;
   using System.Linq;
   using Ai;
+  using Cards;
   using Cards.Effects;
   using Infrastructure;
   using Targeting;
@@ -116,7 +117,7 @@
     public void Counter(Effect effect)
     {
       Remove(effect);
-      effect.EffectWasCountered();
+      effect.EffectCountered(SpellCounterReason.SpellOrAbility);
     }
 
     public int GetDamageTopSpellWillDealToPlayer(Player player)

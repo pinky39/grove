@@ -152,6 +152,8 @@
     <Compile Include="Cards\GaeasBounty.cs" />
     <Compile Include="Cards\GaeasCradle.cs" />
     <Compile Include="Cards\Gamble.cs" />
+    <Compile Include="Cards\GildedDrake.cs" />
+    <Compile Include="Cards\GoblinCadets.cs" />
     <Compile Include="Cards\GraveTitan.cs" />
     <Compile Include="Cards\HeroOfBladeHold.cs" />
     <Compile Include="Cards\JaggedLightning.cs" />
