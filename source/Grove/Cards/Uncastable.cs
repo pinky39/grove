@@ -10,8 +10,8 @@
     {
       yield return Card
         .Named("Uncastable")
-        .ManaCost("{42}{G}")
-        .Type("Creature - Uncastable")
+        .ManaCost("{101}")
+        .Type("Uncastable")
         .OverrideScore(0)
         .Power(2)
         .Toughness(2);

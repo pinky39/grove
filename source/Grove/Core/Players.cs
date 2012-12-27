@@ -21,13 +21,12 @@
       string player2Name,
       ControllerType player2Type,
       IEnumerable<string> player2Deck,
-      Game game,
-      bool enableDatabinding)
+      Game game)
     {
       _extraTurns = new TrackableList<Player>(game.ChangeTracker, orderImpactsHashcode: true);
 
-      Player1 = CreatePlayer(player1Name, "player1.png", player1Type, player1Deck, game, enableDatabinding);
-      Player2 = CreatePlayer(player2Name, "player2.png", player2Type, player2Deck, game, enableDatabinding);
+      Player1 = CreatePlayer(player1Name, "player1.png", player1Type, player1Deck, game);
+      Player2 = CreatePlayer(player2Name, "player2.png", player2Type, player2Deck, game);
     }
 
     private Players() {}
@@ -113,14 +112,8 @@
         calc.Calculate(_extraTurns));
     }
 
-    private Player CreatePlayer(string name, string avatar, ControllerType type, IEnumerable<string> deck, Game game,
-      bool enableDatabinding)
-    {
-      if (enableDatabinding)
-      {
-        return new Player(name, avatar, type, deck, game);
-      }
-
+    private Player CreatePlayer(string name, string avatar, ControllerType type, IEnumerable<string> deck, Game game)
+    {      
       return new Player(name, avatar, type, deck, game);
     }    
 

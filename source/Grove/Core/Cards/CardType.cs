@@ -19,7 +19,7 @@
     bool Sorcery { get; }
     bool Token { get; }
     bool Aura { get; }
-    bool NonBasicLand { get;}
+    bool NonBasicLand { get;}    
 
     bool OfType(string type);
   }
@@ -47,6 +47,7 @@
     private bool _isCreature;
     private bool _isLand;
     private bool _isLegendary;
+    private bool _isUncastable;
 
     private CardType(IEnumerable<string> types)
     {
@@ -72,7 +73,7 @@
     public bool Sorcery { get { return Is("sorcery"); } }
     public bool Token { get { return Is("token"); } }
     public bool Aura { get { return Is("aura"); } }
-    public bool NonBasicLand { get { return Land && !BasicLand; } }
+    public bool NonBasicLand { get { return Land && !BasicLand; } }    
 
     public bool OfType(string type)
     {
@@ -150,6 +151,7 @@
       _isCreature = Is("creature");
       _isLand = Is("land");
       _isLegendary = Is("legendary");
+      _isUncastable = Is("uncastable");
     }
 
     public static implicit operator CardType(string cardTypes)

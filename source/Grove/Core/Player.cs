@@ -62,11 +62,21 @@
       _damageRedirections = new DamageRedirections(game.ChangeTracker, null);
       _assignedDamage = new AssignedDamage(this, game.ChangeTracker);
       _continuousEffects = new ContiniousEffects(game.ChangeTracker);
-      _landLimit = new LandLimit(1, game.ChangeTracker, null);
+      _landLimit = new LandLimit(1, game.ChangeTracker, null);      
+
+      _battlefield = new Battlefield(this, game);
+      _hand = new Hand(this, game);
+      _graveyard = new Graveyard(this, game);
+      _library = new Library(this, game);
+      _exile = new Exile(this, game);
+
 
       var cards = LoadCards(deck, _game.CardDatabase);
+      foreach (var card in cards)
+      {
+        _library.Add(card);
+      }
 
-      CreateZones(cards, game);
       InitializeManaSources(game.ChangeTracker);
     }
 
@@ -463,20 +473,6 @@
             .SelectMany(x => x.ManaSources));
 
       _manaSources = new ManaSources(manaSources, changeTracker);
-    }
-
-    private void CreateZones(IEnumerable<Card> cards, Game game)
-    {
-      _battlefield = new Battlefield(this, game);
-      _hand = new Hand(this, game);
-      _graveyard = new Graveyard(this, game);
-      _library = new Library(this, game);
-      _exile = new Exile(this, game);
-
-      foreach (var card in cards)
-      {
-        _library.Add(card);
-      }
     }
 
     public void AddManaSource(IManaSource manaSource)

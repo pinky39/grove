@@ -274,6 +274,10 @@
           case (Zone.Graveyard):
             score = ScoreCalculator.CalculateCardInGraveyardScore(this);
             break;
+
+          case (Zone.Library):
+            score = ScoreCalculator.CalculateCardInLibraryScore(this);
+            break;
         }
 
         // card usage lowers the score slightly, since we want't to 
@@ -572,9 +576,9 @@
     }
 
     public SpellPrerequisites CanCast()
-    {
+    {      
       if (!CastingRule.CanCast(this))
-        return new SpellPrerequisites {CanBeSatisfied = false};
+        return SpellPrerequisites.CannotBeSatisfied;
 
       var canCastWithKicker = HasKicker
         ? Owner.HasMana(ManaCostWithKicker, ManaUsage.Spells)

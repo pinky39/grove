@@ -107,17 +107,17 @@
 
       if (permanent.OverrideScore.HasValue)
         return permanent.OverrideScore.Value;
-      
+
       if (permanent.IsTapped)
         score += tappedPermanentValue;
 
       if (permanent.Level > 0)
         score += 10*permanent.Level.Value;
-      
+
       if (permanent.ManaCost != null)
       {
         score += CalculatePermanentScoreFromManaCost(permanent.ManaCost);
-        
+
         if (permanent.Is().Creature)
         {
           score += (permanent.Power.Value + permanent.Toughness.Value);
@@ -168,16 +168,16 @@
       if (!card.IsVisible)
       {
         return 220;
-      }            
+      }
 
       if (card.OverrideScore.HasValue)
       {
         return card.OverrideScore.Value;
       }
-      
+
       if (card.ManaCost == null || card.ManaCost.Converted == 0)
       {
-        return 110;  
+        return 110;
       }
 
       return CalculateCardInHandScoreFromManaCost(card.ManaCost);
@@ -185,12 +185,17 @@
 
     public static int CalculateCardInGraveyardScore(Card card)
     {
+      if (card.OverrideScore.HasValue)
+      {
+        return card.OverrideScore.Value;
+      }
+      
       if (card.Is().BasicLand)
         return 1;
 
       if (card.Is().Land)
         return 2;
-      
+
       return card.ManaCost.Converted;
     }
 
@@ -198,5 +203,15 @@
     {
       return CalculateLifeScore(life) - CalculateLifeScore(life - loss);
     }
+
+    public static int CalculateCardInLibraryScore(Card card)
+    {
+      if (card.OverrideScore.HasValue)
+      {
+        return card.OverrideScore.Value;
+      }
+
+      return CalculateCardInGraveyardScore(card) - 1;
+    }    
   }
 }

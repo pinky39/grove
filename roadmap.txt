@@ -114,7 +114,7 @@ o Fortitude
 o Gaea's Bounty
 o Gaea's Cradle
 o Gaea's Embrace
-Gamble
+o Gamble
 Gilded Drake
 o Glorious Anthem
 Goblin Cadets

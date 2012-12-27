@@ -48,8 +48,7 @@
         player2Name: "Cpu",
         player2Type: ControllerType.Machine,
         player2Deck: cpuDeck,
-        game: game,
-        enableDatabinding: true);
+        game: game);
 
       return game;
     }
@@ -110,8 +109,7 @@
         player2Name: "Player2",
         player2Type: ControllerType.Machine,
         player2Deck: deck2,
-        game: game,
-        enableDatabinding: false);
+        game: game);
 
       return game;
     }
@@ -194,8 +192,7 @@
         player2Name: "Player2",
         player2Type: player2Controller,
         player2Deck: DummyDeck(),
-        game: game,
-        enableDatabinding: false);
+        game: game);
 
 
       game.Players.Starting = game.Players.Player1;

@@ -9,12 +9,18 @@
   {
     public int MaxCount;
     public int MinCount;
+    public bool DiscardRandomCardAfterwards;
     public string Text;
     public Func<Card, bool> Validator = delegate { return true; };
 
     public void ResultProcessed(ChosenCards results)
-    {                 
-      Controller.ShuffleLibrary();      
+    {                       
+      if (DiscardRandomCardAfterwards)
+      {
+        Controller.DiscardRandomCard();
+      }
+
+      Controller.ShuffleLibrary();
     }
 
     protected override void ResolveEffect()
@@ -26,7 +32,7 @@
         init: p =>
           {
             p.MinCount = MinCount;
-            p.MinCount = MaxCount;
+            p.MaxCount = MaxCount;
             p.Validator = Validator;
             p.Zone = Zone.Library;
             p.Text = FormatText(Text);
