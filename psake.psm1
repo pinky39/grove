@@ -1,5 +1,5 @@
 # psake
-# Copyright (c) 2010 James Kovacs
+# Copyright (c) 2012 James Kovacs
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
 # in the Software without restriction, including without limitation the rights
@@ -34,31 +34,32 @@ function Invoke-Task
 
     $taskKey = $taskName.ToLower()
 
+    if ($currentContext.aliases.Contains($taskKey)) {
+        $taskName = $currentContext.aliases.$taskKey.Name
+        $taskKey = $taskName.ToLower()
+    }
+
     $currentContext = $psake.context.Peek()
-    $tasks = $currentContext.tasks
-    $executedTasks = $currentContext.executedTasks
-    $callStack = $currentContext.callStack
 
-    Assert ($tasks.Contains($taskKey)) ($msgs.error_task_name_does_not_exist -f $taskName)
+    Assert ($currentContext.tasks.Contains($taskKey)) ($msgs.error_task_name_does_not_exist -f $taskName)
 
-    if ($executedTasks.Contains($taskKey))  { return }
+    if ($currentContext.executedTasks.Contains($taskKey))  { return }
 
-    Assert (!$callStack.Contains($taskKey)) ($msgs.error_circular_reference -f $taskName)
+    Assert (!$currentContext.callStack.Contains($taskKey)) ($msgs.error_circular_reference -f $taskName)
 
-    $callStack.Push($taskKey)
+    $currentContext.callStack.Push($taskKey)
 
-    $task = $tasks.$taskKey
+    $task = $currentContext.tasks.$taskKey
 
     $precondition_is_valid = & $task.Precondition
 
     if (!$precondition_is_valid) {
-        Write-ColoredOutput ($msgs.precondition_was_false -f $taskName) -foregroundcolor Blue
+        Write-ColoredOutput ($msgs.precondition_was_false -f $taskName) -foregroundcolor Cyan
     } else {
         if ($taskKey -ne 'default') {
-            $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
 
             if ($task.PreAction -or $task.PostAction) {
-                Assert ($task.Action -ne $null) $msgs.error_missing_action_parameter
+                Assert ($task.Action -ne $null) ($msgs.error_missing_action_parameter -f $taskName)
             }
 
             if ($task.Action) {
@@ -67,6 +68,7 @@ function Invoke-Task
                         Invoke-Task $childTask
                     }
 
+                    $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
                     $currentContext.currentTaskName = $taskName
 
                     & $currentContext.taskSetupScriptBlock
@@ -78,7 +80,11 @@ function Invoke-Task
                     if ($currentContext.config.taskNameFormat -is [ScriptBlock]) {
                         & $currentContext.config.taskNameFormat $taskName
                     } else {
-                        Write-ColoredOutput ($currentContext.config.taskNameFormat -f $taskName) -foregroundcolor Blue
+                        Write-ColoredOutput ($currentContext.config.taskNameFormat -f $taskName) -foregroundcolor Cyan
+                    }
+
+                    foreach ($variable in $task.requiredVariables) {
+                        Assert ((test-path "variable:$variable") -and ((get-variable $variable).Value -ne $null)) ($msgs.required_variable_not_set -f $variable, $taskName)
                     }
 
                     & $task.Action 
@@ -88,23 +94,23 @@ function Invoke-Task
                     }
 
                     & $currentContext.taskTearDownScriptBlock
+                    $task.Duration = $stopwatch.Elapsed
                 } catch {
                     if ($task.ContinueOnError) {
-                        "-"*70            
-                        $msgs.continue_on_error -f $taskName,$_
                         "-"*70
+                        Write-ColoredOutput ($msgs.continue_on_error -f $taskName,$_) -foregroundcolor Yellow
+                        "-"*70
+                        $task.Duration = $stopwatch.Elapsed
                     }  else {
                         throw $_
                     }
                 }
             } else { 
-                #no Action was specified but we still execute all the dependencies
+                # no action was specified but we still execute all the dependencies
                 foreach($childTask in $task.DependsOn) {
                     Invoke-Task $childTask
                 }
             }
-            $stopwatch.stop()
-            $task.Duration = $stopwatch.Elapsed
         } else {
             foreach($childTask in $task.DependsOn) {
                 Invoke-Task $childTask
@@ -114,10 +120,10 @@ function Invoke-Task
         Assert (& $task.Postcondition) ($msgs.postcondition_failed -f $taskName)
     }
 
-    $poppedTaskKey = $callStack.Pop()
+    $poppedTaskKey = $currentContext.callStack.Pop()
     Assert ($poppedTaskKey -eq $taskKey) ($msgs.error_corrupt_callstack -f $taskKey,$poppedTaskKey)
 
-    $executedTasks.Push($taskKey)
+    $currentContext.executedTasks.Push($taskKey)
 }
 
 # .ExternalHelp  psake.psm1-help.xml
@@ -152,17 +158,18 @@ function Task
 {
     [CmdletBinding()]  
     param(
-        [Parameter(Position=0,Mandatory=1)] [string]$name = $null,
-        [Parameter(Position=1,Mandatory=0)] [scriptblock]$action = $null,    
-        [Parameter(Position=2,Mandatory=0)] [scriptblock]$preaction = $null,    
-        [Parameter(Position=3,Mandatory=0)] [scriptblock]$postaction = $null,    
-        [Parameter(Position=4,Mandatory=0)] [scriptblock]$precondition = {$true},    
-        [Parameter(Position=5,Mandatory=0)] [scriptblock]$postcondition = {$true},    
-        [Parameter(Position=6,Mandatory=0)] [switch]$continueOnError = $false,    
-        [Parameter(Position=7,Mandatory=0)] [string[]]$depends = @(),    
-        [Parameter(Position=8,Mandatory=0)] [string]$description = $null
+        [Parameter(Position=0,Mandatory=1)][string]$name = $null,
+        [Parameter(Position=1,Mandatory=0)][scriptblock]$action = $null,
+        [Parameter(Position=2,Mandatory=0)][scriptblock]$preaction = $null,
+        [Parameter(Position=3,Mandatory=0)][scriptblock]$postaction = $null,
+        [Parameter(Position=4,Mandatory=0)][scriptblock]$precondition = {$true}, 
+        [Parameter(Position=5,Mandatory=0)][scriptblock]$postcondition = {$true},
+        [Parameter(Position=6,Mandatory=0)][switch]$continueOnError = $false,
+        [Parameter(Position=7,Mandatory=0)][string[]]$depends = @(),
+        [Parameter(Position=8,Mandatory=0)][string[]]$requiredVariables = @(),
+        [Parameter(Position=9,Mandatory=0)][string]$description = $null,
+        [Parameter(Position=10,Mandatory=0)][string]$alias = $null
     )
-
     if ($name -eq 'default') {
         Assert (!$action) ($msgs.error_default_task_cannot_have_action)
     }
@@ -177,16 +184,27 @@ function Task
         Postcondition = $postcondition
         ContinueOnError = $continueOnError
         Description = $description
-        Duration = 0
+        Duration = [System.TimeSpan]::Zero
+        RequiredVariables = $requiredVariables
+        Alias = $alias
     }
 
-    $taskKey = $name.ToLower()
+    $taskKey = $name.ToLower()    
 
     $currentContext = $psake.context.Peek()
 
     Assert (!$currentContext.tasks.ContainsKey($taskKey)) ($msgs.error_duplicate_task_name -f $name) 
 
     $currentContext.tasks.$taskKey = $newTask
+
+    if($alias)
+    {
+        $aliasKey = $alias.ToLower()
+
+        Assert (!$currentContext.aliases.ContainsKey($aliasKey)) ($msgs.error_duplicate_alias_name -f $alias) 
+
+        $currentContext.aliases.$aliasKey = $newTask        
+    }
 }
 
 # .ExternalHelp  psake.psm1-help.xml
@@ -204,7 +222,7 @@ function Include {
     param(
         [Parameter(Position=0,Mandatory=1)][string]$fileNamePathToInclude
     )
-    Assert (test-path $fileNamePathToInclude) ($msgs.error_invalid_include_path -f $fileNamePathToInclude)
+    Assert (test-path $fileNamePathToInclude -pathType Leaf) ($msgs.error_invalid_include_path -f $fileNamePathToInclude)
     $psake.context.Peek().includes.Enqueue((Resolve-Path $fileNamePathToInclude));
 }
 
@@ -254,7 +272,8 @@ function Invoke-psake {
         [Parameter(Position = 3, Mandatory = 0)][switch] $docs = $false, 
         [Parameter(Position = 4, Mandatory = 0)][hashtable] $parameters = @{}, 
         [Parameter(Position = 5, Mandatory = 0)][hashtable] $properties = @{},
-        [Parameter(Position = 6, Mandatory = 0)][switch] $nologo = $false
+        [Parameter(Position = 6, Mandatory = 0)][alias("init")][scriptblock] $initialization = {},
+        [Parameter(Position = 7, Mandatory = 0)][switch] $nologo = $false
     )
     try {
         if (-not $nologo) {
@@ -263,13 +282,13 @@ function Invoke-psake {
  
         # If the default.ps1 file exists and the given "buildfile" isn 't found assume that the given 
         # $buildFile is actually the target Tasks to execute in the default.ps1 script. 
-        if ($buildFile -and !(test-path $buildFile) -and (test-path $psake.config_default.buildFileName)) {
+        if ($buildFile -and !(test-path $buildFile -pathType Leaf) -and (test-path $psake.config_default.buildFileName -pathType Leaf)) {
             $taskList = $buildFile.Split(', ')
             $buildFile = $psake.config_default.buildFileName
         }
 
         # Execute the build file to set up the tasks and defaults
-        Assert (test-path $buildFile) ($msgs.error_build_file_not_found -f $buildFile)
+        Assert (test-path $buildFile -pathType Leaf) ($msgs.error_build_file_not_found -f $buildFile)
 
         $psake.build_script_file = get-item $buildFile
         $psake.build_script_dir = $psake.build_script_file.DirectoryName
@@ -284,6 +303,7 @@ function Invoke-psake {
             "originalDirectory" = get-location;
             "originalErrorActionPreference" = $global:ErrorActionPreference;
             "tasks" = @{};
+            "aliases" = @{};
             "properties" = @();
             "includes" = new-object System.Collections.Queue;
             "config" = Create-ConfigurationForNewContext $buildFile $framework
@@ -328,8 +348,7 @@ function Invoke-psake {
             }
         }
 
-        # N.B. The initial dot (.) indicates that variables initialized/modified
-        #      in the propertyBlock are available in the parent scope.
+        # The initial dot (.) indicates that variables initialized/modified in the propertyBlock are available in the parent scope.
         foreach ($propertyBlock in $currentContext.properties) {
             . $propertyBlock 
         }
@@ -339,6 +358,10 @@ function Invoke-psake {
                 set-item -path "variable:\$key" -value $properties.$key | out-null
             }
         }
+
+        # Simple dot sourcing will not work. We have to force the script block into our
+        # module's scope in order to initialize variables properly.
+        . $MyInvocation.MyCommand.Module $initialization
 
         # Execute the list of tasks or the default task
         if ($taskList) {
@@ -351,11 +374,9 @@ function Invoke-psake {
             throw $msgs.error_no_default_task
         }
 
-        $stopwatch.Stop()
-
         Write-ColoredOutput ("`n" + $msgs.build_success + "`n") -foregroundcolor Green
 
-        Write-TaskTimeSummary
+        Write-TaskTimeSummary $stopwatch.Elapsed
 
         $psake.build_success = $true
     } catch {
@@ -376,8 +397,8 @@ function Invoke-psake {
         $psake.build_success = $false
 
         if (!$psake.run_by_psake_build_tester) {
-            #if we are running in a nested scope (i.e. running a psake script from a psake script) then we need to re-throw the exception
-            #so that the parent script will fail otherwise the parent script will report a successful build 
+            # if we are running in a nested scope (i.e. running a psake script from a psake script) then we need to re-throw the exception
+            # so that the parent script will fail otherwise the parent script will report a successful build 
             $inNestedScope = ($psake.context.count -gt 1)
             if ( $inNestedScope ) {
                 throw $_
@@ -389,7 +410,7 @@ function Invoke-psake {
     } finally {
         Cleanup-Environment
     }
-} #Invoke-psake
+}
 
 #-- Private Module Functions --#
 function Write-ColoredOutput {
@@ -414,32 +435,15 @@ function Write-ColoredOutput {
 }
 
 function Load-Modules {
-    $modules = $null
-
     $currentConfig = $psake.context.peek().config
-    if ($currentConfig.modules.autoload) {
-        if ($currentConfig.modules.directory) {
-            Assert (test-path $currentConfig.modules.directory) ($msgs.error_invalid_module_dir -f $currentConfig.modules.directory)
-            $modules = get-item(join-path $currentConfig.modules.directory "*.psm1")
-        }
-        elseif (test-path (join-path $PSScriptRoot "modules")) {
-            $modules = get-item (join-path (join-path $PSScriptRoot "modules") "*.psm1")
-        }
-    } else {
-        if ($currentConfig.modules.module) {
-            $modules = $currentConfig.modules.module | % {
-                Assert (test-path $_.path) ($msgs.error_invalid_module_path -f $_.path);
-                get-item $_.path
-            }
-        }
-    }
-
-    if ($modules) {
-        $modules | % {
-            "loading module: $_";
-            $module = import-module $_ -passthru;
-            if (!$module) {
-                throw ($msgs.error_loading_module -f $_.Name)
+    if ($currentConfig.modules) {
+        $currentConfig.modules | foreach {
+            resolve-path $_ | foreach {
+                "Loading module: $_"
+                $module = import-module $_ -passthru
+                if (!$module) {
+                    throw ($msgs.error_loading_module -f $_.Name)
+                }
             }
         }
         ""
@@ -453,7 +457,7 @@ function Load-Configuration {
 
     $psakeConfigFilePath = (join-path $configdir "psake-config.ps1")
 
-    if (test-path $psakeConfigFilePath) {
+    if (test-path $psakeConfigFilePath -pathType Leaf) {
         try {
             $config = Get-CurrentConfigurationOrDefault
             . $psakeConfigFilePath
@@ -540,7 +544,7 @@ function Configure-BuildEnvironment {
             'x64' {
                 $bitness = 'Framework64'
             }
-            $null {
+            { [string]::IsNullOrEmpty($_) } {
                 $ptrSize = [System.IntPtr]::Size
                 switch ($ptrSize) {
                     4 {
@@ -561,11 +565,11 @@ function Configure-BuildEnvironment {
     }
     $frameworkDirs = $versions | foreach { "$env:windir\Microsoft.NET\$bitness\$_\" }
 
-    $frameworkDirs | foreach { Assert (test-path $_) ($msgs.error_no_framework_install_dir_found -f $_)}
+    $frameworkDirs | foreach { Assert (test-path $_ -pathType Container) ($msgs.error_no_framework_install_dir_found -f $_)}
 
     $env:path = ($frameworkDirs -join ";") + ";$env:path"
-    #if any error occurs in a PS function then "stop" processing immediately
-    #this does not effect any external programs that return a non-zero exit code
+    # if any error occurs in a PS function then "stop" processing immediately
+    # this does not effect any external programs that return a non-zero exit code
     $global:ErrorActionPreference = "Stop"
 }
 
@@ -579,7 +583,7 @@ function Cleanup-Environment {
     }
 }
 
-#borrowed from Jeffrey Snover http://blogs.msdn.com/powershell/archive/2006/12/07/resolve-error.aspx
+# borrowed from Jeffrey Snover http://blogs.msdn.com/powershell/archive/2006/12/07/resolve-error.aspx
 function Resolve-Error($ErrorRecord = $Error[0]) {
     $error_message = "`nErrorRecord:{0}ErrorRecord.InvocationInfo:{1}Exception:{2}"
     $formatted_errorRecord = $ErrorRecord | format-list * -force | out-string
@@ -616,10 +620,10 @@ function Write-Documentation {
             "Depends On" = $task.DependsOn -join ", "
             Default = if ($defaultTaskDependencies -contains $task.Name) { $true }
         }
-    } | sort 'Name' | format-table -Auto -Property Name,Description,"Depends On",Default
+    } | sort 'Name' | format-table -autoSize -property Name,Description,"Depends On",Default
 }
 
-function Write-TaskTimeSummary {
+function Write-TaskTimeSummary($invokePsakeDuration) {
     "-" * 70 
     "Build Time Report"
     "-" * 70
@@ -639,36 +643,37 @@ function Write-TaskTimeSummary {
     [Array]::Reverse($list)
     $list += new-object PSObject -property @{
         Name = "Total:";
-        Duration = $stopwatch.Elapsed
+        Duration = $invokePsakeDuration
     }
-    $list | format-table -auto -Property Name,Duration | out-string -stream | ? { $_ } #using "Out-String -Stream" to filter out the blank line that Format-Table prepends
+    # using "out-string | where-object" to filter out the blank line that format-table prepends
+    $list | format-table -autoSize -property Name,Duration | out-string -stream | where-object { $_ }
 }
 
 DATA msgs {
 convertfrom-stringdata @'
-    error_invalid_task_name = Task name should not be null or empty string
-    error_task_name_does_not_exist = task [{0}] does not exist
-    error_circular_reference = Circular reference found for task, {0}
-    error_missing_action_parameter = Action parameter must be specified when using PreAction or PostAction parameters
-    error_corrupt_callstack = CallStack was corrupt. Expected {0}, but got {1}.
-    error_invalid_framework = Invalid .NET Framework version, {0}, specified
-    error_unknown_framework = Unknown .NET Framework version, {0}, specified in {1}
+    error_invalid_task_name = Task name should not be null or empty string.
+    error_task_name_does_not_exist = Task {0} does not exist.
+    error_circular_reference = Circular reference found for task {0}.
+    error_missing_action_parameter = Action parameter must be specified when using PreAction or PostAction parameters for task {0}.
+    error_corrupt_callstack = Call stack was corrupt. Expected {0}, but got {1}.
+    error_invalid_framework = Invalid .NET Framework version, {0} specified.
+    error_unknown_framework = Unknown .NET Framework version, {0} specified in {1}.
     error_unknown_pointersize = Unknown pointer size ({0}) returned from System.IntPtr.
-    error_unknown_bitnesspart = Unknown .NET Framework bitness, {0}, specified in {1}
-    error_no_framework_install_dir_found = No .NET Framework installation directory found at {0}
-    error_bad_command = Error executing command: {0}
-    error_default_task_cannot_have_action = 'default' task cannot specify an action
+    error_unknown_bitnesspart = Unknown .NET Framework bitness, {0}, specified in {1}.
+    error_no_framework_install_dir_found = No .NET Framework installation directory found at {0}.
+    error_bad_command = Error executing command {0}.
+    error_default_task_cannot_have_action = 'default' task cannot specify an action.
     error_duplicate_task_name = Task {0} has already been defined.
+    error_duplicate_alias_name = Alias {0} has already been defined.
     error_invalid_include_path = Unable to include {0}. File not found.
-    error_build_file_not_found = Could not find the build file, {0}.
-    error_no_default_task = default task required
-    error_invalid_module_dir = Unable to load modules from directory: {0}
-    error_invalid_module_path = Unable to load module at path: {0}
-    error_loading_module = Error loading module: {0}
-    warning_deprecated_framework_variable = Warning: Using global variable $framework to set .NET framework version used is deprecated. Instead use Framework function or configuration file psake-config.ps1
-    postcondition_failed = Postcondition failed for {0}
-    precondition_was_false = Precondition was false not executing {0}
-    continue_on_error = Error in Task [{0}] {1}
+    error_build_file_not_found = Could not find the build file {0}.
+    error_no_default_task = 'default' task required.
+    error_loading_module = Error loading module {0}.
+    warning_deprecated_framework_variable = Warning: Using global variable $framework to set .NET framework version used is deprecated. Instead use Framework function or configuration file psake-config.ps1.
+    required_variable_not_set = Variable {0} must be set to run task {1}.
+    postcondition_failed = Postcondition failed for task {0}.
+    precondition_was_false = Precondition was false, not executing task {0}.
+    continue_on_error = Error in task {0}. {1}
     build_success = Build Succeeded!
 '@
 } 
@@ -676,18 +681,16 @@ convertfrom-stringdata @'
 import-localizeddata -bindingvariable msgs -erroraction silentlycontinue
 
 $script:psake = @{}
-$psake.version = "4.00" # contains the current version of psake
+$psake.version = "4.2.0" # contains the current version of psake
 $psake.context = new-object system.collections.stack # holds onto the current state of all variables
 $psake.run_by_psake_build_tester = $false # indicates that build is being run by psake-BuildTester
 $psake.config_default = new-object psobject -property @{
     buildFileName = "default.ps1";
-    framework = "3.5";
+    framework = "4.0";
     taskNameFormat = "Executing {0}";
     verboseError = $false;
     coloredOutput = $true;
-    modules = (new-object PSObject -property @{
-        autoload = $false
-    })
+    modules = $null;
 } # contains default configuration, can be overriden in psake-config.ps1 in directory with psake.psm1 or in directory with current build script
 
 $psake.build_success = $false # indicates that the current build was successful
