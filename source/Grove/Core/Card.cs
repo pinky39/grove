@@ -557,6 +557,12 @@
         return false;
       }
 
+      if (Has().Mountainwalk &&
+        card.Controller.Battlefield.Any(x => x.Is("mountain")))
+      {
+        return false;
+      }
+
       return true;
     }
 

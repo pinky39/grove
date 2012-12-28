@@ -3,6 +3,7 @@
   using System;
   using Decisions;
   using Decisions.Results;
+  using Messages;
   using Zones;
 
   public class SearchLibraryPutToHand : Effect, IProcessDecisionResults<ChosenCards>
@@ -11,15 +12,31 @@
     public int MinCount;
     public bool DiscardRandomCardAfterwards;
     public string Text;
+    public bool RevealCards = true;
     public Func<Card, bool> Validator = delegate { return true; };
 
     public void ResultProcessed(ChosenCards results)
     {                       
+      if (RevealCards)
+      {
+        foreach (var card in results)
+        {
+          Game.Publish(new CardWasRevealed {Card = card});  
+        }                
+      }
+      else
+      {
+        foreach (var card in results)
+        {
+          card.ResetVisibility();
+        }
+      }
+            
       if (DiscardRandomCardAfterwards)
       {
         Controller.DiscardRandomCard();
       }
-
+            
       Controller.ShuffleLibrary();
     }
 

@@ -1,6 +1,5 @@
 ﻿namespace Grove.Ui.PlayScreen
 {
-  using System;
   using System.Collections.Generic;
   using System.Linq;
   using System.Threading;
@@ -12,9 +11,9 @@
   public class ViewModel : IIsDialogHost, IReceive<PlayerHasCastASpell>,
     IReceive<PlayerHasActivatedAbility>,
     IReceive<SearchStarted>, IReceive<SearchFinished>, IReceive<DamageHasBeenDealt>,
-    IReceive<AssignedCombatDamageWasDealt>
+    IReceive<AssignedCombatDamageWasDealt>, IReceive<CardWasRevealed>
   {
-    private readonly List<object> _largeDialogs = new List<object>();    
+    private readonly List<object> _largeDialogs = new List<object>();
     private readonly QuitGame.ViewModel.IFactory _quitGameFactory;
     private readonly ScenarioGenerator _scenarioGenerator;
 
@@ -25,7 +24,7 @@
       PlayerBox.ViewModel.IFactory playerBoxFactory,
       QuitGame.ViewModel.IFactory quitGameFactory)
     {
-      _scenarioGenerator = new ScenarioGenerator(game);      
+      _scenarioGenerator = new ScenarioGenerator(game);
       _quitGameFactory = quitGameFactory;
 
       OpponentsBattlefield = battlefieldFactory.Create(game.Players.Computer);
@@ -103,6 +102,11 @@
       // pause the game a bit after dealing combat damage
       // before creatures go to graveyards
       Thread.Sleep(500);
+    }
+
+    public void Receive(CardWasRevealed message)
+    {
+      MessageLog.AddMessage(message.ToString());
     }
 
     public void Receive(DamageHasBeenDealt message)

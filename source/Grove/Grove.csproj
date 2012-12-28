@@ -232,8 +232,14 @@
     <Compile Include="Cards\GildedDrake.cs" />
     <Compile Include="Cards\GloriousAnthem.cs" />
     <Compile Include="Cards\GoblinCadets.cs" />
+    <Compile Include="Cards\GoblinLackey.cs" />
+    <Compile Include="Cards\GoblinMatron.cs" />
+    <Compile Include="Cards\GoblinOffensive.cs" />
     <Compile Include="Cards\GoblinPatrol.cs" />
+    <Compile Include="Cards\GoblinRaider.cs" />
+    <Compile Include="Cards\GoblinSpelunkers.cs" />
     <Compile Include="Cards\GoblinWarBuggy.cs" />
+    <Compile Include="Cards\GorillaWarrior.cs" />
     <Compile Include="Cards\GrizzlyBears.cs" />
     <Compile Include="Cards\GoForTheThroat.cs" />
     <Compile Include="Cards\GraspOfDarkness.cs" />
@@ -433,6 +439,7 @@
     <Compile Include="Core\Mana\ManaUsage.cs" />
     <Compile Include="Core\MatchSimulator.cs" />
     <Compile Include="Core\Messages\CardChangedType.cs" />
+    <Compile Include="Core\Messages\CardWasRevealed.cs" />
     <Compile Include="Core\Messages\PermanentModified.cs" />
     <Compile Include="Core\Targeting\IDamageDistributor.cs" />
     <Compile Include="Core\Cards\IAcceptsModifiers.cs" />

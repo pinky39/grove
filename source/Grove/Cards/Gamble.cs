@@ -23,6 +23,7 @@
             e.MinCount = 1;
             e.MaxCount = 1;
             e.DiscardRandomCardAfterwards = true;
+            e.RevealCards = false;
             e.Text = "Select a card from your library.";
           });
     }

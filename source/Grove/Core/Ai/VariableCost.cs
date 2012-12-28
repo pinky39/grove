@@ -1,7 +1,6 @@
 ﻿namespace Grove.Core.Ai
 {
   using System;
-  using System.Linq;
   using Mana;
   using Targeting;
 
@@ -75,7 +74,7 @@
     public static CalculateX CounterUnlessPay()
     {
       return p =>
-        {          
+        {
           if (p.Game.Stack.IsEmpty || p.Game.Stack.TopSpellOwner == p.Controller)
             return int.MaxValue;
 
@@ -91,6 +90,15 @@
     public static CalculateX MaximumAvailableMana(ManaUsage usage = ManaUsage.Spells)
     {
       return p => p.Controller.GetConvertedMana(usage);
+    }
+
+    public static CalculateX AtLeast(int amount)
+    {
+      return p =>
+        {
+          var max = p.Controller.GetConvertedMana(ManaUsage.Spells) - p.Source.ManaCost.Converted;
+          return max > amount ? max : amount;
+        };
     }
   }
 }

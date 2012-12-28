@@ -21,6 +21,7 @@
     CannotBlock,
     CannotAttack,
     Islandwalk,
-    DoesNotUntap
+    DoesNotUntap,
+    Mountainwalk
   }
 }

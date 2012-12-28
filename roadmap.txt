@@ -117,15 +117,15 @@ o Gaea's Embrace
 o Gamble
 o Gilded Drake
 o Glorious Anthem
-Goblin Cadets
-Goblin Lackey
-Goblin Matron
-Goblin Offensive
-Goblin Patrol
-Goblin Raider
-Goblin Spelunkers
-Goblin War Buggy
-Gorilla Warrior
+o Goblin Cadets
+o Goblin Lackey
+o Goblin Matron
+o Goblin Offensive
+o Goblin Patrol
+o Goblin Raider
+o Goblin Spelunkers
+o Goblin War Buggy
+o Gorilla Warrior
 Grafted Skullcap
 Great Whale
 Greater Good
