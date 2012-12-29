@@ -27,7 +27,7 @@
           ActivatedAbility(
             "{4}, Sacrifice Copper Gnomes: You may put an artifact card from your hand onto the battlefield.",
             Cost<SacOwnerPayMana>(cost => cost.Amount = 4.AsColorlessMana()),
-            Effect<PutTargetCardToBattlefield>(e =>
+            Effect<PutSelectedCardToBattlefield>(e =>
               {
                 e.Validator = card => card.Is().Artifact;
                 e.Zone = Zone.Hand;

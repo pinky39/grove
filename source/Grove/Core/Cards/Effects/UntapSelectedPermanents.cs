@@ -2,23 +2,22 @@
 {
   using System;
   using Decisions;
-  using Zones;
 
-  public class PutTargetCardToBattlefield : Effect
+  public class UntapSelectedPermanents : Effect
   {
+    public int MaxCount;
+    public int MinCount;
     public string Text;
     public Func<Card, bool> Validator;
-    public Zone Zone;
 
     protected override void ResolveEffect()
     {
-      Game.Enqueue<SelectCardsPutToBattlefield>(Controller,
+      Game.Enqueue<SelectCardsToUntap>(Controller,
         p =>
           {
             p.Validator = Validator;
-            p.Zone = Zone;
-            p.MinCount = 0;
-            p.MaxCount = 1;
+            p.MinCount = MinCount;
+            p.MaxCount = MaxCount;
             p.Text = FormatText(Text);
           }
         );

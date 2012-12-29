@@ -1,11 +1,11 @@
 ﻿namespace Grove.Core.Cards.Effects
 {
-  using Grove.Core.Targeting;
+  using Targeting;
 
   public class DiscardCards : Effect
   {
     public int Count { get; set; }
-    public Player Player { get; set; }    
+    public Player Player { get; set; }
 
     protected override void ResolveEffect()
     {

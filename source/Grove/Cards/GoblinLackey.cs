@@ -26,7 +26,7 @@
           TriggeredAbility(
             "Whenever Goblin Lackey successfully deals damage to a player, you may choose a Goblin card in your hand and put that Goblin into play.",
             Trigger<DealDamageToCreatureOrPlayer>(t => t.ToPlayer()),
-            Effect<PutTargetCardToBattlefield>(e =>
+            Effect<PutSelectedCardToBattlefield>(e =>
               {
                 e.Validator = card => card.Is("goblin");
                 e.Zone = Zone.Hand;
