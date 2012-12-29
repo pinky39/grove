@@ -158,6 +158,7 @@
     <Compile Include="Cards\GoblinMatron.cs" />
     <Compile Include="Cards\GoblinOffensive.cs" />
     <Compile Include="Cards\GraveTitan.cs" />
+    <Compile Include="Cards\GreaterGood.cs" />
     <Compile Include="Cards\GreatWhale.cs" />
     <Compile Include="Cards\HeroOfBladeHold.cs" />
     <Compile Include="Cards\JaggedLightning.cs" />

@@ -553,7 +553,7 @@
     {
       var targetsCandidates = new List<IList<Card>>();
 
-      for (int i = 0; i < targetCount - 1; i++)
+      for (var i = 0; i < targetCount - 1; i++)
       {
         var targetCandidates = Enumerable
           .Repeat(candidates[i], candidates.Count - targetCount + 1)
@@ -1184,9 +1184,34 @@
     public static TargetSelectorAiDelegate CostSacrificeRegenerate()
     {
       return p => p.Targets(p.Candidates()
-        .OrderBy(x => x.Card().Attachments.Count(a => a.Is().Aura))
         .OrderBy(x => x.Card().Score)
-        .Take(1));
+        .Take(2));
+    }
+
+    public static TargetSelectorAiDelegate CostSacrificeDrawCards(Func<Card, bool> filter = null)
+    {
+      filter = filter ?? delegate { return true; };
+
+      return p =>
+        {
+          var candidates = new List<ITarget>();
+
+          if (p.Step == Step.DeclareBlockers)
+          {
+            candidates.AddRange(
+              p.Candidates()
+                .Where(x => filter(x.Card()))
+                .Where(x => p.Combat.CanBeDealtLeathalCombatDamage(x.Card()))
+                .Where(x => !p.Combat.CanKillAny(x.Card())));
+          }
+
+          candidates.AddRange(
+            p.Candidates()
+              .Where(x => filter(x.Card()))
+              .Where(x => p.Stack.CanBeDestroyedByTopSpell(x.Card())));
+
+          return p.Targets(candidates);
+        };
     }
   }
 }

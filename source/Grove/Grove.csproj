@@ -241,6 +241,7 @@
     <Compile Include="Cards\GoblinWarBuggy.cs" />
     <Compile Include="Cards\GorillaWarrior.cs" />
     <Compile Include="Cards\GraftedSkullcap.cs" />
+    <Compile Include="Cards\GreaterGood.cs" />
     <Compile Include="Cards\GreatWhale.cs" />
     <Compile Include="Cards\GrizzlyBears.cs" />
     <Compile Include="Cards\GoForTheThroat.cs" />

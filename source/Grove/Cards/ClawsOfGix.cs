@@ -1,5 +1,6 @@
 ﻿namespace Grove.Cards
 {
+  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -20,7 +21,7 @@
         .Text("{1}, Sacrifice a permanent: You gain 1 life.")
         .FlavorText(
           "When the Brotherhood of Gix dug out the cave of Koilos they found their master's severed hand. They enshrined it, hoping that one day it would point the way to Phyrexia.")
-        .Timing(Timings.FirstMain())
+        .Timing(All(Timings.FirstMain(), Timings.OnlyOneOfKind()))
         .Abilities(
           ActivatedAbility(
             "{1}, Sacrifice a permanent: You gain 1 life.",
