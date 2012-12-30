@@ -243,10 +243,14 @@
     <Compile Include="Cards\GraftedSkullcap.cs" />
     <Compile Include="Cards\GreaterGood.cs" />
     <Compile Include="Cards\GreatWhale.cs" />
+    <Compile Include="Cards\GreenerPastures.cs" />
     <Compile Include="Cards\GrizzlyBears.cs" />
     <Compile Include="Cards\GoForTheThroat.cs" />
     <Compile Include="Cards\GraspOfDarkness.cs" />
     <Compile Include="Cards\GraveTitan.cs" />
+    <Compile Include="Cards\Guma.cs" />
+    <Compile Include="Cards\HawkeaterMoth.cs" />
+    <Compile Include="Cards\HeadlongRush.cs" />
     <Compile Include="Cards\HeatRay.cs" />
     <Compile Include="Cards\HeroOfBladehold.cs" />
     <Compile Include="Cards\HiddenAncients.cs" />

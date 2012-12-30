@@ -129,10 +129,10 @@ o Gorilla Warrior
 o Grafted Skullcap
 o Great Whale
 o Greater Good
-Greener Pastures
-Guma
-Hawkeater Moth
-Headlong Rush
+o Greener Pastures
+o Guma
+o Hawkeater Moth
+o Headlong Rush
 Healing Salve
 Heat Ray
 Herald of Serra

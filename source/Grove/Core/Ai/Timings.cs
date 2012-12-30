@@ -454,6 +454,19 @@
       return p => p.Players.Permanents().Count(filter) >= count;
     }
 
+    public static TimingDelegate HasMorePermanents(Func<Card, bool> filter = null)
+    {
+      filter = filter ?? delegate { return true; };
+
+      return p =>
+        {
+          var controllerCount = p.Controller.Battlefield.Count(filter);
+          var opponentCount = p.Opponent.Battlefield.Count(filter);
+
+          return controllerCount > opponentCount;
+        };
+    }
+
     public static TimingDelegate HasSpellsThatNeedAdditionalMana(int amount)
     {
       return p =>
@@ -471,6 +484,11 @@
     public static TimingDelegate OpponentHasCardsInHand(int count)
     {
       return p => p.Opponent.Hand.Count >= count;
+    }
+
+    public static TimingDelegate HasAttackers(int count)
+    {
+      return p => p.Combat.Attackers.Count() >= count;
     }
   }
 }
