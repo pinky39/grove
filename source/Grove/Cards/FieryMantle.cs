@@ -27,7 +27,7 @@
           Modifier<AddActivatedAbility>(m => m.Ability =
             ActivatedAbility(
               "{R}: Enchanted creature gets +1/+0 until end of turn.",
-              Cost<TapOwnerPayMana>(cost => cost.Amount = ManaAmount.Red),
+              Cost<PayMana>(cost => cost.Amount = ManaAmount.Red),
               Effect<ApplyModifiersToSelf>(p1 => p1.Effect.Modifiers(
                 Modifier<AddPowerAndToughness>(m1 => m1.Power = 1, untilEndOfTurn: true))),
               timing: Timings.IncreaseOwnersPowerAndThougness(1, 0))

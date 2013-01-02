@@ -26,7 +26,7 @@
         .Abilities(
           ActivatedAbility(
             "{2}, Sacrifice a permanent: Return target creature to its owner's hand.",
-            Cost<SacPermanentPayMana>(cost => cost.Amount = 2.AsColorlessMana()),
+            Cost<PayMana, Sacrifice>(cost => cost.Amount = 2.Colorless()),
             Effect<PutToHand>(),
             effectValidator: TargetValidator(
               TargetIs.Card(x => x.Is().Creature), 

@@ -25,7 +25,7 @@
         .Abilities(
           ActivatedAbility(
             "{1}{G}: Regenerate Albino Troll.",
-            Cost<TapOwnerPayMana>(c => c.Amount = "{1}{G}".ParseManaAmount()),
+            Cost<PayMana>(c => c.Amount = "{1}{G}".ParseMana()),
             Effect<Regenerate>(),
             timing: Timings.Regenerate(),
             category: EffectCategories.Protector));

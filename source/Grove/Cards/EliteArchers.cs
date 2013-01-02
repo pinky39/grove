@@ -24,7 +24,7 @@
         .Abilities(
           ActivatedAbility(
             "{T}: Elite Archers deals 3 damage to target attacking or blocking creature.",
-            Cost<TapOwnerPayMana>(cost => cost.TapOwner = true),
+            Cost<Tap>(),
             Effect<DealDamageToTargets>(e => e.Amount = 3),
             TargetValidator(TargetIs.AttackerOrBlocker(), ZoneIs.Battlefield()),
             targetSelectorAi: TargetSelectorAi.DealDamageSingleSelector(3),

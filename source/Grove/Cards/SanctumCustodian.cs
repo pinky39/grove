@@ -26,7 +26,7 @@
         .Abilities(
           ActivatedAbility(
             "{T}: Prevent the next 2 damage that would be dealt to target creature or player this turn.",
-            Cost<TapOwnerPayMana>(cost => cost.TapOwner = true),
+            Cost<Tap>(),
             Effect<ApplyModifiersToTargets>(e => e.Modifiers(
               Modifier<AddDamagePrevention>(m =>
                 {

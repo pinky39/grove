@@ -28,7 +28,7 @@
           Static.Hexproof,
           ActivatedAbility(
             "{1}{G}: Regenerate Thrun.",
-            Cost<TapOwnerPayMana>(c => c.Amount = "{1}{G}".ParseManaAmount()),
+            Cost<PayMana>(c => c.Amount = "{1}{G}".ParseMana()),
             Effect<Regenerate>(),
             timing: Timings.Regenerate()));
     }

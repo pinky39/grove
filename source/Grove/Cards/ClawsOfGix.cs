@@ -25,7 +25,7 @@
         .Abilities(
           ActivatedAbility(
             "{1}, Sacrifice a permanent: You gain 1 life.",
-            Cost<SacPermanentPayMana>(cost => cost.Amount = 1.AsColorlessMana()),
+            Cost<PayMana, Sacrifice>(cost => cost.Amount = 1.Colorless()),
             Effect<GainLife>(e => e.Amount = 1),
             costValidator:
               TargetValidator(

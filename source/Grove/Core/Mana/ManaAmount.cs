@@ -88,7 +88,7 @@
 
     public static IManaAmount Add(this IManaAmount amount1, int amount2)
     {
-      return new AggregateManaAmount(amount1, amount2.AsColorlessMana());
+      return new AggregateManaAmount(amount1, amount2.Colorless());
     }
 
     public static IManaAmount Add(this IManaAmount amount1, IManaAmount amount2)
@@ -96,16 +96,11 @@
       return new AggregateManaAmount(amount1, amount2);
     }
 
-    public static IManaAmount AsColorlessMana(this int amount)
-    {
-      return Colorless(amount);
-    }
-
-    public static IManaAmount Colorless(int amount)
+    public static IManaAmount Colorless(this int amount)
     {
       return new PrimitiveManaAmount(
         Enumerable.Repeat(new ManaUnit(), amount));
-    }
+    }    
 
     private static int WubrgOrdering(ManaUnit mana)
     {
@@ -113,7 +108,7 @@
     }
 
 
-    public static IManaAmount ParseManaAmount(this string str)
+    public static IManaAmount ParseMana(this string str)
     {
       if (str == null)
         return null;

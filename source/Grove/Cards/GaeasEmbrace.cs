@@ -26,7 +26,7 @@
           Modifier<AddActivatedAbility>(m => m.Ability =
             ActivatedAbility(
               "{G}: Regenerate enchanted creature.",
-              Cost<TapOwnerPayMana>(cost => cost.Amount = ManaAmount.Green),
+              Cost<PayMana>(cost => cost.Amount = ManaAmount.Green),
               Effect<Regenerate>(),
               timing: Timings.Regenerate())
             ),

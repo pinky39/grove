@@ -27,7 +27,7 @@
           Static.Hexproof,
           ActivatedAbility(
             "{1}{G}: Regenerate Troll Ascetic.",
-            Cost<TapOwnerPayMana>(cost => cost.Amount = "{1}{G}".ParseManaAmount()),
+            Cost<PayMana>(cost => cost.Amount = "{1}{G}".ParseMana()),
             Effect<Regenerate>(),
             timing: Timings.Regenerate()));
     }

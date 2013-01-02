@@ -27,9 +27,9 @@
             "{T}: Add {G} or {W} to your mana pool."),
           ActivatedAbility(
             "{1}{G}{W}: Until end of turn, Stirring Wildwood becomes a 3/4 green and white Elemental creature with reach. It's still a land.",
-            Cost<TapOwnerPayMana>(cost =>
+            Cost<PayMana>(cost =>
               {
-                cost.Amount = "{1}{G}{W}".ParseManaAmount();
+                cost.Amount = "{1}{G}{W}".ParseMana();
                 cost.TryNotToConsumeCardsManaSourceWhenPayingThis = true;
               }),
             Effect<ApplyModifiersToSelf>(e => e.Modifiers(

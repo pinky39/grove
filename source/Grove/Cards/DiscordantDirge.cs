@@ -32,7 +32,7 @@
             ),
           ActivatedAbility(
             "{B}, Sacrifice Discordant Dirge: Look at target opponent's hand and choose up to X cards from it, where X is the number of verse counters on Discordant Dirge. That player discards those cards.",
-            Cost<SacOwnerPayMana>(cost => cost.Amount = ManaAmount.Black),
+            Cost<PayMana, Sacrifice>(cost => cost.Amount = ManaAmount.Black),
             Effect<OpponentDiscardsCards>(e =>
               {
                 e.SelectedCount = e.Source.OwningCard.Counters.GetValueOrDefault();

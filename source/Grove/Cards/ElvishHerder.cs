@@ -28,7 +28,7 @@
         .Abilities(
           ActivatedAbility(
             "{G}: Target creature gains trample until end of turn.",
-            Cost<TapOwnerPayMana>(cost => cost.Amount = "{G}".ParseManaAmount()),
+            Cost<PayMana>(cost => cost.Amount = "{G}".ParseMana()),
             Effect<ApplyModifiersToTargets>(e => e.Modifiers(
               Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Trample,
                 untilEndOfTurn: true))),

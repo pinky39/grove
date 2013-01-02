@@ -22,9 +22,9 @@
         .Timing(Timings.Creatures())
         .Abilities(
           ManaAbility(
-            manaAmount: "{B}{B}".ParseManaAmount(),
+            manaAmount: "{B}{B}".ParseMana(),
             text: "Sacrifice Blood Vassal: Add {B}{B} to your mana pool.",
-            cost: Cost<SacrificeOwner>(),
+            cost: Cost<Sacrifice>(),
             priority: ManaSourcePriorities.OnlyIfNecessary)
         );
     }

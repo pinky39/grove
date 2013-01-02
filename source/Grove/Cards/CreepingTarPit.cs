@@ -27,9 +27,9 @@
             "{T}: Add {U} or {B} to your mana pool."),
           ActivatedAbility(
             "{1}{U}{B}: Until end of turn, Creeping Tar Pit becomes a 3/2 blue and black Elemental creature and is unblockable. It's still a land.",
-            Cost<TapOwnerPayMana>(cost =>
+            Cost<PayMana>(cost =>
               {
-                cost.Amount = "{1}{U}{B}".ParseManaAmount();
+                cost.Amount = "{1}{U}{B}".ParseMana();
                 cost.TryNotToConsumeCardsManaSourceWhenPayingThis = true;
               }),
             Effect<ApplyModifiersToSelf>(e => e.Modifiers(

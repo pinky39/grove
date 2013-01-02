@@ -26,7 +26,7 @@
         .Abilities(
           ActivatedAbility(
             "{G},{T}, Sacrifice Elvish Lyrist: Destroy target enchantment.",
-            Cost<TapAndSacOwnerPayMana>(cost => cost.Amount = "{G}".ParseManaAmount()),
+            Cost<PayMana, Tap>(cost => cost.Amount = "{G}".ParseMana()),
             Effect<DestroyTargetPermanents>(),
             timing: Timings.InstantRemovalTarget(),
             effectValidator: TargetValidator(TargetIs.Card(card => card.Is().Enchantment), ZoneIs.Battlefield()),

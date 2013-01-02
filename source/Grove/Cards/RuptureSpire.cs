@@ -25,7 +25,7 @@
           TriggeredAbility(
             "When Rupture Spire enters the battlefield, sacrifice it unless you pay {1}.",
             Trigger<OnZoneChange>(t => t.To = Zone.Battlefield),
-            Effect<PayManaOrSacrifice>(e => e.Amount = 1.AsColorlessMana()))
+            Effect<PayManaOrSacrifice>(e => e.Amount = 1.Colorless()))
         );
     }
   }

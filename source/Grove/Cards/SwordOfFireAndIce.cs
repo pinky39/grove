@@ -38,7 +38,7 @@
             selectorAi: TargetSelectorAi.DealDamageSingleSelector(2)),
           ActivatedAbility(
             "{2}: Attach to target creature you control. Equip only as a sorcery.",
-            Cost<TapOwnerPayMana>(cost => cost.Amount = 2.AsColorlessMana()),
+            Cost<PayMana>(cost => cost.Amount = 2.Colorless()),
             Effect<Core.Cards.Effects.Attach>(p => p.Effect.Modifiers(
               Modifier<AddPowerAndToughness>(m =>
                 {

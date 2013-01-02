@@ -23,7 +23,7 @@
         .Abilities(
           ActivatedAbility(
             "{T}: Fire Ants deals 1 damage to each other creature without flying.",
-            Cost<TapOwnerPayMana>(c => c.TapOwner = true),
+            Cost<Tap>(),
             Effect<DealDamageToEach>(e =>
               {
                 e.AmountCreature = 1;

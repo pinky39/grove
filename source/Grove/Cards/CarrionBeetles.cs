@@ -25,11 +25,7 @@
         .Abilities(
           ActivatedAbility(
             "{2}{B},{T}: Exile up to three target cards from a single graveyard.",
-            Cost<TapOwnerPayMana>(cost =>
-              {
-                cost.TapOwner = true;
-                cost.Amount = "{2}{B}".ParseManaAmount();
-              }),
+            Cost<PayMana, Tap>(cost => cost.Amount = "{2}{B}".ParseMana()),
             Effect<ExileTargets>(),
             effectValidator: TargetValidator(
               TargetIs.Card(),

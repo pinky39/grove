@@ -22,7 +22,7 @@
         .Abilities(
           ActivatedAbility(
             "Sacrifice Seal of Fire: Seal of Fire deals 2 damage to target creature or player.",
-            Cost<SacrificeOwner>(),
+            Cost<Sacrifice>(),
             Effect<DealDamageToTargets>(e => e.Amount = 2), 
             TargetValidator(TargetIs.CreatureOrPlayer(), ZoneIs.Battlefield()),
             targetSelectorAi: TargetSelectorAi.DealDamageSingleSelector(2),

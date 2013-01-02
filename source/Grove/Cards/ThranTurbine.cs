@@ -30,7 +30,7 @@
               }),
             Effect<AddManaToPool>(e =>
               {
-                e.Amount = 2.AsColorlessMana();
+                e.Amount = 2.Colorless();
                 e.UseOnlyForAbilities = true;
               }), triggerOnlyIfOwningCardIsInPlay: true
             )

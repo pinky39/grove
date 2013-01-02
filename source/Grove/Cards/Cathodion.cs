@@ -31,7 +31,7 @@
                 t.From = Zone.Battlefield;
                 t.To = Zone.Graveyard;
               }),
-            Effect<AddManaToPool>(e => e.Amount = 3.AsColorlessMana())
+            Effect<AddManaToPool>(e => e.Amount = 3.Colorless())
             )
         );
     }

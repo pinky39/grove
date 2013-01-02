@@ -23,7 +23,7 @@
         .Abilities(
           ActivatedAbility(
             "{X}: Chimeric Staff becomes an X/X Construct artifact creature until end of turn.",
-            Cost<TapOwnerPayMana>(cost =>
+            Cost<PayMana>(cost =>
               {
                 cost.Amount = ManaAmount.Zero;
                 cost.HasX = true;

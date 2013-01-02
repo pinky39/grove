@@ -36,7 +36,7 @@
             ),
           ActivatedAbility(
             "{B}: Pestilence deals 1 damage to each creature and each player.",
-            Cost<TapOwnerPayMana>(cost => cost.Amount = ManaAmount.Black),
+            Cost<PayMana>(cost => cost.Amount = ManaAmount.Black),
             Effect<DealDamageToEach>(e =>
               {
                 e.AmountCreature = 1;

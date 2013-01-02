@@ -25,7 +25,7 @@
         .Abilities(
           ActivatedAbility(
             "{B}: Regenerate Unworthy Dead.",
-            Cost<TapOwnerPayMana>(c => c.Amount = "{B}".ParseManaAmount()),
+            Cost<PayMana>(c => c.Amount = "{B}".ParseMana()),
             Effect<Regenerate>(),
             timing: Timings.Regenerate(),
             category: EffectCategories.Protector));

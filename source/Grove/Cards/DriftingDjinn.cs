@@ -31,7 +31,7 @@
             Trigger<AtBegginingOfStep>(t => { t.Step = Step.Upkeep; }),
             Effect<PayManaOrSacrifice>(e =>
               {
-                e.Amount = "{1}{U}".ParseManaAmount();
+                e.Amount = "{1}{U}".ParseMana();
                 e.Message = String.Format("Pay {0}'s upkeep cost?", e.Source.OwningCard);
               }),
             triggerOnlyIfOwningCardIsInPlay: true)

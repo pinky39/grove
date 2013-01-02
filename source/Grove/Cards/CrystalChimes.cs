@@ -22,7 +22,7 @@
         .Abilities(
           ActivatedAbility(
             "{3},{T}, Sacrifice Crystal Chimes: Return all enchantment cards from your graveyard to your hand.",
-            Cost<TapAndSacOwnerPayMana>(cost => cost.Amount = 3.AsColorlessMana()),
+            Cost<PayMana, Tap, Sacrifice>(cost => cost.Amount = 3.Colorless()),
             Effect<ReturnAllCardsInGraveyardToHand>(e => e.Filter = card => card.Is().Enchantment),
             timing: Timings.HasCardsInGraveyard(card => card.Is().Enchantment, count: 2))
         );

@@ -24,7 +24,7 @@
         .Abilities(
           ActivatedAbility(
             "{1}{U}: Counter target red spell.",
-            Cost<TapOwnerPayMana>(c => c.Amount = "{1}{U}".ParseManaAmount()),
+            Cost<PayMana>(c => c.Amount = "{1}{U}".ParseMana()),
             Effect<CounterTargetSpell>(),
             targetSelectorAi: TargetSelectorAi.CounterSpell(),
             effectValidator: TargetValidator(

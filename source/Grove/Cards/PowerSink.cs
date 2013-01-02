@@ -22,7 +22,7 @@
         .Timing(Timings.CounterSpell())
         .Effect<CounterTargetSpell>(e =>
           {
-            e.DoNotCounterCost = e.X.GetValueOrDefault().AsColorlessMana();
+            e.DoNotCounterCost = e.X.GetValueOrDefault().Colorless();
             e.TapLandsEmptyPool = true;
           })
         .Targets(

@@ -26,11 +26,7 @@
         .Abilities(
           ActivatedAbility(
             "{B}{B},{T}: Destroy target green creature.",
-            Cost<TapOwnerPayMana>(cost =>
-              {
-                cost.Amount = "{B}{B}".ParseManaAmount();
-                cost.TapOwner = true;                                
-              }),
+            Cost<PayMana, Tap>(cost => cost.Amount = "{B}{B}".ParseMana()),
             Effect<DestroyTargetPermanents>(),            
             TargetValidator(
               TargetIs.Card(card => card.Is().Creature && card.HasColors(ManaColors.Green)),

@@ -25,7 +25,7 @@
         .Abilities(
           ActivatedAbility(
             "Sacrifice a creature: Phyrexian Ghoul gets +2/+2 until end of turn.",
-            Cost<SacPermanent>(),
+            Cost<Sacrifice>(),
             Effect<ApplyModifiersToSelf>(e => e.Modifiers(
               Modifier<AddPowerAndToughness>(m =>
                 {

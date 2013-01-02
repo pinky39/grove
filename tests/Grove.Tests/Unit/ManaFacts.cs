@@ -28,7 +28,7 @@
     [Fact]
     public void Performance()
     {
-      var amount = "{4}{R}{R}".ParseManaAmount();
+      var amount = "{4}{R}{R}".ParseMana();
       var manaSources = ManaSources(
         new[]
           {
@@ -64,7 +64,7 @@
     public void Consume1()
     {
       var available = Mutable("{R}{R}{R}{R}{G}{G}{G}");
-      var amount = "{4}{R}{R}".ParseManaAmount();
+      var amount = "{4}{R}{R}".ParseMana();
 
       ManaPayment.Pay(amount, available);
 
@@ -75,7 +75,7 @@
     public void Consume2()
     {
       var available = Mutable("{B}{GRB}{R}");
-      var amount = "{G}{B}{R}".ParseManaAmount();
+      var amount = "{G}{B}{R}".ParseMana();
 
       ManaPayment.Pay(amount, available);
 
@@ -86,7 +86,7 @@
     public void Consume3()
     {
       var available = Mutable("{U}{B}{GRB}{R}");
-      var amount = "{U}{G}".ParseManaAmount();
+      var amount = "{U}{G}".ParseMana();
 
       ManaPayment.Pay(amount, available);
 
@@ -97,8 +97,8 @@
     [Fact]
     public void DoesNotHave1()
     {
-      var available = "{R}{R}{R}{G}{G}{G}".ParseManaAmount();
-      var amount = "{2}{R}{R}{R}{R}".ParseManaAmount();
+      var available = "{R}{R}{R}{G}{G}{G}".ParseMana();
+      var amount = "{2}{R}{R}{R}{R}".ParseMana();
 
       AssertHasNot(available, amount);
     }
@@ -106,8 +106,8 @@
     [Fact]
     public void DoesNotHave2()
     {
-      var available = "{2}{WG}{R}".ParseManaAmount();
-      var amount = "{2}{W}{G}".ParseManaAmount();
+      var available = "{2}{WG}{R}".ParseMana();
+      var amount = "{2}{W}{G}".ParseMana();
 
       AssertHasNot(available, amount);
     }
@@ -121,8 +121,8 @@
     [Fact]
     public void Has1()
     {
-      var available = "{R}{R}{R}{G}{G}{G}".ParseManaAmount();
-      var amount = "{4}{R}{R}".ParseManaAmount();
+      var available = "{R}{R}{R}{G}{G}{G}".ParseMana();
+      var amount = "{4}{R}{R}".ParseMana();
 
       AssertHas(available, amount);
     }
@@ -130,8 +130,8 @@
     [Fact]
     public void Has2()
     {
-      var available = "{3}{RG}{R}{G}".ParseManaAmount();
-      var amount = "{4}{R}{R}".ParseManaAmount();
+      var available = "{3}{RG}{R}{G}".ParseMana();
+      var amount = "{4}{R}{R}".ParseMana();
 
       AssertHas(available, amount);
     }
@@ -139,8 +139,8 @@
     [Fact]
     public void Has3()
     {
-      var available = "{RG}{RG}".ParseManaAmount();
-      var amount = "{G}{G}".ParseManaAmount();
+      var available = "{RG}{RG}".ParseMana();
+      var amount = "{G}{G}".ParseMana();
 
       AssertHas(available, amount);
     }
@@ -148,8 +148,8 @@
     [Fact]
     public void Has4()
     {
-      var available = "{G}{RG}{RG}{G}".ParseManaAmount();
-      var amount = "{2}{G}{G}".ParseManaAmount();
+      var available = "{G}{RG}{RG}{G}".ParseMana();
+      var amount = "{2}{G}{G}".ParseMana();
 
       AssertHas(available, amount);
     }
@@ -157,8 +157,8 @@
     [Fact]
     public void Has5()
     {
-      var available = "{R}".ParseManaAmount();
-      var amount = 1.AsColorlessMana();
+      var available = "{R}".ParseMana();
+      var amount = 1.Colorless();
 
       AssertHas(available, amount);
     }
@@ -177,7 +177,7 @@
     [Fact]
     public void Parse()
     {
-      var parsed = "{3}{B}{R}{RG}".ParseManaAmount();
+      var parsed = "{3}{B}{R}{RG}".ParseMana();
 
       var manaAmount = new PrimitiveManaAmount(new[]
         {
@@ -204,7 +204,7 @@
     [Fact]
     public void SymbolNames1()
     {
-      var manaCost = "{5}{B}{G}{G}".ParseManaAmount();
+      var manaCost = "{5}{B}{G}{G}".ParseMana();
       var result = manaCost.GetSymbolNames();
 
       var expectedImageNames = new[]
@@ -240,12 +240,12 @@
 
     private IManaSource Mutable(string str)
     {
-      return new MutableSource(str.ParseManaAmount());
+      return new MutableSource(str.ParseMana());
     }
 
     private IManaSource Immutable(string str)
     {
-      return new ImmutableSource(str.ParseManaAmount());
+      return new ImmutableSource(str.ParseMana());
     }
 
     public class ImmutableSource : IManaSource

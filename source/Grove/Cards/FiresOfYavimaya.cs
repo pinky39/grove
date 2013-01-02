@@ -30,7 +30,7 @@
             }),
           ActivatedAbility(
             "Sacrifice Fires of Yavimaya: Target creature gets +2/+2 until end of turn.",
-            Cost<SacrificeOwner>(),
+            Cost<Sacrifice>(),
             Effect<ApplyModifiersToTargets>(p => p.Effect.Modifiers(
               Modifier<AddPowerAndToughness>(m =>
                 {

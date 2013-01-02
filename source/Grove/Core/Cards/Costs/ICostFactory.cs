@@ -1,6 +1,6 @@
 ﻿namespace Grove.Core.Cards.Costs
 {
-  using Grove.Core.Targeting;
+  using Targeting;
 
   public interface ICostFactory
   {

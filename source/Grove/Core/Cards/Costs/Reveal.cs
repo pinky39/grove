@@ -1,8 +1,8 @@
 ﻿namespace Grove.Core.Cards.Costs
 {
-  using Grove.Core.Targeting;
+  using Targeting;
 
-  public class RevealCardFromHand : Cost
+  public class Reveal : Cost
   {
     public override bool CanPay(ref int? maxX)
     {

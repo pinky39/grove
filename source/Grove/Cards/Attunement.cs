@@ -21,7 +21,7 @@
         .Abilities(
           ActivatedAbility(
             "Return Attunement to its owner's hand: Draw three cards, then discard four cards.",
-            Cost<ReturnOwnerToHand>(),
+            Cost<ReturnToHand>(),
             Effect<DrawCards>(e =>
               {
                 e.DrawCount = 3;

@@ -22,7 +22,7 @@
         .Abilities(
           ActivatedAbility(
             "Sacrifice a creature: Draw cards equal to the sacrificed creature's power, then discard three cards.",
-            Cost<SacPermanent>(),
+            Cost<Sacrifice>(),
             Effect<DrawCards>(e =>
               {
                 e.DrawCount = e.CostTarget().Card().Power.GetValueOrDefault();

@@ -25,7 +25,7 @@
         .Abilities(
           ActivatedAbility(
             "Tap an untapped creature you control: Llanowar Behemoth gets +1/+1 until end of turn.",
-            Cost<TapCreature>(),
+            Cost<Tap>(),
             Effect<Core.Cards.Effects.ApplyModifiersToSelf>(p => p.Effect.Modifiers(
               Modifier<AddPowerAndToughness>(m =>
                 {

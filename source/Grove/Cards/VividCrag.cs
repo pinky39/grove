@@ -26,7 +26,7 @@
           ManaAbility(ManaUnit.Red, "{T}: Add {R} to your mana pool."),
           ManaAbility(ManaUnit.Any,
             "{T}, Remove a charge counter from Vivid Crag: Add one mana of any color to your mana pool.",
-            priority: ManaSourcePriorities.Restricted, cost: Cost<TapOwnerRemoveCounter>()),
+            priority: ManaSourcePriorities.Restricted, cost: Cost<Tap, RemoveCounter>()),
           StaticAbility(
             Trigger<OnZoneChange>(t => t.To = Zone.Battlefield),
             Effect<Core.Cards.Effects.ApplyModifiersToSelf>(p => p.Effect.Modifiers(

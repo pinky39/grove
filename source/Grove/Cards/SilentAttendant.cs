@@ -24,7 +24,7 @@
         .Abilities(
           ActivatedAbility(
             "{T}: You gain 1 life.",
-            Cost<TapOwnerPayMana>(cost => cost.TapOwner = true),
+            Cost<Tap>(),
             Effect<GainLife>(e => e.Amount = 1),
             timing: Any(Timings.EndOfTurn(), Timings.BeforeDeath())
             )

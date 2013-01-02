@@ -25,7 +25,7 @@
           Modifier<AddActivatedAbility>(m => m.Ability =
             ActivatedAbility(
               "Sacrifice a Forest: Regenerate enchanted creature.",
-              Cost<SacPermanent>(),
+              Cost<Sacrifice>(),
               Effect<Regenerate>(),
               costValidator:
                 TargetValidator(

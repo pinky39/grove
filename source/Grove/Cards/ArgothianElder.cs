@@ -23,7 +23,7 @@
         .Abilities(
           ActivatedAbility(
             "{T}: Untap two target lands.",
-            Cost<TapOwnerPayMana>(cost => cost.TapOwner = true),
+            Cost<Tap>(),
             Effect<UntapTargetPermanents>(),
             TargetValidator(
               TargetIs.Card(card => card.Is().Land),

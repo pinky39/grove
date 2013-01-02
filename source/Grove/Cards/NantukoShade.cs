@@ -24,7 +24,7 @@
         .Abilities(
           ActivatedAbility(
             "{B}: Nantuko Shade gets +1/+1 until end of turn.",
-            Cost<TapOwnerPayMana>(cost => cost.Amount = ManaUnit.Black.ToAmount()),
+            Cost<PayMana>(cost => cost.Amount = ManaUnit.Black.ToAmount()),
             Effect<Core.Cards.Effects.ApplyModifiersToSelf>(p => p.Effect.Modifiers(
               Modifier<AddPowerAndToughness>(m =>
                 {

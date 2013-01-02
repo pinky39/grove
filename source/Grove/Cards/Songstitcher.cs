@@ -28,7 +28,7 @@
         .Abilities(
           ActivatedAbility(
             "{1}{W}: Prevent all combat damage that would be dealt this turn by target attacking creature with flying.",
-            Cost<TapOwnerPayMana>(cost => cost.Amount = "{1}{W}".ParseManaAmount()),
+            Cost<PayMana>(cost => cost.Amount = "{1}{W}".ParseMana()),
             Effect<ApplyModifiersToTargets>(e => e.Modifiers(
               Modifier<AddDamagePrevention>(m => m.Prevention = Prevention<PreventDealt>(),
                 untilEndOfTurn: true))),

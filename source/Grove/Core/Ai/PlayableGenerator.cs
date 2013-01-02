@@ -102,7 +102,7 @@
           activationParameters,
           prerequisites.TargetsSelf);
 
-        if (prerequisites.Timming(timingParameters))
+        if (prerequisites.Timing(timingParameters))
         {
           yield return factory(activationParameters);
           count++;

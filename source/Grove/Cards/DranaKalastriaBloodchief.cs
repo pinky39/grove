@@ -28,9 +28,9 @@
           Static.Flying,
           ActivatedAbility(
             "{X}{B}{B}: Target creature gets -0/-X until end of turn and Drana, Kalastria Bloodchief gets +X/+0 until end of turn.",
-            Cost<TapOwnerPayMana>(cost =>
+            Cost<PayMana>(cost =>
               {
-                cost.Amount = "{B}{B}".ParseManaAmount();
+                cost.Amount = "{B}{B}".ParseMana();
                 cost.HasX = true;
                 cost.XCalculator = VariableCost.TargetLifepointsLeft(ManaUsage.Abilities);
               }),

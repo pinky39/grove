@@ -58,7 +58,7 @@
     public CardFactory Echo(string manaCost)
     {
       var c = new CardBuilder();
-      IManaAmount amount = manaCost.ParseManaAmount();
+      IManaAmount amount = manaCost.ParseMana();
 
       TriggeredAbility.Factory echoFactory = c.TriggeredAbility(
         "At the beginning of your upkeep, if this came under your control since the beginning of your last upkeep, sacrifice it unless you pay its echo cost.",
@@ -170,7 +170,7 @@
 
     public CardFactory KickerCost(string kickerCost)
     {
-      _p.KickerCost = kickerCost.ParseManaAmount();
+      _p.KickerCost = kickerCost.ParseMana();
       return this;
     }
 
@@ -200,7 +200,7 @@
 
     public CardFactory ManaCost(string manaCost)
     {
-      _p.ManaCost = manaCost.ParseManaAmount();
+      _p.ManaCost = manaCost.ParseMana();
       return this;
     }
 
@@ -228,7 +228,7 @@
 
       IActivatedAbilityFactory cycling = b.ActivatedAbility(
         string.Format("Cycling {0} ({0}, Discard this card: Draw a card.)", cost),
-        b.Cost<DiscardOwnerPayMana>(c => c.Amount = cost.ParseManaAmount()),
+        b.Cost<PayMana, Discard>(c => c.Amount = cost.ParseMana()),
         b.Effect<DrawCards>(e => e.DrawCount = 1),
         timing: Timings.Cycling(),
         activationZone: Zone.Hand);
@@ -317,7 +317,7 @@
       abilities.Add(
         builder.ActivatedAbility(
           String.Format("{0}: Put a level counter on this. Level up only as sorcery.", cost),
-          builder.Cost<TapOwnerPayMana>(c => c.Amount = cost),
+          builder.Cost<PayMana>(c => c.Amount = cost),
           builder.Effect<ApplyModifiersToSelf>(p => p.Effect.Modifiers(builder.Modifier<IncreaseLevel>())),
           timing: Timings.Leveler(cost, levels), activateAsSorcery: true, category: category));
 

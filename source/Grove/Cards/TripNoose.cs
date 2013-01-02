@@ -23,11 +23,7 @@
         .Abilities(
           ActivatedAbility(
             "{2},{T}: Tap target creature.",
-            Cost<TapOwnerPayMana>(cost =>
-              {
-                cost.Amount = 2.AsColorlessMana();
-                cost.TapOwner = true;
-              }),
+            Cost<PayMana, Tap>(cost => cost.Amount = 2.Colorless()),
             Effect<TapTargetCreature>(),
             TargetValidator(TargetIs.Card(x=>x.Is().Creature), ZoneIs.Battlefield()),
             targetSelectorAi: TargetSelectorAi.TapCreature(),

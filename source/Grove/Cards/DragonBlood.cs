@@ -25,11 +25,7 @@
         .Abilities(
           ActivatedAbility(
             "{3},{T} : Put a +1/+1 counter on target creature.",
-            Cost<TapOwnerPayMana>(cost =>
-              {
-                cost.TapOwner = true;
-                cost.Amount = 3.AsColorlessMana();
-              }),
+            Cost<PayMana, Tap>(cost => cost.Amount = 3.Colorless()),
             Effect<ApplyModifiersToTargets>(e => e.Modifiers(
               Modifier<AddCounters>(m => m.Counter =
                 Counter<PowerToughness>(c =>

@@ -25,11 +25,7 @@
         .Abilities(
           ActivatedAbility(
             "{2},{T}: Target creature gets +0/+3 for as long as Endoskeleton remains tapped.",
-            Cost<TapOwnerPayMana>(cost =>
-              {
-                cost.Amount = 2.AsColorlessMana();
-                cost.TapOwner = true;
-              }),
+            Cost<PayMana, Tap>(cost => cost.Amount = 2.Colorless()),
             Effect<ApplyModifiersToTargets>(e => e.Modifiers(
               Modifier<AddPowerAndToughness>(m =>
                 {

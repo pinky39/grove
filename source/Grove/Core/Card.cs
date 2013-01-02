@@ -17,6 +17,58 @@
   using Targeting;
   using Zones;
 
+  //[Copyable]
+  //public class SpellActivation
+  //{
+  //  private readonly IEffectFactory _effectFactory;
+  //  private readonly string _text;
+  //  private readonly TargetSelector _targetSelector;
+  //  private readonly CalculateX _xCalculator;
+  //  private readonly bool _distributeDamage;
+  //  private readonly TimingDelegate _timing;
+
+  //  public SpellActivation(
+  //    Cost cost,
+  //    IEffectFactory effectFactory, 
+  //    string text, 
+  //    TargetSelector targetSelector = null, 
+  //    CalculateX xCalculator = null,
+  //    bool distributeDamage = false,
+  //    TimingDelegate timing = null)
+  //  {
+  //    _effectFactory = effectFactory;
+  //    _text = text;
+  //    _targetSelector = targetSelector;
+  //    _xCalculator = xCalculator;
+  //    _distributeDamage = distributeDamage;
+  //    _timing = timing;
+  //  }
+
+  //  SpellPrerequisites CanActivate()
+  //  {
+  //     return new SpellPrerequisites
+  //      {
+  //        CanBeSatisfied = true,
+  //        Description = String.Format("Cast {0}.", this),
+  //        TargetSelector = _targetSelector,                    
+  //        MaxX = GetMaxX(),
+  //        DistributeDamage = _distributeDamage,
+  //        XCalculator = _xCalculator,
+  //        Timing = _timing,
+  //      };
+  //  }
+
+  //  private int? GetMaxX()
+  //  {
+  //    int? maxX = null;
+  //    if (HasXInCost)
+  //    {
+  //      maxX = Controller.GetConvertedMana(ManaUsage.Spells) - ManaCostWithKicker.Converted;
+  //    }
+  //    return maxX;
+  //  }
+  //}
+
   [Copyable]
   public class Card : IEffectSource, ITarget, IDamageable, IHashDependancy, IAcceptsModifiers, IHasColors, IHasLife
   {
@@ -600,7 +652,7 @@
           MaxX = GetMaxX(),
           DistributeDamage = _distributeDamage,
           XCalculator = _xCalculator,
-          Timming = _timming,
+          Timing = _timming,
         };
     }
 

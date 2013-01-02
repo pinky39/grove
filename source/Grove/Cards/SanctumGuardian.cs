@@ -25,7 +25,7 @@
         .Abilities(
           ActivatedAbility(
             "Sacrifice Sanctum Guardian: The next time a source of your choice would deal damage to target creature or player this turn, prevent that damage.",
-            Cost<SacrificeOwner>(),
+            Cost<Sacrifice>(),
             Effect<PreventDamageFromSourceToTarget>(e => e.OnlyOnce = true),
             effectValidators: new[]
               {

@@ -27,7 +27,7 @@
           Static.Flying,
           ActivatedAbility(
             "{T}: Target attacking or blocking creature gets +1/+1 until end of turn.",
-            Cost<TapOwnerPayMana>(cost => cost.TapOwner = true),
+            Cost<Tap>(),
             Effect<ApplyModifiersToTargets>(e => e.Modifiers(
               Modifier<AddPowerAndToughness>(m =>
                 {

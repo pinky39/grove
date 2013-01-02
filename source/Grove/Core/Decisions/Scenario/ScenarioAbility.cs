@@ -13,7 +13,7 @@
       var manaCost = Card.GetActivatedAbilityManaCost(Index);
 
       if (ActivationParameters.X.HasValue)
-        manaCost = manaCost.Add(ActivationParameters.X.Value.AsColorlessMana());
+        manaCost = manaCost.Add(ActivationParameters.X.Value.Colorless());
 
       Card.Controller.AddManaToManaPool(manaCost);
 

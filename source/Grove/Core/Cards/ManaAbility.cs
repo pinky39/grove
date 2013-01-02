@@ -57,7 +57,7 @@
           {
             CanBeSatisfied = true,
             Description = Text,
-            Timming = delegate { return true; },
+            Timing = delegate { return true; },
             IsAbility = true
           };
       }

@@ -1,9 +1,10 @@
 ﻿namespace Grove.Core.Cards.Costs
 {
-  using Grove.Core.Ai;
-  using Grove.Core.Dsl;
-  using Grove.Infrastructure;
-  using Grove.Core.Targeting;
+  using Ai;
+  using Dsl;
+  using Infrastructure;
+  using Mana;
+  using Targeting;
 
   [Copyable]
   public abstract class Cost : IHashable
@@ -11,7 +12,7 @@
     protected Card Card { get; private set; }
     protected Player Controller { get { return Card.Controller; } }
     protected Game Game { get; private set; }
-    public TargetValidator Validator { get; private set;  }
+    protected TargetValidator Validator { get; private set; }
 
     public CalculateX XCalculator { get; set; }
 
@@ -31,9 +32,14 @@
 
     protected virtual void AfterInit() {}
 
+    public virtual IManaAmount GetManaCost()
+    {
+      return ManaAmount.Zero;
+    }
+
     public class Factory<TCost> : ICostFactory where TCost : Cost, new()
     {
-      public Initializer<TCost> Init = delegate { };      
+      public Initializer<TCost> Init = delegate { };
 
       public Cost CreateCost(Card card, TargetValidator validator, Game game)
       {

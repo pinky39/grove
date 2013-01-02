@@ -33,7 +33,7 @@
             ),
           ActivatedAbility(
             "{4},{T}, Sacrifice Barrin's Codex: Draw X cards, where X is the number of page counters on Barrin's Codex.",
-            Cost<TapAndSacOwnerPayMana>(cost => cost.Amount = 4.AsColorlessMana()),
+            Cost<PayMana, Tap, Sacrifice>(cost => cost.Amount = 4.Colorless()),
             Effect<DrawCards>(e => e.DrawCount = e.Source.OwningCard.Counters.GetValueOrDefault()),
             timing: Timings.Has3CountersOr1IfDestroyed())
         );

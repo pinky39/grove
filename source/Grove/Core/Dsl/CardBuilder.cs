@@ -102,6 +102,57 @@
         };
     }
 
+    public ICostFactory Cost<T1, T2>(Initializer<T1> init1 = null, Initializer<T2> init2 = null) where T1 : Cost, new()
+      where T2 : Cost, new()
+    {
+      init1 = init1 ?? delegate { };
+      init2 = init2 ?? delegate { };
+      var cost1 = new Cost.Factory<T1>
+        {
+          Init = init1
+        };
+
+      var cost2 = new Cost.Factory<T2>()
+        {
+          Init = init2
+        };
+
+      return new Cost.Factory<AggregateCost>()
+        {
+          Init = cost => cost.CostsFactories = new List<ICostFactory> {cost1, cost2}
+        };
+    }
+
+     public ICostFactory Cost<T1, T2, T3>(Initializer<T1> init1 = null, Initializer<T2> init2 = null, Initializer<T3> init3 = null) 
+      where T1 : Cost, new()
+      where T2 : Cost, new()
+      where T3 : Cost, new()
+    {
+      init1 = init1 ?? delegate { };
+      init2 = init2 ?? delegate { };
+      init3 = init3 ?? delegate { };
+      
+      var cost1 = new Cost.Factory<T1>
+        {
+          Init = init1
+        };
+
+      var cost2 = new Cost.Factory<T2>()
+        {
+          Init = init2
+        };
+
+      var cost3 = new Cost.Factory<T3>()
+        {
+          Init = init3
+        };
+
+      return new Cost.Factory<AggregateCost>()
+        {
+          Init = cost => cost.CostsFactories = new List<ICostFactory> {cost1, cost2, cost3}
+        };
+    }
+
     public ICounterFactory Counter<T>(Initializer<T> init = null) where T : Counter, new()
     {
       init = init ?? delegate { };
@@ -140,14 +191,12 @@
     {
       return ManaAbility(delegate { return manaAmount; }, text, cost, priority);
     }
-    
-    public IActivatedAbilityFactory ManaAbility(Func<ManaAbility, Game, IManaAmount> manaAmount, string text, ICostFactory cost = null,
+
+    public IActivatedAbilityFactory ManaAbility(Func<ManaAbility, Game, IManaAmount> manaAmount, string text,
+      ICostFactory cost = null,
       int? priority = null)
     {
-      cost = cost ?? new Cost.Factory<TapOwnerPayMana>
-        {
-          Init = cst => { cst.TapOwner = true; }
-        };
+      cost = cost ?? new Cost.Factory<Tap>();
 
       return new ActivatedAbility.Factory<ManaAbility>
         {

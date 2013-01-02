@@ -29,7 +29,7 @@
           Static.Flying,
           ActivatedAbility(
             "{W}{W}: Target creature is indestructible this turn.",
-            Cost<TapOwnerPayMana>(cost => cost.Amount = "{W}{W}".ParseManaAmount()),
+            Cost<PayMana>(cost => cost.Amount = "{W}{W}".ParseMana()),
             Effect<ApplyModifiersToTargets>(p => p.Effect.Modifiers(
               Modifier<AddStaticAbility>(m => { m.StaticAbility = Static.Indestructible; },
                 untilEndOfTurn: true))),

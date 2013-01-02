@@ -24,7 +24,7 @@
         .Abilities(
           ActivatedAbility(
             "{W}: The next time a black source of your choice would deal damage to you this turn, prevent that damage.",
-            Cost<TapOwnerPayMana>(cost => { cost.Amount = ManaAmount.White; }),
+            Cost<PayMana>(cost => { cost.Amount = ManaAmount.White; }),
             Effect<PreventDamageFromSourceToController>(e => e.OnlyOnce = true), 
             TargetValidator(
               TargetIs.Card(card => card.HasColors(ManaColors.Black)), 

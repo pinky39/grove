@@ -374,6 +374,10 @@
     <Compile Include="Core\CardFactory.cs" />
     <Compile Include="Core\CardParameters.cs" />
     <Compile Include="Core\Cards\ContiniousEffects.cs" />
+    <Compile Include="Core\Cards\Costs\AggregateCost.cs" />
+    <Compile Include="Core\Cards\Costs\PayMana.cs" />
+    <Compile Include="Core\Cards\Costs\RemoveCounter.cs" />
+    <Compile Include="Core\Cards\Costs\Tap.cs" />
     <Compile Include="Core\Cards\Effects\ApplyModifiersToPlayers.cs" />
     <Compile Include="Core\Cards\Effects\DiscardHand.cs" />
     <Compile Include="Core\Cards\Effects\ExchangeForOpponentsCreature.cs" />
@@ -416,9 +420,7 @@
     <Compile Include="Core\DeckReaderWriter.cs" />
     <Compile Include="Core\DeckRow.cs" />
     <Compile Include="Core\Cards\ControllerCharacteristic.cs" />
-    <Compile Include="Core\Cards\Costs\ReturnOwnerToHand.cs" />
-    <Compile Include="Core\Cards\Costs\SacOwnerPayMana.cs" />
-    <Compile Include="Core\Cards\Costs\SacPermanentPayMana.cs" />
+    <Compile Include="Core\Cards\Costs\ReturnToHand.cs" />
     <Compile Include="Core\Cards\Effects\CustomizableEffect.cs" />
     <Compile Include="Core\Cards\Effects\DealDamageToOpponentEqualToCardDifference.cs" />
     <Compile Include="Core\Cards\Effects\DealDistributedDamageToTargets.cs" />
@@ -466,10 +468,9 @@
     <Compile Include="Core\Decisions\Scenario\PrerecordedDecisions.cs" />
     <Compile Include="Core\Decisions\Scenario\ChooseToUntap.cs" />
     <Compile Include="Core\Cards\Ability.cs" />
-    <Compile Include="Core\Cards\Costs\DiscardOwnerPayMana.cs" />
+    <Compile Include="Core\Cards\Costs\Discard.cs" />
     <Compile Include="Core\Cards\Costs\NoCost.cs" />
-    <Compile Include="Core\Cards\Costs\RevealCardFromHand.cs" />
-    <Compile Include="Core\Cards\Costs\TapAndSacOwnerPayMana.cs" />
+    <Compile Include="Core\Cards\Costs\Reveal.cs" />
     <Compile Include="Core\Cards\EffectCreationContext.cs" />
     <Compile Include="Core\Cards\EffectParameters.cs" />
     <Compile Include="Core\Cards\Effects\SwitchController.cs" />
@@ -543,7 +544,6 @@
     <Compile Include="Core\Decisions\Scenario\SetTriggeredAbilityTarget.cs" />
     <Compile Include="Core\Decisions\Scenario\DecisionsForOneStep.cs" />
     <Compile Include="Core\Decisions\Scenario\Verify.cs" />
-    <Compile Include="Core\Cards\Costs\TapOwnerRemoveCounter.cs" />
     <Compile Include="Core\Cards\Counters\ChargeCounter.cs" />
     <Compile Include="Core\Cards\Counters\Counter.cs" />
     <Compile Include="Core\Cards\Counters\Counters.cs" />
@@ -701,8 +701,7 @@
     <Compile Include="Core\Mana\IManaSource.cs" />
     <Compile Include="Core\Cards\ManaAbility.cs" />
     <Compile Include="Core\Mana\ManaPool.cs" />
-    <Compile Include="Core\Cards\Costs\SacrificeOwner.cs" />
-    <Compile Include="Core\Cards\Costs\SacPermanent.cs" />
+    <Compile Include="Core\Cards\Costs\Sacrifice.cs" />
     <Compile Include="Core\Damage.cs" />
     <Compile Include="Core\Cards\Preventions\ReplaceDamageWithCounters.cs" />
     <Compile Include="Core\Cards\Effects\CompoundEffect.cs" />
@@ -755,8 +754,6 @@
     <Compile Include="Core\Cards\Triggers\DealDamageToCreatureOrPlayer.cs" />
     <Compile Include="Core\Cards\Triggers\OnZoneChange.cs" />
     <Compile Include="Core\Cards\Costs\Cost.cs" />
-    <Compile Include="Core\Cards\Costs\TapOwnerPayMana.cs" />
-    <Compile Include="Core\Cards\Costs\TapCreature.cs" />
     <Compile Include="Core\CardDatabase.cs" />
     <Compile Include="Core\Cards\Effects\AddManaToPool.cs" />
     <Compile Include="Core\Cards\Effects\ApplyModifiersToPermanents.cs" />

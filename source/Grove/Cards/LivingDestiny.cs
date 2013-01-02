@@ -20,7 +20,7 @@
           "As an additional cost to cast Living Destiny, reveal a creature card from your hand.{EOL}You gain life equal to the revealed card's converted mana cost.")
         .FlavorText("'That our enemies are great only brings us greater hope.'")
         .Timing(Timings.EndOfTurn())
-        .AdditionalCost<RevealCardFromHand>()
+        .AdditionalCost<Reveal>()
         .Effect<GainLife>(e => e.Amount = e.CostTarget().Card().ManaCost.Converted)
         .Targets(
           TargetSelectorAi.GreatestConvertedManaCost(),

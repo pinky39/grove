@@ -1,17 +1,16 @@
 ﻿namespace Grove.Core.Cards.Costs
 {
-  using Grove.Core.Targeting;
+  using Targeting;
 
-  public class TapOwnerRemoveCounter : Cost
+  public class RemoveCounter : Cost
   {
     public override bool CanPay(ref int? maxX)
     {
-      return Card.CanTap && Card.ChargeCountersCount > 0;
+      return Card.ChargeCountersCount > 0;
     }
 
     public override void Pay(ITarget target, int? x)
     {
-      Card.Tap();
       Card.RemoveChargeCounter();
     }
   }

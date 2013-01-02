@@ -31,11 +31,7 @@
     {
       get
       {
-        var manaCost = Cost as TapOwnerPayMana;
-
-        return manaCost == null
-          ? ManaAmount.Zero
-          : manaCost.Amount ?? ManaAmount.Zero;
+        return Cost.GetManaCost();                
       }
     }
 
@@ -85,7 +81,7 @@
             TargetSelector = TargetSelector,
             XCalculator = Cost.XCalculator,
             MaxX = maxX,
-            Timming = _timming,
+            Timing = _timming,
             TargetsSelf = TargetsSelf,
             IsAbility = true,
           }
