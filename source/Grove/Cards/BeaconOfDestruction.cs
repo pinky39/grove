@@ -3,10 +3,10 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
+  using Core.Cards.Casting;
   using Core.Cards.Effects;
   using Core.Dsl;
   using Core.Targeting;
-  using Core.Zones;
 
   public class BeaconOfDestruction : CardsSource
   {
@@ -19,14 +19,14 @@
         .Text(
           "Beacon of Destruction deals 5 damage to target creature or player. Shuffle Beacon of Destruction into its owner's library.")
         .FlavorText("The Great Furnace's blessing is a spectacular sight, but the best view comes at a high cost.")
-        .Timing(Timings.InstantRemovalTarget())
-        .AfterResolvePutToZone(Zone.Library)
-        .Effect<DealDamageToTargets>(p => p.Amount = 5)
-        .Targets(
-          TargetSelectorAi.DealDamageSingleSelector(5),
-          TargetValidator(
-            TargetIs.CreatureOrPlayer(),
-            ZoneIs.Battlefield()));
+        .Cast(p =>
+          {
+            p.Timing = Timings.InstantRemovalTarget();
+            p.Rule = Rule<Instant>(r => r.AfterResolvePutToZone = card => card.ShuffleIntoLibrary());
+            p.Effect = Effect<DealDamageToTargets>(e => e.Amount = 5);
+            p.EffectTargets = L(Target(Validators.CreatureOrPlayer(), Zones.Battlefield()));
+            p.TargetSelectorAi = TargetSelectorAi.DealDamageSingleSelector(5);
+          });
     }
   }
 }

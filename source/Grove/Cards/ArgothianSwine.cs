@@ -17,8 +17,7 @@
         .Text("{Trample}")
         .FlavorText("In Argoth, the shortest route between two points is the one the swine make.")
         .Power(3)
-        .Toughness(3)
-        .Timing(Timings.Creatures())
+        .Toughness(3)        
         .Abilities(
           Static.Trample);
     }

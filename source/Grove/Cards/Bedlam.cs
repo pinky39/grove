@@ -17,7 +17,7 @@
         .Type("Enchantment")
         .Text("Creatures can't block.")
         .FlavorText("Sometimes quantity, in the absence of quality, is good enough.")
-        .Timing(Timings.FirstMain())
+        .Cast(p => p.Timing = Timings.FirstMain())
         .Abilities(
           Continuous(e =>
             {

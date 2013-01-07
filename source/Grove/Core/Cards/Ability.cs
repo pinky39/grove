@@ -9,7 +9,7 @@
   using Zones;
 
   [Copyable]
-  public abstract class Ability : IEffectSource
+  public abstract class Ability : IEffectSource, IHashable
   {
     private TargetSelector _targetSelector = TargetSelector.NullSelector;
     public TargetSelector TargetSelector { get { return _targetSelector; } }

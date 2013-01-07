@@ -3,11 +3,11 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
+  using Core.Cards.Casting;
   using Core.Cards.Counters;
   using Core.Cards.Effects;
   using Core.Cards.Modifiers;
   using Core.Dsl;
-  using Core.Zones;
 
   public class BlackSunsZenith : CardsSource
   {
@@ -15,25 +15,29 @@
     {
       yield return Card
         .Named("Black Sun's Zenith")
-        .ManaCost("{B}{B}").XCalculator(VariableCost.ReduceCreaturesPwT())
+        .ManaCost("{B}{B}")
         .Type("Sorcery")
         .Text("Put X -1/-1 counters on each creature. Shuffle Black Sun's Zenith into its owner's library.")
-        .AfterResolvePutToZone(Zone.Library)        
-        .Timing(Timings.FirstMain())
         .FlavorText("'Under the suns, Mirrodin kneels and begs us for perfection.'{EOL}—Geth, Lord of the Vault")
-        .Effect<ApplyModifiersToPermanents>(e =>
+        .Cast(p =>
           {
-            e.ToughnessReduction = Value.PlusX;
-            e.Filter = (effect, card) => card.Is().Creature;
-            e.Modifiers(Modifier<AddCounters>(m =>
+            p.Timing = Timings.FirstMain();
+            p.Rule = Rule<Sorcery>(r => r.AfterResolvePutToZone = card => card.ShuffleIntoLibrary());
+            p.XCalculator = VariableCost.ReduceCreaturesPwT();
+            p.Effect = Effect<ApplyModifiersToPermanents>(e =>
               {
-                m.Counter = Counter<PowerToughness>(counter =>
+                e.ToughnessReduction = Value.PlusX;
+                e.Filter = (effect, card) => card.Is().Creature;
+                e.Modifiers(Modifier<AddCounters>(m =>
                   {
-                    counter.Power = -1;
-                    counter.Toughness = -1;
-                  });
-                m.Count = Value.PlusX;
-              }));
+                    m.Counter = Counter<PowerToughness>(counter =>
+                      {
+                        counter.Power = -1;
+                        counter.Toughness = -1;
+                      });
+                    m.Count = Value.PlusX;
+                  }));
+              });
           });
     }
   }

@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
   using Core.Cards;
   using Core.Dsl;
 
@@ -19,7 +18,6 @@
           "'Let weak feed on weak, that we may divine the nature of strength.'{EOL}—Phyrexian Scriptures")
         .Power(2)
         .Toughness(2)
-        .Timing(Timings.Creatures())
         .Abilities(
           Static.Swampwalk
         );

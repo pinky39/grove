@@ -20,16 +20,15 @@
         .Text("{2}{B},{T}: Exile up to three target cards from a single graveyard.")
         .FlavorText("It's all fun and games until someone loses an eye.")
         .Power(1)
-        .Toughness(1)
-        .Timing(Timings.Creatures())
+        .Toughness(1)        
         .Abilities(
           ActivatedAbility(
             "{2}{B},{T}: Exile up to three target cards from a single graveyard.",
             Cost<PayMana, Tap>(cost => cost.Amount = "{2}{B}".ParseMana()),
             Effect<ExileTargets>(),
-            effectValidator: TargetValidator(
-              TargetIs.Card(),
-              ZoneIs.Graveyard(),
+            effectValidator: Target(
+              Validators.Card(),
+              Zones.Graveyard(),
               minCount: 0,
               maxCount: 3),
             targetSelectorAi: TargetSelectorAi.RemoveCardsFromOpponentsGraveyard(),

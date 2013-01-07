@@ -19,8 +19,7 @@
         .ManaCost("{1}{W}")
         .Type("Creature Angel Spirit")
         .Text("{Flying}{EOL}{T}: Target attacking or blocking creature gets +1/+1 until end of turn.")
-        .FlavorText("If only every message were as perfect as its bearers.")
-        .Timing(Timings.Creatures())
+        .FlavorText("If only every message were as perfect as its bearers.")        
         .Power(1)
         .Toughness(1)
         .Abilities(
@@ -35,7 +34,7 @@
                   m.Toughness = 1;
                 },
                 untilEndOfTurn: true))),
-            TargetValidator(TargetIs.AttackerOrBlocker(), ZoneIs.Battlefield()),
+            Target(Validators.AttackerOrBlocker(), Zones.Battlefield()),
             targetSelectorAi: TargetSelectorAi.PumpAttackerOrBlocker(power: 1, thougness: 1),
             timing: Timings.DeclareBlockers(),
             category: EffectCategories.ToughnessIncrease));

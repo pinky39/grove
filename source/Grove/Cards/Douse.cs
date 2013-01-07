@@ -20,16 +20,16 @@
         .Text("{1}{U}: Counter target red spell.")
         .FlavorText(
           "The academy's libraries were protected by fire-prevention spells. Even after the disaster, the books were intact—though forever sealed in time.")
-        .Timing(Timings.FirstMain())
+        .Cast(p => p.Timing = Timings.FirstMain())
         .Abilities(
           ActivatedAbility(
             "{1}{U}: Counter target red spell.",
             Cost<PayMana>(c => c.Amount = "{1}{U}".ParseMana()),
             Effect<CounterTargetSpell>(),
             targetSelectorAi: TargetSelectorAi.CounterSpell(),
-            effectValidator: TargetValidator(
-              TargetIs.CounterableSpell(card => card.HasColors(ManaColors.Red)),
-              ZoneIs.Stack()),
+            effectValidator: Target(
+              Validators.CounterableSpell(card => card.HasColors(ManaColors.Red)),
+              Zones.Stack()),
             category: EffectCategories.Counterspell,
             timing: Timings.CounterSpell()
             )

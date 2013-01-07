@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -22,17 +21,13 @@
           "When Academy Researchers enters the battlefield, you may put an Aura card from your hand onto the battlefield attached to Academy Researchers.")
         .Power(2)
         .Toughness(2)
-        .Timing(Timings.Creatures())
         .Abilities(
           TriggeredAbility(
             "When Academy Researchers enters the battlefield, you may put an Aura card from your hand onto the battlefield attached to Academy Researchers.",
             Trigger<OnZoneChange>(t => t.To = Zone.Battlefield),
             Effect<EnchantOwnerWithTarget>(),
-            effectValidator: TargetValidator(
-              TargetIs.Card(p => p.Card.Is().Aura && p.Card.CanTarget(p.Source)),
-              ZoneIs.OwnersHand(),
-              minCount: 0),
-            selectorAi: TargetSelectorAi.AttachToSource())
+            Target(Validators.Card(p => p.Card.Is().Aura && p.Card.CanTarget(p.Source)), Zones.OwnersHand(), minCount: 0),
+            TargetSelectorAi.AttachToSource())
         );
     }
   }

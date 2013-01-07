@@ -3,7 +3,6 @@
   using System;
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
   using Core.Cards;
   using Core.Cards.Effects;
   using Core.Cards.Triggers;
@@ -22,7 +21,6 @@
           "{Flying}{EOL}At the beg. of your upkeep, sacrifice Drifting Djinn unless you pay {1}{U}.{EOL}Cycling {2}({2}, Discard this card: Draw a card.)")
         .Power(5)
         .Toughness(5)
-        .Timing(Timings.Creatures())
         .Cycling("{2}")
         .Abilities(
           Static.Flying,

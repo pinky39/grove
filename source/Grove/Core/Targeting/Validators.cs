@@ -3,7 +3,7 @@
   using System;
   using Ai;
 
-  public static class TargetIs
+  public static class Validators
   {
     public static TargetValidatorDelegate Player()
     {

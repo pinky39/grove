@@ -18,7 +18,7 @@
         .Type("Enchantment")
         .Text("Whenever a creature enters the battlefield under your control, you gain life equal to its toughness.")
         .FlavorText("The very young and the very old know best the song the angels sing.")
-        .Timing(Timings.FirstMain())
+        .Cast(p => p.Timing = Timings.FirstMain())
         .Abilities(
           TriggeredAbility(
             "Whenever a creature enters the battlefield under your control, you gain life equal to its toughness.",

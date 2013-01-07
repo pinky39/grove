@@ -29,9 +29,9 @@
             "When Monk Idealist enters the battlefield, return target enchantment card from your graveyard to your hand.",
             Trigger<OnZoneChange>(t => t.To = Zone.Battlefield),
             Effect<PutToHand>(), 
-              TargetValidator(
-                TargetIs.Card(card => card.Is().Enchantment), 
-                ZoneIs.YourGraveyard(), 
+              Target(
+                Validators.Card(card => card.Is().Enchantment), 
+                Zones.YourGraveyard(), 
                 mustBeTargetable: false, 
                 text: "Select an enchantment in your graveyard."), 
                 TargetSelectorAi.OrderByDescendingScore(Controller.SpellOwner)

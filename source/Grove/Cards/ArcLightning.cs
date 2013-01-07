@@ -15,19 +15,17 @@
         .Named("Arc Lightning")
         .ManaCost("{2}{R}")
         .Type("Sorcery")
-        .Timing(Timings.NoRestrictions())
         .Text(
           "Arc Lightning deals 3 damage divided as you choose among one, two, or three target creatures and/or players.")
         .FlavorText("Rainclouds don't last long in Shiv, but that doesn't stop the lightning.")
-        .Effect<DealDistributedDamageToTargets>(e => e.Amount = 3)
-        .DistributeDamage()
-        .Targets(
-          TargetSelectorAi.DealDamageSingleSelectorDistribute(3),
-          TargetValidator(
-            TargetIs.CreatureOrPlayer(), 
-            ZoneIs.Battlefield(),
-            maxCount: 3)
-        );
+        .Cast(p =>
+          {
+            p.Effect = Effect<DealDistributedDamageToTargets>(e => e.Amount = 3);
+            p.DistributeDamage = true;
+            p.EffectTargets = L(Target(Validators.CreatureOrPlayer(), Zones.Battlefield(), maxCount: 3));
+            p.DistributeDamage = true;
+            p.TargetSelectorAi = TargetSelectorAi.DealDamageSingleSelectorDistribute(3);
+          });
     }
   }
 }

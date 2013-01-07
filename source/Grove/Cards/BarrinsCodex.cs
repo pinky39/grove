@@ -22,7 +22,7 @@
         .Type("Artifact")
         .Text(
           "At the beginning of your upkeep, put a page counter on Barrin's Codex.{EOL}{4},{T}, Sacrifice Barrin's Codex: Draw X cards, where X is the number of page counters on Barrin's Codex.")
-        .Timing(Timings.SecondMain())
+        .Cast(p => p.Timing = Timings.SecondMain())
         .Abilities(
           TriggeredAbility(
             "At the beginning of your upkeep, put a page counter on Barrin's Codex.",

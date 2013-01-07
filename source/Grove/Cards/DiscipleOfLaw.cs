@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
   using Core.Dsl;
   using Core.Mana;
 
@@ -18,7 +17,6 @@
         .FlavorText("A religious order for religious order.")
         .Power(1)
         .Toughness(2)
-        .Timing(Timings.Creatures())
         .Protections(ManaColors.Red)
         .Cycling("{2}");
     }

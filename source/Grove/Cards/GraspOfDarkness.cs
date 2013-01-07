@@ -31,7 +31,7 @@
           })
         .Targets(
           TargetSelectorAi.ReduceToughness(4),
-          TargetValidator(TargetIs.Card(x => x.Is().Creature), ZoneIs.Battlefield()));
+          Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));
     }
   }
 }

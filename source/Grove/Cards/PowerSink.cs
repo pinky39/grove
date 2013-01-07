@@ -27,7 +27,7 @@
           })
         .Targets(
           TargetSelectorAi.CounterSpell(), 
-          TargetValidator(TargetIs.CounterableSpell(), ZoneIs.Stack()));
+          Target(Validators.CounterableSpell(), Zones.Stack()));
     }
   }
 }

@@ -5,7 +5,7 @@
   using System.Linq;
   using Ai;
   using Infrastructure;
-  using Zones;
+  using Core.Zones;
 
   public delegate IEnumerable<ITarget> TargetGeneratorDelegate(Func<Zone, Player, bool> zoneFilter);
 

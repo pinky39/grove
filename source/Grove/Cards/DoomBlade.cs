@@ -18,14 +18,15 @@
         .Type("Instant")
         .Text("Destroy target nonblack creature.")
         .FlavorText("The void is without substance but cuts like steel.")
-        .Effect<DestroyTargetPermanents>()
-        .Timing(Timings.InstantRemovalTarget())
-        .Category(EffectCategories.Destruction)
-        .Targets(
-          TargetSelectorAi.Destroy(), 
-          TargetValidator(
-            TargetIs.Card(card => card.Is().Creature && !card.HasColors(ManaColors.Black)),
-            ZoneIs.Battlefield()));
+        .Cast(p =>
+          {
+            p.Timing = Timings.InstantRemovalTarget();
+            p.Category = EffectCategories.Destruction;
+            p.Effect = Effect<DestroyTargetPermanents>();
+            p.EffectTargets = L(Target(Validators.Card(card => card.Is().Creature && !card.HasColors(ManaColors.Black)),
+              Zones.Battlefield()));
+            p.TargetSelectorAi = TargetSelectorAi.Destroy();
+          });                
     }
   }
 }

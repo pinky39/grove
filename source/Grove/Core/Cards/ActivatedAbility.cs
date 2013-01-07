@@ -27,24 +27,14 @@
     protected Cost Cost { get; private set; }
     protected bool IsEnabled { get { return _isEnabled.Value; } private set { _isEnabled.Value = value; } }
 
-    public IManaAmount ManaCost
-    {
-      get
-      {
-        return Cost.GetManaCost();                
-      }
-    }
+    public IManaAmount ManaCost { get { return Cost.GetManaCost(); } }
 
     protected TurnInfo Turn { get { return Game.Turn; } }
 
     public void Activate(ActivationParameters parameters)
     {
       var effect = EffectFactory.CreateEffect(
-        new EffectParameters(
-          source: this,
-          activation: parameters,
-          targets: parameters.Targets
-          ), Game);
+        new EffectParameters(this, parameters), Game);
 
       Cost.Pay(parameters.Targets.Cost.FirstOrDefault(), parameters.X);
 

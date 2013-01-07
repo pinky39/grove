@@ -21,8 +21,7 @@
         .FlavorText(
           "Start with eleven gnomes and a room of parts, and come morning you'll have ten and a monster the likes of which you've never seen.")
         .Power(1)
-        .Toughness(1)
-        .Timing(Timings.Creatures())
+        .Toughness(1)        
         .Abilities(
           ActivatedAbility(
             "{4}, Sacrifice Copper Gnomes: You may put an artifact card from your hand onto the battlefield.",

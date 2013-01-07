@@ -23,7 +23,7 @@
         .Effect<CounterTargetSpell>(e => e.DoNotCounterCost = 3.Colorless())
         .Targets(
           TargetSelectorAi.CounterSpell(), 
-          TargetValidator(TargetIs.CounterableSpell(), ZoneIs.Stack()));
+          Target(Validators.CounterableSpell(), Zones.Stack()));
     }
   }
 }

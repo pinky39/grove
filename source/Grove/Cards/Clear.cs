@@ -16,16 +16,15 @@
         .ManaCost("{1}{W}")
         .Type("Instant")
         .Text("Destroy target enchantment.{EOL}Cycling {2}({2}, Discard this card: Draw a card.)")
-        .Effect<DestroyTargetPermanents>()
-        .Category(EffectCategories.Destruction)
-        .Timing(Timings.InstantRemovalTarget())
         .Cycling("{2}")
-        .Targets(
-          selectorAi: TargetSelectorAi.OrderByDescendingScore(),
-          effectValidator:
-            TargetValidator(
-              TargetIs.Card(card => card.Is().Enchantment),
-              ZoneIs.Battlefield()));
+        .Cast(p =>
+          {
+            p.Timing = Timings.InstantRemovalTarget();
+            p.Category = EffectCategories.Destruction;
+            p.Effect = Effect<DestroyTargetPermanents>();
+            p.EffectTargets = L(Target(Validators.Card(card => card.Is().Enchantment), Zones.Battlefield()));
+            p.TargetSelectorAi = TargetSelectorAi.OrderByDescendingScore();
+          });
     }
   }
 }

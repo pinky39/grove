@@ -22,7 +22,7 @@
           "{Flying}{EOL}When Dark Hatchling enters the battlefield, destroy target nonblack creature. It can't be regenerated.")
         .Power(3)
         .Toughness(3)
-        .Timing(Timings.OpponentHasPermanent(card =>
+        .Cast(p => p.Timing = Timings.OpponentHasPermanent(card =>
           card.Is().Creature &&
             !card.HasColors(ManaColors.Black) &&
               !card.HasProtectionFrom(ManaColors.Black)))
@@ -31,9 +31,9 @@
             "When Dark Hatchling enters the battlefield, destroy target nonblack creature. It can't be regenerated.",
             Trigger<OnZoneChange>(t => t.To = Zone.Battlefield),
             Effect<DestroyTargetPermanents>(e => e.AllowRegenerate = false),
-            TargetValidator(
-              TargetIs.Card(card => card.Is().Creature && !card.HasColors(ManaColors.Black)),
-              ZoneIs.Battlefield()),
+            Target(
+              Validators.Card(card => card.Is().Creature && !card.HasColors(ManaColors.Black)),
+              Zones.Battlefield()),
             selectorAi: TargetSelectorAi.Destroy(),
             abilityCategory: EffectCategories.Destruction));
     }

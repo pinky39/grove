@@ -17,14 +17,14 @@
         .Type("Instant")
         .Text("Counter target spell.")
         .FlavorText("'Your attack has been rendered harmless. It is, however, quite pretty.'{EOL}—Saprazzan vizier")
-        .Category(EffectCategories.Counterspell)
-        .Timing(Timings.CounterSpell())
-        .Effect<CounterTargetSpell>()
-        .Targets(
-          selectorAi: TargetSelectorAi.CounterSpell(),
-          effectValidator: TargetValidator(
-            TargetIs.CounterableSpell(),
-            ZoneIs.Stack()));
+        .Cast(p =>
+          {
+            p.Timing = Timings.CounterSpell();
+            p.Category = EffectCategories.Counterspell;
+            p.Effect = Effect<CounterTargetSpell>();
+            p.EffectTargets = L(Target(Validators.CounterableSpell(), Zones.Stack()));
+            p.TargetSelectorAi = TargetSelectorAi.CounterSpell();
+          });
     }
   }
 }

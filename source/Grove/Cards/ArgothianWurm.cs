@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
   using Core.Cards;
   using Core.Cards.Effects;
   using Core.Cards.Triggers;
@@ -21,7 +20,6 @@
           "{Trample}{EOL}When Argothian Wurm enters the battlefield, any player may sacrifice a land. If a player does, put Argothian Wurm on top of its owner's library.")
         .Power(6)
         .Toughness(6)
-        .Timing(Timings.Creatures())
         .Abilities(
           Static.Trample,
           TriggeredAbility(

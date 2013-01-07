@@ -19,16 +19,15 @@
         .Text("You control enchanted permanent.")
         .FlavorText(
           "'I don't understand why he works so hard on a device to duplicate a sound so easily made with hand and armpit.'{EOL}—Barrin, progress report")
-        .Timing(Timings.FirstMain())
-        .Category(EffectCategories.Destruction)
-        .Effect<Attach>(e => e.Modifiers(
-          Modifier<ChangeController>(m => m.NewController = m.Source.Controller)))
-        .Targets(
-          selectorAi: TargetSelectorAi.GainControl(),
-          effectValidator: TargetValidator(
-            TargetIs.Card(),
-            ZoneIs.Battlefield())
-        );
+        .Cast(p =>
+          {
+            p.Timing = Timings.FirstMain();
+            p.Category = EffectCategories.Destruction;
+            p.Effect = Effect<Attach>(e => e.Modifiers(
+              Modifier<ChangeController>(m => m.NewController = m.Source.Controller)));
+            p.EffectTargets = L(Target(Validators.Card(), Zones.Battlefield()));
+            p.TargetSelectorAi = TargetSelectorAi.GainControl();
+          });
     }
   }
 }

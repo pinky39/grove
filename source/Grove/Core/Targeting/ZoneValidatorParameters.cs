@@ -1,6 +1,6 @@
 ﻿namespace Grove.Core.Targeting
 {
-  using Zones;
+  using Core.Zones;
 
   public class ZoneValidatorParameters
   {

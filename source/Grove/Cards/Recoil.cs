@@ -22,7 +22,7 @@
         .Effect<PutToHand>(e => { e.Discard = 1; })
         .Targets(
           TargetSelectorAi.Bounce(),
-          TargetValidator(TargetIs.Card(), ZoneIs.Battlefield()));
+          Target(Validators.Card(), Zones.Battlefield()));
     }
   }
 }

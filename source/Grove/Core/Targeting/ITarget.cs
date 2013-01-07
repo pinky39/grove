@@ -6,7 +6,7 @@
   using Cards.Modifiers;
   using Decisions.Scenario;
   using Infrastructure;
-  using Zones;
+  using Core.Zones;
 
   public interface ITarget : IHashable {    
   }
@@ -31,7 +31,7 @@
 
       if (target.IsEffect())
       {
-        return Zones.Zone.Stack;
+        return Core.Zones.Zone.Stack;
       }
 
       return target.Card().Zone;

@@ -19,39 +19,43 @@
         .Text("Destroy all lands or all creatures. Creatures destroyed this way can't be regenerated.")
         .FlavorText(
           "Radiant's eyes flashed. 'Go, then,' the angel spat at Serra, 'and leave this world to those who truly care.'")
-        .Timing(Timings.SecondMain())
-        .Category(EffectCategories.Destruction)
-        .Effect<CustomizableEffect>(e =>
+        .Cast(p =>
           {
-            e.Choices(Choice(EffectChoiceOption.Lands, EffectChoiceOption.Creatures));
-
-            e.Ai = p =>
+            p.Timing = Timings.SecondMain();
+            p.Category = EffectCategories.Destruction;
+            p.Effect = Effect<CustomizableEffect>(e =>
               {
-                var opponent = p.Game.Players.GetOpponent(p.Controller);
+                e.Choices(Choice(EffectChoiceOption.Lands, EffectChoiceOption.Creatures));
 
-                var opponentCreatureCount = opponent.Battlefield.Creatures.Count();
-                var yourCreatureCount = p.Controller.Battlefield.Creatures.Count();
+                e.Ai = p1 =>
+                  {
+                    var opponent = p1.Game.Players.GetOpponent(p1.Controller);
 
-                return opponentCreatureCount - yourCreatureCount > 0
-                  ? new ChosenOptions(EffectChoiceOption.Creatures)
-                  : new ChosenOptions(EffectChoiceOption.Lands);
-              };
+                    var opponentCreatureCount = opponent.Battlefield.Creatures.Count();
+                    var yourCreatureCount = p1.Controller.Battlefield.Creatures.Count();
 
-            e.Text = "Destroy all #0.";
+                    return opponentCreatureCount - yourCreatureCount > 0
+                      ? new ChosenOptions(EffectChoiceOption.Creatures)
+                      : new ChosenOptions(EffectChoiceOption.Lands);
+                  };
 
-            e.ProcessResults = p =>
-              {
-                if (p.Result.Options[0] == EffectChoiceOption.Lands)
-                {
-                  p.Game.Players.DestroyPermanents(card => card.Is().Land);
-                  return;
-                }
+                e.Text = "Destroy all #0.";
 
-                p.Game.Players.DestroyPermanents(
-                  card => card.Is().Creature,
-                  allowToRegenerate: false);
-              };
+                e.ProcessResults = p1 =>
+                  {
+                    if (p1.Result.Options[0] == EffectChoiceOption.Lands)
+                    {
+                      p1.Game.Players.DestroyPermanents(card => card.Is().Land);
+                      return;
+                    }
+
+                    p1.Game.Players.DestroyPermanents(
+                      card => card.Is().Creature,
+                      allowToRegenerate: false);
+                  };
+              });
           });
+
     }
   }
 }

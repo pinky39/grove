@@ -17,14 +17,16 @@
         .Type("Instant")
         .Text("Counter target artifact or enchantment spell.")
         .FlavorText("The most effective way to destroy a spell is to ensure it was never cast in the first place.")
-        .Category(EffectCategories.Counterspell)
-        .Timing(Timings.CounterSpell())
-        .Effect<CounterTargetSpell>()
-        .Targets(
-          TargetSelectorAi.CounterSpell(),
-          TargetValidator(
-            TargetIs.CounterableSpell(card => card.Is().Artifact || card.Is().Enchantment),
-            ZoneIs.Stack()));
+        .Cast(p =>
+          {
+            p.Timing = Timings.CounterSpell();
+            p.Category = EffectCategories.Counterspell;
+            p.Effect = Effect<CounterTargetSpell>();
+            p.EffectTargets = L(Target(
+              Validators.CounterableSpell(card => card.Is().Artifact || card.Is().Enchantment),
+              Zones.Stack()));
+            p.TargetSelectorAi = TargetSelectorAi.CounterSpell();
+          });
     }
   }
 }

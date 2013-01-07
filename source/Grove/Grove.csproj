@@ -373,6 +373,9 @@
     <Compile Include="Core\Ai\QuickCombat.cs" />
     <Compile Include="Core\CardFactory.cs" />
     <Compile Include="Core\CardParameters.cs" />
+    <Compile Include="Core\Cards\Casting\Aura.cs" />
+    <Compile Include="Core\Cards\Casting\ICastingRuleFactory.cs" />
+    <Compile Include="Core\Cards\Casting\Permanent.cs" />
     <Compile Include="Core\Cards\ContiniousEffects.cs" />
     <Compile Include="Core\Cards\Costs\AggregateCost.cs" />
     <Compile Include="Core\Cards\Costs\PayMana.cs" />
@@ -389,6 +392,8 @@
     <Compile Include="Core\Cards\Modifiers\IncreaseManaOutput.cs" />
     <Compile Include="Core\Cards\Modifiers\ManaAmountIncrement.cs" />
     <Compile Include="Core\Cards\Preventions\PreventReceived.cs" />
+    <Compile Include="Core\CastInstructionParameters.cs" />
+    <Compile Include="Core\CastInstructions.cs" />
     <Compile Include="Core\Decisions\Human\SelectCardsToUntap.cs" />
     <Compile Include="Core\Decisions\Machine\SelectCardsToUntap.cs" />
     <Compile Include="Core\Decisions\SelectCardsToUntap.cs" />
@@ -455,6 +460,7 @@
     <Compile Include="Core\Messages\CardChangedType.cs" />
     <Compile Include="Core\Messages\CardWasRevealed.cs" />
     <Compile Include="Core\Messages\PermanentModified.cs" />
+    <Compile Include="Core\CastInstruction.cs" />
     <Compile Include="Core\Targeting\IDamageDistributor.cs" />
     <Compile Include="Core\Cards\IAcceptsModifiers.cs" />
     <Compile Include="Core\IHasColors.cs" />
@@ -590,7 +596,7 @@
     <Compile Include="Core\Cards\Triggers\SpellWasCast.cs" />
     <Compile Include="Core\Cards\Triggers\OnLevelChanged.cs" />
     <Compile Include="Core\Cards\Triggers\OpponentWasNotDealtDamageThisTurn.cs" />
-    <Compile Include="Core\Targeting\ZoneIs.cs" />
+    <Compile Include="Core\Targeting\Zones.cs" />
     <Compile Include="Core\Targeting\ZoneValidatorParameters.cs" />
     <Compile Include="Core\Zones\IGraveyardQuery.cs" />
     <Compile Include="Core\Zones\ILibraryQuery.cs" />
@@ -618,7 +624,7 @@
     </Compile>
     <Compile Include="Ui\Deck\ViewModel.cs" />
     <Compile Include="Ui\DistributeDamage\UiDamageDistribution.cs" />
-    <Compile Include="Core\Targeting\TargetIs.cs" />
+    <Compile Include="Core\Targeting\Validators.cs" />
     <Compile Include="Core\Mana\ZeroManaAmount.cs" />
     <Compile Include="Core\Zones\Exile.cs" />
     <Compile Include="Core\Zones\IBattlefieldQuery.cs" />
@@ -748,7 +754,7 @@
     <Compile Include="Core\Cards\CardType.cs" />
     <Compile Include="Core\Cards\Casting\Instant.cs" />
     <Compile Include="Core\Cards\Casting\Land.cs" />
-    <Compile Include="Core\Cards\Casting\Default.cs" />
+    <Compile Include="Core\Cards\Casting\Sorcery.cs" />
     <Compile Include="Core\Cards\Triggers\Trigger.cs" />
     <Compile Include="Core\Cards\Triggers\AtBegginingOfStep.cs" />
     <Compile Include="Core\Cards\Triggers\DealDamageToCreatureOrPlayer.cs" />

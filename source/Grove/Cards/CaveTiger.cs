@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
   using Core.Cards.Effects;
   using Core.Cards.Modifiers;
   using Core.Cards.Triggers;
@@ -21,7 +20,6 @@
           "The druids found a haven in the cool limestone tunnels beneath Argoth. The invaders found only tigers.")
         .Power(2)
         .Toughness(2)
-        .Timing(Timings.Creatures())
         .Abilities(
           TriggeredAbility(
             "Whenever Cave Tiger becomes blocked by a creature, Cave Tiger gets +1/+1 until end of turn.",

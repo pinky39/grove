@@ -40,7 +40,7 @@
         .Targets(
           Any(TargetSelectorAi.TapOpponentsCreatures(), TargetSelectorAi.TapOpponentsLands(),
               TargetSelectorAi.UntapYourCreatures()), 
-              TargetValidator(TargetIs.Player(), ZoneIs.None(), text: "Select a player.")
+              Target(Validators.Player(), Zones.None(), text: "Select a player.")
         )
         .Effect<CustomizableEffect>(e =>
           {

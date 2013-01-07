@@ -2,53 +2,63 @@
 {
   using System;
   using System.Collections.Generic;
-  using Ai;
   using Cards;
-  using Cards.Casting;
-  using Cards.Costs;
-  using Cards.Effects;
   using Cards.Modifiers;
   using Cards.Preventions;
   using Mana;
   using Targeting;
-  using Zones;
 
   public class CardParameters
   {
     private static readonly Random Rnd = new Random();
+    public readonly List<IActivatedAbilityFactory> ActivatedAbilities = new List<IActivatedAbilityFactory>();
+    public readonly List<IContinuousEffectFactory> ContinuousEffects = new List<IContinuousEffectFactory>();
+    public readonly List<Static> StaticAbilities = new List<Static>();
+    public readonly List<ITriggeredAbilityFactory> TriggeredAbilities = new List<ITriggeredAbilityFactory>();
+    private readonly List<CastInstructionParameters> _castInstructions = new List<CastInstructionParameters>();
+    //public ICostFactory AdditionalCost;
+    public ManaColors Colors;
+    public IDamagePreventionFactory[] DamagePrevention = new IDamagePreventionFactory[] {};
 
-    public bool DistributeDamage;
-    public IEffectFactory EffectFactory = new Effect.Factory<PutIntoPlay>();
+    //public bool DistributeDamage;
+    //public IEffectFactory EffectFactory = new Effect.Factory<PutIntoPlay>();
     public CardText FlavorText = string.Empty;
-    public IManaAmount KickerCost;
-    public IEffectFactory KickerEffectFactory;
+    public bool HasXInCost;
+    public bool Isleveler;
     public IManaAmount ManaCost;
+    //public IManaAmount KickerCost;
+    //public IEffectFactory KickerEffectFactory;
+    //public IManaAmount ManaCost;
     public bool MayChooseNotToUntap;
     public string Name;
     public int? OverrideScore;
-    public CardText Text = string.Empty;
-    public CardType Type;
-    public CalculateX XCalculator;
+    //public CalculateX XCalculator;
     public int? Power;
-    public int? Toughness;
-    public bool Isleveler;
-    public ManaColors Colors;
     public string[] ProtectionsFromCardTypes;
     public ManaColors ProtectionsFromColors = ManaColors.None;
-    public IDamagePreventionFactory[] DamagePreventionFactories = new IDamagePreventionFactory[] {};
-    public EffectCategories EffectCategories;
-    public TimingDelegate Timing;
-    public ITargetValidatorFactory[] EffectValidatorFactories = new ITargetValidatorFactory[] {};
-    public TargetSelectorAiDelegate AiTargetSelector;
-    public ITargetValidatorFactory[] CostValidatorFactories = new ITargetValidatorFactory[] {};
-    public ITargetValidatorFactory[] KickerEffectValidatorFactories = new ITargetValidatorFactory[] {};
-    public TargetSelectorAiDelegate KickerAiTargetSelector;
-    public ICostFactory AdditionalCost;
-    public readonly List<Static> StaticAbilities = new List<Static>();
-    public readonly List<ITriggeredAbilityFactory> TriggeredAbilityFactories = new List<ITriggeredAbilityFactory>();
-    public readonly List<IActivatedAbilityFactory> ActivatedAbilityFactories = new List<IActivatedAbilityFactory>();
-    public readonly List<IContinuousEffectFactory> ContinuousEffectFactories = new List<IContinuousEffectFactory>();
-    public Zone? ResolveZone;
+    public CardText Text = string.Empty;
+    public int? Toughness;
+    public CardType Type;
+
+    public IList<CastInstructionParameters> CastInstructions
+    {
+      get
+      {
+        if (_castInstructions.Count == 0)
+          return new[] {new CastInstructionParameters(Name, ManaCost, Type)};
+
+        return _castInstructions;
+      }
+    }
+
+    //public EffectCategories EffectCategories;
+    //public TimingDelegate Timing;
+    //public ITargetValidatorFactory[] EffectValidatorFactories = new ITargetValidatorFactory[] {};
+    //public TargetSelectorAiDelegate AiTargetSelector;
+    //public ITargetValidatorFactory[] CostValidatorFactories = new ITargetValidatorFactory[] {};
+    //public ITargetValidatorFactory[] KickerEffectValidatorFactories = new ITargetValidatorFactory[] {};
+    //public TargetSelectorAiDelegate KickerAiTargetSelector;
+    //public Zone? ResolveZone;
 
     public string Illustration
     {
@@ -64,16 +74,5 @@
         return Name;
       }
     }
-
-    public CastingRule CastingRule(Stack stack, TurnInfo turn)
-    {
-      if (Type.Instant)
-        return new Instant(stack);
-
-      if (Type.Land)
-        return new Land(stack, turn);
-
-      return new Default(stack, turn);
-    } 
   }
 }

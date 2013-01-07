@@ -18,14 +18,14 @@
         .Type("Enchantment - Aura")
         .Text("{Enchant creature}{EOL}Enchanted creature gets +1/+1 for each Forest you control.")
         .FlavorText("'Before armor, there was bark. Before blades, there were thorns.'{EOL}—Molimo, maro-sorcerer")
-        .Effect<Attach>(e => e.Modifiers(Modifier<Add11ForEachForest>()))
-        .Category(EffectCategories.ToughnessIncrease)
-        .Timing(Timings.FirstMain())
-        .Targets(
-          TargetSelectorAi.CombatEnchantment(), 
-          TargetValidator(
-            TargetIs.Card(card => card.Is().Creature),
-            ZoneIs.Battlefield()));
+        .Cast(p =>
+          {
+            p.Timing = Timings.FirstMain();
+            p.Category = EffectCategories.ToughnessIncrease;
+            p.Effect = Effect<Attach>(e => e.Modifiers(Modifier<Add11ForEachForest>()));
+            p.EffectTargets = L(Target(Validators.Card(card => card.Is().Creature), Zones.Battlefield()));
+            p.TargetSelectorAi = TargetSelectorAi.CombatEnchantment();
+          });
     }
   }
 }

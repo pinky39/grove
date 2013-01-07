@@ -22,7 +22,7 @@
         .Effect<CounterTargetSpell>(e => e.ControllersLifeloss = 3)
         .Targets(
           selectorAi: TargetSelectorAi.CounterSpell(),
-          effectValidator: TargetValidator(TargetIs.CounterableSpell(), ZoneIs.Stack()));
+          effectValidator: Target(Validators.CounterableSpell(), Zones.Stack()));
     }
   }
 }

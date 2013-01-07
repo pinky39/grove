@@ -21,20 +21,19 @@
         .FlavorText(
           "'Knowledge is no more expensive than ignorance, and at least as satisfying.'{EOL}—Barrin, master wizard")
         .Power(1)
-        .Toughness(1)
-        .Timing(Timings.FirstMain())
+        .Toughness(1)        
         .Abilities(
           ActivatedAbility(
             "{2}, Sacrifice a permanent: Return target creature to its owner's hand.",
             Cost<PayMana, Sacrifice>(cost => cost.Amount = 2.Colorless()),
             Effect<PutToHand>(),
-            effectValidator: TargetValidator(
-              TargetIs.Card(x => x.Is().Creature), 
-              ZoneIs.Battlefield(),
+            effectValidator: Target(
+              Validators.Card(x => x.Is().Creature), 
+              Zones.Battlefield(),
               text: "Select a creature to bounce."),
-            costValidator: TargetValidator(
-                TargetIs.Card(controller: Controller.SpellOwner),
-                ZoneIs.Battlefield(),
+            costValidator: Target(
+                Validators.Card(controller: Controller.SpellOwner),
+                Zones.Battlefield(),
                 text: "Select a permanent to sacrifice.",
                 mustBeTargetable: false),
             targetSelectorAi: TargetSelectorAi.SacPermanentToBounce(),

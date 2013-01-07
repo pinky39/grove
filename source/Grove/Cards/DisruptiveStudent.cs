@@ -21,16 +21,15 @@
         .FlavorText(
           "'Teferi is a problem student. Always late for class. No appreciation for constructive use of time.'{EOL}—Barrin, progress report")
         .Power(1)
-        .Toughness(1)
-        .Timing(Timings.Creatures())
+        .Toughness(1)        
         .Abilities(
           ActivatedAbility(
             "{T}: Counter target spell unless its controller pays {1}.",
             Cost<Tap>(),
             Effect<CounterTargetSpell>(e => e.DoNotCounterCost = 1.Colorless()),
-            effectValidator: TargetValidator(
-              TargetIs.CounterableSpell(),
-              ZoneIs.Stack()),
+            effectValidator: Target(
+              Validators.CounterableSpell(),
+              Zones.Stack()),
             targetSelectorAi: TargetSelectorAi.CounterSpell(),
             timing: Timings.CounterSpell(1)
             )

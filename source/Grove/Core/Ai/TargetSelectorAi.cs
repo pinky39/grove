@@ -1047,7 +1047,7 @@
       return p =>
         {
           var candidates = p.Candidates()
-            .Where(x => x.Card().IsGoodTarget(p.Source))
+            .Where(x => x.Card().CanTarget(p.Source))
             .OrderByDescending(x => x.Card().Score)
             .ToList();
 

@@ -6,7 +6,7 @@
   {
     public int Discard;
     public Card Card;
-    public bool AlsoReturnOwner;    
+    public bool ReturnOwner;    
 
     protected override void ResolveEffect()
     {
@@ -20,7 +20,7 @@
         Target().Card().PutToHand();
       }
 
-      if (AlsoReturnOwner && Target() != Source.OwningCard)
+      if (ReturnOwner && Target() != Source.OwningCard)
       {
         Source.OwningCard.PutToHand();
       }

@@ -5,6 +5,7 @@
   using System.Linq;
   using Ai;
   using Cards;
+  using Cards.Casting;
   using Cards.Costs;
   using Cards.Counters;
   using Cards.Effects;
@@ -19,6 +20,15 @@
   public class CardBuilder
   {
     public CardFactory Card { get { return new CardFactory(); } }
+
+    public ICastingRuleFactory Rule<T>(Initializer<T> init = null) where T : CastingRule, new()
+    {
+      init = init ?? delegate { };
+      return new CastingRule.Factory<T>()
+        {
+          Init = init
+        };
+    }
 
     public IActivatedAbilityFactory ActivatedAbility(
       string text,
@@ -123,7 +133,8 @@
         };
     }
 
-     public ICostFactory Cost<T1, T2, T3>(Initializer<T1> init1 = null, Initializer<T2> init2 = null, Initializer<T3> init3 = null) 
+    public ICostFactory Cost<T1, T2, T3>(Initializer<T1> init1 = null, Initializer<T2> init2 = null,
+      Initializer<T3> init3 = null)
       where T1 : Cost, new()
       where T2 : Cost, new()
       where T3 : Cost, new()
@@ -131,7 +142,7 @@
       init1 = init1 ?? delegate { };
       init2 = init2 ?? delegate { };
       init3 = init3 ?? delegate { };
-      
+
       var cost1 = new Cost.Factory<T1>
         {
           Init = init1
@@ -246,7 +257,7 @@
         };
     }
 
-    public ITargetValidatorFactory TargetValidator(TargetValidatorDelegate target, ZoneValidatorDelegate zone,
+    public ITargetValidatorFactory Target(TargetValidatorDelegate target, ZoneValidatorDelegate zone,
       string text = null,
       bool mustBeTargetable = true, int minCount = 1, int maxCount = 1)
     {

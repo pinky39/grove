@@ -24,9 +24,9 @@
         .Timing(Timings.FirstMain())
         .Targets(
           TargetSelectorAi.EnchantYourLand(), 
-          TargetValidator(
-            TargetIs.Card(card => card.Is().Land),
-            ZoneIs.Battlefield()));
+          Target(
+            Validators.Card(card => card.Is().Land),
+            Zones.Battlefield()));
     }
   }
 }

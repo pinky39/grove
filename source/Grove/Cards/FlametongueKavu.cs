@@ -31,7 +31,7 @@
             "When Flametongue Kavu enters the battlefield, it deals 4 damage to target creature.",
             Trigger<OnZoneChange>(t => t.To = Zone.Battlefield),
             Effect<DealDamageToTargets>(e => e.Amount = 4),
-            TargetValidator(TargetIs.Card(x => x.Is().Creature), ZoneIs.Battlefield()), 
+            Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()), 
             TargetSelectorAi.DealDamageSingleSelector(4)));
     }
   }

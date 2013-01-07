@@ -16,11 +16,14 @@
         .Type("Instant")
         .Text("Draw two cards, then discard a card.")
         .FlavorText("'Without order comes errors, and errors kill on Tolaria.'{EOL}—Barrin, master wizard")
-        .Timing(Timings.EndOfTurn())
-        .Effect<DrawCards>(e =>
+        .Cast(p =>
           {
-            e.DrawCount = 2;
-            e.DiscardCount = 1;
+            p.Timing = Timings.EndOfTurn();
+            p.Effect = Effect<DrawCards>(e =>
+              {
+                e.DrawCount = 2;
+                e.DiscardCount = 1;
+              });
           });
     }
   }

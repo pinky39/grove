@@ -15,6 +15,7 @@
     public Action<Effect> AfterResolve = delegate { };
     public Action<Effect> BeforeResolve = delegate { };
     private Targets _targets;
+    private EffectCategories _effectCategories;
     private Trackable<bool> _wasResolved;
     public bool CanBeCountered { get; set; }
     public Player Controller { get { return Source.OwningCard.Controller; } }
@@ -142,7 +143,7 @@
 
     public bool HasCategory(EffectCategories effectCategories)
     {
-      return ((effectCategories & Source.EffectCategories) != EffectCategories.Generic);
+      return ((effectCategories & _effectCategories) != EffectCategories.Generic);
     }
 
     public bool HasTarget(Card card)
@@ -165,6 +166,7 @@
           {
             Game = game,
             Source = parameters.Source,
+            _effectCategories = parameters.EffectCategories,
             _wasResolved = new Trackable<bool>(game.ChangeTracker),
             _targets = parameters.Targets,
             WasKickerPaid = parameters.Activation.PayKicker,

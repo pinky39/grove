@@ -17,10 +17,11 @@
         .Text(
           "Gain control of all permanents you own. (This effect lasts indefinitely.){EOL}Cycling {2}({2}, Discard this card: Draw a card.)")
         .FlavorText("'By this glyph I affirm your role.'{EOL}—Urza, to Karn")
-        .Timing(All(
-          Timings.EndOfTurn(), 
-          Timings.OpponentHasPermanent(card => card.Owner != card.Controller)))
-        .Effect<GainControlOfOwnedPermanents>();
+        .Cast(p =>
+          {
+            p.Timing = All(Timings.EndOfTurn(), Timings.OpponentHasPermanent(card => card.Owner != card.Controller));
+            p.Effect = Effect<GainControlOfOwnedPermanents>();
+          });
     }
   }
 }

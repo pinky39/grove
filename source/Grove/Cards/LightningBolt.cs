@@ -20,7 +20,7 @@
         .Effect<DealDamageToTargets>(e => e.Amount = 3)
         .Targets(
           TargetSelectorAi.DealDamageSingleSelector(3), 
-          TargetValidator(TargetIs.CreatureOrPlayer(), ZoneIs.Battlefield()));
+          Target(Validators.CreatureOrPlayer(), Zones.Battlefield()));
     }
   }
 }

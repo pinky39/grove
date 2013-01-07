@@ -27,9 +27,9 @@
             "Sacrifice a Beast: You gain 4 life.",
             Cost<Sacrifice>(),
             Effect<GainLife>(e => e.Amount = 4),
-            costValidator: TargetValidator(
-              TargetIs.Card(card => card.Is("beast"), Controller.SpellOwner),
-              ZoneIs.Battlefield(),
+            costValidator: Target(
+              Validators.Card(card => card.Is("beast"), Controller.SpellOwner),
+              Zones.Battlefield(),
               mustBeTargetable: false),
             targetSelectorAi: TargetSelectorAi.CostSacrificeGainLife(),
             timing: Timings.NoRestrictions()));

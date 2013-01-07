@@ -1,8 +1,8 @@
 ﻿namespace Grove.Core.Targeting
 {
-  using Zones;
+  using Core.Zones;
 
-  public static class ZoneIs
+  public static class Zones
   {
     public static ZoneValidatorDelegate None()
     {

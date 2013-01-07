@@ -20,14 +20,14 @@
         .Type("Enchantment Aura")
         .Text(
           "{Enchant creature}{EOL}Enchanted creature gets -2/-0.{EOL}When Despondency is put into a graveyard from the battlefield, return Despondency to its owner's hand.")
-        .Timing(Timings.FirstMain())
-        .Targets(
-          TargetSelectorAi.ReducePower(2), 
-          TargetValidator(
-            TargetIs.Card(x => x.Is().Creature),
-            ZoneIs.Battlefield()))
-        .Effect<Attach>(
-          p => p.Effect.Modifiers(Modifier<AddPowerAndToughness>(m => m.Power = -2)))
+        .Cast(p =>
+          {
+            p.Timing = Timings.FirstMain();
+            p.Effect = Effect<Attach>(
+              e => e.Modifiers(Modifier<AddPowerAndToughness>(m => m.Power = -2)));
+            p.EffectTargets = L(Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));
+            p.TargetSelectorAi = TargetSelectorAi.ReducePower(2);
+          })                        
         .Abilities(
           TriggeredAbility(
             "When Despondency is put into a graveyard from the battlefield, return Despondency to its owner's hand.",
@@ -36,7 +36,7 @@
                 t.From = Zone.Battlefield;
                 t.To = Zone.Graveyard;
               }),
-            Effect<PutToHand>(e => e.AlsoReturnOwner = true)));
+            Effect<PutToHand>(e => e.ReturnOwner = true)));
     }
   }
 }

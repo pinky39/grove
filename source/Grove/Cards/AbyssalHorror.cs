@@ -18,8 +18,7 @@
         .ManaCost("{4}{B}{B}")
         .Type("Creature - Specter")
         .Text("{Flying}{EOL}When Abyssal Horror enters the battlefield, target player discards two cards.")
-        .FlavorText("'It has no face of its own—it wears that of its latest victim.'")
-        .Timing(Timings.FirstMain())
+        .FlavorText("'It has no face of its own—it wears that of its latest victim.'")        
         .Power(2)
         .Toughness(2)
         .Abilities(
@@ -28,8 +27,8 @@
             "When Abyssal Horror enters the battlefield, target player discards two cards.",
             Trigger<OnZoneChange>(t => t.To = Zone.Battlefield),
             Effect<Core.Cards.Effects.DiscardCards>(p => p.Effect.Count = 2),
-            TargetValidator(TargetIs.Player(), ZoneIs.None()),
-            selectorAi: TargetSelectorAi.Opponent()));
+            Target(Validators.Player(), Zones.None()), 
+            TargetSelectorAi.Opponent()));
     }
   }
 }

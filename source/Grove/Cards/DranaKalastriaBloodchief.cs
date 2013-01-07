@@ -22,8 +22,7 @@
         .Text(
           "{Flying}{EOL}{X}{B}{B}: Target creature gets -0/-X until end of turn and Drana, Kalastria Bloodchief gets +X/+0 until end of turn.")
         .Power(4)
-        .Toughness(4)
-        .Timing(Timings.Creatures())
+        .Toughness(4)        
         .Abilities(
           Static.Flying,
           ActivatedAbility(
@@ -49,7 +48,7 @@
                     untilEndOfTurn: true)
                   );
               }),
-            TargetValidator(TargetIs.Card(x => x.Is().Creature), ZoneIs.Battlefield()),
+            Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()),
             targetSelectorAi: TargetSelectorAi.ReduceToughness(),
             timing: Timings.InstantRemovalTarget()));
     }

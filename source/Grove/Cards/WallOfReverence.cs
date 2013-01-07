@@ -31,8 +31,8 @@
             "At the beginning of your end step, you may gain life equal to the power of target creature you control.",
             Trigger<AtBegginingOfStep>(t => { t.Step = Step.EndOfTurn; }),
             Effect<GainLife>(e => e.Amount = e.Target().Card().Power.GetValueOrDefault()),
-            TargetValidator(TargetIs.Card(card => card.Is().Creature, controller: Controller.SpellOwner),
-              ZoneIs.Battlefield()), 
+            Target(Validators.Card(card => card.Is().Creature, controller: Controller.SpellOwner),
+              Zones.Battlefield()), 
             TargetSelectorAi.CreatureWithGreatestPower(),
             triggerOnlyIfOwningCardIsInPlay: true));
     }

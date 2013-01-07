@@ -45,7 +45,7 @@
 
     public CardFactory Preventions(params IDamagePreventionFactory[] preventions)
     {
-      _p.DamagePreventionFactories = preventions;
+      _p.DamagePrevention = preventions;
       return this;
     }
 
@@ -74,7 +74,7 @@
           }),
         triggerOnlyIfOwningCardIsInPlay: true);
 
-      _p.TriggeredAbilityFactories.Add(echoFactory);
+      _p.TriggeredAbilities.Add(echoFactory);
       return this;
     }
 
@@ -90,33 +90,30 @@
 
         if (ability is IActivatedAbilityFactory)
         {
-          _p.ActivatedAbilityFactories.Add(ability as IActivatedAbilityFactory);
+          _p.ActivatedAbilities.Add(ability as IActivatedAbilityFactory);
           continue;
         }
 
         if (ability is ITriggeredAbilityFactory)
         {
-          _p.TriggeredAbilityFactories.Add(ability as ITriggeredAbilityFactory);
+          _p.TriggeredAbilities.Add(ability as ITriggeredAbilityFactory);
           continue;
         }
 
         if (ability is IContinuousEffectFactory)
         {
-          _p.ContinuousEffectFactories.Add((IContinuousEffectFactory) ability);
+          _p.ContinuousEffects.Add((IContinuousEffectFactory) ability);
         }
       }
       return this;
     }
-
-    public CardFactory AfterResolvePutToZone(Zone zone)
-    {
-      _p.ResolveZone = zone;
-      return this;
-    }
-
-    public CardFactory Category(EffectCategories effectCategories)
-    {
-      _p.EffectCategories = effectCategories;
+   
+    public CardFactory Cast(Action<CastInstructionParameters> setParameters)
+    {      
+      var parameters = new CastInstructionParameters(_p.Name, _p.ManaCost, _p.Type);
+      setParameters(parameters);      
+      _p.CastInstructions.Add(parameters);
+      
       return this;
     }
 
@@ -130,91 +127,19 @@
     {
       _p.Isleveler = true;
       return this;
-    }
-
-    public CardFactory Effect<T>(Action<T> init = null) where T : Effect, new()
-    {
-      init = init ?? delegate { };
-
-      _p.EffectFactory = new Effect.Factory<T>
-        {
-          Init = p => init(p.Effect)
-        };
-
-      return this;
-    }
-
-    public CardFactory Effect<T>(EffectInitializer<T> init) where T : Effect, new()
-    {
-      init = init ?? delegate { };
-
-      _p.EffectFactory = new Effect.Factory<T>
-        {
-          Init = init
-        };
-
-      return this;
-    }
-
-    public CardFactory DistributeDamage()
-    {
-      _p.DistributeDamage = true;
-      return this;
-    }
+    }            
 
     public CardFactory FlavorText(string flavorText)
     {
       _p.FlavorText = flavorText;
       return this;
-    }
-
-    public CardFactory KickerCost(string kickerCost)
-    {
-      _p.KickerCost = kickerCost.ParseMana();
-      return this;
-    }
-
-    public CardFactory KickerEffect<T>(Action<T> init = null) where T : Effect, new()
-    {
-      init = init ?? delegate { };
-
-      _p.KickerEffectFactory = new Effect.Factory<T>
-        {
-          Init = p => init(p.Effect)
-        };
-
-      return this;
-    }
-
-    public CardFactory KickerEffect<T>(EffectInitializer<T> init) where T : Effect, new()
-    {
-      init = init ?? delegate { };
-
-      _p.KickerEffectFactory = new Effect.Factory<T>
-        {
-          Init = init,
-        };
-
-      return this;
-    }
+    }          
 
     public CardFactory ManaCost(string manaCost)
     {
       _p.ManaCost = manaCost.ParseMana();
       return this;
-    }
-
-    public CardFactory AdditionalCost<T>(Initializer<T> init = null) where T : Cost, new()
-    {
-      init = init ?? delegate { };
-
-      _p.AdditionalCost = new Cost.Factory<T>
-        {
-          Init = init,
-        };
-
-      return this;
-    }
+    }    
 
     public CardFactory Named(string name)
     {
@@ -233,7 +158,7 @@
         timing: Timings.Cycling(),
         activationZone: Zone.Hand);
 
-      _p.ActivatedAbilityFactories.Add(cycling);
+      _p.ActivatedAbilities.Add(cycling);
 
       return this;
     }
@@ -242,41 +167,9 @@
     {
       _p.Power = power;
       return this;
-    }
+    } 
 
-    public CardFactory KickerTargets(TargetSelectorAiDelegate aiTargetSelector,
-      params ITargetValidatorFactory[] effectValidators)
-    {
-      _p.KickerEffectValidatorFactories = effectValidators;
-      _p.KickerAiTargetSelector = aiTargetSelector;
-      return this;
-    }
-
-    public CardFactory Targets(TargetSelectorAiDelegate selectorAi,
-      params ITargetValidatorFactory[] effectValidators)
-    {
-      _p.EffectValidatorFactories = effectValidators;
-      _p.AiTargetSelector = selectorAi;
-      return this;
-    }
-
-    public CardFactory Targets(TargetSelectorAiDelegate selectorAi,
-      ITargetValidatorFactory effectValidator = null,
-      ITargetValidatorFactory costValidator = null)
-    {
-      if (effectValidator != null)
-      {
-        _p.EffectValidatorFactories = new[] {effectValidator};
-      }
-
-      if (costValidator != null)
-      {
-        _p.CostValidatorFactories = new[] {costValidator};
-      }
-
-      _p.AiTargetSelector = selectorAi;
-      return this;
-    }
+   
 
     public CardFactory Text(string text)
     {
@@ -284,12 +177,7 @@
       return this;
     }
 
-    public CardFactory Timing(TimingDelegate timing)
-    {
-      _p.Timing = timing;
-      return this;
-    }
-
+  
     public CardFactory Toughness(int toughness)
     {
       _p.Toughness = toughness;
@@ -299,12 +187,6 @@
     public CardFactory Type(string type)
     {
       _p.Type = type;
-      return this;
-    }
-
-    public CardFactory XCalculator(CalculateX calculateX)
-    {
-      _p.XCalculator = calculateX;
       return this;
     }
 

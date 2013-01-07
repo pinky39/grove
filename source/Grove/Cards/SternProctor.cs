@@ -32,8 +32,8 @@
             "When Stern Proctor enters the battlefield, return target artifact or enchantment to its owner's hand.",
             Trigger<OnZoneChange>(t => t.To = Zone.Battlefield),
             Effect<PutToHand>(),
-            TargetValidator(TargetIs.Card(
-              card => card.Is().Artifact || card.Is().Enchantment), ZoneIs.Battlefield()),
+            Target(Validators.Card(
+              card => card.Is().Artifact || card.Is().Enchantment), Zones.Battlefield()),
             selectorAi: TargetSelectorAi.Bounce(),
             abilityCategory: EffectCategories.Bounce)
         );

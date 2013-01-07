@@ -24,9 +24,9 @@
         .Effect<DestroyTargetPermanents>()
         .Targets(
           TargetSelectorAi.Destroy(), 
-          TargetValidator(
-            TargetIs.Card(card => !card.HasColors(ManaColors.Black) && !card.Is().Artifact),
-            ZoneIs.Battlefield()))
+          Target(
+            Validators.Card(card => !card.HasColors(ManaColors.Black) && !card.Is().Artifact),
+            Zones.Battlefield()))
         ;
     }
   }

@@ -39,7 +39,7 @@
           ))
         .Targets(
           TargetSelectorAi.CombatEnchantment(), 
-          TargetValidator(TargetIs.Card(x => x.Is().Creature), ZoneIs.Battlefield()));
+          Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));
 
     }
   }

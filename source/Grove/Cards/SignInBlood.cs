@@ -26,7 +26,7 @@
           })
         .Targets(
           selectorAi: TargetSelectorAi.Controller(),
-          effectValidator: TargetValidator(TargetIs.Player(), ZoneIs.None()));
+          effectValidator: Target(Validators.Player(), Zones.None()));
     }
   }
 }

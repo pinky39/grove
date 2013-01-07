@@ -2,7 +2,7 @@
 {
   using System;
   using Infrastructure;
-  using Zones;
+  using Core.Zones;
 
   public delegate bool TargetValidatorDelegate(TargetValidatorParameters parameters);
 

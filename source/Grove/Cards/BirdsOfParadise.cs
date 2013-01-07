@@ -18,8 +18,7 @@
         .Text("{Flying}{EOL}{T}: Add one mana of any color to your mana pool.")
         .FlavorText("The gods used their feathers to paint all the colors of the world.")
         .Power(0)
-        .Toughness(1)
-        .Timing(Timings.SecondMain())
+        .Toughness(1)        
         .Abilities(
           Static.Flying,
           ManaAbility(ManaUnit.Any, "{T}: Add one mana of any color to your mana pool.")

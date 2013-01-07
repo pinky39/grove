@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
   using Core.Cards;
   using Core.Dsl;
 
@@ -19,7 +18,6 @@
         .FlavorText("Mother, sleep / Dream our lives{EOL}Our roots your soul / Our leaves your bed.")
         .Power(4)
         .Toughness(4)
-        .Timing(Timings.Creatures())
         .Echo("{1}{G}{G}")
         .Abilities(
           Static.Trample

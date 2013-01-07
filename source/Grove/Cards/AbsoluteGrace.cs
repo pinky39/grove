@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -17,10 +16,13 @@
         .ManaCost("{1}{W}")
         .Type("Enchantment")
         .Text("All creatures have protection from black.")
-        .Timing(Timings.FirstMain())
         .FlavorText(
           "In pursuit of Urza, the Phyrexians sent countless foul legions into Serra's realm. Though beaten back, they left it tainted with uncleansable evil.")
-        .Category(EffectCategories.Protector)
+        .Cast(p =>
+          {
+            p.Timing = Timings.FirstMain();
+            p.Category = EffectCategories.Protector;
+          })
         .Abilities(
           Continuous(e =>
             {

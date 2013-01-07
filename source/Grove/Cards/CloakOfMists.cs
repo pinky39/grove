@@ -20,14 +20,14 @@
         .Text("{Enchant creature}{EOL}Enchanted creature is unblockable.")
         .FlavorText(
           "'All we could lose, we did. All we could keep, we do. And both are shrouded by mists.'{EOL}—Barrin, master wizard")
-        .Timing(Timings.FirstMain())
-        .Effect<Attach>(e => e.Modifiers(
-          Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Unblockable)))
-        .Targets(
-          selectorAi: TargetSelectorAi.CombatEnchantment(),
-          effectValidator: TargetValidator(
-            TargetIs.Card(card => card.Is().Creature),
-            ZoneIs.Battlefield()));
+        .Cast(p =>
+          {
+            p.Timing = Timings.FirstMain();
+            p.Effect = Effect<Attach>(e => e.Modifiers(Modifier<AddStaticAbility>(
+              m => m.StaticAbility = Static.Unblockable)));
+            p.EffectTargets = L(Target(Validators.Card(card => card.Is().Creature), Zones.Battlefield()));
+            p.TargetSelectorAi = TargetSelectorAi.CombatEnchantment();
+          });
     }
   }
 }

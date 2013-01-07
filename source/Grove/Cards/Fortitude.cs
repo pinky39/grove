@@ -28,9 +28,9 @@
               Cost<Sacrifice>(),
               Effect<Regenerate>(),
               costValidator:
-                TargetValidator(
-                  TargetIs.Card(card => card.Is("forest"), Controller.SpellOwner),
-                  ZoneIs.Battlefield(),
+                Target(
+                  Validators.Card(card => card.Is("forest"), Controller.SpellOwner),
+                  Zones.Battlefield(),
                   text: "Select a forest to sacrifice.", mustBeTargetable: false),
               targetSelectorAi: TargetSelectorAi.CostSacrificeRegenerate(),
               timing: Timings.Regenerate())
@@ -38,7 +38,7 @@
         .Timing(Timings.FirstMain())
         .Targets(
           TargetSelectorAi.CombatEnchantment(),
-          TargetValidator(TargetIs.Card(x => x.Is().Creature), ZoneIs.Battlefield()))
+          Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()))
         .Abilities(
           TriggeredAbility(
             "When Fortitude is put into a graveyard from the battlefield, return Fortitude to its owner's hand.",
@@ -47,7 +47,7 @@
                 t.From = Zone.Battlefield;
                 t.To = Zone.Graveyard;
               }),
-            Effect<PutToHand>(e => e.AlsoReturnOwner = true)));
+            Effect<PutToHand>(e => e.ReturnOwner = true)));
     }
   }
 }

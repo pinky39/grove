@@ -17,14 +17,15 @@
         .Type("Instant")
         .Text("Destroy target artifact or enchantment.")
         .FlavorText("'Let Phyrexia breed evil in the darkness; my holy light will reveal its taint.{EOL}—Serra")
-        .Effect<DestroyTargetPermanents>()
-        .Category(EffectCategories.Destruction)
-        .Timing(Timings.InstantRemovalTarget())
-        .Targets(
-          TargetSelectorAi.OrderByDescendingScore(),          
-          TargetValidator(
-            TargetIs.Card(card => card.Is().Artifact || card.Is().Enchantment),
-            ZoneIs.Battlefield()));
+        .Cast(p =>
+          {
+            p.Timing = Timings.InstantRemovalTarget();
+            p.Category = EffectCategories.Destruction;
+            p.Effect = Effect<DestroyTargetPermanents>();
+            p.EffectTargets = L(Target(Validators.Card(card => card.Is().Artifact || card.Is().Enchantment),
+              Zones.Battlefield()));
+            p.TargetSelectorAi = TargetSelectorAi.OrderByDescendingScore();
+          });
     }
   }
 }

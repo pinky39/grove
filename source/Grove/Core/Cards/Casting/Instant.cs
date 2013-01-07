@@ -1,27 +1,25 @@
 ﻿namespace Grove.Core.Cards.Casting
 {
+  using System;
   using Effects;
-  using Grove.Core.Zones;
 
   public class Instant : CastingRule
   {
-    private readonly Stack _stack;
+    public Action<Card> AfterResolvePutToZone = card => card.PutToGraveyard();    
 
-    public Instant(Stack stack)
+    public override bool CanCast()
     {
-      _stack = stack;
-    }
-
-    private Instant() {}
-
-    public override bool CanCast(Card card)
-    {
-      return card.CanPayCastingCost();
+      return true;
     }
 
     public override void Cast(Effect effect)
     {
-      _stack.Push(effect);
+      Game.Stack.Push(effect);
+    }
+
+    public override void AfterResolve()
+    {
+      AfterResolvePutToZone(Card);
     }
   }
 }

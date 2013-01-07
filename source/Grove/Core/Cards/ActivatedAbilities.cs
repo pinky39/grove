@@ -72,7 +72,13 @@
       return _abilities[abilityIndex].CanActivate();
     }
 
-    public T CreateEffect<T>(ITarget target) where T : Effect
+    public void EquipTarget(Card target)
+    {
+       var effect = CreateEffect<Attach>(target);      
+        effect.Resolve();
+    }
+
+    private T CreateEffect<T>(ITarget target) where T : Effect
     {
       foreach (var ability in _abilities)
       {

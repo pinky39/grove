@@ -15,8 +15,8 @@
       yield return Card
         .Named("Crystal Chimes")
         .ManaCost("{3}")
-        .Type("Artifact")
-        .Timing(Timings.FirstMain())
+        .Type("Artifact")        
+        .Cast(p => p.Timing = Timings.FirstMain())
         .Text("{3},{T}, Sacrifice Crystal Chimes: Return all enchantment cards from your graveyard to your hand.")
         .FlavorText("As Serra was to learn, the peace and sanctity of her realm were as fragile as glass.")
         .Abilities(

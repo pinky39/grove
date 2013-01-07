@@ -18,8 +18,7 @@
         .ManaCost("{4}")
         .Type("Artifact")
         .Text("{X}: Chimeric Staff becomes an X/X Construct artifact creature until end of turn.")
-        .FlavorText("A snake in the grasp.")
-        .Timing(Timings.Creatures())
+        .FlavorText("A snake in the grasp.")        
         .Abilities(
           ActivatedAbility(
             "{X}: Chimeric Staff becomes an X/X Construct artifact creature until end of turn.",

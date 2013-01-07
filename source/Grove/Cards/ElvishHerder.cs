@@ -32,7 +32,7 @@
             Effect<ApplyModifiersToTargets>(e => e.Modifiers(
               Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Trample,
                 untilEndOfTurn: true))),
-            TargetValidator(TargetIs.Card(x => x.Is().Creature), ZoneIs.Battlefield()),
+            Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()),
             targetSelectorAi: TargetSelectorAi.AddEvasion(),
             timing: Timings.NoRestrictions(),
             category: EffectCategories.ToughnessIncrease));        

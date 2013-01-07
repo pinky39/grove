@@ -36,7 +36,7 @@
                       p.Amount = 2;
                     });
                 }, untilEndOfTurn: true))), 
-            TargetValidator(TargetIs.CreatureOrPlayer(), ZoneIs.Battlefield()),
+            Target(Validators.CreatureOrPlayer(), Zones.Battlefield()),
             targetSelectorAi: TargetSelectorAi.PreventNextDamageToCreatureOrPlayer(2))
         );
     }

@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
   using Core.Cards;
   using Core.Dsl;
 
@@ -19,7 +18,6 @@
           "If you're smaller than the anaconda, it considers you food. If you're larger than the anaconda, it considers you a lot of food.")
         .Power(3)
         .Toughness(3)
-        .Timing(Timings.Creatures())
         .Abilities(
           Static.Swampwalk
         );

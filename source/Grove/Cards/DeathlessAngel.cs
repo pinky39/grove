@@ -23,8 +23,7 @@
         .FlavorText(
           "'I should have died that day, but I suffered not a scratch. I awoke in a lake of blood, none of it apparently my own.'{EOL}—The War Diaries")
         .Power(5)
-        .Toughness(7)
-        .Timing(Timings.Creatures())
+        .Toughness(7)        
         .Abilities(
           Static.Flying,
           ActivatedAbility(
@@ -33,9 +32,9 @@
             Effect<ApplyModifiersToTargets>(p => p.Effect.Modifiers(
               Modifier<AddStaticAbility>(m => { m.StaticAbility = Static.Indestructible; },
                 untilEndOfTurn: true))),
-            TargetValidator(
-              TargetIs.Card(x => x.Is().Creature),
-              ZoneIs.Battlefield()),
+            Target(
+              Validators.Card(x => x.Is().Creature),
+              Zones.Battlefield()),
             targetSelectorAi: TargetSelectorAi.ShieldIndestructible(),
             timing: Timings.NoRestrictions(),
             category: EffectCategories.Protector));

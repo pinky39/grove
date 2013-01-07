@@ -22,7 +22,7 @@
         .Cycling("{2}")
         .Targets(
           TargetSelectorAi.OrderByDescendingScore(), 
-          TargetValidator(TargetIs.Card(card => card.Is().Artifact), ZoneIs.Battlefield()));
+          Target(Validators.Card(card => card.Is().Artifact), Zones.Battlefield()));
     }
   }
 }

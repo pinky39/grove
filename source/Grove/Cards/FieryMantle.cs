@@ -34,7 +34,7 @@
             )))
         .Targets(
           TargetSelectorAi.CombatEnchantment(),
-          TargetValidator(TargetIs.Card(x => x.Is().Creature), ZoneIs.Battlefield()))
+          Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()))
         .Abilities(
           TriggeredAbility(
             "When Fiery Mantle is put into a graveyard from the battlefield, return Fiery Mantle to its owner's hand.",
@@ -43,7 +43,7 @@
                 t.From = Zone.Battlefield;
                 t.To = Zone.Graveyard;
               }),
-            Effect<PutToHand>(e => e.AlsoReturnOwner = true)));
+            Effect<PutToHand>(e => e.ReturnOwner = true)));
     }
   }
 }

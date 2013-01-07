@@ -25,9 +25,9 @@
             "{T}: Untap two target lands.",
             Cost<Tap>(),
             Effect<UntapTargetPermanents>(),
-            TargetValidator(
-              TargetIs.Card(card => card.Is().Land),
-              ZoneIs.Battlefield(),
+            Target(
+              Validators.Card(card => card.Is().Land),
+              Zones.Battlefield(),
               minCount: 2,
               maxCount: 2),
             targetSelectorAi: TargetSelectorAi.UntapYourLands(),

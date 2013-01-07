@@ -32,9 +32,9 @@
             Effect<ExchangeForOpponentsCreature>(),
             abilityCategory: EffectCategories.Destruction,
             selectorAi: TargetSelectorAi.GainControl(),
-            effectValidator: TargetValidator(
-              TargetIs.Card(x => x.Is().Creature, Controller.Opponent),
-              ZoneIs.Battlefield()),            
+            effectValidator: Target(
+              Validators.Card(x => x.Is().Creature, Controller.Opponent),
+              Zones.Battlefield()),            
             triggerOnlyIfOwningCardIsInPlay: true));
     }
   }

@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
   using Core.Cards.Effects;
   using Core.Cards.Triggers;
   using Core.Dsl;
@@ -20,7 +19,6 @@
           "{Echo} {4}{R}{R} (At the beginning of your upkeep, if this came under your control since the beginning of your last upkeep, sacrifice it unless you pay its echo cost.){EOL}When Crater Hellion enters the battlefield, it deals 4 damage to each other creature.")
         .Power(6)
         .Toughness(6)
-        .Timing(Timings.Creatures())
         .Echo("{4}{R}{R}")
         .Abilities(
           TriggeredAbility(

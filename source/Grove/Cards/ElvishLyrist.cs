@@ -29,7 +29,7 @@
             Cost<PayMana, Tap>(cost => cost.Amount = "{G}".ParseMana()),
             Effect<DestroyTargetPermanents>(),
             timing: Timings.InstantRemovalTarget(),
-            effectValidator: TargetValidator(TargetIs.Card(card => card.Is().Enchantment), ZoneIs.Battlefield()),
+            effectValidator: Target(Validators.Card(card => card.Is().Enchantment), Zones.Battlefield()),
             targetSelectorAi: TargetSelectorAi.OrderByDescendingScore()            
             )
         );

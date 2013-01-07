@@ -15,17 +15,18 @@
     {
       yield return Card
         .Named("Blaze")
-        .ManaCost("{R}").XCalculator(VariableCost.TargetLifepointsLeft(ManaUsage.Spells))
+        .ManaCost("{R}")
         .Type("Sorcery")
         .Text("Blaze deals X damage to target creature or player.")
         .FlavorText("Fire never dies alone.")
-        .Effect<DealDamageToTargets>(p => p.Amount = Value.PlusX)
-        .Timing(Timings.MainPhases())
-        .Targets(
-          selectorAi: TargetSelectorAi.DealDamageSingleSelector(),
-          effectValidator: TargetValidator(
-            TargetIs.CreatureOrPlayer(),
-            ZoneIs.Battlefield()));
+        .Cast(p =>
+          {
+            p.Timing = Timings.MainPhases();
+            p.Effect = Effect<DealDamageToTargets>(e => e.Amount = Value.PlusX);
+            p.XCalculator = VariableCost.TargetLifepointsLeft(ManaUsage.Spells);
+            p.EffectTargets = L(Target(Validators.CreatureOrPlayer(), Zones.Battlefield()));
+            p.TargetSelectorAi = TargetSelectorAi.DealDamageSingleSelector();
+          });
     }
   }
 }

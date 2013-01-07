@@ -22,9 +22,9 @@
         .Category(EffectCategories.Destruction)
         .Targets(
           TargetSelectorAi.Destroy(), 
-          TargetValidator(
-            TargetIs.Card(card => card.Is().Creature && !card.Is().Artifact), 
-            ZoneIs.Battlefield()));
+          Target(
+            Validators.Card(card => card.Is().Creature && !card.Is().Artifact), 
+            Zones.Battlefield()));
     }
   }
 }

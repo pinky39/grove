@@ -25,7 +25,7 @@
           Modifier<AddStaticAbility>(m => m.StaticAbility = Static.CannotAttack)))
         .Targets(
           TargetSelectorAi.Pacifism(),
-          TargetValidator(TargetIs.Card(x => x.Is().Creature), ZoneIs.Battlefield()));
+          Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));
     }
   }
 }

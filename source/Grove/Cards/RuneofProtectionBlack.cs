@@ -26,9 +26,9 @@
             "{W}: The next time a black source of your choice would deal damage to you this turn, prevent that damage.",
             Cost<PayMana>(cost => { cost.Amount = ManaAmount.White; }),
             Effect<PreventDamageFromSourceToController>(e => e.OnlyOnce = true), 
-            TargetValidator(
-              TargetIs.Card(card => card.HasColors(ManaColors.Black)), 
-              ZoneIs.BattlefieldOrStack(), text: "Select a damage source."),
+            Target(
+              Validators.Card(card => card.HasColors(ManaColors.Black)), 
+              Zones.BattlefieldOrStack(), text: "Select a damage source."),
             targetSelectorAi: TargetSelectorAi.PreventDamageFromSourceToController(),
             timing: Timings.NoRestrictions())
         );

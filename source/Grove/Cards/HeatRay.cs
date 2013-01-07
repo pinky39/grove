@@ -23,7 +23,7 @@
         .Timing(Timings.InstantRemovalTarget())
         .Targets(
           TargetSelectorAi.DealDamageSingleSelector(),
-          TargetValidator(TargetIs.Card(x => x.Is().Creature), ZoneIs.Battlefield()));
+          Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));
     }
   }
 }

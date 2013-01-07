@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
   using Core.Cards.Modifiers;
   using Core.Dsl;
   using Core.Mana;
@@ -20,7 +19,6 @@
           "From deep in the caves beneath the forest, the hierophants planned the druids' raids against the enemy.")
         .Power(3)
         .Toughness(2)
-        .Timing(Timings.FirstMain())
         .Abilities(
           Continuous(e =>
             {

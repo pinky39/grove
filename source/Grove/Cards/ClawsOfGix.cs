@@ -21,16 +21,16 @@
         .Text("{1}, Sacrifice a permanent: You gain 1 life.")
         .FlavorText(
           "When the Brotherhood of Gix dug out the cave of Koilos they found their master's severed hand. They enshrined it, hoping that one day it would point the way to Phyrexia.")
-        .Timing(All(Timings.FirstMain(), Timings.OnlyOneOfKind()))
+        .Cast(p => p.Timing = All(Timings.FirstMain(), Timings.OnlyOneOfKind()))        
         .Abilities(
           ActivatedAbility(
             "{1}, Sacrifice a permanent: You gain 1 life.",
             Cost<PayMana, Sacrifice>(cost => cost.Amount = 1.Colorless()),
             Effect<GainLife>(e => e.Amount = 1),
             costValidator:
-              TargetValidator(
-                TargetIs.Card(controller: Controller.SpellOwner),
-                ZoneIs.Battlefield(),
+              Target(
+                Validators.Card(controller: Controller.SpellOwner),
+                Zones.Battlefield(),
                 text: "Select a permanent to sacrifice.", mustBeTargetable: false),
             targetSelectorAi: TargetSelectorAi.CostSacrificeGainLife())
         );

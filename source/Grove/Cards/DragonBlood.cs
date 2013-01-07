@@ -21,7 +21,7 @@
         .Type("Artifact")
         .Text("{3},{T} : Put a +1/+1 counter on target creature.")
         .FlavorText("Fire in the blood, fire in the belly.")
-        .Timing(Timings.FirstMain())
+        .Cast(p => p.Timing = Timings.FirstMain())
         .Abilities(
           ActivatedAbility(
             "{3},{T} : Put a +1/+1 counter on target creature.",
@@ -34,9 +34,9 @@
                     c.Toughness = 1;
                   })
                 ))),
-            TargetValidator(
-              TargetIs.Card(x => x.Is().Creature),
-              ZoneIs.Battlefield()),
+            Target(
+              Validators.Card(x => x.Is().Creature),
+              Zones.Battlefield()),
             targetSelectorAi: TargetSelectorAi.IncreasePowerAndToughness(1, 1, untilEot: false),
             timing: Timings.NoRestrictions()
             ));

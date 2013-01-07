@@ -19,17 +19,19 @@
         .Text(
           "Corrupt deals damage equal to the number of Swamps you control to target creature or player. You gain life equal to the damage dealt this way.")
         .FlavorText("Yawgmoth brushed Urza's mind, and Urza's world convulsed.")
-        .Effect<DealDamageToTargets>(p =>
+        .Cast(p =>
           {
-            p.Amount = p.Controller.Battlefield.Count(x => x.Is("swamp"));                            
-            p.GainLife = true;
-          })
-        .Timing(Timings.MainPhases())
-        .Targets(
-          selectorAi: TargetSelectorAi.DealDamageSingleSelector(p => p.Controller.Battlefield.Count(x => x.Is("swamp"))),
-          effectValidator: TargetValidator(
-            TargetIs.CreatureOrPlayer(),
-            ZoneIs.Battlefield()));
+            p.Timing = Timings.MainPhases();
+            p.Category = EffectCategories.Destruction;
+            p.Effect = Effect<DealDamageToTargets>(e =>
+              {
+                e.Amount = e.Controller.Battlefield.Count(x => x.Is("swamp"));
+                e.GainLife = true;
+              });
+            p.EffectTargets = L(Target(Validators.CreatureOrPlayer(), Zones.Battlefield()));
+            p.TargetSelectorAi =
+              TargetSelectorAi.DealDamageSingleSelector(p1 => p1.Controller.Battlefield.Count(x => x.Is("swamp")));
+          });
     }
   }
 }

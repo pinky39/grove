@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
   using Core.Cards;
   using Core.Dsl;
 
@@ -18,7 +17,6 @@
         .FlavorText("'How could you not hear it approach? It's a hippo!'{EOL}—Argivian commander")
         .Power(3)
         .Toughness(3)
-        .Timing(Timings.Creatures())
         .Abilities(
           Static.Islandwalk
         );

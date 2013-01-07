@@ -28,9 +28,9 @@
             "{B}{B},{T}: Destroy target green creature.",
             Cost<PayMana, Tap>(cost => cost.Amount = "{B}{B}".ParseMana()),
             Effect<DestroyTargetPermanents>(),            
-            TargetValidator(
-              TargetIs.Card(card => card.Is().Creature && card.HasColors(ManaColors.Green)),
-              ZoneIs.Battlefield()),
+            Target(
+              Validators.Card(card => card.Is().Creature && card.HasColors(ManaColors.Green)),
+              Zones.Battlefield()),
             targetSelectorAi: TargetSelectorAi.Destroy(),
             timing: Timings.InstantRemovalTarget()));
     }

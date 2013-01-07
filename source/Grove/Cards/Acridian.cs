@@ -18,8 +18,7 @@
         .FlavorText(
           "The elves of Argoth were trained to ride these creatures, even when their mounts traveled upside-down.")
         .Power(2)
-        .Toughness(4)
-        .Timing(Timings.Creatures())
+        .Toughness(4)        
         .Echo("{1}{G}");
     }
   }

@@ -20,18 +20,17 @@
         .Type("Enchantment Aura")
         .Text(
           "Enchanted creature{EOL}Enchanted creature gets +1/+2.{EOL}When Brilliant Halo is put into a graveyard from the battlefield, return Brilliant Halo to its owner's hand.")
-        .Effect<Attach>(e => e.Modifiers(
-          Modifier<AddPowerAndToughness>(m =>
-            {
-              m.Power = 1;
-              m.Toughness = 2;
-            })))
-        .Timing(Timings.FirstMain())
-        .Targets(
-          selectorAi: TargetSelectorAi.CombatEnchantment(),
-          effectValidator: TargetValidator(
-            TargetIs.Card(card => card.Is().Creature),
-            ZoneIs.Battlefield()))
+        .Cast(p =>
+          {
+            p.Timing = Timings.FirstMain();
+            p.Effect = Effect<Attach>(e => e.Modifiers(Modifier<AddPowerAndToughness>(m =>
+              {
+                m.Power = 1;
+                m.Toughness = 2;
+              })));
+            p.EffectTargets = L(Target(Validators.Card(card => card.Is().Creature), Zones.Battlefield()));
+            p.TargetSelectorAi = TargetSelectorAi.CombatEnchantment();
+          })               
         .Abilities(
           TriggeredAbility(
             "When Brilliant Halo is put into a graveyard from the battlefield, return Brilliant Halo to its owner's hand.",
@@ -40,7 +39,7 @@
                 t.From = Zone.Battlefield;
                 t.To = Zone.Graveyard;
               }),
-            Effect<PutToHand>(e => e.AlsoReturnOwner = true)));
+            Effect<PutToHand>(e => e.ReturnOwner = true)));
     }
   }
 }

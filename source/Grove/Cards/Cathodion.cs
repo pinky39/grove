@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
   using Core.Cards.Effects;
   using Core.Cards.Triggers;
   using Core.Dsl;
@@ -22,7 +21,6 @@
           "Instead of creating a tool that would be damaged by heat, the Thran built one that was charged by it.")
         .Power(3)
         .Toughness(3)
-        .Timing(Timings.Creatures())
         .Abilities(
           TriggeredAbility(
             "When Cathodion dies, add {3} to your mana pool.",

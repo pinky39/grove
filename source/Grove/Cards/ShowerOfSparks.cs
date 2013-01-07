@@ -23,10 +23,10 @@
           TargetSelectorAi.DealDamageMultipleSelectors(amount: 1),
           new[]
             {
-              TargetValidator(
-                TargetIs.Card(x => x.Is().Creature),
-                ZoneIs.Battlefield(), text: "Select target creature."),
-              TargetValidator(TargetIs.Player(), ZoneIs.None(), "Select target player.")
+              Target(
+                Validators.Card(x => x.Is().Creature),
+                Zones.Battlefield(), text: "Select target creature."),
+              Target(Validators.Player(), Zones.None(), "Select target player.")
             }
         );
     }

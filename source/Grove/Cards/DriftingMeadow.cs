@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
   using Core.Cards.Effects;
   using Core.Dsl;
   using Core.Mana;
@@ -16,11 +15,10 @@
         .Type("Land")
         .Text(
           "Drifting Meadow enters the battlefield tapped.{EOL}{T}: Add {W} to your mana pool.{EOL}{Cycling} {2}({2}, Discard this card: Draw a card.)")
-        .Timing(Timings.Lands())
         .Cycling("{2}")
+        .Cast(p => p.Effect = Effect<PutIntoPlay>(e => e.PutIntoPlayTapped = true))
         .Abilities(
-          ManaAbility(new ManaUnit(ManaColors.White), "{T}: Add {W} to your mana pool."))
-        .Effect<PutIntoPlay>(e => e.PutIntoPlayTapped = true);
+          ManaAbility(new ManaUnit(ManaColors.White), "{T}: Add {W} to your mana pool."));
     }
   }
 }

@@ -20,13 +20,13 @@
         .Text(
           "{Enchant creature}{EOL}Whenever enchanted creature deals combat damage to a player, that player sacrifices a land.")
         .FlavorText("Red sky at night, dragon's delight.")
-        .Timing(Timings.FirstMain())
-        .Effect<Attach>()
-        .Targets(
-          TargetSelectorAi.CombatEnchantment(),
-          TargetValidator(
-            TargetIs.Card(x => x.Is().Creature),
-            ZoneIs.Battlefield()))
+        .Cast(p =>
+          {
+            p.Timing = Timings.FirstMain();
+            p.Effect = Effect<Attach>();
+            p.EffectTargets = L(Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));
+            p.TargetSelectorAi = TargetSelectorAi.CombatEnchantment();
+          })                                
         .Abilities(
           TriggeredAbility(
             "Whenever enchanted creature deals combat damage to a player, that player sacrifices a land.",

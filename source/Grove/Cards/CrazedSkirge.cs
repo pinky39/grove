@@ -18,7 +18,7 @@
         .FlavorText("They are Phyrexia's couriers; the messages they carry are inscribed on their slick hides.")
         .Power(2)
         .Toughness(2)
-        .Timing(Timings.FirstMain())
+        .Cast(p => p.Timing = Timings.FirstMain())        
         .Abilities(
           Static.Flying,
           Static.Haste

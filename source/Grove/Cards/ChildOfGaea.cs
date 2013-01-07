@@ -22,8 +22,7 @@
         .Text(
           "{Trample}{EOL}At the beg. of your upkeep, pay {G}{G} or sacrifice Child of Gaea.{EOL}{1}{G}: Regenerate Child of Gaea.")
         .Power(7)
-        .Toughness(7)
-        .Timing(Timings.Creatures())
+        .Toughness(7)        
         .Abilities(
           Static.Trample,
           ActivatedAbility(

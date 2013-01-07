@@ -1,34 +1,28 @@
 ﻿namespace Grove.Core.Cards.Casting
 {
   using Effects;
-  using Grove.Core.Zones;
 
   public class Land : CastingRule
   {
-    private readonly Stack _stack;
-    private readonly TurnInfo _turn;
-
-    public Land(Stack stack, TurnInfo turn)
+    public override bool CanCast()
     {
-      _stack = stack;
-      _turn = turn;
-    }
-
-    private Land() {}
-
-    public override bool CanCast(Card card)
-    {
-      return _turn.Step.IsMain() &&
-        card.Controller.IsActive &&
-          _stack.IsEmpty &&
-            card.Controller.CanPlayLands &&
-              card.CanPayCastingCost();
+      return Game.Turn.Step.IsMain() &&
+        Card.Controller.IsActive &&
+          Game.Stack.IsEmpty &&
+            Card.Controller.CanPlayLands;
     }
 
     public override void Cast(Effect effect)
     {
+      Card.Controller.LandsPlayedCount++;
+
       effect.Resolve();
       effect.FinishResolve();
+    }
+
+    public override void AfterResolve()
+    {
+      Card.PutToBattlefield();
     }
   }
 }

@@ -34,7 +34,7 @@
                 t.ActiveTurn = false;
                 t.Condition = self => self.OwningCard.IsBlocker;
               }),
-            Effect<PutToHand>(e => e.AlsoReturnOwner = true)
+            Effect<PutToHand>(e => e.ReturnOwner = true)
             )
         );
     }

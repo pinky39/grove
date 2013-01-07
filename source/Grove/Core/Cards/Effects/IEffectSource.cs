@@ -1,12 +1,9 @@
 ﻿namespace Grove.Core.Cards.Effects
 {
-  using Ai;
-  using Infrastructure;
   using Targeting;
 
-  public interface IEffectSource : IHashable
+  public interface IEffectSource
   {
-    EffectCategories EffectCategories { get; }
     Card OwningCard { get; }
     Card SourceCard { get; }
 

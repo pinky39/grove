@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
   using Core.Cards;
   using Core.Dsl;
 
@@ -18,7 +17,6 @@
         .FlavorText("Some angels protect the meek and innocent. Others seek out and smite evil wherever it lurks.")
         .Power(5)
         .Toughness(5)
-        .Timing(Timings.Creatures())
         .Protections("demon", "dragon")
         .Abilities(
           Static.Flying,

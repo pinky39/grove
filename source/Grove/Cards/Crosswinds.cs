@@ -16,7 +16,7 @@
         .Type("Enchantment")
         .Text("Creatures with flying get -2/-0.")
         .FlavorText("Harbin's ornithopter had been trapped for two days within the currents of the storm. When the skies cleared, all he could see was a horizon of trees.")
-        .Timing(Timings.FirstMain())
+        .Cast(p => p.Timing = Timings.FirstMain())        
         .Abilities(
           Continuous(e =>
             {

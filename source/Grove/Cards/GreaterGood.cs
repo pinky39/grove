@@ -29,9 +29,9 @@
                 e.DiscardCount = 3;
               }),
             costValidator:
-              TargetValidator(
-                TargetIs.Card(x => x.Is().Creature, controller: Controller.SpellOwner),
-                ZoneIs.Battlefield(),
+              Target(
+                Validators.Card(x => x.Is().Creature, controller: Controller.SpellOwner),
+                Zones.Battlefield(),
                 text: "Select a creature to sacrifice.", mustBeTargetable: false),
             targetSelectorAi: TargetSelectorAi.CostSacrificeDrawCards(x => x.Power > 3))
         );

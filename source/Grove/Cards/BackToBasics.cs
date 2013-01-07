@@ -18,7 +18,7 @@
         .Text("Nonbasic lands don't untap during their controllers' untap steps.")
         .FlavorText(
           "'A ruler wears a crown while the rest of us wear hats, but which would you rather have when it's raining?'{EOL}—Barrin, Principia")
-        .Timing(Timings.SecondMain())
+        .Cast(p => p.Timing = Timings.SecondMain())
         .Abilities(
           Continuous(e =>
             {
