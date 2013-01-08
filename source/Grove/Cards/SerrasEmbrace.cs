@@ -21,18 +21,20 @@
           "Enchant creature{EOL}Enchanted creature gets +2/+2 and has flying and vigilance.")
         .FlavorText(
           "'Lifted beyond herself, for that battle Brindri was an angel of light and fury.'{EOL}—Song of All, canto 524")
-        .Effect<Attach>(e => e.Modifiers(
-          Modifier<AddPowerAndToughness>(m =>
-            {
-              m.Power = 2;
-              m.Toughness = 2;
-            }),
-          Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Vigilance),
-          Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Flying)))
-        .Timing(Timings.FirstMain())
-        .Targets(
-          TargetSelectorAi.CombatEnchantment(),
-          Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));
+        .Cast(p =>
+          {
+            p.Timing = Timings.FirstMain();
+            p.Effect = Effect<Attach>(e => e.Modifiers(
+              Modifier<AddPowerAndToughness>(m =>
+                {
+                  m.Power = 2;
+                  m.Toughness = 2;
+                }),
+              Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Vigilance),
+              Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Flying)));
+            p.EffectTargets = L(Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));
+            p.TargetSelectorAi = TargetSelectorAi.CombatEnchantment();
+          });
     }
   }
 }

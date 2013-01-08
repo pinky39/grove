@@ -17,14 +17,17 @@
         .Text(
           "Search your library for a card, put that card into your hand, discard a card at random, then shuffle your library.")
         .FlavorText("When you've got nothing, you might as well trade it for something else.")
-        .Timing(Timings.FirstMain())
-        .Effect<SearchLibraryPutToHand>(e =>
+        .Cast(p =>
           {
-            e.MinCount = 1;
-            e.MaxCount = 1;
-            e.DiscardRandomCardAfterwards = true;
-            e.RevealCards = false;
-            e.Text = "Select a card from your library.";
+            p.Timing = Timings.FirstMain();
+            p.Effect = Effect<SearchLibraryPutToHand>(e =>
+              {
+                e.MinCount = 1;
+                e.MaxCount = 1;
+                e.DiscardRandomCardAfterwards = true;
+                e.RevealCards = false;
+                e.Text = "Select a card from your library.";
+              });
           });
     }
   }

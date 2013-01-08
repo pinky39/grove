@@ -20,8 +20,7 @@
         .FlavorText(
           "'Most people can't build decent weapons out of stone or steel. Trust the elves to do it with only mud and vines.'{EOL}—Gerrard of the Weatherlight")
         .Power(4)
-        .Toughness(4)
-        .Timing(Timings.Creatures())
+        .Toughness(4)        
         .Abilities(
           ActivatedAbility(
             "Tap an untapped creature you control: Llanowar Behemoth gets +1/+1 until end of turn.",

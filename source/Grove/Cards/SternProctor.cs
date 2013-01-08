@@ -23,10 +23,9 @@
           "'I preferred the harsh tutors—they made mischief all the more fun.'{EOL}—Teferi, third-level student")
         .Power(1)
         .Toughness(2)
-        .Timing(
-          All(
-            Timings.FirstMain(), 
-            Timings.OpponentHasPermanent(card => card.Is().Artifact || card.Is().Enchantment)))
+        .Cast(p => p.Timing = All(
+          Timings.FirstMain(),
+          Timings.OpponentHasPermanent(card => card.Is().Artifact || card.Is().Enchantment)))
         .Abilities(
           TriggeredAbility(
             "When Stern Proctor enters the battlefield, return target artifact or enchantment to its owner's hand.",

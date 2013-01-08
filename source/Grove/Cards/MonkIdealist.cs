@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -23,18 +22,18 @@
         .FlavorText("Belief is the strongest mortar.")
         .Power(2)
         .Toughness(2)
-        .Timing(All(Timings.FirstMain(), Timings.HasCardsInGraveyard(card => card.Is().Enchantment)))
+        .Cast(p => p.Timing = All(Timings.FirstMain(), Timings.HasCardsInGraveyard(card => card.Is().Enchantment)))
         .Abilities(
           TriggeredAbility(
             "When Monk Idealist enters the battlefield, return target enchantment card from your graveyard to your hand.",
             Trigger<OnZoneChange>(t => t.To = Zone.Battlefield),
-            Effect<PutToHand>(), 
-              Target(
-                Validators.Card(card => card.Is().Enchantment), 
-                Zones.YourGraveyard(), 
-                mustBeTargetable: false, 
-                text: "Select an enchantment in your graveyard."), 
-                TargetSelectorAi.OrderByDescendingScore(Controller.SpellOwner)
+            Effect<PutToHand>(),
+            Target(
+              Validators.Card(card => card.Is().Enchantment),
+              Zones.YourGraveyard(),
+              mustBeTargetable: false,
+              text: "Select an enchantment in your graveyard."),
+            TargetSelectorAi.OrderByDescendingScore(Controller.SpellOwner)
             )
         );
     }

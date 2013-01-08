@@ -22,8 +22,7 @@
         .FlavorText("His crime was silence, and now he suffers it eternally.")
         .Power(4)
         .Toughness(4)
-        .Timing(Timings.Creatures())
-        .Effect<PutIntoPlay>(e => e.CanBeCountered = false)
+        .Cast(p => p.Effect = Effect<PutIntoPlay>(e => e.CanBeCountered = false))        
         .Abilities(
           Static.Hexproof,
           ActivatedAbility(

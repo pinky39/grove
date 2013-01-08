@@ -18,7 +18,7 @@
         .FlavorText("The giant was felt a few seconds before he was seen.")
         .Power(4)
         .Toughness(3)
-        .Timing(Timings.FirstMain())
+        .Cast(p => p.Timing = Timings.FirstMain())
         .Abilities(
           Static.Haste
         );

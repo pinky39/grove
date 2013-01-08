@@ -23,8 +23,7 @@
           "{1}{W}: Prevent all combat damage that would be dealt this turn by target attacking creature with flying.")
         .FlavorText("The true names of birds are songs woven into their souls.")
         .Power(1)
-        .Toughness(2)
-        .Timing(Timings.FirstMain())
+        .Toughness(2)        
         .Abilities(
           ActivatedAbility(
             "{1}{W}: Prevent all combat damage that would be dealt this turn by target attacking creature with flying.",

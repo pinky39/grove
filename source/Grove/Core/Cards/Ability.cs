@@ -9,7 +9,7 @@
   using Zones;
 
   [Copyable]
-  public abstract class Ability : IEffectSource, IHashable
+  public abstract class Ability : IEffectSource
   {
     private TargetSelector _targetSelector = TargetSelector.NullSelector;
     public TargetSelector TargetSelector { get { return _targetSelector; } }
@@ -30,7 +30,7 @@
     void IEffectSource.EffectPushedOnStack() {}
     void IEffectSource.EffectResolved() {}
 
-    bool IEffectSource.IsTargetStillValid(ITarget target, bool wasKickerPaid)
+    bool IEffectSource.IsTargetStillValid(ITarget target)
     {
       return TargetSelector.IsValidEffectTarget(target);
     }

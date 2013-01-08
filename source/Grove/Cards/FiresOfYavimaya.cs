@@ -20,7 +20,7 @@
         .Type("Enchantment")
         .Text(
           "Creatures you control have haste.{EOL}Sacrifice Fires of Yavimaya: Target creature gets +2/+2 until end of turn.")
-        .Timing(All(Timings.OnlyOneOfKind(), Timings.FirstMain()))
+        .Cast(p => p.Timing = All(Timings.OnlyOneOfKind(), Timings.FirstMain()))          
         .Abilities(
           Continuous(e =>
             {

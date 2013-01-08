@@ -18,8 +18,7 @@
         .Text(
           "{Level up} {W} ({W}: Put a level counter on this. Level up only as sorcery.){EOL}{Level 2-6:}Student of Warfare has First strike and is a 3/3 creature.{EOL}{Level 7+:}Student of Warfare has Double strike and is a 4/4 creature.")
         .Power(1)
-        .Toughness(1)
-        .Timing(Timings.Creatures())
+        .Toughness(1)        
         .Leveler(          
           ManaAmount.White,
           EffectCategories.ToughnessIncrease,

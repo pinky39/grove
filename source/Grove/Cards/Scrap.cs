@@ -16,13 +16,15 @@
         .ManaCost("{2}{R}")
         .Type("Instant")
         .Text("Destroy target artifact.{EOL}Cycling {2}({2}, Discard this card: Draw a card.)")
-        .Effect<DestroyTargetPermanents>()
-        .Category(EffectCategories.Destruction)
-        .Timing(Timings.InstantRemovalTarget())
         .Cycling("{2}")
-        .Targets(
-          TargetSelectorAi.OrderByDescendingScore(), 
-          Target(Validators.Card(card => card.Is().Artifact), Zones.Battlefield()));
+        .Cast(p =>
+          {
+            p.Timing = Timings.InstantRemovalTarget();
+            p.Category = EffectCategories.Destruction;
+            p.Effect = Effect<DestroyTargetPermanents>();
+            p.EffectTargets = L(Target(Validators.Card(card => card.Is().Artifact), Zones.Battlefield()));
+            p.TargetSelectorAi = TargetSelectorAi.OrderByDescendingScore();
+          });
     }
   }
 }

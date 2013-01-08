@@ -20,8 +20,7 @@
         .FlavorText(
           "Although some of the students quickly grasped the concept, the others could summon only blackboards.")
         .Power(2)
-        .Toughness(2)
-        .Timing(Timings.Creatures())
+        .Toughness(2)        
         .Abilities(
           ActivatedAbility(
             "{T}: Return Wizard Mentor and target creature you control to their owner's hand.",

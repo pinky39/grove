@@ -1,14 +1,11 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
   using Core.Cards.Effects;
   using Core.Cards.Triggers;
   using Core.Dsl;
   using Core.Mana;
-
 
   public class VerdantForce : CardsSource
   {
@@ -23,7 +20,6 @@
           "Left to itself, nature overflows any container, overthrows any restriction, and overreaches any boundary.")
         .Power(7)
         .Toughness(7)
-        .Timing(Timings.Creatures())
         .Abilities(
           TriggeredAbility(
             "At the beginning of each upkeep, put a 1/1 green Saproling creature token onto the battlefield.",

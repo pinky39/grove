@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
   using Core.Dsl;
 
   public class SandbarMerfolk : CardsSource
@@ -18,7 +17,6 @@
           "You are not prey until a predator knows of your existence.")
         .Power(1)
         .Toughness(1)
-        .Timing(Timings.Creatures())
         .Cycling("{2}");
     }
   }

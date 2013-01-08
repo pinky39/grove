@@ -18,7 +18,7 @@
         .Type("Enchantment")
         .Text("Sacrifice a creature: Draw cards equal to the sacrificed creature's power, then discard three cards.")
         .FlavorText("'We have more sprouts than they have hands.'{EOL}—Gamelen, Citanul elder")
-        .Timing(All(Timings.OnlyOneOfKind(), Timings.FirstMain()))
+        .Cast(p => p.Timing = All(Timings.OnlyOneOfKind(), Timings.FirstMain()))                
         .Abilities(
           ActivatedAbility(
             "Sacrifice a creature: Draw cards equal to the sacrificed creature's power, then discard three cards.",

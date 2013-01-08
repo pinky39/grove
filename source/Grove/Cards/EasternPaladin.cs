@@ -21,8 +21,7 @@
         .FlavorText(
           "'Their fragile world. Their futile lives. They obstruct the Grand Evolution. In Yawgmoth's name, we shall excise them.'{EOL}—Oath of the East")
         .Power(3)
-        .Toughness(3)
-        .Timing(Timings.Creatures())
+        .Toughness(3)        
         .Abilities(
           ActivatedAbility(
             "{B}{B},{T}: Destroy target green creature.",

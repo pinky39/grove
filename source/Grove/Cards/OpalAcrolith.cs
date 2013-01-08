@@ -20,7 +20,7 @@
         .Type("Enchantment")
         .Text(
           "Whenever an opponent casts a creature spell, if Opal Acrolith is an enchantment, Opal Acrolith becomes a 2/4 Soldier creature.{EOL}{0}: Opal Acrolith becomes an enchantment.")
-        .Timing(Timings.SecondMain())
+        .Cast(p => p.Timing = Timings.SecondMain())          
         .Abilities(
           TriggeredAbility(
             "Whenever an opponent casts a creature spell, if Opal Acrolith is an enchantment, Opal Acrolith becomes a 2/4 Soldier creature.",

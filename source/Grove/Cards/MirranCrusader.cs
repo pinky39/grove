@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
   using Core.Cards;
   using Core.Dsl;
   using Core.Mana;
@@ -19,7 +18,6 @@
         .FlavorText("A symbol of what Mirrodin once was and hope for what it will be again.")
         .Power(2)
         .Toughness(2)
-        .Timing(Timings.Creatures())
         .Protections(ManaColors.Black | ManaColors.Green)
         .Abilities(Static.DoubleStrike);
     }

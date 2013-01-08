@@ -21,7 +21,7 @@
         .Type("Artifact - Equipment")
         .Text(
           "Equipped creature gets +2/+2 and has protection from green and from blue.{EOL}Whenever equipped creature deals combat damage to a player, you put a 2/2 green Wolf creature token onto the battlefield and that player puts the top ten cards of his or her library into his or her graveyard.{EOL}{Equip} {2}")
-        .Timing(Timings.FirstMain())
+        .Cast(p => p.Timing = Timings.FirstMain())
         .Abilities(
           TriggeredAbility(
             "Whenever equipped creature deals combat damage to a player, you put a 2/2 green Wolf creature token onto the battlefield and that player puts the top ten cards of his or her library into his or her graveyard.",

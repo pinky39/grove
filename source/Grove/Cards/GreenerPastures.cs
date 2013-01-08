@@ -19,7 +19,7 @@
         .Type("Enchantment")
         .Text(
           "At the beginning of each player's upkeep, if that player controls more lands than each other player, the player puts a 1/1 green Saproling creature token onto the battlefield.")
-        .Timing(All(Timings.SecondMain(), Timings.HasMorePermanents(x => x.Is().Land)))
+        .Cast(p => p.Timing = All(Timings.SecondMain(), Timings.HasMorePermanents(x => x.Is().Land)))          
         .Abilities(
           TriggeredAbility(
             "At the beginning of each player's upkeep, if that player controls more lands than each other player, the player puts a 1/1 green Saproling creature token onto the battlefield.",

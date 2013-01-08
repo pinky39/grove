@@ -1,13 +1,11 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
   using Core.Cards.Effects;
   using Core.Cards.Triggers;
   using Core.Dsl;
-
 
   public class PhyrexianArena : CardsSource
   {
@@ -19,7 +17,7 @@
         .Type("Enchantment")
         .Text("At the beginning of your upkeep, you draw a card and you lose 1 life.")
         .FlavorText("An audience of one with the malice of thousands.")
-        .Timing(Timings.SecondMain())
+        .Cast(p => p.Timing = Timings.SecondMain())
         .Abilities(
           TriggeredAbility(
             "At the beginning of your upkeep, you draw a card and you lose 1 life.",

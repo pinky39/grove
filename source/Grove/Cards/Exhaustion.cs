@@ -20,24 +20,27 @@
         .Text("Creatures and lands target opponent controls don't untap during his or her next untap step.")
         .FlavorText(
           "The mage felt as though he'd been in the stasis suit for days. Upon his return, he found it was months.")
-        .Timing(Timings.SecondMain())
-        .Effect<ApplyModifiersToPlayer>(e =>
+        .Cast(p =>
           {
-            e.Player = e.Players.GetOpponent(e.Controller);
-            e.Modifiers(Modifier<AddContiniousEffect>(m =>
+            p.Timing = Timings.SecondMain();
+            p.Effect = Effect<ApplyModifiersToPlayer>(e =>
               {
-                m.AddLifetime(Lifetime<EndOfUntapStep>(l =>
-                  l.OnlyDuringPlayersUntap = m.Target.Player()));
+                e.Player = e.Players.GetOpponent(e.Controller);
+                e.Modifiers(Modifier<AddContiniousEffect>(m =>
+                  {
+                    m.AddLifetime(Lifetime<EndOfUntapStep>(l =>
+                      l.OnlyDuringPlayersUntap = m.Target.Player()));
 
-                m.Effect =
-                  Continuous(c =>
-                    {
-                      c.ModifierFactory = Modifier<AddStaticAbility>(m1 => m1.StaticAbility = Static.DoesNotUntap);
+                    m.Effect =
+                      Continuous(c =>
+                        {
+                          c.ModifierFactory = Modifier<AddStaticAbility>(m1 => m1.StaticAbility = Static.DoesNotUntap);
 
-                      c.CardFilter = (card, effect) =>
-                        card.Controller == effect.Target.Player() && (card.Is().Creature || card.Is().Land);
-                    });
-              }));
+                          c.CardFilter = (card, effect) =>
+                            card.Controller == effect.Target.Player() && (card.Is().Creature || card.Is().Land);
+                        });
+                  }));
+              });
           });
     }
   }

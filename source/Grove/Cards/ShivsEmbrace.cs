@@ -23,26 +23,28 @@
         .Text(
           "{Enchant creature}{EOL}Enchanted creature gets +2/+2 and has flying.{EOL}{R}: Enchanted creature gets +1/+0 until end of turn.")
         .FlavorText("Wear the foe's form to best it in battle. So sayeth the bey.")
-        .Timing(Timings.FirstMain())
-        .Effect<Attach>(e => e.Modifiers(
-          Modifier<AddActivatedAbility>(m => m.Ability =
-            ActivatedAbility(
-              "{R}: Enchanted creature gets +1/+0 until end of turn.",
-              Cost<PayMana>(cost => cost.Amount = ManaAmount.Red),
-              Effect<ApplyModifiersToSelf>(e1 => e1.Modifiers(
-                Modifier<AddPowerAndToughness>(m1 => m1.Power = 1, untilEndOfTurn: true))),
-              timing: Timings.IncreaseOwnersPowerAndThougness(1, 0))
-            ),
-          Modifier<AddPowerAndToughness>(m =>
-            {
-              m.Power = 2;
-              m.Toughness = 2;
-            }),
-          Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Flying)
-          ))
-        .Targets(
-          TargetSelectorAi.CombatEnchantment(), 
-          Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));
+        .Cast(p =>
+          {
+            p.Timing = Timings.FirstMain();
+            p.Effect = Effect<Attach>(e => e.Modifiers(
+              Modifier<AddActivatedAbility>(m => m.Ability =
+                ActivatedAbility(
+                  "{R}: Enchanted creature gets +1/+0 until end of turn.",
+                  Cost<PayMana>(cost => cost.Amount = ManaAmount.Red),
+                  Effect<ApplyModifiersToSelf>(e1 => e1.Modifiers(
+                    Modifier<AddPowerAndToughness>(m1 => m1.Power = 1, untilEndOfTurn: true))),
+                  timing: Timings.IncreaseOwnersPowerAndThougness(1, 0))
+                ),
+              Modifier<AddPowerAndToughness>(m =>
+                {
+                  m.Power = 2;
+                  m.Toughness = 2;
+                }),
+              Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Flying)
+              ));
+            p.EffectTargets = L(Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));
+            p.TargetSelectorAi = TargetSelectorAi.CombatEnchantment();
+          });                
     }
   }
 }

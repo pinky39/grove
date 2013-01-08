@@ -16,8 +16,7 @@
         .Type("Legendary Land")
         .Text("{T}: Add {G} to your mana pool for each creature you control.")
         .FlavorText(
-          "'Here sprouted the first seedling of Argoth. Here the last tree will fall.'{EOL}—Gamelen, Citanul elder")
-        .Timing(Timings.Lands())
+          "'Here sprouted the first seedling of Argoth. Here the last tree will fall.'{EOL}—Gamelen, Citanul elder")        
         .Abilities(
           ManaAbility(
             (ability, game) =>

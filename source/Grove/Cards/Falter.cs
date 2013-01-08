@@ -18,24 +18,27 @@
         .Type("Instant")
         .Text("Creatures without flying can't block this turn.")
         .FlavorText("Like a sleeping dragon, Shiv stirs and groans at times.")
-        .Timing(All(Timings.Steps(Step.BeginningOfCombat), Timings.Turn(active: true)))
-        .Effect<ApplyModifiersToPlayer>(e =>
+        .Cast(p =>
           {
-            e.Player = e.Players.Passive;
-            e.Modifiers(Modifier<AddContiniousEffect>(m =>
+            p.Timing = All(Timings.Steps(Step.BeginningOfCombat), Timings.Turn(active: true));
+            p.Effect = Effect<ApplyModifiersToPlayer>(e =>
               {
-                m.AddLifetime(Lifetime<EndOfTurnLifetime>());
+                e.Player = e.Players.Passive;
+                e.Modifiers(Modifier<AddContiniousEffect>(m =>
+                  {
+                    m.AddLifetime(Lifetime<EndOfTurnLifetime>());
 
-                m.Effect =
-                  Continuous(c =>
-                    {
-                      c.ModifierFactory = Modifier<AddStaticAbility>(
-                        m1 => m1.StaticAbility = Static.CannotBlock);
+                    m.Effect =
+                      Continuous(c =>
+                        {
+                          c.ModifierFactory = Modifier<AddStaticAbility>(
+                            m1 => m1.StaticAbility = Static.CannotBlock);
 
-                      c.CardFilter = (card, effect) =>
-                        (card.Is().Creature && !card.Has().Flying);
-                    });
-              }));
+                          c.CardFilter = (card, effect) =>
+                            (card.Is().Creature && !card.Has().Flying);
+                        });
+                  }));
+              });
           });
     }
   }

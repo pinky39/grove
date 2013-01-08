@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
   using Core.Cards.Effects;
   using Core.Cards.Triggers;
   using Core.Dsl;
@@ -21,7 +20,6 @@
         .FlavorText("There's always room for one more.")
         .Power(1)
         .Toughness(1)
-        .Timing(Timings.FirstMain())
         .Abilities(
           TriggeredAbility(
             "When Goblin Matron enters the battlefield, you may search your library for a Goblin card, reveal that card, and put it into your hand. If you do, shuffle your library.",

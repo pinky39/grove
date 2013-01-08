@@ -8,19 +8,16 @@
   {
     private readonly Targets _targets;
 
-    public ActivationParameters(Targets targets = null, bool payKicker = false, int? x = null)
+    public ActivationParameters(Targets targets = null, int? x = null)
     {
-      _targets = targets ?? new Targets();
-      PayKicker = payKicker;
+      _targets = targets ?? new Targets();      
       X = x;
     }
 
     private ActivationParameters() {}
 
     public Targets Targets { get { return _targets; } }
-    public static ActivationParameters Default { get { return new ActivationParameters(); } }
-
-    public bool PayKicker { get; private set; }
+    public static ActivationParameters Default { get { return new ActivationParameters(); } }    
     public int? X { get; private set; }
   }
 }

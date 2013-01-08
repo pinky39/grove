@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
   using Core.Cards;
   using Core.Dsl;
 
@@ -18,7 +17,6 @@
         .FlavorText("Each day at dusk the birds above the canopy grow silent.")
         .Power(1)
         .Toughness(2)
-        .Timing(Timings.Creatures())
         .Abilities(
           Static.Flying,
           Static.Shroud

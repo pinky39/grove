@@ -16,8 +16,11 @@
         .Type("Enchantment")
         .Text("Creatures you control get +1/+1.")
         .FlavorText("Once heard, the battle song of an angel becomes part of the listener forever.")
-        .Category(EffectCategories.ToughnessIncrease)
-        .Timing(Timings.FirstMain())
+        .Cast(p =>
+          {
+            p.Timing = Timings.FirstMain();
+            p.Category = EffectCategories.ToughnessIncrease;
+          })                
         .Abilities(
           Continuous(e =>
             {

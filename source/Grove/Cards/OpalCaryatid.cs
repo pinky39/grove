@@ -18,7 +18,7 @@
         .Type("Enchantment")
         .Text(
           "When an opponent casts a creature spell, if Opal Caryatid is an enchantment, Opal Caryatid becomes a 2/2 Soldier creature.")
-        .Timing(Timings.SecondMain())
+        .Cast(p => p.Timing = Timings.SecondMain())
         .Abilities(
           TriggeredAbility(
             "When an opponent casts a creature spell, if Opal Caryatid is an enchantment, Opal Caryatid becomes a 2/2 Soldier creature.",

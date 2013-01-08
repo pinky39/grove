@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
   using Core.Dsl;
   using Core.Mana;
 
@@ -14,7 +13,6 @@
         .Named("Island")
         .Type("Basic Land - Island")
         .Text("{T}: Add {U} to your mana pool.")
-        .Timing(Timings.Lands())
         .Abilities(
           ManaAbility(ManaUnit.Blue, "{T}: Add {U} to your mana pool."));
     }

@@ -19,15 +19,16 @@
         .Text(
           "Destroy target nonartifact, nonblack creature. It can't be regenerated.{EOL}Cycling {2} ({2}, Discard this card: Draw a card.)")
         .Cycling("{2}")
-        .Timing(Timings.InstantRemovalTarget())
-        .Category(EffectCategories.Destruction)
-        .Effect<DestroyTargetPermanents>()
-        .Targets(
-          TargetSelectorAi.Destroy(), 
-          Target(
-            Validators.Card(card => !card.HasColors(ManaColors.Black) && !card.Is().Artifact),
-            Zones.Battlefield()))
-        ;
+        .Cast(p =>
+          {
+            p.Timing = Timings.InstantRemovalTarget();
+            p.Category = EffectCategories.Destruction;
+            p.Effect = Effect<DestroyTargetPermanents>();
+            p.EffectTargets =
+              L(Target(Validators.Card(card => !card.HasColors(ManaColors.Black) && !card.Is().Artifact),
+                Zones.Battlefield()));
+            p.TargetSelectorAi = TargetSelectorAi.Destroy();
+          });
     }
   }
 }

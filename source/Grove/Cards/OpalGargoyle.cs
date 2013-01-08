@@ -21,7 +21,7 @@
         .Type("Enchantment")
         .Text(
           "When an opponent casts a creature spell, if Opal Gargoyle is an enchantment, Opal Gargoyle becomes a 2/2 Gargoyle creature with flying.")
-        .Timing(Timings.SecondMain())
+        .Cast(p => p.Timing = Timings.SecondMain())
         .Abilities(
           TriggeredAbility(
             "When an opponent casts a creature spell, if Opal Gargoyle is an enchantment, Opal Gargoyle becomes a 2/2 Gargoyle creature with flying.",

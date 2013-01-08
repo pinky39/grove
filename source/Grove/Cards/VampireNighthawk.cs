@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
   using Core.Cards;
   using Core.Dsl;
 
@@ -17,7 +16,6 @@
         .Text("{Flying}{EOL}{Deathtouch},{Lifelink}")
         .Power(2)
         .Toughness(3)
-        .Timing(Timings.Creatures())
         .Abilities(
           Static.Deathtouch,
           Static.Lifelink,

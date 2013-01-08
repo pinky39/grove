@@ -19,7 +19,7 @@
         .Text(
           "When an opponent casts an enchantment spell, if Hidden Ancients is an enchantment, Hidden Ancients becomes a 5/5 Treefolk creature.")
         .FlavorText("The only alert the invaders had was the rustling of leaves on a day without wind.")
-        .Timing(Timings.SecondMain())
+        .Cast(p => p.Timing = Timings.SecondMain())
         .Abilities(
           TriggeredAbility(
             "When an opponent casts an enchantment spell, if Hidden Ancients is an enchantment, Hidden Ancients becomes a 5/5 Treefolk creature.",

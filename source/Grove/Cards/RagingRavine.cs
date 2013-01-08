@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -12,7 +11,6 @@
   using Core.Dsl;
   using Core.Mana;
 
-
   public class RagingRavine : CardsSource
   {
     public override IEnumerable<ICardFactory> GetCards()
@@ -22,8 +20,7 @@
         .Type("Land")
         .Text(
           "Raging Ravine enters the battlefield tapped.{EOL}{T}: Add {R} or {G} to your mana pool.{EOL}{2}{R}{G}: Until end of turn, Raging Ravine becomes a 3/3 red and green Elemental creature with Whenever this creature attacks, put a +1/+1 counter on it. It's still a land.")
-        .Timing(Timings.Lands())
-        .Effect<PutIntoPlay>(e => e.PutIntoPlayTapped = true)
+        .Cast(p => p.Effect = Effect<PutIntoPlay>(e => e.PutIntoPlayTapped = true))
         .Abilities(
           ManaAbility(
             new ManaUnit(ManaColors.Red | ManaColors.Green),

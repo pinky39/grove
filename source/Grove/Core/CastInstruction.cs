@@ -77,7 +77,7 @@
       _castingRule.AfterResolve();     
     }
 
-    public bool IsTargetStillValid(ITarget target, bool wasKickerPaid)
+    public bool IsTargetStillValid(ITarget target)
     {
       return _targetSelector.IsValidEffectTarget(target);
     }
@@ -119,6 +119,11 @@
     public bool CanTarget(ITarget target)
     {
       return _targetSelector.Effect[0].IsValid(target);
+    }
+
+    public int CalculateHash(HashCalculator calc)
+    {
+      return calc.Calculate(_effectFactory);
     }
   }
 }

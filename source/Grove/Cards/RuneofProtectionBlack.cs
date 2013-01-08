@@ -19,7 +19,7 @@
         .Type("Enchantment")
         .Text(
           "{W}: The next time a black source of your choice would deal damage to you this turn, prevent that damage.{EOL}Cycling {2} ({2}, Discard this card: Draw a card.)")
-        .Timing(Timings.FirstMain())
+        .Cast(p => p.Timing = Timings.FirstMain())
         .Cycling("{2}")
         .Abilities(
           ActivatedAbility(

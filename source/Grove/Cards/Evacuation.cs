@@ -16,9 +16,12 @@
         .Type("Instant")
         .Text("Return all creatures to their owners' hands.")
         .FlavorText("The first step of every exodus is from the blood and the fire onto the trail.")
-        .Category(EffectCategories.Bounce)
-        .Timing(Timings.InstantBounceAllCreatures())
-        .Effect<ReturnAllPermanentsToHand>(e => e.Filter = (permanent) => permanent.Is().Creature);
+        .Cast(p =>
+          {
+            p.Category = EffectCategories.Bounce;
+            p.Timing = Timings.InstantBounceAllCreatures();
+            p.Effect = Effect<ReturnAllPermanentsToHand>(e => e.Filter = (permanent) => permanent.Is().Creature);
+          });
     }
   }
 }

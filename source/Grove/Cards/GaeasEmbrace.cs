@@ -19,28 +19,30 @@
         .Named("Gaea's Embrace")
         .ManaCost("{2}{G}{G}")
         .Type("Enchantment - Aura")
-        .Text("{Enchant creature}{EOL}Enchanted creature gets +3/+3 and has trample.{EOL}{G}: Regenerate enchanted creature.")
+        .Text(
+          "{Enchant creature}{EOL}Enchanted creature gets +3/+3 and has trample.{EOL}{G}: Regenerate enchanted creature.")
         .FlavorText("The forest rose to the battle, not to save the people but to save itself.")
-        .Timing(Timings.FirstMain())
-        .Effect<Attach>(e => e.Modifiers(
-          Modifier<AddActivatedAbility>(m => m.Ability =
-            ActivatedAbility(
-              "{G}: Regenerate enchanted creature.",
-              Cost<PayMana>(cost => cost.Amount = ManaAmount.Green),
-              Effect<Regenerate>(),
-              timing: Timings.Regenerate())
-            ),
-          Modifier<AddPowerAndToughness>(m =>
-            {
-              m.Power = 3;
-              m.Toughness = 3;
-            }),
-          Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Trample)
-          ))
-        .Targets(
-          TargetSelectorAi.CombatEnchantment(), 
-          Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));
-
+        .Cast(p =>
+          {
+            p.Timing = Timings.FirstMain();
+            p.Effect = Effect<Attach>(e => e.Modifiers(
+              Modifier<AddActivatedAbility>(m => m.Ability =
+                ActivatedAbility(
+                  "{G}: Regenerate enchanted creature.",
+                  Cost<PayMana>(cost => cost.Amount = ManaAmount.Green),
+                  Effect<Regenerate>(),
+                  timing: Timings.Regenerate())
+                ),
+              Modifier<AddPowerAndToughness>(m =>
+                {
+                  m.Power = 3;
+                  m.Toughness = 3;
+                }),
+              Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Trample)
+              ));
+            p.EffectTargets = L(Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));
+            p.TargetSelectorAi = TargetSelectorAi.CombatEnchantment();
+          });
     }
   }
 }

@@ -18,15 +18,17 @@
         .Text("Target player draws two cards and loses 2 life.")
         .FlavorText(
           "'You know I accept only one currency here, and yet you have sought me out. Why now do you hesitate?'{EOL}—Xathrid demon")
-        .Timing(Timings.FirstMain())
-        .Effect<TargetPlayerDrawsCards>(e =>
+        .Cast(p =>
           {
-            e.CardCount = 2;
-            e.LifeLoss = 2;
-          })
-        .Targets(
-          selectorAi: TargetSelectorAi.Controller(),
-          effectValidator: Target(Validators.Player(), Zones.None()));
+            p.Timing = Timings.FirstMain();
+            p.Effect = Effect<TargetPlayerDrawsCards>(e =>
+              {
+                e.CardCount = 2;
+                e.LifeLoss = 2;
+              });
+            p.EffectTargets = L(Target(Validators.Player(), Zones.None()));
+            p.TargetSelectorAi = TargetSelectorAi.Controller();
+          });
     }
   }
 }

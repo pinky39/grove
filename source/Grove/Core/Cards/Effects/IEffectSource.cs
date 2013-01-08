@@ -1,8 +1,9 @@
 ﻿namespace Grove.Core.Cards.Effects
 {
+  using Infrastructure;
   using Targeting;
-
-  public interface IEffectSource
+  
+  public interface IEffectSource : IHashable
   {
     Card OwningCard { get; }
     Card SourceCard { get; }
@@ -11,6 +12,6 @@
     void EffectPushedOnStack();
     void EffectResolved();
 
-    bool IsTargetStillValid(ITarget target, bool wasKickerPaid);
+    bool IsTargetStillValid(ITarget target);
   }
 }

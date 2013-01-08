@@ -19,8 +19,7 @@
         .Type("Land")
         .Text(
           "Stirring Wildwood enters the battlefield tapped.{EOL}{T}: Add {G} or {W} to your mana pool.{EOL}{1}{G}{W}: Until end of turn, Stirring Wildwood becomes a 3/4 green and white Elemental creature with reach. It's still a land.")
-        .Timing(Timings.Lands())
-        .Effect<PutIntoPlay>(e => e.PutIntoPlayTapped = true)
+        .Cast(p => p.Effect = Effect<PutIntoPlay>(e => e.PutIntoPlayTapped = true))                  
         .Abilities(
           ManaAbility(
             new ManaUnit(ManaColors.Green | ManaColors.White),

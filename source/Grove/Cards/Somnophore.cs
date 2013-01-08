@@ -22,8 +22,7 @@
         .Text(
           "{Flying}{EOL}Whenever Somnophore deals damage to a player, tap target creature that player controls. That creature doesn't untap during its controller's untap step for as long as Somnophore remains on the battlefield.")
         .Power(2)
-        .Toughness(2)
-        .Timing(Timings.Creatures())
+        .Toughness(2)        
         .Abilities(
           Static.Flying,
           TriggeredAbility(

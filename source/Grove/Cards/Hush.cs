@@ -15,10 +15,13 @@
         .ManaCost("{3}{G}")
         .Type("Sorcery")
         .Text("Destroy all enchantments.{EOL}{Cycling} {2} ({2}, Discard this card: Draw a card.)")
-        .Timing(Timings.FirstMain())
-        .Cycling("{2}")     
-        .Category(EffectCategories.Destruction)
-        .Effect<DestroyAllPermanents>(e => e.Filter = (card) => card.Is().Enchantment);
+        .Cycling("{2}")
+        .Cast(p =>
+          {
+            p.Timing = Timings.FirstMain();
+            p.Category = EffectCategories.Destruction;
+            p.Effect = Effect<DestroyAllPermanents>(e => e.Filter = (card) => card.Is().Enchantment);
+          });
     }
   }
 }

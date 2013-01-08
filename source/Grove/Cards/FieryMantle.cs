@@ -22,19 +22,21 @@
         .Type("Enchantment - Aura")
         .Text(
           "Enchant creature{EOL}{R}: Enchanted creature gets +1/+0 until end of turn.{EOL}When Fiery Mantle is put into a graveyard from the battlefield, return Fiery Mantle to its owner's hand.")
-        .Timing(Timings.FirstMain())
-        .Effect<Attach>(e => e.Modifiers(
-          Modifier<AddActivatedAbility>(m => m.Ability =
-            ActivatedAbility(
-              "{R}: Enchanted creature gets +1/+0 until end of turn.",
-              Cost<PayMana>(cost => cost.Amount = ManaAmount.Red),
-              Effect<ApplyModifiersToSelf>(p1 => p1.Effect.Modifiers(
-                Modifier<AddPowerAndToughness>(m1 => m1.Power = 1, untilEndOfTurn: true))),
-              timing: Timings.IncreaseOwnersPowerAndThougness(1, 0))
-            )))
-        .Targets(
-          TargetSelectorAi.CombatEnchantment(),
-          Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()))
+        .Cast(p =>
+          {
+            p.Timing = Timings.FirstMain();
+            p.Effect = Effect<Attach>(e => e.Modifiers(
+              Modifier<AddActivatedAbility>(m => m.Ability =
+                ActivatedAbility(
+                  "{R}: Enchanted creature gets +1/+0 until end of turn.",
+                  Cost<PayMana>(cost => cost.Amount = ManaAmount.Red),
+                  Effect<ApplyModifiersToSelf>(p1 => p1.Effect.Modifiers(
+                    Modifier<AddPowerAndToughness>(m1 => m1.Power = 1, untilEndOfTurn: true))),
+                  timing: Timings.IncreaseOwnersPowerAndThougness(1, 0))
+                )));
+            p.EffectTargets = L(Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));
+            p.TargetSelectorAi = TargetSelectorAi.CombatEnchantment();
+          })
         .Abilities(
           TriggeredAbility(
             "When Fiery Mantle is put into a graveyard from the battlefield, return Fiery Mantle to its owner's hand.",

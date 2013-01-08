@@ -3,16 +3,16 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Grove.Core.Decisions;
-  using Grove.Infrastructure;
-  using Grove.Core.Targeting;
-  using Grove.Core.Zones;
+  using Decisions;
+  using Infrastructure;
+  using Targeting;
   using Triggers;
+  using Zones;
 
   [Copyable]
   public class TriggeredAbility : Ability, IDisposable, ICopyContributor
   {
-    private readonly List<Trigger> _triggers = new List<Trigger>();    
+    private readonly List<Trigger> _triggers = new List<Trigger>();
     private Trackable<bool> _isEnabled;
 
     public TriggeredAbility()
@@ -78,11 +78,10 @@
         return;
       }
 
-      var effect = EffectFactory.CreateEffect(new EffectParameters
-        (
-        source: this,
-        triggerMessage: triggerMessage
-        ), Game);
+      var effectParameters = new EffectParameters(this, EffectCategories,
+        triggerMessage: triggerMessage);
+
+      var effect = EffectFactory.CreateEffect(effectParameters, Game);
 
       if (UsesStack)
         Stack.Push(effect);
@@ -104,16 +103,16 @@
     {
       IsEnabled = true;
     }
-    
+
     public class Factory : ITriggeredAbilityFactory
-    {      
+    {
       public Action<TriggeredAbility> Init { get; set; }
 
       public TriggeredAbility Create(Card owningCard, Card sourceCard, Game game)
       {
         var ability = new TriggeredAbility();
         ability.OwningCard = owningCard;
-        ability.SourceCard = sourceCard;        
+        ability.SourceCard = sourceCard;
         ability.Game = game;
         ability._isEnabled = new Trackable<bool>(true, game.ChangeTracker);
 

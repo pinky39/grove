@@ -17,21 +17,23 @@
         .Named("Pariah")
         .ManaCost("{2}{W}")
         .Type("Enchantment - Aura")
-        .Timing(Timings.FirstMain())
         .Text("All damage that would be dealt to you is dealt to enchanted creature instead.")
         .FlavorText(
           "'It is not sad', Radiant chided the lesser angel. 'It is right. Every society must have its outcasts.'")
-        .Effect<Attach>(e =>
+        .Cast(p =>
           {
-            e.ModifiesAttachmentController = true;
-            e.Modifiers(
-              Modifier<AddDamageRedirection>(m =>
-                m.Redirection = Redirection<RedirectDamageToTarget>(r => { r.Target = m.Source.AttachedTo; }))
-              );
-          })
-        .Targets(
-          TargetSelectorAi.DamageRedirection(),
-          Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));
+            p.Timing = Timings.FirstMain();
+            p.Effect = Effect<Attach>(e =>
+              {
+                e.ModifiesAttachmentController = true;
+                e.Modifiers(
+                  Modifier<AddDamageRedirection>(m =>
+                    m.Redirection = Redirection<RedirectDamageToTarget>(r => { r.Target = m.Source.AttachedTo; }))
+                  );
+              });
+            p.EffectTargets = L(Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));
+            p.TargetSelectorAi = TargetSelectorAi.DamageRedirection();
+          });
     }
   }
 }

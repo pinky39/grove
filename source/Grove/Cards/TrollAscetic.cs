@@ -21,8 +21,7 @@
           "{Hexproof}{EOL}{1}{G}: Regenerate Troll Ascetic.")
         .FlavorText("It's no coincidence that the oldest trolls are also the angriest.")
         .Power(3)
-        .Toughness(2)
-        .Timing(Timings.Creatures())
+        .Toughness(2)        
         .Abilities(
           Static.Hexproof,
           ActivatedAbility(

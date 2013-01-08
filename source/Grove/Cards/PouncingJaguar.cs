@@ -1,9 +1,7 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
   using Core.Dsl;
 
   public class PouncingJaguar : CardsSource
@@ -19,7 +17,6 @@
         .FlavorText("One pounce, she's hungry—you die quickly. Two, she's teaching her cubs—you're in for a long day.")
         .Power(2)
         .Toughness(2)
-        .Timing(Timings.Creatures())
         .Echo("{G}");
     }
   }

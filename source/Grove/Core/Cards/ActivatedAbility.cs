@@ -31,12 +31,12 @@
 
     protected TurnInfo Turn { get { return Game.Turn; } }
 
-    public void Activate(ActivationParameters parameters)
+    public void Activate(ActivationParameters activationParameters)
     {
-      var effect = EffectFactory.CreateEffect(
-        new EffectParameters(this, parameters), Game);
+      var effectParameters = new EffectParameters(this, EffectCategories, activationParameters);
+      var effect = EffectFactory.CreateEffect(effectParameters, Game);
 
-      Cost.Pay(parameters.Targets.Cost.FirstOrDefault(), parameters.X);
+      Cost.Pay(activationParameters.Targets.Cost.FirstOrDefault(), activationParameters.X);
 
       if (UsesStack)
       {
@@ -46,7 +46,7 @@
 
       effect.Resolve();
 
-      Game.Publish(new PlayerHasActivatedAbility(this, parameters.Targets));
+      Game.Publish(new PlayerHasActivatedAbility(this, activationParameters.Targets));
     }
 
     public override int CalculateHash(HashCalculator calc)
@@ -80,10 +80,10 @@
 
     public T CreateEffect<T>(ITarget target) where T : Effect
     {
-      return EffectFactory.CreateEffect(new EffectParameters(
-        source: this,
-        targets: new Targets().AddEffect(target)
-        ), Game) as T;
+      var effectParameters = new EffectParameters(this,
+        EffectCategories, new ActivationParameters(new Targets().AddEffect(target)));
+
+      return EffectFactory.CreateEffect(effectParameters, Game) as T;
     }
 
     public void SetCost(ICostFactory costFactory)

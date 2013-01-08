@@ -18,11 +18,13 @@
         .Text("Flame Slash deals 4 damage to target creature.")
         .FlavorText(
           "After millennia asleep, the Eldrazi had forgotten about Zendikar's fiery temper and dislike of strangers.")
-        .Effect<DealDamageToTargets>(e => e.Amount = 4)
-        .Timing(Timings.InstantRemovalTarget())
-        .Targets(
-          TargetSelectorAi.DealDamageSingleSelector(4),
-          Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));
+        .Cast(p =>
+          {
+            p.Timing = Timings.InstantRemovalTarget();
+            p.Effect = Effect<DealDamageToTargets>(e => e.Amount = 4);
+            p.EffectTargets = L(Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));
+            p.TargetSelectorAi = TargetSelectorAi.DealDamageSingleSelector(4);
+          });
     }
   }
 }

@@ -22,16 +22,15 @@
         .FlavorText("'For dim-witted, thick-skulled genetic mutants, they have pretty good aim.{EOL}—Sisay'")
         .Power(4)
         .Toughness(2)
-        .Timing(Timings.OpponentHasPermanent(
-          card => card.Is().Creature &&
-            card.Life <= 4 &&
+        .Cast(p => p.Timing = Timings.OpponentHasPermanent(
+          card => card.Is().Creature && card.Life <= 4 &&
               !card.HasProtectionFrom(ManaColors.Red)))
         .Abilities(
           TriggeredAbility(
             "When Flametongue Kavu enters the battlefield, it deals 4 damage to target creature.",
             Trigger<OnZoneChange>(t => t.To = Zone.Battlefield),
             Effect<DealDamageToTargets>(e => e.Amount = 4),
-            Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()), 
+            Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()),
             TargetSelectorAi.DealDamageSingleSelector(4)));
     }
   }

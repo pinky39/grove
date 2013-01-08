@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
   using Core.Dsl;
 
   public class GoblinPatrol : CardsSource
@@ -18,7 +17,6 @@
         .FlavorText("'Take the sharp metal stick and make a lotta holes.'{EOL}—Jula, goblin raider")
         .Power(2)
         .Toughness(1)
-        .Timing(Timings.Creatures())
         .Echo("{R}");
     }
   }

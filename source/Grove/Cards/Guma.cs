@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
   using Core.Dsl;
   using Core.Mana;
 
@@ -19,7 +18,6 @@
           "When the giant returned for the night, he found a dead merfolk on his pillow. Although he praised the little guma, he inwardly wondered where she had hid the head.")
         .Power(2)
         .Toughness(2)
-        .Timing(Timings.Creatures())
         .Protections(ManaColors.Blue);
     }
   }

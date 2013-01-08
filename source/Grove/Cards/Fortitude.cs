@@ -21,24 +21,26 @@
         .Type("Enchantment Aura")
         .Text(
           "{Enchant creature}{EOL}Sacrifice a Forest: Regenerate enchanted creature.{EOL}When Fortitude is put into a graveyard from the battlefield, return Fortitude to its owner's hand.")
-        .Effect<Attach>(e => e.Modifiers(
-          Modifier<AddActivatedAbility>(m => m.Ability =
-            ActivatedAbility(
-              "Sacrifice a Forest: Regenerate enchanted creature.",
-              Cost<Sacrifice>(),
-              Effect<Regenerate>(),
-              costValidator:
-                Target(
-                  Validators.Card(card => card.Is("forest"), Controller.SpellOwner),
-                  Zones.Battlefield(),
-                  text: "Select a forest to sacrifice.", mustBeTargetable: false),
-              targetSelectorAi: TargetSelectorAi.CostSacrificeRegenerate(),
-              timing: Timings.Regenerate())
-            )))
-        .Timing(Timings.FirstMain())
-        .Targets(
-          TargetSelectorAi.CombatEnchantment(),
-          Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()))
+        .Cast(p =>
+          {
+            p.Timing = Timings.FirstMain();
+            p.Effect = Effect<Attach>(e => e.Modifiers(
+              Modifier<AddActivatedAbility>(m => m.Ability =
+                ActivatedAbility(
+                  "Sacrifice a Forest: Regenerate enchanted creature.",
+                  Cost<Sacrifice>(),
+                  Effect<Regenerate>(),
+                  costValidator:
+                    Target(
+                      Validators.Card(card => card.Is("forest"), Controller.SpellOwner),
+                      Zones.Battlefield(),
+                      text: "Select a forest to sacrifice.", mustBeTargetable: false),
+                  targetSelectorAi: TargetSelectorAi.CostSacrificeRegenerate(),
+                  timing: Timings.Regenerate())
+                )));
+            p.EffectTargets = L(Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));
+            p.TargetSelectorAi = TargetSelectorAi.CombatEnchantment();
+          })
         .Abilities(
           TriggeredAbility(
             "When Fortitude is put into a graveyard from the battlefield, return Fortitude to its owner's hand.",

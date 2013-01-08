@@ -16,11 +16,14 @@
         .Type("Sorcery")
         .Text("Draw three cards, then discard a card.")
         .FlavorText("Dwell longest on the thoughts that shine brightest.")
-        .Timing(Timings.FirstMain())
-        .Effect<DrawCards>(e =>
+        .Cast(p =>
           {
-            e.DrawCount = 3;
-            e.DiscardCount = 1;
+            p.Timing = Timings.FirstMain();
+            p.Effect = Effect<DrawCards>(e =>
+              {
+                e.DrawCount = 3;
+                e.DiscardCount = 1;
+              });
           });
     }
   }

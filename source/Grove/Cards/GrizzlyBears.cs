@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
   using Core.Dsl;
 
   public class GrizzlyBears : CardsSource
@@ -16,8 +15,7 @@
         .FlavorText(
           "We cannot forget that among all of Dominaria's wonders, a system of life exists, with prey and predators that will never fight wars nor vie for ancient power.")
         .Power(2)
-        .Toughness(2)
-        .Timing(Timings.Creatures());
+        .Toughness(2);
     }
   }
 }

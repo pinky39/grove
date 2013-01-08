@@ -2,12 +2,12 @@
 {
   using Cards;
   using Cards.Effects;
-  using Grove.Core.Targeting;
   using Results;
+  using Targeting;
 
   public abstract class SetTriggeredAbilityTarget : Decision<ChosenTargets>
   {
-    public IEffectSource Source { get; set; }
+    public TriggeredAbility Source { get; set; }
     public object Trigger { get; set; }
     public IEffectFactory Factory { get; set; }
     public TargetSelector TargetSelector { get; set; }
@@ -22,12 +22,13 @@
       if (!Result.HasTargets)
         return;
 
-      var effect = Factory.CreateEffect(
-        new EffectParameters(
-          source: Source,
-          triggerMessage: Trigger,
-          targets: Result.Targets), Game);
-      
+      var effectParameters = new EffectParameters(
+        Source,
+        Source.EffectCategories,
+        new ActivationParameters(Result.Targets),
+        Trigger);
+
+      var effect = Factory.CreateEffect(effectParameters, Game);
 
       Game.Stack.Push(effect);
     }

@@ -20,8 +20,7 @@
           "Whenever Goblin Lackey successfully deals damage to a player, you may choose a Goblin card in your hand and put that Goblin into play.")
         .FlavorText("All bark, someone else's bite.")
         .Power(1)
-        .Toughness(1)
-        .Timing(Timings.Creatures())
+        .Toughness(1)        
         .Abilities(
           TriggeredAbility(
             "Whenever Goblin Lackey successfully deals damage to a player, you may choose a Goblin card in your hand and put that Goblin into play.",

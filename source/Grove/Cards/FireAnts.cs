@@ -18,8 +18,7 @@
         .Text("{T}: Fire Ants deals 1 damage to each other creature without flying.")
         .FlavorText("Visitors to Shiv fear the dragons, the goblins, or the viashino. Natives fear the ants.")
         .Power(2)
-        .Toughness(1)
-        .Timing(Timings.Creatures())
+        .Toughness(1)        
         .Abilities(
           ActivatedAbility(
             "{T}: Fire Ants deals 1 damage to each other creature without flying.",

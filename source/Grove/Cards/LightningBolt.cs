@@ -16,11 +16,13 @@
         .ManaCost("{R}")
         .Type("Instant")
         .Text("Lightning Bolt deals 3 damage to target creature or player.")
-        .Timing(Timings.InstantRemovalTarget())
-        .Effect<DealDamageToTargets>(e => e.Amount = 3)
-        .Targets(
-          TargetSelectorAi.DealDamageSingleSelector(3), 
-          Target(Validators.CreatureOrPlayer(), Zones.Battlefield()));
+        .Cast(p =>
+          {
+            p.Timing = Timings.InstantRemovalTarget();
+            p.Effect = Effect<DealDamageToTargets>(e => e.Amount = 3);
+            p.EffectTargets = L(Target(Validators.CreatureOrPlayer(), Zones.Battlefield()));
+            p.TargetSelectorAi = TargetSelectorAi.DealDamageSingleSelector(3);
+          });
     }
   }
 }

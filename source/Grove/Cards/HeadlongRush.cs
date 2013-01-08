@@ -19,13 +19,16 @@
         .Text("Attacking creatures gain first strike until end of turn.")
         .FlavorText(
           "A landslide of goblins poured towards the defenders—tumbling, rolling, and bouncing their way down the steep hillside.")
-        .Timing(All(Timings.DeclareBlockers(), Timings.Turn(active: true), Timings.HasAttackers(1)))
-        .Effect<ApplyModifiersToPermanents>(e =>
+        .Cast(p =>
           {
-            e.Filter = (self, card) => card.IsAttacker;
-            e.Modifiers(
-              Modifier<AddStaticAbility>(m => m.StaticAbility = Static.FirstStrike, untilEndOfTurn: true)
-              );
+            p.Timing = All(Timings.DeclareBlockers(), Timings.Turn(active: true), Timings.HasAttackers(1));
+            p.Effect = Effect<ApplyModifiersToPermanents>(e =>
+              {
+                e.Filter = (self, card) => card.IsAttacker;
+                e.Modifiers(
+                  Modifier<AddStaticAbility>(m => m.StaticAbility = Static.FirstStrike, untilEndOfTurn: true)
+                  );
+              });
           });
     }
   }

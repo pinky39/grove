@@ -19,8 +19,7 @@
         .Text("{T}: Elite Archers deals 3 damage to target attacking or blocking creature.")
         .FlavorText("Arrows fletched with the feathers of angels seldom miss their mark.")
         .Power(3)
-        .Toughness(3)
-        .Timing(Timings.Creatures())
+        .Toughness(3)        
         .Abilities(
           ActivatedAbility(
             "{T}: Elite Archers deals 3 damage to target attacking or blocking creature.",

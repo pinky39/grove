@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
   using Core.Dsl;
   using Core.Mana;
 
@@ -18,7 +17,6 @@
         .FlavorText("One bone broken for every twig snapped underfoot.{EOL}—Llanowar penalty for trespassing")
         .Power(1)
         .Toughness(1)
-        .Timing(Timings.Creatures())
         .Abilities(
           ManaAbility(ManaUnit.Green, "{T}: Add {G} to your mana pool."));
     }

@@ -19,8 +19,7 @@
         .FlavorText(
           "'The answer to life should never be death; it should always be more life, wrapped tight around us like precious silks.'")
         .Power(0)
-        .Toughness(2)
-        .Timing(Timings.Creatures())
+        .Toughness(2)        
         .Abilities(
           ActivatedAbility(
             "{T}: You gain 1 life.",

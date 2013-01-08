@@ -20,8 +20,7 @@
         .FlavorText(
           "All we know about the Krosan Forest we have learned from those few who made it out alive.{EOL}—Elvish refugee")
         .Power(4)
-        .Toughness(4)
-        .Timing(Timings.Creatures())
+        .Toughness(4)        
         .Abilities(
           ActivatedAbility(
             "Sacrifice a Beast: You gain 4 life.",

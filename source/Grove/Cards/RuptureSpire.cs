@@ -18,8 +18,11 @@
         .Type("Land")
         .Text(
           "Rupture Spire enters the battlefield tapped.{EOL}When Rupture Spire enters a battlefield, sacrifice it unless you pay {1}.{EOL}{T}: Add one mana of any color to your mana pool.")
-        .Effect<PutIntoPlay>(e => e.PutIntoPlayTapped = true)
-        .Timing(All(Timings.Lands(), Timings.HasConvertedMana(1)))
+        .Cast(p =>
+          {
+            p.Timing = All(Timings.Lands(), Timings.HasConvertedMana(1));
+            p.Effect = Effect<PutIntoPlay>(e => e.PutIntoPlayTapped = true);
+          })
         .Abilities(
           ManaAbility(ManaUnit.Any, "{T}: Add one mana of any color to your mana pool."),
           TriggeredAbility(

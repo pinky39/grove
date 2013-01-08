@@ -17,7 +17,7 @@
         .Text("You may play an additional land on each of your turns.")
         .FlavorText(
           "The first explorers found Argoth a storehouse of natural wealth—towering forests grown over rich veins of ore.")
-        .Timing(Timings.FirstMain())
+        .Cast(p=> p.Timing = Timings.FirstMain())
         .Abilities(
           Continuous(c =>
             {

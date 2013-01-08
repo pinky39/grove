@@ -30,7 +30,7 @@
           {
             p.Description = p.KickerDescription;
             p.Effect = Effect<DealDamageToTargets>(e => e.Amount = 4);
-            p.AdditionalCost = Cost<PayMana>(c => c.Amount = 4.Colorless());
+            p.Cost = Cost<PayMana>(c => c.Amount = "{4}{R}".ParseMana());
             p.EffectTargets = L(Target(Validators.CreatureOrPlayer(), Zones.Battlefield()));
             p.TargetSelectorAi = TargetSelectorAi.DealDamageSingleSelector(4);
           });

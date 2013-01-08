@@ -20,7 +20,7 @@
         .FlavorText("The power of faith is quiet. It is the leaf unmoved by the hurricane.")
         .Power(1)
         .Toughness(1)
-        .Timing(Timings.FirstMain())
+        .Cast(p => p.Timing = Timings.FirstMain())
         .Abilities(
           ActivatedAbility(
             "Sacrifice an enchantment: You gain life equal to the sacrificed enchantment's converted mana cost.",

@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
   using Core.Cards;
   using Core.Dsl;
   using Core.Mana;
@@ -21,7 +20,6 @@
         .Power(2)
         .Toughness(2)
         .Protections(ManaColors.Black)
-        .Timing(Timings.Creatures())
         .Abilities(
           Static.FirstStrike
         );

@@ -16,12 +16,15 @@
         .Type("Sorcery")
         .Text("Target opponent discards a card at random, then discards a card.")
         .FlavorText("There are medicines for all afflictions but idleness.{EOL}—Suq'Ata saying")
-        .Effect<OpponentDiscardsCards>(e =>
+        .Cast(p =>
           {
-            e.RandomCount = 1;
-            e.SelectedCount = 1;
-          })
-        .Timing(Timings.FirstMain());
+            p.Timing = Timings.FirstMain();
+            p.Effect = Effect<OpponentDiscardsCards>(e =>
+              {
+                e.RandomCount = 1;
+                e.SelectedCount = 1;
+              });
+          });
     }
   }
 }

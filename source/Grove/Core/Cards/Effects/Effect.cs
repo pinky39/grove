@@ -15,7 +15,7 @@
     public Action<Effect> AfterResolve = delegate { };
     public Action<Effect> BeforeResolve = delegate { };
     private Targets _targets;
-    private EffectCategories _effectCategories;
+    protected EffectCategories EffectCategories { get; set; }
     private Trackable<bool> _wasResolved;
     public bool CanBeCountered { get; set; }
     public Player Controller { get { return Source.OwningCard.Controller; } }
@@ -30,10 +30,7 @@
 
 
     // this is used by ui to display effect targets
-    public object UiTargets { get { return _targets; } }
-
-    public bool WasKickerPaid { get; set; }
-
+    public object UiTargets { get { return _targets; } }    
     protected IList<ITarget> Targets { get { return _targets.Effect; } }
 
     protected IEnumerable<ITarget> ValidTargets { get { return Targets.Where(IsValid); } }
@@ -51,8 +48,7 @@
         GetType().GetHashCode(),
         calc.Calculate(Source),
         calc.Calculate(_targets),
-        CanBeCountered.GetHashCode(),
-        WasKickerPaid.GetHashCode(),
+        CanBeCountered.GetHashCode(),        
         X.GetHashCode());
     }
 
@@ -63,7 +59,7 @@
 
     public bool IsValid(ITarget target)
     {
-      return Source.IsTargetStillValid(target, WasKickerPaid);
+      return Source.IsTargetStillValid(target);
     }
 
     public virtual int CalculatePlayerDamage(Player player)
@@ -143,7 +139,7 @@
 
     public bool HasCategory(EffectCategories effectCategories)
     {
-      return ((effectCategories & _effectCategories) != EffectCategories.Generic);
+      return ((effectCategories & EffectCategories) != EffectCategories.Generic);
     }
 
     public bool HasTarget(Card card)
@@ -166,10 +162,9 @@
           {
             Game = game,
             Source = parameters.Source,
-            _effectCategories = parameters.EffectCategories,
+            EffectCategories = parameters.EffectCategories,
             _wasResolved = new Trackable<bool>(game.ChangeTracker),
-            _targets = parameters.Targets,
-            WasKickerPaid = parameters.Activation.PayKicker,
+            _targets = parameters.Targets,            
             X = parameters.Activation.X,
             CanBeCountered = true
           };

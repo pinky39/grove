@@ -22,7 +22,7 @@
         .Type("Enchantment")
         .Text(
           "At the beginning of your upkeep, you may put a verse counter on Torch Song.{EOL}{2}{R}, Sacrifice Torch Song: Torch Song deals X damage to target creature or player, where X is the number of verse counters on Torch Song.")
-        .Timing(Timings.SecondMain())
+        .Cast(p=> p.Timing = Timings.SecondMain())
         .Abilities(
           TriggeredAbility(
             "At the beginning of your upkeep, you may put a verse counter on Torch Song.",

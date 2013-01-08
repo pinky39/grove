@@ -20,8 +20,7 @@
         .Text("Sacrifice a creature: Phyrexian Ghoul gets +2/+2 until end of turn.")
         .FlavorText("Phyrexia wastes nothing. Its food chain is a spiraling cycle.")
         .Power(2)
-        .Toughness(2)
-        .Timing(Timings.Creatures())
+        .Toughness(2)        
         .Abilities(
           ActivatedAbility(
             "Sacrifice a creature: Phyrexian Ghoul gets +2/+2 until end of turn.",

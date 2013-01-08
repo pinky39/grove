@@ -19,8 +19,7 @@
         .ManaCost("{2}")
         .Type("Artifact")
         .Text(
-          "You may choose not to untap Endoskeleton during your untap step.{EOL}{2},{T}: Target creature gets +0/+3 for as long as Endoskeleton remains tapped.")
-        .Timing(Timings.FirstMain())
+          "You may choose not to untap Endoskeleton during your untap step.{EOL}{2},{T}: Target creature gets +0/+3 for as long as Endoskeleton remains tapped.")        
         .MayChooseNotToUntapDuringUntap()
         .Abilities(
           ActivatedAbility(

@@ -19,8 +19,7 @@
         .Text("{B}: Nantuko Shade gets +1/+1 until end of turn.")
         .FlavorText("In life, the nantuko study nature by revering it. In death, they study nature by disemboweling it.")
         .Power(2)
-        .Toughness(1)
-        .Timing(Timings.Creatures())
+        .Toughness(1)        
         .Abilities(
           ActivatedAbility(
             "{B}: Nantuko Shade gets +1/+1 until end of turn.",

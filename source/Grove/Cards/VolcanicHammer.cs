@@ -17,11 +17,12 @@
         .Type("Sorcery")
         .Text("Volcanic Hammer deals 3 damage to target creature or player.")
         .FlavorText("Fire finds its form in the heat of the forge.")
-        .Effect<DealDamageToTargets>(e => e.Amount = 3)
-        .Timing(Timings.MainPhases())
-        .Targets(
-          TargetSelectorAi.DealDamageSingleSelector(3),
-          Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));
+        .Cast(p =>
+          {
+            p.Effect = Effect<DealDamageToTargets>(e => e.Amount = 3);
+            p.EffectTargets = L(Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));
+            p.TargetSelectorAi = TargetSelectorAi.DealDamageSingleSelector(3);
+          });
     }
   }
 }

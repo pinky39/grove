@@ -23,8 +23,7 @@
         .FlavorText(
           "Before Urza and Mishra came to Argoth, the herders prevented their creatures from stampeding. During the war, they encouraged it.")
         .Power(1)
-        .Toughness(1)
-        .Timing(Timings.Creatures())
+        .Toughness(1)        
         .Abilities(
           ActivatedAbility(
             "{G}: Target creature gains trample until end of turn.",

@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
   using Core.Dsl;
 
   public class GorillaWarrior : CardsSource
@@ -16,8 +15,7 @@
         .FlavorText(
           "The gorilla beat its chest and threw great handfuls of leaves into the air. It howled challenge and showed its teeth. The mechanical soldier, not understanding, simply killed it.")
         .Power(3)
-        .Toughness(2)
-        .Timing(Timings.Creatures());
+        .Toughness(2);
     }
   }
 }

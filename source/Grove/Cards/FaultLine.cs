@@ -13,17 +13,21 @@
     {
       yield return Card
         .Named("Fault Line")
-        .ManaCost("{R}{R}").XCalculator(VariableCost.MaximumAvailableMana())
+        .ManaCost("{R}{R}")
         .Type("Instant")
         .Text("Fault Line deals X damage to each creature without flying and each player.")
         .FlavorText("We live on the serpent's back.{EOL}—Viashino saying")
-        .Timing(Timings.MassRemovalInstantSpeed())
-        .Effect<DealDamageToEach>(e =>
+        .Cast(p =>
           {
-            e.AmountPlayer = Value.PlusX;
-            e.AmountCreature = Value.PlusX;
-            e.FilterCreature = (effect, card) => !card.Has().Flying;
-          });        
-      }
+            p.XCalculator = VariableCost.MaximumAvailableMana();
+            p.Timing = Timings.MassRemovalInstantSpeed();
+            p.Effect = Effect<DealDamageToEach>(e =>
+              {
+                e.AmountPlayer = Value.PlusX;
+                e.AmountCreature = Value.PlusX;
+                e.FilterCreature = (effect, card) => !card.Has().Flying;
+              });
+          });
+    }
   }
 }

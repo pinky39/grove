@@ -11,7 +11,7 @@
     public EffectParameters(IEffectSource source, EffectCategories effectCategories, ActivationParameters activationParameters = null,
       object triggerMessage = null)
     {
-      activationParameters = activationParameters ?? ActivationParameters.Default;
+      
 
       TriggerMessage = triggerMessage;
       Source = source;

@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
   using Core.Cards.Effects;
   using Core.Cards.Triggers;
   using Core.Dsl;
@@ -19,7 +18,6 @@
           "At the beginning of your upkeep, if a player has more life than each other player, the player with the most life gains control of Wild Dogs.{EOL}Cycling {2} ({2}, Discard this card: Draw a card.)")
         .Power(2)
         .Toughness(1)
-        .Timing(Timings.Creatures())
         .Cycling("{2}")
         .Abilities(
           TriggeredAbility(

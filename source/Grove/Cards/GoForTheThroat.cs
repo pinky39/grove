@@ -17,14 +17,15 @@
         .Type("Instant")
         .Text("Destroy target nonartifact creature.")
         .FlavorText("Having flesh is increasingly a liability on Mirrodin.")
-        .Effect<DestroyTargetPermanents>()
-        .Timing(Timings.InstantRemovalTarget())
-        .Category(EffectCategories.Destruction)
-        .Targets(
-          TargetSelectorAi.Destroy(), 
-          Target(
-            Validators.Card(card => card.Is().Creature && !card.Is().Artifact), 
-            Zones.Battlefield()));
+        .Cast(p =>
+          {
+            p.Timing = Timings.InstantRemovalTarget();
+            p.Category = EffectCategories.Destruction;
+            p.Effect = Effect<DestroyTargetPermanents>();
+            p.EffectTargets = L(Target(Validators.Card(card => card.Is().Creature && !card.Is().Artifact),
+              Zones.Battlefield()));
+            p.TargetSelectorAi = TargetSelectorAi.Destroy();
+          });
     }
   }
 }

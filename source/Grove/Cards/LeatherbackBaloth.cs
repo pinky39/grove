@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
   using Core.Dsl;
 
   public class LeatherbackBaloth : CardsSource
@@ -16,8 +15,7 @@
         .FlavorText(
           "Heavy enough to withstand the Roil, leatherback skeletons are havens for travelers in storms and landshifts.")
         .Power(4)
-        .Toughness(5)
-        .Timing(Timings.Creatures());
+        .Toughness(5);
     }
   }
 }

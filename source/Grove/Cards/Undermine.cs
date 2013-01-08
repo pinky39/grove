@@ -17,12 +17,14 @@
         .Type("Instant")
         .Text("Counter target spell. Its controller loses 3 life.")
         .FlavorText("'Which would you like first, the insult or the injury?'")
-        .Category(EffectCategories.Counterspell)
-        .Timing(Timings.CounterSpell())
-        .Effect<CounterTargetSpell>(e => e.ControllersLifeloss = 3)
-        .Targets(
-          selectorAi: TargetSelectorAi.CounterSpell(),
-          effectValidator: Target(Validators.CounterableSpell(), Zones.Stack()));
+        .Cast(p =>
+          {
+            p.Timing = Timings.CounterSpell();
+            p.Category = EffectCategories.Counterspell;
+            p.Effect = Effect<CounterTargetSpell>(e => e.ControllersLifeloss = 3);
+            p.EffectTargets = L(Target(Validators.CounterableSpell(), Zones.Stack()));
+            p.TargetSelectorAi = TargetSelectorAi.CounterSpell();
+          });
     }
   }
 }

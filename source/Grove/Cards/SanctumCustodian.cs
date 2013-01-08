@@ -21,8 +21,7 @@
         .Text("{T}: Prevent the next 2 damage that would be dealt to target creature or player this turn.")
         .FlavorText("Serra told them to guard Urza as he healed. Five years they stood.")
         .Power(1)
-        .Toughness(2)
-        .Timing(Timings.Creatures())
+        .Toughness(2)        
         .Abilities(
           ActivatedAbility(
             "{T}: Prevent the next 2 damage that would be dealt to target creature or player this turn.",

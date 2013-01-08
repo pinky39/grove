@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
   using Core.Cards;
   using Core.Dsl;
 
@@ -19,7 +18,6 @@
           "The mages of Tolaria found strange ways to spend their free time. Occasionally they had contests to see whose kite was eaten last.")
         .Power(2)
         .Toughness(3)
-        .Timing(Timings.Creatures())
         .Cycling("{2}")
         .Abilities(
           Static.Flying

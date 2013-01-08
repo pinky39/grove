@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
   using Core.Cards.Effects;
   using Core.Cards.Modifiers;
   using Core.Cards.Preventions;
@@ -20,7 +19,6 @@
         .Type("Enchantment")
         .Text(
           "Prevent all damage that would be dealt to you by sources you don't control.{EOL}When a card is put into your graveyard from anywhere, sacrifice Energy Field.")
-        .Timing(Timings.FirstMain())
         .Abilities(
           Continuous(e =>
             {

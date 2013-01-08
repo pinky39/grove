@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
   using Core.Dsl;
 
   public class SandbarSerpent : CardsSource
@@ -18,7 +17,6 @@
           "Treacherous and unpredictable currents around Tolaria earned the nickname 'serpent wakes.'")
         .Power(3)
         .Toughness(4)
-        .Timing(Timings.Creatures())
         .Cycling("{2}");
     }
   }

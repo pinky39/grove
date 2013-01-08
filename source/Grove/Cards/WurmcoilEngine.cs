@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
   using Core.Cards;
   using Core.Cards.Effects;
   using Core.Cards.Triggers;
@@ -22,7 +21,6 @@
           "{Deathtouch}, {Lifelink}{EOL}When Wurmcoil Engine dies, put a 3/3 colorless Wurm artifact creature token with deathtouch and a 3/3 colorless Wurm artifact creature token with lifelink onto the battlefield.")
         .Power(6)
         .Toughness(6)
-        .Timing(Timings.Creatures())
         .Abilities(
           Static.Deathtouch,
           Static.Lifelink,

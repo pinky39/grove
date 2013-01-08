@@ -17,8 +17,7 @@
         .Named("Steam Vents")
         .Type("Land - Island Mountain")
         .Text(
-          "{T}: Add {U} or {R} to your mana pool.{EOL}As Steam Vents enters the battlefield, you may pay 2 life. If you don't, Steam Vents enters the battlefield tapped.")
-        .Timing(Timings.Lands())
+          "{T}: Add {U} or {R} to your mana pool.{EOL}As Steam Vents enters the battlefield, you may pay 2 life. If you don't, Steam Vents enters the battlefield tapped.")        
         .Abilities(
           StaticAbility(
             Trigger<OnZoneChange>(t => t.To = Zone.Battlefield),

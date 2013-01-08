@@ -21,7 +21,7 @@
         .Type("Artifact - Equipment")
         .Text(
           "Equipped creature gets +2/+2 and has protection from black and from green.{EOL}Whenever equipped creature deals combat damage to a player, that player discards a card and you untap all lands you control.{EOL}{Equip} {2}")
-        .Timing(Timings.FirstMain())
+        .Cast(p => p.Timing = Timings.FirstMain())
         .Abilities(
           TriggeredAbility(
             "Whenever equipped creature deals combat damage to a player, that player discards a card and you untap all lands you control.",

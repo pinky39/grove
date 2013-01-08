@@ -22,8 +22,7 @@
           "{Flying}{EOL}When Gilded Drake enters the battlefield, exchange control of Gilded Drake and up to one target creature an opponent controls. If you don't make an exchange, sacrifice Gilded Drake. This ability can't be countered except by spells and abilities.")
         .FlavorText("Buyer beware.")
         .Power(3)
-        .Toughness(3)
-        .Timing(Timings.FirstMain())
+        .Toughness(3)        
         .Abilities(
           Static.Flying,
           TriggeredAbility(

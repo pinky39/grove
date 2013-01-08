@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
   using Core.Dsl;
 
   public class TrainedArmodon : CardsSource
@@ -15,8 +14,7 @@
         .Type("Creature - Elephant")
         .FlavorText("Armodons are trained to step on things.{EOL}Enemy things.")
         .Power(3)
-        .Toughness(3)
-        .Timing(Timings.Creatures());
+        .Toughness(3);
     }
   }
 }

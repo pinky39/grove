@@ -18,12 +18,14 @@
         .Type("Instant")
         .Text("Counter target spell unless its controller pays {3}.")
         .FlavorText("The fatal flaw in every plan is the assumption that you know more than your enemy.")
-        .Category(EffectCategories.Counterspell)
-        .Timing(Timings.CounterSpell(3))
-        .Effect<CounterTargetSpell>(e => e.DoNotCounterCost = 3.Colorless())
-        .Targets(
-          TargetSelectorAi.CounterSpell(), 
-          Target(Validators.CounterableSpell(), Zones.Stack()));
+        .Cast(p =>
+          {
+            p.Timing = Timings.CounterSpell(3);
+            p.Category = EffectCategories.Counterspell;
+            p.Effect = Effect<CounterTargetSpell>(e => e.DoNotCounterCost = 3.Colorless());
+            p.EffectTargets = L(Target(Validators.CounterableSpell(), Zones.Stack()));
+            p.TargetSelectorAi = TargetSelectorAi.CounterSpell();
+          });
     }
   }
 }

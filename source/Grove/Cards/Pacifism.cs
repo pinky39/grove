@@ -19,13 +19,15 @@
         .Type("Enchantment - Aura")
         .Text("Enchant creature{EOL}Enchanted creature can't attack or block.")
         .FlavorText("'Fight? I cannot. I do not care if I live or die, so long as I can rest.'{EOL}—Urza, to Serra")
-        .Timing(Timings.FirstMain())
-        .Effect<Attach>(e => e.Modifiers(
-          Modifier<AddStaticAbility>(m => m.StaticAbility = Static.CannotBlock),
-          Modifier<AddStaticAbility>(m => m.StaticAbility = Static.CannotAttack)))
-        .Targets(
-          TargetSelectorAi.Pacifism(),
-          Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));
+        .Cast(p =>
+          {
+            p.Timing = Timings.FirstMain();
+            p.Effect = Effect<Attach>(e => e.Modifiers(
+              Modifier<AddStaticAbility>(m => m.StaticAbility = Static.CannotBlock),
+              Modifier<AddStaticAbility>(m => m.StaticAbility = Static.CannotAttack)));
+            p.EffectTargets = L(Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));
+            p.TargetSelectorAi = TargetSelectorAi.Pacifism();
+          });
     }
   }
 }

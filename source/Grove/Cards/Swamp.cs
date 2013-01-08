@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
   using Core.Dsl;
   using Core.Mana;
 
@@ -14,7 +13,6 @@
         .Named("Swamp")
         .Type("Basic Land - Swamp")
         .Text("{T}: Add {B} to your mana pool.")
-        .Timing(Timings.Lands())
         .Abilities(
           ManaAbility(ManaUnit.Black, "{T}: Add {B} to your mana pool."));
     }

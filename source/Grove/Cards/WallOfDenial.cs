@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
   using Core.Cards;
   using Core.Dsl;
 
@@ -18,7 +17,6 @@
         .FlavorText("It provides what every discerning mage requires—time to think.")
         .Power(0)
         .Toughness(8)
-        .Timing(Timings.Creatures())
         .Abilities(
           Static.Flying,
           Static.Defender,

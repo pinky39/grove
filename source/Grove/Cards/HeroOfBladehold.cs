@@ -2,7 +2,7 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Cards.Effects;
   using Core.Cards.Modifiers;
   using Core.Cards.Triggers;
   using Core.Dsl;
@@ -20,12 +20,11 @@
           "{Battle cry}(Whenever this creature attacks, each other attacking creature gets +1/+0 until end of turn.){EOL}Whenever Hero of Bladehold attacks, put two 1/1 white Soldier creature tokens onto the battlefield tapped and attacking.")
         .Power(3)
         .Toughness(4)
-        .Timing(Timings.Creatures())
         .Abilities(
           TriggeredAbility(
             "Whenever this creature attacks, each other attacking creature gets +1/+0 until end of turn.",
             Trigger<OnAttack>(),
-            Effect<Core.Cards.Effects.ApplyModifiersToPermanents>(p =>
+            Effect<ApplyModifiersToPermanents>(p =>
               {
                 p.Effect.Modifiers(Modifier<AddPowerAndToughness>(m =>
                   m.Power = 1, untilEndOfTurn: true));
@@ -35,7 +34,7 @@
           TriggeredAbility(
             "{Battle cry}Whenever Hero of Bladehold attacks, put two 1/1 white Soldier creature tokens onto the battlefield tapped and attacking.",
             Trigger<OnAttack>(),
-            Effect<Core.Cards.Effects.CreateTokens>(p =>
+            Effect<CreateTokens>(p =>
               {
                 p.Effect.Tokens(Card
                   .Named("Soldier Token")

@@ -20,8 +20,7 @@
           "Sacrifice Sanctum Guardian: The next time a source of your choice would deal damage to target creature or player this turn, prevent that damage.")
         .FlavorText("'Protect our mother in her womb.'")
         .Power(1)
-        .Toughness(4)
-        .Timing(Timings.Creatures())
+        .Toughness(4)        
         .Abilities(
           ActivatedAbility(
             "Sacrifice Sanctum Guardian: The next time a source of your choice would deal damage to target creature or player this turn, prevent that damage.",

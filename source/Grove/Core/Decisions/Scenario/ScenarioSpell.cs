@@ -7,7 +7,8 @@
 
   public class ScenarioSpell : Spell
   {
-    public ScenarioSpell(Card card, ActivationParameters activationParameters) : base(card, activationParameters) {}
+    public ScenarioSpell(Card card, ActivationParameters activationParameters, int index)
+      : base(card, activationParameters, index) {}
 
     private Player Controller { get { return Card.Controller; } }
 
@@ -23,18 +24,13 @@
         manaCost = manaCost.Add(Card.ManaCost);
       }
 
-      if (Card.KickerCost != null)
-      {
-        manaCost = manaCost.Add(Card.KickerCost);
-      }
-
-
       if (ActivationParameters.X.HasValue)
         manaCost = manaCost.Add(ActivationParameters.X.Value);
 
       Controller.AddManaToManaPool(manaCost);
       var prerequisites = Card.CanCast();
-      return prerequisites.CanBeSatisfied;
+
+      return prerequisites[Index].CanBeSatisfied;
     }
   }
 }

@@ -18,8 +18,7 @@
         .FlavorText(
           "'The clouds came alive and dove to the earth Hooves flashed among the dark army, who fled before the spectacle of fury.'{EOL}—Song of All, canto 211")
         .Power(2)
-        .Toughness(1)
-        .Timing(Timings.Creatures())
+        .Toughness(1)        
         .Abilities(
           Static.Flying,
           Static.FirstStrike

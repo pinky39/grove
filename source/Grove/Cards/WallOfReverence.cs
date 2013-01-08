@@ -22,8 +22,7 @@
         .FlavorText(
           "The lives of elves are long, but their memories are longer. Even after death, they do not desert their homes.")
         .Power(1)
-        .Toughness(6)
-        .Timing(Timings.Creatures())
+        .Toughness(6)        
         .Abilities(
           Static.Defender,
           Static.Flying,

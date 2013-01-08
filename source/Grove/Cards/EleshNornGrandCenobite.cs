@@ -21,12 +21,14 @@
           "'The Gitaxians whisper among themselves of other worlds. If they exist, we must bring Phyrexia's magnificence to them.'")
         .Power(4)
         .Toughness(7)
-        .Timing(Timings.Creatures())
-        .Category(EffectCategories.ToughnessIncrease)
-        .Effect<PutIntoPlay>(e =>
+        .Cast(p =>
           {
-            e.ToughnessReductionFilter = (self, card) => card.Controller != self.Controller;
-            e.ToughnessReduction = 2;
+            p.Category = EffectCategories.ToughnessIncrease;
+            p.Effect = Effect<PutIntoPlay>(e =>
+              {
+                e.ToughnessReductionFilter = (self, card) => card.Controller != self.Controller;
+                e.ToughnessReduction = 2;
+              });
           })
         .Abilities(
           Static.Vigilance,
@@ -38,7 +40,9 @@
                     m.Power = 2;
                     m.Toughness = 2;
                   });
-              e.CardFilter = (card, effect) => card.Controller == effect.Source.Controller && card.Is().Creature && card != effect.Source;
+              e.CardFilter =
+                (card, effect) =>
+                  card.Controller == effect.Source.Controller && card.Is().Creature && card != effect.Source;
             }),
           Continuous(e =>
             {

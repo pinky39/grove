@@ -21,7 +21,7 @@
         .FlavorText("We plant the seeds of doubt to harvest the crop of wisdom.")
         .Power(1)
         .Toughness(1)
-        .Timing(All(Timings.FirstMain(), Timings.OpponentHasPermanent(card => card.Is().Enchantment)))
+        .Cast(p => p.Timing = All(Timings.FirstMain(), Timings.OpponentHasPermanent(card => card.Is().Enchantment)))        
         .Abilities(
           TriggeredAbility(
             "When Monk Realist enters the battlefield, destroy target enchantment.",

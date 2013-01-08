@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
   using Core.Cards;
   using Core.Cards.Effects;
   using Core.Cards.Triggers;
@@ -22,7 +21,6 @@
           "Urza saw the wall and realized that even if he tore every Phyrexian to pieces, they would still resist him.")
         .Power(0)
         .Toughness(7)
-        .Timing(Timings.Creatures())
         .Abilities(
           Static.Defender,
           TriggeredAbility(

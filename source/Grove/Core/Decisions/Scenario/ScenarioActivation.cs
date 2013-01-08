@@ -1,6 +1,6 @@
 ﻿namespace Grove.Core.Decisions.Scenario
 {
-  using Grove.Core.Targeting;
+  using Targeting;
 
   public class ScenarioActivation
   {
@@ -8,8 +8,7 @@
 
     public Card Card { get; set; }
     public int? X { get; set; }
-    public int AbilityIndex { get; set; }
-    public bool PayKicker { get; set; }
+    public int Index { get; set; }
 
     public Targets GetTargets()
     {

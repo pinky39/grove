@@ -18,7 +18,7 @@
         .Text("If a source would deal damage to you, prevent 1 of that damage.")
         .FlavorText(
           "'Tawnos's blueprints were critical to the creation of my armor. As he once sealed himself in steel, I sealed myself in a walking crypt.'{EOL}—Urza")
-        .Timing(Timings.FirstMain())
+        .Cast(p => p.Timing = Timings.FirstMain())
         .Abilities(
           Continuous(e =>
             {

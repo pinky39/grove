@@ -19,13 +19,13 @@
         .Type("Artifact")
         .Text("{2},{T}: Tap target creature.")
         .FlavorText("A taut slipknot trigger is the only thing standing between you and standing.")
-        .Timing(Timings.FirstMain())
+        .Cast(p => p.Timing = Timings.FirstMain())
         .Abilities(
           ActivatedAbility(
             "{2},{T}: Tap target creature.",
             Cost<PayMana, Tap>(cost => cost.Amount = 2.Colorless()),
             Effect<TapTargetCreature>(),
-            Target(Validators.Card(x=>x.Is().Creature), Zones.Battlefield()),
+            Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()),
             targetSelectorAi: TargetSelectorAi.TapCreature(),
             timing: Timings.Steps(Step.BeginningOfCombat))
         );

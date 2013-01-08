@@ -19,30 +19,33 @@
         .Text(
           "Put three Knight tokens into play. Treat these tokens as 2/2 white creatures. Exile them at end of turn.")
         .FlavorText("'You reek of corruption,' spat the knight. 'Why are you even here?'")
-        .Timing(Any(Timings.EndOfTurn(), Timings.SummonBlockers()))
-        .Effect<CreateTokens>(e =>
+        .Cast(p =>
           {
-            e.Count = 3;
-            e.Tokens(
-              Card
-                .Named("Knight Token")
-                .FlavorText("'You reek of corruption,' spat the knight. 'Why are you even here?'")
-                .Power(2)
-                .Toughness(2)
-                .OverrideScore(20)
-                .Type("Creature - Token - Knight")
-                .Colors(ManaColors.White)
-                .Abilities(
-                  TriggeredAbility(
-                    "Exile this at the end of turn.",
-                    Trigger<AtBegginingOfStep>(t =>
-                      {
-                        t.Step = Step.EndOfTurn;
-                        t.PassiveTurn = true;
-                        t.ActiveTurn = true;
-                      }),
-                    Effect<SacrificeSource>(), triggerOnlyIfOwningCardIsInPlay: true)
-                ));
+            p.Timing = Any(Timings.EndOfTurn(), Timings.SummonBlockers());
+            p.Effect = Effect<CreateTokens>(e =>
+              {
+                e.Count = 3;
+                e.Tokens(
+                  Card
+                    .Named("Knight Token")
+                    .FlavorText("'You reek of corruption,' spat the knight. 'Why are you even here?'")
+                    .Power(2)
+                    .Toughness(2)
+                    .OverrideScore(20)
+                    .Type("Creature - Token - Knight")
+                    .Colors(ManaColors.White)
+                    .Abilities(
+                      TriggeredAbility(
+                        "Exile this at the end of turn.",
+                        Trigger<AtBegginingOfStep>(t =>
+                          {
+                            t.Step = Step.EndOfTurn;
+                            t.PassiveTurn = true;
+                            t.ActiveTurn = true;
+                          }),
+                        Effect<SacrificeSource>(), triggerOnlyIfOwningCardIsInPlay: true)
+                    ));
+              });
           });
     }
   }

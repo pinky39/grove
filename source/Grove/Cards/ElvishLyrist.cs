@@ -21,8 +21,7 @@
         .FlavorText(
           "Bring the spear of ancient briar;{EOL}Bring the torch to light the pyre.{EOL}Bring the one who trod our ground;{EOL}Bring the spade to dig his mound.")
         .Power(1)
-        .Toughness(1)
-        .Timing(Timings.Creatures())
+        .Toughness(1)        
         .Abilities(
           ActivatedAbility(
             "{G},{T}, Sacrifice Elvish Lyrist: Destroy target enchantment.",

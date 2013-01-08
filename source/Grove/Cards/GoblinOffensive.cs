@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -15,22 +14,25 @@
     {
       yield return Card
         .Named("Goblin Offensive")
-        .ManaCost("{1}{R}{R}").XCalculator(VariableCost.AtLeast(3))
+        .ManaCost("{1}{R}{R}")
         .Type("Sorcery")
         .Text("Put X 1/1 red Goblin creature tokens onto the battlefield.")
         .FlavorText("They certainly are.")
-        .Timing(Timings.MainPhases())
-        .Effect<CreateTokens>(e =>
+        .Cast(p =>
           {
-            e.Count = Value.PlusX;
-            e.Tokens(Card
-              .Named("Goblin Token")
-              .FlavorText(
-                "'When you're a goblin, you don't have to step forward to be a hero—everyone else just has to step back'{EOL}—Biggum Flodrot, goblin veteran")
-              .Power(1)
-              .Toughness(1)
-              .Type("Creature Token Goblin")
-              .Colors(ManaColors.Red));
+            p.XCalculator = VariableCost.AtLeast(3);
+            p.Effect = Effect<CreateTokens>(e =>
+              {
+                e.Count = Value.PlusX;
+                e.Tokens(Card
+                  .Named("Goblin Token")
+                  .FlavorText(
+                    "'When you're a goblin, you don't have to step forward to be a hero—everyone else just has to step back'{EOL}—Biggum Flodrot, goblin veteran")
+                  .Power(1)
+                  .Toughness(1)
+                  .Type("Creature Token Goblin")
+                  .Colors(ManaColors.Red));
+              });
           });
     }
   }

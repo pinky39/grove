@@ -5,15 +5,13 @@
   using System.Diagnostics;
   using System.Linq;
   using Cards;
-  using Grove.Core.Targeting;
   using Results;
+  using Targeting;
 
   public class DecisionsForOneStep
   {
     private readonly List<IScenarioDecision> _decisions = new List<IScenarioDecision>();
 
-    public Step Step { get; private set; }
-    public int Turn { get; private set; }
     private readonly Game _game;
 
     public DecisionsForOneStep(Step step, int turn, Game game)
@@ -22,6 +20,9 @@
       Turn = turn;
       _game = game;
     }
+
+    public Step Step { get; private set; }
+    public int Turn { get; private set; }
 
     public DecisionsForOneStep Activate(Card card, Card target, Card costTarget = null,
       int? x = null, int abilityIndex = 0)
@@ -45,13 +46,13 @@
                   targets: activation.GetTargets(),
                   x: activation.X
                   ),
-                activation.AbilityIndex
+                activation.Index
                 )
             }
         };
 
       decision.Game = _game;
-      decision.Controller = activation.Card.Controller;      
+      decision.Controller = activation.Card.Controller;
 
       _decisions.Add(decision);
       return this;
@@ -66,7 +67,7 @@
 
       _decisions.Add(decision);
       return this;
-    }    
+    }
 
     public DecisionsForOneStep DoNotUntap()
     {
@@ -88,7 +89,7 @@
           p.Targets(target);
           p.CostTargets(costTarget);
           p.X = x;
-          p.AbilityIndex = abilityIndex;
+          p.Index = abilityIndex;
         });
     }
 
@@ -100,7 +101,7 @@
           p.Card = card;
           p.CostTargets(costTarget);
           p.X = x;
-          p.AbilityIndex = abilityIndex;
+          p.Index = abilityIndex;
         });
     }
 
@@ -113,7 +114,7 @@
           p.Targets(target);
           p.CostTargets(costTarget);
           p.X = x;
-          p.AbilityIndex = abilityIndex;
+          p.Index = abilityIndex;
         });
     }
 
@@ -141,58 +142,57 @@
                 new ActivationParameters
                   (
                   targets: activation.GetTargets(),
-                  payKicker: activation.PayKicker,
                   x: activation.X
-                  ))
+                  ), activation.Index)
             }
         };
 
       decision.Game = _game;
-      decision.Controller = activation.Card.Controller;      
+      decision.Controller = activation.Card.Controller;
 
       _decisions.Add(decision);
       return this;
     }
 
-    public DecisionsForOneStep Cast(Card card, Card target, bool payKicker = false, int? x = null)
+    public DecisionsForOneStep Cast(Card card, Card target, int index = 0, int? x = null)
     {
       return Cast(p =>
         {
           p.Card = card;
           p.Targets(target);
-          p.PayKicker = payKicker;
+          p.Index = index;
           p.X = x;
         });
     }
 
-    public DecisionsForOneStep Cast(Card card, bool payKicker = false, int? x = null)
+    public DecisionsForOneStep Cast(Card card, int index = 0, int? x = null)
     {
       return Cast(p =>
         {
           p.Card = card;
-          p.PayKicker = payKicker;
+          p.Index = index;
           p.X = x;
         });
     }
 
-    public DecisionsForOneStep Cast(Card card, Player target, bool payKicker = false, int? x = null)
-    {
-      return Cast(p =>
-        {
-          p.Card = card;
-          p.Targets(target);
-          p.PayKicker = payKicker;
-          p.X = x;
-        });
-    }
-
-    public DecisionsForOneStep Cast(Card card, ScenarioEffect target, bool payKicker = false, int? x = null)
+    public DecisionsForOneStep Cast(Card card, Player target, int index = 0, int? x = null)
     {
       return Cast(p =>
         {
           p.Card = card;
           p.Targets(target);
-          p.PayKicker = payKicker;
+          p.Index = index;
+          p.X = x;
+        });
+    }
+
+    public DecisionsForOneStep Cast(Card card, ScenarioEffect target, int index = 0, int? x = null)
+    {
+      return Cast(p =>
+        {
+          p.Card = card;
+          p.Targets(target);
+          p.Index = index;
           p.X = x;
         });
     }
@@ -205,7 +205,7 @@
         };
 
       decision.Game = _game;
-      decision.Controller = attackers[0].Controller;      
+      decision.Controller = attackers[0].Controller;
       _decisions.Add(decision);
       return this;
     }
@@ -233,7 +233,7 @@
       _decisions.Add(decision);
 
       decision.Game = _game;
-      decision.Controller = defender;      
+      decision.Controller = defender;
 
       return this;
     }
@@ -272,7 +272,7 @@
           Result = new ChosenTargets(new Targets().AddEffect(target))
         };
 
-      decision.Game = _game;      
+      decision.Game = _game;
       _decisions.Add(decision);
       return this;
     }
@@ -284,7 +284,7 @@
           Assertion = assertion,
         };
 
-      decision.Game = _game;      
+      decision.Game = _game;
       _decisions.Add(decision);
       return this;
     }
@@ -293,8 +293,8 @@
     {
       return Activate(p =>
         {
-          p.Card = card;      
-          p.AbilityIndex = 0;
+          p.Card = card;
+          p.Index = 0;
         });
     }
   }

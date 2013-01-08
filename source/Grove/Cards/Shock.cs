@@ -15,14 +15,15 @@
         .Named("Shock")
         .ManaCost("{R}")
         .Type("Instant")
-        .Timing(Timings.InstantRemovalTarget())
         .Text("Shock deals 2 damage to target creature or player.")
-        .Effect<DealDamageToTargets>(e => e.Amount = 2)
-        .Targets(
-          TargetSelectorAi.DealDamageSingleSelector(2),
-          effectValidators: Target(
-            Validators.CreatureOrPlayer(), 
-            Zones.Battlefield()));
+        .Cast(p =>
+          {
+            p.Timing = Timings.InstantRemovalTarget();
+            p.Effect = Effect<DealDamageToTargets>(e => e.Amount = 2);
+            p.EffectTargets = L(Target(Validators.CreatureOrPlayer(), Zones.Battlefield()));
+            p.TargetSelectorAi = TargetSelectorAi.DealDamageSingleSelector(2);
+          });
+
     }
   }
 }
