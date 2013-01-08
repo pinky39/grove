@@ -8,6 +8,7 @@
   using Cards.Costs;
   using Cards.Effects;
   using Infrastructure;
+  using Mana;
   using Messages;
   using Targeting;
   using Zones;
@@ -26,6 +27,8 @@
     private readonly TargetSelector _targetSelector;
     private readonly TimingDelegate _timing;
     private readonly CalculateX _xCalculator;
+
+    private CastInstruction() {}
 
     public CastInstruction(Card card, Game game, CastInstructionParameters p)
     {
@@ -74,12 +77,17 @@
 
     public void EffectResolved()
     {
-      _castingRule.AfterResolve();     
+      _castingRule.AfterResolve();
     }
 
     public bool IsTargetStillValid(ITarget target)
     {
       return _targetSelector.IsValidEffectTarget(target);
+    }
+
+    public int CalculateHash(HashCalculator calc)
+    {
+      return calc.Calculate(_effectFactory);
     }
 
     public SpellPrerequisites CanCast()
@@ -105,7 +113,9 @@
 
     public void Cast(ActivationParameters activationParameters)
     {      
-      var effect = CreateEffect(activationParameters);
+      var effect = CreateEffect(activationParameters);      
+      
+      _cost.Pay(activationParameters.Targets.Cost.FirstOrDefault(), activationParameters.X);
       _castingRule.Cast(effect);
       _game.Publish(new PlayerHasCastASpell(_card, activationParameters.Targets));
     }
@@ -114,16 +124,27 @@
     {
       var parameters = new EffectParameters(this, _effectCategories, activationParameters);
       return _effectFactory.CreateEffect(parameters, _game);
-    }        
+    }
 
     public bool CanTarget(ITarget target)
     {
       return _targetSelector.Effect[0].IsValid(target);
     }
 
-    public int CalculateHash(HashCalculator calc)
+    public bool IsGoodTarget(ITarget target)
     {
-      return calc.Calculate(_effectFactory);
+      var generator = new TargetGenerator(
+        _targetSelector,
+        _card,
+        _game,
+        0);
+
+      return generator.Any(targets => targets.Effect.Contains(target));
+    }
+
+    public IManaAmount GetManaCost()
+    {
+      return _cost.GetManaCost();
     }
   }
 }

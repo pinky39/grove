@@ -23,7 +23,6 @@
     }
 
     public bool ActivateOnlyAsSorcery { get; set; }
-    public bool TargetsSelf { get; set; }
     protected Cost Cost { get; private set; }
     protected bool IsEnabled { get { return _isEnabled.Value; } private set { _isEnabled.Value = value; } }
 
@@ -72,16 +71,16 @@
             XCalculator = Cost.XCalculator,
             MaxX = maxX,
             Timing = _timming,
-            TargetsSelf = TargetsSelf,
-            IsAbility = true,
           }
         : SpellPrerequisites.CannotBeSatisfied;
     }
 
     public T CreateEffect<T>(ITarget target) where T : Effect
     {
-      var effectParameters = new EffectParameters(this,
-        EffectCategories, new ActivationParameters(new Targets().AddEffect(target)));
+      var activationParameters = new ActivationParameters();
+      activationParameters.Targets.AddEffect(target);
+
+      var effectParameters = new EffectParameters(this, EffectCategories, activationParameters);
 
       return EffectFactory.CreateEffect(effectParameters, Game) as T;
     }

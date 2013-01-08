@@ -31,6 +31,7 @@
           })
         .Cast(p =>
           {
+            p.Description = p.KickerDescription;
             p.Cost = Cost<PayMana>(c => c.Amount = "{G}{G}".ParseMana());
             p.Category = EffectCategories.Protector | EffectCategories.ToughnessIncrease;
             p.Effect = Effect<ApplyModifiersToTargets>(e => e.Modifiers(

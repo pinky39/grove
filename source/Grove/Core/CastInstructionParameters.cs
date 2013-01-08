@@ -12,11 +12,13 @@
 
   public class CastInstructionParameters
   {
-    public readonly string DefaultDescription = "Cast {0}.";
-    public readonly string KickerDescription = "Cast {0} with kicker.";
+    private const string DefaultDescriptionFormat = "Cast {0}.";
+    private const string KickerDescriptionFormat = "Cast {0} with kicker.";
 
     private readonly CardBuilder _builder = new CardBuilder();
-    
+    private readonly string _cardName;
+    private readonly IManaAmount _manaCost;
+
     public EffectCategories Category;
 
     public IList<ITargetValidatorFactory> CostTargets = new List<ITargetValidatorFactory>();
@@ -29,17 +31,43 @@
     public TimingDelegate Timing;
     public CalculateX XCalculator;
 
+    private ICostFactory _cost;
+
     public CastInstructionParameters(string cardName, IManaAmount manaCost, CardType cardType)
     {
-      Cost = _builder.Cost<PayMana>(c => c.Amount = manaCost);
+      _cardName = cardName;
+      _manaCost = manaCost;
+      
       Rule = CastingRuleFromCardType(cardType);
-      Description = string.Format(DefaultDescription, cardName);
+      Description = DefaultDescription;
       Effect = _builder.Effect<PutIntoPlay>();
       Timing = TimingFromCardType(cardType);
       Category = EffectCategories.Generic;
     }
 
-    public ICostFactory Cost { get; set;  }
+    public string DefaultDescription { get { return string.Format(DefaultDescriptionFormat, _cardName); } }
+    public string KickerDescription { get { return string.Format(KickerDescriptionFormat, _cardName); } }
+
+    public ICostFactory Cost
+    {
+      get
+      {
+        if (_cost != null)
+          return _cost;
+
+        if (_manaCost == null)
+        {
+          return _cost = _builder.Cost<NoCost>();
+        }
+
+        return _cost = _builder.Cost<PayMana>(c =>
+          {
+            c.Amount = _manaCost;
+            c.XCalculator = XCalculator;
+          });
+      }
+      set { _cost = value; }
+    }
 
     private ICastingRuleFactory CastingRuleFromCardType(CardType cardType)
     {

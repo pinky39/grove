@@ -36,7 +36,7 @@
 
         Exec(
           At(Step.FirstMain)
-            .Cast(marsh, target: P2, payKicker: true)
+            .Cast(marsh, target: P2, index: 1)
             .Verify(() => Equal(2, P2.Graveyard.Count())));
       }
 

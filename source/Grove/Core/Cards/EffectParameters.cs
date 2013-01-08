@@ -10,12 +10,10 @@
   {
     public EffectParameters(IEffectSource source, EffectCategories effectCategories, ActivationParameters activationParameters = null,
       object triggerMessage = null)
-    {
-      
-
+    {      
       TriggerMessage = triggerMessage;
       Source = source;
-      Activation = activationParameters;
+      Activation = activationParameters ?? ActivationParameters.Default;
       Targets = Activation.Targets ?? new Targets();
       EffectCategories = effectCategories;
     }

@@ -19,10 +19,13 @@
     {
       filter = filter ?? delegate { return true; };
 
-      return p => p.Target.IsEffect() &&
-        p.Target.Effect().CanBeCountered &&
-          p.Target.Effect().Source is Card &&
-            filter(p.Target.Effect().Source.OwningCard);
+      return p =>
+        {
+          return p.Target.IsEffect() &&
+            p.Target.Effect().CanBeCountered &&
+              p.Target.Effect().Source is CastInstruction &&
+                filter(p.Target.Effect().Source.OwningCard);
+        };
     }    
 
     public static TargetValidatorDelegate AttackerOrBlocker()

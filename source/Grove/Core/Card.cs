@@ -481,6 +481,11 @@
       return _castInstructions.CanTarget(target);
     }
 
+      public bool IsGoodTarget(ITarget target)
+      {
+        return _castInstructions.IsGoodTarget(target);                
+	    }
+
     public List<SpellPrerequisites> CanCast()
     {
       return _castInstructions.CanCast();
@@ -797,6 +802,11 @@
     public void PutToGraveyard()
     {
       Owner.PutCardToGraveyard(this);
+    }
+
+    public IManaAmount GetSpellManaCost(int index)
+    {
+      return _castInstructions.GetManaCost(index);
     }
   }
 }

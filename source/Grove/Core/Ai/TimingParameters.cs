@@ -9,16 +9,13 @@
 
   public class TimingParameters
   {
-    public TimingParameters(Game game, Card card, ActivationParameters activation = null, bool targetsSelf = false)
-    {
-      TargetsSelf = targetsSelf;
+    public TimingParameters(Game game, Card card, ActivationParameters activation = null)
+    {      
       Game = game;
       Card = card;
       Activation = activation ?? ActivationParameters.Default;
     }
-
-    public bool TargetsSelf { get; private set; }
-
+    
     public Game Game { get; private set; }
     public Card Card { get; private set; }
     public ActivationParameters Activation { get; private set; }

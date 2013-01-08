@@ -2,7 +2,6 @@
 {
   using System.Collections;
   using System.Collections.Generic;
-  using System.Linq;
   using Targeting;
 
   public class TargetGenerator : IEnumerable<Targets>
@@ -35,20 +34,20 @@
     IEnumerator IEnumerable.GetEnumerator()
     {
       return GetEnumerator();
-    }    
+    }
 
     private List<Targets> GetValidTargets()
-    {            
+    {
       var candidates = _selector.GenerateCandidates(_game.GenerateTargets);
-      
-      var parameters = new TargetSelectorAiParameters(        
-        candidates, 
+
+      var parameters = new TargetSelectorAiParameters(
+        candidates,
         _selector,
-        _source, 
-        _maxX, 
-        _forceOne, 
+        _source,
+        _maxX,
+        _forceOne,
         _game);
-      
+
       return _selector.AiSelector(parameters);
     }
   }

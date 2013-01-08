@@ -25,7 +25,7 @@
       var effectParameters = new EffectParameters(
         Source,
         Source.EffectCategories,
-        new ActivationParameters(Result.Targets),
+        new ActivationParameters{Targets = Result.Targets},
         Trigger);
 
       var effect = Factory.CreateEffect(effectParameters, Game);

@@ -43,7 +43,7 @@
         for (var abilityIndex = 0; abilityIndex < abilitiesPrerequisites.Count; abilityIndex++)
         {
           var prerequisites = abilitiesPrerequisites[abilityIndex];
-          
+
           if (!prerequisites.CanBeSatisfied)
             continue;
 
@@ -63,20 +63,16 @@
         if (!card.IsVisible)
           continue;
 
-        var prerequisites = card.CanCast();
+        var spellsPrerequisites = card.CanCast();
 
-        if (!prerequisites.CanBeSatisfied)
-          continue;
-
-        foreach (var playable in GeneratePlayables(card, prerequisites, p => new Spell(card, p)))
+        for (var spellIndex = 0; spellIndex < spellsPrerequisites.Count; spellIndex++)
         {
-          yield return playable;
-        }
+          var prerequisites = spellsPrerequisites[spellIndex];
 
-        if (prerequisites.CanCastWithKicker)
-        {
-          foreach (var playable in GeneratePlayables(card, prerequisites,
-            p => new Spell(card, p), payKicker: true))
+          if (!prerequisites.CanBeSatisfied)
+            continue;
+
+          foreach (var playable in GeneratePlayables(card, prerequisites, p => new Spell(card, p, spellIndex)))
           {
             yield return playable;
           }
@@ -85,13 +81,9 @@
     }
 
     private IEnumerable<Playable> GeneratePlayables(Card card, SpellPrerequisites prerequisites,
-      Func<ActivationParameters, Playable> factory, bool payKicker = false)
+      Func<ActivationParameters, Playable> factory)
     {
-      var activationGenerator = new ActivationGenerator(
-        card,
-        prerequisites,
-        payKicker: payKicker,
-        game: _game);
+      var activationGenerator = new ActivationGenerator(card, prerequisites, _game);
 
       var count = 0;
       foreach (var activationParameters in activationGenerator)
@@ -99,8 +91,7 @@
         var timingParameters = new TimingParameters(
           _game,
           card,
-          activationParameters,
-          prerequisites.TargetsSelf);
+          activationParameters);
 
         if (prerequisites.Timing(timingParameters))
         {

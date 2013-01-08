@@ -30,8 +30,10 @@
     public TargetSelectorAiDelegate AiSelector { get; private set; }
 
     public int Count { get { return _costValidators.Count + _effectValidators.Count; } }
-    public bool HasCost { get { return _costValidators.Count > 0; } }
-    public bool HasEffect { get { return _effectValidators.Count > 0; } }
+    
+    public bool RequiresTargets {get { return _costValidators.Any() || _effectValidators.Any(); }}
+    public bool RequiresCostTargets { get { return _costValidators.Count > 0; } }    
+    public bool RequiresEffectTargets { get { return _effectValidators.Count > 0; } }
 
     public IList<TargetValidator> Effect { get { return _effectValidators; } }
     public IList<TargetValidator> Cost { get { return _costValidators; } }

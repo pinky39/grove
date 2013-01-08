@@ -27,7 +27,7 @@
     {
       foreach (var effectFactory in _effectFactories)
       {
-        var activationParameters = new ActivationParameters(GetAllTargets());
+        var activationParameters = new ActivationParameters {Targets = GetAllTargets()};
         
         _childEffects.Add(effectFactory.CreateEffect(
           new EffectParameters(Source, EffectCategories, activationParameters), Game));

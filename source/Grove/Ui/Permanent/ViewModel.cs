@@ -185,21 +185,21 @@
       if (!IsPlayable)
         return;
 
-      int? x = null;
-      var targets = new Targets();
-      SpellPrerequisites selected = null;
-      var index = 0;
+      var activationParameters = new ActivationParameters();
 
-      var sucess =
-        SelectAbility(out selected, out index) &&
-          SelectX(selected, out x) &&
-            SelectTargets(selected, targets);
+      var playableActivator = SelectAbility();
 
-      if (!sucess)
+      if(playableActivator == null)
+        return;
+      
+      var proceed =        
+          SelectX(playableActivator, activationParameters) &&
+            SelectTargets(playableActivator, activationParameters);
+
+      if (!proceed)
         return;
 
-      var activation = new ActivationParameters(targets, x: x);
-      var ability = new Core.Decisions.Results.Ability(Card, activation, index);
+      var ability = playableActivator.GetPlayable(activationParameters);
 
       _game.Publish(new PlayableSelected
         {
@@ -207,30 +207,27 @@
         });
     }
 
-    private bool SelectAbility(out SpellPrerequisites selected, out int index)
+    private PlayableActivator SelectAbility()
     {
-      var prerequisites = Card.CanActivateAbilities().ToList();
+      var playableActivators = Card.CanActivateAbilities()
+        .Select((x, i) => new PlayableActivator
+          {
+            Prerequisites = x,
+            GetPlayable = p => new Core.Decisions.Results.Ability(Card, p, i)
+          })
+        .Where(x => x.Prerequisites.CanBeSatisfied)
+        .ToList();
 
-      index = 0;
-      selected = null;
+      if (playableActivators.Count == 1)
+        return playableActivators[0];
+      
+      var dialog = _selectAbilityVmFactory.Create(playableActivators.Select(x => x.Prerequisites.Description));
+      _shell.ShowModalDialog(dialog, DialogType.Large, InteractionState.Disabled);
 
-      if (prerequisites.Count(p => p.CanBeSatisfied) > 1)
-      {
-        var dialog = _selectAbilityVmFactory.Create(prerequisites);
-        _shell.ShowModalDialog(dialog, DialogType.Large, InteractionState.Disabled);
+      if (dialog.WasCanceled)
+        return null;
 
-        if (dialog.WasCanceled)
-          return false;
-
-        selected = dialog.Selected;
-      }
-      else
-      {
-        selected = prerequisites.FirstOrDefault(x => x.CanBeSatisfied);
-      }
-
-      index = prerequisites.IndexOf(selected);
-      return true;
+      return playableActivators[dialog.SelectedIndex];
     }
 
     private SelectTarget.ViewModel ShowSelectorDialog(TargetValidator validator)
@@ -242,26 +239,24 @@
       return dialog;
     }
 
-    private bool SelectTargets(SpellPrerequisites prerequisites, Targets targets)
-    {
-      var selectors = prerequisites.TargetSelector;
-
-      if (selectors.HasCost)
+    private bool SelectTargets(PlayableActivator activator, ActivationParameters parameters)
+    {      
+      if (activator.Prerequisites.TargetSelector.RequiresCostTargets)
       {
-        var dialog = ShowSelectorDialog(selectors.Cost.FirstOrDefault());
+        var dialog = ShowSelectorDialog(activator.Prerequisites.TargetSelector.Cost.FirstOrDefault());
 
         if (dialog.WasCanceled)
           return false;
 
         foreach (var target in dialog.Selection)
         {
-          targets.AddCost(target);
+          parameters.Targets.AddCost(target);
         }
       }
 
-      if (selectors.HasEffect)
+      if (activator.Prerequisites.TargetSelector.RequiresEffectTargets)
       {
-        foreach (var selector in selectors.Effect)
+        foreach (var selector in activator.Prerequisites.TargetSelector.Effect)
         {
           var dialog = ShowSelectorDialog(selector);
 
@@ -270,7 +265,7 @@
 
           foreach (var target in dialog.Selection)
           {
-            targets.AddEffect(target);
+            parameters.Targets.AddEffect(target);
           }
         }
       }
@@ -278,19 +273,17 @@
       return true;
     }
 
-    private bool SelectX(SpellPrerequisites prerequisites, out int? x)
-    {
-      x = null;
-
-      if (prerequisites.HasXInCost)
+    private bool SelectX(PlayableActivator playableActivator, ActivationParameters activationParameters)
+    {      
+      if (playableActivator.Prerequisites.HasXInCost)
       {
-        var dialog = _selectXCostVmFactory.Create(prerequisites.MaxX.Value);
+        var dialog = _selectXCostVmFactory.Create(playableActivator.Prerequisites.MaxX.GetValueOrDefault());
         _shell.ShowModalDialog(dialog, DialogType.Small, InteractionState.Disabled);
 
         if (dialog.WasCanceled)
           return false;
 
-        x = dialog.ChosenX;
+        activationParameters.X = dialog.ChosenX;
       }
 
       return true;

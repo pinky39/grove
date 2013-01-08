@@ -868,6 +868,7 @@
     </Compile>
     <Compile Include="Ui\SelectEffectChoice\ViewModel.cs" />
     <Compile Include="Ui\InteractionState.cs" />
+    <Compile Include="Ui\PlayableActivator.cs" />
     <Compile Include="Ui\UiInteractionChanged.cs" />
     <Compile Include="Ui\Spell\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>

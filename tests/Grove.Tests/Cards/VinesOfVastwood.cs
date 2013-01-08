@@ -47,7 +47,7 @@
 
         Exec(
           At(Step.FirstMain)
-            .Cast(vines, bear, payKicker: true)
+            .Cast(vines, bear, index: 1)
             .Verify(() =>
               {
                 True(C(bear).Has().Hexproof);

@@ -5,19 +5,10 @@
 
   [Copyable]
   public class ActivationParameters
-  {
-    private readonly Targets _targets;
+  {    
+    public Targets Targets = new Targets();    
+    public int? X { get; set; }
 
-    public ActivationParameters(Targets targets = null, int? x = null)
-    {
-      _targets = targets ?? new Targets();      
-      X = x;
-    }
-
-    private ActivationParameters() {}
-
-    public Targets Targets { get { return _targets; } }
     public static ActivationParameters Default { get { return new ActivationParameters(); } }    
-    public int? X { get; private set; }
   }
 }

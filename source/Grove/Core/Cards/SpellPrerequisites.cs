@@ -1,7 +1,7 @@
 ﻿namespace Grove.Core.Cards
 {
-  using Grove.Core.Ai;
-  using Grove.Core.Targeting;
+  using Ai;
+  using Targeting;
 
   public class SpellPrerequisites
   {
@@ -10,23 +10,16 @@
     public SpellPrerequisites()
     {
       TargetSelector = TargetSelector.NullSelector;
-      KickerTargetSelector = TargetSelector.NullSelector;
     }
-
-    public bool IsAbility { get; set; }
-    public bool TargetsSelf { get; set; }
-    public bool CanBeSatisfied { get; set; }
-    public bool CanCastWithKicker { get; set; }
+    
+    public bool CanBeSatisfied { get; set; }    
     public TargetSelector TargetSelector { get; set; }
     public CardText Description { get; set; }
     public bool HasXInCost { get { return MaxX != null; } }
-    public TimingDelegate Timing { get; set; }
+    public TimingDelegate Timing = delegate { return true; };
     public int? MaxX { get; set; }
     public CalculateX XCalculator { get; set; }
-    public TargetSelector KickerTargetSelector { get; set; }
-    public bool NeedsKickerTargets { get { return KickerTargetSelector.Count > 0; } }
-    public bool NeedsTargets { get { return TargetSelector.Count > 0; } }
-    public bool IsSpell { get { return !IsAbility; } }
+    public bool RequiresTargets { get { return TargetSelector.RequiresTargets; } }    
     public bool DistributeDamage { get; set; }
   }
 }

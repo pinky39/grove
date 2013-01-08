@@ -1,9 +1,7 @@
 ﻿namespace Grove.Ui.Spell
 {
   using System;
-  using System.Collections.Generic;
   using System.Linq;
-  using System.Windows;
   using Core;
   using Core.Cards;
   using Core.Decisions.Results;
@@ -12,13 +10,14 @@
   using Infrastructure;
   using Shell;
 
-  public class ViewModel : CardViewModel, IReceive<UiInteractionChanged>, IReceive<TargetSelected>, IReceive<TargetUnselected>
-  {    
+  public class ViewModel : CardViewModel, IReceive<UiInteractionChanged>, IReceive<TargetSelected>,
+    IReceive<TargetUnselected>
+  {
+    private readonly Game _game;
     private readonly SelectAbility.ViewModel.IFactory _selectAbilityVmFactory;
     private readonly SelectTarget.ViewModel.IFactory _selectTargetVmFactory;
     private readonly SelectXCost.ViewModel.IFactory _selectXCostVmFactory;
     private readonly IShell _shell;
-    private readonly Game _game;
     private readonly UiDamageDistribution _uiDamageDistribution;
     private Action _select;
 
@@ -37,11 +36,27 @@
       _selectXCostVmFactory = selectXCostVmFactory;
       _selectAbilityVmFactory = selectAbilityVmFactory;
       _uiDamageDistribution = uiDamageDistribution;
-      _select = delegate { };      
+      _select = delegate { };
     }
-    
-    public virtual bool IsPlayable { get; protected set; }    
+
+    public virtual bool IsPlayable { get; protected set; }
     public virtual bool IsSelected { get; protected set; }
+
+    public void Receive(TargetSelected message)
+    {
+      if (message.Target == Card)
+      {
+        IsSelected = true;
+      }
+    }
+
+    public void Receive(TargetUnselected message)
+    {
+      if (message.Target == Card)
+      {
+        IsSelected = false;
+      }
+    }
 
     public void Receive(UiInteractionChanged message)
     {
@@ -49,8 +64,15 @@
       {
         case (InteractionState.PlaySpellsOrAbilities):
           _select = Activate;
-          IsPlayable = Card.Controller.IsHuman
-            ? Card.CanCast().CanBeSatisfied || Card.CanActivateAbilities().Any(x => x.CanBeSatisfied) : false;
+
+          if (!Card.Controller.IsHuman)
+          {
+            IsPlayable = false;
+            return;
+          }
+
+          IsPlayable = Card.CanCast().Any(x => x.CanBeSatisfied) ||
+            Card.CanActivateAbilities().Any(x => x.CanBeSatisfied);
           break;
 
         case (InteractionState.SelectTarget):
@@ -80,38 +102,37 @@
       _select();
     }
 
-    private SpellPrerequisites SelectActivation(out int abilityIndex)
+    private Ui.PlayableActivator SelectActivation()
     {
-      abilityIndex = 0;
-      var prerequsites = new List<SpellPrerequisites>();
+      var canCastSpells = Card.CanCast();
+      var canActivateAbilities = Card.CanActivateAbilities();
 
-      var canCast = Card.CanCast();
+      var activations = canCastSpells
+        .Select((x, i) => new Ui.PlayableActivator
+          {
+            Prerequisites = x,
+            GetPlayable = parameters => new Spell(Card, parameters, i)
+          })
+        .Where(x => x.Prerequisites.CanBeSatisfied).Concat(
+          canActivateAbilities
+            .Select((x, i) => new Ui.PlayableActivator
+              {
+                Prerequisites = x,
+                GetPlayable = parameters => new Core.Decisions.Results.Ability(Card, parameters, i)
+              })
+            .Where(x => x.Prerequisites.CanBeSatisfied))
+        .ToList();
 
-      if (canCast.CanBeSatisfied)
-      {
-        prerequsites.Add(canCast);
-      }
+      if (activations.Count == 1)
+        return activations[0];
 
-      var canActivateAbilities = Card.CanActivateAbilities().ToList();
-      prerequsites.AddRange(canActivateAbilities.Where(x => x.CanBeSatisfied));
-
-      if (prerequsites.Count == 1)
-        return prerequsites[0];
-
-      var dialog = _selectAbilityVmFactory.Create(prerequsites);
+      var dialog = _selectAbilityVmFactory.Create(activations.Select(x => x.Prerequisites.Description));
       _shell.ShowModalDialog(dialog, DialogType.Large, InteractionState.Disabled);
 
       if (dialog.WasCanceled)
         return null;
 
-      var selected = dialog.Selected;
-
-      if (selected.IsAbility)
-      {
-        abilityIndex = canActivateAbilities.IndexOf(selected);
-      }
-
-      return selected;
+      return activations[dialog.SelectedIndex];
     }
 
     private void Activate()
@@ -119,57 +140,41 @@
       if (!IsPlayable)
         return;
 
-      int? x = null;
-      var targets = new Targets();
-      var payKicker = false;
-      int ablityIndex = 0;
+      var activation = SelectActivation();
 
-      var prerequisites = SelectActivation(out ablityIndex);
-
-      if (prerequisites == null)
+      if (activation == null)
         return;
 
-      if (prerequisites.CanCastWithKicker)
-      {
-        payKicker = PayKicker(prerequisites);
-      }
+      var activationParameters = new ActivationParameters();
 
-      var success =
-        SelectX(prerequisites, out x) &&
-          SelectTargets(prerequisites, payKicker, targets);
+      var proceed = SelectX(activation.Prerequisites, activationParameters) &&
+        SelectTargets(activation.Prerequisites, activationParameters);
 
-      if (!success)
+      if (!proceed)
         return;
 
-      var playable = prerequisites.IsSpell
-        ? (Playable) new Spell(Card, new ActivationParameters(targets, payKicker, x))
-        : new Core.Decisions.Results.Ability(Card, new ActivationParameters(targets, payKicker, x), ablityIndex);
-
+      var playable = activation.GetPlayable(activationParameters);
       _game.Publish(new PlayableSelected {Playable = playable});
     }
 
-    private bool SelectTargets(SpellPrerequisites prerequisites, bool payKicker, Targets targets)
+    private bool SelectTargets(SpellPrerequisites prerequisites, ActivationParameters parameters)
     {
-      var selectors = payKicker
-        ? prerequisites.KickerTargetSelector
-        : prerequisites.TargetSelector;
-
-      if (selectors.HasCost)
+      if (prerequisites.TargetSelector.RequiresCostTargets)
       {
-        var dialog = ShowSelectorDialog(selectors.Cost.FirstOrDefault());
+        var dialog = ShowSelectorDialog(prerequisites.TargetSelector.Cost.FirstOrDefault());
 
         if (dialog.WasCanceled)
           return false;
 
         foreach (var target in dialog.Selection)
         {
-          targets.AddCost(target);
+          parameters.Targets.AddCost(target);
         }
       }
 
-      if (selectors.HasEffect)
+      if (prerequisites.TargetSelector.RequiresEffectTargets)
       {
-        foreach (var selector in selectors.Effect)
+        foreach (var selector in prerequisites.TargetSelector.Effect)
         {
           var dialog = ShowSelectorDialog(selector);
 
@@ -182,14 +187,14 @@
 
           foreach (var target in dialog.Selection)
           {
-            targets.AddEffect(target);
+            parameters.Targets.AddEffect(target);
           }
         }
       }
 
       if (prerequisites.DistributeDamage)
       {
-        targets.DamageDistributor = _uiDamageDistribution;
+        parameters.Targets.DamageDistributor = _uiDamageDistribution;
       }
 
       return true;
@@ -204,10 +209,8 @@
       return dialog;
     }
 
-    private bool SelectX(SpellPrerequisites prerequisites, out int? x)
+    private bool SelectX(SpellPrerequisites prerequisites, ActivationParameters parameters)
     {
-      x = null;
-
       if (prerequisites.HasXInCost)
       {
         var dialog = _selectXCostVmFactory.Create(prerequisites.MaxX.Value);
@@ -216,7 +219,7 @@
         if (dialog.WasCanceled)
           return false;
 
-        x = dialog.ChosenX;
+        parameters.X = dialog.ChosenX;
       }
 
       return true;
@@ -225,39 +228,12 @@
     private void ChangeSelection()
     {
       _game.Publish(new SelectionChanged {Selection = Card});
-    }
-
-    private bool PayKicker(SpellPrerequisites prerequisites)
-    {
-      var result = _shell.ShowMessageBox(
-        message: "Do you want to pay the kicker?",
-        buttons: MessageBoxButton.YesNo,
-        type: DialogType.Small);
-
-
-      return result == MessageBoxResult.Yes;
-    }
+    }    
 
     public interface IFactory
     {
       ViewModel Create(Card card);
       void Destroy(ViewModel viewModel);
-    }
-
-    public void Receive(TargetSelected message)
-    {
-      if (message.Target == Card)
-      {
-        IsSelected = true;
-      }
-    }
-
-    public void Receive(TargetUnselected message)
-    {
-      if (message.Target == Card)
-      {
-        IsSelected = false;
-      }
     }
   }
 }

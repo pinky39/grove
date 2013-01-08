@@ -9,15 +9,14 @@
   public class ActivationGenerator : IEnumerable<ActivationParameters>
   {
     private readonly Game _game;
-    private readonly bool _payKicker;
+
     private readonly SpellPrerequisites _prerequisites;
     private readonly Card _spell;
 
-    public ActivationGenerator(Card spell, SpellPrerequisites prerequisites, bool payKicker, Game game)
+    public ActivationGenerator(Card spell, SpellPrerequisites prerequisites, Game game)
     {
       _spell = spell;
       _prerequisites = prerequisites;
-      _payKicker = payKicker;
       _game = game;
     }
 
@@ -38,36 +37,24 @@
 
     private IEnumerable<ActivationParameters> GenerateActivations()
     {
-      var selectors = _payKicker
-        ? _prerequisites.KickerTargetSelector
-        : _prerequisites.TargetSelector;
-
-      if (selectors.HasEffect | selectors.HasCost)
+      
+      if (_prerequisites.RequiresTargets)
       {
         var generator = new TargetGenerator(
-          selectors,
+          _prerequisites.TargetSelector,
           _spell,
           _game,
           _prerequisites.MaxX);
 
         foreach (var targets in generator)
         {
-          yield return new ActivationParameters
-            (
-            payKicker: _payKicker,
-            targets: targets,
-            x: CalculateX(targets)
-            );
+          yield return new ActivationParameters {Targets = targets, X = CalculateX(targets)};
         }
+
+        yield break;
       }
-      else
-      {
-        yield return new ActivationParameters
-          (
-          payKicker: _payKicker,
-          x: CalculateX()
-          );
-      }
+
+      yield return new ActivationParameters {X = CalculateX()};
     }
 
     private int? CalculateX(Targets targets = null)

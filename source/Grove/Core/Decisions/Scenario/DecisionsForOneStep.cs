@@ -42,12 +42,11 @@
               Playable = new ScenarioAbility(
                 activation.Card,
                 new ActivationParameters
-                  (
-                  targets: activation.GetTargets(),
-                  x: activation.X
-                  ),
-                activation.Index
-                )
+                  {
+                    Targets = activation.GetTargets(),
+                    X = activation.X
+                  },
+                activation.Index)
             }
         };
 
@@ -140,10 +139,10 @@
               Playable = new ScenarioSpell(
                 activation.Card,
                 new ActivationParameters
-                  (
-                  targets: activation.GetTargets(),
-                  x: activation.X
-                  ), activation.Index)
+                  {
+                    Targets = activation.GetTargets(),
+                    X = activation.X
+                  }, activation.Index)
             }
         };
 

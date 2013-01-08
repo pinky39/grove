@@ -15,24 +15,16 @@
     public readonly List<IContinuousEffectFactory> ContinuousEffects = new List<IContinuousEffectFactory>();
     public readonly List<Static> StaticAbilities = new List<Static>();
     public readonly List<ITriggeredAbilityFactory> TriggeredAbilities = new List<ITriggeredAbilityFactory>();
-    private readonly List<CastInstructionParameters> _castInstructions = new List<CastInstructionParameters>();
-    //public ICostFactory AdditionalCost;
+    private readonly List<CastInstructionParameters> _castInstructions = new List<CastInstructionParameters>();    
     public ManaColors Colors;
-    public IDamagePreventionFactory[] DamagePrevention = new IDamagePreventionFactory[] {};
-
-    //public bool DistributeDamage;
-    //public IEffectFactory EffectFactory = new Effect.Factory<PutIntoPlay>();
+    public IDamagePreventionFactory[] DamagePrevention = new IDamagePreventionFactory[] {};    
     public CardText FlavorText = string.Empty;
     public bool HasXInCost;
     public bool Isleveler;
-    public IManaAmount ManaCost;
-    //public IManaAmount KickerCost;
-    //public IEffectFactory KickerEffectFactory;
-    //public IManaAmount ManaCost;
+    public IManaAmount ManaCost;    
     public bool MayChooseNotToUntap;
     public string Name;
-    public int? OverrideScore;
-    //public CalculateX XCalculator;
+    public int? OverrideScore;    
     public int? Power;
     public string[] ProtectionsFromCardTypes;
     public ManaColors ProtectionsFromColors = ManaColors.None;
@@ -40,26 +32,28 @@
     public int? Toughness;
     public CardType Type;
 
-    public IList<CastInstructionParameters> CastInstructions
+    public IEnumerable<CastInstructionParameters> CastInstructions
     {
       get
-      {
+      {        
         if (_castInstructions.Count == 0)
-          return new[] {new CastInstructionParameters(Name, ManaCost, Type)};
+        {
+          yield return new CastInstructionParameters(Name, ManaCost, Type);
+          yield break;
+        }
 
-        return _castInstructions;
+        foreach (var castInstructionParameterse in _castInstructions)
+        {
+          yield return castInstructionParameterse;
+        }
       }
     }
 
-    //public EffectCategories EffectCategories;
-    //public TimingDelegate Timing;
-    //public ITargetValidatorFactory[] EffectValidatorFactories = new ITargetValidatorFactory[] {};
-    //public TargetSelectorAiDelegate AiTargetSelector;
-    //public ITargetValidatorFactory[] CostValidatorFactories = new ITargetValidatorFactory[] {};
-    //public ITargetValidatorFactory[] KickerEffectValidatorFactories = new ITargetValidatorFactory[] {};
-    //public TargetSelectorAiDelegate KickerAiTargetSelector;
-    //public Zone? ResolveZone;
-
+    public void AddCastInstruction(CastInstructionParameters parameters)
+    {
+      _castInstructions.Add(parameters);
+    }
+            
     public string Illustration
     {
       get

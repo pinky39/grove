@@ -1,28 +1,32 @@
 ﻿namespace Grove.Ui.SelectAbility
 {
   using System.Collections.Generic;
-  using System.Linq;
   using Core.Cards;
   using Infrastructure;
 
   public class ViewModel
   {
-    private readonly List<SpellPrerequisites> _prerequisites = new List<SpellPrerequisites>();
+    private readonly List<CardText> _descriptions = new List<CardText>();
+    private int _selectedIndex;
 
-    public ViewModel(IEnumerable<SpellPrerequisites> prerequisites)
+    public ViewModel(IEnumerable<CardText> descriptions)
     {
-      _prerequisites.AddRange(prerequisites);
+      _descriptions.AddRange(descriptions);
+      _selectedIndex = -1;
     }
 
-    public IEnumerable<SpellPrerequisites> SatisfyableAbilities { get { return _prerequisites.Where(x => x.CanBeSatisfied); } }
+    public IEnumerable<CardText> Descriptions { get { return _descriptions; } }
 
     public bool WasCanceled { get; private set; }
-    public SpellPrerequisites Selected { get; private set; }
 
-    public void Select(SpellPrerequisites selected)
+    public virtual int SelectedIndex
     {
-      Selected = selected;
-      this.Close();
+      get { return _selectedIndex; }
+      set
+      {
+        _selectedIndex = value;
+        this.Close();
+      }
     }
 
     public void Cancel()
@@ -33,7 +37,7 @@
 
     public interface IFactory
     {
-      ViewModel Create(IEnumerable<SpellPrerequisites> prerequisites);
+      ViewModel Create(IEnumerable<CardText> descriptions);
     }
   }
 }

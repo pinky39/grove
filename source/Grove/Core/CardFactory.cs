@@ -112,7 +112,7 @@
     {      
       var parameters = new CastInstructionParameters(_p.Name, _p.ManaCost, _p.Type);
       setParameters(parameters);      
-      _p.CastInstructions.Add(parameters);
+      _p.AddCastInstruction(parameters);
       
       return this;
     }

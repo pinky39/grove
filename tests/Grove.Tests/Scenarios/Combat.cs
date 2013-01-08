@@ -224,7 +224,7 @@
           At(Step.DeclareAttackers)
             .DeclareAttackers(bear),
           At(Step.DeclareBlockers)
-            .Cast(vines, target: bear, payKicker: true),
+            .Cast(vines, target: bear, index: 1),
           At(Step.SecondMain)
             .Verify(() =>
               {

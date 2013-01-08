@@ -6,8 +6,7 @@
 
   public class PayMana : Cost
   {
-    public IManaAmount Amount;
-    public bool HasX;
+    public IManaAmount Amount;    
     public ManaUsage Usage = ManaUsage.Abilities;
     public bool TryNotToConsumeCardsManaSourceWhenPayingThis;
 

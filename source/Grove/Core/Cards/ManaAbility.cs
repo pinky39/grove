@@ -56,9 +56,7 @@
         return new SpellPrerequisites
           {
             CanBeSatisfied = true,
-            Description = Text,
-            Timing = delegate { return true; },
-            IsAbility = true
+            Description = Text            
           };
       }
 

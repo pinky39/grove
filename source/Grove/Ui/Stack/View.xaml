@@ -23,8 +23,8 @@
 	        CornerRadius = "4" >
 		<Border.Resources>
 
-			<DataTemplate DataType = "{x:Type Core:Card}" >
-                <ContentControl Content = "{Binding}" Style="{StaticResource Card}" />                                    
+			<DataTemplate DataType = "{x:Type Core:CastInstruction}" >
+                <ContentControl Content = "{Binding SourceCard}" Style="{StaticResource Card}" />                                    
             </DataTemplate>
 
 			<DataTemplate DataType = "{x:Type Cards:ActivatedAbility}" >

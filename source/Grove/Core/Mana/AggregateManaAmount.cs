@@ -29,20 +29,27 @@
       return GetEnumerator();
     }
 
-    public int Converted { get { return _converted ?? (_converted = _amounts.Sum(x => x.Converted)).Value; } }
+    public int Converted
+    {
+      get
+      {
+        return _converted ?? (
+          _converted = _amounts.Sum(x => x.Converted)).Value;
+      }
+    }
 
     public bool Has(ManaUnit mana)
     {
       return _amounts.Any(amount => amount.Has(mana));
     }
-    
-    public override string ToString()
-    {
-      return ManaAmount.ToString(this);
-    }
 
     public ManaUnit First { get { return this.First(); } }
 
     public bool IsColorless { get { return _amounts.All(amount => amount.IsColorless); } }
+
+    public override string ToString()
+    {
+      return ManaAmount.ToString(this);
+    }
   }
 }

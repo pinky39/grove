@@ -24,8 +24,7 @@
             "{X}: Chimeric Staff becomes an X/X Construct artifact creature until end of turn.",
             Cost<PayMana>(cost =>
               {
-                cost.Amount = ManaAmount.Zero;
-                cost.HasX = true;
+                cost.Amount = ManaAmount.Zero;                
                 cost.XCalculator = VariableCost.ChangeToXXCreature();
               }),
             Effect<ApplyModifiersToSelf>(e => e.Modifiers(

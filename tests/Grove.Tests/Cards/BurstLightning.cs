@@ -20,7 +20,7 @@
 
         Exec(
           At(Step.FirstMain)
-            .Cast(burst, target: armadon, payKicker: true)
+            .Cast(burst, target: armadon, index: 1)
             .Verify(() => Equal(Zone.Graveyard, C(armadon).Zone))
           );
       }

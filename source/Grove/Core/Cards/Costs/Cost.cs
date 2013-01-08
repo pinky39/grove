@@ -15,6 +15,7 @@
     protected TargetValidator Validator { get; private set; }
 
     public CalculateX XCalculator { get; set; }
+    protected bool HasX {get { return XCalculator != null; }}
 
     public virtual int CalculateHash(HashCalculator calc)
     {

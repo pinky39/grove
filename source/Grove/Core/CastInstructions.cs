@@ -1,10 +1,13 @@
 ﻿namespace Grove.Core
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
+  using Ai;
   using Cards;
   using Cards.Effects;
   using Infrastructure;
+  using Mana;
   using Targeting;
 
   [Copyable]
@@ -16,6 +19,8 @@
     {
       _castInstructions.AddRange(castInstructions);
     }
+
+    private CastInstructions() {}
 
     public List<SpellPrerequisites> CanCast()
     {
@@ -43,7 +48,8 @@
     {
       foreach (var castInstruction in _castInstructions)
       {
-        var activation = new ActivationParameters(new Targets().AddEffect(target));
+        var activation = new ActivationParameters();
+        activation.Targets.AddEffect(target);
         var effect = castInstruction.CreateEffect(activation) as T;
 
         if (effect != null)
@@ -51,6 +57,16 @@
       }
 
       return null;
+    }
+
+    public bool IsGoodTarget(ITarget target)
+    {
+      return _castInstructions.Any(x => x.IsGoodTarget(target));      
+    }
+
+    public IManaAmount GetManaCost(int index)
+    {
+      return _castInstructions[index].GetManaCost();
     }
   }
 }
