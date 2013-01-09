@@ -30,13 +30,13 @@
               e.ModifierFactory = Modifier<AddTriggeredAbility>(m =>
                 m.Ability = TriggeredAbility(
                   "Whenever a creature deals damage to you, destroy it.",
-                  Trigger<DealDamageToCreatureOrPlayer>(t => t.ToYou()),
+                  Trigger<OnDamageDealt>(t => t.ToYou()),
                   Effect<DestroySource>(),
                   abilityCategory: EffectCategories.Destruction));
             }),
           TriggeredAbility(
             "When Dread is put into a graveyard from anywhere, shuffle it into its owner's library.",
-            Trigger<OnZoneChange>(t => t.To = Zone.Graveyard),
+            Trigger<OnZoneChanged>(t => t.To = Zone.Graveyard),
             Effect<ShuffleIntoLibrary>())
         );
     }

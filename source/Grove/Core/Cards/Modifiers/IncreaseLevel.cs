@@ -1,7 +1,5 @@
 ﻿namespace Grove.Core.Cards.Modifiers
 {
-  using Grove.Core.Messages;
-
   public class IncreaseLevel : Modifier
   {
     private Level _level;
@@ -12,12 +10,6 @@
       _level = level;
       _levelIncrement = new Increment(1, ChangeTracker);
       _level.AddModifier(_levelIncrement);
-
-
-      Game.Publish(new CardChangedLevel
-        {
-          Card = (Card) Target,
-        });
     }
 
     protected override void Unapply()

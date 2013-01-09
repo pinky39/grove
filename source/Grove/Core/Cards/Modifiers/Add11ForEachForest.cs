@@ -5,13 +5,13 @@
   using Grove.Core.Messages;
   using Grove.Core.Zones;
 
-  public class Add11ForEachForest : Modifier, IReceive<CardChangedZone>, IReceive<ControllerChanged>
+  public class Add11ForEachForest : Modifier, IReceive<ZoneChanged>, IReceive<ControllerChanged>
   {
     private Increment _increment;
     private Power _power;
     private Toughness _tougness;
 
-    public void Receive(CardChangedZone message)
+    public void Receive(ZoneChanged message)
     {
       if (!IsForestControlledBySpellOwner(message.Card))
         return;

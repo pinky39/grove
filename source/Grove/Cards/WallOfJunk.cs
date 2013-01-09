@@ -25,7 +25,7 @@
           Static.Defender,
           TriggeredAbility(
             "Whenever Wall of Junk blocks, return it to its owner's hand at end of combat. (Return it only if it's on the battlefield.)",
-            Trigger<AtBegginingOfStep>(t =>
+            Trigger<OnStepStart>(t =>
               {
                 t.Step = Step.EndOfCombat;
                 t.PassiveTurn = true;

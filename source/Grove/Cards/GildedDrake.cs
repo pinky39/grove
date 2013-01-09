@@ -27,7 +27,7 @@
           Static.Flying,
           TriggeredAbility(
             "When Gilded Drake enters the battlefield, exchange control of Gilded Drake and up to one target creature an opponent controls. If you don't make an exchange, sacrifice Gilded Drake. This ability can't be countered except by spells and abilities.",
-            Trigger<OnZoneChange>(t => { t.To = Zone.Battlefield; }),
+            Trigger<OnZoneChanged>(t => { t.To = Zone.Battlefield; }),
             Effect<ExchangeForOpponentsCreature>(),
             abilityCategory: EffectCategories.Destruction,
             selectorAi: TargetSelectorAi.GainControl(),

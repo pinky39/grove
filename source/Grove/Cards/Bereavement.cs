@@ -23,7 +23,7 @@
         .Abilities(
           TriggeredAbility(
             "Whenever a green creature dies, its controller discards a card.",
-            Trigger<OnZoneChange>(t =>
+            Trigger<OnZoneChanged>(t =>
               {
                 t.Filter = (ability, card) => card.Is().Creature && card.HasColors(ManaColors.Green);
                 t.From = Zone.Battlefield;
@@ -34,7 +34,7 @@
                 p.Effect.Count = 1;
                 
                 p.Effect.Player = p.Parameters
-                  .Trigger<CardChangedZone>()
+                  .Trigger<ZoneChanged>()
                   .Card.Controller;
               }),
             triggerOnlyIfOwningCardIsInPlay: true)

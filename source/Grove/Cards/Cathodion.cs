@@ -24,7 +24,7 @@
         .Abilities(
           TriggeredAbility(
             "When Cathodion dies, add {3} to your mana pool.",
-            Trigger<OnZoneChange>(t =>
+            Trigger<OnZoneChanged>(t =>
               {
                 t.From = Zone.Battlefield;
                 t.To = Zone.Graveyard;

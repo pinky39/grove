@@ -4,11 +4,11 @@
   using Grove.Core.Messages;
 
   public class PermanentGetsUntapedLifetime : Lifetime,
-    IReceive<PermanentGetsUntapped>, IReceive<CardChangedZone>
+    IReceive<PermanentGetsUntapped>, IReceive<ZoneChanged>
   {
     public Card Permanent { get; set; }
 
-    public void Receive(CardChangedZone message)
+    public void Receive(ZoneChanged message)
     {
       if (message.Card == Permanent && message.FromBattlefield)
       {

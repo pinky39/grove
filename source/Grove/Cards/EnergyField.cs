@@ -32,7 +32,7 @@
             }),
           TriggeredAbility(
             "When a card is put into your graveyard from anywhere, sacrifice Energy Field.",
-            Trigger<OnZoneChange>(t =>
+            Trigger<OnZoneChanged>(t =>
               {
                 t.Filter = (ability, card) => ability.Controller == card.Owner;
                 t.To = Zone.Graveyard;

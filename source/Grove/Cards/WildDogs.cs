@@ -22,7 +22,7 @@
         .Abilities(
           TriggeredAbility(
             "At the beginning of your upkeep, if a player has more life than each other player, the player with the most life gains control of Wild Dogs.",
-            Trigger<AtBegginingOfStep>(t =>
+            Trigger<OnStepStart>(t =>
               {
                 t.Step = Step.Upkeep;
                 t.Condition = self =>

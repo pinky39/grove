@@ -28,7 +28,7 @@
         .Abilities(
           TriggeredAbility(
             "When Flametongue Kavu enters the battlefield, it deals 4 damage to target creature.",
-            Trigger<OnZoneChange>(t => t.To = Zone.Battlefield),
+            Trigger<OnZoneChanged>(t => t.To = Zone.Battlefield),
             Effect<DealDamageToTargets>(e => e.Amount = 4),
             Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()),
             TargetSelectorAi.DealDamageSingleSelector(4)));

@@ -25,7 +25,7 @@
         .Abilities(
           TriggeredAbility(
             "When an opponent casts a creature spell, if Opal Gargoyle is an enchantment, Opal Gargoyle becomes a 2/2 Gargoyle creature with flying.",
-            Trigger<SpellWasCast>(t => t.Filter =
+            Trigger<OnCastedSpell>(t => t.Filter =
               (ability, card) =>
                 ability.Controller != card.Controller && ability.OwningCard.Is().Enchantment && card.Is().Creature),
             Effect<ApplyModifiersToSelf>(e => e.Modifiers(

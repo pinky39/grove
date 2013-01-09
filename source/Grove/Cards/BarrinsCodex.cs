@@ -26,7 +26,7 @@
         .Abilities(
           TriggeredAbility(
             "At the beginning of your upkeep, put a page counter on Barrin's Codex.",
-            Trigger<AtBegginingOfStep>(t => t.Step = Step.Upkeep),
+            Trigger<OnStepStart>(t => t.Step = Step.Upkeep),
             Effect<ApplyModifiersToSelf>(e => e.Modifiers(
               Modifier<AddCounters>(m => { m.Counter = Counter<ChargeCounter>(); }))),
             triggerOnlyIfOwningCardIsInPlay: true

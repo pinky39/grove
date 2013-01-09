@@ -23,7 +23,7 @@
         .Abilities(
           TriggeredAbility(
             "When an opponent casts a creature spell, if Opal Titan is an enchantment, Opal Titan becomes a 4/4 Giant creature with protection from each of that spell's colors.",
-            Trigger<SpellWasCast>(t => t.Filter =
+            Trigger<OnCastedSpell>(t => t.Filter =
               (ability, card) =>
                 ability.Controller != card.Controller && ability.OwningCard.Is().Enchantment && card.Is().Creature),
             Effect<Core.Cards.Effects.ApplyModifiersToSelf>(p => p.Effect.Modifiers(

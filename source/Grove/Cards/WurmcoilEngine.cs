@@ -26,7 +26,7 @@
           Static.Lifelink,
           TriggeredAbility(
             "When Wurmcoil Engine dies, put a 3/3 colorless Wurm artifact creature token with deathtouch and a 3/3 colorless Wurm artifact creature token with lifelink onto the battlefield.",
-            Trigger<OnZoneChange>(t =>
+            Trigger<OnZoneChanged>(t =>
               {
                 t.From = Zone.Battlefield;
                 t.To = Zone.Graveyard;

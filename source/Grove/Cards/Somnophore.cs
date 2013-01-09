@@ -27,7 +27,7 @@
           Static.Flying,
           TriggeredAbility(
             "Whenever Somnophore deals damage to a player, tap target creature that player controls. That creature doesn't untap during its controller's untap step for as long as Somnophore remains on the battlefield.",
-            Trigger<DealDamageToCreatureOrPlayer>(t => t.ToPlayer()),
+            Trigger<OnDamageDealt>(t => t.ToPlayer()),
             Effect<CompoundEffect>(e => e.ChildEffects(
               Effect<TapTargetCreature>(),
               Effect<ApplyModifiersToTargets>(e1 => e1.Modifiers(

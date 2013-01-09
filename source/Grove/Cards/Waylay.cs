@@ -37,7 +37,7 @@
                     .Abilities(
                       TriggeredAbility(
                         "Exile this at the end of turn.",
-                        Trigger<AtBegginingOfStep>(t =>
+                        Trigger<OnStepStart>(t =>
                           {
                             t.Step = Step.EndOfTurn;
                             t.PassiveTurn = true;

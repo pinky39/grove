@@ -26,7 +26,7 @@
           Static.Flying,
           TriggeredAbility(
             "At the beginning of your upkeep, sacrifice Drifting Djinn unless you pay {1}{U}.",
-            Trigger<AtBegginingOfStep>(t => { t.Step = Step.Upkeep; }),
+            Trigger<OnStepStart>(t => { t.Step = Step.Upkeep; }),
             Effect<PayManaOrSacrifice>(e =>
               {
                 e.Amount = "{1}{U}".ParseMana();

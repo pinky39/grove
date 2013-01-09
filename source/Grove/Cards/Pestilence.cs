@@ -24,7 +24,7 @@
         .Abilities(
           TriggeredAbility(
             "At the beginning of the end step, if no creatures are on the battlefield, sacrifice Pestilence.",
-            Trigger<AtBegginingOfStep>(t =>
+            Trigger<OnStepStart>(t =>
               {
                 t.ActiveTurn = true;
                 t.PassiveTurn = true;

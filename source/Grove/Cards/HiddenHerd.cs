@@ -1,5 +1,6 @@
 ﻿namespace Grove.Cards
 {
+  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -8,31 +9,30 @@
   using Core.Dsl;
   using Core.Mana;
 
-  public class OpalCaryatid : CardsSource
+  public class HiddenHerd : CardsSource
   {
     public override IEnumerable<ICardFactory> GetCards()
     {
       yield return Card
-        .Named("Opal Caryatid")
-        .ManaCost("{W}")
+        .Named("Hidden Herd")
+        .ManaCost("{G}")
         .Type("Enchantment")
-        .Text(
-          "When an opponent casts a creature spell, if Opal Caryatid is an enchantment, Opal Caryatid becomes a 2/2 Soldier creature.")
+        .Text("When an opponent plays a nonbasic land, if Hidden Herd is an enchantment, Hidden Herd becomes a 3/3 Beast creature.")
         .Cast(p => p.Timing = Timings.SecondMain())
         .Abilities(
           TriggeredAbility(
-            "When an opponent casts a creature spell, if Opal Caryatid is an enchantment, Opal Caryatid becomes a 2/2 Soldier creature.",
+            "When an opponent plays a nonbasic land, if Hidden Herd is an enchantment, Hidden Herd becomes a 3/3 Beast creature.",
             Trigger<OnCastedSpell>(t => t.Filter =
               (ability, card) =>
-                ability.Controller != card.Controller && ability.OwningCard.Is().Enchantment && card.Is().Creature),
+                ability.Controller != card.Controller && ability.OwningCard.Is().Enchantment && card.Is().NonBasicLand),
             Effect<Core.Cards.Effects.ApplyModifiersToSelf>(p => p.Effect.Modifiers(
               Modifier<ChangeToCreature>(m =>
                 {
-                  m.Power = 2;
-                  m.Toughness = 2;
-                  m.Type = "Creature - Soldier";
-                  m.Colors = ManaColors.White;
-                })
+                  m.Power = 3;
+                  m.Toughness = 3;
+                  m.Type = "Creature - Beast";
+                  m.Colors = ManaColors.Green;                                    
+                })              
               ))
             , triggerOnlyIfOwningCardIsInPlay: true)
         );

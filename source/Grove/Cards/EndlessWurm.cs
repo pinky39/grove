@@ -24,7 +24,7 @@
           Static.Trample,
           TriggeredAbility(
             "At the beginning of your upkeep, sacrifice Endless Wurm unless you sacrifice an enchantment.",
-            Trigger<AtBegginingOfStep>(t => { t.Step = Step.Upkeep; }),
+            Trigger<OnStepStart>(t => { t.Step = Step.Upkeep; }),
             Effect<SacPermanentOrSacrificeOwner>(e =>
               {
                 e.ShouldPayAi = (controller, owner) => owner.IsAbleToAttack;

@@ -22,7 +22,7 @@
         .Abilities(
           TriggeredAbility(
             "When Great Whale enters the battlefield, untap up to seven lands.",
-            Trigger<OnZoneChange>(t => t.To = Zone.Battlefield),
+            Trigger<OnZoneChanged>(t => t.To = Zone.Battlefield),
             Effect<UntapSelectedPermanents>(e =>
               {
                 e.Validator = x => x.Is().Land;

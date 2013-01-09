@@ -24,7 +24,7 @@
         .Abilities(
           TriggeredAbility(
             "Whenever an opponent casts a creature spell, if Opal Acrolith is an enchantment, Opal Acrolith becomes a 2/4 Soldier creature.",
-            Trigger<SpellWasCast>(t => t.Filter =
+            Trigger<OnCastedSpell>(t => t.Filter =
               (ability, card) =>
                 ability.Controller != card.Controller && ability.OwningCard.Is().Enchantment && card.Is().Creature),
             Effect<ApplyModifiersToSelf>(e => e.Modifiers(

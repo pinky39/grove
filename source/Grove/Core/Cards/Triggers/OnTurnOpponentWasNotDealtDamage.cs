@@ -1,9 +1,9 @@
 ﻿namespace Grove.Core.Cards.Triggers
 {
-  using Grove.Infrastructure;
-  using Grove.Core.Messages;
+  using Infrastructure;
+  using Messages;
 
-  public class OpponentWasNotDealtDamageThisTurn : Trigger, IReceive<StepStarted>, IReceive<DamageHasBeenDealt>
+  public class OnTurnOpponentWasNotDealtDamage : Trigger, IReceive<StepStarted>, IReceive<DamageHasBeenDealt>
   {
     private Trackable<bool> _wasDealtDamage;
 

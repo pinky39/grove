@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core.Cards
 {
+  using System;
   using System.Linq;
   using Infrastructure;
 
@@ -13,7 +14,7 @@
 
     protected Characteristic(T value, ChangeTracker changeTracker, IHashDependancy hashDependancy)
     {
-      _modifiers = new TrackableList<PropertyModifier<T>>(changeTracker);
+      _modifiers = new TrackableList<PropertyModifier<T>>(changeTracker, hashDependancy);
       _baseValue = value;
     }
 
@@ -33,12 +34,26 @@
 
     public void AddModifier(PropertyModifier<T> propertyModifier)
     {
-      _modifiers.Add(propertyModifier);
+      NotifyIfChanged(() => _modifiers.Add(propertyModifier));
     }
+
+    private void NotifyIfChanged(Action action)
+    {
+      var previousValue = Value;
+
+      action();
+
+      if (!previousValue.Equals(Value))
+      {
+        OnCharacteristicChanged();
+      }
+    }
+
+    protected virtual void OnCharacteristicChanged() {}
 
     public void RemoveModifier(PropertyModifier<T> propertyModifier)
     {
-      _modifiers.Remove(propertyModifier);
+      NotifyIfChanged(() => _modifiers.Remove(propertyModifier));
     }
 
 

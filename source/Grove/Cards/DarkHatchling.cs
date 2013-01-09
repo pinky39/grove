@@ -29,7 +29,7 @@
         .Abilities(
           TriggeredAbility(
             "When Dark Hatchling enters the battlefield, destroy target nonblack creature. It can't be regenerated.",
-            Trigger<OnZoneChange>(t => t.To = Zone.Battlefield),
+            Trigger<OnZoneChanged>(t => t.To = Zone.Battlefield),
             Effect<DestroyTargetPermanents>(e => e.AllowRegenerate = false),
             Target(
               Validators.Card(card => card.Is().Creature && !card.HasColors(ManaColors.Black)),

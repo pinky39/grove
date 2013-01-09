@@ -32,7 +32,7 @@
             timing: Timings.Regenerate()),
           TriggeredAbility(
             "At the beg. of your upkeep, pay {G}{G} or sacrifice Child of Gaea.",
-            Trigger<AtBegginingOfStep>(t => { t.Step = Step.Upkeep; }),
+            Trigger<OnStepStart>(t => { t.Step = Step.Upkeep; }),
             Effect<PayManaOrSacrifice>(e =>
               {
                 e.Amount = "{G}{G}".ParseMana();

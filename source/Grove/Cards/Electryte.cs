@@ -22,7 +22,7 @@
         .Abilities(
           TriggeredAbility(
             "Whenever Electryte deals combat damage to defending player, it deals damage equal to its power to each blocking creature.",
-            Trigger<DealDamageToCreatureOrPlayer>(t =>
+            Trigger<OnDamageDealt>(t =>
               {
                 t.CombatOnly = true;
                 t.ToPlayer();

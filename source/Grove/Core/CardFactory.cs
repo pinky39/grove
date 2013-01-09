@@ -62,7 +62,7 @@
 
       TriggeredAbility.Factory echoFactory = c.TriggeredAbility(
         "At the beginning of your upkeep, if this came under your control since the beginning of your last upkeep, sacrifice it unless you pay its echo cost.",
-        c.Trigger<AtBegginingOfStep>(t =>
+        c.Trigger<OnStepStart>(t =>
           {
             t.Step = Step.Upkeep;
             t.OnlyOnceWhenAfterItComesUnderYourControl = true;

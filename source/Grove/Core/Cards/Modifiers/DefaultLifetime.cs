@@ -4,11 +4,11 @@
   using Grove.Core.Messages;
   using Grove.Core.Targeting;
 
-  public class DefaultLifetime : Lifetime, IReceive<CardChangedZone>
+  public class DefaultLifetime : Lifetime, IReceive<ZoneChanged>
   {
     public ITarget Target { get; set; }
         
-    public void Receive(CardChangedZone message)
+    public void Receive(ZoneChanged message)
     {
       if (message.Card != Target)
         return;

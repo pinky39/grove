@@ -1,10 +1,10 @@
 ﻿namespace Grove.Core.Cards.Triggers
 {
   using System;
-  using Grove.Infrastructure;
-  using Grove.Core.Messages;
+  using Infrastructure;
+  using Messages;
 
-  public class DealDamageToCreatureOrPlayer : Trigger, IReceive<DamageHasBeenDealt>
+  public class OnDamageDealt : Trigger, IReceive<DamageHasBeenDealt>
   {
     public Func<Card, TriggeredAbility, bool> IsValidCreature = delegate { return false; };
     public Func<Player, TriggeredAbility, bool> IsValidPlayer = delegate { return false; };

@@ -3,11 +3,11 @@
   using Grove.Infrastructure;
   using Grove.Core.Messages;
 
-  public class PermanentLeavesBattlefieldLifetime : Lifetime, IReceive<CardChangedZone>
+  public class PermanentLeavesBattlefieldLifetime : Lifetime, IReceive<ZoneChanged>
   {
     public Card Permanent { get; set; }
     
-    public void Receive(CardChangedZone message)
+    public void Receive(ZoneChanged message)
     {
       if (message.Card == Permanent && message.FromBattlefield)
       {

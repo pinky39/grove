@@ -5,14 +5,14 @@
   using Grove.Core.Messages;
   using Grove.Core.Zones;
 
-  public class Add11ForEachOtherCreature : Modifier, IReceive<CardChangedZone>, 
-    IReceive<CardChangedType>, IReceive<ControllerChanged>
+  public class Add11ForEachOtherCreature : Modifier, IReceive<ZoneChanged>, 
+    IReceive<TypeChanged>, IReceive<ControllerChanged>
   {
     private Increment _increment;
     private Power _power;
     private Toughness _tougness;
 
-    public void Receive(CardChangedType message)
+    public void Receive(TypeChanged message)
     {
       if (message.Card.Controller != Source.Controller ||
         !message.Card.Is().Creature)
@@ -23,7 +23,7 @@
       _increment.Value = GetCreatureCount();
     }
 
-    public void Receive(CardChangedZone message)
+    public void Receive(ZoneChanged message)
     {
       if (message.Card.Controller != Source.Controller ||
         !message.Card.Is().Creature)

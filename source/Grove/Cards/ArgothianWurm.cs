@@ -24,7 +24,7 @@
           Static.Trample,
           TriggeredAbility(
             "When Argothian Wurm enters the battlefield, any player may sacrifice a land. If a player does, put Argothian Wurm on top of its owner's library.",
-            Trigger<OnZoneChange>(t => t.To = Zone.Battlefield),
+            Trigger<OnZoneChanged>(t => t.To = Zone.Battlefield),
             Effect<PutOnTopOfLibraryUnlessOpponentSacsLand>()));
     }
   }

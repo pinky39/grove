@@ -1,5 +1,6 @@
 ﻿namespace Grove.Cards
 {
+  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -23,7 +24,7 @@
         .Abilities(
           TriggeredAbility(
             "When an opponent casts an enchantment spell, if Hidden Ancients is an enchantment, Hidden Ancients becomes a 5/5 Treefolk creature.",
-            Trigger<SpellWasCast>(t => t.Filter =
+            Trigger<OnCastedSpell>(t => t.Filter =
               (ability, card) =>
                 ability.Controller != card.Controller && ability.OwningCard.Is().Enchantment && card.Is().Enchantment),
             Effect<Core.Cards.Effects.ApplyModifiersToSelf>(p => p.Effect.Modifiers(

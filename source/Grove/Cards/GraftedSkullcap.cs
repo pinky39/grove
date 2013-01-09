@@ -22,11 +22,11 @@
         .Abilities(
           TriggeredAbility(
             "At the beginning of your draw step, draw an additional card.",
-            Trigger<AtBegginingOfStep>(t => { t.Step = Step.Draw; }),
+            Trigger<OnStepStart>(t => { t.Step = Step.Draw; }),
             Effect<DrawCards>(e => { e.DrawCount = 1; }), triggerOnlyIfOwningCardIsInPlay: true),
           TriggeredAbility(
             "At the beginning of your end step, discard your hand.",
-            Trigger<AtBegginingOfStep>(t => { t.Step = Step.EndOfTurn; }),
+            Trigger<OnStepStart>(t => { t.Step = Step.EndOfTurn; }),
             Effect<DiscardHand>(), triggerOnlyIfOwningCardIsInPlay: true));
     }
   }

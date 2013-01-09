@@ -164,6 +164,8 @@
     <Compile Include="Cards\HeadlongRush.cs" />
     <Compile Include="Cards\HealingSalve.cs" />
     <Compile Include="Cards\HeroOfBladeHold.cs" />
+    <Compile Include="Cards\HiddenHerd.cs" />
+    <Compile Include="Cards\HiddenPredators.cs" />
     <Compile Include="Cards\JaggedLightning.cs" />
     <Compile Include="Cards\LivingDestiny.cs" />
     <Compile Include="Cards\ManaLeak.cs" />

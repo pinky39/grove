@@ -34,7 +34,7 @@
         .Abilities(
           TriggeredAbility(
             "When Rancor is put into a graveyard from the battlefield, return Rancor to its owner's hand.",
-            Trigger<OnZoneChange>(t =>
+            Trigger<OnZoneChanged>(t =>
               {
                 t.From = Zone.Battlefield;
                 t.To = Zone.Graveyard;

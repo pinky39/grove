@@ -25,7 +25,7 @@
         .Abilities(
           TriggeredAbility(
             "At the beginning of your upkeep, you may put a verse counter on Discordant Dirge.",
-            Trigger<AtBegginingOfStep>(t => t.Step = Step.Upkeep),
+            Trigger<OnStepStart>(t => t.Step = Step.Upkeep),
             Effect<ApplyModifiersToSelf>(e => e.Modifiers(
               Modifier<AddCounters>(m => { m.Counter = Counter<ChargeCounter>(); }))),
             triggerOnlyIfOwningCardIsInPlay: true

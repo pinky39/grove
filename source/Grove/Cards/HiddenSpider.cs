@@ -24,7 +24,7 @@
         .Abilities(
           TriggeredAbility(
             "When an opponent casts a creature spell with flying, if Hidden Spider is an enchantment, Hidden Spider becomes a 3/5 Spider creature with reach.",
-            Trigger<SpellWasCast>(t => t.Filter =
+            Trigger<OnCastedSpell>(t => t.Filter =
               (ability, card) =>
                 ability.Controller != card.Controller && ability.OwningCard.Is().Enchantment && card.Is().Creature &&
                   card.Has().Flying),

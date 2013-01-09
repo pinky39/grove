@@ -27,7 +27,7 @@
           ManaAbility(ManaUnit.Any, "{T}: Add one mana of any color to your mana pool."),
           TriggeredAbility(
             "When Rupture Spire enters the battlefield, sacrifice it unless you pay {1}.",
-            Trigger<OnZoneChange>(t => t.To = Zone.Battlefield),
+            Trigger<OnZoneChanged>(t => t.To = Zone.Battlefield),
             Effect<PayManaOrSacrifice>(e => e.Amount = 1.Colorless()))
         );
     }

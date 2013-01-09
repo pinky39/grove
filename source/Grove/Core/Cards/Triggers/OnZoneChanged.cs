@@ -1,20 +1,20 @@
 ﻿namespace Grove.Core.Cards.Triggers
 {
   using System;
-  using Grove.Infrastructure;
-  using Grove.Core.Messages;
-  using Grove.Core.Zones;
+  using Infrastructure;
+  using Messages;
+  using Zones;
 
-  public class OnZoneChange : Trigger, IReceive<CardChangedZone>
+  public class OnZoneChanged : Trigger, IReceive<ZoneChanged>
   {
     public Func<TriggeredAbility, Card, bool> Filter =
       (ability, card) => ability.OwningCard == card;
 
     public Zone From { get; set; }
-    public Zone To { get; set; }    
+    public Zone To { get; set; }
 
-    public void Receive(CardChangedZone message)
-    {            
+    public void Receive(ZoneChanged message)
+    {
       if (!Filter(Ability, message.Card))
         return;
 

@@ -24,7 +24,7 @@
         .Abilities(
           TriggeredAbility(
             "Whenever Flesh Reaver deals damage to a creature or opponent, Flesh Reaver deals that much damage to you.",
-            Trigger<DealDamageToCreatureOrPlayer>(t =>
+            Trigger<OnDamageDealt>(t =>
               {
                 t.ToAnyCreature();
                 t.ToOpponent();

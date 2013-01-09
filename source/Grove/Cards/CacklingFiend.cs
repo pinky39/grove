@@ -24,7 +24,7 @@
         .Abilities(
           TriggeredAbility(
             "When Cackling Fiend enters the battlefield, each opponent discards a card.",
-            Trigger<OnZoneChange>(t => t.To = Zone.Battlefield),
+            Trigger<OnZoneChanged>(t => t.To = Zone.Battlefield),
             Effect<OpponentDiscardsCards>(e => e.SelectedCount = 1)));
     }
   }

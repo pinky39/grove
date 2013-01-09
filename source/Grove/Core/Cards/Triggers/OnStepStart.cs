@@ -3,7 +3,7 @@
   using Infrastructure;
   using Messages;
 
-  public class AtBegginingOfStep : Trigger, IOrderedReceive<StepStarted>, IReceive<CardChangedZone>,
+  public class OnStepStart : Trigger, IOrderedReceive<StepStarted>, IReceive<ZoneChanged>,
     IReceive<ControllerChanged>
   {
     public bool ActiveTurn = true;
@@ -26,7 +26,7 @@
       }
     }
 
-    public void Receive(CardChangedZone message)
+    public void Receive(ZoneChanged message)
     {
       if (OnlyOnceWhenAfterItComesUnderYourControl && message.Card == Ability.OwningCard && message.ToBattlefield)
       {

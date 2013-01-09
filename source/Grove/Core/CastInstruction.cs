@@ -67,7 +67,7 @@
     {
       _card.ChangeZone(_game.Stack);
 
-      _game.Publish(new CardChangedZone
+      _game.Publish(new ZoneChanged
         {
           Card = _card,
           From = Zone.Hand,

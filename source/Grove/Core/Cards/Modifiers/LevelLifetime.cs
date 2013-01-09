@@ -3,13 +3,13 @@
   using Infrastructure;
   using Messages;
 
-  public class LevelLifetime : Lifetime, IReceive<CardChangedLevel>
+  public class LevelLifetime : Lifetime, IReceive<LevelChanged>
   {
     public int? MaxLevel { get; set; }
     public int MinLevel { get; set; }
     public Card ModifierTarget { get; set; }
 
-    public void Receive(CardChangedLevel message)
+    public void Receive(LevelChanged message)
     {
       if (message.Card != ModifierTarget)
         return;

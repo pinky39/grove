@@ -61,9 +61,9 @@
 
       _power = new Power(p.Power, null, null);
       _toughness = new Toughness(p.Toughness, null, null);
-      _type = new CardTypeCharacteristic(p.Type, null, null);
+      _type = new CardTypeCharacteristic(p.Type);
       _colors = new CardColors(GetCardColorFromManaCost(), null, null);
-      _level = new Level(null, null, null);
+      _level = new Level(null);
       _counters = new Counters(_power, _toughness, null, null);
 
       _damage = new Trackable<int>(null);
@@ -88,9 +88,9 @@
 
       _power = new Power(p.Power, game.ChangeTracker, this);
       _toughness = new Toughness(p.Toughness, game.ChangeTracker, this);
-      _level = new Level(p.Isleveler ? 0 : (int?) null, game.ChangeTracker, this);
+      _level = new Level(p.Isleveler ? 0 : (int?) null, game, this);
       _counters = new Counters(_power, _toughness, game.ChangeTracker, this);
-      _type = new CardTypeCharacteristic(p.Type, game.ChangeTracker, this);
+      _type = new CardTypeCharacteristic(p.Type, game, this);
       _hash = new Trackable<int?>(game.ChangeTracker);
 
       _colors = new CardColors(
@@ -613,7 +613,7 @@
 
       if (oldZone.Zone != newZone.Zone)
       {
-        Publish(new CardChangedZone
+        Publish(new ZoneChanged
           {
             Card = this,
             From = oldZone.Zone,

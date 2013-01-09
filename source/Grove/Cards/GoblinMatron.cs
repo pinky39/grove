@@ -23,7 +23,7 @@
         .Abilities(
           TriggeredAbility(
             "When Goblin Matron enters the battlefield, you may search your library for a Goblin card, reveal that card, and put it into your hand. If you do, shuffle your library.",
-            Trigger<OnZoneChange>(t => t.To = Zone.Battlefield),
+            Trigger<OnZoneChanged>(t => t.To = Zone.Battlefield),
             Effect<SearchLibraryPutToHand>(e =>
               {
                 e.MinCount = 0;

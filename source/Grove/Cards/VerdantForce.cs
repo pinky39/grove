@@ -23,7 +23,7 @@
         .Abilities(
           TriggeredAbility(
             "At the beginning of each upkeep, put a 1/1 green Saproling creature token onto the battlefield.",
-            Trigger<AtBegginingOfStep>(t =>
+            Trigger<OnStepStart>(t =>
               {
                 t.Step = Step.Upkeep;
                 t.PassiveTurn = true;

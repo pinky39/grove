@@ -24,7 +24,7 @@
           Static.Flying,
           TriggeredAbility(
             "When Darkslick Drake is put into a graveyard from the battlefield, draw a card.",
-            Trigger<OnZoneChange>(t => t.To = Zone.Graveyard),
+            Trigger<OnZoneChanged>(t => t.To = Zone.Graveyard),
             Effect<DrawCards>(e => e.DrawCount = 1)));
     }
   }

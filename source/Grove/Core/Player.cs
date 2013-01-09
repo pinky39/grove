@@ -84,6 +84,7 @@
     public ControllerType Controller { get; private set; }
     public ManaPool ManaPool { get { return _manaPool; } }
     public string Name { get; private set; }
+    public Player Opponent {get { return _game.Players.GetOpponent(this); }}
 
     public int LandsPlayedCount { get { return _landsPlayedCount.Value; } set { _landsPlayedCount.Value = value; } }
 

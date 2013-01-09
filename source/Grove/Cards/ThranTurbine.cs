@@ -23,7 +23,7 @@
         .Abilities(
           TriggeredAbility(
             "At the beginning of your upkeep, you may add {1} or {2} to your mana pool. You can't spend this mana to cast spells.",
-            Trigger<AtBegginingOfStep>(t =>
+            Trigger<OnStepStart>(t =>
               {
                 t.Step = Step.Upkeep;
                 t.Order = TriggerOrder.Last;

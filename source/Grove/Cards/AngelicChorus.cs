@@ -22,14 +22,14 @@
         .Abilities(
           TriggeredAbility(
             "Whenever a creature enters the battlefield under your control, you gain life equal to its toughness.",
-            Trigger<OnZoneChange>(t =>
+            Trigger<OnZoneChanged>(t =>
               {
                 t.Filter = (ability, card) => ability.Controller == card.Controller && card.Is().Creature;
                 t.To = Zone.Battlefield;
               }),
             Effect<Core.Cards.Effects.ControllerGainsLife>(p =>
               p.Effect.Amount = p.Parameters
-                .Trigger<CardChangedZone>()
+                .Trigger<ZoneChanged>()
                 .Card.Toughness.GetValueOrDefault()),
             triggerOnlyIfOwningCardIsInPlay: true)
         );

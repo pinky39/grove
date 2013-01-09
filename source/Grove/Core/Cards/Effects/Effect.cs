@@ -7,6 +7,7 @@
   using Dsl;
   using Infrastructure;
   using Mana;
+  using Messages;
   using Targeting;
 
   [Copyable]
@@ -107,6 +108,8 @@
       if (WasResolved)
       {
         Source.EffectResolved();
+        
+        Game.Publish(new EffectResolved {Effect = this});
         return;
       }
 
@@ -129,7 +132,7 @@
       BeforeResolve(this);
       ResolveEffect();
       AfterResolve(this);
-      WasResolved = true;
+      WasResolved = true;      
     }
 
     protected abstract void ResolveEffect();

@@ -40,7 +40,7 @@
             }),
           TriggeredAbility(
             "When Vigor is put into a graveyard from anywhere, shuffle it into its owner's library.",
-            Trigger<OnZoneChange>(t => t.To = Zone.Graveyard),
+            Trigger<OnZoneChanged>(t => t.To = Zone.Graveyard),
             Effect<ShuffleIntoLibrary>()));
     }
   }

@@ -30,7 +30,7 @@
         .Abilities(
           TriggeredAbility(
             "Whenever enchanted creature deals combat damage to a player, that player sacrifices a land.",
-            Trigger<DealDamageToCreatureOrPlayer>(t =>
+            Trigger<OnDamageDealt>(t =>
               {
                 t.CombatOnly = true;
                 t.UseAttachedToAsTriggerSource = true;

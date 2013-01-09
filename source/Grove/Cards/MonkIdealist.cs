@@ -26,7 +26,7 @@
         .Abilities(
           TriggeredAbility(
             "When Monk Idealist enters the battlefield, return target enchantment card from your graveyard to your hand.",
-            Trigger<OnZoneChange>(t => t.To = Zone.Battlefield),
+            Trigger<OnZoneChanged>(t => t.To = Zone.Battlefield),
             Effect<PutToHand>(),
             Target(
               Validators.Card(card => card.Is().Enchantment),

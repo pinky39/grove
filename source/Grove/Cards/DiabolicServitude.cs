@@ -23,7 +23,7 @@
         .Abilities(
           TriggeredAbility(
             "When Diabolic Servitude enters the battlefield, return target creature card from your graveyard to the battlefield.",
-            Trigger<OnZoneChange>(t => t.To = Zone.Battlefield),
+            Trigger<OnZoneChanged>(t => t.To = Zone.Battlefield),
             Effect<CompoundEffect>(e => e.ChildEffects(
               Effect<PutTargetsToBattlefield>(),
               Effect<Attach>())),
@@ -33,7 +33,7 @@
               Zones.YourGraveyard())),
           TriggeredAbility(
             "When the creature put onto the battlefield with Diabolic Servitude dies, exile it and return Diabolic Servitude to its owner's hand.",
-            Trigger<OnZoneChange>(t =>
+            Trigger<OnZoneChanged>(t =>
               {
                 t.From = Zone.Battlefield;
                 t.To = Zone.Graveyard;
@@ -45,7 +45,7 @@
             ),
           TriggeredAbility(
             "When Diabolic Servitude leaves the battlefield, exile the creature put onto the battlefield with Diabolic Servitude.",
-            Trigger<OnZoneChange>(t =>
+            Trigger<OnZoneChanged>(t =>
               {
                 t.From = Zone.Battlefield;
                 t.Filter = (ability, card) => ability.OwningCard == card && ability.OwningCard.AttachedTo != null;

@@ -256,7 +256,11 @@
     <Compile Include="Cards\HeraldOfSerra.cs" />
     <Compile Include="Cards\HermeticStudy.cs" />
     <Compile Include="Cards\HeroOfBladehold.cs" />
+    <Compile Include="Cards\Hibernation.cs" />
     <Compile Include="Cards\HiddenAncients.cs" />
+    <Compile Include="Cards\HiddenGuerrillas.cs" />
+    <Compile Include="Cards\HiddenHerd.cs" />
+    <Compile Include="Cards\HiddenPredators.cs" />
     <Compile Include="Cards\HiddenSpider.cs" />
     <Compile Include="Cards\Humble.cs" />
     <Compile Include="Cards\Hush.cs" />
@@ -396,6 +400,7 @@
     <Compile Include="Core\Cards\Modifiers\IncreaseManaOutput.cs" />
     <Compile Include="Core\Cards\Modifiers\ManaAmountIncrement.cs" />
     <Compile Include="Core\Cards\Preventions\PreventReceived.cs" />
+    <Compile Include="Core\Cards\Triggers\OnEffectResolved.cs" />
     <Compile Include="Core\CastInstructionParameters.cs" />
     <Compile Include="Core\CastInstructions.cs" />
     <Compile Include="Core\Decisions\Human\SelectCardsToUntap.cs" />
@@ -461,8 +466,8 @@
     <Compile Include="Core\Cards\Triggers\TriggerOrder.cs" />
     <Compile Include="Core\Mana\ManaUsage.cs" />
     <Compile Include="Core\MatchSimulator.cs" />
-    <Compile Include="Core\Messages\CardChangedType.cs" />
     <Compile Include="Core\Messages\CardWasRevealed.cs" />
+    <Compile Include="Core\Messages\EffectResolved.cs" />
     <Compile Include="Core\Messages\PermanentModified.cs" />
     <Compile Include="Core\CastInstruction.cs" />
     <Compile Include="Core\Targeting\IDamageDistributor.cs" />
@@ -579,7 +584,7 @@
     <Compile Include="Core\Life.cs" />
     <Compile Include="Core\Mana\ManaAmount.cs" />
     <Compile Include="Core\Mana\ManaPayment.cs" />
-    <Compile Include="Core\Messages\CardChangedLevel.cs" />
+    <Compile Include="Core\Messages\LevelChanged.cs" />
     <Compile Include="Core\Messages\PlayerHasActivatedAbility.cs" />
     <Compile Include="Core\Messages\SearchFinished.cs" />
     <Compile Include="Core\Messages\SearchStarted.cs" />
@@ -597,9 +602,9 @@
     <Compile Include="Core\Targeting\TargetValidator.cs" />
     <Compile Include="Core\Targeting\TargetSelector.cs" />
     <Compile Include="Core\Targeting\TargetValidatorParameters.cs" />
-    <Compile Include="Core\Cards\Triggers\SpellWasCast.cs" />
+    <Compile Include="Core\Cards\Triggers\OnCastedSpell.cs" />
     <Compile Include="Core\Cards\Triggers\OnLevelChanged.cs" />
-    <Compile Include="Core\Cards\Triggers\OpponentWasNotDealtDamageThisTurn.cs" />
+    <Compile Include="Core\Cards\Triggers\OnTurnOpponentWasNotDealtDamage.cs" />
     <Compile Include="Core\Targeting\Zones.cs" />
     <Compile Include="Core\Targeting\ZoneValidatorParameters.cs" />
     <Compile Include="Core\Zones\IGraveyardQuery.cs" />
@@ -760,9 +765,9 @@
     <Compile Include="Core\Cards\Casting\Land.cs" />
     <Compile Include="Core\Cards\Casting\Sorcery.cs" />
     <Compile Include="Core\Cards\Triggers\Trigger.cs" />
-    <Compile Include="Core\Cards\Triggers\AtBegginingOfStep.cs" />
-    <Compile Include="Core\Cards\Triggers\DealDamageToCreatureOrPlayer.cs" />
-    <Compile Include="Core\Cards\Triggers\OnZoneChange.cs" />
+    <Compile Include="Core\Cards\Triggers\OnStepStart.cs" />
+    <Compile Include="Core\Cards\Triggers\OnDamageDealt.cs" />
+    <Compile Include="Core\Cards\Triggers\OnZoneChanged.cs" />
     <Compile Include="Core\Cards\Costs\Cost.cs" />
     <Compile Include="Core\CardDatabase.cs" />
     <Compile Include="Core\Cards\Effects\AddManaToPool.cs" />
@@ -784,7 +789,7 @@
     <Compile Include="Infrastructure\Snapshot.cs" />
     <Compile Include="Core\Cards\SpellPrerequisites.cs" />
     <Compile Include="Core\Cards\TriggeredAbility.cs" />
-    <Compile Include="Core\Messages\CardChangedZone.cs" />
+    <Compile Include="Core\Messages\ZoneChanged.cs" />
     <Compile Include="Core\Messages\DamageHasBeenDealt.cs" />
     <Compile Include="Core\Messages\PlayerHasCastASpell.cs" />
     <Compile Include="Core\Zones\OrderedZone.cs" />

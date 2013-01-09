@@ -137,12 +137,12 @@ o Healing Salve
 o Heat Ray
 o Herald of Serra
 o Hermetic Study
-Hibernation
-Hidden Ancients
-Hidden Guerrillas
-Hidden Herd
-Hidden Predators
-Hidden Spider
+o Hibernation
+o Hidden Ancients
+o Hidden Guerrillas
+o Hidden Herd
+o Hidden Predators
+o Hidden Spider
 Hidden Stag
 Hollow Dogs
 Hopping Automaton

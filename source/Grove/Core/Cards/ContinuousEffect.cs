@@ -9,7 +9,7 @@
   using Zones;
 
   [Copyable]
-  public class ContinuousEffect : IReceive<CardChangedZone>, IReceive<PermanentWasModified>
+  public class ContinuousEffect : IReceive<ZoneChanged>, IReceive<PermanentWasModified>
   {
     public delegate bool ShouldApplyToCard(Card card, ContinuousEffect effect);
     public delegate bool ShouldApplyToPlayer(Player player, ContinuousEffect effect);
@@ -32,7 +32,7 @@
 
     public IModifierFactory ModifierFactory { get; set; }
 
-    public void Receive(CardChangedZone message)
+    public void Receive(ZoneChanged message)
     {      
       if (_isActive == false) return;      
       

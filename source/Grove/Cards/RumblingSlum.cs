@@ -22,7 +22,7 @@
         .Abilities(
           TriggeredAbility(
             "At the beginning of your upkeep, Rumbling Slum deals 1 damage to each player.",
-            Trigger<AtBegginingOfStep>(t => t.Step = Step.Untap),
+            Trigger<OnStepStart>(t => t.Step = Step.Untap),
             Effect<DealDamageToEach>(e => e.AmountPlayer = 1),
             triggerOnlyIfOwningCardIsInPlay: true));
     }

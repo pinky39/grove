@@ -23,7 +23,7 @@
         .Abilities(
           TriggeredAbility(
             "At the beginning of each player's upkeep, if that player controls more lands than each other player, the player puts a 1/1 green Saproling creature token onto the battlefield.",
-            Trigger<AtBegginingOfStep>(t =>
+            Trigger<OnStepStart>(t =>
               {
                 t.Condition = tr =>
                   {

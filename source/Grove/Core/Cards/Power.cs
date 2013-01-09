@@ -1,6 +1,6 @@
 ﻿namespace Grove.Core.Cards
 {
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Modifiers;
 
   public class Power : Characteristic<int?>, IModifiable

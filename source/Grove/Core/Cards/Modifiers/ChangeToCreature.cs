@@ -1,7 +1,5 @@
 ﻿namespace Grove.Core.Cards.Modifiers
 {
-  using Grove.Core.Messages;
-  using Grove.Core.Targeting;
   using Mana;
 
   public class ChangeToCreature : Modifier
@@ -46,8 +44,6 @@
       _cardType = cardType;
       _typeSetter = new CardTypeSetter(Type, ChangeTracker);
       _cardType.AddModifier(_typeSetter);
-
-      Game.Publish(new CardChangedType {Card = Target.Card()});
     }
 
     protected override void Unapply()

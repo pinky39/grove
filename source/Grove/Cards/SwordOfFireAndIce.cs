@@ -24,7 +24,7 @@
         .Abilities(
           TriggeredAbility(
             "Whenever equipped creature deals combat damage to a player, Sword of Fire and Ice deals 2 damage to target creature or player and you draw a card.",
-            Trigger<DealDamageToCreatureOrPlayer>(t =>
+            Trigger<OnDamageDealt>(t =>
               {
                 t.CombatOnly = true;
                 t.UseAttachedToAsTriggerSource = true;

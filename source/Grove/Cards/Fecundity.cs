@@ -22,7 +22,7 @@
         .Abilities(
           TriggeredAbility(
             "Whenever a creature dies, that creature's controller may draw a card.",
-            Trigger<OnZoneChange>(t =>
+            Trigger<OnZoneChanged>(t =>
               {
                 t.Filter = (ability, card) => card.Is().Creature;
                 t.From = Zone.Battlefield;
@@ -33,7 +33,7 @@
                 p.Effect.DrawCount = 1;
                 
                 p.Effect.Player = p.Parameters
-                  .Trigger<CardChangedZone>()
+                  .Trigger<ZoneChanged>()
                   .Card.Controller;
               }),
             

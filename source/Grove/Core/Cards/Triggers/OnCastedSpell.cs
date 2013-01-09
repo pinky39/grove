@@ -1,10 +1,10 @@
 ﻿namespace Grove.Core.Cards.Triggers
 {
   using System;
-  using Grove.Infrastructure;
-  using Grove.Core.Messages;
+  using Infrastructure;
+  using Messages;
 
-  public class SpellWasCast : Trigger, IReceive<PlayerHasCastASpell>
+  public class OnCastedSpell : Trigger, IReceive<PlayerHasCastASpell>
   {
     public Func<TriggeredAbility, Card, bool> Filter =
       delegate { return true; };
