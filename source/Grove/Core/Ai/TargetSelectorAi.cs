@@ -13,7 +13,7 @@
 
     public delegate IEnumerable<Targets> OutputSelectorDelegate(IEnumerable<ITarget> targets);
 
-    public static TargetSelectorAiDelegate OrderByDescendingScore(Controller controller = Ai.Controller.Opponent)
+    public static TargetSelectorAiDelegate OrderByScore(Controller controller = Ai.Controller.Opponent, bool descending = true)
     {
       return p =>
         {
@@ -31,8 +31,8 @@
               break;
           }
 
-          var orderedCandidates = candidates
-            .OrderByDescending(x => x.Card().Score)
+          var orderedCandidates = candidates            
+            .OrderByDescending(x => descending ? x.Card().Score : -x.Card().Score)                        
             .Select(x => x.Card())
             .ToList();
 
@@ -1212,6 +1212,6 @@
 
           return p.Targets(candidates);
         };
-    }
+    }    
   }
 }

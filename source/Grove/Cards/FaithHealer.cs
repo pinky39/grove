@@ -25,7 +25,7 @@
           ActivatedAbility(
             "Sacrifice an enchantment: You gain life equal to the sacrificed enchantment's converted mana cost.",
             Cost<Sacrifice>(),
-            Effect<GainLife>(e => e.Amount = e.Target().Card().ConvertedCost),
+            Effect<ControllerGainsLife>(e => e.Amount = e.Target().Card().ConvertedCost),
             costValidator:
               Target(Validators.Card(
                 controller: Controller.SpellOwner,

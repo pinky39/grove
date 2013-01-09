@@ -24,7 +24,7 @@
           {
             p.Timing = Timings.EndOfTurn();
             p.Cost = Cost<PayMana, Reveal>(c => c.Amount = "{3}{G}".ParseMana());
-            p.Effect = Effect<GainLife>(e => e.Amount = e.CostTarget().Card().ManaCost.Converted);
+            p.Effect = Effect<ControllerGainsLife>(e => e.Amount = e.CostTarget().Card().ManaCost.Converted);
             p.CostTargets = L(Target(Validators.Card(card => card.Is().Creature), Zones.OwnersHand(),
               mustBeTargetable: false));
             p.TargetSelectorAi = TargetSelectorAi.GreatestConvertedManaCost();

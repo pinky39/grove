@@ -25,7 +25,7 @@
           ActivatedAbility(
             "Sacrifice a Beast: You gain 4 life.",
             Cost<Sacrifice>(),
-            Effect<GainLife>(e => e.Amount = 4),
+            Effect<ControllerGainsLife>(e => e.Amount = 4),
             costValidator: Target(
               Validators.Card(card => card.Is("beast"), Controller.SpellOwner),
               Zones.Battlefield(),

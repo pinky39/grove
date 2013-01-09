@@ -27,7 +27,7 @@
             Effect<CompoundEffect>(e => e.ChildEffects(
               Effect<PutTargetsToBattlefield>(),
               Effect<Attach>())),
-            selectorAi: TargetSelectorAi.OrderByDescendingScore(Controller.SpellOwner),
+            selectorAi: TargetSelectorAi.OrderByScore(Controller.SpellOwner),
             effectValidator: Target(
               Validators.Card(card => card.Is().Creature),
               Zones.YourGraveyard())),

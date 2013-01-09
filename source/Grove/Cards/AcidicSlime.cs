@@ -32,7 +32,7 @@
             Target(
               Validators.Card(card => card.Is().Artifact || card.Is().Enchantment || card.Is().Land),
               Zones.Battlefield()),
-            TargetSelectorAi.OrderByDescendingScore(),
+            TargetSelectorAi.OrderByScore(),
             EffectCategories.Destruction)
         );
     }

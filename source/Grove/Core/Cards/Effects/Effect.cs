@@ -24,17 +24,14 @@
     public IEffectSource Source { get; set; }
     public int? X { get; set; }
     public virtual bool AffectsSource { get { return false; } }
-    public bool HasTargets { get { return _targets.Count > 0; } }
+    public bool HasTargets { get { return _targets.Effect.Count > 0; } }
     protected CardBuilder Builder { get { return new CardBuilder(); } }
     private bool WasResolved { get { return _wasResolved.Value; } set { _wasResolved.Value = value; } }
-
 
     // this is used by ui to display effect targets
     public object UiTargets { get { return _targets; } }    
     protected IList<ITarget> Targets { get { return _targets.Effect; } }
-
     protected IEnumerable<ITarget> ValidTargets { get { return Targets.Where(IsValid); } }
-
     protected IList<ITarget> CostTargets { get { return _targets.Cost; } }
 
     public bool HasColors(ManaColors colors)

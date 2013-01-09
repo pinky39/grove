@@ -24,7 +24,7 @@
             p.Effect = Effect<DestroyTargetPermanents>();
             p.EffectTargets = L(Target(Validators.Card(card => card.Is().Artifact || card.Is().Enchantment),
               Zones.Battlefield()));
-            p.TargetSelectorAi = TargetSelectorAi.OrderByDescendingScore();
+            p.TargetSelectorAi = TargetSelectorAi.OrderByScore();
           });
     }
   }

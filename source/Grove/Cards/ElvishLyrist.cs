@@ -29,7 +29,7 @@
             Effect<DestroyTargetPermanents>(),
             timing: Timings.InstantRemovalTarget(),
             effectValidator: Target(Validators.Card(card => card.Is().Enchantment), Zones.Battlefield()),
-            targetSelectorAi: TargetSelectorAi.OrderByDescendingScore()            
+            targetSelectorAi: TargetSelectorAi.OrderByScore()            
             )
         );
     }

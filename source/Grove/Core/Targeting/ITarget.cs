@@ -1,15 +1,13 @@
 ﻿namespace Grove.Core.Targeting
 {
-  using System;
   using Cards;
   using Cards.Effects;
   using Cards.Modifiers;
+  using Core.Zones;
   using Decisions.Scenario;
   using Infrastructure;
-  using Core.Zones;
 
-  public interface ITarget : IHashable {    
-  }
+  public interface ITarget : IHashable {}
 
   public static class Target
   {
@@ -44,7 +42,7 @@
       {
         acceptsModifiers.RemoveModifier(modifier);
       }
-    }   
+    }
 
     public static Card Card(this ITarget target)
     {
@@ -128,7 +126,7 @@
       public bool Sorcery { get { return false; } }
       public bool Token { get { return false; } }
       public bool Aura { get { return false; } }
-      public bool NonBasicLand { get { return false; } }      
+      public bool NonBasicLand { get { return false; } }
 
       public bool OfType(string type)
       {

@@ -30,8 +30,7 @@
               Modifier<AddDamagePrevention>(m =>
                 {
                   m.Prevention = Prevention<PreventDamageToTarget>(p =>
-                    {
-                      p.AmountIsDepletable = true;
+                    {                      
                       p.Amount = 2;
                     });
                 }, untilEndOfTurn: true))), 

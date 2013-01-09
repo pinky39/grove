@@ -133,10 +133,10 @@ o Greener Pastures
 o Guma
 o Hawkeater Moth
 o Headlong Rush
-Healing Salve
-Heat Ray
-Herald of Serra
-Hermetic Study
+o Healing Salve
+o Heat Ray
+o Herald of Serra
+o Hermetic Study
 Hibernation
 Hidden Ancients
 Hidden Guerrillas

@@ -24,8 +24,7 @@
             {
               e.ModifierFactory = Modifier<AddDamagePrevention>(
                 m => m.Prevention = Prevention<PreventDamageToTarget>(p =>
-                  {
-                    p.PreventAll = true;
+                  {                    
                     p.SourceFilter = (self, source) => self.Controller != source.Controller;
                   }));
               e.CardFilter = delegate { return false; };

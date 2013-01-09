@@ -251,7 +251,10 @@
     <Compile Include="Cards\Guma.cs" />
     <Compile Include="Cards\HawkeaterMoth.cs" />
     <Compile Include="Cards\HeadlongRush.cs" />
+    <Compile Include="Cards\HealingSalve.cs" />
     <Compile Include="Cards\HeatRay.cs" />
+    <Compile Include="Cards\HeraldOfSerra.cs" />
+    <Compile Include="Cards\HermeticStudy.cs" />
     <Compile Include="Cards\HeroOfBladehold.cs" />
     <Compile Include="Cards\HiddenAncients.cs" />
     <Compile Include="Cards\HiddenSpider.cs" />
@@ -385,6 +388,7 @@
     <Compile Include="Core\Cards\Effects\DiscardHand.cs" />
     <Compile Include="Core\Cards\Effects\ExchangeForOpponentsCreature.cs" />
     <Compile Include="Core\Cards\Effects\SearchLibraryPutToHand.cs" />
+    <Compile Include="Core\Cards\Effects\TargetPlayerGainsLife.cs" />
     <Compile Include="Core\Cards\Effects\UntapSelectedPermanents.cs" />
     <Compile Include="Core\Cards\SpellCounterReason.cs" />
     <Compile Include="Core\Cards\ManaAmountCharacteristic.cs" />
@@ -713,7 +717,7 @@
     <Compile Include="Core\Cards\Effects\CompoundEffect.cs" />
     <Compile Include="Core\Cards\Effects\DealDamageToEach.cs" />
     <Compile Include="Core\Cards\Effects\DrawCards.cs" />
-    <Compile Include="Core\Cards\Effects\GainLife.cs" />
+    <Compile Include="Core\Cards\Effects\ControllerGainsLife.cs" />
     <Compile Include="Core\Cards\Effects\IEffectSource.cs" />
     <Compile Include="Core\Cards\Effects\Regenerate.cs" />
     <Compile Include="Core\Cards\Effects\ShuffleIntoLibrary.cs" />

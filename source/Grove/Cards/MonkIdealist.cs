@@ -33,7 +33,7 @@
               Zones.YourGraveyard(),
               mustBeTargetable: false,
               text: "Select an enchantment in your graveyard."),
-            TargetSelectorAi.OrderByDescendingScore(Controller.SpellOwner)
+            TargetSelectorAi.OrderByScore(Controller.SpellOwner)
             )
         );
     }

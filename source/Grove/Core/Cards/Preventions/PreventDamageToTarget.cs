@@ -1,44 +1,35 @@
 ﻿namespace Grove.Core.Cards.Preventions
 {
   using System;
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   public class PreventDamageToTarget : DamagePrevention
   {
+    public int? Amount;    
+
+    public Func<DamagePrevention, Card, bool> SourceFilter = delegate { return true; };
     private Trackable<int> _amountLeft;
 
-    public int Amount;
-    public bool AmountIsDepletable;
-    
-    public Func<DamagePrevention, Card, bool> SourceFilter = delegate { return true; };
-    public bool PreventAll;
-
     public override void PreventReceivedDamage(Damage damage)
-    {      
-      
-      
+    {
       if (!SourceFilter(this, damage.Source))
         return;
-      
-      if (PreventAll)
+
+      if (Amount == null)
       {
         damage.PreventAll();
         return;
       }
-      
-      if (AmountIsDepletable)
-      {
-        var prevented = damage.Prevent(_amountLeft.Value);  
-        _amountLeft.Value -= prevented;        
-        return;
-      }
 
-      damage.Prevent(Amount);
+      var prevented = damage.Prevent(_amountLeft.Value);
+      _amountLeft.Value -= prevented;
+      return;
     }
 
     protected override void Initialize()
-    {      
-      _amountLeft = new Trackable<int>(Amount, Game.ChangeTracker);
+    {
+      if (Amount.HasValue)
+        _amountLeft = new Trackable<int>(Amount.Value, Game.ChangeTracker);
     }
 
     public override int EvaluateReceivedDamage(Card source, int amount, bool isCombat)

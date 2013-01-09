@@ -1,12 +1,14 @@
 ﻿namespace Grove.Core.Cards.Effects
 {
-  public class GainLife : Effect
+  using Targeting;
+
+  public class TargetPlayerGainsLife : Effect
   {
     public int Amount { get; set; }
 
     protected override void ResolveEffect()
     {
-      Controller.Life += Amount;
+      Target().Player().Life += Amount;
     }
   }
 }

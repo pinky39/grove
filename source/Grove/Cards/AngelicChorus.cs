@@ -27,7 +27,7 @@
                 t.Filter = (ability, card) => ability.Controller == card.Controller && card.Is().Creature;
                 t.To = Zone.Battlefield;
               }),
-            Effect<Core.Cards.Effects.GainLife>(p =>
+            Effect<Core.Cards.Effects.ControllerGainsLife>(p =>
               p.Effect.Amount = p.Parameters
                 .Trigger<CardChangedZone>()
                 .Card.Toughness.GetValueOrDefault()),

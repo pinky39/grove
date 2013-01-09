@@ -1,13 +1,13 @@
 ﻿namespace Grove.Core.Cards.Effects
 {
-  using Grove.Core.Targeting;
   using Modifiers;
   using Preventions;
+  using Targeting;
 
   public class PreventDamageFromSourceToTarget : Effect
   {
     private ITarget DamageSource { get { return Targets[0]; } }
-    public bool OnlyOnce { get; set; }    
+    public bool OnlyOnce { get; set; }
 
     protected override void ResolveEffect()
     {
@@ -24,7 +24,7 @@
 
       var modifier = Builder
         .Modifier<AddDamagePrevention>(m => m.Prevention = prevention)
-        .CreateModifier(Source.OwningCard, Targets[1], X, Game);      
+        .CreateModifier(Source.OwningCard, Targets[1], X, Game);
 
       Targets[1].AddModifier(modifier);
     }

@@ -28,7 +28,7 @@
               });
             p.EffectTargets = L(Target(Validators.Card(card => card.Is().Creature),
               Zones.YourGraveyard(), minCount: 2, maxCount: 2));
-            p.TargetSelectorAi = TargetSelectorAi.OrderByDescendingScore(Controller.SpellOwner);
+            p.TargetSelectorAi = TargetSelectorAi.OrderByScore(Controller.SpellOwner);
           });
     }
   }

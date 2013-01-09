@@ -26,7 +26,7 @@
           ActivatedAbility(
             "{1}, Sacrifice a permanent: You gain 1 life.",
             Cost<PayMana, Sacrifice>(cost => cost.Amount = 1.Colorless()),
-            Effect<GainLife>(e => e.Amount = 1),
+            Effect<ControllerGainsLife>(e => e.Amount = 1),
             costValidator:
               Target(
                 Validators.Card(controller: Controller.SpellOwner),

@@ -162,6 +162,7 @@
     <Compile Include="Cards\GreatWhale.cs" />
     <Compile Include="Cards\GreenerPastures.cs" />
     <Compile Include="Cards\HeadlongRush.cs" />
+    <Compile Include="Cards\HealingSalve.cs" />
     <Compile Include="Cards\HeroOfBladeHold.cs" />
     <Compile Include="Cards\JaggedLightning.cs" />
     <Compile Include="Cards\LivingDestiny.cs" />
