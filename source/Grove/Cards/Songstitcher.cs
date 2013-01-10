@@ -33,7 +33,7 @@
                 untilEndOfTurn: true))),
             Target(Validators.Card(card => card.IsAttacker && card.Has().Flying), Zones.Battlefield()),
             targetSelectorAi: TargetSelectorAi.PreventAttackerDamage(),
-            timing: All(Timings.DeclareAttackers(), Timings.PassiveTurn())
+            timing: All(Timings.DeclareAttackers(), Timings.Turn(passive: true))
             ));
     }
   }

@@ -126,11 +126,6 @@
       return Steps(Step.FirstMain, Step.SecondMain);
     }
 
-    public static TimingDelegate PassiveTurn()
-    {
-      return p => p.Opponent.IsActive;
-    }
-
     public static TimingDelegate Regenerate()
     {
       return p =>
@@ -295,7 +290,7 @@
           return p.Step == Step.DeclareBlockers && !p.Controller.IsActive &&
             p.Attackers.Any();
         };
-    }    
+    }
 
     public static TimingDelegate IncreaseOwnersPowerAndThougness(int? power, int? toughness)
     {
@@ -489,6 +484,11 @@
     public static TimingDelegate HasAttackers(int count)
     {
       return p => p.Combat.Attackers.Count() >= count;
+    }
+
+    public static TimingDelegate CardHas(Func<Card, bool> predicate)
+    {
+      return p => predicate(p.Card);
     }
   }
 }

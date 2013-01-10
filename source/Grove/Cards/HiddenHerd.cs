@@ -1,9 +1,9 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
+  using Core.Cards.Effects;
   using Core.Cards.Modifiers;
   using Core.Cards.Triggers;
   using Core.Dsl;
@@ -17,7 +17,8 @@
         .Named("Hidden Herd")
         .ManaCost("{G}")
         .Type("Enchantment")
-        .Text("When an opponent plays a nonbasic land, if Hidden Herd is an enchantment, Hidden Herd becomes a 3/3 Beast creature.")
+        .Text(
+          "When an opponent plays a nonbasic land, if Hidden Herd is an enchantment, Hidden Herd becomes a 3/3 Beast creature.")
         .Cast(p => p.Timing = Timings.SecondMain())
         .Abilities(
           TriggeredAbility(
@@ -25,14 +26,14 @@
             Trigger<OnCastedSpell>(t => t.Filter =
               (ability, card) =>
                 ability.Controller != card.Controller && ability.OwningCard.Is().Enchantment && card.Is().NonBasicLand),
-            Effect<Core.Cards.Effects.ApplyModifiersToSelf>(p => p.Effect.Modifiers(
+            Effect<ApplyModifiersToSelf>(p => p.Effect.Modifiers(
               Modifier<ChangeToCreature>(m =>
                 {
                   m.Power = 3;
                   m.Toughness = 3;
                   m.Type = "Creature - Beast";
-                  m.Colors = ManaColors.Green;                                    
-                })              
+                  m.Colors = ManaColors.Green;
+                })
               ))
             , triggerOnlyIfOwningCardIsInPlay: true)
         );

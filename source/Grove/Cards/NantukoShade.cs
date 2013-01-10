@@ -1,5 +1,6 @@
 ﻿namespace Grove.Cards
 {
+  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -23,7 +24,7 @@
         .Abilities(
           ActivatedAbility(
             "{B}: Nantuko Shade gets +1/+1 until end of turn.",
-            Cost<PayMana>(cost => cost.Amount = ManaUnit.Black.ToAmount()),
+            Cost<PayMana>(cost => cost.Amount = ManaAmount.Black),
             Effect<Core.Cards.Effects.ApplyModifiersToSelf>(p => p.Effect.Modifiers(
               Modifier<AddPowerAndToughness>(m =>
                 {

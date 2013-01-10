@@ -143,12 +143,12 @@ o Hidden Guerrillas
 o Hidden Herd
 o Hidden Predators
 o Hidden Spider
-Hidden Stag
-Hollow Dogs
-Hopping Automaton
-Horseshoe Crab
-Humble
-Hush
+o Hidden Stag
+o Hollow Dogs
+o Hopping Automaton
+o Horseshoe Crab
+o Humble
+o Hush
 Ill-Gotten Gains
 Imaginary Pet
 Intrepid Hero

@@ -262,6 +262,10 @@
     <Compile Include="Cards\HiddenHerd.cs" />
     <Compile Include="Cards\HiddenPredators.cs" />
     <Compile Include="Cards\HiddenSpider.cs" />
+    <Compile Include="Cards\HiddenStag.cs" />
+    <Compile Include="Cards\HollowDogs.cs" />
+    <Compile Include="Cards\HoppingAutomaton.cs" />
+    <Compile Include="Cards\HorseshoeCrab.cs" />
     <Compile Include="Cards\Humble.cs" />
     <Compile Include="Cards\Hush.cs" />
     <Compile Include="Cards\HypnoticSpecter.cs" />
@@ -393,6 +397,7 @@
     <Compile Include="Core\Cards\Effects\ExchangeForOpponentsCreature.cs" />
     <Compile Include="Core\Cards\Effects\SearchLibraryPutToHand.cs" />
     <Compile Include="Core\Cards\Effects\TargetPlayerGainsLife.cs" />
+    <Compile Include="Core\Cards\Effects\UntapOwner.cs" />
     <Compile Include="Core\Cards\Effects\UntapSelectedPermanents.cs" />
     <Compile Include="Core\Cards\SpellCounterReason.cs" />
     <Compile Include="Core\Cards\ManaAmountCharacteristic.cs" />
