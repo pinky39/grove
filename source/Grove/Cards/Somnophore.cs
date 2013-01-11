@@ -38,7 +38,7 @@
                   })
                 ))
               )),
-            selectorAi: TargetSelectorAi.Pacifism(),
+            selectorAi: TargetingAi.Pacifism(),
             effectValidator: Target(
               Validators.Card(
                 p => p.Card.Is().Creature && 

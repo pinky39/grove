@@ -32,7 +32,7 @@
                   m.AddLifetime(Lifetime<PermanentGetsUntapedLifetime>(l => l.Permanent = m.Source));
                 }))),
             Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()),
-            targetSelectorAi: TargetSelectorAi.IncreasePowerAndToughness(0, 3, untilEot: false),
+            targetingAi: TargetingAi.IncreasePowerAndToughness(0, 3, untilEot: false),
             timing: Timings.NoRestrictions()));
     }
   }

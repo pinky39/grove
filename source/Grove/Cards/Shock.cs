@@ -21,7 +21,7 @@
             p.Timing = Timings.InstantRemovalTarget();
             p.Effect = Effect<DealDamageToTargets>(e => e.Amount = 2);
             p.EffectTargets = L(Target(Validators.CreatureOrPlayer(), Zones.Battlefield()));
-            p.TargetSelectorAi = TargetSelectorAi.DealDamageSingleSelector(2);
+            p.TargetingAi = TargetingAi.DealDamageSingleSelector(2);
           });
 
     }

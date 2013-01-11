@@ -37,7 +37,7 @@
             Target(
               Validators.Card(x => x.Is().Creature),
               Zones.Battlefield()),
-            targetSelectorAi: TargetSelectorAi.IncreasePowerAndToughness(1, 1, untilEot: false),
+            targetingAi: TargetingAi.IncreasePowerAndToughness(1, 1, untilEot: false),
             timing: Timings.NoRestrictions()
             ));
     }

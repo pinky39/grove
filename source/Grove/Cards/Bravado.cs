@@ -23,7 +23,7 @@
             p.Category = EffectCategories.ToughnessIncrease;
             p.Effect = Effect<Core.Cards.Effects.Attach>(e => e.Modifiers(Modifier<Add11ForEachOtherCreature>()));
             p.EffectTargets = L(Target(Validators.Card(card => card.Is().Creature), Zones.Battlefield()));
-            p.TargetSelectorAi = TargetSelectorAi.CombatEnchantment();
+            p.TargetingAi = TargetingAi.CombatEnchantment();
           });
     }
   }

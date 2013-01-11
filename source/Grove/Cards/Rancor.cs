@@ -1,5 +1,6 @@
 ﻿namespace Grove.Cards
 {
+  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -29,7 +30,7 @@
               Modifier<AddPowerAndToughness>(m => m.Power = 2),
               Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Trample)));
             p.EffectTargets = L(Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));
-            p.TargetSelectorAi = TargetSelectorAi.CombatEnchantment();
+            p.TargetingAi = TargetingAi.CombatEnchantment();
           })
         .Abilities(
           TriggeredAbility(
@@ -39,7 +40,7 @@
                 t.From = Zone.Battlefield;
                 t.To = Zone.Graveyard;
               }),
-            Effect<PutToHand>(e => e.ReturnOwner = true)));
+            Effect<ReturnToHand>(e => e.ReturnOwner = true)));
     }
   }
 }

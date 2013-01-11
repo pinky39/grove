@@ -34,7 +34,7 @@
               }),
             timing: All(
               Any(Timings.BeforeDeath(), Timings.EndOfTurn()),
-              Timings.HasCardInHand(card => card.Is().Artifact)))
+              Timings.HasAtLeastCardsInHand(card => card.Is().Artifact)))
         );
     }
   }

@@ -27,13 +27,13 @@
           TriggeredAbility(
             "When Monk Idealist enters the battlefield, return target enchantment card from your graveyard to your hand.",
             Trigger<OnZoneChanged>(t => t.To = Zone.Battlefield),
-            Effect<PutToHand>(),
+            Effect<ReturnToHand>(),
             Target(
               Validators.Card(card => card.Is().Enchantment),
               Zones.YourGraveyard(),
               mustBeTargetable: false,
               text: "Select an enchantment in your graveyard."),
-            TargetSelectorAi.OrderByScore(Controller.SpellOwner)
+            TargetingAi.OrderByScore(ControlledBy.SpellOwner)
             )
         );
     }

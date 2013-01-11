@@ -26,13 +26,13 @@
             "Sacrifice an enchantment: You gain life equal to the sacrificed enchantment's converted mana cost.",
             Cost<Sacrifice>(),
             Effect<ControllerGainsLife>(e => e.Amount = e.Target().Card().ConvertedCost),
-            costValidator:
+            costTarget:
               Target(Validators.Card(
-                controller: Controller.SpellOwner,
-                filter: card => card.Is().Enchantment),
+                ControlledBy.SpellOwner,
+                card => card.Is().Enchantment),
                 Zones.Battlefield(),
                 text: "Select an enchantment to sacrifice.", mustBeTargetable: false),
-            targetSelectorAi: TargetSelectorAi.CostSacrificeGainLife()
+            targetingAi: TargetingAi.CostSacrificeGainLife()
             )
         );
     }

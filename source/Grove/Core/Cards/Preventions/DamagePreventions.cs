@@ -52,7 +52,7 @@
     {
       foreach (var preventionEffect in _preventions.ToList())
       {
-        amount = preventionEffect.PreventDealtDamage(amount);
+        amount = preventionEffect.PreventDealtCombatDamage(amount);
 
         if (amount == 0)
           break;

@@ -38,7 +38,7 @@
                   m.Toughness = 2;
                 }, untilEndOfTurn: true))),
             Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()),
-            targetSelectorAi: TargetSelectorAi.IncreasePowerAndToughness(2, 2),
+            targetingAi: TargetingAi.IncreasePowerAndToughness(2, 2),
             timing: Timings.NoRestrictions(),
             category: EffectCategories.ToughnessIncrease
             )

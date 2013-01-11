@@ -34,7 +34,7 @@
             Target(
               Validators.Card(card => card.Is().Creature && !card.HasColors(ManaColors.Black)),
               Zones.Battlefield()),
-            selectorAi: TargetSelectorAi.Destroy(),
+            selectorAi: TargetingAi.Destroy(),
             abilityCategory: EffectCategories.Destruction));
     }
   }

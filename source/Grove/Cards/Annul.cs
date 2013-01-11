@@ -25,7 +25,7 @@
             p.EffectTargets = L(Target(
               Validators.CounterableSpell(card => card.Is().Artifact || card.Is().Enchantment),
               Zones.Stack()));
-            p.TargetSelectorAi = TargetSelectorAi.CounterSpell();
+            p.TargetingAi = TargetingAi.CounterSpell();
           });
     }
   }

@@ -30,11 +30,11 @@
                   Cost<Tap>(),
                   Effect<DealDamageToTargets>(e1 => e1.Amount = 1),
                   Target(Validators.CreatureOrPlayer(), Zones.Battlefield()),
-                  targetSelectorAi: TargetSelectorAi.DealDamageSingleSelector(1),
+                  targetingAi: TargetingAi.DealDamageSingleSelector(1),
                   timing: p.Timing = Timings.InstantRemovalTarget())
                 )));
             p.EffectTargets = L(Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));
-            p.TargetSelectorAi = TargetSelectorAi.OrderByScore(descending: false);
+            p.TargetingAi = TargetingAi.OrderByScore(descending: false);
           });
     }
   }

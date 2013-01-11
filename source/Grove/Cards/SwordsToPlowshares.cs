@@ -22,7 +22,7 @@
             p.Category = EffectCategories.Exile;
             p.Effect = Effect<ExileTargets>(e => e.ControllerGainsLifeEqualToToughness = true);
             p.EffectTargets = L(Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));
-            p.TargetSelectorAi = TargetSelectorAi.Exile();
+            p.TargetingAi = TargetingAi.Exile();
           });
     }
   }

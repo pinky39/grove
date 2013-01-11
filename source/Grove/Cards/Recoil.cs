@@ -21,9 +21,9 @@
           {
             p.Timing = Timings.InstantRemovalTarget();
             p.Category = EffectCategories.Bounce;
-            p.Effect = Effect<PutToHand>(e => { e.Discard = 1; });
+            p.Effect = Effect<ReturnToHand>(e => { e.Discard = 1; });
             p.EffectTargets = L(Target(Validators.Card(), Zones.Battlefield()));
-            p.TargetSelectorAi = TargetSelectorAi.Bounce();
+            p.TargetingAi = TargetingAi.Bounce();
           });
     }
   }

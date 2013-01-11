@@ -4,7 +4,6 @@
   using Core;
   using Core.Ai;
   using Core.Cards.Costs;
-  using Core.Cards.Effects;
   using Core.Dsl;
   using Core.Targeting;
 
@@ -20,14 +19,14 @@
         .FlavorText(
           "Although some of the students quickly grasped the concept, the others could summon only blackboards.")
         .Power(2)
-        .Toughness(2)        
+        .Toughness(2)
         .Abilities(
           ActivatedAbility(
             "{T}: Return Wizard Mentor and target creature you control to their owner's hand.",
             Cost<Tap>(),
-            Effect<PutToHand>(e => { e.ReturnOwner = true; }),
-            Target(Validators.Card(card => card.Is().Creature, Controller.SpellOwner), Zones.Battlefield()),
-            targetSelectorAi: TargetSelectorAi.BounceSelfAndTargetCreatureYouControl(),
+            Effect<Core.Cards.Effects.ReturnToHand>(e => { e.ReturnOwner = true; }),
+            Target(Validators.Card(ControlledBy.SpellOwner, card => card.Is().Creature), Zones.Battlefield()),
+            targetingAi: TargetingAi.BounceSelfAndTargetCreatureYouControl(),
             timing: Timings.NoRestrictions()
             )
         );

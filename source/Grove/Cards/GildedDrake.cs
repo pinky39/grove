@@ -30,9 +30,9 @@
             Trigger<OnZoneChanged>(t => { t.To = Zone.Battlefield; }),
             Effect<ExchangeForOpponentsCreature>(),
             abilityCategory: EffectCategories.Destruction,
-            selectorAi: TargetSelectorAi.GainControl(),
+            selectorAi: TargetingAi.GainControl(),
             effectValidator: Target(
-              Validators.Card(x => x.Is().Creature, Controller.Opponent),
+              Validators.Card(ControlledBy.Opponent, x => x.Is().Creature),
               Zones.Battlefield()),            
             triggerOnlyIfOwningCardIsInPlay: true));
     }

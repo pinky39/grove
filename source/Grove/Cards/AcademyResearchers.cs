@@ -27,7 +27,7 @@
             Trigger<OnZoneChanged>(t => t.To = Zone.Battlefield),
             Effect<EnchantOwnerWithTarget>(),
             Target(Validators.Card(p => p.Card.Is().Aura && p.Card.CanTarget(p.Source)), Zones.OwnersHand(), minCount: 0),
-            TargetSelectorAi.AttachToSource())
+            TargetingAi.AttachToSource())
         );
     }
   }

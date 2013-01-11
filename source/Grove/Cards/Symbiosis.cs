@@ -30,7 +30,7 @@
                 }, untilEndOfTurn: true)));
             p.EffectTargets =
               L(Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield(), minCount: 2, maxCount: 2));
-            p.TargetSelectorAi = TargetSelectorAi.IncreasePowerAndToughness(2, 2);
+            p.TargetingAi = TargetingAi.IncreasePowerAndToughness(2, 2);
           });
     }
   }

@@ -149,24 +149,24 @@ o Hopping Automaton
 o Horseshoe Crab
 o Humble
 o Hush
-Ill-Gotten Gains
-Imaginary Pet
-Intrepid Hero
-Island
-Island
-Island
-Island
-Jagged Lightning
-Karn, Silver Golem
-Launch
-Lay Waste
+o Ill-Gotten Gains
+o Imaginary Pet
+o Intrepid Hero
+o Island
+o Island
+o Island
+o Island
+o Jagged Lightning
+o Karn, Silver Golem
+o Launch
+o Lay Waste
 Lifeline
-Lightning Dragon
-Lilting Refrain
-Lingering Mirage
-Looming Shade
-Lotus Blossom
-Lull
+o Lightning Dragon
+o Lilting Refrain
+o Lingering Mirage
+o Looming Shade
+o Lotus Blossom
+o Lull
 Lurking Evil
 Mana Leech
 Meltdown

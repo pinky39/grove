@@ -26,7 +26,7 @@
             p.Description = "Target player gains 3 life";
             p.Effect = Effect<TargetPlayerGainsLife>(e => e.Amount = 3);
             p.EffectTargets = L(Target(Validators.Player(), Zones.None()));
-            p.TargetSelectorAi = TargetSelectorAi.Controller();
+            p.TargetingAi = TargetingAi.Controller();
           })
         .Cast(p =>
           {
@@ -35,7 +35,7 @@
               Modifier<AddDamagePrevention>(m => m.Prevention =
                 Prevention<PreventDamageToTarget>(pr => { pr.Amount = 3; }), untilEndOfTurn: true)));
             p.EffectTargets = L(Target(Validators.CreatureOrPlayer(), Zones.Battlefield()));
-            p.TargetSelectorAi = TargetSelectorAi.PreventNextDamageToCreatureOrPlayer(3);
+            p.TargetingAi = TargetingAi.PreventNextDamageToCreatureOrPlayer(3);
           });
     }
   }

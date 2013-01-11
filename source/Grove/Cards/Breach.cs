@@ -25,7 +25,7 @@
               Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Fear, untilEndOfTurn: true),
               Modifier<AddPowerAndToughness>(m => { m.Power = 2; }, untilEndOfTurn: true)));
             p.EffectTargets = L(Target(Validators.Card(card => card.Is().Creature), Zones.Battlefield()));
-            p.TargetSelectorAi = TargetSelectorAi.AddEvasion();
+            p.TargetingAi = TargetingAi.AddEvasion();
           });
     }
   }

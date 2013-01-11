@@ -25,7 +25,7 @@
             p.Timing = Timings.FirstMain();
             p.Effect = Effect<Attach>();
             p.EffectTargets = L(Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));
-            p.TargetSelectorAi = TargetSelectorAi.CombatEnchantment();
+            p.TargetingAi = TargetingAi.CombatEnchantment();
           })                                
         .Abilities(
           TriggeredAbility(

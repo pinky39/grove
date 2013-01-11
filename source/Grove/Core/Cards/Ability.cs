@@ -41,7 +41,7 @@
     }
 
     public void Targets(IEnumerable<ITargetValidatorFactory> effect, IEnumerable<ITargetValidatorFactory> cost,
-      TargetSelectorAiDelegate aiSelector)
+      TargetingAiDelegate aiSelector)
     {
       _targetSelector = new TargetSelector(
         effectValidators: effect.Select(x => x.Create(OwningCard, Game)),

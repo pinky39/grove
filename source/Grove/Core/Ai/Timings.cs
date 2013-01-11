@@ -326,7 +326,7 @@
         };
     }
 
-    public static TimingDelegate ChangeToCreature(int minAvailableMana)
+    public static TimingDelegate ChangeToCreature(int minAvailableMana = 0)
     {
       return p =>
         {
@@ -431,10 +431,16 @@
       return p => p.Controller.Graveyard.Count(predicate) >= count;
     }
 
-    public static TimingDelegate HasCardInHand(Func<Card, bool> predicate)
+    public static TimingDelegate HasAtLeastCardsInHand(Func<Card, bool> predicate = null, int count = 1)
     {
       predicate = predicate ?? delegate { return true; };
-      return p => p.Controller.Hand.Count(predicate) > 0;
+      return p => p.Controller.Hand.Count(predicate) >= count;
+    }
+
+    public static TimingDelegate HasLessThanCardsInHand(Func<Card, bool> predicate = null, int count = 1)
+    {
+      predicate = predicate ?? delegate { return true; };
+      return p => p.Controller.Hand.Count(predicate) < count;
     }
 
     public static TimingDelegate HasPermanent(Func<Card, bool> predicate)

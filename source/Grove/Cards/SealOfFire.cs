@@ -24,7 +24,7 @@
             Cost<Sacrifice>(),
             Effect<DealDamageToTargets>(e => e.Amount = 2), 
             Target(Validators.CreatureOrPlayer(), Zones.Battlefield()),
-            targetSelectorAi: TargetSelectorAi.DealDamageSingleSelector(2),
+            targetingAi: TargetingAi.DealDamageSingleSelector(2),
             timing: Timings.InstantRemovalTarget()));
     }
   }

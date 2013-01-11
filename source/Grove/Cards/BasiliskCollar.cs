@@ -31,10 +31,10 @@
               Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Deathtouch),
               Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Lifelink)
               )),
-            effectValidator: Target(
+            effectTarget: Target(
               Validators.ValidEquipmentTarget(),
               Zones.Battlefield()),
-            targetSelectorAi: TargetSelectorAi.CombatEquipment(),
+            targetingAi: TargetingAi.CombatEquipment(),
             timing: Timings.AttachCombatEquipment(),
             activateAsSorcery: true));
     }

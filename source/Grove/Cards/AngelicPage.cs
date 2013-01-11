@@ -35,7 +35,7 @@
                 },
                 untilEndOfTurn: true))),
             Target(Validators.AttackerOrBlocker(), Zones.Battlefield()),
-            targetSelectorAi: TargetSelectorAi.PumpAttackerOrBlocker(power: 1, thougness: 1),
+            targetingAi: TargetingAi.PumpAttackerOrBlocker(power: 1, thougness: 1),
             timing: Timings.DeclareBlockers(),
             category: EffectCategories.ToughnessIncrease));
     }

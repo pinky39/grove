@@ -1,5 +1,6 @@
 ﻿namespace Grove.Cards
 {
+  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -25,7 +26,7 @@
             p.Timing = Timings.FirstMain();
             p.Effect = Effect<Attach>(e => e.Modifiers(Modifier<IncreaseManaOutput>(m => m.Amount = ManaAmount.Any)));
             p.EffectTargets = L(Target(Validators.Card(card => card.Is().Land), Zones.Battlefield()));
-            p.TargetSelectorAi = TargetSelectorAi.EnchantYourLand();
+            p.TargetingAi = TargetingAi.EnchantLand(ControlledBy.SpellOwner);
           });
     }
   }

@@ -26,17 +26,17 @@
           ActivatedAbility(
             "{2}, Sacrifice a permanent: Return target creature to its owner's hand.",
             Cost<PayMana, Sacrifice>(cost => cost.Amount = 2.Colorless()),
-            Effect<PutToHand>(),
-            effectValidator: Target(
+            Effect<Core.Cards.Effects.ReturnToHand>(),
+            effectTarget: Target(
               Validators.Card(x => x.Is().Creature), 
               Zones.Battlefield(),
               text: "Select a creature to bounce."),
-            costValidator: Target(
-                Validators.Card(controller: Controller.SpellOwner),
+            costTarget: Target(
+                Validators.Card(ControlledBy.SpellOwner),
                 Zones.Battlefield(),
                 text: "Select a permanent to sacrifice.",
                 mustBeTargetable: false),
-            targetSelectorAi: TargetSelectorAi.SacPermanentToBounce(),
+            targetingAi: TargetingAi.SacPermanentToBounce(),
             timing: Any(Timings.InstantRemovalTarget()))
         );
     }

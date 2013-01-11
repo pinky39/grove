@@ -28,7 +28,7 @@
             Trigger<OnZoneChanged>(t => t.To = Zone.Battlefield),
             Effect<Core.Cards.Effects.DiscardCards>(p => p.Effect.Count = 2),
             Target(Validators.Player(), Zones.None()), 
-            TargetSelectorAi.Opponent()));
+            TargetingAi.Opponent()));
     }
   }
 }

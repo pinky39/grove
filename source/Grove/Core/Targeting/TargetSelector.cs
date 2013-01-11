@@ -18,7 +18,7 @@
     public static readonly TargetSelector NullSelector = new TargetSelector();
     
     public TargetSelector(IEnumerable<TargetValidator> effectValidators,
-      IEnumerable<TargetValidator> costValidators, TargetSelectorAiDelegate aiSelector)
+      IEnumerable<TargetValidator> costValidators, TargetingAiDelegate aiSelector)
     {
       _effectValidators.AddRange(effectValidators);
       _costValidators.AddRange(costValidators);
@@ -27,7 +27,7 @@
     
     private TargetSelector() {}
 
-    public TargetSelectorAiDelegate AiSelector { get; private set; }
+    public TargetingAiDelegate AiSelector { get; private set; }
 
     public int Count { get { return _costValidators.Count + _effectValidators.Count; } }
     

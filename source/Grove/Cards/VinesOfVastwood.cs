@@ -27,7 +27,7 @@
             p.Effect = Effect<ApplyModifiersToTargets>(e => e.Modifiers(
               Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Hexproof, untilEndOfTurn: true)));
             p.EffectTargets = L(Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));
-            p.TargetSelectorAi = TargetSelectorAi.ShieldHexproof();
+            p.TargetingAi = TargetingAi.ShieldHexproof();
           })
         .Cast(p =>
           {
@@ -42,7 +42,7 @@
                   m.Toughness = 4;
                 }, untilEndOfTurn: true)));
             p.EffectTargets = L(Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));
-            p.TargetSelectorAi = Any(TargetSelectorAi.ShieldHexproof(), TargetSelectorAi.IncreasePowerAndToughness(4, 4));
+            p.TargetingAi = Any(TargetingAi.ShieldHexproof(), TargetingAi.IncreasePowerAndToughness(4, 4));
           });
     }
   }

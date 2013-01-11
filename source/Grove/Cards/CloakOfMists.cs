@@ -26,7 +26,7 @@
             p.Effect = Effect<Attach>(e => e.Modifiers(Modifier<AddStaticAbility>(
               m => m.StaticAbility = Static.Unblockable)));
             p.EffectTargets = L(Target(Validators.Card(card => card.Is().Creature), Zones.Battlefield()));
-            p.TargetSelectorAi = TargetSelectorAi.CombatEnchantment();
+            p.TargetingAi = TargetingAi.CombatEnchantment();
           });
     }
   }

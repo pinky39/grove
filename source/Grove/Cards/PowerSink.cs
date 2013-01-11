@@ -29,7 +29,7 @@
                 e.TapLandsEmptyPool = true;
               });
             p.EffectTargets = L(Target(Validators.CounterableSpell(), Zones.Stack()));
-            p.TargetSelectorAi = TargetSelectorAi.CounterSpell();
+            p.TargetingAi = TargetingAi.CounterSpell();
           });
     }
   }

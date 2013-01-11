@@ -27,7 +27,7 @@
                 e.LifeLoss = 2;
               });
             p.EffectTargets = L(Target(Validators.Player(), Zones.None()));
-            p.TargetSelectorAi = TargetSelectorAi.Controller();
+            p.TargetingAi = TargetingAi.Controller();
           });
     }
   }

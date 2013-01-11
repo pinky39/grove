@@ -5,8 +5,8 @@
   using Core.Ai;
   using Core.Cards.Effects;
   using Core.Dsl;
-  using Core.Targeting;  
-  
+  using Core.Targeting;
+
   public class Disenchant : CardsSource
   {
     public override IEnumerable<ICardFactory> GetCards()
@@ -24,7 +24,7 @@
             p.Effect = Effect<DestroyTargetPermanents>();
             p.EffectTargets = L(Target(Validators.Card(card => card.Is().Artifact || card.Is().Enchantment),
               Zones.Battlefield()));
-            p.TargetSelectorAi = TargetSelectorAi.OrderByScore();
+            p.TargetingAi = TargetingAi.OrderByScore();
           });
     }
   }

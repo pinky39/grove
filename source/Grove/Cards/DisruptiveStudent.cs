@@ -27,10 +27,10 @@
             "{T}: Counter target spell unless its controller pays {1}.",
             Cost<Tap>(),
             Effect<CounterTargetSpell>(e => e.DoNotCounterCost = 1.Colorless()),
-            effectValidator: Target(
+            effectTarget: Target(
               Validators.CounterableSpell(),
               Zones.Stack()),
-            targetSelectorAi: TargetSelectorAi.CounterSpell(),
+            targetingAi: TargetingAi.CounterSpell(),
             timing: Timings.CounterSpell(1)
             )
         );

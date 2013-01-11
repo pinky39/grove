@@ -14,7 +14,7 @@
   public abstract class Effect : ITarget, IHasColors
   {
     public Action<Effect> AfterResolve = delegate { };
-    public Action<Effect> BeforeResolve = delegate { };
+    public Func<Effect, bool> BeforeResolve = delegate { return true; };
     private Targets _targets;
     protected EffectCategories EffectCategories { get; set; }
     private Trackable<bool> _wasResolved;
@@ -129,9 +129,12 @@
 
     public void Resolve()
     {
-      BeforeResolve(this);
-      ResolveEffect();
-      AfterResolve(this);
+      if (BeforeResolve(this))
+      {
+        ResolveEffect();
+        AfterResolve(this);
+      }
+      
       WasResolved = true;      
     }
 

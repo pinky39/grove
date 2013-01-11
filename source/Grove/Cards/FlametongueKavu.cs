@@ -31,7 +31,7 @@
             Trigger<OnZoneChanged>(t => t.To = Zone.Battlefield),
             Effect<DealDamageToTargets>(e => e.Amount = 4),
             Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()),
-            TargetSelectorAi.DealDamageSingleSelector(4)));
+            TargetingAi.DealDamageSingleSelector(4)));
     }
   }
 }

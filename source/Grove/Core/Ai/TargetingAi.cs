@@ -7,32 +7,19 @@
   using Mana;
   using Targeting;
 
-  public static class TargetSelectorAi
+  public static class TargetingAi
   {
     public delegate IEnumerable<ITarget> InputSelectorDelegate(TargetsCandidates candidates);
 
-    public delegate IEnumerable<Targets> OutputSelectorDelegate(IEnumerable<ITarget> targets);
+    public delegate IEnumerable<Targets> OutputSelectorDelegate(IEnumerable<ITarget> targets);    
 
-    public static TargetSelectorAiDelegate OrderByScore(Controller controller = Ai.Controller.Opponent, bool descending = true)
+    public static TargetingAiDelegate OrderByScore(ControlledBy controlledBy = ControlledBy.Opponent,
+      bool descending = true)
     {
       return p =>
         {
-          var candidates = p.Candidates();
-
-          switch (controller)
-          {
-            case Ai.Controller.Opponent:
-              candidates = candidates
-                .RestrictController(p.Opponent);
-              break;
-            case Ai.Controller.SpellOwner:
-              candidates = candidates
-                .RestrictController(p.Controller);
-              break;
-          }
-
-          var orderedCandidates = candidates            
-            .OrderByDescending(x => descending ? x.Card().Score : -x.Card().Score)                        
+          var orderedCandidates = p.Candidates(controlledBy)
+            .OrderByDescending(x => descending ? x.Card().Score : -x.Card().Score)
             .Select(x => x.Card())
             .ToList();
 
@@ -48,7 +35,7 @@
 
           if (targetCount == 1)
           {
-            return p.Targets(candidates);
+            return p.Targets(p.Candidates(controlledBy));
           }
 
           var grouped = GroupCandidates(orderedCandidates, targetCount);
@@ -56,7 +43,7 @@
         };
     }
 
-    public static TargetSelectorAiDelegate TapOpponentsCreatures()
+    public static TargetingAiDelegate TapOpponentsCreatures()
     {
       return p =>
         {
@@ -69,7 +56,7 @@
         };
     }
 
-    public static TargetSelectorAiDelegate TapOpponentsLands()
+    public static TargetingAiDelegate TapOpponentsLands()
     {
       return p =>
         {
@@ -82,7 +69,7 @@
         };
     }
 
-    public static TargetSelectorAiDelegate UntapYourCreatures()
+    public static TargetingAiDelegate UntapYourCreatures()
     {
       return p =>
         {
@@ -96,7 +83,7 @@
     }
 
 
-    public static TargetSelectorAiDelegate Opponent()
+    public static TargetingAiDelegate Opponent()
     {
       return p =>
         {
@@ -105,7 +92,7 @@
         };
     }
 
-    public static TargetSelectorAiDelegate PumpAttackerOrBlocker(int? power, int? thougness)
+    public static TargetingAiDelegate PumpAttackerOrBlocker(int? power, int? thougness)
     {
       return p =>
         {
@@ -130,9 +117,9 @@
     }
 
     private static IEnumerable<Card> GetCandidatesForBlockerPowerToughnessIncrease(int? powerIncrease,
-      int? toughnessIncrease, TargetSelectorAiParameters p)
+      int? toughnessIncrease, TargetingAiParameters p)
     {
-      return p.Candidates().RestrictController(p.Controller)
+      return p.Candidates(ControlledBy.SpellOwner)
         .Where(x => x.Card().IsBlocker)
         .Select(
           x =>
@@ -153,9 +140,9 @@
 
 
     private static IEnumerable<Card> GetCandidatesForAttackerPowerToughnessIncrease(int? powerIncrease,
-      int? toughnessIncrease, TargetSelectorAiParameters p)
+      int? toughnessIncrease, TargetingAiParameters p)
     {
-      return p.Candidates().RestrictController(p.Controller)
+      return p.Candidates(ControlledBy.SpellOwner)
         .Where(x => x.Card().IsAttacker)
         .Select(
           x =>
@@ -174,18 +161,18 @@
         .Select(x => x.Card);
     }
 
-    public static TargetSelectorAiDelegate CounterSpell()
+    public static TargetingAiDelegate CounterSpell()
     {
       return p =>
         {
-          var candidates = p.Candidates().RestrictController(p.Opponent)
+          var candidates = p.Candidates(ControlledBy.Opponent)
             .Take(1);
 
           return p.Targets(candidates);
         };
     }
 
-    public static TargetSelectorAiDelegate CombatEquipment()
+    public static TargetingAiDelegate CombatEquipment()
     {
       return p =>
         {
@@ -216,12 +203,12 @@
         };
     }
 
-    public static TargetSelectorAiDelegate DealDamageSingleSelector(Func<TargetSelectorAiParameters, int> amount)
+    public static TargetingAiDelegate DealDamageSingleSelector(Func<TargetingAiParameters, int> amount)
     {
       return p => DealDamageSingleSelector(amount(p))(p);
     }
 
-    public static TargetSelectorAiDelegate DealDamageMultipleSelectors(int amount)
+    public static TargetingAiDelegate DealDamageMultipleSelectors(int amount)
     {
       return p =>
         {
@@ -264,7 +251,7 @@
     }
 
     private static IEnumerable<ITarget> OrderByDamageScore(this IEnumerable<ITarget> targets, int amount,
-      TargetSelectorAiParameters p)
+      TargetingAiParameters p)
     {
       var candidates = targets
         .Where(x => x == p.Opponent)
@@ -288,7 +275,7 @@
       return candidates;
     }
 
-    public static TargetSelectorAiDelegate DealDamageSingleSelector(int? amount = null)
+    public static TargetingAiDelegate DealDamageSingleSelector(int? amount = null)
     {
       return p =>
         {
@@ -355,7 +342,7 @@
       return 0;
     }
 
-    public static TargetSelectorAiDelegate CombatEnchantment()
+    public static TargetingAiDelegate CombatEnchantment()
     {
       return p =>
         {
@@ -375,7 +362,7 @@
         };
     }
 
-    public static TargetSelectorAiDelegate ShieldHexproof()
+    public static TargetingAiDelegate ShieldHexproof()
     {
       return p =>
         {
@@ -389,7 +376,7 @@
     }
 
     private static IEnumerable<ITarget> GetPermanentsThatCanBeKilled(this IEnumerable<ITarget> targets,
-      TargetSelectorAiParameters p)
+      TargetingAiParameters p)
     {
       return targets
         .Where(x => x.Card().Controller == p.Controller)
@@ -397,7 +384,7 @@
     }
 
     private static IEnumerable<ITarget> GetBounceCandidates(this IEnumerable<ITarget> targets,
-      TargetSelectorAiParameters p)
+      TargetingAiParameters p)
     {
       return targets
         .Where(x => x.Card().Controller != p.Controller)
@@ -410,7 +397,7 @@
         .Select(x => x.Card);
     }
 
-    public static TargetSelectorAiDelegate ShieldIndestructible()
+    public static TargetingAiDelegate ShieldIndestructible()
     {
       return p =>
         {
@@ -423,7 +410,7 @@
         };
     }
 
-    public static TargetSelectorAiDelegate Destroy()
+    public static TargetingAiDelegate Destroy()
     {
       return p =>
         {
@@ -435,7 +422,7 @@
         };
     }
 
-    public static TargetSelectorAiDelegate Any(params TargetSelectorAiDelegate[] delegates)
+    public static TargetingAiDelegate Any(params TargetingAiDelegate[] delegates)
     {
       return p =>
         {
@@ -459,7 +446,7 @@
         };
     }
 
-    public static TargetSelectorAiDelegate ReduceToughness(int? amount = null)
+    public static TargetingAiDelegate ReduceToughness(int? amount = null)
     {
       return p =>
         {
@@ -479,7 +466,7 @@
         };
     }
 
-    public static TargetSelectorAiDelegate AddEvasion()
+    public static TargetingAiDelegate AddEvasion()
     {
       return p =>
         {
@@ -497,7 +484,7 @@
         };
     }
 
-    public static TargetSelectorAiDelegate IncreasePowerAndToughness(int? power, int? toughness, bool untilEot = true)
+    public static TargetingAiDelegate IncreasePowerAndToughness(int? power, int? toughness, bool untilEot = true)
     {
       return p =>
         {
@@ -569,7 +556,7 @@
       return targetsCandidates;
     }
 
-    public static TargetSelectorAiDelegate CostTapOrSacCreature(bool canUseSelf = true)
+    public static TargetingAiDelegate CostTapOrSacCreature(bool canUseSelf = true)
     {
       return p =>
         {
@@ -581,7 +568,7 @@
         };
     }
 
-    public static TargetSelectorAiDelegate CostSacrificeGainLife()
+    public static TargetingAiDelegate CostSacrificeGainLife()
     {
       return p =>
         {
@@ -609,12 +596,12 @@
         };
     }
 
-    public static TargetSelectorAiDelegate Bounce()
+    public static TargetingAiDelegate Bounce()
     {
       return p => p.Targets(p.Candidates().GetBounceCandidates(p));
     }
 
-    public static TargetSelectorAiDelegate Controller()
+    public static TargetingAiDelegate Controller()
     {
       return p =>
         {
@@ -623,12 +610,12 @@
         };
     }
 
-    public static TargetSelectorAiDelegate Exile()
+    public static TargetingAiDelegate Exile()
     {
       return Destroy();
     }
 
-    public static TargetSelectorAiDelegate TapCreature()
+    public static TargetingAiDelegate TapCreature()
     {
       return p =>
         {
@@ -641,7 +628,7 @@
         };
     }
 
-    public static TargetSelectorAiDelegate CreatureWithGreatestPower()
+    public static TargetingAiDelegate CreatureWithGreatestPower()
     {
       return p =>
         {
@@ -653,7 +640,7 @@
         };
     }
 
-    public static TargetSelectorAiDelegate PreventAllDamageFromSourceToTarget()
+    public static TargetingAiDelegate PreventAllDamageFromSourceToTarget()
     {
       return p =>
         {
@@ -739,7 +726,7 @@
         };
     }
 
-    public static TargetSelectorAiDelegate DamageRedirection()
+    public static TargetingAiDelegate DamageRedirection()
     {
       return p =>
         {
@@ -757,7 +744,7 @@
         };
     }
 
-    private static int CalculateDamageRedirectionScore(Card card, TargetSelectorAiParameters p)
+    private static int CalculateDamageRedirectionScore(Card card, TargetingAiParameters p)
     {
       const int protectionOffset = 200;
 
@@ -774,7 +761,7 @@
       return card.Toughness.Value - 3;
     }
 
-    public static TargetSelectorAiDelegate PreventDamageFromSourceToController()
+    public static TargetingAiDelegate PreventDamageFromSourceToController()
     {
       return p =>
         {
@@ -808,19 +795,18 @@
         };
     }
 
-    public static TargetSelectorAiDelegate GreatestConvertedManaCost()
+    public static TargetingAiDelegate GreatestConvertedManaCost(ControlledBy controlledBy = ControlledBy.Any)
     {
       return p =>
         {
-          var candidates = p.Candidates()
-            .OrderBy(x => x.Card().ManaCost.Converted)
-            .Take(1);
+          var candidates = p.Candidates(controlledBy)
+            .OrderBy(x => x.Card().ManaCost.Converted);            
 
           return p.Targets(candidates);
         };
     }
 
-    public static TargetSelectorAiDelegate PreventNextDamageToCreatureOrPlayer(int amount)
+    public static TargetingAiDelegate PreventNextDamageToCreatureOrPlayer(int amount)
     {
       return p =>
         {
@@ -891,7 +877,7 @@
         };
     }
 
-    public static TargetSelectorAiDelegate PreventAttackerDamage()
+    public static TargetingAiDelegate PreventAttackerDamage()
     {
       return p =>
         {
@@ -902,7 +888,7 @@
         };
     }
 
-    public static TargetSelectorAiDelegate Pacifism()
+    public static TargetingAiDelegate Pacifism()
     {
       return p =>
         {
@@ -927,7 +913,7 @@
         };
     }
 
-    public static TargetSelectorAiDelegate DealDamageSingleSelectorDistribute(int? amount = null)
+    public static TargetingAiDelegate DealDamageSingleSelectorDistribute(int? amount = null)
     {
       return p =>
         {
@@ -981,7 +967,7 @@
         };
     }
 
-    public static TargetSelectorAiDelegate BounceSelfAndTargetCreatureYouControl()
+    public static TargetingAiDelegate BounceSelfAndTargetCreatureYouControl()
     {
       return p =>
         {
@@ -1002,12 +988,12 @@
         };
     }
 
-    public static TargetSelectorAiDelegate GainControl()
+    public static TargetingAiDelegate GainControl()
     {
       return Destroy();
     }
 
-    public static TargetSelectorAiDelegate ReducePower(int? amount)
+    public static TargetingAiDelegate ReducePower(int? amount)
     {
       return p =>
         {
@@ -1042,7 +1028,7 @@
       return damage;
     }
 
-    public static TargetSelectorAiDelegate AttachToSource()
+    public static TargetingAiDelegate AttachToSource()
     {
       return p =>
         {
@@ -1055,7 +1041,7 @@
         };
     }
 
-    public static TargetSelectorAiDelegate UntapYourLands()
+    public static TargetingAiDelegate UntapYourLands()
     {
       return p =>
         {
@@ -1081,7 +1067,7 @@
     }
 
 
-    public static TargetSelectorAiDelegate SacPermanentToBounce()
+    public static TargetingAiDelegate SacPermanentToBounce()
     {
       return p =>
         {
@@ -1108,7 +1094,7 @@
         };
     }
 
-    public static TargetSelectorAiDelegate RemoveCardsFromOpponentsGraveyard()
+    public static TargetingAiDelegate RemoveCardsFromOpponentsGraveyard()
     {
       return p =>
         {
@@ -1138,7 +1124,7 @@
         };
     }
 
-    public static TargetSelectorAiDelegate DiscardCardsFromOpponentsHand()
+    public static TargetingAiDelegate DiscardCardsFromOpponentsHand()
     {
       return p =>
         {
@@ -1168,27 +1154,25 @@
         };
     }
 
-    public static TargetSelectorAiDelegate EnchantYourLand()
+    public static TargetingAiDelegate EnchantLand(ControlledBy controlledBy)
     {
       return p =>
         {
-          var candidates = p.Candidates()
-            .Where(x => x.Card().Controller == p.Controller)
-            .OrderBy(x => x.Card().Attachments.Count(a => a.Is().Aura))
+          var candidates = p.Candidates(controlledBy)            
             .Take(1);
 
           return p.Targets(candidates);
         };
     }
 
-    public static TargetSelectorAiDelegate CostSacrificeRegenerate()
+    public static TargetingAiDelegate CostSacrificeRegenerate()
     {
       return p => p.Targets(p.Candidates()
         .OrderBy(x => x.Card().Score)
         .Take(2));
     }
 
-    public static TargetSelectorAiDelegate CostSacrificeDrawCards(Func<Card, bool> filter = null)
+    public static TargetingAiDelegate CostSacrificeDrawCards(Func<Card, bool> filter = null)
     {
       filter = filter ?? delegate { return true; };
 
@@ -1212,6 +1196,6 @@
 
           return p.Targets(candidates);
         };
-    }    
+    }
   }
 }

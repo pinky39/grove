@@ -46,8 +46,7 @@
     private readonly string _string;
     private bool _isCreature;
     private bool _isLand;
-    private bool _isLegendary;
-    private bool _isUncastable;
+    private bool _isLegendary;    
 
     private CardType(IEnumerable<string> types)
     {
@@ -150,8 +149,7 @@
     {
       _isCreature = Is("creature");
       _isLand = Is("land");
-      _isLegendary = Is("legendary");
-      _isUncastable = Is("uncastable");
+      _isLegendary = Is("legendary");      
     }
 
     public static implicit operator CardType(string cardTypes)
@@ -166,6 +164,16 @@
       types.UnionWith(right._map);
 
       return new CardType(types);
+    }
+
+    public CardType ReplaceBasicLandTypeWith(string basicLandType)
+    {
+      return _string
+        .Replace("Forest", basicLandType)
+        .Replace("Mountain", basicLandType)
+        .Replace("Plains", basicLandType)
+        .Replace("Island", basicLandType)
+        .Replace("Swamp", basicLandType);
     }
   }
 }

@@ -166,7 +166,7 @@
     {
       _game.Publish(new PlayersInterestChanged
         {
-          Visual = Card
+          Visual = this
         });
     }
 

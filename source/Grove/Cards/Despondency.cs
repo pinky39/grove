@@ -26,7 +26,7 @@
             p.Effect = Effect<Attach>(
               e => e.Modifiers(Modifier<AddPowerAndToughness>(m => m.Power = -2)));
             p.EffectTargets = L(Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));
-            p.TargetSelectorAi = TargetSelectorAi.ReducePower(2);
+            p.TargetingAi = TargetingAi.ReducePower(2);
           })                        
         .Abilities(
           TriggeredAbility(
@@ -36,7 +36,7 @@
                 t.From = Zone.Battlefield;
                 t.To = Zone.Graveyard;
               }),
-            Effect<PutToHand>(e => e.ReturnOwner = true)));
+            Effect<ReturnToHand>(e => e.ReturnOwner = true)));
     }
   }
 }

@@ -36,7 +36,7 @@
             Cost<PayMana, Sacrifice>(cost => cost.Amount = "{2}{R}".ParseMana()),
             Effect<DealDamageToTargets>(e => e.Amount = e.Source.OwningCard.Counters.GetValueOrDefault()),
             Target(Validators.CreatureOrPlayer(), Zones.Battlefield()),
-            targetSelectorAi: TargetSelectorAi.DealDamageSingleSelector(p => p.Source.Counters.GetValueOrDefault()),
+            targetingAi: TargetingAi.DealDamageSingleSelector(p => p.Source.Counters.GetValueOrDefault()),
             timing: All(Timings.InstantRemovalTarget())
         ));
     }

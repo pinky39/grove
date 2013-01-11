@@ -57,6 +57,8 @@
                       self.Players.DestroyPermanents(
                         (permanent) => permanent.Is().Creature);
                     }
+
+                    return true;
                   };
               });
           });

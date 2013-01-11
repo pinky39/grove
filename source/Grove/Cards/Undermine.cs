@@ -23,7 +23,7 @@
             p.Category = EffectCategories.Counterspell;
             p.Effect = Effect<CounterTargetSpell>(e => e.ControllersLifeloss = 3);
             p.EffectTargets = L(Target(Validators.CounterableSpell(), Zones.Stack()));
-            p.TargetSelectorAi = TargetSelectorAi.CounterSpell();
+            p.TargetingAi = TargetingAi.CounterSpell();
           });
     }
   }

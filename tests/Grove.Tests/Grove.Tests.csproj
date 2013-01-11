@@ -167,8 +167,14 @@
     <Compile Include="Cards\HiddenHerd.cs" />
     <Compile Include="Cards\HiddenPredators.cs" />
     <Compile Include="Cards\HoppingAutomaton.cs" />
+    <Compile Include="Cards\IllGottenGains.cs" />
     <Compile Include="Cards\JaggedLightning.cs" />
+    <Compile Include="Cards\KarnSilverGolem.cs" />
+    <Compile Include="Cards\LiltingRefrain.cs" />
+    <Compile Include="Cards\LingeringMirage.cs" />
     <Compile Include="Cards\LivingDestiny.cs" />
+    <Compile Include="Cards\LotusBlossom.cs" />
+    <Compile Include="Cards\Lull.cs" />
     <Compile Include="Cards\ManaLeak.cs" />
     <Compile Include="Cards\MartialCoup.cs" />
     <Compile Include="Cards\MirranCrusader.cs" />

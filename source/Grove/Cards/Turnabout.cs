@@ -78,8 +78,8 @@
                     };
               });
             p.EffectTargets = L(Target(Validators.Player(), Zones.None(), text: "Select a player."));
-            p.TargetSelectorAi = Any(TargetSelectorAi.TapOpponentsCreatures(), TargetSelectorAi.TapOpponentsLands(),
-              TargetSelectorAi.UntapYourCreatures());
+            p.TargetingAi = Any(TargetingAi.TapOpponentsCreatures(), TargetingAi.TapOpponentsLands(),
+              TargetingAi.UntapYourCreatures());
           });
     }
   }

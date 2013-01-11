@@ -24,7 +24,7 @@
             p.Category = EffectCategories.Counterspell;
             p.Effect = Effect<CounterTargetSpell>(e => e.DoNotCounterCost = 3.Colorless());
             p.EffectTargets = L(Target(Validators.CounterableSpell(), Zones.Stack()));
-            p.TargetSelectorAi = TargetSelectorAi.CounterSpell();
+            p.TargetingAi = TargetingAi.CounterSpell();
           });
     }
   }

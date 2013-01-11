@@ -1,10 +1,12 @@
 ﻿namespace Grove.Cards
 {
+  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
   using Core.Cards.Effects;
   using Core.Dsl;
+  using Core.Zones;
 
   public class Curfew : CardsSource
   {
@@ -19,7 +21,15 @@
         .Cast(p =>
           {
             p.Timing = Timings.InstantRemovalPlayerChooses(1);
-            p.Effect = Effect<EachPlayerReturnsCreaturesToHand>(e => e.Count = 1);
+            p.Effect = Effect<EachPlayerReturnsCardsToHand>(e =>
+              {
+                e.Filter = c => c.Is().Creature;
+                e.MinCount = 1;
+                e.MaxCount = 1;
+                e.Zone = Zone.Battlefield;
+                e.AiOrdersByDescendingScore = false;
+                e.Text = "Select creature to return to hand";
+              });
           });
     }
   }

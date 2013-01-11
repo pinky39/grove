@@ -27,7 +27,7 @@
     public IEffectFactory Effect;
     public IList<ITargetValidatorFactory> EffectTargets = new List<ITargetValidatorFactory>();
     public ICastingRuleFactory Rule;
-    public TargetSelectorAiDelegate TargetSelectorAi;
+    public TargetingAiDelegate TargetingAi;
     public TimingDelegate Timing;
     public CalculateX XCalculator;
 

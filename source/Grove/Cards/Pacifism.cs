@@ -26,7 +26,7 @@
               Modifier<AddStaticAbility>(m => m.StaticAbility = Static.CannotBlock),
               Modifier<AddStaticAbility>(m => m.StaticAbility = Static.CannotAttack)));
             p.EffectTargets = L(Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));
-            p.TargetSelectorAi = TargetSelectorAi.Pacifism();
+            p.TargetingAi = TargetingAi.Pacifism();
           });
     }
   }

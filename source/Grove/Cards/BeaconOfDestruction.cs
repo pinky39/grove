@@ -25,7 +25,7 @@
             p.Rule = Rule<Instant>(r => r.AfterResolvePutToZone = card => card.ShuffleIntoLibrary());
             p.Effect = Effect<DealDamageToTargets>(e => e.Amount = 5);
             p.EffectTargets = L(Target(Validators.CreatureOrPlayer(), Zones.Battlefield()));
-            p.TargetSelectorAi = TargetSelectorAi.DealDamageSingleSelector(5);
+            p.TargetingAi = TargetingAi.DealDamageSingleSelector(5);
           });
     }
   }

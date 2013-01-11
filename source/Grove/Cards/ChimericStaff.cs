@@ -18,13 +18,13 @@
         .ManaCost("{4}")
         .Type("Artifact")
         .Text("{X}: Chimeric Staff becomes an X/X Construct artifact creature until end of turn.")
-        .FlavorText("A snake in the grasp.")        
+        .FlavorText("A snake in the grasp.")
         .Abilities(
           ActivatedAbility(
             "{X}: Chimeric Staff becomes an X/X Construct artifact creature until end of turn.",
             Cost<PayMana>(cost =>
               {
-                cost.Amount = ManaAmount.Zero;                
+                cost.Amount = ManaAmount.Zero;
                 cost.XCalculator = VariableCost.ChangeToXXCreature();
               }),
             Effect<ApplyModifiersToSelf>(e => e.Modifiers(
@@ -33,9 +33,8 @@
                   m.Power = Value.PlusX;
                   m.Toughness = Value.PlusX;
                   m.Type = "Creature Artifact Construct";
-                  m.Colors = ManaColors.Colorless;
                 }, untilEndOfTurn: true)
-              )),               
+              )),
             timing: Timings.ChangeToCreature(minAvailableMana: 3)
             )
         );

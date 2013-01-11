@@ -26,7 +26,7 @@
             p.Effect = Effect<Attach>(e => e.Modifiers(
               Modifier<ChangeController>(m => m.NewController = m.Source.Controller)));
             p.EffectTargets = L(Target(Validators.Card(), Zones.Battlefield()));
-            p.TargetSelectorAi = TargetSelectorAi.GainControl();
+            p.TargetingAi = TargetingAi.GainControl();
           });
     }
   }

@@ -22,9 +22,9 @@
       return Timings.Any(predicates);
     }
 
-    protected TargetSelectorAiDelegate Any(params TargetSelectorAiDelegate[] delegates)
+    protected TargetingAiDelegate Any(params TargetingAiDelegate[] delegates)
     {
-      return TargetSelectorAi.Any(delegates);
+      return TargetingAi.Any(delegates);
     }
 
     protected T[] L<T>(params T[] elt)

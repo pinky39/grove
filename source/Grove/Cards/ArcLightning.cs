@@ -24,7 +24,7 @@
             p.DistributeDamage = true;
             p.EffectTargets = L(Target(Validators.CreatureOrPlayer(), Zones.Battlefield(), maxCount: 3));
             p.DistributeDamage = true;
-            p.TargetSelectorAi = TargetSelectorAi.DealDamageSingleSelectorDistribute(3);
+            p.TargetingAi = TargetingAi.DealDamageSingleSelectorDistribute(3);
           });
     }
   }

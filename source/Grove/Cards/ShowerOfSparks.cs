@@ -24,7 +24,7 @@
             p.EffectTargets = L(
               Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield(), text: "Select target creature."),
               Target(Validators.Player(), Zones.None(), "Select target player."));
-            p.TargetSelectorAi = TargetSelectorAi.DealDamageMultipleSelectors(amount: 1);
+            p.TargetingAi = TargetingAi.DealDamageMultipleSelectors(amount: 1);
           });
     }
   }

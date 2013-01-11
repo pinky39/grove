@@ -27,7 +27,7 @@
             Effect<CompoundEffect>(e => e.ChildEffects(
               Effect<PutTargetsToBattlefield>(),
               Effect<Attach>())),
-            selectorAi: TargetSelectorAi.OrderByScore(Controller.SpellOwner),
+            selectorAi: TargetingAi.OrderByScore(ControlledBy.SpellOwner),
             effectValidator: Target(
               Validators.Card(card => card.Is().Creature),
               Zones.YourGraveyard())),
@@ -41,7 +41,7 @@
               }),
             Effect<CompoundEffect>(e => e.ChildEffects(
               Effect<ExileCard>(c => { c.Card = c.Source.OwningCard.AttachedTo; }),
-              Effect<PutToHand>(c => c.Card = c.Source.OwningCard)))
+              Effect<ReturnToHand>(c => c.Card = c.Source.OwningCard)))
             ),
           TriggeredAbility(
             "When Diabolic Servitude leaves the battlefield, exile the creature put onto the battlefield with Diabolic Servitude.",

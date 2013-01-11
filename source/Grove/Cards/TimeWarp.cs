@@ -22,7 +22,7 @@
             p.Timing = Timings.SecondMain();
             p.Effect = Effect<TargetPlayerTakesExtraTurns>();
             p.EffectTargets = L(Target(Validators.Player(), Zones.None()));
-            p.TargetSelectorAi = TargetSelectorAi.Controller();
+            p.TargetingAi = TargetingAi.Controller();
           });
     }
   }

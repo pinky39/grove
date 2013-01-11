@@ -40,7 +40,7 @@
     {
       var candidates = _selector.GenerateCandidates(_game.GenerateTargets);
 
-      var parameters = new TargetSelectorAiParameters(
+      var parameters = new TargetingAiParameters(
         candidates,
         _selector,
         _source,

@@ -1,6 +1,6 @@
-﻿namespace Grove.Core.Ai
+﻿namespace Grove.Core
 {
-  public enum Controller
+  public enum ControlledBy
   {
     SpellOwner,
     Opponent,    

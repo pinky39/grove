@@ -41,7 +41,7 @@
         return ManaAmount.Zero;
 
       return GetManaAmount();
-    }
+    }   
 
     private IManaAmount GetManaAmount()
     {
@@ -56,7 +56,7 @@
         return new SpellPrerequisites
           {
             CanBeSatisfied = true,
-            Description = Text            
+            Description = Text
           };
       }
 
@@ -90,10 +90,7 @@
     private void CreateEffectFactory()
     {
       var builder = new CardBuilder();
-      Effect(builder.Effect<AddManaToPool>(e =>
-        {
-          e.Amount = GetManaAmount();
-        }));
+      Effect(builder.Effect<AddManaToPool>(e => { e.Amount = GetManaAmount(); }));
     }
 
     public void SetManaAmount(IManaAmount manaAmount)

@@ -32,10 +32,10 @@
                   m.Toughness = 2;
                 }, untilEndOfTurn: true)
               )),
-            costValidator: Target(
-              Validators.Card(card => card.Is().Creature, Controller.SpellOwner),
+            costTarget: Target(
+              Validators.Card(ControlledBy.SpellOwner, card => card.Is().Creature),
               Zones.Battlefield(), mustBeTargetable: false),
-            targetSelectorAi: TargetSelectorAi.CostTapOrSacCreature(canUseSelf: false),
+            targetingAi: TargetingAi.CostTapOrSacCreature(canUseSelf: false),
             timing: All(Timings.IncreaseOwnersPowerAndThougness(2, 2)),
             category: EffectCategories.ToughnessIncrease
             )

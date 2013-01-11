@@ -38,7 +38,7 @@
       _targetSelector = new TargetSelector(
         p.EffectTargets.Select(x => x.Create(card, game)),
         p.CostTargets.Select(x => x.Create(card, game)),
-        p.TargetSelectorAi);
+        p.TargetingAi);
 
       _cost = p.Cost.CreateCost(
         card, _targetSelector.Cost.FirstOrDefault(), _game);

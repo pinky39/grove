@@ -34,20 +34,20 @@
       string text,
       ICostFactory cost,
       IEffectFactory effect,
-      ITargetValidatorFactory effectValidator = null,
-      ITargetValidatorFactory costValidator = null,
-      TargetSelectorAiDelegate targetSelectorAi = null,
+      ITargetValidatorFactory effectTarget = null,
+      ITargetValidatorFactory costTarget = null,
+      TargetingAiDelegate targetingAi = null,
       bool activateAsSorcery = false,
       EffectCategories category = EffectCategories.Generic,
       TimingDelegate timing = null,
       Zone activationZone = Zone.Battlefield)
     {
-      var effectSelectors = effectValidator == null
+      var effectSelectors = effectTarget == null
         ? new ITargetValidatorFactory[] {}
-        : new[] {effectValidator};
+        : new[] {effectTarget};
 
-      return ActivatedAbility(text, cost, effect, effectSelectors, costValidator,
-        targetSelectorAi, activateAsSorcery, category, timing, activationZone);
+      return ActivatedAbility(text, cost, effect, effectSelectors, costTarget,
+        targetingAi, activateAsSorcery, category, timing, activationZone);
     }
 
     public ILifetimeFactory Lifetime<T>(Initializer<T> init = null) where T : Lifetime, new()
@@ -64,9 +64,9 @@
       string text,
       ICostFactory cost,
       IEffectFactory effect,
-      ITargetValidatorFactory[] effectValidators,
-      ITargetValidatorFactory costValidator = null,
-      TargetSelectorAiDelegate targetSelectorAi = null,
+      ITargetValidatorFactory[] effectTargets,
+      ITargetValidatorFactory costTarget = null,
+      TargetingAiDelegate targetingAi = null,
       bool activateAsSorcery = false,
       EffectCategories category = EffectCategories.Generic,
       TimingDelegate timing = null,
@@ -85,10 +85,10 @@
 
               var costValidators = new List<ITargetValidatorFactory>();
 
-              if (costValidator != null)
-                costValidators.Add(costValidator);
+              if (costTarget != null)
+                costValidators.Add(costTarget);
 
-              self.Targets(effectValidators, costValidators, targetSelectorAi);
+              self.Targets(effectTargets, costValidators, targetingAi);
 
               self.SetCost(cost);
             }
@@ -339,7 +339,7 @@
       ITriggerFactory trigger,
       IEffectFactory effect,
       ITargetValidatorFactory effectValidator = null,
-      TargetSelectorAiDelegate selectorAi = null,
+      TargetingAiDelegate selectorAi = null,
       EffectCategories abilityCategory = EffectCategories.Generic,
       bool triggerOnlyIfOwningCardIsInPlay = false)
     {

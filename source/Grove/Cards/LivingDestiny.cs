@@ -27,7 +27,7 @@
             p.Effect = Effect<ControllerGainsLife>(e => e.Amount = e.CostTarget().Card().ManaCost.Converted);
             p.CostTargets = L(Target(Validators.Card(card => card.Is().Creature), Zones.OwnersHand(),
               mustBeTargetable: false));
-            p.TargetSelectorAi = TargetSelectorAi.GreatestConvertedManaCost();
+            p.TargetingAi = TargetingAi.GreatestConvertedManaCost();
           });
     }
   }

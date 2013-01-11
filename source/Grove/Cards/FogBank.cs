@@ -18,7 +18,7 @@
         .Power(0)
         .Toughness(2)
         .Preventions(
-          Prevention<PreventDealt>(),
+          Prevention<PreventDealtCombat>(),
           Prevention<PreventReceived>(p => p.CombatOnly = true))
         .Abilities(
           Static.Defender,

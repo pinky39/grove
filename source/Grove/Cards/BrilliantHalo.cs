@@ -29,7 +29,7 @@
                 m.Toughness = 2;
               })));
             p.EffectTargets = L(Target(Validators.Card(card => card.Is().Creature), Zones.Battlefield()));
-            p.TargetSelectorAi = TargetSelectorAi.CombatEnchantment();
+            p.TargetingAi = TargetingAi.CombatEnchantment();
           })               
         .Abilities(
           TriggeredAbility(
@@ -39,7 +39,7 @@
                 t.From = Zone.Battlefield;
                 t.To = Zone.Graveyard;
               }),
-            Effect<PutToHand>(e => e.ReturnOwner = true)));
+            Effect<ReturnToHand>(e => e.ReturnOwner = true)));
     }
   }
 }

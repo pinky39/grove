@@ -2,17 +2,17 @@
 {
   using System;
   using System.Collections.Generic;
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   public class ManaUnit : IEquatable<ManaUnit>
   {
-    private readonly ManaColors _colors;    
+    private readonly ManaColors _colors;
 
     public ManaUnit(ManaColors colors = ManaColors.Colorless)
     {
-      _colors = colors;      
+      _colors = colors;
     }
-    
+
     public static ManaUnit Any { get { return new ManaUnit(ManaColors.White | ManaColors.Blue | ManaColors.Black | ManaColors.Red | ManaColors.Green); } }
     public static ManaUnit Black { get { return new ManaUnit(ManaColors.Black); } }
     public static ManaUnit Blue { get { return new ManaUnit(ManaColors.Blue); } }
@@ -32,6 +32,23 @@
       if (ReferenceEquals(null, other)) return false;
       if (ReferenceEquals(this, other)) return true;
       return Equals(other._colors, _colors);
+    }
+
+    public static ManaUnit GetBasicLandMana(string type)
+    {
+      switch (type)
+      {
+        case "plains":
+          return White;
+        case "island":
+          return Blue;
+        case "swamp":
+          return Black;
+        case "mountain":
+          return Red;
+      }
+
+      return Green;
     }
 
     public IEnumerable<ManaColors> EnumerateColors()

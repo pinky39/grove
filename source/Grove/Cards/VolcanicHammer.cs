@@ -21,7 +21,7 @@
           {
             p.Effect = Effect<DealDamageToTargets>(e => e.Amount = 3);
             p.EffectTargets = L(Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));
-            p.TargetSelectorAi = TargetSelectorAi.DealDamageSingleSelector(3);
+            p.TargetingAi = TargetingAi.DealDamageSingleSelector(3);
           });
     }
   }

@@ -25,7 +25,7 @@
             p.Effect = Effect<DestroyTargetPermanents>();
             p.EffectTargets = L(Target(Validators.Card(card => card.Is().Creature && !card.HasColors(ManaColors.Black)),
               Zones.Battlefield()));
-            p.TargetSelectorAi = TargetSelectorAi.Destroy();
+            p.TargetingAi = TargetingAi.Destroy();
           });                
     }
   }

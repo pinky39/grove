@@ -24,7 +24,7 @@
             p.Timing = Timings.InstantRemovalTarget();
             p.Effect = Effect<DealDamageToTargets>(e => e.Amount = 2);
             p.EffectTargets = L(Target(Validators.CreatureOrPlayer(), Zones.Battlefield()));
-            p.TargetSelectorAi = TargetSelectorAi.DealDamageSingleSelector(2);
+            p.TargetingAi = TargetingAi.DealDamageSingleSelector(2);
           })
         .Cast(p =>
           {
@@ -32,7 +32,7 @@
             p.Effect = Effect<DealDamageToTargets>(e => e.Amount = 4);
             p.Cost = Cost<PayMana>(c => c.Amount = "{4}{R}".ParseMana());
             p.EffectTargets = L(Target(Validators.CreatureOrPlayer(), Zones.Battlefield()));
-            p.TargetSelectorAi = TargetSelectorAi.DealDamageSingleSelector(4);
+            p.TargetingAi = TargetingAi.DealDamageSingleSelector(4);
           });
     }
   }

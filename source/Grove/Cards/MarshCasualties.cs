@@ -33,7 +33,7 @@
                   }, untilEndOfTurn: true));
               });
             p.EffectTargets = L(Target(Validators.Player(), Zones.None()));
-            p.TargetSelectorAi = TargetSelectorAi.Opponent();
+            p.TargetingAi = TargetingAi.Opponent();
           })
         .Cast(p =>
           {
@@ -50,7 +50,7 @@
                   }, untilEndOfTurn: true));
               });
             p.EffectTargets = L(Target(Validators.Player(), Zones.None()));
-            p.TargetSelectorAi = TargetSelectorAi.Opponent();
+            p.TargetingAi = TargetingAi.Opponent();
           });
     }
   }

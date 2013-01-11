@@ -34,7 +34,7 @@
                   );
               });
             p.EffectTargets = L(Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));
-            p.TargetSelectorAi = TargetSelectorAi.Destroy();
+            p.TargetingAi = TargetingAi.Destroy();
           });
     }
   }

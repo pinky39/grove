@@ -27,7 +27,7 @@
             p.EffectTargets =
               L(Target(Validators.Card(card => !card.HasColors(ManaColors.Black) && !card.Is().Artifact),
                 Zones.Battlefield()));
-            p.TargetSelectorAi = TargetSelectorAi.Destroy();
+            p.TargetingAi = TargetingAi.Destroy();
           });
     }
   }

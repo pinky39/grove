@@ -35,7 +35,7 @@
                     });
                 }, untilEndOfTurn: true))), 
             Target(Validators.CreatureOrPlayer(), Zones.Battlefield()),
-            targetSelectorAi: TargetSelectorAi.PreventNextDamageToCreatureOrPlayer(2))
+            targetingAi: TargetingAi.PreventNextDamageToCreatureOrPlayer(2))
         );
     }
   }

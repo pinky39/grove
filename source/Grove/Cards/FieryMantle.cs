@@ -35,7 +35,7 @@
                   timing: Timings.IncreaseOwnersPowerAndThougness(1, 0))
                 )));
             p.EffectTargets = L(Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));
-            p.TargetSelectorAi = TargetSelectorAi.CombatEnchantment();
+            p.TargetingAi = TargetingAi.CombatEnchantment();
           })
         .Abilities(
           TriggeredAbility(
@@ -45,7 +45,7 @@
                 t.From = Zone.Battlefield;
                 t.To = Zone.Graveyard;
               }),
-            Effect<PutToHand>(e => e.ReturnOwner = true)));
+            Effect<Core.Cards.Effects.ReturnToHand>(e => e.ReturnOwner = true)));
     }
   }
 }

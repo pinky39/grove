@@ -26,8 +26,8 @@
             "{1}{U}: Counter target red spell.",
             Cost<PayMana>(c => c.Amount = "{1}{U}".ParseMana()),
             Effect<CounterTargetSpell>(),
-            targetSelectorAi: TargetSelectorAi.CounterSpell(),
-            effectValidator: Target(
+            targetingAi: TargetingAi.CounterSpell(),
+            effectTarget: Target(
               Validators.CounterableSpell(card => card.HasColors(ManaColors.Red)),
               Zones.Stack()),
             category: EffectCategories.Counterspell,

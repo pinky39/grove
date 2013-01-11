@@ -35,7 +35,7 @@
             Target(
               Validators.Card(x => x.Is().Creature),
               Zones.Battlefield()),
-            targetSelectorAi: TargetSelectorAi.ShieldIndestructible(),
+            targetingAi: TargetingAi.ShieldIndestructible(),
             timing: Timings.NoRestrictions(),
             category: EffectCategories.Protector));
     }

@@ -48,7 +48,7 @@
                   );
               }),
             Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()),
-            targetSelectorAi: TargetSelectorAi.ReduceToughness(),
+            targetingAi: TargetingAi.ReduceToughness(),
             timing: Timings.InstantRemovalTarget()));
     }
   }

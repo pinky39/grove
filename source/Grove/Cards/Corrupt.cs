@@ -29,8 +29,8 @@
                 e.GainLife = true;
               });
             p.EffectTargets = L(Target(Validators.CreatureOrPlayer(), Zones.Battlefield()));
-            p.TargetSelectorAi =
-              TargetSelectorAi.DealDamageSingleSelector(p1 => p1.Controller.Battlefield.Count(x => x.Is("swamp")));
+            p.TargetingAi =
+              TargetingAi.DealDamageSingleSelector(p1 => p1.Controller.Battlefield.Count(x => x.Is("swamp")));
           });
     }
   }

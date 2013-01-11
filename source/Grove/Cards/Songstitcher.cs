@@ -29,10 +29,10 @@
             "{1}{W}: Prevent all combat damage that would be dealt this turn by target attacking creature with flying.",
             Cost<PayMana>(cost => cost.Amount = "{1}{W}".ParseMana()),
             Effect<ApplyModifiersToTargets>(e => e.Modifiers(
-              Modifier<AddDamagePrevention>(m => m.Prevention = Prevention<PreventDealt>(),
+              Modifier<AddDamagePrevention>(m => m.Prevention = Prevention<PreventDealtCombat>(),
                 untilEndOfTurn: true))),
             Target(Validators.Card(card => card.IsAttacker && card.Has().Flying), Zones.Battlefield()),
-            targetSelectorAi: TargetSelectorAi.PreventAttackerDamage(),
+            targetingAi: TargetingAi.PreventAttackerDamage(),
             timing: All(Timings.DeclareAttackers(), Timings.Turn(passive: true))
             ));
     }

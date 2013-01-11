@@ -27,12 +27,12 @@
             "{1}, Sacrifice a permanent: You gain 1 life.",
             Cost<PayMana, Sacrifice>(cost => cost.Amount = 1.Colorless()),
             Effect<ControllerGainsLife>(e => e.Amount = 1),
-            costValidator:
+            costTarget:
               Target(
-                Validators.Card(controller: Controller.SpellOwner),
+                Validators.Card(ControlledBy.SpellOwner),
                 Zones.Battlefield(),
                 text: "Select a permanent to sacrifice.", mustBeTargetable: false),
-            targetSelectorAi: TargetSelectorAi.CostSacrificeGainLife())
+            targetingAi: TargetingAi.CostSacrificeGainLife())
         );
     }
   }

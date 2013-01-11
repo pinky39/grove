@@ -2,7 +2,7 @@
 {
   using Targeting;
 
-  public class PutToHand : Effect
+  public class ReturnToHand : Effect
   {
     public int Discard;
     public Card Card;

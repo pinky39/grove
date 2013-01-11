@@ -26,12 +26,12 @@
             "{2}{B},{T}: Exile up to three target cards from a single graveyard.",
             Cost<PayMana, Tap>(cost => cost.Amount = "{2}{B}".ParseMana()),
             Effect<ExileTargets>(),
-            effectValidator: Target(
+            effectTarget: Target(
               Validators.Card(),
               Zones.Graveyard(),
               minCount: 0,
               maxCount: 3),
-            targetSelectorAi: TargetSelectorAi.RemoveCardsFromOpponentsGraveyard(),
+            targetingAi: TargetingAi.RemoveCardsFromOpponentsGraveyard(),
             timing: Timings.EndOfTurn())
         );
     }

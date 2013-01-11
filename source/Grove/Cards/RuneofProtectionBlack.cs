@@ -29,7 +29,7 @@
             Target(
               Validators.Card(card => card.HasColors(ManaColors.Black)), 
               Zones.BattlefieldOrStack(), text: "Select a damage source."),
-            targetSelectorAi: TargetSelectorAi.PreventDamageFromSourceToController(),
+            targetingAi: TargetingAi.PreventDamageFromSourceToController(),
             timing: Timings.NoRestrictions())
         );
     }

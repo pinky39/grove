@@ -21,7 +21,7 @@
         .Text("{Flying}{EOL}{R}: Shivan Dragon gets +1/+0 until end of turn.")
         .FlavorText("The undisputed master of the mountains of Shiv.")
         .Power(5)
-        .Toughness(5)        
+        .Toughness(5)
         .Abilities(
           Static.Flying,
           ActivatedAbility(

@@ -30,7 +30,7 @@
               Zones.Battlefield(),
               minCount: 2,
               maxCount: 2),
-            targetSelectorAi: TargetSelectorAi.UntapYourLands(),
+            targetingAi: TargetingAi.UntapYourLands(),
             timing: Timings.SecondMain())
         );
     }

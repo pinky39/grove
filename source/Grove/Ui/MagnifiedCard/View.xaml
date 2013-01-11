@@ -5,7 +5,15 @@
              xmlns:grove="clr-namespace:Grove.Ui" xmlns:Cards="clr-namespace:Grove.Core.Cards">
     <UserControl.Resources>
         <DataTemplate DataType = "{x:Type Core:Card}" >            
-             <ContentControl Content = "{Binding}" Style="{StaticResource Card}" Foreground="White" />                                          
+             <ContentControl Content = "{Binding}" Style="{StaticResource Card}" />                                          
+        </DataTemplate>
+
+        <DataTemplate DataType = "{x:Type grove:CardViewModel}" >
+            <ContentControl Content = "{Binding}" Style="{StaticResource Card}" />
+        </DataTemplate>
+
+        <DataTemplate DataType = "{x:Type Core:CastInstruction}" >
+            <ContentControl Content = "{Binding SourceCard}" Style="{StaticResource Card}" />
         </DataTemplate>
 
         <DataTemplate DataType = "{x:Type Cards:ActivatedAbility}" >

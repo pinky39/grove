@@ -28,7 +28,7 @@
             Trigger<OnZoneChanged>(t => t.To = Zone.Battlefield),
             Effect<DestroyTargetPermanents>(),
             Target(Validators.Card(card => card.Is().Enchantment), Zones.Battlefield()),
-            selectorAi: TargetSelectorAi.OrderByScore(),
+            selectorAi: TargetingAi.OrderByScore(),
             abilityCategory: EffectCategories.Destruction)
         );
     }

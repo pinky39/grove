@@ -13,15 +13,18 @@
     private StrenghtSetter _toughnessSetter;
     private CardTypeSetter _typeSetter;
 
-    public ManaColors Colors { get; set; }
+    public ManaColors? Colors { get; set; }
     public Value Power { get; set; }
     public Value Toughness { get; set; }
     public string Type { get; set; }
 
     public override void Apply(CardColors colors)
     {
+      if (Colors == null)
+        return;
+      
       _cardColors = colors;
-      _colorsSetter = new ColorsSetter(Colors, ChangeTracker);
+      _colorsSetter = new ColorsSetter(Colors.Value, ChangeTracker);
       _cardColors.AddModifier(_colorsSetter);
     }
 
@@ -48,9 +51,12 @@
 
     protected override void Unapply()
     {
-      _cardColors.RemoveModifier(_colorsSetter);
       _cardPower.RemoveModifier(_powerSetter);
       _cardToughness.RemoveModifier(_toughnessSetter);
+      
+      if (_colorsSetter != null)      
+        _cardColors.RemoveModifier(_colorsSetter);            
+            
       _cardType.RemoveModifier(_typeSetter);
     }
   }

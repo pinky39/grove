@@ -32,7 +32,7 @@
                     }, untilEndOfTurn: true));
               });
             p.EffectTargets = L(Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));
-            p.TargetSelectorAi = TargetSelectorAi.ReduceToughness(4);
+            p.TargetingAi = TargetingAi.ReduceToughness(4);
           });
     }
   }

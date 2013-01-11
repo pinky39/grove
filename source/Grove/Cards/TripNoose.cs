@@ -26,7 +26,7 @@
             Cost<PayMana, Tap>(cost => cost.Amount = 2.Colorless()),
             Effect<TapTargetCreature>(),
             Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()),
-            targetSelectorAi: TargetSelectorAi.TapCreature(),
+            targetingAi: TargetingAi.TapCreature(),
             timing: Timings.Steps(Step.BeginningOfCombat))
         );
     }

@@ -26,7 +26,7 @@
             Cost<Tap>(),
             Effect<DealDamageToTargets>(e => e.Amount = 3),
             Target(Validators.AttackerOrBlocker(), Zones.Battlefield()),
-            targetSelectorAi: TargetSelectorAi.DealDamageSingleSelector(3),
+            targetingAi: TargetingAi.DealDamageSingleSelector(3),
             timing: Timings.DeclareBlockers()
             )
         );

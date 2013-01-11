@@ -6,11 +6,11 @@
   using Targeting;
   using Zones;
 
-  public delegate List<Targets> TargetSelectorAiDelegate(TargetSelectorAiParameters parameters);
+  public delegate List<Targets> TargetingAiDelegate(TargetingAiParameters parameters);
 
-  public class TargetSelectorAiParameters
+  public class TargetingAiParameters
   {
-    public TargetSelectorAiParameters(TargetsCandidates candidates, TargetSelector selector, Card source,
+    public TargetingAiParameters(TargetsCandidates candidates, TargetSelector selector, Card source,
       int? maxX, bool forceOne, Game game)
     {
       AllCandidates = candidates;
@@ -40,6 +40,23 @@
     public IEnumerable<ITarget> Candidates()
     {
       return AllCandidates.HasCost ? AllCandidates.Cost[0] : AllCandidates.Effect[0];
+    }
+
+    public IEnumerable<ITarget> Candidates(ControlledBy controlledBy)
+    {
+      switch (controlledBy)
+      {
+          case (ControlledBy.Opponent):
+          {
+            return Candidates().Where(x => x.Controller() == Opponent);
+          }
+          case (ControlledBy.SpellOwner):
+          {
+            return Candidates().Where(x => x.Controller() == Controller);
+          }
+      }
+
+      return Candidates();
     }
 
     public List<Targets> MultipleTargets(IDamageDistributor distributor, IList<ITarget> choice)

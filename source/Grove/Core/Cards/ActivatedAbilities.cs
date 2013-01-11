@@ -147,5 +147,14 @@
       _manaSources.Remove(manaSource);
       ability.Controller.RemoveManaSource(manaSource);
     }
+
+    public ActivatedAbility RemoveFirst()
+    {
+      var ability = _abilities.First();
+      _abilities.Remove(ability);
+      RemoveManaSource(ability);
+      
+      return ability;
+    }
   }
 }

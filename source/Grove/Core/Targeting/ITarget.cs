@@ -101,6 +101,17 @@
       return 0;
     }
 
+    public static Player Controller(this ITarget target)
+    {
+      if (target.IsPlayer())
+        return target.Player();
+
+      if (target.IsEffect())
+        return target.Effect().Controller;
+
+      return target.Card().Controller;
+    }
+
     public static ITargetType Is(this ITarget target)
     {
       if (target.IsCard())

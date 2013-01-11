@@ -46,18 +46,6 @@
 
           return !equipment.IsAttached || equipment.AttachedTo != p.Target;
         };
-    }    
-
-    private static bool ValidateController(Player spellController, Player targetController, Controller controller)
-    {
-      switch (controller)
-      {
-        case (Controller.SpellOwner):
-          return spellController == targetController;
-        case (Controller.Opponent):
-          return spellController != targetController;
-      }
-      return true;
     }        
 
     public static TargetValidatorDelegate Card(Func<TargetValidatorParameters, bool> filter)
@@ -66,13 +54,20 @@
       return p => p.Target.IsCard() && filter(p);
     }
 
-    public static TargetValidatorDelegate Card(Func<Card, bool> filter = null, Controller controller = Controller.Any)
+    public static TargetValidatorDelegate Card(Func<Card, bool> filter = null)
     {
       filter = filter ?? delegate { return true; };
 
-      return p => 
-          p.Target.IsCard() &&        
-          ValidateController(p.Controller, p.Card.Controller, controller) &&
+      return p => p.Target.IsCard() &&                  
+          filter(p.Target.Card());
+    }
+    
+    public static TargetValidatorDelegate Card(ControlledBy controlledBy, Func<Card, bool> filter = null)
+    {
+      filter = filter ?? delegate { return true; };
+
+      return p => p.Target.IsCard() &&        
+          p.IsControlledBy(controlledBy) &&          
           filter(p.Target.Card());
     }        
   }

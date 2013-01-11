@@ -1,5 +1,6 @@
 ﻿namespace Grove.Cards
 {
+  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -30,7 +31,7 @@
             Target(
               Validators.Card(card => card.Is().Creature && card.HasColors(ManaColors.Green)),
               Zones.Battlefield()),
-            targetSelectorAi: TargetSelectorAi.Destroy(),
+            targetingAi: TargetingAi.Destroy(),
             timing: Timings.InstantRemovalTarget()));
     }
   }

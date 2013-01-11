@@ -28,12 +28,12 @@
                 e.DrawCount = e.CostTarget().Card().Power.GetValueOrDefault();
                 e.DiscardCount = 3;
               }),
-            costValidator:
+            costTarget:
               Target(
-                Validators.Card(x => x.Is().Creature, controller: Controller.SpellOwner),
+                Validators.Card(ControlledBy.SpellOwner, x => x.Is().Creature),
                 Zones.Battlefield(),
                 text: "Select a creature to sacrifice.", mustBeTargetable: false),
-            targetSelectorAi: TargetSelectorAi.CostSacrificeDrawCards(x => x.Power > 3))
+            targetingAi: TargetingAi.CostSacrificeDrawCards(x => x.Power > 3))
         );
     }
   }

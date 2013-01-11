@@ -45,7 +45,7 @@
       return amount;
     }
 
-    public virtual int PreventDealtDamage(int amount)
+    public virtual int PreventDealtCombatDamage(int amount)
     {
       return amount;
     }
