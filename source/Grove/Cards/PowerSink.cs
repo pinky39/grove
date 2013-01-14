@@ -22,7 +22,7 @@
           {
             p.Timing = Timings.CounterSpell();
             p.Category = EffectCategories.Counterspell;
-            p.XCalculator = VariableCost.CounterUnlessPay();
+            p.XCalculator = ChooseXAi.CounterUnlessPay();
             p.Effect = Effect<CounterTargetSpell>(e =>
               {
                 e.DoNotCounterCost = e.X.GetValueOrDefault().Colorless();

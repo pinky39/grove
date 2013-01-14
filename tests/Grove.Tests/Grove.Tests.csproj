@@ -175,8 +175,11 @@
     <Compile Include="Cards\LivingDestiny.cs" />
     <Compile Include="Cards\LotusBlossom.cs" />
     <Compile Include="Cards\Lull.cs" />
+    <Compile Include="Cards\LurkingEvil.cs" />
     <Compile Include="Cards\ManaLeak.cs" />
+    <Compile Include="Cards\ManaLeech.cs" />
     <Compile Include="Cards\MartialCoup.cs" />
+    <Compile Include="Cards\Meltdown.cs" />
     <Compile Include="Cards\MirranCrusader.cs" />
     <Compile Include="Cards\MonkIdealist.cs" />
     <Compile Include="Cards\MonkRealist.cs" />

@@ -20,7 +20,7 @@
         .FlavorText("They certainly are.")
         .Cast(p =>
           {
-            p.XCalculator = VariableCost.AtLeast(3);
+            p.XCalculator = ChooseXAi.AtLeast(3);
             p.Effect = Effect<CreateTokens>(e =>
               {
                 e.Count = Value.PlusX;

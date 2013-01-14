@@ -25,7 +25,7 @@
             "{U}: Untap Horseshoe Crab.",
             Cost<PayMana>(cost => cost.Amount = ManaAmount.Blue),
             Effect<UntapOwner>(),
-            timing: All(Timings.CardHas(x => x.IsTapped), Timings.MainPhases(), Timings.Turn(active: true))));
+            timing: All(Timings.Has(x => x.IsTapped), Timings.MainPhases(), Timings.Turn(active: true))));
     }
   }
 }

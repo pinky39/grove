@@ -167,20 +167,20 @@ o Lingering Mirage
 o Looming Shade
 o Lotus Blossom
 o Lull
-Lurking Evil
-Mana Leech
-Meltdown
+o Lurking Evil
+o Mana Leech
+o Meltdown
 Metrognome
 Midsummer Revel
 Mishra's Helix
 Mobile Fort
-Monk Idealist
-Monk Realist
+o Monk Idealist
+o Monk Realist
 Morphling
-Mountain
-Mountain
-Mountain
-Mountain
+o Mountain
+o Mountain
+o Mountain
+o Mountain
 No Rest for the Wicked
 Noetic Scales
 Okk

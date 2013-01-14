@@ -23,7 +23,7 @@
           {
             p.Timing = Timings.MainPhases();
             p.Effect = Effect<DealDamageToTargets>(e => e.Amount = Value.PlusX);
-            p.XCalculator = VariableCost.TargetLifepointsLeft(ManaUsage.Spells);
+            p.XCalculator = ChooseXAi.TargetLifepointsLeft(ManaUsage.Spells);
             p.EffectTargets = L(Target(Validators.CreatureOrPlayer(), Zones.Battlefield()));
             p.TargetingAi = TargetingAi.DealDamageSingleSelector();
           });

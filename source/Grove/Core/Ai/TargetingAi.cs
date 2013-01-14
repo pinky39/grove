@@ -43,7 +43,7 @@
         };
     }
 
-    public static TargetingAiDelegate TapOpponentsCreatures()
+    public static TargetingAiDelegate TapOpponentCreatures()
     {
       return p =>
         {
@@ -56,7 +56,7 @@
         };
     }
 
-    public static TargetingAiDelegate TapOpponentsLands()
+    public static TargetingAiDelegate TapOpponentLands()
     {
       return p =>
         {
@@ -1193,6 +1193,19 @@
             p.Candidates()
               .Where(x => filter(x.Card()))
               .Where(x => p.Stack.CanBeDestroyedByTopSpell(x.Card())));
+
+          return p.Targets(candidates);
+        };
+    }
+
+    public static TargetingAiDelegate TapLand()
+    {
+      return p =>
+        {
+          var candidates = p.Candidates(ControlledBy.Opponent)
+            .Where(x => !x.Card().IsTapped)
+            .OrderByDescending(x => x.Card().Score)
+            .Take(1);
 
           return p.Targets(candidates);
         };

@@ -191,7 +191,7 @@
       return p => steps.Any(step => p.Step == step);
     }
 
-    public static TimingDelegate NoRestrictions(params TimingDelegate[] predicates)
+    public static TimingDelegate All(params TimingDelegate[] predicates)
     {
       return p => predicates.All(predicate => predicate(p));
     }
@@ -332,12 +332,12 @@
         {
           if (p.Step == Step.BeginningOfCombat && p.Controller.IsActive)
           {
-            return p.Controller.HasMana(minAvailableMana, ManaUsage.Abilities);
+            return minAvailableMana == 0 || p.Controller.HasMana(minAvailableMana, ManaUsage.Abilities);
           }
 
           if (p.Step == Step.DeclareAttackers && !p.Controller.IsActive)
           {
-            return p.Controller.HasMana(minAvailableMana, ManaUsage.Abilities) && p.Combat.Attackers.Any();
+            return minAvailableMana == 0 || p.Controller.HasMana(minAvailableMana, ManaUsage.Abilities) && p.Combat.Attackers.Any();
           }
 
           return false;
@@ -413,12 +413,7 @@
     public static TimingDelegate OpponentHasPermanent(Func<Card, bool> filter)
     {
       return p => p.Players.Permanents().Any(x => filter(x) && x.Controller == p.Opponent);
-    }
-
-    public static TimingDelegate IsCreature()
-    {
-      return p => p.Card.Is().Creature;
-    }
+    }    
 
     public static TimingDelegate HasCounters(int count)
     {
@@ -492,7 +487,7 @@
       return p => p.Combat.Attackers.Count() >= count;
     }
 
-    public static TimingDelegate CardHas(Func<Card, bool> predicate)
+    public static TimingDelegate Has(Func<Card, bool> predicate)
     {
       return p => predicate(p.Card);
     }

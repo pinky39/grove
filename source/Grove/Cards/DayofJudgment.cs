@@ -19,7 +19,7 @@
           {
             p.Timing = Timings.SecondMain();
             p.Category = EffectCategories.Destruction;
-            p.Effect = Effect<DestroyAllPermanents>(e => e.Filter = (card) => card.Is().Creature);
+            p.Effect = Effect<DestroyAllPermanents>(e => e.Filter = (self, card) => card.Is().Creature);
           });
     }
   }

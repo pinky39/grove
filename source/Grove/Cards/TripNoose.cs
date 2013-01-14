@@ -24,7 +24,7 @@
           ActivatedAbility(
             "{2},{T}: Tap target creature.",
             Cost<PayMana, Tap>(cost => cost.Amount = 2.Colorless()),
-            Effect<TapTargetCreature>(),
+            Effect<TapTarget>(),
             Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()),
             targetingAi: TargetingAi.TapCreature(),
             timing: Timings.Steps(Step.BeginningOfCombat))

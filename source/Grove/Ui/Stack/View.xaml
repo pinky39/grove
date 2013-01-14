@@ -27,7 +27,11 @@
                 <ContentControl Content = "{Binding SourceCard}" Style="{StaticResource Card}" />                                    
             </DataTemplate>
 
-			<DataTemplate DataType = "{x:Type Cards:ActivatedAbility}" >
+            <DataTemplate DataType = "{x:Type Core:Card}" >
+                <ContentControl Content = "{Binding }" Style="{StaticResource Card}" />
+            </DataTemplate>
+
+            <DataTemplate DataType = "{x:Type Cards:ActivatedAbility}" >
 				<ContentControl Content = "{Binding}"
 				                ContentTemplate = "{StaticResource Ability}" />
 			</DataTemplate>

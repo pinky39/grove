@@ -42,7 +42,7 @@
             "{0}: Opal Acrolith becomes an enchantment.",
             Cost<PayMana>(c => c.Amount = ManaAmount.Zero),
             Effect<RemoveModifier>(e => e.ModifierType = typeof (ChangeToCreature)),
-            timing: All(Timings.IsCreature(), Timings.BeforeDeath())
+            timing: All(Timings.Has(c => c.Is().Creature), Timings.BeforeDeath())
             )
         );
     }

@@ -19,7 +19,7 @@
         .FlavorText("We live on the serpent's back.{EOL}—Viashino saying")
         .Cast(p =>
           {
-            p.XCalculator = VariableCost.MaximumAvailableMana();
+            p.XCalculator = ChooseXAi.MaximumAvailableMana();
             p.Timing = Timings.MassRemovalInstantSpeed();
             p.Effect = Effect<DealDamageToEach>(e =>
               {

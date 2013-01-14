@@ -1,9 +1,9 @@
 ﻿namespace Grove.Core.Cards.Effects
 {
-  using Grove.Core.Targeting;
+  using Targeting;
 
-  public class TapTargetCreature : Effect
-  {    
+  public class TapTarget : Effect
+  {
     protected override void ResolveEffect()
     {
       Target().Card().Tap();

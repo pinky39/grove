@@ -1,5 +1,6 @@
 ﻿namespace Grove.Cards
 {
+  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
@@ -20,7 +21,7 @@
           {
             p.Timing = Timings.FirstMain();
             p.Category = EffectCategories.Destruction;
-            p.Effect = Effect<DestroyAllPermanents>(e => e.Filter = (card) => card.Is().Enchantment);
+            p.Effect = Effect<DestroyAllPermanents>(e => e.Filter = (self, card) => card.Is().Enchantment);
           });
     }
   }

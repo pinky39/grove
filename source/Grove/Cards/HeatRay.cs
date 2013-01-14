@@ -22,7 +22,7 @@
         .Cast(p =>
           {
             p.Timing = Timings.InstantRemovalTarget();
-            p.XCalculator = VariableCost.TargetLifepointsLeft(ManaUsage.Spells);
+            p.XCalculator = ChooseXAi.TargetLifepointsLeft(ManaUsage.Spells);
             p.Effect = Effect<DealDamageToTargets>(e => e.Amount = Value.PlusX);
             p.EffectTargets = L(Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));
             p.TargetingAi = TargetingAi.DealDamageSingleSelector();

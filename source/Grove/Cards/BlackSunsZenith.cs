@@ -23,7 +23,7 @@
           {
             p.Timing = Timings.FirstMain();
             p.Rule = Rule<Sorcery>(r => r.AfterResolvePutToZone = card => card.ShuffleIntoLibrary());
-            p.XCalculator = VariableCost.ReduceCreaturesPwT();
+            p.XCalculator = ChooseXAi.ReduceCreaturesPwT();
             p.Effect = Effect<ApplyModifiersToPermanents>(e =>
               {
                 e.ToughnessReduction = Value.PlusX;

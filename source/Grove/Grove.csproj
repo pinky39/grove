@@ -289,7 +289,10 @@
     <Compile Include="Cards\LoomingShade.cs" />
     <Compile Include="Cards\LotusBlossom.cs" />
     <Compile Include="Cards\Lull.cs" />
+    <Compile Include="Cards\LurkingEvil.cs" />
+    <Compile Include="Cards\ManaLeech.cs" />
     <Compile Include="Cards\MartialCoup.cs" />
+    <Compile Include="Cards\MeltDown.cs" />
     <Compile Include="Cards\MirranCrusader.cs" />
     <Compile Include="Cards\MonkIdealist.cs" />
     <Compile Include="Cards\MonkRealist.cs" />
@@ -401,6 +404,7 @@
     <Compile Include="Core\Cards\Casting\Permanent.cs" />
     <Compile Include="Core\Cards\ContiniousEffects.cs" />
     <Compile Include="Core\Cards\Costs\AggregateCost.cs" />
+    <Compile Include="Core\Cards\Costs\PayLife.cs" />
     <Compile Include="Core\Cards\Costs\PayMana.cs" />
     <Compile Include="Core\Cards\Costs\RemoveCounter.cs" />
     <Compile Include="Core\Cards\Costs\Tap.cs" />
@@ -472,7 +476,6 @@
     <Compile Include="Core\Cards\Effects\PlayersSacrificeLands.cs" />
     <Compile Include="Core\Cards\Effects\PutTargetsToBattlefield.cs" />
     <Compile Include="Core\Cards\Effects\UntapTargetPermanents.cs" />
-    <Compile Include="Core\Cards\INeedsGameContext.cs" />
     <Compile Include="Core\Cards\Modifiers\Add11ForEachOtherCreature.cs" />
     <Compile Include="Core\Cards\Modifiers\AddActivatedAbility.cs" />
     <Compile Include="Core\Cards\Modifiers\ChangeController.cs" />
@@ -592,7 +595,7 @@
     <Compile Include="Core\Cards\Effects\ReturnAllPermanentsToHand.cs" />
     <Compile Include="Core\Cards\Effects\ReturnToHand.cs" />
     <Compile Include="Core\Cards\Effects\DestroySource.cs" />
-    <Compile Include="Core\Cards\Effects\TapTargetCreature.cs" />
+    <Compile Include="Core\Cards\Effects\TapTarget.cs" />
     <Compile Include="Core\Cards\Effects\DiscardCards.cs" />
     <Compile Include="Core\Cards\Effects\TargetPlayerTakesExtraTurns.cs" />
     <Compile Include="Core\Cards\IActivatedAbilityFactory.cs" />
@@ -610,7 +613,7 @@
     <Compile Include="Core\Cards\Counters\PowerToughness.cs" />
     <Compile Include="Core\Cards\Preventions\IDamagePreventionFactory.cs" />
     <Compile Include="Core\Targeting\ITarget.cs" />
-    <Compile Include="Core\Ai\VariableCost.cs" />
+    <Compile Include="Core\Ai\ChooseXAi.cs" />
     <Compile Include="Core\Cards\Modifiers\IncreaseLevel.cs" />
     <Compile Include="Core\Cards\Modifiers\LevelLifetime.cs" />
     <Compile Include="Core\Cards\Modifiers\SetPowerAndToughness.cs" />

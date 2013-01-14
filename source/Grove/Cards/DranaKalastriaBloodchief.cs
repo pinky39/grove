@@ -30,7 +30,7 @@
             Cost<PayMana>(cost =>
               {
                 cost.Amount = "{B}{B}".ParseMana();                
-                cost.XCalculator = VariableCost.TargetLifepointsLeft(ManaUsage.Abilities);
+                cost.XCalculator = ChooseXAi.TargetLifepointsLeft(ManaUsage.Abilities);
               }),
             Effect<ApplyModifiersToSelfAndToTargets>(e =>
               {

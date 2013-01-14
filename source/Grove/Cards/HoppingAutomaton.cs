@@ -36,7 +36,7 @@
                   }),
                   Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Flying));
               }),
-            timing: All(Timings.CardHas(x => x.Toughness > 1), Timings.Steps(Step.BeginningOfCombat)))
+            timing: All(Timings.Has(x => x.Toughness > 1), Timings.Steps(Step.BeginningOfCombat)))
         );
     }
   }

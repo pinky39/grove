@@ -15,16 +15,15 @@
     public readonly List<IContinuousEffectFactory> ContinuousEffects = new List<IContinuousEffectFactory>();
     public readonly List<Static> StaticAbilities = new List<Static>();
     public readonly List<ITriggeredAbilityFactory> TriggeredAbilities = new List<ITriggeredAbilityFactory>();
-    private readonly List<CastInstructionParameters> _castInstructions = new List<CastInstructionParameters>();    
+    private readonly List<CastInstructionParameters> _castInstructions = new List<CastInstructionParameters>();
     public ManaColors Colors;
-    public IDamagePreventionFactory[] DamagePrevention = new IDamagePreventionFactory[] {};    
+    public IDamagePreventionFactory[] DamagePrevention = new IDamagePreventionFactory[] {};
     public CardText FlavorText = string.Empty;
-    public bool HasXInCost;
     public bool Isleveler;
-    public IManaAmount ManaCost;    
+    public IManaAmount ManaCost;
     public bool MayChooseNotToUntap;
     public string Name;
-    public int? OverrideScore;    
+    public int? OverrideScore;
     public int? Power;
     public string[] ProtectionsFromCardTypes;
     public ManaColors ProtectionsFromColors = ManaColors.None;
@@ -32,10 +31,21 @@
     public int? Toughness;
     public CardType Type;
 
+    public bool HasXInCost
+    {
+      get
+      {
+        if (_castInstructions.Count == 0)
+          return false;
+
+        return _castInstructions[0].HasXInCost;
+      }
+    }
+
     public IEnumerable<CastInstructionParameters> CastInstructions
     {
       get
-      {        
+      {
         if (_castInstructions.Count == 0)
         {
           yield return new CastInstructionParameters(Name, ManaCost, Type);
@@ -49,11 +59,6 @@
       }
     }
 
-    public void AddCastInstruction(CastInstructionParameters parameters)
-    {
-      _castInstructions.Add(parameters);
-    }
-            
     public string Illustration
     {
       get
@@ -67,6 +72,11 @@
 
         return Name;
       }
+    }
+
+    public void AddCastInstruction(CastInstructionParameters parameters)
+    {
+      _castInstructions.Add(parameters);
     }
   }
 }

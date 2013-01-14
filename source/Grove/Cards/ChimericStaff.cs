@@ -25,7 +25,7 @@
             Cost<PayMana>(cost =>
               {
                 cost.Amount = ManaAmount.Zero;
-                cost.XCalculator = VariableCost.ChangeToXXCreature();
+                cost.XCalculator = ChooseXAi.ChangeToXXCreature();
               }),
             Effect<ApplyModifiersToSelf>(e => e.Modifiers(
               Modifier<ChangeToCreature>(m =>

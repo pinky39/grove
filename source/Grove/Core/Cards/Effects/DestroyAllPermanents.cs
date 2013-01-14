@@ -4,11 +4,11 @@
 
   public class DestroyAllPermanents : Effect
   {
-    public Func<Card, bool> Filter;
+    public Func<DestroyAllPermanents, Card, bool> Filter;
 
     protected override void ResolveEffect()
     {
-      Players.DestroyPermanents(Filter);
+      Players.DestroyPermanents(x => Filter(this, x));
     }
   }
 }

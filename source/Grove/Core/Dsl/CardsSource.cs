@@ -14,7 +14,7 @@
 
     protected TimingDelegate All(params TimingDelegate[] predicates)
     {
-      return Timings.NoRestrictions(predicates);
+      return Timings.All(predicates);
     }
 
     protected TimingDelegate Any(params TimingDelegate[] predicates)

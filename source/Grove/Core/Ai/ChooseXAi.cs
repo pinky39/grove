@@ -1,12 +1,13 @@
 ﻿namespace Grove.Core.Ai
 {
   using System;
+  using System.Linq;
   using Mana;
   using Targeting;
 
   public delegate int CalculateX(XCalculatorParameters parameters);
 
-  public static class VariableCost
+  public static class ChooseXAi
   {
     public static CalculateX ReduceCreaturesPwT()
     {
@@ -98,6 +99,38 @@
         {
           var max = p.Controller.GetConvertedMana(ManaUsage.Spells) - p.Source.ManaCost.Converted;
           return max > amount ? max : amount;
+        };
+    }
+
+    public static CalculateX DestroyEach(Func<Card, int, bool> filter)
+    {
+      return p =>
+        {
+          var max = p.Controller.GetConvertedMana(ManaUsage.Spells) - p.Source.ManaCost.Converted;
+
+          var bestX = max + 1;
+          var bestScore = -1;
+
+          for (var i = max; i >= 0; i--)
+          {
+            var yourScore = p.Controller.Battlefield
+              .Where(x => filter(x, i))
+              .Sum(x => x.Score);
+            
+            var opponentsScore = p.Opponent.Battlefield
+              .Where(x => filter(x, i))
+              .Sum(x => x.Score);
+            
+            var diff = opponentsScore - yourScore;
+
+            if (diff >= bestScore)
+            {
+              bestScore = diff;
+              bestX = i;
+            }
+          }
+
+          return bestX;
         };
     }
   }

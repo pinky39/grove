@@ -9,9 +9,9 @@
   [Copyable]
   public abstract class Cost : IHashable
   {
-    protected Card Card { get; private set; }
-    protected Player Controller { get { return Card.Controller; } }
-    protected Game Game { get; private set; }
+    public Card Card { get; private set; }
+    public Player Controller { get { return Card.Controller; } }
+    public Game Game { get; private set; }
     protected TargetValidator Validator { get; private set; }
 
     public CalculateX XCalculator { get; set; }
