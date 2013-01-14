@@ -2,11 +2,10 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Cards;
-  using Core.Cards.Effects;
-  using Core.Cards.Triggers;
   using Core.Dsl;
+  using Core.Effects;
   using Core.Mana;
+  using Core.Triggers;
   using Core.Zones;
 
   public class GraveTitan : CardsSource

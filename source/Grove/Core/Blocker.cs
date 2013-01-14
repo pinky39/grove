@@ -1,9 +1,9 @@
 ﻿namespace Grove.Core
 {
   using System.Linq;
-  using Grove.Core.Ai;
-  using Grove.Infrastructure;
-  using Grove.Core.Messages;
+  using Ai;
+  using Infrastructure;
+  using Messages;
 
   [Copyable]
   public class Blocker : IHashable
@@ -68,7 +68,7 @@
 
     public void DealAssignedDamage()
     {
-      foreach (var damage in _assignedDamage)
+      foreach (Damage damage in _assignedDamage)
       {
         Card.DealDamage(damage);
       }

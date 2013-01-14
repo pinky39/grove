@@ -3,8 +3,7 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards.Costs;
-  using Core.Cards.Effects;
+  using Core.Costs;
   using Core.Dsl;
   using Core.Targeting;
 
@@ -24,7 +23,7 @@
           ActivatedAbility(
             "{T}: Elite Archers deals 3 damage to target attacking or blocking creature.",
             Cost<Tap>(),
-            Effect<DealDamageToTargets>(e => e.Amount = 3),
+            Effect<Core.Effects.DealDamageToTargets>(e => e.Amount = 3),
             Target(Validators.AttackerOrBlocker(), Zones.Battlefield()),
             targetingAi: TargetingAi.DealDamageSingleSelector(3),
             timing: Timings.DeclareBlockers()

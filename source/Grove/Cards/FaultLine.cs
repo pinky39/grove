@@ -3,9 +3,8 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards.Effects;
-  using Core.Cards.Modifiers;
   using Core.Dsl;
+  using Core.Modifiers;
 
   public class FaultLine : CardsSource
   {
@@ -21,7 +20,7 @@
           {
             p.XCalculator = ChooseXAi.MaximumAvailableMana();
             p.Timing = Timings.MassRemovalInstantSpeed();
-            p.Effect = Effect<DealDamageToEach>(e =>
+            p.Effect = Effect<Core.Effects.DealDamageToEach>(e =>
               {
                 e.AmountPlayer = Value.PlusX;
                 e.AmountCreature = Value.PlusX;

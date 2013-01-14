@@ -3,9 +3,9 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards.Triggers;
   using Core.Dsl;
   using Core.Messages;
+  using Core.Triggers;
   using Core.Zones;
 
   public class AngelicChorus : CardsSource
@@ -27,7 +27,7 @@
                 t.Filter = (ability, card) => ability.Controller == card.Controller && card.Is().Creature;
                 t.To = Zone.Battlefield;
               }),
-            Effect<Core.Cards.Effects.ControllerGainsLife>(p =>
+            Effect<Core.Effects.ControllerGainsLife>(p =>
               p.Effect.Amount = p.Parameters
                 .Trigger<ZoneChanged>()
                 .Card.Toughness.GetValueOrDefault()),

@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Cards;
   using Core.Dsl;
 
   public class BaneslayerAngel : CardsSource

@@ -3,9 +3,8 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards.Effects;
-  using Core.Cards.Modifiers;
   using Core.Dsl;
+  using Core.Modifiers;
   using Core.Targeting;
 
   public class Symbiosis : CardsSource
@@ -22,7 +21,7 @@
         .Cast(p =>
           {
             p.Category = EffectCategories.ToughnessIncrease;
-            p.Effect = Effect<ApplyModifiersToTargets>(e => e.Modifiers(
+            p.Effect = Effect<Core.Effects.ApplyModifiersToTargets>(e => e.Modifiers(
               Modifier<AddPowerAndToughness>(m =>
                 {
                   m.Power = 2;

@@ -62,10 +62,10 @@
       CanChangeSelection = message.State == InteractionState.SelectTarget;
     }
 
-    public void ChangeSelection(Player player)
+    public void ChangeSelection()
     {
       _game.Publish(
-        new SelectionChanged {Selection = player});
+        new SelectionChanged {Selection = Player});
     }
   }
 }

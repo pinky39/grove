@@ -4,10 +4,10 @@
   using System.Linq;
   using Core;
   using Core.Ai;
-  using Core.Cards.Effects;
-  using Core.Cards.Triggers;
   using Core.Dsl;
+  using Core.Effects;
   using Core.Mana;
+  using Core.Triggers;
 
   public class GreenerPastures : CardsSource
   {

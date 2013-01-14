@@ -2,9 +2,8 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Cards;
-  using Core.Cards.Preventions;
   using Core.Dsl;
+  using Core.Preventions;
 
   public class FogBank : CardsSource
   {

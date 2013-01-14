@@ -3,8 +3,8 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards.Modifiers;
   using Core.Dsl;
+  using Core.Modifiers;
   using Core.Targeting;
 
   public class Bravado : CardsSource
@@ -21,7 +21,7 @@
           {
             p.Timing = Timings.FirstMain();
             p.Category = EffectCategories.ToughnessIncrease;
-            p.Effect = Effect<Core.Cards.Effects.Attach>(e => e.Modifiers(Modifier<Add11ForEachOtherCreature>()));
+            p.Effect = Effect<Core.Effects.Attach>(e => e.Modifiers(Modifier<Add11ForEachOtherCreature>()));
             p.EffectTargets = L(Target(Validators.Card(card => card.Is().Creature), Zones.Battlefield()));
             p.TargetingAi = TargetingAi.CombatEnchantment();
           });

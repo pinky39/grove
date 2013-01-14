@@ -4,7 +4,6 @@
   using System.Linq;
   using Core;
   using Core.Ai;
-  using Core.Cards.Effects;
   using Core.Dsl;
   using Core.Mana;
 
@@ -23,7 +22,7 @@
             p.Timing = All(
               Timings.MainPhases(),
               Timings.OpponentHasPermanent(x => x.Is().Creature && x.HasColors(ManaColors.White)));
-            p.Effect = Effect<DealDamageToEach>(e =>
+            p.Effect = Effect<Core.Effects.DealDamageToEach>(e =>
               {
                 e.AmountPlayer = 2;
                 e.AmountCreature = 2;

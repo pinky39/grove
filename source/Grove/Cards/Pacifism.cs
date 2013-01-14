@@ -3,10 +3,8 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards;
-  using Core.Cards.Effects;
-  using Core.Cards.Modifiers;
   using Core.Dsl;
+  using Core.Modifiers;
   using Core.Targeting;
 
   public class Pacifism : CardsSource
@@ -22,7 +20,7 @@
         .Cast(p =>
           {
             p.Timing = Timings.FirstMain();
-            p.Effect = Effect<Attach>(e => e.Modifiers(
+            p.Effect = Effect<Core.Effects.Attach>(e => e.Modifiers(
               Modifier<AddStaticAbility>(m => m.StaticAbility = Static.CannotBlock),
               Modifier<AddStaticAbility>(m => m.StaticAbility = Static.CannotAttack)));
             p.EffectTargets = L(Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));

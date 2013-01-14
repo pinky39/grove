@@ -2,10 +2,9 @@
 {
   using System;
   using System.Collections.Generic;
-  using Cards;
-  using Cards.Modifiers;
-  using Cards.Preventions;
   using Mana;
+  using Modifiers;
+  using Preventions;
   using Targeting;
 
   public class CardParameters
@@ -52,7 +51,7 @@
           yield break;
         }
 
-        foreach (var castInstructionParameterse in _castInstructions)
+        foreach (CastInstructionParameters castInstructionParameterse in _castInstructions)
         {
           yield return castInstructionParameterse;
         }

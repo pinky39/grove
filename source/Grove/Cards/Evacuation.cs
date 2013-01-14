@@ -4,8 +4,8 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards.Effects;
   using Core.Dsl;
+  using Core.Effects;
 
   public class Evacuation : CardsSource
   {

@@ -1,7 +1,7 @@
 ﻿namespace Grove.Ui.SelectAbility
 {
   using System.Collections.Generic;
-  using Core.Cards;
+  using Core;
   using Infrastructure;
 
   public class ViewModel

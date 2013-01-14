@@ -1,11 +1,8 @@
 ﻿namespace Grove.Core
 {
-  using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Ai;
-  using Cards;
-  using Cards.Effects;
+  using Effects;
   using Infrastructure;
   using Mana;
   using Targeting;
@@ -39,14 +36,14 @@
 
     public void EnchantTarget(Card target)
     {
-      var effect = CreateEffect<Attach>(target);      
+      var effect = CreateEffect<Attach>(target);
       effect.Resolve();
       effect.FinishResolve();
     }
 
     private T CreateEffect<T>(ITarget target) where T : Effect
     {
-      foreach (var castInstruction in _castInstructions)
+      foreach (CastInstruction castInstruction in _castInstructions)
       {
         var activation = new ActivationParameters();
         activation.Targets.AddEffect(target);
@@ -61,7 +58,7 @@
 
     public bool IsGoodTarget(ITarget target)
     {
-      return _castInstructions.Any(x => x.IsGoodTarget(target));      
+      return _castInstructions.Any(x => x.IsGoodTarget(target));
     }
 
     public IManaAmount GetManaCost(int index)

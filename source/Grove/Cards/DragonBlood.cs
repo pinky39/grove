@@ -3,12 +3,11 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards.Costs;
-  using Core.Cards.Counters;
-  using Core.Cards.Effects;
-  using Core.Cards.Modifiers;
+  using Core.Costs;
+  using Core.Counters;
   using Core.Dsl;
   using Core.Mana;
+  using Core.Modifiers;
   using Core.Targeting;
 
   public class DragonBlood : CardsSource
@@ -26,7 +25,7 @@
           ActivatedAbility(
             "{3},{T} : Put a +1/+1 counter on target creature.",
             Cost<PayMana, Tap>(cost => cost.Amount = 3.Colorless()),
-            Effect<ApplyModifiersToTargets>(e => e.Modifiers(
+            Effect<Core.Effects.ApplyModifiersToTargets>(e => e.Modifiers(
               Modifier<AddCounters>(m => m.Counter =
                 Counter<PowerToughness>(c =>
                   {

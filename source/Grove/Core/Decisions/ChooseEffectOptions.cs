@@ -2,7 +2,7 @@
 {
   using System;
   using System.Collections.Generic;
-  using Cards.Effects;
+  using Effects;
   using Results;
 
   public abstract class ChooseEffectOptions : Decision<ChosenOptions>

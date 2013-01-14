@@ -3,12 +3,10 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards;
-  using Core.Cards.Costs;
-  using Core.Cards.Effects;
-  using Core.Cards.Modifiers;
+  using Core.Costs;
   using Core.Dsl;
   using Core.Mana;
+  using Core.Modifiers;
   using Core.Targeting;
 
   public class VinesOfVastwood : CardsSource
@@ -24,7 +22,7 @@
         .Cast(p =>
           {
             p.Category = EffectCategories.Protector;
-            p.Effect = Effect<ApplyModifiersToTargets>(e => e.Modifiers(
+            p.Effect = Effect<Core.Effects.ApplyModifiersToTargets>(e => e.Modifiers(
               Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Hexproof, untilEndOfTurn: true)));
             p.EffectTargets = L(Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));
             p.TargetingAi = TargetingAi.ShieldHexproof();
@@ -34,7 +32,7 @@
             p.Description = p.KickerDescription;
             p.Cost = Cost<PayMana>(c => c.Amount = "{G}{G}".ParseMana());
             p.Category = EffectCategories.Protector | EffectCategories.ToughnessIncrease;
-            p.Effect = Effect<ApplyModifiersToTargets>(e => e.Modifiers(
+            p.Effect = Effect<Core.Effects.ApplyModifiersToTargets>(e => e.Modifiers(
               Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Hexproof, untilEndOfTurn: true),
               Modifier<AddPowerAndToughness>(m =>
                 {

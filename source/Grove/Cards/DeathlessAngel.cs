@@ -3,12 +3,10 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards;
-  using Core.Cards.Costs;
-  using Core.Cards.Effects;
-  using Core.Cards.Modifiers;
+  using Core.Costs;
   using Core.Dsl;
   using Core.Mana;
+  using Core.Modifiers;
   using Core.Targeting;
 
   public class DeathlessAngel : CardsSource
@@ -29,7 +27,7 @@
           ActivatedAbility(
             "{W}{W}: Target creature is indestructible this turn.",
             Cost<PayMana>(cost => cost.Amount = "{W}{W}".ParseMana()),
-            Effect<ApplyModifiersToTargets>(p => p.Effect.Modifiers(
+            Effect<Core.Effects.ApplyModifiersToTargets>(p => p.Effect.Modifiers(
               Modifier<AddStaticAbility>(m => { m.StaticAbility = Static.Indestructible; },
                 untilEndOfTurn: true))),
             Target(

@@ -4,11 +4,10 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards.Costs;
-  using Core.Cards.Effects;
-  using Core.Cards.Modifiers;
+  using Core.Costs;
   using Core.Dsl;
   using Core.Mana;
+  using Core.Modifiers;
   using Core.Targeting;
 
   public class Endoskeleton : CardsSource
@@ -26,7 +25,7 @@
           ActivatedAbility(
             "{2},{T}: Target creature gets +0/+3 for as long as Endoskeleton remains tapped.",
             Cost<PayMana, Tap>(cost => cost.Amount = 2.Colorless()),
-            Effect<ApplyModifiersToTargets>(e => e.Modifiers(
+            Effect<Core.Effects.ApplyModifiersToTargets>(e => e.Modifiers(
               Modifier<AddPowerAndToughness>(m =>
                 {
                   m.Toughness = 3;

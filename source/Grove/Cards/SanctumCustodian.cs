@@ -3,11 +3,10 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards.Costs;
-  using Core.Cards.Effects;
-  using Core.Cards.Modifiers;
-  using Core.Cards.Preventions;
+  using Core.Costs;
   using Core.Dsl;
+  using Core.Modifiers;
+  using Core.Preventions;
   using Core.Targeting;
 
   public class SanctumCustodian : CardsSource
@@ -26,7 +25,7 @@
           ActivatedAbility(
             "{T}: Prevent the next 2 damage that would be dealt to target creature or player this turn.",
             Cost<Tap>(),
-            Effect<ApplyModifiersToTargets>(e => e.Modifiers(
+            Effect<Core.Effects.ApplyModifiersToTargets>(e => e.Modifiers(
               Modifier<AddDamagePrevention>(m =>
                 {
                   m.Prevention = Prevention<PreventDamageToTarget>(p =>

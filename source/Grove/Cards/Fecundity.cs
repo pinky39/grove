@@ -3,9 +3,9 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards.Triggers;
   using Core.Dsl;
   using Core.Messages;
+  using Core.Triggers;
   using Core.Zones;
 
   public class Fecundity : CardsSource
@@ -28,7 +28,7 @@
                 t.From = Zone.Battlefield;
                 t.To = Zone.Graveyard;
               }),
-            Effect<Core.Cards.Effects.DrawCards>(p =>
+            Effect<Core.Effects.DrawCards>(p =>
               {
                 p.Effect.DrawCount = 1;
                 

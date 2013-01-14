@@ -3,7 +3,7 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards.Costs;
+  using Core.Costs;
   using Core.Dsl;
   using Core.Mana;
 

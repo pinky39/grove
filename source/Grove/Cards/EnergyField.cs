@@ -2,11 +2,11 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Cards.Effects;
-  using Core.Cards.Modifiers;
-  using Core.Cards.Preventions;
-  using Core.Cards.Triggers;
   using Core.Dsl;
+  using Core.Effects;
+  using Core.Modifiers;
+  using Core.Preventions;
+  using Core.Triggers;
   using Core.Zones;
 
   public class EnergyField : CardsSource

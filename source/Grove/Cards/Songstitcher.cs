@@ -3,12 +3,11 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards.Costs;
-  using Core.Cards.Effects;
-  using Core.Cards.Modifiers;
-  using Core.Cards.Preventions;
+  using Core.Costs;
   using Core.Dsl;
   using Core.Mana;
+  using Core.Modifiers;
+  using Core.Preventions;
   using Core.Targeting;
 
   public class Songstitcher : CardsSource
@@ -28,7 +27,7 @@
           ActivatedAbility(
             "{1}{W}: Prevent all combat damage that would be dealt this turn by target attacking creature with flying.",
             Cost<PayMana>(cost => cost.Amount = "{1}{W}".ParseMana()),
-            Effect<ApplyModifiersToTargets>(e => e.Modifiers(
+            Effect<Core.Effects.ApplyModifiersToTargets>(e => e.Modifiers(
               Modifier<AddDamagePrevention>(m => m.Prevention = Prevention<PreventDealtCombat>(),
                 untilEndOfTurn: true))),
             Target(Validators.Card(card => card.IsAttacker && card.Has().Flying), Zones.Battlefield()),

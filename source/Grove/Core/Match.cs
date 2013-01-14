@@ -1,7 +1,6 @@
 ﻿namespace Grove.Core
 {
   using System;
-  using System.Collections.Generic;
   using System.Threading.Tasks;
   using System.Windows;
   using Decisions;
@@ -15,7 +14,6 @@
     private readonly DecisionSystem _decisionSystem;
     private readonly ViewModel.IFactory _gameResultsFactory;
     private readonly Ui.MatchResults.ViewModel.IFactory _matchResultsFactory;
-    private IShell _shell;
     private readonly Ui.PlayScreen.ViewModel.IFactory _playScreenFactory;
     private readonly Ui.StartScreen.ViewModel.IFactory _startScreenFactory;
     private readonly TaskScheduler _uiScheduler;
@@ -25,15 +23,16 @@
     private int? _looser;
     private bool _playerLeftMatch;
     private bool _rematch = true;
+    private IShell _shell;
     private ThreadBlocker _threadBlocker;
 
-    public Match(      
+    public Match(
       Ui.PlayScreen.ViewModel.IFactory playScreenFactory,
       Ui.StartScreen.ViewModel.IFactory startScreenFactory,
       ViewModel.IFactory gameResultsFactory,
       Ui.MatchResults.ViewModel.IFactory matchResultsFactory,
       CardDatabase cardDatabase, DecisionSystem decisionSystem)
-    {      
+    {
       _playScreenFactory = playScreenFactory;
       _startScreenFactory = startScreenFactory;
       _gameResultsFactory = gameResultsFactory;
@@ -45,7 +44,7 @@
       Application.Current.Exit += delegate { ForceCurrentGameToEnd(); };
     }
 
-    public Game Game { get; private set; }    
+    public Game Game { get; private set; }
 
     public bool IsFinished
     {
@@ -58,7 +57,7 @@
     }
 
     public int Player1WinCount { get; private set; }
-    public int Player2WinCount { get; private set; }    
+    public int Player2WinCount { get; private set; }
 
     protected Player Looser
     {
@@ -84,14 +83,14 @@
 
     private void DisplayGameResults()
     {
-      var viewModel = _gameResultsFactory.Create();
+      ViewModel viewModel = _gameResultsFactory.Create();
       _shell.ShowModalDialog(viewModel);
       _playerLeftMatch = viewModel.PlayerLeftMatch;
     }
 
     private void DisplayMatchResults()
     {
-      var viewModel = _matchResultsFactory.Create();
+      Ui.MatchResults.ViewModel viewModel = _matchResultsFactory.Create();
       _shell.ShowModalDialog(viewModel);
       _rematch = viewModel.ShouldRematch;
     }
@@ -110,7 +109,7 @@
         {
           Game = Game.New(_deck1.CardNames, _deck2.CardNames, _cardDatabase, _decisionSystem);
 
-          var playScreen = _playScreenFactory.Create();
+          Ui.PlayScreen.ViewModel playScreen = _playScreenFactory.Create();
           _shell.ChangeScreen(playScreen);
 
           Game.Start(looser: Looser);
@@ -118,7 +117,7 @@
           if (Game.WasStopped)
             return;
 
-          var looser = UpdateScore();
+          int? looser = UpdateScore();
           SetLooser(looser);
         });
 
@@ -194,7 +193,7 @@
 
     private void ShowStartScreen()
     {
-      var startScreen = _startScreenFactory.Create();
+      Ui.StartScreen.ViewModel startScreen = _startScreenFactory.Create();
       _shell.ChangeScreen(startScreen);
     }
 
@@ -215,7 +214,7 @@
 
     public void ForceCurrentGameToEnd()
     {
-      var isFinished = true;
+      bool isFinished = true;
 
       if (Game != null)
       {

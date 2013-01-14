@@ -4,7 +4,6 @@
   using System.Linq;
   using Core;
   using Core.Ai;
-  using Core.Cards.Effects;
   using Core.Dsl;
 
   public class AcidicSoil : CardsSource
@@ -20,7 +19,7 @@
         .Cast(p =>
           {
             p.Timing = Timings.FirstMain();
-            p.Effect = Effect<DealDamageToEach>(e => e.AmountPlayer = e.Controller.Battlefield.Lands.Count());
+            p.Effect = Effect<Core.Effects.DealDamageToEach>(e => e.AmountPlayer = e.Controller.Battlefield.Lands.Count());
           });
     }
   }

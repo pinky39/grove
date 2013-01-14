@@ -4,7 +4,6 @@
   using System.Collections;
   using System.Collections.Generic;
   using System.Linq;
-  using Cards;
   using Decisions.Results;
 
   public class PlayableGenerator : IEnumerable<Playable>

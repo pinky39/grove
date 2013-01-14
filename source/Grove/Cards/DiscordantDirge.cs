@@ -3,13 +3,13 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards.Costs;
-  using Core.Cards.Counters;
-  using Core.Cards.Effects;
-  using Core.Cards.Modifiers;
-  using Core.Cards.Triggers;
+  using Core.Costs;
+  using Core.Counters;
   using Core.Dsl;
+  using Core.Effects;
   using Core.Mana;
+  using Core.Modifiers;
+  using Core.Triggers;
 
   public class DiscordantDirge : CardsSource
   {

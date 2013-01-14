@@ -1,12 +1,10 @@
 ﻿namespace Grove.Core
 {
-  using System;
   using System.Linq;
   using Ai;
-  using Cards;
-  using Cards.Casting;
-  using Cards.Costs;
-  using Cards.Effects;
+  using Casting;
+  using Costs;
+  using Effects;
   using Infrastructure;
   using Mana;
   using Messages;
@@ -112,9 +110,9 @@
     }
 
     public void Cast(ActivationParameters activationParameters)
-    {      
-      var effect = CreateEffect(activationParameters);      
-      
+    {
+      Effect effect = CreateEffect(activationParameters);
+
       _cost.Pay(activationParameters.Targets.Cost.FirstOrDefault(), activationParameters.X);
       _castingRule.Cast(effect);
       _game.Publish(new PlayerHasCastASpell(_card, activationParameters.Targets));

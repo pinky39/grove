@@ -39,7 +39,7 @@
     public static Game New(IEnumerable<string> humanDeck, IEnumerable<string> cpuDeck, CardDatabase cardDatabase,
       DecisionSystem decisionSystem)
     {
-      var game = CreateGame(cardDatabase, decisionSystem);
+      Game game = CreateGame(cardDatabase, decisionSystem);
 
       game.Players = new Players(
         player1Name: "You",
@@ -78,7 +78,7 @@
     {
       init = init ?? delegate { };
 
-      var decision = _decisionSystem.Create(controller, init, this);
+      IDecision decision = _decisionSystem.Create(controller, init, this);
       _decisionQueue.Enqueue(decision);
     }
 
@@ -100,7 +100,7 @@
     public static Game NewSimulation(IEnumerable<string> deck1, IEnumerable<string> deck2, CardDatabase cardDatabase,
       DecisionSystem decisionSystem)
     {
-      var game = CreateGame(cardDatabase, decisionSystem);
+      Game game = CreateGame(cardDatabase, decisionSystem);
 
       game.Players = new Players(
         player1Name: "Player1",
@@ -116,12 +116,12 @@
 
     public IEnumerable<ITarget> GenerateTargets(Func<Zone, Player, bool> zoneFilter)
     {
-      foreach (var target in Players.SelectMany(p => p.GetTargets(zoneFilter)))
+      foreach (ITarget target in Players.SelectMany(p => p.GetTargets(zoneFilter)))
       {
         yield return target;
       }
 
-      foreach (var target in Stack.GenerateTargets(zoneFilter))
+      foreach (ITarget target in Stack.GenerateTargets(zoneFilter))
       {
         yield return target;
       }
@@ -183,7 +183,7 @@
     public static Game NewScenario(ControllerType player1Controller, ControllerType player2Controller,
       CardDatabase cardDatabase, DecisionSystem decisionSystem)
     {
-      var game = CreateGame(cardDatabase, decisionSystem);
+      Game game = CreateGame(cardDatabase, decisionSystem);
 
       game.Players = new Players(
         player1Name: "Player1",

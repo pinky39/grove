@@ -113,9 +113,9 @@
     }
 
     private Player CreatePlayer(string name, string avatar, ControllerType type, IEnumerable<string> deck, Game game)
-    {      
+    {
       return new Player(name, avatar, type, deck, game);
-    }    
+    }
 
     public void ChangeActivePlayer()
     {
@@ -213,6 +213,5 @@
         }
       }
     }
-    
   }
 }

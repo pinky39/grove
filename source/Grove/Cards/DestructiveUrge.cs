@@ -3,11 +3,10 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards.Effects;
-  using Core.Cards.Triggers;
   using Core.Dsl;
   using Core.Messages;
   using Core.Targeting;
+  using Core.Triggers;
 
   public class DestructiveUrge : CardsSource
   {
@@ -23,7 +22,7 @@
         .Cast(p =>
           {
             p.Timing = Timings.FirstMain();
-            p.Effect = Effect<Attach>();
+            p.Effect = Effect<Core.Effects.Attach>();
             p.EffectTargets = L(Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));
             p.TargetingAi = TargetingAi.CombatEnchantment();
           })                                
@@ -36,7 +35,7 @@
                 t.UseAttachedToAsTriggerSource = true;
                 t.ToPlayer();
               }),
-            Effect<PlayersSacrificeLands>(
+            Effect<Core.Effects.PlayersSacrificeLands>(
               p =>
                 {
                   p.Effect.OnlyPlayer = (Player) p.Parameters.Trigger<DamageHasBeenDealt>().Receiver;

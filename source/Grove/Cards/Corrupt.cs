@@ -4,7 +4,6 @@
   using System.Linq;
   using Core;
   using Core.Ai;
-  using Core.Cards.Effects;
   using Core.Dsl;
   using Core.Targeting;
 
@@ -23,7 +22,7 @@
           {
             p.Timing = Timings.MainPhases();
             p.Category = EffectCategories.Destruction;
-            p.Effect = Effect<DealDamageToTargets>(e =>
+            p.Effect = Effect<Core.Effects.DealDamageToTargets>(e =>
               {
                 e.Amount = e.Controller.Battlefield.Count(x => x.Is("swamp"));
                 e.GainLife = true;

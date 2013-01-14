@@ -3,10 +3,8 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards;
-  using Core.Cards.Effects;
-  using Core.Cards.Modifiers;
   using Core.Dsl;
+  using Core.Modifiers;
 
   public class Falter : CardsSource
   {
@@ -21,7 +19,7 @@
         .Cast(p =>
           {
             p.Timing = All(Timings.Steps(Step.BeginningOfCombat), Timings.Turn(active: true));
-            p.Effect = Effect<ApplyModifiersToPlayer>(e =>
+            p.Effect = Effect<Core.Effects.ApplyModifiersToPlayer>(e =>
               {
                 e.Player = e.Players.Passive;
                 e.Modifiers(Modifier<AddContiniousEffect>(m =>

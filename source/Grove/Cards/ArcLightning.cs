@@ -3,7 +3,6 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards.Effects;
   using Core.Dsl;
   using Core.Targeting;
 
@@ -20,7 +19,7 @@
         .FlavorText("Rainclouds don't last long in Shiv, but that doesn't stop the lightning.")
         .Cast(p =>
           {
-            p.Effect = Effect<DealDistributedDamageToTargets>(e => e.Amount = 3);
+            p.Effect = Effect<Core.Effects.DealDistributedDamageToTargets>(e => e.Amount = 3);
             p.DistributeDamage = true;
             p.EffectTargets = L(Target(Validators.CreatureOrPlayer(), Zones.Battlefield(), maxCount: 3));
             p.DistributeDamage = true;

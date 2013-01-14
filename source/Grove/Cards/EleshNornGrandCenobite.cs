@@ -3,10 +3,8 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards;
-  using Core.Cards.Effects;
-  using Core.Cards.Modifiers;
   using Core.Dsl;
+  using Core.Modifiers;
 
   public class EleshNornGrandCenobite : CardsSource
   {
@@ -24,7 +22,7 @@
         .Cast(p =>
           {
             p.Category = EffectCategories.ToughnessIncrease;
-            p.Effect = Effect<PutIntoPlay>(e =>
+            p.Effect = Effect<Core.Effects.PutIntoPlay>(e =>
               {
                 e.ToughnessReductionFilter = (self, card) => card.Controller != self.Controller;
                 e.ToughnessReduction = 2;

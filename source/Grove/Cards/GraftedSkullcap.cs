@@ -3,9 +3,9 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards.Effects;
-  using Core.Cards.Triggers;
   using Core.Dsl;
+  using Core.Effects;
+  using Core.Triggers;
 
   public class GraftedSkullcap : CardsSource
   {

@@ -3,12 +3,10 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards;
-  using Core.Cards.Costs;
-  using Core.Cards.Effects;
-  using Core.Cards.Modifiers;
+  using Core.Costs;
   using Core.Dsl;
   using Core.Mana;
+  using Core.Modifiers;
 
   public class CreepingTarPit : CardsSource
   {
@@ -19,7 +17,7 @@
         .Type("Land")
         .Text(
           "Creeping Tar Pit enters the battlefield tapped.{EOL}{T}: Add {U} or {B} to your mana pool.{EOL}{1}{U}{B}: Until end of turn, Creeping Tar Pit becomes a 3/2 blue and black Elemental creature and is unblockable. It's still a land.")
-        .Cast(p => p.Effect = Effect<PutIntoPlay>(e => e.PutIntoPlayTapped = true))
+        .Cast(p => p.Effect = Effect<Core.Effects.PutIntoPlay>(e => e.PutIntoPlayTapped = true))
         .Abilities(
           ManaAbility(
             new ManaUnit(ManaColors.Blue | ManaColors.Black),
@@ -31,7 +29,7 @@
                 cost.Amount = "{1}{U}{B}".ParseMana();
                 cost.TryNotToConsumeCardsManaSourceWhenPayingThis = true;
               }),
-            Effect<ApplyModifiersToSelf>(e => e.Modifiers(
+            Effect<Core.Effects.ApplyModifiersToSelf>(e => e.Modifiers(
               Modifier<ChangeToCreature>(m =>
                 {
                   m.Power = 3;

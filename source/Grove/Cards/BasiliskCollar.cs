@@ -3,12 +3,10 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards;
-  using Core.Cards.Costs;
-  using Core.Cards.Effects;
-  using Core.Cards.Modifiers;
+  using Core.Costs;
   using Core.Dsl;
   using Core.Mana;
+  using Core.Modifiers;
   using Core.Targeting;
 
   public class BasiliskCollar : CardsSource
@@ -27,7 +25,7 @@
           ActivatedAbility(
             "{2}: Attach to target creature you control. Equip only as a sorcery.",
             Cost<PayMana>(cost => cost.Amount = 2.Colorless()),
-            Effect<Attach>(e => e.Modifiers(
+            Effect<Core.Effects.Attach>(e => e.Modifiers(
               Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Deathtouch),
               Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Lifelink)
               )),

@@ -1,6 +1,5 @@
 ﻿namespace Grove.Core.Decisions.Scenario
 {
-  using Cards;
   using Mana;
 
   public class ScenarioAbility : Results.Ability

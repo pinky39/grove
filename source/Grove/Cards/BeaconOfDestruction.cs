@@ -3,8 +3,7 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards.Casting;
-  using Core.Cards.Effects;
+  using Core.Casting;
   using Core.Dsl;
   using Core.Targeting;
 
@@ -23,7 +22,7 @@
           {
             p.Timing = Timings.InstantRemovalTarget();
             p.Rule = Rule<Instant>(r => r.AfterResolvePutToZone = card => card.ShuffleIntoLibrary());
-            p.Effect = Effect<DealDamageToTargets>(e => e.Amount = 5);
+            p.Effect = Effect<Core.Effects.DealDamageToTargets>(e => e.Amount = 5);
             p.EffectTargets = L(Target(Validators.CreatureOrPlayer(), Zones.Battlefield()));
             p.TargetingAi = TargetingAi.DealDamageSingleSelector(5);
           });

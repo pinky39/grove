@@ -3,9 +3,8 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards.Effects;
-  using Core.Cards.Modifiers;
   using Core.Dsl;
+  using Core.Modifiers;
   using Core.Targeting;
 
   public class GraspOfDarkness : CardsSource
@@ -21,7 +20,7 @@
         .Cast(p =>
           {
             p.Timing = Timings.InstantRemovalTarget();
-            p.Effect = Effect<ApplyModifiersToTargets>(e =>
+            p.Effect = Effect<Core.Effects.ApplyModifiersToTargets>(e =>
               {
                 e.ToughnessReduction = 4;
                 e.Modifiers(

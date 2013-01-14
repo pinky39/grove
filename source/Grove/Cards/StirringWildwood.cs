@@ -3,12 +3,10 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards;
-  using Core.Cards.Costs;
-  using Core.Cards.Effects;
-  using Core.Cards.Modifiers;
+  using Core.Costs;
   using Core.Dsl;
   using Core.Mana;
+  using Core.Modifiers;
 
   public class StirringWildwood : CardsSource
   {
@@ -19,7 +17,7 @@
         .Type("Land")
         .Text(
           "Stirring Wildwood enters the battlefield tapped.{EOL}{T}: Add {G} or {W} to your mana pool.{EOL}{1}{G}{W}: Until end of turn, Stirring Wildwood becomes a 3/4 green and white Elemental creature with reach. It's still a land.")
-        .Cast(p => p.Effect = Effect<PutIntoPlay>(e => e.PutIntoPlayTapped = true))                  
+        .Cast(p => p.Effect = Effect<Core.Effects.PutIntoPlay>(e => e.PutIntoPlayTapped = true))                  
         .Abilities(
           ManaAbility(
             new ManaUnit(ManaColors.Green | ManaColors.White),
@@ -31,7 +29,7 @@
                 cost.Amount = "{1}{G}{W}".ParseMana();
                 cost.TryNotToConsumeCardsManaSourceWhenPayingThis = true;
               }),
-            Effect<ApplyModifiersToSelf>(e => e.Modifiers(
+            Effect<Core.Effects.ApplyModifiersToSelf>(e => e.Modifiers(
               Modifier<ChangeToCreature>(m =>
                 {
                   m.Power = 3;

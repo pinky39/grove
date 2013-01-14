@@ -17,7 +17,7 @@
     IEnumerator IEnumerable.GetEnumerator()
     {
       return GetEnumerator();
-    }    
+    }
   }
 
   public static class RowConversions
@@ -26,16 +26,16 @@
     {
       return cards.Select(x => x.Name).AsRows();
     }
-    
+
     public static IEnumerable<DeckRow> AsRows(this IEnumerable<string> cardNames)
     {
       return cardNames
-          .GroupBy(x => x)
-          .Select(x => new DeckRow
-            {
-              CardName = x.Key,
-              Count = x.Count()
-            });
+        .GroupBy(x => x)
+        .Select(x => new DeckRow
+          {
+            CardName = x.Key,
+            Count = x.Count()
+          });
     }
   }
 }

@@ -3,10 +3,9 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards.Effects;
-  using Core.Cards.Modifiers;
   using Core.Dsl;
   using Core.Mana;
+  using Core.Modifiers;
   using Core.Targeting;
 
   public class Blaze : CardsSource
@@ -22,7 +21,7 @@
         .Cast(p =>
           {
             p.Timing = Timings.MainPhases();
-            p.Effect = Effect<DealDamageToTargets>(e => e.Amount = Value.PlusX);
+            p.Effect = Effect<Core.Effects.DealDamageToTargets>(e => e.Amount = Value.PlusX);
             p.XCalculator = ChooseXAi.TargetLifepointsLeft(ManaUsage.Spells);
             p.EffectTargets = L(Target(Validators.CreatureOrPlayer(), Zones.Battlefield()));
             p.TargetingAi = TargetingAi.DealDamageSingleSelector();

@@ -3,10 +3,9 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards.Costs;
-  using Core.Cards.Effects;
-  using Core.Cards.Modifiers;
+  using Core.Costs;
   using Core.Dsl;
+  using Core.Modifiers;
   using Core.Targeting;
 
   public class PhyrexianGhoul : CardsSource
@@ -25,7 +24,7 @@
           ActivatedAbility(
             "Sacrifice a creature: Phyrexian Ghoul gets +2/+2 until end of turn.",
             Cost<Sacrifice>(),
-            Effect<ApplyModifiersToSelf>(e => e.Modifiers(
+            Effect<Core.Effects.ApplyModifiersToSelf>(e => e.Modifiers(
               Modifier<AddPowerAndToughness>(m =>
                 {
                   m.Power = 2;

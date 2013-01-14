@@ -3,6 +3,7 @@
   using System;
   using System.Collections.Generic;
   using Decisions;
+  using Effects;
   using Infrastructure;
   using log4net;
   using Messages;
@@ -13,8 +14,8 @@
     private static readonly ILog Log = LogManager.GetLogger(typeof (StateMachine));
     private readonly Trackable<IDecision> _curentDecision;
     private readonly DecisionQueue _decisionQueue;
+    private readonly Game _game;
     private readonly Trackable<int> _passesCount;
-    private Game _game;
     private Player _looser;
     private Dictionary<State, StepState> _states;
     private Dictionary<Step, StepDefinition> _steps;
@@ -110,16 +111,16 @@
 
     private void DiscardToMaximumHandSize()
     {
-      var activePlayer = _game.Players.Active;
+      Player activePlayer = _game.Players.Active;
 
-      _game.Enqueue<DiscardCards>(
+      _game.Enqueue<Decisions.DiscardCards>(
         controller: _game.Players.Active,
         init: p => p.Count = activePlayer.NumberOfCardsAboveMaximumHandSize);
     }
 
     private void DrawStartingHands()
     {
-      foreach (var player in _game.Players)
+      foreach (Player player in _game.Players)
       {
         player.DrawStartingHand();
       }
@@ -239,7 +240,7 @@
         name: State.FinishResolve,
         proc: () =>
           {
-            var effect = _game.Stack.LastResolved;
+            Effect effect = _game.Stack.LastResolved;
             if (effect != null)
             {
               effect.FinishResolve();
@@ -294,7 +295,7 @@
         first: () => Publish(new TurnStarted {TurnCount = _game.Turn.TurnCount}),
         second: () =>
           {
-            foreach (var permanent in _game.Players.Active.Battlefield)
+            foreach (Card permanent in _game.Players.Active.Battlefield)
             {
               permanent.HasSummoningSickness = false;
 
@@ -303,7 +304,7 @@
 
               if (permanent.MayChooseNotToUntap)
               {
-                var permanentCopy = permanent;
+                Card permanentCopy = permanent;
                 _game.Enqueue<ChooseToUntap>(
                   controller: _game.Players.Active,
                   init: p => p.Permanent = permanentCopy);
@@ -442,7 +443,7 @@
 
     private void SelectStartingPlayer()
     {
-      var winner = _looser ?? RollDice();
+      Player winner = _looser ?? RollDice();
       _game.Enqueue<SelectStartingPlayer>(winner);
     }
 
@@ -453,7 +454,7 @@
 
     private void ShuffleLibraries()
     {
-      foreach (var player in _game.Players)
+      foreach (Player player in _game.Players)
       {
         player.ShuffleLibrary();
       }
@@ -461,8 +462,8 @@
 
     private void TakeMulligans()
     {
-      var starting = _game.Players.Starting;
-      var nonStarting = _game.Players.GetOpponent(starting);
+      Player starting = _game.Players.Starting;
+      Player nonStarting = _game.Players.GetOpponent(starting);
 
       _game.Enqueue<TakeMulligan>(starting);
       _game.Enqueue<TakeMulligan>(nonStarting);

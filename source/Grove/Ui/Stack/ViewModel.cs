@@ -4,7 +4,7 @@
   using System.Collections.Generic;
   using Caliburn.Micro;
   using Core;
-  using Core.Cards.Effects;
+  using Core.Effects;
   using Core.Targeting;
   using Core.Zones;
   using Infrastructure;

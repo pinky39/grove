@@ -3,11 +3,10 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards.Casting;
-  using Core.Cards.Counters;
-  using Core.Cards.Effects;
-  using Core.Cards.Modifiers;
+  using Core.Casting;
+  using Core.Counters;
   using Core.Dsl;
+  using Core.Modifiers;
 
   public class BlackSunsZenith : CardsSource
   {
@@ -24,7 +23,7 @@
             p.Timing = Timings.FirstMain();
             p.Rule = Rule<Sorcery>(r => r.AfterResolvePutToZone = card => card.ShuffleIntoLibrary());
             p.XCalculator = ChooseXAi.ReduceCreaturesPwT();
-            p.Effect = Effect<ApplyModifiersToPermanents>(e =>
+            p.Effect = Effect<Core.Effects.ApplyModifiersToPermanents>(e =>
               {
                 e.ToughnessReduction = Value.PlusX;
                 e.Filter = (effect, card) => card.Is().Creature;

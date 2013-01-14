@@ -2,8 +2,7 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Cards;
-  using Cards.Effects;
+  using Effects;
   using Targeting;
   using Zones;
 

@@ -3,8 +3,8 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Core.Cards.Effects;
   using Core.Decisions.Results;
+  using Core.Effects;
   using Infrastructure;
 
   public class ViewModel

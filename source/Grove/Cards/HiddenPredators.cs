@@ -3,11 +3,10 @@
   using System.Collections.Generic;
   using System.Linq;
   using Core;
-  using Core.Cards.Effects;
-  using Core.Cards.Modifiers;
-  using Core.Cards.Triggers;
   using Core.Dsl;
   using Core.Mana;
+  using Core.Modifiers;
+  using Core.Triggers;
 
   public class HiddenPredators : CardsSource
   {
@@ -31,7 +30,7 @@
                   return ability.Controller.Opponent
                     .Battlefield.Creatures.Any(x => x.Power >= 4);
                 }),
-            Effect<ApplyModifiersToSelf>(p => p.Effect.Modifiers(
+            Effect<Core.Effects.ApplyModifiersToSelf>(p => p.Effect.Modifiers(
               Modifier<ChangeToCreature>(m =>
                 {
                   m.Power = 4;

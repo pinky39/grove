@@ -4,12 +4,11 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards;
-  using Core.Cards.Costs;
-  using Core.Cards.Effects;
-  using Core.Cards.Modifiers;
+  using Core.Costs;
   using Core.Dsl;
+  using Core.Effects;
   using Core.Mana;
+  using Core.Modifiers;
 
   public class LurkingEvil : CardsSource
   {

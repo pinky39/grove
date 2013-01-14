@@ -3,9 +3,9 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards.Costs;
-  using Core.Cards.Effects;
+  using Core.Costs;
   using Core.Dsl;
+  using Core.Effects;
   using Core.Targeting;
 
   public class RavenousBaloth : CardsSource

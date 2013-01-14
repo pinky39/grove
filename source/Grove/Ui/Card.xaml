@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns = "http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:grove="clr-namespace:Grove.Ui" xmlns:Cards="clr-namespace:Grove.Core.Cards">
+                    xmlns:grove="clr-namespace:Grove.Ui" xmlns:Core="clr-namespace:Grove.Core">
 
     <Style x:Key="Card" TargetType="ContentControl">
         <Style.Triggers>
@@ -113,22 +113,22 @@
                                             <Border>
                                                 <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center">
                                                     <StackPanel.Resources>
-                                                        <DataTemplate DataType="{x:Type Cards:TextToken}">
+                                                        <DataTemplate DataType="{x:Type Core:TextToken}">
                                                             <TextBlock Foreground="#000" Margin="0,0,4,0" Text="{Binding Path=.}" />
                                                         </DataTemplate>
-                                                        <DataTemplate DataType="{x:Type Cards:ImportantTextToken}">
+                                                        <DataTemplate DataType="{x:Type Core:ImportantTextToken}">
                                                             <TextBlock FontWeight="Bold" Foreground="#000" Margin="0,0,4,0" Text="{Binding Path=.}" />
                                                         </DataTemplate>
-                                                        <DataTemplate DataType="{x:Type Cards:EolToken}">
+                                                        <DataTemplate DataType="{x:Type Core:EolToken}">
                                                             <TextBlock Width="258" FontSize="4" />
                                                         </DataTemplate>
-                                                        <DataTemplate DataType="{x:Type Cards:ManaSymbolGroupStartToken}">
+                                                        <DataTemplate DataType="{x:Type Core:ManaSymbolGroupStartToken}">
                                                             <TextBlock FontSize="15" Margin="2,0,0,0" />
                                                         </DataTemplate>
-                                                        <DataTemplate DataType="{x:Type Cards:ManaSymbolGroupEndToken}">
+                                                        <DataTemplate DataType="{x:Type Core:ManaSymbolGroupEndToken}">
                                                             <TextBlock FontSize="15" Margin="0,0,6,0" />
                                                         </DataTemplate>
-                                                        <DataTemplate DataType="{x:Type Cards:ManaSymbolToken}">
+                                                        <DataTemplate DataType="{x:Type Core:ManaSymbolToken}">
                                                             <Image Source="{Binding Path=Image}" Height="16" Margin="0,0,0,0" />
                                                         </DataTemplate>
                                                     </StackPanel.Resources>
@@ -143,7 +143,7 @@
 
                                                     <ItemsControl ItemsSource="{Binding Path=FlavorText}" FontSize="{Binding CharacterCount, Converter={x:Static grove:Converters.CharacterCountToFontSize}}">
                                                         <ItemsControl.Resources>
-                                                            <DataTemplate DataType="{x:Type Cards:TextToken}">
+                                                            <DataTemplate DataType="{x:Type Core:TextToken}">
                                                                 <TextBlock Foreground="#000" Margin="0,0,4,0" Text="{Binding Path=.}" FontStyle="Italic" />
 
                                                             </DataTemplate>

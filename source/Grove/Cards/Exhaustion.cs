@@ -3,10 +3,8 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards;
-  using Core.Cards.Effects;
-  using Core.Cards.Modifiers;
   using Core.Dsl;
+  using Core.Modifiers;
   using Core.Targeting;
 
   public class Exhaustion : CardsSource
@@ -23,7 +21,7 @@
         .Cast(p =>
           {
             p.Timing = Timings.SecondMain();
-            p.Effect = Effect<ApplyModifiersToPlayer>(e =>
+            p.Effect = Effect<Core.Effects.ApplyModifiersToPlayer>(e =>
               {
                 e.Player = e.Players.GetOpponent(e.Controller);
                 e.Modifiers(Modifier<AddContiniousEffect>(m =>

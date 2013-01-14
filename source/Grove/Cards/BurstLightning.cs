@@ -3,8 +3,7 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards.Costs;
-  using Core.Cards.Effects;
+  using Core.Costs;
   using Core.Dsl;
   using Core.Mana;
   using Core.Targeting;
@@ -22,14 +21,14 @@
         .Cast(p =>
           {
             p.Timing = Timings.InstantRemovalTarget();
-            p.Effect = Effect<DealDamageToTargets>(e => e.Amount = 2);
+            p.Effect = Effect<Core.Effects.DealDamageToTargets>(e => e.Amount = 2);
             p.EffectTargets = L(Target(Validators.CreatureOrPlayer(), Zones.Battlefield()));
             p.TargetingAi = TargetingAi.DealDamageSingleSelector(2);
           })
         .Cast(p =>
           {
             p.Description = p.KickerDescription;
-            p.Effect = Effect<DealDamageToTargets>(e => e.Amount = 4);
+            p.Effect = Effect<Core.Effects.DealDamageToTargets>(e => e.Amount = 4);
             p.Cost = Cost<PayMana>(c => c.Amount = "{4}{R}".ParseMana());
             p.EffectTargets = L(Target(Validators.CreatureOrPlayer(), Zones.Battlefield()));
             p.TargetingAi = TargetingAi.DealDamageSingleSelector(4);

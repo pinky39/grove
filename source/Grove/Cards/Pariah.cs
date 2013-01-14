@@ -3,10 +3,9 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards.Effects;
-  using Core.Cards.Modifiers;
-  using Core.Cards.Redirections;
   using Core.Dsl;
+  using Core.Modifiers;
+  using Core.Redirections;
   using Core.Targeting;
 
   public class Pariah : CardsSource
@@ -23,7 +22,7 @@
         .Cast(p =>
           {
             p.Timing = Timings.FirstMain();
-            p.Effect = Effect<Attach>(e =>
+            p.Effect = Effect<Core.Effects.Attach>(e =>
               {
                 e.ModifiesAttachmentController = true;
                 e.Modifiers(

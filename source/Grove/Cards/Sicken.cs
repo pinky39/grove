@@ -3,9 +3,8 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards.Effects;
-  using Core.Cards.Modifiers;
   using Core.Dsl;
+  using Core.Modifiers;
   using Core.Targeting;
 
   public class Sicken : CardsSource
@@ -23,7 +22,7 @@
         .Cycling("{2}")
         .Cast(p =>
           {
-            p.Effect = Effect<Attach>(e =>
+            p.Effect = Effect<Core.Effects.Attach>(e =>
               {
                 e.ToughnessReduction = 1;
                 e.Modifiers(Modifier<AddPowerAndToughness>(m =>

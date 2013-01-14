@@ -2,11 +2,11 @@
 {
   using System.Collections.Generic;
   using System.Linq;
+  using Ai;
   using Decisions;
   using Decisions.Results;
-  using Grove.Core.Ai;
-  using Grove.Infrastructure;
-  using Grove.Core.Messages;
+  using Infrastructure;
+  using Messages;
 
   [Copyable]
   public class Attacker : IHashable
@@ -65,7 +65,7 @@
 
     public void DealAssignedDamage()
     {
-      foreach (var damage in _assignedDamage)
+      foreach (Damage damage in _assignedDamage)
       {
         _card.DealDamage(damage);
       }
@@ -82,7 +82,7 @@
 
     public void DistributeDamageToBlockers(DamageDistribution distribution)
     {
-      foreach (var blocker in _blockers)
+      foreach (Blocker blocker in _blockers)
       {
         var damage = new Damage(
           source: Card,
@@ -94,7 +94,7 @@
         blocker.AssignDamage(damage);
       }
 
-      var defender = _game.Players.GetOpponent(_card.Controller);
+      Player defender = _game.Players.GetOpponent(_card.Controller);
 
       if (HasTrample || _isBlocked == false)
       {
@@ -135,7 +135,7 @@
     {
       _game.Publish(new RemovedFromCombat {Card = Card});
 
-      foreach (var blocker in _blockers)
+      foreach (Blocker blocker in _blockers)
       {
         blocker.RemoveAttacker();
       }
@@ -143,7 +143,7 @@
 
     public void SetDamageAssignmentOrder(DamageAssignmentOrder damageAssignmentOrder)
     {
-      foreach (var blocker in _blockers)
+      foreach (Blocker blocker in _blockers)
       {
         blocker.DamageAssignmentOrder = damageAssignmentOrder[blocker];
       }

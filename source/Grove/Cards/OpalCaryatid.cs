@@ -3,10 +3,10 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards.Modifiers;
-  using Core.Cards.Triggers;
   using Core.Dsl;
   using Core.Mana;
+  using Core.Modifiers;
+  using Core.Triggers;
 
   public class OpalCaryatid : CardsSource
   {
@@ -25,7 +25,7 @@
             Trigger<OnCastedSpell>(t => t.Filter =
               (ability, card) =>
                 ability.Controller != card.Controller && ability.OwningCard.Is().Enchantment && card.Is().Creature),
-            Effect<Core.Cards.Effects.ApplyModifiersToSelf>(p => p.Effect.Modifiers(
+            Effect<Core.Effects.ApplyModifiersToSelf>(p => p.Effect.Modifiers(
               Modifier<ChangeToCreature>(m =>
                 {
                   m.Power = 2;

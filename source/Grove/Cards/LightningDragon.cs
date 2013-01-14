@@ -3,12 +3,10 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards;
-  using Core.Cards.Costs;
-  using Core.Cards.Effects;
-  using Core.Cards.Modifiers;
+  using Core.Costs;
   using Core.Dsl;
   using Core.Mana;
+  using Core.Modifiers;
 
   public class LightningDragon : CardsSource
   {
@@ -27,7 +25,7 @@
           ActivatedAbility(
             "{R}: Lightning Dragon gets +1/+0 until end of turn.",
             Cost<PayMana>(c => c.Amount = ManaAmount.Red),
-            Effect<ApplyModifiersToSelf>(e => e.Modifiers(
+            Effect<Core.Effects.ApplyModifiersToSelf>(e => e.Modifiers(
               Modifier<AddPowerAndToughness>(m => m.Power = 1, untilEndOfTurn: true))),
             timing: Timings.IncreaseOwnersPowerAndThougness(1, 0)));
     }

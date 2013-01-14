@@ -1,7 +1,7 @@
 ﻿namespace Grove.Ui
 {
   using System;
-  using Core.Cards;
+  using Core;
   using Core.Decisions.Results;
 
   public class PlayableActivator

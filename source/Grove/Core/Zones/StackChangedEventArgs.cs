@@ -1,7 +1,7 @@
 ﻿namespace Grove.Core.Zones
 {
   using System;
-  using Cards.Effects;
+  using Effects;
 
   public class StackChangedEventArgs : EventArgs
   {

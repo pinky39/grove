@@ -3,7 +3,7 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards.Costs;
+  using Core.Costs;
   using Core.Dsl;
   using Core.Targeting;
 
@@ -24,7 +24,7 @@
           ActivatedAbility(
             "{T}: Return Wizard Mentor and target creature you control to their owner's hand.",
             Cost<Tap>(),
-            Effect<Core.Cards.Effects.ReturnToHand>(e => { e.ReturnOwner = true; }),
+            Effect<Core.Effects.ReturnToHand>(e => { e.ReturnOwner = true; }),
             Target(Validators.Card(ControlledBy.SpellOwner, card => card.Is().Creature), Zones.Battlefield()),
             targetingAi: TargetingAi.BounceSelfAndTargetCreatureYouControl(),
             timing: Timings.NoRestrictions()

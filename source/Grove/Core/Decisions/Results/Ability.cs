@@ -1,7 +1,5 @@
 ﻿namespace Grove.Core.Decisions.Results
 {
-  using Cards;
-
   public class Ability : Playable
   {
     private Ability() {}

@@ -3,12 +3,10 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards;
-  using Core.Cards.Costs;
-  using Core.Cards.Effects;
-  using Core.Cards.Modifiers;
+  using Core.Costs;
   using Core.Dsl;
   using Core.Mana;
+  using Core.Modifiers;
   using Core.Targeting;
 
   public class DranaKalastriaBloodchief : CardsSource
@@ -32,7 +30,7 @@
                 cost.Amount = "{B}{B}".ParseMana();                
                 cost.XCalculator = ChooseXAi.TargetLifepointsLeft(ManaUsage.Abilities);
               }),
-            Effect<ApplyModifiersToSelfAndToTargets>(e =>
+            Effect<Core.Effects.ApplyModifiersToSelfAndToTargets>(e =>
               {
                 e.ToughnessReductionTargets = Value.PlusX;
 

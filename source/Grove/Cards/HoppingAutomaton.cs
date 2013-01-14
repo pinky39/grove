@@ -3,12 +3,10 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards;
-  using Core.Cards.Costs;
-  using Core.Cards.Effects;
-  using Core.Cards.Modifiers;
+  using Core.Costs;
   using Core.Dsl;
   using Core.Mana;
+  using Core.Modifiers;
 
   public class HoppingAutomaton : CardsSource
   {
@@ -26,7 +24,7 @@
           ActivatedAbility(
             "{0}: Hopping Automaton gets -1/-1 and gains flying until end of turn.",
             Cost<PayMana>(c => c.Amount = ManaAmount.Zero),
-            Effect<ApplyModifiersToSelf>(e =>
+            Effect<Core.Effects.ApplyModifiersToSelf>(e =>
               {
                 e.ToughnessReduction = 1;
                 e.Modifiers(Modifier<AddPowerAndToughness>(m =>

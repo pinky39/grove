@@ -3,11 +3,11 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards.Effects;
-  using Core.Cards.Triggers;
   using Core.Dsl;
+  using Core.Effects;
   using Core.Mana;
   using Core.Targeting;
+  using Core.Triggers;
   using Core.Zones;
 
   public class DarkHatchling : CardsSource

@@ -3,10 +3,9 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards.Effects;
-  using Core.Cards.Modifiers;
   using Core.Dsl;
   using Core.Mana;
+  using Core.Modifiers;
   using Core.Targeting;
 
   public class HeatRay : CardsSource
@@ -23,7 +22,7 @@
           {
             p.Timing = Timings.InstantRemovalTarget();
             p.XCalculator = ChooseXAi.TargetLifepointsLeft(ManaUsage.Spells);
-            p.Effect = Effect<DealDamageToTargets>(e => e.Amount = Value.PlusX);
+            p.Effect = Effect<Core.Effects.DealDamageToTargets>(e => e.Amount = Value.PlusX);
             p.EffectTargets = L(Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));
             p.TargetingAi = TargetingAi.DealDamageSingleSelector();
           });

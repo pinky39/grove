@@ -3,9 +3,8 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards.Costs;
-  using Core.Cards.Effects;
   using Core.Dsl;
+  using Core.Effects;
 
   public class Attunement : CardsSource
   {
@@ -21,7 +20,7 @@
         .Abilities(
           ActivatedAbility(
             "Return Attunement to its owner's hand: Draw three cards, then discard four cards.",
-            Cost<Core.Cards.Costs.ReturnToHand>(),
+            Cost<Core.Costs.ReturnToHand>(),
             Effect<DrawCards>(e =>
               {
                 e.DrawCount = 3;

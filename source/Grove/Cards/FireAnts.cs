@@ -3,8 +3,7 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards.Costs;
-  using Core.Cards.Effects;
+  using Core.Costs;
   using Core.Dsl;
 
   public class FireAnts : CardsSource
@@ -23,7 +22,7 @@
           ActivatedAbility(
             "{T}: Fire Ants deals 1 damage to each other creature without flying.",
             Cost<Tap>(),
-            Effect<DealDamageToEach>(e =>
+            Effect<Core.Effects.DealDamageToEach>(e =>
               {
                 e.AmountCreature = 1;
                 e.FilterCreature = (effect, card) => !card.Has().Flying;

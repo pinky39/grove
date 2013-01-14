@@ -1,7 +1,6 @@
 ﻿namespace Grove.Core.Decisions
 {
-  using Cards;
-  using Cards.Effects;
+  using Effects;
   using Results;
   using Targeting;
 

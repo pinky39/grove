@@ -3,7 +3,6 @@
   using System;
   using System.Threading;
   using Core;
-  using Core.Cards;
   using Core.Mana;
 
   public class CardViewModel : IDisposable

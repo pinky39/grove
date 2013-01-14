@@ -3,12 +3,11 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards;
-  using Core.Cards.Costs;
-  using Core.Cards.Effects;
-  using Core.Cards.Modifiers;
+  using Core.Costs;
   using Core.Dsl;
+  using Core.Effects;
   using Core.Mana;
+  using Core.Modifiers;
   using Core.Targeting;
 
   public class GaeasEmbrace : CardsSource
@@ -25,7 +24,7 @@
         .Cast(p =>
           {
             p.Timing = Timings.FirstMain();
-            p.Effect = Effect<Attach>(e => e.Modifiers(
+            p.Effect = Effect<Core.Effects.Attach>(e => e.Modifiers(
               Modifier<AddActivatedAbility>(m => m.Ability =
                 ActivatedAbility(
                   "{G}: Regenerate enchanted creature.",

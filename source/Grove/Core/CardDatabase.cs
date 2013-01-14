@@ -33,13 +33,13 @@
 
     public Card CreateCard(string name, Player controller, Game game)
     {
-      var cardFactory = GetCardFactory(name);
+      ICardFactory cardFactory = GetCardFactory(name);
       return cardFactory.CreateCard(controller, game);
     }
 
     private ICardFactory GetCardFactory(string name)
     {
-      var cardFactory = Database
+      ICardFactory cardFactory = Database
         .Where(x => x.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase))
         .FirstOrDefault();
 
@@ -61,7 +61,7 @@
     {
       var database = new List<ICardFactory>();
 
-      foreach (var cardSource in _cardSources)
+      foreach (CardsSource cardSource in _cardSources)
       {
         database.AddRange(cardSource.GetCards());
       }
@@ -76,6 +76,6 @@
         .ToDictionary(x => x.Name.ToLowerInvariant());
 
       return this;
-    }    
+    }
   }
 }

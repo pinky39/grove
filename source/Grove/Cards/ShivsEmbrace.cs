@@ -3,12 +3,10 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards;
-  using Core.Cards.Costs;
-  using Core.Cards.Effects;
-  using Core.Cards.Modifiers;
+  using Core.Costs;
   using Core.Dsl;
   using Core.Mana;
+  using Core.Modifiers;
   using Core.Targeting;
 
   public class ShivsEmbrace : CardsSource
@@ -25,12 +23,12 @@
         .Cast(p =>
           {
             p.Timing = Timings.FirstMain();
-            p.Effect = Effect<Attach>(e => e.Modifiers(
+            p.Effect = Effect<Core.Effects.Attach>(e => e.Modifiers(
               Modifier<AddActivatedAbility>(m => m.Ability =
                 ActivatedAbility(
                   "{R}: Enchanted creature gets +1/+0 until end of turn.",
                   Cost<PayMana>(cost => cost.Amount = ManaAmount.Red),
-                  Effect<ApplyModifiersToSelf>(e1 => e1.Modifiers(
+                  Effect<Core.Effects.ApplyModifiersToSelf>(e1 => e1.Modifiers(
                     Modifier<AddPowerAndToughness>(m1 => m1.Power = 1, untilEndOfTurn: true))),
                   timing: Timings.IncreaseOwnersPowerAndThougness(1, 0))
                 ),

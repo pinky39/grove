@@ -39,9 +39,7 @@
         <Button Focusable="False">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click">
-                    <cal:ActionMessage MethodName="ChangeSelection">
-                        <cal:Parameter Value="{Binding}" />
-                    </cal:ActionMessage>
+                    <cal:ActionMessage MethodName="ChangeSelection"/>                                            
                 </i:EventTrigger>
             </i:Interaction.Triggers>
 

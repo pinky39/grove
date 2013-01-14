@@ -4,10 +4,9 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards.Effects;
-  using Core.Cards.Modifiers;
   using Core.Dsl;
   using Core.Mana;
+  using Core.Modifiers;
   using Core.Targeting;
 
   public class FertileGround : CardsSource
@@ -24,7 +23,7 @@
         .Cast(p =>
           {
             p.Timing = Timings.FirstMain();
-            p.Effect = Effect<Attach>(e => e.Modifiers(Modifier<IncreaseManaOutput>(m => m.Amount = ManaAmount.Any)));
+            p.Effect = Effect<Core.Effects.Attach>(e => e.Modifiers(Modifier<IncreaseManaOutput>(m => m.Amount = ManaAmount.Any)));
             p.EffectTargets = L(Target(Validators.Card(card => card.Is().Land), Zones.Battlefield()));
             p.TargetingAi = TargetingAi.EnchantLand(ControlledBy.SpellOwner);
           });

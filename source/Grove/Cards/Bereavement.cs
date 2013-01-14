@@ -3,10 +3,10 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards.Triggers;
   using Core.Dsl;
   using Core.Mana;
   using Core.Messages;
+  using Core.Triggers;
   using Core.Zones;
 
   public class Bereavement : CardsSource
@@ -29,7 +29,7 @@
                 t.From = Zone.Battlefield;
                 t.To = Zone.Graveyard;
               }),
-            Effect<Core.Cards.Effects.DiscardCards>(p =>
+            Effect<Core.Effects.DiscardCards>(p =>
               {
                 p.Effect.Count = 1;
                 

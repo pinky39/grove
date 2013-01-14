@@ -1,7 +1,7 @@
 ﻿namespace Grove.Core
 {
   using System.Linq;
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   [Copyable]
   public class AssignedDamage : IHashable
@@ -30,7 +30,7 @@
 
     public void Deal()
     {
-      foreach (var damage in _assigned)
+      foreach (Damage damage in _assigned)
       {
         _player.DealDamage(damage);
       }

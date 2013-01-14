@@ -5,23 +5,23 @@
   using System.Linq;
   using Core;
   using Core.Ai;
-  using Core.Cards.Effects;
   using Core.Decisions.Results;
   using Core.Dsl;
+  using Core.Effects;
   using Core.Targeting;
 
   public class Turnabout : CardsSource
   {
-    private static readonly Dictionary<EffectChoiceOption, Func<Card, bool>> Filters
-      = new Dictionary<EffectChoiceOption, Func<Card, bool>>
+    private static readonly Dictionary<Core.Effects.EffectChoiceOption, Func<Card, bool>> Filters
+      = new Dictionary<Core.Effects.EffectChoiceOption, Func<Card, bool>>
         {
           {EffectChoiceOption.Creatures, card => card.Is().Creature},
           {EffectChoiceOption.Lands, card => card.Is().Land},
           {EffectChoiceOption.Artifacts, card => card.Is().Artifact}
         };
 
-    private static readonly Dictionary<EffectChoiceOption, Action<Card>> Actions
-      = new Dictionary<EffectChoiceOption, Action<Card>>
+    private static readonly Dictionary<Core.Effects.EffectChoiceOption, Action<Card>> Actions
+      = new Dictionary<Core.Effects.EffectChoiceOption, Action<Card>>
         {
           {EffectChoiceOption.Tap, card => card.Tap()},
           {EffectChoiceOption.Untap, card => card.Untap()}
@@ -38,7 +38,7 @@
         .FlavorText("The best cure for a big ego is a little failure.")
         .Cast(p =>
           {
-            p.Effect = Effect<CustomizableEffect>(e =>
+            p.Effect = Effect<Core.Effects.CustomizableEffect>(e =>
               {
                 e.Choices(
                   Choice(EffectChoiceOption.Tap, EffectChoiceOption.Untap),

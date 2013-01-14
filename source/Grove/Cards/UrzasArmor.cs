@@ -3,9 +3,9 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards.Modifiers;
-  using Core.Cards.Preventions;
   using Core.Dsl;
+  using Core.Modifiers;
+  using Core.Preventions;
 
   public class UrzasArmor : CardsSource
   {

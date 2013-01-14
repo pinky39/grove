@@ -3,10 +3,9 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards;
-  using Core.Cards.Triggers;
   using Core.Dsl;
   using Core.Targeting;
+  using Core.Triggers;
   using Core.Zones;
 
   public class AbyssalHorror : CardsSource
@@ -26,7 +25,7 @@
           TriggeredAbility(
             "When Abyssal Horror enters the battlefield, target player discards two cards.",
             Trigger<OnZoneChanged>(t => t.To = Zone.Battlefield),
-            Effect<Core.Cards.Effects.DiscardCards>(p => p.Effect.Count = 2),
+            Effect<Core.Effects.DiscardCards>(p => p.Effect.Count = 2),
             Target(Validators.Player(), Zones.None()), 
             TargetingAi.Opponent()));
     }

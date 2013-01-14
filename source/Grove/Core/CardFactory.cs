@@ -3,15 +3,14 @@
   using System;
   using System.Collections.Generic;
   using Ai;
-  using Cards;
-  using Cards.Costs;
-  using Cards.Effects;
-  using Cards.Modifiers;
-  using Cards.Preventions;
-  using Cards.Triggers;
+  using Costs;
   using Dsl;
+  using Effects;
   using Mana;
+  using Modifiers;
+  using Preventions;
   using Targeting;
+  using Triggers;
   using Zones;
 
   public interface ICardFactory
@@ -23,17 +22,17 @@
   }
 
   public class CardFactory : ICardFactory
-  {        
-    private readonly CardParameters _p = new CardParameters();    
+  {
+    private readonly CardParameters _p = new CardParameters();
     public string Name { get { return _p.Name; } }
 
     public Card CreateCard(Player owner, Game game)
-    {                        
+    {
       return new Card(owner, game, _p);
     }
 
     public Card CreateCardPreview()
-    {          
+    {
       return new Card(_p);
     }
 
@@ -107,13 +106,13 @@
       }
       return this;
     }
-   
+
     public CardFactory Cast(Action<CastInstructionParameters> setParameters)
-    {      
+    {
       var parameters = new CastInstructionParameters(_p.Name, _p.ManaCost, _p.Type);
-      setParameters(parameters);      
+      setParameters(parameters);
       _p.AddCastInstruction(parameters);
-      
+
       return this;
     }
 
@@ -127,19 +126,19 @@
     {
       _p.Isleveler = true;
       return this;
-    }            
+    }
 
     public CardFactory FlavorText(string flavorText)
     {
       _p.FlavorText = flavorText;
       return this;
-    }          
+    }
 
     public CardFactory ManaCost(string manaCost)
     {
       _p.ManaCost = manaCost.ParseMana();
       return this;
-    }    
+    }
 
     public CardFactory Named(string name)
     {
@@ -167,9 +166,8 @@
     {
       _p.Power = power;
       return this;
-    } 
+    }
 
-   
 
     public CardFactory Text(string text)
     {
@@ -177,7 +175,7 @@
       return this;
     }
 
-  
+
     public CardFactory Toughness(int toughness)
     {
       _p.Toughness = toughness;

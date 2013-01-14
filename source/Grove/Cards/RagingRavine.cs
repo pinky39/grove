@@ -3,13 +3,12 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards.Costs;
-  using Core.Cards.Counters;
-  using Core.Cards.Effects;
-  using Core.Cards.Modifiers;
-  using Core.Cards.Triggers;
+  using Core.Costs;
+  using Core.Counters;
   using Core.Dsl;
   using Core.Mana;
+  using Core.Modifiers;
+  using Core.Triggers;
 
   public class RagingRavine : CardsSource
   {
@@ -20,7 +19,7 @@
         .Type("Land")
         .Text(
           "Raging Ravine enters the battlefield tapped.{EOL}{T}: Add {R} or {G} to your mana pool.{EOL}{2}{R}{G}: Until end of turn, Raging Ravine becomes a 3/3 red and green Elemental creature with Whenever this creature attacks, put a +1/+1 counter on it. It's still a land.")
-        .Cast(p => p.Effect = Effect<PutIntoPlay>(e => e.PutIntoPlayTapped = true))
+        .Cast(p => p.Effect = Effect<Core.Effects.PutIntoPlay>(e => e.PutIntoPlayTapped = true))
         .Abilities(
           ManaAbility(
             new ManaUnit(ManaColors.Red | ManaColors.Green),
@@ -32,7 +31,7 @@
                 cost.Amount = "{2}{R}{G}".ParseMana();
                 cost.TryNotToConsumeCardsManaSourceWhenPayingThis = true;
               }),
-            Effect<ApplyModifiersToSelf>(e => e.Modifiers(
+            Effect<Core.Effects.ApplyModifiersToSelf>(e => e.Modifiers(
               Modifier<ChangeToCreature>(m =>
                 {
                   m.Power = 3;
@@ -45,7 +44,7 @@
                   m.Ability = TriggeredAbility(
                     "Whenever this creature attacks, put a +1/+1 counter on it.",
                     Trigger<OnAttack>(),
-                    Effect<ApplyModifiersToSelf>(p1 => p1.Effect.Modifiers(
+                    Effect<Core.Effects.ApplyModifiersToSelf>(p1 => p1.Effect.Modifiers(
                       Modifier<AddCounters>(mo => mo.Counter = Counter<PowerToughness>(counter =>
                         {
                           counter.Power = 1;

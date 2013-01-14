@@ -3,11 +3,9 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards;
-  using Core.Cards.Costs;
-  using Core.Cards.Effects;
-  using Core.Cards.Modifiers;
+  using Core.Costs;
   using Core.Dsl;
+  using Core.Modifiers;
   using Core.Targeting;
 
   public class ManaLeech : CardsSource
@@ -27,9 +25,9 @@
           ActivatedAbility(
             "{T}: Tap target land. It doesn't untap during its controller's untap step for as long as Mana Leech remains tapped.",
             Cost<Tap>(),
-            Effect<CompoundEffect>(e => e.ChildEffects(
-              Effect<TapTarget>(),
-              Effect<ApplyModifiersToTargets>(e1 => e1.Modifiers(
+            Effect<Core.Effects.CompoundEffect>(e => e.ChildEffects(
+              Effect<Core.Effects.TapTarget>(),
+              Effect<Core.Effects.ApplyModifiersToTargets>(e1 => e1.Modifiers(
                 Modifier<AddStaticAbility>(m =>
                   {
                     m.StaticAbility = Static.DoesNotUntap;

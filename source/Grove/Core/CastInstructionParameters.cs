@@ -1,13 +1,11 @@
 ﻿namespace Grove.Core
 {
-  using System;
   using System.Collections.Generic;
   using Ai;
-  using Cards;
-  using Cards.Casting;
-  using Cards.Costs;
-  using Cards.Effects;
+  using Casting;
+  using Costs;
   using Dsl;
+  using Effects;
   using Mana;
   using Targeting;
 
@@ -38,7 +36,7 @@
     {
       _cardName = cardName;
       _manaCost = manaCost;
-      
+
       Rule = CastingRuleFromCardType(cardType);
       Description = DefaultDescription;
       Effect = _builder.Effect<PutIntoPlay>();
@@ -70,7 +68,7 @@
       set { _cost = value; }
     }
 
-    public bool HasXInCost { get { return XCalculator != null; }}
+    public bool HasXInCost { get { return XCalculator != null; } }
 
     private ICastingRuleFactory CastingRuleFromCardType(CardType cardType)
     {

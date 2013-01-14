@@ -3,10 +3,9 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards.Effects;
-  using Core.Cards.Modifiers;
-  using Core.Cards.Preventions;
   using Core.Dsl;
+  using Core.Modifiers;
+  using Core.Preventions;
 
   public class Lull : CardsSource
   {
@@ -22,7 +21,7 @@
         .Cast(p =>
           {
             p.Timing = All(Timings.Steps(Step.DeclareBlockers), Timings.Turn(active: false));
-            p.Effect = Effect<ApplyModifiersToPlayer>(e =>
+            p.Effect = Effect<Core.Effects.ApplyModifiersToPlayer>(e =>
               {
                 e.Player = e.Players.Passive;
                 e.Modifiers(Modifier<AddContiniousEffect>(m =>

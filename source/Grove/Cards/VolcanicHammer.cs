@@ -3,7 +3,6 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards.Effects;
   using Core.Dsl;
   using Core.Targeting;
 
@@ -19,7 +18,7 @@
         .FlavorText("Fire finds its form in the heat of the forge.")
         .Cast(p =>
           {
-            p.Effect = Effect<DealDamageToTargets>(e => e.Amount = 3);
+            p.Effect = Effect<Core.Effects.DealDamageToTargets>(e => e.Amount = 3);
             p.EffectTargets = L(Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));
             p.TargetingAi = TargetingAi.DealDamageSingleSelector(3);
           });

@@ -3,10 +3,9 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards.Effects;
-  using Core.Cards.Modifiers;
   using Core.Dsl;
   using Core.Mana;
+  using Core.Modifiers;
 
   public class GoblinOffensive : CardsSource
   {
@@ -21,7 +20,7 @@
         .Cast(p =>
           {
             p.XCalculator = ChooseXAi.AtLeast(3);
-            p.Effect = Effect<CreateTokens>(e =>
+            p.Effect = Effect<Core.Effects.CreateTokens>(e =>
               {
                 e.Count = Value.PlusX;
                 e.Tokens(Card

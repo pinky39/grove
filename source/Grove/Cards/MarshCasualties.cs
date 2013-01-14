@@ -3,11 +3,10 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards.Costs;
-  using Core.Cards.Effects;
-  using Core.Cards.Modifiers;
+  using Core.Costs;
   using Core.Dsl;
   using Core.Mana;
+  using Core.Modifiers;
   using Core.Targeting;
 
   public class MarshCasualties : CardsSource
@@ -22,7 +21,7 @@
           "{Kicker} {3}{EOL}Creatures target player controls get -1/-1 until end of turn. If Marsh Casualties was kicked, those creatures get -2/-2 until end of turn instead.")
         .Cast(p =>
           {
-            p.Effect = Effect<ApplyModifiersToPermanents>(e =>
+            p.Effect = Effect<Core.Effects.ApplyModifiersToPermanents>(e =>
               {
                 e.ToughnessReduction = 1;
                 e.Filter = (effect, card) => card.Is().Creature;
@@ -39,7 +38,7 @@
           {
             p.Description = p.KickerDescription;
             p.Cost = Cost<PayMana>(c => c.Amount = "{3}{B}{B}".ParseMana());
-            p.Effect = Effect<ApplyModifiersToPermanents>(e =>
+            p.Effect = Effect<Core.Effects.ApplyModifiersToPermanents>(e =>
               {
                 e.ToughnessReduction = 2;
                 e.Filter = (effect, card) => card.Is().Creature;

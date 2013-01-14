@@ -3,8 +3,7 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards.Costs;
-  using Core.Cards.Effects;
+  using Core.Costs;
   using Core.Dsl;
   using Core.Targeting;
 
@@ -22,7 +21,7 @@
           ActivatedAbility(
             "Sacrifice Seal of Fire: Seal of Fire deals 2 damage to target creature or player.",
             Cost<Sacrifice>(),
-            Effect<DealDamageToTargets>(e => e.Amount = 2), 
+            Effect<Core.Effects.DealDamageToTargets>(e => e.Amount = 2), 
             Target(Validators.CreatureOrPlayer(), Zones.Battlefield()),
             targetingAi: TargetingAi.DealDamageSingleSelector(2),
             timing: Timings.InstantRemovalTarget()));

@@ -3,12 +3,12 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards.Costs;
-  using Core.Cards.Effects;
-  using Core.Cards.Modifiers;
-  using Core.Cards.Triggers;
+  using Core.Costs;
   using Core.Dsl;
+  using Core.Effects;
+  using Core.Modifiers;
   using Core.Targeting;
+  using Core.Triggers;
   using Core.Zones;
 
   public class Fortitude : CardsSource
@@ -49,7 +49,7 @@
                 t.From = Zone.Battlefield;
                 t.To = Zone.Graveyard;
               }),
-            Effect<Core.Cards.Effects.ReturnToHand>(e => e.ReturnOwner = true)));
+            Effect<Core.Effects.ReturnToHand>(e => e.ReturnOwner = true)));
     }
   }
 }

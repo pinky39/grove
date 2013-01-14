@@ -3,10 +3,10 @@
   using System;
   using System.Collections.Generic;
   using Core;
-  using Core.Cards.Effects;
-  using Core.Cards.Modifiers;
-  using Core.Cards.Triggers;
   using Core.Dsl;
+  using Core.Effects;
+  using Core.Modifiers;
+  using Core.Triggers;
 
   public class CaveTiger : CardsSource
   {

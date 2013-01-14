@@ -3,8 +3,8 @@
   using System.Collections.Generic;
   using System.Linq;
   using Core;
-  using Core.Cards.Effects;
   using Core.Dsl;
+  using Core.Effects;
   using Core.Mana;
 
   public class CopperlineGorge : CardsSource

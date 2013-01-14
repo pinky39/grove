@@ -3,10 +3,10 @@
   using System;
   using System.Collections.Generic;
   using Core;
-  using Core.Cards.Effects;
-  using Core.Cards.Triggers;
   using Core.Dsl;
+  using Core.Effects;
   using Core.Mana;
+  using Core.Triggers;
 
 
   public class VerdantForce : CardsSource

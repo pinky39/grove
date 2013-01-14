@@ -1,7 +1,6 @@
 ﻿namespace Grove.Core.Decisions.Scenario
 {
   using System;
-  using Cards;
   using Mana;
   using Results;
 

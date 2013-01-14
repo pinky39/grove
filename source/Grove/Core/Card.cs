@@ -4,13 +4,12 @@
   using System.Collections.Generic;
   using System.Linq;
   using Ai;
-  using Cards;
-  using Cards.Counters;
-  using Cards.Modifiers;
-  using Cards.Preventions;
+  using Counters;
   using Infrastructure;
   using Mana;
   using Messages;
+  using Modifiers;
+  using Preventions;
   using Targeting;
   using Zones;
 
@@ -25,7 +24,7 @@
     private readonly CardColors _colors;
     private readonly ContiniousEffects _continuousEffects;
     private readonly ControllerCharacteristic _controller;
-    private readonly Counters _counters;
+    private readonly Counters.Counters _counters;
     private readonly Trackable<int> _damage;
     private readonly DamagePreventions _damagePreventions;
     private readonly Game _game;
@@ -64,7 +63,7 @@
       _type = new CardTypeCharacteristic(p.Type);
       _colors = new CardColors(GetCardColorFromManaCost(), null, null);
       _level = new Level(null);
-      _counters = new Counters(_power, _toughness, null, null);
+      _counters = new Counters.Counters(_power, _toughness, null, null);
 
       _damage = new Trackable<int>(null);
       _isTapped = new Trackable<bool>(null);
@@ -89,7 +88,7 @@
       _power = new Power(p.Power, game.ChangeTracker, this);
       _toughness = new Toughness(p.Toughness, game.ChangeTracker, this);
       _level = new Level(p.Isleveler ? 0 : (int?) null, game, this);
-      _counters = new Counters(_power, _toughness, game.ChangeTracker, this);
+      _counters = new Counters.Counters(_power, _toughness, game.ChangeTracker, this);
       _type = new CardTypeCharacteristic(p.Type, game, this);
       _hash = new Trackable<int?>(game.ChangeTracker);
 
@@ -120,17 +119,18 @@
         game.ChangeTracker, this);
 
       _staticAbilities = new StaticAbilities(p.StaticAbilities, game.ChangeTracker, this);
-      var triggeredAbilities =
+      IEnumerable<TriggeredAbility> triggeredAbilities =
         p.TriggeredAbilities.Select(x => x.Create(this, this, game));
       _triggeredAbilities = new TriggeredAbilities(triggeredAbilities, game.ChangeTracker, this);
 
-      var activatedAbilities = p.ActivatedAbilities.Select(x => x.Create(this, game)).ToList();
+      List<ActivatedAbility> activatedAbilities = p.ActivatedAbilities.Select(x => x.Create(this, game)).ToList();
       _activatedAbilities = new ActivatedAbilities(activatedAbilities, game.ChangeTracker, this);
 
-      var castInstructions = p.CastInstructions.Select(x => new CastInstruction(this, _game, x)).ToList();
+      List<CastInstruction> castInstructions =
+        p.CastInstructions.Select(x => new CastInstruction(this, _game, x)).ToList();
       _castInstructions = new CastInstructions(castInstructions);
 
-      var continiousEffects =
+      List<ContinuousEffect> continiousEffects =
         p.ContinuousEffects.Select(factory => factory.Create(this, this, game)).ToList();
 
       _continuousEffects = new ContiniousEffects(continiousEffects, game.ChangeTracker, this);
@@ -220,7 +220,7 @@
     {
       get
       {
-        var score = 0;
+        int score = 0;
 
         switch (Zone)
         {
@@ -261,7 +261,7 @@
 
     public void AddModifier(IModifier modifier)
     {
-      foreach (var modifiable in ModifiableProperties)
+      foreach (IModifiable modifiable in ModifiableProperties)
       {
         modifiable.Accept(modifier);
       }
@@ -308,7 +308,7 @@
 
       if (damage.Source.Has().Lifelink)
       {
-        var controller = damage.Source.Controller;
+        Player controller = damage.Source.Controller;
         controller.Life += damage.Amount;
       }
 
@@ -403,7 +403,7 @@
     {
       if (attachment.IsAttached)
       {
-        var controller = attachment.AttachedTo.Controller;
+        Player controller = attachment.AttachedTo.Controller;
 
         attachment.AttachedTo.Detach(attachment);
 
@@ -481,10 +481,10 @@
       return _castInstructions.CanTarget(target);
     }
 
-      public bool IsGoodTarget(ITarget target)
-      {
-        return _castInstructions.IsGoodTarget(target);                
-	    }
+    public bool IsGoodTarget(ITarget target)
+    {
+      return _castInstructions.IsGoodTarget(target);
+    }
 
     public List<SpellPrerequisites> CanCast()
     {
@@ -505,7 +505,7 @@
 
     public void Detach(Card card)
     {
-      var attachment = _attachments[card];
+      Attachment attachment = _attachments[card];
 
       _attachments.Remove(attachment);
       card.AttachedTo = null;
@@ -606,7 +606,7 @@
 
     public void ChangeZone(IZone newZone)
     {
-      var oldZone = _zone.Value;
+      IZone oldZone = _zone.Value;
       _zone.Value = newZone;
 
       oldZone.Remove(this);
@@ -656,7 +656,7 @@
 
     public void DetachAttachments()
     {
-      foreach (var attachedCard in _attachments.Cards.ToList())
+      foreach (Card attachedCard in _attachments.Cards.ToList())
       {
         if (attachedCard.Is().Aura)
         {
@@ -693,9 +693,9 @@
         return ManaColors.Colorless;
       }
 
-      var cardColor = ManaColors.None;
+      ManaColors cardColor = ManaColors.None;
 
-      foreach (var mana in ManaCost.Colored())
+      foreach (ManaUnit mana in ManaCost.Colored())
       {
         cardColor = cardColor | mana.Colors;
       }
@@ -715,7 +715,7 @@
 
     public void RemoveModifier(Type type)
     {
-      var modifier = _modifiers.FirstOrDefault(x => x.GetType() == type);
+      IModifier modifier = _modifiers.FirstOrDefault(x => x.GetType() == type);
 
       if (modifier == null)
         return;
@@ -757,7 +757,7 @@
       if (!Power.HasValue)
         return 0;
 
-      var amount = Power.Value + powerIncrease;
+      int amount = Power.Value + powerIncrease;
       amount = _damagePreventions.PreventDealtCombatDamage(amount);
 
       if (allDamageSteps)

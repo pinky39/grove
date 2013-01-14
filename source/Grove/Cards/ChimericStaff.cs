@@ -3,11 +3,10 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards.Costs;
-  using Core.Cards.Effects;
-  using Core.Cards.Modifiers;
+  using Core.Costs;
   using Core.Dsl;
   using Core.Mana;
+  using Core.Modifiers;
 
   public class ChimericStaff : CardsSource
   {
@@ -27,7 +26,7 @@
                 cost.Amount = ManaAmount.Zero;
                 cost.XCalculator = ChooseXAi.ChangeToXXCreature();
               }),
-            Effect<ApplyModifiersToSelf>(e => e.Modifiers(
+            Effect<Core.Effects.ApplyModifiersToSelf>(e => e.Modifiers(
               Modifier<ChangeToCreature>(m =>
                 {
                   m.Power = Value.PlusX;

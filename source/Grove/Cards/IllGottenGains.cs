@@ -3,9 +3,9 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards.Casting;
-  using Core.Cards.Effects;
+  using Core.Casting;
   using Core.Dsl;
+  using Core.Effects;
   using Core.Zones;
 
   public class IllGottenGains : CardsSource

@@ -1,7 +1,7 @@
 ﻿namespace Grove.Core.Decisions.Results
 {
   using System.Collections.Generic;
-  using Cards.Effects;
+  using Effects;
 
   public class ChosenOptions
   {

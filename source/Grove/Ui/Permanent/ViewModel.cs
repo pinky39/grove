@@ -3,7 +3,6 @@
   using System;
   using System.Linq;
   using Core;
-  using Core.Cards;
   using Core.Messages;
   using Core.Targeting;
   using Infrastructure;

@@ -3,8 +3,8 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards.Effects;
   using Core.Dsl;
+  using Core.Effects;
   using Core.Targeting;
 
   public class SignInBlood : CardsSource

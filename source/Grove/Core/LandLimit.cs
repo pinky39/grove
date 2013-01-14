@@ -1,8 +1,7 @@
 ﻿namespace Grove.Core
 {
-  using Cards;
-  using Cards.Modifiers;
   using Infrastructure;
+  using Modifiers;
 
   public class LandLimit : Characteristic<int?>, IModifiable
   {

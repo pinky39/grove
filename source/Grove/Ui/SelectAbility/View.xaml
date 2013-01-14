@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"             
-             xmlns:grove="clr-namespace:Grove.Ui" xmlns:Cards="clr-namespace:Grove.Core.Cards">
+             xmlns:grove="clr-namespace:Grove.Ui" xmlns:Core="clr-namespace:Grove.Core">
     <UserControl.Resources>
         <Style TargetType="{x:Type ListBox}">
             <Setter Property="SnapsToDevicePixels" Value="true" />
@@ -29,18 +29,18 @@
             </Setter>
         </Style>
 
-        <DataTemplate DataType="{x:Type Cards:CardText}">
+        <DataTemplate DataType="{x:Type Core:CardText}">
             <DataTemplate.Resources>
-                <DataTemplate DataType = "{x:Type Cards:TextToken}" >
+                <DataTemplate DataType = "{x:Type Core:TextToken}" >
                     <TextBlock FontSize = "16" Margin = "0,0,5,0" Text = "{Binding Path=.}" />
                 </DataTemplate>
-                <DataTemplate DataType = "{x:Type Cards:ManaSymbolGroupStartToken}" >
+                <DataTemplate DataType = "{x:Type Core:ManaSymbolGroupStartToken}" >
                     <TextBlock FontSize = "16"	Margin = "2,0,0,0"/>
                 </DataTemplate>
-                <DataTemplate DataType = "{x:Type Cards:ManaSymbolGroupEndToken}" >
+                <DataTemplate DataType = "{x:Type Core:ManaSymbolGroupEndToken}" >
                     <TextBlock FontSize = "16" Margin = "0,0,6,0"/>
                 </DataTemplate>
-                <DataTemplate DataType = "{x:Type Cards:ManaSymbolToken}" >
+                <DataTemplate DataType = "{x:Type Core:ManaSymbolToken}" >
                     <Image Source = "{Binding Path=Image}" Height = "18" Margin = "0,0,0,0" />
                 </DataTemplate>
             </DataTemplate.Resources>

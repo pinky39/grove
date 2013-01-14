@@ -3,10 +3,9 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards.Effects;
-  using Core.Cards.Modifiers;
-  using Core.Cards.Preventions;
   using Core.Dsl;
+  using Core.Modifiers;
+  using Core.Preventions;
   using Core.Targeting;
 
   public class HealingSalve : CardsSource
@@ -24,14 +23,14 @@
         .Cast(p =>
           {
             p.Description = "Target player gains 3 life";
-            p.Effect = Effect<TargetPlayerGainsLife>(e => e.Amount = 3);
+            p.Effect = Effect<Core.Effects.TargetPlayerGainsLife>(e => e.Amount = 3);
             p.EffectTargets = L(Target(Validators.Player(), Zones.None()));
             p.TargetingAi = TargetingAi.Controller();
           })
         .Cast(p =>
           {
             p.Description = "Prevent the next 3 damage that would be dealt to target creature or player this turn.";
-            p.Effect = Effect<ApplyModifiersToTargets>(e => e.Modifiers(
+            p.Effect = Effect<Core.Effects.ApplyModifiersToTargets>(e => e.Modifiers(
               Modifier<AddDamagePrevention>(m => m.Prevention =
                 Prevention<PreventDamageToTarget>(pr => { pr.Amount = 3; }), untilEndOfTurn: true)));
             p.EffectTargets = L(Target(Validators.CreatureOrPlayer(), Zones.Battlefield()));

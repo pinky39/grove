@@ -3,13 +3,12 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards.Costs;
-  using Core.Cards.Effects;
-  using Core.Cards.Modifiers;
-  using Core.Cards.Triggers;
+  using Core.Costs;
   using Core.Dsl;
   using Core.Mana;
+  using Core.Modifiers;
   using Core.Targeting;
+  using Core.Triggers;
   using Core.Zones;
 
   public class FieryMantle : CardsSource
@@ -25,12 +24,12 @@
         .Cast(p =>
           {
             p.Timing = Timings.FirstMain();
-            p.Effect = Effect<Attach>(e => e.Modifiers(
+            p.Effect = Effect<Core.Effects.Attach>(e => e.Modifiers(
               Modifier<AddActivatedAbility>(m => m.Ability =
                 ActivatedAbility(
                   "{R}: Enchanted creature gets +1/+0 until end of turn.",
                   Cost<PayMana>(cost => cost.Amount = ManaAmount.Red),
-                  Effect<ApplyModifiersToSelf>(p1 => p1.Effect.Modifiers(
+                  Effect<Core.Effects.ApplyModifiersToSelf>(p1 => p1.Effect.Modifiers(
                     Modifier<AddPowerAndToughness>(m1 => m1.Power = 1, untilEndOfTurn: true))),
                   timing: Timings.IncreaseOwnersPowerAndThougness(1, 0))
                 )));
@@ -45,7 +44,7 @@
                 t.From = Zone.Battlefield;
                 t.To = Zone.Graveyard;
               }),
-            Effect<Core.Cards.Effects.ReturnToHand>(e => e.ReturnOwner = true)));
+            Effect<Core.Effects.ReturnToHand>(e => e.ReturnOwner = true)));
     }
   }
 }

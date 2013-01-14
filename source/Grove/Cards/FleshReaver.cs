@@ -2,10 +2,9 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Cards.Effects;
-  using Core.Cards.Triggers;
   using Core.Dsl;
   using Core.Messages;
+  using Core.Triggers;
 
   public class FleshReaver : CardsSource
   {
@@ -29,7 +28,7 @@
                 t.ToAnyCreature();
                 t.ToOpponent();
               }),
-            Effect<DealExistingDamageToController>(p =>
+            Effect<Core.Effects.DealExistingDamageToController>(p =>
               {
                 p.Effect.Damage = p.Parameters
                   .Trigger<DamageHasBeenDealt>()

@@ -3,13 +3,12 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Cards;
-  using Cards.Modifiers;
-  using Cards.Preventions;
-  using Cards.Redirections;
   using Infrastructure;
   using Mana;
   using Messages;
+  using Modifiers;
+  using Preventions;
+  using Redirections;
   using Targeting;
   using Zones;
 
@@ -17,24 +16,24 @@
   public class Player : ITarget, IDamageable, IAcceptsModifiers, IHasLife
   {
     private readonly AssignedDamage _assignedDamage;
+    private readonly Battlefield _battlefield;
     private readonly ContiniousEffects _continuousEffects;
     private readonly DamagePreventions _damagePreventions;
     private readonly DamageRedirections _damageRedirections;
+    private readonly Exile _exile;
     private readonly Game _game;
+    private readonly Graveyard _graveyard;
+    private readonly Hand _hand;
     private readonly Trackable<bool> _hasLost;
     private readonly Trackable<bool> _hasMulligan;
     private readonly Trackable<bool> _hasPriority;
     private readonly Trackable<bool> _isActive;
     private readonly LandLimit _landLimit;
     private readonly Trackable<int> _landsPlayedCount;
+    private readonly Library _library;
     private readonly Life _life;
     private readonly ManaPool _manaPool;
     private readonly TrackableList<IModifier> _modifiers;
-    private Battlefield _battlefield;
-    private Exile _exile;
-    private Graveyard _graveyard;
-    private Hand _hand;
-    private Library _library;
     private ManaSources _manaSources;
 
     public Player(
@@ -62,7 +61,7 @@
       _damageRedirections = new DamageRedirections(game.ChangeTracker, null);
       _assignedDamage = new AssignedDamage(this, game.ChangeTracker);
       _continuousEffects = new ContiniousEffects(game.ChangeTracker);
-      _landLimit = new LandLimit(1, game.ChangeTracker, null);      
+      _landLimit = new LandLimit(1, game.ChangeTracker, null);
 
       _battlefield = new Battlefield(this, game);
       _hand = new Hand(this, game);
@@ -71,8 +70,8 @@
       _exile = new Exile(this, game);
 
 
-      var cards = LoadCards(deck, _game.CardDatabase);
-      foreach (var card in cards)
+      IEnumerable<Card> cards = LoadCards(deck, _game.CardDatabase);
+      foreach (Card card in cards)
       {
         _library.Add(card);
       }
@@ -84,7 +83,7 @@
     public ControllerType Controller { get; private set; }
     public ManaPool ManaPool { get { return _manaPool; } }
     public string Name { get; private set; }
-    public Player Opponent {get { return _game.Players.GetOpponent(this); }}
+    public Player Opponent { get { return _game.Players.GetOpponent(this); } }
 
     public int LandsPlayedCount { get { return _landsPlayedCount.Value; } set { _landsPlayedCount.Value = value; } }
 
@@ -121,7 +120,7 @@
     {
       get
       {
-        var score = _life.Score +
+        int score = _life.Score +
           _battlefield.Score +
             _hand.Score +
               _graveyard.Score;
@@ -132,7 +131,7 @@
 
     public void AddModifier(IModifier modifier)
     {
-      foreach (var modifiableProperty in ModifiableProperties)
+      foreach (IModifiable modifiableProperty in ModifiableProperties)
       {
         modifiableProperty.Accept(modifier);
       }
@@ -154,7 +153,7 @@
       if (damage.Amount == 0)
         return;
 
-      var wasRedirected = _damageRedirections.RedirectDamage(damage);
+      bool wasRedirected = _damageRedirections.RedirectDamage(damage);
 
       if (wasRedirected)
         return;
@@ -163,7 +162,7 @@
 
       if (damage.Source.Has().Lifelink)
       {
-        var controller = damage.Source.Controller;
+        Player controller = damage.Source.Controller;
         controller.Life += damage.Amount;
       }
 
@@ -246,7 +245,7 @@
 
     public void DiscardHand()
     {
-      foreach (var card in _hand.ToList())
+      foreach (Card card in _hand.ToList())
       {
         DiscardCard(card);
       }
@@ -257,20 +256,20 @@
       if (_hand.IsEmpty)
         return;
 
-      var card = _hand.RandomCard;
+      Card card = _hand.RandomCard;
       DiscardCard(card);
     }
 
     public void DrawCard()
     {
-      var card = _library.Top;
+      Card card = _library.Top;
 
       if (card == null)
       {
         HasLost = true;
         return;
       }
-            
+
       _hand.Add(card);
 
       if (_game.Search.InProgress)
@@ -281,7 +280,7 @@
 
     public void DrawCards(int cardCount)
     {
-      for (var i = 0; i < cardCount; i++)
+      for (int i = 0; i < cardCount; i++)
       {
         DrawCard();
       }
@@ -303,22 +302,22 @@
     {
       yield return this;
 
-      foreach (var card in _battlefield.GenerateTargets(zoneFilter))
+      foreach (Card card in _battlefield.GenerateTargets(zoneFilter))
       {
         yield return card;
       }
 
-      foreach (var card in _hand.GenerateTargets(zoneFilter))
+      foreach (Card card in _hand.GenerateTargets(zoneFilter))
       {
         yield return card;
       }
 
-      foreach (var card in _graveyard.GenerateTargets(zoneFilter))
+      foreach (ITarget card in _graveyard.GenerateTargets(zoneFilter))
       {
         yield return card;
       }
 
-      foreach (var card in _library.GenerateTargets(zoneFilter))
+      foreach (ITarget card in _library.GenerateTargets(zoneFilter))
       {
         yield return card;
       }
@@ -339,9 +338,9 @@
 
     public void MoveCreaturesWithLeathalDamageOrZeroTougnessToGraveyard()
     {
-      var creatures = _battlefield.Creatures.ToList();
+      List<Card> creatures = _battlefield.Creatures.ToList();
 
-      foreach (var creature in creatures)
+      foreach (Card creature in creatures)
       {
         if (creature.Toughness <= 0)
         {
@@ -369,7 +368,7 @@
 
     public void RemoveDamageFromPermanents()
     {
-      foreach (var card in _battlefield)
+      foreach (Card card in _battlefield)
       {
         card.ClearDamage();
       }
@@ -377,11 +376,11 @@
 
     public void RemoveRegenerationFromPermanents()
     {
-      foreach (var permanent in _battlefield)
+      foreach (Card permanent in _battlefield)
       {
         permanent.CanRegenerate = false;
       }
-    }    
+    }
 
     public void ShuffleIntoLibrary(Card card)
     {
@@ -399,16 +398,16 @@
       if (!CanMulligan)
         return;
 
-      var mulliganSize = _hand.MulliganSize;
+      int mulliganSize = _hand.MulliganSize;
 
-      foreach (var card in Hand.ToList())
+      foreach (Card card in Hand.ToList())
       {
         _library.Add(card);
       }
 
       _library.Shuffle();
 
-      for (var i = 0; i < mulliganSize; i++)
+      for (int i = 0; i < mulliganSize; i++)
       {
         DrawCard();
       }
@@ -423,9 +422,9 @@
 
     public void Mill(int count)
     {
-      for (var i = 0; i < count; i++)
+      for (int i = 0; i < count; i++)
       {
-        var card = _library.Top;
+        Card card = _library.Top;
 
         if (card == null)
           return;
@@ -467,7 +466,7 @@
 
     private void InitializeManaSources(ChangeTracker changeTracker)
     {
-      var manaSources =
+      IEnumerable<IManaSource> manaSources =
         _manaPool.ToEnumerable().Concat(
           _library
             .Where(x => x.IsManaSource)
@@ -488,15 +487,15 @@
 
     public void RevealHand()
     {
-      foreach (var card in _hand)
+      foreach (Card card in _hand)
       {
         card.Reveal();
       }
     }
-    
+
     public void RevealLibrary()
     {
-      foreach (var card in _library)
+      foreach (Card card in _library)
       {
         card.Reveal();
       }

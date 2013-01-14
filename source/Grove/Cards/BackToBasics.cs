@@ -3,9 +3,8 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards;
-  using Core.Cards.Modifiers;
   using Core.Dsl;
+  using Core.Modifiers;
 
   public class BackToBasics : CardsSource
   {

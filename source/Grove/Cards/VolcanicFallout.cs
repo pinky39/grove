@@ -3,7 +3,6 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards.Effects;
   using Core.Dsl;
 
   public class VolcanicFallout : CardsSource
@@ -20,7 +19,7 @@
         .Cast(p =>
           {
             p.Timing = Timings.MassRemovalInstantSpeed();
-            p.Effect = Effect<DealDamageToEach>(e =>
+            p.Effect = Effect<Core.Effects.DealDamageToEach>(e =>
               {
                 e.AmountPlayer = 2;
                 e.AmountCreature = 2;

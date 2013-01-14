@@ -1,6 +1,6 @@
 ﻿namespace Grove.Core.Messages
 {
-  using Cards.Effects;
+  using Effects;
 
   public class EffectResolved
   {

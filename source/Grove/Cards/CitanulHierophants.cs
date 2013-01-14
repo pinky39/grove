@@ -2,9 +2,9 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Cards.Modifiers;
   using Core.Dsl;
   using Core.Mana;
+  using Core.Modifiers;
 
   public class CitanulHierophants : CardsSource
   {

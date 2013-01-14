@@ -3,10 +3,8 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards;
-  using Core.Cards.Effects;
-  using Core.Cards.Modifiers;
   using Core.Dsl;
+  using Core.Modifiers;
   using Core.Targeting;
 
   public class SerrasEmbrace : CardsSource
@@ -24,7 +22,7 @@
         .Cast(p =>
           {
             p.Timing = Timings.FirstMain();
-            p.Effect = Effect<Attach>(e => e.Modifiers(
+            p.Effect = Effect<Core.Effects.Attach>(e => e.Modifiers(
               Modifier<AddPowerAndToughness>(m =>
                 {
                   m.Power = 2;

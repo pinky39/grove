@@ -3,12 +3,10 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards;
-  using Core.Cards.Costs;
-  using Core.Cards.Effects;
-  using Core.Cards.Modifiers;
+  using Core.Costs;
   using Core.Dsl;
   using Core.Mana;
+  using Core.Modifiers;
   using Core.Targeting;
 
   public class ElvishHerder : CardsSource
@@ -28,7 +26,7 @@
           ActivatedAbility(
             "{G}: Target creature gains trample until end of turn.",
             Cost<PayMana>(cost => cost.Amount = "{G}".ParseMana()),
-            Effect<ApplyModifiersToTargets>(e => e.Modifiers(
+            Effect<Core.Effects.ApplyModifiersToTargets>(e => e.Modifiers(
               Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Trample,
                 untilEndOfTurn: true))),
             Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()),

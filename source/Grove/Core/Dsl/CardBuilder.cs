@@ -4,17 +4,16 @@
   using System.Collections.Generic;
   using System.Linq;
   using Ai;
-  using Cards;
-  using Cards.Casting;
-  using Cards.Costs;
-  using Cards.Counters;
-  using Cards.Effects;
-  using Cards.Modifiers;
-  using Cards.Preventions;
-  using Cards.Redirections;
-  using Cards.Triggers;
+  using Casting;
+  using Costs;
+  using Counters;
+  using Effects;
   using Mana;
+  using Modifiers;
+  using Preventions;
+  using Redirections;
   using Targeting;
+  using Triggers;
   using Zones;
 
   public class CardBuilder
@@ -33,7 +32,7 @@
     public IActivatedAbilityFactory ActivatedAbility(
       string text,
       ICostFactory cost,
-      IEffectFactory effect,
+      Effects.IEffectFactory effect,
       ITargetValidatorFactory effectTarget = null,
       ITargetValidatorFactory costTarget = null,
       TargetingAiDelegate targetingAi = null,
@@ -63,7 +62,7 @@
     public IActivatedAbilityFactory ActivatedAbility(
       string text,
       ICostFactory cost,
-      IEffectFactory effect,
+      Effects.IEffectFactory effect,
       ITargetValidatorFactory[] effectTargets,
       ITargetValidatorFactory costTarget = null,
       TargetingAiDelegate targetingAi = null,
@@ -174,7 +173,7 @@
         };
     }
 
-    public IEffectFactory Effect<T>(Action<T> init = null) where T : Effect, new()
+    public Effects.IEffectFactory Effect<T>(Action<T> init = null) where T : Effects.Effect, new()
     {
       init = init ?? delegate { };
 

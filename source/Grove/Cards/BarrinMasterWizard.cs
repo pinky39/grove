@@ -3,8 +3,7 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards.Costs;
-  using Core.Cards.Effects;
+  using Core.Costs;
   using Core.Dsl;
   using Core.Mana;
   using Core.Targeting;
@@ -26,7 +25,7 @@
           ActivatedAbility(
             "{2}, Sacrifice a permanent: Return target creature to its owner's hand.",
             Cost<PayMana, Sacrifice>(cost => cost.Amount = 2.Colorless()),
-            Effect<Core.Cards.Effects.ReturnToHand>(),
+            Effect<Core.Effects.ReturnToHand>(),
             effectTarget: Target(
               Validators.Card(x => x.Is().Creature), 
               Zones.Battlefield(),

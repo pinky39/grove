@@ -17,7 +17,8 @@
       _cardDatabase = cardDatabase;
     }
 
-    public Deck(IEnumerable<string> cards, CardDatabase cardDatabase, string name = null, int rating = 3, string description = null)
+    public Deck(IEnumerable<string> cards, CardDatabase cardDatabase, string name = null, int rating = 3,
+      string description = null)
     {
       _cards = cards.Select(x => cardDatabase[x]).ToList();
       _cardDatabase = cardDatabase;
@@ -50,7 +51,7 @@
 
     public void Save()
     {
-      var name = Name.ToLowerInvariant()
+      string name = Name.ToLowerInvariant()
         .Replace(".dec", String.Empty);
 
       new DeckReaderWriter().Write(this, MediaLibrary.GetDeckPath(name));
@@ -63,19 +64,19 @@
 
     private List<string> GetDeckColors()
     {
-      var colors = ManaColors.None;
+      ManaColors colors = ManaColors.None;
 
-      foreach (var card in _cards)
+      foreach (Card card in _cards)
       {
         colors = colors | card.Colors;
       }
 
       return ManaAmount.GetSymbolsFromColor(colors);
-    }    
+    }
 
     public void RemoveCard(string name)
     {
-      var card = _cards.FirstOrDefault(x => x.Name == name);
+      Card card = _cards.FirstOrDefault(x => x.Name == name);
 
       if (card != null)
       {

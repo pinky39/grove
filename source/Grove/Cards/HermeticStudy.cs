@@ -3,10 +3,9 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards.Costs;
-  using Core.Cards.Effects;
-  using Core.Cards.Modifiers;
+  using Core.Costs;
   using Core.Dsl;
+  using Core.Modifiers;
   using Core.Targeting;
 
   public class HermeticStudy : CardsSource
@@ -23,12 +22,12 @@
         .Cast(p =>
           {
             p.Timing = Timings.SecondMain();
-            p.Effect = Effect<Attach>(e => e.Modifiers(
+            p.Effect = Effect<Core.Effects.Attach>(e => e.Modifiers(
               Modifier<AddActivatedAbility>(m => m.Ability =
                 ActivatedAbility(
                   "{T}: This creature deals 1 damage to target creature or player.",
                   Cost<Tap>(),
-                  Effect<DealDamageToTargets>(e1 => e1.Amount = 1),
+                  Effect<Core.Effects.DealDamageToTargets>(e1 => e1.Amount = 1),
                   Target(Validators.CreatureOrPlayer(), Zones.Battlefield()),
                   targetingAi: TargetingAi.DealDamageSingleSelector(1),
                   timing: p.Timing = Timings.InstantRemovalTarget())

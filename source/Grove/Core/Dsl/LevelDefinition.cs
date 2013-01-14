@@ -1,7 +1,5 @@
 ﻿namespace Grove.Core.Dsl
 {
-  using Cards;
-
   public class LevelDefinition
   {
     public int Min { get; set; }

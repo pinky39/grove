@@ -4,9 +4,9 @@
   using System.Linq;
   using Core;
   using Core.Ai;
-  using Core.Cards.Effects;
   using Core.Decisions.Results;
   using Core.Dsl;
+  using Core.Effects;
 
   public class Catastrophe : CardsSource
   {
@@ -23,7 +23,7 @@
           {
             p.Timing = Timings.SecondMain();
             p.Category = EffectCategories.Destruction;
-            p.Effect = Effect<CustomizableEffect>(e =>
+            p.Effect = Effect<Core.Effects.CustomizableEffect>(e =>
               {
                 e.Choices(Choice(EffectChoiceOption.Lands, EffectChoiceOption.Creatures));
 

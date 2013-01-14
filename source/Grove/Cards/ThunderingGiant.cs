@@ -3,7 +3,6 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards;
   using Core.Dsl;
 
   public class ThunderingGiant : CardsSource

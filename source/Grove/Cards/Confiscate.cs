@@ -3,9 +3,8 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards.Effects;
-  using Core.Cards.Modifiers;
   using Core.Dsl;
+  using Core.Modifiers;
   using Core.Targeting;
 
   public class Confiscate : CardsSource
@@ -23,7 +22,7 @@
           {
             p.Timing = Timings.FirstMain();
             p.Category = EffectCategories.Destruction;
-            p.Effect = Effect<Attach>(e => e.Modifiers(
+            p.Effect = Effect<Core.Effects.Attach>(e => e.Modifiers(
               Modifier<ChangeController>(m => m.NewController = m.Source.Controller)));
             p.EffectTargets = L(Target(Validators.Card(), Zones.Battlefield()));
             p.TargetingAi = TargetingAi.GainControl();

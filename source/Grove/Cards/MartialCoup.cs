@@ -4,10 +4,9 @@
   using System.Linq;
   using Core;
   using Core.Ai;
-  using Core.Cards.Effects;
-  using Core.Cards.Modifiers;
   using Core.Dsl;
   using Core.Mana;
+  using Core.Modifiers;
 
   public class MartialCoup : CardsSource
   {
@@ -38,7 +37,7 @@
 
                 return maxX;
               };
-            p.Effect = Effect<CreateTokens>(e =>
+            p.Effect = Effect<Core.Effects.CreateTokens>(e =>
               {
                 e.Count = Value.PlusX;
                 e.Tokens(Card

@@ -3,11 +3,9 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
-  using Core.Cards;
-  using Core.Cards.Costs;
-  using Core.Cards.Effects;
-  using Core.Cards.Modifiers;
+  using Core.Costs;
   using Core.Dsl;
+  using Core.Modifiers;
   using Core.Targeting;
 
   public class FiresOfYavimaya : CardsSource
@@ -31,7 +29,7 @@
           ActivatedAbility(
             "Sacrifice Fires of Yavimaya: Target creature gets +2/+2 until end of turn.",
             Cost<Sacrifice>(),
-            Effect<ApplyModifiersToTargets>(p => p.Effect.Modifiers(
+            Effect<Core.Effects.ApplyModifiersToTargets>(p => p.Effect.Modifiers(
               Modifier<AddPowerAndToughness>(m =>
                 {
                   m.Power = 2;
