@@ -3,12 +3,12 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Grove.Core.Ai;
-  using Grove.Core.Dsl;
-  using Grove.Infrastructure;
-  using Grove.Core.Mana;
-  using Grove.Core.Messages;
-  using Grove.Core.Targeting;
+  using Ai;
+  using Dsl;
+  using Infrastructure;
+  using Mana;
+  using Messages;
+  using Targeting;
 
   [Copyable]
   public abstract class Effect : ITarget, IHasColors
@@ -16,8 +16,8 @@
     public Action<Effect> AfterResolve = delegate { };
     public Func<Effect, bool> BeforeResolve = delegate { return true; };
     private Targets _targets;
-    protected EffectCategories EffectCategories { get; set; }
     private Trackable<bool> _wasResolved;
+    protected EffectCategories EffectCategories { get; set; }
     public bool CanBeCountered { get; set; }
     public Player Controller { get { return Source.OwningCard.Controller; } }
     protected Game Game { get; set; }
@@ -30,7 +30,7 @@
     private bool WasResolved { get { return _wasResolved.Value; } set { _wasResolved.Value = value; } }
 
     // this is used by ui to display effect targets
-    public object UiTargets { get { return _targets; } }    
+    public object UiTargets { get { return _targets; } }
     protected IList<ITarget> Targets { get { return _targets.Effect; } }
     protected IEnumerable<ITarget> ValidTargets { get { return Targets.Where(IsValid); } }
     protected IList<ITarget> CostTargets { get { return _targets.Cost; } }
@@ -46,7 +46,7 @@
         GetType().GetHashCode(),
         calc.Calculate(Source),
         calc.Calculate(_targets),
-        CanBeCountered.GetHashCode(),        
+        CanBeCountered.GetHashCode(),
         X.GetHashCode());
     }
 
@@ -97,7 +97,7 @@
     }
 
     protected virtual void OnEffectCountered(SpellCounterReason reason) {}
-    
+
     public void EffectWasPushedOnStack()
     {
       Source.EffectPushedOnStack();
@@ -108,7 +108,7 @@
       if (WasResolved)
       {
         Source.EffectResolved();
-        
+
         Game.Publish(new EffectResolved {Effect = this});
         return;
       }
@@ -134,8 +134,8 @@
         ResolveEffect();
         AfterResolve(this);
       }
-      
-      WasResolved = true;      
+
+      WasResolved = true;
     }
 
     protected abstract void ResolveEffect();
@@ -167,7 +167,7 @@
             Source = parameters.Source,
             EffectCategories = parameters.EffectCategories,
             _wasResolved = new Trackable<bool>(game.ChangeTracker),
-            _targets = parameters.Targets,            
+            _targets = parameters.Targets,
             X = parameters.Activation.X,
             CanBeCountered = true
           };

@@ -2,7 +2,7 @@
 {
   using System;
   using System.Linq;
-  using Core.Cards;
+  using Core;
   using Xunit;
 
   public class CardTextFacts

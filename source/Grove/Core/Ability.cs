@@ -13,7 +13,6 @@
   {
     private TargetSelector _targetSelector = TargetSelector.NullSelector;
     public TargetSelector TargetSelector { get { return _targetSelector; } }
-
     public Player Controller { get { return OwningCard.Controller; } }
     protected IEffectFactory EffectFactory { get; private set; }
     protected Game Game { get; set; }

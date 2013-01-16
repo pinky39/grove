@@ -262,17 +262,17 @@
     {
       return new TargetValidator.Factory
         {
-          Init = selector =>
+          Init = validator =>
             {
-              selector.Target = target;
-              selector.Zone = zone;
+              validator.Target = target;
+              validator.Zone = zone;
 
-              selector.MustBeTargetable = mustBeTargetable;
-              selector.MinCount = minCount;
-              selector.MaxCount = maxCount;
+              validator.MustBeTargetable = mustBeTargetable;
+              validator.MinCount = minCount;
+              validator.MaxCount = maxCount;
 
               if (text != null)
-                selector.MessageFormat = text;
+                validator.MessageFormat = text;
             }
         };
     }

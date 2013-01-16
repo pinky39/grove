@@ -1,8 +1,8 @@
 ﻿namespace Grove.Core.Targeting
 {
   using System;
-  using Infrastructure;
   using Core.Zones;
+  using Infrastructure;
 
   public delegate bool TargetValidatorDelegate(TargetValidatorParameters parameters);
 

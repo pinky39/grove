@@ -25,7 +25,6 @@
     public bool ActivateOnlyAsSorcery { get; set; }
     protected Cost Cost { get; private set; }
     protected bool IsEnabled { get { return _isEnabled.Value; } private set { _isEnabled.Value = value; } }
-
     public IManaAmount ManaCost { get { return Cost.GetManaCost(); } }
 
     protected TurnInfo Turn { get { return Game.Turn; } }
@@ -33,7 +32,7 @@
     public void Activate(ActivationParameters activationParameters)
     {
       var effectParameters = new EffectParameters(this, EffectCategories, activationParameters);
-      Effect effect = EffectFactory.CreateEffect(effectParameters, Game);
+      var effect = EffectFactory.CreateEffect(effectParameters, Game);
 
       Cost.Pay(activationParameters.Targets.Cost.FirstOrDefault(), activationParameters.X);
 
@@ -60,7 +59,7 @@
     public virtual SpellPrerequisites CanActivate()
     {
       int? maxX = null;
-      bool canActivate = CanBeActivated(ref maxX);
+      var canActivate = CanBeActivated(ref maxX);
 
       return canActivate
         ? new SpellPrerequisites
