@@ -13,7 +13,6 @@
   [Copyable]
   public class Game
   {
-    private CastRestrictions _castRestrictions;
     private DecisionQueue _decisionQueue;
     private DecisionSystem _decisionSystem;
     private Publisher _publisher;
@@ -34,12 +33,11 @@
     public Stack Stack { get; private set; }
     public TurnInfo Turn { get { return _turnInfo; } }
     public Search Search { get { return _search; } }
-    public CastRestrictions CastRestrictions { get { return _castRestrictions; } }
 
-    public static Game New(IEnumerable<string> humanDeck, IEnumerable<string> cpuDeck, CardDatabase cardDatabase,
-      DecisionSystem decisionSystem)
+    public static Game New(IEnumerable<string> humanDeck, IEnumerable<string> cpuDeck,
+      CardDatabase cardDatabase, DecisionSystem decisionSystem)
     {
-      Game game = CreateGame(cardDatabase, decisionSystem);
+      var game = CreateGame(cardDatabase, decisionSystem);
 
       game.Players = new Players(
         player1Name: "You",
@@ -63,7 +61,6 @@
       game.Stack = new Stack(game.ChangeTracker);
       game._turnInfo = new TurnInfo(game.ChangeTracker);
       game._wasStopped = new Trackable<bool>(game.ChangeTracker);
-      game._castRestrictions = new CastRestrictions(game.Stack, game._turnInfo);
       game.Combat = new Combat(game);
       game._search = new Search();
       game._decisionSystem = decisionSystem;
@@ -78,7 +75,7 @@
     {
       init = init ?? delegate { };
 
-      IDecision decision = _decisionSystem.Create(controller, init, this);
+      var decision = _decisionSystem.Create(controller, init, this);
       _decisionQueue.Enqueue(decision);
     }
 
@@ -100,7 +97,7 @@
     public static Game NewSimulation(IEnumerable<string> deck1, IEnumerable<string> deck2, CardDatabase cardDatabase,
       DecisionSystem decisionSystem)
     {
-      Game game = CreateGame(cardDatabase, decisionSystem);
+      var game = CreateGame(cardDatabase, decisionSystem);
 
       game.Players = new Players(
         player1Name: "Player1",
@@ -116,12 +113,12 @@
 
     public IEnumerable<ITarget> GenerateTargets(Func<Zone, Player, bool> zoneFilter)
     {
-      foreach (ITarget target in Players.SelectMany(p => p.GetTargets(zoneFilter)))
+      foreach (var target in Players.SelectMany(p => p.GetTargets(zoneFilter)))
       {
         yield return target;
       }
 
-      foreach (ITarget target in Stack.GenerateTargets(zoneFilter))
+      foreach (var target in Stack.GenerateTargets(zoneFilter))
       {
         yield return target;
       }
@@ -183,7 +180,7 @@
     public static Game NewScenario(ControllerType player1Controller, ControllerType player2Controller,
       CardDatabase cardDatabase, DecisionSystem decisionSystem)
     {
-      Game game = CreateGame(cardDatabase, decisionSystem);
+      var game = CreateGame(cardDatabase, decisionSystem);
 
       game.Players = new Players(
         player1Name: "Player1",

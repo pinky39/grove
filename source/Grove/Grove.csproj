@@ -862,7 +862,6 @@
     <Compile Include="Ui\PlayersInterestChanged.cs" />
     <Compile Include="Core\Messages\TurnStarted.cs" />
     <Compile Include="Core\Ai\AttackStrategy.cs" />
-    <Compile Include="Core\Ai\CastRestrictions.cs" />
     <Compile Include="Core\Ai\PlayableGenerator.cs" />
     <Compile Include="Core\Ai\ScoreCalculator.cs" />
     <Compile Include="Core\Ai\TargetGenerator.cs" />

@@ -2,7 +2,7 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Grove.Core.Ai;
+  using Ai;
   using log4net;
   using Results;
 
@@ -17,11 +17,7 @@
       Result = DefaultResult();
     }
 
-    public override bool HasCompleted { get { return _executor.HasCompleted; } }
-
-    public CastRestrictions Restrictions { get { return Game.CastRestrictions; } }
-    public Search Search { get { return Game.Search; } }
-
+    public override bool HasCompleted { get { return _executor.HasCompleted; } }        
     bool IDecisionExecution.ShouldExecuteQuery { get { return ShouldExecuteQuery; } }
 
     void IDecisionExecution.ExecuteQuery()
@@ -54,7 +50,7 @@
 
     protected override void ExecuteQuery()
     {
-      Search.SetBestResult(this);
+      Game.Search.SetBestResult(this);
     }
 
     private static ChosenPlayable DefaultResult()
@@ -66,12 +62,18 @@
 
     private IEnumerable<Playable> GeneratePlayables()
     {
-      if (!Restrictions.IsPlayRestrictedFor(Controller))
+      if (Game.Stack.TopSpellOwner == Controller)
       {
-        foreach (var playable in new PlayableGenerator(Controller, Game))
-        {
-          yield return playable;
-        }
+        // if you own the top spell just pass so it resolves
+        // you will get priority again when it resolves
+        
+        yield return new Pass();
+        yield break;
+      }
+
+      foreach (var playable in new PlayableGenerator(Controller, Game))
+      {
+        yield return playable;
       }
 
       yield return new Pass();
