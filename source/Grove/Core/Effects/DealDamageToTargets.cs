@@ -11,12 +11,12 @@
 
     public override int CalculatePlayerDamage(Player player)
     {
-      return Targets.Any(x=> x == player) ? Amount.GetValue(X) : 0;
+      return EffectTargets.Any(x=> x == player) ? Amount.GetValue(X) : 0;
     }
 
     public override int CalculateCreatureDamage(Card creature)
     {
-      return Targets.Any(x => x == creature) ? Amount.GetValue(X) : 0;
+      return EffectTargets.Any(x => x == creature) ? Amount.GetValue(X) : 0;
     }  
 
     protected override void ResolveEffect()

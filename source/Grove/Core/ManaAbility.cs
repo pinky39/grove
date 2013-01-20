@@ -1,18 +1,26 @@
 ﻿namespace Grove.Core
 {
   using System;
-  using Dsl;
   using Effects;
   using Mana;
+  using Zones;
 
   public class ManaAbility : ActivatedAbility, IManaSource
   {
     private Func<ManaAbility, Game, IManaAmount> _manaAmount;
     private ManaAmountCharacteristic _manaAmountCharacteristic;
 
-    public ManaAbility()
+    public ManaAbility(ManaAbilityParameters p) : base(p)
     {
-      UsesStack = false;
+      _manaAmount = p.ManaAmount;
+      
+      EffectFactory = (pr, _) =>
+        {
+          var effect = new AddManaToPool();
+          var source = (ManaAbility) pr.Source;
+          effect.Amount = source.GetManaAmount();
+          return effect;
+        };      
     }
 
     public int Priority { get; set; }
@@ -20,7 +28,7 @@
 
     public void Consume(IManaAmount amount, ManaUsage usage)
     {
-      Cost.Pay(target: null, x: null);
+      Pay();
       OwningCard.IncreaseUsageScore();
 
       if (amount.Converted == GetManaAmount().Converted)
@@ -30,17 +38,13 @@
       // add overflow mana to manapool.          
       var manaBag = new ManaBag(amount);
       manaBag.Consume(amount);
-      Controller.AddManaToManaPool(manaBag.GetAmount());
+      OwningCard.Controller.AddManaToManaPool(manaBag.GetAmount());
     }
 
     public IManaAmount GetAvailableMana(ManaUsage usage)
     {
-      SpellPrerequisites prerequisites = CanActivate();
-
-      if (prerequisites.CanBeSatisfied == false)
-        return ManaAmount.Zero;
-
-      return GetManaAmount();
+      ActivationPrerequisites prerequisites;
+      return CanActivate(out prerequisites) == false ? ManaAmount.Zero : GetManaAmount();
     }
 
     private IManaAmount GetManaAmount()
@@ -48,19 +52,17 @@
       return new AggregateManaAmount(_manaAmountCharacteristic.Value, _manaAmount(this, Game));
     }
 
-    public override SpellPrerequisites CanActivate()
+    public override bool CanActivate(out ActivationPrerequisites prerequisites)
     {
       int? maxX = null;
-      if (IsEnabled && OwningCard.Zone == ActivationZone && Cost.CanPay(ref maxX))
+      prerequisites = null;
+
+      if (IsEnabled && OwningCard.Zone == Zone.Battlefield && CanPay(ref maxX))
       {
-        return new SpellPrerequisites
-          {
-            CanBeSatisfied = true,
-            Description = Text
-          };
+        prerequisites = new ActivationPrerequisites {Description = Text};
       }
 
-      return SpellPrerequisites.CannotBeSatisfied;
+      return false;
     }
 
     public void AddManaModifier(PropertyModifier<IManaAmount> modifier)
@@ -73,24 +75,13 @@
       _manaAmountCharacteristic.RemoveModifier(modifier);
     }
 
-    public void SetManaAmount(Func<ManaAbility, Game, IManaAmount> getManaAmount)
+    public override void Initialize(Card owner, Game game)
     {
-      _manaAmount = getManaAmount;
-    }
+      base.Initialize(owner, game);
 
-    protected override void Initialize()
-    {
       _manaAmountCharacteristic = new ManaAmountCharacteristic(
         ManaAmount.Zero,
-        Game.ChangeTracker, null);
-
-      CreateEffectFactory();
-    }
-
-    private void CreateEffectFactory()
-    {
-      var builder = new CardBuilder();
-      Effect(builder.Effect<AddManaToPool>(e => { e.Amount = GetManaAmount(); }));
+        ChangeTracker, null);
     }
 
     public void SetManaAmount(IManaAmount manaAmount)

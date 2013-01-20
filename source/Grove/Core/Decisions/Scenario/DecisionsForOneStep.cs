@@ -38,7 +38,7 @@
         {
           Result = new ChosenPlayable
             {
-              Playable = new ScenarioAbility(
+              Playable = new ScenarioPlayableAbility(
                 activation.Card,
                 new ActivationParameters
                   {
@@ -135,7 +135,7 @@
         {
           Result = new ChosenPlayable
             {
-              Playable = new ScenarioSpell(
+              Playable = new ScenarioPlayableSpell(
                 activation.Card,
                 new ActivationParameters
                   {

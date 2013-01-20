@@ -8,7 +8,7 @@
 
     public override void Apply(ActivatedAbilities abilities)
     {
-      abilities.Disable();
+      abilities.DisableAll();
       _activatedAbilities = abilities;
     }
 
@@ -26,7 +26,7 @@
 
     protected override void Unapply()
     {
-      _activatedAbilities.Enable();
+      _activatedAbilities.EnableAll();
       _staticAbilties.Enable();
       _triggeredAbilities.Enable();
     }

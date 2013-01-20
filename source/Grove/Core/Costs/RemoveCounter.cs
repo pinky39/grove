@@ -1,6 +1,6 @@
 ﻿namespace Grove.Core.Costs
 {
-  using Grove.Core.Targeting;
+  using Targeting;
 
   public class RemoveCounter : Cost
   {
@@ -9,7 +9,7 @@
       return Card.ChargeCountersCount > 0;
     }
 
-    public override void Pay(ITarget target, int? x)
+    protected override void Pay(ITarget target, int? x)
     {
       Card.RemoveChargeCounter();
     }

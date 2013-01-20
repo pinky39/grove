@@ -110,14 +110,14 @@
         .Select((x, i) => new Ui.PlayableActivator
           {
             Prerequisites = x,
-            GetPlayable = parameters => new Spell(Card, parameters, i)
+            GetPlayable = parameters => new PlayableSpell(Card, parameters, i)
           })
         .Where(x => x.Prerequisites.CanBeSatisfied).Concat(
           canActivateAbilities
             .Select((x, i) => new Ui.PlayableActivator
               {
                 Prerequisites = x,
-                GetPlayable = parameters => new Core.Decisions.Results.Ability(Card, parameters, i)
+                GetPlayable = parameters => new Core.Decisions.Results.PlayableAbility(Card, parameters, i)
               })
             .Where(x => x.Prerequisites.CanBeSatisfied))
         .ToList();
@@ -156,7 +156,7 @@
       _game.Publish(new PlayableSelected {Playable = playable});
     }
 
-    private bool SelectTargets(SpellPrerequisites prerequisites, ActivationParameters parameters)
+    private bool SelectTargets(ActivationPrerequisites prerequisites, ActivationParameters parameters)
     {
       if (prerequisites.TargetSelector.RequiresCostTargets)
       {
@@ -208,7 +208,7 @@
       return dialog;
     }
 
-    private bool SelectX(SpellPrerequisites prerequisites, ActivationParameters parameters)
+    private bool SelectX(ActivationPrerequisites prerequisites, ActivationParameters parameters)
     {
       if (prerequisites.HasXInCost)
       {

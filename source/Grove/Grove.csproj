@@ -395,13 +395,19 @@
     <Compile Include="Cards\WurmcoilEngine.cs" />
     <Compile Include="Cards\WallOfDenial.cs" />
     <Compile Include="Configuration.cs" />
+    <Compile Include="Core\AbilityParameters.cs" />
+    <Compile Include="Core\ActivatedAbilityParameters.cs" />
     <Compile Include="Core\Ai\AttackerEvaluation.cs" />
     <Compile Include="Core\Ai\BlockerEvaluation.cs" />
     <Compile Include="Core\Ai\QuickCombat.cs" />
+    <Compile Include="Core\Ai\TargetSelectionRules\OrderByScore.cs" />
+    <Compile Include="Core\Ai\TimingRules\Counterspell.cs" />
+    <Compile Include="Core\Ai\TimingRules\Steps.cs" />
+    <Compile Include="Core\Ai\TargetSelectionRules\TargetSelectionRule.cs" />
+    <Compile Include="Core\Ai\TimingRules\TimingRule.cs" />
     <Compile Include="Core\CardFactory.cs" />
     <Compile Include="Core\CardParameters.cs" />
     <Compile Include="Core\Casting\Aura.cs" />
-    <Compile Include="Core\Casting\ICastingRuleFactory.cs" />
     <Compile Include="Core\Casting\Permanent.cs" />
     <Compile Include="Core\ContiniousEffects.cs" />
     <Compile Include="Core\Costs\AggregateCost.cs" />
@@ -417,6 +423,9 @@
     <Compile Include="Core\Effects\TargetPlayerGainsLife.cs" />
     <Compile Include="Core\Effects\UntapOwner.cs" />
     <Compile Include="Core\Effects\UntapSelectedPermanents.cs" />
+    <Compile Include="Core\Ai\MachinePlayRule.cs" />
+    <Compile Include="Core\GameObject.cs" />
+    <Compile Include="Core\ManaAbilityParameters.cs" />
     <Compile Include="Core\Modifiers\ChangeBasicLand.cs" />
     <Compile Include="Core\SpellCounterReason.cs" />
     <Compile Include="Core\ManaAmountCharacteristic.cs" />
@@ -424,6 +433,8 @@
     <Compile Include="Core\Modifiers\IncreaseManaOutput.cs" />
     <Compile Include="Core\Modifiers\ManaAmountIncrement.cs" />
     <Compile Include="Core\Preventions\PreventReceived.cs" />
+    <Compile Include="Core\Targeting\TargetValidatorParameters.cs" />
+    <Compile Include="Core\TriggeredAbilityParameters.cs" />
     <Compile Include="Core\Triggers\OnEffectResolved.cs" />
     <Compile Include="Core\CastInstructionParameters.cs" />
     <Compile Include="Core\CastInstructions.cs" />
@@ -509,7 +520,6 @@
     <Compile Include="Core\Costs\Discard.cs" />
     <Compile Include="Core\Costs\NoCost.cs" />
     <Compile Include="Core\Costs\Reveal.cs" />
-    <Compile Include="Core\EffectCreationContext.cs" />
     <Compile Include="Core\EffectParameters.cs" />
     <Compile Include="Core\Effects\SwitchController.cs" />
     <Compile Include="Core\Effects\PutOnTopOfLibraryUnlessOpponentSacsLand.cs" />
@@ -531,8 +541,6 @@
     <Compile Include="Core\Messages\PermanentGetsUntapped.cs" />
     <Compile Include="Core\ControllerType.cs" />
     <Compile Include="Core\Ai\DamageDistributor.cs" />
-    <Compile Include="Core\Targeting\ITargetValidator.cs" />
-    <Compile Include="Core\Targeting\ITargetValidatorFactory.cs" />
     <Compile Include="Core\Modifiers\AddDamageRedirection.cs" />
     <Compile Include="Core\Modifiers\DisableAbilities.cs" />
     <Compile Include="Core\Preventions\PreventDamageToTarget.cs" />
@@ -575,9 +583,9 @@
     <Compile Include="Core\Decisions\Scenario\IScenarioDecision.cs" />
     <Compile Include="Core\Decisions\Scenario\ScenarioEffect.cs" />
     <Compile Include="Core\Decisions\Scenario\PlaySpellOrAbility.cs" />
-    <Compile Include="Core\Decisions\Scenario\ScenarioAbility.cs" />
+    <Compile Include="Core\Decisions\Scenario\ScenarioPlayableAbility.cs" />
     <Compile Include="Core\Decisions\Scenario\NopScenarioDecision.cs" />
-    <Compile Include="Core\Decisions\Scenario\ScenarioSpell.cs" />
+    <Compile Include="Core\Decisions\Scenario\ScenarioPlayableSpell.cs" />
     <Compile Include="Core\Decisions\Scenario\SetTriggeredAbilityTarget.cs" />
     <Compile Include="Core\Decisions\Scenario\DecisionsForOneStep.cs" />
     <Compile Include="Core\Decisions\Scenario\Verify.cs" />
@@ -599,7 +607,6 @@
     <Compile Include="Core\Effects\TapTarget.cs" />
     <Compile Include="Core\Effects\DiscardCards.cs" />
     <Compile Include="Core\Effects\TargetPlayerTakesExtraTurns.cs" />
-    <Compile Include="Core\IActivatedAbilityFactory.cs" />
     <Compile Include="Core\Mana\IManaAmount.cs" />
     <Compile Include="Core\Targeting\ITriggeredAbilityFactory.cs" />
     <Compile Include="Core\Level.cs" />
@@ -623,12 +630,12 @@
     <Compile Include="Core\Targeting\TargetsCandidates.cs" />
     <Compile Include="Core\Targeting\TargetValidator.cs" />
     <Compile Include="Core\Targeting\TargetSelector.cs" />
-    <Compile Include="Core\Targeting\TargetValidatorParameters.cs" />
+    <Compile Include="Core\Targeting\IsValidTargetParameters.cs" />
     <Compile Include="Core\Triggers\OnCastedSpell.cs" />
     <Compile Include="Core\Triggers\OnLevelChanged.cs" />
     <Compile Include="Core\Triggers\OnTurnOpponentWasNotDealtDamage.cs" />
     <Compile Include="Core\Targeting\Zones.cs" />
-    <Compile Include="Core\Targeting\ZoneValidatorParameters.cs" />
+    <Compile Include="Core\Targeting\IsValidZoneParameters.cs" />
     <Compile Include="Core\Zones\IGraveyardQuery.cs" />
     <Compile Include="Core\Zones\ILibraryQuery.cs" />
     <Compile Include="Core\Zones\IZoneQuery.cs" />
@@ -668,7 +675,7 @@
     <Compile Include="Infrastructure\ICopyable.cs" />
     <Compile Include="Infrastructure\Knapsack.cs" />
     <Compile Include="Infrastructure\KnapsackItem.cs" />
-    <Compile Include="Core\Decisions\Results\Ability.cs" />
+    <Compile Include="Core\Decisions\Results\PlayableAbility.cs" />
     <Compile Include="Core\Decisions\AssignCombatDamage.cs" />
     <Compile Include="Core\Decisions\Decision.cs" />
     <Compile Include="Core\Decisions\IDecision.cs" />
@@ -688,7 +695,7 @@
     <Compile Include="Core\Decisions\SelectCardsToSacrifice.cs" />
     <Compile Include="Core\Decisions\SelectStartingPlayer.cs" />
     <Compile Include="Core\Decisions\SetDamageAssignmentOrder.cs" />
-    <Compile Include="Core\Decisions\Results\Spell.cs" />
+    <Compile Include="Core\Decisions\Results\PlayableSpell.cs" />
     <Compile Include="Core\Decisions\SetTriggeredAbilityTarget.cs" />
     <Compile Include="Core\Decisions\TakeMulligan.cs" />
     <Compile Include="Core\Decisions\Results\BooleanResult.cs" />
@@ -701,8 +708,6 @@
     <Compile Include="Core\PropertyModifier.cs" />
     <Compile Include="Core\CardTypeCharacteristic.cs" />
     <Compile Include="Core\Combat.cs" />
-    <Compile Include="Core\Costs\ICostFactory.cs" />
-    <Compile Include="Core\Effects\IEffectFactory.cs" />
     <Compile Include="Core\ActivatedAbilities.cs" />
     <Compile Include="Core\CardColors.cs" />
     <Compile Include="Core\Modifiers\CardTypeSetter.cs" />
@@ -809,7 +814,7 @@
     <Compile Include="Core\Modifiers\AddPowerAndToughness.cs" />
     <Compile Include="Core\Testing\ScenarioGenerator.cs" />
     <Compile Include="Infrastructure\Snapshot.cs" />
-    <Compile Include="Core\SpellPrerequisites.cs" />
+    <Compile Include="Core\ActivationPrerequisites.cs" />
     <Compile Include="Core\TriggeredAbility.cs" />
     <Compile Include="Core\Messages\ZoneChanged.cs" />
     <Compile Include="Core\Messages\DamageHasBeenDealt.cs" />
@@ -1219,7 +1224,9 @@
   <ItemGroup>
     <Resource Include="icon.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Core\Ai\CostSelectionRules\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <UsingTask TaskName="Costura.EmbedTask" AssemblyFile="$(SolutionDir)lib\costura\Costura.dll" />
   <Target Name="AfterBuild">

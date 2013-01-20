@@ -1,7 +1,6 @@
 ﻿namespace Grove.Core.Decisions.Machine
 {
   using System.Collections.Generic;
-  using System.Linq;
   using Ai;
   using log4net;
   using Results;
@@ -17,7 +16,7 @@
       Result = DefaultResult();
     }
 
-    public override bool HasCompleted { get { return _executor.HasCompleted; } }        
+    public override bool HasCompleted { get { return _executor.HasCompleted; } }
     bool IDecisionExecution.ShouldExecuteQuery { get { return ShouldExecuteQuery; } }
 
     void IDecisionExecution.ExecuteQuery()
@@ -29,7 +28,10 @@
 
     public void GenerateChoices()
     {
-      _playables = GeneratePlayables().ToList();
+      _playables = GeneratePlayables();
+
+      // consider passing priority every time
+      _playables.Add(new Pass());
     }
 
     public void SetResult(int index)
@@ -60,23 +62,16 @@
       return new ChosenPlayable {Playable = new Pass()};
     }
 
-    private IEnumerable<Playable> GeneratePlayables()
+    private List<Playable> GeneratePlayables()
     {
       if (Game.Stack.TopSpellOwner == Controller)
       {
         // if you own the top spell just pass so it resolves
         // you will get priority again when it resolves
-        
-        yield return new Pass();
-        yield break;
+        return new List<Playable>();
       }
 
-      foreach (var playable in new PlayableGenerator(Controller, Game))
-      {
-        yield return playable;
-      }
-
-      yield return new Pass();
+      return new PlayableGenerator(Controller).GetPlayables();
     }
 
     public override string ToString()

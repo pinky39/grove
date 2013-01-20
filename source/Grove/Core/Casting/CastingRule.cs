@@ -1,34 +1,19 @@
 ﻿namespace Grove.Core.Casting
 {
   using Effects;
-  using Grove.Core.Dsl;
-  using Grove.Infrastructure;
 
-  [Copyable]
-  public abstract class CastingRule 
+  public abstract class CastingRule : GameObject
   {
     protected Card Card { get; private set; }
-    protected Game Game { get; private set; }    
-    
+
     public abstract bool CanCast();
     public abstract void Cast(Effect effect);
     public abstract void AfterResolve();
-    
 
-      public class Factory<TCastingRule> : ICastingRuleFactory where TCastingRule : CastingRule, new()
+    public virtual void Initialize(Card card, Game game)
     {
-      public Initializer<TCastingRule> Init = delegate { };
-
-      public CastingRule CreateCastingRule(Card card, Game game)
-      {
-        var rule = new TCastingRule();
-        rule.Card = card;
-        rule.Game = game;
-       
-        Init(rule);        
-
-        return rule;
-      }
+      Game = game;
+      Card = card;
     }
   }
 }

@@ -20,7 +20,7 @@
         .Abilities(
           ManaAbility(
             (ability, game) =>
-              ManaAmount.OfSingleColor(ManaColors.Green, ability.Controller.Battlefield.Creatures.Count()),
+              ManaAmount.OfSingleColor(ManaColors.Green, ability.OwningCard.Controller.Battlefield.Creatures.Count()),
             "{T}: Add {G} to your mana pool for each creature you control.")
         );
     }

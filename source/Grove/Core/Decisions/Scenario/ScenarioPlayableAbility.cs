@@ -1,10 +1,11 @@
 ﻿namespace Grove.Core.Decisions.Scenario
 {
+  using System.Linq;
   using Mana;
 
-  public class ScenarioAbility : Results.Ability
+  public class ScenarioPlayableAbility : Results.PlayableAbility
   {
-    public ScenarioAbility(Card card, ActivationParameters activationParameters, int index)
+    public ScenarioPlayableAbility(Card card, ActivationParameters activationParameters, int index)
       : base(card, activationParameters, index) {}
 
     public override bool CanPlay()
@@ -16,8 +17,9 @@
 
       Card.Controller.AddManaToManaPool(manaCost);
 
-      var prerequisites = Card.CanActivateAbility(Index);
-      return prerequisites.CanBeSatisfied;
+      var prerequisites = Card.CanActivateAbilities();
+
+      return prerequisites.Any(x => x.Index == Index);      
     }
   }
 }

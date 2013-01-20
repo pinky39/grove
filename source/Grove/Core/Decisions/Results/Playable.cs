@@ -1,11 +1,16 @@
 ﻿namespace Grove.Core.Decisions.Results
 {
-  using Grove.Infrastructure;
+  using System.Collections.Generic;
+  using Infrastructure;
 
   [Copyable]
   public abstract class Playable
   {
+    public ActivationParameters ActivationParameters;
+    public Card Card;
+    public int Index;
     public virtual bool WasPriorityPassed { get { return false; } }
+    public Player Controller { get { return Card.Controller; } }
 
     public virtual bool CanPlay()
     {
@@ -13,5 +18,7 @@
     }
 
     public virtual void Play() {}
+
+    public abstract List<Playable> Replicate(int count);
   }
 }

@@ -1,30 +1,38 @@
 ﻿namespace Grove.Core
 {
-  using System.Collections.Generic;
-  using System.Linq;
   using Ai;
   using Effects;
   using Infrastructure;
   using Targeting;
-  using Zones;
 
-  [Copyable]
-  public abstract class Ability : IEffectSource
+  public abstract class Ability : GameObject, IEffectSource
   {
-    private TargetSelector _targetSelector = TargetSelector.NullSelector;
-    public TargetSelector TargetSelector { get { return _targetSelector; } }
-    public Player Controller { get { return OwningCard.Controller; } }
-    protected IEffectFactory EffectFactory { get; private set; }
-    protected Game Game { get; set; }
-    protected Stack Stack { get { return Game.Stack; } }
-    public CardText Text { get; set; }
-    public bool UsesStack { get; set; }
-    public EffectCategories EffectCategories { get; set; }
-    public Card SourceCard { get; protected set; }
-    public Card OwningCard { get; protected set; }
-    public abstract int CalculateHash(HashCalculator calc);
+    protected readonly TargetSelector TargetSelector;
+    protected readonly CardText Text;
+    private readonly bool _usesStack;
+    protected EffectFactory EffectFactory;
+    protected MachinePlayRule[] Rules;
+    private Trackable<bool> _isEnabled;
+    private Card _owner;
 
+    protected Ability(AbilityParameters parameters)
+    {
+      EffectFactory = parameters.EffectFactory;
+      Rules = parameters.Rules;
+      TargetSelector = parameters.TargetSelector;
+      _usesStack = parameters.UsesStack;
+      Text = parameters.Text;
+    }
+
+    public bool IsEnabled { get { return _isEnabled.Value; } set { _isEnabled.Value = value; } }
+    public Card SourceCard { get { return _owner; } }
+    public Card OwningCard { get { return _owner; } }
     public void EffectCountered(SpellCounterReason reason) {}
+
+    public virtual int CalculateHash(HashCalculator calc)
+    {
+      return _isEnabled.GetHashCode();
+    }
 
     void IEffectSource.EffectPushedOnStack() {}
     void IEffectSource.EffectResolved() {}
@@ -34,19 +42,30 @@
       return TargetSelector.IsValidEffectTarget(target);
     }
 
-    public void Effect(IEffectFactory effectFactory)
+    protected void Resolve(Effect e, bool skipStack)
     {
-      EffectFactory = effectFactory;
+      if (_usesStack == false || skipStack)
+      {
+        e.Resolve();  
+        return;
+      }
+
+      Game.Stack.Push(e);      
     }
 
-    public void Targets(IEnumerable<ITargetValidatorFactory> effect, IEnumerable<ITargetValidatorFactory> cost,
-      TargetingAiDelegate aiSelector)
+    public virtual void Initialize(Card owner, Game game)
     {
-      _targetSelector = new TargetSelector(
-        effectValidators: effect.Select(x => x.Create(OwningCard, Game)),
-        costValidators: cost.Select(x => x.Create(OwningCard, Game)),
-        aiSelector: aiSelector
-        );
+      _owner = owner;
+      Game = game;
+
+      TargetSelector.Initialize(game);
+
+      foreach (var aiInstruction in Rules)
+      {
+        aiInstruction.Initialize(game);
+      }
+
+      _isEnabled = new Trackable<bool>(true, Game.ChangeTracker);
     }
 
     public override string ToString()

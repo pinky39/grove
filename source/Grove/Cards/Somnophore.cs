@@ -40,7 +40,7 @@
             selectorAi: TargetingAi.Pacifism(),
             effectValidator: Target(
               Validators.Card(
-                p => p.Card.Is().Creature && 
+                p => p.OwningCard.Is().Creature && 
                 p.Target.Card().Controller == p.Trigger<DamageHasBeenDealt>().Receiver),
               Zones.Battlefield(),
               text: "Select creature to tap."))

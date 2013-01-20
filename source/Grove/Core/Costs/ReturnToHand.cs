@@ -1,6 +1,6 @@
 ﻿namespace Grove.Core.Costs
 {
-  using Grove.Core.Targeting;
+  using Targeting;
 
   public class ReturnToHand : Cost
   {
@@ -9,7 +9,7 @@
       return true;
     }
 
-    public override void Pay(ITarget target, int? x)
+    protected override void Pay(ITarget target, int? x)
     {
       Card.PutToHand();
     }

@@ -34,7 +34,7 @@
             "When a card is put into your graveyard from anywhere, sacrifice Energy Field.",
             Trigger<OnZoneChanged>(t =>
               {
-                t.Filter = (ability, card) => ability.Controller == card.Owner;
+                t.Filter = (ability, card) => ability.OwningCard.Controller == card.Owner;
                 t.To = Zone.Graveyard;
               }),
             Effect<SacrificeSource>(),

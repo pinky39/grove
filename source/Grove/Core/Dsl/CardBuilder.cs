@@ -4,7 +4,6 @@
   using System.Collections.Generic;
   using System.Linq;
   using Ai;
-  using Casting;
   using Costs;
   using Counters;
   using Effects;
@@ -19,15 +18,6 @@
   public class CardBuilder
   {
     public CardFactory Card { get { return new CardFactory(); } }
-
-    public ICastingRuleFactory Rule<T>(Initializer<T> init = null) where T : CastingRule, new()
-    {
-      init = init ?? delegate { };
-      return new CastingRule.Factory<T>()
-        {
-          Init = init
-        };
-    }
 
     public IActivatedAbilityFactory ActivatedAbility(
       string text,
@@ -173,14 +163,14 @@
         };
     }
 
-    public Effects.IEffectFactory Effect<T>(Action<T> init = null) where T : Effects.Effect, new()
+    public EffectFactory Effect<T>(Action<T> init = null) where T : Effect, new()
     {
       init = init ?? delegate { };
 
       return Effect<T>(p => init(p.Effect));
     }
 
-    public IEffectFactory Effect<T>(EffectInitializer<T> init) where T : Effect, new()
+    public EffectFactory Effect<T>(EffectInitializer<T> init) where T : Effect, new()
     {
       init = init ?? delegate { };
 
@@ -256,7 +246,7 @@
         };
     }
 
-    public ITargetValidatorFactory Target(TargetValidatorDelegate target, ZoneValidatorDelegate zone,
+    public ITargetValidatorFactory Target(IsValidTarget target, IsValidZone zone,
       string text = null,
       bool mustBeTargetable = true, int minCount = 1, int maxCount = 1)
     {
@@ -264,7 +254,7 @@
         {
           Init = validator =>
             {
-              validator.Target = target;
+              validator.IsValidTarget = target;
               validator.Zone = zone;
 
               validator.MustBeTargetable = mustBeTargetable;

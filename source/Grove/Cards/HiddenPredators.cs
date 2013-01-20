@@ -27,7 +27,7 @@
                   if (ability.OwningCard.Is().Enchantment == false)
                     return false;
 
-                  return ability.Controller.Opponent
+                  return ability.OwningCard.Controller.Opponent
                     .Battlefield.Creatures.Any(x => x.Power >= 4);
                 }),
             Effect<Core.Effects.ApplyModifiersToSelf>(p => p.Effect.Modifiers(

@@ -11,17 +11,7 @@
   public delegate bool TimingDelegate(TimingParameters parameters);
 
   public static class Timings
-  {
-    public static TimingDelegate NoRestrictions()
-    {
-      return p => true;
-    }
-
-    public static TimingDelegate DeclareBlockers()
-    {
-      return Steps(Step.DeclareBlockers);
-    }
-
+  {        
     public static TimingDelegate CounterSpell(int? counterCost = null)
     {
       return p =>

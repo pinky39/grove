@@ -11,9 +11,9 @@
 
     public override int CalculatePlayerDamage(Player player)
     {
-      for (int i = 0; i < Targets.Count; i++)
+      for (int i = 0; i < EffectTargets.Count; i++)
       {
-        if (player == Targets[i] && IsValid(Targets[i]))
+        if (player == EffectTargets[i] && IsValid(EffectTargets[i]))
         {
           return _damageDistribution[i];
         }
@@ -23,9 +23,9 @@
 
     public override int CalculateCreatureDamage(Card creature)
     {
-      for (int i = 0; i < Targets.Count; i++)
+      for (int i = 0; i < EffectTargets.Count; i++)
       {
-        if (creature == Targets[i] && IsValid(Targets[i]))
+        if (creature == EffectTargets[i] && IsValid(EffectTargets[i]))
         {
           return _damageDistribution[i];
         }
@@ -36,12 +36,12 @@
 
     protected override void DistributeDamage(IDamageDistributor damageDistributor)
     {
-      _damageDistribution.AddRange(damageDistributor.DistributeDamage(Targets, Amount.GetValue(X)));
+      _damageDistribution.AddRange(damageDistributor.DistributeDamage(EffectTargets, Amount.GetValue(X)));
     }
 
     protected override void ResolveEffect()
     {
-      for (int i = 0; i < Targets.Count; i++)
+      for (int i = 0; i < EffectTargets.Count; i++)
       {
         var damage = new Damage(
           source: Source.OwningCard,
@@ -49,8 +49,8 @@
           isCombat: false,
           changeTracker: Game.ChangeTracker);
 
-        if (IsValid(Targets[i]))
-          Targets[i].DealDamage(damage);
+        if (IsValid(EffectTargets[i]))
+          EffectTargets[i].DealDamage(damage);
       }
     }
 

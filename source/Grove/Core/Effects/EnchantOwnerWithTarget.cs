@@ -7,7 +7,7 @@
     protected override void ResolveEffect()
     {            
       var enchantment = Target().Card();
-      Source.OwningCard.EnchantWith(enchantment);      
+      Source.OwningCard.EnchantWithoutPayingCost(enchantment);      
     }
   }
 }

@@ -26,7 +26,7 @@
             "When an opponent casts an enchantment spell, if Hidden Ancients is an enchantment, Hidden Ancients becomes a 5/5 Treefolk creature.",
             Trigger<OnCastedSpell>(t => t.Filter =
               (ability, card) =>
-                ability.Controller != card.Controller && ability.OwningCard.Is().Enchantment && card.Is().Enchantment),
+                ability.OwningCard.Controller != card.Controller && ability.OwningCard.Is().Enchantment && card.Is().Enchantment),
             Effect<Core.Effects.ApplyModifiersToSelf>(p => p.Effect.Modifiers(
               Modifier<ChangeToCreature>(m =>
                 {

@@ -9,7 +9,7 @@
       return true;
     }
 
-    public override void Pay(ITarget target, int? x)
+    protected override void Pay(ITarget target, int? x)
     {      
     }
   }

@@ -9,10 +9,10 @@
   {
     private readonly Game _game;
 
-    private readonly SpellPrerequisites _prerequisites;
+    private readonly ActivationPrerequisites _prerequisites;
     private readonly Card _spell;
 
-    public ActivationGenerator(Card spell, SpellPrerequisites prerequisites, Game game)
+    public ActivationGenerator(ActivationPrerequisites prerequisites, Game game)
     {
       _spell = spell;
       _prerequisites = prerequisites;

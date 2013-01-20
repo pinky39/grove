@@ -19,9 +19,23 @@
 
     private CastInstructions() {}
 
-    public List<SpellPrerequisites> CanCast()
+    public List<ActivationPrerequisites> CanCast()
     {
-      return _castInstructions.Select(x => x.CanCast()).ToList();
+      var allPrerequisites = new List<ActivationPrerequisites>();
+
+      for (int index = 0; index < _castInstructions.Count; index++)
+      {
+        var instruction = _castInstructions[index];
+        ActivationPrerequisites prerequisites;
+
+        if (instruction.CanCast(out prerequisites))
+        {
+          prerequisites.Index = index;
+          allPrerequisites.Add(prerequisites);
+        }
+      }
+
+      return allPrerequisites;
     }
 
     public void Cast(int index, ActivationParameters activationParameters)
@@ -32,29 +46,7 @@
     public bool CanTarget(ITarget target)
     {
       return _castInstructions.Any(x => x.CanTarget(target));
-    }
-
-    public void EnchantTarget(Card target)
-    {
-      var effect = CreateEffect<Attach>(target);
-      effect.Resolve();
-      effect.FinishResolve();
-    }
-
-    private T CreateEffect<T>(ITarget target) where T : Effect
-    {
-      foreach (CastInstruction castInstruction in _castInstructions)
-      {
-        var activation = new ActivationParameters();
-        activation.Targets.AddEffect(target);
-        var effect = castInstruction.CreateEffect(activation) as T;
-
-        if (effect != null)
-          return effect;
-      }
-
-      return null;
-    }
+    }        
 
     public bool IsGoodTarget(ITarget target)
     {

@@ -23,7 +23,7 @@
           TriggeredAbility(
             "Whenever you cast an enchantment spell, draw a card.",
             Trigger<OnCastedSpell>(
-              t => { t.Filter = (ability, card) => card.Controller == ability.Controller && card.Is().Enchantment; }),
+              t => { t.Filter = (ability, card) => card.Controller == ability.OwningCard.Controller && card.Is().Enchantment; }),
             Effect<DrawCards>(p => p.DrawCount = 1),
             triggerOnlyIfOwningCardIsInPlay: true
             )

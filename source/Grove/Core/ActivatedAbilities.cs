@@ -1,13 +1,10 @@
 ﻿namespace Grove.Core
 {
-  using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Effects;
   using Infrastructure;
   using Mana;
   using Modifiers;
-  using Targeting;
 
   [Copyable]
   public class ActivatedAbilities : IModifiable, IHashable
@@ -22,7 +19,7 @@
     {
       _abilities = new TrackableList<ActivatedAbility>(abilities, changeTracker, hashDependancy);
 
-      IEnumerable<IManaSource> manaSources = abilities
+      var manaSources = abilities
         .Where(x => x is IManaSource)
         .Cast<IManaSource>();
 
@@ -47,71 +44,48 @@
       _abilities[abilityIndex].Activate(activationParameters);
     }
 
-    public List<SpellPrerequisites> CanActivate(bool ignoreManaAbilities)
+    public List<ActivationPrerequisites> CanActivate(bool ignoreManaAbilities)
     {
-      var result = new List<SpellPrerequisites>();
+      var result = new List<ActivationPrerequisites>();
 
-      for (int i = 0; i < _abilities.Count; i++)
+      for (int index = 0; index < _abilities.Count; index++)
       {
-        ActivatedAbility ability = _abilities[i];
-
+        var ability = _abilities[index];
+        
         if (ignoreManaAbilities && ability is ManaAbility)
         {
-          result.Add(SpellPrerequisites.CannotBeSatisfied);
           continue;
         }
 
-        result.Add(ability.CanActivate());
+        ActivationPrerequisites prerequisites;
+        if (ability.CanActivate(out prerequisites))
+        {
+          prerequisites.Index = index;          
+          result.Add(prerequisites);
+        }
       }
 
       return result;
     }
 
-    public SpellPrerequisites CanActivate(int abilityIndex)
-    {
-      return _abilities[abilityIndex].CanActivate();
-    }
-
-    public void EquipTarget(Card target)
-    {
-      var effect = CreateEffect<Attach>(target);
-      effect.Resolve();
-    }
-
-    private T CreateEffect<T>(ITarget target) where T : Effect
-    {
-      foreach (ActivatedAbility ability in _abilities)
-      {
-        var effect = ability.CreateEffect<T>(target);
-
-        if (effect != null)
-          return effect;
-      }
-
-      return null;
-    }
-
     public IManaAmount GetManaCost(int index)
     {
-      if (_abilities.Count <= index)
-        throw new InvalidOperationException(String.Format("No ability with index {0} exists.", index));
-
-      return _abilities[index].ManaCost;
+      return _abilities[index].GetManaCost();
     }
 
-    public void Enable()
+    public void EnableAll()
     {
-      foreach (ActivatedAbility activatedAbility in _abilities)
+      foreach (var activatedAbility in _abilities)
       {
-        activatedAbility.Enable();
+        activatedAbility.IsEnabled = true;
       }
     }
 
-    public void Disable()
+    public void DisableAll()
     {
-      foreach (ActivatedAbility activatedAbility in _abilities)
+      foreach (var activatedAbility in _abilities)
       {
-        activatedAbility.Disable();
+        activatedAbility.IsEnabled = false;
       }
     }
 
@@ -128,7 +102,7 @@
         return;
 
       _manaSources.Add(manaSource);
-      ability.Controller.AddManaSource(manaSource);
+      ability.OwningCard.Controller.AddManaSource(manaSource);
     }
 
     public void Remove(ActivatedAbility ability)
@@ -145,12 +119,12 @@
         return;
 
       _manaSources.Remove(manaSource);
-      ability.Controller.RemoveManaSource(manaSource);
+      ability.OwningCard.Controller.RemoveManaSource(manaSource);
     }
 
     public ActivatedAbility RemoveFirst()
     {
-      ActivatedAbility ability = _abilities.First();
+      var ability = _abilities.First();
       _abilities.Remove(ability);
       RemoveManaSource(ability);
 

@@ -22,7 +22,7 @@
     public override string ToString()
     {
       var sb = new StringBuilder();
-      sb.AppendFormat("{0} activated {1}", Ability.Controller, Ability);
+      sb.AppendFormat("{0} activated {1}", Ability.OwningCard.Controller, Ability);
       if (HasTargets)
       {
         sb.AppendFormat(" with targets: {0}", string.Join(",", _targets));

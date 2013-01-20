@@ -25,7 +25,7 @@
             "Whenever an opponent plays a land, if Hidden Stag is an enchantment, Hidden Stag becomes a 3/2 Elk Beast creature.",
             Trigger<OnCastedSpell>(t => t.Filter =
               (ability, card) =>
-                ability.Controller != card.Controller && ability.OwningCard.Is().Enchantment && card.Is().Land),
+                ability.OwningCard.Controller != card.Controller && ability.OwningCard.Is().Enchantment && card.Is().Land),
             Effect<Core.Effects.ApplyModifiersToSelf>(p => p.Effect.Modifiers(
               Modifier<ChangeToCreature>(m =>
                 {
@@ -40,7 +40,7 @@
             "Whenever you play a land, if Hidden Stag is a creature, Hidden Stag becomes an enchantment.",
             Trigger<OnCastedSpell>(t => t.Filter =
               (ability, card) =>
-                ability.Controller == card.Controller && ability.OwningCard.Is().Creature && card.Is().Land),
+                ability.OwningCard.Controller == card.Controller && ability.OwningCard.Is().Creature && card.Is().Land),
             Effect<RemoveModifier>(e => e.ModifierType = typeof (ChangeToCreature)),
             triggerOnlyIfOwningCardIsInPlay: true)
         );

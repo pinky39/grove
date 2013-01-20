@@ -1,7 +1,7 @@
 ﻿namespace Grove.Core.Costs
 {
   using System.Linq;
-  using Grove.Core.Targeting;
+  using Targeting;
 
   public class Sacrifice : Cost
   {
@@ -9,21 +9,21 @@
     {
       if (Validator != null)
       {
-         return Controller.Battlefield.Any(
-          permanent => Validator.IsValid(permanent));
+        return Card.Controller.Battlefield.Any(
+          permanent => Validator.IsTargetValid(permanent));
       }
-      
+
       return Card.IsPermanent;
     }
 
-    public override void Pay(ITarget target, int? x)
+    protected override void Pay(ITarget target, int? x)
     {
       if (target != null)
       {
         target.Card().Sacrifice();
         return;
       }
-      
+
       Card.Sacrifice();
     }
   }

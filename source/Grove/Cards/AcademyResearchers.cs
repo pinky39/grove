@@ -26,7 +26,7 @@
             "When Academy Researchers enters the battlefield, you may put an Aura card from your hand onto the battlefield attached to Academy Researchers.",
             Trigger<OnZoneChanged>(t => t.To = Zone.Battlefield),
             Effect<EnchantOwnerWithTarget>(),
-            Target(Validators.Card(p => p.Card.Is().Aura && p.Card.CanTarget(p.Source)), Zones.OwnersHand(), minCount: 0),
+            Target(Validators.Card(p => p.OwningCard.Is().Aura && p.OwningCard.CanTarget(p.Source)), Zones.OwnersHand(), minCount: 0),
             TargetingAi.AttachToSource())
         );
     }

@@ -119,18 +119,18 @@
         game.ChangeTracker, this);
 
       _staticAbilities = new StaticAbilities(p.StaticAbilities, game.ChangeTracker, this);
-      IEnumerable<TriggeredAbility> triggeredAbilities =
+      var triggeredAbilities =
         p.TriggeredAbilities.Select(x => x.Create(this, this, game));
       _triggeredAbilities = new TriggeredAbilities(triggeredAbilities, game.ChangeTracker, this);
 
       List<ActivatedAbility> activatedAbilities = p.ActivatedAbilities.Select(x => x.Create(this, game)).ToList();
       _activatedAbilities = new ActivatedAbilities(activatedAbilities, game.ChangeTracker, this);
 
-      List<CastInstruction> castInstructions =
+      var castInstructions =
         p.CastInstructions.Select(x => new CastInstruction(this, _game, x)).ToList();
       _castInstructions = new CastInstructions(castInstructions);
 
-      List<ContinuousEffect> continiousEffects =
+      var continiousEffects =
         p.ContinuousEffects.Select(factory => factory.Create(this, this, game)).ToList();
 
       _continuousEffects = new ContiniousEffects(continiousEffects, game.ChangeTracker, this);
@@ -220,7 +220,7 @@
     {
       get
       {
-        int score = 0;
+        var score = 0;
 
         switch (Zone)
         {
@@ -261,7 +261,7 @@
 
     public void AddModifier(IModifier modifier)
     {
-      foreach (IModifiable modifiable in ModifiableProperties)
+      foreach (var modifiable in ModifiableProperties)
       {
         modifiable.Accept(modifier);
       }
@@ -308,7 +308,7 @@
 
       if (damage.Source.Has().Lifelink)
       {
-        Player controller = damage.Source.Controller;
+        var controller = damage.Source.Controller;
         controller.Life += damage.Amount;
       }
 
@@ -403,7 +403,7 @@
     {
       if (attachment.IsAttached)
       {
-        Player controller = attachment.AttachedTo.Controller;
+        var controller = attachment.AttachedTo.Controller;
 
         attachment.AttachedTo.Detach(attachment);
 
@@ -418,14 +418,9 @@
       Publish(new AttachmentAttached {Attachment = attachment});
     }
 
-    public List<SpellPrerequisites> CanActivateAbilities(bool ignoreManaAbilities = false)
+    public List<ActivationPrerequisites> CanActivateAbilities(bool ignoreManaAbilities = false)
     {
       return _activatedAbilities.CanActivate(ignoreManaAbilities);
-    }
-
-    public SpellPrerequisites CanActivateAbility(int abilityIndex)
-    {
-      return _activatedAbilities.CanActivate(abilityIndex);
     }
 
     public bool CanBeBlockedBy(Card card)
@@ -486,7 +481,7 @@
       return _castInstructions.IsGoodTarget(target);
     }
 
-    public List<SpellPrerequisites> CanCast()
+    public List<ActivationPrerequisites> CanCast()
     {
       return _castInstructions.CanCast();
     }
@@ -505,7 +500,7 @@
 
     public void Detach(Card card)
     {
-      Attachment attachment = _attachments[card];
+      var attachment = _attachments[card];
 
       _attachments.Remove(attachment);
       card.AttachedTo = null;
@@ -517,14 +512,30 @@
         });
     }
 
-    public void EnchantWith(Card enchantment)
+    public void EnchantWithoutPayingCost(Card target)
     {
-      enchantment._castInstructions.EnchantTarget(this);
+      var activationParameters = new ActivationParameters
+        {
+          PayCost = false,
+          SkipStack = true
+        };
+
+      activationParameters.Targets.Effect.Add(target);
+
+      _castInstructions.Cast(0, activationParameters);
     }
 
-    public void EquipWith(Card equipment)
+    public void EquipWithoutPayingCost(Card target)
     {
-      equipment._activatedAbilities.EquipTarget(this);
+      var activationParameters = new ActivationParameters
+        {
+          PayCost = false,
+          SkipStack = true
+        };
+
+      activationParameters.Targets.Effect.Add(target);
+
+      _activatedAbilities.Activate(0, activationParameters);
     }
 
     public IManaAmount GetActivatedAbilityManaCost(int index)
@@ -606,7 +617,7 @@
 
     public void ChangeZone(IZone newZone)
     {
-      IZone oldZone = _zone.Value;
+      var oldZone = _zone.Value;
       _zone.Value = newZone;
 
       oldZone.Remove(this);
@@ -656,7 +667,7 @@
 
     public void DetachAttachments()
     {
-      foreach (Card attachedCard in _attachments.Cards.ToList())
+      foreach (var attachedCard in _attachments.Cards.ToList())
       {
         if (attachedCard.Is().Aura)
         {
@@ -693,9 +704,9 @@
         return ManaColors.Colorless;
       }
 
-      ManaColors cardColor = ManaColors.None;
+      var cardColor = ManaColors.None;
 
-      foreach (ManaUnit mana in ManaCost.Colored())
+      foreach (var mana in ManaCost.Colored())
       {
         cardColor = cardColor | mana.Colors;
       }
@@ -715,7 +726,7 @@
 
     public void RemoveModifier(Type type)
     {
-      IModifier modifier = _modifiers.FirstOrDefault(x => x.GetType() == type);
+      var modifier = _modifiers.FirstOrDefault(x => x.GetType() == type);
 
       if (modifier == null)
         return;
@@ -757,7 +768,7 @@
       if (!Power.HasValue)
         return 0;
 
-      int amount = Power.Value + powerIncrease;
+      var amount = Power.Value + powerIncrease;
       amount = _damagePreventions.PreventDealtCombatDamage(amount);
 
       if (allDamageSteps)

@@ -1,32 +1,26 @@
 ﻿namespace Grove.Core
 {
   using System;
-  using System.Collections.Generic;
   using System.Linq;
   using Decisions;
-  using Effects;
   using Infrastructure;
-  using Targeting;
   using Triggers;
   using Zones;
 
-  [Copyable]
   public class TriggeredAbility : Ability, IDisposable, ICopyContributor
   {
-    private readonly List<Trigger> _triggers = new List<Trigger>();
-    private Trackable<bool> _isEnabled;
+    private readonly bool _triggerOnlyIfOwningCardIsInPlay;
+    private readonly Trigger[] _triggers;
 
-    public TriggeredAbility()
+    public TriggeredAbility(TriggeredAbilityParameters p) : base(p)
     {
-      UsesStack = true;
+      _triggers = p.Triggers;
+      _triggerOnlyIfOwningCardIsInPlay = p.TriggerOnlyIfOwningCardIsInPlay;     
     }
-
-    public bool TriggerOnlyIfOwningCardIsInPlay { get; set; }
-    private bool IsEnabled { get { return _isEnabled.Value; } set { _isEnabled.Value = value; } }
 
     void ICopyContributor.AfterMemberCopy(object original)
     {
-      foreach (Trigger trigger in _triggers)
+      foreach (var trigger in _triggers)
       {
         RegisterTriggerListener(trigger);
       }
@@ -34,41 +28,47 @@
 
     public void Dispose()
     {
-      foreach (Trigger trigger in _triggers)
+      foreach (var trigger in _triggers)
       {
         trigger.Dispose();
       }
     }
 
-    public void AddTrigger(ITriggerFactory triggerFactory)
-    {
-      Trigger trigger = triggerFactory.CreateTrigger(this, Game);
-      _triggers.Add(trigger);
-      RegisterTriggerListener(trigger);
-    }
-
     public override int CalculateHash(HashCalculator calc)
     {
-      List<int> hashcodes = _triggers.Select(calc.Calculate).ToList();
-      hashcodes.Add(calc.Calculate(EffectFactory));
-      hashcodes.Add(IsEnabled.GetHashCode());
+      var hashcodes = _triggers.Select(calc.Calculate).ToList();
 
-      return HashCalculator.Combine(hashcodes);
+      return HashCalculator.Combine(
+        base.CalculateHash(calc),
+        HashCalculator.Combine(hashcodes)
+        );
     }
+
+    public override void Initialize(Card owner, Game game)
+    {
+      base.Initialize(owner, game);
+      
+
+      foreach (var trigger in _triggers)
+      {
+        trigger.Initialize(this, game);
+        RegisterTriggerListener(trigger);
+      }
+    }  
 
     protected virtual void Execute(object triggerMessage)
     {
       if (!IsEnabled)
         return;
 
-      if (TriggerOnlyIfOwningCardIsInPlay && OwningCard.Zone != Zone.Battlefield)
+      if (_triggerOnlyIfOwningCardIsInPlay && OwningCard.Zone != Zone.Battlefield)
         return;
 
       if (TargetSelector.Count > 0)
       {
-        Game.Enqueue<SetTriggeredAbilityTarget>(
-          controller: OwningCard.Controller,
-          init: p =>
+        Enqueue<SetTriggeredAbilityTarget>(
+          OwningCard.Controller,
+          p =>
             {
               p.Source = this;
               p.Factory = EffectFactory;
@@ -79,48 +79,20 @@
         return;
       }
 
-      var effectParameters = new EffectParameters(this, EffectCategories,
-        triggerMessage: triggerMessage);
+      var effectParameters = new EffectParameters
+        {
+          Source = this,
+          TriggerMessage = triggerMessage
+        };
 
-      Effect effect = EffectFactory.CreateEffect(effectParameters, Game);
 
-      if (UsesStack)
-        Stack.Push(effect);
-      else
-        effect.Resolve();
+      var effect = EffectFactory(effectParameters, Game);
+      Resolve(effect);
     }
 
     private void RegisterTriggerListener(Trigger trigger)
     {
-      trigger.Triggered += (o, e) => Execute(e.Context);
-    }
-
-    public void Disable()
-    {
-      IsEnabled = false;
-    }
-
-    public void Enable()
-    {
-      IsEnabled = true;
-    }
-
-    public class Factory : ITriggeredAbilityFactory
-    {
-      public Action<TriggeredAbility> Init { get; set; }
-
-      public TriggeredAbility Create(Card owningCard, Card sourceCard, Game game)
-      {
-        var ability = new TriggeredAbility();
-        ability.OwningCard = owningCard;
-        ability.SourceCard = sourceCard;
-        ability.Game = game;
-        ability._isEnabled = new Trackable<bool>(true, game.ChangeTracker);
-
-        Init(ability);
-
-        return ability;
-      }
+      trigger.Triggered += (o, e) => Execute(e.TriggerMessage);
     }
   }
 }

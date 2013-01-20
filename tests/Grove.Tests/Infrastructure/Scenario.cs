@@ -156,7 +156,7 @@
 
     protected void EquipCard(Card card, Card equipment)
     {
-      card.EquipWith(equipment);
+      equipment.EquipWithoutPayingCost(card);
     }
 
     protected void TrackCard(Card card, Card tracker)
@@ -245,7 +245,7 @@
 
     private static void EnchantCard(Card card, Card enchantment)
     {
-      card.EnchantWith(enchantment);
+      card.EnchantWithoutPayingCost(enchantment);
     }
   }
 }

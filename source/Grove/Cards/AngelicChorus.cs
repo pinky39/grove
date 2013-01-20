@@ -24,7 +24,7 @@
             "Whenever a creature enters the battlefield under your control, you gain life equal to its toughness.",
             Trigger<OnZoneChanged>(t =>
               {
-                t.Filter = (ability, card) => ability.Controller == card.Controller && card.Is().Creature;
+                t.Filter = (ability, card) => ability.OwningCard.Controller == card.Controller && card.Is().Creature;
                 t.To = Zone.Battlefield;
               }),
             Effect<Core.Effects.ControllerGainsLife>(p =>

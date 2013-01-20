@@ -1,21 +1,14 @@
 ﻿namespace Grove.Core.Costs
 {
-  using Grove.Core.Ai;
-  using Grove.Core.Dsl;
-  using Grove.Infrastructure;
-  using Grove.Core.Mana;
-  using Grove.Core.Targeting;
+  using System.Linq;
+  using Infrastructure;
+  using Mana;
+  using Targeting;
 
-  [Copyable]
-  public abstract class Cost : IHashable
+  public abstract class Cost : GameObject, IHashable
   {
-    public Card Card { get; private set; }
-    public Player Controller { get { return Card.Controller; } }
-    public Game Game { get; private set; }
-    protected TargetValidator Validator { get; private set; }
-
-    public CalculateX XCalculator { get; set; }
-    protected bool HasX {get { return XCalculator != null; }}
+    protected Card Card { get; private set; }
+    protected TargetValidator Validator { get; set; }
 
     public virtual int CalculateHash(HashCalculator calc)
     {
@@ -29,31 +22,26 @@
     }
 
     public abstract bool CanPay(ref int? maxX);
-    public abstract void Pay(ITarget target, int? x);
 
-    protected virtual void AfterInit() {}
+    public virtual void Pay(Targets targets, int? x)
+    {
+      // only one cost target is currently 
+      // supported, changes this to support
+      // more
+      Pay(targets.Cost.FirstOrDefault(), x);
+    }
+
+    protected virtual void Pay(ITarget target, int? x) {}
 
     public virtual IManaAmount GetManaCost()
     {
       return ManaAmount.Zero;
     }
 
-    public class Factory<TCost> : ICostFactory where TCost : Cost, new()
+    public virtual void Initialize(Card card, Game game)
     {
-      public Initializer<TCost> Init = delegate { };
-
-      public Cost CreateCost(Card card, TargetValidator validator, Game game)
-      {
-        var cost = new TCost();
-        cost.Card = card;
-        cost.Game = game;
-        cost.Validator = validator;
-
-        Init(cost);
-        cost.AfterInit();
-
-        return cost;
-      }
+      Game = game;
+      Card = card;
     }
   }
 }

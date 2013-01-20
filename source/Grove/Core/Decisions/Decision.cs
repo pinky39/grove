@@ -3,7 +3,7 @@
   using Infrastructure;
 
   [Copyable]
-  public abstract class Decision<TResult> : IDecision where TResult : class
+  public abstract class Decision<TResult> : IDecision
   {
     private bool _hasCompleted;
     public TResult Result { get; set; }

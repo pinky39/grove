@@ -11,47 +11,29 @@
   using Targeting;
   using Zones;
 
-  [Copyable]
-  public class CastInstruction : IEffectSource
+  public class CastInstruction : GameObject, IEffectSource
   {
-    private readonly Card _card;
     private readonly CastingRule _castingRule;
     private readonly Cost _cost;
     private readonly string _description;
     private readonly bool _distributeDamage;
-    private readonly EffectCategories _effectCategories;
-    private readonly IEffectFactory _effectFactory;
-    private readonly Game _game;
+    private readonly EffectFactory _effectFactory;
     private readonly TargetSelector _targetSelector;
-    private readonly TimingDelegate _timing;
-    private readonly CalculateX _xCalculator;
+    private Card _card;
+    private MachinePlayRule[] _rules;
 
     private CastInstruction() {}
 
-    public CastInstruction(Card card, Game game, CastInstructionParameters p)
+    public CastInstruction(CastInstructionParameters p)
     {
-      _card = card;
-      _game = game;
-
-      _targetSelector = new TargetSelector(
-        p.EffectTargets.Select(x => x.Create(card, game)),
-        p.CostTargets.Select(x => x.Create(card, game)),
-        p.TargetingAi);
-
-      _cost = p.Cost.CreateCost(
-        card, _targetSelector.Cost.FirstOrDefault(), _game);
-
-      _castingRule = p.Rule.CreateCastingRule(card, _game);
-
+      _targetSelector = p.TargetSelector;
+      _cost = p.Cost;
+      _castingRule = p.Rule;
       _effectFactory = p.Effect;
       _description = p.Description;
-
-      _xCalculator = p.XCalculator;
       _distributeDamage = p.DistributeDamage;
-      _timing = p.Timing;
-      _effectCategories = p.Category;
+      _rules = p.Rules;
     }
-
 
     public Card OwningCard { get { return _card; } }
     public Card SourceCard { get { return _card; } }
@@ -63,9 +45,9 @@
 
     public void EffectPushedOnStack()
     {
-      _card.ChangeZone(_game.Stack);
+      _card.ChangeZone(Stack);
 
-      _game.Publish(new ZoneChanged
+      Publish(new ZoneChanged
         {
           Card = _card,
           From = Zone.Hand,
@@ -85,48 +67,74 @@
 
     public int CalculateHash(HashCalculator calc)
     {
-      return calc.Calculate(_effectFactory);
+      return 0;
     }
 
-    public SpellPrerequisites CanCast()
+    public void Initialize(Card card, Game game)
+    {
+      Game = game;
+      _card = card;
+
+      _targetSelector.Initialize(game);
+
+      foreach (var aiInstruction in _rules)
+      {
+        aiInstruction.Initialize(game);
+      }
+    }
+
+    public bool CanCast(out ActivationPrerequisites prerequisites)
     {
       int? maxX = null;
+      prerequisites = null;
 
       if (_castingRule.CanCast() == false || _cost.CanPay(ref maxX) == false)
       {
-        return SpellPrerequisites.CannotBeSatisfied;
+        return false;
       }
 
-      return new SpellPrerequisites
+      prerequisites = new ActivationPrerequisites
         {
-          CanBeSatisfied = true,
           Description = _description,
-          TargetSelector = _targetSelector,
+          Selector = _targetSelector,
           MaxX = maxX,
           DistributeDamage = _distributeDamage,
-          XCalculator = _xCalculator,
-          Timing = _timing,
+          Card = _card,
+          Rules = _rules          
         };
+
+      return true;
     }
 
     public void Cast(ActivationParameters activationParameters)
     {
-      Effect effect = CreateEffect(activationParameters);
+      var parameters = new EffectParameters
+        {
+          Source = this,
+          Targets = activationParameters.Targets,
+          X = activationParameters.X
+        };
 
-      _cost.Pay(activationParameters.Targets.Cost.FirstOrDefault(), activationParameters.X);
+      var effect = _effectFactory(parameters, Game);
+
+      if (activationParameters.PayCost)
+      {
+        _cost.Pay(activationParameters.Targets, activationParameters.X);
+      }
+
+      if (activationParameters.SkipStack)
+      {
+        effect.Resolve();
+        return;
+      }
+
       _castingRule.Cast(effect);
-      _game.Publish(new PlayerHasCastASpell(_card, activationParameters.Targets));
-    }
-
-    public Effect CreateEffect(ActivationParameters activationParameters)
-    {
-      var parameters = new EffectParameters(this, _effectCategories, activationParameters);
-      return _effectFactory.CreateEffect(parameters, _game);
+      Publish(new PlayerHasCastASpell(_card, activationParameters.Targets));
     }
 
     public bool CanTarget(ITarget target)
     {
-      return _targetSelector.Effect[0].IsValid(target);
+      return _targetSelector.Effect[0].IsTargetValid(target);
     }
 
     public bool IsGoodTarget(ITarget target)
@@ -134,7 +142,7 @@
       var generator = new TargetGenerator(
         _targetSelector,
         _card,
-        _game,
+        Game,
         0);
 
       return generator.Any(targets => targets.Effect.Contains(target));

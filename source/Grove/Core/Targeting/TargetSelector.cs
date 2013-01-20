@@ -3,36 +3,31 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Ai;
-  using Infrastructure;
   using Core.Zones;
+  using Infrastructure;
 
   public delegate IEnumerable<ITarget> TargetGeneratorDelegate(Func<Zone, Player, bool> zoneFilter);
 
   [Copyable]
   public class TargetSelector
   {
+    public static readonly TargetSelector NullSelector = new TargetSelector();
     private readonly List<TargetValidator> _costValidators = new List<TargetValidator>();
     private readonly List<TargetValidator> _effectValidators = new List<TargetValidator>();
 
-    public static readonly TargetSelector NullSelector = new TargetSelector();
-    
     public TargetSelector(IEnumerable<TargetValidator> effectValidators,
-      IEnumerable<TargetValidator> costValidators, TargetingAiDelegate aiSelector)
+      IEnumerable<TargetValidator> costValidators)
     {
       _effectValidators.AddRange(effectValidators);
       _costValidators.AddRange(costValidators);
-      AiSelector = aiSelector;
     }
-    
+
     private TargetSelector() {}
 
-    public TargetingAiDelegate AiSelector { get; private set; }
-
     public int Count { get { return _costValidators.Count + _effectValidators.Count; } }
-    
-    public bool RequiresTargets {get { return _costValidators.Any() || _effectValidators.Any(); }}
-    public bool RequiresCostTargets { get { return _costValidators.Count > 0; } }    
+
+    public bool RequiresTargets { get { return _costValidators.Any() || _effectValidators.Any(); } }
+    public bool RequiresCostTargets { get { return _costValidators.Count > 0; } }
     public bool RequiresEffectTargets { get { return _effectValidators.Count > 0; } }
 
     public IList<TargetValidator> Effect { get { return _effectValidators; } }
@@ -46,7 +41,19 @@
     public int GetMaxEffectTargetCount()
     {
       return Effect.Sum(x => x.MaxCount).Value;
+    }
 
+    public void Initialize(Game game)
+    {
+      foreach (var validator in _effectValidators)
+      {
+        validator.Initialize(game);
+      }
+
+      foreach (var validator in _costValidators)
+      {
+        validator.Initialize(game);
+      }
     }
 
     public TargetsCandidates GenerateCandidates(TargetGeneratorDelegate generator)
@@ -57,9 +64,9 @@
       {
         var candidates = new TargetCandidates();
 
-        foreach (var target in generator(selector.IsValidZone))
+        foreach (var target in generator(selector.IsZoneValid))
         {
-          if (selector.IsValid(target))
+          if (selector.IsTargetValid(target))
           {
             candidates.Add(target);
           }
@@ -72,9 +79,9 @@
       {
         var candidates = new TargetCandidates();
 
-        foreach (var target in generator(selector.IsValidZone))
+        foreach (var target in generator(selector.IsZoneValid))
         {
-          if (selector.IsValid(target))
+          if (selector.IsTargetValid(target))
           {
             candidates.Add(target);
           }
@@ -84,7 +91,7 @@
       }
 
       return all;
-    }    
+    }
 
     public bool IsValidEffectTarget(ITarget target)
     {
@@ -95,25 +102,17 @@
       // there are problems in the future this must be 
       // changed, so the target will know to which
       // validator it belongs.            
-      var zone = target.Zone();      
-      
-      return _effectValidators.Any(
-          validator =>
-            {
-              var controller = target.IsCard() ? target.Card().Controller : null;
-              
-              return
-                (zone == null || validator.IsValidZone(zone.Value, controller)) &&
-                 validator.IsValid(target);
-            });
-    }
+      var zone = target.Zone();
 
-    public void SetTrigger(object trigger)
-    {
-      foreach (var targetValidator in Effect)
-      {
-        targetValidator.Trigger = trigger;
-      }
+      return _effectValidators.Any(
+        validator =>
+          {
+            var controller = target.IsCard() ? target.Card().Controller : null;
+
+            return
+              (zone == null || validator.IsZoneValid(zone.Value, controller)) &&
+                validator.IsTargetValid(target);
+          });
     }
   }
 }

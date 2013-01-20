@@ -28,10 +28,10 @@
     public Search()
     {      
       SearchDepthLimit = MaxSearchDepthLimit;
-      TargetCountLimit = MaxTargetCountLimit;
+      MaxTargetCandidates = MaxTargetCountLimit;
     }
 
-    public int TargetCountLimit { get; private set; }
+    public int MaxTargetCandidates { get; private set; }
 
     public bool InProgress
     {
@@ -176,7 +176,7 @@
       searchNode.Game.Publish(new SearchStarted
         {
           SearchDepthLimit = SearchDepthLimit,
-          TargetCountLimit = TargetCountLimit
+          TargetCountLimit = MaxTargetCandidates
         });
 
       Started(this, EventArgs.Empty);
@@ -201,9 +201,9 @@
     {
       if (_lastSearchDuration > 3000)
       {
-        if (TargetCountLimit > 1)
+        if (MaxTargetCandidates > 1)
         {
-          TargetCountLimit--;
+          MaxTargetCandidates--;
         }
         else if (SearchDepthLimit > 1)
         {
@@ -217,9 +217,9 @@
         {
           SearchDepthLimit += 2;
         }
-        else if (TargetCountLimit < MaxTargetCountLimit)
+        else if (MaxTargetCandidates < MaxTargetCountLimit)
         {
-          TargetCountLimit++;
+          MaxTargetCandidates++;
         }
       }
     }

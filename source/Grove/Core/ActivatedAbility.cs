@@ -1,98 +1,93 @@
 ﻿namespace Grove.Core
 {
-  using System;
-  using System.Linq;
-  using Ai;
   using Costs;
-  using Effects;
   using Infrastructure;
   using Mana;
   using Messages;
-  using Targeting;
   using Zones;
 
   public class ActivatedAbility : Ability
   {
-    public Zone ActivationZone = Zone.Battlefield;
-    private Trackable<bool> _isEnabled;
-    private TimingDelegate _timming = Timings.NoRestrictions();
+    private readonly bool _activateAsSorcery;
+    private readonly Zone _activationZone;
+    private readonly Cost _cost;
 
-    public ActivatedAbility()
+    public ActivatedAbility(ActivatedAbilityParameters parameters) : base(parameters)
     {
-      UsesStack = true;
+      _cost = parameters.Cost;
+      _activationZone = parameters.ActivationZone;
+      _activateAsSorcery = parameters.ActivateAsSorcery;
     }
 
-    public bool ActivateOnlyAsSorcery { get; set; }
-    protected Cost Cost { get; private set; }
-    protected bool IsEnabled { get { return _isEnabled.Value; } private set { _isEnabled.Value = value; } }
-    public IManaAmount ManaCost { get { return Cost.GetManaCost(); } }
-
-    protected TurnInfo Turn { get { return Game.Turn; } }
-
-    public void Activate(ActivationParameters activationParameters)
+    public void Activate(ActivationParameters p)
     {
-      var effectParameters = new EffectParameters(this, EffectCategories, activationParameters);
-      var effect = EffectFactory.CreateEffect(effectParameters, Game);
+      var effectParameters = new EffectParameters
+        {
+          Source = this,
+          Targets = p.Targets,
+          X = p.X
+        };
+      
+      Pay(p);
 
-      Cost.Pay(activationParameters.Targets.Cost.FirstOrDefault(), activationParameters.X);
+      var effect = EffectFactory(effectParameters, Game);
+      Resolve(effect, p.SkipStack);
 
-      if (UsesStack)
+      Publish(new PlayerHasActivatedAbility(this, p.Targets));
+    }
+
+    protected void Pay(ActivationParameters p = null)
+    {      
+      p = p ?? new ActivationParameters();
+      
+      if (p.PayCost)
       {
-        Stack.Push(effect);
-        return;
+        _cost.Pay(p.Targets, p.X);
       }
+    }
 
-      effect.Resolve();
+    protected bool CanPay(ref int? maxX)
+    {
+      return _cost.CanPay(ref maxX);
+    }
 
-      Game.Publish(new PlayerHasActivatedAbility(this, activationParameters.Targets));
+    public IManaAmount GetManaCost()
+    {
+      return _cost.GetManaCost();
     }
 
     public override int CalculateHash(HashCalculator calc)
     {
       return HashCalculator.Combine(
-        calc.Calculate(Cost),
-        calc.Calculate(EffectFactory),
-        ActivateOnlyAsSorcery.GetHashCode(),
-        IsEnabled.GetHashCode());
+        base.CalculateHash(calc),
+        _activateAsSorcery.GetHashCode(),
+        calc.Calculate(_cost));
     }
 
-    public virtual SpellPrerequisites CanActivate()
+    public virtual bool CanActivate(out ActivationPrerequisites activationPrerequisites)
     {
       int? maxX = null;
-      var canActivate = CanBeActivated(ref maxX);
+      activationPrerequisites = null;
 
-      return canActivate
-        ? new SpellPrerequisites
-          {
-            CanBeSatisfied = true,
-            Description = Text,
-            TargetSelector = TargetSelector,
-            XCalculator = Cost.XCalculator,
-            MaxX = maxX,
-            Timing = _timming,
-          }
-        : SpellPrerequisites.CannotBeSatisfied;
+      if (CanBeActivated(ref maxX) == false)
+        return false;
+
+      activationPrerequisites = new ActivationPrerequisites
+        {
+          Card = OwningCard,
+          Description = Text,
+          Selector = TargetSelector,
+          MaxX = maxX,
+          Rules = Rules,
+        };
+
+      return true;
     }
 
-    public T CreateEffect<T>(ITarget target) where T : Effect
+    public override void Initialize(Card owner, Game game)
     {
-      var activationParameters = new ActivationParameters();
-      activationParameters.Targets.AddEffect(target);
-
-      var effectParameters = new EffectParameters(this, EffectCategories, activationParameters);
-
-      return EffectFactory.CreateEffect(effectParameters, Game) as T;
-    }
-
-    public void SetCost(ICostFactory costFactory)
-    {
-      Cost = costFactory.CreateCost(OwningCard, TargetSelector.Cost.FirstOrDefault(), Game);
-    }
-
-    public void Timing(TimingDelegate timing)
-    {
-      if (timing != null)
-        _timming = timing;
+      base.Initialize(owner, game);
+      _cost.Initialize(owner, game);     
     }
 
     private bool CanBeActivated(ref int? maxX)
@@ -100,15 +95,15 @@
       return
         IsEnabled &&
           CanBeActivatedAtThisTime() &&
-            Cost.CanPay(ref maxX);
+            _cost.CanPay(ref maxX);
     }
 
     private bool CanBeActivatedAtThisTime()
     {
-      if (OwningCard.Zone != ActivationZone)
+      if (OwningCard.Zone != _activationZone)
         return false;
 
-      if (ActivateOnlyAsSorcery)
+      if (_activateAsSorcery)
       {
         return Turn.Step.IsMain() &&
           OwningCard.Controller.IsActive &&
@@ -116,37 +111,6 @@
       }
 
       return true;
-    }
-
-    protected virtual void Initialize() {}
-
-    public void Enable()
-    {
-      IsEnabled = true;
-    }
-
-    public void Disable()
-    {
-      IsEnabled = false;
-    }
-
-    public class Factory<T> : IActivatedAbilityFactory where T : ActivatedAbility, new()
-    {
-      public Action<T> Init = delegate { };
-
-      public ActivatedAbility Create(Card card, Game game)
-      {
-        var ability = new T();
-        ability.OwningCard = card;
-        ability.SourceCard = card;
-        ability.Game = game;
-        ability._isEnabled = new Trackable<bool>(true, game.ChangeTracker);
-
-        Init(ability);
-        ability.Initialize();
-
-        return ability;
-      }
     }
   }
 }

@@ -8,7 +8,7 @@
   {
     public TriggeredAbility Source { get; set; }
     public object Trigger { get; set; }
-    public IEffectFactory Factory { get; set; }
+    public EffectFactory Factory { get; set; }
     public TargetSelector TargetSelector { get; set; }
 
     public override void Init()

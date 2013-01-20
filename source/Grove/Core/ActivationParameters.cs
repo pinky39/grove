@@ -7,8 +7,8 @@
   public class ActivationParameters
   {
     public Targets Targets = new Targets();
-    public int? X { get; set; }
-
-    public static ActivationParameters Default { get { return new ActivationParameters(); } }
+    public bool PayCost = true;
+    public bool SkipStack;
+    public int? X;    
   }
 }

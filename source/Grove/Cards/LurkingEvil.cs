@@ -24,7 +24,7 @@
         .Abilities(
           ActivatedAbility(
             "Pay half your life, rounded up: Lurking Evil becomes a 4/4 Horror creature with flying.",
-            Cost<PayLife>(cost => cost.GetAmount = self => (int) Math.Ceiling(self.Controller.Life/2d)),
+            Cost<PayLife>(cost => cost.GetAmount = self => (int) Math.Ceiling(self.Card.Controller.Life/2d)),
             Effect<ApplyModifiersToSelf>(e => e.Modifiers(
               Modifier<ChangeToCreature>(m =>
                 {

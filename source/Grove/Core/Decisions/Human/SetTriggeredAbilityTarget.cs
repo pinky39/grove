@@ -35,9 +35,9 @@
 
     private bool NoValidTargets(TargetValidator validator)
     {
-      foreach (var target in Game.Players.SelectMany(x => x.GetTargets(validator.IsValidZone)))
+      foreach (var target in Game.Players.SelectMany(x => x.GetTargets(validator.IsZoneValid)))
       {
-        if (validator.IsValid(target))
+        if (validator.IsTargetValid(target))
           return false;
       }
 

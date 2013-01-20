@@ -4,9 +4,9 @@
   using Mana;
   using Results;
 
-  public class ScenarioSpell : Spell
+  public class ScenarioPlayableSpell : PlayableSpell
   {
-    public ScenarioSpell(Card card, ActivationParameters activationParameters, int index)
+    public ScenarioPlayableSpell(Card card, ActivationParameters activationParameters, int index)
       : base(card, activationParameters, index) {}
 
     private Player Controller { get { return Card.Controller; } }

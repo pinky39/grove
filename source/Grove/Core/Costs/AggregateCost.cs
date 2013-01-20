@@ -1,20 +1,18 @@
 ﻿namespace Grove.Core.Costs
 {
   using System.Collections.Generic;
-  using System.Linq;
-  using Grove.Core.Mana;
-  using Grove.Core.Targeting;
+  using Mana;
+  using Targeting;
 
   public class AggregateCost : Cost
   {
-    public List<ICostFactory> CostsFactories;
-    private List<Cost> _costs;
+    public List<Cost> Costs;
 
     public override IManaAmount GetManaCost()
     {
       IManaAmount manaAmount = ManaAmount.Zero;
 
-      foreach (var cost in _costs)
+      foreach (var cost in Costs)
       {
         var manaCost = cost.GetManaCost();
 
@@ -27,15 +25,19 @@
       return manaAmount;
     }
 
-    protected override void AfterInit()
+    public override void Initialize(Card card, Game game)
     {
-      _costs = CostsFactories.Select(
-        x => x.CreateCost(Card, Validator, Game)).ToList();
+      base.Initialize(card, game);
+
+      foreach (var cost in Costs)
+      {
+        cost.Initialize(card, game);
+      }
     }
 
     public override bool CanPay(ref int? maxX)
     {
-      foreach (var cost in _costs)
+      foreach (var cost in Costs)
       {
         if (!cost.CanPay(ref maxX))
           return false;
@@ -44,11 +46,11 @@
       return true;
     }
 
-    public override void Pay(ITarget target, int? x)
+    public override void Pay(Targets targets, int? x)
     {
-      foreach (var cost in _costs)
+      foreach (var cost in Costs)
       {
-        cost.Pay(target, x);
+        cost.Pay(targets, x);
       }
     }
   }

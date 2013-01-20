@@ -25,7 +25,7 @@
           TriggeredAbility(
             "When Abyssal Horror enters the battlefield, target player discards two cards.",
             Trigger<OnZoneChanged>(t => t.To = Zone.Battlefield),
-            Effect<Core.Effects.DiscardCards>(p => p.Effect.Count = 2),
+            Effect<Core.Effects.DiscardCards>(e => e.Count = 2),
             Target(Validators.Player(), Zones.None()), 
             TargetingAi.Opponent()));
     }

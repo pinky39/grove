@@ -10,12 +10,12 @@
     
     public override bool CanPay(ref int? maxX)
     {
-      return GetAmount(this) <= Controller.Life;
+      return GetAmount(this) <= Card.Controller.Life;
     }
 
-    public override void Pay(ITarget target, int? x)
+    protected override void Pay(ITarget target, int? x)
     {
-      Controller.Life -= GetAmount(this);
+      Card.Controller.Life -= GetAmount(this);
     }
   }
 }

@@ -1,26 +1,20 @@
 ﻿namespace Grove.Core.Triggers
 {
   using System;
-  using Grove.Core.Dsl;
-  using Grove.Infrastructure;
+  using Infrastructure;
 
-  [Copyable]
-  public abstract class Trigger : IDisposable, IHashable
+  public abstract class Trigger : GameObject, IDisposable, IHashable
   {
     public Func<Trigger, bool> Condition = delegate { return true; };
-    
+    private Trackable<bool> _canTrigger;
     protected TriggeredAbility Ability { get; private set; }
-    public Game Game { get; private set; }
     public Card OwningCard { get { return Ability.OwningCard; } }
     protected Player Controller { get { return Ability.OwningCard.Controller; } }
-    protected Players Players { get { return Game.Players; } }    
-
-    private Trackable<bool> _canTrigger;
     protected bool CanTrigger { get { return _canTrigger.Value; } set { _canTrigger.Value = value; } }
 
     public void Dispose()
     {
-      Game.Unsubscribe(this);
+      Unsubscribe(this);
     }
 
     public int CalculateHash(HashCalculator calc)
@@ -36,37 +30,23 @@
         Triggered(this, new TriggerEventArgs(context));
     }
 
-    protected virtual void Initialize() {}
-
-    [Copyable]
-    public class Factory<TTrigger> : ITriggerFactory where TTrigger : Trigger, new()
+    public virtual void Initialize(TriggeredAbility triggeredAbility, Game game)
     {
-      public Initializer<TTrigger> Init = delegate { };      
+      Game = game;
+      Ability = triggeredAbility;
 
-      public Trigger CreateTrigger(TriggeredAbility triggeredAbility, Game game)
-      {
-        var trigger = new TTrigger();
-        trigger.Ability = triggeredAbility;
-        trigger.Game = game;
-        trigger._canTrigger = new Trackable<bool>(true, game.ChangeTracker);
-
-        Init(trigger);
-        trigger.Initialize();
-
-        game.Subscribe(trigger);
-
-        return trigger;
-      }
+      _canTrigger = new Trackable<bool>(true, game.ChangeTracker);
+      Subscribe(this);
     }
 
     public class TriggerEventArgs : EventArgs
     {
-      public TriggerEventArgs(object context)
+      public TriggerEventArgs(object triggerMessage)
       {
-        Context = context;
+        TriggerMessage = triggerMessage;
       }
 
-      public object Context { get; private set; }
+      public object TriggerMessage { get; private set; }
     }
   }
 }

@@ -1,122 +1,87 @@
 ﻿namespace Grove.Core.Ai
 {
   using System;
-  using System.Collections;
   using System.Collections.Generic;
   using System.Linq;
   using Decisions.Results;
 
-  public class PlayableGenerator : IEnumerable<Playable>
+  public class PlayableGenerator : GameObject
   {
-    private readonly Game _game;
     private readonly Player _player;
 
-    public PlayableGenerator(Player player, Game game)
+    public PlayableGenerator(Player player)
     {
       _player = player;
-      _game = game;
     }
 
-    public IEnumerator<Playable> GetEnumerator()
+    private void FindPlayableAbilities(IEnumerable<Card> cards, List<Playable> allPlayables)
     {
-      return GetPlayables().GetEnumerator();
-    }
-
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-      return GetEnumerator();
-    }
-
-
-    private IEnumerable<Playable> GetPlayableAbilities()
-    {
-      var zones = _player.Battlefield.Concat(_player.Hand);
-
-      foreach (var card in zones)
+      foreach (var card in cards)
       {
-        if (!card.IsVisible)
+        if (card.IsVisible == false)
           continue;
 
         var abilitiesPrerequisites = card.CanActivateAbilities(ignoreManaAbilities: true);
 
-        for (var abilityIndex = 0; abilityIndex < abilitiesPrerequisites.Count; abilityIndex++)
+        foreach (var prerequisites in abilitiesPrerequisites)
         {
-          var prerequisites = abilitiesPrerequisites[abilityIndex];
+          var playables = GeneratePlayables(prerequisites, () => new PlayableAbility());
 
-          if (!prerequisites.CanBeSatisfied)
-            continue;
-
-          foreach (var playable in GeneratePlayables(
-            card, prerequisites, p => new Decisions.Results.Ability(card, p, abilityIndex)))
-          {
-            yield return playable;
-          }
+          allPlayables.AddRange(playables);
         }
       }
     }
 
-    private IEnumerable<Playable> GetPlayableSpells()
+    private void FindPlayableSpells(IEnumerable<Card> cards, List<Playable> allPlayables)
     {
-      foreach (var card in _player.Hand)
+      foreach (var card in cards)
       {
         if (!card.IsVisible)
           continue;
 
         var spellsPrerequisites = card.CanCast();
 
-        for (var spellIndex = 0; spellIndex < spellsPrerequisites.Count; spellIndex++)
+        foreach (var prerequisites in spellsPrerequisites)
         {
-          var prerequisites = spellsPrerequisites[spellIndex];
+          var playables = GeneratePlayables(prerequisites, () => new PlayableSpell());
 
-          if (!prerequisites.CanBeSatisfied)
-            continue;
-
-          foreach (var playable in GeneratePlayables(card, prerequisites, p => new Spell(card, p, spellIndex)))
-          {
-            yield return playable;
-          }
+          allPlayables.AddRange(playables);
         }
       }
     }
 
-    private IEnumerable<Playable> GeneratePlayables(Card card, SpellPrerequisites prerequisites,
-      Func<ActivationParameters, Playable> factory)
+    private Playable[] GeneratePlayables(ActivationPrerequisites prerequisites, Func<Playable> createPlayable)
     {
-      var activationGenerator = new ActivationGenerator(card, prerequisites, _game);
+      var playable = createPlayable();
 
-      var count = 0;
-      foreach (var activationParameters in activationGenerator)
+      playable.Card = prerequisites.Card;
+      playable.Index = prerequisites.Index;
+
+      var playables = new[] {playable};
+
+      foreach (var rule in prerequisites.Rules)
       {
-        var timingParameters = new TimingParameters(
-          _game,
-          card,
-          activationParameters);
+        playables = rule.Process(playables, prerequisites);
 
-        if (prerequisites.Timing(timingParameters))
-        {
-          yield return factory(activationParameters);
-          count++;
-        }
-
-        if (count >= _game.Search.TargetCountLimit)
-        {
-          break;
-        }
+        // if some rule blocks all playables
+        // stop processing, since no playables will
+        // be generated
+        if (playables.Length == 0)
+          return playables;
       }
+
+      return playables;
     }
 
 
-    private IEnumerable<Playable> GetPlayables()
+    public List<Playable> GetPlayables()
     {
-      foreach (var playable in GetPlayableSpells())
-      {
-        yield return playable;
-      }
+      var all = new List<Playable>();
 
-      foreach (var playable in GetPlayableAbilities())
-      {
-        yield return playable;
-      }
+      FindPlayableSpells(_player.Hand, all);
+      FindPlayableAbilities(_player.Battlefield.Concat(_player.Hand), all);
+
+      return all;
     }
   }
 }

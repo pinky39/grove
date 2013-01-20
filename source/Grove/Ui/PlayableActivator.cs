@@ -7,6 +7,6 @@
   public class PlayableActivator
   {
     public Func<ActivationParameters, Playable> GetPlayable;
-    public SpellPrerequisites Prerequisites;
+    public ActivationPrerequisites Prerequisites;
   }
 }

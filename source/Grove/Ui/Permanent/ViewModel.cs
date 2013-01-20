@@ -212,7 +212,7 @@
         .Select((x, i) => new PlayableActivator
           {
             Prerequisites = x,
-            GetPlayable = p => new Core.Decisions.Results.Ability(Card, p, i)
+            GetPlayable = p => new Core.Decisions.Results.PlayableAbility(Card, p, i)
           })
         .Where(x => x.Prerequisites.CanBeSatisfied)
         .ToList();

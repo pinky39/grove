@@ -1,98 +1,81 @@
 ﻿namespace Grove.Core
 {
-  using System.Collections.Generic;
   using Ai;
   using Casting;
   using Costs;
-  using Dsl;
   using Effects;
   using Mana;
   using Targeting;
 
   public class CastInstructionParameters
-  {
-    private const string DefaultDescriptionFormat = "Cast {0}.";
-    private const string KickerDescriptionFormat = "Cast {0} with kicker.";
-
-    private readonly CardBuilder _builder = new CardBuilder();
-    private readonly string _cardName;
-    private readonly IManaAmount _manaCost;
-
-    public EffectCategories Category;
-
-    public IList<ITargetValidatorFactory> CostTargets = new List<ITargetValidatorFactory>();
+  {      
+    public CardType CardType;
+    public Cost Cost;
     public string Description;
     public bool DistributeDamage;
-    public IEffectFactory Effect;
-    public IList<ITargetValidatorFactory> EffectTargets = new List<ITargetValidatorFactory>();
-    public ICastingRuleFactory Rule;
-    public TargetingAiDelegate TargetingAi;
-    public TimingDelegate Timing;
-    public CalculateX XCalculator;
+    public EffectFactory Effect;
+    public MachinePlayRule[] Rules;
+    public IManaAmount ManaCost;
+    public string Name;
+    public CastingRule Rule;
+    public TargetSelector TargetSelector;
 
-    private ICostFactory _cost;
+    ////private const string DefaultDescriptionFormat = "Cast {0}.";
+    ////private const string KickerDescriptionFormat = "Cast {0} with kicker.";      
+    
+    //public CastInstructionParameters()
+    //{                  
+    //  Description = DefaultDescription;
+    //  Effect = new CardBuilder().Effect<PutIntoPlay>();                              
+    //}
 
-    public CastInstructionParameters(string cardName, IManaAmount manaCost, CardType cardType)
-    {
-      _cardName = cardName;
-      _manaCost = manaCost;
+    //public string DefaultDescription { get { return string.Format(DefaultDescriptionFormat, _cardName); } }
+    //public string KickerDescription { get { return string.Format(KickerDescriptionFormat, _cardName); } }
 
-      Rule = CastingRuleFromCardType(cardType);
-      Description = DefaultDescription;
-      Effect = _builder.Effect<PutIntoPlay>();
-      Timing = TimingFromCardType(cardType);
-      Category = EffectCategories.Generic;
-    }
+    //public ICostFactory Cost
+    //{
+    //  get
+    //  {
+    //    if (_cost != null)
+    //      return _cost;
 
-    public string DefaultDescription { get { return string.Format(DefaultDescriptionFormat, _cardName); } }
-    public string KickerDescription { get { return string.Format(KickerDescriptionFormat, _cardName); } }
+    //    if (_manaCost == null)
+    //    {
+    //      return _cost = _builder.Cost<NoCost>();
+    //    }
 
-    public ICostFactory Cost
-    {
-      get
-      {
-        if (_cost != null)
-          return _cost;
+    //    return _cost = _builder.Cost<PayMana>(c =>
+    //      {
+    //        c.Amount = _manaCost;
+    //        c.XCalculator = XCalculator;
+    //      });
+    //  }
+    //  set { _cost = value; }
+    //}    
 
-        if (_manaCost == null)
-        {
-          return _cost = _builder.Cost<NoCost>();
-        }
+    //private CastingRule CastingRuleFromCardType(CardType cardType)
+    //{
+    //  if (cardType.Instant)
+    //    return new Instant();
+    //  if (cardType.Sorcery)
+    //    return new Sorcery();
+    //  if (cardType.Land)
+    //    return new Land();
+    //  if (cardType.Aura)
+    //    return new Aura();
 
-        return _cost = _builder.Cost<PayMana>(c =>
-          {
-            c.Amount = _manaCost;
-            c.XCalculator = XCalculator;
-          });
-      }
-      set { _cost = value; }
-    }
+    //  return new Permanent();
+    //}
 
-    public bool HasXInCost { get { return XCalculator != null; } }
+    //private TimingDelegate TimingFromCardType(CardType cardType)
+    //{
+    //  if (cardType.Creature)
+    //    return Timings.Creatures();
 
-    private ICastingRuleFactory CastingRuleFromCardType(CardType cardType)
-    {
-      if (cardType.Instant)
-        return _builder.Rule<Instant>();
-      if (cardType.Sorcery)
-        return _builder.Rule<Sorcery>();
-      if (cardType.Land)
-        return _builder.Rule<Land>();
-      if (cardType.Aura)
-        return _builder.Rule<Aura>();
+    //  if (cardType.Land)
+    //    return Timings.Lands();
 
-      return _builder.Rule<Permanent>();
-    }
-
-    private TimingDelegate TimingFromCardType(CardType cardType)
-    {
-      if (cardType.Creature)
-        return Timings.Creatures();
-
-      if (cardType.Land)
-        return Timings.Lands();
-
-      return Timings.NoRestrictions();
-    }
+    //  return Timings.NoRestrictions();
+    //}
   }
 }

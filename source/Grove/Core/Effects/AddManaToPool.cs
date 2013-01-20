@@ -1,6 +1,6 @@
 ﻿namespace Grove.Core.Effects
 {
-  using Grove.Core.Mana;
+  using Mana;
 
   public class AddManaToPool : Effect
   {
@@ -8,7 +8,7 @@
     public bool UseOnlyForAbilities;
 
     protected override void ResolveEffect()
-    {            
+    {
       Controller.AddManaToManaPool(Amount, UseOnlyForAbilities);
     }
   }
