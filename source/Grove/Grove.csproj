@@ -401,6 +401,7 @@
     <Compile Include="Core\Ai\BlockerEvaluation.cs" />
     <Compile Include="Core\Ai\QuickCombat.cs" />
     <Compile Include="Core\Ai\TargetSelectionRules\OrderByScore.cs" />
+    <Compile Include="Core\Ai\TargetSelectionRules\TargetSelectionParameters.cs" />
     <Compile Include="Core\Ai\TimingRules\Counterspell.cs" />
     <Compile Include="Core\Ai\TimingRules\Steps.cs" />
     <Compile Include="Core\Ai\TargetSelectionRules\TargetSelectionRule.cs" />

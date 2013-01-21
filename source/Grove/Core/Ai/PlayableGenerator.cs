@@ -50,14 +50,14 @@
       }
     }
 
-    private Playable[] GeneratePlayables(ActivationPrerequisites prerequisites, Func<Playable> createPlayable)
+    private IList<Playable> GeneratePlayables(ActivationPrerequisites prerequisites, Func<Playable> createPlayable)
     {
       var playable = createPlayable();
 
       playable.Card = prerequisites.Card;
       playable.Index = prerequisites.Index;
 
-      var playables = new[] {playable};
+      IList<Playable> playables = new[] {playable};
 
       foreach (var rule in prerequisites.Rules)
       {
@@ -66,7 +66,7 @@
         // if some rule blocks all playables
         // stop processing, since no playables will
         // be generated
-        if (playables.Length == 0)
+        if (playables.Count == 0)
           return playables;
       }
 
