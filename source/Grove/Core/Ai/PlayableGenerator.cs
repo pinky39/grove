@@ -50,27 +50,31 @@
       }
     }
 
-    private IList<Playable> GeneratePlayables(ActivationPrerequisites prerequisites, Func<Playable> createPlayable)
-    {
-      var playable = createPlayable();
-
-      playable.Card = prerequisites.Card;
-      playable.Index = prerequisites.Index;
-
-      IList<Playable> playables = new[] {playable};
+    private IEnumerable<Playable> GeneratePlayables(ActivationPrerequisites prerequisites, Func<Playable> createPlayable)
+    {      
+      var context = new ActivationContext(prerequisites);
 
       foreach (var rule in prerequisites.Rules)
       {
-        playables = rule.Process(playables, prerequisites);
-
-        // if some rule blocks all playables
-        // stop processing, since no playables will
-        // be generated
-        if (playables.Count == 0)
-          return playables;
+        rule.Process(context);
+      
+        if (context.CancelActivation)
+          yield break;
       }
 
-      return playables;
+      foreach (var targets in context.Targets)
+      {
+        var playable = createPlayable();
+
+        playable.Card = prerequisites.Card;
+        playable.Index = prerequisites.Index;
+        playable.ActivationParameters.Targets = targets;
+        playable.ActivationParameters.X = context.X;
+
+        yield return playable;
+      }
+
+      yield break;
     }
 
 

@@ -2,8 +2,6 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Decisions.Results;
-  using Mana;
 
   public class Steps : TimingRule
   {
@@ -14,7 +12,7 @@
       _steps.AddRange(steps);
     }
 
-    public override bool ShouldPlay(Playable playable, ActivationPrerequisites prerequisites)
+    public override bool ShouldPlay(ActivationContext context)
     {
       return _steps.Any(x => x == Turn.Step);
     }

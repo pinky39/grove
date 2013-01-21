@@ -1,20 +1,18 @@
 ﻿namespace Grove.Core.Ai.TimingRules
 {
-  using Decisions.Results;
-
   public class Counterspell : TimingRule
   {
     public int? CounterCost;
-    
-    public override bool ShouldPlay(Playable playable, ActivationPrerequisites prerequisites)
+
+    public override bool ShouldPlay(ActivationContext context)
     {
       if (Stack.IsEmpty)
         return false;
-      
-      if (Stack.TopSpell.Controller == playable.Controller)
+
+      if (Stack.TopSpell.Controller == context.Card.Controller)
         return false;
 
-      return !CounterCost.HasValue || !playable.Controller.Opponent.HasMana(CounterCost.Value);      
+      return !CounterCost.HasValue || !context.Card.Controller.Opponent.HasMana(CounterCost.Value);
     }
   }
 }

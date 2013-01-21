@@ -13,375 +13,355 @@
 
     public delegate IEnumerable<Targets> OutputSelectorDelegate(IEnumerable<ITarget> targets);    
 
-    public static TargetingAiDelegate OrderByScore(ControlledBy controlledBy = ControlledBy.Opponent,
-      bool descending = true)
-    {
-      return p =>
-        {
-          var orderedCandidates = p.Candidates(controlledBy)
-            .OrderByDescending(x => descending ? x.Card().Score : -x.Card().Score)
-            .Select(x => x.Card())
-            .ToList();
+    //public static TargetingAiDelegate OrderByScore(ControlledBy controlledBy = ControlledBy.Opponent,
+    //  bool descending = true)
+    //{
+    //  return p =>
+    //    {
+    //      var orderedCandidates = p.Candidates(controlledBy)
+    //        .OrderByDescending(x => descending ? x.Card().Score : -x.Card().Score)
+    //        .Select(x => x.Card())
+    //        .ToList();
 
-          var targetCount = p.Selector.GetMinEffectTargetCount();
+    //      var targetCount = p.Selector.GetMinEffectTargetCount();
 
-          if (p.IsTriggeredAbilityTarget && targetCount == 1 && orderedCandidates.Count == 0)
-          {
-            return p.Targets(p.Candidates().OrderBy(x => x.Card().Score));
-          }
+    //      if (p.IsTriggeredAbilityTarget && targetCount == 1 && orderedCandidates.Count == 0)
+    //      {
+    //        return p.Targets(p.Candidates().OrderBy(x => x.Card().Score));
+    //      }
 
-          if (orderedCandidates.Count < targetCount)
-            return p.NoTargets();
+    //      if (orderedCandidates.Count < targetCount)
+    //        return p.NoTargets();
 
-          if (targetCount == 1)
-          {
-            return p.Targets(p.Candidates(controlledBy));
-          }
+    //      if (targetCount == 1)
+    //      {
+    //        return p.Targets(p.Candidates(controlledBy));
+    //      }
 
-          var grouped = GroupCandidates(orderedCandidates, targetCount);
-          return p.MultipleTargets(grouped);
-        };
-    }
+    //      var grouped = GroupCandidates(orderedCandidates, targetCount);
+    //      return p.MultipleTargets(grouped);
+    //    };
+    //}
 
-    public static TargetingAiDelegate TapOpponentCreatures()
-    {
-      return p =>
-        {
-          if (p.Step == Step.BeginningOfCombat && p.Controller.IsActive)
-          {
-            return p.Targets(p.Opponent.ToEnumerable());
-          }
+    //public static TargetingAiDelegate TapOpponentCreatures()
+    //{
+    //  return p =>
+    //    {
+    //      if (p.Step == Step.BeginningOfCombat && p.Controller.IsActive)
+    //      {
+    //        return p.Targets(p.Opponent.ToEnumerable());
+    //      }
 
-          return p.NoTargets();
-        };
-    }
+    //      return p.NoTargets();
+    //    };
+    //}
 
-    public static TargetingAiDelegate TapOpponentLands()
-    {
-      return p =>
-        {
-          if (p.Step == Step.Upkeep && !p.Controller.IsActive)
-          {
-            return p.Targets(p.Opponent.ToEnumerable());
-          }
+    //public static TargetingAiDelegate TapOpponentLands()
+    //{
+    //  return p =>
+    //    {
+    //      if (p.Step == Step.Upkeep && !p.Controller.IsActive)
+    //      {
+    //        return p.Targets(p.Opponent.ToEnumerable());
+    //      }
 
-          return p.NoTargets();
-        };
-    }
+    //      return p.NoTargets();
+    //    };
+    //}
 
-    public static TargetingAiDelegate UntapYourCreatures()
-    {
-      return p =>
-        {
-          if (p.Step == Step.DeclareAttackers && !p.Controller.IsActive)
-          {
-            return p.Targets(p.Controller.ToEnumerable());
-          }
+    //public static TargetingAiDelegate UntapYourCreatures()
+    //{
+    //  return p =>
+    //    {
+    //      if (p.Step == Step.DeclareAttackers && !p.Controller.IsActive)
+    //      {
+    //        return p.Targets(p.Controller.ToEnumerable());
+    //      }
 
-          return p.NoTargets();
-        };
-    }
-
-
-    public static TargetingAiDelegate Opponent()
-    {
-      return p =>
-        {
-          return p.Targets(p.Candidates()
-            .Where(x => x.Player() == p.Opponent));
-        };
-    }
-
-    public static TargetingAiDelegate PumpAttackerOrBlocker(int? power, int? thougness)
-    {
-      return p =>
-        {
-          power = power ?? p.MaxX;
-          thougness = thougness ?? p.MaxX;
+    //      return p.NoTargets();
+    //    };
+    //}
 
 
-          if (p.Controller.IsActive && p.Step == Step.DeclareBlockers)
-          {
-            var candidates = GetCandidatesForAttackerPowerToughnessIncrease(power, thougness, p);
-            return p.Targets(candidates);
-          }
+    //public static TargetingAiDelegate Opponent()
+    //{
+    //  return p =>
+    //    {
+    //      return p.Targets(p.Candidates()
+    //        .Where(x => x.Player() == p.Opponent));
+    //    };
+    //}
 
-          if (!p.Controller.IsActive && p.Step == Step.DeclareBlockers)
-          {
-            var candidates = GetCandidatesForBlockerPowerToughnessIncrease(power, thougness, p);
-            return p.Targets(candidates);
-          }
-
-          return p.NoTargets();
-        };
-    }
-
-    private static IEnumerable<Card> GetCandidatesForBlockerPowerToughnessIncrease(int? powerIncrease,
-      int? toughnessIncrease, TargetingAiParameters p)
-    {
-      return p.Candidates(ControlledBy.SpellOwner)
-        .Where(x => x.Card().IsBlocker)
-        .Select(
-          x =>
-            new
-              {
-                Card = x.Card(),
-                Gain =
-                  QuickCombat.CalculateGainBlockerWouldGetIfPowerAndThougnessWouldIncrease(
-                    blocker: x.Card(),
-                    attacker: p.Combat.GetAttacker(x.Card()),
-                    powerIncrease: powerIncrease.Value,
-                    toughnessIncrease: toughnessIncrease.Value)
-              })
-        .Where(x => x.Gain > 0)
-        .OrderByDescending(x => x.Gain)
-        .Select(x => x.Card);
-    }
+    //public static TargetingAiDelegate PumpAttackerOrBlocker(int? power, int? thougness)
+    //{
+    //  return p =>
+    //    {
+    //      power = power ?? p.MaxX;
+    //      thougness = thougness ?? p.MaxX;
 
 
-    private static IEnumerable<Card> GetCandidatesForAttackerPowerToughnessIncrease(int? powerIncrease,
-      int? toughnessIncrease, TargetingAiParameters p)
-    {
-      return p.Candidates(ControlledBy.SpellOwner)
-        .Where(x => x.Card().IsAttacker)
-        .Select(
-          x =>
-            new
-              {
-                Card = x.Card(),
-                Gain =
-                  QuickCombat.CalculateGainAttackerWouldGetIfPowerAndThoughnessWouldIncrease(
-                    attacker: x.Card(),
-                    blockers: p.Combat.GetBlockers(x.Card()),
-                    powerIncrease: powerIncrease.Value,
-                    toughnessIncrease: toughnessIncrease.Value)
-              })
-        .Where(x => x.Gain > 0)
-        .OrderByDescending(x => x.Gain)
-        .Select(x => x.Card);
-    }
+    //      if (p.Controller.IsActive && p.Step == Step.DeclareBlockers)
+    //      {
+    //        var candidates = GetCandidatesForAttackerPowerToughnessIncrease(power, thougness, p);
+    //        return p.Targets(candidates);
+    //      }
 
-    public static TargetingAiDelegate CounterSpell()
-    {
-      return p =>
-        {
-          var candidates = p.Candidates(ControlledBy.Opponent)
-            .Take(1);
+    //      if (!p.Controller.IsActive && p.Step == Step.DeclareBlockers)
+    //      {
+    //        var candidates = GetCandidatesForBlockerPowerToughnessIncrease(power, thougness, p);
+    //        return p.Targets(candidates);
+    //      }
 
-          return p.Targets(candidates);
-        };
-    }
+    //      return p.NoTargets();
+    //    };
+    //}
 
-    public static TargetingAiDelegate CombatEquipment()
-    {
-      return p =>
-        {
-          if (p.Step == Step.FirstMain)
-          {
-            return p.Targets(p.Candidates()
-              .Where(x => x.Card().CanAttackThisTurn)
-              .Select(x => new
-                {
-                  Card = x.Card(),
-                  Score = CalculateAttackerScore(x.Card(), p.Combat)
-                })
-              .OrderByDescending(x => x.Score)
-              .Where(x => x.Score > 0)
-              .Select(x => x.Card));
-          }
-
-          return p.Targets(p.Candidates()
-            .Where(x => x.Card().CanBlock())
-            .Select(x => new
-              {
-                Card = x.Card(),
-                Score = CalculateBlockerScore(x.Card(), p.Combat)
-              })
-            .OrderByDescending(x => x.Score)
-            .Where(x => x.Score > 0)
-            .Select(x => x.Card));
-        };
-    }
-
-    public static TargetingAiDelegate DealDamageSingleSelector(Func<TargetingAiParameters, int> amount)
-    {
-      return p => DealDamageSingleSelector(amount(p))(p);
-    }
-
-    public static TargetingAiDelegate DealDamageMultipleSelectors(int amount)
-    {
-      return p =>
-        {
-          // multiple selectors, vary targets only from first
-          // since the combinatorial complexity would be too great
-          // otherwise
-
-          var all = new List<IList<ITarget>>();
-
-          var firstSelectorCandidates = p.EffectCandidates[0]
-            .OrderByDamageScore(amount, p)
-            .ToList();
-
-          if (firstSelectorCandidates.Count == 0)
-            return p.NoTargets();
-
-          all.Add(firstSelectorCandidates);
-
-          for (var i = 1; i < p.EffectCandidates.Count; i++)
-          {
-            var otherSelectorCandidate = p.EffectCandidates[i]
-              .OrderByDamageScore(amount, p)
-              .FirstOrDefault();
+    //private static IEnumerable<Card> GetCandidatesForBlockerPowerToughnessIncrease(int? powerIncrease,
+    //  int? toughnessIncrease, TargetingAiParameters p)
+    //{
+    //  return p.Candidates(ControlledBy.SpellOwner)
+    //    .Where(x => x.Card().IsBlocker)
+    //    .Select(
+    //      x =>
+    //        new
+    //          {
+    //            Card = x.Card(),
+    //            Gain =
+    //              QuickCombat.CalculateGainBlockerWouldGetIfPowerAndThougnessWouldIncrease(
+    //                blocker: x.Card(),
+    //                attacker: p.Combat.GetAttacker(x.Card()),
+    //                powerIncrease: powerIncrease.Value,
+    //                toughnessIncrease: toughnessIncrease.Value)
+    //          })
+    //    .Where(x => x.Gain > 0)
+    //    .OrderByDescending(x => x.Gain)
+    //    .Select(x => x.Card);
+    //}
 
 
-            if (otherSelectorCandidate == null)
-              return p.NoTargets();
+   
 
-            // replicate the candidate for each target in
-            // first selector
+    //public static TargetingAiDelegate CounterSpell()
+    //{
+    //  return p =>
+    //    {
+    //      var candidates = p.Candidates(ControlledBy.Opponent)
+    //        .Take(1);
 
-            all.Add(
-              Enumerable.Repeat(
-                otherSelectorCandidate,
-                firstSelectorCandidates.Count).ToList());
-          }
+    //      return p.Targets(candidates);
+    //    };
+    //}
 
-          return p.MultipleTargets(all);
-        };
-    }
+    //public static TargetingAiDelegate CombatEquipment()
+    //{
+    //  return p =>
+    //    {
+    //      if (p.Step == Step.FirstMain)
+    //      {
+    //        return p.Targets(p.Candidates()
+    //          .Where(x => x.Card().CanAttackThisTurn)
+    //          .Select(x => new
+    //            {
+    //              Card = x.Card(),
+    //              Score = CalculateAttackerScore(x.Card(), p.Combat)
+    //            })
+    //          .OrderByDescending(x => x.Score)
+    //          .Where(x => x.Score > 0)
+    //          .Select(x => x.Card));
+    //      }
 
-    private static IEnumerable<ITarget> OrderByDamageScore(this IEnumerable<ITarget> targets, int amount,
-      TargetingAiParameters p)
-    {
-      var candidates = targets
-        .Where(x => x == p.Opponent)
-        .Select(x => new
-          {
-            Target = x,
-            Score = ScoreCalculator.CalculateLifelossScore(x.Player().Life, amount)
-          })
-        .Concat(
-          targets
-            .Where(x => x.IsCard() && x.Card().Controller == p.Opponent)
-            .Select(x => new
-              {
-                Target = x,
-                Score = x.Card().Life <= amount ? x.Card().Score : 0
-              }))
-        .Where(x => x.Score > 0)
-        .OrderByDescending(x => x.Score)
-        .Select(x => x.Target);
+    //      return p.Targets(p.Candidates()
+    //        .Where(x => x.Card().CanBlock())
+    //        .Select(x => new
+    //          {
+    //            Card = x.Card(),
+    //            Score = CalculateBlockerScore(x.Card(), p.Combat)
+    //          })
+    //        .OrderByDescending(x => x.Score)
+    //        .Where(x => x.Score > 0)
+    //        .Select(x => x.Card));
+    //    };
+    //}
 
-      return candidates;
-    }
+    //public static TargetingAiDelegate DealDamageSingleSelector(Func<TargetingAiParameters, int> amount)
+    //{
+    //  return p => DealDamageSingleSelector(amount(p))(p);
+    //}
 
-    public static TargetingAiDelegate DealDamageSingleSelector(int? amount = null)
-    {
-      return p =>
-        {
-          amount = amount ?? p.MaxX;
+    //public static TargetingAiDelegate DealDamageMultipleSelectors(int amount)
+    //{
+    //  return p =>
+    //    {
+    //      // multiple selectors, vary targets only from first
+    //      // since the combinatorial complexity would be too great
+    //      // otherwise
 
-          var candidates = p.Candidates()
-            .OrderByDamageScore(amount.Value, p)
-            .ToList();
+    //      var all = new List<IList<ITarget>>();
 
-          var targetCount = p.Selector.GetMinEffectTargetCount();
+    //      var firstSelectorCandidates = p.EffectCandidates[0]
+    //        .OrderByDamageScore(amount, p)
+    //        .ToList();
 
-          if (candidates.Count < targetCount)
-          {
-            return p.NoTargets();
-          }
+    //      if (firstSelectorCandidates.Count == 0)
+    //        return p.NoTargets();
 
-          if (targetCount == 1)
-          {
-            var targets = p.Targets(candidates);
+    //      all.Add(firstSelectorCandidates);
 
-            // triggered abilities force you to choose a target even if its
-            // not favorable e.g Flaming Kavu
-            if (p.IsTriggeredAbilityTarget && targets.Count == 0)
-            {
-              targets = p.Targets(p.Candidates().OrderByDescending(x => x.Card().Toughness));
-            }
-
-            return targets;
-          }
-
-          // if multiple targets vary only the last target          
-          var targetsCandidates = new List<IList<ITarget>>();
-          for (var i = 0; i < candidates.Count - 1; i++)
-          {
-            var targetCandidates = Enumerable
-              .Repeat(candidates[i], candidates.Count - targetCount + 1)
-              .ToList();
-
-            targetsCandidates.Add(targetCandidates);
-          }
-
-          targetsCandidates.Add(candidates.Skip(candidates.Count - 1)
-            .ToList());
+    //      for (var i = 1; i < p.EffectCandidates.Count; i++)
+    //      {
+    //        var otherSelectorCandidate = p.EffectCandidates[i]
+    //          .OrderByDamageScore(amount, p)
+    //          .FirstOrDefault();
 
 
-          return p.MultipleTargets(targetsCandidates);
-        };
-    }
+    //        if (otherSelectorCandidate == null)
+    //          return p.NoTargets();
 
-    private static int CalculateAttackerScore(Card card, Combat combat)
-    {
-      return combat.CouldBeBlockedByAny(card) ? 5 : 0 + card.CalculateCombatDamage(allDamageSteps: true);
-    }
+    //        // replicate the candidate for each target in
+    //        // first selector
 
-    private static int CalculateBlockerScore(Card card, Combat combat)
-    {
-      var count = combat.CountHowManyThisCouldBlock(card);
+    //        all.Add(
+    //          Enumerable.Repeat(
+    //            otherSelectorCandidate,
+    //            firstSelectorCandidates.Count).ToList());
+    //      }
 
-      if (count > 0)
-      {
-        return count*10 + card.Toughness.Value;
-      }
+    //      return p.MultipleTargets(all);
+    //    };
+    //}
 
-      return 0;
-    }
+    //private static IEnumerable<ITarget> OrderByDamageScore(this IEnumerable<ITarget> targets, int amount,
+    //  TargetingAiParameters p)
+    //{
+    //  var candidates = targets
+    //    .Where(x => x == p.Opponent)
+    //    .Select(x => new
+    //      {
+    //        Target = x,
+    //        Score = ScoreCalculator.CalculateLifelossScore(x.Player().Life, amount)
+    //      })
+    //    .Concat(
+    //      targets
+    //        .Where(x => x.IsCard() && x.Card().Controller == p.Opponent)
+    //        .Select(x => new
+    //          {
+    //            Target = x,
+    //            Score = x.Card().Life <= amount ? x.Card().Score : 0
+    //          }))
+    //    .Where(x => x.Score > 0)
+    //    .OrderByDescending(x => x.Score)
+    //    .Select(x => x.Target);
 
-    public static TargetingAiDelegate CombatEnchantment()
-    {
-      return p =>
-        {
-          var candidates = p.Candidates()
-            .Where(x => x.Card().Controller == p.Controller)
-            .Where(x => x.Card().IsAbleToAttack)
-            .Select(x => new
-              {
-                Card = x.Card(),
-                Score = CalculateAttackerScore(x.Card(), p.Combat)
-              })
-            .OrderByDescending(x => x.Score)
-            .Where(x => x.Score > 0)
-            .Select(x => x.Card);
+    //  return candidates;
+    //}
 
-          return p.Targets(candidates);
-        };
-    }
+    //public static TargetingAiDelegate DealDamageSingleSelector(int? amount = null)
+    //{
+    //  return p =>
+    //    {
+    //      amount = amount ?? p.MaxX;
 
-    public static TargetingAiDelegate ShieldHexproof()
-    {
-      return p =>
-        {
-          var candidates = p.Candidates()
-            .Where(x => x.Card().Controller == p.Controller)
-            .Where(x => p.Stack.CanBeDestroyedByTopSpell(x.Card(), targetOnly: true))
-            .OrderByDescending(x => x.Card().Score);
+    //      var candidates = p.Candidates()
+    //        .OrderByDamageScore(amount.Value, p)
+    //        .ToList();
 
-          return p.Targets(candidates);
-        };
-    }
+    //      var targetCount = p.Selector.GetMinEffectTargetCount();
 
-    private static IEnumerable<ITarget> GetPermanentsThatCanBeKilled(this IEnumerable<ITarget> targets,
-      TargetingAiParameters p)
-    {
-      return targets
-        .Where(x => x.Card().Controller == p.Controller)
-        .Where(x => p.Stack.CanBeDestroyedByTopSpell(x.Card()) || p.Combat.CanBeDealtLeathalCombatDamage(x.Card()));
-    }
+    //      if (candidates.Count < targetCount)
+    //      {
+    //        return p.NoTargets();
+    //      }
+
+    //      if (targetCount == 1)
+    //      {
+    //        var targets = p.Targets(candidates);
+
+    //        // triggered abilities force you to choose a target even if its
+    //        // not favorable e.g Flaming Kavu
+    //        if (p.IsTriggeredAbilityTarget && targets.Count == 0)
+    //        {
+    //          targets = p.Targets(p.Candidates().OrderByDescending(x => x.Card().Toughness));
+    //        }
+
+    //        return targets;
+    //      }
+
+    //      // if multiple targets vary only the last target          
+    //      var targetsCandidates = new List<IList<ITarget>>();
+    //      for (var i = 0; i < candidates.Count - 1; i++)
+    //      {
+    //        var targetCandidates = Enumerable
+    //          .Repeat(candidates[i], candidates.Count - targetCount + 1)
+    //          .ToList();
+
+    //        targetsCandidates.Add(targetCandidates);
+    //      }
+
+    //      targetsCandidates.Add(candidates.Skip(candidates.Count - 1)
+    //        .ToList());
+
+
+    //      return p.MultipleTargets(targetsCandidates);
+    //    };
+    //}
+
+    //private static int CalculateAttackerScore(Card card, Combat combat)
+    //{
+    //  return combat.CouldBeBlockedByAny(card) ? 5 : 0 + card.CalculateCombatDamage(allDamageSteps: true);
+    //}
+
+    //private static int CalculateBlockerScore(Card card, Combat combat)
+    //{
+    //  var count = combat.CountHowManyThisCouldBlock(card);
+
+    //  if (count > 0)
+    //  {
+    //    return count*10 + card.Toughness.Value;
+    //  }
+
+    //  return 0;
+    //}
+
+    //public static TargetingAiDelegate CombatEnchantment()
+    //{
+    //  return p =>
+    //    {
+    //      var candidates = p.Candidates()
+    //        .Where(x => x.Card().Controller == p.Controller)
+    //        .Where(x => x.Card().IsAbleToAttack)
+    //        .Select(x => new
+    //          {
+    //            Card = x.Card(),
+    //            Score = CalculateAttackerScore(x.Card(), p.Combat)
+    //          })
+    //        .OrderByDescending(x => x.Score)
+    //        .Where(x => x.Score > 0)
+    //        .Select(x => x.Card);
+
+    //      return p.Targets(candidates);
+    //    };
+    //}
+
+    //public static TargetingAiDelegate ShieldHexproof()
+    //{
+    //  return p =>
+    //    {
+    //      var candidates = p.Candidates()
+    //        .Where(x => x.Card().Controller == p.Controller)
+    //        .Where(x => p.Stack.CanBeDestroyedByTopSpell(x.Card(), targetOnly: true))
+    //        .OrderByDescending(x => x.Card().Score);
+
+    //      return p.Targets(candidates);
+    //    };
+    //}
+
+    //private static IEnumerable<ITarget> GetPermanentsThatCanBeKilled(this IEnumerable<ITarget> targets,
+    //  TargetingAiParameters p)
+    //{
+    //  return targets
+    //    .Where(x => x.Card().Controller == p.Controller)
+    //    .Where(x => p.Stack.CanBeDestroyedByTopSpell(x.Card()) || p.Combat.CanBeDealtLeathalCombatDamage(x.Card()));
+    //}
 
     private static IEnumerable<ITarget> GetBounceCandidates(this IEnumerable<ITarget> targets,
       TargetingAiParameters p)
@@ -397,92 +377,92 @@
         .Select(x => x.Card);
     }
 
-    public static TargetingAiDelegate ShieldIndestructible()
-    {
-      return p =>
-        {
-          var candidates = p.Candidates()
-            .GetPermanentsThatCanBeKilled(p)
-            .OrderByDescending(x => x.Card().Score);
-          ;
+    //public static TargetingAiDelegate ShieldIndestructible()
+    //{
+    //  return p =>
+    //    {
+    //      var candidates = p.Candidates()
+    //        .GetPermanentsThatCanBeKilled(p)
+    //        .OrderByDescending(x => x.Card().Score);
+    //      ;
 
-          return p.Targets(candidates);
-        };
-    }
+    //      return p.Targets(candidates);
+    //    };
+    //}
 
-    public static TargetingAiDelegate Destroy()
-    {
-      return p =>
-        {
-          var candidates = p.Candidates()
-            .Where(x => x.Card().Controller == p.Opponent)
-            .OrderByDescending(x => x.Card().Score);
+    //public static TargetingAiDelegate Destroy()
+    //{
+    //  return p =>
+    //    {
+    //      var candidates = p.Candidates()
+    //        .Where(x => x.Card().Controller == p.Opponent)
+    //        .OrderByDescending(x => x.Card().Score);
 
-          return p.Targets(candidates);
-        };
-    }
+    //      return p.Targets(candidates);
+    //    };
+    //}
 
-    public static TargetingAiDelegate Any(params TargetingAiDelegate[] delegates)
-    {
-      return p =>
-        {
-          var result = new List<Targets>();
-          result.AddRange(delegates[0](p));
+    //public static TargetingAiDelegate Any(params TargetingAiDelegate[] delegates)
+    //{
+    //  return p =>
+    //    {
+    //      var result = new List<Targets>();
+    //      result.AddRange(delegates[0](p));
 
-          for (var i = 1; i < delegates.Length; i++)
-          {
-            var filterDelegate = delegates[i];
-            var targetsList = filterDelegate(p);
-            foreach (var targets in targetsList)
-            {
-              if (result.Contains(targets))
-                continue;
+    //      for (var i = 1; i < delegates.Length; i++)
+    //      {
+    //        var filterDelegate = delegates[i];
+    //        var targetsList = filterDelegate(p);
+    //        foreach (var targets in targetsList)
+    //        {
+    //          if (result.Contains(targets))
+    //            continue;
 
-              result.Add(targets);
-            }
-          }
+    //          result.Add(targets);
+    //        }
+    //      }
 
-          return result;
-        };
-    }
+    //      return result;
+    //    };
+    //}
 
-    public static TargetingAiDelegate ReduceToughness(int? amount = null)
-    {
-      return p =>
-        {
-          amount = amount ?? p.MaxX;
+    //public static TargetingAiDelegate ReduceToughness(int? amount = null)
+    //{
+    //  return p =>
+    //    {
+    //      amount = amount ?? p.MaxX;
 
-          var candidates = p.Candidates()
-            .Where(x => x.Card().Controller == p.Opponent)
-            .Select(x => new
-              {
-                Target = x,
-                Score = x.Card().Life <= amount ? x.Card().Score : 0
-              })
-            .OrderByDescending(x => x.Score)
-            .Select(x => x.Target);
+    //      var candidates = p.Candidates()
+    //        .Where(x => x.Card().Controller == p.Opponent)
+    //        .Select(x => new
+    //          {
+    //            Target = x,
+    //            Score = x.Card().Life <= amount ? x.Card().Score : 0
+    //          })
+    //        .OrderByDescending(x => x.Score)
+    //        .Select(x => x.Target);
 
-          return p.Targets(candidates);
-        };
-    }
+    //      return p.Targets(candidates);
+    //    };
+    //}
 
-    public static TargetingAiDelegate AddEvasion()
-    {
-      return p =>
-        {
-          if (p.Controller.IsActive && p.Step == Step.DeclareAttackers)
-          {
-            var candidates = p.Candidates()
-              .Where(x => x.Card().Controller == p.Controller)
-              .Where(x => x.Card().IsAttacker)
-              .OrderByDescending(x => x.Card().CalculateCombatDamage(allDamageSteps: true));
+    //public static TargetingAiDelegate AddEvasion()
+    //{
+    //  return p =>
+    //    {
+    //      if (p.Controller.IsActive && p.Step == Step.DeclareAttackers)
+    //      {
+    //        var candidates = p.Candidates()
+    //          .Where(x => x.Card().Controller == p.Controller)
+    //          .Where(x => x.Card().IsAttacker)
+    //          .OrderByDescending(x => x.Card().CalculateCombatDamage(allDamageSteps: true));
 
-            return p.Targets(candidates);
-          }
+    //        return p.Targets(candidates);
+    //      }
 
-          return p.NoTargets();
-        };
-    }
+    //      return p.NoTargets();
+    //    };
+    //}
 
     public static TargetingAiDelegate IncreasePowerAndToughness(int? power, int? toughness, bool untilEot = true)
     {

@@ -397,14 +397,26 @@
     <Compile Include="Configuration.cs" />
     <Compile Include="Core\AbilityParameters.cs" />
     <Compile Include="Core\ActivatedAbilityParameters.cs" />
+    <Compile Include="Core\Ai\ActivationContext.cs" />
     <Compile Include="Core\Ai\AttackerEvaluation.cs" />
     <Compile Include="Core\Ai\BlockerEvaluation.cs" />
     <Compile Include="Core\Ai\QuickCombat.cs" />
-    <Compile Include="Core\Ai\TargetSelectionRules\OrderByScore.cs" />
-    <Compile Include="Core\Ai\TargetSelectionRules\TargetSelectionParameters.cs" />
+    <Compile Include="Core\Ai\TargetingRules\CombatEnchantment.cs" />
+    <Compile Include="Core\Ai\TargetingRules\CombatEquipment.cs" />
+    <Compile Include="Core\Ai\TargetingRules\Counterspell.cs" />
+    <Compile Include="Core\Ai\TargetingRules\DealDamage.cs" />
+    <Compile Include="Core\Ai\TargetingRules\Destroy.cs" />
+    <Compile Include="Core\Ai\TargetingRules\GainEvasion.cs" />
+    <Compile Include="Core\Ai\TargetingRules\GainHexproof.cs" />
+    <Compile Include="Core\Ai\TargetingRules\GainIndestructible.cs" />
+    <Compile Include="Core\Ai\TargetingRules\Opponent.cs" />
+    <Compile Include="Core\Ai\TargetingRules\OrderByScore.cs" />
+    <Compile Include="Core\Ai\TargetingRules\PumpAttackerOrBlocker.cs" />
+    <Compile Include="Core\Ai\TargetingRules\ReduceToughness.cs" />
+    <Compile Include="Core\Ai\TargetingRules\TargetingRuleParameters.cs" />
     <Compile Include="Core\Ai\TimingRules\Counterspell.cs" />
     <Compile Include="Core\Ai\TimingRules\Steps.cs" />
-    <Compile Include="Core\Ai\TargetSelectionRules\TargetSelectionRule.cs" />
+    <Compile Include="Core\Ai\TargetingRules\TargetingRule.cs" />
     <Compile Include="Core\Ai\TimingRules\TimingRule.cs" />
     <Compile Include="Core\CardFactory.cs" />
     <Compile Include="Core\CardParameters.cs" />
@@ -1226,7 +1238,7 @@
     <Resource Include="icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Core\Ai\CostSelectionRules\" />
+    <Folder Include="Core\Ai\CostRules\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <UsingTask TaskName="Costura.EmbedTask" AssemblyFile="$(SolutionDir)lib\costura\Costura.dll" />
