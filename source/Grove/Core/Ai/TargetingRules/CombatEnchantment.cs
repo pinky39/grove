@@ -2,13 +2,13 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Grove.Core.Targeting;
+  using Targeting;
 
   public class CombatEnchantment : TargetingRule
   {
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
     {
-      var candidates = p.Candidates<Card>(ControlledBy.SpellOwner)        
+      var candidates = p.Candidates<Card>(ControlledBy.SpellOwner)
         .Where(x => x.IsAbleToAttack)
         .Select(x => new
           {

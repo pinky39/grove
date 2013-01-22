@@ -2,7 +2,7 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Grove.Core.Targeting;
+  using Targeting;
 
   public class GainIndestructible : TargetingRule
   {

@@ -1,26 +1,30 @@
 ﻿namespace Grove.Core.Ai.TargetingRules
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Grove.Core.Targeting;
+  using Targeting;
 
-  public class OrderByScore : TargetingRule
+  public class OrderByRank : TargetingRule
   {
-    public ControlledBy ControlledBy = ControlledBy.Opponent;
-    public bool Descending = true;
+    public ControlledBy ControlledBy = ControlledBy.Any;        
+    public Func<Card, int> Rank;
+    public Func<Card, int> ForceRank;
 
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
     {
       var candidates = p.Candidates<Card>(ControlledBy)
-        .OrderByDescending(x => Descending ? x.Score : -x.Score);
+        .OrderBy(x => Rank(x));
 
       return Group(candidates, p.MinTargetCount());
     }
 
     protected override IEnumerable<Targets> ForceSelectTargets(TargetingRuleParameters p)
     {
+      var rank = ForceRank ?? Rank;
+      
       var candidates = p.Candidates<Card>()
-        .OrderByDescending(x => Descending ? -x.Score : x.Score);
+        .OrderBy(rank);
 
       return Group(candidates, p.MinTargetCount());
     }

@@ -3,7 +3,7 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Grove.Core.Targeting;
+  using Targeting;
 
   public class DealDamage : TargetingRule
   {
@@ -53,7 +53,7 @@
             Score = ScoreCalculator.CalculateLifelossScore(x.Life, amount)
           })
         .Concat(
-          p.Candidates<Card>(ControlledBy.Opponent)            
+          p.Candidates<Card>(ControlledBy.Opponent)
             .Select(x => new
               {
                 Target = (ITarget) x,

@@ -2,16 +2,14 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Effects;
   using Targeting;
 
-  public class Counterspell : TargetingRule
+  public class SpellOwner : TargetingRule
   {
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
     {
-      // top spell only
-      var candidates = p.Candidates<Effect>(ControlledBy.Opponent)
-        .Take(1);
+      var candidates = p.Candidates<Player>()
+        .Where(x => x == p.Controller.Opponent);
 
       return Group(candidates, 1);
     }

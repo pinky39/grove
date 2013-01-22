@@ -42,7 +42,7 @@
       return SelectTargets(p);
     }
 
-    protected IEnumerable<Targets> None()
+    protected IEnumerable<T> None<T>()
     {
       yield break;
     }
@@ -150,6 +150,50 @@
       }
 
       return 0;
+    }
+
+    protected IEnumerable<Card> GetCandidatesForAttackerPowerToughnessIncrease(int? powerIncrease,
+      int? toughnessIncrease, TargetingRuleParameters p)
+    {
+      return p.Candidates<Card>(ControlledBy.SpellOwner)
+        .Where(x => x.IsAttacker)
+        .Select(
+          x =>
+            new
+              {
+                Card = x,
+                Gain =
+                  QuickCombat.CalculateGainAttackerWouldGetIfPowerAndThoughnessWouldIncrease(
+                    attacker: x,
+                    blockers: Combat.GetBlockers(x),
+                    powerIncrease: powerIncrease.Value,
+                    toughnessIncrease: toughnessIncrease.Value)
+              })
+        .Where(x => x.Gain > 0)
+        .OrderByDescending(x => x.Gain)
+        .Select(x => x.Card);
+    }
+
+    protected IEnumerable<Card> GetCandidatesForBlockerPowerToughnessIncrease(int? powerIncrease,
+      int? toughnessIncrease, TargetingRuleParameters p)
+    {
+      return p.Candidates<Card>(ControlledBy.SpellOwner)
+        .Where(x => x.IsBlocker)
+        .Select(
+          x =>
+            new
+              {
+                Card = x,
+                Gain =
+                  QuickCombat.CalculateGainBlockerWouldGetIfPowerAndThougnessWouldIncrease(
+                    blocker: x,
+                    attacker: Combat.GetAttacker(x),
+                    powerIncrease: powerIncrease.Value,
+                    toughnessIncrease: toughnessIncrease.Value)
+              })
+        .Where(x => x.Gain > 0)
+        .OrderByDescending(x => x.Gain)
+        .Select(x => x.Card);
     }
   }
 }

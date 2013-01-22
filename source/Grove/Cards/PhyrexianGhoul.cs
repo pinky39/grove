@@ -34,7 +34,7 @@
             costTarget: Target(
               Validators.Card(ControlledBy.SpellOwner, card => card.Is().Creature),
               Zones.Battlefield(), mustBeTargetable: false),
-            targetingAi: TargetingAi.CostTapOrSacCreature(canUseSelf: false),
+            targetingAi: TargetingAi.CostTapOrSacCreature(preferSelf: false),
             timing: All(Timings.IncreaseOwnersPowerAndThougness(2, 2)),
             category: EffectCategories.ToughnessIncrease
             )

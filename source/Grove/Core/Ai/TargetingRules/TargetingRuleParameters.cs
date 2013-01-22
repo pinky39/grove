@@ -21,6 +21,7 @@
     public int? X { get { return _context.X; } }
     public int MaxX { get { return _context.MaxX.GetValueOrDefault(); } }
     public int EffectTargetTypeCount { get { return _context.Selector.Effect.Count; } }
+    public Card Card { get { return _context.Card; } }
 
     public IEnumerable<T> Candidates<T>(ControlledBy controlledBy = ControlledBy.Any, int selectorIndex = 0)
       where T : ITarget
