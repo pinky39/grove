@@ -4,7 +4,7 @@
   using System.Linq;
   using Targeting;
 
-  public class SacrificeToGainLife : TargetingRule
+  public class CostSacrificeToGainLife : TargetingRule
   {
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
     {
@@ -30,7 +30,7 @@
         p.Candidates<Card>()
           .Where(x => Stack.CanBeDestroyedByTopSpell(x)));
 
-      return Group(candidates, p.MinTargetCount());
+      return Group(candidates, p.MinTargetCount(), (target, targets) => targets.Cost.Add(target));
     }
   }
 }

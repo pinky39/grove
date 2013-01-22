@@ -102,7 +102,21 @@
       return results;
     }
 
-    protected IList<Targets> Group(IList<ITarget> candidates, int targetCount, Action<ITarget, Targets> add = null)
+    protected IList<Targets> Group(IList<ITarget> candidates, IDamageDistributor damageDistributor)
+    {
+      var result = new Targets();
+
+       foreach (var candidate in candidates)
+      {
+        result.AddEffect(candidate);
+      }
+
+      result.DamageDistributor = damageDistributor;
+      return new[] {result};
+    }
+    
+    protected IList<Targets> Group(IList<ITarget> candidates, int targetCount, 
+      Action<ITarget, Targets> add = null)
     {
       var results = new List<Targets>();
 
@@ -128,7 +142,7 @@
 
         // add last
         add(candidates[targetCount - 1 + i], targets);
-
+        
         results.Add(targets);
       }
 
@@ -138,6 +152,19 @@
     protected int CalculateAttackerScore(Card card)
     {
       return Combat.CouldBeBlockedByAny(card) ? 5 : 0 + card.CalculateCombatDamage(allDamageSteps: true);
+    }
+
+    protected static int CalculateAttackingPotencialScore(Card card)
+    {
+      if (card.Has().DoesNotUntap || card.Has().CannotAttack)
+        return 0;
+
+      var damage = card.CalculateCombatDamage(allDamageSteps: true);
+
+      if (card.Has().AnyEvadingAbility)
+        return 2 + damage;
+
+      return damage;
     }
 
     protected int CalculateBlockerScore(Card card)
@@ -194,6 +221,12 @@
         .Where(x => x.Gain > 0)
         .OrderByDescending(x => x.Gain)
         .Select(x => x.Card);
+    }
+
+    protected IEnumerable<Card> GetCandidatesThatCanBeDestroyed(TargetingRuleParameters p)
+    {
+      return p.Candidates<Card>(ControlledBy.SpellOwner)
+        .Where(x => Stack.CanBeDestroyedByTopSpell(x.Card()) || Combat.CanBeDealtLeathalCombatDamage(x.Card()));
     }
   }
 }

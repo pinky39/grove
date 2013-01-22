@@ -7,6 +7,6 @@
     public virtual void Initialize(Game game)
     {
       Game = game;
-    }
+    }    
   }
 }

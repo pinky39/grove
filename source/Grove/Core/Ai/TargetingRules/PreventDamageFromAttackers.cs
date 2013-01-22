@@ -4,12 +4,12 @@
   using System.Linq;
   using Targeting;
 
-  public class GainIndestructible : TargetingRule
+  public class PreventDamageFromAttackers : TargetingRule
   {
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
     {
-      var candidates = GetCandidatesThatCanBeDestroyed(p)
-        .OrderByDescending(x => x.Card().Score);
+      var candidates = p.Candidates<Card>()
+        .OrderByDescending(x => x.CalculateCombatDamage(allDamageSteps: true));
 
       return Group(candidates, p.MinTargetCount());
     }

@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core.Ai.TargetingRules
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Targeting;
@@ -7,9 +8,9 @@
   public class TargetingRuleParameters : GameObject
   {
     private readonly TargetsCandidates _candidates;
-    private readonly ActivationContext _context;
+    private readonly Ai.ActivationContext _context;
 
-    public TargetingRuleParameters(TargetsCandidates candidates, ActivationContext context, Game game)
+    public TargetingRuleParameters(TargetsCandidates candidates, Ai.ActivationContext context, Game game)
     {
       _candidates = candidates;
       _context = context;
@@ -22,6 +23,7 @@
     public int MaxX { get { return _context.MaxX.GetValueOrDefault(); } }
     public int EffectTargetTypeCount { get { return _context.Selector.Effect.Count; } }
     public Card Card { get { return _context.Card; } }
+    public bool DistributeDamage { get { return _context.DistributeDamage; } }
 
     public IEnumerable<T> Candidates<T>(ControlledBy controlledBy = ControlledBy.Any, int selectorIndex = 0)
       where T : ITarget

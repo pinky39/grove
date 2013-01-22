@@ -620,393 +620,383 @@
     //    };
     //}
 
-    public static TargetingAiDelegate PreventAllDamageFromSourceToTarget()
-    {
-      return p =>
-        {
-          var targetPicks = new List<ITarget>();
-          var sourcePicks = new List<ITarget>();
+    //public static TargetingAiDelegate PreventAllDamageFromSourceToTarget()
+    //{
+    //  return p =>
+    //    {
+    //      var targetPicks = new List<ITarget>();
+    //      var sourcePicks = new List<ITarget>();
 
-          if (!p.Stack.IsEmpty)
-          {
-            var damageToPlayer = p.Stack.GetDamageTopSpellWillDealToPlayer(p.Controller);
+    //      if (!p.Stack.IsEmpty)
+    //      {
+    //        var damageToPlayer = p.Stack.GetDamageTopSpellWillDealToPlayer(p.Controller);
 
-            if (damageToPlayer > 0)
-            {
-              targetPicks.Add(p.Controller);
-              sourcePicks.Add(p.Stack.TopSpell);
-            }
+    //        if (damageToPlayer > 0)
+    //        {
+    //          targetPicks.Add(p.Controller);
+    //          sourcePicks.Add(p.Stack.TopSpell);
+    //        }
 
-            var creatureKilledByTopSpell = p.EffectCandidates[1]
-              .Where(x => x.IsCard())
-              .Where(x => p.Stack.CanBeDealtLeathalDamageByTopSpell(x.Card()))
-              .OrderByDescending(x => x.Card().Score)
-              .FirstOrDefault();
+    //        var creatureKilledByTopSpell = p.EffectCandidates[1]
+    //          .Where(x => x.IsCard())
+    //          .Where(x => p.Stack.CanBeDealtLeathalDamageByTopSpell(x.Card()))
+    //          .OrderByDescending(x => x.Card().Score)
+    //          .FirstOrDefault();
 
-            if (creatureKilledByTopSpell != null)
-            {
-              targetPicks.Add(creatureKilledByTopSpell);
-              sourcePicks.Add(p.Stack.TopSpell);
-            }
-          }
+    //        if (creatureKilledByTopSpell != null)
+    //        {
+    //          targetPicks.Add(creatureKilledByTopSpell);
+    //          sourcePicks.Add(p.Stack.TopSpell);
+    //        }
+    //      }
 
-          if (p.Step == Step.DeclareBlockers)
-          {
-            if (p.Controller.IsActive == false)
-            {
-              var attacker = p.Combat.GetAttackerWhichWillDealGreatestDamageToDefender();
+    //      if (p.Step == Step.DeclareBlockers)
+    //      {
+    //        if (p.Controller.IsActive == false)
+    //        {
+    //          var attacker = p.Combat.GetAttackerWhichWillDealGreatestDamageToDefender();
 
-              if (attacker != null)
-              {
-                targetPicks.Add(p.Controller);
-                sourcePicks.Add(attacker);
-              }
+    //          if (attacker != null)
+    //          {
+    //            targetPicks.Add(p.Controller);
+    //            sourcePicks.Add(attacker);
+    //          }
 
-              var blockerAttackerPair = p.EffectCandidates[1]
-                .Where(x => x.IsCard() && x.Card().IsBlocker)
-                .Select(x => new
-                  {
-                    Target = x.Card(),
-                    Source =
-                      QuickCombat.GetAttackerThatDealsLeathalDamageToBlocker(x.Card(), p.Combat.GetAttacker(x.Card()))
-                  })
-                .Where(x => x.Source != null)
-                .OrderByDescending(x => x.Target.Score)
-                .FirstOrDefault();
+    //          var blockerAttackerPair = p.EffectCandidates[1]
+    //            .Where(x => x.IsCard() && x.Card().IsBlocker)
+    //            .Select(x => new
+    //              {
+    //                Target = x.Card(),
+    //                Source =
+    //                  QuickCombat.GetAttackerThatDealsLeathalDamageToBlocker(x.Card(), p.Combat.GetAttacker(x.Card()))
+    //              })
+    //            .Where(x => x.Source != null)
+    //            .OrderByDescending(x => x.Target.Score)
+    //            .FirstOrDefault();
 
-              if (blockerAttackerPair != null)
-              {
-                targetPicks.Add(blockerAttackerPair.Target);
-                sourcePicks.Add(blockerAttackerPair.Source);
-              }
-            }
-            else
-            {
-              var blockerAttackerPair = p.EffectCandidates[1]
-                .Where(x => x.IsCard() && x.Card().IsAttacker)
-                .Select(x => new
-                  {
-                    Target = x.Card(),
-                    Source =
-                      QuickCombat.GetBlockerThatDealsLeathalDamageToAttacker(x.Card(), p.Combat.GetBlockers(x.Card()))
-                  })
-                .Where(x => x.Source != null)
-                .OrderByDescending(x => x.Target.Score)
-                .FirstOrDefault();
+    //          if (blockerAttackerPair != null)
+    //          {
+    //            targetPicks.Add(blockerAttackerPair.Target);
+    //            sourcePicks.Add(blockerAttackerPair.Source);
+    //          }
+    //        }
+    //        else
+    //        {
+    //          var blockerAttackerPair = p.EffectCandidates[1]
+    //            .Where(x => x.IsCard() && x.Card().IsAttacker)
+    //            .Select(x => new
+    //              {
+    //                Target = x.Card(),
+    //                Source =
+    //                  QuickCombat.GetBlockerThatDealsLeathalDamageToAttacker(x.Card(), p.Combat.GetBlockers(x.Card()))
+    //              })
+    //            .Where(x => x.Source != null)
+    //            .OrderByDescending(x => x.Target.Score)
+    //            .FirstOrDefault();
 
-              if (blockerAttackerPair != null)
-              {
-                targetPicks.Add(blockerAttackerPair.Target);
-                sourcePicks.Add(blockerAttackerPair.Source);
-              }
-            }
-          }
+    //          if (blockerAttackerPair != null)
+    //          {
+    //            targetPicks.Add(blockerAttackerPair.Target);
+    //            sourcePicks.Add(blockerAttackerPair.Source);
+    //          }
+    //        }
+    //      }
 
-          return p.MultipleTargets(sourcePicks, targetPicks);
-        };
-    }
+    //      return p.MultipleTargets(sourcePicks, targetPicks);
+    //    };
+    //}
 
-    public static TargetingAiDelegate DamageRedirection()
-    {
-      return p =>
-        {
-          var candidates = p.Candidates()
-            .Select(x => new
-              {
-                Card = x.Card(),
-                Score = CalculateDamageRedirectionScore(x.Card(), p)
-              })
-            .Where(x => x.Score > 0)
-            .OrderByDescending(x => x.Score)
-            .Select(x => x.Card);
+    //public static TargetingAiDelegate DamageRedirection()
+    //{
+    //  return p =>
+    //    {
+    //      var candidates = p.Candidates()
+    //        .Select(x => new
+    //          {
+    //            Card = x.Card(),
+    //            Score = CalculateDamageRedirectionScore(x.Card(), p)
+    //          })
+    //        .Where(x => x.Score > 0)
+    //        .OrderByDescending(x => x.Score)
+    //        .Select(x => x.Card);
 
-          return p.Targets(candidates);
-        };
-    }
+    //      return p.Targets(candidates);
+    //    };
+    //}
 
-    private static int CalculateDamageRedirectionScore(Card card, TargetingAiParameters p)
-    {
-      const int protectionOffset = 200;
+    //private static int CalculateDamageRedirectionScore(Card card, TargetingAiParameters p)
+    //{
+    //  const int protectionOffset = 200;
 
-      if (card.Controller == p.Opponent)
-      {
-        return card.Score;
-      }
+    //  if (card.Controller == p.Opponent)
+    //  {
+    //    return card.Score;
+    //  }
 
-      if (card.HasProtectionFrom(ManaColors.Red | ManaColors.Black))
-      {
-        return protectionOffset + card.Score;
-      }
+    //  if (card.HasProtectionFrom(ManaColors.Red | ManaColors.Black))
+    //  {
+    //    return protectionOffset + card.Score;
+    //  }
 
-      return card.Toughness.Value - 3;
-    }
+    //  return card.Toughness.Value - 3;
+    //}
 
-    public static TargetingAiDelegate PreventDamageFromSourceToController()
-    {
-      return p =>
-        {
-          var targetPicks = new List<ITarget>();
+    //public static TargetingAiDelegate PreventDamageFromSourceToController()
+    //{
+    //  return p =>
+    //    {
+    //      var targetPicks = new List<ITarget>();
 
-          if (!p.Stack.IsEmpty && p.Candidates().Contains(p.Stack.TopSpell))
-          {
-            var damageToPlayer = p.Stack.GetDamageTopSpellWillDealToPlayer(p.Controller);
+    //      if (!p.Stack.IsEmpty && p.Candidates().Contains(p.Stack.TopSpell))
+    //      {
+    //        var damageToPlayer = p.Stack.GetDamageTopSpellWillDealToPlayer(p.Controller);
 
-            if (damageToPlayer > 0)
-            {
-              targetPicks.Add(p.Stack.TopSpell);
-            }
-          }
+    //        if (damageToPlayer > 0)
+    //        {
+    //          targetPicks.Add(p.Stack.TopSpell);
+    //        }
+    //      }
 
-          if (p.Step == Step.DeclareBlockers)
-          {
-            if (!p.Controller.IsActive)
-            {
-              var attacker = p.Combat.GetAttackerWhichWillDealGreatestDamageToDefender(
-                card => p.Candidates().Contains(card));
+    //      if (p.Step == Step.DeclareBlockers)
+    //      {
+    //        if (!p.Controller.IsActive)
+    //        {
+    //          var attacker = p.Combat.GetAttackerWhichWillDealGreatestDamageToDefender(
+    //            card => p.Candidates().Contains(card));
 
-              if (attacker != null)
-              {
-                targetPicks.Add(attacker);
-              }
-            }
-          }
+    //          if (attacker != null)
+    //          {
+    //            targetPicks.Add(attacker);
+    //          }
+    //        }
+    //      }
 
-          return p.Targets(targetPicks);
-        };
-    }
+    //      return p.Targets(targetPicks);
+    //    };
+    //}
 
-    public static TargetingAiDelegate GreatestConvertedManaCost(ControlledBy controlledBy = ControlledBy.Any)
-    {
-      return p =>
-        {
-          var candidates = p.Candidates(controlledBy)
-            .OrderBy(x => x.Card().ManaCost.Converted);            
+    //public static TargetingAiDelegate GreatestConvertedManaCost(ControlledBy controlledBy = ControlledBy.Any)
+    //{
+    //  return p =>
+    //    {
+    //      var candidates = p.Candidates(controlledBy)
+    //        .OrderBy(x => x.Card().ManaCost.Converted);            
 
-          return p.Targets(candidates);
-        };
-    }
+    //      return p.Targets(candidates);
+    //    };
+    //}
 
-    public static TargetingAiDelegate PreventNextDamageToCreatureOrPlayer(int amount)
-    {
-      return p =>
-        {
-          if (!p.Stack.IsEmpty)
-          {
-            var playerCandidate = p.Candidates()
-              .Where(x => x == p.Controller)
-              .Where(x => p.Stack.GetDamageTopSpellWillDealToPlayer(x.Player()) > 0);
+    //public static TargetingAiDelegate PreventNextDamageToCreatureOrPlayer(int amount)
+    //{
+    //  return p =>
+    //    {
+    //    //  if (!p.Stack.IsEmpty)
+    //    //  {
+    //    //    var playerCandidate = p.Candidates()
+    //    //      .Where(x => x == p.Controller)
+    //    //      .Where(x => p.Stack.GetDamageTopSpellWillDealToPlayer(x.Player()) > 0);
 
-            var cardCandidates = p.Candidates()
-              .Where(x => x.IsCard() && x.Card().Controller == p.Controller)
-              .Select(x => x.Card())
-              .Where(x =>
-                {
-                  var damageToCreature = p.Stack.GetDamageTopSpellWillDealToCreature(x);
-                  return (damageToCreature >= x.Life) &&
-                    (damageToCreature - amount < x.Life);
-                })
-              .OrderByDescending(x => x.Score);
+    //    //    var cardCandidates = p.Candidates()
+    //    //      .Where(x => x.IsCard() && x.Card().Controller == p.Controller)
+    //    //      .Select(x => x.Card())
+    //    //      .Where(x =>
+    //    //        {
+    //    //          var damageToCreature = p.Stack.GetDamageTopSpellWillDealToCreature(x);
+    //    //          return (damageToCreature >= x.Life) &&
+    //    //            (damageToCreature - amount < x.Life);
+    //    //        })
+    //    //      .OrderByDescending(x => x.Score);
 
-            return p.Targets(playerCandidate.Concat(cardCandidates));
-          }
+    //    //    return p.Targets(playerCandidate.Concat(cardCandidates));
+    //    //  }
 
-          if (p.Step == Step.DeclareBlockers)
-          {
-            if (p.Controller.IsActive)
-            {
-              var cardCandidates = p.Candidates()
-                .Where(x => x.IsCard() && x.Card().Controller == p.Controller && x.Card().IsAttacker)
-                .Select(x => x.Card())
-                .Where(x =>
-                  {
-                    var prevented = QuickCombat.GetAmountOfDamageThatNeedsToBePreventedToSafeAttackerFromDying(
-                      attacker: x.Card(),
-                      blockers: p.Combat.GetBlockers(x.Card()));
+    //    //  if (p.Step == Step.DeclareBlockers)
+    //    //  {
+    //    //    if (p.Controller.IsActive)
+    //    //    {
+    //    //      var cardCandidates = p.Candidates()
+    //    //        .Where(x => x.IsCard() && x.Card().Controller == p.Controller && x.Card().IsAttacker)
+    //    //        .Select(x => x.Card())
+    //    //        .Where(x =>
+    //    //          {
+    //    //            var prevented = QuickCombat.GetAmountOfDamageThatNeedsToBePreventedToSafeAttackerFromDying(
+    //    //              attacker: x.Card(),
+    //    //              blockers: p.Combat.GetBlockers(x.Card()));
 
-                    return 0 < prevented && prevented <= amount;
-                  })
-                .OrderByDescending(x => x.Score);
+    //    //            return 0 < prevented && prevented <= amount;
+    //    //          })
+    //    //        .OrderByDescending(x => x.Score);
 
-              return p.Targets(cardCandidates);
-            }
-            else
-            {
-              var playerCandidate = p.Candidates()
-                .Where(x => x == p.Controller)
-                .Where(x => p.Combat.WillAnyAttackerDealDamageToDefender());
+    //    //      return p.Targets(cardCandidates);
+    //    //    }
+    //    //    else
+    //    //    {
+    //    //      var playerCandidate = p.Candidates()
+    //    //        .Where(x => x == p.Controller)
+    //    //        .Where(x => p.Combat.WillAnyAttackerDealDamageToDefender());
 
-              var cardCandidates = p.Candidates()
-                .Where(x => x.IsCard() && x.Card().Controller == p.Controller && x.Card().IsBlocker)
-                .Select(x => x.Card())
-                .Where(x =>
-                  {
-                    var prevented = QuickCombat.GetAmountOfDamageThatNeedsToBePreventedToSafeBlockerFromDying(
-                      blocker: x.Card(),
-                      attacker: p.Combat.GetAttacker(x.Card()));
-
-
-                    return 0 < prevented && prevented <= amount;
-                  })
-                .OrderByDescending(x => x.Score);
-
-              return p.Targets(playerCandidate.Concat(cardCandidates));
-            }
-          }
-
-          return p.NoTargets();
-        };
-    }
-
-    public static TargetingAiDelegate PreventAttackerDamage()
-    {
-      return p =>
-        {
-          var candidates = p.Candidates()
-            .OrderByDescending(x => x.Card().CalculateCombatDamage(allDamageSteps: true));
-
-          return p.Targets(candidates);
-        };
-    }
-
-    public static TargetingAiDelegate Pacifism()
-    {
-      return p =>
-        {
-          var candidates = p.Candidates()
-            .Where(x => x.Card().Controller == p.Opponent)
-            .Select(x => x.Card())
-            .Select(x => new
-              {
-                Card = x,
-                Score = CalculateAttackingScore(x)
-              })
-            .OrderByDescending(x => x.Score)
-            .Select(x => x.Card)
-            .ToList();
-
-          if (p.IsTriggeredAbilityTarget && candidates.Count == 0)
-          {
-            return p.Targets(p.Candidates().OrderBy(x => x.Card().Power));
-          }
-
-          return p.Targets(candidates);
-        };
-    }
-
-    public static TargetingAiDelegate DealDamageSingleSelectorDistribute(int? amount = null)
-    {
-      return p =>
-        {
-          amount = amount ?? p.MaxX;
-
-          // this is a 0-1 knapsack optimization problem
-
-          var targets = p.Candidates()
-            .Where(x => x.Is().Creature && x.Card().Controller == p.Opponent && x.Life() <= amount)
-            .Select(x => new KnapsackItem<ITarget>(
-              item: x,
-              weight: x.Life(),
-              value: x.Card().Score))
-            .ToList();
-
-          targets.AddRange(p.Candidates()
-            .Where(x => x == p.Opponent)
-            .SelectMany(x =>
-              {
-                var items = new List<KnapsackItem<ITarget>>();
-
-                const int decrementSoPlayerAtMostOnce = 1;
-
-                for (var i = 1; i <= amount.Value; i++)
-                {
-                  items.Add(
-                    new KnapsackItem<ITarget>(
-                      item: x,
-                      weight: i,
-                      value: ScoreCalculator.CalculateLifelossScore(x.Player().Life, i) - decrementSoPlayerAtMostOnce));
-                }
-
-                return items;
-              })
-            );
-
-          if (targets.Count == 0)
-            return p.NoTargets();
-
-          var solution = Knapsack.Solve(targets, amount.Value);
-          var selected = solution.Select(x => x.Item).ToList();
-
-          var distribution = new DamageDistributor
-            {
-              Distribution = (t, a) => solution
-                .Select(x => x.Weight)
-                .ToList()
-            };
-
-          return p.MultipleTargets(distribution, selected);
-        };
-    }
-
-    public static TargetingAiDelegate BounceSelfAndTargetCreatureYouControl()
-    {
-      return p =>
-        {
-          var targetCandidates = p.Candidates()
-            .GetPermanentsThatCanBeKilled(p)
-            .OrderByDescending(x => x.Card().Score)
-            .ToList();
-
-          if (targetCandidates.Count == 1 && targetCandidates[0] == p.Source)
-          {
-            // if owner is the only one that can be killed
-            // target the owner
-            return p.Targets(targetCandidates);
-          }
-
-          // otherwise return all except the owner
-          return p.Targets(targetCandidates.Where(x => x != p.Source));
-        };
-    }
-
-    public static TargetingAiDelegate GainControl()
-    {
-      return Destroy();
-    }
-
-    public static TargetingAiDelegate ReducePower(int? amount)
-    {
-      return p =>
-        {
-          amount = amount ?? p.MaxX;
-
-          var candidates = p.Candidates()
-            .Where(x => x.Card().Controller == p.Opponent)
-            .Select(x => new
-              {
-                Card = x.Card(),
-                Score = CalculateAttackingScore(x.Card())
-              })
-            .Where(x => x.Score > 0)
-            .OrderByDescending(x => x.Score)
-            .Select(x => x.Card);
+    //    //      var cardCandidates = p.Candidates()
+    //    //        .Where(x => x.IsCard() && x.Card().Controller == p.Controller && x.Card().IsBlocker)
+    //    //        .Select(x => x.Card())
+    //    //        .Where(x =>
+    //    //          {
+    //    //            var prevented = QuickCombat.GetAmountOfDamageThatNeedsToBePreventedToSafeBlockerFromDying(
+    //    //              blocker: x.Card(),
+    //    //              attacker: p.Combat.GetAttacker(x.Card()));
 
 
-          return p.Targets(candidates);
-        };
-    }
+    //    //            return 0 < prevented && prevented <= amount;
+    //    //          })
+    //    //        .OrderByDescending(x => x.Score);
 
-    private static int CalculateAttackingScore(Card card)
-    {
-      if (card.Has().DoesNotUntap || card.Has().CannotAttack)
-        return 0;
+    //    //      return p.Targets(playerCandidate.Concat(cardCandidates));
+    //    //    }
+    //    //  }
 
-      var damage = card.CalculateCombatDamage(allDamageSteps: true);
+    //    //  return p.NoTargets();
+    //    //};
+    //}
 
-      if (card.Has().AnyEvadingAbility)
-        return 2 + damage;
 
-      return damage;
-    }
+    //public static TargetingAiDelegate PreventAttackerDamage()
+    //{
+    //  return p =>
+    //    {
+    //      var candidates = p.Candidates()
+    //        .OrderByDescending(x => x.Card().CalculateCombatDamage(allDamageSteps: true));
+
+    //      return p.Targets(candidates);
+    //    };
+    //}
+
+    //public static TargetingAiDelegate Pacifism()
+    //{
+    //  return p =>
+    //    {
+    //      var candidates = p.Candidates()
+    //        .Where(x => x.Card().Controller == p.Opponent)
+    //        .Select(x => x.Card())
+    //        .Select(x => new
+    //          {
+    //            Card = x,
+    //            Score = CalculateAttackingScore(x)
+    //          })
+    //        .OrderByDescending(x => x.Score)
+    //        .Select(x => x.Card)
+    //        .ToList();
+
+    //      if (p.IsTriggeredAbilityTarget && candidates.Count == 0)
+    //      {
+    //        return p.Targets(p.Candidates().OrderBy(x => x.Card().Power));
+    //      }
+
+    //      return p.Targets(candidates);
+    //    };
+    //}
+
+    //public static TargetingAiDelegate DealDamageSingleSelectorDistribute(int? amount = null)
+    //{
+    //  return p =>
+    //    {
+    //      amount = amount ?? p.MaxX;
+
+    //      // this is a 0-1 knapsack optimization problem
+
+    //      var targets = p.Candidates()
+    //        .Where(x => x.Is().Creature && x.Card().Controller == p.Opponent && x.Life() <= amount)
+    //        .Select(x => new KnapsackItem<ITarget>(
+    //          item: x,
+    //          weight: x.Life(),
+    //          value: x.Card().Score))
+    //        .ToList();
+
+    //      targets.AddRange(p.Candidates()
+    //        .Where(x => x == p.Opponent)
+    //        .SelectMany(x =>
+    //          {
+    //            var items = new List<KnapsackItem<ITarget>>();
+
+    //            const int decrementSoPlayerAtMostOnce = 1;
+
+    //            for (var i = 1; i <= amount.Value; i++)
+    //            {
+    //              items.Add(
+    //                new KnapsackItem<ITarget>(
+    //                  item: x,
+    //                  weight: i,
+    //                  value: ScoreCalculator.CalculateLifelossScore(x.Player().Life, i) - decrementSoPlayerAtMostOnce));
+    //            }
+
+    //            return items;
+    //          })
+    //        );
+
+    //      if (targets.Count == 0)
+    //        return p.NoTargets();
+
+    //      var solution = Knapsack.Solve(targets, amount.Value);
+    //      var selected = solution.Select(x => x.Item).ToList();
+
+    //      var distribution = new DamageDistributor
+    //        {
+    //          Distribution = (t, a) => solution
+    //            .Select(x => x.Weight)
+    //            .ToList()
+    //        };
+
+    //      return p.MultipleTargets(distribution, selected);
+    //    };
+    //}
+
+    //public static TargetingAiDelegate BounceSelfAndTargetCreatureYouControl()
+    //{
+    //  return p =>
+    //    {
+    //      var targetCandidates = p.Candidates()
+    //        .GetPermanentsThatCanBeKilled(p)
+    //        .OrderByDescending(x => x.Card().Score)
+    //        .ToList();
+
+    //      if (targetCandidates.Count == 1 && targetCandidates[0] == p.Source)
+    //      {
+    //        // if owner is the only one that can be killed
+    //        // target the owner
+    //        return p.Targets(targetCandidates);
+    //      }
+
+    //      // otherwise return all except the owner
+    //      return p.Targets(targetCandidates.Where(x => x != p.Source));
+    //    };
+    //}
+
+    //public static TargetingAiDelegate GainControl()
+    //{
+    //  return Destroy();
+    //}
+
+    //public static TargetingAiDelegate ReducePower(int? amount)
+    //{
+    //  return p =>
+    //    {
+    //      amount = amount ?? p.MaxX;
+
+    //      var candidates = p.Candidates()
+    //        .Where(x => x.Card().Controller == p.Opponent)
+    //        .Select(x => new
+    //          {
+    //            Card = x.Card(),
+    //            Score = CalculateAttackingScore(x.Card())
+    //          })
+    //        .Where(x => x.Score > 0)
+    //        .OrderByDescending(x => x.Score)
+    //        .Select(x => x.Card);
+
+
+    //      return p.Targets(candidates);
+    //    };
+    //}
+
+    
 
     public static TargetingAiDelegate AttachToSource()
     {
