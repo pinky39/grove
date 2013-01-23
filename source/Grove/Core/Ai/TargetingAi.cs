@@ -998,187 +998,187 @@
 
     
 
-    public static TargetingAiDelegate AttachToSource()
-    {
-      return p =>
-        {
-          var candidates = p.Candidates()
-            .Where(x => x.Card().IsGoodTarget(p.Source))
-            .OrderByDescending(x => x.Card().Score)
-            .ToList();
+    //public static TargetingAiDelegate AttachToSource()
+    //{
+    //  return p =>
+    //    {
+    //      var candidates = p.Candidates()
+    //        .Where(x => x.Card().IsGoodTarget(p.Source))
+    //        .OrderByDescending(x => x.Card().Score)
+    //        .ToList();
 
-          return p.Targets(candidates);
-        };
-    }
+    //      return p.Targets(candidates);
+    //    };
+    //}
 
-    public static TargetingAiDelegate UntapYourLands()
-    {
-      return p =>
-        {
-          var targetCount = p.Selector.GetMinEffectTargetCount();
+    //public static TargetingAiDelegate UntapYourLands()
+    //{
+    //  return p =>
+    //    {
+    //      var targetCount = p.Selector.GetMinEffectTargetCount();
 
-          var candidates = p.Candidates()
-            .Where(x => x.Card().Controller == p.Controller)
-            .OrderByDescending(x => x.Card().IsTapped ? 1 : 0)
-            .Take(targetCount)
-            .Select(x => x.Card())
-            .ToList();
+    //      var candidates = p.Candidates()
+    //        .Where(x => x.Card().Controller == p.Controller)
+    //        .OrderByDescending(x => x.Card().IsTapped ? 1 : 0)
+    //        .Take(targetCount)
+    //        .Select(x => x.Card())
+    //        .ToList();
 
-          if (targetCount == 1)
-          {
-            return p.Targets(candidates);
-          }
+    //      if (targetCount == 1)
+    //      {
+    //        return p.Targets(candidates);
+    //      }
 
-          if (candidates.Count < targetCount)
-            return p.NoTargets();
+    //      if (candidates.Count < targetCount)
+    //        return p.NoTargets();
 
-          return p.MultipleTargets(GroupCandidates(candidates, targetCount));
-        };
-    }
-
-
-    public static TargetingAiDelegate SacPermanentToBounce()
-    {
-      return p =>
-        {
-          var costCandidates = p.CostCandidates[0]
-            .GetPermanentsThatCanBeKilled(p)
-            .OrderBy(x => x.Card().Score)
-            .Concat(p.CostCandidates[0].Where(x => x.Card().Is().Land).OrderBy(x => x.Card().IsTapped ? 0 : 1))
-            .Take(2)
-            .ToList();
+    //      return p.MultipleTargets(GroupCandidates(candidates, targetCount));
+    //    };
+    //}
 
 
-          if (costCandidates.Count == 0)
-            return p.NoTargets();
+    //public static TargetingAiDelegate SacPermanentToBounce()
+    //{
+    //  return p =>
+    //    {
+    //      var costCandidates = p.CostCandidates[0]
+    //        .GetPermanentsThatCanBeKilled(p)
+    //        .OrderBy(x => x.Card().Score)
+    //        .Concat(p.CostCandidates[0].Where(x => x.Card().Is().Land).OrderBy(x => x.Card().IsTapped ? 0 : 1))
+    //        .Take(2)
+    //        .ToList();
 
-          var effectCandidates = p.EffectCandidates[0]
-            .GetBounceCandidates(p)
-            .Take(2)
-            .ToList();
 
-          if (effectCandidates.Count == 0)
-            return p.NoTargets();
+    //      if (costCandidates.Count == 0)
+    //        return p.NoTargets();
 
-          return p.Targets(effectCandidates, costCandidates);
-        };
-    }
+    //      var effectCandidates = p.EffectCandidates[0]
+    //        .GetBounceCandidates(p)
+    //        .Take(2)
+    //        .ToList();
 
-    public static TargetingAiDelegate RemoveCardsFromOpponentsGraveyard()
-    {
-      return p =>
-        {
-          var candidates = p.Candidates()
-            .Where(x => x.Card().Controller != p.Controller)
-            .OrderByDescending(x => x.Card().Score)
-            .Select(x => x.Card())
-            .ToList();
+    //      if (effectCandidates.Count == 0)
+    //        return p.NoTargets();
 
-          var minCount = p.Selector.GetMinEffectTargetCount();
+    //      return p.Targets(effectCandidates, costCandidates);
+    //    };
+    //}
 
-          if (minCount < candidates.Count)
-          {
-            return p.NoTargets();
-          }
+    //public static TargetingAiDelegate RemoveCardsFromOpponentsGraveyard()
+    //{
+    //  return p =>
+    //    {
+    //      var candidates = p.Candidates()
+    //        .Where(x => x.Card().Controller != p.Controller)
+    //        .OrderByDescending(x => x.Card().Score)
+    //        .Select(x => x.Card())
+    //        .ToList();
 
-          var maxCount = p.Selector.GetMaxEffectTargetCount();
-          var pickedCount = Math.Min(maxCount, candidates.Count);
+    //      var minCount = p.Selector.GetMinEffectTargetCount();
 
-          if (pickedCount == 1)
-          {
-            return p.Targets(candidates);
-          }
+    //      if (minCount < candidates.Count)
+    //      {
+    //        return p.NoTargets();
+    //      }
 
-          return p.MultipleTargets(GroupCandidates(
-            candidates, pickedCount));
-        };
-    }
+    //      var maxCount = p.Selector.GetMaxEffectTargetCount();
+    //      var pickedCount = Math.Min(maxCount, candidates.Count);
 
-    public static TargetingAiDelegate DiscardCardsFromOpponentsHand()
-    {
-      return p =>
-        {
-          var candidates = p.Candidates()
-            .Where(x => x.Card().Controller != p.Controller)
-            .OrderByDescending(x => x.Card().Score)
-            .Select(x => x.Card())
-            .ToList();
+    //      if (pickedCount == 1)
+    //      {
+    //        return p.Targets(candidates);
+    //      }
 
-          var minCount = p.Selector.GetMinEffectTargetCount();
+    //      return p.MultipleTargets(GroupCandidates(
+    //        candidates, pickedCount));
+    //    };
+    //}
 
-          if (minCount < candidates.Count)
-          {
-            return p.NoTargets();
-          }
+    //public static TargetingAiDelegate DiscardCardsFromOpponentsHand()
+    //{
+    //  return p =>
+    //    {
+    //      var candidates = p.Candidates()
+    //        .Where(x => x.Card().Controller != p.Controller)
+    //        .OrderByDescending(x => x.Card().Score)
+    //        .Select(x => x.Card())
+    //        .ToList();
 
-          var maxCount = p.Selector.GetMaxEffectTargetCount();
-          var pickedCount = Math.Min(maxCount, candidates.Count);
+    //      var minCount = p.Selector.GetMinEffectTargetCount();
 
-          if (pickedCount == 1)
-          {
-            return p.Targets(candidates);
-          }
+    //      if (minCount < candidates.Count)
+    //      {
+    //        return p.NoTargets();
+    //      }
 
-          return p.MultipleTargets(GroupCandidates(
-            candidates, pickedCount));
-        };
-    }
+    //      var maxCount = p.Selector.GetMaxEffectTargetCount();
+    //      var pickedCount = Math.Min(maxCount, candidates.Count);
 
-    public static TargetingAiDelegate EnchantLand(ControlledBy controlledBy)
-    {
-      return p =>
-        {
-          var candidates = p.Candidates(controlledBy)            
-            .Take(1);
+    //      if (pickedCount == 1)
+    //      {
+    //        return p.Targets(candidates);
+    //      }
 
-          return p.Targets(candidates);
-        };
-    }
+    //      return p.MultipleTargets(GroupCandidates(
+    //        candidates, pickedCount));
+    //    };
+    //}
 
-    public static TargetingAiDelegate CostSacrificeRegenerate()
-    {
-      return p => p.Targets(p.Candidates()
-        .OrderBy(x => x.Card().Score)
-        .Take(2));
-    }
+    //public static TargetingAiDelegate EnchantLand(ControlledBy controlledBy)
+    //{
+    //  return p =>
+    //    {
+    //      var candidates = p.Candidates(controlledBy)            
+    //        .Take(1);
 
-    public static TargetingAiDelegate CostSacrificeDrawCards(Func<Card, bool> filter = null)
-    {
-      filter = filter ?? delegate { return true; };
+    //      return p.Targets(candidates);
+    //    };
+    //}
 
-      return p =>
-        {
-          var candidates = new List<ITarget>();
+    //public static TargetingAiDelegate CostSacrificeRegenerate()
+    //{
+    //  return p => p.Targets(p.Candidates()
+    //    .OrderBy(x => x.Card().Score)
+    //    .Take(2));
+    //}
 
-          if (p.Step == Step.DeclareBlockers)
-          {
-            candidates.AddRange(
-              p.Candidates()
-                .Where(x => filter(x.Card()))
-                .Where(x => p.Combat.CanBeDealtLeathalCombatDamage(x.Card()))
-                .Where(x => !p.Combat.CanKillAny(x.Card())));
-          }
+    //public static TargetingAiDelegate CostSacrificeDrawCards(Func<Card, bool> filter = null)
+    //{
+    //  filter = filter ?? delegate { return true; };
 
-          candidates.AddRange(
-            p.Candidates()
-              .Where(x => filter(x.Card()))
-              .Where(x => p.Stack.CanBeDestroyedByTopSpell(x.Card())));
+    //  return p =>
+    //    {
+    //      var candidates = new List<ITarget>();
 
-          return p.Targets(candidates);
-        };
-    }
+    //      if (p.Step == Step.DeclareBlockers)
+    //      {
+    //        candidates.AddRange(
+    //          p.Candidates()
+    //            .Where(x => filter(x.Card()))
+    //            .Where(x => p.Combat.CanBeDealtLeathalCombatDamage(x.Card()))
+    //            .Where(x => !p.Combat.CanKillAny(x.Card())));
+    //      }
 
-    public static TargetingAiDelegate TapLand()
-    {
-      return p =>
-        {
-          var candidates = p.Candidates(ControlledBy.Opponent)
-            .Where(x => !x.Card().IsTapped)
-            .OrderByDescending(x => x.Card().Score)
-            .Take(1);
+    //      candidates.AddRange(
+    //        p.Candidates()
+    //          .Where(x => filter(x.Card()))
+    //          .Where(x => p.Stack.CanBeDestroyedByTopSpell(x.Card())));
 
-          return p.Targets(candidates);
-        };
-    }
+    //      return p.Targets(candidates);
+    //    };
+    //}
+
+    //public static TargetingAiDelegate TapLand()
+    //{
+    //  return p =>
+    //    {
+    //      var candidates = p.Candidates(ControlledBy.Opponent)
+    //        .Where(x => !x.Card().IsTapped)
+    //        .OrderByDescending(x => x.Card().Score)
+    //        .Take(1);
+
+    //      return p.Targets(candidates);
+    //    };
+    //}
   }
 }

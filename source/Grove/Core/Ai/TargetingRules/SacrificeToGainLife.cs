@@ -4,7 +4,7 @@
   using System.Linq;
   using Targeting;
 
-  public class CostSacrificeToGainLife : TargetingRule
+  public class SacrificeToGainLife : TargetingRule
   {
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
     {

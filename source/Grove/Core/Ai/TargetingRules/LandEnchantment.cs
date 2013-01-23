@@ -3,12 +3,14 @@
   using System.Collections.Generic;
   using Targeting;
 
-  public class Bounce : TargetingRule
+  public class LandEnchantment : TargetingRule
   {
+    public ControlledBy ControlledBy;
+
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
     {
-      var candidates = GetBounceCandidates(p);
-      return Group(candidates, p.MinTargetCount());
+      var candidates = p.Candidates<Card>(ControlledBy);
+      return Group(candidates, 1);
     }
   }
 }

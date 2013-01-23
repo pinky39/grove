@@ -18,7 +18,7 @@
         .Take(Search.MaxTargetCandidates)
         .ToList();
 
-      if (targetsCombinations.Count < parameters.MinTargetCount())
+      if (targetsCombinations.Count == 0 && parameters.MinTargetCount() > 0)
       {
         if (parameters.CanCancel)
         {
@@ -62,15 +62,22 @@
       return Group(candidates.Cast<ITarget>().ToList(), targetCount, add);
     }
 
+    protected IList<Targets> Group(IEnumerable<Card> candidates1, IEnumerable<Card> candidates2,
+      Action<ITarget, Targets> add1 = null, Action<ITarget, Targets> add2 = null)
+    {
+      return Group(candidates1.Cast<ITarget>().ToList(), candidates2.Cast<ITarget>().ToList(), add1, add2);
+    }
+
     protected IList<Targets> Group(IList<ITarget> candidates1, IList<ITarget> candidates2,
-      Action<ITarget, Targets> add = null)
+      Action<ITarget, Targets> add1 = null, Action<ITarget, Targets> add2 = null)
     {
       var results = new List<Targets>();
 
       if (candidates1.Count == 0 || candidates2.Count == 0)
         return results;
 
-      add = add ?? ((trg, trgts) => trgts.AddEffect(trg));
+      add1 = add1 ?? ((trg, trgts) => trgts.AddEffect(trg));
+      add2 = add2 ?? ((trg, trgts) => trgts.AddEffect(trg));
 
       var index1 = 0;
       var index2 = 0;
@@ -84,8 +91,8 @@
 
         var targets = new Targets();
 
-        add(candidates1[index1], targets);
-        add(candidates2[index2], targets);
+        add1(candidates1[index1], targets);
+        add2(candidates2[index2], targets);
 
         index1++;
         index2++;
@@ -223,10 +230,22 @@
         .Select(x => x.Card);
     }
 
-    protected IEnumerable<Card> GetCandidatesThatCanBeDestroyed(TargetingRuleParameters p)
+    protected IEnumerable<Card> GetCandidatesThatCanBeDestroyed(TargetingRuleParameters p, Func<TargetsCandidates, IList<TargetCandidates>> selector = null)
     {
-      return p.Candidates<Card>(ControlledBy.SpellOwner)
+      return p.Candidates<Card>(ControlledBy.SpellOwner, selector: selector)
         .Where(x => Stack.CanBeDestroyedByTopSpell(x.Card()) || Combat.CanBeDealtLeathalCombatDamage(x.Card()));
+    }
+
+    protected static IEnumerable<Card> GetBounceCandidates(TargetingRuleParameters p, Func<TargetsCandidates, IList<TargetCandidates>> selector = null)
+    {
+      return p.Candidates<Card>(ControlledBy.Opponent, selector: selector)
+        .Select(x => new
+          {
+            Card = x,
+            Score = x.Owner == p.Controller ? 2*x.Score : x.Score
+          })
+        .OrderByDescending(x => x.Score)
+        .Select(x => x.Card);
     }
   }
 }

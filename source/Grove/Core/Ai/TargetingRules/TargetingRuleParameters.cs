@@ -25,12 +25,24 @@
     public Card Card { get { return _context.Card; } }
     public bool DistributeDamage { get { return _context.DistributeDamage; } }
 
-    public IEnumerable<T> Candidates<T>(ControlledBy controlledBy = ControlledBy.Any, int selectorIndex = 0)
+    public IEnumerable<T> Candidates<T>(
+      ControlledBy controlledBy = ControlledBy.Any,
+      int selectorIndex = 0,
+      Func<TargetsCandidates, IList<TargetCandidates>> selector = null)
       where T : ITarget
     {
-      var candidates = _candidates.HasCost
-        ? _candidates.Cost[selectorIndex]
-        : _candidates.Effect[selectorIndex];
+      TargetCandidates candidates = null;
+
+      if (selector == null)
+      {
+        candidates = _candidates.HasCost
+          ? _candidates.Cost[selectorIndex]
+          : _candidates.Effect[selectorIndex];
+      }
+      else
+      {
+        candidates = selector(_candidates)[selectorIndex];
+      }
 
       switch (controlledBy)
       {
@@ -56,6 +68,11 @@
     public int MinTargetCount()
     {
       return _context.Selector.GetMinEffectTargetCount();
+    }
+
+    public int MaxTargetCount()
+    {
+      return _context.Selector.GetMaxEffectTargetCount();
     }
   }
 }
