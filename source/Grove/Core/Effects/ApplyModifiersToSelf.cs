@@ -9,7 +9,7 @@
     private readonly List<IModifierFactory> _selfModifiers = new List<IModifierFactory>();
     public Value ToughnessReduction = 0;
 
-    public override bool AffectsSource { get { return true; } }
+    public override bool TargetsEffectSource { get { return true; } }
 
     public override int CalculateToughnessReduction(Card card)
     {

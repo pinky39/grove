@@ -4,15 +4,15 @@
   {
     public int? CounterCost;
 
-    public override bool ShouldPlay(ActivationContext context)
+    public override bool ShouldPlay(TimingRuleParameters p)
     {
       if (Stack.IsEmpty)
         return false;
 
-      if (Stack.TopSpell.Controller == context.Card.Controller)
+      if (Stack.TopSpell.Controller == p.Controller)
         return false;
 
-      return !CounterCost.HasValue || !context.Card.Controller.Opponent.HasMana(CounterCost.Value);
+      return !CounterCost.HasValue || !p.Controller.Opponent.HasMana(CounterCost.Value);
     }
   }
 }

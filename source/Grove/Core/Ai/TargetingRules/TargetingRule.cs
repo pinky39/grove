@@ -8,21 +8,20 @@
 
   public abstract class TargetingRule : MachinePlayRule
   {
-    public override void Process(Ai.ActivationContext context)
+    public override void Process(Ai.ActivationContext c)
     {
-      var candidates = context.Selector.GenerateCandidates(Game.GenerateTargets);
+      var candidates = c.Selector.GenerateCandidates(Game.GenerateTargets);
 
-      var parameters = new TargetingRuleParameters(candidates, context, Game);
+      var parameters = new TargetingRuleParameters(candidates, c, Game);
 
-      var targetsCombinations = SelectTargets(parameters)
-        .Take(Search.MaxTargetCandidates)
+      var targetsCombinations = SelectTargets(parameters)        
         .ToList();
 
       if (targetsCombinations.Count == 0 && parameters.MinTargetCount() > 0)
       {
         if (parameters.CanCancel)
         {
-          context.CancelActivation = true;
+          c.CancelActivation = true;
           return;
         }
 
@@ -32,7 +31,7 @@
       }
 
 
-      context.Targets = targetsCombinations;
+      c.Targets = targetsCombinations;
     }
 
     protected abstract IEnumerable<Targets> SelectTargets(TargetingRuleParameters p);

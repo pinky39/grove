@@ -23,7 +23,7 @@
       Card = prerequisites.Card;
       DistributeDamage = prerequisites.DistributeDamage;
       MaxX = prerequisites.MaxX;
-      Selector = prerequisites.Selector;
+      Selector = prerequisites.Selector;      
     }
   }
 }

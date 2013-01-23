@@ -12,7 +12,7 @@
       _steps.AddRange(steps);
     }
 
-    public override bool ShouldPlay(ActivationContext context)
+    public override bool ShouldPlay(ActivationContext c)
     {
       return _steps.Any(x => x == Turn.Step);
     }

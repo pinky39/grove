@@ -2,7 +2,7 @@
 {
   public abstract class MachinePlayRule : GameObject
   {
-    public abstract void Process(ActivationContext context);
+    public abstract void Process(ActivationContext c);
 
     public virtual void Initialize(Game game)
     {

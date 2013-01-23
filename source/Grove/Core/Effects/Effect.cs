@@ -139,5 +139,7 @@
     }
 
     protected virtual void DistributeDamage(IDamageDistributor damageDistributor) {}
+
+    public virtual bool TargetsEffectSource { get { return false; } }
   }
 }
