@@ -10,7 +10,7 @@
     protected override void ResolveEffect()
     {
       // count on resolve
-      Target().Player().Life += Players.Permanents().Count(x => x.Is().Creature) * Multiplier;
+      Target().Player().Life += Core.Players.Permanents().Count(x => x.Is().Creature) * Multiplier;
     }
   }
 }

@@ -12,7 +12,7 @@
   {
     protected Game Game { get; set; }
     
-    protected Players Player {get { return Game.Players; }}
+    protected Players Players {get { return Game.Players; }}
     protected Stack Stack { get { return Game.Stack; } }
     protected Combat Combat {get { return Game.Combat; }}    
     protected TurnInfo Turn {get { return Game.Turn; }}

@@ -9,7 +9,7 @@
 
     protected override void ResolveEffect()
     {
-      foreach (var permanent in Players.Permanents().Where(card => Filter(card)).ToList())
+      foreach (var permanent in Core.Players.Permanents().Where(card => Filter(card)).ToList())
       {
         permanent.PutToHand();
       }

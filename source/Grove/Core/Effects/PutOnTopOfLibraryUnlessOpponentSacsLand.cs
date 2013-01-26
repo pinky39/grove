@@ -17,7 +17,7 @@
 
     protected override void ResolveEffect()
     {
-      Game.Enqueue<SelectCardsToSacrificeAsCost>(Players.GetOpponent(Controller), p =>
+      Game.Enqueue<SelectCardsToSacrificeAsCost>(Core.Players.GetOpponent(Controller), p =>
         {
           p.Validator = card => card.Is().Land;
           p.Zone = Zone.Battlefield;

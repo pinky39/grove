@@ -9,7 +9,7 @@
 
     public void Receive(DamageHasBeenDealt message)
     {
-      if (message.Receiver == Players.Passive)
+      if (message.Receiver == Core.Players.Passive)
       {
         _wasDealtDamage.Value = true;
       }

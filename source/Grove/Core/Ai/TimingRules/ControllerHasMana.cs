@@ -1,12 +1,12 @@
 ﻿namespace Grove.Core.Ai.TimingRules
 {
-  using System;
-
-  public class Lands : TimingRule
+  public class ControllerHasMana : TimingRule
   {
+    public int Converted;
+
     public override bool ShouldPlay(TimingRuleParameters p)
     {
-      return Turn.Step == Step.FirstMain;
+      return p.Controller.HasMana(Converted);
     }
   }
 }

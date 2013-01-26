@@ -16,7 +16,7 @@
         return;
       }
 
-      var players = new[] {Players.Active, Players.Passive};
+      var players = new[] {Core.Players.Active, Core.Players.Passive};
 
       foreach (var player in players)
       {

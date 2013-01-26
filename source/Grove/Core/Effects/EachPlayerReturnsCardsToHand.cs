@@ -15,8 +15,8 @@
 
     protected override void ResolveEffect()
     {
-      ReturnCreatureToHand(Players.Active);
-      ReturnCreatureToHand(Players.Passive);
+      ReturnCreatureToHand(Core.Players.Active);
+      ReturnCreatureToHand(Core.Players.Passive);
     }
 
     private void ReturnCreatureToHand(Player player)

@@ -8,7 +8,7 @@
 
     protected override void ResolveEffect()
     {
-      Players.DestroyPermanents(x => Filter(this, x));
+      Core.Players.DestroyPermanents(x => Filter(this, x));
     }
   }
 }

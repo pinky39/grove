@@ -171,274 +171,274 @@
     //    };
     //}
 
-    public static TimingDelegate Turn(bool active = false, bool passive = false)
-    {
-      return p => (p.Controller.IsActive && active) || (!p.Controller.IsActive && passive);
-    }
+    //public static TimingDelegate Turn(bool active = false, bool passive = false)
+    //{
+    //  return p => (p.Controller.IsActive && active) || (!p.Controller.IsActive && passive);
+    //}
 
-    public static TimingDelegate Steps(params Step[] steps)
-    {
-      return p => steps.Any(step => p.Step == step);
-    }
+    //public static TimingDelegate Steps(params Step[] steps)
+    //{
+    //  return p => steps.Any(step => p.Step == step);
+    //}
 
-    public static TimingDelegate All(params TimingDelegate[] predicates)
-    {
-      return p => predicates.All(predicate => predicate(p));
-    }
+    //public static TimingDelegate All(params TimingDelegate[] predicates)
+    //{
+    //  return p => predicates.All(predicate => predicate(p));
+    //}
 
-    public static TimingDelegate Any(params TimingDelegate[] predicates)
-    {
-      return p => predicates.Any(predicate => predicate(p));
-    }
+    //public static TimingDelegate Any(params TimingDelegate[] predicates)
+    //{
+    //  return p => predicates.Any(predicate => predicate(p));
+    //}
 
-    public static TimingDelegate AttachCombatEquipment()
-    {
-      return p =>
-        {
-          if (p.IsAttached)
-          {
-            // reattach to blocker
-            return p.Step == Step.SecondMain;
-          }
+    //public static TimingDelegate AttachCombatEquipment()
+    //{
+    //  return p =>
+    //    {
+    //      if (p.IsAttached)
+    //      {
+    //        // reattach to blocker
+    //        return p.Step == Step.SecondMain;
+    //      }
 
-          // attach to attacker
-          return p.Step == Step.FirstMain;
-        };
-    }
+    //      // attach to attacker
+    //      return p.Step == Step.FirstMain;
+    //    };
+    //}
 
-    public static TimingDelegate Leveler(IManaAmount activationCost, IEnumerable<LevelDefinition> levelDefinitions)
-    {
-      return p =>
-        {
-          var level = p.Card.Level ?? 0;
-          int? costToNextLevel = null;
+    //public static TimingDelegate Leveler(IManaAmount activationCost, IEnumerable<LevelDefinition> levelDefinitions)
+    //{
+    //  return p =>
+    //    {
+    //      var level = p.Card.Level ?? 0;
+    //      int? costToNextLevel = null;
 
-          foreach (var definition in levelDefinitions)
-          {
-            if (definition.Max == null)
-              break;
+    //      foreach (var definition in levelDefinitions)
+    //      {
+    //        if (definition.Max == null)
+    //          break;
 
-            if (level < definition.Min)
-            {
-              costToNextLevel = definition.Min - level;
-              break;
-            }
+    //        if (level < definition.Min)
+    //        {
+    //          costToNextLevel = definition.Min - level;
+    //          break;
+    //        }
 
-            if (definition.Min <= level && definition.Max >= level)
-            {
-              costToNextLevel = definition.Max + 1 - level;
-              break;
-            }
-          }
+    //        if (definition.Min <= level && definition.Max >= level)
+    //        {
+    //          costToNextLevel = definition.Max + 1 - level;
+    //          break;
+    //        }
+    //      }
 
-          if (costToNextLevel == null)
-            return false;
+    //      if (costToNextLevel == null)
+    //        return false;
 
-          var manaCost = new AggregateManaAmount(Enumerable.Repeat(activationCost, costToNextLevel.Value));
-          return p.Controller.HasMana(manaCost, ManaUsage.Abilities);
-        };
-    }
+    //      var manaCost = new AggregateManaAmount(Enumerable.Repeat(activationCost, costToNextLevel.Value));
+    //      return p.Controller.HasMana(manaCost, ManaUsage.Abilities);
+    //    };
+    //}
 
-    public static TimingDelegate Cycling()
-    {
-      return p => p.Step == Step.EndOfTurn && !p.Controller.IsActive;
-    }
+    //public static TimingDelegate Cycling()
+    //{
+    //  return p => p.Step == Step.EndOfTurn && !p.Controller.IsActive;
+    //}
 
-    public static TimingDelegate FirstMain()
-    {
-      return Steps(Step.FirstMain);
-    }
+    //public static TimingDelegate FirstMain()
+    //{
+    //  return Steps(Step.FirstMain);
+    //}
 
-    public static TimingDelegate Creatures()
-    {
-      return p =>
-        {
-          if (p.Card.Power < 2 || p.Card.Has().Defender)
-            return p.Step == Step.SecondMain;
+    //public static TimingDelegate Creatures()
+    //{
+    //  return p =>
+    //    {
+    //      if (p.Card.Power < 2 || p.Card.Has().Defender)
+    //        return p.Step == Step.SecondMain;
 
-          return p.Step == Step.FirstMain || p.Step == Step.SecondMain;
-        };
-    }
+    //      return p.Step == Step.FirstMain || p.Step == Step.SecondMain;
+    //    };
+    //}
 
-    public static TimingDelegate SecondMain()
-    {
-      return Steps(Step.SecondMain);
-    }
+    //public static TimingDelegate SecondMain()
+    //{
+    //  return Steps(Step.SecondMain);
+    //}
 
-    public static TimingDelegate InstantBounceAllCreatures()
-    {
-      return p =>
-        {
-          if (p.Step == Step.CombatDamage && p.Controller.IsActive)
-          {
-            var controllerCount = p.Controller.Battlefield.Creatures.Count(x => !x.IsTapped);
-            var opponentCount = p.Opponent.Battlefield.Creatures.Count();
+    //public static TimingDelegate InstantBounceAllCreatures()
+    //{
+    //  return p =>
+    //    {
+    //      if (p.Step == Step.CombatDamage && p.Controller.IsActive)
+    //      {
+    //        var controllerCount = p.Controller.Battlefield.Creatures.Count(x => !x.IsTapped);
+    //        var opponentCount = p.Opponent.Battlefield.Creatures.Count();
 
-            return controllerCount < opponentCount;
-          }
+    //        return controllerCount < opponentCount;
+    //      }
 
-          return p.Step == Step.DeclareBlockers && !p.Controller.IsActive &&
-            p.Attackers.Any();
-        };
-    }
+    //      return p.Step == Step.DeclareBlockers && !p.Controller.IsActive &&
+    //        p.Attackers.Any();
+    //    };
+    //}
 
-    public static TimingDelegate IncreaseOwnersPowerAndThougness(int? power, int? toughness)
-    {
-      return p =>
-        {
-          power = power ?? p.Activation.X;
-          toughness = toughness ?? p.Activation.X;
+    //public static TimingDelegate IncreaseOwnersPowerAndThougness(int? power, int? toughness)
+    //{
+    //  return p =>
+    //    {
+    //      power = power ?? p.Activation.X;
+    //      toughness = toughness ?? p.Activation.X;
 
-          if (toughness > 0 && p.Stack.CanBeDealtLeathalDamageByTopSpell(p.Card))
-          {
-            return true;
-          }
+    //      if (toughness > 0 && p.Stack.CanBeDealtLeathalDamageByTopSpell(p.Card))
+    //      {
+    //        return true;
+    //      }
 
-          if (p.Step == Step.DeclareBlockers && p.Controller.IsActive && p.Card.IsAttacker)
-          {
-            return QuickCombat.CalculateGainAttackerWouldGetIfPowerAndThoughnessWouldIncrease(
-              attacker: p.Card,
-              blockers: p.Combat.GetBlockers(p.Card),
-              powerIncrease: power.Value,
-              toughnessIncrease: toughness.Value) > 0;
-          }
+    //      if (p.Step == Step.DeclareBlockers && p.Controller.IsActive && p.Card.IsAttacker)
+    //      {
+    //        return QuickCombat.CalculateGainAttackerWouldGetIfPowerAndThoughnessWouldIncrease(
+    //          attacker: p.Card,
+    //          blockers: p.Combat.GetBlockers(p.Card),
+    //          powerIncrease: power.Value,
+    //          toughnessIncrease: toughness.Value) > 0;
+    //      }
 
-          if (p.Step == Step.DeclareBlockers && !p.Controller.IsActive && p.Card.IsBlocker)
-          {
-            return QuickCombat.CalculateGainBlockerWouldGetIfPowerAndThougnessWouldIncrease(
-              blocker: p.Card,
-              attacker: p.Combat.GetAttacker(p.Card),
-              powerIncrease: power.Value,
-              toughnessIncrease: toughness.Value) > 0;
-          }
+    //      if (p.Step == Step.DeclareBlockers && !p.Controller.IsActive && p.Card.IsBlocker)
+    //      {
+    //        return QuickCombat.CalculateGainBlockerWouldGetIfPowerAndThougnessWouldIncrease(
+    //          blocker: p.Card,
+    //          attacker: p.Combat.GetAttacker(p.Card),
+    //          powerIncrease: power.Value,
+    //          toughnessIncrease: toughness.Value) > 0;
+    //      }
 
-          return false;
-        };
-    }
+    //      return false;
+    //    };
+    //}
 
-    public static TimingDelegate ChangeToCreature(int minAvailableMana = 0)
-    {
-      return p =>
-        {
-          if (p.Step == Step.BeginningOfCombat && p.Controller.IsActive)
-          {
-            return minAvailableMana == 0 || p.Controller.HasMana(minAvailableMana, ManaUsage.Abilities);
-          }
+    //public static TimingDelegate ChangeToCreature(int minAvailableMana = 0)
+    //{
+    //  return p =>
+    //    {
+    //      if (p.Step == Step.BeginningOfCombat && p.Controller.IsActive)
+    //      {
+    //        return minAvailableMana == 0 || p.Controller.HasMana(minAvailableMana, ManaUsage.Abilities);
+    //      }
 
-          if (p.Step == Step.DeclareAttackers && !p.Controller.IsActive)
-          {
-            return minAvailableMana == 0 || p.Controller.HasMana(minAvailableMana, ManaUsage.Abilities) && p.Combat.Attackers.Any();
-          }
+    //      if (p.Step == Step.DeclareAttackers && !p.Controller.IsActive)
+    //      {
+    //        return minAvailableMana == 0 || p.Controller.HasMana(minAvailableMana, ManaUsage.Abilities) && p.Combat.Attackers.Any();
+    //      }
 
-          return false;
-        };
-    }
+    //      return false;
+    //    };
+    //}
 
-    public static TimingDelegate EndOfTurn()
-    {
-      return p =>
-        {
-          if (!p.Controller.IsActive && p.Step == Step.EndOfTurn)
-            return true;
+    //public static TimingDelegate EndOfTurn()
+    //{
+    //  return p =>
+    //    {
+    //      if (!p.Controller.IsActive && p.Step == Step.EndOfTurn)
+    //        return true;
 
-          return false;
-        };
-    }
+    //      return false;
+    //    };
+    //}
 
-    public static TimingDelegate BeforeDeath()
-    {
-      return p =>
-        {
-          if (p.Step == Step.DeclareBlockers)
-          {
-            return p.Combat.CanBeDealtLeathalCombatDamage(p.Card);
-          }
+    //public static TimingDelegate BeforeDeath()
+    //{
+    //  return p =>
+    //    {
+    //      if (p.Step == Step.DeclareBlockers)
+    //      {
+    //        return p.Combat.CanBeDealtLeathalCombatDamage(p.Card);
+    //      }
 
-          if (p.Stack.IsEmpty)
-            return false;
+    //      if (p.Stack.IsEmpty)
+    //        return false;
 
-          return p.Stack.CanBeDestroyedByTopSpell(p.Card) ||
-            p.Stack.CanTopSpellReducePlayersLifeToZero(p.Controller);
-        };
-    }
+    //      return p.Stack.CanBeDestroyedByTopSpell(p.Card) ||
+    //        p.Stack.CanTopSpellReducePlayersLifeToZero(p.Controller);
+    //    };
+    //}
 
-    public static TimingDelegate DeclareAttackers()
-    {
-      return p => p.Step == Step.DeclareAttackers;
-    }
+    //public static TimingDelegate DeclareAttackers()
+    //{
+    //  return p => p.Step == Step.DeclareAttackers;
+    //}
 
-    public static TimingDelegate CanBeDestroyedByTopSpell()
-    {
-      return p => p.Stack.CanBeDestroyedByTopSpell(p.Card, targetOnly: true);
-    }
+    //public static TimingDelegate CanBeDestroyedByTopSpell()
+    //{
+    //  return p => p.Stack.CanBeDestroyedByTopSpell(p.Card, targetOnly: true);
+    //}
 
-    public static TimingDelegate Has3CountersOr1IfDestroyed()
-    {
-      return p =>
-        {
-          if (p.Card.Counters >= 3 && p.Step == Step.EndOfTurn && !p.Controller.IsActive)
-            return true;
+    //public static TimingDelegate Has3CountersOr1IfDestroyed()
+    //{
+    //  return p =>
+    //    {
+    //      if (p.Card.Counters >= 3 && p.Step == Step.EndOfTurn && !p.Controller.IsActive)
+    //        return true;
 
-          if (p.Card.Counters >= 1 && p.Stack.CanBeDestroyedByTopSpell(p.Card, targetOnly: true))
-            return true;
+    //      if (p.Card.Counters >= 1 && p.Stack.CanBeDestroyedByTopSpell(p.Card, targetOnly: true))
+    //        return true;
 
-          return false;
-        };
-    }
+    //      return false;
+    //    };
+    //}
 
-    public static TimingDelegate SummonBlockers()
-    {
-      return p =>
-        {
-          if (p.Controller.IsActive)
-            return false;
+    //public static TimingDelegate SummonBlockers()
+    //{
+    //  return p =>
+    //    {
+    //      if (p.Controller.IsActive)
+    //        return false;
 
-          if (p.Step != Step.DeclareAttackers)
-            return false;
+    //      if (p.Step != Step.DeclareAttackers)
+    //        return false;
 
-          return p.Combat.Attackers.Any();
-        };
-    }
+    //      return p.Combat.Attackers.Any();
+    //    };
+    //}
 
-    public static TimingDelegate OpponentHasPermanent(Func<Card, bool> filter)
-    {
-      return p => p.Players.Permanents().Any(x => filter(x) && x.Controller == p.Opponent);
-    }    
+    //public static TimingDelegate OpponentHasPermanent(Func<Card, bool> filter)
+    //{
+    //  return p => p.Players.Permanents().Any(x => filter(x) && x.Controller == p.Opponent);
+    //}    
 
-    public static TimingDelegate HasCounters(int count)
-    {
-      return p => p.Card.Counters >= 3;
-    }
+    //public static TimingDelegate HasCounters(int count)
+    //{
+    //  return p => p.Card.Counters >= 3;
+    //}
 
-    public static TimingDelegate HasCardsInGraveyard(Func<Card, bool> predicate, int count = 1)
-    {
-      predicate = predicate ?? delegate { return true; };
-      return p => p.Controller.Graveyard.Count(predicate) >= count;
-    }
+    //public static TimingDelegate HasCardsInGraveyard(Func<Card, bool> predicate, int count = 1)
+    //{
+    //  predicate = predicate ?? delegate { return true; };
+    //  return p => p.Controller.Graveyard.Count(predicate) >= count;
+    //}
 
-    public static TimingDelegate HasAtLeastCardsInHand(Func<Card, bool> predicate = null, int count = 1)
-    {
-      predicate = predicate ?? delegate { return true; };
-      return p => p.Controller.Hand.Count(predicate) >= count;
-    }
+    //public static TimingDelegate HasAtLeastCardsInHand(Func<Card, bool> predicate = null, int count = 1)
+    //{
+    //  predicate = predicate ?? delegate { return true; };
+    //  return p => p.Controller.Hand.Count(predicate) >= count;
+    //}
 
-    public static TimingDelegate HasLessThanCardsInHand(Func<Card, bool> predicate = null, int count = 1)
-    {
-      predicate = predicate ?? delegate { return true; };
-      return p => p.Controller.Hand.Count(predicate) < count;
-    }
+    //public static TimingDelegate HasLessThanCardsInHand(Func<Card, bool> predicate = null, int count = 1)
+    //{
+    //  predicate = predicate ?? delegate { return true; };
+    //  return p => p.Controller.Hand.Count(predicate) < count;
+    //}
 
-    public static TimingDelegate HasPermanent(Func<Card, bool> predicate)
-    {
-      predicate = predicate ?? delegate { return true; };
-      return p => p.Controller.Battlefield.Count(predicate) > 0;
-    }
+    //public static TimingDelegate HasPermanent(Func<Card, bool> predicate)
+    //{
+    //  predicate = predicate ?? delegate { return true; };
+    //  return p => p.Controller.Battlefield.Count(predicate) > 0;
+    //}
 
-    public static TimingDelegate HasPermanents(int count, Func<Card, bool> filter = null)
-    {
-      filter = filter ?? delegate { return true; };
-      return p => p.Players.Permanents().Count(filter) >= count;
-    }
+    //public static TimingDelegate HasPermanents(int count, Func<Card, bool> filter = null)
+    //{
+    //  filter = filter ?? delegate { return true; };
+    //  return p => p.Players.Permanents().Count(filter) >= count;
+    //}
 
     public static TimingDelegate HasMorePermanents(Func<Card, bool> filter = null)
     {

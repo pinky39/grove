@@ -5,14 +5,14 @@
 
   public class Steps : TimingRule
   {
-    private List<Step> _steps = new List<Step>();
+    private readonly List<Step> _steps = new List<Step>();
 
     public void At(params Step[] steps)
     {
       _steps.AddRange(steps);
     }
 
-    public override bool ShouldPlay(ActivationContext c)
+    public override bool ShouldPlay(TimingRuleParameters p)
     {
       return _steps.Any(x => x == Turn.Step);
     }

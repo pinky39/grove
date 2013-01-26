@@ -8,7 +8,7 @@
 
     protected override void ResolveEffect()
     {
-      Players.ScheduleExtraTurns(Target().Player(), Count);
+      Core.Players.ScheduleExtraTurns(Target().Player(), Count);
     }
   }
 }

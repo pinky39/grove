@@ -22,8 +22,8 @@
 
     protected override void ResolveEffect()
     {
-      ChooseCreatureToPutIntoPlay(Players.Active);
-      ChooseCreatureToPutIntoPlay(Players.Passive);
+      ChooseCreatureToPutIntoPlay(Core.Players.Active);
+      ChooseCreatureToPutIntoPlay(Core.Players.Passive);
     }
   }
 }

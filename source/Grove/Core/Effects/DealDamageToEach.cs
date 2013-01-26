@@ -33,7 +33,7 @@
 
     protected override void ResolveEffect()
     {
-      foreach (var player in Players)
+      foreach (var player in Core.Players)
       {
         if (DealToPlayer(player))
         {
@@ -48,7 +48,7 @@
         }
       }
 
-      foreach (var player in Players)
+      foreach (var player in Core.Players)
       {
         foreach (var creature in player.Battlefield.Creatures)
         {

@@ -8,6 +8,7 @@
   {
     private readonly Targets _targets;
     public Card Card { get; private set; }
+    public int? X { get; private set; }
     public Player Controller {get { return Card.Controller; }}
     
     public Targets Targets()
@@ -20,9 +21,10 @@
       return _targets.Where(x => x is T).Select(x => (T) x);
     }
     
-    public TimingRuleParameters(Card card, Targets targets = null)
+    public TimingRuleParameters(Card card, Targets targets = null, int? x = null)
     {
       Card = card;
+      X = x;
       _targets = targets;
     }
   }

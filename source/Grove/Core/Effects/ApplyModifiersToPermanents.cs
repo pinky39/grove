@@ -35,7 +35,7 @@
         return;
       }
 
-      foreach (var player in Players)
+      foreach (var player in Core.Players)
       {
         ApplyModifierToPlayersPermanents(player);
       }

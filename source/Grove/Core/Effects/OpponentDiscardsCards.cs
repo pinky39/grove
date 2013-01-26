@@ -11,7 +11,7 @@
 
     protected override void ResolveEffect()
     {      
-      var opponent = Players.GetOpponent(Controller);
+      var opponent = Core.Players.GetOpponent(Controller);
 
       if (YouChooseDiscardedCards)
       {

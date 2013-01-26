@@ -6,7 +6,7 @@
 
     protected override void ResolveEffect()
     {
-      var opponent = Players.GetOpponent(Controller);
+      var opponent = Core.Players.GetOpponent(Controller);
       opponent.Mill(Count);
     }
   }
