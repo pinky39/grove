@@ -440,7 +440,7 @@
     <Compile Include="Core\Ai\TimingRules\All.cs" />
     <Compile Include="Core\Ai\TimingRules\Any.cs" />
     <Compile Include="Core\Ai\TimingRules\AttachEquipment.cs" />
-    <Compile Include="Core\Ai\TimingRules\ControllerControlsPermanent.cs" />
+    <Compile Include="Core\Ai\TimingRules\ControllerHasPermanents.cs" />
     <Compile Include="Core\Ai\TimingRules\ControllerGravayardCountIs.cs" />
     <Compile Include="Core\Ai\TimingRules\ControllerHandCountIs.cs" />
     <Compile Include="Core\Ai\TimingRules\OwningCardHasCounters.cs" />

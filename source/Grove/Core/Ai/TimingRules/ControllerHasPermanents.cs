@@ -3,7 +3,7 @@
   using System;
   using System.Linq;
 
-  public class ControllerControlsPermanent : TimingRule
+  public class ControllerHasPermanents : TimingRule
   {
     public Func<Card, bool> Selector = delegate { return true; };
     public int MinCount = 1;
