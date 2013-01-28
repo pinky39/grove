@@ -400,6 +400,13 @@
     <Compile Include="Core\Ai\ActivationContext.cs" />
     <Compile Include="Core\Ai\AttackerEvaluation.cs" />
     <Compile Include="Core\Ai\BlockerEvaluation.cs" />
+    <Compile Include="Core\Ai\CostRules\DestroyEachCreature.cs" />
+    <Compile Include="Core\Ai\CostRules\MaxAvailableMana.cs" />
+    <Compile Include="Core\Ai\CostRules\CostRule.cs" />
+    <Compile Include="Core\Ai\CostRules\CostRuleParameters.cs" />
+    <Compile Include="Core\Ai\CostRules\CounterUnlessOpponentPaysX.cs" />
+    <Compile Include="Core\Ai\CostRules\ReduceToughnessOfEachCreature.cs" />
+    <Compile Include="Core\Ai\CostRules\TargetsLifepoints.cs" />
     <Compile Include="Core\Ai\QuickCombat.cs" />
     <Compile Include="Core\Ai\TargetingRules\AttachTargetToSelf.cs" />
     <Compile Include="Core\Ai\TargetingRules\Bounce.cs" />
@@ -440,11 +447,16 @@
     <Compile Include="Core\Ai\TimingRules\All.cs" />
     <Compile Include="Core\Ai\TimingRules\Any.cs" />
     <Compile Include="Core\Ai\TimingRules\AttachEquipment.cs" />
+    <Compile Include="Core\Ai\TimingRules\ControllerHasMorePermanents.cs" />
     <Compile Include="Core\Ai\TimingRules\ControllerHasPermanents.cs" />
     <Compile Include="Core\Ai\TimingRules\ControllerGravayardCountIs.cs" />
     <Compile Include="Core\Ai\TimingRules\ControllerHandCountIs.cs" />
+    <Compile Include="Core\Ai\TimingRules\ControllerNeedsAdditionalMana.cs" />
+    <Compile Include="Core\Ai\TimingRules\MinAttackerCount.cs" />
+    <Compile Include="Core\Ai\TimingRules\OpponentHasAtLeastCardsInHand.cs" />
+    <Compile Include="Core\Ai\TimingRules\OwningCardHas.cs" />
     <Compile Include="Core\Ai\TimingRules\OwningCardHasCounters.cs" />
-    <Compile Include="Core\Ai\TimingRules\OpponentControlsPermanent.cs" />
+    <Compile Include="Core\Ai\TimingRules\OpponentHasPermanents.cs" />
     <Compile Include="Core\Ai\TimingRules\OwningCardWillBeDestroyed.cs" />
     <Compile Include="Core\Ai\TimingRules\BoostOwningCardPowerAndToughness.cs" />
     <Compile Include="Core\Ai\TimingRules\ChangeToCreature.cs" />
@@ -592,10 +604,7 @@
     <Compile Include="Core\Preventions\PreventDealtCombat.cs" />
     <Compile Include="Core\Preventions\PreventLifelossBelowOne.cs" />
     <Compile Include="Core\Mana\AggregateManaAmount.cs" />
-    <Compile Include="Core\Ai\TargetingAiParameters.cs" />
-    <Compile Include="Core\Ai\TargetingAi.cs" />
     <Compile Include="Core\ControlledBy.cs" />
-    <Compile Include="Core\Ai\XCalculatorParameters.cs" />
     <Compile Include="Core\Effects\PreventDamageFromSourceToController.cs" />
     <Compile Include="Core\Effects\PreventDamageFromSourceToTarget.cs" />
     <Compile Include="Core\Effects\RemoveModifier.cs" />
@@ -621,7 +630,6 @@
     <Compile Include="Core\Ai\InnerResult.cs" />
     <Compile Include="Core\Ai\ISearchResult.cs" />
     <Compile Include="Core\Ai\LeafResult.cs" />
-    <Compile Include="Core\Ai\Timings.cs" />
     <Compile Include="Core\Ai\SearchResults.cs" />
     <Compile Include="Core\Ai\SearchWorker.cs" />
     <Compile Include="Core\Ai\EffectCategories.cs" />
@@ -686,12 +694,10 @@
     <Compile Include="Core\Counters\PowerToughness.cs" />
     <Compile Include="Core\Preventions\IDamagePreventionFactory.cs" />
     <Compile Include="Core\Targeting\ITarget.cs" />
-    <Compile Include="Core\Ai\ChooseXAi.cs" />
     <Compile Include="Core\Modifiers\IncreaseLevel.cs" />
     <Compile Include="Core\Modifiers\LevelLifetime.cs" />
     <Compile Include="Core\Modifiers\SetPowerAndToughness.cs" />
     <Compile Include="Core\Mana\PrimitiveManaAmount.cs" />
-    <Compile Include="Core\Ai\TimingParameters.cs" />
     <Compile Include="Core\Targeting\TargetsCandidates.cs" />
     <Compile Include="Core\Targeting\TargetValidator.cs" />
     <Compile Include="Core\Targeting\TargetSelector.cs" />
@@ -935,7 +941,6 @@
     <Compile Include="Core\Ai\PlayableGenerator.cs" />
     <Compile Include="Core\Ai\ScoreCalculator.cs" />
     <Compile Include="Core\Ai\TargetGenerator.cs" />
-    <Compile Include="Core\Ai\ActivationGenerator.cs" />
     <Compile Include="Core\Dice.cs" />
     <Compile Include="Core\Game.cs" />
     <Compile Include="Core\IDamageable.cs" />
@@ -1289,9 +1294,7 @@
   <ItemGroup>
     <Resource Include="icon.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Core\Ai\CostRules\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <UsingTask TaskName="Costura.EmbedTask" AssemblyFile="$(SolutionDir)lib\costura\Costura.dll" />
   <Target Name="AfterBuild">

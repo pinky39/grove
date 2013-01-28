@@ -62,14 +62,27 @@
           yield break;
       }
 
-      foreach (var targets in context.Targets)
+      
+      if (context.HasTargets == false)
+      {
+        var playable = createPlayable();
+
+        playable.Card = prerequisites.Card;
+        playable.Index = prerequisites.Index;        
+        playable.ActivationParameters.X = context.X;
+
+        yield return playable;
+        yield break;
+      }
+      
+      foreach (var targetsCombination in context.TargetsCombinations())
       {
         var playable = createPlayable();
 
         playable.Card = prerequisites.Card;
         playable.Index = prerequisites.Index;
-        playable.ActivationParameters.Targets = targets;
-        playable.ActivationParameters.X = context.X;
+        playable.ActivationParameters.Targets = targetsCombination.Targets;
+        playable.ActivationParameters.X = targetsCombination.X;
 
         yield return playable;
       }

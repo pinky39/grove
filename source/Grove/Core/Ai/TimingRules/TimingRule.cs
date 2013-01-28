@@ -1,12 +1,13 @@
 ﻿namespace Grove.Core.Ai.TimingRules
 {
   using System.Linq;
+  using Infrastructure;
 
   public abstract class TimingRule : MachinePlayRule
   {
     public override void Process(ActivationContext c)
     {            
-      if (c.Targets.Count == 0)
+      if (c.HasTargets == false)
       {
         // timing aplied before targeting, or
         // spell with no targets, evaluate just
@@ -23,19 +24,22 @@
 
       // check each target timing, if ok keep 
       // the target otherwise remove it
-      
-      var targets = c.Targets.ToList();      
-      foreach (var target in targets)
+
+      var targetsCombinations = c.TargetsCombinations().ToList();
+
+
+      for (int i = 0; i < targetsCombinations.Count; i++)
       {
-        var p = new TimingRuleParameters(c.Card, target);
+        var targetsAndX = targetsCombinations[i];
+        var p = new TimingRuleParameters(c.Card, targetsAndX.Targets, targetsAndX.X);
 
         if (ShouldPlay(p) == false)
         {
-          c.Targets.Remove(target);
+          c.RemoveTargetCombination(i);
         }
       }
 
-      if (c.Targets.Count == 0)
+      if (c.TargetsCombinations().None())
       {
         // if not targets are appropriate, cancel activation
         c.CancelActivation = true;

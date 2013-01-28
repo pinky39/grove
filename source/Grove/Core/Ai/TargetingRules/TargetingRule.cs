@@ -31,7 +31,7 @@
       }
 
 
-      c.Targets = targetsCombinations;
+      c.SetPossibleTargets(targetsCombinations);
     }
 
     protected abstract IEnumerable<Targets> SelectTargets(TargetingRuleParameters p);
