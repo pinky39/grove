@@ -8,24 +8,26 @@
   [Copyable]
   public class TrackableList<T> : ITrackableCollection<T>, IList<T>, IHashable
   {
-    private readonly ChangeTracker _changeTracker;
-    private readonly IHashDependancy _hashDependancy;
+    private ChangeTracker _changeTracker;
+    private IHashDependancy _hashDependancy;
     private readonly List<T> _items = new List<T>();        
     private readonly bool _orderImpactsHashcode;
 
-    public TrackableList(IEnumerable<T> items, ChangeTracker changeTracker, IHashDependancy hashDependancy = null,
-                         bool orderImpactsHashcode = false)
-      : this(changeTracker, hashDependancy, orderImpactsHashcode)
+    public TrackableList(IEnumerable<T> items, bool orderImpactsHashcode = false)
+      : this(orderImpactsHashcode)
     {
       _items.AddRange(items);
     }
 
-    public TrackableList(ChangeTracker changeTracker, IHashDependancy hashDependancy = null,
-                         bool orderImpactsHashcode = false)
+    public TrackableList(bool orderImpactsHashcode = false)
+    {      
+      _orderImpactsHashcode = orderImpactsHashcode;      
+    }
+
+    public void Initialize(ChangeTracker changeTracker, IHashDependancy hashDependancy = null)
     {
-      _changeTracker = changeTracker;
-      _orderImpactsHashcode = orderImpactsHashcode;
       _hashDependancy = hashDependancy ?? new NullHashDependency();
+      _changeTracker = changeTracker;
     }
 
     private TrackableList() {}

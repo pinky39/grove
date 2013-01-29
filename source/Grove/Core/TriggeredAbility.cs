@@ -87,7 +87,7 @@
 
 
       var effect = EffectFactory(effectParameters, Game);
-      Resolve(effect);
+      Resolve(effect, skipStack: false);
     }
 
     private void RegisterTriggerListener(Trigger trigger)

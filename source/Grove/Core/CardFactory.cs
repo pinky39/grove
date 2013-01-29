@@ -42,6 +42,23 @@
       return this;
     }
 
+    //public IEnumerable<CastInstructionParameters> CastInstructions
+    //{
+    //  get
+    //  {
+    //    if (_castInstructions.Count == 0)
+    //    {
+    //      yield return new CastInstructionParameters(Name, ManaCost, Type);
+    //      yield break;
+    //    }
+
+    //    foreach (var castInstructionParameterse in _castInstructions)
+    //    {
+    //      yield return castInstructionParameterse;
+    //    }
+    //  }
+    //}
+
     public CardFactory Preventions(params IDamagePreventionFactory[] preventions)
     {
       _p.DamagePrevention = preventions;

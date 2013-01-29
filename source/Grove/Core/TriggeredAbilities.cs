@@ -1,21 +1,12 @@
 ﻿namespace Grove.Core
 {
-  using System.Collections.Generic;
   using Infrastructure;
   using Modifiers;
 
   [Copyable]
-  public class TriggeredAbilities : IModifiable, IHashable
+  public class TriggeredAbilities : GameObject, IModifiable, IHashable
   {
-    private readonly TrackableList<TriggeredAbility> _abilities;
-
-    private TriggeredAbilities() {}
-
-    public TriggeredAbilities(IEnumerable<TriggeredAbility> abilities, ChangeTracker changeTracker,
-      IHashDependancy hashDependancy)
-    {
-      _abilities = new TrackableList<TriggeredAbility>(abilities, changeTracker, hashDependancy);
-    }
+    private readonly TrackableList<TriggeredAbility> _abilities = new TrackableList<TriggeredAbility>();
 
     public int CalculateHash(HashCalculator calc)
     {
@@ -38,19 +29,26 @@
       ability.Dispose();
     }
 
-    public void Disable()
+    public void Initialize(Card card, Game game)
     {
-      foreach (TriggeredAbility triggeredAbility in _abilities)
+      Game = game;
+
+      _abilities.Initialize(game.ChangeTracker, card);
+    }
+
+    public void DisableAll()
+    {
+      foreach (var triggeredAbility in _abilities)
       {
-        triggeredAbility.Disable();
+        triggeredAbility.IsEnabled = false;
       }
     }
 
-    public void Enable()
+    public void EnableAll()
     {
-      foreach (TriggeredAbility triggeredAbility in _abilities)
+      foreach (var triggeredAbility in _abilities)
       {
-        triggeredAbility.Enable();
+        triggeredAbility.IsEnabled = true;
       }
     }
   }

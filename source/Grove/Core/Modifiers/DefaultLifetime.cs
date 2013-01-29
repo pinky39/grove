@@ -1,16 +1,21 @@
 ﻿namespace Grove.Core.Modifiers
 {
-  using Grove.Infrastructure;
-  using Grove.Core.Messages;
-  using Grove.Core.Targeting;
+  using Infrastructure;
+  using Messages;
+  using Targeting;
 
   public class DefaultLifetime : Lifetime, IReceive<ZoneChanged>
   {
-    public ITarget Target { get; set; }
-        
+    private readonly ITarget _target;
+
+    public DefaultLifetime(ITarget target)
+    {
+      _target = target;
+    }    
+
     public void Receive(ZoneChanged message)
     {
-      if (message.Card != Target)
+      if (message.Card != _target)
         return;
 
       if (message.FromBattlefield)

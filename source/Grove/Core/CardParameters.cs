@@ -3,20 +3,18 @@
   using System;
   using System.Collections.Generic;
   using Mana;
-  using Modifiers;
   using Preventions;
-  using Targeting;
 
   public class CardParameters
   {
     private static readonly Random Rnd = new Random();
-    public readonly List<IActivatedAbilityFactory> ActivatedAbilities = new List<IActivatedAbilityFactory>();
-    public readonly List<IContinuousEffectFactory> ContinuousEffects = new List<IContinuousEffectFactory>();
+    public readonly ActivatedAbilities ActivatedAbilities = new ActivatedAbilities();
+    public readonly List<ContinuousEffect> ContinuousEffects = new List<ContinuousEffect>();
     public readonly List<Static> StaticAbilities = new List<Static>();
-    public readonly List<ITriggeredAbilityFactory> TriggeredAbilities = new List<ITriggeredAbilityFactory>();
-    private readonly List<CastInstructionParameters> _castInstructions = new List<CastInstructionParameters>();
+    public readonly TriggeredAbilities TriggeredAbilities = new TriggeredAbilities();
+    public readonly CastInstructions CastInstructions = new CastInstructions();
     public ManaColors Colors;
-    public IDamagePreventionFactory[] DamagePrevention = new IDamagePreventionFactory[] {};
+    public DamagePrevention[] DamagePrevention = new DamagePrevention[] {};
     public CardText FlavorText = string.Empty;
     public bool Isleveler;
     public IManaAmount ManaCost;
@@ -29,35 +27,7 @@
     public CardText Text = string.Empty;
     public int? Toughness;
     public CardType Type;
-
-    public bool HasXInCost
-    {
-      get
-      {
-        if (_castInstructions.Count == 0)
-          return false;
-
-        return _castInstructions[0].HasXInCost;
-      }
-    }
-
-    public IEnumerable<CastInstructionParameters> CastInstructions
-    {
-      get
-      {
-        if (_castInstructions.Count == 0)
-        {
-          yield return new CastInstructionParameters(Name, ManaCost, Type);
-          yield break;
-        }
-
-        foreach (CastInstructionParameters castInstructionParameterse in _castInstructions)
-        {
-          yield return castInstructionParameterse;
-        }
-      }
-    }
-
+    
     public string Illustration
     {
       get
@@ -71,11 +41,6 @@
 
         return Name;
       }
-    }
-
-    public void AddCastInstruction(CastInstructionParameters parameters)
-    {
-      _castInstructions.Add(parameters);
-    }
+    }    
   }
 }

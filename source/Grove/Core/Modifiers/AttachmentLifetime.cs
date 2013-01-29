@@ -1,17 +1,23 @@
 ﻿namespace Grove.Core.Modifiers
 {
-  using Grove.Infrastructure;
-  using Grove.Core.Messages;
+  using Infrastructure;
+  using Messages;
 
   public class AttachmentLifetime : Lifetime, IReceive<AttachmentDetached>
   {
-    public Card Attachment { get; set; }
-    public Card AttachmentTarget { get; set; }        
+    private readonly Card _attachment;
+    private readonly Card _attachmentTarget;
+
+    public AttachmentLifetime(Card attachment, Card attachmentTarget)
+    {
+      _attachment = attachment;
+      _attachmentTarget = attachmentTarget;
+    }
 
     public void Receive(AttachmentDetached message)
     {
-      if (AttachmentTarget == message.AttachedTo &&
-        message.Attachment == Attachment)
+      if (_attachmentTarget == message.AttachedTo &&
+        message.Attachment == _attachment)
       {
         End();
       }

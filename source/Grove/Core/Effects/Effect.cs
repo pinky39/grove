@@ -9,7 +9,7 @@
   using Targeting;
 
   public delegate Effect EffectFactory(EffectParameters p, Game game);
-      
+
   public abstract class Effect : GameObject, ITarget, IHasColors
   {
     public Action<Effect> AfterResolve = delegate { };
@@ -17,13 +17,14 @@
     public bool CanBeCountered;
     public EffectCategories EffectCategories = EffectCategories.Generic;
     public Func<Effect, bool> ShouldResolve = delegate { return true; };
-    private Trackable<bool> _wasResolved;
+    private Trackable<bool> _wasResolved = new Trackable<bool>();
     public Player Controller { get { return Source.OwningCard.Controller; } }
     public IEffectSource Source { get; private set; }
     public int? X { get; private set; }
     private bool WasResolved { get { return _wasResolved.Value; } set { _wasResolved.Value = value; } }
     public Targets Targets { get; private set; }
     public object TriggerMessage { get; private set; }
+    public virtual bool TargetsEffectSource { get { return false; } }
 
     public bool HasColors(ManaColors colors)
     {
@@ -135,11 +136,9 @@
       TriggerMessage = p.TriggerMessage;
       X = p.X;
 
-      _wasResolved = new Trackable<bool>(game.ChangeTracker);
+      _wasResolved.Initialize(game.ChangeTracker);
     }
 
     protected virtual void DistributeDamage(IDamageDistributor damageDistributor) {}
-
-    public virtual bool TargetsEffectSource { get { return false; } }
   }
 }

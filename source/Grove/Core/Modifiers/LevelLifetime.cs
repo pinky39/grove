@@ -1,21 +1,28 @@
 ﻿namespace Grove.Core.Modifiers
 {
-  using Grove.Infrastructure;
-  using Grove.Core.Messages;
+  using Infrastructure;
+  using Messages;
 
   public class LevelLifetime : Lifetime, IReceive<LevelChanged>
   {
-    public int? MaxLevel { get; set; }
-    public int MinLevel { get; set; }
-    public Card ModifierTarget { get; set; }
+    private readonly int? _maxLevel;
+    private readonly int _minLevel;
+    private readonly Card _modifierTarget;
+
+    public LevelLifetime(int minLevel, int? maxLevel, Card modifierTarget)
+    {
+      _minLevel = minLevel;
+      _maxLevel = maxLevel;
+      _modifierTarget = modifierTarget;
+    }
 
     public void Receive(LevelChanged message)
     {
-      if (message.Card != ModifierTarget)
+      if (message.Card != _modifierTarget)
         return;
 
-      if (ModifierTarget.Level < MinLevel ||
-        ModifierTarget.Level > MaxLevel)
+      if (_modifierTarget.Level < _minLevel ||
+        _modifierTarget.Level > _maxLevel)
       {
         End();
       }

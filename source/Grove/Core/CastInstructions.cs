@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Effects;
   using Infrastructure;
   using Mana;
   using Targeting;
@@ -12,18 +11,11 @@
   {
     private readonly List<CastInstruction> _castInstructions = new List<CastInstruction>();
 
-    public CastInstructions(IEnumerable<CastInstruction> castInstructions)
-    {
-      _castInstructions.AddRange(castInstructions);
-    }
-
-    private CastInstructions() {}
-
     public List<ActivationPrerequisites> CanCast()
     {
       var allPrerequisites = new List<ActivationPrerequisites>();
 
-      for (int index = 0; index < _castInstructions.Count; index++)
+      for (var index = 0; index < _castInstructions.Count; index++)
       {
         var instruction = _castInstructions[index];
         ActivationPrerequisites prerequisites;
@@ -46,7 +38,7 @@
     public bool CanTarget(ITarget target)
     {
       return _castInstructions.Any(x => x.CanTarget(target));
-    }        
+    }
 
     public bool IsGoodTarget(ITarget target)
     {
@@ -56,6 +48,11 @@
     public IManaAmount GetManaCost(int index)
     {
       return _castInstructions[index].GetManaCost();
+    }
+
+    public void Add(CastInstruction castInstruction)
+    {
+      _castInstructions.Add(castInstruction);
     }
   }
 }

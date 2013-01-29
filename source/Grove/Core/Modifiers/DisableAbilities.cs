@@ -20,7 +20,7 @@
 
     public override void Apply(TriggeredAbilities abilities)
     {
-      abilities.Disable();
+      abilities.DisableAll();
       _triggeredAbilities = abilities;
     }
 
@@ -28,7 +28,7 @@
     {
       _activatedAbilities.EnableAll();
       _staticAbilties.Enable();
-      _triggeredAbilities.Enable();
+      _triggeredAbilities.EnableAll();
     }
   }
 }

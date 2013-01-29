@@ -1,8 +1,6 @@
 ﻿namespace Grove.Core
 {
-  using System.Collections.Generic;
   using System.Linq;
-  using Dsl;
   using Infrastructure;
   using Messages;
   using Modifiers;
@@ -10,30 +8,26 @@
   using Zones;
 
   [Copyable]
-  public class ContinuousEffect : IReceive<ZoneChanged>, IReceive<PermanentWasModified>
+  public class ContinuousEffect : GameObject, IReceive<ZoneChanged>, IReceive<PermanentWasModified>
   {
     public delegate bool ShouldApplyToCard(Card card, ContinuousEffect effect);
 
     public delegate bool ShouldApplyToPlayer(Player player, ContinuousEffect effect);
 
+    private readonly Trackable<Modifier> _doNotUpdate = new Trackable<Modifier>();
+    private readonly Trackable<bool> _isActive = new Trackable<bool>();
+    private readonly ModifierFactory _modifierFactory;
+    private readonly TrackableList<Modifier> _modifiers = new TrackableList<Modifier>();
     public ShouldApplyToCard CardFilter = delegate { return false; };
     public ShouldApplyToPlayer PlayerFilter = delegate { return false; };
 
-    private Trackable<Modifier> _doNotUpdate;
-    private Game _game;
-
-    private Trackable<bool> _isActive;
-    private TrackableList<Modifier> _modifiers;
-
-    private ContinuousEffect()
+    public ContinuousEffect(ModifierFactory modifierFactory)
     {
-      /* for state copy */
+      _modifierFactory = modifierFactory;
     }
 
     public Card Source { get; private set; }
     public ITarget Target { get; private set; }
-
-    public IModifierFactory ModifierFactory { get; set; }
 
     public void Receive(PermanentWasModified message)
     {
@@ -49,7 +43,7 @@
 
       if (message.ToBattlefield && CardFilter(message.Card, this))
       {
-        Modifier modifier = FindModifier(message.Card);
+        var modifier = FindModifier(message.Card);
 
         if (modifier == null)
         {
@@ -61,13 +55,26 @@
 
       if (message.FromBattlefield)
       {
-        Modifier modifier = FindModifier(message.Card);
+        var modifier = FindModifier(message.Card);
         if (modifier != null)
         {
           RemoveModifier(modifier);
         }
         return;
       }
+    }
+
+    public void Initialize(Card source, ITarget target, Game game)
+    {
+      Game = game;
+
+      _doNotUpdate.Initialize(game.ChangeTracker);
+      _modifiers.Initialize(game.ChangeTracker);
+      _isActive.Initialize(game.ChangeTracker);
+      Source = source;
+      Target = target;
+
+      Subscribe(this);
     }
 
     private bool ShouldPermanentBeUpdated(Card permanent, IModifier modifier)
@@ -77,8 +84,8 @@
 
     private void UpdatePermanent(Card permanent)
     {
-      Modifier modifier = FindModifier(permanent);
-      bool shouldEffectBeApliedToPermanent = CardFilter(permanent, this);
+      var modifier = FindModifier(permanent);
+      var shouldEffectBeApliedToPermanent = CardFilter(permanent, this);
 
       if (modifier == null && shouldEffectBeApliedToPermanent)
       {
@@ -115,7 +122,7 @@
 
     private void AddModifierToPlayers()
     {
-      foreach (Player player in _game.Players)
+      foreach (var player in Players)
       {
         if (PlayerFilter(player, this))
         {
@@ -126,7 +133,13 @@
 
     private void AddModifier(ITarget target)
     {
-      Modifier modifier = ModifierFactory.CreateModifier(Source, target, x: null, game: _game);
+      var p = new ModifierParameters
+        {
+          Source = Source,
+          Target = target
+        };
+
+      var modifier = _modifierFactory(p, Game);
       _modifiers.Add(modifier);
 
       _doNotUpdate.Value = modifier;
@@ -135,10 +148,10 @@
 
     private void AddModifierToPermanents()
     {
-      List<Card> permanents = _game.Players.Permanents()
+      var permanents = Players.Permanents()
         .Where(permanent => CardFilter(permanent, this)).ToList();
 
-      foreach (Card permanent in permanents)
+      foreach (var permanent in permanents)
       {
         AddModifier(permanent);
       }
@@ -148,30 +161,9 @@
     {
       _isActive.Value = false;
 
-      foreach (Modifier modifier in _modifiers.ToList())
+      foreach (var modifier in _modifiers.ToList())
       {
         RemoveModifier(modifier);
-      }
-    }
-
-    public class Factory : IContinuousEffectFactory
-    {
-      public Initializer<ContinuousEffect> Init = delegate { };
-
-      public ContinuousEffect Create(Card source, ITarget target, Game game)
-      {
-        var continuousEffect = new ContinuousEffect();
-        continuousEffect._doNotUpdate = new Trackable<Modifier>(game.ChangeTracker);
-        continuousEffect._modifiers = new TrackableList<Modifier>(game.ChangeTracker);
-        continuousEffect.Source = source;
-        continuousEffect.Target = target;
-        continuousEffect._game = game;
-        continuousEffect._isActive = new Trackable<bool>(game.ChangeTracker);
-
-        Init(continuousEffect);
-
-        game.Subscribe(continuousEffect);
-        return continuousEffect;
       }
     }
   }

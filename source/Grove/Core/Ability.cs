@@ -12,7 +12,7 @@
     private readonly bool _usesStack;
     protected EffectFactory EffectFactory;
     protected MachinePlayRule[] Rules;
-    private Trackable<bool> _isEnabled;
+    private Trackable<bool> _isEnabled = new Trackable<bool>(true);
     private Card _owner;
 
     protected Ability(AbilityParameters parameters)
@@ -65,7 +65,7 @@
         aiInstruction.Initialize(game);
       }
 
-      _isEnabled = new Trackable<bool>(true, Game.ChangeTracker);
+      _isEnabled.Initialize(Game.ChangeTracker);           
     }
 
     public override string ToString()

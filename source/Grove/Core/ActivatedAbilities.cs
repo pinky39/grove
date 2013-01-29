@@ -7,24 +7,10 @@
   using Modifiers;
 
   [Copyable]
-  public class ActivatedAbilities : IModifiable, IHashable
+  public class ActivatedAbilities : GameObject, IModifiable, IHashable
   {
-    private readonly TrackableList<ActivatedAbility> _abilities;
-    private readonly TrackableList<IManaSource> _manaSources;
-
-    private ActivatedAbilities() {}
-
-    public ActivatedAbilities(IEnumerable<ActivatedAbility> abilities, ChangeTracker changeTracker,
-      IHashDependancy hashDependancy)
-    {
-      _abilities = new TrackableList<ActivatedAbility>(abilities, changeTracker, hashDependancy);
-
-      var manaSources = abilities
-        .Where(x => x is IManaSource)
-        .Cast<IManaSource>();
-
-      _manaSources = new TrackableList<IManaSource>(manaSources, changeTracker);
-    }
+    private readonly TrackableList<ActivatedAbility> _abilities = new TrackableList<ActivatedAbility>();
+    private readonly TrackableList<IManaSource> _manaSources = new TrackableList<IManaSource>();
 
     public IList<IManaSource> ManaSources { get { return _manaSources; } }
     public IEnumerable<ManaAbility> ManaAbilities { get { return _abilities.Where(x => x is ManaAbility).Cast<ManaAbility>(); } }
@@ -39,6 +25,12 @@
       modifier.Apply(this);
     }
 
+    public void Initialize(Card card, Game game)
+    {
+      _abilities.Initialize(game.ChangeTracker, card);
+      _manaSources.Initialize(game.ChangeTracker);
+    }
+
     public void Activate(int abilityIndex, ActivationParameters activationParameters)
     {
       _abilities[abilityIndex].Activate(activationParameters);
@@ -48,10 +40,10 @@
     {
       var result = new List<ActivationPrerequisites>();
 
-      for (int index = 0; index < _abilities.Count; index++)
+      for (var index = 0; index < _abilities.Count; index++)
       {
         var ability = _abilities[index];
-        
+
         if (ignoreManaAbilities && ability is ManaAbility)
         {
           continue;
@@ -60,7 +52,7 @@
         ActivationPrerequisites prerequisites;
         if (ability.CanActivate(out prerequisites))
         {
-          prerequisites.Index = index;          
+          prerequisites.Index = index;
           result.Add(prerequisites);
         }
       }

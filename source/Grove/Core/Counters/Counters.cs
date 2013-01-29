@@ -1,13 +1,13 @@
 ﻿namespace Grove.Core.Counters
 {
   using System.Linq;
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Modifiers;
 
   [Copyable]
   public class Counters : IModifiable
   {
-    private readonly TrackableList<Counter> _counters;
+    private readonly TrackableList<Counter> _counters = new TrackableList<Counter>();
     private readonly Power _power;
     private readonly Toughness _toughness;
 
@@ -17,7 +17,8 @@
     {
       _power = power;
       _toughness = toughness;
-      _counters = new TrackableList<Counter>(changeTracker, hashDependancy);
+
+      _counters.Initialize(changeTracker, hashDependancy);
     }
 
     public int Count { get { return _counters.Count; } }
@@ -31,14 +32,14 @@
     {
       return _counters.Count(x => x is T);
     }
-    
+
     public void Add(Counter counter)
     {
       counter.ModifyPower(_power);
       counter.ModifyToughness(_toughness);
       _counters.Add(counter);
     }
-    
+
     public void Remove(Counter counter)
     {
       if (_counters.Remove(counter))

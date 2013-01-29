@@ -1,24 +1,21 @@
 ﻿namespace Grove.Core.Modifiers
 {
   using System;
-  using System.Collections.Generic;
   using Counters;
-  using Grove.Core.Dsl;
-  using Grove.Infrastructure;
-  using Grove.Core.Targeting;
+  using Infrastructure;
   using Preventions;
   using Redirections;
+  using Targeting;
+
+  public delegate Modifier ModifierFactory(ModifierParameters p, Game game);
 
   [Copyable]
-  public abstract class Modifier : IModifier, ICopyContributor
+  public abstract class Modifier : GameObject, IModifier, ICopyContributor
   {
-    private TrackableList<Lifetime> _lifetimes;
-    protected Game Game { get; private set; }
-    protected ChangeTracker ChangeTracker { get { return Game.ChangeTracker; } }
-    public Card Source { get; set; }
+    private readonly TrackableList<Lifetime> _lifetimes = new TrackableList<Lifetime>();
+    public Card Source { get; private set; }
     public ITarget Target { get; private set; }
     protected int? X { get; private set; }
-    protected CardBuilder Builder { get { return new CardBuilder(); } }
 
     void ICopyContributor.AfterMemberCopy(object original)
     {
@@ -48,24 +45,25 @@
     {
       Unapply();
 
-      Game.Unsubscribe(this);
+      Unsubscribe(this);
       DisposeLifetimes();
     }
 
     public virtual void Activate()
     {
-      Game.Subscribe(this);
+      Subscribe(this);
 
       foreach (var lifetime in _lifetimes)
       {
         lifetime.Ended += RemoveModifier;
-        Game.Subscribe(lifetime);
+        Subscribe(lifetime);
       }
     }
 
-    public void AddLifetime(ILifetimeFactory lifetimeFactory)
+    public void AddLifetime(Lifetime lifetime)
     {
-      _lifetimes.Add(lifetimeFactory.CreateLifetime(Game));
+      lifetime.Initialize(Game);
+      _lifetimes.Add(lifetime);
     }
 
     protected abstract void Unapply();
@@ -74,7 +72,7 @@
     {
       foreach (var lifetime in _lifetimes)
       {
-        Game.Unsubscribe(lifetime);
+        Unsubscribe(lifetime);
         lifetime.Ended -= RemoveModifier;
         lifetime.Dispose();
       }
@@ -94,64 +92,41 @@
       Target.RemoveModifier(this);
     }
 
-    [Copyable]
-    public class Factory<TModifier> : IModifierFactory where TModifier : Modifier, new()
+    public virtual void Initialize(ModifierParameters p, Game game)
     {
-      public Initializer<TModifier> Init = delegate { };
-      public bool EndOfTurn { get; set; }
-      public int? MinLevel { get; set; }
-      public int? MaxLevel { get; set; }
+      Game = game;
+      Source = p.Source;
+      Target = p.Target;
+      X = p.X;
 
-      public Modifier CreateModifier(Card source, ITarget target, int? x, Game game)
+      CreateLifetimes(p, game);
+    }
+
+    private void CreateLifetimes(ModifierParameters p, Game game)
+    {
+      _lifetimes.Add(new DefaultLifetime(p.Target));
+
+      if (p.EndOfTurn)
       {
-        var modifier = new TModifier();
-        modifier._lifetimes = new TrackableList<Lifetime>(game.ChangeTracker);
-        modifier.Source = source;
-        modifier.Target = target;
-        modifier.X = x;
-        modifier.Game = game;
-
-        foreach (var lifetimeFactory in CreateLifetimes(modifier))
-        {
-          modifier.AddLifetime(lifetimeFactory);
-        }
-
-        Init(modifier);
-        modifier.Initialize();
-
-        return modifier;
+        _lifetimes.Add(new EndOfTurnLifetime());
       }
 
-      private IEnumerable<ILifetimeFactory> CreateLifetimes(TModifier modifier)
+      if (p.Source.Is().Attachment)
       {
-        var builder = new CardBuilder();
-
-        yield return builder.Lifetime<DefaultLifetime>(l => l.Target = modifier.Target);
-
-        if (EndOfTurn)
-        {
-          yield return builder.Lifetime<EndOfTurnLifetime>();
-        }
-
-        if (modifier.Source.Is().Attachment)
-        {
-          yield return builder.Lifetime<AttachmentLifetime>(l =>
-            {
-              l.Attachment = modifier.Source;
-              l.AttachmentTarget = modifier.Target.Card();
-            });
-        }
-
-        if (MinLevel.HasValue)
-        {
-          yield return builder.Lifetime<LevelLifetime>(l =>
-            {
-              l.MinLevel = MinLevel.Value;
-              l.MaxLevel = MaxLevel;
-              l.ModifierTarget = modifier.Target.Card();
-            });
-        }
+        _lifetimes.Add(new AttachmentLifetime(p.Source, p.Target.Card()));
       }
+
+      if (p.MinLevel.HasValue)
+      {
+        _lifetimes.Add(new LevelLifetime(p.MinLevel.Value, p.MaxLevel, p.Target.Card()));
+      }
+
+      foreach (var lifetime in _lifetimes)
+      {
+        lifetime.Initialize(game);
+      }
+
+      _lifetimes.Initialize(game.ChangeTracker);
     }
   }
 }

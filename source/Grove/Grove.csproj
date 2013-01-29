@@ -504,6 +504,7 @@
     <Compile Include="Core\GameObject.cs" />
     <Compile Include="Core\ManaAbilityParameters.cs" />
     <Compile Include="Core\Modifiers\ChangeBasicLand.cs" />
+    <Compile Include="Core\Modifiers\ModifierParameters.cs" />
     <Compile Include="Core\SpellCounterReason.cs" />
     <Compile Include="Core\ManaAmountCharacteristic.cs" />
     <Compile Include="Core\Modifiers\IncreaseLandLimit.cs" />
@@ -569,7 +570,6 @@
     <Compile Include="Core\Modifiers\AddActivatedAbility.cs" />
     <Compile Include="Core\Modifiers\ChangeController.cs" />
     <Compile Include="Core\Modifiers\ControllerSetter.cs" />
-    <Compile Include="Core\Modifiers\ILifetimeFactory.cs" />
     <Compile Include="Core\Modifiers\PermanentLeavesBattlefieldLifetime.cs" />
     <Compile Include="Core\Modifiers\SetColors.cs" />
     <Compile Include="Core\Triggers\OnBlock.cs" />
@@ -665,7 +665,6 @@
     <Compile Include="Core\Counters\ChargeCounter.cs" />
     <Compile Include="Core\Counters\Counter.cs" />
     <Compile Include="Core\Counters\Counters.cs" />
-    <Compile Include="Core\Counters\ICounterFactory.cs" />
     <Compile Include="Core\Effects\CounterTargetSpell.cs" />
     <Compile Include="Core\Effects\DealDamageToActivePlayer.cs" />
     <Compile Include="Core\Effects\DealExistingDamageToController.cs" />
@@ -692,7 +691,6 @@
     <Compile Include="Core\Messages\SearchStarted.cs" />
     <Compile Include="Core\Modifiers\AddCounters.cs" />
     <Compile Include="Core\Counters\PowerToughness.cs" />
-    <Compile Include="Core\Preventions\IDamagePreventionFactory.cs" />
     <Compile Include="Core\Targeting\ITarget.cs" />
     <Compile Include="Core\Modifiers\IncreaseLevel.cs" />
     <Compile Include="Core\Modifiers\LevelLifetime.cs" />
@@ -782,9 +780,7 @@
     <Compile Include="Core\ActivatedAbilities.cs" />
     <Compile Include="Core\CardColors.cs" />
     <Compile Include="Core\Modifiers\CardTypeSetter.cs" />
-    <Compile Include="Core\Modifiers\IContinuousEffectFactory.cs" />
     <Compile Include="Core\Modifiers\IModifier.cs" />
-    <Compile Include="Core\Modifiers\IModifierFactory.cs" />
     <Compile Include="Core\Modifiers\IModifiable.cs" />
     <Compile Include="Core\Modifiers\Modifiers.cs" />
     <Compile Include="Core\Modifiers\Increment.cs" />

@@ -13,21 +13,16 @@
   [Copyable]
   public class Trackable<T> : ITrackableValue<T>
   {
-    private readonly ChangeTracker _changeTracker;
-    private readonly IHashDependancy _hashDependency;
+    private ChangeTracker _changeTracker;
+    private IHashDependancy _hashDependency;
     private T _value;
 
-    public Trackable(ChangeTracker changeTracker, IHashDependancy hashDependancy = null)
-      : this(default(T), changeTracker, hashDependancy) {}
+    public Trackable() : this(default(T)) {}
 
-    public Trackable(T value, ChangeTracker changeTracker, IHashDependancy hashDependancy = null)
+    public Trackable(T value)
     {
       _value = value;
-      _changeTracker = changeTracker;
-      _hashDependency = hashDependancy ?? new NullHashDependency();
     }
-
-    private Trackable() {}
 
     public T Value
     {
@@ -49,6 +44,12 @@
       return hashable != null
         ? calc.Calculate(hashable)
         : _value.GetHashCode();
+    }
+
+    public void Initialize(ChangeTracker changeTracker, IHashDependancy hashDependancy = null)
+    {
+      _changeTracker = changeTracker;
+      _hashDependency = hashDependancy ?? new NullHashDependency();
     }
 
     public void Rollback(object value)

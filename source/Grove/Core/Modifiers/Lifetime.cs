@@ -1,15 +1,12 @@
 ﻿namespace Grove.Core.Modifiers
 {
   using System;
-  using Grove.Core.Dsl;
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   [Copyable]
-  public abstract class Lifetime : IDisposable
+  public abstract class Lifetime : GameObject, IDisposable
   {
     public TrackableEvent Ended { get; set; }
-    protected Game Game { get; private set; }
-
     public virtual void Dispose() {}
 
     protected void End()
@@ -17,20 +14,10 @@
       Ended.Raise();
     }
 
-    public class Factory<TLifetime> : ILifetimeFactory where TLifetime : Lifetime, new()
+    public void Initialize(Game game)
     {
-      public Initializer<TLifetime> Init = delegate { };
-
-      public Lifetime CreateLifetime(Game game)
-      {
-        var lifetime = new TLifetime();
-        lifetime.Game = game;
-        lifetime.Ended = new TrackableEvent(this, game.ChangeTracker);
-
-        Init(lifetime);
-
-        return lifetime;
-      }
+      Game = game;
+      Ended = new TrackableEvent(this, game.ChangeTracker);
     }
   }
 }
