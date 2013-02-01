@@ -8,26 +8,19 @@
 
   public class ControllerCharacteristic : Characteristic<Player>, IModifiable
   {
-    private readonly Card _card;
-    private readonly Game _game;
+    private Card _card;
 
     private ControllerCharacteristic() {}
 
-    public ControllerCharacteristic(Player value, Card card, Game game,
-      IHashDependancy hashDependancy)
-      : base(value, game.ChangeTracker, hashDependancy)
-    {
-      _card = card;
-      _game = game;
-    }
+    public ControllerCharacteristic(Player controller) : base(controller) {}
 
     public void Accept(IModifier modifier)
     {
-      Player before = Value;
+      var before = Value;
 
       modifier.Apply(this);
 
-      Player after = Value;
+      var after = Value;
 
       if (before == after)
         return;
@@ -35,13 +28,13 @@
       if (_card.Zone != Zone.Battlefield)
         return;
 
-      _game.Combat.Remove(_card);
+      Combat.Remove(_card);
 
       if (!_card.IsAttached)
       {
         after.PutCardToBattlefield(_card);
 
-        foreach (Card attachment in _card.Attachments.Where(x => x.Is().Aura || x.Is().Equipment))
+        foreach (var attachment in _card.Attachments.Where(x => x.Is().Aura || x.Is().Equipment))
         {
           // for auras and equipments just change battlefield
           // do not change the control          
@@ -49,7 +42,13 @@
         }
       }
 
-      _game.Publish(new ControllerChanged(_card));
+      Publish(new ControllerChanged(_card));
+    }
+
+    public override void Initialize(Game game, IHashDependancy hashDependancy)
+    {
+      base.Initialize(game, hashDependancy);
+      _card = (Card) hashDependancy;
     }
   }
 }

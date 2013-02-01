@@ -10,6 +10,7 @@
   public class CastInstructions
   {
     private readonly List<CastInstruction> _castInstructions = new List<CastInstruction>();
+    public bool HasXInCost { get { return _castInstructions.Any(x => x.HasXInCost); } }
 
     public List<ActivationPrerequisites> CanCast()
     {

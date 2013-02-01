@@ -1,14 +1,12 @@
 ﻿namespace Grove.Core
 {
-  using Infrastructure;
   using Modifiers;
 
   public class Power : Characteristic<int?>, IModifiable
   {
     private Power() {}
 
-    public Power(int? value, ChangeTracker changeTracker, IHashDependancy hashDependancy)
-      : base(value, changeTracker, hashDependancy) {}
+    public Power(int? value) : base(value) {}
 
     public void Accept(IModifier modifier)
     {

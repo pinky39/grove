@@ -13,11 +13,14 @@
 
     private Counters() {}
 
-    public Counters(Power power, Toughness toughness, ChangeTracker changeTracker, IHashDependancy hashDependancy)
+    public Counters(Power power, Toughness toughness)
     {
       _power = power;
-      _toughness = toughness;
+      _toughness = toughness;      
+    }
 
+    public void Initialize(ChangeTracker changeTracker, IHashDependancy hashDependancy)
+    {
       _counters.Initialize(changeTracker, hashDependancy);
     }
 

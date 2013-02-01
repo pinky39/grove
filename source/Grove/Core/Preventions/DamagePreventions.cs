@@ -1,26 +1,13 @@
 ﻿namespace Grove.Core.Preventions
 {
-  using System.Collections.Generic;
   using System.Linq;
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Modifiers;
 
   [Copyable]
   public class DamagePreventions : IModifiable, IHashable
   {
-    private readonly TrackableList<DamagePrevention> _preventions;
-
-    private DamagePreventions() {}
-
-    public DamagePreventions(IEnumerable<DamagePrevention> damagePreventions, ChangeTracker changeTracker, IHashDependancy hashDependancy)
-    {
-      _preventions = new TrackableList<DamagePrevention>(damagePreventions, changeTracker, hashDependancy);
-    }
-    
-    public DamagePreventions(ChangeTracker changeTracker, IHashDependancy hashDependancy)
-    {
-      _preventions = new TrackableList<DamagePrevention>(changeTracker, hashDependancy);
-    }
+    private readonly TrackableList<DamagePrevention> _preventions = new TrackableList<DamagePrevention>();
 
     public int CalculateHash(HashCalculator calc)
     {
@@ -30,6 +17,11 @@
     public void Accept(IModifier modifier)
     {
       modifier.Apply(this);
+    }
+
+    public void Initialize(Game game, IHashDependancy hashDependancy)
+    {
+      _preventions.Initialize(game.ChangeTracker, hashDependancy);
     }
 
     public void AddPrevention(DamagePrevention prevention)

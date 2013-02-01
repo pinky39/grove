@@ -29,7 +29,7 @@
       ability.Dispose();
     }
 
-    public void Initialize(Card card, Game game)
+    public void Initialize(Game game, Card card)
     {
       Game = game;
 

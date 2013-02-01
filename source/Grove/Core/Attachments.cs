@@ -7,18 +7,16 @@
   [Copyable]
   public class Attachments : IHashable
   {
-    private readonly TrackableList<Attachment> _attachedCards;
-
-    private Attachments() {}
-
-    public Attachments(ChangeTracker changeTracker)
-    {
-      _attachedCards = new TrackableList<Attachment>(changeTracker);
-    }
-
+    private readonly TrackableList<Attachment> _attachedCards = new TrackableList<Attachment>();
+    
     public IEnumerable<Card> Cards { get { return _attachedCards.Select(x => x.Card); } }
 
     public int Count { get { return _attachedCards.Count; } }
+
+    public void Initialize(Game game)
+    {
+      _attachedCards.Initialize(game.ChangeTracker);
+    }
 
     public Attachment this[Card card] { get { return _attachedCards.Single(x => x.Card == card); } }
 

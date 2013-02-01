@@ -25,7 +25,7 @@
       modifier.Apply(this);
     }
 
-    public void Initialize(Card card, Game game)
+    public void Initialize(Game game, Card card)
     {
       _abilities.Initialize(game.ChangeTracker, card);
       _manaSources.Initialize(game.ChangeTracker);

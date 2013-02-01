@@ -1,6 +1,5 @@
 ﻿namespace Grove.Core
 {
-  using Infrastructure;
   using Mana;
   using Modifiers;
 
@@ -8,8 +7,7 @@
   {
     private CardColors() {}
 
-    public CardColors(ManaColors value, ChangeTracker changeTracker, IHashDependancy hashDependancy)
-      : base(value, changeTracker, hashDependancy) {}
+    public CardColors(ManaColors value) : base(value) {}
 
     public void Accept(IModifier modifier)
     {

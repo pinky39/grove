@@ -19,10 +19,11 @@
     public string Name;
     public CastingRule Rule;
     public TargetSelector TargetSelector;
+    public bool HasXInCost;
 
     ////private const string DefaultDescriptionFormat = "Cast {0}.";
     ////private const string KickerDescriptionFormat = "Cast {0} with kicker.";      
-    
+
     //public CastInstructionParameters()
     //{                  
     //  Description = DefaultDescription;

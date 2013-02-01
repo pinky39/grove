@@ -2,7 +2,8 @@
 {
   using System;
   using System.Linq;
- 
+  using Core;
+
   public class TrackableEvent : ICopyable
   {
     private ChangeTracker _changeTracker;
@@ -11,11 +12,15 @@
 
     private TrackableEvent() {}
 
-    public TrackableEvent(object sender, ChangeTracker changeTracker)
+    public TrackableEvent(object sender)
     {
-      _sender = sender;
-      _changeTracker = changeTracker;
-      _handlers = new TrackableList<EventHandler>(changeTracker);
+      _sender = sender;      
+    }
+
+    public void Initialize(Game game)
+    {
+      _changeTracker = game.ChangeTracker;
+      _handlers.Initialize(game.ChangeTracker);
     }
 
     public void Copy(object original, CopyService copyService)
@@ -24,8 +29,9 @@
 
       // create a copy without handlers
       _sender = copyService.Copy(org._sender);
-      _changeTracker = copyService.Copy(org._changeTracker);
-      _handlers = new TrackableList<EventHandler>(_changeTracker);
+      _changeTracker = copyService.Copy(org._changeTracker);      
+      _handlers = new TrackableList<EventHandler>();
+      _handlers.Initialize(_changeTracker);
     }
 
     public void Raise()

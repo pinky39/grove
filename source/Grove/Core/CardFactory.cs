@@ -13,32 +13,28 @@
   using Triggers;
   using Zones;
 
-  public interface ICardFactory
-  {
-    string Name { get; }
-
-    Card CreateCard(Player owner, Game game);
-    Card CreateCardPreview();
-  }
-
-  public class CardFactory : ICardFactory
+  public class CardFactory
   {
     private readonly CardParameters _p = new CardParameters();
     public string Name { get { return _p.Name; } }
 
-    public Card CreateCard(Player owner, Game game)
-    {
-      return new Card(owner, game, _p);
-    }
-
-    public Card CreateCardPreview()
+    public Card CreateCard()
     {
       return new Card(_p);
-    }
+    }    
 
     public CardFactory Protections(ManaColors colors)
     {
-      _p.ProtectionsFromColors = colors;
+      _p.Protections.AddProtectionFromColors(colors);
+      return this;
+    }
+
+    public CardFactory Cast(Action<CastInstructionParameters> set)
+    {
+      var p = new CastInstructionParameters();
+      set(p);
+            
+      _p.CastInstructions.Add(new CastInstruction(p));
       return this;
     }
 
@@ -59,21 +55,25 @@
     //  }
     //}
 
-    public CardFactory Preventions(params IDamagePreventionFactory[] preventions)
+    public CardFactory Preventions(params DamagePrevention[] preventions)
     {
-      _p.DamagePrevention = preventions;
+      foreach (var prevention in preventions)
+      {
+        _p.DamagePreventions.AddPrevention(prevention);  
+      }      
+      
       return this;
     }
 
     public CardFactory Protections(params string[] cardTypes)
     {
-      _p.ProtectionsFromCardTypes = cardTypes;
+      _p.Protections.AddProtectionFromCards(cardTypes);
       return this;
     }
 
     public CardFactory Echo(string manaCost)
     {
-      var c = new CardBuilder();
+      var c = new Dsl.CardBuilder();
       IManaAmount amount = manaCost.ParseMana();
 
       TriggeredAbility.Factory echoFactory = c.TriggeredAbility(
@@ -122,16 +122,7 @@
         }
       }
       return this;
-    }
-
-    public CardFactory Cast(Action<CastInstructionParameters> setParameters)
-    {
-      var parameters = new CastInstructionParameters(_p.Name, _p.ManaCost, _p.Type);
-      setParameters(parameters);
-      _p.AddCastInstruction(parameters);
-
-      return this;
-    }
+    }    
 
     public CardFactory Colors(ManaColors colors)
     {
@@ -165,7 +156,7 @@
 
     public CardFactory Cycling(string cost)
     {
-      var b = new CardBuilder();
+      var b = new Dsl.CardBuilder();
 
       IActivatedAbilityFactory cycling = b.ActivatedAbility(
         string.Format("Cycling {0} ({0}, Discard this card: Draw a card.)", cost),
@@ -209,7 +200,7 @@
       params LevelDefinition[] levels)
     {
       var abilities = new List<object>();
-      var builder = new CardBuilder();
+      var builder = new Dsl.CardBuilder();
 
       abilities.Add(
         builder.ActivatedAbility(

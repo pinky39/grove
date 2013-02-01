@@ -1,30 +1,21 @@
 ﻿namespace Grove.Core
 {
-  using System.Collections.Generic;
   using Infrastructure;
   using Modifiers;
 
   [Copyable]
   public class ContiniousEffects : IModifiable
   {
-    private readonly TrackableList<ContinuousEffect> _continiousEffects;
-
-    private ContiniousEffects() {}
-
-    public ContiniousEffects(ChangeTracker changeTracker)
-    {
-      _continiousEffects = new TrackableList<ContinuousEffect>(changeTracker);
-    }
-
-    public ContiniousEffects(IEnumerable<ContinuousEffect> effects, ChangeTracker changeTracker,
-      IHashDependancy hashDependancy)
-    {
-      _continiousEffects = new TrackableList<ContinuousEffect>(effects, changeTracker, hashDependancy);
-    }
+    private readonly TrackableList<ContinuousEffect> _continiousEffects = new TrackableList<ContinuousEffect>();
 
     public void Accept(IModifier modifier)
     {
       modifier.Apply(this);
+    }
+
+    public void Initialize(ChangeTracker changeTracker, IHashDependancy hashDependancy)
+    {
+      _continiousEffects.Initialize(changeTracker, hashDependancy);
     }
 
     public void Add(ContinuousEffect effect)
@@ -40,7 +31,7 @@
 
     public void Activate()
     {
-      foreach (ContinuousEffect continiousEffect in _continiousEffects)
+      foreach (var continiousEffect in _continiousEffects)
       {
         continiousEffect.Activate();
       }
@@ -48,7 +39,7 @@
 
     public void Deactivate()
     {
-      foreach (ContinuousEffect continiousEffect in _continiousEffects)
+      foreach (var continiousEffect in _continiousEffects)
       {
         continiousEffect.Deactivate();
       }

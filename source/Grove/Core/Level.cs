@@ -1,32 +1,31 @@
 ﻿namespace Grove.Core
 {
+  using Infrastructure;
   using Messages;
   using Modifiers;
 
   public class Level : Characteristic<int?>, IModifiable
   {
-    private readonly Card _card;
-    private readonly Game _game;
+    private Card _card;
 
     private Level() {}
-
-    public Level(int? value) : base(value, null, null) {}
-
-    public Level(int? value, Game game, Card card)
-      : base(value, game.ChangeTracker, card)
-    {
-      _game = game;
-      _card = card;
-    }
+    public Level(int? value) : base(value) {}
 
     public void Accept(IModifier modifier)
     {
       modifier.Apply(this);
     }
 
+    public override void Initialize(Game game, IHashDependancy hashDependancy)
+    {
+      base.Initialize(game, hashDependancy);
+
+      _card = (Card) hashDependancy;
+    }
+
     protected override void OnCharacteristicChanged()
     {
-      _game.Publish(new LevelChanged
+      Publish(new LevelChanged
         {
           Card = _card
         });

@@ -18,9 +18,9 @@
     private readonly string _description;
     private readonly bool _distributeDamage;
     private readonly EffectFactory _effectFactory;
+    private readonly MachinePlayRule[] _rules;
     private readonly TargetSelector _targetSelector;
     private Card _card;
-    private MachinePlayRule[] _rules;
 
     private CastInstruction() {}
 
@@ -34,6 +34,8 @@
       _distributeDamage = p.DistributeDamage;
       _rules = p.Rules;
     }
+
+    public bool HasXInCost { get; private set; }
 
     public Card OwningCard { get { return _card; } }
     public Card SourceCard { get { return _card; } }
@@ -100,7 +102,7 @@
           MaxX = maxX,
           DistributeDamage = _distributeDamage,
           Card = _card,
-          Rules = _rules          
+          Rules = _rules
         };
 
       return true;

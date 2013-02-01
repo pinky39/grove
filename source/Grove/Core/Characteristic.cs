@@ -5,17 +5,23 @@
   using Infrastructure;
 
   [Copyable]
-  public abstract class Characteristic<T>
+  public abstract class Characteristic<T> : GameObject
   {
     private readonly T _baseValue;
-    private readonly TrackableList<PropertyModifier<T>> _modifiers;
+    private readonly TrackableList<PropertyModifier<T>> _modifiers = new TrackableList<PropertyModifier<T>>();
 
     protected Characteristic() {}
-
-    protected Characteristic(T value, ChangeTracker changeTracker, IHashDependancy hashDependancy)
+    protected Characteristic(T value)
     {
-      _modifiers = new TrackableList<PropertyModifier<T>>(changeTracker, hashDependancy);
       _baseValue = value;
+
+    }
+    
+    public virtual void Initialize(Game game, IHashDependancy hashDependancy)
+    {
+      Game = game;
+      
+      _modifiers.Initialize(game.ChangeTracker, hashDependancy);
     }
 
     public virtual T Value

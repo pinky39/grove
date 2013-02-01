@@ -8,8 +8,7 @@
   {
     private Toughness() {}
 
-    public Toughness(int? value, ChangeTracker changeTracker, IHashDependancy hashDependancy)
-      : base(value, changeTracker, hashDependancy) {}
+    public Toughness(int? value) : base(value) {}
 
     public void Accept(IModifier modifier)
     {

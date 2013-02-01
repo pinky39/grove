@@ -1,6 +1,5 @@
 ﻿namespace Grove.Core
 {
-  using System.Collections.Generic;
   using System.Linq;
   using Infrastructure;
   using Modifiers;
@@ -8,18 +7,8 @@
   [Copyable]
   public class StaticAbilities : IStaticAbilities, IModifiable, IHashable
   {
-    private readonly TrackableList<StaticAbility> _abilities;
-    private readonly ChangeTracker _changeTracker;
-
-    private StaticAbilities() {}
-
-    public StaticAbilities(IEnumerable<Static> staticAbilities, ChangeTracker changeTracker,
-      IHashDependancy hashDependancy)
-    {
-      _changeTracker = changeTracker;
-      _abilities = new TrackableList<StaticAbility>(
-        staticAbilities.Select(x => new StaticAbility(x, changeTracker)), changeTracker, hashDependancy);
-    }
+    private readonly TrackableList<StaticAbility> _abilities = new TrackableList<StaticAbility>();
+    private ChangeTracker _changeTracker;
 
     public int CalculateHash(HashCalculator calc)
     {
@@ -55,6 +44,12 @@
     public bool DoesNotUntap { get { return Has(Static.DoesNotUntap); } }
     public bool AnyEvadingAbility { get { return Fear || Flying || Trample || Unblockable; } }
 
+    public void Initialize(ChangeTracker changeTracker, IHashDependancy hashDependancy)
+    {
+      _changeTracker = changeTracker;
+      _abilities.Initialize(changeTracker, hashDependancy);
+    }
+
     public void Add(Static ability)
     {
       _abilities.Add(new StaticAbility(ability, _changeTracker));
@@ -62,7 +57,7 @@
 
     public void Remove(Static ability)
     {
-      StaticAbility staticAbility = _abilities
+      var staticAbility = _abilities
         .Where(x => x.Value == ability)
         .OrderBy(x => x.IsEnabled ? 0 : 1)
         .FirstOrDefault();
@@ -78,7 +73,7 @@
 
     public void Disable()
     {
-      foreach (StaticAbility staticAbility in _abilities)
+      foreach (var staticAbility in _abilities)
       {
         staticAbility.Disable();
       }
@@ -86,7 +81,7 @@
 
     public void Enable()
     {
-      foreach (StaticAbility staticAbility in _abilities)
+      foreach (var staticAbility in _abilities)
       {
         staticAbility.Enable();
       }

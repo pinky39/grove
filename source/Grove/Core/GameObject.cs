@@ -18,7 +18,7 @@
     protected TurnInfo Turn {get { return Game.Turn; }}
     protected Search Search {get { return Game.Search; }}
 
-    protected CardBuilder Builder { get { return new CardBuilder(); } }
+    protected Dsl.CardBuilder Builder { get { return new Dsl.CardBuilder(); } }
     protected ChangeTracker ChangeTracker {get { return Game.ChangeTracker; }}
     
     protected void Publish<T>(T message)

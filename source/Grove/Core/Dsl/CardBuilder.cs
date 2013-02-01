@@ -111,12 +111,12 @@
           Init = init1
         };
 
-      var cost2 = new Cost.Factory<T2>()
+      var cost2 = new Cost.Factory<T2>
         {
           Init = init2
         };
 
-      return new Cost.Factory<AggregateCost>()
+      return new Cost.Factory<AggregateCost>
         {
           Init = cost => cost.CostsFactories = new List<ICostFactory> {cost1, cost2}
         };
@@ -137,17 +137,17 @@
           Init = init1
         };
 
-      var cost2 = new Cost.Factory<T2>()
+      var cost2 = new Cost.Factory<T2>
         {
           Init = init2
         };
 
-      var cost3 = new Cost.Factory<T3>()
+      var cost3 = new Cost.Factory<T3>
         {
           Init = init3
         };
 
-      return new Cost.Factory<AggregateCost>()
+      return new Cost.Factory<AggregateCost>
         {
           Init = cost => cost.CostsFactories = new List<ICostFactory> {cost1, cost2, cost3}
         };
