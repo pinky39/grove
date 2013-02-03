@@ -6,7 +6,13 @@
   [Copyable]
   public abstract class Lifetime : GameObject, IDisposable
   {
-    public TrackableEvent Ended { get; set; }
+    public TrackableEvent Ended;
+
+    protected Lifetime()
+    {
+      Ended = new TrackableEvent(this);
+    }
+
     public virtual void Dispose() {}
 
     protected void End()
@@ -14,10 +20,10 @@
       Ended.Raise();
     }
 
-    public void Initialize(Game game)
+    public virtual void Initialize(Modifier modifier, Game game)
     {
-      Game = game;
-      Ended = new TrackableEvent(this, game.ChangeTracker);
+      Game = game;            
+      Ended.Initialize(game);
     }
   }
 }

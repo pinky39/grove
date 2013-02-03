@@ -2,25 +2,28 @@
 {
   public class DrawCards : Effect
   {
-    public int DiscardCount { get; set; }
-    public int DrawCount { get; set; }
-    public int Lifeloss { get; set; }
+    private readonly int _count;
+    private readonly int _discardCount;
+    private readonly int _lifeloss;
 
-    public Player Player { get; set; }
+    public DrawCards(int count, int discardCount = 0, int lifeloss = 0)
+    {
+      _count = count;
+      _discardCount = discardCount;
+      _lifeloss = lifeloss;
+    }
 
     protected override void ResolveEffect()
     {
-      var player = Player ?? Controller;
-      
-      player.DrawCards(DrawCount);
+      Controller.DrawCards(_count);
 
-      if (Lifeloss > 0)
-        player.Life -= Lifeloss;
+      if (_lifeloss > 0)
+        Controller.Life -= _lifeloss;
 
-      if (DiscardCount > 0)
+      if (_discardCount > 0)
         Game.Enqueue<Decisions.DiscardCards>(
-          controller: player, 
-          init: p => p.Count = DiscardCount);
+          controller: Controller,
+          init: p => p.Count = _discardCount);
     }
   }
 }

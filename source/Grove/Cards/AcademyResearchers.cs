@@ -2,7 +2,7 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TargetingRules;
   using Core.Dsl;
   using Core.Effects;
   using Core.Targeting;
@@ -11,7 +11,7 @@
 
   public class AcademyResearchers : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Academy Researchers")
@@ -21,13 +21,19 @@
           "When Academy Researchers enters the battlefield, you may put an Aura card from your hand onto the battlefield attached to Academy Researchers.")
         .Power(2)
         .Toughness(2)
-        .Abilities(
-          TriggeredAbility(
-            "When Academy Researchers enters the battlefield, you may put an Aura card from your hand onto the battlefield attached to Academy Researchers.",
-            Trigger<OnZoneChanged>(t => t.To = Zone.Battlefield),
-            Effect<EnchantOwnerWithTarget>(),
-            Target(Validators.Card(p => p.OwningCard.Is().Aura && p.OwningCard.CanTarget(p.Source)), Zones.OwnersHand(), minCount: 0),
-            TargetingAi.AttachToSource())
+        .TriggeredAbility(p =>
+          {
+            p.Text =
+              "When Academy Researchers enters the battlefield, you may put an Aura card from your hand onto the battlefield attached to Academy Researchers.";
+            p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
+            p.Effect = () => new EnchantOwnerWithTarget();
+            p.TargetSelector.AddEffect(ps => ps
+              .Is.Card(p1 =>
+                p1.Target.Card().Is().Aura &&
+                  p1.Target.Card().CanTarget(p1.Effect.Source.OwningCard))
+              .In.OwnersHand());
+            p.TargetingRule(new AttachTargetToSelf());
+          }
         );
     }
   }

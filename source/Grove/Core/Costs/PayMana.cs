@@ -6,24 +6,35 @@
 
   public class PayMana : Cost
   {
-    public IManaAmount Amount;
-    public bool HasX;
-    public bool TryNotToConsumeCardsManaSourceWhenPayingThis;
-    public ManaUsage Usage = ManaUsage.Abilities;
+    private readonly IManaAmount _amount;
+    private readonly bool _hasX;
+    private readonly ManaUsage _manaUsage;
+    private readonly bool _tryNotToConsumeCardsManaSourceWhenPayingThis;
+
+    private PayMana() {}
+    
+    public PayMana(IManaAmount amount, ManaUsage manaUsage, bool hasX = false,
+      bool tryNotToConsumeCardsManaSourceWhenPayingThis = false)
+    {
+      _amount = amount;
+      _manaUsage = manaUsage;
+      _hasX = hasX;
+      _tryNotToConsumeCardsManaSourceWhenPayingThis = tryNotToConsumeCardsManaSourceWhenPayingThis;
+    }
 
     public override IManaAmount GetManaCost()
     {
-      return Amount;
+      return _amount;
     }
 
     public override bool CanPay(ref int? maxX)
     {
-      if (!Card.Controller.HasMana(Amount, Usage))
+      if (!Card.Controller.HasMana(_amount, _manaUsage))
         return false;
 
-      if (HasX)
+      if (_hasX)
       {
-        maxX = Card.Controller.GetConvertedMana(Usage) - Amount.Converted;
+        maxX = Card.Controller.GetConvertedMana(_manaUsage) - _amount.Converted;
       }
 
       return true;
@@ -31,21 +42,21 @@
 
     protected override void Pay(ITarget target, int? x)
     {
-      var amount = Amount;
+      var amount = _amount;
 
       if (x.HasValue)
       {
         amount = amount.Add(x.Value);
       }
 
-      if (TryNotToConsumeCardsManaSourceWhenPayingThis)
+      if (_tryNotToConsumeCardsManaSourceWhenPayingThis)
       {
         var manaSource = Card.ManaSources.FirstOrDefault();
-        Card.Controller.Consume(amount, Usage, tryNotToConsumeThisSource: manaSource);
+        Card.Controller.Consume(amount, _manaUsage, tryNotToConsumeThisSource: manaSource);
         return;
       }
 
-      Card.Controller.Consume(amount, Usage);
+      Card.Controller.Consume(amount, _manaUsage);
     }
   }
 }

@@ -30,7 +30,7 @@
         var activationParameters = new ActivationParameters {Targets = GetAllTargets()};
         
         _childEffects.Add(effectFactory.CreateEffect(
-          new EffectParameters(Source, EffectCategories, activationParameters), Game));
+          new EffectParameters(Source, Category, activationParameters), Game));
       }
     }
 

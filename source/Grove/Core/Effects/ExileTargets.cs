@@ -8,7 +8,7 @@
 
     protected override void ResolveEffect()
     {
-      foreach (var target in ValidTargets)
+      foreach (var target in ValidEffectTargets)
       {
         if (ControllerGainsLifeEqualToToughness)
         {

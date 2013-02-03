@@ -21,7 +21,7 @@
             p.Timing = Timings.EndOfTurn();
             p.Effect = Effect<DrawCards>(e =>
               {
-                e.DrawCount = 2;
+                e.Count = 2;
                 e.DiscardCount = 1;
               });
           });

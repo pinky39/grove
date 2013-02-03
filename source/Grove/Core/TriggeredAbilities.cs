@@ -29,11 +29,16 @@
       ability.Dispose();
     }
 
-    public void Initialize(Game game, Card card)
+    public void Initialize(Card card, Game game)
     {
       Game = game;
 
       _abilities.Initialize(game.ChangeTracker, card);
+
+      foreach (var triggeredAbility in _abilities)
+      {
+        triggeredAbility.Initialize(card, game);
+      }
     }
 
     public void DisableAll()

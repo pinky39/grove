@@ -1,19 +1,21 @@
 ﻿namespace Grove.Core.Effects
 {
-  using Grove.Core.Targeting;
+  using Targeting;
 
   public class DiscardCards : Effect
   {
-    public int Count { get; set; }
-    public Player Player { get; set; }
+    private readonly int _count;
+
+    public DiscardCards(int count)
+    {
+      _count = count;
+    }
 
     protected override void ResolveEffect()
     {
-      var player = Player ?? Target().Player();
-
       Game.Enqueue<Decisions.DiscardCards>(
-        controller: player,
-        init: p => p.Count = Count);
+        controller: Target.Player(),
+        init: p => p.Count = _count);
     }
   }
 }

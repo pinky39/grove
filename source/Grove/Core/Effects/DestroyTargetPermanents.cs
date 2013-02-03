@@ -1,17 +1,24 @@
 ﻿namespace Grove.Core.Effects
 {
-  using Grove.Core.Targeting;
+  using Targeting;
 
   public class DestroyTargetPermanents : Effect
   {
-    public bool AllowRegenerate = true;
+    private readonly bool _canRegenerate;
+
+    private DestroyTargetPermanents() {}
+
+    public DestroyTargetPermanents(bool canRegenerate = true)
+    {
+      _canRegenerate = canRegenerate;
+    }
 
     protected override void ResolveEffect()
     {
-      foreach (var target in ValidTargets)
+      foreach (var target in ValidEffectTargets)
       {
-        target.Card().Destroy(AllowRegenerate);  
-      }            
-    }    
+        target.Card().Destroy(_canRegenerate);
+      }
+    }
   }
 }

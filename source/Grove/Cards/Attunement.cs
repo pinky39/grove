@@ -23,7 +23,7 @@
             Cost<Core.Costs.ReturnToHand>(),
             Effect<DrawCards>(e =>
               {
-                e.DrawCount = 3;
+                e.Count = 3;
                 e.DiscardCount = 4;
               }),
             timing: Any(Timings.EndOfTurn(), Timings.CanBeDestroyedByTopSpell())

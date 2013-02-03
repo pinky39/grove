@@ -3,12 +3,13 @@
   using System.Collections.Generic;
   using System.Linq;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
+  using Core.Effects;
 
   public class AcidicSoil : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Acidic Soil")
@@ -18,8 +19,9 @@
         .FlavorText("Phyrexia had tried to take Urza's soul. He was relieved that Shiv tried to claim only his soles.")
         .Cast(p =>
           {
-            p.Timing = Timings.FirstMain();
-            p.Effect = Effect<Core.Effects.DealDamageToEach>(e => e.AmountPlayer = e.Controller.Battlefield.Lands.Count());
+            p.TimingRule(new FirstMain());
+            p.Effect =() => new DealDamageToCreaturesAndPlayers(
+              amountPlayer: (e, player) => player.Battlefield.Lands.Count());
           });
     }
   }

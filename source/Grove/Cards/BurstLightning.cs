@@ -27,7 +27,7 @@
           })
         .Cast(p =>
           {
-            p.Description = p.KickerDescription;
+            p.Text = p.KickerDescription;
             p.Effect = Effect<Core.Effects.DealDamageToTargets>(e => e.Amount = 4);
             p.Cost = Cost<PayMana>(c => c.Amount = "{4}{R}".ParseMana());
             p.EffectTargets = L(Target(Validators.CreatureOrPlayer(), Zones.Battlefield()));

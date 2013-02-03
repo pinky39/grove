@@ -2,17 +2,12 @@
 {
   using Infrastructure;
   using Messages;
+  using Targeting;
 
   public class AttachmentLifetime : Lifetime, IReceive<AttachmentDetached>
   {
-    private readonly Card _attachment;
-    private readonly Card _attachmentTarget;
-
-    public AttachmentLifetime(Card attachment, Card attachmentTarget)
-    {
-      _attachment = attachment;
-      _attachmentTarget = attachmentTarget;
-    }
+    private Card _attachment;
+    private Card _attachmentTarget;
 
     public void Receive(AttachmentDetached message)
     {
@@ -21,6 +16,14 @@
       {
         End();
       }
+    }
+
+    public override void Initialize(Modifier modifier, Game game)
+    {
+      base.Initialize(modifier, game);
+
+      _attachment = modifier.Source;
+      _attachmentTarget = modifier.Target.Card();
     }
   }
 }

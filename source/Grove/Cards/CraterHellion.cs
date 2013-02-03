@@ -24,7 +24,7 @@
           TriggeredAbility(
             "When Crater Hellion enters the battlefield, it deals 4 damage to each other creature.",
             Trigger<OnZoneChanged>(t => t.To = Zone.Battlefield),
-            Effect<DealDamageToEach>(e =>
+            Effect<DealDamageToCreaturesAndPlayers>(e =>
               {
                 e.AmountCreature = 4;
                 e.FilterCreature = (self, creature) => creature != self.Source.OwningCard;

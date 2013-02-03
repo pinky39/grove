@@ -5,15 +5,22 @@
   [Copyable]
   public class StaticAbility : IHashable
   {
-    private readonly Trackable<bool> _isEnabled;
+    private readonly Trackable<bool> _isEnabled = new Trackable<bool>();
     private readonly Trackable<Static> _value;
 
     private StaticAbility() {}
 
-    public StaticAbility(Static value, ChangeTracker changeTracker)
+    public StaticAbility(Static value)
+    {      
+      _value = new Trackable<Static>(value);
+    }
+
+    public StaticAbility Initialize(ChangeTracker changeTracker)
     {
-      _value = new Trackable<Static>(value, changeTracker);
-      _isEnabled = new Trackable<bool>(true, changeTracker);
+      _isEnabled.Initialize(changeTracker);
+      _value.Initialize(changeTracker);
+
+      return this;
     }
 
     public Static Value { get { return _value.Value; } }

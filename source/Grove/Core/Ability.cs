@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core
 {
+  using System.Collections.Generic;
   using Ai;
   using Effects;
   using Infrastructure;
@@ -11,14 +12,14 @@
     protected readonly CardText Text;
     private readonly bool _usesStack;
     protected EffectFactory EffectFactory;
-    protected MachinePlayRule[] Rules;
-    private Trackable<bool> _isEnabled = new Trackable<bool>(true);
+    protected List<MachinePlayRule> Rules;
+    private readonly Trackable<bool> _isEnabled = new Trackable<bool>(true);
     private Card _owner;
 
     protected Ability(AbilityParameters parameters)
     {
-      EffectFactory = parameters.EffectFactory;
-      Rules = parameters.Rules;
+      EffectFactory = parameters.Effect;
+      Rules = parameters.GetMachineRules();
       TargetSelector = parameters.TargetSelector;
       _usesStack = parameters.UsesStack;
       Text = parameters.Text;
@@ -60,9 +61,9 @@
 
       TargetSelector.Initialize(game);
 
-      foreach (var aiInstruction in Rules)
+      foreach (var rule in Rules)
       {
-        aiInstruction.Initialize(game);
+        rule.Initialize(game);
       }
 
       _isEnabled.Initialize(Game.ChangeTracker);           

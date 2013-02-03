@@ -20,7 +20,7 @@
         .Cast(p =>
           {
             p.Timing = Timings.FirstMain();
-            p.Effect = Effect<DrawCards>(e => e.DrawCount = 2);
+            p.Effect = Effect<DrawCards>(e => e.Count = 2);
           });
     }
   }

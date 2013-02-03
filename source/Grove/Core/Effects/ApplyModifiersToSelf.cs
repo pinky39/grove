@@ -1,13 +1,19 @@
 ﻿namespace Grove.Core.Effects
 {
   using System.Collections.Generic;
-  using Grove.Core.Zones;
   using Modifiers;
+  using Zones;
 
   public class ApplyModifiersToSelf : Effect
   {
-    private readonly List<IModifierFactory> _selfModifiers = new List<IModifierFactory>();
-    public Value ToughnessReduction = 0;
+    private readonly List<ModifierFactory> _selfModifiers = new List<ModifierFactory>();    
+
+    private ApplyModifiersToSelf() {}
+    
+    public ApplyModifiersToSelf(params ModifierFactory[] modifiers)
+    {      
+      _selfModifiers.AddRange(modifiers);
+    }
 
     public override bool TargetsEffectSource { get { return true; } }
 
@@ -16,16 +22,21 @@
       return card == Source.OwningCard ? ToughnessReduction.GetValue(X) : 0;
     }
 
-    public void Modifiers(params IModifierFactory[] modifiersFactories)
-    {
-      _selfModifiers.AddRange(modifiersFactories);
-    }
-
     private IEnumerable<Modifier> CreateSelfModifiers()
     {
       var target = Source.OwningCard;
 
-      return _selfModifiers.CreateModifiers(Source.OwningCard, target, X, Game);
+      foreach (var modifierFactory in _selfModifiers)
+      {
+        var p = new ModifierParameters
+          {
+            Source = Source.OwningCard,
+            Target = target,
+            X = X
+          };
+
+        yield return modifierFactory().Initialize(p, Game);
+      }
     }
 
     protected override void ResolveEffect()

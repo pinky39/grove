@@ -395,6 +395,7 @@
     <Compile Include="Cards\WurmcoilEngine.cs" />
     <Compile Include="Cards\WallOfDenial.cs" />
     <Compile Include="Configuration.cs" />
+    <Compile Include="Core\AbilityOrCastParameters.cs" />
     <Compile Include="Core\AbilityParameters.cs" />
     <Compile Include="Core\ActivatedAbilityParameters.cs" />
     <Compile Include="Core\Ai\ActivationContext.cs" />
@@ -452,6 +453,7 @@
     <Compile Include="Core\Ai\TimingRules\ControllerGravayardCountIs.cs" />
     <Compile Include="Core\Ai\TimingRules\ControllerHandCountIs.cs" />
     <Compile Include="Core\Ai\TimingRules\ControllerNeedsAdditionalMana.cs" />
+    <Compile Include="Core\Ai\TimingRules\DeclareBlockers.cs" />
     <Compile Include="Core\Ai\TimingRules\MinAttackerCount.cs" />
     <Compile Include="Core\Ai\TimingRules\OpponentHasAtLeastCardsInHand.cs" />
     <Compile Include="Core\Ai\TimingRules\OwningCardHas.cs" />
@@ -487,6 +489,7 @@
     <Compile Include="Core\Casting\Aura.cs" />
     <Compile Include="Core\Casting\Permanent.cs" />
     <Compile Include="Core\ContiniousEffects.cs" />
+    <Compile Include="Core\ContinuousEffectParameters.cs" />
     <Compile Include="Core\Costs\AggregateCost.cs" />
     <Compile Include="Core\Costs\PayLife.cs" />
     <Compile Include="Core\Costs\PayMana.cs" />
@@ -511,7 +514,9 @@
     <Compile Include="Core\Modifiers\IncreaseManaOutput.cs" />
     <Compile Include="Core\Modifiers\ManaAmountIncrement.cs" />
     <Compile Include="Core\Preventions\PreventReceived.cs" />
+    <Compile Include="Core\Targeting\TargetSpecs.cs" />
     <Compile Include="Core\Targeting\TargetValidatorParameters.cs" />
+    <Compile Include="Core\Targeting\ZoneSpecs.cs" />
     <Compile Include="Core\TriggeredAbilityParameters.cs" />
     <Compile Include="Core\Triggers\OnEffectResolved.cs" />
     <Compile Include="Core\CastInstructionParameters.cs" />
@@ -699,12 +704,12 @@
     <Compile Include="Core\Targeting\TargetsCandidates.cs" />
     <Compile Include="Core\Targeting\TargetValidator.cs" />
     <Compile Include="Core\Targeting\TargetSelector.cs" />
-    <Compile Include="Core\Targeting\IsValidTargetParameters.cs" />
+    <Compile Include="Core\Targeting\TargetValidatorDelegateParameters.cs" />
     <Compile Include="Core\Triggers\OnCastedSpell.cs" />
     <Compile Include="Core\Triggers\OnLevelChanged.cs" />
     <Compile Include="Core\Triggers\OnTurnOpponentWasNotDealtDamage.cs" />
     <Compile Include="Core\Targeting\Zones.cs" />
-    <Compile Include="Core\Targeting\IsValidZoneParameters.cs" />
+    <Compile Include="Core\Targeting\ZoneValidatorDelegateParameters.cs" />
     <Compile Include="Core\Zones\IGraveyardQuery.cs" />
     <Compile Include="Core\Zones\ILibraryQuery.cs" />
     <Compile Include="Core\Zones\IZoneQuery.cs" />
@@ -814,7 +819,7 @@
     <Compile Include="Core\Damage.cs" />
     <Compile Include="Core\Preventions\ReplaceDamageWithCounters.cs" />
     <Compile Include="Core\Effects\CompoundEffect.cs" />
-    <Compile Include="Core\Effects\DealDamageToEach.cs" />
+    <Compile Include="Core\Effects\DealDamageToCreaturesAndPlayers.cs" />
     <Compile Include="Core\Effects\DrawCards.cs" />
     <Compile Include="Core\Effects\ControllerGainsLife.cs" />
     <Compile Include="Core\Effects\IEffectSource.cs" />

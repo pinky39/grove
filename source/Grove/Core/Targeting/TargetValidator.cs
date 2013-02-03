@@ -4,9 +4,8 @@
   using Costs;
   using Effects;
 
-  public delegate bool IsValidTarget(IsValidTargetParameters parameters);
-
-  public delegate bool IsValidZone(IsValidZoneParameters parameters);
+  public delegate bool TargetValidatorDelegate(TargetValidatorDelegateParameters parameters);
+  public delegate bool ZoneValidatorDelegate(ZoneValidatorDelegateParameters parameters);
 
 
   public class TargetValidator : GameObject
@@ -14,14 +13,14 @@
     private const string DefaultMessageOneTarget = "Select a target.";
     private const string DefaultMessageMultipleTargets = "Select target: {0} of {1}.";
 
-    private readonly IsValidTarget _isValidTarget;
-    private readonly IsValidZone _isValidZone;
+    private readonly TargetValidatorDelegate _isValidTarget;
+    private readonly ZoneValidatorDelegate _isValidZone;
     private readonly bool _mustBeTargetable;
 
     public TargetValidator(TargetValidatorParameters p)
     {
-      _isValidTarget = p.IsValidTarget;
-      _isValidZone = p.IsValidZone;
+      _isValidTarget = p.TargetSpec;
+      _isValidZone = p.ZoneSpec;
       _mustBeTargetable = p.MustBeTargetable;
 
       MinCount = p.MinCount;
@@ -46,7 +45,7 @@
         return false;
       }
 
-      var parameters = new IsValidTargetParameters(target, Game);
+      var parameters = new TargetValidatorDelegateParameters(target, Game);
       parameters.Effect = effect;
       parameters.Cost = cost;
 
@@ -88,7 +87,7 @@
 
     public bool IsZoneValid(Zone zone, Player zoneOwner)
     {
-      return _isValidZone(new IsValidZoneParameters(zone, zoneOwner, Game));
+      return _isValidZone(new ZoneValidatorDelegateParameters(zone, zoneOwner, Game));
     }
   }
 }

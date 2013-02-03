@@ -30,7 +30,7 @@
       
       Pay(p);
 
-      var effect = EffectFactory(effectParameters, Game);
+      var effect = EffectFactory().Initialize(effectParameters, Game);
       Resolve(effect, p.SkipStack);
 
       Publish(new PlayerHasActivatedAbility(this, p.Targets));

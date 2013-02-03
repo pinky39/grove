@@ -1,0 +1,56 @@
+﻿namespace Grove.Core.Targeting
+{
+  using Core.Zones;
+
+  public class ZoneSpecs
+  {
+    private readonly TargetValidatorParameters _p;
+
+    public ZoneSpecs(TargetValidatorParameters p)
+    {
+      _p = p;
+    }
+
+    public TargetValidatorParameters None()
+    {
+      _p.ZoneSpec = delegate { return false; };
+      return _p;
+    }
+
+    public TargetValidatorParameters OwnersHand()
+    {
+      _p.ZoneSpec = p => p.Zone == Zone.Hand && p.ZoneOwner == p.Source.Controller;
+      return _p;
+    }
+
+    public TargetValidatorParameters Battlefield()
+    {
+      _p.ZoneSpec = p => p.Zone == Zone.Battlefield;
+      return _p;
+    }
+
+    public TargetValidatorParameters Stack()
+    {
+      _p.ZoneSpec = p => p.Zone == Zone.Stack;
+      return _p;
+    }
+
+    public TargetValidatorParameters Graveyard()
+    {
+      _p.ZoneSpec = p => p.Zone == Zone.Graveyard;
+      return _p;
+    }
+
+    public TargetValidatorParameters YourGraveyard()
+    {
+      _p.ZoneSpec = p => p.Zone == Zone.Graveyard && p.ZoneOwner == p.Source.Controller;
+      return _p;
+    }
+
+    public TargetValidatorParameters BattlefieldOrStack()
+    {
+      _p.ZoneSpec = p => p.Zone == Zone.Stack || p.Zone == Zone.Battlefield;
+      return _p;
+    }
+  }
+}

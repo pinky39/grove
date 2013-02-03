@@ -45,7 +45,7 @@
 
     private void PutValidTargetsToBattlefield()
     {
-      foreach (var target in ValidTargets)
+      foreach (var target in ValidEffectTargets)
       {
         var card = target.Card();
 

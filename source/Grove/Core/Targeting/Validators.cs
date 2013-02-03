@@ -5,17 +5,17 @@
 
   public static class Validators
   {
-    public static IsValidTarget Player()
+    public static TargetValidatorDelegate Player()
     {
       return p => p.Target.IsPlayer();
     }
 
-    public static IsValidTarget CreatureOrPlayer()
+    public static TargetValidatorDelegate CreatureOrPlayer()
     {
       return p => p.Target.IsPlayer() || (p.Target.IsCard() && p.Target.Card().Is().Creature);
     }
 
-    public static IsValidTarget CounterableSpell(Func<Card, bool> filter = null)
+    public static TargetValidatorDelegate CounterableSpell(Func<Card, bool> filter = null)
     {
       filter = filter ?? delegate { return true; };
 
@@ -28,12 +28,12 @@
         };
     }    
 
-    public static IsValidTarget AttackerOrBlocker()
+    public static TargetValidatorDelegate AttackerOrBlocker()
     {
       return p => p.Target.IsCard() && (p.OwningCard.IsAttacker || p.OwningCard.IsBlocker);
     }
 
-    public static IsValidTarget ValidEquipmentTarget()
+    public static TargetValidatorDelegate ValidEquipmentTarget()
     {
       return p =>
         {
@@ -48,13 +48,13 @@
         };
     }        
 
-    public static IsValidTarget Card(Func<IsValidTargetParameters, bool> filter)
+    public static TargetValidatorDelegate Card(Func<TargetValidatorDelegateParameters, bool> filter)
     {
       filter = filter ?? delegate { return true; };
       return p => p.Target.IsCard() && filter(p);
     }
 
-    public static IsValidTarget Card(Func<Card, bool> filter = null)
+    public static TargetValidatorDelegate Card(Func<Card, bool> filter = null)
     {
       filter = filter ?? delegate { return true; };
 
@@ -62,7 +62,7 @@
           filter(p.Target.Card());
     }
     
-    public static IsValidTarget Card(ControlledBy controlledBy, Func<Card, bool> filter = null)
+    public static TargetValidatorDelegate Card(ControlledBy controlledBy, Func<Card, bool> filter = null)
     {
       filter = filter ?? delegate { return true; };
 

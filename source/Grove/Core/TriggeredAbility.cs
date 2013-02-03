@@ -1,6 +1,7 @@
 ﻿namespace Grove.Core
 {
   using System;
+  using System.Collections.Generic;
   using System.Linq;
   using Decisions;
   using Infrastructure;
@@ -10,7 +11,7 @@
   public class TriggeredAbility : Ability, IDisposable, ICopyContributor
   {
     private readonly bool _triggerOnlyIfOwningCardIsInPlay;
-    private readonly Trigger[] _triggers;
+    private readonly List<Trigger> _triggers;
 
     public TriggeredAbility(TriggeredAbilityParameters p) : base(p)
     {

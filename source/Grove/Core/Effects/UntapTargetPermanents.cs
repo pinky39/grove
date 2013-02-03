@@ -6,7 +6,7 @@
   {
     protected override void ResolveEffect()
     {
-      foreach (var validTarget in ValidTargets)
+      foreach (var validTarget in ValidEffectTargets)
       {
         validTarget.Card().Untap();
       }

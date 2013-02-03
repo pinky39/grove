@@ -74,11 +74,12 @@
       _isHidden.Initialize(game.ChangeTracker, this);
       _isRevealed.Initialize(game.ChangeTracker, this);            
       _usageScore.Initialize(game.ChangeTracker, this);
-      _damagePreventions.Initialize(game, this);
+      _damagePreventions.Initialize(this, game, this);
+      _castInstructions.Initialize(this, game);
       _staticAbilities.Initialize(game.ChangeTracker, this);
-      _triggeredAbilities.Initialize(game, this);
-      _activatedAbilities.Initialize(game, this);        
-      _continuousEffects.Initialize(game.ChangeTracker, this);
+      _triggeredAbilities.Initialize(this, game);
+      _activatedAbilities.Initialize(this, game);        
+      _continuousEffects.Initialize(this, game, this);
 
       _isPreview = false;
     }
@@ -95,7 +96,7 @@
 
       _power = new Power(p.Power);
       _toughness = new Toughness(p.Toughness);
-      _level = new Level(p.Isleveler ? 0 : (int?) null);
+      _level = new Level(p.IsLeveler ? 0 : (int?) null);
       _counters = new Counters.Counters(_power, _toughness);
       _type = new CardTypeCharacteristic(p.Type);      
 

@@ -36,7 +36,7 @@
           })
         .Cast(p =>
           {
-            p.Description = p.KickerDescription;
+            p.Text = p.KickerDescription;
             p.Cost = Cost<PayMana>(c => c.Amount = "{3}{B}{B}".ParseMana());
             p.Effect = Effect<Core.Effects.ApplyModifiersToPermanents>(e =>
               {

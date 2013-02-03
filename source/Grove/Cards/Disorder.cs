@@ -22,7 +22,7 @@
             p.Timing = All(
               Timings.MainPhases(),
               Timings.OpponentHasPermanent(x => x.Is().Creature && x.HasColors(ManaColors.White)));
-            p.Effect = Effect<Core.Effects.DealDamageToEach>(e =>
+            p.Effect = Effect<Core.Effects.DealDamageToCreaturesAndPlayers>(e =>
               {
                 e.AmountPlayer = 2;
                 e.AmountCreature = 2;

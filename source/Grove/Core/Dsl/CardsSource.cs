@@ -1,35 +1,17 @@
 ﻿namespace Grove.Core.Dsl
 {
   using System.Collections.Generic;
-  using Ai;
-  using Effects;
+  using Effects;  
 
-
-  public delegate void Initializer<in T>(T target);
-
-  public abstract class CardsSource : CardBuilder
-  {        
-    public abstract IEnumerable<ICardFactory> GetCards();        
-
-    protected TimingDelegate All(params TimingDelegate[] predicates)
-    {
-      return Timings.All(predicates);
-    }
-
-    protected TimingDelegate Any(params TimingDelegate[] predicates)
-    {
-      return Timings.Any(predicates);
-    }
-
-    protected TargetingAiDelegate Any(params TargetingAiDelegate[] delegates)
-    {
-      return TargetingAi.Any(delegates);
-    }
+  public abstract class CardsSource
+  {
+    public CardFactory Card { get { return new CardFactory(); } }
+    public abstract IEnumerable<CardFactory> GetCards();
 
     protected T[] L<T>(params T[] elt)
     {
       return elt;
-    }        
+    }
 
     protected EffectChoice Choice(params EffectChoiceOption[] options)
     {
@@ -43,7 +25,7 @@
           Min = min,
           Max = max,
           Power = power,
-          Thoughness = toughness,
+          Toughness = toughness,
           StaticAbility = ability
         };
     }

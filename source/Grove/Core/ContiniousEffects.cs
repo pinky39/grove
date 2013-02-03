@@ -13,9 +13,14 @@
       modifier.Apply(this);
     }
 
-    public void Initialize(ChangeTracker changeTracker, IHashDependancy hashDependancy)
+    public void Initialize(Card owner, Game game, IHashDependancy hashDependancy)
     {
-      _continiousEffects.Initialize(changeTracker, hashDependancy);
+      _continiousEffects.Initialize(game.ChangeTracker, hashDependancy);
+
+      foreach (var continiousEffect in _continiousEffects)
+      {
+        continiousEffect.Initialize(owner, game);
+      }
     }
 
     public void Add(ContinuousEffect effect)

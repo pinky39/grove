@@ -6,12 +6,7 @@
 
   public class DefaultLifetime : Lifetime, IReceive<ZoneChanged>
   {
-    private readonly ITarget _target;
-
-    public DefaultLifetime(ITarget target)
-    {
-      _target = target;
-    }    
+    private ITarget _target;
 
     public void Receive(ZoneChanged message)
     {
@@ -20,6 +15,13 @@
 
       if (message.FromBattlefield)
         End();
+    }
+
+    public override void Initialize(Modifier modifier, Game game)
+    {
+      base.Initialize(modifier, game);
+
+      _target = modifier.Target;
     }
   }
 }

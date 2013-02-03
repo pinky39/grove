@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core
 {
+  using System.Collections.Generic;
   using System.Linq;
   using Ai;
   using Casting;
@@ -15,10 +16,10 @@
   {
     private readonly CastingRule _castingRule;
     private readonly Cost _cost;
-    private readonly string _description;
+    private readonly CardText _description;
     private readonly bool _distributeDamage;
     private readonly EffectFactory _effectFactory;
-    private readonly MachinePlayRule[] _rules;
+    private readonly List<MachinePlayRule> _rules;
     private readonly TargetSelector _targetSelector;
     private Card _card;
 
@@ -30,9 +31,9 @@
       _cost = p.Cost;
       _castingRule = p.Rule;
       _effectFactory = p.Effect;
-      _description = p.Description;
+      _description = p.Text;
       _distributeDamage = p.DistributeDamage;
-      _rules = p.Rules;
+      _rules = p.GetMachineRules();
     }
 
     public bool HasXInCost { get; private set; }
@@ -117,7 +118,7 @@
           X = activationParameters.X
         };
 
-      var effect = _effectFactory(parameters, Game);
+      var effect = _effectFactory().Initialize(parameters, Game);
 
       if (activationParameters.PayCost)
       {

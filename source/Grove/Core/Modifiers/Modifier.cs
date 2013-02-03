@@ -7,7 +7,7 @@
   using Redirections;
   using Targeting;
 
-  public delegate Modifier ModifierFactory(ModifierParameters p, Game game);
+  public delegate Modifier ModifierFactory();
 
   [Copyable]
   public abstract class Modifier : GameObject, IModifier, ICopyContributor
@@ -16,6 +16,7 @@
     public Card Source { get; private set; }
     public ITarget Target { get; private set; }
     protected int? X { get; private set; }
+    public bool UntilEot;    
 
     void ICopyContributor.AfterMemberCopy(object original)
     {
@@ -61,8 +62,7 @@
     }
 
     public void AddLifetime(Lifetime lifetime)
-    {
-      lifetime.Initialize(Game);
+    {      
       _lifetimes.Add(lifetime);
     }
 
@@ -92,41 +92,38 @@
       Target.RemoveModifier(this);
     }
 
-    public virtual void Initialize(ModifierParameters p, Game game)
+    public virtual Modifier Initialize(ModifierParameters p, Game game)
     {
       Game = game;
       Source = p.Source;
       Target = p.Target;
       X = p.X;
 
-      CreateLifetimes(p, game);
+      CreateDefaultLifetimes();
+
+      foreach (var lifetime in _lifetimes)
+      {
+        lifetime.Initialize(this, game);
+      }
+
+      _lifetimes.Initialize(game.ChangeTracker);
+
+      return this;
     }
 
-    private void CreateLifetimes(ModifierParameters p, Game game)
+    private void CreateDefaultLifetimes()
     {
-      _lifetimes.Add(new DefaultLifetime(p.Target));
+      _lifetimes.Add(new DefaultLifetime());
 
-      if (p.EndOfTurn)
+      if (UntilEot)
       {
         _lifetimes.Add(new EndOfTurnLifetime());
       }
 
-      if (p.Source.Is().Attachment)
+      if (Source.Is().Attachment)
       {
-        _lifetimes.Add(new AttachmentLifetime(p.Source, p.Target.Card()));
-      }
-
-      if (p.MinLevel.HasValue)
-      {
-        _lifetimes.Add(new LevelLifetime(p.MinLevel.Value, p.MaxLevel, p.Target.Card()));
-      }
-
-      foreach (var lifetime in _lifetimes)
-      {
-        lifetime.Initialize(game);
-      }
-
-      _lifetimes.Initialize(game.ChangeTracker);
+        _lifetimes.Add(new AttachmentLifetime());
+      }      
     }
   }
 }

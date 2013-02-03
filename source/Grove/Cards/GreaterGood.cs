@@ -25,7 +25,7 @@
             Cost<Sacrifice>(),
             Effect<DrawCards>(e =>
               {
-                e.DrawCount = e.CostTarget().Card().Power.GetValueOrDefault();
+                e.Count = e.CostTarget().Card().Power.GetValueOrDefault();
                 e.DiscardCount = 3;
               }),
             costTarget:

@@ -25,10 +25,15 @@
       modifier.Apply(this);
     }
 
-    public void Initialize(Game game, Card card)
+    public void Initialize(Card card, Game game)
     {
       _abilities.Initialize(game.ChangeTracker, card);
       _manaSources.Initialize(game.ChangeTracker);
+
+      foreach (var activatedAbility in _abilities)
+      {
+        activatedAbility.Initialize(card, game);
+      }
     }
 
     public void Activate(int abilityIndex, ActivationParameters activationParameters)

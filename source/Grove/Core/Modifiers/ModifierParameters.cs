@@ -6,9 +6,6 @@
   {
     public Card Source;
     public ITarget Target;
-    public int? X;
-    public bool EndOfTurn;
-    public int? MinLevel;
-    public int? MaxLevel;
+    public int? X;    
   }
 }

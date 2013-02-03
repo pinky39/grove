@@ -11,6 +11,7 @@
   {
     private readonly List<CastInstruction> _castInstructions = new List<CastInstruction>();
     public bool HasXInCost { get { return _castInstructions.Any(x => x.HasXInCost); } }
+    public int Count { get { return _castInstructions.Count; } }
 
     public List<ActivationPrerequisites> CanCast()
     {
@@ -29,6 +30,14 @@
       }
 
       return allPrerequisites;
+    }
+
+    public void Initialize(Card card, Game game)
+    {
+      foreach (var castInstruction in _castInstructions)
+      {
+        castInstruction.Initialize(card, game);
+      }
     }
 
     public void Cast(int index, ActivationParameters activationParameters)

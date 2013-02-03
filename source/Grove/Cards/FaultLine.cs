@@ -20,7 +20,7 @@
           {
             p.XCalculator = ChooseXAi.MaximumAvailableMana();
             p.Timing = Timings.MassRemovalInstantSpeed();
-            p.Effect = Effect<Core.Effects.DealDamageToEach>(e =>
+            p.Effect = Effect<Core.Effects.DealDamageToCreaturesAndPlayers>(e =>
               {
                 e.AmountPlayer = Value.PlusX;
                 e.AmountCreature = Value.PlusX;

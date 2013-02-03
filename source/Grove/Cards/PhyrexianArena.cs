@@ -24,7 +24,7 @@
             Trigger<OnStepStart>(t => { t.Step = Step.Upkeep; }),
             Effect<DrawCards>(e =>
               {
-                e.DrawCount = 1;
+                e.Count = 1;
                 e.Lifeloss = 1;
               }), triggerOnlyIfOwningCardIsInPlay: true));
     }

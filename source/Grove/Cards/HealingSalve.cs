@@ -22,14 +22,14 @@
           "'Xantcha is recovering. The medicine is slow, but my magic would have killed her'{EOL}—Serra, to Urza")
         .Cast(p =>
           {
-            p.Description = "Target player gains 3 life";
+            p.Text = "Target player gains 3 life";
             p.Effect = Effect<Core.Effects.TargetPlayerGainsLife>(e => e.Amount = 3);
             p.EffectTargets = L(Target(Validators.Player(), Zones.None()));
             p.TargetingAi = TargetingAi.Controller();
           })
         .Cast(p =>
           {
-            p.Description = "Prevent the next 3 damage that would be dealt to target creature or player this turn.";
+            p.Text = "Prevent the next 3 damage that would be dealt to target creature or player this turn.";
             p.Effect = Effect<Core.Effects.ApplyModifiersToTargets>(e => e.Modifiers(
               Modifier<AddDamagePrevention>(m => m.Prevention =
                 Prevention<PreventDamageToTarget>(pr => { pr.Amount = 3; }), untilEndOfTurn: true)));

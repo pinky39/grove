@@ -33,7 +33,7 @@
               }),
             Effect<CompoundEffect>(e => e.ChildEffects(
               Effect<DealDamageToTargets>(e1 => e1.Amount = 2),
-              Effect<DrawCards>(e1 => e1.DrawCount = 1))),
+              Effect<DrawCards>(e1 => e1.Count = 1))),
             Target(
               Validators.CreatureOrPlayer(), Zones.Battlefield()),
             selectorAi: TargetingAi.DealDamageSingleSelector(2)),

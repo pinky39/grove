@@ -3,15 +3,16 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
+  using Core.Ai.TargetingRules;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
   using Core.Effects;
-  using Core.Targeting;
   using Core.Triggers;
   using Core.Zones;
 
   public class AcidicSlime : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Acidic Slime")
@@ -21,18 +22,18 @@
           "{Deathtouch}{EOL}When Acidic Slime enters the battlefield, destroy target artifact, enchantment, or land.")
         .Power(2)
         .Toughness(2)
-        .Cast(p => p.Timing = Timings.FirstMain())
-        .Abilities(
-          Static.Deathtouch,
-          TriggeredAbility(
-            "When Acidic Slime enters the battlefield, destroy target artifact, enchantment, or land.",
-            Trigger<OnZoneChanged>(t => t.To = Zone.Battlefield),
-            Effect<DestroyTargetPermanents>(),
-            Target(
-              Validators.Card(card => card.Is().Artifact || card.Is().Enchantment || card.Is().Land),
-              Zones.Battlefield()),
-            TargetingAi.OrderByScore(),
-            EffectCategories.Destruction)
+        .Cast(p => p.TimingRule(new FirstMain()))
+        .StaticAbilities(Static.Deathtouch)
+        .TriggeredAbility(p =>
+          {
+            p.Text = "When Acidic Slime enters the battlefield, destroy target artifact, enchantment, or land.";
+            p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
+            p.Effect = () => new DestroyTargetPermanents {Category = EffectCategories.Destruction};
+            p.TargetSelector.AddEffect(trg => trg
+              .Is.Card(card => card.Is().Artifact || card.Is().Enchantment || card.Is().Land)
+              .On.Battlefield());
+            p.TargetingRule(new OrderByRank(c => -c.Score, ControlledBy.Opponent));
+          }
         );
     }
   }

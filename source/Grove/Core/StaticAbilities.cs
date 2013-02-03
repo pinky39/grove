@@ -48,11 +48,16 @@
     {
       _changeTracker = changeTracker;
       _abilities.Initialize(changeTracker, hashDependancy);
+
+      foreach (var staticAbility in _abilities)
+      {
+        staticAbility.Initialize(changeTracker);
+      }
     }
 
     public void Add(Static ability)
     {
-      _abilities.Add(new StaticAbility(ability, _changeTracker));
+      _abilities.Add(new StaticAbility(ability).Initialize(_changeTracker));
     }
 
     public void Remove(Static ability)

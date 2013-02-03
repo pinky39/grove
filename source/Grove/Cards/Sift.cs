@@ -21,7 +21,7 @@
             p.Timing = Timings.FirstMain();
             p.Effect = Effect<DrawCards>(e =>
               {
-                e.DrawCount = 3;
+                e.Count = 3;
                 e.DiscardCount = 1;
               });
           });

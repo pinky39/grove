@@ -6,7 +6,8 @@
   public abstract class Trigger : GameObject, IDisposable, IHashable
   {
     public Func<Trigger, bool> Condition = delegate { return true; };
-    private Trackable<bool> _canTrigger;
+    
+    private readonly Trackable<bool> _canTrigger = new Trackable<bool>(true);
     protected TriggeredAbility Ability { get; private set; }
     public Card OwningCard { get { return Ability.OwningCard; } }
     protected Player Controller { get { return Ability.OwningCard.Controller; } }
@@ -35,7 +36,7 @@
       Game = game;
       Ability = triggeredAbility;
 
-      _canTrigger = new Trackable<bool>(true, game.ChangeTracker);
+      _canTrigger.Initialize(game.ChangeTracker);      
       Subscribe(this);
     }
 

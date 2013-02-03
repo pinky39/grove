@@ -22,7 +22,7 @@
           ActivatedAbility(
             "{T}: Fire Ants deals 1 damage to each other creature without flying.",
             Cost<Tap>(),
-            Effect<Core.Effects.DealDamageToEach>(e =>
+            Effect<Core.Effects.DealDamageToCreaturesAndPlayers>(e =>
               {
                 e.AmountCreature = 1;
                 e.FilterCreature = (effect, card) => !card.Has().Flying;

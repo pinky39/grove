@@ -3,246 +3,291 @@
   using System;
   using System.Collections.Generic;
   using Ai;
+  using Ai.TimingRules;
+  using Casting;
   using Costs;
   using Dsl;
   using Effects;
   using Mana;
   using Modifiers;
   using Preventions;
-  using Targeting;
   using Triggers;
   using Zones;
 
   public class CardFactory
   {
-    private readonly CardParameters _p = new CardParameters();
-    public string Name { get { return _p.Name; } }
+    private readonly List<Action<CardParameters>> _init = new List<Action<CardParameters>>();
+
+    public string Name { get; private set; }
 
     public Card CreateCard()
     {
-      return new Card(_p);
-    }    
+      var p = new CardParameters();
+
+      foreach (var action in _init)
+      {
+        action(p);
+      }
+
+      if (p.CastInstructions.Count == 0)
+      {
+        p.CastInstructions.Add(
+          new CastInstruction(GetDefaultCastInstructionParameters(p)));
+      }
+
+      return new Card(p);
+    }
+
+    private CastInstructionParameters GetDefaultCastInstructionParameters(CardParameters cp)
+    {
+      return new CastInstructionParameters
+        {
+          Cost = new PayMana(cp.ManaCost, ManaUsage.Spells, cp.HasXInCost),
+          Text = GetDefaultCastDescription(cp.Name),
+          Effect = () => new PutIntoPlay(),
+          Rule = GetDefaultCastingRule(cp.Type),
+        };
+    }
+
+    private CastingRule GetDefaultCastingRule(CardType cardType)
+    {
+      if (cardType.Instant)
+        return new Instant();
+      if (cardType.Sorcery)
+        return new Sorcery();
+      if (cardType.Land)
+        return new Land();
+      if (cardType.Aura)
+        return new Aura();
+
+      return new Permanent();
+    }
+
+    private string GetDefaultCastDescription(string cardName)
+    {
+      {
+        return string.Format("Cast {0}.", cardName);
+      }
+    }
 
     public CardFactory Protections(ManaColors colors)
     {
-      _p.Protections.AddProtectionFromColors(colors);
+      _init.Add(p => p.Protections.AddProtectionFromColors(colors));
       return this;
     }
 
     public CardFactory Cast(Action<CastInstructionParameters> set)
     {
-      var p = new CastInstructionParameters();
-      set(p);
-            
-      _p.CastInstructions.Add(new CastInstruction(p));
+      _init.Add(cp =>
+        {
+          var p = GetDefaultCastInstructionParameters(cp);
+
+          set(p);
+
+          cp.CastInstructions.Add(new CastInstruction(p));
+        }
+        );
+
       return this;
     }
 
-    //public IEnumerable<CastInstructionParameters> CastInstructions
-    //{
-    //  get
-    //  {
-    //    if (_castInstructions.Count == 0)
-    //    {
-    //      yield return new CastInstructionParameters(Name, ManaCost, Type);
-    //      yield break;
-    //    }
-
-    //    foreach (var castInstructionParameterse in _castInstructions)
-    //    {
-    //      yield return castInstructionParameterse;
-    //    }
-    //  }
-    //}
-
-    public CardFactory Preventions(params DamagePrevention[] preventions)
+    public CardFactory Prevention(Func<DamagePrevention> factory)
     {
-      foreach (var prevention in preventions)
-      {
-        _p.DamagePreventions.AddPrevention(prevention);  
-      }      
-      
+      _init.Add(p => p.DamagePreventions.AddPrevention(factory()));
       return this;
     }
 
     public CardFactory Protections(params string[] cardTypes)
     {
-      _p.Protections.AddProtectionFromCards(cardTypes);
+      _init.Add(p => p.Protections.AddProtectionFromCards(cardTypes));
+
       return this;
     }
 
     public CardFactory Echo(string manaCost)
     {
-      var c = new Dsl.CardBuilder();
-      IManaAmount amount = manaCost.ParseMana();
+      var amount = manaCost.ParseMana();
 
-      TriggeredAbility.Factory echoFactory = c.TriggeredAbility(
-        "At the beginning of your upkeep, if this came under your control since the beginning of your last upkeep, sacrifice it unless you pay its echo cost.",
-        c.Trigger<OnStepStart>(t =>
-          {
-            t.Step = Step.Upkeep;
-            t.OnlyOnceWhenAfterItComesUnderYourControl = true;
-          }),
-        c.Effect<PayManaOrSacrifice>(e =>
-          {
-            e.Amount = amount;
-            e.Message = String.Format("Pay {0}'s echo?", e.Source.OwningCard);
-          }),
-        triggerOnlyIfOwningCardIsInPlay: true);
+      TriggeredAbility(p =>
+        {
+          p.Trigger(new OnStepStart(Step.Upkeep, onlyOnceWhenAfterItComesUnderYourControl: true));
+          p.Text =
+            "At the beginning of your upkeep, if this came under your control since the beginning of your last upkeep, sacrifice it unless you pay its echo cost.";
+          p.Effect = () => new PayManaOrSacrifice(amount, "Pay {0}'s echo?");
+          p.TriggerOnlyIfOwningCardIsInPlay = true;
+        });
 
-      _p.TriggeredAbilities.Add(echoFactory);
       return this;
     }
 
-    public CardFactory Abilities(params object[] abilities)
+    public CardFactory ActivatedAbility(Action<ActivatedAbilityParameters> set)
     {
-      foreach (object ability in abilities)
-      {
-        if (ability is Static)
+      _init.Add(cp =>
         {
-          _p.StaticAbilities.Add((Static) ability);
-          continue;
-        }
-
-        if (ability is IActivatedAbilityFactory)
-        {
-          _p.ActivatedAbilities.Add(ability as IActivatedAbilityFactory);
-          continue;
-        }
-
-        if (ability is ITriggeredAbilityFactory)
-        {
-          _p.TriggeredAbilities.Add(ability as ITriggeredAbilityFactory);
-          continue;
-        }
-
-        if (ability is IContinuousEffectFactory)
-        {
-          _p.ContinuousEffects.Add((IContinuousEffectFactory) ability);
-        }
-      }
+          var p = new ActivatedAbilityParameters();
+          set(p);
+          cp.ActivatedAbilities.Add(new ActivatedAbility(p));
+        });
       return this;
-    }    
+    }
+
+    public CardFactory TriggeredAbility(Action<TriggeredAbilityParameters> set)
+    {
+      _init.Add(cp =>
+        {
+          var p = new TriggeredAbilityParameters();
+          set(p);
+          cp.TriggeredAbilities.Add(new TriggeredAbility(p));
+        });
+      return this;
+    }
+
+    public CardFactory StaticAbilities(params Static[] abilities)
+    {
+      _init.Add(cp =>
+        {
+          foreach (var ability in abilities)
+          {
+            cp.StaticAbilities.Add(ability);
+          }
+        });
+      return this;
+    }
+
+    public CardFactory ContinuousEffect(Action<ContinuousEffectParameters> set)
+    {
+      _init.Add(cp =>
+        {
+          var p = new ContinuousEffectParameters();
+          set(p);
+          cp.ContinuousEffects.Add(new ContinuousEffect(p));
+        });
+      return this;
+    }
 
     public CardFactory Colors(ManaColors colors)
     {
-      _p.Colors = colors;
+      _init.Add(p => { p.Colors = colors; });
       return this;
     }
 
     public CardFactory IsLeveler()
     {
-      _p.Isleveler = true;
+      _init.Add(p => { p.IsLeveler = true; });
       return this;
     }
 
     public CardFactory FlavorText(string flavorText)
     {
-      _p.FlavorText = flavorText;
+      _init.Add(p => { p.FlavorText = flavorText; });
       return this;
     }
 
     public CardFactory ManaCost(string manaCost)
     {
-      _p.ManaCost = manaCost.ParseMana();
+      _init.Add(p => { p.ManaCost = manaCost.ParseMana(); });
       return this;
     }
 
     public CardFactory Named(string name)
     {
-      _p.Name = name;
+      Name = name;
       return this;
     }
 
     public CardFactory Cycling(string cost)
     {
-      var b = new Dsl.CardBuilder();
-
-      IActivatedAbilityFactory cycling = b.ActivatedAbility(
-        string.Format("Cycling {0} ({0}, Discard this card: Draw a card.)", cost),
-        b.Cost<PayMana, Discard>(c => c.Amount = cost.ParseMana()),
-        b.Effect<DrawCards>(e => e.DrawCount = 1),
-        timing: Timings.Cycling(),
-        activationZone: Zone.Hand);
-
-      _p.ActivatedAbilities.Add(cycling);
+      ActivatedAbility(p =>
+        {
+          p.Text = string.Format("Cycling {0} ({0}, Discard this card: Draw a card.)", cost);
+          p.Cost = new PayMana(cost.ParseMana(), ManaUsage.Abilities);
+          p.Effect = () => new DrawCards(1);
+          p.ActivationZone = Zone.Hand;
+          p.TimingRule(new Cycling());
+        });
 
       return this;
     }
 
     public CardFactory Power(int power)
     {
-      _p.Power = power;
+      _init.Add(p => { p.Power = power; });
       return this;
     }
 
 
     public CardFactory Text(string text)
     {
-      _p.Text = text;
+      _init.Add(p => { p.Text = text; });
       return this;
     }
 
 
     public CardFactory Toughness(int toughness)
     {
-      _p.Toughness = toughness;
+      _init.Add(p => { p.Toughness = toughness; });
       return this;
     }
 
     public CardFactory Type(string type)
     {
-      _p.Type = type;
+      _init.Add(p => { p.Type = type; });
       return this;
     }
 
-    public CardFactory Leveler(IManaAmount cost, EffectCategories category = EffectCategories.Generic,
+    public CardFactory Leveler(string cost, EffectCategories category = EffectCategories.Generic,
       params LevelDefinition[] levels)
     {
-      var abilities = new List<object>();
-      var builder = new Dsl.CardBuilder();
+      ActivatedAbility(p =>
+        {
+          p.Text = String.Format("{0}: Put a level counter on this. Level up only as sorcery.", cost);
+          p.Cost = new PayMana(cost.ParseMana(), ManaUsage.Abilities);
+          p.Effect = () => new ApplyModifiersToSelf(() => new IncreaseLevel()) {Category = category};
+          p.TimingRule(new LevelUp(cost.ParseMana(), levels));
+          p.ActivateAsSorcery = true;
+        });
 
-      abilities.Add(
-        builder.ActivatedAbility(
-          String.Format("{0}: Put a level counter on this. Level up only as sorcery.", cost),
-          builder.Cost<PayMana>(c => c.Amount = cost),
-          builder.Effect<ApplyModifiersToSelf>(p => p.Effect.Modifiers(builder.Modifier<IncreaseLevel>())),
-          timing: Timings.Leveler(cost, levels), activateAsSorcery: true, category: category));
+      _init.Add(cp =>
+        {
+          foreach (var level in levels)
+          {
+            TriggeredAbility(p =>
+              {
+                p.Trigger(new OnLevelChanged(level.Min));
+                p.Effect = () => new ApplyModifiersToSelf(
+                  () =>
+                    {
+                      var modifier = new AddStaticAbility(level.StaticAbility);
+                      modifier.AddLifetime(new LevelLifetime(level.Min, level.Max));
+                      return modifier;
+                    },
+                  () =>
+                    {
+                      var modifier = new SetPowerAndToughness(level.Power, level.Toughness);
+                      modifier.AddLifetime(new LevelLifetime(level.Min, level.Max));
+                      return modifier;
+                    }
+                  );
+                p.UsesStack = false;
+                p.TriggerOnlyIfOwningCardIsInPlay = true;
+              });
+          }
 
-
-      foreach (LevelDefinition levelDefinition in levels)
-      {
-        LevelDefinition definition = levelDefinition;
-
-        abilities.Add(
-          builder.StaticAbility(
-            builder.Trigger<OnLevelChanged>(c => c.Level = definition.Min),
-            builder.Effect<ApplyModifiersToSelf>(p => p.Effect.Modifiers(
-              builder.Modifier<AddStaticAbility>(m => m.StaticAbility = definition.StaticAbility,
-                minLevel: definition.Min, maxLevel: definition.Max),
-              builder.Modifier<SetPowerAndToughness>(m =>
-                {
-                  m.Power = definition.Power;
-                  m.Tougness = definition.Thoughness;
-                }, minLevel: definition.Min, maxLevel: definition.Max))))
-          );
-      }
-
-      IsLeveler().Abilities(abilities.ToArray());
+          cp.IsLeveler = true;
+        });
 
       return this;
     }
-
 
     public CardFactory MayChooseNotToUntapDuringUntap()
     {
-      _p.MayChooseNotToUntap = true;
+      _init.Add(p => p.MayChooseNotToUntap = true);
       return this;
     }
 
     public CardFactory OverrideScore(int score)
     {
-      _p.OverrideScore = score;
+      _init.Add(p => p.OverrideScore = score);
       return this;
     }
   }

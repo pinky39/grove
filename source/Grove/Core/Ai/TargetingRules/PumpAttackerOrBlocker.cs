@@ -5,13 +5,19 @@
 
   public class PumpAttackerOrBlocker : TargetingRule
   {
-    public int? Power;
-    public int? Toughness;
+    private readonly int? _power;
+    private readonly int? _toughness;
+        
+    public PumpAttackerOrBlocker(int? power, int? toughness)
+    {
+      _power = power;
+      _toughness = toughness;
+    }
 
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
     {
-      var power = Power ?? p.MaxX;
-      var toughness = Toughness ?? p.MaxX;
+      var power = _power ?? p.MaxX;
+      var toughness = _toughness ?? p.MaxX;
 
       var candidates = None<Card>();
 

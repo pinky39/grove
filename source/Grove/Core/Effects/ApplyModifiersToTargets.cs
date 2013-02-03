@@ -1,17 +1,23 @@
 ﻿namespace Grove.Core.Effects
 {
   using System.Collections.Generic;
-  using Grove.Core.Targeting;
   using Modifiers;
+  using Targeting;
 
   public class ApplyModifiersToTargets : Effect
   {
-    private readonly List<IModifierFactory> _modifierFactories = new List<IModifierFactory>();
-    public Value ToughnessReduction = 0;
+    private readonly List<ModifierFactory> _modifiers = new List<ModifierFactory>();
+
+    private ApplyModifiersToTargets() {}
+
+    public ApplyModifiersToTargets(params ModifierFactory[] modifiers)
+    {
+      _modifiers.AddRange(modifiers);
+    }
 
     public override int CalculateToughnessReduction(Card card)
     {
-      foreach (var target in ValidTargets)
+      foreach (var target in ValidEffectTargets)
       {
         if (target == card)
         {
@@ -24,18 +30,21 @@
 
     protected override void ResolveEffect()
     {
-      foreach (var target in ValidTargets)
+      foreach (var target in ValidEffectTargets)
       {
-        foreach (var modifier in _modifierFactories.CreateModifiers(Source.OwningCard, target, X, Game))
+        foreach (var modifierFactory in _modifiers)
         {
+          var p = new ModifierParameters
+            {
+              Source = Source.OwningCard,
+              Target = target,
+              X = X
+            };
+
+          var modifier = modifierFactory().Initialize(p, Game);
           target.AddModifier(modifier);
         }
       }
-    }
-
-    public void Modifiers(params IModifierFactory[] modifiers)
-    {
-      _modifierFactories.AddRange(modifiers);
     }
   }
 }

@@ -1,30 +1,58 @@
 ﻿namespace Grove.Core.Effects
 {
   using System;
+  using System.Collections.Generic;
   using System.Linq;
   using Ai;
   using Infrastructure;
   using Mana;
   using Messages;
+  using Modifiers;
   using Targeting;
 
-  public delegate Effect EffectFactory(EffectParameters p, Game game);
+  public delegate Effect EffectFactory();
 
   public abstract class Effect : GameObject, ITarget, IHasColors
   {
+    private readonly Trackable<bool> _wasResolved = new Trackable<bool>();
+
     public Action<Effect> AfterResolve = delegate { };
     public Action<Effect> BeforeResolve = delegate { };
     public bool CanBeCountered;
-    public EffectCategories EffectCategories = EffectCategories.Generic;
+    public EffectCategories Category = EffectCategories.Generic;
+    public Value ToughnessReduction = 0;
     public Func<Effect, bool> ShouldResolve = delegate { return true; };
-    private Trackable<bool> _wasResolved = new Trackable<bool>();
+    private object _triggerMessage;
     public Player Controller { get { return Source.OwningCard.Controller; } }
     public IEffectSource Source { get; private set; }
     public int? X { get; private set; }
     private bool WasResolved { get { return _wasResolved.Value; } set { _wasResolved.Value = value; } }
     public Targets Targets { get; private set; }
-    public object TriggerMessage { get; private set; }
+
     public virtual bool TargetsEffectSource { get { return false; } }
+
+    public ITarget Target { get { return Targets.Effect[0]; } }
+
+    public IEnumerable<ITarget> ValidEffectTargets
+    {
+      get
+      {
+        if (Targets.Effect.Count == 1)
+        {
+          // if there is only one target it must be valid
+          // otherwise the spell would not resolve
+          // so no need to check it again
+
+          yield return Target;
+          yield break;
+        }
+
+        foreach (var valid in Targets.Effect.Where(IsValid))
+        {
+          yield return valid;
+        }
+      }
+    }
 
     public bool HasColors(ManaColors colors)
     {
@@ -39,6 +67,11 @@
         calc.Calculate(Targets),
         CanBeCountered.GetHashCode(),
         X.GetHashCode());
+    }
+
+    public T TriggerMessage<T>()
+    {
+      return (T) _triggerMessage;
     }
 
     protected string FormatText(string text)
@@ -120,7 +153,7 @@
 
     public bool HasCategory(EffectCategories effectCategories)
     {
-      return ((effectCategories & EffectCategories) != EffectCategories.Generic);
+      return ((effectCategories & Category) != EffectCategories.Generic);
     }
 
     public bool HasTarget(Card card)
@@ -128,15 +161,17 @@
       return Targets.Any(x => x == card);
     }
 
-    public virtual void Initialize(EffectParameters p, Game game)
+    public virtual Effect Initialize(EffectParameters p, Game game)
     {
       Game = game;
       Source = p.Source;
       Targets = p.Targets;
-      TriggerMessage = p.TriggerMessage;
+      _triggerMessage = p.TriggerMessage;
       X = p.X;
 
       _wasResolved.Initialize(game.ChangeTracker);
+
+      return this;
     }
 
     protected virtual void DistributeDamage(IDamageDistributor damageDistributor) {}

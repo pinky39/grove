@@ -19,7 +19,7 @@
             p.Effect = Effect<Core.Effects.CompoundEffect>(e =>
               e.ChildEffects(
                 Effect<Core.Effects.PlayersSacrificeLands>(e1 => e1.Count = 4),
-                Effect<Core.Effects.DealDamageToEach>(e2 => e2.AmountCreature = 4))
+                Effect<Core.Effects.DealDamageToCreaturesAndPlayers>(e2 => e2.AmountCreature = 4))
               );
           });
     }

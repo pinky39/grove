@@ -3,6 +3,7 @@
   using System.Linq;
   using Infrastructure;
   using Modifiers;
+  using Targeting;
 
   [Copyable]
   public class DamagePreventions : IModifiable, IHashable
@@ -19,9 +20,14 @@
       modifier.Apply(this);
     }
 
-    public void Initialize(Game game, IHashDependancy hashDependancy)
+    public void Initialize(ITarget owner, Game game, IHashDependancy hashDependancy = null)
     {
       _preventions.Initialize(game.ChangeTracker, hashDependancy);
+
+      foreach (var damagePrevention in _preventions)
+      {
+        damagePrevention.Initialize(owner, game);
+      }
     }
 
     public void AddPrevention(DamagePrevention prevention)

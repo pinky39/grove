@@ -1,42 +1,55 @@
 ﻿namespace Grove.Core.Triggers
 {
-  using Grove.Infrastructure;
-  using Grove.Core.Messages;
+  using Infrastructure;
+  using Messages;
 
   public class OnStepStart : Trigger, IOrderedReceive<StepStarted>, IReceive<ZoneChanged>,
     IReceive<ControllerChanged>
   {
-    public bool ActiveTurn = true;
-    public bool OnlyOnceWhenAfterItComesUnderYourControl;
-    public bool PassiveTurn;
-    public Step Step { get; set; }
-    public int Order { get; set; }
+    private readonly bool _activeTurn;
+    private readonly bool _onlyOnceWhenAfterItComesUnderYourControl;
+    private readonly bool _passiveTurn;
+    private readonly Step _step;
+    
+    private OnStepStart() {}
+
+    public OnStepStart(Step step, bool activeTurn = true, bool onlyOnceWhenAfterItComesUnderYourControl = false,
+      bool passiveTurn = false, int order = 0)
+    {
+      _activeTurn = activeTurn;
+      _step = step;
+      _passiveTurn = passiveTurn;
+      _onlyOnceWhenAfterItComesUnderYourControl = onlyOnceWhenAfterItComesUnderYourControl;
+      Order = order;
+    }
+
+    public int Order { get; private set; }
 
     public void Receive(StepStarted message)
     {
-      if (message.Step != Step)
+      if (message.Step != _step)
         return;
 
-      if (ActiveTurn && Controller.IsActive || PassiveTurn && !Controller.IsActive)
+      if (_activeTurn && Controller.IsActive || _passiveTurn && !Controller.IsActive)
       {
         Set();
 
-        if (OnlyOnceWhenAfterItComesUnderYourControl)
+        if (_onlyOnceWhenAfterItComesUnderYourControl)
           CanTrigger = false;
-      }
-    }
-
-    public void Receive(ZoneChanged message)
-    {
-      if (OnlyOnceWhenAfterItComesUnderYourControl && message.Card == Ability.OwningCard && message.ToBattlefield)
-      {
-        CanTrigger = true;
       }
     }
 
     public void Receive(ControllerChanged message)
     {
-      if (OnlyOnceWhenAfterItComesUnderYourControl && message.Card == Ability.OwningCard)
+      if (_onlyOnceWhenAfterItComesUnderYourControl && message.Card == Ability.OwningCard)
+      {
+        CanTrigger = true;
+      }
+    }
+
+    public void Receive(ZoneChanged message)
+    {
+      if (_onlyOnceWhenAfterItComesUnderYourControl && message.Card == Ability.OwningCard && message.ToBattlefield)
       {
         CanTrigger = true;
       }

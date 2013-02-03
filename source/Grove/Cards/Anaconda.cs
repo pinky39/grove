@@ -6,7 +6,7 @@
 
   public class Anaconda : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Anaconda")
@@ -17,9 +17,7 @@
           "If you're smaller than the anaconda, it considers you food. If you're larger than the anaconda, it considers you a lot of food.")
         .Power(3)
         .Toughness(3)
-        .Abilities(
-          Static.Swampwalk
-        );
+        .StaticAbilities(Static.Swampwalk);
     }
   }
 }

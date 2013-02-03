@@ -1,18 +1,19 @@
 ﻿namespace Grove.Core.Ai.TimingRules
 {
-  using System;
+  using System.Collections.Generic;
   using System.Linq;
   using Dsl;
   using Mana;
 
   public class LevelUp : TimingRule
   {
-    public IManaAmount Cost;
-    private LevelDefinition[] _levelDefinitions;
+    private readonly IManaAmount _cost;
+    private readonly List<LevelDefinition> _levelDefinitions = new List<LevelDefinition>();
 
-    public void LevelDefinitions(params LevelDefinition[] levelDefinitions)
+    public LevelUp(IManaAmount cost, params LevelDefinition[] levelDefinitions)
     {
-      _levelDefinitions = levelDefinitions;
+      _cost = cost;
+      _levelDefinitions.AddRange(levelDefinitions);
     }
 
     public override bool ShouldPlay(TimingRuleParameters p)
@@ -41,7 +42,7 @@
       if (costToNextLevel == null)
         return false;
 
-      var totalCostToNextLevel = new AggregateManaAmount(Enumerable.Repeat(Cost, costToNextLevel.Value));
+      var totalCostToNextLevel = new AggregateManaAmount(Enumerable.Repeat(_cost, costToNextLevel.Value));
       return p.Controller.HasMana(totalCostToNextLevel, ManaUsage.Abilities);
     }
   }

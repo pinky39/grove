@@ -7,24 +7,29 @@
 
   public class OrderByRank : TargetingRule
   {
-    public ControlledBy ControlledBy = ControlledBy.Any;        
-    public Func<Card, int> Rank;
-    public Func<Card, int> ForceRank;
+    private readonly ControlledBy _controlledBy = ControlledBy.Any;
+    private readonly Func<Card, int> _forceRank;
+    private readonly Func<Card, int> _rank;
+
+    public OrderByRank(Func<Card, int> rank, ControlledBy controlledBy = ControlledBy.Any, Func<Card, int> forceRank = null)
+    {
+      _rank = rank;
+      _forceRank = forceRank ?? _rank;
+      _controlledBy = controlledBy;
+    }
 
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
     {
-      var candidates = p.Candidates<Card>(ControlledBy)
-        .OrderBy(x => Rank(x));
+      var candidates = p.Candidates<Card>(_controlledBy)
+        .OrderBy(x => _rank(x));
 
       return Group(candidates, p.MinTargetCount());
     }
 
     protected override IEnumerable<Targets> ForceSelectTargets(TargetingRuleParameters p)
     {
-      var rank = ForceRank ?? Rank;
-      
       var candidates = p.Candidates<Card>()
-        .OrderBy(rank);
+        .OrderBy(_forceRank);
 
       return Group(candidates, p.MinTargetCount());
     }

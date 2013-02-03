@@ -1,31 +1,38 @@
 ﻿namespace Grove.Core.Triggers
 {
   using System;
-  using Grove.Infrastructure;
-  using Grove.Core.Messages;
-  using Grove.Core.Zones;
+  using Infrastructure;
+  using Messages;
+  using Zones;
 
   public class OnZoneChanged : Trigger, IReceive<ZoneChanged>
   {
-    public Func<TriggeredAbility, Card, bool> Filter =
-      (ability, card) => ability.OwningCard == card;
+    private readonly Func<TriggeredAbility, Card, bool> _filter;
+    private readonly Zone _from;
+    private readonly Zone _to;
 
-    public Zone From { get; set; }
-    public Zone To { get; set; }
+    private OnZoneChanged() {}
+
+    public OnZoneChanged(Zone @from = Zone.None, Zone to = Zone.None, Func<TriggeredAbility, Card, bool> filter = null)
+    {
+      _from = from;
+      _to = to;
+      _filter = filter ?? ((ability, card) => ability.OwningCard == card);
+    }
 
     public void Receive(ZoneChanged message)
     {
-      if (!Filter(Ability, message.Card))
+      if (!_filter(Ability, message.Card))
         return;
 
       if (message.From == Zone.None)
         return;
 
-      if (From == Zone.None && To == message.To)
+      if (_from == Zone.None && _to == message.To)
         Set(message);
-      else if (From == message.From && To == message.To)
+      else if (_from == message.From && _to == message.To)
         Set(message);
-      else if (From == message.From && To == Zone.None)
+      else if (_from == message.From && _to == Zone.None)
         Set(message);
     }
   }

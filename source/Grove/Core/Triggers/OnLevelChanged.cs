@@ -1,17 +1,22 @@
 ﻿namespace Grove.Core.Triggers
 {
-  using Grove.Infrastructure;
-  using Grove.Core.Messages;
+  using Infrastructure;
+  using Messages;
 
   public class OnLevelChanged : Trigger, IReceive<LevelChanged>
   {
-    public int Level { get; set; }
+    private readonly int _level;
+    
+    public OnLevelChanged(int level)
+    {
+      _level = level;
+    }
 
     public void Receive(LevelChanged message)
     {
       if (message.Card == Ability.OwningCard)
       {
-        if (message.Card.Level == Level)
+        if (message.Card.Level == _level)
         {
           Set();
         }

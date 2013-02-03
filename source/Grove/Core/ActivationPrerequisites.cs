@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core
 {
+  using System.Collections.Generic;
   using Ai;
   using Targeting;
 
@@ -7,7 +8,7 @@
   {    
     public int Index;
     public CardText Description;    
-    public MachinePlayRule[] Rules;
+    public List<MachinePlayRule> Rules;
     public Card Card;
     public bool DistributeDamage;
     public int? MaxX;

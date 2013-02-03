@@ -7,23 +7,24 @@
   using Targeting;
   using Zones;
 
+  public delegate bool ShouldApplyToCard(Card card, ContinuousEffect effect);
+  public delegate bool ShouldApplyToPlayer(Player player, ContinuousEffect effect);
+
   [Copyable]
   public class ContinuousEffect : GameObject, IReceive<ZoneChanged>, IReceive<PermanentWasModified>
-  {
-    public delegate bool ShouldApplyToCard(Card card, ContinuousEffect effect);
-
-    public delegate bool ShouldApplyToPlayer(Player player, ContinuousEffect effect);
-
+  {    
     private readonly Trackable<Modifier> _doNotUpdate = new Trackable<Modifier>();
     private readonly Trackable<bool> _isActive = new Trackable<bool>();
     private readonly ModifierFactory _modifierFactory;
     private readonly TrackableList<Modifier> _modifiers = new TrackableList<Modifier>();
-    public ShouldApplyToCard CardFilter = delegate { return false; };
-    public ShouldApplyToPlayer PlayerFilter = delegate { return false; };
+    private readonly ShouldApplyToCard _cardFilter;
+    private readonly ShouldApplyToPlayer _playerFilter;
 
-    public ContinuousEffect(ModifierFactory modifierFactory)
+    public ContinuousEffect(ContinuousEffectParameters p)
     {
-      _modifierFactory = modifierFactory;
+      _modifierFactory = p.ModifierFactory;
+      _cardFilter = p.CardFilter;
+      _playerFilter = p.PlayerFilter;
     }
 
     public Card Source { get; private set; }
@@ -41,7 +42,7 @@
     {
       if (_isActive == false) return;
 
-      if (message.ToBattlefield && CardFilter(message.Card, this))
+      if (message.ToBattlefield && _cardFilter(message.Card, this))
       {
         var modifier = FindModifier(message.Card);
 
@@ -64,7 +65,7 @@
       }
     }
 
-    public void Initialize(Card source, ITarget target, Game game)
+    public void Initialize(Card source, Game game, ITarget target = null)
     {
       Game = game;
 
@@ -85,7 +86,7 @@
     private void UpdatePermanent(Card permanent)
     {
       var modifier = FindModifier(permanent);
-      var shouldEffectBeApliedToPermanent = CardFilter(permanent, this);
+      var shouldEffectBeApliedToPermanent = _cardFilter(permanent, this);
 
       if (modifier == null && shouldEffectBeApliedToPermanent)
       {
@@ -124,7 +125,7 @@
     {
       foreach (var player in Players)
       {
-        if (PlayerFilter(player, this))
+        if (_playerFilter(player, this))
         {
           AddModifier(player);
         }
@@ -149,7 +150,7 @@
     private void AddModifierToPermanents()
     {
       var permanents = Players.Permanents()
-        .Where(permanent => CardFilter(permanent, this)).ToList();
+        .Where(permanent => _cardFilter(permanent, this)).ToList();
 
       foreach (var permanent in permanents)
       {

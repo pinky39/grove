@@ -27,7 +27,7 @@
                 t.CombatOnly = true;
                 t.ToPlayer();
               }),
-            Effect<DealDamageToEach>(e =>
+            Effect<DealDamageToCreaturesAndPlayers>(e =>
               {
                 e.FilterCreature = (self, card) => card.IsBlocker;
                 e.AmountCreature = e.Source.OwningCard.Power.GetValueOrDefault();

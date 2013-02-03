@@ -14,15 +14,16 @@
     public static readonly TargetSelector NullSelector = new TargetSelector();
     private readonly List<TargetValidator> _costValidators = new List<TargetValidator>();
     private readonly List<TargetValidator> _effectValidators = new List<TargetValidator>();
-
-    public TargetSelector(IEnumerable<TargetValidator> effectValidators,
-      IEnumerable<TargetValidator> costValidators)
+    
+    public TargetSelector AddEffect(Action<TargetValidatorParameters> set)
     {
-      _effectValidators.AddRange(effectValidators);
-      _costValidators.AddRange(costValidators);
+      var p = new TargetValidatorParameters();
+      set(p);
+      
+      var validator = new TargetValidator(p);
+      _effectValidators.Add(validator);
+      return this;
     }
-
-    private TargetSelector() {}
 
     public int Count { get { return _costValidators.Count + _effectValidators.Count; } }
 

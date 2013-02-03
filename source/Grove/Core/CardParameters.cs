@@ -16,7 +16,7 @@
     public ManaColors Colors;
     public DamagePreventions DamagePreventions = new DamagePreventions();
     public CardText FlavorText = string.Empty;
-    public bool Isleveler;
+    public bool IsLeveler;
     public IManaAmount ManaCost;
     public bool MayChooseNotToUntap;
     public string Name;
@@ -25,6 +25,7 @@
     public CardText Text = string.Empty;
     public int? Toughness;
     public CardType Type;
+    public bool HasXInCost;
 
     public string Illustration
     {

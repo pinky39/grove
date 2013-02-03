@@ -21,7 +21,7 @@
 
     protected override void ResolveEffect()
     {
-      foreach (var t in ValidTargets) {
+      foreach (var t in ValidEffectTargets) {
         var damage = new Damage(
           source: Source.OwningCard,
           amount: Amount.GetValue(X),
