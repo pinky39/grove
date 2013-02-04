@@ -15,12 +15,14 @@
     protected List<MachinePlayRule> Rules;
     private readonly Trackable<bool> _isEnabled = new Trackable<bool>(true);
     private Card _owner;
+    protected int DistributeAmount;
 
     protected Ability(AbilityParameters parameters)
     {
       EffectFactory = parameters.Effect;
       Rules = parameters.GetMachineRules();
       TargetSelector = parameters.TargetSelector;
+      DistributeAmount = parameters.DistributeAmount;
       _usesStack = parameters.UsesStack;
       Text = parameters.Text;
     }

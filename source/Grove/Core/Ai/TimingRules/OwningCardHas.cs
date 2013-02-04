@@ -4,11 +4,16 @@
 
   public class OwningCardHas : TimingRule
   {
-    public Func<Card, bool> Predicate;
+    private readonly Func<Card, bool> _predicate;
+    
+    public OwningCardHas(Func<Card, bool> predicate)
+    {
+      _predicate = predicate;
+    }
 
     public override bool ShouldPlay(TimingRuleParameters p)
     {
-      return Predicate(p.Card);
+      return _predicate(p.Card);
     }
   }
 }

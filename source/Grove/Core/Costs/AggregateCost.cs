@@ -6,7 +6,12 @@
 
   public class AggregateCost : Cost
   {
-    public List<Cost> Costs;
+    private List<Cost> Costs = new List<Cost>();
+
+    public AggregateCost(params Cost[] costs)
+    {
+      Costs.AddRange(costs);
+    }
 
     public override IManaAmount GetManaCost()
     {

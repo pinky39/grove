@@ -8,26 +8,14 @@
   [Copyable]
   public class Targets : IEnumerable<ITarget>, IHashable
   {
-    private static readonly NoDamageDistributor NoDistributor = new NoDamageDistributor();
-
     private readonly List<ITarget> _costTargets = new List<ITarget>();
     private readonly List<ITarget> _effectTargets = new List<ITarget>();
-    private IDamageDistributor _damageDistributor = NoDistributor;
+    public List<int> Distribution;
+
     public int Count { get { return _effectTargets.Count + _costTargets.Count; } }
     public IList<ITarget> Effect { get { return _effectTargets; } }
     public IList<ITarget> Cost { get { return _costTargets; } }
 
-    public IDamageDistributor DamageDistributor
-    {
-      get { return _damageDistributor; }
-      set
-      {
-        if (value == null)
-          return;
-
-        _damageDistributor = value;
-      }
-    }
 
     public IEnumerator<ITarget> GetEnumerator()
     {

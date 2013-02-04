@@ -2,15 +2,15 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TargetingRules;
+  using Core.Ai.TimingRules;
   using Core.Costs;
   using Core.Dsl;
   using Core.Effects;
-  using Core.Targeting;
 
   public class ArgothianElder : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Argothian Elder")
@@ -20,19 +20,20 @@
         .FlavorText("Sharpen your ears{EOL}—Elvish expression meaning 'grow wiser'")
         .Power(2)
         .Toughness(2)
-        .Abilities(
-          ActivatedAbility(
-            "{T}: Untap two target lands.",
-            Cost<Tap>(),
-            Effect<UntapTargetPermanents>(),
-            Target(
-              Validators.Card(card => card.Is().Land),
-              Zones.Battlefield(),
-              minCount: 2,
-              maxCount: 2),
-            targetingAi: TargetingAi.UntapYourLands(),
-            timing: Timings.SecondMain())
-        );
+        .ActivatedAbility(p =>
+          {
+            p.Text = "{T}: Untap two target lands.";
+            p.Cost = new Tap();
+            p.Effect = () => new UntapTargetPermanents();
+            p.TargetSelector.AddEffect(trg =>
+              {
+                trg.Is.Card(card => card.Is().Land).On.Battlefield();
+                trg.MinCount = 2;
+                trg.MaxCount = 2;
+              });
+            p.TimingRule(new SecondMain());
+            p.TargetingRule(new UntapLands());
+          });
     }
   }
 }

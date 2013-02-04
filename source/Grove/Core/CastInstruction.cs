@@ -17,7 +17,7 @@
     private readonly CastingRule _castingRule;
     private readonly Cost _cost;
     private readonly CardText _description;
-    private readonly bool _distributeDamage;
+    private readonly int _distributeAmount;
     private readonly EffectFactory _effectFactory;
     private readonly List<MachinePlayRule> _rules;
     private readonly TargetSelector _targetSelector;
@@ -32,7 +32,7 @@
       _castingRule = p.Rule;
       _effectFactory = p.Effect;
       _description = p.Text;
-      _distributeDamage = p.DistributeDamage;
+      _distributeAmount = p.DistributeAmount;
       _rules = p.GetMachineRules();
     }
 
@@ -101,7 +101,7 @@
           Description = _description,
           Selector = _targetSelector,
           MaxX = maxX,
-          DistributeDamage = _distributeDamage,
+          DistributeAmount = _distributeAmount,
           Card = _card,
           Rules = _rules
         };

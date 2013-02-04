@@ -1,53 +1,54 @@
 ﻿namespace Grove.Core.Effects
 {
   using System.Collections.Generic;
-  using Grove.Core.Targeting;
   using Modifiers;
+  using Targeting;
 
   public class Attach : Effect
   {
-    private readonly List<IModifierFactory> _modifierFactories = new List<IModifierFactory>();
+    private readonly List<ModifierFactory> _modifiers = new List<ModifierFactory>();
+    private readonly bool _modifiesAttachmentController;
 
-    public bool ModifiesAttachmentController;
-    public Value ToughnessReduction = 0;
+    private Attach() {}
+
+    public Attach(params ModifierFactory[] modifiers) : this(false , modifiers) {}
+
+    public Attach(bool modifiesAttachmentController, params ModifierFactory[] modifiers)
+    {
+      _modifiers.AddRange(modifiers);
+      _modifiesAttachmentController = modifiesAttachmentController;
+    }
 
     public override int CalculateToughnessReduction(Card card)
     {
-      if (Target() == card)
+      if (Target == card)
       {
         return ToughnessReduction.GetValue(X);
       }
-
       return 0;
-    }
-
-    public void Modifiers(params IModifierFactory[] modifierFactories)
-    {
-      _modifierFactories.AddRange(modifierFactories);
     }
 
     protected override void ResolveEffect()
     {
-      var modifiers = _modifierFactories.CreateModifiers(
-        Source.OwningCard,
-        Target().Card(),
-        X, 
-        Game);
+      Target.Card().Attach(Source.OwningCard);
 
-      Target().Card().Attach(Source.OwningCard);
-
-      if (ModifiesAttachmentController)
+      foreach (var modifierFactory in _modifiers)
       {
-        foreach (var modifier in modifiers)
+        var p = new ModifierParameters
+          {
+            Source = Source.OwningCard,
+            Target = Target,
+            X = X
+          };
+
+        var modifier = modifierFactory().Initialize(p, Game);
+        if (_modifiesAttachmentController)
         {
           Controller.AddModifier(modifier);
         }
-      }
-      else
-      {
-        foreach (var modifier in modifiers)
+        else
         {
-          Target().Card().AddModifier(modifier);
+          Target.AddModifier(modifier);
         }
       }
     }

@@ -2,13 +2,13 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
   using Core.Effects;
 
   public class Attunement : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Attunement")
@@ -16,19 +16,14 @@
         .Type("Enchantment")
         .Text("Return Attunement to its owner's hand: Draw three cards, then discard four cards.")
         .FlavorText("The solution can hide for only so long.{EOL}—Urza")
-        .Cast(p => p.Timing = Timings.SecondMain())
-        .Abilities(
-          ActivatedAbility(
-            "Return Attunement to its owner's hand: Draw three cards, then discard four cards.",
-            Cost<Core.Costs.ReturnToHand>(),
-            Effect<DrawCards>(e =>
-              {
-                e.Count = 3;
-                e.DiscardCount = 4;
-              }),
-            timing: Any(Timings.EndOfTurn(), Timings.CanBeDestroyedByTopSpell())
-            )
-        );
+        .Cast(p => p.TimingRule(new SecondMain()))
+        .ActivatedAbility(p =>
+          {
+            p.Text = "Return Attunement to its owner's hand: Draw three cards, then discard four cards.";
+            p.Cost = new Core.Costs.ReturnToHand();
+            p.Effect = () => new DrawCards(3, discardCount: 4);
+            p.TimingRule(new Any(new EndOfTurn(), new OwningCardWillBeDestroyed()));
+          });
     }
   }
 }

@@ -108,7 +108,7 @@
       return results;
     }
 
-    protected IList<Targets> Group(IList<ITarget> candidates, IDamageDistributor damageDistributor)
+    protected IList<Targets> Group(IList<ITarget> candidates, List<int> damageDistribution)
     {
       var result = new Targets();
 
@@ -117,7 +117,7 @@
         result.AddEffect(candidate);
       }
 
-      result.DamageDistributor = damageDistributor;
+      result.Distribution = damageDistribution;
       return new[] {result};
     }
     

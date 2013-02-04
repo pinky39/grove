@@ -2,7 +2,8 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TargetingRules;
+  using Core.Ai.TimingRules;
   using Core.Costs;
   using Core.Dsl;
   using Core.Mana;
@@ -10,7 +11,7 @@
 
   public class BarrinMasterWizard : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Barrin, Master Wizard")
@@ -20,24 +21,29 @@
         .FlavorText(
           "'Knowledge is no more expensive than ignorance, and at least as satisfying.'{EOL}—Barrin, master wizard")
         .Power(1)
-        .Toughness(1)        
-        .Abilities(
-          ActivatedAbility(
-            "{2}, Sacrifice a permanent: Return target creature to its owner's hand.",
-            Cost<PayMana, Sacrifice>(cost => cost.Amount = 2.Colorless()),
-            Effect<Core.Effects.ReturnToHand>(),
-            effectTarget: Target(
-              Validators.Card(x => x.Is().Creature), 
-              Zones.Battlefield(),
-              text: "Select a creature to bounce."),
-            costTarget: Target(
-                Validators.Card(ControlledBy.SpellOwner),
-                Zones.Battlefield(),
-                text: "Select a permanent to sacrifice.",
-                mustBeTargetable: false),
-            targetingAi: TargetingAi.SacPermanentToBounce(),
-            timing: Any(Timings.InstantRemovalTarget()))
-        );
+        .Toughness(1)
+        .ActivatedAbility(p =>
+          {
+            p.Text = "{2}, Sacrifice a permanent: Return target creature to its owner's hand.";
+            p.Cost = new AggregateCost(
+              new PayMana(2.Colorless(), ManaUsage.Abilities),
+              new Sacrifice());
+            p.Effect = () => new Core.Effects.ReturnToHand();
+            p.TargetSelector
+              .AddCost(trg =>
+                {
+                  trg.Is.Card(p1 => p1.Target.Card().Controller == p1.Effect.Controller).On.Battlefield();
+                  trg.MustBeTargetable = false;
+                  trg.MessageFormat = "Select a permanent to sacrifice.";
+                })
+              .AddEffect(trg =>
+                {
+                  trg.Is.Card(c => c.Is().Creature).On.Battlefield();
+                  trg.MessageFormat = "Select a creature to bounce.";
+                });
+            p.TimingRule(new TargetRemoval());
+            p.TargetingRule(new SacrificeToBounce());
+          });
     }
   }
 }

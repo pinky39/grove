@@ -8,7 +8,7 @@
 
   public class ArgothianEnchantress : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Argothian Enchantress")
@@ -18,16 +18,15 @@
           "{Shroud}(This permanent can't be the target of spells or abilities.){EOL}Whenever you cast an enchantment spell, draw a card.")
         .Power(0)
         .Toughness(1)
-        .Abilities(
-          Static.Shroud,
-          TriggeredAbility(
-            "Whenever you cast an enchantment spell, draw a card.",
-            Trigger<OnCastedSpell>(
-              t => { t.Filter = (ability, card) => card.Controller == ability.OwningCard.Controller && card.Is().Enchantment; }),
-            Effect<DrawCards>(p => p.Count = 1),
-            triggerOnlyIfOwningCardIsInPlay: true
-            )
-        );
+        .StaticAbilities(Static.Shroud)
+        .TriggeredAbility(p =>
+          {
+            p.Text = "Whenever you cast an enchantment spell, draw a card.";
+            p.Trigger(new OnCastedSpell((ability, card) =>
+              card.Controller == ability.OwningCard.Controller && card.Is().Enchantment));
+            p.Effect = () => new DrawCards(1);
+            p.TriggerOnlyIfOwningCardIsInPlay = true;
+          });
     }
   }
 }

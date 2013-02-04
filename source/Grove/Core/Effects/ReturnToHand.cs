@@ -1,35 +1,38 @@
 ﻿namespace Grove.Core.Effects
 {
-  using Grove.Core.Targeting;
+  using Targeting;
+  using Zones;
 
   public class ReturnToHand : Effect
   {
-    public int Discard;
-    public Card Card;
-    public bool ReturnOwner;    
+    private readonly int _discard;
+    private readonly bool _returnOwningCard;
+
+    private ReturnToHand() {}
+
+    public ReturnToHand(int discard = 0, bool returnOwningCard = false)
+    {
+      _discard = discard;
+      _returnOwningCard = returnOwningCard;
+    }
 
     protected override void ResolveEffect()
     {
-      if (Card != null)
+      foreach (var target in ValidEffectTargets)
       {
-        Card.PutToHand();
+        target.Card().PutToHand();
       }
 
-      if (HasTargets)
-      {
-        Target().Card().PutToHand();
-      }
-
-      if (ReturnOwner && Target() != Source.OwningCard)
+      if (_returnOwningCard && Source.OwningCard.Zone == Zone.Battlefield)
       {
         Source.OwningCard.PutToHand();
       }
 
-      if (Discard > 0)
+      if (_discard > 0)
       {
         Game.Enqueue<Decisions.DiscardCards>(
-          controller: Target().Card().Controller,
-          init: p => p.Count = Discard);
+          controller: Target.Card().Controller,
+          init: p => p.Count = _discard);
       }
     }
   }

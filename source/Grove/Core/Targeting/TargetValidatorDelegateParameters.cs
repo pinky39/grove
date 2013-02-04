@@ -14,6 +14,6 @@
       Game = game;
     }
 
-    public ITarget Target { get; private set; }
+    public ITarget Target { get; private set; }    
   }
 }

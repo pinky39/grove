@@ -8,11 +8,16 @@
 
   public class DealDamage : TargetingRule
   {
-    public int? Amount;
+    private readonly int? _amount;
+    
+    public DealDamage(int? amount = null)
+    {
+      _amount = amount;
+    }
 
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
     {
-      if (p.DistributeDamage)
+      if (p.DistributeAmount > 0)
       {
         return SelectTargetsDistribute(p);
       }
@@ -29,7 +34,7 @@
 
     private IEnumerable<Targets> SelectTargetsDistribute(TargetingRuleParameters p)
     {
-      var amount = Amount ?? p.MaxX;
+      var amount = p.DistributeAmount;
 
       // 0-1 knapsack optimization problem
 
@@ -67,14 +72,11 @@
       var solution = Knapsack.Solve(targets, amount);
       var selected = solution.Select(x => x.Item).ToList();
 
-      var distribution = new DamageDistributor
-        {
-          Distribution = (t, a) => solution
-            .Select(x => x.Weight)
-            .ToList()
-        };
-
-      return Group(selected, damageDistributor: distribution);
+      var distribution = solution
+        .Select(x => x.Weight)
+        .ToList();
+            
+      return Group(selected, damageDistribution: distribution);
     }
 
     private IEnumerable<Targets> SelectTargets2Selectors(TargetingRuleParameters p)
@@ -99,7 +101,7 @@
 
     private IEnumerable<ITarget> GetCandidatesByDescendingDamageScore(TargetingRuleParameters p, int selectorIndex = 0)
     {
-      var amount = Amount ?? p.MaxX;
+      var amount = _amount ?? p.MaxX;
 
       var candidates = p.Candidates<Player>(selectorIndex: selectorIndex)
         .Where(x => x == p.Controller.Opponent)

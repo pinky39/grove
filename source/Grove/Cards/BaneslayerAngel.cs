@@ -6,7 +6,7 @@
 
   public class BaneslayerAngel : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Baneslayer Angel")
@@ -17,7 +17,7 @@
         .Power(5)
         .Toughness(5)
         .Protections("demon", "dragon")
-        .Abilities(
+        .StaticAbilities(
           Static.Flying,
           Static.FirstStrike,
           Static.Lifelink

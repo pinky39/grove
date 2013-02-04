@@ -14,16 +14,6 @@
     public static readonly TargetSelector NullSelector = new TargetSelector();
     private readonly List<TargetValidator> _costValidators = new List<TargetValidator>();
     private readonly List<TargetValidator> _effectValidators = new List<TargetValidator>();
-    
-    public TargetSelector AddEffect(Action<TargetValidatorParameters> set)
-    {
-      var p = new TargetValidatorParameters();
-      set(p);
-      
-      var validator = new TargetValidator(p);
-      _effectValidators.Add(validator);
-      return this;
-    }
 
     public int Count { get { return _costValidators.Count + _effectValidators.Count; } }
 
@@ -33,6 +23,29 @@
 
     public IList<TargetValidator> Effect { get { return _effectValidators; } }
     public IList<TargetValidator> Cost { get { return _costValidators; } }
+
+    public TargetSelector AddEffect(Action<TargetValidatorParameters> set)
+    {
+      var validator = CreateValidator(set);
+
+      _effectValidators.Add(validator);
+      return this;
+    }
+
+    private TargetValidator CreateValidator(Action<TargetValidatorParameters> set)
+    {
+      var p = new TargetValidatorParameters();
+      set(p);
+      return new TargetValidator(p);
+    }
+
+    public TargetSelector AddCost(Action<TargetValidatorParameters> set)
+    {
+      var validator = CreateValidator(set);
+
+      _costValidators.Add(validator);
+      return this;
+    }
 
     public int GetMinEffectTargetCount()
     {

@@ -4,9 +4,9 @@
 
   public class Any : TimingRule
   {
-    private TimingRule[] _rules;
+    private readonly TimingRule[] _rules;
 
-    public void Rules(params TimingRule[] rules)
+    public Any(params TimingRule[] rules)
     {
       _rules = rules;
     }

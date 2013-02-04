@@ -8,7 +8,7 @@
     private List<Trigger> _triggers = new List<Trigger>();
 
     public bool TriggerOnlyIfOwningCardIsInPlay;
-    public IEnumerable<Trigger> Triggers { get { return _triggers; }}
+    public List<Trigger> Triggers { get { return _triggers; }}
     
     public void Trigger(Trigger trigger)
     {

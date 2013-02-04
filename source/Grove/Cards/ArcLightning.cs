@@ -2,9 +2,9 @@
 {
   using System.Collections.Generic;
   using Core;
+  using Core.Ai.TargetingRules;
   using Core.Dsl;
   using Core.Effects;
-  using Core.Targeting;
 
   public class ArcLightning : CardsSource
   {
@@ -19,12 +19,14 @@
         .FlavorText("Rainclouds don't last long in Shiv, but that doesn't stop the lightning.")
         .Cast(p =>
           {
-
-            p.Effect = () => new DealDistributedDamageToTargets(3);
-            p.DistributeDamage = true;
-            p.EffectTargets = L(Target(Validators.CreatureOrPlayer(), Zones.Battlefield(), maxCount: 3));
-            p.DistributeDamage = true;
-            p.TargetingAi = TargetingAi.DealDamageSingleSelectorDistribute(3);
+            p.Effect = () => new DistributeDamageToTargets();
+            p.DistributeAmount = 3;
+            p.TargetSelector.AddEffect(trg =>
+              {
+                trg.Is.CreatureOrPlayer().On.Battlefield();
+                trg.MaxCount = 3;
+              });
+            p.TargetingRule(new DealDamage());
           });
     }
   }

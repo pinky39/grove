@@ -457,7 +457,6 @@
     <Compile Include="Core\Ai\TimingRules\MinAttackerCount.cs" />
     <Compile Include="Core\Ai\TimingRules\OpponentHasAtLeastCardsInHand.cs" />
     <Compile Include="Core\Ai\TimingRules\OwningCardHas.cs" />
-    <Compile Include="Core\Ai\TimingRules\OwningCardHasCounters.cs" />
     <Compile Include="Core\Ai\TimingRules\OpponentHasPermanents.cs" />
     <Compile Include="Core\Ai\TimingRules\OwningCardWillBeDestroyed.cs" />
     <Compile Include="Core\Ai\TimingRules\BoostOwningCardPowerAndToughness.cs" />
@@ -556,7 +555,7 @@
     <Compile Include="Core\Costs\ReturnToHand.cs" />
     <Compile Include="Core\Effects\CustomizableEffect.cs" />
     <Compile Include="Core\Effects\DealDamageToOpponentEqualToCardDifference.cs" />
-    <Compile Include="Core\Effects\DealDistributedDamageToTargets.cs" />
+    <Compile Include="Core\Effects\DistributeDamageToTargets.cs" />
     <Compile Include="Core\Effects\EachPlayerReturnsCardFromGraveyardToBattlefield.cs" />
     <Compile Include="Core\Effects\EachPlayerReturnsCardsToHand.cs" />
     <Compile Include="Core\Effects\EffectChoice.cs" />
@@ -587,7 +586,6 @@
     <Compile Include="Core\Messages\EffectResolved.cs" />
     <Compile Include="Core\Messages\PermanentModified.cs" />
     <Compile Include="Core\CastInstruction.cs" />
-    <Compile Include="Core\Targeting\IDamageDistributor.cs" />
     <Compile Include="Core\IAcceptsModifiers.cs" />
     <Compile Include="Core\IHasColors.cs" />
     <Compile Include="Core\IHasLife.cs" />
@@ -620,7 +618,6 @@
     <Compile Include="Core\Messages\AssignedCombatDamageWasDealt.cs" />
     <Compile Include="Core\Messages\PermanentGetsUntapped.cs" />
     <Compile Include="Core\ControllerType.cs" />
-    <Compile Include="Core\Ai\DamageDistributor.cs" />
     <Compile Include="Core\Modifiers\AddDamageRedirection.cs" />
     <Compile Include="Core\Modifiers\DisableAbilities.cs" />
     <Compile Include="Core\Preventions\PreventDamageToTarget.cs" />
@@ -630,7 +627,6 @@
     <Compile Include="Core\Redirections\IDamageRedirectionFactory.cs" />
     <Compile Include="Core\Redirections\RedirectDamageToTarget.cs" />
     <Compile Include="Core\StaticAbility.cs" />
-    <Compile Include="Core\Targeting\NoDamageDistributor.cs" />
     <Compile Include="Core\Targeting\TargetCandidates.cs" />
     <Compile Include="Core\Targeting\Targets.cs" />
     <Compile Include="Core\Ai\InnerResult.cs" />

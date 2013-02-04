@@ -1,17 +1,25 @@
 ﻿namespace Grove.Core.Triggers
 {
   using System;
-  using Grove.Infrastructure;
-  using Grove.Core.Messages;
+  using Infrastructure;
+  using Messages;
 
   public class OnCastedSpell : Trigger, IReceive<PlayerHasCastASpell>
   {
-    public Func<TriggeredAbility, Card, bool> Filter =
-      delegate { return true; };
+    private readonly Func<TriggeredAbility, Card, bool> _filter;
+
+    private OnCastedSpell()
+    {      
+    }
+
+    public OnCastedSpell(Func<TriggeredAbility, Card, bool> filter = null)
+    {
+      _filter = filter ?? delegate { return true; };
+    }
 
     public void Receive(PlayerHasCastASpell message)
     {
-      if (!Filter(Ability, message.Card))
+      if (!_filter(Ability, message.Card))
         return;
 
       Set(message);

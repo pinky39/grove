@@ -87,7 +87,7 @@
         };
 
 
-      var effect = EffectFactory(effectParameters, Game);
+      var effect = EffectFactory().Initialize(effectParameters, Game);
       Resolve(effect, skipStack: false);
     }
 

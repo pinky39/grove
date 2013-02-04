@@ -6,7 +6,7 @@
   {
     private TimingRule[] _rules;
 
-    public void Rules(params TimingRule[] rules)
+    public All(params TimingRule[] rules)
     {
       _rules = rules;
     }

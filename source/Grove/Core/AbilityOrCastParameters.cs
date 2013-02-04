@@ -13,6 +13,7 @@
     public EffectFactory Effect;
     public TargetSelector TargetSelector = new TargetSelector();
     public CardText Text;    
+    public int DistributeAmount;
      
     private readonly List<MachinePlayRule> _machineRules = new List<MachinePlayRule>();
      

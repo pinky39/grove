@@ -9,20 +9,20 @@
     private readonly List<TargetsCombination> _targetsWithX = new List<TargetsCombination>();
     public bool CanCancel = true;
     public bool CancelActivation;
-    public Card Card;
-    public bool DistributeDamage;
-    public int? MaxX;
-    public TargetSelector Selector;
+    public Card Card { get; private set; }
+    public int? MaxX { get; private set; }
+    public TargetSelector Selector { get; private set; }
     public int? X;
+    public int DistributeAmount { get; private set; }
 
     public ActivationContext() {}
 
     public ActivationContext(ActivationPrerequisites prerequisites)
     {
-      Card = prerequisites.Card;
-      DistributeDamage = prerequisites.DistributeDamage;
+      Card = prerequisites.Card;      
       MaxX = prerequisites.MaxX;
       Selector = prerequisites.Selector;
+      DistributeAmount = prerequisites.DistributeAmount;
     }
 
     public bool HasTargets { get { return _targetsWithX.Count > 0; } }

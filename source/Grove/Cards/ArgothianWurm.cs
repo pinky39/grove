@@ -9,7 +9,7 @@
 
   public class ArgothianWurm : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Argothian Wurm")
@@ -19,12 +19,15 @@
           "{Trample}{EOL}When Argothian Wurm enters the battlefield, any player may sacrifice a land. If a player does, put Argothian Wurm on top of its owner's library.")
         .Power(6)
         .Toughness(6)
-        .Abilities(
-          Static.Trample,
-          TriggeredAbility(
-            "When Argothian Wurm enters the battlefield, any player may sacrifice a land. If a player does, put Argothian Wurm on top of its owner's library.",
-            Trigger<OnZoneChanged>(t => t.To = Zone.Battlefield),
-            Effect<PutOnTopOfLibraryUnlessOpponentSacsLand>()));
+        .StaticAbilities(Static.Trample)
+        .TriggeredAbility(p =>
+          {
+            p.Text =
+              "When Argothian Wurm enters the battlefield, any player may sacrifice a land. If a player does, put Argothian Wurm on top of its owner's library.";
+            p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
+            p.Effect = () => new PutOnTopOfLibraryUnlessOpponentSacsLand();
+          }
+        );        
     }
   }
 }

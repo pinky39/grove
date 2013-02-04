@@ -77,6 +77,7 @@
           Card = OwningCard,
           Description = Text,
           Selector = TargetSelector,
+          DistributeAmount = DistributeAmount,
           MaxX = maxX,
           Rules = Rules,
         };

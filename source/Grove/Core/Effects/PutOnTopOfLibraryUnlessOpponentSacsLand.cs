@@ -1,9 +1,9 @@
 ﻿namespace Grove.Core.Effects
 {
   using System.Linq;
-  using Grove.Core.Decisions;
-  using Grove.Core.Decisions.Results;
-  using Grove.Core.Zones;
+  using Decisions;
+  using Decisions.Results;
+  using Zones;
 
   public class PutOnTopOfLibraryUnlessOpponentSacsLand : Effect, IProcessDecisionResults<ChosenCards>
   {
@@ -17,7 +17,7 @@
 
     protected override void ResolveEffect()
     {
-      Game.Enqueue<SelectCardsToSacrificeAsCost>(Core.Players.GetOpponent(Controller), p =>
+      Game.Enqueue<SelectCardsToSacrificeAsCost>(Players.GetOpponent(Controller), p =>
         {
           p.Validator = card => card.Is().Land;
           p.Zone = Zone.Battlefield;

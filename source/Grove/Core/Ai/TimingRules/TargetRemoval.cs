@@ -4,12 +4,17 @@
 
   public class TargetRemoval : TimingRule
   {
-    public bool CombatOnly;
+    private readonly bool _combatOnly;
+
+    public TargetRemoval(bool combatOnly = false)
+    {
+      _combatOnly = combatOnly;
+    }
 
     public override bool ShouldPlay(TimingRuleParameters p)
     {
       // eot
-      if (!p.Controller.IsActive && Turn.Step == Step.EndOfTurn && !CombatOnly)
+      if (!p.Controller.IsActive && Turn.Step == Step.EndOfTurn && !_combatOnly)
         return true;
 
       // remove blockers
@@ -24,7 +29,7 @@
         return p.Targets<Card>().Any(x => x.IsAttacker);
       }
 
-      if (CombatOnly)
+      if (_combatOnly)
         return false;
 
       // play as response to some spells

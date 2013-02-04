@@ -23,7 +23,7 @@
     public int MaxX { get { return _context.MaxX.GetValueOrDefault(); } }
     public int EffectTargetTypeCount { get { return _context.Selector.Effect.Count; } }
     public Card Card { get { return _context.Card; } }
-    public bool DistributeDamage { get { return _context.DistributeDamage; } }
+    public int DistributeAmount { get { return _context.DistributeAmount; } }
 
     public IEnumerable<T> Candidates<T>(
       ControlledBy controlledBy = ControlledBy.Any,

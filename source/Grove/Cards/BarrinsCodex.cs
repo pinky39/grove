@@ -2,7 +2,7 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TimingRules;
   using Core.Costs;
   using Core.Counters;
   using Core.Dsl;
@@ -13,7 +13,7 @@
 
   public class BarrinsCodex : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Barrin's Codex")
@@ -21,21 +21,27 @@
         .Type("Artifact")
         .Text(
           "At the beginning of your upkeep, put a page counter on Barrin's Codex.{EOL}{4},{T}, Sacrifice Barrin's Codex: Draw X cards, where X is the number of page counters on Barrin's Codex.")
-        .Cast(p => p.Timing = Timings.SecondMain())
-        .Abilities(
-          TriggeredAbility(
-            "At the beginning of your upkeep, put a page counter on Barrin's Codex.",
-            Trigger<OnStepStart>(t => t.Step = Step.Upkeep),
-            Effect<ApplyModifiersToSelf>(e => e.Modifiers(
-              Modifier<AddCounters>(m => { m.Counter = Counter<ChargeCounter>(); }))),
-            triggerOnlyIfOwningCardIsInPlay: true
-            ),
-          ActivatedAbility(
-            "{4},{T}, Sacrifice Barrin's Codex: Draw X cards, where X is the number of page counters on Barrin's Codex.",
-            Cost<PayMana, Tap, Sacrifice>(cost => cost.Amount = 4.Colorless()),
-            Effect<DrawCards>(e => e.Count = e.Source.OwningCard.Counters.GetValueOrDefault()),
-            timing: Timings.Has3CountersOr1IfDestroyed())
-        );
+        .Cast(p => p.TimingRule(new SecondMain()))
+        .TriggeredAbility(p =>
+          {
+            p.Text = "At the beginning of your upkeep, put a page counter on Barrin's Codex.";
+            p.Trigger(new OnStepStart(Step.Upkeep));
+            p.Effect = () => new ApplyModifiersToSelf(() => new AddCounters(() => new ChargeCounter()));
+            p.TriggerOnlyIfOwningCardIsInPlay = true;
+          })
+        .ActivatedAbility(p =>
+          {
+            p.Text =
+              "{4},{T}, Sacrifice Barrin's Codex: Draw X cards, where X is the number of page counters on Barrin's Codex.";
+            p.Cost = new AggregateCost(
+              new PayMana(4.Colorless(), ManaUsage.Abilities),
+              new Tap(),
+              new Sacrifice());
+            p.Effect = () => new DrawCards(count: e => e.Source.OwningCard.Counters.GetValueOrDefault());
+            p.TimingRule(new Any(
+              new All(new OwningCardHas(c => c.Counters >= 3), new EndOfTurn()),
+              new All(new OwningCardHas(c => c.Counters > 0), new OwningCardWillBeDestroyed())));
+          });
     }
   }
 }
