@@ -476,6 +476,7 @@
     <Compile Include="Core\Ai\TimingRules\MassRemoval.cs" />
     <Compile Include="Core\Ai\TimingRules\NonTargetRemoval.cs" />
     <Compile Include="Core\Ai\TimingRules\Regenerate.cs" />
+    <Compile Include="Core\Ai\TimingRules\SecondMain.cs" />
     <Compile Include="Core\Ai\TimingRules\Steps.cs" />
     <Compile Include="Core\Ai\TargetingRules\TargetingRule.cs" />
     <Compile Include="Core\Ai\TimingRules\TargetRemoval.cs" />

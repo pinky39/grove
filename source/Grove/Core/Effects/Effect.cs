@@ -172,8 +172,6 @@
       _wasResolved.Initialize(game.ChangeTracker);
 
       return this;
-    }
-
-    protected virtual void DistributeDamage(IDamageDistributor damageDistributor) {}
+    }    
   }
 }

@@ -7,7 +7,7 @@
 
   public class AngelicWall : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Angelic Wall")
@@ -18,10 +18,7 @@
           "'The air stirred as if fanned by angels wings, and the enemy was turned aside.'{EOL}—Tales of Ikarov the Voyager")
         .Power(0)
         .Toughness(4)        
-        .Abilities(
-          Static.Defender,
-          Static.Flying
-        );
+        .StaticAbilities(Static.Defender, Static.Flying);        
     }
   }
 }

@@ -1,15 +1,15 @@
 ﻿namespace Grove.Core.Triggers
 {
-  using Grove.Infrastructure;
-  using Grove.Core.Messages;
+  using Infrastructure;
+  using Messages;
 
   public class OnTurnOpponentWasNotDealtDamage : Trigger, IReceive<StepStarted>, IReceive<DamageHasBeenDealt>
   {
-    private Trackable<bool> _wasDealtDamage;
+    private readonly Trackable<bool> _wasDealtDamage = new Trackable<bool>();
 
     public void Receive(DamageHasBeenDealt message)
     {
-      if (message.Receiver == Core.Players.Passive)
+      if (message.Receiver == Players.Passive)
       {
         _wasDealtDamage.Value = true;
       }
@@ -26,9 +26,9 @@
       }
     }
 
-    protected override void Initialize()
+    public override void Initialize(TriggeredAbility triggeredAbility, Game game)
     {
-      _wasDealtDamage = new Trackable<bool>(Game.ChangeTracker);
+      _wasDealtDamage.Initialize(game.ChangeTracker);
     }
   }
 }

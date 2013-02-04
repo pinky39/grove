@@ -4,11 +4,20 @@
 
   public class DealDamageToActivePlayer : Effect
   {
-    public Value Amount { get; set; }
+    private readonly Value _amount;
+
+    private DealDamageToActivePlayer()
+    {      
+    }
+    
+    public DealDamageToActivePlayer(Value amount)
+    {
+      _amount = amount;
+    }
 
     public override int CalculatePlayerDamage(Player player)
     {
-      return Amount.GetValue(X);
+      return _amount.GetValue(X);
     }
 
     public override int CalculateCreatureDamage(Card creature)
@@ -20,7 +29,7 @@
     {
       var damage = new Damage(
         source: Source.OwningCard,
-        amount: Amount.GetValue(X),
+        amount: _amount.GetValue(X),
         isCombat: false,
         changeTracker: Game.ChangeTracker
         );

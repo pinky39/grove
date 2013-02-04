@@ -1,17 +1,26 @@
 ﻿namespace Grove.Core.Effects
 {
   using System.Collections.Generic;
-  using Grove.Core.Targeting;
   using Modifiers;
+  using Targeting;
 
   public class DealDistributedDamageToTargets : Effect
   {
     private readonly List<int> _damageDistribution = new List<int>();
-    public Value Amount = 0;    
+    private readonly Value _amount;
+
+    private DealDistributedDamageToTargets()
+    {      
+    }
+    
+    public DealDistributedDamageToTargets(Value amount)
+    {
+      _amount = amount;
+    }
 
     public override int CalculatePlayerDamage(Player player)
     {
-      for (int i = 0; i < EffectTargets.Count; i++)
+      for (var i = 0; i < EffectTargets.Count; i++)
       {
         if (player == EffectTargets[i] && IsValid(EffectTargets[i]))
         {
@@ -23,7 +32,7 @@
 
     public override int CalculateCreatureDamage(Card creature)
     {
-      for (int i = 0; i < EffectTargets.Count; i++)
+      for (var i = 0; i < EffectTargets.Count; i++)
       {
         if (creature == EffectTargets[i] && IsValid(EffectTargets[i]))
         {
@@ -36,12 +45,14 @@
 
     protected override void DistributeDamage(IDamageDistributor damageDistributor)
     {
-      _damageDistribution.AddRange(damageDistributor.DistributeDamage(EffectTargets, Amount.GetValue(X)));
+      
+      
+      _damageDistribution.AddRange(damageDistributor.DistributeDamage(EffectTargets, _amount.GetValue(X)));
     }
 
     protected override void ResolveEffect()
     {
-      for (int i = 0; i < EffectTargets.Count; i++)
+      for (var i = 0; i < EffectTargets.Count; i++)
       {
         var damage = new Damage(
           source: Source.OwningCard,

@@ -1,15 +1,22 @@
 ﻿namespace Grove.Core.Effects
 {
-  using Grove.Core.Decisions;
-  using Grove.Core.Decisions.Results;
-  using Grove.Core.Targeting;
-  using Grove.Core.Mana;
+  using Decisions;
+  using Decisions.Results;
+  using Mana;
+  using Targeting;
 
   public class CounterTargetSpell : Effect, IProcessDecisionResults<BooleanResult>
   {
-    public int? ControllersLifeloss;
-    public IManaAmount DoNotCounterCost;
-    public bool TapLandsEmptyPool;
+    private readonly int? _controllerLifeloss;
+    private readonly IManaAmount _doNotCounterCost;
+    private readonly bool _tapLandsAndEmptyManaPool;
+
+    public CounterTargetSpell(int? controllerLifeloss = null, IManaAmount doNotCounterCost = null, bool tapLandsAndEmptyManaPool = false)
+    {
+      _controllerLifeloss = controllerLifeloss;
+      _doNotCounterCost = doNotCounterCost;
+      _tapLandsAndEmptyManaPool = tapLandsAndEmptyManaPool;
+    }
 
     public void ResultProcessed(BooleanResult results)
     {
@@ -21,9 +28,9 @@
 
     protected override void ResolveEffect()
     {
-      var targetSpellController = Target().Effect().Controller;
+      var targetSpellController = Target.Effect().Controller;
 
-      if (DoNotCounterCost == null)
+      if (_doNotCounterCost == null)
       {
         CounterSpell();
         return;
@@ -31,8 +38,8 @@
 
       Game.Enqueue<PayOr>(targetSpellController, p =>
         {
-          p.ManaAmount = DoNotCounterCost;
-          p.Text = FormatText(string.Format("Pay {0}?", DoNotCounterCost));
+          p.ManaAmount = _doNotCounterCost;
+          p.Text = FormatText(string.Format("Pay {0}?", _doNotCounterCost));
           p.ProcessDecisionResults = this;
         });
       return;
@@ -40,12 +47,12 @@
 
     private void CounterSpell()
     {
-      if (ControllersLifeloss.HasValue)
+      if (_controllerLifeloss.HasValue)
       {
-        Controller.Life -= ControllersLifeloss.Value;
+        Controller.Life -= _controllerLifeloss.Value;
       }
 
-      if (TapLandsEmptyPool)
+      if (_tapLandsAndEmptyManaPool)
       {
         foreach (var land in Controller.Battlefield.Lands)
         {
@@ -55,7 +62,7 @@
         Controller.EmptyManaPool();
       }
 
-      Game.Stack.Counter(Target().Effect());
+      Game.Stack.Counter(Target.Effect());
     }
   }
 }

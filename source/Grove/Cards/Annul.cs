@@ -5,11 +5,10 @@
   using Core.Ai;
   using Core.Dsl;
   using Core.Effects;
-  using Core.Targeting;
 
   public class Annul : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Annul")
@@ -19,13 +18,12 @@
         .FlavorText("The most effective way to destroy a spell is to ensure it was never cast in the first place.")
         .Cast(p =>
           {
-            p.Timing = Timings.CounterSpell();
-            p.Category = EffectCategories.Counterspell;
-            p.Effect = Effect<CounterTargetSpell>();
-            p.EffectTargets = L(Target(
-              Validators.CounterableSpell(card => card.Is().Artifact || card.Is().Enchantment),
-              Zones.Stack()));
-            p.TargetingAi = TargetingAi.CounterSpell();
+            p.Effect = () => new CounterTargetSpell {Category = EffectCategories.Counterspell};
+            p.TargetSelector.AddEffect(t => t
+              .Is.Counterable(card => card.Is().Artifact || card.Is().Enchantment)
+              .On.Stack());
+            p.TimingRule(new Core.Ai.TimingRules.Counterspell());
+            p.TargetingRule(new Core.Ai.TargetingRules.Counterspell());
           });
     }
   }
