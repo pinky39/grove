@@ -71,10 +71,8 @@
       }
 
 
-      decision.Game = game;
-      decision.Controller = player;
-      SetParameters(decision, setParameters);
-      decision.Init();
+      decision.Initialize(player, game);      
+      SetParameters(decision, setParameters);      
 
       return decision;
     }

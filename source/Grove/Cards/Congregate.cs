@@ -2,14 +2,14 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TargetingRules;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
   using Core.Effects;
-  using Core.Targeting;
 
   public class Congregate : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Congregate")
@@ -20,10 +20,11 @@
           "'In the gathering there is strength for all who founder, renewal for all who languish, love for all who sing.'{EOL}—Song of All, canto 642")
         .Cast(p =>
           {
-            p.Timing = All(Timings.EndOfTurn(), Timings.HasPermanents(3, card => card.Is().Creature));
-            p.Effect = Effect<TargetPlayerGainsLifeEqualToCreatureCount>(e => e.Multiplier = 2);
-            p.EffectTargets = L(Target(Validators.Player(), Zones.None()));
-            p.TargetingAi = TargetingAi.Controller();
+            p.Effect = () => new TargetPlayerGainsLifeEqualToCreatureCount(multiplier: 2);
+            p.TargetSelector.AddEffect(trg => trg.Is.Player());
+            p.TimingRule(new EndOfTurn());
+            p.TimingRule(new PermanentCountIs(c => c.Is().Creature, 3));
+            p.TargetingRule(new SpellOwner());
           });
     }
   }

@@ -2,15 +2,15 @@
 {
   using System;
   using System.Linq;
-  using Grove.Core.Decisions;
-  using Grove.Core.Decisions.Results;
-  using Grove.Core.Mana;
+  using Decisions;
+  using Decisions.Results;
+  using Mana;
 
   public class PayLifeOrTap : Effect, IProcessDecisionResults<BooleanResult>
   {
     public int Life { get; set; }
 
-    public void ResultProcessed(BooleanResult results)
+    public void ProcessResults(BooleanResult results)
     {
       if (results.IsTrue)
         return;

@@ -15,7 +15,7 @@
     public bool RevealCards = true;
     public Func<Card, bool> Validator = delegate { return true; };
 
-    public void ResultProcessed(ChosenCards results)
+    public void ProcessResults(ChosenCards results)
     {                       
       if (RevealCards)
       {

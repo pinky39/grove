@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core.Effects
 {
+  using Ai;
   using Targeting;
 
   public class DestroyTargetPermanents : Effect
@@ -11,6 +12,7 @@
     public DestroyTargetPermanents(bool canRegenerate = true)
     {
       _canRegenerate = canRegenerate;
+      Category = EffectCategories.Destruction;
     }
 
     protected override void ResolveEffect()

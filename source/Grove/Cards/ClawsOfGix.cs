@@ -1,9 +1,9 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TargetingRules;
+  using Core.Ai.TimingRules;
   using Core.Costs;
   using Core.Dsl;
   using Core.Effects;
@@ -12,7 +12,7 @@
 
   public class ClawsOfGix : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Claws of Gix")
@@ -21,18 +21,28 @@
         .Text("{1}, Sacrifice a permanent: You gain 1 life.")
         .FlavorText(
           "When the Brotherhood of Gix dug out the cave of Koilos they found their master's severed hand. They enshrined it, hoping that one day it would point the way to Phyrexia.")
-        .Cast(p => p.Timing = All(Timings.FirstMain(), Timings.OnlyOneOfKind()))        
-        .Abilities(
-          ActivatedAbility(
-            "{1}, Sacrifice a permanent: You gain 1 life.",
-            Cost<PayMana, Sacrifice>(cost => cost.Amount = 1.Colorless()),
-            Effect<ControllerGainsLife>(e => e.Amount = 1),
-            costTarget:
-              Target(
-                Validators.Card(ControlledBy.SpellOwner),
-                Zones.Battlefield(),
-                text: "Select a permanent to sacrifice.", mustBeTargetable: false),
-            targetingAi: TargetingAi.CostSacrificeGainLife())
+        .Cast(p =>
+          {
+            p.TimingRule(new FirstMain());
+            p.TimingRule(new ThereCanBeOnlyOne());
+          })
+        .ActivatedAbility(p =>
+          {
+            p.Text = "{1}, Sacrifice a permanent: You gain 1 life.";
+            p.Cost = new AggregateCost(
+              new PayMana(1.Colorless(), ManaUsage.Abilities),
+              new Sacrifice());
+            p.Effect = () => new ControllerGainsLife(1);
+            p.TargetSelector.AddCost(trg =>
+              {
+                trg.Is.Card(p1 => p1.Effect.Controller == p1.Target.Controller())
+                  .On.Battlefield();
+
+                trg.MessageFormat = "Select a permanent to sacrifice.";
+                trg.MustBeTargetable = false;
+              });
+            p.TargetingRule(new SacrificeToGainLife());
+          }
         );
     }
   }

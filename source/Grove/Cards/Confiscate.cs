@@ -3,13 +3,15 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
+  using Core.Ai.TargetingRules;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
+  using Core.Effects;
   using Core.Modifiers;
-  using Core.Targeting;
 
   public class Confiscate : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Confiscate")
@@ -20,12 +22,12 @@
           "'I don't understand why he works so hard on a device to duplicate a sound so easily made with hand and armpit.'{EOL}—Barrin, progress report")
         .Cast(p =>
           {
-            p.Timing = Timings.FirstMain();
-            p.Category = EffectCategories.Destruction;
-            p.Effect = Effect<Core.Effects.Attach>(e => e.Modifiers(
-              Modifier<ChangeController>(m => m.NewController = m.Source.Controller)));
-            p.EffectTargets = L(Target(Validators.Card(), Zones.Battlefield()));
-            p.TargetingAi = TargetingAi.GainControl();
+            p.Effect = () => new Attach(() => new ChangeController(m => m.Source.Controller))
+              {Category = EffectCategories.Destruction};
+
+            p.TargetSelector.AddEffect(trg => trg.Is.Card().On.Battlefield());
+            p.TimingRule(new FirstMain());
+            p.TargetingRule(new GainControl());
           });
     }
   }

@@ -2,7 +2,7 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TimingRules;
   using Core.Costs;
   using Core.Dsl;
   using Core.Effects;
@@ -11,7 +11,7 @@
 
   public class CopperGnomes : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Copper Gnomes")
@@ -21,20 +21,21 @@
         .FlavorText(
           "Start with eleven gnomes and a room of parts, and come morning you'll have ten and a monster the likes of which you've never seen.")
         .Power(1)
-        .Toughness(1)        
-        .Abilities(
-          ActivatedAbility(
-            "{4}, Sacrifice Copper Gnomes: You may put an artifact card from your hand onto the battlefield.",
-            Cost<PayMana, Sacrifice>(cost => cost.Amount = 4.Colorless()),
-            Effect<PutSelectedCardToBattlefield>(e =>
-              {
-                e.Validator = card => card.Is().Artifact;
-                e.Zone = Zone.Hand;
-                e.Text = "Select an artifact in your hand";
-              }),
-            timing: All(
-              Any(Timings.BeforeDeath(), Timings.EndOfTurn()),
-              Timings.HasAtLeastCardsInHand(card => card.Is().Artifact)))
+        .Toughness(1)
+        .ActivatedAbility(p =>
+          {
+            p.Text = "{4}, Sacrifice Copper Gnomes: You may put an artifact card from your hand onto the battlefield.";
+            p.Cost = new AggregateCost(
+              new PayMana(4.Colorless(), ManaUsage.Abilities),
+              new Sacrifice());
+            p.Effect = () => new PutSelectedCardToBattlefield(
+              text: "Select an artifact in your hand.",
+              zone: Zone.Hand,
+              validator: card => card.Is().Artifact
+              );
+            p.TimingRule(new Any(new OwningCardWillBeDestroyed(), new EndOfTurn()));
+            p.TimingRule(new ControllerHandCountIs(minCount: 1, selector: c => c.Is().Artifact));
+          }
         );
     }
   }

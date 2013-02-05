@@ -83,5 +83,10 @@
     {
       return Card(x => x.Is().Creature);
     }
+
+    public TargetValidatorParameters Enchantment()
+    {
+      return Card(x => x.Is().Enchantment);
+    }
   }
 }

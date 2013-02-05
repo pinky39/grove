@@ -5,19 +5,26 @@
 
   public class ControllerHandCountIs : TimingRule
   {
-    public Func<Card, bool> Selector = delegate { return true; };
-    public int? MinCount = null;
-    public int? MaxCount = null;
-        
+    private readonly Func<Card, bool> _selector;
+    private int? _minCount;
+    private int? _maxCount;
+    
+    public ControllerHandCountIs(int? minCount = null, int? maxCount =null, Func<Card, bool> selector = null)
+    {
+      _selector = selector;
+      _maxCount = maxCount;
+      _minCount = minCount;
+    }
+
     public override bool ShouldPlay(TimingRuleParameters p)
     {
       var result = true;
       
-      if (MinCount.HasValue)
-        result = result && p.Controller.Hand.Count(Selector) >= MinCount;
+      if (_minCount.HasValue)
+        result = result && p.Controller.Hand.Count(_selector) >= _minCount;
 
-      if (MaxCount.HasValue)
-        result = result && p.Controller.Hand.Count(Selector) <= MaxCount;
+      if (_maxCount.HasValue)
+        result = result && p.Controller.Hand.Count(_selector) <= _maxCount;
 
       return result;
     }

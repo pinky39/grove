@@ -64,7 +64,7 @@
       }
 
       if (ProcessDecisionResults != null)
-        ProcessDecisionResults.ResultProcessed(Result);
+        ProcessDecisionResults.ProcessResults(Result);
 
       ResultProcessed();
     }

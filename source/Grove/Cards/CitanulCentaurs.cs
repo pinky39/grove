@@ -6,7 +6,7 @@
 
   public class CitanulCentaurs : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Citanul Centaurs")
@@ -17,9 +17,7 @@
         .Power(6)
         .Toughness(3)
         .Echo("{3}{G}")
-        .Abilities(
-          Static.Shroud
-        );
+        .StaticAbilities(Static.Shroud);
     }
   }
 }

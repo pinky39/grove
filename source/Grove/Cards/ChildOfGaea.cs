@@ -1,9 +1,7 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
   using Core.Costs;
   using Core.Dsl;
   using Core.Effects;
@@ -12,7 +10,7 @@
 
   public class ChildOfGaea : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Child of Gaea")
@@ -21,23 +19,22 @@
         .Text(
           "{Trample}{EOL}At the beg. of your upkeep, pay {G}{G} or sacrifice Child of Gaea.{EOL}{1}{G}: Regenerate Child of Gaea.")
         .Power(7)
-        .Toughness(7)        
-        .Abilities(
-          Static.Trample,
-          ActivatedAbility(
-            "{1}{G}: Regenerate Child of Gaea.",
-            Cost<PayMana>(c => c.Amount = "{1}{G}".ParseMana()),
-            Effect<Regenerate>(),
-            timing: Timings.Regenerate()),
-          TriggeredAbility(
-            "At the beg. of your upkeep, pay {G}{G} or sacrifice Child of Gaea.",
-            Trigger<OnStepStart>(t => { t.Step = Step.Upkeep; }),
-            Effect<PayManaOrSacrifice>(e =>
-              {
-                e.Amount = "{G}{G}".ParseMana();
-                e.Message = String.Format("Pay {0}'s upkeep cost?", e.Source.OwningCard);
-              }),
-            triggerOnlyIfOwningCardIsInPlay: true));
+        .Toughness(7)
+        .StaticAbilities(Static.Trample)
+        .ActivatedAbility(p =>
+          {
+            p.Text = "{1}{G}: Regenerate Child of Gaea.";
+            p.Cost = new PayMana("{1}{G}".ParseMana(), ManaUsage.Abilities);
+            p.Effect = () => new Regenerate();
+            p.TimingRule(new Core.Ai.TimingRules.Regenerate());
+          })
+        .TriggeredAbility(p =>
+          {
+            p.Text = "At the beg. of your upkeep, pay {G}{G} or sacrifice Child of Gaea.";
+            p.Trigger(new OnStepStart(Step.Upkeep));
+            p.Effect = () => new PayManaOrSacrifice("{G}{G}".ParseMana(), "Pay {0} for upkeep?");
+            p.TriggerOnlyIfOwningCardIsInPlay = true;
+          });
     }
   }
 }

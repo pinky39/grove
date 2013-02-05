@@ -2,14 +2,14 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TargetingRules;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
   using Core.Effects;
-  using Core.Targeting;
 
   public class Clear : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Clear")
@@ -19,11 +19,10 @@
         .Cycling("{2}")
         .Cast(p =>
           {
-            p.Timing = Timings.InstantRemovalTarget();
-            p.Category = EffectCategories.Destruction;
-            p.Effect = Effect<DestroyTargetPermanents>();
-            p.EffectTargets = L(Target(Validators.Card(card => card.Is().Enchantment), Zones.Battlefield()));
-            p.TargetingAi = TargetingAi.OrderByScore();
+            p.Effect = () => new DestroyTargetPermanents();
+            p.TargetSelector.AddEffect(trg => trg.Is.Enchantment().On.Battlefield());
+            p.TimingRule(new TargetRemoval());
+            p.TargetingRule(new OrderByRank(c => -c.Score, ControlledBy.Opponent));
           });
     }
   }

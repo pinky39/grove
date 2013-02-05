@@ -2,13 +2,14 @@
 {
   using System.Collections.Generic;
   using Core;
+  using Core.Costs;
   using Core.Dsl;
   using Core.Mana;
   using Core.Modifiers;
 
   public class CitanulHierophants : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Citanul Hierophants")
@@ -19,14 +20,21 @@
           "From deep in the caves beneath the forest, the hierophants planned the druids' raids against the enemy.")
         .Power(3)
         .Toughness(2)
-        .Abilities(
-          Continuous(e =>
-            {
-              e.CardFilter = (card, effect) => card.Controller == effect.Source.Controller && card.Is().Creature;
-              e.ModifierFactory = Modifier<AddActivatedAbility>(m =>
-                m.Ability = ManaAbility(ManaUnit.Green, "{T}: Add {G} to your mana pool.")
-                );
-            }));
+        .ContinuousEffect(p =>
+          {
+            p.CardFilter = (card, effect) => card.Controller == effect.Source.Controller && card.Is().Creature;
+            p.Modifier = () => new AddActivatedAbility(() =>
+              {
+                var mp = new ManaAbilityParameters
+                  {
+                    Cost = new Tap(),
+                    Text = "{T}:  Add {G} to your mana pool.",
+                    Priority = ManaSourcePriorities.Creature
+                  }.ManaAmount(ManaAmount.Green);
+
+                return new ManaAbility(mp);
+              });
+          });
     }
   }
 }

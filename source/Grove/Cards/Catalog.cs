@@ -2,13 +2,13 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
   using Core.Effects;
 
   public class Catalog : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Catalog")
@@ -18,12 +18,8 @@
         .FlavorText("'Without order comes errors, and errors kill on Tolaria.'{EOL}—Barrin, master wizard")
         .Cast(p =>
           {
-            p.Timing = Timings.EndOfTurn();
-            p.Effect = Effect<DrawCards>(e =>
-              {
-                e.Count = 2;
-                e.DiscardCount = 1;
-              });
+            p.Effect = () => new DrawCards(2, discardCount: 1);
+            p.TimingRule(new EndOfTurn());
           });
     }
   }

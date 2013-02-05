@@ -1,25 +1,34 @@
 ﻿namespace Grove.Core.Effects
 {
   using System;
-  using Grove.Core.Decisions;
-  using Grove.Core.Zones;
+  using Decisions;
+  using Zones;
 
   public class PutSelectedCardToBattlefield : Effect
   {
-    public string Text;
-    public Func<Card, bool> Validator;
-    public Zone Zone;
+    private readonly string _text;
+    private readonly Func<Card, bool> _validator;
+    private readonly Zone _zone;
+
+    private PutSelectedCardToBattlefield() {}
+
+    public PutSelectedCardToBattlefield(string text, Func<Card, bool> validator, Zone zone)
+    {
+      _text = text;
+      _zone = zone;
+      _validator = validator;
+    }
 
     protected override void ResolveEffect()
     {
       Game.Enqueue<SelectCardsPutToBattlefield>(Controller,
         p =>
           {
-            p.Validator = Validator;
-            p.Zone = Zone;
+            p.Validator = _validator;
+            p.Zone = _zone;
             p.MinCount = 0;
             p.MaxCount = 1;
-            p.Text = FormatText(Text);
+            p.Text = FormatText(_text);
           }
         );
     }

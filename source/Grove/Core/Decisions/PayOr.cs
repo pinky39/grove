@@ -40,14 +40,14 @@
       }
 
       if (ProcessDecisionResults != null)
-        ProcessDecisionResults.ResultProcessed(Result);
+        ProcessDecisionResults.ProcessResults(Result);
     }
 
     private void Pay()
     {
       if (ManaAmount != null)
       {
-        Controller.Consume(ManaAmount, ManaUsage.Any);
+        Controller.Consume(ManaAmount, ManaUsage.Abilities);
         return;
       }
 

@@ -16,7 +16,7 @@
     private readonly IManaAmount _amount;
     private readonly string _message;
 
-    public void ResultProcessed(BooleanResult results)
+    public void ProcessResults(BooleanResult results)
     {
       if (results.IsTrue)
         return;

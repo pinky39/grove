@@ -1,22 +1,29 @@
 ﻿namespace Grove.Core.Triggers
 {
-  using Grove.Infrastructure;
-  using Grove.Core.Messages;
+  using Infrastructure;
+  using Messages;
 
   public class OnBlock : Trigger, IReceive<BlockerJoinedCombat>
   {
-    public bool GetsBlocked;
-    public bool Blocks;
-    
+    private readonly bool _blocks;
+    private readonly bool _becomesBlocked;
+
+    private OnBlock() {}
+
+    public OnBlock(bool becomesBlocked = false, bool blocks = false)
+    {
+      _becomesBlocked = becomesBlocked;
+      _blocks = blocks;
+    }
+
     public void Receive(BlockerJoinedCombat message)
-    {            
-      if (GetsBlocked && message.Attacker.Card == Ability.OwningCard)
+    {
+      if (_becomesBlocked && message.Attacker.Card == Ability.OwningCard)
       {
         Set();
-        
       }
 
-      else if (Blocks && message.Blocker.Card == Ability.OwningCard)
+      else if (_blocks && message.Blocker.Card == Ability.OwningCard)
       {
         Set();
       }

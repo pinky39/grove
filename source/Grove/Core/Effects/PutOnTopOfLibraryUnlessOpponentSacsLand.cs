@@ -7,7 +7,7 @@
 
   public class PutOnTopOfLibraryUnlessOpponentSacsLand : Effect, IProcessDecisionResults<ChosenCards>
   {
-    public void ResultProcessed(ChosenCards results)
+    public void ProcessResults(ChosenCards results)
     {
       if (results.Any())
       {

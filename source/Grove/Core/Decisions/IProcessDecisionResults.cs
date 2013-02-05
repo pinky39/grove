@@ -2,6 +2,6 @@
 {
   public interface IProcessDecisionResults<T>
   {
-    void ResultProcessed(T results);
+    void ProcessResults(T results);
   }
 }

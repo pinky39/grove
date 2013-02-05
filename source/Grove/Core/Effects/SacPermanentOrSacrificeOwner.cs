@@ -12,7 +12,7 @@
     public string Text = "Select permanent to sacrifice";
     public Func<Card, bool> Validator = delegate { return true; };
 
-    public void ResultProcessed(ChosenCards results)
+    public void ProcessResults(ChosenCards results)
     {
       if (results.None())
       {

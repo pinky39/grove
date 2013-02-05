@@ -11,7 +11,7 @@
     public bool MustSacCreatureOnResolve;
     public bool Tapped;
 
-    public void ResultProcessed(ChosenCards results)
+    public void ProcessResults(ChosenCards results)
     {
       PutValidTargetsToBattlefield();
     }

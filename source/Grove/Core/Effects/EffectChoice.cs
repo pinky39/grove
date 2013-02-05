@@ -4,13 +4,13 @@
 
   public class EffectChoice
   {
-    private readonly List<EffectChoiceOption> _options = new List<EffectChoiceOption>();
-    
-    public EffectChoice(IEnumerable<EffectChoiceOption> options)
+    private readonly EffectChoiceOption[] _options;
+
+    public EffectChoice(params EffectChoiceOption[] options)
     {
-      _options.AddRange(options);
+      _options = options;
     }
-    
+
     public IEnumerable<EffectChoiceOption> Options {get { return _options; }}
   }
 }

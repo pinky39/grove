@@ -1,16 +1,20 @@
 ﻿namespace Grove.Core.Effects
 {
   using System.Linq;
-  using Grove.Core.Targeting;
+  using Targeting;
 
   public class TargetPlayerGainsLifeEqualToCreatureCount : Effect
   {
-    public int Multiplier = 1;
-    
+    private readonly int _multiplier;
+
+    public TargetPlayerGainsLifeEqualToCreatureCount(int multiplier = 1)
+    {
+      _multiplier = multiplier;
+    }
+
     protected override void ResolveEffect()
     {
-      // count on resolve
-      Target().Player().Life += Core.Players.Permanents().Count(x => x.Is().Creature) * Multiplier;
+      Target.Player().Life += Players.Permanents().Count(x => x.Is().Creature)*_multiplier;
     }
   }
 }

@@ -18,7 +18,7 @@
       _tapLandsAndEmptyManaPool = tapLandsAndEmptyManaPool;
     }
 
-    public void ResultProcessed(BooleanResult results)
+    public void ProcessResults(BooleanResult results)
     {
       if (results.IsTrue)
         return;

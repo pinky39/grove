@@ -1,32 +1,27 @@
 ﻿namespace Grove.Core.Effects
 {
-  using System;
   using System.Collections.Generic;
-  using Grove.Core.Decisions;
-  using Grove.Core.Decisions.Results;
+  using System.Linq;
+  using Decisions;
+  using Decisions.Results;
 
-  public class CustomizableEffect : Effect
+  public abstract class CustomizableEffect : Effect, IProcessDecisionResults<ChosenOptions>, IChooseEffectOptionsAi
   {
-    private readonly List<EffectChoice> _choices = new List<EffectChoice>();
-    public Func<ChooseEffectOptions, ChosenOptions> Ai;
-    public Action<ChooseEffectOptions> ProcessResults;
-    public string Text;
-
-    public void Choices(params EffectChoice[] choices)
-    {
-      _choices.AddRange(choices);
-    }
+    public abstract ChosenOptions ChooseOptions();
+    public abstract void ProcessResults(ChosenOptions results);
+    public abstract string GetText();
+    public abstract IEnumerable<EffectChoice> GetChoices();
 
     protected override void ResolveEffect()
     {
       Game.Enqueue<ChooseEffectOptions>(Controller, p =>
         {
-          p.Ai = Ai;
-          p.EvaluateResults = ProcessResults;
-          p.Text = Text;
-          p.Choices = _choices;
+          p.ProcessDecisionResults = this;
+          p.ChooseOptionsAi = this;
+          p.Text = GetText();
+          p.Choices = GetChoices().ToList();
           p.Effect = this;
-        });      
+        });
     }
   }
 }

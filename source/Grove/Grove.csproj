@@ -474,6 +474,7 @@
     <Compile Include="Core\Ai\TimingRules\BounceAll.cs" />
     <Compile Include="Core\Ai\TimingRules\MassRemoval.cs" />
     <Compile Include="Core\Ai\TimingRules\NonTargetRemoval.cs" />
+    <Compile Include="Core\Ai\TimingRules\PermanentCountIs.cs" />
     <Compile Include="Core\Ai\TimingRules\Regenerate.cs" />
     <Compile Include="Core\Ai\TimingRules\SecondMain.cs" />
     <Compile Include="Core\Ai\TimingRules\Steps.cs" />
@@ -495,7 +496,9 @@
     <Compile Include="Core\Costs\PayMana.cs" />
     <Compile Include="Core\Costs\RemoveCounter.cs" />
     <Compile Include="Core\Costs\Tap.cs" />
+    <Compile Include="Core\Decisions\IChooseEffectOptionsAi.cs" />
     <Compile Include="Core\Effects\ApplyModifiersToPlayers.cs" />
+    <Compile Include="Core\Effects\DestroyAllLandsOrCreatures.cs" />
     <Compile Include="Core\Effects\DiscardHand.cs" />
     <Compile Include="Core\Effects\EachPlayerDiscardsHand.cs" />
     <Compile Include="Core\Effects\ExchangeForOpponentsCreature.cs" />
