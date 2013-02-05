@@ -5,12 +5,18 @@
 
   public class OpponentHasPermanents : TimingRule
   {
-    public Func<Card, bool> Selector = delegate { return true; };
-    public int MinCount = 1;
-    
+    private readonly Func<Card, bool> _selector;
+    private readonly int _minCount;
+
+    public OpponentHasPermanents(Func<Card, bool> selector = null, int minCount = 1)
+    {
+      _minCount = minCount;
+      _selector = selector ?? delegate { return true; };
+    }
+
     public override bool ShouldPlay(TimingRuleParameters p)
     {
-      return Players.Permanents().Count(x => Selector(x) && x.Controller != p.Controller) >= MinCount;
+      return Players.Permanents().Count(x => _selector(x) && x.Controller != p.Controller) >= _minCount;
     }
   }
 }

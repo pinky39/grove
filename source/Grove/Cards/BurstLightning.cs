@@ -2,15 +2,16 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TargetingRules;
+  using Core.Ai.TimingRules;
   using Core.Costs;
   using Core.Dsl;
+  using Core.Effects;
   using Core.Mana;
-  using Core.Targeting;
 
   public class BurstLightning : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Burst Lightning")
@@ -20,18 +21,19 @@
           "{Kicker} {4}{EOL}Burst Lightning deals 2 damage to target creature or player. If Burst Lightning was kicked, it deals 4 damage to that creature or player instead.")
         .Cast(p =>
           {
-            p.Timing = Timings.InstantRemovalTarget();
-            p.Effect = Effect<Core.Effects.DealDamageToTargets>(e => e.Amount = 2);
-            p.EffectTargets = L(Target(Validators.CreatureOrPlayer(), Zones.Battlefield()));
-            p.TargetingAi = TargetingAi.DealDamageSingleSelector(2);
+            p.Effect = () => new DealDamageToTargets(2);
+            p.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
+            p.TimingRule(new TargetRemoval());
+            p.TargetingRule(new DealDamage(2));
           })
         .Cast(p =>
           {
             p.Text = p.KickerDescription;
-            p.Effect = Effect<Core.Effects.DealDamageToTargets>(e => e.Amount = 4);
-            p.Cost = Cost<PayMana>(c => c.Amount = "{4}{R}".ParseMana());
-            p.EffectTargets = L(Target(Validators.CreatureOrPlayer(), Zones.Battlefield()));
-            p.TargetingAi = TargetingAi.DealDamageSingleSelector(4);
+            p.Cost = new PayMana("{4}{R}".ParseMana(), ManaUsage.Spells);
+            p.Effect = () => new DealDamageToTargets(4);
+            p.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
+            p.TimingRule(new TargetRemoval());
+            p.TargetingRule(new DealDamage(4));
           });
     }
   }

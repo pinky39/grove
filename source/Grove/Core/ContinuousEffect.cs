@@ -22,7 +22,7 @@
 
     public ContinuousEffect(ContinuousEffectParameters p)
     {
-      _modifierFactory = p.ModifierFactory;
+      _modifierFactory = p.Modifier;
       _cardFilter = p.CardFilter;
       _playerFilter = p.PlayerFilter;
     }

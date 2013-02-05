@@ -2,17 +2,17 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TargetingRules;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
   using Core.Effects;
   using Core.Modifiers;
-  using Core.Targeting;
   using Core.Triggers;
   using Core.Zones;
 
   public class BrilliantHalo : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Brilliant Halo")
@@ -22,24 +22,18 @@
           "Enchanted creature{EOL}Enchanted creature gets +1/+2.{EOL}When Brilliant Halo is put into a graveyard from the battlefield, return Brilliant Halo to its owner's hand.")
         .Cast(p =>
           {
-            p.Timing = Timings.FirstMain();
-            p.Effect = Effect<Attach>(e => e.Modifiers(Modifier<AddPowerAndToughness>(m =>
-              {
-                m.Power = 1;
-                m.Toughness = 2;
-              })));
-            p.EffectTargets = L(Target(Validators.Card(card => card.Is().Creature), Zones.Battlefield()));
-            p.TargetingAi = TargetingAi.CombatEnchantment();
-          })               
-        .Abilities(
-          TriggeredAbility(
-            "When Brilliant Halo is put into a graveyard from the battlefield, return Brilliant Halo to its owner's hand.",
-            Trigger<OnZoneChanged>(t =>
-              {
-                t.From = Zone.Battlefield;
-                t.To = Zone.Graveyard;
-              }),
-            Effect<ReturnToHand>(e => e.ReturnOwner = true)));
+            p.Effect = () => new Attach(() => new AddPowerAndToughness(1, 2));
+            p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
+            p.TimingRule(new FirstMain());
+            p.TargetingRule(new CombatEnchantment());
+          })
+        .TriggeredAbility(p =>
+          {
+            p.Text =
+              "When Brilliant Halo is put into a graveyard from the battlefield, return Brilliant Halo to its owner's hand.";
+            p.Trigger(new OnZoneChanged(from: Zone.Battlefield, to: Zone.Graveyard));
+            p.Effect = () => new ReturnToHand(returnOwningCard: true);
+          });
     }
   }
 }

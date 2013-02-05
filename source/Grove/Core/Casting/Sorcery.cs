@@ -5,7 +5,14 @@
 
   public class Sorcery : CastingRule
   {
-    public Action<Card> AfterResolvePutToZone = card => card.PutToGraveyard();
+    private readonly Action<Card> _afterResolvePutToZone;
+
+    private Sorcery() {}
+
+    public Sorcery(Action<Card> afterResolvePutToZone = null)
+    {
+      _afterResolvePutToZone = afterResolvePutToZone ?? (card => card.PutToGraveyard());
+    }
 
     public override bool CanCast()
     {
@@ -21,7 +28,7 @@
 
     public override void AfterResolve()
     {
-      AfterResolvePutToZone(Card);
+      _afterResolvePutToZone(Card);
     }
   }
 }

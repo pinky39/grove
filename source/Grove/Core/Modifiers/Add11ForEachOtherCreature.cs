@@ -1,16 +1,24 @@
 ﻿namespace Grove.Core.Modifiers
 {
   using System.Linq;
-  using Grove.Infrastructure;
-  using Grove.Core.Messages;
-  using Grove.Core.Zones;
+  using Infrastructure;
+  using Messages;
+  using Zones;
 
-  public class Add11ForEachOtherCreature : Modifier, IReceive<ZoneChanged>, 
+  public class Add11ForEachOtherCreature : Modifier, IReceive<ZoneChanged>,
     IReceive<TypeChanged>, IReceive<ControllerChanged>
   {
     private Increment _increment;
     private Power _power;
     private Toughness _tougness;
+
+    public void Receive(ControllerChanged message)
+    {
+      if (message.Card.Is().Creature || message.Card == Source)
+      {
+        _increment.Value = GetCreatureCount();
+      }
+    }
 
     public void Receive(TypeChanged message)
     {
@@ -70,14 +78,6 @@
     private int GetCreatureCount()
     {
       return Source.Controller.Battlefield.Count(card => card != Target && card.Is().Creature);
-    }
-
-    public void Receive(ControllerChanged message)
-    {
-      if (message.Card.Is().Creature || message.Card == Source)
-      {
-        _increment.Value = GetCreatureCount();
-      }
     }
   }
 }

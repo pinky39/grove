@@ -13,9 +13,15 @@
       {
         if (permanent.Owner == Controller)
         {
-          var modifier = Builder
-            .Modifier<ChangeController>(m => m.NewController = Controller)
-            .CreateModifier(Source.OwningCard, permanent, X, Game);
+          var p = new ModifierParameters
+            {
+              Source = Source.OwningCard,
+              Target = permanent,
+              X = X
+            };
+
+          var modifier = new ChangeController(Controller)
+            .Initialize(p, Game);
 
           permanent.AddModifier(modifier);
         }

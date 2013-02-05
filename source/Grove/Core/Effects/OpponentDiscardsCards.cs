@@ -4,45 +4,55 @@
 
   public class OpponentDiscardsCards : Effect
   {
-    public int RandomCount { get; set; }
-    public int SelectedCount { get; set; }
-    public bool YouChooseDiscardedCards { get; set; }
-    public Func<Card, bool> Filter = delegate { return true; };
+    private readonly Func<Card, bool> _filter;
+    private readonly int _randomCount;
+    private readonly int _selectedCount;
+    private readonly bool _youChooseDiscardedCards;
+
+    public OpponentDiscardsCards(int randomCount = 0, int selectedCount = 0, bool youChooseDiscardedCards = false,
+      Func<Card, bool> filter = null)
+    {
+      _randomCount = randomCount;
+      _filter = filter ?? delegate { return true; };
+      _youChooseDiscardedCards = youChooseDiscardedCards;
+      _selectedCount = selectedCount;
+    }
 
     protected override void ResolveEffect()
-    {      
-      var opponent = Core.Players.GetOpponent(Controller);
+    {
+      var opponent = Players.GetOpponent(Controller);
 
-      if (YouChooseDiscardedCards)
+      if (_youChooseDiscardedCards)
       {
         opponent.RevealHand();
-        
-        Game.Enqueue<Decisions.DiscardCards>(
+
+        Enqueue<Decisions.DiscardCards>(
           controller: Controller,
           init: p =>
             {
-              p.Count = SelectedCount;
-              p.Filter = Filter;
+              p.Count = _selectedCount;
+              p.Filter = _filter;
               p.DiscardOpponentsCards = true;
             });
 
         return;
-      }                  
+      }
 
-      for (var i = 0; i < RandomCount; i++)
+      for (var i = 0; i < _randomCount; i++)
       {
         opponent.DiscardRandomCard();
       }
 
-      if (SelectedCount == 0) 
-        return;                 
+      if (_selectedCount == 0)
+        return;
 
-      Game.Enqueue<Decisions.DiscardCards>(
+      Enqueue<Decisions.DiscardCards>(
         controller: opponent,
-        init: p => { 
-          p.Count = SelectedCount;
-          p.Filter = Filter;
-        });
+        init: p =>
+          {
+            p.Count = _selectedCount;
+            p.Filter = _filter;
+          });
     }
   }
 }

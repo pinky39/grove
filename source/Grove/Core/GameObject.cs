@@ -11,20 +11,20 @@
   public abstract class GameObject
   {
     protected Game Game { get; set; }
-    
-    protected Players Players {get { return Game.Players; }}
-    protected Stack Stack { get { return Game.Stack; } }
-    protected Combat Combat {get { return Game.Combat; }}    
-    protected TurnInfo Turn {get { return Game.Turn; }}
-    protected Search Search {get { return Game.Search; }}
 
-    protected Dsl.CardBuilder Builder { get { return new Dsl.CardBuilder(); } }
-    protected ChangeTracker ChangeTracker {get { return Game.ChangeTracker; }}
-    
+    protected Players Players { get { return Game.Players; } }
+    protected Stack Stack { get { return Game.Stack; } }
+    protected Combat Combat { get { return Game.Combat; } }
+    protected TurnInfo Turn { get { return Game.Turn; } }
+    protected Search Search { get { return Game.Search; } }
+
+    protected CardBuilder Builder { get { return new CardBuilder(); } }
+    protected ChangeTracker ChangeTracker { get { return Game.ChangeTracker; } }
+
     protected void Publish<T>(T message)
     {
       Game.Publish(message);
-    }       
+    }
 
     protected void Unsubscribe(object obj = null)
     {
@@ -38,9 +38,10 @@
       Game.Subscribe(obj);
     }
 
-    protected void Enqueue<TDecision>(Player controller, Action<TDecision> setParameters) where TDecision : class, IDecision
+    protected void Enqueue<TDecision>(Player controller, Action<TDecision> init)
+      where TDecision : class, IDecision
     {
-      Game.Enqueue(controller, setParameters);
+      Game.Enqueue(controller, init);
     }
   }
 }

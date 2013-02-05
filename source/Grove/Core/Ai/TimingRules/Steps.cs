@@ -7,7 +7,7 @@
   {
     private readonly List<Step> _steps = new List<Step>();
 
-    public void At(params Step[] steps)
+    public Steps(params Step[] steps)
     {
       _steps.AddRange(steps);
     }

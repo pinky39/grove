@@ -78,5 +78,10 @@
 
       return _p;
     }
+
+    public TargetValidatorParameters Creature()
+    {
+      return Card(x => x.Is().Creature);
+    }
   }
 }

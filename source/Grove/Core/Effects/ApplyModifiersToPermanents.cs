@@ -2,19 +2,28 @@
 {
   using System;
   using System.Collections.Generic;
-  using Grove.Core.Targeting;
   using Modifiers;
+  using Targeting;
 
   public class ApplyModifiersToPermanents : Effect
   {
-    private readonly List<IModifierFactory> _modifierFactories = new List<IModifierFactory>();
+    private readonly Func<ApplyModifiersToPermanents, Card, bool> _filter;
+    private readonly List<ModifierFactory> _modifiers = new List<ModifierFactory>();
 
-    public Func<ApplyModifiersToPermanents, Card, bool> Filter = delegate { return true; };
-    public Value ToughnessReduction = 0;
+    private ApplyModifiersToPermanents() {}
+
+    public ApplyModifiersToPermanents(params ModifierFactory[] modifiers) : this(null , modifiers) {}
+
+    public ApplyModifiersToPermanents(Func<Effect, Card, bool> filter, params ModifierFactory[] modifiers)
+    {
+      _filter = filter ?? delegate { return true; };
+      _modifiers.AddRange(modifiers);
+    }
+
 
     public override int CalculateToughnessReduction(Card card)
     {
-      if ((Target() == null || card.Controller == Target()) && Filter(this, card))
+      if ((Target == null || card.Controller == Target) && _filter(this, card))
       {
         return ToughnessReduction.GetValue(X);
       }
@@ -22,20 +31,15 @@
       return 0;
     }
 
-    public void Modifiers(params IModifierFactory[] modifiers)
-    {
-      _modifierFactories.AddRange(modifiers);
-    }
-
     protected override void ResolveEffect()
     {
-      if (Target() != null)
+      if (Target != null)
       {
-        ApplyModifierToPlayersPermanents(Target().Player());
+        ApplyModifierToPlayersPermanents(Target.Player());
         return;
       }
 
-      foreach (var player in Core.Players)
+      foreach (var player in Players)
       {
         ApplyModifierToPlayersPermanents(player);
       }
@@ -45,11 +49,19 @@
     {
       foreach (var creature in player.Battlefield)
       {
-        if (!Filter(this, creature))
+        if (!_filter(this, creature))
           continue;
 
-        foreach (var modifier in _modifierFactories.CreateModifiers(Source.OwningCard, creature, X, Game))
+        foreach (var modifierFactory in _modifiers)
         {
+          var p = new ModifierParameters
+            {
+              Source = Source.OwningCard,
+              Target = creature,
+              X = X
+            };
+
+          var modifier = modifierFactory().Initialize(p, Game);
           creature.AddModifier(modifier);
         }
       }

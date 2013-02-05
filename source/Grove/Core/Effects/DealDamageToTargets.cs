@@ -1,40 +1,50 @@
 ﻿namespace Grove.Core.Effects
 {
   using System.Linq;
-  using Grove.Core.Targeting;
   using Modifiers;
+  using Targeting;
 
   public class DealDamageToTargets : Effect
   {
-    public Value  Amount = 0;    
-    public bool   GainLife;    
+    private readonly Value _amount;
+    private readonly bool _gainLife;
+
+    private DealDamageToTargets() {}
+
+    public DealDamageToTargets(Value amount, bool gainLife = false)
+    {
+      _amount = amount;
+      _gainLife = gainLife;
+    }
+
 
     public override int CalculatePlayerDamage(Player player)
     {
-      return EffectTargets.Any(x=> x == player) ? Amount.GetValue(X) : 0;
+      return Targets.Effect.Any(x => x == player) ? _amount.GetValue(X) : 0;
     }
 
     public override int CalculateCreatureDamage(Card creature)
     {
-      return EffectTargets.Any(x => x == creature) ? Amount.GetValue(X) : 0;
-    }  
+      return Targets.Effect.Any(x => x == creature) ? _amount.GetValue(X) : 0;
+    }
 
     protected override void ResolveEffect()
     {
-      foreach (var t in ValidEffectTargets) {
+      foreach (var t in ValidEffectTargets)
+      {
         var damage = new Damage(
           source: Source.OwningCard,
-          amount: Amount.GetValue(X),
+          amount: _amount.GetValue(X),
           isCombat: false,
           changeTracker: Game.ChangeTracker);
-                
+
         t.DealDamage(damage);
 
-        if (GainLife)
+        if (_gainLife)
           Controller.Life += damage.Amount;
       }
     }
-    
+
     public override string ToString()
     {
       return GetType().Name;

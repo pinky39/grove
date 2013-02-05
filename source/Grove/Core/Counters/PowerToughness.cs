@@ -4,32 +4,37 @@
 
   public class PowerToughness : Counter
   {
-    private Power _power;
+    private readonly int _power;
+    private readonly int _toughness;
+    private Power _cardPower;
+    private Toughness _cardToughness;
     private Increment _powerIncrement;
-    private Toughness _toughness;
     private Increment _toughnessIncrement;
 
-    public int Power { get; set; }
-    public int Toughness { get; set; }
+    public PowerToughness(int power, int toughness)
+    {
+      _power = power;
+      _toughness = toughness;
+    }
 
     public override void ModifyPower(Power power)
     {
-      _power = power;
-      _powerIncrement = new Increment(Power, ChangeTracker);
+      _cardPower = power;
+      _powerIncrement = new Increment(_power, ChangeTracker);
       power.AddModifier(_powerIncrement);
     }
 
     public override void ModifyToughness(Toughness toughness)
     {
-      _toughness = toughness;
-      _toughnessIncrement = new Increment(Toughness, ChangeTracker);
+      _cardToughness = toughness;
+      _toughnessIncrement = new Increment(_toughness, ChangeTracker);
       toughness.AddModifier(_toughnessIncrement);
     }
 
     public override void Remove()
     {
-      _power.RemoveModifier(_powerIncrement);
-      _toughness.RemoveModifier(_toughnessIncrement);
+      _cardPower.RemoveModifier(_powerIncrement);
+      _cardToughness.RemoveModifier(_toughnessIncrement);
     }
   }
 }

@@ -28,7 +28,7 @@
         .ContinuousEffect(p =>
           {
             p.CardFilter = (card, source) => card.Is().Creature;
-            p.ModifierFactory = () => new AddProtectionFromColors(ManaColors.Red);
+            p.Modifier = () => new AddProtectionFromColors(ManaColors.Red);
           });
     }
   }

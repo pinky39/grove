@@ -2,14 +2,15 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TargetingRules;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
+  using Core.Effects;
   using Core.Modifiers;
-  using Core.Targeting;
 
   public class Breach : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Breach")
@@ -19,11 +20,14 @@
           "Target creature gets +2/+0 and gains fear until end of turn. (It can't be blocked except by artifact creatures and/or black creatures.)")
         .Cast(p =>
           {
-            p.Effect = Effect<Core.Effects.ApplyModifiersToTargets>(e => e.Modifiers(
-              Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Fear, untilEndOfTurn: true),
-              Modifier<AddPowerAndToughness>(m => { m.Power = 2; }, untilEndOfTurn: true)));
-            p.EffectTargets = L(Target(Validators.Card(card => card.Is().Creature), Zones.Battlefield()));
-            p.TargetingAi = TargetingAi.AddEvasion();
+            p.Effect = () => new ApplyModifiersToTargets(
+              () => new AddStaticAbility(Static.Fear) {UntilEot = true},
+              () => new AddPowerAndToughness(2, 0) {UntilEot = true});
+
+            p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
+            
+            p.TimingRule(new Steps(Step.BeginningOfCombat));
+            p.TargetingRule(new GainEvasion());
           });
     }
   }

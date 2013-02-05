@@ -2,13 +2,13 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
   using Core.Effects;
 
   public class Brand : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Brand")
@@ -19,8 +19,9 @@
         .FlavorText("'By this glyph I affirm your role.'{EOL}—Urza, to Karn")
         .Cast(p =>
           {
-            p.Timing = All(Timings.EndOfTurn(), Timings.OpponentHasPermanent(card => card.Owner != card.Controller));
-            p.Effect = Effect<GainControlOfOwnedPermanents>();
+            p.Effect = () => new GainControlOfOwnedPermanents();
+            p.TimingRule(new EndOfTurn());
+            p.TimingRule(new OpponentHasPermanents(c => c.Owner != c.Controller));
           });
     }
   }

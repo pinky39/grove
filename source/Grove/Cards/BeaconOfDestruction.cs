@@ -2,14 +2,15 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TargetingRules;
+  using Core.Ai.TimingRules;
   using Core.Casting;
   using Core.Dsl;
-  using Core.Targeting;
+  using Core.Effects;
 
   public class BeaconOfDestruction : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Beacon of Destruction")
@@ -20,11 +21,11 @@
         .FlavorText("The Great Furnace's blessing is a spectacular sight, but the best view comes at a high cost.")
         .Cast(p =>
           {
-            p.Timing = Timings.InstantRemovalTarget();
-            p.Rule = Rule<Instant>(r => r.AfterResolvePutToZone = card => card.ShuffleIntoLibrary());
-            p.Effect = Effect<Core.Effects.DealDamageToTargets>(e => e.Amount = 5);
-            p.EffectTargets = L(Target(Validators.CreatureOrPlayer(), Zones.Battlefield()));
-            p.TargetingAi = TargetingAi.DealDamageSingleSelector(5);
+            p.Rule = new Instant(c => c.ShuffleIntoLibrary());
+            p.Effect = () => new DealDamageToTargets(5);
+            p.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
+            p.TimingRule(new TargetRemoval());
+            p.TargetingRule(new DealDamage(5));
           });
     }
   }

@@ -20,7 +20,7 @@
         .Cast(p => p.TimingRule(new SecondMain()))
         .ContinuousEffect(p =>
           {
-            p.ModifierFactory = () => new AddStaticAbility(Static.DoesNotUntap);
+            p.Modifier = () => new AddStaticAbility(Static.DoesNotUntap);
             p.CardFilter = (card, source) => card.Is().NonBasicLand;
           });
     }

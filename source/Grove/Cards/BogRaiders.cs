@@ -6,7 +6,7 @@
 
   public class BogRaiders : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Bog Raiders")
@@ -17,9 +17,7 @@
           "'Let weak feed on weak, that we may divine the nature of strength.'{EOL}—Phyrexian Scriptures")
         .Power(2)
         .Toughness(2)
-        .Abilities(
-          Static.Swampwalk
-        );
+        .StaticAbilities(Static.Swampwalk);
     }
   }
 }

@@ -5,7 +5,12 @@
 
   public class Instant : CastingRule
   {
-    public Action<Card> AfterResolvePutToZone = card => card.PutToGraveyard();    
+    private readonly Action<Card> _afterResolvePutToZone;
+
+    public Instant(Action<Card> afterResolvePutToZone = null)
+    {
+      _afterResolvePutToZone = afterResolvePutToZone ?? (card => card.PutToGraveyard());
+    }
 
     public override bool CanCast()
     {
@@ -19,7 +24,7 @@
 
     public override void AfterResolve()
     {
-      AfterResolvePutToZone(Card);
+      _afterResolvePutToZone(Card);
     }
   }
 }

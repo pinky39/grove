@@ -1,7 +1,7 @@
 ﻿namespace Grove.Core.Effects
 {
+  using Infrastructure;
   using Targeting;
-  using Zones;
 
   public class ReturnToHand : Effect
   {
@@ -23,7 +23,7 @@
         target.Card().PutToHand();
       }
 
-      if (_returnOwningCard && Source.OwningCard.Zone == Zone.Battlefield)
+      if (_returnOwningCard && ValidEffectTargets.None(x => x == Source.OwningCard))
       {
         Source.OwningCard.PutToHand();
       }

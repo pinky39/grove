@@ -3,14 +3,15 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
+  using Core.Ai.TargetingRules;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
   using Core.Effects;
   using Core.Mana;
-  using Core.Targeting;
 
   public class Befoul : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Befoul")
@@ -20,13 +21,12 @@
         .FlavorText("'The land putrefied at its touch, turned into an oily bile in seconds.'{EOL}—Radiant, archangel")
         .Cast(p =>
           {
-            p.Timing = Timings.FirstMain();
-            p.Effect = Effect<DestroyTargetPermanents>(e => e.AllowRegenerate = false);
-            p.Category = EffectCategories.Destruction;
-            p.EffectTargets = L(Target(
-              Validators.Card(card => card.Is().Land || (card.Is().Creature && !card.HasColors(ManaColors.Black))),
-              Zones.Battlefield()));
-            p.TargetingAi = TargetingAi.Destroy();
+            p.Effect = () => new DestroyTargetPermanents(canRegenerate: false) {Category = EffectCategories.Destruction};
+            p.TargetSelector.AddEffect(trg => trg
+              .Is.Card(card => card.Is().Land || (card.Is().Creature && !card.HasColors(ManaColors.Black)))
+              .On.Battlefield());
+            p.TimingRule(new FirstMain());
+            p.TargetingRule(new Destroy());
           });
     }
   }

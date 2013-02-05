@@ -2,14 +2,21 @@
 {
   public class ChangeController : Modifier
   {
-    public Player NewController;
+    private readonly Player _newController;
     private ControllerCharacteristic _controller;
     private ControllerSetter _controllerSetter;
-   
+
+    private ChangeController() {}
+
+    public ChangeController(Player newController)
+    {
+      _newController = newController;
+    }
+
     public override void Apply(ControllerCharacteristic controller)
     {
       _controller = controller;
-      _controllerSetter = new ControllerSetter(NewController, ChangeTracker);
+      _controllerSetter = new ControllerSetter(_newController, ChangeTracker);
       controller.AddModifier(_controllerSetter);
     }
 

@@ -1,16 +1,21 @@
 ﻿namespace Grove.Core.Effects
 {
-  using Grove.Core.Targeting;
+  using Targeting;
 
   public class ExileTargets : Effect
   {
-    public bool ControllerGainsLifeEqualToToughness { get; set; }    
+    private readonly bool _controllerGainsLifeEqualToToughness;
+
+    public ExileTargets(bool controllerGainsLifeEqualToToughness = false)
+    {
+      _controllerGainsLifeEqualToToughness = controllerGainsLifeEqualToToughness;
+    }
 
     protected override void ResolveEffect()
     {
       foreach (var target in ValidEffectTargets)
       {
-        if (ControllerGainsLifeEqualToToughness)
+        if (_controllerGainsLifeEqualToToughness)
         {
           target.Card().Controller.Life += target.Card().Toughness.GetValueOrDefault();
         }

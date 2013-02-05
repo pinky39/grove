@@ -70,6 +70,12 @@
       }
     }
 
+    public CardFactory HasXInCost()
+    {
+      _init.Add(p => p.HasXInCost = true);
+      return this;
+    }
+
     public CardFactory Protections(ManaColors colors)
     {
       _init.Add(p => p.Protections.AddProtectionFromColors(colors));
@@ -129,6 +135,30 @@
           cp.ActivatedAbilities.Add(new ActivatedAbility(p));
         });
       return this;
+    }
+
+    public CardFactory ManaAbility(Action<ManaAbilityParameters> set)
+    {
+      _init.Add(cp =>
+        {
+          var p = new ManaAbilityParameters();
+          p.Cost = new Tap();
+          p.Priority = GetDefaultManaSourcePriority(cp);
+
+          set(p);
+          cp.ActivatedAbilities.Add(new ManaAbility(p));
+        });
+      return this;
+    }
+
+    private int GetDefaultManaSourcePriority(CardParameters cp)
+    {
+      if (cp.Type.Creature)
+        return ManaSourcePriorities.Creature;
+      if (cp.Type.Land)
+        return ManaSourcePriorities.Land;
+
+      return ManaSourcePriorities.Land;
     }
 
     public CardFactory TriggeredAbility(Action<TriggeredAbilityParameters> set)

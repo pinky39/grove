@@ -2,7 +2,7 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
   using Core.Effects;
   using Core.Triggers;
@@ -10,7 +10,7 @@
 
   public class CacklingFiend : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Cackling Fiend")
@@ -20,12 +20,13 @@
         .FlavorText("Its windpipe is only the first to amplify its maddening laughter.")
         .Power(2)
         .Toughness(1)
-        .Cast(p => p.Timing = Timings.FirstMain())        
-        .Abilities(
-          TriggeredAbility(
-            "When Cackling Fiend enters the battlefield, each opponent discards a card.",
-            Trigger<OnZoneChanged>(t => t.To = Zone.Battlefield),
-            Effect<OpponentDiscardsCards>(e => e.SelectedCount = 1)));
+        .Cast(p => p.TimingRule(new FirstMain()))
+        .TriggeredAbility(p =>
+          {
+            p.Text = "When Cackling Fiend enters the battlefield, each opponent discards a card.";
+            p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
+            p.Effect = () => new OpponentDiscardsCards(selectedCount: 1);
+          });
     }
   }
 }

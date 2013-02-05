@@ -7,23 +7,23 @@
 
   public class ManaAbility : ActivatedAbility, IManaSource
   {
-    private Func<ManaAbility, Game, IManaAmount> _manaAmount;
+    private Func<ManaAbility, Game, IManaAmount> _getManaAmount;
     private ManaAmountCharacteristic _manaAmountCharacteristic;
 
     public ManaAbility(ManaAbilityParameters p) : base(p)
     {
-      _manaAmount = p.ManaAmount;
-      
-      EffectFactory = (pr, _) =>
-        {
-          var effect = new AddManaToPool();
-          var source = (ManaAbility) pr.Source;
-          effect.Amount = source.GetManaAmount();
-          return effect;
-        };      
+      _getManaAmount = p.GetManaAmount;
+      Priority = p.Priority;
+
+      EffectFactory = () => new AddManaToPool(
+        amount: e =>
+          {
+            var source = (ManaAbility) e.Source;
+            return source.GetManaAmount();
+          });
     }
 
-    public int Priority { get; set; }
+    public int Priority { get; private set; }
     object IManaSource.Resource { get { return OwningCard; } }
 
     public void Consume(IManaAmount amount, ManaUsage usage)
@@ -49,7 +49,7 @@
 
     private IManaAmount GetManaAmount()
     {
-      return new AggregateManaAmount(_manaAmountCharacteristic.Value, _manaAmount(this, Game));
+      return new AggregateManaAmount(_manaAmountCharacteristic.Value, _getManaAmount(this, Game));
     }
 
     public override bool CanActivate(out ActivationPrerequisites prerequisites)
@@ -86,7 +86,7 @@
 
     public void SetManaAmount(IManaAmount manaAmount)
     {
-      _manaAmount = delegate { return manaAmount; };
+      _getManaAmount = delegate { return manaAmount; };
     }
   }
 }

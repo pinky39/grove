@@ -2,14 +2,15 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TargetingRules;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
+  using Core.Effects;
   using Core.Modifiers;
-  using Core.Targeting;
 
   public class BlanchwoodArmor : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Blanchwood Armor")
@@ -19,11 +20,10 @@
         .FlavorText("'Before armor, there was bark. Before blades, there were thorns.'{EOL}—Molimo, maro-sorcerer")
         .Cast(p =>
           {
-            p.Timing = Timings.FirstMain();
-            p.Category = EffectCategories.ToughnessIncrease;
-            p.Effect = Effect<Core.Effects.Attach>(e => e.Modifiers(Modifier<Add11ForEachForest>()));
-            p.EffectTargets = L(Target(Validators.Card(card => card.Is().Creature), Zones.Battlefield()));
-            p.TargetingAi = TargetingAi.CombatEnchantment();
+            p.Effect = () => new Attach(() => new Add11ForEachForest());
+            p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
+            p.TimingRule(new FirstMain());
+            p.TargetingRule(new CombatEnchantment());
           });
     }
   }

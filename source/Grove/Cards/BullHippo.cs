@@ -6,7 +6,7 @@
 
   public class BullHippo : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Bull Hippo")
@@ -16,9 +16,7 @@
         .FlavorText("'How could you not hear it approach? It's a hippo!'{EOL}—Argivian commander")
         .Power(3)
         .Toughness(3)
-        .Abilities(
-          Static.Islandwalk
-        );
+        .StaticAbilities(Static.Islandwalk);
     }
   }
 }
