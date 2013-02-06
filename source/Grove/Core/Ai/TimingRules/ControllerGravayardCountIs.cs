@@ -5,19 +5,26 @@
 
   public class ControllerGravayardCountIs : TimingRule
   {
-    public int? MaxCount;
-    public int? MinCount;
-    public Func<Card, bool> Selector = delegate { return true; };
+    private int? _maxCount;
+    private int? _minCount;
+    private readonly Func<Card, bool> _selector;
+    
+    public ControllerGravayardCountIs(int? minCount = 1, int? maxCount = 1, Func<Card, bool> selector = null)
+    {
+      _maxCount = maxCount;
+      _selector = selector ?? delegate { return true; };
+      _minCount = minCount;
+    }
 
     public override bool ShouldPlay(TimingRuleParameters p)
     {
       var result = true;
 
-      if (MinCount.HasValue)
-        result = result && p.Controller.Graveyard.Count(Selector) >= MinCount;
+      if (_minCount.HasValue)
+        result = result && p.Controller.Graveyard.Count(_selector) >= _minCount;
 
-      if (MaxCount.HasValue)
-        result = result && p.Controller.Graveyard.Count(Selector) <= MaxCount;
+      if (_maxCount.HasValue)
+        result = result && p.Controller.Graveyard.Count(_selector) <= _maxCount;
 
       return result;
     }

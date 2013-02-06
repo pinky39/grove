@@ -9,7 +9,7 @@
 
   public class CraterHellion : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Crater Hellion")
@@ -20,16 +20,13 @@
         .Power(6)
         .Toughness(6)
         .Echo("{4}{R}{R}")
-        .Abilities(
-          TriggeredAbility(
-            "When Crater Hellion enters the battlefield, it deals 4 damage to each other creature.",
-            Trigger<OnZoneChanged>(t => t.To = Zone.Battlefield),
-            Effect<DealDamageToCreaturesAndPlayers>(e =>
-              {
-                e.AmountCreature = 4;
-                e.FilterCreature = (self, creature) => creature != self.Source.OwningCard;
-              })
-            )
+        .TriggeredAbility(p =>
+          {
+            p.Text = "When Crater Hellion enters the battlefield, it deals 4 damage to each other creature.";
+            p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
+            p.Effect = () => new DealDamageToCreaturesAndPlayers(amountCreature: 4,
+              filterCreature: (effect, creature) => creature != effect.Source.OwningCard);
+          }
         );
     }
   }

@@ -2,17 +2,17 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TargetingRules;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
   using Core.Effects;
   using Core.Mana;
-  using Core.Targeting;
   using Core.Triggers;
   using Core.Zones;
 
   public class DarkHatchling : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Dark Hatchling")
@@ -22,20 +22,26 @@
           "{Flying}{EOL}When Dark Hatchling enters the battlefield, destroy target nonblack creature. It can't be regenerated.")
         .Power(3)
         .Toughness(3)
-        .Cast(p => p.Timing = Timings.OpponentHasPermanent(card =>
-          card.Is().Creature &&
+        .Cast(p => p.TimingRule(new OpponentHasPermanents(
+          card => card.Is().Creature &&
             !card.HasColors(ManaColors.Black) &&
-              !card.HasProtectionFrom(ManaColors.Black)))
-        .Abilities(
-          TriggeredAbility(
-            "When Dark Hatchling enters the battlefield, destroy target nonblack creature. It can't be regenerated.",
-            Trigger<OnZoneChanged>(t => t.To = Zone.Battlefield),
-            Effect<DestroyTargetPermanents>(e => e.AllowRegenerate = false),
-            Target(
-              Validators.Card(card => card.Is().Creature && !card.HasColors(ManaColors.Black)),
-              Zones.Battlefield()),
-            selectorAi: TargetingAi.Destroy(),
-            abilityCategory: EffectCategories.Destruction));
+              !card.HasProtectionFrom(ManaColors.Black), minCount: 1))
+        )
+        .StaticAbilities(Static.Flying)
+        .TriggeredAbility(p =>
+          {
+            p.Text =
+              "When Dark Hatchling enters the battlefield, destroy target nonblack creature. It can't be regenerated.";
+            
+            p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
+            p.Effect = () => new DestroyTargetPermanents(canRegenerate: false);
+            
+            p.TargetSelector.AddEffect(trg => trg
+              .Is.Card(c => c.Is().Creature && !c.HasColors(ManaColors.Black))
+              .On.Battlefield());
+            
+            p.TargetingRule(new Destroy());
+          });
     }
   }
 }

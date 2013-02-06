@@ -2,12 +2,12 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
 
   public class CrazedSkirge : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Crazed Skirge")
@@ -17,8 +17,8 @@
         .FlavorText("They are Phyrexia's couriers; the messages they carry are inscribed on their slick hides.")
         .Power(2)
         .Toughness(2)
-        .Cast(p => p.Timing = Timings.FirstMain())        
-        .Abilities(
+        .Cast(p => p.TimingRule(new FirstMain()))
+        .StaticAbilities(
           Static.Flying,
           Static.Haste
         );

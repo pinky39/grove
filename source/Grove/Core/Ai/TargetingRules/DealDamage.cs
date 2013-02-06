@@ -8,11 +8,16 @@
 
   public class DealDamage : TargetingRule
   {
-    private readonly int? _amount;
-    
-    public DealDamage(int? amount = null)
+    private readonly Func<TargetingRuleParameters, int> _getAmount;
+
+
+    public DealDamage(Func<TargetingRuleParameters, int> getAmount)
     {
-      _amount = amount;
+      _getAmount = getAmount;
+    }
+
+    public DealDamage(int? amount = null) : this(p => amount ?? p.MaxX)
+    {      
     }
 
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
@@ -101,7 +106,7 @@
 
     private IEnumerable<ITarget> GetCandidatesByDescendingDamageScore(TargetingRuleParameters p, int selectorIndex = 0)
     {
-      var amount = _amount ?? p.MaxX;
+      var amount = _getAmount(p);
 
       var candidates = p.Candidates<Player>(selectorIndex: selectorIndex)
         .Where(x => x == p.Controller.Opponent)

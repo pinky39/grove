@@ -1,25 +1,32 @@
 ﻿namespace Grove.Core.Effects
 {
-  using Grove.Core.Decisions;
-  using Grove.Core.Zones;
+  using Ai;
+  using Decisions;
+  using Zones;
 
   public class OpponentSacrificesCreatures : Effect
   {
-    public int Count { get; set; }
+    private readonly int _count;
+
+    private OpponentSacrificesCreatures() {}
+
+    public OpponentSacrificesCreatures(int count)
+    {
+      _count = count;
+      Category = EffectCategories.Destruction;
+    }
 
     protected override void ResolveEffect()
     {
-      var opponent = Core.Players.GetOpponent(Controller);
-
-      Game.Enqueue<SelectCardsToSacrifice>(
-        controller: opponent,
+      Enqueue<SelectCardsToSacrifice>(
+        controller: Controller.Opponent,
         init: p =>
           {
-            p.MinCount = Count;
-            p.MaxCount = Count;            
+            p.MinCount = _count;
+            p.MaxCount = _count;
             p.Validator = card => card.Is().Creature;
             p.Zone = Zone.Battlefield;
-            p.Text = FormatText("Select creature(s) to sacrifice");            
+            p.Text = FormatText("Select creature(s) to sacrifice");
           });
     }
   }

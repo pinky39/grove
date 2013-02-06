@@ -3,13 +3,14 @@
   using System.Collections.Generic;
   using System.Linq;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TargetingRules;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
-  using Core.Targeting;
+  using Core.Effects;
 
   public class Corrupt : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Corrupt")
@@ -18,18 +19,18 @@
         .Text(
           "Corrupt deals damage equal to the number of Swamps you control to target creature or player. You gain life equal to the damage dealt this way.")
         .FlavorText("Yawgmoth brushed Urza's mind, and Urza's world convulsed.")
-        .Cast(p =>
+        .Cast(cp =>
           {
-            p.Timing = Timings.MainPhases();
-            p.Category = EffectCategories.Destruction;
-            p.Effect = Effect<Core.Effects.DealDamageToTargets>(e =>
-              {
-                e.Amount = e.Controller.Battlefield.Count(x => x.Is("swamp"));
-                e.GainLife = true;
-              });
-            p.EffectTargets = L(Target(Validators.CreatureOrPlayer(), Zones.Battlefield()));
-            p.TargetingAi =
-              TargetingAi.DealDamageSingleSelector(p1 => p1.Controller.Battlefield.Count(x => x.Is("swamp")));
+            cp.Effect = () => new DealDamageToTargets(
+              getAmount: e => e.Controller.Battlefield.Count(x => x.Is("swamp")),
+              gainLife: true);
+
+            cp.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
+
+            cp.TimingRule(new MainSteps());
+            
+            cp.TargetingRule(new DealDamage(p =>
+              p.Controller.Battlefield.Count(x => x.Is("swamp"))));
           });
     }
   }

@@ -5,7 +5,14 @@
 
   public class ReturnAllCardsInGraveyardToHand : Effect
   {
-    public Func<Card, bool> Filter = (card) => true;
+    private Func<Card, bool> Filter;
+
+    private ReturnAllCardsInGraveyardToHand() {}
+
+    public ReturnAllCardsInGraveyardToHand(Func<Card, bool> filter = null)
+    {
+      Filter = filter ?? delegate { return true; };
+    }
 
     protected override void ResolveEffect()
     {

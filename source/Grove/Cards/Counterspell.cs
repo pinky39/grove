@@ -2,14 +2,12 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
   using Core.Dsl;
   using Core.Effects;
-  using Core.Targeting;
 
   public class Counterspell : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Counterspell")
@@ -19,11 +17,10 @@
         .FlavorText("'Your attack has been rendered harmless. It is, however, quite pretty.'{EOL}—Saprazzan vizier")
         .Cast(p =>
           {
-            p.Timing = Timings.CounterSpell();
-            p.Category = EffectCategories.Counterspell;
-            p.Effect = Effect<CounterTargetSpell>();
-            p.EffectTargets = L(Target(Validators.CounterableSpell(), Zones.Stack()));
-            p.TargetingAi = TargetingAi.CounterSpell();
+            p.Effect = () => new CounterTargetSpell();
+            p.TargetSelector.AddEffect(trg => trg.Is.Counterable().On.Stack());
+            p.TimingRule(new Core.Ai.TimingRules.Counterspell());
+            p.TargetingRule(new Core.Ai.TargetingRules.Counterspell());
           });
     }
   }

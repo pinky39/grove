@@ -1,31 +1,34 @@
 ﻿namespace Grove.Core.Effects
 {
+  using System;
   using System.Linq;
   using Modifiers;
   using Targeting;
 
   public class DealDamageToTargets : Effect
   {
-    private readonly Value _amount;
     private readonly bool _gainLife;
+    private readonly Func<Effect, int> _getAmount;
 
     private DealDamageToTargets() {}
 
-    public DealDamageToTargets(Value amount, bool gainLife = false)
+    public DealDamageToTargets(Func<Effect, int> getAmount, bool gainLife = false)
     {
-      _amount = amount;
+      _getAmount = getAmount;
       _gainLife = gainLife;
     }
+
+    public DealDamageToTargets(Value amount, bool gainLife = false) : this(e => amount.GetValue(e.X), gainLife) {}
 
 
     public override int CalculatePlayerDamage(Player player)
     {
-      return Targets.Effect.Any(x => x == player) ? _amount.GetValue(X) : 0;
+      return Targets.Effect.Any(x => x == player) ? _getAmount(this) : 0;
     }
 
     public override int CalculateCreatureDamage(Card creature)
     {
-      return Targets.Effect.Any(x => x == creature) ? _amount.GetValue(X) : 0;
+      return Targets.Effect.Any(x => x == creature) ? _getAmount(this) : 0;
     }
 
     protected override void ResolveEffect()
@@ -34,7 +37,7 @@
       {
         var damage = new Damage(
           source: Source.OwningCard,
-          amount: _amount.GetValue(X),
+          amount: _getAmount(this),
           isCombat: false,
           changeTracker: Game.ChangeTracker);
 

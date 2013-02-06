@@ -6,7 +6,7 @@
 
   public class CradleGuard : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Cradle Guard")
@@ -18,9 +18,7 @@
         .Power(4)
         .Toughness(4)
         .Echo("{1}{G}{G}")
-        .Abilities(
-          Static.Trample
-        );
+        .StaticAbilities(Static.Trample);
     }
   }
 }

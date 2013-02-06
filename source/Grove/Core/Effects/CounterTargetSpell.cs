@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core.Effects
 {
+  using Ai;
   using Decisions;
   using Decisions.Results;
   using Mana;
@@ -16,6 +17,7 @@
       _controllerLifeloss = controllerLifeloss;
       _doNotCounterCost = doNotCounterCost;
       _tapLandsAndEmptyManaPool = tapLandsAndEmptyManaPool;
+      Category = EffectCategories.Counterspell;
     }
 
     public void ProcessResults(BooleanResult results)

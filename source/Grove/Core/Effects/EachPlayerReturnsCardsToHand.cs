@@ -1,36 +1,49 @@
 ﻿namespace Grove.Core.Effects
 {
   using System;
-  using Grove.Core.Decisions;
-  using Grove.Core.Zones;
+  using Decisions;
+  using Zones;
 
   public class EachPlayerReturnsCardsToHand : Effect
   {
-    public int MinCount { get; set; }
-    public int MaxCount { get; set; }
-    public Func<Card, bool> Filter = delegate { return true; };
-    public Zone Zone;
-    public bool AiOrdersByDescendingScore;
-    public string Text;
+    private readonly bool _aiOrdersByDescendingScore;
+    private readonly Func<Card, bool> _filter;
+    private readonly int _maxCount;
+    private readonly int _minCount;
+    private readonly string _text;
+    private readonly Zone _zone;
+
+    private EachPlayerReturnsCardsToHand() {}
+
+    public EachPlayerReturnsCardsToHand(int minCount, int maxCount, Func<Card, bool> filter, Zone zone,
+      bool aiOrdersByDescendingScore, string text)
+    {
+      _minCount = minCount;
+      _text = text;
+      _aiOrdersByDescendingScore = aiOrdersByDescendingScore;
+      _zone = zone;
+      _filter = filter;
+      _maxCount = maxCount;
+    }
 
     protected override void ResolveEffect()
     {
-      ReturnCreatureToHand(Core.Players.Active);
-      ReturnCreatureToHand(Core.Players.Passive);
+      ReturnCardToHand(Players.Active);
+      ReturnCardToHand(Players.Passive);
     }
 
-    private void ReturnCreatureToHand(Player player)
+    private void ReturnCardToHand(Player player)
     {
       Game.Enqueue<SelectCardsPutToHand>(
         controller: player,
         init: p =>
           {
-            p.MinCount = MinCount;
-            p.MaxCount = MaxCount;
-            p.Validator = Filter;
-            p.Zone = Zone;
-            p.AiOrdersByDescendingScore = AiOrdersByDescendingScore;
-            p.Text = Text;
+            p.MinCount = _minCount;
+            p.MaxCount = _maxCount;
+            p.Validator = _filter;
+            p.Zone = _zone;
+            p.AiOrdersByDescendingScore = _aiOrdersByDescendingScore;
+            p.Text = _text;
           });
     }
   }

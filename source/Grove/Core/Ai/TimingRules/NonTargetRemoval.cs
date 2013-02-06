@@ -4,7 +4,12 @@
 
   public class NonTargetRemoval : TimingRule
   {
-    public int Count;
+    private readonly int _count;
+    
+    public NonTargetRemoval(int count)
+    {
+      _count = count;
+    }
 
     public override bool ShouldPlay(TimingRuleParameters p)
     {
@@ -26,7 +31,7 @@
           (p.Controller.IsActive && Turn.Step == Step.DeclareAttackers);
       }
 
-      if (opponentCreatureCount > 2*Count + 1)
+      if (opponentCreatureCount > 2*_count + 1)
         return false;
 
       return !p.Controller.IsActive && Turn.Step == Step.EndOfTurn;
@@ -43,7 +48,7 @@
       if (opponentCreatureCount == 1)
         return Turn.Step == Step.FirstMain;
 
-      if (opponentCreatureCount > 2*Count + 1)
+      if (opponentCreatureCount > 2*_count + 1)
         return false;
 
       return Turn.Step == Step.SecondMain;
