@@ -1,14 +1,21 @@
 ﻿namespace Grove.Core.Effects
 {
   using System;
+  using Ai;
 
   public class DestroyAllPermanents : Effect
   {
-    public Func<DestroyAllPermanents, Card, bool> Filter;
+    private readonly Func<Effect, Card, bool> _filter;
+    
+    public DestroyAllPermanents(Func<Effect, Card, bool> filter = null)
+    {
+      _filter = filter ?? delegate { return true; };
+      Category = EffectCategories.Destruction;
+    }
 
     protected override void ResolveEffect()
     {
-      Core.Players.DestroyPermanents(x => Filter(this, x));
+      Players.DestroyPermanents(x => _filter(this, x));
     }
   }
 }

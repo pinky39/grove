@@ -2,13 +2,13 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
   using Core.Effects;
 
   public class DayOfJudgment : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Day of Judgment")
@@ -17,9 +17,8 @@
         .Text("Destroy all creatures.")
         .Cast(p =>
           {
-            p.Timing = Timings.SecondMain();
-            p.Category = EffectCategories.Destruction;
-            p.Effect = Effect<DestroyAllPermanents>(e => e.Filter = (self, card) => card.Is().Creature);
+            p.TimingRule(new SecondMain());
+            p.Effect = () => new DestroyAllPermanents((e, c) => c.Is().Creature);
           });
     }
   }

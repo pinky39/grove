@@ -4,7 +4,12 @@
 
   public class ControllerNeedsAdditionalMana : TimingRule
   {
-    public int Amount;
+    private readonly int _amount;
+    
+    public ControllerNeedsAdditionalMana(int amount)
+    {
+      _amount = amount;
+    }
 
     public override bool ShouldPlay(TimingRuleParameters p)
     {
@@ -14,7 +19,7 @@
       var availableMana = p.Controller.GetConvertedMana();
 
       return p.Controller.Hand.Any(x => x.ConvertedCost > availableMana &&
-        x.ConvertedCost <= availableMana + Amount);
+        x.ConvertedCost <= availableMana + _amount);
     }
   }
 }

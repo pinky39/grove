@@ -1,24 +1,28 @@
 ﻿namespace Grove.Core.Effects
 {
-  using Grove.Core.Decisions;
-  using Grove.Core.Zones;
+  using System;
+  using System.Linq;
+  using Decisions;
+  using Zones;
 
   public class PlayersSacrificeLands : Effect
   {
-    public int Count;
-    public Player OnlyPlayer;
+    private readonly int _count;
+    private readonly Func<Effect, Player, bool> _playerFilter;
+
+    private PlayersSacrificeLands() {}
+
+    public PlayersSacrificeLands(int count, Func<Effect, Player, bool> playerFilter = null)
+    {
+      _count = count;
+      _playerFilter = playerFilter ?? delegate { return true; };
+    }
 
     protected override void ResolveEffect()
     {
-      if (OnlyPlayer != null)
-      {
-        SelectCardsToSacrifice(OnlyPlayer);
-        return;
-      }
+      var players = new[] {Players.Active, Players.Passive};
 
-      var players = new[] {Core.Players.Active, Core.Players.Passive};
-
-      foreach (var player in players)
+      foreach (var player in players.Where(x => _playerFilter(this, x)))
       {
         SelectCardsToSacrifice(player);
       }
@@ -30,8 +34,8 @@
         controller: player,
         init: p =>
           {
-            p.MinCount = Count;
-            p.MinCount = Count;
+            p.MinCount = _count;
+            p.MinCount = _count;
             p.Validator = card => card.Is().Land;
             p.Text = FormatText("Select land(s) to sacrifice");
             p.Zone = Zone.Battlefield;

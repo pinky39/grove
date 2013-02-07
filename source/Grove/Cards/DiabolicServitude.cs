@@ -2,16 +2,16 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TargetingRules;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
   using Core.Effects;
-  using Core.Targeting;
   using Core.Triggers;
   using Core.Zones;
 
   public class DiabolicServitude : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Diabolic Servitude")
@@ -19,42 +19,48 @@
         .Type("Enchantment")
         .Text(
           "When Diabolic Servitude enters the battlefield, return target creature card from your graveyard to the battlefield.{EOL}When the creature put onto the battlefield with Diabolic Servitude dies, exile it and return Diabolic Servitude to its owner's hand.{EOL}When Diabolic Servitude leaves the battlefield, exile the creature put onto the battlefield with Diabolic Servitude.")
-        .Cast(p => p.Timing = All(Timings.MainPhases(), Timings.HasCardsInGraveyard(card => card.Is().Creature)))                
-        .Abilities(
-          TriggeredAbility(
-            "When Diabolic Servitude enters the battlefield, return target creature card from your graveyard to the battlefield.",
-            Trigger<OnZoneChanged>(t => t.To = Zone.Battlefield),
-            Effect<CompoundEffect>(e => e.ChildEffects(
-              Effect<PutTargetsToBattlefield>(),
-              Effect<Attach>())),
-            selectorAi: TargetingAi.OrderByScore(ControlledBy.SpellOwner),
-            effectValidator: Target(
-              Validators.Card(card => card.Is().Creature),
-              Zones.YourGraveyard())),
-          TriggeredAbility(
-            "When the creature put onto the battlefield with Diabolic Servitude dies, exile it and return Diabolic Servitude to its owner's hand.",
-            Trigger<OnZoneChanged>(t =>
-              {
-                t.From = Zone.Battlefield;
-                t.To = Zone.Graveyard;
-                t.Filter = (ability, card) => ability.SourceCard.AttachedTo == card;
-              }),
-            Effect<CompoundEffect>(e => e.ChildEffects(
-              Effect<ExileCard>(c => { c.Card = c.Source.OwningCard.AttachedTo; }),
-              Effect<ReturnToHand>(c => c.Card = c.Source.OwningCard)))
-            ),
-          TriggeredAbility(
-            "When Diabolic Servitude leaves the battlefield, exile the creature put onto the battlefield with Diabolic Servitude.",
-            Trigger<OnZoneChanged>(t =>
-              {
-                t.From = Zone.Battlefield;
-                t.Filter = (ability, card) => ability.OwningCard == card && ability.OwningCard.AttachedTo != null;
-              }),
-            Effect<ExileCard>(e =>
-              {
-                e.Card = e.Source.OwningCard.AttachedTo;
-              })
-            ));
+        .Cast(p => p.TimingRule(new ControllerGravayardCountIs(1, selector: c => c.Is().Creature)))
+        .TriggeredAbility(p =>
+          {
+            p.Text =
+              "When Diabolic Servitude enters the battlefield, return target creature card from your graveyard to the battlefield.";
+
+            p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
+
+            p.Effect = () => new CompoundEffect(
+              new PutTargetsToBattlefield(),
+              new Attach()
+              );
+
+            p.TargetSelector.AddEffect(trg => trg.Is.Creature().In.YourGraveyard());
+            p.TargetingRule(new OrderByRank(c => -c.Score, ControlledBy.SpellOwner));
+          })
+        .TriggeredAbility(p =>
+          {
+            p.Text =
+              "When the creature put onto the battlefield with Diabolic Servitude dies, exile it and return Diabolic Servitude to its owner's hand.";
+
+            p.Trigger(new OnZoneChanged(
+              from: Zone.Battlefield,
+              to: Zone.Graveyard,
+              filter: (ability, card) => ability.SourceCard.AttachedTo == card));
+
+            p.Effect = () => new CompoundEffect(
+              new ExileCard(e => e.Source.OwningCard.AttachedTo),
+              new ReturnToHand(returnOwningCard: true));
+          })
+        .TriggeredAbility(p =>
+          {
+            p.Text =
+              "When Diabolic Servitude leaves the battlefield, exile the creature put onto the battlefield with Diabolic Servitude.";
+
+            p.Trigger(new OnZoneChanged(
+              from: Zone.Battlefield,
+              filter: (ability, card) => ability.OwningCard == card && ability.OwningCard.AttachedTo != null));
+
+            p.Effect = () => new ExileCard(e => e.Source.OwningCard.AttachedTo);
+          }
+        );
     }
   }
 }

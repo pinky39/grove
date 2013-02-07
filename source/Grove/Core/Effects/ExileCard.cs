@@ -1,12 +1,19 @@
 ﻿namespace Grove.Core.Effects
 {
+  using System;
+
   public class ExileCard : Effect
   {
-    public Card Card;
+    private readonly Func<Effect, Card> _getCard;
     
+    public ExileCard(Func<Effect, Card> getCard)
+    {
+      _getCard = getCard;
+    }
+
     protected override void ResolveEffect()
     {
-      Card.Exile();
+      _getCard(this).Exile();
     }
   }
 }

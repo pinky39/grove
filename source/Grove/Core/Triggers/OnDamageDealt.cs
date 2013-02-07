@@ -1,19 +1,30 @@
 ﻿namespace Grove.Core.Triggers
 {
   using System;
-  using Grove.Infrastructure;
-  using Grove.Core.Messages;
+  using Infrastructure;
+  using Messages;
 
   public class OnDamageDealt : Trigger, IReceive<DamageHasBeenDealt>
   {
-    public Func<Card, TriggeredAbility, bool> IsValidCreature = delegate { return false; };
-    public Func<Player, TriggeredAbility, bool> IsValidPlayer = delegate { return false; };
-    public bool CombatOnly { get; set; }
-    public bool UseAttachedToAsTriggerSource { get; set; }
+    private readonly bool _combatOnly;
+    private readonly Func<Card, TriggeredAbility, bool> _creatureFilter;
+    private readonly Func<Player, TriggeredAbility, bool> _playerFilter;
+    private readonly bool _useAttachedToAsTriggerSource;
+
+    private OnDamageDealt() {}
+
+    public OnDamageDealt(bool combatOnly = false, bool useAttachedToAsTriggerSource = false,
+      Func<Card, TriggeredAbility, bool> creatureFilter = null, Func<Player, TriggeredAbility, bool> playerFilter = null)
+    {
+      _combatOnly = combatOnly;
+      _useAttachedToAsTriggerSource = useAttachedToAsTriggerSource;
+      _creatureFilter = creatureFilter ?? delegate { return false; };
+      _playerFilter = playerFilter ?? delegate { return false; };
+    }
 
     public void Receive(DamageHasBeenDealt message)
     {
-      if (CombatOnly && !message.Damage.IsCombat)
+      if (_combatOnly && !message.Damage.IsCombat)
         return;
 
       var triggerCard = GetTriggerSource();
@@ -27,30 +38,16 @@
       var player = damageReceiver as Player;
 
       if (player != null)
-        return IsValidPlayer(player, Ability);
+        return _playerFilter(player, Ability);
 
       var creature = damageReceiver as Card;
 
       if (creature != null)
-        return IsValidCreature(creature, Ability);
+        return _creatureFilter(creature, Ability);
 
       return false;
     }
 
-    public void ToPlayer()
-    {
-      IsValidPlayer = (receiver, ability) => true;
-    }
-
-    public void ToOpponent()
-    {
-      IsValidPlayer = (receiver, ability) => receiver != ability.SourceCard.Controller;
-    }
-
-    public void ToYou()
-    {
-      IsValidPlayer = (receiver, ability) => receiver == ability.SourceCard.Controller;
-    }
 
     private Card GetTriggerSource()
     {
@@ -58,7 +55,7 @@
 
       // if ability card is equipment or enchantment, set triggerCard to
       // card to which ability card is attached
-      if (UseAttachedToAsTriggerSource && (triggerCard.Is().Enchantment || triggerCard.Is().Equipment))
+      if (_useAttachedToAsTriggerSource && (triggerCard.Is().Enchantment || triggerCard.Is().Equipment))
       {
         if (!triggerCard.IsAttached)
           return triggerCard;
@@ -67,11 +64,6 @@
       }
 
       return triggerCard;
-    }
-
-    public void ToAnyCreature()
-    {
-      IsValidCreature = delegate { return true; };
     }
   }
 }

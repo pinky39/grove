@@ -3,15 +3,16 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
+  using Core.Ai.TargetingRules;
   using Core.Costs;
   using Core.Dsl;
+  using Core.Effects;
   using Core.Mana;
   using Core.Modifiers;
-  using Core.Targeting;
 
   public class DeathlessAngel : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Deathless Angel")
@@ -21,21 +22,19 @@
         .FlavorText(
           "'I should have died that day, but I suffered not a scratch. I awoke in a lake of blood, none of it apparently my own.'{EOL}—The War Diaries")
         .Power(5)
-        .Toughness(7)        
-        .Abilities(
-          Static.Flying,
-          ActivatedAbility(
-            "{W}{W}: Target creature is indestructible this turn.",
-            Cost<PayMana>(cost => cost.Amount = "{W}{W}".ParseMana()),
-            Effect<Core.Effects.ApplyModifiersToTargets>(e => e.Modifiers(
-              Modifier<AddStaticAbility>(m => { m.StaticAbility = Static.Indestructible; },
-                untilEndOfTurn: true))),
-            Target(
-              Validators.Card(x => x.Is().Creature),
-              Zones.Battlefield()),
-            targetingAi: TargetingAi.ShieldIndestructible(),
-            timing: Timings.NoRestrictions(),
-            category: EffectCategories.Protector));
+        .Toughness(7)
+        .StaticAbilities(Static.Flying)
+        .ActivatedAbility(p =>
+          {
+            p.Text = "{W}{W}: Target creature is indestructible this turn.";
+            p.Cost = new PayMana("{W}{W}".ParseMana(), ManaUsage.Abilities);
+
+            p.Effect = () => new ApplyModifiersToTargets(
+              () => new AddStaticAbility(Static.Indestructible)) {Category = EffectCategories.Protector};
+
+            p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
+            p.TargetingRule(new GainIndestructible());
+          });
     }
   }
 }

@@ -6,7 +6,7 @@
 
   public class DarksteelGargoyle : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Darksteel Gargoyle")
@@ -17,7 +17,7 @@
         .FlavorText("The ultimate treasure is one that guards itself.")
         .Power(3)
         .Toughness(3)
-        .Abilities(
+        .StaticAbilities(
           Static.Flying,
           Static.Indestructible
         );

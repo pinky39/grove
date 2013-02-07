@@ -2,15 +2,16 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TargetingRules;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
+  using Core.Effects;
   using Core.Messages;
-  using Core.Targeting;
   using Core.Triggers;
 
   public class DestructiveUrge : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Destructive Urge")
@@ -21,28 +22,26 @@
         .FlavorText("Red sky at night, dragon's delight.")
         .Cast(p =>
           {
-            p.Timing = Timings.FirstMain();
-            p.Effect = Effect<Core.Effects.Attach>();
-            p.EffectTargets = L(Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));
-            p.TargetingAi = TargetingAi.CombatEnchantment();
-          })                                
-        .Abilities(
-          TriggeredAbility(
-            "Whenever enchanted creature deals combat damage to a player, that player sacrifices a land.",
-            Trigger<OnDamageDealt>(t =>
-              {
-                t.CombatOnly = true;
-                t.UseAttachedToAsTriggerSource = true;
-                t.ToPlayer();
-              }),
-            Effect<Core.Effects.PlayersSacrificeLands>(
-              p =>
-                {
-                  p.Effect.OnlyPlayer = (Player) p.Parameters.Trigger<DamageHasBeenDealt>().Receiver;
-                  p.Effect.Count = 1;
-                }),
-            triggerOnlyIfOwningCardIsInPlay: true)
-        );
+            p.Effect = () => new Attach();
+            p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
+            p.TimingRule(new FirstMain());
+            p.TargetingRule(new CombatEnchantment());
+          })
+        .TriggeredAbility(p =>
+          {
+            p.Text = "Whenever enchanted creature deals combat damage to a player, that player sacrifices a land.";
+
+            p.Trigger(new OnDamageDealt(
+              combatOnly: true,
+              useAttachedToAsTriggerSource: true,
+              playerFilter: delegate { return true; }));
+
+            p.Effect = () => new PlayersSacrificeLands(
+              count: 1,
+              playerFilter: (e, player) => e.TriggerMessage<DamageHasBeenDealt>().Receiver == player);
+
+            p.TriggerOnlyIfOwningCardIsInPlay = true;
+          });
     }
   }
 }

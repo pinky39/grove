@@ -9,7 +9,7 @@
 
   public class DarkslickDrake : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Darkslick Drake")
@@ -19,12 +19,13 @@
         .FlavorText("At the edge of the Mephidross, Phyrexia's influence seeps into life and land.")
         .Power(2)
         .Toughness(4)
-        .Abilities(
-          Static.Flying,
-          TriggeredAbility(
-            "When Darkslick Drake is put into a graveyard from the battlefield, draw a card.",
-            Trigger<OnZoneChanged>(t => t.To = Zone.Graveyard),
-            Effect<DrawCards>(e => e.Count = 1)));
+        .StaticAbilities(Static.Flying)
+        .TriggeredAbility(p =>
+          {
+            p.Text = "When Darkslick Drake is put into a graveyard from the battlefield, draw a card.";
+            p.Trigger(new OnZoneChanged(to: Zone.Graveyard));
+            p.Effect = () => new DrawCards(1);
+          });
     }
   }
 }

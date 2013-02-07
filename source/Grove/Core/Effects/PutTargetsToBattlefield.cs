@@ -1,15 +1,23 @@
 ﻿namespace Grove.Core.Effects
 {
   using System.Linq;
-  using Grove.Core.Decisions;
-  using Grove.Core.Decisions.Results;
-  using Grove.Core.Targeting;
-  using Grove.Core.Zones;
+  using Decisions;
+  using Decisions.Results;
+  using Targeting;
+  using Zones;
 
   public class PutTargetsToBattlefield : Effect, IProcessDecisionResults<ChosenCards>
   {
-    public bool MustSacCreatureOnResolve;
-    public bool Tapped;
+    private readonly bool _mustSacCreatureOnResolve;
+    private readonly bool _tapped;
+
+    private PutTargetsToBattlefield() {}
+
+    public PutTargetsToBattlefield(bool mustSacCreatureOnResolve = false, bool tapped = false)
+    {
+      _mustSacCreatureOnResolve = mustSacCreatureOnResolve;
+      _tapped = tapped;
+    }
 
     public void ProcessResults(ChosenCards results)
     {
@@ -18,7 +26,7 @@
 
     protected override void ResolveEffect()
     {
-      if (MustSacCreatureOnResolve)
+      if (_mustSacCreatureOnResolve)
       {
         if (Controller.Battlefield.Creatures.Count() == 0)
           return;
@@ -51,7 +59,7 @@
 
         Controller.PutCardToBattlefield(card);
 
-        if (Tapped)
+        if (_tapped)
         {
           card.Tap();
         }

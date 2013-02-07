@@ -2,14 +2,14 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
   using Core.Effects;
   using Core.Mana;
 
   public class DarkRitual : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Dark Ritual")
@@ -21,8 +21,8 @@
         .OverrideScore(80) /* ritual score must be lowered a bit so ai casts it more eagerly */
         .Cast(p =>
           {
-            p.Timing = Timings.HasSpellsThatNeedAdditionalMana(2);
-            p.Effect = Effect<AddManaToPool>(e => e.Amount = "{B}{B}{B}".ParseMana());
+            p.TimingRule(new ControllerNeedsAdditionalMana(2));
+            p.Effect = () => new AddManaToPool("{B}{B}{B}".ParseMana());
           });
     }
   }
