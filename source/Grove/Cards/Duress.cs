@@ -2,13 +2,13 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
   using Core.Effects;
 
   public class Duress : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Duress")
@@ -19,13 +19,13 @@
         .FlavorText("'We decide who is worthy of our works.'{EOL}—Gix, Yawgmoth praetor")
         .Cast(p =>
           {
-            p.Timing = All(Timings.FirstMain(), Timings.OpponentHasCardsInHand(1));
-            p.Effect = Effect<OpponentDiscardsCards>(e =>
-              {
-                e.SelectedCount = 1;
-                e.Filter = card => !card.Is().Creature && !card.Is().Land;
-                e.YouChooseDiscardedCards = true;
-              });
+            p.Effect = () => new OpponentDiscardsCards(
+              selectedCount: 1,
+              youChooseDiscardedCards: true,
+              filter: card => !card.Is().Creature && !card.Is().Land);
+
+            p.TimingRule(new FirstMain());
+            p.TimingRule(new OpponentHasAtLeastCardsInHand(2));
           });
     }
   }

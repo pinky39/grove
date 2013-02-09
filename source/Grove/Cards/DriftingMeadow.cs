@@ -8,7 +8,7 @@
 
   public class DriftingMeadow : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Drifting Meadow")
@@ -16,9 +16,12 @@
         .Text(
           "Drifting Meadow enters the battlefield tapped.{EOL}{T}: Add {W} to your mana pool.{EOL}{Cycling} {2}({2}, Discard this card: Draw a card.)")
         .Cycling("{2}")
-        .Cast(p => p.Effect = Effect<PutIntoPlay>(e => e.PutIntoPlayTapped = true))
-        .Abilities(
-          ManaAbility(new ManaUnit(ManaColors.White), "{T}: Add {W} to your mana pool."));
+        .Cast(p => p.Effect = () => new PutIntoPlay(putIntoPlayTapped: true))
+        .ManaAbility(p =>
+          {
+            p.Text = "{T}: Add {W} to your mana pool.";
+            p.ManaAmount(new ManaUnit(ManaColors.White));
+          });
     }
   }
 }

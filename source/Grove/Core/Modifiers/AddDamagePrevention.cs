@@ -4,18 +4,21 @@
 
   public class AddDamagePrevention : Modifier
   {
-    private DamagePrevention _damagePrevention;
+    private readonly DamagePrevention _damagePrevention;
     private DamagePreventions _damagePreventions;
-    public IDamagePreventionFactory Prevention { get; set; }
+
+    private AddDamagePrevention() {}
+
+    public AddDamagePrevention(DamagePrevention damagePrevention)
+    {
+      _damagePrevention = damagePrevention;
+    }
+
 
     public override void Apply(DamagePreventions damagePreventions)
     {
       _damagePreventions = damagePreventions;
-      _damagePrevention = Prevention.Create(Target, Game);
-
-      AddLifetime(
-        Builder.Lifetime<DependantLifetime>(
-          l => l.LifetimeDependency = _damagePrevention));
+      _damagePrevention.Initialize(Target, Game);            
 
       damagePreventions.AddPrevention(_damagePrevention);
     }

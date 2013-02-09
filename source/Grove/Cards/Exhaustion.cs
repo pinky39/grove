@@ -2,14 +2,15 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
+  using Core.Effects;
   using Core.Modifiers;
   using Core.Targeting;
 
   public class Exhaustion : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Exhaustion")
@@ -20,25 +21,24 @@
           "The mage felt as though he'd been in the stasis suit for days. Upon his return, he found it was months.")
         .Cast(p =>
           {
-            p.Timing = Timings.SecondMain();
-            p.Effect = Effect<Core.Effects.ApplyModifiersToPlayer>(e =>
-              {
-                e.Player = e.Players.GetOpponent(e.Controller);
-                e.Modifiers(Modifier<AddContiniousEffect>(m =>
-                  {
-                    m.AddLifetime(Lifetime<EndOfUntapStep>(l =>
-                      l.OnlyDuringPlayersUntap = m.Target.Player()));
+            p.Effect = () => new ApplyModifiersToPlayer(
+              selector: e => e.Controller.Opponent,
+              modifiers: () =>
+                {
+                  var cp = new ContinuousEffectParameters
+                    {
+                      Modifier = () => new AddStaticAbility(Static.DoesNotUntap),
+                      CardFilter = (card, effect) =>
+                        card.Controller == effect.Target.Player() && (card.Is().Creature || card.Is().Land)
+                    };
 
-                    m.Effect =
-                      Continuous(c =>
-                        {
-                          c.ModifierFactory = Modifier<AddStaticAbility>(m1 => m1.StaticAbility = Static.DoesNotUntap);
+                  var modifier = new AddContiniousEffect(new ContinuousEffect(cp));
 
-                          c.CardFilter = (card, effect) =>
-                            card.Controller == effect.Target.Player() && (card.Is().Creature || card.Is().Land);
-                        });
-                  }));
-              });
+                  modifier.AddLifetime(new EndOfUntapStep(l => l.Modifier.Source.Controller.IsActive));
+                  return modifier;
+                });
+
+            p.TimingRule(new SecondMain());
           });
     }
   }

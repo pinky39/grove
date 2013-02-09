@@ -21,8 +21,9 @@
           {
             p.Effect = () => new DestroyTargetPermanents();
             p.TargetSelector.AddEffect(trg => trg.Is.Enchantment().On.Battlefield());
-            p.TimingRule(new TargetRemoval());
+            
             p.TargetingRule(new OrderByRank(c => -c.Score, ControlledBy.Opponent));
+            p.TimingRule(new TargetRemoval());
           });
     }
   }

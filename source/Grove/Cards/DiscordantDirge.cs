@@ -2,7 +2,7 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TimingRules;
   using Core.Costs;
   using Core.Counters;
   using Core.Dsl;
@@ -13,7 +13,7 @@
 
   public class DiscordantDirge : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Discordant Dirge")
@@ -21,24 +21,29 @@
         .Type("Enchantment")
         .Text(
           "At the beginning of your upkeep, you may put a verse counter on Discordant Dirge.{EOL}{B}, Sacrifice Discordant Dirge: Look at target opponent's hand and choose up to X cards from it, where X is the number of verse counters on Discordant Dirge. That player discards those cards.")
-        .Cast(p => p.Timing = Timings.SecondMain())                
-        .Abilities(
-          TriggeredAbility(
-            "At the beginning of your upkeep, you may put a verse counter on Discordant Dirge.",
-            Trigger<OnStepStart>(t => t.Step = Step.Upkeep),
-            Effect<ApplyModifiersToSelf>(e => e.Modifiers(
-              Modifier<AddCounters>(m => { m.Counter = Counter<ChargeCounter>(); }))),
-            triggerOnlyIfOwningCardIsInPlay: true
-            ),
-          ActivatedAbility(
-            "{B}, Sacrifice Discordant Dirge: Look at target opponent's hand and choose up to X cards from it, where X is the number of verse counters on Discordant Dirge. That player discards those cards.",
-            Cost<PayMana, Sacrifice>(cost => cost.Amount = ManaAmount.Black),
-            Effect<OpponentDiscardsCards>(e =>
-              {
-                e.SelectedCount = e.Source.OwningCard.Counters.GetValueOrDefault();
-                e.YouChooseDiscardedCards = true;
-              }),
-            timing: All(Timings.Has3CountersOr1IfDestroyed(), Timings.OpponentHasCardsInHand(3))));
+        .Cast(p => p.TimingRule(new SecondMain()))
+        .TriggeredAbility(p =>
+          {
+            p.Text = "At the beginning of your upkeep, you may put a verse counter on Discordant Dirge.";
+            p.Trigger(new OnStepStart(Step.Upkeep));
+            p.Effect = () => new ApplyModifiersToSelf(() => new AddCounters(() => new ChargeCounter(), 1));
+            p.TriggerOnlyIfOwningCardIsInPlay = true;
+          })
+        .ActivatedAbility(p =>
+          {
+            p.Text =
+              "{B}, Sacrifice Discordant Dirge: Look at target opponent's hand and choose up to X cards from it, where X is the number of verse counters on Discordant Dirge. That player discards those cards.";
+
+            p.Cost = new AggregateCost(
+              new PayMana(ManaAmount.Black, ManaUsage.Abilities),
+              new Sacrifice());
+
+            p.Effect = () => new OpponentDiscardsCards(
+              selectedCount: e => e.Source.OwningCard.Counters.GetValueOrDefault(),
+              youChooseDiscardedCards: true);
+
+            p.TimingRule(new ChargeCounters(3));
+          });
     }
   }
 }

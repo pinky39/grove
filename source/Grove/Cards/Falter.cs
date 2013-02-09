@@ -2,13 +2,14 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
+  using Core.Effects;
   using Core.Modifiers;
 
   public class Falter : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Falter")
@@ -18,25 +19,22 @@
         .FlavorText("Like a sleeping dragon, Shiv stirs and groans at times.")
         .Cast(p =>
           {
-            p.Timing = All(Timings.Steps(Step.BeginningOfCombat), Timings.Turn(active: true));
-            p.Effect = Effect<Core.Effects.ApplyModifiersToPlayer>(e =>
-              {
-                e.Player = e.Players.Passive;
-                e.Modifiers(Modifier<AddContiniousEffect>(m =>
-                  {
-                    m.AddLifetime(Lifetime<EndOfTurnLifetime>());
+            p.Effect = () => new ApplyModifiersToPlayer(
+              selector: e => e.Controller.Opponent,
+              modifiers: () =>
+                {
+                  var pr = new ContinuousEffectParameters
+                    {
+                      Modifier = () => new AddStaticAbility(Static.CannotBlock),
+                      CardFilter = (card, effect) =>
+                        (card.Is().Creature && !card.Has().Flying),
+                    };
 
-                    m.Effect =
-                      Continuous(c =>
-                        {
-                          c.ModifierFactory = Modifier<AddStaticAbility>(
-                            m1 => m1.StaticAbility = Static.CannotBlock);
+                  return new AddContiniousEffect(new ContinuousEffect(pr)) {UntilEot = true};
+                });
 
-                          c.CardFilter = (card, effect) =>
-                            (card.Is().Creature && !card.Has().Flying);
-                        });
-                  }));
-              });
+            p.TimingRule(new Turn(active: true));
+            p.TimingRule(new Steps(Step.BeginningOfCombat));
           });
     }
   }

@@ -33,7 +33,7 @@
                         {
                           c.ModifierFactory = Modifier<AddDamagePrevention>(
                             m1 =>
-                              m1.Prevention = Prevention<PreventDealtCombat>());
+                              m1.Prevention = Prevention<PreventCombatDamage>());
                           c.CardFilter = (card, self) => card.Is().Creature;
                         });
                   }));

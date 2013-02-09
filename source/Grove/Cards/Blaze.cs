@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using Core;
+  using Core.Ai.CostRules;
   using Core.Ai.TargetingRules;
   using Core.Dsl;
   using Core.Effects;
@@ -21,7 +22,9 @@
           {
             p.Effect = () => new DealDamageToTargets(Value.PlusX);
             p.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
+                        
             p.TargetingRule(new DealDamage());
+            p.CostRule(new TargetsLifepoints());
           });
     }
   }

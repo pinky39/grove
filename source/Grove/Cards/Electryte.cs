@@ -8,7 +8,7 @@
 
   public class Electryte : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Electryte")
@@ -19,20 +19,16 @@
         .FlavorText("Shivan inhabitants are hardened to fire, so their predators have developed alternative weaponry.")
         .Power(3)
         .Toughness(3)
-        .Abilities(
-          TriggeredAbility(
-            "Whenever Electryte deals combat damage to defending player, it deals damage equal to its power to each blocking creature.",
-            Trigger<OnDamageDealt>(t =>
-              {
-                t.CombatOnly = true;
-                t.ToPlayer();
-              }),
-            Effect<DealDamageToCreaturesAndPlayers>(e =>
-              {
-                e.FilterCreature = (self, card) => card.IsBlocker;
-                e.AmountCreature = e.Source.OwningCard.Power.GetValueOrDefault();
-              })
-            ));
+        .TriggeredAbility(p =>
+          {
+            p.Text =
+              "Whenever Electryte deals combat damage to defending player, it deals damage equal to its power to each blocking creature.";
+            p.Trigger(new OnDamageDealt(combatOnly: true, playerFilter: delegate { return true; }));
+
+            p.Effect = () => new DealDamageToCreaturesAndPlayers(
+              filterCreature: (e, card) => card.IsBlocker,
+              amountCreature: e => e.Source.OwningCard.Power.GetValueOrDefault());
+          });
     }
   }
 }

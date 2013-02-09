@@ -38,7 +38,7 @@
                 trg.Is.Card(p1 => p1.Effect.Controller == p1.Target.Controller())
                   .On.Battlefield();
 
-                trg.MessageFormat = "Select a permanent to sacrifice.";
+                trg.Text = "Select a permanent to sacrifice.";
                 trg.MustBeTargetable = false;
               });
             p.TargetingRule(new SacrificeToGainLife());

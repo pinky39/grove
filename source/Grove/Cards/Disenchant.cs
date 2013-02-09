@@ -2,14 +2,14 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TargetingRules;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
   using Core.Effects;
-  using Core.Targeting;
 
   public class Disenchant : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Disenchant")
@@ -19,12 +19,13 @@
         .FlavorText("'Let Phyrexia breed evil in the darkness; my holy light will reveal its taint.{EOL}—Serra")
         .Cast(p =>
           {
-            p.Timing = Timings.InstantRemovalTarget();
-            p.Category = EffectCategories.Destruction;
-            p.Effect = Effect<DestroyTargetPermanents>();
-            p.EffectTargets = L(Target(Validators.Card(card => card.Is().Artifact || card.Is().Enchantment),
-              Zones.Battlefield()));
-            p.TargetingAi = TargetingAi.OrderByScore();
+            p.Effect = () => new DestroyTargetPermanents();
+            p.TargetSelector.AddEffect(trg => trg
+              .Is.Card(card => card.Is().Artifact || card.Is().Enchantment)
+              .On.Battlefield());
+
+            p.TargetingRule(new OrderByRank(c => -c.Score, ControlledBy.Opponent));
+            p.TimingRule(new TargetRemoval());
           });
     }
   }

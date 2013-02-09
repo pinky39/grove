@@ -1,24 +1,43 @@
 ﻿namespace Grove.Core.Effects
 {
+  using System;
   using System.Collections.Generic;
   using Modifiers;
 
   public class ApplyModifiersToPlayer : Effect
   {
-    private readonly List<IModifierFactory> _modifierFactories = new List<IModifierFactory>();
-    public Player Player;
+    private readonly List<ModifierFactory> _modifiers = new List<ModifierFactory>();
+    private readonly Func<Effect, Player> _selector;
+
+    private ApplyModifiersToPlayer() {}
+
+    public ApplyModifiersToPlayer(Func<Effect, Player> selector, params ModifierFactory[] modifiers)
+    {
+      _selector = selector;
+      _modifiers.AddRange(modifiers);
+    }
 
     protected override void ResolveEffect()
     {
-      foreach (var modifier in _modifierFactories.CreateModifiers(Source.OwningCard, Player, X, Game))
+      foreach (var modifier in CreateModifiers())
       {
-        Player.AddModifier(modifier);
+        _selector(this).AddModifier(modifier);
       }
     }
 
-    public void Modifiers(params IModifierFactory[] modifiers)
+    private IEnumerable<Modifier> CreateModifiers()
     {
-      _modifierFactories.AddRange(modifiers);
+      foreach (var modifierFactory in _modifiers)
+      {
+        var p = new ModifierParameters
+          {
+            Source = Source.OwningCard,
+            Target = _selector(this),
+            X = X
+          };
+
+        yield return modifierFactory().Initialize(p, Game);
+      }
     }
   }
 }

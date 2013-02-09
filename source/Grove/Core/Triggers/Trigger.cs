@@ -8,7 +8,7 @@
     public Func<Trigger, bool> Condition = delegate { return true; };
     
     private readonly Trackable<bool> _canTrigger = new Trackable<bool>(true);
-    protected TriggeredAbility Ability { get; private set; }
+    public TriggeredAbility Ability { get; private set; }
     public Card OwningCard { get { return Ability.OwningCard; } }
     protected Player Controller { get { return Ability.OwningCard.Controller; } }
     protected bool CanTrigger { get { return _canTrigger.Value; } set { _canTrigger.Value = value; } }

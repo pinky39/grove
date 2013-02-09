@@ -11,7 +11,7 @@
 
   public class EnergyField : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Energy Field")
@@ -19,28 +19,22 @@
         .Type("Enchantment")
         .Text(
           "Prevent all damage that would be dealt to you by sources you don't control.{EOL}When a card is put into your graveyard from anywhere, sacrifice Energy Field.")
-        .Abilities(
-          Continuous(e =>
-            {
-              e.ModifierFactory = Modifier<AddDamagePrevention>(
-                m => m.Prevention = Prevention<PreventDamageToTarget>(p =>
-                  {                    
-                    p.SourceFilter = (self, source) => self.Controller != source.Controller;
-                  }));
-              e.CardFilter = delegate { return false; };
-              e.PlayerFilter = (player, effect) => player == effect.Source.Controller;
-            }),
-          TriggeredAbility(
-            "When a card is put into your graveyard from anywhere, sacrifice Energy Field.",
-            Trigger<OnZoneChanged>(t =>
-              {
-                t.Filter = (ability, card) => ability.OwningCard.Controller == card.Owner;
-                t.To = Zone.Graveyard;
-              }),
-            Effect<SacrificeSource>(),
-            triggerOnlyIfOwningCardIsInPlay: true
-            )
-        );
+        .ContinuousEffect(p =>
+          {
+            p.Modifier = () => new AddDamagePrevention(new PreventDamage(
+              sourceFilter: (pr, source) => pr.Controller != source.Controller));
+
+            p.PlayerFilter = (player, e) => player == e.Source.Controller;
+          })
+        .TriggeredAbility(p =>
+          {
+            p.Text = "When a card is put into your graveyard from anywhere, sacrifice Energy Field.";
+            p.Trigger(new OnZoneChanged(
+              to: Zone.Graveyard,
+              filter: (ability, card) => ability.OwningCard.Controller == card.Owner));
+            p.Effect = () => new SacrificeSource();
+            p.TriggerOnlyIfOwningCardIsInPlay = true;
+          });
     }
   }
 }

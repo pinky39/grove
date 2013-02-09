@@ -5,11 +5,18 @@
 
   public class ReturnAllPermanentsToHand : Effect
   {
-    public Func<Card, bool> Filter = (card) => true;
+    private readonly Func<Card, bool> _filter;
+
+    private ReturnAllPermanentsToHand() {}
+
+    public ReturnAllPermanentsToHand(Func<Card, bool> filter = null)
+    {
+      _filter = filter ?? delegate { return true; };
+    }
 
     protected override void ResolveEffect()
     {
-      foreach (var permanent in Core.Players.Permanents().Where(card => Filter(card)).ToList())
+      foreach (var permanent in Players.Permanents().Where(card => _filter(card)).ToList())
       {
         permanent.PutToHand();
       }

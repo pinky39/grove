@@ -28,7 +28,7 @@
             Effect<Core.Effects.ApplyModifiersToTargets>(e => e.Modifiers(
               Modifier<AddDamagePrevention>(m =>
                 {
-                  m.Prevention = Prevention<PreventDamageToTarget>(p =>
+                  m.Prevention = Prevention<PreventDamage>(p =>
                     {                      
                       p.Amount = 2;
                     });

@@ -1,39 +1,36 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
-  using Core.Costs;
+  using Core.Ai.TargetingRules;
   using Core.Dsl;
-  using Core.Mana;
+  using Core.Effects;
   using Core.Modifiers;
-  using Core.Targeting;
 
   public class Endoskeleton : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Endoskeleton")
         .ManaCost("{2}")
         .Type("Artifact")
         .Text(
-          "You may choose not to untap Endoskeleton during your untap step.{EOL}{2},{T}: Target creature gets +0/+3 for as long as Endoskeleton remains tapped.")        
+          "You may choose not to untap Endoskeleton during your untap step.{EOL}{2},{T}: Target creature gets +0/+3 for as long as Endoskeleton remains tapped.")
         .MayChooseNotToUntapDuringUntap()
-        .Abilities(
-          ActivatedAbility(
-            "{2},{T}: Target creature gets +0/+3 for as long as Endoskeleton remains tapped.",
-            Cost<PayMana, Tap>(cost => cost.Amount = 2.Colorless()),
-            Effect<Core.Effects.ApplyModifiersToTargets>(e => e.Modifiers(
-              Modifier<AddPowerAndToughness>(m =>
-                {
-                  m.Toughness = 3;
-                  m.AddLifetime(Lifetime<PermanentGetsUntapedLifetime>(l => l.Permanent = m.Source));
-                }))),
-            Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()),
-            targetingAi: TargetingAi.IncreasePowerAndToughness(0, 3, untilEot: false),
-            timing: Timings.NoRestrictions()));
+        .ActivatedAbility(p =>
+          {
+            p.Text = "{2},{T}: Target creature gets +0/+3 for as long as Endoskeleton remains tapped.";
+            p.Effect = () => new ApplyModifiersToTargets(() =>
+              {
+                var modifier = new AddPowerAndToughness(0, 3);
+                modifier.AddLifetime(new PermanentGetsUntapedLifetime(l => l.Modifier.Source));
+                return modifier;
+              });
+
+            p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
+            p.TargetingRule(new IncreasePowerOrToughness(0, 3, untilEot: false));
+          });
     }
   }
 }

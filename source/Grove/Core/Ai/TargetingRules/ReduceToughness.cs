@@ -6,11 +6,16 @@
 
   public class ReduceToughness : TargetingRule
   {
-    public int? Amount;
+    private readonly int? _amount;
+    
+    public ReduceToughness(int? amount = null)
+    {
+      _amount = amount;
+    }
 
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
     {
-      var amount = Amount ?? p.MaxX;
+      var amount = _amount ?? p.MaxX;
 
       var candidates = p.Candidates<Card>(ControlledBy.Opponent)
         .Select(x => new

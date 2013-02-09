@@ -1,24 +1,30 @@
 ﻿namespace Grove.Core.Modifiers
 {
-  using Grove.Infrastructure;
-  using Grove.Core.Messages;
+  using System;
+  using Infrastructure;
+  using Messages;
 
   public class PermanentGetsUntapedLifetime : Lifetime,
     IReceive<PermanentGetsUntapped>, IReceive<ZoneChanged>
   {
-    public Card Permanent { get; set; }
-
-    public void Receive(ZoneChanged message)
+    private readonly Func<Lifetime,Card> _permanent;
+    
+    public PermanentGetsUntapedLifetime(Func<Lifetime, Card> permanent)
     {
-      if (message.Card == Permanent && message.FromBattlefield)
+      _permanent = permanent;
+    }
+
+    public void Receive(PermanentGetsUntapped message)
+    {
+      if (message.Permanent == _permanent(this))
       {
         End();
       }
     }
 
-    public void Receive(PermanentGetsUntapped message)
+    public void Receive(ZoneChanged message)
     {
-      if (message.Permanent == Permanent)
+      if (message.Card == _permanent(this) && message.FromBattlefield)
       {
         End();
       }

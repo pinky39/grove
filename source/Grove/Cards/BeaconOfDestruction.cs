@@ -24,8 +24,9 @@
             p.Rule = new Instant(c => c.ShuffleIntoLibrary());
             p.Effect = () => new DealDamageToTargets(5);
             p.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
-            p.TimingRule(new TargetRemoval());
+            
             p.TargetingRule(new DealDamage(5));
+            p.TimingRule(new TargetRemoval());            
           });
     }
   }

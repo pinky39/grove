@@ -448,6 +448,7 @@
     <Compile Include="Core\Ai\TimingRules\All.cs" />
     <Compile Include="Core\Ai\TimingRules\Any.cs" />
     <Compile Include="Core\Ai\TimingRules\AttachEquipment.cs" />
+    <Compile Include="Core\Ai\TimingRules\ChargeCounters.cs" />
     <Compile Include="Core\Ai\TimingRules\ControllerHasMorePermanents.cs" />
     <Compile Include="Core\Ai\TimingRules\ControllerHasPermanents.cs" />
     <Compile Include="Core\Ai\TimingRules\ControllerGravayardCountIs.cs" />
@@ -499,6 +500,7 @@
     <Compile Include="Core\Decisions\IChooseEffectOptionsAi.cs" />
     <Compile Include="Core\Effects\ApplyModifiersToPlayers.cs" />
     <Compile Include="Core\Effects\DestroyAllLandsOrCreatures.cs" />
+    <Compile Include="Core\Effects\DestroyPermanent.cs" />
     <Compile Include="Core\Effects\DiscardHand.cs" />
     <Compile Include="Core\Effects\EachPlayerDiscardsHand.cs" />
     <Compile Include="Core\Effects\ExchangeForOpponentsCreature.cs" />
@@ -569,7 +571,7 @@
     <Compile Include="Core\Effects\GainControlOfOwnedPermanents.cs" />
     <Compile Include="Core\Effects\PutSelectedCardToBattlefield.cs" />
     <Compile Include="Core\Effects\ReturnAllCardsInGraveyardToHand.cs" />
-    <Compile Include="Core\Effects\SacPermanentOrSacrificeOwner.cs" />
+    <Compile Include="Core\Effects\SacrificePermanentOrSacrificeOwner.cs" />
     <Compile Include="Core\Effects\TargetPlayerGainsLifeEqualToCreatureCount.cs" />
     <Compile Include="Core\Effects\PlayersSacrificeLands.cs" />
     <Compile Include="Core\Effects\PutTargetsToBattlefield.cs" />
@@ -608,7 +610,7 @@
     <Compile Include="Core\Effects\SwitchController.cs" />
     <Compile Include="Core\Effects\PutOnTopOfLibraryUnlessOpponentSacsLand.cs" />
     <Compile Include="Core\Modifiers\PermanentGetsUntapedLifetime.cs" />
-    <Compile Include="Core\Preventions\PreventDealtCombat.cs" />
+    <Compile Include="Core\Preventions\PreventCombatDamage.cs" />
     <Compile Include="Core\Preventions\PreventLifelossBelowOne.cs" />
     <Compile Include="Core\Mana\AggregateManaAmount.cs" />
     <Compile Include="Core\ControlledBy.cs" />
@@ -623,7 +625,7 @@
     <Compile Include="Core\ControllerType.cs" />
     <Compile Include="Core\Modifiers\AddDamageRedirection.cs" />
     <Compile Include="Core\Modifiers\DisableAbilities.cs" />
-    <Compile Include="Core\Preventions\PreventDamageToTarget.cs" />
+    <Compile Include="Core\Preventions\PreventDamage.cs" />
     <Compile Include="Core\Preventions\PreventDamageFromSource.cs" />
     <Compile Include="Core\Redirections\DamageRedirection.cs" />
     <Compile Include="Core\Redirections\DamageRedirections.cs" />
@@ -680,7 +682,6 @@
     <Compile Include="Core\Effects\PayManaOrSacrifice.cs" />
     <Compile Include="Core\Effects\ReturnAllPermanentsToHand.cs" />
     <Compile Include="Core\Effects\ReturnToHand.cs" />
-    <Compile Include="Core\Effects\DestroySource.cs" />
     <Compile Include="Core\Effects\TapTarget.cs" />
     <Compile Include="Core\Effects\DiscardCards.cs" />
     <Compile Include="Core\Effects\TargetPlayerTakesExtraTurns.cs" />
@@ -774,7 +775,6 @@
     <Compile Include="Core\Decisions\TakeMulligan.cs" />
     <Compile Include="Core\Decisions\Results\BooleanResult.cs" />
     <Compile Include="Core\Modifiers\AttachmentLifetime.cs" />
-    <Compile Include="Core\Modifiers\DependantLifetime.cs" />
     <Compile Include="Core\Modifiers\EndOfTurnLifetime.cs" />
     <Compile Include="Core\Modifiers\ILifetimeDependency.cs" />
     <Compile Include="Core\Modifiers\Lifetime.cs" />

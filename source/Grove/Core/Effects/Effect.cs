@@ -10,7 +10,7 @@
   using Modifiers;
   using Targeting;
 
-  public delegate Effect EffectFactory();
+  public delegate Effect EffectFactory();  
 
   public abstract class Effect : GameObject, ITarget, IHasColors
   {

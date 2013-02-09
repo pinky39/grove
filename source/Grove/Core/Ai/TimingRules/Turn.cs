@@ -2,12 +2,18 @@
 {
   public class Turn : TimingRule
   {
-    public bool Active;
-    public bool Passive;
+    private readonly bool _active;
+    private readonly bool _passive;
     
+    public Turn(bool active = false, bool passive = false)
+    {
+      _active = active;
+      _passive = passive;
+    }
+
     public override bool ShouldPlay(TimingRuleParameters p)
     {
-      return (p.Controller.IsActive && Active) || (!p.Controller.IsActive && Passive);
+      return (p.Controller.IsActive && _active) || (!p.Controller.IsActive && _passive);
     }
   }
 }

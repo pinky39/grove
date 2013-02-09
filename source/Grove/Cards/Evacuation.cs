@@ -1,15 +1,15 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
   using Core.Effects;
 
   public class Evacuation : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Evacuation")
@@ -19,9 +19,12 @@
         .FlavorText("The first step of every exodus is from the blood and the fire onto the trail.")
         .Cast(p =>
           {
-            p.Category = EffectCategories.Bounce;
-            p.Timing = Timings.InstantBounceAllCreatures();
-            p.Effect = Effect<ReturnAllPermanentsToHand>(e => e.Filter = (permanent) => permanent.Is().Creature);
+            p.Effect = () => new ReturnAllPermanentsToHand(c => c.Is().Creature)
+              {
+                Category = EffectCategories.Bounce
+              };
+
+            p.TimingRule(new BounceAll());
           });
     }
   }

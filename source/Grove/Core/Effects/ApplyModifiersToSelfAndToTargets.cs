@@ -1,30 +1,44 @@
 ﻿namespace Grove.Core.Effects
 {
   using System.Collections.Generic;
-  using Grove.Core.Targeting;
-  using Grove.Core.Zones;
+  using System.Linq;
   using Modifiers;
+  using Targeting;
+  using Zones;
 
   public class ApplyModifiersToSelfAndToTargets : Effect
   {
-    private readonly List<IModifierFactory> _selfModifiers = new List<IModifierFactory>();
-    private readonly List<IModifierFactory> _targetModifiers = new List<IModifierFactory>();
+    private readonly List<ModifierFactory> _selfModifiers = new List<ModifierFactory>();
+    private readonly List<ModifierFactory> _targetModifiers = new List<ModifierFactory>();
 
-    public Value ToughnessReductionSelf = 0;
-    public Value ToughnessReductionTargets = 0;
+    private readonly Value _toughnessReductionSelf;
+    private readonly Value _toughnessReductionTargets;
+
+    private ApplyModifiersToSelfAndToTargets() {}
+
+    public ApplyModifiersToSelfAndToTargets(IEnumerable<ModifierFactory> self,
+      IEnumerable<ModifierFactory> target, Value toughnessReductionSelf = null,
+      Value toughnessReductionTargets = null)
+    {
+      _selfModifiers.AddRange(self);
+      _targetModifiers.AddRange(target);
+
+      _toughnessReductionSelf = toughnessReductionSelf ?? 0;
+      _toughnessReductionTargets = toughnessReductionTargets ?? 0;
+    }
 
     public override int CalculateToughnessReduction(Card card)
     {
       if (card == Source.OwningCard)
-        return ToughnessReductionSelf.GetValue(X);
+        return _toughnessReductionSelf.GetValue(X);
 
-      if (card == Target())
+      if (card == Target)
       {
-        return ToughnessReductionTargets.GetValue(X);
+        return _toughnessReductionTargets.GetValue(X);
       }
 
       return 0;
-    }    
+    }
 
     protected override void ResolveEffect()
     {
@@ -42,28 +56,34 @@
 
       foreach (var modifier in targetModifiers)
       {
-        Target().Card().AddModifier(modifier);
+        Target.Card().AddModifier(modifier);
       }
-    }
-
-    public void SelfModifiers(params IModifierFactory[] modifiers)
-    {
-      _selfModifiers.AddRange(modifiers);
-    }
-
-    public void TargetModifiers(params IModifierFactory[] modifiers)
-    {
-      _targetModifiers.AddRange(modifiers);
     }
 
     private IEnumerable<Modifier> CreateSelfModifiers()
     {
-      return _selfModifiers.CreateModifiers(Source.OwningCard, Source.OwningCard, X, Game);
+      var p = new ModifierParameters
+        {
+          Source = Source.OwningCard,
+          Target = Source.OwningCard,
+          X = X
+        };
+
+
+      return _selfModifiers.Select(factory => factory().Initialize(p, Game));
     }
 
     private IEnumerable<Modifier> CreateTargetModifiers()
     {
-      return _targetModifiers.CreateModifiers(Source.OwningCard, Target().Card(), X, Game);
+      var p = new ModifierParameters
+        {
+          Source = Source.OwningCard,
+          Target = Target,
+          X = X
+        };
+
+
+      return _targetModifiers.Select(factory => factory().Initialize(p, Game));
     }
   }
 }

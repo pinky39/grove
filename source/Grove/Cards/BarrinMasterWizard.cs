@@ -34,15 +34,16 @@
                 {
                   trg.Is.Card(p1 => p1.Target.Card().Controller == p1.Effect.Controller).On.Battlefield();
                   trg.MustBeTargetable = false;
-                  trg.MessageFormat = "Select a permanent to sacrifice.";
+                  trg.Text = "Select a permanent to sacrifice.";
                 })
               .AddEffect(trg =>
                 {
                   trg.Is.Card(c => c.Is().Creature).On.Battlefield();
-                  trg.MessageFormat = "Select a creature to bounce.";
+                  trg.Text = "Select a creature to bounce.";
                 });
-            p.TimingRule(new TargetRemoval());
+            
             p.TargetingRule(new SacrificeToBounce());
+            p.TimingRule(new TargetRemoval());            
           });
     }
   }

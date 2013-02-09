@@ -7,7 +7,7 @@
 
   public class DiscipleOfGrace : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Disciple of Grace")

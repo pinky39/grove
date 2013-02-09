@@ -6,14 +6,21 @@
 
   public class IncreasePowerOrToughness : TargetingRule
   {
-    public int? Power;
-    public int? Toughness;
-    public bool UntilEot = true;
+    private readonly int? _power;
+    private readonly int? _toughness;
+    private readonly bool _untilEot;
+        
+    public IncreasePowerOrToughness(int? power , int? toughness, bool untilEot = true)
+    {
+      _power = power;
+      _untilEot = untilEot;
+      _toughness = toughness;
+    }
 
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
     {
-      var power = Power ?? p.MaxX;
-      var toughness = Toughness ?? p.MaxX;
+      var power = _power ?? p.MaxX;
+      var toughness = _toughness ?? p.MaxX;
 
       var candidates = None<Card>();
 
@@ -27,13 +34,13 @@
         candidates = GetCandidatesForBlockerPowerToughnessIncrease(power, toughness, p);
       }
 
-      else if (UntilEot && toughness > 0)
+      else if (_untilEot && toughness > 0)
       {
         candidates = p.Candidates<Card>(ControlledBy.SpellOwner)
           .Where(x => Stack.CanBeDealtLeathalDamageByTopSpell(Target.Card(x)));
       }
 
-      else if (!UntilEot &&
+      else if (!_untilEot &&
         (!p.Controller.IsActive && Turn.Step == Step.EndOfTurn ||
           p.Card.IsPermanent && Stack.CanBeDestroyedByTopSpell(p.Card)))
       {

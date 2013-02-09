@@ -8,7 +8,7 @@
 
   public class EndlessWurm : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Endless Wurm")
@@ -19,18 +19,17 @@
         .FlavorText("Ages ago, a party of elves took cover to let one pass. They're still waiting.")
         .Power(9)
         .Toughness(9)
-        .Abilities(
-          Static.Trample,
-          TriggeredAbility(
-            "At the beginning of your upkeep, sacrifice Endless Wurm unless you sacrifice an enchantment.",
-            Trigger<OnStepStart>(t => { t.Step = Step.Upkeep; }),
-            Effect<SacPermanentOrSacrificeOwner>(e =>
-              {
-                e.ShouldPayAi = (controller, owner) => owner.IsAbleToAttack;
-                e.Validator = card => card.Is().Enchantment;
-                e.Text = "Select enchantment to sacrifice";
-              }),
-            triggerOnlyIfOwningCardIsInPlay: true));
+        .StaticAbilities(Static.Trample)
+        .TriggeredAbility(p =>
+          {
+            p.Text = "At the beginning of your upkeep, sacrifice Endless Wurm unless you sacrifice an enchantment.";
+            p.Trigger(new OnStepStart(Step.Upkeep));
+            p.Effect = () => new SacrificePermanentOrSacrificeOwner(
+              validator: c => c.Is().Enchantment,
+              shouldPayAi: (controller, card) => card.IsAbleToAttack,
+              text: "Select enchantment to sacrifice");
+            p.TriggerOnlyIfOwningCardIsInPlay = true;
+          });
     }
   }
 }

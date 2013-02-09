@@ -2,15 +2,15 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TargetingRules;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
   using Core.Effects;
   using Core.Mana;
-  using Core.Targeting;
 
   public class Expunge : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Expunge")
@@ -21,13 +21,13 @@
         .Cycling("{2}")
         .Cast(p =>
           {
-            p.Timing = Timings.InstantRemovalTarget();
-            p.Category = EffectCategories.Destruction;
-            p.Effect = Effect<DestroyTargetPermanents>();
-            p.EffectTargets =
-              L(Target(Validators.Card(card => !card.HasColors(ManaColors.Black) && !card.Is().Artifact),
-                Zones.Battlefield()));
-            p.TargetingAi = TargetingAi.Destroy();
+            p.Effect = () => new DestroyTargetPermanents(canRegenerate: false);
+            p.TargetSelector.AddEffect(trg => trg
+              .Is.Card(c => c.Is().Creature && !c.HasColors(ManaColors.Black) && !c.Is().Artifact)
+              .On.Battlefield());
+
+            p.TargetingRule(new Destroy());
+            p.TimingRule(new TargetRemoval());
           });
     }
   }

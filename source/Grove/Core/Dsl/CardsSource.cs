@@ -1,12 +1,18 @@
 ﻿namespace Grove.Core.Dsl
 {
   using System.Collections.Generic;
+  using Modifiers;
 
   public abstract class CardsSource
   {
     public CardFactory Card { get { return new CardFactory(); } }
     public abstract IEnumerable<CardFactory> GetCards();
 
+    protected ModifierFactory[] L(params ModifierFactory[] elt)
+    {
+      return elt;
+    }
+    
     protected T[] L<T>(params T[] elt)
     {
       return elt;

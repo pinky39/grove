@@ -4,11 +4,12 @@
   using Core;
   using Core.Ai;
   using Core.Dsl;
+  using Core.Effects;
   using Core.Modifiers;
 
   public class EleshNornGrandCenobite : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Elesh Norn, Grand Cenobite")
@@ -21,38 +22,23 @@
         .Toughness(7)
         .Cast(p =>
           {
-            p.Category = EffectCategories.ToughnessIncrease;
-            p.Effect = Effect<Core.Effects.PutIntoPlay>(e =>
+            p.Effect = () => new PutIntoPlay
               {
-                e.ToughnessReductionFilter = (self, card) => card.Controller != self.Controller;
-                e.ToughnessReduction = 2;
-              });
+                ToughnessReduction = 2,
+                Category = EffectCategories.ToughnessIncrease
+              };
           })
-        .Abilities(
-          Static.Vigilance,
-          Continuous(e =>
-            {
-              e.ModifierFactory = Modifier<AddPowerAndToughness>(
-                m =>
-                  {
-                    m.Power = 2;
-                    m.Toughness = 2;
-                  });
-              e.CardFilter =
-                (card, effect) =>
-                  card.Controller == effect.Source.Controller && card.Is().Creature && card != effect.Source;
-            }),
-          Continuous(e =>
-            {
-              e.ModifierFactory = Modifier<AddPowerAndToughness>(
-                m =>
-                  {
-                    m.Power = -2;
-                    m.Toughness = -2;
-                  });
-              e.CardFilter = (card, effect) => card.Controller != effect.Source.Controller;
-            })
-        );
+        .StaticAbilities(Static.Vigilance)
+        .ContinuousEffect(p =>
+          {
+            p.Modifier = () => new AddPowerAndToughness(2, 2);
+            p.CardFilter = (c, e) => c.Controller == e.Source.Controller && c.Is().Creature && c != e.Source;
+          })
+        .ContinuousEffect(p =>
+          {
+            p.Modifier = () => new AddPowerAndToughness(-2, -2);
+            p.CardFilter = (c, e) => c.Controller != e.Source.Controller;
+          });
     }
   }
 }

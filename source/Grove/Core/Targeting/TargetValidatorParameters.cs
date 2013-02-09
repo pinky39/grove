@@ -6,7 +6,7 @@
     public ZoneValidatorDelegate ZoneSpec = delegate { return false; };
 
     public int? MaxCount = 1;
-    public string MessageFormat;
+    public string Text;
     public int MinCount = 1;
     public bool MustBeTargetable;
 

@@ -19,8 +19,9 @@
           {
             p.Effect = () => new CounterTargetSpell();
             p.TargetSelector.AddEffect(trg => trg.Is.Counterable().On.Stack());
-            p.TimingRule(new Core.Ai.TimingRules.Counterspell());
+            
             p.TargetingRule(new Core.Ai.TargetingRules.Counterspell());
+            p.TimingRule(new Core.Ai.TimingRules.Counterspell());
           });
     }
   }

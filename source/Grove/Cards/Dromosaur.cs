@@ -9,7 +9,7 @@
 
   public class Dromosaur : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Dromosaur")
@@ -20,21 +20,15 @@
           "They say dromosaurs are frightened of dogs, even little ones. There are no dogs in Shiv. Not even little ones.")
         .Power(2)
         .Toughness(3)
-        .Abilities(
-          TriggeredAbility(
-            "Whenever Dromosaur blocks or becomes blocked, it gets +2/-2 until end of turn.",
-            Trigger<OnBlock>(t =>
-              {
-                t.GetsBlocked = true;
-                t.Blocks = true;
-              }),
-            Effect<ApplyModifiersToSelf>(e => e.Modifiers(
-              Modifier<AddPowerAndToughness>(m =>
-                {
-                  m.Power = 2;
-                  m.Toughness = -2;
-                }, untilEndOfTurn: true))), triggerOnlyIfOwningCardIsInPlay: true)
-        );
+        .TriggeredAbility(p =>
+          {
+            p.Text = "Whenever Dromosaur blocks or becomes blocked, it gets +2/-2 until end of turn.";
+            p.Trigger(new OnBlock(becomesBlocked: true, blocks: true));
+            p.Effect = () => new ApplyModifiersToSelf(
+              () => new AddPowerAndToughness(2, -2) {UntilEot = true}) {ToughnessReduction = 2};
+
+            p.TriggerOnlyIfOwningCardIsInPlay = true;
+          });
     }
   }
 }

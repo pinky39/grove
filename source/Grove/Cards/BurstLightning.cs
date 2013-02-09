@@ -23,8 +23,9 @@
           {
             p.Effect = () => new DealDamageToTargets(2);
             p.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
-            p.TimingRule(new TargetRemoval());
+            
             p.TargetingRule(new DealDamage(2));
+            p.TimingRule(new TargetRemoval());            
           })
         .Cast(p =>
           {
@@ -32,8 +33,9 @@
             p.Cost = new PayMana("{4}{R}".ParseMana(), ManaUsage.Spells);
             p.Effect = () => new DealDamageToTargets(4);
             p.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
-            p.TimingRule(new TargetRemoval());
+            
             p.TargetingRule(new DealDamage(4));
+            p.TimingRule(new TargetRemoval());            
           });
     }
   }

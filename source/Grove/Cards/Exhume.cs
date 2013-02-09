@@ -2,13 +2,13 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
   using Core.Effects;
 
   public class Exhume : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Exhume")
@@ -18,8 +18,8 @@
         .FlavorText("'Death—an outmoded concept. We sleep, and we change.'{EOL}—Sitrik, birth priest")
         .Cast(p =>
           {
-            p.Timing = All(Timings.MainPhases(), Timings.HasCardsInGraveyard(card => card.Is().Creature));
-            p.Effect = Effect<EachPlayerReturnsCardFromGraveyardToBattlefield>();
+            p.Effect = () => new EachPlayerReturnsCardFromGraveyardToBattlefield();
+            p.TimingRule(new ControllerGravayardCountIs(1, selector: c => c.Is().Creature));
           });
     }
   }

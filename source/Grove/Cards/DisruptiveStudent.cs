@@ -2,16 +2,14 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
   using Core.Costs;
   using Core.Dsl;
   using Core.Effects;
   using Core.Mana;
-  using Core.Targeting;
 
   public class DisruptiveStudent : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Disruptive Student")
@@ -21,19 +19,17 @@
         .FlavorText(
           "'Teferi is a problem student. Always late for class. No appreciation for constructive use of time.'{EOL}—Barrin, progress report")
         .Power(1)
-        .Toughness(1)        
-        .Abilities(
-          ActivatedAbility(
-            "{T}: Counter target spell unless its controller pays {1}.",
-            Cost<Tap>(),
-            Effect<CounterTargetSpell>(e => e.DoNotCounterCost = 1.Colorless()),
-            effectTarget: Target(
-              Validators.CounterableSpell(),
-              Zones.Stack()),
-            targetingAi: TargetingAi.CounterSpell(),
-            timing: Timings.CounterSpell(1)
-            )
-        );
+        .Toughness(1)
+        .ActivatedAbility(p =>
+          {
+            p.Text = "{T}: Counter target spell unless its controller pays {1}.";
+            p.Cost = new Tap();
+            p.Effect = () => new CounterTargetSpell(doNotCounterCost: 1.Colorless());
+            p.TargetSelector.AddEffect(trg => trg.Is.Counterable().On.Stack());
+
+            p.TargetingRule(new Core.Ai.TargetingRules.Counterspell());
+            p.TimingRule(new Core.Ai.TimingRules.Counterspell(1));
+          });
     }
   }
 }

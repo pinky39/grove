@@ -78,9 +78,7 @@
       }
 
       _lifetimes.Clear();
-    }
-
-    protected virtual void Initialize() {}
+    }    
 
     private void RemoveModifier(object sender, EventArgs e)
     {

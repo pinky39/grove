@@ -7,14 +7,14 @@
   public class OnDamageDealt : Trigger, IReceive<DamageHasBeenDealt>
   {
     private readonly bool _combatOnly;
-    private readonly Func<Card, TriggeredAbility, bool> _creatureFilter;
-    private readonly Func<Player, TriggeredAbility, bool> _playerFilter;
+    private readonly Func<Card, OnDamageDealt, Damage, bool> _creatureFilter;
+    private readonly Func<Player, OnDamageDealt, Damage, bool> _playerFilter;
     private readonly bool _useAttachedToAsTriggerSource;
 
     private OnDamageDealt() {}
 
     public OnDamageDealt(bool combatOnly = false, bool useAttachedToAsTriggerSource = false,
-      Func<Card, TriggeredAbility, bool> creatureFilter = null, Func<Player, TriggeredAbility, bool> playerFilter = null)
+      Func<Card, OnDamageDealt, Damage, bool> creatureFilter = null, Func<Player, OnDamageDealt, Damage, bool> playerFilter = null)
     {
       _combatOnly = combatOnly;
       _useAttachedToAsTriggerSource = useAttachedToAsTriggerSource;
@@ -26,24 +26,24 @@
     {
       if (_combatOnly && !message.Damage.IsCombat)
         return;
-
+            
       var triggerCard = GetTriggerSource();
 
-      if (message.Damage.Source == triggerCard && IsValid(message.Receiver))
+      if (message.Damage.Source == triggerCard && IsValid(message))
         Set(message);
     }
 
-    private bool IsValid(object damageReceiver)
+    private bool IsValid(DamageHasBeenDealt message)
     {
-      var player = damageReceiver as Player;
+      var player = message.Receiver as Player;
 
       if (player != null)
-        return _playerFilter(player, Ability);
+        return _playerFilter(player, this, message.Damage);
 
-      var creature = damageReceiver as Card;
+      var creature = message.Receiver as Card;
 
       if (creature != null)
-        return _creatureFilter(creature, Ability);
+        return _creatureFilter(creature, this, message.Damage);
 
       return false;
     }

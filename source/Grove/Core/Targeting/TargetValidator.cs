@@ -25,7 +25,7 @@
 
       MinCount = p.MinCount;
       MaxCount = p.MaxCount;
-      MessageFormat = p.MessageFormat;
+      MessageFormat = p.Text;
     }
 
     public int? MaxCount { get; private set; }

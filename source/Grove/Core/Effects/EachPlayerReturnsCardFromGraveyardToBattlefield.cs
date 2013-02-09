@@ -1,7 +1,7 @@
 ﻿namespace Grove.Core.Effects
 {
-  using Grove.Core.Decisions;
-  using Grove.Core.Zones;
+  using Decisions;
+  using Zones;
 
   public class EachPlayerReturnsCardFromGraveyardToBattlefield : Effect
   {
@@ -22,8 +22,8 @@
 
     protected override void ResolveEffect()
     {
-      ChooseCreatureToPutIntoPlay(Core.Players.Active);
-      ChooseCreatureToPutIntoPlay(Core.Players.Passive);
+      ChooseCreatureToPutIntoPlay(Players.Active);
+      ChooseCreatureToPutIntoPlay(Players.Passive);
     }
   }
 }

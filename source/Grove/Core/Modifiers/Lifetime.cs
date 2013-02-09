@@ -6,7 +6,8 @@
   [Copyable]
   public abstract class Lifetime : GameObject, IDisposable
   {
-    public TrackableEvent Ended;
+    public TrackableEvent Ended { get; set; }
+    public Modifier Modifier { get; private set; }
 
     protected Lifetime()
     {
@@ -22,7 +23,8 @@
 
     public virtual void Initialize(Modifier modifier, Game game)
     {
-      Game = game;            
+      Game = game;
+      Modifier = modifier;   
       Ended.Initialize(game);
     }
   }

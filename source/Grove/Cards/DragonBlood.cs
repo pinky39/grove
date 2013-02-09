@@ -2,17 +2,18 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TargetingRules;
+  using Core.Ai.TimingRules;
   using Core.Costs;
   using Core.Counters;
   using Core.Dsl;
+  using Core.Effects;
   using Core.Mana;
   using Core.Modifiers;
-  using Core.Targeting;
 
   public class DragonBlood : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Dragon Blood")
@@ -20,25 +21,20 @@
         .Type("Artifact")
         .Text("{3},{T} : Put a +1/+1 counter on target creature.")
         .FlavorText("Fire in the blood, fire in the belly.")
-        .Cast(p => p.Timing = Timings.FirstMain())
-        .Abilities(
-          ActivatedAbility(
-            "{3},{T} : Put a +1/+1 counter on target creature.",
-            Cost<PayMana, Tap>(cost => cost.Amount = 3.Colorless()),
-            Effect<Core.Effects.ApplyModifiersToTargets>(e => e.Modifiers(
-              Modifier<AddCounters>(m => m.Counter =
-                Counter<PowerToughness>(c =>
-                  {
-                    c.Power = 1;
-                    c.Toughness = 1;
-                  })
-                ))),
-            Target(
-              Validators.Card(x => x.Is().Creature),
-              Zones.Battlefield()),
-            targetingAi: TargetingAi.IncreasePowerAndToughness(1, 1, untilEot: false),
-            timing: Timings.NoRestrictions()
-            ));
+        .Cast(p => p.TimingRule(new FirstMain()))
+        .ActivatedAbility(p =>
+          {
+            p.Text = "{3},{T} : Put a +1/+1 counter on target creature.";
+            p.Cost = new AggregateCost(
+              new PayMana(3.Colorless(), ManaUsage.Abilities),
+              new Tap());
+
+            p.Effect = () => new ApplyModifiersToTargets(() => new AddCounters(
+              () => new PowerToughness(1, 1), count: 1));
+
+            p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
+            p.TargetingRule(new IncreasePowerOrToughness(1, 1, untilEot: false));
+          });
     }
   }
 }

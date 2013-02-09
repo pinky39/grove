@@ -22,8 +22,9 @@
             p.TargetSelector.AddEffect(t => t
               .Is.Counterable(card => card.Is().Artifact || card.Is().Enchantment)
               .On.Stack());
-            p.TimingRule(new Core.Ai.TimingRules.Counterspell());
+            
             p.TargetingRule(new Core.Ai.TargetingRules.Counterspell());
+            p.TimingRule(new Core.Ai.TimingRules.Counterspell());
           });
     }
   }

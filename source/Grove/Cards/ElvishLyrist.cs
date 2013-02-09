@@ -2,16 +2,16 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TargetingRules;
+  using Core.Ai.TimingRules;
   using Core.Costs;
   using Core.Dsl;
   using Core.Effects;
   using Core.Mana;
-  using Core.Targeting;
 
   public class ElvishLyrist : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Elvish Lyrist")
@@ -21,16 +21,19 @@
         .FlavorText(
           "Bring the spear of ancient briar;{EOL}Bring the torch to light the pyre.{EOL}Bring the one who trod our ground;{EOL}Bring the spade to dig his mound.")
         .Power(1)
-        .Toughness(1)        
-        .Abilities(
-          ActivatedAbility(
-            "{G},{T}, Sacrifice Elvish Lyrist: Destroy target enchantment.",
-            Cost<PayMana, Tap>(cost => cost.Amount = "{G}".ParseMana()),
-            Effect<DestroyTargetPermanents>(),
-            timing: Timings.InstantRemovalTarget(),
-            effectTarget: Target(Validators.Card(card => card.Is().Enchantment), Zones.Battlefield()),
-            targetingAi: TargetingAi.OrderByScore()            
-            )
+        .Toughness(1)
+        .ActivatedAbility(p =>
+          {
+            p.Text = "{G},{T}, Sacrifice Elvish Lyrist: Destroy target enchantment.";
+            p.Cost = new AggregateCost(
+              new PayMana(ManaAmount.Green, ManaUsage.Abilities),
+              new Tap());
+            p.Effect = () => new DestroyTargetPermanents();
+            p.TargetSelector.AddEffect(trg => trg.Is.Enchantment().On.Battlefield());
+
+            p.TargetingRule(new Destroy());
+            p.TimingRule(new TargetRemoval());
+          }
         );
     }
   }

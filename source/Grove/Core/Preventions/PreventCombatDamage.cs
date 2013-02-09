@@ -1,6 +1,6 @@
 ﻿namespace Grove.Core.Preventions
 {
-  public class PreventDealtCombat : DamagePrevention
+  public class PreventCombatDamage : DamagePrevention
   {        
     public override int PreventDealtCombatDamage(int amount)
     {

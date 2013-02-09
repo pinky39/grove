@@ -23,7 +23,7 @@
           Continuous(e =>
             {
               e.ModifierFactory = Modifier<AddDamagePrevention>(
-                m => m.Prevention = Prevention<PreventDamageToTarget>(p => p.Amount = 1));              
+                m => m.Prevention = Prevention<PreventDamage>(p => p.Amount = 1));              
               e.PlayerFilter = (player, effect) => player == effect.Source.Controller;
             })
         );
