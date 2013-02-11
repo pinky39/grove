@@ -5,11 +5,15 @@
 
   public class LandEnchantment : TargetingRule
   {
-    public ControlledBy ControlledBy;
+    private readonly ControlledBy _controlledBy;
+    public LandEnchantment(ControlledBy controlledBy)
+    {
+      _controlledBy = controlledBy;
+    }
 
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
     {
-      var candidates = p.Candidates<Card>(ControlledBy);
+      var candidates = p.Candidates<Card>(_controlledBy);
       return Group(candidates, 1);
     }
   }

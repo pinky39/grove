@@ -1,17 +1,17 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TargetingRules;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
+  using Core.Effects;
   using Core.Mana;
   using Core.Modifiers;
-  using Core.Targeting;
 
   public class FertileGround : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Fertile Ground")
@@ -22,10 +22,11 @@
         .FlavorText("The forest was too lush for the brothers to despoil—almost.")
         .Cast(p =>
           {
-            p.Timing = Timings.FirstMain();
-            p.Effect = Effect<Core.Effects.Attach>(e => e.Modifiers(Modifier<IncreaseManaOutput>(m => m.Amount = ManaAmount.Any)));
-            p.EffectTargets = L(Target(Validators.Card(card => card.Is().Land), Zones.Battlefield()));
-            p.TargetingAi = TargetingAi.EnchantLand(ControlledBy.SpellOwner);
+            p.Effect = () => new Attach(() => new IncreaseManaOutput(ManaAmount.Any));
+            p.TargetSelector.AddEffect(trg => trg.Is.Card(c => c.Is().Land).On.Battlefield());
+
+            p.TimingRule(new FirstMain());
+            p.TargetingRule(new LandEnchantment(ControlledBy.SpellOwner));
           });
     }
   }

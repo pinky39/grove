@@ -6,30 +6,38 @@
   {
     private readonly Func<Effect, int> _count;
     private readonly int _discardCount;
+    private readonly Func<Effect, Player> _getPlayer;
     private readonly int _lifeloss;
 
     private DrawCards() {}
 
-    public DrawCards(Func<Effect, int> count, int discardCount = 0, int lifeloss = 0)
+    public DrawCards(Func<Effect, int> count, int discardCount = 0, int lifeloss = 0,
+      Func<Effect, Player> getPlayer = null)
     {
       _count = count;
+      _getPlayer = getPlayer ?? (e => e.Controller);
       _discardCount = discardCount;
       _lifeloss = lifeloss;
     }
 
-    public DrawCards(int count, int discardCount = 0, int lifeloss = 0)
-      : this(delegate { return count; }, discardCount, lifeloss) {}
+    public DrawCards(int count, int discardCount = 0, int lifeloss = 0, Func<Effect, Player> getPlayer = null)
+      : this(delegate { return count; }, discardCount, lifeloss, getPlayer)
+    {
+      _getPlayer = getPlayer;
+    }
 
     protected override void ResolveEffect()
     {
-      Controller.DrawCards(_count(this));
+      var player = _getPlayer(this);
+
+      player.DrawCards(_count(this));
 
       if (_lifeloss > 0)
-        Controller.Life -= _lifeloss;
+        player.Life -= _lifeloss;
 
       if (_discardCount > 0)
         Game.Enqueue<Decisions.DiscardCards>(
-          controller: Controller,
+          controller: player,
           init: p => p.Count = _discardCount);
     }
   }
