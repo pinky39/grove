@@ -3,14 +3,16 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
+  using Core.Ai.TargetingRules;
+  using Core.Ai.TimingRules;
   using Core.Costs;
   using Core.Dsl;
+  using Core.Effects;
   using Core.Modifiers;
-  using Core.Targeting;
 
   public class FiresOfYavimaya : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Fires of Yavimaya")
@@ -18,28 +20,27 @@
         .Type("Enchantment")
         .Text(
           "Creatures you control have haste.{EOL}Sacrifice Fires of Yavimaya: Target creature gets +2/+2 until end of turn.")
-        .Cast(p => p.Timing = All(Timings.OnlyOneOfKind(), Timings.FirstMain()))          
-        .Abilities(
-          Continuous(e =>
-            {
-              e.ModifierFactory = Modifier<AddStaticAbility>(
-                m => m.StaticAbility = Static.Haste);
-              e.CardFilter = (card, effect) => card.Controller == effect.Source.Controller && card.Is().Creature;
-            }),
-          ActivatedAbility(
-            "Sacrifice Fires of Yavimaya: Target creature gets +2/+2 until end of turn.",
-            Cost<Sacrifice>(),
-            Effect<Core.Effects.ApplyModifiersToTargets>(p => p.Effect.Modifiers(
-              Modifier<AddPowerAndToughness>(m =>
-                {
-                  m.Power = 2;
-                  m.Toughness = 2;
-                }, untilEndOfTurn: true))),
-            Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()),
-            targetingAi: TargetingAi.IncreasePowerAndToughness(2, 2),
-            timing: Timings.NoRestrictions(),
-            category: EffectCategories.ToughnessIncrease
-            )
+        .Cast(p =>
+          {
+            p.TimingRule(new FirstMain());
+            p.TimingRule(new ThereCanBeOnlyOne());
+          })
+        .ContinuousEffect(p =>
+          {
+            p.Modifier = () => new AddStaticAbility(Static.Haste);
+            p.CardFilter = (card, effect) => card.Controller == effect.Source.Controller && card.Is().Creature;
+          })
+        .ActivatedAbility(p =>
+          {
+            p.Text = "Sacrifice Fires of Yavimaya: Target creature gets +2/+2 until end of turn.";
+            p.Cost = new Sacrifice();
+            p.Effect = () => new ApplyModifiersToTargets(() => new AddPowerAndToughness(2, 2) {UntilEot = true})
+              {Category = EffectCategories.ToughnessIncrease};
+
+            p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
+
+            p.TargetingRule(new IncreasePowerOrToughness(2, 2));
+          }
         );
     }
   }

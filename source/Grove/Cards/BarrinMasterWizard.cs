@@ -32,7 +32,7 @@
             p.TargetSelector
               .AddCost(trg =>
                 {
-                  trg.Is.Card(p1 => p1.Target.Card().Controller == p1.Effect.Controller).On.Battlefield();
+                  trg.Is.Card(controlledBy: ControlledBy.SpellOwner).On.Battlefield();
                   trg.MustBeTargetable = false;
                   trg.Text = "Select a permanent to sacrifice.";
                 })

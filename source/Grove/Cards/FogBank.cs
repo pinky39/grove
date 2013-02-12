@@ -7,7 +7,7 @@
 
   public class FogBank : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Fog Bank")
@@ -16,10 +16,9 @@
         .Text("{Defender}, {Flying}{EOL}Prevent all combat damage that would be dealt to and dealt by Fog Bank.")
         .Power(0)
         .Toughness(2)
-        .Preventions(
-          Prevention<PreventCombatDamage>(),
-          Prevention<PreventReceived>(p => p.CombatOnly = true))
-        .Abilities(
+        .Prevention(() => new PreventCombatDamage())
+        .Prevention(() => new PreventReceived(combatOnly: true))
+        .StaticAbilities(
           Static.Defender,
           Static.Flying
         );

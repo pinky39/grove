@@ -2,15 +2,21 @@
 {
   using Modifiers;
 
-  public class BoostOwningCardPowerAndToughness : TimingRule
+  public class IncreaseOwnersPowerOrToughness : TimingRule
   {
-    public Value Power;
-    public Value Toughness;
+    private readonly Value _power;
+    private readonly Value _toughness;
+    
+    public IncreaseOwnersPowerOrToughness(Value power, Value toughness)
+    {
+      _power = power;
+      _toughness = toughness;
+    }
 
     public override bool ShouldPlay(TimingRuleParameters p)
     {
-      var power = Power.GetValue(p.X);
-      var toughness = Toughness.GetValue(p.X);
+      var power = _power.GetValue(p.X);
+      var toughness = _toughness.GetValue(p.X);
 
       if (toughness > 0 && Stack.CanBeDealtLeathalDamageByTopSpell(p.Card))
       {

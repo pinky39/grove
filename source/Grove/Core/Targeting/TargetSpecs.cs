@@ -69,14 +69,32 @@
       return _p;
     }
 
-    public TargetValidatorParameters Card(Func<Card, bool> filter = null)
+    public TargetValidatorParameters Card(Func<Card, bool> filter = null, ControlledBy? controlledBy = null)
     {
       filter = filter ?? delegate { return true; };
-
+      
       _p.TargetSpec = p => p.Target.IsCard() &&
+        HasValidController(p.Target.Card().Controller, p.Effect.Source.OwningCard.Controller, controlledBy) && 
         filter(p.Target.Card());
 
       return _p;
+    }
+
+    private bool HasValidController(Player targetController, Player sourceController, ControlledBy? controlledBy)
+    {
+      if (controlledBy == null)
+        return true;
+
+      switch (controlledBy)
+      {
+        case (ControlledBy.Opponent):
+          return targetController != sourceController;
+
+        case (ControlledBy.SpellOwner):
+          return targetController == sourceController;
+      }
+
+      return true;
     }
 
     public TargetValidatorParameters Creature()

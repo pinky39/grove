@@ -2,17 +2,17 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TargetingRules;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
   using Core.Effects;
   using Core.Mana;
-  using Core.Targeting;
   using Core.Triggers;
   using Core.Zones;
 
   public class FlametongueKavu : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Flametongue Kavu")
@@ -22,16 +22,16 @@
         .FlavorText("'For dim-witted, thick-skulled genetic mutants, they have pretty good aim.{EOL}—Sisay'")
         .Power(4)
         .Toughness(2)
-        .Cast(p => p.Timing = Timings.OpponentHasPermanent(
+        .Cast(p => p.TimingRule(new OpponentHasPermanents(
           card => card.Is().Creature && card.Life <= 4 &&
-              !card.HasProtectionFrom(ManaColors.Red)))
-        .Abilities(
-          TriggeredAbility(
-            "When Flametongue Kavu enters the battlefield, it deals 4 damage to target creature.",
-            Trigger<OnZoneChanged>(t => t.To = Zone.Battlefield),
-            Effect<DealDamageToTargets>(e => e.Amount = 4),
-            Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()),
-            TargetingAi.DealDamageSingleSelector(4)));
+            !card.HasProtectionFrom(ManaColors.Red))))
+        .TriggeredAbility(p =>
+          {
+            p.Text = "When Flametongue Kavu enters the battlefield, it deals 4 damage to target creature.";
+            p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
+            p.Effect = () => new DealDamageToTargets(4);
+            p.TargetingRule(new DealDamage(4));
+          });
     }
   }
 }

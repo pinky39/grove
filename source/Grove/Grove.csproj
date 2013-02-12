@@ -460,7 +460,7 @@
     <Compile Include="Core\Ai\TimingRules\OwningCardHas.cs" />
     <Compile Include="Core\Ai\TimingRules\OpponentHasPermanents.cs" />
     <Compile Include="Core\Ai\TimingRules\OwningCardWillBeDestroyed.cs" />
-    <Compile Include="Core\Ai\TimingRules\BoostOwningCardPowerAndToughness.cs" />
+    <Compile Include="Core\Ai\TimingRules\IncreaseOwnersPowerOrToughness.cs" />
     <Compile Include="Core\Ai\TimingRules\ChangeToCreature.cs" />
     <Compile Include="Core\Ai\TimingRules\ControllerLifeWillBeReducedToZero.cs" />
     <Compile Include="Core\Ai\TimingRules\Counterspell.cs" />

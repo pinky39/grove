@@ -2,18 +2,19 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TargetingRules;
+  using Core.Ai.TimingRules;
   using Core.Costs;
   using Core.Dsl;
+  using Core.Effects;
   using Core.Mana;
   using Core.Modifiers;
-  using Core.Targeting;
   using Core.Triggers;
   using Core.Zones;
 
   public class FieryMantle : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Fiery Mantle")
@@ -23,28 +24,33 @@
           "Enchant creature{EOL}{R}: Enchanted creature gets +1/+0 until end of turn.{EOL}When Fiery Mantle is put into a graveyard from the battlefield, return Fiery Mantle to its owner's hand.")
         .Cast(p =>
           {
-            p.Timing = Timings.FirstMain();
-            p.Effect = Effect<Core.Effects.Attach>(e => e.Modifiers(
-              Modifier<AddActivatedAbility>(m => m.Ability =
-                ActivatedAbility(
-                  "{R}: Enchanted creature gets +1/+0 until end of turn.",
-                  Cost<PayMana>(cost => cost.Amount = ManaAmount.Red),
-                  Effect<Core.Effects.ApplyModifiersToSelf>(p1 => p1.Effect.Modifiers(
-                    Modifier<AddPowerAndToughness>(m1 => m1.Power = 1, untilEndOfTurn: true))),
-                  timing: Timings.IncreaseOwnersPowerAndThougness(1, 0))
-                )));
-            p.EffectTargets = L(Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));
-            p.TargetingAi = TargetingAi.CombatEnchantment();
-          })
-        .Abilities(
-          TriggeredAbility(
-            "When Fiery Mantle is put into a graveyard from the battlefield, return Fiery Mantle to its owner's hand.",
-            Trigger<OnZoneChanged>(t =>
+            p.Effect = () => new Attach(() => new AddActivatedAbility(() =>
               {
-                t.From = Zone.Battlefield;
-                t.To = Zone.Graveyard;
-              }),
-            Effect<Core.Effects.ReturnToHand>(e => e.ReturnOwner = true)));
+                var ap = new ActivatedAbilityParameters
+                  {
+                    Text = "{R}: Enchanted creature gets +1/+0 until end of turn.",
+                    Cost = new PayMana(ManaAmount.Red, ManaUsage.Abilities),
+                    Effect = () => new ApplyModifiersToSelf(() => new AddPowerAndToughness(1, 0) {UntilEot = true})
+                  };
+
+                ap.TimingRule(new IncreaseOwnersPowerOrToughness(1, 0));
+
+                return new ActivatedAbility(ap);
+              })
+              );
+
+            p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
+
+            p.TimingRule(new FirstMain());
+            p.TargetingRule(new CombatEnchantment());
+          })
+        .TriggeredAbility(p =>
+          {
+            p.Text =
+              "When Fiery Mantle is put into a graveyard from the battlefield, return Fiery Mantle to its owner's hand.";
+            p.Trigger(new OnZoneChanged(from: Zone.Battlefield, to: Zone.Graveyard));
+            p.Effect = () => new Core.Effects.ReturnToHand(returnOwningCard: true);
+          });
     }
   }
 }
