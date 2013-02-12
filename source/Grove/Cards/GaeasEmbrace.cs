@@ -3,16 +3,17 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
+  using Core.Ai.TargetingRules;
+  using Core.Ai.TimingRules;
   using Core.Costs;
   using Core.Dsl;
   using Core.Effects;
   using Core.Mana;
   using Core.Modifiers;
-  using Core.Targeting;
 
   public class GaeasEmbrace : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Gaea's Embrace")
@@ -23,24 +24,29 @@
         .FlavorText("The forest rose to the battle, not to save the people but to save itself.")
         .Cast(p =>
           {
-            p.Timing = Timings.FirstMain();
-            p.Effect = Effect<Core.Effects.Attach>(e => e.Modifiers(
-              Modifier<AddActivatedAbility>(m => m.Ability =
-                ActivatedAbility(
-                  "{G}: Regenerate enchanted creature.",
-                  Cost<PayMana>(cost => cost.Amount = ManaAmount.Green),
-                  Effect<Regenerate>(),
-                  timing: Timings.Regenerate())
-                ),
-              Modifier<AddPowerAndToughness>(m =>
+            p.Effect = () => new Attach(
+
+              () => new AddActivatedAbility(() =>
                 {
-                  m.Power = 3;
-                  m.Toughness = 3;
+                  var ap = new ActivatedAbilityParameters
+                    {
+                      Text = "{G}: Regenerate enchanted creature.",
+                      Cost = new PayMana(ManaAmount.Green, ManaUsage.Abilities),
+                      Effect = () => new Core.Effects.Regenerate()
+                    };
+
+                  ap.TimingRule(new Core.Ai.TimingRules.Regenerate());
+
+                  return new ActivatedAbility(ap);
                 }),
-              Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Trample)
-              ));
-            p.EffectTargets = L(Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));
-            p.TargetingAi = TargetingAi.CombatEnchantment();
+              () => new AddPowerAndToughness(3, 3),
+              () => new AddStaticAbility(Static.Trample)
+              
+              ){Category = EffectCategories.ToughnessIncrease};
+
+            p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
+            p.TimingRule(new FirstMain());
+            p.TargetingRule(new CombatEnchantment());
           });
     }
   }

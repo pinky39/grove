@@ -97,9 +97,9 @@
       return true;
     }
 
-    public TargetValidatorParameters Creature()
+    public TargetValidatorParameters Creature(ControlledBy? controlledBy = null)
     {
-      return Card(x => x.Is().Creature);
+      return Card(x => x.Is().Creature, controlledBy);
     }
 
     public TargetValidatorParameters Enchantment()

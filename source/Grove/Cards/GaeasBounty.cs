@@ -2,13 +2,13 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
   using Core.Effects;
 
   public class GaeasBounty : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Gaea's Bounty")
@@ -19,14 +19,13 @@
         .FlavorText("The forest grew back so quickly that lumbering machines were suspended in the treetops.")
         .Cast(p =>
           {
-            p.Timing = Timings.FirstMain();
-            p.Effect = Effect<SearchLibraryPutToHand>(e =>
-              {
-                e.MinCount = 0;
-                e.MaxCount = 2;
-                e.Validator = card => card.Is("forest");
-                e.Text = "Search you library for up to 2 forest cards.";
-              });
+            p.Effect = () => new SearchLibraryPutToHand(
+              minCount: 0,
+              maxCount: 2,
+              validator: c => c.Is("forest"),
+              text: "Search you library for up to 2 forest cards.");
+
+            p.TimingRule(new FirstMain());
           });
     }
   }

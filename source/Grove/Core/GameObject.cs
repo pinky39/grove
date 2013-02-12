@@ -3,7 +3,6 @@
   using System;
   using Ai;
   using Decisions;
-  using Dsl;
   using Infrastructure;
   using Zones;
 
@@ -18,7 +17,6 @@
     protected TurnInfo Turn { get { return Game.Turn; } }
     protected Search Search { get { return Game.Search; } }
 
-    protected CardBuilder Builder { get { return new CardBuilder(); } }
     protected ChangeTracker ChangeTracker { get { return Game.ChangeTracker; } }
 
     protected void Publish<T>(T message)

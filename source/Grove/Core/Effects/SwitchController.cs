@@ -6,13 +6,15 @@
   {
     protected override void ResolveEffect()
     {
-      var opponent = Game.Players.GetOpponent(Controller);
+      var sourceModifier = new ChangeController(Controller.Opponent);
+      sourceModifier.Initialize(new ModifierParameters
+        {
+          Source = Source.OwningCard,
+          Target = Source.OwningCard,
+          X = X
+        }, Game);
 
-      var modifier = Builder
-        .Modifier<ChangeController>(m => m.NewController = opponent)
-        .CreateModifier(Source.OwningCard, Source.OwningCard, X, Game);
-
-      Source.OwningCard.AddModifier(modifier);
+      Source.OwningCard.AddModifier(sourceModifier);
     }
   }
 }

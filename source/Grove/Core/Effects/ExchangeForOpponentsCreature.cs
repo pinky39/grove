@@ -1,23 +1,29 @@
 ﻿namespace Grove.Core.Effects
 {
-  using Grove.Core.Targeting;
   using Modifiers;
+  using Targeting;
 
   public class ExchangeForOpponentsCreature : Effect
   {
     protected override void ResolveEffect()
-    {           
-      var targetModifier = Builder
-        .Modifier<ChangeController>(m => m.NewController = Controller)
-        .CreateModifier(Source.OwningCard, Source.OwningCard, X, Game);
+    {
+      var targetModifier = new ChangeController(Controller);
+      targetModifier.Initialize(new ModifierParameters
+        {
+          Source = Source.OwningCard,
+          Target = Target,
+          X = X
+        }, Game);
 
-      Target().Card().AddModifier(targetModifier);
+      Target.Card().AddModifier(targetModifier);
 
-      var opponent = Game.Players.GetOpponent(Controller);
-      
-      var sourceModifier = Builder
-        .Modifier<ChangeController>(m => m.NewController = opponent)
-        .CreateModifier(Source.OwningCard, Source.OwningCard, X, Game);
+      var sourceModifier = new ChangeController(Controller.Opponent);
+      sourceModifier.Initialize(new ModifierParameters
+        {
+          Source = Source.OwningCard,
+          Target = Source.OwningCard,
+          X = X
+        }, Game);
 
       Source.OwningCard.AddModifier(sourceModifier);
     }
