@@ -6,31 +6,37 @@
 
   public class CreateTokens : Effect
   {
-    private readonly List<ICardFactory> _tokenFactories = new List<ICardFactory>();
+    private readonly Action<Card, Game> _afterTokenComesToPlay;
+    private readonly Value _count;
+    private readonly Func<Effect, Player> _tokenController;
+    private readonly List<CardFactory> _tokenFactories = new List<CardFactory>();
 
-    public Action<Card, Game> AfterTokenComesToPlay = delegate { };
-    public Value Count = 1;
-    public Player TokenController;
+    private CreateTokens() {}
+
+    public CreateTokens(Value count = null, Action<Card, Game> afterTokenComesToPlay = null,
+      Func<Effect, Player> tokenController = null, params CardFactory[] tokens)
+    {
+      _afterTokenComesToPlay = afterTokenComesToPlay ?? delegate { };
+      _tokenController = tokenController ?? (e => e.Controller);
+      _count = count ?? 1;
+      _tokenFactories.AddRange(tokens);
+    }
 
     protected override void ResolveEffect()
     {
-      var controller = TokenController ?? Controller;
-      
-      for (var i = 0; i < Count.GetValue(X); i++)
+      var controller = _tokenController(this);
+
+      for (var i = 0; i < _count.GetValue(X); i++)
       {
         foreach (var tokenFactory in _tokenFactories)
         {
-          var token = tokenFactory.CreateCard(controller, Game);
+          var token = tokenFactory.CreateCard();
+          token.Initialize(controller, Game);
           token.PutToBattlefield();
-          
-          AfterTokenComesToPlay(token, Game);
+
+          _afterTokenComesToPlay(token, Game);
         }
       }
-    }
-
-    public void Tokens(params ICardFactory[] tokenFactories)
-    {
-      _tokenFactories.AddRange(tokenFactories);
     }
   }
 }

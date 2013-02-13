@@ -4,11 +4,16 @@
   
   public class MaxAvailableMana : CostRule
   {
-    public ManaUsage ManaUsage = ManaUsage.Spells;
+    private readonly ManaUsage _manaUsage;
     
+    public MaxAvailableMana(ManaUsage manaUsage)
+    {
+      _manaUsage = manaUsage;
+    }
+
     public override int CalculateX(CostRuleParameters p)
     {
-      return p.GetMaxConvertedMana(ManaUsage);
+      return p.GetMaxConvertedMana(_manaUsage);
     }
   }
 }

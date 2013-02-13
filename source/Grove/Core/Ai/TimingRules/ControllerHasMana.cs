@@ -2,11 +2,16 @@
 {
   public class ControllerHasMana : TimingRule
   {
-    public int Converted;
+    private readonly int _converted;
+    
+    public ControllerHasMana(int converted)
+    {
+      _converted = converted;
+    }
 
     public override bool ShouldPlay(TimingRuleParameters p)
     {
-      return p.Controller.HasMana(Converted);
+      return p.Controller.HasMana(_converted);
     }
   }
 }
