@@ -2,12 +2,12 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
 
   public class GoblinWarBuggy : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Goblin War Buggy")
@@ -17,11 +17,9 @@
           "{Haste}{EOL}{Echo} {1}{R} (At the beginning of your upkeep, if this came under your control since the beginning of your last upkeep, sacrifice it unless you pay its echo cost.)")
         .Power(2)
         .Toughness(2)
-        .Cast(p => p.Timing = Timings.FirstMain())
+        .Cast(p => p.TimingRule(new FirstMain()))
         .Echo("{1}{R}")
-        .Abilities(
-          Static.Haste
-        );
+        .StaticAbilities(Static.Haste);
     }
   }
 }

@@ -7,7 +7,12 @@
 
   public class SacrificeToDrawCards : TargetingRule
   {
-    public Func<Card, bool> Filter = delegate { return true; };
+    private readonly Func<Card, bool> _filter;
+    
+    public SacrificeToDrawCards(Func<Card, bool> filter = null)
+    {
+      _filter = filter ?? delegate { return true; };
+    }
 
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
     {
@@ -17,14 +22,14 @@
       {
         candidates.AddRange(
           p.Candidates<Card>()
-            .Where(x => Filter(x))
+            .Where(x => _filter(x))
             .Where(x => Combat.CanBeDealtLeathalCombatDamage(x))
             .Where(x => !Combat.CanKillAny(x)));
       }
 
       candidates.AddRange(
         p.Candidates<Card>()
-          .Where(x => Filter(x))
+          .Where(x => _filter(x))
           .Where(x => Stack.CanBeDestroyedByTopSpell(x)));
 
       return Group(candidates, p.MinTargetCount());

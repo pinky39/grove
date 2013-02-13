@@ -6,7 +6,7 @@
 
   public class GoblinSpelunkers : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Goblin Spelunkers")
@@ -16,9 +16,7 @@
         .FlavorText("'It only short jump. You go first.'{EOL}'AIIIEEEE'{EOL}'Hmm . . . we go different way now.'")
         .Power(2)
         .Toughness(2)
-        .Abilities(
-          Static.Mountainwalk
-        );
+        .StaticAbilities(Static.Mountainwalk);
     }
   }
 }

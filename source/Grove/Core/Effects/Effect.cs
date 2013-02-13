@@ -31,7 +31,7 @@
 
     public virtual bool TargetsEffectSource { get { return false; } }
 
-    public ITarget Target { get { return Targets.Effect[0]; } }
+    public ITarget Target { get { return Targets.Effect.Count > 0 ? Targets.Effect[0] : Targets.Cost[0]; } }
 
     public IEnumerable<ITarget> ValidEffectTargets
     {

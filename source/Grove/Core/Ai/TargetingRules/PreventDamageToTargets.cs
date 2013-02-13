@@ -6,7 +6,12 @@
 
   public class PreventDamageToTargets : TargetingRule
   {
-    public int Amount;
+    private readonly int _amount;
+    
+    public PreventDamageToTargets(int amount)
+    {
+      _amount = amount;
+    }
 
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
     {
@@ -39,7 +44,7 @@
               attacker: Combat.GetAttacker(x));
 
 
-            return 0 < prevented && prevented <= Amount;
+            return 0 < prevented && prevented <= _amount;
           })
         .OrderByDescending(x => x.Score);
 
@@ -60,7 +65,7 @@
               attacker: x,
               blockers: Combat.GetBlockers(x));
 
-            return 0 < prevented && prevented <= Amount;
+            return 0 < prevented && prevented <= _amount;
           })
         .OrderByDescending(x => x.Score);
 
@@ -76,7 +81,7 @@
         .Where(x =>
           {
             var damageToCreature = Stack.GetDamageTopSpellWillDealToCreature(x);
-            return (damageToCreature >= x.Life) && (damageToCreature - Amount < x.Life);
+            return (damageToCreature >= x.Life) && (damageToCreature - _amount < x.Life);
           })
         .OrderByDescending(x => x.Score);
 

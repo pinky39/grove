@@ -5,12 +5,18 @@
 
   public class ControllerHasMorePermanents : TimingRule
   {
-    public Func<Card, bool> Selector = delegate { return true; };
+    private readonly Func<Card, bool> _selector;
+
+    public ControllerHasMorePermanents(Func<Card, bool> selector = null)
+    {
+      _selector = selector ?? delegate { return true; };
+    }
+
 
     public override bool ShouldPlay(TimingRuleParameters p)
     {
-      var controllerCount = p.Controller.Battlefield.Count(Selector);
-      var opponentCount = p.Controller.Opponent.Battlefield.Count(Selector);
+      var controllerCount = p.Controller.Battlefield.Count(_selector);
+      var opponentCount = p.Controller.Opponent.Battlefield.Count(_selector);
 
       return controllerCount > opponentCount;
     }

@@ -10,7 +10,7 @@
 
   public class GraveTitan : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Grave Titan")
@@ -21,26 +21,26 @@
         .FlavorText("Death in form and function.")
         .Power(6)
         .Toughness(6)
-        .Abilities(
-          Static.Deathtouch,
-          TriggeredAbility(
-            "Whenever Grave Titan enters the battlefield or attacks, put two 2/2 black Zombie creature tokens onto the battlefield.",
-            L(Trigger<OnZoneChanged>(t => { t.To = Zone.Battlefield; }),
-              Trigger<OnAttack>()),
-            Effect<CreateTokens>(e =>
-              {
-                e.Tokens(
-                  Card
-                    .Named("Zombie Token")
-                    .FlavorText(
-                      "'Your brain is rotting?!.'{EOL}'...enough.'{EOL}-Y.A, 'The seven zombies'")
-                    .Power(2)
-                    .Toughness(2)
-                    .Type("Creature - Token - Zombie")
-                    .Colors(ManaColors.Black)
-                  );
-                e.Count = 2;
-              })));
+        .StaticAbilities(Static.Deathtouch)
+        .TriggeredAbility(p =>
+          {
+            p.Text =
+              "Whenever Grave Titan enters the battlefield or attacks, put two 2/2 black Zombie creature tokens onto the battlefield.";
+            p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
+            p.Trigger(new OnAttack());
+
+            p.Effect = () => new CreateTokens(
+              count: 2,
+              tokens:
+                Card
+                  .Named("Zombie Token")
+                  .FlavorText(
+                    "'Your brain is rotting?!.'{EOL}'...enough.'{EOL}-Y.A, 'The seven zombies'")
+                  .Power(2)
+                  .Toughness(2)
+                  .Type("Creature - Token - Zombie")
+                  .Colors(ManaColors.Black));
+          });
     }
   }
 }

@@ -6,7 +6,7 @@
 
   public class HeraldOfSerra : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Herald of Serra")
@@ -17,7 +17,7 @@
         .Power(3)
         .Toughness(4)
         .Echo("{2}{W}{W}")
-        .Abilities(
+        .StaticAbilities(
           Static.Vigilance,
           Static.Flying
         );

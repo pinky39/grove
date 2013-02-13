@@ -2,29 +2,31 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.CostRules;
+  using Core.Ai.TargetingRules;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
-  using Core.Mana;
+  using Core.Effects;
   using Core.Modifiers;
-  using Core.Targeting;
 
   public class HeatRay : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Heat Ray")
-        .ManaCost("{R}")
+        .ManaCost("{R}").HasXInCost()
         .Type("Instant")
         .Text("Heat Ray deals X damage to target creature.")
         .FlavorText("It's not known whether the Thran built the device to forge their wonders or to defend them.")
         .Cast(p =>
           {
-            p.Timing = Timings.InstantRemovalTarget();
-            p.XCalculator = ChooseXAi.TargetLifepointsLeft(ManaUsage.Spells);
-            p.Effect = Effect<Core.Effects.DealDamageToTargets>(e => e.Amount = Value.PlusX);
-            p.EffectTargets = L(Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));
-            p.TargetingAi = TargetingAi.DealDamageSingleSelector();
+            p.Effect = () => new DealDamageToTargets(Value.PlusX);
+            p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
+
+            p.TargetingRule(new DealDamage());
+            p.CostRule(new TargetsLifepoints());
+            p.TimingRule(new TargetRemoval());
           });
     }
   }

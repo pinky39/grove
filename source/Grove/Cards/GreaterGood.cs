@@ -2,7 +2,8 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TargetingRules;
+  using Core.Ai.TimingRules;
   using Core.Costs;
   using Core.Dsl;
   using Core.Effects;
@@ -10,7 +11,7 @@
 
   public class GreaterGood : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Greater Good")
@@ -18,22 +19,29 @@
         .Type("Enchantment")
         .Text("Sacrifice a creature: Draw cards equal to the sacrificed creature's power, then discard three cards.")
         .FlavorText("'We have more sprouts than they have hands.'{EOL}—Gamelen, Citanul elder")
-        .Cast(p => p.Timing = All(Timings.OnlyOneOfKind(), Timings.FirstMain()))                
-        .Abilities(
-          ActivatedAbility(
-            "Sacrifice a creature: Draw cards equal to the sacrificed creature's power, then discard three cards.",
-            Cost<Sacrifice>(),
-            Effect<DrawCards>(e =>
+        .Cast(p =>
+          {
+            p.TimingRule(new FirstMain());
+            p.TimingRule(new ThereCanBeOnlyOne());
+          })
+        .ActivatedAbility(p =>
+          {
+            p.Text =
+              "Sacrifice a creature: Draw cards equal to the sacrificed creature's power, then discard three cards.";
+
+            p.Cost = new Sacrifice();
+            p.Effect = () => new DrawCards(
+              count: e => e.Target.Card().Power.GetValueOrDefault(),
+              discardCount: 3);
+            p.TargetSelector.AddCost(trg =>
               {
-                e.Count = e.CostTarget().Card().Power.GetValueOrDefault();
-                e.DiscardCount = 3;
-              }),
-            costTarget:
-              Target(
-                Validators.Card(ControlledBy.SpellOwner, x => x.Is().Creature),
-                Zones.Battlefield(),
-                text: "Select a creature to sacrifice.", mustBeTargetable: false),
-            targetingAi: TargetingAi.CostSacrificeDrawCards(x => x.Power > 3))
+                trg.Is.Creature(ControlledBy.SpellOwner).On.Battlefield();
+                trg.Text = "Select a creature to sacrifice.";
+                trg.MustBeTargetable = false;
+              });
+
+            p.TargetingRule(new SacrificeToDrawCards(c => c.Power > 3));
+          }
         );
     }
   }

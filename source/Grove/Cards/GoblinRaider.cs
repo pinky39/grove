@@ -6,7 +6,7 @@
 
   public class GoblinRaider : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Goblin Raider")
@@ -16,9 +16,7 @@
         .FlavorText("He was proud to wear the lizard skin around his waist, just for the fun of annoying the enemy.")
         .Power(2)
         .Toughness(2)
-        .Abilities(
-          Static.CannotBlock
-        );
+        .StaticAbilities(Static.CannotBlock);
     }
   }
 }

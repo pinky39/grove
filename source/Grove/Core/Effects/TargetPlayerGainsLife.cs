@@ -4,11 +4,16 @@
 
   public class TargetPlayerGainsLife : Effect
   {
-    public int Amount { get; set; }
+    private readonly int _amount;
+    
+    public TargetPlayerGainsLife(int amount)
+    {
+      _amount = amount;
+    }
 
     protected override void ResolveEffect()
     {
-      Target().Player().Life += Amount;
+      Target.Player().Life += _amount;
     }
   }
 }

@@ -2,13 +2,14 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
+  using Core.Effects;
   using Core.Modifiers;
 
   public class HeadlongRush : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Headlong Rush")
@@ -19,14 +20,13 @@
           "A landslide of goblins poured towards the defenders—tumbling, rolling, and bouncing their way down the steep hillside.")
         .Cast(p =>
           {
-            p.Timing = All(Timings.DeclareBlockers(), Timings.Turn(active: true), Timings.HasAttackers(1));
-            p.Effect = Effect<Core.Effects.ApplyModifiersToPermanents>(e =>
-              {
-                e.Filter = (self, card) => card.IsAttacker;
-                e.Modifiers(
-                  Modifier<AddStaticAbility>(m => m.StaticAbility = Static.FirstStrike, untilEndOfTurn: true)
-                  );
-              });
+            p.Effect = () => new ApplyModifiersToPermanents(
+              filter: (e, c) => c.IsAttacker,
+              modifiers: () => new AddStaticAbility(Static.FirstStrike) {UntilEot = true});
+
+            p.TimingRule(new Turn(active: true));
+            p.TimingRule(new Steps(Step.DeclareBlockers));
+            p.TimingRule(new MinAttackerCount(1));
           });
     }
   }

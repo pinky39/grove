@@ -5,7 +5,7 @@
 
   public abstract class Trigger : GameObject, IDisposable, IHashable
   {
-    public Func<Trigger, bool> Condition = delegate { return true; };
+    public Func<Trigger, Game, bool> Condition = delegate { return true; };
     
     private readonly Trackable<bool> _canTrigger = new Trackable<bool>(true);
     public TriggeredAbility Ability { get; private set; }
@@ -27,7 +27,7 @@
 
     protected void Set(object context = null)
     {
-      if (CanTrigger && Condition(this))
+      if (CanTrigger && Condition(this, Game))
         Triggered(this, new TriggerEventArgs(context));
     }
 

@@ -9,7 +9,7 @@
 
   public class GreatWhale : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Great Whale")
@@ -19,17 +19,17 @@
         .FlavorText("'As a great whale dies, it flips onto its back. And so an island is born.'{EOL}—Mariners' legend")
         .Power(5)
         .Toughness(5)
-        .Abilities(
-          TriggeredAbility(
-            "When Great Whale enters the battlefield, untap up to seven lands.",
-            Trigger<OnZoneChanged>(t => t.To = Zone.Battlefield),
-            Effect<UntapSelectedPermanents>(e =>
-              {
-                e.Validator = x => x.Is().Land;
-                e.MaxCount = 7;
-                e.Text = "Select lands to untap";
-              })
-            )
+        .TriggeredAbility(p =>
+          {
+            p.Text = "When Great Whale enters the battlefield, untap up to seven lands.";
+            p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
+            p.Effect = () => new UntapSelectedPermanents(
+              minCount: 0,
+              maxCount: 7,
+              validator: c => c.Is().Land,
+              text: "Select lands to untap."
+              );
+          }
         );
     }
   }

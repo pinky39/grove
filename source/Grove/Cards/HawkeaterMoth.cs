@@ -6,7 +6,7 @@
 
   public class HawkeaterMoth : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Hawkeater Moth")
@@ -16,7 +16,7 @@
         .FlavorText("Each day at dusk the birds above the canopy grow silent.")
         .Power(1)
         .Toughness(2)
-        .Abilities(
+        .StaticAbilities(
           Static.Flying,
           Static.Shroud
         );

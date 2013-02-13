@@ -5,7 +5,7 @@
 
   public class TriggeredAbilityParameters : AbilityParameters
   {
-    private List<Trigger> _triggers = new List<Trigger>();
+    private readonly List<Trigger> _triggers = new List<Trigger>();
 
     public bool TriggerOnlyIfOwningCardIsInPlay;
     public List<Trigger> Triggers { get { return _triggers; }}

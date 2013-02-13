@@ -4,11 +4,16 @@
 
   public class MinAttackerCount : TimingRule
   {
-    public int Count;
+    private readonly int _count;
     
+    public MinAttackerCount(int count)
+    {
+      _count = count;
+    }
+
     public override bool ShouldPlay(TimingRuleParameters p)
     {
-      return Combat.Attackers.Count() >= Count;
+      return Combat.Attackers.Count() >= _count;
     }
   }
 }
