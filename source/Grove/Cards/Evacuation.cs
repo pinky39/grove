@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
   using Core.Ai.TimingRules;
   using Core.Dsl;
   using Core.Effects;
@@ -19,11 +18,7 @@
         .FlavorText("The first step of every exodus is from the blood and the fire onto the trail.")
         .Cast(p =>
           {
-            p.Effect = () => new ReturnAllPermanentsToHand(c => c.Is().Creature)
-              {
-                Category = EffectCategories.Bounce
-              };
-
+            p.Effect = () => new ReturnAllPermanentsToHand(c => c.Is().Creature);
             p.TimingRule(new BounceAll());
           });
     }

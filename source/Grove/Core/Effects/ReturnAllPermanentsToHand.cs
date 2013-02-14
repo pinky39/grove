@@ -2,6 +2,7 @@
 {
   using System;
   using System.Linq;
+  using Ai;
 
   public class ReturnAllPermanentsToHand : Effect
   {
@@ -12,6 +13,7 @@
     public ReturnAllPermanentsToHand(Func<Card, bool> filter = null)
     {
       _filter = filter ?? delegate { return true; };
+      Category = EffectCategories.Bounce;
     }
 
     protected override void ResolveEffect()
