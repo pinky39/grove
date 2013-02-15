@@ -41,8 +41,15 @@
 
     public TargetSelector AddCost(Action<TargetValidatorParameters> set)
     {
-      var validator = CreateValidator(set);
+      var org = set;
+      
+      set = p =>
+        {
+          org(p);
+          p.MustBeTargetable = false;
+        };
 
+      var validator = CreateValidator(set);
       _costValidators.Add(validator);
       return this;
     }

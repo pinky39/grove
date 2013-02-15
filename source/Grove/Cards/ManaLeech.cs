@@ -2,15 +2,16 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TargetingRules;
+  using Core.Ai.TimingRules;
   using Core.Costs;
   using Core.Dsl;
+  using Core.Effects;
   using Core.Modifiers;
-  using Core.Targeting;
 
   public class ManaLeech : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Mana Leech")
@@ -21,24 +22,29 @@
         .Power(1)
         .Toughness(1)
         .MayChooseNotToUntapDuringUntap()
-        .Abilities(
-          ActivatedAbility(
-            "{T}: Tap target land. It doesn't untap during its controller's untap step for as long as Mana Leech remains tapped.",
-            Cost<Tap>(),
-            Effect<Core.Effects.CompoundEffect>(e => e.ChildEffects(
-              Effect<Core.Effects.TapTarget>(),
-              Effect<Core.Effects.ApplyModifiersToTargets>(e1 => e1.Modifiers(
-                Modifier<AddStaticAbility>(m =>
-                  {
-                    m.StaticAbility = Static.DoesNotUntap;
-                    m.AddLifetime(Lifetime<PermanentLeavesBattlefieldLifetime>(l => l.Permanent = m.Source));
-                  })
-                ))
-              )),
-            Target(Validators.Card(x => x.Is().Land), Zones.Battlefield()),
-            targetingAi: TargetingAi.TapLand(),
-            timing: All(Timings.Turn(passive: true), Timings.Steps(Step.Upkeep)))
-        );
+        .ActivatedAbility(p =>
+          {
+            p.Text =
+              "{T}: Tap target land. It doesn't untap during its controller's untap step for as long as Mana Leech remains tapped.";
+            p.Cost = new Tap();
+
+            p.Effect = () => new CompoundEffect(
+              new TapTarget(),
+              new ApplyModifiersToTargets(() =>
+                {
+                  var modifier = new AddStaticAbility(Static.DoesNotUntap);
+
+                  modifier.AddLifetime(new PermanentGetsUntapedLifetime(
+                    l => l.Modifier.Source));
+
+                  return modifier;
+                }));
+
+            p.TargetSelector.AddEffect(trg => trg.Is.Card(c => c.Is().Land).On.Battlefield());
+            p.TimingRule(new Turn(passive: true));
+            p.TimingRule(new Steps(Step.Upkeep));
+            p.TargetingRule(new TapLands());
+          });
     }
   }
 }

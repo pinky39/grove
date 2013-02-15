@@ -2,14 +2,14 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TargetingRules;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
   using Core.Effects;
-  using Core.Targeting;
 
   public class LayWaste : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Lay Waste")
@@ -19,11 +19,10 @@
         .Cycling("{2}")
         .Cast(p =>
           {
-            p.Category = EffectCategories.Destruction;
-            p.Effect = Effect<DestroyTargetPermanents>();
-            p.EffectTargets = L(Target(Validators.Card(card => card.Is().Land),
-              Zones.Battlefield()));
-            p.TargetingAi = TargetingAi.Destroy();
+            p.Effect = () => new DestroyTargetPermanents();
+            p.TargetSelector.AddEffect(trg => trg.Is.Card(c => c.Is().Land).On.Battlefield());
+            p.TimingRule(new FirstMain());
+            p.TargetingRule(new Destroy());
           });
     }
   }

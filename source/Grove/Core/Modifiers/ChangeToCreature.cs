@@ -1,9 +1,14 @@
 ﻿namespace Grove.Core.Modifiers
 {
+  using System;
   using Mana;
 
   public class ChangeToCreature : Modifier
   {
+    private readonly ManaColors? _colors;
+    private readonly Func<Modifier, int> _power;
+    private readonly Func<Modifier, int> _toughness;
+    private readonly Func<Modifier, string> _type;
     private CardColors _cardColors;
     private Power _cardPower;
     private Toughness _cardToughness;
@@ -13,18 +18,17 @@
     private StrenghtSetter _toughnessSetter;
     private CardTypeSetter _typeSetter;
 
-    private readonly ManaColors? _colors;
-    private readonly Value _power;
-    private readonly Value _toughness;
-    private readonly string _type;
-
-    public ChangeToCreature(Value power, Value toughness, string type, ManaColors? colors = null)
+    public ChangeToCreature(Func<Modifier, int> power, Func<Modifier, int> toughness, Func<Modifier, string> type,
+      ManaColors? colors = null)
     {
-      _colors = colors;
-      _type = type;
-      _toughness = toughness;
       _power = power;
+      _toughness = toughness;
+      _type = type;
+      _colors = colors;
     }
+
+    public ChangeToCreature(Value power, Value toughness, string type, ManaColors? colors = null) : this(
+      m => power.GetValue(m.X), m => toughness.GetValue(m.X), m => type, colors) {}
 
     public override void Apply(CardColors colors)
     {
@@ -39,21 +43,21 @@
     public override void Apply(Power power)
     {
       _cardPower = power;
-      _powerSetter = new StrenghtSetter(_power.GetValue(X), ChangeTracker);
+      _powerSetter = new StrenghtSetter(_power(this), ChangeTracker);
       _cardPower.AddModifier(_powerSetter);
     }
 
     public override void Apply(Toughness toughness)
     {
       _cardToughness = toughness;
-      _toughnessSetter = new StrenghtSetter(_toughness.GetValue(X), ChangeTracker);
+      _toughnessSetter = new StrenghtSetter(_toughness(this), ChangeTracker);
       _cardToughness.AddModifier(_toughnessSetter);
     }
 
     public override void Apply(CardTypeCharacteristic cardType)
     {
       _cardType = cardType;
-      _typeSetter = new CardTypeSetter(_type, ChangeTracker);
+      _typeSetter = new CardTypeSetter(_type(this), ChangeTracker);
       _cardType.AddModifier(_typeSetter);
     }
 

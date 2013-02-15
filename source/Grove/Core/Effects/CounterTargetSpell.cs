@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core.Effects
 {
+  using System;
   using Ai;
   using Decisions;
   using Decisions.Results;
@@ -9,16 +10,23 @@
   public class CounterTargetSpell : Effect, IProcessDecisionResults<BooleanResult>
   {
     private readonly int? _controllerLifeloss;
-    private readonly IManaAmount _doNotCounterCost;
+    private readonly Func<Effect, IManaAmount> _doNotCounterCost;
     private readonly bool _tapLandsAndEmptyManaPool;
 
-    public CounterTargetSpell(int? controllerLifeloss = null, IManaAmount doNotCounterCost = null, bool tapLandsAndEmptyManaPool = false)
+    private CounterTargetSpell() {}
+
+    public CounterTargetSpell(int? controllerLifeloss = null, Func<Effect, IManaAmount> doNotCounterCost = null,
+      bool tapLandsAndEmptyManaPool = false)
     {
       _controllerLifeloss = controllerLifeloss;
       _doNotCounterCost = doNotCounterCost;
       _tapLandsAndEmptyManaPool = tapLandsAndEmptyManaPool;
       Category = EffectCategories.Counterspell;
     }
+
+    public CounterTargetSpell(int? controllerLifeloss = null, IManaAmount doNotCounterCost = null,
+      bool tapLandsAndEmptyManaPool = false) :
+        this(controllerLifeloss, e => doNotCounterCost, tapLandsAndEmptyManaPool) {}
 
     public void ProcessResults(BooleanResult results)
     {
@@ -32,15 +40,15 @@
     {
       var targetSpellController = Target.Effect().Controller;
 
-      if (_doNotCounterCost == null)
+      if (_doNotCounterCost(this) == null)
       {
         CounterSpell();
         return;
       }
 
-      Game.Enqueue<PayOr>(targetSpellController, p =>
+      Enqueue<PayOr>(targetSpellController, p =>
         {
-          p.ManaAmount = _doNotCounterCost;
+          p.ManaAmount = _doNotCounterCost(this);
           p.Text = FormatText(string.Format("Pay {0}?", _doNotCounterCost));
           p.ProcessDecisionResults = this;
         });
@@ -64,7 +72,7 @@
         Controller.EmptyManaPool();
       }
 
-      Game.Stack.Counter(Target.Effect());
+      Stack.Counter(Target.Effect());
     }
   }
 }

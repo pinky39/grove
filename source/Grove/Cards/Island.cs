@@ -7,14 +7,17 @@
 
   public class Island : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Island")
         .Type("Basic Land - Island")
         .Text("{T}: Add {U} to your mana pool.")
-        .Abilities(
-          ManaAbility(ManaUnit.Blue, "{T}: Add {U} to your mana pool."));
+        .ManaAbility(p =>
+          {
+            p.Text = "{T}: Add {U} to your mana pool.";
+            p.ManaAmount(ManaUnit.Blue);
+          });
     }
   }
 }

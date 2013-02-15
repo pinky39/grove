@@ -7,7 +7,7 @@
 
   public class LlanowarElves : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Llanowar Elves")
@@ -17,8 +17,11 @@
         .FlavorText("One bone broken for every twig snapped underfoot.{EOL}—Llanowar penalty for trespassing")
         .Power(1)
         .Toughness(1)
-        .Abilities(
-          ManaAbility(ManaUnit.Green, "{T}: Add {G} to your mana pool."));
+        .ManaAbility(p =>
+          {
+            p.Text = "{T}: Add {G} to your mana pool.";
+            p.ManaAmount(ManaUnit.Green);
+          });        
     }
   }
 }

@@ -2,14 +2,15 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TargetingRules;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
+  using Core.Effects;
   using Core.Modifiers;
-  using Core.Targeting;
 
   public class Humble : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Humble")
@@ -19,21 +20,13 @@
         .FlavorText("'It is not your place to rule, Radiant. It may not even be mine.'{EOL}—Serra")
         .Cast(p =>
           {
-            p.Timing = Timings.InstantRemovalTarget(combatOnly: true);
-            p.Effect = Effect<Core.Effects.ApplyModifiersToTargets>(e =>
-              {
-                e.ToughnessReduction = e.Target().Card().Toughness.Value - 1;
-                e.Modifiers(
-                  Modifier<DisableAbilities>(untilEndOfTurn: true),
-                  Modifier<SetPowerAndToughness>(m =>
-                    {
-                      m.Power = 0;
-                      m.Tougness = 1;
-                    }, untilEndOfTurn: true)
-                  );
-              });
-            p.EffectTargets = L(Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));
-            p.TargetingAi = TargetingAi.Destroy();
+            p.Effect = () => new ApplyModifiersToTargets(
+              () => new DisableAbilities {UntilEot = true},
+              () => new SetPowerAndToughness(0, 1) {UntilEot = true});
+
+            p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
+            p.TargetingRule(new Destroy());
+            p.TimingRule(new TargetRemoval(combatOnly: true));
           });
     }
   }

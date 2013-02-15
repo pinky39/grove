@@ -7,7 +7,7 @@
   {
     private readonly int _minAvailableMana;
     
-    public ChangeToCreature(int minAvailableMana)
+    public ChangeToCreature(int minAvailableMana = 0)
     {
       _minAvailableMana = minAvailableMana;
     }

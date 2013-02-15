@@ -15,7 +15,7 @@
     private readonly TrackableList<Lifetime> _lifetimes = new TrackableList<Lifetime>();
     public Card Source { get; private set; }
     public ITarget Target { get; private set; }
-    protected int? X { get; private set; }
+    public int? X { get; private set; }
     public bool UntilEot;    
 
     void ICopyContributor.AfterMemberCopy(object original)

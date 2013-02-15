@@ -3,7 +3,7 @@
   using System;
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TimingRules;
   using Core.Costs;
   using Core.Dsl;
   using Core.Effects;
@@ -12,7 +12,7 @@
 
   public class LurkingEvil : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Lurking Evil")
@@ -20,22 +20,22 @@
         .Type("Enchantment")
         .Text("Pay half your life, rounded up: Lurking Evil becomes a 4/4 Horror creature with flying.")
         .FlavorText("'Ash is our air, darkness our flesh.'{EOL}—Phyrexian Scriptures")
-        .Cast(p => p.Timing = Timings.SecondMain())
-        .Abilities(
-          ActivatedAbility(
-            "Pay half your life, rounded up: Lurking Evil becomes a 4/4 Horror creature with flying.",
-            Cost<PayLife>(cost => cost.GetAmount = self => (int) Math.Ceiling(self.Card.Controller.Life/2d)),
-            Effect<ApplyModifiersToSelf>(e => e.Modifiers(
-              Modifier<ChangeToCreature>(m =>
-                {
-                  m.Power = 4;
-                  m.Toughness = 4;
-                  m.Colors = ManaColors.Black;
-                  m.Type = "Creature - Horror";
-                }),
-              Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Flying))),
-            timing: All(Timings.ChangeToCreature(), Timings.Has(c => c.Is().Enchantment)))
-        );
+        .Cast(p => p.TimingRule(new SecondMain()))
+        .ActivatedAbility(p =>
+          {
+            p.Text = "Pay half your life, rounded up: Lurking Evil becomes a 4/4 Horror creature with flying.";
+            p.Cost = new PayLife(c => (int) Math.Ceiling(c.Controller.Life/2d));
+            p.Effect = () => new ApplyModifiersToSelf(
+              () => new Core.Modifiers.ChangeToCreature(
+                power: 4,
+                toughness: 4,
+                colors: ManaColors.Black,
+                type: "Creature Horror"),
+              () => new AddStaticAbility(Static.Flying));
+
+            p.TimingRule(new OwningCardHas(c => c.Is().Enchantment));
+            p.TimingRule(new Core.Ai.TimingRules.ChangeToCreature());
+          });
     }
   }
 }

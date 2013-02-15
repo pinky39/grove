@@ -1,15 +1,21 @@
 ﻿namespace Grove.Core.Modifiers
 {
-  using Grove.Infrastructure;
-  using Grove.Core.Messages;
+  using System;
+  using Infrastructure;
+  using Messages;
 
   public class PermanentLeavesBattlefieldLifetime : Lifetime, IReceive<ZoneChanged>
   {
-    public Card Permanent { get; set; }
+    private readonly Func<Lifetime, Card> _selector;
     
+    public PermanentLeavesBattlefieldLifetime(Func<Lifetime, Card> selector)
+    {
+      _selector = selector;
+    }
+
     public void Receive(ZoneChanged message)
     {
-      if (message.Card == Permanent && message.FromBattlefield)
+      if (message.Card == _selector(this) && message.FromBattlefield)
       {
         End();
       }

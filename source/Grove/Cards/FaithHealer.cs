@@ -35,8 +35,7 @@
                 trg
                   .Is.Card(pr => pr.Effect.Controller == pr.Target.Card().Controller)
                   .On.Battlefield();
-
-                trg.MustBeTargetable = false;
+                
                 trg.Text = "Select an enchantment to sacrifice.";
               });
 

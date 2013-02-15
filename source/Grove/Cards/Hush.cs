@@ -1,15 +1,14 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
   using Core.Effects;
 
   public class Hush : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Hush")
@@ -19,9 +18,8 @@
         .Cycling("{2}")
         .Cast(p =>
           {
-            p.Timing = Timings.FirstMain();
-            p.Category = EffectCategories.Destruction;
-            p.Effect = Effect<DestroyAllPermanents>(e => e.Filter = (self, card) => card.Is().Enchantment);
+            p.Effect = () => new DestroyAllPermanents((e, card) => card.Is().Enchantment);
+            p.TimingRule(new FirstMain());
           });
     }
   }

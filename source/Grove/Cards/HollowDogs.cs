@@ -9,7 +9,7 @@
 
   public class HollowDogs : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Hollow Dogs")
@@ -20,17 +20,13 @@
           "A hollow dog is never empty. It is filled with thirst for the hunt.")
         .Power(2)
         .Toughness(2)
-        .Abilities(
-          TriggeredAbility(
-            "Whenever Hollow Dogs attacks, it gets +2/+0 until end of turn.",
-            Trigger<OnAttack>(),
-            Effect<ApplyModifiersToSelf>(e => e.Modifiers(
-              Modifier<AddPowerAndToughness>(m =>
-                {
-                  m.Power = 2;                
-                }, untilEndOfTurn: true))),
-            triggerOnlyIfOwningCardIsInPlay: true)
-        );
+        .TriggeredAbility(p =>
+          {
+            p.Text = "Whenever Hollow Dogs attacks, it gets +2/+0 until end of turn.";
+            p.Trigger(new OnAttack());
+            p.Effect = () => new ApplyModifiersToSelf(() => new AddPowerAndToughness(2, 0) {UntilEot = true});
+            p.TriggerOnlyIfOwningCardIsInPlay = true;
+          });
     }
   }
 }

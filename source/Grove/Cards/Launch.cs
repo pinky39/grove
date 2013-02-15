@@ -2,41 +2,37 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TargetingRules;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
   using Core.Effects;
   using Core.Modifiers;
-  using Core.Targeting;
   using Core.Triggers;
   using Core.Zones;
 
   public class Launch : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Launch")
         .ManaCost("{1}{U}")
         .Type("Enchantment - Aura")
         .Text(
-          "{Enchant creature}{EOL}Enchanted creature has flying.{EOL}When Launch is put into a graveyard from the battlefield, return Launch to its owner's hand.")        
+          "{Enchant creature}{EOL}Enchanted creature has flying.{EOL}When Launch is put into a graveyard from the battlefield, return Launch to its owner's hand.")
         .Cast(p =>
           {
-            p.Timing = Timings.FirstMain();
-            p.Effect = Effect<Attach>(e => e.Modifiers(              
-              Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Flying)));
-            p.EffectTargets = L(Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));
-            p.TargetingAi = TargetingAi.CombatEnchantment();
+            p.Effect = () => new Attach(() => new AddStaticAbility(Static.Flying));
+            p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
+            p.TimingRule(new FirstMain());
+            p.TargetingRule(new CombatEnchantment());
           })
-        .Abilities(
-          TriggeredAbility(
-            "When Launch is put into a graveyard from the battlefield, return Launch to its owner's hand.",
-            Trigger<OnZoneChanged>(t =>
-              {
-                t.From = Zone.Battlefield;
-                t.To = Zone.Graveyard;
-              }),
-            Effect<ReturnToHand>(e => e.ReturnOwner = true)));
+        .TriggeredAbility(p =>
+          {
+            p.Text = "When Launch is put into a graveyard from the battlefield, return Launch to its owner's hand.";
+            p.Trigger(new OnZoneChanged(from: Zone.Battlefield, to: Zone.Graveyard));
+            p.Effect = () => new ReturnToHand(returnOwningCard: true);
+          });
     }
   }
 }

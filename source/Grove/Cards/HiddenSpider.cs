@@ -2,15 +2,15 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
+  using Core.Effects;
   using Core.Mana;
-  using Core.Modifiers;
   using Core.Triggers;
 
   public class HiddenSpider : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Hidden Spider")
@@ -19,24 +19,26 @@
         .Text(
           "When an opponent casts a creature spell with flying, if Hidden Spider is an enchantment, Hidden Spider becomes a 3/5 Spider creature with reach.")
         .FlavorText("It wants only to dress you in silk.")
-        .Cast(p => p.Timing = Timings.SecondMain())
-        .Abilities(
-          TriggeredAbility(
-            "When an opponent casts a creature spell with flying, if Hidden Spider is an enchantment, Hidden Spider becomes a 3/5 Spider creature with reach.",
-            Trigger<OnCastedSpell>(t => t.Filter =
-              (ability, card) =>
-                ability.OwningCard.Controller != card.Controller && ability.OwningCard.Is().Enchantment && card.Is().Creature &&
-                  card.Has().Flying),
-            Effect<Core.Effects.ApplyModifiersToSelf>(p => p.Effect.Modifiers(
-              Modifier<ChangeToCreature>(m =>
-                {
-                  m.Power = 3;
-                  m.Toughness = 5;
-                  m.Type = "Creature - Spider";
-                  m.Colors = ManaColors.Green;
-                }), 
-              Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Reach))),               
-            triggerOnlyIfOwningCardIsInPlay: true)
+        .Cast(p => p.TimingRule(new SecondMain()))
+        .TriggeredAbility(p =>
+          {
+            p.Text =
+              "When an opponent casts a creature spell with flying, if Hidden Spider is an enchantment, Hidden Spider becomes a 3/5 Spider creature with reach.";
+
+            p.Trigger(new OnCastedSpell(
+              filter: (ability, card) =>
+                ability.OwningCard.Controller != card.Controller && ability.OwningCard.Is().Enchantment &&
+                  card.Is().Creature &&
+                    card.Has().Flying));
+
+            p.Effect = () => new ApplyModifiersToSelf(() => new Core.Modifiers.ChangeToCreature(
+              power: 3,
+              toughness: 5,
+              type: "Creature Spider",
+              colors: ManaColors.Green));
+
+            p.TriggerOnlyIfOwningCardIsInPlay = true;
+          }
         );
     }
   }

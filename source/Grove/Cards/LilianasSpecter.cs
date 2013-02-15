@@ -2,7 +2,7 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
   using Core.Effects;
   using Core.Triggers;
@@ -10,7 +10,7 @@
 
   public class LilianasSpecter : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Liliana's Specter")
@@ -20,13 +20,14 @@
         .FlavorText("'The finest minions know what I need without me ever saying a thing.'")
         .Power(2)
         .Toughness(1)
-        .Cast(p => p.Timing = Timings.FirstMain())
-        .Abilities(
-          Static.Flying,
-          TriggeredAbility(
-            "When Liliana's Specter enters the battlefield, each opponent discards a card.",
-            Trigger<OnZoneChanged>(t => t.To = Zone.Battlefield),
-            Effect<OpponentDiscardsCards>(e => e.SelectedCount = 1)));
+        .Cast(p => p.TimingRule(new FirstMain()))
+        .StaticAbilities(Static.Flying)
+        .TriggeredAbility(p =>
+          {
+            p.Text = "When Liliana's Specter enters the battlefield, each opponent discards a card.";
+            p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
+            p.Effect = () => new OpponentDiscardsCards(selectedCount: 1);
+          });
     }
   }
 }

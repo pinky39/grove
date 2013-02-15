@@ -2,13 +2,14 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TargetingRules;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
-  using Core.Targeting;
+  using Core.Effects;
 
   public class LightningBolt : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Lightning Bolt")
@@ -17,10 +18,10 @@
         .Text("Lightning Bolt deals 3 damage to target creature or player.")
         .Cast(p =>
           {
-            p.Timing = Timings.InstantRemovalTarget();
-            p.Effect = Effect<Core.Effects.DealDamageToTargets>(e => e.Amount = 3);
-            p.EffectTargets = L(Target(Validators.CreatureOrPlayer(), Zones.Battlefield()));
-            p.TargetingAi = TargetingAi.DealDamageSingleSelector(3);
+            p.Effect = () => new DealDamageToTargets(3);
+            p.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
+            p.TargetingRule(new DealDamage(3));
+            p.TimingRule(new TargetRemoval());
           });
     }
   }

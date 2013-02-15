@@ -2,7 +2,7 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TimingRules;
   using Core.Casting;
   using Core.Dsl;
   using Core.Effects;
@@ -10,7 +10,7 @@
 
   public class IllGottenGains : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Ill-Gotten Gains")
@@ -21,18 +21,18 @@
         .FlavorText("Urza thought it a crusade. Xantcha knew it was a robbery.")
         .Cast(p =>
           {
-            p.Timing = All(Timings.SecondMain(), Timings.HasLessThanCardsInHand(count: 2));
-            p.Effect = Effect<CompoundEffect>(e => e.ChildEffects(
-              Effect<EachPlayerDiscardsHand>(),
-              Effect<EachPlayerReturnsCardsToHand>(e1 =>
-                {                      
-                  e1.MinCount = 0;
-                  e1.MaxCount = 3;
-                  e1.Zone = Zone.Graveyard;
-                  e1.AiOrdersByDescendingScore = false;
-                  e1.Text = "Select cards to return to hand";
-                })));
-            p.Rule = Rule<Sorcery>(r => r.AfterResolvePutToZone = c => c.Exile());
+            p.Effect = () => new CompoundEffect(
+              new EachPlayerDiscardsHand(),
+              new EachPlayerReturnsCardsToHand(
+                minCount: 0,
+                maxCount: 3,
+                zone: Zone.Graveyard,
+                aiOrdersByDescendingScore: false,
+                text: "Select cards in your graveyard to return to hand."));
+
+            p.Rule = new Sorcery(afterResolvePutToZone: c => c.Exile());
+            p.TimingRule(new SecondMain());
+            p.TimingRule(new ControllerHandCountIs(minCount: 0, maxCount: 2));
           });
     }
   }

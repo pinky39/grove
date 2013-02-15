@@ -4,11 +4,16 @@
 
   public class RemoveModifier : Effect
   {
-    public Type ModifierType;
+    private readonly Type _modifierType;
+    
+    public RemoveModifier(Type modifierType)
+    {
+      _modifierType = modifierType;
+    }
 
     protected override void ResolveEffect()
     {
-      Source.OwningCard.RemoveModifier(ModifierType);
+      Source.OwningCard.RemoveModifier(_modifierType);
     }
   }
 }

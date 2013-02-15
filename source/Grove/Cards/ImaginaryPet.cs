@@ -8,7 +8,7 @@
 
   public class ImaginaryPet : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Imaginary Pet")
@@ -18,20 +18,14 @@
         .FlavorText("'It followed me home. Can I keep it?'")
         .Power(4)
         .Toughness(4)
-        .Abilities(
-          TriggeredAbility(
-            "At the beginning of your upkeep, if you have a card in hand, return Imaginary Pet to its owner's hand.",
-            Trigger<OnStepStart>(t =>
-              {
-                t.Step = Step.Upkeep;
-                t.Condition = self => self.OwningCard.Controller.Hand.Count > 0;
-              }),
-            Effect<ReturnToHand>(e =>
-              {
-                e.ReturnOwner = true;
-                e.BeforeResolve = self => self.Controller.Hand.Count > 0;
-              })
-            )
+        .TriggeredAbility(p =>
+          {
+            p.Text =
+              "At the beginning of your upkeep, if you have a card in hand, return Imaginary Pet to its owner's hand.";
+
+            p.Trigger(new OnStepStart(Step.Upkeep) {Condition = (t, g) => t.OwningCard.Controller.Hand.Count > 0});
+            p.Effect = () => new ReturnToHand(returnOwningCard: true) {ShouldResolve = e => e.Controller.Hand.Count > 0};
+          }
         );
     }
   }

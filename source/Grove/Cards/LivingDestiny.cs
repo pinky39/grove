@@ -2,7 +2,8 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TargetingRules;
+  using Core.Ai.TimingRules;
   using Core.Costs;
   using Core.Dsl;
   using Core.Effects;
@@ -11,7 +12,7 @@
 
   public class LivingDestiny : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Living Destiny")
@@ -22,12 +23,14 @@
         .FlavorText("'That our enemies are great only brings us greater hope.'")
         .Cast(p =>
           {
-            p.Timing = Timings.EndOfTurn();
-            p.Cost = Cost<PayMana, Reveal>(c => c.Amount = "{3}{G}".ParseMana());
-            p.Effect = Effect<ControllerGainsLife>(e => e.Amount = e.CostTarget().Card().ManaCost.Converted);
-            p.CostTargets = L(Target(Validators.Card(card => card.Is().Creature), Zones.OwnersHand(),
-              mustBeTargetable: false));
-            p.TargetingAi = TargetingAi.GreatestConvertedManaCost();
+            p.Cost = new AggregateCost(
+              new PayMana("{3}{G}".ParseMana(), ManaUsage.Spells),
+              new Reveal());
+
+            p.Effect = () => new ControllerGainsLife(e => e.Target.Card().ManaCost.Converted);
+            p.TargetSelector.AddCost(trg => trg.Is.Creature().In.OwnersHand());
+            p.TimingRule(new EndOfTurn());
+            p.TargetingRule(new OrderByRank(c => -c.ConvertedCost));
           });
     }
   }

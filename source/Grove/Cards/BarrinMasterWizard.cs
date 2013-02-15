@@ -7,7 +7,6 @@
   using Core.Costs;
   using Core.Dsl;
   using Core.Mana;
-  using Core.Targeting;
 
   public class BarrinMasterWizard : CardsSource
   {
@@ -33,7 +32,6 @@
               .AddCost(trg =>
                 {
                   trg.Is.Card(controlledBy: ControlledBy.SpellOwner).On.Battlefield();
-                  trg.MustBeTargetable = false;
                   trg.Text = "Select a permanent to sacrifice.";
                 })
               .AddEffect(trg =>
@@ -41,9 +39,9 @@
                   trg.Is.Card(c => c.Is().Creature).On.Battlefield();
                   trg.Text = "Select a creature to bounce.";
                 });
-            
+
             p.TargetingRule(new SacrificeToBounce());
-            p.TimingRule(new TargetRemoval());            
+            p.TimingRule(new TargetRemoval());
           });
     }
   }

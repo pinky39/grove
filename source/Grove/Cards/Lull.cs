@@ -2,14 +2,15 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
+  using Core.Effects;
   using Core.Modifiers;
   using Core.Preventions;
 
   public class Lull : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Lull")
@@ -20,24 +21,21 @@
         .Cycling("{2}")
         .Cast(p =>
           {
-            p.Timing = All(Timings.Steps(Step.DeclareBlockers), Timings.Turn(active: false));
-            p.Effect = Effect<Core.Effects.ApplyModifiersToPlayer>(e =>
-              {
-                e.Player = e.Players.Passive;
-                e.Modifiers(Modifier<AddContiniousEffect>(m =>
-                  {
-                    m.AddLifetime(Lifetime<EndOfTurnLifetime>());
+            p.Effect = () => new ApplyModifiersToPlayer(
+              selector: e => e.Controller,
+              modifiers: () =>
+                {
+                  var cp = new ContinuousEffectParameters
+                    {
+                      CardFilter = (card, self) => card.Is().Creature,
+                      Modifier = () => new AddDamagePrevention(new PreventCombatDamage())
+                    };
 
-                    m.Effect =
-                      Continuous(c =>
-                        {
-                          c.ModifierFactory = Modifier<AddDamagePrevention>(
-                            m1 =>
-                              m1.Prevention = Prevention<PreventCombatDamage>());
-                          c.CardFilter = (card, self) => card.Is().Creature;
-                        });
-                  }));
-              });
+                  return new AddContiniousEffect(new ContinuousEffect(cp)) {UntilEot = true};
+                });
+
+            p.TimingRule(new Turn(passive: true));
+            p.TimingRule(new Steps(Step.DeclareBlockers));
           });
     }
   }

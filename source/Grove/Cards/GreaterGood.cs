@@ -36,8 +36,7 @@
             p.TargetSelector.AddCost(trg =>
               {
                 trg.Is.Creature(ControlledBy.SpellOwner).On.Battlefield();
-                trg.Text = "Select a creature to sacrifice.";
-                trg.MustBeTargetable = false;
+                trg.Text = "Select a creature to sacrifice.";                
               });
 
             p.TargetingRule(new SacrificeToDrawCards(c => c.Power > 3));

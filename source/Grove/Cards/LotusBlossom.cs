@@ -2,7 +2,7 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TimingRules;
   using Core.Costs;
   using Core.Counters;
   using Core.Dsl;
@@ -13,7 +13,7 @@
 
   public class LotusBlossom : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Lotus Blossom")
@@ -21,19 +21,26 @@
         .Type("Artifact")
         .Text(
           "At the beginning of your upkeep, you may put a petal counter on Lotus Blossom.{EOL}{T}, Sacrifice Lotus Blossom: Add X mana of any color to your mana pool, where X is the number of petal counters on Lotus Blossom.")
-        .Cast(p => p.Timing = Timings.SecondMain())
-        .Abilities(
-          TriggeredAbility(
-            "At the beginning of your upkeep, you may put a petal counter on Lotus Blossom.",
-            Trigger<OnStepStart>(t => t.Step = Step.Upkeep),
-            Effect<ApplyModifiersToSelf>(e => e.Modifiers(
-              Modifier<AddCounters>(m => { m.Counter = Counter<ChargeCounter>(); }))),
-            triggerOnlyIfOwningCardIsInPlay: true),
-          ManaAbility(
-            (self, game) => ManaAmount.OfSingleColor(ManaColors.All, self.OwningCard.Counters.GetValueOrDefault()),
-            "{T}, Sacrifice Lotus Blossom: Add X mana of any color to your mana pool, where X is the number of petal counters on Lotus Blossom.",
-            Cost<Tap, Sacrifice>())
-        );
+        .Cast(p => p.TimingRule(new SecondMain()))
+        .TriggeredAbility(p =>
+          {
+            p.Text = "At the beginning of your upkeep, you may put a petal counter on Lotus Blossom.";
+            p.Trigger(new OnStepStart(Step.Upkeep));
+            p.Effect = () => new ApplyModifiersToSelf(() => new AddCounters(() => new ChargeCounter(), 1));
+            p.TriggerOnlyIfOwningCardIsInPlay = true;
+          })
+        .ManaAbility(p =>
+          {
+            p.Text =
+              "{T}, Sacrifice Lotus Blossom: Add X mana of any color to your mana pool, where X is the number of petal counters on Lotus Blossom.";
+
+            p.Cost = new AggregateCost(
+              new Tap(),
+              new Sacrifice());
+
+            p.ManaAmount((self, game) =>
+              ManaAmount.OfSingleColor(ManaColors.All, self.OwningCard.Counters.GetValueOrDefault()));
+          });
     }
   }
 }

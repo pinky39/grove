@@ -15,14 +15,14 @@
 
     private EachPlayerReturnsCardsToHand() {}
 
-    public EachPlayerReturnsCardsToHand(int minCount, int maxCount, Func<Card, bool> filter, Zone zone,
-      bool aiOrdersByDescendingScore, string text)
+    public EachPlayerReturnsCardsToHand(int minCount, int maxCount, Zone zone,
+      bool aiOrdersByDescendingScore, string text, Func<Card, bool> filter = null)
     {
       _minCount = minCount;
       _text = text;
       _aiOrdersByDescendingScore = aiOrdersByDescendingScore;
       _zone = zone;
-      _filter = filter;
+      _filter = filter ?? delegate { return true; };
       _maxCount = maxCount;
     }
 

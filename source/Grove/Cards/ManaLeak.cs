@@ -2,15 +2,13 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
   using Core.Dsl;
   using Core.Effects;
   using Core.Mana;
-  using Core.Targeting;
 
   public class ManaLeak : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Mana Leak")
@@ -20,11 +18,10 @@
         .FlavorText("The fatal flaw in every plan is the assumption that you know more than your enemy.")
         .Cast(p =>
           {
-            p.Timing = Timings.CounterSpell(3);
-            p.Category = EffectCategories.Counterspell;
-            p.Effect = Effect<CounterTargetSpell>(e => e.DoNotCounterCost = 3.Colorless());
-            p.EffectTargets = L(Target(Validators.CounterableSpell(), Zones.Stack()));
-            p.TargetingAi = TargetingAi.CounterSpell();
+            p.Effect = () => new CounterTargetSpell(doNotCounterCost: 3.Colorless());
+            p.TargetSelector.AddEffect(trg => trg.Is.Counterable().On.Stack());
+            p.TimingRule(new Core.Ai.TimingRules.Counterspell(3));
+            p.TargetingRule(new Core.Ai.TargetingRules.Counterspell());
           });
     }
   }

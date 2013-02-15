@@ -2,19 +2,18 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TimingRules;
   using Core.Costs;
   using Core.Counters;
   using Core.Dsl;
   using Core.Effects;
   using Core.Mana;
   using Core.Modifiers;
-  using Core.Targeting;
   using Core.Triggers;
 
   public class LiltingRefrain : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Lilting Refrain")
@@ -22,23 +21,26 @@
         .Type("Enchantment")
         .Text(
           "At the beginning of your upkeep, you may put a verse counter on Lilting Refrain.{EOL}Sacrifice Lilting Refrain: Counter target spell unless its controller pays , where X is the number of verse counters on Lilting Refrain.")
-        .Cast(p => p.Timing = Timings.SecondMain())
-        .Abilities(
-          TriggeredAbility(
-            "At the beginning of your upkeep, you may put a verse counter on Lilting Refrain.",
-            Trigger<OnStepStart>(t => t.Step = Step.Upkeep),
-            Effect<ApplyModifiersToSelf>(e => e.Modifiers(
-              Modifier<AddCounters>(m => { m.Counter = Counter<ChargeCounter>(); }))),
-            triggerOnlyIfOwningCardIsInPlay: true
-            ),
-          ActivatedAbility(
-            "Sacrifice Lilting Refrain: Counter target spell unless its controller pays , where X is the number of verse counters on Lilting Refrain.",
-            Cost<Sacrifice>(),
-            Effect<CounterTargetSpell>(
-              e => { e.DoNotCounterCost = e.Source.OwningCard.Counters.GetValueOrDefault().Colorless(); }),
-            Target(Validators.CounterableSpell(), Zones.Stack()),
-            timing: Timings.CounterSpell(),
-            targetingAi: TargetingAi.CounterSpell()));
+        .Cast(p => p.TimingRule(new SecondMain()))
+        .TriggeredAbility(p =>
+          {
+            p.Text = "At the beginning of your upkeep, you may put a verse counter on Lilting Refrain.";
+            p.Trigger(new OnStepStart(Step.Upkeep));
+            p.Effect = () => new ApplyModifiersToSelf(() => new AddCounters(() => new ChargeCounter(), 1));
+            p.TriggerOnlyIfOwningCardIsInPlay = true;
+          })
+        .ActivatedAbility(p =>
+          {
+            p.Text =
+              "Sacrifice Lilting Refrain: Counter target spell unless its controller pays , where X is the number of verse counters on Lilting Refrain.";
+            p.Cost = new Sacrifice();
+            p.Effect = () => new CounterTargetSpell(
+              doNotCounterCost: e => e.Source.OwningCard.Counters.GetValueOrDefault().Colorless());
+
+            p.TargetSelector.AddEffect(trg => trg.Is.Counterable().On.Stack());
+            p.TimingRule(new Core.Ai.TimingRules.Counterspell());
+            p.TargetingRule(new Core.Ai.TargetingRules.Counterspell());
+          });
     }
   }
 }
