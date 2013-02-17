@@ -23,7 +23,7 @@
           "{Enchant creature}{EOL}Sacrifice a Forest: Regenerate enchanted creature.{EOL}When Fortitude is put into a graveyard from the battlefield, return Fortitude to its owner's hand.")
         .Cast(p =>
           {
-            p.Effect = () => new Attach(() => new AddActivatedAbility(() =>
+            p.Effect = () => new Attach(() =>
               {
                 var ap = new ActivatedAbilityParameters
                   {
@@ -39,8 +39,8 @@
                 ap.TimingRule(new Core.Ai.TimingRules.Regenerate());
                 ap.TargetingRule(new SacrificeToRegenerate());
 
-                return new ActivatedAbility(ap);
-              }));
+                return new AddActivatedAbility(new ActivatedAbility(ap));
+              });
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
             p.TimingRule(new FirstMain());

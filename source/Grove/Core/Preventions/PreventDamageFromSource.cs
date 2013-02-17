@@ -1,22 +1,21 @@
 ﻿namespace Grove.Core.Preventions
 {
-  using Grove.Infrastructure;
-
   public class PreventDamageFromSource : DamagePrevention
   {
-    public Card Source { get; set; }
-    public bool OnlyOnce { get; set; }
+    private readonly bool _onlyOnce;
+    private readonly Card _source;
 
-    protected override void Initialize()
+    public PreventDamageFromSource(Card source, bool onlyOnce = true)
     {
-      EndOfLife = new TrackableEvent(this, Game.ChangeTracker);
+      _onlyOnce = onlyOnce;
+      _source = source;
     }
 
     public override void PreventReceivedDamage(Damage damage)
     {
-      if (damage.Source == Source)
+      if (damage.Source == _source)
       {
-        if (OnlyOnce)
+        if (_onlyOnce)
           EndOfLife.Raise();
 
         damage.PreventAll();
@@ -25,7 +24,7 @@
 
     public override int EvaluateReceivedDamage(Card source, int amount, bool isCombat)
     {
-      return source == Source ? 0 : amount;
+      return source == _source ? 0 : amount;
     }
   }
 }

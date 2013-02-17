@@ -1,20 +1,13 @@
 ﻿namespace Grove.Core.Redirections
 {
   using System.Linq;
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Modifiers;
 
   [Copyable]
   public class DamageRedirections : IModifiable, IHashable
   {
-    private readonly TrackableList<DamageRedirection> _redirections;
-
-    private DamageRedirections() {}
-
-    public DamageRedirections(ChangeTracker changeTracker, IHashDependancy hashDependancy)
-    {
-      _redirections = new TrackableList<DamageRedirection>(changeTracker, hashDependancy);
-    }
+    private readonly TrackableList<DamageRedirection> _redirections = new TrackableList<DamageRedirection>();
 
     public int CalculateHash(HashCalculator calc)
     {
@@ -24,6 +17,11 @@
     public void Accept(IModifier modifier)
     {
       modifier.Apply(this);
+    }
+
+    public void Initialize(ChangeTracker changeTracker, IHashDependancy hashDependancy)
+    {
+      _redirections.Initialize(changeTracker, hashDependancy);
     }
 
     public void Add(DamageRedirection prevention)

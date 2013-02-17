@@ -2,15 +2,15 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
+  using Core.Effects;
   using Core.Mana;
-  using Core.Modifiers;
   using Core.Triggers;
 
   public class OpalCaryatid : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Opal Caryatid")
@@ -18,24 +18,23 @@
         .Type("Enchantment")
         .Text(
           "When an opponent casts a creature spell, if Opal Caryatid is an enchantment, Opal Caryatid becomes a 2/2 Soldier creature.")
-        .Cast(p => p.Timing = Timings.SecondMain())
-        .Abilities(
-          TriggeredAbility(
-            "When an opponent casts a creature spell, if Opal Caryatid is an enchantment, Opal Caryatid becomes a 2/2 Soldier creature.",
-            Trigger<OnCastedSpell>(t => t.Filter =
-              (ability, card) =>
-                ability.OwningCard.Controller != card.Controller && ability.OwningCard.Is().Enchantment && card.Is().Creature),
-            Effect<Core.Effects.ApplyModifiersToSelf>(p => p.Effect.Modifiers(
-              Modifier<ChangeToCreature>(m =>
-                {
-                  m.Power = 2;
-                  m.Toughness = 2;
-                  m.Type = "Creature - Soldier";
-                  m.Colors = ManaColors.White;
-                })
-              ))
-            , triggerOnlyIfOwningCardIsInPlay: true)
-        );
+        .Cast(p => p.TimingRule(new SecondMain()))
+        .TriggeredAbility(p =>
+          {
+            p.Text =
+              "When an opponent casts a creature spell, if Opal Caryatid is an enchantment, Opal Caryatid becomes a 2/2 Soldier creature.";
+            p.Trigger(new OnCastedSpell(
+              filter: (ability, card) =>
+                ability.OwningCard.Controller != card.Controller && ability.OwningCard.Is().Enchantment &&
+                  card.Is().Creature));
+            p.Effect = () => new ApplyModifiersToSelf(() => new Core.Modifiers.ChangeToCreature(
+              power: 2,
+              toughness: 2,
+              type: "Creature Soldier",
+              colors: ManaColors.White));
+
+            p.TriggerOnlyIfOwningCardIsInPlay = true;
+          });
     }
   }
 }

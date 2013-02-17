@@ -3,13 +3,14 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
+  using Core.Ai.TargetingRules;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
   using Core.Effects;
-  using Core.Targeting;
 
   public class Recoil : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Recoil")
@@ -19,11 +20,11 @@
         .FlavorText("Anything sent into a plagued world is bound to come back infected.")
         .Cast(p =>
           {
-            p.Timing = Timings.InstantRemovalTarget();
-            p.Category = EffectCategories.Bounce;
-            p.Effect = Effect<ReturnToHand>(e => { e.Discard = 1; });
-            p.EffectTargets = L(Target(Validators.Card(), Zones.Battlefield()));
-            p.TargetingAi = TargetingAi.Bounce();
+            p.Effect = () => new ReturnToHand(discard: 1) {Category = EffectCategories.Bounce};
+            p.TargetSelector.AddEffect(trg => trg.Is.Card().On.Battlefield());
+
+            p.TimingRule(new TargetRemoval());
+            p.TargetingRule(new Bounce());
           });
     }
   }

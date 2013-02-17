@@ -2,16 +2,16 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TargetingRules;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
   using Core.Effects;
-  using Core.Targeting;
   using Core.Triggers;
   using Core.Zones;
 
   public class MonkRealist : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Monk Realist")
@@ -21,15 +21,20 @@
         .FlavorText("We plant the seeds of doubt to harvest the crop of wisdom.")
         .Power(1)
         .Toughness(1)
-        .Cast(p => p.Timing = All(Timings.FirstMain(), Timings.OpponentHasPermanent(card => card.Is().Enchantment)))        
-        .Abilities(
-          TriggeredAbility(
-            "When Monk Realist enters the battlefield, destroy target enchantment.",
-            Trigger<OnZoneChanged>(t => t.To = Zone.Battlefield),
-            Effect<DestroyTargetPermanents>(),
-            Target(Validators.Card(card => card.Is().Enchantment), Zones.Battlefield()),
-            selectorAi: TargetingAi.OrderByScore(),
-            abilityCategory: EffectCategories.Destruction)
+        .Cast(p =>
+          {
+            p.TimingRule(new FirstMain());
+            p.TimingRule(new OpponentHasPermanents(c => c.Is().Enchantment));
+          })
+        .TriggeredAbility(p =>
+          {
+            p.Text = "When Monk Realist enters the battlefield, destroy target enchantment.";
+            p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
+            p.Effect = () => new DestroyTargetPermanents();
+            p.TargetSelector.AddEffect(trg => trg.Is.Enchantment().On.Battlefield());
+
+            p.TargetingRule(new Destroy());
+          }
         );
     }
   }

@@ -7,14 +7,17 @@
 
   public class Mountain : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Mountain")
         .Type("Basic Land - Mountain")
         .Text("{T}: Add {R} to your mana pool.")
-        .Abilities(
-          ManaAbility(ManaUnit.Red, "{T}: Add {R} to your mana pool."));
+        .ManaAbility(p =>
+          {
+            p.Text = "{T}: Add {R} to your mana pool.";
+            p.ManaAmount(ManaAmount.Red);
+          });
     }
   }
 }

@@ -1,24 +1,29 @@
 ﻿namespace Grove.Core.Modifiers
 {
-  using Grove.Core.Targeting;
+  using Targeting;
 
   public class AddTriggeredAbility : Modifier
   {
-    private TriggeredAbility _ability;
+    private readonly TriggeredAbility _triggeredAbility;
     private TriggeredAbilities _abilties;
 
-    public ITriggeredAbilityFactory Ability { get; set; }
+    private AddTriggeredAbility() {}
+
+    public AddTriggeredAbility(TriggeredAbility triggeredAbility)
+    {
+      _triggeredAbility = triggeredAbility;
+    }
 
     public override void Apply(TriggeredAbilities abilities)
     {
       _abilties = abilities;
-      _ability = Ability.Create((Card) Target, Source, Game);
-      _abilties.Add(_ability);
+      _triggeredAbility.Initialize(Target.Card(), Game);
+      _abilties.Add(_triggeredAbility);
     }
 
     protected override void Unapply()
     {
-      _abilties.Remove(_ability);
+      _abilties.Remove(_triggeredAbility);
     }
   }
 }

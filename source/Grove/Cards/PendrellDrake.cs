@@ -6,7 +6,7 @@
 
   public class PendrellDrake : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Pendrell Drake")
@@ -18,9 +18,7 @@
         .Power(2)
         .Toughness(3)
         .Cycling("{2}")
-        .Abilities(
-          Static.Flying
-        );
+        .StaticAbilities(Static.Flying);
     }
   }
 }

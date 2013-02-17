@@ -10,7 +10,8 @@
       var targetModifier = new ChangeController(Controller);
       targetModifier.Initialize(new ModifierParameters
         {
-          Source = Source.OwningCard,
+          SourceEffect = this,
+          SourceCard = Source.OwningCard,
           Target = Target,
           X = X
         }, Game);
@@ -20,7 +21,8 @@
       var sourceModifier = new ChangeController(Controller.Opponent);
       sourceModifier.Initialize(new ModifierParameters
         {
-          Source = Source.OwningCard,
+          SourceEffect = this,
+          SourceCard = Source.OwningCard,
           Target = Source.OwningCard,
           X = X
         }, Game);

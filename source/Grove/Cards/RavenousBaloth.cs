@@ -2,15 +2,14 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TargetingRules;
   using Core.Costs;
   using Core.Dsl;
   using Core.Effects;
-  using Core.Targeting;
 
   public class RavenousBaloth : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Ravenous Baloth")
@@ -20,18 +19,15 @@
         .FlavorText(
           "All we know about the Krosan Forest we have learned from those few who made it out alive.{EOL}—Elvish refugee")
         .Power(4)
-        .Toughness(4)        
-        .Abilities(
-          ActivatedAbility(
-            "Sacrifice a Beast: You gain 4 life.",
-            Cost<Sacrifice>(),
-            Effect<ControllerGainsLife>(e => e.Amount = 4),
-            costTarget: Target(
-              Validators.Card(ControlledBy.SpellOwner, card => card.Is("beast")),
-              Zones.Battlefield(),
-              mustBeTargetable: false),
-            targetingAi: TargetingAi.CostSacrificeGainLife(),
-            timing: Timings.NoRestrictions()));
+        .Toughness(4)
+        .ActivatedAbility(p =>
+          {
+            p.Text = "Sacrifice a Beast: You gain 4 life.";
+            p.Cost = new Sacrifice();
+            p.Effect = () => new ControllerGainsLife(4);
+            p.TargetSelector.AddCost(trg => trg.Is.Card(c => c.Is("beast"), ControlledBy.SpellOwner).On.Battlefield());
+            p.TargetingRule(new SacrificeToGainLife());
+          });
     }
   }
 }

@@ -24,7 +24,7 @@
           "Enchant creature{EOL}{R}: Enchanted creature gets +1/+0 until end of turn.{EOL}When Fiery Mantle is put into a graveyard from the battlefield, return Fiery Mantle to its owner's hand.")
         .Cast(p =>
           {
-            p.Effect = () => new Attach(() => new AddActivatedAbility(() =>
+            p.Effect = () => new Attach(() =>
               {
                 var ap = new ActivatedAbilityParameters
                   {
@@ -35,9 +35,8 @@
 
                 ap.TimingRule(new IncreaseOwnersPowerOrToughness(1, 0));
 
-                return new ActivatedAbility(ap);
-              })
-              );
+                return new AddActivatedAbility(new ActivatedAbility(ap));
+              });
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 

@@ -1,9 +1,8 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
   using Core.Effects;
   using Core.Mana;
@@ -12,7 +11,7 @@
 
   public class OpalGargoyle : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Opal Gargoyle")
@@ -20,25 +19,26 @@
         .Type("Enchantment")
         .Text(
           "When an opponent casts a creature spell, if Opal Gargoyle is an enchantment, Opal Gargoyle becomes a 2/2 Gargoyle creature with flying.")
-        .Cast(p => p.Timing = Timings.SecondMain())
-        .Abilities(
-          TriggeredAbility(
-            "When an opponent casts a creature spell, if Opal Gargoyle is an enchantment, Opal Gargoyle becomes a 2/2 Gargoyle creature with flying.",
-            Trigger<OnCastedSpell>(t => t.Filter =
-              (ability, card) =>
-                ability.OwningCard.Controller != card.Controller && ability.OwningCard.Is().Enchantment && card.Is().Creature),
-            Effect<ApplyModifiersToSelf>(e => e.Modifiers(
-              Modifier<ChangeToCreature>(m =>
-                {
-                  m.Power = 2;
-                  m.Toughness = 2;                  
-                  m.Type = "Creature - Gargoyle";
-                  m.Colors = ManaColors.White;
-                }),
-              Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Flying)
-              ))
-            , triggerOnlyIfOwningCardIsInPlay: true)
-        );
+        .Cast(p => p.TimingRule(new SecondMain()))
+        .TriggeredAbility(p =>
+          {
+            p.Text =
+              "When an opponent casts a creature spell, if Opal Gargoyle is an enchantment, Opal Gargoyle becomes a 2/2 Gargoyle creature with flying.";
+            p.Trigger(new OnCastedSpell(
+              filter: (ability, card) =>
+                ability.OwningCard.Controller != card.Controller && ability.OwningCard.Is().Enchantment &&
+                  card.Is().Creature));
+
+            p.Effect = () => new ApplyModifiersToSelf(
+              () => new Core.Modifiers.ChangeToCreature(
+                power: 2,
+                toughness: 2,
+                type: "Creature Gargoyle",
+                colors: ManaColors.White),
+              () => new AddStaticAbility(Static.Flying));
+
+            p.TriggerOnlyIfOwningCardIsInPlay = true;
+          });
     }
   }
 }

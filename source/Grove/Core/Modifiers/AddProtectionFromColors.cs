@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core.Modifiers
 {
+  using System;
   using Mana;
 
   public class AddProtectionFromColors : Modifier
@@ -7,6 +8,16 @@
     private readonly ManaColors _colors;
     private Protections _protections;
 
+    private AddProtectionFromColors()
+    {
+      
+    }
+
+    public AddProtectionFromColors(Func<Modifier, ManaColors> colors)
+    {
+      
+    }
+    
     public AddProtectionFromColors(ManaColors colors)
     {
       _colors = colors;

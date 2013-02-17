@@ -1,14 +1,23 @@
 ﻿namespace Grove.Core.Redirections
 {
-  using Grove.Core.Targeting;
+  using System;
+  using Targeting;
 
   public class RedirectDamageToTarget : DamageRedirection
   {
-    public ITarget Target { get; set; }
+    private readonly Func<DamageRedirection, ITarget> _target;
+
+    private RedirectDamageToTarget() {}
+
+    public RedirectDamageToTarget(Func<DamageRedirection, ITarget> target)
+    {
+      _target = target;
+    }
+
 
     protected override bool Redirect(Damage damage)
     {
-      Target.DealDamage(damage);
+      _target(this).DealDamage(damage);
 
       return true;
     }

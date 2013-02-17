@@ -6,7 +6,7 @@
 
   public class OrderOfTheSacredBell : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Order of the Sacred Bell")

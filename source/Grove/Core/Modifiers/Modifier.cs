@@ -2,6 +2,7 @@
 {
   using System;
   using Counters;
+  using Effects;
   using Infrastructure;
   using Preventions;
   using Redirections;
@@ -14,6 +15,7 @@
   {
     private readonly TrackableList<Lifetime> _lifetimes = new TrackableList<Lifetime>();
     public Card Source { get; private set; }
+    public Effect SourceEffect { get; private set; }
     public ITarget Target { get; private set; }
     public int? X { get; private set; }
     public bool UntilEot;    
@@ -93,8 +95,9 @@
     public virtual Modifier Initialize(ModifierParameters p, Game game)
     {
       Game = game;
-      Source = p.Source;
+      Source = p.SourceCard;
       Target = p.Target;
+      SourceEffect = p.SourceEffect;
       X = p.X;
 
       CreateDefaultLifetimes();

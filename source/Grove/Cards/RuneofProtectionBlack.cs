@@ -2,16 +2,16 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TargetingRules;
+  using Core.Ai.TimingRules;
   using Core.Costs;
   using Core.Dsl;
   using Core.Effects;
   using Core.Mana;
-  using Core.Targeting;
 
   public class RuneofProtectionBlack : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Rune of Protection: Black")
@@ -19,19 +19,23 @@
         .Type("Enchantment")
         .Text(
           "{W}: The next time a black source of your choice would deal damage to you this turn, prevent that damage.{EOL}Cycling {2} ({2}, Discard this card: Draw a card.)")
-        .Cast(p => p.Timing = Timings.FirstMain())
+        .Cast(p => p.TimingRule(new FirstMain()))
         .Cycling("{2}")
-        .Abilities(
-          ActivatedAbility(
-            "{W}: The next time a black source of your choice would deal damage to you this turn, prevent that damage.",
-            Cost<PayMana>(cost => { cost.Amount = ManaAmount.White; }),
-            Effect<PreventDamageFromSourceToController>(e => e.OnlyOnce = true), 
-            Target(
-              Validators.Card(card => card.HasColors(ManaColors.Black)), 
-              Zones.BattlefieldOrStack(), text: "Select a damage source."),
-            targetingAi: TargetingAi.PreventDamageFromSourceToController(),
-            timing: Timings.NoRestrictions())
-        );
+        .ActivatedAbility(p =>
+          {
+            p.Text =
+              "{W}: The next time a black source of your choice would deal damage to you this turn, prevent that damage.";
+            p.Cost = new PayMana(ManaAmount.White, ManaUsage.Abilities);
+            p.Effect = () => new PreventNextDamageFromSourceToController();
+            
+            p.TargetSelector.AddEffect(trg =>
+              {
+                trg.Is.Card(c => c.HasColors(ManaColors.Black)).On.BattlefieldOrStack();
+                trg.Text = "Select damage source.";
+              });
+
+            p.TargetingRule(new PreventDamageFromSourceToController());
+          });
     }
   }
 }

@@ -2,34 +2,32 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.CostRules;
   using Core.Dsl;
   using Core.Effects;
   using Core.Mana;
-  using Core.Targeting;
 
   public class PowerSink : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Power Sink")
-        .ManaCost("{U}")
+        .ManaCost("{U}").HasXInCost()
         .Type("Instant")
         .Text(
           "Counter target spell unless its controller pays X. If he or she doesn't, that player taps all lands with mana abilities he or she controls and empties his or her mana pool.")
         .Cast(p =>
           {
-            p.Timing = Timings.CounterSpell();
-            p.Category = EffectCategories.Counterspell;
-            p.XCalculator = ChooseXAi.CounterUnlessPay();
-            p.Effect = Effect<CounterTargetSpell>(e =>
-              {
-                e.DoNotCounterCost = e.X.GetValueOrDefault().Colorless();
-                e.TapLandsEmptyPool = true;
-              });
-            p.EffectTargets = L(Target(Validators.CounterableSpell(), Zones.Stack()));
-            p.TargetingAi = TargetingAi.CounterSpell();
+            p.Effect = () => new CounterTargetSpell(
+              doNotCounterCost: e => e.X.GetValueOrDefault().Colorless(),
+              tapLandsAndEmptyManaPool: true);
+
+            p.TargetSelector.AddEffect(trg => trg.Is.Counterable().On.Stack());
+
+            p.CostRule(new CounterUnlessOpponentPaysX());
+            p.TimingRule(new Core.Ai.TimingRules.Counterspell());
+            p.TargetingRule(new Core.Ai.TargetingRules.Counterspell());
           });
     }
   }

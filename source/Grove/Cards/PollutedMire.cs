@@ -8,17 +8,20 @@
 
   public class PollutedMire : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Polluted Mire")
         .Type("Land")
         .Text(
           "Polluted Mire enters the battlefield tapped.{EOL}{T}: Add {B} to your mana pool.{EOL}{Cycling} {2}({2}, Discard this card: Draw a card.)")
-        .Cast(p => Effect<PutIntoPlay>(e => e.PutIntoPlayTapped = true))
+        .Cast(p => p.Effect = () => new PutIntoPlay(putIntoPlayTapped: true))
         .Cycling("{2}")
-        .Abilities(
-          ManaAbility(new ManaUnit(ManaColors.Black), "{T}: Add {B} to your mana pool."));
+        .ManaAbility(p =>
+          {
+            p.Text = "{T}: Add {B} to your mana pool.";
+            p.ManaAmount(ManaAmount.Black);
+          });
     }
   }
 }

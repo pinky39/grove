@@ -136,11 +136,11 @@
     {
       var p = new ModifierParameters
         {
-          Source = Source,
+          SourceCard = Source,
           Target = target
         };
 
-      var modifier = _modifierFactory(p, Game);
+      var modifier = _modifierFactory().Initialize(p , Game);
       _modifiers.Add(modifier);
 
       _doNotUpdate.Value = modifier;

@@ -56,7 +56,8 @@
         {
           var p = new ModifierParameters
             {
-              Source = Source.OwningCard,
+              SourceEffect = this,
+              SourceCard = Source.OwningCard,
               Target = creature,
               X = X
             };

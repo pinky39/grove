@@ -23,7 +23,7 @@
         .ContinuousEffect(p =>
           {
             p.CardFilter = (card, effect) => card.Controller == effect.Source.Controller && card.Is().Creature;
-            p.Modifier = () => new AddActivatedAbility(() =>
+            p.Modifier = () =>
               {
                 var mp = new ManaAbilityParameters
                   {
@@ -32,8 +32,8 @@
                     Priority = ManaSourcePriorities.Creature
                   }.ManaAmount(ManaAmount.Green);
 
-                return new ManaAbility(mp);
-              });
+                return new AddActivatedAbility(new ManaAbility(mp));
+              };
           });
     }
   }

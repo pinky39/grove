@@ -1,19 +1,18 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TargetingRules;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
   using Core.Effects;
   using Core.Modifiers;
-  using Core.Targeting;
   using Core.Triggers;
   using Core.Zones;
 
   public class Rancor : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Rancor")
@@ -24,22 +23,20 @@
         .FlavorText("Hatred outlives the hateful.")
         .Cast(p =>
           {
-            p.Timing = Timings.FirstMain();
-            p.Effect = Effect<Attach>(e => e.Modifiers(
-              Modifier<AddPowerAndToughness>(m => m.Power = 2),
-              Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Trample)));
-            p.EffectTargets = L(Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));
-            p.TargetingAi = TargetingAi.CombatEnchantment();
+            p.Effect = () => new Attach(
+              () => new AddPowerAndToughness(2, 0),
+              () => new AddStaticAbility(Static.Trample));
+
+            p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
+            p.TimingRule(new FirstMain());
+            p.TargetingRule(new CombatEnchantment());
           })
-        .Abilities(
-          TriggeredAbility(
-            "When Rancor is put into a graveyard from the battlefield, return Rancor to its owner's hand.",
-            Trigger<OnZoneChanged>(t =>
-              {
-                t.From = Zone.Battlefield;
-                t.To = Zone.Graveyard;
-              }),
-            Effect<ReturnToHand>(e => e.ReturnOwner = true)));
+        .TriggeredAbility(p =>
+          {
+            p.Text = "When Rancor is put into a graveyard from the battlefield, return Rancor to its owner's hand.";
+            p.Trigger(new OnZoneChanged(from: Zone.Battlefield, to: Zone.Graveyard));
+            p.Effect = () => new ReturnToHand(returnOwningCard: true);
+          });
     }
   }
 }

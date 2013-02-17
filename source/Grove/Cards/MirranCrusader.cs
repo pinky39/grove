@@ -7,7 +7,7 @@
 
   public class MirranCrusader : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Mirran Crusader")
@@ -18,7 +18,7 @@
         .Power(2)
         .Toughness(2)
         .Protections(ManaColors.Black | ManaColors.Green)
-        .Abilities(Static.DoubleStrike);
+        .StaticAbilities(Static.DoubleStrike);
     }
   }
 }

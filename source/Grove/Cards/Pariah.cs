@@ -2,15 +2,16 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TargetingRules;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
+  using Core.Effects;
   using Core.Modifiers;
   using Core.Redirections;
-  using Core.Targeting;
 
   public class Pariah : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Pariah")
@@ -21,17 +22,15 @@
           "'It is not sad', Radiant chided the lesser angel. 'It is right. Every society must have its outcasts.'")
         .Cast(p =>
           {
-            p.Timing = Timings.FirstMain();
-            p.Effect = Effect<Core.Effects.Attach>(e =>
-              {
-                e.ModifiesAttachmentController = true;
-                e.Modifiers(
-                  Modifier<AddDamageRedirection>(m =>
-                    m.Redirection = Redirection<RedirectDamageToTarget>(r => { r.Target = m.Source.AttachedTo; }))
-                  );
-              });
-            p.EffectTargets = L(Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));
-            p.TargetingAi = TargetingAi.DamageRedirection();
+            p.Effect = () => new Attach(
+              modifiesAttachmentController: true,
+              modifiers: () => new AddDamageRedirection(
+                new RedirectDamageToTarget(r => r.Modifier.Source.AttachedTo)));
+
+            p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
+
+            p.TimingRule(new FirstMain());
+            p.TargetingRule(new DamageRedirectionEnchantment());
           });
     }
   }

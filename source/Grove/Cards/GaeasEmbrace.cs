@@ -24,25 +24,22 @@
         .FlavorText("The forest rose to the battle, not to save the people but to save itself.")
         .Cast(p =>
           {
-            p.Effect = () => new Attach(
+            p.Effect = () => new Attach(() =>
+              {
+                var ap = new ActivatedAbilityParameters
+                  {
+                    Text = "{G}: Regenerate enchanted creature.",
+                    Cost = new PayMana(ManaAmount.Green, ManaUsage.Abilities),
+                    Effect = () => new Core.Effects.Regenerate()
+                  };
 
-              () => new AddActivatedAbility(() =>
-                {
-                  var ap = new ActivatedAbilityParameters
-                    {
-                      Text = "{G}: Regenerate enchanted creature.",
-                      Cost = new PayMana(ManaAmount.Green, ManaUsage.Abilities),
-                      Effect = () => new Core.Effects.Regenerate()
-                    };
+                ap.TimingRule(new Core.Ai.TimingRules.Regenerate());
 
-                  ap.TimingRule(new Core.Ai.TimingRules.Regenerate());
-
-                  return new ActivatedAbility(ap);
-                }),
+                return new AddActivatedAbility(new ActivatedAbility(ap));
+              },
               () => new AddPowerAndToughness(3, 3),
               () => new AddStaticAbility(Static.Trample)
-              
-              ){Category = EffectCategories.ToughnessIncrease};
+              ) {Category = EffectCategories.ToughnessIncrease};
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
             p.TimingRule(new FirstMain());

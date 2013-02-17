@@ -72,15 +72,28 @@
     public TargetValidatorParameters Card(Func<Card, bool> filter = null, ControlledBy? controlledBy = null)
     {
       filter = filter ?? delegate { return true; };
-      
-      _p.TargetSpec = p => p.Target.IsCard() &&
-        HasValidController(p.Target.Card().Controller, p.Effect.Source.OwningCard.Controller, controlledBy) && 
-        filter(p.Target.Card());
+
+      _p.TargetSpec = p =>
+        {
+          if (p.Target.IsCard())
+          {
+            return HasValidController(p.Target.Controller(), p.Effect.Source.OwningCard.Controller, controlledBy) &&
+              filter(p.Target.Card());
+          }
+
+          if (p.Target.IsEffect())
+          {
+            return HasValidController(p.Target.Controller(), p.Effect.Source.OwningCard.Controller, controlledBy) &&
+              filter(p.Target.Effect().Source.OwningCard);
+          }
+
+          return false;
+        };
 
       return _p;
     }
 
-    private bool HasValidController(Player targetController, Player sourceController, ControlledBy? controlledBy)
+    private static bool HasValidController(Player targetController, Player sourceController, ControlledBy? controlledBy)
     {
       if (controlledBy == null)
         return true;

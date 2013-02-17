@@ -31,7 +31,8 @@
       {
         var p = new ModifierParameters
           {
-            Source = Source.OwningCard,
+            SourceEffect = this,
+            SourceCard = Source.OwningCard,
             Target = _selector(this),
             X = X
           };

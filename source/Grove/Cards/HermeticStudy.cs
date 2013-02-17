@@ -22,7 +22,7 @@
         .FlavorText("'Books can be replaced; a prize student cannot. Be patient.'{EOL}—Urza, to Barrin")
         .Cast(p =>
           {
-            p.Effect = () => new Attach(() => new AddActivatedAbility(() =>
+            p.Effect = () => new Attach(() =>
               {
                 var ap = new ActivatedAbilityParameters
                   {
@@ -35,8 +35,8 @@
                 ap.TargetingRule(new DealDamage(1));
                 ap.TimingRule(new TargetRemoval());
 
-                return new ActivatedAbility(ap);
-              }));
+                return new AddActivatedAbility(new ActivatedAbility(ap));
+              });
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
             p.TimingRule(new SecondMain());

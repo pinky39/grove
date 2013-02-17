@@ -3,13 +3,15 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
+  using Core.Ai.TargetingRules;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
+  using Core.Effects;
   using Core.Modifiers;
-  using Core.Targeting;
 
   public class Pacifism : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Pacifism")
@@ -19,12 +21,17 @@
         .FlavorText("'Fight? I cannot. I do not care if I live or die, so long as I can rest.'{EOL}—Urza, to Serra")
         .Cast(p =>
           {
-            p.Timing = Timings.FirstMain();
-            p.Effect = Effect<Core.Effects.Attach>(e => e.Modifiers(
-              Modifier<AddStaticAbility>(m => m.StaticAbility = Static.CannotBlock),
-              Modifier<AddStaticAbility>(m => m.StaticAbility = Static.CannotAttack)));
-            p.EffectTargets = L(Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));
-            p.TargetingAi = TargetingAi.Pacifism();
+            p.Effect = () => new Attach(
+              () => new AddStaticAbility(Static.CannotBlock),
+              () => new AddStaticAbility(Static.CannotAttack))
+              {
+                Category = EffectCategories.Destruction
+              };
+
+            p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
+
+            p.TimingRule(new FirstMain());
+            p.TargetingRule(new Destroy());
           });
     }
   }

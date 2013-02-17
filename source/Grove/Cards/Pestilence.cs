@@ -2,7 +2,7 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TimingRules;
   using Core.Costs;
   using Core.Dsl;
   using Core.Effects;
@@ -12,7 +12,7 @@
 
   public class Pestilence : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Pestilence")
@@ -20,30 +20,32 @@
         .Type("Enchantment")
         .Text(
           "At the beginning of the end step, if no creatures are on the battlefield, sacrifice Pestilence.{EOL}{B}: Pestilence deals 1 damage to each creature and each player.")
-        .Cast(p => p.Timing = All(Timings.FirstMain(), Timings.OnlyOneOfKind()))                  
-        .Abilities(
-          TriggeredAbility(
-            "At the beginning of the end step, if no creatures are on the battlefield, sacrifice Pestilence.",
-            Trigger<OnStepStart>(t =>
+        .Cast(p =>
+          {
+            p.TimingRule(new FirstMain());
+            p.TimingRule(new ThereCanBeOnlyOne());
+          })
+        .TriggeredAbility(p =>
+          {
+            p.Text = "At the beginning of the end step, if no creatures are on the battlefield, sacrifice Pestilence.";
+            p.Trigger(new OnStepStart(Step.EndOfTurn, activeTurn: true, passiveTurn: true)
               {
-                t.ActiveTurn = true;
-                t.PassiveTurn = true;
-                t.Step = Step.EndOfTurn;
-                t.Condition = self => self.Game.Players.Permanents().None(x => x.Is().Creature);
-              }),
-            Effect<SacrificeSource>(), 
-            triggerOnlyIfOwningCardIsInPlay: true
-            ),
-          ActivatedAbility(
-            "{B}: Pestilence deals 1 damage to each creature and each player.",
-            Cost<PayMana>(cost => cost.Amount = ManaAmount.Black),
-            Effect<DealDamageToCreaturesAndPlayers>(e =>
-              {
-                e.AmountCreature = 1;
-                e.AmountPlayer = 1;
-              }),
-            timing: Any(Timings.MassRemovalInstantSpeed(), Timings.EndOfTurn()))
-        );
+                Condition = (t, g) => g.Players.Permanents().None(x => x.Is().Creature)
+              });
+            p.Effect = () => new SacrificeSource();
+
+            p.TriggerOnlyIfOwningCardIsInPlay = true;
+          })
+        .ActivatedAbility(p =>
+          {
+            p.Text = "{B}: Pestilence deals 1 damage to each creature and each player.";
+            p.Cost = new PayMana(ManaAmount.Black, ManaUsage.Abilities);
+            p.Effect = () => new DealDamageToCreaturesAndPlayers(
+              amountCreature: 1,
+              amountPlayer: 1);
+
+            p.TimingRule(new Any(new MassRemoval(), new EndOfTurn()));
+          });
     }
   }
 }

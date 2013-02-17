@@ -1,14 +1,12 @@
 ﻿namespace Grove.Core.Redirections
 {
-  using Grove.Core.Dsl;
-  using Grove.Infrastructure;
-  using Grove.Core.Targeting;
+  using Infrastructure;
+  using Modifiers;
 
   [Copyable]
-  public abstract class DamageRedirection : IHashable
+  public abstract class DamageRedirection : GameObject, IHashable
   {
-    protected ITarget Owner { get; private set; }
-    protected Game Game { get; private set; }
+    public Modifier Modifier { get; private set; }
 
     public int CalculateHash(HashCalculator calc)
     {
@@ -28,24 +26,12 @@
       return wasRedirected;
     }
 
-    protected abstract bool Redirect(Damage damage);
-
-    public class Factory<T> : IDamageRedirectionFactory where T : DamageRedirection, new()
-    {      
-      public bool OnlyOnce { get; set; }
-      public Initializer<T> Init { get; set; }
-
-      public DamageRedirection Create(ITarget owner, Game game)
-      {
-        var prevention = new T();
-
-        prevention.Owner = owner;
-        prevention.Game = game;
-
-        Init(prevention);
-
-        return prevention;
-      }
+    public virtual void Initialize(Modifier modifier, Game game)
+    {
+      Modifier = modifier;
+      Game = game;
     }
+
+    protected abstract bool Redirect(Damage damage);
   }
 }

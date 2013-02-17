@@ -401,7 +401,8 @@
     <Compile Include="Core\Ai\ActivationContext.cs" />
     <Compile Include="Core\Ai\AttackerEvaluation.cs" />
     <Compile Include="Core\Ai\BlockerEvaluation.cs" />
-    <Compile Include="Core\Ai\CostRules\DestroyEachCreature.cs" />
+    <Compile Include="Core\Ai\CostRules\DestroyEachPermanent.cs" />
+    <Compile Include="Core\Ai\CostRules\MartialCoup.cs" />
     <Compile Include="Core\Ai\CostRules\MaxAvailableMana.cs" />
     <Compile Include="Core\Ai\CostRules\CostRule.cs" />
     <Compile Include="Core\Ai\CostRules\CostRuleParameters.cs" />
@@ -614,7 +615,7 @@
     <Compile Include="Core\Preventions\PreventLifelossBelowOne.cs" />
     <Compile Include="Core\Mana\AggregateManaAmount.cs" />
     <Compile Include="Core\ControlledBy.cs" />
-    <Compile Include="Core\Effects\PreventDamageFromSourceToController.cs" />
+    <Compile Include="Core\Effects\PreventNextDamageFromSourceToController.cs" />
     <Compile Include="Core\Effects\PreventDamageFromSourceToTarget.cs" />
     <Compile Include="Core\Effects\RemoveModifier.cs" />
     <Compile Include="Core\Effects\SacrificeSource.cs" />
@@ -629,7 +630,6 @@
     <Compile Include="Core\Preventions\PreventDamageFromSource.cs" />
     <Compile Include="Core\Redirections\DamageRedirection.cs" />
     <Compile Include="Core\Redirections\DamageRedirections.cs" />
-    <Compile Include="Core\Redirections\IDamageRedirectionFactory.cs" />
     <Compile Include="Core\Redirections\RedirectDamageToTarget.cs" />
     <Compile Include="Core\StaticAbility.cs" />
     <Compile Include="Core\Targeting\TargetCandidates.cs" />
@@ -686,7 +686,6 @@
     <Compile Include="Core\Effects\DiscardCards.cs" />
     <Compile Include="Core\Effects\TargetPlayerTakesExtraTurns.cs" />
     <Compile Include="Core\Mana\IManaAmount.cs" />
-    <Compile Include="Core\Targeting\ITriggeredAbilityFactory.cs" />
     <Compile Include="Core\Level.cs" />
     <Compile Include="Core\Life.cs" />
     <Compile Include="Core\Mana\ManaAmount.cs" />

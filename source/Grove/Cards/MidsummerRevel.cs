@@ -2,7 +2,7 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TimingRules;
   using Core.Costs;
   using Core.Counters;
   using Core.Dsl;
@@ -13,7 +13,7 @@
 
   public class MidsummerRevel : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Midsummer Revel")
@@ -21,32 +21,34 @@
         .Type("Enchantment")
         .Text(
           "At the beginning of your upkeep, you may put a verse counter on Midsummer Revel.{EOL}{G},Sacrifice Midsummer Revel: Put X 3/3 green Beast creature tokens onto the battlefield, where X is the number of verse counters on Midsummer Revel.")
-        .Cast(p => p.Timing = Timings.SecondMain())
-        .Abilities(
-          TriggeredAbility(
-            "At the beginning of your upkeep, you may put a verse counter on Midsummer Revel.",
-            Trigger<OnStepStart>(t => t.Step = Step.Upkeep),
-            Effect<ApplyModifiersToSelf>(e => e.Modifiers(
-              Modifier<AddCounters>(m => { m.Counter = Counter<ChargeCounter>(); }))),
-            triggerOnlyIfOwningCardIsInPlay: true
-            ),
-          ActivatedAbility(
-            "{G},Sacrifice Midsummer Revel: Put X 3/3 green Beast creature tokens onto the battlefield, where X is the number of verse counters on Midsummer Revel.",
-            Cost<PayMana, Sacrifice>(cost => cost.Amount = ManaAmount.Green),
-            Effect<CreateTokens>(e =>
-              {
-                e.Count = e.Source.OwningCard.Counters.GetValueOrDefault();
-                e.Tokens(Card
-                  .Named("Beast Token")
-                  .FlavorText(
-                    "All we know about the Krosan Forest we have learned from those few who made it out alive.{EOL}—Elvish refugee")
-                  .Power(3)
-                  .Toughness(3)
-                  .Type("Creature Token Beast")
-                  .Colors(ManaColors.Green));
-              }),
-              timing: Timings.Has3CountersOr1IfDestroyed())
-            );
+        .Cast(p => p.TimingRule(new SecondMain()))
+        .TriggeredAbility(p =>
+          {
+            p.Text = "At the beginning of your upkeep, you may put a verse counter on Midsummer Revel.";
+            p.Trigger(new OnStepStart(Step.Upkeep));
+            p.Effect = () => new ApplyModifiersToSelf(() => new AddCounters(() => new ChargeCounter(), 1));
+            p.TriggerOnlyIfOwningCardIsInPlay = true;
+          })
+        .ActivatedAbility(p =>
+          {
+            p.Text =
+              "{G},Sacrifice Midsummer Revel: Put X 3/3 green Beast creature tokens onto the battlefield, where X is the number of verse counters on Midsummer Revel.";
+            p.Cost = new AggregateCost(
+              new PayMana(ManaAmount.Green, ManaUsage.Abilities),
+              new Sacrifice());
+            p.Effect = () => new CreateTokens(
+              count: e => e.Source.OwningCard.Counters.GetValueOrDefault(),
+              tokens: Card
+                .Named("Beast Token")
+                .FlavorText(
+                  "All we know about the Krosan Forest we have learned from those few who made it out alive.{EOL}—Elvish refugee")
+                .Power(3)
+                .Toughness(3)
+                .Type("Creature Token Beast")
+                .Colors(ManaColors.Green));
+
+            p.TimingRule(new ChargeCounters(3));
+          });
     }
   }
 }

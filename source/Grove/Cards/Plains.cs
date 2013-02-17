@@ -7,14 +7,17 @@
 
   public class Plains : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Plains")
         .Type("Basic Land - Plains")
         .Text("{T}: Add {W} to your mana pool.")
-        .Abilities(
-          ManaAbility(ManaUnit.White, "{T}: Add {W} to your mana pool."));
+        .ManaAbility(p =>
+          {
+            p.Text = "{T}: Add {W} to your mana pool.";
+            p.ManaAmount(ManaAmount.White);
+          });
     }
   }
 }
