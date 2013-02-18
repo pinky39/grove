@@ -3,13 +3,14 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
+  using Core.Ai.TargetingRules;
   using Core.Dsl;
+  using Core.Effects;
   using Core.Modifiers;
-  using Core.Targeting;
 
   public class Symbiosis : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Symbiosis")
@@ -20,16 +21,19 @@
           "Although the elves of Argoth always considered them a nuisance, the pixies made fine allies during the war against the machines.")
         .Cast(p =>
           {
-            p.Category = EffectCategories.ToughnessIncrease;
-            p.Effect = Effect<Core.Effects.ApplyModifiersToTargets>(e => e.Modifiers(
-              Modifier<AddPowerAndToughness>(m =>
-                {
-                  m.Power = 2;
-                  m.Toughness = 2;
-                }, untilEndOfTurn: true)));
-            p.EffectTargets =
-              L(Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield(), minCount: 2, maxCount: 2));
-            p.TargetingAi = TargetingAi.IncreasePowerAndToughness(2, 2);
+            p.Effect =
+              () =>
+                new ApplyModifiersToTargets(() => new AddPowerAndToughness(2, 2) {UntilEot = true})
+                  {Category = EffectCategories.ToughnessIncrease};
+
+            p.TargetSelector.AddEffect(trg =>
+              {
+                trg.Is.Creature().On.Battlefield();
+                trg.MinCount = 2;
+                trg.MaxCount = 2;
+              });
+
+            p.TargetingRule(new IncreasePowerOrToughness(2, 2));
           });
     }
   }

@@ -2,14 +2,14 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TargetingRules;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
   using Core.Effects;
-  using Core.Targeting;
 
   public class TimeWarp : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Time Warp")
@@ -19,10 +19,10 @@
         .FlavorText("Just when you thought you'd survived the first wave.")
         .Cast(p =>
           {
-            p.Timing = Timings.SecondMain();
-            p.Effect = Effect<TargetPlayerTakesExtraTurns>();
-            p.EffectTargets = L(Target(Validators.Player(), Zones.None()));
-            p.TargetingAi = TargetingAi.Controller();
+            p.Effect = () => new TargetPlayerTakesExtraTurns(1);
+            p.TargetSelector.AddEffect(trg => trg.Is.Player());
+            p.TimingRule(new SecondMain());
+            p.TargetingRule(new SpellOwner());
           });
     }
   }

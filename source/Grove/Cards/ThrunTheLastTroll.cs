@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
   using Core.Costs;
   using Core.Dsl;
   using Core.Effects;
@@ -10,7 +9,7 @@
 
   public class ThrunTheLastTroll : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Thrun, the Last Troll")
@@ -21,14 +20,15 @@
         .FlavorText("His crime was silence, and now he suffers it eternally.")
         .Power(4)
         .Toughness(4)
-        .Cast(p => p.Effect = Effect<PutIntoPlay>(e => e.CanBeCountered = false))        
-        .Abilities(
-          Static.Hexproof,
-          ActivatedAbility(
-            "{1}{G}: Regenerate Thrun.",
-            Cost<PayMana>(c => c.Amount = "{1}{G}".ParseMana()),
-            Effect<Regenerate>(),
-            timing: Timings.Regenerate()));
+        .Cast(p => p.Effect = () => new PutIntoPlay {CanBeCountered = false})
+        .StaticAbilities(Static.Hexproof)
+        .ActivatedAbility(p =>
+          {
+            p.Text = "{1}{G}: Regenerate Thrun.";
+            p.Cost = new PayMana("{1}{G}".ParseMana(), ManaUsage.Abilities);
+            p.Effect = () => new Regenerate();
+            p.TimingRule(new Core.Ai.TimingRules.Regenerate());
+          });
     }
   }
 }

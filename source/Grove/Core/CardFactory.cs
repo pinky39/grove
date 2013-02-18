@@ -265,7 +265,7 @@
       return this;
     }
 
-    public CardFactory Leveler(string cost, EffectCategories category = EffectCategories.Generic,
+    public CardFactory Leveler(string cost, EffectCategories category,
       params LevelDefinition[] levels)
     {
       ActivatedAbility(p =>

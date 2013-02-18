@@ -2,13 +2,13 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
   using Core.Effects;
 
   public class Stupor : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Stupor")
@@ -18,12 +18,8 @@
         .FlavorText("There are medicines for all afflictions but idleness.{EOL}—Suq'Ata saying")
         .Cast(p =>
           {
-            p.Timing = Timings.FirstMain();
-            p.Effect = Effect<OpponentDiscardsCards>(e =>
-              {
-                e.RandomCount = 1;
-                e.SelectedCount = 1;
-              });
+            p.Effect = () => new OpponentDiscardsCards(randomCount: 1, selectedCount: 1);
+            p.TimingRule(new FirstMain());
           });
     }
   }

@@ -2,12 +2,18 @@
 {
   public class MillOpponent : Effect
   {
-    public int Count { get; set; }
+    private readonly int _count;
+
+    private MillOpponent() {}
+
+    public MillOpponent(int count)
+    {
+      _count = count;
+    }
 
     protected override void ResolveEffect()
     {
-      var opponent = Core.Players.GetOpponent(Controller);
-      opponent.Mill(Count);
+      Controller.Opponent.Mill(_count);
     }
   }
 }

@@ -1,14 +1,21 @@
 ﻿namespace Grove.Core.Effects
 {
-  using Grove.Core.Targeting;
+  using Targeting;
 
   public class TargetPlayerTakesExtraTurns : Effect
   {
-    public int Count = 1;    
+    private readonly int _count;
+
+    private TargetPlayerTakesExtraTurns() {}
+
+    public TargetPlayerTakesExtraTurns(int count)
+    {
+      _count = count;
+    }
 
     protected override void ResolveEffect()
     {
-      Core.Players.ScheduleExtraTurns(Target().Player(), Count);
+      Players.ScheduleExtraTurns(Target.Player(), _count);
     }
   }
 }

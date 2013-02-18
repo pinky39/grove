@@ -9,20 +9,20 @@
 
   public class SunpetalGrove : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Sunpetal Grove")
         .Type("Land")
         .Text(
           "Sunpetal Grove enters the battlefield tapped unless you control a Forest or a Plains.{EOL}{T}: Add {G} or {W} to your mana pool.")
-        .Cast(p => p.Effect = Effect<PutIntoPlay>(
-          e => e.PutIntoPlayTapped = e.Controller.Battlefield.None(card => card.Is("forest") || card.Is("plains"))))
-        .Abilities(
-          ManaAbility(
-            new ManaUnit(ManaColors.White | ManaColors.Green),
-            "{T}: Add {G} or {W} to your mana pool."
-            ));
+        .Cast(p => p.Effect = () => new PutIntoPlay(
+          tapIf: e => e.Controller.Battlefield.None(card => card.Is("forest") || card.Is("plains"))))
+        .ManaAbility(p =>
+          {
+            p.Text = "{T}: Add {G} or {W} to your mana pool.";
+            p.ManaAmount(new ManaUnit(ManaColors.White | ManaColors.Green));
+          });
     }
   }
 }

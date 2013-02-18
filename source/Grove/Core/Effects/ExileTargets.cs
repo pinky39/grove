@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core.Effects
 {
+  using Ai;
   using Targeting;
 
   public class ExileTargets : Effect
@@ -9,6 +10,7 @@
     public ExileTargets(bool controllerGainsLifeEqualToToughness = false)
     {
       _controllerGainsLifeEqualToToughness = controllerGainsLifeEqualToToughness;
+      Category = EffectCategories.Exile;
     }
 
     protected override void ResolveEffect()

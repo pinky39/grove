@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
   using Core.Costs;
   using Core.Dsl;
   using Core.Effects;
@@ -10,7 +9,7 @@
 
   public class TrollAscetic : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Troll Ascetic")
@@ -20,14 +19,15 @@
           "{Hexproof}{EOL}{1}{G}: Regenerate Troll Ascetic.")
         .FlavorText("It's no coincidence that the oldest trolls are also the angriest.")
         .Power(3)
-        .Toughness(2)        
-        .Abilities(
-          Static.Hexproof,
-          ActivatedAbility(
-            "{1}{G}: Regenerate Troll Ascetic.",
-            Cost<PayMana>(cost => cost.Amount = "{1}{G}".ParseMana()),
-            Effect<Regenerate>(),
-            timing: Timings.Regenerate()));
+        .Toughness(2)
+        .StaticAbilities(Static.Hexproof)
+        .ActivatedAbility(p =>
+          {
+            p.Text = "{1}{G}: Regenerate Troll Ascetic.";
+            p.Cost = new PayMana("{1}{G}".ParseMana(), ManaUsage.Abilities);
+            p.Effect = () => new Regenerate();
+            p.TimingRule(new Core.Ai.TimingRules.Regenerate());
+          });
     }
   }
 }

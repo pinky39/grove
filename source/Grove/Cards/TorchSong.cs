@@ -2,19 +2,19 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TargetingRules;
+  using Core.Ai.TimingRules;
   using Core.Costs;
   using Core.Counters;
   using Core.Dsl;
   using Core.Effects;
   using Core.Mana;
   using Core.Modifiers;
-  using Core.Targeting;
   using Core.Triggers;
 
   public class TorchSong : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Torch Song")
@@ -22,23 +22,27 @@
         .Type("Enchantment")
         .Text(
           "At the beginning of your upkeep, you may put a verse counter on Torch Song.{EOL}{2}{R}, Sacrifice Torch Song: Torch Song deals X damage to target creature or player, where X is the number of verse counters on Torch Song.")
-        .Cast(p=> p.Timing = Timings.SecondMain())
-        .Abilities(
-          TriggeredAbility(
-            "At the beginning of your upkeep, you may put a verse counter on Torch Song.",
-            Trigger<OnStepStart>(t => t.Step = Step.Upkeep),
-            Effect<ApplyModifiersToSelf>(e => e.Modifiers(
-              Modifier<AddCounters>(m => { m.Counter = Counter<ChargeCounter>(); }))),
-            triggerOnlyIfOwningCardIsInPlay: true
-            ),
-          ActivatedAbility(
-            "{2}{R}, Sacrifice Torch Song: Torch Song deals X damage to target creature or player, where X is the number of verse counters on Torch Song.",
-            Cost<PayMana, Sacrifice>(cost => cost.Amount = "{2}{R}".ParseMana()),
-            Effect<DealDamageToTargets>(e => e.Amount = e.Source.OwningCard.Counters.GetValueOrDefault()),
-            Target(Validators.CreatureOrPlayer(), Zones.Battlefield()),
-            targetingAi: TargetingAi.DealDamageSingleSelector(p => p.Source.Counters.GetValueOrDefault()),
-            timing: All(Timings.InstantRemovalTarget())
-        ));
+        .Cast(p => p.TimingRule(new SecondMain()))
+        .TriggeredAbility(p =>
+          {
+            p.Text = "At the beginning of your upkeep, you may put a verse counter on Torch Song.";
+            p.Trigger(new OnStepStart(step: Step.Upkeep));
+            p.Effect = () => new ApplyModifiersToSelf(() => new AddCounters(() => new ChargeCounter(), 1));
+            p.TriggerOnlyIfOwningCardIsInPlay = true;
+          })
+        .ActivatedAbility(p =>
+          {
+            p.Text =
+              "{2}{R}, Sacrifice Torch Song: Torch Song deals X damage to target creature or player, where X is the number of verse counters on Torch Song.";
+            p.Cost = new AggregateCost(
+              new PayMana("{2}{R}".ParseMana(), ManaUsage.Abilities),
+              new Sacrifice());
+            p.Effect = () => new DealDamageToTargets(
+              getAmount: e => e.Source.OwningCard.Counters.GetValueOrDefault());
+
+            p.TargetingRule(new DealDamage(pt => pt.Card.Counters.GetValueOrDefault()));
+            p.TimingRule(new TargetRemoval());
+          });
     }
   }
 }

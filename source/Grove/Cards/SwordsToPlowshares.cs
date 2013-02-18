@@ -2,14 +2,14 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TargetingRules;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
   using Core.Effects;
-  using Core.Targeting;
 
   public class SwordsToPlowshares : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Swords to Plowshares")
@@ -18,11 +18,10 @@
         .Text("Exile target creature. Its controller gains life equal to its power.")
         .Cast(p =>
           {
-            p.Timing = Timings.InstantRemovalTarget();
-            p.Category = EffectCategories.Exile;
-            p.Effect = Effect<ExileTargets>(e => e.ControllerGainsLifeEqualToToughness = true);
-            p.EffectTargets = L(Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));
-            p.TargetingAi = TargetingAi.Exile();
+            p.Effect = () => new ExileTargets(controllerGainsLifeEqualToToughness: true);
+            p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
+            p.TargetingRule(new Exile());
+            p.TimingRule(new TargetRemoval());
           });
     }
   }
