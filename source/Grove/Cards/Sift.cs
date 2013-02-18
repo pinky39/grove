@@ -2,13 +2,13 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
   using Core.Effects;
 
   public class Sift : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Sift")
@@ -18,12 +18,8 @@
         .FlavorText("Dwell longest on the thoughts that shine brightest.")
         .Cast(p =>
           {
-            p.Timing = Timings.FirstMain();
-            p.Effect = Effect<DrawCards>(e =>
-              {
-                e.Count = 3;
-                e.DiscardCount = 1;
-              });
+            p.Effect = () => new DrawCards(count: 3, discardCount: 1);
+            p.TimingRule(new FirstMain());
           });
     }
   }

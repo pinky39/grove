@@ -2,14 +2,14 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TargetingRules;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
   using Core.Effects;
-  using Core.Targeting;
 
   public class SignInBlood : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Sign in Blood")
@@ -20,14 +20,10 @@
           "'You know I accept only one currency here, and yet you have sought me out. Why now do you hesitate?'{EOL}—Xathrid demon")
         .Cast(p =>
           {
-            p.Timing = Timings.FirstMain();
-            p.Effect = Effect<TargetPlayerDrawsCards>(e =>
-              {
-                e.CardCount = 2;
-                e.LifeLoss = 2;
-              });
-            p.EffectTargets = L(Target(Validators.Player(), Zones.None()));
-            p.TargetingAi = TargetingAi.Controller();
+            p.Effect = () => new TargetPlayerDrawsCards(2, lifeLoss: 2);
+            p.TargetSelector.AddEffect(trg => trg.Is.Player());
+            p.TimingRule(new FirstMain());
+            p.TargetingRule(new SpellOwner());
           });
     }
   }

@@ -8,7 +8,14 @@
 
   public class PayLifeOrTap : Effect, IProcessDecisionResults<BooleanResult>
   {
-    public int Life { get; set; }
+    private readonly int _life;
+
+    private PayLifeOrTap() {}
+
+    public PayLifeOrTap(int life)
+    {
+      _life = life;
+    }
 
     public void ProcessResults(BooleanResult results)
     {
@@ -22,8 +29,8 @@
     {
       Game.Enqueue<PayOr>(Controller, p =>
         {
-          p.Life = Life;
-          p.Text = FormatText(String.Format("Pay {0} life?", Life));
+          p.Life = _life;
+          p.Text = FormatText(String.Format("Pay {0} life?", _life));
           p.Ai = decision =>
             {
               var controller = decision.Controller;

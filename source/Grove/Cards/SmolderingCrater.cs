@@ -8,17 +8,20 @@
 
   public class SmolderingCrater : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Smoldering Crater")
         .Type("Land")
         .Text(
           "Smoldering Crater enters the battlefield tapped.{EOL}{T}: Add {R} to your mana pool.{EOL}{Cycling} {2}({2}, Discard this card: Draw a card.)")
-        .Cast(p => p.Effect = Effect<PutIntoPlay>(e => e.PutIntoPlayTapped = true))
+        .Cast(p => p.Effect = () => new PutIntoPlay(tap: true))
         .Cycling("{2}")
-        .Abilities(
-          ManaAbility(new ManaUnit(ManaColors.Red), "{T}: Add {R} to your mana pool."));
+        .ManaAbility(p =>
+          {
+            p.Text = "{T}: Add {R} to your mana pool.";
+            p.ManaAmount(ManaAmount.Red);
+          });
     }
   }
 }

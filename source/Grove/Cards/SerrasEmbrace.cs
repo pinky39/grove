@@ -3,13 +3,15 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
+  using Core.Ai.TargetingRules;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
+  using Core.Effects;
   using Core.Modifiers;
-  using Core.Targeting;
 
   public class SerrasEmbrace : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Serra's Embrace")
@@ -21,17 +23,14 @@
           "'Lifted beyond herself, for that battle Brindri was an angel of light and fury.'{EOL}—Song of All, canto 524")
         .Cast(p =>
           {
-            p.Timing = Timings.FirstMain();
-            p.Effect = Effect<Core.Effects.Attach>(e => e.Modifiers(
-              Modifier<AddPowerAndToughness>(m =>
-                {
-                  m.Power = 2;
-                  m.Toughness = 2;
-                }),
-              Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Vigilance),
-              Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Flying)));
-            p.EffectTargets = L(Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));
-            p.TargetingAi = TargetingAi.CombatEnchantment();
+            p.Effect = () => new Attach(
+              () => new AddPowerAndToughness(2, 2),
+              () => new AddStaticAbility(Static.Vigilance),
+              () => new AddStaticAbility(Static.Flying)) {Category = EffectCategories.ToughnessIncrease};
+
+            p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
+            p.TimingRule(new FirstMain());
+            p.TargetingRule(new CombatEnchantment());
           });
     }
   }

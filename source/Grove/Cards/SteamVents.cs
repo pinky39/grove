@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
   using Core.Dsl;
   using Core.Effects;
   using Core.Mana;
@@ -11,18 +10,24 @@
 
   public class SteamVents : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Steam Vents")
         .Type("Land - Island Mountain")
         .Text(
-          "{T}: Add {U} or {R} to your mana pool.{EOL}As Steam Vents enters the battlefield, you may pay 2 life. If you don't, Steam Vents enters the battlefield tapped.")        
-        .Abilities(
-          StaticAbility(
-            Trigger<OnZoneChanged>(t => t.To = Zone.Battlefield),
-            Effect<PayLifeOrTap>(e => e.Life = 2)),
-          ManaAbility(new ManaUnit(ManaColors.Blue | ManaColors.Red), "{T}: Add {U} or {R} to your mana pool."));
+          "{T}: Add {U} or {R} to your mana pool.{EOL}As Steam Vents enters the battlefield, you may pay 2 life. If you don't, Steam Vents enters the battlefield tapped.")
+        .TriggeredAbility(p =>
+          {
+            p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
+            p.Effect = () => new PayLifeOrTap(2);
+            p.UsesStack = false;
+          })
+        .ManaAbility(p =>
+          {
+            p.Text = "{T}: Add {U} or {R} to your mana pool.";
+            p.ManaAmount(new ManaUnit(ManaColors.Blue | ManaColors.Red));
+          });
     }
   }
 }

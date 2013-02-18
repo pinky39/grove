@@ -13,7 +13,7 @@
       _tapIf = tapIf;
     }
 
-    public PutIntoPlay(bool putIntoPlayTapped = false) : this(delegate { return putIntoPlayTapped; }) {}
+    public PutIntoPlay(bool tap = false) : this(delegate { return tap; }) {}
 
     protected override void ResolveEffect()
     {

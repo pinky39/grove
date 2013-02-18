@@ -2,15 +2,13 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
   using Core.Costs;
   using Core.Dsl;
   using Core.Effects;
-  using Core.Targeting;
 
   public class SanctumGuardian : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Sanctum Guardian")
@@ -20,21 +18,26 @@
           "Sacrifice Sanctum Guardian: The next time a source of your choice would deal damage to target creature or player this turn, prevent that damage.")
         .FlavorText("'Protect our mother in her womb.'")
         .Power(1)
-        .Toughness(4)        
-        .Abilities(
-          ActivatedAbility(
-            "Sacrifice Sanctum Guardian: The next time a source of your choice would deal damage to target creature or player this turn, prevent that damage.",
-            Cost<Sacrifice>(),
-            Effect<PreventDamageFromSourceToTarget>(e => e.OnlyOnce = true),
-            effectTargets: new[]
-              {
-                Target(Validators.Card(), Zones.BattlefieldOrStack(), text: "Select damage source."),
-                Target(Validators.CreatureOrPlayer(), Zones.Battlefield(), text:  "Select a creature or player.")
-              },
-            targetingAi: TargetingAi.PreventAllDamageFromSourceToTarget(),
-            timing: Timings.NoRestrictions()
-            )
-        );
+        .Toughness(4)
+        .ActivatedAbility(p =>
+          {
+            p.Text =
+              "Sacrifice Sanctum Guardian: The next time a source of your choice would deal damage to target creature or player this turn, prevent that damage.";
+            p.Cost = new Sacrifice();
+            p.Effect = () => new PreventDamageFromSourceToTarget();
+            p.TargetSelector
+              .AddEffect(trg =>
+                {
+                  trg.Is.Card().On.BattlefieldOrStack();
+                  trg.Text = "Select damage source.";
+                })
+              .AddEffect(trg =>
+                {
+                  trg.Is.CreatureOrPlayer().On.Battlefield();
+                  trg.Text = "Select creature or player.";
+                });
+            p.TargetingRule(new Core.Ai.TargetingRules.PreventDamageFromSourceToTarget());
+          });
     }
   }
 }

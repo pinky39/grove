@@ -2,14 +2,14 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TimingRules;
   using Core.Costs;
   using Core.Dsl;
   using Core.Effects;
 
   public class SilentAttendant : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Silent Attendant")
@@ -19,15 +19,14 @@
         .FlavorText(
           "'The answer to life should never be death; it should always be more life, wrapped tight around us like precious silks.'")
         .Power(0)
-        .Toughness(2)        
-        .Abilities(
-          ActivatedAbility(
-            "{T}: You gain 1 life.",
-            Cost<Tap>(),
-            Effect<ControllerGainsLife>(e => e.Amount = 1),
-            timing: Any(Timings.EndOfTurn(), Timings.BeforeDeath())
-            )
-        );
+        .Toughness(2)
+        .ActivatedAbility(p =>
+          {
+            p.Text = "{T}: You gain 1 life.";
+            p.Cost = new Tap();
+            p.Effect = () => new ControllerGainsLife(1);
+            p.TimingRule(new Any(new EndOfTurn(), new OwningCardWillBeDestroyed()));
+          });
     }
   }
 }

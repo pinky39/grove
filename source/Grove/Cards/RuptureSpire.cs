@@ -22,7 +22,7 @@
           {
             p.TimingRule(new Lands());
             p.TimingRule(new ControllerHasMana(1));
-            p.Effect = () => new PutIntoPlay(putIntoPlayTapped: true);
+            p.Effect = () => new PutIntoPlay(tap: true);
           })
         .ManaAbility(p =>
           {

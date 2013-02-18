@@ -2,13 +2,14 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TargetingRules;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
-  using Core.Targeting;
+  using Core.Effects;
 
   public class ShowerOfSparks : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Shower of Sparks")
@@ -18,12 +19,21 @@
         .FlavorText("The viashino had learned how to operate the rig through trial and error—mostly error.")
         .Cast(p =>
           {
-            p.Timing = Timings.InstantRemovalTarget();
-            p.Effect = Effect<Core.Effects.DealDamageToTargets>(e => e.Amount = 1);
-            p.EffectTargets = L(
-              Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield(), text: "Select target creature."),
-              Target(Validators.Player(), Zones.None(), "Select target player."));
-            p.TargetingAi = TargetingAi.DealDamageMultipleSelectors(amount: 1);
+            p.Effect = () => new DealDamageToTargets(1);
+            p.TargetSelector
+              .AddEffect(trg =>
+                {
+                  trg.Is.Creature().On.Battlefield();
+                  trg.Text = "Select creature.";
+                })
+              .AddEffect(trg =>
+                {
+                  trg.Is.Player();
+                  trg.Text = "Select player.";
+                });
+
+            p.TargetingRule(new DealDamage(1));
+            p.TimingRule(new TargetRemoval());
           });
     }
   }

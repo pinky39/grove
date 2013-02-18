@@ -2,12 +2,12 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
 
   public class ShivanRaptor : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Shivan Raptor")
@@ -16,10 +16,10 @@
         .Text(
           "{First strike}, {haste}{EOL}Echo {2}{R} (At the beginning of your upkeep, if this came under your control since the beginning of your last upkeep, sacrifice it unless you pay its echo cost.)")
         .Power(3)
-        .Toughness(1)        
+        .Toughness(1)
         .Echo("{2}{R}")
-        .Cast(p => p.Timing = Timings.FirstMain())
-        .Abilities(
+        .Cast(p => p.TimingRule(new FirstMain()))
+        .StaticAbilities(
           Static.Haste,
           Static.FirstStrike
         );
