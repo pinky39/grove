@@ -3,15 +3,16 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
+  using Core.Ai.TargetingRules;
   using Core.Costs;
   using Core.Dsl;
+  using Core.Effects;
   using Core.Mana;
   using Core.Modifiers;
-  using Core.Targeting;
 
   public class VinesOfVastwood : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Vines of Vastwood")
@@ -21,26 +22,23 @@
           "{Kicker} {G}{EOL}Target creature can't be the target of spells or abilities your opponents control this turn. If Vines of Vastwood was kicked, that creature gets +4/+4 until end of turn.")
         .Cast(p =>
           {
-            p.Category = EffectCategories.Protector;
-            p.Effect = Effect<Core.Effects.ApplyModifiersToTargets>(e => e.Modifiers(
-              Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Hexproof, untilEndOfTurn: true)));
-            p.EffectTargets = L(Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));
-            p.TargetingAi = TargetingAi.ShieldHexproof();
+            p.Effect = () => new ApplyModifiersToTargets(() => new AddStaticAbility(Static.Hexproof) {UntilEot = true})
+              {Category = EffectCategories.Protector};
+
+            p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
+            p.TargetingRule(new GainHexproof());
           })
         .Cast(p =>
           {
             p.Text = p.KickerDescription;
-            p.Cost = Cost<PayMana>(c => c.Amount = "{G}{G}".ParseMana());
-            p.Category = EffectCategories.Protector | EffectCategories.ToughnessIncrease;
-            p.Effect = Effect<Core.Effects.ApplyModifiersToTargets>(e => e.Modifiers(
-              Modifier<AddStaticAbility>(m => m.StaticAbility = Static.Hexproof, untilEndOfTurn: true),
-              Modifier<AddPowerAndToughness>(m =>
-                {
-                  m.Power = 4;
-                  m.Toughness = 4;
-                }, untilEndOfTurn: true)));
-            p.EffectTargets = L(Target(Validators.Card(x => x.Is().Creature), Zones.Battlefield()));
-            p.TargetingAi = Any(TargetingAi.ShieldHexproof(), TargetingAi.IncreasePowerAndToughness(4, 4));
+            p.Cost = new PayMana("{G}{G}".ParseMana(), ManaUsage.Spells);
+            p.Effect = () => new ApplyModifiersToTargets(
+              () => new AddStaticAbility(Static.Hexproof) {UntilEot = true},
+              () => new AddPowerAndToughness(4, 4) {UntilEot = true})
+              {Category = EffectCategories.Protector | EffectCategories.ToughnessIncrease};
+
+            p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
+            p.TargetingRule(new IncreasePowerOrToughness(4, 4));
           });
     }
   }

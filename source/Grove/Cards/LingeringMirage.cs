@@ -2,14 +2,15 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TargetingRules;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
+  using Core.Effects;
   using Core.Modifiers;
-  using Core.Targeting;
 
   public class LingeringMirage : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Lingering Mirage")
@@ -19,11 +20,10 @@
         .FlavorText("Birds frozen in flight. Sea turned to glass. Tolaria hidden in a mirror.")
         .Cast(p =>
           {
-            p.Timing = Timings.FirstMain();
-            p.Effect = Effect<Core.Effects.Attach>(e => e.Modifiers(
-              Modifier<ChangeBasicLand>(m => m.ChangeTo = "Island")));
-            p.EffectTargets = L(Target(Validators.Card(card => card.Is().Land), Zones.Battlefield()));
-            p.TargetingAi = TargetingAi.EnchantLand(ControlledBy.Opponent);
+            p.Effect = () => new Attach(() => new ChangeBasicLand("island"));
+            p.TargetSelector.AddEffect(trg => trg.Is.Card(c => c.Is().Land).On.Battlefield());
+            p.TargetingRule(new LandEnchantment(ControlledBy.Opponent));
+            p.TimingRule(new FirstMain());
           });
     }
   }

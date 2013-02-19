@@ -19,7 +19,7 @@
         .Cast(p =>
           {
             p.Effect = () => new CounterTargetSpell(doNotCounterCost: 3.Colorless());
-            p.TargetSelector.AddEffect(trg => trg.Is.Counterable().On.Stack());
+            p.TargetSelector.AddEffect(trg => trg.Is.CounterableSpell().On.Stack());
             p.TimingRule(new Core.Ai.TimingRules.Counterspell(3));
             p.TargetingRule(new Core.Ai.TargetingRules.Counterspell());
           });

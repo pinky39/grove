@@ -2,14 +2,12 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
   using Core.Dsl;
   using Core.Effects;
-  using Core.Targeting;
 
   public class Undermine : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Undermine")
@@ -19,11 +17,10 @@
         .FlavorText("'Which would you like first, the insult or the injury?'")
         .Cast(p =>
           {
-            p.Timing = Timings.CounterSpell();
-            p.Category = EffectCategories.Counterspell;
-            p.Effect = Effect<CounterTargetSpell>(e => e.ControllersLifeloss = 3);
-            p.EffectTargets = L(Target(Validators.CounterableSpell(), Zones.Stack()));
-            p.TargetingAi = TargetingAi.CounterSpell();
+            p.Effect = () => new CounterTargetSpell(controllerLifeloss: 3);
+            p.TargetSelector.AddEffect(trg => trg.Is.CounterableSpell().On.Stack());
+            p.TimingRule(new Core.Ai.TimingRules.Counterspell());
+            p.TargetingRule(new Core.Ai.TargetingRules.Counterspell());
           });
     }
   }

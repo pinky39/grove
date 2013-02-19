@@ -5,16 +5,28 @@
 
   public class Steps : TimingRule
   {
+    private readonly bool _activeTurn;
+    private readonly bool _passiveTurn;
+
     private readonly List<Step> _steps = new List<Step>();
 
-    public Steps(params Step[] steps)
+    public Steps(params Step[] steps) : this(true, true, steps) {}
+
+    public Steps(bool activeTurn, bool passiveTurn, params Step[] steps)
     {
+      _activeTurn = activeTurn;
+      _passiveTurn = passiveTurn;
       _steps.AddRange(steps);
     }
 
     public override bool ShouldPlay(TimingRuleParameters p)
     {
-      return _steps.Any(x => x == Turn.Step);
+      if ((p.Controller.IsActive && _activeTurn) || (!p.Controller.IsActive && _passiveTurn))
+      {
+        return _steps.Any(x => x == Turn.Step);
+      }
+
+      return false;
     }
   }
 }

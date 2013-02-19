@@ -2,14 +2,14 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TargetingRules;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
   using Core.Effects;
-  using Core.Targeting;
 
   public class Victimize : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Victimize")
@@ -20,15 +20,17 @@
         .FlavorText("The priest cast Xantcha to the ground. 'It is defective. We must scrap it.'")
         .Cast(p =>
           {
-            p.Timing = All(Timings.SecondMain(), Timings.HasPermanent(card => card.Is().Creature));
-            p.Effect = Effect<PutTargetsToBattlefield>(e =>
+            p.Effect = () => new PutTargetsToBattlefield(mustSacCreatureOnResolve: true, tapped: true);
+            p.TargetSelector.AddEffect(trg =>
               {
-                e.MustSacCreatureOnResolve = true;
-                e.Tapped = true;
+                trg.Is.Creature().In.YourGraveyard();
+                trg.MinCount = 2;
+                trg.MaxCount = 2;
               });
-            p.EffectTargets = L(Target(Validators.Card(card => card.Is().Creature),
-              Zones.YourGraveyard(), minCount: 2, maxCount: 2));
-            p.TargetingAi = TargetingAi.OrderByScore(ControlledBy.SpellOwner);
+
+            p.TimingRule(new SecondMain());
+            p.TimingRule(new ControllerHasPermanents(c => c.Is().Creature));
+            p.TargetingRule(new OrderByRank(c => -c.Score));
           });
     }
   }

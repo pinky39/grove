@@ -2,7 +2,7 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
   using Core.Effects;
   using Core.Mana;
@@ -10,7 +10,7 @@
 
   public class Waylay : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Waylay")
@@ -21,31 +21,32 @@
         .FlavorText("'You reek of corruption,' spat the knight. 'Why are you even here?'")
         .Cast(p =>
           {
-            p.Timing = Any(Timings.EndOfTurn(), Timings.SummonBlockers());
-            p.Effect = Effect<CreateTokens>(e =>
-              {
-                e.Count = 3;
-                e.Tokens(
-                  Card
-                    .Named("Knight Token")
-                    .FlavorText("'You reek of corruption,' spat the knight. 'Why are you even here?'")
-                    .Power(2)
-                    .Toughness(2)
-                    .OverrideScore(20)
-                    .Type("Creature - Token - Knight")
-                    .Colors(ManaColors.White)
-                    .Abilities(
-                      TriggeredAbility(
-                        "Exile this at the end of turn.",
-                        Trigger<OnStepStart>(t =>
-                          {
-                            t.Step = Step.EndOfTurn;
-                            t.PassiveTurn = true;
-                            t.ActiveTurn = true;
-                          }),
-                        Effect<SacrificeSource>(), triggerOnlyIfOwningCardIsInPlay: true)
-                    ));
-              });
+            p.Effect = () => new CreateTokens(
+              count: 3,
+              tokens: Card
+                .Named("Knight Token")
+                .FlavorText("'You reek of corruption,' spat the knight. 'Why are you even here?'")
+                .Power(2)
+                .Toughness(2)
+                .OverrideScore(20)
+                .Type("Creature - Token - Knight")
+                .Colors(ManaColors.White)
+                .TriggeredAbility(tp =>
+                  {
+                    tp.Text = "Exile this at the end of turn.";
+                    tp.Trigger(new OnStepStart(
+                      step: Step.EndOfTurn,
+                      passiveTurn: true,
+                      activeTurn: true));
+                    tp.Effect = () => new ExileOwner();
+                    tp.TriggerOnlyIfOwningCardIsInPlay = true;
+                  })
+              );
+            p.TimingRule(new Any(
+              new EndOfTurn(),
+              new All(
+                new Steps(activeTurn: false, passiveTurn: true, steps: Step.DeclareAttackers),
+                new MinAttackerCount(1))));
           });
     }
   }

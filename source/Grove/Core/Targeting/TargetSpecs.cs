@@ -23,7 +23,7 @@
       return _p;
     }
 
-    public TargetValidatorParameters Counterable(Func<Card, bool> filter = null)
+    public TargetValidatorParameters CounterableSpell(Func<Card, bool> filter = null)
     {
       filter = filter ?? delegate { return true; };
 

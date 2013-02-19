@@ -6,7 +6,7 @@
 
   public class WallOfDenial : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Wall of Denial")
@@ -16,7 +16,7 @@
         .FlavorText("It provides what every discerning mage requires—time to think.")
         .Power(0)
         .Toughness(8)
-        .Abilities(
+        .StaticAbilities(
           Static.Flying,
           Static.Defender,
           Static.Shroud

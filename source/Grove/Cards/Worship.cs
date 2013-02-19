@@ -2,14 +2,14 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
   using Core.Modifiers;
   using Core.Preventions;
 
   public class Worship : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Worship")
@@ -18,15 +18,16 @@
         .Text(
           "If you control a creature, damage that would reduce your life total to less than 1 reduces it to 1 instead.")
         .FlavorText("'Believe in the ideal, not the idol.'{EOL}—Serra")
-        .Cast(p => p.Timing = All(Timings.FirstMain(), Timings.OnlyOneOfKind()))        
-        .Abilities(
-          Continuous(e =>
-            {
-              e.ModifierFactory = Modifier<AddDamagePrevention>(
-                m => m.Prevention = Prevention<PreventLifelossBelowOne>());              
-              e.PlayerFilter = (player, effect) => player == effect.Source.Controller;
-            })
-        );
+        .Cast(p =>
+          {
+            p.TimingRule(new FirstMain());
+            p.TimingRule(new ThereCanBeOnlyOne());
+          })
+        .ContinuousEffect(p =>
+          {
+            p.Modifier = () => new AddDamagePrevention(new PreventLifelossBelowOne());
+            p.PlayerFilter = (player, effect) => player == effect.Source.Controller;
+          });
     }
   }
 }

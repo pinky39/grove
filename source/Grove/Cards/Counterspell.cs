@@ -18,7 +18,7 @@
         .Cast(p =>
           {
             p.Effect = () => new CounterTargetSpell();
-            p.TargetSelector.AddEffect(trg => trg.Is.Counterable().On.Stack());
+            p.TargetSelector.AddEffect(trg => trg.Is.CounterableSpell().On.Stack());
             
             p.TargetingRule(new Core.Ai.TargetingRules.Counterspell());
             p.TimingRule(new Core.Ai.TimingRules.Counterspell());

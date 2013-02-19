@@ -2,12 +2,13 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
+  using Core.Effects;
 
   public class VolcanicFallout : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Volcanic Fallout")
@@ -18,13 +19,11 @@
         .FlavorText("'How can we outrun the sky?'{EOL}—Hadran, sunseeder of Naya")
         .Cast(p =>
           {
-            p.Timing = Timings.MassRemovalInstantSpeed();
-            p.Effect = Effect<Core.Effects.DealDamageToCreaturesAndPlayers>(e =>
-              {
-                e.AmountPlayer = 2;
-                e.AmountCreature = 2;
-                e.CanBeCountered = false;
-              });
+            p.Effect = () => new DealDamageToCreaturesAndPlayers(
+              amountPlayer: 2,
+              amountCreature: 2) {CanBeCountered = false};
+
+            p.TimingRule(new MassRemoval());
           });
     }
   }

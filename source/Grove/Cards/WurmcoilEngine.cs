@@ -10,7 +10,7 @@
 
   public class WurmcoilEngine : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Wurmcoil Engine")
@@ -20,17 +20,17 @@
           "{Deathtouch}, {Lifelink}{EOL}When Wurmcoil Engine dies, put a 3/3 colorless Wurm artifact creature token with deathtouch and a 3/3 colorless Wurm artifact creature token with lifelink onto the battlefield.")
         .Power(6)
         .Toughness(6)
-        .Abilities(
-          Static.Deathtouch,
-          Static.Lifelink,
-          TriggeredAbility(
-            "When Wurmcoil Engine dies, put a 3/3 colorless Wurm artifact creature token with deathtouch and a 3/3 colorless Wurm artifact creature token with lifelink onto the battlefield.",
-            Trigger<OnZoneChanged>(t =>
-              {
-                t.From = Zone.Battlefield;
-                t.To = Zone.Graveyard;
-              }),
-            Effect<CreateTokens>(e => e.Tokens(
+        .StaticAbilities(Static.Deathtouch, Static.Lifelink)
+        .TriggeredAbility(p =>
+          {
+            p.Text =
+              "When Wurmcoil Engine dies, put a 3/3 colorless Wurm artifact creature token with deathtouch and a 3/3 colorless Wurm artifact creature token with lifelink onto the battlefield.";
+
+            p.Trigger(new OnZoneChanged(
+              from: Zone.Battlefield,
+              to: Zone.Graveyard));
+
+            p.Effect = () => new CreateTokens(
               Card
                 .Named("Wurm Token")
                 .Text("{Deathtouch}")
@@ -39,7 +39,7 @@
                 .Toughness(3)
                 .Type("Artifact Creature - Wurm Token")
                 .Colors(ManaColors.Colorless)
-                .Abilities(Static.Deathtouch),
+                .StaticAbilities(Static.Deathtouch),
               Card
                 .Named("Wurm Token")
                 .Text("{Lifelink}")
@@ -48,7 +48,8 @@
                 .Toughness(3)
                 .Type("Artifact Creature - Wurm Token")
                 .Colors(ManaColors.Colorless)
-                .Abilities(Static.Lifelink)))));
+                .StaticAbilities(Static.Lifelink));
+          });
     }
   }
 }

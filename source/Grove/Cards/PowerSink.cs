@@ -23,7 +23,7 @@
               doNotCounterCost: e => e.X.GetValueOrDefault().Colorless(),
               tapLandsAndEmptyManaPool: true);
 
-            p.TargetSelector.AddEffect(trg => trg.Is.Counterable().On.Stack());
+            p.TargetSelector.AddEffect(trg => trg.Is.CounterableSpell().On.Stack());
 
             p.CostRule(new CounterUnlessOpponentPaysX());
             p.TimingRule(new Core.Ai.TimingRules.Counterspell());

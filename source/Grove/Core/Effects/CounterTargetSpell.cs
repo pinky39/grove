@@ -15,7 +15,7 @@
 
     private CounterTargetSpell() {}
 
-    public CounterTargetSpell(int? controllerLifeloss = null, Func<Effect, IManaAmount> doNotCounterCost = null,
+    public CounterTargetSpell(int? controllerLifeloss, Func<Effect, IManaAmount> doNotCounterCost,
       bool tapLandsAndEmptyManaPool = false)
     {
       _controllerLifeloss = controllerLifeloss;

@@ -441,6 +441,7 @@
     <Compile Include="Core\Ai\TargetingRules\SacrificeToDrawCards.cs" />
     <Compile Include="Core\Ai\TargetingRules\SacrificeToGainLife.cs" />
     <Compile Include="Core\Ai\TargetingRules\SacrificeToRegenerate.cs" />
+    <Compile Include="Core\Ai\TargetingRules\SelectPlayer.cs" />
     <Compile Include="Core\Ai\TargetingRules\SpellOwner.cs" />
     <Compile Include="Core\Ai\TargetingRules\TapCreature.cs" />
     <Compile Include="Core\Ai\TargetingRules\TapLands.cs" />
@@ -506,6 +507,7 @@
     <Compile Include="Core\Effects\EachPlayerDiscardsHand.cs" />
     <Compile Include="Core\Effects\ExchangeForOpponentsCreature.cs" />
     <Compile Include="Core\Effects\SearchLibraryPutToHand.cs" />
+    <Compile Include="Core\Effects\TapOrUntapAllArtifactsCreaturesOrLands.cs" />
     <Compile Include="Core\Effects\TargetPlayerGainsLife.cs" />
     <Compile Include="Core\Effects\UntapOwner.cs" />
     <Compile Include="Core\Effects\UntapSelectedPermanents.cs" />
@@ -646,7 +648,6 @@
     <Compile Include="Core\Attacker.cs" />
     <Compile Include="Core\Blocker.cs" />
     <Compile Include="Core\Ai\ISearchNode.cs" />
-    <Compile Include="Core\Dsl\CardBuilder.cs" />
     <Compile Include="Core\Dsl\LevelDefinition.cs" />
     <Compile Include="Core\Decisions\Machine\DecisionExecutor.cs" />
     <Compile Include="Core\Decisions\Machine\AssignCombatDamage.cs" />

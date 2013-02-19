@@ -3,10 +3,11 @@
   using System.Collections.Generic;
   using Core;
   using Core.Dsl;
+  using Core.Effects;
 
   public class WildFire : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Wildfire")
@@ -16,11 +17,9 @@
         .FlavorText("'Shiv hatched from a shell of stone around a yolk of flame.'—Viashino myth")
         .Cast(p =>
           {
-            p.Effect = Effect<Core.Effects.CompoundEffect>(e =>
-              e.ChildEffects(
-                Effect<Core.Effects.PlayersSacrificeLands>(e1 => e1.Count = 4),
-                Effect<Core.Effects.DealDamageToCreaturesAndPlayers>(e2 => e2.AmountCreature = 4))
-              );
+            p.Effect = () => new CompoundEffect(
+              new PlayersSacrificeLands(4),
+              new DealDamageToCreaturesAndPlayers(amountCreature: 4));
           });
     }
   }

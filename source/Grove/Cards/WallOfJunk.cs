@@ -8,7 +8,7 @@
 
   public class WallOfJunk : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Wall of Junk")
@@ -20,20 +20,18 @@
           "Urza saw the wall and realized that even if he tore every Phyrexian to pieces, they would still resist him.")
         .Power(0)
         .Toughness(7)
-        .Abilities(
-          Static.Defender,
-          TriggeredAbility(
-            "Whenever Wall of Junk blocks, return it to its owner's hand at end of combat. (Return it only if it's on the battlefield.)",
-            Trigger<OnStepStart>(t =>
-              {
-                t.Step = Step.EndOfCombat;
-                t.PassiveTurn = true;
-                t.ActiveTurn = false;
-                t.Condition = self => self.OwningCard.IsBlocker;
-              }),
-            Effect<ReturnToHand>(e => e.ReturnOwner = true)
-            )
-        );
+        .StaticAbilities(Static.Defender)
+        .TriggeredAbility(p =>
+          {
+            p.Text =
+              "Whenever Wall of Junk blocks, return it to its owner's hand at end of combat. (Return it only if it's on the battlefield.)";
+            p.Trigger(new OnStepStart(
+              step: Step.EndOfCombat,
+              passiveTurn: true,
+              activeTurn: false) {Condition = (t, g) => t.OwningCard.IsBlocker});
+
+            p.Effect = () => new ReturnToHand(returnOwningCard: true);
+          });
     }
   }
 }

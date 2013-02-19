@@ -11,7 +11,7 @@
     {
       Category = EffectCategories.Destruction;
     }
-    
+
     public override ChosenOptions ChooseOptions()
     {
       var opponentCreatureCount = Controller.Opponent.Battlefield.Creatures.Count();

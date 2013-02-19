@@ -7,7 +7,7 @@
 
   public class WhiteKnight : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("White Knight")
@@ -19,9 +19,7 @@
         .Power(2)
         .Toughness(2)
         .Protections(ManaColors.Black)
-        .Abilities(
-          Static.FirstStrike
-        );
+        .StaticAbilities(Static.FirstStrike);
     }
   }
 }

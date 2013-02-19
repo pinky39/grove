@@ -37,7 +37,7 @@
             p.Effect = () => new CounterTargetSpell(
               doNotCounterCost: e => e.Source.OwningCard.Counters.GetValueOrDefault().Colorless());
 
-            p.TargetSelector.AddEffect(trg => trg.Is.Counterable().On.Stack());
+            p.TargetSelector.AddEffect(trg => trg.Is.CounterableSpell().On.Stack());
             p.TimingRule(new Core.Ai.TimingRules.Counterspell());
             p.TargetingRule(new Core.Ai.TargetingRules.Counterspell());
           });

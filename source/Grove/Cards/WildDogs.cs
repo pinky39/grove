@@ -8,7 +8,7 @@
 
   public class WildDogs : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Wild Dogs")
@@ -19,21 +19,23 @@
         .Power(2)
         .Toughness(1)
         .Cycling("{2}")
-        .Abilities(
-          TriggeredAbility(
-            "At the beginning of your upkeep, if a player has more life than each other player, the player with the most life gains control of Wild Dogs.",
-            Trigger<OnStepStart>(t =>
+        .TriggeredAbility(p =>
+          {
+            p.Text =
+              "At the beginning of your upkeep, if a player has more life than each other player, the player with the most life gains control of Wild Dogs.";
+            p.Trigger(new OnStepStart(Step.Upkeep)
               {
-                t.Step = Step.Upkeep;
-                t.Condition = self =>
+                Condition = (t, g) =>
                   {
-                    var controller = self.OwningCard.Controller;
-                    var opponent = self.Game.Players.GetOpponent(controller);
+                    var controller = t.OwningCard.Controller;
+                    var opponent = g.Players.GetOpponent(controller);
 
                     return controller.Life < opponent.Life;
-                  };
-              }),
-            Effect<SwitchController>(), triggerOnlyIfOwningCardIsInPlay: true));
+                  }
+              });
+            p.Effect = () => new SwitchController();
+            p.TriggerOnlyIfOwningCardIsInPlay = true;
+          });
     }
   }
 }

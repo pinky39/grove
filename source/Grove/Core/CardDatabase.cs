@@ -9,7 +9,7 @@
   public class CardDatabase : IEnumerable<Card>
   {
     private readonly CardsSource[] _cardSources;
-    private List<ICardFactory> _database;
+    private List<CardFactory> _database;
     private Dictionary<string, Card> _previews;
 
     public CardDatabase(CardsSource[] cardSources)
@@ -18,7 +18,7 @@
     }
 
     public Card this[string name] { get { return _previews[name.ToLowerInvariant()]; } }
-    private IEnumerable<ICardFactory> Database { get { return _database ?? (_database = CreateDatabase()); } }
+    private IEnumerable<CardFactory> Database { get { return _database ?? (_database = CreateDatabase()); } }
     public int CardCount { get { return _cardSources.Length; } }
 
     public IEnumerator<Card> GetEnumerator()
@@ -33,13 +33,13 @@
 
     public Card CreateCard(string name, Player controller, Game game)
     {
-      ICardFactory cardFactory = GetCardFactory(name);
-      return cardFactory.CreateCard(controller, game);
+      var cardFactory = GetCardFactory(name);
+      return cardFactory.CreateCard().Initialize(controller, game);
     }
 
-    private ICardFactory GetCardFactory(string name)
+    private CardFactory GetCardFactory(string name)
     {
-      ICardFactory cardFactory = Database
+      var cardFactory = Database
         .Where(x => x.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase))
         .FirstOrDefault();
 
@@ -57,11 +57,11 @@
         .ToList();
     }
 
-    private List<ICardFactory> CreateDatabase()
+    private List<CardFactory> CreateDatabase()
     {
-      var database = new List<ICardFactory>();
+      var database = new List<CardFactory>();
 
-      foreach (CardsSource cardSource in _cardSources)
+      foreach (var cardSource in _cardSources)
       {
         database.AddRange(cardSource.GetCards());
       }
@@ -72,7 +72,7 @@
     public CardDatabase LoadPreviews()
     {
       _previews = Database
-        .Select(x => x.CreateCardPreview())
+        .Select(x => x.CreateCard())
         .ToDictionary(x => x.Name.ToLowerInvariant());
 
       return this;

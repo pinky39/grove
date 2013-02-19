@@ -6,7 +6,7 @@
 
   public class VampireNighthawk : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Vampire Nighthawk")
@@ -15,7 +15,7 @@
         .Text("{Flying}{EOL}{Deathtouch},{Lifelink}")
         .Power(2)
         .Toughness(3)
-        .Abilities(
+        .StaticAbilities(
           Static.Deathtouch,
           Static.Lifelink,
           Static.Flying

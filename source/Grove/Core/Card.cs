@@ -47,7 +47,7 @@
 
     protected Card() {}
   
-    public void Initialize(Player owner, Game game)
+    public Card Initialize(Player owner, Game game)
     {
       Game = game;
       Owner = owner;      
@@ -82,6 +82,8 @@
       _continuousEffects.Initialize(this, game, this);
 
       _isPreview = false;
+
+      return this;
     }
 
     public Card(CardParameters p)

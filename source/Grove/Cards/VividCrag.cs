@@ -5,6 +5,7 @@
   using Core.Costs;
   using Core.Counters;
   using Core.Dsl;
+  using Core.Effects;
   using Core.Mana;
   using Core.Modifiers;
   using Core.Triggers;
@@ -12,28 +13,32 @@
 
   public class VividCrag : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Vivid Crag")
         .Type("Land")
         .Text(
           "Vivid Crag enters the battlefield tapped with two charge counters on it.{EOL}{T}: Add {R} to your mana pool.{EOL}{T}, Remove a charge counter from Vivid Crag: Add one mana of any color to your mana pool.")
-        .Cast(p => p.Effect = Effect<Core.Effects.PutIntoPlay>(e => e.PutIntoPlayTapped = true))
-        .Abilities(
-          ManaAbility(ManaUnit.Red, "{T}: Add {R} to your mana pool."),
-          ManaAbility(ManaUnit.Any,
-            "{T}, Remove a charge counter from Vivid Crag: Add one mana of any color to your mana pool.",
-            priority: ManaSourcePriorities.Restricted, cost: Cost<Tap, RemoveCounter>()),
-          StaticAbility(
-            Trigger<OnZoneChanged>(t => t.To = Zone.Battlefield),
-            Effect<Core.Effects.ApplyModifiersToSelf>(p => p.Effect.Modifiers(
-              Modifier<AddCounters>(m =>
-                {
-                  m.Count = 2;
-                  m.Counter = Counter<ChargeCounter>();
-                }))))
-        );
+        .Cast(p => p.Effect = () => new PutIntoPlay(tap: true))
+        .ManaAbility(p =>
+          {
+            p.Text = "{T}: Add {R} to your mana pool.";
+            p.ManaAmount(ManaAmount.Red);
+          })
+        .ManaAbility(p =>
+          {
+            p.Text = "{T}, Remove a charge counter from Vivid Crag: Add one mana of any color to your mana pool.";
+            p.Cost = new AggregateCost(new Tap(), new RemoveCounter());
+            p.ManaAmount(ManaAmount.Any);
+            p.Priority = ManaSourcePriorities.Restricted;
+          })
+        .TriggeredAbility(p =>
+          {
+            p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
+            p.Effect = () => new ApplyModifiersToSelf(() => new AddCounters(() => new ChargeCounter(), 2));
+            p.UsesStack = false;
+          });
     }
   }
 }

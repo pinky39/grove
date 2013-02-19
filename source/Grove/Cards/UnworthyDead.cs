@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
   using Core.Costs;
   using Core.Dsl;
   using Core.Effects;
@@ -10,7 +9,7 @@
 
   public class UnworthyDead : CardsSource
   {
-    public override IEnumerable<ICardFactory> GetCards()
+    public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
         .Named("Unworthy Dead")
@@ -20,14 +19,14 @@
         .FlavorText(
           "'Great Yawgmoth moves across the seas of shard and bone and rust. We exalt him in life, in death, and in between.'{EOL}—Phyrexian Scriptures")
         .Power(1)
-        .Toughness(1)        
-        .Abilities(
-          ActivatedAbility(
-            "{B}: Regenerate Unworthy Dead.",
-            Cost<PayMana>(c => c.Amount = "{B}".ParseMana()),
-            Effect<Regenerate>(),
-            timing: Timings.Regenerate(),
-            category: EffectCategories.Protector));
+        .Toughness(1)
+        .ActivatedAbility(p =>
+          {
+            p.Text = "{B}: Regenerate Unworthy Dead.";
+            p.Cost = new PayMana(ManaAmount.Black, ManaUsage.Abilities);
+            p.Effect = () => new Regenerate();
+            p.TimingRule(new Core.Ai.TimingRules.Regenerate());
+          });
     }
   }
 }

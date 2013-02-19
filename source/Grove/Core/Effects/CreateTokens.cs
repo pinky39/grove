@@ -13,17 +13,25 @@
 
     private CreateTokens() {}
 
-    public CreateTokens(Value count, Action<Card, Game> afterTokenComesToPlay = null,
-      Func<Effect, Player> tokenController = null, params CardFactory[] tokens) : this(
-        e => count.GetValue(e.X), afterTokenComesToPlay, tokenController, tokens) {}
+    public CreateTokens(params CardFactory[] tokens)
+    {
+      _tokenFactories.AddRange(tokens);
+      _afterTokenComesToPlay = delegate { };
+      _tokenController = e => e.Controller;
+      _count = e => 1;
+    }
 
-    public CreateTokens(Func<Effect, int> count, Action<Card, Game> afterTokenComesToPlay = null,
-      Func<Effect, Player> tokenController = null, params CardFactory[] tokens)
+    public CreateTokens(Value count, CardFactory token, Action<Card, Game> afterTokenComesToPlay = null,
+      Func<Effect, Player> tokenController = null) : this(
+        e => count.GetValue(e.X), token, afterTokenComesToPlay, tokenController) {}
+
+    public CreateTokens(Func<Effect, int> count, CardFactory token, Action<Card, Game> afterTokenComesToPlay = null,
+      Func<Effect, Player> tokenController = null)
     {
       _afterTokenComesToPlay = afterTokenComesToPlay ?? delegate { };
       _tokenController = tokenController ?? (e => e.Controller);
       _count = count;
-      _tokenFactories.AddRange(tokens);
+      _tokenFactories.Add(token);
     }
 
     protected override void ResolveEffect()
