@@ -23,7 +23,7 @@
           {
             p.Effect = () => new CreateTokens(
               count: 3,
-              tokens: Card
+              token: Card
                 .Named("Knight Token")
                 .FlavorText("'You reek of corruption,' spat the knight. 'Why are you even here?'")
                 .Power(2)

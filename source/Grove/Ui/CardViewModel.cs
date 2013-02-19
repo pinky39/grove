@@ -5,7 +5,7 @@
   using Core;
   using Core.Mana;
 
-  public class CardViewModel : IDisposable
+  public class CardViewModel : ViewModelBase, IDisposable
   {
     private readonly Timer _timer;
 

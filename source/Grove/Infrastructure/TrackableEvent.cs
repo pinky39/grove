@@ -17,10 +17,10 @@
       _sender = sender;      
     }
 
-    public void Initialize(Game game)
+    public void Initialize(ChangeTracker changeTracker)
     {
-      _changeTracker = game.ChangeTracker;
-      _handlers.Initialize(game.ChangeTracker);
+      _changeTracker = changeTracker;
+      _handlers.Initialize(changeTracker);
     }
 
     public void Copy(object original, CopyService copyService)

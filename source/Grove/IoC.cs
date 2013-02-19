@@ -19,6 +19,7 @@
   using Core.Decisions.Human;
   using Core.Dsl;
   using Infrastructure;
+  using Ui;
   using Ui.DistributeDamage;
   using Ui.Permanent;
   using Ui.Shell;
@@ -260,7 +261,7 @@
           {
             registration.AsFactory();
             registration.LifestyleTransient();
-          }));
+          }));        
       }
     }
 

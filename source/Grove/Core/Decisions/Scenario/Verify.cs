@@ -5,17 +5,19 @@
   public class Verify : IScenarioDecision
   {
     public Action Assertion { get; set; }
-
-    public void Init() {}
+    public Game Game { get; private set; }
 
     public bool HasCompleted { get; private set; }
     public bool WasPriorityPassed { get { return true; } }
-    public Player Controller { get; set; }
-    public Game Game { get; set; }
 
     public bool CanExecute()
     {
       return Game.Stack.IsEmpty;
+    }
+
+    public void Initialize(Player controller, Game game)
+    {
+      Game = game;
     }
 
     public void Execute()
@@ -23,5 +25,7 @@
       Assertion();
       HasCompleted = true;
     }
+
+    public void Init() {}
   }
 }

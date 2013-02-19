@@ -1,14 +1,13 @@
 ﻿namespace Grove.Core
 {
-  using Infrastructure;
   using Modifiers;
 
   public class LandLimit : Characteristic<int?>, IModifiable
   {
     private LandLimit() {}
 
-    public LandLimit(int value, ChangeTracker changeTracker, IHashDependancy hashDependancy)
-      : base(value, changeTracker, hashDependancy) {}
+    public LandLimit(int value)
+      : base(value) {}
 
     public void Accept(IModifier modifier)
     {

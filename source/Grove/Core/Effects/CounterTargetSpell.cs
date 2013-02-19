@@ -15,7 +15,7 @@
 
     private CounterTargetSpell() {}
 
-    public CounterTargetSpell(int? controllerLifeloss, Func<Effect, IManaAmount> doNotCounterCost,
+    public CounterTargetSpell(Func<Effect, IManaAmount> doNotCounterCost, int? controllerLifeloss = null,
       bool tapLandsAndEmptyManaPool = false)
     {
       _controllerLifeloss = controllerLifeloss;
@@ -24,9 +24,9 @@
       Category = EffectCategories.Counterspell;
     }
 
-    public CounterTargetSpell(int? controllerLifeloss = null, IManaAmount doNotCounterCost = null,
+    public CounterTargetSpell(IManaAmount doNotCounterCost = null, int? controllerLifeloss = null,
       bool tapLandsAndEmptyManaPool = false) :
-        this(controllerLifeloss, e => doNotCounterCost, tapLandsAndEmptyManaPool) {}
+        this( e => doNotCounterCost, controllerLifeloss, tapLandsAndEmptyManaPool) {}
 
     public void ProcessResults(BooleanResult results)
     {

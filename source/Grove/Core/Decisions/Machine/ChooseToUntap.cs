@@ -1,24 +1,26 @@
 ﻿namespace Grove.Core.Decisions.Machine
 {
-  using Grove.Core.Ai;
+  using Ai;
 
   public class ChooseToUntap : Decisions.ChooseToUntap, ISearchNode, IDecisionExecution
   {
-    private DecisionExecutor _executor;
+    private readonly DecisionExecutor _executor;
 
     public ChooseToUntap()
     {
       Result = false;
+      _executor = new DecisionExecutor(this);
     }
 
-    public Search Search { get { return Game.Search; } }
-    bool IDecisionExecution.ShouldExecuteQuery { get { return ShouldExecuteQuery; } }
     public override bool HasCompleted { get { return _executor.HasCompleted; } }
+    bool IDecisionExecution.ShouldExecuteQuery { get { return ShouldExecuteQuery; } }
 
     void IDecisionExecution.ExecuteQuery()
     {
       ExecuteQuery();
     }
+
+    Game ISearchNode.Game { get { return Game; } }
 
     public int ResultCount { get { return 2; } }
 
@@ -34,9 +36,10 @@
       _executor.Execute();
     }
 
-    public override void Init()
+    public override void Initialize(Player controller, Game game)
     {
-      _executor = new DecisionExecutor(this, Game.ChangeTracker);
+      base.Initialize(controller, game);
+      _executor.Initialize(game.ChangeTracker);
     }
 
     protected override void ExecuteQuery()

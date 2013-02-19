@@ -4,8 +4,8 @@
   {
     protected override void ResolveEffect()
     {
-      Core.Players.Active.DiscardHand();
-      Core.Players.Passive.DiscardHand();
+      Players.Active.DiscardHand();
+      Players.Passive.DiscardHand();
     }
   }
 }

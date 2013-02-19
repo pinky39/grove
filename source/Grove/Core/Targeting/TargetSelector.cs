@@ -42,7 +42,7 @@
     public TargetSelector AddCost(Action<TargetValidatorParameters> set)
     {
       var org = set;
-      
+
       set = p =>
         {
           org(p);
@@ -85,7 +85,7 @@
       {
         var candidates = new TargetCandidates();
 
-        foreach (var target in generator(selector.IsZoneValid))
+        foreach (var target in generator(selector.HasValidZone))
         {
           if (selector.IsTargetValid(target))
           {
@@ -100,7 +100,7 @@
       {
         var candidates = new TargetCandidates();
 
-        foreach (var target in generator(selector.IsZoneValid))
+        foreach (var target in generator(selector.HasValidZone))
         {
           if (selector.IsTargetValid(target))
           {
@@ -123,16 +123,13 @@
       // there are problems in the future this must be 
       // changed, so the target will know to which
       // validator it belongs.            
-      var zone = target.Zone();
+
 
       return _effectValidators.Any(
         validator =>
           {
-            var controller = target.IsCard() ? target.Card().Controller : null;
-
-            return
-              (zone == null || validator.IsZoneValid(zone.Value, controller)) &&
-                validator.IsTargetValid(target);
+            return validator.HasValidZone(target) &&
+              validator.IsTargetValid(target);
           });
     }
   }

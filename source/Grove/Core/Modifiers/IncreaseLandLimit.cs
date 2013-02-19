@@ -3,7 +3,7 @@
   public class IncreaseLandLimit : Modifier
   {
     private readonly int _amount;
-    private Increment _increment;
+    private readonly Increment _increment = new Increment();
     private LandLimit _landLimit;
 
     private IncreaseLandLimit() {}
@@ -16,7 +16,8 @@
     public override void Apply(LandLimit landLimit)
     {
       _landLimit = landLimit;
-      _increment = new Increment(_amount, ChangeTracker);
+      _increment.Initialize(ChangeTracker);
+      _increment.Value = _amount;
       _landLimit.AddModifier(_increment);
     }
 

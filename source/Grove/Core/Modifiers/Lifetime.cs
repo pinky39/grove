@@ -2,8 +2,7 @@
 {
   using System;
   using Infrastructure;
-
-  [Copyable]
+  
   public abstract class Lifetime : GameObject, IDisposable
   {
     public TrackableEvent Ended { get; set; }
@@ -25,7 +24,7 @@
     {
       Game = game;
       Modifier = modifier;   
-      Ended.Initialize(game);
+      Ended.Initialize(game.ChangeTracker);
     }
   }
 }

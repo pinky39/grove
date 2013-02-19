@@ -18,7 +18,8 @@
     public override void Apply(ActivatedAbilities abilities)
     {
       _abilities = abilities;
-      _increment = new ManaAmountIncrement(_amount, Game.ChangeTracker);
+      _increment = new ManaAmountIncrement(_amount);
+      _increment.Initialize(ChangeTracker);
 
       foreach (var manaAbility in _abilities.ManaAbilities)
       {

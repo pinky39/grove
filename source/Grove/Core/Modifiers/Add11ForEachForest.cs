@@ -7,7 +7,7 @@
 
   public class Add11ForEachForest : Modifier, IReceive<ZoneChanged>, IReceive<ControllerChanged>
   {
-    private Increment _increment;
+    private Increment _increment = new Increment();
     private Power _power;
     private Toughness _tougness;
 
@@ -47,10 +47,12 @@
       toughness.AddModifier(_increment);
     }
 
-    protected override void Initialize()
+    public override Modifier Initialize(ModifierParameters p, Game game)
     {
-      _increment = new Increment(
-        GetForestCount(Source.Controller), ChangeTracker);
+      base.Initialize(p, game);
+      _increment.Initialize(game.ChangeTracker);
+      _increment.Value = GetForestCount(Source.Controller);
+      return this;
     }
 
     protected override void Unapply()

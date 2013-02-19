@@ -31,7 +31,7 @@
 
             p.Effect = () => new CreateTokens(
               count: 2,
-              tokens:
+              token:
                 Card
                   .Named("Zombie Token")
                   .FlavorText(

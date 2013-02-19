@@ -1,6 +1,6 @@
 ﻿namespace Grove.Core.Decisions.Machine
 {
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   [Copyable]
   public class DecisionExecutor
@@ -13,18 +13,22 @@
     }
 
     private readonly IDecisionExecution _decision;
-    private readonly Trackable<State> _state;
+    private readonly Trackable<State> _state = new Trackable<State>(State.BeforeQuery);
 
     private DecisionExecutor() {}
 
-    public DecisionExecutor(IDecisionExecution decision, ChangeTracker changeTracker)
+    public DecisionExecutor(IDecisionExecution decision)
     {
       _decision = decision;
-      _state = new Trackable<State>(State.BeforeQuery, changeTracker);
     }
 
     private State DecisionState { get { return _state.Value; } set { _state.Value = value; } }
     public bool HasCompleted { get { return DecisionState == State.Completed; } }
+
+    public virtual void Initialize(ChangeTracker changeTracker)
+    {
+      _state.Initialize(changeTracker);
+    }
 
     public void Execute()
     {

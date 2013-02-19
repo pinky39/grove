@@ -3,30 +3,27 @@
   using System;
   using System.Collections.Generic;
   using Caliburn.Micro;
-  using Core;
   using Core.Targeting;
   using Infrastructure;
 
-  public class ViewModel : IReceive<SelectionChanged>
+  public class ViewModel : ViewModelBase, IReceive<SelectionChanged>
   {
     private readonly bool _canCancel;
-    private readonly Game _game;
     private readonly BindableCollection<ITarget> _selection = new BindableCollection<ITarget>();
     private readonly Action<ITarget> _targetSelected;
     private readonly Action<ITarget> _targetUnselected;
 
-    public ViewModel(ITargetValidator targetValidator, bool canCancel, Game game) : this(targetValidator, canCancel, null, game) {}
+    public ViewModel(TargetValidator targetValidator, bool canCancel) : this(targetValidator, canCancel, null) {}
 
-    public ViewModel(ITargetValidator targetValidator, bool canCancel, string instructions, Game game)
-      : this(targetValidator, canCancel, instructions, null, null, game) {}
+    public ViewModel(TargetValidator targetValidator, bool canCancel, string instructions)
+      : this(targetValidator, canCancel, instructions, null, null) {}
 
-    public ViewModel(ITargetValidator targetValidator, bool canCancel, string instructions,
-      Action<ITarget> targetSelected, Action<ITarget> targetUnselected, Game game)
+    public ViewModel(TargetValidator targetValidator, bool canCancel, string instructions,
+      Action<ITarget> targetSelected, Action<ITarget> targetUnselected)
     {
       TargetValidator = targetValidator;
       Instructions = instructions;
       _canCancel = canCancel;
-      _game = game;      
       _targetSelected = targetSelected ?? DefaultTargetSelected;
       _targetUnselected = targetUnselected ?? DefaultTargetUnselected;
     }
@@ -44,18 +41,8 @@
     public string Instructions { get; private set; }
     private bool IsDone { get { return _selection.Count >= TargetValidator.MinCount; } }
     public IList<ITarget> Selection { get { return _selection; } }
-    public ITargetValidator TargetValidator { get; private set; }
-    public bool WasCanceled { get; private set; }    
-
-    private void DefaultTargetSelected(ITarget target)
-    {
-      _game.Publish(new TargetSelected {Target = target});
-    }
-
-    private void DefaultTargetUnselected(ITarget target)
-    {
-      _game.Publish(new TargetUnselected {Target = target});
-    }
+    public TargetValidator TargetValidator { get; private set; }
+    public bool WasCanceled { get; private set; }
 
     [Updates("Text")]
     public virtual void Receive(SelectionChanged message)
@@ -70,7 +57,10 @@
         return;
       }
 
-      if (!TargetValidator.IsValid(message.Selection))
+      if (TargetValidator.HasValidZone(message.Selection) == false)
+        return;
+
+      if (TargetValidator.IsTargetValid(message.Selection) == false)
         return;
 
       _targetSelected(message.Selection);
@@ -78,6 +68,16 @@
 
       if (CanAutoComplete)
         Done();
+    }
+
+    private void DefaultTargetSelected(ITarget target)
+    {
+      Publish(new TargetSelected {Target = target});
+    }
+
+    private void DefaultTargetUnselected(ITarget target)
+    {
+      Publish(new TargetUnselected {Target = target});
     }
 
     public void Cancel()
@@ -88,7 +88,7 @@
       _selection.Clear();
       WasCanceled = true;
       this.Close();
-    }    
+    }
 
     public void Done()
     {
@@ -100,12 +100,8 @@
 
     public interface IFactory
     {
-      ViewModel Create(
-        ITargetValidator targetValidator,
-        bool canCancel,
-        string instructions = null,
-        Action<ITarget> targetSelected = null,
-        Action<ITarget> targetUnselected = null);
+      ViewModel Create(TargetValidator targetValidator, bool canCancel, string instructions = null,
+        Action<ITarget> targetSelected = null, Action<ITarget> targetUnselected = null);
     }
   }
 }

@@ -37,7 +37,7 @@
               new MillOpponent(10),
               new CreateTokens(
                 count: 1,
-                tokens: Card
+                token: Card
                   .Named("Wolf Token")
                   .FlavorText(
                     "No matter where we cat warriors go in the world, those stupid slobberers find us.{EOL}—Mirri of the Weatherlight")

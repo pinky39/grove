@@ -38,7 +38,7 @@
               new Sacrifice());
             p.Effect = () => new CreateTokens(
               count: e => e.Source.OwningCard.Counters.GetValueOrDefault(),
-              tokens: Card
+              token: Card
                 .Named("Beast Token")
                 .FlavorText(
                   "All we know about the Krosan Forest we have learned from those few who made it out alive.{EOL}—Elvish refugee")

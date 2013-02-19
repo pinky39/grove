@@ -736,7 +736,6 @@
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ui\Deck\ViewModel.cs" />
-    <Compile Include="Ui\DistributeDamage\UiDamageDistribution.cs" />
     <Compile Include="Core\Targeting\Validators.cs" />
     <Compile Include="Core\Mana\ZeroManaAmount.cs" />
     <Compile Include="Core\Zones\Exile.cs" />
@@ -787,7 +786,6 @@
     <Compile Include="Core\Modifiers\CardTypeSetter.cs" />
     <Compile Include="Core\Modifiers\IModifier.cs" />
     <Compile Include="Core\Modifiers\IModifiable.cs" />
-    <Compile Include="Core\Modifiers\Modifiers.cs" />
     <Compile Include="Core\Modifiers\Increment.cs" />
     <Compile Include="Core\Modifiers\StrenghtSetter.cs" />
     <Compile Include="Core\Power.cs" />
@@ -810,7 +808,6 @@
     <Compile Include="Infrastructure\ITrackableValue.cs" />
     <Compile Include="Infrastructure\Trackable.cs" />
     <Compile Include="Core\Triggers\ITriggerFactory.cs" />
-    <Compile Include="Core\Decisions\Human\UiTargetValidator.cs" />
     <Compile Include="Core\Mana\ManaSources.cs" />
     <Compile Include="Core\Mana\IManaSource.cs" />
     <Compile Include="Core\ManaAbility.cs" />
@@ -975,6 +972,7 @@
     <Compile Include="Ui\SelectEffectChoice\ViewModel.cs" />
     <Compile Include="Ui\InteractionState.cs" />
     <Compile Include="Ui\PlayableActivator.cs" />
+    <Compile Include="Ui\ViewModelBase.cs" />
     <Compile Include="Ui\UiInteractionChanged.cs" />
     <Compile Include="Ui\Spell\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>

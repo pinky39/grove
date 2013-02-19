@@ -1,17 +1,10 @@
 ﻿namespace Grove.Core.Modifiers
 {
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   public class Increment : PropertyModifier<int?>
   {
-    private readonly Trackable<int> _value;
-
-    private Increment() : base(null) {}
-
-    public Increment(int initialValue, ChangeTracker changeTracker) : base(changeTracker)
-    {
-      _value = new Trackable<int>(initialValue, changeTracker);
-    }
+    private readonly Trackable<int> _value = new Trackable<int>();
 
     public int Value
     {
@@ -24,6 +17,12 @@
     }
 
     public override int Priority { get { return 2; } }
+
+    public override void Initialize(ChangeTracker changeTracker)
+    {
+      base.Initialize(changeTracker);
+      _value.Initialize(changeTracker);
+    }
 
     public override int? Apply(int? before)
     {

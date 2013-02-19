@@ -8,12 +8,13 @@
   public class PlaySpellOrAbility : Decisions.PlaySpellOrAbility, ISearchNode, IDecisionExecution
   {
     private static readonly ILog Log = LogManager.GetLogger(typeof (PlaySpellOrAbility));
-    private DecisionExecutor _executor;
+    private readonly DecisionExecutor _executor;
     private List<Playable> _playables;
 
     public PlaySpellOrAbility()
     {
       Result = DefaultResult();
+      _executor = new DecisionExecutor(this);
     }
 
     public override bool HasCompleted { get { return _executor.HasCompleted; } }
@@ -23,6 +24,8 @@
     {
       ExecuteQuery();
     }
+
+    Game ISearchNode.Game { get { return Game; } }
 
     public int ResultCount { get { return _playables.Count; } }
 
@@ -40,9 +43,10 @@
       Log.DebugFormat("Move is {0}", _playables[index]);
     }
 
-    public override void Init()
+    public override void Initialize(Player controller, Game game)
     {
-      _executor = new DecisionExecutor(this, Game.ChangeTracker);
+      base.Initialize(controller, game);
+      _executor.Initialize(game.ChangeTracker);
     }
 
     public override void Execute()

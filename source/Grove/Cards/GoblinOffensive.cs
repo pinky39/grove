@@ -23,7 +23,7 @@
           {
             p.Effect = () => new CreateTokens(
               count: Value.PlusX,
-              tokens: Card
+              token: Card
                 .Named("Goblin Token")
                 .FlavorText(
                   "'When you're a goblin, you don't have to step forward to be a hero—everyone else just has to step back'{EOL}—Biggum Flodrot, goblin veteran")

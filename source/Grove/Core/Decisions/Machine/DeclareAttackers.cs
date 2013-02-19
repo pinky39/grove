@@ -2,29 +2,31 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Grove.Core.Ai;
+  using Ai;
   using Results;
 
   public class DeclareAttackers : Decisions.DeclareAttackers, ISearchNode, IDecisionExecution
   {
     private List<List<Card>> _declarations;
-    private DecisionExecutor _executor;
+    private readonly DecisionExecutor _executor;
 
     public DeclareAttackers()
     {
       Result = FinalResult();
+      _executor = new DecisionExecutor(this);
     }
 
-    private Player Defender { get { return Game.Players.GetOpponent(Controller); } }
+    private Player Defender { get { return Controller.Opponent; } }
     public override bool HasCompleted { get { return _executor.HasCompleted; } }
 
-    public Search Search { get { return Game.Search; } }
     bool IDecisionExecution.ShouldExecuteQuery { get { return ShouldExecuteQuery; } }
 
     void IDecisionExecution.ExecuteQuery()
     {
       ExecuteQuery();
     }
+
+    Game ISearchNode.Game { get { return Game; } }
 
     public int ResultCount { get { return _declarations.Count; } }
 
@@ -38,9 +40,10 @@
       Result = _declarations[index];
     }
 
-    public override void Init()
+    public override void Initialize(Player controller, Game game)
     {
-      _executor = new DecisionExecutor(this, Game.ChangeTracker);
+      base.Initialize(controller, game);
+      _executor.Initialize(game.ChangeTracker);
     }
 
     public override void Execute()

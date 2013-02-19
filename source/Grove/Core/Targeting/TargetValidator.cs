@@ -7,7 +7,6 @@
   public delegate bool TargetValidatorDelegate(TargetValidatorDelegateParameters parameters);
   public delegate bool ZoneValidatorDelegate(ZoneValidatorDelegateParameters parameters);
 
-
   public class TargetValidator : GameObject
   {
     private const string DefaultMessageOneTarget = "Select a target.";
@@ -85,9 +84,14 @@
       return string.Format(messageFormat, targetNumber, maxNumber);
     }
 
-    public bool IsZoneValid(Zone zone, Player zoneOwner)
+    public bool HasValidZone(ITarget target)
     {
-      return _isValidZone(new ZoneValidatorDelegateParameters(zone, zoneOwner, Game));
+      var zone = target.Zone();
+      
+      if (zone == null)
+        return true;
+                  
+      return _isValidZone(new ZoneValidatorDelegateParameters(zone.Value, target.Controller(), Game));
     }
   }
 }

@@ -36,7 +36,7 @@
             p.Trigger(new OnAttack());
             p.Effect = () => new CreateTokens(
               count: 2,
-              tokens: Card
+              token: Card
                 .Named("Soldier Token")
                 .FlavorText(
                   "If you need an example to lead others to the front lines, consider the precedent set.")

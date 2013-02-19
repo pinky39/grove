@@ -8,7 +8,7 @@
   public class Add11ForEachOtherCreature : Modifier, IReceive<ZoneChanged>,
     IReceive<TypeChanged>, IReceive<ControllerChanged>
   {
-    private Increment _increment;
+    private Increment _increment = new Increment();
     private Power _power;
     private Toughness _tougness;
 
@@ -68,11 +68,14 @@
       toughness.AddModifier(_increment);
     }
 
-    protected override void Initialize()
+    public override Modifier Initialize(ModifierParameters p, Game game)
     {
-      _increment = new Increment(
-        GetCreatureCount(),
-        ChangeTracker);
+      base.Initialize(p, game);
+
+      _increment.Initialize(game.ChangeTracker);
+      _increment.Value = GetCreatureCount();
+
+      return this;
     }
 
     private int GetCreatureCount()

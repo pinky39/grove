@@ -28,7 +28,7 @@
     public string Title { get { return string.Format("Distribute damage ({0} left)", _toBeAssigned); } }
     public IEnumerable<TargetWithValue> Targets { get { return _targets; } }
     public bool CanAccept { get { return _toBeAssigned == 0; } }
-    public IList<int> Distribution { get { return _targets.Select(x => x.Damage).ToList(); } }
+    public List<int> Distribution { get { return _targets.Select(x => x.Damage).ToList(); } }
 
     [Updates("Title", "CanAccept")]
     public virtual void AssignOne(TargetWithValue target)

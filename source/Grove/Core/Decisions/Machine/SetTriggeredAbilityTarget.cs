@@ -2,31 +2,24 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Grove.Core.Ai;
-  using Grove.Infrastructure;
-  using Grove.Core.Targeting;
+  using Ai;
+  using Infrastructure;
   using Results;
+  using Targeting;
 
   public class SetTriggeredAbilityTarget : Decisions.SetTriggeredAbilityTarget, ISearchNode, IDecisionExecution
   {
-    private DecisionExecutor _executor;
-    private List<Targets> _targets;    
+    private readonly DecisionExecutor _executor;
+    private List<Targets> _targets;
 
     public SetTriggeredAbilityTarget()
     {
-      
       Result = DefaultResult();
-    }
-
-    public override void Init()
-    {
-      _executor = new DecisionExecutor(this, Game.ChangeTracker);
-      base.Init();
+      _executor = new DecisionExecutor(this);
     }
 
     public override bool HasCompleted { get { return _executor.HasCompleted; } }
     public bool IsMax { get { return Controller.IsMax; } }
-    public Search Search { get { return Game.Search; } }
 
     bool IDecisionExecution.ShouldExecuteQuery { get { return ShouldExecuteQuery; } }
 
@@ -34,7 +27,9 @@
     {
       ExecuteQuery();
     }
-    
+
+    Game ISearchNode.Game { get { return Game; } }
+
     public int ResultCount { get { return _targets.Count; } }
 
     public void GenerateChoices()
@@ -45,6 +40,12 @@
     public void SetResult(int index)
     {
       Result = new ChosenTargets(_targets[index]);
+    }
+
+    public override void Initialize(Player controller, Game game)
+    {
+      base.Initialize(controller, game);
+      _executor.Initialize(game.ChangeTracker);
     }
 
     public override void Execute()

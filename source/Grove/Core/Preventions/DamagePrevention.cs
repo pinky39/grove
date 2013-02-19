@@ -35,7 +35,7 @@
     {
       Game = game;
       Owner = owner;
-      EndOfLife.Initialize(game);
+      EndOfLife.Initialize(game.ChangeTracker);
     }
 
     public virtual void PreventReceivedDamage(Damage damage) {}

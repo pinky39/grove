@@ -1,13 +1,12 @@
 ﻿namespace Grove.Core.Modifiers
 {
-  using Grove.Infrastructure;
-  using Grove.Core.Mana;
+  using Mana;
 
   public class ManaAmountIncrement : PropertyModifier<IManaAmount>
   {
     private readonly IManaAmount _increment;
 
-    public ManaAmountIncrement(IManaAmount increment, ChangeTracker changeTracker) : base(changeTracker)
+    public ManaAmountIncrement(IManaAmount increment)
     {
       _increment = increment;
     }

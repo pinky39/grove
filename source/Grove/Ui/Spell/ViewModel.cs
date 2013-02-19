@@ -1,42 +1,19 @@
 ﻿namespace Grove.Ui.Spell
 {
   using System;
+  using System.Collections.Generic;
   using System.Linq;
   using Core;
   using Core.Decisions.Results;
   using Core.Targeting;
-  using DistributeDamage;
   using Infrastructure;
-  using Shell;
 
   public class ViewModel : CardViewModel, IReceive<UiInteractionChanged>, IReceive<TargetSelected>,
     IReceive<TargetUnselected>
   {
-    private readonly Game _game;
-    private readonly SelectAbility.ViewModel.IFactory _selectAbilityVmFactory;
-    private readonly SelectTarget.ViewModel.IFactory _selectTargetVmFactory;
-    private readonly SelectXCost.ViewModel.IFactory _selectXCostVmFactory;
-    private readonly IShell _shell;
-    private readonly UiDamageDistribution _uiDamageDistribution;
-    private Action _select;
+    private Action _select = delegate { };
 
-    public ViewModel(
-      Card card,
-      IShell shell,
-      Game game,
-      SelectTarget.ViewModel.IFactory selectTargetVmFactory,
-      SelectXCost.ViewModel.IFactory selectXCostVmFactory,
-      SelectAbility.ViewModel.IFactory selectAbilityVmFactory,
-      UiDamageDistribution uiDamageDistribution) : base(card)
-    {
-      _shell = shell;
-      _game = game;
-      _selectTargetVmFactory = selectTargetVmFactory;
-      _selectXCostVmFactory = selectXCostVmFactory;
-      _selectAbilityVmFactory = selectAbilityVmFactory;
-      _uiDamageDistribution = uiDamageDistribution;
-      _select = delegate { };
-    }
+    public ViewModel(Card card) : base(card) {}
 
     public virtual bool IsPlayable { get; protected set; }
     public virtual bool IsSelected { get; protected set; }
@@ -70,8 +47,7 @@
             return;
           }
 
-          IsPlayable = Card.CanCast().Any(x => x.CanBeSatisfied) ||
-            Card.CanActivateAbilities().Any(x => x.CanBeSatisfied);
+          IsPlayable = Card.CanCast().Count > 0 || Card.CanActivateAbilities().Count > 0;
           break;
 
         case (InteractionState.SelectTarget):
@@ -90,7 +66,7 @@
 
     public void ChangePlayersInterest()
     {
-      _game.Publish(new PlayersInterestChanged
+      Publish(new PlayersInterestChanged
         {
           Visual = Card
         });
@@ -101,32 +77,37 @@
       _select();
     }
 
-    private Ui.PlayableActivator SelectActivation()
+    private PlayableActivator SelectActivation()
     {
-      var canCastSpells = Card.CanCast();
-      var canActivateAbilities = Card.CanActivateAbilities();
-
-      var activations = canCastSpells
-        .Select((x, i) => new Ui.PlayableActivator
+      var activations = Card.CanCast()
+        .Select(prerequisites => new PlayableActivator
           {
-            Prerequisites = x,
-            GetPlayable = parameters => new PlayableSpell(Card, parameters, i)
-          })
-        .Where(x => x.Prerequisites.CanBeSatisfied).Concat(
-          canActivateAbilities
-            .Select((x, i) => new Ui.PlayableActivator
+            Prerequisites = prerequisites,
+            GetPlayable = parameters => new PlayableSpell
               {
-                Prerequisites = x,
-                GetPlayable = parameters => new Core.Decisions.Results.PlayableAbility(Card, parameters, i)
-              })
-            .Where(x => x.Prerequisites.CanBeSatisfied))
+                Card = prerequisites.Card,
+                ActivationParameters = parameters,
+                Index = prerequisites.Index
+              }
+          })
+        .Concat(Card.CanActivateAbilities()
+          .Select(prerequisites => new PlayableActivator
+            {
+              Prerequisites = prerequisites,
+              GetPlayable = parameters => new PlayableAbility
+                {
+                  Card = prerequisites.Card,
+                  ActivationParameters = parameters,
+                  Index = prerequisites.Index
+                }
+            }))
         .ToList();
 
       if (activations.Count == 1)
         return activations[0];
 
-      var dialog = _selectAbilityVmFactory.Create(activations.Select(x => x.Prerequisites.Description));
-      _shell.ShowModalDialog(dialog, DialogType.Large, InteractionState.Disabled);
+      var dialog = SelectAbilityVmFactory.Create(activations.Select(x => x.Prerequisites.Description));
+      Shell.ShowModalDialog(dialog, DialogType.Large, InteractionState.Disabled);
 
       if (dialog.WasCanceled)
         return null;
@@ -153,14 +134,15 @@
         return;
 
       var playable = activation.GetPlayable(activationParameters);
-      _game.Publish(new PlayableSelected {Playable = playable});
+
+      Publish(new PlayableSelected {Playable = playable});
     }
 
     private bool SelectTargets(ActivationPrerequisites prerequisites, ActivationParameters parameters)
     {
-      if (prerequisites.TargetSelector.RequiresCostTargets)
+      if (prerequisites.Selector.RequiresCostTargets)
       {
-        var dialog = ShowSelectorDialog(prerequisites.TargetSelector.Cost.FirstOrDefault());
+        var dialog = ShowSelectorDialog(prerequisites.Selector.Cost.FirstOrDefault());
 
         if (dialog.WasCanceled)
           return false;
@@ -171,9 +153,9 @@
         }
       }
 
-      if (prerequisites.TargetSelector.RequiresEffectTargets)
+      if (prerequisites.Selector.RequiresEffectTargets)
       {
-        foreach (var selector in prerequisites.TargetSelector.Effect)
+        foreach (var selector in prerequisites.Selector.Effect)
         {
           var dialog = ShowSelectorDialog(selector);
 
@@ -191,29 +173,42 @@
         }
       }
 
-      if (prerequisites.DistributeDamage)
+      if (prerequisites.DistributeAmount > 0)
       {
-        parameters.Targets.DamageDistributor = _uiDamageDistribution;
+        parameters.Targets.Distribution = DistributeDamage(parameters.Targets.Effect, prerequisites.DistributeAmount);
       }
 
       return true;
     }
 
+    public List<int> DistributeDamage(IList<ITarget> targets, int damage)
+    {
+      if (targets.Count == 1)
+      {
+        return new List<int> {damage};
+      }
+
+      var dialog = DistributeDamageDialog.Create(targets, damage);
+      Shell.ShowModalDialog(dialog, DialogType.Large, InteractionState.Disabled);
+
+      return dialog.Distribution;
+    }
+
     private SelectTarget.ViewModel ShowSelectorDialog(TargetValidator validator)
     {
-      var dialog = _selectTargetVmFactory.Create(validator, canCancel: true,
+      var dialog = SelectTargetVmFactory.Create(validator, canCancel: true,
         instructions: "(Press Spacebar when done, press Esc to cancel.)");
 
-      _shell.ShowModalDialog(dialog, DialogType.Small, InteractionState.SelectTarget);
+      Shell.ShowModalDialog(dialog, DialogType.Small, InteractionState.SelectTarget);
       return dialog;
     }
 
     private bool SelectX(ActivationPrerequisites prerequisites, ActivationParameters parameters)
     {
-      if (prerequisites.HasXInCost)
+      if (prerequisites.MaxX.HasValue)
       {
-        var dialog = _selectXCostVmFactory.Create(prerequisites.MaxX.Value);
-        _shell.ShowModalDialog(dialog, DialogType.Small, InteractionState.Disabled);
+        var dialog = SelectXCostVmFactory.Create(prerequisites.MaxX.Value);
+        Shell.ShowModalDialog(dialog, DialogType.Small, InteractionState.Disabled);
 
         if (dialog.WasCanceled)
           return false;
@@ -226,8 +221,8 @@
 
     private void ChangeSelection()
     {
-      _game.Publish(new SelectionChanged {Selection = Card});
-    }    
+      Publish(new SelectionChanged {Selection = Card});
+    }
 
     public interface IFactory
     {

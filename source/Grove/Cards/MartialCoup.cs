@@ -27,7 +27,7 @@
                 {ShouldResolve = e => e.X >= 5},
               new CreateTokens(
                 count: Value.PlusX,
-                tokens: Card
+                token: Card
                   .Named("Soldier Token")
                   .FlavorText(
                     "If you need an example to lead others to the front lines, consider the precedent set.")

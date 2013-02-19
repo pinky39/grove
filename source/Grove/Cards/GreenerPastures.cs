@@ -41,7 +41,7 @@
 
             p.Effect = () => new CreateTokens(
               count: 1,
-              tokens: Card
+              token: Card
                 .Named("Saproling Token")
                 .FlavorText(
                   "The nauseating wriggling of a saproling is exceeded only by the nauseating wriggling of its prey.")
