@@ -6,7 +6,7 @@
 
   public class Battlefield : UnorderedZone, IBattlefieldQuery
   {
-    public Battlefield(Player owner, Game game) : base(owner, game) {}
+    public Battlefield(Player owner) : base(owner) {}
 
     private Battlefield()
     {

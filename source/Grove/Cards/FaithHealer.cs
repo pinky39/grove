@@ -33,7 +33,7 @@
             p.TargetSelector.AddCost(trg =>
               {
                 trg
-                  .Is.Card(pr => pr.Effect.Controller == pr.Target.Card().Controller)
+                  .Is.Card(controlledBy: ControlledBy.SpellOwner)
                   .On.Battlefield();
                 
                 trg.Text = "Select an enchantment to sacrifice.";

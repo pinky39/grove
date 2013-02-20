@@ -9,7 +9,6 @@
     private static readonly ILog Log = LogManager.GetLogger(typeof (TurnInfo));
     private readonly Trackable<State> _state;
     private readonly Trackable<int> _stateCount;
-
     private readonly Trackable<Step> _step;
     private readonly Trackable<int> _stepCount;
     private readonly Trackable<int> _turnCount;
@@ -18,11 +17,11 @@
 
     public TurnInfo(ChangeTracker changeTracker)
     {
-      _step = new Trackable<Step>(changeTracker);
-      _turnCount = new Trackable<int>(1, changeTracker);
-      _stepCount = new Trackable<int>(changeTracker);
-      _state = new Trackable<State>(changeTracker);
-      _stateCount = new Trackable<int>(changeTracker);
+      _step = new Trackable<Step>().Initialize(changeTracker);
+      _turnCount = new Trackable<int>(1).Initialize(changeTracker);
+      _stepCount = new Trackable<int>().Initialize(changeTracker);
+      _state = new Trackable<State>().Initialize(changeTracker);
+      _stateCount = new Trackable<int>().Initialize(changeTracker);
     }
 
     public State State

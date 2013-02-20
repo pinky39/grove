@@ -7,23 +7,22 @@
   using Decisions.Results;
   using Infrastructure;
   using Messages;
-
-  [Copyable]
-  public class Attacker : IHashable
+  
+  public class Attacker : GameObject, IHashable
   {
-    private readonly TrackableList<Damage> _assignedDamage;
-    private readonly TrackableList<Blocker> _blockers;
+    private readonly TrackableList<Damage> _assignedDamage = new TrackableList<Damage>();
+    private readonly TrackableList<Blocker> _blockers = new TrackableList<Blocker>();
     private readonly Card _card;
-    private readonly Game _game;
-    private readonly Trackable<bool> _isBlocked;
+    private readonly Trackable<bool> _isBlocked = new Trackable<bool>();
 
     public Attacker(Card card, Game game)
     {
+      Game = game;
       _card = card;
-      _game = game;
-      _blockers = new TrackableList<Blocker>(game.ChangeTracker);
-      _assignedDamage = new TrackableList<Damage>(game.ChangeTracker);
-      _isBlocked = new Trackable<bool>(game.ChangeTracker);
+
+      _blockers.Initialize(ChangeTracker);
+      _assignedDamage.Initialize(ChangeTracker);
+      _isBlocked.Initialize(ChangeTracker);
     }
 
     private Attacker() {}
@@ -65,7 +64,7 @@
 
     public void DealAssignedDamage()
     {
-      foreach (Damage damage in _assignedDamage)
+      foreach (var damage in _assignedDamage)
       {
         _card.DealDamage(damage);
       }
@@ -75,26 +74,26 @@
 
     public void DistributeDamageToBlockers()
     {
-      _game.Enqueue<AssignCombatDamage>(
+      Enqueue<AssignCombatDamage>(
         controller: _card.Controller,
         init: p => p.Attacker = this);
     }
 
     public void DistributeDamageToBlockers(DamageDistribution distribution)
     {
-      foreach (Blocker blocker in _blockers)
+      foreach (var blocker in _blockers)
       {
         var damage = new Damage(
           source: Card,
           amount: distribution[blocker],
           isCombat: true,
-          changeTracker: _game.ChangeTracker
+          changeTracker: ChangeTracker
           );
 
         blocker.AssignDamage(damage);
       }
 
-      Player defender = _game.Players.GetOpponent(_card.Controller);
+      var defender = Players.GetOpponent(_card.Controller);
 
       if (HasTrample || _isBlocked == false)
       {
@@ -102,7 +101,7 @@
           source: _card,
           amount: DamageThisWillDealInOneDamageStep - distribution.Total,
           isCombat: true,
-          changeTracker: _game.ChangeTracker);
+          changeTracker: ChangeTracker);
 
         defender.AssignDamage(unassignedDamage);
       }
@@ -133,9 +132,9 @@
 
     public void RemoveFromCombat()
     {
-      _game.Publish(new RemovedFromCombat {Card = Card});
+      Publish(new RemovedFromCombat {Card = Card});
 
-      foreach (Blocker blocker in _blockers)
+      foreach (var blocker in _blockers)
       {
         blocker.RemoveAttacker();
       }
@@ -143,7 +142,7 @@
 
     public void SetDamageAssignmentOrder(DamageAssignmentOrder damageAssignmentOrder)
     {
-      foreach (Blocker blocker in _blockers)
+      foreach (var blocker in _blockers)
       {
         blocker.DamageAssignmentOrder = damageAssignmentOrder[blocker];
       }

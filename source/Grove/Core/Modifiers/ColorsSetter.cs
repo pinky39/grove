@@ -1,15 +1,14 @@
 ﻿namespace Grove.Core.Modifiers
 {
-  using Grove.Infrastructure;
-  using Grove.Core.Mana;
+  using Mana;
 
   public class ColorsSetter : PropertyModifier<ManaColors>
   {
     private readonly ManaColors _value;
 
-    private ColorsSetter() : base(null) {}
+    private ColorsSetter() {}
 
-    public ColorsSetter(ManaColors value, ChangeTracker changeTracker) : base(changeTracker)
+    public ColorsSetter(ManaColors value)
     {
       _value = value;
     }

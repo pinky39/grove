@@ -3,13 +3,8 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Core.Zones;
-  using Infrastructure;
 
-  public delegate IEnumerable<ITarget> TargetGeneratorDelegate(Func<Zone, Player, bool> zoneFilter);
-
-  [Copyable]
-  public class TargetSelector
+  public class TargetSelector : GameObject
   {
     public static readonly TargetSelector NullSelector = new TargetSelector();
     private readonly List<TargetValidator> _costValidators = new List<TargetValidator>();
@@ -66,6 +61,8 @@
 
     public void Initialize(Game game)
     {
+      Game = game;
+
       foreach (var validator in _effectValidators)
       {
         validator.Initialize(game);
@@ -77,7 +74,7 @@
       }
     }
 
-    public TargetsCandidates GenerateCandidates(TargetGeneratorDelegate generator)
+    public TargetsCandidates GenerateCandidates(Card owningCard, object triggerMessage = null)
     {
       var all = new TargetsCandidates();
 
@@ -85,9 +82,9 @@
       {
         var candidates = new TargetCandidates();
 
-        foreach (var target in generator(selector.HasValidZone))
+        foreach (var target in GenerateTargets(selector.IsZoneValid))
         {
-          if (selector.IsTargetValid(target))
+          if (selector.IsTargetValid(target, owningCard, triggerMessage))
           {
             candidates.Add(target);
           }
@@ -100,9 +97,9 @@
       {
         var candidates = new TargetCandidates();
 
-        foreach (var target in generator(selector.HasValidZone))
+        foreach (var target in GenerateTargets(selector.IsZoneValid))
         {
-          if (selector.IsTargetValid(target))
+          if (selector.IsTargetValid(target, owningCard, triggerMessage))
           {
             candidates.Add(target);
           }
@@ -114,7 +111,7 @@
       return all;
     }
 
-    public bool IsValidEffectTarget(ITarget target)
+    public bool IsValidEffectTarget(ITarget target, Card owningCard, object triggerMessage = null)
     {
       // Currently there is no way to figure out
       // to which validator the target belongs. 
@@ -129,7 +126,7 @@
         validator =>
           {
             return validator.HasValidZone(target) &&
-              validator.IsTargetValid(target);
+              validator.IsTargetValid(target, owningCard, triggerMessage);
           });
     }
   }

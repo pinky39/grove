@@ -1,9 +1,12 @@
 ﻿namespace Grove.Core
 {
   using System;
+  using System.Collections.Generic;
+  using System.Linq;
   using Ai;
   using Decisions;
   using Infrastructure;
+  using Targeting;
   using Zones;
 
   [Copyable]
@@ -16,6 +19,7 @@
     protected Combat Combat { get { return Game.Combat; } }
     protected TurnInfo Turn { get { return Game.Turn; } }
     protected Search Search { get { return Game.Search; } }
+    protected CardDatabase CardDatebase {get { return Game.CardDatabase; }}
 
     protected ChangeTracker ChangeTracker { get { return Game.ChangeTracker; } }
 
@@ -40,6 +44,19 @@
       where TDecision : class, IDecision
     {
       Game.Enqueue(controller, init);
+    }
+
+    public IEnumerable<ITarget> GenerateTargets(Func<Zone, Player, bool> zoneFilter)
+    {
+      foreach (var target in Players.SelectMany(p => p.GetTargets(zoneFilter)))
+      {
+        yield return target;
+      }
+
+      foreach (var target in Stack.GenerateTargets(zoneFilter))
+      {
+        yield return target;
+      }
     }
   }
 }

@@ -16,8 +16,8 @@
       Source = source;
       IsCombat = isCombat;
 
-      _amount = new Trackable<int>(amount, changeTracker);
-      _redirections = new TrackableList<DamageRedirection>(changeTracker);
+      _amount = new Trackable<int>(amount).Initialize(changeTracker);
+      _redirections = new TrackableList<DamageRedirection>().Initialize(changeTracker);
     }
 
     public int Amount { get { return _amount.Value; } set { _amount.Value = value; } }

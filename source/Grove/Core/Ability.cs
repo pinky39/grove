@@ -42,7 +42,7 @@
 
     bool IEffectSource.IsTargetStillValid(ITarget target)
     {
-      return TargetSelector.IsValidEffectTarget(target);
+      return TargetSelector.IsValidEffectTarget(target, _owner);
     }
 
     protected void Resolve(Effect e, bool skipStack)

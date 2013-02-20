@@ -24,10 +24,11 @@
       _orderImpactsHashcode = orderImpactsHashcode;      
     }
 
-    public void Initialize(ChangeTracker changeTracker, IHashDependancy hashDependancy = null)
+    public TrackableList<T> Initialize(ChangeTracker changeTracker, IHashDependancy hashDependancy = null)
     {
       _hashDependancy = hashDependancy ?? new NullHashDependency();
       _changeTracker = changeTracker;
+      return this;
     }
 
     private TrackableList() {}

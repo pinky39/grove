@@ -543,7 +543,6 @@
     <Compile Include="Core\Decisions\Human\SelectCardsPutToBattlefield.cs" />
     <Compile Include="Core\Decisions\Human\SelectCardsToSacrificeAsCost.cs" />
     <Compile Include="Core\Decisions\IProcessDecisionResults.cs" />
-    <Compile Include="Core\Decisions\Machine\CardSelector.cs" />
     <Compile Include="Core\Decisions\Machine\ChooseEffectOptions.cs" />
     <Compile Include="Core\Decisions\Machine\DiscardCards.cs" />
     <Compile Include="Core\Decisions\Machine\PayOr.cs" />
@@ -736,7 +735,6 @@
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ui\Deck\ViewModel.cs" />
-    <Compile Include="Core\Targeting\Validators.cs" />
     <Compile Include="Core\Mana\ZeroManaAmount.cs" />
     <Compile Include="Core\Zones\Exile.cs" />
     <Compile Include="Core\Zones\IBattlefieldQuery.cs" />

@@ -1,14 +1,12 @@
 ﻿namespace Grove.Core.Modifiers
 {
-  using Grove.Infrastructure;
-
   public class CardTypeSetter : PropertyModifier<CardType>
   {
     private readonly CardType _type;
 
-    private CardTypeSetter() : base(null) {}
+    private CardTypeSetter() {}
 
-    public CardTypeSetter(CardType type, ChangeTracker changeTracker) : base(changeTracker)
+    public CardTypeSetter(CardType type)
     {
       _type = type;
     }

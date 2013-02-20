@@ -3,12 +3,12 @@
   public class IncreaseLevel : Modifier
   {
     private Level _level;
-    private Increment _levelIncrement;
+    private Increment _levelIncrement = new Increment(1);
 
     public override void Apply(Level level)
     {
       _level = level;
-      _levelIncrement = new Increment(1, ChangeTracker);
+      _levelIncrement.Initialize(ChangeTracker);
       _level.AddModifier(_levelIncrement);
     }
 

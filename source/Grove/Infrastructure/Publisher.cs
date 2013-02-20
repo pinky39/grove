@@ -38,7 +38,9 @@
           .Where(x => IsUiComponent(x) == false)
           .Select(copyService.Copy);
 
-        _subscribers.Add(subscriber.Key, new TrackableList<object>(subscribers, _changeTracker));
+        var trackableSubscribers = new TrackableList<object>(subscribers);
+        trackableSubscribers.Initialize(_changeTracker);
+        _subscribers.Add(subscriber.Key, trackableSubscribers);
       }
     }
 
@@ -67,8 +69,11 @@
           }
 
           if (!_subscribers.ContainsKey(messageType))
-            _subscribers.Add(messageType, new TrackableList<object>(changeTracker));
-
+          {
+            var trackableSubscribers = new TrackableList<object>();
+            trackableSubscribers.Initialize(_changeTracker);
+            _subscribers.Add(messageType, trackableSubscribers);
+          }
 
           allHandlers.Add(messageType);
         }

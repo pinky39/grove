@@ -18,7 +18,8 @@
     public override void Apply(CardColors colors)
     {
       _cardColors = colors;
-      _colorsSetter = new ColorsSetter(_colors, ChangeTracker);
+      _colorsSetter = new ColorsSetter(_colors);
+      _colorsSetter.Initialize(ChangeTracker);
       _cardColors.AddModifier(_colorsSetter);
     }
 

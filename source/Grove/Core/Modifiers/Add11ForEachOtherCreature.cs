@@ -8,7 +8,7 @@
   public class Add11ForEachOtherCreature : Modifier, IReceive<ZoneChanged>,
     IReceive<TypeChanged>, IReceive<ControllerChanged>
   {
-    private Increment _increment = new Increment();
+    private Increment _increment = new Increment(0);
     private Power _power;
     private Toughness _tougness;
 

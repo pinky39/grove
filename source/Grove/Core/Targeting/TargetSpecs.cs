@@ -41,7 +41,7 @@
     public TargetValidatorParameters AttackerOrBlocker()
     {
       _p.TargetSpec =
-        p => p.Target.IsCard() && (p.Effect.Source.OwningCard.IsAttacker || p.Effect.Source.OwningCard.IsBlocker);
+        p => p.Target.IsCard() && (p.OwningCard.IsAttacker || p.OwningCard.IsBlocker);
       return _p;
     }
 
@@ -49,7 +49,7 @@
     {
       _p.TargetSpec = p =>
         {
-          var equipment = p.Effect.Source.OwningCard;
+          var equipment = p.OwningCard;
 
           if (!p.Target.Is().Creature) return false;
 
@@ -77,13 +77,13 @@
         {
           if (p.Target.IsCard())
           {
-            return HasValidController(p.Target.Controller(), p.Effect.Source.OwningCard.Controller, controlledBy) &&
+            return HasValidController(p.Target.Controller(), p.OwningCard.Controller, controlledBy) &&
               filter(p.Target.Card());
           }
 
           if (p.Target.IsEffect())
           {
-            return HasValidController(p.Target.Controller(), p.Effect.Source.OwningCard.Controller, controlledBy) &&
+            return HasValidController(p.Target.Controller(), p.OwningCard.Controller, controlledBy) &&
               filter(p.Target.Effect().Source.OwningCard);
           }
 

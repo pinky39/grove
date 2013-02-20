@@ -2,11 +2,10 @@
 {
   using System.Linq;
   using Infrastructure;
-  using Messages;
 
   public class Library : OrderedZone, ILibraryQuery
   {
-    public Library(Player owner, Game game) : base(owner, game) {}
+    public Library(Player owner) : base(owner) {}
 
     private Library()
     {
@@ -25,6 +24,5 @@
     {
       AddToFront(card);
     }
-
   }
 }

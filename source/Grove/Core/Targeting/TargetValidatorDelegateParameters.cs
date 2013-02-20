@@ -1,19 +1,21 @@
 ﻿namespace Grove.Core.Targeting
 {
-  using Costs;
-  using Effects;
-
-  public class TargetValidatorDelegateParameters : GameObject
+  public class TargetValidatorDelegateParameters
   {
-    public Effect Effect;
-    public Cost Cost;
+    public Game Game;
+    public ITarget Target;
+    public Card OwningCard;
 
-    public TargetValidatorDelegateParameters(ITarget target, Game game)
+    private object _message;
+
+    public void SetTriggerMessage(object message)
     {
-      Target = target;
-      Game = game;
+      _message = message;
     }
 
-    public ITarget Target { get; private set; }    
+    public T TriggerMessage<T>()
+    {
+      return (T) _message;
+    }
   }
 }

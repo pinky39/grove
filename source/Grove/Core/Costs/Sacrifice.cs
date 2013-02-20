@@ -10,7 +10,7 @@
       if (Validator != null)
       {
         return Card.Controller.Battlefield.Any(
-          permanent => Validator.IsTargetValid(permanent));
+          permanent => Validator.IsTargetValid(permanent, Card));
       }
 
       return Card.IsPermanent;

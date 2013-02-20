@@ -34,7 +34,7 @@
         changeTracker: Game.ChangeTracker
         );
 
-      Core.Players.Active.DealDamage(damage);
+      Players.Active.DealDamage(damage);
     }
   }
 }

@@ -10,22 +10,25 @@
   {
     public ViewModel.IFactory TargetDialog { get; set; }
     public IShell Shell { get; set; }
+    public Game Game { get; set; }
 
     public void ExecuteQuery(SelectCards selectCards)
     {
       var chosenCards = new ChosenCards();
 
-      var dialog = TargetDialog.Create(
-        new UiTargetValidator(
-          minTargetCount: selectCards.MinCount,
-          maxTargetCount: selectCards.MaxCount,
-          text: selectCards.Text,
-          isValid:
-            card =>
-              selectCards.Controller == card.Controller && selectCards.Zone == card.Zone && selectCards.Validator(card)),
-        canCancel: false
-        );
+      var validatorParameters = new TargetValidatorParameters
+        {
+          TargetSpec = p => selectCards.Validator(p.Target.Card()),
+          ZoneSpec = p => p.Zone == selectCards.Zone && p.ZoneOwner == selectCards.Controller,
+          MinCount = selectCards.MinCount,
+          MaxCount = selectCards.MaxCount,
+          Text = selectCards.Text
+        };
 
+      var validator = new TargetValidator(validatorParameters);
+      validator.Initialize(Game);
+
+      var dialog = TargetDialog.Create(validator, canCancel: false);
       Shell.ShowModalDialog(dialog, DialogType.Small, InteractionState.SelectTarget);
 
       foreach (var target in dialog.Selection)

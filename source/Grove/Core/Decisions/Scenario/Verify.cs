@@ -24,8 +24,6 @@
     {
       Assertion();
       HasCompleted = true;
-    }
-
-    public void Init() {}
+    }    
   }
 }

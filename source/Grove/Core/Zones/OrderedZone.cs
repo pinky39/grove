@@ -8,17 +8,13 @@
   using Targeting;
 
   [Copyable]
-  public abstract class OrderedZone : IEnumerable<Card>, IHashable, IZone
+  public abstract class OrderedZone : GameObject, IEnumerable<Card>, IHashable, IZone
   {
-    private readonly TrackableList<Card> _cards;    
-    public event EventHandler<ZoneChangedEventArgs> CardAdded = delegate { };
-    public event EventHandler<ZoneChangedEventArgs> CardRemoved = delegate { };
+    private readonly TrackableList<Card> _cards = new TrackableList<Card>(orderImpactsHashcode: true);
 
-    protected OrderedZone(Player owner, Game game)
+    protected OrderedZone(Player owner)
     {
       Owner = owner;
-      Game = game;
-      _cards = new TrackableList<Card>(game.ChangeTracker, orderImpactsHashcode: true);
     }
 
     protected OrderedZone()
@@ -27,7 +23,6 @@
     }
 
     public Player Owner { get; private set; }
-    protected Game Game { get; private set; }
 
     public int Count { get { return _cards.Count; } }
 
@@ -48,27 +43,30 @@
       return calc.Calculate(_cards);
     }
 
-    public abstract Zone Zone { get; }    
+    public abstract Zone Zone { get; }
 
-    public virtual void AfterAdd(Card card)
-    {
-      
-    }
+    public virtual void AfterAdd(Card card) {}
 
-    public virtual void AfterRemove(Card card)
-    {
-      
-    }
+    public virtual void AfterRemove(Card card) {}
 
     void IZone.Remove(Card card)
     {
       Remove(card);
     }
 
+    public event EventHandler<ZoneChangedEventArgs> CardAdded = delegate { };
+    public event EventHandler<ZoneChangedEventArgs> CardRemoved = delegate { };
+
+    public virtual void Initialize(Game game)
+    {
+      Game = game;
+      _cards.Initialize(ChangeTracker);
+    }
+
     protected virtual void Remove(Card card)
     {
       _cards.Remove(card);
-      
+
       CardRemoved(this, new ZoneChangedEventArgs(card));
       AfterRemove(card);
     }
@@ -77,22 +75,22 @@
     {
       _cards.Add(card);
       card.ChangeZone(this);
-      
-      CardAdded(this, new ZoneChangedEventArgs(card, _cards.Count - 1));      
+
+      CardAdded(this, new ZoneChangedEventArgs(card, _cards.Count - 1));
     }
 
     public virtual void AddToFront(Card card)
     {
       _cards.AddToFront(card);
       card.ChangeZone(this);
-      
-      CardAdded(this, new ZoneChangedEventArgs(card, _cards.Count));      
+
+      CardAdded(this, new ZoneChangedEventArgs(card, _cards.Count));
     }
 
     public bool Contains(Card card)
     {
       return _cards.Contains(card);
-    }       
+    }
 
     public virtual void Shuffle()
     {
@@ -101,7 +99,7 @@
       foreach (var card in _cards)
       {
         card.ResetVisibility();
-      }      
+      }
     }
 
     public override string ToString()
@@ -110,7 +108,7 @@
         card => card.ToString()));
     }
 
-    public IEnumerable<ITarget> GenerateTargets(Func<Zone, Player, bool> zoneFilter)
+    public IEnumerable<ITarget> GenerateZoneTargets(Func<Zone, Player, bool> zoneFilter)
     {
       if (zoneFilter(Zone, Owner))
       {

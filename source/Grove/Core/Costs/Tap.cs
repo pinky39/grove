@@ -10,7 +10,7 @@
       if (Validator != null)
       {
         return Card.Controller.Battlefield.Any(
-          x => x.CanBeTapped && Validator.IsTargetValid(x));
+          x => x.CanBeTapped && Validator.IsTargetValid(x, Card));
       }
 
       return Card.CanTap;

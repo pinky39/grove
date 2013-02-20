@@ -22,12 +22,12 @@
           ),
         canCancel: false,
         instructions: "(Press Spacebar when done.)",
-        targetSelected: target => Game.Publish(
+        targetSelected: target => Publish(
           new AttackerSelected
             {
               Attacker = target.Card()
             }),
-        targetUnselected: target => Game.Publish(
+        targetUnselected: target => Publish(
           new AttackerUnselected
             {
               Attacker = target.Card()

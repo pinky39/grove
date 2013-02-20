@@ -6,7 +6,7 @@
     {
       if (Ai(Controller, CardToPayUpkeepFor))
       {
-        CardSelector.ExecuteQueury(this, descending: false);  
+        Result = GetTargets(descending: false);                
       }            
     }
   }

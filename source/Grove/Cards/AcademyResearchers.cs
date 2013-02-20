@@ -30,7 +30,7 @@
             p.TargetSelector.AddEffect(ps => ps
               .Is.Card(p1 =>
                 p1.Target.Card().Is().Aura &&
-                  p1.Target.Card().CanTarget(p1.Effect.Source.OwningCard))
+                  p1.Target.Card().CanTarget(p1.OwningCard))
               .In.OwnersHand());
             p.TargetingRule(new AttachTargetToSelf());
           }

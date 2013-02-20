@@ -65,7 +65,7 @@
 
     public bool IsTargetStillValid(ITarget target)
     {
-      return _targetSelector.IsValidEffectTarget(target);
+      return _targetSelector.IsValidEffectTarget(target, _card);
     }
 
     public int CalculateHash(HashCalculator calc)
@@ -137,7 +137,7 @@
 
     public bool CanTarget(ITarget target)
     {
-      return _targetSelector.Effect[0].IsTargetValid(target);
+      return _targetSelector.Effect[0].IsTargetValid(target, _card);
     }
 
     public bool IsGoodTarget(ITarget target)

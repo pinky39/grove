@@ -4,10 +4,7 @@
   using Mana;
 
   public class ScenarioPlayableAbility : Results.PlayableAbility
-  {
-    public ScenarioPlayableAbility(Card card, ActivationParameters activationParameters, int index)
-      : base(card, activationParameters, index) {}
-
+  {    
     public override bool CanPlay()
     {
       var manaCost = Card.GetActivatedAbilityManaCost(Index);

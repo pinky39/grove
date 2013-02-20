@@ -10,7 +10,7 @@
   {
     public override void Process(Ai.ActivationContext c)
     {
-      var candidates = c.Selector.GenerateCandidates(Game.GenerateTargets);
+      var candidates = c.Selector.GenerateCandidates(c.Card);
 
       var parameters = new TargetingRuleParameters(candidates, c, Game);
 

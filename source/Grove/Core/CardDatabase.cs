@@ -31,10 +31,10 @@
       return GetEnumerator();
     }
 
-    public Card CreateCard(string name, Player controller, Game game)
+    public Card CreateCard(string name)
     {
       var cardFactory = GetCardFactory(name);
-      return cardFactory.CreateCard().Initialize(controller, game);
+      return cardFactory.CreateCard();
     }
 
     private CardFactory GetCardFactory(string name)

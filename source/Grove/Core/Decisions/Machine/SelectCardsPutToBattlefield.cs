@@ -4,7 +4,7 @@
   {
     protected override void ExecuteQuery()
     {
-      CardSelector.ExecuteQueury(this, descending: true);
+      Result = GetTargets(descending: true);      
     }
   }
 }

@@ -5,17 +5,20 @@
   using System.Collections.Generic;
   using System.Linq;
   using Infrastructure;
-
-  [Copyable]
-  public abstract class UnorderedZone : IEnumerable<Card>, IHashable, IZone
+  
+  public abstract class UnorderedZone : GameObject, IEnumerable<Card>, IHashable, IZone
   {
-    private readonly TrackableList<Card> _cards;
+    private readonly TrackableList<Card> _cards = new TrackableList<Card>();
 
-    protected UnorderedZone(Player owner, Game game)
+    protected UnorderedZone(Player owner)
     {
-      Owner = owner;
+      Owner = owner;      
+    }
+
+    public virtual void Initialize(Game game)
+    {
       Game = game;
-      _cards = new TrackableList<Card>(game.ChangeTracker);
+      _cards.Initialize(ChangeTracker);
     }
 
     protected UnorderedZone()
@@ -23,8 +26,7 @@
       /* for state copy */
     }
 
-    public Player Owner { get; private set; }
-    protected Game Game { get; set; }
+    public Player Owner { get; private set; }    
     public int Count { get { return _cards.Count; } }
     public IEnumerable<Card> Creatures { get { return _cards.Where(card => card.Is().Creature); } }
     public bool IsEmpty { get { return _cards.Count == 0; } }
@@ -68,7 +70,7 @@
     public event EventHandler<ZoneChangedEventArgs> CardAdded = delegate { };
     public event EventHandler<ZoneChangedEventArgs> CardRemoved = delegate { };
 
-    public virtual IEnumerable<Card> GenerateTargets(Func<Zone, Player, bool> zoneFilter)
+    public virtual IEnumerable<Card> GenerateZoneTargets(Func<Zone, Player, bool> zoneFilter)
     {
       if (zoneFilter(Zone, Owner))
       {

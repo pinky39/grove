@@ -8,7 +8,7 @@
   public class ManaAbility : ActivatedAbility, IManaSource
   {
     private Func<ManaAbility, Game, IManaAmount> _getManaAmount;
-    private ManaAmountCharacteristic _manaAmountCharacteristic;
+    private readonly ManaAmountCharacteristic _manaAmountCharacteristic = new ManaAmountCharacteristic(ManaAmount.Zero);
 
     public ManaAbility(ManaAbilityParameters p) : base(p)
     {
@@ -79,9 +79,7 @@
     {
       base.Initialize(owner, game);
 
-      _manaAmountCharacteristic = new ManaAmountCharacteristic(
-        ManaAmount.Zero,
-        ChangeTracker, null);
+      _manaAmountCharacteristic.Initialize(game, null);
     }
 
     public void SetManaAmount(IManaAmount manaAmount)

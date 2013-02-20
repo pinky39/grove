@@ -11,7 +11,7 @@
   using Redirections;
   using Targeting;
   using Zones;
-  
+
   public class Player : GameObject, ITarget, IDamageable, IAcceptsModifiers, IHasLife
   {
     private readonly AssignedDamage _assignedDamage;
@@ -19,14 +19,15 @@
     private readonly ContiniousEffects _continuousEffects = new ContiniousEffects();
     private readonly DamagePreventions _damagePreventions = new DamagePreventions();
     private readonly DamageRedirections _damageRedirections = new DamageRedirections();
-    private readonly Exile _exile;    
+    private readonly List<string> _deck;
+    private readonly Exile _exile;
     private readonly Graveyard _graveyard;
     private readonly Hand _hand;
     private readonly Trackable<bool> _hasLost = new Trackable<bool>();
     private readonly Trackable<bool> _hasMulligan = new Trackable<bool>(true);
     private readonly Trackable<bool> _hasPriority = new Trackable<bool>();
     private readonly Trackable<bool> _isActive = new Trackable<bool>();
-    private readonly LandLimit _landLimit;
+    private readonly LandLimit _landLimit = new LandLimit(1);
     private readonly Trackable<int> _landsPlayedCount = new Trackable<int>(0);
     private readonly Library _library;
     private readonly Life _life = new Life(20);
@@ -34,55 +35,26 @@
     private readonly TrackableList<IModifier> _modifiers = new TrackableList<IModifier>();
     private ManaSources _manaSources;
 
-    public void Initialize(Game game)
+    public Player(string name, string avatar, ControllerType controller, List<string> deck)
     {
-      Game = game;
-      
-      _life.Initialize(ChangeTracker);
-      _landsPlayedCount.Initialize(ChangeTracker);
-      _hasMulligan.Initialize(ChangeTracker);
-      _hasLost.Initialize(ChangeTracker);
-      _isActive.Initialize(ChangeTracker);
-      _hasPriority.Initialize(ChangeTracker);
-      _manaPool.Initialize(ChangeTracker);
-      _modifiers.Initialize(ChangeTracker);
-      _damagePreventions.Initialize(this, Game);
-      _damageRedirections.Initialize(ChangeTracker);
-      _assignedDamage.Initialize(ChangeTracker);
-      _continuousEffects.Initialize();
-    }
-    
-    public Player(string name, string avatar, ControllerType controller, IEnumerable<string> deck)
-    {      
       Name = name;
       Avatar = avatar;
-      Controller = controller;                              
-                              
+      Controller = controller;
+
       _assignedDamage = new AssignedDamage(this);
-      _continuousEffects = new ContiniousEffects();
-      _landLimit = new LandLimit(1, game.ChangeTracker, null);
-
-      _battlefield = new Battlefield(this, game);
-      _hand = new Hand(this, game);
-      _graveyard = new Graveyard(this, game);
-      _library = new Library(this, game);
-      _exile = new Exile(this, game);
-
-
-      IEnumerable<Card> cards = LoadCards(deck, _game.CardDatabase);
-      foreach (Card card in cards)
-      {
-        _library.Add(card);
-      }
-
-      InitializeManaSources(game.ChangeTracker);
+      _battlefield = new Battlefield(this);
+      _hand = new Hand(this);
+      _graveyard = new Graveyard(this);
+      _library = new Library(this);
+      _exile = new Exile(this);
+      _deck = deck;
     }
 
     private Player() {}
     public ControllerType Controller { get; private set; }
     public ManaPool ManaPool { get { return _manaPool; } }
     public string Name { get; private set; }
-    public Player Opponent { get { return _game.Players.GetOpponent(this); } }
+    public Player Opponent { get { return Players.GetOpponent(this); } }
 
     public int LandsPlayedCount { get { return _landsPlayedCount.Value; } set { _landsPlayedCount.Value = value; } }
 
@@ -119,7 +91,7 @@
     {
       get
       {
-        int score = _life.Score +
+        var score = _life.Score +
           _battlefield.Score +
             _hand.Score +
               _graveyard.Score;
@@ -130,7 +102,7 @@
 
     public void AddModifier(IModifier modifier)
     {
-      foreach (IModifiable modifiableProperty in ModifiableProperties)
+      foreach (var modifiableProperty in ModifiableProperties)
       {
         modifiableProperty.Accept(modifier);
       }
@@ -152,7 +124,7 @@
       if (damage.Amount == 0)
         return;
 
-      bool wasRedirected = _damageRedirections.RedirectDamage(damage);
+      var wasRedirected = _damageRedirections.RedirectDamage(damage);
 
       if (wasRedirected)
         return;
@@ -161,11 +133,11 @@
 
       if (damage.Source.Has().Lifelink)
       {
-        Player controller = damage.Source.Controller;
+        var controller = damage.Source.Controller;
         controller.Life += damage.Amount;
       }
 
-      _game.Publish(new DamageHasBeenDealt(this, damage));
+      Publish(new DamageHasBeenDealt(this, damage));
     }
 
     public int Life
@@ -194,6 +166,33 @@
         _landLimit.Value.GetValueOrDefault(),
         _landsPlayedCount.Value
         );
+    }
+
+    public void Initialize(Game game)
+    {
+      Game = game;
+
+      _life.Initialize(ChangeTracker);
+      _landsPlayedCount.Initialize(ChangeTracker);
+      _hasMulligan.Initialize(ChangeTracker);
+      _hasLost.Initialize(ChangeTracker);
+      _isActive.Initialize(ChangeTracker);
+      _hasPriority.Initialize(ChangeTracker);
+      _manaPool.Initialize(ChangeTracker);
+      _modifiers.Initialize(ChangeTracker);
+      _damagePreventions.Initialize(this, Game);
+      _damageRedirections.Initialize(ChangeTracker);
+      _assignedDamage.Initialize(ChangeTracker);
+      _continuousEffects.Initialize(null, Game, null);
+      _landLimit.Initialize(Game, null);
+      _battlefield.Initialize(Game);
+      _hand.Initialize(Game);
+      _graveyard.Initialize(Game);
+      _library.Initialize(Game);
+      _exile.Initialize(Game);
+
+      LoadLibrary();
+      InitializeManaSources();
     }
 
     public void PutCardToBattlefield(Card card)
@@ -244,7 +243,7 @@
 
     public void DiscardHand()
     {
-      foreach (Card card in _hand.ToList())
+      foreach (var card in _hand.ToList())
       {
         DiscardCard(card);
       }
@@ -255,13 +254,13 @@
       if (_hand.IsEmpty)
         return;
 
-      Card card = _hand.RandomCard;
+      var card = _hand.RandomCard;
       DiscardCard(card);
     }
 
     public void DrawCard()
     {
-      Card card = _library.Top;
+      var card = _library.Top;
 
       if (card == null)
       {
@@ -271,7 +270,7 @@
 
       _hand.Add(card);
 
-      if (_game.Search.InProgress)
+      if (Search.InProgress)
       {
         card.Hide();
       }
@@ -279,7 +278,7 @@
 
     public void DrawCards(int cardCount)
     {
-      for (int i = 0; i < cardCount; i++)
+      for (var i = 0; i < cardCount; i++)
       {
         DrawCard();
       }
@@ -301,22 +300,22 @@
     {
       yield return this;
 
-      foreach (Card card in _battlefield.GenerateTargets(zoneFilter))
+      foreach (var card in _battlefield.GenerateZoneTargets(zoneFilter))
       {
         yield return card;
       }
 
-      foreach (Card card in _hand.GenerateTargets(zoneFilter))
+      foreach (var card in _hand.GenerateZoneTargets(zoneFilter))
       {
         yield return card;
       }
 
-      foreach (ITarget card in _graveyard.GenerateTargets(zoneFilter))
+      foreach (var card in _graveyard.GenerateZoneTargets(zoneFilter))
       {
         yield return card;
       }
 
-      foreach (ITarget card in _library.GenerateTargets(zoneFilter))
+      foreach (var card in _library.GenerateZoneTargets(zoneFilter))
       {
         yield return card;
       }
@@ -337,9 +336,9 @@
 
     public void MoveCreaturesWithLeathalDamageOrZeroTougnessToGraveyard()
     {
-      List<Card> creatures = _battlefield.Creatures.ToList();
+      var creatures = _battlefield.Creatures.ToList();
 
-      foreach (Card creature in creatures)
+      foreach (var creature in creatures)
       {
         if (creature.Toughness <= 0)
         {
@@ -367,7 +366,7 @@
 
     public void RemoveDamageFromPermanents()
     {
-      foreach (Card card in _battlefield)
+      foreach (var card in _battlefield)
       {
         card.ClearDamage();
       }
@@ -375,7 +374,7 @@
 
     public void RemoveRegenerationFromPermanents()
     {
-      foreach (Card permanent in _battlefield)
+      foreach (var permanent in _battlefield)
       {
         permanent.CanRegenerate = false;
       }
@@ -397,16 +396,16 @@
       if (!CanMulligan)
         return;
 
-      int mulliganSize = _hand.MulliganSize;
+      var mulliganSize = _hand.MulliganSize;
 
-      foreach (Card card in Hand.ToList())
+      foreach (var card in Hand.ToList())
       {
         _library.Add(card);
       }
 
       _library.Shuffle();
 
-      for (int i = 0; i < mulliganSize; i++)
+      for (var i = 0; i < mulliganSize; i++)
       {
         DrawCard();
       }
@@ -421,9 +420,9 @@
 
     public void Mill(int count)
     {
-      for (int i = 0; i < count; i++)
+      for (var i = 0; i < count; i++)
       {
-        Card card = _library.Top;
+        var card = _library.Top;
 
         if (card == null)
           return;
@@ -448,9 +447,14 @@
       _library.PutOnTop(card);
     }
 
-    private IEnumerable<Card> LoadCards(IEnumerable<string> deck, CardDatabase cardDatabase)
+    private void LoadLibrary()
     {
-      return deck.Select(card => cardDatabase.CreateCard(card, this, _game));
+      var cards = _deck.Select(name => CardDatebase.CreateCard(name).Initialize(this, Game));
+
+      foreach (var card in cards)
+      {
+        _library.Add(card);
+      }
     }
 
     public void AddManaSources(IEnumerable<IManaSource> manaSources)
@@ -463,15 +467,15 @@
       return Name;
     }
 
-    private void InitializeManaSources(ChangeTracker changeTracker)
+    private void InitializeManaSources()
     {
-      IEnumerable<IManaSource> manaSources =
+      var manaSources =
         _manaPool.ToEnumerable().Concat(
           _library
             .Where(x => x.IsManaSource)
             .SelectMany(x => x.ManaSources));
 
-      _manaSources = new ManaSources(manaSources, changeTracker);
+      _manaSources = new ManaSources(manaSources, ChangeTracker);
     }
 
     public void AddManaSource(IManaSource manaSource)
@@ -486,7 +490,7 @@
 
     public void RevealHand()
     {
-      foreach (Card card in _hand)
+      foreach (var card in _hand)
       {
         card.Reveal();
       }
@@ -494,7 +498,7 @@
 
     public void RevealLibrary()
     {
-      foreach (Card card in _library)
+      foreach (var card in _library)
       {
         card.Reveal();
       }

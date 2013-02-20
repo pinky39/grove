@@ -38,20 +38,20 @@
         {
           Result = new ChosenPlayable
             {
-              Playable = new ScenarioPlayableAbility(
-                activation.Card,
-                new ActivationParameters
-                  {
-                    Targets = activation.GetTargets(),
-                    X = activation.X
-                  },
-                activation.Index)
+              Playable = new ScenarioPlayableAbility
+                {
+                  Card = activation.Card,
+                  ActivationParameters = new ActivationParameters
+                    {
+                      Targets = activation.GetTargets(),
+                      X = activation.X
+                    },
+                  Index = activation.Index
+                }                
             }
         };
 
-      decision.Game = _game;
-      decision.Controller = activation.Card.Controller;
-
+      decision.Initialize(activation.Card.Controller, _game);      
       _decisions.Add(decision);
       return this;
     }
@@ -135,19 +135,19 @@
         {
           Result = new ChosenPlayable
             {
-              Playable = new ScenarioPlayableSpell(
-                activation.Card,
-                new ActivationParameters
+              Playable = new ScenarioPlayableSpell
+                {
+                  Card =  activation.Card,                                
+                  ActivationParameters = new ActivationParameters
                   {
                     Targets = activation.GetTargets(),
                     X = activation.X
-                  }, activation.Index)
+                  }, 
+                  Index = activation.Index}
             }
         };
 
-      decision.Game = _game;
-      decision.Controller = activation.Card.Controller;
-
+      decision.Initialize(activation.Card.Controller, _game);            
       _decisions.Add(decision);
       return this;
     }
@@ -202,8 +202,8 @@
           Result = attackers.ToList()
         };
 
-      decision.Game = _game;
-      decision.Controller = attackers[0].Controller;
+      
+      decision.Initialize(attackers[0].Controller, _game);      
       _decisions.Add(decision);
       return this;
     }
@@ -229,10 +229,7 @@
         };
 
       _decisions.Add(decision);
-
-      decision.Game = _game;
-      decision.Controller = defender;
-
+      decision.Initialize(defender, _game);            
       return this;
     }
 
@@ -270,7 +267,7 @@
           Result = new ChosenTargets(new Targets().AddEffect(target))
         };
 
-      decision.Game = _game;
+      decision.Initialize(null, _game);      
       _decisions.Add(decision);
       return this;
     }
@@ -281,8 +278,7 @@
         {
           Assertion = assertion,
         };
-
-      decision.Game = _game;
+      
       _decisions.Add(decision);
       return this;
     }

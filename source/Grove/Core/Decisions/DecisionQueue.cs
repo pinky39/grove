@@ -11,8 +11,8 @@
 
     public DecisionQueue(ChangeTracker changeTracker)
     {
-      _queue = new TrackableList<IDecision>(changeTracker,
-        orderImpactsHashcode: true);
+      _queue = new TrackableList<IDecision>(
+        orderImpactsHashcode: true).Initialize(changeTracker);
     }
 
     public int Count { get { return _queue.Count; } }

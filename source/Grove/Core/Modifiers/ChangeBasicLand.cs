@@ -49,7 +49,10 @@
       _isBasicLand = cardType.Value.BasicLand;
 
       var type = _cardType.Value.ReplaceBasicLandTypeWith(_changeTo);
-      _typeSetter = new CardTypeSetter(type, ChangeTracker);
+      
+      _typeSetter = new CardTypeSetter(type);
+      _typeSetter.Initialize(ChangeTracker);
+      
       _cardType.AddModifier(_typeSetter);
     }
 

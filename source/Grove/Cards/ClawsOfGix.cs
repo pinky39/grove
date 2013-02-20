@@ -35,7 +35,7 @@
             p.Effect = () => new ControllerGainsLife(1);
             p.TargetSelector.AddCost(trg =>
               {
-                trg.Is.Card(p1 => p1.Effect.Controller == p1.Target.Controller())
+                trg.Is.Card(controlledBy: ControlledBy.SpellOwner)
                   .On.Battlefield();
 
                 trg.Text = "Select a permanent to sacrifice.";                

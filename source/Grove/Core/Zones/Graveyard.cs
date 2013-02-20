@@ -6,7 +6,7 @@
 
   public class Graveyard : OrderedZone, IGraveyardQuery
   {
-    public Graveyard(Player owner, Game game) : base(owner, game) {}
+    public Graveyard(Player owner) : base(owner) {}
 
     private Graveyard()
     {

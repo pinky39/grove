@@ -109,20 +109,7 @@
         game: game);
 
       return game;
-    }
-
-    public IEnumerable<ITarget> GenerateTargets(Func<Zone, Player, bool> zoneFilter)
-    {
-      foreach (var target in Players.SelectMany(p => p.GetTargets(zoneFilter)))
-      {
-        yield return target;
-      }
-
-      foreach (var target in Stack.GenerateTargets(zoneFilter))
-      {
-        yield return target;
-      }
-    }
+    }   
 
     public int CalculateHash()
     {

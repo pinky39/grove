@@ -1,11 +1,10 @@
 ﻿namespace Grove.Core.Zones
 {
   using System.Linq;
-  using Messages;
 
   public class Hand : UnorderedZone, IHandQuery
   {
-    public Hand(Player owner, Game game) : base(owner, game) {}
+    public Hand(Player owner) : base(owner) {}
 
     private Hand()
     {

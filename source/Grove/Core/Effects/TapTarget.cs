@@ -6,7 +6,7 @@
   {
     protected override void ResolveEffect()
     {
-      Target().Card().Tap();
+      Target.Card().Tap();
     }
   }
 }

@@ -15,16 +15,23 @@
     public ManaSources(IEnumerable<IManaSource> manaSources, ChangeTracker changeTracker)
     {
       _changeTracker = changeTracker;
+
       var sourcesWithSameResource = manaSources
         .GroupBy(x => x.Resource)
-        .Select(x => new SourcesWithSameResource
+        .Select(x =>
           {
-            Resource = x.Key,
-            Sources = new TrackableList<IManaSource>(x.OrderBy(y => y.Priority), changeTracker)
+            var sources = new TrackableList<IManaSource>(x.OrderBy(y => y.Priority));
+            sources.Initialize(changeTracker);
+            return new SourcesWithSameResource
+              {
+                Resource = x.Key,
+                Sources = sources
+              };
           }).
         ToList();
 
-      _sources = new TrackableList<SourcesWithSameResource>(sourcesWithSameResource, changeTracker);
+      _sources = new TrackableList<SourcesWithSameResource>(sourcesWithSameResource);
+      _sources.Initialize(changeTracker);
     }
 
     public void AddRange(IEnumerable<IManaSource> manaSources)
@@ -45,10 +52,13 @@
         return;
       }
 
+      var sources = new TrackableList<IManaSource>(manaSource.ToEnumerable());
+      sources.Initialize(_changeTracker);
+
       _sources.Add(new SourcesWithSameResource
         {
           Resource = manaSource.Resource,
-          Sources = new TrackableList<IManaSource>(manaSource.ToEnumerable(), _changeTracker)
+          Sources = sources
         });
     }
 

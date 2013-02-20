@@ -46,10 +46,11 @@
         : _value.GetHashCode();
     }
 
-    public void Initialize(ChangeTracker changeTracker, IHashDependancy hashDependancy = null)
+    public Trackable<T> Initialize(ChangeTracker changeTracker, IHashDependancy hashDependancy = null)
     {
       _changeTracker = changeTracker;
       _hashDependency = hashDependancy ?? new NullHashDependency();
+      return this;
     }
 
     public void Rollback(object value)

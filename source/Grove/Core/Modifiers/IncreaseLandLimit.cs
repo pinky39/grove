@@ -1,23 +1,21 @@
 ﻿namespace Grove.Core.Modifiers
 {
   public class IncreaseLandLimit : Modifier
-  {
-    private readonly int _amount;
-    private readonly Increment _increment = new Increment();
+  {    
+    private readonly Increment _increment;
     private LandLimit _landLimit;
 
     private IncreaseLandLimit() {}
 
     public IncreaseLandLimit(int amount = 1)
     {
-      _amount = amount;
+      _increment = new Increment(amount);
     }
 
     public override void Apply(LandLimit landLimit)
     {
       _landLimit = landLimit;
-      _increment.Initialize(ChangeTracker);
-      _increment.Value = _amount;
+      _increment.Initialize(ChangeTracker);      
       _landLimit.AddModifier(_increment);
     }
 

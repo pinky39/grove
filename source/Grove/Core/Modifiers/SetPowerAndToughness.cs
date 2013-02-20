@@ -19,14 +19,16 @@
     public override void Apply(Power power)
     {
       _cardPower = power;
-      _powerSetter = new StrenghtSetter(_power.GetValue(X), ChangeTracker);
+      _powerSetter = new StrenghtSetter(_power.GetValue(X));
+      _powerSetter.Initialize(ChangeTracker);
       _cardPower.AddModifier(_powerSetter);
     }
 
     public override void Apply(Toughness toughness)
     {
       _cardToughness = toughness;
-      _toughnessSetter = new StrenghtSetter(_tougness.GetValue(X), ChangeTracker);
+      _toughnessSetter = new StrenghtSetter(_tougness.GetValue(X));
+      _toughnessSetter.Initialize(ChangeTracker);
       _cardToughness.AddModifier(_toughnessSetter);
     }
 

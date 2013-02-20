@@ -1,14 +1,12 @@
 ﻿namespace Grove.Core.Modifiers
 {
-  using Grove.Infrastructure;
-
   public class StrenghtSetter : PropertyModifier<int?>
   {
     private readonly int _value;
 
-    private StrenghtSetter() : base(null) {}
+    private StrenghtSetter() {}
 
-    public StrenghtSetter(int value, ChangeTracker changeTracker) : base(changeTracker)
+    public StrenghtSetter(int value)
     {
       _value = value;
     }

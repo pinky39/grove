@@ -5,24 +5,24 @@
   using Infrastructure;
   using Messages;
 
-  [Copyable]
-  public class Blocker : IHashable
+  public class Blocker : GameObject, IHashable
   {
-    private readonly TrackableList<Damage> _assignedDamage;
+    private readonly TrackableList<Damage> _assignedDamage = new TrackableList<Damage>();
     private readonly Trackable<Attacker> _attacker;
-    private readonly Trackable<int> _damageAssignmentOrder;
-    private readonly Game _game;
+    private readonly Trackable<int> _damageAssignmentOrder = new Trackable<int>();
 
     private Blocker() {}
 
     public Blocker(Card card, Attacker attacker, Game game)
     {
       Card = card;
+      Game = game;
 
-      _game = game;
-      _attacker = new Trackable<Attacker>(attacker, game.ChangeTracker);
-      _assignedDamage = new TrackableList<Damage>(game.ChangeTracker);
-      _damageAssignmentOrder = new Trackable<int>(game.ChangeTracker);
+      _attacker = new Trackable<Attacker>(attacker);
+      _attacker.Initialize(ChangeTracker);
+
+      _assignedDamage.Initialize(ChangeTracker);
+      _damageAssignmentOrder.Initialize(ChangeTracker);
     }
 
     public Attacker Attacker { get { return _attacker.Value; } private set { _attacker.Value = value; } }
@@ -68,7 +68,7 @@
 
     public void DealAssignedDamage()
     {
-      foreach (Damage damage in _assignedDamage)
+      foreach (var damage in _assignedDamage)
       {
         Card.DealDamage(damage);
       }
@@ -84,7 +84,7 @@
           source: Card,
           amount: DamageThisWillDealInOneDamageStep,
           isCombat: true,
-          changeTracker: _game.ChangeTracker
+          changeTracker: ChangeTracker
           );
 
         Attacker.AssignDamage(damage);
@@ -98,7 +98,7 @@
 
     public void RemoveFromCombat()
     {
-      _game.Publish(new RemovedFromCombat {Card = Card});
+      Publish(new RemovedFromCombat {Card = Card});
 
       if (HasAttacker)
       {

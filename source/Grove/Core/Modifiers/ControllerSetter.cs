@@ -1,16 +1,12 @@
 ﻿namespace Grove.Core.Modifiers
 {
-  using Grove.Infrastructure;
-
   public class ControllerSetter : PropertyModifier<Player>
   {
     private readonly Player _value;
 
-    private ControllerSetter() : base(null)
-    {      
-    }
-    
-    public ControllerSetter(Player value, ChangeTracker changeTracker) : base(changeTracker)
+    private ControllerSetter() {}
+
+    public ControllerSetter(Player value)
     {
       _value = value;
     }

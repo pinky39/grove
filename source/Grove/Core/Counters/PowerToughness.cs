@@ -20,14 +20,20 @@
     public override void ModifyPower(Power power)
     {
       _cardPower = power;
-      _powerIncrement = new Increment(_power, ChangeTracker);
+      
+      _powerIncrement = new Increment(_power);
+      _powerIncrement.Initialize(ChangeTracker);
+      
       power.AddModifier(_powerIncrement);
     }
 
     public override void ModifyToughness(Toughness toughness)
     {
       _cardToughness = toughness;
-      _toughnessIncrement = new Increment(_toughness, ChangeTracker);
+      
+      _toughnessIncrement = new Increment(_toughness);
+      _toughnessIncrement.Initialize(ChangeTracker);
+
       toughness.AddModifier(_toughnessIncrement);
     }
 

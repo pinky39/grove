@@ -36,28 +36,32 @@
         return;
 
       _cardColors = colors;
-      _colorsSetter = new ColorsSetter(_colors.Value, ChangeTracker);
+      _colorsSetter = new ColorsSetter(_colors.Value);
+      _colorsSetter.Initialize(ChangeTracker);
       _cardColors.AddModifier(_colorsSetter);
     }
 
     public override void Apply(Power power)
     {
       _cardPower = power;
-      _powerSetter = new StrenghtSetter(_power(this), ChangeTracker);
+      _powerSetter = new StrenghtSetter(_power(this));
+      _powerSetter.Initialize(ChangeTracker);
       _cardPower.AddModifier(_powerSetter);
     }
 
     public override void Apply(Toughness toughness)
     {
       _cardToughness = toughness;
-      _toughnessSetter = new StrenghtSetter(_toughness(this), ChangeTracker);
+      _toughnessSetter = new StrenghtSetter(_toughness(this));
+      _toughnessSetter.Initialize(ChangeTracker);
       _cardToughness.AddModifier(_toughnessSetter);
     }
 
     public override void Apply(CardTypeCharacteristic cardType)
     {
       _cardType = cardType;
-      _typeSetter = new CardTypeSetter(_type(this), ChangeTracker);
+      _typeSetter = new CardTypeSetter(_type(this));
+      _typeSetter.Initialize(ChangeTracker);
       _cardType.AddModifier(_typeSetter);
     }
 

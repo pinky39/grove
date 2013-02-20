@@ -22,14 +22,14 @@
     {
       Result = ChosenCards.None;
     }
-    
+
     protected List<Card> ValidCards
     {
       get
       {
         return
           _validCards ?? (_validCards =
-            Game.GenerateTargets((zone, owner) => owner == Controller && zone == Zone)
+            GenerateTargets((zone, owner) => owner == Controller && zone == Zone)
               .Where(x => x.IsCard())
               .Select(x => x.Card())
               .Where(x => Validator(x))
@@ -67,6 +67,17 @@
         ProcessDecisionResults.ProcessResults(Result);
 
       ResultProcessed();
+    }
+
+    protected ChosenCards GetTargets(bool descending)
+    {
+      return GenerateTargets((zone, owner) => owner == Controller && Zone == zone)
+        .Where(x => x.IsCard())
+        .Select(x => x.Card())
+        .Where(Validator)
+        .OrderByDescending(x => descending ? x.Score : -x.Score)
+        .Take(MaxCount)
+        .ToList();
     }
 
     protected abstract void ProcessCard(Card chosenCard);

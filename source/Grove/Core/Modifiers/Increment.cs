@@ -4,7 +4,14 @@
 
   public class Increment : PropertyModifier<int?>
   {
-    private readonly Trackable<int> _value = new Trackable<int>();
+    private readonly Trackable<int> _value;
+
+    public Increment(int value)
+    {
+      _value = new Trackable<int>(value);
+    }
+
+    private Increment() {}
 
     public int Value
     {

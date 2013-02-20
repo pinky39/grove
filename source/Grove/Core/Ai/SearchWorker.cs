@@ -5,11 +5,10 @@
   using Infrastructure;
   using log4net;
 
-  public class SearchWorker
+  public class SearchWorker : GameObject
   {
     private static readonly ILog Log = LogManager.GetLogger(typeof (SearchWorker));
-    private readonly Game _game;
-    private readonly Trackable<int> _moveIndex;
+    private readonly Trackable<int> _moveIndex = new Trackable<int>();
     private readonly Trackable<InnerResult> _parentResult;
     private readonly ISearchNode _root;
     private readonly Search _search;
@@ -17,25 +16,24 @@
     private int _nodesSearched;
     private int _subTreesPrunned;
 
-    public SearchWorker(
-      Search search,
-      SearchResults searchResults,
-      ISearchNode rootNode)
+    public SearchWorker(Search search, SearchResults searchResults, ISearchNode rootNode)
     {
       _search = search;
       _searchResults = searchResults;
 
       _root = new CopyService().CopyRoot(rootNode);
-      _game = _root.Game;
-      _parentResult = new Trackable<InnerResult>(
-        new InnerResult(_game.CalculateHash(), _root.Controller.IsMax), _game.ChangeTracker);
+      Game = _root.Game;
 
-      _moveIndex = new Trackable<int>(_game.ChangeTracker);
+      var innerResult = new InnerResult(Game.CalculateHash(), _root.Controller.IsMax);
+
+      _parentResult = new Trackable<InnerResult>(innerResult);
+      _parentResult.Initialize(ChangeTracker);
+      _moveIndex.Initialize(ChangeTracker);
 
       Debug("Created");
     }
 
-    public object Id { get { return _game; } }
+    public object Id { get { return Game; } }
 
     public int NodesSearched { get { return _nodesSearched; } }
     private InnerResult ParentResult { get { return _parentResult.Value; } set { _parentResult.Value = value; } }
@@ -63,11 +61,11 @@
 
       _nodesSearched++;
 
-      if (_search.MaxDepth < _game.Turn.StepCount)
+      if (_search.MaxDepth < Turn.StepCount)
       {
-        ParentResult.AddChild(ResultIndex, new LeafResult(_game.Score));
+        ParentResult.AddChild(ResultIndex, new LeafResult(Game.Score));
 
-        _game.Stop();
+        Game.Stop();
         return;
       }
 
@@ -87,7 +85,7 @@
 
       // at this point we have already evaluated the subtree
       // of this node, so we can stop and backtrack      
-      _game.Stop();
+      Game.Stop();
       return;
     }
 
@@ -96,12 +94,12 @@
       Debug("{0} evaluating the only move", searchNode);
 
       searchNode.SetResult(0);
-      _game.Simulate();
+      Game.Simulate();
 
-      if (_game.IsFinished)
+      if (Game.IsFinished)
       {
         ParentResult.AddChild(ResultIndex,
-          new LeafResult(_game.Score));
+          new LeafResult(Game.Score));
       }
     }
 
@@ -109,21 +107,21 @@
     {
       Debug("{0} start eval move {1}", searchNode, moveIndex);
 
-      var snaphost = _game.Save();
+      var snaphost = Game.Save();
 
       searchNode.SetResult(moveIndex);
       ParentResult = parentResult;
       ResultIndex = moveIndex;
 
-      _game.Simulate();
+      Game.Simulate();
 
-      if (_game.IsFinished)
+      if (Game.IsFinished)
       {
         ParentResult.AddChild(
-          ResultIndex, new LeafResult(_game.Score));
+          ResultIndex, new LeafResult(Game.Score));
       }
 
-      _game.Restore(snaphost);
+      Game.Restore(snaphost);
 
       Debug("{0} stop eval move {1}", searchNode, moveIndex);
     }
@@ -132,7 +130,7 @@
     {
       InnerResult result;
 
-      var statehash = _game.CalculateHash();
+      var statehash = Game.CalculateHash();
 
       Debug("state {0}, evaluating moves of node {1}", statehash, searchNode);
 

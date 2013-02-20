@@ -1,10 +1,9 @@
 ﻿namespace Grove.Core.Targeting
 {
   using Core.Zones;
-  using Costs;
-  using Effects;
 
   public delegate bool TargetValidatorDelegate(TargetValidatorDelegateParameters parameters);
+
   public delegate bool ZoneValidatorDelegate(ZoneValidatorDelegateParameters parameters);
 
   public class TargetValidator : GameObject
@@ -37,21 +36,33 @@
       Game = game;
     }
 
-    public virtual bool IsTargetValid(ITarget target, Effect effect = null, Cost cost = null)
+    public virtual bool IsTargetValid(ITarget target, Card owningCard, object triggerMessage = null)
     {
-      if (!CanBeTargeted(target, effect))
+      if (!CanBeTargeted(target, owningCard))
       {
         return false;
       }
 
-      var parameters = new TargetValidatorDelegateParameters(target, Game);
-      parameters.Effect = effect;
-      parameters.Cost = cost;
+      var parameters = new TargetValidatorDelegateParameters
+        {
+          Game = Game,
+          OwningCard = owningCard,
+          Target = target
+        };
+
+      parameters.SetTriggerMessage(triggerMessage);
 
       return _isValidTarget(parameters);
     }
 
-    private bool CanBeTargeted(ITarget target, Effect effect)
+    public virtual bool IsZoneValid(Zone zone, Player controller)
+    {
+      var p = new ZoneValidatorDelegateParameters(zone, controller, Game);
+
+      return _isValidZone(p);
+    }
+
+    private bool CanBeTargeted(ITarget target, Card owningCard)
     {
       if (!_mustBeTargetable)
         return true;
@@ -59,11 +70,9 @@
       if (!target.IsCard())
         return true;
 
-      if (effect == null)
-        return true;
 
-      return target.Card().CanBeTargetBySpellsOwnedBy(effect.Controller) &&
-        !target.Card().HasProtectionFrom(effect.Source.OwningCard);
+      return target.Card().CanBeTargetBySpellsOwnedBy(owningCard.Controller) &&
+        !target.Card().HasProtectionFrom(owningCard);
     }
 
     public virtual string GetMessage(int targetNumber)
@@ -87,10 +96,10 @@
     public bool HasValidZone(ITarget target)
     {
       var zone = target.Zone();
-      
+
       if (zone == null)
         return true;
-                  
+
       return _isValidZone(new ZoneValidatorDelegateParameters(zone.Value, target.Controller(), Game));
     }
   }

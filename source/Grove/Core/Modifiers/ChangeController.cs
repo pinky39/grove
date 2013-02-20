@@ -29,7 +29,8 @@
     public override void Apply(ControllerCharacteristic controller)
     {
       _controller = controller;
-      _controllerSetter = new ControllerSetter(NewController, ChangeTracker);
+      _controllerSetter = new ControllerSetter(NewController);
+      _controllerSetter.Initialize(ChangeTracker);
       _controller.AddModifier(_controllerSetter);
     }
 
