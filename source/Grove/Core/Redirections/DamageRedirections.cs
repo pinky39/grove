@@ -19,7 +19,7 @@
       modifier.Apply(this);
     }
 
-    public void Initialize(ChangeTracker changeTracker, IHashDependancy hashDependancy)
+    public void Initialize(ChangeTracker changeTracker, IHashDependancy hashDependancy = null)
     {
       _redirections.Initialize(changeTracker, hashDependancy);
     }

@@ -11,56 +11,55 @@
   using Redirections;
   using Targeting;
   using Zones;
-
-  [Copyable]
-  public class Player : ITarget, IDamageable, IAcceptsModifiers, IHasLife
+  
+  public class Player : GameObject, ITarget, IDamageable, IAcceptsModifiers, IHasLife
   {
     private readonly AssignedDamage _assignedDamage;
     private readonly Battlefield _battlefield;
-    private readonly ContiniousEffects _continuousEffects;
-    private readonly DamagePreventions _damagePreventions;
-    private readonly DamageRedirections _damageRedirections;
-    private readonly Exile _exile;
-    private readonly Game _game;
+    private readonly ContiniousEffects _continuousEffects = new ContiniousEffects();
+    private readonly DamagePreventions _damagePreventions = new DamagePreventions();
+    private readonly DamageRedirections _damageRedirections = new DamageRedirections();
+    private readonly Exile _exile;    
     private readonly Graveyard _graveyard;
     private readonly Hand _hand;
-    private readonly Trackable<bool> _hasLost;
-    private readonly Trackable<bool> _hasMulligan;
-    private readonly Trackable<bool> _hasPriority;
-    private readonly Trackable<bool> _isActive;
+    private readonly Trackable<bool> _hasLost = new Trackable<bool>();
+    private readonly Trackable<bool> _hasMulligan = new Trackable<bool>(true);
+    private readonly Trackable<bool> _hasPriority = new Trackable<bool>();
+    private readonly Trackable<bool> _isActive = new Trackable<bool>();
     private readonly LandLimit _landLimit;
-    private readonly Trackable<int> _landsPlayedCount;
+    private readonly Trackable<int> _landsPlayedCount = new Trackable<int>(0);
     private readonly Library _library;
-    private readonly Life _life;
-    private readonly ManaPool _manaPool;
-    private readonly TrackableList<IModifier> _modifiers;
+    private readonly Life _life = new Life(20);
+    private readonly ManaPool _manaPool = new ManaPool();
+    private readonly TrackableList<IModifier> _modifiers = new TrackableList<IModifier>();
     private ManaSources _manaSources;
 
-    public Player(
-      string name,
-      string avatar,
-      ControllerType controller,
-      IEnumerable<string> deck,
-      Game game)
+    public void Initialize(Game game)
     {
-      _game = game;
-
+      Game = game;
+      
+      _life.Initialize(ChangeTracker);
+      _landsPlayedCount.Initialize(ChangeTracker);
+      _hasMulligan.Initialize(ChangeTracker);
+      _hasLost.Initialize(ChangeTracker);
+      _isActive.Initialize(ChangeTracker);
+      _hasPriority.Initialize(ChangeTracker);
+      _manaPool.Initialize(ChangeTracker);
+      _modifiers.Initialize(ChangeTracker);
+      _damagePreventions.Initialize(this, Game);
+      _damageRedirections.Initialize(ChangeTracker);
+      _assignedDamage.Initialize(ChangeTracker);
+      _continuousEffects.Initialize();
+    }
+    
+    public Player(string name, string avatar, ControllerType controller, IEnumerable<string> deck)
+    {      
       Name = name;
       Avatar = avatar;
-      Controller = controller;
-
-      _life = new Life(20, game.ChangeTracker);
-      _landsPlayedCount = new Trackable<int>(0, game.ChangeTracker);
-      _hasMulligan = new Trackable<bool>(true, game.ChangeTracker);
-      _hasLost = new Trackable<bool>(game.ChangeTracker);
-      _isActive = new Trackable<bool>(game.ChangeTracker);
-      _hasPriority = new Trackable<bool>(game.ChangeTracker);
-      _manaPool = new ManaPool(game.ChangeTracker);
-      _modifiers = new TrackableList<IModifier>(game.ChangeTracker);
-      _damagePreventions = new DamagePreventions(game.ChangeTracker, null);
-      _damageRedirections = new DamageRedirections(game.ChangeTracker, null);
-      _assignedDamage = new AssignedDamage(this, game.ChangeTracker);
-      _continuousEffects = new ContiniousEffects(game.ChangeTracker);
+      Controller = controller;                              
+                              
+      _assignedDamage = new AssignedDamage(this);
+      _continuousEffects = new ContiniousEffects();
       _landLimit = new LandLimit(1, game.ChangeTracker, null);
 
       _battlefield = new Battlefield(this, game);

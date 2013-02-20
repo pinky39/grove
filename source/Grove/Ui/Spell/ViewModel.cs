@@ -106,7 +106,7 @@
       if (activations.Count == 1)
         return activations[0];
 
-      var dialog = SelectAbilityVmFactory.Create(activations.Select(x => x.Prerequisites.Description));
+      var dialog = SelectAbilityDialog.Create(activations.Select(x => x.Prerequisites.Description));
       Shell.ShowModalDialog(dialog, DialogType.Large, InteractionState.Disabled);
 
       if (dialog.WasCanceled)
@@ -196,7 +196,7 @@
 
     private SelectTarget.ViewModel ShowSelectorDialog(TargetValidator validator)
     {
-      var dialog = SelectTargetVmFactory.Create(validator, canCancel: true,
+      var dialog = SelectTargetDialog.Create(validator, canCancel: true,
         instructions: "(Press Spacebar when done, press Esc to cancel.)");
 
       Shell.ShowModalDialog(dialog, DialogType.Small, InteractionState.SelectTarget);
@@ -205,9 +205,9 @@
 
     private bool SelectX(ActivationPrerequisites prerequisites, ActivationParameters parameters)
     {
-      if (prerequisites.MaxX.HasValue)
+      if (prerequisites.HasXInCost)
       {
-        var dialog = SelectXCostVmFactory.Create(prerequisites.MaxX.Value);
+        var dialog = SelectXCostDialog.Create(prerequisites.MaxX.Value);
         Shell.ShowModalDialog(dialog, DialogType.Small, InteractionState.Disabled);
 
         if (dialog.WasCanceled)

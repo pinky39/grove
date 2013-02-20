@@ -13,5 +13,10 @@
     public int? MaxX;
     public TargetSelector Selector;
     public int DistributeAmount;
+
+    public bool HasXInCost
+    {
+      get { return MaxX.HasValue; }
+    }
   }
 }

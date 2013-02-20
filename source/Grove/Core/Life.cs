@@ -9,15 +9,21 @@
     private readonly Trackable<int> _score;
     private readonly Trackable<int> _value;
 
-    public Life(int value, ChangeTracker changeTracker)
+    public Life(int value)
     {
-      _value = new Trackable<int>(value, changeTracker);
-      _score = new Trackable<int>(ScoreCalculator.CalculateLifeScore(value), changeTracker);
+      _value = new Trackable<int>(value);
+      _score = new Trackable<int>(ScoreCalculator.CalculateLifeScore(value));
     }
 
     private Life() {}
 
     public int Score { get { return _score.Value; } private set { _score.Value = value; } }
+
+    public void Initialize(ChangeTracker changeTracker)
+    {
+      _score.Initialize(changeTracker);
+      _value.Initialize(changeTracker);
+    }
 
     public int Value
     {

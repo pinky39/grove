@@ -4,7 +4,7 @@
   {
     protected override void ExecuteQuery()
     {
-      Result = Ai(this);
+      Result = ChooseOptionsAi.ChooseOptions();
     }
   }
 }

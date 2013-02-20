@@ -6,21 +6,24 @@
   [Copyable]
   public class AssignedDamage : IHashable
   {
-    private readonly TrackableList<Damage> _assigned;
+    private readonly TrackableList<Damage> _assigned = new TrackableList<Damage>();
     private readonly Player _player;
 
     private AssignedDamage() {}
 
-    public AssignedDamage(Player player, ChangeTracker changeTracker)
+    public AssignedDamage(Player player)
     {
       _player = player;
-      _assigned = new TrackableList<Damage>(changeTracker);
     }
-
 
     public int CalculateHash(HashCalculator calc)
     {
       return calc.Calculate(_assigned);
+    }
+
+    public void Initialize(ChangeTracker changeTracker)
+    {
+      _assigned.Initialize(changeTracker);
     }
 
     public void Assign(Damage damage)
@@ -30,7 +33,7 @@
 
     public void Deal()
     {
-      foreach (Damage damage in _assigned)
+      foreach (var damage in _assigned)
       {
         _player.DealDamage(damage);
       }

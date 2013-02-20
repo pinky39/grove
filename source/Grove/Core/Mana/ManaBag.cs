@@ -3,22 +3,12 @@
   using System.Collections;
   using System.Collections.Generic;
   using System.Linq;
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   [Copyable]
   public class ManaBag : IEnumerable<ManaUnit>
   {
-    private readonly IList<ManaUnit> _bag;
-
-    public ManaBag(IEnumerable<ManaUnit> amount, ChangeTracker changeTracker)
-    {
-      _bag = new TrackableList<ManaUnit>(amount, changeTracker);
-    }
-
-    public ManaBag(ChangeTracker changeTracker)
-    {
-      _bag = new TrackableList<ManaUnit>(changeTracker);
-    }
+    private IList<ManaUnit> _bag;
 
     public ManaBag(IEnumerable<ManaUnit> amount)
     {
@@ -28,11 +18,6 @@
     public ManaBag()
     {
       _bag = new List<ManaUnit>();
-    }
-
-    public IManaAmount GetAmount()
-    {
-      return new PrimitiveManaAmount(_bag);
     }
 
     public int Count { get { return _bag.Count; } }
@@ -46,6 +31,17 @@
     IEnumerator IEnumerable.GetEnumerator()
     {
       return GetEnumerator();
+    }
+
+    public IManaAmount GetAmount()
+    {
+      return new PrimitiveManaAmount(_bag);
+    }
+
+    public void Initialize(ChangeTracker changeTracker)
+    {
+      var nonTrackable = _bag;
+      _bag = new List<ManaUnit>(nonTrackable);
     }
 
     public void Add(IManaAmount manaAmount)
@@ -65,7 +61,7 @@
     {
       foreach (var mana in amount)
       {
-        _bag.Remove(mana);        
+        _bag.Remove(mana);
       }
     }
 
