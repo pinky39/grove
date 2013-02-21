@@ -3,6 +3,7 @@
   using System.Collections.Generic;
   using System.Linq;
   using Ai;
+  using Ai.TargetingRules;
   using Casting;
   using Costs;
   using Effects;
@@ -142,13 +143,9 @@
 
     public bool IsGoodTarget(ITarget target)
     {
-      var generator = new TargetGenerator(
-        _targetSelector,
-        _card,
-        Game,
-        0);
-
-      return generator.Any(targets => targets.Effect.Contains(target));
+      return TargetingHelper.IsGoodTarget(
+          target, _targetSelector, 
+          _rules.Where(r => r is TargetingRule).Cast<TargetingRule>());      
     }
 
     public IManaAmount GetManaCost()

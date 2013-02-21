@@ -19,7 +19,7 @@
 
       if (targetsCombinations.Count == 0 && parameters.MinTargetCount() > 0)
       {
-        if (parameters.CanCancel)
+        if (c.CanCancel)
         {
           c.CancelActivation = true;
           return;

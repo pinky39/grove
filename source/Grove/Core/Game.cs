@@ -7,7 +7,6 @@
   using Decisions;
   using Decisions.Scenario;
   using Infrastructure;
-  using Targeting;
   using Zones;
 
   [Copyable]
@@ -34,21 +33,30 @@
     public TurnInfo Turn { get { return _turnInfo; } }
     public Search Search { get { return _search; } }
 
-    public static Game New(IEnumerable<string> humanDeck, IEnumerable<string> cpuDeck,
+    public static Game New(List<string> humanDeck, List<string> cpuDeck,
       CardDatabase cardDatabase, DecisionSystem decisionSystem)
     {
       var game = CreateGame(cardDatabase, decisionSystem);
 
-      game.Players = new Players(
-        player1Name: "You",
-        player1Type: ControllerType.Human,
-        player1Deck: humanDeck,
-        player2Name: "Cpu",
-        player2Type: ControllerType.Machine,
-        player2Deck: cpuDeck,
-        game: game);
+      var player1 = new Player("You", "player1.png", ControllerType.Human, humanDeck);
+      var player2 = new Player("Cpu", "player2.png", ControllerType.Machine, cpuDeck);
+      game.Players = new Players(player1, player2);
 
-      return game;
+      return game.Initialize();
+    }
+
+    private Game Initialize()
+    {
+      _publisher.Initialize(this);
+      Stack.Initialize(this);
+      _turnInfo.Initialize(this);
+      _wasStopped.Initialize(ChangeTracker);
+      Combat.Initialize(this);
+      _decisionQueue.Initialize(this);
+      _stateMachine.Initialize(this);
+      Players.Initialize(this);
+
+      return this;
     }
 
     private static Game CreateGame(CardDatabase cardDatabase, DecisionSystem decisionSystem)
@@ -56,16 +64,16 @@
       var game = new Game();
 
       game.ChangeTracker = new ChangeTracker();
-      game._publisher = new Publisher(game.ChangeTracker);
+      game._publisher = new Publisher();
       game.CardDatabase = cardDatabase;
-      game.Stack = new Stack(game.ChangeTracker);
-      game._turnInfo = new TurnInfo(game.ChangeTracker);
-      game._wasStopped = new Trackable<bool>(game.ChangeTracker);
-      game.Combat = new Combat(game);
+      game.Stack = new Stack();
+      game._turnInfo = new TurnInfo();
+      game._wasStopped = new Trackable<bool>();
+      game.Combat = new Combat();
       game._search = new Search();
       game._decisionSystem = decisionSystem;
-      game._decisionQueue = new DecisionQueue(game.ChangeTracker);
-      game._stateMachine = new StateMachine(game, game._decisionQueue);
+      game._decisionQueue = new DecisionQueue();
+      game._stateMachine = new StateMachine(game._decisionQueue);
 
       return game;
     }
@@ -94,22 +102,17 @@
       _publisher.Subscribe(instance);
     }
 
-    public static Game NewSimulation(IEnumerable<string> deck1, IEnumerable<string> deck2, CardDatabase cardDatabase,
+    public static Game NewSimulation(List<string> deck1, List<string> deck2, CardDatabase cardDatabase,
       DecisionSystem decisionSystem)
     {
       var game = CreateGame(cardDatabase, decisionSystem);
 
-      game.Players = new Players(
-        player1Name: "Player1",
-        player1Type: ControllerType.Machine,
-        player1Deck: deck1,
-        player2Name: "Player2",
-        player2Type: ControllerType.Machine,
-        player2Deck: deck2,
-        game: game);
+      var player1 = new Player("Player1", "player1.png", ControllerType.Machine, deck1);
+      var player2 = new Player("Player2", "player2.png", ControllerType.Machine, deck2);
+      game.Players = new Players(player1, player2);
 
-      return game;
-    }   
+      return game.Initialize();
+    }
 
     public int CalculateHash()
     {
@@ -169,24 +172,17 @@
     {
       var game = CreateGame(cardDatabase, decisionSystem);
 
-      game.Players = new Players(
-        player1Name: "Player1",
-        player1Type: player1Controller,
-        player1Deck: DummyDeck(),
-        player2Name: "Player2",
-        player2Type: player2Controller,
-        player2Deck: DummyDeck(),
-        game: game);
-
-
+      var player1 = new Player("Player1", "player1.png", player1Controller, CreateDummyDeck());
+      var player2 = new Player("Player2", "player2.png", player2Controller, CreateDummyDeck());
+      game.Players = new Players(player1, player2);
       game.Players.Starting = game.Players.Player1;
 
-      return game;
+      return game.Initialize();
     }
 
-    private static IEnumerable<string> DummyDeck()
+    private static List<string> CreateDummyDeck()
     {
-      return Enumerable.Repeat("Uncastable", 60);
+      return Enumerable.Repeat("Uncastable", 60).ToList();
     }
   }
 }

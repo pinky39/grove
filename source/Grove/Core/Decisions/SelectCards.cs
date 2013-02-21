@@ -14,7 +14,7 @@
     public int MinCount;
     public IProcessDecisionResults<ChosenCards> ProcessDecisionResults;
     public string Text;
-    public Func<Card, bool> Validator;
+    public Func<Card, bool> Validator;    
     public Zone Zone;
     private List<Card> _validCards;
 

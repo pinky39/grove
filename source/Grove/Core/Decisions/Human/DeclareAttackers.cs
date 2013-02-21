@@ -1,40 +1,43 @@
 ﻿namespace Grove.Core.Decisions.Human
 {
   using System.Linq;
-  using Grove.Core.Targeting;
-  using Grove.Ui;
-  using Grove.Ui.SelectTarget;
-  using Grove.Ui.Shell;
+  using Targeting;
+  using Ui;
+  using Ui.SelectTarget;
+  using Ui.Shell;
 
   public class DeclareAttackers : Decisions.DeclareAttackers
   {
-    public ViewModel.IFactory DialogFactory { get; set; }    
+    public ViewModel.IFactory DialogFactory { get; set; }
     public IShell Shell { get; set; }
 
     protected override void ExecuteQuery()
     {
-      var dialog = DialogFactory.Create(
-        new UiTargetValidator(
-          minTargetCount: 0,
-          maxTargetCount: null,
-          text: "Select attackers",
-          isValid: target => target.CanAttackThisTurn && target.Controller == Controller
-          ),
-        canCancel: false,
-        instructions: "(Press Spacebar when done.)",
-        targetSelected: target => Publish(
-          new AttackerSelected
-            {
-              Attacker = target.Card()
-            }),
-        targetUnselected: target => Publish(
-          new AttackerUnselected
-            {
-              Attacker = target.Card()
-            }));
+      var tp = new TargetValidatorParameters {MinCount = 0, Text = "Select attackers."}
+        .Is.Card(c => c.CanAttackThisTurn && c.Controller == Controller)
+        .On.Battlefield();
 
+      var validator = new TargetValidator(tp);
+
+      var selectParameters = new SelectTargetParameters
+        {
+          Validator = validator,
+          CanCancel = false,
+          Instructions = "(Press Spacebar when done.)",
+          TargetSelected = target => Publish(
+            new AttackerSelected
+              {
+                Attacker = target.Card()
+              }),
+          TargetUnselected = target => Publish(
+            new AttackerUnselected
+              {
+                Attacker = target.Card()
+              })
+        };
+
+      var dialog = DialogFactory.Create(selectParameters);
       Shell.ShowModalDialog(dialog, DialogType.Small, InteractionState.SelectTarget);
-
       Result = dialog.Selection.ToList();
     }
   }

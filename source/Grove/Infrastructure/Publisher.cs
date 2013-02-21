@@ -5,25 +5,23 @@
   using System.Linq;
   using System.Reflection;
   using Castle.DynamicProxy;
+  using Core;
 
   public class Publisher : ICopyable
   {
+    private readonly Assembly _assembly;
+    private readonly string _namespace;
     private ChangeTracker _changeTracker;
     private Dictionary<Type, List<Type>> _handlersByType = new Dictionary<Type, List<Type>>();
     private Dictionary<Type, TrackableList<object>> _subscribers = new Dictionary<Type, TrackableList<object>>();
 
-    private Publisher() {}
-
-    public Publisher(Assembly assembly, ChangeTracker changeTracker, string ns = null)
+    public Publisher(Assembly assembly, string ns = null)
     {
-      _changeTracker = changeTracker;
-      Func<Type, bool> namespaceFilter = type => ns == null
-        || type.Namespace.Equals(ns, StringComparison.InvariantCultureIgnoreCase);
-
-      MapHandlersToTypes(assembly, changeTracker, namespaceFilter);
+      _assembly = assembly;
+      _namespace = ns;
     }
 
-    public Publisher(ChangeTracker changeTracker) : this(Assembly.GetExecutingAssembly(), changeTracker) {}
+    public Publisher() : this(Assembly.GetExecutingAssembly()) {}
 
     public void Copy(object original, CopyService copyService)
     {
@@ -44,10 +42,16 @@
       }
     }
 
-    private void MapHandlersToTypes(Assembly assembly, ChangeTracker changeTracker, Func<Type, bool> typeFilter)
+    public void Initialize(Game game)
     {
-      var types = assembly.GetTypes()
-        .Where(typeFilter)
+      _changeTracker = game.ChangeTracker;
+      MapHandlersToTypes();
+    }
+
+    private void MapHandlersToTypes()
+    {
+      var types = _assembly.GetTypes()
+        .Where(x => _namespace == null || x.Namespace.Equals(_namespace))
         .Where(x => x.Implements<IReceive>())
         .ToList();
 
@@ -85,23 +89,23 @@
       TrackableList<object> subscribers;
       if (!_subscribers.TryGetValue(typeof (TMessage), out subscribers))
         return;
-      
+
       var subscribersCopy = subscribers.ToList();
 
       if (subscribersCopy.Count == 0)
         return;
-      
+
       var orderedSubscribers = new List<IOrderedReceive<TMessage>>();
-            
+
       foreach (IReceive<TMessage> subscriber in subscribersCopy)
       {
         var orderered = subscriber as IOrderedReceive<TMessage>;
         if (orderered != null)
         {
-          orderedSubscribers.Add(orderered);    
+          orderedSubscribers.Add(orderered);
           continue;
         }
-                
+
         subscriber.Receive(message);
       }
 
@@ -113,7 +117,7 @@
 
     public void Subscribe(object instance)
     {
-      List<Type> handlers = GetHandlers(instance);
+      var handlers = GetHandlers(instance);
 
       if (handlers == null)
         return;
@@ -124,15 +128,16 @@
       }
     }
 
-    private List<Type> GetHandlers(object instance) {
+    private List<Type> GetHandlers(object instance)
+    {
       List<Type> handlers;
-      _handlersByType.TryGetValue(ProxyUtil.GetUnproxiedType(instance), out handlers);        
+      _handlersByType.TryGetValue(ProxyUtil.GetUnproxiedType(instance), out handlers);
       return handlers;
     }
 
     public void Unsubscribe(object instance)
     {
-      List<Type> handlers = GetHandlers(instance);
+      var handlers = GetHandlers(instance);
 
       if (handlers == null)
         return;

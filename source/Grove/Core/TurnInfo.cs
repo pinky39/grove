@@ -7,23 +7,12 @@
   public class TurnInfo : IHashable
   {
     private static readonly ILog Log = LogManager.GetLogger(typeof (TurnInfo));
-    private readonly Trackable<State> _state;
-    private readonly Trackable<int> _stateCount;
-    private readonly Trackable<Step> _step;
-    private readonly Trackable<int> _stepCount;
-    private readonly Trackable<int> _turnCount;
-
-    private TurnInfo() {}
-
-    public TurnInfo(ChangeTracker changeTracker)
-    {
-      _step = new Trackable<Step>().Initialize(changeTracker);
-      _turnCount = new Trackable<int>(1).Initialize(changeTracker);
-      _stepCount = new Trackable<int>().Initialize(changeTracker);
-      _state = new Trackable<State>().Initialize(changeTracker);
-      _stateCount = new Trackable<int>().Initialize(changeTracker);
-    }
-
+    private readonly Trackable<State> _state = new Trackable<State>();
+    private readonly Trackable<int> _stateCount = new Trackable<int>();
+    private readonly Trackable<Step> _step = new Trackable<Step>();
+    private readonly Trackable<int> _stepCount = new Trackable<int>();
+    private readonly Trackable<int> _turnCount = new Trackable<int>(1);
+    
     public State State
     {
       get { return _state.Value; }
@@ -65,6 +54,15 @@
         TurnCount,
         State.GetHashCode()
         );
+    }
+
+    public void Initialize(Game game)
+    {
+      _step.Initialize(game.ChangeTracker);
+      _turnCount.Initialize(game.ChangeTracker);
+      _stepCount.Initialize(game.ChangeTracker);
+      _state.Initialize(game.ChangeTracker);
+      _stateCount.Initialize(game.ChangeTracker);
     }
 
     public override string ToString()

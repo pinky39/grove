@@ -40,9 +40,9 @@
       Game.Subscribe(obj);
     }
 
-    protected void Enqueue<TDecision>(Player controller, Action<TDecision> init)
+    protected void Enqueue<TDecision>(Player controller, Action<TDecision> init = null)
       where TDecision : class, IDecision
-    {
+    {      
       Game.Enqueue(controller, init);
     }
 

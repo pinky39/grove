@@ -1,5 +1,7 @@
 ﻿namespace Grove.Core.Decisions
 {
+  using System.Collections.Generic;
+  using Ai;
   using Effects;
   using Results;
   using Targeting;
@@ -9,7 +11,8 @@
     public TriggeredAbility Source { get; set; }
     public object TriggerMessage { get; set; }
     public EffectFactory EffectFactory { get; set; }
-    public TargetSelector TargetSelector { get; set; }    
+    public TargetSelector TargetSelector { get; set; }
+    public List<MachinePlayRule> MachineRules { get; set; }
 
     public override void ProcessResults()
     {
@@ -23,7 +26,7 @@
           TriggerMessage = TriggerMessage
         };
 
-      var effect = EffectFactory().Initialize(effectParameters, Game);            
+      var effect = EffectFactory().Initialize(effectParameters, Game);
       Stack.Push(effect);
     }
   }

@@ -2,10 +2,10 @@
 {
   using System;
   using System.Linq;
-  using Grove.Ui;
-  using Grove.Ui.SelectTarget;
-  using Grove.Ui.Shell;
-  using Grove.Core.Zones;
+  using Targeting;
+  using Ui;
+  using Ui.SelectTarget;
+  using Ui.Shell;
 
   public class DiscardCards : Decisions.DiscardCards
   {
@@ -14,16 +14,21 @@
 
     protected override void ExecuteQuery()
     {
-      var dialog = DialogFactory.Create(new UiTargetValidator(
-        minTargetCount: Count,
-        maxTargetCount: Count,
-        text: String.Format("Select {0} card(s) to discard", Count),
-        isValid: card => card.Zone == Zone.Hand && card.Controller == CardsOwner && Filter(card)
-        ), canCancel: false);
+      var parameters = new TargetValidatorParameters
+        {
+          MinCount = Count,
+          MaxCount = Count,
+          Text = String.Format("Select {0} card(s) to discard", Count),
+        }
+        .Is.Card(c => Filter(c)).In.OwnersHand();
 
+      var dialog = DialogFactory.Create(new SelectTargetParameters
+        {
+          CanCancel = false,
+          Validator = new TargetValidator(parameters)
+        });
 
       Shell.ShowModalDialog(dialog, DialogType.Small, InteractionState.SelectTarget);
-
       Result = dialog.Selection.ToList();
     }
   }

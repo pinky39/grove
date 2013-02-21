@@ -10,18 +10,8 @@
   [Copyable]
   public class Combat : GameObject, IHashable
   {
-    private readonly TrackableList<Attacker> _attackers;
-    private readonly TrackableList<Blocker> _blockers;
-
-    private Combat() {}
-
-    public Combat(Game game)
-    {
-      Game = game;
-
-      _attackers = new TrackableList<Attacker>().Initialize(ChangeTracker);
-      _blockers = new TrackableList<Blocker>().Initialize(ChangeTracker);
-    }
+    private readonly TrackableList<Attacker> _attackers = new TrackableList<Attacker>();
+    private readonly TrackableList<Blocker> _blockers = new TrackableList<Blocker>();
 
     public IEnumerable<Attacker> Attackers { get { return _attackers; } }
     private Player DefendingPlayer { get { return Players.Defending; } }
@@ -31,6 +21,12 @@
       return HashCalculator.Combine(
         calc.Calculate(_attackers),
         calc.Calculate(_blockers));
+    }
+
+    public void Initialize(Game game)
+    {
+      _attackers.Initialize(game.ChangeTracker);
+      _blockers.Initialize(game.ChangeTracker);
     }
 
     public void AssignCombatDamage(bool firstStrike = false)

@@ -6,7 +6,7 @@
 
   public class ActivationContext
   {
-    private readonly List<TargetsCombination> _targetsWithX = new List<TargetsCombination>();
+    private readonly List<TargetsCombination> _targets = new List<TargetsCombination>();
     public bool CanCancel = true;
     public bool CancelActivation;
     public Card Card { get; private set; }
@@ -17,6 +17,11 @@
 
     public ActivationContext() {}
 
+    public ActivationContext(TargetSelector selector)
+    {
+      Selector = selector;
+    }
+    
     public ActivationContext(ActivationPrerequisites prerequisites)
     {
       Card = prerequisites.Card;      
@@ -25,21 +30,21 @@
       DistributeAmount = prerequisites.DistributeAmount;
     }
 
-    public bool HasTargets { get { return _targetsWithX.Count > 0; } }
+    public bool HasTargets { get { return _targets.Count > 0; } }
 
     public void SetPossibleTargets(IEnumerable<Targets> targetsCombinations)
     {
-      _targetsWithX.AddRange(targetsCombinations.Select(x => new TargetsCombination {Targets = x}));
+      _targets.AddRange(targetsCombinations.Select(x => new TargetsCombination {Targets = x}));
     }
 
     public IEnumerable<TargetsCombination> TargetsCombinations()
     {
-      return _targetsWithX;
+      return _targets;
     }
 
     public void RemoveTargetCombination(int index)
     {
-      _targetsWithX.RemoveAt(index);
+      _targets.RemoveAt(index);
     }
 
     public class TargetsCombination

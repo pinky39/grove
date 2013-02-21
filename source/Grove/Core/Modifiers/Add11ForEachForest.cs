@@ -7,7 +7,7 @@
 
   public class Add11ForEachForest : Modifier, IReceive<ZoneChanged>, IReceive<ControllerChanged>
   {
-    private Increment _increment = new Increment();
+    private Increment _increment = new Increment(0);
     private Power _power;
     private Toughness _tougness;
 

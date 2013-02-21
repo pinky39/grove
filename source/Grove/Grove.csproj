@@ -410,6 +410,7 @@
     <Compile Include="Core\Ai\CostRules\ReduceToughnessOfEachCreature.cs" />
     <Compile Include="Core\Ai\CostRules\TargetsLifepoints.cs" />
     <Compile Include="Core\Ai\QuickCombat.cs" />
+    <Compile Include="Core\Ai\TargetingHelper.cs" />
     <Compile Include="Core\Ai\TargetingRules\AttachTargetToSelf.cs" />
     <Compile Include="Core\Ai\TargetingRules\Bounce.cs" />
     <Compile Include="Core\Ai\TargetingRules\BounceSelfAndTargets.cs" />
@@ -936,7 +937,6 @@
     <Compile Include="Core\Ai\AttackStrategy.cs" />
     <Compile Include="Core\Ai\PlayableGenerator.cs" />
     <Compile Include="Core\Ai\ScoreCalculator.cs" />
-    <Compile Include="Core\Ai\TargetGenerator.cs" />
     <Compile Include="Core\Dice.cs" />
     <Compile Include="Core\Game.cs" />
     <Compile Include="Core\IDamageable.cs" />
@@ -970,6 +970,7 @@
     <Compile Include="Ui\SelectEffectChoice\ViewModel.cs" />
     <Compile Include="Ui\InteractionState.cs" />
     <Compile Include="Ui\PlayableActivator.cs" />
+    <Compile Include="Ui\SelectTarget\SelectTargetParameters.cs" />
     <Compile Include="Ui\ViewModelBase.cs" />
     <Compile Include="Ui\UiInteractionChanged.cs" />
     <Compile Include="Ui\Spell\View.xaml.cs">

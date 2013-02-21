@@ -33,8 +33,8 @@
     private readonly Life _life = new Life(20);
     private readonly ManaPool _manaPool = new ManaPool();
     private readonly TrackableList<IModifier> _modifiers = new TrackableList<IModifier>();
-    private ManaSources _manaSources;
-
+    private ManaSources _manaSources;    
+    
     public Player(string name, string avatar, ControllerType controller, List<string> deck)
     {
       Name = name;

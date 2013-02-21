@@ -8,16 +8,17 @@
   using Zones;
 
   public delegate bool ShouldApplyToCard(Card card, ContinuousEffect effect);
+
   public delegate bool ShouldApplyToPlayer(Player player, ContinuousEffect effect);
 
   [Copyable]
   public class ContinuousEffect : GameObject, IReceive<ZoneChanged>, IReceive<PermanentWasModified>
-  {    
+  {
+    private readonly ShouldApplyToCard _cardFilter;
     private readonly Trackable<Modifier> _doNotUpdate = new Trackable<Modifier>();
     private readonly Trackable<bool> _isActive = new Trackable<bool>();
     private readonly ModifierFactory _modifierFactory;
     private readonly TrackableList<Modifier> _modifiers = new TrackableList<Modifier>();
-    private readonly ShouldApplyToCard _cardFilter;
     private readonly ShouldApplyToPlayer _playerFilter;
 
     public ContinuousEffect(ContinuousEffectParameters p)
@@ -69,9 +70,10 @@
     {
       Game = game;
 
-      _doNotUpdate.Initialize(game.ChangeTracker);
-      _modifiers.Initialize(game.ChangeTracker);
-      _isActive.Initialize(game.ChangeTracker);
+      _doNotUpdate.Initialize(ChangeTracker);
+      _modifiers.Initialize(ChangeTracker);
+      _isActive.Initialize(ChangeTracker);
+
       Source = source;
       Target = target;
 
@@ -140,7 +142,7 @@
           Target = target
         };
 
-      var modifier = _modifierFactory().Initialize(p , Game);
+      var modifier = _modifierFactory().Initialize(p, Game);
       _modifiers.Add(modifier);
 
       _doNotUpdate.Value = modifier;

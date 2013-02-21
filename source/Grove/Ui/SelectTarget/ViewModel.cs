@@ -3,29 +3,28 @@
   using System;
   using System.Collections.Generic;
   using Caliburn.Micro;
+  using Core;
   using Core.Targeting;
   using Infrastructure;
 
   public class ViewModel : ViewModelBase, IReceive<SelectionChanged>
   {
     private readonly bool _canCancel;
+    private readonly Card _owningCard;
     private readonly BindableCollection<ITarget> _selection = new BindableCollection<ITarget>();
     private readonly Action<ITarget> _targetSelected;
     private readonly Action<ITarget> _targetUnselected;
+    private readonly object _triggerMessage;
 
-    public ViewModel(TargetValidator targetValidator, bool canCancel) : this(targetValidator, canCancel, null) {}
-
-    public ViewModel(TargetValidator targetValidator, bool canCancel, string instructions)
-      : this(targetValidator, canCancel, instructions, null, null) {}
-
-    public ViewModel(TargetValidator targetValidator, bool canCancel, string instructions,
-      Action<ITarget> targetSelected, Action<ITarget> targetUnselected)
+    public ViewModel(SelectTargetParameters p)
     {
-      TargetValidator = targetValidator;
-      Instructions = instructions;
-      _canCancel = canCancel;
-      _targetSelected = targetSelected ?? DefaultTargetSelected;
-      _targetUnselected = targetUnselected ?? DefaultTargetUnselected;
+      TargetValidator = p.Validator;
+      Instructions = p.Instructions;
+      _owningCard = p.OwningCard;
+      _canCancel = p.CanCancel;
+      _targetSelected = p.TargetSelected ?? DefaultTargetSelected;
+      _targetUnselected = p.TargetUnselected ?? DefaultTargetUnselected;
+      _triggerMessage = p.TriggerMessage;
     }
 
     private bool CanAutoComplete
@@ -60,7 +59,7 @@
       if (TargetValidator.HasValidZone(message.Selection) == false)
         return;
 
-      if (TargetValidator.IsTargetValid(message.Selection) == false)
+      if (TargetValidator.IsTargetValid(message.Selection, _owningCard, _triggerMessage) == false)
         return;
 
       _targetSelected(message.Selection);
@@ -100,8 +99,7 @@
 
     public interface IFactory
     {
-      ViewModel Create(TargetValidator targetValidator, bool canCancel, string instructions = null,
-        Action<ITarget> targetSelected = null, Action<ITarget> targetUnselected = null);
+      ViewModel Create(SelectTargetParameters p);
     }
   }
 }

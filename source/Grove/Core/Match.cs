@@ -83,14 +83,14 @@
 
     private void DisplayGameResults()
     {
-      ViewModel viewModel = _gameResultsFactory.Create();
+      var viewModel = _gameResultsFactory.Create();
       _shell.ShowModalDialog(viewModel);
       _playerLeftMatch = viewModel.PlayerLeftMatch;
     }
 
     private void DisplayMatchResults()
     {
-      Ui.MatchResults.ViewModel viewModel = _matchResultsFactory.Create();
+      var viewModel = _matchResultsFactory.Create();
       _shell.ShowModalDialog(viewModel);
       _rematch = viewModel.ShouldRematch;
     }
@@ -107,9 +107,9 @@
     {
       _backgroundTask = new Task(() =>
         {
-          Game = Game.New(_deck1.CardNames, _deck2.CardNames, _cardDatabase, _decisionSystem);
+          Game = Game.New(_deck1, _deck2, _cardDatabase, _decisionSystem);
 
-          Ui.PlayScreen.ViewModel playScreen = _playScreenFactory.Create();
+          var playScreen = _playScreenFactory.Create();
           _shell.ChangeScreen(playScreen);
 
           Game.Start(looser: Looser);
@@ -117,7 +117,7 @@
           if (Game.WasStopped)
             return;
 
-          int? looser = UpdateScore();
+          var looser = UpdateScore();
           SetLooser(looser);
         });
 
@@ -193,7 +193,7 @@
 
     private void ShowStartScreen()
     {
-      Ui.StartScreen.ViewModel startScreen = _startScreenFactory.Create();
+      var startScreen = _startScreenFactory.Create();
       _shell.ChangeScreen(startScreen);
     }
 
@@ -214,7 +214,7 @@
 
     public void ForceCurrentGameToEnd()
     {
-      bool isFinished = true;
+      var isFinished = true;
 
       if (Game != null)
       {

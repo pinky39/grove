@@ -21,7 +21,15 @@
         if (NoValidTargets(validator))
           continue;
 
-        var dialog = DialogFactory.Create(validator, canCancel: false);
+        var selectTargetParameters = new SelectTargetParameters
+        {
+          OwningCard = Source.OwningCard,
+          Validator = validator,
+          CanCancel = false,
+          TriggerMessage = TriggerMessage
+        };
+
+        var dialog = DialogFactory.Create(selectTargetParameters);
         Shell.ShowModalDialog(dialog, DialogType.Small, InteractionState.SelectTarget);
 
         foreach (var target in dialog.Selection)
@@ -35,9 +43,9 @@
 
     private bool NoValidTargets(TargetValidator validator)
     {
-      foreach (var target in Game.Players.SelectMany(x => x.GetTargets(validator.HasValidZone)))
+      foreach (var target in Players.SelectMany(x => x.GetTargets(validator.IsZoneValid)))
       {
-        if (validator.IsTargetValid(target))
+        if (validator.IsTargetValid(target, Source.OwningCard))
           return false;
       }
 

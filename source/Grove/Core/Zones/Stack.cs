@@ -12,19 +12,8 @@
   [Copyable]
   public class Stack : IEnumerable<Effect>, IHashable, IZone
   {
-    private readonly TrackableList<Effect> _effects;
-    private readonly Trackable<Effect> _lastResolved;
-
-    public Stack(ChangeTracker changeTracker)
-    {
-      _effects = new TrackableList<Effect>(changeTracker, orderImpactsHashcode: true);
-      _lastResolved = new Trackable<Effect>(changeTracker);
-    }
-
-    private Stack()
-    {
-      /* for state copy */
-    }
+    private readonly TrackableList<Effect> _effects = new TrackableList<Effect>(orderImpactsHashcode: true);
+    private readonly Trackable<Effect> _lastResolved = new Trackable<Effect>();
 
     public int Count { get { return _effects.Count; } }
     public bool IsEmpty { get { return _effects.Count == 0; } }
@@ -53,6 +42,12 @@
     public void Remove(Card card) {}
     public void AfterAdd(Card card) {}
     public void AfterRemove(Card card) {}
+
+    public void Initialize(Game game)
+    {
+      _effects.Initialize(game.ChangeTracker);
+      _lastResolved.Initialize(game.ChangeTracker);
+    }
 
     public event EventHandler<StackChangedEventArgs> EffectAdded = delegate { };
     public event EventHandler<StackChangedEventArgs> EffectRemoved = delegate { };
@@ -132,7 +127,7 @@
       if (TopSpell == null)
         return 0;
 
-      if (!TopSpell.HasTargets && targetOnly)
+      if (!TopSpell.Targets.Any() && targetOnly)
         return 0;
 
 
@@ -161,7 +156,7 @@
 
       if (TopSpell.HasCategory(EffectCategories.Destruction))
       {
-        if (!TopSpell.HasTargets)
+        if (!TopSpell.Targets.Any())
           return !targetOnly;
 
         return TopSpell.HasTarget(card);

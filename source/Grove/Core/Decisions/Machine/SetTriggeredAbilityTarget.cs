@@ -3,7 +3,7 @@
   using System.Collections.Generic;
   using System.Linq;
   using Ai;
-  using Infrastructure;
+  using Ai.TargetingRules;
   using Results;
   using Targeting;
 
@@ -65,24 +65,10 @@
 
     private IEnumerable<Targets> GenerateTargets()
     {
-      var generator = new TargetGenerator(
-        TargetSelector,
-        Source.OwningCard,
-        Game,
-        maxX: null,
-        forceOne: true
-        );
+      var targetsCandidates = TargetingHelper
+        .GenerateTargets(TargetSelector, MachineRules.Where(x => x is TargetingRule).Cast<TargetingRule>());        
 
-      if (generator.None())
-      {
-        yield return null;
-        yield break;
-      }
-
-      foreach (var targets in generator.Take(Search.MaxTargetCandidates))
-      {
-        yield return targets;
-      }
+      return targetsCandidates.Take(Search.MaxTargetCandidates);      
     }
 
     public override string ToString()

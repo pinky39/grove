@@ -1,7 +1,6 @@
 ﻿namespace Grove.Ui.Stack
 {
   using System;
-  using System.Collections.Generic;
   using Caliburn.Micro;
   using Core;
   using Core.Effects;
@@ -9,20 +8,17 @@
   using Core.Zones;
   using Infrastructure;
 
-  public class ViewModel : IReceive<UiInteractionChanged>
+  public class ViewModel : ViewModelBase, IReceive<UiInteractionChanged>
   {
     private readonly BindableCollection<Effect> _effects = new BindableCollection<Effect>();
-    private readonly Game _game;
     private Action<Effect> _select = delegate { };
 
     public ViewModel(Game game)
     {
-      _game = game;
-      _game.Stack.EffectAdded += OnEffectAdded;
-      _game.Stack.EffectRemoved += OnEffectRemoved;
+      Game = game;
+      Stack.EffectAdded += OnEffectAdded;
+      Stack.EffectRemoved += OnEffectRemoved;
     }
-
-    public IEnumerable<Effect> Stack { get { return _effects; } }
 
     public void Receive(UiInteractionChanged message)
     {
@@ -69,7 +65,7 @@
           HasLostInterest = hasLostInterest,
         };
 
-      _game.Publish(message);
+      Publish(message);
     }
 
     public void ChangePlayersInterest(Effect effect, bool hasLostInterest)
@@ -78,15 +74,15 @@
         {
           Visual = effect.Source,
           HasLostInterest = hasLostInterest,
-          Target = effect.Target()
+          Target = effect.Target
         };
 
-      _game.Publish(message);
+      Publish(message);
     }
 
     private void ChangeSelection(Effect effect)
     {
-      _game.Publish(
+      Publish(
         new SelectionChanged {Selection = effect});
     }
   }

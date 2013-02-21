@@ -36,8 +36,7 @@
     public int Rating { get; set; }
     public string Description { get; set; }
 
-    public string Name { get; set; }
-    public IEnumerable<string> CardNames { get { return _cards.Select(x => x.Name); } }
+    public string Name { get; set; }    
 
     IEnumerator IEnumerable.GetEnumerator()
     {
@@ -51,7 +50,7 @@
 
     public void Save()
     {
-      string name = Name.ToLowerInvariant()
+      var name = Name.ToLowerInvariant()
         .Replace(".dec", String.Empty);
 
       new DeckReaderWriter().Write(this, MediaLibrary.GetDeckPath(name));
@@ -64,9 +63,9 @@
 
     private List<string> GetDeckColors()
     {
-      ManaColors colors = ManaColors.None;
+      var colors = ManaColors.None;
 
-      foreach (Card card in _cards)
+      foreach (var card in _cards)
       {
         colors = colors | card.Colors;
       }
@@ -76,12 +75,17 @@
 
     public void RemoveCard(string name)
     {
-      Card card = _cards.FirstOrDefault(x => x.Name == name);
+      var card = _cards.FirstOrDefault(x => x.Name == name);
 
       if (card != null)
       {
         _cards.Remove(card);
       }
+    }
+
+    public static implicit operator List<string>(Deck deck)
+    {
+      return deck.Select(x => x.Name).ToList();
     }
   }
 }

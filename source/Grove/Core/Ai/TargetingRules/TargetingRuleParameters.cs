@@ -17,8 +17,7 @@
       Game = game;
     }
 
-    public Player Controller { get { return _context.Card.Controller; } }
-    public bool CanCancel { get { return _context.CanCancel; } }
+    public Player Controller { get { return _context.Card.Controller; } }    
     public int? X { get { return _context.X; } }
     public int MaxX { get { return _context.MaxX.GetValueOrDefault(); } }
     public int EffectTargetTypeCount { get { return _context.Selector.Effect.Count; } }

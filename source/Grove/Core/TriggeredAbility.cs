@@ -75,6 +75,7 @@
               p.EffectFactory = EffectFactory;
               p.TriggerMessage = triggerMessage;
               p.TargetSelector = TargetSelector;
+              p.MachineRules = Rules;
             });
 
         return;

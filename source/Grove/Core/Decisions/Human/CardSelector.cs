@@ -28,7 +28,13 @@
       var validator = new TargetValidator(validatorParameters);
       validator.Initialize(Game);
 
-      var dialog = TargetDialog.Create(validator, canCancel: false);
+      var selectTargetParameters = new SelectTargetParameters
+        {
+          Validator = validator,
+          CanCancel = false,
+        };
+      
+      var dialog = TargetDialog.Create(selectTargetParameters);
       Shell.ShowModalDialog(dialog, DialogType.Small, InteractionState.SelectTarget);
 
       foreach (var target in dialog.Selection)

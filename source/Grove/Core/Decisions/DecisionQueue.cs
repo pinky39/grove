@@ -1,21 +1,18 @@
 ﻿namespace Grove.Core.Decisions
 {
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   [Copyable]
   public class DecisionQueue
   {
-    private readonly TrackableList<IDecision> _queue;
-
-    private DecisionQueue() {}
-
-    public DecisionQueue(ChangeTracker changeTracker)
-    {
-      _queue = new TrackableList<IDecision>(
-        orderImpactsHashcode: true).Initialize(changeTracker);
-    }
+    private readonly TrackableList<IDecision> _queue = new TrackableList<IDecision>(orderImpactsHashcode: true);
 
     public int Count { get { return _queue.Count; } }
+
+    public void Initialize(Game game)
+    {
+      _queue.Initialize(game.ChangeTracker);
+    }
 
     public IDecision Dequeue()
     {

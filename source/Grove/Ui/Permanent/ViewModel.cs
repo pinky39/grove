@@ -7,6 +7,7 @@
   using Core.Messages;
   using Core.Targeting;
   using Infrastructure;
+  using SelectTarget;
 
   public class ViewModel : CardViewModel, IReceive<UiInteractionChanged>, IReceive<PlayersInterestChanged>,
     IReceive<AttackerSelected>, IReceive<AttackerUnselected>, IReceive<BlockerSelected>, IReceive<BlockerUnselected>,
@@ -217,9 +218,15 @@
 
     private SelectTarget.ViewModel ShowSelectorDialog(TargetValidator validator)
     {
-      var dialog = SelectTargetDialog.Create(validator, canCancel: true,
-        instructions: "(Press Spacebar when done, press Esc to cancel.)");
-
+      var selectTargetParameters = new SelectTargetParameters
+      {
+        OwningCard = Card,
+        Validator = validator,
+        CanCancel = true,
+        Instructions = "(Press Spacebar when done, press Esc to cancel.)" 
+      };
+            
+      var dialog = SelectTargetDialog.Create(selectTargetParameters);
       Shell.ShowModalDialog(dialog, DialogType.Small, InteractionState.SelectTarget);
       return dialog;
     }

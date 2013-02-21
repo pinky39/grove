@@ -5,31 +5,30 @@
   using System.Collections.Generic;
   using System.Linq;
   using Infrastructure;
-
-  [Copyable]
-  public class Players : IEnumerable<Player>, IHashable
+  
+  public class Players : GameObject, IEnumerable<Player>, IHashable
   {
-    private readonly TrackableList<Player> _extraTurns;
+    private readonly TrackableList<Player> _extraTurns = new TrackableList<Player>(orderImpactsHashcode: true);
     private Player _player1;
     private Player _player2;
     private Player _starting;
 
-    public Players(
-      string player1Name,
-      ControllerType player1Type,
-      IEnumerable<string> player1Deck,
-      string player2Name,
-      ControllerType player2Type,
-      IEnumerable<string> player2Deck,
-      Game game)
+    public Players(Player player1, Player player2)
     {
-      _extraTurns = new TrackableList<Player>(game.ChangeTracker, orderImpactsHashcode: true);
-
-      Player1 = CreatePlayer(player1Name, "player1.png", player1Type, player1Deck, game);
-      Player2 = CreatePlayer(player2Name, "player2.png", player2Type, player2Deck, game);
+      _player1 = player1;
+      _player2 = player2;
     }
 
     private Players() {}
+
+    public void Initialize(Game game)
+    {
+      Game = game;
+
+      _extraTurns.Initialize(ChangeTracker);
+      _player1.Initialize(Game);
+      _player2.Initialize(Game);
+    }
 
     public Player Active { get { return Player1.IsActive ? Player1 : Player2; } }
 
@@ -110,12 +109,7 @@
         calc.Calculate(Player2),
         calc.Calculate(Searching),
         calc.Calculate(_extraTurns));
-    }
-
-    private Player CreatePlayer(string name, string avatar, ControllerType type, IEnumerable<string> deck, Game game)
-    {
-      return new Player(name, avatar, type, deck, game);
-    }
+    }    
 
     public void ChangeActivePlayer()
     {

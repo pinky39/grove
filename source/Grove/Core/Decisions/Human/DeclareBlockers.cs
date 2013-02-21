@@ -1,15 +1,16 @@
 ﻿namespace Grove.Core.Decisions.Human
 {
   using System.Linq;
-  using Grove.Ui;
-  using Grove.Ui.SelectTarget;
-  using Grove.Ui.Shell;
   using Results;
+  using Targeting;
+  using Ui;
+  using Ui.SelectTarget;
+  using Ui.Shell;
 
   public class DeclareBlockers : Decisions.DeclareBlockers
   {
     public ViewModel.IFactory DialogFactory { get; set; }
-    public IShell Shell { get; set; }    
+    public IShell Shell { get; set; }
 
     protected override void ExecuteQuery()
     {
@@ -17,15 +18,16 @@
 
       while (true)
       {
-        var selectBlocker = DialogFactory.Create(
-          new UiTargetValidator(
-            minTargetCount: 0,
-            maxTargetCount: 1,
-            text: "Select a blocker",
-            isValid: target => target.CanBlock() &&
-              target.Controller == Controller
-            ), canCancel: false, instructions: "(Press Spacebar to finish.)"
-          );
+        var blockerDefinition = new TargetValidatorParameters {MinCount = 0, MaxCount = 1, Text = "Select a blocker."}
+          .Is.Card(c => c.CanBlock() && c.Controller == Controller)
+          .On.Battlefield();
+
+        var selectBlocker = DialogFactory.Create(new SelectTargetParameters
+          {
+            Validator = new TargetValidator(blockerDefinition),
+            CanCancel = false,
+            Instructions = "(Press Spacebar to finish.)"
+          });
 
         Shell.ShowModalDialog(selectBlocker, DialogType.Small, InteractionState.SelectTarget);
 
@@ -38,7 +40,7 @@
         {
           result.Remove(blocker);
 
-          Game.Publish(new BlockerUnselected
+          Publish(new BlockerUnselected
             {
               Blocker = blocker
             });
@@ -46,16 +48,17 @@
           continue;
         }
 
-        var selectAttacker = DialogFactory.Create(
-          new UiTargetValidator(
-            minTargetCount: 1,
-            maxTargetCount: 1,
-            text: "Select an attacker to block",
-            isValid: target => Game.Combat.IsAttacker(target) && target.CanBeBlockedBy(blocker)
-            ),
-          canCancel: true,
-          instructions: "(Press Esc to cancel.)"
-          );
+        var attackerDefinition =
+          new TargetValidatorParameters {MinCount = 1, MaxCount = 1, Text = "Select an attacker to block."}
+            .Is.Card(c => c.IsAttacker && c.CanBeBlockedBy(blocker))
+            .On.Battlefield();
+
+        var selectAttacker = DialogFactory.Create(new SelectTargetParameters
+          {
+            Validator = new TargetValidator(attackerDefinition),
+            CanCancel = true,
+            Instructions = "(Press Esc to cancel.)"
+          });
 
         Shell.ShowModalDialog(selectAttacker, DialogType.Small, InteractionState.SelectTarget);
 
