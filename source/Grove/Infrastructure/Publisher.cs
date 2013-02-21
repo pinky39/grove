@@ -42,9 +42,9 @@
       }
     }
 
-    public void Initialize(Game game)
+    public void Initialize(ChangeTracker changeTracker)
     {
-      _changeTracker = game.ChangeTracker;
+      _changeTracker = changeTracker;
       MapHandlersToTypes();
     }
 

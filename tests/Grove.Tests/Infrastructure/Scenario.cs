@@ -48,7 +48,8 @@
       {
         scenarioCard.Initialize(name =>
           {
-            var card = CardDatabase.CreateCard(name, player, Game);
+            var card = CardDatabase.CreateCard(name);
+            card.Initialize(player, Game);
             library.Add(card);
 
             if (card.IsManaSource)
@@ -65,7 +66,8 @@
       {
         scenarioCard.Initialize(name =>
           {
-            var card = CardDatabase.CreateCard(name, player, Game);
+            var card = CardDatabase.CreateCard(name);
+            card.Initialize(player, Game);
 
             if (card.IsManaSource)
               player.AddManaSources(card.ManaSources);
@@ -80,7 +82,8 @@
             {
               enchantment.Initialize(enchantmentName =>
                 {
-                  var enchantmentCard = CardDatabase.CreateCard(enchantmentName, player, Game);
+                  var enchantmentCard = CardDatabase.CreateCard(enchantmentName);
+                  enchantmentCard.Initialize(player, Game);
                   player.PutCardToBattlefield(enchantmentCard);
                   EnchantCard(card, enchantmentCard);
                   return enchantmentCard;
@@ -91,7 +94,8 @@
             {
               equipment.Initialize(equipmentName =>
                 {
-                  var equipmentCard = CardDatabase.CreateCard(equipmentName, player, Game);
+                  var equipmentCard = CardDatabase.CreateCard(equipmentName);
+                  equipmentCard.Initialize(player, Game);
                   player.PutCardToBattlefield(equipmentCard);
                   EquipCard(card, equipmentCard);
                   return equipmentCard;
@@ -102,7 +106,8 @@
             {
               tracked.Initialize(trackerName =>
                 {
-                  var tracker = CardDatabase.CreateCard(trackerName, player, Game);
+                  var tracker = CardDatabase.CreateCard(trackerName);
+                  tracker.Initialize(player, Game);
                   player.PutCardToBattlefield(tracker);
                   TrackCard(card, tracker);
                   return tracker;
@@ -119,7 +124,8 @@
       foreach (var cardName in cardNames)
       {
         var battlefield = (Battlefield) controller.Battlefield;
-        var card = CardDatabase.CreateCard(cardName, controller, Game);
+        var card = CardDatabase.CreateCard(cardName);
+        card.Initialize(controller, Game);
         battlefield.Add(card);
         yield return card;
       }
@@ -185,7 +191,8 @@
       {
         scenarioCard.Initialize(name =>
           {
-            var card = CardDatabase.CreateCard(name, player, Game);
+            var card = CardDatabase.CreateCard(name);
+            card.Initialize(player, Game);
             graveyard.Add(card);
 
             if (card.IsManaSource)
@@ -204,7 +211,8 @@
       {
         scenarioCard.Initialize(name =>
           {
-            var card = CardDatabase.CreateCard(name, player, Game);
+            var card = CardDatabase.CreateCard(name);
+            card.Initialize(player, Game);
             hand.Add(card);
 
             if (card.IsManaSource)

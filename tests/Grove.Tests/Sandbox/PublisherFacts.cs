@@ -11,7 +11,8 @@
     [Fact]
     public void HandleEvent()
     {
-      var publisher = new Publisher(Assembly.GetExecutingAssembly(), new ChangeTracker(), typeof (Person).Namespace);
+      var publisher = new Publisher(Assembly.GetExecutingAssembly(), typeof (Person).Namespace);
+      publisher.Initialize( new ChangeTracker());
 
       var aunt1 = new Aunt();
       var aunt2 = new Aunt();

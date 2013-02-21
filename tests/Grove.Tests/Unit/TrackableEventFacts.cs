@@ -27,7 +27,7 @@
 
     private TrackableEvent CreateEvent()
     {
-      return new TrackableEvent(this, _changeTracker);
+      return new TrackableEvent(this).Initialize(_changeTracker);
     }
 
     [Fact]

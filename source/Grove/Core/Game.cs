@@ -47,7 +47,7 @@
 
     private Game Initialize()
     {
-      _publisher.Initialize(this);
+      _publisher.Initialize(ChangeTracker);
       Stack.Initialize(this);
       _turnInfo.Initialize(this);
       _wasStopped.Initialize(ChangeTracker);

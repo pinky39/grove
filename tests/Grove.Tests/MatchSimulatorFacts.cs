@@ -14,9 +14,7 @@
       var deck2 = "Kuno-bu-control";
       
       var result =
-        MatchSimulator.Simulate(
-          GetDeck(deck1).CardNames,
-          GetDeck(deck2).CardNames);
+        MatchSimulator.Simulate(GetDeck(deck1), GetDeck(deck2));
 
       Console.WriteLine(@"{0} vs {1}", deck1, deck2);
       Console.WriteLine(@"Match duration: {0}.", result.Duration);
