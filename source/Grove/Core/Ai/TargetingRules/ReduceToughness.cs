@@ -7,11 +7,13 @@
   public class ReduceToughness : TargetingRule
   {
     private readonly int? _amount;
-    
+
     public ReduceToughness(int? amount = null)
     {
       _amount = amount;
     }
+
+    private ReduceToughness() {}
 
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
     {

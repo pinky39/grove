@@ -9,6 +9,8 @@
     private readonly ManaUsage _manaUsage;
     private readonly Func<Card, int, bool> _selector;
 
+    private DestroyEachPermanent() {}
+
     public DestroyEachPermanent(Func<Card, int, bool> selector, ManaUsage manaUsage)
     {
       _selector = selector;

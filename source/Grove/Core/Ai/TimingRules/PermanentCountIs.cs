@@ -8,6 +8,8 @@
     private readonly int _minCount;
     private readonly Func<Card, bool> _selector;
 
+    private PermanentCountIs() {}
+
     public PermanentCountIs(Func<Card, bool> selector = null, int minCount = 1)
     {
       _selector = selector ?? delegate { return true; };

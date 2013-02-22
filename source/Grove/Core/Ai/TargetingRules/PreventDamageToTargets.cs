@@ -7,7 +7,9 @@
   public class PreventDamageToTargets : TargetingRule
   {
     private readonly int _amount;
-    
+
+    private PreventDamageToTargets() {}
+
     public PreventDamageToTargets(int amount)
     {
       _amount = amount;
@@ -90,6 +92,6 @@
       candidates.AddRange(creatureCandidates);
 
       return Group(candidates, p.MinTargetCount());
-    }  
+    }
   }
 }

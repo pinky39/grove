@@ -279,6 +279,7 @@
           Assertion = assertion,
         };
       
+      decision.Initialize(null, _game);
       _decisions.Add(decision);
       return this;
     }

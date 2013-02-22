@@ -5,8 +5,10 @@
 
   public class OpponentHasPermanents : TimingRule
   {
-    private readonly Func<Card, bool> _selector;
     private readonly int _minCount;
+    private readonly Func<Card, bool> _selector;
+
+    private OpponentHasPermanents() {}
 
     public OpponentHasPermanents(Func<Card, bool> selector = null, int minCount = 1)
     {

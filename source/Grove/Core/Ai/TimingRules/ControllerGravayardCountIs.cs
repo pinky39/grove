@@ -5,10 +5,12 @@
 
   public class ControllerGravayardCountIs : TimingRule
   {
+    private readonly Func<Card, bool> _selector;
     private int? _maxCount;
     private int? _minCount;
-    private readonly Func<Card, bool> _selector;
-    
+
+    private ControllerGravayardCountIs() {}
+
     public ControllerGravayardCountIs(int? minCount = 1, int? maxCount = 1, Func<Card, bool> selector = null)
     {
       _maxCount = maxCount;

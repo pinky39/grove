@@ -5,7 +5,9 @@
   public class MinAttackerCount : TimingRule
   {
     private readonly int _count;
-    
+
+    private MinAttackerCount() {}
+
     public MinAttackerCount(int count)
     {
       _count = count;

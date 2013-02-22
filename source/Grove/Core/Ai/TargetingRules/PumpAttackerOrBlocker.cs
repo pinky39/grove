@@ -7,7 +7,9 @@
   {
     private readonly int? _power;
     private readonly int? _toughness;
-        
+
+    private PumpAttackerOrBlocker() {}
+
     public PumpAttackerOrBlocker(int? power, int? toughness)
     {
       _power = power;

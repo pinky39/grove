@@ -6,6 +6,8 @@
   {
     private readonly bool _combatOnly;
 
+    private TargetRemoval() {}
+
     public TargetRemoval(bool combatOnly = false)
     {
       _combatOnly = combatOnly;

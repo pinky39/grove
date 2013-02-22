@@ -6,10 +6,13 @@
   public class LandEnchantment : TargetingRule
   {
     private readonly ControlledBy _controlledBy;
+
     public LandEnchantment(ControlledBy controlledBy)
     {
       _controlledBy = controlledBy;
     }
+
+    private LandEnchantment() {}
 
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
     {

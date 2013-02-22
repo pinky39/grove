@@ -42,9 +42,9 @@
       return _targets;
     }
 
-    public void RemoveTargetCombination(int index)
+    public void RemoveTargetCombination(TargetsCombination targetsCombination)
     {
-      _targets.RemoveAt(index);
+      _targets.Remove(targetsCombination);
     }
 
     public class TargetsCombination

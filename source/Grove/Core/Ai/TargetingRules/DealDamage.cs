@@ -10,6 +10,7 @@
   {
     private readonly Func<TargetingRuleParameters, int> _getAmount;
 
+    private DealDamage() {}
 
     public DealDamage(Func<TargetingRuleParameters, int> getAmount)
     {

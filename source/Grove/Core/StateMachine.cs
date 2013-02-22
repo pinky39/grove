@@ -73,7 +73,15 @@
 
     public void Start(Func<bool> shouldContinue, bool skipPreGame, Player looser = null)
     {
-      Step = skipPreGame ? Step.Untap : Step.GameStart;
+      Step = Step.GameStart;
+      
+      if (skipPreGame)
+      {
+        Players.Starting.IsActive = true;
+        Players.Starting.Opponent.IsActive = false;
+        Step = Step.Untap;
+      }
+            
       State = State.Begin;
       _looser = looser;
 

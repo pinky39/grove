@@ -10,6 +10,7 @@
 
     private readonly List<Step> _steps = new List<Step>();
 
+    private Steps() {}
     public Steps(params Step[] steps) : this(true, true, steps) {}
 
     public Steps(bool activeTurn, bool passiveTurn, params Step[] steps)

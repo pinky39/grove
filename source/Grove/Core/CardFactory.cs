@@ -42,7 +42,7 @@
     {
       return new CastInstructionParameters
         {
-          Cost = new PayMana(cp.ManaCost, ManaUsage.Spells, cp.HasXInCost),
+          Cost = new PayMana(cp.ManaCost ?? ManaAmount.Zero, ManaUsage.Spells, cp.HasXInCost),
           Text = GetDefaultCastDescription(cp.Name),
           Effect = () => new PutIntoPlay(),
           Rule = GetDefaultCastingRule(cp.Type),
@@ -222,6 +222,7 @@
     public CardFactory Named(string name)
     {
       Name = name;
+      _init.Add(p => { p.Name = name; });
       return this;
     }
 

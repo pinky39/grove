@@ -17,6 +17,8 @@
       _toughness = toughness;
     }
 
+    private IncreasePowerOrToughness(){}
+
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
     {
       var power = _power ?? p.MaxX;

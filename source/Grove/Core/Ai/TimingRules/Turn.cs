@@ -4,7 +4,9 @@
   {
     private readonly bool _active;
     private readonly bool _passive;
-    
+
+    private Turn() {}
+
     public Turn(bool active = false, bool passive = false)
     {
       _active = active;

@@ -7,12 +7,14 @@
 
   public class SelectPlayer : TargetingRule
   {
-    private Func<TargetingRuleParameters, Game, Player> _selector;
-    
+    private readonly Func<TargetingRuleParameters, Game, Player> _selector;
+
     public SelectPlayer(Func<TargetingRuleParameters, Game, Player> selector)
     {
       _selector = selector;
     }
+
+    private SelectPlayer() {}
 
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
     {

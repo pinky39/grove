@@ -1,8 +1,6 @@
 ﻿namespace Grove.Core.Ai.TimingRules
 {
-  using System;
   using System.Linq;
-
 
   public class ControllerIsAttacked : TimingRule
   {

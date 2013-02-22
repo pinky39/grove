@@ -8,11 +8,13 @@
   public class SacrificeToDrawCards : TargetingRule
   {
     private readonly Func<Card, bool> _filter;
-    
+
     public SacrificeToDrawCards(Func<Card, bool> filter = null)
     {
       _filter = filter ?? delegate { return true; };
     }
+
+    private SacrificeToDrawCards() {}
 
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
     {

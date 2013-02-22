@@ -5,30 +5,22 @@
   using System.Collections.Generic;
   using System.Linq;
   using Infrastructure;
-  
+
   public class Players : GameObject, IEnumerable<Player>, IHashable
   {
     private readonly TrackableList<Player> _extraTurns = new TrackableList<Player>(orderImpactsHashcode: true);
-    private Player _player1;
-    private Player _player2;
-    private Player _starting;
+
 
     public Players(Player player1, Player player2)
     {
-      _player1 = player1;
-      _player2 = player2;
+      Player1 = player1;
+      Player1.IsMax = true;
+
+      Player2 = player2;
+      Player2.IsMax = false;
     }
 
     private Players() {}
-
-    public void Initialize(Game game)
-    {
-      Game = game;
-
-      _extraTurns.Initialize(ChangeTracker);
-      _player1.Initialize(Game);
-      _player2.Initialize(Game);
-    }
 
     public Player Active { get { return Player1.IsActive ? Player1 : Player2; } }
 
@@ -53,43 +45,14 @@
     public Player Min { get { return GetOpponent(Max); } }
     public Player Passive { get { return GetOpponent(Active); } }
 
-    public Player Player1
-    {
-      get { return _player1; }
-      private set
-      {
-        _player1 = value;
-        _player1.IsMax = true;
-      }
-    }
-
-    public Player Player2
-    {
-      get { return _player2; }
-      private set
-      {
-        _player2 = value;
-        _player2.IsMax = false;
-      }
-    }
+    public Player Player1 { get; private set; }
+    public Player Player2 { get; private set; }
 
     public int Score { get { return Player1.Score + Player2.Score; } }
 
-    public Player Starting
-    {
-      get { return _starting; }
-      set
-      {
-        _starting = value;
-
-        value.IsActive = true;
-        GetOpponent(value).IsActive = false;
-      }
-    }
-
-    public Player WithPriority { get { return _player1.HasPriority ? _player1 : _player2; } }
-
-    public Player WithoutPriority { get { return _player1.HasPriority ? _player2 : _player1; } }
+    public Player Starting { get; set; }
+    public Player WithPriority { get { return Player1.HasPriority ? Player1 : Player2; } }
+    public Player WithoutPriority { get { return Player1.HasPriority ? Player2 : Player1; } }
 
     public IEnumerator<Player> GetEnumerator()
     {
@@ -109,14 +72,23 @@
         calc.Calculate(Player2),
         calc.Calculate(Searching),
         calc.Calculate(_extraTurns));
-    }    
+    }
+
+    public void Initialize(Game game)
+    {
+      Game = game;
+
+      _extraTurns.Initialize(ChangeTracker);
+      Player1.Initialize(Game);
+      Player2.Initialize(Game);
+    }
 
     public void ChangeActivePlayer()
     {
       if (_extraTurns.Count > 0)
       {
-        Player nextActive = _extraTurns.PopLast();
-        Player opponent = GetOpponent(nextActive);
+        var nextActive = _extraTurns.PopLast();
+        var opponent = GetOpponent(nextActive);
 
         nextActive.IsActive = true;
         opponent.IsActive = false;
@@ -135,7 +107,7 @@
 
     public void ScheduleExtraTurns(Player player, int count)
     {
-      for (int i = 0; i < count; i++)
+      for (var i = 0; i < count; i++)
       {
         _extraTurns.Add(player);
       }
@@ -159,7 +131,7 @@
 
     public void MoveDeadCreaturesToGraveyard()
     {
-      foreach (Player player in this)
+      foreach (var player in this)
       {
         player.MoveCreaturesWithLeathalDamageOrZeroTougnessToGraveyard();
       }
@@ -169,7 +141,7 @@
 
     public void RemoveDamageFromPermanents()
     {
-      foreach (Player player in this)
+      foreach (var player in this)
       {
         player.RemoveDamageFromPermanents();
       }
@@ -177,7 +149,7 @@
 
     public void RemoveRegenerationFromPermanents()
     {
-      foreach (Player player in this)
+      foreach (var player in this)
       {
         player.RemoveRegenerationFromPermanents();
       }
@@ -185,11 +157,11 @@
 
     private void RespectLegendaryRule()
     {
-      Card[] duplicateLegends = this
+      var duplicateLegends = this
         .SelectMany(x => x.Battlefield.Legends)
         .GetDuplicates(card => card.Name).ToArray();
 
-      foreach (Card legend in duplicateLegends)
+      foreach (var legend in duplicateLegends)
       {
         legend.Sacrifice();
       }
@@ -199,7 +171,7 @@
     {
       filter = filter ?? delegate { return true; };
 
-      foreach (Card permanent in Permanents().ToList())
+      foreach (var permanent in Permanents().ToList())
       {
         if (filter(permanent))
         {

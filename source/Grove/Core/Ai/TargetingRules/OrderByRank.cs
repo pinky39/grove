@@ -11,7 +11,10 @@
     private readonly Func<Card, int> _forceRank;
     private readonly Func<Card, int> _rank;
 
-    public OrderByRank(Func<Card, int> rank, ControlledBy controlledBy = ControlledBy.Any, Func<Card, int> forceRank = null)
+    private OrderByRank() {}
+
+    public OrderByRank(Func<Card, int> rank, ControlledBy controlledBy = ControlledBy.Any,
+      Func<Card, int> forceRank = null)
     {
       _rank = rank;
       _forceRank = forceRank ?? _rank;

@@ -5,7 +5,9 @@
   public class NonTargetRemoval : TimingRule
   {
     private readonly int _count;
-    
+
+    private NonTargetRemoval() {}
+
     public NonTargetRemoval(int count)
     {
       _count = count;

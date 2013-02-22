@@ -5,7 +5,9 @@
   public class ControllerNeedsAdditionalMana : TimingRule
   {
     private readonly int _amount;
-    
+
+    private ControllerNeedsAdditionalMana() {}
+
     public ControllerNeedsAdditionalMana(int amount)
     {
       _amount = amount;

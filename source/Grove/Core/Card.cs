@@ -70,7 +70,7 @@
       _damage.Initialize(game.ChangeTracker, this);
       _hasLeathalDamage.Initialize(game.ChangeTracker, this);
       _hasSummoningSickness.Initialize(game.ChangeTracker, this);
-      _hash.Initialize(game.ChangeTracker, this);
+      _hash.Initialize(game.ChangeTracker);
       _isHidden.Initialize(game.ChangeTracker, this);
       _isRevealed.Initialize(game.ChangeTracker, this);            
       _usageScore.Initialize(game.ChangeTracker, this);
@@ -167,7 +167,7 @@
     public bool IsAttached { get { return AttachedTo != null; } }
     public bool IsAttacker { get { return Combat.IsAttacker(this); } }
     public bool IsBlocker { get { return Combat.IsBlocker(this); } }
-    public bool IsManaSource { get { return _activatedAbilities.ManaSources.Count > 0; } }
+    public bool IsManaSource { get { return _activatedAbilities.ManaSources.Any(); } }
     public bool IsTapped { get { return _isTapped.Value; } protected set { _isTapped.Value = value; } }
 
     public IManaAmount ManaCost { get; private set; }

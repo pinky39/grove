@@ -6,10 +6,12 @@
   public class ControllerHandCountIs : TimingRule
   {
     private readonly Func<Card, bool> _selector;
-    private int? _minCount;
     private int? _maxCount;
-    
-    public ControllerHandCountIs(int? minCount = null, int? maxCount =null, Func<Card, bool> selector = null)
+    private int? _minCount;
+
+    private ControllerHandCountIs() {}
+
+    public ControllerHandCountIs(int? minCount = null, int? maxCount = null, Func<Card, bool> selector = null)
     {
       _selector = selector;
       _maxCount = maxCount;
@@ -19,7 +21,7 @@
     public override bool ShouldPlay(TimingRuleParameters p)
     {
       var result = true;
-      
+
       if (_minCount.HasValue)
         result = result && p.Controller.Hand.Count(_selector) >= _minCount;
 

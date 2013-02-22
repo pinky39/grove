@@ -171,7 +171,7 @@
     public void Initialize(Game game)
     {
       Game = game;
-
+      
       _life.Initialize(ChangeTracker);
       _landsPlayedCount.Initialize(ChangeTracker);
       _hasMulligan.Initialize(ChangeTracker);

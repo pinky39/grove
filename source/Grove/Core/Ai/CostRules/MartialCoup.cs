@@ -5,7 +5,9 @@
 
   public class MartialCoup : CostRule
   {
-    private int _x;
+    private readonly int _x;
+
+    private MartialCoup() {}
 
     public MartialCoup(int x)
     {

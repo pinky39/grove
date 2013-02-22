@@ -6,7 +6,7 @@
   public class ActivatedAbilityParameters : AbilityParameters
   {
     public bool ActivateAsSorcery;
-    public Zone ActivationZone;
+    public Zone ActivationZone = Zone.Battlefield;
     public Cost Cost;
   }
 }

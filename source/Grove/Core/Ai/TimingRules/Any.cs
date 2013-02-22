@@ -6,6 +6,8 @@
   {
     private readonly TimingRule[] _rules;
 
+    private Any() {}
+
     public Any(params TimingRule[] rules)
     {
       _rules = rules;

@@ -25,6 +25,8 @@
 
     public void Initialize(Game game)
     {
+      Game = game;
+      
       _attackers.Initialize(game.ChangeTracker);
       _blockers.Initialize(game.ChangeTracker);
     }

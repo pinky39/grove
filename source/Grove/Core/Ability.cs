@@ -17,6 +17,8 @@
     private Card _owner;
     protected int DistributeAmount;
 
+    protected Ability() {}
+
     protected Ability(AbilityParameters parameters)
     {
       EffectFactory = parameters.Effect;

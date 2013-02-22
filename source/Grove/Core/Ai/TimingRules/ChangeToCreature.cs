@@ -6,7 +6,9 @@
   public class ChangeToCreature : TimingRule
   {
     private readonly int _minAvailableMana;
-    
+
+    private ChangeToCreature() {}
+
     public ChangeToCreature(int minAvailableMana = 0)
     {
       _minAvailableMana = minAvailableMana;

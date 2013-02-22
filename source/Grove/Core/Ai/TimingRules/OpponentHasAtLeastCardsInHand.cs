@@ -3,7 +3,9 @@
   public class OpponentHasAtLeastCardsInHand : TimingRule
   {
     private readonly int _count;
-    
+
+    private OpponentHasAtLeastCardsInHand() {}
+
     public OpponentHasAtLeastCardsInHand(int count)
     {
       _count = count;

@@ -85,6 +85,9 @@
       {
         aiInstruction.Initialize(game);
       }
+
+      _castingRule.Initialize(card, game);
+      _cost.Initialize(card, game);
     }
 
     public bool CanCast(out ActivationPrerequisites prerequisites)

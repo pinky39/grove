@@ -23,6 +23,8 @@
           });
     }
 
+    protected ManaAbility() {}
+
     public int Priority { get; private set; }
     object IManaSource.Resource { get { return OwningCard; } }
 
@@ -59,7 +61,16 @@
 
       if (IsEnabled && OwningCard.Zone == Zone.Battlefield && CanPay(ref maxX))
       {
-        prerequisites = new ActivationPrerequisites {Description = Text};
+        prerequisites =  new ActivationPrerequisites
+        {
+          Card = OwningCard,
+          Description = Text,
+          Selector = TargetSelector,
+          DistributeAmount = DistributeAmount,
+          MaxX = maxX,
+          Rules = Rules,
+        };
+        return true;
       }
 
       return false;

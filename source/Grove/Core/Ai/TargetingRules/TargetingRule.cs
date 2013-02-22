@@ -7,7 +7,8 @@
   using Targeting;
 
   public abstract class TargetingRule : MachinePlayRule
-  {
+  {    
+    
     public override void Process(Ai.ActivationContext c)
     {
       var candidates = c.Selector.GenerateCandidates(c.Card);

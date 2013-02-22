@@ -7,6 +7,8 @@
   {
     private readonly Action<Card> _afterResolvePutToZone;
 
+    private Instant() {}
+    
     public Instant(Action<Card> afterResolvePutToZone = null)
     {
       _afterResolvePutToZone = afterResolvePutToZone ?? (card => card.PutToGraveyard());

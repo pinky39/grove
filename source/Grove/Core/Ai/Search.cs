@@ -6,6 +6,7 @@
   using System.Linq;
   using System.Threading;
   using System.Threading.Tasks;
+  using Infrastructure;
   using log4net;
   using Messages;
   
@@ -162,14 +163,14 @@
       Log.Debug("Search finished");
       
       searchNode.Game.ChangeTracker.Disable();
-      searchNode.Game.ChangeTracker.Unlock();
+      searchNode.Game.ChangeTracker.Unlock();      
 
       GC.Collect();
-    }
+    }    
 
     private SearchWorker InitSearch(ISearchNode searchNode)
     {
-      AdjustPerformance();
+      AdjustPerformance();            
 
       Log.Debug("Search started");      
       

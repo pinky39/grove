@@ -28,16 +28,15 @@
       var targetsCombinations = c.TargetsCombinations().ToList();
 
 
-      for (int i = 0; i < targetsCombinations.Count; i++)
+      foreach (var targetsCombination in targetsCombinations)
       {
-        var targetsAndX = targetsCombinations[i];
-        var p = new TimingRuleParameters(c.Card, targetsAndX.Targets, targetsAndX.X);
+        var p = new TimingRuleParameters(c.Card, targetsCombination.Targets, targetsCombination.X);
 
         if (ShouldPlay(p) == false)
         {
-          c.RemoveTargetCombination(i);
+          c.RemoveTargetCombination(targetsCombination);
         }
-      }
+      }         
 
       if (c.TargetsCombinations().None())
       {

@@ -4,6 +4,8 @@
   {
     private readonly int _minCount;
 
+    private ChargeCounters() {}
+
     public ChargeCounters(int minCount)
     {
       _minCount = minCount;

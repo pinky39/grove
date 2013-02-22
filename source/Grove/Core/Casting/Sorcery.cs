@@ -16,14 +16,14 @@
 
     public override bool CanCast()
     {
-      return Game.Turn.Step.IsMain() &&
+      return Turn.Step.IsMain() &&
         Card.Controller.IsActive &&
-          Game.Stack.IsEmpty;
+          Stack.IsEmpty;
     }
 
     public override void Cast(Effect effect)
     {
-      Game.Stack.Push(effect);
+      Stack.Push(effect);
     }
 
     public override void AfterResolve()

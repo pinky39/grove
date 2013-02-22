@@ -1,20 +1,10 @@
 ﻿namespace Grove.Infrastructure
 {
-  public interface IHashDependancy
-  {
-    void InvalidateHash();
-  }
-
-  public class NullHashDependency : IHashDependancy
-  {
-    public void InvalidateHash() {}
-  }
-
   [Copyable]
   public class Trackable<T> : ITrackableValue<T>
   {
-    private ChangeTracker _changeTracker;
-    private IHashDependancy _hashDependency;
+    private INotifyChangeTracker _changeTracker = new NullTracker();
+    private IHashDependancy _hashDependency = new NullHashDependency();
     private T _value;
 
     public Trackable() : this(default(T)) {}
@@ -46,10 +36,13 @@
         : _value.GetHashCode();
     }
 
-    public Trackable<T> Initialize(ChangeTracker changeTracker, IHashDependancy hashDependancy = null)
+    public Trackable<T> Initialize(INotifyChangeTracker changeTracker, IHashDependancy hashDependancy = null)
     {
       _changeTracker = changeTracker;
-      _hashDependency = hashDependancy ?? new NullHashDependency();
+
+      if (hashDependancy != null)
+        _hashDependency = hashDependancy;
+      
       return this;
     }
 

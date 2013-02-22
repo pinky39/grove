@@ -1,7 +1,7 @@
 ﻿namespace Grove.Tests.Cards
 {
   using System.Linq;
-  using Grove.Core;
+  using Core;
   using Infrastructure;
   using Xunit;
 
@@ -9,21 +9,6 @@
   {
     public class Ai : AiScenario
     {
-      [Fact]
-      public void BugCreatureWithTougnessGreaterThan2GetsShocked()
-      {
-        var shock = C("Shock");
-        var elves = C("Elvish Warrior");
-
-        Battlefield(P1, elves);
-        Battlefield(P2, "Mountain", "Mountain");
-        Hand(P2, shock);
-
-        RunGame(maxTurnCount: 2);
-
-        True(P1.Battlefield.Contains(elves));
-      }
-
       [Fact]
       public void BugDoNotShockPlayerWhenLifeIsHigh()
       {
@@ -102,11 +87,12 @@
             .Cast(armor, target: bear)
             .Cast(shock, target: bear),
           At(Step.SecondMain)
-            .Verify(() => {
-              Equal(2, P1.Graveyard.Count());
-              Equal(1, P2.Graveyard.Count());
-              Equal(2, C(bear).Power);
-            }));
+            .Verify(() =>
+              {
+                Equal(2, P1.Graveyard.Count());
+                Equal(1, P2.Graveyard.Count());
+                Equal(2, C(bear).Power);
+              }));
       }
 
       [Fact]

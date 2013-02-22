@@ -5,7 +5,7 @@
   using System.Linq;
   using log4net;
 
-  public class ChangeTracker : ICopyable
+  public class ChangeTracker : ICopyable, INotifyChangeTracker
   {
     private static readonly ILog Log = LogManager.GetLogger(typeof (ChangeTracker));
     private readonly Stack<Action> _changeHistory = new Stack<Action>();
@@ -38,11 +38,13 @@
 
       _isEnabled = false;
       _changeHistory.Clear();
+      NullTracker.DisableTrackableInitializationChecks();
     }
 
     public ChangeTracker Enable()
     {
       _isEnabled = true;
+      NullTracker.EnableTrackableInitializationChecks();
       return this;
     }
 

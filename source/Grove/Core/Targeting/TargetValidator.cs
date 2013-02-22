@@ -15,6 +15,8 @@
     private readonly ZoneValidatorDelegate _isValidZone;
     private readonly bool _mustBeTargetable;
 
+    private TargetValidator() {}
+
     public TargetValidator(TargetValidatorParameters p)
     {
       _isValidTarget = p.TargetSpec;

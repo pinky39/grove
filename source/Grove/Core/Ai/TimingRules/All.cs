@@ -2,9 +2,11 @@
 {
   using System.Linq;
 
-  public class All :TimingRule
+  public class All : TimingRule
   {
-    private TimingRule[] _rules;
+    private readonly TimingRule[] _rules;
+
+    private All() {}
 
     public All(params TimingRule[] rules)
     {

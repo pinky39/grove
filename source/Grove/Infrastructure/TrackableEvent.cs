@@ -6,7 +6,7 @@
   public class TrackableEvent : ICopyable
   {
     private ChangeTracker _changeTracker;
-    private TrackableList<EventHandler> _handlers;
+    private TrackableList<EventHandler> _handlers = new TrackableList<EventHandler>();
     private object _sender;
 
     private TrackableEvent() {}

@@ -7,12 +7,11 @@
   using Modifiers;
 
   [Copyable]
-  public class ActivatedAbilities : GameObject, IModifiable, IHashable
+  public class ActivatedAbilities : IModifiable, IHashable
   {
     private readonly TrackableList<ActivatedAbility> _abilities = new TrackableList<ActivatedAbility>();
-    private readonly TrackableList<IManaSource> _manaSources = new TrackableList<IManaSource>();
 
-    public IList<IManaSource> ManaSources { get { return _manaSources; } }
+    public IEnumerable<IManaSource> ManaSources { get { return _abilities.Where(x => x is IManaSource).Cast<IManaSource>(); } }
     public IEnumerable<ManaAbility> ManaAbilities { get { return _abilities.Where(x => x is ManaAbility).Cast<ManaAbility>(); } }
 
     public int CalculateHash(HashCalculator calc)
@@ -26,13 +25,17 @@
     }
 
     public void Initialize(Card card, Game game)
-    {
-      _abilities.Initialize(game.ChangeTracker, card);
-      _manaSources.Initialize(game.ChangeTracker);
+    {            
+      _abilities.Initialize(game.ChangeTracker, card);      
 
       foreach (var activatedAbility in _abilities)
       {
         activatedAbility.Initialize(card, game);
+      }
+
+      foreach (var ability in _abilities)
+      {                
+        AddManaSource(ability);
       }
     }
 
@@ -96,10 +99,10 @@
     {
       var manaSource = ability as IManaSource;
       if (manaSource == null)
-        return;
+        return;      
 
-      _manaSources.Add(manaSource);
-      ability.OwningCard.Controller.AddManaSource(manaSource);
+      if (ability.IsInitialized)
+        ability.OwningCard.Controller.AddManaSource(manaSource);
     }
 
     public void Remove(ActivatedAbility ability)
@@ -114,8 +117,7 @@
       var manaSource = ability as IManaSource;
       if (manaSource == null)
         return;
-
-      _manaSources.Remove(manaSource);
+      
       ability.OwningCard.Controller.RemoveManaSource(manaSource);
     }
 

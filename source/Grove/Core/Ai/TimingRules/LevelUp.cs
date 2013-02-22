@@ -10,6 +10,8 @@
     private readonly IManaAmount _cost;
     private readonly List<LevelDefinition> _levelDefinitions = new List<LevelDefinition>();
 
+    private LevelUp() {}
+
     public LevelUp(IManaAmount cost, params LevelDefinition[] levelDefinitions)
     {
       _cost = cost;

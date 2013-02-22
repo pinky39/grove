@@ -6,7 +6,9 @@
   {
     private readonly Value _power;
     private readonly Value _toughness;
-    
+
+    private IncreaseOwnersPowerOrToughness() {}
+
     public IncreaseOwnersPowerOrToughness(Value power, Value toughness)
     {
       _power = power;

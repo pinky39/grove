@@ -12,6 +12,7 @@
   [Copyable]
   public abstract class GameObject
   {
+    public bool IsInitialized { get { return Game != null; } }    
     protected Game Game { get; set; }
 
     protected Players Players { get { return Game.Players; } }

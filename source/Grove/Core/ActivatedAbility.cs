@@ -11,7 +11,9 @@
     private readonly bool _activateAsSorcery;
     private readonly Zone _activationZone;
     private readonly Cost _cost;
-
+    
+    protected ActivatedAbility() {}
+    
     public ActivatedAbility(ActivatedAbilityParameters parameters) : base(parameters)
     {
       _cost = parameters.Cost;

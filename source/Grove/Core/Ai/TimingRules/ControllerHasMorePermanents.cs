@@ -7,11 +7,12 @@
   {
     private readonly Func<Card, bool> _selector;
 
+    private ControllerHasMorePermanents() {}
+
     public ControllerHasMorePermanents(Func<Card, bool> selector = null)
     {
       _selector = selector ?? delegate { return true; };
     }
-
 
     public override bool ShouldPlay(TimingRuleParameters p)
     {

@@ -4,6 +4,8 @@
   {
     private int? _counterCost;
 
+    private Counterspell() {}
+
     public Counterspell(int? counterCost = null)
     {
       _counterCost = counterCost;

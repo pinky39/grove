@@ -1,8 +1,8 @@
 ﻿namespace Grove.Tests.Cards
 {
   using System.Linq;
+  using Core;
   using Core.Mana;
-  using Grove.Core;
   using Infrastructure;
   using Xunit;
 
@@ -38,10 +38,11 @@
             .Cast(elves),
           At(Step.FirstMain, turn: 3)
             .Activate(elves)
-            .Verify(() => {
-              True(P1.Battlefield.Contains(elves));
-              True(P1.HasMana(ManaAmount.Green, ManaUsage.Any));
-            }));
+            .Verify(() =>
+              {
+                True(P1.Battlefield.Contains(elves));
+                True(P1.HasMana(ManaAmount.Green, ManaUsage.Any));
+              }));
       }
     }
   }

@@ -2,17 +2,16 @@
 {
   using System;
 
-  public class Verify : IScenarioDecision
+  public class Verify : GameObject, IScenarioDecision
   {
     public Action Assertion { get; set; }
-    public Game Game { get; private set; }
 
     public bool HasCompleted { get; private set; }
     public bool WasPriorityPassed { get { return true; } }
 
     public bool CanExecute()
     {
-      return Game.Stack.IsEmpty;
+      return Stack.IsEmpty;
     }
 
     public void Initialize(Player controller, Game game)
@@ -24,6 +23,6 @@
     {
       Assertion();
       HasCompleted = true;
-    }    
+    }
   }
 }
