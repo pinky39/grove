@@ -66,12 +66,12 @@
 
     public int MinTargetCount()
     {
-      return _context.Selector.GetMinEffectTargetCount();
+      return _context.Selector.GetMinTargetCount();
     }
 
     public int MaxTargetCount()
     {
-      return _context.Selector.GetMaxEffectTargetCount();
+      return _context.Selector.GetMaxTargetCount();
     }
   }
 }

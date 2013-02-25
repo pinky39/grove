@@ -34,7 +34,7 @@
               );
 
             p.TimingRule(new ControllerHasMana(6));
-            p.CostRule(new MaxAvailableMana(ManaUsage.Spells));
+            p.CostRule(new MaxAvailableMana());
           });
     }
   }

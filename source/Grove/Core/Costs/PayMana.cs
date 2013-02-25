@@ -38,7 +38,7 @@
       }
 
       return true;
-    }
+    }    
 
     protected override void Pay(ITarget target, int? x)
     {

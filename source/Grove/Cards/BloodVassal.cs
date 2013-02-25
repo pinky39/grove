@@ -21,7 +21,7 @@
         .ManaAbility(p =>
           {
             p.Text = "Sacrifice Blood Vassal: Add {B}{B} to your mana pool.";
-            p.Cost = new Sacrifice();
+            p.Cost = new Sacrifice();            
             p.ManaAmount("{B}{B}".ParseMana());
             p.Priority = ManaSourcePriorities.OnlyIfNecessary;
           });

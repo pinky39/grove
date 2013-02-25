@@ -11,6 +11,8 @@
     private Increment _powerIncrement;
     private Increment _toughnessIncrement;
 
+    private PowerToughness() {}
+
     public PowerToughness(int power, int toughness)
     {
       _power = power;
@@ -20,17 +22,17 @@
     public override void ModifyPower(Power power)
     {
       _cardPower = power;
-      
+
       _powerIncrement = new Increment(_power);
       _powerIncrement.Initialize(ChangeTracker);
-      
+
       power.AddModifier(_powerIncrement);
     }
 
     public override void ModifyToughness(Toughness toughness)
     {
       _cardToughness = toughness;
-      
+
       _toughnessIncrement = new Increment(_toughness);
       _toughnessIncrement.Initialize(ChangeTracker);
 

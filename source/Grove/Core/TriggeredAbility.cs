@@ -13,10 +13,12 @@
     private readonly bool _triggerOnlyIfOwningCardIsInPlay;
     private readonly List<Trigger> _triggers;
 
+    private TriggeredAbility() {}
+
     public TriggeredAbility(TriggeredAbilityParameters p) : base(p)
     {
       _triggers = p.Triggers;
-      _triggerOnlyIfOwningCardIsInPlay = p.TriggerOnlyIfOwningCardIsInPlay;     
+      _triggerOnlyIfOwningCardIsInPlay = p.TriggerOnlyIfOwningCardIsInPlay;
     }
 
     void ICopyContributor.AfterMemberCopy(object original)
@@ -48,14 +50,14 @@
     public override void Initialize(Card owner, Game game)
     {
       base.Initialize(owner, game);
-      
+
 
       foreach (var trigger in _triggers)
       {
         trigger.Initialize(this, game);
         RegisterTriggerListener(trigger);
       }
-    }  
+    }
 
     protected virtual void Execute(object triggerMessage)
     {

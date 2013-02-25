@@ -14,11 +14,11 @@
   public abstract class Modifier : GameObject, IModifier, ICopyContributor
   {
     private readonly TrackableList<Lifetime> _lifetimes = new TrackableList<Lifetime>();
+    public bool UntilEot;
     public Card Source { get; private set; }
     public Effect SourceEffect { get; private set; }
     public ITarget Target { get; private set; }
     public int? X { get; private set; }
-    public bool UntilEot;    
 
     void ICopyContributor.AfterMemberCopy(object original)
     {
@@ -64,7 +64,7 @@
     }
 
     public void AddLifetime(Lifetime lifetime)
-    {      
+    {
       _lifetimes.Add(lifetime);
     }
 
@@ -80,7 +80,7 @@
       }
 
       _lifetimes.Clear();
-    }    
+    }
 
     private void RemoveModifier(object sender, EventArgs e)
     {
@@ -100,20 +100,15 @@
       SourceEffect = p.SourceEffect;
       X = p.X;
 
-      CreateDefaultLifetimes();
-
-      foreach (var lifetime in _lifetimes)
-      {
-        lifetime.Initialize(this, game);
-      }
-
-      _lifetimes.Initialize(game.ChangeTracker);
+      InitializeLifetimes();
 
       return this;
     }
 
-    private void CreateDefaultLifetimes()
+    private void InitializeLifetimes()
     {
+      _lifetimes.Initialize(ChangeTracker);
+
       _lifetimes.Add(new DefaultLifetime());
 
       if (UntilEot)
@@ -124,7 +119,12 @@
       if (Source.Is().Attachment)
       {
         _lifetimes.Add(new AttachmentLifetime());
-      }      
+      }
+
+      foreach (var lifetime in _lifetimes)
+      {
+        lifetime.Initialize(this, Game);
+      }
     }
   }
 }

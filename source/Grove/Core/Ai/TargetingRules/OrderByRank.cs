@@ -26,7 +26,7 @@
       var candidates = p.Candidates<Card>(_controlledBy)
         .OrderBy(x => _rank(x));
 
-      return Group(candidates, p.MinTargetCount());
+      return Group(candidates, p.MaxTargetCount());
     }
 
     protected override IEnumerable<Targets> ForceSelectTargets(TargetingRuleParameters p)

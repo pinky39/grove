@@ -27,7 +27,7 @@
             p.TimingRule(new FirstMain());
 
             p.CostRule(new DestroyEachPermanent((card, x) =>
-              card.Is().Artifact && card.ConvertedCost <= x, ManaUsage.Spells));
+              card.Is().Artifact && card.ConvertedCost <= x));
           });
     }
   }

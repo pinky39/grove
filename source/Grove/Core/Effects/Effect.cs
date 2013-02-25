@@ -10,7 +10,7 @@
   using Modifiers;
   using Targeting;
 
-  public delegate Effect EffectFactory();  
+  public delegate Effect EffectFactory();
 
   public abstract class Effect : GameObject, ITarget, IHasColors
   {
@@ -20,8 +20,8 @@
     public Action<Effect> BeforeResolve = delegate { };
     public bool CanBeCountered;
     public EffectCategories Category = EffectCategories.Generic;
-    public Value ToughnessReduction = 0;
     public Func<Effect, bool> ShouldResolve = delegate { return true; };
+    public Value ToughnessReduction = 0;
     private object _triggerMessage;
     public Player Controller { get { return Source.OwningCard.Controller; } }
     public IEffectSource Source { get; private set; }
@@ -31,7 +31,19 @@
 
     public virtual bool TargetsEffectSource { get { return false; } }
 
-    public ITarget Target { get { return Targets.Effect.Count > 0 ? Targets.Effect[0] : Targets.Cost[0]; } }
+    public ITarget Target
+    {
+      get
+      {
+        if (Targets.Effect.Count > 0)
+          return Targets.Effect[0];
+
+        if (Targets.Cost.Count > 0)
+          return Targets.Cost[0];
+
+        return null;
+      }
+    }
 
     public IEnumerable<ITarget> ValidEffectTargets
     {
@@ -172,6 +184,6 @@
       _wasResolved.Initialize(game.ChangeTracker);
 
       return this;
-    }    
+    }
   }
 }

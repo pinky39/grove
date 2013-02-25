@@ -2,29 +2,24 @@
 {
   using System;
   using System.Linq;
-  using Mana;
 
   public class DestroyEachPermanent : CostRule
   {
-    private readonly ManaUsage _manaUsage;
     private readonly Func<Card, int, bool> _selector;
 
     private DestroyEachPermanent() {}
 
-    public DestroyEachPermanent(Func<Card, int, bool> selector, ManaUsage manaUsage)
+    public DestroyEachPermanent(Func<Card, int, bool> selector)
     {
       _selector = selector;
-      _manaUsage = manaUsage;
     }
 
     public override int CalculateX(CostRuleParameters p)
     {
-      var max = p.GetMaxConvertedMana(_manaUsage);
-
-      var bestX = max + 1;
+      var bestX = p.MaxX + 1;
       var bestScore = -1;
 
-      for (var i = max; i >= 0; i--)
+      for (var i = p.MaxX; i >= 0; i--)
       {
         var yourScore = p.Controller.Battlefield
           .Where(x => _selector(x, i))

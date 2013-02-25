@@ -1,8 +1,8 @@
 ﻿namespace Grove.Tests.Cards
 {
   using System.Linq;
-  using Grove.Core;
-  using Grove.Core.Zones;
+  using Core;
+  using Core.Zones;
   using Infrastructure;
   using Xunit;
 
@@ -23,7 +23,7 @@
 
       [Fact]
       public void EnchantCreature()
-      {                
+      {
         var armor = C("Blanchwood armor");
 
         Battlefield(P1, "Forest", "Forest", "Forest", "Grizzly Bears");
@@ -52,11 +52,12 @@
           At(Step.FirstMain)
             .Cast(armor, target: bear)
             .Cast(forest)
-            .Verify(() => {
-              Equal(3, C(bear).Toughness);
-              Equal(3, C(bear).Power);
-              True(P2.Battlefield.Contains(armor));
-            }));
+            .Verify(() =>
+              {
+                Equal(3, C(bear).Toughness);
+                Equal(3, C(bear).Power);
+                True(P2.Battlefield.Contains(armor));
+              }));
       }
 
       [Fact]
@@ -73,10 +74,11 @@
           At(Step.FirstMain)
             .Cast(armor, target: bear)
             .Cast(forest)
-            .Verify(() => {
-              Equal(4, C(bear).Power);
-              Equal(4, C(bear).Toughness);
-            }));
+            .Verify(() =>
+              {
+                Equal(4, C(bear).Power);
+                Equal(4, C(bear).Toughness);
+              }));
       }
 
       [Fact]
@@ -93,12 +95,13 @@
         Exec(
           At(Step.FirstMain)
             .Cast(hammer, target: bear)
-            .Verify(() => {
-              Equal(Zone.Graveyard, C(armor).Zone);
-              Equal(Zone.Graveyard, C(bear).Zone);
-              Equal(2, C(bear).Toughness);
-              Equal(2, C(bear).Power);
-            })
+            .Verify(() =>
+              {
+                Equal(Zone.Graveyard, C(armor).Zone);
+                Equal(Zone.Graveyard, C(bear).Zone);
+                Equal(2, C(bear).Toughness);
+                Equal(2, C(bear).Power);
+              })
           );
       }
     }

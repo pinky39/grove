@@ -6,7 +6,6 @@
   using Core.Ai.TimingRules;
   using Core.Dsl;
   using Core.Effects;
-  using Core.Mana;
 
   public class FaultLine : CardsSource
   {
@@ -26,7 +25,7 @@
               filterCreature: (effect, card) => !card.Has().Flying);
 
             p.TimingRule(new MassRemoval());
-            p.CostRule(new MaxAvailableMana(ManaUsage.Spells));
+            p.CostRule(new MaxAvailableMana());
           });
     }
   }

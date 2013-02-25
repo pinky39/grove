@@ -8,6 +8,8 @@
     private readonly Func<Effect, IManaAmount> _amount;
     private readonly bool _useOnlyForAbilities;
 
+    private AddManaToPool() {}
+
     public AddManaToPool(IManaAmount amount, bool useOnlyForAbilities = false)
       : this(delegate { return amount; }, useOnlyForAbilities) {}
 

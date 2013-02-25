@@ -1,8 +1,8 @@
 ﻿namespace Grove.Tests.Cards
 {
   using System.Linq;
-  using Grove.Core;
-  using Grove.Core.Zones;
+  using Core;
+  using Core.Zones;
   using Infrastructure;
   using Xunit;
 
@@ -65,10 +65,11 @@
         Exec(
           At(Step.FirstMain)
             .Cast(drana)
-            .Verify(() => {
-              Equal(0, P1.Battlefield.Count());
-              Equal(0, P2.Battlefield.Count());
-            }));
+            .Verify(() =>
+              {
+                Equal(0, P1.Battlefield.Count());
+                Equal(0, P2.Battlefield.Count());
+              }));
       }
 
       [Fact]
@@ -97,10 +98,11 @@
         Exec(
           At(Step.FirstMain)
             .Activate(drana, x: 1, target: bear)
-            .Verify(() => {
-              Equal(1, C(bear).Toughness);
-              Equal(5, C(drana).Power);
-            }),
+            .Verify(() =>
+              {
+                Equal(1, C(bear).Toughness);
+                Equal(5, C(drana).Power);
+              }),
           At(Step.FirstMain, turn: 2)
             .Verify(() => Equal(4, C(drana).Power))
           );

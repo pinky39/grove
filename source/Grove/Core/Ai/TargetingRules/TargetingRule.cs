@@ -15,10 +15,10 @@
 
       var parameters = new TargetingRuleParameters(candidates, c, Game);
 
-      var targetsCombinations = SelectTargets(parameters)        
+      var targetsCombinations = SelectTargets(parameters)                
         .ToList();
-
-      if (targetsCombinations.Count == 0 && parameters.MinTargetCount() > 0)
+      
+      if (targetsCombinations.Count == 0)
       {
         if (c.CanCancel)
         {
@@ -149,7 +149,7 @@
 
         // add last
         add(candidates[targetCount - 1 + i], targets);
-        
+                
         results.Add(targets);
       }
 

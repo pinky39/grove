@@ -30,7 +30,7 @@
                 type: "Creature Artifact Construct") {UntilEot = true});
 
             p.TimingRule(new Core.Ai.TimingRules.ChangeToCreature(minAvailableMana: 3));
-            p.CostRule(new MaxAvailableMana(ManaUsage.Abilities));
+            p.CostRule(new MaxAvailableMana());
           }
         );
     }

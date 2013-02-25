@@ -12,6 +12,8 @@
 
     private Counters _counters;
 
+    private AddCounters() {}
+
     public AddCounters(Func<Counter> counter, Value count)
     {
       _counterFactory = counter;

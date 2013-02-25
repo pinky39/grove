@@ -49,14 +49,14 @@
       return this;
     }
 
-    public int GetMinEffectTargetCount()
+    public int GetMinTargetCount()
     {
-      return Effect.Sum(x => x.MinCount);
+      return Effect.Count > 0 ? Effect.Sum(x => x.MinCount) : Cost.Sum(x => x.MinCount);
     }
 
-    public int GetMaxEffectTargetCount()
+    public int GetMaxTargetCount()
     {
-      return Effect.Sum(x => x.MaxCount).Value;
+      return Effect.Count > 0 ? Effect.Sum(x => x.MaxCount).Value : Cost.Sum(x => x.MaxCount).Value;
     }
 
     public void Initialize(Game game)
