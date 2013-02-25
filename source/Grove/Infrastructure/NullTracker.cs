@@ -1,10 +1,12 @@
 ﻿namespace Grove.Infrastructure
 {
+  using System;
   using System.Diagnostics;
 
   public class NullTracker : INotifyChangeTracker
-  {
-    private static bool _performChecks = false;
+  {    
+    [ThreadStatic]
+    private static bool _performChecks;
 
     public void NotifyCollectionWillBeCleared<T>(ITrackableCollection<T> trackableCollection)
     {
