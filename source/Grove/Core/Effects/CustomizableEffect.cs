@@ -14,7 +14,7 @@
 
     protected override void ResolveEffect()
     {
-      Game.Enqueue<ChooseEffectOptions>(Controller, p =>
+      Enqueue<ChooseEffectOptions>(Controller, p =>
         {
           p.ProcessDecisionResults = this;
           p.ChooseOptionsAi = this;

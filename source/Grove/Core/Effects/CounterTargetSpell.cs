@@ -10,7 +10,7 @@
   public class CounterTargetSpell : Effect, IProcessDecisionResults<BooleanResult>
   {
     private readonly int? _controllerLifeloss;
-    private readonly Func<Effect, IManaAmount> _doNotCounterCost;
+    private readonly DynamicParameter<IManaAmount> _doNotCounterCost;
     private readonly bool _tapLandsAndEmptyManaPool;
 
     private CounterTargetSpell() {}
@@ -26,7 +26,7 @@
 
     public CounterTargetSpell(IManaAmount doNotCounterCost = null, int? controllerLifeloss = null,
       bool tapLandsAndEmptyManaPool = false) :
-        this( e => doNotCounterCost, controllerLifeloss, tapLandsAndEmptyManaPool) {}
+        this(e => doNotCounterCost, controllerLifeloss, tapLandsAndEmptyManaPool) {}
 
     public void ProcessResults(BooleanResult results)
     {
@@ -36,11 +36,16 @@
       CounterSpell();
     }
 
+    protected override void Initialize()
+    {
+      _doNotCounterCost.Evaluate(this);
+    }
+
     protected override void ResolveEffect()
     {
       var targetSpellController = Target.Effect().Controller;
 
-      if (_doNotCounterCost(this) == null)
+      if (_doNotCounterCost.Value == null)
       {
         CounterSpell();
         return;
@@ -48,7 +53,7 @@
 
       Enqueue<PayOr>(targetSpellController, p =>
         {
-          p.ManaAmount = _doNotCounterCost(this);
+          p.ManaAmount = _doNotCounterCost.Value;
           p.Text = FormatText(string.Format("Pay {0}?", _doNotCounterCost));
           p.ProcessDecisionResults = this;
         });

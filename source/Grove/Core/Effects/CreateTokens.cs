@@ -7,8 +7,8 @@
   public class CreateTokens : Effect
   {
     private readonly Action<Card, Game> _afterTokenComesToPlay;
-    private readonly Func<Effect, int> _count;
-    private readonly Func<Effect, Player> _tokenController;
+    private readonly DynamicParameter<int> _count;
+    private readonly DynamicParameter<Player> _tokenController;
     private readonly List<CardFactory> _tokenFactories = new List<CardFactory>();
 
     private CreateTokens() {}
@@ -17,8 +17,8 @@
     {
       _tokenFactories.AddRange(tokens);
       _afterTokenComesToPlay = delegate { };
-      _tokenController = e => e.Controller;
-      _count = e => 1;
+      _tokenController = new DynamicParameter<Player>(e => e.Controller);
+      _count = 1;
     }
 
     public CreateTokens(Value count, CardFactory token, Action<Card, Game> afterTokenComesToPlay = null,
@@ -34,11 +34,17 @@
       _tokenFactories.Add(token);
     }
 
+    protected override void Initialize()
+    {
+      _count.Evaluate(this);
+      _tokenController.Evaluate(this);
+    }
+
     protected override void ResolveEffect()
     {
-      var controller = _tokenController(this);
+      var controller = _tokenController.Value;
 
-      for (var i = 0; i < _count(this); i++)
+      for (var i = 0; i < _count.Value; i++)
       {
         foreach (var tokenFactory in _tokenFactories)
         {

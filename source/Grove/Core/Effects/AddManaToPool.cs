@@ -5,7 +5,7 @@
 
   public class AddManaToPool : Effect
   {
-    private readonly Func<Effect, IManaAmount> _amount;
+    private readonly DynamicParameter<IManaAmount> _amount;
     private readonly bool _useOnlyForAbilities;
 
     private AddManaToPool() {}
@@ -20,9 +20,14 @@
       _useOnlyForAbilities = useOnlyForAbilities;
     }
 
+    protected override void Initialize()
+    {
+      _amount.Evaluate(this);
+    }
+
     protected override void ResolveEffect()
     {
-      Controller.AddManaToManaPool(_amount(this), _useOnlyForAbilities);
+      Controller.AddManaToManaPool(_amount.Value, _useOnlyForAbilities);
     }
   }
 }

@@ -28,6 +28,7 @@
 
     public override void Initialize(TriggeredAbility triggeredAbility, Game game)
     {
+      base.Initialize(triggeredAbility, game);      
       _wasDealtDamage.Initialize(game.ChangeTracker);
     }
   }

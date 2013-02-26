@@ -13,7 +13,7 @@
 
     public override bool ShouldPlay(TimingRuleParameters p)
     {
-      if (Turn.Step == Step.EndOfTurn && p.Card.Counters >= _minCount)
+      if (!p.Controller.IsActive && Turn.Step == Step.EndOfTurn && p.Card.Counters >= _minCount)
         return true;
 
       if (p.Card.Counters > 0 && CanBeDestroyed(p))

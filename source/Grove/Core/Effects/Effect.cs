@@ -66,6 +66,8 @@
       }
     }
 
+    protected virtual void Initialize() {}
+
     public bool HasColors(ManaColors colors)
     {
       return Source.OwningCard.HasColors(colors);
@@ -177,11 +179,12 @@
     {
       Game = game;
       Source = p.Source;
-      Targets = p.Targets;
+      Targets = p.Targets ?? new Targets();      
       _triggerMessage = p.TriggerMessage;
       X = p.X;
 
       _wasResolved.Initialize(game.ChangeTracker);
+      Initialize();
 
       return this;
     }

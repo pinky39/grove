@@ -30,9 +30,12 @@
           X = p.X
         };
       
-      Pay(p);
-
+      // create effect first, since some cost e.g Sacrifice can
+      // put owning card to graveyard which will alter some card
+      // properties e.g counters, power, toughness ...     
       var effect = EffectFactory().Initialize(effectParameters, Game);
+      
+      Pay(p);      
       Resolve(effect, p.SkipStack);
 
       Publish(new PlayerHasActivatedAbility(this, p.Targets));
