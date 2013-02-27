@@ -27,7 +27,7 @@
 
             p.Effect = () => new DealDamageToCreaturesAndPlayers(
               filterCreature: (e, card) => card.IsBlocker,
-              amountCreature: e => e.Source.OwningCard.Power.GetValueOrDefault());
+              amountCreature: P(e => e.Source.OwningCard.Power.GetValueOrDefault()));
           });
     }
   }

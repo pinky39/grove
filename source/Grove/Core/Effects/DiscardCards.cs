@@ -1,23 +1,26 @@
 ﻿namespace Grove.Core.Effects
 {
-  using System;
   using Targeting;
 
   public class DiscardCards : Effect
   {
     private readonly int _count;
-    private readonly Func<Effect, Player> _playerSelector;
+    private readonly DynParam<Player> _player;
 
-    public DiscardCards(int count, Func<Effect, Player> playerSelector = null)
+    public DiscardCards(int count, DynParam<Player> player = null)
     {
       _count = count;
-      _playerSelector = playerSelector ?? (e => e.Target.Player());
+      _player = player;
+
+      RegisterDynamicParameters(player);
     }
 
     protected override void ResolveEffect()
-    {                  
-      Game.Enqueue<Decisions.DiscardCards>(
-        controller: _playerSelector(this),
+    {
+      var player = _player ?? Target.Player();
+
+      Enqueue<Decisions.DiscardCards>(
+        controller: player.Value,
         init: p => p.Count = _count);
     }
   }

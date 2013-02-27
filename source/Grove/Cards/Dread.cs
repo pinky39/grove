@@ -28,8 +28,8 @@
             p.Trigger(new OnDamageDealt(playerFilter: (ply, trg, dmg) =>
               ply == trg.OwningCard.Controller && dmg.Source.Is().Creature));
 
-            p.Effect = () => new DestroyPermanent((e) =>
-              e.TriggerMessage<DamageHasBeenDealt>().Damage.Source);
+            p.Effect = () => new DestroyPermanent(P(e =>
+              e.TriggerMessage<DamageHasBeenDealt>().Damage.Source));
           })
         .TriggeredAbility(p =>
           {

@@ -1,6 +1,6 @@
 ﻿namespace Grove.Core.Effects
 {
-  using Grove.Core.Targeting;
+  using Targeting;
 
   public class TapTarget : Effect
   {

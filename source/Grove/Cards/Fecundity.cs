@@ -31,7 +31,7 @@
 
             p.Effect = () => new DrawCards(
               count: 1,
-              player: e => e.TriggerMessage<ZoneChanged>().Card.Controller);
+              player: P(e => e.TriggerMessage<ZoneChanged>().Card.Controller));
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });

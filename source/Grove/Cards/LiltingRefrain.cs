@@ -35,7 +35,7 @@
               "Sacrifice Lilting Refrain: Counter target spell unless its controller pays , where X is the number of verse counters on Lilting Refrain.";
             p.Cost = new Sacrifice();
             p.Effect = () => new CounterTargetSpell(
-              doNotCounterCost: e => e.Source.OwningCard.Counters.GetValueOrDefault().Colorless());
+              doNotCounterCost: P(e => e.Source.OwningCard.Counters.GetValueOrDefault()));
 
             p.TargetSelector.AddEffect(trg => trg.Is.CounterableSpell().On.Stack());
             p.TimingRule(new Core.Ai.TimingRules.Counterspell());

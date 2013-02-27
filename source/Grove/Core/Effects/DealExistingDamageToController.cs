@@ -1,19 +1,19 @@
 ﻿namespace Grove.Core.Effects
 {
-  using System;
-
   public class DealExistingDamageToController : Effect
   {
-    private readonly Func<Effect,Damage> _damage;
-    
-    public DealExistingDamageToController(Func<Effect, Damage> damage)
+    private readonly DynParam<Damage> _damage;
+
+    public DealExistingDamageToController(DynParam<Damage> damage)
     {
       _damage = damage;
+      
+      RegisterDynamicParameters(damage);
     }
 
     public override int CalculatePlayerDamage(Player player)
     {
-      return player == Controller ? _damage(this).Amount : 0;
+      return player == Controller ? _damage.Value.Amount : 0;
     }
 
     public override int CalculateCreatureDamage(Card creature)
@@ -23,7 +23,7 @@
 
     protected override void ResolveEffect()
     {
-      Controller.DealDamage(_damage(this));
+      Controller.DealDamage(_damage.Value);
     }
   }
 }

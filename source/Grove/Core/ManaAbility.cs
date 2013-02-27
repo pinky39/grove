@@ -16,11 +16,11 @@
       Priority = p.Priority;
 
       EffectFactory = () => new AddManaToPool(
-        amount: e =>
+        amount: new DynParam<IManaAmount>((e, g) =>
           {
             var source = (ManaAbility) e.Source;
             return source.GetManaAmount();
-          });
+          }));
     }
 
     protected ManaAbility() {}

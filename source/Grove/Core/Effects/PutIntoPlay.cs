@@ -4,20 +4,19 @@
 
   public class PutIntoPlay : Effect
   {
-    private readonly Func<Effect, bool> _tapIf;
+    private readonly DynParam<bool> _tap;
 
     private PutIntoPlay() {}
 
-    public PutIntoPlay(Func<Effect, bool> tapIf)
+    public PutIntoPlay(DynParam<bool> tap = null)
     {
-      _tapIf = tapIf;
+      _tap = tap ?? false;
+      RegisterDynamicParameters(tap);
     }
-
-    public PutIntoPlay(bool tap = false) : this(delegate { return tap; }) {}
-
+    
     protected override void ResolveEffect()
     {
-      if (_tapIf(this))
+      if (_tap.Value)
       {
         Source.OwningCard.Tap();
       }

@@ -15,6 +15,7 @@
   public abstract class Effect : GameObject, ITarget, IHasColors
   {
     private readonly Trackable<bool> _wasResolved = new Trackable<bool>();
+    private readonly List<IDynamicParameter> _dynamicParameters = new List<IDynamicParameter>();
 
     public Action<Effect> AfterResolve = delegate { };
     public Action<Effect> BeforeResolve = delegate { };
@@ -30,6 +31,15 @@
     public Targets Targets { get; private set; }
 
     public virtual bool TargetsEffectSource { get { return false; } }
+
+    protected void RegisterDynamicParameters(params IDynamicParameter[] parameters)
+    {
+      foreach (var dynamicParameter in parameters)
+      {
+        if (dynamicParameter != null)
+          _dynamicParameters.Add(dynamicParameter);
+      }      
+    }
 
     public ITarget Target
     {
@@ -156,6 +166,12 @@
 
       if (ShouldResolve(this))
       {
+
+        foreach (var parameter in _dynamicParameters)
+        {
+          parameter.EvaluateOnResolve(this, Game);
+        }
+        
         ResolveEffect();
         AfterResolve(this);
       }
@@ -184,6 +200,12 @@
       X = p.X;
 
       _wasResolved.Initialize(game.ChangeTracker);
+
+      foreach (var parameter in _dynamicParameters)
+      {
+        parameter.EvaluateOnInit(this, Game);
+      }
+      
       Initialize();
 
       return this;

@@ -1,6 +1,7 @@
 ﻿namespace Grove.Core.Modifiers
 {
   using System.Diagnostics;
+  using Effects;
 
   public class Value
   {
@@ -48,6 +49,14 @@
       Debug.Assert(x.HasValue);
 
       return _type == ValueType.MinusX ? -x.Value : x.Value;
+    }
+
+    public static implicit operator DynParam<int>(Value value)
+    {
+      return new DynParam<int>(
+        getter: (e, g) => value.GetValue(e.X),
+        evaluateOnInit: true,
+        evaluateOnResolve: false);
     }
 
     private enum ValueType

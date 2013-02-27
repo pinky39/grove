@@ -16,7 +16,7 @@
         .Type("Land")
         .Text(
           "Copperline Gorge enters the battlefield tapped unless you control two or fewer other lands.{EOL}{T}: Add {R} or {G} to your mana pool.")
-        .Cast(p => { p.Effect = () => new PutIntoPlay(tapIf: e => e.Controller.Battlefield.Lands.Count() > 2); })
+        .Cast(p => { p.Effect = () => new PutIntoPlay(tap: P(e => e.Controller.Battlefield.Lands.Count() > 2)); })
         .ManaAbility(p =>
           {
             p.Text = "{T}: Add {R} or {G} to your mana pool.";

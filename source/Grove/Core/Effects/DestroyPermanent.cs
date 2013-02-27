@@ -1,24 +1,25 @@
 ﻿namespace Grove.Core.Effects
 {
-  using System;
   using Ai;
 
   public class DestroyPermanent : Effect
   {
-    private readonly Func<Effect, Card> _selector;
+    private readonly DynParam<Card> _permanent;
 
     private DestroyPermanent() {}
 
-    public DestroyPermanent(Func<Effect, Card> selector)
+    public DestroyPermanent(DynParam<Card> permanent)
     {
-      _selector = selector;
+      _permanent = permanent;
       Category = EffectCategories.Destruction;
+
+      RegisterDynamicParameters(permanent);
     }
 
 
     protected override void ResolveEffect()
     {
-      _selector(this).Destroy();
+      _permanent.Value.Destroy();
     }
   }
 }

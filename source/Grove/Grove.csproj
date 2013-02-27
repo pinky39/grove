@@ -505,7 +505,7 @@
     <Compile Include="Core\Effects\DestroyAllLandsOrCreatures.cs" />
     <Compile Include="Core\Effects\DestroyPermanent.cs" />
     <Compile Include="Core\Effects\DiscardHand.cs" />
-    <Compile Include="Core\Effects\DynamicParameter.cs" />
+    <Compile Include="Core\Effects\DynParam.cs" />
     <Compile Include="Core\Effects\EachPlayerDiscardsHand.cs" />
     <Compile Include="Core\Effects\ExchangeForOpponentsCreature.cs" />
     <Compile Include="Core\Effects\SearchLibraryPutToHand.cs" />

@@ -29,7 +29,7 @@
               creatureFilter: delegate { return true; },
               playerFilter: (player, tr, _) => tr.Ability.OwningCard.Controller != player));
 
-            p.Effect = () => new DealExistingDamageToController(e => e.TriggerMessage<DamageHasBeenDealt>().Damage);
+            p.Effect = () => new DealExistingDamageToController(P(e => e.TriggerMessage<DamageHasBeenDealt>().Damage));
           });
     }
   }

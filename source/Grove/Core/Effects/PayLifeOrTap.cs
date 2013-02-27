@@ -27,7 +27,7 @@
 
     protected override void ResolveEffect()
     {
-      Game.Enqueue<PayOr>(Controller, p =>
+      Enqueue<PayOr>(Controller, p =>
         {
           p.Life = _life;
           p.Text = FormatText(String.Format("Pay {0} life?", _life));

@@ -37,7 +37,7 @@
               new PayMana(ManaAmount.Green, ManaUsage.Abilities),
               new Sacrifice());
             p.Effect = () => new CreateTokens(
-              count: e => e.Source.OwningCard.Counters.GetValueOrDefault(),
+              count: P(e => e.Source.OwningCard.Counters.GetValueOrDefault()),
               token: Card
                 .Named("Beast Token")
                 .FlavorText(

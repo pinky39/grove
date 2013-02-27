@@ -31,7 +31,7 @@
 
             p.Cost = new Sacrifice();
             p.Effect = () => new DrawCards(
-              count: e => e.Target.Card().Power.GetValueOrDefault(),
+              count: P(e => e.Target.Card().Power.GetValueOrDefault()),
               discardCount: 3);
             p.TargetSelector.AddCost(trg =>
               {

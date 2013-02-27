@@ -22,7 +22,7 @@
         .Cast(cp =>
           {
             cp.Effect = () => new DealDamageToTargets(
-              getAmount: e => e.Controller.Battlefield.Count(x => x.Is("swamp")),
+              amount: P(e => e.Controller.Battlefield.Count(x => x.Is("swamp"))),
               gainLife: true);
 
             cp.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());

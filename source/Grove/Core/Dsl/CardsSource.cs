@@ -1,6 +1,8 @@
 ﻿namespace Grove.Core.Dsl
 {
+  using System;
   using System.Collections.Generic;
+  using Effects;
   using Modifiers;
 
   public abstract class CardsSource
@@ -16,6 +18,16 @@
     protected T[] L<T>(params T[] elt)
     {
       return elt;
+    }
+
+    protected DynParam<T> P<T>(Func<Effect, Game, T> getter, bool evaluateOnInit = true, bool evaluateOnResolve = false)
+    {
+      return new DynParam<T>(getter, evaluateOnInit, evaluateOnResolve);
+    }
+
+    protected DynParam<T> P<T>(Func<Effect, T> getter, bool evaluateOnInit = true, bool evaluateOnResolve = false)
+    {
+      return new DynParam<T>((e, g) => getter(e), evaluateOnInit, evaluateOnResolve);
     }
 
     public LevelDefinition Level(int min, int power, int toughness, Static ability, int? max = null)

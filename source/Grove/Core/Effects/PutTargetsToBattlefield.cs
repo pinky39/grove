@@ -40,7 +40,7 @@
 
     private void SacCreatureAndPutValidTargetsToBattlefield()
     {
-      Game.Enqueue<SelectCardsToSacrifice>(Controller, p =>
+      Enqueue<SelectCardsToSacrifice>(Controller, p =>
         {
           p.MinCount = 1;
           p.MaxCount = 1;

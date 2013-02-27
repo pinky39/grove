@@ -30,7 +30,7 @@
 
     private void SelectCardsToSacrifice(Player player)
     {
-      Game.Enqueue<SelectCardsToSacrifice>(
+      Enqueue<SelectCardsToSacrifice>(
         controller: player,
         init: p =>
           {

@@ -5,23 +5,23 @@
   public class OpponentDiscardsCards : Effect
   {
     private readonly Func<Card, bool> _filter;
-    private readonly Func<Effect, int> _getRandomCount;
-    private readonly Func<Effect, int> _getSelectedCount;
+    private readonly DynParam<int> _randomCount;
+    private readonly DynParam<int> _selectedCount;
     private readonly bool _youChooseDiscardedCards;
 
     private OpponentDiscardsCards() {}
 
-    public OpponentDiscardsCards(Func<Effect, int> randomCount = null, Func<Effect, int> selectedCount = null,
+    public OpponentDiscardsCards(DynParam<int> randomCount = null, DynParam<int> selectedCount = null,
       bool youChooseDiscardedCards = false, Func<Card, bool> filter = null)
     {
-      _getRandomCount = randomCount ?? (e => 0);
+      _randomCount = randomCount ?? 0;
+      _selectedCount = selectedCount ?? 0;
+
       _filter = filter ?? delegate { return true; };
       _youChooseDiscardedCards = youChooseDiscardedCards;
-      _getSelectedCount = selectedCount ?? (e => 0);
-    }
 
-    public OpponentDiscardsCards(int randomCount = 0, int selectedCount = 0, bool youChooseDiscardedCards = false,
-      Func<Card, bool> filter = null) : this(e => randomCount, e => selectedCount, youChooseDiscardedCards, filter) {}
+      RegisterDynamicParameters(randomCount, selectedCount);
+    }
 
     protected override void ResolveEffect()
     {
@@ -35,7 +35,7 @@
           controller: Controller,
           init: p =>
             {
-              p.Count = _getSelectedCount(this);
+              p.Count = _selectedCount.Value;
               p.Filter = _filter;
               p.DiscardOpponentsCards = true;
             });
@@ -43,19 +43,19 @@
         return;
       }
 
-      for (var i = 0; i < _getRandomCount(this); i++)
+      for (var i = 0; i < _randomCount.Value; i++)
       {
         opponent.DiscardRandomCard();
       }
 
-      if (_getSelectedCount(this) == 0)
+      if (_selectedCount.Value == 0)
         return;
 
       Enqueue<Decisions.DiscardCards>(
         controller: opponent,
         init: p =>
           {
-            p.Count = _getSelectedCount(this);
+            p.Count = _selectedCount.Value;
             p.Filter = _filter;
           });
     }

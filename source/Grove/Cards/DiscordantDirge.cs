@@ -39,7 +39,7 @@
               new Sacrifice());
 
             p.Effect = () => new OpponentDiscardsCards(
-              selectedCount: e => e.Source.OwningCard.Counters.GetValueOrDefault(),
+              selectedCount: P(e => e.Source.OwningCard.Counters.GetValueOrDefault()),
               youChooseDiscardedCards: true);
 
             p.TimingRule(new ChargeCounters(3));

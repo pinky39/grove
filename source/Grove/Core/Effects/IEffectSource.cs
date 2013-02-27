@@ -1,7 +1,7 @@
 ﻿namespace Grove.Core.Effects
 {
-  using Grove.Infrastructure;
-  using Grove.Core.Targeting;
+  using Infrastructure;
+  using Targeting;
 
   public interface IEffectSource : IHashable
   {

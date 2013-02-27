@@ -20,7 +20,7 @@
         .Cast(p =>
           {
             p.Effect = () => new CounterTargetSpell(
-              doNotCounterCost: e => e.X.GetValueOrDefault().Colorless(),
+              doNotCounterCost: P(e => e.X.GetValueOrDefault()),
               tapLandsAndEmptyManaPool: true);
 
             p.TargetSelector.AddEffect(trg => trg.Is.CounterableSpell().On.Stack());

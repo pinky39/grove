@@ -37,7 +37,7 @@
               new PayMana(4.Colorless(), ManaUsage.Abilities),
               new Tap(),
               new Sacrifice());
-            p.Effect = () => new DrawCards(count: e => e.Source.OwningCard.Counters.GetValueOrDefault());
+            p.Effect = () => new DrawCards(count: P(e => e.Source.OwningCard.Counters.GetValueOrDefault()));
             p.TimingRule(new ChargeCounters(3));                        
           });
     }

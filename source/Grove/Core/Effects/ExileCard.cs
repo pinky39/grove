@@ -1,19 +1,18 @@
 ﻿namespace Grove.Core.Effects
 {
-  using System;
-
   public class ExileCard : Effect
   {
-    private readonly Func<Effect, Card> _getCard;
-    
-    public ExileCard(Func<Effect, Card> getCard)
+    private readonly DynParam<Card> _card;
+
+    public ExileCard(DynParam<Card> card)
     {
-      _getCard = getCard;
+      _card = card;
+      RegisterDynamicParameters(card);
     }
 
     protected override void ResolveEffect()
     {
-      _getCard(this).Exile();
+      _card.Value.Exile();
     }
   }
 }

@@ -31,7 +31,7 @@
 
             p.Effect = () => new DiscardCards(
               count: 1,
-              playerSelector: e => e.TriggerMessage<ZoneChanged>().Card.Controller);
+              player: P(e => e.TriggerMessage<ZoneChanged>().Card.Controller));
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           }

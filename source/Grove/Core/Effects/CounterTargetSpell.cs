@@ -1,6 +1,5 @@
 ﻿namespace Grove.Core.Effects
 {
-  using System;
   using Ai;
   using Decisions;
   using Decisions.Results;
@@ -10,23 +9,21 @@
   public class CounterTargetSpell : Effect, IProcessDecisionResults<BooleanResult>
   {
     private readonly int? _controllerLifeloss;
-    private readonly DynamicParameter<IManaAmount> _doNotCounterCost;
+    private readonly DynParam<int> _doNotCounterCost;
     private readonly bool _tapLandsAndEmptyManaPool;
 
     private CounterTargetSpell() {}
 
-    public CounterTargetSpell(Func<Effect, IManaAmount> doNotCounterCost, int? controllerLifeloss = null,
+    public CounterTargetSpell(DynParam<int> doNotCounterCost = null, int? controllerLifeloss = null,
       bool tapLandsAndEmptyManaPool = false)
     {
       _controllerLifeloss = controllerLifeloss;
       _doNotCounterCost = doNotCounterCost;
       _tapLandsAndEmptyManaPool = tapLandsAndEmptyManaPool;
       Category = EffectCategories.Counterspell;
-    }
 
-    public CounterTargetSpell(IManaAmount doNotCounterCost = null, int? controllerLifeloss = null,
-      bool tapLandsAndEmptyManaPool = false) :
-        this(e => doNotCounterCost, controllerLifeloss, tapLandsAndEmptyManaPool) {}
+      RegisterDynamicParameters(doNotCounterCost);
+    }
 
     public void ProcessResults(BooleanResult results)
     {
@@ -36,16 +33,11 @@
       CounterSpell();
     }
 
-    protected override void Initialize()
-    {
-      _doNotCounterCost.Evaluate(this);
-    }
-
     protected override void ResolveEffect()
     {
       var targetSpellController = Target.Effect().Controller;
 
-      if (_doNotCounterCost.Value == null)
+      if (_doNotCounterCost == null)
       {
         CounterSpell();
         return;
@@ -53,7 +45,7 @@
 
       Enqueue<PayOr>(targetSpellController, p =>
         {
-          p.ManaAmount = _doNotCounterCost.Value;
+          p.ManaAmount = _doNotCounterCost.Value.Colorless();
           p.Text = FormatText(string.Format("Pay {0}?", _doNotCounterCost));
           p.ProcessDecisionResults = this;
         });

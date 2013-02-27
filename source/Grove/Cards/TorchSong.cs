@@ -38,7 +38,7 @@
               new PayMana("{2}{R}".ParseMana(), ManaUsage.Abilities),
               new Sacrifice());
             p.Effect = () => new DealDamageToTargets(
-              getAmount: e => e.Source.OwningCard.Counters.GetValueOrDefault());
+              amount: P(e => e.Source.OwningCard.Counters.GetValueOrDefault()));
 
             p.TargetingRule(new DealDamage(pt => pt.Card.Counters.GetValueOrDefault()));
             p.TimingRule(new TargetRemoval());

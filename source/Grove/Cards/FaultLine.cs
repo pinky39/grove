@@ -21,7 +21,7 @@
           {
             p.Effect = () => new DealDamageToCreaturesAndPlayers(
               amountPlayer: (e, player) => e.X.GetValueOrDefault(),
-              amountCreature: e => e.X.GetValueOrDefault(),
+              amountCreature: (e, creature) => e.X.GetValueOrDefault(),
               filterCreature: (effect, card) => !card.Has().Flying);
 
             p.TimingRule(new MassRemoval());

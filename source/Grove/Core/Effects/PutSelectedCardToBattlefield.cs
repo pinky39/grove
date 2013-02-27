@@ -21,7 +21,7 @@
 
     protected override void ResolveEffect()
     {
-      Game.Enqueue<SelectCardsPutToBattlefield>(Controller,
+      Enqueue<SelectCardsPutToBattlefield>(Controller,
         p =>
           {
             p.Validator = _validator;

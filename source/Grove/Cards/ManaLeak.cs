@@ -18,7 +18,7 @@
         .FlavorText("The fatal flaw in every plan is the assumption that you know more than your enemy.")
         .Cast(p =>
           {
-            p.Effect = () => new CounterTargetSpell(doNotCounterCost: 3.Colorless());
+            p.Effect = () => new CounterTargetSpell(doNotCounterCost: 3);
             p.TargetSelector.AddEffect(trg => trg.Is.CounterableSpell().On.Stack());
             p.TimingRule(new Core.Ai.TimingRules.Counterspell(3));
             p.TargetingRule(new Core.Ai.TargetingRules.Counterspell());

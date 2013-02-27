@@ -24,7 +24,7 @@
           {
             p.Text = "{T}: Counter target spell unless its controller pays {1}.";
             p.Cost = new Tap();
-            p.Effect = () => new CounterTargetSpell(doNotCounterCost: 1.Colorless());
+            p.Effect = () => new CounterTargetSpell(doNotCounterCost: 1);
             p.TargetSelector.AddEffect(trg => trg.Is.CounterableSpell().On.Stack());
 
             p.TargetingRule(new Core.Ai.TargetingRules.Counterspell());
