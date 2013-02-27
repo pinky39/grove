@@ -198,8 +198,7 @@
     private SelectTarget.ViewModel ShowSelectorDialog(TargetValidator validator)
     {
       var selectTargetParameters = new SelectTargetParameters
-        {
-          OwningCard = Card,
+        {          
           Validator = validator,
           CanCancel = true,
           Instructions = "(Press Spacebar when done, press Esc to cancel.)"

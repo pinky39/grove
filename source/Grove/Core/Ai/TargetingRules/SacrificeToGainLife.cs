@@ -13,7 +13,7 @@
         var candidates1 = p.Candidates<Card>()
           .OrderBy(x => x.Score);
 
-        return Group(candidates1, p.MinTargetCount());
+        return Group(candidates1, p.MinTargetCount(), (target, targets) => targets.Cost.Add(target));
       }
 
       var candidates = new List<Card>();

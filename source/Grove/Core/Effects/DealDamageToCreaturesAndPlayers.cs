@@ -9,17 +9,19 @@
     private readonly Func<Effect, Card, bool> _filterCreature;
     private readonly Func<Effect, Player, bool> _filterPlayer;
 
+    private DealDamageToCreaturesAndPlayers() {}
+
     public DealDamageToCreaturesAndPlayers(
-      int amountCreature = 0, 
+      int amountCreature = 0,
       int amountPlayer = 0,
-      Func<Effect, Card, bool> filterCreature = null, 
+      Func<Effect, Card, bool> filterCreature = null,
       Func<Effect, Player, bool> filterPlayer = null) :
         this(delegate { return amountCreature; }, delegate { return amountPlayer; }, filterCreature, filterPlayer) {}
 
     public DealDamageToCreaturesAndPlayers(
       Func<Effect, Card, int> amountCreature = null,
       Func<Effect, Player, int> amountPlayer = null,
-      Func<Effect, Card, bool> filterCreature = null, 
+      Func<Effect, Card, bool> filterCreature = null,
       Func<Effect, Player, bool> filterPlayer = null)
     {
       _amountCreature = amountCreature ?? delegate { return 0; };
@@ -45,7 +47,7 @@
 
     public override int CalculateCreatureDamage(Card creature)
     {
-      return ShouldDealToCreature(creature) ? _amountCreature(this,creature) : 0;
+      return ShouldDealToCreature(creature) ? _amountCreature(this, creature) : 0;
     }
 
     protected override void ResolveEffect()

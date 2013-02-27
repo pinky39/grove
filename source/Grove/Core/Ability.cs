@@ -36,7 +36,7 @@
 
     public virtual int CalculateHash(HashCalculator calc)
     {
-      return _isEnabled.GetHashCode();
+      return _isEnabled.Value.GetHashCode();
     }
 
     void IEffectSource.EffectPushedOnStack() {}
@@ -52,10 +52,11 @@
       if (_usesStack == false || skipStack)
       {
         e.Resolve();  
+        e.FinishResolve();
         return;
       }
 
-      Game.Stack.Push(e);      
+      Stack.Push(e);      
     }
 
     public virtual void Initialize(Card owner, Game game)
@@ -63,7 +64,7 @@
       _owner = owner;
       Game = game;
 
-      TargetSelector.Initialize(game);
+      TargetSelector.Initialize(owner, game);
 
       foreach (var rule in Rules)
       {

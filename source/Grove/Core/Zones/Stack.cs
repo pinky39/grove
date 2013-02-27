@@ -74,6 +74,10 @@
       {
         effect.Resolve();
       }
+      else
+      {
+        var foo = 2;
+      }
 
       LastResolved = effect;
     }

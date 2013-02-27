@@ -9,6 +9,7 @@
   using Core.Decisions;
   using Core.Decisions.Scenario;
   using Core.Zones;
+  using Grove.Infrastructure;
   using log4net.Config;
   using Xunit;
 
@@ -33,6 +34,11 @@
     protected Search Search { get { return Game.Search; } }
     protected Combat Combat { get { return Game.Combat; } }
 
+    protected void EnableChangeTrackerChecks()
+    {
+      NullTracker.EnableChangeTrackerChecks();
+    }
+    
     public virtual void Dispose() {}
 
     protected DecisionsForOneStep At(Step step, int turn = 1)
@@ -83,8 +89,7 @@
               enchantment.Initialize(enchantmentName =>
                 {
                   var enchantmentCard = CardDatabase.CreateCard(enchantmentName);
-                  enchantmentCard.Initialize(player, Game);
-                  player.PutCardToBattlefield(enchantmentCard);
+                  enchantmentCard.Initialize(player, Game);                  
                   EnchantCard(card, enchantmentCard);
                   return enchantmentCard;
                 });
@@ -253,7 +258,7 @@
 
     private static void EnchantCard(Card card, Card enchantment)
     {
-      card.EnchantWithoutPayingCost(enchantment);
+      enchantment.EnchantWithoutPayingCost(card);
     }
   }
 }

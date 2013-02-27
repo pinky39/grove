@@ -37,14 +37,12 @@
             _changeHistory.Count));
 
       _isEnabled = false;
-      _changeHistory.Clear();
-      NullTracker.DisableTrackableInitializationChecks();
+      _changeHistory.Clear();      
     }
 
     public ChangeTracker Enable()
     {
-      _isEnabled = true;
-      NullTracker.EnableTrackableInitializationChecks();
+      _isEnabled = true;      
       return this;
     }
 

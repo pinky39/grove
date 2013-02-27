@@ -21,6 +21,8 @@
     private readonly TrackableList<Modifier> _modifiers = new TrackableList<Modifier>();
     private readonly ShouldApplyToPlayer _playerFilter;
 
+    private ContinuousEffect() {}
+
     public ContinuousEffect(ContinuousEffectParameters p)
     {
       _modifierFactory = p.Modifier;

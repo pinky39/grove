@@ -40,7 +40,7 @@ namespace Grove.Tests.Unit
 
 
       Assert.Equal(originalHash, copyHash);
-    }
+    }    
 
     private void InitZones()
     {

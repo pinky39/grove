@@ -13,15 +13,14 @@
     public int? MaxX { get; private set; }
     public TargetSelector Selector { get; private set; }
     public int? X;
-    public int DistributeAmount { get; private set; }
+    public int DistributeAmount { get; private set; }    
 
-    public ActivationContext() {}
-
-    public ActivationContext(TargetSelector selector)
+    public ActivationContext(Card card, TargetSelector selector)
     {
+      Card = card;
       Selector = selector;
     }
-    
+
     public ActivationContext(ActivationPrerequisites prerequisites)
     {
       Card = prerequisites.Card;      

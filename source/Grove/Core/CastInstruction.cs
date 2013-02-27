@@ -79,7 +79,7 @@
       Game = game;
       _card = card;
 
-      _targetSelector.Initialize(game);
+      _targetSelector.Initialize(card, game);
 
       foreach (var aiInstruction in _rules)
       {
@@ -132,6 +132,7 @@
       if (activationParameters.SkipStack)
       {
         effect.Resolve();
+        effect.FinishResolve();
         return;
       }
 
@@ -147,7 +148,7 @@
     public bool IsGoodTarget(ITarget target)
     {
       return TargetingHelper.IsGoodTarget(
-          target, _targetSelector, 
+          target, OwningCard, _targetSelector, 
           _rules.Where(r => r is TargetingRule).Cast<TargetingRule>());      
     }
 

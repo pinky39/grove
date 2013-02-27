@@ -6,9 +6,9 @@
 
   public class TargetingHelper
   {
-    public static bool IsGoodTarget(ITarget target, TargetSelector selector, IEnumerable<TargetingRule> rules)
+    public static bool IsGoodTarget(ITarget target, Card owningCard, TargetSelector selector, IEnumerable<TargetingRule> rules)
     {
-      var activation = new ActivationContext(selector);
+      var activation = new ActivationContext(owningCard, selector);
 
       foreach (TargetingRule rule in rules)
       {
@@ -24,9 +24,10 @@
       return false;   
     }
 
-    public static IEnumerable<Targets> GenerateTargets(TargetSelector selector, IEnumerable<TargetingRule> rules)
+    public static IEnumerable<Targets> GenerateTargets(Card owningCard, TargetSelector selector, IEnumerable<TargetingRule> rules, bool force = false)
     {
-      var activation = new ActivationContext(selector);
+      var activation = new ActivationContext(owningCard, selector);
+      activation.CanCancel = !force;
 
       foreach (TargetingRule rule in rules)
       {

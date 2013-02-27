@@ -22,8 +22,7 @@
           continue;
 
         var selectTargetParameters = new SelectTargetParameters
-        {
-          OwningCard = Source.OwningCard,
+        {          
           Validator = validator,
           CanCancel = false,
           TriggerMessage = TriggerMessage

@@ -7,14 +7,15 @@
 
   public class PayManaOrSacrifice : Effect, IProcessDecisionResults<BooleanResult>
   {
+    private readonly IManaAmount _amount;
+    private readonly string _message;
+    private PayManaOrSacrifice() {}
+
     public PayManaOrSacrifice(IManaAmount amount, string message = null)
     {
       _amount = amount;
       _message = message ?? "Pay {0}?";
     }
-
-    private readonly IManaAmount _amount;
-    private readonly string _message;
 
     public void ProcessResults(BooleanResult results)
     {
@@ -26,7 +27,7 @@
 
     protected override void ResolveEffect()
     {
-      Game.Enqueue<PayOr>(Controller, p =>
+      Enqueue<PayOr>(Controller, p =>
         {
           p.ManaAmount = _amount;
           p.Text = FormatText(String.Format(_message, _amount));

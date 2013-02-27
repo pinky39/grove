@@ -26,7 +26,7 @@
         };
 
       var validator = new TargetValidator(validatorParameters);
-      validator.Initialize(Game);
+      validator.Initialize(null, Game);
 
       var selectTargetParameters = new SelectTargetParameters
         {

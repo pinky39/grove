@@ -9,8 +9,7 @@
 
   public class ViewModel : ViewModelBase, IReceive<SelectionChanged>
   {
-    private readonly bool _canCancel;
-    private readonly Card _owningCard;
+    private readonly bool _canCancel;    
     private readonly BindableCollection<ITarget> _selection = new BindableCollection<ITarget>();
     private readonly Action<ITarget> _targetSelected;
     private readonly Action<ITarget> _targetUnselected;
@@ -19,8 +18,7 @@
     public ViewModel(SelectTargetParameters p)
     {
       TargetValidator = p.Validator;
-      Instructions = p.Instructions;
-      _owningCard = p.OwningCard;
+      Instructions = p.Instructions;      
       _canCancel = p.CanCancel;
       _targetSelected = p.TargetSelected ?? DefaultTargetSelected;
       _targetUnselected = p.TargetUnselected ?? DefaultTargetUnselected;
@@ -59,7 +57,7 @@
       if (TargetValidator.HasValidZone(message.Selection) == false)
         return;
 
-      if (TargetValidator.IsTargetValid(message.Selection, _owningCard, _triggerMessage) == false)
+      if (TargetValidator.IsTargetValid(message.Selection, _triggerMessage) == false)
         return;
 
       _targetSelected(message.Selection);

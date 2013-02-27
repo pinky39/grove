@@ -65,8 +65,10 @@
 
     private IEnumerable<Targets> GenerateTargets()
     {
-      var targetsCandidates = TargetingHelper
-        .GenerateTargets(TargetSelector, MachineRules.Where(x => x is TargetingRule).Cast<TargetingRule>());        
+      var targetsCandidates = TargetingHelper.GenerateTargets(
+          Source.OwningCard, TargetSelector, 
+          MachineRules.Where(x => x is TargetingRule).Cast<TargetingRule>(), 
+          force: true);        
 
       return targetsCandidates.Take(Search.MaxTargetCandidates);      
     }

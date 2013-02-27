@@ -53,6 +53,7 @@
       Owner = owner;      
       
       _controller = new ControllerCharacteristic(owner);
+      _controller.Initialize(game, this);
       _power.Initialize(game, this);
       _toughness.Initialize(game, this);
       _level.Initialize(game, this);

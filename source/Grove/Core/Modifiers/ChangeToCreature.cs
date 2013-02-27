@@ -18,6 +18,8 @@
     private StrenghtSetter _toughnessSetter;
     private CardTypeSetter _typeSetter;
 
+    private ChangeToCreature() {}
+
     public ChangeToCreature(Func<Modifier, int> power, Func<Modifier, int> toughness, Func<Modifier, string> type,
       ManaColors? colors = null)
     {

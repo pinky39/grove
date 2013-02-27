@@ -26,7 +26,7 @@
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
             
-            p.TimingRule(new Steps(Step.BeginningOfCombat));
+            p.TimingRule(new Steps(Step.DeclareAttackers));
             p.TargetingRule(new GainEvasion());
           });
     }

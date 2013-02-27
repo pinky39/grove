@@ -1,16 +1,17 @@
 ﻿namespace Grove.Core.Ai.TimingRules
 {
+  using System.Collections.Generic;
   using System.Linq;
 
   public class Any : TimingRule
   {
-    private readonly TimingRule[] _rules;
+    private readonly List<TimingRule> _rules;
 
     private Any() {}
 
     public Any(params TimingRule[] rules)
     {
-      _rules = rules;
+      _rules = rules.ToList();
     }
 
     public override bool ShouldPlay(TimingRuleParameters p)

@@ -59,22 +59,22 @@
       return Effect.Count > 0 ? Effect.Sum(x => x.MaxCount).Value : Cost.Sum(x => x.MaxCount).Value;
     }
 
-    public void Initialize(Game game)
+    public void Initialize(Card owningCard, Game game)
     {
       Game = game;
 
       foreach (var validator in _effectValidators)
       {
-        validator.Initialize(game);
+        validator.Initialize(owningCard, game);
       }
 
       foreach (var validator in _costValidators)
       {
-        validator.Initialize(game);
+        validator.Initialize(owningCard, game);
       }
     }
 
-    public TargetsCandidates GenerateCandidates(Card owningCard, object triggerMessage = null)
+    public TargetsCandidates GenerateCandidates(object triggerMessage = null)
     {
       var all = new TargetsCandidates();
 
@@ -84,7 +84,7 @@
 
         foreach (var target in GenerateTargets(selector.IsZoneValid))
         {
-          if (selector.IsTargetValid(target, owningCard, triggerMessage))
+          if (selector.IsTargetValid(target, triggerMessage))
           {
             candidates.Add(target);
           }
@@ -99,7 +99,7 @@
 
         foreach (var target in GenerateTargets(selector.IsZoneValid))
         {
-          if (selector.IsTargetValid(target, owningCard, triggerMessage))
+          if (selector.IsTargetValid(target, triggerMessage))
           {
             candidates.Add(target);
           }
@@ -111,7 +111,7 @@
       return all;
     }
 
-    public bool IsValidEffectTarget(ITarget target, Card owningCard, object triggerMessage = null)
+    public bool IsValidEffectTarget(ITarget target, object triggerMessage = null)
     {
       // Currently there is no way to figure out
       // to which validator the target belongs. 
@@ -126,7 +126,7 @@
         validator =>
           {
             return validator.HasValidZone(target) &&
-              validator.IsTargetValid(target, owningCard, triggerMessage);
+              validator.IsTargetValid(target, triggerMessage);
           });
     }
   }

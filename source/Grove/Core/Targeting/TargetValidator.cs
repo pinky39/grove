@@ -14,6 +14,7 @@
     private readonly TargetValidatorDelegate _isValidTarget;
     private readonly ZoneValidatorDelegate _isValidZone;
     private readonly bool _mustBeTargetable;
+    private Card _owningCard;
 
     private TargetValidator() {}
 
@@ -33,14 +34,15 @@
 
     public string MessageFormat { get; private set; }
 
-    public virtual void Initialize(Game game)
+    public virtual void Initialize(Card owningCard, Game game)
     {
       Game = game;
+      _owningCard = owningCard;
     }
 
-    public virtual bool IsTargetValid(ITarget target, Card owningCard, object triggerMessage = null)
+    public virtual bool IsTargetValid(ITarget target, object triggerMessage = null)
     {
-      if (!CanBeTargeted(target, owningCard))
+      if (!CanBeTargeted(target, _owningCard))
       {
         return false;
       }
@@ -48,7 +50,7 @@
       var parameters = new TargetValidatorDelegateParameters
         {
           Game = Game,
-          OwningCard = owningCard,
+          OwningCard = _owningCard,
           Target = target
         };
 
@@ -59,7 +61,7 @@
 
     public virtual bool IsZoneValid(Zone zone, Player controller)
     {
-      var p = new ZoneValidatorDelegateParameters(zone, controller, Game);
+      var p = new ZoneValidatorDelegateParameters(zone, _owningCard, controller, Game);
 
       return _isValidZone(p);
     }
@@ -102,7 +104,7 @@
       if (zone == null)
         return true;
 
-      return _isValidZone(new ZoneValidatorDelegateParameters(zone.Value, target.Controller(), Game));
+      return _isValidZone(new ZoneValidatorDelegateParameters(zone.Value, _owningCard, target.Controller(), Game));
     }
   }
 }

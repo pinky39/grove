@@ -8,7 +8,7 @@
   public class StaticAbilities : IStaticAbilities, IModifiable, IHashable
   {
     private readonly TrackableList<StaticAbility> _abilities = new TrackableList<StaticAbility>();
-    private ChangeTracker _changeTracker;
+    private INotifyChangeTracker _changeTracker = new NullTracker();
 
     public int CalculateHash(HashCalculator calc)
     {
@@ -44,7 +44,7 @@
     public bool DoesNotUntap { get { return Has(Static.DoesNotUntap); } }
     public bool AnyEvadingAbility { get { return Fear || Flying || Trample || Unblockable; } }
 
-    public void Initialize(ChangeTracker changeTracker, IHashDependancy hashDependancy)
+    public void Initialize(INotifyChangeTracker changeTracker, IHashDependancy hashDependancy)
     {
       _changeTracker = changeTracker;
       _abilities.Initialize(changeTracker, hashDependancy);

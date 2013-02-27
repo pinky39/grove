@@ -1,12 +1,10 @@
 ﻿namespace Grove.Infrastructure
 {
-  using System;
   using System.Diagnostics;
 
   public class NullTracker : INotifyChangeTracker
-  {    
-    [ThreadStatic]
-    private static bool _performChecks;
+  {
+    private static bool _enableChecks;
 
     public void NotifyCollectionWillBeCleared<T>(ITrackableCollection<T> trackableCollection)
     {
@@ -28,19 +26,14 @@
       AssertEnabled();
     }
 
-    public static void EnableTrackableInitializationChecks()
+    public static void EnableChangeTrackerChecks()
     {
-      _performChecks = true;
-    }
-
-    public static void DisableTrackableInitializationChecks()
-    {
-      _performChecks = false;
-    }
+      _enableChecks = true;
+    }    
 
     private static void AssertEnabled()
     {
-      Debug.Assert(!_performChecks, "Usage of a non initialized Trackable or TrackableList detected!");
+      Debug.Assert(!_enableChecks, "Usage of a non initialized Trackable or TrackableList detected!");
     }
   }
 }
