@@ -32,7 +32,10 @@
 
     public TargetValidatorParameters Stack()
     {
-      _p.ZoneSpec = p => p.Zone == Zone.Stack;
+      _p.ZoneSpec = p =>
+        {
+          return p.Zone == Zone.Stack;
+        };
       _p.MustBeTargetable = false;
       return _p;
     }

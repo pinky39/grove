@@ -19,7 +19,7 @@
 
     public Action<Effect> AfterResolve = delegate { };
     public Action<Effect> BeforeResolve = delegate { };
-    public bool CanBeCountered;
+    public bool CanBeCountered = true;
     public EffectCategories Category = EffectCategories.Generic;
     public Func<Effect, bool> ShouldResolve = delegate { return true; };
     public Value ToughnessReduction = 0;

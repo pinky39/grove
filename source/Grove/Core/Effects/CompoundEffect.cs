@@ -26,6 +26,8 @@
 
     public override Effect Initialize(EffectParameters p, Game game)
     {
+      base.Initialize(p, game);
+
       var toughnessReduction = 0;
 
       foreach (var effect in _childEffects)

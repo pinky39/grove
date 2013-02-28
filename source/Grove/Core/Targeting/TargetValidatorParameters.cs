@@ -8,7 +8,7 @@
     public int? MaxCount = 1;
     public string Text;
     public int MinCount = 1;
-    public bool MustBeTargetable;
+    public bool MustBeTargetable = true;
 
     public TargetValidatorParameters()
     {

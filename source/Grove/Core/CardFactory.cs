@@ -231,7 +231,7 @@
       ActivatedAbility(p =>
         {
           p.Text = string.Format("Cycling {0} ({0}, Discard this card: Draw a card.)", cost);
-          p.Cost = new PayMana(cost.ParseMana(), ManaUsage.Abilities);
+          p.Cost = new AggregateCost(new PayMana(cost.ParseMana(), ManaUsage.Abilities),  new Discard());
           p.Effect = () => new DrawCards(1);
           p.ActivationZone = Zone.Hand;
           p.TimingRule(new Cycling());
