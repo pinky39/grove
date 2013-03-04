@@ -12,8 +12,8 @@
       public void Discard3()
       {
         Battlefield(P1, "Discordant Dirge", "Swamp");
-        Hand(P2, "Swamp", C("Ravenous Baloth"), C("Verdant Force"), "Llanowar Elves", C("Grizzly Bears"));
-
+        Hand(P2, "Ravenous Baloth", "Verdant Force", "Llanowar Elves", "Grizzly Bears");
+        
         RunGame(6);
 
         Equal(3, P2.Graveyard.Count());

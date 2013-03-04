@@ -41,7 +41,7 @@
     public TargetValidatorParameters AttackerOrBlocker()
     {
       _p.TargetSpec =
-        p => p.Target.IsCard() && (p.OwningCard.IsAttacker || p.OwningCard.IsBlocker);
+        p => p.Target.IsCard() && (p.Target.Card().IsAttacker || p.Target.Card().IsBlocker);
       return _p;
     }
 

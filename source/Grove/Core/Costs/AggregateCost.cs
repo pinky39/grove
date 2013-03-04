@@ -32,13 +32,13 @@
       return manaAmount;
     }
 
-    public override void Initialize(Card card, Game game)
+    public override void Initialize(Card card, Game game, TargetValidator validator = null)
     {
-      base.Initialize(card, game);
+      base.Initialize(card, game, validator);
 
       foreach (var cost in _costs)
       {
-        cost.Initialize(card, game);
+        cost.Initialize(card, game, validator);
       }
     }
 

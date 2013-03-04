@@ -30,6 +30,7 @@
             p.Text = "When Flametongue Kavu enters the battlefield, it deals 4 damage to target creature.";
             p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
             p.Effect = () => new DealDamageToTargets(4);
+            p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
             p.TargetingRule(new DealDamage(4));
           });
     }

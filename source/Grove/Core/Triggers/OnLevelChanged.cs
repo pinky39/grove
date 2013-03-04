@@ -6,7 +6,9 @@
   public class OnLevelChanged : Trigger, IReceive<LevelChanged>
   {
     private readonly int _level;
-    
+
+    private OnLevelChanged() {}
+
     public OnLevelChanged(int level)
     {
       _level = level;

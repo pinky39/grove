@@ -52,8 +52,9 @@
         return;
       }
 
-      var sources = new TrackableList<IManaSource>(manaSource.ToEnumerable());
+      var sources = new TrackableList<IManaSource>();      
       sources.Initialize(_changeTracker);
+      sources.Add(manaSource);
 
       _sources.Add(new SourcesWithSameResource
         {

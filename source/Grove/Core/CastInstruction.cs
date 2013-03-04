@@ -87,7 +87,7 @@
       }
 
       _castingRule.Initialize(card, game);
-      _cost.Initialize(card, game);
+      _cost.Initialize(card, game, _targetSelector.Cost.FirstOrDefault());
     }
 
     public bool CanCast(out ActivationPrerequisites prerequisites)

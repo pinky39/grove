@@ -8,16 +8,20 @@
   {
     private readonly bool _combatOnly;
     private readonly Func<Card, OnDamageDealt, Damage, bool> _creatureFilter;
+    private readonly bool _onlyByTriggerSource;
     private readonly Func<Player, OnDamageDealt, Damage, bool> _playerFilter;
     private readonly bool _useAttachedToAsTriggerSource;
 
     private OnDamageDealt() {}
 
     public OnDamageDealt(bool combatOnly = false, bool useAttachedToAsTriggerSource = false,
-      Func<Card, OnDamageDealt, Damage, bool> creatureFilter = null, Func<Player, OnDamageDealt, Damage, bool> playerFilter = null)
+      bool onlyByTriggerSource = true,
+      Func<Card, OnDamageDealt, Damage, bool> creatureFilter = null,
+      Func<Player, OnDamageDealt, Damage, bool> playerFilter = null)
     {
       _combatOnly = combatOnly;
       _useAttachedToAsTriggerSource = useAttachedToAsTriggerSource;
+      _onlyByTriggerSource = onlyByTriggerSource;
       _creatureFilter = creatureFilter ?? delegate { return false; };
       _playerFilter = playerFilter ?? delegate { return false; };
     }
@@ -26,10 +30,13 @@
     {
       if (_combatOnly && !message.Damage.IsCombat)
         return;
-            
+
       var triggerCard = GetTriggerSource();
 
-      if (message.Damage.Source == triggerCard && IsValid(message))
+      if (
+        (!_onlyByTriggerSource || (message.Damage.Source == triggerCard)) &&
+          IsValid(message)
+        )
         Set(message);
     }
 

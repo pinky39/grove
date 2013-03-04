@@ -61,7 +61,7 @@
     public StringBuilder OutputBestPath(StringBuilder sb = null)
     {
       sb = sb ?? new StringBuilder();
-      sb.AppendFormat("{0}, ", _id);
+      sb.AppendFormat("{0}, ", _id);      
       return _bestEdge.Result.OutputBestPath(sb);
     }
 

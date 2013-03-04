@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core
 {
+  using System.Linq;
   using Costs;
   using Infrastructure;
   using Mana;
@@ -18,7 +19,7 @@
     {
       _cost = parameters.Cost;
       _activationZone = parameters.ActivationZone;
-      _activateAsSorcery = parameters.ActivateAsSorcery;
+      _activateAsSorcery = parameters.ActivateAsSorcery;      
     }
 
     public void Activate(ActivationParameters p)
@@ -93,7 +94,7 @@
     public override void Initialize(Card owner, Game game)
     {
       base.Initialize(owner, game);
-      _cost.Initialize(owner, game);     
+      _cost.Initialize(owner, game, TargetSelector.Cost.FirstOrDefault());     
     }
 
     private bool CanBeActivated(ref int? maxX)

@@ -24,6 +24,9 @@
     public Card Card { get { return _context.Card; } }
     public int DistributeAmount { get { return _context.DistributeAmount; } }
 
+    public bool HasCostCandidates { get { return _candidates.HasCost; } }
+    public bool HasEffectCandidates { get { return _candidates.HasEffect; } }
+
     public IEnumerable<T> Candidates<T>(
       ControlledBy controlledBy = ControlledBy.Any,
       int selectorIndex = 0,
@@ -58,7 +61,7 @@
               .Select(x => (T) x);
           }
       }
-
+      
       return candidates
         .Where(x => x is T)
         .Select(x => (T) x);

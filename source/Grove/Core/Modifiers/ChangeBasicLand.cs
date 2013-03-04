@@ -34,11 +34,11 @@
       var ap = new ManaAbilityParameters
         {
           Text = "{{T}}: Add {0} to your mana pool.",
-          Cost = new Tap(),
+          Cost = new Tap(),          
         };
 
       ap.ManaAmount(manaUnit);
-      _addedAbility = new ActivatedAbility(ap);
+      _addedAbility = new ManaAbility(ap);
       _addedAbility.Initialize(Target.Card(), Game);
       _abilities.Add(_addedAbility);
     }

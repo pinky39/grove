@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core.Ai.TimingRules
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Targeting;
@@ -18,6 +19,9 @@
     
     public IEnumerable<T> Targets<T>()
     {
+      if (_targets == null)
+        throw new InvalidOperationException("This timing rule requires the targeting rule to be applied first.");
+      
       return _targets.Where(x => x is T).Select(x => (T) x);
     }
     

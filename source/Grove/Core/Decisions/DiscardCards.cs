@@ -13,7 +13,7 @@
     protected Player CardsOwner
     {
       get { return DiscardOpponentsCards 
-        ? Game.Players.GetOpponent(Controller) 
+        ? Controller.Opponent 
         : Controller; }
     }
 

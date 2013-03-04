@@ -25,8 +25,10 @@
           {
             p.Text = "Whenever a creature deals damage to you, destroy it.";
 
-            p.Trigger(new OnDamageDealt(playerFilter: (ply, trg, dmg) =>
-              ply == trg.OwningCard.Controller && dmg.Source.Is().Creature));
+            p.Trigger(new OnDamageDealt(
+              onlyByTriggerSource: false,
+              playerFilter: (ply, trg, dmg) =>
+                ply == trg.OwningCard.Controller && dmg.Source.Is().Creature));
 
             p.Effect = () => new DestroyPermanent(P(e =>
               e.TriggerMessage<DamageHasBeenDealt>().Damage.Source));

@@ -20,14 +20,13 @@
         RunGame(1);
 
         Equal(1, P2.Battlefield.Lands.Count(x => x.Is("island")));
-
       }
     }
 
     public class Predefine : PredefinedScenario
     {
       [Fact]
-      public void EnchantTheDisenchant()
+      public void EnchantThenDisenchant()
       {
         var mirage = C("Lingering Mirage");
         var forest = C("Forest");

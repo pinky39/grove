@@ -19,6 +19,7 @@
     private StateMachine _stateMachine;
     private TurnInfo _turnInfo;
     private Trackable<bool> _wasStopped;
+    private int _turnLimit = int.MaxValue;
 
     private Game() {}
 
@@ -26,7 +27,7 @@
     public CardDatabase CardDatabase { get; private set; }
     public bool WasStopped { get { return _wasStopped.Value; } }
     public Combat Combat { get; private set; }
-    public bool IsFinished { get { return Players.AnyHasLost(); } }
+    public bool IsFinished { get { return Players.AnyHasLost() || _turnLimit < Turn.TurnCount; } }
     public Players Players { get; set; }
     public int Score { get { return Players.Score; } }
     public Stack Stack { get; private set; }
@@ -143,8 +144,9 @@
 
     public void Start(int numOfTurns = int.MaxValue, bool skipPreGame = false, Player looser = null)
     {
-      _stateMachine.Start(() => ShouldContinue() &&
-        numOfTurns >= Turn.TurnCount, skipPreGame, looser);
+      _turnLimit = numOfTurns;
+      
+      _stateMachine.Start(ShouldContinue, skipPreGame, looser);
     }
 
     public void Stop()

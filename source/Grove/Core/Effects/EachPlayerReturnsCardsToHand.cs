@@ -34,7 +34,7 @@
 
     private void ReturnCardToHand(Player player)
     {
-      Game.Enqueue<SelectCardsPutToHand>(
+      Enqueue<SelectCardsPutToHand>(
         controller: player,
         init: p =>
           {

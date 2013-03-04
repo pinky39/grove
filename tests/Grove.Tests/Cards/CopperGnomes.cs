@@ -16,7 +16,7 @@
         Hand(P2, engine);
         Battlefield(P2, "Forest", "Forest", "Forest", "Forest", "Copper Gnomes");
 
-        RunGame(1);
+        RunGame(2);
 
         Equal(Zone.Battlefield, C(engine).Zone);
       }

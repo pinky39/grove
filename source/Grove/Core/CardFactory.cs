@@ -278,32 +278,32 @@
           p.ActivateAsSorcery = true;
         });
 
-      _init.Add(cp =>
+      foreach (var level in levels)
+      {
+        TriggeredAbility(p =>
         {
-          foreach (var level in levels)
-          {
-            TriggeredAbility(p =>
-              {
-                p.Trigger(new OnLevelChanged(level.Min));
-                p.Effect = () => new ApplyModifiersToSelf(
-                  () =>
-                    {
-                      var modifier = new AddStaticAbility(level.StaticAbility);
-                      modifier.AddLifetime(new LevelLifetime(level.Min, level.Max));
-                      return modifier;
-                    },
-                  () =>
-                    {
-                      var modifier = new SetPowerAndToughness(level.Power, level.Toughness);
-                      modifier.AddLifetime(new LevelLifetime(level.Min, level.Max));
-                      return modifier;
-                    }
-                  );
-                p.UsesStack = false;
-                p.TriggerOnlyIfOwningCardIsInPlay = true;
-              });
-          }
-
+          p.Trigger(new OnLevelChanged(level.Min));
+          p.Effect = () => new ApplyModifiersToSelf(
+            () =>
+            {
+              var modifier = new AddStaticAbility(level.StaticAbility);
+              modifier.AddLifetime(new LevelLifetime(level.Min, level.Max));
+              return modifier;
+            },
+            () =>
+            {
+              var modifier = new SetPowerAndToughness(level.Power, level.Toughness);
+              modifier.AddLifetime(new LevelLifetime(level.Min, level.Max));
+              return modifier;
+            }
+            );
+          p.UsesStack = false;
+          p.TriggerOnlyIfOwningCardIsInPlay = true;
+        });
+      }
+            
+      _init.Add(cp =>
+        {         
           cp.IsLeveler = true;
         });
 

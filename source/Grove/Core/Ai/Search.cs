@@ -6,10 +6,9 @@
   using System.Linq;
   using System.Threading;
   using System.Threading.Tasks;
-  using Infrastructure;
   using log4net;
   using Messages;
-  
+
   public class Search
   {
     private const int MaxSearchDepthLimit = 16;
@@ -27,7 +26,7 @@
     private int _subtreesPrunned;
 
     public Search()
-    {      
+    {
       SearchDepthLimit = MaxSearchDepthLimit;
       MaxTargetCandidates = MaxTargetCountLimit;
     }
@@ -49,7 +48,7 @@
     public int NodesSearched { get { return _nodesSearched; } }
     public int NumWorkersCreated { get { return _numWorkersCreated; } }
     public int SearchDepthLimit { get; private set; }
-    public int SubtreesPrunned { get { return _subtreesPrunned; } }    
+    public int SubtreesPrunned { get { return _subtreesPrunned; } }
 
     public event EventHandler Finished = delegate { };
     public event EventHandler Started = delegate { };
@@ -104,15 +103,15 @@
         worker.Evaluate(searchNode);
         return;
       }
-                  
+
       searchNode.Game.Players.Searching = searchNode.Controller;
-      searchNode.GenerateChoices();      
-      
+      searchNode.GenerateChoices();
+
       var result =
         GetCachedResult(searchNode) ??
           FindBestMove(searchNode);
-            
-      searchNode.SetResult(result);      
+
+      searchNode.SetResult(result);
     }
 
     private SearchWorker CreateWorker(ISearchNode searchNode)
@@ -161,19 +160,19 @@
       Finished(this, EventArgs.Empty);
       searchNode.Game.Publish(new SearchFinished());
       Log.Debug("Search finished");
-      
+
       searchNode.Game.ChangeTracker.Disable();
-      searchNode.Game.ChangeTracker.Unlock();      
+      searchNode.Game.ChangeTracker.Unlock();
 
       GC.Collect();
-    }    
+    }
 
     private SearchWorker InitSearch(ISearchNode searchNode)
     {
-      AdjustPerformance();            
+      AdjustPerformance();
 
-      Log.Debug("Search started");      
-      
+      Log.Debug("Search started");
+
       searchNode.Game.Publish(new SearchStarted
         {
           SearchDepthLimit = SearchDepthLimit,

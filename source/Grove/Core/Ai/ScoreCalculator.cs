@@ -164,17 +164,17 @@
     }
 
     public static int CalculateCardInHandScore(Card card)
-    {
+    {          
       if (!card.IsVisible)
       {
         return 220;
       }
 
-      if (card.OverrideScore.HasValue)
+      if (card.OverrideScore.HasValue && (card.Is().Sorcery || card.Is().Instant))
       {
         return card.OverrideScore.Value;
       }
-
+      
       if (card.ManaCost == null || card.ManaCost.Converted == 0)
       {
         return 110;
@@ -184,12 +184,7 @@
     }
 
     public static int CalculateCardInGraveyardScore(Card card)
-    {
-      if (card.OverrideScore.HasValue)
-      {
-        return card.OverrideScore.Value;
-      }
-      
+    {      
       if (card.Is().BasicLand)
         return 1;
 
@@ -205,12 +200,7 @@
     }
 
     public static int CalculateCardInLibraryScore(Card card)
-    {
-      if (card.OverrideScore.HasValue)
-      {
-        return card.OverrideScore.Value;
-      }
-
+    {      
       return CalculateCardInGraveyardScore(card) - 1;
     }    
   }

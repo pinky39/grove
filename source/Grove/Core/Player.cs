@@ -455,12 +455,7 @@
       {
         _library.Add(card);
       }
-    }
-
-    public void AddManaSources(IEnumerable<IManaSource> manaSources)
-    {
-      _manaSources.AddRange(manaSources);
-    }
+    }    
 
     public override string ToString()
     {

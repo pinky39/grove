@@ -13,7 +13,7 @@
 
     public ControllerHandCountIs(int? minCount = null, int? maxCount = null, Func<Card, bool> selector = null)
     {
-      _selector = selector;
+      _selector = selector ?? delegate { return true; };
       _maxCount = maxCount;
       _minCount = minCount;
     }

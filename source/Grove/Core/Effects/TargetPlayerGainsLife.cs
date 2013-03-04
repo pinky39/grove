@@ -1,11 +1,11 @@
 ﻿namespace Grove.Core.Effects
 {
-  using Grove.Core.Targeting;
+  using Targeting;
 
   public class TargetPlayerGainsLife : Effect
   {
     private readonly int _amount;
-    
+
     public TargetPlayerGainsLife(int amount)
     {
       _amount = amount;

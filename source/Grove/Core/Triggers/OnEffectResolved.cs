@@ -8,6 +8,8 @@
   {
     private readonly Func<TriggeredAbility, Game, bool> _filter;
 
+    private OnEffectResolved() {}
+
     public OnEffectResolved(Func<TriggeredAbility, Game, bool> filter)
     {
       _filter = filter;

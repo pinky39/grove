@@ -41,6 +41,7 @@
 
             p.Effect = () => new CreateTokens(
               count: 1,
+              tokenController: P((e, g) => g.Players.Active),
               token: Card
                 .Named("Saproling Token")
                 .FlavorText(

@@ -29,7 +29,7 @@
             p.Effect = () => new ApplyModifiersToSelf(() => new AddPowerAndToughness(2, 2) {UntilEot = true})
               {Category = EffectCategories.ToughnessIncrease};
 
-            p.TargetSelector.AddCost(trg => trg.Is.Creature(ControlledBy.SpellOwner));
+            p.TargetSelector.AddCost(trg => trg.Is.Creature(ControlledBy.SpellOwner).On.Battlefield());
             p.TimingRule(new IncreaseOwnersPowerOrToughness(2, 2));
             p.TargetingRule(new OrderByRank(c => c.Score));
           });

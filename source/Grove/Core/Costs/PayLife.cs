@@ -7,6 +7,8 @@
   {
     private readonly Func<Card, int> _getAmount;
 
+    private PayLife() {}
+
     public PayLife(int amount) : this(c => amount) {}
 
     public PayLife(Func<Card, int> getAmount)

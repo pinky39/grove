@@ -17,7 +17,7 @@
         Hand(P2, "Grizzly Bears", "Shock", "Shock", "Shock", "Shock");
         
         Battlefield(P1, "Swamp", "Swamp", "Swamp", "Swamp");
-        Graveyard(P1, "Shock", "Verdant Force", "Forest", "Mountain");
+        Graveyard(P1, "Shock", "Verdant Force", "Shock");
 
         RunGame(1);
 

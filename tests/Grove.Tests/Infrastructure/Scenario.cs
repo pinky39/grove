@@ -56,10 +56,7 @@
           {
             var card = CardDatabase.CreateCard(name);
             card.Initialize(player, Game);
-            library.Add(card);
-
-            if (card.IsManaSource)
-              player.AddManaSources(card.ManaSources);
+            library.Add(card);            
 
             return card;
           });
@@ -73,10 +70,7 @@
         scenarioCard.Initialize(name =>
           {
             var card = CardDatabase.CreateCard(name);
-            card.Initialize(player, Game);
-
-            if (card.IsManaSource)
-              player.AddManaSources(card.ManaSources);
+            card.Initialize(player, Game);            
 
             player.PutCardToBattlefield(card);
             card.HasSummoningSickness = false;
@@ -198,10 +192,7 @@
           {
             var card = CardDatabase.CreateCard(name);
             card.Initialize(player, Game);
-            graveyard.Add(card);
-
-            if (card.IsManaSource)
-              player.AddManaSources(card.ManaSources);
+            graveyard.Add(card);            
 
             return card;
           });
@@ -218,10 +209,7 @@
           {
             var card = CardDatabase.CreateCard(name);
             card.Initialize(player, Game);
-            hand.Add(card);
-
-            if (card.IsManaSource)
-              player.AddManaSources(card.ManaSources);
+            hand.Add(card);            
 
             return card;
           });

@@ -226,7 +226,16 @@
 
         // card usage lowers the score slightly, since we want't to 
         // avoid activations that do no good
-        return score - UsageScore;
+        score = score - UsageScore;
+
+        
+        // auras controlled by other player are added to their score
+        if (IsPermanent && Is().Aura && AttachedTo.Controller != Controller)
+        {
+          return -score;
+        }
+
+        return score;
       }
     }
 
@@ -730,7 +739,14 @@
     }
 
     public void Reveal()
-    {
+    {      
+      // Reveal should only work during actual game.
+      // Revealing cards during simulation should have no 
+      // effect.
+      
+      if (Search.InProgress)
+        return;
+      
       _isRevealed.Value = true;
       _isHidden.Value = false;
     }

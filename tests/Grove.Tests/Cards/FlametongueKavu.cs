@@ -1,8 +1,8 @@
 ﻿namespace Grove.Tests.Cards
 {
   using System.Linq;
-  using Grove.Core;
-  using Grove.Core.Zones;
+  using Core;
+  using Core.Zones;
   using Infrastructure;
   using Xunit;
 
@@ -14,14 +14,14 @@
       public void BugDoNotPlayKavuIfOnlyCreature()
       {
         var kavu = C("Flametongue Kavu");
-        
+
         Hand(P1, kavu);
         Battlefield(P1, "Mountain", "Mountain", "Mountain", "Mountain");
 
         RunGame(1);
         Equal(Zone.Hand, C(kavu).Zone);
       }
-      
+
       [Fact]
       public void BugGameCrashesWhenPlayingKavu()
       {
@@ -68,10 +68,11 @@
           At(Step.FirstMain)
             .Cast(kavu)
             .Target(bear)
-            .Verify(() => {
-              Equal(1, P2.Graveyard.Count());
-              Equal(1, P1.Battlefield.Count());
-            })
+            .Verify(() =>
+              {
+                Equal(1, P2.Graveyard.Count());
+                Equal(1, P1.Battlefield.Count());
+              })
           );
       }
 
@@ -91,11 +92,12 @@
             .Cast(kavu)
             .Target(bear)
             .Cast(shock, target: bear)
-            .Verify(() => {
-              Equal(2, P2.Graveyard.Count());
-              Equal(0, C(bear).Damage);
-              Equal(1, P1.Battlefield.Count());
-            })
+            .Verify(() =>
+              {
+                Equal(2, P2.Graveyard.Count());
+                Equal(0, C(bear).Damage);
+                Equal(1, P1.Battlefield.Count());
+              })
           );
       }
     }

@@ -38,10 +38,11 @@
       return ManaAmount.Zero;
     }
 
-    public virtual void Initialize(Card card, Game game)
+    public virtual void Initialize(Card card, Game game, TargetValidator validator = null)
     {
       Game = game;
       Card = card;
+      Validator = validator;
     }
   }
 }

@@ -24,9 +24,12 @@
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
     {
       var candidates = p.Candidates<Card>(_controlledBy)
-        .OrderBy(x => _rank(x));
+        .OrderBy(x => _rank(x));        
 
-      return Group(candidates, p.MaxTargetCount());
+      if (p.HasEffectCandidates)
+        return Group(candidates, p.MaxTargetCount());
+
+      return Group(candidates, p.MaxTargetCount(), (trg, trgs) => trgs.AddCost(trg));
     }
 
     protected override IEnumerable<Targets> ForceSelectTargets(TargetingRuleParameters p)
@@ -34,7 +37,11 @@
       var candidates = p.Candidates<Card>()
         .OrderBy(_forceRank);
 
-      return Group(candidates, p.MinTargetCount());
+
+      if (p.HasEffectCandidates)
+        return Group(candidates, p.MinTargetCount());
+
+      return Group(candidates, p.MinTargetCount(), (trg, trgs) => trgs.AddCost(trg));
     }
   }
 }

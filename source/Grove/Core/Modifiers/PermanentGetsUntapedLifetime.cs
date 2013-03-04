@@ -7,8 +7,10 @@
   public class PermanentGetsUntapedLifetime : Lifetime,
     IReceive<PermanentGetsUntapped>, IReceive<ZoneChanged>
   {
-    private readonly Func<Lifetime,Card> _permanent;
-    
+    private readonly Func<Lifetime, Card> _permanent;
+
+    private PermanentGetsUntapedLifetime() {}
+
     public PermanentGetsUntapedLifetime(Func<Lifetime, Card> permanent)
     {
       _permanent = permanent;

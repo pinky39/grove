@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Messages;
 
   public class Battlefield : UnorderedZone, IBattlefieldQuery
   {
@@ -13,19 +12,7 @@
       /* for state copy */
     }
 
-    public int Score
-    {
-      get
-      {
-        var yours = this.Where(x => x.Controller == Owner)
-          .Sum(x => x.Score);
-
-        var opponents = this.Where(x => x.Controller != Owner)
-          .Sum(x => x.Score);
-
-        return yours - opponents;
-      }
-    }
+    public int Score { get { return this.Sum(x => x.Score); } }
 
     public override Zone Zone { get { return Zone.Battlefield; } }
     public IEnumerable<Card> Attackers { get { return this.Where(card => card.IsAttacker); } }
