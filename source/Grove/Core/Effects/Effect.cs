@@ -105,7 +105,7 @@
 
     public bool IsValid(ITarget target)
     {
-      return Source.IsTargetStillValid(target);
+      return Source.IsTargetStillValid(target, _triggerMessage);
     }
 
     public virtual int CalculatePlayerDamage(Player player)

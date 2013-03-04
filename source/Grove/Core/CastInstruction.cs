@@ -64,9 +64,9 @@
       _castingRule.AfterResolve();
     }
 
-    public bool IsTargetStillValid(ITarget target)
+    public bool IsTargetStillValid(ITarget target, object triggerMessage)
     {
-      return _targetSelector.IsValidEffectTarget(target, _card);
+      return _targetSelector.IsValidEffectTarget(target, triggerMessage);
     }
 
     public int CalculateHash(HashCalculator calc)

@@ -44,7 +44,7 @@
     {
       foreach (var target in Players.SelectMany(x => x.GetTargets(validator.IsZoneValid)))
       {
-        if (validator.IsTargetValid(target, Source.OwningCard))
+        if (validator.IsTargetValid(target, TriggerMessage))
           return false;
       }
 

@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core.Ai
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Targeting;
@@ -21,7 +22,7 @@
     {
       Card = prerequisites.Card;
       MaxX = prerequisites.MaxX;
-      Selector = prerequisites.Selector;
+      Selector = prerequisites.Selector;      
       DistributeAmount = prerequisites.DistributeAmount;
     }
 
@@ -31,6 +32,7 @@
     public int DistributeAmount { get; private set; }
 
     public bool HasTargets { get { return _targets.Count > 0; } }
+    public object TriggerMessage;
 
     public void SetPossibleTargets(IEnumerable<Targets> targetsCombinations)
     {

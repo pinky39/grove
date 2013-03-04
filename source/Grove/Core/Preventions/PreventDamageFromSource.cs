@@ -5,6 +5,8 @@
     private readonly bool _onlyOnce;
     private readonly Card _source;
 
+    private PreventDamageFromSource() {}
+
     public PreventDamageFromSource(Card source, bool onlyOnce = true)
     {
       _onlyOnce = onlyOnce;

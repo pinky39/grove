@@ -35,7 +35,7 @@
       {
         trigger.Dispose();
       }
-    }
+    }    
 
     public override int CalculateHash(HashCalculator calc)
     {
@@ -50,7 +50,6 @@
     public override void Initialize(Card owner, Game game)
     {
       base.Initialize(owner, game);
-
 
       foreach (var trigger in _triggers)
       {

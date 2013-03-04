@@ -201,6 +201,9 @@
 
     public static int CalculateCardInLibraryScore(Card card)
     {      
+      if (card.Name.Equals("Uncastable"))
+        return 0;
+      
       return CalculateCardInGraveyardScore(card) - 1;
     }    
   }

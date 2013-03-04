@@ -12,6 +12,6 @@
     void EffectPushedOnStack();
     void EffectResolved();
 
-    bool IsTargetStillValid(ITarget target);
+    bool IsTargetStillValid(ITarget target, object triggerMessage = null);
   }
 }

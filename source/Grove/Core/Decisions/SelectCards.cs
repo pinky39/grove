@@ -75,7 +75,7 @@
         .Where(x => x.IsCard())
         .Select(x => x.Card())
         .Where(Validator)
-        .OrderByDescending(x => descending ? x.Score : -x.Score)
+        .OrderBy(x => descending ? -x.Score : x.Score)
         .Take(MaxCount)
         .ToList();
     }

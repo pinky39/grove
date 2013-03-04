@@ -42,9 +42,9 @@
     void IEffectSource.EffectPushedOnStack() {}
     void IEffectSource.EffectResolved() {}
 
-    bool IEffectSource.IsTargetStillValid(ITarget target)
+    bool IEffectSource.IsTargetStillValid(ITarget target, object triggerMessage)
     {
-      return TargetSelector.IsValidEffectTarget(target, _owner);
+      return TargetSelector.IsValidEffectTarget(target, triggerMessage);
     }
 
     protected void Resolve(Effect e, bool skipStack)

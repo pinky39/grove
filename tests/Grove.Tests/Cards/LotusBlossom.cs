@@ -16,7 +16,7 @@
         Battlefield(P1, "Forest", "Forest", "Forest", "Forest", "Lotus Blossom");        
         Hand(P1, force);
 
-        RunGame(7);
+        RunGame(8);
 
         Equal(Zone.Battlefield, C(force).Zone);
       }

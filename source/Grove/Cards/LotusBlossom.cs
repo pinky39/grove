@@ -38,8 +38,8 @@
               new Tap(),
               new Sacrifice());
 
-            p.ManaAmount((self, game) =>
-              ManaAmount.OfSingleColor(ManaColors.All, self.OwningCard.Counters.GetValueOrDefault()));
+            p.ManaAmount((ability, game) =>
+              ManaAmount.OfSingleColor(ManaColors.All, ability.OwningCard.Counters.GetValueOrDefault()));
           });
     }
   }

@@ -24,10 +24,11 @@
       return false;   
     }
 
-    public static IEnumerable<Targets> GenerateTargets(Card owningCard, TargetSelector selector, IEnumerable<TargetingRule> rules, bool force = false)
+    public static IEnumerable<Targets> GenerateTargets(Card owningCard, TargetSelector selector, IEnumerable<TargetingRule> rules, bool force = false, object triggerMessage = null)
     {
       var activation = new ActivationContext(owningCard, selector);
       activation.CanCancel = !force;
+      activation.TriggerMessage = triggerMessage;      
 
       foreach (TargetingRule rule in rules)
       {

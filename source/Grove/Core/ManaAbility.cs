@@ -30,15 +30,17 @@
 
     public void Consume(IManaAmount amount, ManaUsage usage)
     {
+      var produced = GetManaAmount();
+      
       Pay();
       OwningCard.IncreaseUsageScore();
-
-      if (amount.Converted == GetManaAmount().Converted)
+      
+      if (amount.Converted == produced.Converted)
         return;
 
       // if effect produces more mana than needed 
       // add overflow mana to manapool.          
-      var manaBag = new ManaBag(amount);
+      var manaBag = new ManaBag(produced);
       manaBag.Consume(amount);
       OwningCard.Controller.AddManaToManaPool(manaBag.GetAmount());
     }
