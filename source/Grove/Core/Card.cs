@@ -247,7 +247,7 @@
 
     public int? Level { get { return _level.Value; } }
     public bool CanBeDestroyed { get { return !CanRegenerate && !Has().Indestructible; } }
-    public int? OverrideScore { get; private set; }
+    public ScoreOverride OverrideScore { get; private set; }
     public bool IsVisibleInUi { get { return _isPreview || IsVisibleToPlayer(Players.Human); } }
     public bool IsVisible { get { return Search.InProgress ? IsVisibleToPlayer(Players.Searching) : IsVisibleToPlayer(Controller); } }
 

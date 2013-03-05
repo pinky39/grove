@@ -4,6 +4,8 @@
   {
     private readonly DynParam<Card> _card;
 
+    private ExileCard() {}
+
     public ExileCard(DynParam<Card> card)
     {
       _card = card;

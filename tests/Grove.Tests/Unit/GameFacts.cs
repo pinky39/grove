@@ -5,7 +5,7 @@ using Grove.Tests.Infrastructure;
 using Xunit;
 
 namespace Grove.Tests.Unit
-{
+{      
   public class GameFacts : Scenario
   {
     public GameFacts()
@@ -40,7 +40,7 @@ namespace Grove.Tests.Unit
 
 
       Assert.Equal(originalHash, copyHash);
-    }    
+    }   
 
     private void InitZones()
     {

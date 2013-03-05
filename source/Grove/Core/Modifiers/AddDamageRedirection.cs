@@ -4,8 +4,10 @@
 
   public class AddDamageRedirection : Modifier
   {
-    private DamageRedirection _damageRedirection;
+    private readonly DamageRedirection _damageRedirection;
     private DamageRedirections _damageRedirections;
+
+    private AddDamageRedirection() {}
 
     public AddDamageRedirection(DamageRedirection damageRedirection)
     {
@@ -16,7 +18,7 @@
     {
       _damageRedirections = damageRedirections;
       _damageRedirection.Initialize(this, Game);
-            
+
       damageRedirections.Add(_damageRedirection);
     }
 

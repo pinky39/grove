@@ -11,9 +11,8 @@
       [Fact]
       public void MillAndTokens()
       {
-        Battlefield(P1,
-          C("Rumbling Slum").IsEquipedWith(C("Sword of Body and Mind")));
-
+        Battlefield(P1,C("Rumbling Slum").IsEquipedWith(C("Sword of Body and Mind")));
+        
         RunGame(1);
 
         Equal(12, P2.Life);

@@ -105,8 +105,8 @@
       const int tappedPermanentValue = -1;
       var score = 0;
 
-      if (permanent.OverrideScore.HasValue)
-        return permanent.OverrideScore.Value;
+      if (permanent.OverrideScore.Battlefield.HasValue)
+        return permanent.OverrideScore.Battlefield.Value;
 
       if (permanent.IsTapped)
         score += tappedPermanentValue;
@@ -170,10 +170,8 @@
         return 220;
       }
 
-      if (card.OverrideScore.HasValue && (card.Is().Sorcery || card.Is().Instant))
-      {
-        return card.OverrideScore.Value;
-      }
+      if (card.OverrideScore.Hand.HasValue)
+        return card.OverrideScore.Hand.Value;      
       
       if (card.ManaCost == null || card.ManaCost.Converted == 0)
       {
@@ -184,12 +182,18 @@
     }
 
     public static int CalculateCardInGraveyardScore(Card card)
-    {      
+    {
+      if (card.IsVisible == false)
+        return 1;
+
+      if (card.OverrideScore.Graveyard.HasValue)
+        return card.OverrideScore.Graveyard.Value;  
+
       if (card.Is().BasicLand)
         return 1;
 
       if (card.Is().Land)
-        return 2;
+        return 2;      
 
       return card.ManaCost.Converted;
     }
@@ -200,9 +204,9 @@
     }
 
     public static int CalculateCardInLibraryScore(Card card)
-    {      
-      if (card.Name.Equals("Uncastable"))
-        return 0;
+    {
+      if (card.OverrideScore.Library.HasValue)
+        return card.OverrideScore.Library.Value;  
       
       return CalculateCardInGraveyardScore(card) - 1;
     }    

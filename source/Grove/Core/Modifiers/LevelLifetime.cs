@@ -10,16 +10,12 @@
     private readonly int _minLevel;
     private Card _modifierTarget;
 
+    private LevelLifetime() {}
+
     public LevelLifetime(int minLevel, int? maxLevel)
     {
       _minLevel = minLevel;
-      _maxLevel = maxLevel;      
-    }
-
-    public override void Initialize(Modifier modifier, Game game)
-    {
-      base.Initialize(modifier, game);
-      _modifierTarget = modifier.Target.Card();
+      _maxLevel = maxLevel;
     }
 
     public void Receive(LevelChanged message)
@@ -32,6 +28,12 @@
       {
         End();
       }
+    }
+
+    public override void Initialize(Modifier modifier, Game game)
+    {
+      base.Initialize(modifier, game);
+      _modifierTarget = modifier.Target.Card();
     }
   }
 }

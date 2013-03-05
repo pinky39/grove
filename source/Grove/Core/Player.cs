@@ -427,6 +427,12 @@
         if (card == null)
           return;
 
+
+        if (Search.InProgress)
+        {
+          card.Hide();
+        }
+
         _graveyard.Add(card);
       }
     }

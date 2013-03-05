@@ -4,11 +4,13 @@
   {
     private readonly Value _power;
     private readonly Value _tougness;
-    
+
     private Power _cardPower;
     private Toughness _cardToughness;
     private StrenghtSetter _powerSetter;
     private StrenghtSetter _toughnessSetter;
+
+    private SetPowerAndToughness() {}
 
     public SetPowerAndToughness(Value power, Value tougness)
     {

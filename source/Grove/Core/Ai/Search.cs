@@ -53,22 +53,22 @@
     public event EventHandler Finished = delegate { };
     public event EventHandler Started = delegate { };
 
-    public Task ExecuteTask(SearchWorker parentWorker, ISearchNode parentNode, int resultIndex,
-      Action<SearchWorker, ISearchNode> action)
+    public Task ExecuteTask(SearchWorker parentWorker, ISearchNode parentNode, int moveIndex,
+      Action<SearchWorker, ISearchNode, int> action)
     {
       var worker = parentWorker;
       var node = parentNode;
 
       lock (_workersLock)
       {
-        if (IsItFeasibleToCreateNewWorker(parentNode, resultIndex))
+        if (IsItFeasibleToCreateNewWorker(parentNode, moveIndex))
         {
           worker = CreateWorker(node);
           node = worker.Root;
         }
       }
 
-      var task = new Task(() => action(worker, node));
+      var task = new Task(() => action(worker, node, moveIndex));
 
       if (worker != parentWorker)
       {
@@ -246,8 +246,8 @@
     private bool IsItFeasibleToCreateNewWorker(ISearchNode node, int moveIndex)
     {
 #if DEBUG
-      return SingleThreadedStrategy(node, moveIndex);
-      //return MultiThreadedStrategy2(node, moveIndex);
+      //return SingleThreadedStrategy(node, moveIndex);
+      return MultiThreadedStrategy2(node, moveIndex);
 #else
       return MultiThreadedStrategy2(node, moveIndex);
 #endif

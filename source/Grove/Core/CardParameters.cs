@@ -20,7 +20,7 @@
     public IManaAmount ManaCost;
     public bool MayChooseNotToUntap;
     public string Name;
-    public int? OverrideScore;
+    public ScoreOverride OverrideScore = new ScoreOverride();
     public int? Power;        
     public CardText Text = string.Empty;
     public int? Toughness;

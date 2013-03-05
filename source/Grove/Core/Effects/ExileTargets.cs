@@ -7,6 +7,8 @@
   {
     private readonly bool _controllerGainsLifeEqualToToughness;
 
+    private ExileTargets() {}
+
     public ExileTargets(bool controllerGainsLifeEqualToToughness = false)
     {
       _controllerGainsLifeEqualToToughness = controllerGainsLifeEqualToToughness;

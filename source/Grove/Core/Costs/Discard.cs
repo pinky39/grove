@@ -1,6 +1,6 @@
 ﻿namespace Grove.Core.Costs
 {
-  using Grove.Core.Targeting;
+  using Targeting;
 
   public class Discard : Cost
   {

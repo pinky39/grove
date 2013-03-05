@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core.Ai
 {
+  using System;
   using System.Collections.Generic;
   using System.Threading.Tasks;
   using Infrastructure;
@@ -24,6 +25,8 @@
       _root = new CopyService().CopyRoot(rootNode);
       Game = _root.Game;
 
+      AssertEqualHashes(rootNode.Game, _root.Game);
+
       var innerResult = new InnerResult(Game.CalculateHash(), _root.Controller.IsMax);
 
       _parentResult = new Trackable<InnerResult>(innerResult);
@@ -40,6 +43,13 @@
     private int ResultIndex { get { return _moveIndex.Value; } set { _moveIndex.Value = value; } }
     public ISearchNode Root { get { return _root; } }
     public int SubTreesPrunned { get { return _subTreesPrunned; } }
+
+    private static void AssertEqualHashes(Game original, Game copy)
+    {
+      System.Diagnostics.Debug.Assert(
+        original.CalculateHash() == copy.CalculateHash(),
+        "Hashes of original game and its copy should be equal!");
+    }
 
     public override string ToString()
     {
@@ -95,12 +105,6 @@
 
       searchNode.SetResult(0);
       Game.Simulate();
-
-      if (Game.IsFinished)
-      {
-        ParentResult.AddChild(ResultIndex,
-          new LeafResult(Game.Score));
-      }
     }
 
     private void EvaluateMove(int moveIndex, ISearchNode searchNode, InnerResult parentResult)
@@ -108,20 +112,25 @@
       Debug("{0} start eval move {1}", searchNode, moveIndex);
 
       var snaphost = Game.Save();
-
       searchNode.SetResult(moveIndex);
+
+      // set globals for this branch
       ParentResult = parentResult;
       ResultIndex = moveIndex;
 
       Game.Simulate();
 
-      if (Game.IsFinished)
-      {
-        ParentResult.AddChild(
-          ResultIndex, new LeafResult(Game.Score));
-      }
+      // save the score before state restore            
+      var score = Game.Score;
 
       Game.Restore(snaphost);
+
+      // no children were added on this branch because the game has finished 
+      // add a leaf node so the tree is complete
+      if (!parentResult.HasChildrenWithIndex(moveIndex))
+      {
+        parentResult.AddChild(moveIndex, new LeafResult(score));
+      }
 
       Debug("{0} stop eval move {1}", searchNode, moveIndex);
     }
@@ -147,18 +156,17 @@
 
         for (var i = 0; i < searchNode.ResultCount; i++)
         {
-          var moveIndex = i;
-
+          
           var task = _search.ExecuteTask(
             parentWorker: this,
             parentNode: searchNode,
-            resultIndex: moveIndex,
-            action: (worker, node) => { if (worker != null) worker.EvaluateMove(moveIndex, node, result); });
+            moveIndex: i,
+            action: (worker, node, moveIndex) => { if (worker != null) worker.EvaluateMove(moveIndex, node, result); });
 
           tasks.Add(task);
         }
-
-        Task.WaitAll(tasks.ToArray());
+      
+        Task.WaitAll(tasks.ToArray());      
         return;
       }
 

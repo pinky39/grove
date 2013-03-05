@@ -17,8 +17,7 @@
         .Type("Enchantment Aura")
         .Text(
           "{Enchant creature}{EOL}Enchanted creature gets -1/-1.{EOL}Cycling {2} ({2}, Discard this card: Draw a card.)")
-        .FlavorText("Urza dared to attack Phyrexia. Slowly, it retaliated.")
-        .OverrideScore(100)
+        .FlavorText("Urza dared to attack Phyrexia. Slowly, it retaliated.")        
         .Cycling("{2}")
         .Cast(p =>
           {

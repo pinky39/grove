@@ -47,6 +47,11 @@
     private bool _isCreature;
     private bool _isLand;
     private bool _isLegendary;
+    private bool _isBasicLand;
+    private bool _isArtifact;
+    private bool _isEnchantment;
+    private bool _isEquipment;
+    private bool _isAura;
 
     private CardType(IEnumerable<string> types)
     {
@@ -60,18 +65,18 @@
 
 
     public static CardType None { get { return new CardType(String.Empty); } }
-    public bool Artifact { get { return Is("artifact"); } }
-    public bool Attachment { get { return Enchantment || Equipment; } }
-    public bool BasicLand { get { return Is("basic land"); } }
+    public bool Artifact { get { return _isArtifact; } }
+    public bool Attachment { get { return Aura || Equipment; } }
+    public bool BasicLand { get { return _isBasicLand; } }
     public bool Creature { get { return _isCreature; } }
-    public bool Enchantment { get { return Is("enchantment"); } }
-    public bool Equipment { get { return Is("equipment"); } }
+    public bool Enchantment { get { return _isEnchantment; } }
+    public bool Equipment { get { return _isEquipment; } }
     public bool Instant { get { return Is("instant"); } }
     public bool Land { get { return _isLand; } }
     public bool Legendary { get { return _isLegendary; } }
     public bool Sorcery { get { return Is("sorcery"); } }
     public bool Token { get { return Is("token"); } }
-    public bool Aura { get { return Is("aura"); } }
+    public bool Aura { get { return _isAura; } }
     public bool NonBasicLand { get { return Land && !BasicLand; } }
 
     public bool OfType(string type)
@@ -149,7 +154,12 @@
     {
       _isCreature = Is("creature");
       _isLand = Is("land");
+      _isBasicLand = Is("basic land");
       _isLegendary = Is("legendary");
+      _isArtifact = Is("artifact");
+      _isEnchantment = Is("enchantment");
+      _isEquipment = Is("equipment");
+      _isAura = Is("aura");
     }
 
     public static implicit operator CardType(string cardTypes)

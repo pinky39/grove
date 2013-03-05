@@ -161,7 +161,7 @@
 
     private bool ShouldContinue()
     {
-      return !_wasStopped.Value && !IsFinished;
+      return !_wasStopped.Value && !IsFinished ;
     }
 
     public void AddScenarioDecisions(IEnumerable<DecisionsForOneStep> prerecordedDecisions)

@@ -4,7 +4,7 @@
   {
     public override bool ShouldPlay(TimingRuleParameters p)
     {
-      return Turn.Step == Step.FirstMain ||
+      return (Turn.Step == Step.FirstMain && p.Controller.IsActive) ||
         (Turn.Step == Step.EndOfTurn && !p.Controller.IsActive);
     }
   }

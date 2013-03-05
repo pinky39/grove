@@ -518,6 +518,7 @@
     <Compile Include="Core\ManaAbilityParameters.cs" />
     <Compile Include="Core\Modifiers\ChangeBasicLand.cs" />
     <Compile Include="Core\Modifiers\ModifierParameters.cs" />
+    <Compile Include="Core\ScoreOverride.cs" />
     <Compile Include="Core\SpellCounterReason.cs" />
     <Compile Include="Core\ManaAmountCharacteristic.cs" />
     <Compile Include="Core\Modifiers\IncreaseLandLimit.cs" />

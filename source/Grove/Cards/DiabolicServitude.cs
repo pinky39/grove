@@ -29,8 +29,7 @@
 
             p.Effect = () => new CompoundEffect(
               new PutTargetsToBattlefield(),
-              new Attach()
-              );
+              new Attach());
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().In.YourGraveyard());
             p.TargetingRule(new OrderByRank(c => -c.Score, ControlledBy.SpellOwner));

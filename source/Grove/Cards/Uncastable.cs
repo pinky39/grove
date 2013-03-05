@@ -10,11 +10,9 @@
     {
       yield return Card
         .Named("Uncastable")
-        .ManaCost("{101}")
+        .ManaCost("{15}")
         .Type("Uncastable")
-        .OverrideScore(0)
-        .Power(2)
-        .Toughness(2);
+        .OverrideScore(new ScoreOverride {Battlefield = 0, Graveyard = 0, Exile = 0, Library = 0});
     }
   }
 }

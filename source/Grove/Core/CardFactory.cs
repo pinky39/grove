@@ -280,20 +280,21 @@
 
       foreach (var level in levels)
       {
+        LevelDefinition lvl = level;
         TriggeredAbility(p =>
         {
-          p.Trigger(new OnLevelChanged(level.Min));
+          p.Trigger(new OnLevelChanged(lvl.Min));
           p.Effect = () => new ApplyModifiersToSelf(
             () =>
             {
-              var modifier = new AddStaticAbility(level.StaticAbility);
-              modifier.AddLifetime(new LevelLifetime(level.Min, level.Max));
+              var modifier = new AddStaticAbility(lvl.StaticAbility);
+              modifier.AddLifetime(new LevelLifetime(lvl.Min, lvl.Max));
               return modifier;
             },
             () =>
             {
-              var modifier = new SetPowerAndToughness(level.Power, level.Toughness);
-              modifier.AddLifetime(new LevelLifetime(level.Min, level.Max));
+              var modifier = new SetPowerAndToughness(lvl.Power, lvl.Toughness);
+              modifier.AddLifetime(new LevelLifetime(lvl.Min, lvl.Max));
               return modifier;
             }
             );
@@ -301,7 +302,7 @@
           p.TriggerOnlyIfOwningCardIsInPlay = true;
         });
       }
-            
+
       _init.Add(cp =>
         {         
           cp.IsLeveler = true;
@@ -316,7 +317,7 @@
       return this;
     }
 
-    public CardFactory OverrideScore(int score)
+    public CardFactory OverrideScore(ScoreOverride score)
     {
       _init.Add(p => p.OverrideScore = score);
       return this;

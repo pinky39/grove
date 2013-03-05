@@ -23,7 +23,7 @@
         Battlefield(P2, "Swamp", "Swamp", "Swamp");
         Hand(P2, expunge);
         
-        RunGame(1);
+        RunGame(2);
 
         Equal(Zone.Graveyard, C(expunge).Zone);
         Equal(Zone.Exile, C(force).Zone);

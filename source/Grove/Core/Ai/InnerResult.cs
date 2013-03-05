@@ -4,6 +4,7 @@
   using System.Collections.Generic;
   using System.Linq;
   using System.Text;
+  using Infrastructure;
 
   public class InnerResult : ISearchResult
   {
@@ -45,9 +46,9 @@
 
       if (_children.Count == 0)
         return;
-      
-      Score = _isMax 
-        ? _children.Max(x => x.Result.Score) 
+
+      Score = _isMax
+        ? _children.Max(x => x.Result.Score)
         : _children.Min(x => x.Result.Score);
 
       if (Score != null)
@@ -61,16 +62,24 @@
     public StringBuilder OutputBestPath(StringBuilder sb = null)
     {
       sb = sb ?? new StringBuilder();
-      sb.AppendFormat("{0}, ", _id);      
+      sb.AppendFormat("{0}, ", _id);
       return _bestEdge.Result.OutputBestPath(sb);
     }
 
     public void AddChild(int moveIndex, ISearchResult resultNode)
     {
       lock (_access)
-      {
+      {                
         _children.Add(
           new Edge {MoveIndex = moveIndex, Result = resultNode});
+      }
+    }    
+
+    public bool HasChildrenWithIndex(int moveIndex)
+    {
+      lock (_access)
+      {
+        return _children.Any(x => x.MoveIndex == moveIndex);
       }
     }
 
