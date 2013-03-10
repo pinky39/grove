@@ -8,7 +8,7 @@
 		<Style TargetType = "Border"
 		       x:Key = "StackChrome" >
 			<Style.Triggers>
-				<DataTrigger Binding = "{Binding Stack.Count}"
+				<DataTrigger Binding = "{Binding Effects.Count}"
 				             Value = "0" >
 					<Setter Property = "Visibility"
 					        Value = "Collapsed" />
@@ -139,7 +139,7 @@
 			</Border>
 			<Border Grid.Row = "1"
 			        Background = "#88000000" >
-				<ItemsControl ItemsSource = "{Binding Stack}" >
+				<ItemsControl ItemsSource = "{Binding Effects}" >
 					<ItemsControl.ItemsPanel>
 						<ItemsPanelTemplate>
 							<StackPanel Margin = "15,235,15,20" />

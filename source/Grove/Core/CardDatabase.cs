@@ -73,6 +73,7 @@
     {
       _previews = Database
         .Select(x => x.CreateCard())
+        .Where(x => !x.Is("uncastable"))
         .ToDictionary(x => x.Name.ToLowerInvariant());
 
       return this;

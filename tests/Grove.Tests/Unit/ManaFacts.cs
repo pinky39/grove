@@ -20,11 +20,6 @@
       Assert.True(mana.IsColorless);
     }
 
-    private ManaSources ManaSources(IEnumerable<IManaSource> manaSources)
-    {
-      return new ManaSources(manaSources, null);
-    }
-
     [Fact]
     public void Performance()
     {
@@ -222,6 +217,18 @@
       Assert.Equal(new string[] {}, result);
     }
 
+    private ManaSources ManaSources(IEnumerable<IManaSource> manaSources)
+    {
+      var source = new ManaSources();
+
+      foreach (var manaSource in manaSources)
+      {
+        source.Add(manaSource);
+      }
+
+      return source;
+    }
+
     private bool Has(IManaAmount available, IManaAmount amount)
     {
       var manaSources = ManaSources(new MutableSource(available).ToEnumerable());
@@ -257,15 +264,9 @@
         _manaAmount = manaAmount;
       }
 
-      public int Priority
-      {
-        get { return 0; }
-      }
+      public int Priority { get { return 0; } }
 
-      public object Resource
-      {
-        get { return null; }
-      }
+      public object Resource { get { return null; } }
 
       public void Consume(IManaAmount amount, ManaUsage usage)
       {
@@ -287,20 +288,11 @@
         _bag = new ManaBag(amount);
       }
 
-      public IManaAmount Amount
-      {
-        get { return GetAvailableMana(ManaUsage.Any); }
-      }
+      public IManaAmount Amount { get { return GetAvailableMana(ManaUsage.Any); } }
 
-      public int Priority
-      {
-        get { return 1; }
-      }
+      public int Priority { get { return 1; } }
 
-      object IManaSource.Resource
-      {
-        get { return this; }
-      }
+      object IManaSource.Resource { get { return this; } }
 
       public void Consume(IManaAmount amount, ManaUsage usage)
       {

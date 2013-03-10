@@ -1,6 +1,7 @@
 ﻿namespace Grove.Ui.Stack
 {
   using System;
+  using System.Collections.Generic;
   using Caliburn.Micro;
   using Core;
   using Core.Effects;
@@ -19,6 +20,8 @@
       Stack.EffectAdded += OnEffectAdded;
       Stack.EffectRemoved += OnEffectRemoved;
     }
+
+    public IEnumerable<Effect> Effects {get { return _effects; }}
 
     public void Receive(UiInteractionChanged message)
     {

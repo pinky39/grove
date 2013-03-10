@@ -191,8 +191,9 @@
       _library.Initialize(Game);
       _exile.Initialize(Game);
 
-      LoadLibrary();
       InitializeManaSources();
+      LoadLibrary();
+      
     }
 
     public void PutCardToBattlefield(Card card)
@@ -470,13 +471,8 @@
 
     private void InitializeManaSources()
     {
-      var manaSources =
-        _manaPool.ToEnumerable().Concat(
-          _library
-            .Where(x => x.IsManaSource)
-            .SelectMany(x => x.ManaSources));
-
-      _manaSources = new ManaSources(manaSources, ChangeTracker);
+      _manaSources = new ManaSources(ChangeTracker);
+      _manaSources.Add(_manaPool);
     }
 
     public void AddManaSource(IManaSource manaSource)

@@ -7,30 +7,30 @@
   [Copyable]
   public class ManaSources
   {
-    private readonly ChangeTracker _changeTracker;
-    private readonly TrackableList<SourcesWithSameResource> _sources;
+    private readonly INotifyChangeTracker _changeTracker = new NullTracker();
+    private readonly TrackableList<SourcesWithSameResource> _sources = new TrackableList<SourcesWithSameResource>();
 
     public ManaSources() {}
 
-    public ManaSources(IEnumerable<IManaSource> manaSources, ChangeTracker changeTracker)
+    public ManaSources(INotifyChangeTracker changeTracker)
     {
       _changeTracker = changeTracker;
 
-      var sourcesWithSameResource = manaSources
-        .GroupBy(x => x.Resource)
-        .Select(x =>
-          {
-            var sources = new TrackableList<IManaSource>(x.OrderBy(y => y.Priority));
-            sources.Initialize(changeTracker);
-            return new SourcesWithSameResource
-              {
-                Resource = x.Key,
-                Sources = sources
-              };
-          }).
-        ToList();
+      //var sourcesWithSameResource = manaSources
+      //  .GroupBy(x => x.Resource)
+      //  .Select(x =>
+      //    {
+      //      var sources = new TrackableList<IManaSource>(x.OrderBy(y => y.Priority));
+      //      sources.Initialize(changeTracker);
+      //      return new SourcesWithSameResource
+      //        {
+      //          Resource = x.Key,
+      //          Sources = sources
+      //        };
+      //    }).
+      //  ToList();
 
-      _sources = new TrackableList<SourcesWithSameResource>(sourcesWithSameResource);
+      //_sources = new TrackableList<SourcesWithSameResource>(sourcesWithSameResource);
       _sources.Initialize(changeTracker);
     }
 
@@ -52,7 +52,7 @@
         return;
       }
 
-      var sources = new TrackableList<IManaSource>();      
+      var sources = new TrackableList<IManaSource>();
       sources.Initialize(_changeTracker);
       sources.Add(manaSource);
 

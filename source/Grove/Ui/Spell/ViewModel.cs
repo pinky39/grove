@@ -14,7 +14,10 @@
   {
     private Action _select = delegate { };
 
-    public ViewModel(Card card) : base(card) {}
+    public ViewModel(Card card, Game game) : base(card)
+    {
+      Game = game;
+    }
 
     public virtual bool IsPlayable { get; protected set; }
     public virtual bool IsSelected { get; protected set; }
