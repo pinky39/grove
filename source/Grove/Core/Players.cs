@@ -9,6 +9,7 @@
   public class Players : GameObject, IEnumerable<Player>, IHashable
   {
     private readonly TrackableList<Player> _extraTurns = new TrackableList<Player>(orderImpactsHashcode: true);
+    private Player _starting;
 
 
     public Players(Player player1, Player player2)
@@ -50,7 +51,17 @@
 
     public int Score { get { return Player1.Score + Player2.Score; } }
 
-    public Player Starting { get; set; }
+    public Player Starting
+    {
+      get { return _starting; }
+      set
+      {
+        _starting = value;
+        _starting.IsActive = true;
+        _starting.Opponent.IsActive = false;
+      }
+    }
+
     public Player WithPriority { get { return Player1.HasPriority ? Player1 : Player2; } }
     public Player WithoutPriority { get { return Player1.HasPriority ? Player2 : Player1; } }
 

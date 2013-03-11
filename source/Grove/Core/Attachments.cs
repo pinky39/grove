@@ -13,9 +13,9 @@
 
     public int Count { get { return _attachedCards.Count; } }
 
-    public void Initialize(Game game)
+    public void Initialize(Game game, Card owner)
     {
-      _attachedCards.Initialize(game.ChangeTracker);
+      _attachedCards.Initialize(game.ChangeTracker, owner);
     }
 
     public Attachment this[Card card] { get { return _attachedCards.Single(x => x.Card == card); } }

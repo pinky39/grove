@@ -10,5 +10,6 @@
     public SelectTarget.ViewModel.IFactory SelectTargetDialog { get; set; }
     public SelectXCost.ViewModel.IFactory SelectXCostDialog { get; set; }    
     public IShell Shell { get; set; }
+    public new Game Game { get { return base.Game; } set { base.Game = value; } }
   }
 }

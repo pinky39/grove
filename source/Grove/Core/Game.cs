@@ -176,10 +176,11 @@
 
       var player1 = new Player("Player1", "player1.png", player1Controller, CreateDummyDeck());
       var player2 = new Player("Player2", "player2.png", player2Controller, CreateDummyDeck());
-      game.Players = new Players(player1, player2);
-      game.Players.Starting = game.Players.Player1;
+      game.Players = new Players(player1, player2);      
+      game.Initialize();
 
-      return game.Initialize();
+      game.Players.Starting = game.Players.Player1;
+      return game;
     }
 
     private static List<string> CreateDummyDeck()

@@ -44,6 +44,7 @@
             p.Zone = _zone;
             p.AiOrdersByDescendingScore = _aiOrdersByDescendingScore;
             p.Text = _text;
+            p.OwningCard = Source.OwningCard;
           });
     }
   }

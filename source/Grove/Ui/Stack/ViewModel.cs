@@ -16,12 +16,11 @@
 
     public ViewModel(Game game)
     {
-      Game = game;
-      Stack.EffectAdded += OnEffectAdded;
-      Stack.EffectRemoved += OnEffectRemoved;
+      game.Stack.EffectAdded += OnEffectAdded;
+      game.Stack.EffectRemoved += OnEffectRemoved;
     }
 
-    public IEnumerable<Effect> Effects {get { return _effects; }}
+    public IEnumerable<Effect> Effects { get { return _effects; } }
 
     public void Receive(UiInteractionChanged message)
     {

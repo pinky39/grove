@@ -68,6 +68,7 @@
             p.Text = FormatText(_text);
             p.AiOrdersByDescendingScore = true;
             p.ProcessDecisionResults = this;
+            p.OwningCard = Source.OwningCard;
           });
     }
   }

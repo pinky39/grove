@@ -5,14 +5,13 @@
   using Core;
   using Infrastructure;
 
-  public class ViewModel : IDisposable, IReceive<UiInteractionChanged>
-  {
-    private readonly Game _game;
+  public class ViewModel : GameObject, IDisposable, IReceive<UiInteractionChanged>
+  {    
     private readonly Timer _timer;
 
     public ViewModel(Player player, Game game)
     {
-      _game = game;
+      Game = game;
       Player = player;
 
       Update();
@@ -64,7 +63,7 @@
 
     public void ChangeSelection()
     {
-      _game.Publish(
+      Publish(
         new SelectionChanged {Selection = Player});
     }
   }

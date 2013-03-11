@@ -76,9 +76,7 @@
       Step = Step.GameStart;
       
       if (skipPreGame)
-      {
-        Players.Starting.IsActive = true;
-        Players.Starting.Opponent.IsActive = false;
+      {        
         Step = Step.Untap;
       }
             

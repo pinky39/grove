@@ -6,13 +6,11 @@
 
   public class ViewModel : CardViewModel, IReceive<TargetSelected>, IReceive<TargetUnselected>,
     IReceive<UiInteractionChanged>
-  {
-    private readonly Game _game;
+  {    
     private Action _select = delegate { };
 
-    public ViewModel(Card card, Game game) : base(card)
-    {
-      _game = game;
+    public ViewModel(Card card) : base(card)
+    {      
     }
 
     public virtual bool IsSelected { get; protected set; }    
@@ -52,7 +50,7 @@
 
     private void ChangeSelection()
     {
-      _game.Publish(
+      Publish(
         new SelectionChanged {Selection = Card});
     }
 
@@ -63,7 +61,7 @@
 
     public void ChangePlayersInterest()
     {
-      _game.Publish(new PlayersInterestChanged
+      Publish(new PlayersInterestChanged
         {
           Visual = Card
         });

@@ -17,13 +17,17 @@
         .Is.Card(c => c.CanAttackThisTurn && c.Controller == Controller)
         .On.Battlefield();
 
+
+      tp.MustBeTargetable = false;
+
       var validator = new TargetValidator(tp);
+      validator.Initialize(null, Game);
 
       var selectParameters = new SelectTargetParameters
         {
-          Validator = validator,
+          Validator = validator,          
           CanCancel = false,
-          Instructions = "(Press Spacebar when done.)",
+          Instructions = "(Press Spacebar when done.)",          
           TargetSelected = target => Publish(
             new AttackerSelected
               {

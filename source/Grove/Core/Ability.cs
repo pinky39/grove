@@ -9,13 +9,12 @@
   public abstract class Ability : GameObject, IEffectSource
   {
     protected readonly TargetSelector TargetSelector;
-    protected readonly CardText Text;
+    private readonly Trackable<bool> _isEnabled = new Trackable<bool>(true);
     private readonly bool _usesStack;
+    protected int DistributeAmount;
     protected EffectFactory EffectFactory;
     protected List<MachinePlayRule> Rules;
-    private readonly Trackable<bool> _isEnabled = new Trackable<bool>(true);
     private Card _owner;
-    protected int DistributeAmount;
 
     protected Ability() {}
 
@@ -28,6 +27,8 @@
       _usesStack = parameters.UsesStack;
       Text = parameters.Text;
     }
+
+    public CardText Text { get; private set; }
 
     public bool IsEnabled { get { return _isEnabled.Value; } set { _isEnabled.Value = value; } }
     public Card SourceCard { get { return _owner; } }
@@ -51,12 +52,12 @@
     {
       if (_usesStack == false || skipStack)
       {
-        e.Resolve();  
+        e.Resolve();
         e.FinishResolve();
         return;
       }
 
-      Stack.Push(e);      
+      Stack.Push(e);
     }
 
     public virtual void Initialize(Card owner, Game game)
@@ -71,7 +72,7 @@
         rule.Initialize(game);
       }
 
-      _isEnabled.Initialize(Game.ChangeTracker);           
+      _isEnabled.Initialize(Game.ChangeTracker);
     }
 
     public override string ToString()

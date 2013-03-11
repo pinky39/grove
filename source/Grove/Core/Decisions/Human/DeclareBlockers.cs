@@ -22,9 +22,14 @@
           .Is.Card(c => c.CanBlock() && c.Controller == Controller)
           .On.Battlefield();
 
+        blockerDefinition.MustBeTargetable = false;
+        
+        var blockerValidator = new TargetValidator(blockerDefinition);
+        blockerValidator.Initialize(null, Game);
+
         var selectBlocker = DialogFactory.Create(new SelectTargetParameters
           {
-            Validator = new TargetValidator(blockerDefinition),
+            Validator = blockerValidator,
             CanCancel = false,
             Instructions = "(Press Spacebar to finish.)"
           });
@@ -53,9 +58,14 @@
             .Is.Card(c => c.IsAttacker && c.CanBeBlockedBy(blocker))
             .On.Battlefield();
 
+        attackerDefinition.MustBeTargetable = false;
+
+        var attackerValidator = new TargetValidator(attackerDefinition);
+        attackerValidator.Initialize(null, Game);
+
         var selectAttacker = DialogFactory.Create(new SelectTargetParameters
           {
-            Validator = new TargetValidator(attackerDefinition),
+            Validator = attackerValidator,
             CanCancel = true,
             Instructions = "(Press Esc to cancel.)"
           });
@@ -67,7 +77,7 @@
 
         var attacker = (Card) selectAttacker.Selection[0];
 
-        Game.Publish(new BlockerSelected
+        Publish(new BlockerSelected
           {
             Blocker = blocker,
             Attacker = attacker

@@ -48,6 +48,7 @@
           p.Zone = Zone.Battlefield;
           p.Text = FormatText("Select a creature to sacrifice");
           p.ProcessDecisionResults = this;
+          p.OwningCard = Source.OwningCard;
         });
     }
 

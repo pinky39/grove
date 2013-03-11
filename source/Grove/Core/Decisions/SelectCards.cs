@@ -16,6 +16,7 @@
     public string Text;
     public Func<Card, bool> Validator;    
     public Zone Zone;
+    public Card OwningCard;
     private List<Card> _validCards;
 
     protected SelectCards()

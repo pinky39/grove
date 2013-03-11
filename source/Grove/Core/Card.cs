@@ -66,7 +66,7 @@
       
       _isTapped.Initialize(game.ChangeTracker, this);
       _attachedTo.Initialize(game.ChangeTracker, this);
-      _attachments.Initialize(game);
+      _attachments.Initialize(game, this);
       _canRegenerate.Initialize(game.ChangeTracker, this);
       _damage.Initialize(game.ChangeTracker, this);
       _hasLeathalDamage.Initialize(game.ChangeTracker, this);
@@ -352,8 +352,8 @@
             Level.GetHashCode(),
             Colors.GetHashCode(),
             Counters.GetHashCode(),
-            Type.GetHashCode(),
-            _isRevealed.Value.GetHashCode(),
+            Type.GetHashCode(),            
+            _isRevealed.Value.GetHashCode(),            
             calc.Calculate(_staticAbilities),
             calc.Calculate(_triggeredAbilities),
             calc.Calculate(_activatedAbilities),

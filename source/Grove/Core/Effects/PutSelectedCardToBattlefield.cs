@@ -29,6 +29,7 @@
             p.MinCount = 0;
             p.MaxCount = 1;
             p.Text = FormatText(_text);
+            p.OwningCard = Source.OwningCard;
           }
         );
     }

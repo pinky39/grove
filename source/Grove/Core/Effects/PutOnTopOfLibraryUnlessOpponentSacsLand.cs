@@ -28,6 +28,7 @@
           p.MaxCount = 1;
           p.ProcessDecisionResults = this;
           p.CardToPayUpkeepFor = Source.OwningCard;
+          p.OwningCard = Source.OwningCard;
         });
     }
   }

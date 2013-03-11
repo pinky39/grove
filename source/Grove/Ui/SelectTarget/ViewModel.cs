@@ -3,13 +3,12 @@
   using System;
   using System.Collections.Generic;
   using Caliburn.Micro;
-  using Core;
   using Core.Targeting;
   using Infrastructure;
 
   public class ViewModel : ViewModelBase, IReceive<SelectionChanged>
   {
-    private readonly bool _canCancel;    
+    private readonly bool _canCancel;
     private readonly BindableCollection<ITarget> _selection = new BindableCollection<ITarget>();
     private readonly Action<ITarget> _targetSelected;
     private readonly Action<ITarget> _targetUnselected;
@@ -18,7 +17,7 @@
     public ViewModel(SelectTargetParameters p)
     {
       TargetValidator = p.Validator;
-      Instructions = p.Instructions;      
+      Instructions = p.Instructions;
       _canCancel = p.CanCancel;
       _targetSelected = p.TargetSelected ?? DefaultTargetSelected;
       _targetUnselected = p.TargetUnselected ?? DefaultTargetUnselected;

@@ -35,10 +35,11 @@
         init: p =>
           {
             p.MinCount = _count;
-            p.MinCount = _count;
+            p.MaxCount = _count;
             p.Validator = card => card.Is().Land;
             p.Text = FormatText("Select land(s) to sacrifice");
             p.Zone = Zone.Battlefield;
+            p.OwningCard = Source.OwningCard;
           });
     }
   }

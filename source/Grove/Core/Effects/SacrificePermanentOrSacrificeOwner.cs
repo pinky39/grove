@@ -40,6 +40,7 @@
           p.CardToPayUpkeepFor = Source.OwningCard;
           p.Text = _text;
           p.ProcessDecisionResults = this;
+          p.OwningCard = Source.OwningCard;
         });
     }
   }

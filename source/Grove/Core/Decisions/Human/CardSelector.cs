@@ -22,11 +22,11 @@
           ZoneSpec = p => p.Zone == selectCards.Zone && p.ZoneOwner == selectCards.Controller,
           MinCount = selectCards.MinCount,
           MaxCount = selectCards.MaxCount,
-          Text = selectCards.Text
+          Text = selectCards.Text,          
         };
 
       var validator = new TargetValidator(validatorParameters);
-      validator.Initialize(null, Game);
+      validator.Initialize(selectCards.OwningCard, Game);
 
       var selectTargetParameters = new SelectTargetParameters
         {
