@@ -182,6 +182,7 @@
     <Compile Include="Cards\Meltdown.cs" />
     <Compile Include="Cards\MidsummerRevel.cs" />
     <Compile Include="Cards\MirranCrusader.cs" />
+    <Compile Include="Cards\MishrasHelix.cs" />
     <Compile Include="Cards\MonkIdealist.cs" />
     <Compile Include="Cards\MonkRealist.cs" />
     <Compile Include="Cards\OpalCaryatid.cs" />

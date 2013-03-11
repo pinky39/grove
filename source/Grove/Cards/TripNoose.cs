@@ -26,7 +26,7 @@
             p.Cost = new AggregateCost(
               new PayMana(2.Colorless(), ManaUsage.Abilities),
               new Tap());
-            p.Effect = () => new TapTarget();
+            p.Effect = () => new TapTargets();
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
             p.TimingRule(new Steps(Step.BeginningOfCombat));
             p.TargetingRule(new TapCreature());

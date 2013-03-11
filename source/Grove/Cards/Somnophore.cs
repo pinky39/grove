@@ -30,7 +30,7 @@
             p.Trigger(new OnDamageDealt(playerFilter: delegate { return true; }));
 
             p.Effect = () => new CompoundEffect(
-              new TapTarget(),
+              new TapTargets(),
               new ApplyModifiersToTargets(() =>
                 {
                   var modifier = new AddStaticAbility(Static.DoesNotUntap);

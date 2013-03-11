@@ -11,5 +11,6 @@
     public Action<ITarget> TargetUnselected;
     public object TriggerMessage;
     public TargetValidator Validator;
+    public int? X;
   }
 }

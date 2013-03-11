@@ -49,14 +49,18 @@
       return this;
     }
 
-    public int GetMinTargetCount()
+    public int GetMinTargetCount(int? x)
     {
-      return Effect.Count > 0 ? Effect.Sum(x => x.MinCount) : Cost.Sum(x => x.MinCount);
+      return Effect.Count > 0 ? 
+        Effect.Sum(y => y.MinCount.GetValue(x)) : 
+        Cost.Sum(y => y.MinCount.GetValue(x));
     }
 
-    public int GetMaxTargetCount()
+    public int GetMaxTargetCount(int? x)
     {
-      return Effect.Count > 0 ? Effect.Sum(x => x.MaxCount).Value : Cost.Sum(x => x.MaxCount).Value;
+      return Effect.Count > 0 ? 
+        Effect.Sum(y => y.MaxCount.GetValue(x)) : 
+        Cost.Sum(y => y.MaxCount.GetValue(x));
     }
 
     public void Initialize(Card owningCard, Game game)

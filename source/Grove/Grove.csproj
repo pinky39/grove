@@ -295,6 +295,7 @@
     <Compile Include="Cards\MeltDown.cs" />
     <Compile Include="Cards\MidsummerRevel.cs" />
     <Compile Include="Cards\MirranCrusader.cs" />
+    <Compile Include="Cards\MishrasHelix.cs" />
     <Compile Include="Cards\MonkIdealist.cs" />
     <Compile Include="Cards\MonkRealist.cs" />
     <Compile Include="Cards\Mountain.cs" />
@@ -407,6 +408,7 @@
     <Compile Include="Core\Ai\CostRules\CostRule.cs" />
     <Compile Include="Core\Ai\CostRules\CostRuleParameters.cs" />
     <Compile Include="Core\Ai\CostRules\CounterUnlessOpponentPaysX.cs" />
+    <Compile Include="Core\Ai\CostRules\OpponentProperty.cs" />
     <Compile Include="Core\Ai\CostRules\ReduceToughnessOfEachCreature.cs" />
     <Compile Include="Core\Ai\CostRules\TargetsLifepoints.cs" />
     <Compile Include="Core\Ai\QuickCombat.cs" />
@@ -685,7 +687,7 @@
     <Compile Include="Core\Effects\PayManaOrSacrifice.cs" />
     <Compile Include="Core\Effects\ReturnAllPermanentsToHand.cs" />
     <Compile Include="Core\Effects\ReturnToHand.cs" />
-    <Compile Include="Core\Effects\TapTarget.cs" />
+    <Compile Include="Core\Effects\TapTargets.cs" />
     <Compile Include="Core\Effects\DiscardCards.cs" />
     <Compile Include="Core\Effects\TargetPlayerTakesExtraTurns.cs" />
     <Compile Include="Core\Mana\IManaAmount.cs" />

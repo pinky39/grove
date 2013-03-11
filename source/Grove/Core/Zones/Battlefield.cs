@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using System.Linq;
+  using Ai;
 
   public class Battlefield : UnorderedZone, IBattlefieldQuery
   {
@@ -12,7 +13,15 @@
       /* for state copy */
     }
 
-    public int Score { get { return this.Sum(x => x.Score); } }
+    public int Score
+    {
+      get
+      {
+        return this.Sum(x => x.Score);                       
+      }
+    }
+
+    
 
     public override Zone Zone { get { return Zone.Battlefield; } }
     public IEnumerable<Card> Attackers { get { return this.Where(card => card.IsAttacker); } }

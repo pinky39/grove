@@ -43,7 +43,7 @@
       return new CastInstructionParameters
         {
           Cost = new PayMana(cp.ManaCost ?? ManaAmount.Zero, ManaUsage.Spells, cp.HasXInCost),
-          Text = GetDefaultCastDescription(cp.Name),
+          Text = "Cast {0}.",
           Effect = () => new PutIntoPlay(),
           Rule = GetDefaultCastingRule(cp.Type),
         };
@@ -62,14 +62,7 @@
 
       return new Permanent();
     }
-
-    private string GetDefaultCastDescription(string cardName)
-    {
-      {
-        return string.Format("Cast {0}.", cardName);
-      }
-    }
-
+ 
     public CardFactory HasXInCost()
     {
       _init.Add(p => p.HasXInCost = true);
@@ -90,6 +83,7 @@
 
           set(p);
 
+          p.Text = string.Format(p.Text, cp.Name);
           cp.CastInstructions.Add(new CastInstruction(p));
         }
         );

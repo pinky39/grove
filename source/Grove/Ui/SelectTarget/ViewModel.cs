@@ -13,6 +13,7 @@
     private readonly Action<ITarget> _targetSelected;
     private readonly Action<ITarget> _targetUnselected;
     private readonly object _triggerMessage;
+    private int? _x;
 
     public ViewModel(SelectTargetParameters p)
     {
@@ -22,20 +23,21 @@
       _targetSelected = p.TargetSelected ?? DefaultTargetSelected;
       _targetUnselected = p.TargetUnselected ?? DefaultTargetUnselected;
       _triggerMessage = p.TriggerMessage;
+      _x = p.X;
     }
 
     private bool CanAutoComplete
     {
       get
       {
-        return TargetValidator.MaxCount.HasValue &&
-          _selection.Count == TargetValidator.MaxCount;
+        return TargetValidator.MaxCount != null &&
+          _selection.Count == TargetValidator.MaxCount.GetValue(_x);
       }
     }
 
-    public string Text { get { return TargetValidator.GetMessage(_selection.Count + 1); } }
+    public string Text { get { return TargetValidator.GetMessage(_selection.Count + 1, _x); } }
     public string Instructions { get; private set; }
-    private bool IsDone { get { return _selection.Count >= TargetValidator.MinCount; } }
+    private bool IsDone { get { return _selection.Count >= TargetValidator.MinCount.GetValue(_x); } }
     public IList<ITarget> Selection { get { return _selection; } }
     public TargetValidator TargetValidator { get; private set; }
     public bool WasCanceled { get; private set; }
@@ -43,7 +45,8 @@
     [Updates("Text")]
     public virtual void Receive(SelectionChanged message)
     {
-      if (_selection.Count >= TargetValidator.MaxCount)
+      if (TargetValidator.MaxCount != null && 
+        _selection.Count >= TargetValidator.MaxCount.GetValue(_x))
         return;
 
       if (_selection.Contains(message.Selection))

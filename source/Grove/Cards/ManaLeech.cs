@@ -29,7 +29,7 @@
             p.Cost = new Tap();
 
             p.Effect = () => new CompoundEffect(
-              new TapTarget(),
+              new TapTargets(),
               new ApplyModifiersToTargets(() =>
                 {
                   var modifier = new AddStaticAbility(Static.DoesNotUntap);

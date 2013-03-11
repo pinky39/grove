@@ -152,17 +152,23 @@
 										<Grid.ColumnDefinitions>
 											<ColumnDefinition Width="*" />
 											<ColumnDefinition Width="Auto" />
-										</Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
 
 										<TextBlock FontSize="15" Foreground="#fff" Text="{Binding Name}" />
 
-										<ItemsControl Grid.Column="3" Margin="0,3,10,0" ItemsSource="{Binding Path=ManaCost, Converter={x:Static grove:Converters.ManaCostToManaSymbolImages}}">
-											<ItemsControl.ItemsPanel>
+
+                                        <Image Source="{grove:Media 'x.png'}" Height="20" Grid.Column="1" Margin="0,3,2,0" Visibility="{Binding Path=HasXInCost, Converter={x:Static grove:Converters.BooleanToVisibility}}" />
+                                            
+                                        <ItemsControl Grid.Column="2" Margin="0,3,10,0" ItemsSource="{Binding Path=ManaCost, Converter={x:Static grove:Converters.ManaCostToManaSymbolImages}}">
+											
+                                                <ItemsControl.ItemsPanel>
 												<ItemsPanelTemplate>
 													<StackPanel Orientation="Horizontal" />
 												</ItemsPanelTemplate>
 											</ItemsControl.ItemsPanel>
-											<ItemsControl.ItemTemplate>
+											
+                                                <ItemsControl.ItemTemplate>
 												<DataTemplate>
 													<Image Source="{Binding Path=.}" Height="18" />
 												</DataTemplate>

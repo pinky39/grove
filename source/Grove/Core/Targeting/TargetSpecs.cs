@@ -75,15 +75,20 @@
 
       _p.TargetSpec = p =>
         {
+          var hasValidController = controlledBy == null || HasValidController(
+            p.Target.Controller(), 
+            p.OwningCard.Controller, 
+            controlledBy.Value);
+          
           if (p.Target.IsCard())
-          {
-            return HasValidController(p.Target.Controller(), p.OwningCard.Controller, controlledBy) &&
+          {                        
+            return hasValidController &&
               filter(p.Target.Card());
           }
 
           if (p.Target.IsEffect())
           {
-            return HasValidController(p.Target.Controller(), p.OwningCard.Controller, controlledBy) &&
+            return hasValidController &&
               filter(p.Target.Effect().Source.OwningCard);
           }
 
@@ -93,11 +98,8 @@
       return _p;
     }
 
-    private static bool HasValidController(Player targetController, Player sourceController, ControlledBy? controlledBy)
-    {
-      if (controlledBy == null)
-        return true;
-
+    private static bool HasValidController(Player targetController, Player sourceController, ControlledBy controlledBy)
+    {      
       switch (controlledBy)
       {
         case (ControlledBy.Opponent):

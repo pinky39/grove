@@ -69,12 +69,12 @@
 
     public int MinTargetCount()
     {
-      return _context.Selector.GetMinTargetCount();
+      return _context.Selector.GetMinTargetCount(X);
     }
 
     public int MaxTargetCount()
     {
-      return _context.Selector.GetMaxTargetCount();
+      return _context.Selector.GetMaxTargetCount(X);
     }
   }
 }

@@ -1,13 +1,15 @@
 ﻿namespace Grove.Core.Targeting
 {
+  using Modifiers;
+
   public class TargetValidatorParameters
   {
     public TargetValidatorDelegate TargetSpec = delegate { return true; };
     public ZoneValidatorDelegate ZoneSpec = delegate { return false; };
 
-    public int? MaxCount = 1;
+    public Value MaxCount = 1;
     public string Text;
-    public int MinCount = 1;
+    public Value MinCount = 1;
     public bool MustBeTargetable = true;
 
     public TargetValidatorParameters()

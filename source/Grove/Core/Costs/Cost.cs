@@ -15,6 +15,8 @@
       return GetType().GetHashCode();
     }
 
+    public virtual bool HasX {get { return false; }}
+
     public bool CanPay()
     {
       int? maxX = null;

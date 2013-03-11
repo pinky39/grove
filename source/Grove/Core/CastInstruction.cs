@@ -34,10 +34,10 @@
       _effectFactory = p.Effect;
       _description = p.Text;
       _distributeAmount = p.DistributeAmount;
-      _rules = p.GetMachineRules();
+      _rules = p.GetMachineRules();      
     }
 
-    public bool HasXInCost { get; private set; }
+    public bool HasXInCost { get { return _cost.HasX; } }
 
     public Card OwningCard { get { return _card; } }
     public Card SourceCard { get { return _card; } }

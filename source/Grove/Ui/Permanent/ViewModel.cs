@@ -216,13 +216,14 @@
       return playableActivators[dialog.SelectedIndex];
     }
 
-    private SelectTarget.ViewModel ShowSelectorDialog(TargetValidator validator)
+    private SelectTarget.ViewModel ShowSelectorDialog(TargetValidator validator, int? x)
     {
       var selectTargetParameters = new SelectTargetParameters
       {        
         Validator = validator,
         CanCancel = true,
-        Instructions = "(Press Spacebar when done, press Esc to cancel.)" 
+        Instructions = "(Press Spacebar when done, press Esc to cancel.)",
+        X = x
       };
             
       var dialog = SelectTargetDialog.Create(selectTargetParameters);
@@ -234,7 +235,9 @@
     {
       if (activator.Prerequisites.Selector.RequiresCostTargets)
       {
-        var dialog = ShowSelectorDialog(activator.Prerequisites.Selector.Cost.FirstOrDefault());
+        var dialog = ShowSelectorDialog(
+          activator.Prerequisites.Selector.Cost.FirstOrDefault(),
+          parameters.X);
 
         if (dialog.WasCanceled)
           return false;
@@ -249,7 +252,7 @@
       {
         foreach (var selector in activator.Prerequisites.Selector.Effect)
         {
-          var dialog = ShowSelectorDialog(selector);
+          var dialog = ShowSelectorDialog(selector, parameters.X);
 
           if (dialog.WasCanceled)
             return false;

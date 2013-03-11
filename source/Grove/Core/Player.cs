@@ -94,7 +94,7 @@
         var score = _life.Score +
           _battlefield.Score +
             _hand.Score +
-              _graveyard.Score;
+              _graveyard.Score;                
 
         return IsMax ? score : -score;
       }

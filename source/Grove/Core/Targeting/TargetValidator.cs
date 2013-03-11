@@ -1,6 +1,7 @@
 ﻿namespace Grove.Core.Targeting
 {
   using Core.Zones;
+  using Modifiers;
 
   public delegate bool TargetValidatorDelegate(TargetValidatorDelegateParameters parameters);
 
@@ -29,8 +30,8 @@
       MessageFormat = p.Text;
     }
 
-    public int? MaxCount { get; private set; }
-    public int MinCount { get; private set; }
+    public Value MaxCount { get; private set; }
+    public Value MinCount { get; private set; }
 
     public string MessageFormat { get; private set; }
 
@@ -79,13 +80,13 @@
         !target.Card().HasProtectionFrom(owningCard);
     }
 
-    public virtual string GetMessage(int targetNumber)
+    public virtual string GetMessage(int targetNumber, int? x)
     {
       var messageFormat = MessageFormat;
 
       if (messageFormat == null)
       {
-        messageFormat = MaxCount == 1
+        messageFormat = MaxCount.GetValue(x) == 1
           ? DefaultMessageOneTarget
           : DefaultMessageMultipleTargets;
       }

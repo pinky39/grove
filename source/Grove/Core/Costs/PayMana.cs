@@ -12,7 +12,7 @@
     private readonly bool _tryNotToConsumeCardsManaSourceWhenPayingThis;
 
     private PayMana() {}
-    
+
     public PayMana(IManaAmount amount, ManaUsage manaUsage, bool hasX = false,
       bool tryNotToConsumeCardsManaSourceWhenPayingThis = false)
     {
@@ -21,6 +21,8 @@
       _hasX = hasX;
       _tryNotToConsumeCardsManaSourceWhenPayingThis = tryNotToConsumeCardsManaSourceWhenPayingThis;
     }
+
+    public override bool HasX { get { return _hasX; } }
 
     public override IManaAmount GetManaCost()
     {
@@ -38,7 +40,7 @@
       }
 
       return true;
-    }    
+    }
 
     protected override void Pay(ITarget target, int? x)
     {

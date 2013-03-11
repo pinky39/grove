@@ -4,6 +4,7 @@
   using System.Collections.Generic;
   using System.Linq;
   using Mana;
+  using Zones;
 
   public static class ScoreCalculator
   {
@@ -56,7 +57,23 @@
         {8, 280},
         {9, 300},
         {10, 320},
-      };
+      }; 
+
+    public static int CalculateTapPenalty(Card card, TurnInfo turnInfo)
+    {
+      if (card.Is().Land)
+      {                
+        if (card.Controller.IsActive)
+        {
+          if (turnInfo.Step == Step.Upkeep)
+            return 10;
+          
+          return 2;
+        }
+      }
+
+      return 1;
+    }
 
     public static int CalculateDiscardScore(Card card)
     {
@@ -102,14 +119,10 @@
     public static int CalculatePermanentScore(Card permanent)
     {
       const int landValue = 150;
-      const int tappedPermanentValue = -1;
       var score = 0;
 
       if (permanent.OverrideScore.Battlefield.HasValue)
         return permanent.OverrideScore.Battlefield.Value;
-
-      if (permanent.IsTapped)
-        score += tappedPermanentValue;
 
       if (permanent.Level > 0)
         score += 10*permanent.Level.Value;
@@ -164,15 +177,15 @@
     }
 
     public static int CalculateCardInHandScore(Card card)
-    {          
+    {
       if (!card.IsVisible)
       {
         return 220;
       }
 
       if (card.OverrideScore.Hand.HasValue)
-        return card.OverrideScore.Hand.Value;      
-      
+        return card.OverrideScore.Hand.Value;
+
       if (card.ManaCost == null || card.ManaCost.Converted == 0)
       {
         return 110;
@@ -187,13 +200,13 @@
         return 1;
 
       if (card.OverrideScore.Graveyard.HasValue)
-        return card.OverrideScore.Graveyard.Value;  
+        return card.OverrideScore.Graveyard.Value;
 
       if (card.Is().BasicLand)
         return 1;
 
       if (card.Is().Land)
-        return 2;      
+        return 2;
 
       return card.ManaCost.Converted;
     }
@@ -206,9 +219,9 @@
     public static int CalculateCardInLibraryScore(Card card)
     {
       if (card.OverrideScore.Library.HasValue)
-        return card.OverrideScore.Library.Value;  
-      
+        return card.OverrideScore.Library.Value;
+
       return CalculateCardInGraveyardScore(card) - 1;
-    }    
+    }
   }
 }

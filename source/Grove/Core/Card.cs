@@ -644,6 +644,7 @@
     public void Tap()
     {
       IsTapped = true;
+      UsageScore += ScoreCalculator.CalculateTapPenalty(this, Turn);
     }
 
     public override string ToString()
@@ -654,6 +655,12 @@
     public void Untap()
     {
       IsTapped = false;
+      
+      if (Turn.Step != Step.Untap)
+      {
+        UsageScore -= ScoreCalculator.CalculateTapPenalty(this, Turn);
+      }
+
       Publish(new PermanentGetsUntapped {Permanent = this});
     }
 
