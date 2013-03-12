@@ -14,23 +14,7 @@
 
     public ManaSources(INotifyChangeTracker changeTracker)
     {
-      _changeTracker = changeTracker;
-
-      //var sourcesWithSameResource = manaSources
-      //  .GroupBy(x => x.Resource)
-      //  .Select(x =>
-      //    {
-      //      var sources = new TrackableList<IManaSource>(x.OrderBy(y => y.Priority));
-      //      sources.Initialize(changeTracker);
-      //      return new SourcesWithSameResource
-      //        {
-      //          Resource = x.Key,
-      //          Sources = sources
-      //        };
-      //    }).
-      //  ToList();
-
-      //_sources = new TrackableList<SourcesWithSameResource>(sourcesWithSameResource);
+      _changeTracker = changeTracker;    
       _sources.Initialize(changeTracker);
     }
 

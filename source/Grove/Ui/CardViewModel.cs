@@ -37,6 +37,7 @@
     public virtual string Type { get; protected set; }
     public virtual int Damage { get; protected set; }
     public virtual bool IsTapped { get; protected set; }
+    public virtual bool HasSummoningSickness { get; protected set; }
 
     public void Dispose()
     {
@@ -54,6 +55,9 @@
       Update(() => Type != Card.Type, () => Type = Card.Type);
       Update(() => Damage != Card.Damage, () => Damage = Card.Damage);
       Update(() => IsTapped != Card.IsTapped, () => IsTapped = Card.IsTapped);
+      
+      Update(() => HasSummoningSickness != (Card.HasSummoningSickness && Card.Is().Creature && !Card.Has().Haste), 
+        () => HasSummoningSickness = Card.HasSummoningSickness && Card.Is().Creature && !Card.Has().Haste);
     }
 
     private static void Update(Func<bool> condition, Action update)

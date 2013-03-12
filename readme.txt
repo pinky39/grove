@@ -1,4 +1,4 @@
-MAGICGROVE v 1.7
+MAGICGROVE v 1.8
 =====================================
 Magicgrove is a 2 player fantasy card game. You and computer are each given a deck of cards which you use as best as you can to win the game. The most common way to win is to reduce your opponent life to 0.
 

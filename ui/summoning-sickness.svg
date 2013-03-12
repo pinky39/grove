@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09448819"
+   height="1052.3622047"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="New document 1">
+  <defs
+     id="defs4">
+    <filter
+       inkscape:collect="always"
+       id="filter3796"
+       x="-0.20167093"
+       width="1.4033419"
+       y="-0.21622741"
+       height="1.4324548">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="26.633655"
+         id="feGaussianBlur3798" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.979899"
+     inkscape:cx="217.4162"
+     inkscape:cy="234.28571"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1177"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#000000;stroke:#ffffff;stroke-width:6;stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect3800"
+       width="174.75639"
+       height="169.70563"
+       x="279.81226"
+       y="585.16663" />
+    <path
+       sodipodi:type="spiral"
+       style="fill:none;stroke:#ffffff;stroke-width:33.4805603;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="path2985"
+       sodipodi:cx="225.71428"
+       sodipodi:cy="386.64789"
+       sodipodi:expansion="1"
+       sodipodi:revolution="3"
+       sodipodi:radius="182.23106"
+       sodipodi:argument="-17.997589"
+       sodipodi:t0="0"
+       d="m 225.71428,386.64789 c 6.0166,6.87613 -6.3005,11.5027 -11.42858,9.99999 -13.89676,-4.07225 -14.95981,-22.29088 -8.57141,-32.85714 11.42736,-18.90057 37.86572,-19.44145 54.28572,-7.14283 24.09701,18.04871 24.0722,53.65772 5.71425,75.71428 -24.46827,29.39793 -69.5276,28.76748 -97.14286,4.28567 -34.75098,-30.80786 -33.49633,-85.43477 -2.85709,-118.57143 37.10823,-40.13292 101.363,-38.24465 140,-1.4285 45.53237,43.38656 43.00521,117.30434 -8e-5,161.42856 -49.65131,50.94317 -133.25445,47.77394 -182.85713,-1.42866 -56.361723,-55.90711 -52.548362,-149.21071 2.85724,-204.2857 62.15671,-61.78582 165.17146,-57.32693 225.71427,4.28582 67.214,68.40184 62.1086,181.13559 -5.7144,247.14285"
+       transform="matrix(0.17920847,0,0,0.17920847,321.35174,593.84893)"
+       inkscape:export-filename="C:\Users\Gregor Slavec\Desktop\summoning-sickness.png"
+       inkscape:export-xdpi="262.07294"
+       inkscape:export-ydpi="262.07294" />
+    <path
+       sodipodi:type="spiral"
+       style="fill:none;stroke:#ffffff;stroke-width:33.48056030000000000;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;filter:url(#filter3796)"
+       id="path2985-1"
+       sodipodi:cx="225.71428"
+       sodipodi:cy="386.64789"
+       sodipodi:expansion="1"
+       sodipodi:revolution="3"
+       sodipodi:radius="182.23106"
+       sodipodi:argument="-17.997589"
+       sodipodi:t0="0"
+       d="m 225.71428,386.64789 c 6.0166,6.87613 -6.3005,11.5027 -11.42858,9.99999 -13.89676,-4.07225 -14.95981,-22.29088 -8.57141,-32.85714 11.42736,-18.90057 37.86572,-19.44145 54.28572,-7.14283 24.09701,18.04871 24.0722,53.65772 5.71425,75.71428 -24.46827,29.39793 -69.5276,28.76748 -97.14286,4.28567 -34.75098,-30.80786 -33.49633,-85.43477 -2.85709,-118.57143 37.10823,-40.13292 101.363,-38.24465 140,-1.4285 45.53237,43.38656 43.00521,117.30434 -8e-5,161.42856 -49.65131,50.94317 -133.25445,47.77394 -182.85713,-1.42866 -56.361723,-55.90711 -52.548362,-149.21071 2.85724,-204.2857 62.15671,-61.78582 165.17146,-57.32693 225.71427,4.28582 67.214,68.40184 62.1086,181.13559 -5.7144,247.14285"
+       transform="matrix(0.17920847,0,0,0.17920847,320.49908,595.0642)"
+       inkscape:export-filename="C:\Users\Gregor Slavec\Desktop\summoning-sickness.png"
+       inkscape:export-xdpi="262.07294"
+       inkscape:export-ydpi="262.07294" />
+  </g>
+</svg>

@@ -336,12 +336,18 @@
                   <Image Height="20" Source="..\media\images\g.png"/>
                </StackPanel>
             </DockPanel>
+            <Grid>
             <Image
                Width="273"
                Height="220"
                Margin="0,6,0,0"
                Source="grizzly-bears.jpg"
                Stretch="Fill"/>
+            <Image
+              Width="200"
+              Source="..\media\images\summoning-sickness.png">
+            </Image>
+            </Grid>
             <TextBlock
                Margin="20,6,0,0"
                FontFamily="Arial"

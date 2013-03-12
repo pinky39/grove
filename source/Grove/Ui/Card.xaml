@@ -102,6 +102,8 @@
                                         <Grid Margin="0,6,0,0">
                                             <Image Source="{Binding Path=Illustration, Converter={x:Static grove:Converters.CardIllustrationNameToCardImage}}" Width="273" Height="220" Stretch="UniformToFill" />
 
+                                            <Image Width="200" Source="{grove:Media 'summoning-sickness.png'}" Visibility="{Binding Path=HasSummoningSickness, Converter={x:Static grove:Converters.BooleanToVisibility}}" />
+
                                             <Grid Height="50" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="30,0,0,5" Style="{StaticResource Counters}">
                                                 <Image Source="{grove:Media 'counter.png'}" />
                                                 <TextBlock FontSize="25" Foreground="#000" Text="{Binding Counters}" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Arial" Margin="0,0,1,0" />

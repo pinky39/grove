@@ -1,4 +1,4 @@
-MAGICGROVE v 1.7: Card List
+MAGICGROVE v 1.8: Card List
 =====================================
 The following cards can be used to construct new decks:
 
@@ -44,7 +44,7 @@ Bravado
 Breach
 Brilliant Halo
 Bull Hippo
-Bulvark
+Bulwark
 Burst Lightning
 Cackling Fiend
 Carrion Beetles
@@ -52,6 +52,7 @@ Catalog
 Catastrophe
 Cathodion
 Cave Tiger
+Celestial Prism
 Child of Gaea
 Chimeric Staff
 Citanul Centaurs
@@ -92,49 +93,117 @@ Disorder
 Disruptive Student
 Divination
 Doom blade
+Douse
 Dragon Blood
 Drana, Kalastria Bloodchief
 Dread
+Drifting Djinn
 Drifting Meadow
+Dromosaur
 Drowned Catacomb
+Duress
+Eastern Paladin
+Electryte
 Elesh Norn, Grand Cenobite
+Elite Archers
+Elvish Herder
+Elvish Lyrist
 Elvish Warrior
+Endless Wurm
 Endoskeleton
+Energy Field
 Evacuation
+Exhaustion
 Exhume
+Exploration
 Expunge
+Faith Healer
+Falter
+Fault Line
+Fecundity
+Fertile Ground
 Fiery Mantle
+Fire Ants
 Fires of Yavimaya
 Flame Slash
 Flametongue Kavu
 Flesh Reaver
+Fog Bank
 Forest
+Fortitude
+Gaea's Bounty
+Gaea's Cradle
+Gaea's Embrace
+Gamble
+Gilded Drake
 Glorious Anthem
 Go for the Throat
+Goblin Cadets
+Goblin Lackey
+Goblin Matron
+Goblin Offensive
 Goblin Patrol
+Goblin Raider
+Goblin Spelunkers
 Goblin War Buggy
+Gorilla Warrior
+Grafted Skullcap
 Grasp of Darkness
 Grave Titan
+Great Whale
+Greater Good
+Greener Pastures
 Grizzly Bears
+Guma
+Hawkeater Moth
+Headlong Rush
+Healing Salve
 Heat Ray
+Herald of Serra
+Hermetic Study
 Hero of Bladehold
+Hibernation
 Hidden Ancients
+Hidden Guerrillas
+Hidden Herd
+Hidden Predators
 Hidden Spider
+Hidden Stag
+Hollow Dogs
+Hopping Automaton
+Horseshoe Crab
 Humble
 Hush
 Hypnotic Specter
+Ill-Gotten Gains
+Imaginary Pet
+Intrepid Hero
 Island
 Jagged Lightning
+Karn, Silver Golem
+Launch
+Lay Waste
 Leatherback Baloth
 Lightning Bolt
+Lightning Dragon
 Liliana's Specter
+Lilting Refrain
+Lingering Mirage
 Living Destiny
 Llanowar Behemoth
 Llanowar Elves
+Looming Shade
+Lotus Blossom
+Lull
+Lurking Evil
 Mana Leak
+Mana Leech
 Marsh Casualties
 Martial Coup
+Meltdown
+Midsummer Revel
 Mirran Crusader
+Mishra's Helix
 Monk Idealist
 Monk Realist
 Mountain

@@ -147,6 +147,7 @@
     <Compile Include="Cards\Catastrophe.cs" />
     <Compile Include="Cards\Cathodion.cs" />
     <Compile Include="Cards\CaveTiger.cs" />
+    <Compile Include="Cards\CelestialPrism.cs" />
     <Compile Include="Cards\ChildOfGaea.cs" />
     <Compile Include="Cards\ChimericStaff.cs" />
     <Compile Include="Cards\CitanulCentaurs.cs" />
@@ -458,8 +459,9 @@
     <Compile Include="Core\Ai\TimingRules\ControllerHasPermanents.cs" />
     <Compile Include="Core\Ai\TimingRules\ControllerGravayardCountIs.cs" />
     <Compile Include="Core\Ai\TimingRules\ControllerHandCountIs.cs" />
-    <Compile Include="Core\Ai\TimingRules\ControllerNeedsAdditionalMana.cs" />
+    <Compile Include="Core\Ai\TimingRules\ControllerNeedsMana.cs" />
     <Compile Include="Core\Ai\TimingRules\DeclareBlockers.cs" />
+    <Compile Include="Core\Ai\TimingRules\ManaConverter.cs" />
     <Compile Include="Core\Ai\TimingRules\MinAttackerCount.cs" />
     <Compile Include="Core\Ai\TimingRules\OpponentHasAtLeastCardsInHand.cs" />
     <Compile Include="Core\Ai\TimingRules\OwningCardHas.cs" />
