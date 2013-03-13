@@ -250,6 +250,18 @@
       return null;
     }
 
+    public DecisionsForOneStep NoValidTarget()
+    {
+     var decision = new SetTriggeredAbilityTarget
+        {
+          Result = new ChosenTargets(new Targets())
+        };
+
+      decision.Initialize(null, _game);      
+      _decisions.Add(decision);
+      return this;
+    }
+    
     public DecisionsForOneStep Target(Card target)
     {
       return Target((ITarget) target);

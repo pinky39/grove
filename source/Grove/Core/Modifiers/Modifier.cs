@@ -92,7 +92,7 @@
       Target.RemoveModifier(this);
     }
 
-    public virtual Modifier Initialize(ModifierParameters p, Game game)
+    public Modifier Initialize(ModifierParameters p, Game game)
     {
       Game = game;
       Source = p.SourceCard;
@@ -101,9 +101,12 @@
       X = p.X;
 
       InitializeLifetimes();
+      Initialize();
 
       return this;
     }
+
+    protected virtual void Initialize() {}
 
     private void InitializeLifetimes()
     {

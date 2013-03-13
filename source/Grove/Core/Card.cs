@@ -639,6 +639,7 @@
       ClearDamage();
 
       _continuousEffects.Deactivate();
+      HasSummoningSickness = false;
     }
 
     public void Tap()

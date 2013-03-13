@@ -12,13 +12,10 @@
     public object TriggerMessage { get; set; }
     public EffectFactory EffectFactory { get; set; }
     public TargetSelector TargetSelector { get; set; }
-    public List<MachinePlayRule> MachineRules { get; set; }
-
+    public List<MachinePlayRule> MachineRules { get; set; }    
+    
     public override void ProcessResults()
-    {
-      if (!Result.HasTargets)
-        return;
-
+    {              
       var effectParameters = new EffectParameters
         {
           Source = Source,
@@ -26,7 +23,16 @@
           TriggerMessage = TriggerMessage
         };
 
-      var effect = EffectFactory().Initialize(effectParameters, Game);
+      
+      var effect = EffectFactory();
+      if (Result.HasTargets == false)
+      {
+        effect.Initialize(effectParameters, Game, initializeDynamicParameters: false);
+        effect.EffectCountered(SpellCounterReason.IllegalTarget);
+        return;
+      }
+
+      effect.Initialize(effectParameters, Game);
       Stack.Push(effect);
     }
   }

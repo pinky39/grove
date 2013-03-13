@@ -191,7 +191,7 @@
       return Targets.Any(x => x == card);
     }
 
-    public virtual Effect Initialize(EffectParameters p, Game game)
+    public virtual Effect Initialize(EffectParameters p, Game game, bool initializeDynamicParameters = true)
     {
       Game = game;
       Source = p.Source;
@@ -200,12 +200,15 @@
       X = p.X;
 
       _wasResolved.Initialize(game.ChangeTracker);
-
-      foreach (var parameter in _dynamicParameters)
-      {
-        parameter.EvaluateOnInit(this, Game);
-      }
       
+      if (initializeDynamicParameters)
+      {
+        foreach (var parameter in _dynamicParameters)
+        {
+          parameter.EvaluateOnInit(this, Game);
+        }
+      }
+
       Initialize();
 
       return this;

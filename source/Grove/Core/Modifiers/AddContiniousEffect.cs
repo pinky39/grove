@@ -12,12 +12,10 @@
       _continiousEffect = continiousEffect;
     }
 
-    public override Modifier Initialize(ModifierParameters p, Game game)
+    protected override void Initialize()
     {
-      base.Initialize(p, game);
       _continiousEffect.Initialize(Source, Game, Target);
-      return this;
-    }
+    }       
 
     public override void Apply(ContiniousEffects continiousEffects)
     {

@@ -12,18 +12,23 @@
     private readonly bool _activateAsSorcery;
     private readonly Zone _activationZone;
     private readonly Cost _cost;
-    
+    private readonly bool _activateOnlyOnceEachTurn;
+    private readonly Trackable<int> _lastActivation = new Trackable<int>();
+
     protected ActivatedAbility() {}
     
     public ActivatedAbility(ActivatedAbilityParameters parameters) : base(parameters)
     {
       _cost = parameters.Cost;
       _activationZone = parameters.ActivationZone;
-      _activateAsSorcery = parameters.ActivateAsSorcery;      
+      _activateAsSorcery = parameters.ActivateAsSorcery;
+      _activateOnlyOnceEachTurn = parameters.ActivateOnlyOnceEachTurn;
     }
 
     public void Activate(ActivationParameters p)
     {
+      _lastActivation.Value = Turn.TurnCount;
+      
       var effectParameters = new EffectParameters
         {
           Source = this,
@@ -94,13 +99,14 @@
     public override void Initialize(Card owner, Game game)
     {
       base.Initialize(owner, game);
-      _cost.Initialize(owner, game, TargetSelector.Cost.FirstOrDefault());     
+      _cost.Initialize(owner, game, TargetSelector.Cost.FirstOrDefault());
+      _lastActivation.Initialize(ChangeTracker);
     }
 
     private bool CanBeActivated(ref int? maxX)
     {
       return
-        IsEnabled &&
+        IsEnabled &&          
           CanBeActivatedAtThisTime() &&
             _cost.CanPay(ref maxX);
     }
@@ -110,6 +116,11 @@
       if (OwningCard.Zone != _activationZone)
         return false;
 
+      if (_activateOnlyOnceEachTurn && _lastActivation.Value == Turn.TurnCount)
+      {
+        return false;
+      }
+      
       if (_activateAsSorcery)
       {
         return Turn.Step.IsMain() &&

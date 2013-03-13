@@ -47,13 +47,11 @@
       toughness.AddModifier(_increment);
     }
 
-    public override Modifier Initialize(ModifierParameters p, Game game)
+    protected override void Initialize()
     {
-      base.Initialize(p, game);
-      _increment.Initialize(game.ChangeTracker);
+      _increment.Initialize(ChangeTracker);
       _increment.Value = GetForestCount(Source.Controller);
-      return this;
-    }
+    }    
 
     protected override void Unapply()
     {

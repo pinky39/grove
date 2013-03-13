@@ -43,7 +43,7 @@
       return new CastInstructionParameters
         {
           Cost = new PayMana(cp.ManaCost ?? ManaAmount.Zero, ManaUsage.Spells, cp.HasXInCost),
-          Text = "Cast {0}.",
+          Text = string.Format("Cast {0}.", cp.Name),
           Effect = () => new PutIntoPlay(),
           Rule = GetDefaultCastingRule(cp.Type),
         };
@@ -113,7 +113,7 @@
           p.Trigger(new OnStepStart(Step.Upkeep, onlyOnceWhenAfterItComesUnderYourControl: true));
           p.Text =
             "At the beginning of your upkeep, if this came under your control since the beginning of your last upkeep, sacrifice it unless you pay its echo cost.";
-          p.Effect = () => new PayManaOrSacrifice(amount, "Pay {0}'s echo?");
+          p.Effect = () => new PayManaOrSacrifice(amount, "Pay echo?");
           p.TriggerOnlyIfOwningCardIsInPlay = true;
         });
 

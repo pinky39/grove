@@ -60,15 +60,20 @@
       _abilities.Add(new StaticAbility(ability).Initialize(_changeTracker));
     }
 
-    public void Remove(Static ability)
+    public bool Remove(Static ability)
     {
       var staticAbility = _abilities
         .Where(x => x.Value == ability)
         .OrderBy(x => x.IsEnabled ? 0 : 1)
         .FirstOrDefault();
 
-      if (staticAbility != null)
-        _abilities.Remove(staticAbility);
+      if (staticAbility == null)
+      {
+        return false;        
+      }
+
+      _abilities.Remove(staticAbility);
+      return true;
     }
 
     private bool Has(Static ability)

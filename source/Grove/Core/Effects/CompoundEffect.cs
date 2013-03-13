@@ -24,7 +24,7 @@
       return _childEffects.Sum(x => x.CalculatePlayerDamage(player));
     }
 
-    public override Effect Initialize(EffectParameters p, Game game)
+    public override Effect Initialize(EffectParameters p, Game game, bool initializeParameters = true)
     {
       base.Initialize(p, game);
 
@@ -32,7 +32,7 @@
 
       foreach (var effect in _childEffects)
       {
-        effect.Initialize(p, game);
+        effect.Initialize(p, game, initializeParameters);
         Category = Category | effect.Category;
         toughnessReduction = toughnessReduction + effect.ToughnessReduction.GetValue(X);
       }
