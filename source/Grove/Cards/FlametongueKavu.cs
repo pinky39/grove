@@ -1,5 +1,6 @@
 ﻿namespace Grove.Cards
 {
+  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai.TargetingRules;
@@ -24,7 +25,7 @@
         .Toughness(2)
         .Cast(p => p.TimingRule(new OpponentHasPermanents(
           card => card.Is().Creature && card.Life <= 4 &&
-            !card.HasProtectionFrom(ManaColors.Red))))
+            card.CanBeTargetBySpellsWithColor(ManaColors.Red))))
         .TriggeredAbility(p =>
           {
             p.Text = "When Flametongue Kavu enters the battlefield, it deals 4 damage to target creature.";

@@ -8,9 +8,8 @@
   {
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
     {
-      var candidates = p.Candidates<Card>(ControlledBy.SpellOwner)
-        .Where(x => x.Controller == p.Controller)
-        .Where(x => Stack.CanBeDestroyedByTopSpell(x, targetOnly: true))
+      var candidates = p.Candidates<Card>(ControlledBy.SpellOwner)        
+        .Where(x => Stack.CanBeDestroyedByTopSpell(x, targetOnly: true) || Stack.CanBeBouncedByTopSpell(x))
         .OrderByDescending(x => x.Score);
 
       return Group(candidates, p.MinTargetCount());

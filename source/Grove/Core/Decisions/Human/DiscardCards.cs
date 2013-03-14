@@ -6,6 +6,7 @@
   using Ui;
   using Ui.SelectTarget;
   using Ui.Shell;
+  using Zones;
 
   public class DiscardCards : Decisions.DiscardCards
   {
@@ -18,14 +19,18 @@
         {
           MinCount = Count,
           MaxCount = Count,
-          Text = String.Format("Select {0} card(s) to discard", Count),
-        }
-        .Is.Card(c => Filter(c)).In.OwnersHand();
+          Text = String.Format("Select {0} card(s) to discard.", Count),
+          TargetSpec = p => Filter(p.Target.Card()),
+          ZoneSpec = p => p.ZoneOwner == CardsOwner && p.Zone == Zone.Hand
+        };
+
+      var targetValidator = new TargetValidator(parameters);
+      targetValidator.Initialize(null, Game);
 
       var dialog = DialogFactory.Create(new SelectTargetParameters
         {
           CanCancel = false,
-          Validator = new TargetValidator(parameters)
+          Validator = targetValidator
         });
 
       Shell.ShowModalDialog(dialog, DialogType.Small, InteractionState.SelectTarget);

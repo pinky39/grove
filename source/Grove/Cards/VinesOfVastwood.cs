@@ -4,7 +4,6 @@
   using Core;
   using Core.Ai;
   using Core.Ai.TargetingRules;
-  using Core.Ai.TimingRules;
   using Core.Costs;
   using Core.Dsl;
   using Core.Effects;

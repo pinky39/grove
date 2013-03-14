@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core.Targeting
 {
+  using System;
   using Core.Zones;
   using Modifiers;
 
@@ -75,7 +76,7 @@
       if (!target.IsCard())
         return true;
 
-
+        // todo fix bug here owning card is required
       return target.Card().CanBeTargetBySpellsOwnedBy(owningCard.Controller) &&
         !target.Card().HasProtectionFrom(owningCard);
     }
@@ -89,6 +90,11 @@
         messageFormat = MaxCount.GetValue(x) == 1
           ? DefaultMessageOneTarget
           : DefaultMessageMultipleTargets;
+      }
+
+      if (_owningCard != null)
+      {
+        messageFormat = String.Format("{0}: {1}", _owningCard, messageFormat);
       }
 
       var maxNumber = MinCount == MaxCount

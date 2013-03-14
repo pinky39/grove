@@ -146,6 +146,19 @@
       return card.Life <= dealtAmount;
     }
 
+    public bool CanBeBouncedByTopSpell(Card card)
+    {
+      if (IsEmpty)
+        return false;
+
+      if (TopSpell.HasCategory(EffectCategories.Bounce))
+      {
+        return TopSpell.HasTarget(card);
+      }
+
+      return false;
+    }
+
     public bool CanBeDestroyedByTopSpell(Card card, bool targetOnly = false)
     {
       if (IsEmpty)
@@ -184,6 +197,11 @@
 
       var damage = TopSpell.CalculatePlayerDamage(player);
       return damage >= player.Life;
+    }
+
+    public bool HasSpellNamed(string name)
+    {
+      return _effects.Any(x => x.Source.OwningCard.Name.Equals(name));
     }
   }
 }

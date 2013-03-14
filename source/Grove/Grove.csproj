@@ -292,6 +292,7 @@
     <Compile Include="Cards\Lull.cs" />
     <Compile Include="Cards\LurkingEvil.cs" />
     <Compile Include="Cards\ManaLeech.cs" />
+    <Compile Include="Cards\ManOWar.cs" />
     <Compile Include="Cards\MartialCoup.cs" />
     <Compile Include="Cards\MeltDown.cs" />
     <Compile Include="Cards\MidsummerRevel.cs" />

@@ -4,20 +4,21 @@
   using System.Collections.Generic;
   using System.Diagnostics;
   using System.Linq;
+  using Infrastructure;
   using Results;
   using Targeting;
-
+  
   public class DecisionsForOneStep
   {
     private readonly List<IScenarioDecision> _decisions = new List<IScenarioDecision>();
 
-    private readonly Game _game;
+    private readonly Game _game;    
 
     public DecisionsForOneStep(Step step, int turn, Game game)
     {
       Step = step;
       Turn = turn;
-      _game = game;
+      _game = game;      
     }
 
     public Step Step { get; private set; }
@@ -47,11 +48,11 @@
                       X = activation.X
                     },
                   Index = activation.Index
-                }                
+                }
             }
         };
 
-      decision.Initialize(activation.Card.Controller, _game);      
+      decision.Initialize(activation.Card.Controller, _game);
       _decisions.Add(decision);
       return this;
     }
@@ -133,33 +134,39 @@
 
       var decision = new PlaySpellOrAbility
         {
+          Condition = activation.Condition,
           Result = new ChosenPlayable
             {
               Playable = new ScenarioPlayableSpell
                 {
-                  Card =  activation.Card,                                
+                  Card = activation.Card,
                   ActivationParameters = new ActivationParameters
-                  {
-                    Targets = activation.GetTargets(),
-                    X = activation.X
-                  }, 
-                  Index = activation.Index}
+                    {
+                      Targets = activation.GetTargets(),
+                      X = activation.X
+                    },
+                  Index = activation.Index
+                }
             }
         };
 
-      decision.Initialize(activation.Card.Controller, _game);            
+      decision.Initialize(activation.Card.Controller, _game);
       _decisions.Add(decision);
       return this;
     }
 
-    public DecisionsForOneStep Cast(Card card, Card target, int index = 0, int? x = null)
+    public DecisionsForOneStep Cast(Card card, Card target, int index = 0, int? x = null,
+      Func<Card, Game, bool> condition = null)
     {
+      condition = condition ?? delegate { return true; };
+
       return Cast(p =>
         {
           p.Card = card;
           p.Targets(target);
           p.Index = index;
           p.X = x;
+          p.Condition = condition;
         });
     }
 
@@ -202,8 +209,8 @@
           Result = attackers.ToList()
         };
 
-      
-      decision.Initialize(attackers[0].Controller, _game);      
+
+      decision.Initialize(attackers[0].Controller, _game);
       _decisions.Add(decision);
       return this;
     }
@@ -229,7 +236,7 @@
         };
 
       _decisions.Add(decision);
-      decision.Initialize(defender, _game);            
+      decision.Initialize(defender, _game);
       return this;
     }
 
@@ -252,16 +259,16 @@
 
     public DecisionsForOneStep NoValidTarget()
     {
-     var decision = new SetTriggeredAbilityTarget
+      var decision = new SetTriggeredAbilityTarget
         {
           Result = new ChosenTargets(new Targets())
         };
 
-      decision.Initialize(null, _game);      
+      decision.Initialize(null, _game);
       _decisions.Add(decision);
       return this;
     }
-    
+
     public DecisionsForOneStep Target(Card target)
     {
       return Target((ITarget) target);
@@ -279,7 +286,7 @@
           Result = new ChosenTargets(new Targets().AddEffect(target))
         };
 
-      decision.Initialize(null, _game);      
+      decision.Initialize(null, _game);
       _decisions.Add(decision);
       return this;
     }
@@ -290,7 +297,7 @@
         {
           Assertion = assertion,
         };
-      
+
       decision.Initialize(null, _game);
       _decisions.Add(decision);
       return this;

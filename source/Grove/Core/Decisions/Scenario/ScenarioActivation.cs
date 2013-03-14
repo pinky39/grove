@@ -1,14 +1,16 @@
 ﻿namespace Grove.Core.Decisions.Scenario
 {
+  using System;
   using Targeting;
 
   public class ScenarioActivation
   {
     private readonly Targets _targets = new Targets();
+    public Func<Card, Game, bool> Condition = delegate { return true; };
 
     public Card Card { get; set; }
     public int? X { get; set; }
-    public int Index { get; set; }
+    public int Index { get; set; }    
 
     public Targets GetTargets()
     {

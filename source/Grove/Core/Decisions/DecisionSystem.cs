@@ -4,16 +4,16 @@
   using System.Collections.Generic;
   using System.Linq;
   using System.Reflection;
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Scenario;
-
+  
   public class DecisionSystem
   {
     private static readonly HashSet<Type> ScenarioDecisions = new HashSet<Type>(GetScenarioDecisions());
     private static readonly Dictionary<Type, ParameterlessCtor> MachineDecisions = GetMachineDecision();
-    private readonly IUiDecisionFactory _uiDecisionFactory;
 
     private readonly PrerecordedDecisions _prerecordedDecisions = new PrerecordedDecisions();
+    private readonly IUiDecisionFactory _uiDecisionFactory;    
 
     public DecisionSystem(IUiDecisionFactory uiDecisionFactory)
     {
@@ -34,7 +34,7 @@
       return Assembly.GetExecutingAssembly()
         .GetTypes()
         .Where(x => x.Implements<IDecision>())
-        .Where(x => x.Namespace.Equals(typeof(Machine.PlaySpellOrAbility).Namespace))
+        .Where(x => x.Namespace.Equals(typeof (Machine.PlaySpellOrAbility).Namespace))
         .Select(x => new
           {
             Type = x.BaseType,
@@ -71,15 +71,15 @@
       }
 
 
-      decision.Initialize(player, game);      
-      SetParameters(decision, setParameters);      
+      decision.Initialize(player, game);
+      SetParameters(decision, setParameters);
 
       return decision;
     }
 
     private IDecision CreateMachine<TDecision>()
     {
-      return (IDecision)MachineDecisions[typeof (TDecision)]();
+      return (IDecision) MachineDecisions[typeof (TDecision)]();
     }
 
     private static bool ExistsScenarioDecision<TDecision>()

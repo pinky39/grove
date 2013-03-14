@@ -20,7 +20,7 @@
     protected Combat Combat { get { return Game.Combat; } }
     protected TurnInfo Turn { get { return Game.Turn; } }
     protected Search Search { get { return Game.Search; } }
-    protected CardDatabase CardDatebase {get { return Game.CardDatabase; }}
+    protected CardDatabase CardDatabase {get { return Game.CardDatabase; }}
 
     protected ChangeTracker ChangeTracker { get { return Game.ChangeTracker; } }
 

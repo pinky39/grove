@@ -15,7 +15,7 @@
     public TargetValidatorParameters()
     {
       Is = new TargetSpecs(this);
-      In = new ZoneSpecs(this);
+      In = new ZoneSpecs(this);      
     }
 
     public TargetSpecs Is { get; private set; }

@@ -453,6 +453,11 @@
       return true;
     }
 
+    public bool CanBeTargetBySpellsWithColor(ManaColors manaColors)
+    {
+      return !Has().Shroud && !Has().Hexproof && !HasProtectionFrom(manaColors);
+    }
+    
     public bool CanBeTargetBySpellsOwnedBy(Player player)
     {
       return !Has().Shroud && (player == Controller ? true : !Has().Hexproof);

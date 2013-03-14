@@ -179,6 +179,7 @@
     <Compile Include="Cards\LurkingEvil.cs" />
     <Compile Include="Cards\ManaLeak.cs" />
     <Compile Include="Cards\ManaLeech.cs" />
+    <Compile Include="Cards\ManOWar.cs" />
     <Compile Include="Cards\MartialCoup.cs" />
     <Compile Include="Cards\Meltdown.cs" />
     <Compile Include="Cards\MidsummerRevel.cs" />

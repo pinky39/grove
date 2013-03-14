@@ -2,13 +2,11 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Grove.Infrastructure;
 
-  [Copyable]
   public class PrerecordedDecisions
   {
     private readonly List<DecisionsForOneStep> _decisions = new List<DecisionsForOneStep>();
-    
+
     public void AddDecisions(IEnumerable<DecisionsForOneStep> decisions)
     {
       _decisions.AddRange(decisions);
