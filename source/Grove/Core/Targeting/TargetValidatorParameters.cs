@@ -8,7 +8,7 @@
     public ZoneValidatorDelegate ZoneSpec = delegate { return false; };
 
     public Value MaxCount = 1;
-    public string Text;
+    public string Message;
     public Value MinCount = 1;
     public bool MustBeTargetable = true;
 

@@ -69,12 +69,12 @@
 
       foreach (var validator in _effectValidators)
       {
-        validator.Initialize(owningCard, game);
+        validator.Initialize(game, owningCard.Controller, owningCard);
       }
 
       foreach (var validator in _costValidators)
       {
-        validator.Initialize(owningCard, game);
+        validator.Initialize(game, owningCard.Controller, owningCard);
       }
     }
 

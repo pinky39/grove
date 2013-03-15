@@ -111,7 +111,7 @@
                                         </Grid>
 
                                         <TextBlock Foreground="White" FontFamily="Arial" FontSize="16" Margin="20,6,0,0" Text="{Binding Path=Type}" />
-                                        <Viewbox Height="132" Margin="32,8,25,0" Stretch="Uniform" HorizontalAlignment="Left">
+                                        <Viewbox Height="136" Margin="30,8,23,0" Stretch="Uniform" HorizontalAlignment="Left">
                                             <Border>
                                                 <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center">
                                                     <StackPanel.Resources>
@@ -125,10 +125,10 @@
                                                             <TextBlock Width="258" FontSize="4" />
                                                         </DataTemplate>
                                                         <DataTemplate DataType="{x:Type Core:ManaSymbolGroupStartToken}">
-                                                            <TextBlock FontSize="15" Margin="2,0,0,0" />
+                                                            <TextBlock Margin="2,0,0,0" />
                                                         </DataTemplate>
                                                         <DataTemplate DataType="{x:Type Core:ManaSymbolGroupEndToken}">
-                                                            <TextBlock FontSize="15" Margin="0,0,6,0" />
+                                                            <TextBlock  Margin="0,0,6,0" />
                                                         </DataTemplate>
                                                         <DataTemplate DataType="{x:Type Core:ManaSymbolToken}">
                                                             <Image Source="{Binding Path=Image}" Height="16" Margin="0,0,0,0" />
@@ -147,7 +147,6 @@
                                                         <ItemsControl.Resources>
                                                             <DataTemplate DataType="{x:Type Core:TextToken}">
                                                                 <TextBlock Foreground="#000" Margin="0,0,4,0" Text="{Binding Path=.}" FontStyle="Italic" />
-
                                                             </DataTemplate>
                                                         </ItemsControl.Resources>
                                                         <ItemsControl.ItemsPanel>
@@ -160,7 +159,7 @@
                                             </Border>
                                         </Viewbox>
 
-                                        <Grid Margin="0,13,0,0">
+                                        <Grid Margin="0,9,0,0">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="Auto" />
                                                 <ColumnDefinition Width="*" />

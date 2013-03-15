@@ -1,6 +1,7 @@
 ﻿namespace Grove.Core
 {
   using System.Collections.Generic;
+  using System.Linq;
   using Ai;
   using Ai.CostRules;
   using Ai.TargetingRules;
@@ -36,5 +37,7 @@
     {
       _machineRules.Add(rule);
     }
+
+    public bool HasTimingRules { get { return _machineRules.Any(x => x is TimingRule); } }
   }
 }

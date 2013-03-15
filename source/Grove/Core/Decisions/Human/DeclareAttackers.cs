@@ -13,7 +13,7 @@
 
     protected override void ExecuteQuery()
     {
-      var tp = new TargetValidatorParameters {MinCount = 0, MaxCount = null, Text = "Select attackers."}
+      var tp = new TargetValidatorParameters {MinCount = 0, MaxCount = null, Message = "Select attackers."}
         .Is.Card(c => c.CanAttackThisTurn && c.Controller == Controller)
         .On.Battlefield();
 
@@ -21,7 +21,7 @@
       tp.MustBeTargetable = false;
 
       var validator = new TargetValidator(tp);
-      validator.Initialize(null, Game);
+      validator.Initialize(Game, Controller);
 
       var selectParameters = new SelectTargetParameters
         {

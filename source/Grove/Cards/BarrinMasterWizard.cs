@@ -32,12 +32,12 @@
               .AddCost(trg =>
                 {
                   trg.Is.Card(controlledBy: ControlledBy.SpellOwner).On.Battlefield();
-                  trg.Text = "Select a permanent to sacrifice.";
+                  trg.Message = "Select a permanent to sacrifice.";
                 })
               .AddEffect(trg =>
                 {
                   trg.Is.Card(c => c.Is().Creature).On.Battlefield();
-                  trg.Text = "Select a creature to bounce.";
+                  trg.Message = "Select a creature to bounce.";
                 });
 
             p.TargetingRule(new SacrificeToBounce());

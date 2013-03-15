@@ -28,6 +28,7 @@
     public string Illustration { get { return Card.Illustration; } }
     public CardText Text { get { return Card.Text; } }
     public CardText FlavorText { get { return Card.FlavorText; } }
+    public int CharacterCount {get { return Card.CharacterCount; }}
     public virtual int? Power { get; protected set; }
     public virtual int? Toughness { get; protected set; }
     public virtual bool IsVisibleInUi { get; protected set; }

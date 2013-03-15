@@ -148,7 +148,13 @@
         var characterCount = (int) value;
 
         if (characterCount < 40)
+          return 18;
+        
+        if (characterCount < 60)
           return 17;
+
+        if (characterCount < 90)
+          return 16;
 
         if (characterCount < 120)
           return 15;

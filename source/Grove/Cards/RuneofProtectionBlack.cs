@@ -31,7 +31,7 @@
             p.TargetSelector.AddEffect(trg =>
               {
                 trg.Is.Card(c => c.HasColors(ManaColors.Black)).On.BattlefieldOrStack();
-                trg.Text = "Select damage source.";
+                trg.Message = "Select damage source.";
               });
 
             p.TargetingRule(new PreventDamageFromSourceToController());

@@ -18,14 +18,14 @@
 
       while (true)
       {
-        var blockerDefinition = new TargetValidatorParameters {MinCount = 0, MaxCount = 1, Text = "Select a blocker."}
+        var blockerDefinition = new TargetValidatorParameters {MinCount = 0, MaxCount = 1, Message = "Select a blocker."}
           .Is.Card(c => c.CanBlock() && c.Controller == Controller)
           .On.Battlefield();
 
         blockerDefinition.MustBeTargetable = false;
         
         var blockerValidator = new TargetValidator(blockerDefinition);
-        blockerValidator.Initialize(null, Game);
+        blockerValidator.Initialize(Game, Controller);
 
         var selectBlocker = DialogFactory.Create(new SelectTargetParameters
           {
@@ -54,14 +54,14 @@
         }
 
         var attackerDefinition =
-          new TargetValidatorParameters {MinCount = 1, MaxCount = 1, Text = "Select an attacker to block."}
+          new TargetValidatorParameters {MinCount = 1, MaxCount = 1, Message = "Select an attacker to block."}
             .Is.Card(c => c.IsAttacker && c.CanBeBlockedBy(blocker))
             .On.Battlefield();
 
         attackerDefinition.MustBeTargetable = false;
 
         var attackerValidator = new TargetValidator(attackerDefinition);
-        attackerValidator.Initialize(null, Game);
+        attackerValidator.Initialize(Game, Controller);
 
         var selectAttacker = DialogFactory.Create(new SelectTargetParameters
           {

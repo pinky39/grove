@@ -24,12 +24,12 @@
               .AddEffect(trg =>
                 {
                   trg.Is.Creature().On.Battlefield();
-                  trg.Text = "Select creature.";
+                  trg.Message = "Select creature.";
                 })
               .AddEffect(trg =>
                 {
                   trg.Is.Player();
-                  trg.Text = "Select player.";
+                  trg.Message = "Select player.";
                 });
 
             p.TargetingRule(new DealDamage(1));

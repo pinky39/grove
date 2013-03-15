@@ -19,13 +19,13 @@
         {
           MinCount = Count,
           MaxCount = Count,
-          Text = String.Format("Select {0} card(s) to discard.", Count),
+          Message = String.Format("Select {0} card(s) to discard.", Count),
           TargetSpec = p => Filter(p.Target.Card()),
           ZoneSpec = p => p.ZoneOwner == CardsOwner && p.Zone == Zone.Hand
         };
 
       var targetValidator = new TargetValidator(parameters);
-      targetValidator.Initialize(null, Game);
+      targetValidator.Initialize(Game, Controller);
 
       var dialog = DialogFactory.Create(new SelectTargetParameters
         {

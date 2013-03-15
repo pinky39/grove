@@ -75,6 +75,18 @@
       }
 
       [Fact]
+      public void BugGameHangs()
+      {           
+        Hand(P1, "Go for the Throat", "Attunement", "Mana Leak", "Grave Titan");
+        Hand(P2, "Mountain", "Rescind");
+        Battlefield(P1, "Swamp", "Island", "Swamp", "Swamp", "Diabolic Servitude", "Swamp", "Drifting Djinn", "Swamp", "Liliana's Specter");
+        Battlefield(P2, "Remote Isle", "Island", "Island", "Mountain", "Mountain", "Mountain", "Mountain");        
+
+        RunGame(2);
+      
+      }
+
+      [Fact]
       public void BugIncorrectStateCopy()
       {
         Battlefield(P1, C("Copperline Gorge"), C("Forest"),

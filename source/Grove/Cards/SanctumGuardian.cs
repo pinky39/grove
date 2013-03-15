@@ -29,12 +29,12 @@
               .AddEffect(trg =>
                 {
                   trg.Is.Card().On.BattlefieldOrStack();
-                  trg.Text = "Select damage source.";
+                  trg.Message = "Select damage source.";
                 })
               .AddEffect(trg =>
                 {
                   trg.Is.CreatureOrPlayer().On.Battlefield();
-                  trg.Text = "Select creature or player.";
+                  trg.Message = "Select creature or player.";
                 });
             p.TargetingRule(new Core.Ai.TargetingRules.PreventDamageFromSourceToTarget());
           });

@@ -15,6 +15,7 @@
 
     private readonly TargetValidatorDelegate _isValidTarget;
     private readonly ZoneValidatorDelegate _isValidZone;
+    private Player _controller;
     private readonly bool _mustBeTargetable;
     private Card _owningCard;
 
@@ -28,18 +29,20 @@
 
       MinCount = p.MinCount;
       MaxCount = p.MaxCount;
-      MessageFormat = p.Text;
+      Message = p.Message;
     }
 
     public Value MaxCount { get; private set; }
     public Value MinCount { get; private set; }
 
-    public string MessageFormat { get; private set; }
+    public string Message { get; private set; }
 
-    public virtual void Initialize(Card owningCard, Game game)
+    public virtual void Initialize(Game game, Player controller, Card owningCard = null)
     {
       Game = game;
+
       _owningCard = owningCard;
+      _controller = controller;
     }
 
     public virtual bool IsTargetValid(ITarget target, object triggerMessage = null)
@@ -53,6 +56,7 @@
         {
           Game = Game,
           OwningCard = _owningCard,
+          Controller = _controller,
           Target = target
         };
 
@@ -61,9 +65,14 @@
       return _isValidTarget(parameters);
     }
 
-    public virtual bool IsZoneValid(Zone zone, Player controller)
+    public virtual bool IsZoneValid(Zone zone, Player zoneOwner)
     {
-      var p = new ZoneValidatorDelegateParameters(zone, _owningCard, controller, Game);
+      var p = new ZoneValidatorDelegateParameters(
+        zone: zone,
+        zoneOwner: zoneOwner,
+        controller: _controller,
+        game: Game,
+        owningCard: _owningCard);
 
       return _isValidZone(p);
     }
@@ -76,18 +85,17 @@
       if (!target.IsCard())
         return true;
 
-        // todo fix bug here owning card is required
-      return target.Card().CanBeTargetBySpellsOwnedBy(owningCard.Controller) &&
-        !target.Card().HasProtectionFrom(owningCard);
+      return target.Card().CanBeTargetBySpellsOwnedBy(_controller) &&
+        (owningCard == null || !target.Card().HasProtectionFrom(owningCard));
     }
 
     public virtual string GetMessage(int targetNumber, int? x)
     {
-      var messageFormat = MessageFormat;
+      var messageFormat = Message;
 
       if (messageFormat == null)
       {
-        messageFormat = MaxCount.GetValue(x) == 1
+        messageFormat = MaxCount != null && MaxCount.GetValue(x) == 1
           ? DefaultMessageOneTarget
           : DefaultMessageMultipleTargets;
       }
@@ -97,11 +105,16 @@
         messageFormat = String.Format("{0}: {1}", _owningCard, messageFormat);
       }
 
-      var maxNumber = MinCount == MaxCount
-        ? MaxCount.ToString()
-        : "max. " + MaxCount;
+      if (MaxCount != null)
+      {
+        var maxNumber = MinCount.GetValue(x) == MaxCount.GetValue(x)
+          ? MaxCount.GetValue(x).ToString()
+          : "max. " + MaxCount.GetValue(x);
 
-      return string.Format(messageFormat, targetNumber, maxNumber);
+        return string.Format(messageFormat, targetNumber, maxNumber);
+      }
+
+      return string.Format(messageFormat, targetNumber);
     }
 
     public bool HasValidZone(ITarget target)
@@ -111,7 +124,14 @@
       if (zone == null)
         return true;
 
-      return _isValidZone(new ZoneValidatorDelegateParameters(zone.Value, _owningCard, target.Controller(), Game));
+      var p = new ZoneValidatorDelegateParameters(
+        zone: zone.Value,
+        zoneOwner: target.Controller(),
+        controller: _controller,
+        game: Game,
+        owningCard: _owningCard);
+
+      return _isValidZone(p);
     }
   }
 }

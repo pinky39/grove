@@ -2,9 +2,10 @@
 {
   public class TargetValidatorDelegateParameters
   {
+    public Player Controller;
     public Game Game;
-    public ITarget Target;
     public Card OwningCard;
+    public ITarget Target;
 
     private object _message;
 

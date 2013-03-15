@@ -6,13 +6,15 @@
   {
     public Zone Zone { get; private set; }
     public Player ZoneOwner { get; private set; }
-    public Card Source { get; private set; }
+    public Card OwningCard { get; private set; }
+    public Player Controller { get; private set; }
     
-    public ZoneValidatorDelegateParameters(Zone zone, Card source, Player controller, Game game)
+    public ZoneValidatorDelegateParameters(Zone zone, Player zoneOwner, Player controller, Game game, Card owningCard = null)
     {
       Zone = zone;
-      Source = source;
-      ZoneOwner = controller;      
+      OwningCard = owningCard;
+      ZoneOwner = zoneOwner;
+      Controller = controller;
       Game = game;
     }
   }

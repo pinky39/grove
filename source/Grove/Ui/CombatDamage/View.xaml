@@ -79,7 +79,7 @@
                                             <ContentControl Content="{Binding Blocker.Card}" Style="{StaticResource Card}"/>                                                                                  
                                         </ContentControl>
 
-                                        <TextBlock Style="{StaticResource Label}" HorizontalAlignment = "Center" FontSize = "80" FontWeight = "Bold" Text = "{Binding Damage}" />
+                                        <TextBlock Style="{StaticResource Label}" HorizontalAlignment = "Center" FontSize = "80" FontWeight = "Bold" Text = "{Binding AssignedDamage}" />
                                     </Grid>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>

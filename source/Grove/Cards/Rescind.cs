@@ -22,9 +22,9 @@
           {
             p.Effect = () => new ReturnToHand {Category = EffectCategories.Bounce};
             p.TargetSelector.AddEffect(trg => trg.Is.Card().On.Battlefield());
-
-            p.TimingRule(new TargetRemoval());
+            
             p.TargetingRule(new Bounce());
+            p.TimingRule(new TargetRemoval());
           });
     }
   }

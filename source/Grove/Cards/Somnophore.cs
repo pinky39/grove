@@ -45,7 +45,7 @@
                     tp.TriggerMessage<DamageHasBeenDealt>().Receiver == tp.Target.Controller())
                   .On.Battlefield();
 
-                trg.Text = "Select a creature to tap.";
+                trg.Message = "Select a creature to tap.";
               });
 
             p.TargetingRule(new GainPacifism());

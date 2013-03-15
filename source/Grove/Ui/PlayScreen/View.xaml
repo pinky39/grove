@@ -3,7 +3,8 @@
              xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:cl="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
-             xmlns:grove="clr-namespace:Grove.Ui" >
+             xmlns:grove="clr-namespace:Grove.Ui" >    
+    
     <i:Interaction.Triggers>
         <grove:InputBindingTrigger>
             <grove:InputBindingTrigger.InputBinding>
@@ -19,7 +20,7 @@
             <cl:ActionMessage MethodName="QuitGame"/>
         </grove:InputBindingTrigger>
     </i:Interaction.Triggers>
-    <Grid>
+    <Grid>        
         <Grid Background="#000">
             <Grid.RowDefinitions>
                 <RowDefinition Height="32"/>
@@ -55,7 +56,10 @@
             </Border>
             <!-- End Sidebar -->
             <!-- Battlefield -->
-            <Border Grid.Column="1" Grid.Row="1" Style="{StaticResource BattlefieldBorder}">
+            <Border Grid.Column="1" Grid.Row="1" Margin="2">
+                <Border.Background>
+                    <ImageBrush ImageSource="{grove:Background}" />
+                </Border.Background>
                 <Grid>
                     <Grid>
                         <Grid>

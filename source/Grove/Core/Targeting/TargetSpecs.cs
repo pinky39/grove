@@ -77,7 +77,7 @@
         {
           var hasValidController = controlledBy == null || HasValidController(
             p.Target.Controller(), 
-            p.OwningCard.Controller, 
+            p.Controller, 
             controlledBy.Value);
           
           if (p.Target.IsCard())

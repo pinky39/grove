@@ -36,7 +36,7 @@
             p.TargetSelector.AddEffect(trg =>
               {
                 trg.Is.Enchantment().In.YourGraveyard();
-                trg.Text = "Select an enchantment in your graveyard.";
+                trg.Message = "Select an enchantment in your graveyard.";
               });
 
             p.TargetingRule(new OrderByRank(c => -c.Score));

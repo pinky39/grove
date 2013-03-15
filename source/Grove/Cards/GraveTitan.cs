@@ -35,7 +35,7 @@
                 Card
                   .Named("Zombie Token")
                   .FlavorText(
-                    "'Your brain is rotting?!.'{EOL}'...enough.'{EOL}-Y.A, 'The seven zombies'")
+                    "'Your brain is rotting? ...enough?'{EOL}-Y.A, 'The seven zombies'")
                   .Power(2)
                   .Toughness(2)
                   .Type("Creature - Token - Zombie")

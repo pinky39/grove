@@ -31,8 +31,9 @@
 
       if (p.CastInstructions.Count == 0)
       {
-        p.CastInstructions.Add(
-          new CastInstruction(GetDefaultCastInstructionParameters(p)));
+        var castParams = GetDefaultCastInstructionParameters(p);
+        SetDefaultTimingRules(p, castParams);          
+        p.CastInstructions.Add(new CastInstruction(castParams));
       }
 
       return new Card(p);
@@ -84,11 +85,29 @@
           set(p);
 
           p.Text = string.Format(p.Text, cp.Name);
+
+          if (p.HasTimingRules == false)
+          {
+             SetDefaultTimingRules(cp, p);  
+          }
+
           cp.CastInstructions.Add(new CastInstruction(p));
         }
         );
 
       return this;
+    }
+
+    private void SetDefaultTimingRules(CardParameters cp, CastInstructionParameters p)
+    {
+      if (cp.Type.Creature)
+      {
+        p.TimingRule(new Creatures());
+      }
+      else if (cp.Type.Land)
+      {
+        p.TimingRule(new Lands());
+      }
     }
 
     public CardFactory Prevention(Func<DamagePrevention> factory)

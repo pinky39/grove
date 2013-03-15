@@ -38,7 +38,7 @@
                 trg.Is.Card(controlledBy: ControlledBy.SpellOwner)
                   .On.Battlefield();
 
-                trg.Text = "Select a permanent to sacrifice.";                
+                trg.Message = "Select a permanent to sacrifice.";                
               });
             p.TargetingRule(new SacrificeToGainLife());
           }
