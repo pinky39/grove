@@ -497,6 +497,7 @@
     <Compile Include="Core\Ai\TimingRules\ControllerIsAttacked.cs" />
     <Compile Include="Core\CardFactory.cs" />
     <Compile Include="Core\CardParameters.cs" />
+    <Compile Include="Core\CardRatings.cs" />
     <Compile Include="Core\Casting\Aura.cs" />
     <Compile Include="Core\Casting\Permanent.cs" />
     <Compile Include="Core\ContiniousEffects.cs" />
@@ -507,6 +508,7 @@
     <Compile Include="Core\Costs\RemoveCounter.cs" />
     <Compile Include="Core\Costs\Tap.cs" />
     <Compile Include="Core\Decisions\IChooseEffectOptionsAi.cs" />
+    <Compile Include="Core\DeckBuilder.cs" />
     <Compile Include="Core\Effects\ApplyModifiersToPlayers.cs" />
     <Compile Include="Core\Effects\DestroyAllLandsOrCreatures.cs" />
     <Compile Include="Core\Effects\DestroyPermanent.cs" />
