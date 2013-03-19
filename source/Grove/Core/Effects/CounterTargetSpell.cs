@@ -54,19 +54,21 @@
 
     private void CounterSpell()
     {
+      var targetSpellController = Target.Effect().Controller;
+      
       if (_controllerLifeloss.HasValue)
       {
-        Controller.Life -= _controllerLifeloss.Value;
+        targetSpellController.Life -= _controllerLifeloss.Value;
       }
 
       if (_tapLandsAndEmptyManaPool)
       {
-        foreach (var land in Controller.Battlefield.Lands)
+        foreach (var land in targetSpellController.Battlefield.Lands)
         {
           land.Tap();
         }
 
-        Controller.EmptyManaPool();
+        targetSpellController.EmptyManaPool();
       }
 
       Stack.Counter(Target.Effect());

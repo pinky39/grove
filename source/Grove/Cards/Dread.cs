@@ -32,6 +32,8 @@
 
             p.Effect = () => new DestroyPermanent(P(e =>
               e.TriggerMessage<DamageHasBeenDealt>().Damage.Source));
+
+            p.TriggerOnlyIfOwningCardIsInPlay = true;
           })
         .TriggeredAbility(p =>
           {
