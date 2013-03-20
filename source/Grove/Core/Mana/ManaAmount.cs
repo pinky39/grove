@@ -49,7 +49,7 @@
     public static int MaxRank(this IManaAmount amount)
     {
       return amount.IsZero() ? 0 : amount.Max(x => x.Rank);
-    }
+    }    
 
     public static string ToString(this IManaAmount amount)
     {

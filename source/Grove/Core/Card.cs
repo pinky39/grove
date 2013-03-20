@@ -23,15 +23,13 @@
     private readonly CastInstructions _castInstructions;
     private readonly CardColors _colors;
     private readonly ContiniousEffects _continuousEffects;
-    private ControllerCharacteristic _controller;
     private readonly Counters.Counters _counters;
     private readonly Trackable<int> _damage = new Trackable<int>();
-    private readonly DamagePreventions _damagePreventions;    
+    private readonly DamagePreventions _damagePreventions;
     private readonly Trackable<bool> _hasLeathalDamage = new Trackable<bool>();
     private readonly Trackable<bool> _hasSummoningSickness = new Trackable<bool>();
     private readonly Trackable<int?> _hash = new Trackable<int?>();
     private readonly Trackable<bool> _isHidden = new Trackable<bool>();
-    private bool _isPreview = true;
     private readonly Trackable<bool> _isRevealed = new Trackable<bool>();
     private readonly Trackable<bool> _isTapped = new Trackable<bool>();
     private readonly Level _level;
@@ -44,53 +42,15 @@
     private readonly CardTypeCharacteristic _type;
     private readonly Trackable<int> _usageScore = new Trackable<int>();
     private readonly Trackable<IZone> _zone = new Trackable<IZone>(new NullZone());
+    private ControllerCharacteristic _controller;
+    private bool _isPreview = true;
 
     protected Card() {}
-  
-    public Card Initialize(Player owner, Game game)
-    {
-      Game = game;
-      Owner = owner;      
-      
-      _controller = new ControllerCharacteristic(owner);
-      _controller.Initialize(game, this);
-      _power.Initialize(game, this);
-      _toughness.Initialize(game, this);
-      _level.Initialize(game, this);
-      _counters.Initialize(game.ChangeTracker, this);
-      _type.Initialize(game, this);
-      _colors.Initialize(game, this);
-      _protections.Initialize(game.ChangeTracker, this);
-      _zone.Initialize(game.ChangeTracker, this);
-      _modifiers.Initialize(game.ChangeTracker);
-      
-      _isTapped.Initialize(game.ChangeTracker, this);
-      _attachedTo.Initialize(game.ChangeTracker, this);
-      _attachments.Initialize(game, this);
-      _canRegenerate.Initialize(game.ChangeTracker, this);
-      _damage.Initialize(game.ChangeTracker, this);
-      _hasLeathalDamage.Initialize(game.ChangeTracker, this);
-      _hasSummoningSickness.Initialize(game.ChangeTracker, this);
-      _hash.Initialize(game.ChangeTracker);
-      _isHidden.Initialize(game.ChangeTracker, this);
-      _isRevealed.Initialize(game.ChangeTracker, this);            
-      _usageScore.Initialize(game.ChangeTracker, this);
-      _damagePreventions.Initialize(this, game, this);
-      _castInstructions.Initialize(this, game);
-      _staticAbilities.Initialize(game.ChangeTracker, this);
-      _triggeredAbilities.Initialize(this, game);
-      _activatedAbilities.Initialize(this, game);        
-      _continuousEffects.Initialize(this, game, this);
-
-      _isPreview = false;
-
-      return this;
-    }
 
     public Card(CardParameters p)
-    {      
+    {
       Name = p.Name;
-      ManaCost = p.ManaCost;      
+      ManaCost = p.ManaCost;
       MayChooseNotToUntap = p.MayChooseNotToUntap;
       OverrideScore = p.OverrideScore;
       Text = p.Text;
@@ -101,7 +61,7 @@
       _toughness = new Toughness(p.Toughness);
       _level = new Level(p.IsLeveler ? 0 : (int?) null);
       _counters = new Counters.Counters(_power, _toughness);
-      _type = new CardTypeCharacteristic(p.Type);      
+      _type = new CardTypeCharacteristic(p.Type);
 
       _colors = new CardColors(
         p.Colors == ManaColors.None
@@ -113,10 +73,10 @@
       _damagePreventions = p.DamagePreventions;
 
       _staticAbilities = p.StaticAbilities;
-      _triggeredAbilities = p.TriggeredAbilities;      
+      _triggeredAbilities = p.TriggeredAbilities;
       _activatedAbilities = p.ActivatedAbilities;
-      _castInstructions = p.CastInstructions;                    
-      _continuousEffects = p.ContinuousEffects;      
+      _castInstructions = p.CastInstructions;
+      _continuousEffects = p.ContinuousEffects;
     }
 
     public bool MayChooseNotToUntap { get; private set; }
@@ -228,7 +188,7 @@
         // avoid activations that do no good
         score = score - UsageScore;
 
-        
+
         // auras controlled by other player are added to their score
         if (IsPermanent && Is().Aura && AttachedTo.Controller != Controller)
         {
@@ -250,6 +210,7 @@
     public ScoreOverride OverrideScore { get; private set; }
     public bool IsVisibleInUi { get { return _isPreview || IsVisibleToPlayer(Players.Human); } }
     public bool IsVisible { get { return Search.InProgress ? IsVisibleToPlayer(Players.Searching) : IsVisibleToPlayer(Controller); } }
+    public bool IsMultiColored { get { return EnumEx.GetSetBitCount((long) Colors) > 1; } }
 
     public void AddModifier(IModifier modifier)
     {
@@ -352,8 +313,8 @@
             Level.GetHashCode(),
             Colors.GetHashCode(),
             Counters.GetHashCode(),
-            Type.GetHashCode(),            
-            _isRevealed.Value.GetHashCode(),            
+            Type.GetHashCode(),
+            _isRevealed.Value.GetHashCode(),
             calc.Calculate(_staticAbilities),
             calc.Calculate(_triggeredAbilities),
             calc.Calculate(_activatedAbilities),
@@ -365,6 +326,46 @@
       }
 
       return _hash.Value.GetValueOrDefault();
+    }
+
+    public Card Initialize(Player owner, Game game)
+    {
+      Game = game;
+      Owner = owner;
+
+      _controller = new ControllerCharacteristic(owner);
+      _controller.Initialize(game, this);
+      _power.Initialize(game, this);
+      _toughness.Initialize(game, this);
+      _level.Initialize(game, this);
+      _counters.Initialize(game.ChangeTracker, this);
+      _type.Initialize(game, this);
+      _colors.Initialize(game, this);
+      _protections.Initialize(game.ChangeTracker, this);
+      _zone.Initialize(game.ChangeTracker, this);
+      _modifiers.Initialize(game.ChangeTracker);
+
+      _isTapped.Initialize(game.ChangeTracker, this);
+      _attachedTo.Initialize(game.ChangeTracker, this);
+      _attachments.Initialize(game, this);
+      _canRegenerate.Initialize(game.ChangeTracker, this);
+      _damage.Initialize(game.ChangeTracker, this);
+      _hasLeathalDamage.Initialize(game.ChangeTracker, this);
+      _hasSummoningSickness.Initialize(game.ChangeTracker, this);
+      _hash.Initialize(game.ChangeTracker);
+      _isHidden.Initialize(game.ChangeTracker, this);
+      _isRevealed.Initialize(game.ChangeTracker, this);
+      _usageScore.Initialize(game.ChangeTracker, this);
+      _damagePreventions.Initialize(this, game, this);
+      _castInstructions.Initialize(this, game);
+      _staticAbilities.Initialize(game.ChangeTracker, this);
+      _triggeredAbilities.Initialize(this, game);
+      _activatedAbilities.Initialize(this, game);
+      _continuousEffects.Initialize(this, game, this);
+
+      _isPreview = false;
+
+      return this;
     }
 
     public int EvaluateReceivedDamage(Card damageSource, int amount, bool isCombat)
@@ -457,7 +458,7 @@
     {
       return !Has().Shroud && !Has().Hexproof && !HasProtectionFrom(manaColors);
     }
-    
+
     public bool CanBeTargetBySpellsOwnedBy(Player player)
     {
       return !Has().Shroud && (player == Controller ? true : !Has().Hexproof);
@@ -661,7 +662,7 @@
     public void Untap()
     {
       IsTapped = false;
-      
+
       if (Turn.Step != Step.Untap)
       {
         UsageScore -= ScoreCalculator.CalculateTapPenalty(this, Turn);
@@ -717,7 +718,7 @@
       }
 
       return cardColor;
-    }    
+    }
 
     public void Exile()
     {
@@ -752,14 +753,14 @@
     }
 
     public void Reveal()
-    {      
+    {
       // Reveal should only work during actual game.
       // Revealing cards during simulation should have no 
       // effect.
-      
+
       if (Search.InProgress)
         return;
-      
+
       _isRevealed.Value = true;
       _isHidden.Value = false;
     }
