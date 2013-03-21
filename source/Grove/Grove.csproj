@@ -524,10 +524,12 @@
     <Compile Include="Core\Effects\UntapSelectedPermanents.cs" />
     <Compile Include="Core\Ai\MachinePlayRule.cs" />
     <Compile Include="Core\GameObject.cs" />
+    <Compile Include="Core\MagicSet.cs" />
     <Compile Include="Core\ManaAbilityParameters.cs" />
     <Compile Include="Core\Modifiers\ChangeBasicLand.cs" />
     <Compile Include="Core\Modifiers\ModifierParameters.cs" />
     <Compile Include="Core\Modifiers\RemoveStaticAbility.cs" />
+    <Compile Include="Core\Rarity.cs" />
     <Compile Include="Core\ScoreOverride.cs" />
     <Compile Include="Core\SpellCounterReason.cs" />
     <Compile Include="Core\ManaAmountCharacteristic.cs" />

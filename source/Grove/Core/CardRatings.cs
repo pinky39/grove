@@ -1,6 +1,5 @@
 ﻿namespace Grove.Core
 {
-  using System;
   using System.Collections.Generic;
 
   public class CardRatings
@@ -14,7 +13,7 @@
 
     public double GetRating(string cardname)
     {
-      throw new NotImplementedException();
+      return _ratings[cardname];
     }
   }
 }

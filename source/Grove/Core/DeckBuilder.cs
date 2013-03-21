@@ -29,16 +29,13 @@
       };
 
     private readonly CardDatabase _cardDatabase;
-    private readonly CardRatings _cardRatings;
 
-
-    public DeckBuilder(CardDatabase cardDatabase, CardRatings cardRatings)
+    public DeckBuilder(CardDatabase cardDatabase)
     {
       _cardDatabase = cardDatabase;
-      _cardRatings = cardRatings;
     }
 
-    public List<List<string>> BuildDecks(List<string> cardNames)
+    public List<List<string>> BuildDecks(List<string> cardNames, CardRatings cardRatings)
     {
       var cards = cardNames.Select(x => _cardDatabase.CreateCard(x)).ToList();
 
@@ -52,7 +49,7 @@
           .Where(x => ColorFilters[i](x) || x.HasColors(ManaColors.Colorless))
           .ToList();
 
-        var monoDeck = BuildDeckNoLands(mono);
+        var monoDeck = BuildDeckNoLands(mono, cardRatings);
         if (monoDeck != null)
           decks.Add(monoDeck);
 
@@ -62,7 +59,7 @@
             .Where(x => ColorFilters[i](x) || ColorFilters[j](x) || x.HasColors(ManaColors.Colorless))
             .ToList();
 
-          var dualDeck = BuildDeckNoLands(dual);
+          var dualDeck = BuildDeckNoLands(dual, cardRatings);
 
           if (dualDeck != null)
             decks.Add(dualDeck);
@@ -71,13 +68,13 @@
 
       foreach (var deck in decks)
       {
-        AddLands(deck);
+        AddLands(deck, cardRatings);
       }
 
       return decks.Select(d => d.Select(c => c.Name).ToList()).ToList();
     }
 
-    private void AddLands(List<Card> deck)
+    private void AddLands(List<Card> deck, CardRatings cardRatings)
     {
       var landCount = CalculateOptimalLandCount(deck);
 
@@ -85,7 +82,7 @@
 
       if (actualDeckSize > DeckCardCount)
       {
-        RemoveWorstCards(actualDeckSize - DeckCardCount, deck);
+        RemoveWorstCards(actualDeckSize - DeckCardCount, deck, cardRatings);
       }
 
       var distribution = GetLandsDistribution(landCount, deck);
@@ -146,10 +143,10 @@
       }
     }
 
-    private void RemoveWorstCards(int count, List<Card> deck)
+    private void RemoveWorstCards(int count, List<Card> deck, CardRatings cardRatings)
     {
       var cardsToRemove = deck
-        .OrderBy(x => _cardRatings.GetRating(x.Name))
+        .OrderBy(x => cardRatings.GetRating(x.Name))
         .Take(count);
 
       foreach (var card in cardsToRemove)
@@ -171,11 +168,11 @@
       return LandCountRules.Last().Count;
     }
 
-    private List<Card> BuildDeckNoLands(IEnumerable<Card> cards)
+    private List<Card> BuildDeckNoLands(IEnumerable<Card> cards, CardRatings cardRatings)
     {
       var creatures = cards
         .Where(x => x.Is().Creature)
-        .OrderByDescending(x => _cardRatings.GetRating(x.Name))
+        .OrderByDescending(x => cardRatings.GetRating(x.Name))
         .ToList();
 
       var other = cards
@@ -193,7 +190,7 @@
       other.AddRange(creatures.Skip(MinCreatureCount));
 
       result.AddRange(other
-        .OrderByDescending(x => _cardRatings.GetRating(x.Name))
+        .OrderByDescending(x => cardRatings.GetRating(x.Name))
         .Take(MinSpellCount - MinCreatureCount));
 
       return result;

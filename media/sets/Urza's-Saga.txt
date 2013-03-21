@@ -1,0 +1,17 @@
+# Urza's Saga configuration file.
+
+!Tournament Pack
+Rares: 3
+Uncommons: 10
+Commons: 32
+
+!Booster Pack
+Rares: 1
+Uncommons: 3
+Commons: 11
+
+!Cards
+Absolute Grace;Uncommon;3.00
+Absolute Law;Uncommon;3.00
+Abyssal Horror;Rare;3.00
+Academy Researchers;Common;3.00
