@@ -509,6 +509,7 @@
     <Compile Include="Core\Costs\Tap.cs" />
     <Compile Include="Core\Decisions\IChooseEffectOptionsAi.cs" />
     <Compile Include="Core\DeckBuilder.cs" />
+    <Compile Include="Core\DeckEvaluator.cs" />
     <Compile Include="Core\Effects\ApplyModifiersToPlayers.cs" />
     <Compile Include="Core\Effects\DestroyAllLandsOrCreatures.cs" />
     <Compile Include="Core\Effects\DestroyPermanent.cs" />

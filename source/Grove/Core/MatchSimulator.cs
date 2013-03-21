@@ -5,7 +5,6 @@
   using System.Diagnostics;
   using Decisions;
 
-
   public class MatchSimulator
   {
     private readonly CardDatabase _cardDatabase;
@@ -33,6 +32,7 @@
 
       result.Duration = stopwatch.Elapsed;
 
+      result.WinningDeck = result.Deck1WinCount > result.Deck2WinCount ? deck1 : deck2;
       return result;
     }
 
@@ -59,6 +59,7 @@
     {
       public int Deck1WinCount { get; set; }
       public int Deck2WinCount { get; set; }
+      public List<string> WinningDeck { get; set; }
       public TimeSpan Duration { get; set; }
     }
   }

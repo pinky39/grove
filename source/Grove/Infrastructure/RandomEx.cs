@@ -41,6 +41,11 @@
       return ShuffleInPlace(range.ToArray());
     }
 
+    public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> enumerable)
+    {
+      return enumerable.OrderBy(x => Rnd.Next());
+    }
+
     public static IList<T> ShuffleInPlace<T>(this IList<T> list)
     {
       // Fisher-Yates shuffle

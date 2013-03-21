@@ -82,7 +82,7 @@
       var landCount = CalculateOptimalLandCount(deck);
 
       var actualDeckSize = landCount + deck.Count;
-      
+
       if (actualDeckSize > DeckCardCount)
       {
         RemoveWorstCards(actualDeckSize - DeckCardCount, deck);
@@ -98,7 +98,7 @@
     }
 
     private static int[] GetLandsDistribution(int landCount, List<Card> deck)
-    {                                    
+    {
       var manaCounts = new ColoredManaCounts();
 
       foreach (var card in deck)
@@ -110,9 +110,9 @@
         manaCounts.Green += card.ManaCost.Count(x => x.HasColor(ManaColors.Green));
       }
 
-      Func<int, int> getCount = colorCount => landCount * colorCount / manaCounts.Total;
+      Func<int, int> getCount = colorCount => landCount*colorCount/manaCounts.Total;
 
-      int[] distribution = new int[]
+      var distribution = new[]
         {
           getCount(manaCounts.White),
           getCount(manaCounts.Blue),
@@ -124,7 +124,7 @@
       var roundedCount = distribution.Sum();
       var landsToDistribute = landCount - roundedCount;
 
-      for (int i = 0; i < distribution.Length; i++)
+      for (var i = 0; i < distribution.Length; i++)
       {
         if (distribution[i] > 0)
           distribution[i]++;
@@ -140,10 +140,10 @@
 
     private IEnumerable<Card> CreateLands(string name, double count)
     {
-      for (int i = 0; i < count; i++)
+      for (var i = 0; i < count; i++)
       {
         yield return _cardDatabase.CreateCard(name);
-      }            
+      }
     }
 
     private void RemoveWorstCards(int count, List<Card> deck)
@@ -197,23 +197,23 @@
         .Take(MinSpellCount - MinCreatureCount));
 
       return result;
-    }    
+    }
+
+    private class ColoredManaCounts
+    {
+      public int Black;
+      public int Blue;
+      public int Green;
+      public int Red;
+      public int White;
+
+      public int Total { get { return White + Blue + Black + Red + Green; } }
+    }
 
     private class LandCountRule
     {
       public double Cost;
       public int Count;
     }
-
-    private class ColoredManaCounts
-    {
-      public int White;
-      public int Blue;
-      public int Black;
-      public int Red;
-      public int Green;
-
-      public int Total {get { return White + Blue + Black + Red + Green; }}           
-    }   
   }
 }
