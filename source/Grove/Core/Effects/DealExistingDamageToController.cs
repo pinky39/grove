@@ -4,10 +4,12 @@
   {
     private readonly DynParam<Damage> _damage;
 
+    private DealExistingDamageToController() {}
+
     public DealExistingDamageToController(DynParam<Damage> damage)
     {
       _damage = damage;
-      
+
       RegisterDynamicParameters(damage);
     }
 

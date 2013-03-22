@@ -1,6 +1,5 @@
 ﻿namespace Grove.Core.Ai
 {
-  using System;
   using System.Collections.Generic;
   using System.Threading.Tasks;
   using Infrastructure;
@@ -16,6 +15,8 @@
     private readonly SearchResults _searchResults;
     private int _nodesSearched;
     private int _subTreesPrunned;
+
+    private SearchWorker() {}
 
     public SearchWorker(Search search, SearchResults searchResults, ISearchNode rootNode)
     {
@@ -156,7 +157,6 @@
 
         for (var i = 0; i < searchNode.ResultCount; i++)
         {
-          
           var task = _search.ExecuteTask(
             parentWorker: this,
             parentNode: searchNode,
@@ -165,8 +165,8 @@
 
           tasks.Add(task);
         }
-      
-        Task.WaitAll(tasks.ToArray());      
+
+        Task.WaitAll(tasks.ToArray());
         return;
       }
 

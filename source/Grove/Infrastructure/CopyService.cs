@@ -206,60 +206,73 @@
     }
 
     private class TypeCache
-    {
-      // no locking is needed this cache is never written to on multiple threads.
-
+    {      
       private readonly HashSet<Type> _copyableTypes = new HashSet<Type>();
       private readonly Dictionary<Type, ParameterlessCtor> _ctors = new Dictionary<Type, ParameterlessCtor>();
       private readonly Dictionary<Type, CopyHandler> _handlers = new Dictionary<Type, CopyHandler>();
+      private readonly object _handlersLock = new object();
+      private readonly object _typesLock = new object();
+      private readonly object _ctorLock = new object();
 
       public CopyHandler GetCopyHandler(Type type)
       {
         CopyHandler copyHandler = null;
 
-        if (_handlers.TryGetValue(type, out copyHandler) == false)
+        lock (_handlersLock)
         {
-          var attributes = type.GetCustomAttributes(typeof (CopyableAttribute), inherit: true);
-          var isCopyable = attributes.Length > 0;
-
-          if (isCopyable)
+          if (_handlers.TryGetValue(type, out copyHandler) == false)
           {
-            copyHandler = new CopyHandler(type);
-          }
+            var attributes = type.GetCustomAttributes(typeof(CopyableAttribute), inherit: true);
+            var isCopyable = attributes.Length > 0;
 
-          _handlers.Add(type, copyHandler);
+            if (isCopyable)
+            {
+              copyHandler = new CopyHandler(type);
+            }
+
+            _handlers.Add(type, copyHandler);
+          }  
         }
-
+        
         return copyHandler;
       }
 
       public bool IsCopyable(Type type)
       {
-        return _copyableTypes.Contains(type);
+        lock (_typesLock)
+        {
+          return _copyableTypes.Contains(type);
+        }
       }
 
       public void AddCopyable(Type type)
       {
-        _copyableTypes.Add(type);
+        lock (_typesLock)
+        {
+          _copyableTypes.Add(type);
+        }
       }
 
       public ParameterlessCtor GetCtor(Type type)
       {
-        ParameterlessCtor ctor;
-        if (_ctors.TryGetValue(type, out ctor) == false)
+        lock (_ctorLock)
         {
-          ctor = type.GetParameterlessCtor();
-
-          if (ctor == null)
+          ParameterlessCtor ctor;
+          if (_ctors.TryGetValue(type, out ctor) == false)
           {
-            throw new InvalidOperationException(
-              String.Format("Type {0} is marked with [Copyable] but is missing a parameterless constructor.", type));
+            ctor = type.GetParameterlessCtor();
+
+            if (ctor == null)
+            {
+              throw new InvalidOperationException(
+                String.Format("Type {0} is marked with [Copyable] but is missing a parameterless constructor.", type));
+            }
+
+            _ctors.Add(type, ctor);
           }
 
-          _ctors.Add(type, ctor);
+          return ctor;
         }
-
-        return ctor;
       }
     }
   }

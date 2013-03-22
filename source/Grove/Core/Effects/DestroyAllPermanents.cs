@@ -6,7 +6,9 @@
   public class DestroyAllPermanents : Effect
   {
     private readonly Func<Effect, Card, bool> _filter;
-    
+
+    private DestroyAllPermanents() {}
+
     public DestroyAllPermanents(Func<Effect, Card, bool> filter = null)
     {
       _filter = filter ?? delegate { return true; };

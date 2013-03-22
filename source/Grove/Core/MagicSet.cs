@@ -34,13 +34,13 @@
 
       switch (rarity)
       {
-        case (Rarity.Common):
+        case (Rarity.C):
           _commons.Add(name);
           break;
-        case (Rarity.Uncommon):
+        case (Rarity.U):
           _uncommons.Add(name);
           break;
-        case (Rarity.Rare):
+        case (Rarity.R):
           _rares.Add(name);
           break;
       }
@@ -88,6 +88,7 @@
         if (sections.ContainsKey(trimmed))
         {
           currentSection = sections[trimmed];
+          continue;
         }
 
         if (currentSection == null)
@@ -104,14 +105,31 @@
 
     private string GetRandomUncommon()
     {
-      return _uncommons[Random.Next(0, _commons.Count)];
+      return _uncommons[Random.Next(0, _uncommons.Count)];
     }
 
     private string GetRandomRare()
     {
-      return _rares[Random.Next(0, _commons.Count)];
+      return _rares[Random.Next(0, _rares.Count)];
     }
 
+    public List<string> GenerateMixedPack(int boosterCount, int tournamentCount)
+    {
+      var pack = new List<string>();
+
+      for (int i = 0; i < boosterCount; i++)
+      {
+        pack.AddRange(GenerateBoosterPack());
+      }
+
+      for (int i = 0; i < tournamentCount; i++)
+      {
+        pack.AddRange(GenerateTournamentPack());
+      }
+
+      return pack;
+    }
+    
     public List<string> GenerateTournamentPack()
     {
       return GeneratePack(_tournamentPack);

@@ -1,0 +1,22 @@
+﻿usage: Grove.Utils COMMAND [ARGS]
+
+write-card-list
+------------------------------------------------------------------------
+Writes all available card names to a file.
+
+-filename	the name of the file to write card list to.
+
+Example:
+Grove.Utils	write-card-list filename=cards.txt
+------------------------------------------------------------------------
+
+write-card-ratings
+------------------------------------------------------------------------
+Downloads ratings for all implemented cards from gather and stores them
+into a file. If the file exists, existing ratings are not overwritten.
+
+-filename	the name of the file to write ratings to.
+
+Example:
+Grove.Utils	write-card-ratings filename=ratings.txt
+------------------------------------------------------------------------

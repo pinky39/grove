@@ -7,6 +7,8 @@
     private readonly int _count;
     private readonly DynParam<Player> _player;
 
+    private DiscardCards() {}
+
     public DiscardCards(int count, DynParam<Player> player = null)
     {
       _count = count;

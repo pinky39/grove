@@ -4,6 +4,7 @@
   using System.Collections;
   using System.Collections.Generic;
   using System.Linq;
+  using System.Reflection;
   using Grove.Infrastructure;
   using Xunit;
 
@@ -26,6 +27,41 @@
       Assert.Equal(triceratops.Age, triceratopsCopy.Age);
       Assert.Equal(triceratops.NumOfHorns, triceratopsCopy.NumOfHorns);
       Assert.Equal(triceratops.HasBeenVaxined, triceratopsCopy.HasBeenVaxined);
+    }
+
+    [Fact]
+    public void CheckThatAllCopyableTypesImplementParameterlessCtor()
+    {
+      var copyableTypes = Assembly.GetAssembly(typeof (CopyService)).GetTypes()
+        .Where(x => x.HasAttribute<CopyableAttribute>())
+        .Where(x => !x.IsAbstract)   
+        .Where(x => !x.IsGenericType)   
+        .Where(x => !x.Namespace.StartsWith("Grove.Ui"))
+        .ToList();
+
+      var violators = new List<string>();
+      
+      foreach (var copyableType in copyableTypes)
+      {
+        var ctor = copyableType.GetParameterlessCtor();
+
+        if (ctor == null)
+        {
+          violators.Add(copyableType.ToString());                    
+        }
+      }
+
+      if (violators.Count > 0)
+      {
+        Console.WriteLine("Following types are marked with [Copyable] but don't have parameterless ctor:\n");
+        
+        foreach (var violator in violators)
+        {
+          Console.WriteLine(violator);  
+        }        
+        
+        Assert.False(true);
+      }
     }
 
     [Fact]

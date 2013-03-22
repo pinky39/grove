@@ -6,6 +6,8 @@
   {
     private readonly IManaAmount _increment;
 
+    private ManaAmountIncrement() {}
+
     public ManaAmountIncrement(IManaAmount increment)
     {
       _increment = increment;

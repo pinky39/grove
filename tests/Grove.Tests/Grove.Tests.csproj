@@ -224,12 +224,13 @@
     <Compile Include="Cards\WildDogs.cs" />
     <Compile Include="Cards\WizardMentor.cs" />
     <Compile Include="Cards\Worship.cs" />
+    <Compile Include="DeckBuilderFacts.cs" />
     <Compile Include="MatchSimulatorFacts.cs" />
     <Compile Include="Sandbox\PublisherFacts.cs" />
     <Compile Include="Unit\ActivationFacts.cs" />
-    <Compile Include="Unit\BlockStrategyFacts.cs" />
+    <Compile Include="Scenarios\BlockStrategyFacts.cs" />
     <Compile Include="Unit\ClosedFacts.cs" />
-    <Compile Include="Unit\GameFacts.cs" />
+    <Compile Include="Scenarios\GameFacts.cs" />
     <Compile Include="Unit\HashCalculatorFacts.cs" />
     <Compile Include="Infrastructure\PredefinedAiScenario.cs" />
     <Compile Include="Unit\KnapsackFacts.cs" />

@@ -27,6 +27,7 @@
 
     protected CardDatabase CardDatabase { get { return Container.Resolve<CardDatabase>(); } }
     protected DecisionSystem DecisionSystem { get { return Container.Resolve<DecisionSystem>(); } }
+    protected MatchSimulator MatchSimulator { get { return Container.Resolve<MatchSimulator>(); } }
 
     protected Game Game { get; private set; }
     protected Player P1 { get { return Game.Players.Player1; } }

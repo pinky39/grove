@@ -1,0 +1,217 @@
+# Urza's Saga configuration file.
+
+!Tournament Pack
+Rares: 3
+Uncommons: 10
+Commons: 32
+
+!Booster Pack
+Rares: 1
+Uncommons: 3
+Commons: 11
+
+!Cards
+Absolute Grace;U;3
+Absolute Law;U;2.5
+Abyssal Horror;R;3.5
+Academy Researchers;U;3
+Acidic Soil;U;3.2
+Acridian;C;3.5
+Albino Troll;U;4
+Anaconda;U;3.8
+Angelic Chorus;R;2.5
+Angelic Page;C;3.8
+Annul;C;3.5
+Antagonism;R;3
+Arc Lightning;C;4
+Argothian Elder;U;3
+Argothian Enchantress;R;3
+Argothian Swine;C;3.8
+Argothian Wurm;R;4
+Attunement;R;3.5
+Back to Basics;R;2
+Barrin, Master Wizard;R;3.8
+Barrin's Codex;R;3.8
+Bedlam;R;3.5
+Befoul;C;4.5
+Bereavement;U;2
+Blanchwood Armor;U;4
+Blanchwood Treefolk;C;3.8
+Blasted Landscape;U;3.5
+Blood Vassal;C;3.5
+Bog Raiders;C;3.8
+Brand;R;2
+Bravado;C;3.4
+Breach;C;3
+Brilliant Halo;C;3.8
+Bull Hippo;U;3.5
+Bulwark;R;3
+Cackling Fiend;C;3
+Carrion Beetles;C;3
+Catalog;C;3.5
+Catastrophe;R;4.5
+Cathodion;U;3.8
+Cave Tiger;C;3.2
+Child of Gaea;R;4.5
+Chimeric Staff;R;4
+Citanul Centaurs;R;4
+Citanul Hierophants;R;3
+Claws of Gix;U;3.5
+Clear;U;3.8
+Cloak of Mists;C;3.5
+Confiscate;U;4
+Congregate;C;3.8
+Copper Gnomes;R;3
+Coral Merfolk;C;2
+Corrupt;C;4
+Cradle Guard;U;4
+Crater Hellion;R;4.5
+Crazed Skirge;U;3.5
+Crosswinds;U;2.5
+Crystal Chimes;U;3.2
+Curfew;C;3.5
+Dark Hatchling;R;4
+Dark Ritual;C;2.5
+Darkest Hour;R;2.5
+Despondency;C;3.5
+Destructive Urge;U;3.5
+Diabolic Servitude;U;3.8
+Disciple of Grace;C;3.5
+Disciple of Law;C;3.2
+Discordant Dirge;R;2.5
+Disenchant;C;3.5
+Disorder;U;3.2
+Disruptive Student;C;3.5
+Douse;U;3
+Dragon Blood;U;4
+Drifting Djinn;R;4
+Drifting Meadow;C;3
+Dromosaur;C;3.5
+Duress;C;3.5
+Eastern Paladin;R;3.8
+Electryte;R;3.2
+Elite Archers;R;4
+Elvish Herder;C;3.8
+Elvish Lyrist;C;3.8
+Endless Wurm;R;3.5
+Endoskeleton;U;3.5
+Energy Field;R;3
+Exhaustion;U;3.8
+Exhume;C;3.5
+Exploration;R;3.5
+Expunge;C;4
+Falter;C;4
+Fault Line;R;4
+Fecundity;U;2.5
+Fertile Ground;C;4
+Fiery Mantle;C;3.8
+Fire Ants;U;4
+Flesh Reaver;U;2.5
+Fog Bank;U;4.5
+Fortitude;C;3.2
+Gaea's Bounty;C;3.8
+Gaea's Cradle;R;3.5
+Gaea's Embrace;U;4
+Gamble;R;4
+Gilded Drake;R;3.7
+Glorious Anthem;R;4
+Goblin Cadets;U;3
+Goblin Lackey;U;3
+Goblin Matron;C;3
+Goblin Offensive;U;4
+Goblin Patrol;C;3.2
+Goblin Raider;C;3.2
+Goblin Spelunkers;C;3.2
+Goblin War Buggy;C;3.5
+Gorilla Warrior;C;3.5
+Grafted Skullcap;R;3.7
+Great Whale;R;3.7
+Greater Good;R;3
+Greener Pastures;R;3.5
+Guma;U;3.3
+Hawkeater Moth;U;3.5
+Headlong Rush;C;3.3
+Healing Salve;C;3.3
+Heat Ray;C;4
+Herald of Serra;R;4
+Hermetic Study;C;4
+Hibernation;C;3.3
+Hidden Ancients;U;3.8
+Hidden Guerrillas;U;3.2
+Hidden Herd;R;3
+Hidden Predators;R;3.5
+Hidden Spider;C;3.5
+Hidden Stag;R;3.4
+Hollow Dogs;C;3.8
+Hopping Automaton;U;3.5
+Horseshoe Crab;C;3.7
+Humble;U;3.8
+Hush;C;3.8
+Ill-Gotten Gains;R;4
+Imaginary Pet;R;3.5
+Intrepid Hero;R;4
+Jagged Lightning;U;4
+Karn, Silver Golem;R;4.2
+Launch;C;3.8
+Lay Waste;C;3.5
+Lightning Dragon;R;4.5
+Lilting Refrain;U;3.5
+Lingering Mirage;U;2
+Looming Shade;C;4
+Lotus Blossom;R;2.5
+Lull;C;3.8
+Lurking Evil;R;3
+Mana Leech;U;3.2
+Meltdown;U;3
+Midsummer Revel;R;3.8
+Mishra's Helix;R;3.5
+Mobile Fort;U;3.8
+Monk Idealist;U;3.9
+Monk Realist;C;3.9
+Opal Acrolith;U;4
+Opal Caryatid;C;3
+Opal Gargoyle;C;3.8
+Opal Titan;R;4
+Pacifism;C;4
+Pariah;R;4
+Pegasus Charger;C;4
+Pendrell Drake;C;3.8
+Pestilence;C;4.2
+Phyrexian Ghoul;C;3.7
+Polluted Mire;C;3
+Pouncing Jaguar;C;3.2
+Power Sink;C;4
+Remote Isle;C;3
+Rescind;C;3.7
+Rune of Protection: Black;C;3.8
+Sanctum Custodian;C;3.8
+Sanctum Guardian;U;3.7
+Sandbar Merfolk;C;2.5
+Sandbar Serpent;U;3.7
+Scrap;C;3.7
+Serra's Embrace;U;4
+Shivan Raptor;U;3.9
+Shiv's Embrace;U;4.2
+Shower of Sparks;C;3.4
+Sicken;C;3.4
+Silent Attendant;C;3.2
+Slippery Karst;C;3
+Smoldering Crater;C;3
+Somnophore;R;4
+Songstitcher;U;3.8
+Stern Proctor;U;3.2
+Symbiosis;C;4
+Thran Turbine;U;3
+Thundering Giant;U;4
+Torch Song;U;3.8
+Turnabout;U;3.8
+Unworthy Dead;C;3.8
+Urza's Armor;U;3.6
+Victimize;U;3.7
+Voice of Grace;U;4
+Wall of Junk;U;3.5
+Waylay;U;3.8
+Wild Dogs;C;3.5
+Wildfire;R;4
+Wizard Mentor;C;3.7
+Worship;R;4.2

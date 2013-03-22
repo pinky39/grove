@@ -2,8 +2,8 @@
 {
   public enum Rarity
   {
-    Common,
-    Uncommon,
-    Rare
+    C,
+    U,
+    R
   }
 }

@@ -6,6 +6,8 @@
   {
     private readonly int _amount;
 
+    private TargetPlayerGainsLife() {}
+
     public TargetPlayerGainsLife(int amount)
     {
       _amount = amount;

@@ -13,6 +13,7 @@
     private const string Images = @"images\";
     private const string Cards = @"cards\";
     private const string Decks = @"decks\";
+    private const string Sets = @"sets\";
 
 #if DEBUG
     private static readonly string BasePath = Path.GetFullPath(@"..\..\..\..\media\");
@@ -22,7 +23,7 @@
 
     public static string ImagesFolder { get { return Path.Combine(BasePath, Images); } }
     public static string DecksFolder { get { return Path.Combine(BasePath, Decks); } }
-
+    public static string SetsFolder { get { return Path.Combine(BasePath, Sets); } }
 
     public static ImageSource GetCardImage(string name)
     {
@@ -53,6 +54,11 @@
     public static string GetDeckPath(string name)
     {
       return Path.Combine(DecksFolder, name + ".dec");
+    }
+
+    public static string GetSetPath(string name)
+    {
+      return Path.Combine(SetsFolder, name + ".txt");
     }
 
     public static Core.Deck GetDeck(string name, CardDatabase cardDatabase)

@@ -10,6 +10,8 @@
     private readonly string _text;
     private readonly Func<Card, bool> _validator;
 
+    private UntapSelectedPermanents() {}
+
     public UntapSelectedPermanents(int minCount, int maxCount, Func<Card, bool> validator = null, string text = null)
     {
       _minCount = minCount;
@@ -20,7 +22,7 @@
 
     protected override void ResolveEffect()
     {
-      Game.Enqueue<SelectCardsToUntap>(Controller,
+      Enqueue<SelectCardsToUntap>(Controller,
         p =>
           {
             p.Validator = _validator;

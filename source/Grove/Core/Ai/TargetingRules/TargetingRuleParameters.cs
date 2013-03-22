@@ -10,6 +10,8 @@
     private readonly TargetsCandidates _candidates;
     private readonly Ai.ActivationContext _context;
 
+    private TargetingRuleParameters() {}
+
     public TargetingRuleParameters(TargetsCandidates candidates, Ai.ActivationContext context, Game game)
     {
       _candidates = candidates;
@@ -17,7 +19,7 @@
       Game = game;
     }
 
-    public Player Controller { get { return _context.Card.Controller; } }    
+    public Player Controller { get { return _context.Card.Controller; } }
     public int? X { get { return _context.X; } }
     public int MaxX { get { return _context.MaxX.GetValueOrDefault(); } }
     public int EffectTargetTypeCount { get { return _context.Selector.Effect.Count; } }
@@ -61,7 +63,7 @@
               .Select(x => (T) x);
           }
       }
-      
+
       return candidates
         .Where(x => x is T)
         .Select(x => (T) x);

@@ -11,11 +11,14 @@
     private readonly Func<Player, Card, bool> _shouldPayAi;
     private readonly string _text;
     private readonly Func<Card, bool> _validator;
-    
-    public SacrificePermanentOrSacrificeOwner(Func<Card, bool> validator = null, Func<Player, Card, bool> shouldPayAi = null, string text = null)
+
+    private SacrificePermanentOrSacrificeOwner() {}
+
+    public SacrificePermanentOrSacrificeOwner(Func<Card, bool> validator = null,
+      Func<Player, Card, bool> shouldPayAi = null, string text = null)
     {
       _shouldPayAi = shouldPayAi ?? delegate { return true; };
-      _text = text ??  "Select permanent to sacrifice";
+      _text = text ?? "Select permanent to sacrifice";
       _validator = validator ?? delegate { return true; };
     }
 

@@ -7,6 +7,8 @@
   {
     private readonly int _multiplier;
 
+    private TargetPlayerGainsLifeEqualToCreatureCount() {}
+
     public TargetPlayerGainsLifeEqualToCreatureCount(int multiplier = 1)
     {
       _multiplier = multiplier;

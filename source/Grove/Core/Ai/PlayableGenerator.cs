@@ -9,6 +9,8 @@
   {
     private readonly Player _player;
 
+    private PlayableGenerator() {}
+
     public PlayableGenerator(Player player)
     {
       _player = player;
@@ -51,30 +53,30 @@
     }
 
     private IEnumerable<Playable> GeneratePlayables(ActivationPrerequisites prerequisites, Func<Playable> createPlayable)
-    {      
+    {
       var context = new ActivationContext(prerequisites);
 
       foreach (var rule in prerequisites.Rules)
       {
         rule.Process(context);
-      
+
         if (context.CancelActivation)
           yield break;
       }
 
-      
+
       if (context.HasTargets == false)
       {
         var playable = createPlayable();
 
         playable.Card = prerequisites.Card;
-        playable.Index = prerequisites.Index;        
+        playable.Index = prerequisites.Index;
         playable.ActivationParameters.X = context.X;
 
         yield return playable;
         yield break;
       }
-      
+
       foreach (var targetsCombination in context.TargetsCombinations())
       {
         var playable = createPlayable();

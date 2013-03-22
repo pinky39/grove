@@ -7,7 +7,7 @@
 
   public class MatchSimulatorFacts
   {
-    //[Fact]
+    [Fact]
     public void Simulate()
     {
       var deck1 = "Kuno-rg-beastfires";

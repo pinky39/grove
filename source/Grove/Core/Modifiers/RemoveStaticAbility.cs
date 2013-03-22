@@ -4,9 +4,11 @@
 
   public class RemoveStaticAbility : Modifier
   {
+    private readonly Trackable<bool> _removed = new Trackable<bool>();
     private readonly Static _staticAbility;
     private StaticAbilities _abilities;
-    private readonly Trackable<bool> _removed = new Trackable<bool>();
+
+    private RemoveStaticAbility() {}
 
     public RemoveStaticAbility(Static staticAbility)
     {
@@ -23,7 +25,7 @@
       _abilities = abilities;
       _removed.Value = _abilities.Remove(_staticAbility);
     }
-    
+
     protected override void Unapply()
     {
       if (_removed)

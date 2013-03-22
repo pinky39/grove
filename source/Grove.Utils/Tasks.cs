@@ -48,7 +48,7 @@
       {
         foreach (var ratedCard in ratedCards)
         {
-          writer.WriteLine("{0} {1}",
+          writer.WriteLine("{0};{1}",
             ratedCard.Rating.GetValueOrDefault()
               .ToString("f", CultureInfo.InvariantCulture), ratedCard.Name);
         }
@@ -65,7 +65,7 @@
 
         while (line != null)
         {
-          var ratingAndName = line.Split(new[] {" "}, 2, StringSplitOptions.RemoveEmptyEntries);
+          var ratingAndName = line.Split(new[] {";"}, 2, StringSplitOptions.RemoveEmptyEntries);
 
           if (ratingAndName.Length == 2)
           {
