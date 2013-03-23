@@ -11,9 +11,10 @@
 
     private PlayableGenerator() {}
 
-    public PlayableGenerator(Player player)
+    public PlayableGenerator(Player player, Game game)
     {
       _player = player;
+      Game = game;
     }
 
     private void FindPlayableAbilities(IEnumerable<Card> cards, List<Playable> allPlayables)
@@ -77,7 +78,7 @@
         yield break;
       }
 
-      foreach (var targetsCombination in context.TargetsCombinations())
+      foreach (var targetsCombination in context.TargetsCombinations().Take(Search.MaxTargetCandidates))
       {
         var playable = createPlayable();
 

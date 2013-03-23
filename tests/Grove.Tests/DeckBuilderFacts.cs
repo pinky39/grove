@@ -25,7 +25,7 @@
             
       var builder = new DeckBuilder(CardDatabase);
       var decks = builder.BuildDecks(pileOfCards, set.Ratings);
-
+      
       for (int i = 0; i < decks.Count; i++)
       {
         var deck = decks[i];

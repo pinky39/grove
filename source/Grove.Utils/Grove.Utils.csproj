@@ -79,13 +79,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Arguments.cs" />
+    <Compile Include="GenerateDeck.cs" />
+    <Compile Include="IoC.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RatedCard.cs" />
     <Compile Include="RatingDownloader.cs" />
-    <Compile Include="TaskRegistration.cs" />
+    <Compile Include="Task.cs" />
     <Compile Include="TaskRunner.cs" />
-    <Compile Include="Tasks.cs" />
+    <Compile Include="WriteCardList.cs" />
+    <Compile Include="WriteCardRatings.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Grove\Grove.csproj">

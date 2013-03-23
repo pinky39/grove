@@ -7,29 +7,21 @@
   using System.Linq;
   using Core;
 
-  public class Tasks
+  public class WriteCardRatings : Task
   {
-    public CardDatabase CardDatabase { get; set; }
+    private readonly CardDatabase _cardDatabase;
 
-    public void WriteCardList(string filename)
+    public WriteCardRatings(CardDatabase cardDatabase)
     {
-      var cardNames = CardDatabase.GetCardNames();
+      _cardDatabase = cardDatabase;
+    }    
 
-      Console.WriteLine("Writing {0}...", filename);
-      using (var writer = new StreamWriter(filename, append: true))
-      {
-        foreach (var cardName in cardNames)
-        {
-          writer.WriteLine(cardName);
-        }
-      }
-    }
-
-    public void WriteCardRatings(string filename)
+    public override void Execute(Arguments arguments)
     {
       var downloader = new RatingDownloader();
+      var filename = arguments["filename"];
 
-      var ratedCards = CardDatabase.GetCardNames()
+      var ratedCards = _cardDatabase.GetCardNames()
         .Select(x => new RatedCard {Name = x})
         .ToList();
 
@@ -54,7 +46,7 @@
         }
       }
     }
-
+    
     private static void ReadExistingRatings(string filename, IEnumerable<RatedCard> ratedCards)
     {
       var ratedCardsDictionary = ratedCards.ToDictionary(x => x.Name);

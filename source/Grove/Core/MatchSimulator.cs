@@ -16,7 +16,7 @@
       _decisionSystem = decisionSystem;
     }
 
-    public SimulationResult Simulate(List<string> deck1, List<string> deck2)
+    public SimulationResult Simulate(List<string> deck1, List<string> deck2, int maxTurnsPerGame = 100)
     {
       var stopwatch = new Stopwatch();
       stopwatch.Start();
@@ -25,33 +25,54 @@
 
       while (result.Deck1WinCount < 2 && result.Deck2WinCount < 2)
       {
-        SimulateGame(deck1, deck2, result);
+        SimulateGame(deck1, deck2, result, maxTurnsPerGame);
       }
 
       stopwatch.Stop();
 
       result.Duration = stopwatch.Elapsed;
 
-      result.WinningDeck = result.Deck1WinCount > result.Deck2WinCount ? deck1 : deck2;
       return result;
     }
 
-    private void SimulateGame(List<string> deck1, List<string> deck2, SimulationResult result)
+    private void SimulateGame(List<string> deck1, List<string> deck2, SimulationResult result, int maxTurnsPerGame)
     {
-      Game game = Game.NewSimulation(deck1, deck2, _cardDatabase, _decisionSystem);
+      var stopwatch = new Stopwatch();
+      var game = Game.NewSimulation(deck1, deck2, _cardDatabase, _decisionSystem);
 
-      game.Start();
+      game.Search.Started += delegate
+        {
+          result.TotalSearchCount++;
+          stopwatch.Start();
+        };
+
+      game.Search.Finished += delegate
+        {
+          stopwatch.Stop();
+
+          if (stopwatch.Elapsed > result.MaxSearchTime)
+          {
+            result.MaxSearchTime = stopwatch.Elapsed;
+          }
+
+          stopwatch.Reset();
+        };
+
+
+      game.Start(numOfTurns: maxTurnsPerGame);
+
+      result.TotalTurnCount += game.Turn.TurnCount;
 
       if (game.Players.BothHaveLost)
-        return;
-
-      if (game.Players.Player1.HasLost)
+        return;      
+      
+      if (game.Players.Player1.Score > -game.Players.Player2.Score)
       {
-        result.Deck2WinCount++;
+        result.Deck1WinCount++;
         return;
       }
 
-      result.Deck1WinCount++;
+      result.Deck2WinCount++;
       return;
     }
 
@@ -59,8 +80,10 @@
     {
       public int Deck1WinCount { get; set; }
       public int Deck2WinCount { get; set; }
-      public List<string> WinningDeck { get; set; }
       public TimeSpan Duration { get; set; }
+      public int TotalTurnCount { get; set; }
+      public int TotalSearchCount { get; set; }
+      public TimeSpan MaxSearchTime { get; set; }
     }
   }
 }

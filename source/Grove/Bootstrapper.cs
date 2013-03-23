@@ -17,7 +17,7 @@
     {
       AppDomain.CurrentDomain.UnhandledException += (s, a) => MessageBox.Show(a.ExceptionObject.ToString(), "BUUUUU :(");
 
-      Container = IoC.Ui();
+      Container = new IoC(IoC.Configuration.Ui);
       ConfigureCaliburn();
     }
 

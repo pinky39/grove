@@ -20,3 +20,13 @@ into a file. If the file exists, existing ratings are not overwritten.
 Example:
 Grove.Utils	write-card-ratings filename=ratings.txt
 ------------------------------------------------------------------------
+
+generate-deck
+------------------------------------------------------------------------
+Generates limited deck from specified set.
+
+-set	the name of the magic set.
+
+Example:
+Grove.Utils	generate-deck "set=Urza's Saga"
+------------------------------------------------------------------------

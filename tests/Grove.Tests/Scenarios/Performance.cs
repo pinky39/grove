@@ -131,13 +131,13 @@
     {
       Hand(P1, "Plains", "Forest", "Sword of Feast and Famine", "Sword of Body and Mind");
       Hand(P2, "Baneslayer Angel", "Deathless Angel");
-      
+
       Battlefield(P1, "Razorverge Thicket", "Student of Warfare", "Razorverge Thicket", "Forest",
         C("Troll Ascetic").IsEquipedWith("Sword of Feast and Famine"), "Sunpetal Grove", "Sunpetal Grove");
-      
+
       Battlefield(P2, "Plains", "Plains", "White Knight", "Plains", "Student of Warfare", "Plains", "Trip Noose",
         "Plains", "Wall of Reverence", "Plains");
-      
+
 
       RunGame(maxTurnCount: 1);
     }
@@ -148,7 +148,21 @@
       Hand(P1, "Pestilence", "Voice of Grace", "Corrupt", "Rune of Protection: Black");
       Hand(P2, "Day of Judgment", "Elesh Norn, Grand Cenobite", "Student of Warfare");
       Battlefield(P1, "Swamp", "Swamp", "Swamp", "Swamp", "Plains", "Plains", "Opal Acrolith", "Pestilence");
-      Battlefield(P2, "Plains", "Plains", "Plains", "Plains", "Wall of Reverence", "Plains", "Wall of Reverence", "Hero of Bladehold", "Trip Noose");
+      Battlefield(P2, "Plains", "Plains", "Plains", "Plains", "Wall of Reverence", "Plains", "Wall of Reverence",
+        "Hero of Bladehold", "Trip Noose");
+
+      RunGame(maxTurnCount: 2);
+    }
+
+    [Fact]
+    public void Num13()
+    {
+      Hand(P1, "Cloak of Mists", "Annul");
+      Hand(P2, "Elite Archers");
+      Battlefield(P1, "Forest", "Pouncing Jaguar", "Island", "Island", "Cave Tiger", "Island", "Fog Bank", "Mobile Fort",
+        "Hawkeater Moth", "Elvish Herder", "Barrin's Codex", "Forest", "Karn, Silver Golem", "Dragon Blood");
+      Battlefield(P2, "Forest", "Elvish Herder", "Plains", "Plains", "Acridian", "Plains", "Forest", "Cradle Guard",
+        "Plains", "Plains", "Hawkeater Moth", "Worship", "Plains", "Blanchwood Treefolk");
 
       RunGame(maxTurnCount: 2);
     }

@@ -2,56 +2,38 @@
 {
   using System;
   using System.Collections.Generic;
-  using System.Linq;
 
   public class TaskRunner
-  {    
-    private readonly Dictionary<string, Action<Arguments>> _registration = new Dictionary<string, Action<Arguments>>();  
-    private readonly Tasks _tasks = new Tasks();
-
+  {
     protected static readonly IoC Container = CreateContainer();
-
-    private static IoC CreateContainer()
-    {
-      var container = IoC.Test();
-      container.Register(typeof(Tasks));
-      return container;
-    }
+    private readonly Dictionary<string, Func<Task>> _registrations = new Dictionary<string, Func<Task>>();
 
     public TaskRunner()
     {
-      _tasks = Container.Resolve<Tasks>();
-      _registration = Define();
-    }
-
-    private TaskRegistration Task(string keyword, Action<Arguments> task)
-    {
-      return new TaskRegistration(keyword, task);
-    }
-
-    private Dictionary<string, Action<Arguments>> Define()
-    {
-                  
-      var entries = new[]
+      _registrations = new Dictionary<string, Func<Task>>()
         {
-          Task("write-card-list", arguments => _tasks.WriteCardList(arguments["filename"])),
-          Task("write-card-ratings", arguments => _tasks.WriteCardRatings(arguments["filename"]))
+          {"write-card-list", () => Container.Resolve<WriteCardList>()},
+          {"write-card-ratings", () => Container.Resolve<WriteCardList>()},
+          {"generate-deck", () => Container.Resolve<GenerateDeck>()}
         };
+    }
 
-      return entries.ToDictionary(x => x.Keyword, x => x.Task);
+    private static IoC CreateContainer()
+    {
+      var container = new IoC();
+      return container;
     }
 
     public void Run(string name, string[] args)
     {
-      if (_registration.ContainsKey(name))
+      if (_registrations.ContainsKey(name))
       {
-
         try
         {
-          _registration[name](new Arguments(args));
+          _registrations[name]().Execute(new Arguments(args));
           Console.WriteLine("Task completed successfuly.");
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
           Console.WriteLine(ex.Message);
         }
@@ -60,6 +42,6 @@
       }
 
       Console.WriteLine(String.Format("Invalid task name: '{0}'.", name));
-    }   
+    }
   }
 }

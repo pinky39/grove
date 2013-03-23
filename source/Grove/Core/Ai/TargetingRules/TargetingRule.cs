@@ -123,8 +123,11 @@
     
     protected IList<Targets> Group(IList<ITarget> candidates, int targetCount, 
       Action<ITarget, Targets> add = null)
-    {
+    {            
       var results = new List<Targets>();
+
+      if (targetCount == 0)
+        return results;
 
       if (candidates.Count < targetCount)
         return results;

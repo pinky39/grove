@@ -2,37 +2,34 @@
 {
   using System;
   using Core;
-  using Ui;
+  using Infrastructure;
   using Xunit;
 
-  public class MatchSimulatorFacts
+  public class MatchSimulatorFacts : Scenario
   {
     [Fact]
     public void Simulate()
     {
-      var deck1 = "Kuno-rg-beastfires";
-      var deck2 = "Kuno-bu-control";
-      
-      var result =
-        MatchSimulator.Simulate(GetDeck(deck1), GetDeck(deck2));
+      var deck1 = "deck1.dec";
+      var deck2 = "deck2.dec";
 
-      Console.WriteLine(@"{0} vs {1}", deck1, deck2);
-      Console.WriteLine(@"Match duration: {0}.", result.Duration);
+      var result = MatchSimulator.Simulate(GetDeck(deck1), GetDeck(deck2), 30);
+
+      Console.WriteLine(@"{0} vs {1}", deck1, deck2);      
       Console.WriteLine(@"{0} win count: {1}.", deck1, result.Deck1WinCount);
-      Console.WriteLine(@"{0} win count: {1}.", deck2, result.Deck2WinCount);
+      Console.WriteLine(@"{0} win count: {1}.", deck2, result.Deck2WinCount);      
+      Console.WriteLine(@"Match duration: {0}.", result.Duration);
+      Console.WriteLine(@"Turn count: {0}.", result.TotalTurnCount);
+      Console.WriteLine(@"Total search count: {0}.", result.TotalSearchCount);
+      Console.WriteLine(@"Max search time: {0}.", result.MaxSearchTime);            
 
       Assert.True(result.Deck1WinCount + result.Deck2WinCount >= 2);
     }
 
-    private static CardDatabase _cardDatabase;
-
-    private readonly IoC _container = IoC.Test();
-    private MatchSimulator MatchSimulator { get { return _container.Resolve<MatchSimulator>(); } }
-    private CardDatabase CardDatabase { get { return _cardDatabase ?? (_cardDatabase = _container.Resolve<CardDatabase>().LoadPreviews()); } }
-
     private Deck GetDeck(string name)
     {
-      return MediaLibrary.GetDeck(name, CardDatabase);
+      CardDatabase.LoadPreviews();
+      return new DeckReaderWriter().Read(@".\" + name, CardDatabase);
     }
   }
 }

@@ -28,7 +28,7 @@
             p.Effect = () => new UntapOwner();
 
             p.TimingRule(new Turn(active: true));
-            p.TimingRule(new MainSteps());
+            p.TimingRule(new SecondMain());
             p.TimingRule(new OwningCardHas(c => c.IsTapped));
           });
     }

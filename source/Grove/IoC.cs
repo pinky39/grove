@@ -19,8 +19,6 @@
   using Core.Decisions.Human;
   using Core.Dsl;
   using Infrastructure;
-  using Ui;
-  using Ui.DistributeDamage;
   using Ui.Permanent;
   using Ui.Shell;
 
@@ -30,7 +28,7 @@
 
     private IWindsorContainer _container;
 
-    private IoC(Configuration configuration)
+    public IoC(Configuration configuration)
     {
       _configuration = configuration;
     }
@@ -42,27 +40,11 @@
         return _container
           ?? (_container = CreateContainer());
       }
-    }
-
-    public static IoC Test()
-    {
-      return new IoC(Configuration.Test);
-    }
-
-    public static IoC Ui()
-    {
-      return new IoC(Configuration.Ui);
-    }
+    }   
 
     public T Resolve<T>()
     {
       return Container.Resolve<T>();
-    }
-
-    public void Register(Type service, Type implementation = null,
-      LifestyleType lifestyle = LifestyleType.Transient)
-    {
-      Container.Register(Registration.Component(service, implementation, lifestyle));
     }
 
     public object Resolve(Type type)
@@ -82,11 +64,17 @@
 
     private IWindsorContainer CreateContainer()
     {
-      return new WindsorContainer()
+      var container = new WindsorContainer()
         .Install(new Registration(_configuration));
+
+      Install(container);
+
+      return container;
     }
 
-    private enum Configuration
+    protected virtual void Install(IWindsorContainer container) {}
+
+    public enum Configuration
     {
       Ui,
       Test
@@ -118,9 +106,9 @@
           RegisterShell(container);
           RegisterConfiguration(container);
 
-          container.Register(Component(typeof (Match), lifestyle: LifestyleType.Singleton));          
+          container.Register(Component(typeof (Match), lifestyle: LifestyleType.Singleton));
           container.Register(Component(typeof (CombatMarkers), lifestyle: LifestyleType.Singleton));
-          container.Register(Component(typeof (CardSelector)));
+          container.Register(Component(typeof (CardSelector)));          
         }
 
         RegisterCardsSources(container);
@@ -128,6 +116,9 @@
 
         container.Register(Component(typeof (MatchSimulator), lifestyle: LifestyleType.Singleton));
         container.Register(Component(typeof (CardDatabase), lifestyle: LifestyleType.Singleton));
+        container.Register(Component(typeof (DeckBuilder), lifestyle: LifestyleType.Singleton));
+        container.Register(Component(typeof (DeckEvaluator), lifestyle: LifestyleType.Singleton));
+
       }
 
       public static ComponentRegistration<object> Component(Type service, Type implementation = null,
@@ -260,7 +251,7 @@
           {
             registration.AsFactory();
             registration.LifestyleTransient();
-          }));        
+          }));
       }
     }
 

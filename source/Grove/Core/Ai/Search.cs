@@ -6,6 +6,7 @@
   using System.Linq;
   using System.Threading;
   using System.Threading.Tasks;
+  using Infrastructure;
   using log4net;
   using Messages;
 
@@ -18,7 +19,7 @@
     private readonly Stopwatch _stopwatch = new Stopwatch();
     private readonly Dictionary<object, SearchWorker> _workers = new Dictionary<object, SearchWorker>();
     private readonly object _workersLock = new object();
-    private int _lastSearchDuration;
+    private Queue<int> _lastDurations = new Queue<int>(new[] {0});
     private int _nodesSearched;
     private int _numWorkersCreated;
     private int _startStateCount;
@@ -154,8 +155,14 @@
     {
       RemoveWorker(worker);
 
-      _stopwatch.Stop();
-      _lastSearchDuration = (int) _stopwatch.Elapsed.TotalMilliseconds;
+      _stopwatch.Stop();   
+      
+      if (_lastDurations.Count == 10)
+      {
+        _lastDurations.Dequeue();
+      }
+
+      _lastDurations.Enqueue(((int) _stopwatch.Elapsed.TotalMilliseconds));
 
       Finished(this, EventArgs.Empty);
       searchNode.Game.Publish(new SearchFinished());
@@ -198,20 +205,20 @@
     }
 
     private void AdjustPerformance()
-    {
-      if (_lastSearchDuration > 3000)
+    {            
+      if (_lastDurations.Last() > 3000)
       {
         if (MaxTargetCandidates > 1)
         {
           MaxTargetCandidates--;
         }
-        else if (SearchDepthLimit > 1)
+        if (SearchDepthLimit > 1)
         {
-          SearchDepthLimit -= 2;
+          SearchDepthLimit -= Math.Min(4, SearchDepthLimit - 1);
         }
       }
 
-      if (_lastSearchDuration < 1500)
+      if (_lastDurations.None(x => x > 1500))
       {
         if (SearchDepthLimit < MaxSearchDepthLimit)
         {

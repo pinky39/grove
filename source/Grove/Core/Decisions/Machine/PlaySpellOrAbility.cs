@@ -75,7 +75,7 @@
         return new List<Playable>();
       }
 
-      return new PlayableGenerator(Controller).GetPlayables();
+      return new PlayableGenerator(Controller, Game).GetPlayables();
     }
 
     public override string ToString()

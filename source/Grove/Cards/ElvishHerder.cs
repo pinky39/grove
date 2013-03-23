@@ -31,8 +31,8 @@
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 
             p.TimingRule(new Turn(active: true));
-            p.TimingRule(new DeclareBlockers());
-            p.TargetingRule(new GainEvasion());
+            p.TimingRule(new DeclareBlockers());            
+            p.TargetingRule(new GainEvasion(x => !x.Has().Trample && x.Power >= 4));
           });
     }
   }

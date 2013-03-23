@@ -40,6 +40,7 @@
             p.Effect = () => new DealDamageToTargets(
               amount: P(e => e.Source.OwningCard.Counters.GetValueOrDefault()));
 
+            p.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
             p.TargetingRule(new DealDamage(pt => pt.Card.Counters.GetValueOrDefault()));
             p.TimingRule(new TargetRemoval());
           });

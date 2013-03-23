@@ -15,7 +15,7 @@
 
   public abstract class Scenario : IDisposable
   {
-    protected static readonly IoC Container = IoC.Test();
+    protected static readonly IoC Container = new IoC(IoC.Configuration.Test);
 
     protected Scenario(bool player1ControlledByScript = true, bool player2ControlledByScript = true)
     {

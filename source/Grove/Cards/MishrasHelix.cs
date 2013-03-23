@@ -40,6 +40,7 @@
               });
             
             p.TimingRule(new Steps(steps: Step.Upkeep, activeTurn: false, passiveTurn: true));
+            p.TimingRule(new OpponentHasPermanents(x => x.Is().Land));
             p.CostRule(new OpponentProperty(opponent => opponent.Battlefield.Lands.Count()));
             p.TargetingRule(new Core.Ai.TargetingRules.TapLands());
           });
