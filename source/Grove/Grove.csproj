@@ -301,10 +301,12 @@
     <Compile Include="Cards\MobileFort.cs" />
     <Compile Include="Cards\MonkIdealist.cs" />
     <Compile Include="Cards\MonkRealist.cs" />
+    <Compile Include="Cards\Morphling.cs" />
     <Compile Include="Cards\Mountain.cs" />
     <Compile Include="Cards\ManaLeak.cs" />
     <Compile Include="Cards\MarshCasualties.cs" />
     <Compile Include="Cards\NantukoShade.cs" />
+    <Compile Include="Cards\NoRestForTheWicked.cs" />
     <Compile Include="Cards\OpalAcrolith.cs" />
     <Compile Include="Cards\OpalCaryatid.cs" />
     <Compile Include="Cards\OpalGargoyle.cs" />
@@ -463,6 +465,7 @@
     <Compile Include="Core\Ai\TimingRules\ControllerHandCountIs.cs" />
     <Compile Include="Core\Ai\TimingRules\ControllerNeedsMana.cs" />
     <Compile Include="Core\Ai\TimingRules\DeclareBlockers.cs" />
+    <Compile Include="Core\Ai\TimingRules\GainHexproof.cs" />
     <Compile Include="Core\Ai\TimingRules\ManaConverter.cs" />
     <Compile Include="Core\Ai\TimingRules\MinAttackerCount.cs" />
     <Compile Include="Core\Ai\TimingRules\OpponentHasAtLeastCardsInHand.cs" />

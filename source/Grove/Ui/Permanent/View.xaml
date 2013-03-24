@@ -6,7 +6,7 @@
              xmlns:Ui="clr-namespace:Grove.Ui" >
 	<UserControl.Resources>
 
-        <Style TargetType = "ContentControl" x:Key = "TapUntap" BasedOn = "{StaticResource SelectableContent}" >            
+        <Style TargetType = "Button" x:Key = "TapUntap" BasedOn = "{StaticResource SelectableContent}" >                        
             <Style.Triggers>                         
 				<DataTrigger Binding = "{Binding IsTapped}"
 				             Value = "True" >
@@ -22,25 +22,22 @@
 
 	</UserControl.Resources>
 
-    <ContentControl Style = "{StaticResource TapUntap}" Width = "110" >
-
-        <i:Interaction.Triggers>
-            <i:EventTrigger EventName = "MouseEnter" >
-                <cal:ActionMessage MethodName = "ChangePlayersInterest" />                    
-            </i:EventTrigger>
-            <i:EventTrigger EventName = "MouseUp" >
-                <cal:ActionMessage MethodName = "Select" />
-            </i:EventTrigger>
-        </i:Interaction.Triggers>
-        
+    <Button x:Name="Select"  Style = "{StaticResource TapUntap}" Width = "110" >        
         <Grid>
-            <ContentControl Content = "{Binding }" Style="{StaticResource Card}" />
             
+            <ContentControl Content = "{Binding }" Style="{StaticResource Card}" >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName = "MouseEnter" >
+                        <cal:ActionMessage MethodName = "ChangePlayersInterest" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ContentControl>
+
             <Border Background = "{StaticResource TargetOfSpell}" Visibility = "{Binding IsTargetOfSpell, Converter={x:Static Ui:Converters.BooleanToVisibility}}" />
             <Border BorderBrush = "{StaticResource Playable}" Visibility = "{Binding IsPlayable, Converter={x:Static Ui:Converters.BooleanToVisibility}}" BorderThickness="0,1,0,0" />
             <Border Background= "{Binding Marker, Converter={x:Static Ui:Converters.MarkerBrush}}"/>
             <Border Background= "{StaticResource Selected}" Visibility="{Binding IsSelected, Converter={x:Static Ui:Converters.BooleanToVisibility}}"/>
-		</Grid>
-	</ContentControl>
+        </Grid>
+    </Button>
 
 </UserControl>

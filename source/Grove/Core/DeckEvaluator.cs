@@ -60,7 +60,12 @@
         //var task = Task.Factory.StartNew(() =>
         //  {            
             Console.WriteLine("Deck {0} is playing against Deck {1}...", deck1.Number, deck2.Number);
-            var result = _matchSimulator.Simulate(deck1.Cards, deck2.Cards);
+            var result = _matchSimulator.Simulate(
+              deck1.Cards, 
+              deck2.Cards, 
+              maxTurnsPerGame: 25,
+              maxSearchDepth: 12,
+              maxTargetsCount: 2);
 
             if (result.Deck1WinCount > result.Deck2WinCount)
             {

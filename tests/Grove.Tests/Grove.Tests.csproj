@@ -188,6 +188,7 @@
     <Compile Include="Cards\MobileFort.cs" />
     <Compile Include="Cards\MonkIdealist.cs" />
     <Compile Include="Cards\MonkRealist.cs" />
+    <Compile Include="Cards\Morphling.cs" />
     <Compile Include="Cards\OpalCaryatid.cs" />
     <Compile Include="Cards\Pariah.cs" />
     <Compile Include="Cards\Pestilence.cs" />

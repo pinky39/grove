@@ -12,24 +12,27 @@
 
   public class Search
   {
-    private const int MaxSearchDepthLimit = 16;
-    private const int MaxTargetCountLimit = 2;
+    private readonly int _maxSearchDepth;
+    private readonly int _maxTargetCount;
     private static readonly ILog Log = LogManager.GetLogger(typeof (Search));
     private readonly SearchResults _searchResults = new SearchResults();
     private readonly Stopwatch _stopwatch = new Stopwatch();
     private readonly Dictionary<object, SearchWorker> _workers = new Dictionary<object, SearchWorker>();
     private readonly object _workersLock = new object();
-    private Queue<int> _lastDurations = new Queue<int>(new[] {0});
+    private readonly Queue<int> _lastDurations = new Queue<int>(new[] {0});
     private int _nodesSearched;
     private int _numWorkersCreated;
     private int _startStateCount;
     private int _startStepCount;
     private int _subtreesPrunned;
 
-    public Search()
+    public Search(int maxSearchDepth, int maxTargetCount)
     {
-      SearchDepthLimit = MaxSearchDepthLimit;
-      MaxTargetCandidates = MaxTargetCountLimit;
+      _maxSearchDepth = maxSearchDepth;
+      _maxTargetCount = maxTargetCount;
+      
+      SearchDepthLimit = _maxSearchDepth;
+      MaxTargetCandidates = _maxTargetCount;
     }
 
     public int MaxTargetCandidates { get; private set; }
@@ -220,11 +223,11 @@
 
       if (_lastDurations.None(x => x > 1500))
       {
-        if (SearchDepthLimit < MaxSearchDepthLimit)
+        if (SearchDepthLimit < _maxSearchDepth)
         {
           SearchDepthLimit += 2;
         }
-        else if (MaxTargetCandidates < MaxTargetCountLimit)
+        else if (MaxTargetCandidates < _maxTargetCount)
         {
           MaxTargetCandidates++;
         }

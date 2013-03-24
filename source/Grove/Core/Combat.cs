@@ -26,7 +26,7 @@
     public void Initialize(Game game)
     {
       Game = game;
-      
+
       _attackers.Initialize(game.ChangeTracker);
       _blockers.Initialize(game.ChangeTracker);
     }
@@ -267,7 +267,14 @@
 
       return Attackers
         .Where(x => filter(x))
-        .OrderByDescending(x => x.GetDamageThisWillDealToPlayer())
+        .Select(x => new
+          {
+            Attacker = x,
+            Damage = x.GetDamageThisWillDealToPlayer()
+          })
+        .Where(x => x.Damage > 0)
+        .OrderByDescending(x => x.Damage)
+        .Select(x => x.Attacker)
         .FirstOrDefault();
     }
 

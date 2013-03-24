@@ -5,7 +5,7 @@
   using Xunit;
 
   public class AbyssalHorror
-  {        
+  {                
     public class Predefined : PredefinedScenario
     {
       [Fact]

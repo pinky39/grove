@@ -16,7 +16,7 @@
       _decisionSystem = decisionSystem;
     }
 
-    public SimulationResult Simulate(List<string> deck1, List<string> deck2, int maxTurnsPerGame = 100)
+    public SimulationResult Simulate(List<string> deck1, List<string> deck2, int maxTurnsPerGame = 100, int maxSearchDepth = 16, int maxTargetsCount = 2)
     {
       var stopwatch = new Stopwatch();
       stopwatch.Start();
@@ -25,7 +25,7 @@
 
       while (result.Deck1WinCount < 2 && result.Deck2WinCount < 2)
       {
-        SimulateGame(deck1, deck2, result, maxTurnsPerGame);
+        SimulateGame(deck1, deck2, result, maxTurnsPerGame, maxSearchDepth, maxTargetsCount);
       }
 
       stopwatch.Stop();
@@ -35,10 +35,16 @@
       return result;
     }
 
-    private void SimulateGame(List<string> deck1, List<string> deck2, SimulationResult result, int maxTurnsPerGame)
+    private void SimulateGame(List<string> deck1, List<string> deck2, SimulationResult result, int maxTurnsPerGame, int maxSearchDepth, int maxTargetsCount)
     {
       var stopwatch = new Stopwatch();
-      var game = Game.NewSimulation(deck1, deck2, _cardDatabase, _decisionSystem);
+      var game = Game.NewSimulation(
+        deck1, 
+        deck2, 
+        maxSearchDepth,
+        maxTargetsCount,
+        _cardDatabase, 
+        _decisionSystem);
 
       game.Search.Started += delegate
         {
@@ -56,8 +62,7 @@
           }
 
           stopwatch.Reset();
-        };
-
+        };      
 
       game.Start(numOfTurns: maxTurnsPerGame);
 

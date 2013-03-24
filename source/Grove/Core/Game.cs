@@ -12,14 +12,16 @@
   [Copyable]
   public class Game
   {
+    private const int MaxSearchDepth = 16;
+    private const int MaxTargetCount = 2;
     private DecisionQueue _decisionQueue;
     private DecisionSystem _decisionSystem;
     private Publisher _publisher;
     private Search _search;
     private StateMachine _stateMachine;
     private TurnInfo _turnInfo;
-    private Trackable<bool> _wasStopped;
     private int _turnLimit = int.MaxValue;
+    private Trackable<bool> _wasStopped;
 
     private Game() {}
 
@@ -37,7 +39,7 @@
     public static Game New(List<string> humanDeck, List<string> cpuDeck,
       CardDatabase cardDatabase, DecisionSystem decisionSystem)
     {
-      var game = CreateGame(cardDatabase, decisionSystem);
+      var game = CreateGame(MaxSearchDepth, MaxTargetCount, cardDatabase, decisionSystem);
 
       var player1 = new Player("You", "player1.png", ControllerType.Human, humanDeck);
       var player2 = new Player("Cpu", "player2.png", ControllerType.Machine, cpuDeck);
@@ -60,7 +62,8 @@
       return this;
     }
 
-    private static Game CreateGame(CardDatabase cardDatabase, DecisionSystem decisionSystem)
+    private static Game CreateGame(int maxSearchDepth, int maxTargetCount, CardDatabase cardDatabase,
+      DecisionSystem decisionSystem)
     {
       var game = new Game();
 
@@ -71,7 +74,7 @@
       game._turnInfo = new TurnInfo();
       game._wasStopped = new Trackable<bool>();
       game.Combat = new Combat();
-      game._search = new Search();
+      game._search = new Search(maxSearchDepth, maxTargetCount);
       game._decisionSystem = decisionSystem;
       game._decisionQueue = new DecisionQueue();
       game._stateMachine = new StateMachine(game._decisionQueue);
@@ -103,10 +106,11 @@
       _publisher.Subscribe(instance);
     }
 
-    public static Game NewSimulation(List<string> deck1, List<string> deck2, CardDatabase cardDatabase,
+    public static Game NewSimulation(List<string> deck1, List<string> deck2, int maxSearchDepth, int maxTargetCount,
+      CardDatabase cardDatabase,
       DecisionSystem decisionSystem)
     {
-      var game = CreateGame(cardDatabase, decisionSystem);
+      var game = CreateGame(maxSearchDepth, maxTargetCount, cardDatabase, decisionSystem);
 
       var player1 = new Player("Player1", "player1.png", ControllerType.Machine, deck1);
       var player2 = new Player("Player2", "player2.png", ControllerType.Machine, deck2);
@@ -145,7 +149,7 @@
     public void Start(int numOfTurns = int.MaxValue, bool skipPreGame = false, Player looser = null)
     {
       _turnLimit = numOfTurns;
-      
+
       _stateMachine.Start(ShouldContinue, skipPreGame, looser);
     }
 
@@ -161,7 +165,7 @@
 
     private bool ShouldContinue()
     {
-      return !_wasStopped.Value && !IsFinished ;
+      return !_wasStopped.Value && !IsFinished;
     }
 
     public void AddScenarioDecisions(IEnumerable<DecisionsForOneStep> prerecordedDecisions)
@@ -172,11 +176,11 @@
     public static Game NewScenario(ControllerType player1Controller, ControllerType player2Controller,
       CardDatabase cardDatabase, DecisionSystem decisionSystem)
     {
-      var game = CreateGame(cardDatabase, decisionSystem);
+      var game = CreateGame(MaxSearchDepth, MaxTargetCount, cardDatabase, decisionSystem);
 
       var player1 = new Player("Player1", "player1.png", player1Controller, CreateDummyDeck());
       var player2 = new Player("Player2", "player2.png", player2Controller, CreateDummyDeck());
-      game.Players = new Players(player1, player2);      
+      game.Players = new Players(player1, player2);
       game.Initialize();
 
       game.Players.Starting = game.Players.Player1;

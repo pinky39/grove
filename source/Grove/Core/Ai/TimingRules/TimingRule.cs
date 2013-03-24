@@ -47,8 +47,9 @@
 
     public abstract bool ShouldPlay(TimingRuleParameters p);
 
-    protected bool CanBeDestroyed(TimingRuleParameters p) {
-      if (Turn.Step == Step.DeclareBlockers)
+    protected bool CanBeDestroyed(TimingRuleParameters p, bool targetOnly = false, bool considerCombat = true) {
+            
+      if (considerCombat && Turn.Step == Step.DeclareBlockers)
       {
         return Combat.CanBeDealtLeathalCombatDamage(p.Card);
       }
@@ -56,7 +57,7 @@
       if (Stack.IsEmpty)
         return false;
 
-      return Stack.CanBeDestroyedByTopSpell(p.Card);
+      return Stack.CanBeDestroyedByTopSpell(p.Card, targetOnly);
     }
   }
 }

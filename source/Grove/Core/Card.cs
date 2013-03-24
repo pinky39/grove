@@ -32,6 +32,7 @@
     private readonly Trackable<bool> _isHidden = new Trackable<bool>();
     private readonly Trackable<bool> _isRevealed = new Trackable<bool>();
     private readonly Trackable<bool> _isTapped = new Trackable<bool>();
+    private readonly Trackable<int> _lastZoneChange = new Trackable<int>(0);
     private readonly Level _level;
     private readonly TrackableList<IModifier> _modifiers = new TrackableList<IModifier>();
     private readonly Power _power;
@@ -211,6 +212,7 @@
     public bool IsVisibleInUi { get { return _isPreview || IsVisibleToPlayer(Players.Human); } }
     public bool IsVisible { get { return Search.InProgress ? IsVisibleToPlayer(Players.Searching) : IsVisibleToPlayer(Controller); } }
     public bool IsMultiColored { get { return EnumEx.GetSetBitCount((long) Colors) > 1; } }
+    public bool HasChangedZoneThisTurn { get { return _lastZoneChange.Value == Turn.TurnCount; } }
 
     public void AddModifier(IModifier modifier)
     {
@@ -344,6 +346,7 @@
       _protections.Initialize(game.ChangeTracker, this);
       _zone.Initialize(game.ChangeTracker, this);
       _modifiers.Initialize(game.ChangeTracker);
+      _lastZoneChange.Initialize(game.ChangeTracker);
 
       _isTapped.Initialize(game.ChangeTracker, this);
       _attachedTo.Initialize(game.ChangeTracker, this);
@@ -630,6 +633,7 @@
           });
 
         oldZone.AfterRemove(this);
+        _lastZoneChange.Value = Turn.TurnCount;
       }
 
       newZone.AfterAdd(this);

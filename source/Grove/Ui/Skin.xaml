@@ -499,6 +499,7 @@
 
 	<Style x:Key="SelectableContent" TargetType="ContentControl">
 		<Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="Focusable" Value="False"/>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="ContentControl">
