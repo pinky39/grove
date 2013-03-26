@@ -22,6 +22,7 @@
     CannotAttack,
     Islandwalk,
     DoesNotUntap,
-    Mountainwalk
+    Mountainwalk,
+    AssignsDamageAsThoughItWasntBlocked
   }
 }

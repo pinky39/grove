@@ -5,33 +5,27 @@
 
   public class AddProtectionFromColors : Modifier
   {
-    private readonly ManaColors _colors;
+    private readonly Func<Modifier, ManaColors> _colors;
     private Protections _protections;
 
-    private AddProtectionFromColors()
-    {
-      
-    }
+    private AddProtectionFromColors() {}
 
     public AddProtectionFromColors(Func<Modifier, ManaColors> colors)
-    {
-      
-    }
-    
-    public AddProtectionFromColors(ManaColors colors)
     {
       _colors = colors;
     }
 
+    public AddProtectionFromColors(ManaColors colors) : this(delegate { return colors; }) {}
+
     public override void Apply(Protections protections)
     {
       _protections = protections;
-      _protections.AddProtectionFromColors(_colors);
+      _protections.AddProtectionFromColors(_colors(this));
     }
 
     protected override void Unapply()
     {
-      _protections.RemoveProtectionFromColors(_colors);
+      _protections.RemoveProtectionFromColors(_colors(this));
     }
   }
 }

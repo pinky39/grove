@@ -23,6 +23,7 @@
     bool Islandwalk { get; }
     bool Mountainwalk { get; }
     bool DoesNotUntap { get; }
+    bool AssignsDamageAsThoughItWasntBlocked { get; }
     bool AnyEvadingAbility { get; }
   }
 }

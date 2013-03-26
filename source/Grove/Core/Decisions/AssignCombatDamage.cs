@@ -14,7 +14,7 @@
         if (Attacker.BlockersCount == 0)
           return false;
 
-        return Attacker.BlockersCount > 1 || Attacker.HasTrample;
+        return Attacker.BlockersCount > 1 || Attacker.HasTrample || Attacker.AssignsDamageAsThoughItWasntBlocked;
       }
     }
 
@@ -24,7 +24,7 @@
       {
         Result = new DamageDistribution();
       }
-      else if (Attacker.BlockersCount == 1 && !Attacker.HasTrample)
+      else if (Attacker.BlockersCount == 1 && !(Attacker.HasTrample || Attacker.AssignsDamageAsThoughItWasntBlocked))
       {
         Result = new DamageDistribution();
         Result.Assign(Attacker.Blockers.First(), Attacker.DamageThisWillDealInOneDamageStep);

@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Ai;
@@ -36,6 +37,7 @@
     public bool HasTrample { get { return _card.Has().Trample; } }
     public int LifepointsLeft { get { return _card.Life; } }
     public int DamageThisWillDealInOneDamageStep { get { return _card.CalculateCombatDamage(); } }
+    public bool AssignsDamageAsThoughItWasntBlocked { get { return _card.Has().AssignsDamageAsThoughItWasntBlocked; } }
 
     public int CalculateHash(HashCalculator calc)
     {
@@ -95,7 +97,7 @@
 
       var defender = Players.GetOpponent(_card.Controller);
 
-      if (HasTrample || _isBlocked == false)
+      if (HasTrample || AssignsDamageAsThoughItWasntBlocked || _isBlocked == false)
       {
         var unassignedDamage = new Damage(
           source: _card,

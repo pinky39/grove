@@ -306,12 +306,17 @@
     <Compile Include="Cards\ManaLeak.cs" />
     <Compile Include="Cards\MarshCasualties.cs" />
     <Compile Include="Cards\NantukoShade.cs" />
+    <Compile Include="Cards\NoeticScales.cs" />
     <Compile Include="Cards\NoRestForTheWicked.cs" />
     <Compile Include="Cards\OpalAcrolith.cs" />
+    <Compile Include="Cards\OpalArchangel.cs" />
     <Compile Include="Cards\OpalCaryatid.cs" />
     <Compile Include="Cards\OpalGargoyle.cs" />
     <Compile Include="Cards\OpalTitan.cs" />
+    <Compile Include="Cards\Opression.cs" />
     <Compile Include="Cards\OrderOfTheSacredBell.cs" />
+    <Compile Include="Cards\OrderOfYawgmoth.cs" />
+    <Compile Include="Cards\Outmaneuver.cs" />
     <Compile Include="Cards\Pacifism.cs" />
     <Compile Include="Cards\Pariah.cs" />
     <Compile Include="Cards\PegasusCharger.cs" />
@@ -501,6 +506,7 @@
     <Compile Include="Core\CardFactory.cs" />
     <Compile Include="Core\CardParameters.cs" />
     <Compile Include="Core\CardRatings.cs" />
+    <Compile Include="Core\CardZone.cs" />
     <Compile Include="Core\Casting\Aura.cs" />
     <Compile Include="Core\Casting\Permanent.cs" />
     <Compile Include="Core\ContiniousEffects.cs" />

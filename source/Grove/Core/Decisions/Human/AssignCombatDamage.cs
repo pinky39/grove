@@ -1,8 +1,8 @@
 ﻿namespace Grove.Core.Decisions.Human
 {
-  using Grove.Ui.CombatDamage;
-  using Grove.Ui.Shell;
   using Results;
+  using Ui.CombatDamage;
+  using Ui.Shell;
 
   public class AssignCombatDamage : Decisions.AssignCombatDamage
   {

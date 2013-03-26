@@ -19,7 +19,7 @@
 
     private void AssignUnassignedDamage(List<Blocker> blockers, int damageLeft, DamageDistribution damageDistribution)
     {
-      if (!Attacker.HasTrample && damageLeft > 0)
+      if (!(Attacker.HasTrample || Attacker.AssignsDamageAsThoughItWasntBlocked) && damageLeft > 0)
         damageDistribution.Assign(blockers[0], damageLeft);
     }
 
@@ -30,14 +30,17 @@
       var damageLeft = Attacker.DamageThisWillDealInOneDamageStep;
       var blockers = Attacker.Blockers.OrderByDescending(x => x.Score).ToList();
 
-      foreach (var blocker in blockers)
+      if (!Attacker.AssignsDamageAsThoughItWasntBlocked)
       {
-        if (damageLeft == 0)
-          break;
+        foreach (var blocker in blockers)
+        {
+          if (damageLeft == 0)
+            break;
 
-        damageDistribution.Assign(blocker, 1);
+          damageDistribution.Assign(blocker, 1);
 
-        damageLeft--;
+          damageLeft--;
+        }
       }
 
       AssignUnassignedDamage(blockers, damageLeft, damageDistribution);

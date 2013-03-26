@@ -24,7 +24,7 @@
 
     public Card Attacker { get { return _attacker.Card; } }
     public BlockerDamageAssignments Blockers { get { return _assignments; } }
-    public bool CanAccept { get { return HasAllDamageBeenAssigned; } }
+    public bool CanAccept { get { return HasAllDamageBeenAssigned || _attacker.AssignsDamageAsThoughItWasntBlocked; } }
     private bool HasAllDamageBeenAssigned { get { return _damageToAssign == 0; } }
 
     public string Title { get { return String.Format("Distribute combat damage: {0} left.", _damageToAssign); } }

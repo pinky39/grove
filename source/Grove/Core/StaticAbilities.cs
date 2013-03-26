@@ -40,9 +40,10 @@
     public bool CannotBlock { get { return Has(Static.CannotBlock); } }
     public bool Islandwalk { get { return Has(Static.Islandwalk); } }
     public bool Mountainwalk { get { return Has(Static.Mountainwalk); } }
+    public bool AssignsDamageAsThoughItWasntBlocked { get { return Has(Static.AssignsDamageAsThoughItWasntBlocked); } }
 
     public bool DoesNotUntap { get { return Has(Static.DoesNotUntap); } }
-    public bool AnyEvadingAbility { get { return Fear || Flying || Trample || Unblockable; } }
+    public bool AnyEvadingAbility { get { return Fear || Flying || Trample || Unblockable || AssignsDamageAsThoughItWasntBlocked; } }
 
     public void Initialize(INotifyChangeTracker changeTracker, IHashDependancy hashDependancy)
     {

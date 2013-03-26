@@ -31,8 +31,7 @@
     private readonly Trackable<int?> _hash = new Trackable<int?>();
     private readonly Trackable<bool> _isHidden = new Trackable<bool>();
     private readonly Trackable<bool> _isRevealed = new Trackable<bool>();
-    private readonly Trackable<bool> _isTapped = new Trackable<bool>();
-    private readonly Trackable<int> _lastZoneChange = new Trackable<int>(0);
+    private readonly Trackable<bool> _isTapped = new Trackable<bool>();    
     private readonly Level _level;
     private readonly TrackableList<IModifier> _modifiers = new TrackableList<IModifier>();
     private readonly Power _power;
@@ -41,8 +40,8 @@
     private readonly Toughness _toughness;
     private readonly TriggeredAbilities _triggeredAbilities;
     private readonly CardTypeCharacteristic _type;
-    private readonly Trackable<int> _usageScore = new Trackable<int>();
-    private readonly Trackable<IZone> _zone = new Trackable<IZone>(new NullZone());
+    private readonly Trackable<int> _usageScore = new Trackable<int>();    
+    private readonly CardZone _zone = new CardZone();
     private ControllerCharacteristic _controller;
     private bool _isPreview = true;
 
@@ -128,6 +127,7 @@
     public string Illustration { get; private set; }
     public bool IsAttached { get { return AttachedTo != null; } }
     public bool IsAttacker { get { return Combat.IsAttacker(this); } }
+    public bool HasBlockers { get { return Combat.HasBlockers(this); } }
     public bool IsBlocker { get { return Combat.IsBlocker(this); } }
     public bool IsManaSource { get { return _activatedAbilities.ManaSources.Any(); } }
     public bool IsTapped { get { return _isTapped.Value; } protected set { _isTapped.Value = value; } }
@@ -204,7 +204,8 @@
 
     public int? Toughness { get { return _toughness.Value; } }
     public string Type { get { return _type.Value.ToString(); } }
-    public Zone Zone { get { return _zone.Value.Zone; } }
+    public Zone Zone { get { return _zone.Current; } }
+    public Zone PreviousZone { get { return _zone.Previous; } }
 
     public int? Level { get { return _level.Value; } }
     public bool CanBeDestroyed { get { return !CanRegenerate && !Has().Indestructible; } }
@@ -212,7 +213,7 @@
     public bool IsVisibleInUi { get { return _isPreview || IsVisibleToPlayer(Players.Human); } }
     public bool IsVisible { get { return Search.InProgress ? IsVisibleToPlayer(Players.Searching) : IsVisibleToPlayer(Controller); } }
     public bool IsMultiColored { get { return EnumEx.GetSetBitCount((long) Colors) > 1; } }
-    public bool HasChangedZoneThisTurn { get { return _lastZoneChange.Value == Turn.TurnCount; } }
+    public bool HasChangedZoneThisTurn { get { return _zone.HasChangedZoneThisTurn; } }
 
     public void AddModifier(IModifier modifier)
     {
@@ -297,7 +298,7 @@
       {
         if (_isHidden)
         {
-          _hash.Value = Zone.GetHashCode();
+          _hash.Value = calc.Calculate(_zone);
         }
         else
         {
@@ -308,8 +309,7 @@
             IsTapped.GetHashCode(),
             Damage,
             CanRegenerate.GetHashCode(),
-            HasLeathalDamage.GetHashCode(),
-            Zone.GetHashCode(),
+            HasLeathalDamage.GetHashCode(),            
             Power.GetHashCode(),
             Toughness.GetHashCode(),
             Level.GetHashCode(),
@@ -322,7 +322,8 @@
             calc.Calculate(_activatedAbilities),
             calc.Calculate(_protections),
             calc.Calculate(_damagePreventions),
-            calc.Calculate(_attachments)
+            calc.Calculate(_attachments),
+            calc.Calculate(_zone)
             );
         }
       }
@@ -344,9 +345,8 @@
       _type.Initialize(game, this);
       _colors.Initialize(game, this);
       _protections.Initialize(game.ChangeTracker, this);
-      _zone.Initialize(game.ChangeTracker, this);
-      _modifiers.Initialize(game.ChangeTracker);
-      _lastZoneChange.Initialize(game.ChangeTracker);
+      _zone.Initialize(this, game);
+      _modifiers.Initialize(game.ChangeTracker);      
 
       _isTapped.Initialize(game.ChangeTracker, this);
       _attachedTo.Initialize(game.ChangeTracker, this);
@@ -618,25 +618,7 @@
 
     public void ChangeZone(IZone newZone)
     {
-      var oldZone = _zone.Value;
-      _zone.Value = newZone;
-
-      oldZone.Remove(this);
-
-      if (oldZone.Zone != newZone.Zone)
-      {
-        Publish(new ZoneChanged
-          {
-            Card = this,
-            From = oldZone.Zone,
-            To = newZone.Zone
-          });
-
-        oldZone.AfterRemove(this);
-        _lastZoneChange.Value = Turn.TurnCount;
-      }
-
-      newZone.AfterAdd(this);
+      _zone.ChangeZone(newZone);      
     }
 
     public void OnCardLeftBattlefield()

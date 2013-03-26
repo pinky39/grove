@@ -189,7 +189,10 @@
     <Compile Include="Cards\MonkIdealist.cs" />
     <Compile Include="Cards\MonkRealist.cs" />
     <Compile Include="Cards\Morphling.cs" />
+    <Compile Include="Cards\NoeticScales.cs" />
+    <Compile Include="Cards\NoRestForTheWicked.cs" />
     <Compile Include="Cards\OpalCaryatid.cs" />
+    <Compile Include="Cards\Opression.cs" />
     <Compile Include="Cards\Pariah.cs" />
     <Compile Include="Cards\Pestilence.cs" />
     <Compile Include="Cards\PhyrexianArena.cs" />

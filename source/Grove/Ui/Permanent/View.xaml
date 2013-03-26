@@ -22,16 +22,17 @@
 
 	</UserControl.Resources>
 
-    <Button x:Name="Select"  Style = "{StaticResource TapUntap}" Width = "110" >        
-        <Grid>
-            
-            <ContentControl Content = "{Binding }" Style="{StaticResource Card}" >
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName = "MouseEnter" >
-                        <cal:ActionMessage MethodName = "ChangePlayersInterest" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </ContentControl>
+    <Button Style = "{StaticResource TapUntap}" Width = "110" >
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName = "MouseEnter" >
+                <cal:ActionMessage MethodName = "ChangePlayersInterest" />
+            </i:EventTrigger>
+            <i:EventTrigger EventName = "Click" >
+                <cal:ActionMessage MethodName = "Select" />
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
+        <Grid>            
+            <ContentControl Content = "{Binding }" Style="{StaticResource Card}" />                           
 
             <Border Background = "{StaticResource TargetOfSpell}" Visibility = "{Binding IsTargetOfSpell, Converter={x:Static Ui:Converters.BooleanToVisibility}}" />
             <Border BorderBrush = "{StaticResource Playable}" Visibility = "{Binding IsPlayable, Converter={x:Static Ui:Converters.BooleanToVisibility}}" BorderThickness="0,1,0,0" />

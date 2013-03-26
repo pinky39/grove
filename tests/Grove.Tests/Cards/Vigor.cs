@@ -65,20 +65,22 @@
           );
       }
     }
-  }
 
-  public class Ai : AiScenario
-  {
-    [Fact]
-    public void PumpCreaturesWithVigor()
+    public class Ai : AiScenario
     {
-      Battlefield(P2, "Vigor", "Grizzly Bears", "Grizzly Bears", "Mountain", "Mountain", "Forest");
-      Hand(P2, "Volcanic Fallout");
+      [Fact]
+      public void PumpCreaturesWithVigor()
+      {
+        Battlefield(P2, "Vigor", "Grizzly Bears", "Grizzly Bears", "Mountain", "Mountain", "Forest");
+        Hand(P2, "Volcanic Fallout");
 
-      Battlefield(P1, "Grizzly Bears", "Grizzly Bears", "Grizzly Bears");
+        Battlefield(P1, "Grizzly Bears", "Grizzly Bears", "Grizzly Bears");
 
-      RunGame(maxTurnCount: 2);
-      Equal(4, P1.Life);
+        RunGame(maxTurnCount: 2);
+        Equal(4, P1.Life);
+      }
     }
   }
+
+
 }
