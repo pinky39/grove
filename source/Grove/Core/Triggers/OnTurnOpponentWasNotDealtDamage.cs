@@ -2,6 +2,7 @@
 {
   using Infrastructure;
   using Messages;
+  using Zones;
 
   public class OnTurnOpponentWasNotDealtDamage : Trigger, IReceive<StepStarted>, IReceive<DamageHasBeenDealt>
   {
@@ -19,11 +20,16 @@
     {
       if (message.Step == Step.EndOfTurn)
       {
-        if (_wasDealtDamage == false)
+        if (_wasDealtDamage == false && IsOwningCardInPlay())
           Set();
 
         _wasDealtDamage.Value = false;
       }
+    }
+
+    private bool IsOwningCardInPlay()
+    {
+      return Ability.OwningCard.Zone == Zone.Battlefield;
     }
 
     public override void Initialize(TriggeredAbility triggeredAbility, Game game)

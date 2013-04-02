@@ -1,7 +1,7 @@
 ﻿namespace Grove.Core.Triggers
 {
-  using Grove.Infrastructure;
-  using Grove.Core.Messages;
+  using Infrastructure;
+  using Messages;
 
   public class OnAttachmentDetached : Trigger, IReceive<AttachmentDetached>
   {

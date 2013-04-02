@@ -318,6 +318,7 @@
     <Compile Include="Cards\OrderOfYawgmoth.cs" />
     <Compile Include="Cards\Outmaneuver.cs" />
     <Compile Include="Cards\Pacifism.cs" />
+    <Compile Include="Cards\ParasiticBond.cs" />
     <Compile Include="Cards\Pariah.cs" />
     <Compile Include="Cards\PegasusCharger.cs" />
     <Compile Include="Cards\PendrellDrake.cs" />

@@ -23,8 +23,7 @@
             p.Text =
               "At the beginning of each player's end step, Antagonism deals 2 damage to that player unless one of his or her opponents was dealt damage this turn.";
             p.Trigger(new OnTurnOpponentWasNotDealtDamage());
-            p.Effect = () => new DealDamageToActivePlayer(2);
-            p.TriggerOnlyIfOwningCardIsInPlay = true;
+            p.Effect = () => new DealDamageToActivePlayer(2);            
           });
     }
   }

@@ -191,10 +191,10 @@ o Opal Gargoyle
 o Opal Titan
 o Oppression
 o Order of Yawgmoth
-Outmaneuver
-Pacifism
-Parasitic Bond
-Pariah
+o Outmaneuver
+o Pacifism
+o Parasitic Bond
+o Pariah
 Path of Peace
 Pegasus Charger
 Pendrell Drake

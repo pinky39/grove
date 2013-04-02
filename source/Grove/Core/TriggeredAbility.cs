@@ -6,7 +6,6 @@
   using Decisions;
   using Infrastructure;
   using Triggers;
-  using Zones;
 
   public class TriggeredAbility : Ability, IDisposable, ICopyContributor
   {
@@ -27,15 +26,32 @@
       {
         RegisterTriggerListener(trigger);
       }
+
+      SubscribeToEvents();
     }
 
     public void Dispose()
     {
       foreach (var trigger in _triggers)
       {
-        trigger.Dispose();
+        trigger.Deactivate();
       }
-    }    
+    }
+
+    private void SubscribeToEvents()
+    {
+      OwningCard.JoinedBattlefield += delegate
+        {
+          if (_triggerOnlyIfOwningCardIsInPlay)
+            ActivateTriggers();
+        };
+
+      OwningCard.LeftBattlefield += delegate
+        {
+          if (_triggerOnlyIfOwningCardIsInPlay)
+            DeactivateTriggers();
+        };
+    }
 
     public override int CalculateHash(HashCalculator calc)
     {
@@ -53,17 +69,35 @@
 
       foreach (var trigger in _triggers)
       {
-        trigger.Initialize(this, game);
+        trigger.Initialize(this, Game);
         RegisterTriggerListener(trigger);
+      }
+
+      if (!_triggerOnlyIfOwningCardIsInPlay)
+        ActivateTriggers();
+
+      SubscribeToEvents();
+    }
+
+    private void ActivateTriggers()
+    {
+      foreach (var trigger in _triggers)
+      {
+        trigger.Activate();
+      }
+    }
+
+    private void DeactivateTriggers()
+    {
+      foreach (var trigger in _triggers)
+      {
+        trigger.Deactivate();
       }
     }
 
     protected virtual void Execute(object triggerMessage)
     {
       if (!IsEnabled)
-        return;
-
-      if (_triggerOnlyIfOwningCardIsInPlay && OwningCard.Zone != Zone.Battlefield)
         return;
 
       if (TargetSelector.Count > 0)

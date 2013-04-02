@@ -12,7 +12,7 @@
   public delegate bool ShouldApplyToPlayer(Player player, ContinuousEffect effect);
 
   [Copyable]
-  public class ContinuousEffect : GameObject, IReceive<ZoneChanged>, IReceive<PermanentWasModified>
+  public class ContinuousEffect : GameObject, IReceive<ZoneChanged>, IReceive<PermanentWasModified>, ICopyContributor
   {
     private readonly ShouldApplyToCard _cardFilter;
     private readonly Trackable<Modifier> _doNotUpdate = new Trackable<Modifier>();
@@ -32,6 +32,11 @@
 
     public Card Source { get; private set; }
     public ITarget Target { get; private set; }
+
+    public void AfterMemberCopy(object original)
+    {
+      SubscribeToEvents();
+    }
 
     public void Receive(PermanentWasModified message)
     {
@@ -80,6 +85,14 @@
       Target = target;
 
       Subscribe(this);
+
+      SubscribeToEvents();
+    }
+
+    private void SubscribeToEvents()
+    {
+      Source.JoinedBattlefield += delegate { Activate(); };
+      Source.LeftBattlefield += delegate { Deactivate(); };
     }
 
     private bool ShouldPermanentBeUpdated(Card permanent, IModifier modifier)

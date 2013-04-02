@@ -7,10 +7,11 @@
     IReceive<ControllerChanged>
   {
     private readonly bool _activeTurn;
+    private readonly Trackable<bool> _canTrigger = new Trackable<bool>(true);
     private readonly bool _onlyOnceWhenAfterItComesUnderYourControl;
     private readonly bool _passiveTurn;
     private readonly Step _step;
-    
+
     private OnStepStart() {}
 
     public OnStepStart(Step step, bool activeTurn = true, bool onlyOnceWhenAfterItComesUnderYourControl = false,
@@ -27,6 +28,9 @@
 
     public void Receive(StepStarted message)
     {
+      if (!_canTrigger)
+        return;
+
       if (message.Step != _step)
         return;
 
@@ -35,7 +39,9 @@
         Set();
 
         if (_onlyOnceWhenAfterItComesUnderYourControl)
-          CanTrigger = false;
+        {
+          _canTrigger.Value = false;
+        }
       }
     }
 
@@ -43,7 +49,7 @@
     {
       if (_onlyOnceWhenAfterItComesUnderYourControl && message.Card == Ability.OwningCard)
       {
-        CanTrigger = true;
+        _canTrigger.Value = false;
       }
     }
 
@@ -51,8 +57,13 @@
     {
       if (_onlyOnceWhenAfterItComesUnderYourControl && message.Card == Ability.OwningCard && message.ToBattlefield)
       {
-        CanTrigger = true;
+        _canTrigger.Value = false;
       }
+    }
+
+    protected override void Initialize()
+    {
+      _canTrigger.Initialize(ChangeTracker);
     }
   }
 }

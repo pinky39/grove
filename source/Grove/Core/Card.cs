@@ -45,6 +45,9 @@
     private ControllerCharacteristic _controller;
     private bool _isPreview = true;
 
+    public event EventHandler JoinedBattlefield = delegate { };
+    public event EventHandler LeftBattlefield = delegate { };
+
     protected Card() {}
 
     public Card(CardParameters p)
@@ -629,9 +632,10 @@
       Detach();
       Untap();
       ClearDamage();
-
-      _continuousEffects.Deactivate();
+      
       HasSummoningSickness = false;
+
+      LeftBattlefield(this, EventArgs.Empty);
     }
 
     public void Tap()
@@ -800,13 +804,13 @@
 
     public void OnCardJoinedBattlefield()
     {
-      HasSummoningSickness = true;
-      _continuousEffects.Activate();
+      HasSummoningSickness = true;      
+      JoinedBattlefield(this, EventArgs.Empty);
     }
 
     public void PutToGraveyard()
     {
-      Owner.PutCardToGraveyard(this);
+      Owner.PutCardToGraveyard(this);      
     }
 
     public IManaAmount GetSpellManaCost(int index)

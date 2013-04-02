@@ -39,7 +39,7 @@
       {
         triggeredAbility.Initialize(card, game);
       }
-    }
+    }   
 
     public void DisableAll()
     {

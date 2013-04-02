@@ -3,19 +3,22 @@
   using System;
   using Infrastructure;
 
-  public abstract class Trigger : GameObject, IDisposable, IHashable
+  public abstract class Trigger : GameObject, IHashable
   {
-    public Func<Trigger, Game, bool> Condition = delegate { return true; };
     
-    private readonly Trackable<bool> _canTrigger = new Trackable<bool>(true);
+    public Func<Trigger, Game, bool> Condition = delegate { return true; };
     public TriggeredAbility Ability { get; private set; }
     public Card OwningCard { get { return Ability.OwningCard; } }
-    protected Player Controller { get { return Ability.OwningCard.Controller; } }
-    protected bool CanTrigger { get { return _canTrigger.Value; } set { _canTrigger.Value = value; } }
+    protected Player Controller { get { return Ability.OwningCard.Controller; } }     
 
-    public void Dispose()
+    public void Deactivate()
     {
       Unsubscribe(this);
+    }
+
+    public void Activate()
+    {
+      Subscribe(this);
     }
 
     public int CalculateHash(HashCalculator calc)
@@ -27,18 +30,19 @@
 
     protected void Set(object context = null)
     {
-      if (CanTrigger && Condition(this, Game))
+      if (Condition(this, Game))
         Triggered(this, new TriggerEventArgs(context));
     }
 
     public virtual void Initialize(TriggeredAbility triggeredAbility, Game game)
     {
       Game = game;
-      Ability = triggeredAbility;
-
-      _canTrigger.Initialize(game.ChangeTracker);      
-      Subscribe(this);
+      Ability = triggeredAbility;   
+      
+      Initialize();     
     }
+
+    protected virtual void Initialize() {}
 
     public class TriggerEventArgs : EventArgs
     {

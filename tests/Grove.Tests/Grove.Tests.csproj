@@ -194,6 +194,7 @@
     <Compile Include="Cards\OpalCaryatid.cs" />
     <Compile Include="Cards\Opression.cs" />
     <Compile Include="Cards\Outmaneuver.cs" />
+    <Compile Include="Cards\ParasiticBond.cs" />
     <Compile Include="Cards\Pariah.cs" />
     <Compile Include="Cards\Pestilence.cs" />
     <Compile Include="Cards\PhyrexianArena.cs" />

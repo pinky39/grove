@@ -32,22 +32,6 @@
     {
       _continiousEffects.Remove(effect);
       effect.Deactivate();
-    }
-
-    public void Activate()
-    {
-      foreach (var continiousEffect in _continiousEffects)
-      {
-        continiousEffect.Activate();
-      }
-    }
-
-    public void Deactivate()
-    {
-      foreach (var continiousEffect in _continiousEffects)
-      {
-        continiousEffect.Deactivate();
-      }
-    }
+    }    
   }
 }
