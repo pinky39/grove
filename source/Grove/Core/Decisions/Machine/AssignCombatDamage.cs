@@ -12,7 +12,7 @@
       {
         Result = DeathTouchScenario();
         return;
-      }
+      }      
 
       Result = DefaultScenario();
     }

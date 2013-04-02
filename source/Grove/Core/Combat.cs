@@ -231,6 +231,10 @@
     public bool HasBlockers(Card card)
     {
       var attacker = FindAttacker(card);
+
+      if (attacker == null)
+        return false;
+
       return attacker.BlockersCount > 0;
     }
 

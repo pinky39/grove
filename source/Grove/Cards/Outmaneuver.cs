@@ -1,7 +1,11 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
+  using System.Linq;
   using Core;
+  using Core.Ai.CostRules;
+  using Core.Ai.TargetingRules;
+  using Core.Ai.TimingRules;
   using Core.Dsl;
   using Core.Effects;
   using Core.Modifiers;
@@ -30,6 +34,11 @@
             });
 
 
+            p.TimingRule(new Steps(activeTurn: true, passiveTurn: false, steps: Step.DeclareBlockers));
+            p.TimingRule(new ControllerHasPermanents(c => c.HasBlockers));
+            
+            p.CostRule(new ControllersProperty(ctrl => ctrl.Battlefield.Creatures.Count(x => x.HasBlockers)));
+            p.TargetingRule(new GainEvasion());
           });
     }
   }

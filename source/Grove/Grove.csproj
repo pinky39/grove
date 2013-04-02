@@ -418,7 +418,7 @@
     <Compile Include="Core\Ai\CostRules\CostRule.cs" />
     <Compile Include="Core\Ai\CostRules\CostRuleParameters.cs" />
     <Compile Include="Core\Ai\CostRules\CounterUnlessOpponentPaysX.cs" />
-    <Compile Include="Core\Ai\CostRules\OpponentProperty.cs" />
+    <Compile Include="Core\Ai\CostRules\ControllersProperty.cs" />
     <Compile Include="Core\Ai\CostRules\ReduceToughnessOfEachCreature.cs" />
     <Compile Include="Core\Ai\CostRules\TargetsLifepoints.cs" />
     <Compile Include="Core\Ai\QuickCombat.cs" />

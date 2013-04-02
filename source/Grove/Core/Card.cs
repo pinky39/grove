@@ -126,7 +126,7 @@
     public bool HasXInCost { get { return _castInstructions.HasXInCost; } }
     public string Illustration { get; private set; }
     public bool IsAttached { get { return AttachedTo != null; } }
-    public bool IsAttacker { get { return Combat.IsAttacker(this); } }
+    public bool IsAttacker { get { return Combat.IsAttacker(this); } }    
     public bool HasBlockers { get { return Combat.HasBlockers(this); } }
     public bool IsBlocker { get { return Combat.IsBlocker(this); } }
     public bool IsManaSource { get { return _activatedAbilities.ManaSources.Any(); } }

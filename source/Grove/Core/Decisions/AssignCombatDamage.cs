@@ -11,16 +11,16 @@
     {
       get
       {
-        if (Attacker.BlockersCount == 0)
-          return false;
-
-        return Attacker.BlockersCount > 1 || Attacker.HasTrample || Attacker.AssignsDamageAsThoughItWasntBlocked;
+        if (Attacker.BlockersCount == 0 || Attacker.AssignsDamageAsThoughItWasntBlocked)
+          return false;        
+        
+        return Attacker.BlockersCount > 1 || Attacker.HasTrample;
       }
     }
 
     public override void ProcessResults()
     {
-      if (Attacker.BlockersCount == 0)
+      if (Attacker.BlockersCount == 0 || Attacker.AssignsDamageAsThoughItWasntBlocked)
       {
         Result = new DamageDistribution();
       }
