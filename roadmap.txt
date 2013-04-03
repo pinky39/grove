@@ -200,11 +200,11 @@ o Pegasus Charger
 o Pendrell Drake
 o Pendrell Flux
 o Peregrine Drake
-Persecute
-Pestilence
+o Persecute
+o Pestilence
 Phyrexian Colossus
-Phyrexian Ghoul
-Phyrexian Processor
+o Phyrexian Ghoul
+o Phyrexian Processor
 Phyrexian Tower
 Pit Trap
 Plains

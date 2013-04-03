@@ -9,8 +9,8 @@
   using Core.Mana;
   using Core.Modifiers;
   using Core.Targeting;
-  using Core.Triggers;
-
+  using Core.Triggers;  
+  
   public class KarnSilverGolem : CardsSource
   {
     public override IEnumerable<CardFactory> GetCards()

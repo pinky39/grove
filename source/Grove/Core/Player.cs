@@ -83,7 +83,7 @@
     public bool IsMachine { get { return Controller == ControllerType.Machine; } }
     public bool IsScenario { get { return Controller == ControllerType.Scenario; } }
     public bool IsMax { get; set; }
-    public ILibraryQuery Library { get { return _library; } }
+    public ILibraryQuery Library { get { return _library; } }    
 
     public int NumberOfCardsAboveMaximumHandSize { get { return Math.Max(0, _hand.Count - 7); } }
 
@@ -204,6 +204,11 @@
     public int GetConvertedMana(ManaUsage usage = ManaUsage.Any)
     {
       return _manaSources.GetMaxConvertedMana(usage);
+    }
+
+    public IManaAmount GetAvailableMana(ManaUsage usage = ManaUsage.Any)
+    {
+      return _manaSources.GetAvailableMana(usage);
     }
 
     public void AddManaToManaPool(IManaAmount manaAmount, bool useOnlyForAbilities = false)

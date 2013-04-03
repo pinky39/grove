@@ -18,7 +18,7 @@
         .ManaCost("{1}{R}{R}")
         .Type("Enchantment Aura")
         .Text(
-          "{Enchant creature}{EOL}Whenever enchanted creature deals combat damage to a player, that player sacrifices a land.")
+          "Whenever enchanted creature deals combat damage to a player, that player sacrifices a land.")
         .FlavorText("Red sky at night, dragon's delight.")
         .Cast(p =>
           {

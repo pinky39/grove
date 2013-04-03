@@ -17,7 +17,7 @@
         .ManaCost("{3}{B}")
         .Type("Enchantment Aura")
         .Text(
-          "{Enchant creature}{EOL}At the beginning of the upkeep of enchanted creature's controller, Parasitic Bond deals 2 damage to that player.")
+          "At the beginning of the upkeep of enchanted creature's controller, Parasitic Bond deals 2 damage to that player.")
         .FlavorText("'All bonds are parasitic. Only rulership is pure.'{EOL}—Gix, Yawgmoth praetor")
         .Cast(p =>
           {

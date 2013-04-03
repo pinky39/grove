@@ -198,9 +198,11 @@
     <Compile Include="Cards\Pariah.cs" />
     <Compile Include="Cards\PathOfPeace.cs" />
     <Compile Include="Cards\PendrellFlux.cs" />
+    <Compile Include="Cards\Persecute.cs" />
     <Compile Include="Cards\Pestilence.cs" />
     <Compile Include="Cards\PhyrexianArena.cs" />
     <Compile Include="Cards\PhyrexianGhoul.cs" />
+    <Compile Include="Cards\PhyrexianProcessor.cs" />
     <Compile Include="Cards\PowerSink.cs" />
     <Compile Include="Cards\Rancor.cs" />
     <Compile Include="Cards\Recoil.cs" />

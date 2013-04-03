@@ -6,6 +6,22 @@
     Untap,
     Artifacts,
     Creatures,
-    Lands
+    Lands,
+    White,
+    Blue,
+    Black,
+    Red,
+    Green,
+    Zero = 1000,
+    One,
+    Two,
+    Three,
+    Four,
+    Five,
+    Six,
+    Seven,
+    Eight,
+    Nine,
+    Ten,
   }
 }

@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core.Mana
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Infrastructure;
@@ -73,7 +74,7 @@
     {
       return _sources.Sum(sourcesWithSameResource =>
         sourcesWithSameResource.Sources.Max(x => x.GetAvailableMana(usage).Converted));
-    }
+    }    
 
     public bool Has(IManaAmount amount, ManaUsage usage)
     {
@@ -155,6 +156,19 @@
     {
       public object Resource { get; set; }
       public TrackableList<IManaSource> Sources { get; set; }
+    }
+
+    public IManaAmount GetAvailableMana(ManaUsage usage)
+    {
+      var amount = new List<IManaAmount>();
+      
+      foreach (var sourcesWithSameResource in _sources)
+      {
+        amount.Add(
+          sourcesWithSameResource.Sources.First().GetAvailableMana(usage));
+      }
+
+      return new AggregateManaAmount(amount);
     }
   }
 }

@@ -4,7 +4,6 @@
   using Core;
   using Core.Dsl;
   using Core.Effects;
-  using Core.Mana;
 
   public class ManaLeak : CardsSource
   {

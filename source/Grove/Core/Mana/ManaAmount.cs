@@ -31,6 +31,39 @@
       return new AggregateManaAmount(Enumerable.Repeat(new ManaUnit(color).ToAmount(), count));
     }
 
+    public static ManaColors? GetMostCommonColor(this IManaAmount amount)
+    {
+      var counts = new Dictionary<ManaColors, int>()
+      {
+        {ManaColors.White, 0},
+        {ManaColors.Blue, 0},
+        {ManaColors.Black, 0},
+        {ManaColors.Red, 0},
+        {ManaColors.Green, 0},        
+      };
+
+      foreach (var unit in amount)
+      {
+        if (unit.IsColorless)
+          continue;
+        
+        foreach (var color in unit.EnumerateColors())
+        {
+          counts[color]++;          
+        }
+      }
+
+      ManaColors? common = null;
+      var max = 0;
+      foreach (var count in counts)
+      {
+        if (count.Value > max)
+          common = count.Key;
+      }
+
+      return common;
+    }
+
     public static IEnumerable<ManaUnit> Colored(this IManaAmount amount)
     {
       return amount.Where(mana => mana.IsColored);

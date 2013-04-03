@@ -19,7 +19,7 @@
         .ManaCost("{G}")
         .Type("Enchantment - Aura")
         .Text(
-          "{Enchant creature}{EOL}Enchanted creature gets +2/+0 and has trample.{EOL}When Rancor is put into a graveyard from the battlefield, return Rancor to its owner's hand.")
+          "Enchanted creature gets +2/+0 and has trample.{EOL}When Rancor is put into a graveyard from the battlefield, return Rancor to its owner's hand.")
         .FlavorText("Hatred outlives the hateful.")
         .Cast(p =>
           {

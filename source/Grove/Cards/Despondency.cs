@@ -19,7 +19,7 @@
         .ManaCost("{1}{B}")
         .Type("Enchantment Aura")
         .Text(
-          "{Enchant creature}{EOL}Enchanted creature gets -2/-0.{EOL}When Despondency is put into a graveyard from the battlefield, return Despondency to its owner's hand.")
+          "Enchanted creature gets -2/-0.{EOL}When Despondency is put into a graveyard from the battlefield, return Despondency to its owner's hand.")
         .Cast(p =>
           {
             p.Effect = () => new Attach(() => new AddPowerAndToughness(-2, 0));
