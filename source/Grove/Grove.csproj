@@ -320,8 +320,11 @@
     <Compile Include="Cards\Pacifism.cs" />
     <Compile Include="Cards\ParasiticBond.cs" />
     <Compile Include="Cards\Pariah.cs" />
+    <Compile Include="Cards\PathOfPeace.cs" />
     <Compile Include="Cards\PegasusCharger.cs" />
     <Compile Include="Cards\PendrellDrake.cs" />
+    <Compile Include="Cards\PendrellFlux.cs" />
+    <Compile Include="Cards\PeregrineDrake.cs" />
     <Compile Include="Cards\Pestilence.cs" />
     <Compile Include="Cards\PhyrexianArena.cs" />
     <Compile Include="Cards\PhyrexianGhoul.cs" />

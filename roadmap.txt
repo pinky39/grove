@@ -195,11 +195,11 @@ o Outmaneuver
 o Pacifism
 o Parasitic Bond
 o Pariah
-Path of Peace
-Pegasus Charger
-Pendrell Drake
-Pendrell Flux
-Peregrine Drake
+o Path of Peace
+o Pegasus Charger
+o Pendrell Drake
+o Pendrell Flux
+o Peregrine Drake
 Persecute
 Pestilence
 Phyrexian Colossus

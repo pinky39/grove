@@ -7,14 +7,19 @@
 
   public class PayManaOrSacrifice : Effect, IProcessDecisionResults<BooleanResult>
   {
-    private readonly IManaAmount _amount;
+    private readonly DynParam<IManaAmount> _amount;
     private readonly string _message;
     private PayManaOrSacrifice() {}
 
     public PayManaOrSacrifice(IManaAmount amount, string message = null)
+      : this(new DynParam<IManaAmount>(amount), message) {}
+
+    public PayManaOrSacrifice(DynParam<IManaAmount> amount, string message = null)
     {
       _amount = amount;
       _message = message ?? "Pay {0}?";
+
+      RegisterDynamicParameters(amount);
     }
 
     public void ProcessResults(BooleanResult results)
@@ -29,8 +34,9 @@
     {
       Enqueue<PayOr>(Controller, p =>
         {
-          p.ManaAmount = _amount;
+          p.ManaAmount = _amount.Value;
           p.Text = FormatText(String.Format(_message, _amount));
+          p.ProcessDecisionResults = this;
         });
     }
   }

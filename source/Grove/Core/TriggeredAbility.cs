@@ -6,6 +6,7 @@
   using Decisions;
   using Infrastructure;
   using Triggers;
+  using Zones;
 
   public class TriggeredAbility : Ability, IDisposable, ICopyContributor
   {
@@ -73,7 +74,7 @@
         RegisterTriggerListener(trigger);
       }
 
-      if (!_triggerOnlyIfOwningCardIsInPlay)
+      if (!_triggerOnlyIfOwningCardIsInPlay || owner.Zone == Zone.Battlefield)
         ActivateTriggers();
 
       SubscribeToEvents();
