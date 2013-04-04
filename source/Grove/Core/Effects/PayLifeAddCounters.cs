@@ -18,15 +18,14 @@
       if (couldPay < 0)
         couldPay = 0;
 
-      var wouldPay = Math.Min(couldPay, maxPay);
-      var option = (int) EffectChoiceOption.Zero + wouldPay;
+      var wouldPay = Math.Min(couldPay, maxPay);      
 
-      return new ChosenOptions((EffectChoiceOption) option);
+      return new ChosenOptions(wouldPay);
     }
 
     public override void ProcessResults(ChosenOptions results)
     {
-      var lifeToPay = (int) results.Options[0] - (int) EffectChoiceOption.Zero;
+      var lifeToPay = (int) results.Options[0];
 
       Controller.Life -= lifeToPay;
 
@@ -48,18 +47,9 @@
       return "Pay #0 life.";
     }
 
-    public override IEnumerable<EffectChoice> GetChoices()
+    public override IEnumerable<object> GetChoices()
     {
-      var options = new List<EffectChoiceOption>();
-
-      for (var i = (int) EffectChoiceOption.Zero; i <= (int) EffectChoiceOption.Ten; i++)
-      {
-        options.Add((EffectChoiceOption) i);
-      }
-
-      yield return new EffectChoice(
-        options.ToArray()
-        );
+      yield return new RangeEffectChoice(0, 10);            
     }
   }
 }

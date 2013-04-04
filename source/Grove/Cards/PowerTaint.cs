@@ -5,23 +5,24 @@
   using Core.Ai.TargetingRules;
   using Core.Dsl;
   using Core.Effects;
+  using Core.Mana;
   using Core.Triggers;
 
-  public class ParasiticBond : CardsSource
+  public class PowerTaint : CardsSource
   {
     public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
-        .Named("Parasitic Bond")
-        .ManaCost("{3}{B}")
+        .Named("Power Taint")
+        .ManaCost("{1}{U}")
         .Type("Enchantment Aura")
         .Text(
-          "At the beginning of the upkeep of enchanted creature's controller, Parasitic Bond deals 2 damage to that player.")
-        .FlavorText("'All bonds are parasitic. Only rulership is pure.'{EOL}—Gix, Yawgmoth praetor")
+          "{Enchant enchantment}{EOL}At the beginning of the upkeep of enchanted enchantment's controller, that player loses 2 life unless he or she pays.{EOL}Cycling {2}")
+        .Cycling("{2}")
         .Cast(p =>
           {
             p.Effect = () => new Attach();
-            p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
+            p.TargetSelector.AddEffect(trg => trg.Is.Enchantment().On.Battlefield());
             p.TargetingRule(new OrderByRank(c => -c.Score, ControlledBy.Opponent));
           })
         .TriggeredAbility(p =>
@@ -34,7 +35,7 @@
                 Condition = (t, g) => t.OwningCard.AttachedTo.Controller.IsActive
               });
 
-            p.Effect = () => new DealDamageToActivePlayer(2);
+            p.Effect = () => new PayManaOrLooseLife(2, 2.Colorless(), P((e, g) => g.Players.Active));
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });

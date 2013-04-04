@@ -205,18 +205,18 @@ o Pestilence
 Phyrexian Colossus
 o Phyrexian Ghoul
 o Phyrexian Processor
-Phyrexian Tower
-Pit Trap
-Plains
-Plains
-Plains
-Plains
-Planar Birth
-Planar Void
-Polluted Mire
-Pouncing Jaguar
-Power Sink
-Power Taint
+o Phyrexian Tower
+o Pit Trap
+o Plains
+o Plains
+o Plains
+o Plains
+o Planar Birth
+o Planar Void
+o Polluted Mire
+o Pouncing Jaguar
+o Power Sink
+o Power Taint
 Presence of the Master
 Priest of Gix
 Priest of Titania

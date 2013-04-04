@@ -20,6 +20,7 @@
         .Text(
           "As Phyrexian Processor enters the battlefield, pay any amount of life.{EOL}{4},{T}: Put an X/X black Minion creature token onto the battlefield, where X is the life paid as Phyrexian Processor entered the battlefield.")
         .OverrideScore(new ScoreOverride {Hand = 50})
+        .Cast(p => p.TimingRule(new SecondMain()))
         .TriggeredAbility(p =>
           {
             p.Trigger(new OnZoneChanged(to: Zone.Battlefield));

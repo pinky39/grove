@@ -71,6 +71,7 @@
 
     public string Avatar { get; private set; }
     public IBattlefieldQuery Battlefield { get { return _battlefield; } }
+    public IEnumerable<Card> Exile { get { return _exile; } }
     public bool CanMulligan { get { return _hand.CanMulligan && HasMulligan; } }
     public bool CanPlayLands { get { return LandsPlayedCount < _landLimit.Value; } }
     public IGraveyardQuery Graveyard { get { return _graveyard; } }

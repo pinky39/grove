@@ -4,16 +4,15 @@
   using System.Collections.Generic;
   using System.Linq;
   using Core.Decisions.Results;
-  using Core.Effects;
   using Infrastructure;
 
   public class ViewModel
   {
     private readonly List<EffectChoiceViewModel> _choices;
 
-    public ViewModel(IEnumerable<EffectChoice> choices, string text)
+    public ViewModel(IEnumerable<object> choices, string text)
     {
-      _choices = choices.Select(x => new EffectChoiceViewModel(x)).ToList();
+      _choices = choices.Select(x => new EffectChoiceViewModel {Choice = x}).ToList();
 
       Message = text
         .Split(new[] {" "}, StringSplitOptions.RemoveEmptyEntries)
@@ -40,7 +39,7 @@
 
     public interface IFactory
     {
-      ViewModel Create(IEnumerable<EffectChoice> choices, string text);
+      ViewModel Create(IEnumerable<object> choices, string text);
     }
   }
 }

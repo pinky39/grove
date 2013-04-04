@@ -83,7 +83,7 @@
         var baloth1 = C("Leatherback Baloth");
         var baloth2 = C("Leatherback Baloth");
 
-        P2.Life = 4;
+        P2.Life = 8;
 
         Battlefield(P1, baloth1, baloth2);
         Battlefield(P2, guardian);
@@ -92,7 +92,7 @@
           At(Step.DeclareAttackers)
             .DeclareAttackers(baloth1, baloth2),
           At(Step.SecondMain)
-            .Verify(() => Equal(4, P2.Life))
+            .Verify(() => Equal(8, P2.Life))
           );
       }
     }

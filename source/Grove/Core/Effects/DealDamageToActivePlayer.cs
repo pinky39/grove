@@ -6,10 +6,8 @@
   {
     private readonly Value _amount;
 
-    private DealDamageToActivePlayer()
-    {      
-    }
-    
+    private DealDamageToActivePlayer() {}
+
     public DealDamageToActivePlayer(Value amount)
     {
       _amount = amount;

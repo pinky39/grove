@@ -10,7 +10,7 @@
     public abstract ChosenOptions ChooseOptions();
     public abstract void ProcessResults(ChosenOptions results);
     public abstract string GetText();
-    public abstract IEnumerable<EffectChoice> GetChoices();
+    public abstract IEnumerable<object> GetChoices();
 
     protected override void ResolveEffect()
     {

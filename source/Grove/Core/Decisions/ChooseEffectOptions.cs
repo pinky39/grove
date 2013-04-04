@@ -6,7 +6,7 @@
 
   public abstract class ChooseEffectOptions : Decision<ChosenOptions>
   {
-    public List<EffectChoice> Choices;
+    public List<object> Choices;
     public IChooseEffectOptionsAi ChooseOptionsAi;
     public IProcessDecisionResults<ChosenOptions> ProcessDecisionResults;
     public string Text;

@@ -8,19 +8,19 @@
 
   public class TapOrUntapAllArtifactsCreaturesOrLands : CustomizableEffect
   {
-    private static readonly Dictionary<EffectChoiceOption, Func<Card, bool>> Selectors
-      = new Dictionary<EffectChoiceOption, Func<Card, bool>>
+    private static readonly Dictionary<EffectOption, Func<Card, bool>> Selectors
+      = new Dictionary<EffectOption, Func<Card, bool>>
         {
-          {EffectChoiceOption.Creatures, card => card.Is().Creature},
-          {EffectChoiceOption.Lands, card => card.Is().Land},
-          {EffectChoiceOption.Artifacts, card => card.Is().Artifact}
+          {EffectOption.Creatures, card => card.Is().Creature},
+          {EffectOption.Lands, card => card.Is().Land},
+          {EffectOption.Artifacts, card => card.Is().Artifact}
         };
 
-    private static readonly Dictionary<EffectChoiceOption, Action<Card>> Actions
-      = new Dictionary<EffectChoiceOption, Action<Card>>
+    private static readonly Dictionary<EffectOption, Action<Card>> Actions
+      = new Dictionary<EffectOption, Action<Card>>
         {
-          {EffectChoiceOption.Tap, card => card.Tap()},
-          {EffectChoiceOption.Untap, card => card.Untap()}
+          {EffectOption.Tap, card => card.Tap()},
+          {EffectOption.Untap, card => card.Untap()}
         };
 
     public override ChosenOptions ChooseOptions()
@@ -28,26 +28,26 @@
       if (Target == Controller)
       {
         return new ChosenOptions(
-          EffectChoiceOption.Untap,
-          EffectChoiceOption.Creatures);
+          EffectOption.Untap,
+          EffectOption.Creatures);
       }
 
       return Turn.Step == Step.Upkeep
         ? new ChosenOptions(
-          EffectChoiceOption.Tap,
-          EffectChoiceOption.Lands)
+          EffectOption.Tap,
+          EffectOption.Lands)
         : new ChosenOptions(
-          EffectChoiceOption.Tap,
-          EffectChoiceOption.Creatures);
+          EffectOption.Tap,
+          EffectOption.Creatures);
     }
 
     public override void ProcessResults(ChosenOptions results)
     {
-      var permanents = Target.Player().Battlefield.Where(Selectors[results.Options[1]]);
+      var permanents = Target.Player().Battlefield.Where(Selectors[(EffectOption) results.Options[1]]);
 
       foreach (var permanent in permanents)
       {
-        Actions[results.Options[0]](permanent);
+        Actions[(EffectOption) results.Options[0]](permanent);
       }
     }
 
@@ -56,11 +56,16 @@
       return "#0 all #1 target player controls.";
     }
 
-    public override IEnumerable<EffectChoice> GetChoices()
+    public override IEnumerable<object> GetChoices()
     {
-      yield return new EffectChoice(EffectChoiceOption.Tap, EffectChoiceOption.Untap);
-      yield return
-        new EffectChoice(EffectChoiceOption.Artifacts, EffectChoiceOption.Creatures, EffectChoiceOption.Lands);
+      yield return new DiscreteEffectChoice(
+        EffectOption.Tap,
+        EffectOption.Untap);
+
+      yield return new DiscreteEffectChoice(
+        EffectOption.Artifacts,
+        EffectOption.Creatures,
+        EffectOption.Lands);
     }
   }
 }

@@ -32,7 +32,7 @@
           {
             p.Text = "At the beg. of your upkeep, pay {G}{G} or sacrifice Child of Gaea.";
             p.Trigger(new OnStepStart(Step.Upkeep));
-            p.Effect = () => new PayManaOrSacrifice("{G}{G}".ParseMana(), "Pay {0} for upkeep?");
+            p.Effect = () => new PayManaOrSacrifice("{G}{G}".ParseMana(), "Pay upkeep?");
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });
     }

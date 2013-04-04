@@ -1,6 +1,5 @@
 ﻿namespace Grove.Core.Effects
 {
-  using System;
   using Decisions;
   using Decisions.Results;
   using Mana;
@@ -17,7 +16,7 @@
     public PayManaOrSacrifice(DynParam<IManaAmount> amount, string message = null)
     {
       _amount = amount;
-      _message = message ?? "Pay {0}?";
+      _message = message ?? "Pay mana?";
 
       RegisterDynamicParameters(amount);
     }
@@ -35,7 +34,7 @@
       Enqueue<PayOr>(Controller, p =>
         {
           p.ManaAmount = _amount.Value;
-          p.Text = FormatText(String.Format(_message, _amount));
+          p.Text = FormatText(_message);
           p.ProcessDecisionResults = this;
         });
     }

@@ -1,0 +1,24 @@
+﻿namespace Grove.Tests.Cards
+{
+  using Core.Zones;
+  using Infrastructure;
+  using Xunit;
+
+  public class PhyrexianTower
+  {
+    public class Ai : AiScenario
+    {
+      [Fact]
+      public void CastDragon()
+      {
+        var dragon = C("Shivan Dragon");
+        Hand(P1, dragon);
+        Battlefield(P1, "Mountain", "Mountain", "Swamp", "Phyrexian Tower", "Mountain", "Grizzly Bears");
+
+        RunGame(3);
+
+        Equal(Zone.Battlefield, C(dragon).Zone);
+      }
+    }
+  }
+}

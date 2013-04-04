@@ -18,7 +18,7 @@
 
 
         Hand(P1, bolt);
-        Battlefield(P2, mentor, order);
+        Battlefield(P2, mentor, order, "Forest", "Forest", "Island", "Island");
 
         Exec(
           At(Step.FirstMain)
