@@ -40,7 +40,7 @@
                 token: Card
                   .Named("Wolf Token")
                   .FlavorText(
-                    "No matter where we cat warriors go in the world, those stupid slobberers find us.{EOL}—Mirri of the Weatherlight")
+                    "No matter where we cat warriors go in the world, those stupid slobberers find us.")
                   .Power(2)
                   .Toughness(2)
                   .Type("Creature Token Wolf")

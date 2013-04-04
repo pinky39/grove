@@ -21,7 +21,7 @@
         .Text(
           "When Stern Proctor enters the battlefield, return target artifact or enchantment to its owner's hand.")
         .FlavorText(
-          "'I preferred the harsh tutors—they made mischief all the more fun.'{EOL}—Teferi, third-level student")
+          "I preferred the harsh tutors—they made mischief all the more fun.")
         .Power(1)
         .Toughness(2)
         .Cast(p =>

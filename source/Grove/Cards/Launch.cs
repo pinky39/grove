@@ -19,7 +19,7 @@
         .ManaCost("{1}{U}")
         .Type("Enchantment - Aura")
         .Text(
-          "{Enchant creature}{EOL}Enchanted creature has flying.{EOL}When Launch is put into a graveyard from the battlefield, return Launch to its owner's hand.")
+          "Enchanted creature has flying.{EOL}When Launch is put into a graveyard from the battlefield, return Launch to its owner's hand.")
         .Cast(p =>
           {
             p.Effect = () => new Attach(() => new AddStaticAbility(Static.Flying));

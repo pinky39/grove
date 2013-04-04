@@ -19,7 +19,7 @@
         .Type("Creature Zombie Knight")
         .Text("{B}{B},{T} : Destroy target green creature.")
         .FlavorText(
-          "'Their fragile world. Their futile lives. They obstruct the Grand Evolution. In Yawgmoth's name, we shall excise them.'{EOL}—Oath of the East")
+          "Their fragile world. Their futile lives. They obstruct the Grand Evolution. In Yawgmoth's name, we shall excise them.")
         .Power(3)
         .Toughness(3)
         .ActivatedAbility(p =>

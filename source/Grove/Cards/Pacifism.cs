@@ -18,7 +18,7 @@
         .ManaCost("{1}{W}")
         .Type("Enchantment - Aura")
         .Text("Enchant creature{EOL}Enchanted creature can't attack or block.")
-        .FlavorText("'Fight? I cannot. I do not care if I live or die, so long as I can rest.'{EOL}—Urza, to Serra")
+        .FlavorText("Fight? I cannot. I do not care if I live or die, so long as I can rest.")
         .Cast(p =>
           {
             p.Effect = () => new Attach(

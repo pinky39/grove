@@ -20,7 +20,7 @@
         .Type("Creature Angel")
         .Text("{Flying}{EOL}{W}{W}: Target creature is indestructible this turn.")
         .FlavorText(
-          "'I should have died that day, but I suffered not a scratch. I awoke in a lake of blood, none of it apparently my own.'{EOL}—The War Diaries")
+          "I should have died that day, but I suffered not a scratch. I awoke in a lake of blood, none of it apparently my own.")
         .Power(5)
         .Toughness(7)
         .StaticAbilities(Static.Flying)

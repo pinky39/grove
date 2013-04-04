@@ -15,7 +15,7 @@
         .ManaCost("{1}{B}")
         .Type("Sorcery")
         .Text("Each player puts a creature card from his or her graveyard onto the battlefield.")
-        .FlavorText("'Death—an outmoded concept. We sleep, and we change.'{EOL}—Sitrik, birth priest")
+        .FlavorText("Death—an outmoded concept. We sleep, and we change.")
         .Cast(p =>
           {
             p.Effect = () => new EachPlayerReturnsCardFromGraveyardToBattlefield();

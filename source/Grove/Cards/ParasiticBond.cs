@@ -17,7 +17,7 @@
         .Type("Enchantment Aura")
         .Text(
           "At the beginning of the upkeep of enchanted creature's controller, Parasitic Bond deals 2 damage to that player.")
-        .FlavorText("'All bonds are parasitic. Only rulership is pure.'{EOL}—Gix, Yawgmoth praetor")
+        .FlavorText("All bonds are parasitic. Only rulership is pure.")
         .Cast(p =>
           {
             p.Effect = () => new Attach();

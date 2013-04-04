@@ -19,7 +19,7 @@
         .Type("Enchantment Aura")
         .Text("You control enchanted permanent.")
         .FlavorText(
-          "'I don't understand why he works so hard on a device to duplicate a sound so easily made with hand and armpit.'{EOL}—Barrin, progress report")
+          "I don't understand why he works so hard on a device to duplicate a sound so easily made with hand and armpit.")
         .Cast(p =>
           {
             p.Effect = () => new Attach(() => new ChangeController(m => m.Source.Controller))

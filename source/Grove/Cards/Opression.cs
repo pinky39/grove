@@ -17,7 +17,7 @@
         .ManaCost("{1}{B}{B}")
         .Type("Enchantment")
         .Text("Whenever a player casts a spell, that player discards a card.")
-        .FlavorText("'Do not presume to speak for yourself.'{EOL}—Gix, to Xantcha")
+        .FlavorText("Do not presume to speak for yourself.")
         .Cast(p => p.TimingRule(new SecondMain()))
         .TriggeredAbility(p =>
           {

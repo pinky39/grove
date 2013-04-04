@@ -17,7 +17,7 @@
         .Type("Instant")
         .Text("Add {B}{B}{B} to your mana pool.")
         .FlavorText(
-          "'From void evolved Phyrexia. Great Yawgmoth, Father of Machines, saw its perfection. Thus The Grand Evolution began.'{EOL}—Phyrexian Scriptures")
+          "From void evolved Phyrexia. Great Yawgmoth, Father of Machines, saw its perfection. Thus The Grand Evolution began.")
         .OverrideScore(new ScoreOverride {Hand = 80}) /* ritual score must be lowered a bit so ai casts it more eagerly */
         .Cast(p =>
           {

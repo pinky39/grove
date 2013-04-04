@@ -17,7 +17,7 @@
         .Type("Creature Human Wizard")
         .Text("{T}: Counter target spell unless its controller pays {1}.")
         .FlavorText(
-          "'Teferi is a problem student. Always late for class. No appreciation for constructive use of time.'{EOL}—Barrin, progress report")
+          "'Teferi is a problem student. Always late for class. No appreciation for constructive use of time.")
         .Power(1)
         .Toughness(1)
         .ActivatedAbility(p =>

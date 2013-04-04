@@ -16,9 +16,9 @@
         .Named("Cloak of Mists")
         .ManaCost("{1}{U}")
         .Type("Enchantment Aura")
-        .Text("{Enchant creature}{EOL}Enchanted creature is unblockable.")
+        .Text("Enchanted creature is unblockable.")
         .FlavorText(
-          "'All we could lose, we did. All we could keep, we do. And both are shrouded by mists.'{EOL}—Barrin, master wizard")
+          "All we could lose, we did. All we could keep, we do. And both are shrouded by mists.")
         .Cast(p =>
           {
             p.Effect = () => new Attach(() => new AddStaticAbility(Static.Unblockable));

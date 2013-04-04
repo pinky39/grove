@@ -15,7 +15,7 @@
         .ManaCost("{1}{B}")
         .Type("Sorcery")
         .Text("Target opponent sacrifices a creature.")
-        .FlavorText("'Choose your next words carefully. They will be your last.'{EOL}—Phage the Untouchable")
+        .FlavorText("Choose your next words carefully. They will be your last.")
         .Cast(p =>
           {
             p.Effect = () => new OpponentSacrificesCreatures(1);

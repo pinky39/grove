@@ -20,7 +20,7 @@
         .ManaCost("{3}{R}")
         .Type("Creature Kavu")
         .Text("When Flametongue Kavu enters the battlefield, it deals 4 damage to target creature.")
-        .FlavorText("'For dim-witted, thick-skulled genetic mutants, they have pretty good aim.{EOL}—Sisay'")
+        .FlavorText("For dim-witted, thick-skulled genetic mutants, they have pretty good aim.")
         .Power(4)
         .Toughness(2)
         .Cast(p => p.TimingRule(new OpponentHasPermanents(

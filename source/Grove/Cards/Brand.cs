@@ -16,7 +16,7 @@
         .Type("Instant")
         .Text(
           "Gain control of all permanents you own. (This effect lasts indefinitely.){EOL}Cycling {2}({2}, Discard this card: Draw a card.)")
-        .FlavorText("'By this glyph I affirm your role.'{EOL}—Urza, to Karn")
+        .FlavorText("By this glyph I affirm your role.")
         .Cast(p =>
           {
             p.Effect = () => new GainControlOfOwnedPermanents();

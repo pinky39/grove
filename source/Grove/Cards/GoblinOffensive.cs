@@ -26,7 +26,7 @@
               token: Card
                 .Named("Goblin Token")
                 .FlavorText(
-                  "'When you're a goblin, you don't have to step forward to be a hero—everyone else just has to step back'{EOL}—Biggum Flodrot, goblin veteran")
+                  "When you're a goblin, you don't have to step forward to be a hero—everyone else just has to step back.")
                 .Power(1)
                 .Toughness(1)
                 .Type("Creature Token Goblin")

@@ -18,7 +18,7 @@
         .ManaCost("{R}")
         .Type("Enchantment")
         .Text("Sacrifice Seal of Fire: Seal of Fire deals 2 damage to target creature or player.")
-        .FlavorText("'I am the romancer, the passion that consumes the flesh.'{EOL}—Seal inscription")
+        .FlavorText("I am the romancer, the passion that consumes the flesh.")
         .ActivatedAbility(p =>
           {
             p.Text = "Sacrifice Seal of Fire: Seal of Fire deals 2 damage to target creature or player.";

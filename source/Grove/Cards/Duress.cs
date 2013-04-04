@@ -16,7 +16,7 @@
         .Type("Sorcery")
         .Text(
           "Target opponent reveals his or her hand. You choose a noncreature, nonland card from it. That player discards that card.")
-        .FlavorText("'We decide who is worthy of our works.'{EOL}—Gix, Yawgmoth praetor")
+        .FlavorText("We decide who is worthy of our works.")
         .Cast(p =>
           {
             p.Effect = () => new OpponentDiscardsCards(

@@ -17,8 +17,8 @@
         .Named("Bravado")
         .ManaCost("{1}{R}")
         .Type("Enchantment Aura")
-        .Text("{Enchant creature}{EOL}Enchanted creature gets +1/+1 for each other creature you control.")
-        .FlavorText("We drive the dragons from our home. Why should we fear you?{EOL}—Fire Eye, viashino bey")
+        .Text("Enchanted creature gets +1/+1 for each other creature you control.")
+        .FlavorText("We drive the dragons from our home. Why should we fear you?")
         .Cast(p =>
           {
             p.Effect = () => new Attach(() => new Add11ForEachOtherCreature())

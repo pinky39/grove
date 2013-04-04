@@ -20,7 +20,7 @@
         .ManaCost("{1}{G}")
         .Type("Enchantment Aura")
         .Text(
-          "{Enchant creature}{EOL}Sacrifice a Forest: Regenerate enchanted creature.{EOL}When Fortitude is put into a graveyard from the battlefield, return Fortitude to its owner's hand.")
+          "Sacrifice a Forest: Regenerate enchanted creature.{EOL}When Fortitude is put into a graveyard from the battlefield, return Fortitude to its owner's hand.")
         .Cast(p =>
           {
             p.Effect = () => new Attach(() =>

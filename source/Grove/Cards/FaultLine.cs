@@ -16,7 +16,7 @@
         .ManaCost("{R}{R}").HasXInCost()
         .Type("Instant")
         .Text("Fault Line deals X damage to each creature without flying and each player.")
-        .FlavorText("We live on the serpent's back.{EOL}—Viashino saying")
+        .FlavorText("We live on the serpent's back.")
         .Cast(p =>
           {
             p.Effect = () => new DealDamageToCreaturesAndPlayers(

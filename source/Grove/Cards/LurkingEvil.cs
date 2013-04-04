@@ -19,7 +19,7 @@
         .ManaCost("{B}{B}{B}")
         .Type("Enchantment")
         .Text("Pay half your life, rounded up: Lurking Evil becomes a 4/4 Horror creature with flying.")
-        .FlavorText("'Ash is our air, darkness our flesh.'{EOL}—Phyrexian Scriptures")
+        .FlavorText("Ash is our air, darkness our flesh.")
         .Cast(p => p.TimingRule(new SecondMain()))
         .ActivatedAbility(p =>
           {

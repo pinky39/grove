@@ -20,7 +20,7 @@
         .ManaCost("{2}{G}{G}")
         .Type("Enchantment - Aura")
         .Text(
-          "{Enchant creature}{EOL}Enchanted creature gets +3/+3 and has trample.{EOL}{G}: Regenerate enchanted creature.")
+          "Enchanted creature gets +3/+3 and has trample.{EOL}{G}: Regenerate enchanted creature.")
         .FlavorText("The forest rose to the battle, not to save the people but to save itself.")
         .Cast(p =>
           {

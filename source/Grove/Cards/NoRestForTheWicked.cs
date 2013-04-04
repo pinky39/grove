@@ -23,7 +23,7 @@
         .Type("Enchantment")
         .Text(
           "Sacrifice No Rest for the Wicked: Return to your hand all creature cards in your graveyard that were put there from the battlefield this turn.")
-        .FlavorText("'The soul? Here, we have no use for such frivolities.'{EOL}—Sitrik, birth priest")
+        .FlavorText("The soul? Here, we have no use for such frivolities.")
         .Cast(p => p.TimingRule(new SecondMain()))
         .ActivatedAbility(p =>
           {

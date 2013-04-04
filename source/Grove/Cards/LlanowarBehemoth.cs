@@ -20,7 +20,7 @@
         .Type("Creature - Elemental")
         .Text("Tap an untapped creature you control: Llanowar Behemoth gets +1/+1 until end of turn.")
         .FlavorText(
-          "'Most people can't build decent weapons out of stone or steel. Trust the elves to do it with only mud and vines.'{EOL}—Gerrard of the Weatherlight")
+          "Most people can't build decent weapons out of stone or steel. Trust the elves to do it with only mud and vines.")
         .Power(4)
         .Toughness(4)
         .ActivatedAbility(p =>

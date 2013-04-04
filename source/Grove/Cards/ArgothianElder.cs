@@ -17,7 +17,7 @@
         .ManaCost("{3}{G}")
         .Type("Creature Elf Druid")
         .Text("{T}: Untap two target lands.")
-        .FlavorText("Sharpen your ears{EOL}—Elvish expression meaning 'grow wiser'")
+        .FlavorText("Sharpen your ears")
         .Power(2)
         .Toughness(2)
         .ActivatedAbility(p =>

@@ -17,7 +17,7 @@
         .Type("Creature - Beast")
         .Text("Sacrifice a Beast: You gain 4 life.")
         .FlavorText(
-          "All we know about the Krosan Forest we have learned from those few who made it out alive.{EOL}—Elvish refugee")
+          "All we know about the Krosan Forest we have learned from those few who made it out alive.")
         .Power(4)
         .Toughness(4)
         .ActivatedAbility(p =>

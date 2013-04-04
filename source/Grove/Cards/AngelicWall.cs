@@ -15,7 +15,7 @@
         .Type("Creature Wall")
         .Text("{Defender}, {Flying}")
         .FlavorText(
-          "'The air stirred as if fanned by angels wings, and the enemy was turned aside.'{EOL}—Tales of Ikarov the Voyager")
+          "The air stirred as if fanned by angels wings, and the enemy was turned aside.")
         .Power(0)
         .Toughness(4)        
         .StaticAbilities(Static.Defender, Static.Flying);        

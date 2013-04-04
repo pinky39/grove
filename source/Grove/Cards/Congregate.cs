@@ -17,7 +17,7 @@
         .Type("Instant")
         .Text("Target player gains 2 life for each creature on the battlefield.")
         .FlavorText(
-          "'In the gathering there is strength for all who founder, renewal for all who languish, love for all who sing.'{EOL}—Song of All, canto 642")
+          "In the gathering there is strength for all who founder, renewal for all who languish, love for all who sing.")
         .Cast(p =>
           {
             p.Effect = () => new TargetPlayerGainsLifeEqualToCreatureCount(multiplier: 2);

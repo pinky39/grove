@@ -19,7 +19,7 @@
         .Text(
           "Choose one — Target player gains 3 life; or prevent the next 3 damage that would be dealt to target creature or player this turn.")
         .FlavorText(
-          "'Xantcha is recovering. The medicine is slow, but my magic would have killed her'{EOL}—Serra, to Urza")
+          "Xantcha is recovering. The medicine is slow, but my magic would have killed her.")
         .Cast(p =>
           {
             p.Text = "Target player gains 3 life";

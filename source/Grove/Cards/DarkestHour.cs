@@ -17,7 +17,7 @@
         .ManaCost("{B}")
         .Text("All creatures are black")
         .FlavorText(
-          "'Yawgmoth spent eons wrapping Phyrexians in human skin. They are the sleeper agents, and they are everywhere.'{EOL}—Xantcha, to Urza")
+          "Yawgmoth spent eons wrapping Phyrexians in human skin. They are the sleeper agents, and they are everywhere.")
         .Cast(p => p.TimingRule(new FirstMain()))
         .ContinuousEffect(p =>
           {

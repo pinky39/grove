@@ -19,7 +19,7 @@
         .ManaCost("{1}{B}")
         .Type("Enchantment")
         .Text("Whenever a green creature dies, its controller discards a card.")
-        .FlavorText("'Grief is as useless as love.'{EOL}—Gix, Yawgmoth praetor")
+        .FlavorText("Grief is as useless as love.")
         .Cast(p => p.TimingRule(new FirstMain()))
         .TriggeredAbility(p =>
           {

@@ -18,7 +18,7 @@
         .ManaCost("{2}{G}{G}")
         .Type("Enchantment")
         .Text("Sacrifice a creature: Draw cards equal to the sacrificed creature's power, then discard three cards.")
-        .FlavorText("'We have more sprouts than they have hands.'{EOL}—Gamelen, Citanul elder")
+        .FlavorText("We have more sprouts than they have hands.")
         .Cast(p =>
           {
             p.TimingRule(new FirstMain());

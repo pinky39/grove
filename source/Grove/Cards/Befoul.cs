@@ -18,7 +18,7 @@
         .ManaCost("{2}{B}{B}")
         .Type("Sorcery")
         .Text("Destroy target land or nonblack creature. It can't be regenerated.")
-        .FlavorText("'The land putrefied at its touch, turned into an oily bile in seconds.'{EOL}—Radiant, archangel")
+        .FlavorText("The land putrefied at its touch, turned into an oily bile in seconds.")
         .Cast(p =>
           {
             p.Effect = () => new DestroyTargetPermanents(canRegenerate: false) {Category = EffectCategories.Destruction};

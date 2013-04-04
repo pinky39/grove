@@ -15,7 +15,7 @@
         .ManaCost("{2}{U}")
         .Type("Enchantment")
         .Text("Return Attunement to its owner's hand: Draw three cards, then discard four cards.")
-        .FlavorText("The solution can hide for only so long.{EOL}—Urza")
+        .FlavorText("The solution can hide for only so long.")
         .Cast(p => p.TimingRule(new SecondMain()))
         .ActivatedAbility(p =>
           {

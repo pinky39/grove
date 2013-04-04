@@ -14,7 +14,7 @@
         .ManaCost("{U}{U}")
         .Type("Instant")
         .Text("Counter target spell.")
-        .FlavorText("'Your attack has been rendered harmless. It is, however, quite pretty.'{EOL}—Saprazzan vizier")
+        .FlavorText("Your attack has been rendered harmless. It is, however, quite pretty.")
         .Cast(p =>
           {
             p.Effect = () => new CounterTargetSpell();

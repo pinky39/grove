@@ -17,7 +17,7 @@
         .ManaCost("{1}{R}")
         .Type("Sorcery")
         .Text("Disorder deals 2 damage to each white creature and each player who controls a white creature.")
-        .FlavorText("'Then, just when the other guys were winnin', the sky threw up.'{EOL}—Jula, goblin raider")
+        .FlavorText("Then, just when the other guys were winnin', the sky threw up.")
         .Cast(p =>
           {
             p.Effect = () => new DealDamageToCreaturesAndPlayers(

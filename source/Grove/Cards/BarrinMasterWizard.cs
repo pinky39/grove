@@ -18,7 +18,7 @@
         .Type("Legendary Creature Human Wizard")
         .Text("{2}, Sacrifice a permanent: Return target creature to its owner's hand.")
         .FlavorText(
-          "'Knowledge is no more expensive than ignorance, and at least as satisfying.'{EOL}—Barrin, master wizard")
+          "Knowledge is no more expensive than ignorance, and at least as satisfying.")
         .Power(1)
         .Toughness(1)
         .ActivatedAbility(p =>

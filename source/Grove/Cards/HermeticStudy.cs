@@ -18,8 +18,8 @@
         .ManaCost("{1}{U}")
         .Type("Enchantment Aura")
         .Text(
-          "{Enchant creature}{EOL}Enchanted creature has '{T}: This creature deals 1 damage to target creature or player.'")
-        .FlavorText("'Books can be replaced; a prize student cannot. Be patient.'{EOL}—Urza, to Barrin")
+          "Enchanted creature has '{T}: This creature deals 1 damage to target creature or player.'")
+        .FlavorText("Books can be replaced; a prize student cannot. Be patient.")
         .Cast(p =>
           {
             p.Effect = () => new Attach(() =>

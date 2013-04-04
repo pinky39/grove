@@ -14,7 +14,7 @@
         .Type("Creature Zombie")
         .Text("{Swampwalk} (This creature is unblockable as long as defending player controls a Swamp.)")
         .FlavorText(
-          "'Let weak feed on weak, that we may divine the nature of strength.'{EOL}—Phyrexian Scriptures")
+          "Let weak feed on weak, that we may divine the nature of strength.")
         .Power(2)
         .Toughness(2)
         .StaticAbilities(Static.Swampwalk);

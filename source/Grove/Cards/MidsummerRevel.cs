@@ -41,7 +41,7 @@
               token: Card
                 .Named("Beast Token")
                 .FlavorText(
-                  "All we know about the Krosan Forest we have learned from those few who made it out alive.{EOL}—Elvish refugee")
+                  "All we know about the Krosan Forest we have learned from those few who made it out alive.")
                 .Power(3)
                 .Toughness(3)
                 .Type("Creature Token Beast")

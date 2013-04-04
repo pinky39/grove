@@ -13,7 +13,7 @@
         .ManaCost("{3}{G}")
         .Type("Creature Hippo")
         .Text("{Islandwalk} (This creature is unblockable as long as defending player controls an Island.)")
-        .FlavorText("'How could you not hear it approach? It's a hippo!'{EOL}—Argivian commander")
+        .FlavorText("How could you not hear it approach? It's a hippo!")
         .Power(3)
         .Toughness(3)
         .StaticAbilities(Static.Islandwalk);

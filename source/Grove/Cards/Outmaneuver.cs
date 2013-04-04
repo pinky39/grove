@@ -19,7 +19,7 @@
         .ManaCost("{R}").HasXInCost()
         .Type("Instant")
         .Text("X target blocked creatures assign their combat damage this turn as though they weren't blocked.")
-        .FlavorText("'Push one goblin into sight, an' run a lot. That's tactics.'{EOL}—Jula, goblin raider")
+        .FlavorText("Push one goblin into sight, an' run a lot. That's tactics.")
         .Cast(p =>
           {
             p.Text = "X target blocked creatures assign their combat damage this turn as though they weren't blocked.";

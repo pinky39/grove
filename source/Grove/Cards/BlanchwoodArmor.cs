@@ -16,8 +16,8 @@
         .Named("Blanchwood Armor")
         .ManaCost("{2}{G}")
         .Type("Enchantment - Aura")
-        .Text("{Enchant creature}{EOL}Enchanted creature gets +1/+1 for each Forest you control.")
-        .FlavorText("'Before armor, there was bark. Before blades, there were thorns.'{EOL}—Molimo, maro-sorcerer")
+        .Text("Enchanted creature gets +1/+1 for each Forest you control.")
+        .FlavorText("Before armor, there was bark. Before blades, there were thorns.")
         .Cast(p =>
           {
             p.Effect = () => new Attach(() => new Add11ForEachForest());
