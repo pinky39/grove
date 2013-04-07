@@ -23,7 +23,7 @@
           {EffectOption.Untap, card => card.Untap()}
         };
 
-    public override ChosenOptions ChooseOptions()
+    public override ChosenOptions ChooseResult(List<object> candidates)
     {
       if (Target == Controller)
       {

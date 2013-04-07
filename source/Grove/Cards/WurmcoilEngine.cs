@@ -34,7 +34,7 @@
               Card
                 .Named("Wurm Token")
                 .Text("{Deathtouch}")
-                .FlavorText("When wurms aren't hungry{EOL}—Nantuko expression meaning 'never'")
+                .FlavorText("When wurms aren't hungry.{EOL}—Nantuko expression meaning 'never'")
                 .Power(3)
                 .Toughness(3)
                 .Type("Artifact Creature - Wurm Token")
@@ -43,7 +43,7 @@
               Card
                 .Named("Wurm Token")
                 .Text("{Lifelink}")
-                .FlavorText("When wurms aren't hungry{EOL}—Nantuko expression meaning 'never'")
+                .FlavorText("When wurms aren't hungry.{EOL}—Nantuko expression meaning 'never'")
                 .Power(3)
                 .Toughness(3)
                 .Type("Artifact Creature - Wurm Token")

@@ -17,7 +17,7 @@
         .Type("Creature Skeleton")
         .Text("{B}: Regenerate Unworthy Dead.")
         .FlavorText(
-          "'Great Yawgmoth moves across the seas of shard and bone and rust. We exalt him in life, in death, and in between.'{EOL}—Phyrexian Scriptures")
+          "Great Yawgmoth moves across the seas of shard and bone and rust. We exalt him in life, in death, and in between.")
         .Power(1)
         .Toughness(1)
         .ActivatedAbility(p =>

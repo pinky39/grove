@@ -17,6 +17,12 @@
     }
 
     public static ChosenCards None { get { return new ChosenCards(); } }
+    public int Count { get { return _cards.Count; } }
+
+    public Card this[int index]
+    {
+      get { return _cards[index]; }
+    }
 
     public IEnumerator<Card> GetEnumerator()
     {

@@ -209,6 +209,10 @@
     <Compile Include="Cards\PlanarVoid.cs" />
     <Compile Include="Cards\PowerSink.cs" />
     <Compile Include="Cards\PowerTaint.cs" />
+    <Compile Include="Cards\PresenceOfTheMaster.cs" />
+    <Compile Include="Cards\PriestOfGix.cs" />
+    <Compile Include="Cards\PriestOfTitania.cs" />
+    <Compile Include="Cards\PurgingScythe.cs" />
     <Compile Include="Cards\Rancor.cs" />
     <Compile Include="Cards\Recoil.cs" />
     <Compile Include="Cards\RuneOfProtectionBlack.cs" />

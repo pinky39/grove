@@ -3,34 +3,42 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Infrastructure;
   using Results;
   using Targeting;
   using Zones;
 
   public abstract class SelectCards : Decision<ChosenCards>
   {
+    public bool CanSelectOnlyCardsControlledByDecisionController = true;
+    public IChooseDecisionResults<List<Card>, ChosenCards> ChooseDecisionResults;
     public int MaxCount;
     public int MinCount;
+    public Card OwningCard;
     public IProcessDecisionResults<ChosenCards> ProcessDecisionResults;
     public string Text;
-    public Func<Card, bool> Validator;    
+    public Func<Card, bool> Validator;
     public Zone Zone;
-    public Card OwningCard;
+
     private List<Card> _validCards;
 
     protected SelectCards()
     {
-      Result = ChosenCards.None;
+      Result = null;
     }
 
-    protected List<Card> ValidCards
+    protected List<Card> ValidTargets
     {
       get
       {
         return
           _validCards ?? (_validCards =
-            GenerateTargets((zone, owner) => owner == Controller && zone == Zone)
+            GenerateTargets((zone, owner) =>
+              {
+                if (CanSelectOnlyCardsControlledByDecisionController && owner != Controller)
+                  return false;
+
+                return zone == Zone;
+              })
               .Where(x => x.IsCard())
               .Select(x => x.Card())
               .Where(x => Validator(x))
@@ -42,46 +50,15 @@
     {
       get
       {
-        var count = ValidCards.Count;
+        var count = ValidTargets.Count;
         return count > MinCount;
       }
     }
 
     public override void ProcessResults()
     {
-      if (Result.None())
-      {
-        foreach (var card in ValidCards)
-        {
-          ProcessCard(card);
-        }
-      }
-      else
-      {
-        foreach (var chosenCard in Result)
-        {
-          ProcessCard(chosenCard);
-        }
-      }
-
-      if (ProcessDecisionResults != null)
-        ProcessDecisionResults.ProcessResults(Result);
-
-      ResultProcessed();
+      var result = Result ?? new ChosenCards(ValidTargets);
+      ProcessDecisionResults.ProcessResults(result);
     }
-
-    protected ChosenCards GetTargets(bool descending)
-    {
-      return GenerateTargets((zone, owner) => owner == Controller && Zone == zone)
-        .Where(x => x.IsCard())
-        .Select(x => x.Card())
-        .Where(Validator)
-        .OrderBy(x => descending ? -x.Score : x.Score)
-        .Take(MaxCount)
-        .ToList();
-    }
-
-    protected abstract void ProcessCard(Card chosenCard);
-    protected virtual void ResultProcessed() {}
   }
 }

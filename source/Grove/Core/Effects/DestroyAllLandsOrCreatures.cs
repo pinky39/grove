@@ -12,7 +12,7 @@
       Category = EffectCategories.Destruction;
     }
 
-    public override ChosenOptions ChooseOptions()
+    public override ChosenOptions ChooseResult(List<object> candidates)
     {
       var opponentCreatureCount = Controller.Opponent.Battlefield.Creatures.Count();
       var yourCreatureCount = Controller.Battlefield.Creatures.Count();

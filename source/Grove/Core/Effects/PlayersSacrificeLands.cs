@@ -1,11 +1,13 @@
 ﻿namespace Grove.Core.Effects
 {
   using System;
+  using System.Collections.Generic;
   using System.Linq;
   using Decisions;
+  using Decisions.Results;
   using Zones;
 
-  public class PlayersSacrificeLands : Effect
+  public class PlayersSacrificeLands : Effect, IProcessDecisionResults<ChosenCards>, IChooseDecisionResults<List<Card>, ChosenCards>
   {
     private readonly int _count;
     private readonly Func<Effect, Player, bool> _playerFilter;
@@ -30,7 +32,7 @@
 
     private void SelectCardsToSacrifice(Player player)
     {
-      Enqueue<SelectCardsToSacrifice>(
+      Enqueue<SelectCards>(
         controller: player,
         init: p =>
           {
@@ -40,7 +42,25 @@
             p.Text = FormatText("Select land(s) to sacrifice");
             p.Zone = Zone.Battlefield;
             p.OwningCard = Source.OwningCard;
+            p.ProcessDecisionResults = this;
+            p.ChooseDecisionResults = this;
           });
+    }
+
+    public void ProcessResults(ChosenCards results)
+    {
+      foreach (var card in results)
+      {
+        card.Sacrifice();
+      }
+    }
+
+    public ChosenCards ChooseResult(List<Card> candidates)
+    {
+      return candidates
+        .OrderBy(x => x.Score)
+        .Take(_count)
+        .ToList();
     }
   }
 }

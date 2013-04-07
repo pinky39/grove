@@ -1,10 +1,14 @@
 ﻿namespace Grove.Core.Effects
 {
   using System;
+  using System.Collections.Generic;
+  using System.Linq;
   using Decisions;
+  using Decisions.Results;
   using Zones;
 
-  public class EachPlayerReturnsCardsToHand : Effect
+  public class EachPlayerReturnsCardsToHand : Effect, IProcessDecisionResults<ChosenCards>,
+    IChooseDecisionResults<List<Card>, ChosenCards>
   {
     private readonly bool _aiOrdersByDescendingScore;
     private readonly Func<Card, bool> _filter;
@@ -26,6 +30,30 @@
       _maxCount = maxCount;
     }
 
+    public ChosenCards ChooseResult(List<Card> candidates)
+    {
+      if (_aiOrdersByDescendingScore)
+      {
+        return candidates
+          .OrderBy(x => -x.Score)
+          .Take(_minCount)
+          .ToList();
+      }
+
+      return candidates
+        .OrderBy(x => x.Score)
+        .Take(_maxCount)
+        .ToList();
+    }
+
+    public void ProcessResults(ChosenCards results)
+    {
+      foreach (var card in results)
+      {
+        card.PutToHand();
+      }
+    }
+
     protected override void ResolveEffect()
     {
       ReturnCardToHand(Players.Active);
@@ -34,7 +62,7 @@
 
     private void ReturnCardToHand(Player player)
     {
-      Enqueue<SelectCardsPutToHand>(
+      Enqueue<SelectCards>(
         controller: player,
         init: p =>
           {
@@ -42,9 +70,10 @@
             p.MaxCount = _maxCount;
             p.Validator = _filter;
             p.Zone = _zone;
-            p.AiOrdersByDescendingScore = _aiOrdersByDescendingScore;
             p.Text = _text;
             p.OwningCard = Source.OwningCard;
+            p.ProcessDecisionResults = this;
+            p.ChooseDecisionResults = this;
           });
     }
   }

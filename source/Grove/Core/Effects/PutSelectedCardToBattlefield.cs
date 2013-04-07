@@ -1,10 +1,13 @@
 ﻿namespace Grove.Core.Effects
 {
   using System;
+  using System.Collections.Generic;
+  using System.Linq;
   using Decisions;
+  using Decisions.Results;
   using Zones;
 
-  public class PutSelectedCardToBattlefield : Effect
+  public class PutSelectedCardToBattlefield : Effect, IProcessDecisionResults<ChosenCards>, IChooseDecisionResults<List<Card>, ChosenCards>
   {
     private readonly string _text;
     private readonly Func<Card, bool> _validator;
@@ -21,7 +24,7 @@
 
     protected override void ResolveEffect()
     {
-      Enqueue<SelectCardsPutToBattlefield>(Controller,
+      Enqueue<SelectCards>(Controller,
         p =>
           {
             p.Validator = _validator;
@@ -30,8 +33,26 @@
             p.MaxCount = 1;
             p.Text = FormatText(_text);
             p.OwningCard = Source.OwningCard;
+            p.ProcessDecisionResults = this;
+            p.ChooseDecisionResults = this;
           }
         );
+    }
+
+    public void ProcessResults(ChosenCards results)
+    {
+      foreach (var card in results)
+      {
+        card.PutToBattlefield();
+      }
+    }
+
+    public ChosenCards ChooseResult(List<Card> candidates)
+    {
+      return candidates
+        .OrderBy(x => -x.Score)
+        .Take(1)
+        .ToList();
     }
   }
 }

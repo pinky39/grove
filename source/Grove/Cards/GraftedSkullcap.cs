@@ -17,7 +17,7 @@
         .Type("Artifact")
         .Text(
           "At the beginning of your draw step, draw an additional card.{EOL}At the beginning of your end step, discard your hand.")
-        .FlavorText("'Let go your mind. Mine is fitter.'{EOL}—Gix, Yawgmoth praetor")
+        .FlavorText("Let go your mind. Mine is fitter.")
         .Cast(p => p.TimingRule(new SecondMain()))
         .TriggeredAbility(p =>
           {

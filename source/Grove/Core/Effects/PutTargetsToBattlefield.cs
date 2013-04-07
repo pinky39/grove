@@ -1,12 +1,14 @@
 ﻿namespace Grove.Core.Effects
 {
+  using System.Collections.Generic;
   using System.Linq;
   using Decisions;
   using Decisions.Results;
   using Targeting;
   using Zones;
 
-  public class PutTargetsToBattlefield : Effect, IProcessDecisionResults<ChosenCards>
+  public class PutTargetsToBattlefield : Effect, IProcessDecisionResults<ChosenCards>,
+    IChooseDecisionResults<List<Card>, ChosenCards>
   {
     private readonly bool _mustSacCreatureOnResolve;
     private readonly bool _tapped;
@@ -19,8 +21,21 @@
       _tapped = tapped;
     }
 
+    public ChosenCards ChooseResult(List<Card> candidates)
+    {
+      return candidates
+        .OrderBy(x => x.Score)
+        .Take(1)
+        .ToList();
+    }
+
     public void ProcessResults(ChosenCards results)
     {
+      foreach (var card in results)
+      {
+        card.Sacrifice();
+      }
+      
       PutValidTargetsToBattlefield();
     }
 
@@ -40,7 +55,7 @@
 
     private void SacCreatureAndPutValidTargetsToBattlefield()
     {
-      Enqueue<SelectCardsToSacrifice>(Controller, p =>
+      Enqueue<SelectCards>(Controller, p =>
         {
           p.MinCount = 1;
           p.MaxCount = 1;
@@ -48,6 +63,7 @@
           p.Zone = Zone.Battlefield;
           p.Text = FormatText("Select a creature to sacrifice");
           p.ProcessDecisionResults = this;
+          p.ChooseDecisionResults = this;
           p.OwningCard = Source.OwningCard;
         });
     }

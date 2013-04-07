@@ -8,7 +8,7 @@
 
   public class PayLifeAddCounters : CustomizableEffect
   {
-    public override ChosenOptions ChooseOptions()
+    public override ChosenOptions ChooseResult(List<object> candidates)
     {
       const int minLife = 8;
       const int maxPay = 5;

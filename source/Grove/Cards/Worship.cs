@@ -17,7 +17,7 @@
         .Type("Enchantment")
         .Text(
           "If you control a creature, damage that would reduce your life total to less than 1 reduces it to 1 instead.")
-        .FlavorText("'Believe in the ideal, not the idol.'{EOL}—Serra")
+        .FlavorText("Believe in the ideal, not the idol.")
         .Cast(p =>
           {
             p.TimingRule(new FirstMain());

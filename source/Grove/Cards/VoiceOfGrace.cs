@@ -15,7 +15,7 @@
         .Type("Creature Angel")
         .Text("{Flying}, protection from black")
         .FlavorText(
-          "'Opposite Law is Grace, and Grace must be preserved. If the strands of Grace are unraveled, its design will be lost, and the people with it.'{EOL}—Song of All, canto 167")
+          "Opposite Law is Grace, and Grace must be preserved. If the strands of Grace are unraveled, its design will be lost, and the people with it.")
         .Power(2)
         .Toughness(2)
         .Protections(ManaColors.Black)

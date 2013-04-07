@@ -17,7 +17,7 @@
         new Rel {Color = ManaColors.Green, Choice = EffectOption.Green},
       };
 
-    public override ChosenOptions ChooseOptions()
+    public override ChosenOptions ChooseResult(List<object> opetions)
     {
       var available = Target.Player().GetAvailableMana();
 

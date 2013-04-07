@@ -1,12 +1,15 @@
 ﻿namespace Grove.Core.Effects
 {
   using System;
+  using System.Collections.Generic;
+  using System.Linq;
   using Decisions;
   using Decisions.Results;
   using Messages;
   using Zones;
 
-  public class SearchLibraryPutToHand : Effect, IProcessDecisionResults<ChosenCards>
+  public class SearchLibraryPutToHand : Effect, IProcessDecisionResults<ChosenCards>,
+    IChooseDecisionResults<List<Card>, ChosenCards>
   {
     private readonly bool _discardRandomCardAfterwards;
     private readonly int _maxCount;
@@ -28,18 +31,25 @@
       _minCount = minCount;
     }
 
+    public ChosenCards ChooseResult(List<Card> candidates)
+    {
+      return candidates
+        .OrderBy(x => -x.Score)
+        .Take(_maxCount)
+        .ToList();
+    }
+
     public void ProcessResults(ChosenCards results)
     {
-      if (_revealCards)
+      foreach (var card in results)
       {
-        foreach (var card in results)
+        card.PutToHand();
+
+        if (_revealCards)
         {
           Publish(new CardWasRevealed {Card = card});
         }
-      }
-      else
-      {
-        foreach (var card in results)
+        else
         {
           card.ResetVisibility();
         }
@@ -57,7 +67,7 @@
     {
       Controller.RevealLibrary();
 
-      Enqueue<SelectCardsPutToHand>(
+      Enqueue<SelectCards>(
         controller: Controller,
         init: p =>
           {
@@ -66,8 +76,8 @@
             p.Validator = _validator;
             p.Zone = Zone.Library;
             p.Text = FormatText(_text);
-            p.AiOrdersByDescendingScore = true;
             p.ProcessDecisionResults = this;
+            p.ChooseDecisionResults = this;
             p.OwningCard = Source.OwningCard;
           });
     }

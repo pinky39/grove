@@ -27,7 +27,7 @@
             p.Effect = () => new SacrificePermanentOrSacrificeOwner(
               validator: c => c.Is().Enchantment,
               shouldPayAi: (controller, card) => card.IsAbleToAttack,
-              text: "Select enchantment to sacrifice");
+              text: "Pay upkeep, select an enchantment to sacrifice.");
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });
     }

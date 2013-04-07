@@ -1,33 +1,46 @@
 ﻿namespace Grove.Core.Effects
 {
+  using System.Collections.Generic;
   using System.Linq;
   using Decisions;
   using Decisions.Results;
   using Zones;
 
-  public class PutOnTopOfLibraryUnlessOpponentSacsLand : Effect, IProcessDecisionResults<ChosenCards>
+  public class PutOnTopOfLibraryUnlessOpponentSacsLand : Effect,
+    IProcessDecisionResults<ChosenCards>, IChooseDecisionResults<List<Card>, ChosenCards>
   {
+    public ChosenCards ChooseResult(List<Card> candidates)
+    {
+      if (Controller.Opponent.Battlefield.Lands.Count() < 4)
+        return new ChosenCards();
+
+      return candidates
+        .OrderBy(x => x.Score)
+        .Take(1)
+        .ToList();
+    }
+
     public void ProcessResults(ChosenCards results)
     {
-      if (results.Any())
-      {
-        Source.OwningCard.PutOnTopOfLibrary();
-      }
+      if (results.Count == 0)
+        return;
+
+      results[0].Sacrifice();
+
+      Source.OwningCard.PutOnTopOfLibrary();
     }
 
     protected override void ResolveEffect()
     {
-      Enqueue<SelectCardsToSacrificeAsCost>(Players.GetOpponent(Controller), p =>
+      Enqueue<SelectCards>(Controller.Opponent, p =>
         {
           p.Validator = card => card.Is().Land;
           p.Zone = Zone.Battlefield;
-          p.Text = FormatText("Select a land to sacrifice");
-          p.Ai = (controller, card) => controller.Battlefield.Lands.Count() >= 4;
-          p.QuestionText = "Sacrifice a land?";
-          p.MinCount = 1;
-          p.MaxCount = 1;
+          p.Text = FormatText("Sacrifice a land?");
+          p.ChooseDecisionResults = this;
           p.ProcessDecisionResults = this;
-          p.CardToPayUpkeepFor = Source.OwningCard;
+          p.MinCount = 0;
+          p.MaxCount = 1;
           p.OwningCard = Source.OwningCard;
         });
     }

@@ -1,9 +1,14 @@
 ﻿namespace Grove.Core.Effects
 {
   using System;
+  using System.Collections.Generic;
+  using System.Linq;
   using Decisions;
+  using Decisions.Results;
+  using Zones;
 
-  public class UntapSelectedPermanents : Effect
+  public class UntapSelectedPermanents : Effect, IProcessDecisionResults<ChosenCards>,
+    IChooseDecisionResults<List<Card>, ChosenCards>
   {
     private readonly int _maxCount;
     private readonly int _minCount;
@@ -22,16 +27,35 @@
 
     protected override void ResolveEffect()
     {
-      Enqueue<SelectCardsToUntap>(Controller,
+      Enqueue<SelectCards>(Controller,
         p =>
           {
             p.Validator = _validator;
+            p.Zone = Zone.Battlefield;
             p.MinCount = _minCount;
             p.MaxCount = _maxCount;
             p.Text = FormatText(_text);
             p.OwningCard = Source.OwningCard;
+            p.ProcessDecisionResults = this;
+            p.ChooseDecisionResults = this;
           }
         );
+    }
+
+    public void ProcessResults(ChosenCards results)
+    {
+      foreach (var card in results)
+      {
+        card.Untap();
+      }
+    }
+
+    public ChosenCards ChooseResult(List<Card> candidates)
+    {
+      return candidates
+        .OrderBy(x => -x.Score)
+        .Take(_maxCount)
+        .ToList();
     }
   }
 }

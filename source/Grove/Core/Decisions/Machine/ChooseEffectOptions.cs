@@ -4,7 +4,7 @@
   {
     protected override void ExecuteQuery()
     {
-      Result = ChooseOptionsAi.ChooseOptions();
+      Result = ChooseDecisionResults.ChooseResult(Choices);
     }
   }
 }

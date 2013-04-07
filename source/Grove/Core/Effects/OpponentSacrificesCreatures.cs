@@ -1,10 +1,14 @@
 ﻿namespace Grove.Core.Effects
 {
+  using System.Collections.Generic;
+  using System.Linq;
   using Ai;
   using Decisions;
+  using Decisions.Results;
   using Zones;
 
-  public class OpponentSacrificesCreatures : Effect
+  public class OpponentSacrificesCreatures : Effect,
+    IProcessDecisionResults<ChosenCards>, IChooseDecisionResults<List<Card>, ChosenCards>
   {
     private readonly int _count;
 
@@ -16,9 +20,25 @@
       Category = EffectCategories.Destruction;
     }
 
+    public ChosenCards ChooseResult(List<Card> candidates)
+    {
+      return candidates
+        .OrderBy(x => x.Score)
+        .Take(_count)
+        .ToList();
+    }
+
+    public void ProcessResults(ChosenCards results)
+    {
+      foreach (var card in results)
+      {
+        card.Sacrifice();
+      }
+    }
+
     protected override void ResolveEffect()
     {
-      Enqueue<SelectCardsToSacrifice>(
+      Enqueue<SelectCards>(
         controller: Controller.Opponent,
         init: p =>
           {
@@ -26,8 +46,10 @@
             p.MaxCount = _count;
             p.Validator = card => card.Is().Creature;
             p.Zone = Zone.Battlefield;
-            p.Text = FormatText("Select creature(s) to sacrifice");
+            p.Text = FormatText("Select creature(s) to sacrifice.");
             p.OwningCard = Source.OwningCard;
+            p.ProcessDecisionResults = this;
+            p.ChooseDecisionResults = this;
           });
     }
   }

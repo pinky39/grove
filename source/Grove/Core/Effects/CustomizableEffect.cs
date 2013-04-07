@@ -5,9 +5,9 @@
   using Decisions;
   using Decisions.Results;
 
-  public abstract class CustomizableEffect : Effect, IProcessDecisionResults<ChosenOptions>, IChooseEffectOptionsAi
+  public abstract class CustomizableEffect : Effect, IProcessDecisionResults<ChosenOptions>, IChooseDecisionResults<List<object>, ChosenOptions>
   {
-    public abstract ChosenOptions ChooseOptions();
+    public abstract ChosenOptions ChooseResult(List<object> candidates);
     public abstract void ProcessResults(ChosenOptions results);
     public abstract string GetText();
     public abstract IEnumerable<object> GetChoices();
@@ -17,7 +17,7 @@
       Enqueue<ChooseEffectOptions>(Controller, p =>
         {
           p.ProcessDecisionResults = this;
-          p.ChooseOptionsAi = this;
+          p.ChooseDecisionResults = this;
           p.Text = GetText();
           p.Choices = GetChoices().ToList();
           p.Effect = this;

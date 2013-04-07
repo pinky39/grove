@@ -1,12 +1,15 @@
 ﻿namespace Grove.Core.Effects
 {
   using System;
+  using System.Collections.Generic;
+  using System.Linq;
   using Decisions;
   using Decisions.Results;
   using Infrastructure;
   using Zones;
 
-  public class SacrificePermanentOrSacrificeOwner : Effect, IProcessDecisionResults<ChosenCards>
+  public class SacrificePermanentOrSacrificeOwner : Effect,
+    IProcessDecisionResults<ChosenCards>, IChooseDecisionResults<List<Card>, ChosenCards>
   {
     private readonly Func<Player, Card, bool> _shouldPayAi;
     private readonly string _text;
@@ -22,27 +25,41 @@
       _validator = validator ?? delegate { return true; };
     }
 
+    public ChosenCards ChooseResult(List<Card> candidates)
+    {
+      if (_shouldPayAi(Controller, Source.OwningCard))
+      {
+        return candidates
+          .OrderBy(x => x.Score)
+          .Take(1)
+          .ToList();
+      }
+
+      return new ChosenCards();
+    }
+
     public void ProcessResults(ChosenCards results)
     {
       if (results.None())
       {
         Source.OwningCard.Sacrifice();
+        return;
       }
+
+      results[0].Sacrifice();
     }
 
     protected override void ResolveEffect()
     {
-      Game.Enqueue<SelectCardsToSacrificeAsCost>(Controller, p =>
+      Enqueue<SelectCards>(Controller, p =>
         {
-          p.Ai = _shouldPayAi;
-          p.QuestionText = FormatText("Pay upkeep cost?");
           p.Validator = _validator;
           p.Zone = Zone.Battlefield;
-          p.MinCount = 1;
+          p.MinCount = 0;
           p.MaxCount = 1;
-          p.CardToPayUpkeepFor = Source.OwningCard;
           p.Text = _text;
           p.ProcessDecisionResults = this;
+          p.ChooseDecisionResults = this;
           p.OwningCard = Source.OwningCard;
         });
     }

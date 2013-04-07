@@ -1,6 +1,6 @@
 ﻿namespace Grove.Core.Decisions.Human
 {
-  public class SelectCardsToSacrifice : Decisions.SelectCardsToSacrifice
+  public class SelectCards : Decisions.SelectCards
   {
     public CardSelector CardSelector { get; set; }
 
