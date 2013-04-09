@@ -10,20 +10,22 @@
     protected Card Card { get; private set; }
     protected TargetValidator Validator { get; set; }
 
+    public virtual bool HasX { get { return false; } }
+
     public virtual int CalculateHash(HashCalculator calc)
     {
       return GetType().GetHashCode();
     }
 
-    public virtual bool HasX {get { return false; }}
+    protected abstract void CanPay(CanPayResult result);
 
-    public bool CanPay()
+    public CanPayResult CanPay()
     {
-      int? maxX = null;
-      return CanPay(ref maxX);
-    }
+      var result = new CanPayResult();
+      CanPay(result);      
 
-    public abstract bool CanPay(ref int? maxX);
+      return result;
+    }
 
     public virtual void Pay(Targets targets, int? x)
     {

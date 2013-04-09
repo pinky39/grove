@@ -4,9 +4,9 @@
 
   public class Reveal : Cost
   {
-    public override bool CanPay(ref int? maxX)
+    protected override void CanPay(CanPayResult result)
     {
-      return Card.Controller.Hand.Count > 0;
+      result.CanPay = Card.Controller.Hand.Count > 0;
     }
 
     protected override void Pay(ITarget target, int? x)

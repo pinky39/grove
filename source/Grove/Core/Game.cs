@@ -12,7 +12,7 @@
   [Copyable]
   public class Game
   {
-    private const int MaxSearchDepth = 30;
+    private const int MaxSearchDepth = 40;
     private const int MaxTargetCount = 2;
     private DecisionQueue _decisionQueue;
     private DecisionSystem _decisionSystem;

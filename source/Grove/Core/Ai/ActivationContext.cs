@@ -10,6 +10,8 @@
     private readonly List<TargetsCombination> _targets = new List<TargetsCombination>();
     public bool CanCancel = true;
     public bool CancelActivation;
+    public int Repeat = 1;
+    public object TriggerMessage;
     public int? X;
 
     public ActivationContext(Card card, TargetSelector selector)
@@ -22,9 +24,12 @@
     {
       Card = prerequisites.Card;
       MaxX = prerequisites.MaxX;
-      Selector = prerequisites.Selector;      
+      Selector = prerequisites.Selector;
       DistributeAmount = prerequisites.DistributeAmount;
+      MaxRepetitions = prerequisites.MaxRepetitions;
     }
+
+    public int MaxRepetitions { get; private set; }
 
     public Card Card { get; private set; }
     public int? MaxX { get; private set; }
@@ -32,7 +37,6 @@
     public int DistributeAmount { get; private set; }
 
     public bool HasTargets { get { return _targets.Count > 0; } }
-    public object TriggerMessage;
 
     public void SetPossibleTargets(IEnumerable<Targets> targetsCombinations)
     {

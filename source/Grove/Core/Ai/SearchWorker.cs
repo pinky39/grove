@@ -12,8 +12,7 @@
     private readonly Trackable<InnerResult> _parentResult;
     private readonly ISearchNode _root;
     private readonly Search _search;
-    private readonly SearchResults _searchResults;
-    private int _nodesSearched;
+    private readonly SearchResults _searchResults;    
     private int _subTreesPrunned;
 
     private SearchWorker() {}
@@ -28,7 +27,10 @@
 
       AssertEqualHashes(rootNode.Game, _root.Game);
 
-      var innerResult = new InnerResult(Game.CalculateHash(), _root.Controller.IsMax);
+      var innerResult = new InnerResult(
+        Game.CalculateHash(), 
+        _root.Controller.IsMax, 
+        search.GetSearchDepthInSteps(Game.Turn.StepCount));
 
       _parentResult = new Trackable<InnerResult>(innerResult);
       _parentResult.Initialize(ChangeTracker);
@@ -38,8 +40,7 @@
     }
 
     public object Id { get { return Game; } }
-
-    public int NodesSearched { get { return _nodesSearched; } }
+    
     private InnerResult ParentResult { get { return _parentResult.Value; } set { _parentResult.Value = value; } }
     private int ResultIndex { get { return _moveIndex.Value; } set { _moveIndex.Value = value; } }
     public ISearchNode Root { get { return _root; } }
@@ -68,13 +69,15 @@
     {
       node = node ?? _root;
 
-      Debug("Evaluating node: {0}", node);
-
-      _nodesSearched++;
+      Debug("Evaluating node: {0}", node);      
 
       if (_search.MaxDepth < Turn.StepCount)
       {
-        ParentResult.AddChild(ResultIndex, new LeafResult(Game.Score));
+        var leafResult = new LeafResult(
+          Game.Score, 
+          Search.GetSearchDepthInSteps(Game.Turn.StepCount));
+        
+        ParentResult.AddChild(ResultIndex, leafResult);
 
         Game.Stop();
         return;
@@ -130,7 +133,10 @@
       // add a leaf node so the tree is complete
       if (!parentResult.HasChildrenWithIndex(moveIndex))
       {
-        parentResult.AddChild(moveIndex, new LeafResult(score));
+        var leafResult = new LeafResult(score, 
+          Search.GetSearchDepthInSteps(Game.Turn.StepCount));
+        
+        parentResult.AddChild(moveIndex, leafResult);
       }
 
       Debug("{0} stop eval move {1}", searchNode, moveIndex);
@@ -147,6 +153,7 @@
       var isCached = _searchResults.NewResult(
         statehash,
         searchNode.Controller.IsMax,
+        Search.GetSearchDepthInSteps(Game.Turn.StepCount),
         out result);
 
       ParentResult.AddChild(ResultIndex, result);

@@ -1,11 +1,16 @@
 ﻿namespace Grove.Core.Ai
 {
+  using System;
+  using System.Collections.Generic;
   using System.Text;
 
   public class LeafResult : ISearchResult
   {
-    public LeafResult(int score)
+    private readonly int _stepCount;
+
+    public LeafResult(int score, int stepCount)
     {
+      _stepCount = stepCount;
       Score = score;
     }
 
@@ -20,6 +25,11 @@
     {
       sb.Append(Score);
       return sb;
+    }
+
+    public void CountNodes(NodeCount count)
+    {
+      count[_stepCount]++;
     }
 
     public int? BestMove { get { return 0; } }

@@ -14,6 +14,7 @@
         var dragon = C("Shivan Dragon");
         Hand(P1, dragon);
         Battlefield(P1, "Mountain", "Mountain", "Swamp", "Phyrexian Tower", "Mountain", "Grizzly Bears");
+        Battlefield(P2, "Trained Armodon");
 
         RunGame(3);
 

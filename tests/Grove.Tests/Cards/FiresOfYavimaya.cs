@@ -1,8 +1,7 @@
 ﻿namespace Grove.Tests.Cards
 {
-  using System.Linq;
-  using Grove.Core;
-  using Grove.Core.Zones;
+  using Core;
+  using Core.Zones;
   using Infrastructure;
   using Xunit;
 
@@ -39,10 +38,11 @@
         Exec(
           At(Step.FirstMain)
             .Cast(fires)
-            .Verify(() => {
-              Equal(Zone.Battlefield, C(fires).Zone);
-              True(C(bear).Has().Haste);
-            })
+            .Verify(() =>
+              {
+                Equal(Zone.Battlefield, C(fires).Zone);
+                True(C(bear).Has().Haste);
+              })
           );
       }
 
@@ -57,12 +57,13 @@
         Exec(
           At(Step.FirstMain)
             .Activate(fires, target: bear)
-            .Verify(() => {
-              Equal(4, C(bear).Power);
-              Equal(4, C(bear).Toughness);
-              Equal(Zone.Graveyard, C(fires).Zone);
-              False(C(bear).Has().Haste);
-            })
+            .Verify(() =>
+              {
+                Equal(4, C(bear).Power);
+                Equal(4, C(bear).Toughness);
+                Equal(Zone.Graveyard, C(fires).Zone);
+                False(C(bear).Has().Haste);
+              })
           );
       }
 
@@ -80,31 +81,14 @@
         Exec(
           At(Step.FirstMain)
             .Cast(fires)
-            .Verify(() => {
-              Equal(Zone.Battlefield, C(fires).Zone);
-              True(C(bear).Has().Haste);
-            }),
+            .Verify(() =>
+              {
+                Equal(Zone.Battlefield, C(fires).Zone);
+                True(C(bear).Has().Haste);
+              }),
           At(Step.SecondMain)
             .Cast(shock, target: bear)
             .Verify(() => False(C(bear).Has().Haste))
-          );
-      }
-    }
-
-    public class PredefinedAi : PredefinedAiScenario
-    {
-      [Fact]
-      public void BugNoHasteWith2Fires()
-      {
-        Hand(P1, "Lightning Bolt", "Burst Lightning", "Vines of Vastwood", "Leatherback Baloth", "Burst Lightning", "Vines of Vastwood", "Thrun, the Last Troll");
-        Hand(P2, "Ravenous Baloth", "Vines of Vastwood", "Thrun, the Last Troll", "Lightning Bolt", "Rumbling Slum");
-
-        Battlefield(P1, "Raging Ravine");
-        Battlefield(P2, "Copperline Gorge", "Raging Ravine", "Forest", "Forest", "Fires of Yavimaya", "Fires of Yavimaya");
-
-        Exec(
-          At(Step.SecondMain, turn: 2)
-            .Verify(() => Equal(12, P1.Life))
           );
       }
     }

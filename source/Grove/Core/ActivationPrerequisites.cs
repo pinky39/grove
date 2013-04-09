@@ -5,18 +5,16 @@
   using Targeting;
 
   public class ActivationPrerequisites
-  {    
-    public int Index;
-    public CardText Description;    
-    public List<MachinePlayRule> Rules;
-    public Card Card;    
-    public int? MaxX;
-    public TargetSelector Selector;
+  {
+    public Card Card;
+    public CardText Description;
     public int DistributeAmount;
+    public int Index;
+    public int MaxRepetitions = 1;
+    public int? MaxX;
+    public List<MachinePlayRule> Rules;
+    public TargetSelector Selector;
 
-    public bool HasXInCost
-    {
-      get { return MaxX.HasValue; }
-    }
+    public bool HasXInCost { get { return MaxX.HasValue; } }
   }
 }

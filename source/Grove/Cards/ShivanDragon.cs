@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using Core;
+  using Core.Ai.RepetitionRules;
   using Core.Ai.TimingRules;
   using Core.Costs;
   using Core.Dsl;
@@ -25,9 +26,10 @@
         .ActivatedAbility(p =>
           {
             p.Text = "{R}: Shivan Dragon gets +1/+0 until end of turn.";
-            p.Cost = new PayMana(ManaAmount.Red, ManaUsage.Abilities);
+            p.Cost = new PayMana(ManaAmount.Red, ManaUsage.Abilities, supportsRepetitions: true);
             p.Effect = () => new ApplyModifiersToSelf(() => new AddPowerAndToughness(1, 0) {UntilEot = true});
             p.TimingRule(new IncreaseOwnersPowerOrToughness(1, 0));
+            p.RepetitionRule(new MaxRepetitions());
           });
     }
   }

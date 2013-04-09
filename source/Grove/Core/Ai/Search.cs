@@ -12,15 +12,15 @@
 
   public class Search
   {
-    private readonly int _maxSearchDepth;
-    private readonly int _maxTargetCount;
     private static readonly ILog Log = LogManager.GetLogger(typeof (Search));
+    private readonly Queue<int> _lastDurations = new Queue<int>(new[] {0});
+    private readonly int _maxSearchDepth;    
+    private readonly int _maxTargetCount;    
     private readonly SearchResults _searchResults = new SearchResults();
     private readonly Stopwatch _stopwatch = new Stopwatch();
     private readonly Dictionary<object, SearchWorker> _workers = new Dictionary<object, SearchWorker>();
     private readonly object _workersLock = new object();
-    private readonly Queue<int> _lastDurations = new Queue<int>(new[] {0});
-    private int _nodesSearched;
+    private ISearchResult _lastSearchResult;    
     private int _numWorkersCreated;
     private int _startStateCount;
     private int _startStepCount;
@@ -28,9 +28,9 @@
 
     public Search(int maxSearchDepth, int maxTargetCount)
     {
-      _maxSearchDepth = maxSearchDepth;
+      _maxSearchDepth = maxSearchDepth;      
       _maxTargetCount = maxTargetCount;
-      
+
       SearchDepthLimit = _maxSearchDepth;
       MaxTargetCandidates = _maxTargetCount;
     }
@@ -49,13 +49,31 @@
     }
 
     public int MaxDepth { get { return _startStepCount + SearchDepthLimit; } }
-    public int NodesSearched { get { return _nodesSearched; } }
+    public int PlaySpellUntilDepth { get; private set; }
     public int NumWorkersCreated { get { return _numWorkersCreated; } }
     public int SearchDepthLimit { get; private set; }
     public int SubtreesPrunned { get { return _subtreesPrunned; } }
 
+    public NodeCount NodeCount
+    {
+      get
+      {
+        var count = new NodeCount();
+
+        if (_lastSearchResult != null)
+          _lastSearchResult.CountNodes(count);
+
+        return count;
+      }
+    }
+
     public event EventHandler Finished = delegate { };
     public event EventHandler Started = delegate { };
+
+    public int GetSearchDepthInSteps(int currentStepCount)
+    {
+      return currentStepCount - _startStepCount;
+    }
 
     public Task ExecuteTask(SearchWorker parentWorker, ISearchNode parentNode, int moveIndex,
       Action<SearchWorker, ISearchNode, int> action)
@@ -147,19 +165,17 @@
 
     private int GetBestMove(ISearchNode searchNode)
     {
-      var root = GetSearchNodeResult(searchNode);
-      root.EvaluateSubtree();
-
-      Log.DebugFormat("Best path: {0}", root.OutputBestPath());
-      return root.BestMove.Value;
+      _lastSearchResult = GetSearchNodeResult(searchNode);
+      _lastSearchResult.EvaluateSubtree();
+      return _lastSearchResult.BestMove.Value;
     }
 
     private void FinishSearch(ISearchNode searchNode, SearchWorker worker)
     {
       RemoveWorker(worker);
 
-      _stopwatch.Stop();   
-      
+      _stopwatch.Stop();
+
       if (_lastDurations.Count == 10)
       {
         _lastDurations.Dequeue();
@@ -193,8 +209,7 @@
 
       _stopwatch.Reset();
       _stopwatch.Start();
-
-      _nodesSearched = 0;
+      
       _subtreesPrunned = 0;
       _numWorkersCreated = 0;
       _searchResults.Clear();
@@ -203,13 +218,14 @@
       searchNode.Game.ChangeTracker.Lock();
       _startStepCount = searchNode.Game.Turn.StepCount;
       _startStateCount = searchNode.Game.Turn.StateCount;
+      PlaySpellUntilDepth = searchNode.Game.Turn.GetStepCountAtNextTurnCleanup();
 
       return CreateWorker(searchNode);
     }
 
     private void AdjustPerformance()
-    {            
-      if (_lastDurations.Last() > 3000)
+    {
+      if (_lastDurations.Last() > 4000)
       {
         if (MaxTargetCandidates > 1)
         {
@@ -289,8 +305,7 @@
         var key = _workers.Single(x => x.Value == worker).Key;
         _workers.Remove(key);
       }
-
-      Interlocked.Add(ref _nodesSearched, worker.NodesSearched);
+      
       Interlocked.Add(ref _subtreesPrunned, worker.SubTreesPrunned);
     }
   }

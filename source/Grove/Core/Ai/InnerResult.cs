@@ -4,22 +4,24 @@
   using System.Collections.Generic;
   using System.Linq;
   using System.Text;
-  using Infrastructure;
 
   public class InnerResult : ISearchResult
   {
     private readonly object _access = new object();
     private readonly List<Edge> _children = new List<Edge>(10);
     private readonly int _id;
-    private readonly bool _isMax;
+    private readonly bool _isMax;    
     private Edge _bestEdge;
     private bool _isVisited;
 
-    public InnerResult(int id, bool isMax)
+    public InnerResult(int id, bool isMax, int stepCount)
     {
+      StepCount = stepCount;
       _id = id;
-      _isMax = isMax;
+      _isMax = isMax;      
     }
+
+    public int StepCount { get; private set; }
 
     public int? BestMove { get { return _bestEdge != null ? _bestEdge.MoveIndex : (int?) null; } }
     public int? Score { get; set; }
@@ -66,14 +68,24 @@
       return _bestEdge.Result.OutputBestPath(sb);
     }
 
+    public void CountNodes(NodeCount count)
+    {
+      count[StepCount]++;
+
+      foreach (var child in _children)
+      {
+        child.Result.CountNodes(count);
+      }
+    }
+
     public void AddChild(int moveIndex, ISearchResult resultNode)
     {
       lock (_access)
-      {                
+      {
         _children.Add(
           new Edge {MoveIndex = moveIndex, Result = resultNode});
       }
-    }    
+    }
 
     public bool HasChildrenWithIndex(int moveIndex)
     {

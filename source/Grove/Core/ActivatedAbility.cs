@@ -10,13 +10,13 @@
   public class ActivatedAbility : Ability
   {
     private readonly bool _activateAsSorcery;
+    private readonly bool _activateOnlyOnceEachTurn;
     private readonly Zone _activationZone;
     private readonly Cost _cost;
-    private readonly bool _activateOnlyOnceEachTurn;
     private readonly Trackable<int> _lastActivation = new Trackable<int>();
 
     protected ActivatedAbility() {}
-    
+
     public ActivatedAbility(ActivatedAbilityParameters parameters) : base(parameters)
     {
       _cost = parameters.Cost;
@@ -28,38 +28,41 @@
     public void Activate(ActivationParameters p)
     {
       _lastActivation.Value = Turn.TurnCount;
-      
-      var effectParameters = new EffectParameters
-        {
-          Source = this,
-          Targets = p.Targets,
-          X = p.X
-        };
-      
-      // create effect first, since some cost e.g Sacrifice can
-      // put owning card to graveyard which will alter some card
-      // properties e.g counters, power, toughness ...     
-      var effect = EffectFactory().Initialize(effectParameters, Game);
-      
-      Pay(p);      
-      Resolve(effect, p.SkipStack);
 
-      Publish(new PlayerHasActivatedAbility(this, p.Targets));
+      for (var i = 0; i < p.Repeat; i++)
+      {
+        var effectParameters = new EffectParameters
+          {
+            Source = this,
+            Targets = p.Targets,
+            X = p.X
+          };
+
+        // create effect first, since some cost e.g Sacrifice can
+        // put owning card to graveyard which will alter some card
+        // properties e.g counters, power, toughness ...     
+        var effect = EffectFactory().Initialize(effectParameters, Game);
+
+        Pay(p);
+        Resolve(effect, p.SkipStack);
+
+        Publish(new PlayerHasActivatedAbility(this, p.Targets));
+      }
     }
 
     protected void Pay(ActivationParameters p = null)
-    {      
+    {
       p = p ?? new ActivationParameters();
-      
+
       if (p.PayCost)
       {
         _cost.Pay(p.Targets, p.X);
       }
     }
 
-    protected bool CanPay(ref int? maxX)
+    protected CanPayResult CanPay()
     {
-      return _cost.CanPay(ref maxX);
+      return _cost.CanPay();
     }
 
     public IManaAmount GetManaCost()
@@ -77,23 +80,29 @@
 
     public virtual bool CanActivate(out ActivationPrerequisites activationPrerequisites)
     {
-      int? maxX = null;
       activationPrerequisites = null;
 
-      if (CanBeActivated(ref maxX) == false)
-        return false;
+      if (IsEnabled && CanBeActivatedAtThisTime())
+      {
+        var result = _cost.CanPay();
 
-      activationPrerequisites = new ActivationPrerequisites
+        if (result.CanPay)
         {
-          Card = OwningCard,
-          Description = Text,
-          Selector = TargetSelector,
-          DistributeAmount = DistributeAmount,
-          MaxX = maxX,
-          Rules = Rules,
-        };
+          activationPrerequisites = new ActivationPrerequisites
+            {
+              Card = OwningCard,
+              Description = Text,
+              Selector = TargetSelector,
+              DistributeAmount = DistributeAmount,
+              MaxX = result.MaxX,
+              Rules = Rules,
+              MaxRepetitions = result.MaxRepetitions
+            };
 
-      return true;
+          return true;
+        }
+      }
+      return false;
     }
 
     public override void Initialize(Card owner, Game game)
@@ -101,14 +110,6 @@
       base.Initialize(owner, game);
       _cost.Initialize(owner, game, TargetSelector.Cost.FirstOrDefault());
       _lastActivation.Initialize(ChangeTracker);
-    }
-
-    private bool CanBeActivated(ref int? maxX)
-    {
-      return
-        IsEnabled &&          
-          CanBeActivatedAtThisTime() &&
-            _cost.CanPay(ref maxX);
     }
 
     private bool CanBeActivatedAtThisTime()
@@ -120,7 +121,7 @@
       {
         return false;
       }
-      
+
       if (_activateAsSorcery)
       {
         return Turn.Step.IsMain() &&

@@ -42,16 +42,19 @@
       }
     }
 
-    public override bool CanPay(ref int? maxX)
+    protected override void CanPay(CanPayResult result)
     {
       foreach (var cost in _costs)
       {
-        if (!cost.CanPay(ref maxX))
-          return false;
-      }
+        var childResult = cost.CanPay();
+        result.CanPay = childResult.CanPay;
+        result.MaxX = result.MaxX ?? childResult.MaxX;
+        result.MaxRepetitions = childResult.MaxRepetitions;
 
-      return true;
-    }
+        if (!result.CanPay)
+          return;
+      }            
+    }    
 
     public override void Pay(Targets targets, int? x)
     {

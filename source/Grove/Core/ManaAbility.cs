@@ -57,19 +57,17 @@
     }
 
     public override bool CanActivate(out ActivationPrerequisites prerequisites)
-    {
-      int? maxX = null;
+    {      
       prerequisites = null;
 
-      if (IsEnabled && OwningCard.Zone == Zone.Battlefield && CanPay(ref maxX))
+      if (IsEnabled && OwningCard.Zone == Zone.Battlefield && CanPay().CanPay)
       {
         prerequisites =  new ActivationPrerequisites
         {
           Card = OwningCard,
           Description = Text,
           Selector = TargetSelector,
-          DistributeAmount = DistributeAmount,
-          MaxX = maxX,
+          DistributeAmount = DistributeAmount,          
           Rules = Rules,
         };
         return true;

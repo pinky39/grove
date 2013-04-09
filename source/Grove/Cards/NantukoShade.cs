@@ -3,6 +3,7 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
+  using Core.Ai.RepetitionRules;
   using Core.Ai.TimingRules;
   using Core.Costs;
   using Core.Dsl;
@@ -25,10 +26,13 @@
         .ActivatedAbility(p =>
           {
             p.Text = "{B}: Nantuko Shade gets +1/+1 until end of turn.";
-            p.Cost = new PayMana(ManaAmount.Black, ManaUsage.Abilities);
+            p.Cost = new PayMana(ManaAmount.Black, ManaUsage.Abilities, supportsRepetitions: true);
             p.Effect = () => new ApplyModifiersToSelf(() => new AddPowerAndToughness(1, 1) {UntilEot = true})
               {Category = EffectCategories.ToughnessIncrease};
+            
             p.TimingRule(new IncreaseOwnersPowerOrToughness(1, 1));
+            p.RepetitionRule(new MaxRepetitions());
+           
           });
     }
   }

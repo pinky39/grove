@@ -3,10 +3,10 @@
   using Targeting;
 
   public class RemoveCounter : Cost
-  {
-    public override bool CanPay(ref int? maxX)
+  {    
+    protected override void CanPay(CanPayResult result)
     {
-      return Card.ChargeCountersCount > 0;
+      result.CanPay = Card.ChargeCountersCount > 0;      
     }
 
     protected override void Pay(ITarget target, int? x)

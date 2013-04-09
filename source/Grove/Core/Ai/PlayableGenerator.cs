@@ -73,6 +73,7 @@
         playable.Card = prerequisites.Card;
         playable.Index = prerequisites.Index;
         playable.ActivationParameters.X = context.X;
+        playable.ActivationParameters.Repeat = context.Repeat;
 
         yield return playable;
         yield break;
@@ -86,6 +87,7 @@
         playable.Index = prerequisites.Index;
         playable.ActivationParameters.Targets = targetsCombination.Targets;
         playable.ActivationParameters.X = targetsCombination.X;
+        playable.ActivationParameters.Repeat = context.Repeat;
 
         yield return playable;
       }

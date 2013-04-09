@@ -4,6 +4,7 @@
   using System.Collections.Generic;
   using System.Diagnostics;
   using System.Linq;
+  using Core.Ai;
   using Grove.Infrastructure;
 
   public abstract class AiScenario : Scenario
@@ -25,7 +26,7 @@
           _stopwatch.Stop();          
           _measurements.Add(new Measurement
             {
-              NodeCount = Search.NodesSearched,
+              NodeCount = Search.NodeCount,
               WorkerCount = Search.NumWorkersCreated,
               SubtreesPrunned = Search.SubtreesPrunned,
               ElapsedTime = _stopwatch.ElapsedMilliseconds
@@ -50,9 +51,24 @@
       get { return SearchCount > 0 ? TotalWorkerCount/SearchCount : 0; }
     }
 
-    protected int MaxNodeCount
+    protected NodeCount MaxNodeCount
     {
-      get { return _measurements.Any() ? _measurements.Max(x => x.NodeCount) : 0; }
+      get
+      {
+
+        var max = new NodeCount();
+        
+        
+        foreach (var measurement in _measurements)
+        {
+          if (measurement.NodeCount.Total > max.Total)
+          {
+            max = measurement.NodeCount;
+          }
+        }
+
+        return max;
+      }
     }
 
     protected double MaxSearchTime
@@ -77,7 +93,12 @@
 
     protected int TotalNodesCount
     {
-      get { return _measurements.Sum(x => x.NodeCount); }
+      get { return _measurements.Sum(x => x.NodeCount.Total); }
+    }    
+
+    protected int MaxSubtreesPrunned
+    {
+      get { return _measurements.Any() ? _measurements.Max(x => x.SubtreesPrunned) : 0; }
     }
 
     protected int TotalSubtreesPrunned
@@ -111,6 +132,7 @@
       Console.WriteLine(@"Total search time: {0:f2} seconds", TotalElapsedTime);
       Console.WriteLine(@"Total node count: {0}", TotalNodesCount);
       Console.WriteLine(@"Total subtrees prunned: {0}", TotalSubtreesPrunned);
+      Console.WriteLine(@"Max subtrees prunned: {0}", MaxSubtreesPrunned);
       Console.WriteLine(@"Total worker count: {0}", TotalWorkerCount);
       Console.WriteLine(@"Max node count: {0}", MaxNodeCount);
       Console.WriteLine(@"Max worker count: {0}", MaxWorkerCount);
@@ -123,7 +145,7 @@
     private class Measurement
     {
       public long ElapsedTime { get; set; }
-      public int NodeCount { get; set; }
+      public NodeCount NodeCount { get; set; }
       public int WorkerCount { get; set; }
       public int SubtreesPrunned { get; set; }
     }    

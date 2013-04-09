@@ -4,6 +4,7 @@
   using System.Linq;
   using Ai;
   using Ai.CostRules;
+  using Ai.RepetitionRules;
   using Ai.TargetingRules;
   using Ai.TimingRules;
   using Effects;
@@ -24,6 +25,11 @@
     }
 
     public void TimingRule(TimingRule rule)
+    {
+      _machineRules.Add(rule);
+    }
+
+    public void RepetitionRule(RepetitionRule rule)
     {
       _machineRules.Add(rule);
     }

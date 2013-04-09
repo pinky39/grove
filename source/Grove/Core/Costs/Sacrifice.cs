@@ -5,15 +5,17 @@
 
   public class Sacrifice : Cost
   {
-    public override bool CanPay(ref int? maxX)
+    protected override void CanPay(CanPayResult result)
     {
       if (Validator != null)
       {
-        return Card.Controller.Battlefield.Any(
+        result.CanPay = Card.Controller.Battlefield.Any(
           permanent => Validator.IsTargetValid(permanent, Card));
+
+        return;
       }
 
-      return Card.IsPermanent;
+      result.CanPay = Card.IsPermanent;                   
     }
 
     protected override void Pay(ITarget target, int? x)

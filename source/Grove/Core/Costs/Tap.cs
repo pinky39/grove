@@ -5,15 +5,17 @@
 
   public class Tap : Cost
   {
-    public override bool CanPay(ref int? maxX)
+    protected override void CanPay(CanPayResult result)
     {
       if (Validator != null)
       {
-        return Card.Controller.Battlefield.Any(
+        result.CanPay = Card.Controller.Battlefield.Any(
           x => x.CanBeTapped && Validator.IsTargetValid(x, Card));
+
+        return;
       }
 
-      return Card.CanTap;
+      result.CanPay = Card.CanTap;
     }
 
     protected override void Pay(ITarget target, int? x)

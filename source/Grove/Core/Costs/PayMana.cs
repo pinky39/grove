@@ -8,17 +8,23 @@
   {
     private readonly IManaAmount _amount;
     private readonly bool _hasX;
+    private readonly bool _supportsRepetitions;
     private readonly ManaUsage _manaUsage;
     private readonly bool _tryNotToConsumeCardsManaSourceWhenPayingThis;
 
     private PayMana() {}
 
-    public PayMana(IManaAmount amount, ManaUsage manaUsage, bool hasX = false,
-      bool tryNotToConsumeCardsManaSourceWhenPayingThis = false)
+    public PayMana(
+      IManaAmount amount, 
+      ManaUsage manaUsage, 
+      bool hasX = false,       
+      bool tryNotToConsumeCardsManaSourceWhenPayingThis = false,
+      bool supportsRepetitions = false)
     {
       _amount = amount;
       _manaUsage = manaUsage;
       _hasX = hasX;
+      _supportsRepetitions = supportsRepetitions;
       _tryNotToConsumeCardsManaSourceWhenPayingThis = tryNotToConsumeCardsManaSourceWhenPayingThis;
     }
 
@@ -29,17 +35,39 @@
       return _amount;
     }
 
-    public override bool CanPay(ref int? maxX)
-    {
+    protected override void CanPay(CanPayResult result)
+    {            
       if (!Card.Controller.HasMana(_amount, _manaUsage))
-        return false;
+        return;
 
+      result.CanPay = true;      
+      
       if (_hasX)
       {
-        maxX = Card.Controller.GetConvertedMana(_manaUsage) - _amount.Converted;
+        result.MaxX = Card.Controller.GetConvertedMana(_manaUsage) - _amount.Converted;
       }
 
-      return true;
+      if (_supportsRepetitions)
+      {
+        int count = 1;
+        IManaAmount amount = _amount;
+        
+        while (true)
+        {
+          amount = amount.Add(amount);
+          
+          if (!Card.Controller.HasMana(amount, _manaUsage))
+          {
+            break;
+          }
+          
+          count++;
+        }
+
+        result.MaxRepetitions = count;
+      }
+
+      return;
     }
 
     protected override void Pay(ITarget target, int? x)

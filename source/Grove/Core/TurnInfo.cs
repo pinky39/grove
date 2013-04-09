@@ -47,6 +47,12 @@
       }
     }
 
+    public int GetStepCountAtNextTurnCleanup()
+    {
+      var stepsUntillEot = ((int) Step.CleanUp) - (int) Step;
+      return StepCount + stepsUntillEot + (int) Step.CleanUp;
+    }
+
     public int CalculateHash(HashCalculator calc)
     {
       return HashCalculator.Combine(

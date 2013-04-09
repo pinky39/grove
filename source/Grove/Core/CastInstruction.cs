@@ -91,11 +91,17 @@
     }
 
     public bool CanCast(out ActivationPrerequisites prerequisites)
-    {
-      int? maxX = null;
+    {      
       prerequisites = null;
 
-      if (_castingRule.CanCast() == false || _cost.CanPay(ref maxX) == false)
+      if (_castingRule.CanCast() == false) 
+      {
+        return false;
+      }
+
+      var result = _cost.CanPay();
+
+      if (result.CanPay == false)
       {
         return false;
       }
@@ -104,7 +110,7 @@
         {
           Description = _description,
           Selector = _targetSelector,
-          MaxX = maxX,
+          MaxX = result.MaxX,
           DistributeAmount = _distributeAmount,
           Card = _card,
           Rules = _rules

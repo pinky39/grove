@@ -1,16 +1,14 @@
 ﻿namespace Grove.Core.Costs
 {
-  using Grove.Core.Targeting;
+  using Targeting;
 
   public class NoCost : Cost
   {
-    public override bool CanPay(ref int? maxX)
+    protected override void CanPay(CanPayResult result)
     {
-      return true;
+      result.CanPay = true;      
     }
 
-    protected override void Pay(ITarget target, int? x)
-    {      
-    }
+    protected override void Pay(ITarget target, int? x) {}
   }
 }

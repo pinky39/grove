@@ -3,6 +3,7 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai;
+  using Core.Ai.RepetitionRules;
   using Core.Ai.TargetingRules;
   using Core.Ai.TimingRules;
   using Core.Costs;
@@ -30,11 +31,12 @@
                   var ap = new ActivatedAbilityParameters
                     {
                       Text = "{R}: Enchanted creature gets +1/+0 until end of turn.",
-                      Cost = new PayMana(ManaAmount.Red, ManaUsage.Abilities),
+                      Cost = new PayMana(ManaAmount.Red, ManaUsage.Abilities, supportsRepetitions: true),
                       Effect = () => new ApplyModifiersToSelf(() => new AddPowerAndToughness(1, 0) {UntilEot = true})
                     };
 
                   ap.TimingRule(new IncreaseOwnersPowerOrToughness(1, 0));
+                  ap.RepetitionRule(new MaxRepetitions());
                   return new AddActivatedAbility(new ActivatedAbility(ap));
                 },
               () => new AddPowerAndToughness(2, 2),

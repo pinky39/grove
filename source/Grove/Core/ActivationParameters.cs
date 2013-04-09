@@ -9,6 +9,7 @@
     public Targets Targets = new Targets();
     public bool PayCost = true;
     public bool SkipStack;
+    public int Repeat = 1;
     public int? X;    
   }
 }

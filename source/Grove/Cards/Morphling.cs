@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using Core;
+  using Core.Ai.RepetitionRules;
   using Core.Ai.TimingRules;
   using Core.Costs;
   using Core.Dsl;
@@ -54,18 +55,20 @@
         .ActivatedAbility(p =>
           {
             p.Text = "{1}: Morphling gets +1/-1 until end of turn.";
-            p.Cost = new PayMana(1.Colorless(), ManaUsage.Abilities);
+            p.Cost = new PayMana(1.Colorless(), ManaUsage.Abilities, supportsRepetitions: true);
             p.Effect = () => new ApplyModifiersToSelf(() => new AddPowerAndToughness(1, -1) {UntilEot = true});
             p.TimingRule(new OwningCardHas(c => c.Toughness > 1 && c.Toughness <= 3));
             p.TimingRule(new IncreaseOwnersPowerOrToughness(1, -1));
+            p.RepetitionRule(new MaxRepetitions(2));
           })
         .ActivatedAbility(p =>
           {
             p.Text = "{1}: Morphling gets -1/+1 until end of turn.";
-            p.Cost = new PayMana(1.Colorless(), ManaUsage.Abilities);
+            p.Cost = new PayMana(1.Colorless(), ManaUsage.Abilities, supportsRepetitions: true);
             p.Effect = () => new ApplyModifiersToSelf(() => new AddPowerAndToughness(-1, 1) {UntilEot = true});
             p.TimingRule(new OwningCardHas(c => c.Toughness >= 3));
             p.TimingRule(new IncreaseOwnersPowerOrToughness(-1, 1));
+            p.RepetitionRule(new MaxRepetitions(4));
           });
     }
   }

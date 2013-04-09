@@ -16,10 +16,11 @@
       _getAmount = getAmount;
     }
 
-    public override bool CanPay(ref int? maxX)
+    protected override void CanPay(CanPayResult result)
     {
-      return _getAmount(Card) <= Card.Controller.Life;
+      result.CanPay = _getAmount(Card) <= Card.Controller.Life;      
     }
+
 
     protected override void Pay(ITarget target, int? x)
     {

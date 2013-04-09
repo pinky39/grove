@@ -68,7 +68,7 @@
 
     private List<Playable> GeneratePlayables()
     {
-      if (Game.Stack.TopSpellOwner == Controller)
+      if (Stack.TopSpellOwner == Controller || (Search.InProgress && Turn.StepCount > Search.PlaySpellUntilDepth))
       {
         // if you own the top spell just pass so it resolves
         // you will get priority again when it resolves

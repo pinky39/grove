@@ -436,7 +436,11 @@
     <Compile Include="Core\Ai\CostRules\ControllersProperty.cs" />
     <Compile Include="Core\Ai\CostRules\ReduceToughnessOfEachCreature.cs" />
     <Compile Include="Core\Ai\CostRules\TargetsLifepoints.cs" />
+    <Compile Include="Core\Ai\NodeCount.cs" />
     <Compile Include="Core\Ai\QuickCombat.cs" />
+    <Compile Include="Core\Ai\RepetitionRules\MaxRepetitions.cs" />
+    <Compile Include="Core\Ai\RepetitionRules\RepetitionRule.cs" />
+    <Compile Include="Core\Ai\RepetitionRules\RepetitionRuleParameters.cs" />
     <Compile Include="Core\Ai\TargetingHelper.cs" />
     <Compile Include="Core\Ai\TargetingRules\AttachTargetToSelf.cs" />
     <Compile Include="Core\Ai\TargetingRules\Bounce.cs" />
@@ -527,6 +531,7 @@
     <Compile Include="Core\ContiniousEffects.cs" />
     <Compile Include="Core\ContinuousEffectParameters.cs" />
     <Compile Include="Core\Costs\AggregateCost.cs" />
+    <Compile Include="Core\Costs\CanPayResult.cs" />
     <Compile Include="Core\Costs\PayLife.cs" />
     <Compile Include="Core\Costs\PayMana.cs" />
     <Compile Include="Core\Costs\RemoveCounter.cs" />

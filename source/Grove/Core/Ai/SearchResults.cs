@@ -7,7 +7,7 @@
     private readonly object _access = new object();
     private readonly Dictionary<int, InnerResult> _results = new Dictionary<int, InnerResult>();
 
-    public bool NewResult(int id, bool isMax, out InnerResult searchResult)
+    public bool NewResult(int id, bool isMax, int stepCount, out InnerResult searchResult)
     {
       lock (_access)
       {
@@ -15,7 +15,7 @@
         {
           return true;
         }
-        searchResult = new InnerResult(id, isMax);
+        searchResult = new InnerResult(id, isMax, stepCount);
         _results.Add(id, searchResult);
       }
 
