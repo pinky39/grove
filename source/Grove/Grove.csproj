@@ -562,6 +562,7 @@
     <Compile Include="Core\GameObject.cs" />
     <Compile Include="Core\MagicSet.cs" />
     <Compile Include="Core\ManaAbilityParameters.cs" />
+    <Compile Include="Core\Mana\ManaVault2.cs" />
     <Compile Include="Core\Modifiers\ChangeBasicLand.cs" />
     <Compile Include="Core\Modifiers\ModifierParameters.cs" />
     <Compile Include="Core\Modifiers\RemoveStaticAbility.cs" />
