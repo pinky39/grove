@@ -5,6 +5,8 @@
   using System.Collections.Generic;
   using System.Diagnostics;
   using System.Linq;
+  using System.Text.RegularExpressions;
+  using Infrastructure;
 
   public class ManaAmount2 : IEnumerable<ManaColorCount2>
   {
@@ -13,6 +15,89 @@
     public ManaAmount2(List<ManaColorCount2> counts)
     {
       _counts = counts;
+    }
+
+    public ManaAmount2(string amount)
+    {
+      _counts = ParseMana(amount);
+    }
+
+    private static List<ManaColorCount2> ParseMana(string str)
+    {
+      str = str.ToLowerInvariant();
+      var tokens = Regex.Split(str, "}|{").Where(x => x != String.Empty);
+      var parsed = new List<ManaColorCount2>();
+      ManaColorCount2 current = null;
+            
+      foreach (var token in tokens)
+      {
+        var colorless = ParseColorless(token);
+
+        if (colorless.HasValue)
+        {          
+          parsed.Add(new ManaColorCount2(ManaColor2.Colorless, colorless.Value));          
+          continue;
+        }
+
+        var color = ParseColored(token);
+
+        if (current == null)
+        {
+          current = new ManaColorCount2(color, 1);
+        }
+        else if (current.Color != color)
+        {
+          parsed.Add(current);
+          current = new ManaColorCount2(color, 1);
+        }
+        else
+        {
+          current.Count++;
+        }        
+      }
+
+      if (current != null)
+        parsed.Add(current);
+
+      return parsed;
+    }
+
+    private static ManaColor2 ParseColored(string token)
+    {
+      bool isWhite = false, isBlue = false, isBlack = false, isRed = false, isGreen = false;
+
+      foreach (var ch in token)
+      {
+        switch (Char.ToUpper(ch))
+        {
+            case ('W'):
+            isWhite = true;
+            break;
+            case ('U'):
+            isBlue = true;
+            break;
+            case ('B'):
+            isBlack = true;
+            break;
+            case ('R'):
+            isRed = true;
+            break;
+            case ('G'):
+            isGreen = true;
+            break;
+        }
+      }
+      
+      return new ManaColor2(isWhite, isBlue, isBlack, isRed, isGreen);
+    }
+
+    private static int? ParseColorless(string token)
+    {
+      int count;
+      if (Int32.TryParse(token, out count))
+        return count;
+
+      return null;
     }
 
     public IEnumerator<ManaColorCount2> GetEnumerator()
@@ -28,25 +113,32 @@
 
   public class ManaColorCount2
   {
-    public ManaColor2 Color;
-    public int Count;
+    public ManaColorCount2(ManaColor2 color, int count)
+    {
+      Color = color;
+      Count = count;
+    }
+
+    public ManaColor2 Color { get; private set; }
+    public int Count { get; set; }
   }
 
-  public class ManaColor2
+  public class ManaColor2 : IEquatable<ManaColor2>
   {
-    public const int White = 0;
-    public const int Blue = 1;
-    public const int Black = 2;
-    public const int Red = 3;
-    public const int Green = 4;
-
-    private readonly List<int> _colorIndices = new List<int>(5);
+    public static readonly ManaColor2 White = new ManaColor2(isWhite: true);
+    public static readonly ManaColor2 Blue = new ManaColor2(isBlue: true);
+    public static readonly ManaColor2 Black = new ManaColor2(isBlack: true);
+    public static readonly ManaColor2 Red = new ManaColor2(isRed: true);
+    public static readonly ManaColor2 Green = new ManaColor2(isGreen: true);
+    public static readonly ManaColor2 Colorless = new ManaColor2(isColorless: true);
+    
+    private readonly List<int> _colorIndices = new List<int>(6);
     private readonly bool[] _isColor;
 
     public ManaColor2(bool isWhite = false, bool isBlue = false, bool isBlack = false, bool isRed = false,
-      bool isGreen = false)
+      bool isGreen = false, bool isColorless = false)
     {
-      _isColor = new[] {isWhite, isBlue, isBlack, isRed, isGreen};
+      _isColor = new[] {isWhite, isBlue, isBlack, isRed, isGreen, isColorless};
 
       for (var i = 0; i < _isColor.Length; i++)
       {
@@ -57,26 +149,60 @@
       }
     }
 
-    public List<int> Indices { get { return _colorIndices; } }    
+    public List<int> Indices { get { return _colorIndices; } }
+
+    public bool Equals(ManaColor2 other)
+    {
+      if (ReferenceEquals(null, other)) return false;
+      if (ReferenceEquals(this, other)) return true;
+
+      return _colorIndices.SequenceEqual(other._colorIndices);            
+    }
+
+    public override bool Equals(object obj)
+    {
+      if (ReferenceEquals(null, obj)) return false;
+      if (ReferenceEquals(this, obj)) return true;
+      if (obj.GetType() != typeof (ManaColor2)) return false;
+      return Equals((ManaColor2) obj);
+    }
+
+    public override int GetHashCode()
+    {
+      return _colorIndices.GetHashCode();
+    }
+
+    public static bool operator ==(ManaColor2 left, ManaColor2 right)
+    {
+      return Equals(left, right);
+    }
+
+    public static bool operator !=(ManaColor2 left, ManaColor2 right)
+    {
+      return !Equals(left, right);
+    }
   }
 
   public class ManaUnit2
   {
     public ManaUnit2(
       ManaColor2 color,
-      int rank = 1,
+      int rank = 1,      
       IManaSource2 source = null,
       object tapRestriction = null,
-      int costRestriction = 0)
+      int costRestriction = 0,
+      ManaUsage usageRestriction = ManaUsage.Any)
     {
       Color = color;
       Rank = rank;
       Source = source;
       TapRestriction = tapRestriction;
       CostRestriction = costRestriction;
+      UsageRestriction = usageRestriction;
     }
 
     public int CostRestriction { get; private set; }
+    public ManaUsage UsageRestriction { get; private set; }
     public IManaSource2 Source { get; private set; }
     public bool HasSource { get { return Source != null; } }
     public ManaColor2 Color { get; private set; }
@@ -100,30 +226,31 @@
 
   public class ManaGroup2
   {
-    private readonly LinkedList<ManaUnit2> _units = new LinkedList<ManaUnit2>();
+    private readonly TrackableList<ManaUnit2> _units = new TrackableList<ManaUnit2>();
 
+    public void Initialize(INotifyChangeTracker changeTracker)
+    {
+      _units.Initialize(changeTracker);
+    }
+    
     public void Add(ManaUnit2 unit)
     {
       if (_units.Count == 0)
       {
-        _units.AddFirst(unit);
+        _units.Add(unit);
         return;
       }
 
-      var node = _units.First;
-
-      while (node != null)
+      for (int i = 0; i < _units.Count; i++)
       {
-        if (node.Value.Rank >= unit.Rank)
+        if (_units[i].Rank >= unit.Rank)
         {
-          _units.AddBefore(node, unit);
+          _units.Insert(i, unit);
           return;
         }
-
-        node = node.Next;
       }
 
-      _units.AddLast(unit);
+      _units.Add(unit);            
     }
 
     public void Remove(ManaUnit2 unit)
@@ -146,7 +273,7 @@
   {
     private readonly ManaGroup2 _colorless = new ManaGroup2();
     private readonly ManaGroup2[] _groups;
-    private readonly HashSet<ManaUnit2> _manaPool = new HashSet<ManaUnit2>();
+    private readonly TrackableList<ManaUnit2> _manaPool = new TrackableList<ManaUnit2>();
 
     public ManaVault2()
     {
@@ -159,6 +286,16 @@
           new ManaGroup2(),
           _colorless,
         };
+    }
+
+    public void Initialize(INotifyChangeTracker changeTracker)
+    {
+      foreach (var managroup in _groups)
+      {
+        managroup.Initialize(changeTracker);
+      }
+
+      _manaPool.Initialize(changeTracker);
     }
 
     public void AddManaToPool(ManaAmount2 amount)
@@ -205,17 +342,18 @@
       _colorless.Remove(unit);
     }
 
-    public bool Has(ManaAmount2 amount)
+    public bool Has(ManaAmount2 amount, ManaUsage usage)
     {
-      return TryToAllocateAmount(amount) != null;
+      return TryToAllocateAmount(amount, usage) != null;
     }
 
-    private HashSet<ManaUnit2> TryToAllocateAmount(ManaAmount2 amount)
+    private HashSet<ManaUnit2> TryToAllocateAmount(ManaAmount2 amount, ManaUsage usage)
     {
       var tapRestrictions = new HashSet<object>();
       var allocated = new HashSet<ManaUnit2>();
 
       Func<ManaUnit2, bool> condition = x =>
+        (x.UsageRestriction == ManaUsage.Any || x.UsageRestriction == usage) &&
         (x.CanActivateSource() || _manaPool.Contains(x)) &&
           (allocated.Contains(x) == false) &&
             (tapRestrictions.Contains(x.TapRestriction) == false);
@@ -261,9 +399,9 @@
       return allocated;
     }
 
-    public void Consume(ManaAmount2 amount)
+    public void Consume(ManaAmount2 amount, ManaUsage usage)
     {
-      var allocated = TryToAllocateAmount(amount);
+      var allocated = TryToAllocateAmount(amount, usage);
       Debug.Assert(allocated != null);
 
       var sources = GetSourcesToActivate(allocated);

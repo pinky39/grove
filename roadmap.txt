@@ -220,7 +220,7 @@ o Power Taint
 o Presence of the Master
 o Priest of Gix
 o Priest of Titania
-Purging Scythe
+o Purging Scythe
 Rain of Filth
 Rain of Salt
 Ravenous Skirge

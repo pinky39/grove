@@ -1,6 +1,5 @@
 ﻿namespace Grove.Core.Mana
 {
-  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Infrastructure;
@@ -15,7 +14,7 @@
 
     public ManaSources(INotifyChangeTracker changeTracker)
     {
-      _changeTracker = changeTracker;    
+      _changeTracker = changeTracker;
       _sources.Initialize(changeTracker);
     }
 
@@ -74,7 +73,7 @@
     {
       return _sources.Sum(sourcesWithSameResource =>
         sourcesWithSameResource.Sources.Max(x => x.GetAvailableMana(usage).Converted));
-    }    
+    }
 
     public bool Has(IManaAmount amount, ManaUsage usage)
     {
@@ -151,17 +150,10 @@
       }
     }
 
-    [Copyable]
-    public class SourcesWithSameResource
-    {
-      public object Resource { get; set; }
-      public TrackableList<IManaSource> Sources { get; set; }
-    }
-
     public IManaAmount GetAvailableMana(ManaUsage usage)
     {
       var amount = new List<IManaAmount>();
-      
+
       foreach (var sourcesWithSameResource in _sources)
       {
         amount.Add(
@@ -169,6 +161,13 @@
       }
 
       return new AggregateManaAmount(amount);
+    }
+
+    [Copyable]
+    public class SourcesWithSameResource
+    {
+      public object Resource { get; set; }
+      public TrackableList<IManaSource> Sources { get; set; }
     }
   }
 }

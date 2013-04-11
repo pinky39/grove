@@ -57,9 +57,11 @@
 
     public T this[int index] { get { return _items[index]; } set { throw new NotSupportedException(); } }
 
-    void IList<T>.Insert(int index, T item)
+    public void Insert(int index, T item)
     {
-      throw new NotImplementedException();
+      _items.Insert(index, item);
+      _changeTracker.NotifyValueAdded(this, item);
+      _hashDependancy.InvalidateHash();
     }
 
     public void RemoveAt(int index)
