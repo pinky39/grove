@@ -1,31 +1,31 @@
 ﻿namespace Grove.Core.Modifiers
 {
-  using Mana;
+  using System.Collections.Generic;
 
   public class SetColors : Modifier
   {
-    private readonly ManaColors _colors;
+    private readonly List<CardColor> _colors = new List<CardColor>();
     private CardColors _cardColors;
-    private ColorsSetter _colorsSetter;
+    private CardColorSetter _cardColorSetter;
 
     private SetColors() {}
 
-    public SetColors(ManaColors colors)
+    public SetColors(CardColor color)
     {
-      _colors = colors;
+      _colors.Add(color);
     }
 
     public override void Apply(CardColors colors)
     {
       _cardColors = colors;
-      _colorsSetter = new ColorsSetter(_colors);
-      _colorsSetter.Initialize(ChangeTracker);
-      _cardColors.AddModifier(_colorsSetter);
+      _cardColorSetter = new CardColorSetter(_colors);
+      _cardColorSetter.Initialize(ChangeTracker);
+      _cardColors.AddModifier(_cardColorSetter);
     }
 
     protected override void Unapply()
     {
-      _cardColors.RemoveModifier(_colorsSetter);
+      _cardColors.RemoveModifier(_cardColorSetter);
     }
   }
 }

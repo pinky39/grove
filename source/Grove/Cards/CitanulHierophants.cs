@@ -29,8 +29,11 @@
                   {
                     Cost = new Tap(),
                     Text = "{T}:  Add {G} to your mana pool.",
-                    Priority = ManaSourcePriorities.Creature
-                  }.ManaAmount(ManaAmount.Green);
+                    Priority = ManaSourcePriorities.Creature,
+                    TapRestriction = true
+                  };
+                
+                mp.ManaAmount(Mana.Green);
 
                 return new AddActivatedAbility(new ManaAbility(mp));
               };

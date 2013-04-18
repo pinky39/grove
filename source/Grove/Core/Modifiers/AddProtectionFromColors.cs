@@ -1,31 +1,41 @@
 ﻿namespace Grove.Core.Modifiers
 {
   using System;
-  using Mana;
+  using System.Collections.Generic;
 
   public class AddProtectionFromColors : Modifier
   {
-    private readonly Func<Modifier, ManaColors> _colors;
+    private readonly Func<Modifier, IEnumerable<CardColor>> _colors;
     private Protections _protections;
 
     private AddProtectionFromColors() {}
 
-    public AddProtectionFromColors(Func<Modifier, ManaColors> colors)
+    public AddProtectionFromColors(Func<Modifier, IEnumerable<CardColor>> colors)
     {
       _colors = colors;
     }
 
-    public AddProtectionFromColors(ManaColors colors) : this(delegate { return colors; }) {}
+    public AddProtectionFromColors(IEnumerable<CardColor> colors) : this(delegate { return colors; }) {}
+
+    public AddProtectionFromColors(CardColor color)
+      : this(delegate { return new[] {color}; }) {}
 
     public override void Apply(Protections protections)
     {
       _protections = protections;
-      _protections.AddProtectionFromColors(_colors(this));
+
+      foreach (var cardColor in _colors(this))
+      {
+        _protections.AddProtectionFromColor(cardColor);
+      }
     }
 
     protected override void Unapply()
     {
-      _protections.RemoveProtectionFromColors(_colors(this));
+      foreach (var cardColor in _colors(this))
+      {
+        _protections.RemoveProtectionFromColor(cardColor);
+      }
     }
   }
 }

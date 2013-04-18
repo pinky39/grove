@@ -34,7 +34,7 @@
                   .Power(1)
                   .Toughness(1)
                   .Type("Creature Token Soldier")
-                  .Colors(ManaColors.White)));
+                  .Colors(CardColor.White)));
 
             p.TimingRule(new SecondMain());
             p.CostRule(new Core.Ai.CostRules.MartialCoup(5));            

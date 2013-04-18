@@ -16,9 +16,8 @@
         Battlefield(P1, forest.IsEnchantedWith("Fertile Ground"));
 
         Exec(
-          At(Step.FirstMain)
-            .Activate(forest)
-            .Verify(() => Equal(2, P1.GetAmountOfManaInPool().Converted))
+          At(Step.FirstMain)            
+            .Verify(() => Equal(2, P1.GetConvertedMana()))
           );
       }
 

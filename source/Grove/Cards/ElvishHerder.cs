@@ -26,7 +26,7 @@
         .ActivatedAbility(p =>
           {
             p.Text = "{G}: Target creature gains trample until end of turn.";
-            p.Cost = new PayMana(ManaAmount.Green, ManaUsage.Abilities);
+            p.Cost = new PayMana(Mana.Green, ManaUsage.Abilities);
             p.Effect = () => new ApplyModifiersToTargets(() => new AddStaticAbility(Static.Trample) {UntilEot = true});
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 

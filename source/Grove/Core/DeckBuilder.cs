@@ -1,9 +1,7 @@
 ﻿namespace Grove.Core
 {
-  using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Mana;
 
   public class DeckBuilder
   {
@@ -18,16 +16,6 @@
       };
 
     private static readonly int MinSpellCount = DeckCardCount - LandCountRules[0].Count;
-
-    private static readonly Func<Card, bool>[] ColorFilters = new Func<Card, bool>[]
-      {
-        x => x.HasColors(ManaColors.White),
-        x => x.HasColors(ManaColors.Blue),
-        x => x.HasColors(ManaColors.Black),
-        x => x.HasColors(ManaColors.Red),
-        x => x.HasColors(ManaColors.Green),
-      };
-
     private readonly CardDatabase _cardDatabase;
 
     public DeckBuilder(CardDatabase cardDatabase)
@@ -38,25 +26,24 @@
     public List<List<string>> BuildDecks(List<string> cardNames, CardRatings cardRatings)
     {
       var cards = cardNames.Select(x => _cardDatabase.CreateCard(x)).ToList();
-
       var decks = new List<List<Card>>();
 
-      // create mono and dual colored decks
-      for (var i = 0; i < 5; i++)
+      for (var i = CardColor.White; i <= CardColor.Green; i++)
       {
         var mono = cards
-          .Where(x => !x.IsMultiColored)
-          .Where(x => ColorFilters[i](x) || x.HasColors(ManaColors.Colorless))
+          .Where(x => x.IsMultiColored == false)
+          .Where(x => x.HasColor(i) || x.HasColor(CardColor.Colorless))
           .ToList();
 
         var monoDeck = BuildDeckNoLands(mono, cardRatings);
+
         if (monoDeck != null)
           decks.Add(monoDeck);
 
-        for (var j = i + 1; j < 5; j++)
+        for (var j = i + 1; j <= CardColor.Green; j++)
         {
           var dual = cards
-            .Where(x => ColorFilters[i](x) || ColorFilters[j](x) || x.HasColors(ManaColors.Colorless))
+            .Where(x => x.HasColor(i) || x.HasColor(j) || x.HasColor(CardColor.Colorless))
             .ToList();
 
           var dualDeck = BuildDeckNoLands(dual, cardRatings);
@@ -87,63 +74,59 @@
 
       var distribution = GetLandsDistribution(landCount, deck);
 
-      deck.AddRange(CreateLands("Plains", distribution[0]));
-      deck.AddRange(CreateLands("Island", distribution[1]));
-      deck.AddRange(CreateLands("Swamp", distribution[2]));
-      deck.AddRange(CreateLands("Mountain", distribution[3]));
-      deck.AddRange(CreateLands("Forest", distribution[4]));
+      AddLands("Plains", distribution[0], deck);
+      AddLands("Island", distribution[1], deck);
+      AddLands("Swamp", distribution[2], deck);
+      AddLands("Mountain", distribution[3], deck);
+      AddLands("Forest", distribution[4], deck);
     }
 
-    private static int[] GetLandsDistribution(int landCount, List<Card> deck)
+    private static int[] GetLandsDistribution(int landCount, IEnumerable<Card> deck)
     {
-      var manaCounts = new ColoredManaCounts();
+      var manaCounts = new[] {0, 0, 0, 0, 0};
 
       foreach (var card in deck)
       {
-        manaCounts.White += card.ManaCost.Count(x => x.HasColor(ManaColors.White));
-        manaCounts.Blue += card.ManaCost.Count(x => x.HasColor(ManaColors.Blue));
-        manaCounts.Black += card.ManaCost.Count(x => x.HasColor(ManaColors.Black));
-        manaCounts.Red += card.ManaCost.Count(x => x.HasColor(ManaColors.Red));
-        manaCounts.Green += card.ManaCost.Count(x => x.HasColor(ManaColors.Green));
+        foreach (var colorCount in card.ManaCost)
+        {
+          if (colorCount.Color.IsColorless)
+            continue;
+
+          foreach (var index in colorCount.Color.Indices)
+          {
+            manaCounts[index]++;
+          }
+        }
       }
 
-      Func<int, int> getCount = colorCount => landCount*colorCount/manaCounts.Total;
-
-      var distribution = new[]
-        {
-          getCount(manaCounts.White),
-          getCount(manaCounts.Blue),
-          getCount(manaCounts.Black),
-          getCount(manaCounts.Red),
-          getCount(manaCounts.Green)
-        };
-
+      var totalManaCount = manaCounts.Sum();
+      var distribution = manaCounts.Select(x => landCount*x/totalManaCount).ToArray();
       var roundedCount = distribution.Sum();
-      var landsToDistribute = landCount - roundedCount;
+      var roundingError = landCount - roundedCount;
 
-      for (var i = 0; i < distribution.Length; i++)
+      for (var i = 0; i < roundingError; i++)
       {
         if (distribution[i] > 0)
           distribution[i]++;
 
-        landsToDistribute--;
+        roundingError--;
 
-        if (landsToDistribute == 0)
+        if (roundingError == 0)
           break;
       }
 
       return distribution;
     }
 
-    private IEnumerable<Card> CreateLands(string name, double count)
+    private void AddLands(string name, int count, List<Card> deck)
     {
       for (var i = 0; i < count; i++)
       {
-        yield return _cardDatabase.CreateCard(name);
+        deck.Add(_cardDatabase.CreateCard(name));
       }
     }
 
-    private void RemoveWorstCards(int count, List<Card> deck, CardRatings cardRatings)
+    private static void RemoveWorstCards(int count, List<Card> deck, CardRatings cardRatings)
     {
       var cardsToRemove = deck
         .OrderBy(x => cardRatings.GetRating(x.Name))
@@ -168,7 +151,7 @@
       return LandCountRules.Last().Count;
     }
 
-    private List<Card> BuildDeckNoLands(IEnumerable<Card> cards, CardRatings cardRatings)
+    private static List<Card> BuildDeckNoLands(IEnumerable<Card> cards, CardRatings cardRatings)
     {
       var creatures = cards
         .Where(x => x.Is().Creature)
@@ -194,17 +177,6 @@
         .Take(MinSpellCount - MinCreatureCount));
 
       return result;
-    }
-
-    private class ColoredManaCounts
-    {
-      public int Black;
-      public int Blue;
-      public int Green;
-      public int Red;
-      public int White;
-
-      public int Total { get { return White + Blue + Black + Red + Green; } }
     }
 
     private class LandCountRule

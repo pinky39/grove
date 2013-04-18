@@ -6,7 +6,7 @@
   {    
     protected override void CanPay(CanPayResult result)
     {
-      result.CanPay = Card.ChargeCountersCount > 0;      
+      result.CanPay = Card.CountersCount > 0;      
     }
 
     protected override void Pay(ITarget target, int? x)

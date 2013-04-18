@@ -78,9 +78,9 @@
 
     protected virtual void Initialize() {}
 
-    public bool HasColors(ManaColors colors)
+    public bool HasColor(CardColor color)
     {
-      return Source.OwningCard.HasColors(colors);
+      return Source.OwningCard.HasColor(color);
     }
 
     public int CalculateHash(HashCalculator calc)

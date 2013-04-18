@@ -25,13 +25,13 @@
         .ManaAbility(p =>
           {
             p.Text = "{T}: Add {R} to your mana pool.";
-            p.ManaAmount(ManaAmount.Red);
+            p.ManaAmount(Mana.Red);
           })
         .ManaAbility(p =>
           {
             p.Text = "{T}, Remove a charge counter from Vivid Crag: Add one mana of any color to your mana pool.";
             p.Cost = new AggregateCost(new Tap(), new RemoveCounter());
-            p.ManaAmount(ManaAmount.Any);
+            p.ManaAmount(Mana.Any);
             p.Priority = ManaSourcePriorities.Restricted;
           })
         .TriggeredAbility(p =>

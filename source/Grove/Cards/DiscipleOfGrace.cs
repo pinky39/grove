@@ -3,7 +3,6 @@
   using System.Collections.Generic;
   using Core;
   using Core.Dsl;
-  using Core.Mana;
 
   public class DiscipleOfGrace : CardsSource
   {
@@ -17,7 +16,7 @@
         .FlavorText("Beauty is beyond law.")
         .Power(1)
         .Toughness(2)
-        .Protections(ManaColors.Black)
+        .Protections(CardColor.Black)
         .Cycling("{2}");
     }
   }

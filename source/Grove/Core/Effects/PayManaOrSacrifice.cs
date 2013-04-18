@@ -36,6 +36,7 @@
           p.ManaAmount = _amount.Value;
           p.Text = FormatText(_message);
           p.ProcessDecisionResults = this;
+          p.ManaUsage = ManaUsage.Abilities;
         });
     }
   }

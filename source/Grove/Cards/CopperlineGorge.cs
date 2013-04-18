@@ -20,7 +20,7 @@
         .ManaAbility(p =>
           {
             p.Text = "{T}: Add {R} or {G} to your mana pool.";
-            p.ManaAmount(new ManaUnit(ManaColors.Red | ManaColors.Green));
+            p.ManaAmount(Mana.Colored(isRed: true, isGreen: true));                            
           });
     }
   }

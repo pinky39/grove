@@ -23,21 +23,21 @@
         .ManaAbility(p =>
           {
             p.Text = "{T}: Add {R} or {G} to your mana pool.";
-            p.ManaAmount(new ManaUnit(ManaColors.Red | ManaColors.Green));
+            p.ManaAmount(Mana.Colored(isRed: true, isGreen: true));
+            p.Priority = ManaSourcePriorities.OnlyIfNecessary;
           })
         .ActivatedAbility(p =>
           {
             p.Text =
               "{2}{R}{G}: Until end of turn, Raging Ravine becomes a 3/3 red and green Elemental creature with Whenever this creature attacks, put a +1/+1 counter on it. It's still a land.";
 
-            p.Cost = new PayMana("{2}{R}{G}".ParseMana(), ManaUsage.Abilities,
-              tryNotToConsumeCardsManaSourceWhenPayingThis: true);
+            p.Cost = new PayMana("{2}{R}{G}".Parse(), ManaUsage.Abilities);
 
             p.Effect = () => new ApplyModifiersToSelf(
               () => new ChangeToCreature(
                 power: 3,
                 toughness: 3,
-                colors: ManaColors.Red | ManaColors.Green,
+                colors: L(CardColor.Red, CardColor.Green),
                 type: "Land Creature Elemental") {UntilEot = true},
               () =>
                 {

@@ -2,12 +2,11 @@
 {
   using System.Collections.Generic;
 
-  public interface IManaAmount : IEnumerable<ManaUnit>
+  public interface IManaAmount : IEnumerable<SingleColorManaAmount>
   {
-    int Converted { get; }    
-    bool IsColorless { get; }
+    int Converted { get; }
     
-    ManaUnit First { get; }
-    bool Has(ManaUnit mana);
+    IManaAmount Add(IManaAmount amount);
+    IManaAmount Remove(IManaAmount amount);
   }
 }

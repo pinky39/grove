@@ -31,12 +31,12 @@
     public IEnumerable<Card> Creatures { get { return _cards.Where(x => x.Is().Creature); } }
     public IEnumerable<Card> Spells { get { return _cards.Where(x => !x.Is().Creature && !x.Is().Land); } }
     public IEnumerable<Card> Lands { get { return _cards.Where(x => x.Is().Land); } }
-    public IEnumerable<string> Colors { get { return GetDeckColors(); } }
+    public IEnumerable<ManaColor> Colors { get { return GetDeckManaColors(); } }
 
     public int Rating { get; set; }
     public string Description { get; set; }
 
-    public string Name { get; set; }    
+    public string Name { get; set; }
 
     IEnumerator IEnumerable.GetEnumerator()
     {
@@ -61,16 +61,29 @@
       _cards.Add(_cardDatabase[name]);
     }
 
-    private List<string> GetDeckColors()
+    private List<ManaColor> GetDeckManaColors()
     {
-      var colors = ManaColors.None;
+      var dictionary = new Dictionary<ManaColor, bool>
+        {
+          {ManaColor.White, false},
+          {ManaColor.Blue, false},
+          {ManaColor.Black, false},
+          {ManaColor.Red, false},
+          {ManaColor.Green, false},
+        };
 
       foreach (var card in _cards)
       {
-        colors = colors | card.Colors;
+        foreach (var singleColorAmount in card.ManaCost)
+        {
+          dictionary[singleColorAmount.Color] = true;
+        }
       }
 
-      return ManaAmount.GetSymbolsFromColor(colors);
+      return dictionary
+        .Where(x => x.Value)
+        .Select(x => x.Key)
+        .ToList();
     }
 
     public void RemoveCard(string name)

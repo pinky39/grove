@@ -6,7 +6,6 @@
   {
     private readonly IManaAmount _amount;
     private ActivatedAbilities _abilities;
-    private ManaAmountIncrement _increment;
 
     private IncreaseManaOutput() {}
 
@@ -18,20 +17,18 @@
     public override void Apply(ActivatedAbilities abilities)
     {
       _abilities = abilities;
-      _increment = new ManaAmountIncrement(_amount);
-      _increment.Initialize(ChangeTracker);
 
-      foreach (var manaAbility in _abilities.ManaAbilities)
+      foreach (var manaAbility in _abilities.GetManaAbilities())
       {
-        manaAbility.AddManaModifier(_increment);
+        manaAbility.AddAditionalAmountAbilityWillProduce(_amount);
       }
     }
 
     protected override void Unapply()
     {
-      foreach (var manaAbility in _abilities.ManaAbilities)
+      foreach (var manaAbility in _abilities.GetManaAbilities())
       {
-        manaAbility.RemoveManaModifier(_increment);
+        manaAbility.RemoveAdditionalAmountAbilityWillProduce(_amount);
       }
     }
   }

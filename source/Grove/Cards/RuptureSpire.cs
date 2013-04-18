@@ -27,7 +27,7 @@
         .ManaAbility(p =>
           {
             p.Text = "{T}: Add one mana of any color to your mana pool.";
-            p.ManaAmount(ManaUnit.Any);
+            p.ManaAmount(new SingleColorManaAmount(ManaColor.Any, 1));
           })
         .TriggeredAbility(p =>
           {

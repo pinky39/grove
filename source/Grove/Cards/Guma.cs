@@ -18,7 +18,7 @@
           "When the giant returned for the night, he found a dead merfolk on his pillow. Although he praised the little guma, he inwardly wondered where she had hid the head.")
         .Power(2)
         .Toughness(2)
-        .Protections(ManaColors.Blue);
+        .Protections(CardColor.Blue);
     }
   }
 }

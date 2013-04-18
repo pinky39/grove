@@ -23,7 +23,7 @@
           {
             p.Effect = () => new DestroyTargetPermanents();
             p.TargetSelector.AddEffect(trg => trg
-              .Is.Card(c => c.Is().Creature && !c.HasColors(ManaColors.Black))
+              .Is.Card(c => c.Is().Creature && !c.HasColor(CardColor.Black))
               .On.Battlefield());
 
             p.TargetingRule(new Destroy());

@@ -1,11 +1,10 @@
 ﻿namespace Grove.Core.Mana
 {
-  public interface IManaSource
-  {
-    int Priority { get; }
-    object Resource { get; }    
+  using System.Collections.Generic;
 
-    void Consume(IManaAmount amount, ManaUsage usage = ManaUsage.Any);
-    IManaAmount GetAvailableMana(ManaUsage usage = ManaUsage.Any);
+  public interface IManaSource
+  {        
+    bool CanActivate();
+    IEnumerable<ManaUnit> PayActivationCost();        
   }
 }

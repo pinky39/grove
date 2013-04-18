@@ -6,7 +6,6 @@
   using Core.Ai.TimingRules;
   using Core.Dsl;
   using Core.Effects;
-  using Core.Mana;
   using Core.Triggers;
   using Core.Zones;
 
@@ -24,22 +23,22 @@
         .Toughness(3)
         .Cast(p => p.TimingRule(new OpponentHasPermanents(
           card => card.Is().Creature &&
-            !card.HasColors(ManaColors.Black) &&
-              !card.HasProtectionFrom(ManaColors.Black), minCount: 1))
+            !card.HasColor(CardColor.Black) &&
+              !card.HasProtectionFrom(CardColor.Black), minCount: 1))
         )
         .StaticAbilities(Static.Flying)
         .TriggeredAbility(p =>
           {
             p.Text =
               "When Dark Hatchling enters the battlefield, destroy target nonblack creature. It can't be regenerated.";
-            
+
             p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
             p.Effect = () => new DestroyTargetPermanents(canRegenerate: false);
-            
+
             p.TargetSelector.AddEffect(trg => trg
-              .Is.Card(c => c.Is().Creature && !c.HasColors(ManaColors.Black))
+              .Is.Card(c => c.Is().Creature && !c.HasColor(CardColor.Black))
               .On.Battlefield());
-            
+
             p.TargetingRule(new Destroy());
           });
     }

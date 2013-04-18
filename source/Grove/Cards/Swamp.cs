@@ -16,7 +16,7 @@
         .ManaAbility(p =>
           {
             p.Text = "{T}: Add {B} to your mana pool.";
-            p.ManaAmount(ManaAmount.Black);
+            p.ManaAmount(Mana.Black);
           });
     }
   }

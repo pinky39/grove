@@ -25,7 +25,7 @@
         .ActivatedAbility(p =>
           {
             p.Text = "{1}{G}: Regenerate Albino Troll.";
-            p.Cost = new PayMana("{1}{G}".ParseMana(), ManaUsage.Abilities);
+            p.Cost = new PayMana("{1}{G}".Parse(), ManaUsage.Abilities);
             p.Effect = () => new Regenerate {Category = EffectCategories.Protector};
             p.TimingRule(new Core.Ai.TimingRules.Regenerate());
           });

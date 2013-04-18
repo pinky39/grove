@@ -39,7 +39,7 @@
 
     public virtual IManaAmount GetManaCost()
     {
-      return ManaAmount.Zero;
+      return Mana.Zero;
     }
 
     public virtual void Initialize(Card card, Game game, TargetValidator validator = null)

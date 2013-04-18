@@ -4,11 +4,11 @@
 
   public class ControllerNeedsAdditionalMana : TimingRule
   {
-    private readonly int _amount;
+    private readonly int? _amount;
 
     private ControllerNeedsAdditionalMana() {}
 
-    public ControllerNeedsAdditionalMana(int amount)
+    public ControllerNeedsAdditionalMana(int? amount = null)
     {
       _amount = amount;
     }
@@ -20,8 +20,16 @@
 
       var availableMana = p.Controller.GetConvertedMana();
 
-      return p.Controller.Hand.Any(x => x.ConvertedCost > availableMana &&
-        x.ConvertedCost <= availableMana + _amount);
+      return p.Controller.Hand.Any(x =>
+        {
+          if (x.ConvertedCost <= availableMana)
+            return false;
+
+          if (_amount == null)
+            return true;
+            
+          return x.ConvertedCost <= availableMana + _amount;
+        });
     }
   }
 }

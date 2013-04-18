@@ -9,10 +9,7 @@
   [Copyable]
   public class ActivatedAbilities : IModifiable, IHashable
   {
-    private readonly TrackableList<ActivatedAbility> _abilities = new TrackableList<ActivatedAbility>();
-
-    public IEnumerable<IManaSource> ManaSources { get { return _abilities.Where(x => x is IManaSource).Cast<IManaSource>(); } }
-    public IEnumerable<ManaAbility> ManaAbilities { get { return _abilities.Where(x => x is ManaAbility).Cast<ManaAbility>(); } }
+    private readonly TrackableList<ActivatedAbility> _abilities = new TrackableList<ActivatedAbility>();        
 
     public int CalculateHash(HashCalculator calc)
     {
@@ -31,12 +28,12 @@
       foreach (var activatedAbility in _abilities)
       {
         activatedAbility.Initialize(card, game);
-      }
+      }    
+    }
 
-      foreach (var ability in _abilities)
-      {                
-        AddManaSource(ability);
-      }
+    public IEnumerable<ManaAbility> GetManaAbilities()
+    {
+      return _abilities.Where(x => x is ManaAbility).Select(x => (ManaAbility) x);
     }
 
     public void Activate(int abilityIndex, ActivationParameters activationParameters)
@@ -92,41 +89,19 @@
     public void Add(ActivatedAbility ability)
     {
       _abilities.Add(ability);
-      AddManaSource(ability);
-    }
-
-    private void AddManaSource(ActivatedAbility ability)
-    {
-      var manaSource = ability as IManaSource;
-      if (manaSource == null)
-        return;      
-
-      if (ability.IsInitialized)
-        ability.OwningCard.Controller.AddManaSource(manaSource);
-    }
+      ability.OnAbilityAdded();
+    }  
 
     public void Remove(ActivatedAbility ability)
     {
-      _abilities.Remove(ability);
-
-      RemoveManaSource(ability);
-    }
-
-    private void RemoveManaSource(ActivatedAbility ability)
-    {
-      var manaSource = ability as IManaSource;
-      if (manaSource == null)
-        return;
-      
-      ability.OwningCard.Controller.RemoveManaSource(manaSource);
-    }
+      _abilities.Remove(ability);      
+      ability.OnAbilityRemoved();
+    }    
 
     public ActivatedAbility RemoveFirst()
     {
       var ability = _abilities.First();
-      _abilities.Remove(ability);
-      RemoveManaSource(ability);
-
+      Remove(ability);
       return ability;
     }
   }

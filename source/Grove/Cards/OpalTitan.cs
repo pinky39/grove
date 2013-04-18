@@ -35,7 +35,7 @@
                 power: 4,
                 toughness: 4,
                 type: "Creature Giant",
-                colors: ManaColors.White),
+                colors: L(CardColor.White)),
               () => new AddProtectionFromColors(m =>
                 m.SourceEffect.TriggerMessage<PlayerHasCastASpell>().Card.Colors));
 

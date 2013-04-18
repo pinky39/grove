@@ -6,7 +6,6 @@
   using Core.Ai.TimingRules;
   using Core.Dsl;
   using Core.Effects;
-  using Core.Mana;
   using Core.Modifiers;
 
   public class AbsoluteGrace : CardsSource
@@ -28,7 +27,7 @@
         .ContinuousEffect(p =>
           {
             p.CardFilter = (card, source) => card.Is().Creature;
-            p.Modifier = () => new AddProtectionFromColors(ManaColors.Black);
+            p.Modifier = () => new AddProtectionFromColors(CardColor.Black);
           });
     }
   }

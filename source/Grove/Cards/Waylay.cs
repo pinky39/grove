@@ -30,7 +30,7 @@
                 .Toughness(2)
                 .OverrideScore(new ScoreOverride {Battlefield = 20})
                 .Type("Creature - Token - Knight")
-                .Colors(ManaColors.White)
+                .Colors(CardColor.White)
                 .TriggeredAbility(tp =>
                   {
                     tp.Text = "Exile this at the end of turn.";

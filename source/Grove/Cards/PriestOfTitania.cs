@@ -1,7 +1,6 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using System.Linq;
   using Core;
   using Core.Dsl;
   using Core.Mana;
@@ -21,8 +20,7 @@
         .ManaAbility(p =>
           {
             p.Text = "{T}: Add {G} to your mana pool for each Elf on the battlefield.";
-            p.ManaAmount((ability, game) => ManaAmount.OfSingleColor(ManaColors.Green,
-              game.Players.Permanents().Count(x => x.Is("elf"))));
+            p.ManaAmount(ManaColor.Green, c => c.Is("elf"), ControlledBy.Any);
           });
     }
   }

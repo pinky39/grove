@@ -343,7 +343,11 @@
     <Compile Include="Cards\PriestOfGix.cs" />
     <Compile Include="Cards\PriestOfTitania.cs" />
     <Compile Include="Cards\PurgingScythe.cs" />
+    <Compile Include="Cards\RainOfFilth.cs" />
+    <Compile Include="Cards\RainOfSalt.cs" />
     <Compile Include="Cards\Rancor.cs" />
+    <Compile Include="Cards\RavenousSkirge.cs" />
+    <Compile Include="Cards\Raze.cs" />
     <Compile Include="Cards\RazorvergeThicket.cs" />
     <Compile Include="Cards\RemoteIsle.cs" />
     <Compile Include="Cards\Rescind.cs" />
@@ -469,6 +473,7 @@
     <Compile Include="Core\Ai\TargetingRules\DamageRedirectionEnchantment.cs" />
     <Compile Include="Core\Ai\TargetingRules\ReducePower.cs" />
     <Compile Include="Core\Ai\TargetingRules\ReduceToughness.cs" />
+    <Compile Include="Core\Ai\TargetingRules\SacrificeTargetToDestroyTarget.cs" />
     <Compile Include="Core\Ai\TargetingRules\SacrificeToBounce.cs" />
     <Compile Include="Core\Ai\TargetingRules\SacrificeToDrawCards.cs" />
     <Compile Include="Core\Ai\TargetingRules\SacrificeToGainLife.cs" />
@@ -522,6 +527,7 @@
     <Compile Include="Core\Ai\TimingRules\TimingRuleParameters.cs" />
     <Compile Include="Core\Ai\TimingRules\Turn.cs" />
     <Compile Include="Core\Ai\TimingRules\ControllerIsAttacked.cs" />
+    <Compile Include="Core\CardColors.cs" />
     <Compile Include="Core\CardFactory.cs" />
     <Compile Include="Core\CardParameters.cs" />
     <Compile Include="Core\CardRatings.cs" />
@@ -537,6 +543,7 @@
     <Compile Include="Core\Costs\RemoveCounter.cs" />
     <Compile Include="Core\Costs\Tap.cs" />
     <Compile Include="Core\Decisions\IChooseDecisionResults.cs" />
+    <Compile Include="Core\Decisions\Machine\SelectStartingPlayer.cs" />
     <Compile Include="Core\DeckBuilder.cs" />
     <Compile Include="Core\DeckEvaluator.cs" />
     <Compile Include="Core\Effects\ApplyModifiersToPlayers.cs" />
@@ -562,17 +569,31 @@
     <Compile Include="Core\GameObject.cs" />
     <Compile Include="Core\MagicSet.cs" />
     <Compile Include="Core\ManaAbilityParameters.cs" />
-    <Compile Include="Core\Mana\ManaVault2.cs" />
+    <Compile Include="Core\Mana\FixedManaOutput.cs" />
+    <Compile Include="Core\Mana\IManaAmount.cs" />
+    <Compile Include="Core\Mana\IManaSource.cs" />
+    <Compile Include="Core\Mana\Mana.cs" />
+    <Compile Include="Core\Mana\ManaAbility.cs" />
+    <Compile Include="Core\Mana\ManaCounts.cs" />
+    <Compile Include="Core\Mana\MultiColorManaAmount.cs" />
+    <Compile Include="Core\Mana\ManaColor.cs" />
+    <Compile Include="Core\Mana\ManaParser.cs" />
+    <Compile Include="Core\Mana\SingleColorManaAmount.cs" />
+    <Compile Include="Core\Mana\ManaUnits.cs" />
+    <Compile Include="Core\Mana\ManaOutput.cs" />
+    <Compile Include="Core\Mana\ManaUnit.cs" />
+    <Compile Include="Core\Mana\ManaVault.cs" />
+    <Compile Include="Core\Mana\ManaAbilityParameters.cs" />
+    <Compile Include="Core\Mana\PermanentCountManaOutput.cs" />
+    <Compile Include="Core\Mana\ZeroManaAmount.cs" />
     <Compile Include="Core\Modifiers\ChangeBasicLand.cs" />
     <Compile Include="Core\Modifiers\ModifierParameters.cs" />
     <Compile Include="Core\Modifiers\RemoveStaticAbility.cs" />
     <Compile Include="Core\Rarity.cs" />
     <Compile Include="Core\ScoreOverride.cs" />
     <Compile Include="Core\SpellCounterReason.cs" />
-    <Compile Include="Core\ManaAmountCharacteristic.cs" />
     <Compile Include="Core\Modifiers\IncreaseLandLimit.cs" />
     <Compile Include="Core\Modifiers\IncreaseManaOutput.cs" />
-    <Compile Include="Core\Modifiers\ManaAmountIncrement.cs" />
     <Compile Include="Core\Preventions\PreventReceived.cs" />
     <Compile Include="Core\Targeting\TargetSpecs.cs" />
     <Compile Include="Core\Targeting\TargetValidatorParameters.cs" />
@@ -656,7 +677,6 @@
     <Compile Include="Core\Modifiers\PermanentGetsUntapedLifetime.cs" />
     <Compile Include="Core\Preventions\PreventCombatDamage.cs" />
     <Compile Include="Core\Preventions\PreventLifelossBelowOne.cs" />
-    <Compile Include="Core\Mana\AggregateManaAmount.cs" />
     <Compile Include="Core\ControlledBy.cs" />
     <Compile Include="Core\Effects\PreventNextDamageFromSourceToController.cs" />
     <Compile Include="Core\Effects\PreventDamageFromSourceToTarget.cs" />
@@ -725,11 +745,8 @@
     <Compile Include="Core\Effects\TapTargets.cs" />
     <Compile Include="Core\Effects\DiscardCards.cs" />
     <Compile Include="Core\Effects\TargetPlayerTakesExtraTurns.cs" />
-    <Compile Include="Core\Mana\IManaAmount.cs" />
     <Compile Include="Core\Level.cs" />
     <Compile Include="Core\Life.cs" />
-    <Compile Include="Core\Mana\ManaAmount.cs" />
-    <Compile Include="Core\Mana\ManaPayment.cs" />
     <Compile Include="Core\Messages\LevelChanged.cs" />
     <Compile Include="Core\Messages\PlayerHasActivatedAbility.cs" />
     <Compile Include="Core\Messages\SearchFinished.cs" />
@@ -740,7 +757,6 @@
     <Compile Include="Core\Modifiers\IncreaseLevel.cs" />
     <Compile Include="Core\Modifiers\LevelLifetime.cs" />
     <Compile Include="Core\Modifiers\SetPowerAndToughness.cs" />
-    <Compile Include="Core\Mana\PrimitiveManaAmount.cs" />
     <Compile Include="Core\Targeting\TargetsCandidates.cs" />
     <Compile Include="Core\Targeting\TargetValidator.cs" />
     <Compile Include="Core\Targeting\TargetSelector.cs" />
@@ -779,7 +795,6 @@
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ui\Deck\ViewModel.cs" />
-    <Compile Include="Core\Mana\ZeroManaAmount.cs" />
     <Compile Include="Core\Zones\Exile.cs" />
     <Compile Include="Core\Zones\IBattlefieldQuery.cs" />
     <Compile Include="Core\Zones\IHandQuery.cs" />
@@ -823,14 +838,14 @@
     <Compile Include="Core\CardTypeCharacteristic.cs" />
     <Compile Include="Core\Combat.cs" />
     <Compile Include="Core\ActivatedAbilities.cs" />
-    <Compile Include="Core\CardColors.cs" />
+    <Compile Include="Core\CardColor.cs" />
     <Compile Include="Core\Modifiers\CardTypeSetter.cs" />
     <Compile Include="Core\Modifiers\IModifier.cs" />
     <Compile Include="Core\Modifiers\IModifiable.cs" />
     <Compile Include="Core\Modifiers\Increment.cs" />
     <Compile Include="Core\Modifiers\StrenghtSetter.cs" />
     <Compile Include="Core\Power.cs" />
-    <Compile Include="Core\Modifiers\ColorsSetter.cs" />
+    <Compile Include="Core\Modifiers\CardColorSetter.cs" />
     <Compile Include="Core\Static.cs" />
     <Compile Include="Core\Characteristic.cs" />
     <Compile Include="Core\Toughness.cs" />
@@ -849,10 +864,7 @@
     <Compile Include="Infrastructure\ITrackableValue.cs" />
     <Compile Include="Infrastructure\Trackable.cs" />
     <Compile Include="Core\Triggers\ITriggerFactory.cs" />
-    <Compile Include="Core\Mana\ManaSources.cs" />
-    <Compile Include="Core\Mana\IManaSource.cs" />
     <Compile Include="Core\ManaAbility.cs" />
-    <Compile Include="Core\Mana\ManaPool.cs" />
     <Compile Include="Core\Costs\Sacrifice.cs" />
     <Compile Include="Core\Damage.cs" />
     <Compile Include="Core\Preventions\ReplaceDamageWithCounters.cs" />
@@ -865,9 +877,6 @@
     <Compile Include="Core\Effects\ShuffleIntoLibrary.cs" />
     <Compile Include="Core\Effects\UntapAllLands.cs" />
     <Compile Include="Core\Preventions\DamagePrevention.cs" />
-    <Compile Include="Core\Mana\ManaUnit.cs" />
-    <Compile Include="Core\Mana\ManaBag.cs" />
-    <Compile Include="Core\Mana\ManaColors.cs" />
     <Compile Include="Core\Modifiers\AddStaticAbility.cs" />
     <Compile Include="Core\Modifiers\AddProtectionFromColors.cs" />
     <Compile Include="Core\Modifiers\AddTriggeredAbility.cs" />

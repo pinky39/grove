@@ -28,7 +28,7 @@
           {
             p.Text =
               "{X}{B}{B}: Target creature gets -0/-X until end of turn and Drana, Kalastria Bloodchief gets +X/+0 until end of turn.";
-            p.Cost = new PayMana("{B}{B}".ParseMana(), ManaUsage.Abilities, hasX: true);
+            p.Cost = new PayMana("{B}{B}".Parse(), ManaUsage.Abilities, hasX: true);
 
             p.Effect = () => new ApplyModifiersToSelfAndToTargets(
               self: L(() => new AddPowerAndToughness(Value.PlusX, 0) {UntilEot = true}),

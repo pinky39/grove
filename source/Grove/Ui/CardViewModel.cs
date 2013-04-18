@@ -1,6 +1,7 @@
 ﻿namespace Grove.Ui
 {
   using System;
+  using System.Linq;
   using System.Threading;
   using Core;
   using Core.Mana;
@@ -12,7 +13,7 @@
     public CardViewModel(Card card)
     {
       Card = card;
-      
+
       Update();
 
       _timer = new Timer(delegate { Update(); }, null,
@@ -28,11 +29,11 @@
     public string Illustration { get { return Card.Illustration; } }
     public CardText Text { get { return Card.Text; } }
     public CardText FlavorText { get { return Card.FlavorText; } }
-    public int CharacterCount {get { return Card.CharacterCount; }}
+    public int CharacterCount { get { return Card.CharacterCount; } }
     public virtual int? Power { get; protected set; }
     public virtual int? Toughness { get; protected set; }
     public virtual bool IsVisibleInUi { get; protected set; }
-    public virtual ManaColors Colors { get; protected set; }
+    public virtual CardColor[] Colors { get; protected set; }
     public virtual int? Counters { get; protected set; }
     public virtual int? Level { get; protected set; }
     public virtual string Type { get; protected set; }
@@ -50,14 +51,14 @@
       Update(() => Power != Card.Power, () => Power = Card.Power);
       Update(() => Toughness != Card.Toughness, () => Toughness = Card.Toughness);
       Update(() => IsVisibleInUi != Card.IsVisibleInUi, () => IsVisibleInUi = Card.IsVisibleInUi);
-      Update(() => Colors != Card.Colors, () => Colors = Card.Colors);
+      Update(() => Colors.SequenceEqual(Card.Colors), () => Colors = Card.Colors);
       Update(() => Counters != Card.Counters, () => Counters = Card.Counters);
       Update(() => Level != Card.Level, () => Level = Card.Level);
       Update(() => Type != Card.Type, () => Type = Card.Type);
       Update(() => Damage != Card.Damage, () => Damage = Card.Damage);
       Update(() => IsTapped != Card.IsTapped, () => IsTapped = Card.IsTapped);
-      
-      Update(() => HasSummoningSickness != (Card.HasSummoningSickness && Card.Is().Creature && !Card.Has().Haste), 
+
+      Update(() => HasSummoningSickness != (Card.HasSummoningSickness && Card.Is().Creature && !Card.Has().Haste),
         () => HasSummoningSickness = Card.HasSummoningSickness && Card.Is().Creature && !Card.Has().Haste);
     }
 

@@ -12,5 +12,6 @@
     bool HasCreaturesThatCanAttack { get; }
     IEnumerable<Card> Lands { get; }
     IEnumerable<Card> Legends { get; }
+    CardColor GetMostCommonColor();
   }
 }

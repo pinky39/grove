@@ -43,8 +43,8 @@
               True(C(bear).HasAttachments);
               Equal(4, C(bear).Power);
               Equal(4, C(bear).Toughness);
-              True(C(bear).HasProtectionFrom(ManaColors.Black));
-              True(C(bear).HasProtectionFrom(ManaColors.Green));
+              True(C(bear).HasProtectionFrom(CardColor.Black));
+              True(C(bear).HasProtectionFrom(CardColor.Green));
             }),
           At(Step.DeclareAttackers)
             .DeclareAttackers(bear),
@@ -80,8 +80,8 @@
               False(C(bear1).HasAttachments);
               Equal(4, C(bear2).Power);
               Equal(2, C(bear1).Power);
-              True(C(bear2).HasProtectionFrom(ManaColors.Black));
-              False(C(bear1).HasProtectionFrom(ManaColors.Black));
+              True(C(bear2).HasProtectionFrom(CardColor.Black));
+              False(C(bear1).HasProtectionFrom(CardColor.Black));
             })
           );
       }

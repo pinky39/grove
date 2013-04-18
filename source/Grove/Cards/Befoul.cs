@@ -7,7 +7,6 @@
   using Core.Ai.TimingRules;
   using Core.Dsl;
   using Core.Effects;
-  using Core.Mana;
 
   public class Befoul : CardsSource
   {
@@ -23,7 +22,7 @@
           {
             p.Effect = () => new DestroyTargetPermanents(canRegenerate: false) {Category = EffectCategories.Destruction};
             p.TargetSelector.AddEffect(trg => trg
-              .Is.Card(card => card.Is().Land || (card.Is().Creature && !card.HasColors(ManaColors.Black)))
+              .Is.Card(card => card.Is().Land || (card.Is().Creature && !card.HasColor(CardColor.Black)))
               .On.Battlefield());
             p.TimingRule(new FirstMain());
             p.TargetingRule(new Destroy());

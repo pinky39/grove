@@ -23,7 +23,7 @@
         .ActivatedAbility(p =>
           {
             p.Text = "{B}: Regenerate Unworthy Dead.";
-            p.Cost = new PayMana(ManaAmount.Black, ManaUsage.Abilities);
+            p.Cost = new PayMana(Mana.Black, ManaUsage.Abilities);
             p.Effect = () => new Regenerate();
             p.TimingRule(new Core.Ai.TimingRules.Regenerate());
           });

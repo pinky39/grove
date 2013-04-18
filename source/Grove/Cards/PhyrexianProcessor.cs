@@ -42,7 +42,7 @@
                 .Named("Minion Token")
                 .FlavorText("A minion given over to Tevesh Szat is a stronger minion gained.")
                 .Type("Creature - Token - Minion")
-                .Colors(ManaColors.Black),
+                .Colors(CardColor.Black),
               
               tokenParameters: (e, token) =>
                 {

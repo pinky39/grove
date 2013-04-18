@@ -17,7 +17,8 @@
         .FlavorText("A symbol of what Mirrodin once was and hope for what it will be again.")
         .Power(2)
         .Toughness(2)
-        .Protections(ManaColors.Black | ManaColors.Green)
+        .Protections(CardColor.Black)
+        .Protections(CardColor.Green)
         .StaticAbilities(Static.DoubleStrike);
     }
   }

@@ -1,7 +1,6 @@
 ﻿namespace Grove.Core.Ai.TimingRules
 {
   using System.Collections.Generic;
-  using System.Linq;
   using Dsl;
   using Mana;
 
@@ -44,7 +43,7 @@
       if (costToNextLevel == null)
         return false;
 
-      var totalCostToNextLevel = new AggregateManaAmount(Enumerable.Repeat(_cost, costToNextLevel.Value));
+      var totalCostToNextLevel = _cost.Repeat(costToNextLevel.Value);
       return p.Controller.HasMana(totalCostToNextLevel, ManaUsage.Abilities);
     }
   }

@@ -29,7 +29,7 @@
               () => new Core.Modifiers.ChangeToCreature(
                 power: 4,
                 toughness: 4,
-                colors: ManaColors.Black,
+                colors: L(CardColor.Black),
                 type: "Creature Horror"),
               () => new AddStaticAbility(Static.Flying));
 

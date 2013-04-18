@@ -24,7 +24,7 @@
           {
             p.Text = "When Priest of Gix enters the battlefield, add {B}{B}{B} to your mana pool.";
             p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
-            p.Effect = () => new AddManaToPool("{B}{B}{B}".ParseMana());            
+            p.Effect = () => new AddManaToPool("{B}{B}{B}".Parse());            
           });
     }
   }

@@ -29,7 +29,7 @@
             p.Text =
               "{1}{W}: Prevent all combat damage that would be dealt this turn by target attacking creature with flying.";
 
-            p.Cost = new PayMana("{1}{W}".ParseMana(), ManaUsage.Abilities);
+            p.Cost = new PayMana("{1}{W}".Parse(), ManaUsage.Abilities);
             p.Effect =
               () =>
                 new ApplyModifiersToTargets(() => new AddDamagePrevention(new PreventCombatDamage()) {UntilEot = true});

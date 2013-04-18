@@ -30,7 +30,7 @@
         .Cast(p =>
           {
             p.Text = p.KickerDescription;
-            p.Cost = new PayMana("{4}{R}".ParseMana(), ManaUsage.Spells);
+            p.Cost = new PayMana("{4}{R}".Parse(), ManaUsage.Spells);
             p.Effect = () => new DealDamageToTargets(4);
             p.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
             

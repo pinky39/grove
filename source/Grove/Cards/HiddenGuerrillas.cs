@@ -34,7 +34,7 @@
                 power: 5,
                 toughness: 3,
                 type: "Creature Soldier",
-                colors: ManaColors.Green),
+                colors: L(CardColor.Green)),
               () => new AddStaticAbility(Static.Trample));
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;

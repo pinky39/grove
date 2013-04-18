@@ -74,8 +74,8 @@
                 True(C(bear1).HasAttachments);
                 Equal(4, C(bear1).Power);
                 Equal(4, C(bear1).Toughness);
-                True(C(bear1).HasProtectionFrom(ManaColors.Blue));
-                True(C(bear1).HasProtectionFrom(ManaColors.Red));
+                True(C(bear1).HasProtectionFrom(CardColor.Blue));
+                True(C(bear1).HasProtectionFrom(CardColor.Red));
               }),
           At(Step.DeclareAttackers)
             .DeclareAttackers(bear1),

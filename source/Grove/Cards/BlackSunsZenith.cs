@@ -24,7 +24,7 @@
           {
             p.Rule = new Sorcery(c => c.ShuffleIntoLibrary());
             p.Effect = () => new ApplyModifiersToPermanents(
-              filter: (effect, card) => card.Is().Creature,
+              permanentFilter: (effect, card) => card.Is().Creature,
               modifiers: () => new AddCounters(() => new PowerToughness(-1, -1), Value.PlusX))
               {ToughnessReduction = Value.PlusX};
 

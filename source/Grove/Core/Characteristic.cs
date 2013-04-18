@@ -5,52 +5,61 @@
   using Infrastructure;
 
   [Copyable]
-  public abstract class Characteristic<T> : GameObject
+  public abstract class Characteristic<T> : GameObject, ICopyContributor
   {
     private readonly T _baseValue;
+    private readonly Trackable<T> _currentValue;
     private readonly TrackableList<PropertyModifier<T>> _modifiers = new TrackableList<PropertyModifier<T>>();
 
     protected Characteristic() {}
+
     protected Characteristic(T value)
     {
       _baseValue = value;
-
+      _currentValue = new Trackable<T>(value);
     }
-    
+
+    public virtual T Value { get { return _currentValue.Value; } private set { _currentValue.Value = value; } }
+
+    public void AfterMemberCopy(object original)
+    {
+      foreach (var modifier in _modifiers)
+      {
+        modifier.Changed += OnModifierChanged;
+      }
+    }
+
     public virtual void Initialize(Game game, IHashDependancy hashDependancy)
     {
       Game = game;
-      
+
       _modifiers.Initialize(game.ChangeTracker, hashDependancy);
-    }
-
-    public virtual T Value
-    {
-      get
-      {
-        T value = _baseValue;
-        foreach (var modifier in _modifiers.OrderBy(x => x.Priority))
-        {
-          value = modifier.Apply(value);
-        }
-
-        return value;
-      }
+      _currentValue.Initialize(game.ChangeTracker);
     }
 
     public void AddModifier(PropertyModifier<T> propertyModifier)
     {
-      NotifyIfChanged(() => _modifiers.Add(propertyModifier));
+      _modifiers.Add(propertyModifier);
+      propertyModifier.Changed += OnModifierChanged;
+      UpdateValue();
     }
 
-    private void NotifyIfChanged(Action action)
+    private void OnModifierChanged(object sender, EventArgs args)
     {
-      T previousValue = Value;
+      UpdateValue();
+    }
 
-      action();
-
-      if (!previousValue.Equals(Value))
+    private void UpdateValue()
+    {
+      var value = _baseValue;
+      foreach (var modifier in _modifiers.OrderBy(x => x.Priority))
       {
+        value = modifier.Apply(value);
+      }
+
+      if (!Value.Equals(value))
+      {
+        Value = value;
         OnCharacteristicChanged();
       }
     }
@@ -59,9 +68,10 @@
 
     public void RemoveModifier(PropertyModifier<T> propertyModifier)
     {
-      NotifyIfChanged(() => _modifiers.Remove(propertyModifier));
+      _modifiers.Remove(propertyModifier);
+      propertyModifier.Changed -= OnModifierChanged;
+      UpdateValue();
     }
-
 
     public override string ToString()
     {

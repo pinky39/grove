@@ -1,12 +1,11 @@
 ﻿namespace Grove.Tests.Cards
 {
   using Core;
-  using Core.Mana;
   using Infrastructure;
   using Xunit;
 
   public class CitanulHierophants
-  {    
+  {
     public class Predefined : PredefinedScenario
     {
       [Fact]
@@ -20,7 +19,7 @@
         Exec(
           At(Step.FirstMain)
             .Cast(hierophants)
-            .Verify(() => Equal(3, P1.GetConvertedMana(ManaUsage.Any)))
+            .Verify(() => Equal(3, P1.GetConvertedMana()))
           );
       }
     }
@@ -42,11 +41,12 @@
           At(Step.DeclareAttackers)
             .Cast(shock, target: hierophants),
           At(Step.SecondMain)
-            .Verify(() => { False(P2.HasMana(2)); })
+            .Verify(() =>
+              {
+                False(P2.HasMana(2));
+              })
           );
       }
-
-     
     }
   }
 }

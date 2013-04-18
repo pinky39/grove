@@ -1,5 +1,7 @@
 ﻿namespace Grove.Core.Ai.TimingRules
 {
+  using Mana;
+
   public class Counterspell : TimingRule
   {
     private int? _counterCost;
@@ -19,7 +21,8 @@
       if (Stack.TopSpell.Controller == p.Controller)
         return false;
 
-      return !_counterCost.HasValue || !p.Controller.Opponent.HasMana(_counterCost.Value);
+      return !_counterCost.HasValue || 
+        !p.Controller.Opponent.HasMana(_counterCost.Value);
     }
   }
 }

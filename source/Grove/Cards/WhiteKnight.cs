@@ -18,7 +18,7 @@
           "Out of the blackness and stench of the engulfing swamp emerged a shimmering figure. Only the splattered armor and ichor-stained sword hinted at the unfathomable evil the knight had just laid waste.")
         .Power(2)
         .Toughness(2)
-        .Protections(ManaColors.Black)
+        .Protections(CardColor.Black)
         .StaticAbilities(Static.FirstStrike);
     }
   }

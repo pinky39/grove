@@ -22,8 +22,9 @@
           {
             p.Text = "Sacrifice Blood Vassal: Add {B}{B} to your mana pool.";
             p.Cost = new Sacrifice();            
-            p.ManaAmount("{B}{B}".ParseMana());
+            p.ManaAmount("{B}{B}".Parse());
             p.Priority = ManaSourcePriorities.OnlyIfNecessary;
+            p.TapRestriction = false;
           });
     }
   }

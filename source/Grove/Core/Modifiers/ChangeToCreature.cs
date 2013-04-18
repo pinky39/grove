@@ -1,19 +1,20 @@
 ﻿namespace Grove.Core.Modifiers
 {
   using System;
-  using Mana;
+  using System.Collections.Generic;
+  using System.Linq;
 
   public class ChangeToCreature : Modifier
   {
-    private readonly ManaColors? _colors;
+    private readonly List<CardColor> _colors;
     private readonly Func<Modifier, int> _power;
     private readonly Func<Modifier, int> _toughness;
     private readonly Func<Modifier, string> _type;
+    private CardColorSetter _cardColorSetter;
     private CardColors _cardColors;
     private Power _cardPower;
     private Toughness _cardToughness;
     private CardTypeCharacteristic _cardType;
-    private ColorsSetter _colorsSetter;
     private StrenghtSetter _powerSetter;
     private StrenghtSetter _toughnessSetter;
     private CardTypeSetter _typeSetter;
@@ -21,26 +22,26 @@
     private ChangeToCreature() {}
 
     public ChangeToCreature(Func<Modifier, int> power, Func<Modifier, int> toughness, Func<Modifier, string> type,
-      ManaColors? colors = null)
+      IEnumerable<CardColor> colors = null)
     {
       _power = power;
       _toughness = toughness;
       _type = type;
-      _colors = colors;
+      _colors = colors == null ? null : colors.ToList();
     }
 
-    public ChangeToCreature(Value power, Value toughness, string type, ManaColors? colors = null) : this(
+    public ChangeToCreature(Value power, Value toughness, string type, IEnumerable<CardColor> colors = null) : this(
       m => power.GetValue(m.X), m => toughness.GetValue(m.X), m => type, colors) {}
 
-    public override void Apply(CardColors colors)
+    public override void Apply(CardColors color)
     {
       if (_colors == null)
         return;
 
-      _cardColors = colors;
-      _colorsSetter = new ColorsSetter(_colors.Value);
-      _colorsSetter.Initialize(ChangeTracker);
-      _cardColors.AddModifier(_colorsSetter);
+      _cardColors = color;
+      _cardColorSetter = new CardColorSetter(_colors);
+      _cardColorSetter.Initialize(ChangeTracker);
+      _cardColors.AddModifier(_cardColorSetter);
     }
 
     public override void Apply(Power power)
@@ -72,8 +73,8 @@
       _cardPower.RemoveModifier(_powerSetter);
       _cardToughness.RemoveModifier(_toughnessSetter);
 
-      if (_colorsSetter != null)
-        _cardColors.RemoveModifier(_colorsSetter);
+      if (_cardColorSetter != null)
+        _cardColors.RemoveModifier(_cardColorSetter);
 
       _cardType.RemoveModifier(_typeSetter);
     }

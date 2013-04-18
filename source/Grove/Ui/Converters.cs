@@ -1,16 +1,17 @@
 ﻿namespace Grove.Ui
 {
   using System;
-  using System.Linq;
   using System.Collections.Generic;
   using System.Globalization;
-  using System.IO;  
-  using System.Windows;  
+  using System.IO;
+  using System.Linq;
+  using System.Windows;
   using System.Windows.Data;
   using System.Windows.Media;
+  using Core;
   using Core.Mana;
   using Infrastructure;
-  
+
   public static class Converters
   {
     public static AutoPassToImageConverter AutoPassToImage = new AutoPassToImageConverter();
@@ -19,7 +20,10 @@
     public static CardNameToCardImageConverter CardIllustrationNameToCardImage = new CardNameToCardImageConverter();
     public static CharacterCountToFontSizeConverter CharacterCountToFontSize = new CharacterCountToFontSizeConverter();
     public static LifeToColorConverter LifeToColor = new LifeToColorConverter();
-    public static ManaCostToManaSymbolImagesConverter ManaCostToManaSymbolImages = new ManaCostToManaSymbolImagesConverter();
+
+    public static ManaCostToManaSymbolImagesConverter ManaCostToManaSymbolImages =
+      new ManaCostToManaSymbolImagesConverter();
+
     public static ManaSymbolListToImagesConverter ManaSymbolListToImages = new ManaSymbolListToImagesConverter();
     public static MarkerBrushConverter MarkerBrush = new MarkerBrushConverter();
     public static NullToCollapsedConverter NullToCollapsed = new NullToCollapsedConverter();
@@ -53,15 +57,15 @@
       public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
       {
         var invert = false;
-        
+
         if (parameter != null)
         {
           invert = Boolean.Parse(parameter.ToString());
         }
-        
+
         var booleanValue = (bool) value;
 
-        return ((booleanValue && !invert) || (!booleanValue && invert)) 
+        return ((booleanValue && !invert) || (!booleanValue && invert))
           ? Visibility.Visible : Visibility.Collapsed;
       }
 
@@ -85,7 +89,7 @@
       public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
       {
         return MediaLibrary.GetImage(
-          GetTemplateName((ManaColors) value) + ".png");
+          GetTemplateName((CardColor[]) value) + ".png");
       }
 
       public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -93,23 +97,32 @@
         throw new NotImplementedException();
       }
 
-      public string GetTemplateName(ManaColors colors)
+      public string GetTemplateName(CardColor[] colors)
       {
-        if (EnumEx.GetSetBitCount((long) colors) > 1)
+        if (colors.Length > 1)
           return Multi;
 
-        var conversions = new Dictionary<ManaColors, string>
-          {
-            {ManaColors.White, White},
-            {ManaColors.Blue, Blue},
-            {ManaColors.Black, Black},
-            {ManaColors.Red, Red},
-            {ManaColors.Green, Green},
-            {ManaColors.Colorless, Artifact},
-            {ManaColors.None, Land},
-          };
+        var color = colors[0];
 
-        return conversions[colors];
+        if (color == CardColor.White)
+          return White;
+
+        if (color == CardColor.Blue)
+          return Blue;
+
+        if (color == CardColor.Black)
+          return Black;
+
+        if (color == CardColor.Red)
+          return Red;
+
+        if (color == CardColor.Green)
+          return Green;
+
+        if (color == CardColor.Colorless)
+          return Artifact;
+
+        return Land;
       }
     }
 
@@ -149,7 +162,7 @@
 
         if (characterCount < 40)
           return 18;
-        
+
         if (characterCount < 60)
           return 17;
 
@@ -170,7 +183,7 @@
 
         if (characterCount < 300)
           return 11;
-        
+
         return 10;
       }
 
@@ -199,30 +212,58 @@
       {
         throw new NotImplementedException();
       }
-    }   
+    }
 
-    public class RatingConverter : IValueConverter
+    public class ManaCostToManaSymbolImagesConverter : IValueConverter
     {
+      private static readonly Rel[] Map = new[]
+        {
+          new Rel {Color = c => c.IsWhite, Symbol = "w"},
+          new Rel {Color = c => c.IsBlue, Symbol = "u"},
+          new Rel {Color = c => c.IsBlack, Symbol = "b"},
+          new Rel {Color = c => c.IsRed, Symbol = "r"},
+          new Rel {Color = c => c.IsGreen, Symbol = "g"},
+        };
+
       public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
       {
-        var rating = (int) value;
+        var manaAmount = (IManaAmount) value;
 
-        var stars = new List<ImageSource>();
-        
-        for (int i = 0; i < rating; i++)
+        if (manaAmount == null)
+          return new ImageSource[] {};
+
+        if (manaAmount.Converted == 0)
+          return new[] {MediaLibrary.GetImage("0.png")};
+
+        var images = new List<string>();
+
+        foreach (var single in manaAmount)
         {
-          stars.Add(MediaLibrary.GetImage("star.png"));
+          if (single.Color.IsColorless)
+          {
+            images.Add(single.Count.ToString());
+            continue;
+          }
+
+          var symbol = Map.First(x => x.Color(single.Color));
+          images.AddRange(single.Select(t => symbol.Symbol));
         }
 
-        return stars;
+        return images.Select(x => MediaLibrary.GetImage(x + ".png"));
       }
 
       public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
       {
         throw new NotImplementedException();
       }
+
+      private class Rel
+      {
+        public Func<ManaColor, bool> Color;
+        public string Symbol;
+      }
     }
-    
+
     public class ManaSymbolListToImagesConverter : IValueConverter
     {
       public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -233,27 +274,6 @@
           return new ImageSource[] {};
 
         return symbols.Select(symbolName => MediaLibrary.GetImage(symbolName + ".png"));
-      }
-
-      public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-      {
-        throw new NotImplementedException();
-      }
-    }
-    
-    public class ManaCostToManaSymbolImagesConverter : IValueConverter
-    {
-      public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-      {
-        var manaAmount = (IManaAmount) value;
-
-        if (manaAmount == null)
-          return new ImageSource[] { };
-
-        if (manaAmount.Converted == 0)
-          return new[] {MediaLibrary.GetImage("0.png")};
-
-        return manaAmount.GetSymbolNames().Select(symbolName => MediaLibrary.GetImage(symbolName + ".png"));
       }
 
       public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -285,6 +305,28 @@
           return _default;
 
         return _brushes[(state - 1)%_brushes.Length];
+      }
+
+      public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+      {
+        throw new NotImplementedException();
+      }
+    }
+
+    public class RatingConverter : IValueConverter
+    {
+      public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+      {
+        var rating = (int) value;
+
+        var stars = new List<ImageSource>();
+
+        for (var i = 0; i < rating; i++)
+        {
+          stars.Add(MediaLibrary.GetImage("star.png"));
+        }
+
+        return stars;
       }
 
       public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

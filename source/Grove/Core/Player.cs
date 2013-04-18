@@ -31,10 +31,9 @@
     private readonly Trackable<int> _landsPlayedCount = new Trackable<int>(0);
     private readonly Library _library;
     private readonly Life _life = new Life(20);
-    private readonly ManaPool _manaPool = new ManaPool();
+    private readonly ManaVault _manaVault = new ManaVault();
     private readonly TrackableList<IModifier> _modifiers = new TrackableList<IModifier>();
-    private ManaSources _manaSources;    
-    
+
     public Player(string name, string avatar, ControllerType controller, List<string> deck)
     {
       Name = name;
@@ -52,11 +51,10 @@
 
     private Player() {}
     public ControllerType Controller { get; private set; }
-    public ManaPool ManaPool { get { return _manaPool; } }
     public string Name { get; private set; }
     public Player Opponent { get { return Players.GetOpponent(this); } }
-
     public int LandsPlayedCount { get { return _landsPlayedCount.Value; } set { _landsPlayedCount.Value = value; } }
+    public ManaCounts ManaPool { get { return _manaVault.ManaPool; } }
 
     private IEnumerable<IModifiable> ModifiableProperties
     {
@@ -84,7 +82,7 @@
     public bool IsMachine { get { return Controller == ControllerType.Machine; } }
     public bool IsScenario { get { return Controller == ControllerType.Scenario; } }
     public bool IsMax { get; set; }
-    public ILibraryQuery Library { get { return _library; } }    
+    public ILibraryQuery Library { get { return _library; } }
 
     public int NumberOfCardsAboveMaximumHandSize { get { return Math.Max(0, _hand.Count - 7); } }
 
@@ -95,7 +93,7 @@
         var score = _life.Score +
           _battlefield.Score +
             _hand.Score +
-              _graveyard.Score;                
+              _graveyard.Score;
 
         return IsMax ? score : -score;
       }
@@ -169,17 +167,27 @@
         );
     }
 
+    public void AddManaSource(ManaUnit unit)
+    {
+      _manaVault.Add(unit);
+    }
+
+    public void RemoveManaSource(ManaUnit unit)
+    {
+      _manaVault.Remove(unit);
+    }
+
     public void Initialize(Game game)
     {
       Game = game;
-      
+
       _life.Initialize(ChangeTracker);
       _landsPlayedCount.Initialize(ChangeTracker);
       _hasMulligan.Initialize(ChangeTracker);
       _hasLost.Initialize(ChangeTracker);
       _isActive.Initialize(ChangeTracker);
       _hasPriority.Initialize(ChangeTracker);
-      _manaPool.Initialize(ChangeTracker);
+      _manaVault.Initialize(ChangeTracker);
       _modifiers.Initialize(ChangeTracker);
       _damagePreventions.Initialize(this, Game);
       _damageRedirections.Initialize(ChangeTracker);
@@ -192,9 +200,7 @@
       _library.Initialize(Game);
       _exile.Initialize(Game);
 
-      InitializeManaSources();
       LoadLibrary();
-      
     }
 
     public void PutCardToBattlefield(Card card)
@@ -204,28 +210,17 @@
 
     public int GetConvertedMana(ManaUsage usage = ManaUsage.Any)
     {
-      return _manaSources.GetMaxConvertedMana(usage);
+      return _manaVault.GetAvailableMana(usage).Converted;
     }
 
     public IManaAmount GetAvailableMana(ManaUsage usage = ManaUsage.Any)
     {
-      return _manaSources.GetAvailableMana(usage);
+      return _manaVault.GetAvailableMana(usage);
     }
 
-    public void AddManaToManaPool(IManaAmount manaAmount, bool useOnlyForAbilities = false)
+    public void AddManaToManaPool(IManaAmount manaAmount, ManaUsage usageRestriction = ManaUsage.Any)
     {
-      if (useOnlyForAbilities)
-      {
-        _manaPool.AddAbilities(manaAmount);
-        return;
-      }
-
-      _manaPool.Add(manaAmount);
-    }
-
-    public IManaAmount GetAmountOfManaInPool(ManaUsage manaUsage = ManaUsage.Any)
-    {
-      return _manaPool.GetAvailableMana(manaUsage);
+      _manaVault.AddManaToPool(manaAmount, usageRestriction);
     }
 
     public void AssignDamage(Damage damage)
@@ -233,9 +228,9 @@
       _assignedDamage.Assign(damage);
     }
 
-    public void Consume(IManaAmount amount, ManaUsage usage, IManaSource tryNotToConsumeThisSource = null)
+    public void Consume(IManaAmount amount, ManaUsage usage)
     {
-      _manaSources.Consume(amount, usage, tryNotToConsumeThisSource);
+      _manaVault.Consume(amount, usage);
     }
 
     public void DealAssignedDamage()
@@ -299,9 +294,8 @@
 
     public void EmptyManaPool()
     {
-      _manaPool.Empty();
+      _manaVault.EmptyManaPool();
     }
-
 
     public IEnumerable<ITarget> GetTargets(Func<Zone, Player, bool> zoneFilter)
     {
@@ -330,15 +324,12 @@
 
     public bool HasMana(int amount, ManaUsage usage = ManaUsage.Any)
     {
-      return _manaSources.GetMaxConvertedMana(usage) >= amount;
+      return _manaVault.Has(amount.Colorless(), usage);
     }
-
+    
     public bool HasMana(IManaAmount amount, ManaUsage usage = ManaUsage.Any)
     {
-      if (amount == null)
-        return true;
-
-      return _manaSources.Has(amount, usage);
+      return _manaVault.Has(amount, usage);
     }
 
     public void MoveCreaturesWithLeathalDamageOrZeroTougnessToGraveyard()
@@ -468,27 +459,11 @@
       {
         _library.Add(card);
       }
-    }    
+    }
 
     public override string ToString()
     {
       return Name;
-    }
-
-    private void InitializeManaSources()
-    {
-      _manaSources = new ManaSources(ChangeTracker);
-      _manaSources.Add(_manaPool);
-    }
-
-    public void AddManaSource(IManaSource manaSource)
-    {
-      _manaSources.Add(manaSource);
-    }
-
-    public void RemoveManaSource(IManaSource manaSource)
-    {
-      _manaSources.Remove(manaSource);
     }
 
     public void RevealHand()

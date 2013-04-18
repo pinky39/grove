@@ -5,7 +5,6 @@
   using Core.Ai.TimingRules;
   using Core.Dsl;
   using Core.Effects;
-  using Core.Mana;
   using Core.Triggers;
 
   public class HiddenAncients : CardsSource
@@ -33,7 +32,7 @@
               power: 5,
               toughness: 5,
               type: "Creature Treefolk",
-              colors: ManaColors.Green));
+              colors: L(CardColor.Green)));
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           }

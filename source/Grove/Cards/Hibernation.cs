@@ -20,7 +20,7 @@
           "On its way to the cave, the armadillo brushed by a sapling. It awoke to find a full-grown tree blocking its path.")
         .Cast(p =>
           {
-            p.Effect = () => new ReturnAllPermanentsToHand((c) => c.HasColors(ManaColors.Green));
+            p.Effect = () => new ReturnAllPermanentsToHand((c) => c.HasColor(CardColor.Green));
             p.TimingRule(new BounceAll());
           });
     }

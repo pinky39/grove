@@ -4,7 +4,6 @@
   using Core;
   using Core.Dsl;
   using Core.Effects;
-  using Core.Mana;
   using Core.Modifiers;
   using Core.Triggers;
 
@@ -25,7 +24,7 @@
             p.Text = "Whenever this creature attacks, each other attacking creature gets +1/+0 until end of turn.";
             p.Trigger(new OnAttack());
             p.Effect = () => new ApplyModifiersToPermanents(
-              filter: (effect, card) => effect.Source.OwningCard != card && card.IsAttacker,
+              permanentFilter: (effect, card) => effect.Source.OwningCard != card && card.IsAttacker,
               modifiers: () => new AddPowerAndToughness(1, 0));
           })
         .TriggeredAbility(p =>
@@ -43,7 +42,7 @@
                 .Power(1)
                 .Toughness(1)
                 .Type("Creature Token Soldier")
-                .Colors(ManaColors.White),
+                .Colors(CardColor.White),
               afterTokenComesToPlay: (token, game) => game.Combat.JoinAttack(token));
           });
     }

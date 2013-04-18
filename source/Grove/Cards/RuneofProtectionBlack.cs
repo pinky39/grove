@@ -25,12 +25,12 @@
           {
             p.Text =
               "{W}: The next time a black source of your choice would deal damage to you this turn, prevent that damage.";
-            p.Cost = new PayMana(ManaAmount.White, ManaUsage.Abilities);
+            p.Cost = new PayMana(Mana.White, ManaUsage.Abilities);
             p.Effect = () => new PreventNextDamageFromSourceToController();
             
             p.TargetSelector.AddEffect(trg =>
               {
-                trg.Is.Card(c => c.HasColors(ManaColors.Black)).On.BattlefieldOrStack();
+                trg.Is.Card(c => c.HasColor(CardColor.Black)).On.BattlefieldOrStack();
                 trg.Message = "Select damage source.";
               });
 

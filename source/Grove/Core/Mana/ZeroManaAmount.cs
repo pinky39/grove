@@ -5,7 +5,7 @@
 
   public class ZeroManaAmount : IManaAmount
   {
-    public IEnumerator<ManaUnit> GetEnumerator()
+    public IEnumerator<SingleColorManaAmount> GetEnumerator()
     {
       yield break;
     }
@@ -17,18 +17,14 @@
 
     public int Converted { get { return 0; } }
 
-    public bool Has(ManaUnit mana)
+    public IManaAmount Add(IManaAmount amount)
     {
-      return false;
+      return amount;
     }
 
-    public ManaUnit First { get { return null; } }
-
-    public bool IsColorless { get { return true; } }
-
-    public override string ToString()
+    public IManaAmount Remove(IManaAmount amount)
     {
-      return "{0}";
+      return Mana.Zero;
     }
   }
 }

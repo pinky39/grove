@@ -17,16 +17,11 @@
 
     public override IManaAmount GetManaCost()
     {
-      IManaAmount manaAmount = ManaAmount.Zero;
+      IManaAmount manaAmount = Mana.Zero;
 
       foreach (var cost in _costs)
-      {
-        var manaCost = cost.GetManaCost();
-
-        if (manaCost != ManaAmount.Zero)
-        {
-          manaAmount = manaAmount.Add(cost.GetManaCost());
-        }
+      {                
+        manaAmount = manaAmount.Add(cost.GetManaCost());        
       }
 
       return manaAmount;
@@ -47,6 +42,7 @@
       foreach (var cost in _costs)
       {
         var childResult = cost.CanPay();
+        
         result.CanPay = childResult.CanPay;
         result.MaxX = result.MaxX ?? childResult.MaxX;
         result.MaxRepetitions = childResult.MaxRepetitions;

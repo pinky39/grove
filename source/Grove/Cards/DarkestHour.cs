@@ -4,7 +4,6 @@
   using Core;
   using Core.Ai.TimingRules;
   using Core.Dsl;
-  using Core.Mana;
   using Core.Modifiers;
 
   public class DarkestHour : CardsSource
@@ -21,7 +20,7 @@
         .Cast(p => p.TimingRule(new FirstMain()))
         .ContinuousEffect(p =>
           {
-            p.Modifier = () => new SetColors(ManaColors.Black);
+            p.Modifier = () => new SetColors(CardColor.Black);
             p.CardFilter = (card, source) => card.Is().Creature;
           });
     }

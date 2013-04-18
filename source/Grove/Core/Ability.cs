@@ -60,12 +60,12 @@
       Stack.Push(e);
     }
 
-    public virtual void Initialize(Card owner, Game game)
+    public virtual void Initialize(Card owningCard, Game game)
     {
-      _owner = owner;
+      _owner = owningCard;
       Game = game;
-
-      TargetSelector.Initialize(owner, game);
+      
+      TargetSelector.Initialize(owningCard, game);
 
       foreach (var rule in Rules)
       {

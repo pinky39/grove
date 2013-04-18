@@ -31,7 +31,7 @@
     private readonly Trackable<int?> _hash = new Trackable<int?>();
     private readonly Trackable<bool> _isHidden = new Trackable<bool>();
     private readonly Trackable<bool> _isRevealed = new Trackable<bool>();
-    private readonly Trackable<bool> _isTapped = new Trackable<bool>();    
+    private readonly Trackable<bool> _isTapped = new Trackable<bool>();
     private readonly Level _level;
     private readonly TrackableList<IModifier> _modifiers = new TrackableList<IModifier>();
     private readonly Power _power;
@@ -40,13 +40,13 @@
     private readonly Toughness _toughness;
     private readonly TriggeredAbilities _triggeredAbilities;
     private readonly CardTypeCharacteristic _type;
-    private readonly Trackable<int> _usageScore = new Trackable<int>();    
+    private readonly Trackable<int> _usageScore = new Trackable<int>();
     private readonly CardZone _zone = new CardZone();
+
+    public TrackableEvent JoinedBattlefield;
+    public TrackableEvent LeftBattlefield;
     private ControllerCharacteristic _controller;
     private bool _isPreview = true;
-
-    public event EventHandler JoinedBattlefield = delegate { };
-    public event EventHandler LeftBattlefield = delegate { };
 
     protected Card() {}
 
@@ -65,12 +65,7 @@
       _level = new Level(p.IsLeveler ? 0 : (int?) null);
       _counters = new Counters.Counters(_power, _toughness);
       _type = new CardTypeCharacteristic(p.Type);
-
-      _colors = new CardColors(
-        p.Colors == ManaColors.None
-          ? GetCardColorFromManaCost()
-          : p.Colors);
-
+      _colors = new CardColors(p.Colors);
 
       _protections = p.Protections;
       _damagePreventions = p.DamagePreventions;
@@ -80,6 +75,9 @@
       _activatedAbilities = p.ActivatedAbilities;
       _castInstructions = p.CastInstructions;
       _continuousEffects = p.ContinuousEffects;
+
+      JoinedBattlefield = new TrackableEvent(this);
+      LeftBattlefield = new TrackableEvent(this);
     }
 
     public bool MayChooseNotToUntap { get; private set; }
@@ -113,11 +111,11 @@
     public bool HasNormalStrike { get { return !Has().FirstStrike || Has().DoubleStrike; } }
     public bool CanBeTapped { get { return IsPermanent && !IsTapped; } }
     public bool CanRegenerate { get { return _canRegenerate.Value; } set { _canRegenerate.Value = value; } }
-    public bool CanTap { get { return (!Is().Creature || !HasSummoningSickness || Has().Haste) && !IsTapped; } }
+    public bool CanTap { get { return !IsTapped && (!HasSummoningSickness || !Is().Creature || Has().Haste); } }
     public bool IsPermanent { get { return Zone == Zone.Battlefield; } }
     public int CharacterCount { get { return FlavorText.CharacterCount + Text.CharacterCount; } }
-    public int ChargeCountersCount { get { return _counters.SpecifiCount<ChargeCounter>(); } }
-    public ManaColors Colors { get { return _colors.Value; } }
+    public int CountersCount { get { return _counters.Count; } }
+    public CardColor[] Colors { get { return _colors.ToArray(); } }
     public Player Controller { get { return _controller.Value; } }
     public Player Owner { get; private set; }
     public int? Counters { get { return _counters.Count; } }
@@ -129,14 +127,12 @@
     public bool HasXInCost { get { return _castInstructions.HasXInCost; } }
     public string Illustration { get; private set; }
     public bool IsAttached { get { return AttachedTo != null; } }
-    public bool IsAttacker { get { return Combat.IsAttacker(this); } }    
+    public bool IsAttacker { get { return Combat.IsAttacker(this); } }
     public bool HasBlockers { get { return Combat.HasBlockers(this); } }
     public bool IsBlocker { get { return Combat.IsBlocker(this); } }
-    public bool IsManaSource { get { return _activatedAbilities.ManaSources.Any(); } }
     public bool IsTapped { get { return _isTapped.Value; } protected set { _isTapped.Value = value; } }
 
     public IManaAmount ManaCost { get; private set; }
-    public IEnumerable<IManaSource> ManaSources { get { return _activatedAbilities.ManaSources; } }
 
     public int ConvertedCost { get { return ManaCost == null ? 0 : ManaCost.Converted; } }
 
@@ -215,7 +211,7 @@
     public ScoreOverride OverrideScore { get; private set; }
     public bool IsVisibleInUi { get { return _isPreview || IsVisibleToPlayer(Players.Human); } }
     public bool IsVisible { get { return Search.InProgress ? IsVisibleToPlayer(Players.Searching) : IsVisibleToPlayer(Controller); } }
-    public bool IsMultiColored { get { return EnumEx.GetSetBitCount((long) Colors) > 1; } }
+    public bool IsMultiColored { get { return _colors.Count > 1; } }
     public bool HasChangedZoneThisTurn { get { return _zone.HasChangedZoneThisTurn; } }
 
     public void AddModifier(IModifier modifier)
@@ -274,9 +270,9 @@
       Publish(new DamageHasBeenDealt(this, damage));
     }
 
-    public bool HasColors(ManaColors colors)
+    public bool HasColor(CardColor color)
     {
-      return (Colors & colors) == colors;
+      return _colors.Contains(color);
     }
 
     public void InvalidateHash()
@@ -312,11 +308,10 @@
             IsTapped.GetHashCode(),
             Damage,
             CanRegenerate.GetHashCode(),
-            HasLeathalDamage.GetHashCode(),            
+            HasLeathalDamage.GetHashCode(),
             Power.GetHashCode(),
             Toughness.GetHashCode(),
-            Level.GetHashCode(),
-            Colors.GetHashCode(),
+            Level.GetHashCode(),            
             Counters.GetHashCode(),
             Type.GetHashCode(),
             _isRevealed.Value.GetHashCode(),
@@ -326,7 +321,8 @@
             calc.Calculate(_protections),
             calc.Calculate(_damagePreventions),
             calc.Calculate(_attachments),
-            calc.Calculate(_zone)
+            calc.Calculate(_zone),
+            calc.Calculate(_colors)
             );
         }
       }
@@ -344,32 +340,35 @@
       _power.Initialize(game, this);
       _toughness.Initialize(game, this);
       _level.Initialize(game, this);
-      _counters.Initialize(game.ChangeTracker, this);
+      _counters.Initialize(ChangeTracker, this);
       _type.Initialize(game, this);
       _colors.Initialize(game, this);
-      _protections.Initialize(game.ChangeTracker, this);
+      _protections.Initialize(ChangeTracker, this);
       _zone.Initialize(this, game);
-      _modifiers.Initialize(game.ChangeTracker);      
+      _modifiers.Initialize(ChangeTracker);
 
-      _isTapped.Initialize(game.ChangeTracker, this);
-      _attachedTo.Initialize(game.ChangeTracker, this);
+      _isTapped.Initialize(ChangeTracker, this);
+      _attachedTo.Initialize(ChangeTracker, this);
       _attachments.Initialize(game, this);
-      _canRegenerate.Initialize(game.ChangeTracker, this);
-      _damage.Initialize(game.ChangeTracker, this);
-      _hasLeathalDamage.Initialize(game.ChangeTracker, this);
-      _hasSummoningSickness.Initialize(game.ChangeTracker, this);
-      _hash.Initialize(game.ChangeTracker);
-      _isHidden.Initialize(game.ChangeTracker, this);
-      _isRevealed.Initialize(game.ChangeTracker, this);
-      _usageScore.Initialize(game.ChangeTracker, this);
+      _canRegenerate.Initialize(ChangeTracker, this);
+      _damage.Initialize(ChangeTracker, this);
+      _hasLeathalDamage.Initialize(ChangeTracker, this);
+      _hasSummoningSickness.Initialize(ChangeTracker, this);
+      _hash.Initialize(ChangeTracker);
+      _isHidden.Initialize(ChangeTracker, this);
+      _isRevealed.Initialize(ChangeTracker, this);
+      _usageScore.Initialize(ChangeTracker, this);
       _damagePreventions.Initialize(this, game, this);
       _castInstructions.Initialize(this, game);
-      _staticAbilities.Initialize(game.ChangeTracker, this);
+      _staticAbilities.Initialize(ChangeTracker, this);
       _triggeredAbilities.Initialize(this, game);
       _activatedAbilities.Initialize(this, game);
       _continuousEffects.Initialize(this, game, this);
 
       _isPreview = false;
+
+      JoinedBattlefield.Initialize(ChangeTracker);
+      LeftBattlefield.Initialize(ChangeTracker);
 
       return this;
     }
@@ -433,7 +432,7 @@
       if (Has().Flying && !card.Has().Flying && !card.Has().Reach)
         return false;
 
-      if (Has().Fear && !card.HasColors(ManaColors.Black) && !card.Is().Artifact)
+      if (Has().Fear && !card.HasColor(CardColor.Black) && !card.Is().Artifact)
         return false;
 
       if (HasProtectionFrom(card))
@@ -460,9 +459,9 @@
       return true;
     }
 
-    public bool CanBeTargetBySpellsWithColor(ManaColors manaColors)
+    public bool CanBeTargetBySpellsWithColor(CardColor color)
     {
-      return !Has().Shroud && !Has().Hexproof && !HasProtectionFrom(manaColors);
+      return !Has().Shroud && !Has().Hexproof && !HasProtectionFrom(color);
     }
 
     public bool CanBeTargetBySpellsOwnedBy(Player player)
@@ -557,14 +556,19 @@
       return _attachments.Contains(card);
     }
 
-    public bool HasProtectionFrom(ManaColors colors)
+    public bool HasProtectionFrom(CardColor color)
     {
-      return _protections.HasProtectionFrom(colors);
+      return _protections.HasProtectionFrom(color);
+    }
+
+    public bool HasProtectionFrom(IEnumerable<CardColor> colors)
+    {
+      return colors.Any(x => _protections.HasProtectionFrom(x));
     }
 
     public bool HasProtectionFrom(Card card)
     {
-      return _protections.HasProtectionFrom(card.Colors) ||
+      return HasProtectionFrom(card._colors) ||
         _protections.HasProtectionFrom(card._type.Value);
     }
 
@@ -621,7 +625,7 @@
 
     public void ChangeZone(IZone newZone)
     {
-      _zone.ChangeZone(newZone);      
+      _zone.ChangeZone(newZone);
     }
 
     public void OnCardLeftBattlefield()
@@ -632,10 +636,10 @@
       Detach();
       Untap();
       ClearDamage();
-      
+
       HasSummoningSickness = false;
 
-      LeftBattlefield(this, EventArgs.Empty);
+      LeftBattlefield.Raise();
     }
 
     public void Tap()
@@ -683,31 +687,6 @@
       {
         AttachedTo.Detach(this);
       }
-    }
-
-    private ManaColors GetCardColorFromManaCost()
-    {
-      if (ManaCost == null)
-        return ManaColors.None;
-
-      if (ManaCost.Count() == 0)
-      {
-        return ManaColors.Colorless;
-      }
-
-      if (ManaCost.None(x => x.IsColored))
-      {
-        return ManaColors.Colorless;
-      }
-
-      var cardColor = ManaColors.None;
-
-      foreach (var mana in ManaCost.Colored())
-      {
-        cardColor = cardColor | mana.Colors;
-      }
-
-      return cardColor;
     }
 
     public void Exile()
@@ -804,13 +783,13 @@
 
     public void OnCardJoinedBattlefield()
     {
-      HasSummoningSickness = true;      
-      JoinedBattlefield(this, EventArgs.Empty);
+      HasSummoningSickness = true;
+      JoinedBattlefield.Raise();
     }
 
     public void PutToGraveyard()
     {
-      Owner.PutCardToGraveyard(this);      
+      Owner.PutCardToGraveyard(this);
     }
 
     public IManaAmount GetSpellManaCost(int index)

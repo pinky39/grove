@@ -30,7 +30,7 @@
                 .Power(1)
                 .Toughness(1)
                 .Type("Creature Token Goblin")
-                .Colors(ManaColors.Red)
+                .Colors(CardColor.Red)
               );
 
             p.TimingRule(new ControllerHasMana(6));

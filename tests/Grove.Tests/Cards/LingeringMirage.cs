@@ -41,15 +41,15 @@
           .Cast(mirage, target: forest)
           .Verify(() =>
             {
-              True(P2.HasMana(ManaAmount.Blue));
-              False(P2.HasMana(ManaAmount.Green));
+              True(P2.HasMana(Mana.Blue));
+              False(P2.HasMana(Mana.Green));
             }),
           At(Step.SecondMain)
             .Cast(disenchant, target: mirage)
             .Verify(() =>
             {
-              False(P2.HasMana(ManaAmount.Blue));
-              True(P2.HasMana(ManaAmount.Green));
+              False(P2.HasMana(Mana.Blue));
+              True(P2.HasMana(Mana.Green));
             })
         );
       }

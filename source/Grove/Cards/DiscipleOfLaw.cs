@@ -1,10 +1,8 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Dsl;
-  using Core.Mana;
 
   public class DiscipleOfLaw : CardsSource
   {
@@ -18,7 +16,7 @@
         .FlavorText("A religious order for religious order.")
         .Power(1)
         .Toughness(2)
-        .Protections(ManaColors.Red)
+        .Protections(CardColor.Red)
         .Cycling("{2}");
     }
   }

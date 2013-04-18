@@ -25,7 +25,7 @@
           {
             p.Text = "At the beginning of your upkeep, sacrifice Drifting Djinn unless you pay {1}{U}.";
             p.Trigger(new OnStepStart(Step.Upkeep));
-            p.Effect = () => new PayManaOrSacrifice("{1}{U}".ParseMana(), message: "Pay upkeep?");
+            p.Effect = () => new PayManaOrSacrifice("{1}{U}".Parse(), message: "Pay upkeep?");
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           }
         );

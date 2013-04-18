@@ -20,9 +20,9 @@
 
     public void RemoveModifier(IModifier modifier) {}
     
-    public bool HasColors(ManaColors colors)
+    public bool HasColor(CardColor color)
     {
-      return Effect().HasColors(colors);
+      return Effect().HasColor(color);
     }
   }
 }

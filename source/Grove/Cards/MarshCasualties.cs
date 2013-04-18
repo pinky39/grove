@@ -22,7 +22,7 @@
         .Cast(p =>
           {
             p.Effect = () => new ApplyModifiersToPermanents(
-              filter: (effect, card) => card.Is().Creature,
+              permanentFilter: (effect, card) => card.Is().Creature,
               modifiers: () => new AddPowerAndToughness(-1, -1) {UntilEot = true}) {ToughnessReduction = 1};
 
             p.TargetSelector.AddEffect(trg => trg.Is.Player());
@@ -31,9 +31,9 @@
         .Cast(p =>
           {
             p.Text = p.KickerDescription;
-            p.Cost = new PayMana("{3}{B}{B}".ParseMana(), ManaUsage.Spells);
+            p.Cost = new PayMana("{3}{B}{B}".Parse(), ManaUsage.Spells);
             p.Effect = () => new ApplyModifiersToPermanents(
-              filter: (effect, card) => card.Is().Creature,
+              permanentFilter: (effect, card) => card.Is().Creature,
               modifiers: () => new AddPowerAndToughness(-2, -2) {UntilEot = true}) {ToughnessReduction = 2};
 
             p.TargetSelector.AddEffect(trg => trg.Is.Player());

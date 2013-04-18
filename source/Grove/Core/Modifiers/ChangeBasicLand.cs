@@ -29,7 +29,7 @@
         _removedAbility = _abilities.RemoveFirst();
       }
 
-      var manaUnit = ManaUnit.GetBasicLandMana(_changeTo.ToLowerInvariant());
+      var basicLandMana = Mana.GetBasicLandMana(_changeTo);
 
       var ap = new ManaAbilityParameters
         {
@@ -37,7 +37,7 @@
           Cost = new Tap(),          
         };
 
-      ap.ManaAmount(manaUnit);
+      ap.ManaAmount(basicLandMana);
       _addedAbility = new ManaAbility(ap);
       _addedAbility.Initialize(Target.Card(), Game);
       _abilities.Add(_addedAbility);

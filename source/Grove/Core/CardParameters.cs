@@ -1,6 +1,7 @@
 ﻿namespace Grove.Core
 {
   using System;
+  using System.Collections.Generic;
   using Mana;
   using Preventions;
 
@@ -13,7 +14,7 @@
     public readonly StaticAbilities StaticAbilities = new StaticAbilities();
     public readonly TriggeredAbilities TriggeredAbilities = new TriggeredAbilities();
     public readonly Protections Protections = new Protections();
-    public ManaColors Colors;
+    public List<CardColor> Colors = new List<CardColor>();
     public DamagePreventions DamagePreventions = new DamagePreventions();
     public CardText FlavorText = string.Empty;
     public bool IsLeveler;

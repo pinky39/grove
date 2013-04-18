@@ -29,6 +29,11 @@
         action(p);
       }
 
+      if (p.Colors.Count == 0)
+      {
+        p.Colors.AddRange(GetCardColorsFromManaCost(p.ManaCost));
+      }
+
       if (p.CastInstructions.Count == 0)
       {
         var castParams = GetDefaultCastInstructionParameters(p);
@@ -43,7 +48,7 @@
     {
       return new CastInstructionParameters
         {
-          Cost = new PayMana(cp.ManaCost ?? ManaAmount.Zero, ManaUsage.Spells, cp.HasXInCost),
+          Cost = new PayMana(cp.ManaCost ?? Mana.Mana.Zero, ManaUsage.Spells, cp.HasXInCost),
           Text = string.Format("Cast {0}.", cp.Name),
           Effect = () => new PutIntoPlay(),
           Rule = GetDefaultCastingRule(cp.Type),
@@ -70,9 +75,9 @@
       return this;
     }
 
-    public CardFactory Protections(ManaColors colors)
+    public CardFactory Protections(CardColor color)
     {
-      _init.Add(p => p.Protections.AddProtectionFromColors(colors));
+      _init.Add(p => p.Protections.AddProtectionFromColor(color));
       return this;
     }
 
@@ -98,7 +103,60 @@
       return this;
     }
 
-    private void SetDefaultTimingRules(CardParameters cp, CastInstructionParameters p)
+    private static IEnumerable<CardColor> GetCardColorsFromManaCost(IManaAmount manaCost)
+    {
+      if (manaCost == null)
+      {
+        yield return CardColor.None;
+        yield break;
+      }
+
+      if (manaCost.Converted == 0)
+      {
+        yield return CardColor.Colorless;
+        yield break;
+      }
+
+      var existing = new HashSet<CardColor>();
+      
+      foreach (var mana in manaCost)
+      {
+        if (mana.Color.IsWhite && !existing.Contains(CardColor.White))
+        {
+          existing.Add(CardColor.White);
+          yield return CardColor.White;
+        }
+
+        if (mana.Color.IsBlue && !existing.Contains(CardColor.Blue))
+        {
+          existing.Add(CardColor.Blue);
+          yield return CardColor.Blue;
+        }
+
+        if (mana.Color.IsBlack && !existing.Contains(CardColor.Black))
+        {
+          existing.Add(CardColor.Black);
+          yield return CardColor.Black;
+        }
+
+        if (mana.Color.IsRed && !existing.Contains(CardColor.Red))
+        {
+          existing.Add(CardColor.Red);
+          yield return CardColor.Red;
+        }
+
+        if (mana.Color.IsGreen && !existing.Contains(CardColor.Green))
+        {
+          existing.Add(CardColor.Green);
+          yield return CardColor.Green;
+        }
+      }
+
+      if (existing.Count == 0)
+        yield return CardColor.Colorless;      
+    }
+
+    private static void SetDefaultTimingRules(CardParameters cp, CastInstructionParameters p)
     {
       if (cp.Type.Creature)
       {
@@ -125,7 +183,7 @@
 
     public CardFactory Echo(string manaCost)
     {
-      var amount = manaCost.ParseMana();
+      var amount = manaCost.Parse();
 
       TriggeredAbility(p =>
         {
@@ -157,8 +215,10 @@
           var p = new ManaAbilityParameters();
           p.Cost = new Tap();
           p.Priority = GetDefaultManaSourcePriority(cp);
-
+          p.TapRestriction = true;
+          
           set(p);
+          
           cp.ActivatedAbilities.Add(new ManaAbility(p));
         });
       return this;
@@ -208,9 +268,9 @@
       return this;
     }
 
-    public CardFactory Colors(ManaColors colors)
+    public CardFactory Colors(params CardColor[] colors)
     {
-      _init.Add(p => { p.Colors = colors; });
+      _init.Add(p => p.Colors.AddRange(colors));
       return this;
     }
 
@@ -228,7 +288,7 @@
 
     public CardFactory ManaCost(string manaCost)
     {
-      _init.Add(p => { p.ManaCost = manaCost.ParseMana(); });
+      _init.Add(p => { p.ManaCost = manaCost.Parse(); });
       return this;
     }
 
@@ -244,7 +304,7 @@
       ActivatedAbility(p =>
         {
           p.Text = string.Format("Cycling {0} ({0}, Discard this card: Draw a card.)", cost);
-          p.Cost = new AggregateCost(new PayMana(cost.ParseMana(), ManaUsage.Abilities),  new Discard());
+          p.Cost = new AggregateCost(new PayMana(cost.Parse(), ManaUsage.Abilities),  new Discard());
           p.Effect = () => new DrawCards(1);
           p.ActivationZone = Zone.Hand;
           p.TimingRule(new Cycling());
@@ -285,9 +345,9 @@
       ActivatedAbility(p =>
         {
           p.Text = String.Format("{0}: Put a level counter on this. Level up only as sorcery.", cost);
-          p.Cost = new PayMana(cost.ParseMana(), ManaUsage.Abilities);
+          p.Cost = new PayMana(cost.Parse(), ManaUsage.Abilities);
           p.Effect = () => new ApplyModifiersToSelf(() => new IncreaseLevel()) {Category = category};
-          p.TimingRule(new LevelUp(cost.ParseMana(), levels));
+          p.TimingRule(new LevelUp(cost.Parse(), levels));
           p.ActivateAsSorcery = true;
         });
 

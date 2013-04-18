@@ -1,7 +1,5 @@
 ﻿namespace Grove.Core.Modifiers
 {
-  using System;
-
   public class AddStaticAbility : Modifier
   {
     private readonly Static _staticAbility;

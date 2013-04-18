@@ -6,7 +6,6 @@
   using Core.Ai.TimingRules;
   using Core.Dsl;
   using Core.Effects;
-  using Core.Mana;
 
   public class Disorder : CardsSource
   {
@@ -24,10 +23,10 @@
               amountPlayer: 2,
               amountCreature: 2,
               filterPlayer: (e, player) =>
-                player.Battlefield.Any(card => card.Is().Creature && card.HasColors(ManaColors.White)),
-              filterCreature: (e, c) => c.HasColors(ManaColors.White));
+                player.Battlefield.Any(card => card.Is().Creature && card.HasColor(CardColor.White)),
+              filterCreature: (e, c) => c.HasColor(CardColor.White));
 
-            p.TimingRule(new OpponentHasPermanents(c => c.Is().Creature && c.HasColors(ManaColors.White)));
+            p.TimingRule(new OpponentHasPermanents(c => c.Is().Creature && c.HasColor(CardColor.White)));
           });
     }
   }

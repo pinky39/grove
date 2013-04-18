@@ -92,6 +92,25 @@
       return enumerable.ElementAt(Rnd.Next(enumerable.Count()));
     }
 
+    public static T MaxElement<T>(this IEnumerable<T> enumerable, Func<T, int> selector)
+    {
+      var maxRank = int.MinValue;
+      T maxElement = default(T);
+      
+      foreach (var element in enumerable)
+      {
+        var rank = selector(element);
+
+        if (rank > maxRank)
+        {
+          maxRank = rank;
+          maxElement = element;
+        }
+      }
+
+      return maxElement;
+    }
+
     public static IEnumerable<T> ToEnumerable<T>(this T obj)
     {
       yield return obj;

@@ -25,7 +25,7 @@
               new PayMana(2.Colorless(), ManaUsage.Abilities),
               new Tap());
 
-            p.Effect = () => new AddManaToPool(ManaAmount.Any);
+            p.Effect = () => new AddManaToPool(Mana.Any);
             p.TimingRule(new ManaConverter(relativeCost: 1));
           });
     }

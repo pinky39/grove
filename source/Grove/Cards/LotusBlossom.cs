@@ -29,7 +29,7 @@
             p.Effect = () => new ApplyModifiersToSelf(() => new AddCounters(() => new ChargeCounter(), 1));
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           })
-        .ManaAbility(p =>
+        .ActivatedAbility(p =>
           {
             p.Text =
               "{T}, Sacrifice Lotus Blossom: Add X mana of any color to your mana pool, where X is the number of petal counters on Lotus Blossom.";
@@ -38,8 +38,10 @@
               new Tap(),
               new Sacrifice());
 
-            p.ManaAmount((ability, game) =>
-              ManaAmount.OfSingleColor(ManaColors.All, ability.OwningCard.Counters.GetValueOrDefault()));
+            p.Effect = () => new AddManaToPool(P(e => 
+              Mana.Colored(ManaColor.Any, e.Source.OwningCard.Counters.GetValueOrDefault())));
+
+            p.TimingRule(new ControllerNeedsAdditionalMana());              
           });
     }
   }

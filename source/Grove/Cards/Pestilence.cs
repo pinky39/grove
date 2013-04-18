@@ -39,7 +39,7 @@
         .ActivatedAbility(p =>
           {
             p.Text = "{B}: Pestilence deals 1 damage to each creature and each player.";
-            p.Cost = new PayMana(ManaAmount.Black, ManaUsage.Abilities);
+            p.Cost = new PayMana(Mana.Black, ManaUsage.Abilities);
             p.Effect = () => new DealDamageToCreaturesAndPlayers(
               amountCreature: 1,
               amountPlayer: 1);

@@ -5,7 +5,6 @@
   using Core.Ai.TimingRules;
   using Core.Dsl;
   using Core.Effects;
-  using Core.Mana;
   using Core.Triggers;
 
   public class OpalCaryatid : CardsSource
@@ -31,7 +30,7 @@
               power: 2,
               toughness: 2,
               type: "Creature Soldier",
-              colors: ManaColors.White));
+              colors: L(CardColor.White)));
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });

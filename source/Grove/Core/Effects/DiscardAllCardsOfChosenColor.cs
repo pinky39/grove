@@ -3,29 +3,22 @@
   using System.Collections.Generic;
   using System.Linq;
   using Decisions.Results;
-  using Mana;
   using Targeting;
 
   public class DiscardAllCardsOfChosenColor : CustomizableEffect
   {
     private static readonly List<Rel> Map = new List<Rel>
       {
-        new Rel {Color = ManaColors.White, Choice = EffectOption.White},
-        new Rel {Color = ManaColors.Blue, Choice = EffectOption.Blue},
-        new Rel {Color = ManaColors.Black, Choice = EffectOption.Black},
-        new Rel {Color = ManaColors.Red, Choice = EffectOption.Red},
-        new Rel {Color = ManaColors.Green, Choice = EffectOption.Green},
+        new Rel {Color = CardColor.White, Choice = EffectOption.White},
+        new Rel {Color = CardColor.Blue, Choice = EffectOption.Blue},
+        new Rel {Color = CardColor.Black, Choice = EffectOption.Black},
+        new Rel {Color = CardColor.Red, Choice = EffectOption.Red},
+        new Rel {Color = CardColor.Green, Choice = EffectOption.Green},
       };
 
-    public override ChosenOptions ChooseResult(List<object> opetions)
+    public override ChosenOptions ChooseResult(List<object> operations)
     {
-      var available = Target.Player().GetAvailableMana();
-
-      var color = available.GetMostCommonColor();
-
-      if (color == null)
-        return new ChosenOptions(EffectOption.Green);
-
+      var color = Target.Player().Battlefield.GetMostCommonColor();      
       return new ChosenOptions(Map.Single(x => x.Color == color).Choice);
     }
 
@@ -34,7 +27,7 @@
       var color = Map.Single(x => x.Choice.Equals(results.Options[0])).Color;
 
       var cardsToDiscard = Target.Player().Hand.Where(
-        x => x.HasColors(color)).ToList();
+        x => x.HasColor(color)).ToList();
 
       foreach (var card in cardsToDiscard)
       {
@@ -60,7 +53,7 @@
     private class Rel
     {
       public EffectOption Choice;
-      public ManaColors Color;
+      public CardColor Color;
     }
   }
 }

@@ -37,11 +37,11 @@
             .Activate(bird)
             .Verify(() =>
               {
-                True(P1.HasMana(ManaUnit.White.ToAmount()));
-                True(P1.HasMana(ManaUnit.Blue.ToAmount()));
-                True(P1.HasMana(ManaUnit.Black.ToAmount()));
-                True(P1.HasMana(ManaUnit.Red.ToAmount()));
-                True(P1.HasMana(ManaUnit.Green.ToAmount()));
+                True(P1.HasMana(Mana.White));
+                True(P1.HasMana(Mana.Blue));
+                True(P1.HasMana(Mana.Black));
+                True(P1.HasMana(Mana.Red));
+                True(P1.HasMana(Mana.Green));
               })
           );
       }

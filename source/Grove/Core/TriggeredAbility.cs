@@ -64,9 +64,9 @@
         );
     }
 
-    public override void Initialize(Card owner, Game game)
+    public override void Initialize(Card owningCard, Game game)
     {
-      base.Initialize(owner, game);
+      base.Initialize(owningCard, game);
 
       foreach (var trigger in _triggers)
       {
@@ -74,7 +74,7 @@
         RegisterTriggerListener(trigger);
       }
 
-      if (!_triggerOnlyIfOwningCardIsInPlay || owner.Zone == Zone.Battlefield)
+      if (!_triggerOnlyIfOwningCardIsInPlay || owningCard.Zone == Zone.Battlefield)
         ActivateTriggers();
 
       SubscribeToEvents();

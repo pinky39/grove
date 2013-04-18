@@ -34,7 +34,7 @@
                 power: 5,
                 toughness: 5,
                 type: "Creature Angel",
-                colors: ManaColors.White),
+                colors: L(CardColor.White)),
               () => new AddStaticAbility(Static.Flying),
               () => new AddStaticAbility(Static.Vigilance));
 

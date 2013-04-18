@@ -39,7 +39,7 @@
                   .Power(2)
                   .Toughness(2)
                   .Type("Creature - Token - Zombie")
-                  .Colors(ManaColors.Black));
+                  .Colors(CardColor.Black));
           });
     }
   }

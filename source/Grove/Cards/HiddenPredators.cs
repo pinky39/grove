@@ -37,7 +37,7 @@
               power: 4,
               toughness: 4,
               type: "Creature Beast",
-              colors: ManaColors.Green
+              colors: L(CardColor.Green)
               ));
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;

@@ -146,6 +146,12 @@
 
         if (!permanent.Is().BasicLand)
           score += 10;
+
+        var landCount = permanent.Controller.Battlefield.Lands.Count();
+        if (landCount < 7)
+        {
+          score += 30*(7 - landCount);
+        }
       }
 
       return score;

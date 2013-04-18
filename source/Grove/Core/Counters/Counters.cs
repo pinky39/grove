@@ -31,7 +31,7 @@
       modifier.Apply(this);
     }
 
-    public int SpecifiCount<T>()
+    public int CountSpecific<T>()
     {
       return _counters.Count(x => x is T);
     }

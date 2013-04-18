@@ -43,7 +43,7 @@
             p.Cost = new PayMana(2.Colorless(), ManaUsage.Abilities);
             p.Effect = () => new Attach(
               () => new AddPowerAndToughness(2, 2),
-              () => new AddProtectionFromColors(ManaColors.Black | ManaColors.Green))
+              () => new AddProtectionFromColors(L(CardColor.Black, CardColor.Green)))
               {
                 Category = EffectCategories.ToughnessIncrease | EffectCategories.Protector
               };

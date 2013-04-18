@@ -35,7 +35,7 @@
               "{B}, Sacrifice Discordant Dirge: Look at target opponent's hand and choose up to X cards from it, where X is the number of verse counters on Discordant Dirge. That player discards those cards.";
 
             p.Cost = new AggregateCost(
-              new PayMana(ManaAmount.Black, ManaUsage.Abilities),
+              new PayMana(Mana.Black, ManaUsage.Abilities),
               new Sacrifice());
 
             p.Effect = () => new OpponentDiscardsCards(

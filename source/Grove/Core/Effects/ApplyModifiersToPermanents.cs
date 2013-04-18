@@ -7,23 +7,26 @@
 
   public class ApplyModifiersToPermanents : Effect
   {
-    private readonly Func<ApplyModifiersToPermanents, Card, bool> _filter;
+    private readonly ControlledBy _controlledBy;
+    private readonly Func<ApplyModifiersToPermanents, Card, bool> _permanentFilter;
     private readonly List<ModifierFactory> _modifiers = new List<ModifierFactory>();
 
     private ApplyModifiersToPermanents() {}
 
-    public ApplyModifiersToPermanents(params ModifierFactory[] modifiers) : this(null , modifiers) {}
+    public ApplyModifiersToPermanents(params ModifierFactory[] modifiers) : this(null, modifiers: modifiers) {}
 
-    public ApplyModifiersToPermanents(Func<Effect, Card, bool> filter, params ModifierFactory[] modifiers)
+    public ApplyModifiersToPermanents(Func<Effect, Card, bool> permanentFilter, 
+      ControlledBy controlledBy = ControlledBy.Any , params ModifierFactory[] modifiers)
     {
-      _filter = filter ?? delegate { return true; };
+      _controlledBy = controlledBy;
+      _permanentFilter = permanentFilter ?? delegate { return true; };            
       _modifiers.AddRange(modifiers);
     }
 
 
     public override int CalculateToughnessReduction(Card card)
     {
-      if ((Target == null || card.Controller == Target) && _filter(this, card))
+      if ((Target == null || card.Controller == Target) && _permanentFilter(this, card))
       {
         return ToughnessReduction.GetValue(X);
       }
@@ -39,6 +42,18 @@
         return;
       }
 
+      if (_controlledBy == ControlledBy.SpellOwner)
+      {
+        ApplyModifierToPlayersPermanents(Controller);
+        return;
+      }
+      
+      if (_controlledBy == ControlledBy.Opponent)
+      {
+        ApplyModifierToPlayersPermanents(Controller.Opponent);
+        return;
+      }
+
       foreach (var player in Players)
       {
         ApplyModifierToPlayersPermanents(player);
@@ -47,9 +62,9 @@
 
     private void ApplyModifierToPlayersPermanents(Player player)
     {
-      foreach (var creature in player.Battlefield)
+      foreach (var permanent in player.Battlefield)
       {
-        if (!_filter(this, creature))
+        if (!_permanentFilter(this, permanent))
           continue;
 
         foreach (var modifierFactory in _modifiers)
@@ -58,12 +73,12 @@
             {
               SourceEffect = this,
               SourceCard = Source.OwningCard,
-              Target = creature,
+              Target = permanent,
               X = X
             };
 
           var modifier = modifierFactory().Initialize(p, Game);
-          creature.AddModifier(modifier);
+          permanent.AddModifier(modifier);
         }
       }
     }

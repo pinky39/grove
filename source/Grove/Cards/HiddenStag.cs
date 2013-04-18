@@ -5,7 +5,6 @@
   using Core.Ai.TimingRules;
   using Core.Dsl;
   using Core.Effects;
-  using Core.Mana;
   using Core.Triggers;
 
   public class HiddenStag : CardsSource
@@ -33,7 +32,7 @@
               power: 3,
               toughness: 2,
               type: "Creature Elk Beast",
-              colors: ManaColors.Green));
+              colors: L(CardColor.Green)));
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           })

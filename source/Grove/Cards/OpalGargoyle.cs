@@ -34,7 +34,7 @@
                 power: 2,
                 toughness: 2,
                 type: "Creature Gargoyle",
-                colors: ManaColors.White),
+                colors: L(CardColor.White)),
               () => new AddStaticAbility(Static.Flying));
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;

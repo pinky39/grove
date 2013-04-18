@@ -22,7 +22,7 @@
         .FlavorText("The forest was too lush for the brothers to despoil—almost.")
         .Cast(p =>
           {
-            p.Effect = () => new Attach(() => new IncreaseManaOutput(ManaAmount.Any));
+            p.Effect = () => new Attach(() => new IncreaseManaOutput(Mana.Any));
             p.TargetSelector.AddEffect(trg => trg.Is.Card(c => c.Is().Land).On.Battlefield());
 
             p.TimingRule(new FirstMain());

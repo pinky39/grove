@@ -1,6 +1,5 @@
 ﻿namespace Grove.Core.Costs
 {
-  using System.Linq;
   using Mana;
   using Targeting;
 
@@ -8,24 +7,21 @@
   {
     private readonly IManaAmount _amount;
     private readonly bool _hasX;
-    private readonly bool _supportsRepetitions;
     private readonly ManaUsage _manaUsage;
-    private readonly bool _tryNotToConsumeCardsManaSourceWhenPayingThis;
+    private readonly bool _supportsRepetitions;    
 
     private PayMana() {}
 
     public PayMana(
-      IManaAmount amount, 
-      ManaUsage manaUsage, 
-      bool hasX = false,       
-      bool tryNotToConsumeCardsManaSourceWhenPayingThis = false,
+      IManaAmount amount,
+      ManaUsage manaUsage,
+      bool hasX = false,      
       bool supportsRepetitions = false)
     {
       _amount = amount;
       _manaUsage = manaUsage;
       _hasX = hasX;
-      _supportsRepetitions = supportsRepetitions;
-      _tryNotToConsumeCardsManaSourceWhenPayingThis = tryNotToConsumeCardsManaSourceWhenPayingThis;
+      _supportsRepetitions = supportsRepetitions;      
     }
 
     public override bool HasX { get { return _hasX; } }
@@ -36,12 +32,12 @@
     }
 
     protected override void CanPay(CanPayResult result)
-    {            
+    {
       if (!Card.Controller.HasMana(_amount, _manaUsage))
         return;
 
-      result.CanPay = true;      
-      
+      result.CanPay = true;
+
       if (_hasX)
       {
         result.MaxX = Card.Controller.GetConvertedMana(_manaUsage) - _amount.Converted;
@@ -49,18 +45,18 @@
 
       if (_supportsRepetitions)
       {
-        int count = 1;
-        IManaAmount amount = _amount;
-        
+        var count = 1;
+        var amount = _amount;
+
         while (true)
         {
           amount = amount.Add(amount);
-          
+
           if (!Card.Controller.HasMana(amount, _manaUsage))
           {
             break;
           }
-          
+
           count++;
         }
 
@@ -74,18 +70,9 @@
     {
       var amount = _amount;
 
-      if (x.HasValue)
-      {
-        amount = amount.Add(x.Value);
-      }
-
-      if (_tryNotToConsumeCardsManaSourceWhenPayingThis)
-      {
-        var manaSource = Card.ManaSources.FirstOrDefault();
-        Card.Controller.Consume(amount, _manaUsage, tryNotToConsumeThisSource: manaSource);
-        return;
-      }
-
+      if (x.HasValue) 
+        amount = amount.Add(x.Value.Colorless());
+         
       Card.Controller.Consume(amount, _manaUsage);
     }
   }

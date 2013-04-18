@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Mana;
   using Targeting;
 
   public class DamageRedirectionEnchantment : TargetingRule
@@ -31,7 +30,7 @@
         return card.Score;
       }
 
-      if (card.HasProtectionFrom(ManaColors.Red | ManaColors.Black))
+      if (card.HasProtectionFrom(CardColor.Red) || card.HasProtectionFrom(CardColor.Black))
       {
         return protectionBonus + card.Score;
       }

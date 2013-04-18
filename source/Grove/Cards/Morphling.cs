@@ -25,7 +25,7 @@
         .ActivatedAbility(p =>
           {
             p.Text = "{U}: Untap Morphling.";
-            p.Cost = new PayMana(ManaAmount.Blue, ManaUsage.Abilities);
+            p.Cost = new PayMana(Mana.Blue, ManaUsage.Abilities);
             p.Effect = () => new UntapOwner();
 
             p.TimingRule(new Turn(active: true));
@@ -35,7 +35,7 @@
         .ActivatedAbility(p =>
           {
             p.Text = "{U}: Morphling gains flying until end of turn.";
-            p.Cost = new PayMana(ManaAmount.Blue, ManaUsage.Abilities);
+            p.Cost = new PayMana(Mana.Blue, ManaUsage.Abilities);
             p.Effect = () => new ApplyModifiersToSelf(
               () => new AddStaticAbility(Static.Flying) {UntilEot = true});
 
@@ -45,7 +45,7 @@
         .ActivatedAbility(p =>
           {
             p.Text = "{U}: Morphling gains shroud until end of turn.";
-            p.Cost = new PayMana(ManaAmount.Blue, ManaUsage.Abilities);
+            p.Cost = new PayMana(Mana.Blue, ManaUsage.Abilities);
             p.Effect = () => new ApplyModifiersToSelf(
               () => new AddStaticAbility(Static.Shroud) {UntilEot = true});
 

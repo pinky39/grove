@@ -27,7 +27,7 @@
           {
             p.Text = "{T}, Sacrifice a creature: Add {B}{B} to your mana pool.";            
             p.Cost = new AggregateCost(new Tap(), new Sacrifice());
-            p.Effect = () => new AddManaToPool("{B}{B}".ParseMana());
+            p.Effect = () => new AddManaToPool("{B}{B}".Parse());
             p.TargetSelector.AddCost(trg => trg.Is.Creature(ControlledBy.SpellOwner).On.Battlefield());
                         
             p.TimingRule(new ControllerNeedsAdditionalMana(2));

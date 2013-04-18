@@ -21,7 +21,7 @@
         .Cast(p =>
           {
             p.Effect = () => new ApplyModifiersToPermanents(
-              filter: (e, c) => c.IsAttacker,
+              permanentFilter: (e, c) => c.IsAttacker,
               modifiers: () => new AddStaticAbility(Static.FirstStrike) {UntilEot = true});
 
             p.TimingRule(new Turn(active: true));

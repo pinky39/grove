@@ -22,7 +22,7 @@
         .ManaAbility(p =>
           {
             p.Text = "{T}: Add {U} or {B} to your mana pool.";
-            p.ManaAmount(new ManaUnit(ManaColors.Blue | ManaColors.Black));
+            p.ManaAmount(Mana.Colored(isBlue: true, isBlack: true));
           });
     }
   }

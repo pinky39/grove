@@ -5,29 +5,30 @@
   public class AddManaToPool : Effect
   {
     private readonly DynParam<IManaAmount> _amount;
-    private readonly bool _useOnlyForAbilities;
+    private readonly ManaUsage _usage;
 
     private AddManaToPool() {}
 
-    public AddManaToPool(IManaAmount amount, bool useOnlyForAbilities = false)
+    public AddManaToPool(IManaAmount amount, ManaUsage usage = ManaUsage.Any)
     {
+      _usage = usage;
       _amount = new DynParam<IManaAmount>(amount);
-      _useOnlyForAbilities = useOnlyForAbilities;
+
 
       RegisterDynamicParameters(_amount);
     }
 
-    public AddManaToPool(DynParam<IManaAmount> amount, bool useOnlyForAbilities = false)
+    public AddManaToPool(DynParam<IManaAmount> amount, ManaUsage usage = ManaUsage.Any)
     {
       _amount = amount;
-      _useOnlyForAbilities = useOnlyForAbilities;
+      _usage = usage;
 
       RegisterDynamicParameters(amount);
     }
 
     protected override void ResolveEffect()
     {
-      Controller.AddManaToManaPool(_amount.Value, _useOnlyForAbilities);
+      Controller.AddManaToManaPool(_amount.Value, _usage);
     }
   }
 }

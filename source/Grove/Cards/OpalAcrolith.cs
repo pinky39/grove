@@ -33,14 +33,14 @@
               power: 2,
               toughness: 4,
               type: "Creature Soldier",
-              colors: ManaColors.White));
+              colors: L(CardColor.White)));
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           })
         .ActivatedAbility(p =>
           {
             p.Text = "{0}: Opal Acrolith becomes an enchantment.";
-            p.Cost = new PayMana(ManaAmount.Zero, ManaUsage.Abilities);
+            p.Cost = new PayMana(Mana.Zero, ManaUsage.Abilities);
             p.Effect = () => new RemoveModifier(typeof (Core.Modifiers.ChangeToCreature));
 
             p.TimingRule(new OwningCardHas(c => c.Is().Creature));

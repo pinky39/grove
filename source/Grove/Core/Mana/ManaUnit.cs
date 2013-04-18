@@ -1,115 +1,46 @@
 ﻿namespace Grove.Core.Mana
 {
-  using System;
-  using System.Collections.Generic;
   using Infrastructure;
-
-  public class ManaUnit : IEquatable<ManaUnit>
+  
+  [Copyable]
+  public class ManaUnit
   {
-    private readonly ManaColors _colors;
+    private readonly ManaUsage _usageRestriction;
 
-    public ManaUnit(ManaColors colors = ManaColors.Colorless)
+    private ManaUnit() {}
+
+    public ManaUnit(ManaColor color, int rank, IManaSource source = null,
+      object tapRestriction = null, int costRestriction = 0, ManaUsage usageRestriction = ManaUsage.Any)
     {
-      _colors = colors;
+      Color = color;
+      Rank = rank;
+      Source = source;
+      TapRestriction = tapRestriction;
+      CostRestriction = costRestriction;
+      _usageRestriction = usageRestriction;
     }
 
-    public static ManaUnit Any { get { return new ManaUnit(ManaColors.White | ManaColors.Blue | ManaColors.Black | ManaColors.Red | ManaColors.Green); } }
-    public static ManaUnit Black { get { return new ManaUnit(ManaColors.Black); } }
-    public static ManaUnit Blue { get { return new ManaUnit(ManaColors.Blue); } }
-    public ManaColors Colors { get { return _colors; } }
-    public static ManaUnit Green { get { return new ManaUnit(ManaColors.Green); } }
-    public bool IsColored { get { return !IsColorless; } }
-    public bool IsColorless { get { return _colors == ManaColors.Colorless; } }
-    public bool IsMultiColor { get { return Rank > 1; } }
-    public int Order { get { return (int) _colors; } }
-    public int Rank { get { return EnumEx.GetSetBitCount((long) _colors); } }
-    public static ManaUnit Red { get { return new ManaUnit(ManaColors.Red); } }
-    public string Symbol { get { return String.Join(String.Empty, ManaAmount.GetSymbolsFromColor(_colors)); } }
-    public static ManaUnit White { get { return new ManaUnit(ManaColors.White); } }
+    public int CostRestriction { get; private set; }
+    public IManaSource Source { get; private set; }
+    public bool HasSource { get { return Source != null; } }
+    public ManaColor Color { get; private set; }
+    public int Rank { get; private set; }
+    public object TapRestriction { get; private set; }
 
-    public bool Equals(ManaUnit other)
+    public bool CanActivateSource()
     {
-      if (ReferenceEquals(null, other)) return false;
-      if (ReferenceEquals(this, other)) return true;
-      return Equals(other._colors, _colors);
+      if (Source == null)
+        return false;
+
+      return Source.CanActivate();
     }
 
-    public static ManaUnit GetBasicLandMana(string type)
+    public bool CanBeUsed(ManaUsage usage)
     {
-      switch (type)
-      {
-        case "plains":
-          return White;
-        case "island":
-          return Blue;
-        case "swamp":
-          return Black;
-        case "mountain":
-          return Red;
-      }
+      if (_usageRestriction != ManaUsage.Any && _usageRestriction != usage)
+        return false;
 
-      return Green;
-    }
-
-    public IEnumerable<ManaColors> EnumerateColors()
-    {
-      if (HasColor(ManaColors.White))
-        yield return ManaColors.White;
-
-      if (HasColor(ManaColors.Blue))
-        yield return ManaColors.Blue;
-
-      if (HasColor(ManaColors.Black))
-        yield return ManaColors.Black;
-
-      if (HasColor(ManaColors.Red))
-        yield return ManaColors.Red;
-
-      if (HasColor(ManaColors.Green))
-        yield return ManaColors.Green;
-    }
-
-    public override bool Equals(object obj)
-    {
-      if (ReferenceEquals(null, obj)) return false;
-      if (ReferenceEquals(this, obj)) return true;
-      if (obj.GetType() != typeof (ManaUnit)) return false;
-      return Equals((ManaUnit) obj);
-    }
-
-    public override int GetHashCode()
-    {
-      return _colors.GetHashCode();
-    }
-
-    public bool HasColor(ManaColors color)
-    {
-      return (_colors & color) == color;
-    }
-
-    public bool IsSingleColor(ManaColors color)
-    {
-      return HasColor(color) && Rank == 1;
-    }
-
-    public override string ToString()
-    {
-      return String.Format("{{{0}}}", ManaAmount.GetSymbolsFromColor(_colors));
-    }
-
-    public static bool operator ==(ManaUnit left, ManaUnit right)
-    {
-      return Equals(left, right);
-    }
-
-    public static bool operator !=(ManaUnit left, ManaUnit right)
-    {
-      return !Equals(left, right);
-    }
-
-    public IManaAmount ToAmount()
-    {
-      return new PrimitiveManaAmount(this);
+      return true;
     }
   }
 }

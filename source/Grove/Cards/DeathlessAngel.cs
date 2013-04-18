@@ -27,7 +27,7 @@
         .ActivatedAbility(p =>
           {
             p.Text = "{W}{W}: Target creature is indestructible this turn.";
-            p.Cost = new PayMana("{W}{W}".ParseMana(), ManaUsage.Abilities);
+            p.Cost = new PayMana("{W}{W}".Parse(), ManaUsage.Abilities);
 
             p.Effect = () => new ApplyModifiersToTargets(
               () => new AddStaticAbility(Static.Indestructible)) {Category = EffectCategories.Protector};

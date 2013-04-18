@@ -221,10 +221,10 @@ o Presence of the Master
 o Priest of Gix
 o Priest of Titania
 o Purging Scythe
-Rain of Filth
-Rain of Salt
-Ravenous Skirge
-Raze
+o Rain of Filth
+o Rain of Salt
+o Ravenous Skirge
+o Raze
 Recantation
 Reclusive Wight
 Redeem

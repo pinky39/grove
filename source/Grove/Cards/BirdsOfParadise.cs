@@ -21,7 +21,7 @@
         .ManaAbility(p =>
           {
             p.Text = "{T}: Add one mana of any color to your mana pool.";
-            p.ManaAmount(ManaAmount.Any);            
+            p.ManaAmount(Mana.Any);            
           });
     }
   }

@@ -25,7 +25,7 @@
         .Toughness(2)
         .Cast(p => p.TimingRule(new OpponentHasPermanents(
           card => card.Is().Creature && card.Life <= 4 &&
-            card.CanBeTargetBySpellsWithColor(ManaColors.Red))))
+            card.CanBeTargetBySpellsWithColor(CardColor.Red))))
         .TriggeredAbility(p =>
           {
             p.Text = "When Flametongue Kavu enters the battlefield, it deals 4 damage to target creature.";

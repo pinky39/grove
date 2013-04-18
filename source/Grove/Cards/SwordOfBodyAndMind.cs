@@ -44,7 +44,7 @@
                   .Power(2)
                   .Toughness(2)
                   .Type("Creature Token Wolf")
-                  .Colors(ManaColors.Green)));
+                  .Colors(CardColor.Green)));
           })
         .ActivatedAbility(p =>
           {
@@ -52,7 +52,7 @@
             p.Cost = new PayMana(2.Colorless(), ManaUsage.Abilities);
             p.Effect = () => new Attach(
               () => new AddPowerAndToughness(2, 2),
-              () => new AddProtectionFromColors(ManaColors.Green | ManaColors.Blue))
+              () => new AddProtectionFromColors(L(CardColor.Green, CardColor.Blue)))
               {Category = EffectCategories.ToughnessIncrease | EffectCategories.Protector};
 
             p.TargetSelector.AddEffect(trg => trg.Is.ValidEquipmentTarget().On.Battlefield());

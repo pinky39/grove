@@ -24,7 +24,7 @@
         .ActivatedAbility(p =>
           {
             p.Text = "{U}: Untap Horseshoe Crab.";
-            p.Cost = new PayMana(ManaAmount.Blue, ManaUsage.Abilities);
+            p.Cost = new PayMana(Mana.Blue, ManaUsage.Abilities);
             p.Effect = () => new UntapOwner();
 
             p.TimingRule(new Turn(active: true));

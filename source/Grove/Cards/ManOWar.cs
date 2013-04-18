@@ -26,7 +26,7 @@
         .Cast(p =>
           {
             p.TimingRule(new OpponentHasPermanents(
-              card => card.Is().Creature && card.CanBeTargetBySpellsWithColor(ManaColors.Blue)));
+              card => card.Is().Creature && card.CanBeTargetBySpellsWithColor(CardColor.Blue)));
             p.TimingRule(new FirstMain());
           })
         .TriggeredAbility(p =>

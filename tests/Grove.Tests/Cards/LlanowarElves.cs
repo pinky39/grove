@@ -41,7 +41,7 @@
             .Verify(() =>
               {
                 True(P1.Battlefield.Contains(elves));
-                True(P1.HasMana(ManaAmount.Green, ManaUsage.Any));
+                True(P1.HasMana(Mana.Green));
               }));
       }
     }

@@ -13,7 +13,7 @@
         Hand(P1, "Persecute");
         Battlefield(P1, "Swamp", "Swamp", "Swamp", "Swamp");
         Hand(P2, "Counterspell", "Counterspell", "Mana Leak");
-        Battlefield(P2, "Island");
+        Battlefield(P2, "Island", "Fog Bank");
 
         RunGame(1);
 

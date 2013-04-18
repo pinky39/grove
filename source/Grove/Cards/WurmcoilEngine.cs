@@ -38,7 +38,7 @@
                 .Power(3)
                 .Toughness(3)
                 .Type("Artifact Creature - Wurm Token")
-                .Colors(ManaColors.Colorless)
+                .Colors(CardColor.Colorless)
                 .StaticAbilities(Static.Deathtouch),
               Card
                 .Named("Wurm Token")
@@ -47,7 +47,7 @@
                 .Power(3)
                 .Toughness(3)
                 .Type("Artifact Creature - Wurm Token")
-                .Colors(ManaColors.Colorless)
+                .Colors(CardColor.Colorless)
                 .StaticAbilities(Static.Lifelink));
           });
     }

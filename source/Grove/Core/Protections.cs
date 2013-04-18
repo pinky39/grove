@@ -1,16 +1,14 @@
 ﻿namespace Grove.Core
 {
-  using System.Linq;
   using Infrastructure;
-  using Mana;
   using Modifiers;
 
   [Copyable]
   public class Protections : IModifiable, IHashable
   {
     private readonly TrackableList<string> _cardTypes = new TrackableList<string>();
-    private readonly TrackableList<ManaColors> _colors = new TrackableList<ManaColors>();
-  
+    private readonly TrackableList<CardColor> _colors = new TrackableList<CardColor>();
+
     public int CalculateHash(HashCalculator calc)
     {
       return calc.Calculate(_colors);
@@ -27,7 +25,7 @@
       _colors.Initialize(changeTracker, hashDependancy);
     }
 
-    public void AddProtectionFromColors(ManaColors color)
+    public void AddProtectionFromColor(CardColor color)
     {
       _colors.Add(color);
     }
@@ -42,17 +40,14 @@
       return type.IsAny(_cardTypes);
     }
 
-    public bool HasProtectionFrom(ManaColors colors)
+    public bool HasProtectionFrom(CardColor color)
     {
-      var mergedProtection = _colors.Aggregate(ManaColors.None,
-        (current, protectionFromColors) => current | protectionFromColors);
-
-      return (colors & mergedProtection) != ManaColors.None;
+      return _colors.Contains(color);
     }
 
-    public void RemoveProtectionFromColors(ManaColors colors)
+    public void RemoveProtectionFromColor(CardColor color)
     {
-      _colors.Remove(colors);
+      _colors.Remove(color);
     }
   }
 }

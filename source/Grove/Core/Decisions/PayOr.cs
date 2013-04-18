@@ -10,6 +10,7 @@
     public IManaAmount ManaAmount { get; set; }
     public int? Life { get; set; }
     public string Text { get; set; }
+    public ManaUsage ManaUsage = ManaUsage.Any;
 
     public IProcessDecisionResults<BooleanResult> ProcessDecisionResults { get; set; }
 
@@ -19,7 +20,7 @@
     {
       if (ManaAmount != null)
       {
-        return Controller.HasMana(ManaAmount);
+        return Controller.HasMana(ManaAmount, ManaUsage);
       }
 
       if (Life.HasValue)
@@ -47,7 +48,7 @@
     {
       if (ManaAmount != null)
       {
-        Controller.Consume(ManaAmount, ManaUsage.Abilities);
+        Controller.Consume(ManaAmount, ManaUsage);
         return;
       }
 

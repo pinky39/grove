@@ -2,6 +2,7 @@
 {
   using System.Linq;
   using Costs;
+  using Effects;
   using Infrastructure;
   using Mana;
   using Messages;
@@ -31,23 +32,38 @@
 
       for (var i = 0; i < p.Repeat; i++)
       {
-        var effectParameters = new EffectParameters
-          {
-            Source = this,
-            Targets = p.Targets,
-            X = p.X
-          };
-
         // create effect first, since some cost e.g Sacrifice can
         // put owning card to graveyard which will alter some card
-        // properties e.g counters, power, toughness ...     
-        var effect = EffectFactory().Initialize(effectParameters, Game);
+        // properties e.g counters, power, toughness ...             
+        var effect = CreateEffect(p);
 
         Pay(p);
         Resolve(effect, p.SkipStack);
 
         Publish(new PlayerHasActivatedAbility(this, p.Targets));
       }
+    }
+
+    public virtual void OnAbilityRemoved()
+    {
+      
+    }
+
+    public virtual void OnAbilityAdded()
+    {
+      
+    }
+
+    protected virtual Effect CreateEffect(ActivationParameters p)
+    {
+      var effectParameters = new EffectParameters
+        {
+          Source = this,
+          Targets = p.Targets,
+          X = p.X
+        };
+
+      return EffectFactory().Initialize(effectParameters, Game);
     }
 
     protected void Pay(ActivationParameters p = null)
@@ -84,7 +100,7 @@
 
       if (IsEnabled && CanBeActivatedAtThisTime())
       {
-        var result = _cost.CanPay();
+        var result = CanPay();
 
         if (result.CanPay)
         {
@@ -105,10 +121,10 @@
       return false;
     }
 
-    public override void Initialize(Card owner, Game game)
+    public override void Initialize(Card owningCard, Game game)
     {
-      base.Initialize(owner, game);
-      _cost.Initialize(owner, game, TargetSelector.Cost.FirstOrDefault());
+      base.Initialize(owningCard, game);
+      _cost.Initialize(owningCard, game, TargetSelector.Cost.FirstOrDefault());
       _lastActivation.Initialize(ChangeTracker);
     }
 

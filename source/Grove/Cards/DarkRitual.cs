@@ -22,7 +22,7 @@
         .Cast(p =>
           {
             p.TimingRule(new ControllerNeedsAdditionalMana(2));
-            p.Effect = () => new AddManaToPool("{B}{B}{B}".ParseMana());
+            p.Effect = () => new AddManaToPool("{B}{B}{B}".Parse());
           });
     }
   }
