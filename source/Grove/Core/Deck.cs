@@ -31,7 +31,7 @@
     public IEnumerable<Card> Creatures { get { return _cards.Where(x => x.Is().Creature); } }
     public IEnumerable<Card> Spells { get { return _cards.Where(x => !x.Is().Creature && !x.Is().Land); } }
     public IEnumerable<Card> Lands { get { return _cards.Where(x => x.Is().Land); } }
-    public IEnumerable<ManaColor> Colors { get { return GetDeckManaColors(); } }
+    public IManaAmount Colors { get { return GetDeckManaColors(); } }
 
     public int Rating { get; set; }
     public string Description { get; set; }
@@ -61,29 +61,25 @@
       _cards.Add(_cardDatabase[name]);
     }
 
-    private List<ManaColor> GetDeckManaColors()
+    private IManaAmount GetDeckManaColors()
     {
-      var dictionary = new Dictionary<ManaColor, bool>
-        {
-          {ManaColor.White, false},
-          {ManaColor.Blue, false},
-          {ManaColor.Black, false},
-          {ManaColor.Red, false},
-          {ManaColor.Green, false},
-        };
+      var dictionary = new Dictionary<ManaColor, bool>();
 
       foreach (var card in _cards)
       {
+        if (card.ManaCost == null)
+          continue;
+        
         foreach (var singleColorAmount in card.ManaCost)
-        {
+        {                    
           dictionary[singleColorAmount.Color] = true;
         }
       }
 
-      return dictionary
+      return new MultiColorManaAmount(dictionary        
         .Where(x => x.Value)
-        .Select(x => x.Key)
-        .ToList();
+        .Where(x => x.Key != ManaColor.Colorless)
+        .ToDictionary(x => x.Key, x => 1));
     }
 
     public void RemoveCard(string name)

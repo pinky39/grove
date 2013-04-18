@@ -59,7 +59,14 @@
 
     public override int GetHashCode()
     {
-      return _colorIndices.GetHashCode();
+      var hash = 0;
+      
+      foreach (var colorIndex in _colorIndices)
+      {
+        hash = hash ^ colorIndex*397;
+      }
+
+      return hash;
     }
 
     public static bool operator ==(ManaColor left, ManaColor right)

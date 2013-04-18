@@ -13,7 +13,8 @@
     public CardViewModel(Card card)
     {
       Card = card;
-
+      Colors = new CardColor[] {};
+      
       Update();
 
       _timer = new Timer(delegate { Update(); }, null,
@@ -51,7 +52,7 @@
       Update(() => Power != Card.Power, () => Power = Card.Power);
       Update(() => Toughness != Card.Toughness, () => Toughness = Card.Toughness);
       Update(() => IsVisibleInUi != Card.IsVisibleInUi, () => IsVisibleInUi = Card.IsVisibleInUi);
-      Update(() => Colors.SequenceEqual(Card.Colors), () => Colors = Card.Colors);
+      Update(() => !Colors.SequenceEqual(Card.Colors), () => Colors = Card.Colors);
       Update(() => Counters != Card.Counters, () => Counters = Card.Counters);
       Update(() => Level != Card.Level, () => Level = Card.Level);
       Update(() => Type != Card.Type, () => Type = Card.Type);

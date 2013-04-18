@@ -8,7 +8,7 @@
 
   public class DeckBuilderFacts : Scenario
   {
-    [Fact]
+    //[Fact]
     public void BuildDecks()
     {
       var set = new MagicSet(MediaLibrary.GetSetPath("Urza's Saga"));
