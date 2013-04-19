@@ -8,12 +8,12 @@
   using Core.Messages;
   using Core.Triggers;
 
-  public class Opression : CardsSource
+  public class Oppression : CardsSource
   {
     public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
-        .Named("Opression")
+        .Named("Oppression")
         .ManaCost("{1}{B}{B}")
         .Type("Enchantment")
         .Text("Whenever a player casts a spell, that player discards a card.")

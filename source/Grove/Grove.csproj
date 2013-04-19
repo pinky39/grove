@@ -313,7 +313,7 @@
     <Compile Include="Cards\OpalCaryatid.cs" />
     <Compile Include="Cards\OpalGargoyle.cs" />
     <Compile Include="Cards\OpalTitan.cs" />
-    <Compile Include="Cards\Opression.cs" />
+    <Compile Include="Cards\Oppression.cs" />
     <Compile Include="Cards\OrderOfTheSacredBell.cs" />
     <Compile Include="Cards\OrderOfYawgmoth.cs" />
     <Compile Include="Cards\Outmaneuver.cs" />

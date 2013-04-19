@@ -3,7 +3,7 @@
   using Infrastructure;
   using Xunit;
 
-  public class Opression
+  public class Oppression
   {
     public class Ai : AiScenario
     {
@@ -16,7 +16,7 @@
         Hand(P1, shock1, "Grizzly Bears");
         Hand(P2, shock2, "Grizzly Bears");
 
-        Battlefield(P1, "Mountain", "Opression");
+        Battlefield(P1, "Mountain", "Oppression");
         Battlefield(P2, "Mountain");
 
         P1.Life = 3;

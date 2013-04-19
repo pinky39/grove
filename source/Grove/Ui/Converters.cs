@@ -237,17 +237,25 @@
 
         var images = new List<string>();
 
+        int? colorless = null;
         foreach (var single in manaAmount)
         {
           if (single.Color.IsColorless)
           {
-            images.Add(single.Count.ToString());
+            colorless = single.Count;            
             continue;
           }
 
           var symbol = Map.First(x => x.Color(single.Color));
-          images.AddRange(single.Select(t => symbol.Symbol));
+
+          for (int i = 0; i < single.Count; i++)
+          {
+            images.Add(symbol.Symbol);
+          }          
         }
+
+        if (colorless != null)
+          images.Insert(0, colorless.ToString());
 
         return images.Select(x => MediaLibrary.GetImage(x + ".png"));
       }

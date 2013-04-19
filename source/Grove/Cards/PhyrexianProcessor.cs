@@ -16,6 +16,7 @@
     {
       yield return Card
         .Named("Phyrexian Processor")
+        .ManaCost("{4}")
         .Type("Artifact")
         .Text(
           "As Phyrexian Processor enters the battlefield, pay any amount of life.{EOL}{4},{T}: Put an X/X black Minion creature token onto the battlefield, where X is the life paid as Phyrexian Processor entered the battlefield.")
