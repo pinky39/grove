@@ -225,9 +225,9 @@ o Rain of Filth
 o Rain of Salt
 o Ravenous Skirge
 o Raze
-Recantation
-Reclusive Wight
-Redeem
+o Recantation
+o Reclusive Wight
+o Redeem
 Reflexes
 Rejuvenate
 Remembrance

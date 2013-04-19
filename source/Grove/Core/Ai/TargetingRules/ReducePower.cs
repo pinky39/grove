@@ -19,7 +19,7 @@
         .Select(x => x.Card);
 
 
-      return Group(candidates, p.MinTargetCount());
+      return Group(candidates, p.MinTargetCount(), p.MaxTargetCount());
     }
   }
 }

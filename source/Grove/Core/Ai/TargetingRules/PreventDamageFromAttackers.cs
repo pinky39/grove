@@ -11,7 +11,7 @@
       var candidates = p.Candidates<Card>()
         .OrderByDescending(x => x.CalculateCombatDamage(allDamageSteps: true));
 
-      return Group(candidates, p.MinTargetCount());
+      return Group(candidates, p.MinTargetCount(), p.MaxTargetCount());
     }
   }
 }

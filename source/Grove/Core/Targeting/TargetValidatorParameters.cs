@@ -1,21 +1,26 @@
 ﻿namespace Grove.Core.Targeting
 {
+  using System;
   using Modifiers;
 
   public class TargetValidatorParameters
   {
-    public TargetValidatorDelegate TargetSpec = delegate { return true; };
-    public ZoneValidatorDelegate ZoneSpec = delegate { return false; };
-
-    public Value MaxCount = 1;
-    public string Message;
+    public Func<IsValidTargetParam, bool> IsValidTarget = delegate { return true; };
+    public Func<IsValidZoneParam, bool> IsValidZone = delegate { return false; };
     public Value MinCount = 1;
+    public Value MaxCount = 1;    
+    public string Message;    
     public bool MustBeTargetable = true;
+    public Func<GetTargetCountParam, Value> GetMinCount;
+    public Func<GetTargetCountParam, Value> GetMaxCount;
 
     public TargetValidatorParameters()
     {
       Is = new TargetSpecs(this);
-      In = new ZoneSpecs(this);      
+      In = new ZoneSpecs(this);
+
+      GetMinCount = delegate { return MinCount; };
+      GetMaxCount = delegate { return MaxCount; };
     }
 
     public TargetSpecs Is { get; private set; }

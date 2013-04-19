@@ -33,7 +33,7 @@
         candidates = GetCandidatesForBlockerPowerToughnessIncrease(power, toughness, p);
       }
 
-      return Group(candidates, p.MinTargetCount());
+      return Group(candidates, p.MinTargetCount(), p.MaxTargetCount());
     }
   }
 }

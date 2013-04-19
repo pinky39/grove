@@ -46,19 +46,19 @@
       yield break;
     }
 
-    protected IList<Targets> Group(IEnumerable<Card> candidates, int targetCount, Action<ITarget, Targets> add = null)
+    protected IList<Targets> Group(IEnumerable<Card> candidates, int minTargetCount, int? maxTargetCount = null, Action<ITarget, Targets> add = null)
     {
-      return Group(candidates.Cast<ITarget>().ToList(), targetCount, add);
+      return Group(candidates.Cast<ITarget>().ToList(), minTargetCount, maxTargetCount, add);
     }
 
-    protected IList<Targets> Group(IEnumerable<Player> candidates, int targetCount, Action<ITarget, Targets> add = null)
+    protected IList<Targets> Group(IEnumerable<Player> candidates, int minTargetCount, int? maxTargetCount = null, Action<ITarget, Targets> add = null)
     {
-      return Group(candidates.Cast<ITarget>().ToList(), targetCount, add);
+      return Group(candidates.Cast<ITarget>().ToList(), minTargetCount, maxTargetCount, add);
     }
 
-    protected IList<Targets> Group(IEnumerable<Effect> candidates, int targetCount, Action<ITarget, Targets> add = null)
+    protected IList<Targets> Group(IEnumerable<Effect> candidates, int minTargetCount, int? maxTargetCount = null, Action<ITarget, Targets> add = null)
     {
-      return Group(candidates.Cast<ITarget>().ToList(), targetCount, add);
+      return Group(candidates.Cast<ITarget>().ToList(), minTargetCount, maxTargetCount, add);
     }
 
     protected IList<Targets> Group(IEnumerable<Card> candidates1, IEnumerable<Card> candidates2,
@@ -121,10 +121,14 @@
       return new[] {result};
     }
     
-    protected IList<Targets> Group(IList<ITarget> candidates, int targetCount, 
-      Action<ITarget, Targets> add = null)
+    protected IList<Targets> Group(IList<ITarget> candidates, int minTargetCount, 
+      int? maxTargetCount = null, Action<ITarget, Targets> add = null)
     {            
       var results = new List<Targets>();
+      
+      var targetCount = candidates.Count < maxTargetCount 
+        ? minTargetCount 
+        : maxTargetCount ?? minTargetCount;
 
       if (targetCount == 0)
         return results;

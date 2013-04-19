@@ -10,7 +10,7 @@
 
     private PreventDamageToTargets() {}
 
-    public PreventDamageToTargets(int amount)
+    public PreventDamageToTargets(int amount = int.MaxValue)
     {
       _amount = amount;
     }
@@ -54,12 +54,12 @@
       candidates.AddRange(playerCandidate);
       candidates.AddRange(creatureCandidates);
 
-      return Group(candidates, p.MinTargetCount());
+      return Group(candidates, p.MinTargetCount(), p.MaxTargetCount());
     }
 
     private IEnumerable<Targets> PreventDamageBlockerWillDealToAttacker(TargetingRuleParameters p)
     {
-      var cardCandidates = p.Candidates<Card>(ControlledBy.SpellOwner)
+      var candidates = p.Candidates<Card>(ControlledBy.SpellOwner)
         .Where(x => x.IsAttacker)
         .Where(x =>
           {
@@ -69,9 +69,10 @@
 
             return 0 < prevented && prevented <= _amount;
           })
-        .OrderByDescending(x => x.Score);
+        .OrderByDescending(x => x.Score)
+        .ToList();
 
-      return Group(cardCandidates, p.MinTargetCount());
+      return Group(candidates, p.MinTargetCount(), p.MaxTargetCount());
     }
 
     private IEnumerable<Targets> PreventDamageTopSpellWillDealToCreatureOrPlayer(TargetingRuleParameters p)
@@ -91,7 +92,7 @@
       candidates.AddRange(playerCandidate);
       candidates.AddRange(creatureCandidates);
 
-      return Group(candidates, p.MinTargetCount());
+      return Group(candidates, p.MinTargetCount(), p.MaxTargetCount());
     }
   }
 }

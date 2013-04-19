@@ -349,6 +349,9 @@
     <Compile Include="Cards\RavenousSkirge.cs" />
     <Compile Include="Cards\Raze.cs" />
     <Compile Include="Cards\RazorvergeThicket.cs" />
+    <Compile Include="Cards\Recantation.cs" />
+    <Compile Include="Cards\ReclusiveWight.cs" />
+    <Compile Include="Cards\Redeem.cs" />
     <Compile Include="Cards\RemoteIsle.cs" />
     <Compile Include="Cards\Rescind.cs" />
     <Compile Include="Cards\RuneofProtectionBlack.cs" />
@@ -595,6 +598,7 @@
     <Compile Include="Core\Modifiers\IncreaseLandLimit.cs" />
     <Compile Include="Core\Modifiers\IncreaseManaOutput.cs" />
     <Compile Include="Core\Preventions\PreventReceived.cs" />
+    <Compile Include="Core\Targeting\GetTargetCountParam.cs" />
     <Compile Include="Core\Targeting\TargetSpecs.cs" />
     <Compile Include="Core\Targeting\TargetValidatorParameters.cs" />
     <Compile Include="Core\Targeting\ZoneSpecs.cs" />
@@ -760,12 +764,12 @@
     <Compile Include="Core\Targeting\TargetsCandidates.cs" />
     <Compile Include="Core\Targeting\TargetValidator.cs" />
     <Compile Include="Core\Targeting\TargetSelector.cs" />
-    <Compile Include="Core\Targeting\TargetValidatorDelegateParameters.cs" />
+    <Compile Include="Core\Targeting\IsValidTargetParam.cs" />
     <Compile Include="Core\Triggers\OnCastedSpell.cs" />
     <Compile Include="Core\Triggers\OnLevelChanged.cs" />
     <Compile Include="Core\Triggers\OnTurnOpponentWasNotDealtDamage.cs" />
     <Compile Include="Core\Targeting\Zones.cs" />
-    <Compile Include="Core\Targeting\ZoneValidatorDelegateParameters.cs" />
+    <Compile Include="Core\Targeting\IsValidZoneParam.cs" />
     <Compile Include="Core\Zones\IGraveyardQuery.cs" />
     <Compile Include="Core\Zones\ILibraryQuery.cs" />
     <Compile Include="Core\Zones\IZoneQuery.cs" />

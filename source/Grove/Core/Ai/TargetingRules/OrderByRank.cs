@@ -29,7 +29,7 @@
       if (p.HasEffectCandidates)
         return Group(candidates, p.MaxTargetCount());
 
-      return Group(candidates, p.MaxTargetCount(), (trg, trgs) => trgs.AddCost(trg));
+      return Group(candidates, p.MinTargetCount(), p.MaxTargetCount(),  (trg, trgs) => trgs.AddCost(trg));
     }
 
     protected override IEnumerable<Targets> ForceSelectTargets(TargetingRuleParameters p)
@@ -41,7 +41,7 @@
       if (p.HasEffectCandidates)
         return Group(candidates, p.MinTargetCount());
 
-      return Group(candidates, p.MinTargetCount(), (trg, trgs) => trgs.AddCost(trg));
+      return Group(candidates, p.MinTargetCount(), add: (trg, trgs) => trgs.AddCost(trg));
     }
   }
 }

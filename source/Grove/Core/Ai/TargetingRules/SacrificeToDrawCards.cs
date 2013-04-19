@@ -34,7 +34,7 @@
           .Where(x => _filter(x))
           .Where(x => Stack.CanBeDestroyedByTopSpell(x)));
 
-      return Group(candidates, p.MinTargetCount(), (trg, trgs) => trgs.AddCost(trg));
+      return Group(candidates, p.MinTargetCount(), add: (trg, trgs) => trgs.AddCost(trg));
     }
   }
 }

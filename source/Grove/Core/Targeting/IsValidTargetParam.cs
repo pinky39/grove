@@ -1,6 +1,6 @@
 ﻿namespace Grove.Core.Targeting
 {
-  public class TargetValidatorDelegateParameters
+  public class IsValidTargetParam
   {
     public Player Controller;
     public Game Game;

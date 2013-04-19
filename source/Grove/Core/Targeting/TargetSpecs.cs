@@ -13,13 +13,13 @@
 
     public TargetValidatorParameters Player()
     {
-      _p.TargetSpec = p => p.Target.IsPlayer();
+      _p.IsValidTarget = p => p.Target.IsPlayer();
       return _p;
     }
 
     public TargetValidatorParameters CreatureOrPlayer()
     {
-      _p.TargetSpec = p => p.Target.IsPlayer() || (p.Target.IsCard() && p.Target.Card().Is().Creature);
+      _p.IsValidTarget = p => p.Target.IsPlayer() || (p.Target.IsCard() && p.Target.Card().Is().Creature);
       return _p;
     }
 
@@ -27,7 +27,7 @@
     {
       filter = filter ?? delegate { return true; };
 
-      _p.TargetSpec = p =>
+      _p.IsValidTarget = p =>
         {
           return p.Target.IsEffect() &&
             p.Target.Effect().CanBeCountered &&
@@ -40,14 +40,14 @@
 
     public TargetValidatorParameters AttackerOrBlocker()
     {
-      _p.TargetSpec =
+      _p.IsValidTarget =
         p => p.Target.IsCard() && (p.Target.Card().IsAttacker || p.Target.Card().IsBlocker);
       return _p;
     }
 
     public TargetValidatorParameters ValidEquipmentTarget()
     {
-      _p.TargetSpec = p =>
+      _p.IsValidTarget = p =>
         {
           var equipment = p.OwningCard;
 
@@ -62,10 +62,10 @@
       return _p;
     }
 
-    public TargetValidatorParameters Card(Func<TargetValidatorDelegateParameters, bool> filter)
+    public TargetValidatorParameters Card(Func<IsValidTargetParam, bool> filter)
     {
       filter = filter ?? delegate { return true; };
-      _p.TargetSpec = p => p.Target.IsCard() && filter(p);
+      _p.IsValidTarget = p => p.Target.IsCard() && filter(p);
       return _p;
     }
 
@@ -73,7 +73,7 @@
     {
       filter = filter ?? delegate { return true; };
 
-      _p.TargetSpec = p =>
+      _p.IsValidTarget = p =>
         {
           var hasValidController = controlledBy == null || HasValidController(
             p.Target.Controller(), 
