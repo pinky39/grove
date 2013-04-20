@@ -95,6 +95,12 @@
             _hand.Score +
               _graveyard.Score;
 
+
+        if (HasLost)
+        {
+          score -= (1000 - Turn.TurnCount)*1000;
+        }
+
         return IsMax ? score : -score;
       }
     }
@@ -326,7 +332,7 @@
     {
       return _manaVault.Has(amount.Colorless(), usage);
     }
-    
+
     public bool HasMana(IManaAmount amount, ManaUsage usage = ManaUsage.Any)
     {
       return _manaVault.Has(amount, usage);

@@ -30,7 +30,7 @@
         .TriggeredAbility(p =>
           {
             p.Text =
-              "{Battle cry}Whenever Hero of Bladehold attacks, put two 1/1 white Soldier creature tokens onto the battlefield tapped and attacking.";
+              "Whenever Hero of Bladehold attacks, put two 1/1 white Soldier creature tokens onto the battlefield tapped and attacking.";
 
             p.Trigger(new OnAttack());
             p.Effect = () => new CreateTokens(

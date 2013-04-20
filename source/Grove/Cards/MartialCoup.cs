@@ -5,7 +5,6 @@
   using Core.Ai.TimingRules;
   using Core.Dsl;
   using Core.Effects;
-  using Core.Mana;
   using Core.Modifiers;
 
   public class MartialCoup : CardsSource
@@ -14,7 +13,7 @@
     {
       yield return Card
         .Named("Martial Coup")
-        .ManaCost("{W}{W}")
+        .ManaCost("{W}{W}").HasXInCost()
         .Type("Sorcery")
         .Text(
           "Put X 1/1 white Soldier creature tokens onto the battlefield. If X is 5 or more, destroy all other creatures.")
@@ -37,7 +36,7 @@
                   .Colors(CardColor.White)));
 
             p.TimingRule(new SecondMain());
-            p.CostRule(new Core.Ai.CostRules.MartialCoup(5));            
+            p.CostRule(new Core.Ai.CostRules.MartialCoup(5));
           });
     }
   }
