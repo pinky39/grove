@@ -74,7 +74,7 @@
             p.MinCount = 1;
             p.MaxCount = 1;
             p.Text = FormatText("Select a creature.");
-            p.Validator = card => card.Is().Creature && _hasRank(card, rank);
+            p.Validator(card => card.Is().Creature && _hasRank(card, rank));
             p.CanSelectOnlyCardsControlledByDecisionController = false;
             p.Zone = Zone.Battlefield;
             p.OwningCard = Source.OwningCard;

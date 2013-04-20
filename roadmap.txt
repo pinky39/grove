@@ -228,10 +228,10 @@ o Raze
 o Recantation
 o Reclusive Wight
 o Redeem
-Reflexes
-Rejuvenate
-Remembrance
-Remote Isle
+o Reflexes
+o Rejuvenate
+o Remembrance
+o Remote Isle
 Reprocess
 Rescind
 Retaliation

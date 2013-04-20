@@ -352,6 +352,9 @@
     <Compile Include="Cards\Recantation.cs" />
     <Compile Include="Cards\ReclusiveWight.cs" />
     <Compile Include="Cards\Redeem.cs" />
+    <Compile Include="Cards\Reflexes.cs" />
+    <Compile Include="Cards\Rejuvenate.cs" />
+    <Compile Include="Cards\Remembrance.cs" />
     <Compile Include="Cards\RemoteIsle.cs" />
     <Compile Include="Cards\Rescind.cs" />
     <Compile Include="Cards\RuneofProtectionBlack.cs" />
@@ -545,6 +548,7 @@
     <Compile Include="Core\Costs\PayMana.cs" />
     <Compile Include="Core\Costs\RemoveCounter.cs" />
     <Compile Include="Core\Costs\Tap.cs" />
+    <Compile Include="Core\Decisions\ICardValidator.cs" />
     <Compile Include="Core\Decisions\IChooseDecisionResults.cs" />
     <Compile Include="Core\Decisions\Machine\SelectStartingPlayer.cs" />
     <Compile Include="Core\DeckBuilder.cs" />

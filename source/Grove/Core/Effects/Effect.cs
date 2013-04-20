@@ -5,7 +5,6 @@
   using System.Linq;
   using Ai;
   using Infrastructure;
-  using Mana;
   using Messages;
   using Modifiers;
   using Targeting;
@@ -14,8 +13,8 @@
 
   public abstract class Effect : GameObject, ITarget, IHasColors
   {
-    private readonly Trackable<bool> _wasResolved = new Trackable<bool>();
     private readonly List<IDynamicParameter> _dynamicParameters = new List<IDynamicParameter>();
+    private readonly Trackable<bool> _wasResolved = new Trackable<bool>();
 
     public Action<Effect> AfterResolve = delegate { };
     public Action<Effect> BeforeResolve = delegate { };
@@ -31,15 +30,6 @@
     public Targets Targets { get; private set; }
 
     public virtual bool TargetsEffectSource { get { return false; } }
-
-    protected void RegisterDynamicParameters(params IDynamicParameter[] parameters)
-    {
-      foreach (var dynamicParameter in parameters)
-      {
-        if (dynamicParameter != null)
-          _dynamicParameters.Add(dynamicParameter);
-      }      
-    }
 
     public ITarget Target
     {
@@ -76,8 +66,6 @@
       }
     }
 
-    protected virtual void Initialize() {}
-
     public bool HasColor(CardColor color)
     {
       return Source.OwningCard.HasColor(color);
@@ -92,6 +80,17 @@
         CanBeCountered.GetHashCode(),
         X.GetHashCode());
     }
+
+    protected void RegisterDynamicParameters(params IDynamicParameter[] parameters)
+    {
+      foreach (var dynamicParameter in parameters)
+      {
+        if (dynamicParameter != null)
+          _dynamicParameters.Add(dynamicParameter);
+      }
+    }
+
+    protected virtual void Initialize() {}
 
     public T TriggerMessage<T>()
     {
@@ -166,12 +165,11 @@
 
       if (ShouldResolve(this))
       {
-
         foreach (var parameter in _dynamicParameters)
         {
           parameter.EvaluateOnResolve(this, Game);
         }
-        
+
         ResolveEffect();
         AfterResolve(this);
       }
@@ -195,12 +193,12 @@
     {
       Game = game;
       Source = p.Source;
-      Targets = p.Targets ?? new Targets();      
+      Targets = p.Targets ?? new Targets();
       _triggerMessage = p.TriggerMessage;
       X = p.X;
 
       _wasResolved.Initialize(game.ChangeTracker);
-      
+
       if (initializeDynamicParameters)
       {
         foreach (var parameter in _dynamicParameters)

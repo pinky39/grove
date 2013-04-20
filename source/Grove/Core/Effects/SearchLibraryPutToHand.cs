@@ -9,19 +9,34 @@
   using Zones;
 
   public class SearchLibraryPutToHand : Effect, IProcessDecisionResults<ChosenCards>,
-    IChooseDecisionResults<List<Card>, ChosenCards>
+    IChooseDecisionResults<List<Card>, ChosenCards>, ICardValidator
   {
     private readonly bool _discardRandomCardAfterwards;
     private readonly int _maxCount;
     private readonly int _minCount;
     private readonly bool _revealCards;
     private readonly string _text;
-    private readonly Func<Card, bool> _validator;
+    private readonly Func<Effect, Card, bool> _validator;
 
     private SearchLibraryPutToHand() {}
 
-    public SearchLibraryPutToHand(int maxCount = 1, int minCount = 0, Func<Card, bool> validator = null,
-      string text = null, bool discardRandomCardAfterwards = false, bool revealCards = true)
+    public SearchLibraryPutToHand(
+      Func<Card, bool> validator,
+      int maxCount = 1,
+      int minCount = 0,
+      string text = null,
+      bool discardRandomCardAfterwards = false,
+      bool revealCards = true) : this(
+        maxCount, minCount, (e, c) => validator(c), text, discardRandomCardAfterwards, revealCards) {}
+
+
+    public SearchLibraryPutToHand(
+      int maxCount = 1,
+      int minCount = 0,
+      Func<Effect, Card, bool> validator = null,
+      string text = null,
+      bool discardRandomCardAfterwards = false,
+      bool revealCards = true)
     {
       _discardRandomCardAfterwards = discardRandomCardAfterwards;
       _validator = validator ?? delegate { return true; };
@@ -29,6 +44,11 @@
       _revealCards = revealCards;
       _maxCount = maxCount;
       _minCount = minCount;
+    }
+
+    public bool IsValidCard(Card card)
+    {
+      return _validator(this, card);
     }
 
     public ChosenCards ChooseResult(List<Card> candidates)
@@ -73,7 +93,7 @@
           {
             p.MinCount = _minCount;
             p.MaxCount = _maxCount;
-            p.Validator = _validator;
+            p.Validator(this);
             p.Zone = Zone.Library;
             p.Text = FormatText(_text);
             p.ProcessDecisionResults = this;

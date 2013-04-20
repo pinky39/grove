@@ -34,7 +34,7 @@
     {
       Enqueue<SelectCards>(Controller.Opponent, p =>
         {
-          p.Validator = card => card.Is().Land;
+          p.Validator(c => c.Is().Land);
           p.Zone = Zone.Battlefield;
           p.Text = FormatText("Sacrifice a land?");
           p.ChooseDecisionResults = this;

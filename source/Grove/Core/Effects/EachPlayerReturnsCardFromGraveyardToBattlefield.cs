@@ -19,7 +19,7 @@
             p.MinCount = 1;
             p.MaxCount = 1;
             p.Text = FormatText("Select a creature card in your graveyard");
-            p.Validator = card => card.Is().Creature;
+            p.Validator(c => c.Is().Creature);
             p.Zone = Zone.Graveyard;
             p.OwningCard = Source.OwningCard;
             p.ProcessDecisionResults = this;
@@ -48,6 +48,6 @@
         .OrderBy(x => -x.Score)
         .Take(1)
         .ToList();
-    }
+    }    
   }
 }

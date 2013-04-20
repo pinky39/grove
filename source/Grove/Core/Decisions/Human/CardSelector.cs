@@ -18,7 +18,7 @@
 
       var validatorParameters = new TargetValidatorParameters
         {
-          IsValidTarget = p => selectCards.Validator(p.Target.Card()),
+          IsValidTarget = p => selectCards.IsValidCard(p.Target.Card()),
           IsValidZone = p => p.Zone == selectCards.Zone && p.ZoneOwner == selectCards.Controller,
           MinCount = selectCards.MinCount,
           MaxCount = selectCards.MaxCount,

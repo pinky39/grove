@@ -44,7 +44,7 @@
           {
             p.MinCount = _count;
             p.MaxCount = _count;
-            p.Validator = card => card.Is().Creature;
+            p.Validator(card => card.Is().Creature);
             p.Zone = Zone.Battlefield;
             p.Text = FormatText("Select creature(s) to sacrifice.");
             p.OwningCard = Source.OwningCard;

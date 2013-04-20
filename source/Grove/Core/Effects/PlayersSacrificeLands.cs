@@ -7,7 +7,8 @@
   using Decisions.Results;
   using Zones;
 
-  public class PlayersSacrificeLands : Effect, IProcessDecisionResults<ChosenCards>, IChooseDecisionResults<List<Card>, ChosenCards>
+  public class PlayersSacrificeLands : Effect, IProcessDecisionResults<ChosenCards>,
+    IChooseDecisionResults<List<Card>, ChosenCards>
   {
     private readonly int _count;
     private readonly Func<Effect, Player, bool> _playerFilter;
@@ -18,6 +19,22 @@
     {
       _count = count;
       _playerFilter = playerFilter ?? delegate { return true; };
+    }
+
+    public ChosenCards ChooseResult(List<Card> candidates)
+    {
+      return candidates
+        .OrderBy(x => x.Score)
+        .Take(_count)
+        .ToList();
+    }
+
+    public void ProcessResults(ChosenCards results)
+    {
+      foreach (var card in results)
+      {
+        card.Sacrifice();
+      }
     }
 
     protected override void ResolveEffect()
@@ -38,29 +55,13 @@
           {
             p.MinCount = _count;
             p.MaxCount = _count;
-            p.Validator = card => card.Is().Land;
+            p.Validator(c => c.Is().Land);
             p.Text = FormatText("Select land(s) to sacrifice");
             p.Zone = Zone.Battlefield;
             p.OwningCard = Source.OwningCard;
             p.ProcessDecisionResults = this;
             p.ChooseDecisionResults = this;
           });
-    }
-
-    public void ProcessResults(ChosenCards results)
-    {
-      foreach (var card in results)
-      {
-        card.Sacrifice();
-      }
-    }
-
-    public ChosenCards ChooseResult(List<Card> candidates)
-    {
-      return candidates
-        .OrderBy(x => x.Score)
-        .Take(_count)
-        .ToList();
     }
   }
 }

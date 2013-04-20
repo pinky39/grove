@@ -25,21 +25,12 @@
       _maxCount = maxCount;
     }
 
-    protected override void ResolveEffect()
+    public ChosenCards ChooseResult(List<Card> candidates)
     {
-      Enqueue<SelectCards>(Controller,
-        p =>
-          {
-            p.Validator = _validator;
-            p.Zone = Zone.Battlefield;
-            p.MinCount = _minCount;
-            p.MaxCount = _maxCount;
-            p.Text = FormatText(_text);
-            p.OwningCard = Source.OwningCard;
-            p.ProcessDecisionResults = this;
-            p.ChooseDecisionResults = this;
-          }
-        );
+      return candidates
+        .OrderBy(x => -x.Score)
+        .Take(_maxCount)
+        .ToList();
     }
 
     public void ProcessResults(ChosenCards results)
@@ -50,12 +41,21 @@
       }
     }
 
-    public ChosenCards ChooseResult(List<Card> candidates)
+    protected override void ResolveEffect()
     {
-      return candidates
-        .OrderBy(x => -x.Score)
-        .Take(_maxCount)
-        .ToList();
+      Enqueue<SelectCards>(Controller,
+        p =>
+          {
+            p.Validator(_validator);
+            p.Zone = Zone.Battlefield;
+            p.MinCount = _minCount;
+            p.MaxCount = _maxCount;
+            p.Text = FormatText(_text);
+            p.OwningCard = Source.OwningCard;
+            p.ProcessDecisionResults = this;
+            p.ChooseDecisionResults = this;
+          }
+        );
     }
   }
 }

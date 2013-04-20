@@ -16,10 +16,11 @@
     public Card OwningCard;
     public IProcessDecisionResults<ChosenCards> ProcessDecisionResults;
     public string Text;
-    public Func<Card, bool> Validator;
+
     public Zone Zone;
 
     private List<Card> _validCards;
+    private ICardValidator _validator;
 
     protected SelectCards()
     {
@@ -41,7 +42,7 @@
               })
               .Where(x => x.IsCard())
               .Select(x => x.Card())
-              .Where(x => Validator(x))
+              .Where(IsValidCard)
               .ToList());
       }
     }
@@ -53,6 +54,21 @@
         var count = ValidTargets.Count;
         return count > MinCount;
       }
+    }
+
+    public void Validator(ICardValidator validator)
+    {
+      _validator = validator;
+    }    
+
+    public void Validator(Func<Card, bool> validator)
+    {
+      _validator = new DelegateCardValidator(validator);
+    }
+
+    public bool IsValidCard(Card card)
+    {
+      return _validator.IsValidCard(card);
     }
 
     public override void ProcessResults()

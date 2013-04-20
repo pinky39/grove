@@ -221,6 +221,7 @@
     <Compile Include="Cards\ReclusiveWight.cs" />
     <Compile Include="Cards\Recoil.cs" />
     <Compile Include="Cards\Redeem.cs" />
+    <Compile Include="Cards\Remembrance.cs" />
     <Compile Include="Cards\RuneOfProtectionBlack.cs" />
     <Compile Include="Cards\RuptureSpire.cs" />
     <Compile Include="Cards\SanctumCustodian.cs" />

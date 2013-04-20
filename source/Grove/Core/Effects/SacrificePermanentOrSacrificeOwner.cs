@@ -53,7 +53,7 @@
     {
       Enqueue<SelectCards>(Controller, p =>
         {
-          p.Validator = _validator;
+          p.Validator(_validator);
           p.Zone = Zone.Battlefield;
           p.MinCount = 0;
           p.MaxCount = 1;
@@ -62,6 +62,6 @@
           p.ChooseDecisionResults = this;
           p.OwningCard = Source.OwningCard;
         });
-    }
+    }    
   }
 }

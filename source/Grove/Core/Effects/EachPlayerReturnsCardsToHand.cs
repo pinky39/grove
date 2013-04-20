@@ -68,13 +68,13 @@
           {
             p.MinCount = _minCount;
             p.MaxCount = _maxCount;
-            p.Validator = _filter;
+            p.Validator(_filter);
             p.Zone = _zone;
             p.Text = _text;
             p.OwningCard = Source.OwningCard;
             p.ProcessDecisionResults = this;
             p.ChooseDecisionResults = this;
           });
-    }
+    }    
   }
 }

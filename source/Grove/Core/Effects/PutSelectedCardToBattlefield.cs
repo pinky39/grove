@@ -27,7 +27,7 @@
       Enqueue<SelectCards>(Controller,
         p =>
           {
-            p.Validator = _validator;
+            p.Validator(_validator);
             p.Zone = _zone;
             p.MinCount = 0;
             p.MaxCount = 1;
@@ -53,6 +53,6 @@
         .OrderBy(x => -x.Score)
         .Take(1)
         .ToList();
-    }
+    }    
   }
 }
