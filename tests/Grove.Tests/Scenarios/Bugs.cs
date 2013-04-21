@@ -343,6 +343,22 @@
 
         RunGame(2);
       }
+
+      //[Fact]
+      public void GameHangsNotResolvedYet()
+      {        
+        Hand(P1, "Lightning Dragon");
+        Hand(P2, "Swords to Plowshares", "Plains", "Plains", "Plains", "Trip Noose");
+        Battlefield(P1, "Forest", C("Copperline Gorge").IsEnchantedWith("Fertile Ground"), "Mountain", "Mountain", "Forest", C("Lightning Dragon").IsEnchantedWith("Rancor").IsEnchantedWith("Rancor"));
+        Battlefield(P2, "Plains", "Plains", "Plains", "Glorious Anthem", "Plains", "Glorious Anthem", "Plains", "Baneslayer Angel", "Plains");
+
+        P1.Life = 12;
+        P2.Life = 17;
+
+        EnableLogging();
+
+        RunGame(3);
+      }   
       
     }
   }

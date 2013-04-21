@@ -16,7 +16,7 @@
 
     public bool HasTargets { get { return _targets.Count > 0; } }
     public Card Card { get; private set; }
-    public IEnumerable<ITarget> Targets { get { return _targets; } }
+    public List<ITarget> Targets { get { return _targets; } }
 
     public override string ToString()
     {

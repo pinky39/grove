@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai.TargetingRules;
@@ -13,20 +12,19 @@
   using Core.Modifiers;
   using Core.Triggers;
 
-  public class Recantation : CardsSource
+  public class RumblingCrescendo : CardsSource
   {
     public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
-        .Named("Recantation")
-        .ManaCost("{3}{U}{U}")
+        .Named("Rumbling Crescendo")
+        .ManaCost("{3}{R}{R}")
         .Type("Enchantment")
-        .Text(
-          "At the beginning of your upkeep, you may put a verse counter on Recantation.{EOL}{U}, Sacrifice Recantation: Return up to X target permanents to their owners' hands, where X is the number of verse counters on Recantation.")
+        .Text("At the beginning of your upkeep, you may put a verse counter on Rumbling Crescendo.{EOL}{R}, Sacrifice Rumbling Crescendo: Destroy up to X target lands, where X is the number of verse counters on Rumbling Crescendo.")
         .Cast(p => p.TimingRule(new SecondMain()))
         .TriggeredAbility(p =>
           {
-            p.Text = "At the beginning of your upkeep, you may put a verse counter on Recantation.";
+            p.Text = "At the beginning of your upkeep, you may put a verse counter on Rumbling Crescendo.";
             p.Trigger(new OnStepStart(Step.Upkeep));
             p.Effect = () => new ApplyModifiersToSelf(() => new AddCounters(() => new ChargeCounter(), 1));
             p.TriggerOnlyIfOwningCardIsInPlay = true;
@@ -34,24 +32,24 @@
         .ActivatedAbility(p =>
           {
             p.Text =
-              "{U}, Sacrifice Recantation: Return up to X target permanents to their owners' hands, where X is the number of verse counters on Recantation.";
+              "{R}, Sacrifice Rumbling Crescendo: Destroy up to X target lands, where X is the number of verse counters on Rumbling Crescendo.";
 
             p.Cost = new AggregateCost(
-              new PayMana(Mana.Blue, ManaUsage.Abilities),
+              new PayMana(Mana.Red, ManaUsage.Abilities),
               new Sacrifice());
 
-            p.Effect = () => new Core.Effects.ReturnToHand();
+            p.Effect = () => new DestroyTargetPermanents();
 
             p.TargetSelector.AddEffect(trg =>
               {
-                trg.Is.Card().On.Battlefield();
+                trg.Is.Card(c => c.Is().Land).On.Battlefield();
                 trg.MinCount = 0;
                 trg.GetMaxCount = cp => cp.OwningCard.CountersCount;
               });
 
             p.TimingRule(new ChargeCounters(3, onlyAtEot: false));
-            p.TargetingRule(new Bounce());
-            p.TimingRule(new TargetRemoval());            
+            p.TimingRule(new Steps(activeTurn: true, passiveTurn: false, steps: Step.FirstMain));
+            p.TargetingRule(new Destroy());            
           });
     }
   }

@@ -23,7 +23,7 @@
       _priority = p.Priority;
       _costRestriction = p.CostRestriction;
       _tapRestriction = p.TapRestriction;
-      _usageRestriction = p.UsageRestriction;
+      _usageRestriction = p.UsageRestriction;      
     }
 
     public void AfterMemberCopy(object original)

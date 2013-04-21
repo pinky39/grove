@@ -232,25 +232,25 @@ o Reflexes
 o Rejuvenate
 o Remembrance
 o Remote Isle
-Reprocess
-Rescind
-Retaliation
-Retromancer
-Rewind
-Rumbling Crescendo
-Rune of Protection: Artifacts
-Rune of Protection: Black
-Rune of Protection: Blue
-Rune of Protection: Green
-Rune of Protection: Lands
-Rune of Protection: Red
-Rune of Protection: White
-Sanctum Custodian
-Sanctum Guardian
-Sandbar Merfolk
-Sandbar Serpent
-Sanguine Guard
-Scald
+o Reprocess
+o Rescind
+o Retaliation
+o Retromancer
+o Rewind
+o Rumbling Crescendo
+o Rune of Protection: Artifacts
+o Rune of Protection: Black
+o Rune of Protection: Blue
+o Rune of Protection: Green
+o Rune of Protection: Lands
+o Rune of Protection: Red
+o Rune of Protection: White
+o Sanctum Custodian
+o Sanctum Guardian
+o Sandbar Merfolk
+o Sandbar Serpent
+o Sanguine Guard
+o Scald
 Scoria Wurm
 Scrap
 Seasoned Marshal

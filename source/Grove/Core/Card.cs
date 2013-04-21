@@ -646,6 +646,8 @@
     {
       IsTapped = true;
       UsageScore += ScoreCalculator.CalculateTapPenalty(this, Turn);
+
+      Publish(new PermanentGetsTapped {Permanent = this});
     }
 
     public override string ToString()

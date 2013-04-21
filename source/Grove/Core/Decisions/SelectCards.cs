@@ -11,7 +11,7 @@
   {
     public bool CanSelectOnlyCardsControlledByDecisionController = true;
     public IChooseDecisionResults<List<Card>, ChosenCards> ChooseDecisionResults;
-    public int MaxCount;
+    public int? MaxCount;
     public int MinCount;
     public Card OwningCard;
     public IProcessDecisionResults<ChosenCards> ProcessDecisionResults;

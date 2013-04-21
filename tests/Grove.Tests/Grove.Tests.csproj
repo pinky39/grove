@@ -222,10 +222,16 @@
     <Compile Include="Cards\Recoil.cs" />
     <Compile Include="Cards\Redeem.cs" />
     <Compile Include="Cards\Remembrance.cs" />
+    <Compile Include="Cards\Reprocess.cs" />
+    <Compile Include="Cards\Retaliation.cs" />
+    <Compile Include="Cards\Retromancer.cs" />
+    <Compile Include="Cards\Rewind.cs" />
+    <Compile Include="Cards\RumblingCrescendo.cs" />
     <Compile Include="Cards\RuneOfProtectionBlack.cs" />
     <Compile Include="Cards\RuptureSpire.cs" />
     <Compile Include="Cards\SanctumCustodian.cs" />
     <Compile Include="Cards\SanctumGuardian.cs" />
+    <Compile Include="Cards\Scald.cs" />
     <Compile Include="Cards\SealOfFire.cs" />
     <Compile Include="Cards\ShowerOfSparks.cs" />
     <Compile Include="Cards\SilentAttendant.cs" />

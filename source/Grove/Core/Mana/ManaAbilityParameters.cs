@@ -4,14 +4,20 @@
 
   public class ManaAbilityParameters : ActivatedAbilityParameters
   {
+    public int CostRestriction;
     public int Priority = ManaSourcePriorities.Land;
     public bool TapRestriction;
-    public int CostRestriction;
-    public ManaOutput ManaOutput { get; private set; }
     public ManaUsage UsageRestriction = ManaUsage.Any;
 
+    public ManaAbilityParameters()
+    {
+      UsesStack = false;
+    }
+
+    public ManaOutput ManaOutput { get; private set; }
+
     public void ManaAmount(IManaAmount amount)
-    {      
+    {
       ManaOutput = new FixedManaOutput(amount);
     }
 
@@ -19,6 +25,5 @@
     {
       ManaOutput = new PermanentCountManaOutput(color, filter, controlledBy);
     }
-
-  }  
+  }
 }

@@ -1,5 +1,6 @@
 ﻿namespace Grove.Cards
 {
+  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai.TimingRules;
@@ -22,6 +23,9 @@
         .Cast(p => p.TimingRule(new FirstMain()))
         .TriggeredAbility(p =>
           {
+            p.Text =
+              "Whenever a nontoken creature you control dies, you may search your library for a card with the same name as that creature, reveal it, and put it into your hand. If you do, shuffle your library.";
+            
             p.Trigger(new OnZoneChanged(
               from: Zone.Battlefield,
               to: Zone.Graveyard,

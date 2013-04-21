@@ -356,8 +356,19 @@
     <Compile Include="Cards\Rejuvenate.cs" />
     <Compile Include="Cards\Remembrance.cs" />
     <Compile Include="Cards\RemoteIsle.cs" />
+    <Compile Include="Cards\Reprocess.cs" />
     <Compile Include="Cards\Rescind.cs" />
+    <Compile Include="Cards\Retaliation.cs" />
+    <Compile Include="Cards\Retromancer.cs" />
+    <Compile Include="Cards\Rewind.cs" />
+    <Compile Include="Cards\RumblingCrescendo.cs" />
+    <Compile Include="Cards\RuneOfProtectionArtifacts.cs" />
     <Compile Include="Cards\RuneofProtectionBlack.cs" />
+    <Compile Include="Cards\RuneOfProtectionBlue.cs" />
+    <Compile Include="Cards\RuneOfProtectionGreen.cs" />
+    <Compile Include="Cards\RuneOfProtectionLands.cs" />
+    <Compile Include="Cards\RuneOfProtectionRed.cs" />
+    <Compile Include="Cards\RuneOfProtectionWhite.cs" />
     <Compile Include="Cards\RuptureSpire.cs" />
     <Compile Include="Cards\RagingRavine.cs" />
     <Compile Include="Cards\RavenousBaloth.cs" />
@@ -368,7 +379,9 @@
     <Compile Include="Cards\SanctumGuardian.cs" />
     <Compile Include="Cards\SandbarMerfolk.cs" />
     <Compile Include="Cards\SandbarSerpent.cs" />
+    <Compile Include="Cards\SanguineGuard.cs" />
     <Compile Include="Cards\SavannahLions.cs" />
+    <Compile Include="Cards\Scald.cs" />
     <Compile Include="Cards\Scrap.cs" />
     <Compile Include="Cards\SerrasEmbrace.cs" />
     <Compile Include="Cards\ShivanRaptor.cs" />
@@ -560,6 +573,7 @@
     <Compile Include="Core\Effects\DestroyPermanent.cs" />
     <Compile Include="Core\Effects\DiscardAllCardsOfChosenColor.cs" />
     <Compile Include="Core\Effects\DiscardHand.cs" />
+    <Compile Include="Core\Effects\DrawCardsEqualToSacrificedPermanentsCount.cs" />
     <Compile Include="Core\Effects\DynParam.cs" />
     <Compile Include="Core\Effects\EachPlayerDiscardsHand.cs" />
     <Compile Include="Core\Effects\ExchangeForOpponentsCreature.cs" />
@@ -593,6 +607,7 @@
     <Compile Include="Core\Mana\ManaAbilityParameters.cs" />
     <Compile Include="Core\Mana\PermanentCountManaOutput.cs" />
     <Compile Include="Core\Mana\ZeroManaAmount.cs" />
+    <Compile Include="Core\Messages\PermanentGetsTapped.cs" />
     <Compile Include="Core\Modifiers\ChangeBasicLand.cs" />
     <Compile Include="Core\Modifiers\ModifierParameters.cs" />
     <Compile Include="Core\Modifiers\RemoveStaticAbility.cs" />
@@ -607,6 +622,7 @@
     <Compile Include="Core\Targeting\TargetValidatorParameters.cs" />
     <Compile Include="Core\Targeting\ZoneSpecs.cs" />
     <Compile Include="Core\TriggeredAbilityParameters.cs" />
+    <Compile Include="Core\Triggers\OnBeingTargetedBySpell.cs" />
     <Compile Include="Core\Triggers\OnEffectResolved.cs" />
     <Compile Include="Core\CastInstructionParameters.cs" />
     <Compile Include="Core\CastInstructions.cs" />
@@ -657,6 +673,7 @@
     <Compile Include="Core\Modifiers\SetColors.cs" />
     <Compile Include="Core\Triggers\OnBlock.cs" />
     <Compile Include="Core\Triggers\OnAttachmentDetached.cs" />
+    <Compile Include="Core\Triggers\OnPermanentGetsTapped.cs" />
     <Compile Include="Core\Triggers\TriggerOrder.cs" />
     <Compile Include="Core\Mana\ManaUsage.cs" />
     <Compile Include="Core\MatchSimulator.cs" />
@@ -741,7 +758,7 @@
     <Compile Include="Core\Counters\Counter.cs" />
     <Compile Include="Core\Counters\Counters.cs" />
     <Compile Include="Core\Effects\CounterTargetSpell.cs" />
-    <Compile Include="Core\Effects\DealDamageToActivePlayer.cs" />
+    <Compile Include="Core\Effects\DealDamageToPlayer.cs" />
     <Compile Include="Core\Effects\DealExistingDamageToController.cs" />
     <Compile Include="Core\Effects\DestroyAllPermanents.cs" />
     <Compile Include="Core\Effects\ExileTargets.cs" />

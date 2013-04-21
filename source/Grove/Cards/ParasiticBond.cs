@@ -34,7 +34,9 @@
                 Condition = (t, g) => t.OwningCard.AttachedTo.Controller.IsActive
               });
 
-            p.Effect = () => new DealDamageToActivePlayer(2);
+            p.Effect = () => new DealDamageToPlayer(
+              amount :2,
+              player: P((e,g) => g.Players.Active));            
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });

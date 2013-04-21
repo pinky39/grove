@@ -1,5 +1,6 @@
 ﻿namespace Grove.Core.Decisions.Human
 {
+  using Modifiers;
   using Results;
   using Targeting;
   using Ui;
@@ -21,7 +22,7 @@
           IsValidTarget = p => selectCards.IsValidCard(p.Target.Card()),
           IsValidZone = p => p.Zone == selectCards.Zone && p.ZoneOwner == selectCards.Controller,
           MinCount = selectCards.MinCount,
-          MaxCount = selectCards.MaxCount,
+          MaxCount = selectCards.MaxCount == null ? null : (Value)selectCards.MaxCount.Value,
           Message = selectCards.Text,          
         };
 

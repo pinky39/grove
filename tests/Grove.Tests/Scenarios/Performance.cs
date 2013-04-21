@@ -165,6 +165,6 @@
         "Plains", "Plains", "Hawkeater Moth", "Worship", "Plains", "Blanchwood Treefolk");
 
       RunGame(maxTurnCount: 2);
-    }
+    }    
   }
 }

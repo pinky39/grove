@@ -2,20 +2,24 @@
 {
   using Modifiers;
 
-  public class DealDamageToActivePlayer : Effect
+  public class DealDamageToPlayer : Effect
   {
     private readonly Value _amount;
+    private readonly DynParam<Player> _player;
 
-    private DealDamageToActivePlayer() {}
+    private DealDamageToPlayer() {}
 
-    public DealDamageToActivePlayer(Value amount)
+    public DealDamageToPlayer(Value amount, DynParam<Player> player)
     {
       _amount = amount;
+      _player = player;
+
+      RegisterDynamicParameters(player);
     }
 
     public override int CalculatePlayerDamage(Player player)
     {
-      return _amount.GetValue(X);
+      return player == _player.Value ? _amount.GetValue(X) : 0;
     }
 
     public override int CalculateCreatureDamage(Card creature)
@@ -29,10 +33,10 @@
         source: Source.OwningCard,
         amount: _amount.GetValue(X),
         isCombat: false,
-        changeTracker: Game.ChangeTracker
+        changeTracker: ChangeTracker
         );
 
-      Players.Active.DealDamage(damage);
+      _player.Value.DealDamage(damage);      
     }
   }
 }
