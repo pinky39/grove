@@ -47,7 +47,7 @@
       Enqueue<PayOr>(targetSpellController, p =>
         {
           p.ManaAmount = _doNotCounterCost.Value.Colorless();
-          p.Text = FormatText(string.Format("Pay {0}?", _doNotCounterCost));
+          p.Text = string.Format("Pay {0}?", _doNotCounterCost);
           p.ProcessDecisionResults = this;
         });
       return;

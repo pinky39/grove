@@ -17,7 +17,7 @@
       _spellVmFactory = spellVmFactory;
 
       owner.Hand.CardAdded += OnCardAdded;
-      owner.Hand.CardRemoved += OnCardRemoved;
+      owner.Hand.CardRemoved += OnCardRemoved;      
     }
 
     public IEnumerable<Spell.ViewModel> Cards { get { return _cards; } }

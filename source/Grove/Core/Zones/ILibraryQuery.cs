@@ -1,4 +1,9 @@
 ﻿namespace Grove.Core.Zones
 {
-  public interface ILibraryQuery : IZoneQuery {}
+  using System;
+
+  public interface ILibraryQuery : IZoneQuery
+  {
+    event EventHandler Shuffled;
+  }
 }

@@ -16,6 +16,7 @@
     public Card OwningCard;
     public IProcessDecisionResults<ChosenCards> ProcessDecisionResults;
     public string Text;
+    public string Instructions;
 
     public Zone Zone;
 

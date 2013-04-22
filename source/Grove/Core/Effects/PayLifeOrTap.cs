@@ -30,7 +30,7 @@
       Enqueue<PayOr>(Controller, p =>
         {
           p.Life = _life;
-          p.Text = FormatText(String.Format("Pay {0} life?", _life));
+          p.Text = String.Format("Pay {0} life?", _life);
           p.Ai = decision =>
             {
               var controller = decision.Controller;

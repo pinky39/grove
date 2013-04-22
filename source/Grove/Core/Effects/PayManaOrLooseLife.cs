@@ -34,7 +34,7 @@
       Enqueue<PayOr>(Controller, p =>
         {
           p.ManaAmount = _manaAmount;
-          p.Text = FormatText("Pay mana?");
+          p.Text = "Pay mana?";
           p.ProcessDecisionResults = this;
         });
     }

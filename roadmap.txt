@@ -251,8 +251,8 @@ o Sandbar Merfolk
 o Sandbar Serpent
 o Sanguine Guard
 o Scald
-Scoria Wurm
-Scrap
+o Scoria Wurm
+o Scrap
 Seasoned Marshal
 Serra Avatar
 Serra Zealot

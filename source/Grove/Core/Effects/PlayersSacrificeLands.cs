@@ -56,7 +56,7 @@
             p.MinCount = _count;
             p.MaxCount = _count;
             p.Validator(c => c.Is().Land);
-            p.Text = FormatText("Select land(s) to sacrifice");
+            p.Text = "Select land(s) to sacrifice";
             p.Zone = Zone.Battlefield;
             p.OwningCard = Source.OwningCard;
             p.ProcessDecisionResults = this;

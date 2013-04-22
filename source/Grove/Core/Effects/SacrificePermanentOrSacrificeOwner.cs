@@ -11,6 +11,7 @@
   public class SacrificePermanentOrSacrificeOwner : Effect,
     IProcessDecisionResults<ChosenCards>, IChooseDecisionResults<List<Card>, ChosenCards>
   {
+    private readonly string _instructions;
     private readonly Func<Player, Card, bool> _shouldPayAi;
     private readonly string _text;
     private readonly Func<Card, bool> _validator;
@@ -18,10 +19,11 @@
     private SacrificePermanentOrSacrificeOwner() {}
 
     public SacrificePermanentOrSacrificeOwner(Func<Card, bool> validator = null,
-      Func<Player, Card, bool> shouldPayAi = null, string text = null)
+      Func<Player, Card, bool> shouldPayAi = null, string text = null, string instructions = null)
     {
+      _instructions = instructions;
       _shouldPayAi = shouldPayAi ?? delegate { return true; };
-      _text = text ?? "Select permanent to sacrifice";
+      _text = text ?? "Select permanent to sacrifice.";
       _validator = validator ?? delegate { return true; };
     }
 
@@ -58,6 +60,7 @@
           p.MinCount = 0;
           p.MaxCount = 1;
           p.Text = _text;
+          p.Instructions = _instructions;
           p.ProcessDecisionResults = this;
           p.ChooseDecisionResults = this;
           p.OwningCard = Source.OwningCard;

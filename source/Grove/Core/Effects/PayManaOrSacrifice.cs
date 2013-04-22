@@ -34,7 +34,7 @@
       Enqueue<PayOr>(Controller, p =>
         {
           p.ManaAmount = _amount.Value;
-          p.Text = FormatText(_message);
+          p.Text = _message;
           p.ProcessDecisionResults = this;
           p.ManaUsage = ManaUsage.Abilities;
         });

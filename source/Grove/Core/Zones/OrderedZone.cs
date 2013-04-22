@@ -11,6 +11,7 @@
   public abstract class OrderedZone : GameObject, IEnumerable<Card>, IHashable, IZone
   {
     private readonly TrackableList<Card> _cards = new TrackableList<Card>(orderImpactsHashcode: true);
+    public event EventHandler Shuffled = delegate { };
 
     protected OrderedZone(Player owner)
     {
@@ -100,6 +101,8 @@
       {
         card.ResetVisibility();
       }
+
+      Shuffled(this, EventArgs.Empty);
     }
 
     public override string ToString()

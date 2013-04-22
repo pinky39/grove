@@ -66,7 +66,7 @@
             p.Zone = Zone.Battlefield;
             p.MinCount = 0;
             p.MaxCount = null;
-            p.Text = FormatText(_text);
+            p.Text = _text;
             p.OwningCard = Source.OwningCard;
             p.ProcessDecisionResults = this;
             p.ChooseDecisionResults = this;

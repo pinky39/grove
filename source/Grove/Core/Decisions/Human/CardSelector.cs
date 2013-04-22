@@ -32,7 +32,8 @@
       var selectTargetParameters = new SelectTargetParameters
         {
           Validator = validator,
-          CanCancel = false,
+          CanCancel = false,                    
+          Instructions = selectCards.Instructions
         };
       
       var dialog = TargetDialog.Create(selectTargetParameters);

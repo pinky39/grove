@@ -150,7 +150,7 @@
         var landCount = permanent.Controller.Battlefield.Lands.Count();
         if (landCount < 7)
         {
-          score += 30*(7 - landCount);
+          score += 20*(7 - landCount);
         }
       }
 
@@ -194,7 +194,7 @@
 
       if (card.ManaCost == null || card.ManaCost.Converted == 0)
       {
-        return 110;
+        return 90;
       }
 
       return CalculateCardInHandScoreFromManaCost(card.ManaCost);

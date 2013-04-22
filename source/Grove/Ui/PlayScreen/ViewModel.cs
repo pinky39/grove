@@ -11,7 +11,7 @@
   public class ViewModel : IIsDialogHost, IReceive<PlayerHasCastASpell>,
     IReceive<PlayerHasActivatedAbility>,
     IReceive<SearchStarted>, IReceive<SearchFinished>, IReceive<DamageHasBeenDealt>,
-    IReceive<AssignedCombatDamageWasDealt>, IReceive<CardWasRevealed>
+    IReceive<AssignedCombatDamageWasDealt>, IReceive<CardWasRevealed>, IReceive<PlayerHasFlippedACoin>
   {
     private readonly List<object> _largeDialogs = new List<object>();
     private readonly QuitGame.ViewModel.IFactory _quitGameFactory;
@@ -120,6 +120,11 @@
     }
 
     public void Receive(PlayerHasCastASpell message)
+    {
+      MessageLog.AddMessage(message.ToString());
+    }
+
+    public void Receive(PlayerHasFlippedACoin message)
     {
       MessageLog.AddMessage(message.ToString());
     }

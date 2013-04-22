@@ -95,7 +95,7 @@
             p.MaxCount = _maxCount;
             p.Validator(this);
             p.Zone = Zone.Library;
-            p.Text = FormatText(_text);
+            p.Text = _text;
             p.ProcessDecisionResults = this;
             p.ChooseDecisionResults = this;
             p.OwningCard = Source.OwningCard;

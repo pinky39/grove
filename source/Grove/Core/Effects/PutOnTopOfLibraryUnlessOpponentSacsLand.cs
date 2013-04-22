@@ -36,7 +36,7 @@
         {
           p.Validator(c => c.Is().Land);
           p.Zone = Zone.Battlefield;
-          p.Text = FormatText("Sacrifice a land?");
+          p.Text = "Sacrifice a land?";
           p.ChooseDecisionResults = this;
           p.ProcessDecisionResults = this;
           p.MinCount = 0;

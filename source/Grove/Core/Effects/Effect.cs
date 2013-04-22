@@ -9,6 +9,7 @@
   using Modifiers;
   using Targeting;
 
+
   public delegate Effect EffectFactory();
 
   public abstract class Effect : GameObject, ITarget, IHasColors
@@ -95,12 +96,7 @@
     public T TriggerMessage<T>()
     {
       return (T) _triggerMessage;
-    }
-
-    protected string FormatText(string text)
-    {
-      return String.Format("{0}: {1}", Source.SourceCard, text);
-    }
+    }    
 
     public bool IsValid(ITarget target)
     {

@@ -31,7 +31,7 @@
             p.Zone = _zone;
             p.MinCount = 0;
             p.MaxCount = 1;
-            p.Text = FormatText(_text);
+            p.Text = _text;
             p.OwningCard = Source.OwningCard;
             p.ProcessDecisionResults = this;
             p.ChooseDecisionResults = this;

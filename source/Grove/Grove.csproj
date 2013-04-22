@@ -382,6 +382,7 @@
     <Compile Include="Cards\SanguineGuard.cs" />
     <Compile Include="Cards\SavannahLions.cs" />
     <Compile Include="Cards\Scald.cs" />
+    <Compile Include="Cards\ScoriaWurm.cs" />
     <Compile Include="Cards\Scrap.cs" />
     <Compile Include="Cards\SerrasEmbrace.cs" />
     <Compile Include="Cards\ShivanRaptor.cs" />
@@ -567,6 +568,7 @@
     <Compile Include="Core\DeckBuilder.cs" />
     <Compile Include="Core\DeckEvaluator.cs" />
     <Compile Include="Core\Effects\ApplyModifiersToPlayers.cs" />
+    <Compile Include="Core\Coin.cs" />
     <Compile Include="Core\Effects\CounterTopSpell.cs" />
     <Compile Include="Core\Effects\DealDamageToCreatureWithRankSelectIfMoreThanOne.cs" />
     <Compile Include="Core\Effects\DestroyAllLandsOrCreatures.cs" />
@@ -577,6 +579,7 @@
     <Compile Include="Core\Effects\DynParam.cs" />
     <Compile Include="Core\Effects\EachPlayerDiscardsHand.cs" />
     <Compile Include="Core\Effects\ExchangeForOpponentsCreature.cs" />
+    <Compile Include="Core\Effects\FlipACoin.cs" />
     <Compile Include="Core\Effects\PayManaOrLooseLife.cs" />
     <Compile Include="Core\Effects\PayLifeAddCounters.cs" />
     <Compile Include="Core\Effects\PutAllCardsFromGraveyardToBattlefield.cs" />
@@ -608,6 +611,7 @@
     <Compile Include="Core\Mana\PermanentCountManaOutput.cs" />
     <Compile Include="Core\Mana\ZeroManaAmount.cs" />
     <Compile Include="Core\Messages\PermanentGetsTapped.cs" />
+    <Compile Include="Core\Messages\PlayerHasFlippedACoin.cs" />
     <Compile Include="Core\Modifiers\ChangeBasicLand.cs" />
     <Compile Include="Core\Modifiers\ModifierParameters.cs" />
     <Compile Include="Core\Modifiers\RemoveStaticAbility.cs" />

@@ -50,7 +50,7 @@
             p.Zone = Zone.Battlefield;
             p.MinCount = _minCount;
             p.MaxCount = _maxCount;
-            p.Text = FormatText(_text);
+            p.Text = _text;
             p.OwningCard = Source.OwningCard;
             p.ProcessDecisionResults = this;
             p.ChooseDecisionResults = this;

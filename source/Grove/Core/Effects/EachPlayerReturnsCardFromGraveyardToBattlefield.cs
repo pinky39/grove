@@ -18,7 +18,7 @@
           {
             p.MinCount = 1;
             p.MaxCount = 1;
-            p.Text = FormatText("Select a creature card in your graveyard");
+            p.Text = "Select a creature card in your graveyard";
             p.Validator(c => c.Is().Creature);
             p.Zone = Zone.Graveyard;
             p.OwningCard = Source.OwningCard;
