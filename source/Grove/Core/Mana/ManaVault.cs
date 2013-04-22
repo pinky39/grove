@@ -242,10 +242,11 @@
       }
     }
 
-    private static List<IManaSource> GetSourcesToActivate(IEnumerable<ManaUnit> units)
+    private List<IManaSource> GetSourcesToActivate(IEnumerable<ManaUnit> units)
     {
       return units
         .Where(x => x.HasSource)
+        .Where(x => !_manaPool.Contains(x))
         .GroupBy(x => x.Source)
         .Select(x => x.Key)
         .ToList();

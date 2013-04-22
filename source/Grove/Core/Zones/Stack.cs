@@ -5,13 +5,16 @@
   using System.Collections.Generic;
   using System.Linq;
   using Ai;
+  
   using Effects;
   using Infrastructure;
+  using log4net;
   using Targeting;
 
   [Copyable]
   public class Stack : IEnumerable<Effect>, IHashable, IZone
   {
+    private static readonly ILog Log = LogManager.GetLogger(typeof(Stack));
     private readonly TrackableList<Effect> _effects = new TrackableList<Effect>(orderImpactsHashcode: true);
     private readonly Trackable<Effect> _lastResolved = new Trackable<Effect>();
 
@@ -100,12 +103,14 @@
     {
       _effects.Add(effect);
       EffectAdded(this, new StackChangedEventArgs(effect));
+      Log.DebugFormat("Effect pushed on stack: {0}.", effect);
     }
 
     private void Remove(Effect effect)
     {
       _effects.Remove(effect);
       EffectRemoved(this, new StackChangedEventArgs(effect));
+      Log.DebugFormat("Effect removed from stack: {0}. (count: {1})", effect, _effects.Count);      
     }
 
     public void Counter(Effect effect)

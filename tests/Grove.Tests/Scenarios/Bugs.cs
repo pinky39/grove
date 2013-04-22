@@ -344,8 +344,8 @@
         RunGame(2);
       }
 
-      //[Fact]
-      public void GameHangsNotResolvedYet()
+      [Fact]
+      public void GameHangsBecauseOfABuginManaPool()
       {        
         Hand(P1, "Lightning Dragon");
         Hand(P2, "Swords to Plowshares", "Plains", "Plains", "Plains", "Trip Noose");

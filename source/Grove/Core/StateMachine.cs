@@ -69,6 +69,8 @@
         State = _states[State].Next;
         _states[State].Execute();
       }
+
+      Log.Debug("Game is finished.");
     }
 
     public void Start(Func<bool> shouldContinue, bool skipPreGame, Player looser = null)
