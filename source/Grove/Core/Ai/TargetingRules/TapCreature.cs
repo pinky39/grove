@@ -13,7 +13,7 @@
         .OrderByDescending(x => x.CalculateCombatDamage(allDamageSteps: true))
         .ThenByDescending(x => x.Score);
 
-      return Group(candidates, p.MinTargetCount());
+      return Group(candidates, p.MinTargetCount(), p.MaxTargetCount());
     }
   }
 }

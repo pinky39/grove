@@ -18,7 +18,7 @@
         .Select(x => x.Card)
         .ToList();
 
-      return Group(candidates, p.MinTargetCount());
+      return Group(candidates, p.MinTargetCount(), p.MaxTargetCount());
     }
 
     protected override IEnumerable<Targets> ForceSelectTargets(TargetingRuleParameters p)

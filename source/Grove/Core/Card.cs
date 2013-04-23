@@ -15,7 +15,7 @@
 
   [Copyable]
   public class Card : GameObject, ITarget, IDamageable, IHashDependancy, IAcceptsModifiers, IHasColors, IHasLife
-  {
+  {    
     private readonly ActivatedAbilities _activatedAbilities;
     private readonly Trackable<Card> _attachedTo = new Trackable<Card>();
     private readonly Attachments _attachments = new Attachments();
@@ -51,7 +51,7 @@
     protected Card() {}
 
     public Card(CardParameters p)
-    {
+    {            
       Name = p.Name;
       ManaCost = p.ManaCost;
       MayChooseNotToUntap = p.MayChooseNotToUntap;
@@ -301,7 +301,12 @@
         }
         else
         {
-          _hash.Value = HashCalculator.Combine(
+         // this value can be same for different cards with same NAME,
+         // sometimes this is good sometimes not, currently we favor
+         // smaller tree sizes and less accurate results.
+         // if tree size is no longer a problem we will replace NAME with 
+         // a guid.
+          _hash.Value = HashCalculator.Combine(            
             Name.GetHashCode(),
             _hasSummoningSickness.Value.GetHashCode(),
             UsageScore.GetHashCode(),

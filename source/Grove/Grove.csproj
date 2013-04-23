@@ -306,6 +306,7 @@
     <Compile Include="Cards\ManaLeak.cs" />
     <Compile Include="Cards\MarshCasualties.cs" />
     <Compile Include="Cards\NantukoShade.cs" />
+    <Compile Include="Cards\NaturesLore.cs" />
     <Compile Include="Cards\NoeticScales.cs" />
     <Compile Include="Cards\NoRestForTheWicked.cs" />
     <Compile Include="Cards\OpalAcrolith.cs" />
@@ -345,6 +346,7 @@
     <Compile Include="Cards\PurgingScythe.cs" />
     <Compile Include="Cards\RainOfFilth.cs" />
     <Compile Include="Cards\RainOfSalt.cs" />
+    <Compile Include="Cards\RampantGrowth.cs" />
     <Compile Include="Cards\Rancor.cs" />
     <Compile Include="Cards\RavenousSkirge.cs" />
     <Compile Include="Cards\Raze.cs" />
@@ -384,6 +386,7 @@
     <Compile Include="Cards\Scald.cs" />
     <Compile Include="Cards\ScoriaWurm.cs" />
     <Compile Include="Cards\Scrap.cs" />
+    <Compile Include="Cards\SeasonedMarshal.cs" />
     <Compile Include="Cards\SerrasEmbrace.cs" />
     <Compile Include="Cards\ShivanRaptor.cs" />
     <Compile Include="Cards\ShivsEmbrace.cs" />
@@ -434,6 +437,7 @@
     <Compile Include="Cards\VividCrag.cs" />
     <Compile Include="Cards\VividCreek.cs" />
     <Compile Include="Cards\VolcanicFallout.cs" />
+    <Compile Include="Cards\WallOfBlossoms.cs" />
     <Compile Include="Cards\WallOfJunk.cs" />
     <Compile Include="Cards\WallOfReverence.cs" />
     <Compile Include="Cards\Waylay.cs" />
@@ -584,7 +588,7 @@
     <Compile Include="Core\Effects\PayLifeAddCounters.cs" />
     <Compile Include="Core\Effects\PutAllCardsFromGraveyardToBattlefield.cs" />
     <Compile Include="Core\Effects\RangeEffectChoice.cs" />
-    <Compile Include="Core\Effects\SearchLibraryPutToHand.cs" />
+    <Compile Include="Core\Effects\SearchLibraryPutToZone.cs" />
     <Compile Include="Core\Effects\TapOrUntapAllArtifactsCreaturesOrLands.cs" />
     <Compile Include="Core\Effects\TargetPlayerGainsLife.cs" />
     <Compile Include="Core\Effects\UntapOwner.cs" />

@@ -23,9 +23,7 @@
       _searchResults = searchResults;
 
       _root = new CopyService().CopyRoot(rootNode);
-      Game = _root.Game;
-
-      AssertEqualHashes(rootNode.Game, _root.Game);
+      Game = _root.Game;      
 
       var innerResult = new InnerResult(
         Game.CalculateHash(), 
@@ -44,14 +42,7 @@
     private InnerResult ParentResult { get { return _parentResult.Value; } set { _parentResult.Value = value; } }
     private int ResultIndex { get { return _moveIndex.Value; } set { _moveIndex.Value = value; } }
     public ISearchNode Root { get { return _root; } }
-    public int SubTreesPrunned { get { return _subTreesPrunned; } }
-
-    private static void AssertEqualHashes(Game original, Game copy)
-    {
-      System.Diagnostics.Debug.Assert(
-        original.CalculateHash() == copy.CalculateHash(),
-        "Hashes of original game and its copy should be equal!");
-    }
+    public int SubTreesPrunned { get { return _subTreesPrunned; } }   
 
     public override string ToString()
     {
@@ -147,6 +138,7 @@
       InnerResult result;
 
       var statehash = Game.CalculateHash();
+            
 
       Debug("state {0}, evaluating moves of node {1}", statehash, searchNode);
 

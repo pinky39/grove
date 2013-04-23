@@ -123,11 +123,13 @@
     {
       var calc = new HashCalculator();
 
-      return HashCalculator.Combine(
+      var combat = calc.Calculate(Combat);
+      
+      return HashCalculator.Combine(        
         calc.Calculate(Players),
         calc.Calculate(Stack),
         calc.Calculate(Turn),
-        calc.Calculate(Combat)
+        combat
         );
     }
 

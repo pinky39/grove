@@ -8,39 +8,24 @@
   using Messages;
   using Zones;
 
-  public class SearchLibraryPutToHand : Effect, IProcessDecisionResults<ChosenCards>,
+  public class SearchLibraryPutToZone : Effect, IProcessDecisionResults<ChosenCards>,
     IChooseDecisionResults<List<Card>, ChosenCards>, ICardValidator
   {
-    private readonly bool _discardRandomCardAfterwards;
     private readonly int _maxCount;
     private readonly int _minCount;
+    private readonly Action<Card> _putToZone;
     private readonly bool _revealCards;
     private readonly string _text;
     private readonly Func<Effect, Card, bool> _validator;
 
-    private SearchLibraryPutToHand() {}
+    private SearchLibraryPutToZone() {}
 
-    public SearchLibraryPutToHand(
-      Func<Card, bool> validator,
-      int maxCount = 1,
-      int minCount = 0,
-      string text = null,
-      bool discardRandomCardAfterwards = false,
-      bool revealCards = true) : this(
-        maxCount, minCount, (e, c) => validator(c), text, discardRandomCardAfterwards, revealCards) {}
-
-
-    public SearchLibraryPutToHand(
-      int maxCount = 1,
-      int minCount = 0,
-      Func<Effect, Card, bool> validator = null,
-      string text = null,
-      bool discardRandomCardAfterwards = false,
-      bool revealCards = true)
+    public SearchLibraryPutToZone(Action<Card> putToZone, int maxCount = 1, int minCount = 0, 
+      Func<Effect, Card, bool> validator = null, string text = null, bool revealCards = true)
     {
-      _discardRandomCardAfterwards = discardRandomCardAfterwards;
       _validator = validator ?? delegate { return true; };
       _text = text ?? "Search your library for a card.";
+      _putToZone = putToZone;
       _revealCards = revealCards;
       _maxCount = maxCount;
       _minCount = minCount;
@@ -63,7 +48,7 @@
     {
       foreach (var card in results)
       {
-        card.PutToHand();
+        _putToZone(card);
 
         if (_revealCards)
         {
@@ -73,11 +58,6 @@
         {
           card.ResetVisibility();
         }
-      }
-
-      if (_discardRandomCardAfterwards)
-      {
-        Controller.DiscardRandomCard();
       }
 
       Controller.ShuffleLibrary();

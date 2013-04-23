@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai.TimingRules;
@@ -25,17 +24,17 @@
           {
             p.Text =
               "Whenever a nontoken creature you control dies, you may search your library for a card with the same name as that creature, reveal it, and put it into your hand. If you do, shuffle your library.";
-            
+
             p.Trigger(new OnZoneChanged(
               from: Zone.Battlefield,
               to: Zone.Graveyard,
               filter: (a, c) => a.OwningCard.Controller == c.Controller && c.Is().Creature && !c.Is().Token));
 
-            p.Effect = () => new SearchLibraryPutToHand(
+            p.Effect = () => new SearchLibraryPutToZone(
+              c => c.PutToHand(),
               minCount: 0,
               maxCount: 1,
-              validator: (e, c) => e.TriggerMessage<ZoneChanged>().Card.Name == c.Name
-              );
+              validator: (e, c) => e.TriggerMessage<ZoneChanged>().Card.Name == c.Name);
           });
     }
   }

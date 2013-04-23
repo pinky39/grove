@@ -7,25 +7,31 @@
     private readonly object _access = new object();
     private readonly Dictionary<int, InnerResult> _results = new Dictionary<int, InnerResult>();
 
-    public bool NewResult(int id, bool isMax, int stepCount, out InnerResult searchResult)
-    {
+    public bool NewResult(int gameState, bool isMax, int stepCount, out InnerResult searchResult)
+    {            
       lock (_access)
       {
-        if (_results.TryGetValue(id, out searchResult))
+        if (_results.TryGetValue(gameState, out searchResult))
         {
           return true;
         }
-        searchResult = new InnerResult(id, isMax, stepCount);
-        _results.Add(id, searchResult);
+        
+        searchResult = new InnerResult(
+          id: gameState, 
+          isMax: isMax, 
+          stepCount: stepCount);
+        
+        _results.Add(gameState, searchResult);
       }
 
       return false;
     }
+     
 
-    public ISearchResult GetResult(int id)
+    public ISearchResult GetResult(int gameState)
     {
-      InnerResult result;
-      _results.TryGetValue(id, out result);
+      InnerResult result;      
+      _results.TryGetValue(gameState, out result);
       return result;
     }
 

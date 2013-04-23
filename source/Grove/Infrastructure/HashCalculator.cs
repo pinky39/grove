@@ -43,12 +43,18 @@
 
     public static int CombineCommutative(params int[] values)
     {
-      return CombineCommutative((IEnumerable<int>) values);
+      return CombineCommutative((IList<int>)values);
     }
 
-    public static int CombineCommutative(IEnumerable<int> values)
+    public static int CombineCommutative(IList<int> values)
     {
-      uint h = 0;
+      // commutative combine works perfectly if values
+      // contain no duplicates, if there are duplicates
+      // they will cancel each other out 
+      // to compensate for this instead of initialazing
+      // h to zero, we init h to count.
+      
+      uint h = (uint)values.Count;
 
       foreach (var value in values)
       {

@@ -19,12 +19,8 @@
         .FlavorText("When you've got nothing, you might as well trade it for something else.")
         .Cast(p =>
           {
-            p.Effect = () => new SearchLibraryPutToHand(
-              minCount: 1,
-              maxCount: 1,
-              discardRandomCardAfterwards: true,
-              revealCards: false
-              );
+            p.Effect = () => new SearchLibraryPutToZone(c => c.PutToHand(), minCount: 1, maxCount: 1, revealCards: false) 
+              {AfterResolve = e => e.Controller.DiscardRandomCard()};
 
             p.TimingRule(new FirstMain());
           });

@@ -1,5 +1,6 @@
 ﻿namespace Grove.Cards
 {
+  using System;
   using System.Collections.Generic;
   using Core;
   using Core.Ai.TimingRules;
@@ -19,10 +20,11 @@
         .FlavorText("The forest grew back so quickly that lumbering machines were suspended in the treetops.")
         .Cast(p =>
           {
-            p.Effect = () => new SearchLibraryPutToHand(
+            p.Effect = () => new SearchLibraryPutToZone(
+              c => c.PutToHand(),
               minCount: 0,
               maxCount: 2,
-              validator: c => c.Is("forest"),
+              validator: (e, c) => c.Is("forest"),
               text: "Search you library for up to 2 forest cards.");
 
             p.TimingRule(new FirstMain());
