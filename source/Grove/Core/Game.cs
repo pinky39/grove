@@ -123,14 +123,11 @@
     {
       var calc = new HashCalculator();
 
-      var combat = calc.Calculate(Combat);
-      
       return HashCalculator.Combine(        
         calc.Calculate(Players),
         calc.Calculate(Stack),
         calc.Calculate(Turn),
-        combat
-        );
+        calc.Calculate(Combat));
     }
 
     public void Restore(object snaphost)

@@ -388,6 +388,7 @@
     <Compile Include="Cards\Scrap.cs" />
     <Compile Include="Cards\SeasonedMarshal.cs" />
     <Compile Include="Cards\SerrasEmbrace.cs" />
+    <Compile Include="Cards\SerraZealot.cs" />
     <Compile Include="Cards\ShivanRaptor.cs" />
     <Compile Include="Cards\ShivsEmbrace.cs" />
     <Compile Include="Cards\ShowerOfSparks.cs" />
