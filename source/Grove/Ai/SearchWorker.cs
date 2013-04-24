@@ -78,7 +78,7 @@
 
       // By evaluating each branch we have already traversed the
       // entire subtree, so we stop the game and yield control to
-      // an upper level.
+      // upper level.
       Game.Stop();
       return;
     }

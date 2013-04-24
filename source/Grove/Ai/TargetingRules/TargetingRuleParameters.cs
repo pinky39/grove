@@ -21,6 +21,7 @@
     {
       _candidates = candidates;
       _context = context;
+      
       Game = game;
     }
 
@@ -30,6 +31,7 @@
     public int EffectTargetTypeCount { get { return _context.Selector.Effect.Count; } }
     public Card Card { get { return _context.Card; } }
     public int DistributeAmount { get { return _context.DistributeAmount; } }
+    public int MaxRepetitions {get { return _context.MaxRepetitions; }}
 
     public bool HasCostCandidates { get { return _candidates.HasCost; } }
     public bool HasEffectCandidates { get { return _candidates.HasEffect; } }

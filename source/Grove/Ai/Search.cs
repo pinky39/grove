@@ -6,10 +6,9 @@
   using System.Linq;
   using System.Threading;
   using System.Threading.Tasks;
-  using Core;
   using Gameplay;
   using Gameplay.Messages;
-  using Grove.Infrastructure;
+  using Infrastructure;
   using log4net;
 
   public class Search
@@ -127,13 +126,13 @@
       var rootNode = new CopyService().CopyRoot(searchNode);
 
       var rootResult = new InnerResult(
-        rootNode.Game.CalculateHash(), 
+        rootNode.Game.CalculateHash(),
         rootNode.Controller.IsMax, 0);
-      
+
       var worker = CreateWorker(rootResult, rootNode.Game);
 
       worker.StartSearch(rootNode);
-      
+
       FinishSearch(searchNode, worker);
 
       return GetBestMove(searchNode);
@@ -194,7 +193,7 @@
       searchNode.Game.ChangeTracker.Lock();
       _startStepCount = searchNode.Game.Turn.StepCount;
       _startStateCount = searchNode.Game.Turn.StateCount;
-      PlaySpellUntilDepth = searchNode.Game.Turn.GetStepCountAtNextTurnCleanup();      
+      PlaySpellUntilDepth = searchNode.Game.Turn.GetStepCountAtNextTurnCleanup();
     }
 
     private void AdjustPerformance()
@@ -246,8 +245,8 @@
     private bool IsItFeasibleToCreateNewWorker(ISearchNode node, int moveIndex)
     {
 #if DEBUG
-      //return SingleThreadedStrategy(node, moveIndex);
-      return MultiThreadedStrategy2(node, moveIndex);
+      return SingleThreadedStrategy(node, moveIndex);
+      //return MultiThreadedStrategy2(node, moveIndex);
 #else
       return MultiThreadedStrategy2(node, moveIndex);
 #endif

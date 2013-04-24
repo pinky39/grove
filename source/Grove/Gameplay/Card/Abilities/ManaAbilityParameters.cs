@@ -1,32 +1,31 @@
-﻿namespace Grove.Core
+﻿namespace Grove.Gameplay.Card.Abilities
 {
   using System;
+  using Mana;
+  using Player;
 
-  //public class ManaAbilityParameters : ActivatedAbilityParameters
-  //{
-  //  public Func<ManaAbility, Game, IManaAmount> GetManaAmount;
-  //  public int Priority = ManaSourcePriorities.Land;
+  public class ManaAbilityParameters : ActivatedAbilityParameters
+  {
+    public int CostRestriction;
+    public int Priority = ManaSourcePriorities.Land;
+    public bool TapRestriction;
+    public ManaUsage UsageRestriction = ManaUsage.Any;
 
-  //  public ManaAbilityParameters ManaAmount(Func<ManaAbility, Game, IManaAmount> getManaAmount)
-  //  {
-  //    GetManaAmount = getManaAmount;
-  //    return this;
-  //  }
+    public ManaAbilityParameters()
+    {
+      UsesStack = false;
+    }
 
-  //  public ManaAbilityParameters ManaAmount(ManaUnit manaUnit)
-  //  {
-  //    return ManaAmount(manaUnit.ToAmount());
-  //  }
-    
-  //  public ManaAbilityParameters ManaAmount(IManaAmount manaAmount)
-  //  {
-  //    GetManaAmount = delegate { return manaAmount; };
-  //    return this;
-  //  }    
+    public ManaOutput ManaOutput { get; private set; }
 
-  //  public ManaAbilityParameters()
-  //  {
-  //    UsesStack = false;
-  //  }
-  //}
+    public void ManaAmount(IManaAmount amount)
+    {
+      ManaOutput = new FixedManaOutput(amount);
+    }
+
+    public void ManaAmount(ManaColor color, Func<Card, bool> filter, ControlledBy controlledBy = ControlledBy.SpellOwner)
+    {
+      ManaOutput = new PermanentCountManaOutput(color, filter, controlledBy);
+    }
+  }
 }

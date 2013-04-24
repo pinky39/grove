@@ -1,6 +1,7 @@
 ﻿namespace Grove.Gameplay.Mana
 {
   using System;
+  using Card.Abilities;
   using Common;
 
   public abstract class ManaOutput : GameObject

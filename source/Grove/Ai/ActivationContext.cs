@@ -63,6 +63,7 @@
     {
       public Targets Targets;
       public int? X;
+      public int Repeat = 1;
     }
   }
 }

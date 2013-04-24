@@ -93,7 +93,7 @@
         playable.Index = prerequisites.Index;
         playable.ActivationParameters.Targets = targetsCombination.Targets;
         playable.ActivationParameters.X = targetsCombination.X;
-        playable.ActivationParameters.Repeat = context.Repeat;
+        playable.ActivationParameters.Repeat = targetsCombination.Repeat;
 
         yield return playable;
       }

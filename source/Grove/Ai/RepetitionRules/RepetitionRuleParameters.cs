@@ -1,12 +1,16 @@
 ﻿namespace Grove.Ai.RepetitionRules
 {
+  using Gameplay.Targeting;
+
   public class RepetitionRuleParameters
   {
-    public RepetitionRuleParameters(Ai.ActivationContext context)
+    public RepetitionRuleParameters(int maxRepetitions, Targets targets = null)
     {
-      MaxRepetitions = context.MaxRepetitions;
+      MaxRepetitions = maxRepetitions;
+      Targets = targets;
     }
 
     public int MaxRepetitions { get; private set; }
+    public Targets Targets { get; private set; }
   }
 }

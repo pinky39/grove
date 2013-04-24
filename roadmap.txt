@@ -258,13 +258,13 @@ Serra Avatar
 o Serra Zealot
 o Serra's Embrace
 Serra's Hymn
-Serra's Liturgy
-Serra's Sanctum
-Shimmering Barrier
-Shivan Gorge
-Shivan Hellkite
-Shivan Raptor
-Shiv's Embrace
+o Serra's Liturgy
+o Serra's Sanctum
+o Shimmering Barrier
+o Shivan Gorge
+o Shivan Hellkite
+o Shivan Raptor
+o Shiv's Embrace
 Show and Tell
 Shower of Sparks
 Sicken

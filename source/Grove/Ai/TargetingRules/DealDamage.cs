@@ -108,7 +108,7 @@
       return Group(candidates, p.MinTargetCount());
     }
 
-    private IEnumerable<Gameplay.Targeting.ITarget> GetCandidatesByDescendingDamageScore(TargetingRuleParameters p, int selectorIndex = 0)
+    private IEnumerable<ITarget> GetCandidatesByDescendingDamageScore(TargetingRuleParameters p, int selectorIndex = 0)
     {
       var amount = _getAmount(p);
 
@@ -116,7 +116,7 @@
         .Where(x => x == p.Controller.Opponent)
         .Select(x => new
           {
-            Target = (Gameplay.Targeting.ITarget) x,
+            Target = (ITarget) x,
             Score = ScoreCalculator.CalculateLifelossScore(x.Life, amount)
           })
         .Concat(

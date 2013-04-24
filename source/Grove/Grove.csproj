@@ -97,6 +97,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Ai\RepetitionRules\TargetLifepointsLeft.cs" />
     <Compile Include="Cards\AbsoluteGrace.cs" />
     <Compile Include="Cards\AbsoluteLaw.cs" />
     <Compile Include="Cards\AbyssalHorror.cs" />
@@ -388,7 +389,12 @@
     <Compile Include="Cards\Scrap.cs" />
     <Compile Include="Cards\SeasonedMarshal.cs" />
     <Compile Include="Cards\SerrasEmbrace.cs" />
+    <Compile Include="Cards\SerrasLiturgy.cs" />
+    <Compile Include="Cards\SerrasSanctum.cs" />
     <Compile Include="Cards\SerraZealot.cs" />
+    <Compile Include="Cards\ShimmeringBarrier.cs" />
+    <Compile Include="Cards\ShivanGorge.cs" />
+    <Compile Include="Cards\ShivanHellkite.cs" />
     <Compile Include="Cards\ShivanRaptor.cs" />
     <Compile Include="Cards\ShivsEmbrace.cs" />
     <Compile Include="Cards\ShowerOfSparks.cs" />
@@ -611,12 +617,11 @@
     <Compile Include="Ai\MachinePlayRule.cs" />
     <Compile Include="Gameplay\Common\GameObject.cs" />
     <Compile Include="Tournament\MagicSet.cs" />
-    <Compile Include="Gameplay\Card\Abilities\ManaAbilityParameters.cs" />
     <Compile Include="Gameplay\Mana\FixedManaOutput.cs" />
     <Compile Include="Gameplay\Mana\IManaAmount.cs" />
     <Compile Include="Gameplay\Mana\IManaSource.cs" />
     <Compile Include="Gameplay\Mana\Mana.cs" />
-    <Compile Include="Gameplay\Mana\ManaAbility.cs" />
+    <Compile Include="Gameplay\Card\Abilities\ManaAbility.cs" />
     <Compile Include="Gameplay\Mana\ManaCounts.cs" />
     <Compile Include="Gameplay\Mana\MultiColorManaAmount.cs" />
     <Compile Include="Gameplay\Mana\ManaColor.cs" />
@@ -626,7 +631,7 @@
     <Compile Include="Gameplay\Mana\ManaOutput.cs" />
     <Compile Include="Gameplay\Mana\ManaUnit.cs" />
     <Compile Include="Gameplay\Mana\ManaVault.cs" />
-    <Compile Include="Gameplay\Mana\ManaAbilityParameters.cs" />
+    <Compile Include="Gameplay\Card\Abilities\ManaAbilityParameters.cs" />
     <Compile Include="Gameplay\Mana\PermanentCountManaOutput.cs" />
     <Compile Include="Gameplay\Mana\ZeroManaAmount.cs" />
     <Compile Include="Gameplay\Messages\PermanentGetsTapped.cs" />
@@ -897,7 +902,6 @@
     <Compile Include="Infrastructure\ITrackableValue.cs" />
     <Compile Include="Infrastructure\Trackable.cs" />
     <Compile Include="Gameplay\Card\Triggers\ITriggerFactory.cs" />
-    <Compile Include="Gameplay\Card\Abilities\ManaAbility.cs" />
     <Compile Include="Gameplay\Card\Costs\Sacrifice.cs" />
     <Compile Include="Gameplay\Damage\Damage.cs" />
     <Compile Include="Gameplay\Damage\ReplaceDamageWithCounters.cs" />

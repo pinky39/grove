@@ -15,7 +15,7 @@
         .Type("Creature Human Soldier")
         .Text("{First strike}")
         .FlavorText(
-          "he humans are useful in their way, but they must be commanded as the builder commands the stone. Be soft with them, and they will become soft.")
+          "The humans are useful in their way, but they must be commanded as the builder commands the stone. Be soft with them, and they will become soft.")
         .Power(1)
         .Toughness(1)
         .StaticAbilities(Static.FirstStrike);
