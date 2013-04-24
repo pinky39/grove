@@ -1,11 +1,12 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
+  using Ai.TimingRules;
   using Core;
-  using Core.Ai.TimingRules;
-  using Core.Dsl;
-  using Core.Effects;
-  using Core.Mana;
+  using Gameplay.Card.Characteristics;
+  using Gameplay.Card.Factory;
+  using Gameplay.Effects;
+  using Gameplay.Mana;
 
   public class DarkRitual : CardsSource
   {

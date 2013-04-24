@@ -1,7 +1,7 @@
-﻿namespace Grove.Core.Costs
+﻿namespace Grove.Gameplay.Card.Costs
 {
   using System;
-  using Grove.Core.Targeting;
+  using Targeting;
 
   public class PayLife : Cost
   {

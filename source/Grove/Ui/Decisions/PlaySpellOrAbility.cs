@@ -1,11 +1,10 @@
-﻿namespace Grove.Core.Decisions.Human
+﻿namespace Grove.Ui.Decisions
 {
-  using Results;
-  using Ui;
-  using Ui.Priority;
-  using Ui.Shell;
+  using Grove.Gameplay.Decisions.Results;
+  using Grove.Ui.Priority;
+  using Grove.Ui.Shell;
 
-  public class PlaySpellOrAbility : Decisions.PlaySpellOrAbility
+  public class PlaySpellOrAbility : Gameplay.Decisions.PlaySpellOrAbility
   {
     public Configuration Configuration { get; set; }
     public ViewModel.IFactory DialogFactory { get; set; }

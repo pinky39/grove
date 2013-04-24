@@ -4,10 +4,16 @@
   using System.Collections.Generic;
   using System.Diagnostics;
   using System.Linq;
+  using Gameplay;
+  using Gameplay.Card;
+  using Gameplay.Card.Abilities;
+  using Gameplay.Decisions;
+  using Gameplay.Decisions.Results;
+  using Gameplay.Player;
+  using Gameplay.States;
+  using Gameplay.Targeting;
   using Infrastructure;
-  using Results;
-  using Targeting;
-  
+
   public class DecisionsForOneStep
   {
     private readonly List<IScenarioDecision> _decisions = new List<IScenarioDecision>();

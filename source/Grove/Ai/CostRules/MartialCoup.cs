@@ -1,7 +1,7 @@
-﻿namespace Grove.Core.Ai.CostRules
+﻿namespace Grove.Ai.CostRules
 {
   using System.Linq;
-  using Mana;
+  using Gameplay.Mana;
 
   public class MartialCoup : CostRule
   {

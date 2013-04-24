@@ -2,12 +2,12 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Dsl;
-  using Core.Effects;
-  using Core.Modifiers;
-  using Core.Preventions;
-  using Core.Triggers;
-  using Core.Zones;
+  using Gameplay.Card.Factory;
+  using Gameplay.Card.Triggers;
+  using Gameplay.Damage;
+  using Gameplay.Effects;
+  using Gameplay.Modifiers;
+  using Gameplay.Zones;
 
   public class EnergyField : CardsSource
   {

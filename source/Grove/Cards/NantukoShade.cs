@@ -1,15 +1,15 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
+  using Ai;
+  using Ai.RepetitionRules;
+  using Ai.TimingRules;
   using Core;
-  using Core.Ai;
-  using Core.Ai.RepetitionRules;
-  using Core.Ai.TimingRules;
-  using Core.Costs;
-  using Core.Dsl;
-  using Core.Effects;
-  using Core.Mana;
-  using Core.Modifiers;
+  using Gameplay.Card.Costs;
+  using Gameplay.Card.Factory;
+  using Gameplay.Effects;
+  using Gameplay.Mana;
+  using Gameplay.Modifiers;
 
   public class NantukoShade : CardsSource
   {

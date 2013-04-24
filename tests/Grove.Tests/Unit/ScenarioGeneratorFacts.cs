@@ -1,6 +1,6 @@
 ﻿namespace Grove.Tests.Unit
 {
-  using Grove.Core.Testing;
+  using Gameplay.Recording;
   using Infrastructure;
   using Xunit;
 

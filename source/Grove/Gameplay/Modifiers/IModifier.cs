@@ -1,9 +1,11 @@
-﻿namespace Grove.Core.Modifiers
+﻿namespace Grove.Gameplay.Modifiers
 {
   using System;
-  using Counters;
-  using Preventions;
-  using Redirections;
+  using Card.Abilities;
+  using Card.Characteristics;
+  using Card.Counters;
+  using Damage;
+  using Player;
 
   public interface IModifier : IDisposable
   {

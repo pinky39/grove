@@ -1,7 +1,8 @@
-﻿namespace Grove.Core.Counters
+﻿namespace Grove.Gameplay.Card.Counters
 {
   using System.Linq;
-  using Infrastructure;
+  using Characteristics;
+  using Grove.Infrastructure;
   using Modifiers;
 
   [Copyable]

@@ -1,9 +1,11 @@
-﻿namespace Grove.Core.Mana
+﻿namespace Grove.Gameplay.Mana
 {
   using System.Collections.Generic;
   using System.Linq;
+  using Card;
+  using Card.Abilities;
   using Effects;
-  using Infrastructure;
+  using Grove.Infrastructure;
   using Zones;
 
   public class ManaAbility : ActivatedAbility, IManaSource, ICopyContributor

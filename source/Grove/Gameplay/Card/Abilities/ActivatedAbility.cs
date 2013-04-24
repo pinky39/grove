@@ -1,11 +1,12 @@
-﻿namespace Grove.Core
+﻿namespace Grove.Gameplay.Card.Abilities
 {
   using System.Linq;
   using Costs;
   using Effects;
-  using Infrastructure;
+  using Grove.Infrastructure;
   using Mana;
   using Messages;
+  using States;
   using Zones;
 
   public class ActivatedAbility : Ability

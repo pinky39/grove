@@ -1,7 +1,8 @@
-﻿namespace Grove.Core.Modifiers
+﻿namespace Grove.Gameplay.Modifiers
 {
   using System;
-  using Infrastructure;
+  using Card;
+  using Grove.Infrastructure;
   using Messages;
 
   public class PermanentGetsUntapedLifetime : Lifetime,

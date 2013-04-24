@@ -1,6 +1,6 @@
 ﻿namespace Grove.Ui
 {
-  using Core.Decisions.Results;
+  using Gameplay.Decisions.Results;
 
   public class PlayableSelected
   {

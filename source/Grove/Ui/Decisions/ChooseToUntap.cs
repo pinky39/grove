@@ -1,10 +1,9 @@
-﻿namespace Grove.Core.Decisions.Human
+﻿namespace Grove.Ui.Decisions
 {
   using System.Windows;
-  using Grove.Ui;
   using Grove.Ui.Shell;
 
-  public class ChooseToUntap : Decisions.ChooseToUntap
+  public class ChooseToUntap : Gameplay.Decisions.ChooseToUntap
   {
     public IShell Shell { get; set; }
 

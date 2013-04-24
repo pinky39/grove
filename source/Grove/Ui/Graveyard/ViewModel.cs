@@ -4,7 +4,8 @@
   using System.Linq;
   using Caliburn.Micro;
   using Core;
-  using Core.Zones;
+  using Gameplay.Player;
+  using Gameplay.Zones;
   using Infrastructure;
 
   public class ViewModel

@@ -1,10 +1,10 @@
-﻿namespace Grove.Core
+﻿namespace Grove.Gameplay.Card.Characteristics
 {
-  using System;
   using System.Collections;
   using System.Collections.Generic;
   using System.Linq;
-  using Infrastructure;
+  using Core;
+  using Grove.Infrastructure;
   using Modifiers;
 
   [Copyable]

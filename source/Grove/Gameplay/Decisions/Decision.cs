@@ -1,5 +1,8 @@
-﻿namespace Grove.Core.Decisions
+﻿namespace Grove.Gameplay.Decisions
 {
+  using Common;
+  using Player;
+
   public abstract class Decision<TResult> : GameObject, IDecision
   {
     private bool _hasCompleted;

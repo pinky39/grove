@@ -1,8 +1,8 @@
-﻿namespace Grove.Core.Ai.TargetingRules
+﻿namespace Grove.Ai.TargetingRules
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Targeting;
+  using Gameplay.Targeting;
 
   public class GainIndestructible : TargetingRule
   {

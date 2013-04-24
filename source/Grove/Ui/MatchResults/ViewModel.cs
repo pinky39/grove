@@ -2,6 +2,7 @@
 {
   using System;
   using Core;
+  using Gameplay;
   using Infrastructure;
 
   public class ViewModel

@@ -1,7 +1,9 @@
 ﻿namespace Grove.Ui
 {
+  using Gameplay.Card;
+
   public class BlockerUnselected
   {
-    public Core.Card Blocker { get; set; }
+    public Card Blocker { get; set; }
   }
 }

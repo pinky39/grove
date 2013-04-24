@@ -1,5 +1,7 @@
-﻿namespace Grove.Core.Zones
+﻿namespace Grove.Gameplay.Zones
 {
+  using Card;
+
   public interface IZone
   {
     Zone Zone { get; }

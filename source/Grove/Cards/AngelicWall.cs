@@ -2,8 +2,8 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Ai;
-  using Core.Dsl;
+  using Gameplay.Card.Abilities;
+  using Gameplay.Card.Factory;
 
   public class AngelicWall : CardsSource
   {

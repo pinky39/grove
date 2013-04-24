@@ -1,4 +1,4 @@
-﻿namespace Grove.Core.Ai
+﻿namespace Grove.Ai
 {
   using System.Collections.Generic;
   using System.Linq;

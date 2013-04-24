@@ -1,4 +1,4 @@
-﻿namespace Grove.Core.Targeting
+﻿namespace Grove.Gameplay.Targeting
 {
   using System;
   using Modifiers;

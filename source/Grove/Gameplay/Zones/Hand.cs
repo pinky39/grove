@@ -1,6 +1,7 @@
-﻿namespace Grove.Core.Zones
+﻿namespace Grove.Gameplay.Zones
 {
   using System.Linq;
+  using Player;
 
   public class Hand : UnorderedZone, IHandQuery
   {

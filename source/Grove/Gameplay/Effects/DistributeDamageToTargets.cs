@@ -1,5 +1,8 @@
-﻿namespace Grove.Core.Effects
+﻿namespace Grove.Gameplay.Effects
 {
+  using Card;
+  using Damage;
+  using Player;
   using Targeting;
 
   public class DistributeDamageToTargets : Effect

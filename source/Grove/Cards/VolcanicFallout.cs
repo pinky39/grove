@@ -1,10 +1,10 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
+  using Ai.TimingRules;
   using Core;
-  using Core.Ai.TimingRules;
-  using Core.Dsl;
-  using Core.Effects;
+  using Gameplay.Card.Factory;
+  using Gameplay.Effects;
 
   public class VolcanicFallout : CardsSource
   {

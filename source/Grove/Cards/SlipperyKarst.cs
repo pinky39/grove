@@ -2,9 +2,9 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Dsl;
-  using Core.Effects;
-  using Core.Mana;
+  using Gameplay.Card.Factory;
+  using Gameplay.Effects;
+  using Gameplay.Mana;
 
   public class SlipperyKarst : CardsSource
   {

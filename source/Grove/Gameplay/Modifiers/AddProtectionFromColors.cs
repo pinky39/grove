@@ -1,7 +1,8 @@
-﻿namespace Grove.Core.Modifiers
+﻿namespace Grove.Gameplay.Modifiers
 {
   using System;
   using System.Collections.Generic;
+  using Card.Characteristics;
 
   public class AddProtectionFromColors : Modifier
   {

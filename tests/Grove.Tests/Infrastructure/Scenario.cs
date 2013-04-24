@@ -4,13 +4,21 @@
   using System.Collections.Generic;
   using System.Linq;
   using System.Reflection;
+  using Ai;
   using Core;
-  using Core.Ai;
   using Core.Decisions;
   using Core.Decisions.Scenario;
-  using Core.Zones;
+  using Gameplay;
+  using Gameplay.Card;
+  using Gameplay.Card.Factory;
+  using Gameplay.Combat;
+  using Gameplay.Decisions;
+  using Gameplay.Player;
+  using Gameplay.States;
+  using Gameplay.Zones;
   using Grove.Infrastructure;
   using log4net.Config;
+  using Tournament;
   using Xunit;
 
   public abstract class Scenario : IDisposable

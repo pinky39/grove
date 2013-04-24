@@ -1,14 +1,16 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
+  using Ai.TimingRules;
   using Core;
-  using Core.Ai.TimingRules;
-  using Core.Costs;
-  using Core.Dsl;
-  using Core.Effects;
-  using Core.Mana;
-  using Core.Triggers;
-  using Core.Zones;
+  using Gameplay.Card.Characteristics;
+  using Gameplay.Card.Costs;
+  using Gameplay.Card.Factory;
+  using Gameplay.Card.Triggers;
+  using Gameplay.Effects;
+  using Gameplay.Mana;
+  using Gameplay.States;
+  using Gameplay.Zones;
 
   public class PhyrexianProcessor : CardsSource
   {

@@ -1,13 +1,14 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
+  using Ai.TargetingRules;
+  using Ai.TimingRules;
   using Core;
-  using Core.Ai.TargetingRules;
-  using Core.Ai.TimingRules;
-  using Core.Costs;
-  using Core.Dsl;
-  using Core.Effects;
-  using Core.Targeting;
+  using Gameplay.Card.Costs;
+  using Gameplay.Card.Factory;
+  using Gameplay.Effects;
+  using Gameplay.Player;
+  using Gameplay.Targeting;
 
   public class GreaterGood : CardsSource
   {

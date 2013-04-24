@@ -1,4 +1,4 @@
-﻿namespace Grove.Core.Ai.TimingRules
+﻿namespace Grove.Ai.TimingRules
 {
   public class GainHexproof : TimingRule
   {

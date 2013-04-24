@@ -5,6 +5,8 @@
   using System.Linq;
   using Castle.Core;
   using Core;
+  using Gameplay.Card.Factory;
+  using Gameplay.Deck;
   using Infrastructure;
   using Shell;
 

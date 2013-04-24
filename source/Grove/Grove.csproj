@@ -710,7 +710,7 @@
     <Compile Include="Gameplay\Decisions\ChooseToUntap.cs" />
     <Compile Include="Gameplay\Decisions\DecisionSystem.cs" />
     <Compile Include="Ui\Decisions\ChooseToUntap.cs" />
-    <Compile Include="Gameplay\Decisions\IUiDecisionFactory.cs" />
+    <Compile Include="Ui\Decisions\IUiDecisionFactory.cs" />
     <Compile Include="Ai\Decisions\ChooseToUntap.cs" />
     <Compile Include="Gameplay\Card\Abilities\Ability.cs" />
     <Compile Include="Gameplay\Card\Costs\Discard.cs" />

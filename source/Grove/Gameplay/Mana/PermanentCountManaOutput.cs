@@ -1,9 +1,11 @@
-﻿namespace Grove.Core.Mana
+﻿namespace Grove.Gameplay.Mana
 {
   using System;
   using System.Linq;
-  using Infrastructure;
+  using Card;
+  using Grove.Infrastructure;
   using Messages;
+  using Player;
 
   public class PermanentCountManaOutput : ManaOutput, IReceive<ZoneChanged>
   {

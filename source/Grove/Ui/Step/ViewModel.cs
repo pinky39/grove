@@ -2,7 +2,8 @@
 {
   using System.Linq;
   using Core;
-  using Core.Messages;
+  using Gameplay.Messages;
+  using Gameplay.States;
   using Infrastructure;
 
   public class ViewModel : IReceive<StepStarted>

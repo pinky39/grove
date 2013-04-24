@@ -1,7 +1,5 @@
-﻿namespace Grove.Core.Targeting
+﻿namespace Grove.Gameplay.Targeting
 {
-  using Core.Zones;
-
   public static class Zones
   {
    

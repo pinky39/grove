@@ -1,6 +1,7 @@
-﻿namespace Grove.Core.CastingRules
+﻿namespace Grove.Gameplay.Card.CastingRules
 {
-  using Grove.Core.Effects;
+  using Effects;
+  using States;
 
   public class Land : CastingRule
   {

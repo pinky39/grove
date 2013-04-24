@@ -1,7 +1,6 @@
 ﻿namespace Grove.Core
 {
   using System;
-  using Mana;
 
   //public class ManaAbilityParameters : ActivatedAbilityParameters
   //{

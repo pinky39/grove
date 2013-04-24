@@ -3,6 +3,7 @@
   using System;
   using System.IO;
   using Core;
+  using Gameplay.Card.Factory;
 
   public class WriteCardList : Task
   {

@@ -1,4 +1,4 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:grove="clr-namespace:Grove.Ui">
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:grove="clr-namespace:Grove.Ui" x:Class="Grove.Ui.e__gregor_projekti_sandbox_grove_source_grove_ui_skin_xaml">
 	<LinearGradientBrush x:Key="BarBackground" StartPoint="0.5,0" EndPoint="0.5,1">
 		<GradientStop Offset="0.0" Color="#333" />
 		<GradientStop Offset="0.1" Color="#222" />

@@ -2,14 +2,16 @@
 {
   using System.Collections.Generic;
   using System.Linq;
+  using Ai.CostRules;
+  using Ai.TargetingRules;
+  using Ai.TimingRules;
   using Core;
-  using Core.Ai.CostRules;
-  using Core.Ai.TimingRules;
-  using Core.Costs;
-  using Core.Dsl;
-  using Core.Effects;
-  using Core.Mana;
-  using Core.Modifiers;
+  using Gameplay.Card.Costs;
+  using Gameplay.Card.Factory;
+  using Gameplay.Effects;
+  using Gameplay.Mana;
+  using Gameplay.Modifiers;
+  using Gameplay.States;
 
   public class MishrasHelix : CardsSource
   {
@@ -42,7 +44,7 @@
             p.TimingRule(new Steps(steps: Step.Upkeep, activeTurn: false, passiveTurn: true));
             p.TimingRule(new OpponentHasPermanents(x => x.Is().Land));
             p.CostRule(new ControllersProperty(ctrl => ctrl.Opponent.Battlefield.Lands.Count()));
-            p.TargetingRule(new Core.Ai.TargetingRules.TapLands());
+            p.TargetingRule(new TapLands());
           });
     }
   }

@@ -1,10 +1,11 @@
-﻿namespace Grove.Core.Effects
+﻿namespace Grove.Gameplay.Effects
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Ai;
+  using Card;
   using Decisions;
   using Decisions.Results;
+  using Grove.Ai;
   using Zones;
 
   public class OpponentSacrificesCreatures : Effect,

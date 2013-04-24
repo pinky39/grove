@@ -1,6 +1,6 @@
-﻿namespace Grove.Core.Ai.TimingRules
+﻿namespace Grove.Ai.TimingRules
 {
-  using Infrastructure;
+  using Grove.Infrastructure;
 
   public class ThereCanBeOnlyOne : TimingRule
   {    

@@ -1,8 +1,10 @@
-﻿namespace Grove.Core.Targeting
+﻿namespace Grove.Gameplay.Targeting
 {
   using System;
   using System.Collections.Generic;
   using System.Linq;
+  using Card;
+  using Common;
 
   public class TargetSelector : GameObject
   {

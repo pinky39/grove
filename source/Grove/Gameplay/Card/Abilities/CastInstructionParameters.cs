@@ -1,4 +1,4 @@
-﻿namespace Grove.Core
+﻿namespace Grove.Gameplay.Card.Abilities
 {
   using CastingRules;
   using Costs;

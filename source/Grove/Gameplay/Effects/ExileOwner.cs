@@ -1,4 +1,4 @@
-﻿namespace Grove.Core.Effects
+﻿namespace Grove.Gameplay.Effects
 {
   public class ExileOwner : Effect
   {    

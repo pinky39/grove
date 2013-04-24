@@ -2,11 +2,13 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Costs;
-  using Core.Dsl;
-  using Core.Effects;
-  using Core.Mana;
-  using Core.Modifiers;
+  using Gameplay.Card.Abilities;
+  using Gameplay.Card.Characteristics;
+  using Gameplay.Card.Costs;
+  using Gameplay.Card.Factory;
+  using Gameplay.Effects;
+  using Gameplay.Mana;
+  using Gameplay.Modifiers;
 
   public class StirringWildwood : CardsSource
   {
@@ -38,7 +40,7 @@
                 type: "Land Creature Elemental") {UntilEot = true},
               () => new AddStaticAbility(Static.Reach) {UntilEot = true});
 
-            p.TimingRule(new Core.Ai.TimingRules.ChangeToCreature(4));
+            p.TimingRule(new Ai.TimingRules.ChangeToCreature(4));
           });
     }
   }

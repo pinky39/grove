@@ -2,6 +2,8 @@
 {
   using System;
   using Core;
+  using Gameplay;
+  using Gameplay.Player;
   using Infrastructure;
 
   public class ViewModel

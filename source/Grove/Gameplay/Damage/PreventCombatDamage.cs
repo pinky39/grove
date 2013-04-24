@@ -1,4 +1,4 @@
-﻿namespace Grove.Core.Preventions
+﻿namespace Grove.Gameplay.Damage
 {
   public class PreventCombatDamage : DamagePrevention
   {        

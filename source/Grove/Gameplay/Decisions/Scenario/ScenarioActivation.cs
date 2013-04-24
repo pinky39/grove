@@ -1,7 +1,9 @@
 ﻿namespace Grove.Core.Decisions.Scenario
 {
   using System;
-  using Targeting;
+  using Gameplay;
+  using Gameplay.Card;
+  using Gameplay.Targeting;
 
   public class ScenarioActivation
   {

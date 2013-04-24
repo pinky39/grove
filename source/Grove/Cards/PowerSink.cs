@@ -1,11 +1,10 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
+  using Ai.CostRules;
   using Core;
-  using Core.Ai.CostRules;
-  using Core.Dsl;
-  using Core.Effects;
-  using Core.Mana;
+  using Gameplay.Card.Factory;
+  using Gameplay.Effects;
 
   public class PowerSink : CardsSource
   {
@@ -26,8 +25,8 @@
             p.TargetSelector.AddEffect(trg => trg.Is.CounterableSpell().On.Stack());
 
             p.CostRule(new CounterUnlessOpponentPaysX());
-            p.TimingRule(new Core.Ai.TimingRules.Counterspell());
-            p.TargetingRule(new Core.Ai.TargetingRules.Counterspell());
+            p.TimingRule(new Ai.TimingRules.Counterspell());
+            p.TargetingRule(new Ai.TargetingRules.Counterspell());
           });
     }
   }

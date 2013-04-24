@@ -1,8 +1,11 @@
-﻿namespace Grove.Core.Zones
+﻿namespace Grove.Gameplay.Zones
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Infrastructure;
+  using Card;
+  using Card.Characteristics;
+  using Grove.Infrastructure;
+  using Player;
 
   public class Battlefield : UnorderedZone, IBattlefieldQuery
   {

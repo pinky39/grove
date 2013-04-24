@@ -2,8 +2,8 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Dsl;
-  using Core.Effects;
+  using Gameplay.Card.Factory;
+  using Gameplay.Effects;
 
   public class NaturesLore : CardsSource
   {

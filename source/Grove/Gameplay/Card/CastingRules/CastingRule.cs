@@ -1,6 +1,7 @@
-﻿namespace Grove.Core.CastingRules
+﻿namespace Grove.Gameplay.Card.CastingRules
 {
-  using Grove.Core.Effects;
+  using Common;
+  using Effects;
 
   public abstract class CastingRule : GameObject
   {

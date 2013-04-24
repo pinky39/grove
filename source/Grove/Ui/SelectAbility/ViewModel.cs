@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using Core;
+  using Gameplay.Card.Characteristics;
   using Infrastructure;
 
   public class ViewModel

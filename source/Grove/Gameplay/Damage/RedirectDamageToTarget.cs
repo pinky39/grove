@@ -1,4 +1,4 @@
-﻿namespace Grove.Core.Redirections
+﻿namespace Grove.Gameplay.Damage
 {
   using System;
   using Targeting;

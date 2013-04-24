@@ -1,7 +1,8 @@
-﻿namespace Grove.Core.Modifiers
+﻿namespace Grove.Gameplay.Modifiers
 {
   using System.Linq;
-  using Infrastructure;
+  using Card.Characteristics;
+  using Grove.Infrastructure;
   using Messages;
   using Zones;
 

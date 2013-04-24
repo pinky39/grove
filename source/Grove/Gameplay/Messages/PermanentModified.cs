@@ -1,5 +1,6 @@
-﻿namespace Grove.Core.Messages
+﻿namespace Grove.Gameplay.Messages
 {
+  using Card;
   using Modifiers;
 
   public class PermanentWasModified

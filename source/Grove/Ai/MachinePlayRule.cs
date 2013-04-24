@@ -1,5 +1,9 @@
-﻿namespace Grove.Core.Ai
+﻿namespace Grove.Ai
 {
+  using Core;
+  using Gameplay;
+  using Gameplay.Common;
+
   public abstract class MachinePlayRule : GameObject
   {
     public abstract void Process(ActivationContext c);

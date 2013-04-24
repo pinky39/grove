@@ -1,9 +1,11 @@
-﻿namespace Grove.Core
+﻿namespace Grove.Gameplay.Card
 {
   using System;
   using System.Collections.Generic;
+  using Abilities;
+  using Characteristics;
+  using Damage;
   using Mana;
-  using Preventions;
 
   public class CardParameters
   {

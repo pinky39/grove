@@ -1,11 +1,15 @@
-﻿namespace Grove.Core.Modifiers
+﻿namespace Grove.Gameplay.Modifiers
 {
   using System;
-  using Counters;
+  using Card;
+  using Card.Abilities;
+  using Card.Characteristics;
+  using Card.Counters;
+  using Common;
+  using Damage;
   using Effects;
-  using Infrastructure;
-  using Preventions;
-  using Redirections;
+  using Grove.Infrastructure;
+  using Player;
   using Targeting;
 
   public delegate Modifier ModifierFactory();

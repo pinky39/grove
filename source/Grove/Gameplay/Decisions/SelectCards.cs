@@ -1,8 +1,9 @@
-﻿namespace Grove.Core.Decisions
+﻿namespace Grove.Gameplay.Decisions
 {
   using System;
   using System.Collections.Generic;
   using System.Linq;
+  using Card;
   using Results;
   using Targeting;
   using Zones;
@@ -43,8 +44,7 @@
               })
               .Where(x => x.IsCard())
               .Select(x => x.Card())
-              .Where(IsValidCard)
-              .ToList());
+              .Where(IsValidCard).ToList());
       }
     }
 

@@ -1,9 +1,11 @@
-﻿namespace Grove.Core.Ai.TargetingRules
+﻿namespace Grove.Ai.TargetingRules
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Effects;
-  using Targeting;
+  using Core;
+  using Gameplay.Effects;
+  using Gameplay.Player;
+  using Gameplay.Targeting;
 
   public class Counterspell : TargetingRule
   {

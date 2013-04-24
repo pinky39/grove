@@ -1,5 +1,8 @@
-﻿namespace Grove.Core.Ai.TimingRules
+﻿namespace Grove.Ai.TimingRules
 {
+  using Core;
+  using Gameplay.States;
+
   public class ManaConverter : TimingRule
   {
     private readonly int _relativeCost;

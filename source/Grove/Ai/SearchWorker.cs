@@ -1,8 +1,11 @@
-﻿namespace Grove.Core.Ai
+﻿namespace Grove.Ai
 {
   using System.Collections.Generic;
   using System.Threading.Tasks;
-  using Infrastructure;
+  using Core;
+  using Gameplay;
+  using Gameplay.Common;
+  using Grove.Infrastructure;
   using log4net;
 
   public class SearchWorker : GameObject

@@ -1,10 +1,12 @@
-﻿namespace Grove.Core.Ai.TargetingRules
+﻿namespace Grove.Ai.TargetingRules
 {
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Effects;
-  using Targeting;
+  using Core;
+  using Gameplay.Effects;
+  using Gameplay.Player;
+  using Gameplay.Targeting;
 
   public abstract class TargetingRule : MachinePlayRule
   {        
@@ -46,7 +48,7 @@
       yield break;
     }
 
-    protected IList<Targets> Group(IEnumerable<Card> candidates, int minTargetCount, int? maxTargetCount = null, Action<ITarget, Targets> add = null)
+    protected IList<Targets> Group(IEnumerable<Gameplay.Card.Card> candidates, int minTargetCount, int? maxTargetCount = null, Action<ITarget, Targets> add = null)
     {
       return Group(candidates.Cast<ITarget>().ToList(), minTargetCount, maxTargetCount, add);
     }
@@ -61,7 +63,7 @@
       return Group(candidates.Cast<ITarget>().ToList(), minTargetCount, maxTargetCount, add);
     }
 
-    protected IList<Targets> Group(IEnumerable<Card> candidates1, IEnumerable<Card> candidates2,
+    protected IList<Targets> Group(IEnumerable<Gameplay.Card.Card> candidates1, IEnumerable<Gameplay.Card.Card> candidates2,
       Action<ITarget, Targets> add1 = null, Action<ITarget, Targets> add2 = null)
     {
       return Group(candidates1.Cast<ITarget>().ToList(), candidates2.Cast<ITarget>().ToList(), add1, add2);
@@ -162,12 +164,12 @@
       return results;
     }
 
-    protected int CalculateAttackerScore(Card card)
+    protected int CalculateAttackerScore(Gameplay.Card.Card card)
     {
       return Combat.CouldBeBlockedByAny(card) ? 5 : 0 + card.CalculateCombatDamage(allDamageSteps: true);
     }
 
-    protected static int CalculateAttackingPotencialScore(Card card)
+    protected static int CalculateAttackingPotencialScore(Gameplay.Card.Card card)
     {
       if (card.Has().DoesNotUntap || card.Has().CannotAttack)
         return 0;
@@ -180,7 +182,7 @@
       return damage;
     }
 
-    protected int CalculateBlockerScore(Card card)
+    protected int CalculateBlockerScore(Gameplay.Card.Card card)
     {
       var count = Combat.CountHowManyThisCouldBlock(card);
 
@@ -192,10 +194,10 @@
       return 0;
     }
 
-    protected IEnumerable<Card> GetCandidatesForAttackerPowerToughnessIncrease(int? powerIncrease,
+    protected IEnumerable<Gameplay.Card.Card> GetCandidatesForAttackerPowerToughnessIncrease(int? powerIncrease,
       int? toughnessIncrease, TargetingRuleParameters p)
     {
-      return p.Candidates<Card>(ControlledBy.SpellOwner)
+      return p.Candidates<Gameplay.Card.Card>(ControlledBy.SpellOwner)
         .Where(x => x.IsAttacker)
         .Select(
           x =>
@@ -214,10 +216,10 @@
         .Select(x => x.Card);
     }
 
-    protected IEnumerable<Card> GetCandidatesForBlockerPowerToughnessIncrease(int? powerIncrease,
+    protected IEnumerable<Gameplay.Card.Card> GetCandidatesForBlockerPowerToughnessIncrease(int? powerIncrease,
       int? toughnessIncrease, TargetingRuleParameters p)
     {
-      return p.Candidates<Card>(ControlledBy.SpellOwner)
+      return p.Candidates<Gameplay.Card.Card>(ControlledBy.SpellOwner)
         .Where(x => x.IsBlocker)
         .Select(
           x =>
@@ -236,15 +238,15 @@
         .Select(x => x.Card);
     }
 
-    protected IEnumerable<Card> GetCandidatesThatCanBeDestroyed(TargetingRuleParameters p, Func<TargetsCandidates, IList<TargetCandidates>> selector = null)
+    protected IEnumerable<Gameplay.Card.Card> GetCandidatesThatCanBeDestroyed(TargetingRuleParameters p, Func<TargetsCandidates, IList<TargetCandidates>> selector = null)
     {
-      return p.Candidates<Card>(ControlledBy.SpellOwner, selector: selector)
+      return p.Candidates<Gameplay.Card.Card>(ControlledBy.SpellOwner, selector: selector)
         .Where(x => Stack.CanBeDestroyedByTopSpell(x.Card()) || Combat.CanBeDealtLeathalCombatDamage(x.Card()));
     }
 
-    protected static IEnumerable<Card> GetBounceCandidates(TargetingRuleParameters p, Func<TargetsCandidates, IList<TargetCandidates>> selector = null)
+    protected static IEnumerable<Gameplay.Card.Card> GetBounceCandidates(TargetingRuleParameters p, Func<TargetsCandidates, IList<TargetCandidates>> selector = null)
     {
-      return p.Candidates<Card>(ControlledBy.Opponent, selector: selector)
+      return p.Candidates<Gameplay.Card.Card>(ControlledBy.Opponent, selector: selector)
         .Select(x => new
           {
             Card = x,

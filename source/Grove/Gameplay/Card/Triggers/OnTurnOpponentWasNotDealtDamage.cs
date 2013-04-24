@@ -1,7 +1,9 @@
-﻿namespace Grove.Core.Triggers
+﻿namespace Grove.Gameplay.Card.Triggers
 {
-  using Infrastructure;
+  using Abilities;
+  using Grove.Infrastructure;
   using Messages;
+  using States;
   using Zones;
 
   public class OnTurnOpponentWasNotDealtDamage : Trigger, IReceive<StepStarted>, IReceive<DamageHasBeenDealt>

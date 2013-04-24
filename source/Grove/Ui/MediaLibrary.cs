@@ -6,6 +6,8 @@
   using System.Windows.Media;
   using System.Windows.Media.Imaging;
   using Core;
+  using Gameplay.Card.Factory;
+  using Gameplay.Deck;
 
   public static class MediaLibrary
   {
@@ -61,7 +63,7 @@
       return Path.Combine(SetsFolder, name + ".txt");
     }
 
-    public static Core.Deck GetDeck(string name, CardDatabase cardDatabase)
+    public static Gameplay.Deck.Deck GetDeck(string name, CardDatabase cardDatabase)
     {
       name = name.EndsWith(".dec") ? name : name + ".dec";
 
@@ -69,7 +71,7 @@
       return new DeckReaderWriter().Read(path, cardDatabase);
     }
 
-    public static Core.Deck GetRandomDeck(CardDatabase cardDatabase)
+    public static Gameplay.Deck.Deck GetRandomDeck(CardDatabase cardDatabase)
     {
       var decks = Directory.EnumerateFiles(DecksFolder, "*.dec").ToList();
 

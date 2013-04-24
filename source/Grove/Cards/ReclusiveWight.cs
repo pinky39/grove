@@ -3,9 +3,10 @@
   using System.Collections.Generic;
   using System.Linq;
   using Core;
-  using Core.Dsl;
-  using Core.Effects;
-  using Core.Triggers;
+  using Gameplay.Card.Factory;
+  using Gameplay.Card.Triggers;
+  using Gameplay.Effects;
+  using Gameplay.States;
 
   public class ReclusiveWight : CardsSource
   {

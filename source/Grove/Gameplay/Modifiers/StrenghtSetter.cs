@@ -1,5 +1,8 @@
-﻿namespace Grove.Core.Modifiers
+﻿namespace Grove.Gameplay.Modifiers
 {
+  using Core;
+  using Infrastructure;
+
   public class StrenghtSetter : PropertyModifier<int?>
   {
     private readonly int _value;

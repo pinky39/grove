@@ -1,6 +1,7 @@
-﻿namespace Grove.Core.Ai.TimingRules
+﻿namespace Grove.Ai.TimingRules
 {
-  using System;
+  using Core;
+  using Gameplay.States;
 
   public class Lands : TimingRule
   {

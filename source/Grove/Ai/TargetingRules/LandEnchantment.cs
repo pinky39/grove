@@ -1,7 +1,10 @@
-﻿namespace Grove.Core.Ai.TargetingRules
+﻿namespace Grove.Ai.TargetingRules
 {
   using System.Collections.Generic;
-  using Targeting;
+  using Core;
+  using Gameplay.Card;
+  using Gameplay.Player;
+  using Gameplay.Targeting;
 
   public class LandEnchantment : TargetingRule
   {

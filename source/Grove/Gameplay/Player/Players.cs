@@ -1,10 +1,12 @@
-﻿namespace Grove.Core
+﻿namespace Grove.Gameplay.Player
 {
   using System;
   using System.Collections;
   using System.Collections.Generic;
   using System.Linq;
-  using Infrastructure;
+  using Card;
+  using Common;
+  using Grove.Infrastructure;
 
   public class Players : GameObject, IEnumerable<Player>, IHashable
   {

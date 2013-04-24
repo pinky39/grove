@@ -1,6 +1,9 @@
-﻿namespace Grove.Core.Mana
+﻿namespace Grove.Gameplay.Mana
 {
   using System;
+  using Card;
+  using Card.Abilities;
+  using Player;
 
   public class ManaAbilityParameters : ActivatedAbilityParameters
   {

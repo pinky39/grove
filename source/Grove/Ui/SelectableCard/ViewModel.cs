@@ -2,6 +2,7 @@
 {
   using System;
   using Core;
+  using Gameplay.Card;
   using Infrastructure;
 
   public class ViewModel : CardViewModel, IReceive<TargetSelected>, IReceive<TargetUnselected>,

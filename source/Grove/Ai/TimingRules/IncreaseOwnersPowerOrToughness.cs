@@ -1,6 +1,8 @@
-﻿namespace Grove.Core.Ai.TimingRules
+﻿namespace Grove.Ai.TimingRules
 {
-  using Modifiers;
+  using Core;
+  using Gameplay.Modifiers;
+  using Gameplay.States;
 
   public class IncreaseOwnersPowerOrToughness : TimingRule
   {

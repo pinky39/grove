@@ -1,6 +1,6 @@
 ﻿namespace Grove.Ui
 {
-  using Core.Targeting;
+  using Gameplay.Targeting;
 
   public class SelectionChanged
   {

@@ -1,15 +1,15 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
+  using Ai.TimingRules;
   using Core;
-  using Core.Ai.TimingRules;
-  using Core.Costs;
-  using Core.Counters;
-  using Core.Dsl;
-  using Core.Effects;
-  using Core.Mana;
-  using Core.Modifiers;
-  using Core.Triggers;
+  using Gameplay.Card.Costs;
+  using Gameplay.Card.Counters;
+  using Gameplay.Card.Factory;
+  using Gameplay.Card.Triggers;
+  using Gameplay.Effects;
+  using Gameplay.Modifiers;
+  using Gameplay.States;
 
   public class LiltingRefrain : CardsSource
   {
@@ -38,8 +38,8 @@
               doNotCounterCost: P(e => e.Source.OwningCard.Counters.GetValueOrDefault()));
 
             p.TargetSelector.AddEffect(trg => trg.Is.CounterableSpell().On.Stack());
-            p.TimingRule(new Core.Ai.TimingRules.Counterspell());
-            p.TargetingRule(new Core.Ai.TargetingRules.Counterspell());
+            p.TimingRule(new Ai.TimingRules.Counterspell());
+            p.TargetingRule(new Ai.TargetingRules.Counterspell());
           });
     }
   }

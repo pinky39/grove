@@ -2,8 +2,9 @@
 {
   using System.Linq;
   using Core;
-  using Core.Mana;
-  using Core.Zones;
+  using Gameplay.Card.Characteristics;
+  using Gameplay.States;
+  using Gameplay.Zones;
   using Infrastructure;
   using Xunit;
 

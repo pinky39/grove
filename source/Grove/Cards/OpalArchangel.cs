@@ -1,13 +1,14 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
+  using Ai.TimingRules;
   using Core;
-  using Core.Ai.TimingRules;
-  using Core.Dsl;
-  using Core.Effects;
-  using Core.Mana;
-  using Core.Modifiers;
-  using Core.Triggers;
+  using Gameplay.Card.Abilities;
+  using Gameplay.Card.Characteristics;
+  using Gameplay.Card.Factory;
+  using Gameplay.Card.Triggers;
+  using Gameplay.Effects;
+  using Gameplay.Modifiers;
 
   public class OpalArchangel : CardsSource
   {
@@ -30,7 +31,7 @@
                   card.Is().Creature));
 
             p.Effect = () => new ApplyModifiersToSelf(
-              () => new Core.Modifiers.ChangeToCreature(
+              () => new Gameplay.Modifiers.ChangeToCreature(
                 power: 5,
                 toughness: 5,
                 type: "Creature Angel",

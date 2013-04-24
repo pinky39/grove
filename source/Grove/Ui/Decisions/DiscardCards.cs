@@ -1,14 +1,13 @@
-﻿namespace Grove.Core.Decisions.Human
+﻿namespace Grove.Ui.Decisions
 {
   using System;
   using System.Linq;
-  using Targeting;
-  using Ui;
-  using Ui.SelectTarget;
-  using Ui.Shell;
-  using Zones;
+  using Grove.Gameplay.Targeting;
+  using Grove.Gameplay.Zones;
+  using Grove.Ui.SelectTarget;
+  using Grove.Ui.Shell;
 
-  public class DiscardCards : Decisions.DiscardCards
+  public class DiscardCards : Gameplay.Decisions.DiscardCards
   {
     public IShell Shell { get; set; }
     public ViewModel.IFactory DialogFactory { get; set; }

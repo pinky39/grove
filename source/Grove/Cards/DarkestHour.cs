@@ -1,10 +1,11 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
+  using Ai.TimingRules;
   using Core;
-  using Core.Ai.TimingRules;
-  using Core.Dsl;
-  using Core.Modifiers;
+  using Gameplay.Card.Characteristics;
+  using Gameplay.Card.Factory;
+  using Gameplay.Modifiers;
 
   public class DarkestHour : CardsSource
   {

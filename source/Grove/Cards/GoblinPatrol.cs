@@ -2,7 +2,7 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Dsl;
+  using Gameplay.Card.Factory;
 
   public class GoblinPatrol : CardsSource
   {

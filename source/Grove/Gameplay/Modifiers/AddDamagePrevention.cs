@@ -1,6 +1,6 @@
-﻿namespace Grove.Core.Modifiers
+﻿namespace Grove.Gameplay.Modifiers
 {
-  using Preventions;
+  using Damage;
 
   public class AddDamagePrevention : Modifier
   {

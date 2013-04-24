@@ -1,7 +1,8 @@
-﻿namespace Grove.Core.Dsl
+﻿namespace Grove.Gameplay.Card.Factory
 {
   using System;
   using System.Collections.Generic;
+  using Abilities;
   using Effects;
   using Modifiers;
 

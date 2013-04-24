@@ -1,8 +1,9 @@
-﻿namespace Grove.Core.Modifiers
+﻿namespace Grove.Gameplay.Modifiers
 {
   using System;
-  using Infrastructure;
-  
+  using Common;
+  using Grove.Infrastructure;
+
   public abstract class Lifetime : GameObject, IDisposable
   {
     public TrackableEvent Ended { get; set; }

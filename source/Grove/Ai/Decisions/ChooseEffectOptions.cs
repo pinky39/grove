@@ -1,6 +1,6 @@
-﻿namespace Grove.Core.Decisions.Machine
+﻿namespace Grove.Ai.Decisions
 {
-  public class ChooseEffectOptions : Decisions.ChooseEffectOptions
+  public class ChooseEffectOptions : Gameplay.Decisions.ChooseEffectOptions
   {
     protected override void ExecuteQuery()
     {

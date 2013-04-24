@@ -2,9 +2,10 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Dsl;
-  using Core.Effects;
-  using Core.Triggers;
+  using Gameplay.Card.Abilities;
+  using Gameplay.Card.Factory;
+  using Gameplay.Card.Triggers;
+  using Gameplay.Effects;
 
   public class ArgothianEnchantress : CardsSource
   {

@@ -1,7 +1,9 @@
 ﻿namespace Grove.Ui
 {
+  using Gameplay.Card;
+
   public class AttackerUnselected
   {
-    public Core.Card Attacker { get; set; }
+    public Card Attacker { get; set; }
   }
 }

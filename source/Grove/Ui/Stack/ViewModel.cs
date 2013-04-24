@@ -4,9 +4,10 @@
   using System.Collections.Generic;
   using Caliburn.Micro;
   using Core;
-  using Core.Effects;
-  using Core.Targeting;
-  using Core.Zones;
+  using Gameplay;
+  using Gameplay.Effects;
+  using Gameplay.Targeting;
+  using Gameplay.Zones;
   using Infrastructure;
 
   public class ViewModel : ViewModelBase, IReceive<UiInteractionChanged>

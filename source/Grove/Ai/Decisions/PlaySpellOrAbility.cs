@@ -1,11 +1,13 @@
-﻿namespace Grove.Core.Decisions.Machine
+﻿namespace Grove.Ai.Decisions
 {
   using System.Collections.Generic;
-  using Ai;
+  using Core;
+  using Gameplay;
+  using Gameplay.Decisions.Results;
+  using Gameplay.Player;
   using log4net;
-  using Results;
 
-  public class PlaySpellOrAbility : Decisions.PlaySpellOrAbility, ISearchNode, IDecisionExecution
+  public class PlaySpellOrAbility : Gameplay.Decisions.PlaySpellOrAbility, ISearchNode, IDecisionExecution
   {
     private static readonly ILog Log = LogManager.GetLogger(typeof (PlaySpellOrAbility));
     private readonly DecisionExecutor _executor;

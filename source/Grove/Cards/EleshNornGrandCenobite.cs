@@ -1,11 +1,12 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
+  using Ai;
   using Core;
-  using Core.Ai;
-  using Core.Dsl;
-  using Core.Effects;
-  using Core.Modifiers;
+  using Gameplay.Card.Abilities;
+  using Gameplay.Card.Factory;
+  using Gameplay.Effects;
+  using Gameplay.Modifiers;
 
   public class EleshNornGrandCenobite : CardsSource
   {

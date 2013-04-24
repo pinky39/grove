@@ -2,8 +2,9 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Dsl;
-  using Core.Mana;
+  using Gameplay.Card.Abilities;
+  using Gameplay.Card.Characteristics;
+  using Gameplay.Card.Factory;
 
   public class MirranCrusader : CardsSource
   {

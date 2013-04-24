@@ -1,4 +1,4 @@
-﻿namespace Grove.Core
+﻿namespace Grove.Gameplay.States
 {
   public enum Step
   {

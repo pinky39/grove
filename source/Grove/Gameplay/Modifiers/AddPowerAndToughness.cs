@@ -1,5 +1,7 @@
-﻿namespace Grove.Core.Modifiers
+﻿namespace Grove.Gameplay.Modifiers
 {
+  using Card.Characteristics;
+
   public class AddPowerAndToughness : Modifier
   {
     private readonly Value _power;

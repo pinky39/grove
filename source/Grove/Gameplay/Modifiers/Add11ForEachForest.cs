@@ -1,8 +1,11 @@
-﻿namespace Grove.Core.Modifiers
+﻿namespace Grove.Gameplay.Modifiers
 {
   using System.Linq;
-  using Infrastructure;
+  using Card;
+  using Card.Characteristics;
+  using Grove.Infrastructure;
   using Messages;
+  using Player;
   using Zones;
 
   public class Add11ForEachForest : Modifier, IReceive<ZoneChanged>, IReceive<ControllerChanged>

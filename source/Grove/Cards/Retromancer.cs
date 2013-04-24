@@ -2,10 +2,10 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Dsl;
-  using Core.Effects;
-  using Core.Messages;
-  using Core.Triggers;
+  using Gameplay.Card.Factory;
+  using Gameplay.Card.Triggers;
+  using Gameplay.Effects;
+  using Gameplay.Messages;
 
   public class Retromancer : CardsSource
   {

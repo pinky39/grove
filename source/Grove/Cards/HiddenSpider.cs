@@ -1,11 +1,12 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
+  using Ai.TimingRules;
   using Core;
-  using Core.Ai.TimingRules;
-  using Core.Dsl;
-  using Core.Effects;
-  using Core.Triggers;
+  using Gameplay.Card.Characteristics;
+  using Gameplay.Card.Factory;
+  using Gameplay.Card.Triggers;
+  using Gameplay.Effects;
 
   public class HiddenSpider : CardsSource
   {
@@ -30,7 +31,7 @@
                   card.Is().Creature &&
                     card.Has().Flying));
 
-            p.Effect = () => new ApplyModifiersToSelf(() => new Core.Modifiers.ChangeToCreature(
+            p.Effect = () => new ApplyModifiersToSelf(() => new Gameplay.Modifiers.ChangeToCreature(
               power: 3,
               toughness: 5,
               type: "Creature Spider",

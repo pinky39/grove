@@ -1,5 +1,7 @@
-﻿namespace Grove.Core.Messages
+﻿namespace Grove.Gameplay.Messages
 {
+  using Card;
+
   public class ControllerChanged
   {
     public Card Card { get; private set; }

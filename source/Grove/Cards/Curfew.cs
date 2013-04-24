@@ -1,11 +1,11 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
+  using Ai.TimingRules;
   using Core;
-  using Core.Ai.TimingRules;
-  using Core.Dsl;
-  using Core.Effects;
-  using Core.Zones;
+  using Gameplay.Card.Factory;
+  using Gameplay.Effects;
+  using Gameplay.Zones;
 
   public class Curfew : CardsSource
   {

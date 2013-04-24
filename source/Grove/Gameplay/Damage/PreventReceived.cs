@@ -1,5 +1,7 @@
-﻿namespace Grove.Core.Preventions
+﻿namespace Grove.Gameplay.Damage
 {
+  using Card;
+
   public class PreventReceived : DamagePrevention
   {
     private readonly bool _combatOnly;

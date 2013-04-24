@@ -3,6 +3,9 @@
   using System.Collections.Generic;
   using System.Linq;
   using Core;
+  using Gameplay.Card;
+  using Gameplay.Card.Factory;
+  using Gameplay.Deck;
   using Infrastructure;
 
   public class ViewModel

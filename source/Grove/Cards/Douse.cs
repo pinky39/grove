@@ -1,12 +1,13 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
+  using Ai.TimingRules;
   using Core;
-  using Core.Ai.TimingRules;
-  using Core.Costs;
-  using Core.Dsl;
-  using Core.Effects;
-  using Core.Mana;
+  using Gameplay.Card.Characteristics;
+  using Gameplay.Card.Costs;
+  using Gameplay.Card.Factory;
+  using Gameplay.Effects;
+  using Gameplay.Mana;
 
   public class Douse : CardsSource
   {
@@ -29,8 +30,8 @@
               .Is.CounterableSpell(c => c.HasColor(CardColor.Red))
               .On.Stack());
 
-            p.TargetingRule(new Core.Ai.TargetingRules.Counterspell());
-            p.TimingRule(new Core.Ai.TimingRules.Counterspell());
+            p.TargetingRule(new Ai.TargetingRules.Counterspell());
+            p.TimingRule(new Ai.TimingRules.Counterspell());
           }
         );
     }

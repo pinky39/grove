@@ -1,11 +1,14 @@
-﻿namespace Grove.Core.Decisions.Machine
+﻿namespace Grove.Ai.Decisions
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Ai;
-  using Results;
+  using Core;
+  using Gameplay;
+  using Gameplay.Card;
+  using Gameplay.Decisions.Results;
+  using Gameplay.Player;
 
-  public class DeclareAttackers : Decisions.DeclareAttackers, ISearchNode, IDecisionExecution
+  public class DeclareAttackers : Gameplay.Decisions.DeclareAttackers, ISearchNode, IDecisionExecution
   {
     private List<List<Card>> _declarations;
     private readonly DecisionExecutor _executor;

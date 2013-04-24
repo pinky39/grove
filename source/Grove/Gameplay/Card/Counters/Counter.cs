@@ -1,6 +1,8 @@
-﻿namespace Grove.Core.Counters
+﻿namespace Grove.Gameplay.Card.Counters
 {
-  using Infrastructure;
+  using Characteristics;
+  using Common;
+  using Grove.Infrastructure;
 
   [Copyable]
   public abstract class Counter : GameObject

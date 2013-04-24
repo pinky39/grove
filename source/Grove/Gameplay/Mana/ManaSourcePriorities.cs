@@ -1,4 +1,4 @@
-﻿namespace Grove.Core.Mana
+﻿namespace Grove.Gameplay.Mana
 {
   public static class ManaSourcePriorities
   {

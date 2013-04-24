@@ -1,13 +1,14 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
+  using Ai.TimingRules;
   using Core;
-  using Core.Ai.TimingRules;
-  using Core.Costs;
-  using Core.Dsl;
-  using Core.Effects;
-  using Core.Mana;
-  using Core.Triggers;
+  using Gameplay.Card.Characteristics;
+  using Gameplay.Card.Costs;
+  using Gameplay.Card.Factory;
+  using Gameplay.Card.Triggers;
+  using Gameplay.Effects;
+  using Gameplay.Mana;
 
   public class OpalAcrolith : CardsSource
   {
@@ -29,7 +30,7 @@
                 ability.OwningCard.Controller != card.Controller && ability.OwningCard.Is().Enchantment &&
                   card.Is().Creature));
 
-            p.Effect = () => new ApplyModifiersToSelf(() => new Core.Modifiers.ChangeToCreature(
+            p.Effect = () => new ApplyModifiersToSelf(() => new Gameplay.Modifiers.ChangeToCreature(
               power: 2,
               toughness: 4,
               type: "Creature Soldier",
@@ -41,7 +42,7 @@
           {
             p.Text = "{0}: Opal Acrolith becomes an enchantment.";
             p.Cost = new PayMana(Mana.Zero, ManaUsage.Abilities);
-            p.Effect = () => new RemoveModifier(typeof (Core.Modifiers.ChangeToCreature));
+            p.Effect = () => new RemoveModifier(typeof (Gameplay.Modifiers.ChangeToCreature));
 
             p.TimingRule(new OwningCardHas(c => c.Is().Creature));
             p.TimingRule(new OwningCardWillBeDestroyed());

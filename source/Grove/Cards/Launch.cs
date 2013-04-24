@@ -1,14 +1,15 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
+  using Ai.TargetingRules;
+  using Ai.TimingRules;
   using Core;
-  using Core.Ai.TargetingRules;
-  using Core.Ai.TimingRules;
-  using Core.Dsl;
-  using Core.Effects;
-  using Core.Modifiers;
-  using Core.Triggers;
-  using Core.Zones;
+  using Gameplay.Card.Abilities;
+  using Gameplay.Card.Factory;
+  using Gameplay.Card.Triggers;
+  using Gameplay.Effects;
+  using Gameplay.Modifiers;
+  using Gameplay.Zones;
 
   public class Launch : CardsSource
   {

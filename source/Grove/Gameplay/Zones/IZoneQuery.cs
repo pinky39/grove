@@ -1,7 +1,8 @@
-﻿namespace Grove.Core.Zones
+﻿namespace Grove.Gameplay.Zones
 {
   using System;
   using System.Collections.Generic;
+  using Card;
 
   public interface IZoneQuery : IEnumerable<Card>
   {

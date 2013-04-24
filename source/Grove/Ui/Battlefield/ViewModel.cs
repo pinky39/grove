@@ -2,8 +2,11 @@
 {
   using System.Linq;
   using Core;
-  using Core.Messages;
-  using Core.Zones;
+  using Gameplay;
+  using Gameplay.Card;
+  using Gameplay.Messages;
+  using Gameplay.Player;
+  using Gameplay.Zones;
   using Infrastructure;
 
   public class ViewModel : IReceive<AttachmentAttached>, IReceive<AttachmentDetached>

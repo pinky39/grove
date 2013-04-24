@@ -1,9 +1,11 @@
-﻿namespace Grove.Core
+﻿namespace Grove.Gameplay.Card.Abilities
 {
   using System.Collections.Generic;
-  using Ai;
+  using Characteristics;
+  using Common;
   using Effects;
-  using Infrastructure;
+  using Grove.Ai;
+  using Grove.Infrastructure;
   using Targeting;
 
   public abstract class Ability : GameObject, IEffectSource

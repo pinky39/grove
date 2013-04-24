@@ -1,6 +1,9 @@
-﻿namespace Grove.Core.Decisions.Results
+﻿namespace Grove.Gameplay.Decisions.Results
 {
-  using Infrastructure;
+  using Card;
+  using Card.Abilities;
+  using Grove.Infrastructure;
+  using Player;
 
   [Copyable]
   public abstract class Playable

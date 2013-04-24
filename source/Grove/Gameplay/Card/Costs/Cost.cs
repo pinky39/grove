@@ -1,9 +1,10 @@
-﻿namespace Grove.Core.Costs
+﻿namespace Grove.Gameplay.Card.Costs
 {
   using System.Linq;
+  using Common;
   using Grove.Infrastructure;
-  using Grove.Core.Mana;
-  using Grove.Core.Targeting;
+  using Mana;
+  using Targeting;
 
   public abstract class Cost : GameObject, IHashable
   {

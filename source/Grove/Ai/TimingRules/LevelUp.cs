@@ -1,8 +1,8 @@
-﻿namespace Grove.Core.Ai.TimingRules
+﻿namespace Grove.Ai.TimingRules
 {
   using System.Collections.Generic;
-  using Dsl;
-  using Mana;
+  using Gameplay.Card.Factory;
+  using Gameplay.Mana;
 
   public class LevelUp : TimingRule
   {

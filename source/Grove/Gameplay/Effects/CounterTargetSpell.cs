@@ -1,9 +1,8 @@
-﻿namespace Grove.Core.Effects
+﻿namespace Grove.Gameplay.Effects
 {
-  using System;
-  using Ai;
   using Decisions;
   using Decisions.Results;
+  using Grove.Ai;
   using Mana;
   using Targeting;
 

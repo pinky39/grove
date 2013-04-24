@@ -2,13 +2,15 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Costs;
-  using Core.Counters;
-  using Core.Dsl;
-  using Core.Effects;
-  using Core.Mana;
-  using Core.Modifiers;
-  using Core.Triggers;
+  using Gameplay.Card.Abilities;
+  using Gameplay.Card.Characteristics;
+  using Gameplay.Card.Costs;
+  using Gameplay.Card.Counters;
+  using Gameplay.Card.Factory;
+  using Gameplay.Card.Triggers;
+  using Gameplay.Effects;
+  using Gameplay.Mana;
+  using Gameplay.Modifiers;
 
   public class RagingRavine : CardsSource
   {
@@ -51,7 +53,7 @@
                   return new AddTriggeredAbility(new TriggeredAbility(tp)) {UntilEot = true};
                 });
 
-            p.TimingRule(new Core.Ai.TimingRules.ChangeToCreature(minAvailableMana: 5));
+            p.TimingRule(new Ai.TimingRules.ChangeToCreature(minAvailableMana: 5));
           });
     }
   }

@@ -2,8 +2,8 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Dsl;
-  using Core.Mana;
+  using Gameplay.Card.Factory;
+  using Gameplay.Mana;
 
   public class BlastedLandscape : CardsSource
   {

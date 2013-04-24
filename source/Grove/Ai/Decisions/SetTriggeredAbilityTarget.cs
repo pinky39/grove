@@ -1,13 +1,15 @@
-﻿namespace Grove.Core.Decisions.Machine
+﻿namespace Grove.Ai.Decisions
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Ai;
-  using Ai.TargetingRules;
-  using Results;
-  using Targeting;
+  using Core;
+  using Gameplay;
+  using Gameplay.Decisions.Results;
+  using Gameplay.Player;
+  using Gameplay.Targeting;
+  using TargetingRules;
 
-  public class SetTriggeredAbilityTarget : Decisions.SetTriggeredAbilityTarget, ISearchNode, IDecisionExecution
+  public class SetTriggeredAbilityTarget : Gameplay.Decisions.SetTriggeredAbilityTarget, ISearchNode, IDecisionExecution
   {
     private readonly DecisionExecutor _executor;
     private List<Targets> _targets;

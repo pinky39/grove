@@ -1,8 +1,8 @@
-﻿namespace Grove.Core.Modifiers
+﻿namespace Grove.Gameplay.Modifiers
 {
   using System;
   using System.Collections.Generic;
-  using Counters;
+  using Card.Counters;
 
   public class AddCounters : Modifier
   {

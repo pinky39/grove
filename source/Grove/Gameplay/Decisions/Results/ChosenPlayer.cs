@@ -1,6 +1,7 @@
-﻿namespace Grove.Core.Decisions.Results
+﻿namespace Grove.Gameplay.Decisions.Results
 {
-  using Infrastructure;
+  using Grove.Infrastructure;
+  using Player;
 
   [Copyable]
   public class ChosenPlayer

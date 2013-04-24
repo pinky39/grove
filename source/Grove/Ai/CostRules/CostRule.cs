@@ -1,4 +1,4 @@
-﻿namespace Grove.Core.Ai.CostRules
+﻿namespace Grove.Ai.CostRules
 {
   using System.Linq;
 

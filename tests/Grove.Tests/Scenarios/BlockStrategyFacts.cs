@@ -1,7 +1,7 @@
 ﻿namespace Grove.Tests.Scenarios
 {
   using System.Linq;
-  using Core.Ai;
+  using Ai;
   using Infrastructure;
   using Xunit;
 

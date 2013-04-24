@@ -2,11 +2,11 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Dsl;
-  using Core.Effects;
-  using Core.Mana;
-  using Core.Triggers;
-  using Core.Zones;
+  using Gameplay.Card.Factory;
+  using Gameplay.Card.Triggers;
+  using Gameplay.Effects;
+  using Gameplay.Mana;
+  using Gameplay.Zones;
 
   public class SteamVents : CardsSource
   {

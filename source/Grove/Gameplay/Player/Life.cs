@@ -1,7 +1,7 @@
-﻿namespace Grove.Core
+﻿namespace Grove.Gameplay.Player
 {
-  using Ai;
-  using Infrastructure;
+  using Grove.Ai;
+  using Grove.Infrastructure;
 
   [Copyable]
   public class Life

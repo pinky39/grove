@@ -9,7 +9,8 @@
   using System.Windows.Data;
   using System.Windows.Media;
   using Core;
-  using Core.Mana;
+  using Gameplay.Card.Characteristics;
+  using Gameplay.Mana;
   using Infrastructure;
 
   public static class Converters

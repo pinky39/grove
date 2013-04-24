@@ -1,5 +1,7 @@
-﻿namespace Grove.Core.Messages
+﻿namespace Grove.Gameplay.Messages
 {
+  using Damage;
+
   public class DamageHasBeenDealt
   {
     public DamageHasBeenDealt(object receiver, Damage damage)

@@ -1,9 +1,11 @@
 ﻿namespace Grove.Core.Decisions.Scenario
 {
   using System;
-  using Results;
+  using Gameplay;
+  using Gameplay.Card;
+  using Gameplay.Decisions.Results;
 
-  public class PlaySpellOrAbility : Decisions.PlaySpellOrAbility, IScenarioDecision
+  public class PlaySpellOrAbility : Gameplay.Decisions.PlaySpellOrAbility, IScenarioDecision
   {
     public Func<Card, Game, bool> Condition = delegate { return true; };
     

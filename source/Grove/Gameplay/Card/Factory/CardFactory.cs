@@ -1,16 +1,18 @@
-﻿namespace Grove.Core
+﻿namespace Grove.Gameplay.Card.Factory
 {
   using System;
   using System.Collections.Generic;
-  using Ai;
-  using Ai.TimingRules;
+  using Abilities;
   using CastingRules;
+  using Characteristics;
   using Costs;
-  using Dsl;
+  using Damage;
   using Effects;
+  using Grove.Ai;
+  using Grove.Ai.TimingRules;
   using Mana;
   using Modifiers;
-  using Preventions;
+  using States;
   using Triggers;
   using Zones;
 
@@ -48,7 +50,7 @@
     {
       return new CastInstructionParameters
         {
-          Cost = new PayMana(cp.ManaCost ?? Mana.Mana.Zero, ManaUsage.Spells, cp.HasXInCost),
+          Cost = new PayMana(cp.ManaCost ?? Gameplay.Mana.Mana.Zero, ManaUsage.Spells, cp.HasXInCost),
           Text = string.Format("Cast {0}.", cp.Name),
           Effect = () => new PutIntoPlay(),
           Rule = GetDefaultCastingRule(cp.Type),

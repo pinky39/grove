@@ -1,13 +1,13 @@
-﻿namespace Grove.Core
+﻿namespace Grove.Gameplay.Card.Abilities
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Ai;
-  using Ai.CostRules;
-  using Ai.RepetitionRules;
-  using Ai.TargetingRules;
-  using Ai.TimingRules;
   using Effects;
+  using Grove.Ai;
+  using Grove.Ai.CostRules;
+  using Grove.Ai.RepetitionRules;
+  using Grove.Ai.TargetingRules;
+  using Grove.Ai.TimingRules;
   using Targeting;
 
   public class AbilityOrCastParameters

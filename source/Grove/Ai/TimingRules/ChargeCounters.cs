@@ -1,5 +1,8 @@
-﻿namespace Grove.Core.Ai.TimingRules
+﻿namespace Grove.Ai.TimingRules
 {
+  using Core;
+  using Gameplay.States;
+
   public class ChargeCounters : TimingRule
   {
     private readonly int _minCount;

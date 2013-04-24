@@ -3,6 +3,7 @@
   using System.Windows;
   using Caliburn.Micro;
   using Core;
+  using Gameplay;
   using Infrastructure;
   using MessageBox;
 

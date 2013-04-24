@@ -1,5 +1,7 @@
-﻿namespace Grove.Core.Modifiers
+﻿namespace Grove.Gameplay.Modifiers
 {
+  using Card.Abilities;
+
   public class AddStaticAbility : Modifier
   {
     private readonly Static _staticAbility;

@@ -1,8 +1,9 @@
-﻿namespace Grove.Core.Modifiers
+﻿namespace Grove.Gameplay.Modifiers
 {
   using System;
   using System.Collections.Generic;
   using System.Linq;
+  using Card.Characteristics;
 
   public class ChangeToCreature : Modifier
   {

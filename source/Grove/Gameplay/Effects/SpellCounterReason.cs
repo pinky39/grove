@@ -1,4 +1,4 @@
-﻿namespace Grove.Core
+﻿namespace Grove.Gameplay.Effects
 {
   public enum SpellCounterReason
   {

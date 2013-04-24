@@ -2,9 +2,9 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Costs;
-  using Core.Dsl;
-  using Core.Effects;
+  using Gameplay.Card.Costs;
+  using Gameplay.Card.Factory;
+  using Gameplay.Effects;
 
   public class SanctumGuardian : CardsSource
   {
@@ -36,7 +36,7 @@
                   trg.Is.CreatureOrPlayer().On.Battlefield();
                   trg.Message = "Select creature or player.";
                 });
-            p.TargetingRule(new Core.Ai.TargetingRules.PreventDamageFromSourceToTarget());
+            p.TargetingRule(new Ai.TargetingRules.PreventDamageFromSourceToTarget());
           });
     }
   }

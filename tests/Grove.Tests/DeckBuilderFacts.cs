@@ -3,6 +3,7 @@
   using System;
   using Core;
   using Infrastructure;
+  using Tournament;
   using Ui;
   using Xunit;
 

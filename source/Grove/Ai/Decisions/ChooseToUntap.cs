@@ -1,8 +1,10 @@
-﻿namespace Grove.Core.Decisions.Machine
+﻿namespace Grove.Ai.Decisions
 {
-  using Ai;
+  using Core;
+  using Gameplay;
+  using Gameplay.Player;
 
-  public class ChooseToUntap : Decisions.ChooseToUntap, ISearchNode, IDecisionExecution
+  public class ChooseToUntap : Gameplay.Decisions.ChooseToUntap, ISearchNode, IDecisionExecution
   {
     private readonly DecisionExecutor _executor;
 

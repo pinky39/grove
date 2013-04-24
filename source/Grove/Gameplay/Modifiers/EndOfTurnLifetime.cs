@@ -1,7 +1,7 @@
-﻿namespace Grove.Core.Modifiers
+﻿namespace Grove.Gameplay.Modifiers
 {
   using Grove.Infrastructure;
-  using Grove.Core.Messages;
+  using Messages;
 
   public class EndOfTurnLifetime : Lifetime, IReceive<EndOfTurn>
   {

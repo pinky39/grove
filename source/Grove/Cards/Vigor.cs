@@ -2,13 +2,14 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Counters;
-  using Core.Dsl;
-  using Core.Effects;
-  using Core.Modifiers;
-  using Core.Preventions;
-  using Core.Triggers;
-  using Core.Zones;
+  using Gameplay.Card.Abilities;
+  using Gameplay.Card.Counters;
+  using Gameplay.Card.Factory;
+  using Gameplay.Card.Triggers;
+  using Gameplay.Damage;
+  using Gameplay.Effects;
+  using Gameplay.Modifiers;
+  using Gameplay.Zones;
 
   public class Vigor : CardsSource
   {

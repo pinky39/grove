@@ -1,7 +1,7 @@
-﻿namespace Grove.Core
+﻿namespace Grove.Gameplay.Damage
 {
-  using Infrastructure;
-  using Redirections;
+  using Card;
+  using Grove.Infrastructure;
 
   [Copyable]
   public class Damage : IHashable

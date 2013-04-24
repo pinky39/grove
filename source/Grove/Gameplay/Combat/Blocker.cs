@@ -1,9 +1,13 @@
-﻿namespace Grove.Core
+﻿namespace Grove.Gameplay.Combat
 {
   using System.Linq;
-  using Ai;
-  using Infrastructure;
+  using Card;
+  using Common;
+  using Damage;
+  using Grove.Ai;
+  using Grove.Infrastructure;
   using Messages;
+  using Player;
 
   public class Blocker : GameObject, IHashable
   {

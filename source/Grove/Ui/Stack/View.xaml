@@ -3,7 +3,7 @@
              xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:i = "clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:cal = "clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
-             xmlns:Core="clr-namespace:Grove.Core" xmlns:Ui="clr-namespace:Grove.Ui" xmlns:Effects="clr-namespace:Grove.Core.Effects">
+             xmlns:Core="clr-namespace:Grove.Core" xmlns:Ui="clr-namespace:Grove.Ui" xmlns:Abilities="clr-namespace:Grove.Gameplay.Card.Abilities" xmlns:Card="clr-namespace:Grove.Gameplay.Card" xmlns:Effects="clr-namespace:Grove.Gameplay.Effects" xmlns:Player="clr-namespace:Grove.Gameplay.Player">
 	<UserControl.Resources>
 		<Style TargetType = "Border"
 		       x:Key = "StackChrome" >
@@ -23,20 +23,20 @@
 	        CornerRadius = "4" >
 		<Border.Resources>
 
-			<DataTemplate DataType = "{x:Type Core:CastInstruction}" >
+			<DataTemplate DataType = "{x:Type Abilities:CastInstruction}" >
                 <ContentControl Content = "{Binding SourceCard}" Style="{StaticResource Card}" />                                    
             </DataTemplate>
 
-            <DataTemplate DataType = "{x:Type Core:Card}" >
+            <DataTemplate DataType = "{x:Type Card:Card}" >
                 <ContentControl Content = "{Binding }" Style="{StaticResource Card}" />
             </DataTemplate>
 
-            <DataTemplate DataType = "{x:Type Core:ActivatedAbility}" >
+            <DataTemplate DataType = "{x:Type Abilities:ActivatedAbility}" >
 				<ContentControl Content = "{Binding}"
 				                ContentTemplate = "{StaticResource Ability}" />
 			</DataTemplate>
 
-			<DataTemplate DataType = "{x:Type Core:TriggeredAbility}" >
+			<DataTemplate DataType = "{x:Type Abilities:TriggeredAbility}" >
 				<ContentControl Content = "{Binding}"
 				                ContentTemplate = "{StaticResource Ability}" />
 			</DataTemplate>
@@ -71,7 +71,7 @@
                             <ItemsControl ItemsSource="{Binding UiTargets}">
                                 
                                 <ItemsControl.Resources>
-                                    <DataTemplate DataType = "{x:Type Core:Player}" >
+                                    <DataTemplate DataType = "{x:Type Player:Player}" >
                                         <Viewbox>
                                             <Border Width="324" Height="458">
                                                 <Image Source="{Binding Avatar, Converter={Ui:Media}}"/>

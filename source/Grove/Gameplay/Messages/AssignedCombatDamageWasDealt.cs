@@ -1,5 +1,7 @@
-﻿namespace Grove.Core.Messages
+﻿namespace Grove.Gameplay.Messages
 {
+  using States;
+
   public class AssignedCombatDamageWasDealt
   {
     public Step Step { get; private set; }

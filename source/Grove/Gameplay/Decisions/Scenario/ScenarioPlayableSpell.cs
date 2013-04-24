@@ -2,8 +2,8 @@
 {
   using System;
   using System.Linq;
-  using Mana;
-  using Results;
+  using Gameplay.Decisions.Results;
+  using Gameplay.Mana;
 
   public class ScenarioPlayableSpell : PlayableSpell
   {

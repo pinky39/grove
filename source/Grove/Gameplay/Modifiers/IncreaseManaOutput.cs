@@ -1,5 +1,6 @@
-﻿namespace Grove.Core.Modifiers
+﻿namespace Grove.Gameplay.Modifiers
 {
+  using Card.Abilities;
   using Mana;
 
   public class IncreaseManaOutput : Modifier

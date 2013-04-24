@@ -1,8 +1,8 @@
 ﻿namespace Grove.Core.Decisions.Scenario
 {
-  using Results;
+  using Gameplay.Decisions.Results;
 
-  public class SetTriggeredAbilityTarget : Decisions.SetTriggeredAbilityTarget, IScenarioDecision
+  public class SetTriggeredAbilityTarget : Gameplay.Decisions.SetTriggeredAbilityTarget, IScenarioDecision
   {
     public static SetTriggeredAbilityTarget None
     {

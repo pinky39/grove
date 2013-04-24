@@ -1,4 +1,4 @@
-﻿namespace Grove.Core.Zones
+﻿namespace Grove.Gameplay.Zones
 {
   using System;
   using Effects;

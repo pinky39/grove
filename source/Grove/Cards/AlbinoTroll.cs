@@ -2,12 +2,12 @@
 {
   using System;
   using System.Collections.Generic;
+  using Ai;
   using Core;
-  using Core.Ai;
-  using Core.Costs;
-  using Core.Dsl;
-  using Core.Effects;
-  using Core.Mana;
+  using Gameplay.Card.Costs;
+  using Gameplay.Card.Factory;
+  using Gameplay.Effects;
+  using Gameplay.Mana;
 
   public class AlbinoTroll : CardsSource
   {
@@ -27,7 +27,7 @@
             p.Text = "{1}{G}: Regenerate Albino Troll.";
             p.Cost = new PayMana("{1}{G}".Parse(), ManaUsage.Abilities);
             p.Effect = () => new Regenerate {Category = EffectCategories.Protector};
-            p.TimingRule(new Core.Ai.TimingRules.Regenerate());
+            p.TimingRule(new Ai.TimingRules.Regenerate());
           });
     }
   }

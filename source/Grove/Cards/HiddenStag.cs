@@ -1,11 +1,12 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
+  using Ai.TimingRules;
   using Core;
-  using Core.Ai.TimingRules;
-  using Core.Dsl;
-  using Core.Effects;
-  using Core.Triggers;
+  using Gameplay.Card.Characteristics;
+  using Gameplay.Card.Factory;
+  using Gameplay.Card.Triggers;
+  using Gameplay.Effects;
 
   public class HiddenStag : CardsSource
   {
@@ -28,7 +29,7 @@
                 ability.OwningCard.Controller != card.Controller && ability.OwningCard.Is().Enchantment &&
                   card.Is().Land));
 
-            p.Effect = () => new ApplyModifiersToSelf(() => new Core.Modifiers.ChangeToCreature(
+            p.Effect = () => new ApplyModifiersToSelf(() => new Gameplay.Modifiers.ChangeToCreature(
               power: 3,
               toughness: 2,
               type: "Creature Elk Beast",
@@ -43,7 +44,7 @@
               filter: (ability, card) =>
                 ability.OwningCard.Controller == card.Controller && ability.OwningCard.Is().Creature && card.Is().Land));
 
-            p.Effect = () => new RemoveModifier(typeof (Core.Modifiers.ChangeToCreature));
+            p.Effect = () => new RemoveModifier(typeof (Gameplay.Modifiers.ChangeToCreature));
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });

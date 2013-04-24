@@ -1,12 +1,14 @@
-﻿namespace Grove.Core.Decisions
+﻿namespace Grove.Gameplay.Decisions
 {
   using System;
   using System.Collections.Generic;
   using System.Linq;
   using System.Reflection;
-  using Infrastructure;
-  using Scenario;
-  
+  using Grove.Infrastructure;
+  using Grove.Core.Decisions.Scenario;
+  using Player;
+  using Ui.Decisions;
+
   public class DecisionSystem
   {
     private static readonly HashSet<Type> ScenarioDecisions = new HashSet<Type>(GetScenarioDecisions());
@@ -34,7 +36,7 @@
       return Assembly.GetExecutingAssembly()
         .GetTypes()
         .Where(x => x.Implements<IDecision>())
-        .Where(x => x.Namespace.Equals(typeof (Machine.PlaySpellOrAbility).Namespace))
+        .Where(x => x.Namespace.Equals(typeof (Ai.Decisions.PlaySpellOrAbility).Namespace))
         .Select(x => new
           {
             Type = x.BaseType,

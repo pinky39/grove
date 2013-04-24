@@ -1,6 +1,8 @@
-﻿namespace Grove.Core.Zones
+﻿namespace Grove.Gameplay.Zones
 {
   using System.Collections.Generic;
+  using Card;
+  using Card.Characteristics;
 
   public interface IBattlefieldQuery : IZoneQuery
   {

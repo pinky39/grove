@@ -1,7 +1,7 @@
-﻿namespace Grove.Core.Redirections
+﻿namespace Grove.Gameplay.Damage
 {
   using System.Linq;
-  using Infrastructure;
+  using Grove.Infrastructure;
   using Modifiers;
 
   [Copyable]

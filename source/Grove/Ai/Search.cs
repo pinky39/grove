@@ -1,4 +1,4 @@
-﻿namespace Grove.Core.Ai
+﻿namespace Grove.Ai
 {
   using System;
   using System.Collections.Generic;
@@ -6,9 +6,11 @@
   using System.Linq;
   using System.Threading;
   using System.Threading.Tasks;
-  using Infrastructure;
+  using Core;
+  using Gameplay;
+  using Gameplay.Messages;
+  using Grove.Infrastructure;
   using log4net;
-  using Messages;
 
   public class Search
   {

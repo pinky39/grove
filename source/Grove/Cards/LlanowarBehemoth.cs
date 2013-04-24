@@ -1,14 +1,15 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
+  using Ai;
+  using Ai.TargetingRules;
+  using Ai.TimingRules;
   using Core;
-  using Core.Ai;
-  using Core.Ai.TargetingRules;
-  using Core.Ai.TimingRules;
-  using Core.Costs;
-  using Core.Dsl;
-  using Core.Effects;
-  using Core.Modifiers;
+  using Gameplay.Card.Costs;
+  using Gameplay.Card.Factory;
+  using Gameplay.Effects;
+  using Gameplay.Modifiers;
+  using Gameplay.Player;
 
   public class LlanowarBehemoth : CardsSource
   {

@@ -2,9 +2,9 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Costs;
-  using Core.Dsl;
-  using Core.Mana;
+  using Gameplay.Card.Costs;
+  using Gameplay.Card.Factory;
+  using Gameplay.Mana;
 
   public class BloodVassal : CardsSource
   {

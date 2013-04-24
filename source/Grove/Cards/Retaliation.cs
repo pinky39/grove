@@ -1,12 +1,13 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
+  using Ai.TimingRules;
   using Core;
-  using Core.Ai.TimingRules;
-  using Core.Dsl;
-  using Core.Effects;
-  using Core.Modifiers;
-  using Core.Triggers;
+  using Gameplay.Card.Abilities;
+  using Gameplay.Card.Factory;
+  using Gameplay.Card.Triggers;
+  using Gameplay.Effects;
+  using Gameplay.Modifiers;
 
   public class Retaliation : CardsSource
   {

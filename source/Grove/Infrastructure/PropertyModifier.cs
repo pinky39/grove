@@ -1,7 +1,5 @@
-﻿namespace Grove.Core
+﻿namespace Grove.Infrastructure
 {
-  using Infrastructure;
-
   [Copyable]
   public abstract class PropertyModifier<TValue>
   {

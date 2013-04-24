@@ -1,9 +1,11 @@
-﻿namespace Grove.Core
+﻿namespace Grove.Gameplay.Card.Abilities
 {
   using System.Linq;
-  using Infrastructure;
+  using Common;
+  using Grove.Infrastructure;
   using Messages;
   using Modifiers;
+  using Player;
   using Targeting;
   using Zones;
 

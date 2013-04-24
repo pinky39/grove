@@ -1,6 +1,6 @@
-﻿namespace Grove.Core.Costs
+﻿namespace Grove.Gameplay.Card.Costs
 {
-  using Grove.Core.Targeting;
+  using Targeting;
 
   public class RemoveCounter : Cost
   {    

@@ -1,10 +1,11 @@
-﻿namespace Grove.Core
+﻿namespace Grove.Gameplay.Card.Abilities
 {
   using System;
   using System.Collections.Generic;
   using System.Linq;
   using Decisions;
-  using Infrastructure;
+  using Effects;
+  using Grove.Infrastructure;
   using Triggers;
   using Zones;
 

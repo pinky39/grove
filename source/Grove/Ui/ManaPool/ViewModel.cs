@@ -3,6 +3,8 @@
   using System;
   using System.Threading;
   using Core;
+  using Gameplay;
+  using Gameplay.Player;
 
   public class ViewModel : IDisposable
   {

@@ -1,12 +1,12 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
+  using Ai.TargetingRules;
   using Core;
-  using Core.Ai.TargetingRules;
-  using Core.Dsl;
-  using Core.Effects;
-  using Core.Modifiers;
-  using Core.Preventions;
+  using Gameplay.Card.Factory;
+  using Gameplay.Damage;
+  using Gameplay.Effects;
+  using Gameplay.Modifiers;
 
   public class Redeem : CardsSource
   {

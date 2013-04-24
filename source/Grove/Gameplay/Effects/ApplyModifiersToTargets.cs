@@ -1,6 +1,7 @@
-﻿namespace Grove.Core.Effects
+﻿namespace Grove.Gameplay.Effects
 {
   using System.Collections.Generic;
+  using Card;
   using Modifiers;
   using Targeting;
 

@@ -4,8 +4,9 @@
   using System.Linq;
   using System.Threading;
   using Core;
-  using Core.Messages;
-  using Core.Testing;
+  using Gameplay;
+  using Gameplay.Messages;
+  using Gameplay.Recording;
   using Infrastructure;
 
   public class ViewModel : IIsDialogHost, IReceive<PlayerHasCastASpell>,

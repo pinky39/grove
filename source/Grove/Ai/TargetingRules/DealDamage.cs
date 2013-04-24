@@ -1,10 +1,13 @@
-﻿namespace Grove.Core.Ai.TargetingRules
+﻿namespace Grove.Ai.TargetingRules
 {
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Infrastructure;
-  using Targeting;
+  using Core;
+  using Gameplay.Card;
+  using Gameplay.Player;
+  using Gameplay.Targeting;
+  using Grove.Infrastructure;
 
   public class DealDamage : TargetingRule
   {
@@ -21,7 +24,7 @@
     {      
     }
 
-    protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
+    protected override IEnumerable<Gameplay.Targeting.Targets> SelectTargets(TargetingRuleParameters p)
     {
       if (p.DistributeAmount > 0)
       {
@@ -38,7 +41,7 @@
       return Group(candidates, p.MinTargetCount());
     }
 
-    private IEnumerable<Targets> SelectTargetsDistribute(TargetingRuleParameters p)
+    private IEnumerable<Gameplay.Targeting.Targets> SelectTargetsDistribute(TargetingRuleParameters p)
     {
       var amount = p.DistributeAmount;
 
@@ -46,7 +49,7 @@
 
       var targets = p.Candidates<Card>(ControlledBy.Opponent)
         .Where(x => x.Is().Creature && x.Life <= amount)
-        .Select(x => new KnapsackItem<ITarget>(
+        .Select(x => new KnapsackItem<Gameplay.Targeting.ITarget>(
           item: x,
           weight: x.Life,
           value: x.Score))
@@ -55,14 +58,14 @@
       targets.AddRange(p.Candidates<Player>(ControlledBy.Opponent)
         .SelectMany(x =>
           {
-            var items = new List<KnapsackItem<ITarget>>();
+            var items = new List<KnapsackItem<Gameplay.Targeting.ITarget>>();
 
             const int decrementSoPlayerAtMostOnce = 1;
 
             for (var i = 1; i <= amount; i++)
             {
               items.Add(
-                new KnapsackItem<ITarget>(
+                new KnapsackItem<Gameplay.Targeting.ITarget>(
                   item: x,
                   weight: i,
                   value: ScoreCalculator.CalculateLifelossScore(x.Player().Life, i) - decrementSoPlayerAtMostOnce));
@@ -73,7 +76,7 @@
         );
 
       if (targets.Count == 0)
-        return None<Targets>();
+        return None<Gameplay.Targeting.Targets>();
 
       var solution = Knapsack.Solve(targets, amount);
       var selected = solution.Select(x => x.Item).ToList();
@@ -85,7 +88,7 @@
       return Group(selected, damageDistribution: distribution);
     }
 
-    private IEnumerable<Targets> SelectTargets2Selectors(TargetingRuleParameters p)
+    private IEnumerable<Gameplay.Targeting.Targets> SelectTargets2Selectors(TargetingRuleParameters p)
     {
       if (p.EffectTargetTypeCount > 2)
         throw new NotSupportedException("More than 2 effect selectors currently not supported.");
@@ -96,7 +99,7 @@
       return Group(candidates1, candidates2);
     }
 
-    protected override IEnumerable<Targets> ForceSelectTargets(TargetingRuleParameters p)
+    protected override IEnumerable<Gameplay.Targeting.Targets> ForceSelectTargets(TargetingRuleParameters p)
     {
       // triggered abilities force you to choose a target even if its
       // not favorable e.g Flaming Kavu                      
@@ -105,7 +108,7 @@
       return Group(candidates, p.MinTargetCount());
     }
 
-    private IEnumerable<ITarget> GetCandidatesByDescendingDamageScore(TargetingRuleParameters p, int selectorIndex = 0)
+    private IEnumerable<Gameplay.Targeting.ITarget> GetCandidatesByDescendingDamageScore(TargetingRuleParameters p, int selectorIndex = 0)
     {
       var amount = _getAmount(p);
 
@@ -113,7 +116,7 @@
         .Where(x => x == p.Controller.Opponent)
         .Select(x => new
           {
-            Target = (ITarget) x,
+            Target = (Gameplay.Targeting.ITarget) x,
             Score = ScoreCalculator.CalculateLifelossScore(x.Life, amount)
           })
         .Concat(

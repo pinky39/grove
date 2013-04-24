@@ -2,13 +2,14 @@
 {
   using System;
   using System.Collections.Generic;
+  using Ai.TimingRules;
   using Core;
-  using Core.Ai.TimingRules;
-  using Core.Costs;
-  using Core.Dsl;
-  using Core.Effects;
-  using Core.Mana;
-  using Core.Modifiers;
+  using Gameplay.Card.Abilities;
+  using Gameplay.Card.Characteristics;
+  using Gameplay.Card.Costs;
+  using Gameplay.Card.Factory;
+  using Gameplay.Effects;
+  using Gameplay.Modifiers;
 
   public class LurkingEvil : CardsSource
   {
@@ -26,7 +27,7 @@
             p.Text = "Pay half your life, rounded up: Lurking Evil becomes a 4/4 Horror creature with flying.";
             p.Cost = new PayLife(c => (int) Math.Ceiling(c.Controller.Life/2d));
             p.Effect = () => new ApplyModifiersToSelf(
-              () => new Core.Modifiers.ChangeToCreature(
+              () => new Gameplay.Modifiers.ChangeToCreature(
                 power: 4,
                 toughness: 4,
                 colors: L(CardColor.Black),
@@ -34,7 +35,7 @@
               () => new AddStaticAbility(Static.Flying));
 
             p.TimingRule(new OwningCardHas(c => c.Is().Enchantment));
-            p.TimingRule(new Core.Ai.TimingRules.ChangeToCreature());
+            p.TimingRule(new Ai.TimingRules.ChangeToCreature());
           });
     }
   }

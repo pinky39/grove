@@ -4,7 +4,9 @@
   using System.Linq;
   using System.Threading;
   using Core;
-  using Core.Mana;
+  using Gameplay.Card;
+  using Gameplay.Card.Characteristics;
+  using Gameplay.Mana;
 
   public class CardViewModel : ViewModelBase, IDisposable
   {

@@ -1,4 +1,4 @@
-﻿namespace Grove.Core.Modifiers
+﻿namespace Grove.Gameplay.Modifiers
 {
   using System.Diagnostics;
   using Effects;

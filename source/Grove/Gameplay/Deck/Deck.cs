@@ -1,11 +1,13 @@
-﻿namespace Grove.Core
+﻿namespace Grove.Gameplay.Deck
 {
   using System;
   using System.Collections;
   using System.Collections.Generic;
   using System.Linq;
+  using Card;
+  using Card.Factory;
+  using Grove.Ui;
   using Mana;
-  using Ui;
 
   public class Deck : IEnumerable<Card>
   {

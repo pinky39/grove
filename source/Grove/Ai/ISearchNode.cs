@@ -1,5 +1,9 @@
-﻿namespace Grove.Core.Ai
+﻿namespace Grove.Ai
 {
+  using Core;
+  using Gameplay;
+  using Gameplay.Player;
+
   public interface ISearchNode
   {
     Game Game { get; }

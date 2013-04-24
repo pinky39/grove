@@ -1,4 +1,4 @@
-﻿namespace Grove.Core.Counters
+﻿namespace Grove.Gameplay.Card.Counters
 {
   public class ChargeCounter : Counter
   {

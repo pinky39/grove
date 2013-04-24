@@ -4,7 +4,7 @@
              xmlns:Interactivity="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
              xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro" 
              xmlns:Core="clr-namespace:Grove.Core"
-             xmlns:Ui="clr-namespace:Grove.Ui">
+             xmlns:Ui="clr-namespace:Grove.Ui" xmlns:Player="clr-namespace:Grove.Gameplay.Player" xmlns:Card="clr-namespace:Grove.Gameplay.Card">
     <Border>
         <Border.Resources>
             <Style BasedOn = "{StaticResource ScrollBar}" TargetType = "{x:Type ScrollBar}" />
@@ -35,7 +35,7 @@
                                 <DataTemplate>
                                 <DataTemplate.Resources>
                                     
-                                    <DataTemplate DataType = "{x:Type Core:Player}" >
+                                    <DataTemplate DataType = "{x:Type Player:Player}" >
                                         <Viewbox>
                                             <Border Background="#000" Width="324" Height="458" >
                                                 <Image Source="{Binding Avatar, Converter={Ui:Media}}"/>
@@ -43,7 +43,7 @@
                                         </Viewbox>
                                     </DataTemplate>
 
-                                    <DataTemplate DataType = "{x:Type Core:Card}" >
+                                    <DataTemplate DataType = "{x:Type Card:Card}" >
                                         <ContentControl Content = "{Binding}" Style="{StaticResource Card}" >
                                             <Interactivity:Interaction.Triggers>
                                             <Interactivity:EventTrigger EventName = "MouseEnter" >

@@ -1,8 +1,8 @@
 ﻿namespace Grove.Core.Decisions.Scenario
 {
-  using Results;
+  using Gameplay.Decisions.Results;
 
-  public class DeclareAttackers : Decisions.DeclareAttackers, IScenarioDecision
+  public class DeclareAttackers : Gameplay.Decisions.DeclareAttackers, IScenarioDecision
   {
     public static DeclareAttackers None
     {

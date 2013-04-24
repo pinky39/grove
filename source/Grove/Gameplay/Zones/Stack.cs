@@ -1,14 +1,15 @@
-﻿namespace Grove.Core.Zones
+﻿namespace Grove.Gameplay.Zones
 {
   using System;
   using System.Collections;
   using System.Collections.Generic;
   using System.Linq;
-  using Ai;
-  
+  using Card;
   using Effects;
-  using Infrastructure;
+  using Grove.Ai;
+  using Grove.Infrastructure;
   using log4net;
+  using Player;
   using Targeting;
 
   [Copyable]

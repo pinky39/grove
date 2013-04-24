@@ -1,6 +1,6 @@
-﻿namespace Grove.Core.Modifiers
+﻿namespace Grove.Gameplay.Modifiers
 {
-  using Redirections;
+  using Damage;
 
   public class AddDamageRedirection : Modifier
   {

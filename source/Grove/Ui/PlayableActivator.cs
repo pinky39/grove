@@ -2,7 +2,8 @@
 {
   using System;
   using Core;
-  using Core.Decisions.Results;
+  using Gameplay.Card.Abilities;
+  using Gameplay.Decisions.Results;
 
   public class PlayableActivator
   {

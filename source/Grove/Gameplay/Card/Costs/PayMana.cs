@@ -1,7 +1,7 @@
-﻿namespace Grove.Core.Costs
+﻿namespace Grove.Gameplay.Card.Costs
 {
-  using Grove.Core.Mana;
-  using Grove.Core.Targeting;
+  using Mana;
+  using Targeting;
 
   public class PayMana : Cost
   {

@@ -3,6 +3,9 @@
   using System;
   using System.Threading;
   using Core;
+  using Gameplay;
+  using Gameplay.Common;
+  using Gameplay.Player;
   using Infrastructure;
 
   public class ViewModel : GameObject, IDisposable, IReceive<UiInteractionChanged>

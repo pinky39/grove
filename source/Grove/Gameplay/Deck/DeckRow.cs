@@ -1,8 +1,9 @@
-﻿namespace Grove.Core
+﻿namespace Grove.Gameplay.Deck
 {
   using System.Collections;
   using System.Collections.Generic;
   using System.Linq;
+  using Card;
 
   public class DeckRow : IEnumerable<string>
   {

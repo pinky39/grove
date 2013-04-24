@@ -1,14 +1,17 @@
-﻿namespace Grove.Core.Ai.TargetingRules
+﻿namespace Grove.Ai.TargetingRules
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Targeting;
+  using Core;
+  using Gameplay.Card;
+  using Gameplay.Card.Characteristics;
+  using Gameplay.Targeting;
 
   public class DamageRedirectionEnchantment : TargetingRule
   {
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
     {
-      var candidates = p.Candidates<Card>()
+      var candidates = p.Candidates<Gameplay.Card.Card>()
         .Select(x => new
           {
             Card = x,

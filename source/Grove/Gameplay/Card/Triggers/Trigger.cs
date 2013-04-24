@@ -1,7 +1,10 @@
-﻿namespace Grove.Core.Triggers
+﻿namespace Grove.Gameplay.Card.Triggers
 {
   using System;
-  using Infrastructure;
+  using Abilities;
+  using Common;
+  using Grove.Infrastructure;
+  using Player;
 
   public abstract class Trigger : GameObject, IHashable
   {

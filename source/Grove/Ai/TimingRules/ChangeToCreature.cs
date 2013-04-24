@@ -1,7 +1,9 @@
-﻿namespace Grove.Core.Ai.TimingRules
+﻿namespace Grove.Ai.TimingRules
 {
   using System.Linq;
-  using Mana;
+  using Core;
+  using Gameplay.Mana;
+  using Gameplay.States;
 
   public class ChangeToCreature : TimingRule
   {

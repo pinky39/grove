@@ -2,10 +2,11 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Dsl;
-  using Core.Effects;
-  using Core.Triggers;
-  using Core.Zones;
+  using Gameplay.Card.Abilities;
+  using Gameplay.Card.Factory;
+  using Gameplay.Card.Triggers;
+  using Gameplay.Effects;
+  using Gameplay.Zones;
 
   public class DarkslickDrake : CardsSource
   {

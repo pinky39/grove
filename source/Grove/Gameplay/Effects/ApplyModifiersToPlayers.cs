@@ -1,8 +1,9 @@
-﻿namespace Grove.Core.Effects
+﻿namespace Grove.Gameplay.Effects
 {
   using System;
   using System.Collections.Generic;
   using Modifiers;
+  using Player;
 
   public class ApplyModifiersToPlayer : Effect
   {

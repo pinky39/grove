@@ -1,7 +1,8 @@
-﻿namespace Grove.Core.Ai.TimingRules
+﻿namespace Grove.Ai.TimingRules
 {
-  using System;
   using System.Linq;
+  using Core;
+  using Gameplay.States;
 
   public class BounceAll : TimingRule
   {

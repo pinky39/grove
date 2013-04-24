@@ -1,5 +1,6 @@
-﻿namespace Grove.Core.Decisions
+﻿namespace Grove.Gameplay.Decisions
 {
+  using Card;
   using Results;
 
   public abstract class ChooseToUntap : Decision<BooleanResult>

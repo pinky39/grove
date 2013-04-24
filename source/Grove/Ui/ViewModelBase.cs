@@ -1,6 +1,8 @@
 ﻿namespace Grove.Ui
 {
   using Core;
+  using Gameplay;
+  using Gameplay.Common;
   using Shell;
 
   public abstract class ViewModelBase : GameObject

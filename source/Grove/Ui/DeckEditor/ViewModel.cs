@@ -4,6 +4,8 @@
   using System.Linq;
   using System.Windows;
   using Core;
+  using Gameplay.Card;
+  using Gameplay.Card.Factory;
   using Infrastructure;
   using SelectDeck;
   using Shell;

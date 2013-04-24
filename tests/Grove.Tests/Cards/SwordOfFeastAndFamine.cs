@@ -1,7 +1,8 @@
 ﻿namespace Grove.Tests.Cards
 {
   using System.Linq;
-  using Core.Mana;
+  using Gameplay.Card.Characteristics;
+  using Gameplay.States;
   using Grove.Core;
   using Infrastructure;
   using Xunit;

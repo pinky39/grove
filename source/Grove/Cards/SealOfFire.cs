@@ -2,12 +2,12 @@
 {
   using System;
   using System.Collections.Generic;
+  using Ai.TargetingRules;
+  using Ai.TimingRules;
   using Core;
-  using Core.Ai.TargetingRules;
-  using Core.Ai.TimingRules;
-  using Core.Costs;
-  using Core.Dsl;
-  using Core.Effects;
+  using Gameplay.Card.Costs;
+  using Gameplay.Card.Factory;
+  using Gameplay.Effects;
 
   public class SealOfFire : CardsSource
   {

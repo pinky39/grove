@@ -2,6 +2,7 @@
 {
   using System;
   using Core;
+  using Gameplay.Deck;
   using Infrastructure;
   using Xunit;
 

@@ -1,12 +1,12 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
+  using Ai;
+  using Ai.TargetingRules;
   using Core;
-  using Core.Ai;
-  using Core.Ai.TargetingRules;
-  using Core.Dsl;
-  using Core.Effects;
-  using Core.Modifiers;
+  using Gameplay.Card.Factory;
+  using Gameplay.Effects;
+  using Gameplay.Modifiers;
 
   public class Symbiosis : CardsSource
   {

@@ -5,6 +5,7 @@
   using System.Linq;
   using Caliburn.Micro;
   using Core;
+  using Gameplay.Card;
 
   public class Slot
   {

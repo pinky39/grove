@@ -1,6 +1,6 @@
-﻿namespace Grove.Core.Decisions.Machine
+﻿namespace Grove.Ai.Decisions
 {
-  public class SelectCards : Decisions.SelectCards
+  public class SelectCards : Gameplay.Decisions.SelectCards
   {
     protected override void ExecuteQuery()
     {      

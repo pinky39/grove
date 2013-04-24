@@ -2,7 +2,8 @@
 {
   using System.Linq;
   using Core;
-  using Core.Mana;
+  using Gameplay.Mana;
+  using Gameplay.States;
   using Infrastructure;
   using Xunit;
 

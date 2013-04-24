@@ -6,6 +6,7 @@
   using System.IO;
   using System.Linq;
   using Core;
+  using Gameplay.Card.Factory;
 
   public class WriteCardRatings : Task
   {

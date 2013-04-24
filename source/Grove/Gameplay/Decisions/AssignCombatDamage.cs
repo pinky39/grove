@@ -1,6 +1,7 @@
-﻿namespace Grove.Core.Decisions
+﻿namespace Grove.Gameplay.Decisions
 {
   using System.Linq;
+  using Combat;
   using Results;
 
   public abstract class AssignCombatDamage : Decision<DamageDistribution>

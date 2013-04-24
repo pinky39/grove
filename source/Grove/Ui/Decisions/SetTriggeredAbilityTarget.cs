@@ -1,13 +1,12 @@
-﻿namespace Grove.Core.Decisions.Human
+﻿namespace Grove.Ui.Decisions
 {
-  using Results;
-  using Targeting;
-  using Ui;
-  using Ui.SelectTarget;
-  using Ui.Shell;
+  using Grove.Gameplay.Decisions.Results;
+  using Grove.Gameplay.Targeting;
+  using Grove.Ui.SelectTarget;
+  using Grove.Ui.Shell;
   using System.Linq;
 
-  public class SetTriggeredAbilityTarget : Decisions.SetTriggeredAbilityTarget
+  public class SetTriggeredAbilityTarget : Gameplay.Decisions.SetTriggeredAbilityTarget
   {
     public ViewModel.IFactory DialogFactory { get; set; }
     public IShell Shell { get; set; }

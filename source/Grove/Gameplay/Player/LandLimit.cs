@@ -1,5 +1,7 @@
-﻿namespace Grove.Core
+﻿namespace Grove.Gameplay.Player
 {
+  using Core;
+  using Infrastructure;
   using Modifiers;
 
   public class LandLimit : Characteristic<int?>, IModifiable

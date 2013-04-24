@@ -1,7 +1,8 @@
-﻿namespace Grove.Core.Triggers
+﻿namespace Grove.Gameplay.Card.Triggers
 {
-  using Infrastructure;
+  using Grove.Infrastructure;
   using Messages;
+  using States;
 
   public class OnStepStart : Trigger, IOrderedReceive<StepStarted>, IReceive<ZoneChanged>,
     IReceive<ControllerChanged>

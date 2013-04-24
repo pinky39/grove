@@ -1,8 +1,9 @@
-﻿namespace Grove.Core.Decisions.Results
+﻿namespace Grove.Gameplay.Decisions.Results
 {
   using System.Collections;
   using System.Collections.Generic;
   using System.Linq;
+  using Card;
   using Grove.Infrastructure;
 
   [Copyable]

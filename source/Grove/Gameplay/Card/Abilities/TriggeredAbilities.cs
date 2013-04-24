@@ -1,6 +1,7 @@
-﻿namespace Grove.Core
+﻿namespace Grove.Gameplay.Card.Abilities
 {
-  using Infrastructure;
+  using Common;
+  using Grove.Infrastructure;
   using Modifiers;
 
   [Copyable]

@@ -1,4 +1,4 @@
-﻿namespace Grove.Core.Decisions
+﻿namespace Grove.Gameplay.Decisions
 {
   public interface IProcessDecisionResults<T>
   {

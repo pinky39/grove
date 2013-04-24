@@ -2,8 +2,9 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Dsl;
-  using Core.Mana;
+  using Gameplay.Card.Abilities;
+  using Gameplay.Card.Factory;
+  using Gameplay.Mana;
 
   public class BirdsOfParadise : CardsSource
   {

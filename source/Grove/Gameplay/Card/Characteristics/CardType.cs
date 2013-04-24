@@ -1,9 +1,9 @@
-﻿namespace Grove.Core
+﻿namespace Grove.Gameplay.Card.Characteristics
 {
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Infrastructure;
+  using Grove.Infrastructure;
 
   public interface ITargetType
   {

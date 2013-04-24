@@ -1,12 +1,12 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
+  using Ai.TargetingRules;
+  using Ai.TimingRules;
   using Core;
-  using Core.Ai.TargetingRules;
-  using Core.Ai.TimingRules;  
-  using Core.CastingRules;
-  using Core.Dsl;
-  using Core.Effects;
+  using Gameplay.Card.CastingRules;
+  using Gameplay.Card.Factory;
+  using Gameplay.Effects;
 
   public class BeaconOfDestruction : CardsSource
   {

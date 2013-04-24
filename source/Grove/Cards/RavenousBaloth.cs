@@ -1,11 +1,12 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
+  using Ai.TargetingRules;
   using Core;
-  using Core.Ai.TargetingRules;
-  using Core.Costs;
-  using Core.Dsl;
-  using Core.Effects;
+  using Gameplay.Card.Costs;
+  using Gameplay.Card.Factory;
+  using Gameplay.Effects;
+  using Gameplay.Player;
 
   public class RavenousBaloth : CardsSource
   {

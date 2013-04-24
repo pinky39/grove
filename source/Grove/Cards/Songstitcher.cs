@@ -1,15 +1,16 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
+  using Ai.TargetingRules;
+  using Ai.TimingRules;
   using Core;
-  using Core.Ai.TargetingRules;
-  using Core.Ai.TimingRules;
-  using Core.Costs;
-  using Core.Dsl;
-  using Core.Effects;
-  using Core.Mana;
-  using Core.Modifiers;
-  using Core.Preventions;
+  using Gameplay.Card.Costs;
+  using Gameplay.Card.Factory;
+  using Gameplay.Damage;
+  using Gameplay.Effects;
+  using Gameplay.Mana;
+  using Gameplay.Modifiers;
+  using Gameplay.States;
 
   public class Songstitcher : CardsSource
   {

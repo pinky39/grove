@@ -1,4 +1,4 @@
-﻿namespace Grove.Core.Costs
+﻿namespace Grove.Gameplay.Card.Costs
 {
   public class CanPayResult
   {

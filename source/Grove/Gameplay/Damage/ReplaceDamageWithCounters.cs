@@ -1,7 +1,8 @@
-﻿namespace Grove.Core.Preventions
+﻿namespace Grove.Gameplay.Damage
 {
   using System;
-  using Counters;
+  using Card;
+  using Card.Counters;
   using Modifiers;
   using Targeting;
 

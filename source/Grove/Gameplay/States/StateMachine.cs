@@ -1,11 +1,14 @@
-﻿namespace Grove.Core
+﻿namespace Grove.Gameplay.States
 {
   using System;
   using System.Collections.Generic;
+  using Common;
   using Decisions;
-  using Infrastructure;
+  using Grove.Infrastructure;
   using log4net;
   using Messages;
+  using Misc;
+  using Player;
 
   public class StateMachine : GameObject, ICopyContributor
   {

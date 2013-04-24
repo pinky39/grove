@@ -1,6 +1,6 @@
-﻿namespace Grove.Core.Modifiers
+﻿namespace Grove.Gameplay.Modifiers
 {
-  using Infrastructure;
+  using Grove.Infrastructure;
   using Messages;
   using Targeting;
 

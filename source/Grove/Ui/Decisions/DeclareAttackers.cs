@@ -1,12 +1,11 @@
-﻿namespace Grove.Core.Decisions.Human
+﻿namespace Grove.Ui.Decisions
 {
   using System.Linq;
-  using Targeting;
-  using Ui;
-  using Ui.SelectTarget;
-  using Ui.Shell;
+  using Grove.Gameplay.Targeting;
+  using Grove.Ui.SelectTarget;
+  using Grove.Ui.Shell;
 
-  public class DeclareAttackers : Decisions.DeclareAttackers
+  public class DeclareAttackers : Gameplay.Decisions.DeclareAttackers
   {
     public ViewModel.IFactory DialogFactory { get; set; }
     public IShell Shell { get; set; }

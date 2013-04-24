@@ -16,9 +16,12 @@
   using Castle.Windsor;
   using Core;
   using Core.Decisions;
-  using Core.Decisions.Human;
-  using Core.Dsl;
+  using Gameplay;
+  using Gameplay.Card.Factory;
+  using Gameplay.Decisions;
   using Infrastructure;
+  using Tournament;
+  using Ui.Decisions;
   using Ui.Permanent;
   using Ui.Shell;
 
@@ -144,7 +147,7 @@
         container.Register(Component(typeof (IUiDecisionFactory), lifestyle: LifestyleType.Singleton).AsFactory());
 
         container.Register(Classes.FromThisAssembly()
-          .Where(x => x.Namespace.Equals(typeof (Core.Decisions.Human.TakeMulligan).Namespace) &&
+          .Where(x => x.Namespace.Equals(typeof (Ui.Decisions.TakeMulligan).Namespace) &&
             x.Implements<IDecision>())
           .WithServiceSelect((type, baseTypes) => new[] {type.BaseType})
           .LifestyleTransient());

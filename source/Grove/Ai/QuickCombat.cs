@@ -1,9 +1,11 @@
-﻿namespace Grove.Core.Ai
+﻿namespace Grove.Ai
 {
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Infrastructure;
+  using Core;
+  using Gameplay.Card;
+  using Grove.Infrastructure;
 
   public class QuickCombat
   {

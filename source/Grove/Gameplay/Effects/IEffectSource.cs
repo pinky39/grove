@@ -1,6 +1,7 @@
-﻿namespace Grove.Core.Effects
+﻿namespace Grove.Gameplay.Effects
 {
-  using Infrastructure;
+  using Card;
+  using Grove.Infrastructure;
   using Targeting;
 
   public interface IEffectSource : IHashable

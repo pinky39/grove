@@ -1,11 +1,15 @@
-﻿namespace Grove.Core
+﻿namespace Grove.Gameplay.Common
 {
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Ai;
+  using Card.Factory;
+  using Combat;
   using Decisions;
-  using Infrastructure;
+  using Grove.Ai;
+  using Grove.Infrastructure;
+  using Player;
+  using States;
   using Targeting;
   using Zones;
 

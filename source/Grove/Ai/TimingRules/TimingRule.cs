@@ -1,7 +1,9 @@
-﻿namespace Grove.Core.Ai.TimingRules
+﻿namespace Grove.Ai.TimingRules
 {
   using System.Linq;
-  using Infrastructure;
+  using Core;
+  using Gameplay.States;
+  using Grove.Infrastructure;
 
   public abstract class TimingRule : MachinePlayRule
   {

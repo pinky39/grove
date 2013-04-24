@@ -3,7 +3,10 @@
   using System.Collections.Generic;
   using System.Linq;
   using Core;
-  using Core.Decisions.Results;
+  using Gameplay;
+  using Gameplay.Card;
+  using Gameplay.Combat;
+  using Gameplay.Decisions.Results;
   using Infrastructure;
 
   public class ViewModel

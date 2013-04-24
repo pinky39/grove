@@ -1,11 +1,13 @@
-﻿namespace Grove.Core.Decisions.Machine
+﻿namespace Grove.Ai.Decisions
 {
   using System.Collections.Generic;
   using System.Linq;
+  using Core;
+  using Gameplay.Combat;
+  using Gameplay.Decisions.Results;
   using Grove.Infrastructure;
-  using Results;
 
-  public class SetDamageAssignmentOrder : Decisions.SetDamageAssignmentOrder
+  public class SetDamageAssignmentOrder : Gameplay.Decisions.SetDamageAssignmentOrder
   {
     protected override void ExecuteQuery()
     {

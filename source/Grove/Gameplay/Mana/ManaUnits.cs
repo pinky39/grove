@@ -1,9 +1,9 @@
-﻿namespace Grove.Core.Mana
+﻿namespace Grove.Gameplay.Mana
 {
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Infrastructure;
+  using Grove.Infrastructure;
 
   [Copyable]
   public class ManaUnits

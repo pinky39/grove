@@ -1,6 +1,9 @@
-﻿namespace Grove.Core.Targeting
+﻿namespace Grove.Gameplay.Targeting
 {
   using System;
+  using Card;
+  using Card.Abilities;
+  using Player;
 
   public class TargetSpecs
   {

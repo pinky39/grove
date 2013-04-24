@@ -1,9 +1,10 @@
-﻿namespace Grove.Core.Messages
+﻿namespace Grove.Gameplay.Messages
 {
   using System.Collections.Generic;
   using System.Text;
+  using Card;
   using Targeting;
-  
+
   public class PlayerHasCastASpell
   {
     private readonly List<ITarget> _targets = new List<ITarget>();

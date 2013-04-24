@@ -1,10 +1,9 @@
-﻿namespace Grove.Core.Decisions.Human
+﻿namespace Grove.Ui.Decisions
 {
   using System.Windows;
-  using Grove.Ui;
   using Grove.Ui.Shell;
 
-  public class PayOr : Decisions.PayOr
+  public class PayOr : Gameplay.Decisions.PayOr
   {
     public IShell Shell { get; set; }
 

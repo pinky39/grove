@@ -1,11 +1,13 @@
-﻿namespace Grove.Core.Effects
+﻿namespace Grove.Gameplay.Effects
 {
   using System;
   using System.Collections.Generic;
   using System.Linq;
+  using Card;
   using Decisions;
   using Decisions.Results;
-  using Infrastructure;
+  using Grove.Infrastructure;
+  using Player;
   using Zones;
 
   public class SacrificePermanentOrSacrificeOwner : Effect,

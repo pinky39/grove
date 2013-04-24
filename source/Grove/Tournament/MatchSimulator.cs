@@ -1,9 +1,11 @@
-﻿namespace Grove.Core
+﻿namespace Grove.Tournament
 {
   using System;
   using System.Collections.Generic;
   using System.Diagnostics;
-  using Decisions;
+  using Grove.Gameplay;
+  using Grove.Gameplay.Card.Factory;
+  using Grove.Gameplay.Decisions;
 
   public class MatchSimulator
   {

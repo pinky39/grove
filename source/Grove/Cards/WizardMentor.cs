@@ -1,10 +1,11 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
+  using Ai.TargetingRules;
   using Core;
-  using Core.Ai.TargetingRules;
-  using Core.Costs;
-  using Core.Dsl;
+  using Gameplay.Card.Costs;
+  using Gameplay.Card.Factory;
+  using Gameplay.Player;
 
   public class WizardMentor : CardsSource
   {
@@ -23,7 +24,7 @@
           {
             p.Text = "{T}: Return Wizard Mentor and target creature you control to their owner's hand.";
             p.Cost = new Tap();
-            p.Effect = () => new Core.Effects.ReturnToHand(returnOwningCard: true);
+            p.Effect = () => new Gameplay.Effects.ReturnToHand(returnOwningCard: true);
             p.TargetSelector.AddEffect(trg => trg.Is.Creature(ControlledBy.SpellOwner).On.Battlefield());
             p.TargetingRule(new BounceSelfAndTargets());
           }

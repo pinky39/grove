@@ -1,9 +1,6 @@
 ﻿namespace Grove.Core
 {
   using System;
-  using Effects;
-  using Mana;
-  using Zones;
 
   //public class ManaAbility : ActivatedAbility, IManaSource
   //{

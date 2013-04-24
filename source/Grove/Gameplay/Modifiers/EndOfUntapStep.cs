@@ -1,8 +1,9 @@
-﻿namespace Grove.Core.Modifiers
+﻿namespace Grove.Gameplay.Modifiers
 {
   using System;
-  using Infrastructure;
+  using Grove.Infrastructure;
   using Messages;
+  using States;
 
   public class EndOfUntapStep : Lifetime, IReceive<StepFinished>
   {

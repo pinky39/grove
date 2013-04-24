@@ -1,7 +1,7 @@
-﻿namespace Grove.Core.Mana
+﻿namespace Grove.Gameplay.Mana
 {
-  using Infrastructure;
-  
+  using Grove.Infrastructure;
+
   [Copyable]
   public class ManaUnit
   {

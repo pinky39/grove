@@ -1,7 +1,8 @@
-﻿namespace Grove.Core
+﻿namespace Grove.Gameplay.Damage
 {
   using System.Linq;
-  using Infrastructure;
+  using Grove.Infrastructure;
+  using Player;
 
   [Copyable]
   public class AssignedDamage : IHashable

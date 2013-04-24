@@ -1,6 +1,6 @@
-﻿namespace Grove.Core.Decisions.Results
+﻿namespace Grove.Gameplay.Decisions.Results
 {
-  using Grove.Core.Targeting;
+  using Targeting;
 
   public class ChosenTargets
   {

@@ -1,6 +1,8 @@
-﻿namespace Grove.Core.Ai
+﻿namespace Grove.Ai
 {
   using System;
+  using Core;
+  using Gameplay.Card;
 
   public class BlockerEvaluation
   {

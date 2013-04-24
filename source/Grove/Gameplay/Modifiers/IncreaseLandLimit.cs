@@ -1,5 +1,7 @@
-﻿namespace Grove.Core.Modifiers
+﻿namespace Grove.Gameplay.Modifiers
 {
+  using Player;
+
   public class IncreaseLandLimit : Modifier
   {    
     private readonly Increment _increment;

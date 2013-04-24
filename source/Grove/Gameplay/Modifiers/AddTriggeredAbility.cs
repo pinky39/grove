@@ -1,5 +1,6 @@
-﻿namespace Grove.Core.Modifiers
+﻿namespace Grove.Gameplay.Modifiers
 {
+  using Card.Abilities;
   using Targeting;
 
   public class AddTriggeredAbility : Modifier

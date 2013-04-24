@@ -1,14 +1,17 @@
-﻿namespace Grove.Core.Effects
+﻿namespace Grove.Gameplay.Effects
 {
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Ai;
-  using Infrastructure;
+  using Card;
+  using Card.Characteristics;
+  using Common;
+  using Grove.Ai;
+  using Grove.Infrastructure;
   using Messages;
   using Modifiers;
+  using Player;
   using Targeting;
-
 
   public delegate Effect EffectFactory();
 

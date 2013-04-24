@@ -1,6 +1,6 @@
-﻿namespace Grove.Core
+﻿namespace Grove.Gameplay.States
 {
-  using Infrastructure;
+  using Grove.Infrastructure;
   using log4net;
 
   [Copyable]

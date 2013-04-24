@@ -1,13 +1,15 @@
-﻿namespace Grove.Core
+﻿namespace Grove.Gameplay.Card.Abilities
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Ai;
-  using Ai.TargetingRules;  
   using CastingRules;
+  using Characteristics;
+  using Common;
   using Costs;
   using Effects;
-  using Infrastructure;
+  using Grove.Ai;
+  using Grove.Ai.TargetingRules;
+  using Grove.Infrastructure;
   using Mana;
   using Messages;
   using Targeting;

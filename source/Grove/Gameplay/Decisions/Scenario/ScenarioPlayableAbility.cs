@@ -1,9 +1,10 @@
 ﻿namespace Grove.Core.Decisions.Scenario
 {
   using System.Linq;
-  using Mana;
+  using Gameplay.Decisions.Results;
+  using Gameplay.Mana;
 
-  public class ScenarioPlayableAbility : Results.PlayableAbility
+  public class ScenarioPlayableAbility : PlayableAbility
   {    
     public override bool CanPlay()
     {

@@ -1,14 +1,14 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
+  using Ai.CostRules;
+  using Ai.TimingRules;
   using Core;
-  using Core.Ai.CostRules;
-  using Core.Ai.TimingRules;  
-  using Core.CastingRules;
-  using Core.Counters;
-  using Core.Dsl;
-  using Core.Effects;
-  using Core.Modifiers;
+  using Gameplay.Card.CastingRules;
+  using Gameplay.Card.Counters;
+  using Gameplay.Card.Factory;
+  using Gameplay.Effects;
+  using Gameplay.Modifiers;
 
   public class BlackSunsZenith : CardsSource
   {

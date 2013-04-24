@@ -1,14 +1,16 @@
-﻿namespace Grove.Core
+﻿namespace Grove.Gameplay.Player
 {
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Infrastructure;
+  using Card;
+  using Card.Abilities;
+  using Common;
+  using Damage;
+  using Grove.Infrastructure;
   using Mana;
   using Messages;
   using Modifiers;
-  using Preventions;
-  using Redirections;
   using Targeting;
   using Zones;
 

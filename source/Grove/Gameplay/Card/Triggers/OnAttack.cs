@@ -1,6 +1,6 @@
-﻿namespace Grove.Core.Triggers
+﻿namespace Grove.Gameplay.Card.Triggers
 {
-  using Infrastructure;
+  using Grove.Infrastructure;
   using Messages;
 
   public class OnAttack : Trigger, IReceive<AttackerJoinedCombat>

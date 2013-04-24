@@ -2,10 +2,9 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Costs;
-  using Core.Dsl;
-  using Core.Effects;
-  using Core.Mana;
+  using Gameplay.Card.Costs;
+  using Gameplay.Card.Factory;
+  using Gameplay.Effects;
 
   public class DisruptiveStudent : CardsSource
   {
@@ -27,8 +26,8 @@
             p.Effect = () => new CounterTargetSpell(doNotCounterCost: 1);
             p.TargetSelector.AddEffect(trg => trg.Is.CounterableSpell().On.Stack());
 
-            p.TargetingRule(new Core.Ai.TargetingRules.Counterspell());
-            p.TimingRule(new Core.Ai.TimingRules.Counterspell(1));
+            p.TargetingRule(new Ai.TargetingRules.Counterspell());
+            p.TimingRule(new Ai.TimingRules.Counterspell(1));
           });
     }
   }

@@ -1,12 +1,13 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
+  using Ai.TargetingRules;
+  using Ai.TimingRules;
   using Core;
-  using Core.Ai.TargetingRules;
-  using Core.Ai.TimingRules;
-  using Core.Costs;
-  using Core.Dsl;
-  using Core.Mana;
+  using Gameplay.Card.Costs;
+  using Gameplay.Card.Factory;
+  using Gameplay.Mana;
+  using Gameplay.Player;
 
   public class BarrinMasterWizard : CardsSource
   {
@@ -27,7 +28,7 @@
             p.Cost = new AggregateCost(
               new PayMana(2.Colorless(), ManaUsage.Abilities),
               new Sacrifice());
-            p.Effect = () => new Core.Effects.ReturnToHand();
+            p.Effect = () => new Gameplay.Effects.ReturnToHand();
             p.TargetSelector
               .AddCost(trg =>
                 {

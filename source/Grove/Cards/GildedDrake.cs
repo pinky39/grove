@@ -1,13 +1,15 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
+  using Ai;
+  using Ai.TargetingRules;
   using Core;
-  using Core.Ai;
-  using Core.Ai.TargetingRules;
-  using Core.Dsl;
-  using Core.Effects;
-  using Core.Triggers;
-  using Core.Zones;
+  using Gameplay.Card.Abilities;
+  using Gameplay.Card.Factory;
+  using Gameplay.Card.Triggers;
+  using Gameplay.Effects;
+  using Gameplay.Player;
+  using Gameplay.Zones;
 
   public class GildedDrake : CardsSource
   {

@@ -1,6 +1,6 @@
-﻿namespace Grove.Core.Decisions.Machine
+﻿namespace Grove.Ai.Decisions
 {
-  public class PayOr : Decisions.PayOr
+  public class PayOr : Gameplay.Decisions.PayOr
   {
     protected override void ExecuteQuery()
     {

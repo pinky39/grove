@@ -1,10 +1,10 @@
-﻿namespace Grove.Core.Decisions.Human
+﻿namespace Grove.Ui.Decisions
 {
   using System.Windows;
+  using Grove.Gameplay.Decisions.Results;
   using Grove.Ui.Shell;
-  using Results;
 
-  public class SelectStartingPlayer : Decisions.SelectStartingPlayer
+  public class SelectStartingPlayer : Gameplay.Decisions.SelectStartingPlayer
   {
     public IShell Shell { get; set; }
 

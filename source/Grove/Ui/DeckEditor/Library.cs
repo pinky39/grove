@@ -6,7 +6,8 @@
   using System.Threading.Tasks;
   using Caliburn.Micro;
   using Core;
-  using Core.Mana;
+  using Gameplay.Card;
+  using Gameplay.Card.Characteristics;
   using Infrastructure;
 
   public class Library

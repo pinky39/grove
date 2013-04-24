@@ -1,8 +1,8 @@
-﻿namespace Grove.Core.Effects
+﻿namespace Grove.Gameplay.Effects
 {
   using System;
   using System.Collections.Generic;
-  using Counters;
+  using Card.Counters;
   using Decisions.Results;
   using Modifiers;
 

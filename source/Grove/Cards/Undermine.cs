@@ -2,8 +2,8 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Dsl;
-  using Core.Effects;
+  using Gameplay.Card.Factory;
+  using Gameplay.Effects;
 
   public class Undermine : CardsSource
   {
@@ -19,8 +19,8 @@
           {
             p.Effect = () => new CounterTargetSpell(controllerLifeloss: 3);
             p.TargetSelector.AddEffect(trg => trg.Is.CounterableSpell().On.Stack());
-            p.TimingRule(new Core.Ai.TimingRules.Counterspell());
-            p.TargetingRule(new Core.Ai.TargetingRules.Counterspell());
+            p.TimingRule(new Ai.TimingRules.Counterspell());
+            p.TargetingRule(new Ai.TargetingRules.Counterspell());
           });
     }
   }

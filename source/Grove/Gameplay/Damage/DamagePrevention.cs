@@ -1,7 +1,10 @@
-﻿namespace Grove.Core.Preventions
+﻿namespace Grove.Gameplay.Damage
 {
-  using Infrastructure;
+  using Card;
+  using Common;
+  using Grove.Infrastructure;
   using Modifiers;
+  using Player;
   using Targeting;
 
   [Copyable]

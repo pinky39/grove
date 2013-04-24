@@ -3,9 +3,11 @@
   using System;
   using System.Linq;
   using Core;
-  using Core.Decisions.Results;
-  using Core.Messages;
-  using Core.Targeting;
+  using Gameplay.Card;
+  using Gameplay.Card.Abilities;
+  using Gameplay.Decisions.Results;
+  using Gameplay.Messages;
+  using Gameplay.Targeting;
   using Infrastructure;
   using SelectTarget;
 

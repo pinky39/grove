@@ -1,18 +1,21 @@
-﻿namespace Grove.Core.Ai.TargetingRules
+﻿namespace Grove.Ai.TargetingRules
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Targeting;
+  using Core;
+  using Gameplay.Player;
+  using Gameplay.States;
+  using Gameplay.Targeting;
 
   public class CombatEquipment : TargetingRule
   {
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
     {
-      IEnumerable<Card> candidates;
+      IEnumerable<Gameplay.Card.Card> candidates;
 
       if (Turn.Step == Step.FirstMain)
       {
-        candidates = p.Candidates<Card>(ControlledBy.SpellOwner)
+        candidates = p.Candidates<Gameplay.Card.Card>(ControlledBy.SpellOwner)
           .Where(x => x.CanAttackThisTurn)
           .Select(x => new
             {
@@ -25,7 +28,7 @@
       }
       else
       {
-        candidates = p.Candidates<Card>(ControlledBy.SpellOwner)
+        candidates = p.Candidates<Gameplay.Card.Card>(ControlledBy.SpellOwner)
           .Where(x => x.CanBlock())
           .Select(x => new
             {

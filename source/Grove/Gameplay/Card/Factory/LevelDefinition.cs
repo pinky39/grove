@@ -1,5 +1,7 @@
-﻿namespace Grove.Core.Dsl
+﻿namespace Grove.Gameplay.Card.Factory
 {
+  using Abilities;
+
   public class LevelDefinition
   {
     public int Min { get; set; }

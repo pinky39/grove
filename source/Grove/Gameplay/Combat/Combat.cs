@@ -1,11 +1,14 @@
-﻿namespace Grove.Core
+﻿namespace Grove.Gameplay.Combat
 {
   using System;
   using System.Collections.Generic;
   using System.Linq;
+  using Card;
+  using Common;
   using Decisions;
-  using Infrastructure;
+  using Grove.Infrastructure;
   using Messages;
+  using Player;
 
   [Copyable]
   public class Combat : GameObject, IHashable

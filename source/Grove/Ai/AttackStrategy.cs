@@ -1,9 +1,11 @@
-﻿namespace Grove.Core.Ai
+﻿namespace Grove.Ai
 {
   using System;
   using System.Collections;
   using System.Collections.Generic;
   using System.Linq;
+  using Core;
+  using Gameplay.Card;
 
   public class AttackStrategy : IEnumerable<Card>
   {

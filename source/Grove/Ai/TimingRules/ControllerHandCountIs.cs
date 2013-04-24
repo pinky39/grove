@@ -1,7 +1,9 @@
-﻿namespace Grove.Core.Ai.TimingRules
+﻿namespace Grove.Ai.TimingRules
 {
   using System;
   using System.Linq;
+  using Core;
+  using Gameplay.Card;
 
   public class ControllerHandCountIs : TimingRule
   {

@@ -1,7 +1,8 @@
 ﻿namespace Grove.Tests.Cards
 {
+  using Gameplay.States;
+  using Gameplay.Zones;
   using Grove.Core;
-  using Grove.Core.Zones;
   using Infrastructure;
   using Xunit;
 

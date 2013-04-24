@@ -1,10 +1,11 @@
-﻿namespace Grove.Core
+﻿namespace Grove.Gameplay.Deck
 {
   using System;
   using System.Collections.Generic;
   using System.IO;
   using System.Linq;
   using System.Text.RegularExpressions;
+  using Card.Factory;
 
   public class DeckReaderWriter
   {

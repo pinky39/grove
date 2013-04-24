@@ -1,8 +1,9 @@
-﻿namespace Grove.Core
+﻿namespace Grove.Infrastructure
 {
   using System;
   using System.Linq;
-  using Infrastructure;
+  using Grove.Gameplay;
+  using Grove.Gameplay.Common;
 
   [Copyable]
   public abstract class Characteristic<T> : GameObject, ICopyContributor

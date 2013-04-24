@@ -1,5 +1,7 @@
-﻿namespace Grove.Core.Messages
+﻿namespace Grove.Gameplay.Messages
 {
+  using Combat;
+
   public class AttackerJoinedCombat
   {
     public Attacker Attacker { get; set; }

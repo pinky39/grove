@@ -1,7 +1,10 @@
-﻿namespace Grove.Core
+﻿namespace Grove.Tournament
 {
   using System.Collections.Generic;
   using System.Linq;
+  using Grove.Gameplay.Card;
+  using Grove.Gameplay.Card.Characteristics;
+  using Grove.Gameplay.Card.Factory;
 
   public class DeckBuilder
   {

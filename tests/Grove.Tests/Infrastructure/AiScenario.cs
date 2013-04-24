@@ -4,7 +4,7 @@
   using System.Collections.Generic;
   using System.Diagnostics;
   using System.Linq;
-  using Core.Ai;
+  using Ai;
   using Grove.Infrastructure;
 
   public abstract class AiScenario : Scenario

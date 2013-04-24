@@ -2,11 +2,13 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Costs;
-  using Core.Dsl;
-  using Core.Effects;
-  using Core.Mana;
-  using Core.Modifiers;
+  using Gameplay.Card.Abilities;
+  using Gameplay.Card.Characteristics;
+  using Gameplay.Card.Costs;
+  using Gameplay.Card.Factory;
+  using Gameplay.Effects;
+  using Gameplay.Mana;
+  using Gameplay.Modifiers;
 
   public class CreepingTarPit : CardsSource
   {
@@ -39,7 +41,7 @@
                 colors: L(CardColor.Blue, CardColor.Black)) {UntilEot = true},
               () => new AddStaticAbility(Static.Unblockable) {UntilEot = true});
             
-            p.TimingRule(new Core.Ai.TimingRules.ChangeToCreature(minAvailableMana: 4));
+            p.TimingRule(new Ai.TimingRules.ChangeToCreature(minAvailableMana: 4));
           });
     }
   }

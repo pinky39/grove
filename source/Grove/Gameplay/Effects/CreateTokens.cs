@@ -1,7 +1,10 @@
-﻿namespace Grove.Core.Effects
+﻿namespace Grove.Gameplay.Effects
 {
   using System;
   using System.Collections.Generic;
+  using Card;
+  using Card.Factory;
+  using Player;
 
   public class CreateTokens : Effect
   {

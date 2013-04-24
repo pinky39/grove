@@ -1,7 +1,5 @@
-﻿namespace Grove.Core.Effects
+﻿namespace Grove.Gameplay.Effects
 {
-  using System;
-
   public class PutIntoPlay : Effect
   {
     private readonly DynParam<bool> _tap;

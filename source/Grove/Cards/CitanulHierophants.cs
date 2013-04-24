@@ -2,10 +2,10 @@
 {
   using System.Collections.Generic;
   using Core;
-  using Core.Costs;
-  using Core.Dsl;
-  using Core.Mana;
-  using Core.Modifiers;
+  using Gameplay.Card.Costs;
+  using Gameplay.Card.Factory;
+  using Gameplay.Mana;
+  using Gameplay.Modifiers;
 
   public class CitanulHierophants : CardsSource
   {

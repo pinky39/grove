@@ -1,5 +1,6 @@
-﻿namespace Grove.Core.Decisions
+﻿namespace Grove.Gameplay.Decisions
 {
+  using Combat;
   using Results;
 
   public abstract class SetDamageAssignmentOrder : Decision<DamageAssignmentOrder>

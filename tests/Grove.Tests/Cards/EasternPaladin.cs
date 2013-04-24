@@ -2,6 +2,7 @@
 {
   using System.Linq;
   using Core;
+  using Gameplay.States;
   using Infrastructure;
   using Xunit;
 

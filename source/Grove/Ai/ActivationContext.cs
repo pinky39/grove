@@ -1,9 +1,11 @@
-﻿namespace Grove.Core.Ai
+﻿namespace Grove.Ai
 {
-  using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Targeting;
+  using Core;
+  using Gameplay.Card;
+  using Gameplay.Card.Abilities;
+  using Gameplay.Targeting;
 
   public class ActivationContext
   {

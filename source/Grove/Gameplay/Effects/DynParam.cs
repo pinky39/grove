@@ -1,7 +1,7 @@
-﻿namespace Grove.Core.Effects
+﻿namespace Grove.Gameplay.Effects
 {
   using System;
-  using Infrastructure;
+  using Grove.Infrastructure;
 
   public interface IDynamicParameter
   {

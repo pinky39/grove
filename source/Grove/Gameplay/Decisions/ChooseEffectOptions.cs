@@ -1,4 +1,4 @@
-﻿namespace Grove.Core.Decisions
+﻿namespace Grove.Gameplay.Decisions
 {
   using System.Collections.Generic;
   using Effects;

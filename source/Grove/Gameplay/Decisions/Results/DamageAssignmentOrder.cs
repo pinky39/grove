@@ -1,6 +1,7 @@
-﻿namespace Grove.Core.Decisions.Results
+﻿namespace Grove.Gameplay.Decisions.Results
 {
   using System.Collections.Generic;
+  using Combat;
   using Grove.Infrastructure;
 
   [Copyable]

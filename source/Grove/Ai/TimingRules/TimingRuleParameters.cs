@@ -1,9 +1,12 @@
-﻿namespace Grove.Core.Ai.TimingRules
+﻿namespace Grove.Ai.TimingRules
 {
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Targeting;
+  using Core;
+  using Gameplay.Card;
+  using Gameplay.Player;
+  using Gameplay.Targeting;
 
   public class TimingRuleParameters
   {

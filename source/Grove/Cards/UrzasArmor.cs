@@ -1,11 +1,11 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
+  using Ai.TimingRules;
   using Core;
-  using Core.Ai.TimingRules;
-  using Core.Dsl;
-  using Core.Modifiers;
-  using Core.Preventions;
+  using Gameplay.Card.Factory;
+  using Gameplay.Damage;
+  using Gameplay.Modifiers;
 
   public class UrzasArmor : CardsSource
   {

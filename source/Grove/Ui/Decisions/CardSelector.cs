@@ -1,11 +1,11 @@
-﻿namespace Grove.Core.Decisions.Human
+﻿namespace Grove.Ui.Decisions
 {
-  using Modifiers;
-  using Results;
-  using Targeting;
-  using Ui;
-  using Ui.SelectTarget;
-  using Ui.Shell;
+  using Grove.Gameplay;
+  using Grove.Gameplay.Decisions.Results;
+  using Grove.Gameplay.Modifiers;
+  using Grove.Gameplay.Targeting;
+  using Grove.Ui.SelectTarget;
+  using Grove.Ui.Shell;
 
   public class CardSelector
   {

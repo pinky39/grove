@@ -1,14 +1,17 @@
-﻿namespace Grove.Core
+﻿namespace Grove.Gameplay.Combat
 {
-  using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Ai;
+  using Card;
+  using Common;
+  using Damage;
   using Decisions;
   using Decisions.Results;
-  using Infrastructure;
+  using Grove.Ai;
+  using Grove.Infrastructure;
   using Messages;
-  
+  using Player;
+
   public class Attacker : GameObject, IHashable
   {
     private readonly TrackableList<Damage> _assignedDamage = new TrackableList<Damage>();

@@ -1,7 +1,8 @@
-﻿namespace Grove.Core
+﻿namespace Grove.Gameplay.Card.Abilities
 {
   using System.Collections.Generic;
-  using Ai;
+  using Characteristics;
+  using Grove.Ai;
   using Targeting;
 
   public class ActivationPrerequisites

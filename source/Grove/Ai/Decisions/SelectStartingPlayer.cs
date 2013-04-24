@@ -1,8 +1,8 @@
-﻿namespace Grove.Core.Decisions.Machine
+﻿namespace Grove.Ai.Decisions
 {
-  using Results;
+  using Gameplay.Decisions.Results;
 
-  public class SelectStartingPlayer : Decisions.SelectStartingPlayer
+  public class SelectStartingPlayer : Gameplay.Decisions.SelectStartingPlayer
   {
     protected override void ExecuteQuery()
     {

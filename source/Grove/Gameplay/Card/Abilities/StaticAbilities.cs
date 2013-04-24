@@ -1,7 +1,7 @@
-﻿namespace Grove.Core
+﻿namespace Grove.Gameplay.Card.Abilities
 {
   using System.Linq;
-  using Infrastructure;
+  using Grove.Infrastructure;
   using Modifiers;
 
   [Copyable]

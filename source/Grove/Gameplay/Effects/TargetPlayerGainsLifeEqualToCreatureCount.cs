@@ -1,4 +1,4 @@
-﻿namespace Grove.Core.Effects
+﻿namespace Grove.Gameplay.Effects
 {
   using System.Linq;
   using Targeting;

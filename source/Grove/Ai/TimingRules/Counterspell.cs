@@ -1,7 +1,5 @@
-﻿namespace Grove.Core.Ai.TimingRules
+﻿namespace Grove.Ai.TimingRules
 {
-  using Mana;
-
   public class Counterspell : TimingRule
   {
     private int? _counterCost;

@@ -1,4 +1,4 @@
-﻿namespace Grove.Core.Ai.RepetitionRules
+﻿namespace Grove.Ai.RepetitionRules
 {
   public class RepetitionRuleParameters
   {

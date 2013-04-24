@@ -1,7 +1,8 @@
-﻿namespace Grove.Core.Messages
+﻿namespace Grove.Gameplay.Messages
 {
   using System.Collections.Generic;
   using System.Text;
+  using Card.Abilities;
   using Targeting;
 
   public class PlayerHasActivatedAbility

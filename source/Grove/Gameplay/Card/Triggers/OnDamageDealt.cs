@@ -1,8 +1,10 @@
-﻿namespace Grove.Core.Triggers
+﻿namespace Grove.Gameplay.Card.Triggers
 {
   using System;
-  using Infrastructure;
+  using Damage;
+  using Grove.Infrastructure;
   using Messages;
+  using Player;
 
   public class OnDamageDealt : Trigger, IReceive<DamageHasBeenDealt>
   {

@@ -1,5 +1,7 @@
-﻿namespace Grove.Core.Decisions
+﻿namespace Grove.Gameplay.Decisions
 {
+  using Player;
+
   public interface IDecision
   {
     bool HasCompleted { get; }

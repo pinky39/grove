@@ -1,6 +1,8 @@
-﻿namespace Grove.Core.Ai.TimingRules
+﻿namespace Grove.Ai.TimingRules
 {
   using System.Linq;
+  using Core;
+  using Gameplay.States;
 
   public class MassRemoval : TimingRule
   {

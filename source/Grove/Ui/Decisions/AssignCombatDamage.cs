@@ -1,10 +1,10 @@
-﻿namespace Grove.Core.Decisions.Human
+﻿namespace Grove.Ui.Decisions
 {
-  using Results;
-  using Ui.CombatDamage;
-  using Ui.Shell;
+  using Grove.Gameplay.Decisions.Results;
+  using Grove.Ui.CombatDamage;
+  using Grove.Ui.Shell;
 
-  public class AssignCombatDamage : Decisions.AssignCombatDamage
+  public class AssignCombatDamage : Gameplay.Decisions.AssignCombatDamage
   {
     public ViewModel.IFactory DialogFactory { get; set; }
     public IShell Shell { get; set; }

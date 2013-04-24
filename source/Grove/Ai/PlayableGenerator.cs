@@ -1,9 +1,15 @@
-﻿namespace Grove.Core.Ai
+﻿namespace Grove.Ai
 {
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Decisions.Results;
+  using Core;
+  using Gameplay;
+  using Gameplay.Card;
+  using Gameplay.Card.Abilities;
+  using Gameplay.Common;
+  using Gameplay.Decisions.Results;
+  using Gameplay.Player;
 
   public class PlayableGenerator : GameObject
   {

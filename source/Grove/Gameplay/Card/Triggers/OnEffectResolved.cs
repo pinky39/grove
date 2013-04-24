@@ -1,7 +1,8 @@
-﻿namespace Grove.Core.Triggers
+﻿namespace Grove.Gameplay.Card.Triggers
 {
   using System;
-  using Infrastructure;
+  using Abilities;
+  using Grove.Infrastructure;
   using Messages;
 
   public class OnEffectResolved : Trigger, IReceive<EffectResolved>

@@ -1,7 +1,7 @@
-﻿namespace Grove.Core.Effects
+﻿namespace Grove.Gameplay.Effects
 {
+  using Damage;
   using Modifiers;
-  using Preventions;
   using Targeting;
 
   public class PreventNextDamageFromSourceToController : Effect

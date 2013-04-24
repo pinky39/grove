@@ -1,10 +1,15 @@
-﻿namespace Grove.Core.Targeting
+﻿namespace Grove.Gameplay.Targeting
 {
-  using Core.Zones;
-  using Decisions.Scenario;
+  using Card;
+  using Card.Characteristics;
+  using Common;
+  using Damage;
   using Effects;
-  using Infrastructure;
+  using Gameplay.Zones;
+  using Grove.Core.Decisions.Scenario;
+  using Grove.Infrastructure;
   using Modifiers;
+  using Player;
 
   public interface ITarget : IHashable {}
 
@@ -28,7 +33,7 @@
 
       if (target.IsEffect())
       {
-        return Core.Zones.Zone.Stack;
+        return Gameplay.Zones.Zone.Stack;
       }
 
       return target.Card().Zone;

@@ -1,4 +1,4 @@
-﻿namespace Grove.Core
+﻿namespace Grove.Gameplay.Card.Characteristics
 {
   using System;
   using System.Collections;
@@ -6,7 +6,7 @@
   using System.Linq;
   using System.Text.RegularExpressions;
   using System.Windows.Media;
-  using Ui;
+  using Grove.Ui;
 
   public class CardText : IEnumerable<Token>
   {

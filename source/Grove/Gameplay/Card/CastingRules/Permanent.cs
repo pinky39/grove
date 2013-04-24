@@ -1,4 +1,4 @@
-﻿namespace Grove.Core.CastingRules
+﻿namespace Grove.Gameplay.Card.CastingRules
 {
   public class Permanent : Sorcery
   {

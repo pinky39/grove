@@ -1,6 +1,6 @@
-﻿namespace Grove.Core.Decisions.Human
+﻿namespace Grove.Ui.Decisions
 {
-  public class SelectCards : Decisions.SelectCards
+  public class SelectCards : Gameplay.Decisions.SelectCards
   {    
     public CardSelector CardSelector { get; set; }
 

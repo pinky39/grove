@@ -2,6 +2,7 @@
 {
   using System;
   using Core;
+  using Tournament;
   using Ui;
 
   public class GenerateDeck : Task

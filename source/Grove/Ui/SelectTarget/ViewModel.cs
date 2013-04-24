@@ -3,7 +3,7 @@
   using System;
   using System.Collections.Generic;
   using Caliburn.Micro;
-  using Core.Targeting;
+  using Gameplay.Targeting;
   using Infrastructure;
 
   public class ViewModel : ViewModelBase, IReceive<SelectionChanged>

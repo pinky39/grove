@@ -1,9 +1,14 @@
-﻿namespace Grove.Core.Ai.TargetingRules
+﻿namespace Grove.Ai.TargetingRules
 {
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Targeting;
+  using Core;
+  using Gameplay;
+  using Gameplay.Card;
+  using Gameplay.Common;
+  using Gameplay.Player;
+  using Gameplay.Targeting;
 
   public class TargetingRuleParameters : GameObject
   {

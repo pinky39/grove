@@ -1,6 +1,7 @@
-﻿namespace Grove.Core.Decisions
+﻿namespace Grove.Gameplay.Decisions
 {
   using System;
+  using Card;
 
   public interface ICardValidator
   {

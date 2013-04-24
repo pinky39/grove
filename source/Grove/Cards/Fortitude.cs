@@ -1,15 +1,17 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
+  using Ai.TargetingRules;
+  using Ai.TimingRules;
   using Core;
-  using Core.Ai.TargetingRules;
-  using Core.Ai.TimingRules;
-  using Core.Costs;
-  using Core.Dsl;
-  using Core.Effects;
-  using Core.Modifiers;
-  using Core.Triggers;
-  using Core.Zones;
+  using Gameplay.Card.Abilities;
+  using Gameplay.Card.Costs;
+  using Gameplay.Card.Factory;
+  using Gameplay.Card.Triggers;
+  using Gameplay.Effects;
+  using Gameplay.Modifiers;
+  using Gameplay.Player;
+  using Gameplay.Zones;
 
   public class Fortitude : CardsSource
   {
@@ -29,14 +31,14 @@
                   {
                     Text = "Sacrifice a Forest: Regenerate enchanted creature.",
                     Cost = new Sacrifice(),
-                    Effect = () => new Core.Effects.Regenerate()
+                    Effect = () => new Gameplay.Effects.Regenerate()
                   };
 
                 ap.TargetSelector.AddCost(trg => trg
                   .Is.Card(x => x.Is("forest"), ControlledBy.SpellOwner)
                   .On.Battlefield());
 
-                ap.TimingRule(new Core.Ai.TimingRules.Regenerate());
+                ap.TimingRule(new Ai.TimingRules.Regenerate());
                 ap.TargetingRule(new SacrificeToRegenerate());
 
                 return new AddActivatedAbility(new ActivatedAbility(ap));
@@ -51,7 +53,7 @@
             p.Text =
               "When Fortitude is put into a graveyard from the battlefield, return Fortitude to its owner's hand.";
             p.Trigger(new OnZoneChanged(from: Zone.Battlefield, to: Zone.Graveyard));
-            p.Effect = () => new Core.Effects.ReturnToHand(returnOwningCard: true);
+            p.Effect = () => new Gameplay.Effects.ReturnToHand(returnOwningCard: true);
           });
     }
   }

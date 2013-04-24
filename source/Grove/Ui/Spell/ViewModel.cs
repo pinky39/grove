@@ -4,8 +4,10 @@
   using System.Collections.Generic;
   using System.Linq;
   using Core;
-  using Core.Decisions.Results;
-  using Core.Targeting;
+  using Gameplay.Card;
+  using Gameplay.Card.Abilities;
+  using Gameplay.Decisions.Results;
+  using Gameplay.Targeting;
   using Infrastructure;
   using SelectTarget;
 

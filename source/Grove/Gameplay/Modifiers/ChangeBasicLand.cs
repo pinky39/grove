@@ -1,6 +1,8 @@
-﻿namespace Grove.Core.Modifiers
+﻿namespace Grove.Gameplay.Modifiers
 {
-  using Costs;
+  using Card.Abilities;
+  using Card.Characteristics;
+  using Card.Costs;
   using Mana;
   using Targeting;
 

@@ -9,6 +9,9 @@
   using System.Threading.Tasks;
   using System.Windows;
   using Core;
+  using Gameplay;
+  using Gameplay.Card.Factory;
+  using Gameplay.Deck;
   using SelectDeck;
   using Shell;
 

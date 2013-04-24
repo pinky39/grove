@@ -1,11 +1,12 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
+  using Ai.TimingRules;
   using Core;
-  using Core.Ai.TimingRules;
-  using Core.Dsl;
-  using Core.Effects;
-  using Core.Triggers;
+  using Gameplay.Card.Characteristics;
+  using Gameplay.Card.Factory;
+  using Gameplay.Card.Triggers;
+  using Gameplay.Effects;
 
   public class HiddenAncients : CardsSource
   {
@@ -28,7 +29,7 @@
               filter: (ability, card) => ability.OwningCard.Controller != card.Controller &&
                 ability.OwningCard.Is().Enchantment && card.Is().Enchantment));
 
-            p.Effect = () => new ApplyModifiersToSelf(() => new Core.Modifiers.ChangeToCreature(
+            p.Effect = () => new ApplyModifiersToSelf(() => new Gameplay.Modifiers.ChangeToCreature(
               power: 5,
               toughness: 5,
               type: "Creature Treefolk",

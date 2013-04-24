@@ -1,10 +1,9 @@
-﻿namespace Grove.Core
+﻿namespace Grove.Gameplay.Card.Factory
 {
   using System;
   using System.Collections;
   using System.Collections.Generic;
   using System.Linq;
-  using Dsl;
 
   public class CardDatabase : IEnumerable<Card>
   {

@@ -1,16 +1,17 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
+  using Ai.TargetingRules;
+  using Ai.TimingRules;
   using Core;
-  using Core.Ai.TargetingRules;
-  using Core.Ai.TimingRules;
-  using Core.Costs;
-  using Core.Dsl;
-  using Core.Effects;
-  using Core.Mana;
-  using Core.Modifiers;
-  using Core.Triggers;
-  using Core.Zones;
+  using Gameplay.Card.Abilities;
+  using Gameplay.Card.Costs;
+  using Gameplay.Card.Factory;
+  using Gameplay.Card.Triggers;
+  using Gameplay.Effects;
+  using Gameplay.Mana;
+  using Gameplay.Modifiers;
+  using Gameplay.Zones;
 
   public class FieryMantle : CardsSource
   {
@@ -48,7 +49,7 @@
             p.Text =
               "When Fiery Mantle is put into a graveyard from the battlefield, return Fiery Mantle to its owner's hand.";
             p.Trigger(new OnZoneChanged(from: Zone.Battlefield, to: Zone.Graveyard));
-            p.Effect = () => new Core.Effects.ReturnToHand(returnOwningCard: true);
+            p.Effect = () => new Gameplay.Effects.ReturnToHand(returnOwningCard: true);
           });
     }
   }

@@ -1,4 +1,4 @@
-﻿namespace Grove.Core.Decisions
+﻿namespace Grove.Ui.Decisions
 {
   public interface IUiDecisionFactory
   {

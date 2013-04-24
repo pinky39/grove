@@ -1,7 +1,7 @@
-﻿namespace Grove.Core.Triggers
+﻿namespace Grove.Gameplay.Card.Triggers
 {
   using System.Linq;
-  using Infrastructure;
+  using Grove.Infrastructure;
   using Messages;
 
   public class OnBeingTargetedBySpell : Trigger, IReceive<PlayerHasCastASpell>

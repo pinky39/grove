@@ -1,9 +1,10 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
+  using Ai.TimingRules;
   using Core;
-  using Core.Ai.TimingRules;
-  using Core.Dsl;
+  using Gameplay.Card.Abilities;
+  using Gameplay.Card.Factory;
 
   public class CrazedSkirge : CardsSource
   {

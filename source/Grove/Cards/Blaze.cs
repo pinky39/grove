@@ -2,12 +2,12 @@
 {
   using System;
   using System.Collections.Generic;
+  using Ai.CostRules;
+  using Ai.TargetingRules;
   using Core;
-  using Core.Ai.CostRules;
-  using Core.Ai.TargetingRules;
-  using Core.Dsl;
-  using Core.Effects;
-  using Core.Modifiers;
+  using Gameplay.Card.Factory;
+  using Gameplay.Effects;
+  using Gameplay.Modifiers;
 
   public class Blaze : CardsSource
   {

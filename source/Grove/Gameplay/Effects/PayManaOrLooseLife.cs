@@ -1,8 +1,9 @@
-﻿namespace Grove.Core.Effects
+﻿namespace Grove.Gameplay.Effects
 {
   using Decisions;
   using Decisions.Results;
   using Mana;
+  using Player;
 
   public class PayManaOrLooseLife : Effect, IProcessDecisionResults<BooleanResult>
   {

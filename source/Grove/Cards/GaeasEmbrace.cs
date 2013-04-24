@@ -1,15 +1,16 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
+  using Ai;
+  using Ai.TargetingRules;
+  using Ai.TimingRules;
   using Core;
-  using Core.Ai;
-  using Core.Ai.TargetingRules;
-  using Core.Ai.TimingRules;
-  using Core.Costs;
-  using Core.Dsl;
-  using Core.Effects;
-  using Core.Mana;
-  using Core.Modifiers;
+  using Gameplay.Card.Abilities;
+  using Gameplay.Card.Costs;
+  using Gameplay.Card.Factory;
+  using Gameplay.Effects;
+  using Gameplay.Mana;
+  using Gameplay.Modifiers;
 
   public class GaeasEmbrace : CardsSource
   {
@@ -30,10 +31,10 @@
                   {
                     Text = "{G}: Regenerate enchanted creature.",
                     Cost = new PayMana(Mana.Green, ManaUsage.Abilities),
-                    Effect = () => new Core.Effects.Regenerate()
+                    Effect = () => new Gameplay.Effects.Regenerate()
                   };
 
-                ap.TimingRule(new Core.Ai.TimingRules.Regenerate());
+                ap.TimingRule(new Ai.TimingRules.Regenerate());
 
                 return new AddActivatedAbility(new ActivatedAbility(ap));
               },

@@ -1,5 +1,8 @@
-﻿namespace Grove.Core.Ai.TimingRules
+﻿namespace Grove.Ai.TimingRules
 {
+  using Core;
+  using Gameplay.States;
+
   public class Cycling : TimingRule
   {
     public override bool ShouldPlay(TimingRuleParameters p)

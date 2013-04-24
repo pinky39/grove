@@ -1,7 +1,9 @@
-﻿namespace Grove.Core.Ai
+﻿namespace Grove.Ai
 {
   using System.Collections.Generic;
-  using Targeting;
+  using Core;
+  using Gameplay.Card;
+  using Gameplay.Targeting;
   using TargetingRules;
 
   public class TargetingHelper

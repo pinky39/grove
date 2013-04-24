@@ -1,10 +1,12 @@
-﻿namespace Grove.Core.Ai
+﻿namespace Grove.Ai
 {
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Mana;
-  using Zones;
+  using Core;
+  using Gameplay.Card;
+  using Gameplay.Mana;
+  using Gameplay.States;
 
   public static class ScoreCalculator
   {

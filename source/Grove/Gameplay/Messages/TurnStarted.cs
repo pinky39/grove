@@ -1,4 +1,4 @@
-﻿namespace Grove.Core.Messages
+﻿namespace Grove.Gameplay.Messages
 {
   public class TurnStarted
   {

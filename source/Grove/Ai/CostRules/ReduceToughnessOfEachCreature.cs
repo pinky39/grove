@@ -1,4 +1,4 @@
-﻿namespace Grove.Core.Ai.CostRules
+﻿namespace Grove.Ai.CostRules
 {
   public class ReduceToughnessOfEachCreature : CostRule
   {

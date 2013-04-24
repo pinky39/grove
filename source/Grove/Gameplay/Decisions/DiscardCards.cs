@@ -1,7 +1,9 @@
-﻿namespace Grove.Core.Decisions
+﻿namespace Grove.Gameplay.Decisions
 {
   using System;
   using System.Linq;
+  using Card;
+  using Player;
   using Results;
 
   public abstract class DiscardCards : Decision<ChosenCards>

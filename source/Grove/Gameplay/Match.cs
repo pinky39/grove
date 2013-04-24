@@ -1,12 +1,13 @@
-﻿namespace Grove.Core
+﻿namespace Grove.Gameplay
 {
   using System;
   using System.Threading.Tasks;
   using System.Windows;
+  using Card.Factory;
   using Decisions;
-  using Infrastructure;
-  using Ui.GameResults;
-  using Ui.Shell;
+  using Grove.Infrastructure;
+  using Grove.Ui.GameResults;
+  using Grove.Ui.Shell;
 
   public class Match
   {
@@ -18,8 +19,8 @@
     private readonly Ui.StartScreen.ViewModel.IFactory _startScreenFactory;
     private readonly TaskScheduler _uiScheduler;
     private Task _backgroundTask;
-    private Deck _deck1;
-    private Deck _deck2;
+    private Deck.Deck _deck1;
+    private Deck.Deck _deck2;
     private int? _looser;
     private bool _playerLeftMatch;
     private bool _rematch = true;
@@ -59,7 +60,7 @@
     public int Player1WinCount { get; private set; }
     public int Player2WinCount { get; private set; }
 
-    protected Player Looser
+    protected Player.Player Looser
     {
       get
       {
@@ -72,7 +73,7 @@
 
     public bool InProgress { get { return Game != null && !IsFinished; } }
 
-    public void Start(Deck player1Deck, Deck player2Deck)
+    public void Start(Deck.Deck player1Deck, Deck.Deck player2Deck)
     {
       _deck1 = player1Deck;
       _deck2 = player2Deck;

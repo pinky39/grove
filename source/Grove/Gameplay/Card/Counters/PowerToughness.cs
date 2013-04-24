@@ -1,5 +1,6 @@
-﻿namespace Grove.Core.Counters
+﻿namespace Grove.Gameplay.Card.Counters
 {
+  using Characteristics;
   using Modifiers;
 
   public class PowerToughness : Counter

@@ -1,7 +1,9 @@
-﻿namespace Grove.Core.Ai.CostRules
+﻿namespace Grove.Ai.CostRules
 {
   using System;
   using System.Linq;
+  using Core;
+  using Gameplay.Card;
 
   public class DestroyEachPermanent : CostRule
   {

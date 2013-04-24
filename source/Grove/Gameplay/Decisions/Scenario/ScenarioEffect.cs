@@ -1,11 +1,12 @@
 ﻿namespace Grove.Core.Decisions.Scenario
 {
   using System;
-  using Effects;
+  using Gameplay.Card.Characteristics;
+  using Gameplay.Common;
+  using Gameplay.Effects;
+  using Gameplay.Modifiers;
+  using Gameplay.Targeting;
   using Grove.Infrastructure;
-  using Grove.Core.Targeting;
-  using Mana;
-  using Modifiers;
 
   public class ScenarioEffect : ITarget, IHasColors
   {

@@ -1,4 +1,4 @@
-﻿namespace Grove.Core.Mana
+﻿namespace Grove.Gameplay.Mana
 {
   using System;
   using System.Collections.Generic;

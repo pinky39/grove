@@ -1,5 +1,9 @@
-﻿namespace Grove.Core.Effects
+﻿namespace Grove.Gameplay.Effects
 {
+  using Card;
+  using Damage;
+  using Player;
+
   public class DealExistingDamageToController : Effect
   {
     private readonly DynParam<Damage> _damage;

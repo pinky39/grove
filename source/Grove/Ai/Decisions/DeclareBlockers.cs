@@ -1,9 +1,8 @@
-﻿namespace Grove.Core.Decisions.Machine
+﻿namespace Grove.Ai.Decisions
 {
   using System.Linq;
-  using Grove.Core.Ai;
 
-  public class DeclareBlockers : Decisions.DeclareBlockers
+  public class DeclareBlockers : Gameplay.Decisions.DeclareBlockers
   {
     protected override void ExecuteQuery()
     {
