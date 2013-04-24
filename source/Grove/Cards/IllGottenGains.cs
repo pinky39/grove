@@ -3,7 +3,7 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai.TimingRules;
-  using Core.Casting;
+  using Core.CastingRules;
   using Core.Dsl;
   using Core.Effects;
   using Core.Zones;

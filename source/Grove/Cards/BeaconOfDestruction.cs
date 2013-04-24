@@ -3,8 +3,8 @@
   using System.Collections.Generic;
   using Core;
   using Core.Ai.TargetingRules;
-  using Core.Ai.TimingRules;
-  using Core.Casting;
+  using Core.Ai.TimingRules;  
+  using Core.CastingRules;
   using Core.Dsl;
   using Core.Effects;
 
