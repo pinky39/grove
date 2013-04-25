@@ -14,7 +14,7 @@
         var wurm = C("Scoria Wurm");
         Battlefield(P1, wurm);
 
-        RunGame(15);
+        RunGame(21);
 
         Equal(Zone.Hand, C(wurm).Zone);
       }

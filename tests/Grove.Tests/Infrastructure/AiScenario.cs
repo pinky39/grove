@@ -16,19 +16,19 @@
       player1ControlledByScript: false,
       player2ControlledByScript: false)
     {
-      Search.Started += delegate
+      Ai.SearchStarted += delegate
         {
           _stopwatch.Start();
         };
 
-      Search.Finished += delegate
+      Ai.SearchFinished += delegate
         {
           _stopwatch.Stop();          
           _measurements.Add(new Measurement
             {
-              NodeCount = Search.NodeCount,
-              WorkerCount = Search.NumWorkersCreated,
-              SubtreesPrunned = Search.SubtreesPrunned,
+              NodeCount =  Ai.LastSearchStatistics.NodeCount,
+              WorkerCount = Ai.LastSearchStatistics.NumOfWorkersCreated,
+              SubtreesPrunned = Ai.LastSearchStatistics.SubtreesPrunned,
               ElapsedTime = _stopwatch.ElapsedMilliseconds
             });
 

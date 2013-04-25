@@ -85,7 +85,7 @@
         yield break;
       }
 
-      foreach (var targetsCombination in context.TargetsCombinations().Take(Search.MaxTargetCandidates))
+      foreach (var targetsCombination in context.TargetsCombinations().Take(Ai.Parameters.TargetCount))
       {
         var playable = createPlayable();
 

@@ -97,7 +97,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Ai\GameAi.cs" />
     <Compile Include="Ai\RepetitionRules\TargetLifepointsLeft.cs" />
+    <Compile Include="Ai\Search.cs" />
+    <Compile Include="Ai\SearchParameters.cs" />
+    <Compile Include="Ai\SearchStatistics.cs" />
     <Compile Include="Cards\AbsoluteGrace.cs" />
     <Compile Include="Cards\AbsoluteLaw.cs" />
     <Compile Include="Cards\AbyssalHorror.cs" />
@@ -777,7 +781,7 @@
     <Compile Include="Gameplay\Effects\DestroyAllPermanents.cs" />
     <Compile Include="Gameplay\Effects\ExileTargets.cs" />
     <Compile Include="Gameplay\Effects\MillOpponent.cs" />
-    <Compile Include="Gameplay\Effects\PayLifeOrTap.cs" />
+    <Compile Include="Gameplay\Effects\PayLifeOrTapLand.cs" />
     <Compile Include="Gameplay\Effects\PayManaOrSacrifice.cs" />
     <Compile Include="Gameplay\Effects\ReturnAllPermanentsToHand.cs" />
     <Compile Include="Gameplay\Effects\ReturnToHand.cs" />
@@ -932,7 +936,6 @@
     <Compile Include="Ui\Decisions\SetDamageAssignmentOrder.cs" />
     <Compile Include="Ui\Decisions\TakeMulligan.cs" />
     <Compile Include="Ai\Decisions\PlaySpellOrAbility.cs" />
-    <Compile Include="Ai\Search.cs" />
     <Compile Include="Ai\Decisions\TakeMulligan.cs" />
     <Compile Include="Gameplay\Messages\AttachmentAttached.cs" />
     <Compile Include="Gameplay\Messages\AttachmentDetached.cs" />

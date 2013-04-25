@@ -4,7 +4,12 @@
   {
     protected override void ExecuteQuery()
     {
-      Result = Ai(this);
+      if (ChooseDecisionResults != null)
+      {
+        Result = ChooseDecisionResults.ChooseResult();
+      }
+
+      Result = true;
     }
   }
 }

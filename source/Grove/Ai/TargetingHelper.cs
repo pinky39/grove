@@ -1,18 +1,18 @@
 ﻿namespace Grove.Ai
 {
   using System.Collections.Generic;
-  using Core;
   using Gameplay.Card;
   using Gameplay.Targeting;
   using TargetingRules;
 
   public class TargetingHelper
   {
-    public static bool IsGoodTarget(ITarget target, Card owningCard, TargetSelector selector, IEnumerable<TargetingRule> rules)
+    public static bool IsGoodTarget(ITarget target, Card owningCard, TargetSelector selector,
+      IEnumerable<TargetingRule> rules)
     {
       var activation = new ActivationContext(owningCard, selector);
 
-      foreach (TargetingRule rule in rules)
+      foreach (var rule in rules)
       {
         rule.Process(activation);
       }
@@ -23,16 +23,18 @@
           return true;
       }
 
-      return false;   
+      return false;
     }
 
-    public static IEnumerable<Targets> GenerateTargets(Card owningCard, TargetSelector selector, IEnumerable<TargetingRule> rules, bool force = false, object triggerMessage = null)
+    public static IEnumerable<Targets> GenerateTargets(Card owningCard, TargetSelector selector,
+      IEnumerable<TargetingRule> rules,
+      bool force = false, object triggerMessage = null)
     {
       var activation = new ActivationContext(owningCard, selector);
       activation.CanCancel = !force;
-      activation.TriggerMessage = triggerMessage;      
+      activation.TriggerMessage = triggerMessage;
 
-      foreach (TargetingRule rule in rules)
+      foreach (var rule in rules)
       {
         rule.Process(activation);
       }

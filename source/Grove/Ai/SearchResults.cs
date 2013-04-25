@@ -7,13 +7,13 @@
     private readonly object _access = new object();
     private readonly Dictionary<int, InnerResult> _results = new Dictionary<int, InnerResult>();
 
-    public bool NewResult(int gameState, bool isMax, int stepCount, out InnerResult searchResult)
+    public bool CreateOrGetExistingResult(int gameState, bool isMax, int stepCount, out InnerResult searchResult)
     {            
       lock (_access)
       {
         if (_results.TryGetValue(gameState, out searchResult))
         {
-          return true;
+          return false;
         }
         
         searchResult = new InnerResult(
@@ -24,7 +24,7 @@
         _results.Add(gameState, searchResult);
       }
 
-      return false;
+      return true;
     }
      
 

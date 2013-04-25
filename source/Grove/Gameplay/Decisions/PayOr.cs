@@ -1,17 +1,16 @@
 ﻿namespace Grove.Gameplay.Decisions
 {
-  using System;
   using Mana;
   using Results;
 
   public abstract class PayOr : Decision<BooleanResult>
   {
-    public Func<PayOr, bool> Ai = delegate { return true; };
+    public ManaUsage ManaUsage = ManaUsage.Any;
     public IManaAmount ManaAmount { get; set; }
     public int? Life { get; set; }
     public string Text { get; set; }
-    public ManaUsage ManaUsage = ManaUsage.Any;
 
+    public IChooseDecisionResults<BooleanResult> ChooseDecisionResults { get; set; }
     public IProcessDecisionResults<BooleanResult> ProcessDecisionResults { get; set; }
 
     protected override bool ShouldExecuteQuery { get { return CanPay(); } }
@@ -34,10 +33,10 @@
     public override void ProcessResults()
     {
       Result = Result ?? false;
-      
+
       if (Result.IsTrue)
       {
-        Pay();        
+        Pay();
       }
 
       if (ProcessDecisionResults != null)

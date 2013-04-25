@@ -3,9 +3,8 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Core;
   using Gameplay.Card;
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   public class QuickCombat
   {
@@ -39,14 +38,15 @@
       return 0;
     }
 
-    public static int GetAmountOfDamageThatNeedsToBePreventedToSafeAttackerFromDying(Card attacker, IEnumerable<Card> blockers)
+    public static int GetAmountOfDamageThatNeedsToBePreventedToSafeAttackerFromDying(Card attacker,
+      IEnumerable<Card> blockers)
     {
       var leathalAmount = 0;
       var evaluation = new AttackerEvaluation(attacker, blockers);
       evaluation.BlockerHasDealtLeathalDamage = ((_, amount) => leathalAmount += amount);
-      var results = evaluation.Evaluate();                  
+      var results = evaluation.Evaluate();
       var prevented = results.DamageDealt - attacker.Life;
-      return Math.Max(leathalAmount, prevented);                        
+      return Math.Max(leathalAmount, prevented);
     }
 
     public static Card GetAttackerThatDealsLeathalDamageToBlocker(Card blocker, Card attacker)
@@ -65,10 +65,10 @@
 
       return results.ReceivesLeathalDamage;
     }
-    
+
     public static int GetAmountOfDamageThatWillBeDealtToAttacker(Card attacker, IEnumerable<Card> blockers)
     {
-      var performance = new AttackerEvaluation(attacker, blockers);      
+      var performance = new AttackerEvaluation(attacker, blockers);
       return performance.Evaluate().DamageDealt;
     }
 
@@ -161,13 +161,13 @@
       foreach (var blocker in blockers)
       {
         var eval = new BlockerEvaluation(blocker, attacker)
-          .Evaluate();  
+          .Evaluate();
 
         if (eval.ReceivesLeathalDamage)
           return true;
       }
 
       return false;
-    }    
+    }
   }
 }

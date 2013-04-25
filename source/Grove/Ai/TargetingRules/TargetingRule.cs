@@ -10,7 +10,7 @@
 
   public abstract class TargetingRule : MachinePlayRule
   {        
-    public override void Process(Ai.ActivationContext c)
+    public override void Process(Grove.Ai.ActivationContext c)
     {
       var candidates = c.Selector.GenerateCandidates(c.TriggerMessage);
 
@@ -28,7 +28,7 @@
         }
 
         targetsCombinations = ForceSelectTargets(parameters)
-          .Take(Search.MaxTargetCandidates)
+          .Take(Ai.Parameters.TargetCount)
           .ToList();
       }
 

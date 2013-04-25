@@ -5,8 +5,6 @@
   using System.Linq;
   using System.Reflection;
   using Ai;
-  using Core;
-  using Core.Decisions;
   using Core.Decisions.Scenario;
   using Gameplay;
   using Gameplay.Card;
@@ -40,15 +38,15 @@
     protected Game Game { get; private set; }
     protected Player P1 { get { return Game.Players.Player1; } }
     protected Player P2 { get { return Game.Players.Player2; } }
-    protected Search Search { get { return Game.Search; } }
+    protected GameAi Ai { get { return Game.Ai; } }
     protected Combat Combat { get { return Game.Combat; } }
+
+    public virtual void Dispose() {}
 
     protected void EnableChangeTrackerChecks()
     {
       NullTracker.EnableChangeTrackerChecks();
     }
-    
-    public virtual void Dispose() {}
 
     protected DecisionsForOneStep At(Step step, int turn = 1)
     {
@@ -65,7 +63,7 @@
           {
             var card = CardDatabase.CreateCard(name);
             card.Initialize(player, Game);
-            library.Add(card);            
+            library.Add(card);
 
             return card;
           });
@@ -79,7 +77,7 @@
         scenarioCard.Initialize(name =>
           {
             var card = CardDatabase.CreateCard(name);
-            card.Initialize(player, Game);            
+            card.Initialize(player, Game);
 
             player.PutCardToBattlefield(card);
             card.HasSummoningSickness = false;
@@ -92,7 +90,7 @@
               enchantment.Initialize(enchantmentName =>
                 {
                   var enchantmentCard = CardDatabase.CreateCard(enchantmentName);
-                  enchantmentCard.Initialize(player, Game);                  
+                  enchantmentCard.Initialize(player, Game);
                   EnchantCard(card, enchantmentCard);
                   return enchantmentCard;
                 });
@@ -201,7 +199,7 @@
           {
             var card = CardDatabase.CreateCard(name);
             card.Initialize(player, Game);
-            graveyard.Add(card);            
+            graveyard.Add(card);
 
             return card;
           });
@@ -218,7 +216,7 @@
           {
             var card = CardDatabase.CreateCard(name);
             card.Initialize(player, Game);
-            hand.Add(card);            
+            hand.Add(card);
 
             return card;
           });

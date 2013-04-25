@@ -55,7 +55,7 @@
     {
       IDecision decision;
 
-      var controller = game.Search.InProgress
+      var controller = game.Ai.IsSearchInProgress
         ? ControllerType.Machine
         : player.Controller;
 

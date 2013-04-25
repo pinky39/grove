@@ -1,9 +1,9 @@
 ﻿namespace Grove.Gameplay.Decisions
 {
   using System.Collections.Generic;
+  using Ai;
   using Card.Abilities;
   using Effects;
-  using Grove.Ai;
   using Results;
   using Targeting;
 
@@ -13,10 +13,10 @@
     public object TriggerMessage { get; set; }
     public EffectFactory EffectFactory { get; set; }
     public TargetSelector TargetSelector { get; set; }
-    public List<MachinePlayRule> MachineRules { get; set; }    
-    
+    public List<MachinePlayRule> MachineRules { get; set; }
+
     public override void ProcessResults()
-    {              
+    {
       var effectParameters = new EffectParameters
         {
           Source = Source,
@@ -24,7 +24,6 @@
           TriggerMessage = TriggerMessage
         };
 
-      
       var effect = EffectFactory();
       if (Result.HasTargets == false)
       {

@@ -20,7 +20,7 @@
         .TriggeredAbility(p =>
           {
             p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
-            p.Effect = () => new PayLifeOrTap(2);
+            p.Effect = () => new PayLifeOrTapLand(2);
             p.UsesStack = false;
           })
         .ManaAbility(p =>

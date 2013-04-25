@@ -46,7 +46,7 @@
 
     protected override void ExecuteQuery()
     {
-      Search.SetBestResult(this);
+      Ai.SetBestResult(this);
     }
   }
 }

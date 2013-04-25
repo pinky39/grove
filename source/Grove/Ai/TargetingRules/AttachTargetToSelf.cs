@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Core;
   using Gameplay.Card;
   using Gameplay.Targeting;
 
@@ -15,7 +14,7 @@
         .OrderByDescending(x => x.Score)
         .ToList();
 
-      return Group(candidates, 1);
+      return Group(candidates, p.MinTargetCount(), p.MaxTargetCount());
     }
   }
 }

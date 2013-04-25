@@ -2,82 +2,65 @@
 {
   using System;
   using System.Collections.Generic;
-  using System.Diagnostics;
   using System.Linq;
   using System.Threading;
   using System.Threading.Tasks;
   using Gameplay;
-  using Gameplay.Messages;
+  using Gameplay.Player;
   using Infrastructure;
-  using log4net;
 
   public class Search
   {
-    private static readonly ILog Log = LogManager.GetLogger(typeof (Search));
-    private readonly Queue<int> _lastDurations = new Queue<int>(new[] {0});
-    private readonly int _maxSearchDepth;
-    private readonly int _maxTargetCount;
+    private readonly Game _game;
+    private readonly SearchParameters _p;
+    private readonly InnerResult _root;
     private readonly SearchResults _searchResults = new SearchResults();
-    private readonly Stopwatch _stopwatch = new Stopwatch();
     private readonly Dictionary<object, SearchWorker> _workers = new Dictionary<object, SearchWorker>();
     private readonly object _workersLock = new object();
-    private ISearchResult _lastSearchResult;
     private int _numWorkersCreated;
-    private int _startStateCount;
-    private int _startStepCount;
     private int _subtreesPrunned;
 
-    public Search(int maxSearchDepth, int maxTargetCount)
+    public Search(SearchParameters p, Player searchingPlayer, Game game)
     {
-      _maxSearchDepth = maxSearchDepth;
-      _maxTargetCount = maxTargetCount;
-
-      SearchDepthLimit = _maxSearchDepth;
-      MaxTargetCandidates = _maxTargetCount;
+      _p = p;
+      _game = game;      
+      _root = new InnerResult(_game.CalculateHash(), searchingPlayer.IsMax, 0);
     }
 
-    public int MaxTargetCandidates { get; private set; }
+    public int TargetCount { get { return _p.TargetCount; } }
 
-    public bool InProgress
+    public int Result { get { return _root.BestMove.GetValueOrDefault(); } }
+    public SearchResults ResultsCache { get { return _searchResults; } }
+    public int SearchUntilDepth { get { return _game.Turn.StepCount + _p.SearchDepth; } }
+
+    public SearchStatistics GetSearchStatistics()
     {
-      get
-      {
-        lock (_workersLock)
+      return new SearchStatistics
         {
-          return _workers.Count > 0;
-        }
-      }
+          NodeCount = GetSearchTreeSize(),
+          NumOfWorkersCreated = _numWorkersCreated,
+          SubtreesPrunned = _subtreesPrunned
+        };
     }
 
-    public int MaxDepth { get { return _startStepCount + SearchDepthLimit; } }
-    public int PlaySpellUntilDepth { get; private set; }
-    public int NumWorkersCreated { get { return _numWorkersCreated; } }
-    public int SearchDepthLimit { get; private set; }
-    public int SubtreesPrunned { get { return _subtreesPrunned; } }
-
-    public NodeCount NodeCount
+    private NodeCount GetSearchTreeSize()
     {
-      get
-      {
-        var count = new NodeCount();
-
-        if (_lastSearchResult != null)
-          _lastSearchResult.CountNodes(count);
-
-        return count;
-      }
+      var count = new NodeCount();
+      _root.CountNodes(count);
+      return count;
     }
 
-    public event EventHandler Finished = delegate { };
-    public event EventHandler Started = delegate { };
-
-    public int GetSearchDepthInSteps(int currentStepCount)
+    public int GetCurrentDepthInSteps(int currentStepCount)
     {
-      return currentStepCount - _startStepCount;
+      return currentStepCount - _game.Turn.StepCount;
     }
 
+    private int GetCurrentDepthInStateTransitions(int stateCount)
+    {
+      return stateCount - _game.Turn.StateCount;
+    }
 
-    public SearchWorker GetWorker(object id)
+    private SearchWorker GetWorker(object id)
     {
       lock (_workersLock)
       {
@@ -85,30 +68,45 @@
       }
     }
 
-    public void SetBestResult(ISearchNode searchNode)
+    public void Start(ISearchNode searchNode)
     {
-      if (InProgress)
-      {
-        var worker = GetWorker(searchNode.Game);
+      // Lock original changer tracker. 
+      // So we are sure that original game state stays intact.
+      // This is usefull for debuging state copy issues.      
+      _game.ChangeTracker.Lock();
 
-        searchNode.GenerateChoices();
-        worker.Evaluate(searchNode);
-        return;
-      }
+      // Both original and copied tracker will be enabled,
+      // but only the copy is unlocked and can track state.
+      _game.ChangeTracker.Enable();
 
-      searchNode.Game.Players.Searching = searchNode.Controller;
-      searchNode.GenerateChoices();
+      // Copy game state,
+      var searchNodeCopy = new CopyService().CopyRoot(searchNode);
 
-      var result =
-        GetCachedResult(searchNode) ??
-          FindBestMove(searchNode);
+      // create the first worker
+      var worker = CreateWorker(_root, searchNodeCopy.Game);
 
-      searchNode.SetResult(result);
+      // and start the search.
+      worker.StartSearch(searchNodeCopy);
+
+      RemoveWorker(worker);
+
+      _game.ChangeTracker.Disable();
+      _game.ChangeTracker.Unlock();
+
+      _root.EvaluateSubtree();
+
+      GC.Collect();
+    }
+
+    public void EvaluateNode(ISearchNode searchNode)
+    {
+      var worker = GetWorker(searchNode.Game);      
+      worker.Evaluate(searchNode);
     }
 
     private SearchWorker CreateWorker(InnerResult rootResult, Game game)
     {
-      var worker = new SearchWorker(rootResult, game, _searchResults);
+      var worker = new SearchWorker(this, rootResult, game, _searchResults);
 
       lock (_workersLock)
       {
@@ -119,134 +117,11 @@
       return worker;
     }
 
-    private int FindBestMove(ISearchNode searchNode)
-    {
-      InitSearch(searchNode);
-
-      var rootNode = new CopyService().CopyRoot(searchNode);
-
-      var rootResult = new InnerResult(
-        rootNode.Game.CalculateHash(),
-        rootNode.Controller.IsMax, 0);
-
-      var worker = CreateWorker(rootResult, rootNode.Game);
-
-      worker.StartSearch(rootNode);
-
-      FinishSearch(searchNode, worker);
-
-      return GetBestMove(searchNode);
-    }
-
-    private int GetBestMove(ISearchNode searchNode)
-    {
-      _lastSearchResult = GetSearchNodeResult(searchNode);
-      _lastSearchResult.EvaluateSubtree();
-      return _lastSearchResult.BestMove.Value;
-    }
-
-    private void FinishSearch(ISearchNode searchNode, SearchWorker worker)
-    {
-      RemoveWorker(worker);
-
-      _stopwatch.Stop();
-
-      if (_lastDurations.Count == 10)
-      {
-        _lastDurations.Dequeue();
-      }
-
-      _lastDurations.Enqueue(((int) _stopwatch.Elapsed.TotalMilliseconds));
-
-      Finished(this, EventArgs.Empty);
-      searchNode.Game.Publish(new SearchFinished());
-      Log.Debug("Search finished");
-
-      searchNode.Game.ChangeTracker.Disable();
-      searchNode.Game.ChangeTracker.Unlock();
-
-      GC.Collect();
-    }
-
-    private void InitSearch(ISearchNode searchNode)
-    {
-      AdjustPerformance();
-
-      Log.Debug("Search started");
-
-      searchNode.Game.Publish(new SearchStarted
-        {
-          SearchDepthLimit = SearchDepthLimit,
-          TargetCountLimit = MaxTargetCandidates
-        });
-
-      Started(this, EventArgs.Empty);
-
-      _stopwatch.Reset();
-      _stopwatch.Start();
-
-      _subtreesPrunned = 0;
-      _numWorkersCreated = 0;
-      _searchResults.Clear();
-
-      searchNode.Game.ChangeTracker.Enable();
-      searchNode.Game.ChangeTracker.Lock();
-      _startStepCount = searchNode.Game.Turn.StepCount;
-      _startStateCount = searchNode.Game.Turn.StateCount;
-      PlaySpellUntilDepth = searchNode.Game.Turn.GetStepCountAtNextTurnCleanup();
-    }
-
-    private void AdjustPerformance()
-    {
-      if (_lastDurations.Last() > 4000)
-      {
-        if (MaxTargetCandidates > 1)
-        {
-          MaxTargetCandidates--;
-        }
-        if (SearchDepthLimit > 1)
-        {
-          SearchDepthLimit -= Math.Min(4, SearchDepthLimit - 1);
-        }
-      }
-
-      if (_lastDurations.None(x => x > 1500))
-      {
-        if (SearchDepthLimit < _maxSearchDepth)
-        {
-          SearchDepthLimit += 2;
-        }
-        else if (MaxTargetCandidates < _maxTargetCount)
-        {
-          MaxTargetCandidates++;
-        }
-      }
-    }
-
-    private int? GetCachedResult(ISearchNode searchNode)
-    {
-      if (searchNode.ResultCount == 1)
-        return 0;
-
-      var result = GetSearchNodeResult(searchNode);
-      return result == null ? null : result.BestMove;
-    }
-
-    private ISearchResult GetSearchNodeResult(ISearchNode searchNode)
-    {
-      return _searchResults.GetResult(searchNode.Game.CalculateHash());
-    }
-
-    public int GetDepth(int stateCount)
-    {
-      return stateCount - _startStateCount;
-    }
-
     private bool IsItFeasibleToCreateNewWorker(ISearchNode node, int moveIndex)
     {
 #if DEBUG
-      return SingleThreadedStrategy(node, moveIndex);
-      //return MultiThreadedStrategy2(node, moveIndex);
+      //return SingleThreadedStrategy(node, moveIndex);
+      return MultiThreadedStrategy2(node, moveIndex);
 #else
       return MultiThreadedStrategy2(node, moveIndex);
 #endif
@@ -260,14 +135,14 @@
     private bool MultiThreadedStrategy1(ISearchNode node, int moveIndex)
     {
       const int maxWorkers = 4;
-      var depth = GetDepth(node.Game.Turn.StateCount);
+      var depth = GetCurrentDepthInStateTransitions(node.Game.Turn.StateCount);
       return (_workers.Count < maxWorkers && depth == 0 && moveIndex > 0);
     }
 
     private bool MultiThreadedStrategy2(ISearchNode node, int moveIndex)
     {
       const int maxWorkers = 6;
-      var depth = GetDepth(node.Game.Turn.StateCount);
+      var depth = GetCurrentDepthInStateTransitions(node.Game.Turn.StateCount);
       return (_workers.Count < maxWorkers && depth < 2 && moveIndex < node.ResultCount - 1);
     }
 

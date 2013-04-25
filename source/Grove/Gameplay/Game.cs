@@ -3,11 +3,11 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
+  using Ai;
   using Card.Factory;
+  using Core.Decisions.Scenario;
   using Decisions;
-  using Grove.Ai;
-  using Grove.Core.Decisions.Scenario;
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Player;
   using States;
   using Zones;
@@ -17,10 +17,10 @@
   {
     private const int MaxSearchDepth = 40;
     private const int MaxTargetCount = 2;
+    private GameAi _ai;
     private DecisionQueue _decisionQueue;
     private DecisionSystem _decisionSystem;
     private Publisher _publisher;
-    private Search _search;
     private StateMachine _stateMachine;
     private TurnInfo _turnInfo;
     private int _turnLimit = int.MaxValue;
@@ -37,7 +37,7 @@
     public int Score { get { return Players.Score; } }
     public Stack Stack { get; private set; }
     public TurnInfo Turn { get { return _turnInfo; } }
-    public Search Search { get { return _search; } }
+    public GameAi Ai { get { return _ai; } }
 
     public static Game New(List<string> humanDeck, List<string> cpuDeck,
       CardDatabase cardDatabase, DecisionSystem decisionSystem)
@@ -77,7 +77,7 @@
       game._turnInfo = new TurnInfo();
       game._wasStopped = new Trackable<bool>();
       game.Combat = new Combat.Combat();
-      game._search = new Search(maxSearchDepth, maxTargetCount);
+      game._ai = new GameAi(new SearchParameters(maxSearchDepth, maxTargetCount), game);
       game._decisionSystem = decisionSystem;
       game._decisionQueue = new DecisionQueue();
       game._stateMachine = new StateMachine(game._decisionQueue);
@@ -126,7 +126,7 @@
     {
       var calc = new HashCalculator();
 
-      return HashCalculator.Combine(        
+      return HashCalculator.Combine(
         calc.Calculate(Players),
         calc.Calculate(Stack),
         calc.Calculate(Turn),

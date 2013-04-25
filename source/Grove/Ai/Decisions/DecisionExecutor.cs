@@ -1,6 +1,6 @@
 ﻿namespace Grove.Ai.Decisions
 {
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   [Copyable]
   public class DecisionExecutor

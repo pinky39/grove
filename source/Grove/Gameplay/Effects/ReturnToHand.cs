@@ -30,7 +30,7 @@
 
       if (_discard > 0)
       {
-        Game.Enqueue<Decisions.DiscardCards>(
+        Enqueue<Decisions.DiscardCards>(
           controller: Target.Card().Controller,
           init: p => p.Count = _discard);
       }

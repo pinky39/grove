@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Ai;
-  using Core;
   using Gameplay.Card.Factory;
   using Gameplay.Effects;
 
@@ -22,7 +21,7 @@
             p.TargetSelector.AddEffect(t => t
               .Is.CounterableSpell(card => card.Is().Artifact || card.Is().Enchantment)
               .On.Stack());
-            
+
             p.TargetingRule(new Ai.TargetingRules.Counterspell());
             p.TimingRule(new Ai.TimingRules.Counterspell());
           });

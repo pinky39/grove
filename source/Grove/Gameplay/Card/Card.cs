@@ -215,7 +215,7 @@
     public bool CanBeDestroyed { get { return !CanRegenerate && !Has().Indestructible; } }
     public ScoreOverride OverrideScore { get; private set; }
     public bool IsVisibleInUi { get { return _isPreview || IsVisibleToPlayer(Players.Human); } }
-    public bool IsVisible { get { return Search.InProgress ? IsVisibleToPlayer(Players.Searching) : IsVisibleToPlayer(Controller); } }
+    public bool IsVisible { get { return Ai.IsSearchInProgress ? IsVisibleToPlayer(Players.Searching) : IsVisibleToPlayer(Controller); } }
     public bool IsMultiColored { get { return _colors.Count > 1; } }
     public bool HasChangedZoneThisTurn { get { return _zone.HasChangedZoneThisTurn; } }
 
@@ -739,7 +739,7 @@
       // Revealing cards during simulation should have no 
       // effect.
 
-      if (Search.InProgress)
+      if (Ai.IsSearchInProgress)
         return;
 
       _isRevealed.Value = true;

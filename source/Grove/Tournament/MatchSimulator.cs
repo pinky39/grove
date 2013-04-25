@@ -48,13 +48,13 @@
         _cardDatabase, 
         _decisionSystem);
 
-      game.Search.Started += delegate
+      game.Ai.SearchStarted += delegate
         {
           result.TotalSearchCount++;
           stopwatch.Start();
         };
 
-      game.Search.Finished += delegate
+      game.Ai.SearchFinished += delegate
         {
           stopwatch.Stop();
 

@@ -6,8 +6,7 @@
   using Card.Factory;
   using Combat;
   using Decisions;
-  using Grove.Ai;
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Player;
   using States;
   using Targeting;
@@ -16,15 +15,15 @@
   [Copyable]
   public abstract class GameObject
   {
-    public bool IsInitialized { get { return Game != null; } }    
+    public bool IsInitialized { get { return Game != null; } }
     protected Game Game { get; set; }
 
     protected Players Players { get { return Game.Players; } }
     protected Stack Stack { get { return Game.Stack; } }
     protected Combat Combat { get { return Game.Combat; } }
     protected TurnInfo Turn { get { return Game.Turn; } }
-    protected Search Search { get { return Game.Search; } }
-    protected CardDatabase CardDatabase {get { return Game.CardDatabase; }}
+    public Ai.GameAi Ai { get { return Game.Ai; } }
+    protected CardDatabase CardDatabase { get { return Game.CardDatabase; } }
 
     protected ChangeTracker ChangeTracker { get { return Game.ChangeTracker; } }
 
@@ -47,7 +46,7 @@
 
     protected void Enqueue<TDecision>(Player controller, Action<TDecision> init = null)
       where TDecision : class, IDecision
-    {      
+    {
       Game.Enqueue(controller, init);
     }
 

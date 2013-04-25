@@ -13,11 +13,11 @@
   public class TargetingRuleParameters : GameObject
   {
     private readonly TargetsCandidates _candidates;
-    private readonly Ai.ActivationContext _context;
+    private readonly Grove.Ai.ActivationContext _context;
 
     private TargetingRuleParameters() {}
 
-    public TargetingRuleParameters(TargetsCandidates candidates, Ai.ActivationContext context, Game game)
+    public TargetingRuleParameters(TargetsCandidates candidates, Grove.Ai.ActivationContext context, Game game)
     {
       _candidates = candidates;
       _context = context;

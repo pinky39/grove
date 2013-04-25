@@ -58,7 +58,7 @@
 
     protected override void ExecuteQuery()
     {
-      Game.Search.SetBestResult(this);
+      Ai.SetBestResult(this);
     }
 
     private static ChosenPlayable DefaultResult()
@@ -70,7 +70,7 @@
 
     private List<Playable> GeneratePlayables()
     {
-      if (Stack.TopSpellOwner == Controller || (Search.InProgress && Turn.StepCount > Search.PlaySpellUntilDepth))
+      if (Stack.TopSpellOwner == Controller || (Ai.IsSearchInProgress && Turn.StepCount > Ai.PlaySpellsUntilDepth))
       {
         // if you own the top spell just pass so it resolves
         // you will get priority again when it resolves

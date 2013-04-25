@@ -4,4 +4,9 @@
   {
     TResult ChooseResult(TCandidates candidates);
   }
+
+  public interface IChooseDecisionResults<out TResult>
+  {
+    TResult ChooseResult();
+  }
 }

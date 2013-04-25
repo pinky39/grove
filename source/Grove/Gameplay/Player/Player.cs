@@ -280,7 +280,7 @@
 
       _hand.Add(card);
 
-      if (Search.InProgress)
+      if (Ai.IsSearchInProgress)
       {
         card.Hide();
       }
@@ -434,7 +434,7 @@
           return;
 
 
-        if (Search.InProgress)
+        if (Ai.IsSearchInProgress)
         {
           card.Hide();
         }

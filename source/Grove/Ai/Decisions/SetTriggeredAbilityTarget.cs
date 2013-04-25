@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Core;
   using Gameplay;
   using Gameplay.Decisions.Results;
   using Gameplay.Player;
@@ -57,7 +56,7 @@
 
     protected override void ExecuteQuery()
     {
-      Search.SetBestResult(this);
+      Ai.SetBestResult(this);
     }
 
     private static ChosenTargets DefaultResult()
@@ -66,15 +65,15 @@
     }
 
     private IEnumerable<Targets> GenerateTargets()
-    {
+    {      
       var targetsCandidates = TargetingHelper.GenerateTargets(
-          Source.OwningCard, 
-          TargetSelector, 
-          MachineRules.Where(x => x is TargetingRule).Cast<TargetingRule>(), 
-          force: true,
-          triggerMessage: TriggerMessage);        
+        Source.OwningCard,
+        TargetSelector,
+        MachineRules.Where(x => x is TargetingRule).Cast<TargetingRule>(),
+        force: true,
+        triggerMessage: TriggerMessage);
 
-      return targetsCandidates.Take(Search.MaxTargetCandidates);      
+      return targetsCandidates.Take(Ai.Parameters.TargetCount);
     }
 
     public override string ToString()
