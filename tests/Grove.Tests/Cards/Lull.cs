@@ -1,6 +1,5 @@
 ﻿namespace Grove.Tests.Cards
 {
-  using Core;
   using Gameplay.States;
   using Gameplay.Zones;
   using Infrastructure;
@@ -17,8 +16,8 @@
         var bear2 = C("Grizzly Bears");
         var bear3 = C("Grizzly Bears");
         var lull = C("Lull");
-        
-        Hand(P2, lull);        
+
+        Hand(P2, lull);
         Battlefield(P1, bear1, bear2);
         Battlefield(P2, bear3);
 
@@ -36,7 +35,7 @@
                 Equal(Zone.Battlefield, C(bear2).Zone);
                 Equal(Zone.Battlefield, C(bear3).Zone);
               })
-        );
+          );
       }
     }
   }

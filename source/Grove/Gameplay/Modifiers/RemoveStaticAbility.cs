@@ -1,7 +1,7 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
   using Card.Abilities;
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   public class RemoveStaticAbility : Modifier
   {

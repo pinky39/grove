@@ -3,7 +3,6 @@
   using System.Collections.Generic;
   using Ai.TargetingRules;
   using Ai.TimingRules;
-  using Core;
   using Gameplay.Card.Costs;
   using Gameplay.Card.Factory;
   using Gameplay.Effects;
@@ -27,7 +26,7 @@
               "{W}: The next time a land source of your choice would deal damage to you this turn, prevent that damage.";
             p.Cost = new PayMana(Mana.White, ManaUsage.Abilities);
             p.Effect = () => new PreventNextDamageFromSourceToController();
-            
+
             p.TargetSelector.AddEffect(trg =>
               {
                 trg.Is.Card(c => c.Is().Land).On.BattlefieldOrStack();

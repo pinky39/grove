@@ -26,14 +26,14 @@
 
         RunGame(2);
 
-        Equal(Zone.Graveyard, C(wurm).Zone);        
+        Equal(Zone.Graveyard, C(wurm).Zone);
       }
-      
+
       [Fact]
       public void SacrificeRancor()
       {
         Battlefield(P2, C("Endless Wurm").IsEnchantedWith("Rancor"), "Forest");
-        
+
         RunGame(2);
         Equal(9, P1.Life);
       }

@@ -12,7 +12,7 @@
       public void PutEngineIntoPlay()
       {
         var engine = C("Wurmcoil Engine");
-        
+
         Hand(P2, engine);
         Battlefield(P2, "Forest", "Forest", "Forest", "Forest", "Copper Gnomes");
 

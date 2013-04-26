@@ -1,7 +1,6 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Core;
   using Gameplay.Card.Factory;
   using Gameplay.Effects;
 
@@ -18,7 +17,7 @@
         .Cast(p =>
           {
             p.Effect = () => new CompoundEffect(
-              new PlayersSacrificeLands(4),
+              new PlayersSacrificePermanents(count:4, validator: c => c.Is().Land, text: "Select lands to sacrifice."),
               new DealDamageToCreaturesAndPlayers(amountCreature: 4));
           });
     }

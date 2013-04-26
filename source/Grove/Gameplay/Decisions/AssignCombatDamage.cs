@@ -13,8 +13,8 @@
       get
       {
         if (Attacker.BlockersCount == 0 || Attacker.AssignsDamageAsThoughItWasntBlocked)
-          return false;        
-        
+          return false;
+
         return Attacker.BlockersCount > 1 || Attacker.HasTrample;
       }
     }

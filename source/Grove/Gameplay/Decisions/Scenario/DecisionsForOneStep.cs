@@ -1,30 +1,27 @@
-﻿namespace Grove.Core.Decisions.Scenario
+﻿namespace Grove.Gameplay.Decisions.Scenario
 {
   using System;
   using System.Collections.Generic;
   using System.Diagnostics;
   using System.Linq;
-  using Gameplay;
-  using Gameplay.Card;
-  using Gameplay.Card.Abilities;
-  using Gameplay.Decisions;
-  using Gameplay.Decisions.Results;
-  using Gameplay.Player;
-  using Gameplay.States;
-  using Gameplay.Targeting;
-  using Infrastructure;
+  using Card;
+  using Card.Abilities;
+  using Player;
+  using Results;
+  using States;
+  using Targeting;
 
   public class DecisionsForOneStep
   {
     private readonly List<IScenarioDecision> _decisions = new List<IScenarioDecision>();
 
-    private readonly Game _game;    
+    private readonly Game _game;
 
     public DecisionsForOneStep(Step step, int turn, Game game)
     {
       Step = step;
       Turn = turn;
-      _game = game;      
+      _game = game;
     }
 
     public Step Step { get; private set; }
@@ -72,18 +69,7 @@
 
       _decisions.Add(decision);
       return this;
-    }
-
-    public DecisionsForOneStep DoNotUntap()
-    {
-      var decision = new ChooseToUntap
-        {
-          Result = false
-        };
-
-      _decisions.Add(decision);
-      return this;
-    }
+    }    
 
     public DecisionsForOneStep Activate(Card card, Player target, Card costTarget = null,
       int? x = null, int abilityIndex = 0)

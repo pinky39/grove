@@ -3,7 +3,7 @@
   using System.Linq;
   using Card;
   using Card.Characteristics;
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Messages;
   using Player;
   using Zones;
@@ -54,7 +54,7 @@
     {
       _increment.Initialize(ChangeTracker);
       _increment.Value = GetForestCount(Source.Controller);
-    }    
+    }
 
     protected override void Unapply()
     {

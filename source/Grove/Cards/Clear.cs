@@ -3,7 +3,6 @@
   using System.Collections.Generic;
   using Ai.TargetingRules;
   using Ai.TimingRules;
-  using Core;
   using Gameplay.Card.Factory;
   using Gameplay.Effects;
   using Gameplay.Player;
@@ -22,7 +21,7 @@
           {
             p.Effect = () => new DestroyTargetPermanents();
             p.TargetSelector.AddEffect(trg => trg.Is.Enchantment().On.Battlefield());
-            
+
             p.TargetingRule(new OrderByRank(c => -c.Score, ControlledBy.Opponent));
             p.TimingRule(new TargetRemoval());
           });

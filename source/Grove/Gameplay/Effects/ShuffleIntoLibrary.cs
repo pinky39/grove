@@ -4,7 +4,7 @@
   {
     protected override void ResolveEffect()
     {
-      Source.OwningCard.ShuffleIntoLibrary();      
+      Source.OwningCard.ShuffleIntoLibrary();
     }
   }
 }

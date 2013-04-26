@@ -1,7 +1,7 @@
 ﻿namespace Grove.Gameplay.Card.Characteristics
 {
   public enum CardColor
-  {    
+  {
     White = 0,
     Blue = 1,
     Black = 2,

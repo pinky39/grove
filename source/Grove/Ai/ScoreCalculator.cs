@@ -3,7 +3,6 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Core;
   using Gameplay.Card;
   using Gameplay.Mana;
   using Gameplay.States;
@@ -59,17 +58,17 @@
         {8, 280},
         {9, 300},
         {10, 320},
-      }; 
+      };
 
     public static int CalculateTapPenalty(Card card, TurnInfo turnInfo)
     {
       if (card.Is().Land)
-      {                
+      {
         if (card.Controller.IsActive)
         {
           if (turnInfo.Step == Step.Upkeep)
             return 10;
-          
+
           return 2;
         }
       }

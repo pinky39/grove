@@ -1,6 +1,6 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   public interface ILifetimeDependency
   {

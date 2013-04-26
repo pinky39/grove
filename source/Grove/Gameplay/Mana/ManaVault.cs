@@ -3,7 +3,7 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   [Copyable]
   public class ManaVault
@@ -140,7 +140,7 @@
     }
 
     private bool IsAvailable(ManaUnit unit, Restrictions restrictions)
-    {      
+    {
       if (restrictions.Allocated.Contains(unit))
         return false;
 
@@ -156,8 +156,8 @@
         if (restrictions.Tap.TryGetValue(unit.TapRestriction, out source) && source != unit.Source)
         {
           return false;
-        }        
-      }        
+        }
+      }
       return true;
     }
 
@@ -165,7 +165,7 @@
     {
       var restrictions = new Restrictions {Usage = usage};
 
-      Func<ManaUnit, int> ordering = x => _manaPool.Contains(x) ? 0 : x.Rank * 10 + x.Color.Indices.Count;
+      Func<ManaUnit, int> ordering = x => _manaPool.Contains(x) ? 0 : x.Rank*10 + x.Color.Indices.Count;
 
       foreach (var colorMana in amount)
       {

@@ -10,18 +10,18 @@
   public class ApplyModifiersToPermanents : Effect
   {
     private readonly ControlledBy _controlledBy;
-    private readonly Func<ApplyModifiersToPermanents, Card, bool> _permanentFilter;
     private readonly List<ModifierFactory> _modifiers = new List<ModifierFactory>();
+    private readonly Func<ApplyModifiersToPermanents, Card, bool> _permanentFilter;
 
     private ApplyModifiersToPermanents() {}
 
     public ApplyModifiersToPermanents(params ModifierFactory[] modifiers) : this(null, modifiers: modifiers) {}
 
-    public ApplyModifiersToPermanents(Func<Effect, Card, bool> permanentFilter, 
-      ControlledBy controlledBy = ControlledBy.Any , params ModifierFactory[] modifiers)
+    public ApplyModifiersToPermanents(Func<Effect, Card, bool> permanentFilter,
+      ControlledBy controlledBy = ControlledBy.Any, params ModifierFactory[] modifiers)
     {
       _controlledBy = controlledBy;
-      _permanentFilter = permanentFilter ?? delegate { return true; };            
+      _permanentFilter = permanentFilter ?? delegate { return true; };
       _modifiers.AddRange(modifiers);
     }
 
@@ -49,7 +49,7 @@
         ApplyModifierToPlayersPermanents(Controller);
         return;
       }
-      
+
       if (_controlledBy == ControlledBy.Opponent)
       {
         ApplyModifierToPlayersPermanents(Controller.Opponent);

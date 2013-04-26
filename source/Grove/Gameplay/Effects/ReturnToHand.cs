@@ -1,6 +1,6 @@
 ﻿namespace Grove.Gameplay.Effects
 {
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Targeting;
 
   public class ReturnToHand : Effect

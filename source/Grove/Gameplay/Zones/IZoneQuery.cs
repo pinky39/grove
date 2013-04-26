@@ -6,9 +6,8 @@
 
   public interface IZoneQuery : IEnumerable<Card>
   {
+    int Count { get; }
     event EventHandler<ZoneChangedEventArgs> CardAdded;
     event EventHandler<ZoneChangedEventArgs> CardRemoved;
-
-    int Count { get; }
   }
 }

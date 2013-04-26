@@ -2,8 +2,8 @@
 {
   public class CanPayResult
   {
-    public int? MaxX;
-    public int MaxRepetitions = 1;
     public bool CanPay;
+    public int MaxRepetitions = 1;
+    public int? MaxX;
   }
 }

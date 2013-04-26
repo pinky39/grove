@@ -27,7 +27,7 @@
       public void DoNotCastIdealistWithNoEnchantmentsInYourGraveyard()
       {
         var idealist = C("Monk Idealist");
-        
+
         Hand(P1, idealist);
         Battlefield(P1, "Plains", "Plains", "Plains");
 

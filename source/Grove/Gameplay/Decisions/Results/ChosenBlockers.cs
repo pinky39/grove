@@ -4,7 +4,7 @@
   using System.Collections.Generic;
   using System.Linq;
   using Card;
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   [Copyable]
   public class ChosenBlockers : IEnumerable<ChosenBlockers.AttackerBlockerPair>

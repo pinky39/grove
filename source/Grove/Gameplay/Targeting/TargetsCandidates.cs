@@ -1,7 +1,7 @@
 ﻿namespace Grove.Gameplay.Targeting
 {
   using System.Collections.Generic;
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   [Copyable]
   public class TargetsCandidates

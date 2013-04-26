@@ -1,6 +1,5 @@
 ﻿namespace Grove.Tests.Cards
 {
-  using Core;
   using Gameplay.States;
   using Infrastructure;
   using Xunit;
@@ -16,7 +15,7 @@
         var bear = C("Grizzly Bears");
         var forest = C("Forest");
 
-        
+
         Battlefield(P2, bear.Tap(), forest.Tap());
         Hand(P1, exhaustion);
 
@@ -36,7 +35,6 @@
                 False(C(bear).IsTapped);
               })
           );
-
       }
     }
   }

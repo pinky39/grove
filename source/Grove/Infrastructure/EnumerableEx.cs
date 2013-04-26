@@ -8,7 +8,7 @@
   public static class EnumerableEx
   {
     private static readonly Random Rnd = new Random();
-    
+
     public static bool ContainsElements<T>(this List<T> collection, List<T> elements)
     {
       if (elements.Count > collection.Count)
@@ -95,8 +95,8 @@
     public static T MaxElement<T>(this IEnumerable<T> enumerable, Func<T, int> selector)
     {
       var maxRank = int.MinValue;
-      T maxElement = default(T);
-      
+      var maxElement = default(T);
+
       foreach (var element in enumerable)
       {
         var rank = selector(element);

@@ -22,7 +22,7 @@
         RunGame(1);
 
         Equal(Zone.Graveyard, C(force).Zone);
-        Equal(8, P1.Battlefield.Lands.Count(x => x.IsTapped));        
+        Equal(8, P1.Battlefield.Lands.Count(x => x.IsTapped));
       }
     }
   }

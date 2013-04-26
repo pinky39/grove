@@ -76,7 +76,7 @@
       stopWatch.Stop();
 
       Console.WriteLine("Copying of {0} game objects took: {1} ms.", count, stopWatch.Elapsed.TotalMilliseconds);
-    }    
+    }
 
     public GameFacts()
     {

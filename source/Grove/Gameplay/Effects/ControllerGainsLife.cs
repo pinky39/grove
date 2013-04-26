@@ -9,7 +9,7 @@
     public ControllerGainsLife(DynParam<int> amount)
     {
       _amount = amount;
-      
+
       RegisterDynamicParameters(amount);
     }
 

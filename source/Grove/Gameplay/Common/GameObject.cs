@@ -3,6 +3,7 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
+  using Ai;
   using Card.Factory;
   using Combat;
   using Decisions;
@@ -20,9 +21,9 @@
 
     protected Players Players { get { return Game.Players; } }
     protected Stack Stack { get { return Game.Stack; } }
-    protected Combat Combat { get { return Game.Combat; } }
+    protected CombatManager Combat { get { return Game.Combat; } }
     protected TurnInfo Turn { get { return Game.Turn; } }
-    public Ai.GameAi Ai { get { return Game.Ai; } }
+    protected SearchRunner Ai { get { return Game.Ai; } }
     protected CardDatabase CardDatabase { get { return Game.CardDatabase; } }
 
     protected ChangeTracker ChangeTracker { get { return Game.ChangeTracker; } }

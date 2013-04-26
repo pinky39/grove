@@ -4,9 +4,9 @@
   using System.Collections.Generic;
   using System.Linq;
   using System.Reflection;
-  using Grove.Infrastructure;
-  using Grove.Core.Decisions.Scenario;
+  using Infrastructure;
   using Player;
+  using Scenario;
   using Ui.Decisions;
 
   public class DecisionSystem
@@ -15,7 +15,7 @@
     private static readonly Dictionary<Type, ParameterlessCtor> MachineDecisions = LoadMachineDecisions();
 
     private readonly PrerecordedDecisions _prerecordedDecisions = new PrerecordedDecisions();
-    private readonly IUiDecisionFactory _uiDecisionFactory;    
+    private readonly IUiDecisionFactory _uiDecisionFactory;
 
     public DecisionSystem(IUiDecisionFactory uiDecisionFactory)
     {

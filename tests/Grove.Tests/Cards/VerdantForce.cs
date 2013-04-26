@@ -2,7 +2,6 @@
 {
   using System.Linq;
   using Gameplay.States;
-  using Grove.Core;
   using Infrastructure;
   using Xunit;
 

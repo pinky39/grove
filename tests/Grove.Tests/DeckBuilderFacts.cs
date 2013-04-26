@@ -1,11 +1,9 @@
 ﻿namespace Grove.Tests
 {
   using System;
-  using Core;
   using Infrastructure;
   using Tournament;
   using Ui;
-  using Xunit;
 
   public class DeckBuilderFacts : Scenario
   {
@@ -23,14 +21,14 @@
       }
 
       Console.WriteLine();
-            
+
       var builder = new DeckBuilder(CardDatabase);
       var decks = builder.BuildDecks(pileOfCards, set.Ratings);
-      
-      for (int i = 0; i < decks.Count; i++)
+
+      for (var i = 0; i < decks.Count; i++)
       {
         var deck = decks[i];
-        
+
         Console.WriteLine("Deck {0}:", i + 1);
         Console.WriteLine("--------------------------------");
 
@@ -52,7 +50,6 @@
       {
         Console.WriteLine(card);
       }
-
     }
   }
 }

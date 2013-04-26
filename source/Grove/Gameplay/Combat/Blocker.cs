@@ -1,11 +1,11 @@
 ﻿namespace Grove.Gameplay.Combat
 {
   using System.Linq;
+  using Ai;
   using Card;
   using Common;
   using Damage;
-  using Grove.Ai;
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Messages;
   using Player;
 

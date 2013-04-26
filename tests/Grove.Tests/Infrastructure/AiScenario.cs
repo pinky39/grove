@@ -16,19 +16,16 @@
       player1ControlledByScript: false,
       player2ControlledByScript: false)
     {
-      Ai.SearchStarted += delegate
-        {
-          _stopwatch.Start();
-        };
+      Game.Ai.SearchStarted += delegate { _stopwatch.Start(); };
 
-      Ai.SearchFinished += delegate
+      Game.Ai.SearchFinished += delegate
         {
-          _stopwatch.Stop();          
+          _stopwatch.Stop();
           _measurements.Add(new Measurement
             {
-              NodeCount =  Ai.LastSearchStatistics.NodeCount,
-              WorkerCount = Ai.LastSearchStatistics.NumOfWorkersCreated,
-              SubtreesPrunned = Ai.LastSearchStatistics.SubtreesPrunned,
+              NodeCount = Game.Ai.LastSearchStatistics.NodeCount,
+              WorkerCount = Game.Ai.LastSearchStatistics.NumOfWorkersCreated,
+              SubtreesPrunned = Game.Ai.LastSearchStatistics.SubtreesPrunned,
               ElapsedTime = _stopwatch.ElapsedMilliseconds
             });
 
@@ -36,29 +33,19 @@
         };
     }
 
-    protected int AvarageNodeCount
-    {
-      get { return SearchCount > 0 ? TotalNodesCount/SearchCount : 0; }
-    }
+    protected int AvarageNodeCount { get { return SearchCount > 0 ? TotalNodesCount/SearchCount : 0; } }
 
-    protected double AvarageSpeed
-    {
-      get { return TotalNodesCount > 0 ? TotalNodesCount/TotalElapsedTime : 0; }
-    }
+    protected double AvarageSpeed { get { return TotalNodesCount > 0 ? TotalNodesCount/TotalElapsedTime : 0; } }
 
-    protected int AvarageWorkerCount
-    {
-      get { return SearchCount > 0 ? TotalWorkerCount/SearchCount : 0; }
-    }
+    protected int AvarageWorkerCount { get { return SearchCount > 0 ? TotalWorkerCount/SearchCount : 0; } }
 
     protected NodeCount MaxNodeCount
     {
       get
       {
-
         var max = new NodeCount();
-        
-        
+
+
         foreach (var measurement in _measurements)
         {
           if (measurement.NodeCount.Total > max.Total)
@@ -71,49 +58,25 @@
       }
     }
 
-    protected double MaxSearchTime
-    {
-      get { return _measurements.Any() ? _measurements.Max(x => x.ElapsedTime)/1000.0d : 0; }
-    }
+    protected double MaxSearchTime { get { return _measurements.Any() ? _measurements.Max(x => x.ElapsedTime)/1000.0d : 0; } }
 
-    protected int MaxWorkerCount
-    {
-      get { return _measurements.Any() ? _measurements.Max(x => x.WorkerCount) : 0; }
-    }
+    protected int MaxWorkerCount { get { return _measurements.Any() ? _measurements.Max(x => x.WorkerCount) : 0; } }
 
-    private int SearchCount
-    {
-      get { return _measurements.Count; }
-    }
+    private int SearchCount { get { return _measurements.Count; } }
 
-    protected double TotalElapsedTime
-    {
-      get { return _measurements.Sum(x => x.ElapsedTime)/1000.0d; }
-    }
+    protected double TotalElapsedTime { get { return _measurements.Sum(x => x.ElapsedTime)/1000.0d; } }
 
-    protected int TotalNodesCount
-    {
-      get { return _measurements.Sum(x => x.NodeCount.Total); }
-    }    
+    protected int TotalNodesCount { get { return _measurements.Sum(x => x.NodeCount.Total); } }
 
-    protected int MaxSubtreesPrunned
-    {
-      get { return _measurements.Any() ? _measurements.Max(x => x.SubtreesPrunned) : 0; }
-    }
+    protected int MaxSubtreesPrunned { get { return _measurements.Any() ? _measurements.Max(x => x.SubtreesPrunned) : 0; } }
 
-    protected int TotalSubtreesPrunned
-    {
-      get { return _measurements.Sum(x => x.SubtreesPrunned); }
-    }
+    protected int TotalSubtreesPrunned { get { return _measurements.Sum(x => x.SubtreesPrunned); } }
 
-    protected int TotalWorkerCount
-    {
-      get { return _measurements.Sum(x => x.WorkerCount); }
-    }
+    protected int TotalWorkerCount { get { return _measurements.Sum(x => x.WorkerCount); } }
 
     protected override void RunGame(int maxTurnCount)
     {
-      InitializeCopyCache();      
+      InitializeCopyCache();
       base.RunGame(maxTurnCount);
     }
 
@@ -141,13 +104,13 @@
       Console.WriteLine(@"Avarage worker count: {0}", AvarageWorkerCount);
       Console.WriteLine(@"Avarage speed: {0:f2} nodes/second", AvarageSpeed);
     }
-    
+
     private class Measurement
     {
       public long ElapsedTime { get; set; }
       public NodeCount NodeCount { get; set; }
       public int WorkerCount { get; set; }
       public int SubtreesPrunned { get; set; }
-    }    
+    }
   }
 }

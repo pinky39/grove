@@ -3,7 +3,6 @@
   using System.Collections.Generic;
   using Ai.TargetingRules;
   using Ai.TimingRules;
-  using Core;
   using Gameplay.Card.CastingRules;
   using Gameplay.Card.Factory;
   using Gameplay.Effects;
@@ -24,9 +23,9 @@
             p.Rule = new Instant(c => c.ShuffleIntoLibrary());
             p.Effect = () => new DealDamageToTargets(5);
             p.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
-            
+
             p.TargetingRule(new DealDamage(5));
-            p.TimingRule(new TargetRemoval());            
+            p.TimingRule(new TargetRemoval());
           });
     }
   }

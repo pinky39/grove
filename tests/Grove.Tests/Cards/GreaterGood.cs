@@ -1,6 +1,5 @@
 ﻿namespace Grove.Tests.Cards
 {
-  using Core;
   using Gameplay.States;
   using Gameplay.Zones;
   using Infrastructure;
@@ -15,7 +14,7 @@
       {
         var force = C("Verdant Force");
         var blade = C("Doom blade");
-        
+
         Battlefield(P2, force, "Greater Good");
         Hand(P1, blade);
 
@@ -28,7 +27,7 @@
                 Equal(Zone.Graveyard, C(force).Zone);
                 Equal(4, P2.Hand.Count);
               })
-        );
+          );
       }
     }
   }

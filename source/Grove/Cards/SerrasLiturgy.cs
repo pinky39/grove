@@ -20,7 +20,8 @@
         .Named("Serra's Liturgy")
         .ManaCost("{2}{W}{W}")
         .Type("Enchantment")
-        .Text("At the beginning of your upkeep, you may put a verse counter on Serra's Liturgy.{EOL}{W}, Sacrifice Serra's Liturgy: Destroy up to X target artifacts and/or enchantments, where X is the number of verse counters on Serra's Liturgy.")
+        .Text(
+          "At the beginning of your upkeep, you may put a verse counter on Serra's Liturgy.{EOL}{W}, Sacrifice Serra's Liturgy: Destroy up to X target artifacts and/or enchantments, where X is the number of verse counters on Serra's Liturgy.")
         .Cast(p => p.TimingRule(new SecondMain()))
         .TriggeredAbility(p =>
           {

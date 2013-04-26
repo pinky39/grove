@@ -7,7 +7,7 @@
     protected DeclareBlockers()
     {
       Result = NoBlockers();
-    }    
+    }
 
     protected override bool ShouldExecuteQuery
     {

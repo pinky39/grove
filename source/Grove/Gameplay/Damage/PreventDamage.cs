@@ -2,7 +2,7 @@
 {
   using System;
   using Card;
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Targeting;
 
   public class PreventDamage : DamagePrevention

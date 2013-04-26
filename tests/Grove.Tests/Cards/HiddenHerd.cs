@@ -1,6 +1,5 @@
 ﻿namespace Grove.Tests.Cards
 {
-  using Core;
   using Gameplay.States;
   using Infrastructure;
   using Xunit;
@@ -14,19 +13,15 @@
       {
         var herd = C("Hidden Herd");
         var ravine = C("Raging Ravine");
-        
-        Battlefield(P2, herd);        
+
+        Battlefield(P2, herd);
         Hand(P1, ravine);
 
         Exec(
           At(Step.FirstMain)
             .Cast(ravine)
-            .Verify(() =>
-              {
-                Equal(3, C(herd).Power);
-              })
-        );
-
+            .Verify(() => { Equal(3, C(herd).Power); })
+          );
       }
     }
   }

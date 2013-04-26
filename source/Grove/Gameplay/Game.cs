@@ -5,8 +5,9 @@
   using System.Linq;
   using Ai;
   using Card.Factory;
-  using Core.Decisions.Scenario;
+  using Combat;
   using Decisions;
+  using Decisions.Scenario;
   using Infrastructure;
   using Player;
   using States;
@@ -17,12 +18,10 @@
   {
     private const int MaxSearchDepth = 40;
     private const int MaxTargetCount = 2;
-    private GameAi _ai;
     private DecisionQueue _decisionQueue;
     private DecisionSystem _decisionSystem;
     private Publisher _publisher;
     private StateMachine _stateMachine;
-    private TurnInfo _turnInfo;
     private int _turnLimit = int.MaxValue;
     private Trackable<bool> _wasStopped;
 
@@ -31,13 +30,13 @@
     public ChangeTracker ChangeTracker { get; private set; }
     public CardDatabase CardDatabase { get; private set; }
     public bool WasStopped { get { return _wasStopped.Value; } }
-    public Combat.Combat Combat { get; private set; }
+    public CombatManager Combat { get; private set; }
     public bool IsFinished { get { return Players.AnyHasLost() || _turnLimit < Turn.TurnCount; } }
     public Players Players { get; set; }
     public int Score { get { return Players.Score; } }
     public Stack Stack { get; private set; }
-    public TurnInfo Turn { get { return _turnInfo; } }
-    public GameAi Ai { get { return _ai; } }
+    public TurnInfo Turn { get; private set; }
+    public SearchRunner Ai { get; private set; }
 
     public static Game New(List<string> humanDeck, List<string> cpuDeck,
       CardDatabase cardDatabase, DecisionSystem decisionSystem)
@@ -55,7 +54,7 @@
     {
       _publisher.Initialize(ChangeTracker);
       Stack.Initialize(this);
-      _turnInfo.Initialize(this);
+      Turn.Initialize(this);
       _wasStopped.Initialize(ChangeTracker);
       Combat.Initialize(this);
       _decisionQueue.Initialize(this);
@@ -74,10 +73,10 @@
       game._publisher = new Publisher();
       game.CardDatabase = cardDatabase;
       game.Stack = new Stack();
-      game._turnInfo = new TurnInfo();
+      game.Turn = new TurnInfo();
       game._wasStopped = new Trackable<bool>();
-      game.Combat = new Combat.Combat();
-      game._ai = new GameAi(new SearchParameters(maxSearchDepth, maxTargetCount), game);
+      game.Combat = new CombatManager();
+      game.Ai = new SearchRunner(new SearchParameters(maxSearchDepth, maxTargetCount), game);
       game._decisionSystem = decisionSystem;
       game._decisionQueue = new DecisionQueue();
       game._stateMachine = new StateMachine(game._decisionQueue);
@@ -143,9 +142,9 @@
       return ChangeTracker.CreateSnapshot();
     }
 
-    public void Simulate()
+    public void Simulate(int maxStepCount)
     {
-      _stateMachine.Resume(ShouldContinue);
+      _stateMachine.Resume(() => Turn.StepCount < maxStepCount && ShouldContinue());
     }
 
     public void Start(int numOfTurns = int.MaxValue, bool skipPreGame = false, Player.Player looser = null)

@@ -1,7 +1,6 @@
 ﻿namespace Grove.Tests.Cards
 {
   using System.Linq;
-  using Core;
   using Gameplay.States;
   using Infrastructure;
   using Xunit;
@@ -16,7 +15,7 @@
         Battlefield(P1, "Verdant Force");
         Battlefield(P2, "Eastern Paladin", "Swamp", "Swamp");
 
-        Exec(          
+        Exec(
           At(Step.Upkeep, turn: 2)
             .Verify(() => Equal(1, P1.Graveyard.Count()))
           );

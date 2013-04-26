@@ -7,8 +7,6 @@
 
   public class ClosedFacts : Scenario
   {
-    private static readonly ProxyGenerator ProxyGenerator = new ProxyGenerator();
-
     [Fact]
     public void NotifyOnce()
     {
@@ -23,11 +21,14 @@
       Assert.Equal(1, count);
     }
 
+    private static readonly ProxyGenerator ProxyGenerator = new ProxyGenerator();
+
     private T Proxy<T>()
     {
-      return (T) ProxyGenerator.CreateClassProxy(typeof (T), new[]{
-        typeof (IClosable),
-      }, ProxyGenerationOptions.Default, new object[]{}, new ClosedInterceptor());
+      return (T) ProxyGenerator.CreateClassProxy(typeof (T), new[]
+        {
+          typeof (IClosable),
+        }, ProxyGenerationOptions.Default, new object[] {}, new ClosedInterceptor());
     }
 
     public class Garbage {}

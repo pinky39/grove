@@ -6,7 +6,7 @@
   using System.Linq;
   using Card;
   using Common;
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   public class Players : GameObject, IEnumerable<Player>, IHashable
   {
@@ -39,7 +39,7 @@
 
     public Player Searching { get; set; }
     public Player Attacking { get { return Active; } }
-    public bool BothHaveLost { get { return Player1.HasLost && Player2.HasLost; } }        
+    public bool BothHaveLost { get { return Player1.HasLost && Player2.HasLost; } }
     public Player Computer { get { return Player1.IsHuman ? Player2 : Player1; } }
     public Player Defending { get { return Passive; } }
     public Player Human { get { return Player1.IsHuman ? Player1 : Player2; } }

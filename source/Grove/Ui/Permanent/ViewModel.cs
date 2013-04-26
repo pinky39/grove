@@ -2,7 +2,6 @@
 {
   using System;
   using System.Linq;
-  using Core;
   using Gameplay.Card;
   using Gameplay.Card.Abilities;
   using Gameplay.Decisions.Results;
@@ -221,13 +220,13 @@
     private SelectTarget.ViewModel ShowSelectorDialog(TargetValidator validator, int? x)
     {
       var selectTargetParameters = new SelectTargetParameters
-      {        
-        Validator = validator,
-        CanCancel = true,
-        Instructions = "(Press Spacebar when done, press Esc to cancel.)",
-        X = x
-      };
-            
+        {
+          Validator = validator,
+          CanCancel = true,
+          Instructions = "(Press Spacebar when done, press Esc to cancel.)",
+          X = x
+        };
+
       var dialog = SelectTargetDialog.Create(selectTargetParameters);
       Shell.ShowModalDialog(dialog, DialogType.Small, InteractionState.SelectTarget);
       return dialog;

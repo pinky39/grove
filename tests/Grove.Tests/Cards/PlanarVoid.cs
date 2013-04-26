@@ -17,7 +17,7 @@
 
         RunGame(1);
 
-        Equal(2, P2.Exile.Count());        
+        Equal(2, P2.Exile.Count());
       }
     }
   }

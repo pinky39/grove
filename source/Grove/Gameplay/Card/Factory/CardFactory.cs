@@ -3,13 +3,13 @@
   using System;
   using System.Collections.Generic;
   using Abilities;
+  using Ai;
+  using Ai.TimingRules;
   using CastingRules;
   using Characteristics;
   using Costs;
   using Damage;
   using Effects;
-  using Grove.Ai;
-  using Grove.Ai.TimingRules;
   using Mana;
   using Modifiers;
   using States;
@@ -39,7 +39,7 @@
       if (p.CastInstructions.Count == 0)
       {
         var castParams = GetDefaultCastInstructionParameters(p);
-        SetDefaultTimingRules(p, castParams);          
+        SetDefaultTimingRules(p, castParams);
         p.CastInstructions.Add(new CastInstruction(castParams));
       }
 
@@ -50,7 +50,7 @@
     {
       return new CastInstructionParameters
         {
-          Cost = new PayMana(cp.ManaCost ?? Gameplay.Mana.Mana.Zero, ManaUsage.Spells, cp.HasXInCost),
+          Cost = new PayMana(cp.ManaCost ?? Mana.Zero, ManaUsage.Spells, cp.HasXInCost),
           Text = string.Format("Cast {0}.", cp.Name),
           Effect = () => new PutIntoPlay(),
           Rule = GetDefaultCastingRule(cp.Type),
@@ -70,7 +70,7 @@
 
       return new Permanent();
     }
- 
+
     public CardFactory HasXInCost()
     {
       _init.Add(p => p.HasXInCost = true);
@@ -95,7 +95,7 @@
 
           if (p.HasTimingRules == false)
           {
-             SetDefaultTimingRules(cp, p);  
+            SetDefaultTimingRules(cp, p);
           }
 
           cp.CastInstructions.Add(new CastInstruction(p));
@@ -120,7 +120,7 @@
       }
 
       var existing = new HashSet<CardColor>();
-      
+
       foreach (var mana in manaCost)
       {
         if (mana.Color.IsWhite && !existing.Contains(CardColor.White))
@@ -155,7 +155,7 @@
       }
 
       if (existing.Count == 0)
-        yield return CardColor.Colorless;      
+        yield return CardColor.Colorless;
     }
 
     private static void SetDefaultTimingRules(CardParameters cp, CastInstructionParameters p)
@@ -218,9 +218,9 @@
           p.Cost = new Tap();
           p.Priority = GetDefaultManaSourcePriority(cp);
           p.TapRestriction = true;
-          
+
           set(p);
-          
+
           cp.ActivatedAbilities.Add(new ManaAbility(p));
         });
       return this;
@@ -306,7 +306,7 @@
       ActivatedAbility(p =>
         {
           p.Text = string.Format("Cycling {0} ({0}, Discard this card: Draw a card.)", cost);
-          p.Cost = new AggregateCost(new PayMana(cost.Parse(), ManaUsage.Abilities),  new Discard());
+          p.Cost = new AggregateCost(new PayMana(cost.Parse(), ManaUsage.Abilities), new Discard());
           p.Effect = () => new DrawCards(1);
           p.ActivationZone = Zone.Hand;
           p.TimingRule(new Cycling());
@@ -355,40 +355,37 @@
 
       foreach (var level in levels)
       {
-        LevelDefinition lvl = level;
+        var lvl = level;
         TriggeredAbility(p =>
-        {
-          p.Trigger(new OnLevelChanged(lvl.Min));
-          p.Effect = () => new ApplyModifiersToSelf(
-            () =>
-            {
-              var modifier = new AddStaticAbility(lvl.StaticAbility);
-              modifier.AddLifetime(new LevelLifetime(lvl.Min, lvl.Max));
-              return modifier;
-            },
-            () =>
-            {
-              var modifier = new SetPowerAndToughness(lvl.Power, lvl.Toughness);
-              modifier.AddLifetime(new LevelLifetime(lvl.Min, lvl.Max));
-              return modifier;
-            }
-            );
-          p.UsesStack = false;
-          p.TriggerOnlyIfOwningCardIsInPlay = true;
-        });
+          {
+            p.Trigger(new OnLevelChanged(lvl.Min));
+            p.Effect = () => new ApplyModifiersToSelf(
+              () =>
+                {
+                  var modifier = new AddStaticAbility(lvl.StaticAbility);
+                  modifier.AddLifetime(new LevelLifetime(lvl.Min, lvl.Max));
+                  return modifier;
+                },
+              () =>
+                {
+                  var modifier = new SetPowerAndToughness(lvl.Power, lvl.Toughness);
+                  modifier.AddLifetime(new LevelLifetime(lvl.Min, lvl.Max));
+                  return modifier;
+                }
+              );
+            p.UsesStack = false;
+            p.TriggerOnlyIfOwningCardIsInPlay = true;
+          });
       }
 
-      _init.Add(cp =>
-        {         
-          cp.IsLeveler = true;
-        });
+      _init.Add(cp => { cp.IsLeveler = true; });
 
       return this;
     }
 
-    public CardFactory MayChooseNotToUntapDuringUntap()
+    public CardFactory MayChooseToUntap()
     {
-      _init.Add(p => p.MayChooseNotToUntap = true);
+      _init.Add(p => p.MayChooseToUntap = true);
       return this;
     }
 

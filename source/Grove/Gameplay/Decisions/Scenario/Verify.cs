@@ -1,9 +1,8 @@
-﻿namespace Grove.Core.Decisions.Scenario
+﻿namespace Grove.Gameplay.Decisions.Scenario
 {
   using System;
-  using Gameplay;
-  using Gameplay.Common;
-  using Gameplay.Player;
+  using Common;
+  using Player;
 
   public class Verify : GameObject, IScenarioDecision
   {

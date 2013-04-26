@@ -12,7 +12,7 @@
       public void PayEcho()
       {
         var raptor = C("Shivan Raptor");
-        
+
         Battlefield(P1, "Thran Turbine", raptor, "Mountain");
         RunGame(1);
 

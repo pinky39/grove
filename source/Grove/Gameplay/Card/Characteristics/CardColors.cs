@@ -3,8 +3,7 @@
   using System.Collections;
   using System.Collections.Generic;
   using System.Linq;
-  using Core;
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Modifiers;
 
   [Copyable]
@@ -26,21 +25,21 @@
       return GetEnumerator();
     }
 
-    public void Accept(IModifier modifier)
-    {
-      modifier.Apply(this);
-    }
-
     public int CalculateHash(HashCalculator calc)
     {
       var hashcodes = new List<int>();
 
       foreach (var item in Value)
-      {        
+      {
         hashcodes.Add(item.GetHashCode());
       }
-      
+
       return HashCalculator.CombineCommutative(hashcodes);
+    }
+
+    public void Accept(IModifier modifier)
+    {
+      modifier.Apply(this);
     }
   }
 }

@@ -1,7 +1,7 @@
 ﻿namespace Grove.Gameplay.Effects
 {
   using System;
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   public interface IDynamicParameter
   {
@@ -15,8 +15,8 @@
     private readonly bool _evaluateOnInit;
     private readonly bool _evaluateOnResolve;
     private readonly Func<Effect, Game, TOut> _getter;
+    private readonly Trackable<TOut> _value;
     private bool _isInitialized;
-    private Trackable<TOut> _value;
 
     public DynParam(Func<Effect, Game, TOut> getter, bool evaluateOnInit = true, bool evaluateOnResolve = false)
     {
@@ -42,20 +42,20 @@
           throw new InvalidOperationException("Parameter was not initialized, did you forget to register it?");
 
         return _value;
-      }   
+      }
     }
 
 
     public void EvaluateOnResolve(Effect effect, Game game)
-    {      
+    {
       if (_evaluateOnResolve)
         Evaluate(effect, game);
     }
 
     public void EvaluateOnInit(Effect effect, Game game)
-    {      
+    {
       _value.Initialize(game.ChangeTracker);
-      
+
       if (_evaluateOnInit)
         Evaluate(effect, game);
     }

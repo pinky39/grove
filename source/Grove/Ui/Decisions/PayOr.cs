@@ -1,7 +1,7 @@
 ﻿namespace Grove.Ui.Decisions
 {
   using System.Windows;
-  using Grove.Ui.Shell;
+  using Shell;
 
   public class PayOr : Gameplay.Decisions.PayOr
   {

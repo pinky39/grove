@@ -12,12 +12,12 @@
   {
     public bool CanSelectOnlyCardsControlledByDecisionController = true;
     public IChooseDecisionResults<List<Card>, ChosenCards> ChooseDecisionResults;
+    public string Instructions;
     public int? MaxCount;
     public int MinCount;
     public Card OwningCard;
     public IProcessDecisionResults<ChosenCards> ProcessDecisionResults;
     public string Text;
-    public string Instructions;
 
     public Zone Zone;
 
@@ -60,7 +60,7 @@
     public void Validator(ICardValidator validator)
     {
       _validator = validator;
-    }    
+    }
 
     public void Validator(Func<Card, bool> validator)
     {

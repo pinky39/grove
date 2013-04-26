@@ -1,7 +1,6 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Core;
   using Gameplay.Card.Characteristics;
   using Gameplay.Card.Factory;
 

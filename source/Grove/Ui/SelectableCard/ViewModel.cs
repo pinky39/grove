@@ -1,20 +1,17 @@
 ﻿namespace Grove.Ui.SelectableCard
 {
   using System;
-  using Core;
   using Gameplay.Card;
   using Infrastructure;
 
   public class ViewModel : CardViewModel, IReceive<TargetSelected>, IReceive<TargetUnselected>,
     IReceive<UiInteractionChanged>
-  {    
+  {
     private Action _select = delegate { };
 
-    public ViewModel(Card card) : base(card)
-    {      
-    }
+    public ViewModel(Card card) : base(card) {}
 
-    public virtual bool IsSelected { get; protected set; }    
+    public virtual bool IsSelected { get; protected set; }
 
     public void Receive(TargetSelected message)
     {

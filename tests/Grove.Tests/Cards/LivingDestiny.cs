@@ -1,6 +1,5 @@
 ﻿namespace Grove.Tests.Cards
 {
-  using Core;
   using Gameplay.States;
   using Infrastructure;
   using Xunit;
@@ -23,8 +22,8 @@
         Equal(26, P2.Life);
       }
     }
-    
-    
+
+
     public class Predefined : PredefinedScenario
     {
       [Fact]
@@ -34,7 +33,7 @@
         var engine = C("Wurmcoil Engine");
 
         Hand(P1, destiny, engine);
-        
+
         Exec(
           At(Step.FirstMain)
             .Cast(p =>

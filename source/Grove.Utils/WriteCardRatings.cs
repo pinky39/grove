@@ -5,7 +5,6 @@
   using System.Globalization;
   using System.IO;
   using System.Linq;
-  using Core;
   using Gameplay.Card.Factory;
 
   public class WriteCardRatings : Task
@@ -15,7 +14,7 @@
     public WriteCardRatings(CardDatabase cardDatabase)
     {
       _cardDatabase = cardDatabase;
-    }    
+    }
 
     public override void Execute(Arguments arguments)
     {
@@ -47,7 +46,7 @@
         }
       }
     }
-    
+
     private static void ReadExistingRatings(string filename, IEnumerable<RatedCard> ratedCards)
     {
       var ratedCardsDictionary = ratedCards.ToDictionary(x => x.Name);

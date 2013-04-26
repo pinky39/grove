@@ -3,7 +3,6 @@
   using System.Collections.Generic;
   using Ai.TargetingRules;
   using Ai.TimingRules;
-  using Core;
   using Gameplay.Card.Abilities;
   using Gameplay.Card.Costs;
   using Gameplay.Card.Factory;
@@ -32,7 +31,7 @@
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 
             p.TimingRule(new Turn(active: true));
-            p.TimingRule(new DeclareBlockers());            
+            p.TimingRule(new DeclareBlockers());
             p.TargetingRule(new GainEvasion(x => !x.Has().Trample && x.Power >= 4));
           });
     }

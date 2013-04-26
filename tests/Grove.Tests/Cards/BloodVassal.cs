@@ -12,7 +12,7 @@
       public void PlayEngine()
       {
         var engine = C("Wurmcoil Engine");
-        
+
         Hand(P1, engine);
         Battlefield(P2, "Llanowar Behemoth");
         Battlefield(P1, "Mountain", "Mountain", "Mountain", "Mountain", "Blood Vassal");

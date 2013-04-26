@@ -45,6 +45,6 @@
         if (IsValid(Targets.Effect[i]))
           Targets.Effect[i].DealDamage(damage);
       }
-    } 
+    }
   }
 }

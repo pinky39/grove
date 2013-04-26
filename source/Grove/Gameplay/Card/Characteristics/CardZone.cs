@@ -1,7 +1,7 @@
 ﻿namespace Grove.Gameplay.Card.Characteristics
 {
   using Common;
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Messages;
   using Zones;
 
@@ -54,9 +54,9 @@
 
         _previous.Value = oldZone;
         _lastZoneChange.Value = Turn.TurnCount;
-      }
 
-      newZone.AfterAdd(_card);
+        newZone.AfterAdd(_card);
+      }
     }
   }
 }

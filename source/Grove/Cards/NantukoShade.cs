@@ -4,7 +4,6 @@
   using Ai;
   using Ai.RepetitionRules;
   using Ai.TimingRules;
-  using Core;
   using Gameplay.Card.Costs;
   using Gameplay.Card.Factory;
   using Gameplay.Effects;
@@ -29,10 +28,9 @@
             p.Cost = new PayMana(Mana.Black, ManaUsage.Abilities, supportsRepetitions: true);
             p.Effect = () => new ApplyModifiersToSelf(() => new AddPowerAndToughness(1, 1) {UntilEot = true})
               {Category = EffectCategories.ToughnessIncrease};
-            
+
             p.TimingRule(new IncreaseOwnersPowerOrToughness(1, 1));
             p.RepetitionRule(new MaxRepetitions());
-           
           });
     }
   }

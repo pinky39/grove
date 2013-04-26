@@ -3,7 +3,6 @@
   using System.Collections.Generic;
   using Ai.TargetingRules;
   using Ai.TimingRules;
-  using Core;
   using Gameplay.Card.Factory;
   using Gameplay.Effects;
 
@@ -25,7 +24,6 @@
             p.TimingRule(new FirstMain());
             p.TargetingRule(new Opponent());
           });
-
     }
   }
 }

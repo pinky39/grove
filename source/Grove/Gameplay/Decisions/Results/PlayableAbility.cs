@@ -1,7 +1,7 @@
 ﻿namespace Grove.Gameplay.Decisions.Results
 {
   public class PlayableAbility : Playable
-  {        
+  {
     public override void Play()
     {
       Card.ActivateAbility(Index, ActivationParameters);

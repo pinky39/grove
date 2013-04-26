@@ -8,7 +8,7 @@
   public class PlayerHasCastASpell
   {
     private readonly List<ITarget> _targets = new List<ITarget>();
-    
+
     public PlayerHasCastASpell(Card card, IEnumerable<ITarget> targets)
     {
       Card = card;
@@ -23,7 +23,7 @@
     {
       var sb = new StringBuilder();
       sb.AppendFormat("{0} casted {1}", Card.Controller, Card);
-      
+
       if (HasTargets)
       {
         sb.AppendFormat(" with targets: {0}", string.Join(",", _targets));

@@ -53,16 +53,16 @@
 
     public int GetMinTargetCount(int? x)
     {
-      return Effect.Count > 0 ? 
-        Effect.Sum(y => y.MinCount.GetValue(x)) : 
-        Cost.Sum(y => y.MinCount.GetValue(x));
+      return Effect.Count > 0 ?
+                                Effect.Sum(y => y.MinCount.GetValue(x)) :
+                                                                          Cost.Sum(y => y.MinCount.GetValue(x));
     }
 
     public int GetMaxTargetCount(int? x)
     {
-      return Effect.Count > 0 ? 
-        Effect.Sum(y => y.MaxCount.GetValue(x)) : 
-        Cost.Sum(y => y.MaxCount.GetValue(x));
+      return Effect.Count > 0 ?
+                                Effect.Sum(y => y.MaxCount.GetValue(x)) :
+                                                                          Cost.Sum(y => y.MaxCount.GetValue(x));
     }
 
     public void Initialize(Card owningCard, Game game)

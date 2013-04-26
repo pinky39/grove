@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Core;
   using Gameplay.Card.Factory;
   using Gameplay.Card.Triggers;
   using Gameplay.Effects;

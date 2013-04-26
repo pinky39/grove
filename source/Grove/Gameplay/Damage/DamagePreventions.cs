@@ -2,7 +2,7 @@
 {
   using System.Linq;
   using Card;
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Modifiers;
   using Targeting;
 

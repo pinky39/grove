@@ -1,7 +1,6 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Core;
   using Gameplay.Card.Abilities;
   using Gameplay.Card.Characteristics;
   using Gameplay.Card.Costs;
@@ -30,7 +29,7 @@
           {
             p.Text =
               "{1}{U}{B}: Until end of turn, Creeping Tar Pit becomes a 3/2 blue and black Elemental creature and is unblockable. It's still a land.";
-            
+
             p.Cost = new PayMana("{1}{U}{B}".Parse(), ManaUsage.Abilities);
 
             p.Effect = () => new ApplyModifiersToSelf(
@@ -40,7 +39,7 @@
                 type: "Land Creature Elemental",
                 colors: L(CardColor.Blue, CardColor.Black)) {UntilEot = true},
               () => new AddStaticAbility(Static.Unblockable) {UntilEot = true});
-            
+
             p.TimingRule(new Ai.TimingRules.ChangeToCreature(minAvailableMana: 4));
           });
     }

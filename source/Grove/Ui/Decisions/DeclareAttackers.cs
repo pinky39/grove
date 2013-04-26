@@ -1,9 +1,9 @@
 ﻿namespace Grove.Ui.Decisions
 {
   using System.Linq;
-  using Grove.Gameplay.Targeting;
-  using Grove.Ui.SelectTarget;
-  using Grove.Ui.Shell;
+  using Gameplay.Targeting;
+  using SelectTarget;
+  using Shell;
 
   public class DeclareAttackers : Gameplay.Decisions.DeclareAttackers
   {
@@ -24,9 +24,9 @@
 
       var selectParameters = new SelectTargetParameters
         {
-          Validator = validator,          
+          Validator = validator,
           CanCancel = false,
-          Instructions = "(Press Spacebar when done.)",          
+          Instructions = "(Press Spacebar when done.)",
           TargetSelected = target => Publish(
             new AttackerSelected
               {

@@ -6,10 +6,11 @@
   {
     [Updates("CanSave")]
     public virtual string DeckName { get; set; }
+
     public bool WasCanceled { get; set; }
 
-    public bool CanSave { get { return !string.IsNullOrEmpty(DeckName); }  }
-    
+    public bool CanSave { get { return !string.IsNullOrEmpty(DeckName); } }
+
     public void Save()
     {
       this.Close();
@@ -20,7 +21,7 @@
       WasCanceled = true;
       this.Close();
     }
-    
+
     public interface IFactory
     {
       ViewModel Create();

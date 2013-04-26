@@ -3,7 +3,7 @@
   using System.Linq;
   using Costs;
   using Effects;
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Mana;
   using Messages;
   using States;
@@ -45,15 +45,9 @@
       }
     }
 
-    public virtual void OnAbilityRemoved()
-    {
-      
-    }
+    public virtual void OnAbilityRemoved() {}
 
-    public virtual void OnAbilityAdded()
-    {
-      
-    }
+    public virtual void OnAbilityAdded() {}
 
     protected virtual Effect CreateEffect(ActivationParameters p)
     {

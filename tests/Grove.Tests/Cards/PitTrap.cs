@@ -1,6 +1,5 @@
 ﻿namespace Grove.Tests.Cards
 {
-  using Core;
   using Gameplay.States;
   using Gameplay.Zones;
   using Infrastructure;
@@ -16,7 +15,7 @@
         var force = C("Verdant Force");
 
         Battlefield(P1, force);
-        Battlefield(P2, "Pit Trap", "Swamp" ,"Swamp");
+        Battlefield(P2, "Pit Trap", "Swamp", "Swamp");
 
         Exec(
           At(Step.DeclareAttackers)

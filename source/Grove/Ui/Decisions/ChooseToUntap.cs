@@ -1,16 +1,16 @@
 ﻿namespace Grove.Ui.Decisions
 {
   using System.Windows;
-  using Grove.Ui.Shell;
+  using Shell;
 
   public class ChooseToUntap : Gameplay.Decisions.ChooseToUntap
   {
-    public IShell Shell { get; set; }
-
     public ChooseToUntap()
     {
       Result = false;
     }
+
+    public IShell Shell { get; set; }
 
     protected override void ExecuteQuery()
     {

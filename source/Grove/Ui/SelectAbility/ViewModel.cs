@@ -1,7 +1,6 @@
 ﻿namespace Grove.Ui.SelectAbility
 {
   using System.Collections.Generic;
-  using Core;
   using Gameplay.Card.Characteristics;
   using Infrastructure;
 

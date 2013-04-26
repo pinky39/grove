@@ -1,7 +1,6 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Core;
   using Gameplay.Card.Abilities;
   using Gameplay.Card.Factory;
   using Gameplay.Card.Triggers;
@@ -28,7 +27,7 @@
             p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
             p.Effect = () => new PutOnTopOfLibraryUnlessOpponentSacsLand();
           }
-        );        
+        );
     }
   }
 }

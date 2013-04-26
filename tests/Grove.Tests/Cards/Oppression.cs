@@ -12,7 +12,7 @@
       {
         var shock1 = C("Shock");
         var shock2 = C("Shock");
-        
+
         Hand(P1, shock1, "Grizzly Bears");
         Hand(P2, shock2, "Grizzly Bears");
 

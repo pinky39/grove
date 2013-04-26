@@ -3,11 +3,11 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
+  using Ai;
   using Card;
   using Card.Characteristics;
   using Common;
-  using Grove.Ai;
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Messages;
   using Modifiers;
   using Player;
@@ -99,7 +99,7 @@
     public T TriggerMessage<T>()
     {
       return (T) _triggerMessage;
-    }    
+    }
 
     public bool IsValid(ITarget target)
     {

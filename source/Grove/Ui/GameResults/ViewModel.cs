@@ -1,7 +1,6 @@
 ﻿namespace Grove.Ui.GameResults
 {
   using System;
-  using Core;
   using Gameplay;
   using Gameplay.Player;
   using Infrastructure;
@@ -9,7 +8,7 @@
   public class ViewModel
   {
     private readonly Match _match;
-    
+
     private readonly Players _players;
 
     public ViewModel(Match match, Game game)

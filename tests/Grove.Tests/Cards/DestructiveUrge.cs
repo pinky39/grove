@@ -20,7 +20,6 @@
         RunGame(1);
 
         Equal(Zone.Graveyard, C(mountain).Zone);
-
       }
     }
   }

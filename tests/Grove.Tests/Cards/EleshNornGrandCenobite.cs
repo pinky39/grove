@@ -1,7 +1,6 @@
 ﻿namespace Grove.Tests.Cards
 {
   using System.Linq;
-  using Core;
   using Gameplay.States;
   using Infrastructure;
   using Xunit;
@@ -15,8 +14,8 @@
       {
         var elesh = C("Elesh Norn, Grand Cenobite");
         var bear = C("Grizzly Bears");
-        
-        Hand(P1, elesh);        
+
+        Hand(P1, elesh);
         Battlefield(P1, bear, "Grizzly Bears", "Grizzly Bears");
         Battlefield(P2, "Grizzly Bears", "Grizzly Bears", "Grizzly Bears");
 

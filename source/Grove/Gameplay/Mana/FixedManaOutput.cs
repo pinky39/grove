@@ -4,11 +4,8 @@
   {
     private readonly IManaAmount _amount;
 
-    private FixedManaOutput()
-    {
-      
-    }
-    
+    private FixedManaOutput() {}
+
     public FixedManaOutput(IManaAmount amount)
     {
       _amount = amount;

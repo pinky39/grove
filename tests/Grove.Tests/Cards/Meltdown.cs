@@ -1,21 +1,20 @@
 ﻿namespace Grove.Tests.Cards
 {
+  using System.Linq;
   using Infrastructure;
   using Xunit;
-  using System.Linq;
 
   public class Meltdown
   {
     public class Ai : AiScenario
     {
-
       [Fact]
       public void DestroyEachWith2ConvertedCost2OrLess()
       {
-        Battlefield(P1, "Trained Armodon", "Trained Armodon", "Cathodion", 
+        Battlefield(P1, "Trained Armodon", "Trained Armodon", "Cathodion",
           "Mountain", "Mountain", "Mountain", "Mountain");
         Hand(P1, "Meltdown");
-        
+
         Battlefield(P2, "Trip Noose", "Trip Noose", "Forest", "Forest", "Forest", "Forest");
 
         RunGame(1);

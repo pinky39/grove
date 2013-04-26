@@ -39,7 +39,7 @@
         changeTracker: ChangeTracker
         );
 
-      _player.Value.DealDamage(damage);      
+      _player.Value.DealDamage(damage);
     }
   }
 }

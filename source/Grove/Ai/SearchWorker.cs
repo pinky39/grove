@@ -77,6 +77,7 @@
         Debug("state {0}, prunning node {1}", statehash, node);
       }
 
+
       // By evaluating each branch we have already traversed the
       // entire subtree, so we stop the game and yield control to
       // upper level.
@@ -96,7 +97,7 @@
       ResultIndex = index;
 
       // Traverse this branch, and build result subtree.
-      _game.Simulate();
+      _game.Simulate(_search.SearchUntilDepth);
 
       if (parentResult.HasChildrenWithIndex(index) == false)
       {

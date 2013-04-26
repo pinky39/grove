@@ -4,14 +4,14 @@
   using System.Collections;
   using System.Collections.Generic;
   using System.Linq;
-  
+
   [Copyable]
   public class TrackableList<T> : ITrackableCollection<T>, IList<T>, IHashable
   {
+    private readonly List<T> _items = new List<T>();
+    private readonly bool _orderImpactsHashcode;
     private INotifyChangeTracker _changeTracker = new NullTracker();
     private IHashDependancy _hashDependancy = new NullHashDependency();
-    private readonly List<T> _items = new List<T>();        
-    private readonly bool _orderImpactsHashcode;
 
     public TrackableList(IEnumerable<T> items, bool orderImpactsHashcode = false)
       : this(orderImpactsHashcode)
@@ -20,19 +20,8 @@
     }
 
     public TrackableList(bool orderImpactsHashcode = false)
-    {      
-      _orderImpactsHashcode = orderImpactsHashcode;      
-    }
-
-    public TrackableList<T> Initialize(INotifyChangeTracker changeTracker, IHashDependancy hashDependancy = null)
     {
-      if (hashDependancy != null)
-      {
-        _hashDependancy = hashDependancy;
-      }
-
-      _changeTracker = changeTracker;
-      return this;
+      _orderImpactsHashcode = orderImpactsHashcode;
     }
 
     private TrackableList() {}
@@ -77,13 +66,6 @@
     public void Add(T item)
     {
       _items.Add(item);
-      _changeTracker.NotifyValueAdded(this, item);
-      _hashDependancy.InvalidateHash();
-    }
-
-    public void AddToFront(T item)
-    {
-      _items.Insert(0, item);
       _changeTracker.NotifyValueAdded(this, item);
       _hashDependancy.InvalidateHash();
     }
@@ -140,6 +122,24 @@
     bool ITrackableCollection<T>.RemoveWithoutTracking(T item)
     {
       return _items.Remove(item);
+    }
+
+    public TrackableList<T> Initialize(INotifyChangeTracker changeTracker, IHashDependancy hashDependancy = null)
+    {
+      if (hashDependancy != null)
+      {
+        _hashDependancy = hashDependancy;
+      }
+
+      _changeTracker = changeTracker;
+      return this;
+    }
+
+    public void AddToFront(T item)
+    {
+      _items.Insert(0, item);
+      _changeTracker.NotifyValueAdded(this, item);
+      _hashDependancy.InvalidateHash();
     }
 
     public T Pop()

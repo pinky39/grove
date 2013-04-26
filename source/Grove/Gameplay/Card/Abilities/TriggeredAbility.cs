@@ -5,7 +5,7 @@
   using System.Linq;
   using Decisions;
   using Effects;
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Triggers;
   using Zones;
 

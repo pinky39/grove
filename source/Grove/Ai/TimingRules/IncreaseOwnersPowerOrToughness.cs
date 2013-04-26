@@ -1,6 +1,5 @@
 ﻿namespace Grove.Ai.TimingRules
 {
-  using Core;
   using Gameplay.Modifiers;
   using Gameplay.States;
 

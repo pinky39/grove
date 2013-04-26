@@ -1,8 +1,6 @@
-﻿namespace Grove.Core.Decisions.Scenario
+﻿namespace Grove.Gameplay.Decisions.Scenario
 {
-  using Gameplay;
-  using Gameplay.Decisions;
-  using Gameplay.Player;
+  using Player;
 
   public class NopScenarioDecision : IDecision
   {

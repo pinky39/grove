@@ -3,7 +3,6 @@
   using System.Collections.Generic;
   using Ai.TargetingRules;
   using Ai.TimingRules;
-  using Core;
   using Gameplay.Card.Costs;
   using Gameplay.Card.Factory;
   using Gameplay.Effects;
@@ -38,7 +37,7 @@
                 trg.Is.Card(controlledBy: ControlledBy.SpellOwner)
                   .On.Battlefield();
 
-                trg.Message = "Select a permanent to sacrifice.";                
+                trg.Message = "Select a permanent to sacrifice.";
               });
             p.TargetingRule(new SacrificeToGainLife());
           }

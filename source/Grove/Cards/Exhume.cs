@@ -2,9 +2,9 @@
 {
   using System.Collections.Generic;
   using Ai.TimingRules;
-  using Core;
   using Gameplay.Card.Factory;
   using Gameplay.Effects;
+  using Gameplay.Zones;
 
   public class Exhume : CardsSource
   {
@@ -18,7 +18,7 @@
         .FlavorText("Death—an outmoded concept. We sleep, and we change.")
         .Cast(p =>
           {
-            p.Effect = () => new EachPlayerReturnsCardFromGraveyardToBattlefield();
+            p.Effect = () => new EachPlayerReturnsCardFromZoneToBattlefield(Zone.Graveyard, c => c.Is().Creature);
             p.TimingRule(new ControllerGravayardCountIs(1, selector: c => c.Is().Creature));
           });
     }

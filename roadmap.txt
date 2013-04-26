@@ -265,14 +265,14 @@ o Shivan Gorge
 o Shivan Hellkite
 o Shivan Raptor
 o Shiv's Embrace
-Show and Tell
-Shower of Sparks
-Sicken
-Silent Attendant
-Skirge Familiar
-Skittering Skirge
-Sleeper Agent
-Slippery Karst
+o Show and Tell
+o Shower of Sparks
+o Sicken
+o Silent Attendant
+o Skirge Familiar
+o Skittering Skirge
+o Sleeper Agent
+o Slippery Karst
 Smokestack
 Smoldering Crater
 Sneak Attack

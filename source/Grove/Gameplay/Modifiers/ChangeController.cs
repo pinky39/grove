@@ -11,11 +11,6 @@
     private ControllerCharacteristic _controller;
     private ControllerSetter _controllerSetter;
 
-    private Player NewController
-    {
-      get { return _newController ?? _getNewController(this); }
-    }
-    
     private ChangeController() {}
 
     public ChangeController(Player newController)
@@ -27,6 +22,8 @@
     {
       _getNewController = getNewController;
     }
+
+    private Player NewController { get { return _newController ?? _getNewController(this); } }
 
     public override void Apply(ControllerCharacteristic controller)
     {

@@ -20,7 +20,7 @@
       LoadFromFile(filename);
     }
 
-    public CardRatings Ratings {get {return new CardRatings(_ratings);}}
+    public CardRatings Ratings { get { return new CardRatings(_ratings); } }
 
     private void ParseCard(string line)
     {
@@ -117,19 +117,19 @@
     {
       var pack = new List<string>();
 
-      for (int i = 0; i < boosterCount; i++)
+      for (var i = 0; i < boosterCount; i++)
       {
         pack.AddRange(GenerateBoosterPack());
       }
 
-      for (int i = 0; i < tournamentCount; i++)
+      for (var i = 0; i < tournamentCount; i++)
       {
         pack.AddRange(GenerateTournamentPack());
       }
 
       return pack;
     }
-    
+
     public List<string> GenerateTournamentPack()
     {
       return GeneratePack(_tournamentPack);

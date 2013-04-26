@@ -9,18 +9,24 @@
   using Player;
   using Zones;
 
-  public class PlayersSacrificeLands : Effect, IProcessDecisionResults<ChosenCards>,
+  public class PlayersSacrificePermanents : Effect, IProcessDecisionResults<ChosenCards>,
     IChooseDecisionResults<List<Card>, ChosenCards>
   {
-    private readonly int _count;
+    private readonly DynParam<int> _count;
+    private readonly Func<Card, bool> _validator;
+    private readonly string _text;
     private readonly Func<Effect, Player, bool> _playerFilter;
 
-    private PlayersSacrificeLands() {}
+    private PlayersSacrificePermanents() {}
 
-    public PlayersSacrificeLands(int count, Func<Effect, Player, bool> playerFilter = null)
+    public PlayersSacrificePermanents(DynParam<int> count, string text, Func<Card, bool> validator = null, Func<Effect, Player, bool> playerFilter = null)
     {
       _count = count;
+      _validator = validator ?? delegate { return true; };
+      _text = text;
       _playerFilter = playerFilter ?? delegate { return true; };
+
+      RegisterDynamicParameters(count);
     }
 
     public ChosenCards ChooseResult(List<Card> candidates)
@@ -57,8 +63,8 @@
           {
             p.MinCount = _count;
             p.MaxCount = _count;
-            p.Validator(c => c.Is().Land);
-            p.Text = "Select land(s) to sacrifice";
+            p.Validator(_validator);
+            p.Text = _text;
             p.Zone = Zone.Battlefield;
             p.OwningCard = Source.OwningCard;
             p.ProcessDecisionResults = this;

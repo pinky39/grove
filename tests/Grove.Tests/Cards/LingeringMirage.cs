@@ -1,7 +1,6 @@
 ﻿namespace Grove.Tests.Cards
 {
   using System.Linq;
-  using Core;
   using Gameplay.Mana;
   using Gameplay.States;
   using Infrastructure;
@@ -32,27 +31,27 @@
         var mirage = C("Lingering Mirage");
         var forest = C("Forest");
         var disenchant = C("Disenchant");
-        
-        Battlefield(P2, forest);        
-        Hand(P1, mirage);        
+
+        Battlefield(P2, forest);
+        Hand(P1, mirage);
         Hand(P2, disenchant);
 
         Exec(
           At(Step.FirstMain)
-          .Cast(mirage, target: forest)
-          .Verify(() =>
-            {
-              True(P2.HasMana(Mana.Blue));
-              False(P2.HasMana(Mana.Green));
-            }),
+            .Cast(mirage, target: forest)
+            .Verify(() =>
+              {
+                True(P2.HasMana(Mana.Blue));
+                False(P2.HasMana(Mana.Green));
+              }),
           At(Step.SecondMain)
             .Cast(disenchant, target: mirage)
             .Verify(() =>
-            {
-              False(P2.HasMana(Mana.Blue));
-              True(P2.HasMana(Mana.Green));
-            })
-        );
+              {
+                False(P2.HasMana(Mana.Blue));
+                True(P2.HasMana(Mana.Green));
+              })
+          );
       }
     }
   }

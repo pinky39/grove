@@ -4,7 +4,6 @@
   using Ai;
   using Ai.TargetingRules;
   using Ai.TimingRules;
-  using Core;
   using Gameplay.Card.Factory;
   using Gameplay.Effects;
 
@@ -22,7 +21,7 @@
           {
             p.Effect = () => new ReturnToHand {Category = EffectCategories.Bounce};
             p.TargetSelector.AddEffect(trg => trg.Is.Card().On.Battlefield());
-            
+
             p.TargetingRule(new Bounce());
             p.TimingRule(new TargetRemoval());
           });

@@ -1,7 +1,6 @@
 ﻿namespace Grove.Ai.CostRules
 {
   using System;
-  using Core;
   using Gameplay.Player;
 
   public class ControllersProperty : CostRule

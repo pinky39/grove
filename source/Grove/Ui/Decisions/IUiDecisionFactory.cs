@@ -2,6 +2,6 @@
 {
   public interface IUiDecisionFactory
   {
-    TDecision Create<TDecision>();    
+    TDecision Create<TDecision>();
   }
 }

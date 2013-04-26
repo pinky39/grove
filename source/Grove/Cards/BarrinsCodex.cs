@@ -1,8 +1,8 @@
 ﻿namespace Grove.Cards
 {
+  using System;
   using System.Collections.Generic;
   using Ai.TimingRules;
-  using Core;
   using Gameplay.Card.Costs;
   using Gameplay.Card.Counters;
   using Gameplay.Card.Factory;
@@ -39,7 +39,7 @@
               new Tap(),
               new Sacrifice());
             p.Effect = () => new DrawCards(count: P(e => e.Source.OwningCard.Counters.GetValueOrDefault()));
-            p.TimingRule(new ChargeCounters(3));                        
+            p.TimingRule(new ChargeCounters(3));
           });
     }
   }

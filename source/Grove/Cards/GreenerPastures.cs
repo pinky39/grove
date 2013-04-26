@@ -3,7 +3,6 @@
   using System.Collections.Generic;
   using System.Linq;
   using Ai.TimingRules;
-  using Core;
   using Gameplay.Card.Characteristics;
   using Gameplay.Card.Factory;
   using Gameplay.Card.Triggers;

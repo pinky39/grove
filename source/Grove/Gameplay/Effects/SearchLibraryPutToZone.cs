@@ -21,7 +21,7 @@
 
     private SearchLibraryPutToZone() {}
 
-    public SearchLibraryPutToZone(Action<Card> putToZone, int maxCount = 1, int minCount = 0, 
+    public SearchLibraryPutToZone(Action<Card> putToZone, int maxCount = 1, int minCount = 0,
       Func<Effect, Card, bool> validator = null, string text = null, bool revealCards = true)
     {
       _validator = validator ?? delegate { return true; };

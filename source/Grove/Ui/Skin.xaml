@@ -46,7 +46,7 @@
 
 	<SolidColorBrush x:Key="TargetOfSpell" Color="#55FF0000" />
 	<SolidColorBrush x:Key="Playable" Color="#ffcc00" />
-    <SolidColorBrush x:Key="Selected" Color="#66FF0000" />
+	<SolidColorBrush x:Key="Selected" Color="#66FF0000" />
 
 	<Style x:Key="Label" TargetType="TextBlock">
 		<Setter Property="FontFamily" Value="Myriad Pro" />
@@ -61,7 +61,7 @@
 	<Style x:Key="Value" BasedOn="{StaticResource Label}" TargetType="TextBlock">
 		<Setter Property="Foreground" Value="#FFD700" />
 	</Style>
-	
+
 	<Style x:Key="Caption" BasedOn="{StaticResource Label}" TargetType="TextBlock">
 		<Setter Property="FontSize" Value="15" />
 	</Style>
@@ -101,34 +101,30 @@
 		</Style.Triggers>
 	</Style>
 
-    <Style x:Key="PregameDialog" TargetType="ContentControl">
-        <Setter Property="Template">
-            <Setter.Value>
+	<Style x:Key="PregameDialog" TargetType="ContentControl">
+		<Setter Property="Template">
+			<Setter.Value>
 
-                <ControlTemplate  TargetType="{x:Type ContentControl}">
-                    <Border Background="#cc222222">
-                        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
-                            <Rectangle Margin="5,5,-5,-5" Fill="#aa000000">
-                                <Rectangle.BitmapEffect>
-                                    <BlurBitmapEffect KernelType="Box" Radius="8"/>
-                                </Rectangle.BitmapEffect>
-                            </Rectangle>
-                            <Border
-                       Background="#000"
-                       BorderBrush="#000"
-                       BorderThickness="2"
-                       CornerRadius="4">
-                                <ContentPresenter/>
-                            </Border>
-                        </Grid>
-                    </Border>
-                </ControlTemplate>
+				<ControlTemplate TargetType="{x:Type ContentControl}">
+					<Border Background="#cc222222">
+						<Grid HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
+							<Rectangle Margin="5,5,-5,-5" Fill="#aa000000">
+								<Rectangle.BitmapEffect>
+									<BlurBitmapEffect KernelType="Box" Radius="8" />
+								</Rectangle.BitmapEffect>
+							</Rectangle>
+							<Border Background="#000" BorderBrush="#000" BorderThickness="2" CornerRadius="4">
+								<ContentPresenter />
+							</Border>
+						</Grid>
+					</Border>
+				</ControlTemplate>
 
-            </Setter.Value>
-        </Setter>
-    </Style>
+			</Setter.Value>
+		</Setter>
+	</Style>
 
-    <Style x:Key="SmallDialog" TargetType="ContentControl">
+	<Style x:Key="SmallDialog" TargetType="ContentControl">
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type ContentControl}">
@@ -246,8 +242,7 @@
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type ComboBox}">
 					<Grid>
-						<ToggleButton Name="ToggleButton" ClickMode="Press" Focusable="false" IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}" Template="{StaticResource ComboBoxToggleButton}">
-						</ToggleButton>
+						<ToggleButton Name="ToggleButton" ClickMode="Press" Focusable="false" IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}" Template="{StaticResource ComboBoxToggleButton}"></ToggleButton>
 						<ContentPresenter Name="ContentSite" HorizontalAlignment="Left" Margin="8,3,30,3" VerticalAlignment="Center" Content="{TemplateBinding SelectionBoxItem}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" IsHitTestVisible="False" />
 						<Popup Name="Popup" AllowsTransparency="True" Focusable="False" IsOpen="{TemplateBinding IsDropDownOpen}" Placement="Bottom" PopupAnimation="Slide">
 							<Grid Name="DropDown" MaxHeight="{TemplateBinding MaxDropDownHeight}" MinWidth="{TemplateBinding ActualWidth}" SnapsToDevicePixels="True">
@@ -499,7 +494,7 @@
 
 	<Style x:Key="SelectableContent" TargetType="ContentControl">
 		<Setter Property="OverridesDefaultStyle" Value="True" />
-        <Setter Property="Focusable" Value="False"/>
+		<Setter Property="Focusable" Value="False" />
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="ContentControl">
@@ -525,7 +520,7 @@
 		<Setter Property="ItemsPanel">
 			<Setter.Value>
 				<ItemsPanelTemplate>
-                    <StackPanel Margin="0,260,5,5" />
+					<StackPanel Margin="0,260,5,5" />
 				</ItemsPanelTemplate>
 			</Setter.Value>
 		</Setter>
@@ -608,18 +603,18 @@
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
-	</Style>    
+	</Style>
 
-    <Style x:Key="{x:Type TextBox}" TargetType="{x:Type TextBox}">
+	<Style x:Key="{x:Type TextBox}" TargetType="{x:Type TextBox}">
 		<Setter Property="SnapsToDevicePixels" Value="True" />
-		<Setter Property="OverridesDefaultStyle" Value="True" />		
+		<Setter Property="OverridesDefaultStyle" Value="True" />
 		<Setter Property="MinWidth" Value="120" />
 		<Setter Property="MinHeight" Value="25" />
-        <Setter Property="Padding" Value="4,0,4,0"/>        
-        <Setter Property="Background" Value="#000" />
+		<Setter Property="Padding" Value="4,0,4,0" />
+		<Setter Property="Background" Value="#000" />
 		<Setter Property="Foreground" Value="#fff" />
-        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-        <Setter Property="Template">
+		<Setter Property="FocusVisualStyle" Value="{x:Null}" />
+		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type TextBoxBase}">
 					<Border Name="Border" CornerRadius="2" Padding="4" Background="#111" BorderBrush="#888888" BorderThickness="1">

@@ -1,6 +1,5 @@
 ﻿namespace Grove.Tests.Cards
 {
-  using Core;
   using Gameplay.States;
   using Gameplay.Zones;
   using Infrastructure;
@@ -8,7 +7,7 @@
 
   public class EnergyField
   {
-    public  class Predefined : PredefinedScenario
+    public class Predefined : PredefinedScenario
     {
       [Fact]
       public void PreventDamage()
@@ -28,7 +27,7 @@
             .DeclareAttackers(bear),
           At(Step.SecondMain)
             .Verify(() => Equal(P2.Life, 20))
-        );
+          );
       }
 
       [Fact]
@@ -48,7 +47,7 @@
                 Equal(Zone.Graveyard, C(field).Zone);
                 Equal(18, P2.Life);
               })
-        );
+          );
       }
     }
   }

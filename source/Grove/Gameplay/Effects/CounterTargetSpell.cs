@@ -1,8 +1,8 @@
 ﻿namespace Grove.Gameplay.Effects
 {
+  using Ai;
   using Decisions;
   using Decisions.Results;
-  using Grove.Ai;
   using Mana;
   using Targeting;
 
@@ -55,7 +55,7 @@
     private void CounterSpell()
     {
       var targetSpellController = Target.Effect().Controller;
-      
+
       if (_controllerLifeloss.HasValue)
       {
         targetSpellController.Life -= _controllerLifeloss.Value;

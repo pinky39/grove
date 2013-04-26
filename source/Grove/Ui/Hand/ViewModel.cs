@@ -3,7 +3,6 @@
   using System.Collections.Generic;
   using System.Linq;
   using Caliburn.Micro;
-  using Core;
   using Gameplay.Player;
   using Gameplay.Zones;
   using Infrastructure;
@@ -18,7 +17,7 @@
       _spellVmFactory = spellVmFactory;
 
       owner.Hand.CardAdded += OnCardAdded;
-      owner.Hand.CardRemoved += OnCardRemoved;      
+      owner.Hand.CardRemoved += OnCardRemoved;
     }
 
     public IEnumerable<Spell.ViewModel> Cards { get { return _cards; } }
@@ -28,7 +27,7 @@
       var viewModel = _cards.Single(x => x.Card == e.Card);
 
       _cards.Remove(viewModel);
-      
+
       viewModel.Close();
       _spellVmFactory.Destroy(viewModel);
     }
@@ -40,7 +39,7 @@
 
     public interface IFactory
     {
-      ViewModel Create(Player owner);      
+      ViewModel Create(Player owner);
     }
   }
 }

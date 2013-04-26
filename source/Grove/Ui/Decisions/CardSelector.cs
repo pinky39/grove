@@ -1,11 +1,11 @@
 ﻿namespace Grove.Ui.Decisions
 {
-  using Grove.Gameplay;
-  using Grove.Gameplay.Decisions.Results;
-  using Grove.Gameplay.Modifiers;
-  using Grove.Gameplay.Targeting;
-  using Grove.Ui.SelectTarget;
-  using Grove.Ui.Shell;
+  using Gameplay;
+  using Gameplay.Decisions.Results;
+  using Gameplay.Modifiers;
+  using Gameplay.Targeting;
+  using SelectTarget;
+  using Shell;
 
   public class CardSelector
   {
@@ -22,8 +22,8 @@
           IsValidTarget = p => selectCards.IsValidCard(p.Target.Card()),
           IsValidZone = p => p.Zone == selectCards.Zone && p.ZoneOwner == selectCards.Controller,
           MinCount = selectCards.MinCount,
-          MaxCount = selectCards.MaxCount == null ? null : (Value)selectCards.MaxCount.Value,
-          Message = selectCards.Text,          
+          MaxCount = selectCards.MaxCount == null ? null : (Value) selectCards.MaxCount.Value,
+          Message = selectCards.Text,
         };
 
       var validator = new TargetValidator(validatorParameters);
@@ -32,10 +32,10 @@
       var selectTargetParameters = new SelectTargetParameters
         {
           Validator = validator,
-          CanCancel = false,                    
+          CanCancel = false,
           Instructions = selectCards.Instructions
         };
-      
+
       var dialog = TargetDialog.Create(selectTargetParameters);
       Shell.ShowModalDialog(dialog, DialogType.Small, InteractionState.SelectTarget);
 

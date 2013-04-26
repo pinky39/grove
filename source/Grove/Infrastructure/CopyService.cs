@@ -206,13 +206,13 @@
     }
 
     private class TypeCache
-    {      
+    {
       private readonly HashSet<Type> _copyableTypes = new HashSet<Type>();
+      private readonly object _ctorLock = new object();
       private readonly Dictionary<Type, ParameterlessCtor> _ctors = new Dictionary<Type, ParameterlessCtor>();
       private readonly Dictionary<Type, CopyHandler> _handlers = new Dictionary<Type, CopyHandler>();
       private readonly object _handlersLock = new object();
       private readonly object _typesLock = new object();
-      private readonly object _ctorLock = new object();
 
       public CopyHandler GetCopyHandler(Type type)
       {
@@ -222,7 +222,7 @@
         {
           if (_handlers.TryGetValue(type, out copyHandler) == false)
           {
-            var attributes = type.GetCustomAttributes(typeof(CopyableAttribute), inherit: true);
+            var attributes = type.GetCustomAttributes(typeof (CopyableAttribute), inherit: true);
             var isCopyable = attributes.Length > 0;
 
             if (isCopyable)
@@ -231,9 +231,9 @@
             }
 
             _handlers.Add(type, copyHandler);
-          }  
+          }
         }
-        
+
         return copyHandler;
       }
 

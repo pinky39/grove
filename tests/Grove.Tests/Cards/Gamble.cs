@@ -12,11 +12,11 @@
       public void SearchForForce()
       {
         var force = C("Verdant Force");
-        
+
         Library(P1, "Forest", force);
         Hand(P1, "Gamble", "Forest", "Forest", "Forest", "Forest", "Forest");
         Battlefield(P1, "Mountain", "Forest", "Forest", "Forest", "Forest", "Forest", "Forest", "Forest", "Forest");
-        
+
         RunGame(1);
 
         True(C(force).Zone == Zone.Battlefield || C(force).Zone == Zone.Graveyard);

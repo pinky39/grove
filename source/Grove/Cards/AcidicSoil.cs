@@ -1,10 +1,8 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Ai.TimingRules;
-  using Core;
   using Gameplay.Card.Factory;
   using Gameplay.Effects;
 
@@ -21,7 +19,7 @@
         .Cast(p =>
           {
             p.TimingRule(new FirstMain());
-            p.Effect =() => new DealDamageToCreaturesAndPlayers(
+            p.Effect = () => new DealDamageToCreaturesAndPlayers(
               amountPlayer: (e, player) => player.Battlefield.Lands.Count());
           });
     }

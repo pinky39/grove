@@ -6,7 +6,7 @@
 
   public class JaggedLightning
   {
-    public class Ai :AiScenario
+    public class Ai : AiScenario
     {
       [Fact]
       public void Kill2Creatures()
@@ -27,7 +27,7 @@
       [Fact]
       public void CannotKillOnlyOne()
       {
-        var armodon = C("Trained Armodon");        
+        var armodon = C("Trained Armodon");
 
         Hand(P1, "Jagged Lightning");
         Battlefield(P1, "Mountain", "Mountain", "Mountain", "Mountain", "Mountain");
@@ -35,7 +35,7 @@
 
         RunGame(1);
 
-        Equal(Zone.Battlefield, C(armodon).Zone);        
+        Equal(Zone.Battlefield, C(armodon).Zone);
       }
 
       [Fact]

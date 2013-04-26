@@ -3,7 +3,7 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   public interface ITargetType
   {
@@ -44,14 +44,14 @@
 
     private readonly HashSet<string> _map;
     private readonly string _string;
-    private bool _isCreature;
-    private bool _isLand;
-    private bool _isLegendary;
-    private bool _isBasicLand;
     private bool _isArtifact;
+    private bool _isAura;
+    private bool _isBasicLand;
+    private bool _isCreature;
     private bool _isEnchantment;
     private bool _isEquipment;
-    private bool _isAura;
+    private bool _isLand;
+    private bool _isLegendary;
 
     private CardType(IEnumerable<string> types)
     {
@@ -89,7 +89,7 @@
       if (string.IsNullOrEmpty(type))
         throw new ArgumentException("Type should not be empty.");
 
-      string[] types = type.Split(' ');
+      var types = type.Split(' ');
 
       if (types.Length == 1)
       {
@@ -107,7 +107,7 @@
 
     public bool IsAny(IEnumerable<string> types)
     {
-      foreach (string type in types)
+      foreach (var type in types)
       {
         if (Is(type))
           return true;
@@ -123,12 +123,12 @@
 
     private static string CreateTypeString(IEnumerable<string> types)
     {
-      IEnumerable<string> basic = types
+      var basic = types
         .Where(BasicTypes.Contains)
         .OrderBy(BasicTypes.IndexOf)
         .Select(x => x.Capitalize());
 
-      List<string> other = types
+      var other = types
         .Where(x => !BasicTypes.Contains(x))
         .OrderBy(x => x)
         .Select(x => x.Capitalize())

@@ -1,12 +1,12 @@
 ﻿namespace Grove.Gameplay.Card.Triggers
 {
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Messages;
 
   public class OnBlock : Trigger, IReceive<BlockerJoinedCombat>
   {
-    private readonly bool _blocks;
     private readonly bool _becomesBlocked;
+    private readonly bool _blocks;
 
     private OnBlock() {}
 

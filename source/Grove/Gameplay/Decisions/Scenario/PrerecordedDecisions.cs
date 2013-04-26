@@ -1,9 +1,8 @@
-﻿namespace Grove.Core.Decisions.Scenario
+﻿namespace Grove.Gameplay.Decisions.Scenario
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Gameplay.Decisions;
-  using Gameplay.States;
+  using States;
 
   public class PrerecordedDecisions
   {

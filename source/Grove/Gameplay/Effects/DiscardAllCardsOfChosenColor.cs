@@ -19,7 +19,7 @@
 
     public override ChosenOptions ChooseResult(List<object> operations)
     {
-      var color = Target.Player().Battlefield.GetMostCommonColor();      
+      var color = Target.Player().Battlefield.GetMostCommonColor();
       return new ChosenOptions(Map.Single(x => x.Color == color).Choice);
     }
 

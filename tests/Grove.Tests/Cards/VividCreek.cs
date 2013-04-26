@@ -13,7 +13,7 @@
       {
         var creek = C("Vivid Creek");
         var baloth = C("Ravenous Baloth");
-        
+
         Hand(P1, creek, baloth);
         Battlefield(P1, "Forest", "Rootbound Crag", "Swamp");
 
@@ -21,7 +21,7 @@
 
         Equal(2, C(creek).Counters);
         Equal(Zone.Battlefield, C(creek).Zone);
-        Equal(Zone.Battlefield, C(baloth).Zone);        
+        Equal(Zone.Battlefield, C(baloth).Zone);
       }
 
       [Fact]
@@ -37,7 +37,7 @@
 
         Equal(1, C(creek).Counters);
         Equal(Zone.Battlefield, C(creek).Zone);
-        Equal(Zone.Battlefield, C(baloth).Zone);        
+        Equal(Zone.Battlefield, C(baloth).Zone);
       }
     }
   }

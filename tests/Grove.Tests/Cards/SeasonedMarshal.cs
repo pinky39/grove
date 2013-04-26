@@ -19,7 +19,7 @@
         RunGame(2);
 
         Equal(5, P1.Life);
-        Equal(0, P2.Life);        
+        Equal(0, P2.Life);
       }
     }
   }

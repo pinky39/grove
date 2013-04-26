@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Ai.TargetingRules;
-  using Core;
   using Gameplay.Card.Factory;
   using Gameplay.Damage;
   using Gameplay.Effects;
@@ -31,7 +30,7 @@
                 trg.MinCount = 1;
                 trg.MaxCount = 2;
               });
-            
+
             p.TargetingRule(new PreventDamageToTargets());
           });
     }

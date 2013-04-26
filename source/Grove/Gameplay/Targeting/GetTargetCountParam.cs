@@ -5,8 +5,8 @@
 
   public class GetTargetCountParam
   {
-    public Card OwningCard;
     public Player Controller;
     public Game Game;
+    public Card OwningCard;
   }
 }

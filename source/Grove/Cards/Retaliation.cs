@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Ai.TimingRules;
-  using Core;
   using Gameplay.Card.Abilities;
   using Gameplay.Card.Factory;
   using Gameplay.Card.Triggers;
@@ -27,7 +26,8 @@
               {
                 var tp = new TriggeredAbilityParameters
                   {
-                    Text = "Whenever this creature becomes blocked by a creature, this creature gets +1/+1 until end of turn.",                     
+                    Text =
+                      "Whenever this creature becomes blocked by a creature, this creature gets +1/+1 until end of turn.",
                     Effect = () => new ApplyModifiersToSelf(
                       () => new AddPowerAndToughness(1, 1) {UntilEot = true}),
                     TriggerOnlyIfOwningCardIsInPlay = true

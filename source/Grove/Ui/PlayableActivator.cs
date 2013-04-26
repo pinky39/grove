@@ -1,7 +1,6 @@
 ﻿namespace Grove.Ui
 {
   using System;
-  using Core;
   using Gameplay.Card.Abilities;
   using Gameplay.Decisions.Results;
 

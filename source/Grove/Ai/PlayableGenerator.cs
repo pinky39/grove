@@ -3,7 +3,6 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Core;
   using Gameplay;
   using Gameplay.Card;
   using Gameplay.Card.Abilities;

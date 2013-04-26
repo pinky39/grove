@@ -10,7 +10,7 @@
     // this can only be used in a limiting way.
     // e.g ai will never float mana, this can just be used
     // to play more spells, but not more costly spells.
-    
+
     public class Ai : AiScenario
     {
       [Fact]

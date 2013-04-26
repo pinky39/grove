@@ -15,7 +15,7 @@
         return;
       }
 
-      result.CanPay = Card.IsPermanent;                   
+      result.CanPay = Card.IsPermanent;
     }
 
     protected override void Pay(ITarget target, int? x)

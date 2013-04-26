@@ -1,6 +1,5 @@
 ﻿namespace Grove.Tests.Cards
 {
-  using Core;
   using Gameplay.States;
   using Infrastructure;
   using Xunit;
@@ -23,8 +22,8 @@
           At(Step.FirstMain)
             .Cast(enchantress)
             .Cast(armor, target: bear)
-          .Verify(() => Equal(1, P1.Hand.Count))
-        );
+            .Verify(() => Equal(1, P1.Hand.Count))
+          );
       }
     }
   }

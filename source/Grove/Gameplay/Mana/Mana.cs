@@ -37,7 +37,7 @@
     public static IManaAmount Repeat(this IManaAmount amount, int count)
     {
       var result = amount;
-      
+
       for (var i = 1; i < count; i++)
       {
         result = result.Add(amount);

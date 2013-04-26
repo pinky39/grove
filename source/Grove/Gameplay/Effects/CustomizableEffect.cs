@@ -5,7 +5,8 @@
   using Decisions;
   using Decisions.Results;
 
-  public abstract class CustomizableEffect : Effect, IProcessDecisionResults<ChosenOptions>, IChooseDecisionResults<List<object>, ChosenOptions>
+  public abstract class CustomizableEffect : Effect, IProcessDecisionResults<ChosenOptions>,
+    IChooseDecisionResults<List<object>, ChosenOptions>
   {
     public abstract ChosenOptions ChooseResult(List<object> candidates);
     public abstract void ProcessResults(ChosenOptions results);

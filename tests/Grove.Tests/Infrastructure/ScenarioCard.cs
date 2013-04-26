@@ -1,9 +1,7 @@
 ﻿namespace Grove.Tests.Infrastructure
 {
   using System;
-  using System.Collections;
   using System.Collections.Generic;
-  using Core;
   using Gameplay.Card;
   using Grove.Infrastructure;
 

@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Core;
   using Gameplay.Card.Factory;
   using Gameplay.Effects;
   using Gameplay.Mana;
@@ -22,7 +21,7 @@
         .ManaAbility(p =>
           {
             p.Text = "{T}: Add {G} or {W} to your mana pool.";
-            p.ManaAmount(Mana.Colored(isGreen: true, isWhite: true));            
+            p.ManaAmount(Mana.Colored(isGreen: true, isWhite: true));
           });
     }
   }

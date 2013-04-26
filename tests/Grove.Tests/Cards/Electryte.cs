@@ -1,6 +1,5 @@
 ﻿namespace Grove.Tests.Cards
 {
-  using Core;
   using Gameplay.States;
   using Gameplay.Zones;
   using Infrastructure;
@@ -33,8 +32,7 @@
                 Equal(Zone.Graveyard, C(armodon2).Zone);
               })
           );
-
-      } 
+      }
     }
   }
 }

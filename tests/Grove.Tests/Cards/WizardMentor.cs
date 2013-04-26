@@ -1,6 +1,5 @@
 ﻿namespace Grove.Tests.Cards
 {
-  using Core;
   using Gameplay.States;
   using Gameplay.Zones;
   using Infrastructure;
@@ -24,12 +23,12 @@
         Exec(
           At(Step.FirstMain)
             .Cast(bolt, order)
-            .Verify(()=>
+            .Verify(() =>
               {
                 Equal(Zone.Hand, C(order).Zone);
                 Equal(Zone.Hand, C(mentor).Zone);
               })
-          );        
+          );
       }
     }
   }

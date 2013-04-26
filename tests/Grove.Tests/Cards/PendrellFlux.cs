@@ -14,7 +14,7 @@
         var force = C("Verdant Force");
 
         Hand(P1, "Pendrell Flux");
-        Battlefield(P1, "Island", "Island");        
+        Battlefield(P1, "Island", "Island");
         Battlefield(P2, force);
 
         RunGame(2);

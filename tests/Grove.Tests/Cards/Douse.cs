@@ -1,6 +1,5 @@
 ﻿namespace Grove.Tests.Cards
 {
-  using Core;
   using Gameplay.States;
   using Gameplay.Zones;
   using Infrastructure;
@@ -21,7 +20,7 @@
           At(Step.FirstMain)
             .Cast(dragon)
             .Verify(() => Equal(Zone.Graveyard, C(dragon).Zone))
-        );
+          );
       }
     }
   }

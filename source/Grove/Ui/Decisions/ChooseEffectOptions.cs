@@ -1,7 +1,7 @@
 ﻿namespace Grove.Ui.Decisions
 {
-  using Grove.Ui.SelectEffectChoice;
-  using Grove.Ui.Shell;
+  using SelectEffectChoice;
+  using Shell;
 
   public class ChooseEffectOptions : Gameplay.Decisions.ChooseEffectOptions
   {

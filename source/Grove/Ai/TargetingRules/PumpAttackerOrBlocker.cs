@@ -1,7 +1,6 @@
 ﻿namespace Grove.Ai.TargetingRules
 {
   using System.Collections.Generic;
-  using Core;
   using Gameplay.Card;
   using Gameplay.States;
   using Gameplay.Targeting;

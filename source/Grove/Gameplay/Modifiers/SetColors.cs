@@ -6,8 +6,8 @@
   public class SetColors : Modifier
   {
     private readonly List<CardColor> _colors = new List<CardColor>();
-    private CardColors _cardColors;
     private CardColorSetter _cardColorSetter;
+    private CardColors _cardColors;
 
     private SetColors() {}
 

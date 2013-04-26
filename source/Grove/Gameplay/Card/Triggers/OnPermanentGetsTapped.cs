@@ -2,7 +2,7 @@
 {
   using System;
   using Abilities;
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Messages;
 
   public class OnPermanentGetsTapped : Trigger, IReceive<PermanentGetsTapped>

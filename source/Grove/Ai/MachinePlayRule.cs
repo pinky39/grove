@@ -1,6 +1,5 @@
 ﻿namespace Grove.Ai
 {
-  using Core;
   using Gameplay;
   using Gameplay.Common;
 
@@ -11,6 +10,6 @@
     public virtual void Initialize(Game game)
     {
       Game = game;
-    }    
+    }
   }
 }

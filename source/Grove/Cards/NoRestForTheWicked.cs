@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Ai.TimingRules;
-  using Core;
   using Gameplay.Card;
   using Gameplay.Card.Costs;
   using Gameplay.Card.Factory;
@@ -34,7 +33,8 @@
             p.Cost = new Sacrifice();
             p.Effect = () => new ReturnAllCardsInGraveyardToHand(WasPutIntoGraveyardThisTurnFromBattlefield);
             p.TimingRule(new Any(new Steps(Step.EndOfTurn), new OwningCardWillBeDestroyed()));
-            p.TimingRule(new ControllerGravayardCountIs(minCount: 1, selector: WasPutIntoGraveyardThisTurnFromBattlefield));
+            p.TimingRule(new ControllerGravayardCountIs(minCount: 1,
+              selector: WasPutIntoGraveyardThisTurnFromBattlefield));
           });
     }
   }

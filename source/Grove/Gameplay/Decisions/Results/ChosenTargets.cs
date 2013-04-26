@@ -11,9 +11,6 @@
 
     public Targets Targets { get; private set; }
 
-    public bool HasTargets
-    {
-      get { return Targets != null && Targets.Count > 0; }
-    }
+    public bool HasTargets { get { return Targets != null && Targets.Count > 0; } }
   }
 }

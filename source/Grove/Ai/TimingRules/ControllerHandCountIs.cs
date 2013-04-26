@@ -2,7 +2,6 @@
 {
   using System;
   using System.Linq;
-  using Core;
   using Gameplay.Card;
 
   public class ControllerHandCountIs : TimingRule

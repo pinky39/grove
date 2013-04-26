@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Card.Characteristics;
-  using Core;
   using Infrastructure;
 
   public class CardColorSetter : PropertyModifier<List<CardColor>>

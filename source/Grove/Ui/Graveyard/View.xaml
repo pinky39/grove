@@ -1,7 +1,5 @@
-﻿<UserControl x:Class="Grove.Ui.Graveyard.View"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" >
+﻿<UserControl x:Class="Grove.Ui.Graveyard.View" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <ItemsControl x:Name="Cards" Style="{StaticResource Zone}" />
+	<ItemsControl x:Name="Cards" Style="{StaticResource Zone}" />
 
 </UserControl>

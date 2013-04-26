@@ -2,23 +2,23 @@
 {
   using System.Collections.Generic;
   using System.Linq;
+  using Ai;
+  using Ai.CostRules;
+  using Ai.RepetitionRules;
+  using Ai.TargetingRules;
+  using Ai.TimingRules;
   using Effects;
-  using Grove.Ai;
-  using Grove.Ai.CostRules;
-  using Grove.Ai.RepetitionRules;
-  using Grove.Ai.TargetingRules;
-  using Grove.Ai.TimingRules;
   using Targeting;
 
   public class AbilityOrCastParameters
   {
+    private readonly List<MachinePlayRule> _machineRules = new List<MachinePlayRule>();
+    public int DistributeAmount;
     public EffectFactory Effect;
     public TargetSelector TargetSelector = new TargetSelector();
-    public string Text;    
-    public int DistributeAmount;
-     
-    private readonly List<MachinePlayRule> _machineRules = new List<MachinePlayRule>();
-     
+    public string Text;
+    public bool HasTimingRules { get { return _machineRules.Any(x => x is TimingRule); } }
+
     public List<MachinePlayRule> GetMachineRules()
     {
       return _machineRules;
@@ -43,7 +43,5 @@
     {
       _machineRules.Add(rule);
     }
-
-    public bool HasTimingRules { get { return _machineRules.Any(x => x is TimingRule); } }
   }
 }

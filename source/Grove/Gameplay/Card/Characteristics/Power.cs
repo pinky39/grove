@@ -1,6 +1,5 @@
 ﻿namespace Grove.Gameplay.Card.Characteristics
 {
-  using Core;
   using Infrastructure;
   using Modifiers;
 

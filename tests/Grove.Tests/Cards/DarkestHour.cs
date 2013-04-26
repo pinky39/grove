@@ -1,6 +1,5 @@
 ﻿namespace Grove.Tests.Cards
 {
-  using Core;
   using Gameplay.Card.Characteristics;
   using Gameplay.States;
   using Infrastructure;

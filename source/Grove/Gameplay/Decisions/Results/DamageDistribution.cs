@@ -3,7 +3,7 @@
   using System.Collections.Generic;
   using System.Linq;
   using Combat;
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   [Copyable]
   public class DamageDistribution

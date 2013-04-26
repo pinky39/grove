@@ -11,7 +11,7 @@
       public void EnchantForce()
       {
         Hand(P1, "Parasitic Bond");
-        
+
         Battlefield(P1, "Swamp", "Swamp", "Swamp", "Swamp");
         Battlefield(P2, "Verdant Force");
 

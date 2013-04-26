@@ -65,7 +65,7 @@
     }
 
     private IEnumerable<Targets> GenerateTargets()
-    {      
+    {
       var targetsCandidates = TargetingHelper.GenerateTargets(
         Source.OwningCard,
         TargetSelector,

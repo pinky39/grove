@@ -8,8 +8,8 @@
   {
     [Fact]
     public void RelativeUri()
-    {            
-      var uri = new Uri(Path.GetFullPath(@".\"));            
+    {
+      var uri = new Uri(Path.GetFullPath(@".\"));
       Console.WriteLine(uri.ToString());
     }
   }

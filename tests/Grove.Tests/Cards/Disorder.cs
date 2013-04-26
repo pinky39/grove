@@ -1,7 +1,6 @@
 ﻿namespace Grove.Tests.Cards
 {
   using System.Linq;
-  using Core;
   using Gameplay.States;
   using Gameplay.Zones;
   using Infrastructure;
@@ -15,7 +14,7 @@
       public void DoNotCastDisorderWhenNoEffect()
       {
         var disorder = C("Disorder");
-        
+
         Hand(P1, disorder);
         Battlefield(P1, "Mountain", "Mountain");
         Battlefield(P2, "Grizzly Bears", "Grizzly Bears");
@@ -25,14 +24,14 @@
         Equal(Zone.Hand, C(disorder).Zone);
       }
     }
-    
+
     public class Predefined : PredefinedScenario
     {
       [Fact]
       public void DealDamageToWhiteCreaturesAndTheirControllers()
       {
         var disorder = C("Disorder");
-        
+
         Hand(P1, disorder);
         Battlefield(P1, "Grizzly Bears");
         Battlefield(P2, "White Knight");
@@ -48,7 +47,6 @@
                 Equal(18, P2.Life);
               })
           );
-
       }
     }
   }

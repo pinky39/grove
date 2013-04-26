@@ -3,7 +3,7 @@
   using Player;
 
   public class IncreaseLandLimit : Modifier
-  {    
+  {
     private readonly Increment _increment;
     private LandLimit _landLimit;
 
@@ -17,7 +17,7 @@
     public override void Apply(LandLimit landLimit)
     {
       _landLimit = landLimit;
-      _increment.Initialize(ChangeTracker);      
+      _increment.Initialize(ChangeTracker);
       _landLimit.AddModifier(_increment);
     }
 

@@ -36,7 +36,7 @@
 
       private static Ballon CreateBallon(Func<int> height)
       {
-        return new Ballon{GetHeight = height};
+        return new Ballon {GetHeight = height};
       }
 
       private class Ballon

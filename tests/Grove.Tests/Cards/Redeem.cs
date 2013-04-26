@@ -1,6 +1,5 @@
 ﻿namespace Grove.Tests.Cards
 {
-  using Core;
   using Gameplay.States;
   using Infrastructure;
   using Xunit;
@@ -14,9 +13,9 @@
       {
         var bear1 = C("Grizzly Bears");
         var bear2 = C("Grizzly Bears");
-        
+
         Battlefield(P1, bear1, bear2);
-        
+
         Hand(P2, "Redeem");
         Battlefield(P2, "Grizzly Bears", "Grizzly Bears", "Plains", "Forest");
 

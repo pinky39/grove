@@ -14,7 +14,7 @@
         var force = C("Verdant Force");
 
         Hand(P1, "Path of Peace");
-        Battlefield(P1, "Plains", "Forest", "Forest", "Forest");        
+        Battlefield(P1, "Plains", "Forest", "Forest", "Forest");
         Battlefield(P2, force);
 
         RunGame(1);

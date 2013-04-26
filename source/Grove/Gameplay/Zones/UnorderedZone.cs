@@ -6,7 +6,7 @@
   using System.Linq;
   using Card;
   using Common;
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Player;
 
   public abstract class UnorderedZone : GameObject, IEnumerable<Card>, IHashable, IZone
@@ -15,13 +15,7 @@
 
     protected UnorderedZone(Player owner)
     {
-      Owner = owner;      
-    }
-
-    public virtual void Initialize(Game game)
-    {
-      Game = game;
-      _cards.Initialize(ChangeTracker);
+      Owner = owner;
     }
 
     protected UnorderedZone()
@@ -29,7 +23,7 @@
       /* for state copy */
     }
 
-    public Player Owner { get; private set; }    
+    public Player Owner { get; private set; }
     public int Count { get { return _cards.Count; } }
     public IEnumerable<Card> Creatures { get { return _cards.Where(card => card.Is().Creature); } }
     public bool IsEmpty { get { return _cards.Count == 0; } }
@@ -68,6 +62,12 @@
     void IZone.Remove(Card card)
     {
       Remove(card);
+    }
+
+    public virtual void Initialize(Game game)
+    {
+      Game = game;
+      _cards.Initialize(ChangeTracker);
     }
 
     public event EventHandler<ZoneChangedEventArgs> CardAdded = delegate { };

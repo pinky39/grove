@@ -6,14 +6,13 @@
 
   public class PriestOfTitania
   {
-    public class Ai: AiScenario
+    public class Ai : AiScenario
     {
       [Fact]
       public void Add2Mana()
       {
-
         Hand(P1, "Elvish warrior");
-        
+
         Battlefield(P1, "Priest of Titania");
         Battlefield(P2, "Llanowar Elves");
 

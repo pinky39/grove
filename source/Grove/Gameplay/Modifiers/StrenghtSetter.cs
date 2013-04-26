@@ -1,6 +1,5 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
-  using Core;
   using Infrastructure;
 
   public class StrenghtSetter : PropertyModifier<int?>

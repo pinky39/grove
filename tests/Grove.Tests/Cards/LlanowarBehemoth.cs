@@ -2,7 +2,6 @@
 {
   using Gameplay.States;
   using Gameplay.Zones;
-  using Grove.Core;
   using Infrastructure;
   using Xunit;
 
@@ -38,16 +37,18 @@
           At(Step.Upkeep)
             .Activate(behemoth, costTarget: bear)
             .Activate(behemoth, costTarget: behemoth)
-            .Verify(() => {
-              True(C(behemoth).Power == 6 && C(behemoth).Toughness == 6);
-              True(C(bear).IsTapped);
-              True(C(behemoth).IsTapped);
-            }),
+            .Verify(() =>
+              {
+                True(C(behemoth).Power == 6 && C(behemoth).Toughness == 6);
+                True(C(bear).IsTapped);
+                True(C(behemoth).IsTapped);
+              }),
           At(Step.Upkeep, turn: 2)
-            .Verify(() => {
-              Equal(4, C(behemoth).Power);
-              Equal(4, C(behemoth).Toughness);
-            }));
+            .Verify(() =>
+              {
+                Equal(4, C(behemoth).Power);
+                Equal(4, C(behemoth).Toughness);
+              }));
       }
     }
   }

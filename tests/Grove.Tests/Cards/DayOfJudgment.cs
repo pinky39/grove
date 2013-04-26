@@ -1,7 +1,6 @@
 ﻿namespace Grove.Tests.Cards
 {
   using System.Linq;
-  using Core;
   using Gameplay.States;
   using Infrastructure;
   using Xunit;
@@ -14,7 +13,7 @@
       public void DestroyAllCreatures()
       {
         var day = C("Day of Judgment");
-        
+
         Battlefield(P1, "Forest", "Grizzly Bears", "Grizzly Bears", "Grizzly Bears");
         Battlefield(P2, "Forest", "Grizzly Bears", "Grizzly Bears", "Grizzly Bears");
 

@@ -12,7 +12,7 @@
 
     private Attach() {}
 
-    public Attach(params ModifierFactory[] modifiers) : this(false , modifiers) {}
+    public Attach(params ModifierFactory[] modifiers) : this(false, modifiers) {}
 
     public Attach(bool modifiesAttachmentController, params ModifierFactory[] modifiers)
     {

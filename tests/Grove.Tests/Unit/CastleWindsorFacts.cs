@@ -32,12 +32,14 @@
         .Register(
           Component.For(typeof (Cat))
             .LifeStyle.Transient
-            .OnCreate((k, instance) => {
-              k.ComponentDestroyed += (model, component) => {
-                if (component == instance)
-                  wasDestroyed = true;
-              };
-            }));
+            .OnCreate((k, instance) =>
+              {
+                k.ComponentDestroyed += (model, component) =>
+                  {
+                    if (component == instance)
+                      wasDestroyed = true;
+                  };
+              }));
 
 
       var cat = container.Resolve<Cat>();
@@ -69,10 +71,11 @@
       container.Register(
         Component.For(typeof (AnimalsThatCanSayHello)),
         Component.For(typeof (Kitten)).OnCreate(
-          (k, i) => {
-            var animals = k.Resolve<AnimalsThatCanSayHello>();
-            animals.Add(i);
-          }).LifeStyle.Transient);
+          (k, i) =>
+            {
+              var animals = k.Resolve<AnimalsThatCanSayHello>();
+              animals.Add(i);
+            }).LifeStyle.Transient);
 
       container.Resolve<Kitten>();
       Assert.Equal(1, container.Resolve<AnimalsThatCanSayHello>().Count);
@@ -85,7 +88,7 @@
         .Register(Component.For(typeof (MyInterceptor)));
 
 
-      foreach (var type in new[]{typeof (Cat), typeof (Kitten)})
+      foreach (var type in new[] {typeof (Cat), typeof (Kitten)})
       {
         var registration = Component.For(type)
           .LifeStyle.Transient;
@@ -129,47 +132,48 @@
 
       using (container.BeginScope())
       {
-        Second second1 = null; 
-        Second second2 = null; 
-        
-        var task1 = new Task(() => {          
-          second1 = container.Resolve<Second>();
-          second2 = container.Resolve<Second>();               
+        Second second1 = null;
+        Second second2 = null;
 
-          second1.DoIt();
-          second2.DoIt();
+        var task1 = new Task(() =>
+          {
+            second1 = container.Resolve<Second>();
+            second2 = container.Resolve<Second>();
 
-          Thread.Sleep(100);
-        });
+            second1.DoIt();
+            second2.DoIt();
+
+            Thread.Sleep(100);
+          });
 
         task1.Start(TaskScheduler.Default);
-      
+
         Task.WaitAll(task1);
 
-        
-        
+
         Assert.Same(second1.Result.Scoped, second2.Result.Scoped);
       }
 
       using (container.BeginScope())
       {
-        Second second1 = null; 
-        Second second2 = null; 
-        
-        var task1 = new Task(() => {          
-          second1 = container.Resolve<Second>();
-          second2 = container.Resolve<Second>();               
+        Second second1 = null;
+        Second second2 = null;
 
-          Thread.Sleep(100);
-        });
+        var task1 = new Task(() =>
+          {
+            second1 = container.Resolve<Second>();
+            second2 = container.Resolve<Second>();
+
+            Thread.Sleep(100);
+          });
 
         task1.Start(TaskScheduler.Default);
-      
+
         Task.WaitAll(task1);
 
         second1.DoIt();
         second2.DoIt();
-        
+
         Assert.Same(second1.Result.Scoped, second2.Result.Scoped);
       }
     }
@@ -315,8 +319,8 @@
       public PlayerResolver(IKernel kernel)
       {
         _kernel = kernel;
-        _player1 = new Player{Name = "Franc"};
-        _player2 = new Player{Name = "Micka"};
+        _player1 = new Player {Name = "Franc"};
+        _player2 = new Player {Name = "Micka"};
       }
 
       public bool CanResolve(CreationContext context, ISubDependencyResolver contextHandlerResolver,
@@ -330,12 +334,12 @@
       {
         if (dependency.DependencyKey.ToLowerInvariant().Contains("player1"))
         {
-          return _kernel.Resolve(dependency.TargetType, new Arguments(new[]{_player1}));
+          return _kernel.Resolve(dependency.TargetType, new Arguments(new[] {_player1}));
         }
 
         if (dependency.DependencyKey.ToLowerInvariant().Contains("player2"))
         {
-          return _kernel.Resolve(dependency.TargetType, new Arguments(new[]{_player2}));
+          return _kernel.Resolve(dependency.TargetType, new Arguments(new[] {_player2}));
         }
 
         return null;

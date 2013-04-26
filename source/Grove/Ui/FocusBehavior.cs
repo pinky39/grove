@@ -7,6 +7,23 @@
 
   public class FocusBehavior : Behavior<Control>
   {
+    public static readonly DependencyProperty IsFocusedProperty =
+      DependencyProperty.Register(
+        "IsFocused",
+        typeof (bool),
+        typeof (FocusBehavior),
+        new PropertyMetadata(false, (d, e) => { if ((bool) e.NewValue) ((FocusBehavior) d).AssociatedObject.Focus(); }));
+
+    public static readonly DependencyProperty HasInitialFocusProperty =
+      DependencyProperty.Register(
+        "HasInitialFocus",
+        typeof (bool),
+        typeof (FocusBehavior),
+        new PropertyMetadata(false, null));
+
+    public bool IsFocused { get { return (bool) GetValue(IsFocusedProperty); } set { SetValue(IsFocusedProperty, value); } }
+
+    public bool HasInitialFocus { get { return (bool) GetValue(HasInitialFocusProperty); } set { SetValue(HasInitialFocusProperty, value); } }
 
     protected override void OnAttached()
     {
@@ -17,37 +34,11 @@
           if (HasInitialFocus || IsFocused)
           {
             Keyboard.Focus(AssociatedObject);
-            AssociatedObject.Focus();            
-          }                  
-      };
+            AssociatedObject.Focus();
+          }
+        };
 
       base.OnAttached();
-    }
-
-    public static readonly DependencyProperty IsFocusedProperty =
-      DependencyProperty.Register(
-        "IsFocused",
-        typeof(bool),
-        typeof(FocusBehavior),
-        new PropertyMetadata(false, (d, e) => { if ((bool)e.NewValue) ((FocusBehavior)d).AssociatedObject.Focus(); }));
-
-    public bool IsFocused
-    {
-      get { return (bool)GetValue(IsFocusedProperty); }
-      set { SetValue(IsFocusedProperty, value); }
-    }
-
-    public static readonly DependencyProperty HasInitialFocusProperty =
-      DependencyProperty.Register(
-        "HasInitialFocus",
-        typeof(bool),
-        typeof(FocusBehavior),
-        new PropertyMetadata(false, null));
-
-    public bool HasInitialFocus
-    {
-      get { return (bool)GetValue(HasInitialFocusProperty); }
-      set { SetValue(HasInitialFocusProperty, value); }
     }
   }
 }

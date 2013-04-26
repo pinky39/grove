@@ -19,6 +19,6 @@
     public int Red { get; private set; }
     public int Green { get; private set; }
     public int Multi { get; private set; }
-    public int Colorless { get; private set; }    
+    public int Colorless { get; private set; }
   }
 }

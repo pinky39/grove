@@ -2,7 +2,6 @@
 {
   using System.Linq;
   using Gameplay.States;
-  using Grove.Core;
   using Infrastructure;
   using Xunit;
 
@@ -19,10 +18,11 @@
         Exec(
           At(Step.FirstMain)
             .Cast(sign, target: P2)
-            .Verify(() => {
-              Equal(2, P2.Hand.Count());
-              Equal(18, P2.Life);
-            }));
+            .Verify(() =>
+              {
+                Equal(2, P2.Hand.Count());
+                Equal(18, P2.Life);
+              }));
       }
     }
   }

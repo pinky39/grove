@@ -1,6 +1,5 @@
 ﻿namespace Grove.Tests.Cards
 {
-  using Core;
   using Gameplay.States;
   using Gameplay.Zones;
   using Infrastructure;
@@ -21,9 +20,9 @@
 
 
         Equal(Zone.Hand, C(realist).Zone);
-      }                
-    } 
-  
+      }
+    }
+
     public class PredefinedAi : PredefinedAiScenario
     {
       [Fact]
@@ -45,8 +44,8 @@
             .Verify(() =>
               {
                 Equal(Zone.Graveyard, C(pacifism).Zone);
-                Equal(Zone.Battlefield, C(realist).Zone);                
-              })          
+                Equal(Zone.Battlefield, C(realist).Zone);
+              })
           );
       }
     }

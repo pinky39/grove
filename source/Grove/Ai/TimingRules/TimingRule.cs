@@ -1,25 +1,24 @@
 ﻿namespace Grove.Ai.TimingRules
 {
   using System.Linq;
-  using Core;
   using Gameplay.States;
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   public abstract class TimingRule : MachinePlayRule
   {
     public override void Process(ActivationContext c)
-    {            
+    {
       if (c.HasTargets == false)
       {
         // timing aplied before targeting, or
         // spell with no targets, evaluate just
         // one possiblility
-        
+
         var p = new TimingRuleParameters(c.Card);
         if (ShouldPlay(p) == false)
         {
           c.CancelActivation = true;
-        }  
+        }
 
         return;
       }
@@ -38,19 +37,19 @@
         {
           c.RemoveTargetCombination(targetsCombination);
         }
-      }         
+      }
 
       if (c.TargetsCombinations().None())
       {
         // if not targets are appropriate, cancel activation
         c.CancelActivation = true;
-      }            
+      }
     }
 
     public abstract bool ShouldPlay(TimingRuleParameters p);
 
-    protected bool CanBeDestroyed(TimingRuleParameters p, bool targetOnly = false, bool considerCombat = true) {
-            
+    protected bool CanBeDestroyed(TimingRuleParameters p, bool targetOnly = false, bool considerCombat = true)
+    {
       if (considerCombat && Turn.Step == Step.DeclareBlockers)
       {
         return Combat.CanBeDealtLeathalCombatDamage(p.Card);

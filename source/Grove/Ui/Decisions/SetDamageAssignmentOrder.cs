@@ -1,8 +1,8 @@
 ﻿namespace Grove.Ui.Decisions
 {
-  using Grove.Gameplay.Decisions.Results;
-  using Grove.Ui.DamageOrder;
-  using Grove.Ui.Shell;
+  using DamageOrder;
+  using Gameplay.Decisions.Results;
+  using Shell;
 
   public class SetDamageAssignmentOrder : Gameplay.Decisions.SetDamageAssignmentOrder
   {

@@ -4,8 +4,8 @@
 
   public class ContinuousEffectParameters
   {
-    public ModifierFactory Modifier;
     public ShouldApplyToCard CardFilter = delegate { return false; };
+    public ModifierFactory Modifier;
     public ShouldApplyToPlayer PlayerFilter = delegate { return false; };
   }
 }

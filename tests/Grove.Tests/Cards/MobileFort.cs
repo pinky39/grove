@@ -11,12 +11,12 @@
       public void Attack()
       {
         var fort = C("Mobile Fort");
-        
+
         Battlefield(P1, fort, "Swamp", "Swamp", "Swamp");
         RunGame(2);
 
         Equal(17, P2.Life);
-        True(C(fort).Has().Defender);        
+        True(C(fort).Has().Defender);
       }
     }
   }

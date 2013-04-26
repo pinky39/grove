@@ -1,7 +1,6 @@
 ﻿namespace Grove.Tests.Cards
 {
   using System.Linq;
-  using Core;
   using Gameplay.States;
   using Gameplay.Zones;
   using Infrastructure;
@@ -23,10 +22,8 @@
 
         Equal(0, P2.Battlefield.Count());
         Equal(3, P1.Battlefield.Count());
-        Equal(3, P2.Life);        
-        
+        Equal(3, P2.Life);
       }
-      
     }
 
     public class Predefined : PredefinedScenario
@@ -38,8 +35,8 @@
         var mirran = C("Mirran Crusader");
 
         Battlefield(P1, troll);
-        Battlefield(P2, mirran);        
-        
+        Battlefield(P2, mirran);
+
         Exec(
           At(Step.DeclareAttackers)
             .DeclareAttackers(troll),
@@ -52,9 +49,8 @@
                 Equal(Zone.Battlefield, C(troll).Zone);
                 True(C(troll).IsTapped);
               })
-        );
-
-      }      
+          );
+      }
     }
   }
 }

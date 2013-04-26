@@ -13,7 +13,7 @@
     private readonly Action<ITarget> _targetSelected;
     private readonly Action<ITarget> _targetUnselected;
     private readonly object _triggerMessage;
-    private int? _x;
+    private readonly int? _x;
 
     public ViewModel(SelectTargetParameters p)
     {
@@ -45,7 +45,7 @@
     [Updates("Text")]
     public virtual void Receive(SelectionChanged message)
     {
-      if (TargetValidator.MaxCount != null && 
+      if (TargetValidator.MaxCount != null &&
         _selection.Count >= TargetValidator.MaxCount.GetValue(_x))
         return;
 

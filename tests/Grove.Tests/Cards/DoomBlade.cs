@@ -2,7 +2,6 @@
 {
   using System.Linq;
   using Gameplay.States;
-  using Grove.Core;
   using Infrastructure;
   using Xunit;
 
@@ -22,10 +21,11 @@
         Exec(
           At(Step.FirstMain)
             .Cast(blade, target: bear)
-            .Verify(() => {
-              Equal(0, P2.Battlefield.Count());
-              Equal(1, P2.Graveyard.Count());
-            }));
+            .Verify(() =>
+              {
+                Equal(0, P2.Battlefield.Count());
+                Equal(1, P2.Graveyard.Count());
+              }));
       }
     }
   }

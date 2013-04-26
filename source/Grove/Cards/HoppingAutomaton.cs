@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Ai.TimingRules;
-  using Core;
   using Gameplay.Card.Abilities;
   using Gameplay.Card.Costs;
   using Gameplay.Card.Factory;
@@ -31,7 +30,7 @@
               () => new AddPowerAndToughness(-1, -1) {UntilEot = true},
               () => new AddStaticAbility(Static.Flying) {UntilEot = true}) {ToughnessReduction = 1};
 
-            p.TimingRule(new Steps(Step.BeginningOfCombat));            
+            p.TimingRule(new Steps(Step.BeginningOfCombat));
             p.TimingRule(new OwningCardHas(c => c.Toughness > 1 && !c.Has().Flying));
           });
     }

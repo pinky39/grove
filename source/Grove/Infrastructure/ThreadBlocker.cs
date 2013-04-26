@@ -13,7 +13,7 @@
     public void BlockUntilCompleted(System.Action action = null)
     {
       action = action ?? delegate { };
-      
+
       var result = BlockOnUiThread(action) ??
         BlockOnWorkerThread(action);
     }

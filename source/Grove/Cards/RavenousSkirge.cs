@@ -1,7 +1,6 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Core;
   using Gameplay.Card.Abilities;
   using Gameplay.Card.Factory;
   using Gameplay.Card.Triggers;
@@ -25,7 +24,7 @@
           {
             p.Text = "Whenever Ravenous Skirge attacks, it gets +2/+0 until end of turn.";
             p.Trigger(new OnAttack());
-            p.Effect = () => new ApplyModifiersToSelf(() => new AddPowerAndToughness(2, 0) { UntilEot = true });
+            p.Effect = () => new ApplyModifiersToSelf(() => new AddPowerAndToughness(2, 0) {UntilEot = true});
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });
     }

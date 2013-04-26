@@ -1,11 +1,11 @@
-﻿namespace Grove.Core.Decisions.Scenario
+﻿namespace Grove.Gameplay.Decisions.Scenario
 {
   using System.Linq;
-  using Gameplay.Decisions.Results;
-  using Gameplay.Mana;
+  using Mana;
+  using Results;
 
   public class ScenarioPlayableAbility : PlayableAbility
-  {    
+  {
     public override bool CanPlay()
     {
       var manaCost = Card.GetActivatedAbilityManaCost(Index);
@@ -17,7 +17,7 @@
 
       var prerequisites = Card.CanActivateAbilities();
 
-      return prerequisites.Any(x => x.Index == Index);      
+      return prerequisites.Any(x => x.Index == Index);
     }
   }
 }

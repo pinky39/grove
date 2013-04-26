@@ -97,7 +97,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Ai\GameAi.cs" />
+    <Compile Include="Ai\Decisions\ChooseTo.cs" />
+    <Compile Include="Ai\SearchRunner.cs" />
     <Compile Include="Ai\RepetitionRules\TargetLifepointsLeft.cs" />
     <Compile Include="Ai\Search.cs" />
     <Compile Include="Ai\SearchParameters.cs" />
@@ -401,10 +402,15 @@
     <Compile Include="Cards\ShivanHellkite.cs" />
     <Compile Include="Cards\ShivanRaptor.cs" />
     <Compile Include="Cards\ShivsEmbrace.cs" />
+    <Compile Include="Cards\ShowAndTell.cs" />
     <Compile Include="Cards\ShowerOfSparks.cs" />
     <Compile Include="Cards\Sicken.cs" />
     <Compile Include="Cards\SilentAttendant.cs" />
+    <Compile Include="Cards\SkirgeFamiliar.cs" />
+    <Compile Include="Cards\SkitteringSkirge.cs" />
+    <Compile Include="Cards\SleeperAgent.cs" />
     <Compile Include="Cards\SlipperyKarst.cs" />
+    <Compile Include="Cards\Smokestack.cs" />
     <Compile Include="Cards\SmolderingCrater.cs" />
     <Compile Include="Cards\Somnophore.cs" />
     <Compile Include="Cards\Songstitcher.cs" />
@@ -563,8 +569,10 @@
     <Compile Include="Ai\TimingRules\Turn.cs" />
     <Compile Include="Ai\TimingRules\ControllerIsAttacked.cs" />
     <Compile Include="Gameplay\Card\Characteristics\CardColors.cs" />
+    <Compile Include="Gameplay\Card\Costs\DiscardTarget.cs" />
     <Compile Include="Gameplay\Card\Factory\CardFactory.cs" />
     <Compile Include="Gameplay\Card\CardParameters.cs" />
+    <Compile Include="Gameplay\Decisions\ChooseTo.cs" />
     <Compile Include="Gameplay\Decisions\Scenario\ChooseToUntap.cs" />
     <Compile Include="Gameplay\Decisions\Scenario\DecisionsForOneStep.cs" />
     <Compile Include="Gameplay\Decisions\Scenario\DeclareAttackers.cs" />
@@ -579,6 +587,7 @@
     <Compile Include="Gameplay\Decisions\Scenario\ScenarioPlayableSpell.cs" />
     <Compile Include="Gameplay\Decisions\Scenario\SetTriggeredAbilityTarget.cs" />
     <Compile Include="Gameplay\Decisions\Scenario\Verify.cs" />
+    <Compile Include="Gameplay\Effects\ChooseToAddCounter.cs" />
     <Compile Include="Tournament\CardRatings.cs" />
     <Compile Include="Gameplay\Card\Characteristics\CardZone.cs" />
     <Compile Include="Gameplay\Card\CastingRules\Aura.cs" />
@@ -658,6 +667,7 @@
     <Compile Include="Gameplay\Card\Triggers\OnEffectResolved.cs" />
     <Compile Include="Gameplay\Card\Abilities\CastInstructionParameters.cs" />
     <Compile Include="Gameplay\Card\Abilities\CastInstructions.cs" />
+    <Compile Include="Ui\Decisions\ChooseTo.cs" />
     <Compile Include="Ui\Decisions\SelectCards.cs" />
     <Compile Include="Ai\Decisions\SelectCards.cs" />
     <Compile Include="Gameplay\Player\LandLimit.cs" />
@@ -681,7 +691,7 @@
     <Compile Include="Gameplay\Effects\CustomizableEffect.cs" />
     <Compile Include="Gameplay\Effects\DealDamageToOpponentEqualToCardDifference.cs" />
     <Compile Include="Gameplay\Effects\DistributeDamageToTargets.cs" />
-    <Compile Include="Gameplay\Effects\EachPlayerReturnsCardFromGraveyardToBattlefield.cs" />
+    <Compile Include="Gameplay\Effects\EachPlayerReturnsCardFromZoneToBattlefield.cs" />
     <Compile Include="Gameplay\Effects\EachPlayerReturnsCardsToHand.cs" />
     <Compile Include="Gameplay\Effects\DiscreteEffectChoice.cs" />
     <Compile Include="Gameplay\Effects\EffectOption.cs" />
@@ -693,7 +703,7 @@
     <Compile Include="Gameplay\Effects\ReturnAllCardsInGraveyardToHand.cs" />
     <Compile Include="Gameplay\Effects\SacrificePermanentOrSacrificeOwner.cs" />
     <Compile Include="Gameplay\Effects\TargetPlayerGainsLifeEqualToCreatureCount.cs" />
-    <Compile Include="Gameplay\Effects\PlayersSacrificeLands.cs" />
+    <Compile Include="Gameplay\Effects\PlayersSacrificePermanents.cs" />
     <Compile Include="Gameplay\Effects\PutTargetsToBattlefield.cs" />
     <Compile Include="Gameplay\Effects\UntapTargetPermanents.cs" />
     <Compile Include="Gameplay\Modifiers\Add11ForEachOtherCreature.cs" />
@@ -879,7 +889,7 @@
     <Compile Include="Gameplay\Modifiers\DefaultLifetime.cs" />
     <Compile Include="Infrastructure\PropertyModifier.cs" />
     <Compile Include="Gameplay\Card\Characteristics\CardTypeCharacteristic.cs" />
-    <Compile Include="Gameplay\Combat\Combat.cs" />
+    <Compile Include="Gameplay\Combat\CombatManager.cs" />
     <Compile Include="Gameplay\Card\Abilities\ActivatedAbilities.cs" />
     <Compile Include="Gameplay\Card\Characteristics\CardColor.cs" />
     <Compile Include="Gameplay\Modifiers\CardTypeSetter.cs" />

@@ -1,7 +1,6 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Core;
   using Gameplay.Card.Factory;
   using Gameplay.Mana;
 
@@ -21,7 +20,7 @@
           {
             p.Text = "{T}: Add {G} to your mana pool.";
             p.ManaAmount(Mana.Green);
-          });        
+          });
     }
   }
 }

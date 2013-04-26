@@ -1,6 +1,6 @@
 ﻿namespace Grove.Gameplay.States
 {
-  using Grove.Infrastructure;
+  using Infrastructure;
   using log4net;
 
   [Copyable]
@@ -12,7 +12,7 @@
     private readonly Trackable<Step> _step = new Trackable<Step>();
     private readonly Trackable<int> _stepCount = new Trackable<int>();
     private readonly Trackable<int> _turnCount = new Trackable<int>(1);
-    
+
     public State State
     {
       get { return _state.Value; }
@@ -47,12 +47,6 @@
       }
     }
 
-    public int GetStepCountAtNextTurnCleanup()
-    {
-      var stepsUntillEot = ((int) Step.CleanUp) - (int) Step;
-      return StepCount + stepsUntillEot + (int) Step.CleanUp;
-    }
-
     public int CalculateHash(HashCalculator calc)
     {
       return HashCalculator.Combine(
@@ -60,6 +54,12 @@
         TurnCount,
         State.GetHashCode()
         );
+    }
+
+    public int GetStepCountAtNextTurnCleanup()
+    {
+      var stepsUntillEot = ((int) Step.CleanUp) - (int) Step;
+      return StepCount + stepsUntillEot + (int) Step.CleanUp;
     }
 
     public void Initialize(Game game)

@@ -13,10 +13,11 @@
       var dog = Bindable.Create<Dog>();
       var notify = dog as INotifyPropertyChanged;
 
-      notify.PropertyChanged += (s, e) => {
-        if (e.PropertyName == "Description")
-          changed = true;
-      };
+      notify.PropertyChanged += (s, e) =>
+        {
+          if (e.PropertyName == "Description")
+            changed = true;
+        };
 
       dog.ChangeDestription();
 
@@ -30,10 +31,11 @@
       var dog = Bindable.Create<Dog>();
       var notify = dog as INotifyPropertyChanged;
 
-      notify.PropertyChanged += (s, e) => {
-        if (e.PropertyName == "Description")
-          changed = true;
-      };
+      notify.PropertyChanged += (s, e) =>
+        {
+          if (e.PropertyName == "Description")
+            changed = true;
+        };
 
       dog.Age = 5;
 

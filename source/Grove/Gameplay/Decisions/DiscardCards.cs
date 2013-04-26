@@ -8,22 +8,25 @@
 
   public abstract class DiscardCards : Decision<ChosenCards>
   {
+    public Func<Card, bool> Filter = delegate { return true; };
     public int Count { get; set; }
     public bool DiscardOpponentsCards { get; set; }
-    public Func<Card, bool> Filter = delegate { return true; };
 
     protected Player CardsOwner
     {
-      get { return DiscardOpponentsCards 
-        ? Controller.Opponent 
-        : Controller; }
+      get
+      {
+        return DiscardOpponentsCards
+          ? Controller.Opponent
+          : Controller;
+      }
     }
 
     protected override bool ShouldExecuteQuery
     {
       get
       {
-        return Count > 0 && 
+        return Count > 0 &&
           CardsOwner.Hand.Where(Filter).Count() > Count;
       }
     }
@@ -34,13 +37,13 @@
         return;
 
       var candidates = CardsOwner.Hand.Where(Filter).ToList();
-      
+
       if (candidates.Count <= Count)
       {
         foreach (var card in candidates)
         {
           card.Discard();
-        }                
+        }
         return;
       }
 

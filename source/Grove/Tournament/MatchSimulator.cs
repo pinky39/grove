@@ -3,9 +3,9 @@
   using System;
   using System.Collections.Generic;
   using System.Diagnostics;
-  using Grove.Gameplay;
-  using Grove.Gameplay.Card.Factory;
-  using Grove.Gameplay.Decisions;
+  using Gameplay;
+  using Gameplay.Card.Factory;
+  using Gameplay.Decisions;
 
   public class MatchSimulator
   {
@@ -18,7 +18,8 @@
       _decisionSystem = decisionSystem;
     }
 
-    public SimulationResult Simulate(List<string> deck1, List<string> deck2, int maxTurnsPerGame = 100, int maxSearchDepth = 16, int maxTargetsCount = 2)
+    public SimulationResult Simulate(List<string> deck1, List<string> deck2, int maxTurnsPerGame = 100,
+      int maxSearchDepth = 16, int maxTargetsCount = 2)
     {
       var stopwatch = new Stopwatch();
       stopwatch.Start();
@@ -37,15 +38,16 @@
       return result;
     }
 
-    private void SimulateGame(List<string> deck1, List<string> deck2, SimulationResult result, int maxTurnsPerGame, int maxSearchDepth, int maxTargetsCount)
+    private void SimulateGame(List<string> deck1, List<string> deck2, SimulationResult result, int maxTurnsPerGame,
+      int maxSearchDepth, int maxTargetsCount)
     {
       var stopwatch = new Stopwatch();
       var game = Game.NewSimulation(
-        deck1, 
-        deck2, 
+        deck1,
+        deck2,
         maxSearchDepth,
         maxTargetsCount,
-        _cardDatabase, 
+        _cardDatabase,
         _decisionSystem);
 
       game.Ai.SearchStarted += delegate
@@ -64,15 +66,15 @@
           }
 
           stopwatch.Reset();
-        };      
+        };
 
       game.Start(numOfTurns: maxTurnsPerGame);
 
       result.TotalTurnCount += game.Turn.TurnCount;
 
       if (game.Players.BothHaveLost)
-        return;      
-      
+        return;
+
       if (game.Players.Player1.Score > -game.Players.Player2.Score)
       {
         result.Deck1WinCount++;

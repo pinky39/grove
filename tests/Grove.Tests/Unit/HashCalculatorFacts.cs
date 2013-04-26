@@ -1,10 +1,8 @@
-﻿using System.Linq;
-
-namespace Grove.Tests.Unit
+﻿namespace Grove.Tests.Unit
 {
   using System;
   using System.Collections.Generic;
-  using Grove.Core;
+  using System.Linq;
   using Grove.Infrastructure;
   using Xunit;
 
@@ -36,24 +34,14 @@ namespace Grove.Tests.Unit
     [Fact]
     public void CommutativeCombine()
     {
-      int value1 = 328572304;
-      int value2 = 295389348;      
+      var value1 = 328572304;
+      var value2 = 295389348;
 
       var result1 = HashCalculator.CombineCommutative(value1, value2);
-      var result2 = HashCalculator.CombineCommutative(value2, value1);      
+      var result2 = HashCalculator.CombineCommutative(value2, value1);
 
       Assert.Equal(result1, result2);
     }
-
-    public class Country : IHashable
-    {
-      private static readonly Random Rnd = new Random();
-      
-      public int CalculateHash(HashCalculator calc)
-      {
-        return Rnd.Next();
-      }
-    }    
 
     public class Car : IHashable
     {
@@ -70,6 +58,16 @@ namespace Grove.Tests.Unit
       public int CalculateHash(HashCalculator calc)
       {
         return HashCalculator.Combine(Wheels.Select(calc.Calculate));
+      }
+    }
+
+    public class Country : IHashable
+    {
+      private static readonly Random Rnd = new Random();
+
+      public int CalculateHash(HashCalculator calc)
+      {
+        return Rnd.Next();
       }
     }
 

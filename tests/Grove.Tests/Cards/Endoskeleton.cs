@@ -1,13 +1,12 @@
 ﻿namespace Grove.Tests.Cards
 {
-  using Core;
   using Gameplay.States;
   using Gameplay.Zones;
   using Infrastructure;
   using Xunit;
 
   public class Endoskeleton
-  {    
+  {  
     public class PredefinedAi : PredefinedAiScenario
     {
       [Fact]
@@ -41,35 +40,7 @@
                 Equal(5, C(kavu).Toughness);
                 False(C(forest).IsTapped);
               })
-        );
-        
-      }
-    }
-    
-    
-    public class Predefined : PredefinedScenario
-    {
-      [Fact]
-      public void TapUntap()
-      {
-        var bear = C("Grizzly Bears");
-        var endo = C("Endoskeleton");
-
-        Battlefield(P1, bear, endo);
-
-        Exec(
-          At(Step.FirstMain)
-            .Activate(endo, target: bear)
-            .Verify(() => Equal(5, C(bear).Toughness)),
-          At(Step.Untap, 3)
-            .DoNotUntap(),
-          At(Step.FirstMain, 3)
-            .Verify(() => Equal(5, C(bear).Toughness)),
-          At(Step.Untap, 5)
-            .Untap(),
-          At(Step.FirstMain, 5)
-            .Verify(() => Equal(2, C(bear).Toughness))
-        );
+          );
       }
     }
   }

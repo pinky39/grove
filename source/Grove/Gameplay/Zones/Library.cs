@@ -2,7 +2,7 @@
 {
   using System.Linq;
   using Card;
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Player;
 
   public class Library : OrderedZone, ILibraryQuery
@@ -26,7 +26,5 @@
     {
       AddToFront(card);
     }
-
-    
   }
 }

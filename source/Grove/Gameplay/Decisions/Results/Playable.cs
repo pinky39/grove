@@ -2,7 +2,7 @@
 {
   using Card;
   using Card.Abilities;
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Player;
 
   [Copyable]

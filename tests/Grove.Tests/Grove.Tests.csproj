@@ -238,8 +238,12 @@
     <Compile Include="Cards\SeasonedMarshal.cs" />
     <Compile Include="Cards\ShivanGorge.cs" />
     <Compile Include="Cards\ShivanHellkite.cs" />
+    <Compile Include="Cards\ShowAndTell.cs" />
     <Compile Include="Cards\ShowerOfSparks.cs" />
     <Compile Include="Cards\SilentAttendant.cs" />
+    <Compile Include="Cards\SkirgeFamiliar.cs" />
+    <Compile Include="Cards\SkitteringSkirge.cs" />
+    <Compile Include="Cards\SleeperAgent.cs" />
     <Compile Include="Cards\Somnophore.cs" />
     <Compile Include="Cards\Songstitcher.cs" />
     <Compile Include="Cards\SteamVents.cs" />

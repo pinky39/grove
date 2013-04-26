@@ -2,8 +2,8 @@
 {
   using System;
   using System.Linq;
-  using Grove.Gameplay;
-  using Grove.Gameplay.Common;
+  using Gameplay;
+  using Gameplay.Common;
 
   [Copyable]
   public abstract class Characteristic<T> : GameObject, ICopyContributor

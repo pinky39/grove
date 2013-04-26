@@ -1,6 +1,5 @@
 ﻿namespace Grove.Tests.Cards
 {
-  using Core;
   using Gameplay.States;
   using Infrastructure;
   using Xunit;
@@ -42,10 +41,7 @@
           At(Step.DeclareAttackers)
             .Cast(shock, target: hierophants),
           At(Step.SecondMain)
-            .Verify(() =>
-              {
-                False(P2.HasMana(2));
-              })
+            .Verify(() => { False(P2.HasMana(2)); })
           );
       }
     }

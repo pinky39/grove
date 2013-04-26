@@ -46,7 +46,7 @@
     public static void Close(this object obj)
     {
       var closable = (IClosable) obj;
-      closable.Close();   
+      closable.Close();
     }
   }
 }

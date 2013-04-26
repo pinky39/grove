@@ -3,7 +3,6 @@
   using System.Collections.Generic;
   using System.Linq;
   using System.Windows;
-  using Core;
   using Gameplay.Card;
   using Gameplay.Card.Factory;
   using Infrastructure;
@@ -12,20 +11,20 @@
 
   public class ViewModel : IIsDialogHost
   {
-    private readonly Ui.Deck.ViewModel.IFactory _deckVmFactory;
+    private readonly Deck.ViewModel.IFactory _deckVmFactory;
     private readonly List<object> _dialogs = new List<object>();
     private readonly IIsDialogHost _previousScreen;
     private readonly SaveDeckAs.ViewModel.IFactory _saveDeckAsFactory;
     private readonly SelectDeck.ViewModel.IFactory _selectDeckScreenFactory;
     private readonly IShell _shell;
 
-    private Ui.Deck.ViewModel _deck;
+    private Deck.ViewModel _deck;
 
     public ViewModel(
       IIsDialogHost previousScreen, IShell shell,
       SelectDeck.ViewModel.IFactory selectDeckScreenFactory,
       SaveDeckAs.ViewModel.IFactory saveDeckAsFactory,
-      Ui.Deck.ViewModel.IFactory deckVmFactory,
+      Deck.ViewModel.IFactory deckVmFactory,
       CardDatabase cardDatabase)
     {
       _previousScreen = previousScreen;
@@ -39,7 +38,7 @@
       SelectedCard = Deck.SelectedCard ?? cardDatabase.Random();
     }
 
-    public virtual Ui.Deck.ViewModel Deck
+    public virtual Deck.ViewModel Deck
     {
       get { return _deck; }
       protected set

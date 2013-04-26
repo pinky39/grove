@@ -1,8 +1,7 @@
 ﻿namespace Grove.Gameplay.Card.Characteristics
 {
   using System.Linq;
-  using Core;
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Messages;
   using Modifiers;
   using Player;
@@ -43,6 +42,8 @@
           after.PutCardToBattlefield(attachment);
         }
       }
+
+      _card.HasSummoningSickness = true;
 
       Publish(new ControllerChanged(_card));
     }

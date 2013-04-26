@@ -5,7 +5,7 @@
   [Flags]
   public enum EffectCategories
   {
-    Generic = 0,    
+    Generic = 0,
     Destruction = 2,
     Bounce = 4,
     Counterspell = 8,

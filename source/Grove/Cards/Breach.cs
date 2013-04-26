@@ -3,7 +3,6 @@
   using System.Collections.Generic;
   using Ai.TargetingRules;
   using Ai.TimingRules;
-  using Core;
   using Gameplay.Card.Abilities;
   using Gameplay.Card.Factory;
   using Gameplay.Effects;
@@ -27,7 +26,7 @@
               () => new AddPowerAndToughness(2, 0) {UntilEot = true});
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
-            
+
             p.TimingRule(new Steps(Step.DeclareAttackers));
             p.TargetingRule(new GainEvasion());
           });

@@ -5,7 +5,6 @@
   using Ai.CostRules;
   using Ai.TargetingRules;
   using Ai.TimingRules;
-  using Core;
   using Gameplay.Card.Costs;
   using Gameplay.Card.Factory;
   using Gameplay.Effects;
@@ -40,7 +39,7 @@
                 trg.MaxCount = Value.PlusX;
                 trg.Is.Card(c => c.Is().Land).On.Battlefield();
               });
-            
+
             p.TimingRule(new Steps(steps: Step.Upkeep, activeTurn: false, passiveTurn: true));
             p.TimingRule(new OpponentHasPermanents(x => x.Is().Land));
             p.CostRule(new ControllersProperty(ctrl => ctrl.Opponent.Battlefield.Lands.Count()));

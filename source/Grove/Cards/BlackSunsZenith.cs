@@ -3,7 +3,6 @@
   using System.Collections.Generic;
   using Ai.CostRules;
   using Ai.TimingRules;
-  using Core;
   using Gameplay.Card.CastingRules;
   using Gameplay.Card.Counters;
   using Gameplay.Card.Factory;

@@ -4,12 +4,12 @@
   using System.Collections.Generic;
   using System.Linq;
   using Abilities;
+  using Ai;
   using Characteristics;
   using Common;
   using Counters;
   using Damage;
-  using Grove.Ai;
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Mana;
   using Messages;
   using Modifiers;
@@ -20,7 +20,7 @@
 
   [Copyable]
   public class Card : GameObject, ITarget, IDamageable, IHashDependancy, IAcceptsModifiers, IHasColors, IHasLife
-  {    
+  {
     private readonly ActivatedAbilities _activatedAbilities;
     private readonly Trackable<Card> _attachedTo = new Trackable<Card>();
     private readonly Attachments _attachments = new Attachments();
@@ -56,14 +56,14 @@
     protected Card() {}
 
     public Card(CardParameters p)
-    {            
+    {
       Name = p.Name;
       ManaCost = p.ManaCost;
-      MayChooseNotToUntap = p.MayChooseNotToUntap;
       OverrideScore = p.OverrideScore;
       Text = p.Text;
       FlavorText = p.FlavorText;
       Illustration = p.Illustration;
+      MayChooseNotToUntap = p.MayChooseToUntap;
 
       _power = new Power(p.Power);
       _toughness = new Toughness(p.Toughness);
@@ -306,12 +306,12 @@
         }
         else
         {
-         // this value can be same for different cards with same NAME,
-         // sometimes this is good sometimes not, currently we favor
-         // smaller tree sizes and less accurate results.
-         // if tree size is no longer a problem we will replace NAME with 
-         // a guid.
-          _hash.Value = HashCalculator.Combine(            
+          // this value can be same for different cards with same NAME,
+          // sometimes this is good sometimes not, currently we favor
+          // smaller tree sizes and less accurate results.
+          // if tree size is no longer a problem we will replace NAME with 
+          // a guid.
+          _hash.Value = HashCalculator.Combine(
             Name.GetHashCode(),
             _hasSummoningSickness.Value.GetHashCode(),
             UsageScore.GetHashCode(),
@@ -321,7 +321,7 @@
             HasLeathalDamage.GetHashCode(),
             Power.GetHashCode(),
             Toughness.GetHashCode(),
-            Level.GetHashCode(),            
+            Level.GetHashCode(),
             Counters.GetHashCode(),
             Type.GetHashCode(),
             _isRevealed.Value.GetHashCode(),

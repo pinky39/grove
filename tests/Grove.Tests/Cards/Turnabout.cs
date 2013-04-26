@@ -10,9 +10,9 @@
     {
       [Fact]
       public void TapOpponentsCreaturesAndAttack()
-      {       
+      {
         Hand(P1, "Turnabout");
-        
+
         Battlefield(P1, "Shivan Dragon", "Island", "Island", "Mountain", "Mountain");
         Battlefield(P2, "Angelic Wall", "Shivan Dragon");
 
@@ -27,9 +27,9 @@
       public void UntapCreaturesAndBlock()
       {
         var ascetic = C("Troll Ascetic");
-        
+
         Hand(P2, "Turnabout");
-        
+
         Battlefield(P1, ascetic);
         Battlefield(P2, C("Shivan Dragon").Tap(), "Island", "Island", "Island", "Island");
 
@@ -39,7 +39,6 @@
 
         Equal(3, P2.Life);
         Equal(Zone.Graveyard, C(ascetic).Zone);
-
       }
     }
   }

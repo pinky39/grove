@@ -6,8 +6,8 @@
   using System.Linq;
   using Card;
   using Card.Factory;
-  using Grove.Ui;
   using Mana;
+  using Ui;
 
   public class Deck : IEnumerable<Card>
   {
@@ -71,14 +71,14 @@
       {
         if (card.ManaCost == null)
           continue;
-        
+
         foreach (var singleColorAmount in card.ManaCost)
-        {                    
+        {
           dictionary[singleColorAmount.Color] = true;
         }
       }
 
-      return new MultiColorManaAmount(dictionary        
+      return new MultiColorManaAmount(dictionary
         .Where(x => x.Value)
         .Where(x => x.Key != ManaColor.Colorless)
         .ToDictionary(x => x.Key, x => 1));

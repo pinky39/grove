@@ -1,7 +1,7 @@
 ﻿namespace Grove.Gameplay.Card.Abilities
 {
   using System.Linq;
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Modifiers;
 
   [Copyable]
@@ -70,7 +70,7 @@
 
       if (staticAbility == null)
       {
-        return false;        
+        return false;
       }
 
       _abilities.Remove(staticAbility);

@@ -1,6 +1,5 @@
 ﻿namespace Grove.Tests.Cards
 {
-  using Core;
   using Gameplay.States;
   using Gameplay.Zones;
   using Infrastructure;
@@ -22,14 +21,14 @@
         Hand(P1, pariah);
 
         P2.Life = 4;
-        RunGame(1);        
+        RunGame(1);
 
         Equal(C(disciple), C(pariah).AttachedTo);
-        Equal(3, P2.Life);        
-        Equal(20, P1.Life);                
+        Equal(3, P2.Life);
+        Equal(20, P1.Life);
       }
     }
-        
+
     public class Predefined : PredefinedScenario
     {
       [Fact]

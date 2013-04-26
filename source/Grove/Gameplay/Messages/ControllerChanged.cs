@@ -4,11 +4,11 @@
 
   public class ControllerChanged
   {
-    public Card Card { get; private set; }
-
     public ControllerChanged(Card card)
     {
-      Card = card;      
+      Card = card;
     }
+
+    public Card Card { get; private set; }
   }
 }

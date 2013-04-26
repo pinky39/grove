@@ -3,7 +3,6 @@
   using System.Collections.Generic;
   using Ai.TargetingRules;
   using Ai.TimingRules;
-  using Core;
   using Gameplay.Card.Costs;
   using Gameplay.Card.Factory;
   using Gameplay.Effects;
@@ -38,7 +37,7 @@
               .On.Battlefield());
 
             p.TimingRule(new Steps(activeTurn: false, passiveTurn: true, steps: Step.DeclareAttackers));
-            p.TargetingRule(new Destroy());            
+            p.TargetingRule(new Destroy());
             p.TimingRule(new TargetRemoval());
           });
     }

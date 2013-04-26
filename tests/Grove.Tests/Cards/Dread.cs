@@ -1,7 +1,6 @@
 ﻿namespace Grove.Tests.Cards
 {
   using System.Linq;
-  using Core;
   using Gameplay.States;
   using Gameplay.Zones;
   using Infrastructure;
@@ -9,35 +8,6 @@
 
   public class Dread
   {
-    public class PredefinedAi : PredefinedAiScenario
-    {
-      [Fact]
-      public void DreadAbilityTriggersTwiceGameEndsBug()
-      {
-        var engine = C("Wurmcoil Engine").IsEquipedWith("Sword of Feast and Famine");
-        var student = C("Student of Warfare");
-        
-        Battlefield(P1, engine, student, "Plains", "Plains");
-        Battlefield(P2, "Dread");
-
-        Exec(
-          At(Step.FirstMain)
-            .Activate(student)
-            .Activate(student),
-          At(Step.DeclareAttackers)
-            .DeclareAttackers(engine),
-          At(Step.SecondMain)
-            .Verify(() =>
-              {
-                Equal(Zone.Graveyard, C(engine).Zone);
-                Equal(6, P1.Battlefield.Count());
-                False(Game.IsFinished);
-                Equal(12, P2.Life);
-              })        
-        );
-      }
-    }
-    
     public class Predefined : PredefinedScenario
     {
       [Fact]
@@ -56,7 +26,7 @@
             .Verify(() =>
               {
                 Equal(Zone.Graveyard, C(bear1).Zone);
-                Equal(Zone.Graveyard, C(bear2).Zone);                
+                Equal(Zone.Graveyard, C(bear2).Zone);
               })
           );
       }
@@ -73,7 +43,36 @@
           At(Step.FirstMain)
             .Verify(() => Equal(Zone.Graveyard, C(slum).Zone))
           );
-      }      
+      }
+    }
+
+    public class PredefinedAi : PredefinedAiScenario
+    {
+      [Fact]
+      public void DreadAbilityTriggersTwiceGameEndsBug()
+      {
+        var engine = C("Wurmcoil Engine").IsEquipedWith("Sword of Feast and Famine");
+        var student = C("Student of Warfare");
+
+        Battlefield(P1, engine, student, "Plains", "Plains");
+        Battlefield(P2, "Dread");
+
+        Exec(
+          At(Step.FirstMain)
+            .Activate(student)
+            .Activate(student),
+          At(Step.DeclareAttackers)
+            .DeclareAttackers(engine),
+          At(Step.SecondMain)
+            .Verify(() =>
+              {
+                Equal(Zone.Graveyard, C(engine).Zone);
+                Equal(6, P1.Battlefield.Count());
+                False(Game.IsFinished);
+                Equal(12, P2.Life);
+              })
+          );
+      }
     }
   }
 }

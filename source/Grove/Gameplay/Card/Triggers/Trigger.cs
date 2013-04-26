@@ -3,16 +3,20 @@
   using System;
   using Abilities;
   using Common;
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Player;
 
   public abstract class Trigger : GameObject, IHashable
   {
-    
     public Func<Trigger, Game, bool> Condition = delegate { return true; };
     public TriggeredAbility Ability { get; private set; }
     public Card OwningCard { get { return Ability.OwningCard; } }
-    protected Player Controller { get { return Ability.OwningCard.Controller; } }     
+    protected Player Controller { get { return Ability.OwningCard.Controller; } }
+
+    public int CalculateHash(HashCalculator calc)
+    {
+      return GetType().GetHashCode();
+    }
 
     public void Deactivate()
     {
@@ -22,11 +26,6 @@
     public void Activate()
     {
       Subscribe(this);
-    }
-
-    public int CalculateHash(HashCalculator calc)
-    {
-      return GetType().GetHashCode();
     }
 
     public event EventHandler<TriggerEventArgs> Triggered = delegate { };
@@ -40,9 +39,9 @@
     public virtual void Initialize(TriggeredAbility triggeredAbility, Game game)
     {
       Game = game;
-      Ability = triggeredAbility;   
-      
-      Initialize();     
+      Ability = triggeredAbility;
+
+      Initialize();
     }
 
     protected virtual void Initialize() {}

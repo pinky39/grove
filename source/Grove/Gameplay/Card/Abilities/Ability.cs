@@ -1,11 +1,11 @@
 ﻿namespace Grove.Gameplay.Card.Abilities
 {
   using System.Collections.Generic;
+  using Ai;
   using Characteristics;
   using Common;
   using Effects;
-  using Grove.Ai;
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Targeting;
 
   public abstract class Ability : GameObject, IEffectSource
@@ -66,7 +66,7 @@
     {
       _owner = owningCard;
       Game = game;
-      
+
       TargetSelector.Initialize(owningCard, game);
 
       foreach (var rule in Rules)

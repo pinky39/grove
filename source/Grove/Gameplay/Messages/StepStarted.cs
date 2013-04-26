@@ -6,9 +6,9 @@
   {
     public StepStarted(Step step)
     {
-      Step = step;      
+      Step = step;
     }
 
-    public Step Step { get; private set; }    
+    public Step Step { get; private set; }
   }
 }

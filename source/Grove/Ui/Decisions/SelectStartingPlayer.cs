@@ -1,8 +1,8 @@
 ﻿namespace Grove.Ui.Decisions
 {
   using System.Windows;
-  using Grove.Gameplay.Decisions.Results;
-  using Grove.Ui.Shell;
+  using Gameplay.Decisions.Results;
+  using Shell;
 
   public class SelectStartingPlayer : Gameplay.Decisions.SelectStartingPlayer
   {

@@ -11,7 +11,7 @@
 
     public PlayerHasActivatedAbility(ActivatedAbility ability, IEnumerable<ITarget> targets)
     {
-      Ability = ability;      
+      Ability = ability;
       _targets.AddRange(targets);
     }
 

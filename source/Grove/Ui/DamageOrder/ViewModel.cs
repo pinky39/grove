@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Core;
   using Gameplay;
   using Gameplay.Card;
   using Gameplay.Combat;
@@ -12,9 +11,9 @@
   public class ViewModel
   {
     private readonly DamageAssignmentOrder _assignmentOrder;
-    private readonly Game _game;
     private readonly Attacker _attacker;
-    private readonly List<BlockerAssignment> _blockerAssignments;    
+    private readonly List<BlockerAssignment> _blockerAssignments;
+    private readonly Game _game;
     private int _curentRank = 1;
 
     public ViewModel(Attacker attacker, DamageAssignmentOrder assignmentOrder, Game game)
@@ -24,7 +23,7 @@
       _blockerAssignments =
         attacker.Blockers.Select(
           blocker => Bindable.Create<BlockerAssignment>(blocker)).ToList();
-      
+
       _assignmentOrder = assignmentOrder;
       _game = game;
     }

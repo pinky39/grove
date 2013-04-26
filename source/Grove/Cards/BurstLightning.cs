@@ -3,7 +3,6 @@
   using System.Collections.Generic;
   using Ai.TargetingRules;
   using Ai.TimingRules;
-  using Core;
   using Gameplay.Card.Costs;
   using Gameplay.Card.Factory;
   using Gameplay.Effects;
@@ -23,9 +22,9 @@
           {
             p.Effect = () => new DealDamageToTargets(2);
             p.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
-            
+
             p.TargetingRule(new DealDamage(2));
-            p.TimingRule(new TargetRemoval());            
+            p.TimingRule(new TargetRemoval());
           })
         .Cast(p =>
           {
@@ -33,9 +32,9 @@
             p.Cost = new PayMana("{4}{R}".Parse(), ManaUsage.Spells);
             p.Effect = () => new DealDamageToTargets(4);
             p.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
-            
+
             p.TargetingRule(new DealDamage(4));
-            p.TimingRule(new TargetRemoval());            
+            p.TimingRule(new TargetRemoval());
           });
     }
   }

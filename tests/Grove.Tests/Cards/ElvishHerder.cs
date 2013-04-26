@@ -13,7 +13,7 @@
         var force = C("Verdant Force");
         Battlefield(P1, force, "Elvish Herder", "Forest");
         Battlefield(P2, "Grizzly Bears");
-        
+
         P2.Life = 5;
 
         RunGame(1);

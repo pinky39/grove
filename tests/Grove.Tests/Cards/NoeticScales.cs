@@ -15,8 +15,8 @@
         var dragon = C("Shivan Dragon");
         var bear1 = C("Grizzly Bears");
         var bear2 = C("Grizzly Bears");
-        
-        Battlefield(P1, force, "Noetic Scales", bear1);        
+
+        Battlefield(P1, force, "Noetic Scales", bear1);
         Battlefield(P2, dragon, bear2);
 
         Hand(P1, "Swamp", "Swamp", "Swamp");

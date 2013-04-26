@@ -3,7 +3,6 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Core;
   using Gameplay;
   using Gameplay.Card;
   using Gameplay.Common;
@@ -13,15 +12,15 @@
   public class TargetingRuleParameters : GameObject
   {
     private readonly TargetsCandidates _candidates;
-    private readonly Grove.Ai.ActivationContext _context;
+    private readonly Ai.ActivationContext _context;
 
     private TargetingRuleParameters() {}
 
-    public TargetingRuleParameters(TargetsCandidates candidates, Grove.Ai.ActivationContext context, Game game)
+    public TargetingRuleParameters(TargetsCandidates candidates, Ai.ActivationContext context, Game game)
     {
       _candidates = candidates;
       _context = context;
-      
+
       Game = game;
     }
 
@@ -31,7 +30,7 @@
     public int EffectTargetTypeCount { get { return _context.Selector.Effect.Count; } }
     public Card Card { get { return _context.Card; } }
     public int DistributeAmount { get { return _context.DistributeAmount; } }
-    public int MaxRepetitions {get { return _context.MaxRepetitions; }}
+    public int MaxRepetitions { get { return _context.MaxRepetitions; } }
 
     public bool HasCostCandidates { get { return _candidates.HasCost; } }
     public bool HasEffectCandidates { get { return _candidates.HasEffect; } }

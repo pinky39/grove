@@ -4,8 +4,8 @@
 
   public class IncreaseLevel : Modifier
   {
-    private Level _level;
     private readonly Increment _levelIncrement = new Increment(1);
+    private Level _level;
 
     public override void Apply(Level level)
     {

@@ -15,8 +15,8 @@
 
         RunGame(2);
 
-        Equal(1, P1.Battlefield.Creatures.Count());        
-        Equal(0, P2.Battlefield.Creatures.Count());        
+        Equal(1, P1.Battlefield.Creatures.Count());
+        Equal(0, P2.Battlefield.Creatures.Count());
       }
 
       [Fact]
@@ -27,8 +27,8 @@
 
         RunGame(2);
 
-        Equal(0, P1.Battlefield.Creatures.Count());        
-        Equal(1, P2.Battlefield.Creatures.Count());   
+        Equal(0, P1.Battlefield.Creatures.Count());
+        Equal(1, P2.Battlefield.Creatures.Count());
       }
     }
   }

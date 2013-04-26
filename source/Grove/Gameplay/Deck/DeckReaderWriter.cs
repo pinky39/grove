@@ -28,7 +28,7 @@
         writer.WriteLine("# Rating: {0}", deck.Rating);
         writer.WriteLine();
 
-        foreach (DeckRow row in deck.AsRows())
+        foreach (var row in deck.AsRows())
         {
           writer.WriteLine("{0} {1}", row.Count, row.CardName);
         }
@@ -39,9 +39,9 @@
     {
       var records = new List<DeckRow>();
       string line;
-      int lineNumber = 0;
-      string description = String.Empty;
-      int rating = 3;
+      var lineNumber = 0;
+      var description = String.Empty;
+      var rating = 3;
 
       while ((line = reader.ReadLine()) != null)
       {
@@ -53,7 +53,7 @@
 
         if (line.StartsWith("#"))
         {
-          System.Text.RegularExpressions.Match match = DescriptionRegex.Match(line);
+          var match = DescriptionRegex.Match(line);
           if (match.Success)
           {
             description = match.Groups[1].Value;
@@ -82,7 +82,7 @@
 
     private static DeckRow ParseRecord(string line, int lineNumber)
     {
-      string[] tokens = line.Split(new[] {" "}, 2, StringSplitOptions.RemoveEmptyEntries);
+      var tokens = line.Split(new[] {" "}, 2, StringSplitOptions.RemoveEmptyEntries);
 
       if (tokens.Length != 2)
         ThrowParsingError(lineNumber);

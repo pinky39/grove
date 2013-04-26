@@ -2,8 +2,8 @@
 {
   using System.Collections.Generic;
   using System.Linq;
+  using Ai;
   using Decisions.Results;
-  using Grove.Ai;
 
   public class DestroyAllLandsOrCreatures : CustomizableEffect
   {
@@ -42,7 +42,7 @@
     public override IEnumerable<object> GetChoices()
     {
       yield return new DiscreteEffectChoice(
-        EffectOption.Lands, 
+        EffectOption.Lands,
         EffectOption.Creatures);
     }
   }

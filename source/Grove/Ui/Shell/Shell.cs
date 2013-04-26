@@ -2,7 +2,6 @@
 {
   using System.Windows;
   using Caliburn.Micro;
-  using Core;
   using Gameplay;
   using Infrastructure;
   using MessageBox;
@@ -10,7 +9,7 @@
   public class Shell : IShell, IHaveDisplayName
   {
     private readonly Match _match;
-    private InteractionState _interactionState = InteractionState.Disabled;    
+    private InteractionState _interactionState = InteractionState.Disabled;
 
     public Shell(Match match)
     {
@@ -21,7 +20,7 @@
     }
 
     public virtual IIsDialogHost Screen { get; protected set; }
-    public string DisplayName { get; set; }       
+    public string DisplayName { get; set; }
 
     public void CloseAllDialogs()
     {

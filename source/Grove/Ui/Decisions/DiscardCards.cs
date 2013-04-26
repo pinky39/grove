@@ -2,10 +2,10 @@
 {
   using System;
   using System.Linq;
-  using Grove.Gameplay.Targeting;
-  using Grove.Gameplay.Zones;
-  using Grove.Ui.SelectTarget;
-  using Grove.Ui.Shell;
+  using Gameplay.Targeting;
+  using Gameplay.Zones;
+  using SelectTarget;
+  using Shell;
 
   public class DiscardCards : Gameplay.Decisions.DiscardCards
   {

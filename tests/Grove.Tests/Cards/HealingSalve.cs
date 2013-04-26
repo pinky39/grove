@@ -1,6 +1,5 @@
 ﻿namespace Grove.Tests.Cards
 {
-  using Core;
   using Gameplay.States;
   using Gameplay.Zones;
   using Infrastructure;
@@ -15,9 +14,9 @@
       {
         var shock = C("Shock");
         var bears = C("Grizzly Bears");
-        
+
         Hand(P1, shock);
-        Hand(P2, "Healing Salve");        
+        Hand(P2, "Healing Salve");
         Battlefield(P2, "Plains", bears);
 
         Exec(
@@ -25,14 +24,13 @@
             .Cast(shock, target: bears),
           At(Step.SecondMain)
             .Verify(() => Equal(Zone.Battlefield, C(bears).Zone)));
-
       }
 
       [Fact]
       public void GainLife()
       {
         var shock = C("Shock");
-        
+
         Hand(P1, shock);
         Hand(P2, "Healing Salve");
         Battlefield(P2, "Plains");

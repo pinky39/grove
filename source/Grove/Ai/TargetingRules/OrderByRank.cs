@@ -3,7 +3,6 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Core;
   using Gameplay.Card;
   using Gameplay.Player;
   using Gameplay.Targeting;
@@ -27,12 +26,12 @@
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
     {
       var candidates = p.Candidates<Card>(_controlledBy)
-        .OrderBy(x => _rank(x));        
+        .OrderBy(x => _rank(x));
 
       if (p.HasEffectCandidates)
         return Group(candidates, p.MaxTargetCount());
 
-      return Group(candidates, p.MinTargetCount(), p.MaxTargetCount(),  (trg, trgs) => trgs.AddCost(trg));
+      return Group(candidates, p.MinTargetCount(), p.MaxTargetCount(), (trg, trgs) => trgs.AddCost(trg));
     }
 
     protected override IEnumerable<Targets> ForceSelectTargets(TargetingRuleParameters p)

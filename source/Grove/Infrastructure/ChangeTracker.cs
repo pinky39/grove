@@ -18,34 +18,6 @@
       _isEnabled = org._isEnabled;
     }
 
-    public Snapshot CreateSnapshot()
-    {
-      Log.Debug("Create snapshot.");
-
-      if (!_isEnabled)
-        throw new InvalidOperationException("Tracker is disabled, did you forget to enable it?");
-
-      return new Snapshot(_changeHistory.Count);
-    }
-
-    public void Disable()
-    {
-      if (_changeHistory.Count != 0)
-        throw new InvalidOperationException(
-          String.Format(
-            "Disabling a change tracker with history ({0}) is not allowed. This is a common indication of a leaked copy. The most common cause of this is incorect context use in card definitions (e.g C is used insted of c).",
-            _changeHistory.Count));
-
-      _isEnabled = false;
-      _changeHistory.Clear();      
-    }
-
-    public ChangeTracker Enable()
-    {
-      _isEnabled = true;      
-      return this;
-    }
-
     public void NotifyCollectionWillBeCleared<T>(ITrackableCollection<T> trackableCollection)
     {
       AssertNotLocked();
@@ -67,15 +39,6 @@
             trackableCollection.AddWithoutTracking(element);
           }
         });
-    }
-
-    private void AssertNotLocked()
-    {
-      if (_isLocked)
-      {
-        throw new InvalidOperationException(
-          "Trying to modify a locked change tracker. This is a common indication of a leaked copy. The most common cause of this is incorect context use in card definitions (e.g C is used insted of c).");
-      }
     }
 
     public void NotifyValueAdded<T>(ITrackableCollection<T> trackableCollection, T added)
@@ -118,6 +81,43 @@
         return;
 
       _changeHistory.Push(() => trackableCollection.InsertWithoutTracking(index, removed));
+    }
+
+    public Snapshot CreateSnapshot()
+    {
+      Log.Debug("Create snapshot.");
+
+      if (!_isEnabled)
+        throw new InvalidOperationException("Tracker is disabled, did you forget to enable it?");
+
+      return new Snapshot(_changeHistory.Count);
+    }
+
+    public void Disable()
+    {
+      if (_changeHistory.Count != 0)
+        throw new InvalidOperationException(
+          String.Format(
+            "Disabling a change tracker with history ({0}) is not allowed. This is a common indication of a leaked copy. The most common cause of this is incorect context use in card definitions (e.g C is used insted of c).",
+            _changeHistory.Count));
+
+      _isEnabled = false;
+      _changeHistory.Clear();
+    }
+
+    public ChangeTracker Enable()
+    {
+      _isEnabled = true;
+      return this;
+    }
+
+    private void AssertNotLocked()
+    {
+      if (_isLocked)
+      {
+        throw new InvalidOperationException(
+          "Trying to modify a locked change tracker. This is a common indication of a leaked copy. The most common cause of this is incorect context use in card definitions (e.g C is used insted of c).");
+      }
     }
 
     public void Restore(Snapshot snapshot)

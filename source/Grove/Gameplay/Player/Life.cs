@@ -1,7 +1,7 @@
 ﻿namespace Grove.Gameplay.Player
 {
-  using Grove.Ai;
-  using Grove.Infrastructure;
+  using Ai;
+  using Infrastructure;
 
   [Copyable]
   public class Life
@@ -19,12 +19,6 @@
 
     public int Score { get { return _score.Value; } private set { _score.Value = value; } }
 
-    public void Initialize(ChangeTracker changeTracker)
-    {
-      _score.Initialize(changeTracker);
-      _value.Initialize(changeTracker);
-    }
-
     public int Value
     {
       get { return _value.Value; }
@@ -36,6 +30,12 @@
         _value.Value = value;
         Score = ScoreCalculator.CalculateLifeScore(value);
       }
+    }
+
+    public void Initialize(ChangeTracker changeTracker)
+    {
+      _score.Initialize(changeTracker);
+      _value.Initialize(changeTracker);
     }
   }
 }

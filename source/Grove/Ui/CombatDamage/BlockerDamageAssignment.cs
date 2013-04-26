@@ -1,16 +1,15 @@
 ﻿namespace Grove.Ui.CombatDamage
 {
-  using Core;
   using Gameplay.Combat;
 
   public class BlockerDamageAssignment
   {
-    public Blocker Blocker { get; set; }
-
     public BlockerDamageAssignment(Blocker blocker)
     {
       Blocker = blocker;
     }
+
+    public Blocker Blocker { get; set; }
 
 
     public virtual int AssignedDamage { get; set; }

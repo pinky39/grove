@@ -1,6 +1,5 @@
 ﻿namespace Grove.Ai.CostRules
 {
-  using Core;
   using Gameplay.Card;
   using Gameplay.Player;
   using Gameplay.Targeting;

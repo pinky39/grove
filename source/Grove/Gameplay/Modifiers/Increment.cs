@@ -1,7 +1,6 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
-  using Core;
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   public class Increment : PropertyModifier<int?>
   {

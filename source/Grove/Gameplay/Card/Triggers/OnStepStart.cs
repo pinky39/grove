@@ -1,6 +1,6 @@
 ﻿namespace Grove.Gameplay.Card.Triggers
 {
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Messages;
   using States;
 

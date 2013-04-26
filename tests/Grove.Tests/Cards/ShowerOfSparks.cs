@@ -14,13 +14,13 @@
         var bird = C("Birds of Paradise");
 
         Hand(P1, "Shower of Sparks");
-        Battlefield(P1, "Mountain");        
+        Battlefield(P1, "Mountain");
         Battlefield(P2, bird);
 
         RunGame(1);
 
         Equal(Zone.Graveyard, C(bird).Zone);
-        Equal(19, P2.Life);        
+        Equal(19, P2.Life);
       }
     }
   }

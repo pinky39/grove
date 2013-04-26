@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Core;
   using Gameplay;
   using Gameplay.Card;
   using Gameplay.Targeting;
@@ -13,7 +12,7 @@
     private readonly int _amount;
     private readonly Game _game;
     private readonly List<TargetWithValue> _targets = new List<TargetWithValue>();
-    private int _toBeAssigned;    
+    private int _toBeAssigned;
 
     public ViewModel(IEnumerable<ITarget> targets, int amount, Game game)
     {
@@ -37,7 +36,7 @@
     {
       if (_toBeAssigned == 0)
         return;
-      
+
       target.Damage++;
       _toBeAssigned--;
     }

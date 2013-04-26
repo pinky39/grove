@@ -8,8 +8,8 @@
     {
       foreach (var target in ValidEffectTargets)
       {
-        target.Card().Tap();  
-      }            
+        target.Card().Tap();
+      }
     }
   }
 }

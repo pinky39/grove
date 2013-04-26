@@ -4,11 +4,11 @@
 
   public class AssignedCombatDamageWasDealt
   {
-    public Step Step { get; private set; }
-
     public AssignedCombatDamageWasDealt(Step step)
     {
       Step = step;
     }
+
+    public Step Step { get; private set; }
   }
 }

@@ -1,7 +1,7 @@
 ﻿namespace Grove.Gameplay.Damage
 {
   using Card;
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   [Copyable]
   public class Damage : IHashable

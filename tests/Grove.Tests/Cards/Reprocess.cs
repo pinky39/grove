@@ -11,7 +11,8 @@
       public void DrawCards()
       {
         Hand(P1, "Reprocess");
-        Battlefield(P1, "Forest", "Forest", "Swamp", "Swamp", "Swamp", "Swamp", "Swamp", "Swamp", "Swamp", "Llanowar Elves", "Grizzly Bears", "Fecundity");
+        Battlefield(P1, "Forest", "Forest", "Swamp", "Swamp", "Swamp", "Swamp", "Swamp", "Swamp", "Swamp",
+          "Llanowar Elves", "Grizzly Bears", "Fecundity");
 
         RunGame(1);
 

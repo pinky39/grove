@@ -14,8 +14,6 @@
   using Castle.MicroKernel.Resolvers.SpecializedResolvers;
   using Castle.MicroKernel.SubSystems.Configuration;
   using Castle.Windsor;
-  using Core;
-  using Core.Decisions;
   using Gameplay;
   using Gameplay.Card.Factory;
   using Gameplay.Decisions;
@@ -27,6 +25,12 @@
 
   public class IoC
   {
+    public enum Configuration
+    {
+      Ui,
+      Test
+    }
+
     private readonly Configuration _configuration;
 
     private IWindsorContainer _container;
@@ -43,7 +47,7 @@
         return _container
           ?? (_container = CreateContainer());
       }
-    }   
+    }
 
     public T Resolve<T>()
     {
@@ -77,12 +81,6 @@
 
     protected virtual void Install(IWindsorContainer container) {}
 
-    public enum Configuration
-    {
-      Ui,
-      Test
-    }
-
     private class Registration : IWindsorInstaller
     {
       private readonly Configuration _configuration;
@@ -111,7 +109,7 @@
 
           container.Register(Component(typeof (Match), lifestyle: LifestyleType.Singleton));
           container.Register(Component(typeof (CombatMarkers), lifestyle: LifestyleType.Singleton));
-          container.Register(Component(typeof (CardSelector)));          
+          container.Register(Component(typeof (CardSelector)));
         }
 
         RegisterCardsSources(container);
@@ -121,7 +119,6 @@
         container.Register(Component(typeof (CardDatabase), lifestyle: LifestyleType.Singleton));
         container.Register(Component(typeof (DeckBuilder), lifestyle: LifestyleType.Singleton));
         container.Register(Component(typeof (DeckEvaluator), lifestyle: LifestyleType.Singleton));
-
       }
 
       public static ComponentRegistration<object> Component(Type service, Type implementation = null,

@@ -1,6 +1,5 @@
 ﻿namespace Grove.Tests.Cards
 {
-  using Core;
   using Gameplay.States;
   using Infrastructure;
   using Xunit;
@@ -14,13 +13,13 @@
       {
         var shock = C("Shock");
         var bear = C("Grizzly Bears");
-        
-        Battlefield(P2, "Claws of Gix", bear, "Mountain");        
+
+        Battlefield(P2, "Claws of Gix", bear, "Mountain");
         Hand(P1, shock);
 
         Exec(
           At(Step.FirstMain)
-            .Cast(shock, target: bear)          
+            .Cast(shock, target: bear)
             .Verify(() => Equal(21, P2.Life))
           );
       }
@@ -29,21 +28,18 @@
       public void SacLandWhenLifeIsLow()
       {
         var shock = C("Shock");
-        
+
         Hand(P1, shock);
         Battlefield(P1, "Mountain");
-        
-        Battlefield(P2, "Claws of Gix", "Mountain");        
+
+        Battlefield(P2, "Claws of Gix", "Mountain");
         P2.Life = 2;
-        
+
         Exec(
           At(Step.FirstMain)
             .Cast(shock, target: P2)
-            .Verify(() =>
-              {
-                Equal(1, P2.Life);
-              })
-        );
+            .Verify(() => { Equal(1, P2.Life); })
+          );
       }
     }
   }

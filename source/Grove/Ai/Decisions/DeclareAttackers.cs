@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Core;
   using Gameplay;
   using Gameplay.Card;
   using Gameplay.Decisions.Results;
@@ -10,8 +9,8 @@
 
   public class DeclareAttackers : Gameplay.Decisions.DeclareAttackers, ISearchNode, IDecisionExecution
   {
-    private List<List<Card>> _declarations;
     private readonly DecisionExecutor _executor;
+    private List<List<Card>> _declarations;
 
     public DeclareAttackers()
     {
@@ -55,7 +54,7 @@
     }
 
     protected override void ExecuteQuery()
-    {            
+    {
       Ai.SetBestResult(this);
     }
 

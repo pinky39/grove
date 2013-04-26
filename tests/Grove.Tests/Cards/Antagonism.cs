@@ -1,6 +1,5 @@
 ﻿namespace Grove.Tests.Cards
 {
-  using Core;
   using Gameplay.States;
   using Infrastructure;
   using Xunit;
@@ -12,13 +11,13 @@
       [Fact]
       public void DealsDamageToBoth()
       {
-        var antagonism = C("Antagonism");        
-        
+        var antagonism = C("Antagonism");
+
         Hand(P1, antagonism);
 
         Exec(
           At(Step.FirstMain)
-            .Cast(antagonism),                      
+            .Cast(antagonism),
           At(Step.FirstMain, turn: 4)
             .Verify(() =>
               {
@@ -27,13 +26,13 @@
               })
           );
       }
-      
+
       [Fact]
       public void DealsNoDamageToYouAfterShock()
       {
         var antagonism = C("Antagonism");
         var shock = C("Shock");
-        
+
         Hand(P1, antagonism, shock);
 
         Exec(

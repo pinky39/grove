@@ -1,7 +1,6 @@
 ﻿namespace Grove.Utils
 {
   using System;
-  using Core;
   using Tournament;
   using Ui;
 

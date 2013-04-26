@@ -3,7 +3,6 @@
   using System.Collections.Generic;
   using Ai.TargetingRules;
   using Ai.TimingRules;
-  using Core;
   using Gameplay.Card.Factory;
   using Gameplay.Card.Triggers;
   using Gameplay.Effects;
@@ -36,8 +35,10 @@
               useAttachedToAsTriggerSource: true,
               playerFilter: delegate { return true; }));
 
-            p.Effect = () => new PlayersSacrificeLands(
+            p.Effect = () => new PlayersSacrificePermanents(
               count: 1,
+              validator: c=> c.Is().Land,
+              text: "Select a land to sacrifice.",
               playerFilter: (e, player) => e.TriggerMessage<DamageHasBeenDealt>().Receiver == player);
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;

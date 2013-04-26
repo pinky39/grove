@@ -15,7 +15,7 @@
     {
       return elt;
     }
-    
+
     protected T[] L<T>(params T[] elt)
     {
       return elt;

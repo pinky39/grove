@@ -1,6 +1,5 @@
 ﻿namespace Grove.Gameplay.Player
 {
-  using Core;
   using Infrastructure;
   using Modifiers;
 

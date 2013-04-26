@@ -2,11 +2,10 @@
 {
   using System;
   using System.Collections.Generic;
-  using Core;
   using Gameplay;
   using Gameplay.Player;
   using Gameplay.Targeting;
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   public class SelectPlayer : TargetingRule
   {

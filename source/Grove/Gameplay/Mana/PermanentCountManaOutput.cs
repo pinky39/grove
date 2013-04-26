@@ -3,7 +3,7 @@
   using System;
   using System.Linq;
   using Card;
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Messages;
   using Player;
 
@@ -70,7 +70,7 @@
 
       if (count == 0)
         return Mana.Zero;
-      
+
       return new SingleColorManaAmount(_color, count);
     }
   }

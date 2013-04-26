@@ -77,6 +77,6 @@
             p.ProcessDecisionResults = this;
             p.ChooseDecisionResults = this;
           });
-    }    
+    }
   }
 }

@@ -5,14 +5,13 @@
   using PublisherTest;
   using Xunit;
 
-
   public class PublisherFacts
   {
     [Fact]
     public void HandleEvent()
     {
       var publisher = new Publisher(Assembly.GetExecutingAssembly(), typeof (Person).Namespace);
-      publisher.Initialize( new ChangeTracker());
+      publisher.Initialize(new ChangeTracker());
 
       var aunt1 = new Aunt();
       var aunt2 = new Aunt();
@@ -37,20 +36,18 @@
 
   namespace PublisherTest
   {
-    public class Newspaper
-    {     
-    }
+    using Grove.Infrastructure;
 
-    public class Ticket
-    {      
-    }
-    
+    public class Newspaper {}
+
+    public class Ticket {}
+
     public class Person
     {
       public int NewspaperCount;
       public int TicketCount;
     }
-    
+
     public class Aunt : Person, IReceive<Newspaper>, IReceive<Ticket>
     {
       public void Receive(Newspaper message)
@@ -62,7 +59,7 @@
       {
         TicketCount++;
       }
-    }  
+    }
 
     public class Uncle : Person, IReceive<Newspaper>
     {

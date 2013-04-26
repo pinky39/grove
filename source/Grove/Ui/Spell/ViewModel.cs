@@ -3,7 +3,6 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Core;
   using Gameplay.Card;
   using Gameplay.Card.Abilities;
   using Gameplay.Decisions.Results;
@@ -16,9 +15,7 @@
   {
     private Action _select = delegate { };
 
-    public ViewModel(Card card) : base(card)
-    {      
-    }
+    public ViewModel(Card card) : base(card) {}
 
     public virtual bool IsPlayable { get; protected set; }
     public virtual bool IsSelected { get; protected set; }
@@ -204,7 +201,7 @@
     private SelectTarget.ViewModel ShowSelectorDialog(TargetValidator validator, int? x)
     {
       var selectTargetParameters = new SelectTargetParameters
-        {          
+        {
           Validator = validator,
           CanCancel = true,
           Instructions = "(Press Spacebar when done, press Esc to cancel.)",

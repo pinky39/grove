@@ -8,29 +8,29 @@
     private readonly Dictionary<int, InnerResult> _results = new Dictionary<int, InnerResult>();
 
     public bool CreateOrGetExistingResult(int gameState, bool isMax, int stepCount, out InnerResult searchResult)
-    {            
+    {
       lock (_access)
       {
         if (_results.TryGetValue(gameState, out searchResult))
         {
           return false;
         }
-        
+
         searchResult = new InnerResult(
-          id: gameState, 
-          isMax: isMax, 
+          id: gameState,
+          isMax: isMax,
           stepCount: stepCount);
-        
+
         _results.Add(gameState, searchResult);
       }
 
       return true;
     }
-     
+
 
     public ISearchResult GetResult(int gameState)
     {
-      InnerResult result;      
+      InnerResult result;
       _results.TryGetValue(gameState, out result);
       return result;
     }

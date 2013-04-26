@@ -4,7 +4,7 @@
   using System.Linq;
   using Card;
   using Card.Characteristics;
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Player;
 
   public class Battlefield : UnorderedZone, IBattlefieldQuery

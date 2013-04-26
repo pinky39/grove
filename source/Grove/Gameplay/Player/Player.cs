@@ -7,7 +7,7 @@
   using Card.Abilities;
   using Common;
   using Damage;
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Mana;
   using Messages;
   using Modifiers;

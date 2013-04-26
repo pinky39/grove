@@ -17,7 +17,7 @@
 
         RunGame(1);
 
-        Equal(2, P1.Battlefield.Count(x => x.Is("mountain") && x.IsTapped));        
+        Equal(2, P1.Battlefield.Count(x => x.Is("mountain") && x.IsTapped));
       }
     }
   }

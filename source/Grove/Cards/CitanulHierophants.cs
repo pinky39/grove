@@ -1,7 +1,6 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Core;
   using Gameplay.Card.Abilities;
   using Gameplay.Card.Costs;
   using Gameplay.Card.Factory;
@@ -33,7 +32,7 @@
                     Priority = ManaSourcePriorities.Creature,
                     TapRestriction = true
                   };
-                
+
                 mp.ManaAmount(Mana.Green);
 
                 return new AddActivatedAbility(new ManaAbility(mp));

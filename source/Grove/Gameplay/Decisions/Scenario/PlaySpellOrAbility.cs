@@ -1,14 +1,13 @@
-﻿namespace Grove.Core.Decisions.Scenario
+﻿namespace Grove.Gameplay.Decisions.Scenario
 {
   using System;
-  using Gameplay;
-  using Gameplay.Card;
-  using Gameplay.Decisions.Results;
+  using Card;
+  using Results;
 
-  public class PlaySpellOrAbility : Gameplay.Decisions.PlaySpellOrAbility, IScenarioDecision
+  public class PlaySpellOrAbility : Decisions.PlaySpellOrAbility, IScenarioDecision
   {
     public Func<Card, Game, bool> Condition = delegate { return true; };
-    
+
     public static PlaySpellOrAbility Pass
     {
       get

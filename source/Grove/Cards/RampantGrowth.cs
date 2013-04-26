@@ -1,8 +1,6 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
-  using Core;
   using Gameplay.Card.Factory;
   using Gameplay.Effects;
 
@@ -20,7 +18,11 @@
         .Cast(p =>
           {
             p.Effect = () => new SearchLibraryPutToZone(
-              c => { c.PutToBattlefield(); c.Tap(); },
+              c =>
+                {
+                  c.PutToBattlefield();
+                  c.Tap();
+                },
               minCount: 0,
               maxCount: 1,
               validator: (e, c) => c.Is().BasicLand,

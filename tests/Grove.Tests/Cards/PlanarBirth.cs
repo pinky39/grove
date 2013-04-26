@@ -12,7 +12,7 @@
       public void ReturnLands()
       {
         Hand(P1, "Planar Birth");
-        
+
         Battlefield(P1, "Plains", "Forest");
         Battlefield(P2, "Swamp");
         Graveyard(P1, "Forest", "Forest", "Forest");

@@ -1,7 +1,6 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Core;
   using Gameplay.Card.Abilities;
   using Gameplay.Card.Factory;
   using Gameplay.Mana;
@@ -22,7 +21,7 @@
         .ManaAbility(p =>
           {
             p.Text = "{T}: Add one mana of any color to your mana pool.";
-            p.ManaAmount(Mana.Any);            
+            p.ManaAmount(Mana.Any);
           });
     }
   }

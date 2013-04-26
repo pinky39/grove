@@ -1,7 +1,6 @@
 ﻿namespace Grove.Ai.TimingRules
 {
   using System.Linq;
-  using Core;
   using Gameplay.States;
 
   public class ControllerNeedsAdditionalMana : TimingRule
@@ -29,7 +28,7 @@
 
           if (_amount == null)
             return true;
-            
+
           return x.ConvertedCost <= availableMana + _amount;
         });
     }

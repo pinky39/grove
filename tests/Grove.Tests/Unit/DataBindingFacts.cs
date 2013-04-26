@@ -28,7 +28,7 @@
       deckOfCards.Add(expected);
 
       Assert.Equal(expected, actual);
-      Assert.Equal(new[]{"Count", "IsEmpty"},
+      Assert.Equal(new[] {"Count", "IsEmpty"},
         propertiesThatChaned.OrderBy(x => x).ToArray());
     }
 
@@ -74,10 +74,11 @@
       Card actual = null;
       var index = 0;
 
-      notify.CollectionChanged += (s, a) => {
-        actual = (Card) a.OldItems[0];
-        index = a.OldStartingIndex;
-      };
+      notify.CollectionChanged += (s, a) =>
+        {
+          actual = (Card) a.OldItems[0];
+          index = a.OldStartingIndex;
+        };
 
       deckOfCards.Remove(expected);
 

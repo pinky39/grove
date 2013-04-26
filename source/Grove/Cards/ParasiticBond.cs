@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Ai.TargetingRules;
-  using Core;
   using Gameplay.Card.Factory;
   using Gameplay.Card.Triggers;
   using Gameplay.Effects;
@@ -37,8 +36,8 @@
               });
 
             p.Effect = () => new DealDamageToPlayer(
-              amount :2,
-              player: P((e,g) => g.Players.Active));            
+              amount: 2,
+              player: P((e, g) => g.Players.Active));
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });

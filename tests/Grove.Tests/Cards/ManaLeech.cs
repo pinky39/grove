@@ -2,7 +2,7 @@
 {
   using Infrastructure;
   using Xunit;
-    
+
   public class ManaLeech
   {
     public class Ai : AiScenario
@@ -11,7 +11,7 @@
       public void TapRavine()
       {
         var ravine = C("Raging Ravine");
-        Battlefield(P1, "Mana Leech");        
+        Battlefield(P1, "Mana Leech");
         Battlefield(P2, ravine, "Forest", "Forest", "Forest", "Mountain");
 
         RunGame(2);

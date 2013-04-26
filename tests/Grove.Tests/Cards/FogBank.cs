@@ -1,6 +1,5 @@
 ﻿namespace Grove.Tests.Cards
 {
-  using Core;
   using Gameplay.States;
   using Gameplay.Zones;
   using Infrastructure;
@@ -15,7 +14,7 @@
       {
         var dragon = C("Shivan Dragon");
         var bank = C("Fog Bank");
-        
+
         Battlefield(P1, dragon);
         Battlefield(P2, bank);
 
@@ -28,8 +27,8 @@
                 Equal(20, P2.Life);
                 Equal(Zone.Battlefield, C(bank).Zone);
               })
-        );
-      }  
+          );
+      }
     }
   }
 }

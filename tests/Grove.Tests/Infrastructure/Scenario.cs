@@ -5,12 +5,12 @@
   using System.Linq;
   using System.Reflection;
   using Ai;
-  using Core.Decisions.Scenario;
   using Gameplay;
   using Gameplay.Card;
   using Gameplay.Card.Factory;
   using Gameplay.Combat;
   using Gameplay.Decisions;
+  using Gameplay.Decisions.Scenario;
   using Gameplay.Player;
   using Gameplay.States;
   using Gameplay.Zones;
@@ -37,9 +37,8 @@
 
     protected Game Game { get; private set; }
     protected Player P1 { get { return Game.Players.Player1; } }
-    protected Player P2 { get { return Game.Players.Player2; } }
-    protected GameAi Ai { get { return Game.Ai; } }
-    protected Combat Combat { get { return Game.Combat; } }
+    protected Player P2 { get { return Game.Players.Player2; } }    
+    protected CombatManager Combat { get { return Game.Combat; } }
 
     public virtual void Dispose() {}
 

@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Ai.CostRules;
-  using Core;
   using Gameplay.Card.Costs;
   using Gameplay.Card.Factory;
   using Gameplay.Effects;
@@ -23,7 +22,7 @@
           {
             p.Text = "{X}: Chimeric Staff becomes an X/X Construct artifact creature until end of turn.";
             p.Cost = new PayMana(Mana.Zero, ManaUsage.Abilities, hasX: true);
-            
+
             p.Effect = () => new ApplyModifiersToSelf(() =>
               new ChangeToCreature(
                 power: Value.PlusX, toughness: Value.PlusX,

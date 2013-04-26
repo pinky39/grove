@@ -13,7 +13,7 @@
     }
 
     public static void Property<T, TReturn>(this BindingInformation<T> bindingInformation,
-                                            Expression<Func<T, TReturn>> expression)
+      Expression<Func<T, TReturn>> expression)
     {
       var targetPropertyName = ((MemberExpression) expression.Body).Member.Name;
 

@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Core;
   using Gameplay.Card;
   using Gameplay.Card.Abilities;
   using Gameplay.Targeting;
@@ -61,9 +60,9 @@
 
     public class TargetsCombination
     {
+      public int Repeat = 1;
       public Targets Targets;
       public int? X;
-      public int Repeat = 1;
     }
   }
 }

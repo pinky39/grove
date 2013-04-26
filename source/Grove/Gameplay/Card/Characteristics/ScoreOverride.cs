@@ -2,10 +2,10 @@
 {
   public class ScoreOverride
   {
+    public int? Battlefield;
+    public int? Exile;
+    public int? Graveyard;
     public int? Hand;
     public int? Library;
-    public int? Graveyard;
-    public int? Exile;
-    public int? Battlefield;
   }
 }

@@ -2,14 +2,13 @@
 {
   using System;
   using System.Threading;
-  using Core;
   using Gameplay;
   using Gameplay.Common;
   using Gameplay.Player;
   using Infrastructure;
 
   public class ViewModel : GameObject, IDisposable, IReceive<UiInteractionChanged>
-  {    
+  {
     private readonly Timer _timer;
 
     public ViewModel(Player player, Game game)
@@ -31,10 +30,16 @@
     public virtual int GraveyardCount { get; protected set; }
     public virtual int Life { get; protected set; }
     public virtual bool IsActive { get; protected set; }
+    public virtual bool CanChangeSelection { get; protected set; }
 
     public void Dispose()
     {
       _timer.Dispose();
+    }
+
+    public void Receive(UiInteractionChanged message)
+    {
+      CanChangeSelection = message.State == InteractionState.SelectTarget;
     }
 
     private void Update()
@@ -51,23 +56,16 @@
       if (condition()) update();
     }
 
-    public interface IFactory
-    {
-      ViewModel Create(Player player);
-      void Release(ViewModel viewModel);
-    }
-
-    public virtual bool CanChangeSelection { get; protected set; }
-
-    public void Receive(UiInteractionChanged message)
-    {
-      CanChangeSelection = message.State == InteractionState.SelectTarget;
-    }
-
     public void ChangeSelection()
     {
       Publish(
         new SelectionChanged {Selection = Player});
+    }
+
+    public interface IFactory
+    {
+      ViewModel Create(Player player);
+      void Release(ViewModel viewModel);
     }
   }
 }

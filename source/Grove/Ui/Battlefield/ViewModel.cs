@@ -1,7 +1,6 @@
 ﻿namespace Grove.Ui.Battlefield
 {
   using System.Linq;
-  using Core;
   using Gameplay;
   using Gameplay.Card;
   using Gameplay.Messages;

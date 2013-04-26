@@ -1,7 +1,6 @@
 ﻿namespace Grove.Ui.QuitGame
 {
   using System.Windows;
-  using Core;
   using Gameplay;
   using Infrastructure;
   using Shell;

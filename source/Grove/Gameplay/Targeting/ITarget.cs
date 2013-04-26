@@ -4,10 +4,10 @@
   using Card.Characteristics;
   using Common;
   using Damage;
+  using Decisions.Scenario;
   using Effects;
   using Gameplay.Zones;
-  using Grove.Core.Decisions.Scenario;
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Modifiers;
   using Player;
 

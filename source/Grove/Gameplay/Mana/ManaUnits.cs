@@ -3,7 +3,7 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   [Copyable]
   public class ManaUnits
@@ -34,13 +34,13 @@
         IManaSource source;
         if (restrictions.TryGetValue(unit.TapRestriction, out source))
         {
-          if (source != unit.Source)          
+          if (source != unit.Source)
             continue;
 
           restricted.Add(unit);
           continue;
         }
-        
+
         restrictions.Add(unit.TapRestriction, unit.Source);
         restricted.Add(unit);
       }

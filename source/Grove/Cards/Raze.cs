@@ -3,7 +3,6 @@
   using System.Collections.Generic;
   using Ai.TargetingRules;
   using Ai.TimingRules;
-  using Core;
   using Gameplay.Card.Costs;
   using Gameplay.Card.Factory;
   using Gameplay.Effects;
@@ -33,7 +32,7 @@
                 trg.Is.Card(c => c.Is().Land, ControlledBy.SpellOwner).On.Battlefield();
                 trg.Message = "Select a land to sacrifice.";
               });
-            
+
             p.TargetSelector.AddEffect(trg =>
               {
                 trg.Is.Card(c => c.Is().Land).On.Battlefield();

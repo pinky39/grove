@@ -18,7 +18,7 @@
       if (couldPay < 0)
         couldPay = 0;
 
-      var wouldPay = Math.Min(couldPay, maxPay);      
+      var wouldPay = Math.Min(couldPay, maxPay);
 
       return new ChosenOptions(wouldPay);
     }
@@ -35,10 +35,10 @@
           SourceCard = Source.OwningCard,
           X = X
         };
-      
+
       var addCounters = new AddCounters(() => new ChargeCounter(), lifeToPay)
-        .Initialize(p, Game);      
-      
+        .Initialize(p, Game);
+
       Source.OwningCard.AddModifier(addCounters);
     }
 
@@ -49,7 +49,7 @@
 
     public override IEnumerable<object> GetChoices()
     {
-      yield return new RangeEffectChoice(0, 10);            
+      yield return new RangeEffectChoice(0, 10);
     }
   }
 }

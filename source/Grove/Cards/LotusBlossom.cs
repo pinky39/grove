@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Ai.TimingRules;
-  using Core;
   using Gameplay.Card.Costs;
   using Gameplay.Card.Counters;
   using Gameplay.Card.Factory;
@@ -39,10 +38,10 @@
               new Tap(),
               new Sacrifice());
 
-            p.Effect = () => new AddManaToPool(P(e => 
+            p.Effect = () => new AddManaToPool(P(e =>
               Mana.Colored(ManaColor.Any, e.Source.OwningCard.Counters.GetValueOrDefault())));
 
-            p.TimingRule(new ControllerNeedsAdditionalMana());              
+            p.TimingRule(new ControllerNeedsAdditionalMana());
           });
     }
   }

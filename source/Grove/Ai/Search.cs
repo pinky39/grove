@@ -14,23 +14,25 @@
     private readonly Game _game;
     private readonly SearchParameters _p;
     private readonly InnerResult _root;
-    private readonly SearchResults _searchResults = new SearchResults();
+    private readonly SearchResults _searchResults;
     private readonly Dictionary<object, SearchWorker> _workers = new Dictionary<object, SearchWorker>();
     private readonly object _workersLock = new object();
     private int _numWorkersCreated;
     private int _subtreesPrunned;
 
-    public Search(SearchParameters p, Player searchingPlayer, Game game)
+    public Search(SearchParameters p, Player searchingPlayer, SearchResults searchResults, Game game)
     {
       _p = p;
-      _game = game;      
+      _searchResults = searchResults;
+      _game = game;
       _root = new InnerResult(_game.CalculateHash(), searchingPlayer.IsMax, 0);
+      _game.Players.Searching = searchingPlayer;
     }
 
     public int TargetCount { get { return _p.TargetCount; } }
 
     public int Result { get { return _root.BestMove.GetValueOrDefault(); } }
-    public SearchResults ResultsCache { get { return _searchResults; } }
+
     public int SearchUntilDepth { get { return _game.Turn.StepCount + _p.SearchDepth; } }
 
     public SearchStatistics GetSearchStatistics()
@@ -100,7 +102,7 @@
 
     public void EvaluateNode(ISearchNode searchNode)
     {
-      var worker = GetWorker(searchNode.Game);      
+      var worker = GetWorker(searchNode.Game);
       worker.Evaluate(searchNode);
     }
 
@@ -120,10 +122,10 @@
     private bool IsItFeasibleToCreateNewWorker(ISearchNode node, int moveIndex)
     {
 #if DEBUG
-      //return SingleThreadedStrategy(node, moveIndex);
-      return MultiThreadedStrategy2(node, moveIndex);
+      return SingleThreadedStrategy(node, moveIndex);
+      //return MultiThreadedStrategy1(node, moveIndex);
 #else
-      return MultiThreadedStrategy2(node, moveIndex);
+      return MultiThreadedStrategy1(node, moveIndex);
 #endif
     }
 
@@ -136,7 +138,7 @@
     {
       const int maxWorkers = 4;
       var depth = GetCurrentDepthInStateTransitions(node.Game.Turn.StateCount);
-      return (_workers.Count < maxWorkers && depth == 0 && moveIndex > 0);
+      return (_workers.Count < maxWorkers && depth < 10 && node.ResultCount > 3 && (depth%4 == 0));
     }
 
     private bool MultiThreadedStrategy2(ISearchNode node, int moveIndex)

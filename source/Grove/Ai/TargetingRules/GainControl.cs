@@ -1,6 +1,4 @@
 ﻿namespace Grove.Ai.TargetingRules
 {
-  public class GainControl : Destroy
-  {    
-  }
+  public class GainControl : Destroy {}
 }

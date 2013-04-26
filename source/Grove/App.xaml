@@ -1,16 +1,13 @@
-﻿<Application xmlns = "http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Grove"
-             x:Class = "Grove.App" >
+﻿<Application xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:Grove" x:Class="Grove.App">
 	<Application.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
 				<ResourceDictionary>
-					<local:Bootstrapper x:Key = "bootstrapper" />
-				</ResourceDictionary>				
-                <ResourceDictionary Source = "Ui/Skin.xaml" />
-				<ResourceDictionary Source = "Ui/Card.xaml" />
-				<ResourceDictionary Source = "Ui/Ability.xaml" />
+					<local:Bootstrapper x:Key="bootstrapper" />
+				</ResourceDictionary>
+				<ResourceDictionary Source="Ui/Skin.xaml" />
+				<ResourceDictionary Source="Ui/Card.xaml" />
+				<ResourceDictionary Source="Ui/Ability.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Application.Resources>

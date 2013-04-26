@@ -10,7 +10,6 @@
       [Fact]
       public void Deal2Damage()
       {
-        
         Hand(P1, "Shivan Dragon");
         Battlefield(P1, "Island", "Island", "Mountain", "Mountain", "Mountain", "Mountain");
         Battlefield(P2, "Scald");

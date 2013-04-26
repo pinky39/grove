@@ -1,8 +1,8 @@
 ﻿namespace Grove.Tests.Cards
 {
+  using System.Linq;
   using Infrastructure;
   using Xunit;
-  using System.Linq;
 
   public class Rewind
   {
@@ -28,7 +28,8 @@
       {
         Hand(P2, "Rewind");
         Hand(P1, "Verdant Force", "Mana Leak");
-        Battlefield(P1, "Forest", "Forest", "Forest", "Forest", "Forest", "Forest", "Forest", "Forest", "Island", "Island");
+        Battlefield(P1, "Forest", "Forest", "Forest", "Forest", "Forest", "Forest", "Forest", "Forest", "Island",
+          "Island");
         Battlefield(P2, "Island", "Island", "Island", "Island");
 
         RunGame(1);

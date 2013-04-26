@@ -1,6 +1,5 @@
 ﻿namespace Grove.Tests.Cards
 {
-  using Core;
   using Gameplay.States;
   using Gameplay.Zones;
   using Infrastructure;
@@ -61,7 +60,7 @@
       public void PreventSpellDamageToPlayerOnce()
       {
         var bolt = C("Lightning Bolt");
-        var shock = C("Shock");        
+        var shock = C("Shock");
 
         Hand(P1, bolt, shock);
         Battlefield(P2, "Sanctum Guardian");
@@ -71,10 +70,9 @@
         Exec(
           At(Step.FirstMain)
             .Cast(bolt, P2)
-            .Cast(shock, P2),            
+            .Cast(shock, P2),
           At(Step.SecondMain)
-           .Verify(()=> Equal(1, P2.Life)));
-
+            .Verify(() => Equal(1, P2.Life)));
       }
 
       [Fact]

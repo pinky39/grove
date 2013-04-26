@@ -4,7 +4,6 @@
   using System.Linq;
   using Ai.TargetingRules;
   using Ai.TimingRules;
-  using Core;
   using Gameplay.Card.Factory;
   using Gameplay.Effects;
 
@@ -28,7 +27,7 @@
             cp.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
 
             cp.TimingRule(new MainSteps());
-            
+
             cp.TargetingRule(new DealDamage(p =>
               p.Controller.Battlefield.Count(x => x.Is("swamp"))));
           });

@@ -1,14 +1,12 @@
-﻿namespace Grove.Core.Decisions.Scenario
+﻿namespace Grove.Gameplay.Decisions.Scenario
 {
-  public class ChooseToUntap : Gameplay.Decisions.ChooseToUntap, IScenarioDecision
+  public class ChooseToUntap : Decisions.ChooseToUntap, IScenarioDecision
   {
-    protected override void ExecuteQuery()
-    {      
-    }
-
     public bool CanExecute()
     {
       return true;
     }
+
+    protected override void ExecuteQuery() {}
   }
 }

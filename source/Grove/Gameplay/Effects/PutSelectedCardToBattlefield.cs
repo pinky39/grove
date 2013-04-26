@@ -8,7 +8,8 @@
   using Decisions.Results;
   using Zones;
 
-  public class PutSelectedCardToBattlefield : Effect, IProcessDecisionResults<ChosenCards>, IChooseDecisionResults<List<Card>, ChosenCards>
+  public class PutSelectedCardToBattlefield : Effect, IProcessDecisionResults<ChosenCards>,
+    IChooseDecisionResults<List<Card>, ChosenCards>
   {
     private readonly string _text;
     private readonly Func<Card, bool> _validator;
@@ -21,6 +22,22 @@
       _text = text;
       _zone = zone;
       _validator = validator;
+    }
+
+    public ChosenCards ChooseResult(List<Card> candidates)
+    {
+      return candidates
+        .OrderBy(x => -x.Score)
+        .Take(1)
+        .ToList();
+    }
+
+    public void ProcessResults(ChosenCards results)
+    {
+      foreach (var card in results)
+      {
+        card.PutToBattlefield();
+      }
     }
 
     protected override void ResolveEffect()
@@ -39,21 +56,5 @@
           }
         );
     }
-
-    public void ProcessResults(ChosenCards results)
-    {
-      foreach (var card in results)
-      {
-        card.PutToBattlefield();
-      }
-    }
-
-    public ChosenCards ChooseResult(List<Card> candidates)
-    {
-      return candidates
-        .OrderBy(x => -x.Score)
-        .Take(1)
-        .ToList();
-    }    
   }
 }

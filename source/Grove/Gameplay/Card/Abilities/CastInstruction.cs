@@ -2,14 +2,14 @@
 {
   using System.Collections.Generic;
   using System.Linq;
+  using Ai;
+  using Ai.TargetingRules;
   using CastingRules;
   using Characteristics;
   using Common;
   using Costs;
   using Effects;
-  using Grove.Ai;
-  using Grove.Ai.TargetingRules;
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Mana;
   using Messages;
   using Targeting;
@@ -36,7 +36,7 @@
       _effectFactory = p.Effect;
       _description = p.Text;
       _distributeAmount = p.DistributeAmount;
-      _rules = p.GetMachineRules();      
+      _rules = p.GetMachineRules();
     }
 
     public bool HasXInCost { get { return _cost.HasX; } }
@@ -93,10 +93,10 @@
     }
 
     public bool CanCast(out ActivationPrerequisites prerequisites)
-    {      
+    {
       prerequisites = null;
 
-      if (_castingRule.CanCast() == false) 
+      if (_castingRule.CanCast() == false)
       {
         return false;
       }
@@ -156,8 +156,8 @@
     public bool IsGoodTarget(ITarget target)
     {
       return TargetingHelper.IsGoodTarget(
-          target, OwningCard, _targetSelector, 
-          _rules.Where(r => r is TargetingRule).Cast<TargetingRule>());      
+        target, OwningCard, _targetSelector,
+        _rules.Where(r => r is TargetingRule).Cast<TargetingRule>());
     }
 
     public IManaAmount GetManaCost()

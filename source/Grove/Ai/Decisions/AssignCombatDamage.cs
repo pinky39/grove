@@ -1,8 +1,8 @@
 ﻿namespace Grove.Ai.Decisions
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Core;
   using Gameplay.Combat;
   using Gameplay.Decisions.Results;
 
@@ -14,7 +14,7 @@
       {
         Result = DeathTouchScenario();
         return;
-      }      
+      }
 
       Result = DefaultScenario();
     }

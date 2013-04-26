@@ -1,7 +1,6 @@
 ﻿namespace Grove.Ai.Decisions
 {
   using System.Collections.Generic;
-  using Core;
   using Gameplay;
   using Gameplay.Decisions.Results;
   using Gameplay.Player;

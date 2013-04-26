@@ -1,7 +1,6 @@
 ﻿namespace Grove.Tests.Cards
 {
   using System.Linq;
-  using Core;
   using Gameplay.States;
   using Gameplay.Zones;
   using Infrastructure;
@@ -64,10 +63,10 @@
             At(Step.DeclareAttackers)
               .Cast(grasp, target: baloth)
             );
-          
+
           Equal(24, P2.Life);
         }
-        
+
         [Fact]
         public void SacBalothInResponseToShock()
         {
@@ -82,7 +81,7 @@
           Exec(
             At(Step.FirstMain)
               .Cast(shock, P2),
-            At(Step.SecondMain )
+            At(Step.SecondMain)
               .Verify(() =>
                 {
                   Equal(3, P2.Life);

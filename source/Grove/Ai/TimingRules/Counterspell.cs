@@ -19,7 +19,7 @@
       if (Stack.TopSpell.Controller == p.Controller)
         return false;
 
-      return !_counterCost.HasValue || 
+      return !_counterCost.HasValue ||
         !p.Controller.Opponent.HasMana(_counterCost.Value);
     }
   }

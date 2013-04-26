@@ -5,14 +5,13 @@
   using System.Linq;
   using System.Threading.Tasks;
   using Caliburn.Micro;
-  using Core;
   using Gameplay.Card;
   using Gameplay.Card.Characteristics;
   using Infrastructure;
 
   public class Library
   {
-    private readonly List<Card> _cards = new List<Card>();    
+    private readonly List<Card> _cards = new List<Card>();
 
     public Library(IEnumerable<Card> cards)
     {
@@ -54,9 +53,9 @@
     public IEnumerable<Card> FilteredResult { get { return LoadView(); } }
 
     private IEnumerable<Card> LoadView()
-    {      
-      var view = new BindableCollection<Card>();      
-      
+    {
+      var view = new BindableCollection<Card>();
+
       Task.Factory.StartNew(() =>
         {
           foreach (var card in _cards)
@@ -75,10 +74,10 @@
             if (
               (White && card.HasColor(CardColor.White)) ||
                 (Blue && card.HasColor(CardColor.Blue)) ||
-                (Black && card.HasColor(CardColor.Black)) ||
-                  (Red && card.HasColor(CardColor.Red)) ||
-                    (Green && card.HasColor(CardColor.Green)) ||
-                      (card.HasColor(CardColor.Colorless) || card.ManaCost == null)
+                  (Black && card.HasColor(CardColor.Black)) ||
+                    (Red && card.HasColor(CardColor.Red)) ||
+                      (Green && card.HasColor(CardColor.Green)) ||
+                        (card.HasColor(CardColor.Colorless) || card.ManaCost == null)
               )
             {
               view.Add(card);

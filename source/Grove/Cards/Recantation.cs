@@ -1,10 +1,8 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Ai.TargetingRules;
   using Ai.TimingRules;
-  using Core;
   using Gameplay.Card.Costs;
   using Gameplay.Card.Counters;
   using Gameplay.Card.Factory;
@@ -52,7 +50,7 @@
 
             p.TimingRule(new ChargeCounters(3, onlyAtEot: false));
             p.TargetingRule(new Bounce());
-            p.TimingRule(new TargetRemoval());            
+            p.TimingRule(new TargetRemoval());
           });
     }
   }

@@ -7,13 +7,16 @@
   public class ManaColor : IEquatable<ManaColor>
   {
     public static readonly ManaColor White = new ManaColor(isWhite: true);
-    public static readonly ManaColor Any = new ManaColor(isWhite: true, isBlue: true, isBlack: true, isRed: true, isGreen: true);
+
+    public static readonly ManaColor Any = new ManaColor(isWhite: true, isBlue: true, isBlack: true, isRed: true,
+      isGreen: true);
+
     public static readonly ManaColor Blue = new ManaColor(isBlue: true);
     public static readonly ManaColor Black = new ManaColor(isBlack: true);
     public static readonly ManaColor Red = new ManaColor(isRed: true);
     public static readonly ManaColor Green = new ManaColor(isGreen: true);
     public static readonly ManaColor Colorless = new ManaColor(isColorless: true);
-    
+
     private readonly List<int> _colorIndices = new List<int>(6);
     private readonly bool[] _isColor;
 
@@ -32,7 +35,7 @@
     }
 
     public List<int> Indices { get { return _colorIndices; } }
-    
+
     public bool IsWhite { get { return _isColor[0]; } }
     public bool IsBlue { get { return _isColor[1]; } }
     public bool IsBlack { get { return _isColor[2]; } }
@@ -46,7 +49,7 @@
       if (ReferenceEquals(null, other)) return false;
       if (ReferenceEquals(this, other)) return true;
 
-      return _colorIndices.SequenceEqual(other._colorIndices);            
+      return _colorIndices.SequenceEqual(other._colorIndices);
     }
 
     public override bool Equals(object obj)
@@ -60,7 +63,7 @@
     public override int GetHashCode()
     {
       var hash = 0;
-      
+
       foreach (var colorIndex in _colorIndices)
       {
         hash = hash ^ colorIndex*397;

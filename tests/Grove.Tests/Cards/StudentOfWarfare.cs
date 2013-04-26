@@ -1,6 +1,5 @@
 ﻿namespace Grove.Tests.Cards
 {
-  using Core;
   using Gameplay.States;
   using Gameplay.Zones;
   using Infrastructure;
@@ -23,8 +22,8 @@
         Equal(Zone.Battlefield, C(student).Zone);
         Equal(3, C(student).Power);
       }
-      
-      
+
+
       [Fact]
       public void LevelUpAndAttack()
       {
@@ -34,10 +33,10 @@
         RunGame(maxTurnCount: 1);
 
         Equal(2, C(student).Level);
-        Equal(17, P2.Life);        
+        Equal(17, P2.Life);
       }
     }
-        
+
     public class Predefined : PredefinedScenario
     {
       [Fact]
@@ -62,10 +61,10 @@
               {
                 Equal(Zone.Graveyard, C(armodon).Zone);
                 Equal(Zone.Battlefield, C(student).Zone);
-              })          
+              })
           );
-      }      
-      
+      }
+
       [Fact]
       public void LevelUp()
       {
@@ -77,11 +76,11 @@
           At(Step.FirstMain)
             .Activate(student)
             .Verify(() =>
-            {
-              Equal(1, C(student).Level);
-              Equal(1, C(student).Power);
-              Equal(1, C(student).Toughness);              
-            })
+              {
+                Equal(1, C(student).Level);
+                Equal(1, C(student).Power);
+                Equal(1, C(student).Toughness);
+              })
             .Activate(student)
             .Verify(() =>
               {
@@ -96,13 +95,13 @@
             .Activate(student)
             .Activate(student)
             .Verify(() =>
-            {
-              Equal(7, C(student).Level);
-              Equal(4, C(student).Power);
-              Equal(4, C(student).Toughness);
-              False(C(student).Has().FirstStrike);
-              True(C(student).Has().DoubleStrike);
-            }));
+              {
+                Equal(7, C(student).Level);
+                Equal(4, C(student).Power);
+                Equal(4, C(student).Toughness);
+                False(C(student).Has().FirstStrike);
+                True(C(student).Has().DoubleStrike);
+              }));
       }
     }
   }

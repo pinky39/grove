@@ -1,6 +1,5 @@
 ﻿namespace Grove.Tests.Cards
 {
-  using Core;
   using Gameplay.States;
   using Infrastructure;
   using Xunit;
@@ -44,10 +43,9 @@
           At(Step.FirstMain)
             .Cast(confiscate, bear1)
             .Verify(() => Equal(3, C(bear1).Power))
-        );
-        
-      } 
-      
+          );
+      }
+
       [Fact]
       public void Confiscate2()
       {
@@ -66,9 +64,8 @@
                 Equal(P1, C(bravado).Controller);
                 Equal(2, C(bear1).Power);
               })
-        );
-        
-      }       
+          );
+      }
     }
   }
 }

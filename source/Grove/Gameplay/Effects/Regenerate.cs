@@ -1,6 +1,6 @@
 ﻿namespace Grove.Gameplay.Effects
 {
-  using Grove.Ai;
+  using Ai;
 
   public class Regenerate : Effect
   {

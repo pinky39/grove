@@ -2,7 +2,7 @@
 {
   using System;
   using Card;
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Messages;
 
   public class PermanentGetsUntapedLifetime : Lifetime,

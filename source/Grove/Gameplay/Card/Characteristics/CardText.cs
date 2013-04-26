@@ -6,7 +6,7 @@
   using System.Linq;
   using System.Text.RegularExpressions;
   using System.Windows.Media;
-  using Grove.Ui;
+  using Ui;
 
   public class CardText : IEnumerable<Token>
   {
@@ -57,7 +57,7 @@
     {
       get
       {
-        int indexOfColon = Tokens.FindIndex(0, token => token.Value == ":");
+        var indexOfColon = Tokens.FindIndex(0, token => token.Value == ":");
 
         if (indexOfColon > 0)
           return Tokens.Skip(indexOfColon + 1);
@@ -91,7 +91,7 @@
     {
       foreach (var ctor in TokenFactoy)
       {
-        Token token = ctor(value);
+        var token = ctor(value);
         if (token != null)
           return token;
       }
@@ -101,7 +101,7 @@
 
     private static Token CreateToken(string tokenString)
     {
-      System.Text.RegularExpressions.Match match = Brackets.Match(tokenString);
+      var match = Brackets.Match(tokenString);
 
       return match.Success
         ? CreateSpecialToken(match.Groups[1].Value)
@@ -113,7 +113,7 @@
       Token previous = null;
       var marked = new List<Token>();
 
-      foreach (Token token in tokens)
+      foreach (var token in tokens)
       {
         if ((token is ManaSymbolToken) && (previous is TextToken))
         {

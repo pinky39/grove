@@ -5,7 +5,6 @@
   using System.Linq;
   using System.Reflection;
   using Castle.DynamicProxy;
-  using Core;
 
   public class Publisher : ICopyable
   {

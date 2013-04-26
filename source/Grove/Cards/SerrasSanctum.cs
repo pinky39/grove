@@ -3,7 +3,7 @@
   using System.Collections.Generic;
   using Gameplay.Card.Factory;
   using Gameplay.Mana;
-    
+
   public class SerrasSanctum : CardsSource
   {
     public override IEnumerable<CardFactory> GetCards()

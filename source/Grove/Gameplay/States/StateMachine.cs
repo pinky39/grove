@@ -4,7 +4,7 @@
   using System.Collections.Generic;
   using Common;
   using Decisions;
-  using Grove.Infrastructure;
+  using Infrastructure;
   using log4net;
   using Messages;
   using Misc;
@@ -79,12 +79,12 @@
     public void Start(Func<bool> shouldContinue, bool skipPreGame, Player looser = null)
     {
       Step = Step.GameStart;
-      
+
       if (skipPreGame)
-      {        
+      {
         Step = Step.Untap;
       }
-            
+
       State = State.Begin;
       _looser = looser;
 

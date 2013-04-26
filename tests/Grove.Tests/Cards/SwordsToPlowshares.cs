@@ -12,17 +12,16 @@
       public void ExileForce()
       {
         var force = C("Verdant Force");
-        
+
         Battlefield(P1, "Plains");
         Hand(P1, "Swords to Plowshares");
         Battlefield(P2, force);
-        
+
         RunGame(maxTurnCount: 2);
 
         Equal(Zone.Exile, C(force).Zone);
         Equal(27, P2.Life);
       }
     }
-
   }
 }

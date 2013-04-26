@@ -2,10 +2,9 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Core;
   using Gameplay.Combat;
   using Gameplay.Decisions.Results;
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   public class SetDamageAssignmentOrder : Gameplay.Decisions.SetDamageAssignmentOrder
   {

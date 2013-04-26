@@ -1,7 +1,6 @@
 ﻿namespace Grove.Tests.Scenarios
 {
   using System.Linq;
-  using Core;
   using Gameplay.States;
   using Gameplay.Zones;
   using Grove.Infrastructure;
@@ -34,7 +33,6 @@
         Equal(16, P2.Life);
       }
 
-         
 
       [Fact]
       public void BugCreaturesWithFlyingCannotBeBlockedByCreaturesWithoutFlying()
@@ -214,21 +212,20 @@
     {
       [Fact]
       public void PlayerShouldAttack()
-      {                
-        
-        
+      {
         Battlefield(P1, "Mountain", "Mountain", "Mountain", "Mountain", "Island", "Lightning Dragon", "Mountain");
-        Battlefield(P2, "Plains", "Plains", "Plains", "Angelic Wall", "Plains", "Plains", "Hero of Bladehold", "Baneslayer Angel", "Hero of Bladehold");
+        Battlefield(P2, "Plains", "Plains", "Plains", "Angelic Wall", "Plains", "Plains", "Hero of Bladehold",
+          "Baneslayer Angel", "Hero of Bladehold");
 
         P1.Life = 8;
         P2.Life = 25;
 
         RunGame(6);
 
-       // game should not run longer than 2 turns
-       Equal(2, Game.Turn.TurnCount);
-      } 
-      
+        // game should not run longer than 2 turns
+        Equal(2, Game.Turn.TurnCount);
+      }
+
       [Fact]
       public void BugPowerIncrease()
       {

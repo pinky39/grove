@@ -4,7 +4,7 @@
   using Card;
 
   public interface IHandQuery : IZoneQuery
-  {    
+  {
     IEnumerable<Card> Lands { get; }
   }
 }

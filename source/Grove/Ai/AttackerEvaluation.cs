@@ -3,7 +3,6 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Core;
   using Gameplay.Card;
 
   public class AttackerEvaluation
@@ -11,22 +10,22 @@
     private readonly Card _attacker;
     private readonly List<Card> _blockers = new List<Card>();
 
-    public Func<Card, int> CalculateCombatDamage = card => card.CalculateCombatDamage();
     public Action<Card, int> BlockerHasDealtDamage = delegate { };
     public Action<Card, int> BlockerHasDealtLeathalDamage = delegate { };
+    public Func<Card, int> CalculateCombatDamage = card => card.CalculateCombatDamage();
     public Func<Card, int> CalculateLifepointsLeft = card => card.Life;
 
     public AttackerEvaluation(Card attacker, IEnumerable<Card> blockers)
     {
       _attacker = attacker;
-      _blockers.AddRange(blockers);      
-    }    
+      _blockers.AddRange(blockers);
+    }
 
     public CalculationResults Evaluate()
     {
       var results = new CalculationResults();
       var blockers = _blockers.AsEnumerable();
-      
+
       var biggestDamage = 0;
       Card blockerThatDealsBiggestDamage = null;
       var total = 0;
@@ -59,7 +58,7 @@
 
         BlockerHasDealtDamage(blocker, dealtAmount);
         total += dealtAmount;
-        
+
         if (dealtAmount > biggestDamage)
         {
           blockerThatDealsBiggestDamage = blocker;
@@ -67,7 +66,8 @@
       }
 
       results.DamageDealt = total;
-      results.ReceivesLeathalDamage = results.ReceivesLeathalDamage || results.DamageDealt >= CalculateLifepointsLeft(_attacker);
+      results.ReceivesLeathalDamage = results.ReceivesLeathalDamage ||
+        results.DamageDealt >= CalculateLifepointsLeft(_attacker);
       results.LeathalBlocker = results.LeathalBlocker ?? blockerThatDealsBiggestDamage;
 
       return results;
@@ -75,9 +75,9 @@
 
     public class CalculationResults
     {
-      public int  DamageDealt { get; set; }
+      public int DamageDealt { get; set; }
       public bool ReceivesLeathalDamage { get; set; }
-      public Card LeathalBlocker { get; set; }      
+      public Card LeathalBlocker { get; set; }
+    }
   }
-}
 }

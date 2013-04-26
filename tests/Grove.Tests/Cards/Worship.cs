@@ -1,6 +1,5 @@
 ﻿namespace Grove.Tests.Cards
 {
-  using Core;
   using Gameplay.States;
   using Infrastructure;
   using Xunit;
@@ -30,9 +29,9 @@
             .Cast(shock, P1)
             .Cast(disenchant, worship));
 
-        Equal(-1, P1.Life);            
+        Equal(-1, P1.Life);
       }
-      
+
       [Fact]
       public void PreventLifeloss()
       {
@@ -41,15 +40,15 @@
         var worship = C("Worship");
 
         P2.Life = 6;
-        
+
         Battlefield(P1, dread);
         Battlefield(P2, bear, worship);
-        
+
         Exec(
           At(Step.DeclareAttackers)
             .DeclareAttackers(dread),
           At(Step.SecondMain)
-            .Verify(() => Equal(1, P2.Life))        
+            .Verify(() => Equal(1, P2.Life))
           );
       }
     }

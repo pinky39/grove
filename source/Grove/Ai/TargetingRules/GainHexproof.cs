@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Core;
   using Gameplay.Card;
   using Gameplay.Player;
   using Gameplay.Targeting;
@@ -11,7 +10,7 @@
   {
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
     {
-      var candidates = p.Candidates<Card>(ControlledBy.SpellOwner)        
+      var candidates = p.Candidates<Card>(ControlledBy.SpellOwner)
         .Where(x => Stack.CanBeDestroyedByTopSpell(x, targetOnly: true) || Stack.CanBeBouncedByTopSpell(x))
         .OrderByDescending(x => x.Score);
 

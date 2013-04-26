@@ -1,7 +1,6 @@
 ﻿namespace Grove.Tests.Cards
 {
   using Gameplay.States;
-  using Grove.Core;
   using Infrastructure;
   using Xunit;
 
@@ -16,10 +15,11 @@
 
         Exec(
           At(Step.FirstMain, turn: 3)
-            .Verify(() => {
-              Equal(18, P1.Life);
-              Equal(18, P2.Life);
-            })
+            .Verify(() =>
+              {
+                Equal(18, P1.Life);
+                Equal(18, P2.Life);
+              })
           );
       }
     }

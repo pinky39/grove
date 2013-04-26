@@ -5,7 +5,7 @@
   using System.Collections.Generic;
   using System.Linq;
   using System.Threading.Tasks;
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   public class DeckEvaluator
   {
@@ -20,7 +20,7 @@
     {
       var bestDecks = decks.Select((x, i) => new Deck {Number = i + 1, Cards = x}).Shuffle().ToList();
 
-      int round = 1;
+      var round = 1;
       while (bestDecks.Count > 1)
       {
         Deck bye = null;
@@ -33,7 +33,7 @@
 
         Console.WriteLine("Round {0}", round);
         Console.WriteLine("--------------------------------");
-        
+
         bestDecks = PlayOneRound(bestDecks);
 
         Console.WriteLine();
@@ -48,7 +48,7 @@
     }
 
     private List<Deck> PlayOneRound(List<Deck> decks)
-    {            
+    {
       var tasks = new List<Task>();
       var winners = new ConcurrentBag<Deck>();
 
@@ -59,25 +59,27 @@
 
         //var task = Task.Factory.StartNew(() =>
         //  {            
-            Console.WriteLine("Deck {0} is playing against Deck {1}...", deck1.Number, deck2.Number);
-            var result = _matchSimulator.Simulate(
-              deck1.Cards, 
-              deck2.Cards, 
-              maxTurnsPerGame: 25,
-              maxSearchDepth: 12,
-              maxTargetsCount: 2);
+        Console.WriteLine("Deck {0} is playing against Deck {1}...", deck1.Number, deck2.Number);
+        var result = _matchSimulator.Simulate(
+          deck1.Cards,
+          deck2.Cards,
+          maxTurnsPerGame: 25,
+          maxSearchDepth: 12,
+          maxTargetsCount: 2);
 
-            if (result.Deck1WinCount > result.Deck2WinCount)
-            {
-              Console.WriteLine("Deck {0} wins against Deck {1} ({2}-{3}).", deck1.Number, deck2.Number, result.Deck1WinCount, result.Deck2WinCount);
-              winners.Add(deck1);
-            }
-            else
-            {
-              Console.WriteLine("Deck {0} wins against Deck {1}. ({2}-{3}).", deck2.Number, deck1.Number, result.Deck2WinCount, result.Deck1WinCount);
-              winners.Add(deck2);
-            }
-          //});
+        if (result.Deck1WinCount > result.Deck2WinCount)
+        {
+          Console.WriteLine("Deck {0} wins against Deck {1} ({2}-{3}).", deck1.Number, deck2.Number,
+            result.Deck1WinCount, result.Deck2WinCount);
+          winners.Add(deck1);
+        }
+        else
+        {
+          Console.WriteLine("Deck {0} wins against Deck {1}. ({2}-{3}).", deck2.Number, deck1.Number,
+            result.Deck2WinCount, result.Deck1WinCount);
+          winners.Add(deck2);
+        }
+        //});
 
         //tasks.Add(task);
       }

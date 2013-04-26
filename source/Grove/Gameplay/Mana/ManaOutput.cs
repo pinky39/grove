@@ -6,20 +6,20 @@
 
   public abstract class ManaOutput : GameObject
   {
-    private IManaAmount _additionalOutput = Mana.Zero;
-    public Action<IManaAmount> Increased = delegate { };
     public Action<IManaAmount> Decreased = delegate { };
-    
-    protected ManaAbility ManaAbility;    
-    
+    public Action<IManaAmount> Increased = delegate { };
+
+    protected ManaAbility ManaAbility;
+    private IManaAmount _additionalOutput = Mana.Zero;
+
     public virtual IManaAmount GetAmount()
     {
       var amount = GetAmountInternal();
       return amount.Add(_additionalOutput);
     }
 
-    protected abstract IManaAmount GetAmountInternal();   
-    
+    protected abstract IManaAmount GetAmountInternal();
+
     public void AddAditional(IManaAmount amount)
     {
       _additionalOutput = _additionalOutput.Add(amount);
@@ -29,11 +29,11 @@
     {
       _additionalOutput = _additionalOutput.Remove(amount);
     }
-  
+
     public void Initialize(ManaAbility manaAbility, Game game)
     {
-      Game = game;      
+      Game = game;
       ManaAbility = manaAbility;
-    }    
+    }
   }
 }

@@ -1,6 +1,5 @@
 ﻿namespace Grove.Tests.Cards
 {
-  using Core;
   using Gameplay.States;
   using Gameplay.Zones;
   using Infrastructure;
@@ -23,7 +22,7 @@
           At(Step.DeclareAttackers)
             .DeclareAttackers(baloth),
           At(Step.SecondMain)
-            .Verify(()=> Equal(Zone.Hand, C(wall).Zone))
+            .Verify(() => Equal(Zone.Hand, C(wall).Zone))
           );
       }
     }

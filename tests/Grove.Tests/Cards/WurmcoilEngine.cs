@@ -3,7 +3,6 @@
   using System.Linq;
   using Gameplay.States;
   using Gameplay.Zones;
-  using Grove.Core;
   using Infrastructure;
   using Xunit;
 
@@ -27,12 +26,13 @@
           At(Step.DeclareBlockers)
             .DeclareBlockers(engine, force1, engine, force2),
           At(Step.SecondMain)
-            .Verify(() => {
-              Equal(Zone.Graveyard, C(force1).Zone);
-              Equal(Zone.Graveyard, C(force2).Zone);
-              Equal(2, P1.Battlefield.Count());
-              Equal(26, P1.Life);
-            })
+            .Verify(() =>
+              {
+                Equal(Zone.Graveyard, C(force1).Zone);
+                Equal(Zone.Graveyard, C(force2).Zone);
+                Equal(2, P1.Battlefield.Count());
+                Equal(26, P1.Life);
+              })
           );
       }
 

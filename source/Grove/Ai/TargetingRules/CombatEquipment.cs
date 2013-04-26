@@ -2,7 +2,7 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Core;
+  using Gameplay.Card;
   using Gameplay.Player;
   using Gameplay.States;
   using Gameplay.Targeting;
@@ -11,11 +11,11 @@
   {
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
     {
-      IEnumerable<Gameplay.Card.Card> candidates;
+      IEnumerable<Card> candidates;
 
       if (Turn.Step == Step.FirstMain)
       {
-        candidates = p.Candidates<Gameplay.Card.Card>(ControlledBy.SpellOwner)
+        candidates = p.Candidates<Card>(ControlledBy.SpellOwner)
           .Where(x => x.CanAttackThisTurn)
           .Select(x => new
             {
@@ -28,7 +28,7 @@
       }
       else
       {
-        candidates = p.Candidates<Gameplay.Card.Card>(ControlledBy.SpellOwner)
+        candidates = p.Candidates<Card>(ControlledBy.SpellOwner)
           .Where(x => x.CanBlock())
           .Select(x => new
             {

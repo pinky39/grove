@@ -1,7 +1,7 @@
 ﻿namespace Grove.Gameplay.Card.Triggers
 {
   using Abilities;
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Messages;
   using States;
   using Zones;
@@ -36,7 +36,7 @@
 
     public override void Initialize(TriggeredAbility triggeredAbility, Game game)
     {
-      base.Initialize(triggeredAbility, game);      
+      base.Initialize(triggeredAbility, game);
       _wasDealtDamage.Initialize(game.ChangeTracker);
     }
   }

@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Core;
   using Gameplay.Card;
   using Gameplay.Card.Factory;
   using Gameplay.Deck;
@@ -12,8 +11,8 @@
   {
     private const string NewDeckName = "new deck";
     private readonly CardDatabase _cardDatabase;
-    private readonly bool _isReadOnly;
     private readonly Deck _deck;
+    private readonly bool _isReadOnly;
 
     public ViewModel(CardDatabase cardDatabase)
     {
@@ -96,7 +95,7 @@
     {
       if (_isReadOnly)
         return;
-      
+
       _deck.AddCard(name);
       IsSaved = false;
     }
@@ -106,7 +105,7 @@
     {
       if (_isReadOnly)
         return;
-      
+
       _deck.RemoveCard(name);
       IsSaved = false;
     }

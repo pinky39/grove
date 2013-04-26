@@ -12,10 +12,10 @@
       public void DiscardOneCard()
       {
         var counterspell = C("Counterspell");
-        
+
         Hand(P1, "Duress");
         Battlefield(P1, "Swamp");
-        
+
         Hand(P2, counterspell, "Island");
 
         RunGame(1);

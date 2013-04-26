@@ -2,14 +2,14 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Mana;
   using Modifiers;
 
   [Copyable]
   public class ActivatedAbilities : IModifiable, IHashable
   {
-    private readonly TrackableList<ActivatedAbility> _abilities = new TrackableList<ActivatedAbility>();        
+    private readonly TrackableList<ActivatedAbility> _abilities = new TrackableList<ActivatedAbility>();
 
     public int CalculateHash(HashCalculator calc)
     {
@@ -22,13 +22,13 @@
     }
 
     public void Initialize(Card card, Game game)
-    {            
-      _abilities.Initialize(game.ChangeTracker, card);      
+    {
+      _abilities.Initialize(game.ChangeTracker, card);
 
       foreach (var activatedAbility in _abilities)
       {
         activatedAbility.Initialize(card, game);
-      }    
+      }
     }
 
     public IEnumerable<ManaAbility> GetManaAbilities()
@@ -90,13 +90,13 @@
     {
       _abilities.Add(ability);
       ability.OnAbilityAdded();
-    }  
+    }
 
     public void Remove(ActivatedAbility ability)
     {
-      _abilities.Remove(ability);      
+      _abilities.Remove(ability);
       ability.OnAbilityRemoved();
-    }    
+    }
 
     public ActivatedAbility RemoveFirst()
     {

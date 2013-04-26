@@ -4,10 +4,10 @@
   using System.Collections;
   using System.Collections.Generic;
   using System.Linq;
+  using Ai;
   using Card;
   using Effects;
-  using Grove.Ai;
-  using Grove.Infrastructure;
+  using Infrastructure;
   using log4net;
   using Player;
   using Targeting;
@@ -15,7 +15,7 @@
   [Copyable]
   public class Stack : IEnumerable<Effect>, IHashable, IZone
   {
-    private static readonly ILog Log = LogManager.GetLogger(typeof(Stack));
+    private static readonly ILog Log = LogManager.GetLogger(typeof (Stack));
     private readonly TrackableList<Effect> _effects = new TrackableList<Effect>(orderImpactsHashcode: true);
     private readonly Trackable<Effect> _lastResolved = new Trackable<Effect>();
 
@@ -111,7 +111,7 @@
     {
       _effects.Remove(effect);
       EffectRemoved(this, new StackChangedEventArgs(effect));
-      Log.DebugFormat("Effect removed from stack: {0}. (count: {1})", effect, _effects.Count);      
+      Log.DebugFormat("Effect removed from stack: {0}. (count: {1})", effect, _effects.Count);
     }
 
     public void Counter(Effect effect)

@@ -12,7 +12,7 @@
       public void CastBear()
       {
         var bear = C("Grizzly Bears");
-        
+
         Hand(P1, bear);
         Battlefield(P1, "Plains", "Plains", "Plains", "Celestial Prism");
 

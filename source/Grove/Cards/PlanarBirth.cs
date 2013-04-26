@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Ai.TimingRules;
-  using Core;
   using Gameplay.Card.Factory;
   using Gameplay.Effects;
 
@@ -19,10 +18,9 @@
         .Cast(p =>
           {
             p.TimingRule(new SecondMain());
-            
+
             p.Effect = () => new PutAllCardsFromGraveyardToBattlefield(
               c => c.Is().BasicLand, c => c.Tap(), eachPlayer: true);
-
           });
     }
   }

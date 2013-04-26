@@ -13,7 +13,7 @@
         Battlefield(P1, "Grizzly Bears", "Grizzly Bears", "Grizzly Bears", "Forest", "Mountain");
         Battlefield(P2, "Grizzly Bears", "Grizzly Bears", "Grizzly Bears");
         Hand(P1, "Falter");
-        
+
         P2.Life = 6;
 
         RunGame(1);

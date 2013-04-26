@@ -2,7 +2,7 @@
 {
   using System.Collections.Generic;
   using Combat;
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   [Copyable]
   public class DamageAssignmentOrder

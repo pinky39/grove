@@ -17,11 +17,11 @@
     protected override void Initialize()
     {
       _continiousEffect.Initialize(Source, Game, Target);
-    }       
+    }
 
     public override void Apply(ContiniousEffects continiousEffects)
     {
-      _continiousEffects = continiousEffects;      
+      _continiousEffects = continiousEffects;
       _continiousEffects.Add(_continiousEffect);
 
       _continiousEffect.Activate();

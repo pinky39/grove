@@ -1,6 +1,6 @@
 ﻿namespace Grove.Gameplay.Card.Abilities
 {
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Modifiers;
 
   [Copyable]
@@ -32,6 +32,6 @@
     {
       _continiousEffects.Remove(effect);
       effect.Deactivate();
-    }    
+    }
   }
 }

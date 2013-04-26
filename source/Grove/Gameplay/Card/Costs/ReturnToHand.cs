@@ -6,7 +6,7 @@
   {
     protected override void CanPay(CanPayResult result)
     {
-      result.CanPay = true;    
+      result.CanPay = true;
     }
 
     protected override void Pay(ITarget target, int? x)

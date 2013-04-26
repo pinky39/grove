@@ -1,7 +1,6 @@
 ﻿namespace Grove.Ui.Step
 {
   using System.Linq;
-  using Core;
   using Gameplay.Messages;
   using Gameplay.States;
   using Infrastructure;

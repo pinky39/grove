@@ -14,7 +14,7 @@
         Battlefield(P1, "Grizzly Bears", "Grizzly Bears", "Forest", "Forest");
 
         RunGame(1);
-        
+
         Equal(12, P2.Life);
       }
 
@@ -25,7 +25,7 @@
         Battlefield(P1, "Grizzly Bears", "Forest", "Forest");
 
         RunGame(1);
-        
+
         Equal(18, P2.Life);
       }
     }

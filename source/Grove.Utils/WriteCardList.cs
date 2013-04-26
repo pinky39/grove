@@ -2,7 +2,6 @@
 {
   using System;
   using System.IO;
-  using Core;
   using Gameplay.Card.Factory;
 
   public class WriteCardList : Task
@@ -13,8 +12,8 @@
     {
       _cardDatabase = cardDatabase;
     }
-        
-    
+
+
     public override void Execute(Arguments arguments)
     {
       var filename = arguments["filename"];

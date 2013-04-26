@@ -6,7 +6,7 @@
   using Card;
   using Decisions;
   using Decisions.Results;
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Player;
   using Zones;
 
@@ -67,6 +67,6 @@
           p.ChooseDecisionResults = this;
           p.OwningCard = Source.OwningCard;
         });
-    }    
+    }
   }
 }

@@ -1,6 +1,5 @@
 ﻿namespace Grove.Tests.Cards
 {
-  using Core;
   using Gameplay.States;
   using Gameplay.Zones;
   using Infrastructure;
@@ -24,7 +23,7 @@
         Exec(
           At(Step.FirstMain)
             .Cast(disenchant, target: pestilence)
-            .Verify( () => Equal(Zone.Graveyard, C(bear).Zone))
+            .Verify(() => Equal(Zone.Graveyard, C(bear).Zone))
           );
       }
     }

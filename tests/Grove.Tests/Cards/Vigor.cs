@@ -2,12 +2,26 @@
 {
   using Gameplay.States;
   using Gameplay.Zones;
-  using Grove.Core;
   using Infrastructure;
   using Xunit;
 
   public class Vigor
   {
+    public class Ai : AiScenario
+    {
+      [Fact]
+      public void PumpCreaturesWithVigor()
+      {
+        Battlefield(P2, "Vigor", "Grizzly Bears", "Grizzly Bears", "Mountain", "Mountain", "Forest");
+        Hand(P2, "Volcanic Fallout");
+
+        Battlefield(P1, "Grizzly Bears", "Grizzly Bears", "Grizzly Bears");
+
+        RunGame(maxTurnCount: 2);
+        Equal(4, P1.Life);
+      }
+    }
+
     public class Predefined : PredefinedScenario
     {
       [Fact]
@@ -23,11 +37,12 @@
         Exec(
           At(Step.FirstMain)
             .Cast(shock, bear)
-            .Verify(() => {
-              Equal(4, C(bear).Toughness);
-              Equal(4, C(bear).Power);
-              Equal(0, C(bear).Damage);
-            })
+            .Verify(() =>
+              {
+                Equal(4, C(bear).Toughness);
+                Equal(4, C(bear).Power);
+                Equal(0, C(bear).Damage);
+              })
           );
       }
 
@@ -66,22 +81,5 @@
           );
       }
     }
-
-    public class Ai : AiScenario
-    {
-      [Fact]
-      public void PumpCreaturesWithVigor()
-      {
-        Battlefield(P2, "Vigor", "Grizzly Bears", "Grizzly Bears", "Mountain", "Mountain", "Forest");
-        Hand(P2, "Volcanic Fallout");
-
-        Battlefield(P1, "Grizzly Bears", "Grizzly Bears", "Grizzly Bears");
-
-        RunGame(maxTurnCount: 2);
-        Equal(4, P1.Life);
-      }
-    }
   }
-
-
 }

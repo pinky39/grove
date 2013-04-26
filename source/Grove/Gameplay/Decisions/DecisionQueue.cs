@@ -1,6 +1,6 @@
 ﻿namespace Grove.Gameplay.Decisions
 {
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   [Copyable]
   public class DecisionQueue

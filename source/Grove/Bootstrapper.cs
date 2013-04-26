@@ -23,7 +23,7 @@
 
     protected override void DisplayRootView()
     {
-      var shell = Container.Resolve<Shell>();      
+      var shell = Container.Resolve<Shell>();
       var start = Container.Resolve<ViewModel>();
 
       shell.ChangeScreen(start);

@@ -5,9 +5,9 @@
   using System.Windows;
   using Card.Factory;
   using Decisions;
-  using Grove.Infrastructure;
-  using Grove.Ui.GameResults;
-  using Grove.Ui.Shell;
+  using Infrastructure;
+  using Ui.GameResults;
+  using Ui.Shell;
 
   public class Match
   {

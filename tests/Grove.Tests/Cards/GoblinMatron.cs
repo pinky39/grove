@@ -18,7 +18,7 @@
 
         RunGame(1);
 
-        Equal(Zone.Hand, C(buggy).Zone);        
+        Equal(Zone.Hand, C(buggy).Zone);
       }
     }
   }

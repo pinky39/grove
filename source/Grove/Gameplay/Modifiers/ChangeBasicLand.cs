@@ -36,7 +36,7 @@
       var ap = new ManaAbilityParameters
         {
           Text = "{{T}}: Add {0} to your mana pool.",
-          Cost = new Tap(),          
+          Cost = new Tap(),
         };
 
       ap.ManaAmount(basicLandMana);
@@ -51,10 +51,10 @@
       _isBasicLand = cardType.Value.BasicLand;
 
       var type = _cardType.Value.ReplaceBasicLandTypeWith(_changeTo);
-      
+
       _typeSetter = new CardTypeSetter(type);
       _typeSetter.Initialize(ChangeTracker);
-      
+
       _cardType.AddModifier(_typeSetter);
     }
 

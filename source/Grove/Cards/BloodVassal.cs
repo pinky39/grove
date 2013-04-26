@@ -1,7 +1,6 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Core;
   using Gameplay.Card.Costs;
   using Gameplay.Card.Factory;
   using Gameplay.Mana;
@@ -21,7 +20,7 @@
         .ManaAbility(p =>
           {
             p.Text = "Sacrifice Blood Vassal: Add {B}{B} to your mana pool.";
-            p.Cost = new Sacrifice();            
+            p.Cost = new Sacrifice();
             p.ManaAmount("{B}{B}".Parse());
             p.Priority = ManaSourcePriorities.OnlyIfNecessary;
             p.TapRestriction = false;

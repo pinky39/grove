@@ -15,7 +15,7 @@
         var forest1 = C("Forest");
         var forest2 = C("Forest");
 
-        Hand(P1, acridian);        
+        Hand(P1, acridian);
         Battlefield(P1, forest1, forest2);
 
         var p1score = P1.Score;

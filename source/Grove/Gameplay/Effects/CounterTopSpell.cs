@@ -1,10 +1,10 @@
 ﻿namespace Grove.Gameplay.Effects
 {
   public class CounterTopSpell : Effect
-  {    
+  {
     protected override void ResolveEffect()
     {
-      if (Stack.TopSpell != null)      
+      if (Stack.TopSpell != null)
         Stack.Counter(Stack.TopSpell);
     }
   }

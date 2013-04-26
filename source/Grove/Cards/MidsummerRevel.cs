@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Ai.TimingRules;
-  using Core;
   using Gameplay.Card.Characteristics;
   using Gameplay.Card.Costs;
   using Gameplay.Card.Counters;

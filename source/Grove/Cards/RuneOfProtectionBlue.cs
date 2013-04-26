@@ -3,7 +3,6 @@
   using System.Collections.Generic;
   using Ai.TargetingRules;
   using Ai.TimingRules;
-  using Core;
   using Gameplay.Card.Characteristics;
   using Gameplay.Card.Costs;
   using Gameplay.Card.Factory;
@@ -28,7 +27,7 @@
               "{W}: The next time a blue source of your choice would deal damage to you this turn, prevent that damage.";
             p.Cost = new PayMana(Mana.White, ManaUsage.Abilities);
             p.Effect = () => new PreventNextDamageFromSourceToController();
-            
+
             p.TargetSelector.AddEffect(trg =>
               {
                 trg.Is.Card(c => c.HasColor(CardColor.Blue)).On.BattlefieldOrStack();

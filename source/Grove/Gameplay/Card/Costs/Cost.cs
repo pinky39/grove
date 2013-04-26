@@ -2,7 +2,7 @@
 {
   using System.Linq;
   using Common;
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Mana;
   using Targeting;
 

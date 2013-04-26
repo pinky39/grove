@@ -7,12 +7,12 @@
 
   public class ApplyModifiersToSelf : Effect
   {
-    private readonly List<ModifierFactory> _selfModifiers = new List<ModifierFactory>();    
+    private readonly List<ModifierFactory> _selfModifiers = new List<ModifierFactory>();
 
     private ApplyModifiersToSelf() {}
-    
+
     public ApplyModifiersToSelf(params ModifierFactory[] modifiers)
-    {      
+    {
       _selfModifiers.AddRange(modifiers);
     }
 

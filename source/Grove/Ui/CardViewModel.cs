@@ -3,7 +3,6 @@
   using System;
   using System.Linq;
   using System.Threading;
-  using Core;
   using Gameplay.Card;
   using Gameplay.Card.Characteristics;
   using Gameplay.Mana;
@@ -16,7 +15,7 @@
     {
       Card = card;
       Colors = new CardColor[] {};
-      
+
       Update();
 
       _timer = new Timer(delegate { Update(); }, null,

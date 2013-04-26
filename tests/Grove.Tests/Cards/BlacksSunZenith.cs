@@ -2,7 +2,6 @@
 {
   using System.Linq;
   using Gameplay.States;
-  using Grove.Core;
   using Infrastructure;
   using Xunit;
 
@@ -14,9 +13,9 @@
       public void AddCounters()
       {
         var sun = C("Black Sun's Zenith");
-        
+
         Hand(P1, sun);
-        Battlefield(P1,"Swamp", "Swamp", "Swamp", "Forest", "Forest", "Elvish Warrior");
+        Battlefield(P1, "Swamp", "Swamp", "Swamp", "Forest", "Forest", "Elvish Warrior");
         Battlefield(P2, "Elvish Warrior", "Llanowar Elves", "Birds of Paradise");
 
         RunGame(maxTurnCount: 1);
@@ -25,7 +24,7 @@
         Equal(1, P2.Battlefield.Creatures.Count());
       }
     }
-    
+
     public class Predefined : PredefinedScenario
     {
       [Fact]
@@ -43,15 +42,13 @@
         Exec(
           At(Step.FirstMain)
             .Cast(sun, x: 2)
-            .Verify(() => {
-              Equal(1, C(warrior1).Toughness);
-              Equal(1, C(warrior2).Toughness);
-              Equal(1, C(warrior3).Toughness);
-              Equal(0, C(warrior1).Power);
-            }));
-
-
-
+            .Verify(() =>
+              {
+                Equal(1, C(warrior1).Toughness);
+                Equal(1, C(warrior2).Toughness);
+                Equal(1, C(warrior3).Toughness);
+                Equal(0, C(warrior1).Power);
+              }));
       }
     }
   }

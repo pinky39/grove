@@ -29,7 +29,7 @@
     public static void EnableChangeTrackerChecks()
     {
       _enableChecks = true;
-    }    
+    }
 
     private static void AssertEnabled()
     {

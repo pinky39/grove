@@ -1,7 +1,6 @@
 ﻿namespace Grove.Tests.Cards
 {
   using System.Linq;
-  using Core;
   using Gameplay.States;
   using Gameplay.Zones;
   using Infrastructure;
@@ -16,7 +15,7 @@
       {
         var coup = C("Martial Coup");
         var dragon = C("Shivan Dragon");
-                
+
         Hand(P1, coup);
         Battlefield(P1, dragon, "Plains", "Plains", "Plains", "Plains", "Plains", "Plains", "Plains", "Plains", "Plains");
         Battlefield(P2, "Grizzly Bears");
@@ -30,7 +29,7 @@
       [Fact]
       public void DestroyOtherCreatures()
       {
-        var coup = C("Martial Coup");                
+        var coup = C("Martial Coup");
 
         Hand(P1, coup);
         Battlefield(P1, "Plains", "Plains", "Plains", "Plains", "Plains", "Plains", "Plains", "Plains", "Plains");
@@ -38,12 +37,12 @@
 
         RunGame(1);
 
-        Equal(7, P1.Battlefield.Creatures.Count());        
-        Equal(0, P2.Battlefield.Creatures.Count());        
+        Equal(7, P1.Battlefield.Creatures.Count());
+        Equal(0, P2.Battlefield.Creatures.Count());
       }
     }
-    
-    
+
+
     public class Predefined : PredefinedScenario
     {
       [Fact]

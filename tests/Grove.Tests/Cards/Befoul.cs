@@ -1,6 +1,5 @@
 ﻿namespace Grove.Tests.Cards
 {
-  using Core;
   using Gameplay.States;
   using Gameplay.Zones;
   using Infrastructure;
@@ -15,7 +14,7 @@
       {
         var befoul = C("Befoul");
         var troll = C("Albino Troll");
-        
+
         Hand(P1, befoul);
         Battlefield(P2, "Forest", "Forest", troll);
 

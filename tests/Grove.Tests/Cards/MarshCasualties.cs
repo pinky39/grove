@@ -2,7 +2,6 @@
 {
   using System.Linq;
   using Gameplay.States;
-  using Grove.Core;
   using Infrastructure;
   using Xunit;
 
@@ -54,10 +53,11 @@
         Exec(
           At(Step.FirstMain)
             .Cast(marsh, target: P2)
-            .Verify(() => {
-              Equal(1, C(bear1).Toughness);
-              Equal(1, C(bear2).Power);
-            }));
+            .Verify(() =>
+              {
+                Equal(1, C(bear1).Toughness);
+                Equal(1, C(bear2).Power);
+              }));
       }
     }
   }

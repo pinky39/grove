@@ -2,7 +2,7 @@
 {
   using System.Linq;
   using Card.Characteristics;
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Messages;
   using Zones;
 
@@ -74,7 +74,7 @@
       _increment.Initialize(ChangeTracker);
       _increment.Value = GetCreatureCount();
     }
-    
+
     private int GetCreatureCount()
     {
       return Source.Controller.Battlefield.Count(card => card != Target && card.Is().Creature);

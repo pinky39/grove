@@ -4,24 +4,24 @@
   using System.IO;
   using System.Linq;
   using Castle.Core;
-  using Core;
   using Gameplay.Card.Factory;
   using Gameplay.Deck;
   using Infrastructure;
   using Shell;
 
   public class ViewModel : IIsDialogHost
-  {                
+  {
+    private readonly CardDatabase _cardDatabase;
     private readonly Configuration _configuration;
     private readonly Ui.Deck.ViewModel.IFactory _deckVmFactory;
-    private readonly CardDatabase _cardDatabase;
-    private readonly IShell _shell;        
-    private List<Ui.Deck.ViewModel> _decks = new List<Ui.Deck.ViewModel>();
+    private readonly List<Ui.Deck.ViewModel> _decks = new List<Ui.Deck.ViewModel>();
+    private readonly IShell _shell;
 
-    public ViewModel(CardDatabase cardDatabase, IShell shell, Configuration configuration, Ui.Deck.ViewModel.IFactory deckVmFactory)
+    public ViewModel(CardDatabase cardDatabase, IShell shell, Configuration configuration,
+      Ui.Deck.ViewModel.IFactory deckVmFactory)
     {
       _cardDatabase = cardDatabase;
-      _shell = shell;            
+      _shell = shell;
       _configuration = configuration;
       _deckVmFactory = deckVmFactory;
 
@@ -29,18 +29,12 @@
     }
 
     [DoNotWire]
-    public virtual Ui.Deck.ViewModel Selected { get; set; }        
+    public virtual Ui.Deck.ViewModel Selected { get; set; }
 
-    public string NextCaption
-    {
-      get { return _configuration.ForwardText; }
-    }
+    public string NextCaption { get { return _configuration.ForwardText; } }
 
-    public string Title
-    {
-      get { return _configuration.ScreenTitle; }
-    }
-    
+    public string Title { get { return _configuration.ScreenTitle; } }
+
     public List<Ui.Deck.ViewModel> Decks { get { return _decks; } }
 
     [Updates("CanStart")]
@@ -61,26 +55,25 @@
     {
       var deckFiles = Directory.EnumerateFiles(MediaLibrary.DecksFolder, "*.dec");
       var reader = new DeckReaderWriter();
-      
+
       foreach (var fileName in deckFiles)
       {
         _decks.Add(_deckVmFactory.Create(
-          reader.Read(fileName, _cardDatabase), 
-          isReadOnly: true));                
+          reader.Read(fileName, _cardDatabase),
+          isReadOnly: true));
       }
 
       Selected = _decks.FirstOrDefault();
     }
-    
+
 
     public void Forward()
     {
-      
       IsStarting = true;
-      
+
       _configuration.Forward(Selected.Deck);
-      
-      IsStarting = false;            
+
+      IsStarting = false;
     }
 
     public void Back()

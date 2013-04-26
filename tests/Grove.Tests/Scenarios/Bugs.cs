@@ -1,7 +1,6 @@
 ﻿namespace Grove.Tests.Scenarios
 {
   using System.Linq;
-  using Core;
   using Gameplay.States;
   using Gameplay.Zones;
   using Infrastructure;
@@ -77,14 +76,14 @@
 
       [Fact]
       public void BugGameHangs()
-      {           
+      {
         Hand(P1, "Go for the Throat", "Attunement", "Mana Leak", "Grave Titan");
         Hand(P2, "Mountain", "Rescind");
-        Battlefield(P1, "Swamp", "Island", "Swamp", "Swamp", "Diabolic Servitude", "Swamp", "Drifting Djinn", "Swamp", "Liliana's Specter");
-        Battlefield(P2, "Remote Isle", "Island", "Island", "Mountain", "Mountain", "Mountain", "Mountain");        
+        Battlefield(P1, "Swamp", "Island", "Swamp", "Swamp", "Diabolic Servitude", "Swamp", "Drifting Djinn", "Swamp",
+          "Liliana's Specter");
+        Battlefield(P2, "Remote Isle", "Island", "Island", "Mountain", "Mountain", "Mountain", "Mountain");
 
         RunGame(2);
-      
       }
 
       [Fact]
@@ -293,43 +292,47 @@
       {
         Hand(P1, "Humble", "Remote Isle", "Confiscate");
         Hand(P2, "Symbiosis", "Hush", "Thundering Giant", "Torch Song", "Hidden Ancients");
-        
+
         Battlefield(P1, "Island", "Swamp", "Island", "Swamp", "Swamp", "Plains", "Swamp",
           C("Sandbar Serpent").IsTrackedBy("Diabolic Servitude"));
-        
+
         Battlefield(P2, "Mountain", "Slippery Karst", "Thran Turbine", "Smoldering Crater", "Goblin War Buggy", "Forest",
           "Cradle Guard", "Goblin War Buggy");
 
         RunGame(2);
       }
-      
+
       [Fact]
       public void BugAnnulValidator()
       {
         Hand(P2, "Copper Gnomes", "Annul");
-        Battlefield(P2, "Island", "Forest", "Forest", "Island");        
+        Battlefield(P2, "Island", "Forest", "Forest", "Island");
 
         RunGame(2);
-      }    
-      
+      }
+
       [Fact]
       public void BugCitanulHierophantsManaSourcesAddRemove()
-      {        
+      {
         Hand(P1, "Bulwark", "Congregate", "Disorder", "Cloak of Mists", "Creeping Tar Pit");
         Hand(P2, "Plains");
-        Battlefield(P1, "Creeping Tar Pit", "Island", "Island", "Drowned Catacomb", "Creeping Tar Pit", "Mountain", "Back to Basics", "Drowned Catacomb", "Plains", "Forest", "Citanul Hierophants");
-        Battlefield(P2, "Razorverge Thicket", "Forest", "Drowned Catacomb", "Argothian Enchantress",  "Island", "Chimeric Staff", "Drowned Catacomb", "Drowned Catacomb", "Island", "Swamp", "Plains", "Swamp", "Forest");        
+        Battlefield(P1, "Creeping Tar Pit", "Island", "Island", "Drowned Catacomb", "Creeping Tar Pit", "Mountain",
+          "Back to Basics", "Drowned Catacomb", "Plains", "Forest", "Citanul Hierophants");
+        Battlefield(P2, "Razorverge Thicket", "Forest", "Drowned Catacomb", "Argothian Enchantress", "Island",
+          "Chimeric Staff", "Drowned Catacomb", "Drowned Catacomb", "Island", "Swamp", "Plains", "Swamp", "Forest");
 
         RunGame(2);
-      }    
+      }
 
       [Fact]
       public void BugContiniousEffectFromCitanulAppliedTwiceToBarrin()
       {
         Hand(P1, "Annul", "Back to Basics", "Crater Hellion", "Argothian Elder", "Antagonism", "Cave Tiger", "Bedlam");
         Hand(P2, "Discordant Dirge", "Annul", "Barrin, Master Wizard", "Crater Hellion");
-        Battlefield(P1, "Creeping Tar Pit", "Mountain", "Rootbound Crag", "Swamp", "Swamp", "Darkest Hour", "Creeping Tar Pit");
-        Battlefield(P2, "Razorverge Thicket", "Creeping Tar Pit", "Mountain", "Disruptive Student", "Island", "Back to Basics", "Crystal Chimes", "Swamp", "Phyrexian Ghoul", "Forest", "Citanul Hierophants", "Island");     
+        Battlefield(P1, "Creeping Tar Pit", "Mountain", "Rootbound Crag", "Swamp", "Swamp", "Darkest Hour",
+          "Creeping Tar Pit");
+        Battlefield(P2, "Razorverge Thicket", "Creeping Tar Pit", "Mountain", "Disruptive Student", "Island",
+          "Back to Basics", "Crystal Chimes", "Swamp", "Phyrexian Ghoul", "Forest", "Citanul Hierophants", "Island");
 
         RunGame(2);
       }
@@ -340,18 +343,20 @@
         Hand(P1, "Argothian Elder", "Copper Gnomes", "Dark Hatchling", "Forest", "Island", "Dark Ritual", "Disorder");
         Hand(P2, "Congregate", "Dark Ritual", "Island", "Dark Ritual", "Dark Ritual", "Cloak of Mists", "Crater Hellion");
         Battlefield(P1, "Creeping Tar Pit");
-        Battlefield(P2, "Creeping Tar Pit");    
+        Battlefield(P2, "Creeping Tar Pit");
 
         RunGame(2);
       }
 
       [Fact]
       public void GameHangsBecauseOfABuginManaPool()
-      {        
+      {
         Hand(P1, "Lightning Dragon");
         Hand(P2, "Swords to Plowshares", "Plains", "Plains", "Plains", "Trip Noose");
-        Battlefield(P1, "Forest", C("Copperline Gorge").IsEnchantedWith("Fertile Ground"), "Mountain", "Mountain", "Forest", C("Lightning Dragon").IsEnchantedWith("Rancor").IsEnchantedWith("Rancor"));
-        Battlefield(P2, "Plains", "Plains", "Plains", "Glorious Anthem", "Plains", "Glorious Anthem", "Plains", "Baneslayer Angel", "Plains");
+        Battlefield(P1, "Forest", C("Copperline Gorge").IsEnchantedWith("Fertile Ground"), "Mountain", "Mountain",
+          "Forest", C("Lightning Dragon").IsEnchantedWith("Rancor").IsEnchantedWith("Rancor"));
+        Battlefield(P2, "Plains", "Plains", "Plains", "Glorious Anthem", "Plains", "Glorious Anthem", "Plains",
+          "Baneslayer Angel", "Plains");
 
         P1.Life = 12;
         P2.Life = 17;
@@ -359,8 +364,7 @@
         EnableLogging();
 
         RunGame(3);
-      }   
-      
+      }
     }
   }
 }

@@ -6,7 +6,7 @@
   using System.Linq;
   using Card;
   using Common;
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Player;
   using Targeting;
 
@@ -14,7 +14,6 @@
   public abstract class OrderedZone : GameObject, IEnumerable<Card>, IHashable, IZone
   {
     private readonly TrackableList<Card> _cards = new TrackableList<Card>(orderImpactsHashcode: true);
-    public event EventHandler Shuffled = delegate { };
 
     protected OrderedZone(Player owner)
     {
@@ -57,6 +56,8 @@
     {
       Remove(card);
     }
+
+    public event EventHandler Shuffled = delegate { };
 
     public event EventHandler<ZoneChangedEventArgs> CardAdded = delegate { };
     public event EventHandler<ZoneChangedEventArgs> CardRemoved = delegate { };

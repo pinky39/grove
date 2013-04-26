@@ -1,6 +1,5 @@
 ﻿namespace Grove.Tests.Cards
 {
-  using Core;
   using Gameplay.States;
   using Infrastructure;
   using Xunit;
@@ -13,7 +12,7 @@
       public void TapWurmcoilEngine()
       {
         var engine = C("Wurmcoil Engine");
-        
+
         Battlefield(P1, "Somnophore");
         Battlefield(P2, engine);
 
@@ -22,7 +21,6 @@
         Equal(18, P2.Life);
         Equal(20, P1.Life);
         True(C(engine).IsTapped);
-
       }
     }
 
@@ -46,7 +44,7 @@
             .Cast(shock, target: somnophore),
           At(Step.Upkeep, turn: 3)
             .Verify(() => False(C(engine).IsTapped))
-          );        
+          );
       }
     }
   }

@@ -2,7 +2,6 @@
 {
   using Gameplay.States;
   using Gameplay.Zones;
-  using Grove.Core;
   using Infrastructure;
   using Xunit;
 
@@ -26,13 +25,14 @@
         Exec(
           At(Step.FirstMain)
             .Cast(fallout)
-            .Verify(() => {
-              Equal(2, C(armoddon).Damage);
-              Equal(Zone.Graveyard, C(bear1).Zone);
-              Equal(Zone.Graveyard, C(bear2).Zone);
-              Equal(18, P1.Life);
-              Equal(18, P2.Life);
-            })
+            .Verify(() =>
+              {
+                Equal(2, C(armoddon).Damage);
+                Equal(Zone.Graveyard, C(bear1).Zone);
+                Equal(Zone.Graveyard, C(bear2).Zone);
+                Equal(18, P1.Life);
+                Equal(18, P2.Life);
+              })
           );
       }
     }

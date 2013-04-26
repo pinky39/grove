@@ -1,76 +1,48 @@
-﻿<UserControl x:Class="Grove.Ui.MatchResults.View"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:grove="clr-namespace:Grove.Ui" >
-    <Border>
-        <Border.Resources>
-            <Style BasedOn = "{StaticResource Text}"
-			       TargetType = "TextBlock" />
-            <Style BasedOn = "{StaticResource LinkButton}"
-			       TargetType = "Button" >
-                <Setter Property = "FontSize"
-				        Value = "16" />
-                <Setter Property="Foreground"
-                        Value="#fff"/>
-                 <Setter Property = "Margin"
-				        Value = "0,0,15,0" />
-            </Style>
-        </Border.Resources>
-        <Grid Width = "400" >
-            <Grid.RowDefinitions>
-                <RowDefinition Height = "36" />
-                <RowDefinition Height = "Auto" />
-                <RowDefinition Height = "50" />
-            </Grid.RowDefinitions>
-            <Border Grid.Row = "0"
-			        Background = "{StaticResource BarBackground}" >
-                <StackPanel Margin = "10,0,10,0"
-				            Orientation = "Horizontal" >
-                    <Image Margin = "0,0,10,0"	Style = "{StaticResource DialogIcon}" />
-                    <TextBlock Style="{StaticResource Caption}" Text = "End of match" />
-                </StackPanel>
-            </Border>
-            <Border Grid.Row = "1"
-			        Background = "#333" >
-                <Grid Margin = "25" >
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width = "Auto" />
-                        <ColumnDefinition Width = "*" />
-                    </Grid.ColumnDefinitions>
-                    <Image Height = "80"
-					       Grid.Column = "0"
-					       HorizontalAlignment = "Center"
-					       Margin = "10,0,30,0"
-					       VerticalAlignment = "Center"
-					       Source = "{Binding WinningAvatar, Converter={grove:Media}}" />
-                    <StackPanel Grid.Column = "1"
-					            HorizontalAlignment = "Left"
-					            VerticalAlignment = "Center" >
+﻿<UserControl x:Class="Grove.Ui.MatchResults.View" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:grove="clr-namespace:Grove.Ui">
+	<Border>
+		<Border.Resources>
+			<Style BasedOn="{StaticResource Text}" TargetType="TextBlock" />
+			<Style BasedOn="{StaticResource LinkButton}" TargetType="Button">
+				<Setter Property="FontSize" Value="16" />
+				<Setter Property="Foreground" Value="#fff" />
+				<Setter Property="Margin" Value="0,0,15,0" />
+			</Style>
+		</Border.Resources>
+		<Grid Width="400">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="36" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="50" />
+			</Grid.RowDefinitions>
+			<Border Grid.Row="0" Background="{StaticResource BarBackground}">
+				<StackPanel Margin="10,0,10,0" Orientation="Horizontal">
+					<Image Margin="0,0,10,0" Style="{StaticResource DialogIcon}" />
+					<TextBlock Style="{StaticResource Caption}" Text="End of match" />
+				</StackPanel>
+			</Border>
+			<Border Grid.Row="1" Background="#333">
+				<Grid Margin="25">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto" />
+						<ColumnDefinition Width="*" />
+					</Grid.ColumnDefinitions>
+					<Image Height="80" Grid.Column="0" HorizontalAlignment="Center" Margin="10,0,30,0" VerticalAlignment="Center" Source="{Binding WinningAvatar, Converter={grove:Media}}" />
+					<StackPanel Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">
 
-                        <TextBlock Margin = "0,0,0,10"
-						           FontSize = "20"
-						           Text = "{Binding ResultText}"
-						           TextWrapping = "Wrap" />
+						<TextBlock Margin="0,0,0,10" FontSize="20" Text="{Binding ResultText}" TextWrapping="Wrap" />
 
-                        <TextBlock Text = "{Binding YourResult}"
-						           TextWrapping = "Wrap" />
+						<TextBlock Text="{Binding YourResult}" TextWrapping="Wrap" />
 
-                        <TextBlock Text = "{Binding OpponentsResult}"
-						           TextWrapping = "Wrap" />
-                    </StackPanel>
-                </Grid>
-            </Border>
-            <Border Grid.Row = "2"
-			        Background = "#1a1a1a" >
-                <StackPanel HorizontalAlignment = "Right"
-				            Orientation = "Horizontal"
-				            Margin = "0,0,5,0" >
-                    <Button x:Name = "Rematch"
-					        Content = "Rematch" />
-                    <Button x:Name = "Quit"
-					        Content = "Quit" />
-                </StackPanel>
-            </Border>
-        </Grid>
-    </Border>
+						<TextBlock Text="{Binding OpponentsResult}" TextWrapping="Wrap" />
+					</StackPanel>
+				</Grid>
+			</Border>
+			<Border Grid.Row="2" Background="#1a1a1a">
+				<StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,5,0">
+					<Button x:Name="Rematch" Content="Rematch" />
+					<Button x:Name="Quit" Content="Quit" />
+				</StackPanel>
+			</Border>
+		</Grid>
+	</Border>
 </UserControl>

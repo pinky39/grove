@@ -1,7 +1,6 @@
 ﻿namespace Grove.Tests.Cards
 {
   using Gameplay.States;
-  using Grove.Core;
   using Infrastructure;
   using Xunit;
 
@@ -21,10 +20,11 @@
         Exec(
           At(Step.FirstMain)
             .Cast(shock, shade)
-            .Verify(() => {
-              Equal(3, C(shade).Toughness);
-              Equal(2, C(shade).Damage);
-            })
+            .Verify(() =>
+              {
+                Equal(3, C(shade).Toughness);
+                Equal(2, C(shade).Damage);
+              })
           );
       }
     }

@@ -3,7 +3,6 @@
   using System;
   using System.Collections.Generic;
   using Caliburn.Micro;
-  using Core;
   using Gameplay;
   using Gameplay.Effects;
   using Gameplay.Targeting;

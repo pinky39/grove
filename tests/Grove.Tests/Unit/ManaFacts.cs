@@ -104,12 +104,12 @@
     {
       foreach (var sameColor in manaAmount.Parse())
       {
-        for (int i = 0; i < sameColor.Count; i++)
+        for (var i = 0; i < sameColor.Count; i++)
         {
           var unit = new ManaUnit(sameColor.Color, 1, tapRestriction: tapRestriction);
           _vault.Add(unit);
         }
-      }      
+      }
     }
 
     private void Consume(string manaAmount)

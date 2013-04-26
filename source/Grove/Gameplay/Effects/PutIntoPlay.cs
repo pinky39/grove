@@ -11,7 +11,7 @@
       _tap = tap ?? false;
       RegisterDynamicParameters(tap);
     }
-    
+
     protected override void ResolveEffect()
     {
       if (_tap.Value)

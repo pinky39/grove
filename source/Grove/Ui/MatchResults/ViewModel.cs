@@ -1,14 +1,13 @@
 ﻿namespace Grove.Ui.MatchResults
 {
   using System;
-  using Core;
   using Gameplay;
   using Infrastructure;
 
   public class ViewModel
   {
-    private readonly Match _match;
     private readonly Game _game;
+    private readonly Match _match;
 
 
     public ViewModel(Match match, Game game)

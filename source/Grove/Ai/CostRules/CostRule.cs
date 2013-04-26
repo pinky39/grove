@@ -7,7 +7,7 @@
     public override void Process(ActivationContext c)
     {
       if (c.HasTargets == false)
-      {        
+      {
         var p = new CostRuleParameters(c.Card, c.MaxX.GetValueOrDefault());
         c.X = CalculateX(p);
 
@@ -19,11 +19,12 @@
       }
 
       var targetsCombinations = c.TargetsCombinations().ToList();
-      
-      foreach (var targetsCombination in targetsCombinations) {
+
+      foreach (var targetsCombination in targetsCombinations)
+      {
         var p = new CostRuleParameters(c.Card, c.MaxX.GetValueOrDefault(), targetsCombination.Targets);
         targetsCombination.X = CalculateX(p);
-        
+
         if (targetsCombination.X > c.MaxX)
         {
           c.RemoveTargetCombination(targetsCombination);

@@ -1,7 +1,6 @@
 ﻿namespace Grove.Tests.Cards
 {
   using System.Linq;
-  using Core;
   using Gameplay.States;
   using Gameplay.Zones;
   using Infrastructure;
@@ -27,28 +26,24 @@
         Equal(Zone.Hand, C(force).Zone);
       }
     }
-    
+
     public class PredefinedAi : PredefinedAiScenario
-    {     
-      
+    {
       [Fact]
       public void BounceSelf()
       {
         var engine = C("Wurmcoil Engine");
         var manOWar = C("Man-o'-War");
         var vines = C("Vines of Vastwood");
-        
+
         Hand(P1, vines);
         Battlefield(P1, engine, "Forest");
         Battlefield(P2, "Island", "Island", "Island");
         Hand(P2, manOWar);
 
         Exec(
-          At(Step.FirstMain, turn: 2)            
-            .Cast(vines, target: engine, condition: (c, g) =>
-              {
-                return g.Stack.HasSpellNamed("Man-o'-War");
-              }),            
+          At(Step.FirstMain, turn: 2)
+            .Cast(vines, target: engine, condition: (c, g) => { return g.Stack.HasSpellNamed("Man-o'-War"); }),
           At(Step.SecondMain, turn: 2)
             .Verify(() =>
               {
@@ -58,8 +53,8 @@
                 Equal(3, P2.Battlefield.Lands.Count(c => c.IsTapped));
               })
           );
-      }      
-      
+      }
+
       [Fact]
       public void BounceNoOne()
       {

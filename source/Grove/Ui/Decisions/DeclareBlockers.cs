@@ -1,11 +1,11 @@
 ﻿namespace Grove.Ui.Decisions
 {
   using System.Linq;
-  using Grove.Gameplay.Card;
-  using Grove.Gameplay.Decisions.Results;
-  using Grove.Gameplay.Targeting;
-  using Grove.Ui.SelectTarget;
-  using Grove.Ui.Shell;
+  using Gameplay.Card;
+  using Gameplay.Decisions.Results;
+  using Gameplay.Targeting;
+  using SelectTarget;
+  using Shell;
 
   public class DeclareBlockers : Gameplay.Decisions.DeclareBlockers
   {
@@ -18,12 +18,13 @@
 
       while (true)
       {
-        var blockerDefinition = new TargetValidatorParameters {MinCount = 0, MaxCount = 1, Message = "Select a blocker."}
-          .Is.Card(c => c.CanBlock() && c.Controller == Controller)
-          .On.Battlefield();
+        var blockerDefinition =
+          new TargetValidatorParameters {MinCount = 0, MaxCount = 1, Message = "Select a blocker."}
+            .Is.Card(c => c.CanBlock() && c.Controller == Controller)
+            .On.Battlefield();
 
         blockerDefinition.MustBeTargetable = false;
-        
+
         var blockerValidator = new TargetValidator(blockerDefinition);
         blockerValidator.Initialize(Game, Controller);
 

@@ -1,15 +1,13 @@
-﻿using System;
-using System.Diagnostics;
-using System.Reflection;
-using Grove.Infrastructure;
-using Xunit;
-
-namespace Grove.Tests.Unit
+﻿namespace Grove.Tests.Unit
 {
+  using System;
+  using System.Diagnostics;
+  using System.Reflection;
+  using Grove.Infrastructure;
+  using Xunit;
+
   public class ActivationFacts
   {
-    private readonly FieldInfo _ageField = typeof (Dog).GetField("_age", BindingFlags.Instance | BindingFlags.NonPublic);
-
     [Fact]
     public void GetField()
     {
@@ -36,19 +34,19 @@ namespace Grove.Tests.Unit
     {
       var getter = _ageField.GetGetter();
       var setter = _ageField.GetSetter();
-      
+
       var dog1 = new Dog();
       var dog2 = new Dog();
-      
+
       var iterations = 100000;
-      
+
       var stopWatch = new Stopwatch();
       stopWatch.Start();
 
 
-      for (int i = 0; i < iterations; i++)
-      {         
-       setter(dog2, getter(dog1));
+      for (var i = 0; i < iterations; i++)
+      {
+        setter(dog2, getter(dog1));
       }
 
       stopWatch.Stop();
@@ -59,13 +57,15 @@ namespace Grove.Tests.Unit
       stopWatch.Reset();
       stopWatch.Start();
 
-      for (int i = 0; i < iterations; i++)
+      for (var i = 0; i < iterations; i++)
       {
         _ageField.SetValue(dog2, _ageField.GetValue(dog1));
       }
-     
+
       Console.WriteLine("Using reflection: {0}.", stopWatch.Elapsed.TotalMilliseconds);
     }
+
+    private readonly FieldInfo _ageField = typeof (Dog).GetField("_age", BindingFlags.Instance | BindingFlags.NonPublic);
 
     public class Dog
     {

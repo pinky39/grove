@@ -2,7 +2,7 @@
 {
   using Characteristics;
   using Common;
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   [Copyable]
   public abstract class Counter : GameObject

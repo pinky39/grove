@@ -6,7 +6,7 @@
   public abstract class PredefinedAiScenario : Scenario
   {
     protected PredefinedAiScenario() : base(
-      player1ControlledByScript: true, 
+      player1ControlledByScript: true,
       player2ControlledByScript: false) {}
   }
 }

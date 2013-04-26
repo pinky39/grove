@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Core;
   using Gameplay.Card;
   using Gameplay.Card.Characteristics;
   using Gameplay.Targeting;
@@ -11,7 +10,7 @@
   {
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
     {
-      var candidates = p.Candidates<Gameplay.Card.Card>()
+      var candidates = p.Candidates<Card>()
         .Select(x => new
           {
             Card = x,

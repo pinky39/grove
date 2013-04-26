@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Ai.TimingRules;
-  using Core;
   using Gameplay.Card.Characteristics;
   using Gameplay.Card.Costs;
   using Gameplay.Card.Factory;
@@ -46,7 +45,6 @@
                 .FlavorText("A minion given over to Tevesh Szat is a stronger minion gained.")
                 .Type("Creature - Token - Minion")
                 .Colors(CardColor.Black),
-              
               tokenParameters: (e, token) =>
                 {
                   token.Power(e.Source.OwningCard.Counters.GetValueOrDefault());

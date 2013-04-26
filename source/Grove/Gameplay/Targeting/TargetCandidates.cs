@@ -2,7 +2,7 @@
 {
   using System.Collections;
   using System.Collections.Generic;
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   [Copyable]
   public class TargetCandidates : IEnumerable<ITarget>

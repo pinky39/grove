@@ -1,6 +1,5 @@
 ﻿namespace Grove.Ui.Zones
 {
-  using Core;
   using Gameplay;
 
   public class ViewModel

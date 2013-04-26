@@ -1,7 +1,6 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Core;
   using Gameplay.Card.Abilities;
   using Gameplay.Card.Factory;
 
@@ -17,8 +16,8 @@
         .FlavorText(
           "The air stirred as if fanned by angels wings, and the enemy was turned aside.")
         .Power(0)
-        .Toughness(4)        
-        .StaticAbilities(Static.Defender, Static.Flying);        
+        .Toughness(4)
+        .StaticAbilities(Static.Defender, Static.Flying);
     }
   }
 }

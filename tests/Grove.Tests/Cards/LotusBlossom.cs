@@ -12,8 +12,8 @@
       public void PlayForce()
       {
         var force = C("Verdant Force");
-        
-        Battlefield(P1, "Forest", "Forest", "Forest", "Forest", "Lotus Blossom");        
+
+        Battlefield(P1, "Forest", "Forest", "Forest", "Forest", "Lotus Blossom");
         Hand(P1, force);
 
         RunGame(8);

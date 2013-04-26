@@ -1,6 +1,6 @@
 ﻿namespace Grove.Gameplay.Card.Characteristics
 {
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Modifiers;
 
   [Copyable]

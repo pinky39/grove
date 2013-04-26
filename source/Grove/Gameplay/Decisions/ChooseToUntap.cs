@@ -7,11 +7,8 @@
   {
     public Card Permanent { get; set; }
 
-    protected override bool ShouldExecuteQuery
-    {
-      get { return Permanent.IsTapped; }
-    }
-    
+    protected override bool ShouldExecuteQuery { get { return Permanent.IsTapped; } }
+
     public override void ProcessResults()
     {
       if (Result.IsTrue)

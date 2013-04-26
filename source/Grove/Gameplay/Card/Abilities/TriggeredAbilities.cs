@@ -1,7 +1,7 @@
 ﻿namespace Grove.Gameplay.Card.Abilities
 {
   using Common;
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Modifiers;
 
   [Copyable]
@@ -40,7 +40,7 @@
       {
         triggeredAbility.Initialize(card, game);
       }
-    }   
+    }
 
     public void DisableAll()
     {

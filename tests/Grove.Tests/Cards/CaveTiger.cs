@@ -1,6 +1,5 @@
 ﻿namespace Grove.Tests.Cards
 {
-  using Core;
   using Gameplay.States;
   using Infrastructure;
   using Xunit;
@@ -26,7 +25,7 @@
             .DeclareBlockers(tiger, bear),
           At(Step.SecondMain)
             .Verify(() => Equal(3, C(tiger).Power))
-          );        
+          );
       }
     }
   }

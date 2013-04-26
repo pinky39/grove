@@ -43,7 +43,7 @@
 
     public static int CombineCommutative(params int[] values)
     {
-      return CombineCommutative((IList<int>)values);
+      return CombineCommutative((IList<int>) values);
     }
 
     public static int CombineCommutative(IList<int> values)
@@ -53,8 +53,8 @@
       // they will cancel each other out 
       // to compensate for this instead of initialazing
       // h to zero, we init h to count.
-      
-      uint h = (uint)values.Count;
+
+      var h = (uint) values.Count;
 
       foreach (var value in values)
       {

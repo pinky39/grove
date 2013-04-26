@@ -1,10 +1,8 @@
 ﻿namespace Grove.Tests.Cards
 {
-  using Core;
   using Gameplay.States;
   using Infrastructure;
   using Xunit;
-
 
   public class DragonBlood
   {
@@ -23,15 +21,15 @@
         Exec(
           At(Step.FirstMain)
             .Cast(disenchant, target: blood)
-            .Verify( () => Equal(3, C(bear).Power))
-        );
+            .Verify(() => Equal(3, C(bear).Power))
+          );
       }
-      
+
       [Fact]
       public void PumpEot()
       {
         var songstitcher = C("Songstitcher");
-        
+
         Battlefield(P2, "Plains", "Plains",
           "Dragon Blood", "Plains", songstitcher);
 

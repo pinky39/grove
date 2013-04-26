@@ -4,7 +4,6 @@
   using Ai;
   using Ai.TargetingRules;
   using Ai.TimingRules;
-  using Core;
   using Gameplay.Card.Factory;
   using Gameplay.Card.Triggers;
   using Gameplay.Effects;

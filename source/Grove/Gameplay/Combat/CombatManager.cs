@@ -6,12 +6,12 @@
   using Card;
   using Common;
   using Decisions;
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Messages;
   using Player;
 
   [Copyable]
-  public class Combat : GameObject, IHashable
+  public class CombatManager : GameObject, IHashable
   {
     private readonly TrackableList<Attacker> _attackers = new TrackableList<Attacker>();
     private readonly TrackableList<Blocker> _blockers = new TrackableList<Blocker>();

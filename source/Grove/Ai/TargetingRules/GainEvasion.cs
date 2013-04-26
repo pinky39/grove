@@ -3,7 +3,6 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Core;
   using Gameplay.Card;
   using Gameplay.Player;
   using Gameplay.Targeting;
@@ -21,7 +20,7 @@
 
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
     {
-      var candidates = p.Candidates<Card>(ControlledBy.SpellOwner)        
+      var candidates = p.Candidates<Card>(ControlledBy.SpellOwner)
         .Where(x => x.IsAttacker)
         .Where(x => _filter(x))
         .OrderByDescending(x => x.Card().CalculateCombatDamage(allDamageSteps: true));

@@ -1,7 +1,5 @@
-﻿<UserControl x:Class="Grove.Ui.Library.View"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Grid>
-        <ItemsControl x:Name="Cards" Style="{StaticResource Zone}" /> 
-    </Grid>
+﻿<UserControl x:Class="Grove.Ui.Library.View" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<Grid>
+		<ItemsControl x:Name="Cards" Style="{StaticResource Zone}" />
+	</Grid>
 </UserControl>

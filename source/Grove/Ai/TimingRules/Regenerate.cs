@@ -3,7 +3,7 @@
   public class Regenerate : TimingRule
   {
     public override bool ShouldPlay(TimingRuleParameters p)
-    {            
+    {
       if (p.Card.Has().Indestructible)
         return false;
 

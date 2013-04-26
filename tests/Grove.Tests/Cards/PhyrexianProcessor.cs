@@ -12,7 +12,7 @@
       public void Create55Token()
       {
         Hand(P1, "Phyrexian Processor");
-        Battlefield(P1, "Swamp", "Swamp", "Swamp", "Swamp", "Swamp", "Swamp", "Swamp", "Swamp" );
+        Battlefield(P1, "Swamp", "Swamp", "Swamp", "Swamp", "Swamp", "Swamp", "Swamp", "Swamp");
 
         RunGame(3);
 

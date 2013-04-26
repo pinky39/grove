@@ -18,7 +18,7 @@
     public override void Apply(DamagePreventions damagePreventions)
     {
       _damagePreventions = damagePreventions;
-      _damagePrevention.Initialize(Target, Game);            
+      _damagePrevention.Initialize(Target, Game);
 
       damagePreventions.AddPrevention(_damagePrevention);
     }

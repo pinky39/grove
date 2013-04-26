@@ -1,10 +1,8 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Ai.CostRules;
   using Ai.TargetingRules;
-  using Core;
   using Gameplay.Card.Factory;
   using Gameplay.Effects;
   using Gameplay.Modifiers;
@@ -23,7 +21,7 @@
           {
             p.Effect = () => new DealDamageToTargets(Value.PlusX);
             p.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
-                        
+
             p.TargetingRule(new DealDamage());
             p.CostRule(new TargetsLifepoints());
           });

@@ -1,14 +1,12 @@
 ﻿namespace Grove.Ui.StartScreen
 {
   using System;
-  using System.Collections.Generic;
   using System.Diagnostics;
   using System.IO;
   using System.Linq;
   using System.Reflection;
   using System.Threading.Tasks;
   using System.Windows;
-  using Core;
   using Gameplay;
   using Gameplay.Card.Factory;
   using Gameplay.Deck;
@@ -113,7 +111,7 @@
       Deck firstDeck;
       Deck secondDeck;
 
-      ChooseRandomDecks(out firstDeck, out secondDeck);      
+      ChooseRandomDecks(out firstDeck, out secondDeck);
       _match.Start(firstDeck, secondDeck);
     }
 
@@ -126,20 +124,20 @@
     private void ChooseRandomDecks(out Deck firstDeck, out Deck secondDeck)
     {
       var reader = new DeckReaderWriter();
-      
+
       var deckFiles = Directory
         .EnumerateFiles(MediaLibrary.DecksFolder, "*.dec");
-      
+
       var decks = deckFiles
         .Select(x => reader.Read(x, _cardDatabase))
         .ToList();
 
       var first = decks[Rnd.Next(0, decks.Count)];
-      
+
       var decksWithSameRating = decks
         .Where(x => x.Rating == first.Rating)
         .ToList();
-      
+
       var second = decksWithSameRating[Rnd.Next(0, decksWithSameRating.Count)];
 
       firstDeck = first;

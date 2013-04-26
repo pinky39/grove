@@ -11,6 +11,6 @@
     Blue,
     Black,
     Red,
-    Green    
+    Green
   }
 }

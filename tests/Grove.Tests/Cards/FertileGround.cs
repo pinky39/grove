@@ -1,6 +1,5 @@
 ﻿namespace Grove.Tests.Cards
 {
-  using Core;
   using Gameplay.States;
   using Infrastructure;
   using Xunit;
@@ -17,7 +16,7 @@
         Battlefield(P1, forest.IsEnchantedWith("Fertile Ground"));
 
         Exec(
-          At(Step.FirstMain)            
+          At(Step.FirstMain)
             .Verify(() => Equal(2, P1.GetConvertedMana()))
           );
       }

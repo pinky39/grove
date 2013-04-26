@@ -12,9 +12,9 @@
       public void DestroyDirge()
       {
         var dirge = C("Discordant Dirge");
-        
+
         Battlefield(P1, dirge);
-        Battlefield(P2, "Elvish Lyrist", "Forest");                
+        Battlefield(P2, "Elvish Lyrist", "Forest");
 
         RunGame(1);
 

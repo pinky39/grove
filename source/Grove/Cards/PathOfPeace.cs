@@ -3,7 +3,6 @@
   using System.Collections.Generic;
   using Ai.TargetingRules;
   using Ai.TimingRules;
-  using Core;
   using Gameplay.Card.Factory;
   using Gameplay.Effects;
   using Gameplay.Targeting;
@@ -25,7 +24,7 @@
               {
                 AfterResolve = e => e.Target.Card().Owner.Life += 4
               };
-            
+
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 
             p.TimingRule(new FirstMain());

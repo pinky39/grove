@@ -3,7 +3,6 @@
   using System.Collections.Generic;
   using Ai.TargetingRules;
   using Ai.TimingRules;
-  using Core;
   using Gameplay.Card.Abilities;
   using Gameplay.Card.Costs;
   using Gameplay.Card.Factory;
@@ -23,7 +22,7 @@
           "You may choose not to untap Mana Leech during your untap step.{EOL}{T}: Tap target land. It doesn't untap during its controller's untap step for as long as Mana Leech remains tapped.")
         .Power(1)
         .Toughness(1)
-        .MayChooseNotToUntapDuringUntap()
+        .MayChooseToUntap()
         .ActivatedAbility(p =>
           {
             p.Text =

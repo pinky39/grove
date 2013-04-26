@@ -1,6 +1,6 @@
 ﻿namespace Grove.Gameplay.Card.Abilities
 {
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   [Copyable]
   public class StaticAbility : IHashable
@@ -12,14 +12,7 @@
 
     public StaticAbility(Static value)
     {
-      _value = value;            
-    }
-
-    public StaticAbility Initialize(INotifyChangeTracker changeTracker)
-    {
-      _isEnabled.Initialize(changeTracker);      
-
-      return this;
+      _value = value;
     }
 
     public Static Value { get { return _value; } }
@@ -30,6 +23,13 @@
       return HashCalculator.Combine(
         _value.GetHashCode(),
         _isEnabled.Value.GetHashCode());
+    }
+
+    public StaticAbility Initialize(INotifyChangeTracker changeTracker)
+    {
+      _isEnabled.Initialize(changeTracker);
+
+      return this;
     }
 
     public void Enable()

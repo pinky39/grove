@@ -1,10 +1,10 @@
 ﻿namespace Grove.Ui.Decisions
 {
-  using Grove.Gameplay.Decisions.Results;
-  using Grove.Gameplay.Targeting;
-  using Grove.Ui.SelectTarget;
-  using Grove.Ui.Shell;
   using System.Linq;
+  using Gameplay.Decisions.Results;
+  using Gameplay.Targeting;
+  using SelectTarget;
+  using Shell;
 
   public class SetTriggeredAbilityTarget : Gameplay.Decisions.SetTriggeredAbilityTarget
   {
@@ -21,11 +21,11 @@
           continue;
 
         var selectTargetParameters = new SelectTargetParameters
-        {          
-          Validator = validator,
-          CanCancel = false,
-          TriggerMessage = TriggerMessage
-        };
+          {
+            Validator = validator,
+            CanCancel = false,
+            TriggerMessage = TriggerMessage
+          };
 
         var dialog = DialogFactory.Create(selectTargetParameters);
         Shell.ShowModalDialog(dialog, DialogType.Small, InteractionState.SelectTarget);

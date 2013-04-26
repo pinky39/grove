@@ -8,7 +8,6 @@
   using System.Windows;
   using System.Windows.Data;
   using System.Windows.Media;
-  using Core;
   using Gameplay.Card.Characteristics;
   using Gameplay.Mana;
   using Infrastructure;
@@ -243,16 +242,16 @@
         {
           if (single.Color.IsColorless)
           {
-            colorless = single.Count;            
+            colorless = single.Count;
             continue;
           }
 
           var symbol = Map.First(x => x.Color(single.Color));
 
-          for (int i = 0; i < single.Count; i++)
+          for (var i = 0; i < single.Count; i++)
           {
             images.Add(symbol.Symbol);
-          }          
+          }
         }
 
         if (colorless != null)

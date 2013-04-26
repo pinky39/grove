@@ -1,8 +1,8 @@
 ﻿namespace Grove.Ui.Decisions
 {
-  using Grove.Gameplay.Decisions.Results;
-  using Grove.Ui.Priority;
-  using Grove.Ui.Shell;
+  using Gameplay.Decisions.Results;
+  using Priority;
+  using Shell;
 
   public class PlaySpellOrAbility : Gameplay.Decisions.PlaySpellOrAbility
   {

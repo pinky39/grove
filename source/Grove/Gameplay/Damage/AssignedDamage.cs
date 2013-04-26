@@ -1,7 +1,7 @@
 ﻿namespace Grove.Gameplay.Damage
 {
   using System.Linq;
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Player;
 
   [Copyable]

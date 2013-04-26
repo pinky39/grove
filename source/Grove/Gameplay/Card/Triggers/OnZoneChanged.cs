@@ -2,7 +2,7 @@
 {
   using System;
   using Abilities;
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Messages;
   using Zones;
 

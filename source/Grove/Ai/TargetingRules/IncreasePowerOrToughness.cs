@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Core;
   using Gameplay.Card;
   using Gameplay.Player;
   using Gameplay.States;
@@ -13,15 +12,15 @@
     private readonly int? _power;
     private readonly int? _toughness;
     private readonly bool _untilEot;
-        
-    public IncreasePowerOrToughness(int? power , int? toughness, bool untilEot = true)
+
+    public IncreasePowerOrToughness(int? power, int? toughness, bool untilEot = true)
     {
       _power = power;
       _untilEot = untilEot;
       _toughness = toughness;
     }
 
-    private IncreasePowerOrToughness(){}
+    private IncreasePowerOrToughness() {}
 
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
     {
@@ -43,7 +42,7 @@
       else if (_untilEot && toughness > 0)
       {
         candidates = p.Candidates<Card>(ControlledBy.SpellOwner)
-          .Where(x => Stack.CanBeDealtLeathalDamageByTopSpell(Target.Card(x)));
+          .Where(x => Stack.CanBeDealtLeathalDamageByTopSpell(x.Card()));
       }
 
       else if (!_untilEot &&

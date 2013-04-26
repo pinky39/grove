@@ -2,7 +2,7 @@
 {
   using System.Linq;
   using Characteristics;
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Modifiers;
 
   [Copyable]
@@ -17,12 +17,7 @@
     public Counters(Power power, Toughness toughness)
     {
       _power = power;
-      _toughness = toughness;      
-    }
-
-    public void Initialize(ChangeTracker changeTracker, IHashDependancy hashDependancy)
-    {
-      _counters.Initialize(changeTracker, hashDependancy);
+      _toughness = toughness;
     }
 
     public int Count { get { return _counters.Count; } }
@@ -30,6 +25,11 @@
     public void Accept(IModifier modifier)
     {
       modifier.Apply(this);
+    }
+
+    public void Initialize(ChangeTracker changeTracker, IHashDependancy hashDependancy)
+    {
+      _counters.Initialize(changeTracker, hashDependancy);
     }
 
     public int CountSpecific<T>()

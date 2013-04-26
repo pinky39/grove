@@ -1,7 +1,6 @@
 ﻿namespace Grove.Ai.TimingRules
 {
   using System;
-  using Core;
   using Gameplay.Card;
 
   public class OwningCardHas : TimingRule

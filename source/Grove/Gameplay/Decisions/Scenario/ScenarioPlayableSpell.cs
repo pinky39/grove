@@ -1,9 +1,9 @@
-﻿namespace Grove.Core.Decisions.Scenario
+﻿namespace Grove.Gameplay.Decisions.Scenario
 {
   using System;
   using System.Linq;
-  using Gameplay.Decisions.Results;
-  using Gameplay.Mana;
+  using Mana;
+  using Results;
 
   public class ScenarioPlayableSpell : PlayableSpell
   {
