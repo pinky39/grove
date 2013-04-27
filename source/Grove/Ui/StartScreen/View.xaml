@@ -21,7 +21,7 @@
 		<StackPanel HorizontalAlignment="Center" Margin="0,280,0,0">
 			<StackPanel>
 				<Image Source="{grove:Media 'logo.png'}" Width="600" />
-				<StackPanel HorizontalAlignment="Right" Margin="0,-30,20,0" Visibility="{Binding HasLoaded, Converter={x:Static grove:Converters.BooleanToVisibility}}">
+				<StackPanel HorizontalAlignment="Right" Margin="0,-30,20,0" Visibility="{Binding Shell.HasLoaded, Converter={x:Static grove:Converters.BooleanToVisibility}}">
 					<Button HorizontalAlignment="Right" x:Name="Play">New game</Button>
 					<Button HorizontalAlignment="Right" x:Name="PlayRandom">Random game</Button>
 					<Button HorizontalAlignment="Right" x:Name="DeckEditor">Deck editor</Button>

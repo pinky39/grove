@@ -1,6 +1,7 @@
 ﻿namespace Grove.Ui
 {
   using System;
+  using System.Collections.Generic;
   using System.IO;
   using System.Linq;
   using System.Windows.Media;
@@ -16,6 +17,8 @@
     private const string Decks = @"decks\";
     private const string Sets = @"sets\";
 
+    private static readonly Dictionary<string, ImageSource> ImageCache = new Dictionary<string, ImageSource>();
+
 #if DEBUG
     private static readonly string BasePath = Path.GetFullPath(@"..\..\..\..\media\");
 #else 
@@ -26,6 +29,31 @@
     public static string DecksFolder { get { return Path.Combine(BasePath, Decks); } }
     public static string SetsFolder { get { return Path.Combine(BasePath, Sets); } }
 
+    public static void LoadImages()
+    {
+      LoadImageFolder(Images);
+      LoadImageFolder(Cards);
+    }
+
+    private static void LoadImageFolder(string path)
+    {
+      var fullPath = Path.Combine(BasePath, path);
+
+      if (!Directory.Exists(fullPath))
+        return;
+
+      var files = Directory.EnumerateFiles(fullPath);
+
+      foreach (var file in files)
+      {
+        var uri = new Uri(file);
+        var bitmapImage = new BitmapImage(uri);
+        bitmapImage.Freeze();
+        ImageCache.Add(file, bitmapImage );
+      }
+    }
+
+
     public static ImageSource GetCardImage(string name)
     {
       return File.Exists(GetImagePath(Cards, name))
@@ -33,16 +61,19 @@
         : GetImage("missing-card-image.jpg");
     }
 
+
     public static ImageSource GetImage(string name, string folder = null)
     {
       folder = folder ?? Images;
       var path = GetImagePath(folder, name);
-      var uri = new Uri(path);
-      return new BitmapImage(uri);
+      return GetImageWithPath(path);
     }
 
     public static ImageSource GetImageWithPath(string path)
     {
+      if (ImageCache.ContainsKey(path))
+        return ImageCache[path];
+
       var uri = new Uri(path);
       return new BitmapImage(uri);
     }

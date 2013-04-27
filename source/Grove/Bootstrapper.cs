@@ -30,6 +30,7 @@
       new WindowManager().ShowWindow(shell);
     }
 
+
     protected override IEnumerable<object> GetAllInstances(Type service)
     {
       return Container.ResolveAll(service).Cast<object>();

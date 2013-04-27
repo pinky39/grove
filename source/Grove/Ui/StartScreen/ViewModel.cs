@@ -5,7 +5,6 @@
   using System.IO;
   using System.Linq;
   using System.Reflection;
-  using System.Threading.Tasks;
   using System.Windows;
   using Gameplay;
   using Gameplay.Card.Factory;
@@ -20,7 +19,6 @@
     private readonly DeckEditor.ViewModel.IFactory _deckEditorScreenFactory;
     private readonly Match _match;
     private readonly SelectDeck.ViewModel.IFactory _selectDeckScreenFactory;
-    private readonly IShell _shell;
 
     public ViewModel(
       IShell shell,
@@ -29,16 +27,15 @@
       DeckEditor.ViewModel.IFactory deckEditorScreenFactory,
       Match match)
     {
-      _shell = shell;
+      Shell = shell;
+
       _cardDatabase = cardDatabase;
       _selectDeckScreenFactory = selectDeckScreenFactory;
       _deckEditorScreenFactory = deckEditorScreenFactory;
       _match = match;
-
-      LoadPreviews();
     }
 
-    public virtual bool HasLoaded { get; protected set; }
+    public IShell Shell { get; private set; }
 
     public string DatabaseInfo
     {
@@ -60,15 +57,6 @@
     public void CloseAllDialogs() {}
 
     public void RemoveDialog(object dialog) {}
-
-    private void LoadPreviews()
-    {
-      Task.Factory.StartNew(() =>
-        {
-          _cardDatabase.LoadPreviews();
-          HasLoaded = true;
-        });
-    }
 
     public void Exit()
     {
@@ -98,12 +86,12 @@
                   });
               }
 
-              _shell.ChangeScreen(selectDeck2);
+              Shell.ChangeScreen(selectDeck2);
             }
         };
 
       selectDeck1 = _selectDeckScreenFactory.Create(configuration1);
-      _shell.ChangeScreen(selectDeck1);
+      Shell.ChangeScreen(selectDeck1);
     }
 
     public void PlayRandom()
@@ -118,7 +106,7 @@
     public void DeckEditor()
     {
       var deckEditorScreen = _deckEditorScreenFactory.Create(this);
-      _shell.ChangeScreen(deckEditorScreen);
+      Shell.ChangeScreen(deckEditorScreen);
     }
 
     private void ChooseRandomDecks(out Deck firstDeck, out Deck secondDeck)

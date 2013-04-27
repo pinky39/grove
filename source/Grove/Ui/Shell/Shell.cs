@@ -1,8 +1,11 @@
 ﻿namespace Grove.Ui.Shell
 {
+  using System.ComponentModel;
+  using System.Threading.Tasks;
   using System.Windows;
   using Caliburn.Micro;
   using Gameplay;
+  using Gameplay.Card.Factory;
   using Infrastructure;
   using MessageBox;
 
@@ -11,20 +14,33 @@
     private readonly Match _match;
     private InteractionState _interactionState = InteractionState.Disabled;
 
-    public Shell(Match match)
+    public Shell(Match match, CardDatabase cardDatabase)
     {
       _match = match;
       _match.SetShell(this);
 
       DisplayName = "magicgrove";
+      
+      LoadResources(cardDatabase);
     }
 
     public virtual IIsDialogHost Screen { get; protected set; }
     public string DisplayName { get; set; }
+    public virtual bool HasLoaded { get; protected set; }
 
     public void CloseAllDialogs()
     {
       Screen.CloseAllDialogs();
+    }
+
+    private void LoadResources(CardDatabase cardDatabase)
+    {
+      Task.Factory.StartNew(() =>
+        {
+          cardDatabase.LoadPreviews();
+          MediaLibrary.LoadImages();
+          HasLoaded = true;
+        });
     }
 
     public void ChangeScreen(IIsDialogHost screen)

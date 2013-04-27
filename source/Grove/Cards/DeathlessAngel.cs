@@ -32,7 +32,7 @@
             p.Effect = () => new ApplyModifiersToTargets(
               () => new AddStaticAbility(Static.Indestructible)) {Category = EffectCategories.Protector};
 
-            p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
+            p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());                        
             p.TargetingRule(new GainIndestructible());
           });
     }
