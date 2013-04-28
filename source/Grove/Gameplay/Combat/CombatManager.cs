@@ -111,7 +111,7 @@
 
     public void DeclareAttacker(Card card)
     {
-      if (!card.CanAttackThisTurn)
+      if (!card.CanAttack)
         return;
 
       JoinAttack(card, wasDeclared: true);

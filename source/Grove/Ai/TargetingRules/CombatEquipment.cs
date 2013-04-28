@@ -16,7 +16,7 @@
       if (Turn.Step == Step.FirstMain)
       {
         candidates = p.Candidates<Card>(ControlledBy.SpellOwner)
-          .Where(x => x.CanAttackThisTurn)
+          .Where(x => x.CanAttack)
           .Select(x => new
             {
               Card = x.Card(),

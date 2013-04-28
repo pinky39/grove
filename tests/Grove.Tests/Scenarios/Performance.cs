@@ -166,5 +166,20 @@
 
       RunGame(maxTurnCount: 2);
     }
+
+
+    [Fact]
+    public void Num14()
+    {
+      Hand(P1, "Fires of Yavimaya");      
+      
+      Battlefield(P1, "Forest", "Llanowar Elves", "Mountain", "Wall of Blossoms", "Rootbound Crag", "Fires of Yavimaya",
+        "Mountain", "Copperline Gorge", "Scoria Wurm", "Mountain", "Wall of Blossoms", "Endless Wurm");
+      
+      Battlefield(P2, "Plains", "Plains", "Plains", "Plains", "Glorious Anthem", "Trip Noose", "Plains", "Plains",
+        "Deathless Angel", "Trip Noose", "Plains", "Student of Warfare", "Plains");
+
+      RunGame(2);
+    }
   }
 }

@@ -89,7 +89,7 @@
     public Card AttachedTo { get { return _attachedTo.Value; } private set { _attachedTo.Value = value; } }
     public IEnumerable<Card> Attachments { get { return _attachments.Cards; } }
 
-    public bool CanAttackThisTurn
+    public bool CanAttack
     {
       get
       {

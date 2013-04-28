@@ -22,9 +22,9 @@
     public override Zone Zone { get { return Zone.Battlefield; } }
     public IEnumerable<Card> Attackers { get { return this.Where(card => card.IsAttacker); } }
     public IEnumerable<Card> Blockers { get { return this.Where(card => card.IsBlocker); } }
-    public IEnumerable<Card> CreaturesThatCanAttack { get { return Creatures.Where(x => x.CanAttackThisTurn); } }
+    public IEnumerable<Card> CreaturesThatCanAttack { get { return Creatures.Where(x => x.CanAttack); } }
     public IEnumerable<Card> CreaturesThatCanBlock { get { return Creatures.Where(x => x.CanBlock()); } }
-    public bool HasCreaturesThatCanAttack { get { return this.Any(card => card.CanAttackThisTurn); } }
+    public bool HasCreaturesThatCanAttack { get { return this.Any(card => card.CanAttack); } }
     public IEnumerable<Card> Legends { get { return this.Where(x => x.Is().Legendary); } }
 
     public CardColor GetMostCommonColor()
