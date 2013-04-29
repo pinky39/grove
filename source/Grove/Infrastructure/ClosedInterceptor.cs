@@ -3,12 +3,6 @@
   using System;
   using Castle.DynamicProxy;
 
-  public interface IClosable
-  {
-    event EventHandler Closed;
-    void Close();
-  }
-
   public class ClosedInterceptor : IInterceptor
   {
     private EventHandler _closedSubscribers = delegate { };

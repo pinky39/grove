@@ -1,12 +1,10 @@
 ﻿namespace Grove.Gameplay.States
 {
   using Infrastructure;
-  using log4net;
 
   [Copyable]
   public class TurnInfo : IHashable
   {
-    private static readonly ILog Log = LogManager.GetLogger(typeof (TurnInfo));
     private readonly Trackable<State> _state = new Trackable<State>();
     private readonly Trackable<int> _stateCount = new Trackable<int>();
     private readonly Trackable<Step> _step = new Trackable<Step>();
@@ -30,7 +28,7 @@
       {
         _step.Value = value;
         StepCount++;
-        Log.DebugFormat("Step: {0}", value);
+        Log.Debug("Step: {0}", value);
       }
     }
 
@@ -43,7 +41,7 @@
       set
       {
         _turnCount.Value = value;
-        Log.DebugFormat("Turn: {0}", value);
+        Log.Debug("Turn: {0}", value);
       }
     }
 

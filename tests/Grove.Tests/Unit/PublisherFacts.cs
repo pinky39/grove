@@ -1,4 +1,4 @@
-﻿namespace Grove.Tests.Sandbox
+﻿namespace Grove.Tests.Unit
 {
   using System.Reflection;
   using Grove.Infrastructure;
@@ -10,7 +10,7 @@
     [Fact]
     public void HandleEvent()
     {
-      var publisher = new Publisher(Assembly.GetExecutingAssembly(), typeof (Person).Namespace);
+      var publisher = new Publisher(Assembly.GetExecutingAssembly(), typeof (PublisherTest.Person).Namespace);
       publisher.Initialize(new ChangeTracker());
 
       var aunt1 = new Aunt();

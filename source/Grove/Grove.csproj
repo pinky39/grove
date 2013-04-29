@@ -16,6 +16,21 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>icon.ico</ApplicationIcon>
@@ -588,6 +603,8 @@
     <Compile Include="Gameplay\Decisions\Scenario\SetTriggeredAbilityTarget.cs" />
     <Compile Include="Gameplay\Decisions\Scenario\Verify.cs" />
     <Compile Include="Gameplay\Effects\ChooseToAddCounter.cs" />
+    <Compile Include="Infrastructure\IClosable.cs" />
+    <Compile Include="Infrastructure\Log.cs" />
     <Compile Include="Tournament\CardRatings.cs" />
     <Compile Include="Gameplay\Card\Characteristics\CardZone.cs" />
     <Compile Include="Gameplay\Card\CastingRules\Aura.cs" />
@@ -852,10 +869,7 @@
     <Compile Include="Gameplay\Zones\IBattlefieldQuery.cs" />
     <Compile Include="Gameplay\Zones\IHandQuery.cs" />
     <Compile Include="Gameplay\Zones\IZone.cs" />
-    <Compile Include="Infrastructure\AssemblyEx.cs" />
-    <Compile Include="Infrastructure\Chaining.cs" />
     <Compile Include="Gameplay\States\TurnInfo.cs" />
-    <Compile Include="Infrastructure\Activation.cs" />
     <Compile Include="Infrastructure\ICopyable.cs" />
     <Compile Include="Infrastructure\Knapsack.cs" />
     <Compile Include="Infrastructure\KnapsackItem.cs" />
@@ -989,8 +1003,6 @@
     <Compile Include="Gameplay\Messages\PlayerHasCastASpell.cs" />
     <Compile Include="Gameplay\Zones\OrderedZone.cs" />
     <Compile Include="Gameplay\Zones\UnorderedZone.cs" />
-    <Compile Include="Infrastructure\DelegateEx.cs" />
-    <Compile Include="Infrastructure\EnumEx.cs" />
     <Compile Include="Infrastructure\IHashable.cs" />
     <Compile Include="Infrastructure\ClosedInterceptor.cs" />
     <Compile Include="Infrastructure\IReceive.cs" />
@@ -1028,7 +1040,7 @@
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ui\Hand\ViewModel.cs" />
-    <Compile Include="Ui\DependencyObjectEx.cs" />
+    <Compile Include="Infrastructure\DependencyObjectEx.cs" />
     <Compile Include="Ui\DialogType.cs" />
     <Compile Include="Ui\InputBindingTrigger.cs" />
     <Compile Include="Ui\PlayableSelected.cs" />
@@ -1094,7 +1106,6 @@
     <Compile Include="Gameplay\Zones\Stack.cs" />
     <Compile Include="Gameplay\Zones\Zone.cs" />
     <Compile Include="Infrastructure\EnumerableEx.cs" />
-    <Compile Include="Infrastructure\Predicates.cs" />
     <Compile Include="Ui\CombatDamage\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
@@ -1152,24 +1163,19 @@
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ui\Turn\ViewModel.cs" />
-    <Compile Include="Infrastructure\BindableObjectExtension.cs" />
     <Compile Include="Infrastructure\INotifyPropertyChangedRaiser.cs" />
     <Compile Include="Infrastructure\NotifyPropertyChangedInterceptor.cs" />
     <Compile Include="Infrastructure\UpdatesAttribute.cs" />
-    <Compile Include="Infrastructure\DictionaryEx.cs" />
-    <Compile Include="Infrastructure\XElementEx.cs" />
     <Compile Include="Ui\Battlefield\Slot.cs" />
     <Compile Include="Ui\Battlefield\Row.cs" />
     <Compile Include="Ui\MediaLibrary.cs" />
     <Compile Include="Ui\MediaExtension.cs" />
     <Compile Include="Ui\Converters.cs" />
     <Compile Include="Infrastructure\Bindable.cs" />
-    <Compile Include="Infrastructure\ParseExtensions.cs" />
     <Compile Include="Infrastructure\RandomEx.cs" />
     <Compile Include="Ui\SlotPanel.cs" />
-    <Compile Include="Infrastructure\StackExtension.cs" />
     <Compile Include="Infrastructure\StringEx.cs" />
-    <Compile Include="Infrastructure\TypeExtensions.cs" />
+    <Compile Include="Infrastructure\TypeEx.cs" />
     <Compile Include="Ui\Battlefield\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
@@ -1392,7 +1398,28 @@
   <ItemGroup>
     <Resource Include="icon.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <UsingTask TaskName="Costura.EmbedTask" AssemblyFile="$(SolutionDir)lib\costura\Costura.dll" />
   <Target Name="AfterBuild">

@@ -4,11 +4,10 @@
   using Gameplay;
   using Gameplay.Decisions.Results;
   using Gameplay.Player;
-  using log4net;
+  using Infrastructure;
 
   public class PlaySpellOrAbility : Gameplay.Decisions.PlaySpellOrAbility, ISearchNode, IDecisionExecution
   {
-    private static readonly ILog Log = LogManager.GetLogger(typeof (PlaySpellOrAbility));
     private readonly DecisionExecutor _executor;
     private List<Playable> _playables;
 
@@ -41,7 +40,7 @@
     public void SetResult(int index)
     {
       Result = _playables[index];
-      Log.DebugFormat("Move is {0}", _playables[index]);
+      Log.Debug("Move is {0}", _playables[index]);
     }
 
     public override void Initialize(Player controller, Game game)

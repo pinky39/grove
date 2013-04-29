@@ -4,11 +4,9 @@
   using System.Threading.Tasks;
   using Gameplay;
   using Infrastructure;
-  using log4net;
 
   public class SearchWorker
   {
-    private static readonly ILog Log = LogManager.GetLogger(typeof (SearchWorker));
     private readonly Game _game;
     private readonly Trackable<int> _moveIndex = new Trackable<int>();
     private readonly Trackable<InnerResult> _parentResult;
@@ -38,22 +36,15 @@
       return GetHashCode().ToString();
     }
 
-    private void Debug(string format, params object[] args)
-    {
-#if DEBUG
-      Log.DebugFormat(string.Format("Worker {0}: {1}", this, format), args);
-#endif
-    }
-
     public void StartSearch(ISearchNode root)
     {
-      Debug("Search started, evaluating node: {0}", root);
+      Log.Debug("Search started, evaluating node: {0}", root);
       EvaluateBranches(root, ParentResult);
     }
 
     public void Evaluate(ISearchNode node)
     {
-      Debug("Evaluating node: {0}", node);
+      Log.Debug("Evaluating node: {0}", node);
 
       InnerResult rootResult;
 
@@ -74,7 +65,7 @@
       else
       {
         SubTreesPrunned++;
-        Debug("state {0}, prunning node {1}", statehash, node);
+        Log.Debug("state {0}, prunning node {1}", statehash, node);
       }
 
 
@@ -86,7 +77,7 @@
 
     public void EvaluateBranch(int index, ISearchNode searchNode, InnerResult parentResult)
     {
-      Debug("{0} start eval move {1}", searchNode, index);
+      Log.Debug("{0} start eval move {1}", searchNode, index);
 
       // Create a snapshot, of the game before traversing 
       // a branch.
@@ -111,12 +102,12 @@
       // Restore the game from the snapshot.
       _game.Restore(snaphost);
 
-      Debug("{0} stop eval move {1}", searchNode, index);
+      Log.Debug("{0} stop eval move {1}", searchNode, index);
     }
 
     private void EvaluateBranches(ISearchNode searchNode, InnerResult rootResult)
     {
-      Debug("Evaluating moves of node {0}", searchNode);
+      Log.Debug("Evaluating moves of node {0}", searchNode);
 
       var tasks = new List<Task>();
 

@@ -1,4 +1,4 @@
-﻿namespace Grove.Tests.Sandbox
+﻿namespace Grove.Tests.Unit
 {
   using System;
   using Xunit;

@@ -1,4 +1,4 @@
-﻿namespace Grove.Ui
+﻿namespace Grove.Infrastructure
 {
   using System.Windows;
   using Caliburn.Micro;

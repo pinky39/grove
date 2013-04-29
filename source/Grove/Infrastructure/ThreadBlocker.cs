@@ -14,8 +14,10 @@
     {
       action = action ?? delegate { };
 
-      var result = BlockOnUiThread(action) ??
-        BlockOnWorkerThread(action);
+      if (BlockOnUiThread(action))
+        return;
+      
+      BlockOnWorkerThread(action);
     }
 
     public void Completed()
@@ -29,12 +31,12 @@
         _autoResetEvent.Set();
     }
 
-    private object BlockOnUiThread(System.Action action)
+    private bool BlockOnUiThread(System.Action action)
     {
       var dispather = Dispatcher.CurrentDispatcher;
 
       if (!dispather.CheckAccess())
-        return Chaining.Continue;
+        return false;
 
       Debug.Assert(_frame == null, "Do not reuse existing thread blocker, create a new one instead.");
       _frame = new DispatcherFrame(true);
@@ -45,20 +47,18 @@
       Dispatcher.PushFrame(_frame);
       _frame = null;
 
-      return Chaining.Stop;
+      return true;
     }
 
-    private object BlockOnWorkerThread(System.Action action)
+    private void BlockOnWorkerThread(System.Action action)
     {
       Debug.Assert(_autoResetEvent == null, "Do not reuse existing thread blocker, create a new one instead.");
       _autoResetEvent = new AutoResetEvent(false);
 
-      Execute.OnUIThread(action);
+      action.OnUIThread();
 
       _autoResetEvent.WaitOne();
-      _autoResetEvent = null;
-
-      return Chaining.Stop;
+      _autoResetEvent = null;      
     }
   }
 }

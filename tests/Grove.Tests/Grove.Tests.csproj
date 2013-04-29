@@ -244,6 +244,7 @@
     <Compile Include="Cards\SkirgeFamiliar.cs" />
     <Compile Include="Cards\SkitteringSkirge.cs" />
     <Compile Include="Cards\SleeperAgent.cs" />
+    <Compile Include="Cards\Smokestack.cs" />
     <Compile Include="Cards\Somnophore.cs" />
     <Compile Include="Cards\Songstitcher.cs" />
     <Compile Include="Cards\SteamVents.cs" />
@@ -267,7 +268,7 @@
     <Compile Include="Cards\Worship.cs" />
     <Compile Include="DeckBuilderFacts.cs" />
     <Compile Include="MatchSimulatorFacts.cs" />
-    <Compile Include="Sandbox\PublisherFacts.cs" />
+    <Compile Include="Unit\PublisherFacts.cs" />
     <Compile Include="Unit\ActivationFacts.cs" />
     <Compile Include="Scenarios\BlockStrategyFacts.cs" />
     <Compile Include="Unit\ClosedFacts.cs" />
@@ -275,7 +276,7 @@
     <Compile Include="Unit\HashCalculatorFacts.cs" />
     <Compile Include="Infrastructure\PredefinedAiScenario.cs" />
     <Compile Include="Unit\KnapsackFacts.cs" />
-    <Compile Include="Sandbox\ClousureFacts.cs" />
+    <Compile Include="Unit\ClousureFacts.cs" />
     <Compile Include="Cards\NantukoShade.cs" />
     <Compile Include="Cards\VampireNightHawk.cs" />
     <Compile Include="Scenarios\Bugs.cs" />
@@ -319,8 +320,6 @@
     <Compile Include="Unit\RatingDownloaderFacts.cs" />
     <Compile Include="Unit\ScenarioGeneratorFacts.cs" />
     <Compile Include="Unit\CopyServiceFacts.cs" />
-    <Compile Include="Unit\DataBindingFactoryFacts.cs" />
-    <Compile Include="Unit\CastleWindsorFacts.cs" />
     <Compile Include="Unit\DataBindingFacts.cs" />
     <Compile Include="Unit\ReflectionFacts.cs" />
     <Compile Include="Unit\StringExFacts.cs" />
@@ -331,7 +330,6 @@
     <Compile Include="Cards\Shock.cs" />
     <Compile Include="Cards\VerdantForce.cs" />
     <Compile Include="Unit\TrackableEventFacts.cs" />
-    <Compile Include="Sandbox\UriFacts.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\source\Grove.Utils\Grove.Utils.csproj">
@@ -355,6 +353,9 @@
     <None Include="deck2.dec">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Sandbox\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

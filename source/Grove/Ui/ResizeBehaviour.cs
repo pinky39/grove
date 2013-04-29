@@ -6,6 +6,7 @@
   using System.Windows.Input;
   using System.Windows.Interactivity;
   using System.Windows.Interop;
+  using Infrastructure;
 
   public class ResizeBehaviour : Behavior<Window>
   {

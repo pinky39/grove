@@ -3,11 +3,9 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using log4net;
 
   public class ChangeTracker : ICopyable, INotifyChangeTracker
   {
-    private static readonly ILog Log = LogManager.GetLogger(typeof (ChangeTracker));
     private readonly Stack<Action> _changeHistory = new Stack<Action>();
     private bool _isEnabled;
     private bool _isLocked;
@@ -83,6 +81,8 @@
       _changeHistory.Push(() => trackableCollection.InsertWithoutTracking(index, removed));
     }
 
+    private void Debug() {}
+
     public Snapshot CreateSnapshot()
     {
       Log.Debug("Create snapshot.");
@@ -98,7 +98,7 @@
       if (_changeHistory.Count != 0)
         throw new InvalidOperationException(
           String.Format(
-            "Disabling a change tracker with history ({0}) is not allowed. This is a common indication of a leaked copy. The most common cause of this is incorect context use in card definitions (e.g C is used insted of c).",
+            "Disabling a change tracker with history ({0}) is not allowed. This is a common indication of an incorrect object copy.",
             _changeHistory.Count));
 
       _isEnabled = false;
@@ -116,7 +116,7 @@
       if (_isLocked)
       {
         throw new InvalidOperationException(
-          "Trying to modify a locked change tracker. This is a common indication of a leaked copy. The most common cause of this is incorect context use in card definitions (e.g C is used insted of c).");
+          "Trying to modify a locked change tracker. This is a common indication of an incorrect object copy.");
       }
     }
 

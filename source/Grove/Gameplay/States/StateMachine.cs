@@ -11,8 +11,7 @@
   using Player;
 
   public class StateMachine : GameObject, ICopyContributor
-  {
-    private static readonly ILog Log = LogManager.GetLogger(typeof (StateMachine));
+  {    
     private readonly Trackable<IDecision> _curentDecision = new Trackable<IDecision>();
     private readonly DecisionQueue _decisionQueue;
     private readonly Trackable<int> _passesCount = new Trackable<int>();
@@ -38,7 +37,7 @@
       set
       {
         Turn.State = value;
-        Log.DebugFormat("State: {0}", value);
+        Log.Debug("State: {0}", value);
       }
     }
 

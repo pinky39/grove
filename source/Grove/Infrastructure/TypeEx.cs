@@ -1,6 +1,7 @@
 ﻿namespace Grove.Infrastructure
 {
   using System;
+  using System.Linq;
   using System.Linq.Expressions;
   using System.Reflection;
   using System.Reflection.Emit;
@@ -9,7 +10,7 @@
 
   public delegate void FieldSetter(object target, object value);
 
-  public static class Activation
+  public static class TypeEx
   {
     // Faster way to dynamicly create objects
     // http://rogeralsing.com/2008/02/28/linq-expressions-creating-objects/
@@ -73,6 +74,53 @@
       generator.Emit(OpCodes.Ret);
 
       return (Action<object, object>) setMethod.CreateDelegate(typeof (Action<object, object>));
+    }
+
+
+    public static TAttribute GetAttribute<TAttribute>(this MemberInfo memberInfo) where TAttribute : Attribute
+    {
+      return Attribute.GetCustomAttributes(memberInfo, typeof (TAttribute), true).FirstOrDefault() as TAttribute;
+    }
+
+    public static string PropertyName(this MethodInfo methodInfo)
+    {
+      return methodInfo.Name.Substring(4);
+    }
+
+    public static PropertyInfo GetProperty(this MethodInfo methodInfo)
+    {      
+      return methodInfo.DeclaringType.GetProperty(methodInfo.PropertyName(),
+        BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+    }
+
+    public static bool HasAttribute<TAttribute>(this MemberInfo memberInfo)
+    {
+      return Attribute.IsDefined(memberInfo, typeof (TAttribute), true);
+    }
+
+    public static bool Implements<TInterface>(this Type type) where TInterface : class
+    {
+      return type.GetInterfaces().Count(x => x == typeof (TInterface)) > 0;
+    }
+
+    public static bool IsAddEventHandler(this MethodInfo methodInfo)
+    {
+      return methodInfo.Name.StartsWith("add_");
+    }
+
+    public static bool IsGetter(this MethodInfo methodInfo)
+    {
+      return methodInfo.Name.StartsWith("get_");
+    }
+
+    public static bool IsSetter(this MethodInfo methodInfo)
+    {
+      return methodInfo.Name.StartsWith("set_");
+    }
+
+    public static bool IsSetterOrGetter(this MethodInfo methodInfo)
+    {
+      return methodInfo.IsSetter() || methodInfo.IsGetter();
     }
   }
 }

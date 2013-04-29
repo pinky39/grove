@@ -135,6 +135,9 @@
         if (permanent.Is().Creature)
         {
           score += (permanent.Power.Value + permanent.Toughness.Value);
+
+          if (permanent.HasSummoningSickness)
+            score -= 1;
         }
       }
       else if (permanent.Is().Creature)
@@ -154,7 +157,7 @@
           score += 20*(7 - landCount);
         }
       }
-
+     
       return score;
     }
 
