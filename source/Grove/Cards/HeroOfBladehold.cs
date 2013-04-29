@@ -25,7 +25,7 @@
             p.Trigger(new OnAttack());
             p.Effect = () => new ApplyModifiersToPermanents(
               permanentFilter: (effect, card) => effect.Source.OwningCard != card && card.IsAttacker,
-              modifiers: () => new AddPowerAndToughness(1, 0));
+              modifiers: () => new AddPowerAndToughness(1, 0) {UntilEot = true});
           })
         .TriggeredAbility(p =>
           {
