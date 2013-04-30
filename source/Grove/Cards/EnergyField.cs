@@ -31,7 +31,7 @@
             p.Trigger(new OnZoneChanged(
               to: Zone.Graveyard,
               filter: (ability, card) => ability.OwningCard.Controller == card.Owner));
-            p.Effect = () => new SacrificeSource();
+            p.Effect = () => new SacrificeOwner();
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });
     }

@@ -25,7 +25,7 @@
             p.Trigger(new OnCastedSpell((a, c) =>
               a.OwningCard.Controller == c.Controller && c.Is().Creature));
 
-            p.Effect = () => new SacrificeSource();
+            p.Effect = () => new SacrificeOwner();
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });
     }

@@ -427,6 +427,7 @@
     <Compile Include="Cards\SlipperyKarst.cs" />
     <Compile Include="Cards\Smokestack.cs" />
     <Compile Include="Cards\SmolderingCrater.cs" />
+    <Compile Include="Cards\SneakAttack.cs" />
     <Compile Include="Cards\Somnophore.cs" />
     <Compile Include="Cards\Songstitcher.cs" />
     <Compile Include="Cards\SternProctor.cs" />
@@ -762,7 +763,7 @@
     <Compile Include="Gameplay\Effects\PreventNextDamageFromSourceToController.cs" />
     <Compile Include="Gameplay\Effects\PreventDamageFromSourceToTarget.cs" />
     <Compile Include="Gameplay\Effects\RemoveModifier.cs" />
-    <Compile Include="Gameplay\Effects\SacrificeSource.cs" />
+    <Compile Include="Gameplay\Effects\SacrificeOwner.cs" />
     <Compile Include="Gameplay\Card\Abilities\IStaticAbilities.cs" />
     <Compile Include="Gameplay\Mana\ManaSourcePriorities.cs" />
     <Compile Include="Gameplay\Messages\AssignedCombatDamageWasDealt.cs" />

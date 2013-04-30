@@ -273,11 +273,11 @@ o Skirge Familiar
 o Skittering Skirge
 o Sleeper Agent
 o Slippery Karst
-Smokestack
-Smoldering Crater
-Sneak Attack
-Somnophore
-Songstitcher
+o Smokestack
+o Smoldering Crater
+o Sneak Attack
+o Somnophore
+o Songstitcher
 Soul Sculptor
 Spined Fluke
 Spire Owl

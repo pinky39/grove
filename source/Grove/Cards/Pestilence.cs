@@ -32,7 +32,7 @@
               {
                 Condition = (t, g) => g.Players.Permanents().None(x => x.Is().Creature)
               });
-            p.Effect = () => new SacrificeSource();
+            p.Effect = () => new SacrificeOwner();
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           })

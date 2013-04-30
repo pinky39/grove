@@ -245,6 +245,7 @@
     <Compile Include="Cards\SkitteringSkirge.cs" />
     <Compile Include="Cards\SleeperAgent.cs" />
     <Compile Include="Cards\Smokestack.cs" />
+    <Compile Include="Cards\SneakAttack.cs" />
     <Compile Include="Cards\Somnophore.cs" />
     <Compile Include="Cards\Songstitcher.cs" />
     <Compile Include="Cards\SteamVents.cs" />

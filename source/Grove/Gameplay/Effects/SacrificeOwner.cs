@@ -1,6 +1,6 @@
 ﻿namespace Grove.Gameplay.Effects
 {
-  public class SacrificeSource : Effect
+  public class SacrificeOwner : Effect
   {
     protected override void ResolveEffect()
     {

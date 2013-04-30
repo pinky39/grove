@@ -29,7 +29,7 @@
                 Condition = (t, g) => t.OwningCard.Controller.Battlefield.Count(c => !c.Is().Land) > 1
               });
 
-            p.Effect = () => new SacrificeSource();
+            p.Effect = () => new SacrificeOwner();
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });
     }
