@@ -4,11 +4,11 @@
 
   public class StrenghtSetter : PropertyModifier<int?>
   {
-    private readonly int _value;
+    private readonly int? _value;
 
     private StrenghtSetter() {}
 
-    public StrenghtSetter(int value)
+    public StrenghtSetter(int? value)
     {
       _value = value;
     }

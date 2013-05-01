@@ -278,8 +278,8 @@ o Smoldering Crater
 o Sneak Attack
 o Somnophore
 o Songstitcher
-Soul Sculptor
-Spined Fluke
+o Soul Sculptor
+o Spined Fluke
 Spire Owl
 Sporogenesis
 Spreading Algae

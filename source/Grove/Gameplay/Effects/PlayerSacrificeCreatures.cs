@@ -2,23 +2,26 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Ai;
   using Card;
   using Decisions;
   using Decisions.Results;
+  using Player;
   using Zones;
 
-  public class OpponentSacrificesCreatures : Effect,
+  public class PlayerSacrificeCreatures : Effect,
     IProcessDecisionResults<ChosenCards>, IChooseDecisionResults<List<Card>, ChosenCards>
   {
     private readonly int _count;
+    private readonly DynParam<Player> _player;
 
-    private OpponentSacrificesCreatures() {}
+    private PlayerSacrificeCreatures() {}
 
-    public OpponentSacrificesCreatures(int count)
+    public PlayerSacrificeCreatures(int count, DynParam<Player> player)
     {
       _count = count;
-      Category = EffectCategories.Destruction;
+      _player = player;
+
+      RegisterDynamicParameters(_player);
     }
 
     public ChosenCards ChooseResult(List<Card> candidates)
@@ -40,7 +43,7 @@
     protected override void ResolveEffect()
     {
       Enqueue<SelectCards>(
-        controller: Controller.Opponent,
+        controller: _player.Value,
         init: p =>
           {
             p.MinCount = _count;
