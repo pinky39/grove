@@ -60,9 +60,13 @@
     }
 
     public void Push(Effect effect)
-    {
-      Add(effect);
+    {            
+      _effects.Add(effect);
       effect.EffectWasPushedOnStack();
+
+      EffectAdded(this, new StackChangedEventArgs(effect));
+
+      Log.Debug("Effect pushed on stack: {0}.", effect);
     }
 
     public void Resolve()
@@ -96,14 +100,6 @@
       }
 
       yield break;
-    }
-
-    private void Add(Effect effect)
-    {
-      _effects.Add(effect);
-      EffectAdded(this, new StackChangedEventArgs(effect));
-
-      Log.Debug("Effect pushed on stack: {0}.", effect);
     }
 
     private void Remove(Effect effect)

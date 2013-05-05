@@ -210,6 +210,22 @@
 
     public class PredefinedAi : PredefinedAiScenario
     {
+      [Fact(Skip="Currently this always fails, since only one blocking strategy is considered.")]
+      public void ShouldBlockWithUndeadInsteadOfReaver()
+      {
+        Battlefield(P2, "Unworthy Dead", "Unworthy Dead", "Flesh Reaver", "Swamp", "Swamp");
+        var hippo = C("Bull Hippo");
+        Battlefield(P1, hippo);
+
+        P2.Life = 3;
+
+        Exec(
+          At(Step.DeclareAttackers)
+            .DeclareAttackers(hippo));
+
+        Equal(3, P2.Life);
+      }
+      
       [Fact]
       public void PlayerShouldAttack()
       {

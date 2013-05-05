@@ -689,6 +689,11 @@
     <Compile Include="Gameplay\Card\Triggers\OnEffectResolved.cs" />
     <Compile Include="Gameplay\Card\Abilities\CastInstructionParameters.cs" />
     <Compile Include="Gameplay\Card\Abilities\CastInstructions.cs" />
+    <Compile Include="Ui\CardOrder\OrderedCard.cs" />
+    <Compile Include="Ui\CardOrder\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\CardOrder\ViewModel.cs" />
     <Compile Include="Ui\Decisions\ChooseTo.cs" />
     <Compile Include="Ui\Decisions\SelectCards.cs" />
     <Compile Include="Ai\Decisions\SelectCards.cs" />
@@ -1250,6 +1255,10 @@
     <Page Include="Ui\Card.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\CardOrder\View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Ui\PlayerBox\View.xaml">
       <SubType>Designer</SubType>

@@ -364,7 +364,7 @@
         EnableLogging();
 
         RunGame(3);
-      }
+      }      
     }
   }
 }
