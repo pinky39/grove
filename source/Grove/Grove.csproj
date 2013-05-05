@@ -113,6 +113,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Ai\Decisions\ChooseTo.cs" />
+    <Compile Include="Ai\Decisions\OrderCards.cs" />
     <Compile Include="Ai\SearchRunner.cs" />
     <Compile Include="Ai\RepetitionRules\TargetLifepointsLeft.cs" />
     <Compile Include="Ai\Search.cs" />
@@ -591,6 +592,8 @@
     <Compile Include="Gameplay\Card\Factory\CardFactory.cs" />
     <Compile Include="Gameplay\Card\CardParameters.cs" />
     <Compile Include="Gameplay\Decisions\ChooseTo.cs" />
+    <Compile Include="Gameplay\Decisions\OrderCards.cs" />
+    <Compile Include="Gameplay\Decisions\Results\Ordering.cs" />
     <Compile Include="Gameplay\Decisions\Scenario\ChooseToUntap.cs" />
     <Compile Include="Gameplay\Decisions\Scenario\DecisionsForOneStep.cs" />
     <Compile Include="Gameplay\Decisions\Scenario\DeclareAttackers.cs" />
@@ -695,6 +698,7 @@
     </Compile>
     <Compile Include="Ui\CardOrder\ViewModel.cs" />
     <Compile Include="Ui\Decisions\ChooseTo.cs" />
+    <Compile Include="Ui\Decisions\OrderCards.cs" />
     <Compile Include="Ui\Decisions\SelectCards.cs" />
     <Compile Include="Ai\Decisions\SelectCards.cs" />
     <Compile Include="Gameplay\Player\LandLimit.cs" />

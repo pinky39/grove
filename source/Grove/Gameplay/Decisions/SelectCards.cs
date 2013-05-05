@@ -8,6 +8,7 @@
   using Targeting;
   using Zones;
 
+
   public abstract class SelectCards : Decision<ChosenCards>
   {
     public bool CanSelectOnlyCardsControlledByDecisionController = true;
