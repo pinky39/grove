@@ -6,7 +6,7 @@
   public abstract class OrderCards : Decision<Ordering>
   {
     public List<Card> Cards;
-    public IChooseDecisionResults<Ordering> ChooseDecisionResults;
+    public IChooseDecisionResults<List<Card>, Ordering> ChooseDecisionResults;
     public string Message;
     public IProcessDecisionResults<Ordering> ProcessDecisionResults;
 

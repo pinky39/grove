@@ -1,4 +1,4 @@
-﻿namespace Grove.Tournament
+﻿namespace Grove.Artifical
 {
   using System;
   using System.Collections.Generic;

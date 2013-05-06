@@ -4,6 +4,7 @@
   using System.Collections.Generic;
   using System.Linq;
   using System.Reflection;
+  using Artifical;
   using Gameplay;
   using Gameplay.Decisions;
   using Gameplay.Decisions.Scenario;

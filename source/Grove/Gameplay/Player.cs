@@ -489,5 +489,10 @@
         card.Reveal();
       }
     }
+
+    public void ReorderTopCardsOfLibrary(int[] permutation)
+    {
+      _library.ReorderFront(permutation);
+    }
   }
 }

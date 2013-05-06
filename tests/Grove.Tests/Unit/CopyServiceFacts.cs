@@ -6,6 +6,7 @@
   using System.Linq;
   using System.Reflection;
   using Grove.Infrastructure;
+  using UserInterface;
   using Xunit;
 
   public class CopyServiceFacts
@@ -37,7 +38,7 @@
         .Where(x => x.HasAttribute<CopyableAttribute>())
         .Where(x => !x.IsAbstract)
         .Where(x => !x.IsGenericType)
-        .Where(x => !x.Namespace.StartsWith("Grove.Ui"))
+        .Where(x => !x.Namespace.StartsWith(typeof(ViewModelBase).Namespace))
         .ToList();
 
       var violators = new List<string>();

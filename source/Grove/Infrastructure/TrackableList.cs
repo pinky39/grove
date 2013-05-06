@@ -170,6 +170,25 @@
       }
     }
 
+    public void ReorderFront(int[] permutation)
+    {
+      var head = _items
+        .Take(permutation.Count())
+        .ToList();
+
+      foreach (var item in head)
+      {
+        Remove(item);
+      }
+
+      head.ShuffleInPlace(permutation);
+
+      for (int i = head.Count - 1; i >= 0; i--)
+      {
+        Add(head[i]);      
+      }
+    }
+
     public void AddRange(IEnumerable<T> items)
     {
       foreach (var item in items)

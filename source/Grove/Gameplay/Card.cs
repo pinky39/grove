@@ -35,6 +35,7 @@
     private readonly Trackable<int?> _hash = new Trackable<int?>();
     private readonly Trackable<bool> _isHidden = new Trackable<bool>();
     private readonly Trackable<bool> _isRevealed = new Trackable<bool>();
+    private readonly Trackable<bool> _isPeeked = new Trackable<bool>();
     private readonly Trackable<bool> _isTapped = new Trackable<bool>();
     private readonly Level _level;
     private readonly TrackableList<IModifier> _modifiers = new TrackableList<IModifier>();
@@ -275,7 +276,7 @@
     {
       if (_hash.Value.HasValue == false)
       {
-        if (_isHidden)
+        if (!IsVisible)
         {
           _hash.Value = calc.Calculate(_zone);
         }
@@ -300,6 +301,7 @@
             Counters.GetHashCode(),
             Type.GetHashCode(),
             _isRevealed.Value.GetHashCode(),
+            _isPeeked.Value.GetHashCode(),
             calc.Calculate(_staticAbilities),
             calc.Calculate(_triggeredAbilities),
             calc.Calculate(_activatedAbilities),
@@ -366,6 +368,7 @@
       _hash.Initialize(ChangeTracker);
       _isHidden.Initialize(ChangeTracker, this);
       _isRevealed.Initialize(ChangeTracker, this);
+      _isPeeked.Initialize(ChangeTracker, this);
       _usageScore.Initialize(ChangeTracker, this);
       _damagePreventions.Initialize(this, game, this);
       _castInstructions.Initialize(this, game);
@@ -727,7 +730,7 @@
         return true;
 
       if (Zone == Zone.Library)
-        return false;
+        return _isPeeked && player == Controller;
 
       return player == Controller;
     }
@@ -742,13 +745,28 @@
         return;
 
       _isRevealed.Value = true;
+      _isPeeked.Value = true;
       _isHidden.Value = false;
+    }
+
+    public void Peek()
+    {
+      // Peek should only work during actual game.
+      // Peeking at cards during simulation should have no 
+      // effect.
+      
+      if (Ai.IsSearchInProgress)
+        return;
+
+      _isHidden.Value = false;
+      _isPeeked.Value = true;
     }
 
     public void ResetVisibility()
     {
       _isRevealed.Value = false;
       _isHidden.Value = false;
+      _isPeeked.Value = false;
     }
 
     public int CalculateCombatDamage(bool allDamageSteps = false, int powerIncrease = 0)

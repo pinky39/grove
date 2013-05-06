@@ -5,6 +5,7 @@
   using System.Collections.Specialized;
   using System.ComponentModel;
   using System.Linq;
+  using Artifical;
   using Castle.Core;
   using Castle.Facilities.TypedFactory;
   using Castle.MicroKernel;

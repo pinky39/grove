@@ -4,7 +4,7 @@
   {
     protected override void ExecuteQuery()
     {
-      Result = ChooseDecisionResults.ChooseResult();
+      Result = ChooseDecisionResults.ChooseResult(Cards);
     }
   }
 }

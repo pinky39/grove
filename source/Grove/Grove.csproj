@@ -589,6 +589,7 @@
     <Compile Include="Artifical\TimingRules\ControllerIsAttacked.cs" />
     <Compile Include="Gameplay\Characteristics\CardColors.cs" />
     <Compile Include="Gameplay\Costs\DiscardTarget.cs" />
+    <Compile Include="Gameplay\Effects\ReorderTopCards.cs" />
     <Compile Include="Gameplay\Misc\CardFactory.cs" />
     <Compile Include="Gameplay\CardParameters.cs" />
     <Compile Include="Gameplay\Decisions\ChooseTo.cs" />
@@ -748,7 +749,7 @@
     <Compile Include="Gameplay\Triggers\OnPermanentGetsTapped.cs" />
     <Compile Include="Gameplay\Triggers\TriggerOrder.cs" />
     <Compile Include="Gameplay\ManaHandling\ManaUsage.cs" />
-    <Compile Include="Tournament\MatchSimulator.cs" />
+    <Compile Include="Artifical\MatchSimulator.cs" />
     <Compile Include="Gameplay\Messages\CardWasRevealed.cs" />
     <Compile Include="Gameplay\Messages\EffectResolved.cs" />
     <Compile Include="Gameplay\Messages\PermanentModified.cs" />
