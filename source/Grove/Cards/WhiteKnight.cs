@@ -1,9 +1,9 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Gameplay.Card.Abilities;
-  using Gameplay.Card.Characteristics;
-  using Gameplay.Card.Factory;
+  using Gameplay.Abilities;
+  using Gameplay.Characteristics;
+  using Gameplay.Misc;
 
   public class WhiteKnight : CardsSource
   {

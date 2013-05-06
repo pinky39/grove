@@ -1,11 +1,9 @@
 ﻿namespace Grove.Gameplay.Targeting
 {
   using System;
-  using Card;
-  using Common;
   using Gameplay.Zones;
+  using Misc;
   using Modifiers;
-  using Player;
 
   public class TargetValidator : GameObject
   {

@@ -1,11 +1,11 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Ai.TimingRules;
-  using Gameplay.Card.Abilities;
-  using Gameplay.Card.Factory;
+  using Artifical.TimingRules;
+  using Gameplay.Abilities;
   using Gameplay.Damage;
   using Gameplay.Effects;
+  using Gameplay.Misc;
   using Gameplay.Modifiers;
   using Gameplay.States;
 

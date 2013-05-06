@@ -1,6 +1,5 @@
 ﻿namespace Grove.Gameplay.Effects
 {
-  using Card;
   using Infrastructure;
   using Targeting;
 

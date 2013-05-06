@@ -3,14 +3,12 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Ai;
-  using Card;
-  using Card.Characteristics;
-  using Common;
+  using Artifical;
+  using Characteristics;
   using Infrastructure;
   using Messages;
+  using Misc;
   using Modifiers;
-  using Player;
   using Targeting;
 
   public delegate Effect EffectFactory();

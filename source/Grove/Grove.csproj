@@ -112,13 +112,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Ai\Decisions\ChooseTo.cs" />
-    <Compile Include="Ai\Decisions\OrderCards.cs" />
-    <Compile Include="Ai\SearchRunner.cs" />
-    <Compile Include="Ai\RepetitionRules\TargetLifepointsLeft.cs" />
-    <Compile Include="Ai\Search.cs" />
-    <Compile Include="Ai\SearchParameters.cs" />
-    <Compile Include="Ai\SearchStatistics.cs" />
+    <Compile Include="Artifical\Decisions\ChooseTo.cs" />
+    <Compile Include="Artifical\Decisions\OrderCards.cs" />
+    <Compile Include="Artifical\SearchRunner.cs" />
+    <Compile Include="Artifical\RepetitionRules\TargetLifepointsLeft.cs" />
+    <Compile Include="Artifical\Search.cs" />
+    <Compile Include="Artifical\SearchParameters.cs" />
+    <Compile Include="Artifical\SearchStatistics.cs" />
     <Compile Include="Cards\AbsoluteGrace.cs" />
     <Compile Include="Cards\AbsoluteLaw.cs" />
     <Compile Include="Cards\AbyssalHorror.cs" />
@@ -485,112 +485,112 @@
     <Compile Include="Cards\WurmcoilEngine.cs" />
     <Compile Include="Cards\WallOfDenial.cs" />
     <Compile Include="Configuration.cs" />
-    <Compile Include="Gameplay\Card\Abilities\AbilityOrCastParameters.cs" />
-    <Compile Include="Gameplay\Card\Abilities\AbilityParameters.cs" />
-    <Compile Include="Gameplay\Card\Abilities\ActivatedAbilityParameters.cs" />
-    <Compile Include="Ai\ActivationContext.cs" />
-    <Compile Include="Ai\AttackerEvaluation.cs" />
-    <Compile Include="Ai\BlockerEvaluation.cs" />
-    <Compile Include="Ai\CostRules\DestroyEachPermanent.cs" />
-    <Compile Include="Ai\CostRules\MartialCoup.cs" />
-    <Compile Include="Ai\CostRules\MaxAvailableMana.cs" />
-    <Compile Include="Ai\CostRules\CostRule.cs" />
-    <Compile Include="Ai\CostRules\CostRuleParameters.cs" />
-    <Compile Include="Ai\CostRules\CounterUnlessOpponentPaysX.cs" />
-    <Compile Include="Ai\CostRules\ControllersProperty.cs" />
-    <Compile Include="Ai\CostRules\ReduceToughnessOfEachCreature.cs" />
-    <Compile Include="Ai\CostRules\TargetsLifepoints.cs" />
-    <Compile Include="Ai\NodeCount.cs" />
-    <Compile Include="Ai\QuickCombat.cs" />
-    <Compile Include="Ai\RepetitionRules\MaxRepetitions.cs" />
-    <Compile Include="Ai\RepetitionRules\RepetitionRule.cs" />
-    <Compile Include="Ai\RepetitionRules\RepetitionRuleParameters.cs" />
-    <Compile Include="Ai\TargetingHelper.cs" />
-    <Compile Include="Ai\TargetingRules\AttachTargetToSelf.cs" />
-    <Compile Include="Ai\TargetingRules\Bounce.cs" />
-    <Compile Include="Ai\TargetingRules\BounceSelfAndTargets.cs" />
-    <Compile Include="Ai\TargetingRules\CombatEnchantment.cs" />
-    <Compile Include="Ai\TargetingRules\CombatEquipment.cs" />
-    <Compile Include="Ai\TargetingRules\Counterspell.cs" />
-    <Compile Include="Ai\TargetingRules\DealDamage.cs" />
-    <Compile Include="Ai\TargetingRules\Destroy.cs" />
-    <Compile Include="Ai\TargetingRules\Exile.cs" />
-    <Compile Include="Ai\TargetingRules\ExileFromGraveyard.cs" />
-    <Compile Include="Ai\TargetingRules\GainControl.cs" />
-    <Compile Include="Ai\TargetingRules\GainEvasion.cs" />
-    <Compile Include="Ai\TargetingRules\GainHexproof.cs" />
-    <Compile Include="Ai\TargetingRules\GainIndestructible.cs" />
-    <Compile Include="Ai\TargetingRules\GainPacifism.cs" />
-    <Compile Include="Ai\TargetingRules\IncreasePowerOrToughness.cs" />
-    <Compile Include="Ai\TargetingRules\LandEnchantment.cs" />
-    <Compile Include="Ai\TargetingRules\Opponent.cs" />
-    <Compile Include="Ai\TargetingRules\OrderByRank.cs" />
-    <Compile Include="Ai\TargetingRules\PreventDamageFromAttackers.cs" />
-    <Compile Include="Ai\TargetingRules\PreventDamageFromSourceToController.cs" />
-    <Compile Include="Ai\TargetingRules\PreventDamageFromSourceToTarget.cs" />
-    <Compile Include="Ai\TargetingRules\PreventDamageToTargets.cs" />
-    <Compile Include="Ai\TargetingRules\PumpAttackerOrBlocker.cs" />
-    <Compile Include="Ai\TargetingRules\DamageRedirectionEnchantment.cs" />
-    <Compile Include="Ai\TargetingRules\ReducePower.cs" />
-    <Compile Include="Ai\TargetingRules\ReduceToughness.cs" />
-    <Compile Include="Ai\TargetingRules\SacrificeTargetToDestroyTarget.cs" />
-    <Compile Include="Ai\TargetingRules\SacrificeToBounce.cs" />
-    <Compile Include="Ai\TargetingRules\SacrificeToDrawCards.cs" />
-    <Compile Include="Ai\TargetingRules\SacrificeToGainLife.cs" />
-    <Compile Include="Ai\TargetingRules\SacrificeToRegenerate.cs" />
-    <Compile Include="Ai\TargetingRules\SelectPlayer.cs" />
-    <Compile Include="Ai\TargetingRules\SpellOwner.cs" />
-    <Compile Include="Ai\TargetingRules\TapCreature.cs" />
-    <Compile Include="Ai\TargetingRules\TapLands.cs" />
-    <Compile Include="Ai\TargetingRules\TargetingRuleParameters.cs" />
-    <Compile Include="Ai\TargetingRules\UntapLands.cs" />
-    <Compile Include="Ai\TimingRules\All.cs" />
-    <Compile Include="Ai\TimingRules\Any.cs" />
-    <Compile Include="Ai\TimingRules\AttachEquipment.cs" />
-    <Compile Include="Ai\TimingRules\ChargeCounters.cs" />
-    <Compile Include="Ai\TimingRules\ControllerHasMorePermanents.cs" />
-    <Compile Include="Ai\TimingRules\ControllerHasPermanents.cs" />
-    <Compile Include="Ai\TimingRules\ControllerGravayardCountIs.cs" />
-    <Compile Include="Ai\TimingRules\ControllerHandCountIs.cs" />
-    <Compile Include="Ai\TimingRules\ControllerNeedsMana.cs" />
-    <Compile Include="Ai\TimingRules\DeclareBlockers.cs" />
-    <Compile Include="Ai\TimingRules\GainHexproof.cs" />
-    <Compile Include="Ai\TimingRules\ManaConverter.cs" />
-    <Compile Include="Ai\TimingRules\MinAttackerCount.cs" />
-    <Compile Include="Ai\TimingRules\OpponentHasAtLeastCardsInHand.cs" />
-    <Compile Include="Ai\TimingRules\OwningCardHas.cs" />
-    <Compile Include="Ai\TimingRules\OpponentHasPermanents.cs" />
-    <Compile Include="Ai\TimingRules\OwningCardWillBeDestroyed.cs" />
-    <Compile Include="Ai\TimingRules\IncreaseOwnersPowerOrToughness.cs" />
-    <Compile Include="Ai\TimingRules\ChangeToCreature.cs" />
-    <Compile Include="Ai\TimingRules\ControllerLifeWillBeReducedToZero.cs" />
-    <Compile Include="Ai\TimingRules\Counterspell.cs" />
-    <Compile Include="Ai\TimingRules\Creatures.cs" />
-    <Compile Include="Ai\TimingRules\Cycling.cs" />
-    <Compile Include="Ai\TimingRules\EndOfTurn.cs" />
-    <Compile Include="Ai\TimingRules\FirstMain.cs" />
-    <Compile Include="Ai\TimingRules\ControllerHasMana.cs" />
-    <Compile Include="Ai\TimingRules\Lands.cs" />
-    <Compile Include="Ai\TimingRules\LevelUp.cs" />
-    <Compile Include="Ai\TimingRules\MainSteps.cs" />
-    <Compile Include="Ai\TimingRules\BounceAll.cs" />
-    <Compile Include="Ai\TimingRules\MassRemoval.cs" />
-    <Compile Include="Ai\TimingRules\NonTargetRemoval.cs" />
-    <Compile Include="Ai\TimingRules\PermanentCountIs.cs" />
-    <Compile Include="Ai\TimingRules\Regenerate.cs" />
-    <Compile Include="Ai\TimingRules\SecondMain.cs" />
-    <Compile Include="Ai\TimingRules\Steps.cs" />
-    <Compile Include="Ai\TargetingRules\TargetingRule.cs" />
-    <Compile Include="Ai\TimingRules\TargetRemoval.cs" />
-    <Compile Include="Ai\TimingRules\ThereCanBeOnlyOne.cs" />
-    <Compile Include="Ai\TimingRules\TimingRule.cs" />
-    <Compile Include="Ai\TimingRules\TimingRuleParameters.cs" />
-    <Compile Include="Ai\TimingRules\Turn.cs" />
-    <Compile Include="Ai\TimingRules\ControllerIsAttacked.cs" />
-    <Compile Include="Gameplay\Card\Characteristics\CardColors.cs" />
-    <Compile Include="Gameplay\Card\Costs\DiscardTarget.cs" />
-    <Compile Include="Gameplay\Card\Factory\CardFactory.cs" />
-    <Compile Include="Gameplay\Card\CardParameters.cs" />
+    <Compile Include="Gameplay\Abilities\AbilityOrCastParameters.cs" />
+    <Compile Include="Gameplay\Abilities\AbilityParameters.cs" />
+    <Compile Include="Gameplay\Abilities\ActivatedAbilityParameters.cs" />
+    <Compile Include="Artifical\ActivationContext.cs" />
+    <Compile Include="Artifical\AttackerEvaluation.cs" />
+    <Compile Include="Artifical\BlockerEvaluation.cs" />
+    <Compile Include="Artifical\CostRules\DestroyEachPermanent.cs" />
+    <Compile Include="Artifical\CostRules\MartialCoup.cs" />
+    <Compile Include="Artifical\CostRules\MaxAvailableMana.cs" />
+    <Compile Include="Artifical\CostRules\CostRule.cs" />
+    <Compile Include="Artifical\CostRules\CostRuleParameters.cs" />
+    <Compile Include="Artifical\CostRules\CounterUnlessOpponentPaysX.cs" />
+    <Compile Include="Artifical\CostRules\ControllersProperty.cs" />
+    <Compile Include="Artifical\CostRules\ReduceToughnessOfEachCreature.cs" />
+    <Compile Include="Artifical\CostRules\TargetsLifepoints.cs" />
+    <Compile Include="Artifical\NodeCount.cs" />
+    <Compile Include="Artifical\QuickCombat.cs" />
+    <Compile Include="Artifical\RepetitionRules\MaxRepetitions.cs" />
+    <Compile Include="Artifical\RepetitionRules\RepetitionRule.cs" />
+    <Compile Include="Artifical\RepetitionRules\RepetitionRuleParameters.cs" />
+    <Compile Include="Artifical\TargetingHelper.cs" />
+    <Compile Include="Artifical\TargetingRules\AttachTargetToSelf.cs" />
+    <Compile Include="Artifical\TargetingRules\Bounce.cs" />
+    <Compile Include="Artifical\TargetingRules\BounceSelfAndTargets.cs" />
+    <Compile Include="Artifical\TargetingRules\CombatEnchantment.cs" />
+    <Compile Include="Artifical\TargetingRules\CombatEquipment.cs" />
+    <Compile Include="Artifical\TargetingRules\Counterspell.cs" />
+    <Compile Include="Artifical\TargetingRules\DealDamage.cs" />
+    <Compile Include="Artifical\TargetingRules\Destroy.cs" />
+    <Compile Include="Artifical\TargetingRules\Exile.cs" />
+    <Compile Include="Artifical\TargetingRules\ExileFromGraveyard.cs" />
+    <Compile Include="Artifical\TargetingRules\GainControl.cs" />
+    <Compile Include="Artifical\TargetingRules\GainEvasion.cs" />
+    <Compile Include="Artifical\TargetingRules\GainHexproof.cs" />
+    <Compile Include="Artifical\TargetingRules\GainIndestructible.cs" />
+    <Compile Include="Artifical\TargetingRules\GainPacifism.cs" />
+    <Compile Include="Artifical\TargetingRules\IncreasePowerOrToughness.cs" />
+    <Compile Include="Artifical\TargetingRules\LandEnchantment.cs" />
+    <Compile Include="Artifical\TargetingRules\Opponent.cs" />
+    <Compile Include="Artifical\TargetingRules\OrderByRank.cs" />
+    <Compile Include="Artifical\TargetingRules\PreventDamageFromAttackers.cs" />
+    <Compile Include="Artifical\TargetingRules\PreventDamageFromSourceToController.cs" />
+    <Compile Include="Artifical\TargetingRules\PreventDamageFromSourceToTarget.cs" />
+    <Compile Include="Artifical\TargetingRules\PreventDamageToTargets.cs" />
+    <Compile Include="Artifical\TargetingRules\PumpAttackerOrBlocker.cs" />
+    <Compile Include="Artifical\TargetingRules\DamageRedirectionEnchantment.cs" />
+    <Compile Include="Artifical\TargetingRules\ReducePower.cs" />
+    <Compile Include="Artifical\TargetingRules\ReduceToughness.cs" />
+    <Compile Include="Artifical\TargetingRules\SacrificeTargetToDestroyTarget.cs" />
+    <Compile Include="Artifical\TargetingRules\SacrificeToBounce.cs" />
+    <Compile Include="Artifical\TargetingRules\SacrificeToDrawCards.cs" />
+    <Compile Include="Artifical\TargetingRules\SacrificeToGainLife.cs" />
+    <Compile Include="Artifical\TargetingRules\SacrificeToRegenerate.cs" />
+    <Compile Include="Artifical\TargetingRules\SelectPlayer.cs" />
+    <Compile Include="Artifical\TargetingRules\SpellOwner.cs" />
+    <Compile Include="Artifical\TargetingRules\TapCreature.cs" />
+    <Compile Include="Artifical\TargetingRules\TapLands.cs" />
+    <Compile Include="Artifical\TargetingRules\TargetingRuleParameters.cs" />
+    <Compile Include="Artifical\TargetingRules\UntapLands.cs" />
+    <Compile Include="Artifical\TimingRules\All.cs" />
+    <Compile Include="Artifical\TimingRules\Any.cs" />
+    <Compile Include="Artifical\TimingRules\AttachEquipment.cs" />
+    <Compile Include="Artifical\TimingRules\ChargeCounters.cs" />
+    <Compile Include="Artifical\TimingRules\ControllerHasMorePermanents.cs" />
+    <Compile Include="Artifical\TimingRules\ControllerHasPermanents.cs" />
+    <Compile Include="Artifical\TimingRules\ControllerGravayardCountIs.cs" />
+    <Compile Include="Artifical\TimingRules\ControllerHandCountIs.cs" />
+    <Compile Include="Artifical\TimingRules\ControllerNeedsMana.cs" />
+    <Compile Include="Artifical\TimingRules\DeclareBlockers.cs" />
+    <Compile Include="Artifical\TimingRules\GainHexproof.cs" />
+    <Compile Include="Artifical\TimingRules\ManaConverter.cs" />
+    <Compile Include="Artifical\TimingRules\MinAttackerCount.cs" />
+    <Compile Include="Artifical\TimingRules\OpponentHasAtLeastCardsInHand.cs" />
+    <Compile Include="Artifical\TimingRules\OwningCardHas.cs" />
+    <Compile Include="Artifical\TimingRules\OpponentHasPermanents.cs" />
+    <Compile Include="Artifical\TimingRules\OwningCardWillBeDestroyed.cs" />
+    <Compile Include="Artifical\TimingRules\IncreaseOwnersPowerOrToughness.cs" />
+    <Compile Include="Artifical\TimingRules\ChangeToCreature.cs" />
+    <Compile Include="Artifical\TimingRules\ControllerLifeWillBeReducedToZero.cs" />
+    <Compile Include="Artifical\TimingRules\Counterspell.cs" />
+    <Compile Include="Artifical\TimingRules\Creatures.cs" />
+    <Compile Include="Artifical\TimingRules\Cycling.cs" />
+    <Compile Include="Artifical\TimingRules\EndOfTurn.cs" />
+    <Compile Include="Artifical\TimingRules\FirstMain.cs" />
+    <Compile Include="Artifical\TimingRules\ControllerHasMana.cs" />
+    <Compile Include="Artifical\TimingRules\Lands.cs" />
+    <Compile Include="Artifical\TimingRules\LevelUp.cs" />
+    <Compile Include="Artifical\TimingRules\MainSteps.cs" />
+    <Compile Include="Artifical\TimingRules\BounceAll.cs" />
+    <Compile Include="Artifical\TimingRules\MassRemoval.cs" />
+    <Compile Include="Artifical\TimingRules\NonTargetRemoval.cs" />
+    <Compile Include="Artifical\TimingRules\PermanentCountIs.cs" />
+    <Compile Include="Artifical\TimingRules\Regenerate.cs" />
+    <Compile Include="Artifical\TimingRules\SecondMain.cs" />
+    <Compile Include="Artifical\TimingRules\Steps.cs" />
+    <Compile Include="Artifical\TargetingRules\TargetingRule.cs" />
+    <Compile Include="Artifical\TimingRules\TargetRemoval.cs" />
+    <Compile Include="Artifical\TimingRules\ThereCanBeOnlyOne.cs" />
+    <Compile Include="Artifical\TimingRules\TimingRule.cs" />
+    <Compile Include="Artifical\TimingRules\TimingRuleParameters.cs" />
+    <Compile Include="Artifical\TimingRules\Turn.cs" />
+    <Compile Include="Artifical\TimingRules\ControllerIsAttacked.cs" />
+    <Compile Include="Gameplay\Characteristics\CardColors.cs" />
+    <Compile Include="Gameplay\Costs\DiscardTarget.cs" />
+    <Compile Include="Gameplay\Misc\CardFactory.cs" />
+    <Compile Include="Gameplay\CardParameters.cs" />
     <Compile Include="Gameplay\Decisions\ChooseTo.cs" />
     <Compile Include="Gameplay\Decisions\OrderCards.cs" />
     <Compile Include="Gameplay\Decisions\Results\Ordering.cs" />
@@ -614,20 +614,20 @@
     <Compile Include="Infrastructure\IClosable.cs" />
     <Compile Include="Infrastructure\Log.cs" />
     <Compile Include="Tournament\CardRatings.cs" />
-    <Compile Include="Gameplay\Card\Characteristics\CardZone.cs" />
-    <Compile Include="Gameplay\Card\CastingRules\Aura.cs" />
-    <Compile Include="Gameplay\Card\CastingRules\Permanent.cs" />
-    <Compile Include="Gameplay\Card\Abilities\ContiniousEffects.cs" />
-    <Compile Include="Gameplay\Card\Abilities\ContinuousEffectParameters.cs" />
-    <Compile Include="Gameplay\Card\Costs\AggregateCost.cs" />
-    <Compile Include="Gameplay\Card\Costs\CanPayResult.cs" />
-    <Compile Include="Gameplay\Card\Costs\PayLife.cs" />
-    <Compile Include="Gameplay\Card\Costs\PayMana.cs" />
-    <Compile Include="Gameplay\Card\Costs\RemoveCounter.cs" />
-    <Compile Include="Gameplay\Card\Costs\Tap.cs" />
+    <Compile Include="Gameplay\Characteristics\CardZone.cs" />
+    <Compile Include="Gameplay\CastingRules\Aura.cs" />
+    <Compile Include="Gameplay\CastingRules\Permanent.cs" />
+    <Compile Include="Gameplay\Abilities\ContiniousEffects.cs" />
+    <Compile Include="Gameplay\Abilities\ContinuousEffectParameters.cs" />
+    <Compile Include="Gameplay\Costs\AggregateCost.cs" />
+    <Compile Include="Gameplay\Costs\CanPayResult.cs" />
+    <Compile Include="Gameplay\Costs\PayLife.cs" />
+    <Compile Include="Gameplay\Costs\PayMana.cs" />
+    <Compile Include="Gameplay\Costs\RemoveCounter.cs" />
+    <Compile Include="Gameplay\Costs\Tap.cs" />
     <Compile Include="Gameplay\Decisions\ICardValidator.cs" />
     <Compile Include="Gameplay\Decisions\IChooseDecisionResults.cs" />
-    <Compile Include="Ai\Decisions\SelectStartingPlayer.cs" />
+    <Compile Include="Artifical\Decisions\SelectStartingPlayer.cs" />
     <Compile Include="Tournament\DeckBuilder.cs" />
     <Compile Include="Tournament\DeckEvaluator.cs" />
     <Compile Include="Gameplay\Effects\ApplyModifiersToPlayers.cs" />
@@ -652,33 +652,33 @@
     <Compile Include="Gameplay\Effects\TargetPlayerGainsLife.cs" />
     <Compile Include="Gameplay\Effects\UntapOwner.cs" />
     <Compile Include="Gameplay\Effects\UntapSelectedPermanents.cs" />
-    <Compile Include="Ai\MachinePlayRule.cs" />
-    <Compile Include="Gameplay\Common\GameObject.cs" />
+    <Compile Include="Artifical\MachinePlayRule.cs" />
+    <Compile Include="Gameplay\Misc\GameObject.cs" />
     <Compile Include="Tournament\MagicSet.cs" />
-    <Compile Include="Gameplay\Mana\FixedManaOutput.cs" />
-    <Compile Include="Gameplay\Mana\IManaAmount.cs" />
-    <Compile Include="Gameplay\Mana\IManaSource.cs" />
-    <Compile Include="Gameplay\Mana\Mana.cs" />
-    <Compile Include="Gameplay\Card\Abilities\ManaAbility.cs" />
-    <Compile Include="Gameplay\Mana\ManaCounts.cs" />
-    <Compile Include="Gameplay\Mana\MultiColorManaAmount.cs" />
-    <Compile Include="Gameplay\Mana\ManaColor.cs" />
-    <Compile Include="Gameplay\Mana\ManaParser.cs" />
-    <Compile Include="Gameplay\Mana\SingleColorManaAmount.cs" />
-    <Compile Include="Gameplay\Mana\ManaUnits.cs" />
-    <Compile Include="Gameplay\Mana\ManaOutput.cs" />
-    <Compile Include="Gameplay\Mana\ManaUnit.cs" />
-    <Compile Include="Gameplay\Mana\ManaVault.cs" />
-    <Compile Include="Gameplay\Card\Abilities\ManaAbilityParameters.cs" />
-    <Compile Include="Gameplay\Mana\PermanentCountManaOutput.cs" />
-    <Compile Include="Gameplay\Mana\ZeroManaAmount.cs" />
+    <Compile Include="Gameplay\ManaHandling\FixedManaOutput.cs" />
+    <Compile Include="Gameplay\ManaHandling\IManaAmount.cs" />
+    <Compile Include="Gameplay\ManaHandling\IManaSource.cs" />
+    <Compile Include="Gameplay\Mana.cs" />
+    <Compile Include="Gameplay\Abilities\ManaAbility.cs" />
+    <Compile Include="Gameplay\ManaHandling\ManaCounts.cs" />
+    <Compile Include="Gameplay\ManaHandling\MultiColorManaAmount.cs" />
+    <Compile Include="Gameplay\ManaHandling\ManaColor.cs" />
+    <Compile Include="Gameplay\ManaHandling\ManaParser.cs" />
+    <Compile Include="Gameplay\ManaHandling\SingleColorManaAmount.cs" />
+    <Compile Include="Gameplay\ManaHandling\ManaUnits.cs" />
+    <Compile Include="Gameplay\ManaHandling\ManaOutput.cs" />
+    <Compile Include="Gameplay\ManaHandling\ManaUnit.cs" />
+    <Compile Include="Gameplay\ManaHandling\ManaVault.cs" />
+    <Compile Include="Gameplay\Abilities\ManaAbilityParameters.cs" />
+    <Compile Include="Gameplay\ManaHandling\PermanentCountManaOutput.cs" />
+    <Compile Include="Gameplay\ManaHandling\ZeroManaAmount.cs" />
     <Compile Include="Gameplay\Messages\PermanentGetsTapped.cs" />
     <Compile Include="Gameplay\Messages\PlayerHasFlippedACoin.cs" />
     <Compile Include="Gameplay\Modifiers\ChangeBasicLand.cs" />
     <Compile Include="Gameplay\Modifiers\ModifierParameters.cs" />
     <Compile Include="Gameplay\Modifiers\RemoveStaticAbility.cs" />
     <Compile Include="Tournament\Rarity.cs" />
-    <Compile Include="Gameplay\Card\Characteristics\ScoreOverride.cs" />
+    <Compile Include="Gameplay\Characteristics\ScoreOverride.cs" />
     <Compile Include="Gameplay\Effects\SpellCounterReason.cs" />
     <Compile Include="Gameplay\Modifiers\IncreaseLandLimit.cs" />
     <Compile Include="Gameplay\Modifiers\IncreaseManaOutput.cs" />
@@ -687,38 +687,38 @@
     <Compile Include="Gameplay\Targeting\TargetSpecs.cs" />
     <Compile Include="Gameplay\Targeting\TargetValidatorParameters.cs" />
     <Compile Include="Gameplay\Targeting\ZoneSpecs.cs" />
-    <Compile Include="Gameplay\Card\Abilities\TriggeredAbilityParameters.cs" />
-    <Compile Include="Gameplay\Card\Triggers\OnBeingTargetedBySpell.cs" />
-    <Compile Include="Gameplay\Card\Triggers\OnEffectResolved.cs" />
-    <Compile Include="Gameplay\Card\Abilities\CastInstructionParameters.cs" />
-    <Compile Include="Gameplay\Card\Abilities\CastInstructions.cs" />
-    <Compile Include="Ui\CardOrder\OrderedCard.cs" />
-    <Compile Include="Ui\CardOrder\View.xaml.cs">
+    <Compile Include="Gameplay\Abilities\TriggeredAbilityParameters.cs" />
+    <Compile Include="Gameplay\Triggers\OnBeingTargetedBySpell.cs" />
+    <Compile Include="Gameplay\Triggers\OnEffectResolved.cs" />
+    <Compile Include="Gameplay\Abilities\CastInstructionParameters.cs" />
+    <Compile Include="Gameplay\Abilities\CastInstructions.cs" />
+    <Compile Include="UserInterface\CardOrder\OrderedCard.cs" />
+    <Compile Include="UserInterface\CardOrder\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ui\CardOrder\ViewModel.cs" />
-    <Compile Include="Ui\Decisions\ChooseTo.cs" />
-    <Compile Include="Ui\Decisions\OrderCards.cs" />
-    <Compile Include="Ui\Decisions\SelectCards.cs" />
-    <Compile Include="Ai\Decisions\SelectCards.cs" />
-    <Compile Include="Gameplay\Player\LandLimit.cs" />
+    <Compile Include="UserInterface\CardOrder\ViewModel.cs" />
+    <Compile Include="UserInterface\Decisions\ChooseTo.cs" />
+    <Compile Include="UserInterface\Decisions\OrderCards.cs" />
+    <Compile Include="UserInterface\Decisions\SelectCards.cs" />
+    <Compile Include="Artifical\Decisions\SelectCards.cs" />
+    <Compile Include="Gameplay\Characteristics\LandLimit.cs" />
     <Compile Include="Gameplay\Modifiers\AddContiniousEffect.cs" />
     <Compile Include="Gameplay\Modifiers\EndOfUntapStep.cs" />
     <Compile Include="Gameplay\Decisions\ChooseEffectOptions.cs" />
-    <Compile Include="Ui\Decisions\CardSelector.cs" />
-    <Compile Include="Ui\Decisions\ChooseEffectOptions.cs" />
-    <Compile Include="Ui\Decisions\PayOr.cs" />
+    <Compile Include="UserInterface\Decisions\CardSelector.cs" />
+    <Compile Include="UserInterface\Decisions\ChooseEffectOptions.cs" />
+    <Compile Include="UserInterface\Decisions\PayOr.cs" />
     <Compile Include="Gameplay\Decisions\IProcessDecisionResults.cs" />
-    <Compile Include="Ai\Decisions\ChooseEffectOptions.cs" />
-    <Compile Include="Ai\Decisions\DiscardCards.cs" />
-    <Compile Include="Ai\Decisions\PayOr.cs" />
+    <Compile Include="Artifical\Decisions\ChooseEffectOptions.cs" />
+    <Compile Include="Artifical\Decisions\DiscardCards.cs" />
+    <Compile Include="Artifical\Decisions\PayOr.cs" />
     <Compile Include="Gameplay\Decisions\PayOr.cs" />
     <Compile Include="Gameplay\Decisions\Results\ChosenOptions.cs" />
     <Compile Include="Gameplay\Decisions\SelectCards.cs" />
-    <Compile Include="Gameplay\Deck\DeckReaderWriter.cs" />
-    <Compile Include="Gameplay\Deck\DeckRow.cs" />
-    <Compile Include="Gameplay\Card\Characteristics\ControllerCharacteristic.cs" />
-    <Compile Include="Gameplay\Card\Costs\ReturnToHand.cs" />
+    <Compile Include="Persistance\DeckReaderWriter.cs" />
+    <Compile Include="Persistance\DeckRow.cs" />
+    <Compile Include="Gameplay\Characteristics\ControllerCharacteristic.cs" />
+    <Compile Include="Gameplay\Costs\ReturnToHand.cs" />
     <Compile Include="Gameplay\Effects\CustomizableEffect.cs" />
     <Compile Include="Gameplay\Effects\DealDamageToOpponentEqualToCardDifference.cs" />
     <Compile Include="Gameplay\Effects\DistributeDamageToTargets.cs" />
@@ -743,45 +743,44 @@
     <Compile Include="Gameplay\Modifiers\ControllerSetter.cs" />
     <Compile Include="Gameplay\Modifiers\PermanentLeavesBattlefieldLifetime.cs" />
     <Compile Include="Gameplay\Modifiers\SetColors.cs" />
-    <Compile Include="Gameplay\Card\Triggers\OnBlock.cs" />
-    <Compile Include="Gameplay\Card\Triggers\OnAttachmentDetached.cs" />
-    <Compile Include="Gameplay\Card\Triggers\OnPermanentGetsTapped.cs" />
-    <Compile Include="Gameplay\Card\Triggers\TriggerOrder.cs" />
-    <Compile Include="Gameplay\Mana\ManaUsage.cs" />
+    <Compile Include="Gameplay\Triggers\OnBlock.cs" />
+    <Compile Include="Gameplay\Triggers\OnAttachmentDetached.cs" />
+    <Compile Include="Gameplay\Triggers\OnPermanentGetsTapped.cs" />
+    <Compile Include="Gameplay\Triggers\TriggerOrder.cs" />
+    <Compile Include="Gameplay\ManaHandling\ManaUsage.cs" />
     <Compile Include="Tournament\MatchSimulator.cs" />
     <Compile Include="Gameplay\Messages\CardWasRevealed.cs" />
     <Compile Include="Gameplay\Messages\EffectResolved.cs" />
     <Compile Include="Gameplay\Messages\PermanentModified.cs" />
-    <Compile Include="Gameplay\Card\Abilities\CastInstruction.cs" />
-    <Compile Include="Gameplay\Common\IAcceptsModifiers.cs" />
-    <Compile Include="Gameplay\Common\IHasColors.cs" />
-    <Compile Include="Gameplay\Common\IHasLife.cs" />
+    <Compile Include="Gameplay\Abilities\CastInstruction.cs" />
+    <Compile Include="Gameplay\Characteristics\IHasColors.cs" />
+    <Compile Include="Gameplay\Characteristics\IHasLife.cs" />
     <Compile Include="Gameplay\Messages\ControllerChanged.cs" />
     <Compile Include="Gameplay\Decisions\ChooseToUntap.cs" />
     <Compile Include="Gameplay\Decisions\DecisionSystem.cs" />
-    <Compile Include="Ui\Decisions\ChooseToUntap.cs" />
-    <Compile Include="Ui\Decisions\IUiDecisionFactory.cs" />
-    <Compile Include="Ai\Decisions\ChooseToUntap.cs" />
-    <Compile Include="Gameplay\Card\Abilities\Ability.cs" />
-    <Compile Include="Gameplay\Card\Costs\Discard.cs" />
-    <Compile Include="Gameplay\Card\Costs\NoCost.cs" />
-    <Compile Include="Gameplay\Card\Costs\Reveal.cs" />
+    <Compile Include="UserInterface\Decisions\ChooseToUntap.cs" />
+    <Compile Include="UserInterface\Decisions\IUiDecisionFactory.cs" />
+    <Compile Include="Artifical\Decisions\ChooseToUntap.cs" />
+    <Compile Include="Gameplay\Abilities\Ability.cs" />
+    <Compile Include="Gameplay\Costs\Discard.cs" />
+    <Compile Include="Gameplay\Costs\NoCost.cs" />
+    <Compile Include="Gameplay\Costs\Reveal.cs" />
     <Compile Include="Gameplay\Effects\EffectParameters.cs" />
     <Compile Include="Gameplay\Effects\SwitchController.cs" />
     <Compile Include="Gameplay\Effects\PutOnTopOfLibraryUnlessOpponentSacsLand.cs" />
     <Compile Include="Gameplay\Modifiers\PermanentGetsUntapedLifetime.cs" />
     <Compile Include="Gameplay\Damage\PreventCombatDamage.cs" />
     <Compile Include="Gameplay\Damage\PreventLifelossBelowOne.cs" />
-    <Compile Include="Gameplay\Player\ControlledBy.cs" />
+    <Compile Include="Gameplay\Misc\ControlledBy.cs" />
     <Compile Include="Gameplay\Effects\PreventNextDamageFromSourceToController.cs" />
     <Compile Include="Gameplay\Effects\PreventDamageFromSourceToTarget.cs" />
     <Compile Include="Gameplay\Effects\RemoveModifier.cs" />
     <Compile Include="Gameplay\Effects\SacrificeOwner.cs" />
-    <Compile Include="Gameplay\Card\Abilities\IStaticAbilities.cs" />
-    <Compile Include="Gameplay\Mana\ManaSourcePriorities.cs" />
+    <Compile Include="Gameplay\Abilities\IStaticAbilities.cs" />
+    <Compile Include="Gameplay\ManaHandling\ManaSourcePriorities.cs" />
     <Compile Include="Gameplay\Messages\AssignedCombatDamageWasDealt.cs" />
     <Compile Include="Gameplay\Messages\PermanentGetsUntapped.cs" />
-    <Compile Include="Gameplay\Player\ControllerType.cs" />
+    <Compile Include="Gameplay\Misc\ControllerType.cs" />
     <Compile Include="Gameplay\Modifiers\AddDamageRedirection.cs" />
     <Compile Include="Gameplay\Modifiers\DisableAbilities.cs" />
     <Compile Include="Gameplay\Damage\PreventDamage.cs" />
@@ -789,33 +788,33 @@
     <Compile Include="Gameplay\Damage\DamageRedirection.cs" />
     <Compile Include="Gameplay\Damage\DamageRedirections.cs" />
     <Compile Include="Gameplay\Damage\RedirectDamageToTarget.cs" />
-    <Compile Include="Gameplay\Card\Abilities\StaticAbility.cs" />
+    <Compile Include="Gameplay\Abilities\StaticAbility.cs" />
     <Compile Include="Gameplay\Targeting\TargetCandidates.cs" />
     <Compile Include="Gameplay\Targeting\Targets.cs" />
-    <Compile Include="Ai\InnerResult.cs" />
-    <Compile Include="Ai\ISearchResult.cs" />
-    <Compile Include="Ai\LeafResult.cs" />
-    <Compile Include="Ai\SearchResults.cs" />
-    <Compile Include="Ai\SearchWorker.cs" />
-    <Compile Include="Ai\EffectCategories.cs" />
+    <Compile Include="Artifical\InnerResult.cs" />
+    <Compile Include="Artifical\ISearchResult.cs" />
+    <Compile Include="Artifical\LeafResult.cs" />
+    <Compile Include="Artifical\SearchResults.cs" />
+    <Compile Include="Artifical\SearchWorker.cs" />
+    <Compile Include="Artifical\EffectCategories.cs" />
     <Compile Include="Gameplay\Damage\AssignedDamage.cs" />
-    <Compile Include="Gameplay\Card\Characteristics\Attachment.cs" />
-    <Compile Include="Gameplay\Card\Characteristics\Attachments.cs" />
-    <Compile Include="Gameplay\Combat\Attacker.cs" />
-    <Compile Include="Gameplay\Combat\Blocker.cs" />
-    <Compile Include="Ai\ISearchNode.cs" />
-    <Compile Include="Gameplay\Card\Factory\LevelDefinition.cs" />
-    <Compile Include="Ai\Decisions\DecisionExecutor.cs" />
-    <Compile Include="Ai\Decisions\AssignCombatDamage.cs" />
-    <Compile Include="Ai\BlockStrategy.cs" />
-    <Compile Include="Ai\Decisions\DeclareAttackers.cs" />
-    <Compile Include="Ai\Decisions\DeclareBlockers.cs" />
-    <Compile Include="Ai\Decisions\IDecisionExecution.cs" />
-    <Compile Include="Ai\Decisions\SetDamageAssignmentOrder.cs" />
-    <Compile Include="Ai\Decisions\SetTriggeredAbilityTarget.cs" />
-    <Compile Include="Gameplay\Card\Counters\ChargeCounter.cs" />
-    <Compile Include="Gameplay\Card\Counters\Counter.cs" />
-    <Compile Include="Gameplay\Card\Counters\Counters.cs" />
+    <Compile Include="Gameplay\Characteristics\Attachment.cs" />
+    <Compile Include="Gameplay\Characteristics\Attachments.cs" />
+    <Compile Include="Gameplay\Attacker.cs" />
+    <Compile Include="Gameplay\Blocker.cs" />
+    <Compile Include="Artifical\ISearchNode.cs" />
+    <Compile Include="Gameplay\Misc\LevelDefinition.cs" />
+    <Compile Include="Artifical\Decisions\DecisionExecutor.cs" />
+    <Compile Include="Artifical\Decisions\AssignCombatDamage.cs" />
+    <Compile Include="Artifical\BlockStrategy.cs" />
+    <Compile Include="Artifical\Decisions\DeclareAttackers.cs" />
+    <Compile Include="Artifical\Decisions\DeclareBlockers.cs" />
+    <Compile Include="Artifical\Decisions\IDecisionExecution.cs" />
+    <Compile Include="Artifical\Decisions\SetDamageAssignmentOrder.cs" />
+    <Compile Include="Artifical\Decisions\SetTriggeredAbilityTarget.cs" />
+    <Compile Include="Gameplay\Counters\ChargeCounter.cs" />
+    <Compile Include="Gameplay\Counters\Counter.cs" />
+    <Compile Include="Gameplay\Counters\Counters.cs" />
     <Compile Include="Gameplay\Effects\CounterTargetSpell.cs" />
     <Compile Include="Gameplay\Effects\DealDamageToPlayer.cs" />
     <Compile Include="Gameplay\Effects\DealExistingDamageToController.cs" />
@@ -829,14 +828,14 @@
     <Compile Include="Gameplay\Effects\TapTargets.cs" />
     <Compile Include="Gameplay\Effects\DiscardCards.cs" />
     <Compile Include="Gameplay\Effects\TargetPlayerTakesExtraTurns.cs" />
-    <Compile Include="Gameplay\Card\Characteristics\Level.cs" />
-    <Compile Include="Gameplay\Player\Life.cs" />
+    <Compile Include="Gameplay\Characteristics\Level.cs" />
+    <Compile Include="Gameplay\Characteristics\Life.cs" />
     <Compile Include="Gameplay\Messages\LevelChanged.cs" />
     <Compile Include="Gameplay\Messages\PlayerHasActivatedAbility.cs" />
     <Compile Include="Gameplay\Messages\SearchFinished.cs" />
     <Compile Include="Gameplay\Messages\SearchStarted.cs" />
     <Compile Include="Gameplay\Modifiers\AddCounters.cs" />
-    <Compile Include="Gameplay\Card\Counters\PowerToughness.cs" />
+    <Compile Include="Gameplay\Counters\PowerToughness.cs" />
     <Compile Include="Gameplay\Targeting\ITarget.cs" />
     <Compile Include="Gameplay\Modifiers\IncreaseLevel.cs" />
     <Compile Include="Gameplay\Modifiers\LevelLifetime.cs" />
@@ -845,9 +844,9 @@
     <Compile Include="Gameplay\Targeting\TargetValidator.cs" />
     <Compile Include="Gameplay\Targeting\TargetSelector.cs" />
     <Compile Include="Gameplay\Targeting\IsValidTargetParam.cs" />
-    <Compile Include="Gameplay\Card\Triggers\OnCastedSpell.cs" />
-    <Compile Include="Gameplay\Card\Triggers\OnLevelChanged.cs" />
-    <Compile Include="Gameplay\Card\Triggers\OnTurnOpponentWasNotDealtDamage.cs" />
+    <Compile Include="Gameplay\Triggers\OnCastedSpell.cs" />
+    <Compile Include="Gameplay\Triggers\OnLevelChanged.cs" />
+    <Compile Include="Gameplay\Triggers\OnTurnOpponentWasNotDealtDamage.cs" />
     <Compile Include="Gameplay\Targeting\Zones.cs" />
     <Compile Include="Gameplay\Targeting\IsValidZoneParam.cs" />
     <Compile Include="Gameplay\Zones\IGraveyardQuery.cs" />
@@ -861,24 +860,24 @@
     <Compile Include="Infrastructure\NullHashDependency.cs" />
     <Compile Include="Infrastructure\NullTracker.cs" />
     <Compile Include="Infrastructure\Publisher.cs" />
-    <Compile Include="Ui\CardViewModel.cs" />
-    <Compile Include="Ui\PlayerBox\View.xaml.cs">
+    <Compile Include="UserInterface\CardViewModel.cs" />
+    <Compile Include="UserInterface\PlayerBox\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ui\PlayerBox\ViewModel.cs" />
-    <Compile Include="Ui\SelectableCard\View.xaml.cs">
+    <Compile Include="UserInterface\PlayerBox\ViewModel.cs" />
+    <Compile Include="UserInterface\SelectableCard\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ui\SelectableCard\ViewModel.cs" />
-    <Compile Include="Ui\DeckEditor\Library.cs" />
-    <Compile Include="Ui\DeckEditor\View.xaml.cs">
+    <Compile Include="UserInterface\SelectableCard\ViewModel.cs" />
+    <Compile Include="UserInterface\DeckEditor\Library.cs" />
+    <Compile Include="UserInterface\DeckEditor\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ui\DeckEditor\ViewModel.cs" />
-    <Compile Include="Ui\Deck\View.xaml.cs">
+    <Compile Include="UserInterface\DeckEditor\ViewModel.cs" />
+    <Compile Include="UserInterface\Deck\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ui\Deck\ViewModel.cs" />
+    <Compile Include="UserInterface\Deck\ViewModel.cs" />
     <Compile Include="Gameplay\Zones\Exile.cs" />
     <Compile Include="Gameplay\Zones\IBattlefieldQuery.cs" />
     <Compile Include="Gameplay\Zones\IHandQuery.cs" />
@@ -916,26 +915,26 @@
     <Compile Include="Gameplay\Modifiers\Lifetime.cs" />
     <Compile Include="Gameplay\Modifiers\DefaultLifetime.cs" />
     <Compile Include="Infrastructure\PropertyModifier.cs" />
-    <Compile Include="Gameplay\Card\Characteristics\CardTypeCharacteristic.cs" />
-    <Compile Include="Gameplay\Combat\CombatManager.cs" />
-    <Compile Include="Gameplay\Card\Abilities\ActivatedAbilities.cs" />
-    <Compile Include="Gameplay\Card\Characteristics\CardColor.cs" />
+    <Compile Include="Gameplay\Characteristics\CardTypeCharacteristic.cs" />
+    <Compile Include="Gameplay\Combat.cs" />
+    <Compile Include="Gameplay\Abilities\ActivatedAbilities.cs" />
+    <Compile Include="Gameplay\Characteristics\CardColor.cs" />
     <Compile Include="Gameplay\Modifiers\CardTypeSetter.cs" />
     <Compile Include="Gameplay\Modifiers\IModifier.cs" />
     <Compile Include="Gameplay\Modifiers\IModifiable.cs" />
     <Compile Include="Gameplay\Modifiers\Increment.cs" />
     <Compile Include="Gameplay\Modifiers\StrenghtSetter.cs" />
-    <Compile Include="Gameplay\Card\Characteristics\Power.cs" />
+    <Compile Include="Gameplay\Characteristics\Power.cs" />
     <Compile Include="Gameplay\Modifiers\CardColorSetter.cs" />
-    <Compile Include="Gameplay\Card\Abilities\Static.cs" />
+    <Compile Include="Gameplay\Abilities\Static.cs" />
     <Compile Include="Infrastructure\Characteristic.cs" />
-    <Compile Include="Gameplay\Card\Characteristics\Toughness.cs" />
+    <Compile Include="Gameplay\Characteristics\Toughness.cs" />
     <Compile Include="Gameplay\Damage\DamagePreventions.cs" />
-    <Compile Include="Gameplay\Card\Characteristics\Protections.cs" />
-    <Compile Include="Gameplay\Card\Abilities\TriggeredAbilities.cs" />
+    <Compile Include="Gameplay\Characteristics\Protections.cs" />
+    <Compile Include="Gameplay\Abilities\TriggeredAbilities.cs" />
     <Compile Include="Gameplay\Modifiers\Value.cs" />
     <Compile Include="Gameplay\Decisions\DecisionQueue.cs" />
-    <Compile Include="Gameplay\Card\Abilities\StaticAbilities.cs" />
+    <Compile Include="Gameplay\Abilities\StaticAbilities.cs" />
     <Compile Include="Infrastructure\ChangeTracker.cs" />
     <Compile Include="Infrastructure\CopyableAttribute.cs" />
     <Compile Include="Infrastructure\CopyService.cs" />
@@ -943,8 +942,8 @@
     <Compile Include="Infrastructure\ITrackableCollection.cs" />
     <Compile Include="Infrastructure\ITrackableValue.cs" />
     <Compile Include="Infrastructure\Trackable.cs" />
-    <Compile Include="Gameplay\Card\Triggers\ITriggerFactory.cs" />
-    <Compile Include="Gameplay\Card\Costs\Sacrifice.cs" />
+    <Compile Include="Gameplay\Triggers\ITriggerFactory.cs" />
+    <Compile Include="Gameplay\Costs\Sacrifice.cs" />
     <Compile Include="Gameplay\Damage\Damage.cs" />
     <Compile Include="Gameplay\Damage\ReplaceDamageWithCounters.cs" />
     <Compile Include="Gameplay\Effects\CompoundEffect.cs" />
@@ -960,39 +959,39 @@
     <Compile Include="Gameplay\Modifiers\AddProtectionFromColors.cs" />
     <Compile Include="Gameplay\Modifiers\AddTriggeredAbility.cs" />
     <Compile Include="Gameplay\Modifiers\ChangeToCreature.cs" />
-    <Compile Include="Gameplay\Card\Abilities\ContinuousEffect.cs" />
+    <Compile Include="Gameplay\Abilities\ContinuousEffect.cs" />
     <Compile Include="Gameplay\Modifiers\Modifier.cs" />
     <Compile Include="Gameplay\Modifiers\AddDamagePrevention.cs" />
-    <Compile Include="Gameplay\Card\Triggers\OnAttack.cs" />
-    <Compile Include="Ui\Decisions\SelectStartingPlayer.cs" />
-    <Compile Include="Ui\Decisions\DeclareAttackers.cs" />
-    <Compile Include="Ui\Decisions\DeclareBlockers.cs" />
-    <Compile Include="Ui\Decisions\DiscardCards.cs" />
-    <Compile Include="Ui\Decisions\AssignCombatDamage.cs" />
-    <Compile Include="Ui\Decisions\PlaySpellOrAbility.cs" />
-    <Compile Include="Ui\Decisions\SetTriggeredAbilityTarget.cs" />
-    <Compile Include="Ui\Decisions\SetDamageAssignmentOrder.cs" />
-    <Compile Include="Ui\Decisions\TakeMulligan.cs" />
-    <Compile Include="Ai\Decisions\PlaySpellOrAbility.cs" />
-    <Compile Include="Ai\Decisions\TakeMulligan.cs" />
+    <Compile Include="Gameplay\Triggers\OnAttack.cs" />
+    <Compile Include="UserInterface\Decisions\SelectStartingPlayer.cs" />
+    <Compile Include="UserInterface\Decisions\DeclareAttackers.cs" />
+    <Compile Include="UserInterface\Decisions\DeclareBlockers.cs" />
+    <Compile Include="UserInterface\Decisions\DiscardCards.cs" />
+    <Compile Include="UserInterface\Decisions\AssignCombatDamage.cs" />
+    <Compile Include="UserInterface\Decisions\PlaySpellOrAbility.cs" />
+    <Compile Include="UserInterface\Decisions\SetTriggeredAbilityTarget.cs" />
+    <Compile Include="UserInterface\Decisions\SetDamageAssignmentOrder.cs" />
+    <Compile Include="UserInterface\Decisions\TakeMulligan.cs" />
+    <Compile Include="Artifical\Decisions\PlaySpellOrAbility.cs" />
+    <Compile Include="Artifical\Decisions\TakeMulligan.cs" />
     <Compile Include="Gameplay\Messages\AttachmentAttached.cs" />
     <Compile Include="Gameplay\Messages\AttachmentDetached.cs" />
-    <Compile Include="Gameplay\Card\CastingRules\CastingRule.cs" />
-    <Compile Include="Gameplay\Card\Factory\CardsSource.cs" />
+    <Compile Include="Gameplay\CastingRules\CastingRule.cs" />
+    <Compile Include="Gameplay\Misc\CardsSource.cs" />
     <Compile Include="Gameplay\Effects\PutIntoPlay.cs" />
-    <Compile Include="Gameplay\Card\Abilities\ActivatedAbility.cs" />
-    <Compile Include="Gameplay\Card\Card.cs" />
-    <Compile Include="Gameplay\Card\Characteristics\CardText.cs" />
-    <Compile Include="Gameplay\Card\Characteristics\CardType.cs" />
-    <Compile Include="Gameplay\Card\CastingRules\Instant.cs" />
-    <Compile Include="Gameplay\Card\CastingRules\Land.cs" />
-    <Compile Include="Gameplay\Card\CastingRules\Sorcery.cs" />
-    <Compile Include="Gameplay\Card\Triggers\Trigger.cs" />
-    <Compile Include="Gameplay\Card\Triggers\OnStepStart.cs" />
-    <Compile Include="Gameplay\Card\Triggers\OnDamageDealt.cs" />
-    <Compile Include="Gameplay\Card\Triggers\OnZoneChanged.cs" />
-    <Compile Include="Gameplay\Card\Costs\Cost.cs" />
-    <Compile Include="Gameplay\Card\Factory\CardDatabase.cs" />
+    <Compile Include="Gameplay\Abilities\ActivatedAbility.cs" />
+    <Compile Include="Gameplay\Card.cs" />
+    <Compile Include="Gameplay\Characteristics\CardText.cs" />
+    <Compile Include="Gameplay\Characteristics\CardType.cs" />
+    <Compile Include="Gameplay\CastingRules\Instant.cs" />
+    <Compile Include="Gameplay\CastingRules\Land.cs" />
+    <Compile Include="Gameplay\CastingRules\Sorcery.cs" />
+    <Compile Include="Gameplay\Triggers\Trigger.cs" />
+    <Compile Include="Gameplay\Triggers\OnStepStart.cs" />
+    <Compile Include="Gameplay\Triggers\OnDamageDealt.cs" />
+    <Compile Include="Gameplay\Triggers\OnZoneChanged.cs" />
+    <Compile Include="Gameplay\Costs\Cost.cs" />
+    <Compile Include="Gameplay\CardDatabase.cs" />
     <Compile Include="Gameplay\Effects\AddManaToPool.cs" />
     <Compile Include="Gameplay\Effects\ApplyModifiersToPermanents.cs" />
     <Compile Include="Gameplay\Effects\ApplyModifiersToSelfAndToTargets.cs" />
@@ -1010,8 +1009,8 @@
     <Compile Include="Gameplay\Modifiers\AddPowerAndToughness.cs" />
     <Compile Include="Gameplay\Recording\ScenarioGenerator.cs" />
     <Compile Include="Infrastructure\Snapshot.cs" />
-    <Compile Include="Gameplay\Card\Abilities\ActivationPrerequisites.cs" />
-    <Compile Include="Gameplay\Card\Abilities\TriggeredAbility.cs" />
+    <Compile Include="Gameplay\Abilities\ActivationPrerequisites.cs" />
+    <Compile Include="Gameplay\Abilities\TriggeredAbility.cs" />
     <Compile Include="Gameplay\Messages\ZoneChanged.cs" />
     <Compile Include="Gameplay\Messages\DamageHasBeenDealt.cs" />
     <Compile Include="Gameplay\Messages\PlayerHasCastASpell.cs" />
@@ -1024,95 +1023,95 @@
     <Compile Include="Infrastructure\TrackableEvent.cs" />
     <Compile Include="Infrastructure\TrackableList.cs" />
     <Compile Include="IoC.cs" />
-    <Compile Include="Ui\AttackerSelected.cs" />
-    <Compile Include="Ui\AttackerUnselected.cs" />
-    <Compile Include="Ui\BackgroundExtension.cs" />
-    <Compile Include="Ui\DistributeDamage\View.xaml.cs">
+    <Compile Include="UserInterface\AttackerSelected.cs" />
+    <Compile Include="UserInterface\AttackerUnselected.cs" />
+    <Compile Include="UserInterface\BackgroundExtension.cs" />
+    <Compile Include="UserInterface\DistributeDamage\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ui\DistributeDamage\ViewModel.cs" />
-    <Compile Include="Ui\FocusBehavior.cs" />
-    <Compile Include="Ui\Graveyard\View.xaml.cs">
+    <Compile Include="UserInterface\DistributeDamage\ViewModel.cs" />
+    <Compile Include="UserInterface\FocusBehavior.cs" />
+    <Compile Include="UserInterface\Graveyard\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ui\Graveyard\ViewModel.cs" />
-    <Compile Include="Ui\Library\View.xaml.cs">
+    <Compile Include="UserInterface\Graveyard\ViewModel.cs" />
+    <Compile Include="UserInterface\Library\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ui\Library\ViewModel.cs" />
-    <Compile Include="Ui\MessageLog\View.xaml.cs">
+    <Compile Include="UserInterface\Library\ViewModel.cs" />
+    <Compile Include="UserInterface\MessageLog\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ui\MessageLog\ViewModel.cs" />
-    <Compile Include="Ui\Permanent\CombatMarkers.cs" />
-    <Compile Include="Ui\BlockerSelected.cs" />
-    <Compile Include="Ui\BlockerUnselected.cs" />
-    <Compile Include="Ui\CombatDamage\BlockerDamageAssignment.cs" />
-    <Compile Include="Ui\CombatDamage\BlockerDamageAssignments.cs" />
-    <Compile Include="Ui\DamageOrder\BlockerAssignment.cs" />
-    <Compile Include="Ui\Hand\View.xaml.cs">
+    <Compile Include="UserInterface\MessageLog\ViewModel.cs" />
+    <Compile Include="UserInterface\Permanent\CombatMarkers.cs" />
+    <Compile Include="UserInterface\BlockerSelected.cs" />
+    <Compile Include="UserInterface\BlockerUnselected.cs" />
+    <Compile Include="UserInterface\CombatDamage\BlockerDamageAssignment.cs" />
+    <Compile Include="UserInterface\CombatDamage\BlockerDamageAssignments.cs" />
+    <Compile Include="UserInterface\DamageOrder\BlockerAssignment.cs" />
+    <Compile Include="UserInterface\Hand\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ui\Hand\ViewModel.cs" />
+    <Compile Include="UserInterface\Hand\ViewModel.cs" />
     <Compile Include="Infrastructure\DependencyObjectEx.cs" />
-    <Compile Include="Ui\DialogType.cs" />
-    <Compile Include="Ui\InputBindingTrigger.cs" />
-    <Compile Include="Ui\PlayableSelected.cs" />
-    <Compile Include="Ui\PlayersInterestChanged.cs" />
+    <Compile Include="UserInterface\DialogType.cs" />
+    <Compile Include="UserInterface\InputBindingTrigger.cs" />
+    <Compile Include="UserInterface\PlayableSelected.cs" />
+    <Compile Include="UserInterface\PlayersInterestChanged.cs" />
     <Compile Include="Gameplay\Messages\TurnStarted.cs" />
-    <Compile Include="Ai\AttackStrategy.cs" />
-    <Compile Include="Ai\PlayableGenerator.cs" />
-    <Compile Include="Ai\ScoreCalculator.cs" />
+    <Compile Include="Artifical\AttackStrategy.cs" />
+    <Compile Include="Artifical\PlayableGenerator.cs" />
+    <Compile Include="Artifical\ScoreCalculator.cs" />
     <Compile Include="Gameplay\Misc\Dice.cs" />
     <Compile Include="Gameplay\Game.cs" />
-    <Compile Include="Gameplay\Common\IDamageable.cs" />
+    <Compile Include="Gameplay\Characteristics\IDamageable.cs" />
     <Compile Include="Gameplay\Match.cs" />
     <Compile Include="Gameplay\Messages\AttackerJoinedCombat.cs" />
     <Compile Include="Gameplay\Messages\BlockerJoinedCombat.cs" />
     <Compile Include="Gameplay\Messages\EndOfTurn.cs" />
     <Compile Include="Gameplay\Messages\PlayerHasTakenMulligan.cs" />
     <Compile Include="Gameplay\Messages\RemovedFromCombat.cs" />
-    <Compile Include="Ui\QuitGame\View.xaml.cs">
+    <Compile Include="UserInterface\QuitGame\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ui\QuitGame\ViewModel.cs" />
-    <Compile Include="Gameplay\Deck\Deck.cs" />
-    <Compile Include="Ui\RatingControl.xaml.cs">
+    <Compile Include="UserInterface\QuitGame\ViewModel.cs" />
+    <Compile Include="Gameplay\Deck.cs" />
+    <Compile Include="UserInterface\RatingControl.xaml.cs">
       <DependentUpon>RatingControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ui\SaveDeckAs\View.xaml.cs">
+    <Compile Include="UserInterface\SaveDeckAs\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ui\SaveDeckAs\ViewModel.cs" />
-    <Compile Include="Ui\SelectDeck\Configuration.cs" />
-    <Compile Include="Ui\SelectDeck\View.xaml.cs">
+    <Compile Include="UserInterface\SaveDeckAs\ViewModel.cs" />
+    <Compile Include="UserInterface\SelectDeck\Configuration.cs" />
+    <Compile Include="UserInterface\SelectDeck\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ui\SelectDeck\ViewModel.cs" />
-    <Compile Include="Ui\SelectEffectChoice\EffectChoiceViewModel.cs" />
-    <Compile Include="Ui\SelectEffectChoice\View.xaml.cs">
+    <Compile Include="UserInterface\SelectDeck\ViewModel.cs" />
+    <Compile Include="UserInterface\SelectEffectChoice\EffectChoiceViewModel.cs" />
+    <Compile Include="UserInterface\SelectEffectChoice\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ui\SelectEffectChoice\ViewModel.cs" />
-    <Compile Include="Ui\InteractionState.cs" />
-    <Compile Include="Ui\PlayableActivator.cs" />
-    <Compile Include="Ui\SelectTarget\SelectTargetParameters.cs" />
-    <Compile Include="Ui\ViewModelBase.cs" />
-    <Compile Include="Ui\UiInteractionChanged.cs" />
-    <Compile Include="Ui\Spell\View.xaml.cs">
+    <Compile Include="UserInterface\SelectEffectChoice\ViewModel.cs" />
+    <Compile Include="UserInterface\InteractionState.cs" />
+    <Compile Include="UserInterface\PlayableActivator.cs" />
+    <Compile Include="UserInterface\SelectTarget\SelectTargetParameters.cs" />
+    <Compile Include="UserInterface\ViewModelBase.cs" />
+    <Compile Include="UserInterface\UiInteractionChanged.cs" />
+    <Compile Include="UserInterface\Spell\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ui\Step\View.xaml.cs">
+    <Compile Include="UserInterface\Step\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ui\SelectionChanged.cs" />
+    <Compile Include="UserInterface\SelectionChanged.cs" />
     <Compile Include="Gameplay\Messages\StepFinished.cs" />
     <Compile Include="Gameplay\Messages\StepStarted.cs" />
-    <Compile Include="Gameplay\Player\Player.cs" />
-    <Compile Include="Gameplay\Player\Players.cs" />
+    <Compile Include="Gameplay\Player.cs" />
+    <Compile Include="Gameplay\Players.cs" />
     <Compile Include="Gameplay\States\Step.cs" />
     <Compile Include="Gameplay\States\StateMachine.cs" />
-    <Compile Include="Gameplay\Card\Abilities\ActivationParameters.cs" />
+    <Compile Include="Gameplay\Abilities\ActivationParameters.cs" />
     <Compile Include="Gameplay\Zones\Battlefield.cs" />
     <Compile Include="Gameplay\Zones\Graveyard.cs" />
     <Compile Include="Gameplay\Zones\Hand.cs" />
@@ -1120,116 +1119,116 @@
     <Compile Include="Gameplay\Zones\Stack.cs" />
     <Compile Include="Gameplay\Zones\Zone.cs" />
     <Compile Include="Infrastructure\EnumerableEx.cs" />
-    <Compile Include="Ui\CombatDamage\View.xaml.cs">
+    <Compile Include="UserInterface\CombatDamage\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ui\CombatDamage\ViewModel.cs" />
-    <Compile Include="Ui\TargetSelected.cs" />
-    <Compile Include="Ui\TargetUnselected.cs" />
-    <Compile Include="Ui\WindowDimensions.cs" />
-    <Compile Include="Ui\GameResults\View.xaml.cs">
+    <Compile Include="UserInterface\CombatDamage\ViewModel.cs" />
+    <Compile Include="UserInterface\TargetSelected.cs" />
+    <Compile Include="UserInterface\TargetUnselected.cs" />
+    <Compile Include="UserInterface\WindowDimensions.cs" />
+    <Compile Include="UserInterface\GameResults\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ui\GameResults\ViewModel.cs" />
-    <Compile Include="Ui\MagnifiedCard\View.xaml.cs">
+    <Compile Include="UserInterface\GameResults\ViewModel.cs" />
+    <Compile Include="UserInterface\MagnifiedCard\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ui\MagnifiedCard\ViewModel.cs" />
-    <Compile Include="Ui\ManaPool\View.xaml.cs">
+    <Compile Include="UserInterface\MagnifiedCard\ViewModel.cs" />
+    <Compile Include="UserInterface\ManaPool\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ui\ManaPool\ViewModel.cs" />
-    <Compile Include="Ui\MatchResults\View.xaml.cs">
+    <Compile Include="UserInterface\ManaPool\ViewModel.cs" />
+    <Compile Include="UserInterface\MatchResults\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ui\MatchResults\ViewModel.cs" />
-    <Compile Include="Ui\MessageBox\Small.xaml.cs">
+    <Compile Include="UserInterface\MatchResults\ViewModel.cs" />
+    <Compile Include="UserInterface\MessageBox\Small.xaml.cs">
       <DependentUpon>Small.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ui\MessageBox\View.xaml.cs">
+    <Compile Include="UserInterface\MessageBox\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ui\Permanent\View.xaml.cs">
+    <Compile Include="UserInterface\Permanent\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ui\Permanent\ViewModel.cs" />
-    <Compile Include="Ui\IIsDialogHost.cs" />
-    <Compile Include="Ui\PlayScreen\View.xaml.cs">
+    <Compile Include="UserInterface\Permanent\ViewModel.cs" />
+    <Compile Include="UserInterface\IIsDialogHost.cs" />
+    <Compile Include="UserInterface\PlayScreen\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ui\PlayScreen\ViewModel.cs" />
-    <Compile Include="Ui\ResizeBehaviour.cs" />
-    <Compile Include="Ui\SelectAbility\View.xaml.cs">
+    <Compile Include="UserInterface\PlayScreen\ViewModel.cs" />
+    <Compile Include="UserInterface\ResizeBehaviour.cs" />
+    <Compile Include="UserInterface\SelectAbility\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ui\SelectAbility\ViewModel.cs" />
-    <Compile Include="Ui\SelectXCost\View.xaml.cs">
+    <Compile Include="UserInterface\SelectAbility\ViewModel.cs" />
+    <Compile Include="UserInterface\SelectXCost\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ui\SelectXCost\ViewModel.cs" />
-    <Compile Include="Ui\Spell\ViewModel.cs" />
-    <Compile Include="Ui\Stack\View.xaml.cs">
+    <Compile Include="UserInterface\SelectXCost\ViewModel.cs" />
+    <Compile Include="UserInterface\Spell\ViewModel.cs" />
+    <Compile Include="UserInterface\Stack\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ui\Stack\ViewModel.cs" />
-    <Compile Include="Ui\Step\ViewModel.cs" />
-    <Compile Include="Ui\Turn\View.xaml.cs">
+    <Compile Include="UserInterface\Stack\ViewModel.cs" />
+    <Compile Include="UserInterface\Step\ViewModel.cs" />
+    <Compile Include="UserInterface\Turn\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ui\Turn\ViewModel.cs" />
+    <Compile Include="UserInterface\Turn\ViewModel.cs" />
     <Compile Include="Infrastructure\INotifyPropertyChangedRaiser.cs" />
     <Compile Include="Infrastructure\NotifyPropertyChangedInterceptor.cs" />
     <Compile Include="Infrastructure\UpdatesAttribute.cs" />
-    <Compile Include="Ui\Battlefield\Slot.cs" />
-    <Compile Include="Ui\Battlefield\Row.cs" />
-    <Compile Include="Ui\MediaLibrary.cs" />
-    <Compile Include="Ui\MediaExtension.cs" />
-    <Compile Include="Ui\Converters.cs" />
+    <Compile Include="UserInterface\Battlefield\Slot.cs" />
+    <Compile Include="UserInterface\Battlefield\Row.cs" />
+    <Compile Include="UserInterface\MediaLibrary.cs" />
+    <Compile Include="UserInterface\MediaExtension.cs" />
+    <Compile Include="UserInterface\Converters.cs" />
     <Compile Include="Infrastructure\Bindable.cs" />
     <Compile Include="Infrastructure\RandomEx.cs" />
-    <Compile Include="Ui\SlotPanel.cs" />
+    <Compile Include="UserInterface\SlotPanel.cs" />
     <Compile Include="Infrastructure\StringEx.cs" />
     <Compile Include="Infrastructure\TypeEx.cs" />
-    <Compile Include="Ui\Battlefield\View.xaml.cs">
+    <Compile Include="UserInterface\Battlefield\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ui\Battlefield\ViewModel.cs" />
-    <Compile Include="Ui\DamageOrder\View.xaml.cs">
+    <Compile Include="UserInterface\Battlefield\ViewModel.cs" />
+    <Compile Include="UserInterface\DamageOrder\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ui\DamageOrder\ViewModel.cs" />
-    <Compile Include="Ui\MessageBox\Large.xaml.cs">
+    <Compile Include="UserInterface\DamageOrder\ViewModel.cs" />
+    <Compile Include="UserInterface\MessageBox\Large.xaml.cs">
       <DependentUpon>Large.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ui\MessageBox\ViewModel.cs" />
-    <Compile Include="Ui\Priority\View.xaml.cs">
+    <Compile Include="UserInterface\MessageBox\ViewModel.cs" />
+    <Compile Include="UserInterface\Priority\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ui\Priority\ViewModel.cs" />
-    <Compile Include="Ui\SelectTarget\View.xaml.cs">
+    <Compile Include="UserInterface\Priority\ViewModel.cs" />
+    <Compile Include="UserInterface\SelectTarget\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ui\SelectTarget\ViewModel.cs" />
+    <Compile Include="UserInterface\SelectTarget\ViewModel.cs" />
     <Compile Include="Infrastructure\ThreadBlocker.cs" />
-    <Compile Include="Ui\StartScreen\ViewModel.cs" />
-    <Compile Include="Ui\StartScreen\View.xaml.cs">
+    <Compile Include="UserInterface\StartScreen\ViewModel.cs" />
+    <Compile Include="UserInterface\StartScreen\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ui\EnumerationExtension.cs" />
-    <Compile Include="Ui\Shell\View.xaml.cs">
+    <Compile Include="UserInterface\EnumerationExtension.cs" />
+    <Compile Include="UserInterface\Shell\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ui\Shell\IShell.cs" />
+    <Compile Include="UserInterface\Shell\IShell.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Ui\Shell\Shell.cs" />
-    <Compile Include="Ui\Zones\View.xaml.cs">
+    <Compile Include="UserInterface\Shell\Shell.cs" />
+    <Compile Include="UserInterface\Zones\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ui\Zones\ViewModel.cs" />
+    <Compile Include="UserInterface\Zones\ViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -1248,167 +1247,167 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Ui\Ability.xaml">
+    <Page Include="UserInterface\Ability.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ui\Battlefield\View.xaml">
+    <Page Include="UserInterface\Battlefield\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ui\Card.xaml">
+    <Page Include="UserInterface\Card.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ui\CardOrder\View.xaml">
+    <Page Include="UserInterface\CardOrder\View.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Ui\PlayerBox\View.xaml">
+    <Page Include="UserInterface\PlayerBox\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ui\SelectableCard\View.xaml">
+    <Page Include="UserInterface\SelectableCard\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ui\DamageOrder\View.xaml">
+    <Page Include="UserInterface\DamageOrder\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ui\CombatDamage\View.xaml">
+    <Page Include="UserInterface\CombatDamage\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ui\DeckEditor\View.xaml">
+    <Page Include="UserInterface\DeckEditor\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ui\Deck\View.xaml">
+    <Page Include="UserInterface\Deck\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ui\DistributeDamage\View.xaml">
+    <Page Include="UserInterface\DistributeDamage\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ui\GameResults\View.xaml">
+    <Page Include="UserInterface\GameResults\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ui\Graveyard\View.xaml">
+    <Page Include="UserInterface\Graveyard\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ui\Hand\View.xaml">
+    <Page Include="UserInterface\Hand\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ui\Library\View.xaml">
+    <Page Include="UserInterface\Library\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ui\MagnifiedCard\View.xaml">
+    <Page Include="UserInterface\MagnifiedCard\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ui\ManaPool\View.xaml">
+    <Page Include="UserInterface\ManaPool\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ui\MatchResults\View.xaml">
+    <Page Include="UserInterface\MatchResults\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ui\MessageBox\Large.xaml">
+    <Page Include="UserInterface\MessageBox\Large.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Ui\MessageBox\Small.xaml">
+    <Page Include="UserInterface\MessageBox\Small.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ui\MessageBox\View.xaml">
+    <Page Include="UserInterface\MessageBox\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ui\MessageLog\View.xaml">
+    <Page Include="UserInterface\MessageLog\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ui\Permanent\View.xaml">
+    <Page Include="UserInterface\Permanent\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ui\PlayScreen\View.xaml">
+    <Page Include="UserInterface\PlayScreen\View.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Ui\Priority\View.xaml">
+    <Page Include="UserInterface\Priority\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ui\QuitGame\View.xaml">
+    <Page Include="UserInterface\QuitGame\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ui\RatingControl.xaml">
+    <Page Include="UserInterface\RatingControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ui\SaveDeckAs\View.xaml">
+    <Page Include="UserInterface\SaveDeckAs\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ui\SelectAbility\View.xaml">
+    <Page Include="UserInterface\SelectAbility\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ui\SelectDeck\View.xaml">
+    <Page Include="UserInterface\SelectDeck\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ui\SelectEffectChoice\View.xaml">
+    <Page Include="UserInterface\SelectEffectChoice\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ui\SelectTarget\View.xaml">
+    <Page Include="UserInterface\SelectTarget\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ui\SelectXCost\View.xaml">
+    <Page Include="UserInterface\SelectXCost\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ui\Skin.xaml">
+    <Page Include="UserInterface\Skin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ui\Shell\View.xaml">
+    <Page Include="UserInterface\Shell\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ui\Spell\View.xaml">
+    <Page Include="UserInterface\Spell\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ui\Stack\View.xaml">
+    <Page Include="UserInterface\Stack\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ui\StartScreen\View.xaml">
+    <Page Include="UserInterface\StartScreen\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ui\Step\View.xaml">
+    <Page Include="UserInterface\Step\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ui\Turn\View.xaml">
+    <Page Include="UserInterface\Turn\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ui\Zones\View.xaml">
+    <Page Include="UserInterface\Zones\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1438,6 +1437,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <UsingTask TaskName="Costura.EmbedTask" AssemblyFile="$(SolutionDir)lib\costura\Costura.dll" />
   <Target Name="AfterBuild">

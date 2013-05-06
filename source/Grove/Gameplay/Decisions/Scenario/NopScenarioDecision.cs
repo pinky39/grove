@@ -1,7 +1,5 @@
 ﻿namespace Grove.Gameplay.Decisions.Scenario
 {
-  using Player;
-
   public class NopScenarioDecision : IDecision
   {
     public bool HasCompleted { get { return true; } }

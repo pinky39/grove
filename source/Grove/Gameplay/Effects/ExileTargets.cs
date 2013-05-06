@@ -1,6 +1,6 @@
 ﻿namespace Grove.Gameplay.Effects
 {
-  using Ai;
+  using Artifical;
   using Targeting;
 
   public class ExileTargets : Effect

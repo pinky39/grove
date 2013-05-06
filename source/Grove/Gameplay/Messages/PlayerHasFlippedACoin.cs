@@ -1,7 +1,5 @@
 ﻿namespace Grove.Gameplay.Messages
 {
-  using Player;
-
   public class PlayerHasFlippedACoin
   {
     public Player Player { get; set; }

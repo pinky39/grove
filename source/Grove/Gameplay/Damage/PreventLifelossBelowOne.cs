@@ -1,7 +1,6 @@
 ﻿namespace Grove.Gameplay.Damage
 {
   using System.Linq;
-  using Card;
   using Targeting;
 
   public class PreventLifelossBelowOne : DamagePrevention

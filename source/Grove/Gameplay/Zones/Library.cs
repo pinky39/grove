@@ -1,9 +1,7 @@
 ﻿namespace Grove.Gameplay.Zones
 {
   using System.Linq;
-  using Card;
   using Infrastructure;
-  using Player;
 
   public class Library : OrderedZone, ILibraryQuery
   {

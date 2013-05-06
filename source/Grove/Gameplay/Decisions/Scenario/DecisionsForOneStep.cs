@@ -4,9 +4,7 @@
   using System.Collections.Generic;
   using System.Diagnostics;
   using System.Linq;
-  using Card;
-  using Card.Abilities;
-  using Player;
+  using Abilities;
   using Results;
   using States;
   using Targeting;
@@ -69,7 +67,7 @@
 
       _decisions.Add(decision);
       return this;
-    }    
+    }
 
     public DecisionsForOneStep Activate(Card card, Player target, Card costTarget = null,
       int? x = null, int abilityIndex = 0)

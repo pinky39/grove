@@ -1,11 +1,11 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Ai.TargetingRules;
-  using Gameplay.Card.Costs;
-  using Gameplay.Card.Factory;
+  using Artifical.TargetingRules;
+  using Gameplay.Costs;
   using Gameplay.Damage;
   using Gameplay.Effects;
+  using Gameplay.Misc;
   using Gameplay.Modifiers;
 
   public class SanctumCustodian : CardsSource

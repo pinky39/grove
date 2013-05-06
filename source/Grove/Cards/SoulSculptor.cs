@@ -1,12 +1,13 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Ai.TargetingRules;
-  using Ai.TimingRules;
-  using Gameplay.Card.Costs;
-  using Gameplay.Card.Factory;
+  using Artifical.TargetingRules;
+  using Artifical.TimingRules;
+  using Gameplay;
+  using Gameplay.Costs;
   using Gameplay.Effects;
-  using Gameplay.Mana;
+  using Gameplay.ManaHandling;
+  using Gameplay.Misc;
   using Gameplay.Modifiers;
 
   public class SoulSculptor : CardsSource
@@ -30,7 +31,7 @@
             p.Cost = new AggregateCost(
               new PayMana("{1}{W}".Parse(), ManaUsage.Abilities),
               new Tap());
-            
+
             p.Effect = () => new ApplyModifiersToTargets(
               () =>
                 {

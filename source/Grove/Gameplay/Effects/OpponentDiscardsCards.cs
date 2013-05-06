@@ -1,7 +1,6 @@
 ﻿namespace Grove.Gameplay.Effects
 {
   using System;
-  using Card;
 
   public class OpponentDiscardsCards : Effect
   {

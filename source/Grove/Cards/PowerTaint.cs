@@ -1,13 +1,12 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Ai.TargetingRules;
-  using Gameplay.Card.Factory;
-  using Gameplay.Card.Triggers;
+  using Artifical.TargetingRules;
+  using Gameplay;
   using Gameplay.Effects;
-  using Gameplay.Mana;
-  using Gameplay.Player;
+  using Gameplay.Misc;
   using Gameplay.States;
+  using Gameplay.Triggers;
 
   public class PowerTaint : CardsSource
   {

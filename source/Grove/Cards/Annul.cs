@@ -1,9 +1,9 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Ai;
-  using Gameplay.Card.Factory;
+  using Artifical;
   using Gameplay.Effects;
+  using Gameplay.Misc;
 
   public class Annul : CardsSource
   {
@@ -22,8 +22,8 @@
               .Is.CounterableSpell(card => card.Is().Artifact || card.Is().Enchantment)
               .On.Stack());
 
-            p.TargetingRule(new Ai.TargetingRules.Counterspell());
-            p.TimingRule(new Ai.TimingRules.Counterspell());
+            p.TargetingRule(new Artifical.TargetingRules.Counterspell());
+            p.TimingRule(new Artifical.TimingRules.Counterspell());
           });
     }
   }

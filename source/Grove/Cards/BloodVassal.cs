@@ -1,9 +1,10 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Gameplay.Card.Costs;
-  using Gameplay.Card.Factory;
-  using Gameplay.Mana;
+  using Gameplay;
+  using Gameplay.Costs;
+  using Gameplay.ManaHandling;
+  using Gameplay.Misc;
 
   public class BloodVassal : CardsSource
   {

@@ -3,11 +3,9 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Card;
   using Results;
   using Targeting;
   using Zones;
-
 
   public abstract class SelectCards : Decision<ChosenCards>
   {

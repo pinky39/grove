@@ -1,8 +1,8 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Gameplay.Card.Factory;
   using Gameplay.Effects;
+  using Gameplay.Misc;
 
   public class NaturesLore : CardsSource
   {

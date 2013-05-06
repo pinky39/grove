@@ -2,7 +2,6 @@
 {
   using System.Linq;
   using Infrastructure;
-  using Player;
 
   [Copyable]
   public class AssignedDamage : IHashable

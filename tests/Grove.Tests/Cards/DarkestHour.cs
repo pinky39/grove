@@ -1,6 +1,6 @@
 ﻿namespace Grove.Tests.Cards
 {
-  using Gameplay.Card.Characteristics;
+  using Gameplay.Characteristics;
   using Gameplay.States;
   using Infrastructure;
   using Xunit;

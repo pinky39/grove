@@ -1,11 +1,11 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Ai.TargetingRules;
-  using Gameplay.Card.Abilities;
-  using Gameplay.Card.Factory;
-  using Gameplay.Card.Triggers;
+  using Artifical.TargetingRules;
+  using Gameplay.Abilities;
   using Gameplay.Effects;
+  using Gameplay.Misc;
+  using Gameplay.Triggers;
   using Gameplay.Zones;
 
   public class AbyssalHorror : CardsSource

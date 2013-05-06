@@ -1,9 +1,8 @@
 ﻿namespace Grove.Gameplay.Effects
 {
-  using Ai;
+  using Artifical;
   using Decisions;
   using Decisions.Results;
-  using Mana;
   using Targeting;
 
   public class CounterTargetSpell : Effect, IProcessDecisionResults<BooleanResult>

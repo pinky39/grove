@@ -1,11 +1,11 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Ai;
-  using Ai.TargetingRules;
-  using Ai.TimingRules;
-  using Gameplay.Card.Factory;
+  using Artifical;
+  using Artifical.TargetingRules;
+  using Artifical.TimingRules;
   using Gameplay.Effects;
+  using Gameplay.Misc;
   using Gameplay.Modifiers;
 
   public class Bravado : CardsSource

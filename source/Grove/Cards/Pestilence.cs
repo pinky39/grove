@@ -1,13 +1,14 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Ai.TimingRules;
-  using Gameplay.Card.Costs;
-  using Gameplay.Card.Factory;
-  using Gameplay.Card.Triggers;
+  using Artifical.TimingRules;
+  using Gameplay;
+  using Gameplay.Costs;
   using Gameplay.Effects;
-  using Gameplay.Mana;
+  using Gameplay.ManaHandling;
+  using Gameplay.Misc;
   using Gameplay.States;
+  using Gameplay.Triggers;
   using Infrastructure;
 
   public class Pestilence : CardsSource

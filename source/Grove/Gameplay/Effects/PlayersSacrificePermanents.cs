@@ -3,23 +3,22 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Card;
   using Decisions;
   using Decisions.Results;
-  using Player;
   using Zones;
 
   public class PlayersSacrificePermanents : Effect, IProcessDecisionResults<ChosenCards>,
     IChooseDecisionResults<List<Card>, ChosenCards>
   {
     private readonly DynParam<int> _count;
-    private readonly Func<Card, bool> _validator;
-    private readonly string _text;
     private readonly Func<Effect, Player, bool> _playerFilter;
+    private readonly string _text;
+    private readonly Func<Card, bool> _validator;
 
     private PlayersSacrificePermanents() {}
 
-    public PlayersSacrificePermanents(DynParam<int> count, string text, Func<Card, bool> validator = null, Func<Effect, Player, bool> playerFilter = null)
+    public PlayersSacrificePermanents(DynParam<int> count, string text, Func<Card, bool> validator = null,
+      Func<Effect, Player, bool> playerFilter = null)
     {
       _count = count;
       _validator = validator ?? delegate { return true; };

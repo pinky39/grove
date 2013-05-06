@@ -1,9 +1,9 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Gameplay.Card.Factory;
+  using Gameplay;
   using Gameplay.Effects;
-  using Gameplay.Mana;
+  using Gameplay.Misc;
   using Infrastructure;
 
   public class SunpetalGrove : CardsSource

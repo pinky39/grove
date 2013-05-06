@@ -1,12 +1,12 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Ai;
-  using Ai.TargetingRules;
-  using Ai.TimingRules;
-  using Gameplay.Card.Characteristics;
-  using Gameplay.Card.Factory;
+  using Artifical;
+  using Artifical.TargetingRules;
+  using Artifical.TimingRules;
+  using Gameplay.Characteristics;
   using Gameplay.Effects;
+  using Gameplay.Misc;
 
   public class Befoul : CardsSource
   {

@@ -1,11 +1,12 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Gameplay.Card.Abilities;
-  using Gameplay.Card.Costs;
-  using Gameplay.Card.Factory;
+  using Gameplay;
+  using Gameplay.Abilities;
+  using Gameplay.Costs;
   using Gameplay.Effects;
-  using Gameplay.Mana;
+  using Gameplay.ManaHandling;
+  using Gameplay.Misc;
 
   public class SanguineGuard : CardsSource
   {
@@ -26,7 +27,7 @@
             p.Text = "{1}{B}: Regenerate Sanguine Guard.";
             p.Cost = new PayMana("{1}{B}".Parse(), ManaUsage.Abilities);
             p.Effect = () => new Regenerate();
-            p.TimingRule(new Ai.TimingRules.Regenerate());
+            p.TimingRule(new Artifical.TimingRules.Regenerate());
           });
     }
   }

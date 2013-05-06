@@ -1,14 +1,15 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Ai;
-  using Ai.TargetingRules;
-  using Ai.TimingRules;
-  using Gameplay.Card.Abilities;
-  using Gameplay.Card.Costs;
-  using Gameplay.Card.Factory;
+  using Artifical;
+  using Artifical.TargetingRules;
+  using Artifical.TimingRules;
+  using Gameplay;
+  using Gameplay.Abilities;
+  using Gameplay.Costs;
   using Gameplay.Effects;
-  using Gameplay.Mana;
+  using Gameplay.ManaHandling;
+  using Gameplay.Misc;
   using Gameplay.Modifiers;
 
   public class GaeasEmbrace : CardsSource
@@ -33,7 +34,7 @@
                     Effect = () => new Gameplay.Effects.Regenerate()
                   };
 
-                ap.TimingRule(new Ai.TimingRules.Regenerate());
+                ap.TimingRule(new Artifical.TimingRules.Regenerate());
 
                 return new AddActivatedAbility(new ActivatedAbility(ap));
               },

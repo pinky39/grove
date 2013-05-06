@@ -1,6 +1,6 @@
 ﻿namespace Grove.Gameplay.Effects
 {
-  using Mana;
+  using ManaHandling;
 
   public class AddManaToPool : Effect
   {

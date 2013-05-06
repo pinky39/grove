@@ -1,9 +1,9 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Ai.TimingRules;
-  using Gameplay.Card.Factory;
+  using Artifical.TimingRules;
   using Gameplay.Effects;
+  using Gameplay.Misc;
 
   public class Attunement : CardsSource
   {
@@ -19,7 +19,7 @@
         .ActivatedAbility(p =>
           {
             p.Text = "Return Attunement to its owner's hand: Draw three cards, then discard four cards.";
-            p.Cost = new Gameplay.Card.Costs.ReturnToHand();
+            p.Cost = new Gameplay.Costs.ReturnToHand();
             p.Effect = () => new DrawCards(3, discardCount: 4);
             p.TimingRule(new Any(new EndOfTurn(), new OwningCardWillBeDestroyed()));
           });

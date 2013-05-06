@@ -1,13 +1,14 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Ai.TargetingRules;
-  using Ai.TimingRules;
-  using Gameplay.Card.Characteristics;
-  using Gameplay.Card.Costs;
-  using Gameplay.Card.Factory;
+  using Artifical.TargetingRules;
+  using Artifical.TimingRules;
+  using Gameplay;
+  using Gameplay.Characteristics;
+  using Gameplay.Costs;
   using Gameplay.Effects;
-  using Gameplay.Mana;
+  using Gameplay.ManaHandling;
+  using Gameplay.Misc;
 
   public class EasternPaladin : CardsSource
   {

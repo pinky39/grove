@@ -3,7 +3,6 @@
   using System;
   using System.Collections.Generic;
   using Modifiers;
-  using Player;
 
   public class ApplyModifiersToPlayer : Effect
   {

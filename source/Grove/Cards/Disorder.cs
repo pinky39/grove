@@ -2,10 +2,10 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Ai.TimingRules;
-  using Gameplay.Card.Characteristics;
-  using Gameplay.Card.Factory;
+  using Artifical.TimingRules;
+  using Gameplay.Characteristics;
   using Gameplay.Effects;
+  using Gameplay.Misc;
 
   public class Disorder : CardsSource
   {

@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Card;
   using Modifiers;
   using Targeting;
   using Zones;

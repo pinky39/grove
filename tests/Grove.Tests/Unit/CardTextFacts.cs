@@ -2,7 +2,7 @@
 {
   using System;
   using System.Linq;
-  using Gameplay.Card.Characteristics;
+  using Gameplay.Characteristics;
   using Xunit;
 
   public class CardTextFacts

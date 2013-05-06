@@ -1,8 +1,8 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Gameplay.Card.Factory;
   using Gameplay.Effects;
+  using Gameplay.Misc;
 
   public class WildFire : CardsSource
   {
@@ -17,7 +17,7 @@
         .Cast(p =>
           {
             p.Effect = () => new CompoundEffect(
-              new PlayersSacrificePermanents(count:4, validator: c => c.Is().Land, text: "Select lands to sacrifice."),
+              new PlayersSacrificePermanents(count: 4, validator: c => c.Is().Land, text: "Select lands to sacrifice."),
               new DealDamageToCreaturesAndPlayers(amountCreature: 4));
           });
     }

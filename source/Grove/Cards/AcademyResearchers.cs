@@ -1,11 +1,11 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Ai.TargetingRules;
-  using Gameplay.Card.Factory;
-  using Gameplay.Card.Triggers;
+  using Artifical.TargetingRules;
   using Gameplay.Effects;
+  using Gameplay.Misc;
   using Gameplay.Targeting;
+  using Gameplay.Triggers;
   using Gameplay.Zones;
 
   public class AcademyResearchers : CardsSource

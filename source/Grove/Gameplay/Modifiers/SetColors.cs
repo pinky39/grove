@@ -1,7 +1,7 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
   using System.Collections.Generic;
-  using Card.Characteristics;
+  using Characteristics;
 
   public class SetColors : Modifier
   {

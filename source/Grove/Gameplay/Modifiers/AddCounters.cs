@@ -2,7 +2,7 @@
 {
   using System;
   using System.Collections.Generic;
-  using Card.Counters;
+  using Counters;
 
   public class AddCounters : Modifier
   {

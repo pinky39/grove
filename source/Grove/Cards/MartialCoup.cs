@@ -1,10 +1,10 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Ai.TimingRules;
-  using Gameplay.Card.Characteristics;
-  using Gameplay.Card.Factory;
+  using Artifical.TimingRules;
+  using Gameplay.Characteristics;
   using Gameplay.Effects;
+  using Gameplay.Misc;
   using Gameplay.Modifiers;
 
   public class MartialCoup : CardsSource
@@ -36,7 +36,7 @@
                   .Colors(CardColor.White)));
 
             p.TimingRule(new SecondMain());
-            p.CostRule(new Ai.CostRules.MartialCoup(5));
+            p.CostRule(new Artifical.CostRules.MartialCoup(5));
           });
     }
   }

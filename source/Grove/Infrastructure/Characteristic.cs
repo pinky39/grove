@@ -3,7 +3,7 @@
   using System;
   using System.Linq;
   using Gameplay;
-  using Gameplay.Common;
+  using Gameplay.Misc;
 
   [Copyable]
   public abstract class Characteristic<T> : GameObject, ICopyContributor

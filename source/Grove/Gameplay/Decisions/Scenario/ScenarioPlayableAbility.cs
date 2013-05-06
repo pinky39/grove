@@ -1,7 +1,6 @@
 ﻿namespace Grove.Gameplay.Decisions.Scenario
 {
   using System.Linq;
-  using Mana;
   using Results;
 
   public class ScenarioPlayableAbility : PlayableAbility

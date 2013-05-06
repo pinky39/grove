@@ -1,6 +1,6 @@
 ﻿namespace Grove.Gameplay.Decisions
 {
-  using Mana;
+  using ManaHandling;
   using Results;
 
   public abstract class PayOr : Decision<BooleanResult>

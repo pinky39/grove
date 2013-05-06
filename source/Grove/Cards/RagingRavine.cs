@@ -1,15 +1,16 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Gameplay.Card.Abilities;
-  using Gameplay.Card.Characteristics;
-  using Gameplay.Card.Costs;
-  using Gameplay.Card.Counters;
-  using Gameplay.Card.Factory;
-  using Gameplay.Card.Triggers;
+  using Gameplay;
+  using Gameplay.Abilities;
+  using Gameplay.Characteristics;
+  using Gameplay.Costs;
+  using Gameplay.Counters;
   using Gameplay.Effects;
-  using Gameplay.Mana;
+  using Gameplay.ManaHandling;
+  using Gameplay.Misc;
   using Gameplay.Modifiers;
+  using Gameplay.Triggers;
 
   public class RagingRavine : CardsSource
   {
@@ -52,7 +53,7 @@
                   return new AddTriggeredAbility(new TriggeredAbility(tp)) {UntilEot = true};
                 });
 
-            p.TimingRule(new Ai.TimingRules.ChangeToCreature(minAvailableMana: 5));
+            p.TimingRule(new Artifical.TimingRules.ChangeToCreature(minAvailableMana: 5));
           });
     }
   }

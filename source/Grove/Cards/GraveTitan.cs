@@ -1,11 +1,11 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Gameplay.Card.Abilities;
-  using Gameplay.Card.Characteristics;
-  using Gameplay.Card.Factory;
-  using Gameplay.Card.Triggers;
+  using Gameplay.Abilities;
+  using Gameplay.Characteristics;
   using Gameplay.Effects;
+  using Gameplay.Misc;
+  using Gameplay.Triggers;
   using Gameplay.Zones;
 
   public class GraveTitan : CardsSource

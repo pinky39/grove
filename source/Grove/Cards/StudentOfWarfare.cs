@@ -1,9 +1,9 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Ai;
-  using Gameplay.Card.Abilities;
-  using Gameplay.Card.Factory;
+  using Artifical;
+  using Gameplay.Abilities;
+  using Gameplay.Misc;
 
   public class StudentOfWarfare : CardsSource
   {

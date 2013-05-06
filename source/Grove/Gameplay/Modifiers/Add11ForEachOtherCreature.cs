@@ -1,7 +1,7 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
   using System.Linq;
-  using Card.Characteristics;
+  using Characteristics;
   using Infrastructure;
   using Messages;
   using Zones;

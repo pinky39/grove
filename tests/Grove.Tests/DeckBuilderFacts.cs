@@ -3,7 +3,7 @@
   using System;
   using Infrastructure;
   using Tournament;
-  using Ui;
+  using UserInterface;
 
   public class DeckBuilderFacts : Scenario
   {

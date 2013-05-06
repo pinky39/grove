@@ -2,10 +2,8 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Card;
-  using Card.Characteristics;
+  using Characteristics;
   using Infrastructure;
-  using Player;
 
   public class Battlefield : UnorderedZone, IBattlefieldQuery
   {

@@ -1,13 +1,14 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Ai;
-  using Ai.TargetingRules;
-  using Gameplay.Card.Abilities;
-  using Gameplay.Card.Costs;
-  using Gameplay.Card.Factory;
+  using Artifical;
+  using Artifical.TargetingRules;
+  using Gameplay;
+  using Gameplay.Abilities;
+  using Gameplay.Costs;
   using Gameplay.Effects;
-  using Gameplay.Mana;
+  using Gameplay.ManaHandling;
+  using Gameplay.Misc;
   using Gameplay.Modifiers;
 
   public class VinesOfVastwood : CardsSource

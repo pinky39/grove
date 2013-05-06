@@ -3,13 +3,11 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Ai;
-  using Card.Factory;
-  using Combat;
+  using Artifical;
   using Decisions;
   using Decisions.Scenario;
   using Infrastructure;
-  using Player;
+  using Misc;
   using States;
   using Zones;
 
@@ -30,7 +28,7 @@
     public ChangeTracker ChangeTracker { get; private set; }
     public CardDatabase CardDatabase { get; private set; }
     public bool WasStopped { get { return _wasStopped.Value; } }
-    public CombatManager Combat { get; private set; }
+    public Combat Combat { get; private set; }
     public bool IsFinished { get { return Players.AnyHasLost() || _turnLimit < Turn.TurnCount; } }
     public Players Players { get; set; }
     public int Score { get { return Players.Score; } }
@@ -43,8 +41,8 @@
     {
       var game = CreateGame(MaxSearchDepth, MaxTargetCount, cardDatabase, decisionSystem);
 
-      var player1 = new Player.Player("You", "player1.png", ControllerType.Human, humanDeck);
-      var player2 = new Player.Player("Cpu", "player2.png", ControllerType.Machine, cpuDeck);
+      var player1 = new Player("You", "player1.png", ControllerType.Human, humanDeck);
+      var player2 = new Player("Cpu", "player2.png", ControllerType.Machine, cpuDeck);
       game.Players = new Players(player1, player2);
 
       return game.Initialize();
@@ -75,7 +73,7 @@
       game.Stack = new Stack();
       game.Turn = new TurnInfo();
       game._wasStopped = new Trackable<bool>();
-      game.Combat = new CombatManager();
+      game.Combat = new Combat();
       game.Ai = new SearchRunner(new SearchParameters(maxSearchDepth, maxTargetCount), game);
       game._decisionSystem = decisionSystem;
       game._decisionQueue = new DecisionQueue();
@@ -84,7 +82,7 @@
       return game;
     }
 
-    public void Enqueue<TDecision>(Player.Player controller, Action<TDecision> init = null)
+    public void Enqueue<TDecision>(Player controller, Action<TDecision> init = null)
       where TDecision : class, IDecision
     {
       init = init ?? delegate { };
@@ -114,8 +112,8 @@
     {
       var game = CreateGame(maxSearchDepth, maxTargetCount, cardDatabase, decisionSystem);
 
-      var player1 = new Player.Player("Player1", "player1.png", ControllerType.Machine, deck1);
-      var player2 = new Player.Player("Player2", "player2.png", ControllerType.Machine, deck2);
+      var player1 = new Player("Player1", "player1.png", ControllerType.Machine, deck1);
+      var player2 = new Player("Player2", "player2.png", ControllerType.Machine, deck2);
       game.Players = new Players(player1, player2);
 
       return game.Initialize();
@@ -147,7 +145,7 @@
       _stateMachine.Resume(() => Turn.StepCount < maxStepCount && ShouldContinue());
     }
 
-    public void Start(int numOfTurns = int.MaxValue, bool skipPreGame = false, Player.Player looser = null)
+    public void Start(int numOfTurns = int.MaxValue, bool skipPreGame = false, Player looser = null)
     {
       _turnLimit = numOfTurns;
 
@@ -179,8 +177,8 @@
     {
       var game = CreateGame(MaxSearchDepth, MaxTargetCount, cardDatabase, decisionSystem);
 
-      var player1 = new Player.Player("Player1", "player1.png", player1Controller, CreateDummyDeck());
-      var player2 = new Player.Player("Player2", "player2.png", player2Controller, CreateDummyDeck());
+      var player1 = new Player("Player1", "player1.png", player1Controller, CreateDummyDeck());
+      var player2 = new Player("Player2", "player2.png", player2Controller, CreateDummyDeck());
       game.Players = new Players(player1, player2);
       game.Initialize();
 

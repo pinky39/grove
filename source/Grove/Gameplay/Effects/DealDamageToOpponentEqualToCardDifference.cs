@@ -1,7 +1,6 @@
 ﻿namespace Grove.Gameplay.Effects
 {
   using Damage;
-  using Player;
 
   public class DealDamageToOpponentEqualToCardDifference : Effect
   {

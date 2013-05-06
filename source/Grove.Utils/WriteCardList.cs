@@ -2,7 +2,7 @@
 {
   using System;
   using System.IO;
-  using Gameplay.Card.Factory;
+  using Gameplay;
 
   public class WriteCardList : Task
   {

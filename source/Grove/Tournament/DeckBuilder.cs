@@ -2,9 +2,8 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Gameplay.Card;
-  using Gameplay.Card.Characteristics;
-  using Gameplay.Card.Factory;
+  using Gameplay;
+  using Gameplay.Characteristics;
 
   public class DeckBuilder
   {

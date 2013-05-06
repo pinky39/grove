@@ -1,11 +1,11 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Ai;
-  using Ai.TimingRules;
-  using Gameplay.Card.Characteristics;
-  using Gameplay.Card.Factory;
+  using Artifical;
+  using Artifical.TimingRules;
+  using Gameplay.Characteristics;
   using Gameplay.Effects;
+  using Gameplay.Misc;
   using Gameplay.Modifiers;
 
   public class AbsoluteGrace : CardsSource

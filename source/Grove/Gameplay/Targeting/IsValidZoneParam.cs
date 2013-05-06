@@ -1,8 +1,6 @@
 ﻿namespace Grove.Gameplay.Targeting
 {
-  using Card;
   using Gameplay.Zones;
-  using Player;
 
   public class IsValidZoneParam
   {

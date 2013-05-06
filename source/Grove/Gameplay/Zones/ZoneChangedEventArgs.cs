@@ -1,7 +1,6 @@
 ﻿namespace Grove.Gameplay.Zones
 {
   using System;
-  using Card;
 
   public class ZoneChangedEventArgs : EventArgs
   {

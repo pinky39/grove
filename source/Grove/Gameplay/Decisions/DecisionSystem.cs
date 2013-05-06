@@ -5,9 +5,9 @@
   using System.Linq;
   using System.Reflection;
   using Infrastructure;
-  using Player;
+  using Misc;
   using Scenario;
-  using Ui.Decisions;
+  using UserInterface.Decisions;
 
   public class DecisionSystem
   {
@@ -36,7 +36,7 @@
       return Assembly.GetExecutingAssembly()
         .GetTypes()
         .Where(x => x.Implements<IDecision>())
-        .Where(x => x.Namespace.Equals(typeof (Ai.Decisions.PlaySpellOrAbility).Namespace))
+        .Where(x => x.Namespace.Equals(typeof (Artifical.Decisions.PlaySpellOrAbility).Namespace))
         .Select(x => new
           {
             Type = x.BaseType,

@@ -2,7 +2,7 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Ai;
+  using Artifical;
   using Decisions.Results;
 
   public class DestroyAllLandsOrCreatures : CustomizableEffect

@@ -5,9 +5,9 @@
 				<ResourceDictionary>
 					<local:Bootstrapper x:Key="bootstrapper" />
 				</ResourceDictionary>
-				<ResourceDictionary Source="Ui/Skin.xaml" />
-				<ResourceDictionary Source="Ui/Card.xaml" />
-				<ResourceDictionary Source="Ui/Ability.xaml" />
+				<ResourceDictionary Source="UserInterface/Skin.xaml" />
+                <ResourceDictionary Source="UserInterface/Card.xaml" />
+                <ResourceDictionary Source="UserInterface/Ability.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Application.Resources>

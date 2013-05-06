@@ -2,12 +2,12 @@
 {
   using System;
   using System.Collections.Generic;
-  using Ai.TimingRules;
-  using Gameplay.Card.Abilities;
-  using Gameplay.Card.Characteristics;
-  using Gameplay.Card.Costs;
-  using Gameplay.Card.Factory;
+  using Artifical.TimingRules;
+  using Gameplay.Abilities;
+  using Gameplay.Characteristics;
+  using Gameplay.Costs;
   using Gameplay.Effects;
+  using Gameplay.Misc;
   using Gameplay.Modifiers;
 
   public class LurkingEvil : CardsSource
@@ -34,7 +34,7 @@
               () => new AddStaticAbility(Static.Flying));
 
             p.TimingRule(new OwningCardHas(c => c.Is().Enchantment));
-            p.TimingRule(new Ai.TimingRules.ChangeToCreature());
+            p.TimingRule(new Artifical.TimingRules.ChangeToCreature());
           });
     }
   }

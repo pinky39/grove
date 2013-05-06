@@ -1,8 +1,7 @@
 ﻿namespace Grove.Gameplay.Decisions.Scenario
 {
   using System;
-  using Card.Characteristics;
-  using Common;
+  using Characteristics;
   using Effects;
   using Infrastructure;
   using Modifiers;

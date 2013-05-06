@@ -2,7 +2,7 @@
 {
   using System;
   using System.Collections.Generic;
-  using Card.Characteristics;
+  using Characteristics;
 
   public class AddProtectionFromColors : Modifier
   {

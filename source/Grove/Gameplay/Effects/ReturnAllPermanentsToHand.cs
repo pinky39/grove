@@ -2,8 +2,7 @@
 {
   using System;
   using System.Linq;
-  using Ai;
-  using Card;
+  using Artifical;
 
   public class ReturnAllPermanentsToHand : Effect
   {

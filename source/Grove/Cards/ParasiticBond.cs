@@ -1,12 +1,11 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Ai.TargetingRules;
-  using Gameplay.Card.Factory;
-  using Gameplay.Card.Triggers;
+  using Artifical.TargetingRules;
   using Gameplay.Effects;
-  using Gameplay.Player;
+  using Gameplay.Misc;
   using Gameplay.States;
+  using Gameplay.Triggers;
 
   public class ParasiticBond : CardsSource
   {

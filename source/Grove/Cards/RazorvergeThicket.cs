@@ -2,9 +2,9 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Gameplay.Card.Factory;
+  using Gameplay;
   using Gameplay.Effects;
-  using Gameplay.Mana;
+  using Gameplay.Misc;
 
   public class RazorvergeThicket : CardsSource
   {

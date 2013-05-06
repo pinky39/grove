@@ -2,9 +2,9 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Ai.TimingRules;
-  using Gameplay.Card.Factory;
+  using Artifical.TimingRules;
   using Gameplay.Effects;
+  using Gameplay.Misc;
 
   public class AcidicSoil : CardsSource
   {

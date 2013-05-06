@@ -2,12 +2,12 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Ai.TimingRules;
-  using Gameplay.Card.Characteristics;
-  using Gameplay.Card.Factory;
-  using Gameplay.Card.Triggers;
+  using Artifical.TimingRules;
+  using Gameplay.Characteristics;
   using Gameplay.Effects;
+  using Gameplay.Misc;
   using Gameplay.States;
+  using Gameplay.Triggers;
 
   public class GreenerPastures : CardsSource
   {

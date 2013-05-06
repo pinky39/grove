@@ -2,8 +2,7 @@
 {
   using Decisions;
   using Decisions.Results;
-  using Mana;
-  using Player;
+  using ManaHandling;
 
   public class PayManaOrLooseLife : Effect, IProcessDecisionResults<BooleanResult>
   {

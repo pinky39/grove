@@ -1,10 +1,10 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Ai.TimingRules;
-  using Gameplay.Card.CastingRules;
-  using Gameplay.Card.Factory;
+  using Artifical.TimingRules;
+  using Gameplay.CastingRules;
   using Gameplay.Effects;
+  using Gameplay.Misc;
   using Gameplay.Zones;
 
   public class IllGottenGains : CardsSource

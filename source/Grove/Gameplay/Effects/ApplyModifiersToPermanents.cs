@@ -2,9 +2,8 @@
 {
   using System;
   using System.Collections.Generic;
-  using Card;
+  using Misc;
   using Modifiers;
-  using Player;
   using Targeting;
 
   public class ApplyModifiersToPermanents : Effect

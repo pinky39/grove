@@ -1,7 +1,5 @@
 ﻿namespace Grove.Gameplay.Messages
 {
-  using Card;
-
   public class CardWasRevealed
   {
     public Card Card { get; set; }

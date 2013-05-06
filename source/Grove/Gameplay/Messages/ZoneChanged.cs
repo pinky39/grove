@@ -1,7 +1,5 @@
 ﻿namespace Grove.Gameplay.Messages
 {
-  using Card;
-  using Player;
   using Zones;
 
   public class ZoneChanged

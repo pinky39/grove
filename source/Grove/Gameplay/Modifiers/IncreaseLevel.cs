@@ -1,6 +1,6 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
-  using Card.Characteristics;
+  using Characteristics;
 
   public class IncreaseLevel : Modifier
   {

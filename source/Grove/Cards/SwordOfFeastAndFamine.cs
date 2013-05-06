@@ -1,16 +1,17 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Ai;
-  using Ai.TargetingRules;
-  using Ai.TimingRules;
-  using Gameplay.Card.Characteristics;
-  using Gameplay.Card.Costs;
-  using Gameplay.Card.Factory;
-  using Gameplay.Card.Triggers;
+  using Artifical;
+  using Artifical.TargetingRules;
+  using Artifical.TimingRules;
+  using Gameplay;
+  using Gameplay.Characteristics;
+  using Gameplay.Costs;
   using Gameplay.Effects;
-  using Gameplay.Mana;
+  using Gameplay.ManaHandling;
+  using Gameplay.Misc;
   using Gameplay.Modifiers;
+  using Gameplay.Triggers;
 
   public class SwordOfFeastAndFamine : CardsSource
   {

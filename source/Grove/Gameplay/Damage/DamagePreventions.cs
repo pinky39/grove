@@ -1,7 +1,6 @@
 ﻿namespace Grove.Gameplay.Damage
 {
   using System.Linq;
-  using Card;
   using Infrastructure;
   using Modifiers;
   using Targeting;

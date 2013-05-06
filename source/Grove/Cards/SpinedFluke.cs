@@ -1,13 +1,14 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Ai.TimingRules;
-  using Gameplay.Card.Characteristics;
-  using Gameplay.Card.Costs;
-  using Gameplay.Card.Factory;
-  using Gameplay.Card.Triggers;
+  using Artifical.TimingRules;
+  using Gameplay;
+  using Gameplay.Characteristics;
+  using Gameplay.Costs;
   using Gameplay.Effects;
-  using Gameplay.Mana;
+  using Gameplay.ManaHandling;
+  using Gameplay.Misc;
+  using Gameplay.Triggers;
   using Gameplay.Zones;
 
   public class SpinedFluke : CardsSource
@@ -28,14 +29,14 @@
           {
             p.Text = "When Spined Fluke enters the battlefield, sacrifice a creature.";
             p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
-            p.Effect = () => new PlayerSacrificeCreatures(1, P(e => e.Controller));            
-          })        
+            p.Effect = () => new PlayerSacrificeCreatures(1, P(e => e.Controller));
+          })
         .ActivatedAbility(p =>
           {
             p.Text = "{B}: Regenerate Spined Fluke.";
             p.Cost = new PayMana(Mana.Black, ManaUsage.Abilities);
             p.Effect = () => new Gameplay.Effects.Regenerate();
-            p.TimingRule(new Ai.TimingRules.Regenerate());
+            p.TimingRule(new Artifical.TimingRules.Regenerate());
           });
     }
   }

@@ -4,11 +4,9 @@
   using System.Collections;
   using System.Collections.Generic;
   using System.Linq;
-  using Ai;
-  using Card;
+  using Artifical;
   using Effects;
   using Infrastructure;
-  using Player;
   using Targeting;
 
   [Copyable]
@@ -60,7 +58,7 @@
     }
 
     public void Push(Effect effect)
-    {            
+    {
       _effects.Add(effect);
       effect.EffectWasPushedOnStack();
 

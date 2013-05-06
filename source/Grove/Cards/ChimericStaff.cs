@@ -1,11 +1,12 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Ai.CostRules;
-  using Gameplay.Card.Costs;
-  using Gameplay.Card.Factory;
+  using Artifical.CostRules;
+  using Gameplay;
+  using Gameplay.Costs;
   using Gameplay.Effects;
-  using Gameplay.Mana;
+  using Gameplay.ManaHandling;
+  using Gameplay.Misc;
   using Gameplay.Modifiers;
 
   public class ChimericStaff : CardsSource
@@ -28,7 +29,7 @@
                 power: Value.PlusX, toughness: Value.PlusX,
                 type: "Creature Artifact Construct") {UntilEot = true});
 
-            p.TimingRule(new Ai.TimingRules.ChangeToCreature(minAvailableMana: 3));
+            p.TimingRule(new Artifical.TimingRules.ChangeToCreature(minAvailableMana: 3));
             p.CostRule(new MaxAvailableMana());
           }
         );

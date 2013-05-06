@@ -1,7 +1,6 @@
 ﻿namespace Grove.Gameplay.Damage
 {
   using System;
-  using Card;
   using Infrastructure;
   using Targeting;
 

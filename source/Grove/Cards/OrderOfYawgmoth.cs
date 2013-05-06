@@ -1,12 +1,12 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Gameplay.Card.Abilities;
-  using Gameplay.Card.Factory;
-  using Gameplay.Card.Triggers;
+  using Gameplay;
+  using Gameplay.Abilities;
   using Gameplay.Effects;
   using Gameplay.Messages;
-  using Gameplay.Player;
+  using Gameplay.Misc;
+  using Gameplay.Triggers;
 
   public class OrderOfYawgmoth : CardsSource
   {

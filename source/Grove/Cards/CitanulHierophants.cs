@@ -1,10 +1,11 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Gameplay.Card.Abilities;
-  using Gameplay.Card.Costs;
-  using Gameplay.Card.Factory;
-  using Gameplay.Mana;
+  using Gameplay;
+  using Gameplay.Abilities;
+  using Gameplay.Costs;
+  using Gameplay.ManaHandling;
+  using Gameplay.Misc;
   using Gameplay.Modifiers;
 
   public class CitanulHierophants : CardsSource

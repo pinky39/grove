@@ -1,15 +1,15 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Ai.TargetingRules;
-  using Gameplay.Card.Costs;
-  using Gameplay.Card.Factory;
-  using Gameplay.Card.Triggers;
+  using Artifical.TargetingRules;
+  using Gameplay;
+  using Gameplay.Costs;
   using Gameplay.Effects;
-  using Gameplay.Mana;
+  using Gameplay.ManaHandling;
+  using Gameplay.Misc;
   using Gameplay.Modifiers;
-  using Gameplay.Player;
   using Gameplay.Targeting;
+  using Gameplay.Triggers;
 
   public class KarnSilverGolem : CardsSource
   {
@@ -44,7 +44,7 @@
               .Is.Card(c => c.Is().Artifact && !c.Is().Creature)
               .On.Battlefield());
 
-            p.TimingRule(new Ai.TimingRules.ChangeToCreature());
+            p.TimingRule(new Artifical.TimingRules.ChangeToCreature());
             p.TargetingRule(new OrderByRank(c => -c.ConvertedCost, ControlledBy.SpellOwner));
           });
     }

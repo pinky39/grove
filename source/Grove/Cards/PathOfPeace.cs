@@ -1,10 +1,10 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Ai.TargetingRules;
-  using Ai.TimingRules;
-  using Gameplay.Card.Factory;
+  using Artifical.TargetingRules;
+  using Artifical.TimingRules;
   using Gameplay.Effects;
+  using Gameplay.Misc;
   using Gameplay.Targeting;
 
   public class PathOfPeace : CardsSource

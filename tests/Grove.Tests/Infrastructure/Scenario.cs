@@ -4,14 +4,10 @@
   using System.Collections.Generic;
   using System.Linq;
   using System.Reflection;
-  using Ai;
   using Gameplay;
-  using Gameplay.Card;
-  using Gameplay.Card.Factory;
-  using Gameplay.Combat;
   using Gameplay.Decisions;
   using Gameplay.Decisions.Scenario;
-  using Gameplay.Player;
+  using Gameplay.Misc;
   using Gameplay.States;
   using Gameplay.Zones;
   using Grove.Infrastructure;
@@ -38,7 +34,7 @@
     protected Game Game { get; private set; }
     protected Player P1 { get { return Game.Players.Player1; } }
     protected Player P2 { get { return Game.Players.Player2; } }    
-    protected CombatManager Combat { get { return Game.Combat; } }
+    protected Combat Combat { get { return Game.Combat; } }
 
     public virtual void Dispose() {}
 

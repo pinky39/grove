@@ -1,14 +1,14 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Ai.TargetingRules;
-  using Gameplay.Card.Abilities;
-  using Gameplay.Card.Factory;
-  using Gameplay.Card.Triggers;
+  using Artifical.TargetingRules;
+  using Gameplay.Abilities;
   using Gameplay.Effects;
   using Gameplay.Messages;
+  using Gameplay.Misc;
   using Gameplay.Modifiers;
   using Gameplay.Targeting;
+  using Gameplay.Triggers;
 
   public class Somnophore : CardsSource
   {

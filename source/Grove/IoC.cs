@@ -15,13 +15,14 @@
   using Castle.MicroKernel.SubSystems.Configuration;
   using Castle.Windsor;
   using Gameplay;
-  using Gameplay.Card.Factory;
   using Gameplay.Decisions;
+  using Gameplay.Misc;
   using Infrastructure;
   using Tournament;
-  using Ui.Decisions;
-  using Ui.Permanent;
-  using Ui.Shell;
+  using UserInterface;
+  using UserInterface.Decisions;
+  using UserInterface.Permanent;
+  using UserInterface.Shell;
 
   public class IoC
   {
@@ -144,7 +145,7 @@
         container.Register(Component(typeof (IUiDecisionFactory), lifestyle: LifestyleType.Singleton).AsFactory());
 
         container.Register(Classes.FromThisAssembly()
-          .Where(x => x.Namespace.Equals(typeof (Ui.Decisions.TakeMulligan).Namespace) &&
+          .Where(x => x.Namespace.Equals(typeof (UserInterface.Decisions.TakeMulligan).Namespace) &&
             x.Implements<IDecision>())
           .WithServiceSelect((type, baseTypes) => new[] {type.BaseType})
           .LifestyleTransient());
@@ -165,7 +166,7 @@
 
       private static bool IsViewModelFactory(Type type)
       {
-        return type.Name == "IFactory" && type.IsInterface && type.Namespace.StartsWith("Grove.Ui");
+        return type.Name == "IFactory" && type.IsInterface && type.Namespace.StartsWith(typeof(ViewModelBase).Namespace);
       }
 
       private static void RegisterCardsSources(IWindsorContainer container)

@@ -1,20 +1,16 @@
 ﻿namespace Grove.Gameplay.Decisions
 {
   using System.Collections.Generic;
-  using Card;
   using Results;
 
   public abstract class OrderCards : Decision<Ordering>
   {
-    public IChooseDecisionResults<Ordering> ChooseDecisionResults;
-    public IProcessDecisionResults<Ordering> ProcessDecisionResults;
     public List<Card> Cards;
+    public IChooseDecisionResults<Ordering> ChooseDecisionResults;
     public string Message;
-        
-    protected override bool ShouldExecuteQuery
-    {
-      get { return Cards.Count > 1; }
-    }
+    public IProcessDecisionResults<Ordering> ProcessDecisionResults;
+
+    protected override bool ShouldExecuteQuery { get { return Cards.Count > 1; } }
 
     public override void ProcessResults()
     {
@@ -27,7 +23,7 @@
           Result = new Ordering(0);
           break;
       }
-                  
+
       ProcessDecisionResults.ProcessResults(Result);
     }
   }

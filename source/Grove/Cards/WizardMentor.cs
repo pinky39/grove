@@ -1,10 +1,9 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Ai.TargetingRules;
-  using Gameplay.Card.Costs;
-  using Gameplay.Card.Factory;
-  using Gameplay.Player;
+  using Artifical.TargetingRules;
+  using Gameplay.Costs;
+  using Gameplay.Misc;
 
   public class WizardMentor : CardsSource
   {

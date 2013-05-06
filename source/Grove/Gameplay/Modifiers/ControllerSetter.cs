@@ -1,7 +1,6 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
   using Infrastructure;
-  using Player;
 
   public class ControllerSetter : PropertyModifier<Player>
   {

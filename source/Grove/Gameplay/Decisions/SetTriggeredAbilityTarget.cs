@@ -1,8 +1,8 @@
 ﻿namespace Grove.Gameplay.Decisions
 {
   using System.Collections.Generic;
-  using Ai;
-  using Card.Abilities;
+  using Abilities;
+  using Artifical;
   using Effects;
   using Results;
   using Targeting;

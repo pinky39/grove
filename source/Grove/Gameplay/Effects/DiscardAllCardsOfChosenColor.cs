@@ -2,7 +2,7 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Card.Characteristics;
+  using Characteristics;
   using Decisions.Results;
   using Targeting;
 

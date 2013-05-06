@@ -1,11 +1,12 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Ai;
-  using Gameplay.Card.Costs;
-  using Gameplay.Card.Factory;
+  using Artifical;
+  using Gameplay;
+  using Gameplay.Costs;
   using Gameplay.Effects;
-  using Gameplay.Mana;
+  using Gameplay.ManaHandling;
+  using Gameplay.Misc;
 
   public class AlbinoTroll : CardsSource
   {
@@ -25,7 +26,7 @@
             p.Text = "{1}{G}: Regenerate Albino Troll.";
             p.Cost = new PayMana("{1}{G}".Parse(), ManaUsage.Abilities);
             p.Effect = () => new Regenerate {Category = EffectCategories.Protector};
-            p.TimingRule(new Ai.TimingRules.Regenerate());
+            p.TimingRule(new Artifical.TimingRules.Regenerate());
           });
     }
   }

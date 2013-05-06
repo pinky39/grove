@@ -1,13 +1,14 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Ai.RepetitionRules;
-  using Ai.TimingRules;
-  using Gameplay.Card.Abilities;
-  using Gameplay.Card.Costs;
-  using Gameplay.Card.Factory;
+  using Artifical.RepetitionRules;
+  using Artifical.TimingRules;
+  using Gameplay;
+  using Gameplay.Abilities;
+  using Gameplay.Costs;
   using Gameplay.Effects;
-  using Gameplay.Mana;
+  using Gameplay.ManaHandling;
+  using Gameplay.Misc;
   using Gameplay.Modifiers;
 
   public class LightningDragon : CardsSource

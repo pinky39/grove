@@ -1,8 +1,6 @@
 ﻿namespace Grove.Gameplay.Effects
 {
-  using Card;
   using Damage;
-  using Player;
 
   public class DealExistingDamageToController : Effect
   {

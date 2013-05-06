@@ -1,12 +1,12 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Ai.TargetingRules;
-  using Ai.TimingRules;
-  using Gameplay.Card.Factory;
-  using Gameplay.Card.Triggers;
+  using Artifical.TargetingRules;
+  using Artifical.TimingRules;
   using Gameplay.Effects;
   using Gameplay.Messages;
+  using Gameplay.Misc;
+  using Gameplay.Triggers;
 
   public class DestructiveUrge : CardsSource
   {
@@ -37,7 +37,7 @@
 
             p.Effect = () => new PlayersSacrificePermanents(
               count: 1,
-              validator: c=> c.Is().Land,
+              validator: c => c.Is().Land,
               text: "Select a land to sacrifice.",
               playerFilter: (e, player) => e.TriggerMessage<DamageHasBeenDealt>().Receiver == player);
 

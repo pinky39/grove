@@ -2,10 +2,10 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Gameplay.Card.Factory;
-  using Gameplay.Card.Triggers;
   using Gameplay.Effects;
+  using Gameplay.Misc;
   using Gameplay.States;
+  using Gameplay.Triggers;
 
   public class PurgingScythe : CardsSource
   {

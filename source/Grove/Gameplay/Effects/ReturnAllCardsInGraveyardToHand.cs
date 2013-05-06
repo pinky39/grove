@@ -2,7 +2,6 @@
 {
   using System;
   using System.Linq;
-  using Card;
 
   public class ReturnAllCardsInGraveyardToHand : Effect
   {

@@ -1,6 +1,6 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
-  using Card.Characteristics;
+  using Characteristics;
   using Infrastructure;
 
   public class CardTypeSetter : PropertyModifier<CardType>

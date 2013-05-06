@@ -1,8 +1,8 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Gameplay.Card.Factory;
   using Gameplay.Effects;
+  using Gameplay.Misc;
 
   public class Rewind : CardsSource
   {
@@ -27,8 +27,8 @@
 
             p.TargetSelector.AddEffect(trg => trg.Is.CounterableSpell().On.Stack());
 
-            p.TargetingRule(new Ai.TargetingRules.Counterspell());
-            p.TimingRule(new Ai.TimingRules.Counterspell());
+            p.TargetingRule(new Artifical.TargetingRules.Counterspell());
+            p.TimingRule(new Artifical.TimingRules.Counterspell());
           });
     }
   }

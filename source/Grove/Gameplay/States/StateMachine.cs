@@ -2,16 +2,13 @@
 {
   using System;
   using System.Collections.Generic;
-  using Common;
   using Decisions;
   using Infrastructure;
-  using log4net;
   using Messages;
   using Misc;
-  using Player;
 
   public class StateMachine : GameObject, ICopyContributor
-  {    
+  {
     private readonly Trackable<IDecision> _curentDecision = new Trackable<IDecision>();
     private readonly DecisionQueue _decisionQueue;
     private readonly Trackable<int> _passesCount = new Trackable<int>();

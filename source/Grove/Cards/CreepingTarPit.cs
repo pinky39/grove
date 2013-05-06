@@ -1,12 +1,13 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Gameplay.Card.Abilities;
-  using Gameplay.Card.Characteristics;
-  using Gameplay.Card.Costs;
-  using Gameplay.Card.Factory;
+  using Gameplay;
+  using Gameplay.Abilities;
+  using Gameplay.Characteristics;
+  using Gameplay.Costs;
   using Gameplay.Effects;
-  using Gameplay.Mana;
+  using Gameplay.ManaHandling;
+  using Gameplay.Misc;
   using Gameplay.Modifiers;
 
   public class CreepingTarPit : CardsSource
@@ -40,7 +41,7 @@
                 colors: L(CardColor.Blue, CardColor.Black)) {UntilEot = true},
               () => new AddStaticAbility(Static.Unblockable) {UntilEot = true});
 
-            p.TimingRule(new Ai.TimingRules.ChangeToCreature(minAvailableMana: 4));
+            p.TimingRule(new Artifical.TimingRules.ChangeToCreature(minAvailableMana: 4));
           });
     }
   }

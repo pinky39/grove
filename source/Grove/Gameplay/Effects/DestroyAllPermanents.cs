@@ -1,8 +1,7 @@
 ﻿namespace Grove.Gameplay.Effects
 {
   using System;
-  using Ai;
-  using Card;
+  using Artifical;
 
   public class DestroyAllPermanents : Effect
   {

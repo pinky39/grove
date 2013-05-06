@@ -5,6 +5,7 @@
   using System.Linq;
   using System.Reflection;
   using Castle.DynamicProxy;
+  using UserInterface;
 
   public class Publisher : ICopyable
   {
@@ -150,7 +151,7 @@
     private static bool IsUiComponent(object target)
     {
       var targetType = ProxyUtil.GetUnproxiedType(target);
-      var isUi = targetType.Namespace.StartsWith("Grove.Ui");
+      var isUi = targetType.Namespace.StartsWith(typeof(ViewModelBase).Namespace);
 
       return isUi;
     }

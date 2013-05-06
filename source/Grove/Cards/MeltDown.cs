@@ -1,10 +1,10 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Ai.CostRules;
-  using Ai.TimingRules;
-  using Gameplay.Card.Factory;
+  using Artifical.CostRules;
+  using Artifical.TimingRules;
   using Gameplay.Effects;
+  using Gameplay.Misc;
 
   public class MeltDown : CardsSource
   {

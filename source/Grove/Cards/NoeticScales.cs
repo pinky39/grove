@@ -1,11 +1,11 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Ai.TimingRules;
-  using Gameplay.Card.Factory;
-  using Gameplay.Card.Triggers;
+  using Artifical.TimingRules;
   using Gameplay.Effects;
+  using Gameplay.Misc;
   using Gameplay.States;
+  using Gameplay.Triggers;
 
   public class NoeticScales : CardsSource
   {

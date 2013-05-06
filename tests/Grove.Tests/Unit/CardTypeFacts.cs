@@ -1,6 +1,6 @@
 ﻿namespace Grove.Tests.Unit
 {
-  using Gameplay.Card.Characteristics;
+  using Gameplay.Characteristics;
   using Xunit;
 
   public class CardTypeFacts

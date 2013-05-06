@@ -1,8 +1,7 @@
 ﻿namespace Grove.Gameplay.Damage
 {
   using System;
-  using Card;
-  using Card.Counters;
+  using Counters;
   using Modifiers;
   using Targeting;
 

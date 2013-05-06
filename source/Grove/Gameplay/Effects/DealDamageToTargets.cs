@@ -1,9 +1,7 @@
 ﻿namespace Grove.Gameplay.Effects
 {
   using System.Linq;
-  using Card;
   using Damage;
-  using Player;
   using Targeting;
 
   public class DealDamageToTargets : Effect

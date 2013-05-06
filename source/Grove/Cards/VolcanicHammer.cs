@@ -1,9 +1,9 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Ai.TargetingRules;
-  using Gameplay.Card.Factory;
+  using Artifical.TargetingRules;
   using Gameplay.Effects;
+  using Gameplay.Misc;
 
   public class VolcanicHammer : CardsSource
   {

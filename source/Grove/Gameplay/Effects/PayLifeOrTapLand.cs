@@ -4,7 +4,7 @@
   using System.Linq;
   using Decisions;
   using Decisions.Results;
-  using Mana;
+  using ManaHandling;
 
   public class PayLifeOrTapLand : Effect, IProcessDecisionResults<BooleanResult>, IChooseDecisionResults<BooleanResult>
   {

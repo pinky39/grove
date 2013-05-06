@@ -1,7 +1,7 @@
 ﻿namespace Grove.Gameplay.Damage
 {
-  using Common;
   using Infrastructure;
+  using Misc;
   using Modifiers;
 
   [Copyable]

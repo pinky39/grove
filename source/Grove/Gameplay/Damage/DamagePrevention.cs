@@ -1,10 +1,8 @@
 ﻿namespace Grove.Gameplay.Damage
 {
-  using Card;
-  using Common;
   using Infrastructure;
+  using Misc;
   using Modifiers;
-  using Player;
   using Targeting;
 
   [Copyable]

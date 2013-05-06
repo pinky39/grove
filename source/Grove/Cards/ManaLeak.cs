@@ -1,8 +1,8 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Gameplay.Card.Factory;
   using Gameplay.Effects;
+  using Gameplay.Misc;
 
   public class ManaLeak : CardsSource
   {
@@ -18,8 +18,8 @@
           {
             p.Effect = () => new CounterTargetSpell(doNotCounterCost: 3);
             p.TargetSelector.AddEffect(trg => trg.Is.CounterableSpell().On.Stack());
-            p.TimingRule(new Ai.TimingRules.Counterspell(3));
-            p.TargetingRule(new Ai.TargetingRules.Counterspell());
+            p.TimingRule(new Artifical.TimingRules.Counterspell(3));
+            p.TargetingRule(new Artifical.TargetingRules.Counterspell());
           });
     }
   }

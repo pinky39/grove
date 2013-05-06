@@ -2,8 +2,6 @@
 {
   using System;
   using System.Linq;
-  using Card;
-  using Player;
 
   public class PutAllCardsFromGraveyardToBattlefield : Effect
   {

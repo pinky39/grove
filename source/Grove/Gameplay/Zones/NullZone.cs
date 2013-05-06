@@ -1,7 +1,5 @@
 ﻿namespace Grove.Gameplay.Zones
 {
-  using Card;
-
   public class NullZone : IZone
   {
     public Zone Zone { get { return Zone.None; } }

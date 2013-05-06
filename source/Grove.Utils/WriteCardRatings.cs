@@ -5,7 +5,7 @@
   using System.Globalization;
   using System.IO;
   using System.Linq;
-  using Gameplay.Card.Factory;
+  using Gameplay;
 
   public class WriteCardRatings : Task
   {

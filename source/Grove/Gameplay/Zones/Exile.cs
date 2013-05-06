@@ -1,7 +1,5 @@
 ﻿namespace Grove.Gameplay.Zones
 {
-  using Player;
-
   public class Exile : UnorderedZone
   {
     public Exile(Player owner) : base(owner) {}

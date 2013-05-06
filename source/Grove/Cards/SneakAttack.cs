@@ -1,16 +1,16 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
-  using Ai.TimingRules;
-  using Gameplay.Card.Abilities;
-  using Gameplay.Card.Costs;
-  using Gameplay.Card.Factory;
-  using Gameplay.Card.Triggers;
+  using Artifical.TimingRules;
+  using Gameplay;
+  using Gameplay.Abilities;
+  using Gameplay.Costs;
   using Gameplay.Effects;
-  using Gameplay.Mana;
+  using Gameplay.ManaHandling;
+  using Gameplay.Misc;
   using Gameplay.Modifiers;
   using Gameplay.States;
+  using Gameplay.Triggers;
   using Gameplay.Zones;
 
   public class SneakAttack : CardsSource
@@ -30,7 +30,7 @@
             p.Text =
               "{R}: You may put a creature card from your hand onto the battlefield. That creature gains haste. Sacrifice the creature at the beginning of the next end step.";
             p.Cost = new PayMana(Mana.Red, ManaUsage.Abilities);
-            
+
             p.Effect = () => new PutSelectedCardToBattlefield(
               "Select a creature card in your hand.",
               c => c.Is().Creature,

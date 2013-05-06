@@ -1,15 +1,12 @@
 ﻿namespace Grove.Gameplay.Targeting
 {
-  using Card;
-  using Card.Characteristics;
-  using Common;
+  using Characteristics;
   using Damage;
   using Decisions.Scenario;
   using Effects;
   using Gameplay.Zones;
   using Infrastructure;
   using Modifiers;
-  using Player;
 
   public interface ITarget : IHashable {}
 
@@ -17,10 +14,13 @@
   {
     public static void AddModifier(this ITarget target, IModifier modifier)
     {
-      var acceptsModifiers = target as IAcceptsModifiers;
-      if (acceptsModifiers != null)
+      if (target.IsPlayer())
       {
-        acceptsModifiers.AddModifier(modifier);
+        target.Player().AddModifier(modifier);
+      }
+      else if (target.IsCard())
+      {
+        target.Card().AddModifier(modifier);
       }
     }
 
@@ -41,10 +41,13 @@
 
     public static void RemoveModifier(this ITarget target, IModifier modifier)
     {
-      var acceptsModifiers = target as IAcceptsModifiers;
-      if (acceptsModifiers != null)
+      if (target.IsPlayer())
       {
-        acceptsModifiers.RemoveModifier(modifier);
+        target.Player().RemoveModifier(modifier);
+      }
+      else if (target.IsCard())
+      {
+        target.Card().RemoveModifier(modifier);
       }
     }
 

@@ -1,6 +1,5 @@
 ﻿namespace Grove.Gameplay.Effects
 {
-  using Player;
   using Targeting;
 
   public class DiscardCards : Effect

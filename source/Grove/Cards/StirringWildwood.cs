@@ -1,12 +1,13 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Gameplay.Card.Abilities;
-  using Gameplay.Card.Characteristics;
-  using Gameplay.Card.Costs;
-  using Gameplay.Card.Factory;
+  using Gameplay;
+  using Gameplay.Abilities;
+  using Gameplay.Characteristics;
+  using Gameplay.Costs;
   using Gameplay.Effects;
-  using Gameplay.Mana;
+  using Gameplay.ManaHandling;
+  using Gameplay.Misc;
   using Gameplay.Modifiers;
 
   public class StirringWildwood : CardsSource
@@ -39,7 +40,7 @@
                 type: "Land Creature Elemental") {UntilEot = true},
               () => new AddStaticAbility(Static.Reach) {UntilEot = true});
 
-            p.TimingRule(new Ai.TimingRules.ChangeToCreature(4));
+            p.TimingRule(new Artifical.TimingRules.ChangeToCreature(4));
           });
     }
   }

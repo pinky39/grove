@@ -1,9 +1,9 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Gameplay.Card.Costs;
-  using Gameplay.Card.Factory;
+  using Gameplay.Costs;
   using Gameplay.Effects;
+  using Gameplay.Misc;
 
   public class DisruptiveStudent : CardsSource
   {
@@ -25,8 +25,8 @@
             p.Effect = () => new CounterTargetSpell(doNotCounterCost: 1);
             p.TargetSelector.AddEffect(trg => trg.Is.CounterableSpell().On.Stack());
 
-            p.TargetingRule(new Ai.TargetingRules.Counterspell());
-            p.TimingRule(new Ai.TimingRules.Counterspell(1));
+            p.TargetingRule(new Artifical.TargetingRules.Counterspell());
+            p.TimingRule(new Artifical.TimingRules.Counterspell(1));
           });
     }
   }

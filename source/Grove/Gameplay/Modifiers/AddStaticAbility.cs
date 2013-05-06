@@ -1,6 +1,6 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
-  using Card.Abilities;
+  using Abilities;
 
   public class AddStaticAbility : Modifier
   {

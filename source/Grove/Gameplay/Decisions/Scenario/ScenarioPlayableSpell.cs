@@ -2,7 +2,6 @@
 {
   using System;
   using System.Linq;
-  using Mana;
   using Results;
 
   public class ScenarioPlayableSpell : PlayableSpell

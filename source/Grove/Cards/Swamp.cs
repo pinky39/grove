@@ -1,8 +1,8 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Gameplay.Card.Factory;
-  using Gameplay.Mana;
+  using Gameplay;
+  using Gameplay.Misc;
 
   public class Swamp : CardsSource
   {

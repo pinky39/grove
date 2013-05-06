@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using System.Text;
-  using Card;
   using Targeting;
 
   public class PlayerHasCastASpell

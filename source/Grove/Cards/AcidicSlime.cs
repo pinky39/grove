@@ -1,14 +1,13 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Ai;
-  using Ai.TargetingRules;
-  using Ai.TimingRules;
-  using Gameplay.Card.Abilities;
-  using Gameplay.Card.Factory;
-  using Gameplay.Card.Triggers;
+  using Artifical;
+  using Artifical.TargetingRules;
+  using Artifical.TimingRules;
+  using Gameplay.Abilities;
   using Gameplay.Effects;
-  using Gameplay.Player;
+  using Gameplay.Misc;
+  using Gameplay.Triggers;
   using Gameplay.Zones;
 
   public class AcidicSlime : CardsSource

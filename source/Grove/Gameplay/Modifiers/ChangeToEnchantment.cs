@@ -1,14 +1,14 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
-  using Card.Characteristics;
+  using Characteristics;
 
   public class ChangeToEnchantment : Modifier
   {
-    private CardTypeCharacteristic _cardType;
-    private CardTypeSetter _typeSetter;
     private Power _cardPower;
-    private StrenghtSetter _strenghtSetter = new StrenghtSetter(null);
     private Toughness _cardToughness;
+    private CardTypeCharacteristic _cardType;
+    private StrenghtSetter _strenghtSetter = new StrenghtSetter(null);
+    private CardTypeSetter _typeSetter;
 
     public override void Apply(CardTypeCharacteristic cardType)
     {
@@ -33,10 +33,10 @@
 
     public override void Apply(Toughness toughness)
     {
-      _cardToughness = toughness;      
+      _cardToughness = toughness;
       _cardToughness.AddModifier(_strenghtSetter);
     }
-    
+
     protected override void Unapply()
     {
       _cardType.RemoveModifier(_typeSetter);

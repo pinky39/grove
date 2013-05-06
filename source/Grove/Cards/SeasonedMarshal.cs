@@ -1,10 +1,10 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Ai.TargetingRules;
-  using Gameplay.Card.Factory;
-  using Gameplay.Card.Triggers;
+  using Artifical.TargetingRules;
   using Gameplay.Effects;
+  using Gameplay.Misc;
+  using Gameplay.Triggers;
 
   public class SeasonedMarshal : CardsSource
   {

@@ -1,9 +1,9 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Ai.TimingRules;
-  using Gameplay.Card.Factory;
+  using Artifical.TimingRules;
   using Gameplay.Damage;
+  using Gameplay.Misc;
   using Gameplay.Modifiers;
 
   public class Worship : CardsSource

@@ -1,9 +1,8 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
-  using Card.Abilities;
-  using Card.Characteristics;
-  using Card.Costs;
-  using Mana;
+  using Abilities;
+  using Characteristics;
+  using Costs;
   using Targeting;
 
   public class ChangeBasicLand : Modifier

@@ -1,8 +1,5 @@
 ﻿namespace Grove.Gameplay.Targeting
 {
-  using Card;
-  using Player;
-
   public class IsValidTargetParam
   {
     public Player Controller;

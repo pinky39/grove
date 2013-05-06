@@ -1,9 +1,9 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Gameplay.Card.Factory;
-  using Gameplay.Card.Triggers;
   using Gameplay.Effects;
+  using Gameplay.Misc;
+  using Gameplay.Triggers;
 
   public class GoblinCadets : CardsSource
   {

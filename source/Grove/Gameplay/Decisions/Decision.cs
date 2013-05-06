@@ -1,7 +1,6 @@
 ﻿namespace Grove.Gameplay.Decisions
 {
-  using Common;
-  using Player;
+  using Misc;
 
   public abstract class Decision<TResult> : GameObject, IDecision
   {

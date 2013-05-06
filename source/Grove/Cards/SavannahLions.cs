@@ -1,7 +1,7 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Gameplay.Card.Factory;
+  using Gameplay.Misc;
 
   public class SavannahLions : CardsSource
   {

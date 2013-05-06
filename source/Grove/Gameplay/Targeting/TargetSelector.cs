@@ -3,8 +3,7 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Card;
-  using Common;
+  using Misc;
 
   public class TargetSelector : GameObject
   {

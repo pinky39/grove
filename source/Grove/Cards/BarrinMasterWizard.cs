@@ -1,12 +1,12 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Ai.TargetingRules;
-  using Ai.TimingRules;
-  using Gameplay.Card.Costs;
-  using Gameplay.Card.Factory;
-  using Gameplay.Mana;
-  using Gameplay.Player;
+  using Artifical.TargetingRules;
+  using Artifical.TimingRules;
+  using Gameplay;
+  using Gameplay.Costs;
+  using Gameplay.ManaHandling;
+  using Gameplay.Misc;
 
   public class BarrinMasterWizard : CardsSource
   {

@@ -3,24 +3,23 @@
   using System;
   using System.Threading.Tasks;
   using System.Windows;
-  using Card.Factory;
   using Decisions;
   using Infrastructure;
-  using Ui.GameResults;
-  using Ui.Shell;
+  using UserInterface.GameResults;
+  using UserInterface.Shell;
 
   public class Match
   {
     private readonly CardDatabase _cardDatabase;
     private readonly DecisionSystem _decisionSystem;
     private readonly ViewModel.IFactory _gameResultsFactory;
-    private readonly Ui.MatchResults.ViewModel.IFactory _matchResultsFactory;
-    private readonly Ui.PlayScreen.ViewModel.IFactory _playScreenFactory;
-    private readonly Ui.StartScreen.ViewModel.IFactory _startScreenFactory;
+    private readonly UserInterface.MatchResults.ViewModel.IFactory _matchResultsFactory;
+    private readonly UserInterface.PlayScreen.ViewModel.IFactory _playScreenFactory;
+    private readonly UserInterface.StartScreen.ViewModel.IFactory _startScreenFactory;
     private readonly TaskScheduler _uiScheduler;
     private Task _backgroundTask;
-    private Deck.Deck _deck1;
-    private Deck.Deck _deck2;
+    private Deck _deck1;
+    private Deck _deck2;
     private int? _looser;
     private bool _playerLeftMatch;
     private bool _rematch = true;
@@ -28,10 +27,10 @@
     private ThreadBlocker _threadBlocker;
 
     public Match(
-      Ui.PlayScreen.ViewModel.IFactory playScreenFactory,
-      Ui.StartScreen.ViewModel.IFactory startScreenFactory,
+      UserInterface.PlayScreen.ViewModel.IFactory playScreenFactory,
+      UserInterface.StartScreen.ViewModel.IFactory startScreenFactory,
       ViewModel.IFactory gameResultsFactory,
-      Ui.MatchResults.ViewModel.IFactory matchResultsFactory,
+      UserInterface.MatchResults.ViewModel.IFactory matchResultsFactory,
       CardDatabase cardDatabase, DecisionSystem decisionSystem)
     {
       _playScreenFactory = playScreenFactory;
@@ -60,7 +59,7 @@
     public int Player1WinCount { get; private set; }
     public int Player2WinCount { get; private set; }
 
-    protected Player.Player Looser
+    protected Player Looser
     {
       get
       {
@@ -73,7 +72,7 @@
 
     public bool InProgress { get { return Game != null && !IsFinished; } }
 
-    public void Start(Deck.Deck player1Deck, Deck.Deck player2Deck)
+    public void Start(Deck player1Deck, Deck player2Deck)
     {
       _deck1 = player1Deck;
       _deck2 = player2Deck;

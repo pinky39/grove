@@ -1,8 +1,9 @@
 ﻿namespace Grove.Tests
 {
   using System;
-  using Gameplay.Deck;
+  using Gameplay;
   using Infrastructure;
+  using Persistance;
   using Xunit;
 
   public class MatchSimulatorFacts : Scenario

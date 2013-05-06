@@ -1,6 +1,6 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
-  using Player;
+  using Characteristics;
 
   public class IncreaseLandLimit : Modifier
   {

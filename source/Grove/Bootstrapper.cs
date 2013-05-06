@@ -6,8 +6,8 @@
   using System.Reflection;
   using System.Windows;
   using Caliburn.Micro;
-  using Ui.Shell;
-  using Ui.StartScreen;
+  using UserInterface.Shell;
+  using UserInterface.StartScreen;
 
   public class Bootstrapper : Bootstrapper<IShell>
   {

@@ -2,9 +2,7 @@
 {
   using System;
   using System.Collections.Generic;
-  using Card;
-  using Card.Factory;
-  using Player;
+  using Misc;
 
   public class CreateTokens : Effect
   {

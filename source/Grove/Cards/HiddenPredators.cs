@@ -2,11 +2,11 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Gameplay.Card.Characteristics;
-  using Gameplay.Card.Factory;
-  using Gameplay.Card.Triggers;
+  using Gameplay.Characteristics;
   using Gameplay.Effects;
+  using Gameplay.Misc;
   using Gameplay.Modifiers;
+  using Gameplay.Triggers;
 
   public class HiddenPredators : CardsSource
   {

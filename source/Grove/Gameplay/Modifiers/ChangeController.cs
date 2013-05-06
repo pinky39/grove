@@ -1,8 +1,7 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
   using System;
-  using Card.Characteristics;
-  using Player;
+  using Characteristics;
 
   public class ChangeController : Modifier
   {

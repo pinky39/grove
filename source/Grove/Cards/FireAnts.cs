@@ -1,10 +1,10 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Ai.TimingRules;
-  using Gameplay.Card.Costs;
-  using Gameplay.Card.Factory;
+  using Artifical.TimingRules;
+  using Gameplay.Costs;
   using Gameplay.Effects;
+  using Gameplay.Misc;
 
   public class FireAnts : CardsSource
   {

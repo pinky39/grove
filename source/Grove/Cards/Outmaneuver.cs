@@ -2,12 +2,12 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Ai.CostRules;
-  using Ai.TargetingRules;
-  using Ai.TimingRules;
-  using Gameplay.Card.Abilities;
-  using Gameplay.Card.Factory;
+  using Artifical.CostRules;
+  using Artifical.TargetingRules;
+  using Artifical.TimingRules;
+  using Gameplay.Abilities;
   using Gameplay.Effects;
+  using Gameplay.Misc;
   using Gameplay.Modifiers;
   using Gameplay.States;
 

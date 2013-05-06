@@ -1,9 +1,9 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Gameplay.Card.Costs;
-  using Gameplay.Card.Factory;
+  using Gameplay.Costs;
   using Gameplay.Effects;
+  using Gameplay.Misc;
 
   public class SanctumGuardian : CardsSource
   {
@@ -35,7 +35,7 @@
                   trg.Is.CreatureOrPlayer().On.Battlefield();
                   trg.Message = "Select creature or player.";
                 });
-            p.TargetingRule(new Ai.TargetingRules.PreventDamageFromSourceToTarget());
+            p.TargetingRule(new Artifical.TargetingRules.PreventDamageFromSourceToTarget());
           });
     }
   }
