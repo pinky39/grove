@@ -72,7 +72,7 @@
       var listCopy = list.ToArray();
       for (var i = 0; i < permutation.Count; i++)
       {
-        list[i] = listCopy[permutation[i]];
+        list[permutation[i]] = listCopy[i];
       }
       return list;
     }

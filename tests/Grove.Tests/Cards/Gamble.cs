@@ -13,7 +13,7 @@
       {
         var force = C("Verdant Force");
 
-        Library(P1, "Forest", force);
+        Library(P1, "Forest", "Forest", "Forest", force);
         Hand(P1, "Gamble", "Forest", "Forest", "Forest", "Forest", "Forest");
         Battlefield(P1, "Mountain", "Forest", "Forest", "Forest", "Forest", "Forest", "Forest", "Forest", "Forest");
 

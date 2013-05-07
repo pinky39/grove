@@ -53,13 +53,13 @@
     {
       var library = (Library) player.Library;
 
-      foreach (var scenarioCard in cards)
+      foreach (var scenarioCard in cards.Reverse())
       {
         scenarioCard.Initialize(name =>
           {
             var card = CardDatabase.CreateCard(name);
             card.Initialize(player, Game);
-            library.Add(card);
+            library.AddToFront(card);
 
             return card;
           });

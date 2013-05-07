@@ -11,7 +11,7 @@
 
     protected override void ExecuteQuery()
     {
-      var dialog = Dialog.Create(Cards, Message);
+      var dialog = Dialog.Create(Cards, Title);
       Shell.ShowModalDialog(dialog, DialogType.Large, InteractionState.Disabled);
       Result = new Ordering(dialog.Ordering);
     }

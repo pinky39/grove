@@ -185,7 +185,7 @@
 
       for (int i = head.Count - 1; i >= 0; i--)
       {
-        Add(head[i]);      
+        AddToFront(head[i]);      
       }
     }
 

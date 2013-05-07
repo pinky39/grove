@@ -76,6 +76,8 @@
           {
             p.Cards = cards;
             p.ProcessDecisionResults = this;
+            p.ChooseDecisionResults = this;
+            p.Title = "Order the cards from top to bottom";
           });
     }
   }

@@ -250,6 +250,7 @@
     <Compile Include="Cards\Songstitcher.cs" />
     <Compile Include="Cards\SoulSculptor.cs" />
     <Compile Include="Cards\SpinedFluke.cs" />
+    <Compile Include="Cards\SpireOwl.cs" />
     <Compile Include="Cards\SteamVents.cs" />
     <Compile Include="Cards\StudentOfWarfare.cs" />
     <Compile Include="Cards\SwordOfBodyAndMind.cs" />

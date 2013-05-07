@@ -111,6 +111,8 @@
     public virtual void ReorderFront(int[] permutation)
     {
       _cards.ReorderFront(permutation);
+      
+      Shuffled(this, EventArgs.Empty);
     }
 
     public override string ToString()

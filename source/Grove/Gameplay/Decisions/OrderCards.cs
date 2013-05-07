@@ -7,7 +7,7 @@
   {
     public List<Card> Cards;
     public IChooseDecisionResults<List<Card>, Ordering> ChooseDecisionResults;
-    public string Message;
+    public string Title;
     public IProcessDecisionResults<Ordering> ProcessDecisionResults;
 
     protected override bool ShouldExecuteQuery { get { return Cards.Count > 1; } }

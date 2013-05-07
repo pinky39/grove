@@ -205,10 +205,7 @@
     }
 
     public static int CalculateCardInGraveyardScore(Card card)
-    {
-      if (card.IsVisible == false)
-        return 1;
-
+    {     
       if (card.OverrideScore.Graveyard.HasValue)
         return card.OverrideScore.Graveyard.Value;
 

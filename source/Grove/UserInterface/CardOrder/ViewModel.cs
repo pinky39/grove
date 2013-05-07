@@ -20,7 +20,7 @@
     }
 
     public string Title { get; private set; }
-    public int[] Ordering { get { return _cards.Select(x => x.Order.Value).ToArray(); } }
+    public int[] Ordering { get { return _cards.Select(x => x.Order.Value - 1).ToArray(); } }
     public virtual bool CanAccept { get { return _cards.All(x => x.Order.HasValue); } }
     public IEnumerable<OrderedCard> Cards { get { return _cards; } }
 
