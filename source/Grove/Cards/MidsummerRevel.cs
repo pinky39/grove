@@ -28,7 +28,7 @@
           {
             p.Text = "At the beginning of your upkeep, you may put a verse counter on Midsummer Revel.";
             p.Trigger(new OnStepStart(Step.Upkeep));
-            p.Effect = () => new ApplyModifiersToSelf(() => new AddCounters(() => new ChargeCounter(), 1));
+            p.Effect = () => new ApplyModifiersToSelf(() => new AddCounters(() => new SimpleCounter(CounterType.Verse), 1));
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           })
         .ActivatedAbility(p =>
@@ -39,7 +39,7 @@
               new PayMana(Mana.Green, ManaUsage.Abilities),
               new Sacrifice());
             p.Effect = () => new CreateTokens(
-              count: P(e => e.Source.OwningCard.Counters.GetValueOrDefault()),
+              count: P(e => e.Source.OwningCard.Counters),
               token: Card
                 .Named("Beast Token")
                 .FlavorText(

@@ -126,7 +126,7 @@
         return permanent.OverrideScore.Battlefield.Value;
 
       if (permanent.Level > 0)
-        score += 10*permanent.Level.Value;
+        score += 10*permanent.Level.Value;      
 
       if (permanent.ManaCost != null)
       {

@@ -27,7 +27,7 @@
           {
             p.Text = "At the beginning of your upkeep, you may put a verse counter on Discordant Dirge.";
             p.Trigger(new OnStepStart(Step.Upkeep));
-            p.Effect = () => new ApplyModifiersToSelf(() => new AddCounters(() => new ChargeCounter(), 1));
+            p.Effect = () => new ApplyModifiersToSelf(() => new AddCounters(() => new SimpleCounter(CounterType.Verse), 1));
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           })
         .ActivatedAbility(p =>
@@ -40,7 +40,7 @@
               new Sacrifice());
 
             p.Effect = () => new OpponentDiscardsCards(
-              selectedCount: P(e => e.Source.OwningCard.Counters.GetValueOrDefault()),
+              selectedCount: P(e => e.Source.OwningCard.Counters),
               youChooseDiscardedCards: true);
 
             p.TimingRule(new ChargeCounters(3));

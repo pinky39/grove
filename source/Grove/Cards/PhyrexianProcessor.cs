@@ -5,6 +5,7 @@
   using Gameplay;
   using Gameplay.Characteristics;
   using Gameplay.Costs;
+  using Gameplay.Counters;
   using Gameplay.Effects;
   using Gameplay.ManaHandling;
   using Gameplay.Misc;
@@ -27,7 +28,7 @@
         .TriggeredAbility(p =>
           {
             p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
-            p.Effect = () => new PayLifeAddCounters();
+            p.Effect = () => new PayLifeAddCounters(CounterType.Fake);
             p.UsesStack = false;
           })
         .ActivatedAbility(p =>
@@ -48,8 +49,8 @@
                 .Colors(CardColor.Black),
               tokenParameters: (e, token) =>
                 {
-                  token.Power(e.Source.OwningCard.Counters.GetValueOrDefault());
-                  token.Toughness(e.Source.OwningCard.Counters.GetValueOrDefault());
+                  token.Power(e.Source.OwningCard.Counters);
+                  token.Toughness(e.Source.OwningCard.Counters);
                 });
 
             p.TimingRule(new Any(

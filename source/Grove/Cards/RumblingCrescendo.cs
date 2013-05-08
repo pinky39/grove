@@ -28,7 +28,7 @@
           {
             p.Text = "At the beginning of your upkeep, you may put a verse counter on Rumbling Crescendo.";
             p.Trigger(new OnStepStart(Step.Upkeep));
-            p.Effect = () => new ApplyModifiersToSelf(() => new AddCounters(() => new ChargeCounter(), 1));
+            p.Effect = () => new ApplyModifiersToSelf(() => new AddCounters(() => new SimpleCounter(CounterType.Verse), 1));
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           })
         .ActivatedAbility(p =>
@@ -46,7 +46,7 @@
               {
                 trg.Is.Card(c => c.Is().Land).On.Battlefield();
                 trg.MinCount = 0;
-                trg.GetMaxCount = cp => cp.OwningCard.CountersCount;
+                trg.GetMaxCount = cp => cp.OwningCard.CountersCount();
               });
 
             p.TimingRule(new ChargeCounters(3, onlyAtEot: false));

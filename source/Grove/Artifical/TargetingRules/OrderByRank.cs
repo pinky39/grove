@@ -29,7 +29,7 @@
         .OrderBy(x => _rank(x));
 
       if (p.HasEffectCandidates)
-        return Group(candidates, p.MaxTargetCount());
+        return Group(candidates, p.MinTargetCount(), p.MaxTargetCount());
 
       return Group(candidates, p.MinTargetCount(), p.MaxTargetCount(), (trg, trgs) => trgs.AddCost(trg));
     }

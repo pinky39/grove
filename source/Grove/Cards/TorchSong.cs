@@ -28,7 +28,7 @@
           {
             p.Text = "At the beginning of your upkeep, you may put a verse counter on Torch Song.";
             p.Trigger(new OnStepStart(step: Step.Upkeep));
-            p.Effect = () => new ApplyModifiersToSelf(() => new AddCounters(() => new ChargeCounter(), 1));
+            p.Effect = () => new ApplyModifiersToSelf(() => new AddCounters(() => new SimpleCounter(CounterType.Verse), 1));
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           })
         .ActivatedAbility(p =>
@@ -39,10 +39,10 @@
               new PayMana("{2}{R}".Parse(), ManaUsage.Abilities),
               new Sacrifice());
             p.Effect = () => new DealDamageToTargets(
-              amount: P(e => e.Source.OwningCard.Counters.GetValueOrDefault()));
+              amount: P(e => e.Source.OwningCard.Counters));
 
             p.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
-            p.TargetingRule(new DealDamage(pt => pt.Card.Counters.GetValueOrDefault()));
+            p.TargetingRule(new DealDamage(pt => pt.Card.Counters));
             p.TimingRule(new TargetRemoval());
           });
     }

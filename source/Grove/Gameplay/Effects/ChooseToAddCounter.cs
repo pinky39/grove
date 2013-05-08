@@ -9,12 +9,14 @@
   public class ChooseToAddCounter : Effect, IChooseDecisionResults<BooleanResult>,
     IProcessDecisionResults<BooleanResult>
   {
+    private readonly CounterType _counterType;
     private readonly Func<Effect, bool> _chooseAi;
 
     private ChooseToAddCounter() {}
 
-    public ChooseToAddCounter(Func<Effect, bool> chooseAi)
+    public ChooseToAddCounter(CounterType counterType, Func<Effect, bool> chooseAi)
     {
+      _counterType = counterType;
       _chooseAi = chooseAi;
     }
 
@@ -34,7 +36,7 @@
             SourceEffect = this,
           };
 
-        var addCounter = new AddCounters(() => new ChargeCounter(), 1);
+        var addCounter = new AddCounters(() => new SimpleCounter(_counterType), 1);
         addCounter.Initialize(p, Game);
 
         Source.OwningCard.AddModifier(addCounter);

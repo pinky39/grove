@@ -434,6 +434,7 @@
     <Compile Include="Cards\SoulSculptor.cs" />
     <Compile Include="Cards\SpinedFluke.cs" />
     <Compile Include="Cards\SpireOwl.cs" />
+    <Compile Include="Cards\Sporogenesis.cs" />
     <Compile Include="Cards\SternProctor.cs" />
     <Compile Include="Cards\StirringWildwood.cs" />
     <Compile Include="Cards\StudentOfWarfare.cs" />
@@ -590,6 +591,8 @@
     <Compile Include="Artifical\TimingRules\ControllerIsAttacked.cs" />
     <Compile Include="Gameplay\Characteristics\CardColors.cs" />
     <Compile Include="Gameplay\Costs\DiscardTarget.cs" />
+    <Compile Include="Gameplay\Counters\CounterType.cs" />
+    <Compile Include="Gameplay\Effects\RemoveAllCounters.cs" />
     <Compile Include="Gameplay\Effects\ReorderTopCards.cs" />
     <Compile Include="Gameplay\Misc\CardFactory.cs" />
     <Compile Include="Gameplay\CardParameters.cs" />
@@ -814,7 +817,7 @@
     <Compile Include="Artifical\Decisions\IDecisionExecution.cs" />
     <Compile Include="Artifical\Decisions\SetDamageAssignmentOrder.cs" />
     <Compile Include="Artifical\Decisions\SetTriggeredAbilityTarget.cs" />
-    <Compile Include="Gameplay\Counters\ChargeCounter.cs" />
+    <Compile Include="Gameplay\Counters\SimpleCounter.cs" />
     <Compile Include="Gameplay\Counters\Counter.cs" />
     <Compile Include="Gameplay\Counters\Counters.cs" />
     <Compile Include="Gameplay\Effects\CounterTargetSpell.cs" />

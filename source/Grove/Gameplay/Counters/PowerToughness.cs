@@ -20,6 +20,8 @@
       _toughness = toughness;
     }
 
+    public override CounterType Type { get { return CounterType.PowerToughnes; } }
+
     public override void ModifyPower(Power power)
     {
       _cardPower = power;

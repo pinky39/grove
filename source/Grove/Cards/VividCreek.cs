@@ -29,14 +29,14 @@
         .ManaAbility(p =>
           {
             p.Text = "{T}, Remove a charge counter from Vivid Creek: Add one mana of any color to your mana pool.";
-            p.Cost = new AggregateCost(new Tap(), new RemoveCounter());
+            p.Cost = new AggregateCost(new Tap(), new RemoveCounter(CounterType.Charge));
             p.ManaAmount(Mana.Any);
             p.Priority = ManaSourcePriorities.Restricted;
           })
         .TriggeredAbility(p =>
           {
             p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
-            p.Effect = () => new ApplyModifiersToSelf(() => new AddCounters(() => new ChargeCounter(), 2));
+            p.Effect = () => new ApplyModifiersToSelf(() => new AddCounters(() => new SimpleCounter(CounterType.Charge), 2));
             p.UsesStack = false;
           });
     }

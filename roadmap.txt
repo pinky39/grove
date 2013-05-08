@@ -280,8 +280,8 @@ o Somnophore
 o Songstitcher
 o Soul Sculptor
 o Spined Fluke
-Spire Owl
-Sporogenesis
+o Spire Owl
+o Sporogenesis
 Spreading Algae
 Steam Blast
 Stern Proctor

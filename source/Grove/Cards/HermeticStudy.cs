@@ -40,7 +40,7 @@
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
             p.TimingRule(new SecondMain());
-            p.TargetingRule(new OrderByRank(c => c.Score));
+            p.TargetingRule(new OrderByRank(c => c.Score, ControlledBy.SpellOwner));
           });
     }
   }

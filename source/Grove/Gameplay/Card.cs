@@ -17,7 +17,6 @@
   using Targeting;
   using Zones;
 
-  [Copyable]
   public class Card : GameObject, ITarget, IDamageable, IHashDependancy, IHasColors, IHasLife
   {
     private readonly ActivatedAbilities _activatedAbilities;
@@ -34,8 +33,8 @@
     private readonly Trackable<bool> _hasSummoningSickness = new Trackable<bool>();
     private readonly Trackable<int?> _hash = new Trackable<int?>();
     private readonly Trackable<bool> _isHidden = new Trackable<bool>();
-    private readonly Trackable<bool> _isRevealed = new Trackable<bool>();
     private readonly Trackable<bool> _isPeeked = new Trackable<bool>();
+    private readonly Trackable<bool> _isRevealed = new Trackable<bool>();
     private readonly Trackable<bool> _isTapped = new Trackable<bool>();
     private readonly Level _level;
     private readonly TrackableList<IModifier> _modifiers = new TrackableList<IModifier>();
@@ -119,11 +118,20 @@
     public bool CanTap { get { return !IsTapped && (!HasSummoningSickness || !Is().Creature || Has().Haste); } }
     public bool IsPermanent { get { return Zone == Zone.Battlefield; } }
     public int CharacterCount { get { return FlavorText.CharacterCount + Text.CharacterCount; } }
-    public int CountersCount { get { return _counters.Count; } }
+
+    public int CountersCount(CounterType? counterType = null)
+    {
+      
+      if (counterType == null)
+        return _counters.Count;
+
+      return _counters.CountSpecific(counterType.Value);
+    }
+
     public CardColor[] Colors { get { return _colors.ToArray(); } }
     public Player Controller { get { return _controller.Value; } }
     public Player Owner { get; private set; }
-    public int? Counters { get { return _counters.Count; } }
+    public int Counters { get { return _counters.Count; } }
     public int Damage { get { return _damage.Value; } protected set { _damage.Value = value; } }
     public CardText FlavorText { get; private set; }
     public bool HasAttachments { get { return _attachments.Count > 0; } }
@@ -606,11 +614,11 @@
       ClearDamage();
       CanRegenerate = false;
       Combat.Remove(this);
-    }
-
-    public void RemoveChargeCounter()
+    }    
+    
+    public void RemoveCounters(CounterType counterType, int? count = null)
     {
-      _counters.RemoveAny<ChargeCounter>();
+      _counters.Remove(counterType, count);
     }
 
     public void Destroy(bool allowToRegenerate = true)
@@ -754,7 +762,7 @@
       // Peek should only work during actual game.
       // Peeking at cards during simulation should have no 
       // effect.
-      
+
       if (Ai.IsSearchInProgress)
         return;
 

@@ -27,7 +27,7 @@
           {
             p.Text = "At the beginning of your upkeep, put a page counter on Barrin's Codex.";
             p.Trigger(new OnStepStart(Step.Upkeep));
-            p.Effect = () => new ApplyModifiersToSelf(() => new AddCounters(() => new ChargeCounter(), 1));
+            p.Effect = () => new ApplyModifiersToSelf(() => new AddCounters(() => new SimpleCounter(CounterType.Page), 1));
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           })
         .ActivatedAbility(p =>
@@ -38,7 +38,7 @@
               new PayMana(4.Colorless(), ManaUsage.Abilities),
               new Tap(),
               new Sacrifice());
-            p.Effect = () => new DrawCards(count: P(e => e.Source.OwningCard.Counters.GetValueOrDefault()));
+            p.Effect = () => new DrawCards(count: P(e => e.Source.OwningCard.Counters));
             p.TimingRule(new ChargeCounters(3));
           });
     }

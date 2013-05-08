@@ -8,6 +8,18 @@
 
   public class PayLifeAddCounters : CustomizableEffect
   {
+    private readonly CounterType _counterType;
+
+    private PayLifeAddCounters()
+    {
+      
+    }
+
+    public PayLifeAddCounters(CounterType counterType)
+    {
+      _counterType = counterType;
+    }
+
     public override ChosenOptions ChooseResult(List<object> candidates)
     {
       const int minLife = 8;
@@ -36,7 +48,7 @@
           X = X
         };
 
-      var addCounters = new AddCounters(() => new ChargeCounter(), lifeToPay)
+      var addCounters = new AddCounters(() => new SimpleCounter(_counterType), lifeToPay)
         .Initialize(p, Game);
 
       Source.OwningCard.AddModifier(addCounters);

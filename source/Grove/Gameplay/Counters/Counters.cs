@@ -32,9 +32,9 @@
       _counters.Initialize(changeTracker, hashDependancy);
     }
 
-    public int CountSpecific<T>()
+    public int CountSpecific(CounterType counterType)
     {
-      return _counters.Count(x => x is T);
+      return _counters.Count(x => x.Type == counterType);
     }
 
     public void Add(Counter counter)
@@ -52,14 +52,19 @@
       }
     }
 
-    public void RemoveAny<T>()
+    public void Remove(CounterType counterType, int? count = null)
     {
-      var counter = _counters.FirstOrDefault(x => x is T);
+      var counters = _counters.Where(x => x.Type == counterType);
 
-      if (counter == null)
-        return;
+      if (count != null)
+      {
+        counters = counters.Take(count.Value);
+      }
 
-      Remove(counter);
+      foreach (var counter in counters.ToArray())
+      {
+        Remove(counter);
+      }
     }
   }
 }

@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using Artifical.TimingRules;
+  using Gameplay.Counters;
   using Gameplay.Effects;
   using Gameplay.Misc;
   using Gameplay.States;
@@ -22,7 +23,7 @@
           {
             p.Text = "At the beginning of your upkeep, you may put a soot counter on Smokestack.";
             p.Trigger(new OnStepStart(Step.Upkeep, order: 1));
-            p.Effect = () => new ChooseToAddCounter(e => e.Source.OwningCard.Counters <= 3);
+            p.Effect = () => new ChooseToAddCounter(CounterType.Soot, e => e.Source.OwningCard.Counters <= 3);
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           })
@@ -34,7 +35,7 @@
             p.Trigger(new OnStepStart(Step.Upkeep, activeTurn: true, passiveTurn: true));
 
             p.Effect = () => new PlayersSacrificePermanents(
-              count: P(e => e.Source.OwningCard.CountersCount),
+              count: P(e => e.Source.OwningCard.CountersCount()),
               text: "Select permanents to sacrifice.",
               playerFilter: (_, player) => player.IsActive);
 
