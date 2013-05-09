@@ -56,7 +56,7 @@
                <ColumnDefinition Width="Auto"/>
                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Grid Width="350" Grid.Column="0">
+            <Grid Width="450" Grid.Column="0">
               <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
@@ -82,7 +82,7 @@
                     <Expander.Header>
                       <StackPanel Orientation="Horizontal">
                         <Image Width="20" Source="..\media\images\search.png"/>
-                        <TextBlock Margin="10,0,0,0">Library filter</TextBlock>                        
+                        <TextBlock FontSize="20" Foreground="#FFD700"  Margin="10,0,0,0">Library filter</TextBlock>                        
                       </StackPanel>                      
                     </Expander.Header>
                   
@@ -172,7 +172,7 @@
                         <ColumnDefinition Width="Auto"/>
                       </Grid.ColumnDefinitions>
                       
-                      <TextBlock FontSize="15" Foreground="#fff">Llanowar Elves</TextBlock>
+                      <TextBlock FontSize="20" Foreground="#fff">Llanowar Elves</TextBlock>
                       <Image Grid.Column="1" Height="20" Source="..\media\images\g.png" />
                     </Grid>
                
@@ -184,7 +184,7 @@
                         <ColumnDefinition Width="Auto"/>
                       </Grid.ColumnDefinitions>
                       
-                      <TextBlock FontSize="15" Foreground="#fff">Grizzly Bears</TextBlock>
+                      <TextBlock FontSize="20" Foreground="#fff">Grizzly Bears</TextBlock>
                       <StackPanel Orientation="Horizontal" Grid.Column="1">
                         <Image Height="20" Source="..\media\images\1.png" />
                         <Image Height="20" Source="..\media\images\g.png" Margin="2,0,0,0" />
@@ -200,7 +200,7 @@
                
             </Grid>
             <Border
-               Width="450"
+               Width="500"
                Grid.Column="1"
                Margin="20,0,20,0"
                BorderBrush="#22ffffff"
@@ -224,7 +224,7 @@
                </StackPanel>
             </Border>
             <Border
-               Width="250"
+               Width="350"
                Grid.Column="2"
                Margin="0,0,0,0"
                VerticalAlignment="Top">

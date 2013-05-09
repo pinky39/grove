@@ -45,7 +45,7 @@
          </Border>
 
          
-           <Grid Grid.Row="1" Width="500" HorizontalAlignment="Left" Margin="100,40,0,40">
+           <Grid Grid.Row="1" Width="450" HorizontalAlignment="Left" Margin="100,40,0,40">
             <Grid.RowDefinitions>
                <RowDefinition Height="Auto"/>
                <RowDefinition Height="*"/>               
@@ -53,7 +53,8 @@
             
   
             <Border Grid.Row="0"   Margin="0,0,0,20"  Background="#11ffffff"
-                  BorderBrush="#33ffffff">
+                  BorderBrush="#33ffffff"  
+                  BorderThickness="2">
                      <Grid Margin="30">
                     <Grid.RowDefinitions>
                       <RowDefinition Height="Auto"/>
@@ -84,7 +85,7 @@
                   
              </Border>
              
-               <Border Grid.Row="1" Background="#11ffffff"
+               <Border Grid.Row="1" Background="#11ffffff" BorderThickness="2"
                   BorderBrush="#33ffffff">
                   <Grid Margin="30">
                     <Grid.RowDefinitions>
