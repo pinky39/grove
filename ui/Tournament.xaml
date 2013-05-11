@@ -1,7 +1,7 @@
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
    <ResourceDictionary.MergedDictionaries>
-      <ResourceDictionary Source="Skin.xaml"/>      
+      <ResourceDictionary Source="Skin.xaml"/>
    </ResourceDictionary.MergedDictionaries>
    <Grid x:Key="Tournament" Background="{StaticResource StartScreenBackground}">
       <Grid.Resources>
@@ -20,141 +20,144 @@
          <Border
             Grid.Row="0"
             Background="#11ffffff"
-            BorderBrush="#33ffffff"
-            BorderThickness="0,0,0,4">
-            <Grid Margin="30,30,30,30" >
-            <Grid.ColumnDefinitions>
-              <ColumnDefinition Width="Auto"/>
-              <ColumnDefinition Width="Auto"/>
-              <ColumnDefinition Width="*"/>
-              <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-               <Image Grid.Column="0" HorizontalAlignment="Left" Height="50" Source="../media/images/icon.png" VerticalAlignment="Center">
+            BorderBrush="#111"
+            BorderThickness="0,0,0,2">
+            <Grid Margin="30,30,30,30">
+               <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="Auto"/>
+                  <ColumnDefinition Width="Auto"/>
+                  <ColumnDefinition Width="*"/>
+                  <ColumnDefinition Width="Auto"/>
+               </Grid.ColumnDefinitions>
+               <Image
+                  Height="50"
+                  Grid.Column="0"
+                  HorizontalAlignment="Left"
+                  VerticalAlignment="Center"
+                  Source="../media/images/icon.png">
                </Image>
                <TextBlock
                   Grid.Column="1"
-                  Margin="30,0,0,0"                  
+                  Margin="30,0,0,0"
+                  VerticalAlignment="Center"
                   FontSize="40"
                   Foreground="#fff"
-                   VerticalAlignment="Center"
                   Text="New Tournament"/>
-               
-                
-               
             </Grid>
          </Border>
-
-         
-           <Grid Grid.Row="1" Width="450" HorizontalAlignment="Left" Margin="100,40,0,40">
-            <Grid.RowDefinitions>
-               <RowDefinition Height="Auto"/>
-               <RowDefinition Height="*"/>               
-            </Grid.RowDefinitions>
-            
-  
-            <Border Grid.Row="0"   Margin="0,0,0,20"  Background="#11ffffff"
-                  BorderBrush="#33ffffff"  
+         <Border Grid.Row="1">
+            <Border.Background>
+               <ImageBrush ImageSource="..\media\images\background.jpg"/>
+            </Border.Background>
+            <Grid Width="450" HorizontalAlignment="Left" Margin="100,40,0,40">
+               <Grid.RowDefinitions>
+                  <RowDefinition Height="Auto"/>
+                  <RowDefinition Height="*"/>
+               </Grid.RowDefinitions>
+               <Border
+                  Grid.Row="0"
+                  Margin="0,0,0,20"
+                  Background="#222"
+                  BorderBrush="#33ffffff"
                   BorderThickness="2">
-                     <Grid Margin="30">
-                    <Grid.RowDefinitions>
-                      <RowDefinition Height="Auto"/>
-                      <RowDefinition Height="Auto"/>
-                      <RowDefinition Height="Auto"/>
-                      <RowDefinition Height="Auto"/>
-                      <RowDefinition Height="Auto"/>
-                      <RowDefinition Height="Auto"/>                                      
-                    </Grid.RowDefinitions>
-                   
-                   <TextBlock Grid.Row="0" FontSize="15" Foreground="#FFD700" Margin="2,0,2,0">Your name:</TextBlock>
-                   <TextBox Grid.Row="1" FontSize="20" Margin="0,10,0,0">New Player</TextBox>
-                   
-                      <TextBlock Grid.Row="2" FontSize="15" Foreground="#FFD700" Margin="2,20,2,0">Tournament type:</TextBlock>
-                     <ComboBox Grid.Row="3" FontSize="20" Margin="0,10,0,0">
-                      <ComboBoxItem IsSelected="True" Content="Sealed" />                                            
-                    </ComboBox>
-                    
-                    <TextBlock Grid.Row="4" FontSize="15" Foreground="#FFD700" Margin="2,20,2,0">Players count:</TextBlock>
-                     <ComboBox Grid.Row="5" FontSize="20" Margin="0,10,0,0">
-                      <ComboBoxItem IsSelected="True" Content="50" />                                            
-                    </ComboBox>
-                    
-                  
-                    
+                  <Grid Margin="25">
+                     <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                     </Grid.RowDefinitions>
+                     <TextBlock
+                        Grid.Row="0"
+                        Margin="2,0,2,0"
+                        FontSize="20"
+                        Foreground="#FFD700">Your name:
+                     </TextBlock>
+                     <TextBox Grid.Row="1" Margin="0,10,0,0" FontSize="20">New Player
+                     </TextBox>
+                     <TextBlock
+                        Grid.Row="2"
+                        Margin="2,20,2,0"
+                        FontSize="20"
+                        Foreground="#FFD700">Tournament type:
+                     </TextBlock>
+                     <ComboBox Grid.Row="3" Margin="0,10,0,0" FontSize="20">
+                        <ComboBoxItem Content="Sealed" IsSelected="True"/>
+                     </ComboBox>
+                     <TextBlock
+                        Grid.Row="4"
+                        Margin="2,20,2,0"
+                        FontSize="20"
+                        Foreground="#FFD700">Players count:
+                     </TextBlock>
+                     <ComboBox Grid.Row="5" Margin="0,10,0,0" FontSize="20">
+                        <ComboBoxItem Content="50" IsSelected="True"/>
+                     </ComboBox>
                   </Grid>
-                  
-                  
-             </Border>
-             
-               <Border Grid.Row="1" Background="#11ffffff" BorderThickness="2"
-                  BorderBrush="#33ffffff">
-                  <Grid Margin="30">
-                    <Grid.RowDefinitions>
-                      <RowDefinition Height="Auto"/>
-                      <RowDefinition Height="Auto"/>
-                      <RowDefinition Height="Auto"/>
-                      <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                  
-                    
-                   <TextBlock Grid.Row="0" FontSize="15" Foreground="#FFD700" Margin="2,0,2,0">Starter pack:</TextBlock>
-                   
-                   <ComboBox FontSize="20" Grid.Row="1" Margin="0,10,0,10">
-                      <ComboBoxItem IsSelected="True" Content="Urza's Saga" />                                            
-                    </ComboBox>
-  
-                   <TextBlock Grid.Row="2" FontSize="15" Foreground="#FFD700" Margin="2,20,2,0">Booster packs:</TextBlock>
-                   
-                   <StackPanel Grid.Row="3" Margin="0,10,0,10">
-                    <ComboBox FontSize="20" Margin="0,3,0,3" >
-                      <ComboBoxItem IsSelected="True" Content="Urza's Saga" />                                            
-                    </ComboBox>
-                    <ComboBox FontSize="20"  Margin="0,3,0,3">
-                      <ComboBoxItem IsSelected="True" Content="Urza's Saga" />                                            
-                    </ComboBox>
-                    <ComboBox FontSize="20" Margin="0,3,0,3">
-                      <ComboBoxItem IsSelected="True" Content="Urza's Saga" />                                            
-                    </ComboBox>
-                   
-                   </StackPanel>
-                  
+               </Border>
+               <Border
+                  Grid.Row="1"
+                  Background="#222"
+                  BorderBrush="#33ffffff"
+                  BorderThickness="2">
+                  <Grid Margin="25">
+                     <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                     </Grid.RowDefinitions>
+                     <TextBlock
+                        Grid.Row="0"
+                        Margin="2,0,2,0"
+                        FontSize="20"
+                        Foreground="#FFD700">Starter pack:
+                     </TextBlock>
+                     <ComboBox Grid.Row="1" Margin="0,10,0,0" FontSize="20">
+                        <ComboBoxItem Content="Urza's Saga" IsSelected="True"/>
+                     </ComboBox>
+                     <TextBlock
+                        Grid.Row="2"
+                        Margin="2,20,2,0"
+                        FontSize="20"
+                        Foreground="#FFD700">Booster packs:
+                     </TextBlock>
+                     <StackPanel Grid.Row="3" Margin="0,10,0,10">
+                        <ComboBox Margin="0,3,0,3" FontSize="20">
+                           <ComboBoxItem Content="Urza's Saga" IsSelected="True"/>
+                        </ComboBox>
+                        <ComboBox Margin="0,3,0,3" FontSize="20">
+                           <ComboBoxItem Content="Urza's Saga" IsSelected="True"/>
+                        </ComboBox>
+                        <ComboBox Margin="0,3,0,3" FontSize="20">
+                           <ComboBoxItem Content="Urza's Saga" IsSelected="True"/>
+                        </ComboBox>
+                     </StackPanel>
                   </Grid>
-                  
-                  
-                  
-                  
-            </Border>
-             
-           
-            
-          </Grid>
-         
-         
+               </Border>
+            </Grid>
+         </Border>
          <Border
             Grid.Row="2"
             Margin="0,0,0,0"
             Background="#1affffff"
-            BorderBrush="#33ffffff"
-            BorderThickness="0,4,0,0">
+            BorderBrush="#111"
+            BorderThickness="0,2,0,0">
             <Grid Margin="30">
                <Grid.ColumnDefinitions>
                   <ColumnDefinition Width="*"/>
-                  <ColumnDefinition Width="Auto"/>                  
+                  <ColumnDefinition Width="Auto"/>
                </Grid.ColumnDefinitions>
                <TextBlock
                   Grid.Column="0"
                   FontSize="15"
                   Foreground="#fff"
                   Text="Return to main menu"/>
-               <StackPanel Orientation="Horizontal" Grid.Column="1">
-                
-                  <TextBlock
-                    FontSize="15"
-                    Foreground="#fff"
-                    Text="Start"/>                
-                 
-               
+               <StackPanel Grid.Column="1" Orientation="Horizontal">
+                  <TextBlock FontSize="15" Foreground="#fff" Text="Start"/>
                </StackPanel>
-               
             </Grid>
          </Border>
       </Grid>

@@ -24,7 +24,7 @@
 			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
 
-		<Border Grid.Row="0" Background="#11ffffff" BorderBrush="#33ffffff" BorderThickness="0,0,0,4">
+		<Border Grid.Row="0" Background="#11ffffff" BorderBrush="#33ffffff" BorderThickness="0,0,0,1">
 			<StackPanel Margin="30" Orientation="Horizontal">
 				<Image VerticalAlignment="Center" Height="50" Source="{grove:Media 'icon.png'}"></Image>
 				<TextBlock VerticalAlignment="Center" Text="{Binding Title}" Foreground="#fff" FontSize="40" Margin="30,0,0,0" />
@@ -39,7 +39,7 @@
 			</Grid.ColumnDefinitions>
 
 
-			<Border Grid.Column="0" BorderBrush="#33ffffff" Background="#11ffffff" CornerRadius="2" BorderThickness="2" Width="350">
+			<Border Grid.Column="0" BorderBrush="#33ffffff" Background="#11ffffff" CornerRadius="2" BorderThickness="1" Width="400">
 				<Border.Resources>
 					<Style TargetType="{x:Type ListBox}">
 						<Setter Property="SnapsToDevicePixels" Value="true" />
@@ -130,30 +130,29 @@
 			</Border>
 
 
-			<Border Grid.Column="1" Margin="20,0,20,0" BorderBrush="#22ffffff" CornerRadius="4" BorderThickness="2" Width="450">
+			<Border Grid.Column="1" Margin="20,0,20,0" BorderBrush="#22ffffff" CornerRadius="2" BorderThickness="1" Width="400">
 				<ContentControl x:Name="Selected" />
 			</Border>
 
-			<StackPanel Grid.Column="2" Width="300">
+			<StackPanel Grid.Column="2" Width="350">
 				<Border BorderBrush="#444" Background="#000" BorderThickness="1" CornerRadius="8" VerticalAlignment="Top" Visibility="{Binding SelectedCard, Converter={x:Static grove:Converters.NullToCollapsed}}">
 					<ContentControl Margin="12" Content="{Binding Selected.SelectedCard}" Style="{StaticResource Card}" />
-				</Border>
-				<TextBlock Foreground="#eee" FontSize="14" TextWrapping="Wrap" Margin="10,20,10,0" Text="{Binding Selected.Description}" />
+				</Border>				
 			</StackPanel>
 
 		</Grid>
 
 
-		<Border Margin="0,0,0,0" Grid.Row="2" Background="#1affffff" BorderBrush="#33ffffff" BorderThickness="0,4,0,0">
+		<Border Margin="0,0,0,0" Grid.Row="2" Background="#1affffff" BorderBrush="#33ffffff" BorderThickness="0,1,0,0">
 			<Grid Margin="25">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="Auto" />
 					<ColumnDefinition Width="*" />
 					<ColumnDefinition Width="Auto" />
 				</Grid.ColumnDefinitions>
-				<Button x:Name="Back" Style="{StaticResource LeftButton}" Foreground="#fff" Grid.Column="0" FontSize="15">Back</Button>
-				<Button x:Name="Forward" Style="{StaticResource RightButton}" Foreground="#fff" Grid.Column="2" FontSize="15" Visibility="{Binding CanStart, Converter={x:Static grove:Converters.BooleanToVisibility}}" Content="{Binding NextCaption}" />
-				<TextBlock Text="Game is starting, please wait..." FontSize="18" Grid.Column="2" Foreground="#fff" Visibility="{Binding IsStarting, Converter={x:Static grove:Converters.BooleanToVisibility}}" />
+				<Button x:Name="Back" Style="{StaticResource LeftButton}" Foreground="#fff" Grid.Column="0" FontSize="20">Back</Button>
+				<Button x:Name="Forward" Style="{StaticResource RightButton}" Foreground="#fff" Grid.Column="2" FontSize="20" Visibility="{Binding CanStart, Converter={x:Static grove:Converters.BooleanToVisibility}}" Content="{Binding NextCaption}" />
+				<TextBlock Text="Game is starting, please wait..." FontSize="20" Grid.Column="2" Foreground="#fff" Visibility="{Binding IsStarting, Converter={x:Static grove:Converters.BooleanToVisibility}}" />
 			</Grid>
 		</Border>
 	</Grid>

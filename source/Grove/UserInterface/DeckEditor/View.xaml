@@ -11,7 +11,7 @@
 				<RowDefinition Height="*" />
 				<RowDefinition Height="Auto" />
 			</Grid.RowDefinitions>
-			<Border Grid.Row="0" Background="#11ffffff" BorderBrush="#33ffffff" BorderThickness="0,0,0,4">
+			<Border Grid.Row="0" Background="#11ffffff" BorderBrush="#33ffffff" BorderThickness="0,0,0,1">
 				<Grid Margin="30,15,30,15">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="Auto" />
@@ -35,12 +35,12 @@
 					<ColumnDefinition Width="Auto" />
 					<ColumnDefinition Width="Auto" />
 				</Grid.ColumnDefinitions>
-				<Grid Width="350" Grid.Column="0">
+				<Grid Width="400" Grid.Column="0">
 					<Grid.RowDefinitions>
 						<RowDefinition Height="Auto" />
 						<RowDefinition Height="*" />
 					</Grid.RowDefinitions>
-					<Border Grid.Row="0" Background="#11ffffff" BorderBrush="#33ffffff" BorderThickness="2" CornerRadius="2">
+					<Border Grid.Row="0" Background="#11ffffff" BorderBrush="#33ffffff" BorderThickness="1" CornerRadius="2">
 						<Border.Resources>
 							<Style TargetType="TextBlock">
 								<Setter Property="Foreground" Value="#fff" />
@@ -56,7 +56,7 @@
 							<Expander.Header>
 								<StackPanel Orientation="Horizontal">
 									<Image Width="20" Source="{grove:Media 'search.png'}" />
-									<TextBlock Margin="10,0,0,0">Library filter</TextBlock>
+                                    <TextBlock Foreground="#FFD700" FontSize="20"  Margin="10,0,0,0">Library filter</TextBlock>
 								</StackPanel>
 							</Expander.Header>
 
@@ -68,23 +68,23 @@
 									<TextBlock>Colors:</TextBlock>
 									<StackPanel Margin="0,10,0,10" Orientation="Horizontal">
 										<CheckBox IsChecked="{Binding Library.White}">
-											<Image Width="15" Source="{grove:Media 'w.png'}" />
+											<Image Width="20" Source="{grove:Media 'w.png'}" />
 										</CheckBox>
 
 										<CheckBox IsChecked="{Binding Library.Blue}">
-											<Image Width="15" Source="{grove:Media 'u.png'}" />
+											<Image Width="20" Source="{grove:Media 'u.png'}" />
 										</CheckBox>
 
 										<CheckBox IsChecked="{Binding Library.Black}">
-											<Image Width="15" Source="{grove:Media 'b.png'}" />
+											<Image Width="20" Source="{grove:Media 'b.png'}" />
 										</CheckBox>
 
 										<CheckBox IsChecked="{Binding Library.Red}">
-											<Image Width="15" Source="{grove:Media 'r.png'}" />
+											<Image Width="20" Source="{grove:Media 'r.png'}" />
 										</CheckBox>
 
 										<CheckBox IsChecked="{Binding Library.Green}">
-											<Image Width="15" Source="{grove:Media 'g.png'}" />
+											<Image Width="20" Source="{grove:Media 'g.png'}" />
 										</CheckBox>
 									</StackPanel>
 									<TextBlock Foreground="#fff">
@@ -108,7 +108,7 @@
 						</Expander>
 					</Border>
 
-					<Border Grid.Row="1" Background="#11ffffff" BorderBrush="#33ffffff" BorderThickness="2" CornerRadius="2" Margin="0,10,0,0">
+					<Border Grid.Row="1" Background="#11ffffff" BorderBrush="#33ffffff" BorderThickness="1" CornerRadius="2" Margin="0,10,0,0">
 						<Border.Resources>
 							<Style TargetType="{x:Type ListBox}">
 								<Setter Property="SnapsToDevicePixels" Value="true" />
@@ -198,46 +198,39 @@
 						</ListBox>
 					</Border>
 				</Grid>
-				<Border Width="450" Grid.Column="1" Margin="20,0,20,0" BorderBrush="#22ffffff" BorderThickness="3" CornerRadius="2">
+				<Border Width="400" Grid.Column="1" Margin="20,0,20,0" BorderBrush="#22ffffff" BorderThickness="1" CornerRadius="2">
 					<ContentControl x:Name="Deck" />
 				</Border>
-				<Border Width="300" Grid.Column="2" Margin="0,0,0,0" VerticalAlignment="Top">
+				<Border Width="350" Grid.Column="2" Margin="0,0,0,0" VerticalAlignment="Top">
 					<StackPanel>
-						<Border Margin="0,0,0,20" BorderBrush="#444" Background="#000" BorderThickness="1" CornerRadius="8" VerticalAlignment="Top">
+						<Border Margin="0,0,0,30" BorderBrush="#444" Background="#000" BorderThickness="1" CornerRadius="8" VerticalAlignment="Top">
 							<ContentControl Margin="12" Content="{Binding SelectedCard}" Style="{StaticResource Card}" />
 						</Border>
-
-						<TextBlock Foreground="#fff" FontSize="15" Margin="0,0,0,5">Description:</TextBlock>
-						<TextBox FontSize="16" Height="70" TextWrapping="Wrap" Text="{Binding Deck.Description}" />
-						<TextBlock Foreground="#fff" FontSize="15" Margin="0,10,0,5">Rating:</TextBlock>
-						<grove:RatingControl Rating="{Binding Deck.Rating, Mode=TwoWay}" Margin="0,0,0,10" />
-						<TextBlock Foreground="#fff" FontSize="15">
-							Left click on a card to add it to the
-							<LineBreak />
-							deck, right click to remove it.
-						</TextBlock>
+						
+						<grove:RatingControl Rating="{Binding Deck.Rating, Mode=TwoWay}" Margin="0,0,0,0" />
+						
 					</StackPanel>
 				</Border>
 			</Grid>
-			<Border Grid.Row="2" Margin="0,0,0,0" Background="#1affffff" BorderBrush="#33ffffff" BorderThickness="0,4,0,0">
+            <Border Grid.Row="2" Margin="0,0,0,0"   Background="#11ffffff" BorderBrush="#22ffffff" BorderThickness="0,1,0,0">
 				<Grid Margin="30">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="*" />
 						<ColumnDefinition Width="Auto" />
 					</Grid.ColumnDefinitions>
-					<Button x:Name="Back" Style="{StaticResource LeftButton}" Grid.Column="0" FontSize="15" Foreground="#fff" Content="Return to main menu" />
+					<Button x:Name="Back" Style="{StaticResource LeftButton}" Grid.Column="0" FontSize="20" Foreground="#fff" Content="Return to main menu" />
 					<StackPanel Orientation="Horizontal" Grid.Column="1">
-						<Border BorderBrush="#aaa" BorderThickness="0,0,1,0" Padding="0,0,10,0" Margin="10,0,0,0">
-							<Button x:Name="New" FontSize="15" Foreground="#fff" Content="New deck" />
+						<Border BorderBrush="#aaa" BorderThickness="0,0,1,0" Padding="0,0,10,0" Margin="20,0,0,0">
+							<Button x:Name="New" FontSize="20" Foreground="#fff" Content="New deck" />
 						</Border>
-						<Border BorderBrush="#aaa" BorderThickness="0,0,1,0" Padding="0,0,10,0" Margin="10,0,0,0">
-							<Button x:Name="Open" FontSize="15" Foreground="#fff" Content="Open deck" />
+						<Border BorderBrush="#aaa" BorderThickness="0,0,1,0" Padding="0,0,10,0" Margin="20,0,0,0">
+							<Button x:Name="Open" FontSize="20" Foreground="#fff" Content="Open deck" />
 						</Border>
-						<Border BorderBrush="#aaa" BorderThickness="0,0,1,0" Padding="0,0,10,0" Margin="10,0,0,0">
-							<Button x:Name="SaveAs" FontSize="15" Foreground="#fff" Content="Save as" />
+						<Border BorderBrush="#aaa" BorderThickness="0,0,1,0" Padding="0,0,10,0" Margin="20,0,0,0">
+							<Button x:Name="SaveAs" FontSize="20" Foreground="#fff" Content="Save as" />
 						</Border>
-						<Border BorderBrush="#aaa" BorderThickness="0,0,0,0" Padding="0,0,10,0" Margin="10,0,0,0">
-							<Button x:Name="Save" FontSize="15" Foreground="#fff" Content="Save" />
+						<Border BorderBrush="#aaa" BorderThickness="0,0,0,0" Padding="0,0,10,0" Margin="20,0,0,0">
+							<Button x:Name="Save" FontSize="20" Foreground="#fff" Content="Save" />
 						</Border>
 
 					</StackPanel>

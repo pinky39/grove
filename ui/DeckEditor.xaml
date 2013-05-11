@@ -20,284 +20,349 @@
          </Grid.RowDefinitions>
          <Border
             Grid.Row="0"
-            Background="#11ffffff"
-            BorderBrush="#33ffffff"
-            BorderThickness="0,0,0,4">
-            <Grid Margin="30,20,30,20" >
-            <Grid.ColumnDefinitions>
-              <ColumnDefinition Width="Auto"/>
-              <ColumnDefinition Width="Auto"/>
-              <ColumnDefinition Width="*"/>
-              <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-               <Image Grid.Column="0" HorizontalAlignment="Left" Height="50" Source="../media/images/icon.png" VerticalAlignment="Center">
+             Background="#11ffffff"
+                  BorderBrush="#22ffffff"
+            BorderThickness="0,0,0,2">
+            <Grid Margin="30,20,30,20">
+               <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="Auto"/>
+                  <ColumnDefinition Width="Auto"/>
+                  <ColumnDefinition Width="*"/>
+                  <ColumnDefinition Width="Auto"/>
+               </Grid.ColumnDefinitions>
+               <Image
+                  Height="50"
+                  Grid.Column="0"
+                  HorizontalAlignment="Left"
+                  VerticalAlignment="Center"
+                  Source="../media/images/icon.png">
                </Image>
                <TextBlock
                   Grid.Column="1"
-                  Margin="30,0,0,0"                  
+                  Margin="30,0,0,0"
+                  VerticalAlignment="Center"
                   FontSize="40"
                   Foreground="#fff"
-                   VerticalAlignment="Center"
                   Text="Deck editor"/>
-               
-                  <StackPanel Grid.Column="3">
-                    <TextBlock                       
-                       FontSize="40"
-                       Foreground="#FFD700"
-                       Text="kuno-b-control.dec"/>
-                     <TextBlock FontSize="20" Foreground="#fff" TextAlignment="Right">60 cards</TextBlock>
-                     </StackPanel>
-               
+               <StackPanel Grid.Column="3">
+                  <TextBlock FontSize="40" Foreground="#FFD700" Text="kuno-b-control.dec"/>
+                  <TextBlock FontSize="20" Foreground="#fff" TextAlignment="Right">60 cards
+                  
+                  
+                  </TextBlock>
+               </StackPanel>
             </Grid>
          </Border>
-         <Grid Grid.Row="1" HorizontalAlignment="Center" Margin="0,40,0,40">
-            <Grid.ColumnDefinitions>
-               <ColumnDefinition Width="Auto"/>
-               <ColumnDefinition Width="Auto"/>
-               <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <Grid Width="450" Grid.Column="0">
-              <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-              </Grid.RowDefinitions>
+         <Border Grid.Row="1">
+            <Grid HorizontalAlignment="Center" Margin="0,40,0,40">
+               <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="Auto"/>
+                  <ColumnDefinition Width="Auto"/>
+                  <ColumnDefinition Width="Auto"/>
+               </Grid.ColumnDefinitions>
+               <Grid Width="400" Grid.Column="0">
+                  <Grid.RowDefinitions>
+                     <RowDefinition Height="Auto"/>
+                     <RowDefinition Height="*"/>
+                  </Grid.RowDefinitions>
+                  <Border
+                     Grid.Row="0"
+                     Background="#11ffffff"
+                     BorderBrush="#33ffffff"
+                     BorderThickness="1"
+                     CornerRadius="2">
+                     <Border.Resources>
+                        <Style TargetType="TextBlock">
+                           <Setter Property="Foreground" Value="#fff"/>
+                           <Setter Property="FontSize" Value="15"/>
+                        </Style>
+                        <Style TargetType="CheckBox">
+                           <Setter Property="Foreground" Value="#fff"/>
+                           <Setter Property="FontSize" Value="15"/>
+                           <Setter Property="Margin" Value="10,0,10,0"/>
+                        </Style>
+                     </Border.Resources>
+                     <Expander Margin="4" FontSize="15" Foreground="#fff">
+                        <Expander.Header>
+                           <StackPanel Orientation="Horizontal">
+                              <Image Width="20" Source="..\media\images\search.png"/>
+                              <TextBlock Margin="10,0,0,0" FontSize="20" Foreground="#FFD700">Library filter
+                           
+                              
+                              </TextBlock>
+                           </StackPanel>
+                        </Expander.Header>
+                        <Border
+                           Margin="8"
+                           Background="#22ffffff"
+                           BorderBrush="#55ffffff"
+                           BorderThickness="1">
+                           <StackPanel Margin="15">
+                              <TextBlock>Name:
+                  
+                     
+                           
+                              
+                              </TextBlock>
+                              <TextBox Margin="0,5,0,10"/>
+                              <TextBlock>Colors:
+                  
+                     
+                           
+                              
+                              </TextBlock>
+                              <StackPanel Margin="0,10,0,10" Orientation="Horizontal">
+                                 <CheckBox>W
+                     
+                        
+                              
+                                 
+                                 </CheckBox>
+                                 <CheckBox IsChecked="true">U
+                     
+                        
+                              
+                                 
+                                 </CheckBox>
+                                 <CheckBox>B
+                     
+                        
+                              
+                                 
+                                 </CheckBox>
+                                 <CheckBox>R
+                     
+                        
+                              
+                                 
+                                 </CheckBox>
+                                 <CheckBox>G
+                     
+                        
+                              
+                                 
+                                 </CheckBox>
+                              </StackPanel>
+                              <TextBlock Foreground="#fff">Converted cost:
+                     
+                           
+                              
+                              </TextBlock>
+                              <Grid Margin="5,5,5,10">
+                                 <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                 </Grid.ColumnDefinitions>
+                                 <TextBlock Grid.Column="0">Minimum:
+                        
+                              
+                                 
+                                 </TextBlock>
+                                 <ComboBox
+                                    Width="50"
+                                    Grid.Column="1"
+                                    Margin="10,0,0,0"
+                                    SelectedIndex="0">
+                                    <ComboBoxItem>0
+                           
+                                 
+                                    
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>1
+                           
+                                 
+                                    
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>2
+                           
+                                 
+                                    
+                                    </ComboBoxItem>
+                                 </ComboBox>
+                                 <TextBlock Grid.Column="3">Maximum:
+                        
+                              
+                                 
+                                 </TextBlock>
+                                 <ComboBox
+                                    Width="50"
+                                    Grid.Column="4"
+                                    Margin="10,0,0,0"
+                                    SelectedIndex="1">
+                                    <ComboBoxItem>0
+                           
+                                 
+                                    
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>1
+                           
+                                 
+                                    
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>2
+                           
+                                 
+                                    
+                                    </ComboBoxItem>
+                                 </ComboBox>
+                              </Grid>
+                           </StackPanel>
+                        </Border>
+                     </Expander>
+                  </Border>
+                  <Border
+                     Grid.Row="1"
+                     Margin="0,10,0,0"
+                     Background="#11ffffff"
+                     BorderBrush="#33ffffff"
+                     BorderThickness="1"
+                     CornerRadius="2">
+                     <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Visible">
+                        <StackPanel>
+                           <Border Background="#11ffffff" BorderBrush="#33ffffff" BorderThickness="0,0,2,2">
+                              <Grid Margin="10,10,10,10">
+                                 <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                 </Grid.ColumnDefinitions>
+                                 <TextBlock FontSize="20" Foreground="#fff">Llanowar Elves
+                              
+                                 
+                                 </TextBlock>
+                                 <Image Height="20" Grid.Column="1" Source="..\media\images\g.png"/>
+                              </Grid>
+                           </Border>
+                           <Border Background="#11ffffff" BorderBrush="#33ffffff" BorderThickness="0,0,2,2">
+                              <Grid Margin="10,10,10,10">
+                                 <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                 </Grid.ColumnDefinitions>
+                                 <TextBlock FontSize="20" Foreground="#fff">Grizzly Bears
+                              
+                                 
+                                 </TextBlock>
+                                 <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                    <Image Height="20" Source="..\media\images\1.png"/>
+                                    <Image Height="20" Margin="2,0,0,0" Source="..\media\images\g.png"/>
+                                 </StackPanel>
+                              </Grid>
+                           </Border>
+                        </StackPanel>
+                     </ScrollViewer>
+                  </Border>
+               </Grid>
                <Border
-                  Grid.Row="0"
+                  Width="400"
+                  Grid.Column="1"
+                  Margin="20,0,20,0"
                   Background="#11ffffff"
-                  BorderBrush="#33ffffff"
-                  BorderThickness="2"
+                  BorderBrush="#22ffffff"
+                  BorderThickness="1"
                   CornerRadius="2">
-                  <Border.Resources>
-                     <Style TargetType="TextBlock">
-                        <Setter Property="Foreground" Value="#fff"/>
-                        <Setter Property="FontSize" Value="15"/>
-                     </Style>
-                     <Style TargetType="CheckBox">
-                        <Setter Property="Foreground" Value="#fff"/>
-                        <Setter Property="FontSize" Value="15"/>
-                        <Setter Property="Margin" Value="10,0,10,0"/>
-                     </Style>
-                  </Border.Resources>
-                  <Expander FontSize="15" Margin="4" Foreground="#fff">
-                    <Expander.Header>
-                      <StackPanel Orientation="Horizontal">
-                        <Image Width="20" Source="..\media\images\search.png"/>
-                        <TextBlock FontSize="20" Foreground="#FFD700"  Margin="10,0,0,0">Library filter</TextBlock>                        
-                      </StackPanel>                      
-                    </Expander.Header>
-                  
-                  
-                  <Border Background="#22ffffff" Margin="8" BorderBrush="#55ffffff" BorderThickness="1">
-                  <StackPanel Margin="15">
-                     <TextBlock>Name:
-                  
-                     </TextBlock>
-                     <TextBox Margin="0,5,0,10"/>
-                     <TextBlock>Colors:
-                  
-                     </TextBlock>
-                     <StackPanel Margin="0,10,0,10" Orientation="Horizontal">
-                        <CheckBox>W
+                  <StackPanel Margin="20">
+                     <StackPanel Margin="10,0,0,0" Orientation="Horizontal">
+                        <TextBlock FontSize="25" Foreground="#fff">4x
                      
-                        </CheckBox>
-                        <CheckBox IsChecked="true">U
                      
-                        </CheckBox>
-                        <CheckBox>B
                      
-                        </CheckBox>
-                        <CheckBox>R
+                        
+                        </TextBlock>
+                        <TextBlock Margin="10,0,0,0" FontSize="25" Foreground="#FFD700">Llanowar Elves
                      
-                        </CheckBox>
-                        <CheckBox>G
                      
-                        </CheckBox>
+                     
+                        
+                        </TextBlock>
                      </StackPanel>
-                     <TextBlock Foreground="#fff">Converted cost:
-                     </TextBlock>
-                     <Grid Margin="5,5,5,10">
+                     <StackPanel Margin="10,0,0,0" Orientation="Horizontal">
+                        <TextBlock FontSize="25" Foreground="#fff">4x                    
+                     
+                     
+                        
+                        </TextBlock>
+                        <TextBlock Margin="10,0,0,0" FontSize="25" Foreground="#FFD700">Grizzly Bears                     
+                     
+                     
+                        
+                        </TextBlock>
+                     </StackPanel>
+                  </StackPanel>
+               </Border>
+               <Border
+                  Width="350"
+                  Grid.Column="2"
+                  Margin="0,0,0,0"
+                  VerticalAlignment="Top">
+                  <StackPanel>
+                     <ContentControl Margin="0,0,0,30" Content="{StaticResource 'Llanowar Elves'}"/>
+                     <Grid>
                         <Grid.ColumnDefinitions>
-                           <ColumnDefinition Width="Auto"/>
-                           <ColumnDefinition Width="Auto"/>
                            <ColumnDefinition Width="*"/>
-                           <ColumnDefinition Width="Auto"/>
-                           <ColumnDefinition Width="Auto"/>
+                           <ColumnDefinition Width="*"/>
+                           <ColumnDefinition Width="*"/>
+                           <ColumnDefinition Width="*"/>
+                           <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0">Minimum:
-                        </TextBlock>
-                        <ComboBox
-                           Width="50"
-                           Grid.Column="1"
-                           Margin="10,0,0,0"
-                           SelectedIndex="0">
-                           <ComboBoxItem>0
-                           </ComboBoxItem>
-                           <ComboBoxItem>1
-                           </ComboBoxItem>
-                           <ComboBoxItem>2
-                           </ComboBoxItem>
-                        </ComboBox>
-                        <TextBlock Grid.Column="3">Maximum:
-                        </TextBlock>
-                        <ComboBox
-                           Width="50"
-                           Grid.Column="4"
-                           Margin="10,0,0,0"
-                           SelectedIndex="1">
-                           <ComboBoxItem>0
-                           </ComboBoxItem>
-                           <ComboBoxItem>1
-                           </ComboBoxItem>
-                           <ComboBoxItem>2
-                           </ComboBoxItem>
-                        </ComboBox>
+                        <Image Height="50" Grid.Column="0" Source="..\media\images\star.png"/>
+                        <Image Height="50" Grid.Column="1" Source="..\media\images\star.png"/>
+                        <Image Height="50" Grid.Column="2" Source="..\media\images\star.png"/>
+                        <Image Height="50" Grid.Column="3" Source="..\media\images\star.png"/>
+                        <Image Height="50" Grid.Column="4" Source="..\media\images\star.png"/>
                      </Grid>
                   </StackPanel>
-                  </Border>
-                  </Expander>
                </Border>
-               
-               <Border  
-                  Grid.Row="1"
-                  Background="#11ffffff"
-                  BorderBrush="#33ffffff"
-                  BorderThickness="2"
-                  CornerRadius="2" Margin="0,10,0,0">                  
-               <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Hidden">
-               <StackPanel>
-                <Border  Background="#11ffffff" BorderBrush="#33ffffff" BorderThickness="0,0,2,2">
-                    <Grid Margin="10,10,10,10">
-                      <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                      </Grid.ColumnDefinitions>
-                      
-                      <TextBlock FontSize="20" Foreground="#fff">Llanowar Elves</TextBlock>
-                      <Image Grid.Column="1" Height="20" Source="..\media\images\g.png" />
-                    </Grid>
-               
-                </Border>
-                <Border  Background="#11ffffff" BorderBrush="#33ffffff" BorderThickness="0,0,2,2">
-                    <Grid Margin="10,10,10,10">
-                      <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                      </Grid.ColumnDefinitions>
-                      
-                      <TextBlock FontSize="20" Foreground="#fff">Grizzly Bears</TextBlock>
-                      <StackPanel Orientation="Horizontal" Grid.Column="1">
-                        <Image Height="20" Source="..\media\images\1.png" />
-                        <Image Height="20" Source="..\media\images\g.png" Margin="2,0,0,0" />
-                      </StackPanel>
-                    </Grid>
-               
-                </Border>
-               
-               </StackPanel>
-               </ScrollViewer>
-               
-               </Border>
-               
             </Grid>
-            <Border
-               Width="500"
-               Grid.Column="1"
-               Margin="20,0,20,0"
-               BorderBrush="#22ffffff"
-               BorderThickness="3"
-               CornerRadius="2">
-               <StackPanel Margin="20">
-                  <StackPanel Margin="10,0,0,0" Orientation="Horizontal">
-                     <TextBlock FontSize="25" Foreground="#fff">4x
-                     
-                     </TextBlock>
-                     <TextBlock Margin="10,0,0,0" FontSize="25" Foreground="#FFD700">Llanowar Elves
-                     
-                     </TextBlock>
-                  </StackPanel>
-                  <StackPanel Margin="10,0,0,0" Orientation="Horizontal">
-                     <TextBlock FontSize="25" Foreground="#fff">4x                    
-                     </TextBlock>
-                     <TextBlock Margin="10,0,0,0" FontSize="25" Foreground="#FFD700">Grizzly Bears                     
-                     </TextBlock>                 
-                  </StackPanel>
-               </StackPanel>
-            </Border>
-            <Border
-               Width="350"
-               Grid.Column="2"
-               Margin="0,0,0,0"
-               VerticalAlignment="Top">
-               <StackPanel>
-                  <ContentControl  Margin="0,0,0,20" Content="{StaticResource 'Llanowar Elves'}"/>
-                  <TextBlock Foreground="#fff" FontSize="15" Margin="0,0,0,10">Description:</TextBlock>
-                  <TextBox                    
-                     FontSize="16"
-                     Height="80"
-                     BorderBrush="#33ffffff"                    
-                     Background="#22ffffff"
-                     Foreground="#eee"
-                     TextWrapping="Wrap">Acknowledgement: This deck was taken from a mtg program magarena.
-                  
-                  </TextBox>
-                  
-                  <TextBlock Foreground="#fff" FontSize="15" Margin="0,10,0,10">Rating:</TextBlock>
-                  <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
-                    <Image Source="..\media\images\star.png" Height="30" Margin="0,0,15,0"/>
-                    <Image Source="..\media\images\star.png" Height="30" Margin="0,0,15,0"/>
-                    <Image Source="..\media\images\star.png" Height="30" Margin="0,0,15,0"/>
-                    <Image Source="..\media\images\star.png" Height="30" Margin="0,0,15,0"/>
-                    <Image Source="..\media\images\star.png" Height="30" Margin="0,0,0,0"/>
-                  </StackPanel>
-                  
-                  <TextBlock Foreground="#fff" FontSize="15" >Left click on a card to add it to the <LineBreak/>deck, right click to remove it.</TextBlock>
-               </StackPanel>
-            </Border>
-         </Grid>
+         </Border>
          <Border
             Grid.Row="2"
             Margin="0,0,0,0"
-            Background="#1affffff"
-            BorderBrush="#33ffffff"
-            BorderThickness="0,4,0,0">
+           Background="#11ffffff"
+                  BorderBrush="#22ffffff"
+            BorderThickness="0,1,0,0">
             <Grid Margin="30">
                <Grid.ColumnDefinitions>
                   <ColumnDefinition Width="*"/>
-                  <ColumnDefinition Width="Auto"/>                  
+                  <ColumnDefinition Width="Auto"/>
                </Grid.ColumnDefinitions>
                <TextBlock
                   Grid.Column="0"
-                  FontSize="15"
+                  FontSize="20"
                   Foreground="#fff"
                   Text="Return to main menu"/>
-               <StackPanel Orientation="Horizontal" Grid.Column="1">
-                <Border BorderBrush="#aaa" BorderThickness="0,0,1,0" Padding="0,0,10,0" Margin="10,0,0,0">
-                  <TextBlock
-                    FontSize="15"
-                    Foreground="#fff"
-                    Text="New deck"/>                
-                 </Border>
-                <Border BorderBrush="#aaa" BorderThickness="0,0,1,0" Padding="0,0,10,0" Margin="10,0,0,0">
-                  <TextBlock                    
-                    FontSize="15"
-                    Foreground="#fff"
-                    Text="Open deck"/>                
-                </Border>
-                <Border BorderBrush="#aaa" BorderThickness="0,0,1,0" Padding="0,0,10,0" Margin="10,0,0,0">
-                  <TextBlock                  
-                    FontSize="15"
-                    Foreground="#fff"
-                    Text="Save as"/>                
-                </Border>                
-                <Border BorderBrush="#aaa" BorderThickness="0,0,0,0" Padding="0,0,10,0" Margin="10,0,0,0">
-                  <TextBlock                    
-                    FontSize="15"
-                    Foreground="#fff"
-                    Text="Save"/>
-                </Border>
-               
+               <StackPanel Grid.Column="1" Orientation="Horizontal">
+                  <Border
+                     Margin="20,0,0,0"
+                     BorderBrush="#aaa"
+                     BorderThickness="0,0,1,0"
+                     Padding="0,0,20,0">
+                     <TextBlock FontSize="20" Foreground="#fff" Text="New deck"/>
+                  </Border>
+                  <Border
+                     Margin="20,0,0,0"
+                     BorderBrush="#aaa"
+                     BorderThickness="0,0,1,0"
+                     Padding="0,0,20,0">
+                     <TextBlock FontSize="20" Foreground="#fff" Text="Open deck"/>
+                  </Border>
+                  <Border
+                     Margin="20,0,0,0"
+                     BorderBrush="#aaa"
+                     BorderThickness="0,0,1,0"
+                     Padding="0,0,20,0">
+                     <TextBlock FontSize="20" Foreground="#fff" Text="Save as"/>
+                  </Border>
+                  <Border
+                     Margin="20,0,0,0"
+                     BorderBrush="#aaa"
+                     BorderThickness="0,0,0,0"
+                     Padding="0,0,20,0">
+                     <TextBlock FontSize="20" Foreground="#fff" Text="Save"/>
+                  </Border>
                </StackPanel>
-               
             </Grid>
          </Border>
       </Grid>

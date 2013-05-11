@@ -8,7 +8,7 @@
   /// <summary>
   ///     Interaction logic for RatingControl.xaml
   /// </summary>
-  public partial class RatingControl : StackPanel
+  public partial class RatingControl : Grid
   {
     public static readonly DependencyProperty RatingProperty = DependencyProperty.Register(
       "Rating",

@@ -866,6 +866,7 @@
     <Compile Include="Infrastructure\NullTracker.cs" />
     <Compile Include="Infrastructure\Publisher.cs" />
     <Compile Include="UserInterface\CardViewModel.cs" />
+    <Compile Include="UserInterface\NewTournament\ViewModel.cs" />
     <Compile Include="UserInterface\PlayerBox\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>

@@ -1,5 +1,5 @@
-﻿<StackPanel x:Class="Grove.UserInterface.RatingControl" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:grove="clr-namespace:Grove.UserInterface" Orientation="Horizontal" HorizontalAlignment="Left" Cursor="Hand">
-	<StackPanel.Resources>
+﻿<Grid x:Class="Grove.UserInterface.RatingControl" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:grove="clr-namespace:Grove.UserInterface"  Cursor="Hand">
+	<Grid.Resources>
 		<Style TargetType="{x:Type ToggleButton}">
 			<Setter Property="Template">
 				<Setter.Value>
@@ -13,15 +13,21 @@
 					</ControlTemplate>
 				</Setter.Value>
 			</Setter>
-			<Setter Property="Width" Value="50" />
-			<Setter Property="Height" Value="40" />
-			<Setter Property="Margin" Value="0,0,10,0" />
+			<Setter Property="Width" Value="50" />						
 			<Setter Property="FocusVisualStyle" Value="{x:Null}" />
 		</Style>
-	</StackPanel.Resources>
-	<ToggleButton Tag="1" Click="RatingButtonClickEventHandler" />
-	<ToggleButton Tag="2" Click="RatingButtonClickEventHandler" />
-	<ToggleButton Tag="3" Click="RatingButtonClickEventHandler" />
-	<ToggleButton Tag="4" Click="RatingButtonClickEventHandler" />
-	<ToggleButton Tag="5" Click="RatingButtonClickEventHandler" />
-</StackPanel>
+	</Grid.Resources>
+    
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="*"/>        
+    </Grid.ColumnDefinitions>
+	<ToggleButton Grid.Column="0" Tag="1" Click="RatingButtonClickEventHandler" />
+    <ToggleButton Grid.Column="1" Tag="2" Click="RatingButtonClickEventHandler" />
+    <ToggleButton Grid.Column="2" Tag="3" Click="RatingButtonClickEventHandler" />
+    <ToggleButton Grid.Column="3" Tag="4" Click="RatingButtonClickEventHandler" />
+    <ToggleButton Grid.Column="4" Tag="5" Click="RatingButtonClickEventHandler" />
+</Grid>
