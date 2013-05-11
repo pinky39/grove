@@ -1,4 +1,4 @@
-﻿namespace Grove.Tournament
+﻿namespace Grove.Artifical
 {
   using System.Collections.Generic;
   using System.Linq;
@@ -19,13 +19,21 @@
 
     private static readonly int MinSpellCount = DeckCardCount - LandCountRules[0].Count;
     private readonly CardDatabase _cardDatabase;
+    private readonly DeckEvaluator _deckEvaluator;
 
-    public DeckBuilder(CardDatabase cardDatabase)
+    public DeckBuilder(CardDatabase cardDatabase, DeckEvaluator deckEvaluator)
     {
       _cardDatabase = cardDatabase;
+      _deckEvaluator = deckEvaluator;
     }
 
-    public List<List<string>> BuildDecks(List<string> cardNames, CardRatings cardRatings)
+    public List<string> BuildDeck(List<string> cardNames, CardRatings cardRatings)
+    {
+      var candidates = BuildDecks(cardNames, cardRatings);
+      return _deckEvaluator.GetBestDeck(candidates);
+    }
+
+    private List<List<string>> BuildDecks(List<string> cardNames, CardRatings cardRatings)
     {
       var cards = cardNames.Select(x => _cardDatabase.CreateCard(x)).ToList();
       var decks = new List<List<Card>>();

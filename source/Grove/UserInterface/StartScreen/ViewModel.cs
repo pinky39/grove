@@ -16,6 +16,7 @@
     private static readonly Random Rnd = new Random();
     private readonly CardDatabase _cardDatabase;
     private readonly DeckEditor.ViewModel.IFactory _deckEditorScreenFactory;
+    private readonly NewTournament.ViewModel.IFactory _newTournamentFactory;
     private readonly Match _match;
     private readonly SelectDeck.ViewModel.IFactory _selectDeckScreenFactory;
 
@@ -24,6 +25,7 @@
       CardDatabase cardDatabase,
       SelectDeck.ViewModel.IFactory selectDeckScreenFactory,
       DeckEditor.ViewModel.IFactory deckEditorScreenFactory,
+      NewTournament.ViewModel.IFactory newTournamentFactory,
       Match match)
     {
       Shell = shell;
@@ -31,6 +33,7 @@
       _cardDatabase = cardDatabase;
       _selectDeckScreenFactory = selectDeckScreenFactory;
       _deckEditorScreenFactory = deckEditorScreenFactory;
+      _newTournamentFactory = newTournamentFactory;
       _match = match;
     }
 
@@ -60,6 +63,12 @@
     public void Exit()
     {
       Application.Current.Shutdown();
+    }
+
+    public void NewTournament()
+    {
+      var newTournament = _newTournamentFactory.Create(this);      
+      Shell.ChangeScreen(newTournament);
     }
 
     public void Play()

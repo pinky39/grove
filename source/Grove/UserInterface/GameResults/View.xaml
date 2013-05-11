@@ -8,7 +8,7 @@
 				<Setter Property="Margin" Value="0,0,20,0" />
 			</Style>
 		</Border.Resources>
-		<Grid Width="400">
+		<Grid Width="450">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="36" />
 				<RowDefinition Height="Auto" />

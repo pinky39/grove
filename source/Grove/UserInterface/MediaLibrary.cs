@@ -7,6 +7,7 @@
   using System.Windows.Media;
   using System.Windows.Media.Imaging;
   using Gameplay;
+  using Gameplay.Sets;
   using Persistance;
 
   public static class MediaLibrary
@@ -17,7 +18,9 @@
     private const string Decks = @"decks\";
     private const string Sets = @"sets\";
 
-    private static readonly Dictionary<string, ImageSource> ImageCache = new Dictionary<string, ImageSource>();
+    private static readonly Dictionary<string, ImageSource> ImageDatabase = new Dictionary<string, ImageSource>();
+    private static readonly Dictionary<string, MagicSet> SetsDatabase = new Dictionary<string, MagicSet>();
+    public static NameGenerator NameGenerator { get; private set; }
 
 #if DEBUG
     private static readonly string BasePath = Path.GetFullPath(@"..\..\..\..\media\");
@@ -29,10 +32,24 @@
     public static string DecksFolder { get { return Path.Combine(BasePath, Decks); } }
     public static string SetsFolder { get { return Path.Combine(BasePath, Sets); } }
 
-    public static void LoadImages()
+    public static void LoadResources()
     {
       LoadImageFolder(Images);
       LoadImageFolder(Cards);
+      LoadSets();
+
+      NameGenerator = new NameGenerator(Path.Combine(BasePath, "player-names.txt"));
+    }
+
+    private static void LoadSets()
+    {
+      var setsFilenames = Directory.GetFiles(SetsFolder, "*.txt");
+
+      foreach (var filename in setsFilenames)
+      {
+        var name = Path.GetFileNameWithoutExtension(filename);
+        SetsDatabase.Add(name, new MagicSet(filename));
+      }
     }
 
     private static void LoadImageFolder(string path)
@@ -49,11 +66,10 @@
         var uri = new Uri(file);
         var bitmapImage = new BitmapImage(uri);
         bitmapImage.Freeze();
-        ImageCache.Add(file, bitmapImage);
+        ImageDatabase.Add(file, bitmapImage);
       }
     }
-
-
+    
     public static ImageSource GetCardImage(string name)
     {
       return File.Exists(GetImagePath(Cards, name))
@@ -61,6 +77,15 @@
         : GetImage("missing-card-image.jpg");
     }
 
+    public static List<string> GetSetsNames()
+    {
+      return SetsDatabase.Keys.ToList();
+    }
+
+    public static MagicSet GetSet(string name)
+    {
+      return SetsDatabase[name];
+    }
 
     public static ImageSource GetImage(string name, string folder = null)
     {
@@ -71,8 +96,8 @@
 
     public static ImageSource GetImageWithPath(string path)
     {
-      if (ImageCache.ContainsKey(path))
-        return ImageCache[path];
+      if (ImageDatabase.ContainsKey(path))
+        return ImageDatabase[path];
 
       var uri = new Uri(path);
       return new BitmapImage(uri);
@@ -88,7 +113,7 @@
       return Path.Combine(DecksFolder, name + ".dec");
     }
 
-    public static string GetSetPath(string name)
+    private static string GetSetPath(string name)
     {
       return Path.Combine(SetsFolder, name + ".txt");
     }

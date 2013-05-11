@@ -1,11 +1,10 @@
-﻿namespace Grove.Tournament
+﻿namespace Grove.Artifical
 {
   using System;
   using System.Collections.Concurrent;
   using System.Collections.Generic;
   using System.Linq;
   using System.Threading.Tasks;
-  using Artifical;
   using Infrastructure;
 
   public class DeckEvaluator
@@ -58,34 +57,34 @@
         var deck1 = decks[i];
         var deck2 = decks[i + 1];
 
-        //var task = Task.Factory.StartNew(() =>
-        //  {            
-        Console.WriteLine("Deck {0} is playing against Deck {1}...", deck1.Number, deck2.Number);
-        var result = _matchSimulator.Simulate(
-          deck1.Cards,
-          deck2.Cards,
-          maxTurnsPerGame: 25,
-          maxSearchDepth: 12,
-          maxTargetsCount: 2);
+        var task = Task.Factory.StartNew(() =>
+          {
+            Console.WriteLine("Deck {0} is playing against Deck {1}...", deck1.Number, deck2.Number);
+            var result = _matchSimulator.Simulate(
+              deck1.Cards,
+              deck2.Cards,
+              maxTurnsPerGame: 25,
+              maxSearchDepth: 12,
+              maxTargetsCount: 2);
 
-        if (result.Deck1WinCount > result.Deck2WinCount)
-        {
-          Console.WriteLine("Deck {0} wins against Deck {1} ({2}-{3}).", deck1.Number, deck2.Number,
-            result.Deck1WinCount, result.Deck2WinCount);
-          winners.Add(deck1);
-        }
-        else
-        {
-          Console.WriteLine("Deck {0} wins against Deck {1}. ({2}-{3}).", deck2.Number, deck1.Number,
-            result.Deck2WinCount, result.Deck1WinCount);
-          winners.Add(deck2);
-        }
-        //});
+            if (result.Deck1WinCount > result.Deck2WinCount)
+            {
+              Console.WriteLine("Deck {0} wins against Deck {1} ({2}-{3}).", deck1.Number, deck2.Number,
+                result.Deck1WinCount, result.Deck2WinCount);
+              winners.Add(deck1);
+            }
+            else
+            {
+              Console.WriteLine("Deck {0} wins against Deck {1}. ({2}-{3}).", deck2.Number, deck1.Number,
+                result.Deck2WinCount, result.Deck1WinCount);
+              winners.Add(deck2);
+            }
+          });
 
-        //tasks.Add(task);
+        tasks.Add(task);
       }
 
-      //Task.WaitAll(tasks.ToArray());
+      Task.WaitAll(tasks.ToArray());
       return winners.ToList();
     }
 

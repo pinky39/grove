@@ -13,7 +13,6 @@
   using Gameplay.Zones;
   using Grove.Infrastructure;
   using log4net.Config;
-  using Tournament;
   using Xunit;
 
   public abstract class Scenario : IDisposable

@@ -56,7 +56,7 @@
 							<Expander.Header>
 								<StackPanel Orientation="Horizontal">
 									<Image Width="20" Source="{grove:Media 'search.png'}" />
-                                    <TextBlock Foreground="#FFD700" FontSize="20"  Margin="10,0,0,0">Library filter</TextBlock>
+                                    <TextBlock Foreground="#FFD700" FontSize="20"  Margin="10,0,0,0">Library</TextBlock>
 								</StackPanel>
 							</Expander.Header>
 
@@ -66,27 +66,36 @@
 									<TextBlock>Name:</TextBlock>
 									<TextBox Margin="0,5,0,10" Text="{Binding Library.Name, UpdateSourceTrigger=PropertyChanged}" />
 									<TextBlock>Colors:</TextBlock>
-									<StackPanel Margin="0,10,0,10" Orientation="Horizontal">
-										<CheckBox IsChecked="{Binding Library.White}">
-											<Image Width="20" Source="{grove:Media 'w.png'}" />
-										</CheckBox>
+                                    <Grid  Margin="0,10,0,10">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />                                            
+                                        </Grid.ColumnDefinitions>
 
-										<CheckBox IsChecked="{Binding Library.Blue}">
-											<Image Width="20" Source="{grove:Media 'u.png'}" />
-										</CheckBox>
+                                        <CheckBox Grid.Column="0" IsChecked="{Binding Library.White}">
+                                            <Image Width="20" Source="{grove:Media 'w.png'}" />
+                                        </CheckBox>
 
-										<CheckBox IsChecked="{Binding Library.Black}">
-											<Image Width="20" Source="{grove:Media 'b.png'}" />
-										</CheckBox>
+                                        <CheckBox Grid.Column="1" IsChecked="{Binding Library.Blue}">
+                                            <Image Width="20" Source="{grove:Media 'u.png'}" />
+                                        </CheckBox>
 
-										<CheckBox IsChecked="{Binding Library.Red}">
-											<Image Width="20" Source="{grove:Media 'r.png'}" />
-										</CheckBox>
+                                        <CheckBox Grid.Column="2" IsChecked="{Binding Library.Black}">
+                                            <Image Width="20" Source="{grove:Media 'b.png'}" />
+                                        </CheckBox>
 
-										<CheckBox IsChecked="{Binding Library.Green}">
-											<Image Width="20" Source="{grove:Media 'g.png'}" />
-										</CheckBox>
-									</StackPanel>
+                                        <CheckBox Grid.Column="3" IsChecked="{Binding Library.Red}">
+                                            <Image Width="20" Source="{grove:Media 'r.png'}" />
+                                        </CheckBox>
+
+                                        <CheckBox Grid.Column="4" IsChecked="{Binding Library.Green}">
+                                            <Image Width="20" Source="{grove:Media 'g.png'}" />
+                                        </CheckBox>
+
+                                    </Grid>                                    
 									<TextBlock Foreground="#fff">
 										Converted cost:
 									</TextBlock>
@@ -203,10 +212,11 @@
 				</Border>
 				<Border Width="350" Grid.Column="2" Margin="0,0,0,0" VerticalAlignment="Top">
 					<StackPanel>
-						<Border Margin="0,0,0,30" BorderBrush="#444" Background="#000" BorderThickness="1" CornerRadius="8" VerticalAlignment="Top">
+						<Border Margin="0,0,0,40" BorderBrush="#444" Background="#000" BorderThickness="1" CornerRadius="8" VerticalAlignment="Top">
 							<ContentControl Margin="12" Content="{Binding SelectedCard}" Style="{StaticResource Card}" />
 						</Border>
-						
+
+                        <TextBlock Margin="10,0,0,10" Foreground="#fff" FontSize="20">Rating:</TextBlock>
 						<grove:RatingControl Rating="{Binding Deck.Rating, Mode=TwoWay}" Margin="0,0,0,0" />
 						
 					</StackPanel>

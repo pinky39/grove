@@ -10,14 +10,18 @@
     private readonly int _maxSearchDepth;
     private readonly int _maxTargetCount;
 
-    public SearchParameters(int maxSearchDepth, int maxTargetCount)
+    public SearchParameters(int maxSearchDepth, int maxTargetCount, bool enableMultithreading)
     {
+      EnableMultithreading = enableMultithreading;
+
       _maxSearchDepth = maxSearchDepth;
       _maxTargetCount = maxTargetCount;
 
       SearchDepth = _maxSearchDepth;
       TargetCount = _maxTargetCount;
     }
+
+    public bool EnableMultithreading { get; private set; }
 
     public int SearchDepth { get; private set; }
     public int TargetCount { get; private set; }

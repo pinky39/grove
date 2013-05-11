@@ -13,9 +13,7 @@
 
   [Copyable]
   public class Game
-  {
-    private const int MaxSearchDepth = 40;
-    private const int MaxTargetCount = 2;
+  {    
     private DecisionQueue _decisionQueue;
     private DecisionSystem _decisionSystem;
     private Publisher _publisher;
@@ -36,13 +34,14 @@
     public TurnInfo Turn { get; private set; }
     public SearchRunner Ai { get; private set; }
 
-    public static Game New(List<string> humanDeck, List<string> cpuDeck,
+    public static Game New(string yourName, string opponentsName, List<string> humanDeck, List<string> cpuDeck,
       CardDatabase cardDatabase, DecisionSystem decisionSystem)
     {
-      var game = CreateGame(MaxSearchDepth, MaxTargetCount, cardDatabase, decisionSystem);
+      var searchParameters = new SearchParameters(40, 2, enableMultithreading: true);
+      var game = CreateGame(searchParameters, cardDatabase, decisionSystem);
 
-      var player1 = new Player("You", "player1.png", ControllerType.Human, humanDeck);
-      var player2 = new Player("Cpu", "player2.png", ControllerType.Machine, cpuDeck);
+      var player1 = new Player(yourName, "player1.png", ControllerType.Human, humanDeck);
+      var player2 = new Player(opponentsName, "player2.png", ControllerType.Machine, cpuDeck);
       game.Players = new Players(player1, player2);
 
       return game.Initialize();
@@ -62,9 +61,9 @@
       return this;
     }
 
-    private static Game CreateGame(int maxSearchDepth, int maxTargetCount, CardDatabase cardDatabase,
+    private static Game CreateGame(SearchParameters searchParameters, CardDatabase cardDatabase,
       DecisionSystem decisionSystem)
-    {
+    {      
       var game = new Game();
 
       game.ChangeTracker = new ChangeTracker();
@@ -73,8 +72,8 @@
       game.Stack = new Stack();
       game.Turn = new TurnInfo();
       game._wasStopped = new Trackable<bool>();
-      game.Combat = new Combat();
-      game.Ai = new SearchRunner(new SearchParameters(maxSearchDepth, maxTargetCount), game);
+      game.Combat = new Combat();      
+      game.Ai = new SearchRunner(searchParameters, game);
       game._decisionSystem = decisionSystem;
       game._decisionQueue = new DecisionQueue();
       game._stateMachine = new StateMachine(game._decisionQueue);
@@ -107,10 +106,10 @@
     }
 
     public static Game NewSimulation(List<string> deck1, List<string> deck2, int maxSearchDepth, int maxTargetCount,
-      CardDatabase cardDatabase,
-      DecisionSystem decisionSystem)
+      CardDatabase cardDatabase, DecisionSystem decisionSystem)
     {
-      var game = CreateGame(maxSearchDepth, maxTargetCount, cardDatabase, decisionSystem);
+      var searchParameters = new SearchParameters(maxSearchDepth, maxTargetCount, enableMultithreading: false);
+      var game = CreateGame(searchParameters, cardDatabase, decisionSystem);
 
       var player1 = new Player("Player1", "player1.png", ControllerType.Machine, deck1);
       var player2 = new Player("Player2", "player2.png", ControllerType.Machine, deck2);
@@ -175,7 +174,8 @@
     public static Game NewScenario(ControllerType player1Controller, ControllerType player2Controller,
       CardDatabase cardDatabase, DecisionSystem decisionSystem)
     {
-      var game = CreateGame(MaxSearchDepth, MaxTargetCount, cardDatabase, decisionSystem);
+      var searchParameters = new SearchParameters(40, 2, enableMultithreading: true);
+      var game = CreateGame(searchParameters, cardDatabase, decisionSystem);
 
       var player1 = new Player("Player1", "player1.png", player1Controller, CreateDummyDeck());
       var player2 = new Player("Player2", "player2.png", player2Controller, CreateDummyDeck());

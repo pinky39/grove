@@ -21,9 +21,13 @@
 		<StackPanel HorizontalAlignment="Center" Margin="0,280,0,0">
 			<StackPanel>
 				<Image Source="{grove:Media 'logo.png'}" Width="600" />
-				<StackPanel HorizontalAlignment="Right" Margin="0,-30,20,0" Visibility="{Binding Shell.HasLoaded, Converter={x:Static grove:Converters.BooleanToVisibility}}">
-					<Button HorizontalAlignment="Right" x:Name="Play">New game</Button>
-					<Button HorizontalAlignment="Right" x:Name="PlayRandom">Random game</Button>
+                <TextBlock Foreground="#fff" FontSize="40" HorizontalAlignment="Center" Margin="40,-100,0,0" Visibility="{Binding Shell.HasLoaded, Converter={x:Static grove:Converters.BooleanToVisibility}, ConverterParameter=true}">
+                    Loading...
+                </TextBlock>
+                <StackPanel HorizontalAlignment="Right" Margin="0,-100,20,0" Visibility="{Binding Shell.HasLoaded, Converter={x:Static grove:Converters.BooleanToVisibility}}">
+                    <Button HorizontalAlignment="Right" x:Name="NewTournament">New tournament</Button>
+                    <Button HorizontalAlignment="Right" x:Name="Play">Single match</Button>
+					<Button HorizontalAlignment="Right" x:Name="PlayRandom">Random match</Button>
 					<Button HorizontalAlignment="Right" x:Name="DeckEditor">Deck editor</Button>
 					<Button HorizontalAlignment="Right" x:Name="Exit">Quit</Button>
 				</StackPanel>

@@ -85,7 +85,7 @@
       Task.Factory.StartNew(() =>
         {
           cardDatabase.LoadPreviews();
-          MediaLibrary.LoadImages();
+          MediaLibrary.LoadResources();
           HasLoaded = true;
         });
     }

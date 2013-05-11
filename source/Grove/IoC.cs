@@ -19,7 +19,6 @@
   using Gameplay.Decisions;
   using Gameplay.Misc;
   using Infrastructure;
-  using Tournament;
   using UserInterface;
   using UserInterface.Decisions;
   using UserInterface.Permanent;
@@ -110,6 +109,7 @@
           RegisterConfiguration(container);
 
           container.Register(Component(typeof (Match), lifestyle: LifestyleType.Singleton));
+          container.Register(Component(typeof (Tournament), lifestyle: LifestyleType.Singleton));
           container.Register(Component(typeof (CombatMarkers), lifestyle: LifestyleType.Singleton));
           container.Register(Component(typeof (CardSelector)));
         }

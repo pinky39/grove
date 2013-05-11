@@ -5,6 +5,7 @@
   using System.Windows;
   using Decisions;
   using Infrastructure;
+  using UserInterface;
   using UserInterface.GameResults;
   using UserInterface.Shell;
 
@@ -107,7 +108,8 @@
     {
       _backgroundTask = new Task(() =>
         {
-          Game = Game.New(_deck1, _deck2, _cardDatabase, _decisionSystem);
+          Game = Game.New("You", MediaLibrary.NameGenerator.GenerateName(), 
+            _deck1, _deck2, _cardDatabase, _decisionSystem);
 
           var playScreen = _playScreenFactory.Create();
           _shell.ChangeScreen(playScreen);

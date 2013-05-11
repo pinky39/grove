@@ -1,4 +1,4 @@
-﻿namespace Grove.Tournament
+﻿namespace Grove.Gameplay.Sets
 {
   public enum Rarity
   {

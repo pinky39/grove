@@ -45,10 +45,7 @@
                   Text="New Tournament"/>
             </Grid>
          </Border>
-         <Border Grid.Row="1">
-            <Border.Background>
-               <ImageBrush ImageSource="..\media\images\background.jpg"/>
-            </Border.Background>
+         <Border Grid.Row="1">         
             <Grid Width="450" HorizontalAlignment="Left" Margin="100,40,0,40">
                <Grid.RowDefinitions>
                   <RowDefinition Height="Auto"/>
@@ -57,8 +54,8 @@
                <Border
                   Grid.Row="0"
                   Margin="0,0,0,20"
-                  Background="#222"
-                  BorderBrush="#33ffffff"
+                 Background="#11ffffff"
+                  BorderBrush="#22ffffff"
                   BorderThickness="2">
                   <Grid Margin="25">
                      <Grid.RowDefinitions>
@@ -99,8 +96,8 @@
                </Border>
                <Border
                   Grid.Row="1"
-                  Background="#222"
-                  BorderBrush="#33ffffff"
+                  Background="#11ffffff"
+                  BorderBrush="#22ffffff"
                   BorderThickness="2">
                   <Grid Margin="25">
                      <Grid.RowDefinitions>

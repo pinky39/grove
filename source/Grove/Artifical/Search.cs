@@ -119,12 +119,15 @@
     }
 
     private bool IsItFeasibleToCreateNewWorker(ISearchNode node, int moveIndex)
-    {
+    {      
 #if DEBUG
-      return SingleThreadedStrategy(node, moveIndex);
-      //return MultiThreadedStrategy1(node, moveIndex);
+      return SingleThreadedStrategy(node, moveIndex);      
 #else
-      return MultiThreadedStrategy1(node, moveIndex);
+      if (_p.EnableMultithreading) {
+        return MultiThreadedStrategy1(node, moveIndex);
+      }
+                  
+      return SingleThreadedStrategy(node, moveIndex);            
 #endif
     }
 

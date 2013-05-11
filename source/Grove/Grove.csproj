@@ -616,9 +616,13 @@
     <Compile Include="Gameplay\Effects\ChooseToAddCounter.cs" />
     <Compile Include="Gameplay\Modifiers\ChangeToEnchantment.cs" />
     <Compile Include="Gameplay\Modifiers\PlayerCastsCreatureLifetime.cs" />
+    <Compile Include="Gameplay\NameGenerator.cs" />
+    <Compile Include="Gameplay\Tournament.cs" />
+    <Compile Include="Gameplay\TournamentPlayer.cs" />
+    <Compile Include="Gameplay\TournamentState.cs" />
     <Compile Include="Infrastructure\IClosable.cs" />
     <Compile Include="Infrastructure\Log.cs" />
-    <Compile Include="Tournament\CardRatings.cs" />
+    <Compile Include="Artifical\CardRatings.cs" />
     <Compile Include="Gameplay\Characteristics\CardZone.cs" />
     <Compile Include="Gameplay\CastingRules\Aura.cs" />
     <Compile Include="Gameplay\CastingRules\Permanent.cs" />
@@ -633,8 +637,8 @@
     <Compile Include="Gameplay\Decisions\ICardValidator.cs" />
     <Compile Include="Gameplay\Decisions\IChooseDecisionResults.cs" />
     <Compile Include="Artifical\Decisions\SelectStartingPlayer.cs" />
-    <Compile Include="Tournament\DeckBuilder.cs" />
-    <Compile Include="Tournament\DeckEvaluator.cs" />
+    <Compile Include="Artifical\DeckBuilder.cs" />
+    <Compile Include="Artifical\DeckEvaluator.cs" />
     <Compile Include="Gameplay\Effects\ApplyModifiersToPlayers.cs" />
     <Compile Include="Gameplay\Misc\Coin.cs" />
     <Compile Include="Gameplay\Effects\CounterTopSpell.cs" />
@@ -659,7 +663,7 @@
     <Compile Include="Gameplay\Effects\UntapSelectedPermanents.cs" />
     <Compile Include="Artifical\MachinePlayRule.cs" />
     <Compile Include="Gameplay\Misc\GameObject.cs" />
-    <Compile Include="Tournament\MagicSet.cs" />
+    <Compile Include="Gameplay\Sets\MagicSet.cs" />
     <Compile Include="Gameplay\ManaHandling\FixedManaOutput.cs" />
     <Compile Include="Gameplay\ManaHandling\IManaAmount.cs" />
     <Compile Include="Gameplay\ManaHandling\IManaSource.cs" />
@@ -682,7 +686,7 @@
     <Compile Include="Gameplay\Modifiers\ChangeBasicLand.cs" />
     <Compile Include="Gameplay\Modifiers\ModifierParameters.cs" />
     <Compile Include="Gameplay\Modifiers\RemoveStaticAbility.cs" />
-    <Compile Include="Tournament\Rarity.cs" />
+    <Compile Include="Gameplay\Sets\Rarity.cs" />
     <Compile Include="Gameplay\Characteristics\ScoreOverride.cs" />
     <Compile Include="Gameplay\Effects\SpellCounterReason.cs" />
     <Compile Include="Gameplay\Modifiers\IncreaseLandLimit.cs" />
@@ -866,6 +870,9 @@
     <Compile Include="Infrastructure\NullTracker.cs" />
     <Compile Include="Infrastructure\Publisher.cs" />
     <Compile Include="UserInterface\CardViewModel.cs" />
+    <Compile Include="UserInterface\NewTournament\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserInterface\NewTournament\ViewModel.cs" />
     <Compile Include="UserInterface\PlayerBox\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
@@ -1268,6 +1275,10 @@
     <Page Include="UserInterface\CardOrder\View.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserInterface\NewTournament\View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserInterface\PlayerBox\View.xaml">
       <SubType>Designer</SubType>

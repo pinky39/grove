@@ -42,7 +42,7 @@
 				</Setter>
 			</Style>
 		</Grid.Resources>
-		<Expander Width="700" VerticalAlignment="Bottom" FontSize="15" Foreground="#eee">
+		<Expander Width="650" VerticalAlignment="Bottom" FontSize="15" Foreground="#eee">
 			<Expander.Header>
 				<Grid>
 					<Grid.ColumnDefinitions>
