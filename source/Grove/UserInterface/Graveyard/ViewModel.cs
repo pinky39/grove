@@ -7,18 +7,15 @@
   using Gameplay.Zones;
   using Infrastructure;
 
-  public class ViewModel
+  public class ViewModel : ViewModelBase
   {
-    private readonly SelectableCard.ViewModel.IFactory _cardVmFactory;
-
     private readonly BindableCollection<SelectableCard.ViewModel> _cards =
       new BindableCollection<SelectableCard.ViewModel>();
 
-    public ViewModel(Player owner, SelectableCard.ViewModel.IFactory cardVmFactory)
+    public ViewModel(Player owner)
     {
       owner.Graveyard.CardAdded += OnCardAdded;
       owner.Graveyard.CardRemoved += OnCardRemoved;
-      _cardVmFactory = cardVmFactory;
     }
 
     public IEnumerable<SelectableCard.ViewModel> Cards { get { return _cards; } }
@@ -29,14 +26,13 @@
 
       _cards.Remove(viewModel);
       viewModel.Close();
-      _cardVmFactory.Destroy(viewModel);
+      ViewModels.SelectableCard.Destroy(viewModel);
     }
 
     private void OnCardAdded(object sender, ZoneChangedEventArgs e)
     {
-      _cards.Add(_cardVmFactory.Create(e.Card));
+      _cards.Add(ViewModels.SelectableCard.Create(e.Card));
     }
-
 
     public interface IFactory
     {

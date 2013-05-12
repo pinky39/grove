@@ -1,28 +1,17 @@
 ﻿namespace Grove.UserInterface.MatchResults
 {
   using System;
-  using Gameplay;
   using Infrastructure;
 
-  public class ViewModel
+  public class ViewModel : ViewModelBase
   {
-    private readonly Game _game;
-    private readonly Match _match;
-
-
-    public ViewModel(Match match, Game game)
-    {
-      _match = match;
-      _game = game;
-    }
-
     public string OpponentsResult
     {
       get
       {
         return string.Format("{0} won {1}",
-          _game.Players.Player2,
-          GetWinCountText(_match.Player2WinCount));
+          Players.Player2,
+          GetWinCountText(Match.Player2WinCount));
       }
     }
 
@@ -30,7 +19,7 @@
     {
       get
       {
-        return _game.Players.Player2.HasLost
+        return Players.Player2.HasLost
           ? "Congratulations, you won the match!"
           : "Tough luck, you lost the match!";
       }
@@ -42,9 +31,9 @@
     {
       get
       {
-        return _game.Players.Player1.HasLost
-          ? _game.Players.Player2.Avatar
-          : _game.Players.Player1.Avatar;
+        return Players.Player1.HasLost
+          ? Players.Player2.Avatar
+          : Players.Player1.Avatar;
       }
     }
 
@@ -53,8 +42,8 @@
       get
       {
         return string.Format("{0} won {1}",
-          _game.Players.Player1,
-          GetWinCountText(_match.Player1WinCount));
+          Players.Player1,
+          GetWinCountText(Match.Player1WinCount));
       }
     }
 

@@ -1138,6 +1138,7 @@
     <Compile Include="UserInterface\CombatDamage\ViewModel.cs" />
     <Compile Include="UserInterface\TargetSelected.cs" />
     <Compile Include="UserInterface\TargetUnselected.cs" />
+    <Compile Include="UserInterface\ViewModelFactories.cs" />
     <Compile Include="UserInterface\WindowDimensions.cs" />
     <Compile Include="UserInterface\GameResults\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>

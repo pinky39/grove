@@ -5,17 +5,14 @@
   using Gameplay;
   using Infrastructure;
 
-  public class ViewModel
+  public class ViewModel : ViewModelBase
   {
     private readonly List<OrderedCard> _cards;
-    private readonly Game _game;
     private int _currentIndex = 1;
 
-    public ViewModel(IEnumerable<Card> cards, string title, Game game)
+    public ViewModel(IEnumerable<Card> cards, string title)
     {
-      _game = game;
       Title = title;
-
       _cards = cards.Select(x => Bindable.Create<OrderedCard>(x)).ToList();
     }
 
@@ -48,15 +45,7 @@
 
       orderedCard.Order = _currentIndex;
       _currentIndex++;
-    }
-
-    public void ChangePlayersInterest(Card card)
-    {
-      _game.Publish(new PlayersInterestChanged
-        {
-          Visual = card
-        });
-    }
+    }    
 
     public interface IFactory
     {

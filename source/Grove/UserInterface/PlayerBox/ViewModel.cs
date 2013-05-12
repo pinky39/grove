@@ -3,10 +3,9 @@
   using System;
   using System.Threading;
   using Gameplay;
-  using Gameplay.Misc;
   using Infrastructure;
 
-  public class ViewModel : GameObject, IDisposable, IReceive<UiInteractionChanged>
+  public class ViewModel : ViewModelBase, IDisposable, IReceive<UiInteractionChanged>
   {
     private readonly Timer _timer;
 

@@ -6,15 +6,14 @@
   using Gameplay.Decisions.Results;
   using Infrastructure;
 
-  public class ViewModel
+  public class ViewModel : ViewModelBase
   {
     private readonly DamageAssignmentOrder _assignmentOrder;
     private readonly Attacker _attacker;
-    private readonly List<BlockerAssignment> _blockerAssignments;
-    private readonly Game _game;
+    private readonly List<BlockerAssignment> _blockerAssignments;    
     private int _curentRank = 1;
 
-    public ViewModel(Attacker attacker, DamageAssignmentOrder assignmentOrder, Game game)
+    public ViewModel(Attacker attacker, DamageAssignmentOrder assignmentOrder)
     {
       _attacker = attacker;
 
@@ -22,8 +21,7 @@
         attacker.Blockers.Select(
           blocker => Bindable.Create<BlockerAssignment>(blocker)).ToList();
 
-      _assignmentOrder = assignmentOrder;
-      _game = game;
+      _assignmentOrder = assignmentOrder;      
     }
 
     public Card Attacker { get { return _attacker.Card; } }
@@ -48,15 +46,7 @@
       {
         blocker.AssignmentOrder = _curentRank++;
       }
-    }
-
-    public void ChangePlayersInterest(Card card)
-    {
-      _game.Publish(new PlayersInterestChanged
-        {
-          Visual = card
-        });
-    }
+    }   
 
     [Updates("CanAccept")]
     public virtual void Clear()

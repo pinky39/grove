@@ -5,15 +5,9 @@
   using Gameplay.States;
   using Infrastructure;
 
-  public class ViewModel : IReceive<TurnStarted>
+  public class ViewModel : ViewModelBase, IReceive<TurnStarted>
   {
     private readonly List<UserInterface.Step.ViewModel> _steps = new List<UserInterface.Step.ViewModel>();
-
-    public ViewModel(UserInterface.Step.ViewModel.IFactory stepViewModelFactory)
-    {
-      _steps.AddRange(CreateStepViewModels(stepViewModelFactory));
-      TurnNumber = 1;
-    }
 
     public IEnumerable<UserInterface.Step.ViewModel> Steps { get { return _steps; } }
 
@@ -24,21 +18,26 @@
       TurnNumber = (message.TurnCount/2) + 1;
     }
 
-    private static IEnumerable<UserInterface.Step.ViewModel> CreateStepViewModels(
-      UserInterface.Step.ViewModel.IFactory factory)
+    public override void Initialize()
     {
-      yield return factory.Create("Untap", Step.Untap);
-      yield return factory.Create("Upkeep", Step.Upkeep);
-      yield return factory.Create("Draw", Step.Draw);
-      yield return factory.Create("First main", Step.FirstMain);
-      yield return factory.Create("Beg. of combat", Step.BeginningOfCombat);
-      yield return factory.Create("Dec. attackers", Step.DeclareAttackers);
-      yield return factory.Create("Dec. blockers", Step.DeclareBlockers);
-      yield return factory.Create("Combat damage", Step.CombatDamage, Step.FirstStrikeCombatDamage);
-      yield return factory.Create("End of combat", Step.EndOfCombat);
-      yield return factory.Create("Second main", Step.SecondMain);
-      yield return factory.Create("End of turn", Step.EndOfTurn);
-      yield return factory.Create("Clean up", Step.CleanUp);
+      _steps.AddRange(CreateStepViewModels());
+      TurnNumber = 1;
+    }
+
+    private IEnumerable<UserInterface.Step.ViewModel> CreateStepViewModels()
+    {
+      yield return ViewModels.Step.Create("Untap", Step.Untap);
+      yield return ViewModels.Step.Create("Upkeep", Step.Upkeep);
+      yield return ViewModels.Step.Create("Draw", Step.Draw);
+      yield return ViewModels.Step.Create("First main", Step.FirstMain);
+      yield return ViewModels.Step.Create("Beg. of combat", Step.BeginningOfCombat);
+      yield return ViewModels.Step.Create("Dec. attackers", Step.DeclareAttackers);
+      yield return ViewModels.Step.Create("Dec. blockers", Step.DeclareBlockers);
+      yield return ViewModels.Step.Create("Combat damage", Step.CombatDamage, Step.FirstStrikeCombatDamage);
+      yield return ViewModels.Step.Create("End of combat", Step.EndOfCombat);
+      yield return ViewModels.Step.Create("Second main", Step.SecondMain);
+      yield return ViewModels.Step.Create("End of turn", Step.EndOfTurn);
+      yield return ViewModels.Step.Create("Clean up", Step.CleanUp);
     }
   }
 }

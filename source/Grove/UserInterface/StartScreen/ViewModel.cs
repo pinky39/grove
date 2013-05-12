@@ -9,35 +9,10 @@
   using Gameplay;
   using Persistance;
   using SelectDeck;
-  using Shell;
 
-  public class ViewModel : IIsDialogHost
+  public class ViewModel : ViewModelBase, IIsDialogHost
   {
     private static readonly Random Rnd = new Random();
-    private readonly CardDatabase _cardDatabase;
-    private readonly DeckEditor.ViewModel.IFactory _deckEditorScreenFactory;
-    private readonly NewTournament.ViewModel.IFactory _newTournamentFactory;
-    private readonly Match _match;
-    private readonly SelectDeck.ViewModel.IFactory _selectDeckScreenFactory;
-
-    public ViewModel(
-      IShell shell,
-      CardDatabase cardDatabase,
-      SelectDeck.ViewModel.IFactory selectDeckScreenFactory,
-      DeckEditor.ViewModel.IFactory deckEditorScreenFactory,
-      NewTournament.ViewModel.IFactory newTournamentFactory,
-      Match match)
-    {
-      Shell = shell;
-
-      _cardDatabase = cardDatabase;
-      _selectDeckScreenFactory = selectDeckScreenFactory;
-      _deckEditorScreenFactory = deckEditorScreenFactory;
-      _newTournamentFactory = newTournamentFactory;
-      _match = match;
-    }
-
-    public IShell Shell { get; private set; }
 
     public string DatabaseInfo
     {
@@ -45,7 +20,7 @@
       {
         return string.Format("Release {0} ({1} cards)",
           FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion,
-          _cardDatabase.CardCount);
+          CardDatabase.CardCount);
       }
     }
 
@@ -67,7 +42,7 @@
 
     public void NewTournament()
     {
-      var newTournament = _newTournamentFactory.Create(this);      
+      var newTournament = ViewModels.NewTournament.Create(this);
       Shell.ChangeScreen(newTournament);
     }
 
@@ -85,12 +60,12 @@
             {
               if (selectDeck2 == null)
               {
-                selectDeck2 = _selectDeckScreenFactory.Create(new Configuration
+                selectDeck2 = ViewModels.SelectDeck.Create(new Configuration
                   {
                     ScreenTitle = "Select your opponent deck",
                     ForwardText = "Start the game",
                     PreviousScreen = selectDeck1,
-                    Forward = (deck2) => _match.Start(deck1, deck2)
+                    Forward = (deck2) => Match.Start(deck1, deck2)
                   });
               }
 
@@ -98,7 +73,7 @@
             }
         };
 
-      selectDeck1 = _selectDeckScreenFactory.Create(configuration1);
+      selectDeck1 = ViewModels.SelectDeck.Create(configuration1);
       Shell.ChangeScreen(selectDeck1);
     }
 
@@ -108,12 +83,12 @@
       Deck secondDeck;
 
       ChooseRandomDecks(out firstDeck, out secondDeck);
-      _match.Start(firstDeck, secondDeck);
+      Match.Start(firstDeck, secondDeck);
     }
 
     public void DeckEditor()
     {
-      var deckEditorScreen = _deckEditorScreenFactory.Create(this);
+      var deckEditorScreen = ViewModels.DeckEditor.Create(this);
       Shell.ChangeScreen(deckEditorScreen);
     }
 
@@ -125,7 +100,7 @@
         .EnumerateFiles(MediaLibrary.DecksFolder, "*.dec");
 
       var decks = deckFiles
-        .Select(x => reader.Read(x, _cardDatabase))
+        .Select(x => reader.Read(x, CardDatabase))
         .ToList();
 
       var first = decks[Rnd.Next(0, decks.Count)];

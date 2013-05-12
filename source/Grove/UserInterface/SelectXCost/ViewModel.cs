@@ -2,10 +2,8 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Castle.Core;
   using Infrastructure;
 
-  [Transient]
   public class ViewModel
   {
     private readonly List<int> _validXChoices = new List<int>();

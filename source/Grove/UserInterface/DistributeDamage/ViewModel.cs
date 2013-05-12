@@ -2,21 +2,18 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Gameplay;
   using Gameplay.Targeting;
   using Infrastructure;
 
-  public class ViewModel
+  public class ViewModel : ViewModelBase
   {
     private readonly int _amount;
-    private readonly Game _game;
     private readonly List<TargetWithValue> _targets = new List<TargetWithValue>();
     private int _toBeAssigned;
 
-    public ViewModel(IEnumerable<ITarget> targets, int amount, Game game)
+    public ViewModel(IEnumerable<ITarget> targets, int amount)
     {
       _amount = amount;
-      _game = game;
       _toBeAssigned = amount;
 
       foreach (var target in targets)
@@ -54,14 +51,6 @@
     public void Accept()
     {
       this.Close();
-    }
-
-    public void ChangePlayersInterest(Card card)
-    {
-      _game.Publish(new PlayersInterestChanged
-        {
-          Visual = card
-        });
     }
 
     public interface IFactory

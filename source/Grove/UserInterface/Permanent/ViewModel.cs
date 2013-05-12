@@ -208,7 +208,7 @@
       if (playableActivators.Count == 1)
         return playableActivators[0];
 
-      var dialog = SelectAbilityDialog.Create(playableActivators.Select(x => x.Prerequisites.Description));
+      var dialog = ViewModels.SelectAbility.Create(playableActivators.Select(x => x.Prerequisites.Description));
       Shell.ShowModalDialog(dialog, DialogType.Large, InteractionState.Disabled);
 
       if (dialog.WasCanceled)
@@ -227,7 +227,7 @@
           X = x
         };
 
-      var dialog = SelectTargetDialog.Create(selectTargetParameters);
+      var dialog = ViewModels.SelectTarget.Create(selectTargetParameters);
       Shell.ShowModalDialog(dialog, DialogType.Small, InteractionState.SelectTarget);
       return dialog;
     }
@@ -272,7 +272,7 @@
     {
       if (playableActivator.Prerequisites.HasXInCost)
       {
-        var dialog = SelectXCostDialog.Create(playableActivator.Prerequisites.MaxX.Value);
+        var dialog = ViewModels.SelectXCost.Create(playableActivator.Prerequisites.MaxX.Value);
         Shell.ShowModalDialog(dialog, DialogType.Small, InteractionState.Disabled);
 
         if (dialog.WasCanceled)

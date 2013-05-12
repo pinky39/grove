@@ -6,7 +6,7 @@
   using Gameplay.Zones;
   using Infrastructure;
 
-  public class ViewModel : IReceive<AttachmentAttached>, IReceive<AttachmentDetached>
+  public class ViewModel : ViewModelBase, IReceive<AttachmentAttached>, IReceive<AttachmentDetached>
   {
     private readonly Player _owner;
 
@@ -33,22 +33,17 @@
           ),
       };
 
-    private readonly Permanent.ViewModel.IFactory _viewModelFactory;
 
-    public ViewModel(Permanent.ViewModel.IFactory viewModelFactory, Player owner, Game game)
+    public ViewModel(Player owner)
     {
-      _viewModelFactory = viewModelFactory;
       _owner = owner;
-
       _owner.Battlefield.CardAdded += OnCardAdded;
       _owner.Battlefield.CardRemoved += OnCardRemoved;
-
-      SwitchRows = owner == game.Players.Player2;
     }
 
     public Row Row1 { get { return SwitchRows ? _rows[1] : _rows[0]; } }
     public Row Row2 { get { return SwitchRows ? _rows[0] : _rows[1]; } }
-    public bool SwitchRows { get; private set; }
+    public bool SwitchRows { get { return _owner == Players.Player2; } }
 
     public void Receive(AttachmentAttached message)
     {
@@ -70,12 +65,12 @@
     {
       var viewModel = Remove(e.Card);
       viewModel.Close();
-      _viewModelFactory.Destroy(viewModel);
+      ViewModels.Permanent.Destroy(viewModel);
     }
 
     private void OnCardAdded(object sender, ZoneChangedEventArgs e)
     {
-      var viewModel = _viewModelFactory.Create(e.Card);
+      var viewModel = ViewModels.Permanent.Create(e.Card);
       Add(viewModel);
     }
 
@@ -140,8 +135,7 @@
 
     public interface IFactory
     {
-      ViewModel Create(Player owner);
-      void Release(ViewModel viewmodel);
+      ViewModel Create(Player owner);      
     }
   }
 }

@@ -4,18 +4,16 @@
   using Gameplay;
   using Shell;
 
-  public class ViewModel : IIsDialogHost
+  public class ViewModel : ViewModelBase, IIsDialogHost
   {
-    private readonly IIsDialogHost _previousScreen;
-    private readonly IShell _shell;
+    private readonly IIsDialogHost _previousScreen;    
     private readonly Tournament _tournament;
     private readonly List<string> _sets;
     private readonly int[] _tournamentSize = new[] {25, 50, 75, 100, 125};
 
-    public ViewModel(IIsDialogHost previousScreen, IShell shell, Tournament tournament)
+    public ViewModel(IIsDialogHost previousScreen, Tournament tournament)
     {
-      _previousScreen = previousScreen;
-      _shell = shell;
+      _previousScreen = previousScreen;      
       _tournament = tournament;
       _sets = MediaLibrary.GetSetsNames();
 
@@ -59,7 +57,7 @@
 
     public void Back()
     {
-      _shell.ChangeScreen(_previousScreen);
+      Shell.ChangeScreen(_previousScreen);
     }
 
     public interface IFactory

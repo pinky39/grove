@@ -6,17 +6,15 @@
   using Gameplay.Decisions.Results;
   using Infrastructure;
 
-  public class ViewModel
+  public class ViewModel : ViewModelBase
   {
     private readonly BlockerDamageAssignments _assignments;
     private readonly Attacker _attacker;
     private readonly DamageDistribution _damageDistribution;
-    private readonly Game _game;
     private int _damageToAssign;
 
-    public ViewModel(Game game, Attacker attacker, DamageDistribution damageDistribution)
+    public ViewModel(Attacker attacker, DamageDistribution damageDistribution)
     {
-      _game = game;
       _damageDistribution = damageDistribution;
       _assignments = new BlockerDamageAssignments(attacker);
       _attacker = attacker;
@@ -58,15 +56,7 @@
         blocker.AssignedDamage++;
       }
     }
-
-    public void ChangePlayersInterest(Card card)
-    {
-      _game.Publish(new PlayersInterestChanged
-        {
-          Visual = card
-        });
-    }
-
+    
     [Updates("CanAccept", "Title")]
     public virtual void Clear()
     {

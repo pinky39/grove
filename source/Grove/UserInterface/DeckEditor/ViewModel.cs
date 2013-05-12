@@ -6,47 +6,21 @@
   using Gameplay;
   using Infrastructure;
   using SelectDeck;
-  using Shell;
 
-  public class ViewModel : IIsDialogHost
+  public class ViewModel : ViewModelBase, IIsDialogHost
   {
-    private readonly UserInterface.Deck.ViewModel.IFactory _deckVmFactory;
+    private readonly CardDatabase _cardDatabase;
     private readonly List<object> _dialogs = new List<object>();
     private readonly IIsDialogHost _previousScreen;
-    private readonly SaveDeckAs.ViewModel.IFactory _saveDeckAsFactory;
-    private readonly SelectDeck.ViewModel.IFactory _selectDeckScreenFactory;
-    private readonly IShell _shell;
 
-    private UserInterface.Deck.ViewModel _deck;
-
-    public ViewModel(
-      IIsDialogHost previousScreen, IShell shell,
-      SelectDeck.ViewModel.IFactory selectDeckScreenFactory,
-      SaveDeckAs.ViewModel.IFactory saveDeckAsFactory,
-      UserInterface.Deck.ViewModel.IFactory deckVmFactory,
-      CardDatabase cardDatabase)
+    public ViewModel(IIsDialogHost previousScreen, CardDatabase cardDatabase)
     {
       _previousScreen = previousScreen;
-      _shell = shell;
-      _selectDeckScreenFactory = selectDeckScreenFactory;
-      _saveDeckAsFactory = saveDeckAsFactory;
-      _deckVmFactory = deckVmFactory;
-
+      _cardDatabase = cardDatabase;
       Library = Bindable.Create<Library>(cardDatabase);
-      Deck = deckVmFactory.Create(MediaLibrary.GetRandomDeck(cardDatabase));
-      SelectedCard = Deck.SelectedCard ?? cardDatabase.Random();
     }
 
-    public virtual UserInterface.Deck.ViewModel Deck
-    {
-      get { return _deck; }
-      protected set
-      {
-        _deck = value;
-        _deck.Property(x => x.SelectedCard).Changes(this).Property<ViewModel, Card>(x => x.SelectedCard);
-      }
-    }
-
+    public virtual UserInterface.Deck.ViewModel Deck { get; set; }
     public Library Library { get; private set; }
     public object Dialog { get { return _dialogs.FirstOrDefault(); } }
     public virtual Card SelectedCard { get; protected set; }
@@ -76,6 +50,12 @@
       }
     }
 
+    public override void Initialize()
+    {
+      Deck = ViewModels.Deck.Create(MediaLibrary.GetRandomDeck(_cardDatabase));
+      SelectedCard = Deck.SelectedCard ?? _cardDatabase.Random();
+    }
+
     public void ChangeSelectedCard(Card card)
     {
       SelectedCard = card;
@@ -93,13 +73,13 @@
           PreviousScreen = this,
           Forward = (deck) =>
             {
-              Deck = _deckVmFactory.Create(deck);
-              _shell.ChangeScreen(this);
+              Deck = ViewModels.Deck.Create(deck);
+              Shell.ChangeScreen(this);
             }
         };
 
-      var selectDeck = _selectDeckScreenFactory.Create(configuration);
-      _shell.ChangeScreen(selectDeck);
+      var selectDeck = ViewModels.SelectDeck.Create(configuration);
+      Shell.ChangeScreen(selectDeck);
     }
 
     public void New()
@@ -107,7 +87,7 @@
       if (!SaveChanges())
         return;
 
-      Deck = _deckVmFactory.Create();
+      Deck = ViewModels.Deck.Create();
     }
 
     public void Save()
@@ -143,8 +123,8 @@
 
     private string GetDeckName()
     {
-      var dialog = _saveDeckAsFactory.Create();
-      _shell.ShowModalDialog(dialog);
+      var dialog = ViewModels.SaveDeckAs.Create();
+      Shell.ShowModalDialog(dialog);
 
       if (dialog.WasCanceled)
         return null;
@@ -156,7 +136,7 @@
     {
       if (SaveChanges())
       {
-        _shell.ChangeScreen(_previousScreen);
+        Shell.ChangeScreen(_previousScreen);
       }
     }
 
@@ -164,7 +144,7 @@
     {
       if (!Deck.IsSaved)
       {
-        var result = _shell.ShowMessageBox("Do you want to save your changes?", MessageBoxButton.YesNoCancel,
+        var result = Shell.ShowMessageBox("Do you want to save your changes?", MessageBoxButton.YesNoCancel,
           DialogType.Large,
           "Deck was modified");
 

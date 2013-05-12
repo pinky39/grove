@@ -4,38 +4,27 @@
   using System.IO;
   using System.Linq;
   using Castle.Core;
-  using Gameplay;
   using Infrastructure;
   using Persistance;
-  using Shell;
 
-  public class ViewModel : IIsDialogHost
+  public class ViewModel : ViewModelBase, IIsDialogHost
   {
-    private readonly CardDatabase _cardDatabase;
     private readonly Configuration _configuration;
-    private readonly UserInterface.Deck.ViewModel.IFactory _deckVmFactory;
-    private readonly List<UserInterface.Deck.ViewModel> _decks = new List<UserInterface.Deck.ViewModel>();
-    private readonly IShell _shell;
+    private readonly List<Deck.ViewModel> _decks = new List<Deck.ViewModel>();
 
-    public ViewModel(CardDatabase cardDatabase, IShell shell, Configuration configuration,
-      UserInterface.Deck.ViewModel.IFactory deckVmFactory)
+    public ViewModel(Configuration configuration)
     {
-      _cardDatabase = cardDatabase;
-      _shell = shell;
       _configuration = configuration;
-      _deckVmFactory = deckVmFactory;
-
-      LoadDecks();
     }
 
     [DoNotWire]
-    public virtual UserInterface.Deck.ViewModel Selected { get; set; }
+    public virtual Deck.ViewModel Selected { get; set; }
 
     public string NextCaption { get { return _configuration.ForwardText; } }
 
     public string Title { get { return _configuration.ScreenTitle; } }
 
-    public List<UserInterface.Deck.ViewModel> Decks { get { return _decks; } }
+    public List<Deck.ViewModel> Decks { get { return _decks; } }
 
     [Updates("CanStart")]
     public virtual bool IsStarting { get; protected set; }
@@ -51,6 +40,11 @@
 
     public void CloseAllDialogs() {}
 
+    public override void Initialize()
+    {
+      LoadDecks();
+    }
+
     private void LoadDecks()
     {
       var deckFiles = Directory.EnumerateFiles(MediaLibrary.DecksFolder, "*.dec");
@@ -58,8 +52,8 @@
 
       foreach (var fileName in deckFiles)
       {
-        _decks.Add(_deckVmFactory.Create(
-          reader.Read(fileName, _cardDatabase),
+        _decks.Add(ViewModels.Deck.Create(
+          reader.Read(fileName, CardDatabase),
           isReadOnly: true));
       }
 
@@ -78,7 +72,7 @@
 
     public void Back()
     {
-      _shell.ChangeScreen(_configuration.PreviousScreen);
+      Shell.ChangeScreen(_configuration.PreviousScreen);
     }
 
     public interface IFactory

@@ -108,10 +108,11 @@
           RegisterShell(container);
           RegisterConfiguration(container);
 
-          container.Register(Component(typeof (Match), lifestyle: LifestyleType.Singleton));
+          container.Register(Component(typeof (ViewModelFactories), lifestyle: LifestyleType.Singleton));
+          container.Register(Component(typeof (Match), lifestyle: LifestyleType.Singleton));          
           container.Register(Component(typeof (Tournament), lifestyle: LifestyleType.Singleton));
           container.Register(Component(typeof (CombatMarkers), lifestyle: LifestyleType.Singleton));
-          container.Register(Component(typeof (CardSelector)));
+          container.Register(Component(typeof (CardSelector)));          
         }
 
         RegisterCardsSources(container);
@@ -199,17 +200,24 @@
             typeof (NotifyPropertyChangedInterceptor),
             typeof (ClosedInterceptor));
 
-        if (registration.Implementation.Implements<IReceive>())
-        {
+        
           registration.OnCreate((kernel, instance) =>
             {
-              var game = kernel.Resolve<Match>().Game;
-              game.Subscribe(instance);
+              if (registration.Implementation.Implements<IReceive>())
+              {
+                var game = kernel.Resolve<Match>().Game;
+                game.Subscribe(instance);
 
-              var disposed = (IClosable) instance;
-              disposed.Closed += delegate { game.Unsubscribe(instance); };
-            });
-        }
+                var disposed = (IClosable) instance;
+                disposed.Closed += delegate { game.Unsubscribe(instance); };
+              }
+
+              var initializable = instance as ViewModelBase;
+              if (initializable != null)
+              {
+                initializable.Initialize();
+              }
+            });                
       }
 
       private void RegisterShell(IWindsorContainer container)

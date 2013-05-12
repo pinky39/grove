@@ -3,35 +3,18 @@
   using System.Collections.Generic;
   using System.Linq;
   using System.Threading;
-  using Gameplay;
   using Gameplay.Messages;
   using Gameplay.Recording;
   using Infrastructure;
 
-  public class ViewModel : IIsDialogHost, IReceive<PlayerHasCastASpell>,
+  public class ViewModel : ViewModelBase, IIsDialogHost, IReceive<PlayerHasCastASpell>,
     IReceive<PlayerHasActivatedAbility>,
     IReceive<SearchStarted>, IReceive<SearchFinished>, IReceive<DamageHasBeenDealt>,
     IReceive<AssignedCombatDamageWasDealt>, IReceive<CardWasRevealed>, IReceive<PlayerHasFlippedACoin>
   {
     private readonly List<object> _largeDialogs = new List<object>();
-    private readonly QuitGame.ViewModel.IFactory _quitGameFactory;
-    private readonly ScenarioGenerator _scenarioGenerator;
-
     private readonly List<object> _smallDialogs = new List<object>();
-
-    public ViewModel(Game game,
-      Battlefield.ViewModel.IFactory battlefieldFactory,
-      PlayerBox.ViewModel.IFactory playerBoxFactory,
-      QuitGame.ViewModel.IFactory quitGameFactory)
-    {
-      _scenarioGenerator = new ScenarioGenerator(game);
-      _quitGameFactory = quitGameFactory;
-
-      OpponentsBattlefield = battlefieldFactory.Create(game.Players.Computer);
-      YourBattlefield = battlefieldFactory.Create(game.Players.Human);
-      You = playerBoxFactory.Create(game.Players.Human);
-      Opponent = playerBoxFactory.Create(game.Players.Computer);
-    }
+    private ScenarioGenerator _scenarioGenerator;
 
     public object LargeDialog { get { return _largeDialogs.FirstOrDefault(); } }
     public MagnifiedCard.ViewModel MagnifiedCard { get; set; }
@@ -41,8 +24,8 @@
     public PlayerBox.ViewModel Opponent { get; private set; }
     public virtual string SearchInProgressMessage { get; set; }
     public object SmallDialog { get { return _smallDialogs.FirstOrDefault(); } }
-    public Stack.ViewModel Stack { get; set; }
-    public Turn.ViewModel Turn { get; set; }
+    public Stack.ViewModel StackVm { get; set; }
+    public Turn.ViewModel TurnVm { get; set; }
     public MessageLog.ViewModel MessageLog { get; set; }
     public Battlefield.ViewModel YourBattlefield { get; private set; }
     public Zones.ViewModel Zones { get; set; }
@@ -140,6 +123,15 @@
         message.SearchDepthLimit, message.TargetCountLimit);
     }
 
+    public override void Initialize()
+    {
+      _scenarioGenerator = new ScenarioGenerator(Game);
+      OpponentsBattlefield = ViewModels.Battlefield.Create(Players.Computer);
+      YourBattlefield = ViewModels.Battlefield.Create(Players.Human);
+      You = ViewModels.PlayerBox.Create(Players.Human);
+      Opponent = ViewModels.PlayerBox.Create(Players.Computer);
+    }
+
     public void GenerateTestScenario()
     {
       _scenarioGenerator.WriteScenario();
@@ -147,7 +139,7 @@
 
     public void QuitGame()
     {
-      var dialog = _quitGameFactory.Create();
+      var dialog = ViewModels.QuitGame.Create();
       ((IClosable) dialog).Closed += delegate { QuitGameDialog = null; };
 
       QuitGameDialog = dialog;

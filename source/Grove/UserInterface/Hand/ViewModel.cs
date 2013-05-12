@@ -7,15 +7,12 @@
   using Gameplay.Zones;
   using Infrastructure;
 
-  public class ViewModel
+  public class ViewModel : ViewModelBase
   {
     private readonly BindableCollection<Spell.ViewModel> _cards = new BindableCollection<Spell.ViewModel>();
-    private readonly Spell.ViewModel.IFactory _spellVmFactory;
 
-    public ViewModel(Spell.ViewModel.IFactory spellVmFactory, Player owner)
+    public ViewModel(Player owner)
     {
-      _spellVmFactory = spellVmFactory;
-
       owner.Hand.CardAdded += OnCardAdded;
       owner.Hand.CardRemoved += OnCardRemoved;
     }
@@ -29,12 +26,12 @@
       _cards.Remove(viewModel);
 
       viewModel.Close();
-      _spellVmFactory.Destroy(viewModel);
+      ViewModels.Spell.Destroy(viewModel);
     }
 
     private void OnCardAdded(object sender, ZoneChangedEventArgs e)
     {
-      _cards.Add(_spellVmFactory.Create(e.Card));
+      _cards.Add(ViewModels.Spell.Create(e.Card));
     }
 
     public interface IFactory

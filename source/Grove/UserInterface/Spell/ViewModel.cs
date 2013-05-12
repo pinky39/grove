@@ -108,7 +108,7 @@
       if (activations.Count == 1)
         return activations[0];
 
-      var dialog = SelectAbilityDialog.Create(activations.Select(x => x.Prerequisites.Description));
+      var dialog = ViewModels.SelectAbility.Create(activations.Select(x => x.Prerequisites.Description));
       Shell.ShowModalDialog(dialog, DialogType.Large, InteractionState.Disabled);
 
       if (dialog.WasCanceled)
@@ -192,7 +192,7 @@
         return new List<int> {damage};
       }
 
-      var dialog = DistributeDamageDialog.Create(targets, damage);
+      var dialog = ViewModels.DistributeDamage.Create(targets, damage);
       Shell.ShowModalDialog(dialog, DialogType.Large, InteractionState.Disabled);
 
       return dialog.Distribution;
@@ -208,7 +208,7 @@
           X = x
         };
 
-      var dialog = SelectTargetDialog.Create(selectTargetParameters);
+      var dialog = ViewModels.SelectTarget.Create(selectTargetParameters);
 
       Shell.ShowModalDialog(dialog, DialogType.Small, InteractionState.SelectTarget);
       return dialog;
@@ -218,7 +218,7 @@
     {
       if (prerequisites.HasXInCost)
       {
-        var dialog = SelectXCostDialog.Create(prerequisites.MaxX.Value);
+        var dialog = ViewModels.SelectXCost.Create(prerequisites.MaxX.Value);
         Shell.ShowModalDialog(dialog, DialogType.Small, InteractionState.Disabled);
 
         if (dialog.WasCanceled)

@@ -2,17 +2,13 @@
 {
   using System;
   using System.Threading;
-  using Gameplay;
 
-  public class ViewModel : IDisposable
+  public class ViewModel : ViewModelBase, IDisposable
   {
-    private readonly Player _human;
     private readonly Timer _timer;
 
-    public ViewModel(Game game)
+    public ViewModel()
     {
-      _human = game.Players.Human;
-
       _timer = new Timer(delegate { Update(); }, null,
         TimeSpan.FromMilliseconds(20),
         TimeSpan.FromMilliseconds(20));
@@ -33,7 +29,7 @@
 
     private void Update()
     {
-      var pool = _human.ManaPool;
+      var pool = Players.Human.ManaPool;
 
       Update(() => WhiteCount != pool.White, () => WhiteCount = pool.White);
       Update(() => BlueCount != pool.Blue, () => BlueCount = pool.Blue);
