@@ -54,6 +54,8 @@
     {
       Deck = ViewModels.Deck.Create(MediaLibrary.GetRandomDeck(_cardDatabase));
       SelectedCard = Deck.SelectedCard ?? _cardDatabase.Random();
+
+      Deck.Property(x => x.SelectedCard).Changes(this).Property(x => x.SelectedCard);
     }
 
     public void ChangeSelectedCard(Card card)
