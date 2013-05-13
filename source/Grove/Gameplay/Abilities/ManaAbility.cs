@@ -38,8 +38,9 @@
     }
 
     IEnumerable<ManaUnit> IManaSource.PayActivationCost()
-    {
-      Pay();
+    {      
+      // todo fix this for sacrifice costs
+      Pay();      
       return _units;
     }
 

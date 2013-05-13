@@ -50,7 +50,7 @@
 
         while (true)
         {
-          amount = amount.Add(amount);
+          amount = amount.Add(_amount);
 
           if (!Card.Controller.HasMana(amount, _manaUsage))
           {

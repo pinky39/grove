@@ -67,9 +67,9 @@
       }
     }
 
-    public void RemoveCard(string name)
+    public bool RemoveCard(string name)
     {
-      _cardNames.Remove(name);
+      return _cardNames.Remove(name);
     }
   }
 }

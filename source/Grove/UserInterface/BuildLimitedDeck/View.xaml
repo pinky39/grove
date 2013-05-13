@@ -1,7 +1,10 @@
 ﻿<UserControl x:Class="Grove.UserInterface.BuildLimitedDeck.View"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:grove="clr-namespace:Grove.UserInterface" xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro" xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity">
+             xmlns:grove="clr-namespace:Grove.UserInterface" 
+             xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             Background="{StaticResource StartScreenBackground}">
   <UserControl.Resources>
 		<Style BasedOn="{StaticResource ScrollBar}" TargetType="ScrollBar"></Style>
 		<Style BasedOn="{StaticResource LinkButton}" TargetType="Button"></Style>
@@ -24,8 +27,9 @@
 					<Image Grid.Column="0" HorizontalAlignment="Left" Height="50" Source="{grove:Media 'icon.png'}"></Image>
 					<TextBlock Grid.Column="1" VerticalAlignment="Center" Margin="30,0,0,0" FontSize="40" Foreground="#fff" Text="Build your deck" />
 
-					<StackPanel Grid.Column="3">						
-						<TextBlock FontSize="20" Foreground="#fff" TextAlignment="Right" Text="{Binding Deck.CardCount, StringFormat=' {0} cards'}" />
+					<StackPanel Grid.Column="3">
+                        <TextBlock FontSize="40" Foreground="#FFD700" Text="Limited deck" />
+                        <TextBlock FontSize="20" Foreground="#fff" TextAlignment="Right" Text="{Binding Deck.CardCount, StringFormat=' {0} cards'}" />
 					</StackPanel>
 
 				</Grid>
@@ -93,12 +97,12 @@
 												<ColumnDefinition Width="Auto" />
 											</Grid.ColumnDefinitions>
 
-                                            <TextBlock Grid.Column="0" FontSize="15" Foreground="#fff" Text="{Binding Count, StringFormat=' {0}x' }"  />
+                                            <TextBlock Grid.Column="0" FontSize="15" Foreground="#FFD700" Text="{Binding Count, StringFormat=' {0}x' }"  />
                                             <TextBlock Grid.Column="1" Margin="5,0,0,0" FontSize="15" Foreground="#fff" Text="{Binding Card.Name}" />
 
-											<Image Source="{grove:Media 'x.png'}" Height="20" Grid.Column="2" Margin="0,3,2,0" Visibility="{Binding Path=Card.HasXInCost, Converter={x:Static grove:Converters.BooleanToVisibility}}" />
+											<Image Source="{grove:Media 'x.png'}" Height="20" Grid.Column="3" Margin="0,3,2,0" Visibility="{Binding Path=Card.HasXInCost, Converter={x:Static grove:Converters.BooleanToVisibility}}" />
 
-											<ItemsControl Grid.Column="3" Margin="0,3,10,0" ItemsSource="{Binding Path=Card.ManaCost, Converter={x:Static grove:Converters.ManaCostToManaSymbolImages}}">
+											<ItemsControl Grid.Column="4" Margin="0,3,10,0" ItemsSource="{Binding Path=Card.ManaCost, Converter={x:Static grove:Converters.ManaCostToManaSymbolImages}}">
 
 												<ItemsControl.ItemsPanel>
 													<ItemsPanelTemplate>
@@ -116,17 +120,17 @@
 										<i:Interaction.Triggers>
 											<i:EventTrigger EventName="MouseEnter">
 												<cal:ActionMessage MethodName="ChangeSelectedCard">
-													<cal:Parameter Value="{Binding }" />
+													<cal:Parameter Value="{Binding Card }" />
 												</cal:ActionMessage>
 											</i:EventTrigger>
 											<i:EventTrigger EventName="MouseLeftButtonDown">
 												<cal:ActionMessage MethodName="AddCard">
-													<cal:Parameter Value="{Binding }" />
+													<cal:Parameter Value="{Binding Card }" />
 												</cal:ActionMessage>
 											</i:EventTrigger>
 											<i:EventTrigger EventName="MouseRightButtonDown">
 												<cal:ActionMessage MethodName="RemoveCard">
-													<cal:Parameter Value="{Binding }" />
+													<cal:Parameter Value="{Binding Card }" />
 												</cal:ActionMessage>
 											</i:EventTrigger>
 										</i:Interaction.Triggers>

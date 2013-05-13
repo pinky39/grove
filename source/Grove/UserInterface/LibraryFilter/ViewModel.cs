@@ -18,7 +18,7 @@
     public ViewModel(IEnumerable<string> cardNames, Func<Card, object> transformResult)
     {
       _transformResult = transformResult ?? (x => x);
-      _cardsNames.AddRange(cardNames);
+      _cardsNames.AddRange(cardNames.OrderBy(x => x));
 
       White = Blue = Black = Red = Green = true;
       Costs = Enumerable.Range(0, 17).ToArray();

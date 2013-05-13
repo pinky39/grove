@@ -40,12 +40,21 @@
 
       foreach (var fileName in deckFiles)
       {
-        _decks.Add(ViewModels.Deck.Create(
-          DeckIo.Read(fileName),
-          isReadOnly: true));
+        var deck = CreateReadonlyDeck(fileName);
+        _decks.Add(deck);
       }
 
       Selected = _decks.FirstOrDefault();
+    }
+
+    private Deck.ViewModel CreateReadonlyDeck(string fileName)
+    {
+      var deck = ViewModels.Deck.Create(
+        DeckIo.Read(fileName));
+
+      deck.OnAdd = delegate { return false; };
+      deck.OnRemove = delegate { return false; };
+      return deck;
     }
 
 

@@ -35,28 +35,33 @@
     }
 
     public void AddCard(Card card)
-    {
-      var cardsLeft = _availability[card];
-
-      if (cardsLeft.Count > 0)
-      {
-        Deck.AddCard(card.Name);
-        cardsLeft.Count--;
-      }
+    {      
+      Deck.AddCard(card.Name);      
     }
 
     public void RemoveCard(Card card)
     {
-      var cardsLeft = _availability[card];
-      Deck.RemoveCard(card.Name);
-      cardsLeft.Count++;
+      Deck.RemoveCard(card.Name);      
     }
 
     public void StartTournament() {}
 
+    private bool OnAdd(string cardName)
+    {
+      var cardsLeft = _availability[CardsInfo[cardName]];
+
+      if (cardsLeft.Count == 0)
+        return false;
+
+      cardsLeft.Count--;
+      return true;
+    }
+
     public override void Initialize()
     {
       Deck = ViewModels.Deck.Create();
+      Deck.OnAdd = OnAdd;
+      Deck.OnRemove = OnRemove;
 
       _availability = _library.GroupBy(x => x)
         .Select(x =>
@@ -73,6 +78,18 @@
       LibraryFilter = ViewModels.LibraryFilter.Create(
         _library.Distinct(),
         card => _availability[card]);
+    }
+
+    private bool OnRemove(string cardName)
+    {
+      var cardsLeft = _availability[CardsInfo[cardName]];
+      cardsLeft.Count++;
+      return true;
+    }
+
+    public interface IFactory
+    {
+      ViewModel Create(IEnumerable<string> library);
     }
   }
 }

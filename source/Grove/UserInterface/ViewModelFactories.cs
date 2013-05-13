@@ -23,5 +23,6 @@
     public Graveyard.ViewModel.IFactory Graveyard { get; set; }
     public Library.ViewModel.IFactory Library { get; set; }
     public LibraryFilter.ViewModel.IFactory LibraryFilter { get; set; }
+    public BuildLimitedDeck.ViewModel.IFactory BuildLimitedDeck { get; set; }
   }
 }

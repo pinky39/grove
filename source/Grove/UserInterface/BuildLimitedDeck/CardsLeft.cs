@@ -1,6 +1,6 @@
 ﻿namespace Grove.UserInterface.BuildLimitedDeck
 {
-  using Grove.Gameplay;
+  using Gameplay;
 
   public class CardsLeft
   {

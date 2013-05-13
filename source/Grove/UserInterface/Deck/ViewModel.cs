@@ -1,5 +1,6 @@
 ﻿namespace Grove.UserInterface.Deck
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Gameplay;
@@ -8,24 +9,23 @@
 
   public class ViewModel : ViewModelBase
   {
-    private const string NewDeckName = "new deck";
-    private readonly bool _isReadOnly;
+    private const string NewDeckName = "new deck";    
     private Deck _deck;
 
     public ViewModel() {}
 
 
-    public ViewModel(Deck deck, bool isReadOnly)
+    public ViewModel(Deck deck)
     {
-      _deck = deck;
-      _isReadOnly = isReadOnly;
+      _deck = deck;      
     }
 
     [Updates("Name")]
     public virtual bool IsSaved { get; protected set; }
-
     public virtual bool IsNew { get; protected set; }
 
+    public Func<string, bool> OnAdd = delegate { return true; };
+    public Func<string, bool> OnRemove = delegate { return true; };
 
     public virtual int Rating
     {
@@ -97,7 +97,7 @@
     [Updates("Creatures", "Spells", "Lands", "CreatureCount", "LandCount", "SpellCount", "CardCount")]
     public virtual void AddCard(string name)
     {
-      if (_isReadOnly)
+      if (!OnAdd(name))
         return;
 
       _deck.AddCard(name);
@@ -105,13 +105,17 @@
     }
 
     [Updates("Creatures", "Spells", "Lands", "CreatureCount", "LandCount", "SpellCount", "CardCount")]
-    public virtual void RemoveCard(string name)
+    public virtual bool RemoveCard(string name)
     {
-      if (_isReadOnly)
-        return;
+      if (!_deck.Contains(name))
+        return false;
+      
+      if (!OnRemove(name))
+        return false;
 
       _deck.RemoveCard(name);
       IsSaved = false;
+      return true;
     }
 
     public virtual void Save()
@@ -131,7 +135,7 @@
 
     public interface IFactory
     {
-      ViewModel Create(Deck deck, bool isReadOnly = false);
+      ViewModel Create(Deck deck);
       ViewModel Create();
     }
   }

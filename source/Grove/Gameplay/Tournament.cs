@@ -5,19 +5,23 @@
   using System.Threading.Tasks;
   using Artifical;
   using UserInterface;
+  using UserInterface.Shell;
 
   public class Tournament
   {
     private readonly DeckBuilder _deckBuilder;
+    private readonly ViewModelFactories _viewModels;
+    private readonly IShell _shell;
     private readonly List<TournamentPlayer> _players = new List<TournamentPlayer>();
     private CardRatings _cardRatings;
     private TournamentState _state;
 
-    public Tournament(DeckBuilder deckBuilder)
+    public Tournament(DeckBuilder deckBuilder, ViewModelFactories viewModels, IShell shell)
     {
       _deckBuilder = deckBuilder;
+      _viewModels = viewModels;
+      _shell = shell;
     }
-
 
     private TournamentPlayer HumanPlayer { get { return _players[0]; } }
     private IEnumerable<TournamentPlayer> NonHumanPlayers { get { return _players.Skip(1); } }
@@ -41,7 +45,11 @@
       }
     }
 
-    private void ShowResults() {}
+    private void ShowResults()
+    {
+      
+
+    }
 
     private int GetRoundCount(int playersCount)
     {
@@ -67,7 +75,11 @@
 
     private void PlayNextRound() {}
 
-    private void ShowEditDeckScreen() {}
+    private void ShowEditDeckScreen()
+    {
+      var screen = _viewModels.BuildLimitedDeck.Create(HumanPlayer.Library);      
+      _shell.ChangeScreen(screen);
+    }
 
     private void LoadCardRatings(string tournamentPack, string[] boosterPacks)
     {
@@ -89,23 +101,22 @@
       _cardRatings = CardRatings.Merge(merged, MediaLibrary.GetSet(tournamentPack).Ratings);
     }
 
-
     private void GenerateDecks()
-    {
+    {      
       _state = TournamentState.GeneratingDecks;
-      var tasks = new List<Task>();
 
-      foreach (var player in NonHumanPlayers)
-      {
-        var p = player;
-        var task = Task.Factory.StartNew(() => p.GenerateDeck(_deckBuilder, _cardRatings));
-        tasks.Add(task);
-      }
-
-      Task.Factory.ContinueWhenAll(tasks.ToArray(), delegate
+      var task = Task.Factory.StartNew(() =>
         {
-          _state = TournamentState.Ready;
-        });            
+
+          foreach (var player in NonHumanPlayers)
+          {
+            var p = player;
+            p.Deck = _deckBuilder.BuildDeck(p.Library, _cardRatings);
+
+          }
+        });
+
+      task.ContinueWith(delegate  { _state = TournamentState.Ready; });           
     }
 
     private void CreatePlayers(int playersCount, string playerName, string tournamentPack, string[] boosterPacks)

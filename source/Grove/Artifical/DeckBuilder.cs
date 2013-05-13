@@ -27,13 +27,13 @@
       _deckEvaluator = deckEvaluator;
     }
 
-    public List<string> BuildDeck(List<string> cardNames, CardRatings cardRatings)
+    public List<string> BuildDeck(IEnumerable<string> cardNames, CardRatings cardRatings)
     {
       var candidates = BuildDecks(cardNames, cardRatings);
       return _deckEvaluator.GetBestDeck(candidates);
     }
 
-    private List<List<string>> BuildDecks(List<string> cardNames, CardRatings cardRatings)
+    private List<List<string>> BuildDecks(IEnumerable<string> cardNames, CardRatings cardRatings)
     {
       var cards = cardNames.Select(x => _cardsDatabase.CreateCard(x)).ToList();
       var decks = new List<List<Card>>();

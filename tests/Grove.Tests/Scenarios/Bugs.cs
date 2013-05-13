@@ -11,6 +11,13 @@
     public class Ai : AiScenario
     {
       [Fact]
+      public void BugRepeatedPayWithBloodVasal()
+      {
+        Battlefield(P1, "Blood Vassal", "Nantuko Shade");
+        RunGame(1);
+      }
+      
+      [Fact]
       public void BugDoAttackWithTrollsAndWildwood()
       {
         Hand(P1, "Birds of Paradise");
