@@ -1,34 +1,14 @@
 ﻿namespace Grove.Persistance
 {
-  using System.Collections;
   using System.Collections.Generic;
   using System.Linq;
-  using Gameplay;
 
-  public class DeckRow : IEnumerable<string>
+  public class DeckRow
   {
     public string CardName { get; set; }
     public int Count { get; set; }
 
-    public IEnumerator<string> GetEnumerator()
-    {
-      return Enumerable.Repeat(CardName, Count).GetEnumerator();
-    }
-
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-      return GetEnumerator();
-    }
-  }
-
-  public static class RowConversions
-  {
-    public static IEnumerable<DeckRow> AsRows(this IEnumerable<Card> cards)
-    {
-      return cards.Select(x => x.Name).AsRows();
-    }
-
-    public static IEnumerable<DeckRow> AsRows(this IEnumerable<string> cardNames)
+    public static IEnumerable<DeckRow> Group(IEnumerable<string> cardNames)
     {
       return cardNames
         .GroupBy(x => x)

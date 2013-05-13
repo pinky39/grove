@@ -12,26 +12,30 @@
     private readonly Match _match;
     private InteractionState _interactionState = InteractionState.Disabled;
 
-    public Shell(Match match, CardDatabase cardDatabase)
+    public Shell(Match match, CardsDatabase cardsDatabase)
     {
       _match = match;
       _match.SetShell(this);
 
       DisplayName = "magicgrove";
 
-      LoadResources(cardDatabase);
+      LoadResources();
     }
 
-    public virtual IIsDialogHost Screen { get; protected set; }
+    public virtual object Screen { get; protected set; }
     public virtual bool HasLoaded { get; protected set; }
     public string DisplayName { get; set; }
 
     public void CloseAllDialogs()
     {
-      Screen.CloseAllDialogs();
+      var dialogHost = Screen as IIsDialogHost;
+      if (dialogHost == null)
+        return;
+
+      dialogHost.CloseAllDialogs();
     }
 
-    public void ChangeScreen(IIsDialogHost screen)
+    public void ChangeScreen(object screen)
     {
       if (Screen != null)
       {
@@ -43,12 +47,16 @@
 
     public void ShowDialog(object dialog, DialogType type, InteractionState? interactionState = null)
     {
+      var dialogHost = Screen as IIsDialogHost;
+      if (dialogHost == null)
+        return;
+
       var revert = ChangeMode(interactionState);
 
-      Screen.AddDialog(dialog, type);
+      dialogHost.AddDialog(dialog, type);
       ((IClosable) dialog).Closed += delegate
         {
-          Screen.RemoveDialog(dialog);
+          dialogHost.RemoveDialog(dialog);
 
           ChangeMode(revert);
         };
@@ -64,6 +72,10 @@
 
     public void ShowModalDialog(object dialog, DialogType type, InteractionState? interactionState = null)
     {
+      var dialogHost = Screen as IIsDialogHost;
+      if (dialogHost == null)
+        return;
+
       var blocker = new ThreadBlocker();
 
       blocker.BlockUntilCompleted(() =>
@@ -72,19 +84,22 @@
           ((IClosable) dialog).Closed += delegate { blocker.Completed(); };
         });
 
-      Screen.RemoveDialog(dialog);
+      dialogHost.RemoveDialog(dialog);
     }
 
     public bool HasFocus(object dialog)
     {
-      return Screen.HasFocus(dialog);
+      var dialogHost = Screen as IIsDialogHost;
+      if (dialogHost == null)
+        return false;
+
+      return dialogHost.HasFocus(dialog);
     }
 
-    private void LoadResources(CardDatabase cardDatabase)
+    private void LoadResources()
     {
       Task.Factory.StartNew(() =>
         {
-          cardDatabase.LoadPreviews();
           MediaLibrary.LoadResources();
           HasLoaded = true;
         });

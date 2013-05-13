@@ -1,7 +1,8 @@
 ﻿namespace Grove.Tests
 {
   using System;
-  using Gameplay;
+  using System.Collections.Generic;
+  using System.Linq;
   using Infrastructure;
   using Persistance;
   using Xunit;
@@ -16,8 +17,8 @@
 
       EnableLogging();
 
-      var result = MatchSimulator.Simulate(GetDeck(deck1), GetDeck(deck2), maxTurnsPerGame: 25, maxSearchDepth: 12,
-        maxTargetsCount: 2);
+      var result = MatchSimulator.Simulate(GetDeck(deck1), GetDeck(deck2),
+        maxTurnsPerGame: 25, maxSearchDepth: 12, maxTargetsCount: 2);
 
       Console.WriteLine(@"{0} vs {1}", deck1, deck2);
       Console.WriteLine(@"{0} win count: {1}.", deck1, result.Deck1WinCount);
@@ -30,10 +31,9 @@
       Assert.True(result.Deck1WinCount + result.Deck2WinCount >= 2);
     }
 
-    private Deck GetDeck(string name)
+    private List<string> GetDeck(string name)
     {
-      CardDatabase.LoadPreviews();
-      return new DeckReaderWriter().Read(@".\" + name, CardDatabase);
+      return new DeckIo(CardsInfo).Read(@".\" + name).ToList();
     }
   }
 }

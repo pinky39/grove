@@ -8,12 +8,12 @@
 
   public class MatchSimulator
   {
-    private readonly CardDatabase _cardDatabase;
+    private readonly CardsDatabase _cardsDatabase;
     private readonly DecisionSystem _decisionSystem;
 
-    public MatchSimulator(CardDatabase cardDatabase, DecisionSystem decisionSystem)
+    public MatchSimulator(CardsDatabase cardsDatabase, DecisionSystem decisionSystem)
     {
-      _cardDatabase = cardDatabase;
+      _cardsDatabase = cardsDatabase;
       _decisionSystem = decisionSystem;
     }
 
@@ -46,7 +46,7 @@
         deck2,
         maxSearchDepth,
         maxTargetsCount,
-        _cardDatabase,
+        _cardsDatabase,
         _decisionSystem);
 
       game.Ai.SearchStarted += delegate

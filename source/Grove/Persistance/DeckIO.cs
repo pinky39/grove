@@ -6,17 +6,61 @@
   using System.Linq;
   using System.Text.RegularExpressions;
   using Gameplay;
+  using Gameplay.Misc;
 
-  public class DeckReaderWriter
+  public class DeckIo
   {
     private static readonly Regex DescriptionRegex = new Regex(@"#.*Description\:\s*(.+)", RegexOptions.Compiled);
     private static readonly Regex RatingRegex = new Regex(@"#.*Rating\:\s*(.+)", RegexOptions.Compiled);
+    private readonly CardsInfo _cardsInfo;
 
-    public Deck Read(string filename, CardDatabase cardDatabase)
+    public DeckIo(CardsInfo cardsInfo)
+    {
+      _cardsInfo = cardsInfo;
+    }
+
+    public Deck Read(string filename)
     {
       using (var reader = new StreamReader(filename))
       {
-        return ReadFile(Path.GetFileNameWithoutExtension(filename), reader, cardDatabase);
+        string line;
+        var lineNumber = 0;
+
+        var deck = new Deck(_cardsInfo);
+        deck.Name = Path.GetFileNameWithoutExtension(filename);
+
+        while ((line = reader.ReadLine()) != null)
+        {
+          lineNumber++;
+          line = line.Trim();
+
+          if (line.Trim().Length == 0)
+            continue;
+
+          if (line.StartsWith("#"))
+          {
+            var match = DescriptionRegex.Match(line);
+            if (match.Success)
+            {
+              deck.Description = match.Groups[1].Value;
+              continue;
+            }
+
+            match = RatingRegex.Match(line);
+            int rating;
+            if (match.Success)
+            {
+              int.TryParse(match.Groups[1].Value, out rating);
+              deck.Rating = rating;
+            }
+            continue;
+          }
+
+          var row = ParseRow(line, lineNumber);
+
+          deck.AddCard(row.CardName, row.Count);
+        }
+        return deck;
       }
     }
 
@@ -28,59 +72,19 @@
         writer.WriteLine("# Rating: {0}", deck.Rating);
         writer.WriteLine();
 
-        foreach (var row in deck.AsRows())
+        foreach (var row in DeckRow.Group(deck))
         {
           writer.WriteLine("{0} {1}", row.Count, row.CardName);
         }
       }
-    }
-
-    private static Deck ReadFile(string name, StreamReader reader, CardDatabase cardDatabase)
-    {
-      var records = new List<DeckRow>();
-      string line;
-      var lineNumber = 0;
-      var description = String.Empty;
-      var rating = 3;
-
-      while ((line = reader.ReadLine()) != null)
-      {
-        lineNumber++;
-        line = line.Trim();
-
-        if (line.Trim().Length == 0)
-          continue;
-
-        if (line.StartsWith("#"))
-        {
-          var match = DescriptionRegex.Match(line);
-          if (match.Success)
-          {
-            description = match.Groups[1].Value;
-            continue;
-          }
-
-          match = RatingRegex.Match(line);
-          if (match.Success)
-          {
-            int.TryParse(match.Groups[1].Value, out rating);
-          }
-          continue;
-        }
-
-
-        records.Add(ParseRecord(line, lineNumber));
-      }
-
-      return new Deck(records.SelectMany(x => x), cardDatabase, name, rating, description);
-    }
+    }    
 
     private static void ThrowParsingError(int lineNumber)
     {
       throw new InvalidOperationException(String.Format("Error parsing line {0}.", lineNumber));
     }
 
-    private static DeckRow ParseRecord(string line, int lineNumber)
+    private static DeckRow ParseRow(string line, int lineNumber)
     {
       var tokens = line.Split(new[] {" "}, 2, StringSplitOptions.RemoveEmptyEntries);
 

@@ -24,10 +24,11 @@
       var player1Controller = player1ControlledByScript ? ControllerType.Scenario : ControllerType.Machine;
       var player2Controller = player2ControlledByScript ? ControllerType.Scenario : ControllerType.Machine;
 
-      Game = Game.NewScenario(player1Controller, player2Controller, CardDatabase, DecisionSystem);
+      Game = Game.NewScenario(player1Controller, player2Controller, CardsDatabase, DecisionSystem);
     }
 
-    protected CardDatabase CardDatabase { get { return Container.Resolve<CardDatabase>(); } }
+    protected CardsDatabase CardsDatabase { get { return Container.Resolve<CardsDatabase>(); } }
+    protected CardsInfo CardsInfo { get { return Container.Resolve<CardsInfo>(); } }
     protected DecisionSystem DecisionSystem { get { return Container.Resolve<DecisionSystem>(); } }
     protected MatchSimulator MatchSimulator { get { return Container.Resolve<MatchSimulator>(); } }
 
@@ -56,7 +57,7 @@
       {
         scenarioCard.Initialize(name =>
           {
-            var card = CardDatabase.CreateCard(name);
+            var card = CardsDatabase.CreateCard(name);
             card.Initialize(player, Game);
             library.AddToFront(card);
 
@@ -71,7 +72,7 @@
       {
         scenarioCard.Initialize(name =>
           {
-            var card = CardDatabase.CreateCard(name);
+            var card = CardsDatabase.CreateCard(name);
             card.Initialize(player, Game);
 
             player.PutCardToBattlefield(card);
@@ -84,7 +85,7 @@
             {
               enchantment.Initialize(enchantmentName =>
                 {
-                  var enchantmentCard = CardDatabase.CreateCard(enchantmentName);
+                  var enchantmentCard = CardsDatabase.CreateCard(enchantmentName);
                   enchantmentCard.Initialize(player, Game);
                   EnchantCard(card, enchantmentCard);
                   return enchantmentCard;
@@ -95,7 +96,7 @@
             {
               equipment.Initialize(equipmentName =>
                 {
-                  var equipmentCard = CardDatabase.CreateCard(equipmentName);
+                  var equipmentCard = CardsDatabase.CreateCard(equipmentName);
                   equipmentCard.Initialize(player, Game);
                   player.PutCardToBattlefield(equipmentCard);
                   EquipCard(card, equipmentCard);
@@ -107,7 +108,7 @@
             {
               tracked.Initialize(trackerName =>
                 {
-                  var tracker = CardDatabase.CreateCard(trackerName);
+                  var tracker = CardsDatabase.CreateCard(trackerName);
                   tracker.Initialize(player, Game);
                   player.PutCardToBattlefield(tracker);
                   TrackCard(card, tracker);
@@ -125,7 +126,7 @@
       foreach (var cardName in cardNames)
       {
         var battlefield = (Battlefield) controller.Battlefield;
-        var card = CardDatabase.CreateCard(cardName);
+        var card = CardsDatabase.CreateCard(cardName);
         card.Initialize(controller, Game);
         battlefield.Add(card);
         yield return card;
@@ -192,7 +193,7 @@
       {
         scenarioCard.Initialize(name =>
           {
-            var card = CardDatabase.CreateCard(name);
+            var card = CardsDatabase.CreateCard(name);
             card.Initialize(player, Game);
             graveyard.Add(card);
 
@@ -209,7 +210,7 @@
       {
         scenarioCard.Initialize(name =>
           {
-            var card = CardDatabase.CreateCard(name);
+            var card = CardsDatabase.CreateCard(name);
             card.Initialize(player, Game);
             hand.Add(card);
 

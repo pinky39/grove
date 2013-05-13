@@ -18,12 +18,12 @@
       };
 
     private static readonly int MinSpellCount = DeckCardCount - LandCountRules[0].Count;
-    private readonly CardDatabase _cardDatabase;
+    private readonly CardsDatabase _cardsDatabase;
     private readonly DeckEvaluator _deckEvaluator;
 
-    public DeckBuilder(CardDatabase cardDatabase, DeckEvaluator deckEvaluator)
+    public DeckBuilder(CardsDatabase cardsDatabase, DeckEvaluator deckEvaluator)
     {
-      _cardDatabase = cardDatabase;
+      _cardsDatabase = cardsDatabase;
       _deckEvaluator = deckEvaluator;
     }
 
@@ -35,7 +35,7 @@
 
     private List<List<string>> BuildDecks(List<string> cardNames, CardRatings cardRatings)
     {
-      var cards = cardNames.Select(x => _cardDatabase.CreateCard(x)).ToList();
+      var cards = cardNames.Select(x => _cardsDatabase.CreateCard(x)).ToList();
       var decks = new List<List<Card>>();
 
       for (var i = CardColor.White; i <= CardColor.Green; i++)
@@ -132,7 +132,7 @@
     {
       for (var i = 0; i < count; i++)
       {
-        deck.Add(_cardDatabase.CreateCard(name));
+        deck.Add(_cardsDatabase.CreateCard(name));
       }
     }
 

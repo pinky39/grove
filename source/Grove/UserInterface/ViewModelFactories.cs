@@ -22,5 +22,6 @@
     public Hand.ViewModel.IFactory Hand { get; set; }
     public Graveyard.ViewModel.IFactory Graveyard { get; set; }
     public Library.ViewModel.IFactory Library { get; set; }
+    public LibraryFilter.ViewModel.IFactory LibraryFilter { get; set; }
   }
 }

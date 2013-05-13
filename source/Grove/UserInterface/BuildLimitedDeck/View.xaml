@@ -1,6 +1,8 @@
-﻿<UserControl x:Class="Grove.UserInterface.DeckEditor.View" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro" xmlns:grove="clr-namespace:Grove.UserInterface" Background="{StaticResource StartScreenBackground}">
-
-	<UserControl.Resources>
+﻿<UserControl x:Class="Grove.UserInterface.BuildLimitedDeck.View"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:grove="clr-namespace:Grove.UserInterface" xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro" xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity">
+  <UserControl.Resources>
 		<Style BasedOn="{StaticResource ScrollBar}" TargetType="ScrollBar"></Style>
 		<Style BasedOn="{StaticResource LinkButton}" TargetType="Button"></Style>
 	</UserControl.Resources>
@@ -20,10 +22,9 @@
 						<ColumnDefinition Width="Auto" />
 					</Grid.ColumnDefinitions>
 					<Image Grid.Column="0" HorizontalAlignment="Left" Height="50" Source="{grove:Media 'icon.png'}"></Image>
-					<TextBlock Grid.Column="1" VerticalAlignment="Center" Margin="30,0,0,0" FontSize="40" Foreground="#fff" Text="Deck editor" />
+					<TextBlock Grid.Column="1" VerticalAlignment="Center" Margin="30,0,0,0" FontSize="40" Foreground="#fff" Text="Build your deck" />
 
-					<StackPanel Grid.Column="3">
-						<TextBlock FontSize="40" Foreground="#FFD700" Text="{Binding Deck.Name}" />
+					<StackPanel Grid.Column="3">						
 						<TextBlock FontSize="20" Foreground="#fff" TextAlignment="Right" Text="{Binding Deck.CardCount, StringFormat=' {0} cards'}" />
 					</StackPanel>
 
@@ -85,17 +86,19 @@
 										<Grid Margin="10,5,10,5">
 
 											<Grid.ColumnDefinitions>
-												<ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*" />
 												<ColumnDefinition Width="Auto" />
 												<ColumnDefinition Width="Auto" />
 											</Grid.ColumnDefinitions>
 
-											<TextBlock FontSize="15" Foreground="#fff" Text="{Binding Name}" />
+                                            <TextBlock Grid.Column="0" FontSize="15" Foreground="#fff" Text="{Binding Count, StringFormat=' {0}x' }"  />
+                                            <TextBlock Grid.Column="1" Margin="5,0,0,0" FontSize="15" Foreground="#fff" Text="{Binding Card.Name}" />
 
+											<Image Source="{grove:Media 'x.png'}" Height="20" Grid.Column="2" Margin="0,3,2,0" Visibility="{Binding Path=Card.HasXInCost, Converter={x:Static grove:Converters.BooleanToVisibility}}" />
 
-											<Image Source="{grove:Media 'x.png'}" Height="20" Grid.Column="1" Margin="0,3,2,0" Visibility="{Binding Path=HasXInCost, Converter={x:Static grove:Converters.BooleanToVisibility}}" />
-
-											<ItemsControl Grid.Column="2" Margin="0,3,10,0" ItemsSource="{Binding Path=ManaCost, Converter={x:Static grove:Converters.ManaCostToManaSymbolImages}}">
+											<ItemsControl Grid.Column="3" Margin="0,3,10,0" ItemsSource="{Binding Path=Card.ManaCost, Converter={x:Static grove:Converters.ManaCostToManaSymbolImages}}">
 
 												<ItemsControl.ItemsPanel>
 													<ItemsPanelTemplate>
@@ -140,10 +143,7 @@
 					<StackPanel>
 						<Border Margin="0,0,0,40" BorderBrush="#444" Background="#000" BorderThickness="1" CornerRadius="8" VerticalAlignment="Top">
 							<ContentControl Margin="12" Content="{Binding SelectedCard}" Style="{StaticResource Card}" />
-						</Border>
-
-                        <TextBlock Margin="10,0,0,10" Foreground="#fff" FontSize="20">Rating:</TextBlock>
-						<grove:RatingControl Rating="{Binding Deck.Rating, Mode=TwoWay}" Margin="0,0,0,0" />
+						</Border>                        
 						
 					</StackPanel>
 				</Border>
@@ -153,27 +153,15 @@
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="*" />
 						<ColumnDefinition Width="Auto" />
-					</Grid.ColumnDefinitions>
-					<Button x:Name="Back" Style="{StaticResource LeftButton}" Grid.Column="0" FontSize="20" Foreground="#fff" Content="Return to main menu" />
+					</Grid.ColumnDefinitions>					
 					<StackPanel Orientation="Horizontal" Grid.Column="1">
 						<Border BorderBrush="#aaa" BorderThickness="0,0,1,0" Padding="0,0,10,0" Margin="20,0,0,0">
-							<Button x:Name="New" FontSize="20" Foreground="#fff" Content="New deck" />
-						</Border>
-						<Border BorderBrush="#aaa" BorderThickness="0,0,1,0" Padding="0,0,10,0" Margin="20,0,0,0">
-							<Button x:Name="Open" FontSize="20" Foreground="#fff" Content="Open deck" />
-						</Border>
-						<Border BorderBrush="#aaa" BorderThickness="0,0,1,0" Padding="0,0,10,0" Margin="20,0,0,0">
-							<Button x:Name="SaveAs" FontSize="20" Foreground="#fff" Content="Save as" />
-						</Border>
-						<Border BorderBrush="#aaa" BorderThickness="0,0,0,0" Padding="0,0,10,0" Margin="20,0,0,0">
-							<Button x:Name="Save" FontSize="20" Foreground="#fff" Content="Save" />
-						</Border>
-
+							<Button x:Name="StartTournament" FontSize="20" Foreground="#fff" Content="Start tournament" />
+						</Border>						
 					</StackPanel>
 
 				</Grid>
 			</Border>
-		</Grid>
-		<ContentControl x:Name="Dialog" Style="{StaticResource PregameDialog}" Visibility="{Binding Dialog, Converter={x:Static grove:Converters.NullToCollapsed}}" />
+		</Grid>		
 	</Grid>
 </UserControl>

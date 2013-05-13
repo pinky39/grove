@@ -21,7 +21,7 @@
     protected Combat Combat { get { return Game.Combat; } }
     protected TurnInfo Turn { get { return Game.Turn; } }
     protected SearchRunner Ai { get { return Game.Ai; } }
-    protected CardDatabase CardDatabase { get { return Game.CardDatabase; } }
+    protected CardsDatabase CardsDatabase { get { return Game.CardsDatabase; } }
 
     protected ChangeTracker ChangeTracker { get { return Game.ChangeTracker; } }
 

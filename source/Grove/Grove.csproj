@@ -589,6 +589,7 @@
     <Compile Include="Artifical\TimingRules\TimingRuleParameters.cs" />
     <Compile Include="Artifical\TimingRules\Turn.cs" />
     <Compile Include="Artifical\TimingRules\ControllerIsAttacked.cs" />
+    <Compile Include="Gameplay\CardsInfo.cs" />
     <Compile Include="Gameplay\Characteristics\CardColors.cs" />
     <Compile Include="Gameplay\Costs\DiscardTarget.cs" />
     <Compile Include="Gameplay\Counters\CounterType.cs" />
@@ -706,6 +707,11 @@
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserInterface\CardOrder\ViewModel.cs" />
+    <Compile Include="UserInterface\BuildLimitedDeck\CardsLeft.cs" />
+    <Compile Include="UserInterface\BuildLimitedDeck\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterface\BuildLimitedDeck\ViewModel.cs" />
     <Compile Include="UserInterface\Decisions\ChooseTo.cs" />
     <Compile Include="UserInterface\Decisions\OrderCards.cs" />
     <Compile Include="UserInterface\Decisions\SelectCards.cs" />
@@ -724,7 +730,7 @@
     <Compile Include="Gameplay\Decisions\PayOr.cs" />
     <Compile Include="Gameplay\Decisions\Results\ChosenOptions.cs" />
     <Compile Include="Gameplay\Decisions\SelectCards.cs" />
-    <Compile Include="Persistance\DeckReaderWriter.cs" />
+    <Compile Include="Persistance\DeckIO.cs" />
     <Compile Include="Persistance\DeckRow.cs" />
     <Compile Include="Gameplay\Characteristics\ControllerCharacteristic.cs" />
     <Compile Include="Gameplay\Costs\ReturnToHand.cs" />
@@ -870,6 +876,10 @@
     <Compile Include="Infrastructure\NullTracker.cs" />
     <Compile Include="Infrastructure\Publisher.cs" />
     <Compile Include="UserInterface\CardViewModel.cs" />
+    <Compile Include="UserInterface\LibraryFilter\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterface\LibraryFilter\ViewModel.cs" />
     <Compile Include="UserInterface\NewTournament\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
@@ -882,7 +892,6 @@
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserInterface\SelectableCard\ViewModel.cs" />
-    <Compile Include="UserInterface\DeckEditor\Library.cs" />
     <Compile Include="UserInterface\DeckEditor\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
@@ -1004,7 +1013,7 @@
     <Compile Include="Gameplay\Triggers\OnDamageDealt.cs" />
     <Compile Include="Gameplay\Triggers\OnZoneChanged.cs" />
     <Compile Include="Gameplay\Costs\Cost.cs" />
-    <Compile Include="Gameplay\CardDatabase.cs" />
+    <Compile Include="Gameplay\CardsDatabase.cs" />
     <Compile Include="Gameplay\Effects\AddManaToPool.cs" />
     <Compile Include="Gameplay\Effects\ApplyModifiersToPermanents.cs" />
     <Compile Include="Gameplay\Effects\ApplyModifiersToSelfAndToTargets.cs" />
@@ -1276,6 +1285,14 @@
     <Page Include="UserInterface\CardOrder\View.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserInterface\BuildLimitedDeck\View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterface\LibraryFilter\View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserInterface\NewTournament\View.xaml">
       <SubType>Designer</SubType>

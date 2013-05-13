@@ -22,7 +22,7 @@
 
       Console.WriteLine();
 
-      var builder = new DeckBuilder(CardDatabase, new DeckEvaluator(MatchSimulator));
+      var builder = new DeckBuilder(CardsDatabase, new DeckEvaluator(MatchSimulator));
       var bestDeck = builder.BuildDeck(pileOfCards, set.Ratings);            
 
       Console.WriteLine("Best deck:");

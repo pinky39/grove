@@ -4,7 +4,7 @@
 
   public interface IShell
   {
-    void ChangeScreen(IIsDialogHost screen);
+    void ChangeScreen(object screen);
     void ShowDialog(object dialog, DialogType type = DialogType.Large, InteractionState? interactionState = null);
 
     MessageBoxResult ShowMessageBox(string message, MessageBoxButton buttons, DialogType type = DialogType.Large,

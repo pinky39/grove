@@ -1,7 +1,5 @@
 ﻿namespace Grove.UserInterface.DeckEditor
 {
-  using System.Collections.Generic;
-  using System.Linq;
   using System.Windows;
   using Gameplay;
   using Infrastructure;
@@ -9,32 +7,39 @@
 
   public class ViewModel : ViewModelBase, IIsDialogHost
   {
-    private readonly CardDatabase _cardDatabase;
-    private readonly List<object> _dialogs = new List<object>();
-    private readonly IIsDialogHost _previousScreen;
+    private readonly object _previousScreen;
 
-    public ViewModel(IIsDialogHost previousScreen, CardDatabase cardDatabase)
+    private UserInterface.Deck.ViewModel _deck;
+
+    public ViewModel(object previousScreen)
     {
       _previousScreen = previousScreen;
-      _cardDatabase = cardDatabase;
-      Library = Bindable.Create<Library>(cardDatabase);
     }
 
-    public virtual UserInterface.Deck.ViewModel Deck { get; set; }
-    public Library Library { get; private set; }
-    public object Dialog { get { return _dialogs.FirstOrDefault(); } }
+    public virtual UserInterface.Deck.ViewModel Deck
+    {
+      get { return _deck; }
+      set
+      {
+        _deck = value;
+        _deck.Property(x => x.SelectedCard).Changes(this).Property<ViewModel, Card>(x => x.SelectedCard);
+      }
+    }
+
+    public LibraryFilter.ViewModel LibraryFilter { get; private set; }
+    public object Dialog { get; private set; }
     public virtual Card SelectedCard { get; protected set; }
 
     [Updates("Dialog")]
     public virtual void AddDialog(object dialog, DialogType dialogType)
     {
-      _dialogs.Add(dialog);
+      Dialog = dialog;
     }
 
     [Updates("Dialog")]
     public virtual void RemoveDialog(object dialog)
     {
-      _dialogs.Remove(dialog);
+      Dialog = null;
     }
 
     public bool HasFocus(object dialog)
@@ -44,18 +49,17 @@
 
     public void CloseAllDialogs()
     {
-      foreach (var dialog in _dialogs.ToList())
-      {
-        dialog.Close();
-      }
+      if (Dialog != null)
+        Dialog.Close();
     }
 
     public override void Initialize()
     {
-      Deck = ViewModels.Deck.Create(MediaLibrary.GetRandomDeck(_cardDatabase));
-      SelectedCard = Deck.SelectedCard ?? _cardDatabase.Random();
+      var allCardNames = CardsInfo.GetCardNames();
+      LibraryFilter = ViewModels.LibraryFilter.Create(allCardNames, x => x);
 
-      Deck.Property(x => x.SelectedCard).Changes(this).Property(x => x.SelectedCard);
+      Deck = ViewModels.Deck.Create();
+      SelectedCard = CardsInfo[allCardNames[0]];
     }
 
     public void ChangeSelectedCard(Card card)
@@ -73,7 +77,7 @@
           ScreenTitle = "Select a deck to edit",
           ForwardText = "Select",
           PreviousScreen = this,
-          Forward = (deck) =>
+          Forward = deck =>
             {
               Deck = ViewModels.Deck.Create(deck);
               Shell.ChangeScreen(this);
@@ -166,7 +170,7 @@
 
     public interface IFactory
     {
-      ViewModel Create(IIsDialogHost previousScreen);
+      ViewModel Create(object previousScreen);
     }
   }
 }

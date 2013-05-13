@@ -1,6 +1,7 @@
 ﻿namespace Grove.Gameplay
 {
   using System;
+  using System.Linq;
   using System.Threading.Tasks;
   using System.Windows;
   using Decisions;
@@ -11,7 +12,7 @@
 
   public class Match
   {
-    private readonly CardDatabase _cardDatabase;
+    private readonly CardsDatabase _cardsDatabase;
     private readonly DecisionSystem _decisionSystem;
     private readonly ViewModel.IFactory _gameResultsFactory;
     private readonly UserInterface.MatchResults.ViewModel.IFactory _matchResultsFactory;
@@ -32,13 +33,13 @@
       UserInterface.StartScreen.ViewModel.IFactory startScreenFactory,
       ViewModel.IFactory gameResultsFactory,
       UserInterface.MatchResults.ViewModel.IFactory matchResultsFactory,
-      CardDatabase cardDatabase, DecisionSystem decisionSystem)
+      CardsDatabase cardsDatabase, DecisionSystem decisionSystem)
     {
       _playScreenFactory = playScreenFactory;
       _startScreenFactory = startScreenFactory;
       _gameResultsFactory = gameResultsFactory;
       _matchResultsFactory = matchResultsFactory;
-      _cardDatabase = cardDatabase;
+      _cardsDatabase = cardsDatabase;
       _decisionSystem = decisionSystem;
       _uiScheduler = TaskScheduler.FromCurrentSynchronizationContext();
 
@@ -108,8 +109,11 @@
     {
       _backgroundTask = new Task(() =>
         {
-          Game = Game.New("You", MediaLibrary.NameGenerator.GenerateName(), 
-            _deck1, _deck2, _cardDatabase, _decisionSystem);
+          var yourName = "You";
+          var opponentsName = MediaLibrary.NameGenerator.GenerateName();
+          
+          Game = Game.New(yourName, opponentsName, _deck1.ToList(), _deck2.ToList(), 
+            _cardsDatabase, _decisionSystem);
 
           var playScreen = _playScreenFactory.Create();
           _shell.ChangeScreen(playScreen);

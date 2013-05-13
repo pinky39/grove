@@ -461,7 +461,7 @@
 
     private void LoadLibrary()
     {
-      var cards = _deck.Select(name => CardDatabase.CreateCard(name).Initialize(this, Game));
+      var cards = _deck.Select(name => CardsDatabase.CreateCard(name).Initialize(this, Game));
 
       foreach (var card in cards)
       {

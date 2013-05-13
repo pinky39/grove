@@ -8,7 +8,6 @@
   using System.Windows.Media.Imaging;
   using Gameplay;
   using Gameplay.Sets;
-  using Persistance;
 
   public static class MediaLibrary
   {
@@ -69,7 +68,7 @@
         ImageDatabase.Add(file, bitmapImage);
       }
     }
-    
+
     public static ImageSource GetCardImage(string name)
     {
       return File.Exists(GetImagePath(Cards, name))
@@ -113,25 +112,9 @@
       return Path.Combine(DecksFolder, name + ".dec");
     }
 
-    private static string GetSetPath(string name)
+    public static string[] GetDeckFilenames()
     {
-      return Path.Combine(SetsFolder, name + ".txt");
-    }
-
-    public static Gameplay.Deck GetDeck(string name, CardDatabase cardDatabase)
-    {
-      name = name.EndsWith(".dec") ? name : name + ".dec";
-
-      var path = Path.Combine(BasePath, Decks, name);
-      return new DeckReaderWriter().Read(path, cardDatabase);
-    }
-
-    public static Gameplay.Deck GetRandomDeck(CardDatabase cardDatabase)
-    {
-      var decks = Directory.EnumerateFiles(DecksFolder, "*.dec").ToList();
-
-      return decks.Count > 0 ? GetDeck(decks[Rnd.Next(0, decks.Count)], cardDatabase)
-        : null;
+      return Directory.GetFiles(DecksFolder, "*.dec");
     }
   }
 }

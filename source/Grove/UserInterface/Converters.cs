@@ -20,13 +20,12 @@
     public static CardNameToCardImageConverter CardIllustrationNameToCardImage = new CardNameToCardImageConverter();
     public static CharacterCountToFontSizeConverter CharacterCountToFontSize = new CharacterCountToFontSizeConverter();
     public static LifeToColorConverter LifeToColor = new LifeToColorConverter();
-
     public static ManaCostToManaSymbolImagesConverter ManaCostToManaSymbolImages =
       new ManaCostToManaSymbolImagesConverter();
-
     public static ManaSymbolListToImagesConverter ManaSymbolListToImages = new ManaSymbolListToImagesConverter();
     public static MarkerBrushConverter MarkerBrush = new MarkerBrushConverter();
     public static NullToCollapsedConverter NullToCollapsed = new NullToCollapsedConverter();
+    public static ZeroToCollapsedConverter ZeroToCollapsed = new ZeroToCollapsedConverter();
     public static RatingConverter Rating = new RatingConverter();
 
 
@@ -344,10 +343,23 @@
     }
   }
 
-  public class NullToCollapsedConverter : IValueConverter
+  public class ZeroToCollapsedConverter : IValueConverter
   {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
+      return value.Equals(0) ? Visibility.Collapsed : Visibility.Visible;
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+      throw new NotImplementedException();
+    }
+  }
+
+  public class NullToCollapsedConverter : IValueConverter
+  {
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {            
       return value == null ? Visibility.Collapsed : Visibility.Visible;
     }
 

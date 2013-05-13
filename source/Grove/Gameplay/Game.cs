@@ -24,7 +24,7 @@
     private Game() {}
 
     public ChangeTracker ChangeTracker { get; private set; }
-    public CardDatabase CardDatabase { get; private set; }
+    public CardsDatabase CardsDatabase { get; private set; }
     public bool WasStopped { get { return _wasStopped.Value; } }
     public Combat Combat { get; private set; }
     public bool IsFinished { get { return Players.AnyHasLost() || _turnLimit < Turn.TurnCount; } }
@@ -35,10 +35,10 @@
     public SearchRunner Ai { get; private set; }
 
     public static Game New(string yourName, string opponentsName, List<string> humanDeck, List<string> cpuDeck,
-      CardDatabase cardDatabase, DecisionSystem decisionSystem)
+      CardsDatabase cardsDatabase, DecisionSystem decisionSystem)
     {
       var searchParameters = new SearchParameters(40, 2, enableMultithreading: true);
-      var game = CreateGame(searchParameters, cardDatabase, decisionSystem);
+      var game = CreateGame(searchParameters, cardsDatabase, decisionSystem);
 
       var player1 = new Player(yourName, "player1.png", ControllerType.Human, humanDeck);
       var player2 = new Player(opponentsName, "player2.png", ControllerType.Machine, cpuDeck);
@@ -61,14 +61,14 @@
       return this;
     }
 
-    private static Game CreateGame(SearchParameters searchParameters, CardDatabase cardDatabase,
+    private static Game CreateGame(SearchParameters searchParameters, CardsDatabase cardsDatabase,
       DecisionSystem decisionSystem)
     {      
       var game = new Game();
 
       game.ChangeTracker = new ChangeTracker();
       game._publisher = new Publisher();
-      game.CardDatabase = cardDatabase;
+      game.CardsDatabase = cardsDatabase;
       game.Stack = new Stack();
       game.Turn = new TurnInfo();
       game._wasStopped = new Trackable<bool>();
@@ -106,10 +106,10 @@
     }
 
     public static Game NewSimulation(List<string> deck1, List<string> deck2, int maxSearchDepth, int maxTargetCount,
-      CardDatabase cardDatabase, DecisionSystem decisionSystem)
+      CardsDatabase cardsDatabase, DecisionSystem decisionSystem)
     {
       var searchParameters = new SearchParameters(maxSearchDepth, maxTargetCount, enableMultithreading: false);
-      var game = CreateGame(searchParameters, cardDatabase, decisionSystem);
+      var game = CreateGame(searchParameters, cardsDatabase, decisionSystem);
 
       var player1 = new Player("Player1", "player1.png", ControllerType.Machine, deck1);
       var player2 = new Player("Player2", "player2.png", ControllerType.Machine, deck2);
@@ -172,10 +172,10 @@
     }
 
     public static Game NewScenario(ControllerType player1Controller, ControllerType player2Controller,
-      CardDatabase cardDatabase, DecisionSystem decisionSystem)
+      CardsDatabase cardsDatabase, DecisionSystem decisionSystem)
     {
       var searchParameters = new SearchParameters(40, 2, enableMultithreading: true);
-      var game = CreateGame(searchParameters, cardDatabase, decisionSystem);
+      var game = CreateGame(searchParameters, cardsDatabase, decisionSystem);
 
       var player1 = new Player("Player1", "player1.png", player1Controller, CreateDummyDeck());
       var player2 = new Player("Player2", "player2.png", player2Controller, CreateDummyDeck());

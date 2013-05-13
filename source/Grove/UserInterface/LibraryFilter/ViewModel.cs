@@ -1,4 +1,4 @@
-﻿namespace Grove.UserInterface.DeckEditor
+﻿namespace Grove.UserInterface.LibraryFilter
 {
   using System;
   using System.Collections.Generic;
@@ -9,22 +9,24 @@
   using Gameplay.Characteristics;
   using Infrastructure;
 
-  public class Library
+  public class ViewModel : ViewModelBase
   {
     private readonly List<Card> _cards = new List<Card>();
-
-    public Library(IEnumerable<Card> cards)
+    private readonly List<string> _cardsNames = new List<string>();
+    private readonly Func<Card, object> _transformResult;
+    
+    public ViewModel(IEnumerable<string> cardNames, Func<Card, object> transformResult)
     {
-      _cards.AddRange(cards.OrderBy(x => x.Name));
+      _transformResult = transformResult ?? (x => x);
+      _cardsNames.AddRange(cardNames);
 
       White = Blue = Black = Red = Green = true;
-
       Costs = Enumerable.Range(0, 17).ToArray();
       MinimumCost = Costs.First();
       MaximumCost = Costs.Last();
     }
 
-    public int[] Costs { get; set; }
+    public int[] Costs { get; private set; }
 
     [Updates("FilteredResult")]
     public virtual string Name { get; set; }
@@ -50,11 +52,16 @@
     [Updates("FilteredResult")]
     public virtual int MaximumCost { get; set; }
 
-    public IEnumerable<Card> FilteredResult { get { return LoadView(); } }
+    public IEnumerable<object> FilteredResult { get { return LoadView(); } }
 
-    private IEnumerable<Card> LoadView()
+    public override void Initialize()
     {
-      var view = new BindableCollection<Card>();
+      _cards.AddRange(_cardsNames.Select(x => CardsInfo[x]));
+    }
+
+    private IEnumerable<object> LoadView()
+    {
+      var view = new BindableCollection<object>();
 
       Task.Factory.StartNew(() =>
         {
@@ -80,12 +87,17 @@
                         (card.HasColor(CardColor.Colorless) || card.ManaCost == null)
               )
             {
-              view.Add(card);
+              view.Add(_transformResult(card));
             }
           }
         });
 
       return view;
+    }
+
+    public interface IFactory
+    {
+      ViewModel Create(IEnumerable<string> cardNames, Func<Card, object> transformResult);      
     }
   }
 }

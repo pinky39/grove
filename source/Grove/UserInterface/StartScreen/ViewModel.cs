@@ -7,10 +7,9 @@
   using System.Reflection;
   using System.Windows;
   using Gameplay;
-  using Persistance;
   using SelectDeck;
 
-  public class ViewModel : ViewModelBase, IIsDialogHost
+  public class ViewModel : ViewModelBase
   {
     private static readonly Random Rnd = new Random();
 
@@ -20,21 +19,10 @@
       {
         return string.Format("Release {0} ({1} cards)",
           FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion,
-          CardDatabase.CardCount);
+          CardsInfo.Count);
       }
     }
-
-    public void AddDialog(object dialog, DialogType dialogType) {}
-
-    public bool HasFocus(object dialog)
-    {
-      return false;
-    }
-
-    public void CloseAllDialogs() {}
-
-    public void RemoveDialog(object dialog) {}
-
+    
     public void Exit()
     {
       Application.Current.Shutdown();
@@ -94,13 +82,11 @@
 
     private void ChooseRandomDecks(out Deck firstDeck, out Deck secondDeck)
     {
-      var reader = new DeckReaderWriter();
-
       var deckFiles = Directory
         .EnumerateFiles(MediaLibrary.DecksFolder, "*.dec");
 
       var decks = deckFiles
-        .Select(x => reader.Read(x, CardDatabase))
+        .Select(x => DeckIo.Read(x))
         .ToList();
 
       var first = decks[Rnd.Next(0, decks.Count)];
