@@ -16,6 +16,7 @@
     public ViewModel(IEnumerable<string> library)
     {
       _library = library.ToList();
+      Status = "Building decks...";
     }
 
     public virtual Card SelectedCard { get; protected set; }
@@ -101,7 +102,7 @@
 
     public void Receive(DeckGenerated message)
     {
-      Status = String.Format("Building player decks {0} of {1}...", message.Count, message.TotalCount);
+      Status = String.Format("Building decks {0} of {1}...", message.Count, message.TotalCount);
 
       if (message.Count == message.TotalCount)
         CanStartTournament = true;

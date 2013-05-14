@@ -157,11 +157,11 @@
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="*" />
 						<ColumnDefinition Width="Auto" />
-					</Grid.ColumnDefinitions>					
-											
-					<Button x:Name="StartTournament" FontSize="20" Foreground="#fff" Content="Start tournament" Grid.Column="1" />
-                    <TextBlock FontSize="20" Foreground="#fff" Text="{Binding Status}" Grid.Column="1" 
-                               Visibility="{Binding Path=CanStartTournament, Converter={x:Static grove:Converters.BooleanToVisibility}}" />					
+					</Grid.ColumnDefinitions>
+
+                    <TextBlock FontSize="20" Foreground="#fff" Text="{Binding Status}" Grid.Column="1" Visibility="{Binding Path=CanStartTournament, Converter={x:Static grove:Converters.BooleanToVisibility}, ConverterParameter=true}" />
+                    <Button x:Name="StartTournament" FontSize="20" Foreground="#fff" Content="Start tournament" Grid.Column="1" />
+                 			
 				</Grid>
 			</Border>
 		</Grid>		

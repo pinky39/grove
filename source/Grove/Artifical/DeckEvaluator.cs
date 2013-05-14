@@ -63,7 +63,7 @@
             var result = _matchSimulator.Simulate(
               deck1.Cards,
               deck2.Cards,
-              maxTurnsPerGame: 20,
+              maxTurnsPerGame: 15,
               maxSearchDepth: 10,
               maxTargetsCount: 1);
 

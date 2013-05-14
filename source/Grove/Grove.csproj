@@ -119,6 +119,7 @@
     <Compile Include="Artifical\Search.cs" />
     <Compile Include="Artifical\SearchParameters.cs" />
     <Compile Include="Artifical\SearchStatistics.cs" />
+    <Compile Include="Artifical\TimingRules\StackIsEmpty.cs" />
     <Compile Include="Cards\AbsoluteGrace.cs" />
     <Compile Include="Cards\AbsoluteLaw.cs" />
     <Compile Include="Cards\AbyssalHorror.cs" />
