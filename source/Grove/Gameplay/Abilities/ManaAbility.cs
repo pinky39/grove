@@ -1,5 +1,6 @@
 ﻿namespace Grove.Gameplay.Abilities
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Effects;
@@ -37,10 +38,13 @@
       return IsEnabled && CanPay().CanPay;
     }
 
-    IEnumerable<ManaUnit> IManaSource.PayActivationCost()
+    void IManaSource.PayActivationCost()
     {      
-      // todo fix this for sacrifice costs
-      Pay();      
+      Pay();     
+    }
+
+    public IEnumerable<ManaUnit> GetUnits()
+    {
       return _units;
     }
 

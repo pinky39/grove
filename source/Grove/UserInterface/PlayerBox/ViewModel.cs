@@ -4,6 +4,7 @@
   using System.Threading;
   using Gameplay;
   using Infrastructure;
+  using Messages;
 
   public class ViewModel : ViewModelBase, IDisposable, IReceive<UiInteractionChanged>
   {
@@ -56,7 +57,7 @@
 
     public void ChangeSelection()
     {
-      Publish(
+      Shell.Publish(
         new SelectionChanged {Selection = Player});
     }
 

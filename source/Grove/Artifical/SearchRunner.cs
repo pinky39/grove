@@ -3,8 +3,11 @@
   using System;
   using System.Collections.Generic;
   using System.Diagnostics;
+  using System.Threading;
   using Gameplay;
+  using Gameplay.Debuging;
   using Gameplay.Messages;
+  using Infrastructure;
 
   public class SearchRunner
   {
@@ -13,7 +16,6 @@
     private readonly SearchResults _player2Results = new SearchResults();
     private readonly Queue<int> _searchDurations = new Queue<int>(new[] {0});
     private readonly SearchParameters _searchParameters;
-    private readonly Stopwatch _stopwatch = new Stopwatch();
     private Search _currentSearch;
 
     public SearchRunner(SearchParameters searchParameters, Game game)
@@ -26,6 +28,18 @@
     public SearchParameters Parameters { get { return _searchParameters; } }
     public int PlaySpellsUntilDepth { get { return _game.Turn.GetStepCountAtNextTurnCleanup(); } }
     public SearchStatistics LastSearchStatistics { get; private set; }
+
+    private void SearchMonitor(object state)
+    {
+      if (IsSearchInProgress == false)
+        return;
+
+      if (_currentSearch.Duration.TotalSeconds > 5)
+      {
+        GenearateScenario();
+      }
+    }
+
     public event EventHandler SearchStarted = delegate { };
     public event EventHandler SearchFinished = delegate { };
 
@@ -101,16 +115,14 @@
           TargetCountLimit = _searchParameters.TargetCount
         });
 
-      StartTiming();
-
-      // execute search
-      _currentSearch.Start(searchNode);
-
-      StopTiming();
+      using (new Timer(SearchMonitor, null, 0, 2000))
+      {
+        LastSearchStatistics = _currentSearch.Start(searchNode);
+      }
 
       var result = _currentSearch.Result;
 
-      LastSearchStatistics = _currentSearch.GetSearchStatistics();
+      UpdateSearchDurations();
 
       _game.Publish(new SearchFinished());
       SearchFinished(this, EventArgs.Empty);
@@ -119,22 +131,20 @@
       return result;
     }
 
-    private void StopTiming()
+    private void UpdateSearchDurations()
     {
-      _stopwatch.Stop();
-
       if (_searchDurations.Count == 10)
       {
         _searchDurations.Dequeue();
       }
-
-      _searchDurations.Enqueue(((int) _stopwatch.Elapsed.TotalMilliseconds));
-      _stopwatch.Reset();
+      _searchDurations.Enqueue(((int) LastSearchStatistics.Elapsed.TotalMilliseconds));
     }
 
-    private void StartTiming()
+    [Conditional("DEBUG")]
+    private void GenearateScenario()
     {
-      _stopwatch.Start();
+      var scenarioGenerator = new ScenarioGenerator(_game);
+      LogFile.Info(scenarioGenerator.WriteScenarioToString());
     }
   }
 }

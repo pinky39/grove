@@ -209,10 +209,18 @@
               if (registration.Implementation.Implements<IReceive>())
               {
                 var game = kernel.Resolve<Match>().Game;
-                game.Subscribe(instance);
+                var shell = kernel.Resolve<IShell>();
+
+                if (game != null) game.Subscribe(instance);
+                
+                shell.Subscribe(instance);
 
                 var disposed = (IClosable) instance;
-                disposed.Closed += delegate { game.Unsubscribe(instance); };
+                disposed.Closed += delegate
+                  {
+                    if (game != null) game.Unsubscribe(instance);
+                    shell.Unsubscribe(instance);
+                  };
               }
 
               var initializable = instance as ViewModelBase;

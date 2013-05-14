@@ -1,4 +1,4 @@
-﻿namespace Grove.Gameplay.Recording
+﻿namespace Grove.Gameplay.Debuging
 {
   using System;
   using System.Collections.Generic;

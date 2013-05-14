@@ -11,6 +11,7 @@
     private readonly ManaUnits _colorless = new ManaUnits();
     private readonly List<ManaUnits> _groups;
     private readonly TrackableList<ManaUnit> _manaPool = new TrackableList<ManaUnit>();
+    private readonly TrackableList<ManaUnit> _removeList = new TrackableList<ManaUnit>();
 
     public ManaVault()
     {
@@ -105,10 +106,11 @@
     {
       foreach (var unit in _manaPool.Where(x => !x.HasSource))
       {
-        Remove(unit);
+        RemovePermanently(unit);
       }
-
       _manaPool.Clear();
+      
+      RemoveAllScheduled();
     }
 
     public void Add(ManaUnit unit)
@@ -126,6 +128,25 @@
 
     public void Remove(ManaUnit unit)
     {
+      if (_manaPool.Contains(unit))
+      {
+        _removeList.Add(unit);
+        return;
+      }
+
+      RemovePermanently(unit);
+    }
+
+    private void RemoveAllScheduled()
+    {
+      foreach (var unit in _removeList)
+      {
+        RemovePermanently(unit);
+      }
+      _removeList.Clear();      
+    }
+
+    private void RemovePermanently(ManaUnit unit) {
       foreach (var colorIndex in unit.Color.Indices)
       {
         _groups[colorIndex].Remove(unit);
@@ -223,12 +244,12 @@
 
       foreach (var source in sources)
       {
-        var units = source.PayActivationCost();
-
-        foreach (var unit in units)
+        foreach (var unit in source.GetUnits())
         {
           _manaPool.Add(unit);
         }
+        
+        source.PayActivationCost();        
       }
 
       foreach (var unit in allocated)
@@ -238,7 +259,7 @@
 
       foreach (var unit in allocated.Where(x => !x.HasSource))
       {
-        Remove(unit);
+        RemovePermanently(unit);
       }
     }
 

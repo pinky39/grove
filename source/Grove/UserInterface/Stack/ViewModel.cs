@@ -8,6 +8,7 @@
   using Gameplay.Targeting;
   using Gameplay.Zones;
   using Infrastructure;
+  using Messages;
 
   public class ViewModel : ViewModelBase, IReceive<UiInteractionChanged>
   {
@@ -67,7 +68,7 @@
           HasLostInterest = hasLostInterest,
         };
 
-      Publish(message);
+      Shell.Publish(message);
     }
 
     public void ChangePlayersInterest(Effect effect, bool hasLostInterest)
@@ -79,12 +80,12 @@
           Target = effect.Target
         };
 
-      Publish(message);
+      Shell.Publish(message);
     }
 
     private void ChangeSelection(Effect effect)
     {
-      Publish(
+      Shell.Publish(
         new SelectionChanged {Selection = effect});
     }
   }

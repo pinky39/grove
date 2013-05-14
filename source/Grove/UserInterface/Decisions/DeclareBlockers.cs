@@ -4,6 +4,7 @@
   using Gameplay;
   using Gameplay.Decisions.Results;
   using Gameplay.Targeting;
+  using Messages;
   using SelectTarget;
   using Shell;
 
@@ -46,7 +47,7 @@
         {
           result.Remove(blocker);
 
-          Publish(new BlockerUnselected
+          Shell.Publish(new BlockerUnselected
             {
               Blocker = blocker
             });
@@ -78,7 +79,7 @@
 
         var attacker = (Card) selectAttacker.Selection[0];
 
-        Publish(new BlockerSelected
+        Shell.Publish(new BlockerSelected
           {
             Blocker = blocker,
             Attacker = attacker

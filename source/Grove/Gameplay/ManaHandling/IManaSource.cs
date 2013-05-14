@@ -5,6 +5,7 @@
   public interface IManaSource
   {
     bool CanActivate();
-    IEnumerable<ManaUnit> PayActivationCost();
+    void PayActivationCost();
+    IEnumerable<ManaUnit> GetUnits();
   }
 }

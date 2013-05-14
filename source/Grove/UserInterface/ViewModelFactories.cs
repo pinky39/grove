@@ -24,5 +24,8 @@
     public Library.ViewModel.IFactory Library { get; set; }
     public LibraryFilter.ViewModel.IFactory LibraryFilter { get; set; }
     public BuildLimitedDeck.ViewModel.IFactory BuildLimitedDeck { get; set; }
+    public GameResults.ViewModel.IFactory GameResults { get; set; }
+    public MatchResults.ViewModel.IFactory MatchResults { get; set; }
+    public PlayScreen.ViewModel.IFactory PlayScreen { get; set; }
   }
 }

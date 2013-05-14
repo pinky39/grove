@@ -5,6 +5,7 @@
   using Caliburn.Micro;
   using Gameplay.Targeting;
   using Infrastructure;
+  using Messages;
 
   public class ViewModel : ViewModelBase, IReceive<SelectionChanged>
   {
@@ -71,12 +72,12 @@
 
     private void DefaultTargetSelected(ITarget target)
     {
-      Publish(new TargetSelected {Target = target});
+      Shell.Publish(new TargetSelected {Target = target});
     }
 
     private void DefaultTargetUnselected(ITarget target)
     {
-      Publish(new TargetUnselected {Target = target});
+      Shell.Publish(new TargetUnselected {Target = target});
     }
 
     public void Cancel()

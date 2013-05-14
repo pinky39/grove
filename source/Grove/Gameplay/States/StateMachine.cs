@@ -34,7 +34,7 @@
       set
       {
         Turn.State = value;
-        Log.Debug("State: {0}", value);
+        LogFile.Debug("State: {0}", value);
       }
     }
 
@@ -69,7 +69,7 @@
         _states[State].Execute();
       }
 
-      Log.Debug("Game is finished.");
+      LogFile.Debug("Game is finished.");
     }
 
     public void Start(Func<bool> shouldContinue, bool skipPreGame, Player looser = null)

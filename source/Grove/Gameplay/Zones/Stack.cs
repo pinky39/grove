@@ -64,7 +64,7 @@
 
       EffectAdded(this, new StackChangedEventArgs(effect));
 
-      Log.Debug("Effect pushed on stack: {0}.", effect);
+      LogFile.Debug("Effect pushed on stack: {0}.", effect);
     }
 
     public void Resolve()
@@ -105,7 +105,7 @@
       _effects.Remove(effect);
       EffectRemoved(this, new StackChangedEventArgs(effect));
 
-      Log.Debug("Effect removed from stack: {0}. (count: {1})", effect, _effects.Count);
+      LogFile.Debug("Effect removed from stack: {0}. (count: {1})", effect, _effects.Count);
     }
 
     public void Counter(Effect effect)

@@ -622,7 +622,7 @@
     <Compile Include="Gameplay\TournamentPlayer.cs" />
     <Compile Include="Gameplay\TournamentState.cs" />
     <Compile Include="Infrastructure\IClosable.cs" />
-    <Compile Include="Infrastructure\Log.cs" />
+    <Compile Include="Infrastructure\LogFile.cs" />
     <Compile Include="Artifical\CardRatings.cs" />
     <Compile Include="Gameplay\Characteristics\CardZone.cs" />
     <Compile Include="Gameplay\CastingRules\Aura.cs" />
@@ -880,6 +880,7 @@
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserInterface\LibraryFilter\ViewModel.cs" />
+    <Compile Include="UserInterface\Messages\DeckGenerated.cs" />
     <Compile Include="UserInterface\NewTournament\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
@@ -1029,7 +1030,7 @@
     <Compile Include="Gameplay\Effects\TargetPlayerDrawsCards.cs" />
     <Compile Include="Gameplay\Modifiers\Add11ForEachForest.cs" />
     <Compile Include="Gameplay\Modifiers\AddPowerAndToughness.cs" />
-    <Compile Include="Gameplay\Recording\ScenarioGenerator.cs" />
+    <Compile Include="Gameplay\Debuging\ScenarioGenerator.cs" />
     <Compile Include="Infrastructure\Snapshot.cs" />
     <Compile Include="Gameplay\Abilities\ActivationPrerequisites.cs" />
     <Compile Include="Gameplay\Abilities\TriggeredAbility.cs" />
@@ -1045,8 +1046,8 @@
     <Compile Include="Infrastructure\TrackableEvent.cs" />
     <Compile Include="Infrastructure\TrackableList.cs" />
     <Compile Include="IoC.cs" />
-    <Compile Include="UserInterface\AttackerSelected.cs" />
-    <Compile Include="UserInterface\AttackerUnselected.cs" />
+    <Compile Include="UserInterface\Messages\AttackerSelected.cs" />
+    <Compile Include="UserInterface\Messages\AttackerUnselected.cs" />
     <Compile Include="UserInterface\BackgroundExtension.cs" />
     <Compile Include="UserInterface\DistributeDamage\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
@@ -1066,8 +1067,8 @@
     </Compile>
     <Compile Include="UserInterface\MessageLog\ViewModel.cs" />
     <Compile Include="UserInterface\Permanent\CombatMarkers.cs" />
-    <Compile Include="UserInterface\BlockerSelected.cs" />
-    <Compile Include="UserInterface\BlockerUnselected.cs" />
+    <Compile Include="UserInterface\Messages\BlockerSelected.cs" />
+    <Compile Include="UserInterface\Messages\BlockerUnselected.cs" />
     <Compile Include="UserInterface\CombatDamage\BlockerDamageAssignment.cs" />
     <Compile Include="UserInterface\CombatDamage\BlockerDamageAssignments.cs" />
     <Compile Include="UserInterface\DamageOrder\BlockerAssignment.cs" />
@@ -1078,8 +1079,8 @@
     <Compile Include="Infrastructure\DependencyObjectEx.cs" />
     <Compile Include="UserInterface\DialogType.cs" />
     <Compile Include="UserInterface\InputBindingTrigger.cs" />
-    <Compile Include="UserInterface\PlayableSelected.cs" />
-    <Compile Include="UserInterface\PlayersInterestChanged.cs" />
+    <Compile Include="UserInterface\Messages\PlayableSelected.cs" />
+    <Compile Include="UserInterface\Messages\PlayersInterestChanged.cs" />
     <Compile Include="Gameplay\Messages\TurnStarted.cs" />
     <Compile Include="Artifical\AttackStrategy.cs" />
     <Compile Include="Artifical\PlayableGenerator.cs" />
@@ -1119,14 +1120,14 @@
     <Compile Include="UserInterface\PlayableActivator.cs" />
     <Compile Include="UserInterface\SelectTarget\SelectTargetParameters.cs" />
     <Compile Include="UserInterface\ViewModelBase.cs" />
-    <Compile Include="UserInterface\UiInteractionChanged.cs" />
+    <Compile Include="UserInterface\Messages\UiInteractionChanged.cs" />
     <Compile Include="UserInterface\Spell\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserInterface\Step\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserInterface\SelectionChanged.cs" />
+    <Compile Include="UserInterface\Messages\SelectionChanged.cs" />
     <Compile Include="Gameplay\Messages\StepFinished.cs" />
     <Compile Include="Gameplay\Messages\StepStarted.cs" />
     <Compile Include="Gameplay\Player.cs" />
@@ -1145,8 +1146,8 @@
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserInterface\CombatDamage\ViewModel.cs" />
-    <Compile Include="UserInterface\TargetSelected.cs" />
-    <Compile Include="UserInterface\TargetUnselected.cs" />
+    <Compile Include="UserInterface\Messages\TargetSelected.cs" />
+    <Compile Include="UserInterface\Messages\TargetUnselected.cs" />
     <Compile Include="UserInterface\ViewModelFactories.cs" />
     <Compile Include="UserInterface\WindowDimensions.cs" />
     <Compile Include="UserInterface\GameResults\View.xaml.cs">

@@ -38,13 +38,13 @@
 
     public void StartSearch(ISearchNode root)
     {
-      Log.Debug("Search started, evaluating node: {0}", root);
+      LogFile.Debug("Search started, evaluating node: {0}", root);
       EvaluateBranches(root, ParentResult);
     }
 
     public void Evaluate(ISearchNode node)
     {
-      Log.Debug("Evaluating node: {0}", node);
+      LogFile.Debug("Evaluating node: {0}", node);
 
       InnerResult rootResult;
 
@@ -65,7 +65,7 @@
       else
       {
         SubTreesPrunned++;
-        Log.Debug("state {0}, prunning node {1}", statehash, node);
+        LogFile.Debug("state {0}, prunning node {1}", statehash, node);
       }
 
 
@@ -77,7 +77,7 @@
 
     public void EvaluateBranch(int index, ISearchNode searchNode, InnerResult parentResult)
     {
-      Log.Debug("{0} start eval move {1}", searchNode, index);
+      LogFile.Debug("{0} start eval move {1}", searchNode, index);
 
       // Create a snapshot, of the game before traversing 
       // a branch.
@@ -102,12 +102,12 @@
       // Restore the game from the snapshot.
       _game.Restore(snaphost);
 
-      Log.Debug("{0} stop eval move {1}", searchNode, index);
+      LogFile.Debug("{0} stop eval move {1}", searchNode, index);
     }
 
     private void EvaluateBranches(ISearchNode searchNode, InnerResult rootResult)
     {
-      Log.Debug("Evaluating moves of node {0}", searchNode);
+      LogFile.Debug("Evaluating moves of node {0}", searchNode);
 
       var tasks = new List<Task>();
 

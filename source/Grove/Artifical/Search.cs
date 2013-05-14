@@ -2,6 +2,7 @@
 {
   using System;
   using System.Collections.Generic;
+  using System.Diagnostics;
   using System.Linq;
   using System.Threading;
   using System.Threading.Tasks;
@@ -18,6 +19,7 @@
     private readonly object _workersLock = new object();
     private int _numWorkersCreated;
     private int _subtreesPrunned;
+    private readonly Stopwatch _stopwatch = new Stopwatch();
 
     public Search(SearchParameters p, Player searchingPlayer, SearchResults searchResults, Game game)
     {
@@ -29,18 +31,18 @@
     }
 
     public int TargetCount { get { return _p.TargetCount; } }
-
     public int Result { get { return _root.BestMove.GetValueOrDefault(); } }
-
     public int SearchUntilDepth { get { return _game.Turn.StepCount + _p.SearchDepth; } }
+    public TimeSpan Duration { get { return _stopwatch.Elapsed; } }
 
-    public SearchStatistics GetSearchStatistics()
+    private SearchStatistics GetSearchStatistics()
     {
       return new SearchStatistics
         {
           NodeCount = GetSearchTreeSize(),
           NumOfWorkersCreated = _numWorkersCreated,
-          SubtreesPrunned = _subtreesPrunned
+          SubtreesPrunned = _subtreesPrunned,
+          Elapsed = _stopwatch.Elapsed          
         };
     }
 
@@ -69,8 +71,10 @@
       }
     }
 
-    public void Start(ISearchNode searchNode)
+    public SearchStatistics Start(ISearchNode searchNode)
     {
+      _stopwatch.Start();
+      
       // Lock original changer tracker. 
       // So we are sure that original game state stays intact.
       // This is usefull for debuging state copy issues.      
@@ -95,8 +99,11 @@
       _game.ChangeTracker.Unlock();
 
       _root.EvaluateSubtree();
-
       GC.Collect();
+
+      _stopwatch.Stop();
+
+      return GetSearchStatistics();
     }
 
     public void EvaluateNode(ISearchNode searchNode)

@@ -28,7 +28,7 @@
       {
         _step.Value = value;
         StepCount++;
-        Log.Debug("Step: {0}", value);
+        LogFile.Debug("Step: {0}", value);
       }
     }
 
@@ -41,7 +41,7 @@
       set
       {
         _turnCount.Value = value;
-        Log.Debug("Turn: {0}", value);
+        LogFile.Debug("Turn: {0}", value);
       }
     }
 

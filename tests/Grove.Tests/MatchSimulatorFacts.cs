@@ -14,9 +14,7 @@
     {
       var deck1 = "deck1.dec";
       var deck2 = "deck2.dec";
-
-      EnableLogging();
-
+      
       var result = MatchSimulator.Simulate(GetDeck(deck1), GetDeck(deck2),
         maxTurnsPerGame: 25, maxSearchDepth: 12, maxTargetsCount: 2);
 

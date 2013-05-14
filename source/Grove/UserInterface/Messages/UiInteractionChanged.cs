@@ -1,4 +1,4 @@
-﻿namespace Grove.UserInterface
+﻿namespace Grove.UserInterface.Messages
 {
   public class UiInteractionChanged
   {

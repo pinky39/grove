@@ -3,6 +3,7 @@
   using System;
   using System.IO;
   using System.Reflection;
+  using UserInterface;
 
   internal class Program
   {
@@ -13,7 +14,8 @@
         Usage();
         return;
       }
-
+      
+      MediaLibrary.LoadResources();
       var runner = new TaskRunner();
       runner.Run(args[0], args);
     }

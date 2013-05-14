@@ -1,11 +1,13 @@
 ﻿namespace Grove.UserInterface.BuildLimitedDeck
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Gameplay;
   using Infrastructure;
+  using Messages;
 
-  public class ViewModel : ViewModelBase
+  public class ViewModel : ViewModelBase , IReceive<DeckGenerated>
   {
     private readonly List<string> _library;
     private Dictionary<Card, CardsLeft> _availability;
@@ -18,6 +20,8 @@
 
     public virtual Card SelectedCard { get; protected set; }
     public LibraryFilter.ViewModel LibraryFilter { get; private set; }
+    public virtual string Status { get; protected set; }
+    public virtual bool CanStartTournament { get; protected set; }
 
     public virtual UserInterface.Deck.ViewModel Deck
     {
@@ -44,7 +48,10 @@
       Deck.RemoveCard(card.Name);      
     }
 
-    public void StartTournament() {}
+    public void StartTournament()
+    {
+      this.Close();
+    }
 
     private bool OnAdd(string cardName)
     {
@@ -90,6 +97,14 @@
     public interface IFactory
     {
       ViewModel Create(IEnumerable<string> library);
+    }
+
+    public void Receive(DeckGenerated message)
+    {
+      Status = String.Format("Building player decks {0} of {1}...", message.Count, message.TotalCount);
+
+      if (message.Count == message.TotalCount)
+        CanStartTournament = true;
     }
   }
 }

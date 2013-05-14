@@ -1,6 +1,6 @@
-﻿namespace Grove.UserInterface
+﻿namespace Grove.UserInterface.Messages
 {
-  using Gameplay.Targeting;
+  using Grove.Gameplay.Targeting;
 
   public class TargetSelected
   {

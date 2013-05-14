@@ -2,6 +2,7 @@
 {
   using Gameplay.Decisions.Results;
   using Infrastructure;
+  using Messages;
 
   public class ViewModel : ViewModelBase, IReceive<PlayableSelected>
   {

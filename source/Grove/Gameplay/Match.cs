@@ -7,38 +7,27 @@
   using Decisions;
   using Infrastructure;
   using UserInterface;
-  using UserInterface.GameResults;
   using UserInterface.Shell;
 
   public class Match
   {
     private readonly CardsDatabase _cardsDatabase;
     private readonly DecisionSystem _decisionSystem;
-    private readonly ViewModel.IFactory _gameResultsFactory;
-    private readonly UserInterface.MatchResults.ViewModel.IFactory _matchResultsFactory;
-    private readonly UserInterface.PlayScreen.ViewModel.IFactory _playScreenFactory;
-    private readonly UserInterface.StartScreen.ViewModel.IFactory _startScreenFactory;
+    private readonly IShell _shell;
     private readonly TaskScheduler _uiScheduler;
+    private readonly ViewModelFactories _viewModels;
     private Task _backgroundTask;
     private Deck _deck1;
     private Deck _deck2;
     private int? _looser;
     private bool _playerLeftMatch;
     private bool _rematch = true;
-    private IShell _shell;
     private ThreadBlocker _threadBlocker;
 
-    public Match(
-      UserInterface.PlayScreen.ViewModel.IFactory playScreenFactory,
-      UserInterface.StartScreen.ViewModel.IFactory startScreenFactory,
-      ViewModel.IFactory gameResultsFactory,
-      UserInterface.MatchResults.ViewModel.IFactory matchResultsFactory,
-      CardsDatabase cardsDatabase, DecisionSystem decisionSystem)
+    public Match(IShell shell, ViewModelFactories viewModels, CardsDatabase cardsDatabase, DecisionSystem decisionSystem)
     {
-      _playScreenFactory = playScreenFactory;
-      _startScreenFactory = startScreenFactory;
-      _gameResultsFactory = gameResultsFactory;
-      _matchResultsFactory = matchResultsFactory;
+      _shell = shell;
+      _viewModels = viewModels;
       _cardsDatabase = cardsDatabase;
       _decisionSystem = decisionSystem;
       _uiScheduler = TaskScheduler.FromCurrentSynchronizationContext();
@@ -85,14 +74,14 @@
 
     private void DisplayGameResults()
     {
-      var viewModel = _gameResultsFactory.Create();
+      var viewModel = _viewModels.GameResults.Create();
       _shell.ShowModalDialog(viewModel);
       _playerLeftMatch = viewModel.PlayerLeftMatch;
     }
 
     private void DisplayMatchResults()
     {
-      var viewModel = _matchResultsFactory.Create();
+      var viewModel = _viewModels.MatchResults.Create();
       _shell.ShowModalDialog(viewModel);
       _rematch = viewModel.ShouldRematch;
     }
@@ -111,11 +100,11 @@
         {
           var yourName = "You";
           var opponentsName = MediaLibrary.NameGenerator.GenerateName();
-          
-          Game = Game.New(yourName, opponentsName, _deck1.ToList(), _deck2.ToList(), 
+
+          Game = Game.New(yourName, opponentsName, _deck1.ToList(), _deck2.ToList(),
             _cardsDatabase, _decisionSystem);
 
-          var playScreen = _playScreenFactory.Create();
+          var playScreen = _viewModels.PlayScreen.Create();
           _shell.ChangeScreen(playScreen);
 
           Game.Start(looser: Looser);
@@ -199,7 +188,7 @@
 
     private void ShowStartScreen()
     {
-      var startScreen = _startScreenFactory.Create();
+      var startScreen = _viewModels.StartScreen.Create();
       _shell.ChangeScreen(startScreen);
     }
 
@@ -242,11 +231,6 @@
         _threadBlocker.BlockUntilCompleted();
         _threadBlocker = null;
       }
-    }
-
-    public void SetShell(Shell shell)
-    {
-      _shell = shell;
     }
   }
 }

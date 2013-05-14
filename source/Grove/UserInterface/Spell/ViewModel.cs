@@ -8,6 +8,7 @@
   using Gameplay.Decisions.Results;
   using Gameplay.Targeting;
   using Infrastructure;
+  using Messages;
   using SelectTarget;
 
   public class ViewModel : CardViewModel, IReceive<UiInteractionChanged>, IReceive<TargetSelected>,
@@ -68,10 +69,7 @@
 
     public void ChangePlayersInterest()
     {
-      Publish(new PlayersInterestChanged
-        {
-          Visual = Card
-        });
+      ChangePlayersInterest(Card);
     }
 
     public void Select()
@@ -137,7 +135,7 @@
 
       var playable = activation.GetPlayable(activationParameters);
 
-      Publish(new PlayableSelected {Playable = playable});
+      Shell.Publish(new PlayableSelected {Playable = playable});
     }
 
     private bool SelectTargets(ActivationPrerequisites prerequisites, ActivationParameters parameters)
@@ -232,7 +230,7 @@
 
     private void ChangeSelection()
     {
-      Publish(new SelectionChanged {Selection = Card});
+      Shell.Publish(new SelectionChanged {Selection = Card});
     }
 
     public interface IFactory

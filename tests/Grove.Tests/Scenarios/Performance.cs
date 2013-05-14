@@ -181,5 +181,16 @@
 
       RunGame(2);
     }
+
+    [Fact]
+    public void Num15()
+    {
+      Hand(P1, "Plains", "Mountain", "Thundering Giant", "Disciple of Grace");
+      Hand(P2, "Phyrexian Ghoul", "Mountain", "Swamp", "Swamp", "Destructive Urge", "Phyrexian Ghoul", "Hopping Automaton");
+      Battlefield(P1, "Mountain", "Mountain", "Plains", "Hopping Automaton");
+      Battlefield(P2, "Swamp", "Swamp");
+
+      RunGame(2);
+    }  
   }
 }

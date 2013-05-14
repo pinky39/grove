@@ -5,6 +5,7 @@
   using System.Threading.Tasks;
   using Artifical;
   using UserInterface;
+  using UserInterface.Messages;
   using UserInterface.Shell;
 
   public class Tournament
@@ -13,8 +14,7 @@
     private readonly ViewModelFactories _viewModels;
     private readonly IShell _shell;
     private readonly List<TournamentPlayer> _players = new List<TournamentPlayer>();
-    private CardRatings _cardRatings;
-    private TournamentState _state;
+    private CardRatings _cardRatings;    
 
     public Tournament(DeckBuilder deckBuilder, ViewModelFactories viewModels, IShell shell)
     {
@@ -78,7 +78,7 @@
     private void ShowEditDeckScreen()
     {
       var screen = _viewModels.BuildLimitedDeck.Create(HumanPlayer.Library);      
-      _shell.ChangeScreen(screen);
+      _shell.ChangeScreen(screen, blockUntilClosed: true);
     }
 
     private void LoadCardRatings(string tournamentPack, string[] boosterPacks)
@@ -102,21 +102,26 @@
     }
 
     private void GenerateDecks()
-    {      
-      _state = TournamentState.GeneratingDecks;
-
-      var task = Task.Factory.StartNew(() =>
+    {            
+      Task.Factory.StartNew(() =>
         {
-
-          foreach (var player in NonHumanPlayers)
+          var count = 0;
+          var nonHumanPlayers = NonHumanPlayers.ToList();
+          
+          foreach (var player in nonHumanPlayers)
           {
             var p = player;
             p.Deck = _deckBuilder.BuildDeck(p.Library, _cardRatings);
 
-          }
-        });
+            count++;
 
-      task.ContinueWith(delegate  { _state = TournamentState.Ready; });           
+            _shell.Publish(new DeckGenerated
+              {
+                Count = count,
+                TotalCount = nonHumanPlayers.Count
+              });
+          }
+        });             
     }
 
     private void CreatePlayers(int playersCount, string playerName, string tournamentPack, string[] boosterPacks)

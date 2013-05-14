@@ -148,10 +148,10 @@
       return new ScenarioEffect {Effect = () => Game.Stack.First(x => x.Source.OwningCard == scenarioCard.Card)};
     }
 
-    protected void EnableLogging()
+    protected void EnableLogging(string level)
     {
       var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(
-        "Grove.Tests.Infrastructure.Logger.Debug.xml");
+        String.Format("Grove.Tests.Infrastructure.Logger.{0}.xml", level));
 
       XmlConfigurator.Configure(stream);
     }

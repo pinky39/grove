@@ -1,6 +1,7 @@
 ﻿namespace Grove.UserInterface.MagnifiedCard
 {
   using Infrastructure;
+  using Messages;
 
   public class ViewModel : IReceive<PlayersInterestChanged>
   {

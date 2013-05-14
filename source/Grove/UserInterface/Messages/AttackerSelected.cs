@@ -1,6 +1,6 @@
-﻿namespace Grove.UserInterface
+﻿namespace Grove.UserInterface.Messages
 {
-  using Gameplay;
+  using Grove.Gameplay;
 
   public class AttackerSelected
   {

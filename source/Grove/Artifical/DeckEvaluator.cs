@@ -63,9 +63,9 @@
             var result = _matchSimulator.Simulate(
               deck1.Cards,
               deck2.Cards,
-              maxTurnsPerGame: 25,
-              maxSearchDepth: 12,
-              maxTargetsCount: 2);
+              maxTurnsPerGame: 20,
+              maxSearchDepth: 10,
+              maxTargetsCount: 1);
 
             if (result.Deck1WinCount > result.Deck2WinCount)
             {

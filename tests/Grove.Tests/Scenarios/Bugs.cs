@@ -366,9 +366,7 @@
           "Baneslayer Angel", "Plains");
 
         P1.Life = 12;
-        P2.Life = 17;
-
-        EnableLogging();
+        P2.Life = 17;        
 
         RunGame(3);
       }      

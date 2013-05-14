@@ -2,6 +2,7 @@
 {
   using Gameplay;
   using Gameplay.Misc;
+  using Messages;
   using Persistance;
   using Shell;
 
@@ -16,7 +17,7 @@
 
     public void ChangePlayersInterest(Card card)
     {
-      Publish(new PlayersInterestChanged
+      Shell.Publish(new PlayersInterestChanged
         {
           Visual = card
         });

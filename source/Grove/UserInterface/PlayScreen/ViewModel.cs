@@ -3,8 +3,8 @@
   using System.Collections.Generic;
   using System.Linq;
   using System.Threading;
+  using Gameplay.Debuging;
   using Gameplay.Messages;
-  using Gameplay.Recording;
   using Infrastructure;
 
   public class ViewModel : ViewModelBase, IIsDialogHost, IReceive<PlayerHasCastASpell>,

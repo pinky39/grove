@@ -85,7 +85,7 @@
 
     public Snapshot CreateSnapshot()
     {
-      Log.Debug("Create snapshot.");
+      LogFile.Debug("Create snapshot.");
 
       if (!_isEnabled)
         throw new InvalidOperationException("Tracker is disabled, did you forget to enable it?");
@@ -122,7 +122,7 @@
 
     public void Restore(Snapshot snapshot)
     {
-      Log.Debug("Restore from snapshot.");
+      LogFile.Debug("Restore from snapshot.");
 
       if (!_isEnabled)
         throw new InvalidOperationException("Tracker is disabled, did you forget to enable it?");

@@ -4,7 +4,7 @@
 
   public interface IShell
   {
-    void ChangeScreen(object screen);
+    void ChangeScreen(object screen, bool blockUntilClosed = false);
     void ShowDialog(object dialog, DialogType type = DialogType.Large, InteractionState? interactionState = null);
 
     MessageBoxResult ShowMessageBox(string message, MessageBoxButton buttons, DialogType type = DialogType.Large,
@@ -14,5 +14,10 @@
 
     bool HasFocus(object dialog);
     void CloseAllDialogs();
+
+    void Publish<T>(T message);
+
+    void Subscribe(object instance);
+    void Unsubscribe(object instance);
   }
 }

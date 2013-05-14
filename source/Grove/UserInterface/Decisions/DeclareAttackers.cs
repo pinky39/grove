@@ -2,6 +2,7 @@
 {
   using System.Linq;
   using Gameplay.Targeting;
+  using Messages;
   using SelectTarget;
   using Shell;
 
@@ -27,12 +28,12 @@
           Validator = validator,
           CanCancel = false,
           Instructions = "(Press Spacebar when done.)",
-          TargetSelected = target => Publish(
+          TargetSelected = target => Shell.Publish(
             new AttackerSelected
               {
                 Attacker = target.Card()
               }),
-          TargetUnselected = target => Publish(
+          TargetUnselected = target => Shell.Publish(
             new AttackerUnselected
               {
                 Attacker = target.Card()

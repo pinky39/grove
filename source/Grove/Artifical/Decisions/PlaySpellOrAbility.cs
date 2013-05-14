@@ -39,7 +39,7 @@
     public void SetResult(int index)
     {
       Result = _playables[index];
-      Log.Debug("Move is {0}", _playables[index]);
+      LogFile.Debug("Move is {0}", _playables[index]);
     }
 
     public override void Initialize(Player controller, Game game)

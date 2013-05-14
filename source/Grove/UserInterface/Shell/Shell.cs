@@ -3,22 +3,18 @@
   using System.Threading.Tasks;
   using System.Windows;
   using Caliburn.Micro;
-  using Gameplay;
   using Infrastructure;
   using MessageBox;
+  using Messages;
 
   public class Shell : IShell, IHaveDisplayName
   {
-    private readonly Match _match;
+    private readonly Publisher _publisher = new Publisher().Initialize();
     private InteractionState _interactionState = InteractionState.Disabled;
 
-    public Shell(Match match, CardsDatabase cardsDatabase)
+    public Shell()
     {
-      _match = match;
-      _match.SetShell(this);
-
       DisplayName = "magicgrove";
-
       LoadResources();
     }
 
@@ -35,7 +31,7 @@
       dialogHost.CloseAllDialogs();
     }
 
-    public void ChangeScreen(object screen)
+    public void ChangeScreen(object screen, bool blockUntilClosed = false)
     {
       if (Screen != null)
       {
@@ -43,6 +39,27 @@
       }
 
       Screen = screen;
+
+      if (blockUntilClosed == false)
+        return;
+
+      var blocker = new ThreadBlocker();
+      blocker.BlockUntilCompleted(() => { ((IClosable) screen).Closed += delegate { blocker.Completed(); }; });
+    }
+
+    public void Publish<T>(T message)
+    {
+      _publisher.Publish(message);
+    }
+
+    public void Subscribe(object instance)
+    {
+      _publisher.Subscribe(instance);
+    }
+
+    public void Unsubscribe(object instance)
+    {
+      _publisher.Unsubscribe(instance);
     }
 
     public void ShowDialog(object dialog, DialogType type, InteractionState? interactionState = null)
@@ -57,7 +74,6 @@
       ((IClosable) dialog).Closed += delegate
         {
           dialogHost.RemoveDialog(dialog);
-
           ChangeMode(revert);
         };
     }
@@ -83,8 +99,6 @@
           ShowDialog(dialog, type, interactionState);
           ((IClosable) dialog).Closed += delegate { blocker.Completed(); };
         });
-
-      dialogHost.RemoveDialog(dialog);
     }
 
     public bool HasFocus(object dialog)
@@ -112,13 +126,10 @@
         var revert = _interactionState;
         _interactionState = interactionState.Value;
 
-        if (_match.InProgress)
-        {
-          _match.Game.Publish(new UiInteractionChanged
-            {
-              State = interactionState.Value
-            });
-        }
+        Publish(new UiInteractionChanged
+          {
+            State = interactionState.Value
+          });
 
         return revert;
       }

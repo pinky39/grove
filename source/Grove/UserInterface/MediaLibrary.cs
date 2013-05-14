@@ -18,11 +18,25 @@
     private const string Sets = @"sets\";
 
     private static readonly Dictionary<string, ImageSource> ImageDatabase = new Dictionary<string, ImageSource>();
-    private static readonly Dictionary<string, MagicSet> SetsDatabase = new Dictionary<string, MagicSet>();
+
+    private static Dictionary<string, MagicSet> SetsDatabase
+    {
+      get
+      {
+        if (_setsDatabase == null)
+        {
+          LoadSets();
+        }
+
+        return _setsDatabase;
+      }
+    }
+
     public static NameGenerator NameGenerator { get; private set; }
 
 #if DEBUG
     private static readonly string BasePath = Path.GetFullPath(@"..\..\..\..\media\");
+    private static Dictionary<string, MagicSet> _setsDatabase;
 #else 
     private static readonly string BasePath = Path.GetFullPath(@".\media");
 #endif
@@ -42,12 +56,13 @@
 
     private static void LoadSets()
     {
+      _setsDatabase = new Dictionary<string, MagicSet>();
       var setsFilenames = Directory.GetFiles(SetsFolder, "*.txt");
 
       foreach (var filename in setsFilenames)
       {
         var name = Path.GetFileNameWithoutExtension(filename);
-        SetsDatabase.Add(name, new MagicSet(filename));
+        _setsDatabase.Add(name, new MagicSet(filename));
       }
     }
 

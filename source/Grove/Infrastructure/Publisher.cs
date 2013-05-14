@@ -11,7 +11,7 @@
   {
     private readonly Assembly _assembly;
     private readonly string _namespace;
-    private ChangeTracker _changeTracker;
+    private INotifyChangeTracker _changeTracker = new NullTracker();
     private Dictionary<Type, List<Type>> _handlersByType = new Dictionary<Type, List<Type>>();
     private Dictionary<Type, TrackableList<object>> _subscribers = new Dictionary<Type, TrackableList<object>>();
 
@@ -42,10 +42,15 @@
       }
     }
 
-    public void Initialize(ChangeTracker changeTracker)
+    public Publisher Initialize(INotifyChangeTracker changeTracker = null)
     {
-      _changeTracker = changeTracker;
+      if (changeTracker != null)
+      {
+        _changeTracker = changeTracker;
+      }
+
       MapHandlersToTypes();
+      return this;
     }
 
     private void MapHandlersToTypes()

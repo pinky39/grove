@@ -3,6 +3,7 @@
   using System;
   using Gameplay;
   using Infrastructure;
+  using Messages;
 
   public class ViewModel : CardViewModel, IReceive<TargetSelected>, IReceive<TargetUnselected>,
     IReceive<UiInteractionChanged>
@@ -48,7 +49,7 @@
 
     private void ChangeSelection()
     {
-      Publish(
+      Shell.Publish(
         new SelectionChanged {Selection = Card});
     }
 
@@ -59,10 +60,7 @@
 
     public void ChangePlayersInterest()
     {
-      Publish(new PlayersInterestChanged
-        {
-          Visual = Card
-        });
+      ChangePlayersInterest(Card);
     }
 
     public interface IFactory
