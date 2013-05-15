@@ -104,7 +104,7 @@
 
     private void GenerateDecks(string tournamentPack, string[] boosterPacks)
     {
-      const int minNumberOfGeneratedDecks = 10;
+      const int minNumberOfGeneratedDecks = 8;
       var limitedCode = MagicSet.GetLimitedCode(tournamentPack, boosterPacks);
 
       var preconstructed = _preConstructedLimitedDecks.GetDecks(limitedCode)
@@ -121,16 +121,12 @@
       }
 
       Task.Factory.StartNew(() =>
-        {
-          var count = 0;
-
-          for (var i = preconstructed.Count; i < nonHumanPlayers.Count; i++)
+        {          
+          for (var count = 1; count <= actualNumberOfGeneratedDecks; count++)
           {
-            var player = nonHumanPlayers[i];
+            var player = nonHumanPlayers[count];
             var library = GenerateLibrary(tournamentPack, boosterPacks);
-            player.Deck = _deckBuilder.BuildDeck(library, _cardRatings);
-
-            count++;
+            player.Deck = _deckBuilder.BuildDeck(library, _cardRatings);            
 
             _shell.Publish(new DeckGenerated
               {
@@ -152,7 +148,7 @@
       }
     }
 
-    private List<string> GenerateLibrary(string tournamentPack, string[] boosterPacks)
+    private static List<string> GenerateLibrary(string tournamentPack, string[] boosterPacks)
     {
       var library = new List<string>();
 

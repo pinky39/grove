@@ -3,17 +3,20 @@
   using System.Threading.Tasks;
   using System.Windows;
   using Caliburn.Micro;
+  using Gameplay.Tournaments;
   using Infrastructure;
   using MessageBox;
   using Messages;
 
   public class Shell : IShell, IHaveDisplayName
   {
+    private readonly PreConstructedLimitedDecks _preConstructedLimitedDecks;
     private readonly Publisher _publisher = new Publisher().Initialize();
     private InteractionState _interactionState = InteractionState.Disabled;
 
-    public Shell()
+    public Shell(PreConstructedLimitedDecks preConstructedLimitedDecks)
     {
+      _preConstructedLimitedDecks = preConstructedLimitedDecks;
       DisplayName = "magicgrove";
       LoadResources();
     }
@@ -115,6 +118,7 @@
       Task.Factory.StartNew(() =>
         {
           MediaLibrary.LoadResources();
+          _preConstructedLimitedDecks.Load();
           HasLoaded = true;
         });
     }

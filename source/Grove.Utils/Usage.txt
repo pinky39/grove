@@ -33,6 +33,6 @@ starter, booster1, booster2, booster3
 The name of the magic set.
 
 Example:
-Grove.Utils	generate-decks "starter=Urza's Saga" "booster1=Urza's Saga"
+Grove.Utils generate-decks count=100 "starter=Urza's Saga" "booster1=Urza's Saga"
 "booster2=Urza's Saga" "booster3=Urza's Saga"
 ------------------------------------------------------------------------

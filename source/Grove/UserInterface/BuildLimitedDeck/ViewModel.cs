@@ -18,7 +18,7 @@
       _library = library.ToList();
 
       AddBasicLands();
-      Status = "Building decks...";
+      Status = "Building decks 0% completed.";
     }
 
     public virtual Card SelectedCard { get; protected set; }
@@ -38,7 +38,8 @@
 
     public void Receive(DeckGenerated message)
     {
-      Status = String.Format("Building decks {0} of {1}...", message.Count, message.TotalCount);
+      var percentageCompleted = ((double)message.Count / message.TotalCount)*100;
+      Status = String.Format("Building decks {0}% completed.", (int)percentageCompleted);
 
       if (message.Count == message.TotalCount)
         CanStartTournament = true;

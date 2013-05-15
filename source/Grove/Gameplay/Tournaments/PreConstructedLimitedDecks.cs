@@ -12,7 +12,7 @@
 
     public PreConstructedLimitedDecks(DeckIo deckIo)
     {
-      _deckIo = deckIo;
+      _deckIo = deckIo;            
     }
 
     public void Load()
