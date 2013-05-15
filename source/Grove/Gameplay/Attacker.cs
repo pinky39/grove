@@ -109,17 +109,9 @@
       }
     }
 
-    public int GetDamageThisWillDealToPlayer()
+    public int CalculateDefendingPlayerLifeloss()
     {
-      if (_blockers.Count == 0)
-        return _card.CalculateCombatDamage(allDamageSteps: true);
-
-      if (HasTrample)
-      {
-        return QuickCombat.CalculateTrampleDamage(Card, _blockers.Select(x => x.Card));
-      }
-
-      return 0;
+      return QuickCombat.CalculateDefendingPlayerLifeloss(_card, _blockers.Select(x => x.Card));            
     }
 
     public bool HasBlocker(Blocker blocker)

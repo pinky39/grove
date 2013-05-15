@@ -86,7 +86,7 @@
     private void PreventDamageAttackerWillDealToPlayer(TargetingRuleParameters p, List<ITarget> targetPicks,
       List<ITarget> sourcePicks)
     {
-      var attacker = Combat.GetAttackerWhichWillDealGreatestDamageToDefender();
+      var attacker = Combat.FindAttackerWhichWillDealGreatestDamageToDefender();
 
       if (attacker != null)
       {

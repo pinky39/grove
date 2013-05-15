@@ -10,13 +10,17 @@
 
   public abstract class TargetingRule : MachinePlayRule
   {
+    public int? TargetLimit;
+    
     public override void Process(Artifical.ActivationContext c)
     {
       var candidates = c.Selector.GenerateCandidates(c.TriggerMessage);
 
       var parameters = new TargetingRuleParameters(candidates, c, Game);
 
-      var targetsCombinations = SelectTargets(parameters)
+      var targetsCombinations = (TargetLimit.HasValue 
+        ? SelectTargets(parameters).Take(TargetLimit.Value) 
+        : SelectTargets(parameters))
         .ToList();
 
       if (targetsCombinations.Count == 0)
@@ -169,7 +173,7 @@
 
     protected int CalculateAttackerScore(Card card)
     {
-      return Combat.CouldBeBlockedByAny(card) ? 5 : 0 + card.CalculateCombatDamage(allDamageSteps: true);
+      return Combat.CouldBeBlockedByAny(card) ? 5 : 0 + card.EvaluateDealtCombatDamage(allDamageSteps: true);
     }
 
     protected static int CalculateAttackingPotencialScore(Card card)
@@ -177,7 +181,7 @@
       if (card.Has().DoesNotUntap || card.Has().CannotAttack)
         return 0;
 
-      var damage = card.CalculateCombatDamage(allDamageSteps: true);
+      var damage = card.EvaluateDealtCombatDamage(allDamageSteps: true);
 
       if (card.Has().AnyEvadingAbility)
         return 2 + damage;

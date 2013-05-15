@@ -48,6 +48,9 @@
 
     public override int EvaluateReceivedDamage(Card source, int amount, bool isCombat)
     {
+      if (_amount == null)
+        return 0;
+      
       var dealt = amount - _amountLeft.Value;
       return dealt > 0 ? dealt : 0;
     }

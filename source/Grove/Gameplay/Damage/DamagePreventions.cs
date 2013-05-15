@@ -9,6 +9,7 @@
   public class DamagePreventions : IModifiable, IHashable
   {
     private readonly TrackableList<DamagePrevention> _preventions = new TrackableList<DamagePrevention>();
+    public int Count { get { return _preventions.Count; } }
 
     public int CalculateHash(HashCalculator calc)
     {
@@ -82,6 +83,19 @@
       foreach (var preventionEffect in _preventions.ToList())
       {
         amount = preventionEffect.EvaluateReceivedDamage(source, amount, isCombat);
+
+        if (amount == 0)
+          break;
+      }
+
+      return amount;
+    }
+
+    public int EvaluateDealtCombatDamage(int amount)
+    {
+      foreach (var preventionEffect in _preventions.ToList())
+      {
+        amount = preventionEffect.EvaluateDealtCombatDamage(amount);
 
         if (amount == 0)
           break;

@@ -618,10 +618,11 @@
     <Compile Include="Gameplay\Effects\ChooseToAddCounter.cs" />
     <Compile Include="Gameplay\Modifiers\ChangeToEnchantment.cs" />
     <Compile Include="Gameplay\Modifiers\PlayerCastsCreatureLifetime.cs" />
-    <Compile Include="Gameplay\NameGenerator.cs" />
-    <Compile Include="Gameplay\Tournament.cs" />
-    <Compile Include="Gameplay\TournamentPlayer.cs" />
-    <Compile Include="Gameplay\TournamentState.cs" />
+    <Compile Include="Infrastructure\NameGenerator.cs" />
+    <Compile Include="Gameplay\Tournaments\PreConstructedLimitedDecks.cs" />
+    <Compile Include="Gameplay\Tournaments\Tournament.cs" />
+    <Compile Include="Gameplay\Tournaments\TournamentPlayer.cs" />
+    <Compile Include="Gameplay\Tournaments\TournamentState.cs" />
     <Compile Include="Infrastructure\IClosable.cs" />
     <Compile Include="Infrastructure\LogFile.cs" />
     <Compile Include="Artifical\CardRatings.cs" />

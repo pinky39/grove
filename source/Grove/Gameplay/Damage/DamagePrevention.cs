@@ -1,5 +1,6 @@
 ﻿namespace Grove.Gameplay.Damage
 {
+  using System;
   using Infrastructure;
   using Misc;
   using Modifiers;
@@ -52,6 +53,11 @@
     }
 
     public virtual int PreventDealtCombatDamage(int amount)
+    {
+      return amount;
+    }
+
+    public virtual int EvaluateDealtCombatDamage(int amount)
     {
       return amount;
     }

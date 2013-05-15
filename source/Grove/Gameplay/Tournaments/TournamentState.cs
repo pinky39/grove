@@ -1,4 +1,4 @@
-﻿namespace Grove.Gameplay
+﻿namespace Grove.Gameplay.Tournaments
 {
   public enum TournamentState
   {

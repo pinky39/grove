@@ -24,9 +24,9 @@
       if (toughness > 0 && Stack.CanBeDealtLeathalDamageByTopSpell(p.Card))
       {
         return true;
-      }
+      }      
 
-      if (Turn.Step == Step.DeclareBlockers && p.Controller.IsActive && p.Card.IsAttacker)
+      if (Turn.Step == Step.DeclareBlockers && p.Controller.IsActive && p.Card.IsAttacker && Stack.IsEmpty)
       {
         return QuickCombat.CalculateGainAttackerWouldGetIfPowerAndThoughnessWouldIncrease(
           attacker: p.Card,
@@ -35,7 +35,7 @@
           toughnessIncrease: toughness) > 0;
       }
 
-      if (Turn.Step == Step.DeclareBlockers && !p.Controller.IsActive && p.Card.IsBlocker)
+      if (Turn.Step == Step.DeclareBlockers && !p.Controller.IsActive && p.Card.IsBlocker && Stack.IsEmpty)
       {
         return QuickCombat.CalculateGainBlockerWouldGetIfPowerAndThougnessWouldIncrease(
           blocker: p.Card,

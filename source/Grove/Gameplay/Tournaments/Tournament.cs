@@ -1,9 +1,11 @@
-﻿namespace Grove.Gameplay
+﻿namespace Grove.Gameplay.Tournaments
 {
   using System.Collections.Generic;
   using System.Linq;
   using System.Threading.Tasks;
   using Artifical;
+  using Infrastructure;
+  using Sets;
   using UserInterface;
   using UserInterface.Messages;
   using UserInterface.Shell;
@@ -11,15 +13,18 @@
   public class Tournament
   {
     private readonly DeckBuilder _deckBuilder;
-    private readonly ViewModelFactories _viewModels;
-    private readonly IShell _shell;
     private readonly List<TournamentPlayer> _players = new List<TournamentPlayer>();
-    private CardRatings _cardRatings;    
+    private readonly PreConstructedLimitedDecks _preConstructedLimitedDecks;
+    private readonly IShell _shell;
+    private readonly ViewModelFactories _viewModels;
+    private CardRatings _cardRatings;
 
-    public Tournament(DeckBuilder deckBuilder, ViewModelFactories viewModels, IShell shell)
+    public Tournament(DeckBuilder deckBuilder, ViewModelFactories viewModels,
+      PreConstructedLimitedDecks preConstructedLimitedDecks, IShell shell)
     {
       _deckBuilder = deckBuilder;
       _viewModels = viewModels;
+      _preConstructedLimitedDecks = preConstructedLimitedDecks;
       _shell = shell;
     }
 
@@ -30,11 +35,11 @@
     {
       var roundsToGo = GetRoundCount(playersCount);
 
-      CreatePlayers(playersCount, playerName, tournamentPack, boosterPacks);
+      CreatePlayers(playersCount, playerName);
       LoadCardRatings(tournamentPack, boosterPacks);
 
-      GenerateDecks();
-      ShowEditDeckScreen();
+      GenerateDecks(tournamentPack, boosterPacks);
+      ShowEditDeckScreen(GenerateLibrary(tournamentPack, boosterPacks));
 
       while (roundsToGo > 0)
       {
@@ -45,11 +50,7 @@
       }
     }
 
-    private void ShowResults()
-    {
-      
-
-    }
+    private void ShowResults() {}
 
     private int GetRoundCount(int playersCount)
     {
@@ -75,9 +76,9 @@
 
     private void PlayNextRound() {}
 
-    private void ShowEditDeckScreen()
+    private void ShowEditDeckScreen(IEnumerable<string> library)
     {
-      var screen = _viewModels.BuildLimitedDeck.Create(HumanPlayer.Library);      
+      var screen = _viewModels.BuildLimitedDeck.Create(library);
       _shell.ChangeScreen(screen, blockUntilClosed: true);
     }
 
@@ -101,37 +102,53 @@
       _cardRatings = CardRatings.Merge(merged, MediaLibrary.GetSet(tournamentPack).Ratings);
     }
 
-    private void GenerateDecks()
-    {            
+    private void GenerateDecks(string tournamentPack, string[] boosterPacks)
+    {
+      const int minNumberOfGeneratedDecks = 10;
+      var limitedCode = MagicSet.GetLimitedCode(tournamentPack, boosterPacks);
+
+      var preconstructed = _preConstructedLimitedDecks.GetDecks(limitedCode)
+        .Shuffle()
+        .Take(NonHumanPlayers.Count() - minNumberOfGeneratedDecks)
+        .ToList();
+
+      var nonHumanPlayers = NonHumanPlayers.ToList();
+      var actualNumberOfGeneratedDecks = NonHumanPlayers.Count() - preconstructed.Count;
+
+      for (var i = 0; i < preconstructed.Count; i++)
+      {
+        nonHumanPlayers[i].Deck = preconstructed[i].ToList();
+      }
+
       Task.Factory.StartNew(() =>
         {
           var count = 0;
-          var nonHumanPlayers = NonHumanPlayers.ToList();
-          
-          foreach (var player in nonHumanPlayers)
+
+          for (var i = preconstructed.Count; i < nonHumanPlayers.Count; i++)
           {
-            var p = player;
-            p.Deck = _deckBuilder.BuildDeck(p.Library, _cardRatings);
+            var player = nonHumanPlayers[i];
+            var library = GenerateLibrary(tournamentPack, boosterPacks);
+            player.Deck = _deckBuilder.BuildDeck(library, _cardRatings);
 
             count++;
 
             _shell.Publish(new DeckGenerated
               {
                 Count = count,
-                TotalCount = nonHumanPlayers.Count
+                TotalCount = actualNumberOfGeneratedDecks
               });
           }
-        });             
+        });
     }
 
-    private void CreatePlayers(int playersCount, string playerName, string tournamentPack, string[] boosterPacks)
+    private void CreatePlayers(int playersCount, string playerName)
     {
       var names = MediaLibrary.NameGenerator.GenerateNames(playersCount - 1);
-      _players.Add(new TournamentPlayer(playerName, GenerateLibrary(tournamentPack, boosterPacks)));
+      _players.Add(new TournamentPlayer(playerName));
 
       for (var i = 0; i < playersCount - 1; i++)
       {
-        _players.Add(new TournamentPlayer(names[i], GenerateLibrary(tournamentPack, boosterPacks)));
+        _players.Add(new TournamentPlayer(names[i]));
       }
     }
 

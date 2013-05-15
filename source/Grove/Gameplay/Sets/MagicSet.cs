@@ -18,10 +18,12 @@
 
     public MagicSet(string filename)
     {
+      Name = Path.GetFileNameWithoutExtension(filename);      
       LoadFromFile(filename);
     }
 
     public CardRatings Ratings { get { return new CardRatings(_ratings); } }
+    public string Name { get; private set; }
 
     private void ParseCard(string line)
     {
@@ -161,6 +163,18 @@
     public List<string> GenerateBoosterPack()
     {
       return GeneratePack(_boosterPack);
+    }
+
+    public static int GetLimitedCode(string tournamentPack, string[] boosterPacks)
+    {
+      var code = tournamentPack.GetHashCode();
+
+      foreach (var set in boosterPacks)
+      {
+        code += set.GetHashCode();
+      }
+
+      return code;            
     }
   }
 }

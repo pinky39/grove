@@ -258,15 +258,15 @@
 
     public bool WillAnyAttackerDealDamageToDefender()
     {
-      return GetAttackerWhichWillDealGreatestDamageToDefender() != null;
+      return FindAttackerWhichWillDealGreatestDamageToDefender() != null;
     }
 
-    public int CalculateDamageAttackerWillDealToPlayer(Card attacker)
+    public int EvaluateDamageAttackerWillDealToDefender(Card attacker)
     {
-      return FindAttacker(attacker).GetDamageThisWillDealToPlayer();
+      return FindAttacker(attacker).CalculateDefendingPlayerLifeloss();
     }
 
-    public Card GetAttackerWhichWillDealGreatestDamageToDefender(Func<Card, bool> filter = null)
+    public Card FindAttackerWhichWillDealGreatestDamageToDefender(Func<Card, bool> filter = null)
     {
       filter = filter ?? delegate { return true; };
 
@@ -275,7 +275,7 @@
         .Select(x => new
           {
             Attacker = x,
-            Damage = x.GetDamageThisWillDealToPlayer()
+            Damage = x.CalculateDefendingPlayerLifeloss()
           })
         .Where(x => x.Damage > 0)
         .OrderByDescending(x => x.Damage)

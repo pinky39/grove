@@ -9,12 +9,12 @@
 
   public class DeckBuilderFacts : Scenario
   {
-    [Fact]
+    //[Fact]
     public void BuildDecks()
     {
       EnableLogging("Info");
       
-      for (int i = 0; i < 25; i++)
+      for (int i = 0; i < 1; i++)
       {        
         LogFile.Info("Building deck {0} of 25...", i + 1);
 

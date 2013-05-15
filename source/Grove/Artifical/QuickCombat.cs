@@ -13,7 +13,8 @@
     {
       var performance = new AttackerEvaluation(attacker, blockers);
       performance.CalculateLifepointsLeft = card => card.Life + toughnessIncrease;
-      performance.CalculateCombatDamage = card => card.CalculateCombatDamage(powerIncrease: powerIncrease);
+      performance.CalculateCombatDamage =
+        card => card.EvaluateDealtCombatDamage(allDamageSteps: false, powerIncrease: powerIncrease);
 
       var results = performance.Evaluate();
       return results.ReceivesLeathalDamage;
@@ -77,31 +78,29 @@
       if (attacker.Has().Trample == false)
         return 0;
 
-      return attacker.CalculateCombatDamage(allDamageSteps: true) - blockers.Sum(x => x.Life);
+      return attacker.EvaluateDealtCombatDamage(allDamageSteps: true) - blockers.Sum(x => x.Life);
     }
 
     public static int CalculateDefendingPlayerLifeloss(Card attacker, IEnumerable<Card> blockers)
     {
+      int amount = 0;
+
       if (blockers.None())
-        return attacker.CalculateCombatDamage(allDamageSteps: true);
-
-      if (attacker.Has().Trample)
+        amount = attacker.EvaluateDealtCombatDamage(allDamageSteps: true, powerIncrease: 0);
+      else if (attacker.Has().Trample)
       {
-        var totalLifepoints = blockers.Sum(x => x.Life);
-        var diff = attacker.CalculateCombatDamage(allDamageSteps: true) - totalLifepoints;
-
-        return diff > 0 ? diff : 0;
+        amount = CalculateTrampleDamage(attacker, blockers);
       }
 
-      return 0;
-    }
+      return attacker.Controller.Opponent.EvaluateReceivedDamage(attacker, amount, isCombat: true);
+    }            
 
     public static int CalculateGainAttackerWouldGetIfPowerAndThoughnessWouldIncrease(Card attacker,
       IEnumerable<Card> blockers, int powerIncrease, int toughnessIncrease)
-    {
-      if (blockers.None() && powerIncrease > 0)
+    {                        
+      if ((blockers.None() || attacker.Has().Trample) && powerIncrease > 0)
       {
-        return 2;
+        return CalculateDefendingPlayerLifeloss(attacker, blockers) > 0 ? 2 : 0;                
       }
 
       if (toughnessIncrease < 1)
@@ -114,7 +113,8 @@
 
       var canBeDealtLeathalDamageWithBoost = CanAttackerBeDealtLeathalDamage(attacker, blockers, powerIncrease,
         toughnessIncrease);
-      return canBeDealtLeathalDamageWithBoost == false ? attacker.Score : 1;
+      
+      return canBeDealtLeathalDamageWithBoost  ? 0 : attacker.Score;
     }
 
     public static int CalculateGainBlockerWouldGetIfPowerAndThougnessWouldIncrease(Card attacker,
@@ -150,7 +150,7 @@
       int additionalThoughness)
     {
       var performance = new BlockerEvaluation(blocker, attacker);
-      performance.CalculateCombatDamage = card => card.CalculateCombatDamage(powerIncrease: powerIncrease);
+      performance.CalculateCombatDamage = card => card.EvaluateDealtCombatDamage(powerIncrease: powerIncrease);
       performance.LifepointsLeft = card => card.Life + additionalThoughness;
 
       return performance.Evaluate().ReceivesLeathalDamage;

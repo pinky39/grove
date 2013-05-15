@@ -15,7 +15,7 @@
         .Select(x => new
           {
             Card = x,
-            Damage = x.CalculateCombatDamage(allDamageSteps: true)
+            Damage = x.EvaluateDealtCombatDamage(allDamageSteps: true)
           })
         .Where(x => x.Damage > 0)
         .OrderByDescending(x => x.Damage)

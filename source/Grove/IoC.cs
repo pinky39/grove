@@ -18,6 +18,7 @@
   using Gameplay;
   using Gameplay.Decisions;
   using Gameplay.Misc;
+  using Gameplay.Tournaments;
   using Infrastructure;
   using Persistance;
   using UserInterface;
@@ -125,6 +126,7 @@
         container.Register(Component(typeof (DeckBuilder), lifestyle: LifestyleType.Singleton));
         container.Register(Component(typeof (DeckEvaluator), lifestyle: LifestyleType.Singleton));
         container.Register(Component(typeof (DeckIo), lifestyle: LifestyleType.Singleton));
+        container.Register(Component(typeof (PreConstructedLimitedDecks), lifestyle: LifestyleType.Singleton));
       }
 
       public static ComponentRegistration<object> Component(Type service, Type implementation = null,

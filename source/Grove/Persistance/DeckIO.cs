@@ -1,17 +1,15 @@
 ﻿namespace Grove.Persistance
 {
   using System;
-  using System.Collections.Generic;
   using System.IO;
-  using System.Linq;
   using System.Text.RegularExpressions;
   using Gameplay;
-  using Gameplay.Misc;
 
   public class DeckIo
   {
     private static readonly Regex DescriptionRegex = new Regex(@"#.*Description\:\s*(.+)", RegexOptions.Compiled);
     private static readonly Regex RatingRegex = new Regex(@"#.*Rating\:\s*(.+)", RegexOptions.Compiled);
+    private static readonly Regex LimitedCodeRegex = new Regex(@"#.*Limited\:\s*(.+)", RegexOptions.Compiled);
     private readonly CardsInfo _cardsInfo;
 
     public DeckIo(CardsInfo cardsInfo)
@@ -52,7 +50,18 @@
             {
               int.TryParse(match.Groups[1].Value, out rating);
               deck.Rating = rating;
+              continue;
             }
+
+            match = LimitedCodeRegex.Match(line);
+            int limitedCode;
+            if (match.Success)
+            {
+              int.TryParse(match.Groups[1].Value, out limitedCode);
+              deck.LimitedCode = limitedCode;
+              continue;
+            }
+
             continue;
           }
 
@@ -68,16 +77,21 @@
     {
       using (var writer = new StreamWriter(filename))
       {
-        writer.WriteLine("# Description: {0}", deck.Description);
-        writer.WriteLine("# Rating: {0}", deck.Rating);
-        writer.WriteLine();
+        if (!String.IsNullOrEmpty(deck.Description))
+          writer.WriteLine("# Description: {0}", deck.Description);
+
+        if (deck.Rating.HasValue)
+          writer.WriteLine("# Rating: {0}", deck.Rating);
+
+        if (deck.LimitedCode.HasValue)
+          writer.WriteLine("# Limited: {0}", deck.LimitedCode);
 
         foreach (var row in DeckRow.Group(deck))
         {
           writer.WriteLine("{0} {1}", row.Count, row.CardName);
         }
       }
-    }    
+    }
 
     private static void ThrowParsingError(int lineNumber)
     {

@@ -775,20 +775,31 @@
       _isRevealed.Value = false;
       _isHidden.Value = false;
       _isPeeked.Value = false;
-    }
-
-    public int CalculateCombatDamage(bool allDamageSteps = false, int powerIncrease = 0)
+    }            
+    
+    public int EvaluateDealtCombatDamage(bool allDamageSteps = false, int powerIncrease = 0)
     {
       if (!Power.HasValue)
         return 0;
 
       var amount = Power.Value + powerIncrease;
-      amount = _damagePreventions.PreventDealtCombatDamage(amount);
+      amount = _damagePreventions.EvaluateDealtCombatDamage(amount);
 
       if (allDamageSteps)
       {
-        amount = Has().DoubleStrike ? amount*2 : amount;
+        amount = Has().DoubleStrike ? amount * 2 : amount;
       }
+      
+      return amount;
+    }
+    
+    public int CalculateCombatDamage()
+    {
+      if (!Power.HasValue)
+        return 0;
+
+      var amount = Power.Value;
+      amount = _damagePreventions.PreventDealtCombatDamage(amount);                  
 
       return amount;
     }

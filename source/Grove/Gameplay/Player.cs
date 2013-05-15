@@ -107,6 +107,11 @@
       }
     }
 
+    public int EvaluateReceivedDamage(Card source, int amount, bool isCombat)
+    {
+      return _damagePreventions.EvaluateReceivedDamage(source, amount, isCombat);
+    }
+
     public void DealDamage(Damage.Damage damage)
     {
       _damagePreventions.PreventReceivedDamage(damage);

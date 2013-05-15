@@ -1,4 +1,4 @@
-﻿namespace Grove.Gameplay
+﻿namespace Grove.Infrastructure
 {
   using System;
   using System.Collections.Generic;

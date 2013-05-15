@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using Gameplay;
+  using Gameplay.Tournaments;
 
   public class ViewModel : ViewModelBase
   {

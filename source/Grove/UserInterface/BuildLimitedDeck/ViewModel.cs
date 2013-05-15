@@ -7,7 +7,7 @@
   using Infrastructure;
   using Messages;
 
-  public class ViewModel : ViewModelBase , IReceive<DeckGenerated>
+  public class ViewModel : ViewModelBase, IReceive<DeckGenerated>
   {
     private readonly List<string> _library;
     private Dictionary<Card, CardsLeft> _availability;
@@ -16,6 +16,8 @@
     public ViewModel(IEnumerable<string> library)
     {
       _library = library.ToList();
+
+      AddBasicLands();
       Status = "Building decks...";
     }
 
@@ -34,19 +36,39 @@
       }
     }
 
+    public void Receive(DeckGenerated message)
+    {
+      Status = String.Format("Building decks {0} of {1}...", message.Count, message.TotalCount);
+
+      if (message.Count == message.TotalCount)
+        CanStartTournament = true;
+    }
+
+    private void AddBasicLands()
+    {
+      for (var i = 0; i < 40; i++)
+      {
+        _library.Add("Plains");
+        _library.Add("Island");
+        _library.Add("Swamp");
+        _library.Add("Mountain");
+        _library.Add("Forest");
+      }
+    }
+
     public void ChangeSelectedCard(Card card)
     {
       SelectedCard = card;
     }
 
     public void AddCard(Card card)
-    {      
-      Deck.AddCard(card.Name);      
+    {
+      Deck.AddCard(card.Name);
     }
 
     public void RemoveCard(Card card)
     {
-      Deck.RemoveCard(card.Name);      
+      Deck.RemoveCard(card.Name);
     }
 
     public void StartTournament()
@@ -98,14 +120,6 @@
     public interface IFactory
     {
       ViewModel Create(IEnumerable<string> library);
-    }
-
-    public void Receive(DeckGenerated message)
-    {
-      Status = String.Format("Building decks {0} of {1}...", message.Count, message.TotalCount);
-
-      if (message.Count == message.TotalCount)
-        CanStartTournament = true;
     }
   }
 }

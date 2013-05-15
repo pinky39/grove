@@ -29,7 +29,7 @@
 
     public virtual int Rating
     {
-      get { return _deck.Rating; }
+      get { return _deck.Rating ?? 3; }
       set
       {
         _deck.Rating = value;

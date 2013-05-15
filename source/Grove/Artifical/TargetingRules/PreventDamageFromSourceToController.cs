@@ -21,11 +21,11 @@
         }
       }
 
-      if (Turn.Step == Step.DeclareBlockers)
+      if (Turn.Step == Step.DeclareBlockers && Stack.IsEmpty)
       {
         if (!p.Controller.IsActive)
         {
-          var attacker = Combat.GetAttackerWhichWillDealGreatestDamageToDefender(
+          var attacker = Combat.FindAttackerWhichWillDealGreatestDamageToDefender(
             card => p.Candidates<ITarget>().Contains(card));
 
           if (attacker != null)

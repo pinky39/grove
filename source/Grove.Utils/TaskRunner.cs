@@ -10,11 +10,11 @@
 
     public TaskRunner()
     {
-      _registrations = new Dictionary<string, Func<Task>>()
+      _registrations = new Dictionary<string, Func<Task>>
         {
           {"write-card-list", () => Container.Resolve<WriteCardList>()},
           {"write-card-ratings", () => Container.Resolve<WriteCardList>()},
-          {"generate-deck", () => Container.Resolve<GenerateDeck>()}
+          {"generate-decks", () => Container.Resolve<GenerateDecks>()}
         };
     }
 
@@ -28,17 +28,8 @@
     {
       if (_registrations.ContainsKey(name))
       {
-        try
-        {
-          _registrations[name]().Execute(new Arguments(args));
-          Console.WriteLine("Task completed successfuly.");
-        }
-        catch (Exception ex)
-        {
-          Console.WriteLine(ex.Message);
-        }
-
-        return;
+        _registrations[name]().Execute(new Arguments(args));
+        Console.WriteLine("Task completed successfuly.");
       }
 
       Console.WriteLine(String.Format("Invalid task name: '{0}'.", name));

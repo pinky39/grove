@@ -1,14 +1,17 @@
 ﻿namespace Grove.Artifical
 {
+  using System;
   using System.Collections.Generic;
+  using System.Diagnostics;
   using System.Linq;
   using Gameplay;
   using Gameplay.Characteristics;
 
   public class DeckBuilder
   {
-    private const int MinCreatureCount = 15;
-    private const int DeckCardCount = 40;
+    private const int MinCreatureCount = 12;
+    private const int MaxCreatureCount = 18;
+    private const int DeckCardCount = 40;    
 
     private static readonly LandCountRule[] LandCountRules = new[]
       {
@@ -17,7 +20,8 @@
         new LandCountRule {Cost = 3.5, Count = 18},
       };
 
-    private static readonly int MinSpellCount = DeckCardCount - LandCountRules[0].Count;
+    private static readonly int MinSpellCount = DeckCardCount - LandCountRules[2].Count;
+    private static readonly int MaxSpellCount = DeckCardCount - LandCountRules[0].Count;
     private readonly CardsDatabase _cardsDatabase;
     private readonly DeckEvaluator _deckEvaluator;
 
@@ -73,10 +77,11 @@
 
     private void AddLands(List<Card> deck, CardRatings cardRatings)
     {
-      var landCount = CalculateOptimalLandCount(deck);
+      var minimalLandCount = DeckCardCount - deck.Count;
+      var landCount = Math.Max(minimalLandCount, CalculateOptimalLandCount(deck));
 
-      var actualDeckSize = landCount + deck.Count;
-
+      var actualDeckSize = landCount + deck.Count;      
+      
       if (actualDeckSize > DeckCardCount)
       {
         RemoveWorstCards(actualDeckSize - DeckCardCount, deck, cardRatings);
@@ -114,17 +119,19 @@
       var roundedCount = distribution.Sum();
       var roundingError = landCount - roundedCount;
 
-      for (var i = 0; i < roundingError; i++)
+      var i = 0;
+      while (roundingError > 0)
       {
         if (distribution[i] > 0)
+        {
           distribution[i]++;
+          roundingError--;
+        }
 
-        roundingError--;
+        i++;
+      }            
 
-        if (roundingError == 0)
-          break;
-      }
-
+      Debug.Assert(distribution.Sum() == landCount);
       return distribution;
     }
 
@@ -148,9 +155,9 @@
       }
     }
 
-    private static int CalculateOptimalLandCount(List<Card> deck)
+    private static int CalculateOptimalLandCount(List<Card> deckNoLands)
     {
-      var avarageCost = deck.Sum(x => x.ConvertedCost)/deck.Count;
+      var avarageCost = deckNoLands.Sum(x => x.ConvertedCost)/deckNoLands.Count;
 
       foreach (var rule in LandCountRules)
       {
@@ -163,29 +170,29 @@
 
     private static List<Card> BuildDeckNoLands(IEnumerable<Card> cards, CardRatings cardRatings)
     {
-      var creatures = cards
+      var allCreatures = cards
         .Where(x => x.Is().Creature)
         .OrderByDescending(x => cardRatings.GetRating(x.Name))
         .ToList();
 
-      var other = cards
+      var creaturesToInclude = allCreatures.Take(MinCreatureCount);
+      var creaturesToConsider = allCreatures.Skip(MinCreatureCount).Take(MaxCreatureCount - MinCreatureCount).ToList();
+
+      var cardsToConsider = cards
         .Where(x => !x.Is().Creature)
+        .Concat(creaturesToConsider)
+        .OrderByDescending(x => cardRatings.GetRating(x.Name))
         .ToList();
 
-      if (creatures.Count < MinCreatureCount)
+      var result = creaturesToInclude.ToList();
+
+      result.AddRange(cardsToConsider
+        .Take(MaxSpellCount - result.Count));
+
+
+      if (result.Count < MinSpellCount)
         return null;
-
-      if (creatures.Count + other.Count < MinSpellCount)
-        return null;
-
-      var result = creatures.Take(MinCreatureCount).ToList();
-
-      other.AddRange(creatures.Skip(MinCreatureCount));
-
-      result.AddRange(other
-        .OrderByDescending(x => cardRatings.GetRating(x.Name))
-        .Take(MinSpellCount - MinCreatureCount));
-
+      
       return result;
     }
 

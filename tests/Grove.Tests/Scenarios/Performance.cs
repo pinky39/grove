@@ -191,6 +191,17 @@
       Battlefield(P2, "Swamp", "Swamp");
 
       RunGame(2);
-    }  
+    }
+
+    [Fact]
+    public void Num16()
+    {
+      Hand(P1, "Exhume", "Pestilence", "Phyrexian Ghoul", "Blood Vassal", "Swamp");
+      Hand(P2, "Power Sink", "Power Sink", "Cloak of Mists", "Waylay", "Waylay", "Sandbar Serpent", "Launch");
+      Battlefield(P1, "Swamp", "Swamp", "Swamp", "Bog Raiders", "Phyrexian Ghoul", "Swamp", "Hopping Automaton", "Swamp", "Hopping Automaton");
+      Battlefield(P2, "Plains", "Plains", "Rune of Protection: Black", "Plains", "Sanctum Custodian");
+
+      RunGame(1);
+    } 
   }
 }

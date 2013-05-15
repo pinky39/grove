@@ -3,12 +3,13 @@
   using System;
   using System.IO;
   using System.Reflection;
+  using Infrastructure;
   using UserInterface;
 
   internal class Program
   {
     private static void Main(string[] args)
-    {
+    {            
       if (args.Length < 1)
       {
         Usage();
@@ -17,7 +18,17 @@
       
       MediaLibrary.LoadResources();
       var runner = new TaskRunner();
-      runner.Run(args[0], args);
+      
+      LogFile.Info("Starting task...");
+
+      try
+      {
+        runner.Run(args[0], args);
+      }
+      catch(Exception ex)
+      {
+        LogFile.Error(ex.ToString());
+      }
     }
 
     private static void Usage()

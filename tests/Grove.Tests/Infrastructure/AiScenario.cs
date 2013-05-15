@@ -2,7 +2,6 @@
 {
   using System;
   using System.Collections.Generic;
-  using System.Diagnostics;
   using System.Linq;
   using Artifical;
   using Grove.Infrastructure;
@@ -10,26 +9,20 @@
   public abstract class AiScenario : Scenario
   {
     private readonly List<Measurement> _measurements = new List<Measurement>();
-    private readonly Stopwatch _stopwatch = new Stopwatch();
 
     protected AiScenario() : base(
       player1ControlledByScript: false,
       player2ControlledByScript: false)
     {
-      Game.Ai.SearchStarted += delegate { _stopwatch.Start(); };
-
       Game.Ai.SearchFinished += delegate
         {
-          _stopwatch.Stop();
           _measurements.Add(new Measurement
             {
               NodeCount = Game.Ai.LastSearchStatistics.NodeCount,
               WorkerCount = Game.Ai.LastSearchStatistics.NumOfWorkersCreated,
               SubtreesPrunned = Game.Ai.LastSearchStatistics.SubtreesPrunned,
-              ElapsedTime = _stopwatch.ElapsedMilliseconds
+              ElapsedTime = Game.Ai.LastSearchStatistics.Elapsed.TotalMilliseconds
             });
-
-          _stopwatch.Reset();
         };
     }
 
@@ -88,9 +81,7 @@
     }
 
     public override void Dispose()
-    {
-      _stopwatch.Stop();
-
+    {      
       Console.WriteLine(@"Search count: {0}", SearchCount);
       Console.WriteLine(@"Total search time: {0:f2} seconds", TotalElapsedTime);
       Console.WriteLine(@"Total node count: {0}", TotalNodesCount);
@@ -107,7 +98,7 @@
 
     private class Measurement
     {
-      public long ElapsedTime { get; set; }
+      public double ElapsedTime { get; set; }
       public NodeCount NodeCount { get; set; }
       public int WorkerCount { get; set; }
       public int SubtreesPrunned { get; set; }

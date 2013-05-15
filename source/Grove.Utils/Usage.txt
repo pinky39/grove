@@ -15,18 +15,24 @@ write-card-ratings
 Downloads ratings for all implemented cards from gather and stores them
 into a file. If the file exists, existing ratings are not overwritten.
 
--filename	the name of the file to write ratings to.
+filename	
+The name of the file to write ratings to.
 
 Example:
 Grove.Utils	write-card-ratings filename=ratings.txt
 ------------------------------------------------------------------------
 
-generate-deck
+generate-decks
 ------------------------------------------------------------------------
-Generates limited deck from specified set.
+Generates limited decks from specified card pool.
 
--set	the name of the magic set.
+count
+The number of decks to generate.
+
+starter, booster1, booster2, booster3	
+The name of the magic set.
 
 Example:
-Grove.Utils	generate-deck "set=Urza's Saga"
+Grove.Utils	generate-decks "starter=Urza's Saga" "booster1=Urza's Saga"
+"booster2=Urza's Saga" "booster3=Urza's Saga"
 ------------------------------------------------------------------------

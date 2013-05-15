@@ -29,8 +29,9 @@
               {Category = EffectCategories.ToughnessIncrease};
 
             p.TargetSelector.AddCost(trg => trg.Is.Creature(ControlledBy.SpellOwner).On.Battlefield());
+            
             p.TimingRule(new IncreaseOwnersPowerOrToughness(2, 2));
-            p.TargetingRule(new OrderByRank(c => c.Score));
+            p.TargetingRule(new OrderByRank(c => c.Score) {TargetLimit = 1});
           });
     }
   }

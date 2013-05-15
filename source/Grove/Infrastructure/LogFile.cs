@@ -7,6 +7,18 @@
   {
     private static readonly ILog Logger = LogManager.GetLogger("Global");
 
+    
+    public static void Error(string message, params object[] args)
+    {
+      if (args.Length == 0)
+      {
+        Logger.Error(message);
+        return;
+      }
+
+      Logger.ErrorFormat(message, args);
+    }
+    
     [Conditional("DEBUG")]
     public static void Info(string message, params object[] args)
     {

@@ -8,6 +8,7 @@
   using System.Windows.Media.Imaging;
   using Gameplay;
   using Gameplay.Sets;
+  using Infrastructure;
 
   public static class MediaLibrary
   {
@@ -16,6 +17,7 @@
     private const string Cards = @"cards\";
     private const string Decks = @"decks\";
     private const string Sets = @"sets\";
+    private const string Tournament = @"tournament\";
 
     private static readonly Dictionary<string, ImageSource> ImageDatabase = new Dictionary<string, ImageSource>();
 
@@ -44,6 +46,7 @@
     public static string ImagesFolder { get { return Path.Combine(BasePath, Images); } }
     public static string DecksFolder { get { return Path.Combine(BasePath, Decks); } }
     public static string SetsFolder { get { return Path.Combine(BasePath, Sets); } }
+    public static string TournamentFolder { get { return Path.Combine(BasePath, Tournament); } }
 
     public static void LoadResources()
     {
@@ -130,6 +133,11 @@
     public static string[] GetDeckFilenames()
     {
       return Directory.GetFiles(DecksFolder, "*.dec");
+    }
+    
+    public static string[] GetLimitedPreconstructedDecks()
+    {
+      return Directory.GetFiles(TournamentFolder, "*.dec");
     }
   }
 }
