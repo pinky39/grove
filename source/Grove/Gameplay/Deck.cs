@@ -3,56 +3,37 @@
   using System.Collections;
   using System.Collections.Generic;
   using System.Linq;
-  using ManaHandling;
 
   public class Deck : IEnumerable<string>
   {
-    private readonly List<string> _cardNames = new List<string>();
-    private readonly CardsInfo _cardsInfo;
+    private readonly List<string> _cards = new List<string>();
 
-    public Deck(CardsInfo cardsInfo)
+    public Deck(IEnumerable<string> cards)
     {
-      _cardsInfo = cardsInfo;
+      _cards.AddRange(cards);
     }
 
-    public IEnumerable<string> Creatures { get { return _cardNames.Where(x => _cardsInfo[x].Is().Creature); } }
-    public IEnumerable<string> Spells { get { return _cardNames.Where(x => !_cardsInfo[x].Is().Creature && !_cardsInfo[x].Is().Land); } }
-    public IEnumerable<string> Lands { get { return _cardNames.Where(x => _cardsInfo[x].Is().Land); } }
+    public Deck() {}
 
-    public IManaAmount Colors
-    {
-      get
-      {
-        var dictionary = new Dictionary<ManaColor, bool>();
+    //public IEnumerable<string> Creatures { get { return _cardNames.Where(x => _cardsInfo[x].Is().Creature); } }
+    //public IEnumerable<string> Spells { get { return _cardNames.Where(x => !_cardsInfo[x].Is().Creature && !_cardsInfo[x].Is().Land); } }
+    //public IEnumerable<string> Lands { get { return _cardNames.Where(x => _cardsInfo[x].Is().Land); } }
 
-        foreach (var cardName in _cardNames)
-        {
-          var card = _cardsInfo[cardName];
-
-          if (card.ManaCost == null)
-            continue;
-
-          foreach (var singleColorAmount in card.ManaCost)
-          {
-            dictionary[singleColorAmount.Color] = true;
-          }
-        }
-
-        return new MultiColorManaAmount(dictionary
-          .Where(x => x.Value)
-          .Where(x => x.Key != ManaColor.Colorless)
-          .ToDictionary(x => x.Key, x => 1));
-      }
-    }
+   
 
     public int? Rating { get; set; }
     public string Description { get; set; }
     public string Name { get; set; }
     public int? LimitedCode { get; set; }
 
+    public static Deck CreateUncastable()
+    {
+      return new Deck(Enumerable.Repeat("Uncastable", 60));
+    }
+
     public IEnumerator<string> GetEnumerator()
     {
-      return _cardNames.GetEnumerator();
+      return _cards.GetEnumerator();
     }
 
     IEnumerator IEnumerable.GetEnumerator()
@@ -64,13 +45,13 @@
     {
       for (var i = 0; i < count; i++)
       {
-        _cardNames.Add(name);
+        _cards.Add(name);
       }
     }
 
     public bool RemoveCard(string name)
     {
-      return _cardNames.Remove(name);
+      return _cards.Remove(name);
     }
   }
 }

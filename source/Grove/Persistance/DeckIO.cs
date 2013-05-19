@@ -5,26 +5,21 @@
   using System.Text.RegularExpressions;
   using Gameplay;
 
-  public class DeckIo
+  public class DeckFile
   {
     private static readonly Regex DescriptionRegex = new Regex(@"#.*Description\:\s*(.+)", RegexOptions.Compiled);
     private static readonly Regex RatingRegex = new Regex(@"#.*Rating\:\s*(.+)", RegexOptions.Compiled);
     private static readonly Regex LimitedCodeRegex = new Regex(@"#.*Limited\:\s*(.+)", RegexOptions.Compiled);
-    private readonly CardsInfo _cardsInfo;
 
-    public DeckIo(CardsInfo cardsInfo)
-    {
-      _cardsInfo = cardsInfo;
-    }
 
-    public Deck Read(string filename)
+    public static Deck Read(string filename)
     {
       using (var reader = new StreamReader(filename))
       {
         string line;
         var lineNumber = 0;
 
-        var deck = new Deck(_cardsInfo);
+        var deck = new Deck();
         deck.Name = Path.GetFileNameWithoutExtension(filename);
 
         while ((line = reader.ReadLine()) != null)
@@ -73,7 +68,8 @@
       }
     }
 
-    public void Write(Deck deck, string filename)
+
+    public static void Write(Deck deck, string filename)
     {
       using (var writer = new StreamWriter(filename))
       {

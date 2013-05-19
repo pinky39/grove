@@ -16,19 +16,19 @@
       }
 
       // remove potential blockers
-      if (p.Controller.IsActive && Turn.Step == Step.BeginningOfCombat)
+      if (p.Controller.IsActive && Turn.Step == Step.BeginningOfCombat && Stack.IsEmpty)
       {
         return p.Controller.Opponent.Battlefield.CreaturesThatCanBlock.Count() > 0;
       }
 
       // damage attackers
-      if (!p.Controller.IsActive && Turn.Step == Step.DeclareAttackers)
+      if (!p.Controller.IsActive && Turn.Step == Step.DeclareAttackers && Stack.IsEmpty)
       {
         return Combat.Attackers.Count() > 0;
       }
 
       // eot or when owner of ability is in trouble
-      if ((!p.Controller.IsActive && Turn.Step == Step.EndOfTurn) || Stack.CanBeDestroyedByTopSpell(p.Card))
+      if ((!p.Controller.IsActive && Turn.Step == Step.EndOfTurn && Stack.IsEmpty) || Stack.CanBeDestroyedByTopSpell(p.Card))
       {
         return true;
       }

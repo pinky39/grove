@@ -30,6 +30,7 @@
       {
         _registrations[name]().Execute(new Arguments(args));
         Console.WriteLine("Task completed successfuly.");
+        return;
       }
 
       Console.WriteLine(String.Format("Invalid task name: '{0}'.", name));

@@ -87,6 +87,17 @@
       return Original;
     }
 
+    public IEnumerable<string> GetTextOnly()
+    {
+      foreach (var token in Tokens)
+      {
+        if (token is TextToken || token is ImportantTextToken)
+        {
+          yield return token.Value;
+        }
+      }
+    }
+
     private static Token CreateSpecialToken(string value)
     {
       foreach (var ctor in TokenFactoy)

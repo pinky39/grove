@@ -93,7 +93,7 @@
 
 								<TextBlock Text="{Binding Name}" Foreground="#fff" FontSize="15" />
 
-								<ItemsControl Grid.Column="1" ItemsSource="{Binding Path=Deck.Colors,  Converter={x:Static grove:Converters.ManaCostToManaSymbolImages}}">
+								<ItemsControl Grid.Column="1" ItemsSource="{Binding Colors,  Converter={x:Static grove:Converters.ManaCostToManaSymbolImages}}">
 									<ItemsControl.ItemsPanel>
 										<ItemsPanelTemplate>
 											<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" />

@@ -67,7 +67,24 @@
 										<ControlTemplate TargetType="{x:Type ListBoxItem}">
 											<Border Name="Border" SnapsToDevicePixels="true" Background="#11000000" BorderThickness="0,0,0,1" BorderBrush="#33ffffff" Cursor="Hand">
 												<ContentPresenter />
-											</Border>
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="MouseEnter">
+                                                        <cal:ActionMessage MethodName="ChangeSelectedCard">
+                                                            <cal:Parameter Value="{Binding }" />
+                                                        </cal:ActionMessage>
+                                                    </i:EventTrigger>
+                                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                        <cal:ActionMessage MethodName="AddCard">
+                                                            <cal:Parameter Value="{Binding }" />
+                                                        </cal:ActionMessage>
+                                                    </i:EventTrigger>
+                                                    <i:EventTrigger EventName="MouseRightButtonDown">
+                                                        <cal:ActionMessage MethodName="RemoveCard">
+                                                            <cal:Parameter Value="{Binding }" />
+                                                        </cal:ActionMessage>
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </Border>
 											<ControlTemplate.Triggers>
 												<Trigger Property="IsMouseOver" Value="true">
 													<Setter TargetName="Border" Property="Background" Value="#11cccccc" />
@@ -110,23 +127,7 @@
 												</ItemsControl.ItemTemplate>
 											</ItemsControl>
 										</Grid>
-										<i:Interaction.Triggers>
-											<i:EventTrigger EventName="MouseEnter">
-												<cal:ActionMessage MethodName="ChangeSelectedCard">
-													<cal:Parameter Value="{Binding }" />
-												</cal:ActionMessage>
-											</i:EventTrigger>
-											<i:EventTrigger EventName="MouseLeftButtonDown">
-												<cal:ActionMessage MethodName="AddCard">
-													<cal:Parameter Value="{Binding }" />
-												</cal:ActionMessage>
-											</i:EventTrigger>
-											<i:EventTrigger EventName="MouseRightButtonDown">
-												<cal:ActionMessage MethodName="RemoveCard">
-													<cal:Parameter Value="{Binding }" />
-												</cal:ActionMessage>
-											</i:EventTrigger>
-										</i:Interaction.Triggers>
+									
 									</ContentControl>
 								</DataTemplate>
 							</ListBox.ItemTemplate>

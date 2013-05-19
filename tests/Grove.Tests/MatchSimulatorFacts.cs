@@ -1,8 +1,7 @@
 ﻿namespace Grove.Tests
 {
   using System;
-  using System.Collections.Generic;
-  using System.Linq;
+  using Gameplay;
   using Infrastructure;
   using Persistance;
   using Xunit;
@@ -14,7 +13,7 @@
     {
       var deck1 = "deck1.dec";
       var deck2 = "deck2.dec";
-      
+
       var result = MatchSimulator.Simulate(GetDeck(deck1), GetDeck(deck2),
         maxTurnsPerGame: 25, maxSearchDepth: 12, maxTargetsCount: 2);
 
@@ -29,9 +28,9 @@
       Assert.True(result.Deck1WinCount + result.Deck2WinCount >= 2);
     }
 
-    private List<string> GetDeck(string name)
+    private Deck GetDeck(string name)
     {
-      return new DeckIo(CardsInfo).Read(@".\" + name).ToList();
+      return DeckFile.Read(@".\" + name);
     }
   }
 }

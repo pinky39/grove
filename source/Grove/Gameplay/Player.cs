@@ -21,7 +21,7 @@
     private readonly ContiniousEffects _continuousEffects = new ContiniousEffects();
     private readonly DamagePreventions _damagePreventions = new DamagePreventions();
     private readonly DamageRedirections _damageRedirections = new DamageRedirections();
-    private readonly List<string> _deck;
+    private readonly Deck _deck;
     private readonly Exile _exile;
     private readonly Graveyard _graveyard;
     private readonly Hand _hand;
@@ -36,7 +36,7 @@
     private readonly ManaVault _manaVault = new ManaVault();
     private readonly TrackableList<IModifier> _modifiers = new TrackableList<IModifier>();
 
-    public Player(string name, string avatar, ControllerType controller, List<string> deck)
+    public Player(string name, string avatar, ControllerType controller, Deck deck)
     {
       Name = name;
       Avatar = avatar;
@@ -107,11 +107,6 @@
       }
     }
 
-    public int EvaluateReceivedDamage(Card source, int amount, bool isCombat)
-    {
-      return _damagePreventions.EvaluateReceivedDamage(source, amount, isCombat);
-    }
-
     public void DealDamage(Damage.Damage damage)
     {
       _damagePreventions.PreventReceivedDamage(damage);
@@ -161,6 +156,11 @@
         _landLimit.Value.GetValueOrDefault(),
         _landsPlayedCount.Value
         );
+    }
+
+    public int EvaluateReceivedDamage(Card source, int amount, bool isCombat)
+    {
+      return _damagePreventions.EvaluateReceivedDamage(source, amount, isCombat);
     }
 
     public void AddModifier(IModifier modifier)

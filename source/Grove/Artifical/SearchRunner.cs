@@ -117,7 +117,15 @@
 
       using (new Timer(SearchMonitor, null, 0, 2000))
       {
-        LastSearchStatistics = _currentSearch.Start(searchNode);
+        try
+        {
+          LastSearchStatistics = _currentSearch.Start(searchNode);
+        }
+        catch(Exception)
+        {          
+          GenearateScenario();
+          throw;
+        }
       }
 
       var result = _currentSearch.Result;

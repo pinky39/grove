@@ -5,6 +5,7 @@
   using System.Collections.Generic;
   using System.Linq;
   using System.Threading.Tasks;
+  using Gameplay;
   using Infrastructure;
 
   public class DeckEvaluator
@@ -16,14 +17,14 @@
       _matchSimulator = matchSimulator;
     }
 
-    public List<string> GetBestDeck(List<List<string>> decks)
+    public Deck GetBestDeck(List<Deck> decks)
     {
-      var bestDecks = decks.Select((x, i) => new Deck {Number = i + 1, Cards = x}).Shuffle().ToList();
+      var bestDecks = decks.Select((x, i) => new NumberedDeck {Number = i + 1, Deck = x}).Shuffle().ToList();
 
       var round = 1;
       while (bestDecks.Count > 1)
       {
-        Deck bye = null;
+        NumberedDeck bye = null;
 
         if (bestDecks.Count%2 != 0)
         {
@@ -44,13 +45,13 @@
         round++;
       }
 
-      return bestDecks[0].Cards;
+      return bestDecks[0].Deck;
     }
 
-    private List<Deck> PlayOneRound(List<Deck> decks)
+    private List<NumberedDeck> PlayOneRound(List<NumberedDeck> decks)
     {
       var tasks = new List<Task>();
-      var winners = new ConcurrentBag<Deck>();
+      var winners = new ConcurrentBag<NumberedDeck>();
 
       for (var i = 0; i < decks.Count; i = i + 2)
       {
@@ -61,8 +62,8 @@
           {
             Console.WriteLine("Deck {0} is playing against Deck {1}...", deck1.Number, deck2.Number);
             var result = _matchSimulator.Simulate(
-              deck1.Cards,
-              deck2.Cards,
+              deck1.Deck,
+              deck2.Deck,
               maxTurnsPerGame: 15,
               maxSearchDepth: 10,
               maxTargetsCount: 1);
@@ -88,9 +89,9 @@
       return winners.ToList();
     }
 
-    private class Deck
+    private class NumberedDeck
     {
-      public List<string> Cards;
+      public Deck Deck;
       public int Number;
     }
   }

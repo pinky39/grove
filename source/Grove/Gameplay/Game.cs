@@ -34,7 +34,7 @@
     public TurnInfo Turn { get; private set; }
     public SearchRunner Ai { get; private set; }
 
-    public static Game New(string yourName, string opponentsName, List<string> humanDeck, List<string> cpuDeck,
+    public static Game New(string yourName, string opponentsName, Deck humanDeck, Deck cpuDeck,
       CardsDatabase cardsDatabase, DecisionSystem decisionSystem)
     {
       var searchParameters = new SearchParameters(40, 2, enableMultithreading: true);
@@ -105,7 +105,7 @@
       _publisher.Subscribe(instance);
     }
 
-    public static Game NewSimulation(List<string> deck1, List<string> deck2, int maxSearchDepth, int maxTargetCount,
+    public static Game NewSimulation(Deck deck1, Deck deck2, int maxSearchDepth, int maxTargetCount,
       CardsDatabase cardsDatabase, DecisionSystem decisionSystem)
     {
       var searchParameters = new SearchParameters(maxSearchDepth, maxTargetCount, enableMultithreading: false);
@@ -177,18 +177,13 @@
       var searchParameters = new SearchParameters(40, 2, enableMultithreading: true);
       var game = CreateGame(searchParameters, cardsDatabase, decisionSystem);
 
-      var player1 = new Player("Player1", "player1.png", player1Controller, CreateDummyDeck());
-      var player2 = new Player("Player2", "player2.png", player2Controller, CreateDummyDeck());
+      var player1 = new Player("Player1", "player1.png", player1Controller, Deck.CreateUncastable());
+      var player2 = new Player("Player2", "player2.png", player2Controller, Deck.CreateUncastable());
       game.Players = new Players(player1, player2);
       game.Initialize();
 
       game.Players.Starting = game.Players.Player1;
       return game;
-    }
-
-    private static List<string> CreateDummyDeck()
-    {
-      return Enumerable.Repeat("Uncastable", 60).ToList();
-    }
+    }    
   }
 }

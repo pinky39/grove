@@ -844,5 +844,6 @@
     {
       return _castInstructions.GetManaCost(index);
     }
+    
   }
 }

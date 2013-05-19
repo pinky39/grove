@@ -618,8 +618,8 @@
     <Compile Include="Gameplay\Effects\ChooseToAddCounter.cs" />
     <Compile Include="Gameplay\Modifiers\ChangeToEnchantment.cs" />
     <Compile Include="Gameplay\Modifiers\PlayerCastsCreatureLifetime.cs" />
+    <Compile Include="Gameplay\Tournaments\TournamentMatch.cs" />
     <Compile Include="Infrastructure\NameGenerator.cs" />
-    <Compile Include="Gameplay\Tournaments\PreConstructedLimitedDecks.cs" />
     <Compile Include="Gameplay\Tournaments\Tournament.cs" />
     <Compile Include="Gameplay\Tournaments\TournamentPlayer.cs" />
     <Compile Include="Gameplay\Tournaments\TournamentState.cs" />
@@ -704,6 +704,7 @@
     <Compile Include="Gameplay\Triggers\OnEffectResolved.cs" />
     <Compile Include="Gameplay\Abilities\CastInstructionParameters.cs" />
     <Compile Include="Gameplay\Abilities\CastInstructions.cs" />
+    <Compile Include="Infrastructure\TaskEx.cs" />
     <Compile Include="UserInterface\CardOrder\OrderedCard.cs" />
     <Compile Include="UserInterface\CardOrder\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
@@ -1121,6 +1122,7 @@
     <Compile Include="UserInterface\InteractionState.cs" />
     <Compile Include="UserInterface\PlayableActivator.cs" />
     <Compile Include="UserInterface\SelectTarget\SelectTargetParameters.cs" />
+    <Compile Include="UserInterface\TournamentResults\ViewModel.cs" />
     <Compile Include="UserInterface\ViewModelBase.cs" />
     <Compile Include="UserInterface\Messages\UiInteractionChanged.cs" />
     <Compile Include="UserInterface\Spell\View.xaml.cs">

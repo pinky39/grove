@@ -171,11 +171,11 @@
     [Fact]
     public void Num14()
     {
-      Hand(P1, "Fires of Yavimaya");      
-      
+      Hand(P1, "Fires of Yavimaya");
+
       Battlefield(P1, "Forest", "Llanowar Elves", "Mountain", "Wall of Blossoms", "Rootbound Crag", "Fires of Yavimaya",
         "Mountain", "Copperline Gorge", "Scoria Wurm", "Mountain", "Wall of Blossoms", "Endless Wurm");
-      
+
       Battlefield(P2, "Plains", "Plains", "Plains", "Plains", "Glorious Anthem", "Trip Noose", "Plains", "Plains",
         "Deathless Angel", "Trip Noose", "Plains", "Student of Warfare", "Plains");
 
@@ -186,7 +186,8 @@
     public void Num15()
     {
       Hand(P1, "Plains", "Mountain", "Thundering Giant", "Disciple of Grace");
-      Hand(P2, "Phyrexian Ghoul", "Mountain", "Swamp", "Swamp", "Destructive Urge", "Phyrexian Ghoul", "Hopping Automaton");
+      Hand(P2, "Phyrexian Ghoul", "Mountain", "Swamp", "Swamp", "Destructive Urge", "Phyrexian Ghoul",
+        "Hopping Automaton");
       Battlefield(P1, "Mountain", "Mountain", "Plains", "Hopping Automaton");
       Battlefield(P2, "Swamp", "Swamp");
 
@@ -198,10 +199,24 @@
     {
       Hand(P1, "Exhume", "Pestilence", "Phyrexian Ghoul", "Blood Vassal", "Swamp");
       Hand(P2, "Power Sink", "Power Sink", "Cloak of Mists", "Waylay", "Waylay", "Sandbar Serpent", "Launch");
-      Battlefield(P1, "Swamp", "Swamp", "Swamp", "Bog Raiders", "Phyrexian Ghoul", "Swamp", "Hopping Automaton", "Swamp", "Hopping Automaton");
+      Battlefield(P1, "Swamp", "Swamp", "Swamp", "Bog Raiders", "Phyrexian Ghoul", "Swamp", "Hopping Automaton", "Swamp",
+        "Hopping Automaton");
       Battlefield(P2, "Plains", "Plains", "Rune of Protection: Black", "Plains", "Sanctum Custodian");
 
       RunGame(1);
-    } 
+    }
+
+    [Fact]
+    public void Num17()
+    {
+      Hand(P1, "Annul", "Corrupt", "Abyssal Horror", "Pestilence");
+      Hand(P2, "Healing Salve", "Grafted Skullcap", "Healing Salve", "Plains");
+      
+      Battlefield(P1, "Swamp", "Swamp", "Swamp", C("Mana Leech").IsEnchantedWith("Pacifism"), "Swamp", "Pestilence",
+        C("Carrion Beetles").IsEnchantedWith("Diabolic Servitude"), "Blood Vassal");
+      Battlefield(P2, "Plains", "Plains", "Disciple of Grace", "Plains", "Plains", "Rune of Protection: Black", "Plains");
+
+      RunGame(1);
+    }
   }
 }

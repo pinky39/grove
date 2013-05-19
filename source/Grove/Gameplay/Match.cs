@@ -1,7 +1,6 @@
 ﻿namespace Grove.Gameplay
 {
   using System;
-  using System.Linq;
   using System.Threading.Tasks;
   using System.Windows;
   using Decisions;
@@ -23,6 +22,8 @@
     private bool _playerLeftMatch;
     private bool _rematch = true;
     private ThreadBlocker _threadBlocker;
+    private string _yourName;
+    private string _opponentsName;
 
     public Match(IShell shell, ViewModelFactories viewModels, CardsDatabase cardsDatabase, DecisionSystem decisionSystem)
     {
@@ -63,10 +64,12 @@
 
     public bool InProgress { get { return Game != null && !IsFinished; } }
 
-    public void Start(Deck player1Deck, Deck player2Deck)
+    public void Start(string yourName, string opponentsName, Deck player1Deck, Deck player2Deck)
     {
       _deck1 = player1Deck;
       _deck2 = player2Deck;
+      _yourName = yourName;
+      _opponentsName = opponentsName;
 
       ResetResults();
       Run();
@@ -97,11 +100,8 @@
     private void Run()
     {
       _backgroundTask = new Task(() =>
-        {
-          var yourName = "You";
-          var opponentsName = MediaLibrary.NameGenerator.GenerateName();
-
-          Game = Game.New(yourName, opponentsName, _deck1.ToList(), _deck2.ToList(),
+        {          
+          Game = Game.New(_yourName, _opponentsName, _deck1, _deck2,
             _cardsDatabase, _decisionSystem);
 
           var playScreen = _viewModels.PlayScreen.Create();
@@ -178,7 +178,7 @@
 
     public void Rematch()
     {
-      Start(_deck1, _deck2);
+      Start(_yourName, _opponentsName, _deck1, _deck2);
     }
 
     private void SetLooser(int? looser)

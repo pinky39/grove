@@ -4,6 +4,7 @@
   using System.Linq;
   using Castle.Core;
   using Infrastructure;
+  using Persistance;
 
   public class ViewModel : ViewModelBase
   {
@@ -50,7 +51,7 @@
     private Deck.ViewModel CreateReadonlyDeck(string fileName)
     {
       var deck = ViewModels.Deck.Create(
-        DeckIo.Read(fileName));
+        DeckFile.Read(fileName));
 
       deck.OnAdd = delegate { return false; };
       deck.OnRemove = delegate { return false; };

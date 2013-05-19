@@ -1,7 +1,6 @@
 ﻿namespace Grove.Artifical
 {
   using System;
-  using System.Collections.Generic;
   using System.Diagnostics;
   using Gameplay;
   using Gameplay.Decisions;
@@ -17,7 +16,7 @@
       _decisionSystem = decisionSystem;
     }
 
-    public SimulationResult Simulate(List<string> deck1, List<string> deck2, int maxTurnsPerGame = 100,
+    public SimulationResult Simulate(Deck deck1, Deck deck2, int maxTurnsPerGame = 100,
       int maxSearchDepth = 16, int maxTargetsCount = 2)
     {
       var stopwatch = new Stopwatch();
@@ -37,7 +36,7 @@
       return result;
     }
 
-    private void SimulateGame(List<string> deck1, List<string> deck2, SimulationResult result, int maxTurnsPerGame,
+    private void SimulateGame(Deck deck1, Deck deck2, SimulationResult result, int maxTurnsPerGame,
       int maxSearchDepth, int maxTargetsCount)
     {
       var stopwatch = new Stopwatch();

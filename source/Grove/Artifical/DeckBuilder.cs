@@ -31,13 +31,13 @@
       _deckEvaluator = deckEvaluator;
     }
 
-    public List<string> BuildDeck(IEnumerable<string> cardNames, CardRatings cardRatings)
+    public Deck BuildDeck(IEnumerable<string> cardNames, CardRatings cardRatings)
     {
       var candidates = BuildDecks(cardNames, cardRatings);
       return _deckEvaluator.GetBestDeck(candidates);
     }
 
-    private List<List<string>> BuildDecks(IEnumerable<string> cardNames, CardRatings cardRatings)
+    private List<Deck> BuildDecks(IEnumerable<string> cardNames, CardRatings cardRatings)
     {
       var cards = cardNames.Select(x => _cardsDatabase.CreateCard(x)).ToList();
       var decks = new List<List<Card>>();
@@ -72,7 +72,7 @@
         AddLands(deck, cardRatings);
       }
 
-      return decks.Select(d => d.Select(c => c.Name).ToList()).ToList();
+      return decks.Select(d => new Deck(d.Select(x => x.Name))).ToList();
     }
 
     private void AddLands(List<Card> deck, CardRatings cardRatings)

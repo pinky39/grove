@@ -4,12 +4,15 @@
   using System.Collections.Generic;
   using System.Linq;
   using Gameplay;
+  using Gameplay.ManaHandling;
   using Infrastructure;
   using Persistance;
 
   public class ViewModel : ViewModelBase
   {
-    private const string NewDeckName = "new deck";    
+    private const string NewDeckName = "new deck";
+    public Func<string, bool> OnAdd = delegate { return true; };
+    public Func<string, bool> OnRemove = delegate { return true; };
     private Deck _deck;
 
     public ViewModel() {}
@@ -17,15 +20,13 @@
 
     public ViewModel(Deck deck)
     {
-      _deck = deck;      
+      _deck = deck;
     }
 
     [Updates("Name")]
     public virtual bool IsSaved { get; protected set; }
-    public virtual bool IsNew { get; protected set; }
 
-    public Func<string, bool> OnAdd = delegate { return true; };
-    public Func<string, bool> OnRemove = delegate { return true; };
+    public virtual bool IsNew { get; protected set; }
 
     public virtual int Rating
     {
@@ -47,15 +48,41 @@
       }
     }
 
-    public IEnumerable<DeckRow> Creatures { get { return DeckRow.Group(_deck.Creatures).OrderBy(x => x.CardName); } }
-    public IEnumerable<DeckRow> Spells { get { return DeckRow.Group(_deck.Spells).OrderBy(x => x.CardName); } }
-    public IEnumerable<DeckRow> Lands { get { return DeckRow.Group(_deck.Lands).OrderBy(x => x.CardName); } }
+    public IEnumerable<DeckRow> Creatures { get { return FilterRows(_deck, c => c.Is().Creature).ToList(); } }
+    public IEnumerable<DeckRow> Spells { get { return FilterRows(_deck, c => !c.Is().Creature && !c.Is().Land).ToList(); } }
+    public IEnumerable<DeckRow> Lands { get { return FilterRows(_deck, c => c.Is().Land).ToList(); } }
 
-    public int CreatureCount { get { return _deck.Creatures.Count(); } }
-    public int LandCount { get { return _deck.Lands.Count(); } }
-    public int SpellCount { get { return _deck.Spells.Count(); } }
+    public int CreatureCount { get { return FilterCards(_deck, c => c.Is().Creature).Count(); } }
+    public int LandCount { get { return FilterCards(_deck, c => c.Is().Land).Count(); } }
+    public int SpellCount { get { return FilterCards(_deck, c => !c.Is().Creature && !c.Is().Land).Count(); } }
     public int CardCount { get { return _deck.Count(); } }
     public virtual Card SelectedCard { get; protected set; }
+
+    public IManaAmount Colors
+    {
+      get
+      {
+        var dictionary = new Dictionary<ManaColor, bool>();
+
+        foreach (var cardName in _deck)
+        {
+          var card = CardsInfo[cardName];
+
+          if (card.ManaCost == null)
+            continue;
+
+          foreach (var singleColorAmount in card.ManaCost)
+          {
+            dictionary[singleColorAmount.Color] = true;
+          }
+        }
+
+        return new MultiColorManaAmount(dictionary
+          .Where(x => x.Value)
+          .Where(x => x.Key != ManaColor.Colorless)
+          .ToDictionary(x => x.Key, x => 1));
+      }
+    }
 
     public string Name
     {
@@ -73,14 +100,23 @@
 
     public Deck Deck { get { return _deck; } }
 
+    private IEnumerable<DeckRow> FilterRows(IEnumerable<string> cards, Func<Card, bool> predicate)
+    {
+      return DeckRow.Group(FilterCards(cards, predicate)).OrderBy(x => x.CardName);
+    }
+
+    private IEnumerable<string> FilterCards(IEnumerable<string> cards, Func<Card, bool> predicate)
+    {
+      return cards.Where(x => predicate(CardsInfo[x]));
+    }
+
     public override void Initialize()
     {
       IsSaved = true;
 
       if (_deck == null)
       {
-        _deck = new Deck(CardsInfo);
-        _deck.Name = NewDeckName;
+        _deck = new Deck {Name = NewDeckName};
         SelectedCard = null;
         IsNew = true;
         return;
@@ -109,7 +145,7 @@
     {
       if (!_deck.Contains(name))
         return false;
-      
+
       if (!OnRemove(name))
         return false;
 
@@ -120,14 +156,14 @@
 
     public virtual void Save()
     {
-      DeckIo.Write(_deck, MediaLibrary.GetDeckPath(_deck.Name));
+      DeckFile.Write(_deck, MediaLibrary.GetDeckPath(_deck.Name));
       IsSaved = true;
     }
 
     public virtual void SaveAs(string name)
     {
       _deck.Name = name;
-      DeckIo.Write(_deck, MediaLibrary.GetDeckPath(_deck.Name));
+      DeckFile.Write(_deck, MediaLibrary.GetDeckPath(_deck.Name));
 
       IsSaved = true;
       IsNew = false;

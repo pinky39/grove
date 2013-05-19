@@ -3,7 +3,6 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using System.Threading.Tasks;
   using Caliburn.Micro;
   using Gameplay;
   using Gameplay.Characteristics;
@@ -11,14 +10,14 @@
 
   public class ViewModel : ViewModelBase
   {
-    private readonly List<Card> _cards = new List<Card>();
-    private readonly List<string> _cardsNames = new List<string>();
+    private readonly HashSet<string> _cardsNames;
     private readonly Func<Card, object> _transformResult;
-    
+    private string _text = String.Empty;
+
     public ViewModel(IEnumerable<string> cardNames, Func<Card, object> transformResult)
     {
       _transformResult = transformResult ?? (x => x);
-      _cardsNames.AddRange(cardNames.OrderBy(x => x));
+      _cardsNames = new HashSet<string>(cardNames);
 
       White = Blue = Black = Red = Green = true;
       Costs = Enumerable.Range(0, 17).ToArray();
@@ -29,7 +28,7 @@
     public int[] Costs { get; private set; }
 
     [Updates("FilteredResult")]
-    public virtual string Name { get; set; }
+    public virtual string Text { get { return _text; } set { _text = value.ToLowerInvariant(); } }
 
     [Updates("FilteredResult")]
     public virtual bool White { get; set; }
@@ -54,27 +53,27 @@
 
     public IEnumerable<object> FilteredResult { get { return LoadView(); } }
 
-    public override void Initialize()
-    {
-      _cards.AddRange(_cardsNames.Select(x => CardsInfo[x]));
-    }
 
     private IEnumerable<object> LoadView()
     {
       var view = new BindableCollection<object>();
 
-      Task.Factory.StartNew(() =>
-        {
-          foreach (var card in _cards)
-          {
-            if (!string.IsNullOrEmpty(Name))
-            {
-              if (!card.Name.StartsWith(Name, StringComparison.InvariantCultureIgnoreCase))
-              {
-                continue;
-              }
-            }
+      var text = _text;
 
+      var task = TaskEx.Delay(500);
+
+      task.ContinueWith(delegate
+        {
+          if (text != _text)
+            return;
+
+          var cards = CardsInfo.Query(_text.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries));
+          
+          foreach (var card in cards.OrderBy(x => x.Name))
+          {
+            if (!_cardsNames.Contains(card.Name))
+              continue;
+            
             if (card.ConvertedCost < MinimumCost || card.ConvertedCost > MaximumCost)
               continue;
 
@@ -92,12 +91,13 @@
           }
         });
 
+
       return view;
     }
 
     public interface IFactory
     {
-      ViewModel Create(IEnumerable<string> cardNames, Func<Card, object> transformResult);      
+      ViewModel Create(IEnumerable<string> cardNames, Func<Card, object> transformResult);
     }
   }
 }

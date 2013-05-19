@@ -10,15 +10,11 @@
 
   public class GenerateDecks : Task
   {
-    private readonly DeckBuilder _deckBuilder;
-    private readonly DeckIo _deckIo;
-    private readonly CardsInfo _cardsInfo;
+    private readonly DeckBuilder _deckBuilder;    
 
-    public GenerateDecks(DeckBuilder deckBuilder, DeckIo deckIo, CardsInfo cardsInfo)
+    public GenerateDecks(DeckBuilder deckBuilder)
     {
-      _deckBuilder = deckBuilder;
-      _deckIo = deckIo;
-      _cardsInfo = cardsInfo;
+      _deckBuilder = deckBuilder;      
     }
 
     public override void Execute(Arguments arguments)
@@ -48,7 +44,7 @@
 
         var cards = _deckBuilder.BuildDeck(library, ratings);
 
-        var deck = new Deck(_cardsInfo);
+        var deck = new Deck();
         deck.LimitedCode = MagicSet.GetLimitedCode(starterSet.Name, new[]{boosterSet1.Name, boosterSet2.Name, boosterSet3.Name});
         
         foreach (var card in cards)
@@ -56,7 +52,7 @@
           deck.AddCard(card);
         }
 
-        _deckIo.Write(deck, Guid.NewGuid() +".dec");
+        DeckFile.Write(deck, Guid.NewGuid() +".dec");
       }
     }
   }

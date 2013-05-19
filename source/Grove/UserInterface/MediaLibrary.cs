@@ -6,9 +6,9 @@
   using System.Linq;
   using System.Windows.Media;
   using System.Windows.Media.Imaging;
-  using Gameplay;
   using Gameplay.Sets;
   using Infrastructure;
+  using Persistance;
 
   public static class MediaLibrary
   {
@@ -20,25 +20,16 @@
     private const string Tournament = @"tournament\";
 
     private static readonly Dictionary<string, ImageSource> ImageDatabase = new Dictionary<string, ImageSource>();
+    private static readonly Dictionary<string, MagicSet> SetsDatabase = new Dictionary<string, MagicSet>();
 
-    private static Dictionary<string, MagicSet> SetsDatabase
-    {
-      get
-      {
-        if (_setsDatabase == null)
-        {
-          LoadSets();
-        }
+    private static readonly Dictionary<int, List<Gameplay.Deck>> LimitedDeckDatabase =
+      new Dictionary<int, List<Gameplay.Deck>>();
 
-        return _setsDatabase;
-      }
-    }
 
     public static NameGenerator NameGenerator { get; private set; }
 
 #if DEBUG
     private static readonly string BasePath = Path.GetFullPath(@"..\..\..\..\media\");
-    private static Dictionary<string, MagicSet> _setsDatabase;
 #else 
     private static readonly string BasePath = Path.GetFullPath(@".\media");
 #endif
@@ -53,23 +44,40 @@
       LoadImageFolder(Images);
       LoadImageFolder(Cards);
       LoadSets();
+      LoadLimitedDecks();
+      LoadPlayerNames();
+    }
 
+    public static void LoadPlayerNames()
+    {
       NameGenerator = new NameGenerator(Path.Combine(BasePath, "player-names.txt"));
     }
 
-    private static void LoadSets()
+    public static void LoadLimitedDecks()
     {
-      _setsDatabase = new Dictionary<string, MagicSet>();
+      var group = Directory.GetFiles(TournamentFolder, "*.dec")
+        .Select(DeckFile.Read).ToList()
+        .Where(x => x.LimitedCode.HasValue)
+        .GroupBy(x => x.LimitedCode);
+
+      foreach (var grouping in group)
+      {
+        LimitedDeckDatabase.Add(grouping.Key.Value, grouping.ToList());
+      }
+    }
+
+    public static void LoadSets()
+    {
       var setsFilenames = Directory.GetFiles(SetsFolder, "*.txt");
 
       foreach (var filename in setsFilenames)
       {
         var name = Path.GetFileNameWithoutExtension(filename);
-        _setsDatabase.Add(name, new MagicSet(filename));
+        SetsDatabase.Add(name, new MagicSet(filename));
       }
     }
 
-    private static void LoadImageFolder(string path)
+    public static void LoadImageFolder(string path)
     {
       var fullPath = Path.Combine(BasePath, path);
 
@@ -104,6 +112,16 @@
       return SetsDatabase[name];
     }
 
+    public static IEnumerable<Gameplay.Deck> GetDecks(int limitedCode)
+    {
+      if (LimitedDeckDatabase.ContainsKey(limitedCode))
+      {
+        return LimitedDeckDatabase[limitedCode];
+      }
+
+      return Enumerable.Empty<Gameplay.Deck>();
+    }
+
     public static ImageSource GetImage(string name, string folder = null)
     {
       folder = folder ?? Images;
@@ -133,11 +151,6 @@
     public static string[] GetDeckFilenames()
     {
       return Directory.GetFiles(DecksFolder, "*.dec");
-    }
-    
-    public static string[] GetLimitedPreconstructedDecks()
-    {
-      return Directory.GetFiles(TournamentFolder, "*.dec");
     }
   }
 }

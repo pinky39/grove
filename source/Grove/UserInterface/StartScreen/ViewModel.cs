@@ -7,6 +7,7 @@
   using System.Reflection;
   using System.Windows;
   using Gameplay;
+  using Persistance;
   using SelectDeck;
 
   public class ViewModel : ViewModelBase
@@ -86,7 +87,7 @@
         .EnumerateFiles(MediaLibrary.DecksFolder, "*.dec");
 
       var decks = deckFiles
-        .Select(x => DeckIo.Read(x))
+        .Select(DeckFile.Read)
         .ToList();
 
       var first = decks[Rnd.Next(0, decks.Count)];
