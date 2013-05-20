@@ -43,6 +43,14 @@
                   FontSize="40"
                   Foreground="#fff"
                   Text="Leaderboard"/>
+                <TextBlock
+                  Grid.Column="3"
+                  Margin="0,0,0,0"
+                  VerticalAlignment="Center"
+                  FontSize="30"
+                  Foreground="#fff"
+                  Text="Rounds left: 8"/>
+                 
             </Grid>
          </Border>
          <Border Grid.Row="1">         

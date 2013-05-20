@@ -12,6 +12,7 @@
 
   public class ViewModel : ViewModelBase
   {
+    private const string YourName = "You";
     private static readonly Random Rnd = new Random();
 
     public string DatabaseInfo
@@ -23,7 +24,7 @@
           CardsInfo.Count);
       }
     }
-    
+
     public void Exit()
     {
       Application.Current.Shutdown();
@@ -54,7 +55,7 @@
                     ScreenTitle = "Select your opponent deck",
                     ForwardText = "Start the game",
                     PreviousScreen = selectDeck1,
-                    Forward = (deck2) => Match.Start(deck1, deck2)
+                    Forward = (deck2) => Match.Start(YourName, MediaLibrary.NameGenerator.GenerateName(), deck1, deck2)
                   });
               }
 
@@ -72,7 +73,7 @@
       Deck secondDeck;
 
       ChooseRandomDecks(out firstDeck, out secondDeck);
-      Match.Start(firstDeck, secondDeck);
+      Match.Start(YourName, MediaLibrary.NameGenerator.GenerateName(), firstDeck, secondDeck);
     }
 
     public void DeckEditor()
