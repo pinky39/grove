@@ -1,6 +1,8 @@
 ﻿namespace Grove.Gameplay.Tournaments
 {
-  public class TournamentPlayer
+  using System;
+
+  public class TournamentPlayer : IComparable<TournamentPlayer>
   {
     public TournamentPlayer(string name, bool isHuman)
     {
@@ -15,8 +17,27 @@
     public int LooseCount { get; set; }
     public int GamesLost { get; set; }
     public int GamesWon { get; set; }
-    public int MatchPoints { get { return WinCount*3 + DrawCount; } }
+    public int GamesPlayed { get { return GamesWon + GamesLost; } }
+    public double GamesWonPercentage { get { return (double) GamesWon*100/GamesPlayed; } }
+    public int MatchPoints { get { return WinCount*3 + DrawCount; } }    
 
     public Deck Deck { get; set; }
+    
+    public int CompareTo(TournamentPlayer other)
+    {
+      if (other.MatchPoints > MatchPoints)
+        return -1;
+
+      if (other.MatchPoints < MatchPoints)
+        return 1;
+
+      if (other.GamesWonPercentage > GamesWonPercentage)
+        return -1;
+
+      if (other.GamesWonPercentage < GamesWonPercentage)
+        return 1;
+
+      return 0;
+    }
   }
 }

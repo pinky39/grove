@@ -59,8 +59,8 @@
 
     private void ShowResults(int roundsToGo)
     {
-      // this also waits for all matches to finish
-
+      var leaderboard = _viewModels.LeaderBoard.Create(_players, roundsToGo);
+      _shell.ChangeScreen(leaderboard, blockUntilClosed: true);
     }
 
     private int GetRoundCount(int playersCount)

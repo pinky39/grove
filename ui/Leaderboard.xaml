@@ -10,6 +10,12 @@
          </Style>
          <Style BasedOn="{StaticResource ScrollBar}" TargetType="ScrollBar">
          </Style>
+         
+         
+              <Style TargetType="TextBlock">
+                <Setter Property="Foreground" Value="#fff"/>
+                <Setter Property="FontSize" Value="25"/>                
+              </Style>
       </Grid.Resources>
       <Grid>
          <Grid.RowDefinitions>
@@ -27,6 +33,7 @@
                   <ColumnDefinition Width="Auto"/>
                   <ColumnDefinition Width="Auto"/>
                   <ColumnDefinition Width="*"/>
+                  <ColumnDefinition Width="Auto"/>
                   <ColumnDefinition Width="Auto"/>
                </Grid.ColumnDefinitions>
                <Image
@@ -49,12 +56,88 @@
                   VerticalAlignment="Center"
                   FontSize="30"
                   Foreground="#fff"
-                  Text="Rounds left: 8"/>
+                  Text="Rounds left:"/>
+                  
+                  <TextBlock
+                  Grid.Column="4"
+                  Margin="15,0,20,0"
+                  VerticalAlignment="Center"
+                  FontSize="30"
+                  Foreground="#FFFFD700"
+                  Text="8"/>
                  
             </Grid>
          </Border>
-         <Border Grid.Row="1">         
-
+         <Border Grid.Row="1" Margin="20">         
+          <Grid>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+          <Border Grid.Row="0" BorderThickness="0,0,0,4" BorderBrush="#22ffffff" Margin="0,0,0,10" Padding="15,0,0,10">
+            <Grid Margin="0,0,30,0">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="100"/>                                                       
+              </Grid.ColumnDefinitions>                          
+              <TextBlock Grid.Column="1" Margin="0,0,0,0">Player's name</TextBlock>
+              <TextBlock Grid.Column="3" TextAlignment="Right">Win ratio</TextBlock>
+              <TextBlock Grid.Column="4" TextAlignment="Right" Margin="20,0,0,0">Points</TextBlock>            
+            
+            </Grid>
+              
+          </Border>
+          <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Hidden" Padding="5,0,20,0">
+          <StackPanel>
+            <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="100"/>                                
+              </Grid.ColumnDefinitions>
+              
+              <TextBlock Grid.Column="0">1.</TextBlock>
+              <TextBlock Grid.Column="1" Margin="10,0,0,0">Player1</TextBlock>
+              <TextBlock Grid.Column="3" TextAlignment="Right">100%</TextBlock>
+              <TextBlock Grid.Column="4" TextAlignment="Right" Margin="20,0,0,0">12</TextBlock>
+            </Grid>
+              <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="100"/>                                
+              </Grid.ColumnDefinitions>
+              
+              <TextBlock Grid.Column="0" Foreground="#FFFFD700">2.</TextBlock>
+              <TextBlock Grid.Column="1" Foreground="#FFFFD700" Margin="10,0,0,0">You</TextBlock>
+              <TextBlock Grid.Column="3" Foreground="#FFFFD700" TextAlignment="Right">96%</TextBlock>
+              <TextBlock Grid.Column="4" Foreground="#FFFFD700" TextAlignment="Right" Margin="20,0,0,0">12</TextBlock>
+            </Grid>
+            
+             <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="100"/>                                
+              </Grid.ColumnDefinitions>
+              
+              <TextBlock Grid.Column="0">3.</TextBlock>
+              <TextBlock Grid.Column="1" Margin="10,0,0,0">Player3</TextBlock>
+              <TextBlock Grid.Column="3" TextAlignment="Right">95%</TextBlock>
+              <TextBlock Grid.Column="4" TextAlignment="Right" Margin="20,0,0,0">12</TextBlock>
+            </Grid>
+         </StackPanel>         
+         </ScrollViewer>
+         </Grid>
          </Border>
          <Border
             Grid.Row="2"

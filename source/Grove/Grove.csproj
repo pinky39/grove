@@ -879,6 +879,10 @@
     <Compile Include="Infrastructure\NullTracker.cs" />
     <Compile Include="Infrastructure\Publisher.cs" />
     <Compile Include="UserInterface\CardViewModel.cs" />
+    <Compile Include="UserInterface\Leaderboard\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterface\Leaderboard\ViewModel.cs" />
     <Compile Include="UserInterface\LibraryFilter\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
@@ -1292,6 +1296,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UserInterface\BuildLimitedDeck\View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterface\Leaderboard\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
