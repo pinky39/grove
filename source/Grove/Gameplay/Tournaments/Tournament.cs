@@ -43,16 +43,17 @@
 
       CreatePlayers(playersCount, playerName);
       LoadCardRatings(tournamentPack, boosterPacks);
-
+            
       GenerateDecks(tournamentPack, boosterPacks);
       ShowEditDeckScreen(GenerateLibrary(tournamentPack, boosterPacks));
+      
       ShowResults(roundsToGo);
-
+      
       while (roundsToGo > 0)
       {
-        roundsToGo--;
-        
-        PlayNextRound();                
+        roundsToGo--;        
+        PlayNextRound();
+
         ShowResults(roundsToGo);        
       }
     }    
@@ -60,10 +61,10 @@
     private void ShowResults(int roundsToGo)
     {
       var leaderboard = _viewModels.LeaderBoard.Create(_players, roundsToGo);
-      _shell.ChangeScreen(leaderboard, blockUntilClosed: true);
+      _shell.ChangeScreen(leaderboard, blockUntilClosed: true);      
     }
 
-    private int GetRoundCount(int playersCount)
+    private static int GetRoundCount(int playersCount)
     {
       if (playersCount <= 8)
         return 3;

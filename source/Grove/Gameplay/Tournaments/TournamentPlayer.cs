@@ -18,11 +18,11 @@
     public int GamesLost { get; set; }
     public int GamesWon { get; set; }
     public int GamesPlayed { get { return GamesWon + GamesLost; } }
-    public double GamesWonPercentage { get { return (double) GamesWon*100/GamesPlayed; } }
-    public int MatchPoints { get { return WinCount*3 + DrawCount; } }    
+    public double GamesWonPercentage { get { return GamesPlayed == 0 ? 0 : (double) GamesWon*100/GamesPlayed; } }
+    public int MatchPoints { get { return WinCount*3 + DrawCount; } }
 
     public Deck Deck { get; set; }
-    
+
     public int CompareTo(TournamentPlayer other)
     {
       if (other.MatchPoints > MatchPoints)
