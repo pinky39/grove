@@ -2,7 +2,6 @@
 {
   public class DeckGenerated
   {
-    public int Count;
-    public int TotalCount;
+    public int Count;    
   }
 }

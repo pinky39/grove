@@ -3,6 +3,7 @@
   using System.Collections.Generic;
   using System.Linq;
   using Gameplay.Tournaments;
+  using Infrastructure;
 
   public class ViewModel
   {
@@ -11,7 +12,7 @@
     public ViewModel(IEnumerable<TournamentPlayer> players, int roundsLeft)
     {
       RoundsLeft = roundsLeft;
-      
+
       _players.AddRange(players.OrderBy(x => x).Select((x, i) => new
         {
           Place = i + 1,
@@ -20,14 +21,11 @@
     }
 
     public int RoundsLeft { get; private set; }
-
     public IEnumerable<object> Players { get { return _players; } }
 
-    public void Next()
+    public virtual void Next()
     {
-      
-
-
+      this.Close();
     }
 
     public interface IFactory

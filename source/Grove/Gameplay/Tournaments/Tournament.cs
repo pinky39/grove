@@ -44,8 +44,8 @@
       CreatePlayers(playersCount, playerName);
       LoadCardRatings(tournamentPack, boosterPacks);
             
-      GenerateDecks(tournamentPack, boosterPacks);
-      ShowEditDeckScreen(GenerateLibrary(tournamentPack, boosterPacks));
+      var generatedDeckCount = GenerateDecks(tournamentPack, boosterPacks);
+      ShowEditDeckScreen(GenerateLibrary(tournamentPack, boosterPacks), generatedDeckCount);
       
       ShowResults(roundsToGo);
       
@@ -175,10 +175,12 @@
       return matches;
     }
 
-    private void ShowEditDeckScreen(IEnumerable<string> library)
+    private void ShowEditDeckScreen(IEnumerable<string> library, int generatedDeckCount)
     {
-      var screen = _viewModels.BuildLimitedDeck.Create(library);
+      var screen = _viewModels.BuildLimitedDeck.Create(library, generatedDeckCount);
       _shell.ChangeScreen(screen, blockUntilClosed: true);
+      
+      HumanPlayer.Deck = screen.Result;
     }
 
     private void LoadCardRatings(string tournamentPack, string[] boosterPacks)
@@ -201,9 +203,9 @@
       _cardRatings = CardRatings.Merge(merged, MediaLibrary.GetSet(tournamentPack).Ratings);
     }
 
-    private void GenerateDecks(string tournamentPack, string[] boosterPacks)
+    private int GenerateDecks(string tournamentPack, string[] boosterPacks)
     {
-      const int minNumberOfGeneratedDecks = 5;
+      const int minNumberOfGeneratedDecks = 0;
       var limitedCode = MagicSet.GetLimitedCode(tournamentPack, boosterPacks);
 
       var preconstructed = MediaLibrary.GetDecks(limitedCode)
@@ -234,11 +236,12 @@
 
             _shell.Publish(new DeckGenerated
               {
-                Count = count + 1,
-                TotalCount = actualNumberOfGeneratedDecks
+                Count = count + 1,                
               });
           }
         });
+
+      return actualNumberOfGeneratedDecks;
     }
 
     private void CreatePlayers(int playersCount, string playerName)

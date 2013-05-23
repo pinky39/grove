@@ -9,16 +9,19 @@
 
   public class ViewModel : ViewModelBase, IReceive<DeckGenerated>
   {
+    private readonly int _generatedDeckCount;
     private readonly List<string> _library;
     private Dictionary<Card, CardsLeft> _availability;
     private UserInterface.Deck.ViewModel _deck;
 
-    public ViewModel(IEnumerable<string> library)
+    public ViewModel(IEnumerable<string> library, int generatedDeckCount)
     {
+      _generatedDeckCount = generatedDeckCount;
       _library = library.ToList();
-
+      
       AddBasicLands();
       Status = "Building decks 0% completed.";
+      CanStartTournament = generatedDeckCount == 0;
     }
 
     public virtual Card SelectedCard { get; protected set; }
@@ -32,16 +35,18 @@
       set
       {
         _deck = value;
-        _deck.Property(x => x.SelectedCard).Changes(this).Property<ViewModel, Card>(x => x.SelectedCard);
+        _deck.Property(x => x.SelectedCard).Changes(this).Property(x => x.SelectedCard);
       }
     }
 
+    public Deck Result { get { return Deck.Deck; } }
+
     public void Receive(DeckGenerated message)
     {
-      var percentageCompleted = ((double)message.Count / message.TotalCount)*100;
+      var percentageCompleted = ((double)message.Count / _generatedDeckCount) * 100;
       Status = String.Format("Building decks {0}% completed.", (int)percentageCompleted);
 
-      if (message.Count == message.TotalCount)
+      if (message.Count == _generatedDeckCount)
         CanStartTournament = true;
     }
 
@@ -120,7 +125,7 @@
 
     public interface IFactory
     {
-      ViewModel Create(IEnumerable<string> library);
+      ViewModel Create(IEnumerable<string> library, int generatedDeckCount);
     }
   }
 }
