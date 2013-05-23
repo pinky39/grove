@@ -2,7 +2,6 @@
 {
   using System;
   using System.Collections.Generic;
-  using System.Linq;
   using Artifical;
   using Decisions;
   using Decisions.Scenario;
@@ -13,7 +12,7 @@
 
   [Copyable]
   public class Game
-  {    
+  {
     private DecisionQueue _decisionQueue;
     private DecisionSystem _decisionSystem;
     private Publisher _publisher;
@@ -63,7 +62,7 @@
 
     private static Game CreateGame(SearchParameters searchParameters, CardsDatabase cardsDatabase,
       DecisionSystem decisionSystem)
-    {      
+    {
       var game = new Game();
 
       game.ChangeTracker = new ChangeTracker();
@@ -72,7 +71,7 @@
       game.Stack = new Stack();
       game.Turn = new TurnInfo();
       game._wasStopped = new Trackable<bool>();
-      game.Combat = new Combat();      
+      game.Combat = new Combat();
       game.Ai = new SearchRunner(searchParameters, game);
       game._decisionSystem = decisionSystem;
       game._decisionQueue = new DecisionQueue();
@@ -184,6 +183,6 @@
 
       game.Players.Starting = game.Players.Player1;
       return game;
-    }    
+    }
   }
 }

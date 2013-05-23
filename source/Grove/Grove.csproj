@@ -619,6 +619,7 @@
     <Compile Include="Gameplay\Modifiers\ChangeToEnchantment.cs" />
     <Compile Include="Gameplay\Modifiers\PlayerCastsCreatureLifetime.cs" />
     <Compile Include="Gameplay\Tournaments\TournamentMatch.cs" />
+    <Compile Include="Infrastructure\ListEx.cs" />
     <Compile Include="Infrastructure\NameGenerator.cs" />
     <Compile Include="Gameplay\Tournaments\Tournament.cs" />
     <Compile Include="Gameplay\Tournaments\TournamentPlayer.cs" />
@@ -888,6 +889,7 @@
     </Compile>
     <Compile Include="UserInterface\LibraryFilter\ViewModel.cs" />
     <Compile Include="UserInterface\Messages\DeckGenerated.cs" />
+    <Compile Include="UserInterface\Messages\RoundIsFinished.cs" />
     <Compile Include="UserInterface\NewTournament\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>

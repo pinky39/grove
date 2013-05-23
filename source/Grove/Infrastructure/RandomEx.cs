@@ -75,14 +75,8 @@
         list[permutation[i]] = listCopy[i];
       }
       return list;
-    }
+    }    
 
-    private static void Swap<T>(this IList<T> list, int i, int j)
-    {
-      var ith = list[i];
-
-      list[i] = list[j];
-      list[j] = ith;
-    }
+   
   }
 }

@@ -47,20 +47,20 @@
       var generatedDeckCount = GenerateDecks(tournamentPack, boosterPacks);
       ShowEditDeckScreen(GenerateLibrary(tournamentPack, boosterPacks), generatedDeckCount);
       
-      ShowResults(roundsToGo);
+      ShowResults(roundsToGo, canContinue: true);
       
       while (roundsToGo > 0)
       {
         roundsToGo--;        
-        PlayNextRound();
+        var isFinished = PlayNextRound();
 
-        ShowResults(roundsToGo);        
+        ShowResults(roundsToGo, canContinue: isFinished);        
       }
     }    
 
-    private void ShowResults(int roundsToGo)
+    private void ShowResults(int roundsToGo, bool canContinue)
     {
-      var leaderboard = _viewModels.LeaderBoard.Create(_players, roundsToGo);
+      var leaderboard = _viewModels.LeaderBoard.Create(_players, roundsToGo, canContinue);
       _shell.ChangeScreen(leaderboard, blockUntilClosed: true);      
     }
 
@@ -86,12 +86,14 @@
       return 10;
     }
 
-    private void PlayNextRound()
+    private bool PlayNextRound()
     {
       var matches = CreateSwissPairings();
 
-      SimulateRound(matches.Where(x => x.IsSimulated));
+      var isFinished = SimulateRound(matches.Where(x => x.IsSimulated));
       PlayMatch(matches.Single(x => !x.IsSimulated));
+
+      return isFinished();
     }
 
     private void PlayMatch(TournamentMatch tournamentMatch)
@@ -121,10 +123,14 @@
       }
     }
 
-    private void SimulateRound(IEnumerable<TournamentMatch> simulatedMatches)
+    private Func<bool> SimulateRound(IEnumerable<TournamentMatch> simulatedMatches)
     {
+
+      bool isFinished = false;
+      Func<bool> isRoundFinished = () => isFinished;
+      
       Task.Factory.StartNew(() =>
-        {
+        {                    
           foreach (var simulatedMatch in simulatedMatches)
           {
             var result = _matchSimulator.Simulate(
@@ -153,7 +159,13 @@
               simulatedMatch.Player2.DrawCount++;
             }
           }
+          
+          isFinished = true;
+          
+          _shell.Publish(new RoundIsFinished());
         });
+
+      return isRoundFinished;
     }
 
     private List<TournamentMatch> CreateSwissPairings()

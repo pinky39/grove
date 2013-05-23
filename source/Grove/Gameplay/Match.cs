@@ -1,6 +1,5 @@
 ﻿namespace Grove.Gameplay
 {
-  using System;
   using System.Threading.Tasks;
   using System.Windows;
   using Decisions;
@@ -13,17 +12,14 @@
     private readonly CardsDatabase _cardsDatabase;
     private readonly DecisionSystem _decisionSystem;
     private readonly IShell _shell;
-    private readonly TaskScheduler _uiScheduler;
     private readonly ViewModelFactories _viewModels;
-    private Task _backgroundTask;
     private Deck _deck1;
     private Deck _deck2;
     private int? _looser;
+    private string _opponentsName;
     private bool _playerLeftMatch;
     private bool _rematch = true;
-    private ThreadBlocker _threadBlocker;
     private string _yourName;
-    private string _opponentsName;
 
     public Match(IShell shell, ViewModelFactories viewModels, CardsDatabase cardsDatabase, DecisionSystem decisionSystem)
     {
@@ -31,7 +27,6 @@
       _viewModels = viewModels;
       _cardsDatabase = cardsDatabase;
       _decisionSystem = decisionSystem;
-      _uiScheduler = TaskScheduler.FromCurrentSynchronizationContext();
 
       Application.Current.Exit += delegate { ForceCurrentGameToEnd(); };
     }
@@ -99,81 +94,58 @@
 
     private void Run()
     {
-      _backgroundTask = new Task(() =>
-        {          
-          Game = Game.New(_yourName, _opponentsName, _deck1, _deck2,
-            _cardsDatabase, _decisionSystem);
+      Game = Game.New(_yourName, _opponentsName, _deck1, _deck2,
+        _cardsDatabase, _decisionSystem);
 
-          var playScreen = _viewModels.PlayScreen.Create();
-          _shell.ChangeScreen(playScreen);
+      var playScreen = _viewModels.PlayScreen.Create();
+      _shell.ChangeScreen(playScreen);
 
+      var blocker = new ThreadBlocker();
+
+      blocker.BlockUntilCompleted(() => Task.Factory.StartNew(() =>
+        {
           Game.Start(looser: Looser);
+          blocker.Completed();
+        }));
 
-          if (Game.WasStopped)
-            return;
-
-          var looser = UpdateScore();
-          SetLooser(looser);
-        });
-
-      _backgroundTask.ContinueWith(task =>
-        {
-          if (task.Exception != null)
-          {
-            throw new Exception("A fatal error has occured.", task.Exception);
-          }
-
-          if (HasGameBeenStopped())
-            return;
-
-          if (IsFinished)
-          {
-            DisplayMatchResults();
-
-            if (HasGameBeenStopped())
-              return;
-
-            if (_rematch && !_playerLeftMatch)
-            {
-              Rematch();
-              return;
-            }
-
-            ShowStartScreen();
-            return;
-          }
-
-          DisplayGameResults();
-
-          if (HasGameBeenStopped())
-            return;
-
-          if (_playerLeftMatch)
-          {
-            ShowStartScreen();
-            return;
-          }
-
-          Run();
-        }, _uiScheduler);
-
-
-      _backgroundTask.Start(TaskScheduler.Default);
-    }
-
-    private bool HasGameBeenStopped()
-    {
       if (Game.WasStopped)
+        return;
+
+      var looser = UpdateScore();
+      SetLooser(looser);
+
+      if (Game.WasStopped)
+        return;
+
+      if (IsFinished)
       {
-        if (_threadBlocker != null)
+        DisplayMatchResults();
+
+        if (Game.WasStopped)
+          return;
+
+        if (_rematch && !_playerLeftMatch)
         {
-          _threadBlocker.Completed();
-          _backgroundTask = null;
+          Rematch();
+          return;
         }
-        return true;
+
+        ShowStartScreen();
+        return;
       }
 
-      return false;
+      DisplayGameResults();
+
+      if (Game.WasStopped)
+        return;
+
+      if (_playerLeftMatch)
+      {
+        ShowStartScreen();
+        return;
+      }
+
+      Run();
     }
 
     public void Rematch()
@@ -209,28 +181,12 @@
 
     public void ForceCurrentGameToEnd()
     {
-      var isFinished = true;
-
       if (Game != null)
       {
-        isFinished = Game.IsFinished;
         Game.Stop();
       }
 
       _shell.CloseAllDialogs();
-
-      if (!isFinished)
-        WaitForGameToFinish();
-    }
-
-    private void WaitForGameToFinish()
-    {
-      if (_backgroundTask != null)
-      {
-        _threadBlocker = new ThreadBlocker();
-        _threadBlocker.BlockUntilCompleted();
-        _threadBlocker = null;
-      }
     }
   }
 }

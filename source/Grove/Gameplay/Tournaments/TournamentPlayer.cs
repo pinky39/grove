@@ -26,16 +26,16 @@
     public int CompareTo(TournamentPlayer other)
     {
       if (other.MatchPoints > MatchPoints)
-        return -1;
+        return 1;
 
       if (other.MatchPoints < MatchPoints)
-        return 1;
-
-      if (other.GamesWonPercentage > GamesWonPercentage)
         return -1;
 
-      if (other.GamesWonPercentage < GamesWonPercentage)
+      if (other.GamesWonPercentage > GamesWonPercentage)
         return 1;
+
+      if (other.GamesWonPercentage < GamesWonPercentage)
+        return -1;
 
       return 0;
     }

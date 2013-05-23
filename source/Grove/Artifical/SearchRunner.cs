@@ -121,8 +121,8 @@
         {
           LastSearchStatistics = _currentSearch.Start(searchNode);
         }
-        catch(Exception)
-        {          
+        catch (Exception)
+        {
           GenearateScenario();
           throw;
         }
