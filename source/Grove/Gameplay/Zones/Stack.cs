@@ -199,7 +199,12 @@
       return damage >= player.Life;
     }
 
-    public bool HasSpellNamed(string name)
+    public bool HasSpellWithSource(Card card)
+    {
+      return _effects.Any(x => x.Source.OwningCard == card);
+    }
+    
+    public bool HasSpellWithName(string name)
     {
       return _effects.Any(x => x.Source.OwningCard.Name.Equals(name));
     }

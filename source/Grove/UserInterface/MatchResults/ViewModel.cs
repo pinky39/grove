@@ -5,6 +5,11 @@
 
   public class ViewModel : ViewModelBase
   {
+    public ViewModel(bool canRematch)
+    {
+      CanRematch = canRematch;
+    }
+
     public string OpponentsResult
     {
       get
@@ -47,10 +52,13 @@
       }
     }
 
+    public bool CanRematch { get; private set; }
+
     public void Quit()
     {
       this.Close();
     }
+
 
     public void Rematch()
     {
@@ -68,7 +76,7 @@
 
     public interface IFactory
     {
-      ViewModel Create();
+      ViewModel Create(bool canRematch);
     }
   }
 }

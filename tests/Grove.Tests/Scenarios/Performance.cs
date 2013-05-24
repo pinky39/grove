@@ -218,5 +218,17 @@
 
       RunGame(1);
     }
+
+    [Fact]
+    public void Num18()
+    {
+      Hand(P1, "Pegasus Charger", "Congregate", "Plains");
+      Hand(P2, "Congregate", "Pacifism", "Karn, Silver Golem");
+      Battlefield(P1, "Plains", "Mountain", "Opal Gargoyle", "Plains", "Dragon Blood", "Mountain", "Opal Acrolith", "Dromosaur", "Plains");
+      Battlefield(P2, C("Forest").IsEnchantedWith("Fertile Ground"), "Plains", "Plains", "Opal Acrolith", "Plains", "Plains");
+
+      RunGame(4);
+    }    
+
   }
 }

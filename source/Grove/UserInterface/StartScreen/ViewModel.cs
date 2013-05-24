@@ -55,7 +55,11 @@
                     ScreenTitle = "Select your opponent deck",
                     ForwardText = "Start the game",
                     PreviousScreen = selectDeck1,
-                    Forward = (deck2) => Match.Start(YourName, MediaLibrary.NameGenerator.GenerateName(), deck1, deck2)
+                    Forward = (deck2) =>
+                      {
+                        Match.Start(YourName, MediaLibrary.NameGenerator.GenerateName(), deck1, deck2);
+                        Shell.ChangeScreen(this);
+                      }
                   });
               }
 
@@ -74,6 +78,7 @@
 
       ChooseRandomDecks(out firstDeck, out secondDeck);
       Match.Start(YourName, MediaLibrary.NameGenerator.GenerateName(), firstDeck, secondDeck);
+      Shell.ChangeScreen(this);
     }
 
     public void DeckEditor()

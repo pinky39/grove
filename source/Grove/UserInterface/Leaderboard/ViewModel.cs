@@ -1,46 +1,67 @@
 ﻿namespace Grove.UserInterface.Leaderboard
 {
-  using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Caliburn.Micro;
   using Gameplay.Tournaments;
   using Infrastructure;
   using Messages;
 
-  public class ViewModel : IReceive<RoundIsFinished>
-  {    
-    private readonly BindableCollection<object> _players = new BindableCollection<object>();
+  public class ViewModel : IReceive<TournamentMatchFinished>
+  {
+    private readonly List<TournamentPlayer> _finishedPlayers =
+      new List<TournamentPlayer>();
 
-    public ViewModel(IEnumerable<TournamentPlayer> players, int roundsLeft, bool canContinue)
+    private readonly int _playerCount;
+
+    public ViewModel(IEnumerable<TournamentPlayer> players, int roundsLeft)
     {
-      CanNext = canContinue;
       RoundsLeft = roundsLeft;
+      var matchesPlayed = players.Max(x => x.MatchesPlayed);
+      _playerCount = players.Count();
 
-      _players.AddRange(players.OrderBy(x => x).Select((x, i) => new
-        {
-          Place = i + 1,
-          Player = x
-        }));               
+      var finished = players
+        .Where(x => x.MatchesPlayed == matchesPlayed)
+        .ToList();
+
+      _finishedPlayers = new List<TournamentPlayer>(finished);
+      _finishedPlayers.Sort();
     }
 
     public int RoundsLeft { get; private set; }
-    public IEnumerable<object> Players { get { return _players; } }
-    public virtual bool CanNext { get; protected set; }
-  
-    public virtual void Next()
-    {            
+    public int MatchesInProgress { get { return (_playerCount - _finishedPlayers.Count)/2; } }
+
+    public IEnumerable<object> Players
+    {
+      get
+      {
+        return _finishedPlayers.Select((x, i) => new
+          {
+            Place = i + 1,
+            IsOdd = (i + 1) % 2 != 0,
+            Player = x
+          });
+      }
+    }
+
+    public bool CanContinue { get { return MatchesInProgress == 0; } }
+
+    [Updates("Players", "MatchesInProgress", "CanContinue")]
+    public virtual void Receive(TournamentMatchFinished message)
+    {
+      _finishedPlayers.Add(message.Match.Player1);
+      _finishedPlayers.Add(message.Match.Player2);
+
+      _finishedPlayers.Sort();
+    }
+
+    public virtual void Continue()
+    {
       this.Close();
     }
 
     public interface IFactory
     {
-      ViewModel Create(IEnumerable<TournamentPlayer> players, int roundsLeft, bool canContinue);
-    }
-
-    public void Receive(RoundIsFinished message)
-    {
-      CanNext = true;
+      ViewModel Create(IEnumerable<TournamentPlayer> players, int roundsLeft);
     }
   }
 }

@@ -33,7 +33,7 @@
                       Cost = new Sacrifice(),
                       Text = "Sacrifice this land: Add {B} to your mana pool.",
                       Priority = ManaSourcePriorities.Restricted,
-                      TapRestriction = false
+                      TapRestriction = false,
                     };
 
                   mp.ManaAmount(Mana.Black);

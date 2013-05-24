@@ -34,7 +34,7 @@
             p.Effect = () => new DestroyTargetPermanents(canRegenerate: false);
 
             p.TargetSelector.AddEffect(trg => trg.Is
-              .Card(c => c.Is().Creature && c.IsAttacker)
+              .Card(c => c.Is().Creature && c.IsAttacker && !c.Has().Flying)
               .On.Battlefield());
 
             p.TimingRule(new Steps(activeTurn: false, passiveTurn: true, steps: Step.DeclareAttackers));

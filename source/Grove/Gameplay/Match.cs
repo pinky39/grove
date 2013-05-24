@@ -31,6 +31,9 @@
       Application.Current.Exit += delegate { ForceCurrentGameToEnd(); };
     }
 
+    public bool IsTournament { get; private set; }
+    public bool WasStopped { get { return Game != null && Game.WasStopped; } }
+
     public Game Game { get; private set; }
 
     public bool IsFinished
@@ -59,12 +62,14 @@
 
     public bool InProgress { get { return Game != null && !IsFinished; } }
 
-    public void Start(string yourName, string opponentsName, Deck player1Deck, Deck player2Deck)
+    public void Start(string yourName, string opponentsName, Deck player1Deck, Deck player2Deck,
+      bool isTournament = false)
     {
       _deck1 = player1Deck;
       _deck2 = player2Deck;
       _yourName = yourName;
       _opponentsName = opponentsName;
+      IsTournament = isTournament;
 
       ResetResults();
       Run();
@@ -79,7 +84,7 @@
 
     private void DisplayMatchResults()
     {
-      var viewModel = _viewModels.MatchResults.Create();
+      var viewModel = _viewModels.MatchResults.Create(canRematch: !IsTournament);
       _shell.ShowModalDialog(viewModel);
       _rematch = viewModel.ShouldRematch;
     }
@@ -130,7 +135,6 @@
           return;
         }
 
-        ShowStartScreen();
         return;
       }
 
@@ -141,7 +145,7 @@
 
       if (_playerLeftMatch)
       {
-        ShowStartScreen();
+        Player2WinCount = 2;
         return;
       }
 
@@ -156,12 +160,6 @@
     private void SetLooser(int? looser)
     {
       _looser = looser;
-    }
-
-    private void ShowStartScreen()
-    {
-      var startScreen = _viewModels.StartScreen.Create();
-      _shell.ChangeScreen(startScreen);
     }
 
     private int? UpdateScore()

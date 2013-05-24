@@ -7,9 +7,7 @@
   {
     public void QuitToMainMenu()
     {
-      Match.ForceCurrentGameToEnd();
-      var screen = ViewModels.StartScreen.Create();
-      Shell.ChangeScreen(screen);
+      Match.ForceCurrentGameToEnd();      
     }
 
     public void QuitToOperatingSystem()
@@ -21,6 +19,11 @@
     public void Cancel()
     {
       this.Close();
+    }    
+    
+    public bool CanRematch
+    {
+      get { return !Match.IsTournament; }
     }
 
     public void Rematch()

@@ -166,39 +166,101 @@ Meltdown;U;3
 Midsummer Revel;R;3.8
 Mishra's Helix;R;3.5
 Mobile Fort;U;3.8
-Monk Idealist;U;3.9
-Monk Realist;C;3.9
+Monk Idealist;U;3.7
+Monk Realist;C;3.7
+Morphling;R;4
+No Rest for the Wicked;U;3.4
+Noetic Scales;R;3
 Opal Acrolith;U;4
+Opal Archangel;R;4
 Opal Caryatid;C;3
 Opal Gargoyle;C;3.8
 Opal Titan;R;4
+Oppression;R;3.4
+Order of Yawgmoth;U;4.1
+Outmaneuver;U;3.8
 Pacifism;C;4
+Parasitic Bond;U;3.6
 Pariah;R;4
+Path of Peace;C;4
 Pegasus Charger;C;4
 Pendrell Drake;C;3.8
-Pestilence;C;4.2
+Pendrell Flux;C;3.8
+Peregrine Drake;U;3.9
+Persecute;R;3.8
+Pestilence;C;4
 Phyrexian Ghoul;C;3.7
+Phyrexian Processor;R;4
+Phyrexian Tower;R;3.8
+Pit Trap;U;3.8
+Planar Birth;R;2.8
+Planar Void;U;3
 Polluted Mire;C;3
 Pouncing Jaguar;C;3.2
-Power Sink;C;4
+Power Sink;C;3.8
+Power Taint;C;3.5
+Presence of the Master;U;3.4
+Priest of Gix;U;3.5
+Priest of Titania;C;3.7
+Purging Scythe;R;3.6
+Rain of Filth;U;2.8
+Rain of Salt;U;3.6
+Ravenous Skirge;C;4
+Raze;C;3.3
+Recantation;R;3.2
+Reclusive Wight;U;3
+Redeem;U;3.3
+Reflexes;C;2.8
+Rejuvenate;C;3.3
+Remembrance;R;3.4
 Remote Isle;C;3
+Reprocess;R;3.6
 Rescind;C;3.7
-Rune of Protection: Black;C;3.8
+Retaliation;U;3.6
+Retromancer;C;3.7
+Rewind;C;3.7
+Rumbling Crescendo;R;3.6
+Rune of Protection: Artifacts;U;3
+Rune of Protection: Black;C;3.7
+Rune of Protection: Blue;C;3.1
+Rune of Protection: Green;C;3.2
+Rune of Protection: Lands;R;2.9
+Rune of Protection: Red;C;3.3
+Rune of Protection: White;C;3.1
 Sanctum Custodian;C;3.8
 Sanctum Guardian;U;3.7
 Sandbar Merfolk;C;2.5
 Sandbar Serpent;U;3.7
+Sanguine Guard;U;4
+Scald;U;2.9
+Scoria Wurm;R;3.8
 Scrap;C;3.7
+Seasoned Marshal;U;3.8
+Serra Zealot;C;3.6
 Serra's Embrace;U;4
+Serra's Liturgy;R;3.3
+Serra's Sanctum;R;3
+Shimmering Barrier;U;3.6
+Shivan Gorge;R;3.8
+Shivan Hellkite;R;4.2
 Shivan Raptor;U;3.9
 Shiv's Embrace;U;4.2
+Show and Tell;R;3.4
 Shower of Sparks;C;3.4
 Sicken;C;3.4
-Silent Attendant;C;3.2
+Silent Attendant;C;3.3
+Skirge Familiar;U;3.6
+Skittering Skirge;C;3.8
+Sleeper Agent;R;3.4
 Slippery Karst;C;3
+Smokestack;R;3.6
 Smoldering Crater;C;3
 Somnophore;R;4
-Songstitcher;U;3.8
+Songstitcher;U;3.7
+Soul Sculptor;R;3.8
+Spined Fluke;U;3.8
+Spire Owl;C;3.8
+Sporogenesis;R;3.7
 Stern Proctor;U;3.2
 Symbiosis;C;4
 Thran Turbine;U;3

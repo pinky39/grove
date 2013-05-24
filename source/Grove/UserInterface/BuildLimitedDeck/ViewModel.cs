@@ -9,25 +9,38 @@
 
   public class ViewModel : ViewModelBase, IReceive<DeckGenerated>
   {
-    private readonly int _generatedDeckCount;
     private readonly List<string> _library;
     private Dictionary<Card, CardsLeft> _availability;
     private UserInterface.Deck.ViewModel _deck;
+    private int _decksToGenerate;
+    private double _percentageCompleted;
 
-    public ViewModel(IEnumerable<string> library, int generatedDeckCount)
+    public ViewModel(IEnumerable<string> library, int decksToGenerate)
     {
-      _generatedDeckCount = generatedDeckCount;
+      _decksToGenerate = decksToGenerate;
       _library = library.ToList();
-      
+
       AddBasicLands();
-      Status = "Building decks 0% completed.";
-      CanStartTournament = generatedDeckCount == 0;
     }
 
     public virtual Card SelectedCard { get; protected set; }
     public LibraryFilter.ViewModel LibraryFilter { get; private set; }
-    public virtual string Status { get; protected set; }
-    public virtual bool CanStartTournament { get; protected set; }
+
+    public string Status
+    {
+      get
+      {
+        if (_decksToGenerate > 0)
+          return String.Format("Building decks {0}% completed.", (int) _percentageCompleted);
+
+        if (Deck.CardCount < 40)
+          return "Please add at least 40 cards to your deck.";
+
+        return String.Empty;
+      }
+    }
+
+    public virtual bool CanStartTournament { get { return _decksToGenerate == 0 && Deck.CardCount >= 40; } }
 
     public virtual UserInterface.Deck.ViewModel Deck
     {
@@ -35,19 +48,17 @@
       set
       {
         _deck = value;
-        _deck.Property(x => x.SelectedCard).Changes(this).Property(x => x.SelectedCard);
+        _deck.Property(x => x.SelectedCard).Changes(this).Property<ViewModel, Card>(x => x.SelectedCard);
       }
     }
 
     public Deck Result { get { return Deck.Deck; } }
 
-    public void Receive(DeckGenerated message)
+    [Updates("CanStartTournament", "Status")]
+    public virtual void Receive(DeckGenerated message)
     {
-      var percentageCompleted = ((double)message.Count / _generatedDeckCount) * 100;
-      Status = String.Format("Building decks {0}% completed.", (int)percentageCompleted);
-
-      if (message.Count == _generatedDeckCount)
-        CanStartTournament = true;
+      _percentageCompleted = ((double) message.Count/_decksToGenerate)*100;
+      _decksToGenerate--;
     }
 
     private void AddBasicLands()
@@ -67,12 +78,14 @@
       SelectedCard = card;
     }
 
-    public void AddCard(Card card)
+    [Updates("CanStartTournament", "Status")]
+    public virtual void AddCard(Card card)
     {
       Deck.AddCard(card.Name);
     }
 
-    public void RemoveCard(Card card)
+    [Updates("CanStartTournament", "Status")]
+    public virtual void RemoveCard(Card card)
     {
       Deck.RemoveCard(card.Name);
     }
@@ -125,7 +138,7 @@
 
     public interface IFactory
     {
-      ViewModel Create(IEnumerable<string> library, int generatedDeckCount);
+      ViewModel Create(IEnumerable<string> library, int decksToGenerate);
     }
   }
 }

@@ -43,25 +43,32 @@
 
       CreatePlayers(playersCount, playerName);
       LoadCardRatings(tournamentPack, boosterPacks);
-            
+
       var generatedDeckCount = GenerateDecks(tournamentPack, boosterPacks);
       ShowEditDeckScreen(GenerateLibrary(tournamentPack, boosterPacks), generatedDeckCount);
       
-      ShowResults(roundsToGo, canContinue: true);
+      ShowResults(roundsToGo);
       
       while (roundsToGo > 0)
       {
-        roundsToGo--;        
-        var isFinished = PlayNextRound();
+        roundsToGo--;
+        PlayNextRound();
 
-        ShowResults(roundsToGo, canContinue: isFinished);        
-      }
-    }    
+        if (WasStopped)
+        {
+          return;
+        }          
 
-    private void ShowResults(int roundsToGo, bool canContinue)
+        ShowResults(roundsToGo);
+      }      
+    }
+
+    private bool WasStopped { get { return _match.WasStopped; } }
+
+    private void ShowResults(int roundsToGo)
     {
-      var leaderboard = _viewModels.LeaderBoard.Create(_players, roundsToGo, canContinue);
-      _shell.ChangeScreen(leaderboard, blockUntilClosed: true);      
+      var leaderboard = _viewModels.LeaderBoard.Create(_players, roundsToGo);
+      _shell.ChangeScreen(leaderboard, blockUntilClosed: true);
     }
 
     private static int GetRoundCount(int playersCount)
@@ -86,14 +93,12 @@
       return 10;
     }
 
-    private bool PlayNextRound()
+    private void PlayNextRound()
     {
       var matches = CreateSwissPairings();
 
-      var isFinished = SimulateRound(matches.Where(x => x.IsSimulated));
+      SimulateRound(matches.Where(x => x.IsSimulated));
       PlayMatch(matches.Single(x => !x.IsSimulated));
-
-      return isFinished();
     }
 
     private void PlayMatch(TournamentMatch tournamentMatch)
@@ -101,15 +106,18 @@
       var human = tournamentMatch.HumanPlayer;
       var nonHuman = tournamentMatch.NonHumanPlayer;
 
-      _match.Start(human.Name, nonHuman.Name, human.Deck, nonHuman.Deck);
+      _match.Start(human.Name, nonHuman.Name, human.Deck, nonHuman.Deck, isTournament: true);
 
       human.GamesWon += _match.Player1WinCount;
       nonHuman.GamesWon += _match.Player2WinCount;
+      
+      human.GamesLost += _match.Player2WinCount;
+      nonHuman.GamesLost += _match.Player1WinCount;
 
       if (_match.Player1WinCount > _match.Player2WinCount)
       {
-        human.WinCount++;
-        nonHuman.LooseCount++;
+        human.WinCount++;        
+        nonHuman.LooseCount++;        
       }
       else if (_match.Player1WinCount < _match.Player2WinCount)
       {
@@ -123,12 +131,8 @@
       }
     }
 
-    private Func<bool> SimulateRound(IEnumerable<TournamentMatch> simulatedMatches)
+    private void SimulateRound(IEnumerable<TournamentMatch> simulatedMatches)
     {
-
-      bool isFinished = false;
-      Func<bool> isRoundFinished = () => isFinished;
-      
       Task.Factory.StartNew(() =>
         {                    
           foreach (var simulatedMatch in simulatedMatches)
@@ -142,6 +146,9 @@
 
             simulatedMatch.Player1.GamesWon += result.Deck1WinCount;
             simulatedMatch.Player2.GamesWon += result.Deck2WinCount;
+
+            simulatedMatch.Player1.GamesLost += result.Deck2WinCount;
+            simulatedMatch.Player2.GamesLost += result.Deck1WinCount;
 
             if (result.Deck1WinCount > result.Deck2WinCount)
             {
@@ -158,14 +165,16 @@
               simulatedMatch.Player1.DrawCount++;
               simulatedMatch.Player2.DrawCount++;
             }
-          }
-          
-          isFinished = true;
-          
-          _shell.Publish(new RoundIsFinished());
-        });
 
-      return isRoundFinished;
+            _shell.Publish(new TournamentMatchFinished {Match = simulatedMatch});
+
+
+            if (WasStopped)
+            {
+              break;
+            }
+          }
+        });
     }
 
     private List<TournamentMatch> CreateSwissPairings()
@@ -191,7 +200,7 @@
     {
       var screen = _viewModels.BuildLimitedDeck.Create(library, generatedDeckCount);
       _shell.ChangeScreen(screen, blockUntilClosed: true);
-      
+
       HumanPlayer.Deck = screen.Result;
     }
 
@@ -217,7 +226,7 @@
 
     private int GenerateDecks(string tournamentPack, string[] boosterPacks)
     {
-      const int minNumberOfGeneratedDecks = 0;
+      const int minNumberOfGeneratedDecks = 5;
       var limitedCode = MagicSet.GetLimitedCode(tournamentPack, boosterPacks);
 
       var preconstructed = MediaLibrary.GetDecks(limitedCode)
@@ -248,7 +257,7 @@
 
             _shell.Publish(new DeckGenerated
               {
-                Count = count + 1,                
+                Count = count + 1,
               });
           }
         });

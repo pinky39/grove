@@ -42,6 +42,8 @@
         PlayersCount,
         new[] {BoosterPack1, BoosterPack2, BoosterPack3},
         StarterPack);
+
+      Shell.ChangeScreen(_previousScreen);
     }
 
     public void Back()

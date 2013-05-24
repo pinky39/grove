@@ -26,6 +26,7 @@
     public static MarkerBrushConverter MarkerBrush = new MarkerBrushConverter();
     public static NullToCollapsedConverter NullToCollapsed = new NullToCollapsedConverter();
     public static ZeroToCollapsedConverter ZeroToCollapsed = new ZeroToCollapsedConverter();
+    public static NonZeroToCollapsedConverter NonZeroToCollapsed = new NonZeroToCollapsedConverter();
     public static RatingConverter Rating = new RatingConverter();
 
 
@@ -348,6 +349,19 @@
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
       return value.Equals(0) ? Visibility.Collapsed : Visibility.Visible;
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+      throw new NotImplementedException();
+    }
+  }
+
+  public class NonZeroToCollapsedConverter : IValueConverter
+  {
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+      return value.Equals(0) ? Visibility.Visible : Visibility.Collapsed;
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

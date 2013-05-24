@@ -119,6 +119,7 @@
     <Compile Include="Artifical\Search.cs" />
     <Compile Include="Artifical\SearchParameters.cs" />
     <Compile Include="Artifical\SearchStatistics.cs" />
+    <Compile Include="Artifical\TimingRules\SingleInstanceOfSpellOnStack.cs" />
     <Compile Include="Artifical\TimingRules\StackIsEmpty.cs" />
     <Compile Include="Cards\AbsoluteGrace.cs" />
     <Compile Include="Cards\AbsoluteLaw.cs" />
@@ -889,7 +890,7 @@
     </Compile>
     <Compile Include="UserInterface\LibraryFilter\ViewModel.cs" />
     <Compile Include="UserInterface\Messages\DeckGenerated.cs" />
-    <Compile Include="UserInterface\Messages\RoundIsFinished.cs" />
+    <Compile Include="UserInterface\Messages\TournamentMatchFinished.cs" />
     <Compile Include="UserInterface\NewTournament\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>

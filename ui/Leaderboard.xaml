@@ -135,6 +135,21 @@
               <TextBlock Grid.Column="3" TextAlignment="Right">95%</TextBlock>
               <TextBlock Grid.Column="4" TextAlignment="Right" Margin="20,0,0,0">12</TextBlock>
             </Grid>
+            
+               <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="100"/>                                
+              </Grid.ColumnDefinitions>
+              
+              <TextBlock Grid.Column="0">4.</TextBlock>
+              <TextBlock Grid.Column="1"  Margin="10,0,0,0">Player4</TextBlock>
+              <TextBlock Grid.Column="3" TextAlignment="Right">95%</TextBlock>
+              <TextBlock Grid.Column="4" TextAlignment="Right" Margin="20,0,0,0">12</TextBlock>
+            </Grid>
          </StackPanel>         
          </ScrollViewer>
          </Grid>

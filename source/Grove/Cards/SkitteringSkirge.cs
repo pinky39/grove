@@ -22,6 +22,7 @@
         .StaticAbilities(Static.Flying)
         .TriggeredAbility(p =>
           {
+            p.Text = "When you cast a creature spell, sacrifice Skittering Skirge.";
             p.Trigger(new OnCastedSpell((a, c) =>
               a.OwningCard.Controller == c.Controller && c.Is().Creature));
 

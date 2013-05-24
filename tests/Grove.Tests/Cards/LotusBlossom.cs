@@ -19,7 +19,7 @@
         RunGame(8);
 
         Equal(Zone.Battlefield, C(force).Zone);
-      }
+      }       
     }
   }
 }
