@@ -28,6 +28,7 @@
                     <Button HorizontalAlignment="Right" x:Name="NewTournament">New tournament</Button>
                     <Button HorizontalAlignment="Right" x:Name="Play">Single match</Button>
 					<Button HorizontalAlignment="Right" x:Name="PlayRandom">Random match</Button>
+                    <Button HorizontalAlignment="Right" x:Name="LoadTournament">Load tournament</Button>
 					<Button HorizontalAlignment="Right" x:Name="DeckEditor">Deck editor</Button>
 					<Button HorizontalAlignment="Right" x:Name="Exit">Quit</Button>
 				</StackPanel>

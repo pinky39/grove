@@ -14,6 +14,7 @@
     private readonly ManaOutput _manaOutput;
     private readonly int _priority;
     private readonly bool _tapRestriction;
+    private readonly bool _sacRestriction;
     private readonly TrackableList<ManaUnit> _units = new TrackableList<ManaUnit>();
     private readonly ManaUsage _usageRestriction;
 
@@ -25,6 +26,7 @@
       _priority = p.Priority;
       _costRestriction = p.CostRestriction;
       _tapRestriction = p.TapRestriction;
+      _sacRestriction = p.SacRestriction;
       _usageRestriction = p.UsageRestriction;
     }
 
@@ -172,6 +174,7 @@
         _priority,
         this,
         _tapRestriction ? OwningCard : null,
+        _sacRestriction ? OwningCard : null,
         _costRestriction,
         _usageRestriction);
     }

@@ -24,7 +24,7 @@
           {EffectOption.Untap, card => card.Untap()}
         };
 
-    public override ChosenOptions ChooseResult(List<object> candidates)
+    public override ChosenOptions ChooseResult(List<IEffectChoice> candidates)
     {
       if (Target == Controller)
       {
@@ -57,7 +57,7 @@
       return "#0 all #1 target player controls.";
     }
 
-    public override IEnumerable<object> GetChoices()
+    public override IEnumerable<IEffectChoice> GetChoices()
     {
       yield return new DiscreteEffectChoice(
         EffectOption.Tap,

@@ -1,16 +1,14 @@
 ﻿namespace Grove.Gameplay.Effects
 {
-  using System.Collections.Generic;
+  using System.Linq;
 
-  public class DiscreteEffectChoice
+  public class DiscreteEffectChoice : IEffectChoice
   {
-    private readonly EffectOption[] _options;
-
     public DiscreteEffectChoice(params EffectOption[] options)
     {
-      _options = options;
+      Options = options.Select(x => (object) x).ToArray();
     }
 
-    public IEnumerable<EffectOption> Options { get { return _options; } }
+    public object[] Options { get; private set; }
   }
 }

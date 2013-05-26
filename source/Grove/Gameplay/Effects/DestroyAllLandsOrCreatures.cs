@@ -12,7 +12,7 @@
       Category = EffectCategories.Destruction;
     }
 
-    public override ChosenOptions ChooseResult(List<object> candidates)
+    public override ChosenOptions ChooseResult(List<IEffectChoice> candidates)
     {
       var opponentCreatureCount = Controller.Opponent.Battlefield.Creatures.Count();
       var yourCreatureCount = Controller.Battlefield.Creatures.Count();
@@ -39,7 +39,7 @@
       return "Destroy all #0.";
     }
 
-    public override IEnumerable<object> GetChoices()
+    public override IEnumerable<IEffectChoice> GetChoices()
     {
       yield return new DiscreteEffectChoice(
         EffectOption.Lands,

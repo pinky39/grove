@@ -9,6 +9,7 @@
     public int CostRestriction;
     public int Priority = ManaSourcePriorities.Land;
     public bool TapRestriction;
+    public bool SacRestriction;
     public ManaUsage UsageRestriction = ManaUsage.Any;
 
     public ManaAbilityParameters()

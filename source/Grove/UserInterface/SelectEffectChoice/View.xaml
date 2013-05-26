@@ -23,7 +23,7 @@
 					</DataTemplate>
 
 					<DataTemplate DataType="{x:Type SelectEffectChoice:EffectChoiceViewModel}">
-						<ComboBox Margin="4,0,0,0" FontSize="16" VerticalAlignment="Center" ItemsSource="{Binding Options}" SelectedItem="{Binding Selected}" />
+                        <ComboBox Margin="4,0,0,0" FontSize="16" VerticalAlignment="Center" ItemsSource="{Binding Choice.Options}" SelectedItem="{Binding Selected}" />
 					</DataTemplate>
 				</ItemsControl.Resources>
 

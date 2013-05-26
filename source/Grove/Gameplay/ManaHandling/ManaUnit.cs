@@ -10,12 +10,13 @@
     private ManaUnit() {}
 
     public ManaUnit(ManaColor color, int rank, IManaSource source = null,
-      object tapRestriction = null, int costRestriction = 0, ManaUsage usageRestriction = ManaUsage.Any)
+      object tapRestriction = null, object sacRestriction = null, int costRestriction = 0, ManaUsage usageRestriction = ManaUsage.Any)
     {
       Color = color;
       Rank = rank;
       Source = source;
       TapRestriction = tapRestriction;
+      SacRestriction = sacRestriction;
       CostRestriction = costRestriction;
       _usageRestriction = usageRestriction;
     }
@@ -26,6 +27,7 @@
     public ManaColor Color { get; private set; }
     public int Rank { get; private set; }
     public object TapRestriction { get; private set; }
+    public object SacRestriction { get; private set; }
 
     public bool CanActivateSource()
     {

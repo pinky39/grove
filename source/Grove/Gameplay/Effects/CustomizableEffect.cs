@@ -6,12 +6,12 @@
   using Decisions.Results;
 
   public abstract class CustomizableEffect : Effect, IProcessDecisionResults<ChosenOptions>,
-    IChooseDecisionResults<List<object>, ChosenOptions>
+    IChooseDecisionResults<List<IEffectChoice>, ChosenOptions>
   {
-    public abstract ChosenOptions ChooseResult(List<object> candidates);
+    public abstract ChosenOptions ChooseResult(List<IEffectChoice> candidates);
     public abstract void ProcessResults(ChosenOptions results);
     public abstract string GetText();
-    public abstract IEnumerable<object> GetChoices();
+    public abstract IEnumerable<IEffectChoice> GetChoices();
 
     protected override void ResolveEffect()
     {

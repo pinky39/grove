@@ -28,5 +28,6 @@
     public MatchResults.ViewModel.IFactory MatchResults { get; set; }
     public PlayScreen.ViewModel.IFactory PlayScreen { get; set; }
     public Leaderboard.ViewModel.IFactory LeaderBoard { get; set; }
+    public LoadTournament.ViewModel.IFactory LoadTournament { get; set; }
   }
 }

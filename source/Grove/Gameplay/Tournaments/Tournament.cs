@@ -4,6 +4,8 @@
   using System.Collections.Generic;
   using System.IO;
   using System.Linq;
+  using System.Runtime.Serialization;
+  using System.Runtime.Serialization.Formatters.Binary;
   using System.Threading.Tasks;
   using Artifical;
   using Infrastructure;
@@ -19,10 +21,10 @@
     private readonly DeckBuilder _deckBuilder;
     private readonly Match _match;
     private readonly MatchSimulator _matchSimulator;
-    private readonly List<TournamentPlayer> _players = new List<TournamentPlayer>();
+    private List<TournamentPlayer> _players;
     private readonly IShell _shell;
     private readonly ViewModelFactories _viewModels;
-    private CardRatings _cardRatings;
+    private CardRatings _cardRatings;    
 
     public Tournament(DeckBuilder deckBuilder, ViewModelFactories viewModels, IShell shell,
       Match match, MatchSimulator matchSimulator)
@@ -36,9 +38,13 @@
 
     private TournamentPlayer HumanPlayer { get { return _players[0]; } }
     private IEnumerable<TournamentPlayer> NonHumanPlayers { get { return _players.Skip(1); } }
+    private bool WasStopped { get { return _match.WasStopped; } }    
 
     public void Start(string playerName, int playersCount, string[] boosterPacks, string tournamentPack)
     {
+      var filename = MediaLibrary.GetSaveGameFilename();
+      var info = new TournamentInfo {Name = tournamentPack, PlayerCount = playersCount};
+
       var roundsToGo = GetRoundCount(playersCount);
 
       CreatePlayers(playersCount, playerName);
@@ -46,24 +52,57 @@
 
       var generatedDeckCount = GenerateDecks(tournamentPack, boosterPacks);
       ShowEditDeckScreen(GenerateLibrary(tournamentPack, boosterPacks), generatedDeckCount);
-      
+
+      Save(filename, roundsToGo, info);            
+      RunTournament(filename, roundsToGo, info);      
+    }
+
+    private void RunTournament(string filename, int roundsToGo, TournamentInfo info)
+    {
       ShowResults(roundsToGo);
       
       while (roundsToGo > 0)
       {
         roundsToGo--;
+                
         PlayNextRound();
 
         if (WasStopped)
         {
           return;
-        }          
-
+        }
+        
         ShowResults(roundsToGo);
-      }      
+        Save(filename, roundsToGo, info);
+      }
     }
 
-    private bool WasStopped { get { return _match.WasStopped; } }
+    public void Load(string filename)
+    {
+      var formatter = new BinaryFormatter();
+
+      int roundsToGo;
+      TournamentInfo info;
+      using (var stream = new FileStream(filename, FileMode.Open, FileAccess.Read))
+      {
+        info = (TournamentInfo) formatter.Deserialize(stream);        
+         roundsToGo = (int) formatter.Deserialize(stream);
+        _players = (List<TournamentPlayer>) formatter.Deserialize(stream);
+      }
+
+      RunTournament(filename, roundsToGo, info);      
+    }
+
+    private void Save(string filename, int roundsToGo, TournamentInfo info)
+    {
+      IFormatter formatter = new BinaryFormatter();
+      using (var stream = new FileStream(filename, FileMode.Create, FileAccess.Write))
+      {
+        formatter.Serialize(stream, info);
+        formatter.Serialize(stream, roundsToGo);
+        formatter.Serialize(stream, _players);
+      }
+    }
 
     private void ShowResults(int roundsToGo)
     {
@@ -110,14 +149,14 @@
 
       human.GamesWon += _match.Player1WinCount;
       nonHuman.GamesWon += _match.Player2WinCount;
-      
+
       human.GamesLost += _match.Player2WinCount;
       nonHuman.GamesLost += _match.Player1WinCount;
 
       if (_match.Player1WinCount > _match.Player2WinCount)
       {
-        human.WinCount++;        
-        nonHuman.LooseCount++;        
+        human.WinCount++;
+        nonHuman.LooseCount++;
       }
       else if (_match.Player1WinCount < _match.Player2WinCount)
       {
@@ -134,7 +173,7 @@
     private void SimulateRound(IEnumerable<TournamentMatch> simulatedMatches)
     {
       Task.Factory.StartNew(() =>
-        {                    
+        {
           foreach (var simulatedMatch in simulatedMatches)
           {
             var result = _matchSimulator.Simulate(
@@ -267,6 +306,7 @@
 
     private void CreatePlayers(int playersCount, string playerName)
     {
+      _players = new List<TournamentPlayer>();
       var names = MediaLibrary.NameGenerator.GenerateNames(playersCount - 1);
       _players.Add(new TournamentPlayer(playerName, isHuman: true));
 

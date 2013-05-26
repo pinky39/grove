@@ -17,6 +17,7 @@
     private const string Cards = @"cards\";
     private const string Decks = @"decks\";
     private const string Sets = @"sets\";
+    private const string SavedGames = @"saved\";
     private const string Tournament = @"tournament\";
 
     private static readonly Dictionary<string, ImageSource> ImageDatabase = new Dictionary<string, ImageSource>();
@@ -38,6 +39,13 @@
     public static string DecksFolder { get { return Path.Combine(BasePath, Decks); } }
     public static string SetsFolder { get { return Path.Combine(BasePath, Sets); } }
     public static string TournamentFolder { get { return Path.Combine(BasePath, Tournament); } }
+    public static string SavedGamesFolder {get { return Path.Combine(BasePath, SavedGames); }}
+    
+    public static string GetSaveGameFilename()
+    {
+      var filename = String.Format("{0}.savegame", Guid.NewGuid());
+      return Path.Combine(SavedGamesFolder, filename);
+    }
 
     public static void LoadResources()
     {
@@ -151,6 +159,11 @@
     public static string[] GetDeckFilenames()
     {
       return Directory.GetFiles(DecksFolder, "*.dec");
+    }
+
+    public static string[] GetSavedGamesFilenames()
+    {
+      return Directory.GetFiles(SavedGamesFolder, "*.savegame");
     }
   }
 }

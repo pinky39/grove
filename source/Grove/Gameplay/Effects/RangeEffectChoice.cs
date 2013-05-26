@@ -1,27 +1,16 @@
 ﻿namespace Grove.Gameplay.Effects
 {
-  using System.Collections.Generic;
+  using System.Linq;
 
-  public class RangeEffectChoice
+  public class RangeEffectChoice : IEffectChoice
   {
-    private readonly int _maxValue;
-    private readonly int _minValue;
-
     public RangeEffectChoice(int minValue, int maxValue)
     {
-      _minValue = minValue;
-      _maxValue = maxValue;
+      Options = Enumerable.Range(minValue, maxValue)
+        .Select(x => (object) x)
+        .ToArray();
     }
 
-    public IEnumerable<int> Options
-    {
-      get
-      {
-        for (var i = _minValue; i <= _maxValue; i++)
-        {
-          yield return i;
-        }
-      }
-    }
+    public object[] Options { get; private set; }
   }
 }

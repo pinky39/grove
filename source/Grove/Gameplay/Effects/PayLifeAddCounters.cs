@@ -20,7 +20,7 @@
       _counterType = counterType;
     }
 
-    public override ChosenOptions ChooseResult(List<object> candidates)
+    public override ChosenOptions ChooseResult(List<IEffectChoice> candidates)
     {
       const int minLife = 8;
       const int maxPay = 5;
@@ -59,7 +59,7 @@
       return "Pay #0 life.";
     }
 
-    public override IEnumerable<object> GetChoices()
+    public override IEnumerable<IEffectChoice> GetChoices()
     {
       yield return new RangeEffectChoice(0, 10);
     }

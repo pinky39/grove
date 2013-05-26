@@ -2,6 +2,7 @@
 {
   using System;
 
+  [Serializable]
   public class TournamentPlayer : IComparable<TournamentPlayer>
   {
     public TournamentPlayer(string name, bool isHuman)

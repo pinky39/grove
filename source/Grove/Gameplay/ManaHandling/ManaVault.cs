@@ -179,6 +179,16 @@
           return false;
         }
       }
+
+      if (unit.SacRestriction != null)
+      {
+        IManaSource source;
+        if (restrictions.Sac.TryGetValue(unit.SacRestriction, out source) && source != unit.Source)
+        {
+          return false;
+        }
+      }
+
       return true;
     }
 
@@ -209,6 +219,9 @@
 
           if (unit.TapRestriction != null && !restrictions.Tap.ContainsKey(unit.TapRestriction))
             restrictions.Tap.Add(unit.TapRestriction, unit.Source);
+
+          if (unit.SacRestriction != null && !restrictions.Sac.ContainsKey(unit.SacRestriction))
+            restrictions.Sac.Add(unit.SacRestriction, unit.Source);
         }
       }
 
@@ -276,7 +289,8 @@
     private class Restrictions
     {
       public readonly HashSet<ManaUnit> Allocated = new HashSet<ManaUnit>();
-      public readonly Dictionary<object, IManaSource> Tap = new Dictionary<object, IManaSource>();
+      public readonly Dictionary<object, IManaSource> Tap = new Dictionary<object, IManaSource>();      
+      public readonly Dictionary<object, IManaSource> Sac = new Dictionary<object, IManaSource>();      
       public ManaUsage Usage;
     }
   }

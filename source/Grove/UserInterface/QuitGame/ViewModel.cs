@@ -5,9 +5,11 @@
 
   public class ViewModel : ViewModelBase
   {
+    public bool CanRematch { get { return !Match.IsTournament; } }
+
     public void QuitToMainMenu()
     {
-      Match.ForceCurrentGameToEnd();      
+      Match.ForceCurrentGameToEnd();
     }
 
     public void QuitToOperatingSystem()
@@ -19,11 +21,6 @@
     public void Cancel()
     {
       this.Close();
-    }    
-    
-    public bool CanRematch
-    {
-      get { return !Match.IsTournament; }
     }
 
     public void Rematch()

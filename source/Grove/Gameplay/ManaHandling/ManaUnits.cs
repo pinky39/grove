@@ -20,28 +20,39 @@
         unrestricted = unrestricted.OrderBy(order);
       }
 
-      var restrictions = new Dictionary<object, IManaSource>();
+      var tapRestrictions = new Dictionary<object, IManaSource>();
+      var sacRestrictions = new Dictionary<object, IManaSource>();
       var restricted = new List<ManaUnit>();
 
       foreach (var unit in unrestricted)
       {
-        if (unit.TapRestriction == null)
+        if (unit.TapRestriction != null)
         {
-          restricted.Add(unit);
-          continue;
+          IManaSource source;
+          if (tapRestrictions.TryGetValue(unit.TapRestriction, out source))
+          {
+            if (source != unit.Source)
+              continue;
+          }
+          else
+          {
+            tapRestrictions.Add(unit.TapRestriction, unit.Source);
+          }
+        }
+        else if (unit.SacRestriction != null)
+        {
+          IManaSource source;
+          if (sacRestrictions.TryGetValue(unit.SacRestriction, out source))
+          {
+            if (source != unit.Source)
+              continue;
+          }
+          else
+          {
+            sacRestrictions.Add(unit.SacRestriction, unit.Source);
+          }
         }
 
-        IManaSource source;
-        if (restrictions.TryGetValue(unit.TapRestriction, out source))
-        {
-          if (source != unit.Source)
-            continue;
-
-          restricted.Add(unit);
-          continue;
-        }
-
-        restrictions.Add(unit.TapRestriction, unit.Source);
         restricted.Add(unit);
       }
 

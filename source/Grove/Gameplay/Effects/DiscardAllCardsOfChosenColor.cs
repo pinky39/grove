@@ -17,7 +17,7 @@
         new Rel {Color = CardColor.Green, Choice = EffectOption.Green},
       };
 
-    public override ChosenOptions ChooseResult(List<object> operations)
+    public override ChosenOptions ChooseResult(List<IEffectChoice> operations)
     {
       var color = Target.Player().Battlefield.GetMostCommonColor();
       return new ChosenOptions(Map.Single(x => x.Color == color).Choice);
@@ -41,7 +41,7 @@
       return "Target player discards all #0 cards.";
     }
 
-    public override IEnumerable<object> GetChoices()
+    public override IEnumerable<IEffectChoice> GetChoices()
     {
       yield return new DiscreteEffectChoice(
         EffectOption.White,

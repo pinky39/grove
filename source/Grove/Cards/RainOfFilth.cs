@@ -34,6 +34,7 @@
                       Text = "Sacrifice this land: Add {B} to your mana pool.",
                       Priority = ManaSourcePriorities.Restricted,
                       TapRestriction = false,
+                      SacRestriction = true
                     };
 
                   mp.ManaAmount(Mana.Black);

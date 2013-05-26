@@ -36,6 +36,12 @@
       Shell.ChangeScreen(newTournament);
     }
 
+    public void LoadTournament()
+    {
+      var loadTournament = ViewModels.LoadTournament.Create(this);
+      Shell.ChangeScreen(loadTournament);
+    }
+
     public void Play()
     {
       SelectDeck.ViewModel selectDeck1 = null;

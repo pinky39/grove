@@ -14,7 +14,7 @@
 			<StackPanel Width="500" Margin="0,60,0,0">
 				<Button x:Name="Cancel" HorizontalAlignment="Center" FontSize="35" Foreground="#FDEFA0">Return to the game</Button>
 				<StackPanel Margin="60" HorizontalAlignment="Center">
-					<Button x:Name="Rematch" HorizontalAlignment="Left">Rematch</Button>
+					<Button x:Name="Rematch" HorizontalAlignment="Left">Rematch</Button>                    
 					<Button x:Name="QuitToMainMenu" HorizontalAlignment="Left">Quit to main menu</Button>
 					<Button x:Name="QuitToOperatingSystem" HorizontalAlignment="Left">Quit to Windows</Button>
 				</StackPanel>

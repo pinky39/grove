@@ -1,9 +1,11 @@
 ﻿namespace Grove.Gameplay
 {
+  using System;
   using System.Collections;
   using System.Collections.Generic;
   using System.Linq;
 
+  [Serializable]
   public class Deck : IEnumerable<string>
   {
     private readonly List<string> _cards = new List<string>();
@@ -14,12 +16,6 @@
     }
 
     public Deck() {}
-
-    //public IEnumerable<string> Creatures { get { return _cardNames.Where(x => _cardsInfo[x].Is().Creature); } }
-    //public IEnumerable<string> Spells { get { return _cardNames.Where(x => !_cardsInfo[x].Is().Creature && !_cardsInfo[x].Is().Land); } }
-    //public IEnumerable<string> Lands { get { return _cardNames.Where(x => _cardsInfo[x].Is().Land); } }
-
-   
 
     public int? Rating { get; set; }
     public string Description { get; set; }

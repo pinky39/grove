@@ -4,15 +4,16 @@
   using System.Collections.Generic;
   using System.Linq;
   using Gameplay.Decisions.Results;
+  using Gameplay.Effects;
   using Infrastructure;
 
   public class ViewModel
   {
     private readonly List<EffectChoiceViewModel> _choices;
 
-    public ViewModel(IEnumerable<object> choices, string text)
+    public ViewModel(IEnumerable<IEffectChoice> choices, string text)
     {
-      _choices = choices.Select(x => new EffectChoiceViewModel {Choice = x}).ToList();
+      _choices = choices.Select(x => new EffectChoiceViewModel(x)).ToList();
 
       Message = text
         .Split(new[] {" "}, StringSplitOptions.RemoveEmptyEntries)
@@ -30,7 +31,7 @@
     }
 
     public List<object> Message { get; private set; }
-    public ChosenOptions ChosenOptions { get { return new ChosenOptions(_choices.Select(x => x.Selected).ToList()); } }
+    public ChosenOptions ChosenOptions { get { return new ChosenOptions(_choices.Select(x => x.Selected).ToArray()); } }
 
     public void Done()
     {
@@ -39,7 +40,7 @@
 
     public interface IFactory
     {
-      ViewModel Create(IEnumerable<object> choices, string text);
+      ViewModel Create(IEnumerable<IEffectChoice> choices, string text);
     }
   }
 }
