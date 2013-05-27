@@ -19,7 +19,7 @@
       result.CanPay = Card.CountersCount(_counterType) > 0;
     }
 
-    protected override void Pay(ITarget target, int? x)
+    protected override void Pay(ITarget target, int? x, int repeat)
     {
       Card.RemoveCounters(_counterType, 1);
     }

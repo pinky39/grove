@@ -28,15 +28,15 @@
       return result;
     }
 
-    public virtual void Pay(Targets targets, int? x)
+    public virtual void Pay(Targets targets, int? x, int repeat = 1)
     {
       // only one cost target is currently 
       // supported, changes this to support
       // more
-      Pay(targets.Cost.FirstOrDefault(), x);
+      Pay(targets.Cost.FirstOrDefault(), x, repeat);
     }
 
-    protected virtual void Pay(ITarget target, int? x) {}
+    protected virtual void Pay(ITarget target, int? x, int repeat) {}
 
     public virtual IManaAmount GetManaCost()
     {

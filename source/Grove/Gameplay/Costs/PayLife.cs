@@ -22,7 +22,7 @@
     }
 
 
-    protected override void Pay(ITarget target, int? x)
+    protected override void Pay(ITarget target, int? x, int repeat)
     {
       Card.Controller.Life -= _getAmount(Card);
     }

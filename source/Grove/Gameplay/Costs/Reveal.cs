@@ -9,7 +9,7 @@
       result.CanPay = Card.Controller.Hand.Count > 0;
     }
 
-    protected override void Pay(ITarget target, int? x)
+    protected override void Pay(ITarget target, int? x, int repeat)
     {
       target.Card().Reveal();
     }

@@ -285,14 +285,14 @@ o Sporogenesis
 o Spreading Algae
 o Steam Blast
 o Stern Proctor
-Stroke of Genius
+o Stroke of Genius
 Sulfuric Vapors
-Sunder
-Swamp
-Swamp
-Swamp
-Swamp
-Symbiosis
+o Sunder
+o Swamp
+o Swamp
+o Swamp
+o Swamp
+o Symbiosis
 Tainted Æther
 Telepathy
 Temporal Aperture

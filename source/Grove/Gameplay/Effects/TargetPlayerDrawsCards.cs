@@ -1,15 +1,16 @@
 ﻿namespace Grove.Gameplay.Effects
 {
+  using Modifiers;
   using Targeting;
 
   public class TargetPlayerDrawsCards : Effect
   {
-    private readonly int _cardCount;
+    private readonly Value _cardCount;
     private readonly int _lifeLoss;
 
     private TargetPlayerDrawsCards() {}
 
-    public TargetPlayerDrawsCards(int cardCount, int lifeLoss = 0)
+    public TargetPlayerDrawsCards(Value cardCount, int lifeLoss = 0)
     {
       _cardCount = cardCount;
       _lifeLoss = lifeLoss;
@@ -18,7 +19,7 @@
     protected override void ResolveEffect()
     {
       var player = Target.Player();
-      player.DrawCards(_cardCount);
+      player.DrawCards(_cardCount.GetValue(X));
       player.Life -= _lifeLoss;
     }
   }

@@ -16,7 +16,34 @@
         Battlefield(P1, "Blood Vassal", "Nantuko Shade");
         RunGame(1);
       }
-      
+
+      [Fact]
+      public void NotEnoughManaAvailableWhenActivatingAnAbilityWithRepetitions()
+      {
+        Hand(P1, "Shower of Sparks", "Outmaneuver", "Forest", "Pit Trap");
+        Hand(P2);
+        Battlefield(P1, "Mountain", "Forest", "Acridian", "Mountain", "Mountain", "Forest", "Priest of Titania",
+          "Shivan Hellkite");
+        Battlefield(P2, "Forest", "Plains", "Rune of Protection: Blue", "Forest", "Silent Attendant", "Forest", "Plains",
+          "Priest of Titania", "Sanctum Custodian", "Argothian Swine", "Forest", "Mobile Fort");
+
+        RunGame(1);
+      }
+
+      [Fact]
+      public void IndexOutOfRange()
+      {        
+        // todo find a bug
+
+        Hand(P1, "Urza's Armor", "Skittering Skirge", "Island", "Bog Raiders");
+        Hand(P2, "Hollow Dogs", "Swamp", "Swamp");
+        
+        Battlefield(P1, "Island", "Swamp", "Swamp", "Island", "Blood Vassal");
+        Battlefield(P2, "Mountain", "Swamp", "Wall of Junk", "Mountain", C("Bog Raiders").IsEnchantedWith("Parasitic Bond"), "Mountain");             
+
+        RunGame(2);
+      }    
+
       [Fact]
       public void BugDoAttackWithTrollsAndWildwood()
       {
@@ -366,10 +393,10 @@
           "Baneslayer Angel", "Plains");
 
         P1.Life = 12;
-        P2.Life = 17;        
+        P2.Life = 17;
 
         RunGame(3);
-      }      
+      }
     }
   }
 }

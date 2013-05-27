@@ -252,8 +252,11 @@
     <Compile Include="Cards\SpinedFluke.cs" />
     <Compile Include="Cards\SpireOwl.cs" />
     <Compile Include="Cards\Sporogenesis.cs" />
+    <Compile Include="Cards\SpreadingAlgae.cs" />
     <Compile Include="Cards\SteamVents.cs" />
+    <Compile Include="Cards\StrokeOfGenius.cs" />
     <Compile Include="Cards\StudentOfWarfare.cs" />
+    <Compile Include="Cards\Sunder.cs" />
     <Compile Include="Cards\SwordOfBodyAndMind.cs" />
     <Compile Include="Cards\SwordsToPlowshares.cs" />
     <Compile Include="Cards\Symbiosis.cs" />

@@ -66,12 +66,20 @@
       return;
     }
 
-    protected override void Pay(ITarget target, int? x)
+    protected override void Pay(ITarget target, int? x, int repeat)
     {
       var amount = _amount;
 
       if (x.HasValue)
         amount = amount.Add(x.Value.Colorless());
+
+      if (_supportsRepetitions)
+      {
+        for (int i = 1; i < repeat; i++)
+        {
+          amount = amount.Add(_amount);
+        }
+      }
 
       Card.Controller.Consume(amount, _manaUsage);
     }

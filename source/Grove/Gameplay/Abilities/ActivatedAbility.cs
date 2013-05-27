@@ -1,5 +1,6 @@
 ﻿namespace Grove.Gameplay.Abilities
 {
+  using System.Collections.Generic;
   using System.Linq;
   using Costs;
   using Effects;
@@ -31,16 +32,21 @@
     {
       _lastActivation.Value = Turn.TurnCount;
 
+      var effects = new List<Effect>();
+      
       for (var i = 0; i < p.Repeat; i++)
       {
         // create effect first, since some cost e.g Sacrifice can
         // put owning card to graveyard which will alter some card
         // properties e.g counters, power, toughness ...             
-        var effect = CreateEffect(p);
+        effects.Add(CreateEffect(p));                        
+      }
 
-        Pay(p);
+      Pay(p);
+
+      foreach (var effect in effects)
+      {
         Resolve(effect, p.SkipStack);
-
         Publish(new PlayerHasActivatedAbility(this, p.Targets));
       }
     }
@@ -67,7 +73,7 @@
 
       if (p.PayCost)
       {
-        _cost.Pay(p.Targets, p.X);
+        _cost.Pay(p.Targets, p.X, p.Repeat);
       }
     }
 
