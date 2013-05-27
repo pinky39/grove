@@ -3,6 +3,7 @@
   using System;
   using System.Collections.Generic;
   using Gameplay;
+  using Gameplay.Counters;
   using Grove.Infrastructure;
 
   [Copyable]
@@ -22,9 +23,12 @@
 
     public IEnumerable<ScenarioCard> Enchantments { get { return _enchantments; } }
     public IEnumerable<ScenarioCard> Equipments { get { return _equipments; } }
+    public Counters Counters { get; private set; }
+    
     public bool IsTapped { get; private set; }
     public Card Card { get; private set; }
     public IEnumerable<ScenarioCard> TrackedBy { get { return _trackedBy; } }
+    public bool HasCounters { get { return Counters != null; } }
 
     public int CalculateHash(HashCalculator hashCalculator)
     {
@@ -69,6 +73,12 @@
     public static implicit operator Card(ScenarioCard scenarioCard)
     {
       return scenarioCard.Card;
+    }
+
+    public ScenarioCard AddCounters(int count, CounterType type)
+    {
+      Counters = new Counters {Count = count, Type = type};
+      return this;
     }
   }
 }

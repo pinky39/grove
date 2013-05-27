@@ -80,7 +80,7 @@
                 result.Deck2WinCount, result.Deck1WinCount);
               winners.Add(deck2);
             }
-          });
+          }, TaskCreationOptions.LongRunning);
 
         tasks.Add(task);
       }

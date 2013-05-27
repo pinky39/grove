@@ -213,7 +213,7 @@
               break;
             }
           }
-        });
+        }, TaskCreationOptions.LongRunning);
     }
 
     private List<TournamentMatch> CreateSwissPairings()

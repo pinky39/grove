@@ -437,6 +437,8 @@
     <Compile Include="Cards\SpinedFluke.cs" />
     <Compile Include="Cards\SpireOwl.cs" />
     <Compile Include="Cards\Sporogenesis.cs" />
+    <Compile Include="Cards\SpreadingAlgae.cs" />
+    <Compile Include="Cards\SteamBlast.cs" />
     <Compile Include="Cards\SternProctor.cs" />
     <Compile Include="Cards\StirringWildwood.cs" />
     <Compile Include="Cards\StudentOfWarfare.cs" />

@@ -71,24 +71,32 @@
         return;
       }
 
-      // More than one choice, find the best one.
-      int bestChoice;
-
-      // First try cached result from previous search.
-      // If no results are found start a new search.            
-      var cachedResults = GetCachedResults(searchNode.Controller);
-      var cached = cachedResults.GetResult(_game.CalculateHash());
-
-      if (cached == null)
+      try
       {
-        bestChoice = StartNewSearch(searchNode, cachedResults);
-      }
-      else
-      {
-        bestChoice = cached.BestMove.GetValueOrDefault();
-      }
+        // More than one choice, find the best one.
+        int bestChoice;
 
-      searchNode.SetResult(bestChoice);
+        // First try cached result from previous search.
+        // If no results are found start a new search.            
+        var cachedResults = GetCachedResults(searchNode.Controller);
+        var cached = cachedResults.GetResult(_game.CalculateHash());
+
+        if (cached == null)
+        {
+          bestChoice = StartNewSearch(searchNode, cachedResults);
+        }
+        else
+        {
+          bestChoice = cached.BestMove.GetValueOrDefault();
+        }
+
+        searchNode.SetResult(bestChoice);
+      }
+      catch (Exception)
+      {
+        GenearateScenario();
+        throw;
+      }
     }
 
     private SearchResults GetCachedResults(Player player)
@@ -117,15 +125,7 @@
 
       using (new Timer(SearchMonitor, null, 0, 2000))
       {
-        try
-        {
-          LastSearchStatistics = _currentSearch.Start(searchNode);
-        }
-        catch (Exception)
-        {
-          GenearateScenario();
-          throw;
-        }
+        LastSearchStatistics = _currentSearch.Start(searchNode);
       }
 
       var result = _currentSearch.Result;

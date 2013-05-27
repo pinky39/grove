@@ -118,8 +118,9 @@
           rootNode: searchNode,
           rootResult: rootResult,
           moveIndex: i);
-
-        tasks.Add(task);
+        
+        if (task != null)
+          tasks.Add(task);
       }
 
       Task.WaitAll(tasks.ToArray());

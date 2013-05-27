@@ -15,11 +15,11 @@
     private readonly SearchParameters _p;
     private readonly InnerResult _root;
     private readonly SearchResults _searchResults;
+    private readonly Stopwatch _stopwatch = new Stopwatch();
     private readonly Dictionary<object, SearchWorker> _workers = new Dictionary<object, SearchWorker>();
     private readonly object _workersLock = new object();
     private int _numWorkersCreated;
     private int _subtreesPrunned;
-    private readonly Stopwatch _stopwatch = new Stopwatch();
 
     public Search(SearchParameters p, Player searchingPlayer, SearchResults searchResults, Game game)
     {
@@ -42,7 +42,7 @@
           NodeCount = GetSearchTreeSize(),
           NumOfWorkersCreated = _numWorkersCreated,
           SubtreesPrunned = _subtreesPrunned,
-          Elapsed = _stopwatch.Elapsed          
+          Elapsed = _stopwatch.Elapsed
         };
     }
 
@@ -74,7 +74,7 @@
     public SearchStatistics Start(ISearchNode searchNode)
     {
       _stopwatch.Start();
-      
+
       // Lock original changer tracker. 
       // So we are sure that original game state stays intact.
       // This is usefull for debuging state copy issues.      
@@ -99,8 +99,6 @@
       _game.ChangeTracker.Unlock();
 
       _root.EvaluateSubtree();
-      GC.Collect();
-
       _stopwatch.Stop();
 
       return GetSearchStatistics();
@@ -126,15 +124,17 @@
     }
 
     private bool IsItFeasibleToCreateNewWorker(ISearchNode node, int moveIndex)
-    {      
+    {
 #if DEBUG
-      return SingleThreadedStrategy(node, moveIndex);      
+      //return MultiThreadedStrategy1(node, moveIndex);
+      
+      return SingleThreadedStrategy(node, moveIndex);
 #else
       if (_p.EnableMultithreading) {
         return MultiThreadedStrategy1(node, moveIndex);
       }
                   
-      return SingleThreadedStrategy(node, moveIndex);            
+      return SingleThreadedStrategy(node, moveIndex);
 #endif
     }
 
@@ -170,34 +170,23 @@
 
     public Task EvaluateBranch(SearchWorker worker, ISearchNode rootNode, InnerResult rootResult, int moveIndex)
     {
-      var shouldCreateNewWorker = false;
-      lock (_workersLock)
-      {
-        shouldCreateNewWorker = IsItFeasibleToCreateNewWorker(rootNode, moveIndex);
-
-        if (shouldCreateNewWorker)
-        {
-          rootNode = new CopyService().CopyRoot(rootNode);
-          worker = CreateWorker(rootResult, rootNode.Game);
-        }
-      }
-
-      var task = new Task(() => worker.EvaluateBranch(moveIndex, rootNode, rootResult));
-
+      var shouldCreateNewWorker = IsItFeasibleToCreateNewWorker(rootNode, moveIndex);
 
       if (shouldCreateNewWorker)
       {
-        var continueWith = task.ContinueWith(
-          t => RemoveWorker(worker),
-          TaskContinuationOptions.ExecuteSynchronously);
+        rootNode = new CopyService().CopyRoot(rootNode);
+        worker = CreateWorker(rootResult, rootNode.Game);
 
-        task.Start();
+        var task = Task.Factory.StartNew(() =>
+          {
+            worker.EvaluateBranch(moveIndex, rootNode, rootResult);
+            RemoveWorker(worker);
+          }, TaskCreationOptions.PreferFairness);
 
-        return continueWith;
+        return task;
       }
-
-      task.RunSynchronously();
-      return task;
+      worker.EvaluateBranch(moveIndex, rootNode, rootResult);
+      return null;
     }
   }
 }

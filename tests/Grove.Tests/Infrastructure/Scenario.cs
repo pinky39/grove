@@ -6,9 +6,11 @@
   using System.Reflection;
   using Artifical;
   using Gameplay;
+  using Gameplay.Counters;
   using Gameplay.Decisions;
   using Gameplay.Decisions.Scenario;
   using Gameplay.Misc;
+  using Gameplay.Modifiers;
   using Gameplay.States;
   using Gameplay.Zones;
   using Grove.Infrastructure;
@@ -114,6 +116,20 @@
                   TrackCard(card, tracker);
                   return tracker;
                 });
+            }
+
+            if (scenarioCard.HasCounters)
+            {
+              var p = new ModifierParameters
+                {
+                  SourceCard = card,
+                  Target = card,
+                };
+
+              var counters = new AddCounters(() => new SimpleCounter(scenarioCard.Counters.Type),
+                scenarioCard.Counters.Count).Initialize(p, Game);
+
+              card.AddModifier(counters);
             }
 
             return card;

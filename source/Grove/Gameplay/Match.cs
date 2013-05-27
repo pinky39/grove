@@ -111,7 +111,7 @@
         {
           Game.Start(looser: Looser);
           blocker.Completed();
-        }));
+        }, TaskCreationOptions.LongRunning));
 
       if (Game.WasStopped)
         return;

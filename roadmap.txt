@@ -282,9 +282,9 @@ o Soul Sculptor
 o Spined Fluke
 o Spire Owl
 o Sporogenesis
-Spreading Algae
-Steam Blast
-Stern Proctor
+o Spreading Algae
+o Steam Blast
+o Stern Proctor
 Stroke of Genius
 Sulfuric Vapors
 Sunder
