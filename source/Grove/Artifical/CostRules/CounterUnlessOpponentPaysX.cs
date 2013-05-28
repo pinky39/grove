@@ -1,5 +1,8 @@
 ﻿namespace Grove.Artifical.CostRules
 {
+  using System;
+
+  [Serializable]
   public class CounterUnlessOpponentPaysX : CostRule
   {
     public override int CalculateX(CostRuleParameters p)

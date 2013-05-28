@@ -3,6 +3,7 @@
   using System;
   using Gameplay.Targeting;
 
+  [Serializable]
   public class TargetLifepointsLeft : RepetitionRule
   {
     public override int GetRepetitionCount(RepetitionRuleParameters p)

@@ -10,7 +10,7 @@
   using Targeting;
   using Zones;
 
-  [Copyable]
+  [Copyable, Serializable]
   public abstract class GameObject
   {
     public bool IsInitialized { get { return Game != null; } }

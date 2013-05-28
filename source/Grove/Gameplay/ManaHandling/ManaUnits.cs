@@ -5,7 +5,7 @@
   using System.Linq;
   using Infrastructure;
 
-  [Copyable]
+  [Copyable, Serializable]
   public class ManaUnits
   {
     private readonly TrackableList<ManaUnit> _units = new TrackableList<ManaUnit>();

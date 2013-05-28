@@ -1,6 +1,8 @@
 ﻿namespace Grove.Infrastructure
 {
-  [Copyable]
+  using System;
+
+  [Copyable, Serializable]
   public abstract class PropertyModifier<TValue>
   {
     public TrackableEvent Changed;

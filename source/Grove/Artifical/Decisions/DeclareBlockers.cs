@@ -1,7 +1,9 @@
 ﻿namespace Grove.Artifical.Decisions
 {
+  using System;
   using System.Linq;
 
+  [Serializable]
   public class DeclareBlockers : Gameplay.Decisions.DeclareBlockers
   {
     protected override void ExecuteQuery()

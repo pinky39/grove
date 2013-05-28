@@ -14,6 +14,7 @@
   using Targeting;
   using Zones;
 
+  [Serializable]
   public class Player : GameObject, ITarget, IDamageable, IHasLife
   {
     private readonly AssignedDamage _assignedDamage;

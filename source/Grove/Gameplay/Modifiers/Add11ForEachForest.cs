@@ -1,11 +1,13 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
+  using System;
   using System.Linq;
   using Characteristics;
   using Infrastructure;
   using Messages;
   using Zones;
 
+  [Serializable]
   public class Add11ForEachForest : Modifier, IReceive<ZoneChanged>, IReceive<ControllerChanged>
   {
     private Increment _increment = new Increment(0);

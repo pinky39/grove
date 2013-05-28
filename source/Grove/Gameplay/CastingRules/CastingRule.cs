@@ -1,8 +1,10 @@
 ﻿namespace Grove.Gameplay.CastingRules
 {
+  using System;
   using Effects;
   using Misc;
 
+  [Serializable]
   public abstract class CastingRule : GameObject
   {
     protected Card Card { get; private set; }

@@ -1,5 +1,8 @@
 ﻿namespace Grove.Artifical.TimingRules
 {
+  using System;
+
+  [Serializable]
   public class ControllerHasMana : TimingRule
   {
     private readonly int _converted;

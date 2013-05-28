@@ -1,9 +1,11 @@
 ﻿namespace Grove.Gameplay.Costs
 {
+  using System;
   using System.Collections.Generic;
   using ManaHandling;
   using Targeting;
 
+  [Serializable]
   public class AggregateCost : Cost
   {
     private readonly List<Cost> _costs = new List<Cost>();

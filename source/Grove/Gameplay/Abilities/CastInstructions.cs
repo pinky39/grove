@@ -1,12 +1,13 @@
 ﻿namespace Grove.Gameplay.Abilities
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Infrastructure;
   using ManaHandling;
   using Targeting;
 
-  [Copyable]
+  [Copyable, Serializable]
   public class CastInstructions
   {
     private readonly List<CastInstruction> _castInstructions = new List<CastInstruction>();

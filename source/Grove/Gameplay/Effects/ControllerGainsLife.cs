@@ -1,5 +1,8 @@
 ﻿namespace Grove.Gameplay.Effects
 {
+  using System;
+
+  [Serializable]
   public class ControllerGainsLife : Effect
   {
     private readonly DynParam<int> _amount;

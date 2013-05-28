@@ -7,6 +7,7 @@
   using Gameplay.Misc;
   using Gameplay.Targeting;
 
+  [Serializable]
   public class OrderByRank : TargetingRule
   {
     private readonly ControlledBy _controlledBy = ControlledBy.Any;

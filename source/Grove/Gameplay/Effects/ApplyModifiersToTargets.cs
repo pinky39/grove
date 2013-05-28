@@ -1,9 +1,11 @@
 ﻿namespace Grove.Gameplay.Effects
 {
+  using System;
   using System.Collections.Generic;
   using Modifiers;
   using Targeting;
 
+  [Serializable]
   public class ApplyModifiersToTargets : Effect
   {
     private readonly List<ModifierFactory> _modifiers = new List<ModifierFactory>();

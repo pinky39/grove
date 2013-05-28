@@ -5,6 +5,7 @@
   using Modifiers;
   using Targeting;
 
+  [Serializable]
   public class ReplaceDamageWithCounters : DamagePrevention
   {
     private readonly Func<Counter> _counter;

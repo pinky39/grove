@@ -1,7 +1,9 @@
 ﻿namespace Grove.Artifical.Decisions
 {
+  using System;
   using System.Linq;
 
+  [Serializable]
   public class DiscardCards : Gameplay.Decisions.DiscardCards
   {
     protected override void ExecuteQuery()

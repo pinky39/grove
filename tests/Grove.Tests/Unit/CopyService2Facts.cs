@@ -2,9 +2,10 @@
 {
   using System;
   using System.Collections.Generic;
-  using System.IO;
-  using System.Runtime.Serialization;
-  using System.Runtime.Serialization.Formatters.Binary;
+  using System.Linq;
+  using System.Reflection;
+  using Grove.Infrastructure;
+  using UserInterface;
   using Xunit;
   
   public class CopyService2Facts
@@ -30,6 +31,39 @@
 
       Assert.Equal(0, group.Persons[0].GreetedCount);
       Assert.Equal(1, groupCopy.Persons[0].GreetedCount);            
+    }
+
+    [Fact]
+    public void CheckThatAllCopyableTypesHaveSerializableAttribute()
+    {
+      var copyableTypes = Assembly.GetAssembly(typeof (CopyService)).GetTypes()
+        .Where(x => x.HasAttribute<CopyableAttribute>())        
+        .Where(x => !x.Namespace.StartsWith(typeof(ViewModelBase).Namespace))
+        .ToList();
+
+      var violators = new List<string>();
+
+      foreach (var copyableType in copyableTypes)
+      {
+        var serializableAttribute = copyableType.GetAttribute<SerializableAttribute>(inherit: false);
+
+        if (serializableAttribute == null)
+        {
+          violators.Add(copyableType.ToString());
+        }
+      }
+
+      if (violators.Count > 0)
+      {
+        Console.WriteLine("Following types are marked with [Copyable] but don't have [Serializable] attribute:\n");
+
+        foreach (var violator in violators)
+        {
+          Console.WriteLine(violator);
+        }
+
+        Assert.False(true);
+      }
     }
 
     [Serializable]
@@ -64,25 +98,6 @@
       }
 
       public int GreetedCount { get; set; }     
-    }
-  }
-
-  public class CopyService2
-  {
-    public static object Copy(object obj)
-    {
-      var stream = new MemoryStream();
-
-      var formatter = new BinaryFormatter
-        {
-          Context = new StreamingContext(StreamingContextStates.Clone)
-        };
-
-      formatter.Serialize(stream, obj);
-      stream.Position = 0;
-
-
-      return formatter.Deserialize(stream);
     }
   }
 }

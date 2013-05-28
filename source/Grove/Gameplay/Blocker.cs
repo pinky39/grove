@@ -1,11 +1,13 @@
 ﻿namespace Grove.Gameplay
 {
+  using System;
   using System.Linq;
   using Artifical;
   using Infrastructure;
   using Messages;
   using Misc;
 
+  [Serializable]
   public class Blocker : GameObject, IHashable
   {
     private readonly TrackableList<Damage.Damage> _assignedDamage = new TrackableList<Damage.Damage>();

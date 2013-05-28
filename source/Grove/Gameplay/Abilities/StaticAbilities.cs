@@ -1,10 +1,11 @@
 ﻿namespace Grove.Gameplay.Abilities
 {
+  using System;
   using System.Linq;
   using Infrastructure;
   using Modifiers;
 
-  [Copyable]
+  [Copyable, Serializable]
   public class StaticAbilities : IStaticAbilities, IModifiable, IHashable
   {
     private readonly TrackableList<StaticAbility> _abilities = new TrackableList<StaticAbility>();

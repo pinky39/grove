@@ -1,7 +1,9 @@
 ﻿namespace Grove.Gameplay.Decisions
 {
+  using System;
   using Results;
 
+  [Serializable]
   public abstract class ChooseTo : Decision<BooleanResult>
   {
     public IChooseDecisionResults<BooleanResult> ChooseDecisionResults;

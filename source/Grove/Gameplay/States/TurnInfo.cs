@@ -1,8 +1,9 @@
 ﻿namespace Grove.Gameplay.States
 {
+  using System;
   using Infrastructure;
 
-  [Copyable]
+  [Copyable, Serializable]
   public class TurnInfo : IHashable
   {
     private readonly Trackable<State> _state = new Trackable<State>();

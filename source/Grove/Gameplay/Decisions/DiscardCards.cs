@@ -4,6 +4,7 @@
   using System.Linq;
   using Results;
 
+  [Serializable]
   public abstract class DiscardCards : Decision<ChosenCards>
   {
     public Func<Card, bool> Filter = delegate { return true; };

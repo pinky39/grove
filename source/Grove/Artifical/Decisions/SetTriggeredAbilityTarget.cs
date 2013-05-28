@@ -1,5 +1,6 @@
 ﻿namespace Grove.Artifical.Decisions
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Gameplay;
@@ -7,6 +8,7 @@
   using Gameplay.Targeting;
   using TargetingRules;
 
+  [Serializable]
   public class SetTriggeredAbilityTarget : Gameplay.Decisions.SetTriggeredAbilityTarget, ISearchNode, IDecisionExecution
   {
     private readonly DecisionExecutor _executor;

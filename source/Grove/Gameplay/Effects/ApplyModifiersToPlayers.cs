@@ -4,6 +4,7 @@
   using System.Collections.Generic;
   using Modifiers;
 
+  [Serializable]
   public class ApplyModifiersToPlayer : Effect
   {
     private readonly List<ModifierFactory> _modifiers = new List<ModifierFactory>();

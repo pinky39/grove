@@ -1,5 +1,8 @@
 ﻿namespace Grove.Gameplay.Effects
 {
+  using System;
+
+  [Serializable]
   public class MillOpponent : Effect
   {
     private readonly int _count;

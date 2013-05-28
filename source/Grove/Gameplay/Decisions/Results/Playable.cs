@@ -1,9 +1,10 @@
 ﻿namespace Grove.Gameplay.Decisions.Results
 {
+  using System;
   using Abilities;
   using Infrastructure;
 
-  [Copyable]
+  [Copyable, Serializable]
   public abstract class Playable
   {
     public ActivationParameters ActivationParameters = new ActivationParameters();

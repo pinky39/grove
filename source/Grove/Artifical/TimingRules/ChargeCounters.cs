@@ -1,7 +1,9 @@
 ﻿namespace Grove.Artifical.TimingRules
 {
+  using System;
   using Gameplay.States;
 
+  [Serializable]
   public class ChargeCounters : TimingRule
   {
     private readonly int _minCount;

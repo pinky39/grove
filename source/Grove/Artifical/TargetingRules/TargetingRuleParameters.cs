@@ -7,6 +7,7 @@
   using Gameplay.Misc;
   using Gameplay.Targeting;
 
+  [Serializable]
   public class TargetingRuleParameters : GameObject
   {
     private readonly TargetsCandidates _candidates;

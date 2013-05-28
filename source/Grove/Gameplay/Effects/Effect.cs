@@ -13,6 +13,7 @@
 
   public delegate Effect EffectFactory();
 
+  [Serializable]
   public abstract class Effect : GameObject, ITarget, IHasColors
   {
     private readonly List<IDynamicParameter> _dynamicParameters = new List<IDynamicParameter>();

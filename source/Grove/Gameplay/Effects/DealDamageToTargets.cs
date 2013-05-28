@@ -1,9 +1,11 @@
 ﻿namespace Grove.Gameplay.Effects
 {
+  using System;
   using System.Linq;
   using Damage;
   using Targeting;
 
+  [Serializable]
   public class DealDamageToTargets : Effect
   {
     private readonly DynParam<int> _amount;

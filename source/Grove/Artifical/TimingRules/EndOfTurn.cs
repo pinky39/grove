@@ -1,7 +1,9 @@
 ﻿namespace Grove.Artifical.TimingRules
 {
+  using System;
   using Gameplay.States;
 
+  [Serializable]
   public class EndOfTurn : TimingRule
   {
     public override bool ShouldPlay(TimingRuleParameters p)

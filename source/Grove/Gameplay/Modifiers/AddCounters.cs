@@ -4,6 +4,7 @@
   using System.Collections.Generic;
   using Counters;
 
+  [Serializable]
   public class AddCounters : Modifier
   {
     private readonly List<Counter> _addedCounters = new List<Counter>();

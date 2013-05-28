@@ -1,8 +1,10 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
+  using System;
   using Abilities;
   using ManaHandling;
 
+  [Serializable]
   public class IncreaseManaOutput : Modifier
   {
     private readonly IManaAmount _amount;

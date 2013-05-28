@@ -8,6 +8,7 @@
   using ManaHandling;
   using Zones;
 
+  [Serializable]
   public class ManaAbility : ActivatedAbility, IManaSource, ICopyContributor
   {
     private readonly int _costRestriction;

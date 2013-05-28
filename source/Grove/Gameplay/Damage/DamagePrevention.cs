@@ -6,7 +6,7 @@
   using Modifiers;
   using Targeting;
 
-  [Copyable]
+  [Serializable]
   public abstract class DamagePrevention : GameObject, IHashable, ILifetimeDependency
   {
     protected DamagePrevention()

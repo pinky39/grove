@@ -1,12 +1,13 @@
 ﻿namespace Grove.Gameplay.Characteristics
 {
+  using System;
   using System.Collections;
   using System.Collections.Generic;
   using System.Linq;
   using Infrastructure;
   using Modifiers;
 
-  [Copyable]
+  [Copyable, Serializable]
   public class CardColors : Characteristic<List<CardColor>>, IEnumerable<CardColor>, IModifiable, IHashable
   {
     private CardColors() {}

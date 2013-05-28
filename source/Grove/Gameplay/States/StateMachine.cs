@@ -7,6 +7,7 @@
   using Messages;
   using Misc;
 
+  [Serializable]
   public class StateMachine : GameObject, ICopyContributor
   {
     private readonly Trackable<IDecision> _curentDecision = new Trackable<IDecision>();
@@ -470,6 +471,7 @@
     }
 
 
+    [Serializable]
     private class StepDefinition
     {
       private readonly Action _first;
@@ -521,6 +523,7 @@
       }
     }
 
+    [Serializable]
     private class StepState
     {
       private readonly State _id;

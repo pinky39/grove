@@ -1,7 +1,9 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
+  using System;
   using Abilities;
 
+  [Serializable]
   public class AddContiniousEffect : Modifier
   {
     private readonly ContinuousEffect _continiousEffect;

@@ -1,7 +1,9 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
+  using System;
   using Infrastructure;
 
+  [Serializable]
   public class Increment : PropertyModifier<int?>
   {
     private readonly Trackable<int> _value;

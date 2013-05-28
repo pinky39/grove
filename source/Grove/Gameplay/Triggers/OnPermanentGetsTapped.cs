@@ -5,6 +5,7 @@
   using Infrastructure;
   using Messages;
 
+  [Serializable]
   public class OnPermanentGetsTapped : Trigger, IReceive<PermanentGetsTapped>
   {
     private readonly Func<TriggeredAbility, Card, bool> _filter;

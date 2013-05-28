@@ -1,8 +1,10 @@
 ﻿namespace Grove.Gameplay.Characteristics
 {
+  using System;
   using Infrastructure;
   using Modifiers;
 
+  [Serializable]
   public class LandLimit : Characteristic<int?>, IModifiable
   {
     private LandLimit() {}

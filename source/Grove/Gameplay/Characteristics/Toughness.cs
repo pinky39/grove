@@ -1,9 +1,10 @@
 ﻿namespace Grove.Gameplay.Characteristics
 {
+  using System;
   using Infrastructure;
   using Modifiers;
 
-  [Copyable]
+  [Copyable, Serializable]
   public class Toughness : Characteristic<int?>, IModifiable
   {
     private Toughness() {}

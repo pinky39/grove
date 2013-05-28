@@ -1,9 +1,11 @@
 ﻿namespace Grove.Gameplay.Effects
 {
+  using System;
   using Damage;
   using Modifiers;
   using Targeting;
 
+  [Serializable]
   public class PreventNextDamageFromSourceToController : Effect
   {
     protected override void ResolveEffect()

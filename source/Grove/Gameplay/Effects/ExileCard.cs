@@ -1,5 +1,8 @@
 ﻿namespace Grove.Gameplay.Effects
 {
+  using System;
+
+  [Serializable]
   public class ExileCard : Effect
   {
     private readonly DynParam<Card> _card;

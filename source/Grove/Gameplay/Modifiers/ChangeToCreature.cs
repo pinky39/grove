@@ -5,6 +5,7 @@
   using System.Linq;
   using Characteristics;
 
+  [Serializable]
   public class ChangeToCreature : Modifier
   {
     private readonly List<CardColor> _colors;

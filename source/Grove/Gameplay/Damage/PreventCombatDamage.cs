@@ -1,5 +1,8 @@
 ﻿namespace Grove.Gameplay.Damage
 {
+  using System;
+
+  [Serializable]
   public class PreventCombatDamage : DamagePrevention
   {
     public override int PreventDealtCombatDamage(int amount)

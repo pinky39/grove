@@ -1,8 +1,10 @@
 ﻿namespace Grove.Gameplay.ManaHandling
 {
+  using System;
   using System.Collections;
   using System.Collections.Generic;
 
+  [Serializable]
   public class SingleColorManaAmount : IManaAmount
   {
     public SingleColorManaAmount(ManaColor color, int count)

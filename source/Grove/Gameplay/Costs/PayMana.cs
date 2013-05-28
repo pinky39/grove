@@ -1,8 +1,10 @@
 ﻿namespace Grove.Gameplay.Costs
 {
+  using System;
   using ManaHandling;
   using Targeting;
 
+  [Serializable]
   public class PayMana : Cost
   {
     private readonly IManaAmount _amount;

@@ -1,8 +1,10 @@
 ﻿namespace Grove.Gameplay.Effects
 {
+  using System;
   using System.Linq;
   using Modifiers;
 
+  [Serializable]
   public class GainControlOfOwnedPermanents : Effect
   {
     protected override void ResolveEffect()

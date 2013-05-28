@@ -1,10 +1,11 @@
 ﻿namespace Grove.Gameplay.Characteristics
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Infrastructure;
 
-  [Copyable]
+  [Copyable, Serializable]
   public class Attachments : IHashable
   {
     private readonly TrackableList<Attachment> _attachedCards = new TrackableList<Attachment>();

@@ -1,11 +1,12 @@
 ﻿namespace Grove.Gameplay.Characteristics
 {
+  using System;
   using Infrastructure;
   using Messages;
   using Misc;
   using Zones;
 
-  [Copyable]
+  [Serializable]
   public class CardZone : GameObject, IHashable
   {
     private readonly Trackable<IZone> _current = new Trackable<IZone>(new NullZone());

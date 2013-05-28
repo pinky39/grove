@@ -1,8 +1,10 @@
 ﻿namespace Grove.Gameplay.Effects
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
 
+  [Serializable]
   public class CompoundEffect : Effect
   {
     private readonly List<Effect> _childEffects = new List<Effect>();

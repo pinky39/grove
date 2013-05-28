@@ -1,9 +1,11 @@
 ﻿namespace Grove.Gameplay.Effects
 {
+  using System;
   using Damage;
   using Modifiers;
   using Targeting;
 
+  [Serializable]
   public class PreventDamageFromSourceToTarget : Effect
   {
     private ITarget DamageSource { get { return Targets.Effect[0]; } }

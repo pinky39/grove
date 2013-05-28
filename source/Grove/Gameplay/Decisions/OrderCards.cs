@@ -1,8 +1,10 @@
 ﻿namespace Grove.Gameplay.Decisions
 {
+  using System;
   using System.Collections.Generic;
   using Results;
 
+  [Serializable]
   public abstract class OrderCards : Decision<Ordering>
   {
     public List<Card> Cards;

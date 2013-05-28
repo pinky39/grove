@@ -5,6 +5,7 @@
   using Infrastructure;
   using Messages;
 
+  [Serializable]
   public class OnDamageDealt : Trigger, IReceive<DamageHasBeenDealt>
   {
     private readonly bool _combatOnly;

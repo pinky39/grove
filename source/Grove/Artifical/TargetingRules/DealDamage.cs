@@ -8,6 +8,7 @@
   using Gameplay.Targeting;
   using Infrastructure;
 
+  [Serializable]
   public class DealDamage : TargetingRule
   {
     private readonly Func<TargetingRuleParameters, int> _getAmount;

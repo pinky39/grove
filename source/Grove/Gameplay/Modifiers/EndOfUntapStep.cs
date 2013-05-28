@@ -5,6 +5,7 @@
   using Messages;
   using States;
 
+  [Serializable]
   public class EndOfUntapStep : Lifetime, IReceive<StepFinished>
   {
     private readonly Func<EndOfUntapStep, bool> _filter;

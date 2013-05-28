@@ -6,6 +6,7 @@
   using Decisions.Results;
   using ManaHandling;
 
+  [Serializable]
   public class PayLifeOrTapLand : Effect, IProcessDecisionResults<BooleanResult>, IChooseDecisionResults<BooleanResult>
   {
     private readonly int _life;

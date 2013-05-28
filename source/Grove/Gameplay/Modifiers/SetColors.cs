@@ -1,8 +1,10 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
+  using System;
   using System.Collections.Generic;
   using Characteristics;
 
+  [Serializable]
   public class SetColors : Modifier
   {
     private readonly List<CardColor> _colors = new List<CardColor>();

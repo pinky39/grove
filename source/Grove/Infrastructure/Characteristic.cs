@@ -5,7 +5,7 @@
   using Gameplay;
   using Gameplay.Misc;
 
-  [Copyable]
+  [Serializable]
   public abstract class Characteristic<T> : GameObject, ICopyContributor
   {
     private readonly T _baseValue;

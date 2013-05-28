@@ -8,6 +8,7 @@
   using Gameplay.Misc;
   using Gameplay.Targeting;
 
+  [Serializable]
   public abstract class TargetingRule : MachinePlayRule
   {
     public int? TargetLimit;

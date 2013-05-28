@@ -1,8 +1,10 @@
 ﻿namespace Grove.Gameplay.Triggers
 {
+  using System;
   using Infrastructure;
   using Messages;
 
+  [Serializable]
   public class OnBlock : Trigger, IReceive<BlockerJoinedCombat>
   {
     private readonly bool _becomesBlocked;

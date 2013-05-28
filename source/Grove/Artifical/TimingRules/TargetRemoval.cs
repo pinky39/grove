@@ -1,9 +1,11 @@
 ﻿namespace Grove.Artifical.TimingRules
 {
+  using System;
   using System.Linq;
   using Gameplay;
   using Gameplay.States;
 
+  [Serializable]
   public class TargetRemoval : TimingRule
   {
     private readonly bool _combatOnly;

@@ -1,8 +1,10 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
+  using System;
   using Abilities;
   using Infrastructure;
 
+  [Serializable]
   public class RemoveStaticAbility : Modifier
   {
     private readonly Trackable<bool> _removed = new Trackable<bool>();

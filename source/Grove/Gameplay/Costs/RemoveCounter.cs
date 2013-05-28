@@ -1,8 +1,10 @@
 ﻿namespace Grove.Gameplay.Costs
 {
+  using System;
   using Counters;
   using Targeting;
 
+  [Serializable]
   public class RemoveCounter : Cost
   {
     private readonly CounterType _counterType;

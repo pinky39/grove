@@ -1,11 +1,13 @@
 ﻿namespace Grove.Artifical.TargetingRules
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Gameplay.Effects;
   using Gameplay.Misc;
   using Gameplay.Targeting;
 
+  [Serializable]
   public class Counterspell : TargetingRule
   {
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)

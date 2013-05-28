@@ -4,6 +4,7 @@
   using Abilities;
   using Misc;
 
+  [Serializable]
   public abstract class ManaOutput : GameObject
   {
     public Action<IManaAmount> Decreased = delegate { };

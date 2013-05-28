@@ -1,8 +1,10 @@
 ﻿namespace Grove.Gameplay.Counters
 {
+  using System;
   using Characteristics;
   using Modifiers;
 
+  [Serializable]
   public class PowerToughness : Counter
   {
     private readonly int _power;

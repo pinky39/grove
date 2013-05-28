@@ -1,9 +1,10 @@
 ﻿namespace Grove.Gameplay.Damage
 {
+  using System;
   using System.Linq;
   using Infrastructure;
 
-  [Copyable]
+  [Copyable, Serializable]
   public class AssignedDamage : IHashable
   {
     private readonly TrackableList<Damage> _assigned = new TrackableList<Damage>();

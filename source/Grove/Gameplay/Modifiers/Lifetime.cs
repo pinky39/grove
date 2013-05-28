@@ -4,6 +4,7 @@
   using Infrastructure;
   using Misc;
 
+  [Serializable]
   public abstract class Lifetime : GameObject, IDisposable
   {
     protected Lifetime()

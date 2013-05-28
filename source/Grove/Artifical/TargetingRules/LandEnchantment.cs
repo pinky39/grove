@@ -1,10 +1,12 @@
 ﻿namespace Grove.Artifical.TargetingRules
 {
+  using System;
   using System.Collections.Generic;
   using Gameplay;
   using Gameplay.Misc;
   using Gameplay.Targeting;
 
+  [Serializable]
   public class LandEnchantment : TargetingRule
   {
     private readonly ControlledBy _controlledBy;

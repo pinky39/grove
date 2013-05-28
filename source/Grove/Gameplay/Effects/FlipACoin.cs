@@ -1,8 +1,10 @@
 ﻿namespace Grove.Gameplay.Effects
 {
+  using System;
   using Messages;
   using Misc;
 
+  [Serializable]
   public class FlipACoinReturnToHand : Effect
   {
     private readonly Coin _coin = new Coin();

@@ -4,6 +4,7 @@
   using System.Linq;
   using Artifical;
 
+  [Serializable]
   public class ReturnAllPermanentsToHand : Effect
   {
     private readonly Func<Effect, Card, bool> _filter;

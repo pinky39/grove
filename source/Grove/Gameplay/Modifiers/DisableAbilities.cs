@@ -1,7 +1,9 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
+  using System;
   using Abilities;
 
+  [Serializable]
   public class DisableAbilities : Modifier
   {
     private ActivatedAbilities _activatedAbilities;

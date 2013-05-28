@@ -6,6 +6,7 @@
   using Messages;
   using Misc;
 
+  [Serializable]
   public class PermanentCountManaOutput : ManaOutput, IReceive<ZoneChanged>
   {
     private readonly ManaColor _color;

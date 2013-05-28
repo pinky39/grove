@@ -1,7 +1,9 @@
 ﻿namespace Grove.Artifical.TimingRules
 {
+  using System;
   using System.Linq;
 
+  [Serializable]
   public class MinAttackerCount : TimingRule
   {
     private readonly int _count;

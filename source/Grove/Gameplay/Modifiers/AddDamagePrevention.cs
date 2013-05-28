@@ -1,7 +1,9 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
+  using System;
   using Damage;
 
+  [Serializable]
   public class AddDamagePrevention : Modifier
   {
     private readonly DamagePrevention _damagePrevention;

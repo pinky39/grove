@@ -3,6 +3,7 @@
   using System;
   using Targeting;
 
+  [Serializable]
   public class RedirectDamageToTarget : DamageRedirection
   {
     private readonly Func<DamageRedirection, ITarget> _target;

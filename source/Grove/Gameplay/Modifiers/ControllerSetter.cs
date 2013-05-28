@@ -1,7 +1,9 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
+  using System;
   using Infrastructure;
 
+  [Serializable]
   public class ControllerSetter : PropertyModifier<Player>
   {
     private readonly Player _value;

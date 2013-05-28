@@ -3,6 +3,7 @@
   using System;
   using System.Linq;
 
+  [Serializable]
   public class ReturnAllCardsInGraveyardToHand : Effect
   {
     private readonly Func<Card, bool> _filter;

@@ -1,5 +1,8 @@
 ﻿namespace Grove.Gameplay.Zones
 {
+  using System;
+
+  [Serializable]
   public class Exile : UnorderedZone
   {
     public Exile(Player owner) : base(owner) {}

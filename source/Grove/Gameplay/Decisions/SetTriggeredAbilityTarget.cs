@@ -1,5 +1,6 @@
 ﻿namespace Grove.Gameplay.Decisions
 {
+  using System;
   using System.Collections.Generic;
   using Abilities;
   using Artifical;
@@ -7,6 +8,7 @@
   using Results;
   using Targeting;
 
+  [Serializable]
   public abstract class SetTriggeredAbilityTarget : Decision<ChosenTargets>
   {
     public TriggeredAbility Source { get; set; }

@@ -1,8 +1,10 @@
 ﻿namespace Grove.Gameplay.Costs
 {
+  using System;
   using System.Linq;
   using Targeting;
 
+  [Serializable]
   public class Sacrifice : Cost
   {
     protected override void CanPay(CanPayResult result)

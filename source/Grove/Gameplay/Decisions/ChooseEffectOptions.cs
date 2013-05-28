@@ -1,9 +1,11 @@
 ﻿namespace Grove.Gameplay.Decisions
 {
+  using System;
   using System.Collections.Generic;
   using Effects;
   using Results;
 
+  [Serializable]
   public abstract class ChooseEffectOptions : Decision<ChosenOptions>
   {
     public List<IEffectChoice> Choices;

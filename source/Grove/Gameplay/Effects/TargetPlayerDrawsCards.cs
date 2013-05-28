@@ -1,8 +1,10 @@
 ﻿namespace Grove.Gameplay.Effects
 {
+  using System;
   using Modifiers;
   using Targeting;
 
+  [Serializable]
   public class TargetPlayerDrawsCards : Effect
   {
     private readonly Value _cardCount;

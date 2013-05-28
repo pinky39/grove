@@ -1,9 +1,11 @@
 ﻿namespace Grove.Artifical.TimingRules
 {
+  using System;
   using System.Linq;
   using Gameplay.ManaHandling;
   using Gameplay.States;
 
+  [Serializable]
   public class ChangeToCreature : TimingRule
   {
     private readonly int _minAvailableMana;

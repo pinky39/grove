@@ -1,8 +1,9 @@
 ﻿namespace Grove.Gameplay.Characteristics
 {
+  using System;
   using Infrastructure;
 
-  [Copyable]
+  [Copyable, Serializable]
   public class Attachment : IHashable
   {
     public Attachment(Card card)

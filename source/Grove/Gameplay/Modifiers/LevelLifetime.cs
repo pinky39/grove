@@ -1,9 +1,11 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
+  using System;
   using Infrastructure;
   using Messages;
   using Targeting;
 
+  [Serializable]
   public class LevelLifetime : Lifetime, IReceive<LevelChanged>
   {
     private readonly int? _maxLevel;

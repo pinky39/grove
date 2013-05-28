@@ -1,7 +1,9 @@
 ﻿namespace Grove.Artifical.Decisions
 {
+  using System;
   using System.Linq;
 
+  [Serializable]
   public class TakeMulligan : Gameplay.Decisions.TakeMulligan
   {
     protected override void ExecuteQuery()

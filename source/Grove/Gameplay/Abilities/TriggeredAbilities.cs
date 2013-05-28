@@ -1,10 +1,11 @@
 ﻿namespace Grove.Gameplay.Abilities
 {
+  using System;
   using Infrastructure;
   using Misc;
   using Modifiers;
 
-  [Copyable]
+  [Serializable]
   public class TriggeredAbilities : GameObject, IModifiable, IHashable
   {
     private readonly TrackableList<TriggeredAbility> _abilities = new TrackableList<TriggeredAbility>();

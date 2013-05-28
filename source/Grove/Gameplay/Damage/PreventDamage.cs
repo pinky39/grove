@@ -4,6 +4,7 @@
   using Infrastructure;
   using Targeting;
 
+  [Serializable]
   public class PreventDamage : DamagePrevention
   {
     private readonly int? _amount;

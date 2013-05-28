@@ -1,10 +1,12 @@
 ﻿namespace Grove.Gameplay.Effects
 {
+  using System;
   using Artifical;
   using Decisions;
   using Decisions.Results;
   using Targeting;
 
+  [Serializable]
   public class CounterTargetSpell : Effect, IProcessDecisionResults<BooleanResult>
   {
     private readonly int? _controllerLifeloss;

@@ -1,8 +1,10 @@
 ﻿namespace Grove.Gameplay.Triggers
 {
+  using System;
   using Infrastructure;
   using Messages;
 
+  [Serializable]
   public class OnLevelChanged : Trigger, IReceive<LevelChanged>
   {
     private readonly int _level;

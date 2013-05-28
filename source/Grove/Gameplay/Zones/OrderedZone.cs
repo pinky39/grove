@@ -8,7 +8,7 @@
   using Misc;
   using Targeting;
 
-  [Copyable]
+  [Serializable]
   public abstract class OrderedZone : GameObject, IEnumerable<Card>, IHashable, IZone
   {
     private readonly TrackableList<Card> _cards = new TrackableList<Card>(orderImpactsHashcode: true);

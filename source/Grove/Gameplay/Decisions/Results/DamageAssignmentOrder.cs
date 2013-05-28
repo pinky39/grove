@@ -1,9 +1,10 @@
 ﻿namespace Grove.Gameplay.Decisions.Results
 {
+  using System;
   using System.Collections.Generic;
   using Infrastructure;
 
-  [Copyable]
+  [Copyable, Serializable]
   public class DamageAssignmentOrder
   {
     private readonly Dictionary<Blocker, int> _assignmentOrder = new Dictionary<Blocker, int>();

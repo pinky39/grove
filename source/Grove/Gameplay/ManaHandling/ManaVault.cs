@@ -5,7 +5,7 @@
   using System.Linq;
   using Infrastructure;
 
-  [Copyable]
+  [Copyable, Serializable]
   public class ManaVault
   {
     private readonly ManaUnits _colorless = new ManaUnits();

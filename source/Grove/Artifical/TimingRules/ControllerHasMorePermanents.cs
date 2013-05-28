@@ -4,6 +4,7 @@
   using System.Linq;
   using Gameplay;
 
+  [Serializable]
   public class ControllerHasMorePermanents : TimingRule
   {
     private readonly Func<Card, bool> _selector;

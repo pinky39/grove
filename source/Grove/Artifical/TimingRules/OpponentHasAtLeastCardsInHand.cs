@@ -1,5 +1,8 @@
 ﻿namespace Grove.Artifical.TimingRules
 {
+  using System;
+
+  [Serializable]
   public class OpponentHasAtLeastCardsInHand : TimingRule
   {
     private readonly int _count;

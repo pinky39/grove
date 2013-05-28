@@ -1,7 +1,9 @@
 ﻿namespace Grove.Gameplay.Effects
 {
+  using System;
   using Artifical;
 
+  [Serializable]
   public class Regenerate : Effect
   {
     public Regenerate()

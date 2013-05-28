@@ -1,8 +1,10 @@
 ﻿namespace Grove.Artifical.TimingRules
 {
+  using System;
   using System.Linq;
   using Gameplay.States;
 
+  [Serializable]
   public class MassRemoval : TimingRule
   {
     public override bool ShouldPlay(TimingRuleParameters p)

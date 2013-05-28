@@ -3,6 +3,7 @@
   using System;
   using Damage;
 
+  [Serializable]
   public class DealDamageToCreaturesAndPlayers : Effect
   {
     private readonly Func<Effect, Card, int> _amountCreature;

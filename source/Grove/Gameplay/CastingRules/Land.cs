@@ -1,8 +1,10 @@
 ﻿namespace Grove.Gameplay.CastingRules
 {
+  using System;
   using Effects;
   using States;
 
+  [Serializable]
   public class Land : CastingRule
   {
     public override bool CanCast()

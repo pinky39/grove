@@ -1,7 +1,9 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
+  using System;
   using Damage;
 
+  [Serializable]
   public class AddDamageRedirection : Modifier
   {
     private readonly DamageRedirection _damageRedirection;

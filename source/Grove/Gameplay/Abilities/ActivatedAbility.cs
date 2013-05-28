@@ -1,5 +1,6 @@
 ﻿namespace Grove.Gameplay.Abilities
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Costs;
@@ -10,6 +11,7 @@
   using States;
   using Zones;
 
+  [Serializable]
   public class ActivatedAbility : Ability
   {
     private readonly bool _activateAsSorcery;

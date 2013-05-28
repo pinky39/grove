@@ -1,10 +1,11 @@
 ﻿namespace Grove.Gameplay.Damage
 {
+  using System;
   using System.Linq;
   using Infrastructure;
   using Modifiers;
 
-  [Copyable]
+  [Copyable, Serializable]
   public class DamageRedirections : IModifiable, IHashable
   {
     private readonly TrackableList<DamageRedirection> _redirections = new TrackableList<DamageRedirection>();

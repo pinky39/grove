@@ -1,5 +1,8 @@
 ﻿namespace Grove.Artifical.TimingRules
 {
+  using System;
+
+  [Serializable]
   public class Turn : TimingRule
   {
     private readonly bool _active;

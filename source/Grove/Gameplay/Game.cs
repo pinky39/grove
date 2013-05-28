@@ -10,7 +10,7 @@
   using States;
   using Zones;
 
-  [Copyable]
+  [Copyable, Serializable]
   public class Game
   {
     private DecisionQueue _decisionQueue;

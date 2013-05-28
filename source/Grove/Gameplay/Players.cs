@@ -7,6 +7,7 @@
   using Infrastructure;
   using Misc;
 
+  [Serializable]
   public class Players : GameObject, IEnumerable<Player>, IHashable
   {
     private readonly TrackableList<Player> _extraTurns = new TrackableList<Player>(orderImpactsHashcode: true);

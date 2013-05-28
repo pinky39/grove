@@ -1,8 +1,9 @@
 ﻿namespace Grove.Gameplay.ManaHandling
 {
+  using System;
   using Infrastructure;
 
-  [Copyable]
+  [Copyable, Serializable]
   public class ManaUnit
   {
     private readonly ManaUsage _usageRestriction;

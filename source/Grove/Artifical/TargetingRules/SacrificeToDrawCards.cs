@@ -7,6 +7,7 @@
   using Gameplay.States;
   using Gameplay.Targeting;
 
+  [Serializable]
   public class SacrificeToDrawCards : TargetingRule
   {
     private readonly Func<Card, bool> _filter;

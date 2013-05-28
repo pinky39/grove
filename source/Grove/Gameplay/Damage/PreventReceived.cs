@@ -1,5 +1,8 @@
 ﻿namespace Grove.Gameplay.Damage
 {
+  using System;
+
+  [Serializable]
   public class PreventReceived : DamagePrevention
   {
     private readonly bool _combatOnly;

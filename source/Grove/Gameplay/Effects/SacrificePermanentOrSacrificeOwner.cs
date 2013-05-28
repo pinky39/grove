@@ -8,6 +8,7 @@
   using Infrastructure;
   using Zones;
 
+  [Serializable]
   public class SacrificePermanentOrSacrificeOwner : Effect,
     IProcessDecisionResults<ChosenCards>, IChooseDecisionResults<List<Card>, ChosenCards>
   {

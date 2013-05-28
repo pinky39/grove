@@ -5,6 +5,7 @@
   using System.Linq;
   using Gameplay.States;
 
+  [Serializable]
   public class Steps : TimingRule
   {
     private readonly bool _activeTurn;

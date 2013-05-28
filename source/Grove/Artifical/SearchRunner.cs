@@ -3,13 +3,15 @@
   using System;
   using System.Collections.Generic;
   using System.Diagnostics;
+  using System.Runtime.Serialization;
   using System.Threading;
   using Gameplay;
   using Gameplay.Debuging;
   using Gameplay.Messages;
   using Infrastructure;
 
-  public class SearchRunner
+  [Serializable]
+  public class SearchRunner : ISerializable
   {
     private readonly Game _game;
     private readonly SearchResults _player1Results = new SearchResults();
@@ -146,6 +148,11 @@
     {
       var scenarioGenerator = new ScenarioGenerator(_game);
       LogFile.Info(scenarioGenerator.WriteScenarioToString());
+    }
+
+    public void GetObjectData(SerializationInfo info, StreamingContext context)
+    {
+      info.SetType(typeof(SingletonSerializationHelper<SearchRunner>));
     }
   }
 }

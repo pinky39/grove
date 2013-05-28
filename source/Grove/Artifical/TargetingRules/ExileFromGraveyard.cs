@@ -7,6 +7,7 @@
   using Gameplay.Misc;
   using Gameplay.Targeting;
 
+  [Serializable]
   public class ExileFromGraveyard : TargetingRule
   {
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)

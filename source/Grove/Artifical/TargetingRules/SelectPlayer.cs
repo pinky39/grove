@@ -6,6 +6,7 @@
   using Gameplay.Targeting;
   using Infrastructure;
 
+  [Serializable]  
   public class SelectPlayer : TargetingRule
   {
     private readonly Func<TargetingRuleParameters, Game, Player> _selector;

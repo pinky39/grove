@@ -4,6 +4,7 @@
   using Effects;
   using States;
 
+  [Serializable]
   public class Sorcery : CastingRule
   {
     private readonly Action<Card> _afterResolvePutToZone;

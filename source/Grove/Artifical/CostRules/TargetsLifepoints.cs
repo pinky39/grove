@@ -1,8 +1,10 @@
 ﻿namespace Grove.Artifical.CostRules
 {
+  using System;
   using System.Linq;
   using Gameplay.Targeting;
 
+  [Serializable]
   public class TargetsLifepoints : CostRule
   {
     public override int CalculateX(CostRuleParameters p)

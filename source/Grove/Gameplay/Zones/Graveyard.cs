@@ -1,8 +1,10 @@
 ﻿namespace Grove.Gameplay.Zones
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
 
+  [Serializable]
   public class Graveyard : OrderedZone, IGraveyardQuery
   {
     public Graveyard(Player owner) : base(owner) {}

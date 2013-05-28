@@ -6,6 +6,7 @@
   using Modifiers;
   using Targeting;
 
+  [Serializable]
   public class ApplyModifiersToPermanents : Effect
   {
     private readonly ControlledBy _controlledBy;

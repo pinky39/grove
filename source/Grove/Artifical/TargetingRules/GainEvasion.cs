@@ -7,6 +7,7 @@
   using Gameplay.Misc;
   using Gameplay.Targeting;
 
+  [Serializable]
   public class GainEvasion : TargetingRule
   {
     private readonly Func<Card, bool> _filter;

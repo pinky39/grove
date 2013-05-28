@@ -3,6 +3,7 @@
   using System;
   using Targeting;
 
+  [Serializable]
   public class PayLife : Cost
   {
     private readonly Func<Card, int> _getAmount;

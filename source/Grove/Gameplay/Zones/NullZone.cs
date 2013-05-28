@@ -1,5 +1,8 @@
 ﻿namespace Grove.Gameplay.Zones
 {
+  using System;
+
+  [Serializable]
   public class NullZone : IZone
   {
     public Zone Zone { get { return Zone.None; } }

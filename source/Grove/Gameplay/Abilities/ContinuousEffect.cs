@@ -1,5 +1,6 @@
 ﻿namespace Grove.Gameplay.Abilities
 {
+  using System;
   using System.Linq;
   using Infrastructure;
   using Messages;
@@ -12,7 +13,7 @@
 
   public delegate bool ShouldApplyToPlayer(Player player, ContinuousEffect effect);
 
-  [Copyable]
+  [Serializable]
   public class ContinuousEffect : GameObject, IReceive<ZoneChanged>, IReceive<PermanentWasModified>, ICopyContributor
   {
     private readonly ShouldApplyToCard _cardFilter;
