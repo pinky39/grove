@@ -35,7 +35,6 @@
     {
       var type = ProxyUtil.GetUnproxiedType(obj);
       var ctor = Cache.GetCtor(type);
-
       return ctor();
     }
 

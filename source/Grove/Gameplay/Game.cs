@@ -145,9 +145,22 @@
 
     public void Start(int numOfTurns = int.MaxValue, bool skipPreGame = false, Player looser = null)
     {
-      _turnLimit = numOfTurns;
+      try
+      {
+        _turnLimit = numOfTurns;
+        _stateMachine.Start(ShouldContinue, skipPreGame, looser);
+      }
+      catch (Exception)
+      {
+        LogFile.Error(CreateDiagnosticReport());
+        throw;
+      }
+    }
 
-      _stateMachine.Start(ShouldContinue, skipPreGame, looser);
+    public string CreateDiagnosticReport()
+    {
+      // todo
+      return String.Empty;
     }
 
     public void Stop()
