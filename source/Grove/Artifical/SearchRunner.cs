@@ -3,15 +3,13 @@
   using System;
   using System.Collections.Generic;
   using System.Diagnostics;
-  using System.Runtime.Serialization;
   using System.Threading;
   using Gameplay;
   using Gameplay.Debuging;
   using Gameplay.Messages;
   using Infrastructure;
 
-  [Serializable]
-  public class SearchRunner : ISerializable
+  public class SearchRunner
   {
     private readonly Game _game;
     private readonly SearchResults _player1Results = new SearchResults();
@@ -73,25 +71,32 @@
         return;
       }
 
-
-      // More than one choice, find the best one.
-      int bestChoice;
-
-      // First try cached result from previous search.
-      // If no results are found start a new search.            
-      var cachedResults = GetCachedResults(searchNode.Controller);
-      var cached = cachedResults.GetResult(_game.CalculateHash());
-
-      if (cached == null)
+      try
       {
-        bestChoice = StartNewSearch(searchNode, cachedResults);
-      }
-      else
-      {
-        bestChoice = cached.BestMove.GetValueOrDefault();
-      }
+        // More than one choice, find the best one.
+        int bestChoice;
 
-      searchNode.SetResult(bestChoice);
+        // First try cached result from previous search.
+        // If no results are found start a new search.            
+        var cachedResults = GetCachedResults(searchNode.Controller);
+        var cached = cachedResults.GetResult(_game.CalculateHash());
+
+        if (cached == null)
+        {
+          bestChoice = StartNewSearch(searchNode, cachedResults);
+        }
+        else
+        {
+          bestChoice = cached.BestMove.GetValueOrDefault();
+        }
+
+        searchNode.SetResult(bestChoice);
+      }
+      catch (Exception)
+      {
+        GenearateScenario();
+        throw;
+      }
     }
 
     private SearchResults GetCachedResults(Player player)
@@ -148,11 +153,6 @@
     {
       var scenarioGenerator = new ScenarioGenerator(_game);
       LogFile.Info(scenarioGenerator.WriteScenarioToString());
-    }
-
-    public void GetObjectData(SerializationInfo info, StreamingContext context)
-    {
-      info.SetType(typeof(SingletonSerializationHelper<SearchRunner>));
     }
   }
 }

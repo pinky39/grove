@@ -1,10 +1,8 @@
 ﻿namespace Grove.Gameplay.Effects
 {
-  using System;
   using Modifiers;
   using Targeting;
 
-  [Serializable]
   public class ExchangeForOpponentsCreature : Effect
   {
     protected override void ResolveEffect()

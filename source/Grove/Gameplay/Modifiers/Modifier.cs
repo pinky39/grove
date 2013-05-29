@@ -12,7 +12,7 @@
 
   public delegate Modifier ModifierFactory();
 
-  [Serializable]
+  [Copyable]
   public abstract class Modifier : GameObject, IModifier, ICopyContributor
   {
     private readonly TrackableList<Lifetime> _lifetimes = new TrackableList<Lifetime>();

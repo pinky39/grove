@@ -5,7 +5,6 @@
   using Misc;
   using Modifiers;
 
-  [Serializable]
   public class TargetValidator : GameObject
   {
     private const string DefaultMessageOneTarget = "Select a target.";

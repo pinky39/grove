@@ -1,13 +1,11 @@
 ﻿namespace Grove.Gameplay.Costs
 {
-  using System;
   using System.Linq;
   using Infrastructure;
   using ManaHandling;
   using Misc;
   using Targeting;
 
-  [Serializable]
   public abstract class Cost : GameObject, IHashable
   {
     protected Card Card { get; private set; }

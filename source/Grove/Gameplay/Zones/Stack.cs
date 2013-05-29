@@ -9,7 +9,7 @@
   using Infrastructure;
   using Targeting;
 
-  [Copyable, Serializable]
+  [Copyable]
   public class Stack : IEnumerable<Effect>, IHashable, IZone
   {
     private readonly TrackableList<Effect> _effects = new TrackableList<Effect>(orderImpactsHashcode: true);

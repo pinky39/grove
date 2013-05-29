@@ -1,9 +1,7 @@
 ﻿namespace Grove.Gameplay.Effects
 {
-  using System;
   using Damage;
 
-  [Serializable]
   public class DealDamageToOpponentEqualToCardDifference : Effect
   {
     protected override void ResolveEffect()

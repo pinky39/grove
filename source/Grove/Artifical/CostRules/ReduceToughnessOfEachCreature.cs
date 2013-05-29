@@ -1,8 +1,5 @@
 ﻿namespace Grove.Artifical.CostRules
 {
-  using System;
-
-  [Serializable]
   public class ReduceToughnessOfEachCreature : CostRule
   {
     public override int CalculateX(CostRuleParameters p)

@@ -1,8 +1,5 @@
 ﻿namespace Grove.Gameplay.Effects
 {
-  using System;
-
-  [Serializable]
   public class DrawCards : Effect
   {
     private readonly DynParam<int> _count;

@@ -1,10 +1,8 @@
 ﻿namespace Grove.Gameplay.Effects
 {
-  using System;
   using Damage;
   using Targeting;
 
-  [Serializable]
   public class DistributeDamageToTargets : Effect
   {
     public override int CalculatePlayerDamage(Player player)

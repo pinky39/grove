@@ -1,6 +1,5 @@
 ﻿namespace Grove.Gameplay.Abilities
 {
-  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Artifical;
@@ -16,7 +15,6 @@
   using Targeting;
   using Zones;
 
-  [Serializable]
   public class CastInstruction : GameObject, IEffectSource
   {
     private readonly CastingRule _castingRule;

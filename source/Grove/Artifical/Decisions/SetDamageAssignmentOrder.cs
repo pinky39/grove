@@ -1,13 +1,11 @@
 ﻿namespace Grove.Artifical.Decisions
 {
-  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Gameplay;
   using Gameplay.Decisions.Results;
   using Infrastructure;
 
-  [Serializable]
   public class SetDamageAssignmentOrder : Gameplay.Decisions.SetDamageAssignmentOrder
   {
     protected override void ExecuteQuery()

@@ -1,9 +1,8 @@
 ﻿namespace Grove.Artifical.Decisions
 {
-  using System;
   using Infrastructure;
 
-  [Copyable, Serializable]
+  [Copyable]
   public class DecisionExecutor
   {
     public enum State

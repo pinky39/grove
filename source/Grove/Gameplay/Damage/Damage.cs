@@ -1,9 +1,8 @@
 ﻿namespace Grove.Gameplay.Damage
 {
-  using System;
   using Infrastructure;
 
-  [Copyable, Serializable]
+  [Copyable]
   public class Damage : IHashable
   {
     private readonly Trackable<int> _amount;

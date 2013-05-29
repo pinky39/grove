@@ -8,7 +8,6 @@
   using System.Windows.Media;
   using UserInterface;
 
-  [Serializable]
   public class CardText : IEnumerable<Token>
   {
     private static readonly Regex Brackets = new Regex("{(.*)}", RegexOptions.Compiled);
@@ -155,7 +154,6 @@
     public ConnectingToken() : base(String.Empty) {}
   }
 
-  [Serializable]
   public abstract class Token
   {
     protected Token(string value)
@@ -171,38 +169,31 @@
     }
   }
 
-  [Serializable]
   public class TextToken : Token
   {
     public TextToken(string value) : base(value) {}
   }
 
-  [Serializable]
   public class ImportantTextToken : Token
   {
     public ImportantTextToken(string value) : base(value) {}
   }
 
-  
-  [Serializable]
   public class EolToken : Token
   {
     public EolToken() : base("EOL") {}
   }
 
-  [Serializable]
   public class ManaSymbolGroupStartToken : Token
   {
     public ManaSymbolGroupStartToken() : base(String.Empty) {}
   }
 
-  [Serializable]
   public class ManaSymbolGroupEndToken : Token
   {
     public ManaSymbolGroupEndToken() : base(String.Empty) {}
   }
 
-  [Serializable]
   public class ManaSymbolToken : Token
   {
     public ManaSymbolToken(string value) : base(value) {}

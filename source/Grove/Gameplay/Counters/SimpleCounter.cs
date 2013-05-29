@@ -1,8 +1,5 @@
 ﻿namespace Grove.Gameplay.Counters
 {
-  using System;
-
-  [Serializable]
   public class SimpleCounter : Counter
   {
     private readonly CounterType _type;

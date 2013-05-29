@@ -1,11 +1,9 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
-  using System;
   using Infrastructure;
   using Messages;
   using Targeting;
 
-  [Serializable]
   public class DefaultLifetime : Lifetime, IReceive<ZoneChanged>
   {
     private ITarget _target;

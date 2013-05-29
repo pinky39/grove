@@ -5,8 +5,7 @@
   using Abilities;
   using Effects;
   using Modifiers;
-  
-  [Serializable]
+
   public abstract class CardsSource
   {
     public CardFactory Card { get { return new CardFactory(); } }

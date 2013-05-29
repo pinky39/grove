@@ -1,10 +1,8 @@
 ﻿namespace Grove.Gameplay.Decisions
 {
-  using System;
   using System.Linq;
   using Results;
 
-  [Serializable]
   public abstract class AssignCombatDamage : Decision<DamageDistribution>
   {
     public Attacker Attacker { get; set; }

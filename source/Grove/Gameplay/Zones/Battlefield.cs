@@ -1,12 +1,10 @@
 ﻿namespace Grove.Gameplay.Zones
 {
-  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Characteristics;
   using Infrastructure;
 
-  [Serializable]
   public class Battlefield : UnorderedZone, IBattlefieldQuery
   {
     public Battlefield(Player owner) : base(owner) {}

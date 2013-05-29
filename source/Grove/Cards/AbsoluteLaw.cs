@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Artifical;
   using Artifical.TimingRules;
@@ -9,7 +8,6 @@
   using Gameplay.Misc;
   using Gameplay.Modifiers;
 
-  [Serializable]
   public class AbsoluteLaw : CardsSource
   {
     public override IEnumerable<CardFactory> GetCards()

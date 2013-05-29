@@ -3,7 +3,6 @@
   using System;
   using Gameplay;
 
-  [Serializable]
   public class ControllersProperty : CostRule
   {
     private readonly Func<Player, int> _selector;

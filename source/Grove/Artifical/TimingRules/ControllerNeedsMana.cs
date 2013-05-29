@@ -1,10 +1,8 @@
 ﻿namespace Grove.Artifical.TimingRules
 {
-  using System;
   using System.Linq;
   using Gameplay.States;
 
-  [Serializable]
   public class ControllerNeedsAdditionalMana : TimingRule
   {
     private readonly int? _amount;

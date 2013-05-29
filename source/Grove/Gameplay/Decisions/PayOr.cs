@@ -1,10 +1,8 @@
 ﻿namespace Grove.Gameplay.Decisions
 {
-  using System;
   using ManaHandling;
   using Results;
 
-  [Serializable]
   public abstract class PayOr : Decision<BooleanResult>
   {
     public ManaUsage ManaUsage = ManaUsage.Any;

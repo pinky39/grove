@@ -3,7 +3,6 @@
   using System;
   using Characteristics;
 
-  [Serializable]
   public class ChangeController : Modifier
   {
     private readonly Func<Modifier, Player> _getNewController;

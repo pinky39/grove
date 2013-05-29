@@ -1,9 +1,7 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
-  using System;
   using Characteristics;
 
-  [Serializable]
   public class IncreaseLevel : Modifier
   {
     private readonly Increment _levelIncrement = new Increment(1);

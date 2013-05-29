@@ -1,11 +1,9 @@
 ﻿namespace Grove.Artifical.TimingRules
 {
-  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Gameplay;
 
-  [Serializable]
   public class Any : TimingRule
   {
     private readonly List<TimingRule> _rules;

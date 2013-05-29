@@ -3,7 +3,6 @@
   using System;
   using Misc;
 
-  [Serializable]
   public class Verify : GameObject, IScenarioDecision
   {
     public Action Assertion { get; set; }

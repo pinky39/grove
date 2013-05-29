@@ -4,7 +4,6 @@
   using System.Linq;
   using Results;
 
-  [Serializable]
   public class ScenarioPlayableSpell : PlayableSpell
   {
     public override bool CanPlay()

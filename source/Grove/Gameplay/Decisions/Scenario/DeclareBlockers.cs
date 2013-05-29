@@ -1,9 +1,7 @@
 ﻿namespace Grove.Gameplay.Decisions.Scenario
 {
-  using System;
   using Results;
 
-  [Serializable]
   public class DeclareBlockers : Decisions.DeclareBlockers, IScenarioDecision
   {
     public static DeclareBlockers None

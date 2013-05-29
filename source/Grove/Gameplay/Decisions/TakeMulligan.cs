@@ -1,9 +1,7 @@
 ﻿namespace Grove.Gameplay.Decisions
 {
-  using System;
   using Results;
 
-  [Serializable]
   public abstract class TakeMulligan : Decision<BooleanResult>
   {
     protected override bool ShouldExecuteQuery { get { return Controller.CanMulligan; } }

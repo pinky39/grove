@@ -17,7 +17,6 @@
   using Targeting;
   using Zones;
 
-  [Serializable]
   public class Card : GameObject, ITarget, IDamageable, IHashDependancy, IHasColors, IHasLife
   {
     private readonly ActivatedAbilities _activatedAbilities;

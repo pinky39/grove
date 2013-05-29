@@ -4,7 +4,6 @@
   using System.Linq;
   using Gameplay;
 
-  [Serializable]
   public class OpponentHasPermanents : TimingRule
   {
     private readonly int _minCount;

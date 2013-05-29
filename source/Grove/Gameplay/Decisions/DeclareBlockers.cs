@@ -1,9 +1,7 @@
 ﻿namespace Grove.Gameplay.Decisions
 {
-  using System;
   using Results;
 
-  [Serializable]
   public abstract class DeclareBlockers : Decision<ChosenBlockers>
   {
     protected DeclareBlockers()

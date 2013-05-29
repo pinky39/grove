@@ -4,7 +4,6 @@
   using System.Linq;
   using Counters;
 
-  [Serializable]
   public class RemoveAllCounters : Effect
   {
     private readonly CounterType _counterType;

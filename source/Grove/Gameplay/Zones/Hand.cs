@@ -1,9 +1,7 @@
 ﻿namespace Grove.Gameplay.Zones
 {
-  using System;
   using System.Linq;
 
-  [Serializable]
   public class Hand : UnorderedZone, IHandQuery
   {
     public Hand(Player owner) : base(owner) {}

@@ -7,7 +7,6 @@
   using States;
   using Targeting;
 
-  [Serializable]
   public class TapOrUntapAllArtifactsCreaturesOrLands : CustomizableEffect
   {
     private static readonly Dictionary<EffectOption, Func<Card, bool>> Selectors

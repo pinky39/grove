@@ -4,7 +4,6 @@
   using Infrastructure;
   using Messages;
 
-  [Serializable]
   public class PermanentLeavesBattlefieldLifetime : Lifetime, IReceive<ZoneChanged>
   {
     private readonly Func<Lifetime, Card> _selector;

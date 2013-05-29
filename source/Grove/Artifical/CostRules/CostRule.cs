@@ -1,12 +1,10 @@
 ﻿namespace Grove.Artifical.CostRules
 {
-  using System;
   using System.Linq;
 
-  [Serializable]
   public abstract class CostRule : MachinePlayRule
   {
-    public override void Process(Artifical.ActivationContext c)
+    public override void Process(ActivationContext c)
     {
       if (c.HasTargets == false)
       {

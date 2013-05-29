@@ -78,31 +78,6 @@
       Console.WriteLine("Copying of {0} game objects took: {1} ms.", count, stopWatch.Elapsed.TotalMilliseconds);
     }
 
-    [Fact]
-    public void CopyPerformance2()
-    {
-      var stopWatch = new Stopwatch();
-      
-      var context = new SerializationContext(new object[]
-        {
-          DecisionSystem,
-          CardsDatabase,
-          Game.Ai
-        });      
-
-      stopWatch.Start();
-
-      var count = 100;
-      for (var i = 0; i < count; i++)
-      {
-        CopyService2.Copy(Game, context);
-      }
-
-      stopWatch.Stop();
-
-      Console.WriteLine("Copying of {0} game objects took: {1} ms.", count, stopWatch.Elapsed.TotalMilliseconds);
-    }
-
     public GameFacts()
     {
       InitZones();

@@ -5,7 +5,7 @@
   using System.Collections.Generic;
   using System.Linq;
 
-  [Copyable, Serializable]
+  [Copyable]
   public class TrackableList<T> : ITrackableCollection<T>, IList<T>, IHashable
   {
     private readonly List<T> _items = new List<T>();

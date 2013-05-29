@@ -1,6 +1,5 @@
 ﻿namespace Grove.Gameplay.Abilities
 {
-  using System;
   using System.Collections.Generic;
   using Artifical;
   using Characteristics;
@@ -9,7 +8,6 @@
   using Misc;
   using Targeting;
 
-  [Serializable]
   public abstract class Ability : GameObject, IEffectSource
   {
     protected readonly TargetSelector TargetSelector;

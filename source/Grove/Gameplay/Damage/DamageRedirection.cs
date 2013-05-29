@@ -1,11 +1,10 @@
 ﻿namespace Grove.Gameplay.Damage
 {
-  using System;
   using Infrastructure;
   using Misc;
   using Modifiers;
 
-  [Serializable]
+  [Copyable]
   public abstract class DamageRedirection : GameObject, IHashable
   {
     public Modifier Modifier { get; private set; }

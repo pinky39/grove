@@ -24,7 +24,6 @@
     bool OfType(string type);
   }
 
-  [Serializable]
   public class CardType : ITargetType
   {
     private static readonly List<string> BasicTypes = new List<string>

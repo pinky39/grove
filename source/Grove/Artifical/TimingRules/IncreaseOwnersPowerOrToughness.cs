@@ -1,10 +1,8 @@
 ﻿namespace Grove.Artifical.TimingRules
 {
-  using System;
   using Gameplay.Modifiers;
   using Gameplay.States;
 
-  [Serializable]
   public class IncreaseOwnersPowerOrToughness : TimingRule
   {
     private readonly Value _power;

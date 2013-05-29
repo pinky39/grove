@@ -1,12 +1,11 @@
 ﻿namespace Grove.Gameplay.Damage
 {
-  using System;
   using System.Linq;
   using Infrastructure;
   using Modifiers;
   using Targeting;
 
-  [Copyable, Serializable]
+  [Copyable]
   public class DamagePreventions : IModifiable, IHashable
   {
     private readonly TrackableList<DamagePrevention> _preventions = new TrackableList<DamagePrevention>();

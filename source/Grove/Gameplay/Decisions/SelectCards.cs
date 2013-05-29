@@ -7,7 +7,6 @@
   using Targeting;
   using Zones;
 
-  [Serializable]
   public abstract class SelectCards : Decision<ChosenCards>
   {
     public bool CanSelectOnlyCardsControlledByDecisionController = true;

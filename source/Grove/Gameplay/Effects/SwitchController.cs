@@ -1,9 +1,7 @@
 ﻿namespace Grove.Gameplay.Effects
 {
-  using System;
   using Modifiers;
 
-  [Serializable]
   public class SwitchController : Effect
   {
     protected override void ResolveEffect()

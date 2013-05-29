@@ -1,10 +1,8 @@
 ﻿namespace Grove.Gameplay.Effects
 {
-  using System;
   using Artifical;
   using Targeting;
 
-  [Serializable]
   public class DestroyTargetPermanents : Effect
   {
     private readonly bool _canRegenerate;

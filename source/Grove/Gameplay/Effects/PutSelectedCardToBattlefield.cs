@@ -8,7 +8,6 @@
   using Modifiers;
   using Zones;
 
-  [Serializable]
   public class PutSelectedCardToBattlefield : Effect, IProcessDecisionResults<ChosenCards>,
     IChooseDecisionResults<List<Card>, ChosenCards>
   {

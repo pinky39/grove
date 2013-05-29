@@ -1,9 +1,7 @@
 ﻿namespace Grove.Gameplay.Decisions.Scenario
 {
-  using System;
   using Results;
 
-  [Serializable]
   public class DeclareAttackers : Decisions.DeclareAttackers, IScenarioDecision
   {
     public static DeclareAttackers None

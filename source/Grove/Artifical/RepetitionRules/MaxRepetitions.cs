@@ -2,7 +2,6 @@
 {
   using System;
 
-  [Serializable]
   public class MaxRepetitions : RepetitionRule
   {
     private readonly int? _max;

@@ -3,7 +3,6 @@
   using System;
   using Results;
 
-  [Serializable]
   public class PlaySpellOrAbility : Decisions.PlaySpellOrAbility, IScenarioDecision
   {
     public Func<Card, Game, bool> Condition = delegate { return true; };

@@ -1,11 +1,9 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
-  using System;
   using System.Collections.Generic;
   using Characteristics;
   using Infrastructure;
 
-  [Serializable]
   public class CardColorSetter : PropertyModifier<List<CardColor>>
   {
     private readonly List<CardColor> _colors;

@@ -3,7 +3,6 @@
   using System;
   using System.Linq;
 
-  [Serializable]
   public class TrackableEvent : ICopyable
   {
     private ChangeTracker _changeTracker;

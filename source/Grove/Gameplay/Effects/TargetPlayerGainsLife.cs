@@ -1,9 +1,7 @@
 ﻿namespace Grove.Gameplay.Effects
 {
-  using System;
   using Targeting;
 
-  [Serializable]
   public class TargetPlayerGainsLife : Effect
   {
     private readonly int _amount;

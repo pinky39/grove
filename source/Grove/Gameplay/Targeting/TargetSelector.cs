@@ -5,7 +5,6 @@
   using System.Linq;
   using Misc;
 
-  [Serializable]
   public class TargetSelector : GameObject
   {
     public static readonly TargetSelector NullSelector = new TargetSelector();

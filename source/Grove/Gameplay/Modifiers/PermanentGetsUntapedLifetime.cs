@@ -4,7 +4,6 @@
   using Infrastructure;
   using Messages;
 
-  [Serializable]
   public class PermanentGetsUntapedLifetime : Lifetime,
     IReceive<PermanentGetsUntapped>, IReceive<ZoneChanged>
   {

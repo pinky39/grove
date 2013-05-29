@@ -4,14 +4,12 @@
   using System.Collections.Generic;
   using System.Linq;
   using System.Reflection;
-  using System.Runtime.Serialization;
   using Infrastructure;
   using Misc;
   using Scenario;
   using UserInterface.Decisions;
 
-  [Serializable]
-  public class DecisionSystem : ISerializable
+  public class DecisionSystem
   {
     private static readonly HashSet<Type> ScenarioDecisions = new HashSet<Type>(GetScenarioDecisions());
     private static readonly Dictionary<Type, ParameterlessCtor> MachineDecisions = LoadMachineDecisions();
@@ -22,11 +20,6 @@
     public DecisionSystem(IUiDecisionFactory uiDecisionFactory)
     {
       _uiDecisionFactory = uiDecisionFactory;
-    }
-
-    public void GetObjectData(SerializationInfo info, StreamingContext context)
-    {
-      info.SetType(typeof (SingletonSerializationHelper<DecisionSystem>));
     }
 
     private static IEnumerable<Type> GetScenarioDecisions()

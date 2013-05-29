@@ -1,12 +1,10 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
-  using System;
   using Abilities;
   using Characteristics;
   using Costs;
   using Targeting;
 
-  [Serializable]
   public class ChangeBasicLand : Modifier
   {
     private readonly string _changeTo;

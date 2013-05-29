@@ -1,10 +1,9 @@
 ﻿namespace Grove.Gameplay.Characteristics
 {
-  using System;
   using Infrastructure;
   using Modifiers;
 
-  [Copyable, Serializable]
+  [Copyable]
   public class Protections : IModifiable, IHashable
   {
     private readonly TrackableList<string> _cardTypes = new TrackableList<string>();

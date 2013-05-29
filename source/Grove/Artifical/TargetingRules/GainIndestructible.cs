@@ -1,11 +1,9 @@
 ﻿namespace Grove.Artifical.TargetingRules
 {
-  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Gameplay.Targeting;
 
-  [Serializable]
   public class GainIndestructible : TargetingRule
   {
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)

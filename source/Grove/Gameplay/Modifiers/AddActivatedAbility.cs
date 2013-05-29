@@ -1,10 +1,8 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
-  using System;
   using Abilities;
   using Targeting;
 
-  [Serializable]
   public class AddActivatedAbility : Modifier
   {
     private readonly ActivatedAbility _activatedAbility;

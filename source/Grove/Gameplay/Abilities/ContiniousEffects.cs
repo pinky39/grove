@@ -1,10 +1,9 @@
 ﻿namespace Grove.Gameplay.Abilities
 {
-  using System;
   using Infrastructure;
   using Modifiers;
 
-  [Copyable, Serializable]
+  [Copyable]
   public class ContiniousEffects : IModifiable
   {
     private readonly TrackableList<ContinuousEffect> _continiousEffects = new TrackableList<ContinuousEffect>();

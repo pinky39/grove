@@ -8,7 +8,6 @@
   using Decisions.Results;
   using Zones;
 
-  [Serializable]
   public class DealDamageToCreatureWithRankSelectIfMoreThanOne : Effect, IProcessDecisionResults<ChosenCards>,
     IChooseDecisionResults<List<Card>, ChosenCards>
   {

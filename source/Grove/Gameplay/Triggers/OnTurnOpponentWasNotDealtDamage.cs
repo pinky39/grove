@@ -1,13 +1,11 @@
 ﻿namespace Grove.Gameplay.Triggers
 {
-  using System;
   using Abilities;
   using Infrastructure;
   using Messages;
   using States;
   using Zones;
 
-  [Serializable]
   public class OnTurnOpponentWasNotDealtDamage : Trigger, IReceive<StepStarted>, IReceive<DamageHasBeenDealt>
   {
     private readonly Trackable<bool> _wasDealtDamage = new Trackable<bool>();

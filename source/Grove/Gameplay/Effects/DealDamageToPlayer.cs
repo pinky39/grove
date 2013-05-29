@@ -1,10 +1,8 @@
 ﻿namespace Grove.Gameplay.Effects
 {
-  using System;
   using Damage;
   using Modifiers;
 
-  [Serializable]
   public class DealDamageToPlayer : Effect
   {
     private readonly Value _amount;

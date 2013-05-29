@@ -1,10 +1,8 @@
 ﻿namespace Grove.Artifical.CostRules
 {
-  using System;
   using System.Linq;
   using Gameplay.ManaHandling;
 
-  [Serializable]
   public class MartialCoup : CostRule
   {
     private readonly int _x;

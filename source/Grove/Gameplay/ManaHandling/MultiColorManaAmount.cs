@@ -1,11 +1,9 @@
 ﻿namespace Grove.Gameplay.ManaHandling
 {
-  using System;
   using System.Collections;
   using System.Collections.Generic;
   using System.Linq;
 
-  [Serializable]
   public class MultiColorManaAmount : IManaAmount
   {
     private readonly List<SingleColorManaAmount> _groups = new List<SingleColorManaAmount>();

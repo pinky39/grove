@@ -2,7 +2,6 @@
 {
   using System;
 
-  [Serializable]
   public class OpponentDiscardsCards : Effect
   {
     private readonly Func<Card, bool> _filter;

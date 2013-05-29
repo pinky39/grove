@@ -8,7 +8,6 @@
   using Messages;
   using Zones;
 
-  [Serializable]
   public class SearchLibraryPutToZone : Effect, IProcessDecisionResults<ChosenCards>,
     IChooseDecisionResults<List<Card>, ChosenCards>, ICardValidator
   {

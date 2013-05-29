@@ -1,8 +1,5 @@
 ﻿namespace Grove.Gameplay.Decisions.Scenario
 {
-  using System;
-
-  [Serializable]
   public class ChooseToUntap : Decisions.ChooseToUntap, IScenarioDecision
   {
     public bool CanExecute()

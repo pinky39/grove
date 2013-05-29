@@ -1,11 +1,10 @@
 ﻿namespace Grove.Gameplay.Decisions.Results
 {
-  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Infrastructure;
 
-  [Copyable, Serializable]
+  [Copyable]
   public class DamageDistribution
   {
     private readonly Dictionary<Blocker, int> _distribution = new Dictionary<Blocker, int>();

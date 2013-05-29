@@ -1,6 +1,5 @@
 ﻿namespace Grove.Artifical.TargetingRules
 {
-  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Gameplay;
@@ -8,7 +7,6 @@
   using Gameplay.States;
   using Gameplay.Targeting;
 
-  [Serializable]
   public class IncreasePowerOrToughness : TargetingRule
   {
     private readonly int? _power;

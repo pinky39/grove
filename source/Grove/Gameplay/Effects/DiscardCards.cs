@@ -3,7 +3,6 @@
   using System;
   using Targeting;
 
-  [Serializable]
   public class DiscardCards : Effect
   {
     private readonly int _count;

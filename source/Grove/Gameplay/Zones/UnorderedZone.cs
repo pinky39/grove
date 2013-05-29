@@ -7,7 +7,6 @@
   using Infrastructure;
   using Misc;
 
-  [Serializable]
   public abstract class UnorderedZone : GameObject, IEnumerable<Card>, IHashable, IZone
   {
     private readonly TrackableList<Card> _cards = new TrackableList<Card>();

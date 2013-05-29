@@ -9,7 +9,6 @@
   using Triggers;
   using Zones;
 
-  [Serializable]
   public class TriggeredAbility : Ability, IDisposable, ICopyContributor
   {
     private readonly bool _triggerOnlyIfOwningCardIsInPlay;

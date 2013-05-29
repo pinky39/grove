@@ -3,7 +3,6 @@
   using System;
   using Gameplay;
 
-  [Serializable]
   public class OwningCardHas : TimingRule
   {
     private readonly Func<Card, bool> _predicate;

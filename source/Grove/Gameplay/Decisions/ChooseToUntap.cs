@@ -1,9 +1,7 @@
 ﻿namespace Grove.Gameplay.Decisions
 {
-  using System;
   using Results;
 
-  [Serializable]
   public abstract class ChooseToUntap : Decision<BooleanResult>
   {
     public Card Permanent { get; set; }

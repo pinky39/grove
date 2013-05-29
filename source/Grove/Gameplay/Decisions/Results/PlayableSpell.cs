@@ -1,8 +1,5 @@
 ﻿namespace Grove.Gameplay.Decisions.Results
 {
-  using System;
-
-  [Serializable]
   public class PlayableSpell : Playable
   {
     public override void Play()

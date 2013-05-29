@@ -1,13 +1,11 @@
 ﻿namespace Grove.Gameplay.Characteristics
 {
-  using System;
   using System.Linq;
   using Infrastructure;
   using Messages;
   using Modifiers;
   using Zones;
 
-  [Serializable]
   public class ControllerCharacteristic : Characteristic<Player>, IModifiable
   {
     private Card _card;

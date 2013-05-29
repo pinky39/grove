@@ -1,15 +1,15 @@
 ﻿namespace Grove.Gameplay.Counters
 {
-  using System;
   using Characteristics;
+  using Infrastructure;
   using Misc;
 
-  [Serializable]
+  [Copyable]
   public abstract class Counter : GameObject
   {
-    public abstract CounterType Type { get; }
     public virtual void ModifyPower(Power power) {}
     public virtual void ModifyToughness(Toughness toughness) {}
+    public abstract CounterType Type { get; }
 
     public virtual Counter Initialize(Game game)
     {

@@ -1,8 +1,5 @@
 ﻿namespace Grove.Gameplay.Characteristics
 {
-  using System;
-
-  [Serializable]
   public class ScoreOverride
   {
     public int? Battlefield;

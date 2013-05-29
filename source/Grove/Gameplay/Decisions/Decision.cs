@@ -1,9 +1,7 @@
 ﻿namespace Grove.Gameplay.Decisions
 {
-  using System;
   using Misc;
 
-  [Serializable]
   public abstract class Decision<TResult> : GameObject, IDecision
   {
     private bool _hasCompleted;

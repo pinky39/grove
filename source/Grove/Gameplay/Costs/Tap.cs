@@ -1,10 +1,8 @@
 ﻿namespace Grove.Gameplay.Costs
 {
-  using System;
   using System.Linq;
   using Targeting;
 
-  [Serializable]
   public class Tap : Cost
   {
     protected override void CanPay(CanPayResult result)

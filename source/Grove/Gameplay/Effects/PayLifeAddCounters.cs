@@ -6,7 +6,6 @@
   using Decisions.Results;
   using Modifiers;
 
-  [Serializable]
   public class PayLifeAddCounters : CustomizableEffect
   {
     private readonly CounterType _counterType;

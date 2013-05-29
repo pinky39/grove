@@ -1,10 +1,8 @@
 ﻿namespace Grove.Gameplay.Effects
 {
-  using System;
   using Infrastructure;
   using Targeting;
 
-  [Serializable]
   public class ReturnToHand : Effect
   {
     private readonly int _discard;

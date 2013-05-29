@@ -1,9 +1,8 @@
 ﻿namespace Grove.Gameplay.Decisions
 {
-  using System;
   using Infrastructure;
 
-  [Copyable, Serializable]
+  [Copyable]
   public class DecisionQueue
   {
     private readonly TrackableList<IDecision> _queue = new TrackableList<IDecision>(orderImpactsHashcode: true);

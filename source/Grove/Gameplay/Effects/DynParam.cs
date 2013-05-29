@@ -9,7 +9,7 @@
     void EvaluateOnInit(Effect effect, Game game);
   }
 
-  [Copyable, Serializable]
+  [Copyable]
   public class DynParam<TOut> : IDynamicParameter
   {
     private readonly bool _evaluateOnInit;

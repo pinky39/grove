@@ -4,7 +4,6 @@
   using System.Collections.Generic;
   using System.Linq;
 
-  [Serializable]
   public class ManaColor : IEquatable<ManaColor>
   {
     public static readonly ManaColor White = new ManaColor(isWhite: true);

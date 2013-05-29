@@ -7,8 +7,8 @@
   using Infrastructure;
   using Messages;
   using Misc;
-  
-  [Serializable]
+
+  [Copyable]
   public class Combat : GameObject, IHashable
   {
     private readonly TrackableList<Attacker> _attackers = new TrackableList<Attacker>();

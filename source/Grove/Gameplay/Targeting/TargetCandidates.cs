@@ -1,11 +1,10 @@
 ﻿namespace Grove.Gameplay.Targeting
 {
-  using System;
   using System.Collections;
   using System.Collections.Generic;
   using Infrastructure;
 
-  [Copyable, Serializable]
+  [Copyable]
   public class TargetCandidates : IEnumerable<ITarget>
   {
     private readonly List<ITarget> _candidates = new List<ITarget>();

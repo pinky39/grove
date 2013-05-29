@@ -9,7 +9,6 @@
   using Gameplay.Misc;
   using Gameplay.Modifiers;
   
-  [Serializable]
   public class AbsoluteGrace : CardsSource
   {
     public override IEnumerable<CardFactory> GetCards()

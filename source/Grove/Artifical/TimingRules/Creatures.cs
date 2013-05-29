@@ -1,9 +1,7 @@
 ﻿namespace Grove.Artifical.TimingRules
 {
-  using System;
   using Gameplay.States;
 
-  [Serializable]
   public class Creatures : TimingRule
   {
     public override bool ShouldPlay(TimingRuleParameters p)

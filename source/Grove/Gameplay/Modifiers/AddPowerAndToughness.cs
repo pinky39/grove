@@ -1,9 +1,7 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
-  using System;
   using Characteristics;
 
-  [Serializable]
   public class AddPowerAndToughness : Modifier
   {
     private readonly Value _power;

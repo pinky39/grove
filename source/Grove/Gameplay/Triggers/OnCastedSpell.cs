@@ -5,7 +5,6 @@
   using Infrastructure;
   using Messages;
 
-  [Serializable]
   public class OnCastedSpell : Trigger, IReceive<PlayerHasCastASpell>
   {
     private readonly Func<TriggeredAbility, Card, bool> _filter;

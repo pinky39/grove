@@ -4,7 +4,6 @@
   using System.Collections.Generic;
   using Misc;
 
-  [Serializable]
   public class CreateTokens : Effect
   {
     private readonly Action<Card, Game> _afterTokenComesToPlay;

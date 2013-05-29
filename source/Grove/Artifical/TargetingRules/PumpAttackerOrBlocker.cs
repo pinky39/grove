@@ -1,12 +1,10 @@
 ﻿namespace Grove.Artifical.TargetingRules
 {
-  using System;
   using System.Collections.Generic;
   using Gameplay;
   using Gameplay.States;
   using Gameplay.Targeting;
 
-  [Serializable]
   public class PumpAttackerOrBlocker : TargetingRule
   {
     private readonly int? _power;

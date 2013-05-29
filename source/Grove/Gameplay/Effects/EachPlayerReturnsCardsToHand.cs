@@ -7,7 +7,6 @@
   using Decisions.Results;
   using Zones;
 
-  [Serializable]
   public class EachPlayerReturnsCardsToHand : Effect, IProcessDecisionResults<ChosenCards>,
     IChooseDecisionResults<List<Card>, ChosenCards>
   {

@@ -1,9 +1,7 @@
 ﻿namespace Grove.Artifical.TimingRules
 {
-  using System;
   using Infrastructure;
 
-  [Serializable]
   public class ThereCanBeOnlyOne : TimingRule
   {
     public override bool ShouldPlay(TimingRuleParameters p)

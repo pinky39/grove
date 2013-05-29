@@ -77,9 +77,9 @@
     }
 
 
-    public static TAttribute GetAttribute<TAttribute>(this MemberInfo memberInfo, bool inherit = true) where TAttribute : Attribute
+    public static TAttribute GetAttribute<TAttribute>(this MemberInfo memberInfo) where TAttribute : Attribute
     {
-      return Attribute.GetCustomAttributes(memberInfo, typeof (TAttribute), inherit).FirstOrDefault() as TAttribute;
+      return Attribute.GetCustomAttributes(memberInfo, typeof (TAttribute), true).FirstOrDefault() as TAttribute;
     }
 
     public static string PropertyName(this MethodInfo methodInfo)

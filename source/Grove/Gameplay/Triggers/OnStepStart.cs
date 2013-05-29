@@ -1,11 +1,9 @@
 ﻿namespace Grove.Gameplay.Triggers
 {
-  using System;
   using Infrastructure;
   using Messages;
   using States;
 
-  [Serializable]
   public class OnStepStart : Trigger, IOrderedReceive<StepStarted>, IReceive<ZoneChanged>,
     IReceive<ControllerChanged>
   {

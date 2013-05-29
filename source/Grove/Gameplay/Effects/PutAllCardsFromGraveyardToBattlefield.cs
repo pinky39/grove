@@ -3,7 +3,6 @@
   using System;
   using System.Linq;
 
-  [Serializable]
   public class PutAllCardsFromGraveyardToBattlefield : Effect
   {
     private readonly bool _eachPlayer;

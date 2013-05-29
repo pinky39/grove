@@ -1,9 +1,7 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
-  using System;
   using Abilities;
 
-  [Serializable]
   public class AddStaticAbility : Modifier
   {
     private readonly Static _staticAbility;

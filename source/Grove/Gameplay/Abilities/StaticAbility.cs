@@ -1,9 +1,8 @@
 ﻿namespace Grove.Gameplay.Abilities
 {
-  using System;
   using Infrastructure;
 
-  [Copyable, Serializable]
+  [Copyable]
   public class StaticAbility : IHashable
   {
     private readonly Trackable<bool> _isEnabled = new Trackable<bool>(true);

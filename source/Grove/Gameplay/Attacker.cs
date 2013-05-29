@@ -1,6 +1,5 @@
 ﻿namespace Grove.Gameplay
 {
-  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Artifical;
@@ -10,7 +9,6 @@
   using Messages;
   using Misc;
 
-  [Serializable]
   public class Attacker : GameObject, IHashable
   {
     private readonly TrackableList<Damage.Damage> _assignedDamage = new TrackableList<Damage.Damage>();

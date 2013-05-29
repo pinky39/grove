@@ -6,7 +6,6 @@
   using Decisions.Results;
   using Modifiers;
 
-  [Serializable]
   public class ChooseToAddCounter : Effect, IChooseDecisionResults<BooleanResult>,
     IProcessDecisionResults<BooleanResult>
   {

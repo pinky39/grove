@@ -2,7 +2,6 @@
 {
   using System;
 
-  [Serializable]
   public class RemoveModifier : Effect
   {
     private readonly Type _modifierType;

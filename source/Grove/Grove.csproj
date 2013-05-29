@@ -624,7 +624,6 @@
     <Compile Include="Gameplay\Effects\ChooseToAddCounter.cs" />
     <Compile Include="Gameplay\Modifiers\ChangeToEnchantment.cs" />
     <Compile Include="Gameplay\Modifiers\PlayerCastsCreatureLifetime.cs" />
-    <Compile Include="Infrastructure\CopyService2.cs" />
     <Compile Include="Persistance\TournamentInfo.cs" />
     <Compile Include="Gameplay\Tournaments\TournamentMatch.cs" />
     <Compile Include="Infrastructure\ListEx.cs" />

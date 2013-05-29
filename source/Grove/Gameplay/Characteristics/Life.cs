@@ -1,10 +1,9 @@
 ﻿namespace Grove.Gameplay.Characteristics
 {
-  using System;
   using Artifical;
   using Infrastructure;
 
-  [Copyable, Serializable]
+  [Copyable]
   public class Life
   {
     private readonly Trackable<int> _score;

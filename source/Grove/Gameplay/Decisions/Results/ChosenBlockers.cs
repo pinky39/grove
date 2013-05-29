@@ -1,12 +1,11 @@
 ﻿namespace Grove.Gameplay.Decisions.Results
 {
-  using System;
   using System.Collections;
   using System.Collections.Generic;
   using System.Linq;
   using Infrastructure;
 
-  [Copyable, Serializable]
+  [Copyable]
   public class ChosenBlockers : IEnumerable<ChosenBlockers.AttackerBlockerPair>
   {
     private readonly List<AttackerBlockerPair> _pairs = new List<AttackerBlockerPair>();
@@ -37,7 +36,7 @@
       _pairs.Remove(pair);
     }
 
-    [Copyable, Serializable]
+    [Copyable]
     public class AttackerBlockerPair
     {
       public Card Attacker { get; set; }

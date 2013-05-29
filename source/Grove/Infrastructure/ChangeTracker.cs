@@ -4,7 +4,6 @@
   using System.Collections.Generic;
   using System.Linq;
 
-  [Serializable]
   public class ChangeTracker : ICopyable, INotifyChangeTracker
   {
     private readonly Stack<Action> _changeHistory = new Stack<Action>();

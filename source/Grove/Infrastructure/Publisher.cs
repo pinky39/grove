@@ -7,7 +7,6 @@
   using Castle.DynamicProxy;
   using UserInterface;
 
-  [Serializable]
   public class Publisher : ICopyable
   {
     private readonly Assembly _assembly;

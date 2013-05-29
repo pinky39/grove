@@ -1,13 +1,11 @@
 ﻿namespace Grove.Gameplay.Effects
 {
-  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Modifiers;
   using Targeting;
   using Zones;
 
-  [Serializable]
   public class ApplyModifiersToSelfAndToTargets : Effect
   {
     private readonly List<ModifierFactory> _selfModifiers = new List<ModifierFactory>();

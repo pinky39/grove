@@ -6,7 +6,6 @@
   using Messages;
   using Zones;
 
-  [Serializable]
   public class OnZoneChanged : Trigger, IReceive<ZoneChanged>
   {
     private readonly Func<TriggeredAbility, Card, bool> _filter;

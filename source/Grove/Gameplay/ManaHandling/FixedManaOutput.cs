@@ -1,8 +1,5 @@
 ﻿namespace Grove.Gameplay.ManaHandling
 {
-  using System;
-
-  [Serializable]
   public class FixedManaOutput : ManaOutput
   {
     private readonly IManaAmount _amount;

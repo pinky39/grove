@@ -1,11 +1,9 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
-  using System;
   using Infrastructure;
   using Messages;
   using Targeting;
 
-  [Serializable]
   public class AttachmentLifetime : Lifetime, IReceive<AttachmentDetached>
   {
     private Card _attachment;

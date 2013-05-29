@@ -1,12 +1,10 @@
 ﻿namespace Grove.Artifical.Decisions
 {
-  using System;
   using System.Collections.Generic;
   using Gameplay;
   using Gameplay.Decisions.Results;
   using Infrastructure;
 
-  [Serializable]
   public class PlaySpellOrAbility : Gameplay.Decisions.PlaySpellOrAbility, ISearchNode, IDecisionExecution
   {
     private readonly DecisionExecutor _executor;

@@ -1,12 +1,10 @@
 ﻿namespace Grove.Artifical.RepetitionRules
 {
-  using System;
   using System.Linq;
 
-  [Serializable]
   public abstract class RepetitionRule : MachinePlayRule
   {
-    public override void Process(Artifical.ActivationContext c)
+    public override void Process(ActivationContext c)
     {
       if (c.HasTargets == false)
       {

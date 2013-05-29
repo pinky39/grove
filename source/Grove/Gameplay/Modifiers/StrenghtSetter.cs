@@ -1,9 +1,7 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
-  using System;
   using Infrastructure;
 
-  [Serializable]
   public class StrenghtSetter : PropertyModifier<int?>
   {
     private readonly int? _value;

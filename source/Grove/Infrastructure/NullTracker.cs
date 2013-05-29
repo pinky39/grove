@@ -1,9 +1,7 @@
 ﻿namespace Grove.Infrastructure
 {
-  using System;
   using System.Diagnostics;
 
-  [Serializable]
   public class NullTracker : INotifyChangeTracker
   {
     private static bool _enableChecks;

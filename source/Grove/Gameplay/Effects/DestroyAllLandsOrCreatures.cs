@@ -1,12 +1,10 @@
 ﻿namespace Grove.Gameplay.Effects
 {
-  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Artifical;
   using Decisions.Results;
 
-  [Serializable]
   public class DestroyAllLandsOrCreatures : CustomizableEffect
   {
     public DestroyAllLandsOrCreatures()

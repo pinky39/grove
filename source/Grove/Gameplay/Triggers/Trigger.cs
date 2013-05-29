@@ -5,7 +5,6 @@
   using Infrastructure;
   using Misc;
 
-  [Serializable]
   public abstract class Trigger : GameObject, IHashable
   {
     public Func<Trigger, Game, bool> Condition = delegate { return true; };

@@ -4,7 +4,6 @@
   using System.Linq;
   using Gameplay;
 
-  [Serializable]
   public class DestroyEachPermanent : CostRule
   {
     private readonly Func<Card, int, bool> _selector;

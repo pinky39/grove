@@ -4,7 +4,6 @@
   using System.Linq;
   using Gameplay;
 
-  [Serializable]
   public class ControllerGravayardCountIs : TimingRule
   {
     private readonly Func<Card, bool> _selector;

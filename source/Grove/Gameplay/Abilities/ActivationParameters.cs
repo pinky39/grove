@@ -1,10 +1,9 @@
 ﻿namespace Grove.Gameplay.Abilities
 {
-  using System;
   using Infrastructure;
   using Targeting;
 
-  [Copyable, Serializable]
+  [Copyable]
   public class ActivationParameters
   {
     public bool PayCost = true;

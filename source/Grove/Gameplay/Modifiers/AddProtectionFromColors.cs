@@ -4,7 +4,6 @@
   using System.Collections.Generic;
   using Characteristics;
 
-  [Serializable]
   public class AddProtectionFromColors : Modifier
   {
     private readonly Func<Modifier, IEnumerable<CardColor>> _colors;

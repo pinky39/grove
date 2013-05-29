@@ -1,11 +1,9 @@
 ﻿namespace Grove.Gameplay.Effects
 {
-  using System;
   using Decisions;
   using Decisions.Results;
   using ManaHandling;
 
-  [Serializable]
   public class PayManaOrSacrifice : Effect, IProcessDecisionResults<BooleanResult>
   {
     private readonly DynParam<IManaAmount> _amount;

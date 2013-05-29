@@ -1,8 +1,5 @@
 ﻿namespace Grove.Artifical.TimingRules
 {
-  using System;
-
-  [Serializable]
   public class Counterspell : TimingRule
   {
     private int? _counterCost;

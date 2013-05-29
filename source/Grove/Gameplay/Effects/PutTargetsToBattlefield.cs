@@ -1,6 +1,5 @@
 ﻿namespace Grove.Gameplay.Effects
 {
-  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Decisions;
@@ -8,7 +7,6 @@
   using Targeting;
   using Zones;
 
-  [Serializable]
   public class PutTargetsToBattlefield : Effect, IProcessDecisionResults<ChosenCards>,
     IChooseDecisionResults<List<Card>, ChosenCards>
   {

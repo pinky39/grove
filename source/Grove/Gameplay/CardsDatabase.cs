@@ -3,24 +3,16 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using System.Runtime.Serialization;
-  using Infrastructure;
   using Misc;
 
-  [Serializable]
-  public class CardsDatabase : ISerializable
-  {    
+  public class CardsDatabase
+  {
     private readonly List<CardFactory> _factories;
 
     public CardsDatabase(IEnumerable<CardsSource> cardSources)
     {
       _factories = GetFactories(cardSources);
-    }
-
-    public void GetObjectData(SerializationInfo info, StreamingContext context)
-    {
-      info.SetType(typeof (SingletonSerializationHelper<CardsDatabase>));
-    }
+    }    
 
     public Card CreateCard(string name)
     {

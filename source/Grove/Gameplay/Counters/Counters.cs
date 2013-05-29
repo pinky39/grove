@@ -1,12 +1,11 @@
 ﻿namespace Grove.Gameplay.Counters
 {
-  using System;
   using System.Linq;
   using Characteristics;
   using Infrastructure;
   using Modifiers;
 
-  [Copyable, Serializable]
+  [Copyable]
   public class Counters : IModifiable
   {
     private readonly TrackableList<Counter> _counters = new TrackableList<Counter>();

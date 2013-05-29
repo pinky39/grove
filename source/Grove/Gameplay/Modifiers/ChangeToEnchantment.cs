@@ -1,9 +1,7 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
-  using System;
   using Characteristics;
 
-  [Serializable]
   public class ChangeToEnchantment : Modifier
   {
     private Power _cardPower;

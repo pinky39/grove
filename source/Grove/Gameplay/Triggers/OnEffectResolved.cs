@@ -5,7 +5,6 @@
   using Infrastructure;
   using Messages;
 
-  [Serializable]
   public class OnEffectResolved : Trigger, IReceive<EffectResolved>
   {
     private readonly Func<TriggeredAbility, Game, bool> _filter;

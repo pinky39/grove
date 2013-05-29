@@ -1,12 +1,10 @@
 ﻿namespace Grove.Gameplay.Effects
 {
-  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Decisions;
   using Decisions.Results;
 
-  [Serializable]
   public abstract class CustomizableEffect : Effect, IProcessDecisionResults<ChosenOptions>,
     IChooseDecisionResults<List<IEffectChoice>, ChosenOptions>
   {

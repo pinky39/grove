@@ -1,12 +1,10 @@
 ﻿namespace Grove.Artifical.TimingRules
 {
-  using System;
   using System.Collections.Generic;
   using Gameplay;
   using Gameplay.ManaHandling;
   using Gameplay.Misc;
 
-  [Serializable]
   public class LevelUp : TimingRule
   {
     private readonly IManaAmount _cost;

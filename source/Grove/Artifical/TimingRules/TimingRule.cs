@@ -1,14 +1,12 @@
 ﻿namespace Grove.Artifical.TimingRules
 {
-  using System;
   using System.Linq;
   using Gameplay.States;
   using Infrastructure;
 
-  [Serializable]
   public abstract class TimingRule : MachinePlayRule
   {
-    public override void Process(Artifical.ActivationContext c)
+    public override void Process(ActivationContext c)
     {
       if (c.HasTargets == false)
       {

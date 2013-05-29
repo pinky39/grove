@@ -1,13 +1,11 @@
 ﻿namespace Grove.Gameplay.Effects
 {
-  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Characteristics;
   using Decisions.Results;
   using Targeting;
 
-  [Serializable]
   public class DiscardAllCardsOfChosenColor : CustomizableEffect
   {
     private static readonly List<Rel> Map = new List<Rel>

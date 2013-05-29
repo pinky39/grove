@@ -1,8 +1,6 @@
 ﻿namespace Grove.Infrastructure
 {
-  using System;
-
-  [Copyable, Serializable]
+  [Copyable]
   public class Trackable<T> : ITrackableValue<T>
   {
     private INotifyChangeTracker _changeTracker = new NullTracker();

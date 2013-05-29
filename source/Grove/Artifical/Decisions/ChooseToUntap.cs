@@ -1,9 +1,7 @@
 ﻿namespace Grove.Artifical.Decisions
 {
-  using System;
   using Gameplay;
 
-  [Serializable]
   public class ChooseToUntap : Gameplay.Decisions.ChooseToUntap, ISearchNode, IDecisionExecution
   {
     private readonly DecisionExecutor _executor;

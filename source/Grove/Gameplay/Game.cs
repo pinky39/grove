@@ -8,9 +8,9 @@
   using Infrastructure;
   using Misc;
   using States;
-  using Zones;
-
-  [Copyable, Serializable]
+  using Zones;  
+  
+  [Copyable]
   public class Game
   {
     private DecisionQueue _decisionQueue;
@@ -31,7 +31,7 @@
     public int Score { get { return Players.Score; } }
     public Stack Stack { get; private set; }
     public TurnInfo Turn { get; private set; }
-    public SearchRunner Ai { get; private set; }
+    public SearchRunner Ai { get; private set; }    
 
     public static Game New(string yourName, string opponentsName, Deck humanDeck, Deck cpuDeck,
       CardsDatabase cardsDatabase, DecisionSystem decisionSystem)
@@ -41,7 +41,7 @@
 
       var player1 = new Player(yourName, "player1.png", ControllerType.Human, humanDeck);
       var player2 = new Player(opponentsName, "player2.png", ControllerType.Machine, cpuDeck);
-      game.Players = new Players(player1, player2);
+      game.Players = new Players(player1, player2);            
 
       return game.Initialize();
     }
@@ -145,22 +145,9 @@
 
     public void Start(int numOfTurns = int.MaxValue, bool skipPreGame = false, Player looser = null)
     {
-      try
-      {
-        _turnLimit = numOfTurns;
-        _stateMachine.Start(ShouldContinue, skipPreGame, looser);
-      }
-      catch (Exception)
-      {
-        LogFile.Error(CreateDiagnosticReport());
-        throw;
-      }
-    }
+      _turnLimit = numOfTurns;
 
-    public string CreateDiagnosticReport()
-    {
-      // todo
-      return String.Empty;
+      _stateMachine.Start(ShouldContinue, skipPreGame, looser);
     }
 
     public void Stop()

@@ -1,10 +1,8 @@
 ﻿namespace Grove.Gameplay.Damage
 {
-  using System;
   using System.Linq;
   using Targeting;
 
-  [Serializable]
   public class PreventLifelossBelowOne : DamagePrevention
   {
     public override int PreventLifeloss(int lifeloss)

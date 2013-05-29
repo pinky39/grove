@@ -7,7 +7,6 @@
   using Decisions.Results;
   using Zones;
 
-  [Serializable]
   public class PlayersSacrificePermanents : Effect, IProcessDecisionResults<ChosenCards>,
     IChooseDecisionResults<List<Card>, ChosenCards>
   {

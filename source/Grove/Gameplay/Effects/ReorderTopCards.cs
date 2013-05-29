@@ -1,12 +1,10 @@
 ﻿namespace Grove.Gameplay.Effects
 {
-  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Decisions;
   using Decisions.Results;
 
-  [Serializable]
   public class ReorderTopCards : Effect, IProcessDecisionResults<Ordering>, IChooseDecisionResults<List<Card>, Ordering>
   {
     private readonly int _count;

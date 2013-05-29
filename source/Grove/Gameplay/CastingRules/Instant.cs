@@ -3,7 +3,6 @@
   using System;
   using Effects;
 
-  [Serializable]
   public class Instant : CastingRule
   {
     private readonly Action<Card> _afterResolvePutToZone;

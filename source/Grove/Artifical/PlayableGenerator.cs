@@ -8,7 +8,6 @@
   using Gameplay.Decisions.Results;
   using Gameplay.Misc;
 
-  [Serializable]
   public class PlayableGenerator : GameObject
   {
     private readonly Player _player;

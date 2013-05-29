@@ -3,7 +3,6 @@
   using System;
   using Artifical;
 
-  [Serializable]
   public class DestroyAllPermanents : Effect
   {
     private readonly Func<Effect, Card, bool> _filter;

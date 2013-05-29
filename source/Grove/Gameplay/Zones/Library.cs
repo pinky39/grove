@@ -1,10 +1,8 @@
 ﻿namespace Grove.Gameplay.Zones
 {
-  using System;
   using System.Linq;
   using Infrastructure;
 
-  [Serializable]
   public class Library : OrderedZone, ILibraryQuery
   {
     public Library(Player owner) : base(owner) {}
