@@ -624,6 +624,7 @@
     <Compile Include="Gameplay\Effects\ChooseToAddCounter.cs" />
     <Compile Include="Gameplay\Modifiers\ChangeToEnchantment.cs" />
     <Compile Include="Gameplay\Modifiers\PlayerCastsCreatureLifetime.cs" />
+    <Compile Include="Infrastructure\RandomGenerator.cs" />
     <Compile Include="Persistance\TournamentInfo.cs" />
     <Compile Include="Gameplay\Tournaments\TournamentMatch.cs" />
     <Compile Include="Infrastructure\ListEx.cs" />

@@ -8,8 +8,8 @@
   using Infrastructure;
   using Misc;
   using States;
-  using Zones;  
-  
+  using Zones;
+
   [Copyable]
   public class Game
   {
@@ -18,7 +18,7 @@
     private Publisher _publisher;
     private StateMachine _stateMachine;
     private int _turnLimit = int.MaxValue;
-    private Trackable<bool> _wasStopped;
+    private Trackable<bool> _wasStopped;    
 
     private Game() {}
 
@@ -31,7 +31,8 @@
     public int Score { get { return Players.Score; } }
     public Stack Stack { get; private set; }
     public TurnInfo Turn { get; private set; }
-    public SearchRunner Ai { get; private set; }    
+    public SearchRunner Ai { get; private set; }
+    public RandomGenerator Random { get; private set; }
 
     public static Game New(string yourName, string opponentsName, Deck humanDeck, Deck cpuDeck,
       CardsDatabase cardsDatabase, DecisionSystem decisionSystem)
@@ -41,7 +42,7 @@
 
       var player1 = new Player(yourName, "player1.png", ControllerType.Human, humanDeck);
       var player2 = new Player(opponentsName, "player2.png", ControllerType.Machine, cpuDeck);
-      game.Players = new Players(player1, player2);            
+      game.Players = new Players(player1, player2);      
 
       return game.Initialize();
     }
@@ -55,6 +56,7 @@
       Combat.Initialize(this);
       _decisionQueue.Initialize(this);
       _stateMachine.Initialize(this);
+      Players.Initialize(this);
       Players.Initialize(this);
 
       return this;
@@ -76,6 +78,7 @@
       game._decisionSystem = decisionSystem;
       game._decisionQueue = new DecisionQueue();
       game._stateMachine = new StateMachine(game._decisionQueue);
+      game.Random = new RandomGenerator();
 
       return game;
     }
@@ -158,7 +161,7 @@
     public override string ToString()
     {
       return Turn.ToString();
-    }
+    }   
 
     private bool ShouldContinue()
     {

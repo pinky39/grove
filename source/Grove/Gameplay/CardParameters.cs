@@ -5,11 +5,11 @@
   using Abilities;
   using Characteristics;
   using Damage;
+  using Infrastructure;
   using ManaHandling;
 
   public class CardParameters
-  {
-    private static readonly Random Rnd = new Random();
+  {    
     public readonly ActivatedAbilities ActivatedAbilities = new ActivatedAbilities();
     public readonly CastInstructions CastInstructions = new CastInstructions();
     public readonly ContiniousEffects ContinuousEffects = new ContiniousEffects();
@@ -38,7 +38,7 @@
 
         if (Type.BasicLand)
         {
-          return Name + Rnd.Next(1, basicLandVersions + 1);
+          return Name + RandomEx.NextFast(1, basicLandVersions + 1);
         }
 
         return Name;

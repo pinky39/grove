@@ -8,11 +8,11 @@
 
   public static class RandomEx
   {
-    private static readonly Random Rnd = new Random();
+    [ThreadStatic] private static readonly Random Rnd = new Random();
 
 
     /// <summary>
-    ///   Returns an integer between min and max (inclusive).
+    ///     Returns an integer between min and max (inclusive).
     /// </summary>
     /// <param name = "min"></param>
     /// <param name = "max"></param>
@@ -59,7 +59,7 @@
       return list;
     }
 
-    private static int NextFast(int min, int max)
+    public static int NextFast(int min, int max)
     {
       return Rnd.Next(min, max + 1);
     }
@@ -75,8 +75,6 @@
         list[permutation[i]] = listCopy[i];
       }
       return list;
-    }    
-
-   
+    }
   }
 }
