@@ -30,10 +30,13 @@
       return false;
     }
 
-    public override void ProcessResults()
+    protected override void SetResultNoQuery()
     {
-      Result = Result ?? false;
+      Result = false;
+    }
 
+    public override void ProcessResults()
+    {      
       if (Result.IsTrue)
       {
         Pay();

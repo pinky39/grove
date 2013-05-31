@@ -6,11 +6,13 @@
   {
     protected override bool ShouldExecuteQuery { get { return Controller.CanMulligan; } }
 
-    public override void ProcessResults()
+    protected override void SetResultNoQuery()
     {
-      if (ShouldExecuteQuery == false)
-        return;
-
+      Result = false;
+    }
+    
+    public override void ProcessResults()
+    {      
       if (Result.IsTrue)
       {
         Controller.TakeMulligan();

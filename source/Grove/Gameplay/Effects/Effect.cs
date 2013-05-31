@@ -83,6 +83,8 @@
         X.GetHashCode());
     }
 
+    public int Id { get; private set; }
+
     protected void RegisterDynamicParameters(params IDynamicParameter[] parameters)
     {
       foreach (var dynamicParameter in parameters)
@@ -193,6 +195,7 @@
       Targets = p.Targets ?? new Targets();
       _triggerMessage = p.TriggerMessage;
       X = p.X;
+      Id = game.CreateId(this);
 
       _wasResolved.Initialize(game.ChangeTracker);
 

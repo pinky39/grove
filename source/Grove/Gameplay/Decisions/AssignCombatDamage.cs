@@ -18,7 +18,7 @@
       }
     }
 
-    public override void ProcessResults()
+    protected override void SetResultNoQuery()
     {
       if (Attacker.BlockersCount == 0 || Attacker.AssignsDamageAsThoughItWasntBlocked)
       {
@@ -29,7 +29,10 @@
         Result = new DamageDistribution();
         Result.Assign(Attacker.Blockers.First(), Attacker.DamageThisWillDealInOneDamageStep);
       }
+    }
 
+    public override void ProcessResults()
+    {
       Attacker.DistributeDamageToBlockers(Result);
     }
   }

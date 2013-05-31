@@ -21,6 +21,12 @@
     public string Description { get; set; }
     public string Name { get; set; }
     public int? LimitedCode { get; set; }
+    public int CardCount { get { return _cards.Count; } }
+
+    public string this[int index]
+    {
+      get { return _cards[index]; }
+    }
 
     public static Deck CreateUncastable()
     {

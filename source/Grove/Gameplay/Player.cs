@@ -57,6 +57,7 @@
     public Player Opponent { get { return Players.GetOpponent(this); } }
     public int LandsPlayedCount { get { return _landsPlayedCount.Value; } set { _landsPlayedCount.Value = value; } }
     public ManaCounts ManaPool { get { return _manaVault.ManaPool; } }
+    public int Id { get; private set; }
 
     private IEnumerable<IModifiable> ModifiableProperties
     {
@@ -193,6 +194,7 @@
     public void Initialize(Game game)
     {
       Game = game;
+      Id = game.CreateId(this);
 
       _life.Initialize(ChangeTracker);
       _landsPlayedCount.Initialize(ChangeTracker);

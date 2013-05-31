@@ -121,8 +121,8 @@
         IsNew = true;
         return;
       }
-
-      SelectedCard = CardsInfo[_deck.Random()];
+      
+      SelectedCard = CardsInfo[_deck[RandomEx.Next(_deck.CardCount)]];
     }
 
     public void ChangeSelectedCard(string name)

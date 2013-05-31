@@ -6,8 +6,7 @@
   using System.Linq;
 
   public class NameGenerator
-  {
-    private static readonly Random Rnd = new Random();
+  {    
     private List<string> _unitNames = new List<string>();
 
     public NameGenerator(string filename)
@@ -56,8 +55,8 @@
 
     public string GenerateName()
     {
-      var first = _unitNames[Rnd.Next(_unitNames.Count)];
-      var second = _unitNames[Rnd.Next(_unitNames.Count)];
+      var first = _unitNames[RandomEx.Next(_unitNames.Count)];
+      var second = _unitNames[RandomEx.Next(_unitNames.Count)];
 
       return first + " " + second;
     }

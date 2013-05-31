@@ -6,11 +6,13 @@
   {
     protected override bool ShouldExecuteQuery { get { return Controller.Battlefield.HasCreaturesThatCanAttack; } }
 
-    public override void ProcessResults()
+    protected override void SetResultNoQuery()
     {
-      if (Result == null)
-        return;
+      Result = new ChosenCards();
+    }
 
+    public override void ProcessResults()
+    {      
       foreach (var attacker in Result)
       {
         Game.Combat.DeclareAttacker(attacker);

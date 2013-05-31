@@ -1,16 +1,23 @@
 ﻿namespace Grove.Gameplay.Misc
 {
-  using System;
+  using Infrastructure;
 
+  [Copyable]
   public class Dice
   {
     public const int NumOfSides = 42;
-    private static readonly Random Rnd = new Random();
-    public int LastResult { get; private set; }
+    private readonly RandomGenerator _randomGenerator;
 
-    public void Roll()
+    private Dice() {}
+
+    public Dice(RandomGenerator randomGenerator)
     {
-      LastResult = Rnd.Next(1, NumOfSides);
+      _randomGenerator = randomGenerator;
+    }
+
+    public int Roll()
+    {
+      return _randomGenerator.Next(1, NumOfSides);
     }
   }
 }

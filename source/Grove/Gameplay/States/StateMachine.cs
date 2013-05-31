@@ -424,19 +424,19 @@
 
     private Player RollDice()
     {
-      var dice1 = new Dice();
-      var dice2 = new Dice();
+      int result1;
+      int result2;
 
       while (true)
       {
-        dice1.Roll();
-        dice2.Roll();
+        result1 = Dice.Roll();
+        result2 = Dice.Roll();
 
-        if (dice1.LastResult != dice2.LastResult)
+        if (result1 != result2)
           break;
       }
 
-      return dice1.LastResult > dice2.LastResult
+      return result1 > result2
         ? Players.Player1
         : Players.Player2;
     }

@@ -16,8 +16,7 @@
   using UserInterface.Shell;
 
   public class Tournament
-  {
-    private static readonly Random Rnd = new Random();
+  {    
     private readonly DeckBuilder _deckBuilder;
     private readonly Match _match;
     private readonly MatchSimulator _matchSimulator;
@@ -220,7 +219,7 @@
     {
       var pairings = _players
         .OrderByDescending(x => x.MatchPoints)
-        .ThenBy(x => Rnd.Next())
+        .ThenBy(x => RandomEx.Next(0, _players.Count))
         .ToArray();
 
       var matches = new List<TournamentMatch>();
@@ -269,7 +268,7 @@
       var limitedCode = MagicSet.GetLimitedCode(tournamentPack, boosterPacks);
 
       var preconstructed = MediaLibrary.GetDecks(limitedCode)
-        .Shuffle()
+        .OrderBy(x => RandomEx.Next())
         .Take(NonHumanPlayers.Count() - minNumberOfGeneratedDecks)
         .ToList();
 

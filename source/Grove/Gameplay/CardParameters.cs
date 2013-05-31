@@ -38,7 +38,7 @@
 
         if (Type.BasicLand)
         {
-          return Name + RandomEx.NextFast(1, basicLandVersions + 1);
+          return Name + RandomEx.Next(1, basicLandVersions + 1);
         }
 
         return Name;

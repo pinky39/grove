@@ -12,7 +12,7 @@
 
     public PlaySpellOrAbility()
     {
-      Result = DefaultResult();
+      Result = new ChosenPlayable {Playable = new Pass()};
       _executor = new DecisionExecutor(this);
     }
 
@@ -56,14 +56,7 @@
     protected override void ExecuteQuery()
     {
       Ai.SetBestResult(this);
-    }
-
-    private static ChosenPlayable DefaultResult()
-    {
-      // this is used when search is stoped when search depth is 
-      // reached      
-      return new ChosenPlayable {Playable = new Pass()};
-    }
+    }    
 
     private List<Playable> GeneratePlayables()
     {

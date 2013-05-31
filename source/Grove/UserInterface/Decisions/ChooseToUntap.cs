@@ -4,12 +4,7 @@
   using Shell;
 
   public class ChooseToUntap : Gameplay.Decisions.ChooseToUntap
-  {
-    public ChooseToUntap()
-    {
-      Result = false;
-    }
-
+  {    
     public IShell Shell { get; set; }
 
     protected override void ExecuteQuery()

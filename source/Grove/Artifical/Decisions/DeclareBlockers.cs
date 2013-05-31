@@ -1,9 +1,15 @@
 ﻿namespace Grove.Artifical.Decisions
 {
   using System.Linq;
+  using Gameplay.Decisions.Results;
 
   public class DeclareBlockers : Gameplay.Decisions.DeclareBlockers
   {
+    public DeclareBlockers()
+    {
+      Result = new ChosenBlockers();
+    }
+    
     protected override void ExecuteQuery()
     {
       Result = new BlockStrategy

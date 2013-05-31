@@ -7,13 +7,13 @@
   using System.Reflection;
   using System.Windows;
   using Gameplay;
+  using Infrastructure;
   using Persistance;
   using SelectDeck;
 
   public class ViewModel : ViewModelBase
   {
-    private const string YourName = "You";
-    private static readonly Random Rnd = new Random();
+    private const string YourName = "You";    
 
     public string DatabaseInfo
     {
@@ -102,13 +102,13 @@
         .Select(DeckFile.Read)
         .ToList();
 
-      var first = decks[Rnd.Next(0, decks.Count)];
+      var first = decks[RandomEx.Next(0, decks.Count)];
 
       var decksWithSameRating = decks
         .Where(x => x.Rating == first.Rating)
         .ToList();
 
-      var second = decksWithSameRating[Rnd.Next(0, decksWithSameRating.Count)];
+      var second = decksWithSameRating[RandomEx.Next(0, decksWithSameRating.Count)];
 
       firstDeck = first;
       secondDeck = second;

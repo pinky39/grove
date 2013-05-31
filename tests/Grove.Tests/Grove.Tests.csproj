@@ -333,7 +333,6 @@
     <Compile Include="Unit\ReflectionFacts.cs" />
     <Compile Include="Unit\StringExFacts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Unit\ShuffleFacts.cs" />
     <Compile Include="Infrastructure\Scenario.cs" />
     <Compile Include="Cards\ShivanDragon.cs" />
     <Compile Include="Cards\Shock.cs" />

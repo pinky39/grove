@@ -2,12 +2,11 @@
 {
   using System;
   using System.Collections.Generic;
+  using System.Diagnostics;
   using System.Linq;
 
   public static class EnumerableEx
   {
-    private static readonly Random Rnd = new Random();
-
     public static IEnumerable<T1> GetDuplicates<T1, T2>(this IEnumerable<T1> collection, Func<T1, T2> selector)
     {
       return collection.GroupBy(selector).Where(group => group.Count() > 1).SelectMany(group => group);
@@ -21,11 +20,6 @@
     public static bool None<T>(this IEnumerable<T> enumerable, Func<T, bool> predicate)
     {
       return !enumerable.Any(predicate);
-    }
-
-    public static T Random<T>(this IEnumerable<T> enumerable)
-    {
-      return enumerable.ElementAt(Rnd.Next(enumerable.Count()));
     }
 
     public static T MaxElement<T>(this IEnumerable<T> enumerable, Func<T, int> selector)
@@ -58,5 +52,18 @@
       list.RemoveAt(0);
       return popped;
     }
+
+    public static IList<T> ShuffleInPlace<T>(this IList<T> list, IList<int> permutation)
+    {
+      Debug.Assert(permutation.Count == list.Count,
+        "Permutation and list must be of equal lenghts.");
+
+      var listCopy = list.ToArray();
+      for (var i = 0; i < permutation.Count; i++)
+      {
+        list[permutation[i]] = listCopy[i];
+      }
+      return list;
+    }    
   }
 }

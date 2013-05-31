@@ -7,23 +7,20 @@
   {
     public List<Card> Cards;
     public IChooseDecisionResults<List<Card>, Ordering> ChooseDecisionResults;
-    public string Title;
     public IProcessDecisionResults<Ordering> ProcessDecisionResults;
+    public string Title;
 
     protected override bool ShouldExecuteQuery { get { return Cards.Count > 1; } }
 
+    protected override void SetResultNoQuery()
+    {
+      Result = Cards.Count == 0
+        ? new Ordering()
+        : new Ordering(0);
+    }
+
     public override void ProcessResults()
     {
-      switch (Cards.Count)
-      {
-        case 0:
-          Result = new Ordering();
-          break;
-        case 1:
-          Result = new Ordering(0);
-          break;
-      }
-
       ProcessDecisionResults.ProcessResults(Result);
     }
   }

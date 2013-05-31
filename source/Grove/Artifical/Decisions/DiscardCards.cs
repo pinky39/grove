@@ -1,9 +1,15 @@
 ﻿namespace Grove.Artifical.Decisions
 {
   using System.Linq;
+  using Gameplay.Decisions.Results;
 
   public class DiscardCards : Gameplay.Decisions.DiscardCards
   {
+    public DiscardCards()
+    {
+      Result = new ChosenCards();
+    }
+    
     protected override void ExecuteQuery()
     {
       var cardsToDiscard = CardsOwner.Hand

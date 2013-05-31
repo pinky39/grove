@@ -1,11 +1,14 @@
 ﻿namespace Grove.Gameplay.Decisions.Results
 {
+  using System;
   using System.Collections;
   using System.Collections.Generic;
   using System.Linq;
+  using System.Runtime.Serialization;
   using Infrastructure;
+  using Persistance;
 
-  [Copyable]
+  [Copyable, Serializable]
   public class ChosenBlockers : IEnumerable<ChosenBlockers.AttackerBlockerPair>
   {
     private readonly List<AttackerBlockerPair> _pairs = new List<AttackerBlockerPair>();
@@ -36,11 +39,30 @@
       _pairs.Remove(pair);
     }
 
-    [Copyable]
-    public class AttackerBlockerPair
+    [Copyable, Serializable]
+    public class AttackerBlockerPair : ISerializable
     {
+      public AttackerBlockerPair() {}
+
+      private AttackerBlockerPair(SerializationInfo info, StreamingContext context)
+      {
+        var ctx = (SerializationContext) context.Context;
+
+        var attackerId = info.GetInt32("attacker");
+        var blockerId = info.GetInt32("blocker");
+
+        Attacker = (Card) ctx.Game.GetObject(attackerId);
+        Blocker = (Card) ctx.Game.GetObject(blockerId);
+      }
+
       public Card Attacker { get; set; }
       public Card Blocker { get; set; }
+
+      public void GetObjectData(SerializationInfo info, StreamingContext context)
+      {
+        info.AddValue("attacker", Attacker.Id);
+        info.AddValue("blocker", Blocker.Id);
+      }
     }
   }
 }

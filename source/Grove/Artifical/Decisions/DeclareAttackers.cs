@@ -12,7 +12,7 @@
 
     public DeclareAttackers()
     {
-      Result = FinalResult();
+      Result = new ChosenCards();
       _executor = new DecisionExecutor(this);
     }
 
@@ -53,16 +53,9 @@
 
     protected override void ExecuteQuery()
     {
-      Ai.SetBestResult(this);
+      Ai.SetBestResult(this);      
     }
-
-    private static ChosenCards FinalResult()
-    {
-      // this is used when search is stoped when search depth is 
-      // reached 
-      return new ChosenCards();
-    }
-
+    
     private IEnumerable<List<Card>> GetAttackersDeclarations()
     {
       // none

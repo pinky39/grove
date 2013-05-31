@@ -29,22 +29,13 @@
       }
     }
 
-    public override void ProcessResults()
+    protected override void SetResultNoQuery()
     {
-      if (Count == 0)
-        return;
+      Result = new ChosenCards(CardsOwner.Hand.Where(Filter));
+    }
 
-      var candidates = CardsOwner.Hand.Where(Filter).ToList();
-
-      if (candidates.Count <= Count)
-      {
-        foreach (var card in candidates)
-        {
-          card.Discard();
-        }
-        return;
-      }
-
+    public override void ProcessResults()
+    {     
       foreach (var card in Result)
       {
         card.Discard();

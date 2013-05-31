@@ -156,9 +156,8 @@
       return last;
     }
 
-    public void Shuffle()
-    {
-      var permutation = RandomEx.Permutation(0, Count);
+    public void Shuffle(IList<int> permutation)
+    {      
       var copy = _items.ToList();
 
       Clear();

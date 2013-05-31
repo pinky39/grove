@@ -11,8 +11,7 @@
   using Persistance;
 
   public static class MediaLibrary
-  {
-    private static readonly Random Rnd = new Random();
+  {    
     private const string Images = @"images\";
     private const string Cards = @"cards\";
     private const string Decks = @"decks\";

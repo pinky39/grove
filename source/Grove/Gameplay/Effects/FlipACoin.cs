@@ -1,15 +1,12 @@
 ﻿namespace Grove.Gameplay.Effects
 {
   using Messages;
-  using Misc;
 
   public class FlipACoinReturnToHand : Effect
   {
-    private readonly Coin _coin = new Coin();
-
     protected override void ResolveEffect()
     {
-      var hasWon = _coin.Flip();
+      var hasWon = Coin.Flip();
 
       Publish(new PlayerHasFlippedACoin
         {

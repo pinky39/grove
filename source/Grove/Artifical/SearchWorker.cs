@@ -100,7 +100,7 @@
       }
 
       // Restore the game from the snapshot.
-      _game.Restore(snaphost);
+      _game.RollbackToSnapshot(snaphost);
 
       LogFile.Debug("{0} stop eval move {1}", searchNode, index);
     }

@@ -31,7 +31,7 @@
     {
       get
       {
-        var randomIndex = RandomEx.Next(0, _cards.Count - 1);
+        var randomIndex = GenerateRandomNumber(0, _cards.Count);
         return _cards.ElementAt(randomIndex);
       }
     }

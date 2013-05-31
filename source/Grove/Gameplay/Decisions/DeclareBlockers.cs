@@ -3,12 +3,7 @@
   using Results;
 
   public abstract class DeclareBlockers : Decision<ChosenBlockers>
-  {
-    protected DeclareBlockers()
-    {
-      Result = NoBlockers();
-    }
-
+  {    
     protected override bool ShouldExecuteQuery
     {
       get
@@ -18,16 +13,13 @@
       }
     }
 
-    private static ChosenBlockers NoBlockers()
+    protected override void SetResultNoQuery()
     {
-      return new ChosenBlockers();
+      Result = new ChosenBlockers();
     }
 
     public override void ProcessResults()
-    {
-      if (Result == null)
-        return;
-
+    {      
       foreach (var pair in Result)
       {
         Game.Combat.DeclareBlocker(pair.Blocker, pair.Attacker);

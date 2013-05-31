@@ -7,6 +7,7 @@
   using Decisions.Scenario;
   using Infrastructure;
   using Misc;
+  using Persistance;
   using States;
   using Zones;
 
@@ -15,10 +16,12 @@
   {
     private DecisionQueue _decisionQueue;
     private DecisionSystem _decisionSystem;
+    private IdentityManager _identityManager;
     private Publisher _publisher;
     private StateMachine _stateMachine;
     private int _turnLimit = int.MaxValue;
-    private Trackable<bool> _wasStopped;    
+    private Trackable<bool> _wasStopped;
+    private DecisionLog _decisionLog;
 
     private Game() {}
 
@@ -32,7 +35,10 @@
     public Stack Stack { get; private set; }
     public TurnInfo Turn { get; private set; }
     public SearchRunner Ai { get; private set; }
+    public Coin Coin { get; private set; }
+    public Dice Dice { get; private set; }
     public RandomGenerator Random { get; private set; }
+    
 
     public static Game New(string yourName, string opponentsName, Deck humanDeck, Deck cpuDeck,
       CardsDatabase cardsDatabase, DecisionSystem decisionSystem)
@@ -42,14 +48,15 @@
 
       var player1 = new Player(yourName, "player1.png", ControllerType.Human, humanDeck);
       var player2 = new Player(opponentsName, "player2.png", ControllerType.Machine, cpuDeck);
-      game.Players = new Players(player1, player2);      
+      game.Players = new Players(player1, player2);
 
       return game.Initialize();
     }
 
     private Game Initialize()
     {
-      _publisher.Initialize(ChangeTracker);
+      _publisher.Initialize(ChangeTracker);      
+
       Stack.Initialize(this);
       Turn.Initialize(this);
       _wasStopped.Initialize(ChangeTracker);
@@ -79,6 +86,10 @@
       game._decisionQueue = new DecisionQueue();
       game._stateMachine = new StateMachine(game._decisionQueue);
       game.Random = new RandomGenerator();
+      game.Coin = new Coin(game.Random);
+      game.Dice = new Dice(game.Random);
+      game._identityManager = new IdentityManager();
+      game._decisionLog = new DecisionLog(game);
 
       return game;
     }
@@ -107,6 +118,30 @@
       _publisher.Subscribe(instance);
     }
 
+    public int CreateId(object obj)
+    {
+      if (Ai.IsSearchInProgress)
+        return -1;
+      
+      return _identityManager.GetId(obj);
+    }
+
+    public object GetObject(int id)
+    {
+      if (Ai.IsSearchInProgress)
+        return null;
+      
+      return _identityManager.GetObject(id);
+    }
+
+    public void SaveDecisionResult(object result)
+    {
+      if (Ai.IsSearchInProgress)
+        return;
+      
+      _decisionLog.SaveResult(result);
+    }
+
     public static Game NewSimulation(Deck deck1, Deck deck2, int maxSearchDepth, int maxTargetCount,
       CardsDatabase cardsDatabase, DecisionSystem decisionSystem)
     {
@@ -131,9 +166,14 @@
         calc.Calculate(Combat));
     }
 
-    public void Restore(object snaphost)
+    public void SaveToDisk(string filename)
     {
-      ChangeTracker.Restore((Snapshot) snaphost);
+      
+    }
+
+    public void RollbackToSnapshot(object snaphost)
+    {
+      ChangeTracker.RollbackToSnapshot((Snapshot) snaphost);
     }
 
     public object CreateSnapshot()

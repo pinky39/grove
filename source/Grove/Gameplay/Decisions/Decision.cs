@@ -24,12 +24,19 @@
       {
         ExecuteQuery();
       }
+      else
+      {
+        SetResultNoQuery();
+      }
 
       ProcessResults();
+      SaveDecisionResult(Result);
+      
       _hasCompleted = true;
     }
 
     public abstract void ProcessResults();
     protected abstract void ExecuteQuery();
+    protected virtual void SetResultNoQuery() {}
   }
 }

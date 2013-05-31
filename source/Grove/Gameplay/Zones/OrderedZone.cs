@@ -97,7 +97,7 @@
 
     public virtual void Shuffle()
     {
-      _cards.Shuffle();
+      _cards.Shuffle(GetRandomPermutation(0, _cards.Count));
 
       foreach (var card in _cards)
       {

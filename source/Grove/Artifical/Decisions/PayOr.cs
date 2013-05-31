@@ -2,6 +2,11 @@
 {
   public class PayOr : Gameplay.Decisions.PayOr
   {
+    public PayOr()
+    {
+      Result = false;
+    }
+    
     protected override void ExecuteQuery()
     {
       if (ChooseDecisionResults != null)

@@ -1,9 +1,6 @@
 ﻿namespace Grove.Infrastructure
 {
   using System;
-  using System.Collections.Generic;
-  using System.Diagnostics;
-  using System.Linq;
   using System.Security.Cryptography;
 
   public static class RandomEx
@@ -12,12 +9,12 @@
 
 
     /// <summary>
-    ///     Returns an integer between min and max (inclusive).
+    ///   Returns an integer between min and max (inclusive).
     /// </summary>
     /// <param name = "min"></param>
     /// <param name = "max"></param>
     /// <returns></returns>
-    public static int Next(int min, int max)
+    public static int NextStrong(int min, int max)
     {
       // from wikipedia http://en.wikipedia.org/wiki/Fisher-Yates
       // For example, the built-in pseudorandom number generator provided by many programming languages and/or libraries may often have only 32 bits of internal state, 
@@ -35,46 +32,19 @@
       return rand.Next(min, max + 1);
     }
 
-    public static IList<int> Permutation(int start, int count)
-    {
-      var range = Enumerable.Range(0, count);
-      return ShuffleInPlace(range.ToArray());
-    }
-
-    public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> enumerable)
-    {
-      return enumerable.OrderBy(x => Rnd.Next());
-    }
-
-    public static IList<T> ShuffleInPlace<T>(this IList<T> list)
-    {
-      // Fisher-Yates shuffle
-      // http://en.wikipedia.org/wiki/Fisher-Yates
-      for (var i = list.Count - 1; i >= 1; i--)
-      {
-        var j = NextFast(0, i);
-        list.Swap(i, j);
-      }
-
-      return list;
-    }
-
-    public static int NextFast(int min, int max)
+    public static int Next(int min, int max)
     {
       return Rnd.Next(min, max + 1);
     }
 
-    public static IList<T> ShuffleInPlace<T>(this IList<T> list, IList<int> permutation)
+    public static int Next(int max)
     {
-      Debug.Assert(permutation.Count == list.Count,
-        "Permutation and list must be of equal lenghts.");
+      return Rnd.Next(max);
+    }
 
-      var listCopy = list.ToArray();
-      for (var i = 0; i < permutation.Count; i++)
-      {
-        list[permutation[i]] = listCopy[i];
-      }
-      return list;
+    public static int Next()
+    {
+      return Rnd.Next();
     }
   }
 }

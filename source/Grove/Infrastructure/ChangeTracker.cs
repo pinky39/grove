@@ -120,7 +120,7 @@
       }
     }
 
-    public void Restore(Snapshot snapshot)
+    public void RollbackToSnapshot(Snapshot snapshot)
     {
       LogFile.Debug("Restore from snapshot.");
 

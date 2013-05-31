@@ -1,6 +1,5 @@
 ﻿namespace Grove.Tests.Unit
 {
-  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Grove.Infrastructure;
@@ -63,11 +62,9 @@
 
     public class Country : IHashable
     {
-      private static readonly Random Rnd = new Random();
-
       public int CalculateHash(HashCalculator calc)
       {
-        return Rnd.Next();
+        return RandomEx.Next();
       }
     }
 

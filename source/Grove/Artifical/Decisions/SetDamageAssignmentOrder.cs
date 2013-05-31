@@ -8,6 +8,11 @@
 
   public class SetDamageAssignmentOrder : Gameplay.Decisions.SetDamageAssignmentOrder
   {
+    public SetDamageAssignmentOrder()
+    {
+      Result = new DamageAssignmentOrder();
+    }
+    
     protected override void ExecuteQuery()
     {
       if (Attacker.HasDeathTouch)

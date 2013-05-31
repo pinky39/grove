@@ -16,7 +16,7 @@
       tevent += delegate { count++; };
       tevent.Raise();
 
-      _changeTracker.Restore(snapshot);
+      _changeTracker.RollbackToSnapshot(snapshot);
 
       tevent.Raise();
 
@@ -36,7 +36,7 @@
       tevent.Raise();
       Assert.Equal(0, count);
 
-      _changeTracker.Restore(snapshot);
+      _changeTracker.RollbackToSnapshot(snapshot);
       tevent.Raise();
       Assert.Equal(1, count);
     }

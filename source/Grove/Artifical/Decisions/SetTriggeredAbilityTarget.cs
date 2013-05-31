@@ -8,13 +8,13 @@
   using TargetingRules;
 
   public class SetTriggeredAbilityTarget : Gameplay.Decisions.SetTriggeredAbilityTarget, ISearchNode, IDecisionExecution
-  {
+  {    
     private readonly DecisionExecutor _executor;
     private List<Targets> _targets;
 
     public SetTriggeredAbilityTarget()
     {
-      Result = DefaultResult();
+      Result = new ChosenTargets(null);
       _executor = new DecisionExecutor(this);
     }
 
@@ -56,12 +56,7 @@
     protected override void ExecuteQuery()
     {
       Ai.SetBestResult(this);
-    }
-
-    private static ChosenTargets DefaultResult()
-    {
-      return new ChosenTargets(null);
-    }
+    }    
 
     private IEnumerable<Targets> GenerateTargets()
     {

@@ -118,6 +118,7 @@
     public bool CanTap { get { return !IsTapped && (!HasSummoningSickness || !Is().Creature || Has().Haste); } }
     public bool IsPermanent { get { return Zone == Zone.Battlefield; } }
     public int CharacterCount { get { return FlavorText.CharacterCount + Text.CharacterCount; } }
+    public int Id { get; private set; }
 
     public int CountersCount(CounterType? counterType = null)
     {
@@ -353,6 +354,7 @@
     {
       Game = game;
       Owner = owner;
+      Id = game.CreateId(this);
 
       _controller = new ControllerCharacteristic(owner);
       _controller.Initialize(game, this);

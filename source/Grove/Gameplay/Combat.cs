@@ -193,7 +193,7 @@
       return _attackers.FirstOrDefault(a => a.Card == cardAttacker);
     }
 
-    private Blocker FindBlocker(Card cardBlocker)
+    public Blocker FindBlocker(Card cardBlocker)
     {
       return _blockers.FirstOrDefault(b => b.Card == cardBlocker);
     }

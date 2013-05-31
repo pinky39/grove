@@ -24,5 +24,7 @@
     public void AddModifier(IModifier modifier) {}
 
     public void RemoveModifier(IModifier modifier) {}
+    
+    public int Id { get { return 0; } }
   }
 }

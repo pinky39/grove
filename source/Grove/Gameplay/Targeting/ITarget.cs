@@ -8,7 +8,10 @@
   using Infrastructure;
   using Modifiers;
 
-  public interface ITarget : IHashable {}
+  public interface ITarget : IHashable
+  {
+    int Id { get; }
+  }
 
   public static class Target
   {
@@ -22,7 +25,7 @@
       {
         target.Card().AddModifier(modifier);
       }
-    }
+    }    
 
     public static Zone? Zone(this ITarget target)
     {

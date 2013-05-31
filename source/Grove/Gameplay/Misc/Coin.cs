@@ -1,14 +1,22 @@
 ﻿namespace Grove.Gameplay.Misc
 {
-  using System;
+  using Infrastructure;
 
+  [Copyable]
   public class Coin
   {
-    private static readonly Random Rnd = new Random();
+    private readonly RandomGenerator _randomGenerator;
+
+    private Coin() {}
+
+    public Coin(RandomGenerator randomGenerator)
+    {
+      _randomGenerator = randomGenerator;
+    }
 
     public bool Flip()
     {
-      var result = Rnd.Next(2);
+      var result = _randomGenerator.Next(2);
       return result == 0;
     }
   }

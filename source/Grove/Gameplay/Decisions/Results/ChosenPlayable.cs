@@ -1,8 +1,9 @@
 ﻿namespace Grove.Gameplay.Decisions.Results
 {
+  using System;
   using Infrastructure;
 
-  [Copyable]
+  [Copyable, Serializable]
   public class ChosenPlayable
   {
     public Playable Playable { get; set; }

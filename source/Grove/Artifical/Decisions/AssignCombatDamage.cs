@@ -7,6 +7,11 @@
 
   public class AssignCombatDamage : Gameplay.Decisions.AssignCombatDamage
   {
+    public AssignCombatDamage()
+    {
+      Result = new DamageDistribution();
+    }
+    
     protected override void ExecuteQuery()
     {
       if (Attacker.HasDeathTouch)

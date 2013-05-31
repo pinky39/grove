@@ -1,7 +1,9 @@
 ﻿namespace Grove.Gameplay.Decisions.Results
 {
+  using System;
   using System.Collections.Generic;
 
+  [Serializable]
   public class ChosenOptions
   {
     private readonly List<object> _options = new List<object>();

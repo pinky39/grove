@@ -4,6 +4,11 @@
 
   public class TakeMulligan : Gameplay.Decisions.TakeMulligan
   {
+    public TakeMulligan()
+    {
+      Result = false;
+    }
+    
     protected override void ExecuteQuery()
     {
       var landCount = Controller.Hand.Lands.Count();

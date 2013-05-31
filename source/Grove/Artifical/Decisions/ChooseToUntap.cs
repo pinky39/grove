@@ -7,9 +7,9 @@
     private readonly DecisionExecutor _executor;
 
     public ChooseToUntap()
-    {
-      Result = false;
+    {      
       _executor = new DecisionExecutor(this);
+      Result = false;
     }
 
     public override bool HasCompleted { get { return _executor.HasCompleted; } }

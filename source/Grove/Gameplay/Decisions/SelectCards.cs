@@ -21,12 +21,7 @@
     public Zone Zone;
 
     private List<Card> _validCards;
-    private ICardValidator _validator;
-
-    protected SelectCards()
-    {
-      Result = null;
-    }
+    private ICardValidator _validator;    
 
     protected List<Card> ValidTargets
     {
@@ -56,6 +51,11 @@
       }
     }
 
+    protected override void SetResultNoQuery()
+    {
+      Result = new ChosenCards(ValidTargets);
+    }
+
     public void Validator(ICardValidator validator)
     {
       _validator = validator;
@@ -72,9 +72,8 @@
     }
 
     public override void ProcessResults()
-    {
-      var result = Result ?? new ChosenCards(ValidTargets);
-      ProcessDecisionResults.ProcessResults(result);
+    {      
+      ProcessDecisionResults.ProcessResults(Result);
     }
   }
 }

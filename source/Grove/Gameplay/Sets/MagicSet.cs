@@ -5,10 +5,10 @@
   using System.Globalization;
   using System.IO;
   using Artifical;
+  using Infrastructure;
 
   public class MagicSet
-  {
-    private static readonly Random Random = new Random();
+  {    
     private readonly Dictionary<string, int> _boosterPack = new Dictionary<string, int>();
     private readonly List<string> _commons = new List<string>();
     private readonly List<string> _rares = new List<string>();
@@ -103,17 +103,17 @@
 
     private string GetRandomCommon()
     {
-      return _commons[Random.Next(0, _commons.Count)];
+      return _commons[RandomEx.Next(0, _commons.Count)];
     }
 
     private string GetRandomUncommon()
     {
-      return _uncommons[Random.Next(0, _uncommons.Count)];
+      return _uncommons[RandomEx.Next(0, _uncommons.Count)];
     }
 
     private string GetRandomRare()
     {
-      return _rares[Random.Next(0, _rares.Count)];
+      return _rares[RandomEx.Next(0, _rares.Count)];
     }
 
     public List<string> GenerateMixedPack(int boosterCount, int tournamentCount)

@@ -19,7 +19,10 @@
 
     public Deck GetBestDeck(List<Deck> decks)
     {
-      var bestDecks = decks.Select((x, i) => new NumberedDeck {Number = i + 1, Deck = x}).Shuffle().ToList();
+      var bestDecks = decks
+        .Select((x, i) => new NumberedDeck {Number = i + 1, Deck = x})
+        .OrderBy(x => RandomEx.Next())
+        .ToList();
 
       var round = 1;
       while (bestDecks.Count > 1)

@@ -8,6 +8,11 @@
 
     protected override bool ShouldExecuteQuery { get { return Permanent.IsTapped; } }
 
+    protected override void SetResultNoQuery()
+    {
+      Result = false;
+    }
+
     public override void ProcessResults()
     {
       if (Result.IsTrue)
