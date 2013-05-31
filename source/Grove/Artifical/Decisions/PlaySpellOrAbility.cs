@@ -8,7 +8,7 @@
   public class PlaySpellOrAbility : Gameplay.Decisions.PlaySpellOrAbility, ISearchNode, IDecisionExecution
   {
     private readonly DecisionExecutor _executor;
-    private List<Playable> _playables;
+    private List<IPlayable> _playables;
 
     public PlaySpellOrAbility()
     {
@@ -38,7 +38,7 @@
 
     public void SetResult(int index)
     {
-      Result = _playables[index];
+      Result = new ChosenPlayable {Playable = _playables[index]};
       LogFile.Debug("Move is {0}", _playables[index]);
     }
 
@@ -58,13 +58,13 @@
       Ai.SetBestResult(this);
     }    
 
-    private List<Playable> GeneratePlayables()
+    private List<IPlayable> GeneratePlayables()
     {
       if (Stack.TopSpellOwner == Controller || (Ai.IsSearchInProgress && Turn.StepCount > Ai.PlaySpellsUntilDepth))
       {
         // if you own the top spell just pass so it resolves
         // you will get priority again when it resolves
-        return new List<Playable>();
+        return new List<IPlayable>();
       }
 
       return new PlayableGenerator(Controller, Game).GetPlayables();

@@ -71,6 +71,7 @@
     }
 
     public string Avatar { get; private set; }
+    public Deck Deck {get { return _deck; }}
     public IBattlefieldQuery Battlefield { get { return _battlefield; } }
     public IEnumerable<Card> Exile { get { return _exile; } }
     public bool CanMulligan { get { return _hand.CanMulligan && HasMulligan; } }

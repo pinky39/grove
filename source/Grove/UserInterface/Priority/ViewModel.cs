@@ -6,7 +6,7 @@
 
   public class ViewModel : ViewModelBase, IReceive<PlayableSelected>
   {
-    public Playable Playable { get; private set; }
+    public IPlayable Playable { get; private set; }
 
     public void Receive(PlayableSelected message)
     {

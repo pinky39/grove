@@ -12,14 +12,15 @@
   public class DecisionSystem
   {
     private static readonly HashSet<Type> ScenarioDecisions = new HashSet<Type>(GetScenarioDecisions());
+    private static readonly Dictionary<Type, ParameterlessCtor> PlaybackDecisions = LoadPlaybackDecisions();
     private static readonly Dictionary<Type, ParameterlessCtor> MachineDecisions = LoadMachineDecisions();
 
     private readonly PrerecordedDecisions _prerecordedDecisions = new PrerecordedDecisions();
-    private readonly IUiDecisionFactory _uiDecisionFactory;
+    private readonly IDecisionFactory _decisionFactory;
 
-    public DecisionSystem(IUiDecisionFactory uiDecisionFactory)
+    public DecisionSystem(IDecisionFactory decisionFactory)
     {
-      _uiDecisionFactory = uiDecisionFactory;
+      _decisionFactory = decisionFactory;
     }
 
     private static IEnumerable<Type> GetScenarioDecisions()
@@ -29,6 +30,20 @@
         .Where(x => x.Implements<IDecision>())
         .Where(x => x.Namespace.EndsWith("Scenario"))
         .Select(x => x.BaseType);
+    }
+
+    private static Dictionary<Type, ParameterlessCtor> LoadPlaybackDecisions()
+    {
+       return Assembly.GetExecutingAssembly()
+        .GetTypes()
+        .Where(x => x.Implements<IDecision>())
+        .Where(x => x.Namespace.Equals(typeof (Playback.PlaySpellOrAbility).Namespace))
+        .Select(x => new
+          {
+            Type = x.BaseType,
+            Ctor = x.GetParameterlessCtor()
+          })
+        .ToDictionary(x => x.Type, x => x.Ctor);
     }
 
     private static Dictionary<Type, ParameterlessCtor> LoadMachineDecisions()
@@ -55,23 +70,29 @@
     {
       IDecision decision;
 
-      var controller = game.Ai.IsSearchInProgress
-        ? ControllerType.Machine
-        : player.Controller;
-
-      if (controller == ControllerType.Scenario && ExistsScenarioDecision<TDecision>())
+      if (game.IsPlayback)
       {
-        decision =
-          _prerecordedDecisions.GetNext<TDecision>(game.Turn.TurnCount, game.Turn.Step) ??
-            new NopScenarioDecision();
+        decision = GetPlayback<TDecision>();
       }
       else
       {
-        decision = controller == ControllerType.Human
-          ? _uiDecisionFactory.Create<TDecision>()
-          : CreateMachine<TDecision>();
-      }
+        var controller = game.Ai.IsSearchInProgress
+          ? ControllerType.Machine
+          : player.Controller;
 
+        if (controller == ControllerType.Scenario && ExistsScenarioDecision<TDecision>())
+        {
+          decision =
+            _prerecordedDecisions.GetNext<TDecision>(game.Turn.TurnCount, game.Turn.Step) ??
+              new NopScenarioDecision();
+        }
+        else
+        {
+          decision = controller == ControllerType.Human
+            ? _decisionFactory.CreateUi<TDecision>()
+            : CreateMachine<TDecision>();
+        }
+      }
 
       decision.Initialize(player, game);
       SetParameters(decision, setParameters);
@@ -82,6 +103,11 @@
     private IDecision CreateMachine<TDecision>()
     {
       return (IDecision) MachineDecisions[typeof (TDecision)]();
+    }
+
+    private IDecision GetPlayback<TDecision>()
+    {
+      return (IDecision) PlaybackDecisions[typeof (TDecision)]();
     }
 
     private static bool ExistsScenarioDecision<TDecision>()

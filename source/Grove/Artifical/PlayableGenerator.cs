@@ -20,7 +20,7 @@
       Game = game;
     }
 
-    private void FindPlayableAbilities(IEnumerable<Card> cards, List<Playable> allPlayables)
+    private void FindPlayableAbilities(IEnumerable<Card> cards, List<IPlayable> allPlayables)
     {
       foreach (var card in cards)
       {
@@ -38,7 +38,7 @@
       }
     }
 
-    private void FindPlayableSpells(IEnumerable<Card> cards, List<Playable> allPlayables)
+    private void FindPlayableSpells(IEnumerable<Card> cards, List<IPlayable> allPlayables)
     {
       foreach (var card in cards)
       {
@@ -99,9 +99,9 @@
     }
 
 
-    public List<Playable> GetPlayables()
+    public List<IPlayable> GetPlayables()
     {
-      var all = new List<Playable>();
+      var all = new List<IPlayable>();
 
       FindPlayableSpells(_player.Hand, all);
       FindPlayableAbilities(_player.Battlefield.Concat(_player.Hand), all);

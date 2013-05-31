@@ -146,7 +146,7 @@
     }
 
     public DecisionsForOneStep Cast(Card card, Card target, int index = 0, int? x = null,
-      Func<Card, Game, bool> condition = null)
+      Func<Game, bool> condition = null)
     {
       condition = condition ?? delegate { return true; };
 

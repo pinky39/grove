@@ -1,8 +1,10 @@
 ﻿namespace Grove.Gameplay.Decisions.Scenario
 {
+  using System;
   using System.Linq;
   using Results;
 
+  [Serializable]
   public class ScenarioPlayableAbility : PlayableAbility
   {
     public override bool CanPlay()

@@ -14,13 +14,13 @@
     {
       if (Configuration.ShouldAutoPass(Turn.Step, Controller.IsActive) && Stack.IsEmpty)
       {
-        Result = new Pass();
+        Result = new ChosenPlayable {Playable = new Pass()};
         return;
       }
 
       var dialog = DialogFactory.Create();
       Shell.ShowModalDialog(dialog, DialogType.Small, InteractionState.PlaySpellsOrAbilities);
-      Result = dialog.Playable ?? new Pass();
+      Result = new ChosenPlayable {Playable = dialog.Playable ?? new Pass()};
     }
   }
 }

@@ -2,6 +2,8 @@
 {
   using System;
   using System.Collections.Generic;
+  using System.IO;
+  using System.Runtime.Serialization.Formatters.Binary;
   using Artifical;
   using Decisions;
   using Decisions.Scenario;
@@ -14,6 +16,7 @@
   [Copyable]
   public class Game
   {
+    private DecisionLog _decisionLog;
     private DecisionQueue _decisionQueue;
     private DecisionSystem _decisionSystem;
     private IdentityManager _identityManager;
@@ -21,7 +24,6 @@
     private StateMachine _stateMachine;
     private int _turnLimit = int.MaxValue;
     private Trackable<bool> _wasStopped;
-    private DecisionLog _decisionLog;
 
     private Game() {}
 
@@ -38,7 +40,8 @@
     public Coin Coin { get; private set; }
     public Dice Dice { get; private set; }
     public RandomGenerator Random { get; private set; }
-    
+    public bool IsPlayback { get; private set; }
+
 
     public static Game New(string yourName, string opponentsName, Deck humanDeck, Deck cpuDeck,
       CardsDatabase cardsDatabase, DecisionSystem decisionSystem)
@@ -55,7 +58,7 @@
 
     private Game Initialize()
     {
-      _publisher.Initialize(ChangeTracker);      
+      _publisher.Initialize(ChangeTracker);
 
       Stack.Initialize(this);
       Turn.Initialize(this);
@@ -63,8 +66,7 @@
       Combat.Initialize(this);
       _decisionQueue.Initialize(this);
       _stateMachine.Initialize(this);
-      Players.Initialize(this);
-      Players.Initialize(this);
+      Players.Initialize(this);      
 
       return this;
     }
@@ -122,7 +124,7 @@
     {
       if (Ai.IsSearchInProgress)
         return -1;
-      
+
       return _identityManager.GetId(obj);
     }
 
@@ -130,7 +132,7 @@
     {
       if (Ai.IsSearchInProgress)
         return null;
-      
+
       return _identityManager.GetObject(id);
     }
 
@@ -138,8 +140,13 @@
     {
       if (Ai.IsSearchInProgress)
         return;
-      
+
       _decisionLog.SaveResult(result);
+    }
+
+    public object LoadDecisionResult()
+    {
+      return _decisionLog.LoadResult();
     }
 
     public static Game NewSimulation(Deck deck1, Deck deck2, int maxSearchDepth, int maxTargetCount,
@@ -166,9 +173,48 @@
         calc.Calculate(Combat));
     }
 
-    public void SaveToDisk(string filename)
+    public void Save(Stream stream)
     {
-      
+      var formatter = new BinaryFormatter();
+
+      formatter.Serialize(stream, Players.Player1.Name);
+      formatter.Serialize(stream, Players.Player2.Name);
+      formatter.Serialize(stream, Players.Player1.Deck);
+      formatter.Serialize(stream, Players.Player2.Deck);
+      formatter.Serialize(stream, Random.Seed);
+
+      _decisionLog.WriteTo(stream);
+    }
+
+    public static Game Load(Stream stream, CardsDatabase cardsDatabase, DecisionSystem decisionSystem)
+    {
+      var formatter = new BinaryFormatter();
+
+      var player1Name = (string) formatter.Deserialize(stream);
+      var player2Name = (string) formatter.Deserialize(stream);
+      var player1Deck = (Deck) formatter.Deserialize(stream);
+      var player2Deck = (Deck) formatter.Deserialize(stream);
+      var randomSeed = (int) formatter.Deserialize(stream);
+
+      var record = new MemoryStream();
+      stream.CopyTo(record);
+
+      var game = New(player1Name, player2Name, player1Deck, player2Deck, cardsDatabase, decisionSystem);
+
+      game.Random = new RandomGenerator(randomSeed);
+      game.FastForward(record);
+
+
+      return game;
+    }
+
+    private void FastForward(MemoryStream record)
+    {
+      _decisionLog.SetStream(record);
+
+      IsPlayback = true;
+      _stateMachine.Start(() => _decisionLog.IsAtTheEnd, skipPreGame: false);
+      IsPlayback = false;
     }
 
     public void RollbackToSnapshot(object snaphost)
@@ -201,7 +247,7 @@
     public override string ToString()
     {
       return Turn.ToString();
-    }   
+    }
 
     private bool ShouldContinue()
     {

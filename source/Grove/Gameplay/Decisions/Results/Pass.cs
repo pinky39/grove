@@ -3,9 +3,16 @@
   using System;
 
   [Serializable]
-  public class Pass : Playable
+  public class Pass : IPlayable
   {
-    public override bool WasPriorityPassed { get { return true; } }
+    public bool WasPriorityPassed { get { return true; } }
+
+    public bool CanPlay()
+    {
+      return true;
+    }
+
+    public void Play() {}
 
     public override string ToString()
     {

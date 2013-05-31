@@ -31,7 +31,7 @@
 
     protected override void SetResultNoQuery()
     {
-      Result = new ChosenCards(CardsOwner.Hand.Where(Filter));
+      Result = new ChosenCards(CardsOwner.Hand.Where(Filter).Take(Count));
     }
 
     public override void ProcessResults()

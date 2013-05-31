@@ -43,7 +43,7 @@
 
         Exec(
           At(Step.FirstMain, turn: 2)
-            .Cast(vines, target: engine, condition: (c, g) => { return g.Stack.HasSpellWithName("Man-o'-War"); }),
+            .Cast(vines, target: engine, condition: (g) => { return g.Stack.HasSpellWithName("Man-o'-War"); }),
           At(Step.SecondMain, turn: 2)
             .Verify(() =>
               {

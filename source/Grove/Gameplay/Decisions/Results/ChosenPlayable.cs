@@ -6,15 +6,7 @@
   [Copyable, Serializable]
   public class ChosenPlayable
   {
-    public Playable Playable { get; set; }
-    public bool WasPriorityPassed { get { return Playable.WasPriorityPassed; } }
-
-    public static implicit operator ChosenPlayable(Playable playable)
-    {
-      return new ChosenPlayable
-        {
-          Playable = playable
-        };
-    }
+    public IPlayable Playable { get; set; }
+    public bool WasPriorityPassed { get { return Playable.WasPriorityPassed; } }    
   }
 }

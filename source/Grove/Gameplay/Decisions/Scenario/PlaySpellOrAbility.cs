@@ -5,7 +5,7 @@
 
   public class PlaySpellOrAbility : Decisions.PlaySpellOrAbility, IScenarioDecision
   {
-    public Func<Card, Game, bool> Condition = delegate { return true; };
+    public Func<Game, bool> Condition = delegate { return true; };
 
     public static PlaySpellOrAbility Pass
     {
@@ -13,14 +13,14 @@
       {
         return new PlaySpellOrAbility
           {
-            Result = new Pass()
+            Result = new ChosenPlayable {Playable = new Pass()}
           };
       }
     }
 
     public bool CanExecute()
     {
-      return Result.Playable.CanPlay() && Condition(Result.Playable.Card, Game);
+      return Result.Playable.CanPlay() && Condition(Game);
     }
 
     protected override void ExecuteQuery() {}

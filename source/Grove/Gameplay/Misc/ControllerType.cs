@@ -4,6 +4,6 @@
   {
     Machine,
     Human,
-    Scenario
+    Scenario,    
   }
 }

@@ -8,6 +8,8 @@
   {
     private Random _random;
 
+    private RandomGenerator() {}
+
     public RandomGenerator(int? seed = null)
     {
       Seed = seed ?? (int) DateTime.Now.Ticks;

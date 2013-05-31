@@ -5,8 +5,12 @@
 
   public static class RandomEx
   {
-    [ThreadStatic] private static readonly Random Rnd = new Random();
+    [ThreadStatic] private static Random _random;
 
+    private static Random Random
+    {
+      get { return _random ?? (_random = new Random()); }
+    }
 
     /// <summary>
     ///   Returns an integer between min and max (inclusive).
@@ -34,17 +38,17 @@
 
     public static int Next(int min, int max)
     {
-      return Rnd.Next(min, max + 1);
+      return Random.Next(min, max);
     }
 
     public static int Next(int max)
     {
-      return Rnd.Next(max);
+      return Random.Next(max);
     }
 
     public static int Next()
     {
-      return Rnd.Next();
+      return Random.Next();
     }
   }
 }

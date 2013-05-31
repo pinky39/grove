@@ -147,12 +147,15 @@
       private void RegisterDecisions(IWindsorContainer container)
       {
         container.Register(Component(typeof (DecisionSystem)));
-        container.Register(Component(typeof (IUiDecisionFactory), lifestyle: LifestyleType.Singleton).AsFactory());
+        container.Register(Component(typeof (IDecisionFactory), lifestyle: LifestyleType.Singleton).AsFactory());
 
         container.Register(Classes.FromThisAssembly()
-          .Where(x => x.Namespace.Equals(typeof (UserInterface.Decisions.TakeMulligan).Namespace) &&
-            x.Implements<IDecision>())
-          .WithServiceSelect((type, baseTypes) => new[] {type.BaseType})
+          .Where(x => 
+            (
+              x.Namespace.Equals(typeof (UserInterface.Decisions.TakeMulligan).Namespace)              
+            ) &&
+            x.Implements<IDecision>())          
+          .WithServiceSelect((type, baseTypes) => new[] {type.BaseType})                    
           .LifestyleTransient());
       }
 

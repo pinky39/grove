@@ -6,7 +6,7 @@
   public class ScenarioActivation
   {
     private readonly Targets _targets = new Targets();
-    public Func<Card, Game, bool> Condition = delegate { return true; };
+    public Func<Game, bool> Condition = delegate { return true; };
 
     public Card Card { get; set; }
     public int? X { get; set; }
