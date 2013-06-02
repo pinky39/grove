@@ -5,6 +5,7 @@
     bool HasCompleted { get; }
     bool WasPriorityPassed { get; }
     void Initialize(Player controller, Game game);
-    void Execute();    
+    void Execute();
+    void SaveDecisionResults();
   }
 }

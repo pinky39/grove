@@ -1,5 +1,6 @@
 ﻿namespace Grove.Gameplay.Decisions
 {
+  using System;
   using Misc;
 
   public abstract class Decision<TResult> : GameObject, IDecision
@@ -29,10 +30,13 @@
         SetResultNoQuery();
       }
 
-      ProcessResults();
+      ProcessResults();            
+      _hasCompleted = true;      
+    }
+
+    public void SaveDecisionResults()
+    {
       SaveDecisionResult(Result);
-      
-      _hasCompleted = true;
     }
 
     public abstract void ProcessResults();

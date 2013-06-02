@@ -144,6 +144,7 @@
         }
 
         CurrentDecision.Execute();
+        CurrentDecision.SaveDecisionResults();
       }
     }
 
@@ -297,7 +298,11 @@
       CreateStep(
         Step.Untap,
         getPriority: false,
-        first: () => Publish(new TurnStarted {TurnCount = Turn.TurnCount}),
+        first: () =>
+          {
+            Turn.TurnCount++;
+            Publish(new TurnStarted {TurnCount = Turn.TurnCount});
+          },
         second: () =>
           {
             foreach (var permanent in Players.Active.Battlefield)
@@ -405,8 +410,7 @@
           },
         second: () =>
           {
-            Players.ChangeActivePlayer();
-            Turn.TurnCount++;
+            Players.ChangeActivePlayer();            
           },
         nextStep: () => Step.Untap);
     }

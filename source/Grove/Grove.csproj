@@ -614,6 +614,7 @@
     <Compile Include="Gameplay\Decisions\Playback\SetDamageAssignmentOrder.cs" />
     <Compile Include="Gameplay\Decisions\Playback\SetTriggeredAbilityTarget.cs" />
     <Compile Include="Gameplay\Decisions\Playback\TakeMulligan.cs" />
+    <Compile Include="Gameplay\Decisions\Results\IPlayable.cs" />
     <Compile Include="Persistance\DecisionLog.cs" />
     <Compile Include="Gameplay\Effects\IEffectChoice.cs" />
     <Compile Include="Gameplay\Effects\RemoveAllCounters.cs" />

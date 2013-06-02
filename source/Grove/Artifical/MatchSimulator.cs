@@ -34,7 +34,7 @@
       result.Duration = stopwatch.Elapsed;
 
       return result;
-    }
+    }    
 
     private void SimulateGame(Deck deck1, Deck deck2, SimulationResult result, int maxTurnsPerGame,
       int maxSearchDepth, int maxTargetsCount)
@@ -43,10 +43,8 @@
       var game = Game.NewSimulation(
         deck1,
         deck2,
-        maxSearchDepth,
-        maxTargetsCount,
         _cardsDatabase,
-        _decisionSystem);
+        _decisionSystem, maxSearchDepth, maxTargetsCount);
 
       game.Ai.SearchStarted += delegate
         {

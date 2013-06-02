@@ -8,5 +8,7 @@
     public void Initialize(Player controller, Game game) {}
 
     public void Execute() {}
+
+    public void SaveDecisionResults() {}
   }
 }

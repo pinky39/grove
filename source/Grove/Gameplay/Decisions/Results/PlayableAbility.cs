@@ -1,10 +1,18 @@
 ﻿namespace Grove.Gameplay.Decisions.Results
 {
   using System;
+  using System.Runtime.Serialization;
 
   [Serializable]
   public class PlayableAbility : Playable
   {
+    public PlayableAbility()
+    {
+      
+    }
+    
+    protected PlayableAbility(SerializationInfo info, StreamingContext context) : base(info, context) {}
+    
     public override void Play()
     {
       Card.ActivateAbility(Index, ActivationParameters);

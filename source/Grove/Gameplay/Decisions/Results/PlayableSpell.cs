@@ -1,10 +1,15 @@
 ﻿namespace Grove.Gameplay.Decisions.Results
 {
   using System;
+  using System.Runtime.Serialization;
 
   [Serializable]
   public class PlayableSpell : Playable
   {
+    public PlayableSpell() {}
+
+    protected PlayableSpell(SerializationInfo info, StreamingContext context) : base(info, context) {}
+
     public override void Play()
     {
       Card.Cast(Index, ActivationParameters);

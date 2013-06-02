@@ -2,11 +2,16 @@
 {
   using System;
   using System.Linq;
+  using System.Runtime.Serialization;
   using Results;
 
   [Serializable]
   public class ScenarioPlayableAbility : PlayableAbility
   {
+    public ScenarioPlayableAbility() {}
+
+    protected ScenarioPlayableAbility(SerializationInfo info, StreamingContext context) : base(info, context) {}
+
     public override bool CanPlay()
     {
       var manaCost = Card.GetActivatedAbilityManaCost(Index);

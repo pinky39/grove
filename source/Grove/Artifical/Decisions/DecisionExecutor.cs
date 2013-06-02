@@ -46,7 +46,7 @@
       }
 
       DecisionState = State.Completed;
-      _decision.ProcessResults();
+      _decision.ProcessResults();      
     }
   }
 }

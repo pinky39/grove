@@ -2,11 +2,16 @@
 {
   using System;
   using System.Linq;
+  using System.Runtime.Serialization;
   using Results;
 
   [Serializable]
   public class ScenarioPlayableSpell : PlayableSpell
   {
+    public ScenarioPlayableSpell() {}
+
+    protected ScenarioPlayableSpell(SerializationInfo info, StreamingContext context) : base(info, context) {}
+
     public override bool CanPlay()
     {
       if (Card == null)

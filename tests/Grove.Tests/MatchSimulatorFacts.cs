@@ -28,9 +28,6 @@
       Assert.True(result.Deck1WinCount + result.Deck2WinCount >= 2);
     }
 
-    private Deck GetDeck(string name)
-    {
-      return DeckFile.Read(@".\" + name);
-    }
+   
   }
 }

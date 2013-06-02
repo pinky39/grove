@@ -15,6 +15,7 @@
   using Gameplay.Zones;
   using Grove.Infrastructure;
   using log4net.Config;
+  using Persistance;
   using Xunit;
 
   public abstract class Scenario : IDisposable
@@ -36,7 +37,7 @@
 
     protected Game Game { get; private set; }
     protected Player P1 { get { return Game.Players.Player1; } }
-    protected Player P2 { get { return Game.Players.Player2; } }    
+    protected Player P2 { get { return Game.Players.Player2; } }
     protected Combat Combat { get { return Game.Combat; } }
 
     public virtual void Dispose() {}
@@ -44,6 +45,11 @@
     protected void EnableChangeTrackerChecks()
     {
       NullTracker.EnableChangeTrackerChecks();
+    }
+
+    protected Deck GetDeck(string name)
+    {
+      return DeckFile.Read(@".\" + name);
     }
 
     protected DecisionsForOneStep At(Step step, int turn = 1)

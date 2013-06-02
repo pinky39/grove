@@ -6,13 +6,6 @@
   using Infrastructure;
   using Persistance;
 
-  public interface IPlayable
-  {
-    bool WasPriorityPassed { get; }
-    bool CanPlay();
-    void Play();
-  }
-  
   [Copyable, Serializable]
   public abstract class Playable : ISerializable, IPlayable
   {

@@ -9,7 +9,7 @@
     private readonly Trackable<int> _stateCount = new Trackable<int>();
     private readonly Trackable<Step> _step = new Trackable<Step>();
     private readonly Trackable<int> _stepCount = new Trackable<int>();
-    private readonly Trackable<int> _turnCount = new Trackable<int>(1);
+    private readonly Trackable<int> _turnCount = new Trackable<int>(0);
 
     public State State
     {

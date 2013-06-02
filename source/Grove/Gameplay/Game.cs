@@ -72,7 +72,7 @@
     }
 
     private static Game CreateGame(SearchParameters searchParameters, CardsDatabase cardsDatabase,
-      DecisionSystem decisionSystem)
+      DecisionSystem decisionSystem, int? randomSeed = null)
     {
       var game = new Game();
 
@@ -87,7 +87,7 @@
       game._decisionSystem = decisionSystem;
       game._decisionQueue = new DecisionQueue();
       game._stateMachine = new StateMachine(game._decisionQueue);
-      game.Random = new RandomGenerator();
+      game.Random = new RandomGenerator(randomSeed);
       game.Coin = new Coin(game.Random);
       game.Dice = new Dice(game.Random);
       game._identityManager = new IdentityManager();
@@ -138,7 +138,7 @@
 
     public void SaveDecisionResult(object result)
     {
-      if (Ai.IsSearchInProgress)
+      if (Ai.IsSearchInProgress || IsPlayback)
         return;
 
       _decisionLog.SaveResult(result);
@@ -149,8 +149,8 @@
       return _decisionLog.LoadResult();
     }
 
-    public static Game NewSimulation(Deck deck1, Deck deck2, int maxSearchDepth, int maxTargetCount,
-      CardsDatabase cardsDatabase, DecisionSystem decisionSystem)
+    public static Game NewSimulation(Deck deck1, Deck deck2, CardsDatabase cardsDatabase, DecisionSystem decisionSystem, 
+      int maxSearchDepth = 40, int maxTargetCount = 2)
     {
       var searchParameters = new SearchParameters(maxSearchDepth, maxTargetCount, enableMultithreading: false);
       var game = CreateGame(searchParameters, cardsDatabase, decisionSystem);
@@ -198,13 +198,18 @@
 
       var record = new MemoryStream();
       stream.CopyTo(record);
-
-      var game = New(player1Name, player2Name, player1Deck, player2Deck, cardsDatabase, decisionSystem);
-
-      game.Random = new RandomGenerator(randomSeed);
+      record.Position = 0;
+            
+      var player1 = new Player(player1Name, "player1.png", ControllerType.Machine, player1Deck);
+      var player2 = new Player(player2Name, "player2.png", ControllerType.Machine, player2Deck);
+      
+      var searchParameters = new SearchParameters(40, 2, enableMultithreading: true);      
+      
+      var game = CreateGame(searchParameters, cardsDatabase, decisionSystem, randomSeed);      
+      game.Players = new Players(player1, player2);
+      game.Initialize();
+                  
       game.FastForward(record);
-
-
       return game;
     }
 
@@ -230,6 +235,12 @@
     public void Simulate(int maxStepCount)
     {
       _stateMachine.Resume(() => Turn.StepCount < maxStepCount && ShouldContinue());
+    }
+
+    public void Resume(int numOfTurns = int.MaxValue)
+    {
+      _turnLimit = numOfTurns;
+      _stateMachine.Resume(ShouldContinue);
     }
 
     public void Start(int numOfTurns = int.MaxValue, bool skipPreGame = false, Player looser = null)

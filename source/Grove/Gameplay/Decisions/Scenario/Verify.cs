@@ -25,5 +25,9 @@
       Assertion();
       HasCompleted = true;
     }
+
+    public void SaveDecisionResults()
+    {      
+    }
   }
 }

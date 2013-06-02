@@ -2,9 +2,11 @@
 {
   using System.Collections.Generic;
   using Artifical.TimingRules;
+  using Gameplay.Abilities;
   using Gameplay.Characteristics;
   using Gameplay.Effects;
   using Gameplay.Misc;
+  using Gameplay.Modifiers;
   using Gameplay.Triggers;
 
   public class HiddenSpider : CardsSource
@@ -34,7 +36,8 @@
               power: 3,
               toughness: 5,
               type: "Creature Spider",
-              colors: L(CardColor.Green)));
+              colors: L(CardColor.Green)),
+              () => new AddStaticAbility(Static.Reach));
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           }
