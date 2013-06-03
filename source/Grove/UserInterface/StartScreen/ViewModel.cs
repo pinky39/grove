@@ -1,6 +1,5 @@
 ﻿namespace Grove.UserInterface.StartScreen
 {
-  using System;
   using System.Diagnostics;
   using System.IO;
   using System.Linq;
@@ -13,7 +12,7 @@
 
   public class ViewModel : ViewModelBase
   {
-    private const string YourName = "You";    
+    private const string YourName = "You";
 
     public string DatabaseInfo
     {
@@ -63,7 +62,22 @@
                     PreviousScreen = selectDeck1,
                     Forward = (deck2) =>
                       {
-                        Match.Start(YourName, MediaLibrary.NameGenerator.GenerateName(), deck1, deck2);
+                        MatchRunner.StartNew(
+                          player1: new PlayerParameters
+                            {
+                              Name = YourName,
+                              Avatar = "player1.png",
+                              Deck = deck1
+                            },
+                          player2: new PlayerParameters
+                            {
+                              Name = MediaLibrary.NameGenerator.GenerateName(),
+                              Avatar = "player2.png",
+                              Deck = deck2
+                            },
+                          isTournament: false
+                          );
+
                         Shell.ChangeScreen(this);
                       }
                   });
@@ -83,7 +97,24 @@
       Deck secondDeck;
 
       ChooseRandomDecks(out firstDeck, out secondDeck);
-      Match.Start(YourName, MediaLibrary.NameGenerator.GenerateName(), firstDeck, secondDeck);
+
+      MatchRunner.StartNew(
+        player1: new PlayerParameters
+          {
+            Name = YourName,
+            Avatar = "player1.png",
+            Deck = firstDeck
+          },
+        player2: new PlayerParameters
+          {
+            Name = MediaLibrary.NameGenerator.GenerateName(),
+            Avatar = "player2.png",
+            Deck = secondDeck
+          },
+        isTournament: false
+        );
+
+
       Shell.ChangeScreen(this);
     }
 

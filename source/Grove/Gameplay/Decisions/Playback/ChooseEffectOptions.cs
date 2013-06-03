@@ -9,7 +9,7 @@
 
     protected override void ExecuteQuery()
     {
-      Result = (ChosenOptions) Game.LoadDecisionResult();
+      Result = (ChosenOptions) Game.Recorder.LoadDecisionResult();
     }
   }
 }

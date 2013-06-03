@@ -12,7 +12,7 @@
     
     protected override void ExecuteQuery()
     {
-      Result = (DamageAssignmentOrder) Game.LoadDecisionResult();
+      Result = (DamageAssignmentOrder) Game.Recorder.LoadDecisionResult();
     }
   }
 }

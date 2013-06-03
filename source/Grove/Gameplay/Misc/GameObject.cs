@@ -15,9 +15,7 @@
   {
     public bool IsInitialized { get { return Game != null; } }
     protected Game Game { get; set; }
-
-    protected Coin Coin { get { return Game.Coin; } }
-    protected Dice Dice { get { return Game.Dice; } }    
+        
     protected Players Players { get { return Game.Players; } }
     protected Stack Stack { get { return Game.Stack; } }
     protected Combat Combat { get { return Game.Combat; } }
@@ -37,9 +35,19 @@
       return Game.Random.GetRandomPermutation(start, count);
     }
 
+    protected bool FlipACoin()
+    {
+      return Game.Random.FlipACoin();
+    }
+
+    protected int RollADice()
+    {
+      return Game.Random.RollADice();
+    }
+
     public void SaveDecisionResult(object result)
     {
-      Game.SaveDecisionResult(result);
+      Game.Recorder.SaveDecisionResult(result);
     }
 
     protected void Publish<T>(T message)

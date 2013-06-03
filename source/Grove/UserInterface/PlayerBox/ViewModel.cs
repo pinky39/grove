@@ -10,9 +10,8 @@
   {
     private readonly Timer _timer;
 
-    public ViewModel(Player player, Game game)
-    {
-      Game = game;
+    public ViewModel(Player player)
+    {      
       Player = player;
 
       Update();

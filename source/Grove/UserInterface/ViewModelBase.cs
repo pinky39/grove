@@ -1,19 +1,21 @@
 ﻿namespace Grove.UserInterface
 {
   using Gameplay;
-  using Gameplay.Misc;
   using Gameplay.Tournaments;
   using Messages;
   using Shell;
 
-  public abstract class ViewModelBase : GameObject
+  public abstract class ViewModelBase
   {
     public ViewModelFactories ViewModels { get; set; }
     public IShell Shell { get; set; }
-    public new Game Game { get { return base.Game; } set { base.Game = value; } }
+    protected Game CurrentGame { get { return CurrentMatch.Game; } }
     public CardsInfo CardsInfo { get; set; }
-    public Match Match { get; set; }
+    public MatchRunner MatchRunner { get; set; }
+    protected Match CurrentMatch { get { return MatchRunner.Current; } }
     public Tournament Tournament { get; set; }
+
+    protected Players Players { get { return CurrentGame.Players; } }
 
     public void ChangePlayersInterest(Card card)
     {

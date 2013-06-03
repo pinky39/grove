@@ -433,8 +433,8 @@
 
       while (true)
       {
-        result1 = Dice.Roll();
-        result2 = Dice.Roll();
+        result1 = RollADice();
+        result2 = RollADice();
 
         if (result1 != result2)
           break;

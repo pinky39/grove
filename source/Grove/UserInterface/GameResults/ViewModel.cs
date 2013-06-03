@@ -11,7 +11,7 @@
       {
         return string.Format("{0} won {1}",
           Players.Player2,
-          GetWinCountText(Match.Player2WinCount));
+          GetWinCountText(CurrentMatch.Player2WinCount));
       }
     }
 
@@ -48,7 +48,7 @@
       {
         return string.Format("{0} won {1}",
           Players.Player1,
-          GetWinCountText(Match.Player1WinCount));
+          GetWinCountText(CurrentMatch.Player1WinCount));
       }
     }
 

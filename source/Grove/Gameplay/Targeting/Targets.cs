@@ -24,8 +24,8 @@
       var effectTargetsIds = (List<int>) info.GetValue("effectTargets", typeof (List<int>));
 
       Distribution = (List<int>) info.GetValue("distribution", typeof (List<int>));
-      _costTargets.AddRange(costTargetsIds.Select(id => (ITarget)ctx.Game.GetObject(id)));
-      _effectTargets.AddRange(effectTargetsIds.Select(id => (ITarget)ctx.Game.GetObject(id)));
+      _costTargets.AddRange(costTargetsIds.Select(id => (ITarget)ctx.Recorder.GetObject(id)));
+      _effectTargets.AddRange(effectTargetsIds.Select(id => (ITarget)ctx.Recorder.GetObject(id)));
     }
 
     public int Count { get { return _effectTargets.Count + _costTargets.Count; } }

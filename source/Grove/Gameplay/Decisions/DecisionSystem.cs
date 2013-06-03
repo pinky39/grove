@@ -70,7 +70,7 @@
     {
       IDecision decision;
 
-      if (game.IsPlayback)
+      if (game.Recorder.IsPlayback)
       {
         decision = GetPlayback<TDecision>();
       }

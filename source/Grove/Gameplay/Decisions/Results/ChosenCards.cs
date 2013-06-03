@@ -25,7 +25,7 @@
       var ctx = (SerializationContext) context.Context;
       var cardIds = (List<int>) info.GetValue("cards", typeof (List<int>));
 
-      _cards.AddRange(cardIds.Select(x => (Card) ctx.Game.GetObject(x)));
+      _cards.AddRange(cardIds.Select(x => (Card) ctx.Recorder.GetObject(x)));
     }
 
     public static ChosenCards None { get { return new ChosenCards(); } }

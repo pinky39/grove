@@ -19,7 +19,7 @@
       var ctx = (SerializationContext) context.Context;
 
       ActivationParameters = (ActivationParameters) info.GetValue("parameters", typeof (ActivationParameters));
-      Card = (Card)ctx.Game.GetObject(info.GetInt32("card"));
+      Card = (Card)ctx.Recorder.GetObject(info.GetInt32("card"));
       Index = info.GetInt32("index");
     }
     

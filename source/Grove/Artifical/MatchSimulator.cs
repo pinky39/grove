@@ -3,17 +3,14 @@
   using System;
   using System.Diagnostics;
   using Gameplay;
-  using Gameplay.Decisions;
 
   public class MatchSimulator
   {
-    private readonly CardsDatabase _cardsDatabase;
-    private readonly DecisionSystem _decisionSystem;
+    private readonly Game.IFactory _gameFactory;
 
-    public MatchSimulator(CardsDatabase cardsDatabase, DecisionSystem decisionSystem)
+    public MatchSimulator(Game.IFactory gameFactory)
     {
-      _cardsDatabase = cardsDatabase;
-      _decisionSystem = decisionSystem;
+      _gameFactory = gameFactory;
     }
 
     public SimulationResult Simulate(Deck deck1, Deck deck2, int maxTurnsPerGame = 100,
@@ -34,17 +31,15 @@
       result.Duration = stopwatch.Elapsed;
 
       return result;
-    }    
+    }
 
     private void SimulateGame(Deck deck1, Deck deck2, SimulationResult result, int maxTurnsPerGame,
       int maxSearchDepth, int maxTargetsCount)
     {
       var stopwatch = new Stopwatch();
-      var game = Game.NewSimulation(
-        deck1,
-        deck2,
-        _cardsDatabase,
-        _decisionSystem, maxSearchDepth, maxTargetsCount);
+
+      var game = _gameFactory.Create(GameParameters.Simulation(
+        deck1, deck2, new SearchParameters(maxSearchDepth, maxTargetsCount, enableMultithreading: false)));
 
       game.Ai.SearchStarted += delegate
         {

@@ -1,6 +1,5 @@
 ﻿namespace Grove.Gameplay.Decisions.Playback
 {
-  using System;
   using Results;
 
   public class ChooseToUntap : Decisions.ChooseToUntap
@@ -9,7 +8,7 @@
 
     protected override void ExecuteQuery()
     {
-      Result = (BooleanResult) Game.LoadDecisionResult();
+      Result = (BooleanResult) Game.Recorder.LoadDecisionResult();
     }
   }
 }

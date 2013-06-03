@@ -22,7 +22,7 @@
 
       foreach (var blockerDamage in distribution)
       {
-        var blocker = ctx.Game.Combat.FindBlocker((Card) ctx.Game.GetObject(blockerDamage.BlockerId));
+        var blocker = ctx.Game.Combat.FindBlocker((Card) ctx.Recorder.GetObject(blockerDamage.BlockerId));
         _distribution.Add(blocker, blockerDamage.Damage);
       }
     }

@@ -1,7 +1,7 @@
-﻿namespace Grove.Infrastructure
+﻿namespace Grove.Persistance
 {
   using System.Collections.Generic;
-  
+
   public class IdentityManager
   {
     private readonly Dictionary<int, object> _objects = new Dictionary<int, object>();

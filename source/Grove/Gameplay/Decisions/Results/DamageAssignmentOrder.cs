@@ -22,7 +22,7 @@
 
       foreach (var blockerOrder in assignmentOrder)
       {
-        var blocker = ctx.Game.Combat.FindBlocker((Card) ctx.Game.GetObject(blockerOrder.BlockerId));
+        var blocker = ctx.Game.Combat.FindBlocker((Card) ctx.Recorder.GetObject(blockerOrder.BlockerId));
         _assignmentOrder.Add(blocker, blockerOrder.Order);
       }
     }

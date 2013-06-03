@@ -354,7 +354,7 @@
     {
       Game = game;
       Owner = owner;
-      Id = game.CreateId(this);
+      Id = game.Recorder.CreateId(this);
 
       _controller = new ControllerCharacteristic(owner);
       _controller.Initialize(game, this);

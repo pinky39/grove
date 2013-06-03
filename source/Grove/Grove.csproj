@@ -615,11 +615,15 @@
     <Compile Include="Gameplay\Decisions\Playback\SetTriggeredAbilityTarget.cs" />
     <Compile Include="Gameplay\Decisions\Playback\TakeMulligan.cs" />
     <Compile Include="Gameplay\Decisions\Results\IPlayable.cs" />
+    <Compile Include="Gameplay\GameParameters.cs" />
+    <Compile Include="Gameplay\MatchParameters.cs" />
+    <Compile Include="Gameplay\MatchRunner.cs" />
+    <Compile Include="Gameplay\PlayerParameters.cs" />
     <Compile Include="Persistance\DecisionLog.cs" />
     <Compile Include="Gameplay\Effects\IEffectChoice.cs" />
     <Compile Include="Gameplay\Effects\RemoveAllCounters.cs" />
     <Compile Include="Gameplay\Effects\ReorderTopCards.cs" />
-    <Compile Include="Infrastructure\IdentityManager.cs" />
+    <Compile Include="Persistance\IdentityManager.cs" />
     <Compile Include="Gameplay\Misc\CardFactory.cs" />
     <Compile Include="Gameplay\CardParameters.cs" />
     <Compile Include="Gameplay\Decisions\ChooseTo.cs" />
@@ -643,6 +647,10 @@
     <Compile Include="Gameplay\Modifiers\ChangeToEnchantment.cs" />
     <Compile Include="Gameplay\Modifiers\PlayerCastsCreatureLifetime.cs" />
     <Compile Include="Infrastructure\RandomGenerator.cs" />
+    <Compile Include="Persistance\GameRecorder.cs" />
+    <Compile Include="Persistance\SavedGame.cs" />
+    <Compile Include="Persistance\SavedMatch.cs" />
+    <Compile Include="Persistance\SavedTournament.cs" />
     <Compile Include="Persistance\SerializationContext.cs" />
     <Compile Include="Persistance\TournamentInfo.cs" />
     <Compile Include="Gameplay\Tournaments\TournamentMatch.cs" />
@@ -671,7 +679,6 @@
     <Compile Include="Artifical\DeckBuilder.cs" />
     <Compile Include="Artifical\DeckEvaluator.cs" />
     <Compile Include="Gameplay\Effects\ApplyModifiersToPlayers.cs" />
-    <Compile Include="Gameplay\Misc\Coin.cs" />
     <Compile Include="Gameplay\Effects\CounterTopSpell.cs" />
     <Compile Include="Gameplay\Effects\DealDamageToCreatureWithRankSelectIfMoreThanOne.cs" />
     <Compile Include="Gameplay\Effects\DestroyAllLandsOrCreatures.cs" />
@@ -1126,7 +1133,6 @@
     <Compile Include="Artifical\AttackStrategy.cs" />
     <Compile Include="Artifical\PlayableGenerator.cs" />
     <Compile Include="Artifical\ScoreCalculator.cs" />
-    <Compile Include="Gameplay\Misc\Dice.cs" />
     <Compile Include="Gameplay\Game.cs" />
     <Compile Include="Gameplay\Characteristics\IDamageable.cs" />
     <Compile Include="Gameplay\Match.cs" />

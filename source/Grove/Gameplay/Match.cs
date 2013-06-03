@@ -2,36 +2,31 @@
 {
   using System.Threading.Tasks;
   using System.Windows;
-  using Decisions;
   using Infrastructure;
   using UserInterface;
   using UserInterface.Shell;
 
   public class Match
   {
-    private readonly CardsDatabase _cardsDatabase;
-    private readonly DecisionSystem _decisionSystem;
+    private readonly Game.IFactory _gameFactory;
+    private readonly MatchParameters _p;
     private readonly IShell _shell;
     private readonly ViewModelFactories _viewModels;
-    private Deck _deck1;
-    private Deck _deck2;
     private int? _looser;
-    private string _opponentsName;
     private bool _playerLeftMatch;
     private bool _rematch = true;
-    private string _yourName;
 
-    public Match(IShell shell, ViewModelFactories viewModels, CardsDatabase cardsDatabase, DecisionSystem decisionSystem)
+    public Match(MatchParameters p, IShell shell, ViewModelFactories viewModels, Game.IFactory gameFactory)
     {
+      _p = p;
       _shell = shell;
       _viewModels = viewModels;
-      _cardsDatabase = cardsDatabase;
-      _decisionSystem = decisionSystem;
+      _gameFactory = gameFactory;
 
-      Application.Current.Exit += delegate { ForceCurrentGameToEnd(); };
+      Application.Current.Exit += delegate { Stop(); };
     }
 
-    public bool IsTournament { get; private set; }
+    public bool IsTournament { get { return _p.IsTournament; } }
     public bool WasStopped { get { return Game != null && Game.WasStopped; } }
 
     public Game Game { get; private set; }
@@ -48,6 +43,7 @@
 
     public int Player1WinCount { get; private set; }
     public int Player2WinCount { get; private set; }
+    public bool Rematch { get; private set; }
 
     protected Player Looser
     {
@@ -61,19 +57,6 @@
     }
 
     public bool InProgress { get { return Game != null && !IsFinished; } }
-
-    public void Start(string yourName, string opponentsName, Deck player1Deck, Deck player2Deck,
-      bool isTournament = false)
-    {
-      _deck1 = player1Deck;
-      _deck2 = player2Deck;
-      _yourName = yourName;
-      _opponentsName = opponentsName;
-      IsTournament = isTournament;
-
-      ResetResults();
-      Run();
-    }
 
     private void DisplayGameResults()
     {
@@ -89,18 +72,10 @@
       _rematch = viewModel.ShouldRematch;
     }
 
-    private void ResetResults()
+    public void Run()
     {
-      Player1WinCount = 0;
-      Player2WinCount = 0;
-      _playerLeftMatch = false;
-      _looser = null;
-    }
-
-    private void Run()
-    {
-      Game = Game.New(_yourName, _opponentsName, _deck1, _deck2,
-        _cardsDatabase, _decisionSystem);
+      Game = _gameFactory.Create(GameParameters.StandardGame(
+        _p.Player1, _p.Player2));
 
       var playScreen = _viewModels.PlayScreen.Create();
       _shell.ChangeScreen(playScreen);
@@ -131,7 +106,7 @@
 
         if (_rematch && !_playerLeftMatch)
         {
-          Rematch();
+          Rematch = true;
           return;
         }
 
@@ -150,11 +125,6 @@
       }
 
       Run();
-    }
-
-    public void Rematch()
-    {
-      Start(_yourName, _opponentsName, _deck1, _deck2);
     }
 
     private void SetLooser(int? looser)
@@ -177,7 +147,7 @@
       return 1;
     }
 
-    public void ForceCurrentGameToEnd()
+    public void Stop()
     {
       if (Game != null)
       {
@@ -185,6 +155,11 @@
       }
 
       _shell.CloseAllDialogs();
+    }
+
+    public interface IFactory
+    {
+      Match Create(MatchParameters p);
     }
   }
 }

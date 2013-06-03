@@ -7,7 +7,6 @@
   using Artifical;
   using Gameplay;
   using Gameplay.Counters;
-  using Gameplay.Decisions;
   using Gameplay.Decisions.Scenario;
   using Gameplay.Misc;
   using Gameplay.Modifiers;
@@ -27,13 +26,15 @@
       var player1Controller = player1ControlledByScript ? ControllerType.Scenario : ControllerType.Machine;
       var player2Controller = player2ControlledByScript ? ControllerType.Scenario : ControllerType.Machine;
 
-      Game = Game.NewScenario(player1Controller, player2Controller, CardsDatabase, DecisionSystem);
+      var p = GameParameters.Scenario(player1Controller, player2Controller);
+      Game = GameFactory.Create(p);
+      Game.Players.Starting = Game.Players.Player1;
     }
 
     protected CardsDatabase CardsDatabase { get { return Container.Resolve<CardsDatabase>(); } }
     protected CardsInfo CardsInfo { get { return Container.Resolve<CardsInfo>(); } }
-    protected DecisionSystem DecisionSystem { get { return Container.Resolve<DecisionSystem>(); } }
     protected MatchSimulator MatchSimulator { get { return Container.Resolve<MatchSimulator>(); } }
+    protected Game.IFactory GameFactory { get { return Container.Resolve<Game.IFactory>(); } }
 
     protected Game Game { get; private set; }
     protected Player P1 { get { return Game.Players.Player1; } }

@@ -16,28 +16,30 @@
   using UserInterface.Shell;
 
   public class Tournament
-  {    
+  {
     private readonly DeckBuilder _deckBuilder;
-    private readonly Match _match;
+    
     private readonly MatchSimulator _matchSimulator;
-    private List<TournamentPlayer> _players;
     private readonly IShell _shell;
+    private readonly MatchRunner _matchRunner;
     private readonly ViewModelFactories _viewModels;
-    private CardRatings _cardRatings;    
+    private CardRatings _cardRatings;
+    private List<TournamentPlayer> _players;
 
     public Tournament(DeckBuilder deckBuilder, ViewModelFactories viewModels, IShell shell,
-      Match match, MatchSimulator matchSimulator)
+      MatchRunner matchRunner, MatchSimulator matchSimulator)
     {
       _deckBuilder = deckBuilder;
       _viewModels = viewModels;
       _shell = shell;
-      _match = match;
+      _matchRunner = matchRunner;
       _matchSimulator = matchSimulator;
     }
 
     private TournamentPlayer HumanPlayer { get { return _players[0]; } }
     private IEnumerable<TournamentPlayer> NonHumanPlayers { get { return _players.Skip(1); } }
-    private bool WasStopped { get { return _match.WasStopped; } }    
+    private bool WasStopped { get { return CurrentMatch.WasStopped; } }
+    private Match CurrentMatch { get { return _matchRunner.Current; } }
 
     public void Start(string playerName, int playersCount, string[] boosterPacks, string tournamentPack)
     {
@@ -52,25 +54,25 @@
       var generatedDeckCount = GenerateDecks(tournamentPack, boosterPacks);
       ShowEditDeckScreen(GenerateLibrary(tournamentPack, boosterPacks), generatedDeckCount);
 
-      Save(filename, roundsToGo, info);            
-      RunTournament(filename, roundsToGo, info);      
+      Save(filename, roundsToGo, info);
+      RunTournament(filename, roundsToGo, info);
     }
 
     private void RunTournament(string filename, int roundsToGo, TournamentInfo info)
     {
       ShowResults(roundsToGo);
-      
+
       while (roundsToGo > 0)
       {
         roundsToGo--;
-                
+
         PlayNextRound();
 
         if (WasStopped)
         {
           return;
         }
-        
+
         ShowResults(roundsToGo);
         Save(filename, roundsToGo, info);
       }
@@ -84,12 +86,12 @@
       TournamentInfo info;
       using (var stream = new FileStream(filename, FileMode.Open, FileAccess.Read))
       {
-        info = (TournamentInfo) formatter.Deserialize(stream);        
-         roundsToGo = (int) formatter.Deserialize(stream);
+        info = (TournamentInfo) formatter.Deserialize(stream);
+        roundsToGo = (int) formatter.Deserialize(stream);
         _players = (List<TournamentPlayer>) formatter.Deserialize(stream);
       }
 
-      RunTournament(filename, roundsToGo, info);      
+      RunTournament(filename, roundsToGo, info);
     }
 
     private void Save(string filename, int roundsToGo, TournamentInfo info)
@@ -144,20 +146,34 @@
       var human = tournamentMatch.HumanPlayer;
       var nonHuman = tournamentMatch.NonHumanPlayer;
 
-      _match.Start(human.Name, nonHuman.Name, human.Deck, nonHuman.Deck, isTournament: true);
+      _matchRunner.StartNew(
+        player1: new PlayerParameters
+          {
+            Name = human.Name,
+            Avatar = "player1.png",
+            Deck = human.Deck
+          },
+        player2: new PlayerParameters
+          {
+            Name = nonHuman.Name,
+            Avatar = "player2.png",
+            Deck = nonHuman.Deck
+          },
+        isTournament: true);
 
-      human.GamesWon += _match.Player1WinCount;
-      nonHuman.GamesWon += _match.Player2WinCount;
 
-      human.GamesLost += _match.Player2WinCount;
-      nonHuman.GamesLost += _match.Player1WinCount;
+      human.GamesWon += CurrentMatch.Player1WinCount;
+      nonHuman.GamesWon += CurrentMatch.Player2WinCount;
 
-      if (_match.Player1WinCount > _match.Player2WinCount)
+      human.GamesLost += CurrentMatch.Player2WinCount;
+      nonHuman.GamesLost += CurrentMatch.Player1WinCount;
+
+      if (CurrentMatch.Player1WinCount > CurrentMatch.Player2WinCount)
       {
         human.WinCount++;
         nonHuman.LooseCount++;
       }
-      else if (_match.Player1WinCount < _match.Player2WinCount)
+      else if (CurrentMatch.Player1WinCount < CurrentMatch.Player2WinCount)
       {
         nonHuman.WinCount++;
         human.LooseCount++;

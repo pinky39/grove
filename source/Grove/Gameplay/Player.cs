@@ -36,11 +36,11 @@
     private readonly ManaVault _manaVault = new ManaVault();
     private readonly TrackableList<IModifier> _modifiers = new TrackableList<IModifier>();
 
-    public Player(string name, string avatar, ControllerType controller, Deck deck)
+    public Player(PlayerParameters p, ControllerType controllerType)
     {
-      Name = name;
-      Avatar = avatar;
-      Controller = controller;
+      Name = p.Name;
+      Avatar = p.Avatar;
+      Controller = controllerType;
 
       _assignedDamage = new AssignedDamage(this);
       _battlefield = new Battlefield(this);
@@ -48,7 +48,7 @@
       _graveyard = new Graveyard(this);
       _library = new Library(this);
       _exile = new Exile(this);
-      _deck = deck;
+      _deck = p.Deck;
     }
 
     private Player() {}
@@ -195,7 +195,7 @@
     public void Initialize(Game game)
     {
       Game = game;
-      Id = game.CreateId(this);
+      Id = game.Recorder.CreateId(this);
 
       _life.Initialize(ChangeTracker);
       _landsPlayedCount.Initialize(ChangeTracker);

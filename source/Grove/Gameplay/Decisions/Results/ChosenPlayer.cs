@@ -18,7 +18,7 @@
     protected ChosenPlayer(SerializationInfo info, StreamingContext context)
     {
       var ctx = (SerializationContext) context.Context;
-      Player = (Player) ctx.Game.GetObject(info.GetInt32("player"));
+      Player = (Player) ctx.Recorder.GetObject(info.GetInt32("player"));
     }
 
     public Player Player { get; private set; }

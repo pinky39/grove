@@ -6,7 +6,7 @@
   {
     protected override void ResolveEffect()
     {
-      var hasWon = Coin.Flip();
+      var hasWon = FlipACoin();
 
       Publish(new PlayerHasFlippedACoin
         {

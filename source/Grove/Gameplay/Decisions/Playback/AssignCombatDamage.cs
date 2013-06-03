@@ -8,7 +8,7 @@
 
     protected override void ExecuteQuery()
     {
-      Result = (DamageDistribution) Game.LoadDecisionResult();
+      Result = (DamageDistribution) Game.Recorder.LoadDecisionResult();
     }
   }
 }

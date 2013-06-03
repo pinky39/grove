@@ -51,8 +51,8 @@
         var attackerId = info.GetInt32("attacker");
         var blockerId = info.GetInt32("blocker");
 
-        Attacker = (Card) ctx.Game.GetObject(attackerId);
-        Blocker = (Card) ctx.Game.GetObject(blockerId);
+        Attacker = (Card) ctx.Recorder.GetObject(attackerId);
+        Blocker = (Card) ctx.Recorder.GetObject(blockerId);
       }
 
       public Card Attacker { get; set; }

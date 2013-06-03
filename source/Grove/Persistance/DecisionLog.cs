@@ -1,6 +1,5 @@
 ﻿namespace Grove.Persistance
 {
-  using System;
   using System.IO;
   using System.Runtime.Serialization;
   using System.Runtime.Serialization.Formatters.Binary;
@@ -11,16 +10,19 @@
     private readonly BinaryFormatter _formatter = new BinaryFormatter();
     private MemoryStream _stream;
 
-    public DecisionLog(Game game)
+    public DecisionLog(Game game, MemoryStream savedDecisions)
     {
-       _stream = new MemoryStream();
-      
+      _stream = savedDecisions ?? new MemoryStream();
+
       _formatter.Context = new StreamingContext(
         StreamingContextStates.All,
         new SerializationContext {Game = game});
     }
 
-    public bool IsAtTheEnd { get { return _stream.Position < _stream.Length;  } }
+    public bool IsAtTheEnd { get
+    {
+      return _stream.Position == _stream.Length;
+    } }
 
     public void SetStream(MemoryStream stream)
     {

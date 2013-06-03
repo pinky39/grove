@@ -195,7 +195,7 @@
       Targets = p.Targets ?? new Targets();
       _triggerMessage = p.TriggerMessage;
       X = p.X;
-      Id = game.CreateId(this);
+      Id = game.Recorder.CreateId(this);
 
       _wasResolved.Initialize(game.ChangeTracker);
 

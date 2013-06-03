@@ -40,6 +40,18 @@
       return ShuffleInPlace(range.ToArray());
     }
 
+    public bool FlipACoin()
+    {
+      var result = Next(2);
+      return result == 0;
+    }
+
+    public int RollADice()
+    {
+      const int numOfSides = 42;
+      return Next(1, numOfSides);
+    }
+
     private IList<int> ShuffleInPlace(IList<int> list)
     {
       // Fisher-Yates shuffle

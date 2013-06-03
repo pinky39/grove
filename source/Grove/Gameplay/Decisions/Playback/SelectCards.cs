@@ -12,7 +12,7 @@
     
     protected override void ExecuteQuery()
     {
-      Result = (ChosenCards) Game.LoadDecisionResult();
+      Result = (ChosenCards) Game.Recorder.LoadDecisionResult();
     }
   }
 }

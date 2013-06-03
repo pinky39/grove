@@ -125,7 +125,7 @@
 
     public override void Initialize()
     {
-      _scenarioGenerator = new ScenarioGenerator(Game);
+      _scenarioGenerator = new ScenarioGenerator(CurrentGame);
       OpponentsBattlefield = ViewModels.Battlefield.Create(Players.Computer);
       YourBattlefield = ViewModels.Battlefield.Create(Players.Human);
       You = ViewModels.PlayerBox.Create(Players.Human);
