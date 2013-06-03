@@ -4,8 +4,6 @@
   using System.Collections.Generic;
   using System.IO;
   using System.Linq;
-  using System.Runtime.Serialization;
-  using System.Runtime.Serialization.Formatters.Binary;
   using System.Threading.Tasks;
   using Artifical;
   using Infrastructure;
@@ -15,25 +13,63 @@
   using UserInterface.Messages;
   using UserInterface.Shell;
 
+  public class TournamentRunner {}
+
+  public class TournamentParameters
+  {
+    public string PlayerName { get; private set; }
+    public int PlayersCount { get; private set; }
+    public string[] BoosterPacks { get; private set; }
+    public string TournamentPack { get; private set; }
+    public SavedTournament SavedTournament { get; private set; }
+    public bool IsSavedTournament { get { return SavedTournament != null; } }
+
+    public static TournamentParameters Default(string playerName, int playersCount, string[] boosterPacks,
+      string tournamentPack)
+    {
+      return new TournamentParameters
+        {
+          PlayerName = playerName,
+          PlayersCount = playersCount,
+          BoosterPacks = boosterPacks,
+          TournamentPack = tournamentPack
+        };
+    }
+
+    public static TournamentParameters Load(SavedTournament savedTournament)
+    {
+      return new TournamentParameters
+        {
+          SavedTournament = savedTournament
+        };
+    }
+  }
+
   public class Tournament
   {
     private readonly DeckBuilder _deckBuilder;
-    
-    private readonly MatchSimulator _matchSimulator;
-    private readonly IShell _shell;
     private readonly MatchRunner _matchRunner;
+
+    private readonly MatchSimulator _matchSimulator;
+    private readonly TournamentParameters _p;
+    private readonly object _playersLock = new object();
+    private readonly IShell _shell;
     private readonly ViewModelFactories _viewModels;
     private CardRatings _cardRatings;
     private List<TournamentPlayer> _players;
+    private int _roundsToGo;
 
-    public Tournament(DeckBuilder deckBuilder, ViewModelFactories viewModels, IShell shell,
+    public Tournament(TournamentParameters p, DeckBuilder deckBuilder, ViewModelFactories viewModels, IShell shell,
       MatchRunner matchRunner, MatchSimulator matchSimulator)
     {
+      _p = p;
       _deckBuilder = deckBuilder;
       _viewModels = viewModels;
       _shell = shell;
       _matchRunner = matchRunner;
       _matchSimulator = matchSimulator;
+      
+      _cardRatings = LoadCardRatings(p.TournamentPack, p.BoosterPacks);
     }
 
     private TournamentPlayer HumanPlayer { get { return _players[0]; } }
@@ -41,30 +77,38 @@
     private bool WasStopped { get { return CurrentMatch.WasStopped; } }
     private Match CurrentMatch { get { return _matchRunner.Current; } }
 
-    public void Start(string playerName, int playersCount, string[] boosterPacks, string tournamentPack)
+    public void Start()
     {
-      var filename = MediaLibrary.GetSaveGameFilename();
-      var info = new TournamentInfo {Name = tournamentPack, PlayerCount = playersCount};
+      if (_p.IsSavedTournament)
+      {
+        if (_p.SavedTournament.HasMatchInProgress)
+        {
+          
 
-      var roundsToGo = GetRoundCount(playersCount);
 
-      CreatePlayers(playersCount, playerName);
-      LoadCardRatings(tournamentPack, boosterPacks);
+        }
 
-      var generatedDeckCount = GenerateDecks(tournamentPack, boosterPacks);
-      ShowEditDeckScreen(GenerateLibrary(tournamentPack, boosterPacks), generatedDeckCount);
 
-      Save(filename, roundsToGo, info);
-      RunTournament(filename, roundsToGo, info);
+      }
+      else
+      {
+        _roundsToGo = CalculateRoundCount(_p.PlayersCount);      
+        _players = CreatePlayers(_p.PlayersCount, _p.PlayerName);
+        
+        var generatedDeckCount = GenerateDecks();
+        ShowEditDeckScreen(GenerateLibrary(), generatedDeckCount);
+
+        RunTournament();
+      }
     }
 
-    private void RunTournament(string filename, int roundsToGo, TournamentInfo info)
+    private void RunTournament()
     {
-      ShowResults(roundsToGo);
+      ShowResults();
 
-      while (roundsToGo > 0)
+      while (_roundsToGo > 0)
       {
-        roundsToGo--;
+        _roundsToGo--;
 
         PlayNextRound();
 
@@ -73,45 +117,37 @@
           return;
         }
 
-        ShowResults(roundsToGo);
-        Save(filename, roundsToGo, info);
+        ShowResults();
       }
-    }
+    } 
 
-    public void Load(string filename)
+    private SavedTournament Save()
     {
-      var formatter = new BinaryFormatter();
+      TournamentPlayer[] playersCopy;
 
-      int roundsToGo;
-      TournamentInfo info;
-      using (var stream = new FileStream(filename, FileMode.Open, FileAccess.Read))
+      lock (_playersLock)
       {
-        info = (TournamentInfo) formatter.Deserialize(stream);
-        roundsToGo = (int) formatter.Deserialize(stream);
-        _players = (List<TournamentPlayer>) formatter.Deserialize(stream);
+        playersCopy = _players
+          .Select(x => x.Clone())
+          .ToArray();
       }
 
-      RunTournament(filename, roundsToGo, info);
+      return new SavedTournament
+        {
+          PlayerName = _p.PlayerName,
+          Players = playersCopy,
+          RoundsToGo = _roundsToGo,
+          SavedMatch = CurrentMatch.Save()
+        };
     }
 
-    private void Save(string filename, int roundsToGo, TournamentInfo info)
+    private void ShowResults()
     {
-      IFormatter formatter = new BinaryFormatter();
-      using (var stream = new FileStream(filename, FileMode.Create, FileAccess.Write))
-      {
-        formatter.Serialize(stream, info);
-        formatter.Serialize(stream, roundsToGo);
-        formatter.Serialize(stream, _players);
-      }
-    }
-
-    private void ShowResults(int roundsToGo)
-    {
-      var leaderboard = _viewModels.LeaderBoard.Create(_players, roundsToGo);
+      var leaderboard = _viewModels.LeaderBoard.Create(_players, _roundsToGo);
       _shell.ChangeScreen(leaderboard, blockUntilClosed: true);
     }
 
-    private static int GetRoundCount(int playersCount)
+    private int CalculateRoundCount(int playersCount)
     {
       if (playersCount <= 8)
         return 3;
@@ -141,12 +177,17 @@
       PlayMatch(matches.Single(x => !x.IsSimulated));
     }
 
+    private void LoadMatch(TournamentMatch tournamentMatch)
+    {
+      
+    }
+
     private void PlayMatch(TournamentMatch tournamentMatch)
     {
       var human = tournamentMatch.HumanPlayer;
       var nonHuman = tournamentMatch.NonHumanPlayer;
 
-      _matchRunner.StartNew(
+      _matchRunner.Start(
         player1: new PlayerParameters
           {
             Name = human.Name,
@@ -198,30 +239,9 @@
               maxSearchDepth: 10,
               maxTargetsCount: 1);
 
-            simulatedMatch.Player1.GamesWon += result.Deck1WinCount;
-            simulatedMatch.Player2.GamesWon += result.Deck2WinCount;
-
-            simulatedMatch.Player1.GamesLost += result.Deck2WinCount;
-            simulatedMatch.Player2.GamesLost += result.Deck1WinCount;
-
-            if (result.Deck1WinCount > result.Deck2WinCount)
-            {
-              simulatedMatch.Player1.WinCount++;
-              simulatedMatch.Player2.LooseCount++;
-            }
-            else if (result.Deck1WinCount < result.Deck2WinCount)
-            {
-              simulatedMatch.Player2.WinCount++;
-              simulatedMatch.Player1.LooseCount++;
-            }
-            else
-            {
-              simulatedMatch.Player1.DrawCount++;
-              simulatedMatch.Player2.DrawCount++;
-            }
+            UpdatePlayersWithMatchResults(simulatedMatch, result);
 
             _shell.Publish(new TournamentMatchFinished {Match = simulatedMatch});
-
 
             if (WasStopped)
             {
@@ -229,6 +249,34 @@
             }
           }
         }, TaskCreationOptions.LongRunning);
+    }
+
+    private void UpdatePlayersWithMatchResults(TournamentMatch simulatedMatch, MatchSimulator.SimulationResult result)
+    {
+      lock (_playersLock)
+      {
+        simulatedMatch.Player1.GamesWon += result.Deck1WinCount;
+        simulatedMatch.Player2.GamesWon += result.Deck2WinCount;
+
+        simulatedMatch.Player1.GamesLost += result.Deck2WinCount;
+        simulatedMatch.Player2.GamesLost += result.Deck1WinCount;
+
+        if (result.Deck1WinCount > result.Deck2WinCount)
+        {
+          simulatedMatch.Player1.WinCount++;
+          simulatedMatch.Player2.LooseCount++;
+        }
+        else if (result.Deck1WinCount < result.Deck2WinCount)
+        {
+          simulatedMatch.Player2.WinCount++;
+          simulatedMatch.Player1.LooseCount++;
+        }
+        else
+        {
+          simulatedMatch.Player1.DrawCount++;
+          simulatedMatch.Player2.DrawCount++;
+        }
+      }
     }
 
     private List<TournamentMatch> CreateSwissPairings()
@@ -258,7 +306,7 @@
       HumanPlayer.Deck = screen.Result;
     }
 
-    private void LoadCardRatings(string tournamentPack, string[] boosterPacks)
+    private static CardRatings LoadCardRatings(string tournamentPack, string[] boosterPacks)
     {
       CardRatings merged = null;
 
@@ -275,13 +323,13 @@
         }
       }
 
-      _cardRatings = CardRatings.Merge(merged, MediaLibrary.GetSet(tournamentPack).Ratings);
+      return CardRatings.Merge(merged, MediaLibrary.GetSet(tournamentPack).Ratings);
     }
 
-    private int GenerateDecks(string tournamentPack, string[] boosterPacks)
+    private int GenerateDecks()
     {
       const int minNumberOfGeneratedDecks = 5;
-      var limitedCode = MagicSet.GetLimitedCode(tournamentPack, boosterPacks);
+      var limitedCode = MagicSet.GetLimitedCode(_p.TournamentPack, _p.BoosterPacks);
 
       var preconstructed = MediaLibrary.GetDecks(limitedCode)
         .OrderBy(x => RandomEx.Next())
@@ -301,7 +349,7 @@
           for (var count = 0; count < actualNumberOfGeneratedDecks; count++)
           {
             var player = nonHumanPlayers[count + preconstructed.Count];
-            var library = GenerateLibrary(tournamentPack, boosterPacks);
+            var library = GenerateLibrary();
             var deck = _deckBuilder.BuildDeck(library, _cardRatings);
             player.Deck = deck;
 
@@ -319,23 +367,26 @@
       return actualNumberOfGeneratedDecks;
     }
 
-    private void CreatePlayers(int playersCount, string playerName)
+    private static List<TournamentPlayer> CreatePlayers(int playersCount, string playerName)
     {
-      _players = new List<TournamentPlayer>();
+      var players = new List<TournamentPlayer>();
+
       var names = MediaLibrary.NameGenerator.GenerateNames(playersCount - 1);
-      _players.Add(new TournamentPlayer(playerName, isHuman: true));
+      players.Add(new TournamentPlayer(playerName, isHuman: true));
 
       for (var i = 0; i < playersCount - 1; i++)
       {
-        _players.Add(new TournamentPlayer(names[i], isHuman: false));
+        players.Add(new TournamentPlayer(names[i], isHuman: false));
       }
+
+      return players;
     }
 
-    private static List<string> GenerateLibrary(string tournamentPack, string[] boosterPacks)
+    private List<string> GenerateLibrary()
     {
       var library = new List<string>();
 
-      foreach (var setName in boosterPacks)
+      foreach (var setName in _p.BoosterPacks)
       {
         library.AddRange(MediaLibrary
           .GetSet(setName)
@@ -343,10 +394,15 @@
       }
 
       library.AddRange(MediaLibrary
-        .GetSet(tournamentPack)
+        .GetSet(_p.TournamentPack)
         .GenerateTournamentPack());
 
       return library;
+    }
+
+    public interface IFactory
+    {
+      Tournament Create(TournamentParameters p);
     }
   }
 }

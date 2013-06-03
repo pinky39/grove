@@ -1,6 +1,5 @@
 ﻿namespace Grove.Gameplay
 {
-  using System.IO;
   using Artifical;
   using Misc;
   using Persistance;
@@ -8,8 +7,9 @@
   public class GameParameters
   {
     private GameParameters() {}
+
     public PlayerParameters Player1 { get; private set; }
-    public PlayerParameters Player2 { get; private set; }    
+    public PlayerParameters Player2 { get; private set; }
     public SearchParameters SearchParameters { get; private set; }
     public SavedGame SavedGame { get; private set; }
     public ControllerType Player1Controller { get; private set; }
@@ -17,7 +17,7 @@
 
     public bool IsSavedGame { get { return SavedGame != null; } }
 
-    public static GameParameters StandardGame(PlayerParameters player1, PlayerParameters player2)
+    public static GameParameters Default(PlayerParameters player1, PlayerParameters player2)
     {
       return new GameParameters
         {
@@ -53,23 +53,18 @@
         };
     }
 
-    public static GameParameters Load(ControllerType player1Controller, ControllerType player2Controller, string filename)
+    public static GameParameters Load(ControllerType player1Controller, ControllerType player2Controller, 
+      SavedGame savedGame)
     {
-      using (var stream = new FileStream(filename, FileMode.Open))
-      {
-        var savedGame = GameRecorder.LoadGame(stream);
-        savedGame.Decisions.Position = 0;
-        
-        return new GameParameters
+      return new GameParameters
         {
           Player1 = savedGame.Player1,
           Player2 = savedGame.Player2,
           Player1Controller = player1Controller,
-          Player2Controller = player2Controller,          
+          Player2Controller = player2Controller,
           SearchParameters = new SearchParameters(40, 2, enableMultithreading: true),
           SavedGame = savedGame
-        };  
-      }                  
+        };
     }
   }
 }

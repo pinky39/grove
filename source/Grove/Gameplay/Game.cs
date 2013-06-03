@@ -95,9 +95,9 @@
       _decisionQueue.Enqueue(decision);
     }
 
-    public void SaveTo(Stream outStream)
+    public SavedGame Save()
     {
-      Recorder.SaveGame(outStream);
+      return Recorder.SaveGame();
     }
 
     public void Publish<TMessage>(TMessage message)

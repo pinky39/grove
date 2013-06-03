@@ -652,7 +652,6 @@
     <Compile Include="Persistance\SavedMatch.cs" />
     <Compile Include="Persistance\SavedTournament.cs" />
     <Compile Include="Persistance\SerializationContext.cs" />
-    <Compile Include="Persistance\TournamentInfo.cs" />
     <Compile Include="Gameplay\Tournaments\TournamentMatch.cs" />
     <Compile Include="Infrastructure\ListEx.cs" />
     <Compile Include="Infrastructure\NameGenerator.cs" />

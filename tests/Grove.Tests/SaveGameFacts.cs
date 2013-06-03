@@ -5,6 +5,7 @@
   using Gameplay;
   using Gameplay.Misc;
   using Infrastructure;
+  using Persistance;
   using Xunit;
 
   public class SaveGameFacts : Scenario
@@ -16,17 +17,23 @@
 
       using (var fileStream = new FileStream("test.savegame", FileMode.Create))
       {
-        game.SaveTo(fileStream);  
+        game.SaveTo(fileStream);
       }
 
-      var p = GameParameters.Load(
+      GameParameters p;
+
+      using (var file = new FileStream("test.savegame", FileMode.Open))
+      {
+        p = GameParameters.Load(
           player1Controller: ControllerType.Machine,
           player2Controller: ControllerType.Machine,
-          filename: "test.savegame");
+          savedGame: SavedGame.Deserialize(file));
+      }
 
-      var game1 = GameFactory.Create(p);      
 
-      Assert.Equal(game.CalculateHash(), game1.CalculateHash());           
+      var game1 = GameFactory.Create(p);
+
+      Assert.Equal(game.CalculateHash(), game1.CalculateHash());
     }
 
     private Game SimulateGame()
@@ -35,7 +42,7 @@
         new SearchParameters(maxSearchDepth: 15, maxTargetCount: 2, enableMultithreading: true));
 
       var game = GameFactory.Create(p);
-      
+
       game.Start(numOfTurns: 15);
       return game;
     }

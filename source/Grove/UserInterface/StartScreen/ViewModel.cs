@@ -62,7 +62,7 @@
                     PreviousScreen = selectDeck1,
                     Forward = (deck2) =>
                       {
-                        MatchRunner.StartNew(
+                        MatchRunner.Start(
                           player1: new PlayerParameters
                             {
                               Name = YourName,
@@ -98,7 +98,7 @@
 
       ChooseRandomDecks(out firstDeck, out secondDeck);
 
-      MatchRunner.StartNew(
+      MatchRunner.Start(
         player1: new PlayerParameters
           {
             Name = YourName,

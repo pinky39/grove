@@ -11,6 +11,8 @@
       IsHuman = isHuman;
     }
 
+    private TournamentPlayer() {}
+
     public string Name { get; private set; }
     public bool IsHuman { get; private set; }
     public int WinCount { get; set; }
@@ -40,6 +42,21 @@
         return -1;
 
       return Name.CompareTo(other.Name);
+    }
+
+    public TournamentPlayer Clone()
+    {
+      return new TournamentPlayer
+        {
+          Deck = Deck,
+          Name = Name,
+          IsHuman = IsHuman,
+          WinCount = WinCount,
+          DrawCount = DrawCount,
+          LooseCount = LooseCount,
+          GamesLost = GamesLost,
+          GamesWon = GamesWon,
+        };
     }
   }
 }

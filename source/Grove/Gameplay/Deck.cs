@@ -23,15 +23,7 @@
     public int? LimitedCode { get; set; }
     public int CardCount { get { return _cards.Count; } }
 
-    public string this[int index]
-    {
-      get { return _cards[index]; }
-    }
-
-    public static Deck CreateUncastable()
-    {
-      return new Deck(Enumerable.Repeat("Uncastable", 60));
-    }
+    public string this[int index] { get { return _cards[index]; } }
 
     public IEnumerator<string> GetEnumerator()
     {
@@ -41,6 +33,11 @@
     IEnumerator IEnumerable.GetEnumerator()
     {
       return GetEnumerator();
+    }
+
+    public static Deck CreateUncastable()
+    {
+      return new Deck(Enumerable.Repeat("Uncastable", 60));
     }
 
     public void AddCard(string name, int count = 1)

@@ -49,7 +49,7 @@
       return _decisionLog.LoadResult();
     }
 
-    public void SaveGame(Stream output)
+    public SavedGame SaveGame()
     {
       var decisions = new MemoryStream();
       _decisionLog.WriteTo(decisions);
@@ -75,15 +75,8 @@
           Decisions = decisions,
           StateCount = _game.Turn.StateCount
         };
-            
-      var formatter = new BinaryFormatter();
-      formatter.Serialize(output, savedGame);      
-    }
 
-    public static SavedGame LoadGame(Stream input)
-    {
-      var formatter = new BinaryFormatter();
-      return (SavedGame) formatter.Deserialize(input);
-    }   
+      return savedGame;
+    }
   }
 }

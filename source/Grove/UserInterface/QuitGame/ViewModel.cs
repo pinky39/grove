@@ -25,7 +25,7 @@
 
     public void Rematch()
     {      
-      MatchRunner.Rematch();
+      MatchRunner.ForceRematch();
     }
 
     public interface IFactory

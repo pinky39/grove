@@ -12,35 +12,50 @@
 
     public Match Current { get; private set; }
 
-    public void Rematch()
+    public void ForceRematch()
     {
       Current.Stop();
-      StartNew(_matchParameters);
+      Rematch();
     }
 
-    public void StartNew(MatchParameters matchParameters)
+    private void Rematch()
     {
-      var play = true;
+      _matchParameters = MatchParameters.Default(
+        player1: _matchParameters.Player1,
+        player2: _matchParameters.Player2,
+        isTournament: _matchParameters.IsTournament);
 
-      while (play)
+      Run();
+      
+      while (Current.Rematch)
       {
-        Current = _matchFactory.Create(_matchParameters);
-        Current.Run();
-
-        play = Current.Rematch;
+        Run();        
       }
     }
 
-    public void StartNew(PlayerParameters player1, PlayerParameters player2, bool isTournament)
-    {
-      _matchParameters = new MatchParameters
-        {
-          Player1 = player1,
-          Player2 = player2,
-          IsTournament = isTournament
-        };
+    private void Run() {
+      Current = _matchFactory.Create(_matchParameters);
+      Current.Start();
+    }
 
-      StartNew(_matchParameters);
+    public void Start(MatchParameters matchParameters)
+    {
+      _matchParameters = matchParameters;
+      
+      Run();
+
+      if (Current.Rematch)
+        Rematch();      
+    }    
+
+    public void Start(PlayerParameters player1, PlayerParameters player2, bool isTournament)
+    {
+      var matchParameters = MatchParameters.Default(
+        player1: player1,
+        player2: player2,
+        isTournament: isTournament);
+
+      Start(matchParameters);
     }
   }
 }
