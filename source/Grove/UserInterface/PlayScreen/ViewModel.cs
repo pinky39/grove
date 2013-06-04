@@ -1,5 +1,6 @@
 ﻿namespace Grove.UserInterface.PlayScreen
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
   using System.Threading;
@@ -10,7 +11,7 @@
   public class ViewModel : ViewModelBase, IIsDialogHost, IReceive<PlayerHasCastASpell>,
     IReceive<PlayerHasActivatedAbility>,
     IReceive<SearchStarted>, IReceive<SearchFinished>, IReceive<DamageHasBeenDealt>,
-    IReceive<AssignedCombatDamageWasDealt>, IReceive<CardWasRevealed>, IReceive<PlayerHasFlippedACoin>
+    IReceive<AssignedCombatDamageWasDealt>, IReceive<CardWasRevealed>, IReceive<PlayerHasFlippedACoin>, IDisposable
   {
     private readonly List<object> _largeDialogs = new List<object>();
     private readonly List<object> _smallDialogs = new List<object>();
@@ -148,6 +149,16 @@
     public interface IFactory
     {
       ViewModel Create();
+    }
+
+    public void Dispose()
+    {
+      ManaPool.Dispose();
+      YourBattlefield.Dispose();
+      OpponentsBattlefield.Dispose();
+      Zones.Dispose();
+      You.Dispose();
+      Opponent.Dispose();
     }
   }
 }

@@ -17,7 +17,7 @@
     private readonly ViewModelFactories _viewModels;
     private int? _looser;
     private bool _playerLeftMatch;
-    private bool _rematch = true;
+    private bool _rematch;
 
     public Match(MatchParameters p, IShell shell, ViewModelFactories viewModels, Game.IFactory gameFactory)
     {
@@ -45,8 +45,7 @@
     }
 
     public int Player1WinCount { get; private set; }
-    public int Player2WinCount { get; private set; }
-    public bool Rematch { get; private set; }
+    public int Player2WinCount { get; private set; }    
 
     protected Player Looser
     {
@@ -103,18 +102,25 @@
 
       var shouldPlayAnotherGame = RunGame(game);
 
-      while (shouldPlayAnotherGame)
+      while (shouldPlayAnotherGame || _rematch)
       {
+        if (_rematch)
+        {
+          Player1WinCount = 0;
+          Player2WinCount = 0;
+          _rematch = false;          
+        }
+        
         game = _gameFactory.Create(GameParameters.Default(
           _p.Player1, _p.Player2));
 
-        shouldPlayAnotherGame = RunGame(game);
-      }
+        shouldPlayAnotherGame = RunGame(game);        
+      }            
     }
 
     private bool RunGame(Game game)
     {
-      Game = game;
+      Game = game;      
 
       var playScreen = _viewModels.PlayScreen.Create();
       _shell.ChangeScreen(playScreen);
@@ -148,8 +154,7 @@
           return false;
 
         if (_rematch && !_playerLeftMatch)
-        {
-          Rematch = true;
+        {          
           return false;
         }
 
@@ -190,8 +195,16 @@
       return 1;
     }
 
+    public void Rematch()
+    {      
+      Stop();      
+      _rematch = true;
+    }
+
     public void Stop()
     {
+      _rematch = false;
+
       if (Game != null)
       {
         Game.Stop();

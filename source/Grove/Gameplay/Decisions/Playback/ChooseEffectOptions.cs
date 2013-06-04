@@ -1,6 +1,5 @@
 ﻿namespace Grove.Gameplay.Decisions.Playback
 {
-  using System;
   using Results;
 
   public class ChooseEffectOptions : Decisions.ChooseEffectOptions
@@ -11,5 +10,7 @@
     {
       Result = (ChosenOptions) Game.Recorder.LoadDecisionResult();
     }
+
+    public override void SaveDecisionResults() {}
   }
 }

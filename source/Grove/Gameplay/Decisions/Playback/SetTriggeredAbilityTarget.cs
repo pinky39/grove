@@ -10,5 +10,7 @@
     {
       Result = (ChosenTargets) Game.Recorder.LoadDecisionResult();
     }
+
+    public override void SaveDecisionResults() {}
   }
 }

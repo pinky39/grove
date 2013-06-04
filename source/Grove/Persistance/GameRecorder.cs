@@ -38,7 +38,7 @@
 
     public void SaveDecisionResult(object result)
     {
-      if (_game.Ai.IsSearchInProgress || IsPlayback)
+      if (_game.Ai.IsSearchInProgress)
         return;
 
       _decisionLog.SaveResult(result);

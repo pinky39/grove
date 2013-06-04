@@ -12,15 +12,15 @@
 
     public int GenerateMarker(Card card)
     {
+      if (_used.ContainsKey(card))
+      {
+        return _used[card];
+      }
+      
       var marker = _available.Pop();
       _used.Add(card, marker);
       return marker;
-    }
-
-    public int GetMarker(Card card)
-    {
-      return _used[card];
-    }
+    }    
 
     public void ReleaseMarker(Card card)
     {

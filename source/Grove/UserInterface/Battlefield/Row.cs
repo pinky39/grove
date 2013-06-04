@@ -1,10 +1,11 @@
 ﻿namespace Grove.UserInterface.Battlefield
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Gameplay;
 
-  public class Row
+  public class Row : IDisposable
   {
     private readonly List<Slot> _slots = new List<Slot>();
 
@@ -73,6 +74,14 @@
     public bool ContainsAttachmentTarget(Card attachment)
     {
       return _slots.Any(slot => slot.ContainsAttachmentTarget(attachment));
+    }
+
+    public void Dispose()
+    {
+      foreach (var slot in Slots)
+      {
+        slot.Dispose();
+      }
     }
   }
 }

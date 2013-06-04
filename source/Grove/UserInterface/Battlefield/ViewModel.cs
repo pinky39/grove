@@ -1,12 +1,13 @@
 ﻿namespace Grove.UserInterface.Battlefield
 {
+  using System;
   using System.Linq;
   using Gameplay;
   using Gameplay.Messages;
   using Gameplay.Zones;
   using Infrastructure;
 
-  public class ViewModel : ViewModelBase, IReceive<AttachmentAttached>, IReceive<AttachmentDetached>
+  public class ViewModel : ViewModelBase, IReceive<AttachmentAttached>, IReceive<AttachmentDetached>, IDisposable
   {
     private readonly Player _owner;
 
@@ -158,6 +159,14 @@
     public interface IFactory
     {
       ViewModel Create(Player owner);
+    }
+
+    public void Dispose()
+    {
+      foreach (var row in _rows)
+      {
+        row.Dispose();
+      }
     }
   }
 }

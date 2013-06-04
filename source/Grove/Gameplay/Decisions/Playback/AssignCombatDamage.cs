@@ -10,5 +10,7 @@
     {
       Result = (DamageDistribution) Game.Recorder.LoadDecisionResult();
     }
+
+    public override void SaveDecisionResults() {}
   }
 }

@@ -15,6 +15,7 @@
     protected Match CurrentMatch { get { return MatchRunner.Current; } }
     public TournamentRunner TournamentRunner { get; set; }
     protected Tournament CurrentTournament { get { return TournamentRunner.Current; } }
+    protected Combat Combat {get { return CurrentGame.Combat; }}
 
     protected Players Players { get { return CurrentGame.Players; } }
 

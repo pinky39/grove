@@ -8,8 +8,8 @@
   {
     public Configuration Configuration { get; set; }
     public ViewModel.IFactory DialogFactory { get; set; }
-    public IShell Shell { get; set; }
-
+    public IShell Shell { get; set; }    
+    
     protected override void ExecuteQuery()
     {
       if (Configuration.ShouldAutoPass(Turn.Step, Controller.IsActive) && Stack.IsEmpty)

@@ -15,7 +15,6 @@
 
   public class Tournament
   {
-    private readonly CardRatings _cardRatings;
     private readonly DeckBuilder _deckBuilder;
     private readonly MatchRunner _matchRunner;
 
@@ -24,6 +23,7 @@
     private readonly object _resultsLock = new object();
     private readonly IShell _shell;
     private readonly ViewModelFactories _viewModels;
+    private CardRatings _cardRatings;
     private List<TournamentMatch> _matches;
     private List<TournamentPlayer> _players;
     private int _roundsLeft;
@@ -39,8 +39,6 @@
       _shell = shell;
       _matchRunner = matchRunner;
       _matchSimulator = matchSimulator;
-
-      _cardRatings = LoadCardRatings(p.TournamentPack, p.BoosterPacks);
     }
 
     private TournamentPlayer HumanPlayer { get { return _players.Single(x => x.IsHuman); } }
@@ -63,7 +61,7 @@
       if (_p.IsSavedTournament)
       {
         _roundsLeft = _p.SavedTournament.RoundsToGo;
-        _players.AddRange(_p.SavedTournament.Players);
+        _players = new List<TournamentPlayer>(_p.SavedTournament.Players);
         _matches = _p.SavedTournament.CurrentRoundMatches;
 
         SimulateRound();
@@ -71,6 +69,7 @@
       }
       else
       {
+        _cardRatings = LoadCardRatings(_p.TournamentPack, _p.BoosterPacks);
         _roundsLeft = CalculateRoundCount(_p.PlayersCount);
         _players = CreatePlayers(_p.PlayersCount, _p.PlayerName);
 
@@ -90,10 +89,24 @@
 
         var tournamentMatch = _matches.Single(x => !x.IsSimulated);
 
+         if (CurrentMatch.WasStopped)
+         {
+           _wasStopped = true;
+           return;
+         }
+
         lock (_resultsLock)
         {
-          tournamentMatch.Player1WinCount = CurrentMatch.Player1WinCount;
-          tournamentMatch.Player2WinCount = CurrentMatch.Player2WinCount;
+          if (tournamentMatch.Player1.IsHuman)
+          {
+            tournamentMatch.Player1WinCount = CurrentMatch.Player1WinCount;
+            tournamentMatch.Player2WinCount = CurrentMatch.Player2WinCount;
+          }
+          else
+          {
+            tournamentMatch.Player2WinCount = CurrentMatch.Player1WinCount;
+            tournamentMatch.Player1WinCount = CurrentMatch.Player2WinCount;
+          }
 
           UpdatePlayersWithMatchResults(tournamentMatch);
           tournamentMatch.IsFinished = true;
@@ -207,8 +220,16 @@
 
       lock (_resultsLock)
       {
-        tournamentMatch.Player1WinCount = CurrentMatch.Player1WinCount;
-        tournamentMatch.Player2WinCount = CurrentMatch.Player2WinCount;
+        if (tournamentMatch.Player1.IsHuman)
+        {
+          tournamentMatch.Player1WinCount = CurrentMatch.Player1WinCount;
+          tournamentMatch.Player2WinCount = CurrentMatch.Player2WinCount;
+        }
+        else
+        {
+          tournamentMatch.Player2WinCount = CurrentMatch.Player1WinCount;
+          tournamentMatch.Player1WinCount = CurrentMatch.Player2WinCount;
+        }
 
         UpdatePlayersWithMatchResults(tournamentMatch);
         tournamentMatch.IsFinished = true;

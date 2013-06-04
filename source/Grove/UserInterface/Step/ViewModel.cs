@@ -27,10 +27,15 @@
       if (IsCurent)
         IsCurent = false;
 
-      if (_steps.Any(x => x == message.Step))
+      if (IsStep(message.Step))
       {
         IsCurent = true;
       }
+    }
+
+    public bool IsStep(Step step)
+    {
+      return _steps.Any(x => x == step);
     }
 
     [Updates("AutoPass")]

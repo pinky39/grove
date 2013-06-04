@@ -1,6 +1,5 @@
 ﻿namespace Grove.Gameplay.Decisions.Playback
 {
-  using System;
   using Results;
 
   public class DeclareBlockers : Decisions.DeclareBlockers
@@ -11,5 +10,7 @@
     {
       Result = (ChosenBlockers) Game.Recorder.LoadDecisionResult();
     }
+
+    public override void SaveDecisionResults() {}
   }
 }

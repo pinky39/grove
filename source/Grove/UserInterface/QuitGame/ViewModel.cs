@@ -53,6 +53,8 @@
         formatter.Serialize(file, saveFileHeader);
         formatter.Serialize(file, gameData);
       }
+
+      this.Close();
     }
 
     public interface IFactory

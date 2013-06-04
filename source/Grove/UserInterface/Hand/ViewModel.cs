@@ -1,5 +1,6 @@
 ﻿namespace Grove.UserInterface.Hand
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Caliburn.Micro;
@@ -7,7 +8,7 @@
   using Gameplay.Zones;
   using Infrastructure;
 
-  public class ViewModel : ViewModelBase
+  public class ViewModel : ViewModelBase, IDisposable
   {
     private readonly Player _owner;
     private readonly BindableCollection<Spell.ViewModel> _cards = new BindableCollection<Spell.ViewModel>();
@@ -53,6 +54,14 @@
     public interface IFactory
     {
       ViewModel Create(Player owner);
+    }
+
+    public void Dispose()
+    {
+      foreach (var viewModel in _cards)
+      {
+        viewModel.Dispose();
+      }
     }
   }
 }

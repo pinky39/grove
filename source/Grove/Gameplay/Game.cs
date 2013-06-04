@@ -58,7 +58,8 @@
 
       if (p.IsSavedGame)
       {
-        _stateMachine.Start(() => Turn.StateCount < p.SavedGame.StateCount, skipPreGame: false);
+        p.SavedGame.Decisions.Position = 0;
+        _stateMachine.Start(() => (Turn.StateCount < p.SavedGame.StateCount || Recorder.IsPlayback), skipPreGame: false);
         _wasLoaded = true;
       }
     }

@@ -1,6 +1,7 @@
 ﻿namespace Grove.UserInterface.Turn
 {
   using System.Collections.Generic;
+  using System.Linq;
   using Gameplay.Messages;
   using Gameplay.States;
   using Infrastructure;
@@ -15,13 +16,14 @@
 
     public void Receive(TurnStarted message)
     {
-      TurnNumber = (message.TurnCount/2) + 1;
+      TurnNumber = message.TurnCount;
     }
 
     public override void Initialize()
     {
       _steps.AddRange(CreateStepViewModels());
-      TurnNumber = 1;
+      TurnNumber = CurrentGame.Turn.TurnCount;
+      _steps.Single(x => x.IsStep(CurrentGame.Turn.Step)).IsCurent = true;
     }
 
     private IEnumerable<UserInterface.Step.ViewModel> CreateStepViewModels()

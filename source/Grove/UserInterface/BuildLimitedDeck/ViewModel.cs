@@ -12,12 +12,14 @@
     private readonly List<string> _library;
     private Dictionary<Card, CardsLeft> _availability;
     private UserInterface.Deck.ViewModel _deck;
+    private int _remainingDecksToGenerate;
     private int _decksToGenerate;
     private double _percentageCompleted;
 
     public ViewModel(IEnumerable<string> library, int decksToGenerate)
     {
       _decksToGenerate = decksToGenerate;
+      _remainingDecksToGenerate = decksToGenerate;
       _library = library.ToList();
 
       AddBasicLands();
@@ -30,7 +32,7 @@
     {
       get
       {
-        if (_decksToGenerate > 0)
+        if (_remainingDecksToGenerate > 0)
           return String.Format("Building decks {0}% completed.", (int) _percentageCompleted);
 
         if (Deck.CardCount < 40)
@@ -40,7 +42,7 @@
       }
     }
 
-    public virtual bool CanStartTournament { get { return _decksToGenerate == 0 && Deck.CardCount >= 40; } }
+    public virtual bool CanStartTournament { get { return _remainingDecksToGenerate == 0 && Deck.CardCount >= 40; } }
 
     public virtual UserInterface.Deck.ViewModel Deck
     {
@@ -58,7 +60,7 @@
     public virtual void Receive(DeckGenerated message)
     {
       _percentageCompleted = ((double) message.Count/_decksToGenerate)*100;
-      _decksToGenerate--;
+      _remainingDecksToGenerate--;
     }
 
     private void AddBasicLands()

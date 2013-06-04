@@ -14,5 +14,7 @@
     {
       Result = (ChosenPlayer) Game.Recorder.LoadDecisionResult();
     }
+
+    public override void SaveDecisionResults() {}
   }
 }

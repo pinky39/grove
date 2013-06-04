@@ -10,5 +10,7 @@
     {
       Result = (ChosenCards) Game.Recorder.LoadDecisionResult();
     }
+
+    public override void SaveDecisionResults() {}
   }
 }

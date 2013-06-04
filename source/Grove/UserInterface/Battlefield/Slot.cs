@@ -6,7 +6,7 @@
   using Caliburn.Micro;
   using Gameplay;
 
-  public class Slot
+  public class Slot : IDisposable
   {
     private readonly Func<Permanent.ViewModel, bool> _accepts;
     private readonly BindableCollection<Permanent.ViewModel> _permanents = new BindableCollection<Permanent.ViewModel>();
@@ -68,6 +68,14 @@
       }
 
       return insertAt < _permanents.Count ? insertAt : (int?) null;
+    }
+
+    public void Dispose()
+    {
+      foreach (var viewModel in _permanents)
+      {
+        viewModel.Dispose();
+      }
     }
   }
 }

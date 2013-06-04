@@ -41,6 +41,10 @@
     {
       var closable = (IClosable) obj;
       closable.Close();
+
+      var disposable = obj as IDisposable;
+      if (disposable != null)
+        disposable.Dispose();
     }
   }
 }

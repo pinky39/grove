@@ -1,6 +1,8 @@
 ﻿namespace Grove.UserInterface.Zones
 {
-  public class ViewModel : ViewModelBase
+  using System;
+
+  public class ViewModel : ViewModelBase, IDisposable
   {
     public Graveyard.ViewModel OpponentsGraveyard { get; private set; }
     public Hand.ViewModel OpponentsHand { get; private set; }
@@ -19,6 +21,16 @@
 
       OpponentsLibrary = ViewModels.Library.Create(Players.Computer);
       YourLibrary = ViewModels.Library.Create(Players.Human);
+    }
+
+    public void Dispose()
+    {
+      YourHand.Dispose();
+      OpponentsHand.Dispose();
+      YourGraveyard.Dispose();
+      OpponentsGraveyard.Dispose();
+      YourLibrary.Dispose();
+      OpponentsLibrary.Dispose();
     }
   }
 }

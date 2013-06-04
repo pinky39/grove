@@ -55,7 +55,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <Image Grid.Column="0" HorizontalAlignment="Left" Height="50" Source="{grove:Media 'icon.png'}"></Image>
-                    <TextBlock Grid.Column="1" Margin="30,0,0,0" VerticalAlignment="Center" FontSize="40" Foreground="#fff" Text="Load tournament" />                    
+                    <TextBlock Grid.Column="1" Margin="30,0,0,0" VerticalAlignment="Center" FontSize="40" Foreground="#fff" Text="Load saved game" />                    
                 </Grid>
             </Border>
             <Border Grid.Row="1" Margin="20">

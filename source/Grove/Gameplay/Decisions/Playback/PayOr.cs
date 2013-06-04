@@ -10,5 +10,7 @@
     {
       Result = (BooleanResult) Game.Recorder.LoadDecisionResult();
     }
+
+    public override void SaveDecisionResults() {}
   }
 }

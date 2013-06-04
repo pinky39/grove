@@ -22,7 +22,26 @@
 
     public ViewModel(Card card, CombatMarkers combatMarkers) : base(card)
     {
-      _combatMarkers = combatMarkers;
+      _combatMarkers = combatMarkers;      
+    }
+
+    public override void Initialize()
+    {
+      base.Initialize();
+      InitializeMarker();
+    }
+
+    private void InitializeMarker()
+    {
+      if (Combat.IsAttacker(Card))
+      {
+        Marker = _combatMarkers.GenerateMarker(Card);
+      }
+      else if (Combat.IsBlocker(Card))
+      {
+        var attacker = Combat.GetAttacker(Card);        
+        Marker = _combatMarkers.GenerateMarker(attacker);
+      }
     }
 
     public virtual bool IsPlayable { get; protected set; }
@@ -67,7 +86,7 @@
       if (Card.Controller.IsHuman)
         return;
 
-      Marker = _combatMarkers.GetMarker(message.Attacker);
+      Marker = _combatMarkers.GenerateMarker(message.Attacker);
     }
 
     public void Receive(BlockerSelected message)
@@ -75,7 +94,7 @@
       if (message.Blocker != Card)
         return;
 
-      Marker = _combatMarkers.GetMarker(message.Attacker);
+      Marker = _combatMarkers.GenerateMarker(message.Attacker);
     }
 
     public void Receive(BlockerUnselected message)

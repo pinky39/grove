@@ -5,9 +5,9 @@
 
   public class ViewModel : ViewModelBase, IDisposable
   {
-    private readonly Timer _timer;
-
-    public ViewModel()
+    private Timer _timer;
+    
+    public override void Initialize()
     {
       _timer = new Timer(delegate { Update(); }, null,
         TimeSpan.FromMilliseconds(20),

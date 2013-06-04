@@ -217,9 +217,16 @@
           {
             if (registration.Implementation.Implements<IReceive>())
             {
-              var game = kernel.Resolve<MatchRunner>().Current.Game;
+              Game game = null;
+              
+              var match = kernel.Resolve<MatchRunner>().Current;
               var shell = kernel.Resolve<IShell>();
-
+              
+              if (match != null)
+              {
+                game = match.Game;
+              }
+              
               if (game != null) game.Subscribe(instance);
 
               shell.Subscribe(instance);
@@ -268,17 +275,7 @@
 
         container.Register(Configure(IsViewModel, registration =>
           {
-            registration.LifestyleTransient();
-
-            // inject current match, game into viewmodels
-            //registration.DynamicParameters((k, d) =>
-            //  {
-            //    var matchRunner = k.Resolve<MatchRunner>();
-                
-            //    d["game"] = matchRunner.Current.Game;
-            //    d["match"] = matchRunner.Current;
-            //  });
-
+            registration.LifestyleTransient();       
             ImplementUiStuff(registration);
           }));
 

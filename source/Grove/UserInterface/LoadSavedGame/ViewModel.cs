@@ -40,7 +40,7 @@
         yield return (data) =>
           {
             var savedMatch = data as SavedMatch;
-            if (savedMatch == null) return false;
+            if (savedMatch == null) return false;            
 
             MatchRunner.Start(MatchParameters.Load(
               savedMatch, isTournament: false));
