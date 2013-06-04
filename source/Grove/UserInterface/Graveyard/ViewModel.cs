@@ -12,13 +12,25 @@
     private readonly BindableCollection<SelectableCard.ViewModel> _cards =
       new BindableCollection<SelectableCard.ViewModel>();
 
+    private readonly Player _owner;
+
     public ViewModel(Player owner)
     {
-      owner.Graveyard.CardAdded += OnCardAdded;
-      owner.Graveyard.CardRemoved += OnCardRemoved;
+      _owner = owner;
     }
 
     public IEnumerable<SelectableCard.ViewModel> Cards { get { return _cards; } }
+
+    public override void Initialize()
+    {
+      foreach (var card in _owner.Graveyard)
+      {
+        AddCard(card);
+      }
+
+      _owner.Graveyard.CardAdded += OnCardAdded;
+      _owner.Graveyard.CardRemoved += OnCardRemoved;
+    }
 
     private void OnCardRemoved(object sender, ZoneChangedEventArgs e)
     {
@@ -31,7 +43,12 @@
 
     private void OnCardAdded(object sender, ZoneChangedEventArgs e)
     {
-      _cards.Add(ViewModels.SelectableCard.Create(e.Card));
+      AddCard(e.Card);
+    }
+
+    private void AddCard(Card card)
+    {
+      _cards.Add(ViewModels.SelectableCard.Create(card));
     }
 
     public interface IFactory

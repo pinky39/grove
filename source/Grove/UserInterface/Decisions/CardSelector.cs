@@ -1,18 +1,12 @@
 ﻿namespace Grove.UserInterface.Decisions
 {
-  using Gameplay;
   using Gameplay.Decisions.Results;
   using Gameplay.Modifiers;
   using Gameplay.Targeting;
   using SelectTarget;
-  using Shell;
 
-  public class CardSelector
+  public class CardSelector : ViewModelBase
   {
-    public ViewModel.IFactory TargetDialog { get; set; }
-    public IShell Shell { get; set; }
-    public Game Game { get; set; }
-
     public void ExecuteQuery(SelectCards selectCards)
     {
       var chosenCards = new ChosenCards();
@@ -27,7 +21,7 @@
         };
 
       var validator = new TargetValidator(validatorParameters);
-      validator.Initialize(Game, selectCards.Controller, selectCards.OwningCard);
+      validator.Initialize(CurrentGame, selectCards.Controller, selectCards.OwningCard);
 
       var selectTargetParameters = new SelectTargetParameters
         {
@@ -36,7 +30,7 @@
           Instructions = selectCards.Instructions
         };
 
-      var dialog = TargetDialog.Create(selectTargetParameters);
+      var dialog = ViewModels.SelectTarget.Create(selectTargetParameters);
       Shell.ShowModalDialog(dialog, DialogType.Small, InteractionState.SelectTarget);
 
       foreach (var target in dialog.Selection)

@@ -1,4 +1,4 @@
-﻿namespace Grove.UserInterface.LoadTournament
+﻿namespace Grove.UserInterface.LoadSavedGame
 {
   using System;
 
@@ -6,6 +6,7 @@
   {
     public string Filename { get; set; }
     public string Description { get; set; }
+    public object Data { get; set; }
     public DateTime LastSave { get; set; }
     public bool IsOdd { get; set; }
   }

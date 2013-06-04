@@ -9,12 +9,23 @@
 
   public class ViewModel : ViewModelBase
   {
+    private readonly Player _owner;
     private readonly BindableCollection<Spell.ViewModel> _cards = new BindableCollection<Spell.ViewModel>();
 
     public ViewModel(Player owner)
     {
-      owner.Hand.CardAdded += OnCardAdded;
-      owner.Hand.CardRemoved += OnCardRemoved;
+      _owner = owner;
+    }
+
+    public override void Initialize()
+    {
+      foreach (var card in _owner.Hand)
+      {
+        AddCard(card);
+      }
+
+      _owner.Hand.CardAdded += OnCardAdded;
+      _owner.Hand.CardRemoved += OnCardRemoved;
     }
 
     public IEnumerable<Spell.ViewModel> Cards { get { return _cards; } }
@@ -31,7 +42,12 @@
 
     private void OnCardAdded(object sender, ZoneChangedEventArgs e)
     {
-      _cards.Add(ViewModels.Spell.Create(e.Card));
+      AddCard(e.Card);      
+    }
+
+    private void AddCard(Card card)
+    {
+      _cards.Add(ViewModels.Spell.Create(card));
     }
 
     public interface IFactory

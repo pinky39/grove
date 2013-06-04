@@ -1,11 +1,9 @@
 ﻿namespace Grove.Tests
 {
-  using System.IO;
   using Artifical;
   using Gameplay;
   using Gameplay.Misc;
   using Infrastructure;
-  using Persistance;
   using Xunit;
 
   public class SaveGameFacts : Scenario
@@ -14,24 +12,12 @@
     public void Save()
     {
       var game = SimulateGame();
+      var savedGame = game.Save();
 
-      using (var fileStream = new FileStream("test.savegame", FileMode.Create))
-      {
-        game.SaveTo(fileStream);
-      }
-
-      GameParameters p;
-
-      using (var file = new FileStream("test.savegame", FileMode.Open))
-      {
-        p = GameParameters.Load(
-          player1Controller: ControllerType.Machine,
-          player2Controller: ControllerType.Machine,
-          savedGame: SavedGame.Deserialize(file));
-      }
-
-
-      var game1 = GameFactory.Create(p);
+      var game1 = GameFactory.Create(GameParameters.Load(
+        player1Controller: ControllerType.Machine,
+        player2Controller: ControllerType.Machine,
+        savedGame: savedGame));      
 
       Assert.Equal(game.CalculateHash(), game1.CalculateHash());
     }
@@ -43,7 +29,7 @@
 
       var game = GameFactory.Create(p);
 
-      game.Start(numOfTurns: 15);
+      game.Start(numOfTurns: 5);
       return game;
     }
   }

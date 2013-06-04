@@ -35,10 +35,10 @@
       Shell.ChangeScreen(newTournament);
     }
 
-    public void LoadTournament()
+    public void LoadSavedGame()
     {
-      var loadTournament = ViewModels.LoadTournament.Create(this);
-      Shell.ChangeScreen(loadTournament);
+      var loadSavedGame = ViewModels.LoadSavedGame.Create(this);
+      Shell.ChangeScreen(loadSavedGame);
     }
 
     public void Play()

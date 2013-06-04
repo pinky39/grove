@@ -1,8 +1,9 @@
 ﻿namespace Grove.Gameplay.Tournaments
 {
   using System;
+  using Infrastructure;
 
-  [Serializable]
+  [Serializable, Copyable]
   public class TournamentPlayer : IComparable<TournamentPlayer>
   {
     public TournamentPlayer(string name, bool isHuman)
@@ -42,21 +43,6 @@
         return -1;
 
       return Name.CompareTo(other.Name);
-    }
-
-    public TournamentPlayer Clone()
-    {
-      return new TournamentPlayer
-        {
-          Deck = Deck,
-          Name = Name,
-          IsHuman = IsHuman,
-          WinCount = WinCount,
-          DrawCount = DrawCount,
-          LooseCount = LooseCount,
-          GamesLost = GamesLost,
-          GamesWon = GamesWon,
-        };
-    }
+    }    
   }
 }

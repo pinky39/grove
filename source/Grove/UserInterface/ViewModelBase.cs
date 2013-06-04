@@ -13,7 +13,8 @@
     public CardsInfo CardsInfo { get; set; }
     public MatchRunner MatchRunner { get; set; }
     protected Match CurrentMatch { get { return MatchRunner.Current; } }
-    public Tournament Tournament { get; set; }
+    public TournamentRunner TournamentRunner { get; set; }
+    protected Tournament CurrentTournament { get { return TournamentRunner.Current; } }
 
     protected Players Players { get { return CurrentGame.Players; } }
 

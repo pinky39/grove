@@ -37,8 +37,6 @@
     public ViewModel(Player owner)
     {
       _owner = owner;
-      _owner.Battlefield.CardAdded += OnCardAdded;
-      _owner.Battlefield.CardRemoved += OnCardRemoved;
     }
 
     public Row Row1 { get { return SwitchRows ? _rows[1] : _rows[0]; } }
@@ -61,6 +59,25 @@
       }
     }
 
+    public override void Initialize()
+    {
+      foreach (var card in _owner.Battlefield)
+      {
+        AddCard(card);
+      }
+
+      foreach (var card in _owner.Battlefield)
+      {
+        if (card.AttachedTo != null)
+        {
+          Attach(card);
+        }
+      }
+
+      _owner.Battlefield.CardAdded += OnCardAdded;
+      _owner.Battlefield.CardRemoved += OnCardRemoved;
+    }
+
     private void OnCardRemoved(object sender, ZoneChangedEventArgs e)
     {
       var viewModel = Remove(e.Card);
@@ -70,8 +87,7 @@
 
     private void OnCardAdded(object sender, ZoneChangedEventArgs e)
     {
-      var viewModel = ViewModels.Permanent.Create(e.Card);
-      Add(viewModel);
+      AddCard(e.Card);
     }
 
     private static Slot CreatureSlot()
@@ -87,6 +103,12 @@
     private static Slot MiscSlot()
     {
       return new Slot(vm => !vm.Card.Is().Creature && !vm.Card.Is().Land);
+    }
+
+    private void AddCard(Card card)
+    {
+      var viewModel = ViewModels.Permanent.Create(card);
+      Add(viewModel);
     }
 
     private void Add(Permanent.ViewModel viewModel)
@@ -135,7 +157,7 @@
 
     public interface IFactory
     {
-      ViewModel Create(Player owner);      
+      ViewModel Create(Player owner);
     }
   }
 }

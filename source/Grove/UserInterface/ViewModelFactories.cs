@@ -1,5 +1,7 @@
 ﻿namespace Grove.UserInterface
 {
+  using LoadSavedGame;
+
   public class ViewModelFactories
   {
     public DistributeDamage.ViewModel.IFactory DistributeDamage { get; set; }
@@ -28,6 +30,6 @@
     public MatchResults.ViewModel.IFactory MatchResults { get; set; }
     public PlayScreen.ViewModel.IFactory PlayScreen { get; set; }
     public Leaderboard.ViewModel.IFactory LeaderBoard { get; set; }
-    public LoadTournament.ViewModel.IFactory LoadTournament { get; set; }
+    public ViewModel.IFactory LoadSavedGame { get; set; }
   }
 }

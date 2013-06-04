@@ -13,51 +13,22 @@
   using UserInterface.Messages;
   using UserInterface.Shell;
 
-  public class TournamentRunner {}
-
-  public class TournamentParameters
-  {
-    public string PlayerName { get; private set; }
-    public int PlayersCount { get; private set; }
-    public string[] BoosterPacks { get; private set; }
-    public string TournamentPack { get; private set; }
-    public SavedTournament SavedTournament { get; private set; }
-    public bool IsSavedTournament { get { return SavedTournament != null; } }
-
-    public static TournamentParameters Default(string playerName, int playersCount, string[] boosterPacks,
-      string tournamentPack)
-    {
-      return new TournamentParameters
-        {
-          PlayerName = playerName,
-          PlayersCount = playersCount,
-          BoosterPacks = boosterPacks,
-          TournamentPack = tournamentPack
-        };
-    }
-
-    public static TournamentParameters Load(SavedTournament savedTournament)
-    {
-      return new TournamentParameters
-        {
-          SavedTournament = savedTournament
-        };
-    }
-  }
-
   public class Tournament
   {
+    private readonly CardRatings _cardRatings;
     private readonly DeckBuilder _deckBuilder;
     private readonly MatchRunner _matchRunner;
 
     private readonly MatchSimulator _matchSimulator;
     private readonly TournamentParameters _p;
-    private readonly object _playersLock = new object();
+    private readonly object _resultsLock = new object();
     private readonly IShell _shell;
     private readonly ViewModelFactories _viewModels;
-    private CardRatings _cardRatings;
+    private List<TournamentMatch> _matches;
     private List<TournamentPlayer> _players;
-    private int _roundsToGo;
+    private int _roundsLeft;
+    private bool _shouldStop;
+    private bool _wasStopped;
 
     public Tournament(TournamentParameters p, DeckBuilder deckBuilder, ViewModelFactories viewModels, IShell shell,
       MatchRunner matchRunner, MatchSimulator matchSimulator)
@@ -68,82 +39,111 @@
       _shell = shell;
       _matchRunner = matchRunner;
       _matchSimulator = matchSimulator;
-      
+
       _cardRatings = LoadCardRatings(p.TournamentPack, p.BoosterPacks);
     }
 
-    private TournamentPlayer HumanPlayer { get { return _players[0]; } }
-    private IEnumerable<TournamentPlayer> NonHumanPlayers { get { return _players.Skip(1); } }
-    private bool WasStopped { get { return CurrentMatch.WasStopped; } }
+    private TournamentPlayer HumanPlayer { get { return _players.Single(x => x.IsHuman); } }
+    private IEnumerable<TournamentPlayer> NonHumanPlayers { get { return _players.Where(x => !x.IsHuman); } }
     private Match CurrentMatch { get { return _matchRunner.Current; } }
+
+    public string Description
+    {
+      get
+      {
+        {
+          return string.Format("Sealed tournament, {0} players, {1} rounds left, {2}", _players.Count, _roundsLeft,
+            _p.TournamentPack);
+        }
+      }
+    }
 
     public void Start()
     {
       if (_p.IsSavedTournament)
       {
-        if (_p.SavedTournament.HasMatchInProgress)
-        {
-          
+        _roundsLeft = _p.SavedTournament.RoundsToGo;
+        _players.AddRange(_p.SavedTournament.Players);
+        _matches = _p.SavedTournament.CurrentRoundMatches;
 
-
-        }
-
-
+        SimulateRound();
+        FinishCurrentMatch();
       }
       else
       {
-        _roundsToGo = CalculateRoundCount(_p.PlayersCount);      
+        _roundsLeft = CalculateRoundCount(_p.PlayersCount);
         _players = CreatePlayers(_p.PlayersCount, _p.PlayerName);
-        
+
         var generatedDeckCount = GenerateDecks();
         ShowEditDeckScreen(GenerateLibrary(), generatedDeckCount);
+      }
 
-        RunTournament();
+      RunTournament();
+    }
+
+    private void FinishCurrentMatch()
+    {
+      if (_p.SavedTournament.HasMatchInProgress)
+      {
+        var mp = MatchParameters.Load(_p.SavedTournament.SavedMatch, isTournament: true);
+        _matchRunner.Start(mp);
+
+        var tournamentMatch = _matches.Single(x => !x.IsSimulated);
+
+        lock (_resultsLock)
+        {
+          tournamentMatch.Player1WinCount = CurrentMatch.Player1WinCount;
+          tournamentMatch.Player2WinCount = CurrentMatch.Player2WinCount;
+
+          UpdatePlayersWithMatchResults(tournamentMatch);
+          tournamentMatch.IsFinished = true;
+        }
       }
     }
 
     private void RunTournament()
     {
+      if (_wasStopped)
+        return;
+
       ShowResults();
 
-      while (_roundsToGo > 0)
+      while (_roundsLeft > 0)
       {
-        _roundsToGo--;
+        _roundsLeft--;
 
         PlayNextRound();
 
-        if (WasStopped)
+        if (_wasStopped)
         {
           return;
         }
 
         ShowResults();
       }
-    } 
+    }
 
-    private SavedTournament Save()
+    public SavedTournament Save()
     {
-      TournamentPlayer[] playersCopy;
+      List<TournamentMatch> matches;
 
-      lock (_playersLock)
+      lock (_resultsLock)
       {
-        playersCopy = _players
-          .Select(x => x.Clone())
-          .ToArray();
+        // obtain a thread safe copy of current state        
+        matches = new CopyService().CopyRoot(_matches);
       }
 
       return new SavedTournament
         {
-          PlayerName = _p.PlayerName,
-          Players = playersCopy,
-          RoundsToGo = _roundsToGo,
+          RoundsToGo = _roundsLeft,
+          CurrentRoundMatches = matches,
           SavedMatch = CurrentMatch.Save()
         };
     }
 
     private void ShowResults()
     {
-      var leaderboard = _viewModels.LeaderBoard.Create(_players, _roundsToGo);
+      var leaderboard = _viewModels.LeaderBoard.Create(_players, _roundsLeft);
       _shell.ChangeScreen(leaderboard, blockUntilClosed: true);
     }
 
@@ -171,19 +171,16 @@
 
     private void PlayNextRound()
     {
-      var matches = CreateSwissPairings();
+      _matches = CreateSwissPairings();
 
-      SimulateRound(matches.Where(x => x.IsSimulated));
-      PlayMatch(matches.Single(x => !x.IsSimulated));
+      SimulateRound();
+      PlayMatch();
     }
 
-    private void LoadMatch(TournamentMatch tournamentMatch)
+    private void PlayMatch()
     {
-      
-    }
+      var tournamentMatch = _matches.Single(x => !x.IsSimulated);
 
-    private void PlayMatch(TournamentMatch tournamentMatch)
-    {
       var human = tournamentMatch.HumanPlayer;
       var nonHuman = tournamentMatch.NonHumanPlayer;
 
@@ -202,35 +199,27 @@
           },
         isTournament: true);
 
-
-      human.GamesWon += CurrentMatch.Player1WinCount;
-      nonHuman.GamesWon += CurrentMatch.Player2WinCount;
-
-      human.GamesLost += CurrentMatch.Player2WinCount;
-      nonHuman.GamesLost += CurrentMatch.Player1WinCount;
-
-      if (CurrentMatch.Player1WinCount > CurrentMatch.Player2WinCount)
+      if (CurrentMatch.WasStopped)
       {
-        human.WinCount++;
-        nonHuman.LooseCount++;
+        _wasStopped = true;
+        return;
       }
-      else if (CurrentMatch.Player1WinCount < CurrentMatch.Player2WinCount)
+
+      lock (_resultsLock)
       {
-        nonHuman.WinCount++;
-        human.LooseCount++;
-      }
-      else
-      {
-        human.DrawCount++;
-        nonHuman.DrawCount++;
+        tournamentMatch.Player1WinCount = CurrentMatch.Player1WinCount;
+        tournamentMatch.Player2WinCount = CurrentMatch.Player2WinCount;
+
+        UpdatePlayersWithMatchResults(tournamentMatch);
+        tournamentMatch.IsFinished = true;
       }
     }
 
-    private void SimulateRound(IEnumerable<TournamentMatch> simulatedMatches)
+    private void SimulateRound()
     {
       Task.Factory.StartNew(() =>
         {
-          foreach (var simulatedMatch in simulatedMatches)
+          foreach (var simulatedMatch in _matches.Where(x => x.IsSimulated && !x.IsFinished))
           {
             var result = _matchSimulator.Simulate(
               simulatedMatch.Player1.Deck,
@@ -239,43 +228,48 @@
               maxSearchDepth: 10,
               maxTargetsCount: 1);
 
-            UpdatePlayersWithMatchResults(simulatedMatch, result);
+            lock (_resultsLock)
+            {
+              simulatedMatch.Player1WinCount = result.Deck1WinCount;
+              simulatedMatch.Player2WinCount = result.Deck2WinCount;
+
+              UpdatePlayersWithMatchResults(simulatedMatch);
+              simulatedMatch.IsFinished = true;
+            }
 
             _shell.Publish(new TournamentMatchFinished {Match = simulatedMatch});
 
-            if (WasStopped)
+            if (CurrentMatch.WasStopped || _shouldStop)
             {
+              _wasStopped = true;
               break;
             }
           }
         }, TaskCreationOptions.LongRunning);
     }
 
-    private void UpdatePlayersWithMatchResults(TournamentMatch simulatedMatch, MatchSimulator.SimulationResult result)
+    private void UpdatePlayersWithMatchResults(TournamentMatch match)
     {
-      lock (_playersLock)
+      match.Player1.GamesWon += match.Player1WinCount;
+      match.Player2.GamesWon += match.Player2WinCount;
+
+      match.Player1.GamesLost += match.Player2WinCount;
+      match.Player2.GamesLost += match.Player1WinCount;
+
+      if (match.Player1WinCount > match.Player2WinCount)
       {
-        simulatedMatch.Player1.GamesWon += result.Deck1WinCount;
-        simulatedMatch.Player2.GamesWon += result.Deck2WinCount;
-
-        simulatedMatch.Player1.GamesLost += result.Deck2WinCount;
-        simulatedMatch.Player2.GamesLost += result.Deck1WinCount;
-
-        if (result.Deck1WinCount > result.Deck2WinCount)
-        {
-          simulatedMatch.Player1.WinCount++;
-          simulatedMatch.Player2.LooseCount++;
-        }
-        else if (result.Deck1WinCount < result.Deck2WinCount)
-        {
-          simulatedMatch.Player2.WinCount++;
-          simulatedMatch.Player1.LooseCount++;
-        }
-        else
-        {
-          simulatedMatch.Player1.DrawCount++;
-          simulatedMatch.Player2.DrawCount++;
-        }
+        match.Player1.WinCount++;
+        match.Player2.LooseCount++;
+      }
+      else if (match.Player1WinCount < match.Player2WinCount)
+      {
+        match.Player2.WinCount++;
+        match.Player1.LooseCount++;
+      }
+      else
+      {
+        match.Player1.DrawCount++;
+        match.Player2.DrawCount++;
       }
     }
 
@@ -398,6 +392,11 @@
         .GenerateTournamentPack());
 
       return library;
+    }
+
+    public void Stop()
+    {
+      _shouldStop = true;
     }
 
     public interface IFactory

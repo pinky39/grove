@@ -1,5 +1,6 @@
 ﻿namespace Grove.Gameplay
 {
+  using System;
   using System.Threading.Tasks;
   using System.Windows;
   using Infrastructure;
@@ -60,6 +61,15 @@
 
     public bool InProgress { get { return Game != null && !IsFinished; } }
 
+    public string Description
+    {
+      get
+      {
+        return String.Format("{0}({1}) vs {2}({3}), {4}. turn", Game.Players.Player1.Name, Game.Players.Player1.Life,
+          Game.Players.Player2.Name, Game.Players.Player2.Life, Game.Turn.TurnCount);
+      }
+    }
+
     private void DisplayGameResults()
     {
       var viewModel = _viewModels.GameResults.Create();
@@ -77,14 +87,13 @@
     public void Start()
     {
       Game game;
-      
+
       if (_p.IsSavedMatch)
       {
         game = _gameFactory.Create(GameParameters.Load(
           player1Controller: ControllerType.Human,
           player2Controller: ControllerType.Machine,
           savedGame: _p.SavedMatch.SavedGame));
-
       }
       else
       {
@@ -93,20 +102,20 @@
       }
 
       var shouldPlayAnotherGame = RunGame(game);
-      
+
       while (shouldPlayAnotherGame)
       {
         game = _gameFactory.Create(GameParameters.Default(
-            _p.Player1, _p.Player2));
-        
-        shouldPlayAnotherGame = RunGame(game);                 
-      }            
+          _p.Player1, _p.Player2));
+
+        shouldPlayAnotherGame = RunGame(game);
+      }
     }
 
     private bool RunGame(Game game)
     {
-      Game = game; 
-            
+      Game = game;
+
       var playScreen = _viewModels.PlayScreen.Create();
       _shell.ChangeScreen(playScreen);
 
@@ -118,6 +127,10 @@
           blocker.Completed();
         }, TaskCreationOptions.LongRunning));
 
+      return ProcessGameResults();
+    }
+
+    private bool ProcessGameResults() {
       if (Game.WasStopped)
         return false;
 

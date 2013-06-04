@@ -49,7 +49,7 @@
     private void OnCardAdded(object sender, ZoneChangedEventArgs e)
     {
       _cards.Add(ViewModels.SelectableCard.Create(e.Card));
-    }
+    }    
 
     public interface IFactory
     {

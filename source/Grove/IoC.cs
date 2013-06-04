@@ -113,7 +113,9 @@
           container.Register(Component(typeof (Match)));
           container.Register(Component(typeof (Match.IFactory)).AsFactory());
           container.Register(Component(typeof (MatchRunner), lifestyle: LifestyleType.Singleton));
-          container.Register(Component(typeof (Tournament), lifestyle: LifestyleType.Singleton));
+          container.Register(Component(typeof (Tournament)));
+          container.Register(Component(typeof (Tournament.IFactory)).AsFactory());
+          container.Register(Component(typeof (TournamentRunner), lifestyle: LifestyleType.Singleton));
           container.Register(Component(typeof (CombatMarkers), lifestyle: LifestyleType.Singleton));
           container.Register(Component(typeof (CardSelector)));
         }
@@ -269,13 +271,13 @@
             registration.LifestyleTransient();
 
             // inject current match, game into viewmodels
-            registration.DynamicParameters((k, d) =>
-              {
-                var matchRunner = k.Resolve<MatchRunner>();
+            //registration.DynamicParameters((k, d) =>
+            //  {
+            //    var matchRunner = k.Resolve<MatchRunner>();
                 
-                d["game"] = matchRunner.Current.Game;
-                d["match"] = matchRunner.Current;
-              });
+            //    d["game"] = matchRunner.Current.Game;
+            //    d["match"] = matchRunner.Current;
+            //  });
 
             ImplementUiStuff(registration);
           }));

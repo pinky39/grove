@@ -3,7 +3,6 @@
   using System;
   using System.Collections.Generic;
   using Caliburn.Micro;
-  using Gameplay;
   using Gameplay.Effects;
   using Gameplay.Targeting;
   using Gameplay.Zones;
@@ -14,12 +13,6 @@
   {
     private readonly BindableCollection<Effect> _effects = new BindableCollection<Effect>();
     private Action<Effect> _select = delegate { };
-
-    public ViewModel(Game game)
-    {
-      game.Stack.EffectAdded += OnEffectAdded;
-      game.Stack.EffectRemoved += OnEffectRemoved;
-    }
 
     public IEnumerable<Effect> Effects { get { return _effects; } }
 
@@ -38,6 +31,17 @@
             break;
           }
       }
+    }
+
+    public override void Initialize()
+    {
+      foreach (var effect in CurrentGame.Stack)
+      {
+        _effects.Add(effect);
+      }
+            
+      CurrentGame.Stack.EffectAdded += OnEffectAdded;
+      CurrentGame.Stack.EffectRemoved += OnEffectRemoved;
     }
 
     private void OnEffectRemoved(object sender, StackChangedEventArgs e)

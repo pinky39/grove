@@ -619,6 +619,8 @@
     <Compile Include="Gameplay\MatchParameters.cs" />
     <Compile Include="Gameplay\MatchRunner.cs" />
     <Compile Include="Gameplay\PlayerParameters.cs" />
+    <Compile Include="Gameplay\Tournaments\TournamentParameters.cs" />
+    <Compile Include="Gameplay\Tournaments\TournamentRunner.cs" />
     <Compile Include="Persistance\DecisionLog.cs" />
     <Compile Include="Gameplay\Effects\IEffectChoice.cs" />
     <Compile Include="Gameplay\Effects\RemoveAllCounters.cs" />
@@ -648,6 +650,7 @@
     <Compile Include="Gameplay\Modifiers\PlayerCastsCreatureLifetime.cs" />
     <Compile Include="Infrastructure\RandomGenerator.cs" />
     <Compile Include="Persistance\GameRecorder.cs" />
+    <Compile Include="Persistance\SaveFileHeader.cs" />
     <Compile Include="Persistance\SavedGame.cs" />
     <Compile Include="Persistance\SavedMatch.cs" />
     <Compile Include="Persistance\SavedTournament.cs" />
@@ -921,11 +924,11 @@
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserInterface\LibraryFilter\ViewModel.cs" />
-    <Compile Include="UserInterface\LoadTournament\SavedGameViewModel.cs" />
-    <Compile Include="UserInterface\LoadTournament\View.xaml.cs">
+    <Compile Include="UserInterface\LoadSavedGame\SavedGameViewModel.cs" />
+    <Compile Include="UserInterface\LoadSavedGame\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserInterface\LoadTournament\ViewModel.cs" />
+    <Compile Include="UserInterface\LoadSavedGame\ViewModel.cs" />
     <Compile Include="UserInterface\Messages\DeckGenerated.cs" />
     <Compile Include="UserInterface\Messages\TournamentMatchFinished.cs" />
     <Compile Include="UserInterface\NewTournament\View.xaml.cs">
@@ -1346,7 +1349,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserInterface\LoadTournament\View.xaml">
+    <Page Include="UserInterface\LoadSavedGame\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
