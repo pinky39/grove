@@ -29,7 +29,11 @@
           {
             p.Text = "When Spined Fluke enters the battlefield, sacrifice a creature.";
             p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
-            p.Effect = () => new PlayerSacrificeCreatures(1, P(e => e.Controller));
+            p.Effect = () => new PlayerSacrificePermanents(
+              count: 1, 
+              player: P(e => e.Controller),
+              filter: c => c.Is().Creature,
+              text: "Sacrifice a creature.");
           })
         .ActivatedAbility(p =>
           {

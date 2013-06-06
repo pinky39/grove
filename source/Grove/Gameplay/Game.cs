@@ -2,8 +2,6 @@
 {
   using System;
   using System.Collections.Generic;
-  using System.IO;
-  using System.Runtime.Serialization.Formatters.Binary;
   using Artifical;
   using Decisions;
   using Decisions.Scenario;
@@ -19,9 +17,9 @@
     private readonly DecisionSystem _decisionSystem;
     private readonly Publisher _publisher;
     private readonly StateMachine _stateMachine;
+    private readonly bool _wasLoaded;
     private readonly Trackable<bool> _wasStopped;
     private int _turnLimit = int.MaxValue;
-    private readonly bool _wasLoaded;
 
     private Game() {}
 
@@ -157,8 +155,8 @@
         }
         else
         {
-          _stateMachine.Start(ShouldContinue, skipPreGame, looser);  
-        }        
+          _stateMachine.Start(ShouldContinue, skipPreGame, looser);
+        }
       }
       catch (Exception)
       {
@@ -169,14 +167,11 @@
 
     private void DumpCrashReport()
     {
-      var formatter = new BinaryFormatter();
-      
+      var header = new SaveFileHeader {Description = "Crash report"};
       var filename = String.Format("crash-report-{0}.report", Guid.NewGuid());
-      using (var file = new FileStream(filename, FileMode.Create))
-      {
-        var savedGame = Save();
-        formatter.Serialize(file,savedGame);
-      }
+
+      var savedGame = Save();
+      SaveLoadHelper.WriteToDisk(header, savedGame, filename);
     }
 
     public void Stop()

@@ -6,11 +6,16 @@
   using System.Linq;
 
   [Serializable]
-  public class Deck : IEnumerable<string>
+  public class Deck : IEnumerable<CardInfo>
   {
-    private readonly List<string> _cards = new List<string>();
+    private readonly List<CardInfo> _cards = new List<CardInfo>();
 
     public Deck(IEnumerable<string> cards)
+    {
+      _cards.AddRange(cards.Select(x => new CardInfo(x)));
+    }
+
+    public Deck(IEnumerable<CardInfo> cards)
     {
       _cards.AddRange(cards);
     }
@@ -23,9 +28,9 @@
     public int? LimitedCode { get; set; }
     public int CardCount { get { return _cards.Count; } }
 
-    public string this[int index] { get { return _cards[index]; } }
+    public CardInfo this[int index] { get { return _cards[index]; } }
 
-    public IEnumerator<string> GetEnumerator()
+    public IEnumerator<CardInfo> GetEnumerator()
     {
       return _cards.GetEnumerator();
     }
@@ -40,17 +45,22 @@
       return new Deck(Enumerable.Repeat("Uncastable", 60));
     }
 
-    public void AddCard(string name, int count = 1)
+    public void AddCard(CardInfo cardInfo, int count = 1)
     {
       for (var i = 0; i < count; i++)
       {
-        _cards.Add(name);
+        _cards.Add(cardInfo);
       }
     }
 
-    public bool RemoveCard(string name)
+    public bool RemoveCard(CardInfo cardInfo)
     {
-      return _cards.Remove(name);
+      return _cards.Remove(cardInfo);
+    }
+
+    public CardInfo Get(string cardName)
+    {
+      return _cards.FirstOrDefault(x => x.Name == cardName);
     }
   }
 }

@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Artifical;
   using Artifical.TimingRules;
@@ -8,7 +7,7 @@
   using Gameplay.Effects;
   using Gameplay.Misc;
   using Gameplay.Modifiers;
-  
+
   public class AbsoluteGrace : CardsSource
   {
     public override IEnumerable<CardFactory> GetCards()

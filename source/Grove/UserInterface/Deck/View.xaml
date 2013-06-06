@@ -16,23 +16,23 @@
 						</StackPanel.Resources>
 						<TextBlock Foreground="#fff" FontSize="15" Text="{Binding Count, StringFormat=' {0}x'}" />
 
-						<TextBlock Style="{StaticResource CardName}" Cursor="Hand" Foreground="#FFD700" Margin="5,0,0,0" FontSize="15" Text="{Binding CardName}" />
+						<TextBlock Style="{StaticResource CardName}" Cursor="Hand" Foreground="#FFD700" Margin="5,0,0,0" FontSize="15" Text="{Binding Card.Name}" />
 
 					</StackPanel>
 					<i:Interaction.Triggers>
 						<i:EventTrigger EventName="MouseEnter">
 							<cal:ActionMessage MethodName="ChangeSelectedCard">
-								<cal:Parameter Value="{Binding CardName}" />
+								<cal:Parameter Value="{Binding Card}" />
 							</cal:ActionMessage>
 						</i:EventTrigger>
 						<i:EventTrigger EventName="MouseLeftButtonDown">
 							<cal:ActionMessage MethodName="AddCard">
-								<cal:Parameter Value="{Binding CardName}" />
+								<cal:Parameter Value="{Binding Card}" />
 							</cal:ActionMessage>
 						</i:EventTrigger>
 						<i:EventTrigger EventName="MouseRightButtonDown">
 							<cal:ActionMessage MethodName="RemoveCard">
-								<cal:Parameter Value="{Binding CardName}" />
+								<cal:Parameter Value="{Binding Card}" />
 							</cal:ActionMessage>
 						</i:EventTrigger>
 					</i:Interaction.Triggers>

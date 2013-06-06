@@ -70,25 +70,43 @@
 								<Setter Property="Template">
 									<Setter.Value>
 										<ControlTemplate TargetType="{x:Type ListBoxItem}">
-											<Border Name="Border" SnapsToDevicePixels="true" Background="#11000000" BorderThickness="0,0,0,1" BorderBrush="#33ffffff" Cursor="Hand">
-												<ContentPresenter />
-                                                <i:Interaction.Triggers>
-                                                    <i:EventTrigger EventName="MouseEnter">
-                                                        <cal:ActionMessage MethodName="ChangeSelectedCard">
-                                                            <cal:Parameter Value="{Binding Card }" />
-                                                        </cal:ActionMessage>
-                                                    </i:EventTrigger>
-                                                    <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                        <cal:ActionMessage MethodName="AddCard">
-                                                            <cal:Parameter Value="{Binding Card }" />
-                                                        </cal:ActionMessage>
-                                                    </i:EventTrigger>
-                                                    <i:EventTrigger EventName="MouseRightButtonDown">
-                                                        <cal:ActionMessage MethodName="RemoveCard">
-                                                            <cal:Parameter Value="{Binding Card }" />
-                                                        </cal:ActionMessage>
-                                                    </i:EventTrigger>
-                                                </i:Interaction.Triggers>
+                                            <ControlTemplate.Resources>
+                                                <Style x:Key="Rarity" TargetType="Border">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Card.Rarity}" Value="R">
+                                                            <Setter Property="Background" Value="#22FFA500"></Setter>                                                             
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Card.Rarity}" Value="C">
+                                                            <Setter Property="Background" Value="#22000000"></Setter>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Card.Rarity}" Value="U">
+                                                            <Setter Property="Background" Value="#22cccccc"></Setter>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                                
+                                            </ControlTemplate.Resources>
+											<Border Name="Border" SnapsToDevicePixels="true" BorderThickness="0,0,0,1" BorderBrush="#66ffffff" Cursor="Hand">
+                                                <Border Style="{StaticResource Rarity}">
+												    <ContentPresenter />
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="MouseEnter">
+                                                            <cal:ActionMessage MethodName="ChangeSelectedCard">
+                                                                <cal:Parameter Value="{Binding }" />
+                                                            </cal:ActionMessage>
+                                                        </i:EventTrigger>
+                                                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                            <cal:ActionMessage MethodName="AddCard">
+                                                                <cal:Parameter Value="{Binding }" />
+                                                            </cal:ActionMessage>
+                                                        </i:EventTrigger>
+                                                        <i:EventTrigger EventName="MouseRightButtonDown">
+                                                            <cal:ActionMessage MethodName="RemoveCard">
+                                                                <cal:Parameter Value="{Binding }" />
+                                                            </cal:ActionMessage>
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                </Border>
                                             </Border>
 											<ControlTemplate.Triggers>
 												<Trigger Property="IsMouseOver" Value="true">

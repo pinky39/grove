@@ -10,6 +10,7 @@
   using System.Windows.Media;
   using Gameplay.Characteristics;
   using Gameplay.ManaHandling;
+  using Gameplay.Sets;
   using Infrastructure;
 
   public static class Converters
@@ -20,8 +21,11 @@
     public static CardNameToCardImageConverter CardIllustrationNameToCardImage = new CardNameToCardImageConverter();
     public static CharacterCountToFontSizeConverter CharacterCountToFontSize = new CharacterCountToFontSizeConverter();
     public static LifeToColorConverter LifeToColor = new LifeToColorConverter();
+
     public static ManaCostToManaSymbolImagesConverter ManaCostToManaSymbolImages =
       new ManaCostToManaSymbolImagesConverter();
+
+    public static SetAndRarityToSetImageConverter SetAndRaritytoSetImage = new SetAndRarityToSetImageConverter();
     public static ManaSymbolListToImagesConverter ManaSymbolListToImages = new ManaSymbolListToImagesConverter();
     public static MarkerBrushConverter MarkerBrush = new MarkerBrushConverter();
     public static NullToCollapsedConverter NullToCollapsed = new NullToCollapsedConverter();
@@ -342,6 +346,22 @@
         throw new NotImplementedException();
       }
     }
+
+    public class SetAndRarityToSetImageConverter : IMultiValueConverter
+    {
+      public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+      {
+        var set = (string) values[0];
+        var rarity = (Rarity?) values[1];
+
+        return MediaLibrary.GetSetImage(set, rarity);
+      }
+
+      public object[] ConvertBack(object values, Type[] targetType, object parameter, CultureInfo culture)
+      {
+        throw new NotImplementedException();
+      }
+    }
   }
 
   public class ZeroToCollapsedConverter : IValueConverter
@@ -373,7 +393,7 @@
   public class NullToCollapsedConverter : IValueConverter
   {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    {            
+    {
       return value == null ? Visibility.Collapsed : Visibility.Visible;
     }
 

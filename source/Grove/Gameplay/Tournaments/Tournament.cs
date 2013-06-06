@@ -44,14 +44,14 @@
     private TournamentPlayer HumanPlayer { get { return _players.Single(x => x.IsHuman); } }
     private IEnumerable<TournamentPlayer> NonHumanPlayers { get { return _players.Where(x => !x.IsHuman); } }
     private Match CurrentMatch { get { return _matchRunner.Current; } }
+    private bool MatchInProgress { get { return _matchRunner.Current != null && !_matchRunner.Current.IsFinished; } }
 
     public string Description
     {
       get
       {
         {
-          return string.Format("Sealed tournament, {0} players, {1} rounds left, {2}", _players.Count, _roundsLeft,
-            _p.TournamentPack);
+          return string.Format("Sealed tournament, {0} players, {1} rounds left", _players.Count, _roundsLeft);
         }
       }
     }
@@ -64,8 +64,11 @@
         _players = new List<TournamentPlayer>(_p.SavedTournament.Players);
         _matches = _p.SavedTournament.CurrentRoundMatches;
 
-        SimulateRound();
-        FinishCurrentMatch();
+        if (_matches != null)
+        {
+          SimulateRound();
+          FinishCurrentMatch();
+        }
       }
       else
       {
@@ -89,11 +92,11 @@
 
         var tournamentMatch = _matches.Single(x => !x.IsSimulated);
 
-         if (CurrentMatch.WasStopped)
-         {
-           _wasStopped = true;
-           return;
-         }
+        if (CurrentMatch.WasStopped)
+        {
+          _wasStopped = true;
+          return;
+        }
 
         lock (_resultsLock)
         {
@@ -138,19 +141,29 @@
 
     public SavedTournament Save()
     {
-      List<TournamentMatch> matches;
+      List<TournamentMatch> matches = null;
+      List<TournamentPlayer> players;
 
       lock (_resultsLock)
       {
         // obtain a thread safe copy of current state        
-        matches = new CopyService().CopyRoot(_matches);
+        if (_matches != null)
+        {
+          matches = new CopyService().CopyRoot(_matches);
+          players = matches.SelectMany(x => new[] {x.Player1, x.Player2}).ToList();
+        }
+        else
+        {
+          players = new CopyService().CopyRoot(_players);
+        }
       }
 
       return new SavedTournament
         {
           RoundsToGo = _roundsLeft,
           CurrentRoundMatches = matches,
-          SavedMatch = CurrentMatch.Save()
+          Players = players,
+          SavedMatch = MatchInProgress ? CurrentMatch.Save() : null
         };
     }
 
@@ -185,7 +198,6 @@
     private void PlayNextRound()
     {
       _matches = CreateSwissPairings();
-
       SimulateRound();
       PlayMatch();
     }
@@ -313,7 +325,7 @@
       return matches;
     }
 
-    private void ShowEditDeckScreen(IEnumerable<string> library, int generatedDeckCount)
+    private void ShowEditDeckScreen(IEnumerable<CardInfo> library, int generatedDeckCount)
     {
       var screen = _viewModels.BuildLimitedDeck.Create(library, generatedDeckCount);
       _shell.ChangeScreen(screen, blockUntilClosed: true);
@@ -397,9 +409,9 @@
       return players;
     }
 
-    private List<string> GenerateLibrary()
+    private List<CardInfo> GenerateLibrary()
     {
-      var library = new List<string>();
+      var library = new List<CardInfo>();
 
       foreach (var setName in _p.BoosterPacks)
       {

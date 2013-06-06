@@ -56,7 +56,7 @@
 						</Grid>
 					</Border>
 					<ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Hidden" Padding="5,0,40,0">
-                        <ItemsControl ItemsSource="{Binding Players}">
+                        <ItemsControl ItemsSource="{Binding FinishedPlayers}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <DataTemplate.Resources>
@@ -105,10 +105,15 @@
 			<Border Grid.Row="2" Margin="0,0,0,0" Background="#1affffff" BorderBrush="#111" BorderThickness="0,2,0,0">
 				<Grid Margin="30">
 					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
 						<ColumnDefinition Width="Auto" />
-					</Grid.ColumnDefinitions>					
-					<StackPanel Grid.Column="1" Orientation="Horizontal">
+					</Grid.ColumnDefinitions>
+                    
+                    <TextBlock FontSize="20" Foreground="#fff" Text="{Binding MatchesInProgress, StringFormat='Please wait for {0} matches to finish.'}" Grid.Column="0" 
+                               Visibility="{Binding Path=CanContinue, Converter={x:Static grove:Converters.BooleanToVisibility}, ConverterParameter=true}" />
+
+                    <StackPanel Grid.Column="2" Orientation="Horizontal">
                         <StackPanel.Resources>
                             <Style x:Key="ContinueButton" BasedOn="{StaticResource RightButton}" TargetType="Button">
                                 <Setter Property="Content" Value="Play next round" />
@@ -122,8 +127,13 @@
                             </Style>
                             
                         </StackPanel.Resources>
-                        <Button Style="{StaticResource ContinueButton}"  x:Name="Continue" FontSize="20" Foreground="#fff" />
-                        <TextBlock FontSize="20" Foreground="#fff" Text="{Binding MatchesInProgress, StringFormat='Please wait for {0} matches to finish.'}" Grid.Column="1" Visibility="{Binding Path=CanContinue, Converter={x:Static grove:Converters.BooleanToVisibility}, ConverterParameter=true}" />
+                                                
+                        <Button x:Name="Save" FontSize="20" Foreground="#fff" Content="Save tournament" />
+
+                        <Border BorderBrush="#aaa" BorderThickness="1,0,0,0" Padding="10,0,0,0" Margin="20,0,0,0" Visibility="{Binding CanContinue, Converter={x:Static grove:Converters.BooleanToVisibility}}">
+                            <Button Style="{StaticResource ContinueButton}"  x:Name="Continue" FontSize="20" Foreground="#fff" />
+                        </Border>
+
                     </StackPanel>
 				</Grid>
 			</Border>

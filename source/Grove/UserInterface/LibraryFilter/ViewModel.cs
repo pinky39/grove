@@ -10,14 +10,16 @@
 
   public class ViewModel : ViewModelBase
   {
-    private readonly HashSet<string> _cardsNames;
-    private readonly Func<Card, object> _transformResult;
+    private readonly Func<CardInfo, int> _orderBy;
+    private readonly Dictionary<string, CardInfo> _cards;
+    private readonly Func<CardInfo, object> _transformResult;
     private string _text = String.Empty;
 
-    public ViewModel(IEnumerable<string> cardNames, Func<Card, object> transformResult)
+    public ViewModel(IEnumerable<CardInfo> cards, Func<CardInfo, object> transformResult, Func<CardInfo, int> orderBy)
     {
+      _orderBy = orderBy;
       _transformResult = transformResult ?? (x => x);
-      _cardsNames = new HashSet<string>(cardNames);
+      _cards = cards.ToDictionary(x => x.Name, x => x);
 
       White = Blue = Black = Red = Green = true;
       Costs = Enumerable.Range(0, 17).ToArray();
@@ -67,13 +69,14 @@
           if (text != _text)
             return;
 
-          var cards = CardsInfo.Query(_text.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries));
-          
-          foreach (var card in cards.OrderBy(x => x.Name))
-          {
-            if (!_cardsNames.Contains(card.Name))
-              continue;
-            
+          var cards = CardsDictionary
+            .Query(_text.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries))
+            .Where(x => _cards.ContainsKey(x.Name));
+
+          foreach (var card in cards.OrderBy(x => _orderBy(_cards[x.Name])).ThenBy(x => x.Name))
+          {            
+            var info = _cards[card.Name];
+
             if (card.ConvertedCost < MinimumCost || card.ConvertedCost > MaximumCost)
               continue;
 
@@ -86,7 +89,7 @@
                         (card.HasColor(CardColor.Colorless) || card.ManaCost == null)
               )
             {
-              view.Add(_transformResult(card));
+              view.Add(_transformResult(info));
             }
           }
         });
@@ -97,7 +100,7 @@
 
     public interface IFactory
     {
-      ViewModel Create(IEnumerable<string> cardNames, Func<Card, object> transformResult);
+      ViewModel Create(IEnumerable<CardInfo> cards, Func<CardInfo, object> transformResult, Func<CardInfo, int> orderBy);
     }
   }
 }

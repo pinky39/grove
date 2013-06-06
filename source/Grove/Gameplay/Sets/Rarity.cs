@@ -2,8 +2,8 @@
 {
   public enum Rarity
   {
-    C,
-    U,
-    R
+    C = 1,
+    U = 2,
+    R = 3
   }
 }

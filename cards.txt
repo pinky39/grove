@@ -1,4 +1,4 @@
-MAGICGROVE v 1.8: Card List
+MAGICGROVE v 1.9: Card List
 =====================================
 The following cards can be used to construct new decks:
 
@@ -208,61 +208,130 @@ Mishra's Helix
 Mobile Fort
 Monk Idealist
 Monk Realist
+Morphling
 Mountain
 Nantuko Shade
+Nature's Lore
+No Rest for the Wicked
+Noetic Scales
 Opal Acrolith
+Opal Archangel
 Opal Caryatid
 Opal Gargoyle
 Opal Titan
+Oppression
 Order of the Sacred Bell
+Order of Yawgmoth
+Outmaneuver
 Pacifism
+Parasitic Bond
 Pariah
+Path of Peace
 Pegasus Charger
 Pendrell Drake
+Pendrell Flux
+Peregrine Drake
+Persecute
 Pestilence
 Phyrexian Arena
 Phyrexian Ghoul
+Phyrexian Processor
+Phyrexian Tower
+Pit Trap
 Plains
+Planar Birth
+Planar Void
 Polluted Mire
 Pouncing Jaguar
 Power Sink
+Power Taint
+Presence of the Master
+Priest of Gix
+Priest of Titania
+Purging Scythe
 Raging Ravine
+Rain of Filth
+Rain of Salt
+Rampant Growth
 Rancor
 Ravenous Baloth
+Ravenous Skirge
+Raze
 Razorverge Thicket
+Recantation
+Reclusive Wight
 Recoil
+Redeem
+Reflexes
+Rejuvenate
+Remembrance
 Remote Isle
+Reprocess
 Rescind
+Retaliation
+Retromancer
+Rewind
 Rootbound Crag
+Rumbling Crescendo
 Rumbling Slum
+Rune of Protection: Artifacts
 Rune of Protection: Black
+Rune of Protection: Blue
+Rune of Protection: Green
+Rune of Protection: Lands
+Rune of Protection: Red
+Rune of Protection: White
 Rupture Spire
 Sanctum Custodian
 Sanctum Guardian
 Sandbar Merfolk
 Sandbar Serpent
+Sanguine Guard
 Savannah Lions
+Scald
+Scoria Wurm
 Scrap
 Seal of Fire
+Seasoned Marshal
+Serra Zealot
 Serra's Embrace
+Serra's Liturgy
+Serra's Sanctum
+Shimmering Barrier
 Shivan Dragon
+Shivan Gorge
+Shivan Hellkite
 Shivan Raptor
 Shiv's Embrace
 Shock
+Show and Tell
 Shower of Sparks
 Sicken
 Sift
 Sign in Blood
 Silent Attendant
+Skirge Familiar
+Skittering Skirge
+Sleeper Agent
 Slippery Karst
+Smokestack
 Smoldering Crater
+Sneak Attack
 Somnophore
 Songstitcher
+Soul Sculptor
+Spined Fluke
+Spire Owl
+Sporogenesis
+Spreading Algae
+Steam Blast
 Steam Vents
 Stern Proctor
 Stirring Wildwood
+Stroke of Genius
 Student of Warfare
 Stupor
+Sunder
 Sunpetal Grove
 Swamp
 Sword of Body and Mind
@@ -292,6 +361,7 @@ Vivid Creek
 Voice of Grace
 Volcanic Fallout
 Volcanic Hammer
+Wall of Blossoms
 Wall of Denial
 Wall of Junk
 Wall of Reverence

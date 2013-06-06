@@ -5,8 +5,9 @@
   using Gameplay.Tournaments;
   using Infrastructure;
   using Messages;
+  using Persistance;
 
-  public class ViewModel : IReceive<TournamentMatchFinished>
+  public class ViewModel : ViewModelBase, IReceive<TournamentMatchFinished>
   {
     private readonly List<TournamentPlayer> _finishedPlayers =
       new List<TournamentPlayer>();
@@ -30,14 +31,14 @@
     public int RoundsLeft { get; private set; }
     public int MatchesInProgress { get { return (_playerCount - _finishedPlayers.Count)/2; } }
 
-    public IEnumerable<object> Players
+    public IEnumerable<object> FinishedPlayers
     {
       get
       {
         return _finishedPlayers.Select((x, i) => new
           {
             Place = i + 1,
-            IsOdd = (i + 1) % 2 != 0,
+            IsOdd = (i + 1)%2 != 0,
             Player = x
           });
       }
@@ -57,6 +58,17 @@
     public virtual void Continue()
     {
       this.Close();
+    }
+
+    public void Save()
+    {
+      var saveFileHeader = new SaveFileHeader
+        {
+          Description = CurrentTournament.Description
+        };
+
+      var savedTournament = CurrentTournament.Save();
+      SaveLoadHelper.WriteToDisk(saveFileHeader, savedTournament);
     }
 
     public interface IFactory

@@ -25,6 +25,8 @@
     private static readonly Dictionary<int, List<Gameplay.Deck>> LimitedDeckDatabase =
       new Dictionary<int, List<Gameplay.Deck>>();
 
+    private static readonly ImageSource MissingImage = new BitmapImage();
+
 
     public static NameGenerator NameGenerator { get; private set; }
 
@@ -53,6 +55,8 @@
       LoadSets();
       LoadLimitedDecks();
       LoadPlayerNames();
+
+      MissingImage.Freeze();
     }
 
     public static void LoadPlayerNames()
@@ -138,6 +142,9 @@
 
     public static ImageSource GetImageWithPath(string path)
     {
+      if (!File.Exists(path))
+        return MissingImage;
+      
       if (ImageDatabase.ContainsKey(path))
         return ImageDatabase[path];
 
@@ -163,6 +170,17 @@
     public static string[] GetSavedGamesFilenames()
     {
       return Directory.GetFiles(SavedGamesFolder, "*.savegame");
+    }
+
+    public static object GetSetImage(string set, Rarity? rarity)
+    {
+      if (String.IsNullOrEmpty(set) || rarity == null)
+      {
+        return MissingImage;
+      }
+
+      var filename = Path.Combine(ImagesFolder, String.Format("{0}-{1}.png", set, rarity));
+      return GetImageWithPath(filename);
     }
   }
 }

@@ -13,6 +13,7 @@
   using Messages;
   using Misc;
   using Modifiers;
+  using Sets;
   using States;
   using Targeting;
   using Zones;
@@ -87,6 +88,8 @@
     public bool MayChooseNotToUntap { get; private set; }
     public Card AttachedTo { get { return _attachedTo.Value; } private set { _attachedTo.Value = value; } }
     public IEnumerable<Card> Attachments { get { return _attachments.Cards; } }
+    public Rarity? Rarity { get; set; }
+    public string Set { get; set; }
 
     public bool CanAttack
     {

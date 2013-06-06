@@ -17,7 +17,13 @@
         .FlavorText("Choose your next words carefully. They will be your last.")
         .Cast(p =>
           {
-            p.Effect = () => new PlayerSacrificeCreatures(1, P(e => e.Controller.Opponent));
+            p.Effect = () => new PlayerSacrificePermanents(
+              count: 1,
+              player: P(e => e.Controller.Opponent),
+              filter: c => c.Is().Creature,
+              text: "Sacrifice a creature."
+              );
+
             p.TimingRule(new NonTargetRemoval(1));
           });
     }

@@ -20,7 +20,7 @@
       {
         return string.Format("Release {0} ({1} cards)",
           FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion,
-          CardsInfo.Count);
+          CardsDictionary.Count);
       }
     }
 

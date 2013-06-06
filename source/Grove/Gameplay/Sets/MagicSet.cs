@@ -101,24 +101,24 @@
       }
     }
 
-    private string GetRandomCommon()
+    private CardInfo GetRandomCommon()
     {
-      return _commons[RandomEx.Next(0, _commons.Count)];
+      return new CardInfo(_commons[RandomEx.Next(0, _commons.Count)], Rarity.C, Name);
     }
 
-    private string GetRandomUncommon()
+    private CardInfo GetRandomUncommon()
     {
-      return _uncommons[RandomEx.Next(0, _uncommons.Count)];
+      return new CardInfo(_uncommons[RandomEx.Next(0, _uncommons.Count)], Rarity.U, Name);
     }
 
-    private string GetRandomRare()
+    private CardInfo GetRandomRare()
     {
-      return _rares[RandomEx.Next(0, _rares.Count)];
+      return new CardInfo(_rares[RandomEx.Next(0, _rares.Count)], Rarity.R, Name);
     }
 
-    public List<string> GenerateMixedPack(int boosterCount, int tournamentCount)
+    public List<CardInfo> GenerateMixedPack(int boosterCount, int tournamentCount)
     {
-      var pack = new List<string>();
+      var pack = new List<CardInfo>();
 
       for (var i = 0; i < boosterCount; i++)
       {
@@ -133,14 +133,14 @@
       return pack;
     }
 
-    public List<string> GenerateTournamentPack()
+    public List<CardInfo> GenerateTournamentPack()
     {
       return GeneratePack(_tournamentPack);
     }
 
-    private List<string> GeneratePack(Dictionary<string, int> settings)
+    private List<CardInfo> GeneratePack(Dictionary<string, int> settings)
     {
-      var cards = new List<string>();
+      var cards = new List<CardInfo>();
 
       for (var i = 0; i < settings["Rares"]; i++)
       {
@@ -160,7 +160,7 @@
       return cards;
     }
 
-    public List<string> GenerateBoosterPack()
+    public List<CardInfo> GenerateBoosterPack()
     {
       return GeneratePack(_boosterPack);
     }

@@ -23,6 +23,11 @@
     public void PutOnTop(Card card)
     {
       AddToFront(card);
-    }    
+    }   
+ 
+    public void PutOnBottom(Card card)
+    {
+      Add(card);
+    }
   }
 }

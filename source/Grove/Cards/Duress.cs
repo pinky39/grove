@@ -24,7 +24,7 @@
               filter: card => !card.Is().Creature && !card.Is().Land);
 
             p.TimingRule(new FirstMain());
-            p.TimingRule(new OpponentHasAtLeastCardsInHand(2));
+            p.TimingRule(new OpponentHandCountIs(minCount: 2));
           });
     }
   }

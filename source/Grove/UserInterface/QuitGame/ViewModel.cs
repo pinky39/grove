@@ -33,7 +33,7 @@
 
     public void Save()
     {
-      var formatter = new BinaryFormatter();
+      
       var saveFileHeader = new SaveFileHeader();
       object gameData;
       
@@ -48,11 +48,7 @@
         gameData = CurrentMatch.Save();
       }
 
-      using (var file = new FileStream(MediaLibrary.GetSaveGameFilename(), FileMode.Create))
-      {
-        formatter.Serialize(file, saveFileHeader);
-        formatter.Serialize(file, gameData);
-      }
+      SaveLoadHelper.WriteToDisk(saveFileHeader, gameData);
 
       this.Close();
     }

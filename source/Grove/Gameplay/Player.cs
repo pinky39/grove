@@ -57,7 +57,6 @@
     public Player Opponent { get { return Players.GetOpponent(this); } }
     public int LandsPlayedCount { get { return _landsPlayedCount.Value; } set { _landsPlayedCount.Value = value; } }
     public ManaCounts ManaPool { get { return _manaVault.ManaPool; } }
-    public int Id { get; private set; }
 
     private IEnumerable<IModifiable> ModifiableProperties
     {
@@ -71,7 +70,7 @@
     }
 
     public string Avatar { get; private set; }
-    public Deck Deck {get { return _deck; }}
+    public Deck Deck { get { return _deck; } }
     public IBattlefieldQuery Battlefield { get { return _battlefield; } }
     public IEnumerable<Card> Exile { get { return _exile; } }
     public bool CanMulligan { get { return _hand.CanMulligan && HasMulligan; } }
@@ -143,6 +142,8 @@
           HasLost = true;
       }
     }
+
+    public int Id { get; private set; }
 
     public int CalculateHash(HashCalculator calc)
     {
@@ -467,9 +468,23 @@
       _library.PutOnTop(card);
     }
 
+    public void PutOnBottomOfLibrary(Card card)
+    {
+      _library.PutOnBottom(card);
+    }
+
     private void LoadLibrary()
     {
-      var cards = _deck.Select(name => CardsDatabase.CreateCard(name).Initialize(this, Game));
+      var cards = _deck.Select(cardInfo =>
+        {
+          var card = CardsDatabase.CreateCard(cardInfo.Name);
+          card.Rarity = cardInfo.Rarity;
+          card.Set = cardInfo.Set;
+
+          card.Initialize(this, Game);
+
+          return card;
+        });
 
       foreach (var card in cards)
       {

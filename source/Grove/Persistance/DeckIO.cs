@@ -4,12 +4,15 @@
   using System.IO;
   using System.Text.RegularExpressions;
   using Gameplay;
+  using Gameplay.Sets;
 
   public class DeckFile
   {
     private static readonly Regex DescriptionRegex = new Regex(@"#.*Description\:\s*(.+)", RegexOptions.Compiled);
     private static readonly Regex RatingRegex = new Regex(@"#.*Rating\:\s*(.+)", RegexOptions.Compiled);
     private static readonly Regex LimitedCodeRegex = new Regex(@"#.*Limited\:\s*(.+)", RegexOptions.Compiled);
+    private static readonly Regex DeckRowRegex = new Regex(@"([0-9]+)\s+([^()]+)\s*(?:\((.)\,\s+(.+)\))*",
+      RegexOptions.Compiled);
 
 
     public static Deck Read(string filename)
@@ -62,7 +65,7 @@
 
           var row = ParseRow(line, lineNumber);
 
-          deck.AddCard(row.CardName, row.Count);
+          deck.AddCard(row.Card, row.Count);
         }
         return deck;
       }
@@ -84,7 +87,14 @@
 
         foreach (var row in DeckRow.Group(deck))
         {
-          writer.WriteLine("{0} {1}", row.Count, row.CardName);
+          if (string.IsNullOrEmpty(row.Card.Set))
+          {
+            writer.WriteLine("{0} {1}", row.Count, row.Card.Name);
+          }
+          else
+          {
+            writer.WriteLine("{0} {1} ({2}, {3})", row.Count, row.Card.Name, row.Card.Rarity, row.Card.Set);
+          }
         }
       }
     }
@@ -96,16 +106,24 @@
 
     private static DeckRow ParseRow(string line, int lineNumber)
     {
-      var tokens = line.Split(new[] {" "}, 2, StringSplitOptions.RemoveEmptyEntries);
+      line = line.Trim();
+      var match = DeckRowRegex.Match(line);
 
-      if (tokens.Length != 2)
+      if (!match.Success)
         ThrowParsingError(lineNumber);
 
-      int numOfCopies;
-      if (!int.TryParse(tokens[0], out numOfCopies))
-        ThrowParsingError(lineNumber);
+      var cardCount = int.Parse(match.Groups[1].Value);
+      var cardName = match.Groups[2].Value.Trim();
 
-      return new DeckRow {CardName = tokens[1], Count = numOfCopies};
+      if (!match.Groups[3].Success)
+      {
+        return new DeckRow {Card = new CardInfo(cardName), Count = cardCount};
+      }
+
+      var rarity = (Rarity) Enum.Parse(typeof (Rarity), match.Groups[3].Value);
+      var set = match.Groups[4].Value;
+
+      return new DeckRow {Card = new CardInfo(cardName, rarity, set), Count = cardCount};
     }
   }
 }

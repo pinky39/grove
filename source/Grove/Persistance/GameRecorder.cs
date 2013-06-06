@@ -1,9 +1,7 @@
 ﻿namespace Grove.Persistance
 {
   using System.IO;
-  using System.Runtime.Serialization.Formatters.Binary;
   using Gameplay;
-
 
   public class GameRecorder
   {
@@ -56,7 +54,7 @@
 
       var player1 = _game.Players.Player1;
       var player2 = _game.Players.Player2;
-      
+
       var savedGame = new SavedGame
         {
           Player1 = new PlayerParameters
@@ -66,11 +64,11 @@
               Deck = player1.Deck,
             },
           Player2 = new PlayerParameters
-          {
-            Name = player2.Name,
-            Avatar = player2.Avatar,
-            Deck = player2.Deck,
-          },          
+            {
+              Name = player2.Name,
+              Avatar = player2.Avatar,
+              Deck = player2.Deck,
+            },
           RandomSeed = _game.Random.Seed,
           Decisions = decisions,
           StateCount = _game.Turn.StateCount

@@ -9,14 +9,15 @@
 
   public class ViewModel : ViewModelBase, IReceive<DeckGenerated>
   {
-    private readonly List<string> _library;
-    private Dictionary<Card, CardsLeft> _availability;
+    private readonly int _decksToGenerate;
+    private readonly List<CardInfo> _library;
+    private Dictionary<string, Card> _cardsWithSetAndRarity;
     private UserInterface.Deck.ViewModel _deck;
-    private int _remainingDecksToGenerate;
-    private int _decksToGenerate;
+    private Dictionary<string, LibraryItem> _libraryItems;
     private double _percentageCompleted;
+    private int _remainingDecksToGenerate;
 
-    public ViewModel(IEnumerable<string> library, int decksToGenerate)
+    public ViewModel(IEnumerable<CardInfo> library, int decksToGenerate)
     {
       _decksToGenerate = decksToGenerate;
       _remainingDecksToGenerate = decksToGenerate;
@@ -67,29 +68,29 @@
     {
       for (var i = 0; i < 40; i++)
       {
-        _library.Add("Plains");
-        _library.Add("Island");
-        _library.Add("Swamp");
-        _library.Add("Mountain");
-        _library.Add("Forest");
+        _library.Add(new CardInfo("Plains"));
+        _library.Add(new CardInfo("Island"));
+        _library.Add(new CardInfo("Swamp"));
+        _library.Add(new CardInfo("Mountain"));
+        _library.Add(new CardInfo("Forest"));
       }
     }
 
-    public void ChangeSelectedCard(Card card)
+    public void ChangeSelectedCard(LibraryItem libraryItem)
     {
-      SelectedCard = card;
+      SelectedCard = libraryItem.Card;
     }
 
     [Updates("CanStartTournament", "Status")]
-    public virtual void AddCard(Card card)
+    public virtual void AddCard(LibraryItem libraryItem)
     {
-      Deck.AddCard(card.Name);
+      Deck.AddCard(libraryItem.Info);
     }
 
     [Updates("CanStartTournament", "Status")]
-    public virtual void RemoveCard(Card card)
+    public virtual void RemoveCard(LibraryItem libraryItem)
     {
-      Deck.RemoveCard(card.Name);
+      Deck.RemoveCard(libraryItem.Info);
     }
 
     public void StartTournament()
@@ -97,14 +98,14 @@
       this.Close();
     }
 
-    private bool OnAdd(string cardName)
+    private bool OnAdd(CardInfo cardInfo)
     {
-      var cardsLeft = _availability[CardsInfo[cardName]];
+      var availableCards = _libraryItems[cardInfo.Name];
 
-      if (cardsLeft.Count == 0)
+      if (availableCards.Count == 0)
         return false;
 
-      cardsLeft.Count--;
+      availableCards.Count--;
       return true;
     }
 
@@ -114,33 +115,52 @@
       Deck.OnAdd = OnAdd;
       Deck.OnRemove = OnRemove;
 
-      _availability = _library.GroupBy(x => x)
+      var uniqueCards = _library
+        .Distinct()
+        .ToList();
+
+      _cardsWithSetAndRarity = uniqueCards
         .Select(x =>
           {
-            var cardsLeft = Bindable.Create<CardsLeft>();
-            cardsLeft.Card = CardsInfo[x.Key];
+            var card = CardsDatabase.CreateCard(x.Name);
+            card.Rarity = x.Rarity;
+            card.Set = x.Set;
+
+            return card;
+          })
+        .ToDictionary(x => x.Name, x => x);
+
+      _libraryItems = _library.GroupBy(x => x.Name)
+        .Select(x =>
+          {
+            var cardsLeft = Bindable.Create<LibraryItem>();
+            cardsLeft.Info = x.First();
+            cardsLeft.Card = _cardsWithSetAndRarity[x.Key];
             cardsLeft.Count = x.Count();
             return cardsLeft;
           })
-        .ToDictionary(x => x.Card, x => x);
+        .ToDictionary(x => x.Info.Name, x => x);
 
-      SelectedCard = CardsInfo[_library[0]];
 
       LibraryFilter = ViewModels.LibraryFilter.Create(
-        _library.Distinct(),
-        card => _availability[card]);
-    }
+      cards: uniqueCards,
+      transformResult: card => _libraryItems[card.Name],
+      orderBy: card => card.Rarity.HasValue ? -(int)card.Rarity : 0);
 
-    private bool OnRemove(string cardName)
+
+      SelectedCard = _cardsWithSetAndRarity[_library[0].Name];
+    }    
+
+    private bool OnRemove(CardInfo cardInfo)
     {
-      var cardsLeft = _availability[CardsInfo[cardName]];
+      var cardsLeft = _libraryItems[cardInfo.Name];
       cardsLeft.Count++;
       return true;
     }
 
     public interface IFactory
     {
-      ViewModel Create(IEnumerable<string> library, int decksToGenerate);
+      ViewModel Create(IEnumerable<CardInfo> library, int decksToGenerate);
     }
   }
 }

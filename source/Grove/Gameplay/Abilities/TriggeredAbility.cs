@@ -34,25 +34,32 @@
 
     public void Dispose()
     {
-      foreach (var trigger in _triggers)
-      {
-        trigger.Deactivate();
-      }
+      DeactivateTriggers();
+      UnsubscribeFromEvents();
+    }
+
+    private void OnOwningCardJoinedBattlefield(object sender, EventArgs eventArgs)
+    {
+      if (_triggerOnlyIfOwningCardIsInPlay)
+        ActivateTriggers();
+    }
+
+    private void OnOwningCardLeftBattlefield(object sender, EventArgs eventArgs)
+    {
+      if (_triggerOnlyIfOwningCardIsInPlay)
+        DeactivateTriggers();
     }
 
     private void SubscribeToEvents()
     {
-      OwningCard.JoinedBattlefield += delegate
-        {
-          if (_triggerOnlyIfOwningCardIsInPlay)
-            ActivateTriggers();
-        };
+      OwningCard.JoinedBattlefield += OnOwningCardJoinedBattlefield;
+      OwningCard.LeftBattlefield += OnOwningCardLeftBattlefield;
+    }
 
-      OwningCard.LeftBattlefield += delegate
-        {
-          if (_triggerOnlyIfOwningCardIsInPlay)
-            DeactivateTriggers();
-        };
+    private void UnsubscribeFromEvents()
+    {
+      OwningCard.JoinedBattlefield -= OnOwningCardJoinedBattlefield;
+      OwningCard.LeftBattlefield -= OnOwningCardLeftBattlefield;
     }
 
     public override int CalculateHash(HashCalculator calc)

@@ -6,7 +6,7 @@
 
 [assembly: AssemblyTitle("Magicgrove Tests")]
 [assembly: AssemblyProduct("Magicgrove")]
-[assembly: AssemblyCopyrightAttribute("Licensed under MIT Licence.")]
-[assembly: AssemblyVersionAttribute("1.2.0.0")]
-[assembly: AssemblyInformationalVersionAttribute("1.2.0.0")]
-[assembly: AssemblyFileVersionAttribute("1.2.0.0")]
+[assembly: AssemblyCopyrightAttribute("Licensed under GPL-3 Licence.")]
+[assembly: AssemblyVersionAttribute("1.9")]
+[assembly: AssemblyInformationalVersionAttribute("1.9")]
+[assembly: AssemblyFileVersionAttribute("1.9")]

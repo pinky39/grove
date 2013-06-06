@@ -127,7 +127,7 @@
         container.Register(Component(typeof (Game.IFactory)).AsFactory());
         container.Register(Component(typeof (MatchSimulator), lifestyle: LifestyleType.Singleton));
         container.Register(Component(typeof (CardsDatabase), lifestyle: LifestyleType.Singleton));
-        container.Register(Component(typeof (CardsInfo), lifestyle: LifestyleType.Singleton));
+        container.Register(Component(typeof (CardsDictionary), lifestyle: LifestyleType.Singleton));
         container.Register(Component(typeof (DeckBuilder), lifestyle: LifestyleType.Singleton));
         container.Register(Component(typeof (DeckEvaluator), lifestyle: LifestyleType.Singleton));
       }

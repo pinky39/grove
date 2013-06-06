@@ -1,5 +1,7 @@
 ﻿namespace Grove.UserInterface.DeckEditor
 {
+  using System.Collections.Generic;
+  using System.Linq;
   using System.Windows;
   using Gameplay;
   using Infrastructure;
@@ -8,6 +10,7 @@
   public class ViewModel : ViewModelBase, IIsDialogHost
   {
     private readonly object _previousScreen;
+    private Dictionary<string, LibraryItem> _libraryItems;
 
     private UserInterface.Deck.ViewModel _deck;
 
@@ -22,7 +25,7 @@
       set
       {
         _deck = value;
-        _deck.Property(x => x.SelectedCard).Changes(this).Property<ViewModel, Card>(x => x.SelectedCard);
+        _deck.Property(x => x.SelectedCard).Changes(this).Property(x => x.SelectedCard);
       }
     }
 
@@ -54,17 +57,28 @@
     }
 
     public override void Initialize()
-    {
-      var allCardNames = CardsInfo.GetCardNames();
-      LibraryFilter = ViewModels.LibraryFilter.Create(allCardNames, x => x);
+    {      
+      _libraryItems = CardsDictionary
+        .GetCardNames()
+        .Select(x => new LibraryItem
+          {
+            Card = CardsDictionary[x],
+            Info = new CardInfo(x)
+          })
+        .ToDictionary(x => x.Info.Name, x => x);
+
+      LibraryFilter = ViewModels.LibraryFilter.Create(
+        cards: _libraryItems.Values.Select(x => x.Info), 
+        transformResult:  x => _libraryItems[x.Name],
+        orderBy: x => 0);
 
       Deck = ViewModels.Deck.Create();
-      SelectedCard = CardsInfo[allCardNames[0]];
+      SelectedCard = CardsDictionary[_libraryItems.First().Value.Info.Name];
     }
 
-    public void ChangeSelectedCard(Card card)
+    public void ChangeSelectedCard(LibraryItem libraryItem)
     {
-      SelectedCard = card;
+      SelectedCard = libraryItem.Card;
     }
 
     public void Open()
@@ -117,14 +131,14 @@
       Deck.SaveAs(deckName);
     }
 
-    public void AddCard(Card card)
+    public void AddCard(LibraryItem libraryItem)
     {
-      Deck.AddCard(card.Name);
+      Deck.AddCard(libraryItem.Info);
     }
 
-    public void RemoveCard(Card card)
+    public void RemoveCard(LibraryItem libraryItem)
     {
-      Deck.RemoveCard(card.Name);
+      Deck.RemoveCard(libraryItem.Info);
     }
 
     private string GetDeckName()

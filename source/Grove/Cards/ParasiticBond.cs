@@ -26,6 +26,9 @@
           })
         .TriggeredAbility(p =>
           {
+            p.Text =
+              "At the beginning of the upkeep of enchanted creature's controller, Parasitic Bond deals 2 damage to that player.";
+            
             p.Trigger(new OnStepStart(
               step: Step.Upkeep,
               passiveTurn: true,

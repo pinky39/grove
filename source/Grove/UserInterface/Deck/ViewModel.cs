@@ -11,8 +11,8 @@
   public class ViewModel : ViewModelBase
   {
     private const string NewDeckName = "new deck";
-    public Func<string, bool> OnAdd = delegate { return true; };
-    public Func<string, bool> OnRemove = delegate { return true; };
+    public Func<CardInfo, bool> OnAdd = delegate { return true; };
+    public Func<CardInfo, bool> OnRemove = delegate { return true; };
     private Deck _deck;
 
     public ViewModel() {}
@@ -64,9 +64,9 @@
       {
         var dictionary = new Dictionary<ManaColor, bool>();
 
-        foreach (var cardName in _deck)
+        foreach (var cardInfo in _deck)
         {
-          var card = CardsInfo[cardName];
+          var card = CardsDictionary[cardInfo.Name];
 
           if (card.ManaCost == null)
             continue;
@@ -100,14 +100,14 @@
 
     public Deck Deck { get { return _deck; } }
 
-    private IEnumerable<DeckRow> FilterRows(IEnumerable<string> cards, Func<Card, bool> predicate)
+    private IEnumerable<DeckRow> FilterRows(IEnumerable<CardInfo> cards, Func<Card, bool> predicate)
     {
-      return DeckRow.Group(FilterCards(cards, predicate)).OrderBy(x => x.CardName);
+      return DeckRow.Group(FilterCards(cards, predicate)).OrderBy(x => x.Card.Name);
     }
 
-    private IEnumerable<string> FilterCards(IEnumerable<string> cards, Func<Card, bool> predicate)
+    private IEnumerable<CardInfo> FilterCards(IEnumerable<CardInfo> cards, Func<Card, bool> predicate)
     {
-      return cards.Where(x => predicate(CardsInfo[x]));
+      return cards.Where(x => predicate(CardsDictionary[x.Name]));
     }
 
     public override void Initialize()
@@ -121,35 +121,32 @@
         IsNew = true;
         return;
       }
-      
-      SelectedCard = CardsInfo[_deck[RandomEx.Next(_deck.CardCount)]];
+
+      SelectedCard = CardsDictionary[_deck[RandomEx.Next(_deck.CardCount)].Name];
     }
 
-    public void ChangeSelectedCard(string name)
+    public void ChangeSelectedCard(CardInfo cardInfo)
     {
-      SelectedCard = CardsInfo[name];
+      SelectedCard = CardsDictionary[cardInfo.Name];
     }
 
     [Updates("Creatures", "Spells", "Lands", "CreatureCount", "LandCount", "SpellCount", "CardCount")]
-    public virtual void AddCard(string name)
+    public virtual void AddCard(CardInfo cardInfo)
     {
-      if (!OnAdd(name))
+      if (!OnAdd(cardInfo))
         return;
 
-      _deck.AddCard(name);
+      _deck.AddCard(cardInfo);
       IsSaved = false;
     }
 
     [Updates("Creatures", "Spells", "Lands", "CreatureCount", "LandCount", "SpellCount", "CardCount")]
-    public virtual bool RemoveCard(string name)
-    {
-      if (!_deck.Contains(name))
+    public virtual bool RemoveCard(CardInfo cardInfo)
+    {            
+      if (!OnRemove(cardInfo))
         return false;
 
-      if (!OnRemove(name))
-        return false;
-
-      _deck.RemoveCard(name);
+      _deck.RemoveCard(cardInfo);
       IsSaved = false;
       return true;
     }

@@ -32,7 +32,7 @@
     }
 
     protected CardsDatabase CardsDatabase { get { return Container.Resolve<CardsDatabase>(); } }
-    protected CardsInfo CardsInfo { get { return Container.Resolve<CardsInfo>(); } }
+    protected CardsDictionary CardsDictionary { get { return Container.Resolve<CardsDictionary>(); } }
     protected MatchSimulator MatchSimulator { get { return Container.Resolve<MatchSimulator>(); } }
     protected Game.IFactory GameFactory { get { return Container.Resolve<Game.IFactory>(); } }
 

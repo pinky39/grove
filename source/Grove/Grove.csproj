@@ -458,8 +458,11 @@
     <Compile Include="Cards\SwordOfFeastAndFamine.cs" />
     <Compile Include="Cards\SwordsToPlowshares.cs" />
     <Compile Include="Cards\Symbiosis.cs" />
+    <Compile Include="Cards\TaintedAether.cs" />
+    <Compile Include="Cards\ThranQuarry.cs" />
     <Compile Include="Cards\ThranTurbine.cs" />
     <Compile Include="Cards\ThunderingGiant.cs" />
+    <Compile Include="Cards\TimeSpiral.cs" />
     <Compile Include="Cards\TorchSong.cs" />
     <Compile Include="Cards\TrainedArmodon.cs" />
     <Compile Include="Cards\ThrunTheLastTroll.cs" />
@@ -565,7 +568,7 @@
     <Compile Include="Artifical\TimingRules\GainHexproof.cs" />
     <Compile Include="Artifical\TimingRules\ManaConverter.cs" />
     <Compile Include="Artifical\TimingRules\MinAttackerCount.cs" />
-    <Compile Include="Artifical\TimingRules\OpponentHasAtLeastCardsInHand.cs" />
+    <Compile Include="Artifical\TimingRules\OpponentHandCountIs.cs" />
     <Compile Include="Artifical\TimingRules\OwningCardHas.cs" />
     <Compile Include="Artifical\TimingRules\OpponentHasPermanents.cs" />
     <Compile Include="Artifical\TimingRules\OwningCardWillBeDestroyed.cs" />
@@ -595,7 +598,8 @@
     <Compile Include="Artifical\TimingRules\TimingRuleParameters.cs" />
     <Compile Include="Artifical\TimingRules\Turn.cs" />
     <Compile Include="Artifical\TimingRules\ControllerIsAttacked.cs" />
-    <Compile Include="Gameplay\CardsInfo.cs" />
+    <Compile Include="Gameplay\CardInfo.cs" />
+    <Compile Include="Gameplay\CardsDictionary.cs" />
     <Compile Include="Gameplay\Characteristics\CardColors.cs" />
     <Compile Include="Gameplay\Costs\DiscardTarget.cs" />
     <Compile Include="Gameplay\Counters\CounterType.cs" />
@@ -615,6 +619,7 @@
     <Compile Include="Gameplay\Decisions\Playback\SetTriggeredAbilityTarget.cs" />
     <Compile Include="Gameplay\Decisions\Playback\TakeMulligan.cs" />
     <Compile Include="Gameplay\Decisions\Results\IPlayable.cs" />
+    <Compile Include="Gameplay\Effects\EachPlayerShufflesHandAndGraveyardIntoLibraryAndDrawsCards.cs" />
     <Compile Include="Gameplay\GameParameters.cs" />
     <Compile Include="Gameplay\MatchParameters.cs" />
     <Compile Include="Gameplay\MatchRunner.cs" />
@@ -654,6 +659,7 @@
     <Compile Include="Persistance\SavedGame.cs" />
     <Compile Include="Persistance\SavedMatch.cs" />
     <Compile Include="Persistance\SavedTournament.cs" />
+    <Compile Include="Persistance\SaveLoadHelper.cs" />
     <Compile Include="Persistance\SerializationContext.cs" />
     <Compile Include="Gameplay\Tournaments\TournamentMatch.cs" />
     <Compile Include="Infrastructure\ListEx.cs" />
@@ -747,7 +753,7 @@
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserInterface\CardOrder\ViewModel.cs" />
-    <Compile Include="UserInterface\BuildLimitedDeck\CardsLeft.cs" />
+    <Compile Include="UserInterface\BuildLimitedDeck\LibraryItem.cs" />
     <Compile Include="UserInterface\BuildLimitedDeck\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
@@ -916,6 +922,7 @@
     <Compile Include="Infrastructure\NullTracker.cs" />
     <Compile Include="Infrastructure\Publisher.cs" />
     <Compile Include="UserInterface\CardViewModel.cs" />
+    <Compile Include="UserInterface\DeckEditor\LibraryItem.cs" />
     <Compile Include="UserInterface\Leaderboard\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
@@ -1076,7 +1083,7 @@
     <Compile Include="Gameplay\Effects\Effect.cs" />
     <Compile Include="Gameplay\Effects\Attach.cs" />
     <Compile Include="Gameplay\Effects\OpponentDiscardsCards.cs" />
-    <Compile Include="Gameplay\Effects\PlayerSacrificeCreatures.cs" />
+    <Compile Include="Gameplay\Effects\PlayerSacrificePermanents.cs" />
     <Compile Include="Gameplay\Effects\TargetPlayerDrawsCards.cs" />
     <Compile Include="Gameplay\Modifiers\Add11ForEachForest.cs" />
     <Compile Include="Gameplay\Modifiers\AddPowerAndToughness.cs" />
@@ -1316,6 +1323,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="app.config" />
     <AppDesigner Include="Properties\" />

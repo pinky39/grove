@@ -1,23 +1,28 @@
 ﻿namespace Grove.Gameplay.Effects
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Decisions;
   using Decisions.Results;
   using Zones;
 
-  public class PlayerSacrificeCreatures : Effect,
+  public class PlayerSacrificePermanents : Effect,
     IProcessDecisionResults<ChosenCards>, IChooseDecisionResults<List<Card>, ChosenCards>
   {
     private readonly int _count;
     private readonly DynParam<Player> _player;
+    private readonly Func<Card, bool> _filter;
+    private readonly string _text;
 
-    private PlayerSacrificeCreatures() {}
+    private PlayerSacrificePermanents() {}
 
-    public PlayerSacrificeCreatures(int count, DynParam<Player> player)
+    public PlayerSacrificePermanents(int count, DynParam<Player> player, Func<Card, bool> filter, string text)
     {
       _count = count;
       _player = player;
+      _filter = filter;
+      _text = text;
 
       RegisterDynamicParameters(_player);
     }
@@ -46,9 +51,9 @@
           {
             p.MinCount = _count;
             p.MaxCount = _count;
-            p.Validator(card => card.Is().Creature);
+            p.Validator(_filter);
             p.Zone = Zone.Battlefield;
-            p.Text = "Select creature(s) to sacrifice.";
+            p.Text = _text;
             p.OwningCard = Source.OwningCard;
             p.ProcessDecisionResults = this;
             p.ChooseDecisionResults = this;

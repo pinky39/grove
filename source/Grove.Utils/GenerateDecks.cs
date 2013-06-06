@@ -32,7 +32,7 @@
         var booster2 = boosterSet2.GenerateBoosterPack();
         var booster3 = boosterSet3.GenerateBoosterPack();
 
-        var library = new List<string>();
+        var library = new List<CardInfo>();
         
         library.AddRange(starter);
         library.AddRange(booster1);
@@ -42,15 +42,8 @@
         var ratings = CardRatings.Merge(CardRatings.Merge(boosterSet2.Ratings, boosterSet3.Ratings), 
           CardRatings.Merge(starterSet.Ratings, boosterSet1.Ratings));
 
-        var cards = _deckBuilder.BuildDeck(library, ratings);
-
-        var deck = new Deck();
-        deck.LimitedCode = MagicSet.GetLimitedCode(starterSet.Name, new[]{boosterSet1.Name, boosterSet2.Name, boosterSet3.Name});
-        
-        foreach (var card in cards)
-        {
-          deck.AddCard(card);
-        }
+        var deck = _deckBuilder.BuildDeck(library, ratings);        
+        deck.LimitedCode = MagicSet.GetLimitedCode(starterSet.Name, new[]{boosterSet1.Name, boosterSet2.Name, boosterSet3.Name});                
 
         DeckFile.Write(deck, Guid.NewGuid() +".dec");
       }

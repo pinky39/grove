@@ -7,22 +7,21 @@
 
   public class DecisionLog
   {
-    private readonly BinaryFormatter _formatter = new BinaryFormatter();
+    private readonly BinaryFormatter _formatter;
     private MemoryStream _stream;
 
     public DecisionLog(Game game, MemoryStream savedDecisions)
     {
       _stream = savedDecisions ?? new MemoryStream();
 
+      _formatter = SaveLoadHelper.CreateFormatter();
+
       _formatter.Context = new StreamingContext(
         StreamingContextStates.All,
         new SerializationContext {Game = game});
     }
 
-    public bool IsAtTheEnd { get
-    {
-      return _stream.Position == _stream.Length;
-    } }
+    public bool IsAtTheEnd { get { return _stream.Position == _stream.Length; } }
 
     public void SetStream(MemoryStream stream)
     {

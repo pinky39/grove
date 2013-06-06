@@ -293,13 +293,13 @@ o Swamp
 o Swamp
 o Swamp
 o Symbiosis
-Tainted Æther
+o Tainted Æther
 Telepathy
 Temporal Aperture
-Thran Quarry
-Thran Turbine
-Thundering Giant
-Time Spiral
+o Thran Quarry
+o Thran Turbine
+o Thundering Giant
+o Time Spiral
 Titania's Boon
 Titania's Chosen
 Tolarian Academy

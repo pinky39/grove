@@ -108,8 +108,25 @@
 											</Grid>
 										</Grid>
 
-										<TextBlock Foreground="White" FontFamily="Arial" FontSize="16" Margin="20,6,0,0" Text="{Binding Path=Type}" />
-										<Viewbox Height="136" Margin="30,8,23,0" Stretch="Uniform" HorizontalAlignment="Left">
+                                        <Grid Margin="20,4,20,0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            
+                                            <TextBlock Grid.Column="0" Foreground="White" FontFamily="Arial" FontSize="16" Margin="0,1,0,0"  Text="{Binding Path=Type}" />
+                                            <Image Grid.Column="2" Height="22"  >
+                                                <Image.Source>
+                                                    <MultiBinding Converter="{x:Static UserInterface:Converters.SetAndRaritytoSetImage}">
+                                                        <Binding Path="Set" />
+                                                        <Binding Path="Rarity" />
+                                                    </MultiBinding>
+                                                </Image.Source>
+                                                
+                                            </Image>
+                                        </Grid>
+                                        <Viewbox Height="136" Margin="30,8,23,0" Stretch="Uniform" HorizontalAlignment="Left">
 											<Border>
 												<StackPanel HorizontalAlignment="Left" VerticalAlignment="Center">
 													<StackPanel.Resources>

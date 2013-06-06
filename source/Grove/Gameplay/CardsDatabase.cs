@@ -18,7 +18,7 @@
     {
       var cardFactory = GetFactory(name);
       return cardFactory.CreateCard();
-    }
+    }     
 
     public List<Card> CreateAll()
     {

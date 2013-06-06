@@ -4,13 +4,13 @@
   using System.Collections.Generic;
   using System.Linq;
 
-  public class CardsInfo
+  public class CardsDictionary
   {
     private readonly Dictionary<string, Card> _cards = new Dictionary<string, Card>();
     private readonly Dictionary<string, List<Card>> _fulltextSearchDatabase = new Dictionary<string, List<Card>>();
     private static readonly char[] Separators = new[] {'.', ',', '!', ';', ':', ' ', '?', '\'', '"'};
 
-    public CardsInfo(CardsDatabase cardsDatabase)
+    public CardsDictionary(CardsDatabase cardsDatabase)
     {
       _cards = cardsDatabase.CreateAll()
         .ToDictionary(x => x.Name.ToLowerInvariant(), x => x);

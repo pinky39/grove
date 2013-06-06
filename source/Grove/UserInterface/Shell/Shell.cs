@@ -10,13 +10,13 @@
 
   public class Shell : IShell, IHaveDisplayName
   {
-    private readonly CardsInfo _cardsInfo;
+    private readonly CardsDictionary _cardsDictionary;
     private readonly Publisher _publisher = new Publisher().Initialize();
     private InteractionState _interactionState = InteractionState.Disabled;
 
-    public Shell(CardsInfo cardsInfo)
+    public Shell(CardsDictionary cardsDictionary)
     {
-      _cardsInfo = cardsInfo;
+      _cardsDictionary = cardsDictionary;
       DisplayName = "magicgrove";
       LoadResources();
     }
@@ -118,7 +118,7 @@
       Task.Factory.StartNew(() =>
         {
           MediaLibrary.LoadResources();
-          _cardsInfo.CreateFulltextSearchDatabase();
+          _cardsDictionary.CreateFulltextSearchDatabase();
           HasLoaded = true;
         });
     }
