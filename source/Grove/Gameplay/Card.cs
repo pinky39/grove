@@ -83,6 +83,13 @@
 
       JoinedBattlefield = new TrackableEvent(this);
       LeftBattlefield = new TrackableEvent(this);
+
+      // 'always present' modifiers, these are used for e.g 
+      // by creatures with variable power and toughness
+      foreach (var modifier in p.Modifiers)
+      {
+        _modifiers.Add(modifier);
+      }
     }
 
     public bool MayChooseNotToUntap { get; private set; }
@@ -331,18 +338,23 @@
 
     public void AddModifier(IModifier modifier)
     {
-      foreach (var modifiable in ModifiableProperties)
-      {
-        modifiable.Accept(modifier);
-      }
-      _modifiers.Add(modifier);
-      modifier.Activate();
+      _modifiers.Add(modifier);      
+      ActivateModifier(modifier);
 
       Publish(new PermanentWasModified
         {
           Card = this,
           Modifier = modifier
         });
+    }
+
+    private void ActivateModifier(IModifier modifier) {
+      foreach (var modifiable in ModifiableProperties)
+      {
+        modifiable.Accept(modifier);
+      }
+            
+      modifier.Activate();
     }
 
     public void RemoveModifier(IModifier modifier)
@@ -394,6 +406,18 @@
 
       JoinedBattlefield.Initialize(ChangeTracker);
       LeftBattlefield.Initialize(ChangeTracker);
+      
+      foreach (var modifier in _modifiers)
+      {
+        var mp = new ModifierParameters
+          {
+            SourceCard = this,
+            IsPermanent = true
+          };
+        
+        modifier.Initialize(mp, game);
+        ActivateModifier(modifier);
+      }
 
       return this;
     }

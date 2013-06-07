@@ -94,28 +94,30 @@
       Target.RemoveModifier(this);
     }
 
-    public Modifier Initialize(ModifierParameters p, Game game)
+    public void Initialize(ModifierParameters p, Game game)
     {
       Game = game;
       Source = p.SourceCard;
       Target = p.Target;
       SourceEffect = p.SourceEffect;
       X = p.X;
-
-      InitializeLifetimes();
-      Initialize();
-
-      return this;
+      
+      InitializeLifetimes(p.IsPermanent);
+      Initialize();      
     }
 
     protected virtual void Initialize() {}
 
-    private void InitializeLifetimes()
+    private void InitializeLifetimes(bool isPermanentModifier)
     {
       _lifetimes.Initialize(ChangeTracker);
+      
+      if (isPermanentModifier)
+        return;
+
 
       _lifetimes.Add(new DefaultLifetime());
-
+      
       if (UntilEot)
       {
         _lifetimes.Add(new EndOfTurnLifetime());

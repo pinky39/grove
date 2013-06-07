@@ -36,7 +36,9 @@
             X = X
           };
 
-        yield return modifierFactory().Initialize(p, Game);
+        var modifier = modifierFactory();
+        modifier.Initialize(p, Game);
+        yield return modifier;
       }
     }
 

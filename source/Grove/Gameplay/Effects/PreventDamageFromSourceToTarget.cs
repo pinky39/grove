@@ -23,8 +23,8 @@
           X = X
         };
 
-      var modifier = new AddDamagePrevention(new PreventDamageFromSource(source))
-        .Initialize(mp, Game);
+      var modifier = new AddDamagePrevention(new PreventDamageFromSource(source));
+      modifier.Initialize(mp, Game);
 
       DamageTarget.AddModifier(modifier);
     }

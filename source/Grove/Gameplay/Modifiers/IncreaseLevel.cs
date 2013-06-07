@@ -4,19 +4,19 @@
 
   public class IncreaseLevel : Modifier
   {
-    private readonly Increment _levelIncrement = new Increment(1);
+    private readonly IntegerIncrement _levelIntegerIncrement = new IntegerIncrement(1);
     private Level _level;
 
     public override void Apply(Level level)
     {
       _level = level;
-      _levelIncrement.Initialize(ChangeTracker);
-      _level.AddModifier(_levelIncrement);
+      _levelIntegerIncrement.Initialize(ChangeTracker);
+      _level.AddModifier(_levelIntegerIncrement);
     }
 
     protected override void Unapply()
     {
-      _level.RemoveModifier(_levelIncrement);
+      _level.RemoveModifier(_levelIntegerIncrement);
     }
   }
 }

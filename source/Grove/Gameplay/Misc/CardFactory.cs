@@ -12,7 +12,6 @@
   using Effects;
   using ManaHandling;
   using Modifiers;
-  using Sets;
   using States;
   using Triggers;
   using Zones;
@@ -335,6 +334,12 @@
       _init.Add(p => { p.Toughness = toughness; });
       return this;
     }
+
+    public CardFactory Modifier(ModifierFactory modifier)
+    {
+      _init.Add(p => p.Modifiers.Add(modifier()));
+      return this;
+    }    
 
     public CardFactory Type(string type)
     {

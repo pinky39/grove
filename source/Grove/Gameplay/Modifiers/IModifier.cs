@@ -24,5 +24,7 @@
     void Apply(ControllerCharacteristic controller);
     void Apply(ContiniousEffects continiousEffects);
     void Apply(LandLimit landLimit);
+
+    void Initialize(ModifierParameters p, Game game);
   }
 }

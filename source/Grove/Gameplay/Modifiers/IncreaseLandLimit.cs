@@ -4,26 +4,26 @@
 
   public class IncreaseLandLimit : Modifier
   {
-    private readonly Increment _increment;
+    private readonly IntegerIncrement _integerIncrement;
     private LandLimit _landLimit;
 
     private IncreaseLandLimit() {}
 
     public IncreaseLandLimit(int amount = 1)
     {
-      _increment = new Increment(amount);
+      _integerIncrement = new IntegerIncrement(amount);
     }
 
     public override void Apply(LandLimit landLimit)
     {
       _landLimit = landLimit;
-      _increment.Initialize(ChangeTracker);
-      _landLimit.AddModifier(_increment);
+      _integerIncrement.Initialize(ChangeTracker);
+      _landLimit.AddModifier(_integerIncrement);
     }
 
     protected override void Unapply()
     {
-      _landLimit.RemoveModifier(_increment);
+      _landLimit.RemoveModifier(_integerIncrement);
     }
   }
 }

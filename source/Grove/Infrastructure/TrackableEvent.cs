@@ -5,7 +5,7 @@
 
   public class TrackableEvent : ICopyable
   {
-    private ChangeTracker _changeTracker;
+    private INotifyChangeTracker _changeTracker;
     private TrackableList<EventHandler> _handlers = new TrackableList<EventHandler>();
     private object _sender;
 
@@ -27,7 +27,7 @@
       _handlers.Initialize(_changeTracker);
     }
 
-    public TrackableEvent Initialize(ChangeTracker changeTracker)
+    public TrackableEvent Initialize(INotifyChangeTracker changeTracker)
     {
       _changeTracker = changeTracker;
       _handlers.Initialize(changeTracker);

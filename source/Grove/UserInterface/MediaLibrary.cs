@@ -11,7 +11,7 @@
   using Persistance;
 
   public static class MediaLibrary
-  {    
+  {
     private const string Images = @"images\";
     private const string Cards = @"cards\";
     private const string Decks = @"decks\";
@@ -40,8 +40,8 @@
     public static string DecksFolder { get { return Path.Combine(BasePath, Decks); } }
     public static string SetsFolder { get { return Path.Combine(BasePath, Sets); } }
     public static string TournamentFolder { get { return Path.Combine(BasePath, Tournament); } }
-    public static string SavedGamesFolder {get { return Path.Combine(BasePath, SavedGames); }}
-    
+    public static string SavedGamesFolder { get { return Path.Combine(BasePath, SavedGames); } }
+
     public static string GetSaveGameFilename()
     {
       var filename = String.Format("{0}.savegame", Guid.NewGuid());
@@ -100,17 +100,15 @@
       foreach (var file in files)
       {
         var uri = new Uri(file);
-        var bitmapImage = new BitmapImage(uri);
+        var bitmapImage = new BitmapImage(uri);        
         bitmapImage.Freeze();
         ImageDatabase.Add(file, bitmapImage);
       }
     }
 
     public static ImageSource GetCardImage(string name)
-    {
-      return File.Exists(GetImagePath(Cards, name))
-        ? GetImage(name, Cards)
-        : GetImage("missing-card-image.jpg");
+    {      
+      return GetImage(name, Cards);        
     }
 
     public static List<string> GetSetsNames()
@@ -134,7 +132,7 @@
     }
 
     public static ImageSource GetImage(string name, string folder = null)
-    {
+    {      
       folder = folder ?? Images;
       var path = GetImagePath(folder, name);
       return GetImageWithPath(path);
@@ -144,7 +142,7 @@
     {
       if (!File.Exists(path))
         return MissingImage;
-      
+
       if (ImageDatabase.ContainsKey(path))
         return ImageDatabase[path];
 

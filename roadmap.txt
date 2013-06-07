@@ -300,12 +300,12 @@ o Thran Quarry
 o Thran Turbine
 o Thundering Giant
 o Time Spiral
-Titania's Boon
-Titania's Chosen
-Tolarian Academy
-Tolarian Winds
-Torch Song
-Treefolk Seedlings
+o Titania's Boon
+o Titania's Chosen
+o Tolarian Academy
+o Tolarian Winds
+o Torch Song
+o Treefolk Seedlings
 Treetop Rangers
 Turnabout
 Umbilicus

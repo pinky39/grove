@@ -158,7 +158,8 @@
           Target = target
         };
 
-      var modifier = _modifierFactory().Initialize(p, Game);
+      var modifier = _modifierFactory(); 
+      modifier.Initialize(p, Game);
       _modifiers.Add(modifier);
 
       _doNotUpdate.Value = modifier;

@@ -48,8 +48,8 @@
           X = X
         };
 
-      var addCounters = new AddCounters(() => new SimpleCounter(_counterType), lifeToPay)
-        .Initialize(p, Game);
+      var addCounters = new AddCounters(() => new SimpleCounter(_counterType), lifeToPay);
+      addCounters.Initialize(p, Game);
 
       Source.OwningCard.AddModifier(addCounters);
     }

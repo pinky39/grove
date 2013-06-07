@@ -6,6 +6,7 @@
   using Gameplay;
   using Gameplay.Characteristics;
   using Gameplay.ManaHandling;
+  using Gameplay.Sets;
 
   public class CardViewModel : ViewModelBase, IDisposable
   {
@@ -42,6 +43,8 @@
     public virtual int Damage { get; protected set; }
     public virtual bool IsTapped { get; protected set; }
     public virtual bool HasSummoningSickness { get; protected set; }
+    public string Set { get { return Card.Set; } }
+    public Rarity? Rarity { get { return Card.Rarity; } }
 
     public void Dispose()
     {

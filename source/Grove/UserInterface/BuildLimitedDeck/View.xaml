@@ -70,17 +70,18 @@
 								<Setter Property="Template">
 									<Setter.Value>
 										<ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                            <ControlTemplate.Resources>
+                                            <ControlTemplate.Resources>                                                
                                                 <Style x:Key="Rarity" TargetType="Border">
-                                                    <Style.Triggers>
+                                                    <Setter Property="Background" Value="#22000000"/>
+                                                     <Style.Triggers>
                                                         <DataTrigger Binding="{Binding Card.Rarity}" Value="R">
-                                                            <Setter Property="Background" Value="#22FFA500"></Setter>                                                             
+                                                            <Setter Property="Background" Value="#11FFA500"></Setter>                                                             
                                                         </DataTrigger>
                                                         <DataTrigger Binding="{Binding Card.Rarity}" Value="C">
                                                             <Setter Property="Background" Value="#22000000"></Setter>
                                                         </DataTrigger>
                                                         <DataTrigger Binding="{Binding Card.Rarity}" Value="U">
-                                                            <Setter Property="Background" Value="#22cccccc"></Setter>
+                                                            <Setter Property="Background" Value="#11cccccc"></Setter>
                                                         </DataTrigger>
                                                     </Style.Triggers>
                                                 </Style>

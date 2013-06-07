@@ -23,7 +23,15 @@
     {
       _steps.AddRange(CreateStepViewModels());
       TurnNumber = CurrentGame.Turn.TurnCount;
-      _steps.Single(x => x.IsStep(CurrentGame.Turn.Step)).IsCurent = true;
+
+      SetCurrentStep();
+    }
+
+    private void SetCurrentStep() {
+      var currentStep = _steps.SingleOrDefault(x => x.IsStep(CurrentGame.Turn.Step));
+      
+      if (currentStep != null)  // pre untap steps are not shown (e.g Mulligan step)
+        currentStep.IsCurent = true;
     }
 
     private IEnumerable<UserInterface.Step.ViewModel> CreateStepViewModels()

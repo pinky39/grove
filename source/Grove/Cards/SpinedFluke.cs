@@ -23,7 +23,7 @@
         .FlavorText("Its spines are prized as writing quills by the priests of Gix.")
         .Power(5)
         .Toughness(1)
-        .OverrideScore(new ScoreOverride {Battlefield = 450})
+        .OverrideScore(new ScoreOverride {Battlefield = 500})
         .Cast(p => p.TimingRule(new SecondMain()))
         .TriggeredAbility(p =>
           {

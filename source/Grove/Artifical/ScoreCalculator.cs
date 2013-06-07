@@ -134,7 +134,7 @@
 
         if (permanent.Is().Creature)
         {
-          score += (permanent.Power.Value + permanent.Toughness.Value);
+          score += (permanent.Power.Value*10 + permanent.Toughness.Value*3);
 
           if (permanent.HasSummoningSickness)
             score -= 1;

@@ -43,7 +43,7 @@
       }
     }
 
-    public virtual bool CanStartTournament { get { return _remainingDecksToGenerate == 0 && Deck.CardCount >= 40; } }
+    public bool CanStartTournament { get { return _remainingDecksToGenerate == 0 && Deck.CardCount >= 40; } }
 
     public virtual UserInterface.Deck.ViewModel Deck
     {
@@ -51,7 +51,9 @@
       set
       {
         _deck = value;
-        _deck.Property(x => x.SelectedCard).Changes(this).Property<ViewModel, Card>(x => x.SelectedCard);
+        _deck.Property(x => x.SelectedCard).Changes(this).Property(x => x.SelectedCard);
+        _deck.Property(x => x.CardCount).Changes(this).Property(x => x.CanStartTournament);
+        _deck.Property(x => x.CardCount).Changes(this).Property(x => x.Status);
       }
     }
 
@@ -81,14 +83,13 @@
       SelectedCard = libraryItem.Card;
     }
 
-    [Updates("CanStartTournament", "Status")]
-    public virtual void AddCard(LibraryItem libraryItem)
+    
+    public void AddCard(LibraryItem libraryItem)
     {
       Deck.AddCard(libraryItem.Info);
     }
-
-    [Updates("CanStartTournament", "Status")]
-    public virtual void RemoveCard(LibraryItem libraryItem)
+    
+    public void RemoveCard(LibraryItem libraryItem)
     {
       Deck.RemoveCard(libraryItem.Info);
     }
@@ -149,7 +150,7 @@
 
 
       SelectedCard = _cardsWithSetAndRarity[_library[0].Name];
-    }    
+    }
 
     private bool OnRemove(CardInfo cardInfo)
     {

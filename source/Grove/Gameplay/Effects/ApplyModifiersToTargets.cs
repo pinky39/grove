@@ -42,7 +42,8 @@
               X = X
             };
 
-          var modifier = modifierFactory().Initialize(p, Game);
+          var modifier = modifierFactory();
+          modifier.Initialize(p, Game);
           target.AddModifier(modifier);
         }
       }

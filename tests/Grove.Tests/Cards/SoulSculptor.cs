@@ -18,7 +18,7 @@
 
         RunGame(3);
 
-        Equal(0, P2.Life);
+        True(P2.Life < 0);
       }
     }
 

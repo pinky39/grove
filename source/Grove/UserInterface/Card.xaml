@@ -99,7 +99,6 @@
 
 										<Grid Margin="0,6,0,0">
 											<Image Source="{Binding Path=Illustration, Converter={x:Static UserInterface:Converters.CardIllustrationNameToCardImage}}" Width="273" Height="220" Stretch="UniformToFill" />
-
 											<Image Width="200" Source="{UserInterface:Media 'summoning-sickness.png'}" Visibility="{Binding Path=HasSummoningSickness, Converter={x:Static UserInterface:Converters.BooleanToVisibility}}" />
 
 											<Grid Height="50" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="30,0,0,5" Style="{StaticResource Counters}">
@@ -122,8 +121,7 @@
                                                         <Binding Path="Set" />
                                                         <Binding Path="Rarity" />
                                                     </MultiBinding>
-                                                </Image.Source>
-                                                
+                                                </Image.Source>                                                
                                             </Image>
                                         </Grid>
                                         <Viewbox Height="136" Margin="30,8,23,0" Stretch="Uniform" HorizontalAlignment="Left">

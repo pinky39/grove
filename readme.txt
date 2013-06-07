@@ -46,20 +46,19 @@ Green       - priority is automaticly passed on passive turns.
 Yellow      - priority is automaticly passed on active turn.
 Red         - priority is never automaticly passed.
 
-In order to respond to opponent spells, auto priority passing is disabled if your opponent plays a spell.
+When an opponent plays a spell auto priority passing is disabled.
 
 Shortcuts
 -------------------------------------
 Spacebar    - moves to next step (passes priority)
 Alt+q       - diplays in game menu screen.
-Ctrl+d      - generates a test scenario.
 F11         - toggle between window and fullscreen mode
 
 4. Themes
 =====================================
 Game visuals can be tweaked by modifying the contents of the media folder.
 
-If you wish you can add your own card pictures to the /media/cards folder. Picture size has to be 410x326 pixels, their names must match coresponding card names (with illegal characters excluded). Basic lands have 4 versions eg. forest1.jpg, ... , forest4.jpg.
+If you wish you can add your own card pictures to the /media/cards folder. Picture size has to be 410x326 pixels, their names must match coresponding card names. Basic lands have 4 versions eg. forest1.jpg, ... , forest4.jpg.
 
 Additional battlefield backgrounds can be added to /media/images folder. The filename must start with the word 'battlefield' e.g 'battlefield-1.jpg', 'battlefield-2.png'... At the start of the game a random battlefield background is chosen amongst all available.
 

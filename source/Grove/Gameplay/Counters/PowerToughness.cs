@@ -9,8 +9,8 @@
     private readonly int _toughness;
     private Power _cardPower;
     private Toughness _cardToughness;
-    private Increment _powerIncrement;
-    private Increment _toughnessIncrement;
+    private IntegerIncrement _powerIntegerIncrement;
+    private IntegerIncrement _toughnessIntegerIncrement;
 
     private PowerToughness() {}
 
@@ -26,26 +26,26 @@
     {
       _cardPower = power;
 
-      _powerIncrement = new Increment(_power);
-      _powerIncrement.Initialize(ChangeTracker);
+      _powerIntegerIncrement = new IntegerIncrement(_power);
+      _powerIntegerIncrement.Initialize(ChangeTracker);
 
-      power.AddModifier(_powerIncrement);
+      power.AddModifier(_powerIntegerIncrement);
     }
 
     public override void ModifyToughness(Toughness toughness)
     {
       _cardToughness = toughness;
 
-      _toughnessIncrement = new Increment(_toughness);
-      _toughnessIncrement.Initialize(ChangeTracker);
+      _toughnessIntegerIncrement = new IntegerIncrement(_toughness);
+      _toughnessIntegerIncrement.Initialize(ChangeTracker);
 
-      toughness.AddModifier(_toughnessIncrement);
+      toughness.AddModifier(_toughnessIntegerIncrement);
     }
 
     public override void Remove()
     {
-      _cardPower.RemoveModifier(_powerIncrement);
-      _cardToughness.RemoveModifier(_toughnessIncrement);
+      _cardPower.RemoveModifier(_powerIntegerIncrement);
+      _cardToughness.RemoveModifier(_toughnessIntegerIncrement);
     }
   }
 }

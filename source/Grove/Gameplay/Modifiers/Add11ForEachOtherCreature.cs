@@ -4,12 +4,12 @@
   using Characteristics;
   using Infrastructure;
   using Messages;
-  using Zones;
-
+  using Zones;  
+  
   public class Add11ForEachOtherCreature : Modifier, IReceive<ZoneChanged>,
     IReceive<TypeChanged>, IReceive<ControllerChanged>
   {
-    private Increment _increment = new Increment(0);
+    private IntegerIncrement _integerIncrement = new IntegerIncrement();
     private Power _power;
     private Toughness _tougness;
 
@@ -17,7 +17,7 @@
     {
       if (message.Card.Is().Creature || message.Card == Source)
       {
-        _increment.Value = GetCreatureCount();
+        _integerIncrement.Value = GetCreatureCount();
       }
     }
 
@@ -29,7 +29,7 @@
         return;
       }
 
-      _increment.Value = GetCreatureCount();
+      _integerIncrement.Value = GetCreatureCount();
     }
 
     public void Receive(ZoneChanged message)
@@ -42,37 +42,37 @@
 
       if (message.From == Zone.Battlefield)
       {
-        _increment--;
+        _integerIncrement--;
       }
 
       else if (message.To == Zone.Battlefield)
       {
-        _increment++;
+        _integerIncrement++;
       }
     }
 
     protected override void Unapply()
     {
-      _power.RemoveModifier(_increment);
-      _tougness.RemoveModifier(_increment);
+      _power.RemoveModifier(_integerIncrement);
+      _tougness.RemoveModifier(_integerIncrement);
     }
 
     public override void Apply(Power power)
     {
       _power = power;
-      power.AddModifier(_increment);
+      power.AddModifier(_integerIncrement);
     }
 
     public override void Apply(Toughness toughness)
     {
       _tougness = toughness;
-      toughness.AddModifier(_increment);
+      toughness.AddModifier(_integerIncrement);
     }
 
     protected override void Initialize()
     {
-      _increment.Initialize(ChangeTracker);
-      _increment.Value = GetCreatureCount();
+      _integerIncrement.Initialize(ChangeTracker);
+      _integerIncrement.Value = GetCreatureCount();
     }
 
     private int GetCreatureCount()

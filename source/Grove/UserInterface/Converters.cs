@@ -350,7 +350,10 @@
     public class SetAndRarityToSetImageConverter : IMultiValueConverter
     {
       public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
-      {
+      {                
+        if (values.Any(x => DependencyProperty.UnsetValue.Equals(x)))
+          return DependencyProperty.UnsetValue;
+        
         var set = (string) values[0];
         var rarity = (Rarity?) values[1];
 

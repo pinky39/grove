@@ -140,6 +140,8 @@
 
         if (Life <= 0)
           HasLost = true;
+
+        Publish(new PlayerLifeChanged {Player = this});
       }
     }
 

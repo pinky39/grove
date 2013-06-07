@@ -44,7 +44,7 @@
     private TournamentPlayer HumanPlayer { get { return _players.Single(x => x.IsHuman); } }
     private IEnumerable<TournamentPlayer> NonHumanPlayers { get { return _players.Where(x => !x.IsHuman); } }
     private Match CurrentMatch { get { return _matchRunner.Current; } }
-    private bool MatchInProgress { get { return _matchRunner.Current != null && !_matchRunner.Current.IsFinished; } }
+    private bool MatchInProgress { get { return _matchRunner.Current != null && _matchRunner.Current.InProgress; } }
 
     public string Description
     {

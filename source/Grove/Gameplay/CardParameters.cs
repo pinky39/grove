@@ -1,18 +1,19 @@
 ﻿namespace Grove.Gameplay
 {
-  using System;
   using System.Collections.Generic;
   using Abilities;
   using Characteristics;
   using Damage;
   using Infrastructure;
   using ManaHandling;
+  using Modifiers;
 
   public class CardParameters
-  {    
+  {
     public readonly ActivatedAbilities ActivatedAbilities = new ActivatedAbilities();
     public readonly CastInstructions CastInstructions = new CastInstructions();
     public readonly ContiniousEffects ContinuousEffects = new ContiniousEffects();
+    public readonly List<IModifier> Modifiers = new List<IModifier>();
     public readonly Protections Protections = new Protections();
     public readonly StaticAbilities StaticAbilities = new StaticAbilities();
     public readonly TriggeredAbilities TriggeredAbilities = new TriggeredAbilities();

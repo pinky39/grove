@@ -19,7 +19,7 @@
         .FlavorText("Before armor, there was bark. Before blades, there were thorns.")
         .Cast(p =>
           {
-            p.Effect = () => new Attach(() => new Add11ForEachForest());
+            p.Effect = () => new Attach(() => new ModifyPowerToughnessForEachForest(power: 1, toughness: 1, modifier: () => new IntegerIncrement()));
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
             p.TimingRule(new FirstMain());
             p.TargetingRule(new CombatEnchantment());

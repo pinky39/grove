@@ -71,7 +71,12 @@
         };
 
 
-      return _selfModifiers.Select(factory => factory().Initialize(p, Game));
+      return _selfModifiers.Select(factory =>
+        {
+          var modifier = factory();
+          modifier.Initialize(p, Game);
+          return modifier;
+        });
     }
 
     private IEnumerable<Modifier> CreateTargetModifiers()
@@ -85,7 +90,12 @@
         };
 
 
-      return _targetModifiers.Select(factory => factory().Initialize(p, Game));
+      return _targetModifiers.Select(factory =>
+        {
+          var modifier = factory();
+          modifier.Initialize(p, Game);
+          return modifier;
+        });
     }
   }
 }

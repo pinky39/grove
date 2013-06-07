@@ -55,7 +55,7 @@
     public int CreatureCount { get { return FilterCards(_deck, c => c.Is().Creature).Count(); } }
     public int LandCount { get { return FilterCards(_deck, c => c.Is().Land).Count(); } }
     public int SpellCount { get { return FilterCards(_deck, c => !c.Is().Creature && !c.Is().Land).Count(); } }
-    public int CardCount { get { return _deck.Count(); } }
+    public int CardCount { get { return _deck.CardCount; } }
     public virtual Card SelectedCard { get; protected set; }
 
     public IManaAmount Colors

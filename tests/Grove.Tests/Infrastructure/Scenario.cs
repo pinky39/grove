@@ -134,7 +134,8 @@
                 };
 
               var counters = new AddCounters(() => new SimpleCounter(scenarioCard.Counters.Type),
-                scenarioCard.Counters.Count).Initialize(p, Game);
+                scenarioCard.Counters.Count);
+              counters.Initialize(p, Game);
 
               card.AddModifier(counters);
             }

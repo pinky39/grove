@@ -9,5 +9,6 @@
     public Effect SourceEffect;
     public ITarget Target;
     public int? X;
+    public bool IsPermanent;
   }
 }

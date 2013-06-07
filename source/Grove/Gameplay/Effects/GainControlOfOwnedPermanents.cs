@@ -21,8 +21,8 @@
               X = X
             };
 
-          var modifier = new ChangeController(Controller)
-            .Initialize(p, Game);
+          var modifier = new ChangeController(Controller);
+          modifier.Initialize(p, Game);
 
           permanent.AddModifier(modifier);
         }

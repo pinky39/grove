@@ -13,7 +13,7 @@
     public abstract int Priority { get; }
     public abstract TValue Apply(TValue before);
 
-    public virtual void Initialize(ChangeTracker changeTracker)
+    public virtual void Initialize(INotifyChangeTracker changeTracker)
     {
       Changed.Initialize(changeTracker);
     }
