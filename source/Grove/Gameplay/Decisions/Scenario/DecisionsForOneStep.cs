@@ -69,6 +69,15 @@
       return this;
     }
 
+    public DecisionsForOneStep Activate(Card card, ITarget[] targets)
+    {
+      return Activate(p =>
+        {
+          p.Card = card;
+          p.Targets(targets);
+        });
+    }
+
     public DecisionsForOneStep Activate(Card card, Player target, Card costTarget = null,
       int? x = null, int abilityIndex = 0)
     {

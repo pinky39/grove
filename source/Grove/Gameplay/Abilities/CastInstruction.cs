@@ -164,5 +164,10 @@
     {
       return _cost.GetManaCost();
     }
+
+    public override string ToString()
+    {
+      return _card.ToString();
+    }
   }
 }

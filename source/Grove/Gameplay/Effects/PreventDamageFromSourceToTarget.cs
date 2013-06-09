@@ -23,7 +23,7 @@
           X = X
         };
 
-      var modifier = new AddDamagePrevention(new PreventDamageFromSource(source));
+      var modifier = new AddDamagePrevention(new PreventDamageFromSource(source)) {UntilEot = true};
       modifier.Initialize(mp, Game);
 
       DamageTarget.AddModifier(modifier);

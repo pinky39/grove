@@ -1,6 +1,7 @@
 ﻿namespace Grove.Tests.Cards
 {
   using Gameplay.States;
+  using Gameplay.Targeting;
   using Gameplay.Zones;
   using Infrastructure;
   using Xunit;
@@ -32,6 +33,29 @@
                 Equal(Zone.Graveyard, C(guardian).Zone);
               })
           );
+      }
+
+      [Fact]
+      public void PreventDamageOnlyOnce()
+      {
+        var guardian = C("Sanctum Guardian");
+        var armodon = C("Trained Armodon");
+        
+        Battlefield(P1, armodon);
+        Battlefield(P2, guardian);
+
+        Exec(
+          At(Step.DeclareAttackers)
+            .DeclareAttackers(armodon),
+          At(Step.DeclareBlockers)
+            .Activate(guardian, new ITarget[] {C(armodon), P2}),
+          At(Step.SecondMain)
+            .Verify(() => Equal(20, P2.Life)),
+          At(Step.DeclareAttackers, turn: 3)
+            .DeclareAttackers(armodon),
+          At(Step.SecondMain, turn: 3)
+            .Verify(() => Equal(17, P2.Life))
+        );
       }
     }
 
