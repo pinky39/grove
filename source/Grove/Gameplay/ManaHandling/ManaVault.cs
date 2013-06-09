@@ -12,6 +12,7 @@
     private readonly List<ManaUnits> _groups;
     private readonly TrackableList<ManaUnit> _manaPool = new TrackableList<ManaUnit>();
     private readonly TrackableList<ManaUnit> _removeList = new TrackableList<ManaUnit>();
+    private readonly object _manaPoolCountLock = new object();
 
     public ManaVault()
     {
@@ -30,7 +31,13 @@
     {
       get
       {
-        return new ManaCounts(
+        // this is accessed from a timer thread, which refreshes ui
+        // if a call to empty mana pool is made at the same time 
+        // the collection will be modified and an exception will be thrown,
+        // a lock is needed to prevent this.
+        lock (_manaPoolCountLock)
+        {
+          return new ManaCounts(
           white: _manaPool.Count(x => !x.Color.IsMulti && x.Color.IsWhite),
           blue: _manaPool.Count(x => !x.Color.IsMulti && x.Color.IsBlue),
           black: _manaPool.Count(x => !x.Color.IsMulti && x.Color.IsBlack),
@@ -38,7 +45,8 @@
           green: _manaPool.Count(x => !x.Color.IsMulti && x.Color.IsGreen),
           multi: _manaPool.Count(x => x.Color.IsMulti),
           colorless: _manaPool.Count(x => x.Color.IsColorless)
-          );
+          );  
+        }                
       }
     }
 
@@ -108,8 +116,12 @@
       {
         RemovePermanently(unit);
       }
-      _manaPool.Clear();
       
+      lock (_manaPoolCountLock)
+      {
+        _manaPool.Clear();
+      }
+
       RemoveAllScheduled();
     }
 

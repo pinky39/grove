@@ -61,7 +61,7 @@
 											</Interactivity:EventTrigger>
 										</Interactivity:Interaction.Triggers>
 
-										<ContentControl Margin="10,0,0,0" Style="{StaticResource SelectableContent}">
+										<ContentControl Style="{StaticResource SelectableContent}">
 											<ContentControl Content="{Binding Blocker.Card}" Style="{StaticResource Card}" />
 										</ContentControl>
 

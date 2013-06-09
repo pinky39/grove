@@ -30,9 +30,11 @@
 
     public ChosenCards ChooseResult(List<Card> candidates)
     {
+      var count = _count.Value;
+      
       return candidates
         .OrderBy(x => x.Score)
-        .Take(_count)
+        .Take(count)
         .ToList();
     }
 

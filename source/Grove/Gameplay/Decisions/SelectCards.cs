@@ -46,6 +46,9 @@
     {
       get
       {
+        if (MaxCount == 0)
+          return false;
+        
         var count = ValidTargets.Count;
         return count > MinCount;
       }
@@ -53,7 +56,7 @@
 
     protected override void SetResultNoQuery()
     {
-      Result = new ChosenCards(ValidTargets);
+      Result = new ChosenCards(ValidTargets.Take(MinCount));
     }
 
     public void Validator(ICardValidator validator)

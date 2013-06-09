@@ -22,7 +22,7 @@
         .TriggeredAbility(p =>
           {
             p.Text = "At the beginning of your upkeep, you may put a soot counter on Smokestack.";
-            p.Trigger(new OnStepStart(Step.Upkeep, order: 1));
+            p.Trigger(new OnStepStart(Step.Upkeep));
             p.Effect = () => new ChooseToAddCounter(CounterType.Soot, e => e.Source.OwningCard.Counters <= 3);
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;
@@ -32,11 +32,11 @@
             p.Text =
               "At the beginning of each player's upkeep, that player sacrifices a permanent for each soot counter on Smokestack.";
 
-            p.Trigger(new OnStepStart(Step.Upkeep, activeTurn: true, passiveTurn: true));
+            p.Trigger(new OnStepStart(Step.Upkeep, activeTurn: true, passiveTurn: true, order: 5));
 
             p.Effect = () => new PlayersSacrificePermanents(
-              count: P(e => e.Source.OwningCard.CountersCount()),
-              text: "Select permanents to sacrifice.",
+              count: P(e => e.Source.OwningCard.CountersCount(), evaluateOnResolve: true),
+              text: "Sacrifice a permanent for each soot counter on Smokestack.",
               playerFilter: (_, player) => player.IsActive);
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;

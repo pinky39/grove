@@ -240,6 +240,7 @@
     <Compile Include="Cards\ShivanHellkite.cs" />
     <Compile Include="Cards\ShowAndTell.cs" />
     <Compile Include="Cards\ShowerOfSparks.cs" />
+    <Compile Include="Cards\Sicken.cs" />
     <Compile Include="Cards\SilentAttendant.cs" />
     <Compile Include="Cards\SkirgeFamiliar.cs" />
     <Compile Include="Cards\SkitteringSkirge.cs" />

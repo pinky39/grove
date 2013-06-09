@@ -50,7 +50,7 @@
           p.Card.IsPermanent && Stack.CanBeDestroyedByTopSpell(p.Card)))
       {
         candidates = p.Candidates<Card>(ControlledBy.SpellOwner)
-          .OrderByDescending(x => x.Score);
+          .OrderBy(x => x.Toughness);
       }
 
       return Group(candidates, p.MinTargetCount());
