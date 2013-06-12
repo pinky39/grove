@@ -21,7 +21,7 @@
         .Cast(p =>
           {
             p.Effect = () => new ReturnAllPermanentsToHand(c => c.Is().Land);
-            p.TimingRule(new EndOfTurn());                    
+            p.TimingRule(new EndOfTurn());
           });
     }
   }

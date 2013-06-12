@@ -1,9 +1,9 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
   using Abilities;
-  using Targeting;
+  using Infrastructure;
 
-  public class AddActivatedAbility : Modifier
+  public class AddActivatedAbility : Modifier, ICardModifier
   {
     private readonly ActivatedAbility _activatedAbility;
     private ActivatedAbilities _abilities;
@@ -18,7 +18,7 @@
     public override void Apply(ActivatedAbilities abilities)
     {
       _abilities = abilities;
-      _activatedAbility.Initialize(Target.Card(), Game);
+      _activatedAbility.Initialize(OwningCard, Game);
       _abilities.Add(_activatedAbility);
     }
 

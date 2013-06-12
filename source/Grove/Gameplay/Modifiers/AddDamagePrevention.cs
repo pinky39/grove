@@ -1,10 +1,12 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
-  using Damage;
+  using System;
+  using DamageHandling;
 
-  public class AddDamagePrevention : Modifier
+  public class AddDamagePrevention : Modifier, IGameModifier
   {
-    private readonly DamagePrevention _damagePrevention;
+    private readonly Func<Modifier, DamagePrevention> _damagePreventionFactory;
+    private DamagePrevention _damagePrevention;
     private DamagePreventions _damagePreventions;
 
     private AddDamagePrevention() {}
@@ -13,12 +15,17 @@
     {
       _damagePrevention = damagePrevention;
     }
-
+    
+    public AddDamagePrevention(Func<Modifier, DamagePrevention> damagePreventionFactory)
+    {
+      _damagePreventionFactory = damagePreventionFactory;
+    }
 
     public override void Apply(DamagePreventions damagePreventions)
     {
       _damagePreventions = damagePreventions;
-      _damagePrevention.Initialize(Target, Game);
+      _damagePrevention = _damagePrevention ?? _damagePreventionFactory(this);
+      _damagePrevention.Initialize(this, Game);
 
       damagePreventions.AddPrevention(_damagePrevention);
     }

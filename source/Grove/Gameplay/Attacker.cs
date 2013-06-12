@@ -11,7 +11,7 @@
 
   public class Attacker : GameObject, IHashable
   {
-    private readonly TrackableList<Damage.Damage> _assignedDamage = new TrackableList<Damage.Damage>();
+    private readonly TrackableList<AssignedCombatDamage> _assignedDamage = new TrackableList<AssignedCombatDamage>();
     private readonly TrackableList<Blocker> _blockers = new TrackableList<Blocker>();
     private readonly Card _card;
     private readonly Trackable<bool> _isBlocked = new Trackable<bool>();
@@ -36,7 +36,6 @@
     public bool HasDeathTouch { get { return _card.Has().Deathtouch; } }
     public bool HasTrample { get { return _card.Has().Trample; } }
     public int LifepointsLeft { get { return _card.Life; } }
-    public int DamageThisWillDealInOneDamageStep { get { return _card.CalculateCombatDamage(); } }
     public bool AssignsDamageAsThoughItWasntBlocked { get { return _card.Has().AssignsDamageAsThoughItWasntBlocked; } }
 
     public int CalculateHash(HashCalculator calc)
@@ -54,7 +53,7 @@
       _isBlocked.Value = true;
     }
 
-    public void AssignDamage(Damage.Damage damage)
+    public void AssignDamage(AssignedCombatDamage damage)
     {
       _assignedDamage.Add(damage);
     }
@@ -68,7 +67,7 @@
     {
       foreach (var damage in _assignedDamage)
       {
-        _card.DealDamage(damage);
+        damage.Source.DealDamageTo(damage.Amount, _card, isCombat: true);
       }
 
       _assignedDamage.Clear();
@@ -85,12 +84,8 @@
     {
       foreach (var blocker in _blockers)
       {
-        var damage = new Damage.Damage(
-          source: Card,
-          amount: distribution[blocker],
-          isCombat: true,
-          changeTracker: ChangeTracker
-          );
+        var damage = new AssignedCombatDamage(
+          distribution[blocker], source: Card);
 
         blocker.AssignDamage(damage);
       }
@@ -99,19 +94,17 @@
 
       if (HasTrample || AssignsDamageAsThoughItWasntBlocked || _isBlocked == false)
       {
-        var unassignedDamage = new Damage.Damage(
-          source: _card,
-          amount: DamageThisWillDealInOneDamageStep - distribution.Total,
-          isCombat: true,
-          changeTracker: ChangeTracker);
+        var unassignedDamage = new AssignedCombatDamage(
+          amount: Card.CalculateCombatDamageAmount() - distribution.Total,
+          source: _card);
 
         defender.AssignDamage(unassignedDamage);
       }
-    }
+    }    
 
     public int CalculateDefendingPlayerLifeloss()
     {
-      return QuickCombat.CalculateDefendingPlayerLifeloss(_card, _blockers.Select(x => x.Card));            
+      return QuickCombat.CalculateDefendingPlayerLifeloss(_card, _blockers.Select(x => x.Card));
     }
 
     public bool HasBlocker(Blocker blocker)

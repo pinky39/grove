@@ -68,8 +68,7 @@
 
       return HashCalculator.Combine(
         base.CalculateHash(calc),
-        HashCalculator.Combine(hashcodes)
-        );
+        HashCalculator.Combine(hashcodes));
     }
 
     public override void Initialize(Card owningCard, Game game)

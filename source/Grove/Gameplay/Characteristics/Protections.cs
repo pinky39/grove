@@ -4,7 +4,7 @@
   using Modifiers;
 
   [Copyable]
-  public class Protections : IModifiable, IHashable
+  public class Protections : IAcceptsCardModifier, IHashable
   {
     private readonly TrackableList<string> _cardTypes = new TrackableList<string>();
     private readonly TrackableList<CardColor> _colors = new TrackableList<CardColor>();
@@ -14,7 +14,7 @@
       return calc.Calculate(_colors);
     }
 
-    public void Accept(IModifier modifier)
+    public void Accept(ICardModifier modifier)
     {
       modifier.Apply(this);
     }

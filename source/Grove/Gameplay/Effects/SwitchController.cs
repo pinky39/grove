@@ -7,15 +7,15 @@
     protected override void ResolveEffect()
     {
       var sourceModifier = new ChangeController(Controller.Opponent);
-      sourceModifier.Initialize(new ModifierParameters
+      
+      var p = new ModifierParameters
         {
           SourceEffect = this,
-          SourceCard = Source.OwningCard,
-          Target = Source.OwningCard,
+          SourceCard = Source.OwningCard,          
           X = X
-        }, Game);
-
-      Source.OwningCard.AddModifier(sourceModifier);
+        };
+      
+      Source.OwningCard.AddModifier(sourceModifier, p);
     }
   }
 }

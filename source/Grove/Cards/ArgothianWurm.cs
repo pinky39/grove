@@ -19,7 +19,7 @@
           "{Trample}{EOL}When Argothian Wurm enters the battlefield, any player may sacrifice a land. If a player does, put Argothian Wurm on top of its owner's library.")
         .Power(6)
         .Toughness(6)
-        .StaticAbilities(Static.Trample)
+        .SimpleAbilities(Static.Trample)
         .TriggeredAbility(p =>
           {
             p.Text =

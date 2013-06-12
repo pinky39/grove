@@ -1,11 +1,11 @@
 ﻿namespace Grove.Gameplay.Abilities
 {
   using System.Linq;
+  using Effects;
   using Infrastructure;
   using Messages;
   using Misc;
   using Modifiers;
-  using Targeting;
   using Zones;
 
   public delegate bool ShouldApplyToCard(Card card, ContinuousEffect effect);
@@ -16,11 +16,10 @@
   public class ContinuousEffect : GameObject, IReceive<ZoneChanged>, IReceive<PermanentWasModified>, ICopyContributor
   {
     private readonly ShouldApplyToCard _cardFilter;
-    private readonly Trackable<Modifier> _doNotUpdate = new Trackable<Modifier>();
+    private readonly Trackable<IModifier> _doNotUpdate = new Trackable<IModifier>();
     private readonly Trackable<bool> _isActive = new Trackable<bool>();
-    private readonly ModifierFactory _modifierFactory;
-    private readonly TrackableList<Modifier> _modifiers = new TrackableList<Modifier>();
-    private readonly ShouldApplyToPlayer _playerFilter;
+    private readonly CardModifierFactory _modifierFactory;
+    private readonly TrackableList<IModifier> _modifiers = new TrackableList<IModifier>();
 
     private ContinuousEffect() {}
 
@@ -28,11 +27,10 @@
     {
       _modifierFactory = p.Modifier;
       _cardFilter = p.CardFilter;
-      _playerFilter = p.PlayerFilter;
     }
 
     public Card Source { get; private set; }
-    public ITarget Target { get; private set; }
+    public Effect SourceEffect { get; private set; }
 
     public void AfterMemberCopy(object original)
     {
@@ -74,7 +72,7 @@
       }
     }
 
-    public void Initialize(Card source, Game game, ITarget target = null)
+    public void Initialize(Card source, Game game, Effect sourceEffect = null)
     {
       Game = game;
 
@@ -83,7 +81,7 @@
       _isActive.Initialize(ChangeTracker);
 
       Source = source;
-      Target = target;
+      SourceEffect = sourceEffect;
 
       Subscribe(this);
 
@@ -118,55 +116,43 @@
       }
     }
 
-    private void RemoveModifier(Modifier modifier)
+    private void RemoveModifier(IModifier modifier)
     {
       _doNotUpdate.Value = modifier;
 
       _modifiers.Remove(modifier);
-      modifier.Remove();
+      modifier.Owner.RemoveModifier(modifier);
     }
 
-    private Modifier FindModifier(Card permanent)
+    private IModifier FindModifier(Card permanent)
     {
       return _modifiers
-        .FirstOrDefault(x => x.Target == permanent);
+        .FirstOrDefault(x => x.Owner == permanent);
     }
 
     public void Activate()
     {
-      AddModifierToPermanents();
-      AddModifierToPlayers();
+      ApplyModifierToPermanents();
       _isActive.Value = true;
     }
 
-    private void AddModifierToPlayers()
-    {
-      foreach (var player in Players)
-      {
-        if (_playerFilter(player, this))
-        {
-          AddModifier(player);
-        }
-      }
-    }
 
-    private void AddModifier(ITarget target)
+    private void AddModifier(Card card)
     {
+      var modifier = _modifierFactory();
+
+      _modifiers.Add(modifier);
+      _doNotUpdate.Value = modifier;
+
       var p = new ModifierParameters
         {
           SourceCard = Source,
-          Target = target
         };
 
-      var modifier = _modifierFactory(); 
-      modifier.Initialize(p, Game);
-      _modifiers.Add(modifier);
-
-      _doNotUpdate.Value = modifier;
-      target.AddModifier(modifier);
+      card.AddModifier(modifier, p);
     }
 
-    private void AddModifierToPermanents()
+    private void ApplyModifierToPermanents()
     {
       var permanents = Players.Permanents()
         .Where(permanent => _cardFilter(permanent, this)).ToList();

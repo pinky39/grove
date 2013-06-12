@@ -24,7 +24,7 @@
       {
         var blocker = ctx.Game.Combat.FindBlocker((Card) ctx.Recorder.GetObject(blockerDamage.BlockerId));
         _distribution.Add(blocker, blockerDamage.Damage);
-      }
+      }      
     }
 
     public int this[Blocker blocker]
@@ -48,7 +48,7 @@
         })
         .ToList();
 
-      info.AddValue("distribution", distribution);
+      info.AddValue("distribution", distribution);      
     }
 
     public void Assign(Blocker blocker, int amount)
@@ -56,7 +56,7 @@
       var assigned = 0;
       _distribution.TryGetValue(blocker, out assigned);
       _distribution[blocker] = assigned + amount;
-    }
+    }    
 
     [Serializable]
     public class BlockerDamage

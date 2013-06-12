@@ -2,19 +2,26 @@
 {
   using System;
   using System.Collections.Generic;
+  using Abilities;
   using Artifical;
+  using DamageHandling;
   using Decisions;
   using Decisions.Scenario;
   using Infrastructure;
+  using Modifiers;
   using Persistance;
   using States;
+  using Targeting;
   using Zones;
 
   [Copyable]
-  public class Game
-  {
+  public class Game : IModifiable
+  {    
+    private readonly DamagePreventions _damagePreventions;
+    private readonly DamageRedirections _damageRedirections;
     private readonly DecisionQueue _decisionQueue;
     private readonly DecisionSystem _decisionSystem;
+    private readonly TrackableList<IGameModifier> _modifiers = new TrackableList<IGameModifier>();
     private readonly Publisher _publisher;
     private readonly StateMachine _stateMachine;
     private readonly bool _wasLoaded;
@@ -40,6 +47,9 @@
       var player1 = new Player(p.Player1, p.Player1Controller);
       var player2 = new Player(p.Player2, p.Player2Controller);
       Players = new Players(player1, player2);
+      
+      _damagePreventions = new DamagePreventions();
+      _damageRedirections = new DamageRedirections();
 
       if (p.IsSavedGame)
       {
@@ -62,6 +72,15 @@
       }
     }
 
+    private IEnumerable<IAcceptsGameModifier> ModifiableProperties
+    {
+      get
+      {
+        yield return _damagePreventions;
+        yield return _damageRedirections;        
+      }
+    }
+
     public ChangeTracker ChangeTracker { get; private set; }
     public CardsDatabase CardsDatabase { get; private set; }
     public bool WasStopped { get { return _wasStopped.Value; } }
@@ -75,6 +94,46 @@
     public RandomGenerator Random { get; private set; }
     public GameRecorder Recorder { get; private set; }
 
+    public void RemoveModifier(IModifier modifier)
+    {
+      RemoveModifier((IGameModifier) modifier);
+    }
+
+    public void AddModifier(IGameModifier modifier, ModifierParameters p)
+    {
+      p.Owner = this;
+      
+      _modifiers.Add(modifier);
+      modifier.Initialize(p, this);
+      modifier.Activate();
+
+      foreach (var modifiableProperty in ModifiableProperties)
+      {
+        modifiableProperty.Accept(modifier);
+      }
+    }
+
+    public void RemoveModifier(IGameModifier modifier)
+    {
+      _modifiers.Remove(modifier);
+      modifier.Dispose();
+    }
+
+    public int PreventDamage(PreventDamageParameters p)
+    {
+      return _damagePreventions.PreventDamage(p);
+    }
+
+    public int PreventLifeloss(int amount, Player player, bool queryOnly)
+    {
+      return _damagePreventions.PreventLifeloss(amount, player, queryOnly);
+    }
+
+    public bool RedirectDamage(Damage damage, ITarget target)
+    {
+      return _damageRedirections.RedirectDamage(damage, target);
+    }
+
     private void Initialize()
     {
       _publisher.Initialize(ChangeTracker);
@@ -86,6 +145,10 @@
       _decisionQueue.Initialize(this);
       _stateMachine.Initialize(this);
       Players.Initialize(this);
+      
+      _damageRedirections.Initialize(ChangeTracker);
+      _damagePreventions.Initialize(ChangeTracker);
+      _modifiers.Initialize(ChangeTracker);
     }
 
     public void Enqueue<TDecision>(Player controller, Action<TDecision> init = null)
@@ -125,7 +188,9 @@
         calc.Calculate(Players),
         calc.Calculate(Stack),
         calc.Calculate(Turn),
-        calc.Calculate(Combat));
+        calc.Calculate(Combat),
+        calc.Calculate(_damagePreventions),
+        calc.Calculate(_damageRedirections));
     }
 
     public void RollbackToSnapshot(object snaphost)

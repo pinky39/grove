@@ -13,6 +13,7 @@
 
     public TrackableEvent Ended { get; set; }
     public Modifier Modifier { get; private set; }
+    protected Card OwningCard { get { return Modifier.OwningCard; } }
 
     public virtual void Dispose() {}
 
@@ -21,7 +22,7 @@
       Ended.Raise();
     }
 
-    public virtual void Initialize(Modifier modifier, Game game)
+    public virtual void Initialize(Game game, Modifier modifier = null)
     {
       Game = game;
       Modifier = modifier;

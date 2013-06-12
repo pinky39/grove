@@ -3,7 +3,7 @@
   using System;
   using Characteristics;
 
-  public class ChangeController : Modifier
+  public class ChangeController : Modifier, ICardModifier
   {
     private readonly Func<Modifier, Player> _getNewController;
     private readonly Player _newController;

@@ -34,10 +34,7 @@
               new ApplyModifiersToTargets(() =>
                 {
                   var modifier = new AddStaticAbility(Static.DoesNotUntap);
-
-                  modifier.AddLifetime(new PermanentGetsUntapedLifetime(
-                    l => l.Modifier.Source));
-
+                  modifier.AddLifetime(new ModifierSourceGetsUntapedLifetime());
                   return modifier;
                 }));
 

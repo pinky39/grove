@@ -21,7 +21,7 @@
           "The mage felt as though he'd been in the stasis suit for days. Upon his return, he found it was months.")
         .Cast(p =>
           {
-            p.Effect = () => new ApplyModifiersToPlayer(
+            p.Effect = () => new ApplyModifiersToPlayer( 
               selector: e => e.Controller.Opponent,
               modifiers: () =>
                 {
@@ -29,12 +29,12 @@
                     {
                       Modifier = () => new AddStaticAbility(Static.DoesNotUntap),
                       CardFilter = (card, effect) =>
-                        card.Controller == effect.Target.Player() && (card.Is().Creature || card.Is().Land)
+                        card.Controller == effect.SourceEffect.Controller.Opponent && (card.Is().Creature || card.Is().Land)
                     };
 
                   var modifier = new AddContiniousEffect(new ContinuousEffect(cp));
 
-                  modifier.AddLifetime(new EndOfUntapStep(l => l.Modifier.Source.Controller.IsActive));
+                  modifier.AddLifetime(new EndOfUntapStep(l => l.Modifier.SourceCard.Controller.IsActive));
                   return modifier;
                 });
 

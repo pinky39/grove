@@ -17,7 +17,7 @@
           "The humans are useful in their way, but they must be commanded as the builder commands the stone. Be soft with them, and they will become soft.")
         .Power(1)
         .Toughness(1)
-        .StaticAbilities(Static.FirstStrike);
+        .SimpleAbilities(Static.FirstStrike);
     }
   }
 }

@@ -28,7 +28,7 @@
                 Category = EffectCategories.ToughnessIncrease
               };
           })
-        .StaticAbilities(Static.Vigilance)
+        .SimpleAbilities(Static.Vigilance)
         .ContinuousEffect(p =>
           {
             p.Modifier = () => new AddPowerAndToughness(2, 2);

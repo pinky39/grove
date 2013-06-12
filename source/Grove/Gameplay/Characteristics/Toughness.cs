@@ -4,13 +4,13 @@
   using Modifiers;
 
   [Copyable]
-  public class Toughness : Characteristic<int?>, IModifiable
+  public class Toughness : Characteristic<int?>, IAcceptsCardModifier
   {
     private Toughness() {}
 
     public Toughness(int? value) : base(value) {}
 
-    public void Accept(IModifier modifier)
+    public void Accept(ICardModifier modifier)
     {
       modifier.Apply(this);
     }

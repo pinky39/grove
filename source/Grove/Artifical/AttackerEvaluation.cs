@@ -9,16 +9,23 @@
   {
     private readonly Card _attacker;
     private readonly List<Card> _blockers = new List<Card>();
+    private readonly int _powerIncrease;
+    private readonly int _toughnessIncrease;
 
     public Action<Card, int> BlockerHasDealtDamage = delegate { };
     public Action<Card, int> BlockerHasDealtLeathalDamage = delegate { };
-    public Func<Card, int> CalculateCombatDamage = card => card.CalculateCombatDamage();
-    public Func<Card, int> CalculateLifepointsLeft = card => card.Life;
 
-    public AttackerEvaluation(Card attacker, IEnumerable<Card> blockers)
+    public AttackerEvaluation(Card attacker, IEnumerable<Card> blockers, int powerIncrease = 0, int toughnessIncrease = 0)
     {
       _attacker = attacker;
+      _powerIncrease = powerIncrease;
+      _toughnessIncrease = toughnessIncrease;
       _blockers.AddRange(blockers);
+    }
+
+    private int GetAttackerLifepoints()
+    {
+      return _attacker.Life + _toughnessIncrease;
     }
 
     public CalculationResults Evaluate()
@@ -26,7 +33,7 @@
       var results = new CalculationResults();
       var blockers = _blockers.AsEnumerable();
 
-      var biggestDamage = 0;
+      var maxDamageDealtByBlocker = 0;
       Card blockerThatDealsBiggestDamage = null;
       var total = 0;
 
@@ -37,40 +44,57 @@
         return results;
 
       if (_attacker.HasFirstStrike)
-      {
-        // eliminate blockers that will be killed
-        // before they can deal damage
-
-        blockers = blockers.Where(
-          b => (b.HasFirstStrike || b.Has().Indestructible || b.Life > CalculateCombatDamage(_attacker)));
+      {        
+        blockers = RemoveBlockersThatWillBeKilledBeforeTheyDealDamage(blockers);
       }
 
       foreach (var blocker in blockers)
       {
-        var dealtAmount = _attacker.EvaluateReceivedDamage(blocker, blocker.CalculateCombatDamage(), isCombat: true);
+        var amount = QuickCombat.GetAmountOfDamageCreature1WillDealToCreature2(
+          creature1: blocker, 
+          creature2: _attacker);
 
-        if (dealtAmount > 0 && blocker.Has().Deathtouch)
+        if (amount > 0 && blocker.Has().Deathtouch)
         {
           results.ReceivesLeathalDamage = true;
-          BlockerHasDealtLeathalDamage(blocker, dealtAmount);
+          BlockerHasDealtLeathalDamage(blocker, amount);
           results.LeathalBlocker = blocker;
         }
 
-        BlockerHasDealtDamage(blocker, dealtAmount);
-        total += dealtAmount;
+        BlockerHasDealtDamage(blocker, amount);
+        total += amount;
 
-        if (dealtAmount > biggestDamage)
+        if (amount > maxDamageDealtByBlocker)
         {
           blockerThatDealsBiggestDamage = blocker;
+          maxDamageDealtByBlocker = amount;
         }
       }
 
       results.DamageDealt = total;
+      
       results.ReceivesLeathalDamage = results.ReceivesLeathalDamage ||
-        results.DamageDealt >= CalculateLifepointsLeft(_attacker);
+        results.DamageDealt >= GetAttackerLifepoints();
+
       results.LeathalBlocker = results.LeathalBlocker ?? blockerThatDealsBiggestDamage;
 
       return results;
+    }
+
+    private IEnumerable<Card> RemoveBlockersThatWillBeKilledBeforeTheyDealDamage(IEnumerable<Card> blockers) {
+      blockers = blockers.Where(blocker =>
+        {
+          var canBeKilledBeforeItDealsDamage = 
+            blocker.HasFirstStrike || 
+              blocker.Has().Indestructible ||
+                blocker.Life > QuickCombat.GetAmountOfDamageCreature1WillDealToCreature2(
+                  creature1: _attacker,  
+                  creature2: blocker,
+                  powerIncrease: _powerIncrease);
+
+          return canBeKilledBeforeItDealsDamage;
+        });
+      return blockers;
     }
 
     public class CalculationResults

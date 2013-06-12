@@ -19,7 +19,7 @@
         .FlavorText("That the Tolarian mists parted for the drakes was warning enough to stay away.")
         .Power(2)
         .Toughness(3)
-        .StaticAbilities(Static.Flying)
+        .SimpleAbilities(Static.Flying)
         .TriggeredAbility(p =>
           {
             p.Text = "When Peregrine Drake enters the battlefield, untap up to five lands.";

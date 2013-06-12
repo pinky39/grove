@@ -236,6 +236,7 @@
     <Compile Include="Cards\ScoriaWurm.cs" />
     <Compile Include="Cards\SealOfFire.cs" />
     <Compile Include="Cards\SeasonedMarshal.cs" />
+    <Compile Include="Cards\SerraAvatar.cs" />
     <Compile Include="Cards\ShivanGorge.cs" />
     <Compile Include="Cards\ShivanHellkite.cs" />
     <Compile Include="Cards\ShowAndTell.cs" />

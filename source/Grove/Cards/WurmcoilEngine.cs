@@ -20,7 +20,7 @@
           "{Deathtouch}, {Lifelink}{EOL}When Wurmcoil Engine dies, put a 3/3 colorless Wurm artifact creature token with deathtouch and a 3/3 colorless Wurm artifact creature token with lifelink onto the battlefield.")
         .Power(6)
         .Toughness(6)
-        .StaticAbilities(Static.Deathtouch, Static.Lifelink)
+        .SimpleAbilities(Static.Deathtouch, Static.Lifelink)
         .TriggeredAbility(p =>
           {
             p.Text =
@@ -39,7 +39,7 @@
                 .Toughness(3)
                 .Type("Artifact Creature - Wurm Token")
                 .Colors(CardColor.Colorless)
-                .StaticAbilities(Static.Deathtouch),
+                .SimpleAbilities(Static.Deathtouch),
               Card
                 .Named("Wurm Token")
                 .Text("{Lifelink}")
@@ -48,7 +48,7 @@
                 .Toughness(3)
                 .Type("Artifact Creature - Wurm Token")
                 .Colors(CardColor.Colorless)
-                .StaticAbilities(Static.Lifelink));
+                .SimpleAbilities(Static.Lifelink));
           });
     }
   }

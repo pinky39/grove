@@ -22,7 +22,8 @@
             p.Effect =
               () =>
                 new EachPlayerReturnsCardFromZoneToBattlefield(Zone.Hand,
-                  c => (c.Is().Creature || c.Is().Artifact || c.Is().Enchantment || c.Is().Land) && !c.Is().Aura); // auras are not currently supported
+                  c => (c.Is().Creature || c.Is().Artifact || c.Is().Enchantment || c.Is().Land) && !c.Is().Aura);
+              // auras are not currently supported
             p.TimingRule(new ControllerHandCountIs(1,
               selector: c => c.ConvertedCost >= 6 && (c.Is().Creature || c.Is().Artifact || c.Is().Enchantment)));
           });

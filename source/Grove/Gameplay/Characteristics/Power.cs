@@ -3,13 +3,13 @@
   using Infrastructure;
   using Modifiers;
 
-  public class Power : Characteristic<int?>, IModifiable
+  public class Power : Characteristic<int?>, IAcceptsCardModifier
   {
     private Power() {}
 
     public Power(int? value) : base(value) {}
 
-    public void Accept(IModifier modifier)
+    public void Accept(ICardModifier modifier)
     {
       modifier.Apply(this);
     }

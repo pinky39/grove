@@ -1,6 +1,6 @@
 ﻿namespace Grove.Gameplay.Effects
 {
-  using Damage;
+  using DamageHandling;
 
   public class DealExistingDamageToController : Effect
   {
@@ -27,7 +27,7 @@
 
     protected override void ResolveEffect()
     {
-      Controller.DealDamage(_damage.Value);
+      Controller.ReceiveDamage(_damage.Value);
     }
   }
 }

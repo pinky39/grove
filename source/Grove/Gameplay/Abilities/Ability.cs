@@ -32,9 +32,10 @@
 
     public CardText Text { get; private set; }
 
-    public bool IsEnabled { get { return _isEnabled.Value; } set { _isEnabled.Value = value; } }
+    public bool IsEnabled { get { return _isEnabled.Value; } private set { _isEnabled.Value = value; } }
     public Card SourceCard { get { return _owner; } }
     public Card OwningCard { get { return _owner; } }
+
     public void EffectCountered(SpellCounterReason reason) {}
 
     public virtual int CalculateHash(HashCalculator calc)
@@ -48,6 +49,16 @@
     bool IEffectSource.IsTargetStillValid(ITarget target, object triggerMessage)
     {
       return TargetSelector.IsValidEffectTarget(target, triggerMessage);
+    }
+
+    public void Enable()
+    {
+      IsEnabled = true;
+    }
+
+    public void Disable()
+    {
+      IsEnabled = false;
     }
 
     protected void Resolve(Effect e, bool skipStack)

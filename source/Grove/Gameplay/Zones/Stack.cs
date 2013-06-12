@@ -5,6 +5,7 @@
   using System.Collections.Generic;
   using System.Linq;
   using Artifical;
+  using DamageHandling;
   using Effects;
   using Infrastructure;
   using Targeting;
@@ -130,11 +131,10 @@
       if (!TopSpell.Targets.Any() && targetOnly)
         return 0;
 
+      var total = TopSpell.CalculateCreatureDamage(card);
+      var prevented = card.CalculatePreventedDamageAmount(total, TopSpell.Source.OwningCard);
 
-      var dealtAmount = card.EvaluateReceivedDamage(
-        TopSpell.Source.OwningCard, TopSpell.CalculateCreatureDamage(card), isCombat: false);
-
-      return dealtAmount;
+      return total - prevented;
     }
 
     public bool CanBeDealtLeathalDamageByTopSpell(Card card, bool targetOnly = false)

@@ -2,7 +2,7 @@
 {
   using System.Collections.Generic;
   using Artifical.TimingRules;
-  using Gameplay.Damage;
+  using Gameplay.DamageHandling;
   using Gameplay.Misc;
   using Gameplay.Modifiers;
 
@@ -22,11 +22,8 @@
             p.TimingRule(new FirstMain());
             p.TimingRule(new ThereCanBeOnlyOne());
           })
-        .ContinuousEffect(p =>
-          {
-            p.Modifier = () => new AddDamagePrevention(new PreventLifelossBelowOne());
-            p.PlayerFilter = (player, effect) => player == effect.Source.Controller;
-          });
+        .StaticAbility(p => p.Modifier(
+          () => new AddDamagePrevention(modifier => new PreventLifelossBelowOneToPlayer(modifier.SourceCard.Controller))));
     }
   }
 }

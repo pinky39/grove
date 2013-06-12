@@ -18,7 +18,7 @@
         .Power(2)
         .Toughness(3)
         .Cycling("{2}")
-        .StaticAbilities(Static.Flying);
+        .SimpleAbilities(Static.Flying);
     }
   }
 }

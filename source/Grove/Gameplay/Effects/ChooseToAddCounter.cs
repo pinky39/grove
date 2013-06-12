@@ -30,16 +30,13 @@
       if (results.IsTrue)
       {
         var p = new ModifierParameters
-          {
-            Target = Source.OwningCard,
+          {            
             SourceCard = Source.OwningCard,
             SourceEffect = this,
           };
 
-        var addCounter = new AddCounters(() => new SimpleCounter(_counterType), 1);
-        addCounter.Initialize(p, Game);
-
-        Source.OwningCard.AddModifier(addCounter);
+        var addCounter = new AddCounters(() => new SimpleCounter(_counterType), 1);        
+        Source.OwningCard.AddModifier(addCounter, p);
       }
     }
 

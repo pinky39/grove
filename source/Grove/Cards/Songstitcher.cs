@@ -5,11 +5,9 @@
   using Artifical.TimingRules;
   using Gameplay;
   using Gameplay.Costs;
-  using Gameplay.Damage;
   using Gameplay.Effects;
   using Gameplay.ManaHandling;
   using Gameplay.Misc;
-  using Gameplay.Modifiers;
   using Gameplay.States;
 
   public class Songstitcher : CardsSource
@@ -31,9 +29,7 @@
               "{1}{W}: Prevent all combat damage that would be dealt this turn by target attacking creature with flying.";
 
             p.Cost = new PayMana("{1}{W}".Parse(), ManaUsage.Abilities);
-            p.Effect =
-              () =>
-                new ApplyModifiersToTargets(() => new AddDamagePrevention(new PreventCombatDamage()) {UntilEot = true});
+            p.Effect = () => new PreventDamageFromSource();
             p.TargetSelector.AddEffect(trg => trg.Is.Card(c => c.Has().Flying && c.IsAttacker).On.Battlefield());
             p.TargetingRule(new PreventDamageFromAttackers());
             p.TimingRule(new Turn(passive: true));

@@ -2,7 +2,7 @@
 {
   using System.Collections.Generic;
   using Artifical.TimingRules;
-  using Gameplay.Damage;
+  using Gameplay.DamageHandling;
   using Gameplay.Misc;
   using Gameplay.Modifiers;
 
@@ -18,11 +18,8 @@
         .FlavorText(
           "Tawnos's blueprints were critical to the creation of my armor. As he once sealed himself in steel, I sealed myself in a walking crypt.")
         .Cast(p => p.TimingRule(new FirstMain()))
-        .ContinuousEffect(p =>
-          {
-            p.Modifier = () => new AddDamagePrevention(new PreventDamage(1));
-            p.PlayerFilter = (player, effect) => player == effect.Source.Controller;
-          });
+        .StaticAbility(p => p.Modifier(() => new AddDamagePrevention(
+          modifier => new PreventDamageToTarget(modifier.SourceCard.Controller, maxAmount: 1))));
     }
   }
 }

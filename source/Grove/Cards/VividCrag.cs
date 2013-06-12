@@ -36,7 +36,8 @@
         .TriggeredAbility(p =>
           {
             p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
-            p.Effect = () => new ApplyModifiersToSelf(() => new AddCounters(() => new SimpleCounter(CounterType.Charge), 2));
+            p.Effect =
+              () => new ApplyModifiersToSelf(() => new AddCounters(() => new SimpleCounter(CounterType.Charge), 2));
             p.UsesStack = false;
           });
     }

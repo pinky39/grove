@@ -19,7 +19,7 @@
           "The imps' warbling cries echo through Phyrexia's towers like those of mourning doves in a cathedral.")
         .Power(3)
         .Toughness(2)
-        .StaticAbilities(Static.Flying)
+        .SimpleAbilities(Static.Flying)
         .TriggeredAbility(p =>
           {
             p.Text = "When you cast a creature spell, sacrifice Skittering Skirge.";

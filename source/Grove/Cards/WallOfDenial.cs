@@ -16,7 +16,7 @@
         .FlavorText("It provides what every discerning mage requires—time to think.")
         .Power(0)
         .Toughness(8)
-        .StaticAbilities(
+        .SimpleAbilities(
           Static.Flying,
           Static.Defender,
           Static.Shroud

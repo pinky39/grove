@@ -19,7 +19,7 @@
         .FlavorText("At the edge of the Mephidross, Phyrexia's influence seeps into life and land.")
         .Power(2)
         .Toughness(4)
-        .StaticAbilities(Static.Flying)
+        .SimpleAbilities(Static.Flying)
         .TriggeredAbility(p =>
           {
             p.Text = "When Darkslick Drake is put into a graveyard from the battlefield, draw a card.";

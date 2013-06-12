@@ -2,13 +2,14 @@
 {
   using System.Linq;
   using Artifical;
+  using DamageHandling;
   using Infrastructure;
   using Messages;
   using Misc;
 
   public class Blocker : GameObject, IHashable
   {
-    private readonly TrackableList<Damage.Damage> _assignedDamage = new TrackableList<Damage.Damage>();
+    private readonly TrackableList<AssignedCombatDamage> _assignedDamage = new TrackableList<AssignedCombatDamage>();
     private readonly Trackable<Attacker> _attacker;
     private readonly Trackable<int> _damageAssignmentOrder = new Trackable<int>();
 
@@ -46,7 +47,6 @@
 
     public int LifepointsLeft { get { return Card.Life; } }
     public int Score { get { return ScoreCalculator.CalculatePermanentScore(Card); } }
-    public int DamageThisWillDealInOneDamageStep { get { return Card.CalculateCombatDamage(); } }
     public int Toughness { get { return Card.Toughness.Value; } }
 
     public int CalculateHash(HashCalculator calc)
@@ -57,7 +57,7 @@
         calc.Calculate(_assignedDamage));
     }
 
-    public void AssignDamage(Damage.Damage damage)
+    public void AssignDamage(AssignedCombatDamage damage)
     {
       _assignedDamage.Add(damage);
     }
@@ -71,7 +71,7 @@
     {
       foreach (var damage in _assignedDamage)
       {
-        Card.DealDamage(damage);
+        damage.Source.DealDamageTo(damage.Amount, Card, isCombat: true);                
       }
 
       ClearAssignedDamage();
@@ -81,12 +81,9 @@
     {
       if (Attacker != null)
       {
-        var damage = new Damage.Damage(
-          source: Card,
-          amount: DamageThisWillDealInOneDamageStep,
-          isCombat: true,
-          changeTracker: ChangeTracker
-          );
+        var damage = new AssignedCombatDamage(
+          amount: Card.CalculateCombatDamageAmount(),
+          source: Card);
 
         Attacker.AssignDamage(damage);
       }

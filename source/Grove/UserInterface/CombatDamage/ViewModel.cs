@@ -2,6 +2,7 @@
 {
   using System;
   using System.Linq;
+  using Artifical;
   using Gameplay;
   using Gameplay.Decisions.Results;
   using Infrastructure;
@@ -11,14 +12,16 @@
     private readonly BlockerDamageAssignments _assignments;
     private readonly Attacker _attacker;
     private readonly DamageDistribution _damageDistribution;
-    private int _damageToAssign;
+    private int _damageLeftToAssign;
+    private int _totalDamageToAssign;
 
     public ViewModel(Attacker attacker, DamageDistribution damageDistribution)
     {
       _damageDistribution = damageDistribution;
       _assignments = new BlockerDamageAssignments(attacker);
       _attacker = attacker;
-      _damageToAssign = attacker.DamageThisWillDealInOneDamageStep;
+      _totalDamageToAssign = attacker.Card.CalculateCombatDamageAmount();
+      _damageLeftToAssign = _totalDamageToAssign;
     }
 
     public Card Attacker { get { return _attacker.Card; } }
@@ -33,9 +36,9 @@
       }
     }
 
-    private bool HasAllDamageBeenAssigned { get { return _damageToAssign == 0; } }
+    private bool HasAllDamageBeenAssigned { get { return _damageLeftToAssign == 0; } }
 
-    public string Title { get { return String.Format("Distribute combat damage: {0} left.", _damageToAssign); } }
+    public string Title { get { return String.Format("Distribute combat damage: {0} left.", _damageLeftToAssign); } }
 
     public void Accept()
     {
@@ -52,7 +55,7 @@
     {
       if (!HasAllDamageBeenAssigned && _assignments.CanAssignCombatDamageTo(blocker))
       {
-        _damageToAssign -= 1;
+        _damageLeftToAssign -= 1;
         blocker.AssignedDamage++;
       }
     }
@@ -61,7 +64,7 @@
     public virtual void Clear()
     {
       _assignments.Clear();
-      _damageToAssign = _attacker.DamageThisWillDealInOneDamageStep;
+      _damageLeftToAssign = _totalDamageToAssign;
     }
 
     public virtual void Close() {}

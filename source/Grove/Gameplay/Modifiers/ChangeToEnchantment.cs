@@ -2,7 +2,7 @@
 {
   using Characteristics;
 
-  public class ChangeToEnchantment : Modifier
+  public class ChangeToEnchantment : Modifier, ICardModifier
   {
     private Power _cardPower;
     private Toughness _cardToughness;

@@ -33,7 +33,7 @@
     {
       var damageDistribution = new DamageDistribution();
 
-      var damageLeft = Attacker.DamageThisWillDealInOneDamageStep;
+      var damageLeft = Attacker.Card.CalculateCombatDamageAmount();
       var blockers = Attacker.Blockers.OrderByDescending(x => x.Score).ToList();
 
       if (!Attacker.AssignsDamageAsThoughItWasntBlocked)
@@ -58,7 +58,7 @@
     {
       var damageDistribution = new DamageDistribution();
 
-      var damageLeft = Attacker.DamageThisWillDealInOneDamageStep;
+      var damageLeft = Attacker.Card.CalculateCombatDamageAmount();
       var blockers = Attacker.BlockersInDamageAssignmentOrder.ToList();
 
       foreach (var blocker in blockers)

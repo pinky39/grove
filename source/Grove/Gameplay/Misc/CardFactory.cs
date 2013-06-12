@@ -8,7 +8,6 @@
   using CastingRules;
   using Characteristics;
   using Costs;
-  using Damage;
   using Effects;
   using ManaHandling;
   using Modifiers;
@@ -170,12 +169,6 @@
       }
     }
 
-    public CardFactory Prevention(Func<DamagePrevention> factory)
-    {
-      _init.Add(p => p.DamagePreventions.AddPrevention(factory()));
-      return this;
-    }
-
     public CardFactory Protections(params string[] cardTypes)
     {
       _init.Add(p => p.Protections.AddProtectionFromCards(cardTypes));
@@ -236,6 +229,17 @@
       return ManaSourcePriorities.Land;
     }
 
+    public CardFactory StaticAbility(Action<StaticAbilityParamaters> set)
+    {
+      _init.Add(cp =>
+        {
+          var p = new StaticAbilityParamaters();
+          set(p);
+          cp.StaticAbilities.Add(new StaticAbility(p));
+        });
+      return this;
+    }
+
     public CardFactory TriggeredAbility(Action<TriggeredAbilityParameters> set)
     {
       _init.Add(cp =>
@@ -247,13 +251,13 @@
       return this;
     }
 
-    public CardFactory StaticAbilities(params Static[] abilities)
+    public CardFactory SimpleAbilities(params Static[] abilities)
     {
       _init.Add(cp =>
         {
           foreach (var ability in abilities)
           {
-            cp.StaticAbilities.Add(ability);
+            cp.SimpleAbilities.Add(ability);
           }
         });
       return this;
@@ -334,12 +338,6 @@
       _init.Add(p => { p.Toughness = toughness; });
       return this;
     }
-
-    public CardFactory Modifier(ModifierFactory modifier)
-    {
-      _init.Add(p => p.Modifiers.Add(modifier()));
-      return this;
-    }    
 
     public CardFactory Type(string type)
     {

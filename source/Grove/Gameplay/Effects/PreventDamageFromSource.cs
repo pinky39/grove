@@ -1,10 +1,10 @@
 ﻿namespace Grove.Gameplay.Effects
 {
-  using Damage;
+  using DamageHandling;
   using Modifiers;
   using Targeting;
 
-  public class PreventNextDamageFromSourceToController : Effect
+  public class PreventDamageFromSource : Effect
   {
     protected override void ResolveEffect()
     {
@@ -12,20 +12,18 @@
         ? Target.Effect().Source.OwningCard
         : Target.Card();
 
-      var prevention = new PreventDamageFromSource(source);
-      var modifier = new AddDamagePrevention(prevention) {UntilEot = true};
-
       var mp = new ModifierParameters
         {
-          SourceEffect = this,
           SourceCard = Source.OwningCard,
-          Target = Controller,
+          SourceEffect = this,
           X = X
         };
 
-      modifier.Initialize(mp, Game);
+      var prevention = new PreventAllDamageFromSource(
+        source: source);
 
-      Controller.AddModifier(modifier);
+      var modifier = new AddDamagePrevention(prevention) {UntilEot = true};      
+      Game.AddModifier(modifier, mp);
     }
   }
 }

@@ -22,7 +22,7 @@
         .FlavorText("Buyer beware.")
         .Power(3)
         .Toughness(3)
-        .StaticAbilities(Static.Flying)
+        .SimpleAbilities(Static.Flying)
         .TriggeredAbility(p =>
           {
             p.Text =

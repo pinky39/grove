@@ -22,7 +22,7 @@
         .FlavorText("If only every message were as perfect as its bearers.")
         .Power(1)
         .Toughness(1)
-        .StaticAbilities(Static.Flying)
+        .SimpleAbilities(Static.Flying)
         .ActivatedAbility(p =>
           {
             p.Text = "{T}: Target attacking or blocking creature gets +1/+1 until end of turn.";

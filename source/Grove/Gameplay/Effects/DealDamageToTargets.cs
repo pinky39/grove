@@ -1,8 +1,7 @@
 ﻿namespace Grove.Gameplay.Effects
 {
   using System.Linq;
-  using Damage;
-  using Targeting;
+  using Characteristics;
 
   public class DealDamageToTargets : Effect
   {
@@ -31,18 +30,16 @@
 
     protected override void ResolveEffect()
     {
-      foreach (var t in ValidEffectTargets)
+      foreach (var target in ValidEffectTargets)
       {
-        var damage = new Damage(
-          source: Source.OwningCard,
-          amount: _amount.Value,
-          isCombat: false,
-          changeTracker: ChangeTracker);
+        Source.OwningCard.DealDamageTo(
+          _amount.Value,
+          (IDamageable) target, 
+          isCombat: false);
 
-        t.DealDamage(damage);
 
         if (_gainLife)
-          Controller.Life += damage.Amount;
+          Controller.Life += _amount.Value;
       }
     }
 

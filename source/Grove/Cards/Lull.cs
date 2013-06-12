@@ -2,11 +2,8 @@
 {
   using System.Collections.Generic;
   using Artifical.TimingRules;
-  using Gameplay.Abilities;
-  using Gameplay.Damage;
   using Gameplay.Effects;
   using Gameplay.Misc;
-  using Gameplay.Modifiers;
   using Gameplay.States;
 
   public class Lull : CardsSource
@@ -22,19 +19,7 @@
         .Cycling("{2}")
         .Cast(p =>
           {
-            p.Effect = () => new ApplyModifiersToPlayer(
-              selector: e => e.Controller,
-              modifiers: () =>
-                {
-                  var cp = new ContinuousEffectParameters
-                    {
-                      CardFilter = (card, self) => card.Is().Creature,
-                      Modifier = () => new AddDamagePrevention(new PreventCombatDamage())
-                    };
-
-                  return new AddContiniousEffect(new ContinuousEffect(cp)) {UntilEot = true};
-                });
-
+            p.Effect = () => new PreventCombatDamage();
             p.TimingRule(new Turn(passive: true));
             p.TimingRule(new Steps(Step.DeclareBlockers));
           });

@@ -21,7 +21,7 @@
         .FlavorText("It's no coincidence that the oldest trolls are also the angriest.")
         .Power(3)
         .Toughness(2)
-        .StaticAbilities(Static.Hexproof)
+        .SimpleAbilities(Static.Hexproof)
         .ActivatedAbility(p =>
           {
             p.Text = "{1}{G}: Regenerate Troll Ascetic.";

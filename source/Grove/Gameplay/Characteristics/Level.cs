@@ -4,14 +4,14 @@
   using Messages;
   using Modifiers;
 
-  public class Level : Characteristic<int?>, IModifiable
+  public class Level : Characteristic<int?>, IAcceptsCardModifier
   {
     private Card _card;
 
     private Level() {}
     public Level(int? value) : base(value) {}
 
-    public void Accept(IModifier modifier)
+    public void Accept(ICardModifier modifier)
     {
       modifier.Apply(this);
     }

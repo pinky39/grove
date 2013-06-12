@@ -19,7 +19,7 @@
         .Toughness(1)
         .Echo("{2}{R}")
         .Cast(p => p.TimingRule(new FirstMain()))
-        .StaticAbilities(
+        .SimpleAbilities(
           Static.Haste,
           Static.FirstStrike
         );

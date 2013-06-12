@@ -1,7 +1,5 @@
 ﻿namespace Grove.Gameplay.Effects
 {
-  using Damage;
-
   public class DealDamageToOpponentEqualToCardDifference : Effect
   {
     protected override void ResolveEffect()
@@ -11,14 +9,7 @@
 
       if (amount > 0)
       {
-        var damage = new Damage(
-          source: Source.OwningCard,
-          amount: amount,
-          isCombat: false,
-          changeTracker: Game.ChangeTracker
-          );
-
-        opponent.DealDamage(damage);
+        Source.OwningCard.DealDamageTo(amount, opponent, isCombat: false);
       }
     }
 

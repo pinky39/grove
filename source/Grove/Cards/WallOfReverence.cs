@@ -23,7 +23,7 @@
           "The lives of elves are long, but their memories are longer. Even after death, they do not desert their homes.")
         .Power(1)
         .Toughness(6)
-        .StaticAbilities(Static.Defender, Static.Flying)
+        .SimpleAbilities(Static.Defender, Static.Flying)
         .TriggeredAbility(p =>
           {
             p.Text =

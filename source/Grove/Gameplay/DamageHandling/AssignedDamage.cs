@@ -1,4 +1,4 @@
-﻿namespace Grove.Gameplay.Damage
+﻿namespace Grove.Gameplay.DamageHandling
 {
   using System.Linq;
   using Infrastructure;
@@ -6,7 +6,7 @@
   [Copyable]
   public class AssignedDamage : IHashable
   {
-    private readonly TrackableList<Damage> _assigned = new TrackableList<Damage>();
+    private readonly TrackableList<AssignedCombatDamage> _assigned = new TrackableList<AssignedCombatDamage>();
     private readonly Player _player;
 
     private AssignedDamage() {}
@@ -26,7 +26,7 @@
       _assigned.Initialize(changeTracker);
     }
 
-    public void Assign(Damage damage)
+    public void Assign(AssignedCombatDamage damage)
     {
       _assigned.Add(damage);
     }
@@ -35,7 +35,7 @@
     {
       foreach (var damage in _assigned)
       {
-        _player.DealDamage(damage);
+        damage.Source.DealDamageTo(damage.Amount, _player, isCombat: true);
       }
       _assigned.Clear();
     }

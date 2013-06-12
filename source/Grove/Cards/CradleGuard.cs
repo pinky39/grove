@@ -18,7 +18,7 @@
         .Power(4)
         .Toughness(4)
         .Echo("{1}{G}{G}")
-        .StaticAbilities(Static.Trample);
+        .SimpleAbilities(Static.Trample);
     }
   }
 }

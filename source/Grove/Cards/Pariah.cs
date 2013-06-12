@@ -3,7 +3,7 @@
   using System.Collections.Generic;
   using Artifical.TargetingRules;
   using Artifical.TimingRules;
-  using Gameplay.Damage;
+  using Gameplay.DamageHandling;
   using Gameplay.Effects;
   using Gameplay.Misc;
   using Gameplay.Modifiers;
@@ -21,10 +21,10 @@
           "'It is not sad', Radiant chided the lesser angel. 'It is right. Every society must have its outcasts.'")
         .Cast(p =>
           {
-            p.Effect = () => new Attach(
-              modifiesAttachmentController: true,
-              modifiers: () => new AddDamageRedirection(
-                new RedirectDamageToTarget(r => r.Modifier.Source.AttachedTo)));
+            p.Effect = () => new Attach(              
+              modifiers: () => new AddDamageRedirection(modifier => new RedirectDamageFromTargetToTarget(
+                from: modifier.SourceCard.Controller,
+                to: modifier.SourceCard.AttachedTo)));
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 

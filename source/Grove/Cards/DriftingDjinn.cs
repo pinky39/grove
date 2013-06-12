@@ -21,7 +21,7 @@
         .Power(5)
         .Toughness(5)
         .Cycling("{2}")
-        .StaticAbilities(Static.Flying)
+        .SimpleAbilities(Static.Flying)
         .TriggeredAbility(p =>
           {
             p.Text = "At the beginning of your upkeep, sacrifice Drifting Djinn unless you pay {1}{U}.";

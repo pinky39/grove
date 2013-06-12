@@ -1,48 +1,37 @@
-﻿namespace Grove.Gameplay.Damage
+﻿namespace Grove.Gameplay.DamageHandling
 {
   using Infrastructure;
 
   [Copyable]
   public class Damage : IHashable
   {
-    private readonly Trackable<int> _amount;
-    private readonly TrackableList<DamageRedirection> _redirections;
+    private readonly Trackable<int> _amount = new Trackable<int>();
+    private readonly TrackableList<DamageRedirection> _redirections = new TrackableList<DamageRedirection>();
+
+    public Damage(int amount, bool isCombat, Card source)
+    {
+      Amount = amount;
+      IsCombat = isCombat;
+      Source = source;
+    }
 
     private Damage() {}
 
-    public Damage(Card source, int amount, bool isCombat, ChangeTracker changeTracker)
-    {
-      Source = source;
-      IsCombat = isCombat;
-
-      _amount = new Trackable<int>(amount).Initialize(changeTracker);
-      _redirections = new TrackableList<DamageRedirection>().Initialize(changeTracker);
-    }
-
     public int Amount { get { return _amount.Value; } set { _amount.Value = value; } }
     public bool IsCombat { get; private set; }
+    public Card Source { get; private set; }
 
     public bool IsLeathal { get { return Source.Has().Deathtouch; } }
-    public Card Source { get; private set; }
 
     public int CalculateHash(HashCalculator calc)
     {
       return Amount;
     }
 
-    public void PreventAll()
+    public void Initialize(ChangeTracker changeTracker)
     {
-      Amount = 0;
-    }
-
-    public int Prevent(int amount)
-    {
-      if (amount > Amount)
-        amount = Amount;
-
-      Amount = Amount - amount;
-
-      return amount;
+      _amount.Initialize(changeTracker);
+      _redirections.Initialize(changeTracker);
     }
 
     public bool WasAlreadyRedirected(DamageRedirection damageRedirection)

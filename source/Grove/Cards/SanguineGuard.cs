@@ -21,7 +21,7 @@
           "Father of Machines Your filigree gaze carves us, and the scars dance upon our grateful flesh.")
         .Power(2)
         .Toughness(2)
-        .StaticAbilities(Static.FirstStrike)
+        .SimpleAbilities(Static.FirstStrike)
         .ActivatedAbility(p =>
           {
             p.Text = "{1}{B}: Regenerate Sanguine Guard.";

@@ -21,7 +21,7 @@
           "I don't understand why he works so hard on a device to duplicate a sound so easily made with hand and armpit.")
         .Cast(p =>
           {
-            p.Effect = () => new Attach(() => new ChangeController(m => m.Source.Controller))
+            p.Effect = () => new Attach(() => new ChangeController(m => m.SourceCard.Controller))
               {Category = EffectCategories.Destruction};
 
             p.TargetSelector.AddEffect(trg => trg.Is.Card().On.Battlefield());

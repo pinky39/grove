@@ -2,13 +2,11 @@
 {
   using Infrastructure;
   using Messages;
-  using Targeting;
 
   public class LevelLifetime : Lifetime, IReceive<LevelChanged>
   {
     private readonly int? _maxLevel;
     private readonly int _minLevel;
-    private Card _modifierTarget;
 
     private LevelLifetime() {}
 
@@ -20,20 +18,14 @@
 
     public void Receive(LevelChanged message)
     {
-      if (message.Card != _modifierTarget)
+      if (message.Card != OwningCard)
         return;
 
-      if (_modifierTarget.Level < _minLevel ||
-        _modifierTarget.Level > _maxLevel)
+      if (OwningCard.Level < _minLevel ||
+        OwningCard.Level > _maxLevel)
       {
         End();
       }
-    }
-
-    public override void Initialize(Modifier modifier, Game game)
-    {
-      base.Initialize(modifier, game);
-      _modifierTarget = modifier.Target.Card();
     }
   }
 }

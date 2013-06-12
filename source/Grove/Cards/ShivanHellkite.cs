@@ -24,7 +24,7 @@
           "A dragon's scale can be carved into a mighty shield, provided you can procure a dragontooth to cut it.")
         .Power(5)
         .Toughness(5)
-        .StaticAbilities(Static.Flying)
+        .SimpleAbilities(Static.Flying)
         .ActivatedAbility(p =>
           {
             p.Text = "{1}{R}: Shivan Hellkite deals 1 damage to target creature or player.";

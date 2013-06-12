@@ -21,12 +21,13 @@
         .Power(1)
         .Toughness(1)
         .Cast(p => p.TimingRule(new FirstMain()))
-        .StaticAbilities(Static.Flying)
+        .SimpleAbilities(Static.Flying)
         .TriggeredAbility(p =>
           {
-            p.Text = "When Spire Owl enters the battlefield, look at the top four cards of your library, then put them back in any order.";
+            p.Text =
+              "When Spire Owl enters the battlefield, look at the top four cards of your library, then put them back in any order.";
             p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
-            p.Effect = () => new ReorderTopCards(4);            
+            p.Effect = () => new ReorderTopCards(4);
           });
     }
   }

@@ -7,13 +7,13 @@
   using Gameplay.States;
   using Gameplay.Targeting;
 
-  public class PreventDamageToTargets : TargetingRule
+  public class PreventNextDamageToTargets : TargetingRule
   {
     private readonly int _amount;
 
-    private PreventDamageToTargets() {}
+    private PreventNextDamageToTargets() {}
 
-    public PreventDamageToTargets(int amount = int.MaxValue)
+    public PreventNextDamageToTargets(int amount = int.MaxValue)
     {
       _amount = amount;
     }

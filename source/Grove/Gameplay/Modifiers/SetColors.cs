@@ -3,7 +3,7 @@
   using System.Collections.Generic;
   using Characteristics;
 
-  public class SetColors : Modifier
+  public class SetColors : Modifier, ICardModifier
   {
     private readonly List<CardColor> _colors = new List<CardColor>();
     private CardColorSetter _cardColorSetter;

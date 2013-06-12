@@ -24,7 +24,7 @@
           "I should have died that day, but I suffered not a scratch. I awoke in a lake of blood, none of it apparently my own.")
         .Power(5)
         .Toughness(7)
-        .StaticAbilities(Static.Flying)
+        .SimpleAbilities(Static.Flying)
         .ActivatedAbility(p =>
           {
             p.Text = "{W}{W}: Target creature is indestructible this turn.";

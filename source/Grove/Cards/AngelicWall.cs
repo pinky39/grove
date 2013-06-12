@@ -17,7 +17,7 @@
           "The air stirred as if fanned by angels wings, and the enemy was turned aside.")
         .Power(0)
         .Toughness(4)
-        .StaticAbilities(Static.Defender, Static.Flying);
+        .SimpleAbilities(Static.Defender, Static.Flying);
     }
   }
 }

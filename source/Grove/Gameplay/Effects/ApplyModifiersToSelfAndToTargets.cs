@@ -8,16 +8,31 @@
 
   public class ApplyModifiersToSelfAndToTargets : Effect
   {
-    private readonly List<ModifierFactory> _selfModifiers = new List<ModifierFactory>();
-    private readonly List<ModifierFactory> _targetModifiers = new List<ModifierFactory>();
+    private readonly List<CardModifierFactory> _selfModifiers = new List<CardModifierFactory>();
+    private readonly List<CardModifierFactory> _targetModifiers = new List<CardModifierFactory>();
 
     private readonly Value _toughnessReductionSelf;
     private readonly Value _toughnessReductionTargets;
 
     private ApplyModifiersToSelfAndToTargets() {}
 
-    public ApplyModifiersToSelfAndToTargets(IEnumerable<ModifierFactory> self,
-      IEnumerable<ModifierFactory> target, Value toughnessReductionSelf = null,
+    public ApplyModifiersToSelfAndToTargets(
+      CardModifierFactory self,
+      CardModifierFactory target,
+      Value toughnessReductionSelf = null,
+      Value toughnessReductionTargets = null)
+    {
+      _selfModifiers.Add(self);
+      _targetModifiers.Add(target);
+
+      _toughnessReductionSelf = toughnessReductionSelf ?? 0;
+      _toughnessReductionTargets = toughnessReductionTargets ?? 0;
+    }
+
+    public ApplyModifiersToSelfAndToTargets(
+      IEnumerable<CardModifierFactory> self,
+      IEnumerable<CardModifierFactory> target,
+      Value toughnessReductionSelf = null,
       Value toughnessReductionTargets = null)
     {
       _selfModifiers.AddRange(self);
@@ -45,57 +60,26 @@
       if (Source.OwningCard.Zone != Zone.Battlefield)
         return;
 
-      var selfModifiers = CreateSelfModifiers();
+      var p = new ModifierParameters
+        {
+          SourceEffect = this,
+          SourceCard = Source.OwningCard,
+          X = X
+        };
+
+      var selfModifiers = _selfModifiers.Select(factory => factory());
 
       foreach (var modifier in selfModifiers)
       {
-        Source.OwningCard.AddModifier(modifier);
+        Source.OwningCard.AddModifier(modifier, p);
       }
 
-      var targetModifiers = CreateTargetModifiers();
+      var targetModifiers = _targetModifiers.Select(factory => factory());
 
       foreach (var modifier in targetModifiers)
       {
-        Target.Card().AddModifier(modifier);
+        Target.Card().AddModifier(modifier, p);
       }
-    }
-
-    private IEnumerable<Modifier> CreateSelfModifiers()
-    {
-      var p = new ModifierParameters
-        {
-          SourceEffect = this,
-          SourceCard = Source.OwningCard,
-          Target = Source.OwningCard,
-          X = X
-        };
-
-
-      return _selfModifiers.Select(factory =>
-        {
-          var modifier = factory();
-          modifier.Initialize(p, Game);
-          return modifier;
-        });
-    }
-
-    private IEnumerable<Modifier> CreateTargetModifiers()
-    {
-      var p = new ModifierParameters
-        {
-          SourceEffect = this,
-          SourceCard = Source.OwningCard,
-          Target = Target,
-          X = X
-        };
-
-
-      return _targetModifiers.Select(factory =>
-        {
-          var modifier = factory();
-          modifier.Initialize(p, Game);
-          return modifier;
-        });
     }
   }
 }

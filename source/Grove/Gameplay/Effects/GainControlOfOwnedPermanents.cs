@@ -16,15 +16,12 @@
           var p = new ModifierParameters
             {
               SourceEffect = this,
-              SourceCard = Source.OwningCard,
-              Target = permanent,
+              SourceCard = Source.OwningCard,              
               X = X
             };
 
-          var modifier = new ChangeController(Controller);
-          modifier.Initialize(p, Game);
-
-          permanent.AddModifier(modifier);
+          var modifier = new ChangeController(Controller);          
+          permanent.AddModifier(modifier, p);
         }
       }
     }

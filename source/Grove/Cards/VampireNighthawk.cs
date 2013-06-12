@@ -15,7 +15,7 @@
         .Text("{Flying}{EOL}{Deathtouch},{Lifelink}")
         .Power(2)
         .Toughness(3)
-        .StaticAbilities(
+        .SimpleAbilities(
           Static.Deathtouch,
           Static.Lifelink,
           Static.Flying

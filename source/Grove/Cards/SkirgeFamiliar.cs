@@ -21,7 +21,7 @@
         .FlavorText("The first Yawgmoth priest to harness their power was rewarded with several unique mutilations.")
         .Power(3)
         .Toughness(2)
-        .StaticAbilities(Static.Flying)
+        .SimpleAbilities(Static.Flying)
         .ActivatedAbility(p =>
           {
             p.Text = "Discard a card: Add {B} to your mana pool.";

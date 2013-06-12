@@ -16,7 +16,7 @@
         .FlavorText("'It only short jump. You go first.'{EOL}'AIIIEEEE'{EOL}'Hmm . . . we go different way now.'")
         .Power(2)
         .Toughness(2)
-        .StaticAbilities(Static.Mountainwalk);
+        .SimpleAbilities(Static.Mountainwalk);
     }
   }
 }

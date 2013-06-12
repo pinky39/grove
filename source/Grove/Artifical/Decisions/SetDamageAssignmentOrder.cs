@@ -59,14 +59,14 @@
     {
       var candidates = Attacker.Blockers
         .Where(blocker => blocker.LifepointsLeft > 0)
-        .Where(blocker => blocker.LifepointsLeft <= Attacker.DamageThisWillDealInOneDamageStep)
+        .Where(blocker => blocker.LifepointsLeft <= Attacker.Card.CalculateCombatDamageAmount())
         .Select(blocker => new KnapsackItem<Blocker>(
           item: blocker,
           weight: blocker.LifepointsLeft,
           value: blocker.Score))
         .ToList();
 
-      var result = Knapsack.Solve(candidates, Attacker.DamageThisWillDealInOneDamageStep);
+      var result = Knapsack.Solve(candidates, Attacker.Card.CalculateCombatDamageAmount());
       return result.OrderByDescending(x => x.Value).Select(x => x.Item).ToList();
     }
 

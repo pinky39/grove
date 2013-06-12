@@ -27,7 +27,8 @@
           {
             p.Text = "At the beginning of your upkeep, you may put a petal counter on Lotus Blossom.";
             p.Trigger(new OnStepStart(Step.Upkeep));
-            p.Effect = () => new ApplyModifiersToSelf(() => new AddCounters(() => new SimpleCounter(CounterType.Petal), 1));
+            p.Effect =
+              () => new ApplyModifiersToSelf(() => new AddCounters(() => new SimpleCounter(CounterType.Petal), 1));
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           })
         .ActivatedAbility(p =>

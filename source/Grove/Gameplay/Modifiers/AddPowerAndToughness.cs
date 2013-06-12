@@ -2,7 +2,7 @@
 {
   using Characteristics;
 
-  public class AddPowerAndToughness : Modifier
+  public class AddPowerAndToughness : Modifier, ICardModifier
   {
     private readonly Value _power;
     private readonly Value _toughness;

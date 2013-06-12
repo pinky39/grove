@@ -19,7 +19,7 @@
         .FlavorText("'Its victims are known by their eyes shattered vessels leaking broken dreams.")
         .Power(2)
         .Toughness(2)
-        .StaticAbilities(Static.Flying)
+        .SimpleAbilities(Static.Flying)
         .TriggeredAbility(p =>
           {
             p.Text = "Whenever Hypnotic Specter deals damage to an opponent, that player discards a card at random.";

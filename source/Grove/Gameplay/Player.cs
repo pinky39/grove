@@ -5,7 +5,7 @@
   using System.Linq;
   using Abilities;
   using Characteristics;
-  using Damage;
+  using DamageHandling;
   using Infrastructure;
   using ManaHandling;
   using Messages;
@@ -14,13 +14,10 @@
   using Targeting;
   using Zones;
 
-  public class Player : GameObject, ITarget, IDamageable, IHasLife
+  public class Player : GameObject, ITarget, IDamageable, IHasLife, IModifiable
   {
     private readonly AssignedDamage _assignedDamage;
     private readonly Battlefield _battlefield;
-    private readonly ContiniousEffects _continuousEffects = new ContiniousEffects();
-    private readonly DamagePreventions _damagePreventions = new DamagePreventions();
-    private readonly DamageRedirections _damageRedirections = new DamageRedirections();
     private readonly Deck _deck;
     private readonly Exile _exile;
     private readonly Graveyard _graveyard;
@@ -34,7 +31,8 @@
     private readonly Library _library;
     private readonly Life _life = new Life(20);
     private readonly ManaVault _manaVault = new ManaVault();
-    private readonly TrackableList<IModifier> _modifiers = new TrackableList<IModifier>();
+    private readonly TrackableList<IPlayerModifier> _modifiers = new TrackableList<IPlayerModifier>();
+    private readonly ContiniousEffects _continiousEffects = new ContiniousEffects();
 
     public Player(PlayerParameters p, ControllerType controllerType)
     {
@@ -58,14 +56,12 @@
     public int LandsPlayedCount { get { return _landsPlayedCount.Value; } set { _landsPlayedCount.Value = value; } }
     public ManaCounts ManaPool { get { return _manaVault.ManaPool; } }
 
-    private IEnumerable<IModifiable> ModifiableProperties
+    private IEnumerable<IAcceptsPlayerModifier> ModifiableProperties
     {
       get
       {
-        yield return _damagePreventions;
-        yield return _damageRedirections;
-        yield return _continuousEffects;
         yield return _landLimit;
+        yield return _continiousEffects;
       }
     }
 
@@ -108,19 +104,31 @@
       }
     }
 
-    public void DealDamage(Damage.Damage damage)
+    public void ReceiveDamage(Damage damage)
     {
-      _damagePreventions.PreventReceivedDamage(damage);
+      var p = new PreventDamageParameters
+        {
+          Amount = damage.Amount,
+          Source = damage.Source,
+          Target = this,
+          IsCombat = damage.IsCombat,
+          QueryOnly = false
+        };
+
+      var prevented = Game.PreventDamage(p);
+      damage.Amount -= prevented;
 
       if (damage.Amount == 0)
         return;
 
-      var wasRedirected = _damageRedirections.RedirectDamage(damage);
+      var wasRedirected = Game.RedirectDamage(damage, this);
 
       if (wasRedirected)
         return;
 
-      Life -= _damagePreventions.PreventLifeloss(damage.Amount);
+      var preventedLifeloss = Game.PreventLifeloss(damage.Amount, this, queryOnly: false);
+      
+      Life -= (damage.Amount - preventedLifeloss);
 
       if (damage.Source.Has().Lifelink)
       {
@@ -145,6 +153,11 @@
       }
     }
 
+    void IModifiable.RemoveModifier(IModifier modifier)
+    {
+      RemoveModifier((IPlayerModifier) modifier);
+    }
+
     public int Id { get; private set; }
 
     public int CalculateHash(HashCalculator calc)
@@ -163,23 +176,35 @@
         );
     }
 
-    public int EvaluateReceivedDamage(Card source, int amount, bool isCombat)
+    public int CalculatePreventedReceivedDamageAmount(int totalAmount, Card source, bool isCombat = false)
     {
-      return _damagePreventions.EvaluateReceivedDamage(source, amount, isCombat);
+      var p = new PreventDamageParameters
+        {
+          Amount = totalAmount,
+          Source = source,
+          Target = this,
+          IsCombat = isCombat,
+          QueryOnly = true
+        };
+
+      return Game.PreventDamage(p);
     }
 
-    public void AddModifier(IModifier modifier)
+    public void AddModifier(IPlayerModifier modifier, ModifierParameters p)
     {
+      p.Owner = this;
+      _modifiers.Add(modifier);
+
+      modifier.Initialize(p, Game);
+      modifier.Activate();
+
       foreach (var modifiableProperty in ModifiableProperties)
       {
         modifiableProperty.Accept(modifier);
       }
-
-      _modifiers.Add(modifier);
-      modifier.Activate();
     }
 
-    public void RemoveModifier(IModifier modifier)
+    public void RemoveModifier(IPlayerModifier modifier)
     {
       _modifiers.Remove(modifier);
       modifier.Dispose();
@@ -207,11 +232,9 @@
       _isActive.Initialize(ChangeTracker);
       _hasPriority.Initialize(ChangeTracker);
       _manaVault.Initialize(ChangeTracker);
-      _modifiers.Initialize(ChangeTracker);
-      _damagePreventions.Initialize(this, Game);
-      _damageRedirections.Initialize(ChangeTracker);
+      _modifiers.Initialize(ChangeTracker);      
       _assignedDamage.Initialize(ChangeTracker);
-      _continuousEffects.Initialize(null, Game, null);
+      _continiousEffects.Initialize(null, Game);
       _landLimit.Initialize(Game, null);
       _battlefield.Initialize(Game);
       _hand.Initialize(Game);
@@ -242,7 +265,7 @@
       _manaVault.AddManaToPool(manaAmount, usageRestriction);
     }
 
-    public void AssignDamage(Damage.Damage damage)
+    public void AssignDamage(AssignedCombatDamage damage)
     {
       _assignedDamage.Assign(damage);
     }
@@ -393,7 +416,7 @@
     {
       foreach (var permanent in _battlefield)
       {
-        permanent.CanRegenerate = false;
+        permanent.HasRegenerationShield = false;
       }
     }
 

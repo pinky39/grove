@@ -1,8 +1,9 @@
-﻿namespace Grove.Gameplay.Damage
+﻿namespace Grove.Gameplay.DamageHandling
 {
   using Infrastructure;
   using Misc;
   using Modifiers;
+  using Targeting;
 
   [Copyable]
   public abstract class DamageRedirection : GameObject, IHashable
@@ -14,12 +15,12 @@
       return GetType().GetHashCode();
     }
 
-    public bool RedirectDamage(Damage damage)
+    public bool RedirectDamage(Damage damage, ITarget target)
     {
       if (damage.WasAlreadyRedirected(this))
         return false;
 
-      var wasRedirected = Redirect(damage);
+      var wasRedirected = Redirect(damage, target);
 
       if (wasRedirected)
         damage.AddRedirection(this);
@@ -33,6 +34,6 @@
       Game = game;
     }
 
-    protected abstract bool Redirect(Damage damage);
+    protected abstract bool Redirect(Damage damage, ITarget target);
   }
 }

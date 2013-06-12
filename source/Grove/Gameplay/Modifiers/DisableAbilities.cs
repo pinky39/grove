@@ -2,10 +2,10 @@
 {
   using Abilities;
 
-  public class DisableAbilities : Modifier
+  public class DisableAbilities : Modifier, ICardModifier
   {
     private ActivatedAbilities _activatedAbilities;
-    private StaticAbilities _staticAbilties;
+    private SimpleAbilities _simpleAbilties;
     private TriggeredAbilities _triggeredAbilities;
 
     public override void Apply(ActivatedAbilities abilities)
@@ -14,10 +14,10 @@
       _activatedAbilities = abilities;
     }
 
-    public override void Apply(StaticAbilities abilities)
+    public override void Apply(SimpleAbilities abilities)
     {
       abilities.Disable();
-      _staticAbilties = abilities;
+      _simpleAbilties = abilities;
     }
 
     public override void Apply(TriggeredAbilities abilities)
@@ -29,7 +29,7 @@
     protected override void Unapply()
     {
       _activatedAbilities.EnableAll();
-      _staticAbilties.Enable();
+      _simpleAbilties.Enable();
       _triggeredAbilities.EnableAll();
     }
   }

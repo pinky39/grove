@@ -1,6 +1,6 @@
 ﻿namespace Grove.Gameplay.Effects
 {
-  using Damage;
+  using DamageHandling;
   using Modifiers;
   using Targeting;
 
@@ -19,14 +19,16 @@
         {
           SourceCard = Source.OwningCard,
           SourceEffect = this,
-          Target = DamageTarget,
           X = X
         };
 
-      var modifier = new AddDamagePrevention(new PreventDamageFromSource(source)) {UntilEot = true};
-      modifier.Initialize(mp, Game);
+      var prevention = new PreventAllDamageFromSourceToTarget(
+        source: source,
+        creatureOrPlayer: DamageTarget,
+        onlyOnce: true);
 
-      DamageTarget.AddModifier(modifier);
+      var modifier = new AddDamagePrevention(prevention) {UntilEot = true};
+      Game.AddModifier(modifier, mp);
     }
   }
 }

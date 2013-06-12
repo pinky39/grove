@@ -2,10 +2,10 @@
 {
   using Abilities;
 
-  public class AddStaticAbility : Modifier
+  public class AddStaticAbility : Modifier, ICardModifier
   {
     private readonly Static _staticAbility;
-    private StaticAbilities _abilities;
+    private SimpleAbilities _abilities;
 
     private AddStaticAbility() {}
 
@@ -14,7 +14,7 @@
       _staticAbility = staticAbility;
     }
 
-    public override void Apply(StaticAbilities abilities)
+    public override void Apply(SimpleAbilities abilities)
     {
       _abilities = abilities;
       _abilities.Add(_staticAbility);

@@ -18,7 +18,7 @@
         .Power(2)
         .Toughness(2)
         .Cast(p => p.TimingRule(new FirstMain()))
-        .StaticAbilities(
+        .SimpleAbilities(
           Static.Flying,
           Static.Haste
         );

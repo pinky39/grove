@@ -1,16 +1,16 @@
 ﻿namespace Grove.Gameplay.Effects
 {
   using System.Collections.Generic;
+  using System.Linq;
   using Modifiers;
-  using Targeting;
 
   public class ApplyModifiersToTargets : Effect
   {
-    private readonly List<ModifierFactory> _modifiers = new List<ModifierFactory>();
+    private readonly List<CardModifierFactory> _modifiers = new List<CardModifierFactory>();
 
     private ApplyModifiersToTargets() {}
 
-    public ApplyModifiersToTargets(params ModifierFactory[] modifiers)
+    public ApplyModifiersToTargets(params CardModifierFactory[] modifiers)
     {
       _modifiers.AddRange(modifiers);
     }
@@ -30,21 +30,18 @@
 
     protected override void ResolveEffect()
     {
-      foreach (var target in ValidEffectTargets)
-      {
-        foreach (var modifierFactory in _modifiers)
+      var p = new ModifierParameters
         {
-          var p = new ModifierParameters
-            {
-              SourceEffect = this,
-              SourceCard = Source.OwningCard,
-              Target = target,
-              X = X
-            };
+          SourceEffect = this,
+          SourceCard = Source.OwningCard,
+          X = X
+        };
 
-          var modifier = modifierFactory();
-          modifier.Initialize(p, Game);
-          target.AddModifier(modifier);
+      foreach (Card target in ValidEffectTargets)
+      {
+        foreach (var modifier in _modifiers.Select(factory => factory()))
+        {
+          target.AddModifier(modifier, p);
         }
       }
     }

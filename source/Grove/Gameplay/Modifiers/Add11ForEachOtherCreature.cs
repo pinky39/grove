@@ -4,9 +4,9 @@
   using Characteristics;
   using Infrastructure;
   using Messages;
-  using Zones;  
-  
-  public class Add11ForEachOtherCreature : Modifier, IReceive<ZoneChanged>,
+  using Zones;
+
+  public class Add11ForEachOtherCreature : Modifier, ICardModifier, IReceive<ZoneChanged>,
     IReceive<TypeChanged>, IReceive<ControllerChanged>
   {
     private IntegerIncrement _integerIncrement = new IntegerIncrement();
@@ -15,7 +15,7 @@
 
     public void Receive(ControllerChanged message)
     {
-      if (message.Card.Is().Creature || message.Card == Source)
+      if (message.Card.Is().Creature || message.Card == SourceCard)
       {
         _integerIncrement.Value = GetCreatureCount();
       }
@@ -23,7 +23,7 @@
 
     public void Receive(TypeChanged message)
     {
-      if (message.Card.Controller != Source.Controller ||
+      if (message.Card.Controller != SourceCard.Controller ||
         !message.Card.Is().Creature)
       {
         return;
@@ -34,7 +34,7 @@
 
     public void Receive(ZoneChanged message)
     {
-      if (message.Card.Controller != Source.Controller ||
+      if (message.Card.Controller != SourceCard.Controller ||
         !message.Card.Is().Creature)
       {
         return;
@@ -77,7 +77,7 @@
 
     private int GetCreatureCount()
     {
-      return Source.Controller.Battlefield.Count(card => card != Target && card.Is().Creature);
+      return SourceCard.Controller.Battlefield.Count(card => card != Owner && card.Is().Creature);
     }
   }
 }

@@ -19,7 +19,7 @@
         .FlavorText("Each flower identical, every leaf and petal disturbingly exact.")
         .Power(0)
         .Toughness(4)
-        .StaticAbilities(Static.Defender)
+        .SimpleAbilities(Static.Defender)
         .TriggeredAbility(p =>
           {
             p.Text = "When Wall of Blossoms enters the battlefield, draw a card.";

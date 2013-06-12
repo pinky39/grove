@@ -19,7 +19,7 @@
         .Toughness(2)
         .Cast(p => p.TimingRule(new FirstMain()))
         .Echo("{1}{R}")
-        .StaticAbilities(Static.Haste);
+        .SimpleAbilities(Static.Haste);
     }
   }
 }

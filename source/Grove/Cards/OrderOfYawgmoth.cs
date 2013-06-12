@@ -19,7 +19,7 @@
         .Text("{Fear}{EOL}Whenever Order of Yawgmoth deals damage to a player, that player discards a card.")
         .Power(2)
         .Toughness(2)
-        .StaticAbilities(Static.Fear)
+        .SimpleAbilities(Static.Fear)
         .TriggeredAbility(p =>
           {
             p.Text = "Whenever Order of Yawgmoth deals damage to a player, that player discards a card.";

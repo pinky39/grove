@@ -27,7 +27,7 @@
             p.Text =
               "{W}: The next time a red source of your choice would deal damage to you this turn, prevent that damage.";
             p.Cost = new PayMana(Mana.White, ManaUsage.Abilities);
-            p.Effect = () => new PreventNextDamageFromSourceToController();
+            p.Effect = () => new Gameplay.Effects.PreventDamageFromSourceToController();
 
             p.TargetSelector.AddEffect(trg =>
               {
@@ -35,7 +35,7 @@
                 trg.Message = "Select damage source.";
               });
 
-            p.TargetingRule(new PreventDamageFromSourceToController());
+            p.TargetingRule(new Artifical.TargetingRules.PreventDamageFromSourceToController());
           });
     }
   }

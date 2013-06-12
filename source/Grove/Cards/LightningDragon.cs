@@ -24,7 +24,7 @@
         .Power(4)
         .Toughness(4)
         .Echo("{2}{R}{R}")
-        .StaticAbilities(Static.Flying)
+        .SimpleAbilities(Static.Flying)
         .ActivatedAbility(p =>
           {
             p.Text = "{R}: Lightning Dragon gets +1/+0 until end of turn.";

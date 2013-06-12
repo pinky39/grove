@@ -3,7 +3,7 @@
   using Abilities;
   using ManaHandling;
 
-  public class IncreaseManaOutput : Modifier
+  public class IncreaseManaOutput : Modifier, ICardModifier
   {
     private readonly IManaAmount _amount;
     private ActivatedAbilities _abilities;

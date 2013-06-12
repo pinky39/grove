@@ -16,7 +16,7 @@
         .FlavorText("In Argoth, the shortest route between two points is the one the swine make.")
         .Power(3)
         .Toughness(3)
-        .StaticAbilities(Static.Trample);
+        .SimpleAbilities(Static.Trample);
     }
   }
 }

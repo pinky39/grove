@@ -17,7 +17,7 @@
         .Power(6)
         .Toughness(3)
         .Echo("{3}{G}")
-        .StaticAbilities(Static.Shroud);
+        .SimpleAbilities(Static.Shroud);
     }
   }
 }

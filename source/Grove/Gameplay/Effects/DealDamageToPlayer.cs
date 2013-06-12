@@ -1,6 +1,5 @@
 ﻿namespace Grove.Gameplay.Effects
 {
-  using Damage;
   using Modifiers;
 
   public class DealDamageToPlayer : Effect
@@ -30,14 +29,10 @@
 
     protected override void ResolveEffect()
     {
-      var damage = new Damage(
-        source: Source.OwningCard,
-        amount: _amount.GetValue(X),
-        isCombat: false,
-        changeTracker: ChangeTracker
-        );
-
-      _player.Value.DealDamage(damage);
+      Source.OwningCard.DealDamageTo(
+        _amount.GetValue(X),
+        _player.Value,
+        isCombat: false);
     }
   }
 }

@@ -2,8 +2,8 @@
 {
   using System;
   using System.Collections.Generic;
-  using System.Linq;
-  using Damage;
+  using System.Linq;  
+  using DamageHandling;
   using Decisions;
   using Decisions.Results;
   using Zones;
@@ -49,13 +49,7 @@
       if (results.Count == 0)
         return;
 
-      var damage = new Damage(
-        Source.OwningCard,
-        _amount,
-        isCombat: false,
-        changeTracker: ChangeTracker);
-
-      results[0].DealDamage(damage);
+      Source.OwningCard.DealDamageTo(_amount, results[0], isCombat: false);            
     }
 
     public override int CalculateCreatureDamage(Card creature)

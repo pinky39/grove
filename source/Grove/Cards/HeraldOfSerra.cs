@@ -17,7 +17,7 @@
         .Power(3)
         .Toughness(4)
         .Echo("{2}{W}{W}")
-        .StaticAbilities(
+        .SimpleAbilities(
           Static.Vigilance,
           Static.Flying
         );

@@ -1,14 +1,13 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
   using Effects;
-  using Targeting;
 
   public class ModifierParameters
   {
+    public bool IsStatic;
     public Card SourceCard;
     public Effect SourceEffect;
-    public ITarget Target;
+    public IModifiable Owner;
     public int? X;
-    public bool IsPermanent;
   }
 }

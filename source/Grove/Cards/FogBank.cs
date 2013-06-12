@@ -2,8 +2,9 @@
 {
   using System.Collections.Generic;
   using Gameplay.Abilities;
-  using Gameplay.Damage;
+  using Gameplay.DamageHandling;
   using Gameplay.Misc;
+  using Gameplay.Modifiers;
 
   public class FogBank : CardsSource
   {
@@ -16,12 +17,11 @@
         .Text("{Defender}, {Flying}{EOL}Prevent all combat damage that would be dealt to and dealt by Fog Bank.")
         .Power(0)
         .Toughness(2)
-        .Prevention(() => new PreventCombatDamage())
-        .Prevention(() => new PreventReceived(combatOnly: true))
-        .StaticAbilities(
+        .SimpleAbilities(
           Static.Defender,
-          Static.Flying
-        );
+          Static.Flying)
+        .StaticAbility(p => p.Modifier(() => new AddDamagePrevention(
+          modifier => new PreventAllDamageToAndFromCreature(modifier.SourceCard))));
     }
   }
 }

@@ -42,9 +42,9 @@
                     tp.TriggerOnlyIfOwningCardIsInPlay = true;
                   })
               );
-            
+
             p.TimingRule(new StackIsEmpty());
-            
+
             p.TimingRule(new Any(
               new EndOfTurn(),
               new All(

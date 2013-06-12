@@ -4,13 +4,13 @@
   using Messages;
   using Modifiers;
 
-  public class CardTypeCharacteristic : Characteristic<CardType>, IModifiable
+  public class CardTypeCharacteristic : Characteristic<CardType>, IAcceptsCardModifier
   {
     private Card _card;
     private CardTypeCharacteristic() {}
     public CardTypeCharacteristic(CardType value) : base(value) {}
 
-    public void Accept(IModifier modifier)
+    public void Accept(ICardModifier modifier)
     {
       modifier.Apply(this);
     }

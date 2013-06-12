@@ -129,15 +129,13 @@
             {
               var p = new ModifierParameters
                 {
-                  SourceCard = card,
-                  Target = card,
+                  SourceCard = card,                  
                 };
 
               var counters = new AddCounters(() => new SimpleCounter(scenarioCard.Counters.Type),
                 scenarioCard.Counters.Count);
-              counters.Initialize(p, Game);
-
-              card.AddModifier(counters);
+              
+              card.AddModifier(counters, p);
             }
 
             return card;

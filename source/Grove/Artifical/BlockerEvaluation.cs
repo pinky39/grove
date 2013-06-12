@@ -1,20 +1,25 @@
 ﻿namespace Grove.Artifical
 {
-  using System;
   using Gameplay;
 
   public class BlockerEvaluation
   {
     private readonly Card _attacker;
     private readonly Card _blocker;
+    private readonly int _powerIncrease;
+    private readonly int _toughnessIncrease;
 
-    public Func<Card, int> CalculateCombatDamage = card => card.CalculateCombatDamage();
-    public Func<Card, int> LifepointsLeft = card => card.Life;
-
-    public BlockerEvaluation(Card blocker, Card attacker)
+    public BlockerEvaluation(Card blocker, Card attacker, int powerIncrease = 0, int toughnessIncrease = 0)
     {
       _blocker = blocker;
       _attacker = attacker;
+      _powerIncrease = powerIncrease;
+      _toughnessIncrease = toughnessIncrease;
+    }
+
+    private int GetBlockerLifepoints()
+    {
+      return _blocker.Life + _toughnessIncrease;
     }
 
     public CalculationResults Evaluate()
@@ -34,8 +39,10 @@
 
       if (_blocker.HasFirstStrike && !_attacker.HasFirstStrike && !_attacker.Has().Indestructible)
       {
-        var blockerDealtAmount = _attacker.EvaluateReceivedDamage(
-          _blocker, CalculateCombatDamage(_blocker), isCombat: true);
+        var blockerDealtAmount = QuickCombat.GetAmountOfDamageCreature1WillDealToCreature2(
+          creature1: _blocker,
+          creature2: _attacker,
+          powerIncrease: _powerIncrease);
 
         if (blockerDealtAmount > 0 && _blocker.Has().Deathtouch)
         {
@@ -46,8 +53,10 @@
           return results;
       }
 
-      var attackerDealtAmount = _blocker.EvaluateReceivedDamage(_attacker,
-        _attacker.CalculateCombatDamage(), isCombat: true);
+      var attackerDealtAmount = QuickCombat.GetAmountOfDamageCreature1WillDealToCreature2(
+        creature1: _attacker,
+        creature2: _blocker);
+
 
       if (attackerDealtAmount == 0)
         return results;
@@ -58,7 +67,7 @@
       }
 
       results.DamageDealt = attackerDealtAmount;
-      results.ReceivesLeathalDamage = results.ReceivesLeathalDamage || attackerDealtAmount >= LifepointsLeft(_blocker);
+      results.ReceivesLeathalDamage = results.ReceivesLeathalDamage || attackerDealtAmount >= GetBlockerLifepoints();
 
       return results;
     }

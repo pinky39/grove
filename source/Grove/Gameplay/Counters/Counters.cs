@@ -6,7 +6,7 @@
   using Modifiers;
 
   [Copyable]
-  public class Counters : IModifiable
+  public class Counters : IAcceptsCardModifier
   {
     private readonly TrackableList<Counter> _counters = new TrackableList<Counter>();
     private readonly Power _power;
@@ -22,7 +22,7 @@
 
     public int Count { get { return _counters.Count; } }
 
-    public void Accept(IModifier modifier)
+    public void Accept(ICardModifier modifier)
     {
       modifier.Apply(this);
     }

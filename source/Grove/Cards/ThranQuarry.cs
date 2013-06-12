@@ -29,7 +29,7 @@
               {
                 Condition = (t, g) => t.Ability.OwningCard.Controller.Battlefield.None(x => x.Is().Creature)
               });
-            
+
             p.Effect = () => new SacrificeOwner();
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });

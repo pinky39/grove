@@ -17,11 +17,7 @@
         .FlavorText(
           "The first explorers found Argoth a storehouse of natural wealth—towering forests grown over rich veins of ore.")
         .Cast(p => p.TimingRule(new FirstMain()))
-        .ContinuousEffect(p =>
-          {
-            p.Modifier = () => new IncreaseLandLimit();
-            p.PlayerFilter = (player, effect) => player == effect.Source.Controller;
-          });
+        .StaticAbility(p => p.Modifier(() => new IncreaseLandLimit()));
     }
   }
 }

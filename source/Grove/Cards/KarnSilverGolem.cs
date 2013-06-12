@@ -8,7 +8,6 @@
   using Gameplay.ManaHandling;
   using Gameplay.Misc;
   using Gameplay.Modifiers;
-  using Gameplay.Targeting;
   using Gameplay.Triggers;
 
   public class KarnSilverGolem : CardsSource
@@ -36,9 +35,9 @@
             p.Cost = new PayMana(1.Colorless(), ManaUsage.Abilities);
 
             p.Effect = () => new ApplyModifiersToTargets(() => new ChangeToCreature(
-              power: m => m.Target.Card().ConvertedCost,
-              toughness: m => m.Target.Card().ConvertedCost,
-              type: m => m.Target.Card().Type + " Creature") {UntilEot = true});
+              power: m => m.OwningCard.ConvertedCost,
+              toughness: m => m.OwningCard.ConvertedCost,
+              type: m => m.OwningCard.Type + " Creature") {UntilEot = true});
 
             p.TargetSelector.AddEffect(trg => trg
               .Is.Card(c => c.Is().Artifact && !c.Is().Creature)

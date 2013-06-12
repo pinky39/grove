@@ -2,11 +2,8 @@
 {
   using System.Collections.Generic;
   using Artifical.TargetingRules;
-  using Gameplay.Costs;
-  using Gameplay.Damage;
-  using Gameplay.Effects;
+  using Gameplay.Costs;  
   using Gameplay.Misc;
-  using Gameplay.Modifiers;
 
   public class SanctumCustodian : CardsSource
   {
@@ -24,11 +21,9 @@
           {
             p.Text = "{T}: Prevent the next 2 damage that would be dealt to target creature or player this turn.";
             p.Cost = new Tap();
-            p.Effect = () => new ApplyModifiersToTargets(
-              () => new AddDamagePrevention(new PreventDamage(2)) {UntilEot = true});
-
+            p.Effect = () => new Gameplay.Effects.PreventNextDamageToTargets(2);
             p.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
-            p.TargetingRule(new PreventDamageToTargets(2));
+            p.TargetingRule(new PreventNextDamageToTargets(2));
           }
         );
     }

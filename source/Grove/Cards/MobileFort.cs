@@ -23,7 +23,7 @@
           "Defender (This creature can't attack.){EOL}{3}: Mobile Fort gets +3/-1 until end of turn and can attack this turn as though it didn't have defender. Activate this ability only once each turn.")
         .Power(0)
         .Toughness(6)
-        .StaticAbilities(Static.Defender)
+        .SimpleAbilities(Static.Defender)
         .ActivatedAbility(p =>
           {
             p.Text =

@@ -1,7 +1,7 @@
 ﻿namespace Grove.Gameplay.Triggers
 {
   using System;
-  using Damage;
+  using DamageHandling;
   using Infrastructure;
   using Messages;
 

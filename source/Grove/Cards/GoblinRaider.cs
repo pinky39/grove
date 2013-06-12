@@ -16,7 +16,7 @@
         .FlavorText("He was proud to wear the lizard skin around his waist, just for the fun of annoying the enemy.")
         .Power(2)
         .Toughness(2)
-        .StaticAbilities(Static.CannotBlock);
+        .SimpleAbilities(Static.CannotBlock);
     }
   }
 }

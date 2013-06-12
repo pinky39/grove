@@ -11,15 +11,15 @@
   public abstract class TargetingRule : MachinePlayRule
   {
     public int? TargetLimit;
-    
+
     public override void Process(Artifical.ActivationContext c)
     {
       var candidates = c.Selector.GenerateCandidates(c.TriggerMessage);
 
       var parameters = new TargetingRuleParameters(candidates, c, Game);
 
-      var targetsCombinations = (TargetLimit.HasValue 
-        ? SelectTargets(parameters).Take(TargetLimit.Value) 
+      var targetsCombinations = (TargetLimit.HasValue
+        ? SelectTargets(parameters).Take(TargetLimit.Value)
         : SelectTargets(parameters))
         .ToList();
 
@@ -171,19 +171,21 @@
       return results;
     }
 
-    protected int CalculateAttackerScore(Card card)
+    protected int CalculateAttackerScore(Card attacker)
     {
-      return Combat.CouldBeBlockedByAny(card) ? 5 : 0 + card.EvaluateDealtCombatDamage(allDamageSteps: true);
+      return Combat.CouldBeBlockedByAny(attacker)
+        ? 5
+        : attacker.CalculateCombatDamageAmount(singleDamageStep: false);
     }
 
-    protected static int CalculateAttackingPotencialScore(Card card)
+    protected static int CalculateWannaBeAttackerScore(Card wannaBeAttacker)
     {
-      if (card.Has().DoesNotUntap || card.Has().CannotAttack)
+      if (wannaBeAttacker.Has().DoesNotUntap || wannaBeAttacker.Has().CannotAttack)
         return 0;
 
-      var damage = card.EvaluateDealtCombatDamage(allDamageSteps: true);
+      var damage = wannaBeAttacker.CalculateCombatDamageAmount(singleDamageStep: false);
 
-      if (card.Has().AnyEvadingAbility)
+      if (wannaBeAttacker.Has().AnyEvadingAbility)
         return 2 + damage;
 
       return damage;

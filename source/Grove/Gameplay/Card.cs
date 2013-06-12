@@ -5,9 +5,10 @@
   using System.Linq;
   using Abilities;
   using Artifical;
+  using Artifical.CombatRules;
   using Characteristics;
   using Counters;
-  using Damage;
+  using DamageHandling;
   using Infrastructure;
   using ManaHandling;
   using Messages;
@@ -18,19 +19,20 @@
   using Targeting;
   using Zones;
 
-  public class Card : GameObject, ITarget, IDamageable, IHashDependancy, IHasColors, IHasLife
+  public class Card : GameObject, ITarget, IDamageable, IHashDependancy, IHasColors, IHasLife, IModifiable
   {
+    private readonly ContiniousEffects _continuousEffects;
     private readonly ActivatedAbilities _activatedAbilities;
+    private readonly StaticAbilities _staticAbilities;
     private readonly Trackable<Card> _attachedTo = new Trackable<Card>();
     private readonly Attachments _attachments = new Attachments();
-    private readonly Trackable<bool> _canRegenerate = new Trackable<bool>();
     private readonly CastInstructions _castInstructions;
     private readonly CardColors _colors;
-    private readonly ContiniousEffects _continuousEffects;
+    private readonly CombatRules _combatRules;
     private readonly Counters.Counters _counters;
     private readonly Trackable<int> _damage = new Trackable<int>();
-    private readonly DamagePreventions _damagePreventions;
     private readonly Trackable<bool> _hasLeathalDamage = new Trackable<bool>();
+    private readonly Trackable<bool> _hasRegenerationShield = new Trackable<bool>();
     private readonly Trackable<bool> _hasSummoningSickness = new Trackable<bool>();
     private readonly Trackable<int?> _hash = new Trackable<int?>();
     private readonly Trackable<bool> _isHidden = new Trackable<bool>();
@@ -38,10 +40,10 @@
     private readonly Trackable<bool> _isRevealed = new Trackable<bool>();
     private readonly Trackable<bool> _isTapped = new Trackable<bool>();
     private readonly Level _level;
-    private readonly TrackableList<IModifier> _modifiers = new TrackableList<IModifier>();
+    private readonly TrackableList<ICardModifier> _modifiers = new TrackableList<ICardModifier>();
     private readonly Power _power;
     private readonly Protections _protections;
-    private readonly StaticAbilities _staticAbilities;
+    private readonly SimpleAbilities _simpleAbilities;
     private readonly Toughness _toughness;
     private readonly TriggeredAbilities _triggeredAbilities;
     private readonly CardTypeCharacteristic _type;
@@ -73,23 +75,17 @@
       _colors = new CardColors(p.Colors);
 
       _protections = p.Protections;
-      _damagePreventions = p.DamagePreventions;
 
-      _staticAbilities = p.StaticAbilities;
+      _simpleAbilities = p.SimpleAbilities;
       _triggeredAbilities = p.TriggeredAbilities;
       _activatedAbilities = p.ActivatedAbilities;
+      _staticAbilities = p.StaticAbilities;
       _castInstructions = p.CastInstructions;
+      _combatRules = p.CombatRules;
       _continuousEffects = p.ContinuousEffects;
 
       JoinedBattlefield = new TrackableEvent(this);
-      LeftBattlefield = new TrackableEvent(this);
-
-      // 'always present' modifiers, these are used for e.g 
-      // by creatures with variable power and toughness
-      foreach (var modifier in p.Modifiers)
-      {
-        _modifiers.Add(modifier);
-      }
+      LeftBattlefield = new TrackableEvent(this);     
     }
 
     public bool MayChooseNotToUntap { get; private set; }
@@ -124,20 +120,10 @@
     public bool HasFirstStrike { get { return Has().FirstStrike || Has().DoubleStrike; } }
     public bool HasNormalStrike { get { return !Has().FirstStrike || Has().DoubleStrike; } }
     public bool CanBeTapped { get { return IsPermanent && !IsTapped; } }
-    public bool CanRegenerate { get { return _canRegenerate.Value; } set { _canRegenerate.Value = value; } }
+    public bool HasRegenerationShield { get { return _hasRegenerationShield.Value; } set { _hasRegenerationShield.Value = value; } }
     public bool CanTap { get { return !IsTapped && (!HasSummoningSickness || !Is().Creature || Has().Haste); } }
     public bool IsPermanent { get { return Zone == Zone.Battlefield; } }
     public int CharacterCount { get { return FlavorText.CharacterCount + Text.CharacterCount; } }
-    public int Id { get; private set; }
-
-    public int CountersCount(CounterType? counterType = null)
-    {
-      
-      if (counterType == null)
-        return _counters.Count;
-
-      return _counters.CountSpecific(counterType.Value);
-    }
 
     public CardColor[] Colors { get { return _colors.ToArray(); } }
     public Player Controller { get { return _controller.Value; } }
@@ -160,7 +146,7 @@
 
     public int ConvertedCost { get { return ManaCost == null ? 0 : ManaCost.Converted; } }
 
-    private IEnumerable<IModifiable> ModifiableProperties
+    private IEnumerable<IAcceptsCardModifier> ModifiableProperties
     {
       get
       {
@@ -170,11 +156,10 @@
         yield return _counters;
         yield return _colors;
         yield return _type;
-        yield return _damagePreventions;
         yield return _protections;
         yield return _triggeredAbilities;
         yield return _activatedAbilities;
-        yield return _staticAbilities;
+        yield return _simpleAbilities;
         yield return _controller;
         yield return _continuousEffects;
       }
@@ -214,7 +199,7 @@
 
 
         // auras controlled by other player are added to their score
-        if (IsPermanent && Is().Aura &&  AttachedTo.Controller != Controller)
+        if (IsPermanent && Is().Aura && AttachedTo.Controller != Controller)
         {
           return -score;
         }
@@ -231,25 +216,33 @@
     public Zone PreviousZone { get { return _zone.Previous; } }
 
     public int? Level { get { return _level.Value; } }
-    public bool CanBeDestroyed { get { return !CanRegenerate && !Has().Indestructible; } }
+    public bool CanBeDestroyed { get { return !HasRegenerationShield && !Has().Indestructible; } }
     public ScoreOverride OverrideScore { get; private set; }
     public bool IsVisibleInUi { get { return _isPreview || IsVisibleToPlayer(Players.Human); } }
     public bool IsVisible { get { return Ai.IsSearchInProgress ? IsVisibleToPlayer(Players.Searching) : IsVisibleToPlayer(Controller); } }
     public bool IsMultiColored { get { return _colors.Count > 1; } }
     public bool HasChangedZoneThisTurn { get { return _zone.HasChangedZoneThisTurn; } }
 
-    public void DealDamage(Damage.Damage damage)
+    public void ReceiveDamage(Damage damage)
     {
       if (!Is().Creature || !IsPermanent)
         return;
 
       if (HasProtectionFrom(damage.Source))
       {
-        damage.PreventAll();
         return;
       }
 
-      _damagePreventions.PreventReceivedDamage(damage);
+      var amountToPrevent = Game.PreventDamage(new PreventDamageParameters
+        {
+          Amount = damage.Amount,
+          Source = damage.Source,
+          Target = this,
+          IsCombat = damage.IsCombat,
+          QueryOnly = false
+        });
+
+      damage.Amount -= amountToPrevent;
 
       if (damage.Amount == 0)
         return;
@@ -291,6 +284,13 @@
       }
     }
 
+    void IModifiable.RemoveModifier(IModifier modifier)
+    {
+      RemoveModifier((ICardModifier) modifier);
+    }
+
+    public int Id { get; private set; }
+
     public int CalculateHash(HashCalculator calc)
     {
       if (_hash.Value.HasValue == false)
@@ -312,7 +312,7 @@
             UsageScore.GetHashCode(),
             IsTapped.GetHashCode(),
             Damage,
-            CanRegenerate.GetHashCode(),
+            HasRegenerationShield.GetHashCode(),
             HasLeathalDamage.GetHashCode(),
             Power.GetHashCode(),
             Toughness.GetHashCode(),
@@ -321,11 +321,10 @@
             Type.GetHashCode(),
             _isRevealed.Value.GetHashCode(),
             _isPeeked.Value.GetHashCode(),
-            calc.Calculate(_staticAbilities),
+            calc.Calculate(_simpleAbilities),
             calc.Calculate(_triggeredAbilities),
             calc.Calculate(_activatedAbilities),
             calc.Calculate(_protections),
-            calc.Calculate(_damagePreventions),
             calc.Calculate(_attachments),
             calc.Calculate(_zone),
             calc.Calculate(_colors)
@@ -336,10 +335,34 @@
       return _hash.Value.GetValueOrDefault();
     }
 
-    public void AddModifier(IModifier modifier)
+    public int CountersCount(CounterType? counterType = null)
     {
+      if (counterType == null)
+        return _counters.Count;
+
+      return _counters.CountSpecific(counterType.Value);
+    }
+
+    public CombatAbilities GetCombatAbilities()
+    {
+      return _combatRules.GetAbilities();
+    }
+
+    public void DealDamageTo(int amount, IDamageable damageable, bool isCombat)
+    {
+      var damage = new Damage(
+        amount: amount,
+        source: this,
+        isCombat: isCombat);
+
+      damage.Initialize(ChangeTracker);
+      damageable.ReceiveDamage(damage);
+    }
+
+    public void AddModifier(ICardModifier modifier, ModifierParameters p)
+    {      
       _modifiers.Add(modifier);      
-      ActivateModifier(modifier);
+      ActivateModifier(modifier, p);
 
       Publish(new PermanentWasModified
         {
@@ -348,16 +371,20 @@
         });
     }
 
-    private void ActivateModifier(IModifier modifier) {
+    private void ActivateModifier(ICardModifier modifier, ModifierParameters p)
+    {
+      p.Owner = this;      
+      modifier.Initialize(p, Game);      
+
       foreach (var modifiable in ModifiableProperties)
       {
         modifiable.Accept(modifier);
       }
-            
+
       modifier.Activate();
     }
 
-    public void RemoveModifier(IModifier modifier)
+    public void RemoveModifier(ICardModifier modifier)
     {
       _modifiers.Remove(modifier);
       modifier.Dispose();
@@ -386,7 +413,7 @@
       _isTapped.Initialize(ChangeTracker, this);
       _attachedTo.Initialize(ChangeTracker, this);
       _attachments.Initialize(game, this);
-      _canRegenerate.Initialize(ChangeTracker, this);
+      _hasRegenerationShield.Initialize(ChangeTracker, this);
       _damage.Initialize(ChangeTracker, this);
       _hasLeathalDamage.Initialize(ChangeTracker, this);
       _hasSummoningSickness.Initialize(ChangeTracker, this);
@@ -395,41 +422,40 @@
       _isRevealed.Initialize(ChangeTracker, this);
       _isPeeked.Initialize(ChangeTracker, this);
       _usageScore.Initialize(ChangeTracker, this);
-      _damagePreventions.Initialize(this, game, this);
       _castInstructions.Initialize(this, game);
-      _staticAbilities.Initialize(ChangeTracker, this);
+      _simpleAbilities.Initialize(ChangeTracker, this);
       _triggeredAbilities.Initialize(this, game);
       _activatedAbilities.Initialize(this, game);
-      _continuousEffects.Initialize(this, game, this);
+      _staticAbilities.Initialize(this, game);
+      _combatRules.Initialize(this, game);
+      _continuousEffects.Initialize(this, game);
 
       _isPreview = false;
 
       JoinedBattlefield.Initialize(ChangeTracker);
       LeftBattlefield.Initialize(ChangeTracker);
-      
-      foreach (var modifier in _modifiers)
-      {
-        var mp = new ModifierParameters
-          {
-            SourceCard = this,
-            IsPermanent = true
-          };
-        
-        modifier.Initialize(mp, game);
-        ActivateModifier(modifier);
-      }
 
+      Publish(new CardCreated());
       return this;
     }
 
-    public int EvaluateReceivedDamage(Card damageSource, int amount, bool isCombat)
+    public int CalculatePreventedDamageAmount(int totalAmount, Card source, bool isCombat = false)
     {
-      if (HasProtectionFrom(damageSource))
+      if (HasProtectionFrom(source))
       {
-        return 0;
+        return totalAmount;
       }
 
-      return _damagePreventions.EvaluateReceivedDamage(damageSource, amount, isCombat);
+      var damage = new PreventDamageParameters
+        {
+          Amount = totalAmount,
+          QueryOnly = true,
+          Source = source,
+          IsCombat = isCombat,
+          Target = this,
+        };
+
+      return Game.PreventDamage(damage);
     }
 
     public void ActivateAbility(int index, ActivationParameters activationParameters)
@@ -597,7 +623,7 @@
 
     public IStaticAbilities Has()
     {
-      return _staticAbilities;
+      return _simpleAbilities;
     }
 
     public bool HasAttachment(Card card)
@@ -641,10 +667,10 @@
     {
       Tap();
       ClearDamage();
-      CanRegenerate = false;
+      HasRegenerationShield = false;
       Combat.Remove(this);
-    }    
-    
+    }
+
     public void RemoveCounters(CounterType counterType, int? count = null)
     {
       _counters.Remove(counterType, count);
@@ -657,7 +683,7 @@
         return;
       }
 
-      if (CanRegenerate && allowToRegenerate)
+      if (HasRegenerationShield && allowToRegenerate)
       {
         Regenerate();
         return;
@@ -684,7 +710,7 @@
       DetachAttachments();
       Detach();
       Untap();
-      ClearDamage();
+      ClearDamage();      
 
       HasSummoningSickness = false;
 
@@ -804,33 +830,6 @@
       _isRevealed.Value = false;
       _isHidden.Value = false;
       _isPeeked.Value = false;
-    }            
-    
-    public int EvaluateDealtCombatDamage(bool allDamageSteps = false, int powerIncrease = 0)
-    {
-      if (!Power.HasValue)
-        return 0;
-
-      var amount = Power.Value + powerIncrease;
-      amount = _damagePreventions.EvaluateDealtCombatDamage(amount);
-
-      if (allDamageSteps)
-      {
-        amount = Has().DoubleStrike ? amount * 2 : amount;
-      }
-      
-      return amount;
-    }
-    
-    public int CalculateCombatDamage()
-    {
-      if (!Power.HasValue)
-        return 0;
-
-      var amount = Power.Value;
-      amount = _damagePreventions.PreventDealtCombatDamage(amount);                  
-
-      return amount;
     }
 
     public void PutToHand()
@@ -873,6 +872,15 @@
     {
       return _castInstructions.GetManaCost(index);
     }
-    
+
+    public int CalculateCombatDamageAmount(bool singleDamageStep = true, int powerIncrease = 0)
+    {
+      var total = Power.GetValueOrDefault() + powerIncrease;
+
+      if (Has().DoubleStrike && !singleDamageStep)
+        return total*2;
+
+      return total;
+    }
   }
 }

@@ -17,7 +17,7 @@
           "If you're smaller than the anaconda, it considers you food. If you're larger than the anaconda, it considers you a lot of food.")
         .Power(3)
         .Toughness(3)
-        .StaticAbilities(Static.Swampwalk);
+        .SimpleAbilities(Static.Swampwalk);
     }
   }
 }

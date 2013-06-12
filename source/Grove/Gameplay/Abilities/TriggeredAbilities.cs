@@ -3,9 +3,8 @@
   using Infrastructure;
   using Misc;
   using Modifiers;
-
-  [Copyable]
-  public class TriggeredAbilities : GameObject, IModifiable, IHashable
+  
+  public class TriggeredAbilities : GameObject, IAcceptsCardModifier, IHashable
   {
     private readonly TrackableList<TriggeredAbility> _abilities = new TrackableList<TriggeredAbility>();
 
@@ -14,7 +13,7 @@
       return calc.Calculate(_abilities);
     }
 
-    public void Accept(IModifier modifier)
+    public void Accept(ICardModifier modifier)
     {
       modifier.Apply(this);
     }
@@ -46,7 +45,7 @@
     {
       foreach (var triggeredAbility in _abilities)
       {
-        triggeredAbility.IsEnabled = false;
+        triggeredAbility.Disable();
       }
     }
 
@@ -54,7 +53,7 @@
     {
       foreach (var triggeredAbility in _abilities)
       {
-        triggeredAbility.IsEnabled = true;
+        triggeredAbility.Enable();
       }
     }
   }

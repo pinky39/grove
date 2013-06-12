@@ -5,7 +5,7 @@
   using System.Linq;
   using Characteristics;
 
-  public class ChangeToCreature : Modifier
+  public class ChangeToCreature : Modifier, ICardModifier
   {
     private readonly List<CardColor> _colors;
     private readonly Func<Modifier, int> _power;

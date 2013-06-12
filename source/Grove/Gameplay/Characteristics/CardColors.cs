@@ -7,7 +7,7 @@
   using Modifiers;
 
   [Copyable]
-  public class CardColors : Characteristic<List<CardColor>>, IEnumerable<CardColor>, IModifiable, IHashable
+  public class CardColors : Characteristic<List<CardColor>>, IEnumerable<CardColor>, IAcceptsCardModifier, IHashable
   {
     private CardColors() {}
 
@@ -37,7 +37,7 @@
       return HashCalculator.CombineCommutative(hashcodes);
     }
 
-    public void Accept(IModifier modifier)
+    public void Accept(ICardModifier modifier)
     {
       modifier.Apply(this);
     }

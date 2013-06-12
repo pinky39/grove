@@ -16,7 +16,7 @@
         .Power(1)
         .Toughness(3)
         .Cycling("{2}")
-        .StaticAbilities(Static.Defender, Static.FirstStrike);
+        .SimpleAbilities(Static.Defender, Static.FirstStrike);
     }
   }
 }

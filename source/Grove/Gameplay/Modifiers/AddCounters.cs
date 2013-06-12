@@ -4,7 +4,7 @@
   using System.Collections.Generic;
   using Counters;
 
-  public class AddCounters : Modifier
+  public class AddCounters : Modifier, ICardModifier
   {
     private readonly List<Counter> _addedCounters = new List<Counter>();
     private readonly Value _count;

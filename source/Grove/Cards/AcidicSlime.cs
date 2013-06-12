@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Artifical;
   using Artifical.TargetingRules;
@@ -24,7 +23,7 @@
         .Power(2)
         .Toughness(2)
         .Cast(p => p.TimingRule(new FirstMain()))
-        .StaticAbilities(Static.Deathtouch)
+        .SimpleAbilities(Static.Deathtouch)
         .TriggeredAbility(p =>
           {
             p.Text = "When Acidic Slime enters the battlefield, destroy target artifact, enchantment, or land.";

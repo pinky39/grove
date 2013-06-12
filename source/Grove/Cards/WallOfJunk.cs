@@ -21,7 +21,7 @@
           "Urza saw the wall and realized that even if he tore every Phyrexian to pieces, they would still resist him.")
         .Power(0)
         .Toughness(7)
-        .StaticAbilities(Static.Defender)
+        .SimpleAbilities(Static.Defender)
         .TriggeredAbility(p =>
           {
             p.Text =

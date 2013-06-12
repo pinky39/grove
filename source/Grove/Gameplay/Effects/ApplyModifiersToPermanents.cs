@@ -9,15 +9,15 @@
   public class ApplyModifiersToPermanents : Effect
   {
     private readonly ControlledBy _controlledBy;
-    private readonly List<ModifierFactory> _modifiers = new List<ModifierFactory>();
+    private readonly List<CardModifierFactory> _modifiers = new List<CardModifierFactory>();
     private readonly Func<ApplyModifiersToPermanents, Card, bool> _permanentFilter;
 
     private ApplyModifiersToPermanents() {}
 
-    public ApplyModifiersToPermanents(params ModifierFactory[] modifiers) : this(null, modifiers: modifiers) {}
+    public ApplyModifiersToPermanents(params CardModifierFactory[] modifiers) : this(null, modifiers: modifiers) {}
 
     public ApplyModifiersToPermanents(Func<Effect, Card, bool> permanentFilter,
-      ControlledBy controlledBy = ControlledBy.Any, params ModifierFactory[] modifiers)
+      ControlledBy controlledBy = ControlledBy.Any, params CardModifierFactory[] modifiers)
     {
       _controlledBy = controlledBy;
       _permanentFilter = permanentFilter ?? delegate { return true; };
@@ -73,14 +73,12 @@
           var p = new ModifierParameters
             {
               SourceEffect = this,
-              SourceCard = Source.OwningCard,
-              Target = permanent,
+              SourceCard = Source.OwningCard,              
               X = X
             };
 
-          var modifier = modifierFactory();
-          modifier.Initialize(p, Game);
-          permanent.AddModifier(modifier);
+          var modifier = modifierFactory();          
+          permanent.AddModifier(modifier, p);
         }
       }
     }

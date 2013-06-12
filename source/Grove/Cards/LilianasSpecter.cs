@@ -21,7 +21,7 @@
         .Power(2)
         .Toughness(1)
         .Cast(p => p.TimingRule(new FirstMain()))
-        .StaticAbilities(Static.Flying)
+        .SimpleAbilities(Static.Flying)
         .TriggeredAbility(p =>
           {
             p.Text = "When Liliana's Specter enters the battlefield, each opponent discards a card.";

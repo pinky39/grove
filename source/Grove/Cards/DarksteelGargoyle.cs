@@ -17,7 +17,7 @@
         .FlavorText("The ultimate treasure is one that guards itself.")
         .Power(3)
         .Toughness(3)
-        .StaticAbilities(
+        .SimpleAbilities(
           Static.Flying,
           Static.Indestructible
         );

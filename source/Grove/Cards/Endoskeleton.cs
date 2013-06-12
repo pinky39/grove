@@ -30,7 +30,7 @@
             p.Effect = () => new ApplyModifiersToTargets(() =>
               {
                 var modifier = new AddPowerAndToughness(0, 3);
-                modifier.AddLifetime(new PermanentGetsUntapedLifetime(l => l.Modifier.Source));
+                modifier.AddLifetime(new ModifierSourceGetsUntapedLifetime());
                 return modifier;
               });
 

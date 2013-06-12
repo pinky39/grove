@@ -43,8 +43,8 @@
             p.Text = "{0}: Opal Acrolith becomes an enchantment.";
             p.Cost = new PayMana(Mana.Zero, ManaUsage.Abilities);
             p.Effect = () => new RemoveModifier(typeof (Gameplay.Modifiers.ChangeToCreature));
-                        
-            p.TimingRule(new OwningCardHas(c => c.Is().Creature));            
+
+            p.TimingRule(new OwningCardHas(c => c.Is().Creature));
             p.TimingRule(new OwningCardWillBeDestroyed());
             p.TimingRule(new SingleInstanceOfSpellOnStack());
           });

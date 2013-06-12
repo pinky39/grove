@@ -2,23 +2,21 @@
 {
   using System.Collections.Generic;
   using Abilities;
+  using Artifical.CombatRules;
   using Characteristics;
-  using Damage;
   using Infrastructure;
   using ManaHandling;
-  using Modifiers;
 
   public class CardParameters
   {
     public readonly ActivatedAbilities ActivatedAbilities = new ActivatedAbilities();
     public readonly CastInstructions CastInstructions = new CastInstructions();
+    public readonly CombatRules CombatRules = new CombatRules();
     public readonly ContiniousEffects ContinuousEffects = new ContiniousEffects();
-    public readonly List<IModifier> Modifiers = new List<IModifier>();
     public readonly Protections Protections = new Protections();
-    public readonly StaticAbilities StaticAbilities = new StaticAbilities();
+    public readonly SimpleAbilities SimpleAbilities = new SimpleAbilities();
     public readonly TriggeredAbilities TriggeredAbilities = new TriggeredAbilities();
     public List<CardColor> Colors = new List<CardColor>();
-    public DamagePreventions DamagePreventions = new DamagePreventions();
     public CardText FlavorText = string.Empty;
     public bool HasXInCost;
     public bool IsLeveler;
@@ -27,6 +25,7 @@
     public string Name;
     public ScoreOverride OverrideScore = new ScoreOverride();
     public int? Power;
+    public StaticAbilities StaticAbilities = new StaticAbilities();
     public CardText Text = string.Empty;
     public int? Toughness;
     public CardType Type;

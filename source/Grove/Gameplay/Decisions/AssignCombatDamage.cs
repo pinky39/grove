@@ -27,7 +27,7 @@
       else if (Attacker.BlockersCount == 1 && !(Attacker.HasTrample || Attacker.AssignsDamageAsThoughItWasntBlocked))
       {
         Result = new DamageDistribution();
-        Result.Assign(Attacker.Blockers.First(), Attacker.DamageThisWillDealInOneDamageStep);
+        Result.Assign(Attacker.Blockers.First(), Attacker.Card.CalculateCombatDamageAmount());
       }
     }
 

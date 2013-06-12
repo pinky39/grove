@@ -1,12 +1,11 @@
 ﻿namespace Grove.Gameplay.Targeting
 {
   using Characteristics;
-  using Damage;
+  using DamageHandling;
   using Decisions.Scenario;
   using Effects;
   using Gameplay.Zones;
   using Infrastructure;
-  using Modifiers;
 
   public interface ITarget : IHashable
   {
@@ -15,18 +14,6 @@
 
   public static class Target
   {
-    public static void AddModifier(this ITarget target, IModifier modifier)
-    {
-      if (target.IsPlayer())
-      {
-        target.Player().AddModifier(modifier);
-      }
-      else if (target.IsCard())
-      {
-        target.Card().AddModifier(modifier);
-      }
-    }    
-
     public static Zone? Zone(this ITarget target)
     {
       if (target.IsPlayer())
@@ -40,18 +27,6 @@
       }
 
       return target.Card().Zone;
-    }
-
-    public static void RemoveModifier(this ITarget target, IModifier modifier)
-    {
-      if (target.IsPlayer())
-      {
-        target.Player().RemoveModifier(modifier);
-      }
-      else if (target.IsCard())
-      {
-        target.Card().RemoveModifier(modifier);
-      }
     }
 
     public static Card Card(this ITarget target)
@@ -91,13 +66,13 @@
       return target is Effect || target is ScenarioEffect;
     }
 
-    public static void DealDamage(this ITarget target, Damage damage)
+    public static void ReceiveDamage(this ITarget target, Damage damage)
     {
       var damageable = target as IDamageable;
 
       if (damageable != null)
       {
-        damageable.DealDamage(damage);
+        damageable.ReceiveDamage(damage);
       }
     }
 

@@ -1,11 +1,8 @@
 ﻿namespace Grove.Cards
 {
-  using System.Collections.Generic;
-  using Artifical.TargetingRules;
-  using Gameplay.Damage;
+  using System.Collections.Generic;  
   using Gameplay.Effects;
   using Gameplay.Misc;
-  using Gameplay.Modifiers;
 
   public class Redeem : CardsSource
   {
@@ -20,9 +17,8 @@
           "That they are saved from death is immaterial. What is important is that they know the source of their benefaction.")
         .Cast(p =>
           {
-            p.Text = "Prevent all damage that would be dealt this turn to up to two target creatures.";
-            p.Effect = () => new ApplyModifiersToTargets(
-              () => new AddDamagePrevention(new PreventDamage()) {UntilEot = true});
+            p.Text = "Prevent all damage that would be dealt this turn to up to two target creatures.";            
+            p.Effect = () => new PreventAllDamageToTargets();
 
             p.TargetSelector.AddEffect(trg =>
               {
@@ -31,7 +27,7 @@
                 trg.MaxCount = 2;
               });
 
-            p.TargetingRule(new PreventDamageToTargets());
+            p.TargetingRule(new Artifical.TargetingRules.PreventNextDamageToTargets());
           });
     }
   }

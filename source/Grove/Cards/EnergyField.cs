@@ -1,7 +1,7 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Gameplay.Damage;
+  using Gameplay.DamageHandling;
   using Gameplay.Effects;
   using Gameplay.Misc;
   using Gameplay.Modifiers;
@@ -18,19 +18,18 @@
         .Type("Enchantment")
         .Text(
           "Prevent all damage that would be dealt to you by sources you don't control.{EOL}When a card is put into your graveyard from anywhere, sacrifice Energy Field.")
-        .ContinuousEffect(p =>
-          {
-            p.Modifier = () => new AddDamagePrevention(new PreventDamage(
-              sourceFilter: (pr, source) => pr.Controller != source.Controller));
-
-            p.PlayerFilter = (player, e) => player == e.Source.Controller;
-          })
+        .StaticAbility(p => p.Modifier(() => new AddDamagePrevention(modifier => new PreventDamageToTarget(
+          creatureOrPlayer: modifier.SourceCard.Controller,
+          sourceFilter: card => card.Controller != modifier.SourceCard.Controller)))
+         )                  
         .TriggeredAbility(p =>
           {
             p.Text = "When a card is put into your graveyard from anywhere, sacrifice Energy Field.";
+            
             p.Trigger(new OnZoneChanged(
               to: Zone.Graveyard,
               filter: (ability, card) => ability.OwningCard.Controller == card.Owner));
+            
             p.Effect = () => new SacrificeOwner();
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });

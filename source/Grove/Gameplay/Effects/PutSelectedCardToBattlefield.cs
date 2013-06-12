@@ -11,7 +11,7 @@
   public class PutSelectedCardToBattlefield : Effect, IProcessDecisionResults<ChosenCards>,
     IChooseDecisionResults<List<Card>, ChosenCards>
   {
-    private readonly List<ModifierFactory> _modifiers = new List<ModifierFactory>();
+    private readonly List<CardModifierFactory> _modifiers = new List<CardModifierFactory>();
     private readonly string _text;
     private readonly Func<Card, bool> _validator;
     private readonly Zone _zone;
@@ -19,7 +19,7 @@
     private PutSelectedCardToBattlefield() {}
 
     public PutSelectedCardToBattlefield(string text, Func<Card, bool> validator, Zone zone,
-      params ModifierFactory[] modifiers)
+      params CardModifierFactory[] modifiers)
     {
       _text = text;
       _zone = zone;
@@ -46,14 +46,12 @@
           var p = new ModifierParameters
             {
               SourceEffect = this,
-              SourceCard = Source.OwningCard,
-              Target = card,
+              SourceCard = Source.OwningCard,              
               X = X
             };
 
-          var modifier = modifierFactory();
-          modifier.Initialize(p, Game);
-          card.AddModifier(modifier);
+          var modifier = modifierFactory();          
+          card.AddModifier(modifier, p);
         }
       }
     }

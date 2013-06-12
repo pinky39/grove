@@ -2,16 +2,17 @@
 {
   using System;
   using System.Collections.Generic;
+  using System.Linq;
   using Modifiers;
 
   public class ApplyModifiersToPlayer : Effect
   {
-    private readonly List<ModifierFactory> _modifiers = new List<ModifierFactory>();
+    private readonly List<PlayerModifierFactory> _modifiers = new List<PlayerModifierFactory>();
     private readonly Func<Effect, Player> _selector;
 
     private ApplyModifiersToPlayer() {}
 
-    public ApplyModifiersToPlayer(Func<Effect, Player> selector, params ModifierFactory[] modifiers)
+    public ApplyModifiersToPlayer(Func<Effect, Player> selector, params PlayerModifierFactory[] modifiers)
     {
       _selector = selector;
       _modifiers.AddRange(modifiers);
@@ -19,27 +20,16 @@
 
     protected override void ResolveEffect()
     {
-      foreach (var modifier in CreateModifiers())
-      {
-        _selector(this).AddModifier(modifier);
-      }
-    }
+      var p = new ModifierParameters
+        {
+          SourceEffect = this,
+          SourceCard = Source.OwningCard,
+          X = X
+        };
 
-    private IEnumerable<Modifier> CreateModifiers()
-    {
-      foreach (var modifierFactory in _modifiers)
+      foreach (var modifier in _modifiers.Select(modifierFactory => modifierFactory()))
       {
-        var p = new ModifierParameters
-          {
-            SourceEffect = this,
-            SourceCard = Source.OwningCard,
-            Target = _selector(this),
-            X = X
-          };
-
-        var modifier = modifierFactory();
-        modifier.Initialize(p, Game);
-        yield return modifier;
+        _selector(this).AddModifier(modifier, p);
       }
     }
   }

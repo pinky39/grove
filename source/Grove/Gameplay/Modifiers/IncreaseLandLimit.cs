@@ -2,7 +2,7 @@
 {
   using Characteristics;
 
-  public class IncreaseLandLimit : Modifier
+  public class IncreaseLandLimit : Modifier, IPlayerModifier
   {
     private readonly IntegerIncrement _integerIncrement;
     private LandLimit _landLimit;

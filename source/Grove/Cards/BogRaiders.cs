@@ -17,7 +17,7 @@
           "Let weak feed on weak, that we may divine the nature of strength.")
         .Power(2)
         .Toughness(2)
-        .StaticAbilities(Static.Swampwalk);
+        .SimpleAbilities(Static.Swampwalk);
     }
   }
 }

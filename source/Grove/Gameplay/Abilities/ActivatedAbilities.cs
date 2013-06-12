@@ -7,7 +7,7 @@
   using Modifiers;
 
   [Copyable]
-  public class ActivatedAbilities : IModifiable, IHashable
+  public class ActivatedAbilities : IAcceptsCardModifier, IHashable
   {
     private readonly TrackableList<ActivatedAbility> _abilities = new TrackableList<ActivatedAbility>();
 
@@ -16,7 +16,7 @@
       return calc.Calculate(_abilities);
     }
 
-    public void Accept(IModifier modifier)
+    public void Accept(ICardModifier modifier)
     {
       modifier.Apply(this);
     }
@@ -74,7 +74,7 @@
     {
       foreach (var activatedAbility in _abilities)
       {
-        activatedAbility.IsEnabled = true;
+        activatedAbility.Enable();
       }
     }
 
@@ -82,7 +82,7 @@
     {
       foreach (var activatedAbility in _abilities)
       {
-        activatedAbility.IsEnabled = false;
+        activatedAbility.Disable();
       }
     }
 

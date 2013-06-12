@@ -3,7 +3,7 @@
   using System.Collections.Generic;
   using Gameplay.Abilities;
   using Gameplay.Counters;
-  using Gameplay.Damage;
+  using Gameplay.DamageHandling;
   using Gameplay.Effects;
   using Gameplay.Misc;
   using Gameplay.Modifiers;
@@ -22,13 +22,11 @@
           "{Trample}{EOL}If damage would be dealt to a creature you control other than Vigor, prevent that damage. Put a +1/+1 counter on that creature for each 1 damage prevented this way.{EOL}When Vigor is put into a graveyard from anywhere, shuffle it into its owner's library.")
         .Power(6)
         .Toughness(6)
-        .StaticAbilities(Static.Trample)
-        .ContinuousEffect(p =>
-          {
-            p.Modifier = () => new AddDamagePrevention(new ReplaceDamageWithCounters(() => new PowerToughness(1, 1)));
-            p.CardFilter = (card, effect) =>
-              card.Name != effect.Source.Name && card.Controller == effect.Source.Controller && card.Is().Creature;
-          })
+        .SimpleAbilities(Static.Trample)
+        .StaticAbility(p => p.Modifier(() => new AddDamagePrevention(modifier => new ReplaceDamageToPlayersCreaturesWithCounters(
+            player: modifier.SourceCard.Controller, 
+            counter: () => new PowerToughness(1, 1),
+            filter: card => card.Name != "Vigor"))))                
         .TriggeredAbility(p =>
           {
             p.Text = "When Vigor is put into a graveyard from anywhere, shuffle it into its owner's library.";

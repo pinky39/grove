@@ -7,37 +7,7 @@
   using Messages;
   using Zones;
 
-  //public class ModifyPowerToughnessEqualToControllersLife : Modifier, IReceive<PlayerLifeChanged>, IReceive<ControllerChanged>
-  //{
-  //  private readonly IModifyPowerToughnessSpecification _spec;
-
-  //  public ModifyPowerToughnessEqualToControllersLife(IModifyPowerToughnessSpecification how)
-  //  {
-  //    _spec = how;
-  //  }
-
-  //  protected override void Unapply()
-  //  {
-  //    throw new NotImplementedException();
-  //  }
-
-  //  public void Receive(PlayerLifeChanged message)
-  //  {
-  //    throw new NotImplementedException();
-  //  }
-
-  //  protected override void Initialize()
-  //  {
-  //    _spec.Initialize(Source.Controller.Life, Source.Controller.Life, ChangeTracker);
-  //  }
-
-  //  public void Receive(ControllerChanged message)
-  //  {
-  //    _spec.SetPower();
-  //  }
-  //}
-  
-  public class ModifyPowerToughnessForEachForest : Modifier, IReceive<ZoneChanged>, IReceive<ControllerChanged>
+  public class ModifyPowerToughnessForEachForest : Modifier, IReceive<ZoneChanged>, IReceive<ControllerChanged>, ICardModifier
   {
     private readonly int? _modifyPower;    
     private readonly int? _modifyToughness;
@@ -60,9 +30,9 @@
 
     public void Receive(ControllerChanged message)
     {
-      if (message.Card.Is("forest") || message.Card == Source)
+      if (message.Card.Is("forest") || message.Card == SourceCard)
       {
-        var forestCount = GetForestCount(Source.Controller);
+        var forestCount = GetForestCount(SourceCard.Controller);
 
         SetPowerIfModified(forestCount*_modifyPower);
         SetToughnessIfModified(forestCount*_modifyToughness);
@@ -143,7 +113,7 @@
       _toughnessModifier.Initialize(ChangeTracker);
       _powerModifier.Initialize(ChangeTracker);
       
-      var forestCount = GetForestCount(Source.Controller);
+      var forestCount = GetForestCount(SourceCard.Controller);
 
       if (_modifyToughness.HasValue)
         _toughnessModifier.Value = forestCount* _modifyToughness;
@@ -174,7 +144,7 @@
     private bool IsForestControlledBySpellOwner(Card permanent)
     {
       return permanent.Is("forest") &&
-        permanent.Controller == Source.Controller;
+        permanent.Controller == SourceCard.Controller;
     }
   }
 }

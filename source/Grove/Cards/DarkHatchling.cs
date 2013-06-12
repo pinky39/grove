@@ -27,7 +27,7 @@
             !card.HasColor(CardColor.Black) &&
               !card.HasProtectionFrom(CardColor.Black), minCount: 1))
         )
-        .StaticAbilities(Static.Flying)
+        .SimpleAbilities(Static.Flying)
         .TriggeredAbility(p =>
           {
             p.Text =

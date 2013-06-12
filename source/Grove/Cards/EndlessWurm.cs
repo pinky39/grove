@@ -20,7 +20,7 @@
         .FlavorText("Ages ago, a party of elves took cover to let one pass. They're still waiting.")
         .Power(9)
         .Toughness(9)
-        .StaticAbilities(Static.Trample)
+        .SimpleAbilities(Static.Trample)
         .TriggeredAbility(p =>
           {
             p.Text = "At the beginning of your upkeep, sacrifice Endless Wurm unless you sacrifice an enchantment.";

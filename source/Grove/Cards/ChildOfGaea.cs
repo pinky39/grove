@@ -22,7 +22,7 @@
           "{Trample}{EOL}At the beg. of your upkeep, pay {G}{G} or sacrifice Child of Gaea.{EOL}{1}{G}: Regenerate Child of Gaea.")
         .Power(7)
         .Toughness(7)
-        .StaticAbilities(Static.Trample)
+        .SimpleAbilities(Static.Trample)
         .ActivatedAbility(p =>
           {
             p.Text = "{1}{G}: Regenerate Child of Gaea.";

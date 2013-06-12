@@ -21,7 +21,7 @@
         .FlavorText("Death in form and function.")
         .Power(6)
         .Toughness(6)
-        .StaticAbilities(Static.Deathtouch)
+        .SimpleAbilities(Static.Deathtouch)
         .TriggeredAbility(p =>
           {
             p.Text =

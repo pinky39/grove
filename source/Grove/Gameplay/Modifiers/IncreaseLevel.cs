@@ -2,7 +2,7 @@
 {
   using Characteristics;
 
-  public class IncreaseLevel : Modifier
+  public class IncreaseLevel : Modifier, ICardModifier
   {
     private readonly IntegerIncrement _levelIntegerIncrement = new IntegerIncrement(1);
     private Level _level;

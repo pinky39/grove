@@ -28,7 +28,8 @@
           {
             p.Text = "At the beginning of your upkeep, you may put a verse counter on Serra's Liturgy.";
             p.Trigger(new OnStepStart(Step.Upkeep));
-            p.Effect = () => new ApplyModifiersToSelf(() => new AddCounters(() => new SimpleCounter(CounterType.Verse), 1));
+            p.Effect =
+              () => new ApplyModifiersToSelf(() => new AddCounters(() => new SimpleCounter(CounterType.Verse), 1));
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           })
         .ActivatedAbility(p =>

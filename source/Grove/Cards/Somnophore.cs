@@ -22,7 +22,7 @@
           "{Flying}{EOL}Whenever Somnophore deals damage to a player, tap target creature that player controls. That creature doesn't untap during its controller's untap step for as long as Somnophore remains on the battlefield.")
         .Power(2)
         .Toughness(2)
-        .StaticAbilities(Static.Flying)
+        .SimpleAbilities(Static.Flying)
         .TriggeredAbility(p =>
           {
             p.Text =
@@ -34,7 +34,7 @@
               new ApplyModifiersToTargets(() =>
                 {
                   var modifier = new AddStaticAbility(Static.DoesNotUntap);
-                  modifier.AddLifetime(new PermanentLeavesBattlefieldLifetime(l => l.Modifier.Source));
+                  modifier.AddLifetime(new PermanentLeavesBattlefieldLifetime(l => l.Modifier.SourceCard));
                   return modifier;
                 }));
 

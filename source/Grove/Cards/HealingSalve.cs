@@ -2,10 +2,8 @@
 {
   using System.Collections.Generic;
   using Artifical.TargetingRules;
-  using Gameplay.Damage;
   using Gameplay.Effects;
   using Gameplay.Misc;
-  using Gameplay.Modifiers;
 
   public class HealingSalve : CardsSource
   {
@@ -29,11 +27,9 @@
         .Cast(p =>
           {
             p.Text = "Prevent the next 3 damage that would be dealt to target creature or player this turn.";
-            p.Effect = () => new ApplyModifiersToTargets(
-              () => new AddDamagePrevention(new PreventDamage(3)) {UntilEot = true});
-
+            p.Effect = () => new Gameplay.Effects.PreventNextDamageToTargets(3);
             p.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
-            p.TargetingRule(new PreventDamageToTargets(3));
+            p.TargetingRule(new Artifical.TargetingRules.PreventNextDamageToTargets(3));
           });
     }
   }

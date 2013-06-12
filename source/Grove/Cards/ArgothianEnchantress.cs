@@ -18,7 +18,7 @@
           "{Shroud}(This permanent can't be the target of spells or abilities.){EOL}Whenever you cast an enchantment spell, draw a card.")
         .Power(0)
         .Toughness(1)
-        .StaticAbilities(Static.Shroud)
+        .SimpleAbilities(Static.Shroud)
         .TriggeredAbility(p =>
           {
             p.Text = "Whenever you cast an enchantment spell, draw a card.";

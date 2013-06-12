@@ -17,7 +17,7 @@
         .Power(5)
         .Toughness(5)
         .Protections("demon", "dragon")
-        .StaticAbilities(
+        .SimpleAbilities(
           Static.Flying,
           Static.FirstStrike,
           Static.Lifelink

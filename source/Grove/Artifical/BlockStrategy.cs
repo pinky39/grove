@@ -159,7 +159,7 @@
 
         var lifelossScore = ScoreCalculator.CalculateLifelossScore(
           defendersLife,
-          attacker.EvaluateDealtCombatDamage(allDamageSteps: true));
+          attacker.CalculateCombatDamageAmount(singleDamageStep: false));
 
         var trampleScore = ScoreCalculator.CalculateLifelossScore(
           defendersLife,

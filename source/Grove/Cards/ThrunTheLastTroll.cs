@@ -22,7 +22,7 @@
         .Power(4)
         .Toughness(4)
         .Cast(p => p.Effect = () => new PutIntoPlay {CanBeCountered = false})
-        .StaticAbilities(Static.Hexproof)
+        .SimpleAbilities(Static.Hexproof)
         .ActivatedAbility(p =>
           {
             p.Text = "{1}{G}: Regenerate Thrun.";

@@ -10,7 +10,8 @@
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
     {
       var candidates = p.Candidates<Card>()
-        .OrderByDescending(x => x.EvaluateDealtCombatDamage(allDamageSteps: true));
+        .Where(x => x.IsAttacker)
+        .OrderByDescending(CalculateAttackerScore);
 
       return Group(candidates, p.MinTargetCount(), p.MaxTargetCount());
     }

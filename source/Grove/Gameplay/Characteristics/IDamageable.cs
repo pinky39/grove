@@ -1,9 +1,9 @@
 ﻿namespace Grove.Gameplay.Characteristics
 {
-  using Damage;
+  using DamageHandling;
 
   public interface IDamageable
   {
-    void DealDamage(Damage damage);
+    void ReceiveDamage(Damage damage);
   }
 }

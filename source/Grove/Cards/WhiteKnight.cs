@@ -19,7 +19,7 @@
         .Power(2)
         .Toughness(2)
         .Protections(CardColor.Black)
-        .StaticAbilities(Static.FirstStrike);
+        .SimpleAbilities(Static.FirstStrike);
     }
   }
 }

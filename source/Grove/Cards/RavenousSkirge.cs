@@ -19,7 +19,7 @@
         .FlavorText("Hunger is a kind of madness—and here, all madness flourishes.")
         .Power(1)
         .Toughness(1)
-        .StaticAbilities(Static.Flying)
+        .SimpleAbilities(Static.Flying)
         .TriggeredAbility(p =>
           {
             p.Text = "Whenever Ravenous Skirge attacks, it gets +2/+0 until end of turn.";

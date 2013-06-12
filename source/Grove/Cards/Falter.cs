@@ -20,8 +20,8 @@
         .FlavorText("Like a sleeping dragon, Shiv stirs and groans at times.")
         .Cast(p =>
           {
-            p.Effect = () => new ApplyModifiersToPlayer(
-              selector: e => e.Controller.Opponent,
+            p.Effect = () => new ApplyModifiersToPlayer(              
+              selector: e => e.Controller,
               modifiers: () =>
                 {
                   var pr = new ContinuousEffectParameters

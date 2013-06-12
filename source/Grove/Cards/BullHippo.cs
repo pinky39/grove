@@ -16,7 +16,7 @@
         .FlavorText("How could you not hear it approach? It's a hippo!")
         .Power(3)
         .Toughness(3)
-        .StaticAbilities(Static.Islandwalk);
+        .SimpleAbilities(Static.Islandwalk);
     }
   }
 }

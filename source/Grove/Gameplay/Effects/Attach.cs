@@ -1,22 +1,18 @@
 ﻿namespace Grove.Gameplay.Effects
 {
   using System.Collections.Generic;
+  using System.Linq;
   using Modifiers;
-  using Targeting;
 
   public class Attach : Effect
   {
     private readonly List<ModifierFactory> _modifiers = new List<ModifierFactory>();
-    private readonly bool _modifiesAttachmentController;
 
     private Attach() {}
 
-    public Attach(params ModifierFactory[] modifiers) : this(false, modifiers) {}
-
-    public Attach(bool modifiesAttachmentController, params ModifierFactory[] modifiers)
+    public Attach(params ModifierFactory[] modifiers)
     {
       _modifiers.AddRange(modifiers);
-      _modifiesAttachmentController = modifiesAttachmentController;
     }
 
     public override int CalculateToughnessReduction(Card card)
@@ -30,28 +26,26 @@
 
     protected override void ResolveEffect()
     {
-      Target.Card().Attach(Source.OwningCard);
+      var attachTo = (Card) Target;
 
-      foreach (var modifierFactory in _modifiers)
+      attachTo.Attach(Source.OwningCard);
+
+      var p = new ModifierParameters
+        {
+          SourceEffect = this,
+          SourceCard = Source.OwningCard,
+          X = X
+        };
+
+      foreach (var modifier in _modifiers.Select(factory => factory()))
       {
-        var p = new ModifierParameters
-          {
-            SourceEffect = this,
-            SourceCard = Source.OwningCard,
-            Target = Target,
-            X = X
-          };
-
-        var modifier = modifierFactory();
-        modifier.Initialize(p, Game);
-
-        if (_modifiesAttachmentController)
+        if (modifier is ICardModifier)
         {
-          Controller.AddModifier(modifier);
+          attachTo.AddModifier((ICardModifier) modifier, p);
         }
-        else
+        else if (modifier is IGameModifier)
         {
-          Target.AddModifier(modifier);
+          Game.AddModifier((IGameModifier) modifier, p);
         }
       }
     }

@@ -20,7 +20,7 @@
         .FlavorText("'It has no face of its own—it wears that of its latest victim.'")
         .Power(2)
         .Toughness(2)
-        .StaticAbilities(Static.Flying)
+        .SimpleAbilities(Static.Flying)
         .TriggeredAbility(p =>
           {
             p.Text = "When Abyssal Horror enters the battlefield, target player discards two cards.";

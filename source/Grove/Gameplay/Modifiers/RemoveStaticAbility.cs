@@ -3,11 +3,11 @@
   using Abilities;
   using Infrastructure;
 
-  public class RemoveStaticAbility : Modifier
+  public class RemoveStaticAbility : Modifier, ICardModifier
   {
     private readonly Trackable<bool> _removed = new Trackable<bool>();
     private readonly Static _staticAbility;
-    private StaticAbilities _abilities;
+    private SimpleAbilities _abilities;
 
     private RemoveStaticAbility() {}
 
@@ -21,7 +21,7 @@
       _removed.Initialize(ChangeTracker);
     }
 
-    public override void Apply(StaticAbilities abilities)
+    public override void Apply(SimpleAbilities abilities)
     {
       _abilities = abilities;
       _removed.Value = _abilities.Remove(_staticAbility);

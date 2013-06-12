@@ -110,7 +110,7 @@
           if (_blockers.Count == 0)
             return 0;
 
-          var maxAttackerDamage = Attacker.EvaluateDealtCombatDamage(allDamageSteps: true);
+          var maxAttackerDamage = Attacker.CalculateCombatDamageAmount(singleDamageStep: false);
           var score = 0;
 
           foreach (var blocker in _blockers.Select(x => x.Card).OrderByDescending(x => x.Score))

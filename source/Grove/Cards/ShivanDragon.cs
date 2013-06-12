@@ -23,7 +23,7 @@
         .FlavorText("The undisputed master of the mountains of Shiv.")
         .Power(5)
         .Toughness(5)
-        .StaticAbilities(Static.Flying)
+        .SimpleAbilities(Static.Flying)
         .ActivatedAbility(p =>
           {
             p.Text = "{R}: Shivan Dragon gets +1/+0 until end of turn.";

@@ -8,26 +8,17 @@
     protected override void ResolveEffect()
     {
       var targetModifier = new ChangeController(Controller);
-      targetModifier.Initialize(new ModifierParameters
+      var p = new ModifierParameters
         {
           SourceEffect = this,
           SourceCard = Source.OwningCard,
-          Target = Target,
           X = X
-        }, Game);
+        };
 
-      Target.Card().AddModifier(targetModifier);
+      Target.Card().AddModifier(targetModifier, p);
 
       var sourceModifier = new ChangeController(Controller.Opponent);
-      sourceModifier.Initialize(new ModifierParameters
-        {
-          SourceEffect = this,
-          SourceCard = Source.OwningCard,
-          Target = Source.OwningCard,
-          X = X
-        }, Game);
-
-      Source.OwningCard.AddModifier(sourceModifier);
+      Source.OwningCard.AddModifier(sourceModifier, p);
     }
 
     protected override void OnEffectCountered(SpellCounterReason reason)

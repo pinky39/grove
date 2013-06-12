@@ -2,7 +2,7 @@
 {
   using Abilities;
 
-  public class AddContiniousEffect : Modifier
+  public class AddContiniousEffect : Modifier, ICardModifier, IPlayerModifier
   {
     private readonly ContinuousEffect _continiousEffect;
     private ContiniousEffects _continiousEffects;
@@ -16,7 +16,7 @@
 
     protected override void Initialize()
     {
-      _continiousEffect.Initialize(Source, Game, Target);
+      _continiousEffect.Initialize(SourceCard, Game, SourceEffect);
     }
 
     public override void Apply(ContiniousEffects continiousEffects)

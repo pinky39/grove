@@ -11,7 +11,7 @@
 
     protected override void ResolveEffect()
     {
-      Source.OwningCard.CanRegenerate = true;
+      Source.OwningCard.HasRegenerationShield = true;
     }
   }
 }

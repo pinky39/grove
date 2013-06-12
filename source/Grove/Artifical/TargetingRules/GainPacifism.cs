@@ -14,7 +14,7 @@
         .Select(x => new
           {
             Card = x,
-            Score = CalculateAttackingPotencialScore(x)
+            Score = CalculateWannaBeAttackerScore(x)
           })
         .OrderByDescending(x => x.Score)
         .Select(x => x.Card)

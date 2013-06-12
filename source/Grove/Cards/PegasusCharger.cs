@@ -17,7 +17,7 @@
           "The clouds came alive and dove to the earth Hooves flashed among the dark army, who fled before the spectacle of fury.")
         .Power(2)
         .Toughness(1)
-        .StaticAbilities(
+        .SimpleAbilities(
           Static.Flying,
           Static.FirstStrike
         );

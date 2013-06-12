@@ -1,11 +1,12 @@
-﻿namespace Grove.Gameplay.Damage
+﻿namespace Grove.Gameplay.DamageHandling
 {
   using System.Linq;
   using Infrastructure;
   using Modifiers;
+  using Targeting;
 
   [Copyable]
-  public class DamageRedirections : IModifiable, IHashable
+  public class DamageRedirections : IAcceptsGameModifier, IHashable
   {
     private readonly TrackableList<DamageRedirection> _redirections = new TrackableList<DamageRedirection>();
 
@@ -14,14 +15,14 @@
       return calc.Calculate(_redirections);
     }
 
-    public void Accept(IModifier modifier)
+    public void Accept(IGameModifier modifier)
     {
       modifier.Apply(this);
     }
 
-    public void Initialize(ChangeTracker changeTracker, IHashDependancy hashDependancy = null)
+    public void Initialize(ChangeTracker changeTracker)
     {
-      _redirections.Initialize(changeTracker, hashDependancy);
+      _redirections.Initialize(changeTracker);
     }
 
     public void Add(DamageRedirection prevention)
@@ -29,11 +30,11 @@
       _redirections.Add(prevention);
     }
 
-    public bool RedirectDamage(Damage damage)
+    public bool RedirectDamage(Damage damage, ITarget target)
     {
-      foreach (var preventionEffect in _redirections.ToList())
+      foreach (var redirection in _redirections.ToList())
       {
-        if (preventionEffect.RedirectDamage(damage))
+        if (redirection.RedirectDamage(damage, target))
         {
           return true;
         }

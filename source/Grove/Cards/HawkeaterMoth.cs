@@ -16,7 +16,7 @@
         .FlavorText("Each day at dusk the birds above the canopy grow silent.")
         .Power(1)
         .Toughness(2)
-        .StaticAbilities(
+        .SimpleAbilities(
           Static.Flying,
           Static.Shroud
         );

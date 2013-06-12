@@ -254,7 +254,7 @@ o Scald
 o Scoria Wurm
 o Scrap
 o Seasoned Marshal
-Serra Avatar
+o Serra Avatar
 o Serra Zealot
 o Serra's Embrace
 Serra's Hymn

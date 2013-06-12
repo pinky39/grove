@@ -1,7 +1,7 @@
 ﻿namespace Grove.Gameplay.Effects
 {
   using System;
-  using Damage;
+  using DamageHandling;
 
   public class DealDamageToCreaturesAndPlayers : Effect
   {
@@ -57,14 +57,8 @@
       {
         if (ShouldDealToPlayer(player))
         {
-          var damage = new Damage(
-            source: Source.OwningCard,
-            amount: _amountPlayer(this, player),
-            isCombat: false,
-            changeTracker: Game.ChangeTracker
-            );
-
-          player.DealDamage(damage);
+          var amount = _amountPlayer(this, player);
+          Source.OwningCard.DealDamageTo(amount, player, isCombat: false);                    
         }
       }
 
@@ -74,14 +68,8 @@
         {
           if (ShouldDealToCreature(creature))
           {
-            var damage = new Damage(
-              source: Source.OwningCard,
-              amount: _amountCreature(this, creature),
-              isCombat: false,
-              changeTracker: Game.ChangeTracker
-              );
-
-            creature.DealDamage(damage);
+            var amount = _amountCreature(this, creature);
+            Source.OwningCard.DealDamageTo(amount, creature, isCombat: false);
           }
         }
       }

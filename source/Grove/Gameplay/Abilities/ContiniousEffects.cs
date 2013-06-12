@@ -1,25 +1,32 @@
 ﻿namespace Grove.Gameplay.Abilities
 {
   using Infrastructure;
+  using Misc;
   using Modifiers;
 
-  [Copyable]
-  public class ContiniousEffects : IModifiable
+  public class ContiniousEffects : GameObject, IAcceptsCardModifier, IAcceptsPlayerModifier
   {
     private readonly TrackableList<ContinuousEffect> _continiousEffects = new TrackableList<ContinuousEffect>();
 
-    public void Accept(IModifier modifier)
+    public void Accept(ICardModifier modifier)
     {
       modifier.Apply(this);
     }
 
-    public void Initialize(Card owner, Game game, IHashDependancy hashDependancy)
+    public void Accept(IPlayerModifier modifier)
     {
-      _continiousEffects.Initialize(game.ChangeTracker, hashDependancy);
+      modifier.Apply(this);
+    }
+
+    public void Initialize(Card source, Game game)
+    {
+      Game = game;
+
+      _continiousEffects.Initialize(ChangeTracker);
 
       foreach (var continiousEffect in _continiousEffects)
       {
-        continiousEffect.Initialize(owner, game);
+        continiousEffect.Initialize(source, Game);
       }
     }
 

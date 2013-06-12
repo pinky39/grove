@@ -49,9 +49,7 @@
         };
 
       var addCounters = new AddCounters(() => new SimpleCounter(_counterType), lifeToPay);
-      addCounters.Initialize(p, Game);
-
-      Source.OwningCard.AddModifier(addCounters);
+      Source.OwningCard.AddModifier(addCounters, p);
     }
 
     public override string GetText()

@@ -6,7 +6,7 @@
   using Modifiers;
   using Zones;
 
-  public class ControllerCharacteristic : Characteristic<Player>, IModifiable
+  public class ControllerCharacteristic : Characteristic<Player>, IAcceptsCardModifier
   {
     private Card _card;
 
@@ -14,7 +14,7 @@
 
     public ControllerCharacteristic(Player controller) : base(controller) {}
 
-    public void Accept(IModifier modifier)
+    public void Accept(ICardModifier modifier)
     {
       var before = Value;
 

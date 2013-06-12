@@ -3,9 +3,9 @@
   using Abilities;
   using Characteristics;
   using Costs;
-  using Targeting;
+  using Infrastructure;
 
-  public class ChangeBasicLand : Modifier
+  public class ChangeBasicLand : Modifier, ICardModifier
   {
     private readonly string _changeTo;
     private ActivatedAbilities _abilities;
@@ -40,7 +40,7 @@
 
       ap.ManaAmount(basicLandMana);
       _addedAbility = new ManaAbility(ap);
-      _addedAbility.Initialize(Target.Card(), Game);
+      _addedAbility.Initialize(OwningCard, Game);
       _abilities.Add(_addedAbility);
     }
 
