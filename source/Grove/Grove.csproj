@@ -487,8 +487,10 @@
     <Compile Include="Cards\Umbilicus.cs" />
     <Compile Include="Cards\Undermine.cs" />
     <Compile Include="Cards\Uncastable.cs" />
+    <Compile Include="Cards\Unnerve.cs" />
     <Compile Include="Cards\UnworthyDead.cs" />
     <Compile Include="Cards\UrzasArmor.cs" />
+    <Compile Include="Cards\VampiricEmbrace.cs" />
     <Compile Include="Cards\Victimize.cs" />
     <Compile Include="Cards\VoiceOfGrace.cs" />
     <Compile Include="Cards\VolcanicHammer.cs" />
@@ -672,6 +674,7 @@
     <Compile Include="Gameplay\PlayerParameters.cs" />
     <Compile Include="Gameplay\Tournaments\TournamentParameters.cs" />
     <Compile Include="Gameplay\Tournaments\TournamentRunner.cs" />
+    <Compile Include="Gameplay\Triggers\OnCreatureDamagedByOwnerWasPutToGraveyard.cs" />
     <Compile Include="Infrastructure\CastEx.cs" />
     <Compile Include="Persistance\DecisionLog.cs" />
     <Compile Include="Gameplay\Effects\IEffectChoice.cs" />

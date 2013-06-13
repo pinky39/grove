@@ -24,7 +24,7 @@
       _hasRank = hasRank;
       _calculateRank = calculateRank;
     }
-
+    
     public ChosenCards ChooseResult(List<Card> candidates)
     {
       var opponents = candidates

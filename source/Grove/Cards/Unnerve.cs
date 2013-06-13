@@ -6,19 +6,19 @@
   using Gameplay.Effects;
   using Gameplay.Misc;
 
-  public class Stupor : CardsSource
+  public class Unnerve : CardsSource
   {
     public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
-        .Named("Stupor")
-        .ManaCost("{2}{B}")
+        .Named("Unnerve")
+        .ManaCost("{3}{B}")
         .Type("Sorcery")
-        .Text("Target opponent discards a card at random, then discards a card.")
-        .FlavorText("There are medicines for all afflictions but idleness.")
+        .Text("Each opponent discards two cards.")
+        .FlavorText("If fear is the only tool you have left, then you'll never control me.")
         .Cast(p =>
           {
-            p.Effect = () => new OpponentDiscardsCards(randomCount: 1, selectedCount: 1);
+            p.Effect = () => new OpponentDiscardsCards(selectedCount: 2);
             p.TimingRule(new FirstMain());
           });
     }

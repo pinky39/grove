@@ -309,10 +309,10 @@ o Treefolk Seedlings
 o Treetop Rangers
 o Turnabout
 o Umbilicus
-Unnerve
-Unworthy Dead
-Urza's Armor
-Vampiric Embrace
+o Unnerve
+o Unworthy Dead
+o Urza's Armor
+o Vampiric Embrace
 Vebulid
 Veil of Birds
 Veiled Apparition
