@@ -143,17 +143,31 @@
 
       private void AssignFirstBlocker(Card attacker, Card blocker, int defendersLife)
       {
-        _isFirstBlockerKilled =
-          QuickCombat.CanBlockerBeDealtLeathalCombatDamage(blocker, attacker);
+        var blockerAbilities = blocker.GetCombatAbilities();
+        var attackerAbilities = attacker.GetCombatAbilities();
 
-        var blockerScore = _isFirstBlockerKilled
+        _isFirstBlockerKilled = QuickCombat.CanBlockerBeDealtLeathalCombatDamage(new BlockerEvaluationParameters
+          {
+            Attacker = attacker,
+            Blocker = blocker,
+            BlockerPowerIncrease = blockerAbilities.PowerIncrease,
+            BlockerToughnessIncrease = blockerAbilities.ToughnessIncrease,
+            AttackerPowerIncrease = attackerAbilities.PowerIncrease,
+            AttackerToughnessIncrease = attackerAbilities.ToughnessIncrease
+          });
+
+        var blockerScore = _isFirstBlockerKilled && !blockerAbilities.CanRegenerate
           ? blocker.Score
           : 0;
 
-        _isAttackerKilled =
-          QuickCombat.CanAttackerBeDealtLeathalDamage(attacker, blocker.ToEnumerable());
 
-        var attackerScore = IsAttackerKilled
+        var attackerEvaluationParameters = new AttackerEvaluationParameters(attacker, blocker,
+          attackerAbilities.PowerIncrease, attackerAbilities.ToughnessIncrease,
+          blockerAbilities.PowerIncrease, blockerAbilities.ToughnessIncrease);
+
+        _isAttackerKilled = QuickCombat.CanAttackerBeDealtLeathalDamage(attackerEvaluationParameters);
+
+        var attackerScore = IsAttackerKilled && !attackerAbilities.CanRegenerate
           ? attacker.Score
           : 0;
 
@@ -162,8 +176,7 @@
           attacker.CalculateCombatDamageAmount(singleDamageStep: false));
 
         var trampleScore = ScoreCalculator.CalculateLifelossScore(
-          defendersLife,
-          QuickCombat.CalculateTrampleDamage(Attacker, blocker));
+          defendersLife, QuickCombat.CalculateTrampleDamage(Attacker, blocker));
 
         var scoreDefenderLoosesWhenBlocking = blockerScore - attackerScore + trampleScore;
         var scoreDefenderLoosesWhenNotBlocking = lifelossScore;
@@ -190,7 +203,7 @@
 
       private bool IsSafeBlock(Card additionalBlocker)
       {
-        return !QuickCombat.CanBlockerBeDealtLeathalCombatDamage(additionalBlocker, Attacker);
+        return !QuickCombat.CanBlockerBeDealtLeathalCombatDamage(Attacker, additionalBlocker);
       }
     }
   }

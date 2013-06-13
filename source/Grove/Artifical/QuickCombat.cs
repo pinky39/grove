@@ -8,17 +8,23 @@
 
   public class QuickCombat
   {
-    private static bool CanAttackerBeDealtLeathalDamage(Card attacker, IEnumerable<Card> blockers, int powerIncrease,
-      int toughnessIncrease)
+    public static bool CanAttackerBeDealtLeathalDamage(AttackerEvaluationParameters p)
     {
-      var attackerEvaluation = new AttackerEvaluation(attacker, blockers, powerIncrease, toughnessIncrease);
+      var attackerEvaluation = new AttackerEvaluation(p);
       var results = attackerEvaluation.Evaluate();
       return results.ReceivesLeathalDamage;
     }
 
+    public static bool CanAttackerBeDealtLeathalDamage(Card attacker, IEnumerable<Card> blockers)
+    {
+      return CanAttackerBeDealtLeathalDamage(new AttackerEvaluationParameters(attacker, blockers));
+    }
+
     public static Card GetBlockerThatDealsLeathalDamageToAttacker(Card attacker, IEnumerable<Card> blockers)
     {
-      var performance = new AttackerEvaluation(attacker, blockers);
+      var p = new AttackerEvaluationParameters(attacker, blockers);
+
+      var performance = new AttackerEvaluation(p);
       var results = performance.Evaluate();
 
       return results.LeathalBlocker;
@@ -35,7 +41,7 @@
 
     public static int GetAmountOfDamageThatNeedsToBePreventedToSafeBlockerFromDying(Card blocker, Card attacker)
     {
-      var evaluation = new BlockerEvaluation(blocker, attacker);
+      var evaluation = new BlockerEvaluation(new BlockerEvaluationParameters {Blocker = blocker, Attacker = attacker});
       var results = evaluation.Evaluate();
 
       if (results.ReceivesLeathalDamage)
@@ -48,34 +54,19 @@
       IEnumerable<Card> blockers)
     {
       var leathalAmount = 0;
-      var evaluation = new AttackerEvaluation(attacker, blockers);
+      var p = new AttackerEvaluationParameters(attacker, blockers);
+      var evaluation = new AttackerEvaluation(p);
       evaluation.BlockerHasDealtLeathalDamage = ((_, amount) => leathalAmount += amount);
       var results = evaluation.Evaluate();
       var prevented = results.DamageDealt - attacker.Life;
       return Math.Max(leathalAmount, prevented);
     }
 
-    public static Card GetAttackerThatDealsLeathalDamageToBlocker(Card blocker, Card attacker)
+    public static int GetAmountOfDamageThatWillBeDealtToAttacker(AttackerEvaluationParameters p)
     {
-      if (CanBlockerBeDealtLeathalCombatDamage(blocker, attacker))
-      {
-        return attacker;
-      }
-      return blocker;
-    }
-
-    public static bool CanAttackerBeDealtLeathalDamage(Card attacker, IEnumerable<Card> blockers)
-    {
-      var results = new AttackerEvaluation(attacker, blockers)
-        .Evaluate();
-
-      return results.ReceivesLeathalDamage;
-    }
-
-    public static int GetAmountOfDamageThatWillBeDealtToAttacker(Card attacker, IEnumerable<Card> blockers)
-    {
-      var performance = new AttackerEvaluation(attacker, blockers);
-      return performance.Evaluate().DamageDealt;
+      var attackerEvaluation = new AttackerEvaluation(p);
+      var results = attackerEvaluation.Evaluate();
+      return results.DamageDealt;
     }
 
     public static int CalculateTrampleDamage(Card attacker, IEnumerable<Card> blockers)
@@ -116,13 +107,17 @@
       if (toughnessIncrease < 1)
         return 0;
 
-      var canBeDealtLeathalDamageWithoutBoost = CanAttackerBeDealtLeathalDamage(attacker, blockers);
+      var p = new AttackerEvaluationParameters(attacker, blockers);
+
+      var canBeDealtLeathalDamageWithoutBoost = CanAttackerBeDealtLeathalDamage(p);
 
       if (canBeDealtLeathalDamageWithoutBoost == false)
         return 0;
 
-      var canBeDealtLeathalDamageWithBoost = CanAttackerBeDealtLeathalDamage(attacker, blockers, powerIncrease,
-        toughnessIncrease);
+      p.AttackerPowerIncrease = powerIncrease;
+      p.AttackerToughnessIncrease = toughnessIncrease;
+
+      var canBeDealtLeathalDamageWithBoost = CanAttackerBeDealtLeathalDamage(p);
 
       return canBeDealtLeathalDamageWithBoost ? 0 : attacker.Score;
     }
@@ -133,13 +128,21 @@
       if (attacker == null)
         return 0;
 
-      var canBeDealtLeathalDamageWithoutBoost = CanBlockerBeDealtLeathalCombatDamage(blocker, attacker);
+      var p = new BlockerEvaluationParameters
+        {
+          Attacker = attacker,
+          Blocker = blocker,
+        };
+
+      var canBeDealtLeathalDamageWithoutBoost = CanBlockerBeDealtLeathalCombatDamage(p);
 
       if (canBeDealtLeathalDamageWithoutBoost == false)
         return 0;
 
-      var canBeDealtLeathalDamageWithBoost = CanBlockerBeDealtLeathalCombatDamage(blocker, attacker, powerIncrease,
-        toughnessIncrease);
+      p.BlockerPowerIncrease += powerIncrease;
+      p.BlockerToughnessIncrease += toughnessIncrease;
+
+      var canBeDealtLeathalDamageWithBoost = CanBlockerBeDealtLeathalCombatDamage(p);
       return canBeDealtLeathalDamageWithBoost == false ? blocker.Score : 1;
     }
 
@@ -148,33 +151,23 @@
       return CalculateTrampleDamage(attacker, blocker.ToEnumerable());
     }
 
-    public static bool CanBlockerBeDealtLeathalCombatDamage(Card blocker, Card attacker)
+    public static bool CanBlockerBeDealtLeathalCombatDamage(Card attacker, Card blocker)
     {
-      var blockerEvaluation = new BlockerEvaluation(blocker, attacker);
+      return
+        CanBlockerBeDealtLeathalCombatDamage(new BlockerEvaluationParameters {Attacker = attacker, Blocker = blocker});
+    }
+
+    public static bool CanBlockerBeDealtLeathalCombatDamage(BlockerEvaluationParameters p)
+    {
+      var blockerEvaluation = new BlockerEvaluation(p);
       var results = blockerEvaluation.Evaluate();
 
       return results.ReceivesLeathalDamage;
     }
 
-    private static bool CanBlockerBeDealtLeathalCombatDamage(Card blocker, Card attacker, int powerIncrease,
-      int toughnessIncrease)
-    {
-      var evaluation = new BlockerEvaluation(blocker, attacker, powerIncrease, toughnessIncrease);
-      return evaluation.Evaluate().ReceivesLeathalDamage;
-    }
-
     public static bool CanAttackerKillAnyBlocker(Card attacker, IEnumerable<Card> blockers)
     {
-      foreach (var blocker in blockers)
-      {
-        var eval = new BlockerEvaluation(blocker, attacker)
-          .Evaluate();
-
-        if (eval.ReceivesLeathalDamage)
-          return true;
-      }
-
-      return false;
+      return blockers.Any(blocker => CanBlockerBeDealtLeathalCombatDamage(attacker, blocker));
     }
   }
 }

@@ -2,7 +2,6 @@
 {
   using System.Linq;
   using Artifical;
-  using DamageHandling;
   using Infrastructure;
   using Messages;
   using Misc;
@@ -71,7 +70,7 @@
     {
       foreach (var damage in _assignedDamage)
       {
-        damage.Source.DealDamageTo(damage.Amount, Card, isCombat: true);                
+        damage.Source.DealDamageTo(damage.Amount, Card, isCombat: true);
       }
 
       ClearAssignedDamage();
@@ -110,7 +109,7 @@
       if (Attacker == null)
         return false;
 
-      return QuickCombat.CanBlockerBeDealtLeathalCombatDamage(Card, Attacker.Card);
+      return QuickCombat.CanBlockerBeDealtLeathalCombatDamage(Attacker, Card);
     }
 
     public bool CanKillAttacker()

@@ -112,6 +112,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Artifical\AttackerEvaluationParameters.cs" />
+    <Compile Include="Artifical\BlockerEvaluationParameters.cs" />
     <Compile Include="Artifical\CombatRules\CombatAbilities.cs" />
     <Compile Include="Artifical\CombatRules\CombatRule.cs" />
     <Compile Include="Artifical\CombatRules\CombatRules.cs" />
@@ -478,9 +480,11 @@
     <Compile Include="Cards\ThrunTheLastTroll.cs" />
     <Compile Include="Cards\TimeWarp.cs" />
     <Compile Include="Cards\TreefolkSeedlings.cs" />
+    <Compile Include="Cards\TreetopRangers.cs" />
     <Compile Include="Cards\TripNoose.cs" />
     <Compile Include="Cards\TrollAscetic.cs" />
     <Compile Include="Cards\Turnabout.cs" />
+    <Compile Include="Cards\Umbilicus.cs" />
     <Compile Include="Cards\Undermine.cs" />
     <Compile Include="Cards\Uncastable.cs" />
     <Compile Include="Cards\UnworthyDead.cs" />
@@ -643,6 +647,7 @@
     <Compile Include="Gameplay\Effects\ApplyModifiersToGame.cs" />
     <Compile Include="Gameplay\Effects\DiscardAndDrawANewHand.cs" />
     <Compile Include="Gameplay\Effects\EachPlayerShufflesHandAndGraveyardIntoLibraryAndDrawsCards.cs" />
+    <Compile Include="Gameplay\Effects\ActivePlayerPaysLifeOrReturnSelectedPermanentToHand.cs" />
     <Compile Include="Gameplay\Effects\PreventCombatDamage.cs" />
     <Compile Include="Gameplay\Effects\PreventDamageFromSource.cs" />
     <Compile Include="Gameplay\Effects\PreventAllDamageToTargets.cs" />

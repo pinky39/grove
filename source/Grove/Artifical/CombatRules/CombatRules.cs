@@ -20,6 +20,11 @@
       return abilities;
     }
 
+    public void Add(CombatRule rule)
+    {
+      _combatRules.Add(rule);
+    }
+
     public void Initialize(Card owningCard, Game game)
     {
       _combatRules.Initialize(game.ChangeTracker);

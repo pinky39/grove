@@ -25,8 +25,8 @@
         .FlavorText("The forest rose to the battle, not to save the people but to save itself.")
         .Cast(p =>
           {
-            p.Effect = () => new Attach(() =>
-              {
+            p.Effect = () => new Attach(
+              () => {
                 var ap = new ActivatedAbilityParameters
                   {
                     Text = "{G}: Regenerate enchanted creature.",

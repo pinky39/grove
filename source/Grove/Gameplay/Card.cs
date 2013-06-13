@@ -507,6 +507,9 @@
       if (Has().Flying && !card.Has().Flying && !card.Has().Reach)
         return false;
 
+      if (Has().CanOnlyBeBlockedByCreaturesWithFlying && !card.Has().Flying)
+        return false;
+
       if (Has().Fear && !card.HasColor(CardColor.Black) && !card.Is().Artifact)
         return false;
 
@@ -882,5 +885,7 @@
 
       return total;
     }
+
+    
   }
 }

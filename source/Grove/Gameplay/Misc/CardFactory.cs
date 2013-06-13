@@ -4,6 +4,8 @@
   using System.Collections.Generic;
   using Abilities;
   using Artifical;
+  using Artifical.CombatRules;
+  using Artifical.RepetitionRules;
   using Artifical.TimingRules;
   using CastingRules;
   using Characteristics;
@@ -104,6 +106,13 @@
       return this;
     }
 
+    public CardFactory CombatRule(Func<CombatRule> combatRule)
+    {
+      _init.Add(cp => cp.CombatRules.Add(combatRule()));
+
+      return this;
+    }
+
     private static IEnumerable<CardColor> GetCardColorsFromManaCost(IManaAmount manaCost)
     {
       if (manaCost == null)
@@ -190,6 +199,41 @@
         });
 
       return this;
+    }
+
+    public CardFactory Regenerate(IManaAmount cost, string text)
+    {
+      return ActivatedAbility(p =>
+        {
+          p.Text = text;
+          p.Cost = new PayMana(cost, ManaUsage.Abilities);
+          p.Effect = () => new Effects.Regenerate();
+
+          p.TimingRule(new Artifical.TimingRules.Regenerate());
+        })
+        .CombatRule(() => new Artifical.CombatRules.Regenerate(cost));
+    }
+
+    public CardFactory Pump(IManaAmount cost, string text, int powerIncrease, int toughnessIncrease)
+    {
+       return ActivatedAbility(p =>
+          {
+            p.Text = text;
+            p.Cost = new PayMana(cost, ManaUsage.Abilities, supportsRepetitions: true);
+            p.Effect = () =>
+              {
+                var effect = new ApplyModifiersToSelf(() => new AddPowerAndToughness(
+                  powerIncrease, toughnessIncrease) {UntilEot = true});
+                
+                if (toughnessIncrease > 0)
+                  effect.Category = EffectCategories.ToughnessIncrease;
+
+                return effect;
+              };
+            p.TimingRule(new IncreaseOwnersPowerOrToughness(powerIncrease, toughnessIncrease));
+            p.RepetitionRule(new MaxRepetitions());
+          })
+        .CombatRule(() => new IncreasePowerAndToughness(powerIncrease, toughnessIncrease, cost));
     }
 
     public CardFactory ActivatedAbility(Action<ActivatedAbilityParameters> set)

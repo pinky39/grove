@@ -115,7 +115,7 @@
 
           foreach (var blocker in _blockers.Select(x => x.Card).OrderByDescending(x => x.Score))
           {
-            if (QuickCombat.CanBlockerBeDealtLeathalCombatDamage(blocker, Attacker))
+            if (QuickCombat.CanBlockerBeDealtLeathalCombatDamage(Attacker, blocker))
             {
               maxAttackerDamage -= Attacker.Has().Deathtouch ? 1 : blocker.Life;
               score += blocker.Score;

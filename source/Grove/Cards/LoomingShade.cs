@@ -1,15 +1,8 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Artifical;
-  using Artifical.RepetitionRules;
-  using Artifical.TimingRules;
   using Gameplay;
-  using Gameplay.Costs;
-  using Gameplay.Effects;
-  using Gameplay.ManaHandling;
   using Gameplay.Misc;
-  using Gameplay.Modifiers;
 
   public class LoomingShade : CardsSource
   {
@@ -24,15 +17,11 @@
           "The shade tracks victims by reverberations of the pipes, as a spider senses prey tangled in its trembling web.")
         .Power(1)
         .Toughness(1)
-        .ActivatedAbility(p =>
-          {
-            p.Text = "{B}: Looming Shade gets +1/+1 until end of turn.";
-            p.Cost = new PayMana(Mana.Black, ManaUsage.Abilities, supportsRepetitions: true);
-            p.Effect = () => new ApplyModifiersToSelf(() => new AddPowerAndToughness(1, 1) {UntilEot = true})
-              {Category = EffectCategories.ToughnessIncrease};
-            p.TimingRule(new IncreaseOwnersPowerOrToughness(1, 1));
-            p.RepetitionRule(new MaxRepetitions());
-          });
+        .Pump(
+          cost: Mana.Black, 
+          text: "{B}: Looming Shade gets +1/+1 until end of turn.", 
+          powerIncrease: 1,
+          toughnessIncrease: 1);
     }
   }
 }

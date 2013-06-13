@@ -1,67 +1,70 @@
 ﻿namespace Grove.Artifical
 {
-  using Gameplay;
-
   public class BlockerEvaluation
   {
-    private readonly Card _attacker;
-    private readonly Card _blocker;
-    private readonly int _powerIncrease;
-    private readonly int _toughnessIncrease;
+    private readonly BlockerEvaluationParameters _p;
 
-    public BlockerEvaluation(Card blocker, Card attacker, int powerIncrease = 0, int toughnessIncrease = 0)
+    public BlockerEvaluation(BlockerEvaluationParameters p)
     {
-      _blocker = blocker;
-      _attacker = attacker;
-      _powerIncrease = powerIncrease;
-      _toughnessIncrease = toughnessIncrease;
+      _p = p;
     }
 
     private int GetBlockerLifepoints()
     {
-      return _blocker.Life + _toughnessIncrease;
+      return _p.Blocker.Life + _p.BlockerToughnessIncrease;
     }
 
-    public CalculationResults Evaluate()
+    private int GetAttackerLifepoints()
     {
-      var results = new CalculationResults();
+      return _p.Attacker.Life + _p.AttackerToughnessIncrease;
+    }
 
-      if (_attacker == null)
+    public Results Evaluate()
+    {
+      var results = new Results
+        {
+          DamageDealt = 0,
+          ReceivesLeathalDamage = false
+        };
+
+      if (_p.Attacker == null)
       {
         return results;
       }
 
-      if (_blocker.Is().Creature == false)
+      if (_p.Blocker.Is().Creature == false)
         return results;
 
-      if (_blocker.CanBeDestroyed == false)
+      if (_p.Blocker.CanBeDestroyed == false)
         return results;
 
-      if (_blocker.HasFirstStrike && !_attacker.HasFirstStrike && !_attacker.Has().Indestructible)
+
+      if (_p.Blocker.HasFirstStrike && !_p.Attacker.HasFirstStrike && !_p.Attacker.Has().Indestructible)
       {
         var blockerDealtAmount = QuickCombat.GetAmountOfDamageCreature1WillDealToCreature2(
-          creature1: _blocker,
-          creature2: _attacker,
-          powerIncrease: _powerIncrease);
+          creature1: _p.Blocker,
+          creature2: _p.Attacker,
+          powerIncrease: _p.BlockerPowerIncrease);
 
-        if (blockerDealtAmount > 0 && _blocker.Has().Deathtouch)
+        if (blockerDealtAmount > 0 && _p.Blocker.Has().Deathtouch)
         {
           return results;
         }
 
-        if (blockerDealtAmount >= _attacker.Life)
+        if (blockerDealtAmount >= GetAttackerLifepoints())
           return results;
       }
 
       var attackerDealtAmount = QuickCombat.GetAmountOfDamageCreature1WillDealToCreature2(
-        creature1: _attacker,
-        creature2: _blocker);
-
+        creature1: _p.Attacker,
+        creature2: _p.Blocker,
+        powerIncrease: _p.AttackerPowerIncrease);
 
       if (attackerDealtAmount == 0)
         return results;
 
-      if (_attacker.Has().Deathtouch)
+
+      if (_p.Attacker.Has().Deathtouch)
       {
         results.ReceivesLeathalDamage = true;
       }
@@ -72,10 +75,10 @@
       return results;
     }
 
-    public class CalculationResults
+    public class Results
     {
-      public int DamageDealt { get; set; }
-      public bool ReceivesLeathalDamage { get; set; }
+      public int DamageDealt;
+      public bool ReceivesLeathalDamage;
     }
   }
 }

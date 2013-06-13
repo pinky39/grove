@@ -3,9 +3,7 @@
   using System.Collections.Generic;
   using Gameplay;
   using Gameplay.Abilities;
-  using Gameplay.Costs;
   using Gameplay.Effects;
-  using Gameplay.ManaHandling;
   using Gameplay.Misc;
   using Gameplay.States;
   using Gameplay.Triggers;
@@ -23,18 +21,12 @@
         .Power(7)
         .Toughness(7)
         .SimpleAbilities(Static.Trample)
-        .ActivatedAbility(p =>
-          {
-            p.Text = "{1}{G}: Regenerate Child of Gaea.";
-            p.Cost = new PayMana("{1}{G}".Parse(), ManaUsage.Abilities);
-            p.Effect = () => new Regenerate();
-            p.TimingRule(new Artifical.TimingRules.Regenerate());
-          })
+        .Regenerate(cost: "{1}{G}".Parse(), text: "{1}{G}: Regenerate Child of Gaea.")
         .TriggeredAbility(p =>
           {
             p.Text = "At the beg. of your upkeep, pay {G}{G} or sacrifice Child of Gaea.";
             p.Trigger(new OnStepStart(Step.Upkeep));
-            p.Effect = () => new PayManaOrSacrifice("{G}{G}".Parse(), "Pay upkeep?");
+            p.Effect = () => new PayManaOrSacrifice("{G}{G}".Parse(), "Pay upkeep? (or sacrifice Child of Gaea)");
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });
     }

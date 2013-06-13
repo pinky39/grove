@@ -3,9 +3,7 @@
   using System.Collections.Generic;
   using Gameplay;
   using Gameplay.Abilities;
-  using Gameplay.Costs;
   using Gameplay.Effects;
-  using Gameplay.ManaHandling;
   using Gameplay.Misc;
 
   public class ThrunTheLastTroll : CardsSource
@@ -23,13 +21,7 @@
         .Toughness(4)
         .Cast(p => p.Effect = () => new PutIntoPlay {CanBeCountered = false})
         .SimpleAbilities(Static.Hexproof)
-        .ActivatedAbility(p =>
-          {
-            p.Text = "{1}{G}: Regenerate Thrun.";
-            p.Cost = new PayMana("{1}{G}".Parse(), ManaUsage.Abilities);
-            p.Effect = () => new Regenerate();
-            p.TimingRule(new Artifical.TimingRules.Regenerate());
-          });
+        .Regenerate(cost: "{1}{G}".Parse(), text: "{1}{G}: Regenerate Thrun.");
     }
   }
 }

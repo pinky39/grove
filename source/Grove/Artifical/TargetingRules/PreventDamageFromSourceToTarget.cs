@@ -63,14 +63,17 @@
       List<ITarget> sourcePicks)
     {
       var blockerAttackerPair = p.Candidates<Card>(selectorIndex: 1)
-        .Where(x => x.IsBlocker)
-        .Select(x => new
+        .Where(card => card.IsBlocker)
+        .Select(blocker =>
           {
-            Target = x,
-            Source =
-              QuickCombat.GetAttackerThatDealsLeathalDamageToBlocker(
-                blocker: x,
-                attacker: Combat.GetAttacker(x))
+            var attacker = Combat.GetAttacker(blocker);
+
+            return new
+              {
+                Target = blocker,
+                Source = QuickCombat.CanBlockerBeDealtLeathalCombatDamage(attacker, blocker)
+                  ? attacker : null
+              };
           })
         .Where(x => x.Source != null)
         .OrderByDescending(x => x.Target.Score)

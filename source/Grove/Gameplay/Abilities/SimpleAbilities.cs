@@ -1,5 +1,6 @@
 ﻿namespace Grove.Gameplay.Abilities
 {
+  using System;
   using System.Linq;
   using Infrastructure;
   using Modifiers;
@@ -43,7 +44,8 @@
     public bool AssignsDamageAsThoughItWasntBlocked { get { return Has(Static.AssignsDamageAsThoughItWasntBlocked); } }
 
     public bool DoesNotUntap { get { return Has(Static.DoesNotUntap); } }
-    public bool AnyEvadingAbility { get { return Fear || Flying || Trample || Unblockable || AssignsDamageAsThoughItWasntBlocked; } }
+    public bool AnyEvadingAbility { get { return Fear || Flying || Trample || Unblockable || AssignsDamageAsThoughItWasntBlocked || CanOnlyBeBlockedByCreaturesWithFlying || Swampwalk || Mountainwalk || Islandwalk; } }
+    public bool CanOnlyBeBlockedByCreaturesWithFlying { get { return Has(Static.CanOnlyBeBlockedByCreaturesWithFlying); } }
 
     public void Initialize(INotifyChangeTracker changeTracker, IHashDependancy hashDependancy)
     {

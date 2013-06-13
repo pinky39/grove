@@ -174,6 +174,7 @@
     <Compile Include="Cards\LiltingRefrain.cs" />
     <Compile Include="Cards\LingeringMirage.cs" />
     <Compile Include="Cards\LivingDestiny.cs" />
+    <Compile Include="Cards\LoomingShade.cs" />
     <Compile Include="Cards\LotusBlossom.cs" />
     <Compile Include="Cards\Lull.cs" />
     <Compile Include="Cards\LurkingEvil.cs" />
@@ -270,8 +271,11 @@
     <Compile Include="Cards\TitaniasChosen.cs" />
     <Compile Include="Cards\TolarianWinds.cs" />
     <Compile Include="Cards\TreefolkSeedlings.cs" />
+    <Compile Include="Cards\TreetopRangers.cs" />
     <Compile Include="Cards\TripNoose.cs" />
     <Compile Include="Cards\Turnabout.cs" />
+    <Compile Include="Cards\Umbilicus.cs" />
+    <Compile Include="Cards\UnworthyDead.cs" />
     <Compile Include="Cards\UrzasArmor.cs" />
     <Compile Include="Cards\Victimize.cs" />
     <Compile Include="Cards\VividCreek.cs" />

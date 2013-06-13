@@ -3,9 +3,6 @@
   using System.Collections.Generic;
   using Gameplay;
   using Gameplay.Abilities;
-  using Gameplay.Costs;
-  using Gameplay.Effects;
-  using Gameplay.ManaHandling;
   using Gameplay.Misc;
 
   public class SanguineGuard : CardsSource
@@ -22,13 +19,7 @@
         .Power(2)
         .Toughness(2)
         .SimpleAbilities(Static.FirstStrike)
-        .ActivatedAbility(p =>
-          {
-            p.Text = "{1}{B}: Regenerate Sanguine Guard.";
-            p.Cost = new PayMana("{1}{B}".Parse(), ManaUsage.Abilities);
-            p.Effect = () => new Regenerate();
-            p.TimingRule(new Artifical.TimingRules.Regenerate());
-          });
+        .Regenerate(cost: "{1}{B}".Parse(), text: "{1}{B}: Regenerate Sanguine Guard.");
     }
   }
 }

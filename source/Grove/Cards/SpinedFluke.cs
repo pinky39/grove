@@ -4,9 +4,7 @@
   using Artifical.TimingRules;
   using Gameplay;
   using Gameplay.Characteristics;
-  using Gameplay.Costs;
   using Gameplay.Effects;
-  using Gameplay.ManaHandling;
   using Gameplay.Misc;
   using Gameplay.Triggers;
   using Gameplay.Zones;
@@ -35,13 +33,7 @@
               filter: c => c.Is().Creature,
               text: "Sacrifice a creature.");
           })
-        .ActivatedAbility(p =>
-          {
-            p.Text = "{B}: Regenerate Spined Fluke.";
-            p.Cost = new PayMana(Mana.Black, ManaUsage.Abilities);
-            p.Effect = () => new Gameplay.Effects.Regenerate();
-            p.TimingRule(new Artifical.TimingRules.Regenerate());
-          });
+        .Regenerate(cost: Mana.Black, text: "{B}: Regenerate Spined Fluke.");
     }
   }
 }

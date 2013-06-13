@@ -306,9 +306,9 @@ o Tolarian Academy
 o Tolarian Winds
 o Torch Song
 o Treefolk Seedlings
-Treetop Rangers
-Turnabout
-Umbilicus
+o Treetop Rangers
+o Turnabout
+o Umbilicus
 Unnerve
 Unworthy Dead
 Urza's Armor

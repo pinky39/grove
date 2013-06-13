@@ -2,9 +2,6 @@
 {
   using System.Collections.Generic;
   using Gameplay;
-  using Gameplay.Costs;
-  using Gameplay.Effects;
-  using Gameplay.ManaHandling;
   using Gameplay.Misc;
 
   public class UnworthyDead : CardsSource
@@ -20,13 +17,7 @@
           "Great Yawgmoth moves across the seas of shard and bone and rust. We exalt him in life, in death, and in between.")
         .Power(1)
         .Toughness(1)
-        .ActivatedAbility(p =>
-          {
-            p.Text = "{B}: Regenerate Unworthy Dead.";
-            p.Cost = new PayMana(Mana.Black, ManaUsage.Abilities);
-            p.Effect = () => new Regenerate();
-            p.TimingRule(new Artifical.TimingRules.Regenerate());
-          });
+        .Regenerate(cost: Mana.Black, text: "{B}: Regenerate Unworthy Dead.");
     }
   }
 }

@@ -25,5 +25,6 @@
     bool DoesNotUntap { get; }
     bool AssignsDamageAsThoughItWasntBlocked { get; }
     bool AnyEvadingAbility { get; }
+    bool CanOnlyBeBlockedByCreaturesWithFlying { get; }
   }
 }

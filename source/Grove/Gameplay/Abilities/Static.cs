@@ -23,6 +23,7 @@
     Islandwalk,
     DoesNotUntap,
     Mountainwalk,
-    AssignsDamageAsThoughItWasntBlocked
+    AssignsDamageAsThoughItWasntBlocked,
+    CanOnlyBeBlockedByCreaturesWithFlying
   }
 }

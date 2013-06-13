@@ -24,8 +24,8 @@
 
       while (OwningCard.Controller.HasMana(cost, ManaUsage.Abilities))
       {
-        combatAbilities.PowerChange += _power;
-        combatAbilities.ToughnessChange += _toughness;
+        combatAbilities.PowerIncrease += _power;
+        combatAbilities.ToughnessIncrease += _toughness;
 
         cost = cost.Add(_cost);
       }
