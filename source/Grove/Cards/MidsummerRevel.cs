@@ -50,7 +50,7 @@
                 .Type("Creature Token Beast")
                 .Colors(CardColor.Green));
 
-            p.TimingRule(new ChargeCounters(3));
+            p.TimingRule(new MinimumCounters(3));
           });
     }
   }

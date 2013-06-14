@@ -1,9 +1,11 @@
 ﻿namespace Grove.Cards
 {
+  using System;
   using System.Collections.Generic;
   using Artifical.TargetingRules;
   using Artifical.TimingRules;
   using Gameplay;
+  using Gameplay.Abilities;
   using Gameplay.Costs;
   using Gameplay.Counters;
   using Gameplay.Effects;
@@ -43,7 +45,9 @@
               amount: P(e => e.Source.OwningCard.Counters));
 
             p.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
+            
             p.TargetingRule(new DealDamage(pt => pt.Card.Counters));
+            p.TimingRule(new MinimumCounters(minCount: 2, onlyAtEot: false));
             p.TimingRule(new TargetRemoval());
           });
     }

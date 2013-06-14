@@ -1,7 +1,8 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
+  using System;
   using Characteristics;
-
+    
   public class AddPowerAndToughness : Modifier, ICardModifier
   {
     private readonly Value _power;
@@ -17,7 +18,7 @@
     {
       _power = power;
       _toughness = toughness;
-    }
+    }    
 
     public override void Apply(Power power)
     {

@@ -11,10 +11,12 @@
   public abstract class TargetingRule : MachinePlayRule
   {
     public int? TargetLimit;
+    public bool ConsiderTargetingSelf = true;
 
     public override void Process(Artifical.ActivationContext c)
     {
-      var candidates = c.Selector.GenerateCandidates(c.TriggerMessage);
+      var excludeSelf = ConsiderTargetingSelf ? null : c.Card;      
+      var candidates = c.Selector.GenerateCandidates(c.TriggerMessage, excludeSelf);      
 
       var parameters = new TargetingRuleParameters(candidates, c, Game);
 

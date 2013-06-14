@@ -6,14 +6,7 @@
   {
     protected override void ResolveEffect()
     {
-      var hasWon = FlipACoin();
-
-      Publish(new PlayerHasFlippedACoin
-        {
-          Player = Controller,
-          HasWon = hasWon
-        });
-
+      var hasWon = FlipACoin(Controller);    
 
       if (hasWon)
         return;

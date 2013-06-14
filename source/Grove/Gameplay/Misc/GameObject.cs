@@ -6,6 +6,7 @@
   using Artifical;
   using Decisions;
   using Infrastructure;
+  using Messages;
   using States;
   using Targeting;
   using Zones;
@@ -35,9 +36,18 @@
       return Game.Random.GetRandomPermutation(start, count);
     }
 
-    protected bool FlipACoin()
-    {
-      return Game.Random.FlipACoin();
+    protected bool FlipACoin(Player who)
+    {      
+      // in search always consider winning the coin flip
+      var hasWon = Ai.IsSearchInProgress ? true : Game.Random.FlipACoin();
+      
+      Publish(new PlayerHasFlippedACoin
+      {
+        Player = who,
+        HasWon = hasWon
+      });
+
+      return hasWon;
     }
 
     protected int RollADice()

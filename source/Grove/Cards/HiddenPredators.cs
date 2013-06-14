@@ -2,10 +2,10 @@
 {
   using System.Collections.Generic;
   using System.Linq;
+  using Artifical.TimingRules;
   using Gameplay.Characteristics;
   using Gameplay.Effects;
   using Gameplay.Misc;
-  using Gameplay.Modifiers;
   using Gameplay.Triggers;
 
   public class HiddenPredators : CardsSource
@@ -18,6 +18,7 @@
         .Type("Enchantment")
         .Text(
           "When an opponent controls a creature with power 4 or greater, if Hidden Predators is an enchantment, Hidden Predators becomes a 4/4 Beast creature.")
+        .Cast(p => p.TimingRule(new FirstMain()))
         .TriggeredAbility(p =>
           {
             p.Text =
@@ -32,7 +33,7 @@
                     .Battlefield.Creatures.Any(x => x.Power >= 4);
                 }));
 
-            p.Effect = () => new ApplyModifiersToSelf(() => new ChangeToCreature(
+            p.Effect = () => new ApplyModifiersToSelf(() => new Gameplay.Modifiers.ChangeToCreature(
               power: 4,
               toughness: 4,
               type: "Creature Beast",

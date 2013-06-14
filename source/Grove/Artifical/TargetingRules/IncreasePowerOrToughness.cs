@@ -25,7 +25,7 @@
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
     {
       var power = _power ?? p.MaxX;
-      var toughness = _toughness ?? p.MaxX;
+      var toughness = _toughness ?? p.MaxX;            
 
       var candidates = None<Card>();
 

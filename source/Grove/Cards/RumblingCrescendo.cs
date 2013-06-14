@@ -50,7 +50,7 @@
                 trg.GetMaxCount = cp => cp.OwningCard.CountersCount();
               });
 
-            p.TimingRule(new ChargeCounters(3, onlyAtEot: false));
+            p.TimingRule(new MinimumCounters(3, onlyAtEot: false));
             p.TimingRule(new Steps(activeTurn: true, passiveTurn: false, steps: Step.FirstMain));
             p.TargetingRule(new Destroy());
           });

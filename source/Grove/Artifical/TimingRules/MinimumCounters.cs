@@ -2,14 +2,14 @@
 {
   using Gameplay.States;
 
-  public class ChargeCounters : TimingRule
+  public class MinimumCounters : TimingRule
   {
     private readonly int _minCount;
     private readonly bool _onlyAtEot;
 
-    private ChargeCounters() {}
+    private MinimumCounters() {}
 
-    public ChargeCounters(int minCount, bool onlyAtEot = true)
+    public MinimumCounters(int minCount, bool onlyAtEot = true)
     {
       _minCount = minCount;
       _onlyAtEot = onlyAtEot;

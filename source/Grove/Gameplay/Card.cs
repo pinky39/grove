@@ -112,7 +112,8 @@
         return IsPermanent &&
           Is().Creature &&
             !Has().Defender &&
-              !Has().CannotAttack;
+              !Has().CannotAttack && 
+              (!Has().CanAttackOnlyIfDefenderHasIslands || Controller.Opponent.Battlefield.Any(x => x.Is("island")));
       }
     }
 

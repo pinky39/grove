@@ -313,32 +313,32 @@ o Unnerve
 o Unworthy Dead
 o Urza's Armor
 o Vampiric Embrace
-Vebulid
-Veil of Birds
-Veiled Apparition
-Veiled Crocodile
-Veiled Sentry
-Veiled Serpent
-Venomous Fangs
-Vernal Bloom
-Viashino Outrider
+o Vebulid
+o Veil of Birds
+o Veiled Apparition
+o Veiled Crocodile
+o Veiled Sentry
+o Veiled Serpent
+o Venomous Fangs
+o Vernal Bloom
+o Viashino Outrider
 Viashino Runner
-Viashino Sandswimmer
-Viashino Weaponsmith
-Victimize
-Vile Requiem
-Voice of Grace
-Voice of Law
-Voltaic Key
-Vug Lizard
-Wall of Junk
-War Dance
-Waylay
-Western Paladin
-Whetstone
-Whirlwind
-Wild Dogs
-Wildfire
+o Viashino Sandswimmer
+o Viashino Weaponsmith
+o Victimize
+o Vile Requiem
+o Voice of Grace
+o Voice of Law
+o Voltaic Key
+o Vug Lizard
+o Wall of Junk
+o War Dance
+o Waylay
+o Western Paladin
+o Whetstone
+o Whirlwind
+o Wild Dogs
+o Wildfire
 Windfall
 Winding Wurm
 Wirecat

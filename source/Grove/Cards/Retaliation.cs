@@ -34,7 +34,7 @@
                   };
 
 
-                tp.Trigger(new OnBlock(becomesBlocked: true));
+                tp.Trigger(new OnBlock(becomesBlocked: true, triggerForEveryCreature: true));
 
                 return new AddTriggeredAbility(new TriggeredAbility(tp));
               };

@@ -24,6 +24,7 @@
     DoesNotUntap,
     Mountainwalk,
     AssignsDamageAsThoughItWasntBlocked,
-    CanOnlyBeBlockedByCreaturesWithFlying
+    CanOnlyBeBlockedByCreaturesWithFlying,
+    CanAttackOnlyIfDefenderHasIslands
   }
 }

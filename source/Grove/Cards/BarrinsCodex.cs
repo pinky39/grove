@@ -40,7 +40,7 @@
               new Tap(),
               new Sacrifice());
             p.Effect = () => new DrawCards(count: P(e => e.Source.OwningCard.Counters));
-            p.TimingRule(new ChargeCounters(3));
+            p.TimingRule(new MinimumCounters(3));
           });
     }
   }

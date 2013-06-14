@@ -52,16 +52,16 @@
 
     public int GetMinTargetCount(int? x)
     {
-      return Effect.Count > 0 ?
-                                Effect.Sum(y => y.MinCount.GetValue(x)) :
-                                                                          Cost.Sum(y => y.MinCount.GetValue(x));
+      return Effect.Count > 0
+        ? Effect.Sum(y => y.MinCount.GetValue(x))
+        : Cost.Sum(y => y.MinCount.GetValue(x));
     }
 
     public int GetMaxTargetCount(int? x)
     {
-      return Effect.Count > 0 ?
-                                Effect.Sum(y => y.MaxCount.GetValue(x)) :
-                                                                          Cost.Sum(y => y.MaxCount.GetValue(x));
+      return Effect.Count > 0
+        ? Effect.Sum(y => y.MaxCount.GetValue(x))
+        : Cost.Sum(y => y.MaxCount.GetValue(x));
     }
 
     public void Initialize(Card owningCard, Game game)
@@ -79,7 +79,7 @@
       }
     }
 
-    public TargetsCandidates GenerateCandidates(object triggerMessage = null)
+    public TargetsCandidates GenerateCandidates(object triggerMessage = null, ITarget excluded = null)
     {
       var all = new TargetsCandidates();
 
@@ -89,7 +89,7 @@
 
         foreach (var target in GenerateTargets(selector.IsZoneValid))
         {
-          if (selector.IsTargetValid(target, triggerMessage))
+          if (target != excluded && selector.IsTargetValid(target, triggerMessage))
           {
             candidates.Add(target);
           }
@@ -104,7 +104,7 @@
 
         foreach (var target in GenerateTargets(selector.IsZoneValid))
         {
-          if (selector.IsTargetValid(target, triggerMessage))
+          if (target != excluded && selector.IsTargetValid(target, triggerMessage))
           {
             candidates.Add(target);
           }

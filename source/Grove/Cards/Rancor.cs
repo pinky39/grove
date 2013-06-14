@@ -9,7 +9,7 @@
   using Gameplay.Modifiers;
   using Gameplay.Triggers;
   using Gameplay.Zones;
-
+    
   public class Rancor : CardsSource
   {
     public override IEnumerable<CardFactory> GetCards()

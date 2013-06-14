@@ -44,7 +44,7 @@
               selectedCount: P(e => e.Source.OwningCard.Counters),
               youChooseDiscardedCards: true);
 
-            p.TimingRule(new ChargeCounters(3));
+            p.TimingRule(new MinimumCounters(3));
           });
     }
   }

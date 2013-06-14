@@ -35,6 +35,7 @@
                     };
 
                   tp.Trigger(new OnCreatureDamagedByOwnerWasPutToGraveyard());
+                  tp.TriggerOnlyIfOwningCardIsInPlay = true;
                   
                   return new AddTriggeredAbility(new TriggeredAbility(tp));
                 }) {Category = EffectCategories.ToughnessIncrease};

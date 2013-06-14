@@ -75,6 +75,16 @@
       }
     }
 
+    protected void ExileLibrary(Player player)
+    {
+      var library = (Library)player.Library;
+
+      foreach (var card in library.ToList())
+      {
+        card.Exile();
+      }
+    }
+
     protected void Battlefield(Player player, params ScenarioCard[] cards)
     {
       foreach (var scenarioCard in cards)

@@ -6,6 +6,24 @@
 
   public class VampiricEmbrace
   {
+    
+    public class Ai : AiScenario
+    {
+      [Fact]
+      public void KillOwl()
+      {
+        var bear = C("Grizzly Bears");
+        Battlefield(P1, bear.IsEnchantedWith("Vampiric Embrace"));
+        Battlefield(P2, "Spire Owl");
+
+        P2.Life = 4;
+
+        RunGame(1);
+
+        Equal(5, C(bear).Toughness);
+      }
+    }
+    
     public class Predefined : PredefinedScenario
     {
       [Fact]

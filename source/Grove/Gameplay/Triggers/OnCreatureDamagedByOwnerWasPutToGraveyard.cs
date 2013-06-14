@@ -30,5 +30,10 @@
       if (message.FromBattlefieldToGraveyard && _damaged.Contains(message.Card)) 
         Set();
     }
+
+    protected override void Initialize()
+    {
+      _damaged.Initialize(ChangeTracker);
+    }
   }
 }

@@ -1,12 +1,12 @@
 ﻿namespace Grove.Gameplay.Effects
 {
-  public class MillOpponent : Effect
+  public class OpponentPutsTopCardsFromLibraryToGraveyard : Effect
   {
     private readonly int _count;
 
-    private MillOpponent() {}
+    private OpponentPutsTopCardsFromLibraryToGraveyard() {}
 
-    public MillOpponent(int count)
+    public OpponentPutsTopCardsFromLibraryToGraveyard(int count)
     {
       _count = count;
     }

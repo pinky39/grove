@@ -1,5 +1,6 @@
 ﻿namespace Grove.Artifical.CombatRules
 {
+  using System;
   using Gameplay.ManaHandling;
 
   public class Regenerate : CombatRule
