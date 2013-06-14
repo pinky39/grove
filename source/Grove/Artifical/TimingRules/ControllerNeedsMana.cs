@@ -16,11 +16,18 @@
 
     public override bool ShouldPlay(TimingRuleParameters p)
     {
-      if (Turn.Step != Step.FirstMain && Turn.Step != Step.SecondMain)
+      if (!(
+        Turn.Step == Step.FirstMain || 
+        Turn.Step == Step.SecondMain))
         return false;
 
       var availableMana = p.Controller.GetConvertedMana();
 
+      return SpellsNeedMana(p, availableMana) || AbilitiesNeedMana(p, availableMana);
+    }
+
+    private bool SpellsNeedMana(TimingRuleParameters p, int availableMana)
+    {
       return p.Controller.Hand.Any(x =>
         {
           if (x.ConvertedCost <= availableMana)
@@ -30,6 +37,28 @@
             return true;
 
           return x.ConvertedCost <= availableMana + _amount;
+        });
+    }
+
+    private bool AbilitiesNeedMana(TimingRuleParameters p, int availableMana)
+    {
+      return p.Controller.Battlefield.Any(x =>
+        {
+          var manaCosts = x.GetActivatedAbilitiesManaCost();
+
+          foreach (var manaCost in manaCosts)
+          {
+            if (manaCost.Converted <= availableMana)
+              continue;
+
+            if (_amount == null)
+              return true;
+
+            if (manaCost.Converted <= availableMana + _amount)
+              return true;
+          }
+
+          return false;
         });
     }
   }

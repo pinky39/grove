@@ -236,6 +236,7 @@ Scald;U;2.9
 Scoria Wurm;R;3.8
 Scrap;C;3.7
 Seasoned Marshal;U;3.8
+Serra Avatar;R;4
 Serra Zealot;C;3.6
 Serra's Embrace;U;4
 Serra's Liturgy;R;3.3
@@ -267,17 +268,54 @@ Stern Proctor;U;3.3
 Stroke of Genius;R;4
 Sunder;R;3.6
 Symbiosis;C;4
+Tainted Aether;R;3.4
+Thran Quarry;R;3
 Thran Turbine;U;3
-Thundering Giant;U;4
+Thundering Giant;U;3.9
+Time Spiral;R;4
+Titania's Boon;U;3.6
+Titania's Chosen;U;3.6
+Tolarian Academy;R;3.4
+Tolarian Winds;C;3.6
 Torch Song;U;3.8
+Treefolk Seedlings;U;3.6
+Treetop Rangers;C;3.8
 Turnabout;U;3.8
+Umbilicus;R;3.2
+Unnerve;C;3.7
 Unworthy Dead;C;3.8
 Urza's Armor;U;3.6
+Vampiric Embrace;U;4
+Vebuild;R;3.6
+Veil of Birds;C;3.4
+Veiled Apparition;U;3.8
+Veiled Crocodile;R;3.8
+Veiled Sentry;U;3.7
+Veiled Serpent;C;3.6
+Venomous Fangs;C;3.3
+Vernal Bloom;R;3.5
+Viashino Outrider;C;3.7
+Viashino Sandswimmer;R;3.5
+Viashino Weaponsmith;C;3.5
 Victimize;U;3.7
-Voice of Grace;U;4
+Vile Requiem;U;3.7
+Voice of Grace;U;3.8
+Voice of Law;U;3.7
+Voltaic Key;U;3
+Vug Lizard;U;3.7
 Wall of Junk;U;3.5
+War Dance;U;3.2
 Waylay;U;3.8
+Western Paladin;R;3.8
+Whetstone;R;3.2
+Whirlwind;R;3.7
 Wild Dogs;C;3.5
 Wildfire;R;4
+Windfall;U;4
+Winding Wurm;C;3.8
+Witch Engine;R;3.8
 Wizard Mentor;C;3.7
+Worn Powerstone;U;3.8
 Worship;R;4.2
+Zephid;R;4
+Zephid's Embrace;U;4

@@ -126,6 +126,7 @@
     <Compile Include="Artifical\Search.cs" />
     <Compile Include="Artifical\SearchParameters.cs" />
     <Compile Include="Artifical\SearchStatistics.cs" />
+    <Compile Include="Artifical\TimingRules\ControllerHasMoreCardsInHand.cs" />
     <Compile Include="Artifical\TimingRules\SingleInstanceOfSpellOnStack.cs" />
     <Compile Include="Artifical\TimingRules\StackIsEmpty.cs" />
     <Compile Include="Cards\AbsoluteGrace.cs" />
@@ -527,10 +528,16 @@
     <Compile Include="Cards\WhiteKnight.cs" />
     <Compile Include="Cards\WildDogs.cs" />
     <Compile Include="Cards\WildFire.cs" />
+    <Compile Include="Cards\Windfall.cs" />
+    <Compile Include="Cards\WindingWurm.cs" />
+    <Compile Include="Cards\WitchEngine.cs" />
     <Compile Include="Cards\WizardMentor.cs" />
+    <Compile Include="Cards\WornPowerstone.cs" />
     <Compile Include="Cards\Worship.cs" />
     <Compile Include="Cards\WurmcoilEngine.cs" />
     <Compile Include="Cards\WallOfDenial.cs" />
+    <Compile Include="Cards\Zephid.cs" />
+    <Compile Include="Cards\ZephidsEmbrace.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Gameplay\Abilities\AbilityOrCastParameters.cs" />
     <Compile Include="Gameplay\Abilities\AbilityParameters.cs" />
@@ -669,6 +676,7 @@
     <Compile Include="Gameplay\Effects\ApplyModifiersToGame.cs" />
     <Compile Include="Gameplay\Effects\DestroyOwner.cs" />
     <Compile Include="Gameplay\Effects\DiscardAndDrawANewHand.cs" />
+    <Compile Include="Gameplay\Effects\EachPlayerDiscardsHandAndDrawsGreatestDiscardedCount.cs" />
     <Compile Include="Gameplay\Effects\EachPlayerPutTopCardsFromLibraryToGraveyard.cs" />
     <Compile Include="Gameplay\Effects\EachPlayerShufflesHandAndGraveyardIntoLibraryAndDrawsCards.cs" />
     <Compile Include="Gameplay\Effects\ActivePlayerPaysLifeOrReturnSelectedPermanentToHand.cs" />

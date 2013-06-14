@@ -7,7 +7,7 @@
   using Gameplay.Effects;
   using Gameplay.Misc;
   using Gameplay.Modifiers;
-
+    
   public class AbsoluteGrace : CardsSource
   {
     public override IEnumerable<CardFactory> GetCards()

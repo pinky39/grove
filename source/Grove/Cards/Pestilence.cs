@@ -45,7 +45,7 @@
               amountCreature: 1,
               amountPlayer: 1);
 
-            p.TimingRule(new Any(new MassRemoval(), new EndOfTurn()));
+            p.TimingRule(new Any(new MassRemoval(), new All(new SecondMain(), new StackIsEmpty())));
           });
     }
   }

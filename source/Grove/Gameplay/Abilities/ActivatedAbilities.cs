@@ -70,6 +70,11 @@
       return _abilities[index].GetManaCost();
     }
 
+    public IEnumerable<IManaAmount> GetManaCost()
+    {
+      return _abilities.Select(x => x.GetManaCost());
+    }
+
     public void EnableAll()
     {
       foreach (var activatedAbility in _abilities)

@@ -625,6 +625,11 @@
       return _activatedAbilities.GetManaCost(index);
     }
 
+    public IEnumerable<IManaAmount> GetActivatedAbilitiesManaCost()
+    {
+      return _activatedAbilities.GetManaCost();
+    }
+
     public IStaticAbilities Has()
     {
       return _simpleAbilities;

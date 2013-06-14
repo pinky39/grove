@@ -339,14 +339,14 @@ o Whetstone
 o Whirlwind
 o Wild Dogs
 o Wildfire
-Windfall
-Winding Wurm
+o Windfall
+o Winding Wurm
 Wirecat
-Witch Engine
-Wizard Mentor
-Worn Powerstone
-Worship
+o Witch Engine
+o Wizard Mentor
+o Worn Powerstone
+o Worship
 Yawgmoth's Edict
 Yawgmoth's Will
-Zephid
-Zephid's Embrace
+o Zephid
+o Zephid's Embrace
