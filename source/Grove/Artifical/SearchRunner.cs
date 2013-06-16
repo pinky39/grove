@@ -44,7 +44,11 @@
     public event EventHandler SearchFinished = delegate { };
 
     public void SetBestResult(ISearchNode searchNode)
-    {
+    {      
+      // set searching player the first time
+      if (!IsSearchInProgress)
+        searchNode.Game.Players.Searching = searchNode.Controller;
+      
       // ask search node to generate all choices
       searchNode.GenerateChoices();
 
@@ -78,14 +82,26 @@
       // If no results are found start a new search.            
       var cachedResults = GetCachedResults(searchNode.Controller);
       var cached = cachedResults.GetResult(_game.CalculateHash());
-
+                  
       if (cached == null)
       {
         bestChoice = StartNewSearch(searchNode, cachedResults);
-      }
+      }      
       else
-      {
+      {        
         bestChoice = cached.BestMove.GetValueOrDefault();
+
+        if (cached.ChildrenCount != searchNode.ResultCount)
+        {
+          // cache is not ok, try to recover by new search
+          // write debug report, so this error can be reproduced.
+          
+          LogFile.Error("Invalid cached result, cached result count is {0} node's is {1}.", 
+            cached.ChildrenCount, searchNode.ResultCount);
+          
+          _game.WriteDebugReport();
+          bestChoice = StartNewSearch(searchNode, cachedResults);
+        }
       }
 
       searchNode.SetResult(bestChoice);
@@ -102,7 +118,7 @@
     private int StartNewSearch(ISearchNode searchNode, SearchResults cachedResults)
     {
       _searchParameters.AdjustPerformance(_searchDurations);
-      cachedResults.Clear();
+      ClearResultCache();
 
       _currentSearch = new Search(_searchParameters,
         searchNode.Controller, cachedResults, _game);
@@ -129,6 +145,12 @@
 
       _currentSearch = null;
       return result;
+    }
+
+    private void ClearResultCache()
+    {
+      _player1Results.Clear();
+      _player2Results.Clear();
     }
 
     private void UpdateSearchDurations()

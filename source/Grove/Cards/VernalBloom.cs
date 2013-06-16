@@ -20,7 +20,7 @@
         .ContinuousEffect(p =>
           {
             p.Modifier = () => new IncreaseManaOutput(Mana.Green);
-            p.CardFilter = (card, effect) => card.Is("forest");
+            p.CardFilter = (card, effect) => card.Is("forest");            
           });
     }
   }

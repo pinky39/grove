@@ -1,5 +1,6 @@
 ﻿namespace Grove.Artifical
 {
+  using System;
   using System.Text;
 
   public class LeafResult : ISearchResult
@@ -11,6 +12,8 @@
       _depth = depth;
       Score = score;
     }
+
+    public int ChildrenCount { get { return 0; } }
 
     public void EvaluateSubtree()
     {

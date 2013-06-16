@@ -26,7 +26,6 @@
     public int SearchDepth { get; private set; }
     public int TargetCount { get; private set; }
 
-
     public void AdjustPerformance(Queue<int> searchDurations)
     {
       if (searchDurations.Last() > 4000)

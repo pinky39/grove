@@ -26,8 +26,7 @@
       _p = p;
       _searchResults = searchResults;
       _game = game;
-      _root = new InnerResult(_game.CalculateHash(), searchingPlayer.IsMax, 0);
-      _game.Players.Searching = searchingPlayer;
+      _root = new InnerResult(_game.CalculateHash(), searchingPlayer.IsMax, 0);      
     }
 
     public int TargetCount { get { return _p.TargetCount; } }

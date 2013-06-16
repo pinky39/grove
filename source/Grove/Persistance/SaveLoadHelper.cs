@@ -46,6 +46,6 @@
         formatter.Deserialize(file);
         return formatter.Deserialize(file);
       }
-    }
+    }   
   }
 }

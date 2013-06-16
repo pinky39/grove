@@ -38,6 +38,11 @@
       return _formatter.Deserialize(_stream);
     }
 
+    public void DiscardUnloadedResults()
+    {
+      _stream.SetLength(_stream.Position);      
+    }
+
     public void WriteTo(Stream stream)
     {
       _stream.Position = 0;

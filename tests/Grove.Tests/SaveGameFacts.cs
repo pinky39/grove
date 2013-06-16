@@ -17,7 +17,12 @@
       var game1 = GameFactory.Create(GameParameters.Load(
         player1Controller: ControllerType.Machine,
         player2Controller: ControllerType.Machine,
-        savedGame: savedGame));      
+        savedGame: savedGame));
+
+      // hash depends on card visibility, visibility depends
+      // on who the searching player is.      
+      game.Players.Searching = game.Players.Player1;
+      game1.Players.Searching = game1.Players.Player1;
 
       Assert.Equal(game.CalculateHash(), game1.CalculateHash());
     }

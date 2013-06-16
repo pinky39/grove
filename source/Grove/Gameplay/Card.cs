@@ -21,14 +21,13 @@
 
   public class Card : GameObject, ITarget, IDamageable, IHashDependancy, IHasColors, IHasLife, IModifiable
   {
-    private readonly ContiniousEffects _continuousEffects;
     private readonly ActivatedAbilities _activatedAbilities;
-    private readonly StaticAbilities _staticAbilities;
     private readonly Trackable<Card> _attachedTo = new Trackable<Card>();
     private readonly Attachments _attachments = new Attachments();
     private readonly CastInstructions _castInstructions;
     private readonly CardColors _colors;
     private readonly CombatRules _combatRules;
+    private readonly ContiniousEffects _continuousEffects;
     private readonly Counters.Counters _counters;
     private readonly Trackable<int> _damage = new Trackable<int>();
     private readonly Trackable<bool> _hasLeathalDamage = new Trackable<bool>();
@@ -44,6 +43,7 @@
     private readonly Power _power;
     private readonly Protections _protections;
     private readonly SimpleAbilities _simpleAbilities;
+    private readonly StaticAbilities _staticAbilities;
     private readonly Toughness _toughness;
     private readonly TriggeredAbilities _triggeredAbilities;
     private readonly CardTypeCharacteristic _type;
@@ -85,7 +85,7 @@
       _continuousEffects = p.ContinuousEffects;
 
       JoinedBattlefield = new TrackableEvent(this);
-      LeftBattlefield = new TrackableEvent(this);     
+      LeftBattlefield = new TrackableEvent(this);
     }
 
     public bool MayChooseNotToUntap { get; private set; }
@@ -112,8 +112,8 @@
         return IsPermanent &&
           Is().Creature &&
             !Has().Defender &&
-              !Has().CannotAttack && 
-              (!Has().CanAttackOnlyIfDefenderHasIslands || Controller.Opponent.Battlefield.Any(x => x.Is("island")));
+              !Has().CannotAttack &&
+                (!Has().CanAttackOnlyIfDefenderHasIslands || Controller.Opponent.Battlefield.Any(x => x.Is("island")));
       }
     }
 
@@ -220,7 +220,7 @@
     public bool CanBeDestroyed { get { return !HasRegenerationShield && !Has().Indestructible; } }
     public ScoreOverride OverrideScore { get; private set; }
     public bool IsVisibleInUi { get { return _isPreview || IsVisibleToPlayer(Players.Human); } }
-    public bool IsVisible { get { return Ai.IsSearchInProgress ? IsVisibleToPlayer(Players.Searching) : IsVisibleToPlayer(Controller); } }
+    public bool IsVisible { get { return IsVisibleToPlayer(Players.Searching); } }
     public bool IsMultiColored { get { return _colors.Count > 1; } }
     public bool HasChangedZoneThisTurn { get { return _zone.HasChangedZoneThisTurn; } }
 
@@ -294,43 +294,42 @@
 
     public int CalculateHash(HashCalculator calc)
     {
+      if (IsVisible == false)
+      {
+        return calc.Calculate(_zone);
+      }
+
       if (_hash.Value.HasValue == false)
       {
-        if (!IsVisible)
-        {
-          _hash.Value = calc.Calculate(_zone);
-        }
-        else
-        {
-          // this value can be same for different cards with same NAME,
-          // sometimes this is good sometimes not, currently we favor
-          // smaller tree sizes and less accurate results.
-          // if tree size is no longer a problem we will replace NAME with 
-          // a guid.
-          _hash.Value = HashCalculator.Combine(
-            Name.GetHashCode(),
-            _hasSummoningSickness.Value.GetHashCode(),
-            UsageScore.GetHashCode(),
-            IsTapped.GetHashCode(),
-            Damage,
-            HasRegenerationShield.GetHashCode(),
-            HasLeathalDamage.GetHashCode(),
-            Power.GetHashCode(),
-            Toughness.GetHashCode(),
-            Level.GetHashCode(),
-            Counters.GetHashCode(),
-            Type.GetHashCode(),
-            _isRevealed.Value.GetHashCode(),
-            _isPeeked.Value.GetHashCode(),
-            calc.Calculate(_simpleAbilities),
-            calc.Calculate(_triggeredAbilities),
-            calc.Calculate(_activatedAbilities),
-            calc.Calculate(_protections),
-            calc.Calculate(_attachments),
-            calc.Calculate(_zone),
-            calc.Calculate(_colors)
-            );
-        }
+        // this value can be same for different cards with same NAME,
+        // sometimes this is good sometimes not, currently we favor
+        // smaller tree sizes and less accurate results.
+        // if tree size is no longer a problem we will replace NAME with 
+        // a guid.
+        _hash.Value = HashCalculator.Combine(
+          Name.GetHashCode(),
+          _hasSummoningSickness.Value.GetHashCode(),
+          UsageScore.GetHashCode(),
+          IsTapped.GetHashCode(),
+          Damage,
+          HasRegenerationShield.GetHashCode(),
+          HasLeathalDamage.GetHashCode(),
+          Power.GetHashCode(),
+          Toughness.GetHashCode(),
+          Level.GetHashCode(),
+          Counters.GetHashCode(),
+          Type.GetHashCode(),
+          _isRevealed.Value.GetHashCode(),
+          _isPeeked.Value.GetHashCode(),
+          _isHidden.Value.GetHashCode(),
+          calc.Calculate(_simpleAbilities),
+          calc.Calculate(_triggeredAbilities),
+          calc.Calculate(_activatedAbilities),
+          calc.Calculate(_protections),
+          calc.Calculate(_attachments),
+          calc.Calculate(_zone),
+          calc.Calculate(_colors)
+          );
       }
 
       return _hash.Value.GetValueOrDefault();
@@ -361,8 +360,8 @@
     }
 
     public void AddModifier(ICardModifier modifier, ModifierParameters p)
-    {      
-      _modifiers.Add(modifier);      
+    {
+      _modifiers.Add(modifier);
       ActivateModifier(modifier, p);
 
       Publish(new PermanentWasModified
@@ -374,8 +373,8 @@
 
     private void ActivateModifier(ICardModifier modifier, ModifierParameters p)
     {
-      p.Owner = this;      
-      modifier.Initialize(p, Game);      
+      p.Owner = this;
+      modifier.Initialize(p, Game);
 
       foreach (var modifiable in ModifiableProperties)
       {
@@ -430,6 +429,7 @@
       _staticAbilities.Initialize(this, game);
       _combatRules.Initialize(this, game);
       _continuousEffects.Initialize(this, game);
+
 
       _isPreview = false;
 
@@ -719,7 +719,7 @@
       DetachAttachments();
       Detach();
       Untap();
-      ClearDamage();      
+      ClearDamage();
 
       HasSummoningSickness = false;
 
@@ -891,7 +891,5 @@
 
       return total;
     }
-
-    
   }
 }

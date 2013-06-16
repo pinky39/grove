@@ -1,5 +1,6 @@
 ﻿namespace Grove.Artifical
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
   using System.Text;
@@ -24,6 +25,8 @@
 
     public int? BestMove { get { return _bestEdge != null ? _bestEdge.MoveIndex : (int?) null; } }
     public int? Score { get; set; }
+
+    public int ChildrenCount { get { return _children.Count; } }
 
     public void EvaluateSubtree()
     {

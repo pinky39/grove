@@ -12,6 +12,7 @@
       if (ChooseDecisionResults != null)
       {
         Result = ChooseDecisionResults.ChooseResult();
+        return;
       }
 
       Result = true;

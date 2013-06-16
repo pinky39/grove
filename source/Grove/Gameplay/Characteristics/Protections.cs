@@ -11,7 +11,7 @@
 
     public int CalculateHash(HashCalculator calc)
     {
-      return calc.Calculate(_colors);
+      return HashCalculator.Combine(calc.Calculate(_colors), calc.Calculate(_cardTypes));
     }
 
     public void Accept(ICardModifier modifier)

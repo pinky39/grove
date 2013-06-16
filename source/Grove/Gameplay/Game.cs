@@ -67,7 +67,17 @@
       if (p.IsSavedGame)
       {
         p.SavedGame.Decisions.Position = 0;
-        _stateMachine.Start(() => (Turn.StateCount < p.SavedGame.StateCount || Recorder.IsPlayback), skipPreGame: false);
+        _stateMachine.Start(() =>
+          {
+            if (p.RollBack > 0)
+            {
+              return (Turn.StateCount < p.SavedGame.StateCount - p.RollBack) || (_decisionQueue.Count > 0);
+            }
+            
+            return (Turn.StateCount < p.SavedGame.StateCount || Recorder.IsPlayback);
+          }, skipPreGame: false);
+
+        Recorder.DiscardUnloadedResults();
         _wasLoaded = true;
       }
     }
@@ -225,15 +235,15 @@
       }
       catch (Exception)
       {
-        DumpCrashReport();
+        WriteDebugReport();
         throw;
       }
     }
 
-    private void DumpCrashReport()
+    public void WriteDebugReport()
     {
-      var header = new SaveFileHeader {Description = "Crash report"};
-      var filename = String.Format("crash-report-{0}.report", Guid.NewGuid());
+      var header = new SaveFileHeader {Description = "Debug information to reproduce a bug which caused the error."};
+      var filename = String.Format("debug-report-{0}.report", Guid.NewGuid());
 
       var savedGame = Save();
       SaveLoadHelper.WriteToDisk(header, savedGame, filename);

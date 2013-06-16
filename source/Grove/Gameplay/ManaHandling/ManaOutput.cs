@@ -2,6 +2,7 @@
 {
   using System;
   using Abilities;
+  using Infrastructure;
   using Misc;
 
   public abstract class ManaOutput : GameObject
@@ -10,30 +11,31 @@
     public Action<IManaAmount> Increased = delegate { };
 
     protected ManaAbility ManaAbility;
-    private IManaAmount _additionalOutput = Mana.Zero;
+    private Trackable<IManaAmount> _additionalOutput = new Trackable<IManaAmount>(new ZeroManaAmount());
 
     public virtual IManaAmount GetAmount()
     {
       var amount = GetAmountInternal();
-      return amount.Add(_additionalOutput);
+      return amount.Add(_additionalOutput.Value);
     }
 
     protected abstract IManaAmount GetAmountInternal();
 
     public void AddAditional(IManaAmount amount)
     {
-      _additionalOutput = _additionalOutput.Add(amount);
+      _additionalOutput.Value = _additionalOutput.Value.Add(amount);
     }
 
     public void RemoveAdditional(IManaAmount amount)
     {
-      _additionalOutput = _additionalOutput.Remove(amount);
+      _additionalOutput.Value = _additionalOutput.Value.Remove(amount);
     }
 
     public void Initialize(ManaAbility manaAbility, Game game)
     {
       Game = game;
       ManaAbility = manaAbility;
+      _additionalOutput.Initialize(ChangeTracker);
     }
   }
 }

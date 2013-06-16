@@ -14,6 +14,7 @@
     public SavedGame SavedGame { get; private set; }
     public ControllerType Player1Controller { get; private set; }
     public ControllerType Player2Controller { get; private set; }
+    public int RollBack { get; private set; }
 
     public bool IsSavedGame { get { return SavedGame != null; } }
 
@@ -54,7 +55,7 @@
     }
 
     public static GameParameters Load(ControllerType player1Controller, ControllerType player2Controller, 
-      SavedGame savedGame)
+      SavedGame savedGame, int rollback = 0, SearchParameters searchParameters = null)
     {
       return new GameParameters
         {
@@ -62,8 +63,9 @@
           Player2 = savedGame.Player2,
           Player1Controller = player1Controller,
           Player2Controller = player2Controller,
-          SearchParameters = new SearchParameters(40, 2, enableMultithreading: true),
-          SavedGame = savedGame
+          SearchParameters = searchParameters ?? new SearchParameters(40, 2, enableMultithreading: true),
+          SavedGame = savedGame,
+          RollBack = rollback,
         };
     }
   }

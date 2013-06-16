@@ -81,7 +81,8 @@
     {
       return HashCalculator.Combine(
         calc.Calculate(Player1),
-        calc.Calculate(Player2),        
+        calc.Calculate(Player2),     
+        calc.Calculate(Searching),   
         calc.Calculate(_extraTurns));
     }
 

@@ -20,6 +20,7 @@
   using Gameplay.Misc;
   using Gameplay.Tournaments;
   using Infrastructure;
+  using Persistance;
   using UserInterface;
   using UserInterface.Decisions;
   using UserInterface.Permanent;
@@ -114,7 +115,7 @@
           container.Register(Component(typeof (Match.IFactory)).AsFactory());
           container.Register(Component(typeof (MatchRunner), lifestyle: LifestyleType.Singleton));
           container.Register(Component(typeof (Tournament)));
-          container.Register(Component(typeof (Tournament.IFactory)).AsFactory());
+          container.Register(Component(typeof (Tournament.IFactory)).AsFactory());          
           container.Register(Component(typeof (TournamentRunner), lifestyle: LifestyleType.Singleton));
           container.Register(Component(typeof (CombatMarkers), lifestyle: LifestyleType.Singleton));
           container.Register(Component(typeof (CardSelector)));
@@ -126,6 +127,7 @@
         container.Register(Component(typeof (Game)));
         container.Register(Component(typeof (Game.IFactory)).AsFactory());
         container.Register(Component(typeof (MatchSimulator), lifestyle: LifestyleType.Singleton));
+        container.Register(Component(typeof (ErrorReportLoader), lifestyle: LifestyleType.Singleton));
         container.Register(Component(typeof (CardsDatabase), lifestyle: LifestyleType.Singleton));
         container.Register(Component(typeof (CardsDictionary), lifestyle: LifestyleType.Singleton));
         container.Register(Component(typeof (DeckBuilder), lifestyle: LifestyleType.Singleton));

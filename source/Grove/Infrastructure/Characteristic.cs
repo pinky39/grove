@@ -35,7 +35,7 @@
       Game = game;
 
       _modifiers.Initialize(game.ChangeTracker, hashDependancy);
-      _currentValue.Initialize(game.ChangeTracker);
+      _currentValue.Initialize(game.ChangeTracker, hashDependancy);
     }
 
     public void AddModifier(PropertyModifier<T> propertyModifier)

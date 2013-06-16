@@ -9,7 +9,7 @@
   public class Bugs
   {
     public class Ai : AiScenario
-    {
+    {      
       [Fact]
       public void BugRepeatedPayWithBloodVasal()
       {

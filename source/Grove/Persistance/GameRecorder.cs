@@ -1,5 +1,6 @@
 ﻿namespace Grove.Persistance
 {
+  using System;
   using System.IO;
   using Gameplay;
 
@@ -75,6 +76,11 @@
         };
 
       return savedGame;
+    }
+
+    public void DiscardUnloadedResults()
+    {
+      _decisionLog.DiscardUnloadedResults();
     }
   }
 }
