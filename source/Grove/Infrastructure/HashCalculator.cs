@@ -48,22 +48,15 @@
 
     public static int CombineCommutative(IList<int> values)
     {
-      // commutative combine works perfectly if values
-      // contain no duplicates, if there are duplicates
-      // they will cancel each other out 
-      // to compensate for this instead of initialazing
-      // h to zero, we init h to count.
-
-      var h = (uint) values.Count;
+      var h = values.Count;
 
       foreach (var value in values)
       {
-        h = h ^ (uint) value;
+        h = h + value;
       }
 
-      return Avalanche(h);
+      return Avalanche((uint)h);
     }
-
 
     private static unsafe int Avalanche(uint h)
     {

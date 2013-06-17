@@ -27,7 +27,8 @@
             p.Text = "{G},{T}, Sacrifice Elvish Lyrist: Destroy target enchantment.";
             p.Cost = new AggregateCost(
               new PayMana(Mana.Green, ManaUsage.Abilities),
-              new Tap());
+              new Tap(),
+              new Sacrifice());
             p.Effect = () => new DestroyTargetPermanents();
             p.TargetSelector.AddEffect(trg => trg.Is.Enchantment().On.Battlefield());
 

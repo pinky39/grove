@@ -81,7 +81,7 @@
       // First try cached result from previous search.
       // If no results are found start a new search.            
       var cachedResults = GetCachedResults(searchNode.Controller);
-      var cached = cachedResults.GetResult(_game.CalculateHash());
+      var cached = cachedResults.GetResult(searchNode.Game.CalculateHash());
                   
       if (cached == null)
       {
@@ -94,12 +94,13 @@
         if (cached.ChildrenCount != searchNode.ResultCount)
         {
           // cache is not ok, try to recover by new search
-          // write debug report, so this error can be reproduced.
+          // write debug report, so this error can be reproduced.          
           
-          LogFile.Error("Invalid cached result, cached result count is {0} node's is {1}.", 
+          LogFile.Debug("Invalid cached result, cached result count is {0} node's is {1}.", 
             cached.ChildrenCount, searchNode.ResultCount);
-          
-          _game.WriteDebugReport();
+
+          GenerateDebugReport();
+
           bestChoice = StartNewSearch(searchNode, cachedResults);
         }
       }
@@ -167,6 +168,12 @@
     {
       var scenarioGenerator = new ScenarioGenerator(_game);
       LogFile.Info(scenarioGenerator.WriteScenarioToString());
+    }
+
+    [Conditional("DEBUG")]
+    private void GenerateDebugReport()
+    {
+      _game.WriteDebugReport();
     }
   }
 }
