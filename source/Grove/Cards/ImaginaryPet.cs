@@ -25,6 +25,7 @@
 
             p.Trigger(new OnStepStart(Step.Upkeep) {Condition = (t, g) => t.OwningCard.Controller.Hand.Count > 0});
             p.Effect = () => new ReturnToHand(returnOwningCard: true) {ShouldResolve = e => e.Controller.Hand.Count > 0};
+            p.TriggerOnlyIfOwningCardIsInPlay = true;
           }
         );
     }

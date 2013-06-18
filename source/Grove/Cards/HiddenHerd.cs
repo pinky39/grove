@@ -23,7 +23,7 @@
             p.Text =
               "When an opponent plays a nonbasic land, if Hidden Herd is an enchantment, Hidden Herd becomes a 3/3 Beast creature.";
 
-            p.Trigger(new OnCastedSpell(
+            p.Trigger(new OnLandPlayed(
               filter: (ability, card) =>
                 ability.OwningCard.Controller != card.Controller && ability.OwningCard.Is().Enchantment &&
                   card.Is().NonBasicLand));

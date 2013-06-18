@@ -5,18 +5,18 @@
   using Infrastructure;
   using Messages;
 
-  public class OnCastedSpell : Trigger, IReceive<PlayerHasCastASpell>
+  public class OnLandPlayed : Trigger, IReceive<PlayerPlayedALand>
   {
     private readonly Func<TriggeredAbility, Card, bool> _filter;
 
-    private OnCastedSpell() {}
+    private OnLandPlayed() {}
 
-    public OnCastedSpell(Func<TriggeredAbility, Card, bool> filter = null)
+    public OnLandPlayed(Func<TriggeredAbility, Card, bool> filter = null)
     {
-      _filter = filter ?? delegate { return true; };
+      _filter = filter;
     }
 
-    public void Receive(PlayerHasCastASpell message)
+    public void Receive(PlayerPlayedALand message)
     {
       if (_filter(Ability, message.Card))
       {

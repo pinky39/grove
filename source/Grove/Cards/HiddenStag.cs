@@ -23,7 +23,7 @@
             p.Text =
               "Whenever an opponent plays a land, if Hidden Stag is an enchantment, Hidden Stag becomes a 3/2 Elk Beast creature.";
 
-            p.Trigger(new OnCastedSpell(
+            p.Trigger(new OnLandPlayed(
               filter: (ability, card) =>
                 ability.OwningCard.Controller != card.Controller && ability.OwningCard.Is().Enchantment &&
                   card.Is().Land));
@@ -39,7 +39,7 @@
         .TriggeredAbility(p =>
           {
             p.Text = "Whenever you play a land, if Hidden Stag is a creature, Hidden Stag becomes an enchantment.";
-            p.Trigger(new OnCastedSpell(
+            p.Trigger(new OnLandPlayed(
               filter: (ability, card) =>
                 ability.OwningCard.Controller == card.Controller && ability.OwningCard.Is().Creature && card.Is().Land));
 

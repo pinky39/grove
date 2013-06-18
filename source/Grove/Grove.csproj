@@ -692,6 +692,7 @@
     <Compile Include="Gameplay\Messages\CardCreated.cs" />
     <Compile Include="Gameplay\Messages\PermanentModified.cs" />
     <Compile Include="Gameplay\Messages\PlayerLifeChanged.cs" />
+    <Compile Include="Gameplay\Messages\PlayerPlayedALand.cs" />
     <Compile Include="Gameplay\Modifiers\ManualLifetime.cs" />
     <Compile Include="Gameplay\Modifiers\OwningCardLifetime.cs" />
     <Compile Include="Gameplay\Modifiers\IAcceptsGameModifier.cs" />
@@ -707,6 +708,7 @@
     <Compile Include="Gameplay\Tournaments\TournamentRunner.cs" />
     <Compile Include="Gameplay\Triggers\OnCreatureDamagedByOwnerWasPutToGraveyard.cs" />
     <Compile Include="Gameplay\Triggers\OnEndOfCombatIfAttackedOrBlocked.cs" />
+    <Compile Include="Gameplay\Triggers\OnLandPlayed.cs" />
     <Compile Include="Infrastructure\CastEx.cs" />
     <Compile Include="Persistance\DecisionLog.cs" />
     <Compile Include="Gameplay\Effects\IEffectChoice.cs" />
@@ -830,6 +832,7 @@
     <Compile Include="Gameplay\Abilities\CastInstructionParameters.cs" />
     <Compile Include="Gameplay\Abilities\CastInstructions.cs" />
     <Compile Include="Infrastructure\TaskEx.cs" />
+    <Compile Include="UserInterface\BuildLimitedDeck\ButtonNames.cs" />
     <Compile Include="UserInterface\CardOrder\OrderedCard.cs" />
     <Compile Include="UserInterface\CardOrder\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>

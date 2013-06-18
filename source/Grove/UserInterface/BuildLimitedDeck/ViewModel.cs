@@ -8,7 +8,7 @@
   using Messages;
 
   public class ViewModel : ViewModelBase, IReceive<DeckGenerationStatus>
-  {
+  {        
     private readonly Deck _existing;
     private readonly List<CardInfo> _library;
     private Dictionary<string, Card> _cardsWithSetAndRarity;
@@ -16,29 +16,43 @@
     private Dictionary<string, LibraryItem> _libraryItems;
     private double _percentCompleted;
 
-    public ViewModel(List<CardInfo> library) : this(library, null)
+    public ViewModel(List<CardInfo> library)
     {
+      _library = library;
       
+      ButtonNames = new ButtonNames
+        {
+          Cancel = "Return to main menu",
+          Continue = "Start tournament"
+        };
+
+      AddBasicLands();
     }
     
     public ViewModel(List<CardInfo> library, Deck existing)
     {
       _library = library;
       _existing = existing;
+      
+      ButtonNames = new ButtonNames
+        {
+          Cancel = "Back",
+          Continue = "Save deck"
+        };
 
-      AddBasicLands();
+      
     }
 
     public virtual Card SelectedCard { get; protected set; }
     public LibraryFilter.ViewModel LibraryFilter { get; private set; }
     public bool WasCanceled { get; private set; }
-
+    public ButtonNames ButtonNames { get; private set; }
 
     public string Status
     {
       get
-      {
-        if (_percentCompleted < 100)
+      {                
+        if (_percentCompleted < 100 || _existing != null)
           return String.Format("Building decks {0}% completed.", (int) _percentCompleted);
 
         if (Deck.CardCount < 40)
@@ -48,7 +62,7 @@
       }
     }
 
-    public bool CanStartTournament { get { return _percentCompleted == 100 && Deck.CardCount >= 40; } }
+    public bool CanContinue { get { return (_percentCompleted == 100 || _existing != null) && Deck.CardCount >= 40; } }
 
     public virtual UserInterface.Deck.ViewModel Deck
     {
@@ -58,14 +72,14 @@
         _deck = value;
 
         _deck.Property(x => x.SelectedCard).Changes(this).Property<ViewModel, Card>(x => x.SelectedCard);
-        _deck.Property(x => x.CardCount).Changes(this).Property<ViewModel, bool>(x => x.CanStartTournament);
+        _deck.Property(x => x.CardCount).Changes(this).Property<ViewModel, bool>(x => x.CanContinue);
         _deck.Property(x => x.CardCount).Changes(this).Property<ViewModel, string>(x => x.Status);
       }
     }
 
     public Deck Result { get { return Deck.Deck; } }
 
-    [Updates("CanStartTournament", "Status")]
+    [Updates("CanContinue", "Status")]
     public virtual void Receive(DeckGenerationStatus message)
     {
       _percentCompleted = message.PercentCompleted;
@@ -99,7 +113,7 @@
       Deck.RemoveCard(libraryItem.Info);
     }
 
-    public void StartTournament()
+    public void Continue()
     {
       this.Close();
     }
@@ -145,13 +159,14 @@
           })
         .ToDictionary(x => x.Name, x => x);
 
-      _libraryItems = _library.GroupBy(x => x.Name)
+      _libraryItems = _library        
+        .GroupBy(x => x.Name)
         .Select(x =>
           {
             var cardsLeft = Bindable.Create<LibraryItem>();
             cardsLeft.Info = x.First();
             cardsLeft.Card = _cardsWithSetAndRarity[x.Key];
-            cardsLeft.Count = x.Count();
+            cardsLeft.Count = x.Count() - Deck.Deck.GetCount(x.Key);
             return cardsLeft;
           })
         .ToDictionary(x => x.Info.Name, x => x);

@@ -62,5 +62,10 @@
     {
       return _cards.FirstOrDefault(x => x.Name == cardName);
     }
+
+    public int GetCount(string cardName)
+    {
+      return _cards.Count(x => x.Name == cardName);
+    }
   }
 }

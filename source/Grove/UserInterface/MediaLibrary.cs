@@ -102,7 +102,7 @@
         var uri = new Uri(file);
         var bitmapImage = new BitmapImage(uri);        
         bitmapImage.Freeze();
-        ImageDatabase.Add(file, bitmapImage);
+        ImageDatabase.Add(file.ToLowerInvariant(), bitmapImage);
       }
     }
 
@@ -140,14 +140,12 @@
 
     public static ImageSource GetImageWithPath(string path)
     {
-      if (!File.Exists(path))
-        return MissingImage;
-
+      path = path.ToLowerInvariant();        
+      
       if (ImageDatabase.ContainsKey(path))
         return ImageDatabase[path];
 
-      var uri = new Uri(path);
-      return new BitmapImage(uri);
+      return MissingImage;      
     }
 
     private static string GetImagePath(string folder, string name)

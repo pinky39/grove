@@ -1,6 +1,7 @@
 ﻿namespace Grove.Gameplay.CastingRules
 {
   using Effects;
+  using Messages;
   using States;
 
   public class Land : CastingRule
@@ -19,6 +20,8 @@
 
       effect.Resolve();
       effect.FinishResolve();
+
+      Publish(new PlayerPlayedALand(effect.Source.OwningCard));
     }
 
     public override void AfterResolve()

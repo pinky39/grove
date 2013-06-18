@@ -76,7 +76,7 @@
         _humanPlayer.Deck = screen.Result;
       }
 
-      Shell.ChangeScreen(this);
+      Shell.ChangeScreen(this, blockUntilClosed: true);
     }
 
     public virtual void ReturnToMainMenu()

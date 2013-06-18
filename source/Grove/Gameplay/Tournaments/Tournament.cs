@@ -29,7 +29,6 @@
     private List<TournamentPlayer> _players;
     private int _roundsLeft;
     private bool _shouldStop;
-    private bool _wasStopped;
 
     public Tournament(TournamentParameters p, DeckBuilder deckBuilder, ViewModelFactories viewModels, IShell shell,
       MatchRunner matchRunner, MatchSimulator matchSimulator)
@@ -64,6 +63,7 @@
         _roundsLeft = _p.SavedTournament.RoundsToGo;
         _players = new List<TournamentPlayer>(_p.SavedTournament.Players);
         _matches = _p.SavedTournament.CurrentRoundMatches;
+        _humanLibrary = _p.SavedTournament.HumanLibrary;
 
         if (_matches != null)
         {
@@ -97,7 +97,7 @@
 
         if (CurrentMatch.WasStopped)
         {
-          _wasStopped = true;
+          _shouldStop = true;
           return;
         }
 
@@ -122,22 +122,16 @@
 
     private void RunTournament()
     {
-      if (_wasStopped)
-        return;
-
-      ShowResults();
-
-      while (_roundsLeft > 0 && !_wasStopped)
+      while (_roundsLeft > 0 && !_shouldStop)
       {
+        ShowResults();
+
+        if (_shouldStop)
+          return;
+
         _roundsLeft--;
 
         PlayNextRound();
-
-        if (_wasStopped)
-        {
-          return;
-        }
-        ShowResults();
       }
     }
 
@@ -165,7 +159,8 @@
           RoundsToGo = _roundsLeft,
           CurrentRoundMatches = matches,
           Players = players,
-          SavedMatch = MatchInProgress ? CurrentMatch.Save() : null
+          SavedMatch = MatchInProgress ? CurrentMatch.Save() : null,
+          HumanLibrary = _humanLibrary
         };
     }
 
@@ -233,7 +228,7 @@
 
       if (CurrentMatch.WasStopped)
       {
-        _wasStopped = true;
+        _shouldStop = true;
         return;
       }
 
@@ -281,7 +276,7 @@
 
             if (CurrentMatch.WasStopped || _shouldStop)
             {
-              _wasStopped = true;
+              _shouldStop = true;
               break;
             }
           }
@@ -399,12 +394,11 @@
 
             _shell.Publish(new DeckGenerationStatus
               {
-                PercentCompleted = (int) Math.Round((double) count/decksToGenerate)
+                PercentCompleted = (int) Math.Round((100*(count + 1.0))/decksToGenerate)
               });
 
             if (_shouldStop)
             {
-              _wasStopped = true;
               break;
             }
           }

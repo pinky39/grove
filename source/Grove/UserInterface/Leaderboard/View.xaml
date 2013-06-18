@@ -117,7 +117,7 @@
 
                     <StackPanel Grid.Column="2" Orientation="Horizontal">
                         <StackPanel.Resources>
-                            <Style x:Key="ColapseWhenFinished" BasedOn="{StaticResource RightButton}" TargetType="Button">                                
+                            <Style x:Key="ColapseWhenFinished" BasedOn="{StaticResource LinkButton}" TargetType="Button">                                
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding RoundsLeft}" Value="0">
                                         <Setter Property="Visibility" Value="Collapsed" />                                                                                    

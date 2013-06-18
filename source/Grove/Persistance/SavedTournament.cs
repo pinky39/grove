@@ -2,6 +2,7 @@
 {
   using System;
   using System.Collections.Generic;
+  using Gameplay;
   using Gameplay.Tournaments;
 
   [Serializable]
@@ -12,5 +13,6 @@
     public SavedMatch SavedMatch;
     public bool HasMatchInProgress { get { return SavedMatch != null; } }
     public List<TournamentPlayer> Players { get; set; }
+    public List<CardInfo> HumanLibrary { get; set; }
   }
 }
