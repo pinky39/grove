@@ -175,13 +175,14 @@
             <Border Grid.Row="2" Margin="0,0,0,0"   Background="#11ffffff" BorderBrush="#22ffffff" BorderThickness="0,1,0,0">
 				<Grid Margin="30">
 					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
 						<ColumnDefinition Width="Auto" />
 					</Grid.ColumnDefinitions>
 
-                    <TextBlock FontSize="20" Foreground="#fff" Text="{Binding Status}" Grid.Column="1" Visibility="{Binding Path=CanStartTournament, Converter={x:Static grove:Converters.BooleanToVisibility}, ConverterParameter=true}" />
-                    <Button x:Name="StartTournament" Style="{StaticResource RightButton}" FontSize="20" Foreground="#fff" Content="Start tournament" Grid.Column="1" />
-                 			
+                    <Button x:Name="Cancel" Style="{StaticResource LeftButton}" FontSize="20" Foreground="#fff" Content="Return to main menu" Grid.Column="0" />
+                    <TextBlock FontSize="20" Foreground="#fff" Text="{Binding Status}" Grid.Column="2" Visibility="{Binding Path=CanStartTournament, Converter={x:Static grove:Converters.BooleanToVisibility}, ConverterParameter=true}" />
+                    <Button x:Name="StartTournament" Style="{StaticResource RightButton}" FontSize="20" Foreground="#fff" Content="Start tournament" Grid.Column="2" />                 			
 				</Grid>
 			</Border>
 		</Grid>		

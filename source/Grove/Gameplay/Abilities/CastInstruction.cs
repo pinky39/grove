@@ -144,8 +144,7 @@
         return;
       }
 
-      _castingRule.Cast(effect);
-      Publish(new PlayerHasCastASpell(_card, activationParameters.Targets));
+      _castingRule.Cast(effect);      
     }
 
     public bool CanTarget(ITarget target)

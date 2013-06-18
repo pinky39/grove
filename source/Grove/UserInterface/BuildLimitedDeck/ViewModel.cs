@@ -7,34 +7,39 @@
   using Infrastructure;
   using Messages;
 
-  public class ViewModel : ViewModelBase, IReceive<DeckGenerated>
+  public class ViewModel : ViewModelBase, IReceive<DeckGenerationStatus>
   {
-    private readonly int _decksToGenerate;
+    private readonly Deck _existing;
     private readonly List<CardInfo> _library;
     private Dictionary<string, Card> _cardsWithSetAndRarity;
     private UserInterface.Deck.ViewModel _deck;
     private Dictionary<string, LibraryItem> _libraryItems;
-    private double _percentageCompleted;
-    private int _remainingDecksToGenerate;
+    private double _percentCompleted;
 
-    public ViewModel(IEnumerable<CardInfo> library, int decksToGenerate)
+    public ViewModel(List<CardInfo> library) : this(library, null)
     {
-      _decksToGenerate = decksToGenerate;
-      _remainingDecksToGenerate = decksToGenerate;
-      _library = library.ToList();
+      
+    }
+    
+    public ViewModel(List<CardInfo> library, Deck existing)
+    {
+      _library = library;
+      _existing = existing;
 
       AddBasicLands();
     }
 
     public virtual Card SelectedCard { get; protected set; }
     public LibraryFilter.ViewModel LibraryFilter { get; private set; }
+    public bool WasCanceled { get; private set; }
+
 
     public string Status
     {
       get
       {
-        if (_remainingDecksToGenerate > 0)
-          return String.Format("Building decks {0}% completed.", (int) _percentageCompleted);
+        if (_percentCompleted < 100)
+          return String.Format("Building decks {0}% completed.", (int) _percentCompleted);
 
         if (Deck.CardCount < 40)
           return "Please add at least 40 cards to your deck.";
@@ -43,27 +48,27 @@
       }
     }
 
-    public bool CanStartTournament { get { return _remainingDecksToGenerate == 0 && Deck.CardCount >= 40; } }
+    public bool CanStartTournament { get { return _percentCompleted == 100 && Deck.CardCount >= 40; } }
 
     public virtual UserInterface.Deck.ViewModel Deck
     {
       get { return _deck; }
-      set
+      protected set
       {
         _deck = value;
-        _deck.Property(x => x.SelectedCard).Changes(this).Property(x => x.SelectedCard);
-        _deck.Property(x => x.CardCount).Changes(this).Property(x => x.CanStartTournament);
-        _deck.Property(x => x.CardCount).Changes(this).Property(x => x.Status);
+
+        _deck.Property(x => x.SelectedCard).Changes(this).Property<ViewModel, Card>(x => x.SelectedCard);
+        _deck.Property(x => x.CardCount).Changes(this).Property<ViewModel, bool>(x => x.CanStartTournament);
+        _deck.Property(x => x.CardCount).Changes(this).Property<ViewModel, string>(x => x.Status);
       }
     }
 
     public Deck Result { get { return Deck.Deck; } }
 
     [Updates("CanStartTournament", "Status")]
-    public virtual void Receive(DeckGenerated message)
+    public virtual void Receive(DeckGenerationStatus message)
     {
-      _percentageCompleted = ((double) message.Count/_decksToGenerate)*100;
-      _remainingDecksToGenerate--;
+      _percentCompleted = message.PercentCompleted;
     }
 
     private void AddBasicLands()
@@ -83,12 +88,12 @@
       SelectedCard = libraryItem.Card;
     }
 
-    
+
     public void AddCard(LibraryItem libraryItem)
     {
       Deck.AddCard(libraryItem.Info);
     }
-    
+
     public void RemoveCard(LibraryItem libraryItem)
     {
       Deck.RemoveCard(libraryItem.Info);
@@ -96,6 +101,12 @@
 
     public void StartTournament()
     {
+      this.Close();
+    }
+
+    public void Cancel()
+    {
+      WasCanceled = true;
       this.Close();
     }
 
@@ -112,7 +123,10 @@
 
     public override void Initialize()
     {
-      Deck = ViewModels.Deck.Create();
+      Deck = _existing == null
+        ? ViewModels.Deck.Create()
+        : ViewModels.Deck.Create(_existing);
+
       Deck.OnAdd = OnAdd;
       Deck.OnRemove = OnRemove;
 
@@ -144,9 +158,9 @@
 
 
       LibraryFilter = ViewModels.LibraryFilter.Create(
-      cards: uniqueCards,
-      transformResult: card => _libraryItems[card.Name],
-      orderBy: card => card.Rarity.HasValue ? -(int)card.Rarity : 0);
+        cards: uniqueCards,
+        transformResult: card => _libraryItems[card.Name],
+        orderBy: card => card.Rarity.HasValue ? -(int) card.Rarity : 0);
 
 
       SelectedCard = _cardsWithSetAndRarity[_library[0].Name];
@@ -161,7 +175,8 @@
 
     public interface IFactory
     {
-      ViewModel Create(IEnumerable<CardInfo> library, int decksToGenerate);
+      ViewModel Create(List<CardInfo> library, Deck existing);
+      ViewModel Create(List<CardInfo> library);
     }
   }
 }

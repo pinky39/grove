@@ -109,29 +109,32 @@
                         <ColumnDefinition Width="*" />
 						<ColumnDefinition Width="Auto" />
 					</Grid.ColumnDefinitions>
-                    
-                    <TextBlock FontSize="20" Foreground="#fff" Text="{Binding MatchesInProgress, StringFormat='Please wait for {0} matches to finish.'}" Grid.Column="0" 
+
+                    <Button x:Name="ReturnToMainMenu" Style="{StaticResource LeftButton}" FontSize="20" Foreground="#fff" Content="Return to main menu" Grid.Column="0" />
+
+                    <TextBlock FontSize="20" Foreground="#fff" HorizontalAlignment="Center" Text="{Binding MatchesInProgress, StringFormat='Please wait for {0} matches to finish.'}" Grid.Column="1" 
                                Visibility="{Binding Path=CanContinue, Converter={x:Static grove:Converters.BooleanToVisibility}, ConverterParameter=true}" />
 
                     <StackPanel Grid.Column="2" Orientation="Horizontal">
                         <StackPanel.Resources>
-                            <Style x:Key="ContinueButton" BasedOn="{StaticResource RightButton}" TargetType="Button">
-                                <Setter Property="Content" Value="Play next round" />
+                            <Style x:Key="ColapseWhenFinished" BasedOn="{StaticResource RightButton}" TargetType="Button">                                
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding RoundsLeft}" Value="0">
-                                        <Setter Property="Content">
-                                            <Setter.Value>Return to main menu</Setter.Value>
-                                        </Setter>
+                                        <Setter Property="Visibility" Value="Collapsed" />                                                                                    
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
                             
                         </StackPanel.Resources>
-                                                
-                        <Button x:Name="Save" FontSize="20" Foreground="#fff" Content="Save tournament" />
+
+                        <Button Style="{StaticResource ColapseWhenFinished}" x:Name="Save" FontSize="20" Foreground="#fff" Content="Save tournament" />
+
+                        <Border BorderBrush="#aaa" BorderThickness="1,0,0,0" Padding="10,0,0,0" Margin="20,0,0,0" >
+                            <Button Style="{StaticResource ColapseWhenFinished}" x:Name="EditDeck" FontSize="20" Foreground="#fff" Content="Edit deck" />
+                        </Border>
 
                         <Border BorderBrush="#aaa" BorderThickness="1,0,0,0" Padding="10,0,0,0" Margin="20,0,0,0" Visibility="{Binding CanContinue, Converter={x:Static grove:Converters.BooleanToVisibility}}">
-                            <Button Style="{StaticResource ContinueButton}"  x:Name="Continue" FontSize="20" Foreground="#fff" />
+                            <Button Style="{StaticResource ColapseWhenFinished}"  x:Name="Continue" FontSize="20" Foreground="#fff" Content="Play next round" />
                         </Border>
 
                     </StackPanel>

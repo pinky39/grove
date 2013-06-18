@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using System.Linq;
+  using Gameplay;
   using Gameplay.Tournaments;
   using Infrastructure;
   using Messages;
@@ -9,13 +10,15 @@
 
   public class ViewModel : ViewModelBase, IReceive<TournamentMatchFinished>
   {
-    private readonly List<TournamentPlayer> _finishedPlayers =
-      new List<TournamentPlayer>();
+    private readonly List<CardInfo> _humanLibrary;
+    private readonly List<TournamentPlayer> _finishedPlayers = new List<TournamentPlayer>();
+    private readonly TournamentPlayer _humanPlayer;
 
     private readonly int _playerCount;
 
-    public ViewModel(IEnumerable<TournamentPlayer> players, int roundsLeft)
+    public ViewModel(IEnumerable<TournamentPlayer> players, int roundsLeft, List<CardInfo> humanLibrary)
     {
+      _humanLibrary = humanLibrary;
       RoundsLeft = roundsLeft;
       var matchesPlayed = players.Max(x => x.MatchesPlayed);
       _playerCount = players.Count();
@@ -26,9 +29,12 @@
 
       _finishedPlayers = new List<TournamentPlayer>(finished);
       _finishedPlayers.Sort();
+
+      _humanPlayer = players.First(x => x.IsHuman);
     }
 
     public int RoundsLeft { get; private set; }
+    public bool ShouldQuitTournament { get; private set; }
     public int MatchesInProgress { get { return (_playerCount - _finishedPlayers.Count)/2; } }
 
     public IEnumerable<object> FinishedPlayers
@@ -60,6 +66,25 @@
       this.Close();
     }
 
+    public void EditDeck()
+    {
+      var screen = ViewModels.BuildLimitedDeck.Create(_humanLibrary, new Deck(_humanPlayer.Deck));
+      Shell.ChangeScreen(screen, blockUntilClosed: true);
+
+      if (screen.WasCanceled == false)
+      {
+        _humanPlayer.Deck = screen.Result;
+      }
+
+      Shell.ChangeScreen(this);
+    }
+
+    public virtual void ReturnToMainMenu()
+    {
+      ShouldQuitTournament = true;
+      this.Close();
+    }
+
     public void Save()
     {
       var saveFileHeader = new SaveFileHeader
@@ -73,7 +98,7 @@
 
     public interface IFactory
     {
-      ViewModel Create(IEnumerable<TournamentPlayer> players, int roundsLeft);
+      ViewModel Create(IEnumerable<TournamentPlayer> players, int roundsLeft, List<CardInfo> humanLibrary);
     }
   }
 }

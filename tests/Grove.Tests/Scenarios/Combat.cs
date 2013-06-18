@@ -33,6 +33,19 @@
         Equal(16, P2.Life);
       }
 
+      [Fact]
+      public void DoNotAttack()
+      {
+        Battlefield(P1, C("Elvish Lyrist").IsEnchantedWith("Blanchwood Armor"), "Forest", "Forest", "Forest", "Treefolk Seedlings");
+        Battlefield(P2, "Blanchwood Treefolk", C("Sanguine Guard").Tap());
+
+        P2.Life = 10;
+
+        RunGame(2);
+
+        Equal(10, P2.Life);
+      }
+
 
       [Fact]
       public void BugCreaturesWithFlyingCannotBeBlockedByCreaturesWithoutFlying()

@@ -1,7 +1,6 @@
 ﻿namespace Grove.Gameplay.CastingRules
 {
   using System;
-  using Effects;
 
   public class Instant : CastingRule
   {
@@ -17,11 +16,6 @@
     public override bool CanCast()
     {
       return true;
-    }
-
-    public override void Cast(Effect effect)
-    {
-      Game.Stack.Push(effect);
     }
 
     public override void AfterResolve()

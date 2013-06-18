@@ -1015,7 +1015,7 @@
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserInterface\LoadSavedGame\ViewModel.cs" />
-    <Compile Include="UserInterface\Messages\DeckGenerated.cs" />
+    <Compile Include="UserInterface\Messages\DeckGenerationStatus.cs" />
     <Compile Include="UserInterface\Messages\TournamentMatchFinished.cs" />
     <Compile Include="UserInterface\NewTournament\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>

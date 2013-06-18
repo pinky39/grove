@@ -51,7 +51,7 @@
                 trg.GetMaxCount = cp => cp.OwningCard.CountersCount();
               });
 
-            p.TimingRule(new MinimumCounters(3, onlyAtEot: false));                        
+            p.TimingRule(new MinimumCounters(1, onlyAtEot: false));                        
             p.TargetingRule(new Destroy());
             p.TimingRule(new TargetRemoval());
           });

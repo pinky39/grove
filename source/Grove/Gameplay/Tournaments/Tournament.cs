@@ -24,6 +24,7 @@
     private readonly IShell _shell;
     private readonly ViewModelFactories _viewModels;
     private CardRatings _cardRatings;
+    private List<CardInfo> _humanLibrary;
     private List<TournamentMatch> _matches;
     private List<TournamentPlayer> _players;
     private int _roundsLeft;
@@ -76,8 +77,10 @@
         _roundsLeft = CalculateRoundCount(_p.PlayersCount);
         _players = CreatePlayers(_p.PlayersCount, _p.PlayerName);
 
-        var generatedDeckCount = GenerateDecks();
-        ShowEditDeckScreen(GenerateLibrary(), generatedDeckCount);
+        _humanLibrary = GenerateLibrary();
+
+        GenerateDecks();
+        CreateHumanDeck();
       }
 
       RunTournament();
@@ -124,7 +127,7 @@
 
       ShowResults();
 
-      while (_roundsLeft > 0)
+      while (_roundsLeft > 0 && !_wasStopped)
       {
         _roundsLeft--;
 
@@ -134,7 +137,6 @@
         {
           return;
         }
-
         ShowResults();
       }
     }
@@ -169,8 +171,13 @@
 
     private void ShowResults()
     {
-      var leaderboard = _viewModels.LeaderBoard.Create(_players, _roundsLeft);
+      var leaderboard = _viewModels.LeaderBoard.Create(_players, _roundsLeft, _humanLibrary);
       _shell.ChangeScreen(leaderboard, blockUntilClosed: true);
+
+      if (leaderboard.ShouldQuitTournament)
+      {
+        Stop();
+      }
     }
 
     private int CalculateRoundCount(int playersCount)
@@ -325,10 +332,16 @@
       return matches;
     }
 
-    private void ShowEditDeckScreen(IEnumerable<CardInfo> library, int generatedDeckCount)
+    private void CreateHumanDeck()
     {
-      var screen = _viewModels.BuildLimitedDeck.Create(library, generatedDeckCount);
+      var screen = _viewModels.BuildLimitedDeck.Create(_humanLibrary);
       _shell.ChangeScreen(screen, blockUntilClosed: true);
+
+      if (screen.WasCanceled)
+      {
+        Stop();
+        return;
+      }
 
       HumanPlayer.Deck = screen.Result;
     }
@@ -353,7 +366,7 @@
       return CardRatings.Merge(merged, MediaLibrary.GetSet(tournamentPack).Ratings);
     }
 
-    private int GenerateDecks()
+    private void GenerateDecks()
     {
       const int minNumberOfGeneratedDecks = 5;
       var limitedCode = MagicSet.GetLimitedCode(_p.TournamentPack, _p.BoosterPacks);
@@ -364,7 +377,7 @@
         .ToList();
 
       var nonHumanPlayers = NonHumanPlayers.ToList();
-      var actualNumberOfGeneratedDecks = NonHumanPlayers.Count() - preconstructed.Count;
+      var decksToGenerate = NonHumanPlayers.Count() - preconstructed.Count;
 
       for (var i = 0; i < preconstructed.Count; i++)
       {
@@ -373,7 +386,7 @@
 
       Task.Factory.StartNew(() =>
         {
-          for (var count = 0; count < actualNumberOfGeneratedDecks; count++)
+          for (var count = 0; count < decksToGenerate; count++)
           {
             var player = nonHumanPlayers[count + preconstructed.Count];
             var library = GenerateLibrary();
@@ -384,14 +397,18 @@
             var filename = Path.Combine(MediaLibrary.TournamentFolder, Guid.NewGuid() + ".dec");
             DeckFile.Write(deck, filename);
 
-            _shell.Publish(new DeckGenerated
+            _shell.Publish(new DeckGenerationStatus
               {
-                Count = count + 1,
+                PercentCompleted = (int) Math.Round((double) count/decksToGenerate)
               });
+
+            if (_shouldStop)
+            {
+              _wasStopped = true;
+              break;
+            }
           }
         });
-
-      return actualNumberOfGeneratedDecks;
     }
 
     private static List<TournamentPlayer> CreatePlayers(int playersCount, string playerName)
