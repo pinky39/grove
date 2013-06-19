@@ -1,6 +1,7 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
+  using Artifical.RepetitionRules;
   using Artifical.TimingRules;
   using Gameplay;
   using Gameplay.Costs;
@@ -40,13 +41,14 @@
         .ActivatedAbility(p =>
           {
             p.Text = "{B}: Pestilence deals 1 damage to each creature and each player.";
-            p.Cost = new PayMana(Mana.Black, ManaUsage.Abilities);
+            p.Cost = new PayMana(Mana.Black, ManaUsage.Abilities, supportsRepetitions: true);
             p.Effect = () => new DealDamageToCreaturesAndPlayers(
               amountCreature: 1,
               amountPlayer: 1);
 
-            p.TimingRule(new Any(new MassRemoval(), new All(new SecondMain(), new StackIsEmpty())));
+            p.RepetitionRule(new PestilenceRepetition());
+            p.TimingRule(new All(new MassRemoval(), new SingleInstanceOfSpellOnStack()));
           });
-    }
+    } 
   }
 }

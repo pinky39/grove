@@ -121,8 +121,10 @@
     <Compile Include="Artifical\CombatRules\CombatRules.cs" />
     <Compile Include="Artifical\CombatRules\IncreasePowerAndToughness.cs" />
     <Compile Include="Artifical\CombatRules\Regenerate.cs" />
+    <Compile Include="Artifical\MassRemovalParameterOptimizer.cs" />
     <Compile Include="Artifical\Decisions\ChooseTo.cs" />
     <Compile Include="Artifical\Decisions\OrderCards.cs" />
+    <Compile Include="Artifical\RepetitionRules\PestilenceRepetition.cs" />
     <Compile Include="Artifical\SearchRunner.cs" />
     <Compile Include="Artifical\RepetitionRules\TargetLifepointsLeft.cs" />
     <Compile Include="Artifical\Search.cs" />

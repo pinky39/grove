@@ -2,12 +2,14 @@
 {
   using Infrastructure;
   using Messages;
+  using States;
 
-  public class OnBlock : Trigger, IReceive<BlockerJoinedCombat>
+  public class OnBlock : Trigger, IReceive<BlockerJoinedCombat>, IReceive<StepStarted>
   {
     private readonly bool _becomesBlocked;
     private readonly bool _blocks;
-    private readonly bool _triggerForEveryCreature;    
+    private readonly bool _triggerForEveryCreature;
+    private Trackable<int> _count = new Trackable<int>();
 
     private OnBlock() {}
 
@@ -22,8 +24,10 @@
     {
       if (_becomesBlocked && message.Attacker.Card == Ability.OwningCard)
       {
-        if (_triggerForEveryCreature || message.Attacker.BlockersCount == 1)
-        {                    
+        _count.Value++;
+
+        if (_triggerForEveryCreature || _count == 1)
+        {
           Set();
         }
       }
@@ -32,6 +36,17 @@
       {
         Set();
       }
-    }   
+    }
+
+    public void Receive(StepStarted message)
+    {
+      if (message.Step == Step.CombatDamage)
+        _count.Value = 0;
+    }
+
+    protected override void Initialize()
+    {
+      _count.Initialize(ChangeTracker);
+    }
   }
 }

@@ -22,7 +22,7 @@
     {      
       foreach (var pair in Result)
       {
-        Game.Combat.DeclareBlocker(pair.Blocker, pair.Attacker);
+        Combat.DeclareBlocker(pair.Blocker, pair.Attacker);
       }
     }
   }

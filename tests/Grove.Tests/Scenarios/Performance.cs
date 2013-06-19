@@ -211,7 +211,7 @@
     {
       Hand(P1, "Annul", "Corrupt", "Abyssal Horror", "Pestilence");
       Hand(P2, "Healing Salve", "Grafted Skullcap", "Healing Salve", "Plains");
-      
+
       Battlefield(P1, "Swamp", "Swamp", "Swamp", C("Mana Leech").IsEnchantedWith("Pacifism"), "Swamp", "Pestilence",
         C("Carrion Beetles").IsEnchantedWith("Diabolic Servitude"), "Blood Vassal");
       Battlefield(P2, "Plains", "Plains", "Disciple of Grace", "Plains", "Plains", "Rune of Protection: Black", "Plains");
@@ -224,11 +224,25 @@
     {
       Hand(P1, "Pegasus Charger", "Congregate", "Plains");
       Hand(P2, "Congregate", "Pacifism", "Karn, Silver Golem");
-      Battlefield(P1, "Plains", "Mountain", "Opal Gargoyle", "Plains", "Dragon Blood", "Mountain", "Opal Acrolith", "Dromosaur", "Plains");
-      Battlefield(P2, C("Forest").IsEnchantedWith("Fertile Ground"), "Plains", "Plains", "Opal Acrolith", "Plains", "Plains");
+      Battlefield(P1, "Plains", "Mountain", "Opal Gargoyle", "Plains", "Dragon Blood", "Mountain", "Opal Acrolith",
+        "Dromosaur", "Plains");
+      Battlefield(P2, C("Forest").IsEnchantedWith("Fertile Ground"), "Plains", "Plains", "Opal Acrolith", "Plains",
+        "Plains");
 
       RunGame(4);
-    }    
+    }
 
+    [Fact]
+    public void Num19()
+    {
+      Hand(P1, "Tolarian Winds", "Windfall", "Imaginary Pet");
+      Hand(P2, "Corrupt", "Corrupt", "Corrupt");
+      Battlefield(P1, "Forest", "Remote Isle", "Forest", "Island", "Disruptive Student", "Forest", "Karn, Silver Golem",
+        "Forest", "Blanchwood Treefolk", "Worn Powerstone", "Wizard Mentor", "Retaliation");
+      Battlefield(P2, "Swamp", "Swamp", "Unworthy Dead", "Swamp", "Lurking Evil", "Swamp", "Phyrexian Ghoul",
+        "No Rest for the Wicked", "Priest of Gix", "Pestilence", "Swamp");
+
+      RunGame(2);
+    }
   }
 }

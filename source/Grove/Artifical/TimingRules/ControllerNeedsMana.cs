@@ -16,9 +16,7 @@
 
     public override bool ShouldPlay(TimingRuleParameters p)
     {
-      if (!(
-        Turn.Step == Step.FirstMain || 
-        Turn.Step == Step.SecondMain))
+      if (!(Turn.Step == Step.FirstMain || Turn.Step == Step.SecondMain || Turn.Step == Step.EndOfTurn))
         return false;
 
       var availableMana = p.Controller.GetConvertedMana();

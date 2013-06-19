@@ -73,7 +73,7 @@
           var maxAttackerDamage = Attacker.CalculateCombatDamageAmount(singleDamageStep: false);
           var score = 0;
 
-          var blockers = _blockers.OrderByDescending(x => x.Toughness);
+          var blockers = _blockers.OrderByDescending(x => x.Score);
 
           foreach (var blocker in blockers)
           {

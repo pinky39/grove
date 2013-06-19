@@ -1,15 +1,20 @@
 ﻿namespace Grove.Artifical.RepetitionRules
 {
+  using System;
   using System.Linq;
 
   public abstract class RepetitionRule : MachinePlayRule
   {
-    public override void Process(ActivationContext c)
+    public override void Process(Artifical.ActivationContext c)
     {
       if (c.HasTargets == false)
       {
-        var p = new RepetitionRuleParameters(c.MaxRepetitions);
-        c.Repeat = GetRepetitionCount(p);
+        var p = new RepetitionRuleParameters(c.Card, c.MaxRepetitions);
+        c.Repeat = Math.Min(p.MaxRepetitions, GetRepetitionCount(p));
+
+        if (c.Repeat == 0)
+          c.CancelActivation = true;
+
         return;
       }
 
@@ -17,8 +22,13 @@
 
       foreach (var targetsCombination in targetsCombinations)
       {
-        var p = new RepetitionRuleParameters(c.MaxRepetitions, targetsCombination.Targets);
-        targetsCombination.Repeat = GetRepetitionCount(p);
+        var p = new RepetitionRuleParameters(c.Card, c.MaxRepetitions, targetsCombination.Targets);
+        targetsCombination.Repeat = Math.Min(p.MaxRepetitions, GetRepetitionCount(p));
+
+        if (targetsCombination.Repeat == 0)
+        {
+          c.RemoveTargetCombination(targetsCombination);
+        }
       }
     }
 
