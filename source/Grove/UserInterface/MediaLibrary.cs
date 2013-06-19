@@ -55,7 +55,7 @@
       LoadSets();
       LoadLimitedDecks();
       LoadPlayerNames();
-
+      
       MissingImage.Freeze();
     }
 

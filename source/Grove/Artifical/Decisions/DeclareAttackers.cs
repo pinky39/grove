@@ -63,12 +63,15 @@
 
       var allAttackers = Controller.Battlefield.CreaturesThatCanAttack.ToList();
 
-      // quick heuristic
-      yield return new AttackStrategy(
-        Controller.Life,
-        Defender.Life,
-        allAttackers,
-        Defender.Battlefield.CreaturesThatCanBlock).ToList();
+      var parameters = new AttackStrategyParameters
+        {
+          AttackerCandidates = allAttackers,
+          BlockerCandidates = Defender.Battlefield.CreaturesThatCanBlock.ToList(),          
+          DefendingPlayersLife = Defender.Life
+        };
+
+
+      yield return new AttackStrategy(parameters).ChooseAttackers();
 
 
       yield return allAttackers;

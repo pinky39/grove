@@ -1,96 +1,56 @@
 ﻿namespace Grove.Artifical
 {
   using System;
-  using System.Collections;
   using System.Collections.Generic;
   using System.Linq;
   using Gameplay;
 
-  public class AttackStrategy : IEnumerable<Card>
+  public class AttackStrategy
   {
-    private readonly List<Card> _attackers;
+    private readonly AttackStrategyParameters _p;
 
-    public AttackStrategy(
-      int attackersLife,
-      int defendersLife,
-      IEnumerable<Card> attackerCandidates,
-      IEnumerable<Card> blockerCandidates)
+    public AttackStrategy(AttackStrategyParameters p)
     {
-      _attackers = ChooseAttackers(
-        attackersLife,
-        defendersLife,
-        attackerCandidates.ToList(), blockerCandidates.ToList())
-        .ToList();
+      _p = p;
     }
 
-    public IEnumerator<Card> GetEnumerator()
+    private IEnumerable<BlockAssignment> AssignEveryBlockerToEachAttacker()
     {
-      return _attackers.GetEnumerator();
-    }
-
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-      return GetEnumerator();
-    }
-
-    private static IEnumerable<BlockAssignment> AssignEveryBlockerToEachAttacker(
-      IEnumerable<ScoredCard> attackerCandidates,
-      IEnumerable<ScoredCard> blockerCandidates,
-      int defendersLife)
-    {
-      var assignments = new List<BlockAssignment>();
-
-      foreach (var attackerCandidate in attackerCandidates)
+      foreach (var attackerCandidate in _p.AttackerCandidates)
       {
-        var assignment = new BlockAssignment(attackerCandidate, defendersLife);
-        foreach (var blockerCandidate in blockerCandidates)
+        var assignment = new BlockAssignment(attackerCandidate, _p.DefendingPlayersLife);
+        foreach (var blockerCandidate in _p.BlockerCandidates)
         {
           assignment.TryAssignBlocker(blockerCandidate);
         }
 
-        assignments.Add(assignment);
+        yield return assignment;
       }
-      return assignments;
     }
 
-    private static IEnumerable<Card> ChooseAttackers(
-      int attackersLife, int defendersLife, List<Card> attackerCandidates, List<Card> blockerCandidates)
+    public List<Card> ChooseAttackers()
     {
-      var assignments = AssignEveryBlockerToEachAttacker(
-        ScoreCards(attackerCandidates),
-        ScoreCards(blockerCandidates),
-        defendersLife);
+      var assignments = AssignEveryBlockerToEachAttacker();
 
       return (from blockAssignment in assignments
               where blockAssignment.Score > 0
-              orderby blockAssignment.Score descending
-              select blockAssignment.Attacker);
-    }
-
-    private static IEnumerable<ScoredCard> ScoreCards(IEnumerable<Card> cards)
-    {
-      return cards.Select(x => new ScoredCard
-        {
-          Card = x,
-          Score = ScoreCalculator.CalculatePermanentScore(x)
-        });
+              select blockAssignment.Attacker).ToList();
     }
 
     private class BlockAssignment
     {
-      private readonly ScoredCard _attacker;
-      private readonly List<ScoredCard> _blockers = new List<ScoredCard>();
+      private readonly List<Card> _blockers = new List<Card>();
       private readonly int _defendersLife;
       private readonly Lazy<int> _score;
 
-      public BlockAssignment(ScoredCard attacker, int defendersLife)
+      public BlockAssignment(Card attacker, int defendersLife)
       {
-        _attacker = attacker;
+        Attacker = attacker;
         _defendersLife = defendersLife;
         _score = new Lazy<int>(CalculateScore);
       }
 
-      public Card Attacker { get { return _attacker.Card; } }
+      public Card Attacker { get; private set; }
 
       private int AttackerScore
       {
@@ -99,7 +59,7 @@
           if (Attacker.Has().Deathtouch)
             return 0;
 
-          return CanAttackerBeKilled ? _attacker.Score : 0;
+          return CanAttackerBeKilled ? Attacker.Score : 0;
         }
       }
 
@@ -113,7 +73,9 @@
           var maxAttackerDamage = Attacker.CalculateCombatDamageAmount(singleDamageStep: false);
           var score = 0;
 
-          foreach (var blocker in _blockers.Select(x => x.Card).OrderByDescending(x => x.Score))
+          var blockers = _blockers.OrderByDescending(x => x.Toughness);
+
+          foreach (var blocker in blockers)
           {
             if (QuickCombat.CanBlockerBeDealtLeathalCombatDamage(Attacker, blocker))
             {
@@ -134,7 +96,7 @@
         get
         {
           return QuickCombat.CanAttackerBeDealtLeathalDamage(
-            Attacker, _blockers.Select(x => x.Card));
+            Attacker, _blockers);
         }
       }
 
@@ -143,18 +105,16 @@
         get
         {
           return QuickCombat.CalculateDefendingPlayerLifeloss(
-            Attacker,
-            _blockers.Select(x => x.Card)
-            );
+            Attacker, _blockers);
         }
       }
 
       public int Score { get { return _score.Value; } }
 
-      public void TryAssignBlocker(ScoredCard scoredCard)
+      public void TryAssignBlocker(Card card)
       {
-        if (Attacker.CanBeBlockedBy(scoredCard.Card))
-          _blockers.Add(scoredCard);
+        if (Attacker.CanBeBlockedBy(card))
+          _blockers.Add(card);
       }
 
       private int CalculateScore()
@@ -166,12 +126,6 @@
       {
         return ScoreCalculator.CalculateLifelossScore(defendersLife, DefendersLifeloss);
       }
-    }
-
-    private class ScoredCard
-    {
-      public Card Card { get; set; }
-      public int Score { get; set; }
     }
   }
 }

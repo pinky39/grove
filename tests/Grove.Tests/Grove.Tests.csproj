@@ -304,7 +304,6 @@
     <Compile Include="SaveGameFacts.cs" />
     <Compile Include="Unit\PublisherFacts.cs" />
     <Compile Include="Unit\ActivationFacts.cs" />
-    <Compile Include="Scenarios\BlockStrategyFacts.cs" />
     <Compile Include="Unit\ClosedFacts.cs" />
     <Compile Include="Scenarios\GameFacts.cs" />
     <Compile Include="Unit\HashCalculatorFacts.cs" />

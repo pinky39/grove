@@ -113,7 +113,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Artifical\AttackerEvaluationParameters.cs" />
+    <Compile Include="Artifical\AttackStrategyParameters.cs" />
     <Compile Include="Artifical\BlockerEvaluationParameters.cs" />
+    <Compile Include="Artifical\BlockStrategyParameters.cs" />
     <Compile Include="Artifical\CombatRules\CombatAbilities.cs" />
     <Compile Include="Artifical\CombatRules\CombatRule.cs" />
     <Compile Include="Artifical\CombatRules\CombatRules.cs" />

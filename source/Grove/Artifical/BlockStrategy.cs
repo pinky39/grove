@@ -8,27 +8,27 @@
 
   public class BlockStrategy
   {
-    public BlockStrategy(IEnumerable<Card> attackers, IEnumerable<Card> blockerCandidates, int defendersLife)
+    private readonly BlockStrategyParameters _p;
+
+    public BlockStrategy(BlockStrategyParameters p)
     {
-      Result = ChooseBlockers(attackers.ToList(), blockerCandidates.ToList(), defendersLife);
+      _p = p;
     }
 
-    public ChosenBlockers Result { get; private set; }
-
-    private static ChosenBlockers ChooseBlockers(List<Card> attackers, List<Card> blockerCandidates, int defendersLife)
+    public ChosenBlockers ChooseBlockers()
     {
       // this is a gredy approach which does not always find optimal solution      
       // first pass, try assign every 1 blocker to every attacker
       // keep assignments that have biggest positive gain            
       var possibleAssignments = new List<BlockerAssignment>();
 
-      foreach (var attacker in attackers)
+      foreach (var attacker in _p.Attackers)
       {
-        foreach (var blockerCandidate in blockerCandidates)
+        foreach (var blockerCandidate in _p.BlockerCandidates)
         {
           if (attacker.CanBeBlockedBy(blockerCandidate))
           {
-            possibleAssignments.Add(new BlockerAssignment(attacker, blockerCandidate, defendersLife));
+            possibleAssignments.Add(new BlockerAssignment(attacker, blockerCandidate, _p.DefendersLife));
           }
         }
       }
@@ -48,7 +48,7 @@
         usedAttackers.Add(assignment.Attacker);
       }
 
-      var unassignedBlockers = blockerCandidates
+      var unassignedBlockers = _p.BlockerCandidates
         .Where(x => !assignments.ContainsKey(x))
         .ToList();
 
@@ -79,12 +79,6 @@
       }
 
       return result;
-    }
-
-
-    public static implicit operator ChosenBlockers(BlockStrategy strategy)
-    {
-      return strategy.Result;
     }
 
     private class BlockerAssignment

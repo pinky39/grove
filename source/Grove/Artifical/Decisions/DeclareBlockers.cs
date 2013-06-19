@@ -12,12 +12,14 @@
     
     protected override void ExecuteQuery()
     {
-      Result = new BlockStrategy
-        (
-        Game.Combat.Attackers.Select(x => x.Card),
-        Controller.Battlefield.CreaturesThatCanBlock,
-        Controller.Life
-        );
+      var p = new BlockStrategyParameters
+        {
+          Attackers = Combat.Attackers.Select(x => x.Card).ToList(),
+          BlockerCandidates = Controller.Battlefield.CreaturesThatCanBlock.ToList(),
+          DefendersLife = Controller.Life
+        };
+
+      Result = new BlockStrategy(p).ChooseBlockers();
     }
   }
 }
