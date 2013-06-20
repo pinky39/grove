@@ -23,6 +23,18 @@
         Equal(Zone.Battlefield, C(fluke).Zone);
         Equal(Zone.Graveyard, C(bears).Zone);
       }
+
+      [Fact]
+      public void AttackWithFluke()
+      {
+        var fluke = C("Spined Fluke");
+        Battlefield(P1, fluke, "Swamp", "Llanowar Elves", "Llanowar Elves", "Llanowar Elves");
+        Battlefield(P2, "Grizzly Bears", "Grizzly Bears");
+
+        RunGame(1);
+
+        True(C(fluke).IsTapped);
+      }
     }
   }
 }

@@ -53,6 +53,23 @@
               Equal(Zone.Battlefield, C(loomingShade).Zone);
             }));
       }
+
+      
+    }
+
+    public class Ai : AiScenario
+    {
+      [Fact]
+      public void AttackWithShade()
+      {
+        var shade = C("Looming Shade");
+        Battlefield(P1, shade, "Llanowar Elves", "Llanowar Elves", "Llanowar Elves", "Swamp", "Swamp", "Swamp", "Swamp", "Swamp", "Swamp");
+        Battlefield(P2, "Grizzly Bears", "Grizzly Bears", "Grizzly Bears");
+
+        RunGame(1);
+
+        True(C(shade).IsTapped);
+      }
     }
   }
 }

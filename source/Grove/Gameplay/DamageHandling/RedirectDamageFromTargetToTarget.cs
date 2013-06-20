@@ -1,5 +1,6 @@
 ﻿namespace Grove.Gameplay.DamageHandling
 {
+  using Infrastructure;
   using Targeting;
 
   public class RedirectDamageFromTargetToTarget : DamageRedirection
@@ -13,6 +14,14 @@
     {
       _from = from;
       _to = to;
+    }
+
+    public override int CalculateHash(HashCalculator calc)
+    {
+      return HashCalculator.Combine(
+        GetType().GetHashCode(),
+        calc.Calculate(_from),
+        calc.Calculate(_to));
     }
 
     protected override bool Redirect(Damage damage, ITarget target)

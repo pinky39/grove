@@ -278,7 +278,7 @@
     <Compile Include="Cards\UnworthyDead.cs" />
     <Compile Include="Cards\UrzasArmor.cs" />
     <Compile Include="Cards\VampiricEmbrace.cs" />
-    <Compile Include="Cards\Vebuild.cs" />
+    <Compile Include="Cards\Vebulid.cs" />
     <Compile Include="Cards\VeiledCrocodile.cs" />
     <Compile Include="Cards\VeiledSentry.cs" />
     <Compile Include="Cards\VeiledSerpent.cs" />

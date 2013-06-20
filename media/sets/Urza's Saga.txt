@@ -33,13 +33,13 @@ Back to Basics;R;2
 Barrin, Master Wizard;R;3.8
 Barrin's Codex;R;3.8
 Bedlam;R;3.5
-Befoul;C;4.5
+Befoul;C;3.9
 Bereavement;U;2
 Blanchwood Armor;U;4
 Blanchwood Treefolk;C;3.8
 Blasted Landscape;U;3.5
-Blood Vassal;C;3.5
-Bog Raiders;C;3.8
+Blood Vassal;C;3.3
+Bog Raiders;C;3.6
 Brand;R;2
 Bravado;C;3.4
 Breach;C;3
@@ -51,7 +51,7 @@ Carrion Beetles;C;3
 Catalog;C;3.5
 Catastrophe;R;4.5
 Cathodion;U;3.8
-Cave Tiger;C;3.2
+Cave Tiger;C;3.3
 Child of Gaea;R;4.5
 Chimeric Staff;R;4
 Citanul Centaurs;R;4
@@ -69,9 +69,9 @@ Crater Hellion;R;4.5
 Crazed Skirge;U;3.5
 Crosswinds;U;2.5
 Crystal Chimes;U;3.2
-Curfew;C;3.5
+Curfew;C;3.4
 Dark Hatchling;R;4
-Dark Ritual;C;2.5
+Dark Ritual;C;3.1
 Darkest Hour;R;2.5
 Despondency;C;3.5
 Destructive Urge;U;3.5
@@ -86,13 +86,13 @@ Douse;U;3
 Dragon Blood;U;4
 Drifting Djinn;R;4
 Drifting Meadow;C;3
-Dromosaur;C;3.5
-Duress;C;3.5
+Dromosaur;C;3.3
+Duress;C;3.8
 Eastern Paladin;R;3.8
 Electryte;R;3.2
 Elite Archers;R;4
-Elvish Herder;C;3.8
-Elvish Lyrist;C;3.8
+Elvish Herder;C;3.3
+Elvish Lyrist;C;3.6
 Endless Wurm;R;3.5
 Endoskeleton;U;3.5
 Energy Field;R;3
@@ -100,33 +100,34 @@ Exhaustion;U;3.8
 Exhume;C;3.5
 Exploration;R;3.5
 Expunge;C;4
+Faith Healer;R;3.1
 Falter;C;4
 Fault Line;R;4
-Fecundity;U;2.5
-Fertile Ground;C;4
+Fecundity;U;3
+Fertile Ground;C;3.4
 Fiery Mantle;C;3.8
 Fire Ants;U;4
-Flesh Reaver;U;2.5
-Fog Bank;U;4.5
+Flesh Reaver;U;3.1
+Fog Bank;U;4
 Fortitude;C;3.2
 Gaea's Bounty;C;3.8
 Gaea's Cradle;R;3.5
 Gaea's Embrace;U;4
-Gamble;R;4
+Gamble;R;3.6
 Gilded Drake;R;3.7
-Glorious Anthem;R;4
+Glorious Anthem;R;4.2
 Goblin Cadets;U;3
 Goblin Lackey;U;3
 Goblin Matron;C;3
 Goblin Offensive;U;4
-Goblin Patrol;C;3.2
-Goblin Raider;C;3.2
+Goblin Patrol;C;3.4
+Goblin Raider;C;3.3
 Goblin Spelunkers;C;3.2
-Goblin War Buggy;C;3.5
+Goblin War Buggy;C;3.6
 Gorilla Warrior;C;3.5
-Grafted Skullcap;R;3.7
-Great Whale;R;3.7
-Greater Good;R;3
+Grafted Skullcap;R;3.5
+Great Whale;R;3.8
+Greater Good;R;3.3
 Greener Pastures;R;3.5
 Guma;U;3.3
 Hawkeater Moth;U;3.5
@@ -142,30 +143,30 @@ Hidden Herd;R;3
 Hidden Predators;R;3.5
 Hidden Spider;C;3.5
 Hidden Stag;R;3.4
-Hollow Dogs;C;3.8
+Hollow Dogs;C;3.4
 Hopping Automaton;U;3.5
-Horseshoe Crab;C;3.7
+Horseshoe Crab;C;3.6
 Humble;U;3.8
 Hush;C;3.8
-Ill-Gotten Gains;R;4
-Imaginary Pet;R;3.5
-Intrepid Hero;R;4
+Ill-Gotten Gains;R;3.9
+Imaginary Pet;R;3.2
+Intrepid Hero;R;3.8
 Jagged Lightning;U;4
 Karn, Silver Golem;R;4.2
-Launch;C;3.8
+Launch;C;3.6
 Lay Waste;C;3.5
 Lightning Dragon;R;4.5
 Lilting Refrain;U;3.5
 Lingering Mirage;U;2
 Looming Shade;C;4
 Lotus Blossom;R;2.5
-Lull;C;3.8
-Lurking Evil;R;3
-Mana Leech;U;3.2
+Lull;C;3.5
+Lurking Evil;R;3.2
+Mana Leech;U;3.1
 Meltdown;U;3
 Midsummer Revel;R;3.8
 Mishra's Helix;R;3.5
-Mobile Fort;U;3.8
+Mobile Fort;U;3.6
 Monk Idealist;U;3.7
 Monk Realist;C;3.7
 Morphling;R;4
@@ -180,8 +181,8 @@ Oppression;R;3.4
 Order of Yawgmoth;U;4.1
 Outmaneuver;U;3.8
 Pacifism;C;4
-Parasitic Bond;U;3.6
-Pariah;R;4
+Parasitic Bond;U;3.8
+Pariah;R;3.8
 Path of Peace;C;4
 Pegasus Charger;C;4
 Pendrell Drake;C;3.8
@@ -196,19 +197,19 @@ Pit Trap;U;3.8
 Planar Birth;R;2.8
 Planar Void;U;3
 Polluted Mire;C;3
-Pouncing Jaguar;C;3.2
-Power Sink;C;3.8
+Pouncing Jaguar;C;3.4
+Power Sink;C;3.6
 Power Taint;C;3.5
 Presence of the Master;U;3.4
-Priest of Gix;U;3.5
-Priest of Titania;C;3.7
+Priest of Gix;U;3.2
+Priest of Titania;C;3.5
 Purging Scythe;R;3.6
 Rain of Filth;U;2.8
 Rain of Salt;U;3.6
 Ravenous Skirge;C;4
 Raze;C;3.3
 Recantation;R;3.2
-Reclusive Wight;U;3
+Reclusive Wight;U;2.8
 Redeem;U;3.3
 Reflexes;C;2.8
 Rejuvenate;C;3.3
@@ -227,13 +228,13 @@ Rune of Protection: Green;C;3.2
 Rune of Protection: Lands;R;2.9
 Rune of Protection: Red;C;3.3
 Rune of Protection: White;C;3.1
-Sanctum Custodian;C;3.8
+Sanctum Custodian;C;3.6
 Sanctum Guardian;U;3.7
 Sandbar Merfolk;C;2.5
 Sandbar Serpent;U;3.7
 Sanguine Guard;U;4
 Scald;U;2.9
-Scoria Wurm;R;3.8
+Scoria Wurm;R;3.7
 Scrap;C;3.7
 Seasoned Marshal;U;3.8
 Serra Avatar;R;4
@@ -246,9 +247,9 @@ Shivan Gorge;R;3.8
 Shivan Hellkite;R;4.2
 Shivan Raptor;U;3.9
 Shiv's Embrace;U;4.2
-Show and Tell;R;3.4
-Shower of Sparks;C;3.4
-Sicken;C;3.4
+Show and Tell;R;3
+Shower of Sparks;C;3.2
+Sicken;C;3.3
 Silent Attendant;C;3.3
 Skirge Familiar;U;3.6
 Skittering Skirge;C;3.8
@@ -256,11 +257,12 @@ Sleeper Agent;R;3.4
 Slippery Karst;C;3
 Smokestack;R;3.6
 Smoldering Crater;C;3
+Sneak Attack;R;3.4
 Somnophore;R;4
-Songstitcher;U;3.7
-Soul Sculptor;R;3.8
-Spined Fluke;U;3.8
-Spire Owl;C;3.8
+Songstitcher;U;3.6
+Soul Sculptor;R;3.6
+Spined Fluke;U;3.7
+Spire Owl;C;3.7
 Sporogenesis;R;3.7
 Spreading Algae;U;3.3
 Steam Blast;U;3.8
@@ -286,7 +288,7 @@ Unnerve;C;3.7
 Unworthy Dead;C;3.8
 Urza's Armor;U;3.6
 Vampiric Embrace;U;4
-Vebuild;R;3.6
+Vebulid;R;3.6
 Veil of Birds;C;3.4
 Veiled Apparition;U;3.8
 Veiled Crocodile;R;3.8
@@ -315,7 +317,7 @@ Windfall;U;4
 Winding Wurm;C;3.8
 Witch Engine;R;3.8
 Wizard Mentor;C;3.7
-Worn Powerstone;U;3.8
+Worn Powerstone;U;3.6
 Worship;R;4.2
-Zephid;R;4
+Zephid;R;3.7
 Zephid's Embrace;U;4

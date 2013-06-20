@@ -19,6 +19,9 @@
       get { return _value; }
       set
       {
+        if (Equals(value, _value))
+          return;
+        
         _changeTracker.NotifyValueChanged(this);
         _hashDependency.InvalidateHash();
         _value = value;

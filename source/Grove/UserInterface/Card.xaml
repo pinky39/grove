@@ -115,7 +115,7 @@
                                             </Grid.ColumnDefinitions>
                                             
                                             <TextBlock Grid.Column="0" Foreground="White" FontFamily="Arial" FontSize="16" Margin="0,1,0,0"  Text="{Binding Path=Type}" />
-                                            <Image Grid.Column="2" Height="22"  >
+                                            <Image Grid.Column="2" Height="21"  >
                                                 <Image.Source>
                                                     <MultiBinding Converter="{x:Static UserInterface:Converters.SetAndRaritytoSetImage}">
                                                         <Binding Path="Set" />

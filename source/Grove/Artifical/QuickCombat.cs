@@ -71,13 +71,43 @@
 
     public static int CalculateTrampleDamage(Card attacker, IEnumerable<Card> blockers)
     {
-      if (attacker.Has().Trample == false)
-        return 0;
-
-      var total = attacker.CalculateCombatDamageAmount(singleDamageStep: false);
-      return total - blockers.Sum(x => x.Life);
+      var p = new AttackerEvaluationParameters(attacker, blockers);
+      return CalculateTrampleDamage(p);
     }
 
+    public static int CalculateTrampleDamage(AttackerEvaluationParameters p)
+    {
+      if (p.Attacker.Has().Trample == false)
+        return 0;
+
+      var total = p.Attacker.CalculateCombatDamageAmount(singleDamageStep: false, powerIncrease: p.AttackerPowerIncrease);
+      total = total - p.Blockers.Sum(x => x.Card.Life + x.ToughnessIncrease);
+
+      return total > 0 ? total : 0;
+    }
+
+    public static int CalculateDefendingPlayerLifeloss(AttackerEvaluationParameters p)
+    {
+      var total = 0;
+            
+      if (p.Blockers.None())
+      {
+        total = p.Attacker.CalculateCombatDamageAmount(singleDamageStep: false, powerIncrease: p.AttackerPowerIncrease);
+      }
+      else if (p.Attacker.Has().Trample)
+      {
+        total = CalculateTrampleDamage(p);
+      }
+
+      if (total == 0)
+        return 0;
+
+      var prevented = p.Attacker.Controller.Opponent.CalculatePreventedReceivedDamageAmount(total, p.Attacker,
+        isCombat: true);
+
+      return total - prevented;
+    }
+    
     public static int CalculateDefendingPlayerLifeloss(Card attacker, IEnumerable<Card> blockers)
     {
       var total = 0;

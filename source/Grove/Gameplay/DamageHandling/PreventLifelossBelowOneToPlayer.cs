@@ -1,6 +1,7 @@
 ﻿namespace Grove.Gameplay.DamageHandling
 {
   using System.Linq;
+  using Infrastructure;
 
   public class PreventLifelossBelowOneToPlayer : DamagePrevention
   {
@@ -12,6 +13,13 @@
     }
 
     private PreventLifelossBelowOneToPlayer() {}
+
+    public override int CalculateHash(HashCalculator calc)
+    {
+      return HashCalculator.Combine(
+        GetType().GetHashCode(),
+        calc.Calculate(_player));
+    }
 
     public override int PreventLifeloss(int amount, Player player, bool queryOnly)
     {

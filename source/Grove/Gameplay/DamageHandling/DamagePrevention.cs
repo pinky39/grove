@@ -9,12 +9,10 @@
     protected DamagePrevention()
     {
       EndOfLife = new TrackableEvent(this);
-    }    
-
-    public int CalculateHash(HashCalculator calc)
-    {
-      return GetType().GetHashCode();
     }
+
+    public abstract int CalculateHash(HashCalculator calc);
+    
 
     public TrackableEvent EndOfLife { get; set; }
 

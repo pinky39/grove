@@ -17,6 +17,13 @@
       AddBlocker(blocker, blockerPowerIncrease, blockerToughnessIncrease);
     }
 
+    public AttackerEvaluationParameters(Card attacker, int attackerPowerIncrease, int attackerToughnessIncrease)
+    {
+      Attacker = attacker;
+      AttackerPowerIncrease = attackerPowerIncrease;
+      AttackerToughnessIncrease = attackerToughnessIncrease;
+    }
+
     public AttackerEvaluationParameters(Card attacker, IEnumerable<Card> blockers)
     {
       Attacker = attacker;

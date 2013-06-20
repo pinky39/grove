@@ -2,6 +2,7 @@
 {
   using System;
   using Counters;
+  using Infrastructure;
   using Modifiers;
   using Targeting;
 
@@ -18,6 +19,13 @@
       _player = player;
       _counter = counter;
       _filter = filter ?? delegate { return true; };
+    }
+
+    public override int CalculateHash(HashCalculator calc)
+    {
+       return HashCalculator.Combine(
+        GetType().GetHashCode(),
+        calc.Calculate(_player));
     }
 
     public override int PreventDamage(PreventDamageParameters parameters)

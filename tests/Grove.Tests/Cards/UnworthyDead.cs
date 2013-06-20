@@ -28,6 +28,23 @@
                 Equal(Zone.Battlefield, C(unworthyDead).Zone);
               })
           );
+      }      
+    }
+
+    public class Ai : AiScenario
+    {
+      [Fact]
+      public void DoNotAttackWithMerfolk()
+      {
+        var merfolk = C("Coral Merfolk");
+        Battlefield(P1, merfolk, "Grizzly Bears", "Grizzly Bears", "Grizzly Bears", "Grizzly Bears");
+        Battlefield(P2, "Unworthy Dead", "Swamp");
+
+        RunGame(1);
+
+        Equal(14, P2.Life);
+        Equal(Zone.Battlefield, C(merfolk).Zone);
+        False(C(merfolk).IsTapped);
       }
     }
   }

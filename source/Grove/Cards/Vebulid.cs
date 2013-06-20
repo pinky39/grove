@@ -9,12 +9,12 @@
   using Gameplay.Triggers;
   using Gameplay.Zones;
 
-  public class Vebuild : CardsSource
+  public class Vebulid : CardsSource
   {
     public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
-        .Named("Vebuild")
+        .Named("Vebulid")
         .ManaCost("{B}")
         .Type("Creature Horror")
         .Text(

@@ -34,7 +34,7 @@
     {
       Game = game;
 
-      _modifiers.Initialize(game.ChangeTracker, hashDependancy);
+      _modifiers.Initialize(game.ChangeTracker);
       _currentValue.Initialize(game.ChangeTracker, hashDependancy);
     }
 

@@ -29,6 +29,14 @@
         });
     }
 
+    public void ChangePlayersInterest(CardViewModel card)
+    {
+      Shell.Publish(new PlayersInterestChanged
+      {
+        Visual = card
+      });
+    }
+
     public virtual void Initialize() {}
   }
 }

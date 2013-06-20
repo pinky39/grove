@@ -10,10 +10,7 @@
   {
     public Modifier Modifier { get; private set; }
 
-    public int CalculateHash(HashCalculator calc)
-    {
-      return GetType().GetHashCode();
-    }
+    public abstract int CalculateHash(HashCalculator calc);    
 
     public bool RedirectDamage(Damage damage, ITarget target)
     {

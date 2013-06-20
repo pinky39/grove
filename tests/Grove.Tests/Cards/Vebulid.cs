@@ -5,14 +5,14 @@
   using Infrastructure;
   using Xunit;
 
-  public class Vebuild
+  public class Vebulid
   {
     public class Predefined : PredefinedScenario
     {
       [Fact]
       public void AttackAndDestroy()
       {
-        var vebuild = C("Vebuild");
+        var vebuild = C("Vebulid");
 
         Hand(P1, vebuild);
 

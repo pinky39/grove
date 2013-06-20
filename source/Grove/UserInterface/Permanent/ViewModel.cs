@@ -167,7 +167,7 @@
 
     public void ChangePlayersInterest()
     {
-      ChangePlayersInterest(Card);
+      ChangePlayersInterest(this);
     }
 
     public virtual void Close()

@@ -1,7 +1,8 @@
 ﻿namespace Grove.Gameplay.DamageHandling
 {
-  using System;      
-      
+  using System;
+  using Infrastructure;
+
   public class PreventDamageToTarget : DamagePrevention
   {
     private readonly object _creatureOrPlayer;
@@ -17,6 +18,14 @@
       _maxAmount = maxAmount;
 
       _sourceFilter = sourceFilter ?? delegate { return true; };
+    }
+
+    public override int CalculateHash(HashCalculator calc)
+    {
+      return HashCalculator.Combine(
+       GetType().GetHashCode(),
+       _maxAmount,
+       calc.Calculate((IHashable)_creatureOrPlayer));
     }
 
     public override int PreventDamage(PreventDamageParameters parameters)

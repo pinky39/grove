@@ -17,6 +17,14 @@
       _creatureOrPlayer = creatureOrPlayer;
     }
 
+    public override int CalculateHash(HashCalculator calc)
+    {
+       return HashCalculator.Combine(
+        GetType().GetHashCode(),
+        _amount.Value,
+        calc.Calculate((IHashable)_creatureOrPlayer));
+    }
+
     public override int PreventDamage(PreventDamageParameters parameters)
     {
       if (parameters.Target != _creatureOrPlayer)

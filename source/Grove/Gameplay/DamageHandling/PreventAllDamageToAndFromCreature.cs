@@ -1,5 +1,7 @@
 ﻿namespace Grove.Gameplay.DamageHandling
 {
+  using Infrastructure;
+
   public class PreventAllDamageToAndFromCreature : DamagePrevention
   {
     private readonly Card _creature;
@@ -9,6 +11,13 @@
     public PreventAllDamageToAndFromCreature(Card creature)
     {
       _creature = creature;
+    }
+
+    public override int CalculateHash(HashCalculator calc)
+    {
+      return HashCalculator.Combine(
+        GetType().GetHashCode(),
+        calc.Calculate(_creature));
     }
 
     public override int PreventDamage(PreventDamageParameters parameters)

@@ -58,23 +58,37 @@
     
     private IEnumerable<List<Card>> GetAttackersDeclarations()
     {
-      // none
-      yield return new List<Card>();
+      
+      var noAttackers = new List<Card>();
+
+      // 1. No attackers
+      yield return noAttackers;
 
       var allAttackers = Controller.Battlefield.CreaturesThatCanAttack.ToList();
 
-      var parameters = new AttackStrategyParameters
+      if (allAttackers.Count > 0)
+      {
+        var parameters = new AttackStrategyParameters
+          {
+            AttackerCandidates = allAttackers,
+            BlockerCandidates = Defender.Battlefield.CreaturesThatCanBlock.ToList(),
+            DefendingPlayersLife = Defender.Life
+          };
+
+        var chosenAttackers = new AttackStrategy(parameters).ChooseAttackers();
+
+        if (chosenAttackers.Count > 0)
         {
-          AttackerCandidates = allAttackers,
-          BlockerCandidates = Defender.Battlefield.CreaturesThatCanBlock.ToList(),          
-          DefendingPlayersLife = Defender.Life
-        };
+          // 2. Chosen attackers
+          yield return chosenAttackers;
+        }
 
-
-      yield return new AttackStrategy(parameters).ChooseAttackers();
-
-
-      yield return allAttackers;
+        if (chosenAttackers.Count < allAttackers.Count)
+        {
+          // 3. All attackers          
+          yield return allAttackers;
+        }
+      }
     }
 
     public override string ToString()

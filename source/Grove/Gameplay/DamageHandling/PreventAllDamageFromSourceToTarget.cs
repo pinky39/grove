@@ -1,5 +1,7 @@
 ﻿namespace Grove.Gameplay.DamageHandling
 {
+  using Infrastructure;
+
   public class PreventAllDamageFromSourceToTarget : DamagePrevention
   {
     private readonly object _creatureOrPlayer;
@@ -13,6 +15,14 @@
       _onlyOnce = onlyOnce;
       _source = source;
       _creatureOrPlayer = creatureOrPlayer;
+    }
+
+    public override int CalculateHash(HashCalculator calc)
+    {
+      return HashCalculator.Combine(
+        GetType().GetHashCode(),
+        calc.Calculate(_source),
+        calc.Calculate((IHashable) _creatureOrPlayer));
     }
 
     public override int PreventDamage(PreventDamageParameters parameters)
