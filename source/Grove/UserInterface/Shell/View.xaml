@@ -7,8 +7,10 @@
 	<Viewbox Stretch="Fill">
 
 		<Border Name="Canvas" BorderThickness="2" BorderBrush="#000">
-			<ContentControl x:Name="Screen" />
-
+            <Grid>
+                <ContentControl x:Name="Screen" />
+                <ContentControl x:Name="Dialog" Style="{StaticResource PregameDialog}" Visibility="{Binding Dialog, Converter={x:Static grove:Converters.NullToCollapsed}}" />
+            </Grid>                            
 		</Border>
 
 	</Viewbox>

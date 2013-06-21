@@ -1,5 +1,6 @@
 ﻿namespace Grove.UserInterface.StartScreen
 {
+  using System;
   using System.Diagnostics;
   using System.IO;
   using System.Linq;
@@ -62,21 +63,28 @@
                     PreviousScreen = selectDeck1,
                     Forward = (deck2) =>
                       {
-                        MatchRunner.Start(
-                          player1: new PlayerParameters
-                            {
-                              Name = YourName,
-                              Avatar = "player1.png",
-                              Deck = deck1
-                            },
-                          player2: new PlayerParameters
-                            {
-                              Name = MediaLibrary.NameGenerator.GenerateName(),
-                              Avatar = "player2.png",
-                              Deck = deck2
-                            },
-                          isTournament: false
-                          );
+                        try
+                        {
+                          MatchRunner.Start(
+                            player1: new PlayerParameters
+                              {
+                                Name = YourName,
+                                Avatar = "player1.png",
+                                Deck = deck1
+                              },
+                            player2: new PlayerParameters
+                              {
+                                Name = MediaLibrary.NameGenerator.GenerateName(),
+                                Avatar = "player2.png",
+                                Deck = deck2
+                              },
+                            isTournament: false
+                            );
+                        }
+                        catch (Exception ex)
+                        {
+                          HandleException(ex);
+                        }
 
                         Shell.ChangeScreen(this);
                       }
@@ -89,7 +97,7 @@
 
       selectDeck1 = ViewModels.SelectDeck.Create(configuration1);
       Shell.ChangeScreen(selectDeck1);
-    }
+    }   
 
     public void PlayRandom()
     {
@@ -98,21 +106,28 @@
 
       ChooseRandomDecks(out firstDeck, out secondDeck);
 
-      MatchRunner.Start(
-        player1: new PlayerParameters
-          {
-            Name = YourName,
-            Avatar = "player1.png",
-            Deck = firstDeck
-          },
-        player2: new PlayerParameters
-          {
-            Name = MediaLibrary.NameGenerator.GenerateName(),
-            Avatar = "player2.png",
-            Deck = secondDeck
-          },
-        isTournament: false
-        );
+      try
+      {
+        MatchRunner.Start(
+          player1: new PlayerParameters
+            {
+              Name = YourName,
+              Avatar = "player1.png",
+              Deck = firstDeck
+            },
+          player2: new PlayerParameters
+            {
+              Name = MediaLibrary.NameGenerator.GenerateName(),
+              Avatar = "player2.png",
+              Deck = secondDeck
+            },
+          isTournament: false
+          );
+      }
+      catch (Exception ex)
+      {
+        HandleException(ex);
+      }
 
 
       Shell.ChangeScreen(this);

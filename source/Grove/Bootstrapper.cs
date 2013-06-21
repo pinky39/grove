@@ -6,6 +6,7 @@
   using System.Reflection;
   using System.Windows;
   using Caliburn.Micro;
+  using log4net.Config;
   using UserInterface.Shell;
   using UserInterface.StartScreen;
 
@@ -15,8 +16,10 @@
 
     protected override void Configure()
     {
-      AppDomain.CurrentDomain.UnhandledException += (s, a) => MessageBox.Show(a.ExceptionObject.ToString(), "BUUUUU :(");
+      AppDomain.CurrentDomain.UnhandledException +=
+        (s, a) => MessageBox.Show(a.ExceptionObject.ToString(), "BUUUUU :(");
 
+      ConfigureLogger();
       Container = new IoC(IoC.Configuration.Ui);
       ConfigureCaliburn();
     }
@@ -46,6 +49,18 @@
     private static void ConfigureCaliburn()
     {
       ConfigureViewLocator();
+    }
+
+    private static void ConfigureLogger()
+    {
+#if DEBUG
+      var configName = "Grove.LogDebug.xml";
+#else
+      var configName = "Grove.LogRelease.xml";
+#endif
+
+      var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(configName);
+      XmlConfigurator.Configure(stream);
     }
 
     private static void ConfigureViewLocator()

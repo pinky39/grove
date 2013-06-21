@@ -22,6 +22,7 @@
     }
 
     public virtual object Screen { get; protected set; }
+    public virtual object Dialog { get; protected set; }
     public virtual bool HasLoaded { get; protected set; }
     public string DisplayName { get; set; }
 
@@ -68,33 +69,44 @@
     public void ShowDialog(object dialog, DialogType type, InteractionState? interactionState = null)
     {
       var dialogHost = Screen as IIsDialogHost;
-      if (dialogHost == null)
-        return;
+      
 
       var revert = ChangeMode(interactionState);
 
-      dialogHost.AddDialog(dialog, type);
+      if (dialogHost == null)
+      {
+        Dialog = dialog;
+      }
+      else
+      {
+        dialogHost.AddDialog(dialog, type);
+      }
+
       ((IClosable) dialog).Closed += delegate
         {
-          dialogHost.RemoveDialog(dialog);
+          if (dialogHost == null)
+          {
+            Dialog = null;
+          }
+          else
+          {
+            dialogHost.RemoveDialog(dialog);
+          }
+          
           ChangeMode(revert);
         };
     }
 
     public MessageBoxResult ShowMessageBox(string message, MessageBoxButton buttons,
-      DialogType type = DialogType.Large, string title = "")
+      DialogType type = DialogType.Large, string title = "", MessageBoxImage icon = MessageBoxImage.Question)
     {
-      var messageBox = new ViewModel(message, title, buttons, type);
+      var messageBox = new ViewModel(message, title, buttons, type, icon);
       ShowModalDialog(messageBox, type, InteractionState.Disabled);
       return messageBox.Result;
     }
 
     public void ShowModalDialog(object dialog, DialogType type, InteractionState? interactionState = null)
-    {
-      var dialogHost = Screen as IIsDialogHost;
-      if (dialogHost == null)
-        return;
-
+    {      
       var blocker = new ThreadBlocker();
 
       blocker.BlockUntilCompleted(() =>

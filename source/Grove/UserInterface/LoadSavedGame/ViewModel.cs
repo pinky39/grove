@@ -73,9 +73,16 @@
     {
       var data = SaveLoadHelper.ReadData(Selected.Filename);
 
-      foreach (var loadGame in Handlers)
+      try
       {
-        if (loadGame(data)) break;
+        foreach (var loadGame in Handlers)
+        {
+          if (loadGame(data)) break;
+        }
+      }
+      catch (Exception ex)
+      {
+        HandleException(ex);
       }
 
       Shell.ChangeScreen(_previousScreen);

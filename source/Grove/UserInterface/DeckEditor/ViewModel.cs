@@ -7,7 +7,7 @@
   using Infrastructure;
   using SelectDeck;
 
-  public class ViewModel : ViewModelBase, IIsDialogHost
+  public class ViewModel : ViewModelBase
   {
     private readonly object _previousScreen;
     private Dictionary<string, LibraryItem> _libraryItems;
@@ -29,32 +29,8 @@
       }
     }
 
-    public LibraryFilter.ViewModel LibraryFilter { get; private set; }
-    public object Dialog { get; private set; }
-    public virtual Card SelectedCard { get; protected set; }
-
-    [Updates("Dialog")]
-    public virtual void AddDialog(object dialog, DialogType dialogType)
-    {
-      Dialog = dialog;
-    }
-
-    [Updates("Dialog")]
-    public virtual void RemoveDialog(object dialog)
-    {
-      Dialog = null;
-    }
-
-    public bool HasFocus(object dialog)
-    {
-      return dialog == Dialog;
-    }
-
-    public void CloseAllDialogs()
-    {
-      if (Dialog != null)
-        Dialog.Close();
-    }
+    public LibraryFilter.ViewModel LibraryFilter { get; private set; }    
+    public virtual Card SelectedCard { get; protected set; }    
 
     public override void Initialize()
     {      

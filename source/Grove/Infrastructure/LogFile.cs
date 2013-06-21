@@ -18,8 +18,7 @@
 
       Logger.ErrorFormat(message, args);
     }
-    
-    [Conditional("DEBUG")]
+        
     public static void Info(string message, params object[] args)
     {
       if (args.Length == 0)

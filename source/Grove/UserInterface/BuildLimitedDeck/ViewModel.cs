@@ -7,8 +7,8 @@
   using Infrastructure;
   using Messages;
 
-  public class ViewModel : ViewModelBase, IReceive<DeckGenerationStatus>
-  {        
+  public class ViewModel : ViewModelBase, IReceive<DeckGenerationStatus>, IReceive<DeckGenerationError>
+  {
     private readonly Deck _existing;
     private readonly List<CardInfo> _library;
     private Dictionary<string, Card> _cardsWithSetAndRarity;
@@ -19,7 +19,7 @@
     public ViewModel(List<CardInfo> library)
     {
       _library = library;
-      
+
       ButtonNames = new ButtonNames
         {
           Cancel = "Return to main menu",
@@ -28,19 +28,17 @@
 
       AddBasicLands();
     }
-    
+
     public ViewModel(List<CardInfo> library, Deck existing)
     {
       _library = library;
       _existing = existing;
-      
+
       ButtonNames = new ButtonNames
         {
           Cancel = "Back",
           Continue = "Save deck"
         };
-
-      
     }
 
     public virtual Card SelectedCard { get; protected set; }
@@ -51,7 +49,7 @@
     public string Status
     {
       get
-      {                
+      {
         if (_percentCompleted < 100 || _existing != null)
           return String.Format("Building decks {0}% completed.", (int) _percentCompleted);
 
@@ -78,6 +76,11 @@
     }
 
     public Deck Result { get { return Deck.Deck; } }
+
+    public void Receive(DeckGenerationError message)
+    {
+      Cancel();
+    }
 
     [Updates("CanContinue", "Status")]
     public virtual void Receive(DeckGenerationStatus message)
@@ -159,7 +162,7 @@
           })
         .ToDictionary(x => x.Name, x => x);
 
-      _libraryItems = _library        
+      _libraryItems = _library
         .GroupBy(x => x.Name)
         .Select(x =>
           {

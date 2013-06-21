@@ -1,5 +1,6 @@
 ﻿namespace Grove.UserInterface.NewTournament
 {
+  using System;
   using System.Collections.Generic;
   using Gameplay.Tournaments;
 
@@ -40,7 +41,14 @@
         new[] {BoosterPack1, BoosterPack2, BoosterPack3},
         StarterPack);
 
-      TournamentRunner.Start(p);
+      try
+      {
+        TournamentRunner.Start(p);
+      }
+      catch(Exception ex)
+      {
+        HandleException(ex);
+      }
 
       Shell.ChangeScreen(_previousScreen);
     }

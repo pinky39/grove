@@ -1,5 +1,6 @@
 ﻿namespace Grove.Artifical
 {
+  using System.Linq;
   using Gameplay;
 
   public class MassRemovalParameterOptimizer
@@ -11,16 +12,14 @@
 
       var score = new int[max];
 
-      foreach (var creature in opponentCreatures)
-      {
-        if (creature.Life <= max)
-          score[creature.Life - 1]++;
+      foreach (var creature in opponentCreatures.Where(x => x.Life > 0 && x.Life <= max))
+      {        
+        score[creature.Life - 1]++;
       }
 
-      foreach (var creature in yourCreatures)
-      {
-        if (creature.Life <= max)
-          score[creature.Life - 1]--;
+      foreach (var creature in yourCreatures.Where(x => x.Life > 0 && x.Life <= max))
+      {        
+        score[creature.Life - 1]--;
       }
 
       for (var i = 1; i < max; i++)

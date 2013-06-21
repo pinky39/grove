@@ -58,6 +58,8 @@
 
     public void Start()
     {
+      AggregateException exception = null;
+
       if (_p.IsSavedTournament)
       {
         _roundsLeft = _p.SavedTournament.RoundsToGo;
@@ -67,7 +69,9 @@
 
         if (_matches != null)
         {
-          SimulateRound();
+          SimulateRound()
+            .ContinueWith(t => { exception = t.Exception; }, TaskContinuationOptions.OnlyOnFaulted);
+          
           FinishCurrentMatch();
         }
       }
@@ -79,9 +83,18 @@
 
         _humanLibrary = GenerateLibrary();
 
-        GenerateDecks();
+        GenerateDecks()
+          .ContinueWith(t =>
+            {
+              exception = t.Exception;
+              _shell.Publish(new DeckGenerationError());
+            }, TaskContinuationOptions.OnlyOnFaulted);
+
         CreateHumanDeck();
       }
+
+      if (exception != null)
+        throw new AggregateException(exception.InnerExceptions);
 
       RunTournament();
     }
@@ -122,6 +135,8 @@
 
     private void RunTournament()
     {
+      AggregateException exception = null;
+      
       while (_roundsLeft > 0 && !_shouldStop)
       {
         ShowResults();
@@ -131,7 +146,13 @@
 
         _roundsLeft--;
 
-        PlayNextRound();
+        _matches = CreateSwissPairings();
+        
+        SimulateRound().ContinueWith(t => { exception = t.Exception; }, TaskContinuationOptions.OnlyOnFaulted);
+        PlayMatch();
+
+        if (exception != null)
+          throw new AggregateException(exception.InnerExceptions);
       }
     }
 
@@ -197,13 +218,6 @@
       return 10;
     }
 
-    private void PlayNextRound()
-    {
-      _matches = CreateSwissPairings();
-      SimulateRound();
-      PlayMatch();
-    }
-
     private void PlayMatch()
     {
       var tournamentMatch = _matches.Single(x => !x.IsSimulated);
@@ -250,9 +264,9 @@
       }
     }
 
-    private void SimulateRound()
+    private Task SimulateRound()
     {
-      Task.Factory.StartNew(() =>
+      return Task.Factory.StartNew(() =>
         {
           foreach (var simulatedMatch in _matches.Where(x => x.IsSimulated && !x.IsFinished))
           {
@@ -361,7 +375,7 @@
       return CardRatings.Merge(merged, MediaLibrary.GetSet(tournamentPack).Ratings);
     }
 
-    private void GenerateDecks()
+    private Task GenerateDecks()
     {
       const int minNumberOfGeneratedDecks = 5;
       var limitedCode = MagicSet.GetLimitedCode(_p.TournamentPack, _p.BoosterPacks);
@@ -379,7 +393,7 @@
         nonHumanPlayers[i].Deck = preconstructed[i];
       }
 
-      Task.Factory.StartNew(() =>
+      return Task.Factory.StartNew(() =>
         {
           for (var count = 0; count < decksToGenerate; count++)
           {
@@ -395,7 +409,7 @@
             _shell.Publish(new DeckGenerationStatus
               {
                 PercentCompleted = (int) Math.Round((100*(count + 1.0))/decksToGenerate)
-              });
+              });            
 
             if (_shouldStop)
             {

@@ -6,19 +6,18 @@
 
   public class ViewModel : IClosable
   {
-    public ViewModel(string message, string title, MessageBoxButton buttons, DialogType dialogType = DialogType.Large)
+    public ViewModel(string message, string title, MessageBoxButton buttons, DialogType dialogType = DialogType.Large, MessageBoxImage icon = MessageBoxImage.Question)
     {
       Message = message;
       Title = title;
       DialogType = dialogType;
       Buttons = buttons;
-      Icon = "question.png";
+      Icon  = icon == MessageBoxImage.Error ? "error.png" : "question.png";
     }
 
 
     public MessageBoxButton Buttons { get; private set; }
     public DialogType DialogType { get; private set; }
-
     public string Icon { get; private set; }
 
     public bool IsOk { get { return Buttons == MessageBoxButton.OK; } }

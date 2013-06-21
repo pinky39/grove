@@ -2,6 +2,6 @@
 {
   public class DeckGenerationStatus
   {
-    public int PercentCompleted;
+    public int PercentCompleted;    
   }
 }

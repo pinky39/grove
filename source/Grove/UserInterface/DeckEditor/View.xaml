@@ -174,7 +174,6 @@
 
 				</Grid>
 			</Border>
-		</Grid>
-		<ContentControl x:Name="Dialog" Style="{StaticResource PregameDialog}" Visibility="{Binding Dialog, Converter={x:Static grove:Converters.NullToCollapsed}}" />
+		</Grid>		
 	</Grid>
 </UserControl>

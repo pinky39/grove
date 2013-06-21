@@ -45,7 +45,7 @@
     }
 
     public int Player1WinCount { get; private set; }
-    public int Player2WinCount { get; private set; }    
+    public int Player2WinCount { get; private set; }
 
     protected Player Looser
     {
@@ -64,8 +64,8 @@
     {
       get
       {
-        return String.Format("{0}({1}) vs {2}({3}), {4}. turn", Game.Players.Player1.Name, Game.Players.Player1.Life,
-          Game.Players.Player2.Name, Game.Players.Player2.Life, Game.Turn.TurnCount);
+        return String.Format("{0} vs {1} - {2}. turn", Game.Players.Player1.Name, Game.Players.Player2.Name,
+          Game.Turn.TurnCount);
       }
     }
 
@@ -108,35 +108,40 @@
         {
           Player1WinCount = 0;
           Player2WinCount = 0;
-          _rematch = false;          
+          _rematch = false;
         }
-        
+
         game = _gameFactory.Create(GameParameters.Default(
           _p.Player1, _p.Player2));
 
-        shouldPlayAnotherGame = RunGame(game);        
-      }            
+        shouldPlayAnotherGame = RunGame(game);
+      }
     }
 
     private bool RunGame(Game game)
     {
-      Game = game;      
+      Game = game;
 
       var playScreen = _viewModels.PlayScreen.Create();
       _shell.ChangeScreen(playScreen);
 
       var blocker = new ThreadBlocker();
 
-      blocker.BlockUntilCompleted(() => Task.Factory.StartNew(() =>
-        {
-          Game.Start(looser: Looser);
-          blocker.Completed();
-        }, TaskCreationOptions.LongRunning));
+      AggregateException exception = null;
+
+      blocker.BlockUntilCompleted(() => Task.Factory
+        .StartNew(() => Game.Start(looser: Looser), TaskCreationOptions.LongRunning)
+        .ContinueWith(t => { exception = t.Exception; }, TaskContinuationOptions.OnlyOnFaulted)
+        .ContinueWith(t => blocker.Completed()));
+
+      if (exception != null)
+        throw new AggregateException(exception.InnerExceptions);
 
       return ProcessGameResults();
     }
 
-    private bool ProcessGameResults() {
+    private bool ProcessGameResults()
+    {
       if (Game.WasStopped)
         return false;
 
@@ -154,7 +159,7 @@
           return false;
 
         if (_rematch && !_playerLeftMatch)
-        {          
+        {
           return false;
         }
 
@@ -196,8 +201,8 @@
     }
 
     public void Rematch()
-    {      
-      Stop();      
+    {
+      Stop();
       _rematch = true;
     }
 

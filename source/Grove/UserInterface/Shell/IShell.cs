@@ -8,7 +8,7 @@
     void ShowDialog(object dialog, DialogType type = DialogType.Large, InteractionState? interactionState = null);
 
     MessageBoxResult ShowMessageBox(string message, MessageBoxButton buttons, DialogType type = DialogType.Large,
-      string title = "");
+      string title = "", MessageBoxImage icon = MessageBoxImage.Question);
 
     void ShowModalDialog(object dialog, DialogType type = DialogType.Large, InteractionState? interactionState = null);
 
