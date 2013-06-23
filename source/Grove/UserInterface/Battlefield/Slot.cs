@@ -22,7 +22,7 @@
 
     public void Add(Permanent.ViewModel viewModel)
     {
-      if (viewModel.Card.IsAttached)
+      if (viewModel.Card.IsAttached && viewModel.Card.Is().Attachment)
       {
         var insertAt = GetEnchantmentOrEquipmentPosition(viewModel.Card);
         _permanents.Insert(insertAt.Value, viewModel);

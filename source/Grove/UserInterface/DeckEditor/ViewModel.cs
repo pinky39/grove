@@ -25,7 +25,8 @@
       set
       {
         _deck = value;
-        _deck.Property(x => x.SelectedCard).Changes(this).Property(x => x.SelectedCard);
+
+        _deck.SelectedCardChanged += delegate { SelectedCard = CardsDictionary[_deck.SelectedCard.Name]; };
       }
     }
 

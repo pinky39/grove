@@ -4,11 +4,11 @@
 
   public class ChooseTo : Decisions.ChooseTo
   {
-    protected override bool ShouldExecuteQuery { get { return true; } }
+    protected override bool ShouldExecuteQuery { get { return true; } }  
 
     protected override void ExecuteQuery()
     {
-      Result = (BooleanResult)Game.Recorder.LoadDecisionResult();
+      Result = (BooleanResult) Game.Recorder.LoadDecisionResult();
     }
 
     public override void SaveDecisionResults() {}

@@ -9,7 +9,7 @@
     public class Predefined : PredefinedScenario
     {
       [Fact]
-      public void Deal3Damage()
+      public void TargetedBySpell()
       {
         var retromancer = C("Retromancer");
         var bolt = C("Lightning Bolt");
@@ -21,6 +21,24 @@
         Exec(
           At(Step.FirstMain)
             .Cast(bolt, target: retromancer),
+          At(Step.SecondMain)
+            .Verify(() => Equal(17, P1.Life))
+          );
+      }
+
+      [Fact]
+      public void TargetedByAbility()
+      {
+        var retromancer = C("Retromancer");
+        var seal = C("Seal of Fire");
+
+        Battlefield(P1, seal);
+        Battlefield(P2, retromancer);
+
+
+        Exec(
+          At(Step.FirstMain)
+            .Activate(seal, target: retromancer),
           At(Step.SecondMain)
             .Verify(() => Equal(17, P1.Life))
           );

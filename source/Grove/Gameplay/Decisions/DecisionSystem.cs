@@ -15,8 +15,8 @@
     private static readonly Dictionary<Type, ParameterlessCtor> PlaybackDecisions = LoadPlaybackDecisions();
     private static readonly Dictionary<Type, ParameterlessCtor> MachineDecisions = LoadMachineDecisions();
 
-    private readonly PrerecordedDecisions _prerecordedDecisions = new PrerecordedDecisions();
     private readonly IDecisionFactory _decisionFactory;
+    private readonly PrerecordedDecisions _prerecordedDecisions = new PrerecordedDecisions();
 
     public DecisionSystem(IDecisionFactory decisionFactory)
     {
@@ -34,7 +34,7 @@
 
     private static Dictionary<Type, ParameterlessCtor> LoadPlaybackDecisions()
     {
-       return Assembly.GetExecutingAssembly()
+      return Assembly.GetExecutingAssembly()
         .GetTypes()
         .Where(x => x.Implements<IDecision>())
         .Where(x => x.Namespace.Equals(typeof (Playback.PlaySpellOrAbility).Namespace))

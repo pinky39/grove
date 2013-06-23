@@ -62,17 +62,14 @@
 
     public override void Initialize()
     {
-      foreach (var card in _owner.Battlefield)
+      foreach (var card in _owner.Battlefield.Where(x => !x.IsAttached))
       {
         AddCard(card);
       }
 
-      foreach (var card in _owner.Battlefield)
+      foreach (var card in _owner.Battlefield.Where(x => x.IsAttached))
       {
-        if (card.AttachedTo != null)
-        {
-          Attach(card);
-        }
+        AddCard(card);
       }
 
       _owner.Battlefield.CardAdded += OnCardAdded;

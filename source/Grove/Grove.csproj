@@ -694,6 +694,7 @@
     <Compile Include="Gameplay\MatchParameters.cs" />
     <Compile Include="Gameplay\MatchRunner.cs" />
     <Compile Include="Gameplay\Messages\CardCreated.cs" />
+    <Compile Include="Gameplay\Messages\EffectPushedOnStack.cs" />
     <Compile Include="Gameplay\Messages\PermanentModified.cs" />
     <Compile Include="Gameplay\Messages\PlayerLifeChanged.cs" />
     <Compile Include="Gameplay\Messages\PlayerPlayedALand.cs" />
@@ -831,7 +832,7 @@
     <Compile Include="Gameplay\Targeting\TargetValidatorParameters.cs" />
     <Compile Include="Gameplay\Targeting\ZoneSpecs.cs" />
     <Compile Include="Gameplay\Abilities\TriggeredAbilityParameters.cs" />
-    <Compile Include="Gameplay\Triggers\OnBeingTargetedBySpell.cs" />
+    <Compile Include="Gameplay\Triggers\OnBeingTargetedBySpellOrAbility.cs" />
     <Compile Include="Gameplay\Triggers\OnEffectResolved.cs" />
     <Compile Include="Gameplay\Abilities\CastInstructionParameters.cs" />
     <Compile Include="Gameplay\Abilities\CastInstructions.cs" />

@@ -9,10 +9,10 @@
     public List<IEffectChoice> Choices;
     public IChooseDecisionResults<List<IEffectChoice>, ChosenOptions> ChooseDecisionResults;
     public IProcessDecisionResults<ChosenOptions> ProcessDecisionResults;
-    public string Text;
+    public string Text;    
 
     protected override bool ShouldExecuteQuery { get { return true; } }
-    public Effect Effect { get; set; }
+    
 
     public override void ProcessResults()
     {

@@ -1,8 +1,6 @@
 ﻿namespace Grove.Gameplay.Effects
 {
   using Characteristics;
-  using DamageHandling;
-  using Targeting;
 
   public class DistributeDamageToTargets : Effect
   {
@@ -35,8 +33,8 @@
     {
       for (var i = 0; i < Targets.Effect.Count; i++)
       {
-        var damageable = (IDamageable)Targets.Effect[i];        
-        Source.OwningCard.DealDamageTo(Targets.Distribution[i], damageable, isCombat: false);               
+        var damageable = (IDamageable) Targets.Effect[i];
+        Source.OwningCard.DealDamageTo(Targets.Distribution[i], damageable, isCombat: false);
       }
     }
   }

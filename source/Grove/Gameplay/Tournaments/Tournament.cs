@@ -44,7 +44,15 @@
     private TournamentPlayer HumanPlayer { get { return _players.Single(x => x.IsHuman); } }
     private IEnumerable<TournamentPlayer> NonHumanPlayers { get { return _players.Where(x => !x.IsHuman); } }
     private Match CurrentMatch { get { return _matchRunner.Current; } }
-    private bool MatchInProgress { get { return _matchRunner.Current != null && _matchRunner.Current.InProgress; } }
+
+    private bool MatchInProgress
+    {
+      get
+      {
+        var humanMatch = GetHumanMatch();
+        return humanMatch != null && !humanMatch.IsFinished;
+      }
+    }
 
     public string Description
     {
@@ -54,6 +62,14 @@
           return string.Format("Sealed tournament, {0} players, {1} rounds left", _players.Count, _roundsLeft);
         }
       }
+    }
+
+    private TournamentMatch GetHumanMatch()
+    {
+      if (_matches == null)
+        return null;
+
+      return _matches.FirstOrDefault(x => !x.IsSimulated);
     }
 
     public void Start()
@@ -71,7 +87,7 @@
         {
           SimulateRound()
             .ContinueWith(t => { exception = t.Exception; }, TaskContinuationOptions.OnlyOnFaulted);
-          
+
           FinishCurrentMatch();
         }
       }
@@ -106,7 +122,7 @@
         var mp = MatchParameters.Load(_p.SavedTournament.SavedMatch, isTournament: true);
         _matchRunner.Start(mp);
 
-        var tournamentMatch = _matches.Single(x => !x.IsSimulated);
+        var humanMatch = GetHumanMatch();
 
         if (CurrentMatch.WasStopped)
         {
@@ -116,19 +132,19 @@
 
         lock (_resultsLock)
         {
-          if (tournamentMatch.Player1.IsHuman)
+          if (humanMatch.Player1.IsHuman)
           {
-            tournamentMatch.Player1WinCount = CurrentMatch.Player1WinCount;
-            tournamentMatch.Player2WinCount = CurrentMatch.Player2WinCount;
+            humanMatch.Player1WinCount = CurrentMatch.Player1WinCount;
+            humanMatch.Player2WinCount = CurrentMatch.Player2WinCount;
           }
           else
           {
-            tournamentMatch.Player2WinCount = CurrentMatch.Player1WinCount;
-            tournamentMatch.Player1WinCount = CurrentMatch.Player2WinCount;
+            humanMatch.Player2WinCount = CurrentMatch.Player1WinCount;
+            humanMatch.Player1WinCount = CurrentMatch.Player2WinCount;
           }
 
-          UpdatePlayersWithMatchResults(tournamentMatch);
-          tournamentMatch.IsFinished = true;
+          UpdatePlayersWithMatchResults(humanMatch);
+          humanMatch.IsFinished = true;
         }
       }
     }
@@ -136,18 +152,18 @@
     private void RunTournament()
     {
       AggregateException exception = null;
-      
-      while (_roundsLeft > 0 && !_shouldStop)
+
+      while (!_shouldStop)
       {
         ShowResults();
 
-        if (_shouldStop)
+        if (_roundsLeft == 0 || _shouldStop)
           return;
 
         _roundsLeft--;
 
         _matches = CreateSwissPairings();
-        
+
         SimulateRound().ContinueWith(t => { exception = t.Exception; }, TaskContinuationOptions.OnlyOnFaulted);
         PlayMatch();
 
@@ -409,7 +425,7 @@
             _shell.Publish(new DeckGenerationStatus
               {
                 PercentCompleted = (int) Math.Round((100*(count + 1.0))/decksToGenerate)
-              });            
+              });
 
             if (_shouldStop)
             {

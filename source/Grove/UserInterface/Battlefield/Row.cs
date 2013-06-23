@@ -20,7 +20,7 @@
     {
       Slot candidate;
 
-      if (viewModel.Card.IsAttached)
+      if (viewModel.Card.IsAttached && viewModel.Card.Is().Attachment)
       {
         candidate = _slots.First(slot => slot.ContainsAttachmentTarget(viewModel.Card));
       }

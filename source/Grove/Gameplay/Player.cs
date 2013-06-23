@@ -312,7 +312,7 @@
         return;
       }
 
-      _hand.Add(card);
+      _hand.Add(card);      
 
       if (Ai.IsSearchInProgress)
       {

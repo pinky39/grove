@@ -12,7 +12,7 @@
     private readonly Trackable<IDecision> _curentDecision = new Trackable<IDecision>();
     private readonly DecisionQueue _decisionQueue;
     private readonly Trackable<int> _passesCount = new Trackable<int>();
-    private Player _looser;
+    private Player _previousLooser;
     private Dictionary<State, StepState> _states;
     private Dictionary<Step, StepDefinition> _steps;
 
@@ -58,13 +58,8 @@
 
     public void Resume(Func<bool> shouldContinue)
     {
-      while (shouldContinue())
-      {
-        ExecutePendingDecisions();
-
-        if (shouldContinue() == false)
-          break;
-
+      while (ExecutePendingDecisions(shouldContinue))
+      {        
         State = _states[State].Next;
         _states[State].Execute();
       }
@@ -82,7 +77,7 @@
       }
 
       State = State.Begin;
-      _looser = looser;
+      _previousLooser = looser;
 
       _states[State].Execute();
       Resume(shouldContinue);
@@ -131,21 +126,39 @@
       }
     }
 
-    private void ExecutePendingDecisions()
+    private bool ExecutePendingDecisions(Func<bool> shouldContinue)
     {
-      while (true)
+      var resultsToSave = new List<IDecision>();
+
+      var should = false;
+      
+      while (shouldContinue())
       {
         if (CurrentDecision == null || CurrentDecision.HasCompleted)
         {
           if (_decisionQueue.Count == 0)
+          {
+            should = true;
             break;
+          }
 
           CurrentDecision = _decisionQueue.Dequeue();
         }
 
-        CurrentDecision.Execute();
-        CurrentDecision.SaveDecisionResults();
+        CurrentDecision.Execute();        
+        resultsToSave.Add(CurrentDecision);                
+        
       }
+
+      // it's important to save the results only when decision queue is empty
+      // if its not the playback will not work, because the decisions not yet
+      // executed, can not be saved properly
+      foreach (var decision in resultsToSave)
+      {
+        decision.SaveDecisionResults();        
+      }
+      
+      return should;
     }
 
     private void InitializeStepStates()
@@ -447,7 +460,7 @@
 
     private void SelectStartingPlayer()
     {
-      var winner = _looser ?? RollDice();
+      var winner = _previousLooser ?? RollDice();
       Enqueue<SelectStartingPlayer>(winner);
     }
 

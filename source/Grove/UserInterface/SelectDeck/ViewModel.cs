@@ -3,27 +3,36 @@
   using System.Collections.Generic;
   using System.Linq;
   using Castle.Core;
+  using Gameplay;
   using Infrastructure;
   using Persistance;
 
   public class ViewModel : ViewModelBase
   {
     private readonly Configuration _configuration;
-    private readonly List<Deck.ViewModel> _decks = new List<Deck.ViewModel>();
+    private readonly List<UserInterface.Deck.ViewModel> _decks = new List<UserInterface.Deck.ViewModel>();
 
     public ViewModel(Configuration configuration)
     {
       _configuration = configuration;
     }
 
+    private UserInterface.Deck.ViewModel _selected;
+
     [DoNotWire]
-    public virtual Deck.ViewModel Selected { get; set; }
+    public virtual UserInterface.Deck.ViewModel Selected { get { return _selected; } set
+    {
+      _selected = value;
+      _selected.SelectedCardChanged += delegate { SelectedCard = CardsDictionary[_selected.SelectedCard.Name]; };
+      SelectedCard = CardsDictionary[_selected.SelectedCard.Name];
+    } }
 
     public string NextCaption { get { return _configuration.ForwardText; } }
+    public virtual Card SelectedCard { get; protected set; }
 
     public string Title { get { return _configuration.ScreenTitle; } }
 
-    public List<Deck.ViewModel> Decks { get { return _decks; } }
+    public List<UserInterface.Deck.ViewModel> Decks { get { return _decks; } }
 
     [Updates("CanStart")]
     public virtual bool IsStarting { get; protected set; }
@@ -48,7 +57,7 @@
       Selected = _decks.FirstOrDefault();
     }
 
-    private Deck.ViewModel CreateReadonlyDeck(string fileName)
+    private UserInterface.Deck.ViewModel CreateReadonlyDeck(string fileName)
     {
       var deck = ViewModels.Deck.Create(
         DeckFile.Read(fileName));

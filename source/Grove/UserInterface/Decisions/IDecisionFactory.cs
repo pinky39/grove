@@ -2,6 +2,6 @@
 {
   public interface IDecisionFactory
   {
-    TDecision CreateUi<TDecision>();    
+    TDecision CreateUi<TDecision>();
   }
 }

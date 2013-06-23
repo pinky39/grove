@@ -8,7 +8,7 @@
     public Action Assertion { get; set; }
 
     public bool HasCompleted { get; private set; }
-    public bool WasPriorityPassed { get { return true; } }
+    public bool WasPriorityPassed { get { return true; } }    
 
     public bool CanExecute()
     {

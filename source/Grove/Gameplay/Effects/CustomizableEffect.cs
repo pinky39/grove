@@ -20,8 +20,7 @@
           p.ProcessDecisionResults = this;
           p.ChooseDecisionResults = this;
           p.Text = GetText();
-          p.Choices = GetChoices().ToList();
-          p.Effect = this;
+          p.Choices = GetChoices().ToList();          
         });
     }
   }

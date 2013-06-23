@@ -136,7 +136,7 @@
 
 			<StackPanel Grid.Column="2" Width="350">
 				<Border BorderBrush="#444" Background="#000" BorderThickness="1" CornerRadius="8" VerticalAlignment="Top" Visibility="{Binding SelectedCard, Converter={x:Static grove:Converters.NullToCollapsed}}">
-					<ContentControl Margin="12" Content="{Binding Selected.SelectedCard}" Style="{StaticResource Card}" />
+					<ContentControl Margin="12" Content="{Binding SelectedCard}" Style="{StaticResource Card}" />
 				</Border>				
 			</StackPanel>
 

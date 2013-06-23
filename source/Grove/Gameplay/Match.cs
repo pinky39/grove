@@ -18,6 +18,7 @@
     private int? _looser;
     private bool _playerLeftMatch;
     private bool _rematch;
+    private bool _skipNextScoreUpdate;
 
     public Match(MatchParameters p, IShell shell, ViewModelFactories viewModels, Game.IFactory gameFactory)
     {
@@ -85,14 +86,25 @@
 
     public void Start()
     {
-      Game game;
+      Game game;   
 
       if (_p.IsSavedMatch)
       {
         game = _gameFactory.Create(GameParameters.Load(
           player1Controller: ControllerType.Human,
           player2Controller: ControllerType.Machine,
-          savedGame: _p.SavedMatch.SavedGame));
+          savedGame: _p.SavedMatch.SavedGame,
+          looser: _p.SavedMatch.Looser));
+        
+        Player1WinCount = _p.SavedMatch.Player1WinCount;
+        Player2WinCount = _p.SavedMatch.Player2WinCount;
+        
+        if (game.IsFinished)
+        {
+          // if the game was saved when it was already finished
+          // do not update the score again
+          _skipNextScoreUpdate = true;
+        }
       }
       else
       {
@@ -109,6 +121,7 @@
           Player1WinCount = 0;
           Player2WinCount = 0;
           _rematch = false;
+          _looser = null;
         }
 
         game = _gameFactory.Create(GameParameters.Default(
@@ -145,8 +158,7 @@
       if (Game.WasStopped)
         return false;
 
-      var looser = UpdateScore();
-      SetLooser(looser);
+      var looser = UpdateScore();      
 
       if (Game.WasStopped)
         return false;
@@ -166,7 +178,7 @@
         return false;
       }
 
-      DisplayGameResults();
+      DisplayGameResults();      
 
       if (Game.WasStopped)
         return false;
@@ -177,6 +189,7 @@
         return false;
       }
 
+      SetLooser(looser);
       return true;
     }
 
@@ -192,11 +205,17 @@
 
       if (Game.Players.Player1.HasLost)
       {
-        Player2WinCount++;
+        if (!_skipNextScoreUpdate)
+          Player2WinCount++;
+
+        _skipNextScoreUpdate = false;
         return 0;
       }
+      
+      if (!_skipNextScoreUpdate)
+        Player1WinCount++;
 
-      Player1WinCount++;
+      _skipNextScoreUpdate = false;
       return 1;
     }
 
@@ -219,12 +238,13 @@
     }
 
     public SavedMatch Save()
-    {
+    {                        
       var savedMatch = new SavedMatch
         {
           Player1WinCount = Player1WinCount,
           Player2WinCount = Player2WinCount,
-          SavedGame = Game.Save()
+          SavedGame = Game.Save(),
+          Looser = _looser
         };
 
       return savedMatch;

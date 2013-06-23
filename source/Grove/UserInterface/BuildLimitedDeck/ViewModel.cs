@@ -50,7 +50,7 @@
     {
       get
       {
-        if (_percentCompleted < 100 || _existing != null)
+        if (_percentCompleted < 100 && _existing == null)
           return String.Format("Building decks {0}% completed.", (int) _percentCompleted);
 
         if (Deck.CardCount < 40)
@@ -68,10 +68,11 @@
       protected set
       {
         _deck = value;
-
-        _deck.Property(x => x.SelectedCard).Changes(this).Property<ViewModel, Card>(x => x.SelectedCard);
+        
         _deck.Property(x => x.CardCount).Changes(this).Property<ViewModel, bool>(x => x.CanContinue);
         _deck.Property(x => x.CardCount).Changes(this).Property<ViewModel, string>(x => x.Status);
+
+        _deck.SelectedCardChanged += delegate { SelectedCard = _cardsWithSetAndRarity[_deck.SelectedCard.Name]; };
       }
     }
 

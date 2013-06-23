@@ -6,6 +6,7 @@
   using Artifical;
   using DamageHandling;
   using Decisions;
+  using Decisions.Playback;
   using Decisions.Scenario;
   using Infrastructure;
   using Modifiers;
@@ -67,6 +68,15 @@
       if (p.IsSavedGame)
       {
         p.SavedGame.Decisions.Position = 0;
+
+
+        Player looser = null;
+
+        if (p.Looser != null)
+        {
+          looser = p.Looser == 0 ? player1 : player2;
+        }
+
         _stateMachine.Start(() =>
           {
             if (p.RollBack > 0)
@@ -75,12 +85,12 @@
             }
             
             return (Turn.StateCount < p.SavedGame.StateCount || Recorder.IsPlayback);
-          }, skipPreGame: false);
+          }, skipPreGame: false, looser: looser);
 
-        Recorder.DiscardUnloadedResults();
+        Recorder.DiscardUnloadedResults();        
         _wasLoaded = true;
       }
-    }
+    }  
 
     private IEnumerable<IAcceptsGameModifier> ModifiableProperties
     {
@@ -168,7 +178,7 @@
 
       var decision = _decisionSystem.Create(controller, init, this);
       _decisionQueue.Enqueue(decision);
-    }
+    }   
 
     public SavedGame Save()
     {

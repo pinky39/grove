@@ -4,7 +4,7 @@
 
   public class ChooseEffectOptions : Decisions.ChooseEffectOptions
   {
-    protected override bool ShouldExecuteQuery { get { return true; } }
+    protected override bool ShouldExecuteQuery { get { return true; } }    
 
     protected override void ExecuteQuery()
     {

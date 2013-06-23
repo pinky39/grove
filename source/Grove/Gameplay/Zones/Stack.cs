@@ -14,7 +14,7 @@
   public class Stack : IEnumerable<Effect>, IHashable, IZone
   {
     private readonly TrackableList<Effect> _effects = new TrackableList<Effect>(orderImpactsHashcode: true);
-    private readonly Trackable<Effect> _lastResolved = new Trackable<Effect>();
+    private readonly Trackable<Effect> _lastResolved = new Trackable<Effect>();    
 
     public int Count { get { return _effects.Count; } }
     public bool IsEmpty { get { return _effects.Count == 0; } }
@@ -45,9 +45,9 @@
     public void AfterRemove(Card card) {}
 
     public void Initialize(Game game)
-    {
+    {      
       _effects.Initialize(game.ChangeTracker);
-      _lastResolved.Initialize(game.ChangeTracker);
+      _lastResolved.Initialize(game.ChangeTracker);      
     }
 
     public event EventHandler<StackChangedEventArgs> EffectAdded = delegate { };
@@ -64,7 +64,8 @@
       effect.EffectWasPushedOnStack();
 
       EffectAdded(this, new StackChangedEventArgs(effect));
-
+      
+      
       LogFile.Debug("Effect pushed on stack: {0}.", effect);
     }
 

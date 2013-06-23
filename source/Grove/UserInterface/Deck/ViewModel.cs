@@ -17,6 +17,7 @@
 
     public ViewModel() {}
 
+    public event EventHandler SelectedCardChanged = delegate { };
 
     public ViewModel(Deck deck)
     {
@@ -56,7 +57,7 @@
     public int LandCount { get { return FilterCards(_deck, c => c.Is().Land).Count(); } }
     public int SpellCount { get { return FilterCards(_deck, c => !c.Is().Creature && !c.Is().Land).Count(); } }
     public int CardCount { get { return _deck.CardCount; } }
-    public virtual Card SelectedCard { get; protected set; }
+    public CardInfo SelectedCard { get; private set; }
 
     public IManaAmount Colors
     {
@@ -122,12 +123,13 @@
         return;
       }
 
-      SelectedCard = CardsDictionary[_deck[RandomEx.Next(_deck.CardCount)].Name];
+      SelectedCard = _deck[RandomEx.Next(_deck.CardCount)];
     }
 
     public void ChangeSelectedCard(CardInfo cardInfo)
     {
-      SelectedCard = CardsDictionary[cardInfo.Name];
+      SelectedCard = cardInfo;
+      SelectedCardChanged(this, EventArgs.Empty);
     }
 
     [Updates("Creatures", "Spells", "Lands", "CreatureCount", "LandCount", "SpellCount", "CardCount")]

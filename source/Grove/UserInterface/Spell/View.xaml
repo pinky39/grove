@@ -11,10 +11,10 @@
 				</i:EventTrigger>
 			</i:Interaction.Triggers>
 
-			<Grid>
-				<ContentControl Content="{Binding }" Style="{StaticResource Card}" />
-				<Border BorderBrush="{StaticResource Playable}" Visibility="{Binding IsPlayable, Converter={x:Static UserInterface:Converters.BooleanToVisibility}}" BorderThickness="0,2,0,0" />
-				<Border Background="{StaticResource Selected}" Visibility="{Binding IsSelected, Converter={x:Static UserInterface:Converters.BooleanToVisibility}}" />
+			<Grid>                
+                <ContentControl Content="{Binding }" Style="{StaticResource Card}" />
+                <Border BorderBrush="{StaticResource Playable}"  Visibility="{Binding IsPlayable, Converter={x:Static UserInterface:Converters.BooleanToVisibility}}" BorderThickness="0,2,0,0" />
+                <Border Background="{StaticResource Selected}" Visibility="{Binding IsSelected, Converter={x:Static UserInterface:Converters.BooleanToVisibility}}" />
 			</Grid>
 
 		</ContentControl>

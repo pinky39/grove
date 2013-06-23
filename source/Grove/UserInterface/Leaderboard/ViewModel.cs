@@ -50,7 +50,8 @@
       }
     }
 
-    public bool CanContinue { get { return MatchesInProgress == 0; } }
+    public bool CanContinue { get { return MatchesInProgress == 0 && RoundsLeft > 0; } }
+    public bool HasMatchesInProgress {get { return MatchesInProgress != 0; }}
 
     [Updates("Players", "MatchesInProgress", "CanContinue")]
     public virtual void Receive(TournamentMatchFinished message)

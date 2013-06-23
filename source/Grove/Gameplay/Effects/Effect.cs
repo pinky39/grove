@@ -132,6 +132,7 @@
     public void EffectWasPushedOnStack()
     {
       Source.EffectPushedOnStack();
+      Publish(new EffectPushedOnStack {Effect = this});
     }
 
     public void FinishResolve()

@@ -4,7 +4,7 @@
 
   public class AssignCombatDamage : Decisions.AssignCombatDamage
   {
-    protected override bool ShouldExecuteQuery { get { return true; } }
+    protected override bool ShouldExecuteQuery { get { return true; } }  
 
     protected override void ExecuteQuery()
     {

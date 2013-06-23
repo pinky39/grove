@@ -24,11 +24,11 @@
             p.Text =
               "Whenever Retromancer becomes the target of a spell or ability, Retromancer deals 3 damage to that spell or ability's controller.";
 
-            p.Trigger(new OnBeingTargetedBySpell());
+            p.Trigger(new OnBeingTargetedBySpellOrAbility());
 
             p.Effect = () => new DealDamageToPlayer(
               amount: 3,
-              player: P(e => e.TriggerMessage<PlayerHasCastASpell>().Card.Controller));
+              player: P(e => e.TriggerMessage<EffectPushedOnStack>().Effect.Controller));
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });
