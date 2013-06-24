@@ -29,8 +29,7 @@
                   {
                     Text = "At the beginning of your upkeep, sacrifice this creature unless you pay its mana cost",
                     Effect =
-                      () => new PayManaOrSacrifice(P(e => e.Source.OwningCard.ManaCost), "Pay creatures mana cost?"),
-                    TriggerOnlyIfOwningCardIsInPlay = true
+                      () => new PayManaOrSacrifice(P(e => e.Source.OwningCard.ManaCost), "Pay creatures mana cost?"),                    
                   };
 
                 tp.Trigger(new OnStepStart(Step.Upkeep));

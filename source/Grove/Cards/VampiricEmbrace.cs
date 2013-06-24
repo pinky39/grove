@@ -34,8 +34,7 @@
                       Effect = () => new ApplyModifiersToSelf(() => new AddCounters(() => new PowerToughness(1, 1), 1))
                     };
 
-                  tp.Trigger(new OnCreatureDamagedByOwnerWasPutToGraveyard());
-                  tp.TriggerOnlyIfOwningCardIsInPlay = true;
+                  tp.Trigger(new OnCreatureDamagedByOwnerWasPutToGraveyard());                  
                   
                   return new AddTriggeredAbility(new TriggeredAbility(tp));
                 }) {Category = EffectCategories.ToughnessIncrease};

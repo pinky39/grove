@@ -10,7 +10,7 @@
     public class Predefined : PredefinedScenario
     {
       [Fact]
-      public void PumpBear()
+      public void PumpBearTwice()
       {
         var bear1 = C("Grizzly Bears");
         var bear2 = C("Grizzly Bears");
@@ -37,11 +37,11 @@
       public void DoNotPump()
       {
         var bear1 = C("Grizzly Bears");
-        var bear2 = C("Grizzly Bears");        
+        var bear2 = C("Grizzly Bears");
 
         Battlefield(P1, bear1);
         Battlefield(P2, bear2, "Retaliation");
-        
+
 
         Exec(
           At(Step.DeclareAttackers)
@@ -49,10 +49,34 @@
           At(Step.DeclareBlockers)
             .DeclareBlockers(bear1, bear2),
           At(Step.SecondMain)
+            .Verify(() => { Equal(Zone.Graveyard, C(bear2).Zone); })
+          );
+      }
+    }
+
+    public class PredefinedAi : PredefinedAiScenario
+    {
+      [Fact]
+      public void PumpOnce()
+      {
+        var treefolk = C("Blanchwood Treefolk");                  
+        var swine = C("Argothian Swine");
+        
+        Hand(P1, treefolk);
+        Battlefield(P1, treefolk, "Retaliation", "Titania's Chosen");
+        Battlefield(P2, swine);
+
+        P2.Life = 4;
+
+        Exec(
+          At(Step.FirstMain)
+            .Cast(treefolk),
+          At(Step.DeclareAttackers, turn: 3)
+            .DeclareAttackers(treefolk),
+          At(Step.SecondMain, turn: 3)
             .Verify(() =>
               {
-                Equal(Zone.Graveyard, C(bear2).Zone);
-                
+                Equal(5, C(treefolk).Power);                
               })
           );
       }

@@ -42,8 +42,7 @@
                   var tp = new TriggeredAbilityParameters();
                   tp.Text = "At the beginning of your upkeep, sacrifice Veiled Apparition unless you pay {1}{U}.";
                   tp.Trigger(new OnStepStart(Step.Upkeep));
-                  tp.Effect = () => new PayManaOrSacrifice("{1}{U}".Parse(), "Pay upkeep? (or sacrifice Veiled Apparition)");
-                  tp.TriggerOnlyIfOwningCardIsInPlay = true;
+                  tp.Effect = () => new PayManaOrSacrifice("{1}{U}".Parse(), "Pay upkeep? (or sacrifice Veiled Apparition)");                  
                 
                   return new AddTriggeredAbility(new TriggeredAbility(tp));
                 });

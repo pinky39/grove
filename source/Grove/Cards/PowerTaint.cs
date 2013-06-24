@@ -17,7 +17,7 @@
         .ManaCost("{1}{U}")
         .Type("Enchantment Aura")
         .Text(
-          "{Enchant enchantment}{EOL}At the beginning of the upkeep of enchanted enchantment's controller, that player loses 2 life unless he or she pays.{EOL}Cycling {2}")
+          "{Enchant enchantment}{EOL}At the beginning of the upkeep of enchanted enchantment's controller, that player loses 2 life unless he or she pays {2}.{EOL}Cycling {2}")
         .Cycling("{2}")
         .Cast(p =>
           {
@@ -27,6 +27,9 @@
           })
         .TriggeredAbility(p =>
           {
+            p.Text =
+              "At the beginning of the upkeep of enchanted enchantment's controller, that player loses 2 life unless he or she pays {2}.";
+            
             p.Trigger(new OnStepStart(
               step: Step.Upkeep,
               passiveTurn: true,
@@ -35,7 +38,8 @@
                 Condition = (t, g) => t.OwningCard.AttachedTo.Controller.IsActive
               });
 
-            p.Effect = () => new PayManaOrLooseLife(2, 2.Colorless(), P((e, g) => g.Players.Active));
+            p.Effect = () => new PayManaOrLooseLife(2, 2.Colorless(), 
+             player: P((e, g) => e.Source.OwningCard.AttachedTo.Controller));
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });

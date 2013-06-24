@@ -41,8 +41,7 @@
                   var tp = new TriggeredAbilityParameters
                     {
                       Text = "Sacrifice the creature at the beginning of the next end step.",
-                      Effect = () => new SacrificeOwner(),
-                      TriggerOnlyIfOwningCardIsInPlay = true
+                      Effect = () => new SacrificeOwner(),                      
                     };
 
                   tp.Trigger(new OnStepStart(

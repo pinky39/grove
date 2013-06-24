@@ -31,7 +31,7 @@
 
     protected override void ResolveEffect()
     {
-      Enqueue<PayOr>(Controller, p =>
+      Enqueue<PayOr>(_player.Value, p =>
         {
           p.ManaAmount = _manaAmount;
           p.Text = "Pay mana?";

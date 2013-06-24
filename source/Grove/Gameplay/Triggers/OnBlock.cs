@@ -9,7 +9,7 @@
     private readonly bool _becomesBlocked;
     private readonly bool _blocks;
     private readonly bool _triggerForEveryCreature;
-    private Trackable<int> _count = new Trackable<int>();
+    private readonly Trackable<int> _count = new Trackable<int>();
 
     private OnBlock() {}
 
@@ -24,9 +24,9 @@
     {
       if (_becomesBlocked && message.Attacker.Card == Ability.OwningCard)
       {
-        _count.Value++;
+        _count.Value += 1;
 
-        if (_triggerForEveryCreature || _count == 1)
+        if (_triggerForEveryCreature || _count.Value == 1)
         {
           Set();
         }
@@ -40,7 +40,7 @@
 
     public void Receive(StepStarted message)
     {
-      if (message.Step == Step.CombatDamage)
+      if (message.Step == Step.EndOfCombat)
         _count.Value = 0;
     }
 

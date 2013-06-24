@@ -89,15 +89,16 @@
       Game game;   
 
       if (_p.IsSavedMatch)
-      {
+      {                
         game = _gameFactory.Create(GameParameters.Load(
           player1Controller: ControllerType.Human,
           player2Controller: ControllerType.Machine,
           savedGame: _p.SavedMatch.SavedGame,
-          looser: _p.SavedMatch.Looser));
-        
+          looser: _p.SavedMatch.Looser));        
+
         Player1WinCount = _p.SavedMatch.Player1WinCount;
         Player2WinCount = _p.SavedMatch.Player2WinCount;
+        _looser = _p.SavedMatch.Looser;
         
         if (game.IsFinished)
         {
@@ -158,7 +159,7 @@
       if (Game.WasStopped)
         return false;
 
-      var looser = UpdateScore();      
+      var looser = UpdateScore() ?? _looser;      
 
       if (Game.WasStopped)
         return false;
@@ -189,13 +190,8 @@
         return false;
       }
 
-      SetLooser(looser);
-      return true;
-    }
-
-    private void SetLooser(int? looser)
-    {
       _looser = looser;
+      return true;
     }
 
     private int? UpdateScore()

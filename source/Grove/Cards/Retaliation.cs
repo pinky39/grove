@@ -29,10 +29,8 @@
                     Text =
                       "Whenever this creature becomes blocked by a creature, this creature gets +1/+1 until end of turn.",
                     Effect = () => new ApplyModifiersToSelf(
-                      () => new AddPowerAndToughness(1, 1) {UntilEot = true}),
-                    TriggerOnlyIfOwningCardIsInPlay = true
+                      () => new AddPowerAndToughness(1, 1) {UntilEot = true}),                    
                   };
-
 
                 tp.Trigger(new OnBlock(becomesBlocked: true, triggerForEveryCreature: true));
 
