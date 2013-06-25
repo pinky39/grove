@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Artifical.TimingRules;
   using Gameplay;
@@ -21,14 +20,16 @@
         .ManaCost("{1}{U}")
         .Type("Enchantment")
         .Text(
-          "When an opponent casts a spell, if Veiled Apparition is an enchantment, Veiled Apparition becomes a 3/3 Illusion creature with flying and 'At the beginning of your upkeep, sacrifice Veiled Apparition unless you pay {1}{U}.'")        
+          "When an opponent casts a spell, if Veiled Apparition is an enchantment, Veiled Apparition becomes a 3/3 Illusion creature with flying and 'At the beginning of your upkeep, sacrifice Veiled Apparition unless you pay {1}{U}.'")
         .Cast(p => p.TimingRule(new FirstMain()))
         .TriggeredAbility(p =>
           {
             p.Text =
               "When an opponent casts a spell, if Veiled Apparition is an enchantment, Veiled Apparition becomes a 3/3 Illusion creature with flying and 'At the beginning of your upkeep, sacrifice Veiled Apparition unless you pay {1}{U}.'";
             p.Trigger(new OnCastedSpell(
-              filter: (ability, card) => ability.OwningCard.Controller != card.Controller && ability.OwningCard.Is().Enchantment));
+              filter:
+                (ability, card) =>
+                  ability.OwningCard.Controller != card.Controller && ability.OwningCard.Is().Enchantment));
 
             p.Effect = () => new ApplyModifiersToSelf(
               () => new Gameplay.Modifiers.ChangeToCreature(
@@ -42,8 +43,9 @@
                   var tp = new TriggeredAbilityParameters();
                   tp.Text = "At the beginning of your upkeep, sacrifice Veiled Apparition unless you pay {1}{U}.";
                   tp.Trigger(new OnStepStart(Step.Upkeep));
-                  tp.Effect = () => new PayManaOrSacrifice("{1}{U}".Parse(), "Pay upkeep? (or sacrifice Veiled Apparition)");                  
-                
+                  tp.Effect =
+                    () => new PayManaOrSacrifice("{1}{U}".Parse(), "Pay upkeep? (or sacrifice Veiled Apparition)");
+
                   return new AddTriggeredAbility(new TriggeredAbility(tp));
                 });
 

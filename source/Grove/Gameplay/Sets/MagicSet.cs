@@ -4,11 +4,12 @@
   using System.Collections.Generic;
   using System.Globalization;
   using System.IO;
+  using System.Linq;
   using Artifical;
   using Infrastructure;
 
   public class MagicSet
-  {    
+  {
     private readonly Dictionary<string, int> _boosterPack = new Dictionary<string, int>();
     private readonly List<string> _commons = new List<string>();
     private readonly List<string> _rares = new List<string>();
@@ -18,7 +19,7 @@
 
     public MagicSet(string filename)
     {
-      Name = Path.GetFileNameWithoutExtension(filename);      
+      Name = Path.GetFileNameWithoutExtension(filename);
       LoadFromFile(filename);
     }
 
@@ -140,24 +141,42 @@
 
     private List<CardInfo> GeneratePack(Dictionary<string, int> settings)
     {
-      var cards = new List<CardInfo>();
+      var cards = new Dictionary<string, CardInfo>();
 
       for (var i = 0; i < settings["Rares"]; i++)
       {
-        cards.Add(GetRandomRare());
+        CardInfo random;
+        do
+        {
+          random = GetRandomRare();
+        } while (cards.ContainsKey(random.Name));
+
+        cards.Add(random.Name, random);
       }
 
       for (var i = 0; i < settings["Uncommons"]; i++)
       {
-        cards.Add(GetRandomUncommon());
+        CardInfo random;
+        do
+        {
+          random = GetRandomUncommon();
+        } while (cards.ContainsKey(random.Name));
+
+        cards.Add(random.Name, random);
       }
 
       for (var i = 0; i < settings["Commons"]; i++)
       {
-        cards.Add(GetRandomCommon());
+        CardInfo random;
+        do
+        {
+          random = GetRandomCommon();
+        } while (cards.ContainsKey(random.Name));
+
+        cards.Add(random.Name, random);
       }
 
-      return cards;
+      return cards.Values.ToList();
     }
 
     public List<CardInfo> GenerateBoosterPack()
@@ -174,7 +193,7 @@
         code += set.GetHashCode();
       }
 
-      return code;            
+      return code;
     }
   }
 }

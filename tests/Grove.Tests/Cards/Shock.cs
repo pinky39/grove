@@ -59,12 +59,12 @@
         Battlefield(P1, "Mountain");
         Hand(P1, shock);
 
-        P2.Life = 5;
+        P2.Life = 2;
 
         RunGame(maxTurnCount: 2);
 
         False(P1.Hand.Contains(shock));
-        Equal(3, P2.Life);
+        Equal(0, P2.Life);
       }
     }
 

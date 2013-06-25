@@ -15,45 +15,75 @@
       _combatOnly = combatOnly;
     }
 
-    public override bool ShouldPlay(TimingRuleParameters p)
+    private bool TargetCreatureRemoval(Card target, TimingRuleParameters p)
     {
-      // eot
-      if (!p.Controller.IsActive && Turn.Step == Step.EndOfTurn && !_combatOnly)
-        return true;
-
       // remove blockers
       if (p.Controller.IsActive && Turn.Step == Step.BeginningOfCombat)
       {
-        return p.Targets<Card>().Any(x => x.CanBlock());
+        return target.CanBlock();
       }
 
       // remove attackers
-      if (!p.Controller.IsActive && Turn.Step == Step.DeclareAttackers)
+      if (p.Controller.IsActive == false && Turn.Step == Step.DeclareAttackers)
       {
-        return p.Targets<Card>().Any(x => x.IsAttacker);
+        return target.IsAttacker;        
       }
 
       if (_combatOnly)
         return false;
 
-      // play as response to some spells
+       // play as response to some spells
       if (Stack.TopSpell != null && Stack.TopSpell.Controller == p.Controller.Opponent &&
         Stack.TopSpell.HasCategory(EffectCategories.Protector | EffectCategories.ToughnessIncrease))
       {
         if (Stack.TopSpell.Targets.Count > 0)
         {
-          return Stack.TopSpell.Targets.Any(
-            target => p.Targets<Card>().Any(x => x == target));
+          return Stack.TopSpell.Targets.Any(trg => trg == target);
         }
 
         // e.g Nantuko Shade gives self a +1/+1 boost
         if (Stack.TopSpell.TargetsEffectSource)
         {
-          return p.Targets<Card>().Any(x => x == Stack.TopSpell.Source.OwningCard);
+          return target == Stack.TopSpell.Source.OwningCard;          
         }
       }
 
       return false;
+    }
+
+    private bool TargetAuraRemoval(Card target, TimingRuleParameters p)
+    {
+      // remove combat auras
+      if (Turn.Step == Step.DeclareBlockers && (target.AttachedTo.IsAttacker || target.AttachedTo.IsBlocker))
+        return true;
+
+      return false;
+    }
+
+    private bool EotRemoval(TimingRuleParameters p)
+    {
+      if (!p.Controller.IsActive && Turn.Step == Step.EndOfTurn && !_combatOnly)
+        return true;
+
+      return false;
+    }
+
+    public override bool ShouldPlay(TimingRuleParameters p)
+    {
+      foreach (var target in p.Targets<Card>())
+      {
+        if (target.Is().Creature && TargetCreatureRemoval(target, p))
+        {
+          return true;
+        }
+
+        if (target.Is().Aura && target.AttachedTo != null && TargetAuraRemoval(target, p))
+        {
+          return true;
+        }        
+      }
+
+      return EotRemoval(p);     
     }
   }
 }

@@ -12,7 +12,7 @@
         .Named("Disciple of Grace")
         .ManaCost("{1}{W}")
         .Type("Creature - Human Cleric")
-        .Text("Protection from black{EOL}Cycling {2} ({2}, Discard this card: Draw a card.)")
+        .Text("{Protection from black}{EOL}Cycling {2} ({2}, Discard this card: Draw a card.)")
         .FlavorText("Beauty is beyond law.")
         .Power(1)
         .Toughness(2)

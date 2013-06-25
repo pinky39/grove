@@ -6,9 +6,9 @@
   public class ChangeController : Modifier, ICardModifier
   {
     private readonly Func<Modifier, Player> _getNewController;
-    private readonly Player _newController;
     private ControllerCharacteristic _controller;
     private ControllerSetter _controllerSetter;
+    private Player _newController;
 
     private ChangeController() {}
 
@@ -22,14 +22,20 @@
       _getNewController = getNewController;
     }
 
-    private Player NewController { get { return _newController ?? _getNewController(this); } }
-
     public override void Apply(ControllerCharacteristic controller)
     {
       _controller = controller;
-      _controllerSetter = new ControllerSetter(NewController);
+      _controllerSetter = new ControllerSetter(_newController);
       _controllerSetter.Initialize(ChangeTracker);
       _controller.AddModifier(_controllerSetter);
+    }
+
+    protected override void Initialize()
+    {
+      if (_newController == null)
+      {
+        _newController = _getNewController(this);
+      }
     }
 
     protected override void Unapply()

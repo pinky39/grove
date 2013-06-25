@@ -15,30 +15,26 @@
     public ControllerCharacteristic(Player controller) : base(controller) {}
 
     public void Accept(ICardModifier modifier)
-    {
-      var before = Value;
-
+    {      
       modifier.Apply(this);
+    }
 
-      var after = Value;
-
-      if (before == after)
-        return;
-
+    protected override void OnCharacteristicChanged()
+    {
       if (_card.Zone != Zone.Battlefield)
         return;
-
+      
       Combat.Remove(_card);
 
       if (!_card.IsAttached)
       {
-        after.PutCardToBattlefield(_card);
+        Value.PutCardToBattlefield(_card);
 
         foreach (var attachment in _card.Attachments.Where(x => x.Is().Aura || x.Is().Equipment))
         {
           // for auras and equipments just change battlefield
           // do not change the control          
-          after.PutCardToBattlefield(attachment);
+          Value.PutCardToBattlefield(attachment);
         }
       }
 

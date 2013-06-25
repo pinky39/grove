@@ -34,6 +34,20 @@
 
         Assert.True(P1.Battlefield.Contains(C(armor)));
       }
+
+      [Fact]
+      public void EnchantRangers()
+      {
+       var rangers = C("Treetop Rangers");
+       
+       Hand(P1, "Blanchwood armor");       
+       Battlefield(P1, C("Bog Raiders").IsEnchantedWith("Gaea's Embrace"),  rangers, "Forest", "Forest", "Forest", "Swamp", "Swamp"); 
+       Battlefield(P2, "Disciple of Grace", "Elvish Lyrist", "Forest", "Forest", "Plains", "Plains");
+
+       RunGame(1);
+
+       Equal(5, C(rangers).Power);
+      }
     }
 
     public class Predefined : PredefinedScenario

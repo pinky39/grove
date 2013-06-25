@@ -1,6 +1,8 @@
 ﻿namespace Grove.Tests.Cards
 {
+  using System.Linq;
   using Gameplay.States;
+  using Gameplay.Zones;
   using Infrastructure;
   using Xunit;
 
@@ -32,6 +34,61 @@
             .Cast(disenchant, confiscate)
             .Verify(() => Equal(P2, C(bear).Controller))
           );
+      }
+
+      [Fact]
+      public void ConfiscateConfiscate()
+      {
+        var confiscate1 = C("Confiscate");
+        var confiscate2 = C("Confiscate");
+        var bear1 = C("Grizzly Bears");
+
+        Hand(P1, confiscate1);
+        Hand(P2, confiscate2);
+        
+        Battlefield(P2, bear1);
+
+        Exec(
+          At(Step.FirstMain)
+            .Cast(confiscate1, target: bear1),
+          At(Step.FirstMain, turn: 2)
+            .Cast(confiscate2, target: confiscate1)
+            .Verify(() =>
+              {
+                Equal(P1, C(bear1).Controller);
+                True(P1.Battlefield.Any(x => x == C(confiscate2)));
+              })
+        );
+
+
+
+
+      }
+    }
+
+    public class PredefinedAi : PredefinedAiScenario
+    {
+      [Fact]
+      public void DestroyWithLyrist()
+      {
+        var confiscate = C("Confiscate");
+        var armodon = C("Trained Armodon");
+        
+        Hand(P1, confiscate);        
+        Battlefield(P2, "Elvish Lyrist", armodon, "Forest");
+
+        Exec(
+          At(Step.FirstMain)
+            .Cast(confiscate, target: armodon),
+          At(Step.FirstMain, turn: 2)
+            .Verify(() =>
+              {
+                Equal(Zone.Graveyard, C(confiscate).Zone);
+                Equal(P2, C(armodon).Controller);
+              })
+
+        );
+
       }
     }
   }
