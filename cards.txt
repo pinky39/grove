@@ -293,6 +293,7 @@ Scoria Wurm
 Scrap
 Seal of Fire
 Seasoned Marshal
+Serra Avatar
 Serra Zealot
 Serra's Embrace
 Serra's Liturgy
@@ -339,36 +340,73 @@ Sword of Feast and Famine
 Sword of Fire and Ice
 Swords to Plowshares
 Symbiosis
+Tainted Aether
+Thran Quarry
 Thran Turbine
 Thrun, the Last Troll
 Thundering Giant
+Time Spiral
 Time Warp
+Titania's Boon
+Titania's Chosen
+Tolarian Academy
+Tolarian Winds
 Torch Song
 Trained Armodon
+Treefolk Seedlings
+Treetop Rangers
 Trip Noose
 Troll Ascetic
 Turnabout
+Umbilicus
 Undermine
+Unnerve
 Unworthy Dead
 Urza's Armor
 Vampire Nighthawk
+Vampiric Embrace
+Vebulid
+Veil of Birds
+Veiled Apparition
+Veiled Crocodile
+Veiled Sentry
+Veiled Serpent
+Venomous Fangs
 Verdant Force
+Vernal Bloom
+Viashino Outrider
+Viashino Sandswimmer
+Viashino Weaponsmith
 Victimize
 Vigor
+Vile Requiem
 Vines of Vastwood
 Vivid Crag
 Vivid Creek
 Voice of Grace
+Voice of Law
 Volcanic Fallout
 Volcanic Hammer
+Voltaic Key
+Vug Lizard
 Wall of Blossoms
 Wall of Denial
 Wall of Junk
 Wall of Reverence
+War Dance
 Waylay
+Western Paladin
+Whetstone
+Whirlwind
 White Knight
 Wild Dogs
 Wildfire
+Windfall
+Winding Wurm
+Witch Engine
 Wizard Mentor
+Worn Powerstone
 Worship
 Wurmcoil Engine
+Zephid
+Zephid's Embrace

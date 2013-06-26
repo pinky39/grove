@@ -8,7 +8,7 @@
   {
     private readonly object _previousScreen;
     private readonly List<string> _sets;
-    private readonly int[] _tournamentSize = new[] {25, 50, 100, 150, 200, 300, 500};
+    private readonly int[] _tournamentSize = new[] {30, 50, 100, 150, 200, 300, 500};
 
     public ViewModel(object previousScreen)
     {

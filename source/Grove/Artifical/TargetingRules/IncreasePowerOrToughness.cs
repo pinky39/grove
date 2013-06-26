@@ -25,32 +25,33 @@
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
     {
       var power = _power ?? p.MaxX;
-      var toughness = _toughness ?? p.MaxX;            
+      var toughness = _toughness ?? p.MaxX;
 
-      var candidates = None<Card>();
+      var candidates = new List<Card>();
 
       if (p.Controller.IsActive && Turn.Step == Step.DeclareBlockers)
       {
-        candidates = GetCandidatesForAttackerPowerToughnessIncrease(power, toughness, p);
+        candidates.AddRange(GetCandidatesForAttackerPowerToughnessIncrease(power, toughness, p));
       }
 
       else if (!p.Controller.IsActive && Turn.Step == Step.DeclareBlockers)
       {
-        candidates = GetCandidatesForBlockerPowerToughnessIncrease(power, toughness, p);
+        candidates.AddRange(GetCandidatesForBlockerPowerToughnessIncrease(power, toughness, p));
       }
 
-      else if (_untilEot && toughness > 0)
+
+      if (toughness > 0)
       {
-        candidates = p.Candidates<Card>(ControlledBy.SpellOwner)
-          .Where(x => Stack.CanBeDealtLeathalDamageByTopSpell(x.Card()));
+        candidates.AddRange(p.Candidates<Card>(ControlledBy.SpellOwner)
+          .Where(x => Stack.CanBeDealtLeathalDamageByTopSpell(x.Card())));
       }
 
-      else if (!_untilEot &&
-        (!p.Controller.IsActive && Turn.Step == Step.EndOfTurn ||
+      if ((_untilEot == false) &&
+        (p.Controller.IsActive == false && Turn.Step == Step.EndOfTurn ||
           p.Card.IsPermanent && Stack.CanBeDestroyedByTopSpell(p.Card)))
       {
-        candidates = p.Candidates<Card>(ControlledBy.SpellOwner)
-          .OrderBy(x => x.Toughness);
+        candidates.AddRange(p.Candidates<Card>(ControlledBy.SpellOwner)
+          .OrderBy(x => x.Toughness));
       }
 
       return Group(candidates, p.MinTargetCount());

@@ -9,9 +9,7 @@ Morphling, Nature's Lore, No Rest for the Wicked, Noetic Scales, Opal Archangel,
 
 Added sealed tournament game mode
 -------------------------------------
-Every player is given a random pack of 90 cards from chosen sets (1x tournament pack, 3x booster pack), which he uses to build a deck. To speed things up a bit computer players select their decks from a pregenerated pool od decks. On every tournament at least 5 new decks are added to this pool.
-
-Multiple rounds are played on each tournament, the number of rounds depends on the number of players. On the start of every round, players are paired using the Swiss pairing system. Players get 3 points for win and 0 points for loss. The player with most points wins the tournament. In case of a tie a game won percentage is compared.
+Every player is given a random pack of 90 cards from chosen sets (1x tournament pack, 3x booster pack), which he uses to build his deck. Multiple rounds are played on each tournament, the number of rounds depends on the number of players. On the start of every round, players are paired using the Swiss pairing system. Players get 3 points for win and 0 points for loss. The player with most points wins the tournament. In case of a tie game won percentage is compared.
 
 Save & load
 -------------------------------------

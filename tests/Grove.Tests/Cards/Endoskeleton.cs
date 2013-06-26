@@ -42,6 +42,25 @@
               })
           );
       }
+
+      //[Fact] todo this does not work because ai considers only single blocking declaration and creature pumping is considered only for attackers and blockers
+      public void PumpAutomation()
+      {
+        var treefolk = C("Blanchwood Treefolk");
+        var automation = C("Hopping Automaton");
+        
+        Battlefield(P1, "Forest", "Mountain", "Goblin War Buggy", "Forest", "Forest", "Mountain", treefolk);         
+        Battlefield(P2, "Swamp", "Mountain", "Endoskeleton", "Mountain", automation, "Swamp", "Dromosaur", "Swamp");        
+
+        Exec(
+          At(Step.DeclareAttackers)
+            .DeclareAttackers(treefolk),
+          At(Step.SecondMain)
+            .Verify(() => Equal(5, C(automation).Toughness))
+        );
+      }    
     }
+
+    
   }
 }
