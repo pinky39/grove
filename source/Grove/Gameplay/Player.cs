@@ -265,7 +265,7 @@
       _manaVault.AddManaToPool(manaAmount, usageRestriction);
     }
 
-    public void AssignDamage(AssignedCombatDamage damage)
+    public void AssignDamage(DamageFromSource damage)
     {
       _assignedDamage.Assign(damage);
     }

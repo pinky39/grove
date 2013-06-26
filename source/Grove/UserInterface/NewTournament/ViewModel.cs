@@ -8,7 +8,7 @@
   {
     private readonly object _previousScreen;
     private readonly List<string> _sets;
-    private readonly int[] _tournamentSize = new[] {25, 50, 100, 150, 200, 300 };
+    private readonly int[] _tournamentSize = new[] {25, 50, 100, 150, 200, 300, 500};
 
     public ViewModel(object previousScreen)
     {
@@ -19,7 +19,7 @@
       BoosterPack1 = _sets[0];
       BoosterPack2 = _sets[0];
       BoosterPack3 = _sets[0];
-      PlayersCount = 50;
+      PlayersCount = 100;
       YourName = "You";
     }
 

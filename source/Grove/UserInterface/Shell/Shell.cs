@@ -35,9 +35,9 @@
       dialogHost.CloseAllDialogs();
     }
 
-    public void ChangeScreen(object screen, bool blockUntilClosed = false)
+    public void ChangeScreen(object screen, bool blockUntilClosed = false, bool shouldClosePrevious = true)
     {
-      if (Screen != null)
+      if (Screen != null && shouldClosePrevious)
       {
         Screen.Close();
       }

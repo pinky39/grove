@@ -304,7 +304,7 @@
 
             _shell.Publish(new TournamentMatchFinished {Match = simulatedMatch});
 
-            if (CurrentMatch.WasStopped || _shouldStop)
+            if ((CurrentMatch != null && CurrentMatch.WasStopped) || _shouldStop)
             {
               _shouldStop = true;
               break;

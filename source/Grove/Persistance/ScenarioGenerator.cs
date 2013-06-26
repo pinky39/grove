@@ -1,9 +1,10 @@
-﻿namespace Grove.Gameplay.Debuging
+﻿namespace Grove.Persistance
 {
   using System;
   using System.Collections.Generic;
   using System.IO;
   using System.Text;
+  using Gameplay;
 
   public class ScenarioGenerator
   {

@@ -2,13 +2,14 @@
 {
   using System.Linq;
   using Artifical;
+  using DamageHandling;
   using Infrastructure;
   using Messages;
   using Misc;
 
   public class Blocker : GameObject, IHashable
   {
-    private readonly TrackableList<AssignedCombatDamage> _assignedDamage = new TrackableList<AssignedCombatDamage>();
+    private readonly TrackableList<DamageFromSource> _assignedDamage = new TrackableList<DamageFromSource>();
     private readonly Trackable<Attacker> _attacker;
     private readonly Trackable<int> _damageAssignmentOrder = new Trackable<int>();
 
@@ -56,7 +57,7 @@
         calc.Calculate(_assignedDamage));
     }
 
-    public void AssignDamage(AssignedCombatDamage damage)
+    public void AssignDamage(DamageFromSource damage)
     {
       _assignedDamage.Add(damage);
     }
@@ -80,7 +81,7 @@
     {
       if (Attacker != null)
       {
-        var damage = new AssignedCombatDamage(
+        var damage = new DamageFromSource(
           amount: Card.CalculateCombatDamageAmount(),
           source: Card);
 

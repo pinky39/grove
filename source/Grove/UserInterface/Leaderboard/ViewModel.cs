@@ -53,7 +53,7 @@
     public bool CanContinue { get { return MatchesInProgress == 0 && RoundsLeft > 0; } }
     public bool HasMatchesInProgress {get { return MatchesInProgress != 0; }}
 
-    [Updates("Players", "MatchesInProgress", "CanContinue")]
+    [Updates("FinishedPlayers", "HasMatchesInProgress", "MatchesInProgress", "CanContinue")]
     public virtual void Receive(TournamentMatchFinished message)
     {
       _finishedPlayers.Add(message.Match.Player1);
@@ -70,7 +70,7 @@
     public void EditDeck()
     {
       var screen = ViewModels.BuildLimitedDeck.Create(_humanLibrary, new Deck(_humanPlayer.Deck));
-      Shell.ChangeScreen(screen, blockUntilClosed: true);
+      Shell.ChangeScreen(screen, blockUntilClosed: true, shouldClosePrevious: false);
 
       if (screen.WasCanceled == false)
       {

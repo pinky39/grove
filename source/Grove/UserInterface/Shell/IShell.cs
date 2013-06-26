@@ -4,7 +4,7 @@
 
   public interface IShell
   {
-    void ChangeScreen(object screen, bool blockUntilClosed = false);
+    void ChangeScreen(object screen, bool blockUntilClosed = false, bool shouldClosePrevious = true);
     void ShowDialog(object dialog, DialogType type = DialogType.Large, InteractionState? interactionState = null);
 
     MessageBoxResult ShowMessageBox(string message, MessageBoxButton buttons, DialogType type = DialogType.Large,

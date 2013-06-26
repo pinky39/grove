@@ -1,13 +1,13 @@
-﻿namespace Grove.Gameplay
+﻿namespace Grove.Gameplay.DamageHandling
 {
   using Infrastructure;
 
   [Copyable]
-  public class AssignedCombatDamage
+  public class DamageFromSource
   {
-    private AssignedCombatDamage() {}
+    private DamageFromSource() {}
 
-    public AssignedCombatDamage(int amount, Card source)
+    public DamageFromSource(int amount, Card source)
     {
       Amount = amount;
       Source = source;

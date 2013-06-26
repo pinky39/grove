@@ -210,7 +210,8 @@
         calc.Calculate(Turn),
         calc.Calculate(Combat),
         calc.Calculate(_damagePreventions),
-        calc.Calculate(_damageRedirections));
+        calc.Calculate(_damageRedirections),
+        calc.Calculate(_decisionQueue));
     }
 
     public void RollbackToSnapshot(object snaphost)

@@ -4,9 +4,9 @@
   using System.Collections.Generic;
   using System.Linq;
   using System.Threading;
-  using Gameplay.Debuging;
   using Gameplay.Messages;
   using Infrastructure;
+  using Persistance;
 
   public class ViewModel : ViewModelBase, IIsDialogHost, IReceive<PlayerHasCastASpell>,
     IReceive<PlayerHasActivatedAbility>,

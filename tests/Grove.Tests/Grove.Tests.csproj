@@ -234,7 +234,6 @@
     <Compile Include="Cards\SanctumCustodian.cs" />
     <Compile Include="Cards\SanctumGuardian.cs" />
     <Compile Include="Cards\Scald.cs" />
-    <Compile Include="Cards\ScoriaWurm.cs" />
     <Compile Include="Cards\SealOfFire.cs" />
     <Compile Include="Cards\SeasonedMarshal.cs" />
     <Compile Include="Cards\SerraAvatar.cs" />

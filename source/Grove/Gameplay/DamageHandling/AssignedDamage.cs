@@ -6,7 +6,7 @@
   [Copyable]
   public class AssignedDamage : IHashable
   {
-    private readonly TrackableList<AssignedCombatDamage> _assigned = new TrackableList<AssignedCombatDamage>();
+    private readonly TrackableList<DamageFromSource> _assigned = new TrackableList<DamageFromSource>();
     private readonly Player _player;
 
     private AssignedDamage() {}
@@ -26,7 +26,7 @@
       _assigned.Initialize(changeTracker);
     }
 
-    public void Assign(AssignedCombatDamage damage)
+    public void Assign(DamageFromSource damage)
     {
       _assigned.Add(damage);
     }

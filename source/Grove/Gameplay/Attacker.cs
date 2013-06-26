@@ -3,6 +3,7 @@
   using System.Collections.Generic;
   using System.Linq;
   using Artifical;
+  using DamageHandling;
   using Decisions;
   using Decisions.Results;
   using Infrastructure;
@@ -11,7 +12,7 @@
 
   public class Attacker : GameObject, IHashable
   {
-    private readonly TrackableList<AssignedCombatDamage> _assignedDamage = new TrackableList<AssignedCombatDamage>();
+    private readonly TrackableList<DamageFromSource> _assignedDamage = new TrackableList<DamageFromSource>();
     private readonly TrackableList<Blocker> _blockers = new TrackableList<Blocker>();
     private readonly Card _card;
     private readonly Trackable<bool> _isBlocked = new Trackable<bool>();
@@ -53,7 +54,7 @@
       _isBlocked.Value = true;
     }
 
-    public void AssignDamage(AssignedCombatDamage damage)
+    public void AssignDamage(DamageFromSource damage)
     {
       _assignedDamage.Add(damage);
     }
@@ -84,7 +85,7 @@
     {
       foreach (var blocker in _blockers)
       {
-        var damage = new AssignedCombatDamage(
+        var damage = new DamageFromSource(
           distribution[blocker], source: Card);
 
         blocker.AssignDamage(damage);
@@ -94,7 +95,7 @@
 
       if (HasTrample || AssignsDamageAsThoughItWasntBlocked || _isBlocked == false)
       {
-        var unassignedDamage = new AssignedCombatDamage(
+        var unassignedDamage = new DamageFromSource(
           amount: Card.CalculateCombatDamageAmount() - distribution.Total,
           source: _card);
 

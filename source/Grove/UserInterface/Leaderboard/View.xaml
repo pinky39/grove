@@ -21,6 +21,9 @@
 					<Image Grid.Column="0" HorizontalAlignment="Left" Height="50" Source="{grove:Media 'icon.png'}"></Image>
 					<TextBlock Grid.Column="1" Margin="30,0,0,0" VerticalAlignment="Center" FontSize="40" Foreground="#fff" Text="Leaderboard" />
                     
+                    <TextBlock FontSize="20" Foreground="#fff" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding MatchesInProgress, StringFormat='Please wait for {0} matches to finish...'}" Grid.Column="2" 
+                               Visibility="{Binding Path=HasMatchesInProgress, Converter={x:Static grove:Converters.BooleanToVisibility}}" />
+                    
                     <StackPanel Grid.Column="3" Orientation="Horizontal" Visibility="{Binding RoundsLeft, Converter={x:Static grove:Converters.ZeroToCollapsed}}">
                         <TextBlock Grid.Column="3" Margin="0,0,0,0" VerticalAlignment="Center" FontSize="30" Foreground="#fff" Text="Rounds to go:"  />
                         <TextBlock Grid.Column="4" Margin="15,0,20,0" VerticalAlignment="Center" FontSize="30" Foreground="#FFFFD700" Text="{Binding RoundsLeft}" />
@@ -121,10 +124,7 @@
 					</Grid.ColumnDefinitions>
 
                     <Button x:Name="ReturnToMainMenu" Style="{StaticResource LeftButton}" FontSize="20" Foreground="#fff" Content="Return to main menu" Grid.Column="0" />
-
-                    
-                    <TextBlock FontSize="20" Foreground="#fff" HorizontalAlignment="Right" Text="{Binding MatchesInProgress, StringFormat='Please wait for {0} matches to finish.'}" Grid.Column="1" 
-                               Visibility="{Binding Path=HasMatchesInProgress, Converter={x:Static grove:Converters.BooleanToVisibility}}" />                    
+                                                        
 
                     <StackPanel Grid.Column="2" Orientation="Horizontal">
                 

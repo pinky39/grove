@@ -648,7 +648,7 @@
     <Compile Include="Gameplay\Abilities\StaticAbilities.cs" />
     <Compile Include="Gameplay\Abilities\StaticAbility.cs" />
     <Compile Include="Gameplay\Abilities\StaticAbilityParamaters.cs" />
-    <Compile Include="Gameplay\AssignedCombatDamage.cs" />
+    <Compile Include="Gameplay\DamageHandling\DamageFromSource.cs" />
     <Compile Include="Gameplay\CardInfo.cs" />
     <Compile Include="Gameplay\CardsDictionary.cs" />
     <Compile Include="Gameplay\Characteristics\CardColors.cs" />
@@ -1173,7 +1173,7 @@
     <Compile Include="Gameplay\Effects\PlayerSacrificePermanents.cs" />
     <Compile Include="Gameplay\Effects\TargetPlayerDrawsCards.cs" />
     <Compile Include="Gameplay\Modifiers\AddPowerAndToughness.cs" />
-    <Compile Include="Gameplay\Debuging\ScenarioGenerator.cs" />
+    <Compile Include="Persistance\ScenarioGenerator.cs" />
     <Compile Include="Infrastructure\Snapshot.cs" />
     <Compile Include="Gameplay\Abilities\ActivationPrerequisites.cs" />
     <Compile Include="Gameplay\Abilities\TriggeredAbility.cs" />
