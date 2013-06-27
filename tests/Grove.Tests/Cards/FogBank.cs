@@ -30,5 +30,25 @@
           );
       }
     }
+
+    public class Predefined : PredefinedScenario
+    {
+      [Fact]
+      public void CombatOnly()
+      {
+        var shock = C("Shock");
+        var bank = C("Fog Bank");
+
+        Hand(P1, shock);
+        Battlefield(P2, bank);
+
+        Exec(
+          At(Step.FirstMain)
+            .Cast(shock, target: bank),
+          At(Step.SecondMain)
+            .Verify(() => Equal(Zone.Graveyard, C(bank).Zone))
+        );
+      }
+    }
   }
 }
