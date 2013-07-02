@@ -173,21 +173,24 @@
       return results;
     }
 
-    protected int CalculateAttackerScore(Card attacker)
+    protected int CalculateAttackerScoreForThisTurn(Card attacker)
     {
+      if (!attacker.CanAttack)
+        return -1;
+                  
       return Combat.CouldBeBlockedByAny(attacker)
-        ? 5
-        : attacker.CalculateCombatDamageAmount(singleDamageStep: false);
+        ? 2 * attacker.Power.GetValueOrDefault() + attacker.Toughness.GetValueOrDefault() 
+        : 5 * attacker.CalculateCombatDamageAmount(singleDamageStep: false);
     }
 
-    protected static int CalculateWannaBeAttackerScore(Card wannaBeAttacker)
-    {
-      if (wannaBeAttacker.Has().DoesNotUntap || wannaBeAttacker.Has().CannotAttack)
+    protected static int CalculateAttackingPotential(Card creature)
+    {            
+      if (!creature.IsAbleToAttack)
         return 0;
 
-      var damage = wannaBeAttacker.CalculateCombatDamageAmount(singleDamageStep: false);
+      var damage = creature.CalculateCombatDamageAmount(singleDamageStep: false);
 
-      if (wannaBeAttacker.Has().AnyEvadingAbility)
+      if (creature.Has().AnyEvadingAbility)
         return 2 + damage;
 
       return damage;

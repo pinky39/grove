@@ -84,6 +84,7 @@
     }
 
     public int Id { get; private set; }
+    public CardColor[] Colors { get { return Source.OwningCard.Colors; } }
 
     protected void RegisterDynamicParameters(params IDynamicParameter[] parameters)
     {

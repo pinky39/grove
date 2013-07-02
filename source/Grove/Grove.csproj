@@ -130,6 +130,7 @@
     <Compile Include="Artifical\Search.cs" />
     <Compile Include="Artifical\SearchParameters.cs" />
     <Compile Include="Artifical\SearchStatistics.cs" />
+    <Compile Include="Artifical\TargetingRules\GainProtection.cs" />
     <Compile Include="Artifical\TimingRules\ControllerHasMoreCardsInHand.cs" />
     <Compile Include="Artifical\TimingRules\SingleInstanceOfSpellOnStack.cs" />
     <Compile Include="Artifical\TimingRules\StackIsEmpty.cs" />
@@ -183,6 +184,10 @@
     <Compile Include="Cards\Catastrophe.cs" />
     <Compile Include="Cards\Cathodion.cs" />
     <Compile Include="Cards\CaveTiger.cs" />
+    <Compile Include="Cards\GangOfElk.cs" />
+    <Compile Include="Cards\LoneWolf.cs" />
+    <Compile Include="Cards\MotherOfRunes.cs" />
+    <Compile Include="Cards\TreetopVillage.cs" />
     <Compile Include="Cards\ViashinoWeaponsmith.cs" />
     <Compile Include="Cards\CelestialPrism.cs" />
     <Compile Include="Cards\ChildOfGaea.cs" />
@@ -689,6 +694,7 @@
     <Compile Include="Gameplay\Effects\PreventDamageFromSource.cs" />
     <Compile Include="Gameplay\Effects\PreventAllDamageToTargets.cs" />
     <Compile Include="Gameplay\Effects\PreventNextDamageToTargets.cs" />
+    <Compile Include="Gameplay\Effects\TargetGainsProtectionFromChosenColor.cs" />
     <Compile Include="Gameplay\GameParameters.cs" />
     <Compile Include="Gameplay\IModifiable.cs" />
     <Compile Include="Gameplay\MatchParameters.cs" />

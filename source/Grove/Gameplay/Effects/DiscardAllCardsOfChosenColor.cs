@@ -2,30 +2,20 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Characteristics;
   using Decisions.Results;
   using Targeting;
 
   public class DiscardAllCardsOfChosenColor : CustomizableEffect
   {
-    private static readonly List<Rel> Map = new List<Rel>
-      {
-        new Rel {Color = CardColor.White, Choice = EffectOption.White},
-        new Rel {Color = CardColor.Blue, Choice = EffectOption.Blue},
-        new Rel {Color = CardColor.Black, Choice = EffectOption.Black},
-        new Rel {Color = CardColor.Red, Choice = EffectOption.Red},
-        new Rel {Color = CardColor.Green, Choice = EffectOption.Green},
-      };
-
     public override ChosenOptions ChooseResult(List<IEffectChoice> operations)
     {
       var color = Target.Player().Battlefield.GetMostCommonColor();
-      return new ChosenOptions(Map.Single(x => x.Color == color).Choice);
+      return new ChosenOptions(ChoiceToColorMap.Single(x => x.Color == color).Choice);
     }
 
     public override void ProcessResults(ChosenOptions results)
     {
-      var color = Map.Single(x => x.Choice.Equals(results.Options[0])).Color;
+      var color = ChoiceToColorMap.Single(x => x.Choice.Equals(results.Options[0])).Color;
 
       var cardsToDiscard = Target.Player().Hand.Where(
         x => x.HasColor(color)).ToList();
@@ -49,12 +39,6 @@
         EffectOption.Black,
         EffectOption.Red,
         EffectOption.Green);
-    }
-
-    private class Rel
-    {
-      public EffectOption Choice;
-      public CardColor Color;
     }
   }
 }

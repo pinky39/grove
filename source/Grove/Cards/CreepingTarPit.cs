@@ -1,6 +1,7 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
+  using Artifical.TimingRules;
   using Gameplay;
   using Gameplay.Abilities;
   using Gameplay.Characteristics;
@@ -34,13 +35,15 @@
             p.Cost = new PayMana("{1}{U}{B}".Parse(), ManaUsage.Abilities);
 
             p.Effect = () => new ApplyModifiersToSelf(
-              () => new ChangeToCreature(
+              () => new Gameplay.Modifiers.ChangeToCreature(
                 power: 3,
                 toughness: 2,
                 type: "Land Creature Elemental",
                 colors: L(CardColor.Blue, CardColor.Black)) {UntilEot = true},
               () => new AddStaticAbility(Static.Unblockable) {UntilEot = true});
 
+            p.TimingRule(new StackIsEmpty());
+            p.TimingRule(new OwningCardHas(c => !c.Is().Creature));
             p.TimingRule(new Artifical.TimingRules.ChangeToCreature(minAvailableMana: 4));
           });
     }

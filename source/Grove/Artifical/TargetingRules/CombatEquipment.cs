@@ -20,7 +20,7 @@
           .Select(x => new
             {
               Card = x.Card(),
-              Score = CalculateAttackerScore(x)
+              Score = CalculateAttackerScoreForThisTurn(x)
             })
           .OrderByDescending(x => x.Score)
           .Where(x => x.Score > 0)

@@ -16,7 +16,7 @@
     }
 
     public override bool ShouldPlay(TimingRuleParameters p)
-    {
+    {            
       if (Turn.Step == Step.BeginningOfCombat && p.Controller.IsActive)
       {
         return _minAvailableMana == 0 || p.Controller.HasMana(_minAvailableMana, ManaUsage.Abilities);

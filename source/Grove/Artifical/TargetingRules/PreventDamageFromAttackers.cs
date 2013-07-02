@@ -11,7 +11,7 @@
     {
       var candidates = p.Candidates<Card>()
         .Where(x => x.IsAttacker)
-        .OrderByDescending(CalculateAttackerScore);
+        .OrderByDescending(CalculateAttackerScoreForThisTurn);
 
       return Group(candidates, p.MinTargetCount(), p.MaxTargetCount());
     }

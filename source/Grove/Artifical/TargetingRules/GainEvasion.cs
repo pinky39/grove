@@ -23,7 +23,7 @@
       var candidates = p.Candidates<Card>(ControlledBy.SpellOwner)
         .Where(card => card.IsAttacker)
         .Where(attacker => _filter(attacker))
-        .OrderByDescending(CalculateAttackerScore);
+        .OrderByDescending(CalculateAttackerScoreForThisTurn);
 
       return Group(candidates, p.MinTargetCount());
     }
