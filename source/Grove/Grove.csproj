@@ -187,6 +187,7 @@
     <Compile Include="Cards\GangOfElk.cs" />
     <Compile Include="Cards\LoneWolf.cs" />
     <Compile Include="Cards\MotherOfRunes.cs" />
+    <Compile Include="Cards\SimianGrunts.cs" />
     <Compile Include="Cards\TreetopVillage.cs" />
     <Compile Include="Cards\ViashinoWeaponsmith.cs" />
     <Compile Include="Cards\CelestialPrism.cs" />

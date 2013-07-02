@@ -244,6 +244,7 @@
     <Compile Include="Cards\ShowerOfSparks.cs" />
     <Compile Include="Cards\Sicken.cs" />
     <Compile Include="Cards\SilentAttendant.cs" />
+    <Compile Include="Cards\SimianGrunts.cs" />
     <Compile Include="Cards\SkirgeFamiliar.cs" />
     <Compile Include="Cards\SkitteringSkirge.cs" />
     <Compile Include="Cards\SleeperAgent.cs" />

@@ -27,5 +27,6 @@
     bool AnyEvadingAbility { get; }
     bool CanOnlyBeBlockedByCreaturesWithFlying { get; }
     bool CanAttackOnlyIfDefenderHasIslands { get; }
+    bool Flash { get; }
   }
 }

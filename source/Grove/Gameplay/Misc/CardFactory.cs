@@ -169,7 +169,7 @@
     private static void SetDefaultTimingRules(CardParameters cp, CastInstructionParameters p)
     {
       if (cp.Type.Creature)
-      {
+      {                
         p.TimingRule(new Creatures());
       }
       else if (cp.Type.Land)
