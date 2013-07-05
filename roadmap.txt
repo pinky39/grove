@@ -202,7 +202,7 @@ o Pendrell Flux
 o Peregrine Drake
 o Persecute
 o Pestilence
-Phyrexian Colossus
+o Phyrexian Colossus
 o Phyrexian Ghoul
 o Phyrexian Processor
 o Phyrexian Tower
@@ -322,7 +322,7 @@ o Veiled Serpent
 o Venomous Fangs
 o Vernal Bloom
 o Viashino Outrider
-Viashino Runner
+o Viashino Runner
 o Viashino Sandswimmer
 o Viashino Weaponsmith
 o Victimize

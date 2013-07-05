@@ -1,7 +1,6 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Artifical.TimingRules;
   using Gameplay.Abilities;
   using Gameplay.Misc;
 
@@ -17,7 +16,6 @@
         .FlavorText("They are Phyrexia's couriers; the messages they carry are inscribed on their slick hides.")
         .Power(2)
         .Toughness(2)
-        .Cast(p => p.TimingRule(new FirstMain()))
         .SimpleAbilities(
           Static.Flying,
           Static.Haste

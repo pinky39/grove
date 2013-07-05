@@ -48,7 +48,7 @@
     private readonly TriggeredAbilities _triggeredAbilities;
     private readonly CardTypeCharacteristic _type;
     private readonly Trackable<int> _usageScore = new Trackable<int>();
-    private readonly CardZone _zone = new CardZone();
+    private readonly CardZone _zone = new CardZone();    
 
     public TrackableEvent JoinedBattlefield;
     public TrackableEvent LeftBattlefield;
@@ -66,6 +66,7 @@
       FlavorText = p.FlavorText;
       Illustration = p.Illustration;
       MayChooseNotToUntap = p.MayChooseToUntap;
+      MinimalBlockerCount = p.MinimalBlockerCount;
 
       _power = new Power(p.Power);
       _toughness = new Toughness(p.Toughness);
@@ -89,6 +90,7 @@
     }
 
     public bool MayChooseNotToUntap { get; private set; }
+    public int MinimalBlockerCount { get; private set; }
     public Card AttachedTo { get { return _attachedTo.Value; } private set { _attachedTo.Value = value; } }
     public IEnumerable<Card> Attachments { get { return _attachments.Cards; } }
     public Rarity? Rarity { get; set; }

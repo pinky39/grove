@@ -18,28 +18,33 @@
       var result = new ChosenBlockers();
 
       while (true)
-      {
-        var blockerDefinition =
-          new TargetValidatorParameters {MinCount = 0, MaxCount = 1, Message = "Select a blocker."}
-            .Is.Card(c => c.CanBlock() && c.Controller == Controller)
-            .On.Battlefield();
+      {                        
+        var blockerTarget = new TargetValidatorParameters
+          {
+            MinCount = result.IsValid() ? 0 : 1, 
+            MaxCount = 1, Message = "Select a blocker."
+          }
+          .Is.Card(c => c.CanBlock() && c.Controller == Controller)
+          .On.Battlefield();
 
-        blockerDefinition.MustBeTargetable = false;
+        blockerTarget.MustBeTargetable = false;
 
-        var blockerValidator = new TargetValidator(blockerDefinition);
+        var blockerValidator = new TargetValidator(blockerTarget);
         blockerValidator.Initialize(Game, Controller);
 
         var selectBlocker = DialogFactory.Create(new SelectTargetParameters
           {
             Validator = blockerValidator,
             CanCancel = false,
-            Instructions = "(Press Spacebar to finish.)"
+            Instructions = result.IsValid() ? "(Press Spacebar to finish.)" : "(Additional blockers required.)"
           });
 
         Shell.ShowModalDialog(selectBlocker, DialogType.Small, InteractionState.SelectTarget);
 
         if (selectBlocker.Selection.Count() == 0)
+        {
           break;
+        }
 
         var blocker = (Card) selectBlocker.Selection[0];
 
@@ -55,14 +60,14 @@
           continue;
         }
 
-        var attackerDefinition =
+        var attackerTarget =
           new TargetValidatorParameters {MinCount = 1, MaxCount = 1, Message = "Select an attacker to block."}
             .Is.Card(c => c.IsAttacker && c.CanBeBlockedBy(blocker))
             .On.Battlefield();
 
-        attackerDefinition.MustBeTargetable = false;
+        attackerTarget.MustBeTargetable = false;
 
-        var attackerValidator = new TargetValidator(attackerDefinition);
+        var attackerValidator = new TargetValidator(attackerTarget);
         attackerValidator.Initialize(Game, Controller);
 
         var selectAttacker = DialogFactory.Create(new SelectTargetParameters

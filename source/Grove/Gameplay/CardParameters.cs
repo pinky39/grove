@@ -29,6 +29,7 @@
     public CardText Text = string.Empty;
     public int? Toughness;
     public CardType Type;
+    public int MinimalBlockerCount = 1;
 
     public string Illustration
     {

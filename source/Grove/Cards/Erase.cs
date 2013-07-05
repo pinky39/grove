@@ -6,22 +6,21 @@
   using Gameplay.Effects;
   using Gameplay.Misc;
 
-  public class Clear : CardsSource
+  public class Erase : CardsSource
   {
     public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
-        .Named("Clear")
-        .ManaCost("{1}{W}")
+        .Named("Erase")
+        .ManaCost("{W}")
         .Type("Instant")
-        .Text("Destroy target enchantment.{EOL}Cycling {2}({2}, Discard this card: Draw a card.)")
-        .Cycling("{2}")
+        .Text("Exile target enchantment.")
+        .FlavorText("Perception is more pleasing than truth.")
         .Cast(p =>
           {
-            p.Effect = () => new DestroyTargetPermanents();
+            p.Effect = () => new ExileTargets();
             p.TargetSelector.AddEffect(trg => trg.Is.Enchantment().On.Battlefield());
-
-            p.TargetingRule(new Destroy());
+            p.TargetingRule(new Exile());
             p.TimingRule(new TargetRemoval());
           });
     }

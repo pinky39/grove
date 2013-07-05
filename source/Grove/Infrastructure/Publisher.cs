@@ -56,7 +56,7 @@
     private void MapHandlersToTypes()
     {
       var types = _assembly.GetTypes()
-        .Where(x => _namespace == null || x.Namespace.Equals(_namespace))
+        .Where(x => _namespace == null ||  Equals(x.Namespace, _namespace))
         .Where(x => x.Implements<IReceive>())
         .ToList();
 

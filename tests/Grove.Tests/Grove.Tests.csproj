@@ -94,6 +94,7 @@
     <Compile Include="Cards\ArgothianElder.cs" />
     <Compile Include="Cards\ArgothianEnchantress.cs" />
     <Compile Include="Cards\ArgothianWurm.cs" />
+    <Compile Include="Cards\AvalancheRiders.cs" />
     <Compile Include="Cards\BaneslayerAngel.cs" />
     <Compile Include="Cards\BarrinMasterWizard.cs" />
     <Compile Include="Cards\BarrinsCodex.cs" />
@@ -122,6 +123,7 @@
     <Compile Include="Cards\DarkstyleGargoyle.cs" />
     <Compile Include="Cards\DayOfJudgment.cs" />
     <Compile Include="Cards\DeathlessAngel.cs" />
+    <Compile Include="Cards\DefenseOfTheHeart.cs" />
     <Compile Include="Cards\DestructiveUrge.cs" />
     <Compile Include="Cards\DiabolicServitude.cs" />
     <Compile Include="Cards\DiscipleOfGrace.cs" />
@@ -203,6 +205,7 @@
     <Compile Include="Cards\Persecute.cs" />
     <Compile Include="Cards\Pestilence.cs" />
     <Compile Include="Cards\PhyrexianArena.cs" />
+    <Compile Include="Cards\PhyrexianColossus.cs" />
     <Compile Include="Cards\PhyrexianGhoul.cs" />
     <Compile Include="Cards\PhyrexianProcessor.cs" />
     <Compile Include="Cards\PhyrexianTower.cs" />
@@ -215,6 +218,7 @@
     <Compile Include="Cards\PriestOfGix.cs" />
     <Compile Include="Cards\PriestOfTitania.cs" />
     <Compile Include="Cards\PurgingScythe.cs" />
+    <Compile Include="Cards\RadiantsJudgment.cs" />
     <Compile Include="Cards\RainOfFilth.cs" />
     <Compile Include="Cards\RainOfSalt.cs" />
     <Compile Include="Cards\RampantGrowth.cs" />
@@ -244,6 +248,7 @@
     <Compile Include="Cards\ShowerOfSparks.cs" />
     <Compile Include="Cards\Sicken.cs" />
     <Compile Include="Cards\SilentAttendant.cs" />
+    <Compile Include="Cards\SilkNet.cs" />
     <Compile Include="Cards\SimianGrunts.cs" />
     <Compile Include="Cards\SkirgeFamiliar.cs" />
     <Compile Include="Cards\SkitteringSkirge.cs" />
@@ -266,6 +271,7 @@
     <Compile Include="Cards\Symbiosis.cs" />
     <Compile Include="Cards\TaintedAether.cs" />
     <Compile Include="Cards\ThranTurbine.cs" />
+    <Compile Include="Cards\TickingGnomes.cs" />
     <Compile Include="Cards\TimeSpiral.cs" />
     <Compile Include="Cards\TimeWarp.cs" />
     <Compile Include="Cards\TitaniasBoon.cs" />
@@ -285,6 +291,7 @@
     <Compile Include="Cards\VeiledSentry.cs" />
     <Compile Include="Cards\VeiledSerpent.cs" />
     <Compile Include="Cards\VernalBloom.cs" />
+    <Compile Include="Cards\ViashinoRunner.cs" />
     <Compile Include="Cards\ViashinoSandswimmer.cs" />
     <Compile Include="Cards\Victimize.cs" />
     <Compile Include="Cards\VividCreek.cs" />
@@ -357,6 +364,7 @@
     <Compile Include="Unit\CopyServiceFacts.cs" />
     <Compile Include="Unit\DataBindingFacts.cs" />
     <Compile Include="Unit\ReflectionFacts.cs" />
+    <Compile Include="Unit\SetExFacts.cs" />
     <Compile Include="Unit\StringExFacts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Infrastructure\Scenario.cs" />

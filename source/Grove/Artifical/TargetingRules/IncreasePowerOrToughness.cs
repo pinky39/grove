@@ -39,7 +39,6 @@
         candidates.AddRange(GetCandidatesForBlockerPowerToughnessIncrease(power, toughness, p));
       }
 
-
       if (toughness > 0)
       {
         candidates.AddRange(p.Candidates<Card>(ControlledBy.SpellOwner)

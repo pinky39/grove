@@ -1,7 +1,6 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Artifical.TimingRules;
   using Gameplay.Abilities;
   using Gameplay.Misc;
 
@@ -17,7 +16,6 @@
         .FlavorText("The giant was felt a few seconds before he was seen.")
         .Power(4)
         .Toughness(3)
-        .Cast(p => p.TimingRule(new FirstMain()))
         .SimpleAbilities(Static.Haste);
     }
   }

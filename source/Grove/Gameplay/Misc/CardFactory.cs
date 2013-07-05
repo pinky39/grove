@@ -383,6 +383,12 @@
       return this;
     }
 
+    public CardFactory IsUnblockableIfNotBlockedByAtLeast(int count)
+    {
+      _init.Add(p => { p.MinimalBlockerCount = count; });
+      return this;
+    }
+
     public CardFactory Type(string type)
     {
       _init.Add(p => { p.Type = type; });

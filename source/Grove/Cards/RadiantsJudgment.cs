@@ -1,30 +1,29 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Artifical.TargetingRules;
   using Artifical.TimingRules;
   using Gameplay.Effects;
   using Gameplay.Misc;
 
-  public class Disenchant : CardsSource
+  public class RadiantsJudgment : CardsSource
   {
     public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
-        .Named("Disenchant")
-        .ManaCost("{1}{W}")
+        .Named("Radiant's Judgment")
+        .ManaCost("{2}{W}")
         .Type("Instant")
-        .Text("Destroy target artifact or enchantment.")
-        .FlavorText("Let Phyrexia breed evil in the darkness; my holy light will reveal its taint.")
+        .Text("Destroy target creature with power 4 or greater.{EOL}Cycling {2} ({2}, Discard this card: Draw a card.)")
+        .Cycling("{2}")
         .Cast(p =>
           {
             p.Effect = () => new DestroyTargetPermanents();
             p.TargetSelector.AddEffect(trg => trg
-              .Is.Card(card => card.Is().Artifact || card.Is().Enchantment)
+              .Is.Card(c => c.Is().Creature && c.Power >= 4)
               .On.Battlefield());
 
-            p.TargetingRule(new OrderByRank(c => -c.Score, ControlledBy.Opponent));
+            p.TargetingRule(new Destroy());
             p.TimingRule(new TargetRemoval());
           });
     }

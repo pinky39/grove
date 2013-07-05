@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Artifical.TimingRules;
   using Gameplay;
@@ -12,36 +11,36 @@
   using Gameplay.Misc;
   using Gameplay.Modifiers;
 
-  public class TreetopVillage : CardsSource
+  public class GhituEncampment : CardsSource
   {
     public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
-        .Named("Treetop Village")
+        .Named("Ghitu Encampment")
         .Type("Land")
         .Text(
-          "Treetop Village enters the battlefield tapped.{EOL}{T}: Add {G} to your mana pool.{EOL}{1}{G}: Treetop Village becomes a 3/3 green Ape creature with trample until end of turn. It's still a land.")
+          "Ghitu Encampment enters the battlefield tapped.{EOL}{T}: Add {R} to your mana pool.{EOL}{1}{R}: Ghitu Encampment becomes a 2/1 red Warrior creature with first strike until end of turn. It's still a land.")
         .Cast(p => p.Effect = () => new PutIntoPlay(tap: true))
         .ManaAbility(p =>
           {
-            p.Text = "{T}: Add {G} to your mana pool.";
-            p.ManaAmount(Mana.Green);
+            p.Text = "{T}: Add {R} to your mana pool.";
+            p.ManaAmount(Mana.Red);
             p.Priority = ManaSourcePriorities.OnlyIfNecessary;
           })
         .ActivatedAbility(p =>
           {
             p.Text =
-              "{1}{G}: Treetop Village becomes a 3/3 green Ape creature with trample until end of turn. It's still a land.";
+              "{1}{R}: Ghitu Encampment becomes a 2/1 red Warrior creature with first strike until end of turn. It's still a land.";
 
-            p.Cost = new PayMana("{1}{G}".Parse(), ManaUsage.Abilities);
+            p.Cost = new PayMana("{1}{R}".Parse(), ManaUsage.Abilities);
 
             p.Effect = () => new ApplyModifiersToSelf(
               () => new Gameplay.Modifiers.ChangeToCreature(
-                power: 3,
-                toughness: 3,
-                colors: L(CardColor.Green),
-                type: "Land Creature Ape") {UntilEot = true},
-              () => new AddStaticAbility(Static.Trample) {UntilEot = true});
+                power: 2,
+                toughness: 1,
+                colors: L(CardColor.Red),
+                type: "Land Creature Warrior") { UntilEot = true },
+              () => new AddStaticAbility(Static.FirstStrike) { UntilEot = true });
 
             p.TimingRule(new StackIsEmpty());
             p.TimingRule(new OwningCardHas(c => !c.Is().Creature));

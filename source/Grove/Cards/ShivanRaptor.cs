@@ -1,7 +1,6 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Artifical.TimingRules;
   using Gameplay.Abilities;
   using Gameplay.Misc;
 
@@ -18,7 +17,6 @@
         .Power(3)
         .Toughness(1)
         .Echo("{2}{R}")
-        .Cast(p => p.TimingRule(new FirstMain()))
         .SimpleAbilities(
           Static.Haste,
           Static.FirstStrike

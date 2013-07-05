@@ -64,6 +64,11 @@
         list[permutation[i]] = listCopy[i];
       }
       return list;
-    }    
+    }
+
+    public static IEnumerable<T> Concat<T>(this IEnumerable<T> head, T tail)
+    {
+      return head.Concat(Enumerable.Repeat(tail, 1));
+    }
   }
 }
