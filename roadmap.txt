@@ -47,7 +47,7 @@ o Cave Tiger
 o Child of Gaea
 o Chimeric Staff
 o Citanul Centaurs
-Citanul Flute
+o Citanul Flute
 o Citanul Hierophants
 o Claws of Gix
 o Clear
@@ -346,7 +346,7 @@ o Witch Engine
 o Wizard Mentor
 o Worn Powerstone
 o Worship
-Yawgmoth's Edict
+o Yawgmoth's Edict
 Yawgmoth's Will
 o Zephid
 o Zephid's Embrace

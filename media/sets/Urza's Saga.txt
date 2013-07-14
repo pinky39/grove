@@ -55,6 +55,7 @@ Cave Tiger;C;3.3
 Child of Gaea;R;4.5
 Chimeric Staff;R;4
 Citanul Centaurs;R;4
+Citanul Flute;R;4
 Citanul Hierophants;R;3
 Claws of Gix;U;3.5
 Clear;U;3.8
@@ -190,6 +191,7 @@ Pendrell Flux;C;3.8
 Peregrine Drake;U;3.9
 Persecute;R;3.8
 Pestilence;C;4
+Phyrexian Colossus;R;3.8
 Phyrexian Ghoul;C;3.7
 Phyrexian Processor;R;4
 Phyrexian Tower;R;3.8
@@ -297,6 +299,7 @@ Veiled Serpent;C;3.6
 Venomous Fangs;C;3.3
 Vernal Bloom;R;3.5
 Viashino Outrider;C;3.7
+Viashino Runner;C;3.5
 Viashino Sandswimmer;R;3.5
 Viashino Weaponsmith;C;3.5
 Victimize;U;3.7
@@ -319,5 +322,6 @@ Witch Engine;R;3.8
 Wizard Mentor;C;3.7
 Worn Powerstone;U;3.6
 Worship;R;4.2
+Yawgmoth's Edict;U;2.8
 Zephid;R;3.7
 Zephid's Embrace;U;4

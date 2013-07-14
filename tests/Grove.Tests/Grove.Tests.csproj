@@ -110,6 +110,7 @@
     <Compile Include="Cards\Cathodion.cs" />
     <Compile Include="Cards\CaveTiger.cs" />
     <Compile Include="Cards\CelestialPrism.cs" />
+    <Compile Include="Cards\CitanulFlute.cs" />
     <Compile Include="Cards\CitanulHierophants.cs" />
     <Compile Include="Cards\ClawsOfGix.cs" />
     <Compile Include="Cards\Confiscate.cs" />
@@ -159,6 +160,7 @@
     <Compile Include="Cards\GoblinCadets.cs" />
     <Compile Include="Cards\GoblinLackey.cs" />
     <Compile Include="Cards\GoblinMatron.cs" />
+    <Compile Include="Cards\GoblinMedics.cs" />
     <Compile Include="Cards\GoblinOffensive.cs" />
     <Compile Include="Cards\GraveTitan.cs" />
     <Compile Include="Cards\GreaterGood.cs" />
@@ -189,6 +191,7 @@
     <Compile Include="Cards\MirranCrusader.cs" />
     <Compile Include="Cards\MishrasHelix.cs" />
     <Compile Include="Cards\MobileFort.cs" />
+    <Compile Include="Cards\MoltenHydra.cs" />
     <Compile Include="Cards\MonkIdealist.cs" />
     <Compile Include="Cards\MonkRealist.cs" />
     <Compile Include="Cards\Morphling.cs" />
@@ -205,6 +208,7 @@
     <Compile Include="Cards\Persecute.cs" />
     <Compile Include="Cards\Pestilence.cs" />
     <Compile Include="Cards\PhyrexianArena.cs" />
+    <Compile Include="Cards\PhyrexianBroodlings.cs" />
     <Compile Include="Cards\PhyrexianColossus.cs" />
     <Compile Include="Cards\PhyrexianGhoul.cs" />
     <Compile Include="Cards\PhyrexianProcessor.cs" />
@@ -307,6 +311,7 @@
     <Compile Include="Cards\WitchEngine.cs" />
     <Compile Include="Cards\WizardMentor.cs" />
     <Compile Include="Cards\Worship.cs" />
+    <Compile Include="Cards\YawgmothsEdict.cs" />
     <Compile Include="DeckBuilderFacts.cs" />
     <Compile Include="Infrastructure\Counters.cs" />
     <Compile Include="MatchSimulatorFacts.cs" />

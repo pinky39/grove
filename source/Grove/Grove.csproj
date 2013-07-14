@@ -187,6 +187,7 @@
     <Compile Include="Cards\Catastrophe.cs" />
     <Compile Include="Cards\Cathodion.cs" />
     <Compile Include="Cards\CaveTiger.cs" />
+    <Compile Include="Cards\CitanulFlute.cs" />
     <Compile Include="Cards\DefenderOfChaos.cs" />
     <Compile Include="Cards\DefenseOfTheHeart.cs" />
     <Compile Include="Cards\Erase.cs" />
@@ -195,8 +196,11 @@
     <Compile Include="Cards\GhituEncampment.cs" />
     <Compile Include="Cards\GhituSlinger.cs" />
     <Compile Include="Cards\GiantCockroach.cs" />
+    <Compile Include="Cards\GoblinMedics.cs" />
     <Compile Include="Cards\LoneWolf.cs" />
+    <Compile Include="Cards\MoltenHydra.cs" />
     <Compile Include="Cards\MotherOfRunes.cs" />
+    <Compile Include="Cards\PhyrexianBroodlings.cs" />
     <Compile Include="Cards\PhyrexianColossus.cs" />
     <Compile Include="Cards\RadiantsJudgment.cs" />
     <Compile Include="Cards\SilkNet.cs" />
@@ -567,6 +571,7 @@
     <Compile Include="Cards\YavimayaGranger.cs" />
     <Compile Include="Cards\YavimayaScion.cs" />
     <Compile Include="Cards\YavimayaWurm.cs" />
+    <Compile Include="Cards\YawgmothsEdict.cs" />
     <Compile Include="Cards\Zephid.cs" />
     <Compile Include="Cards\ZephidsEmbrace.cs" />
     <Compile Include="Configuration.cs" />
@@ -705,6 +710,7 @@
     <Compile Include="Gameplay\Decisions\Results\IPlayable.cs" />
     <Compile Include="Gameplay\Effects\Add11ForEachConterOnSource.cs" />
     <Compile Include="Gameplay\Effects\ApplyModifiersToGame.cs" />
+    <Compile Include="Gameplay\Effects\ControllerGainsLifeOpponentLoosesLife.cs" />
     <Compile Include="Gameplay\Effects\DestroyOwner.cs" />
     <Compile Include="Gameplay\Effects\DiscardAndDrawANewHand.cs" />
     <Compile Include="Gameplay\Effects\EachPlayerDiscardsHandAndDrawsGreatestDiscardedCount.cs" />
@@ -742,6 +748,7 @@
     <Compile Include="Gameplay\Triggers\OnCreatureDamagedByOwnerWasPutToGraveyard.cs" />
     <Compile Include="Gameplay\Triggers\OnEndOfCombatIfAttackedOrBlocked.cs" />
     <Compile Include="Gameplay\Triggers\OnLandPlayed.cs" />
+    <Compile Include="Gameplay\Triggers\OnOwnerGetsTapped.cs" />
     <Compile Include="Infrastructure\CastEx.cs" />
     <Compile Include="Infrastructure\SetEx.cs" />
     <Compile Include="Persistance\DecisionLog.cs" />
@@ -798,7 +805,7 @@
     <Compile Include="Gameplay\Costs\CanPayResult.cs" />
     <Compile Include="Gameplay\Costs\PayLife.cs" />
     <Compile Include="Gameplay\Costs\PayMana.cs" />
-    <Compile Include="Gameplay\Costs\RemoveCounter.cs" />
+    <Compile Include="Gameplay\Costs\RemoveCounters.cs" />
     <Compile Include="Gameplay\Costs\Tap.cs" />
     <Compile Include="Gameplay\Decisions\ICardValidator.cs" />
     <Compile Include="Gameplay\Decisions\IChooseDecisionResults.cs" />

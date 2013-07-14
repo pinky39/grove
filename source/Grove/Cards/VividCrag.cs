@@ -29,7 +29,7 @@
         .ManaAbility(p =>
           {
             p.Text = "{T}, Remove a charge counter from Vivid Crag: Add one mana of any color to your mana pool.";
-            p.Cost = new AggregateCost(new Tap(), new RemoveCounter(CounterType.Charge));
+            p.Cost = new AggregateCost(new Tap(), new RemoveCounters(CounterType.Charge, count: 1));
             p.ManaAmount(Mana.Any);
             p.Priority = ManaSourcePriorities.Restricted;
           })

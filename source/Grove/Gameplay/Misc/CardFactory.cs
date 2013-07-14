@@ -176,6 +176,10 @@
       {
         p.TimingRule(new Lands());
       }
+      else if (cp.Type.Artifact)
+      {
+        p.TimingRule(new FirstMain());
+      }
     }
 
     public CardFactory Protections(params string[] cardTypes)

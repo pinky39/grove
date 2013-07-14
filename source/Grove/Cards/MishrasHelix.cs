@@ -23,7 +23,7 @@
         .Type("Artifact")
         .Text("{X},{T}: Tap X target lands.")
         .FlavorText(
-          "The helix was the finest example of Mishra's campaign strategy: if he couldn't have Argoth, no one could.")
+          "The helix was the finest example of Mishra's campaign strategy: if he couldn't have Argoth, no one could.")        
         .ActivatedAbility(p =>
           {
             p.Text = "{X},{T}: Tap X target lands.";

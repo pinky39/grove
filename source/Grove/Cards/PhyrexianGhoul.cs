@@ -1,5 +1,6 @@
 ﻿namespace Grove.Cards
 {
+  using System;
   using System.Collections.Generic;
   using Artifical;
   using Artifical.TargetingRules;
@@ -31,7 +32,7 @@
             p.TargetSelector.AddCost(trg => trg.Is.Creature(ControlledBy.SpellOwner).On.Battlefield());
 
             p.TimingRule(new IncreaseOwnersPowerOrToughness(2, 2));
-            p.TargetingRule(new OrderByRank(c => c.Score) {TargetLimit = 1});
+            p.TargetingRule(new OrderByRank(c => c.Score) {TargetLimit = 1, ConsiderTargetingSelf = false} );
           });
     }
   }

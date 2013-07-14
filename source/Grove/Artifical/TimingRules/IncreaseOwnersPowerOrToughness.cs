@@ -6,14 +6,14 @@
   public class IncreaseOwnersPowerOrToughness : TimingRule
   {
     private readonly Value _power;
-    private readonly Value _toughness;
+    private readonly Value _toughness;    
 
     private IncreaseOwnersPowerOrToughness() {}
 
     public IncreaseOwnersPowerOrToughness(Value power, Value toughness)
     {
       _power = power;
-      _toughness = toughness;
+      _toughness = toughness;      
     }
 
     public override bool ShouldPlay(TimingRuleParameters p)
@@ -42,7 +42,7 @@
           attacker: Combat.GetAttacker(p.Card),
           powerIncrease: power,
           toughnessIncrease: toughness) > 0;
-      }
+      }      
 
       return false;
     }
