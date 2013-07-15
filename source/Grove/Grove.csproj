@@ -132,6 +132,7 @@
     <Compile Include="Artifical\SearchStatistics.cs" />
     <Compile Include="Artifical\TargetingRules\GainReach.cs" />
     <Compile Include="Artifical\TargetingRules\GainProtection.cs" />
+    <Compile Include="Artifical\TargetingRules\SacrificeToReduceToughness.cs" />
     <Compile Include="Artifical\TimingRules\ControllerHasMoreCardsInHand.cs" />
     <Compile Include="Artifical\TimingRules\SingleInstanceOfSpellOnStack.cs" />
     <Compile Include="Artifical\TimingRules\StackIsEmpty.cs" />
@@ -205,10 +206,12 @@
     <Compile Include="Cards\PhyrexianDebaser.cs" />
     <Compile Include="Cards\PhyrexianDefiler.cs" />
     <Compile Include="Cards\PhyrexianDenouncer.cs" />
+    <Compile Include="Cards\PhyrexianPlaguelord.cs" />
     <Compile Include="Cards\RadiantsJudgment.cs" />
     <Compile Include="Cards\SilkNet.cs" />
     <Compile Include="Cards\SimianGrunts.cs" />
     <Compile Include="Cards\SpawningPool.cs" />
+    <Compile Include="Cards\TetheredSkirge.cs" />
     <Compile Include="Cards\TickingGnomes.cs" />
     <Compile Include="Cards\TreetopVillage.cs" />
     <Compile Include="Cards\ViashinoRunner.cs" />
@@ -714,6 +717,7 @@
     <Compile Include="Gameplay\Effects\Add11ForEachConterOnSource.cs" />
     <Compile Include="Gameplay\Effects\ApplyModifiersToGame.cs" />
     <Compile Include="Gameplay\Effects\ControllerGainsLifeOpponentLoosesLife.cs" />
+    <Compile Include="Gameplay\Effects\ControllerLoosesLife.cs" />
     <Compile Include="Gameplay\Effects\DestroyOwner.cs" />
     <Compile Include="Gameplay\Effects\DiscardAndDrawANewHand.cs" />
     <Compile Include="Gameplay\Effects\EachPlayerDiscardsHandAndDrawsGreatestDiscardedCount.cs" />

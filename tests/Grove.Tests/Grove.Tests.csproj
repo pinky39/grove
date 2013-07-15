@@ -212,6 +212,7 @@
     <Compile Include="Cards\PhyrexianColossus.cs" />
     <Compile Include="Cards\PhyrexianDebaser.cs" />
     <Compile Include="Cards\PhyrexianGhoul.cs" />
+    <Compile Include="Cards\PhyrexianPlaguelord.cs" />
     <Compile Include="Cards\PhyrexianProcessor.cs" />
     <Compile Include="Cards\PhyrexianTower.cs" />
     <Compile Include="Cards\PitTrap.cs" />
