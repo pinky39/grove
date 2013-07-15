@@ -3,6 +3,7 @@
   using System.Collections.Generic;
   using Artifical.TargetingRules;
   using Gameplay.Abilities;
+  using Gameplay.Characteristics;
   using Gameplay.Effects;
   using Gameplay.Misc;
   using Gameplay.Triggers;
@@ -21,6 +22,7 @@
         .Power(2)
         .Toughness(2)
         .SimpleAbilities(Static.Flying)
+        .OverrideScore(new ScoreOverride {Battlefield = 300})
         .TriggeredAbility(p =>
           {
             p.Text = "When Abyssal Horror enters the battlefield, target player discards two cards.";

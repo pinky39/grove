@@ -202,6 +202,9 @@
     <Compile Include="Cards\MotherOfRunes.cs" />
     <Compile Include="Cards\PhyrexianBroodlings.cs" />
     <Compile Include="Cards\PhyrexianColossus.cs" />
+    <Compile Include="Cards\PhyrexianDebaser.cs" />
+    <Compile Include="Cards\PhyrexianDefiler.cs" />
+    <Compile Include="Cards\PhyrexianDenouncer.cs" />
     <Compile Include="Cards\RadiantsJudgment.cs" />
     <Compile Include="Cards\SilkNet.cs" />
     <Compile Include="Cards\SimianGrunts.cs" />
