@@ -24,6 +24,8 @@
             
             p.Effect = () => new ActivePlayerPaysLifeOrReturnSelectedPermanentToHand(
               life: 2);
+
+            p.TriggerOnlyIfOwningCardIsInPlay = true;
           });
     }
   }
