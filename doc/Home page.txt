@@ -1,17 +1,17 @@
 = magicgrove =
 
-Magicgrove is computer implementation of a [http://en.wikipedia.org/wiki/Magic:_The_Gathering popular trading card game] written in C#. The goal of the project is to implement ai algorithms which can perform at the same level as a casual human player. A short term goal (version 2.0) is to implement most of the cards available in Urza's block and to add support for limited tournaments (sealed & draft). Currently there are more than 400 unique cards available. When compared to the [http://www.slightlymagic.net/wiki/List_of_MTG_Engines similar projects] the game excels at:
+Magicgrove is computer implementation of a [http://en.wikipedia.org/wiki/Magic:_The_Gathering popular trading card game] written in C#. The goal of the project is to implement ai algorithms which can perform at the same level as a casual human player. A short term goal (version 2.0) is to implement most of the cards available in Urza's block and to add support for limited tournaments (sealed & draft). Currently there are more than 400 unique cards available. When compared to [http://www.slightlymagic.net/wiki/List_of_MTG_Engines similar projects] the game excels at:
 
- * superior user interface,
- * good 40 step lookahead ai with intelligent pruning algorithms,
+ * great user interface,
+ * good 40-step lookahead ai with intelligent pruning algorithms,
  * massive sealed tournaments (up to 500 computer players),
  * save & load support, 
  * easy & quick installation,
  * active development,
- * robustness
+ * robustness.
 
 == Contributing to the project ==
-The easiest way to get familiar with source is to try to add some new cards, check out the 'Adding cards tutorial' series:
+The easiest way to get familiar with source is to try to add some new cards. Check out the 'Adding cards tutorial' series:
 
  # [AddingCardsEpisode1 Adding cards Episode 1]
 

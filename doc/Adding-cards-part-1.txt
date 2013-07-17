@@ -1,14 +1,14 @@
 = Adding cards Episode 1 =
 
-Hi fellow developer, thank you for your interest in Magicgrove. 
+Hi, fellow developer, thank you for your interest in Magicgrove. 
 This series will try to explain how you can add new cards to the Magicgrove. You will need:
 
  * [http://www.microsoft.com/visualstudio/eng/downloads#d-2010-express Visual Studio 2010]
  * [http://code.google.com/p/msysgit/downloads/list?q=full+installer+official+git Git client for windows]
 
-In the first part of this tutorial you will learn: 
+In the first part of this tutorial you will learn how to: 
 
- * how to prepare your working environment to compile the project yourself,
+ * prepare your working environment to compile the project yourself,
  * implement a card named 'Akroma, Angel of Wrath',
  * write an automated test to check that the card works as expected,
  * share your work.
@@ -16,7 +16,7 @@ In the first part of this tutorial you will learn:
 == Preparing your working environment ==
 
 First install Visual Studio and Git using provided installers.
-Open command prompt, type following commands.
+Open command prompt and type the following commands.
 
 {{{
 cd \
@@ -33,11 +33,11 @@ cd magicgrove
 build.bat
 }}}
 
-This will compile the project, run all tests and create a new release in the Release sub folder.
+This will compile the project, run all tests and create a new release in the Release subfolder.
 
 == Implement card 'Akroma, Angel of Wrath' ==
 
-Before you start coding you need to create your private branch in git, this will allow you to pull updates to master without affecting your work. To do this open console and go to magicgrove directory then type:
+Before you start coding, you need to create your private branch in git, this will allow you to pull updates to master without affecting your work. To do this, open console and go to magicgrove directory, then type:
 
 {{{
 git checkout -b myNewCards
@@ -45,13 +45,13 @@ git checkout -b myNewCards
 
 This will create a new branch named 'myNewCards'.
 
-Now, open the project by clicking on Grove.sln. The solution contains 3 project:
+Now, open the project by clicking on Grove.sln. The solution contains 3 projects:
 
  * Grove (main project used to produce grove.exe)
  * Grove.Tests (automated tests)
- * Grove.Utils (utils used to automate development tasks e.g generate sealed decks ...)
+ * Grove.Utils (utils used to automate development tasks, e.g. generate sealed decks...)
 
-In the Grove project create a new file inside the Cards folder named 'AkromaAngelOfWrath'. Copy and paste the following code into the file:
+In the Grove project create a new file inside the Cards folder named !AkromaAngelOfWrath. Copy and paste the following code into the file:
 
 {{{
 
@@ -85,17 +85,13 @@ namespace Grove.Cards
 
 Let's look at the code in detail.
  
- # By convention all card definitions must be in namespace Grove.Cards (the engine only loads cards in this namespace).
- 
- # We see that the code declares a class named AkromaAngelOfWrath that is derived from a class named CardsSource. CardsSource contains an abstract method GetCards() which all derived classes should implement. This method returns an enumerable of CardFactory objects. A CardFactory defines the properties of the card and is used by the engine to produce concrete instances of cards. For example if a deck contains 4 copies of Akroma, Angel of Wrath, this object would be called 4 times to create 4 Card objects. 
- 
- # A card definition usually starts by specifying card's name, mana cost, type, text and flavor text. This is done by calling corresponding methods on CardFactory object. Since 'Akroma, Angel of Wrath' is a creature we also specify its power and toughness. 
- 
- # Simple static abilities like flying, first strike ... are defined by calling SimpleAbilities method.
- 
+ # By convention, all card definitions must be in namespace Grove.Cards (the engine only loads cards in this namespace).
+ # We see that the code declares a class named !AkromaAngelOfWrath that is derived from a class named !CardsSource. !CardsSource contains an abstract method !GetCards() which all derived classes should implement. This method returns an enumerable of !CardFactory objects. A !CardFactory defines the properties of the card and is used by the engine to produce concrete instances of cards. For example, if a deck contains 4 copies of Akroma, Angel of Wrath, this object would be called 4 times to create 4 Card objects. 
+ # A card definition usually starts by specifying card's name, mana cost, type, text and flavor text. This is done by calling corresponding methods on !CardFactory object. Since 'Akroma, Angel of Wrath' is a creature, we also specify its power and toughness. 
+ # Simple static abilities like flying, first strike ... are defined by calling !SimpleAbilities method.
  # Protections from colors are defined by calling Protections method.
 
-All clear? Let's compile and run the project to check our newly implemented card. Run the project by pressing F5 then open deck editor, your card should appear in the library.
+All clear? Let's compile and run the project to check our newly implemented card. Run the project by pressing F5, then open deck editor. Your card should appear in the library.
 
 == Verifying implementation with automated tests ==
 
@@ -104,9 +100,9 @@ Let's verify that our card works as expected. How do we do that? We have a coupl
  * we could create a deck and play a game with it to see if it works, 
  * we could write a small program which would play the card instead of us.
 
-The upside of first option is that it is farly straightforward and it tests both the user expirience and the ai. The downside is that it takes a lot of time. The second option is faster and if the card does not work as expected we can easily debug the code and find the cause. It also allow us to check the behavior of the card on every build, we just run the program again. The downside is that it may cause some issues with the user interface which we will not detect. 
+The advantage of the first option is that it is fairly straight-forward and it tests both the user experience and the ai. The disadvantage is that it takes a lot of time. The second option is faster, and if the card does not work as expected, we can easily debug the code and find the cause. It also allows us to check the behaviour of the card on every build, we just run the program again. The disadvantage is that it may cause some issues with the user interface, which we will not detect. 
 
-For this simple card, writing the automated tests will be enough. In the folder Cards inside the Grove.Tests project create a file named 'AkromaAngelOfWrath', then copy the following code into it:
+For this simple card, writing automated tests will be enough. In the folder Cards inside the Grove.Tests project create a file named !AkromaAngelOfWrath, then copy the following code into it:
 
 {{{
 namespace Grove.Tests.Cards
@@ -123,7 +119,7 @@ namespace Grove.Tests.Cards
       {
         Hand(P1, "Akroma, Angel of Wrath");
         
-		    Battlefield(P1, "Plains", "Plains", "Plains", "Plains", "Plains", "Plains", "Plains", "Plains");
+        Battlefield(P1, "Plains", "Plains", "Plains", "Plains", "Plains", "Plains", "Plains", "Plains");
         Battlefield(P2, "Verdant Force");
 
         RunGame(1);
@@ -137,19 +133,19 @@ namespace Grove.Tests.Cards
 
 Let's look at the code in detail.
 
- # First we define a container class that will contain our tests named AkromaAngelOfWrath.
- # Inside the container class we define another class named Ai, derived from class AiScenario. This tells test engine that we wish both players to be controlled by Ai. Magicgrove supports 3 kinds of 'scenario' tests:	
-  * Ai tests, both players are controlled by Ai
-  * Predefined tests, both players are controlled by test script
-  * Predefined Ai tests, first player is controlled by script, second player is controlled by Ai.
- # Our test method is called PlayAndAttack, we expect that player 1 will play Akroma from his hand and attack with it (Verdant Force would be unable to block since Akroma has flying). The game is run for 1 turn, we expect player 2 life to be 14 at the end of the turn.
+ # First we define a container class that will contain our tests named !AkromaAngelOfWrath.
+ # Inside the container class, we define another class named Ai, derived from class !AiScenario. This tells test engine that we wish both players to be controlled by Ai. Magicgrove supports 3 kinds of 'scenario' tests:	
+  * Ai tests - both players are controlled by Ai
+  * Predefined tests - both players are controlled by the test script
+  * Predefined Ai tests - the first player is controlled by the script, the second player is controlled by Ai.
+ # Our test method is called !PlayAndAttack. We expect that player 1 will play Akroma from his hand and attack with it (Verdant Force would be unable to block since Akroma has flying). The game is run for 1 turn, we expect player 2 life to be 14 at the end of the turn.
  		
-To run the test manualy run xunit.gui.clr4.x86.exe located in lib\xunit directory and browse for grove.test.dll assembly located in \test\Grove.Tests\bin\Debug. Type 'akroma' in the search field select appropriate test and run it. The test should pass. Another option is to execute tests directly from Visual Studio using a runner such as [http://www.testdriven.net/quickstart.aspx TestDriven.Net] or [https://www.jetbrains.com/resharper/ Resharper]. 
+To run the test manualy, run xunit.gui.clr4.x86.exe located in lib\xunit directory, and browse for grove.test.dll assembly located in \test\Grove.Tests\bin\Debug. Type 'akroma' in the search field, select the appropriate test and run it. The test should pass. Another option is to execute tests directly from Visual Studio using a runner such as [http://www.testdriven.net/quickstart.aspx TestDriven.Net] or [https://www.jetbrains.com/resharper/ Resharper]. 
 
-This test will also be run when you build the application using build.bat.
+This test will also be to run when you build the application using build.bat.
 
 == Sharing your work ==
-Congratulations, you have successfully implemented your first card. If you wish that others will be able to play with your card you need to submit it the mailing list.
+Congratulations, you have successfully implemented your first card! If you wish that others will be able to play with your card, you need to submit it to the mailing list.
 First you need to configure your name and email address with git. These will identify you as project contributer. To do this, open console, go to the magicgrove root directory and type:
 
 {{{
@@ -164,16 +160,16 @@ git add -A
 git commit
 }}}
 
-Enter the commit message, e.g 'Added card: Akroma, Angel of Wrath'. After committing your changes generate a patch file by typing: 
+Enter the commit message, e.g 'Added card: Akroma, Angel of Wrath'. After committing your changes, generate a patch file by typing: 
 
 
 {{{
 git format-patch -M origin/master -o c:
 }}}
 
-This will create a .patch file in the c: root folder, if you wish you can change the output location, or omit '-o c:' to save the patch to the current folder. Send the generated patch file to magicgrove mailing list as attachment. A project maintainer will integrate your changes into master branch. 
+This will create a .patch file in the c: root folder. If you wish, you can change the output location, or omit '-o c:' to save the patch to the current folder. Send the generated patch file to [mailto:magicgrove@googlegroups.com magicgrove mailing list] as attachment. A project maintainer will integrate your changes into master branch.
 
-When integration is complete you can update your master branch by typing:
+When integration is complete, you can update your master branch by typing:
 
 {{{
 git checkout master
@@ -189,5 +185,5 @@ git branch -d myNewCards
 This concludes our first Episode. Until next time, try implementing some simple cards on your own. See you soon.
 
 == Additional resources ==
- * To learn more about git check out excellent [http://git-scm.com/book Free Pro git book].
- * Magicgrove uses xUnit for testing, to learn more about xUnit visit [https://xunit.codeplex.com/ xUnit page at CodePlex].
+ * To learn more about git, check out the excellent [http://git-scm.com/book Free Pro git book].
+ * Magicgrove uses xUnit for testing. To learn more about xUnit, visit [https://xunit.codeplex.com/ xUnit page at CodePlex].
