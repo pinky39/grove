@@ -16,7 +16,7 @@ The easiest way to get familiar with source is to try to add some new cards, che
  # [AddingCardsEpisode1 Adding cards Episode 1]
 
 == Screen shots ==
-http://magicgrove.googlecode.com/git/doc/screenshots.jpg
+http://magicgrove.googlecode.com/git/doc/screnshots.jpg
 
 == Latest release (1.9) ==
 
