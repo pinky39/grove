@@ -1,25 +1,23 @@
 ﻿namespace Grove.Gameplay.Effects
 {
-  using Modifiers;
-
   public class DealDamageToPlayer : Effect
   {
-    private readonly Value _amount;
+    private readonly DynParam<int> _amount;
     private readonly DynParam<Player> _player;
 
     private DealDamageToPlayer() {}
 
-    public DealDamageToPlayer(Value amount, DynParam<Player> player)
+    public DealDamageToPlayer(DynParam<int> amount, DynParam<Player> player)
     {
       _amount = amount;
       _player = player;
 
-      RegisterDynamicParameters(player);
+      RegisterDynamicParameters(player, _amount);
     }
 
     public override int CalculatePlayerDamage(Player player)
     {
-      return player == _player.Value ? _amount.GetValue(X) : 0;
+      return player == _player.Value ? _amount.Value : 0;
     }
 
     public override int CalculateCreatureDamage(Card creature)
@@ -30,7 +28,7 @@
     protected override void ResolveEffect()
     {
       Source.OwningCard.DealDamageTo(
-        _amount.GetValue(X),
+        _amount.Value,
         _player.Value,
         isCombat: false);
     }

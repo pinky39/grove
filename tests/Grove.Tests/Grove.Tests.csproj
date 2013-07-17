@@ -297,6 +297,8 @@
     <Compile Include="Cards\VeiledSentry.cs" />
     <Compile Include="Cards\VeiledSerpent.cs" />
     <Compile Include="Cards\VernalBloom.cs" />
+    <Compile Include="Cards\ViashinoCutthroat.cs" />
+    <Compile Include="Cards\ViashinoHeretic.cs" />
     <Compile Include="Cards\ViashinoRunner.cs" />
     <Compile Include="Cards\ViashinoSandswimmer.cs" />
     <Compile Include="Cards\Victimize.cs" />

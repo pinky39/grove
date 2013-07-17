@@ -77,10 +77,10 @@
           return true;
         }
 
-        if (target.Is().Aura && target.AttachedTo != null && TargetAuraRemoval(target, p))
+        if ((target.Is().Aura || target.Is().Equipment) && target.AttachedTo != null && TargetAuraRemoval(target, p))
         {
           return true;
-        }        
+        }                
       }
 
       return EotRemoval(p);     

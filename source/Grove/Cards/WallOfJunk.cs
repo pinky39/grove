@@ -1,5 +1,6 @@
 ﻿namespace Grove.Cards
 {
+  using System;
   using System.Collections.Generic;
   using Gameplay.Abilities;
   using Gameplay.Effects;
@@ -32,6 +33,7 @@
               activeTurn: false) {Condition = (t, g) => t.OwningCard.IsBlocker});
 
             p.Effect = () => new ReturnToHand(returnOwningCard: true);
+            p.TriggerOnlyIfOwningCardIsInPlay = true;
           });
     }
   }

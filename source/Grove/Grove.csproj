@@ -214,6 +214,8 @@
     <Compile Include="Cards\TetheredSkirge.cs" />
     <Compile Include="Cards\TickingGnomes.cs" />
     <Compile Include="Cards\TreetopVillage.cs" />
+    <Compile Include="Cards\ViashinoCutthroat.cs" />
+    <Compile Include="Cards\ViashinoHeretic.cs" />
     <Compile Include="Cards\ViashinoRunner.cs" />
     <Compile Include="Cards\ViashinoWeaponsmith.cs" />
     <Compile Include="Cards\CelestialPrism.cs" />
