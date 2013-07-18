@@ -39,7 +39,7 @@
             p.Text =
               "Sacrifice War Dance: Target creature gets +X/+X until end of turn, where X is the number of verse counters on War Dance.";
             p.Cost = new Sacrifice();
-            p.Effect = () => new Add11ForEachConterOnSource {Category = EffectCategories.ToughnessIncrease};
+            p.Effect = () => new Add11ForEachCounter {Category = EffectCategories.ToughnessIncrease};
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 
             p.TimingRule(new MinimumCounters(minCount: 3, onlyAtEot: false));

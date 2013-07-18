@@ -11,13 +11,13 @@
   public class ViewModel : ViewModelBase, IIsDialogHost, IReceive<PlayerHasCastASpell>,
     IReceive<PlayerHasActivatedAbility>,
     IReceive<SearchStarted>, IReceive<SearchFinished>, IReceive<DamageHasBeenDealt>,
-    IReceive<AssignedCombatDamageWasDealt>, IReceive<CardWasRevealed>, IReceive<PlayerHasFlippedACoin>, IDisposable
+    IReceive<AssignedCombatDamageWasDealt>, IReceive<CardWasRevealed>, IReceive<PlayerHasFlippedACoin>,
+    IReceive<EffectOptionsWereChosen>, IDisposable
   {
     private readonly List<object> _largeDialogs = new List<object>();
     private readonly List<object> _smallDialogs = new List<object>();
-    private ScenarioGenerator _scenarioGenerator;
 
-    private string[] _thinkingMessages = new[]
+    private readonly string[] _thinkingMessages = new[]
       {
         "The last time I tried this the monkey didn't survive.",
         "Testing data on Timmy... ... ... We're going to need another Timmy.",
@@ -38,9 +38,11 @@
         "You shouldn't have done that.",
         "Just stalling to simulate activity.",
         "I know this is painful to watch, but I have to load this.",
-        "Hello!!! Why did you press that button?!",        
+        "Hello!!! Why did you press that button?!",
         "Waking up the AI..."
-  };
+      };
+
+    private ScenarioGenerator _scenarioGenerator;
 
     public object LargeDialog { get { return _largeDialogs.FirstOrDefault(); } }
     public MagnifiedCard.ViewModel MagnifiedCard { get; set; }
@@ -56,6 +58,16 @@
     public Battlefield.ViewModel YourBattlefield { get; private set; }
     public Zones.ViewModel Zones { get; set; }
     public virtual QuitGame.ViewModel QuitGameDialog { get; protected set; }
+
+    public void Dispose()
+    {
+      ManaPool.Dispose();
+      YourBattlefield.Dispose();
+      OpponentsBattlefield.Dispose();
+      Zones.Dispose();
+      You.Dispose();
+      Opponent.Dispose();
+    }
 
     [Updates("SmallDialog", "LargeDialog")]
     public virtual void AddDialog(object dialog, DialogType dialogType)
@@ -123,6 +135,11 @@
       MessageLog.AddMessage(message.ToString());
     }
 
+    public void Receive(EffectOptionsWereChosen message)
+    {
+      MessageLog.AddMessage(message.Text);
+    }
+
     public void Receive(PlayerHasActivatedAbility message)
     {
       MessageLog.AddMessage(message.ToString());
@@ -145,7 +162,7 @@
 
     public void Receive(SearchStarted message)
     {
-      SearchInProgressMessage = String.Empty;      
+      SearchInProgressMessage = String.Empty;
       TaskEx.Delay(500).ContinueWith((t) =>
         {
           if (SearchInProgressMessage == String.Empty)
@@ -178,16 +195,6 @@
     public interface IFactory
     {
       ViewModel Create();
-    }
-
-    public void Dispose()
-    {
-      ManaPool.Dispose();
-      YourBattlefield.Dispose();
-      OpponentsBattlefield.Dispose();
-      Zones.Dispose();
-      You.Dispose();
-      Opponent.Dispose();
     }
   }
 }

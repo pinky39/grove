@@ -191,6 +191,7 @@
     <Compile Include="Cards\CitanulFlute.cs" />
     <Compile Include="Cards\DefenderOfChaos.cs" />
     <Compile Include="Cards\DefenseOfTheHeart.cs" />
+    <Compile Include="Cards\EngineeredPlague.cs" />
     <Compile Include="Cards\Erase.cs" />
     <Compile Include="Cards\FogOfGnats.cs" />
     <Compile Include="Cards\GangOfElk.cs" />
@@ -716,10 +717,11 @@
     <Compile Include="Gameplay\Decisions\Playback\SetTriggeredAbilityTarget.cs" />
     <Compile Include="Gameplay\Decisions\Playback\TakeMulligan.cs" />
     <Compile Include="Gameplay\Decisions\Results\IPlayable.cs" />
-    <Compile Include="Gameplay\Effects\Add11ForEachConterOnSource.cs" />
+    <Compile Include="Gameplay\Effects\Add11ForEachCounter.cs" />
     <Compile Include="Gameplay\Effects\ApplyModifiersToGame.cs" />
     <Compile Include="Gameplay\Effects\ControllerGainsLifeOpponentLoosesLife.cs" />
     <Compile Include="Gameplay\Effects\ControllerLoosesLife.cs" />
+    <Compile Include="Gameplay\Effects\CreaturesOfChosenTypeGetM1M1.cs" />
     <Compile Include="Gameplay\Effects\DestroyOwner.cs" />
     <Compile Include="Gameplay\Effects\DiscardAndDrawANewHand.cs" />
     <Compile Include="Gameplay\Effects\EachPlayerDiscardsHandAndDrawsGreatestDiscardedCount.cs" />
@@ -736,7 +738,7 @@
     <Compile Include="Gameplay\IModifiable.cs" />
     <Compile Include="Gameplay\MatchParameters.cs" />
     <Compile Include="Gameplay\MatchRunner.cs" />
-    <Compile Include="Gameplay\Messages\CardCreated.cs" />
+    <Compile Include="Gameplay\Messages\EffectOptionsWereChosen.cs" />
     <Compile Include="Gameplay\Messages\EffectPushedOnStack.cs" />
     <Compile Include="Gameplay\Messages\PermanentModified.cs" />
     <Compile Include="Gameplay\Messages\PlayerLifeChanged.cs" />

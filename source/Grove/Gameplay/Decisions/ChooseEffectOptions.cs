@@ -13,7 +13,6 @@
 
     protected override bool ShouldExecuteQuery { get { return true; } }
     
-
     public override void ProcessResults()
     {
       ProcessDecisionResults.ProcessResults(Result);

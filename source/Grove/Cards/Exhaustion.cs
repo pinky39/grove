@@ -6,7 +6,6 @@
   using Gameplay.Effects;
   using Gameplay.Misc;
   using Gameplay.Modifiers;
-  using Gameplay.Targeting;
 
   public class Exhaustion : CardsSource
   {
@@ -21,7 +20,7 @@
           "The mage felt as though he'd been in the stasis suit for days. Upon his return, he found it was months.")
         .Cast(p =>
           {
-            p.Effect = () => new ApplyModifiersToPlayer( 
+            p.Effect = () => new ApplyModifiersToPlayer(
               selector: e => e.Controller.Opponent,
               modifiers: () =>
                 {
@@ -29,7 +28,8 @@
                     {
                       Modifier = () => new AddStaticAbility(Static.DoesNotUntap),
                       CardFilter = (card, effect) =>
-                        card.Controller == effect.SourceEffect.Controller.Opponent && (card.Is().Creature || card.Is().Land)
+                        card.Controller == effect.SourceEffect.Controller.Opponent &&
+                          (card.Is().Creature || card.Is().Land)
                     };
 
                   var modifier = new AddContiniousEffect(new ContinuousEffect(cp));

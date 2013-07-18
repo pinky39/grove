@@ -3,6 +3,7 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
+  using System.Text;
   using Infrastructure;
 
   public interface ITargetType
@@ -21,14 +22,16 @@
     bool Aura { get; }
     bool NonBasicLand { get; }
 
-    bool OfType(string type);
+    bool OfType(string type);    
   }
 
   public class CardType : ITargetType
   {
-    private static readonly List<string> BasicTypes = new List<string>
+    private static readonly string[] BasicTypes = new[]
       {
+        "legendary",
         "artifact",
+        "basic land",
         "enchantment",
         "instant",
         "land",
@@ -38,12 +41,11 @@
         "sorcery",
         "tribal",
         "vanguard",
-        "basic land",
         "creature"
       };
 
-    private readonly HashSet<string> _map;
-    private readonly string _string;
+    private string[] _basicTypes;
+
     private bool _isArtifact;
     private bool _isAura;
     private bool _isBasicLand;
@@ -52,17 +54,16 @@
     private bool _isEquipment;
     private bool _isLand;
     private bool _isLegendary;
+    private string[] _subTypes;
+    private string _displayString;
+    private bool _isInstant;
+    private bool _isSorcery;
+    private bool _isToken;
 
-    private CardType(IEnumerable<string> types)
+    public CardType(string typeString)
     {
-      _map = new HashSet<string>(types);
-      _string = CreateTypeString(types);
-
-      InitializeCommonTypes();
+      Initialize(typeString);      
     }
-
-    public CardType(string typeString) : this(ParseTypes(typeString)) {}
-
 
     public static CardType None { get { return new CardType(String.Empty); } }
     public bool Artifact { get { return _isArtifact; } }
@@ -71,11 +72,11 @@
     public bool Creature { get { return _isCreature; } }
     public bool Enchantment { get { return _isEnchantment; } }
     public bool Equipment { get { return _isEquipment; } }
-    public bool Instant { get { return Is("instant"); } }
+    public bool Instant { get { return _isInstant; } }
     public bool Land { get { return _isLand; } }
     public bool Legendary { get { return _isLegendary; } }
-    public bool Sorcery { get { return Is("sorcery"); } }
-    public bool Token { get { return Is("token"); } }
+    public bool Sorcery { get { return _isSorcery; } }
+    public bool Token { get { return _isToken; } }
     public bool Aura { get { return _isAura; } }
     public bool NonBasicLand { get { return Land && !BasicLand; } }
 
@@ -86,18 +87,13 @@
 
     public bool Is(string type)
     {
-      if (string.IsNullOrEmpty(type))
-        throw new ArgumentException("Type should not be empty.");
+      if (_basicTypes.Any(x => x.Equals(type, StringComparison.OrdinalIgnoreCase)))
+        return true;
 
-      var types = type.Split(' ');
+      if (_subTypes.Any(x => x.Equals(type, StringComparison.OrdinalIgnoreCase)))
+        return true;
 
-      if (types.Length == 1)
-      {
-        return _map.Contains(types[0]);
-      }
-
-      var subtypes = new HashSet<string>(types);
-      return subtypes.IsSubsetOf(_map);
+      return false;
     }
 
     public bool IsAny(params string[] types)
@@ -116,38 +112,52 @@
       return false;
     }
 
+    public string[] Subtypes
+    {
+      get { return _subTypes; }
+    }
+
     public override string ToString()
     {
-      return _string;
+      return _displayString;
     }
 
-    private static string CreateTypeString(IEnumerable<string> types)
+    private void Initialize(string types)
     {
-      var basic = types
-        .Where(BasicTypes.Contains)
-        .OrderBy(BasicTypes.IndexOf)
-        .Select(x => x.Capitalize());
+      var basicTypes = new List<string>();
+      var displayString = new StringBuilder();
 
-      var other = types
-        .Where(x => !BasicTypes.Contains(x))
-        .OrderBy(x => x)
-        .Select(x => x.Capitalize())
-        .ToList();
-
-      if (other.Count == 0)
+      foreach (var basicType in BasicTypes)
       {
-        return string.Join(" ", basic);
+        var index = types.IndexOf(basicType, StringComparison.OrdinalIgnoreCase);
+
+        if (index != -1)
+        {
+          if (basicType.Equals("basic land", StringComparison.OrdinalIgnoreCase))
+          {
+            basicTypes.Add("land");
+          }
+
+          basicTypes.Add(basicType);          
+          types = types.Remove(index, basicType.Length);
+
+          displayString.Append(basicType.Capitalize());
+          displayString.Append(" ");
+        }
       }
 
-      return String.Format("{0} — {1}",
-        string.Join(" ", basic),
-        string.Join(" ", other));
-    }
+      _basicTypes = basicTypes.ToArray();
+      _subTypes = types.Split(new[] {' ', '-'}, StringSplitOptions.RemoveEmptyEntries);
+      
+      if (_subTypes.Length != 0)
+      {
+        displayString.Append("- ");
+        displayString.Append(String.Join(" ", _subTypes));
+      }
 
-    private static List<string> ParseTypes(string spellTypes)
-    {
-      return new List<string>(spellTypes.Split(new[] {' ', '-'},
-        StringSplitOptions.RemoveEmptyEntries).Select(x => x.ToLower()));
+      _displayString = displayString.ToString().Trim();
+
+      InitializeCommonTypes();
     }
 
     private void InitializeCommonTypes()
@@ -160,25 +170,19 @@
       _isEnchantment = Is("enchantment");
       _isEquipment = Is("equipment");
       _isAura = Is("aura");
+      _isInstant = Is("instant");
+      _isSorcery = Is("sorcery");
+      _isToken = Is("token");
     }
 
     public static implicit operator CardType(string cardTypes)
     {
       return new CardType(cardTypes);
-    }
-
-    public static CardType operator +(CardType left, CardType right)
-    {
-      var types = new HashSet<string>();
-      types.UnionWith(left._map);
-      types.UnionWith(right._map);
-
-      return new CardType(types);
-    }
+    }   
 
     public CardType ReplaceBasicLandTypeWith(string basicLandType)
     {
-      return _string
+      return ToString()
         .Replace("Forest", basicLandType)
         .Replace("Mountain", basicLandType)
         .Replace("Plains", basicLandType)

@@ -32,7 +32,7 @@
     }
 
     public override IEnumerable<IEffectChoice> GetChoices()
-    {
+    {                        
       yield return new DiscreteEffectChoice(
         EffectOption.White,
         EffectOption.Blue,

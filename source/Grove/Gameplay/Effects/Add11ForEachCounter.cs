@@ -2,7 +2,7 @@
 {
   using Modifiers;
 
-  public class Add11ForEachConterOnSource : Effect
+  public class Add11ForEachCounter : Effect
   {
     private int _countersCount;
 

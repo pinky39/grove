@@ -9,6 +9,11 @@
       Options = options.Select(x => (object) x).ToArray();
     }
 
+    public DiscreteEffectChoice(params string[] options)
+    {
+      Options = options.Select(x => (object) x).ToArray();
+    }
+
     public object[] Options { get; private set; }
   }
 }

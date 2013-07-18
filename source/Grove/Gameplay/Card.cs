@@ -48,7 +48,7 @@
     private readonly TriggeredAbilities _triggeredAbilities;
     private readonly CardTypeCharacteristic _type;
     private readonly Trackable<int> _usageScore = new Trackable<int>();
-    private readonly CardZone _zone = new CardZone();    
+    private readonly CardZone _zone = new CardZone();
 
     public TrackableEvent JoinedBattlefield;
     public TrackableEvent LeftBattlefield;
@@ -225,6 +225,7 @@
     public bool IsVisible { get { return IsVisibleToPlayer(Players.Searching); } }
     public bool IsMultiColored { get { return _colors.Count > 1; } }
     public bool HasChangedZoneThisTurn { get { return _zone.HasChangedZoneThisTurn; } }
+    public string[] Subtypes { get { return _type.Value.Subtypes; } }
 
     public void ReceiveDamage(Damage damage)
     {
@@ -437,8 +438,7 @@
 
       JoinedBattlefield.Initialize(ChangeTracker);
       LeftBattlefield.Initialize(ChangeTracker);
-
-      Publish(new CardCreated());
+      
       return this;
     }
 

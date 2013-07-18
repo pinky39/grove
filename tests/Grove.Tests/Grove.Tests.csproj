@@ -143,6 +143,7 @@
     <Compile Include="Cards\EndlessWurm.cs" />
     <Compile Include="Cards\Endoskeleton.cs" />
     <Compile Include="Cards\EnergyField.cs" />
+    <Compile Include="Cards\EngineeredPlague.cs" />
     <Compile Include="Cards\Evacuation.cs" />
     <Compile Include="Cards\Exhaustion.cs" />
     <Compile Include="Cards\Exhume.cs" />
