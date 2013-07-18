@@ -126,13 +126,13 @@
     {
       var basicTypes = new List<string>();
       var displayString = new StringBuilder();
-
+            
       foreach (var basicType in BasicTypes)
       {
         var index = types.IndexOf(basicType, StringComparison.OrdinalIgnoreCase);
 
-        if (index != -1)
-        {
+        if ((index != -1) && IsWholeWord(types, basicType, index))
+        {                              
           if (basicType.Equals("basic land", StringComparison.OrdinalIgnoreCase))
           {
             basicTypes.Add("land");
@@ -158,6 +158,11 @@
       _displayString = displayString.ToString().Trim();
 
       InitializeCommonTypes();
+    }
+
+    private bool IsWholeWord(string types, string basicType, int index)
+    {
+      return ( (index == 0 || types[index - 1] == ' ') && (index + basicType.Length == types.Length || types[index + basicType.Length] == ' ') );
     }
 
     private void InitializeCommonTypes()

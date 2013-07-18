@@ -5,7 +5,7 @@ Version 2.0
 
 New cards
 -------------------------------------
-Treetop Village, Gang Of Elk, Mother Of Runes, Lone Wolf, Avalanche Riders, Bone Shredder, Defender Of Chaos. Defense of the Heart, Erase, Fog of Gnats, Ghitu Encampment, Ghitu Slinger, Giant Cockroach, Phyrexian Colossus, Radiant's Judgment, Silk Net, Spawning Pool, Ticking Gnomes, Weatherseed Treefolk, Wingsnare, Yavimaya Granger, Yavimaya Scion, Yavimaya Wurm, Viashino Runner, Molten Hydra, Phyrexian Broodlings, Yawgmoth's Edict, Citanul Flute, Phyrexian Debaser, Phyrexian Defiler, Phyrexian Denouncer, Phyrexian Plaguelord, Tethered Skirge.
+Treetop Village, Gang Of Elk, Mother Of Runes, Lone Wolf, Avalanche Riders, Bone Shredder, Defender Of Chaos. Defense of the Heart, Erase, Fog of Gnats, Ghitu Encampment, Ghitu Slinger, Giant Cockroach, Phyrexian Colossus, Radiant's Judgment, Silk Net, Spawning Pool, Ticking Gnomes, Weatherseed Treefolk, Wingsnare, Yavimaya Granger, Yavimaya Scion, Yavimaya Wurm, Viashino Runner, Molten Hydra, Phyrexian Broodlings, Yawgmoth's Edict, Citanul Flute, Phyrexian Debaser, Phyrexian Defiler, Phyrexian Denouncer, Phyrexian Plaguelord, Tethered Skirge, Viashino Cutthroat, Viashino Heretic, Engineered Plague
 
 Bug fixes
 -------------------------------------

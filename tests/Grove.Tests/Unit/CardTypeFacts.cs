@@ -8,11 +8,11 @@
     [Fact]
     public void Is()
     {
-      var type = new CardType("Basic Land");
+      var type = new CardType("Basic Land - Island");
       Assert.True(type.BasicLand);
-      Assert.True(type.Is("land"));
-      Assert.True(type.Is("basic"));
+      Assert.True(type.Is("land"));      
       Assert.True(type.Is("basic land"));
+      Assert.True(type.Is("island"));
     }
 
     [Fact]
