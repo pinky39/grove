@@ -39,7 +39,8 @@
         YourName,
         PlayersCount,
         new[] {BoosterPack1, BoosterPack2, BoosterPack3},
-        StarterPack);
+        StarterPack,
+        TournamentType.Sealed);
 
       try
       {

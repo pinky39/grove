@@ -23,7 +23,7 @@
           {
             p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
             p.Effect = () => new CreaturesOfChosenTypeGetM1M1();
-            p.UsesStack = false;            
+            p.UsesStack = false;
           });
     }
   }

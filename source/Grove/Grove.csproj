@@ -132,6 +132,7 @@
     <Compile Include="Artifical\SearchStatistics.cs" />
     <Compile Include="Artifical\TargetingRules\GainReach.cs" />
     <Compile Include="Artifical\TargetingRules\GainProtection.cs" />
+    <Compile Include="Artifical\TargetingRules\RedirectDamageToController.cs" />
     <Compile Include="Artifical\TargetingRules\SacrificeToReduceToughness.cs" />
     <Compile Include="Artifical\TimingRules\ControllerHasMoreCardsInHand.cs" />
     <Compile Include="Artifical\TimingRules\SingleInstanceOfSpellOnStack.cs" />
@@ -208,12 +209,14 @@
     <Compile Include="Cards\PhyrexianDefiler.cs" />
     <Compile Include="Cards\PhyrexianDenouncer.cs" />
     <Compile Include="Cards\PhyrexianPlaguelord.cs" />
+    <Compile Include="Cards\PhyrexianReclamation.cs" />
     <Compile Include="Cards\RadiantsJudgment.cs" />
     <Compile Include="Cards\SilkNet.cs" />
     <Compile Include="Cards\SimianGrunts.cs" />
     <Compile Include="Cards\SpawningPool.cs" />
     <Compile Include="Cards\TetheredSkirge.cs" />
     <Compile Include="Cards\TickingGnomes.cs" />
+    <Compile Include="Cards\TreacherousLink.cs" />
     <Compile Include="Cards\TreetopVillage.cs" />
     <Compile Include="Cards\ViashinoCutthroat.cs" />
     <Compile Include="Cards\ViashinoHeretic.cs" />
@@ -629,7 +632,7 @@
     <Compile Include="Artifical\TargetingRules\PreventDamageFromSourceToTarget.cs" />
     <Compile Include="Artifical\TargetingRules\PreventNextDamageToTargets.cs" />
     <Compile Include="Artifical\TargetingRules\PumpAttackerOrBlocker.cs" />
-    <Compile Include="Artifical\TargetingRules\DamageRedirectionEnchantment.cs" />
+    <Compile Include="Artifical\TargetingRules\RedirectDamageToCreature.cs" />
     <Compile Include="Artifical\TargetingRules\ReducePower.cs" />
     <Compile Include="Artifical\TargetingRules\ReduceToughness.cs" />
     <Compile Include="Artifical\TargetingRules\SacrificeTargetToDestroyTarget.cs" />
@@ -756,6 +759,7 @@
     <Compile Include="Gameplay\PlayerParameters.cs" />
     <Compile Include="Gameplay\Tournaments\TournamentParameters.cs" />
     <Compile Include="Gameplay\Tournaments\TournamentRunner.cs" />
+    <Compile Include="Gameplay\Tournaments\TournamentType.cs" />
     <Compile Include="Gameplay\Triggers\OnCreatureDamagedByOwnerWasPutToGraveyard.cs" />
     <Compile Include="Gameplay\Triggers\OnEndOfCombatIfAttackedOrBlocked.cs" />
     <Compile Include="Gameplay\Triggers\OnLandPlayed.cs" />
@@ -1057,6 +1061,7 @@
     <Compile Include="Infrastructure\Publisher.cs" />
     <Compile Include="UserInterface\CardViewModel.cs" />
     <Compile Include="UserInterface\DeckEditor\LibraryItem.cs" />
+    <Compile Include="UserInterface\DraftScreen\ViewModel.cs" />
     <Compile Include="UserInterface\Leaderboard\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>

@@ -215,6 +215,7 @@
     <Compile Include="Cards\PhyrexianGhoul.cs" />
     <Compile Include="Cards\PhyrexianPlaguelord.cs" />
     <Compile Include="Cards\PhyrexianProcessor.cs" />
+    <Compile Include="Cards\PhyrexianReclamation.cs" />
     <Compile Include="Cards\PhyrexianTower.cs" />
     <Compile Include="Cards\PitTrap.cs" />
     <Compile Include="Cards\PlanarBirth.cs" />
@@ -284,6 +285,7 @@
     <Compile Include="Cards\TitaniasBoon.cs" />
     <Compile Include="Cards\TitaniasChosen.cs" />
     <Compile Include="Cards\TolarianWinds.cs" />
+    <Compile Include="Cards\TreacherousLink.cs" />
     <Compile Include="Cards\TreefolkSeedlings.cs" />
     <Compile Include="Cards\TreetopRangers.cs" />
     <Compile Include="Cards\TreetopVillage.cs" />

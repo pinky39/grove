@@ -97,14 +97,61 @@
         _roundsLeft = CalculateRoundCount(_p.PlayersCount);
         _players = CreatePlayers(_p.PlayersCount, _p.PlayerName);
 
-        _humanLibrary = GenerateLibrary();
+        if (_p.Type == TournamentType.Sealed)
+        {
+          _humanLibrary = GenerateLibrary();
 
-        GenerateDecks()
-          .ContinueWith(t =>
+          GenerateSealedDecks()
+            .ContinueWith(t =>
+              {
+                exception = t.Exception;
+                _shell.Publish(new DeckGenerationError());
+              }, TaskContinuationOptions.OnlyOnFaulted);
+        }
+        else if (_p.Type == TournamentType.Draft)
+        {
+          var screen = _viewModels.DraftScreen.Create(_players);
+          _shell.ChangeScreen(screen);
+
+          var boosters = new List<List<CardInfo>>();
+
+          foreach (var setName in _p.BoosterPacks)
+          {
+            for (var i = 0; i < _players.Count; i++)
             {
-              exception = t.Exception;
-              _shell.Publish(new DeckGenerationError());
-            }, TaskContinuationOptions.OnlyOnFaulted);
+              var boosterPack = MediaLibrary.GetSet(setName).GenerateBoosterPack();
+              boosters.Add(boosterPack);
+            }
+          }
+
+          int round = 1;
+          int direction = 1; // clockwise
+
+          while (round <= 3)
+          {
+            var roundBoosters = boosters
+              .Skip((round - 1)*_players.Count)
+              .Take(_players.Count)
+              .ToList();
+
+
+            Func<int> cardCount = () => roundBoosters[0].Count;
+            
+            while (cardCount() > 0)
+            {
+              for (int playerIndex = 0; playerIndex < _players.Count; playerIndex++)
+              {
+                var boosterIndex = (100 + playerIndex + direction * cardCount()) % _players.Count;
+                var player = _players[playerIndex];                
+
+                PickCard(player, roundBoosters[boosterIndex]);
+              }              
+            }
+
+            round++;
+            direction = -direction;
+          }
+        }
 
         CreateHumanDeck();
       }
@@ -113,6 +160,11 @@
         throw new AggregateException(exception.InnerExceptions);
 
       RunTournament();
+    }
+
+    private void PickCard(TournamentPlayer player, List<CardInfo> booster)
+    {
+      throw new NotImplementedException();
     }
 
     private void FinishCurrentMatch()
@@ -391,7 +443,7 @@
       return CardRatings.Merge(merged, MediaLibrary.GetSet(tournamentPack).Ratings);
     }
 
-    private Task GenerateDecks()
+    private Task GenerateSealedDecks()
     {
       const int minNumberOfGeneratedDecks = 5;
       var limitedCode = MagicSet.GetLimitedCode(_p.TournamentPack, _p.BoosterPacks);

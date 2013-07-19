@@ -11,15 +11,18 @@
     public SavedTournament SavedTournament { get; private set; }
     public bool IsSavedTournament { get { return SavedTournament != null; } }
 
+    public TournamentType Type { get; private set; }
+
     public static TournamentParameters Default(string playerName, int playersCount, string[] boosterPacks,
-      string tournamentPack)
+      string tournamentPack, TournamentType type)
     {
       return new TournamentParameters
         {
           PlayerName = playerName,
           PlayersCount = playersCount,
           BoosterPacks = boosterPacks,
-          TournamentPack = tournamentPack
+          TournamentPack = tournamentPack,
+          Type = type
         };
     }
 

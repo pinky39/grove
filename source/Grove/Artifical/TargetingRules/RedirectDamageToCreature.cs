@@ -6,7 +6,7 @@
   using Gameplay.Characteristics;
   using Gameplay.Targeting;
 
-  public class DamageRedirectionEnchantment : TargetingRule
+  public class RedirectDamageToCreature : TargetingRule
   {
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
     {

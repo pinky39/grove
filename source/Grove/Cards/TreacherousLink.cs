@@ -8,28 +8,27 @@
   using Gameplay.Misc;
   using Gameplay.Modifiers;
 
-  public class Pariah : CardsSource
+  public class TreacherousLink : CardsSource
   {
     public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
-        .Named("Pariah")
-        .ManaCost("{2}{W}")
+        .Named("Treacherous Link")
+        .ManaCost("{1}{B}")
         .Type("Enchantment - Aura")
-        .Text("All damage that would be dealt to you is dealt to enchanted creature instead.")
-        .FlavorText(
-          "'It is not sad', Radiant chided the lesser angel. 'It is right. Every society must have its outcasts.'")
+        .Text("All damage that would be dealt to enchanted creature is dealt to its controller instead.")
+        .FlavorText("You cannot possibly know the toll your alliances will exact from you.")
         .Cast(p =>
           {
-            p.Effect = () => new Attach(              
+            p.Effect = () => new Attach(
               modifiers: () => new AddDamageRedirection(modifier => new RedirectDamageFromTargetToTarget(
-                from: modifier.SourceCard.Controller,
-                to: modifier.SourceCard.AttachedTo)));
+                from: modifier.SourceCard.AttachedTo,
+                to: modifier.SourceCard.AttachedTo.Controller)));
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 
             p.TimingRule(new FirstMain());
-            p.TargetingRule(new RedirectDamageToCreature());
+            p.TargetingRule(new RedirectDamageToController());
           });
     }
   }

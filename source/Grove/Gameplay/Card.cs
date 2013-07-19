@@ -251,6 +251,11 @@
       if (damage.Amount == 0)
         return;
 
+      var wasRedirected = Game.RedirectDamage(damage, this);
+
+      if (wasRedirected)
+        return;
+
       Damage += damage.Amount;
 
       if (Damage >= Toughness || damage.IsLeathal)
