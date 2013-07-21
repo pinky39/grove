@@ -132,6 +132,7 @@
         container.Register(Component(typeof (CardsDictionary), lifestyle: LifestyleType.Singleton));
         container.Register(Component(typeof (DeckBuilder), lifestyle: LifestyleType.Singleton));
         container.Register(Component(typeof (DeckEvaluator), lifestyle: LifestyleType.Singleton));
+        container.Register(Component(typeof (CardDrafter), lifestyle: LifestyleType.Singleton));
       }
 
       public static ComponentRegistration<object> Component(Type service, Type implementation = null,

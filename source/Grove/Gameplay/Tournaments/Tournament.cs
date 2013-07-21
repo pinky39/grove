@@ -16,6 +16,7 @@
   public class Tournament
   {
     private readonly DeckBuilder _deckBuilder;
+    private readonly CardDrafter _cardDrafter;
     private readonly MatchRunner _matchRunner;
 
     private readonly MatchSimulator _matchSimulator;
@@ -31,7 +32,7 @@
     private bool _shouldStop;
 
     public Tournament(TournamentParameters p, DeckBuilder deckBuilder, ViewModelFactories viewModels, IShell shell,
-      MatchRunner matchRunner, MatchSimulator matchSimulator)
+      MatchRunner matchRunner, MatchSimulator matchSimulator, CardDrafter cardDrafter)
     {
       _p = p;
       _deckBuilder = deckBuilder;
@@ -39,6 +40,7 @@
       _shell = shell;
       _matchRunner = matchRunner;
       _matchSimulator = matchSimulator;
+      _cardDrafter = cardDrafter;
     }
 
     private TournamentPlayer HumanPlayer { get { return _players.Single(x => x.IsHuman); } }
@@ -110,8 +112,11 @@
         }
         else if (_p.Type == TournamentType.Draft)
         {
-          var screen = _viewModels.DraftScreen.Create(_players);
-          _shell.ChangeScreen(screen);
+          var libraries = new List<List<CardInfo>>();
+          _humanLibrary = libraries[0];
+
+          var draftScreen = _viewModels.DraftScreen.Create(_players);
+          _shell.ChangeScreen(draftScreen);
 
           var boosters = new List<List<CardInfo>>();
 
@@ -124,8 +129,8 @@
             }
           }
 
-          int round = 1;
-          int direction = 1; // clockwise
+          var round = 1;
+          var direction = 1; // clockwise
 
           while (round <= 3)
           {
@@ -134,18 +139,23 @@
               .Take(_players.Count)
               .ToList();
 
-
             Func<int> cardCount = () => roundBoosters[0].Count;
-            
+
             while (cardCount() > 0)
             {
-              for (int playerIndex = 0; playerIndex < _players.Count; playerIndex++)
+              for (var playerIndex = 0; playerIndex < _players.Count; playerIndex++)
               {
-                var boosterIndex = (100 + playerIndex + direction * cardCount()) % _players.Count;
-                var player = _players[playerIndex];                
+                var boosterIndex = (100 + playerIndex + direction*cardCount())%_players.Count;
+                var player = _players[playerIndex];
 
-                PickCard(player, roundBoosters[boosterIndex]);
-              }              
+                var draftedCard = player.IsHuman
+                  ? draftScreen.DraftCard(roundBoosters[boosterIndex])
+                  : _cardDrafter.DraftCard(libraries[playerIndex], roundBoosters[boosterIndex], round,
+                    _cardRatings);
+
+                libraries[playerIndex].Add(draftedCard);
+                roundBoosters[boosterIndex].Remove(draftedCard);
+              }
             }
 
             round++;
@@ -162,10 +172,6 @@
       RunTournament();
     }
 
-    private void PickCard(TournamentPlayer player, List<CardInfo> booster)
-    {
-      throw new NotImplementedException();
-    }
 
     private void FinishCurrentMatch()
     {

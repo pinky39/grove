@@ -121,6 +121,7 @@
     <Compile Include="Artifical\CombatRules\CombatRules.cs" />
     <Compile Include="Artifical\CombatRules\IncreasePowerAndToughness.cs" />
     <Compile Include="Artifical\CombatRules\Regenerate.cs" />
+    <Compile Include="Artifical\CardDrafter.cs" />
     <Compile Include="Artifical\MassRemovalParameterOptimizer.cs" />
     <Compile Include="Artifical\Decisions\ChooseTo.cs" />
     <Compile Include="Artifical\Decisions\OrderCards.cs" />
