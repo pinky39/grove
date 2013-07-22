@@ -15,11 +15,11 @@
 
   public class Tournament
   {
-    private readonly DeckBuilder _deckBuilder;    
+    private readonly DeckBuilder _deckBuilder;
+    private readonly DraftCardPicker _draftCardPicker;
     private readonly MatchRunner _matchRunner;
 
     private readonly MatchSimulator _matchSimulator;
-    private readonly DraftCardPicker _draftCardPicker;
     private readonly TournamentParameters _p;
     private readonly object _resultsLock = new object();
     private readonly IShell _shell;
