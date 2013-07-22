@@ -4,6 +4,7 @@
   using System.Collections;
   using System.Collections.Generic;
   using System.Linq;
+  using System.Text;
 
   [Serializable]
   public class Deck : IEnumerable<CardInfo>
@@ -43,6 +44,18 @@
     public static Deck CreateUncastable()
     {
       return new Deck(Enumerable.Repeat("Uncastable", 60));
+    }
+
+    public override string ToString()
+    {
+      var sb = new StringBuilder();      
+      
+      foreach (var cardInfo in _cards)
+      {
+        sb.AppendLine(cardInfo.ToString());
+      }
+
+      return sb.ToString();
     }
 
     public void AddCard(CardInfo cardInfo, int count = 1)

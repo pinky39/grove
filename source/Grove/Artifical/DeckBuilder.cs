@@ -10,9 +10,10 @@
 
   public class DeckBuilder
   {
-    private const int MinCreatureCount = 12;
+    private const int MinCreatureCount = 14;
     private const int MaxCreatureCount = 18;
     private const int DeckCardCount = 40;
+    private const int MinSplashColorCardCount = 5;
 
     private static readonly LandCountRule[] LandCountRules = new[]
       {
@@ -21,7 +22,7 @@
         new LandCountRule {Cost = 3.5, Count = 18},
       };
 
-    private static readonly int MinSpellCount = DeckCardCount - LandCountRules[2].Count;
+    private static readonly int MinSpellCount = 21;
     private static readonly int MaxSpellCount = DeckCardCount - LandCountRules[0].Count;
 
     private readonly CardsDictionary _c;
@@ -61,10 +62,16 @@
             .Where(x => _c[x.Name].HasColor(i) || _c[x.Name].HasColor(j) || _c[x.Name].HasColor(CardColor.Colorless))
             .ToList();
 
-          var dualDeck = BuildDeckNoLands(dual, cardRatings);
+          var firstcolorCount = dual.Count(x => _c[x.Name].HasColor(i));
+          var secondcolorCount = dual.Count(x => _c[x.Name].HasColor(j));
 
-          if (dualDeck != null)
-            decks.Add(dualDeck);
+          if (firstcolorCount >= MinSplashColorCardCount && secondcolorCount >= MinSplashColorCardCount)
+          {
+            var dualDeck = BuildDeckNoLands(dual, cardRatings);
+
+            if (dualDeck != null)
+              decks.Add(dualDeck);
+          }
         }
       }
 
@@ -99,7 +106,7 @@
 
     private int[] GetLandsDistribution(int landCount, Deck deck)
     {
-      var manaCounts = new[] {0, 0, 0, 0, 0};
+      var manaCounts = new[] { 0, 0, 0, 0, 0};
 
       foreach (var card in deck.Select(x => _c[x.Name]))
       {
@@ -123,11 +130,17 @@
       var i = 0;
       while (roundingError > 0)
       {
-        if (distribution[i] > 0)
+        var minLandCount = distribution.Where(x => x > 0).Min();
+        
+        for (int j = 0; j < distribution.Length; j++)
         {
-          distribution[i]++;
-          roundingError--;
-        }
+          if (distribution[j] == minLandCount)
+          {
+            distribution[j]++;
+            roundingError--;
+            break;
+          }
+        }                        
 
         i++;
       }

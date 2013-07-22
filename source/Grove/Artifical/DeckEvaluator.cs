@@ -68,7 +68,7 @@
               deck1.Deck,
               deck2.Deck,
               maxTurnsPerGame: 15,
-              maxSearchDepth: 10,
+              maxSearchDepth: 20,
               maxTargetsCount: 1);
 
             if (result.Deck1WinCount > result.Deck2WinCount)

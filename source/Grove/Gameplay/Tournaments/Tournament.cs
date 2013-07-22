@@ -15,11 +15,11 @@
 
   public class Tournament
   {
-    private readonly DeckBuilder _deckBuilder;
-    private readonly CardDrafter _cardDrafter;
+    private readonly DeckBuilder _deckBuilder;    
     private readonly MatchRunner _matchRunner;
 
     private readonly MatchSimulator _matchSimulator;
+    private readonly DraftCardPicker _draftCardPicker;
     private readonly TournamentParameters _p;
     private readonly object _resultsLock = new object();
     private readonly IShell _shell;
@@ -32,7 +32,7 @@
     private bool _shouldStop;
 
     public Tournament(TournamentParameters p, DeckBuilder deckBuilder, ViewModelFactories viewModels, IShell shell,
-      MatchRunner matchRunner, MatchSimulator matchSimulator, CardDrafter cardDrafter)
+      MatchRunner matchRunner, MatchSimulator matchSimulator, DraftCardPicker draftCardPicker)
     {
       _p = p;
       _deckBuilder = deckBuilder;
@@ -40,7 +40,7 @@
       _shell = shell;
       _matchRunner = matchRunner;
       _matchSimulator = matchSimulator;
-      _cardDrafter = cardDrafter;
+      _draftCardPicker = draftCardPicker;
     }
 
     private TournamentPlayer HumanPlayer { get { return _players.Single(x => x.IsHuman); } }
@@ -74,104 +74,118 @@
       return _matches.FirstOrDefault(x => !x.IsSimulated);
     }
 
-    public void Start()
+
+    private void FinishUnfinishedMatches()
     {
+      if (_matches == null) return;
+
       AggregateException exception = null;
 
-      if (_p.IsSavedTournament)
-      {
-        _roundsLeft = _p.SavedTournament.RoundsToGo;
-        _players = new List<TournamentPlayer>(_p.SavedTournament.Players);
-        _matches = _p.SavedTournament.CurrentRoundMatches;
-        _humanLibrary = _p.SavedTournament.HumanLibrary;
-
-        if (_matches != null)
-        {
-          SimulateRound()
-            .ContinueWith(t => { exception = t.Exception; }, TaskContinuationOptions.OnlyOnFaulted);
-
-          FinishCurrentMatch();
-        }
-      }
-      else
-      {
-        _cardRatings = LoadCardRatings(_p.TournamentPack, _p.BoosterPacks);
-        _roundsLeft = CalculateRoundCount(_p.PlayersCount);
-        _players = CreatePlayers(_p.PlayersCount, _p.PlayerName);
-
-        if (_p.Type == TournamentType.Sealed)
-        {
-          _humanLibrary = GenerateLibrary();
-
-          GenerateSealedDecks()
-            .ContinueWith(t =>
-              {
-                exception = t.Exception;
-                _shell.Publish(new DeckGenerationError());
-              }, TaskContinuationOptions.OnlyOnFaulted);
-        }
-        else if (_p.Type == TournamentType.Draft)
-        {
-          var libraries = new List<List<CardInfo>>();
-          _humanLibrary = libraries[0];
-
-          var draftScreen = _viewModels.DraftScreen.Create(_players);
-          _shell.ChangeScreen(draftScreen);
-
-          var boosters = new List<List<CardInfo>>();
-
-          foreach (var setName in _p.BoosterPacks)
-          {
-            for (var i = 0; i < _players.Count; i++)
-            {
-              var boosterPack = MediaLibrary.GetSet(setName).GenerateBoosterPack();
-              boosters.Add(boosterPack);
-            }
-          }
-
-          var round = 1;
-          var direction = 1; // clockwise
-
-          while (round <= 3)
-          {
-            var roundBoosters = boosters
-              .Skip((round - 1)*_players.Count)
-              .Take(_players.Count)
-              .ToList();
-
-            Func<int> cardCount = () => roundBoosters[0].Count;
-
-            while (cardCount() > 0)
-            {
-              for (var playerIndex = 0; playerIndex < _players.Count; playerIndex++)
-              {
-                var boosterIndex = (100 + playerIndex + direction*cardCount())%_players.Count;
-                var player = _players[playerIndex];
-
-                var draftedCard = player.IsHuman
-                  ? draftScreen.DraftCard(roundBoosters[boosterIndex])
-                  : _cardDrafter.DraftCard(libraries[playerIndex], roundBoosters[boosterIndex], round,
-                    _cardRatings);
-
-                libraries[playerIndex].Add(draftedCard);
-                roundBoosters[boosterIndex].Remove(draftedCard);
-              }
-            }
-
-            round++;
-            direction = -direction;
-          }
-        }
-
-        CreateHumanDeck();
-      }
+      SimulateRound().ContinueWith(t => { exception = t.Exception; }, TaskContinuationOptions.OnlyOnFaulted);
+      FinishCurrentMatch();
 
       if (exception != null)
         throw new AggregateException(exception.InnerExceptions);
+    }
+
+    public void Start()
+    {
+      if (_p.IsSavedTournament)
+      {
+        LoadTournament();
+      }
+      else
+      {
+        NewTournament();
+      }
 
       RunTournament();
     }
 
+    private void NewTournament()
+    {
+      _cardRatings = LoadCardRatings(_p.BoosterPacks, _p.TournamentPack);
+      _roundsLeft = CalculateRoundCount(_p.PlayersCount);
+      _players = CreatePlayers(_p.PlayersCount, _p.PlayerName);
+
+      switch (_p.Type)
+      {
+        case TournamentType.Sealed:
+          {
+            CreateSealedDecks();
+            break;
+          }
+        case TournamentType.Draft:
+          {
+            var libraries = DraftPlayersLibraries();
+            CreateDraftDecks(libraries);
+          }
+          break;
+      }
+    }
+
+    private List<List<CardInfo>> DraftPlayersLibraries()
+    {
+      var draftScreen = _viewModels.DraftScreen.Create(_players);
+      _shell.ChangeScreen(draftScreen);
+
+      var draft = new Draft(
+        machinePicker: _draftCardPicker,
+        humanPicker: draftScreen);
+
+      return draft.Run(_players, _p.BoosterPacks, _cardRatings);
+    }
+
+    private void CreateDraftDecks(List<List<CardInfo>> libraries)
+    {
+      var nonHumanPlayers = NonHumanPlayers.ToList();
+      var nonHumanLibraries = libraries.Skip(1).ToList();
+      _humanLibrary = libraries[0];
+
+      AggregateException exception = null;
+
+      Task.Factory.StartNew(() =>
+        {
+          for (var count = 0; count < nonHumanPlayers.Count; count++)
+          {
+            var player = nonHumanPlayers[count];
+            var library = nonHumanLibraries[count];
+            var deck = _deckBuilder.BuildDeck(library, _cardRatings);
+            player.Deck = deck;
+
+            _shell.Publish(new DeckGenerationStatus
+              {
+                PercentCompleted = (int) Math.Round((100*(count + 1.0))/nonHumanPlayers.Count)
+              });
+
+            if (_shouldStop)
+            {
+              break;
+            }
+          }
+        })
+        .ContinueWith(t =>
+          {
+            exception = t.Exception;
+            _shell.Publish(new DeckGenerationError());
+          }, TaskContinuationOptions.OnlyOnFaulted);
+
+
+      CreateHumanDeck();
+
+      if (exception != null)
+        throw new AggregateException(exception.InnerExceptions);
+    }
+
+    private void LoadTournament()
+    {
+      _roundsLeft = _p.SavedTournament.RoundsToGo;
+      _players = new List<TournamentPlayer>(_p.SavedTournament.Players);
+      _matches = _p.SavedTournament.CurrentRoundMatches;
+      _humanLibrary = _p.SavedTournament.HumanLibrary;
+
+      FinishUnfinishedMatches();
+    }
 
     private void FinishCurrentMatch()
     {
@@ -429,7 +443,7 @@
       HumanPlayer.Deck = screen.Result;
     }
 
-    private static CardRatings LoadCardRatings(string tournamentPack, string[] boosterPacks)
+    private static CardRatings LoadCardRatings(string[] boosterPacks, string tournamentPack = null)
     {
       CardRatings merged = null;
 
@@ -446,10 +460,13 @@
         }
       }
 
+      if (tournamentPack == null)
+        return merged;
+
       return CardRatings.Merge(merged, MediaLibrary.GetSet(tournamentPack).Ratings);
     }
 
-    private Task GenerateSealedDecks()
+    private void CreateSealedDecks()
     {
       const int minNumberOfGeneratedDecks = 5;
       var limitedCode = MagicSet.GetLimitedCode(_p.TournamentPack, _p.BoosterPacks);
@@ -467,7 +484,9 @@
         nonHumanPlayers[i].Deck = preconstructed[i];
       }
 
-      return Task.Factory.StartNew(() =>
+      AggregateException exception = null;
+
+      Task.Factory.StartNew(() =>
         {
           for (var count = 0; count < decksToGenerate; count++)
           {
@@ -490,7 +509,18 @@
               break;
             }
           }
-        });
+        })
+        .ContinueWith(t =>
+          {
+            exception = t.Exception;
+            _shell.Publish(new DeckGenerationError());
+          }, TaskContinuationOptions.OnlyOnFaulted);
+
+      _humanLibrary = GenerateLibrary();
+      CreateHumanDeck();
+
+      if (exception != null)
+        throw new AggregateException(exception.InnerExceptions);
     }
 
     private static List<TournamentPlayer> CreatePlayers(int playersCount, string playerName)

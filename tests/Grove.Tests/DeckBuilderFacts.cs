@@ -6,14 +6,16 @@
   using Infrastructure;
   using UserInterface;
 
-
   public class DeckBuilderFacts : Scenario
   {
+    public DeckBuilderFacts()
+    {
+      MediaLibrary.LoadSets();
+    }
+
     //[Fact]
     public void BuildDecks()
     {
-      EnableLogging("Info");
-
       for (var i = 0; i < 1; i++)
       {
         LogFile.Info("Building deck {0} of 25...", i + 1);
@@ -36,10 +38,8 @@
         Console.WriteLine("Best deck:");
         Console.WriteLine("--------------------------------");
 
-        foreach (var card in bestDeck)
-        {
-          Console.WriteLine(card);
-        }
+
+        Console.WriteLine(bestDeck);        
       }
     }
   }

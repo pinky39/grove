@@ -121,7 +121,8 @@
     <Compile Include="Artifical\CombatRules\CombatRules.cs" />
     <Compile Include="Artifical\CombatRules\IncreasePowerAndToughness.cs" />
     <Compile Include="Artifical\CombatRules\Regenerate.cs" />
-    <Compile Include="Artifical\CardDrafter.cs" />
+    <Compile Include="Artifical\DraftCardPicker.cs" />
+    <Compile Include="Gameplay\Tournaments\IDraftCardPicker.cs" />
     <Compile Include="Artifical\MassRemovalParameterOptimizer.cs" />
     <Compile Include="Artifical\Decisions\ChooseTo.cs" />
     <Compile Include="Artifical\Decisions\OrderCards.cs" />
@@ -758,6 +759,7 @@
     <Compile Include="Gameplay\Modifiers\ModifyPowerToughnessEqualToControllersLife.cs" />
     <Compile Include="Gameplay\Modifiers\ModifyPowerToughnessForEachForest.cs" />
     <Compile Include="Gameplay\PlayerParameters.cs" />
+    <Compile Include="Gameplay\Tournaments\Draft.cs" />
     <Compile Include="Gameplay\Tournaments\TournamentParameters.cs" />
     <Compile Include="Gameplay\Tournaments\TournamentRunner.cs" />
     <Compile Include="Gameplay\Tournaments\TournamentType.cs" />

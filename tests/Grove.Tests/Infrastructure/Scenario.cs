@@ -34,7 +34,7 @@
     protected CardsDatabase CardsDatabase { get { return Container.Resolve<CardsDatabase>(); } }
     protected CardsDictionary CardsDictionary { get { return Container.Resolve<CardsDictionary>(); } }
     protected MatchSimulator MatchSimulator { get { return Container.Resolve<MatchSimulator>(); } }
-    protected Game.IFactory GameFactory { get { return Container.Resolve<Game.IFactory>(); } }
+    protected Game.IFactory GameFactory { get { return Container.Resolve<Game.IFactory>(); } }    
 
     protected Game Game { get; private set; }
     protected Player P1 { get { return Game.Players.Player1; } }

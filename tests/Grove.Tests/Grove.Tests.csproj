@@ -320,6 +320,7 @@
     <Compile Include="Cards\Worship.cs" />
     <Compile Include="Cards\YawgmothsEdict.cs" />
     <Compile Include="DeckBuilderFacts.cs" />
+    <Compile Include="DraftFacts.cs" />
     <Compile Include="Infrastructure\Counters.cs" />
     <Compile Include="MatchSimulatorFacts.cs" />
     <Compile Include="SaveGameFacts.cs" />
