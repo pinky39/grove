@@ -1,6 +1,5 @@
 ﻿namespace Grove.Gameplay.Tournaments
 {
-  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Artifical;
@@ -50,10 +49,10 @@
         var cardCount = roundBoosters[0].Count;
 
         while (cardCount > 0)
-        {                    
+        {
           for (var playerIndex = 0; playerIndex < players.Count; playerIndex++)
           {
-            var boosterIndex = (100 + playerIndex + direction* cardCount)%players.Count;
+            var boosterIndex = (100 + playerIndex + direction*cardCount)%players.Count;
             var player = players[playerIndex];
 
             var draftedCard = player.IsHuman
@@ -64,7 +63,7 @@
             roundBoosters[boosterIndex].Remove(draftedCard);
           }
 
-          cardCount = roundBoosters[0].Count;          
+          cardCount = roundBoosters[0].Count;
         }
 
         round++;

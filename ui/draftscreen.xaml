@@ -1,15 +1,8 @@
 
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
    <ResourceDictionary.MergedDictionaries>
-      <ResourceDictionary Source="Skin.xaml"/>
-      <ResourceDictionary Source="PlayerBox.xaml"/>
-      <ResourceDictionary Source="ManaPool.xaml"/>
-      <ResourceDictionary Source="TurnInfo.xaml"/>
-      <ResourceDictionary Source="MagnifiedCard.xaml"/>
-      <ResourceDictionary Source="MessageBoxSmall.xaml"/>
-      <ResourceDictionary Source="Notification.xaml"/>
-      <ResourceDictionary Source="Battlefield.xaml"/>
-      <ResourceDictionary Source="Zones.xaml"/>
+      <ResourceDictionary Source="Skin.xaml"/>    
+      <ResourceDictionary Source="MagnifiedCard.xaml"/>      
    </ResourceDictionary.MergedDictionaries>
    <Grid x:Key="Draftscreen">
       <Grid.Resources>

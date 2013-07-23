@@ -21,6 +21,7 @@
       BoosterPack3 = _sets[0];
       PlayersCount = 100;
       YourName = "You";
+      TypeOfTournament = TournamentType.Sealed;
     }
 
     public IEnumerable<string> Sets { get { return _sets; } }
@@ -31,16 +32,17 @@
     public string StarterPack { get; set; }
     public string BoosterPack1 { get; set; }
     public string BoosterPack2 { get; set; }
-    public string BoosterPack3 { get; set; }
+    public string BoosterPack3 { get; set; }   
+    public TournamentType TypeOfTournament { get; set; }
 
     public void Start()
     {
       var p = TournamentParameters.Default(
         YourName,
-        PlayersCount,
+        TypeOfTournament == TournamentType.Draft ? 8 : PlayersCount,
         new[] {BoosterPack1, BoosterPack2, BoosterPack3},
         StarterPack,
-        TournamentType.Sealed);
+        TypeOfTournament);
 
       try
       {

@@ -1064,6 +1064,9 @@
     <Compile Include="Infrastructure\Publisher.cs" />
     <Compile Include="UserInterface\CardViewModel.cs" />
     <Compile Include="UserInterface\DeckEditor\LibraryItem.cs" />
+    <Compile Include="UserInterface\DraftScreen\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserInterface\DraftScreen\ViewModel.cs" />
     <Compile Include="UserInterface\Leaderboard\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
@@ -1487,6 +1490,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UserInterface\BuildLimitedDeck\View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterface\DraftScreen\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
