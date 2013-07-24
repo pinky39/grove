@@ -61,7 +61,7 @@
       // 2. Pass
       // Assign additional blockers to blocked attackers 
       // if such an assignment would improove the gain
-      return ImprooveAssignementsByAddingAditionalBlockers(assignments.Values, unassignedBlockers);
+      return ImprooveAssignementsByAddingAditionalBlockers(assignments.Values.Distinct(), unassignedBlockers);
     }
 
     private static ChosenBlockers ImprooveAssignementsByAddingAditionalBlockers(

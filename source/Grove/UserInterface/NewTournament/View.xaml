@@ -89,19 +89,37 @@
                   BorderBrush="#22ffffff"
                   BorderThickness="2">
                         <Grid Margin="25">
+                            <Grid.Resources>
+                                <Style x:Key="StarterPack" TargetType="StackPanel">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding TypeOfTournament}" Value="Draft">
+                                            <Setter Property="Visibility" Value="Collapsed"></Setter>                                            
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding TypeOfTournament}" Value="Sealed">
+                                            <Setter Property="Visibility" Value="Visible"></Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                                
+                            </Grid.Resources>
+                            
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
-                            <TextBlock
+
+                            <StackPanel Style="{StaticResource StarterPack}" >
+                                <TextBlock
                         Grid.Row="0"
                         Margin="2,0,2,0"
                         FontSize="20"
                         Foreground="#FFD700">Starter pack:
-                            </TextBlock>
-                                <ComboBox Grid.Row="1" Margin="0,10,0,0" FontSize="20" ItemsSource="{Binding Sets}" SelectedItem="{Binding StarterPack}"/>                            
+                                </TextBlock>
+                                <ComboBox Grid.Row="1" Margin="0,10,0,0" FontSize="20" ItemsSource="{Binding Sets}" SelectedItem="{Binding StarterPack}"/>
+                            </StackPanel>
+
                             <TextBlock
                         Grid.Row="2"
                         Margin="2,20,2,0"
