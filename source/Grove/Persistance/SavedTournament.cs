@@ -14,5 +14,6 @@
     public bool HasMatchInProgress { get { return SavedMatch != null; } }
     public List<TournamentPlayer> Players { get; set; }
     public List<CardInfo> HumanLibrary { get; set; }
+    public TournamentType Type { get; set; }
   }
 }

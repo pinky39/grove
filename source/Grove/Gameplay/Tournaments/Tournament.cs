@@ -30,6 +30,7 @@
     private List<TournamentPlayer> _players;
     private int _roundsLeft;
     private bool _shouldStop;
+    private TournamentType _type;
 
     public Tournament(TournamentParameters p, DeckBuilder deckBuilder, ViewModelFactories viewModels, IShell shell,
       MatchRunner matchRunner, MatchSimulator matchSimulator, DraftCardPicker draftCardPicker)
@@ -61,7 +62,7 @@
       get
       {
         {
-          return string.Format("{0} tournament, {1} players, {2} rounds left", _p.Type, _players.Count, _roundsLeft);
+          return string.Format("{0} tournament, {1} players, {2} rounds left", _type, _players.Count, _roundsLeft);
         }
       }
     }
@@ -107,8 +108,9 @@
       _cardRatings = LoadCardRatings(_p.BoosterPacks, _p.TournamentPack);
       _roundsLeft = CalculateRoundCount(_p.PlayersCount);
       _players = CreatePlayers(_p.PlayersCount, _p.PlayerName);
+      _type = _p.Type;
 
-      switch (_p.Type)
+      switch (_type)
       {
         case TournamentType.Sealed:
           {
@@ -183,6 +185,7 @@
       _players = new List<TournamentPlayer>(_p.SavedTournament.Players);
       _matches = _p.SavedTournament.CurrentRoundMatches;
       _humanLibrary = _p.SavedTournament.HumanLibrary;
+      _type = _p.SavedTournament.Type;
 
       FinishUnfinishedMatches();
     }
@@ -269,7 +272,8 @@
           CurrentRoundMatches = matches,
           Players = players,
           SavedMatch = MatchInProgress ? CurrentMatch.Save() : null,
-          HumanLibrary = _humanLibrary
+          HumanLibrary = _humanLibrary,
+          Type = _type
         };
     }
 
