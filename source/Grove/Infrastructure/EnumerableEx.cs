@@ -22,6 +22,19 @@
       return !enumerable.Any(predicate);
     }
 
+    public static IEnumerable<T> Rotate<T>(this IEnumerable<T> enumerable, int elementCount)
+    {           
+      foreach (var element in enumerable.Skip(elementCount))
+      {        
+         yield return element;                
+      }
+
+      foreach (var element in enumerable.Take(elementCount))
+      {
+        yield return element;
+      }
+    }
+
     public static T MaxElement<T>(this IEnumerable<T> enumerable, Func<T, int> selector)
     {
       var maxRank = int.MinValue;

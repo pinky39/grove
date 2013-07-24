@@ -125,7 +125,8 @@
                                             </Image>
                                         </Grid>
                                         <Viewbox Height="136" Margin="30,8,23,0" Stretch="Uniform" HorizontalAlignment="Left">
-											<Border>
+											
+                                            <Border>
 												<StackPanel HorizontalAlignment="Left" VerticalAlignment="Center">
 													<StackPanel.Resources>
 														<DataTemplate DataType="{x:Type Characteristics:TextToken}">

@@ -2897,7 +2897,7 @@ Owain
 Owin
 Oxbaren
 Ozorak
-O�tho
+Otho
 Pack
 Padan
 Padishah
@@ -2961,7 +2961,7 @@ Peregrin
 Pereta
 Pereth
 Perith
-Peri�el
+Periel
 Perle
 Perol
 Peronn
@@ -3103,8 +3103,8 @@ Qurak
 Qwaylar
 Qwine
 Qysan
-Q�ara
-Q�pala
+Qara
+Qpala
 Racer
 Rach
 Rachel
@@ -4006,7 +4006,7 @@ Waeron
 Wagen
 Wailan
 Waistere
-Wak�dern
+Wakdern
 Waldan
 Walena
 Walkar

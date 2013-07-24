@@ -25,8 +25,6 @@
     private static readonly Dictionary<int, List<Gameplay.Deck>> LimitedDeckDatabase =
       new Dictionary<int, List<Gameplay.Deck>>();
 
-    private static readonly ImageSource MissingImage = new BitmapImage();
-
 
     public static NameGenerator NameGenerator { get; private set; }
 
@@ -41,6 +39,7 @@
     public static string SetsFolder { get { return Path.Combine(BasePath, Sets); } }
     public static string TournamentFolder { get { return Path.Combine(BasePath, Tournament); } }
     public static string SavedGamesFolder { get { return Path.Combine(BasePath, SavedGames); } }
+    public static ImageSource MissingImage { get { return ImageDatabase[Path.Combine(ImagesFolder, "missing.png").ToLowerInvariant()]; } }
 
     public static string GetSaveGameFilename()
     {
@@ -55,8 +54,6 @@
       LoadSets();
       LoadLimitedDecks();
       LoadPlayerNames();
-      
-      MissingImage.Freeze();
     }
 
     public static void LoadPlayerNames()
@@ -100,15 +97,15 @@
       foreach (var file in files)
       {
         var uri = new Uri(file);
-        var bitmapImage = new BitmapImage(uri);        
+        var bitmapImage = new BitmapImage(uri);
         bitmapImage.Freeze();
         ImageDatabase.Add(file.ToLowerInvariant(), bitmapImage);
       }
     }
 
     public static ImageSource GetCardImage(string name)
-    {      
-      return GetImage(name, Cards);        
+    {
+      return GetImage(name, Cards);
     }
 
     public static List<string> GetSetsNames()
@@ -132,7 +129,7 @@
     }
 
     public static ImageSource GetImage(string name, string folder = null)
-    {      
+    {
       folder = folder ?? Images;
       var path = GetImagePath(folder, name);
       return GetImageWithPath(path);
@@ -140,12 +137,12 @@
 
     public static ImageSource GetImageWithPath(string path)
     {
-      path = path.ToLowerInvariant();        
-      
+      path = path.ToLowerInvariant();
+
       if (ImageDatabase.ContainsKey(path))
         return ImageDatabase[path];
 
-      return MissingImage;      
+      return MissingImage;
     }
 
     private static string GetImagePath(string folder, string name)

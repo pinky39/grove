@@ -23,7 +23,7 @@
       ButtonNames = new ButtonNames
         {
           Cancel = "Return to main menu",
-          Continue = "Start tournament"
+          Continue = "Continue"
         };
 
       AddBasicLands();

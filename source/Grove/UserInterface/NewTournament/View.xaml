@@ -129,7 +129,7 @@
                     <Button x:Name="Back" Style="{StaticResource LeftButton}" Grid.Column="0" FontSize="20" Foreground="#fff" Content="Return to main menu" />
                     <StackPanel Grid.Column="1" Orientation="Horizontal">
                         <Border  BorderBrush="#aaa" BorderThickness="0,0,0,0" Padding="0,0,10,0" Margin="20,0,0,0">
-                            <Button Style="{StaticResource RightButton}" x:Name="Start" FontSize="20" Foreground="#fff" Content="Create your deck" />
+                            <Button Style="{StaticResource RightButton}" x:Name="Start" FontSize="20" Foreground="#fff" Content="Start" />
                         </Border>
                     </StackPanel>
                 </Grid>

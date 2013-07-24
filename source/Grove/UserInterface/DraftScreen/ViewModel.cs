@@ -16,8 +16,9 @@
     private readonly List<TournamentPlayer> _participants = new List<TournamentPlayer>();
 
     public ViewModel(IEnumerable<TournamentPlayer> participants)
-    {
-      _participants.AddRange(participants);
+    {                        
+      _participants.AddRange(participants.Rotate(
+        RandomEx.Next(participants.Count())));
     }
 
     public IEnumerable<TournamentPlayer> Participants { get { return _participants; } }
@@ -31,18 +32,20 @@
     public virtual int CardsLeft { get; protected set; }
     public virtual Card PickedCard { get; set; }
     public virtual Card PreviewCard { get; protected set; }
+    public virtual string Direction { get; protected set; }
 
     public int CreatureCount { get { return Library.Count(x => x.Is().Creature); } }
     public int LandCount { get { return Library.Count(x => x.Is().Land); } }
-    public int SpellsCount { get { return Library.Count() - CreatureCount - LandCount; } }
+    public int SpellsCount { get { return Library.Count() - CreatureCount - LandCount; } }    
 
     public CardInfo PickCard(List<CardInfo> draftedCards, List<CardInfo> booster, int round, CardRatings ratings)
     {
       Round = round;
       
-      BoosterRow1 = booster.Take(5).Select(x => CardsDictionary[x.Name]).ToList();
-      BoosterRow2 = booster.Skip(5).Take(5).Select(x => CardsDictionary[x.Name]).ToList();
-      BoosterRow3 = booster.Skip(10).Take(5).Select(x => CardsDictionary[x.Name]).ToList();
+      BoosterRow1 = CreateCards(booster.Take(5)).ToList();
+      BoosterRow2 = CreateCards(booster.Skip(5).Take(5)).ToList();
+      BoosterRow3 = CreateCards(booster.Skip(10).Take(5)).ToList();
+      Direction = round == 2 ? "Up" : "Down";
       
       CardsLeft = (3 - round)*15 + booster.Count;
 
@@ -50,6 +53,18 @@
       _blocker.BlockUntilCompleted();
 
       return booster.First(x => x.Name.Equals(PickedCard.Name, StringComparison.InvariantCultureIgnoreCase));
+    }
+
+    private IEnumerable<Card> CreateCards(IEnumerable<CardInfo> infos)
+    {
+      return infos.Select(x =>
+        {
+          var card = CardsDatabase.CreateCard(x.Name);
+          card.Rarity = x.Rarity;
+          card.Set = x.Set;
+
+          return card;
+        });
     }
 
     [Updates("CreatureCount", "LandCount", "SpellsCount")]

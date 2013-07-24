@@ -6,9 +6,11 @@
 
   public class ViewModel : ViewModelBase
   {
+    private readonly int[] _draftTournamentSize = new[] {8};
     private readonly object _previousScreen;
+    private readonly int[] _sealedTournamentSize = new[] {30, 50, 100, 150, 200, 300, 500};
     private readonly List<string> _sets;
-    private readonly int[] _tournamentSize = new[] {30, 50, 100, 150, 200, 300, 500};
+    private TournamentType _typeOfTournament;
 
     public ViewModel(object previousScreen)
     {
@@ -18,28 +20,38 @@
       StarterPack = _sets[0];
       BoosterPack1 = _sets[0];
       BoosterPack2 = _sets[0];
-      BoosterPack3 = _sets[0];
-      PlayersCount = 100;
+      BoosterPack3 = _sets[0];      
       YourName = "You";
       TypeOfTournament = TournamentType.Sealed;
     }
 
     public IEnumerable<string> Sets { get { return _sets; } }
-    public IEnumerable<int> TournamentSize { get { return _tournamentSize; } }
+    public virtual int[] TournamentSize { get; protected set; }
 
-    public int PlayersCount { get; set; }
+    public virtual int PlayersCount { get; set; }
     public string YourName { get; set; }
     public string StarterPack { get; set; }
     public string BoosterPack1 { get; set; }
     public string BoosterPack2 { get; set; }
-    public string BoosterPack3 { get; set; }   
-    public TournamentType TypeOfTournament { get; set; }
+    public string BoosterPack3 { get; set; }
+
+    public virtual TournamentType TypeOfTournament
+    {
+      get { return _typeOfTournament; }
+      set
+      {
+        _typeOfTournament = value;
+                        
+        TournamentSize = _typeOfTournament == TournamentType.Sealed ? _sealedTournamentSize : _draftTournamentSize;
+        PlayersCount = TournamentSize[0];
+      }
+    }
 
     public void Start()
     {
       var p = TournamentParameters.Default(
         YourName,
-        TypeOfTournament == TournamentType.Draft ? 8 : PlayersCount,
+        PlayersCount,
         new[] {BoosterPack1, BoosterPack2, BoosterPack3},
         StarterPack,
         TypeOfTournament);
@@ -48,7 +60,7 @@
       {
         TournamentRunner.Start(p);
       }
-      catch(Exception ex)
+      catch (Exception ex)
       {
         HandleException(ex);
       }

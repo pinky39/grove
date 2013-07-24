@@ -135,7 +135,7 @@
       public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
       {
         var cardName = (string) value;
-        const string extension = ".jpg";
+        const string extension = ".jpg";                
         return MediaLibrary.GetCardImage(GetCardImageName(cardName) + extension);
       }
 

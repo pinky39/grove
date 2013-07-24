@@ -61,7 +61,7 @@
       get
       {
         {
-          return string.Format("Sealed tournament, {0} players, {1} rounds left", _players.Count, _roundsLeft);
+          return string.Format("{0} tournament, {1} players, {2} rounds left", _p.Type, _players.Count, _roundsLeft);
         }
       }
     }
