@@ -6,6 +6,7 @@
   using System.Linq;
   using System.Threading.Tasks;
   using Artifical;
+  using Artifical.DraftAlgorithms;
   using Infrastructure;
   using Persistance;
   using Sets;
@@ -15,11 +16,11 @@
 
   public class Tournament
   {
-    private readonly DeckBuilder _deckBuilder;
-    private readonly DraftCardPicker _draftCardPicker;
+    private readonly DeckBuilder _deckBuilder;    
     private readonly MatchRunner _matchRunner;
 
     private readonly MatchSimulator _matchSimulator;
+    private readonly IDraftingStrategies _draftStrategies;
     private readonly TournamentParameters _p;
     private readonly object _resultsLock = new object();
     private readonly IShell _shell;
@@ -33,7 +34,7 @@
     private TournamentType _type;
 
     public Tournament(TournamentParameters p, DeckBuilder deckBuilder, ViewModelFactories viewModels, IShell shell,
-      MatchRunner matchRunner, MatchSimulator matchSimulator, DraftCardPicker draftCardPicker)
+      MatchRunner matchRunner, MatchSimulator matchSimulator, IDraftingStrategies draftStrategies)
     {
       _p = p;
       _deckBuilder = deckBuilder;
@@ -41,7 +42,7 @@
       _shell = shell;
       _matchRunner = matchRunner;
       _matchSimulator = matchSimulator;
-      _draftCardPicker = draftCardPicker;
+      _draftStrategies = draftStrategies;
     }
 
     private TournamentPlayer HumanPlayer { get { return _players.Single(x => x.IsHuman); } }
@@ -131,11 +132,9 @@
       var draftScreen = _viewModels.DraftScreen.Create(_players);
       _shell.ChangeScreen(draftScreen);
 
-      var draft = new Draft(
-        machinePicker: _draftCardPicker,
-        humanPicker: draftScreen);
-
-      return draft.Run(_players, _p.BoosterPacks, _cardRatings);
+      var runner = new DraftRunner(_draftStrategies, draftScreen);      
+      return runner.Run(_players.Count, _p.BoosterPacks, _cardRatings)
+        .Libraries;
     }
 
     private void CreateDraftDecks(List<List<CardInfo>> libraries)

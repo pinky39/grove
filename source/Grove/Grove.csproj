@@ -115,6 +115,7 @@
     </ApplicationDefinition>
     <Compile Include="Artifical\AttackerEvaluationParameters.cs" />
     <Compile Include="Artifical\AttackStrategyParameters.cs" />
+    <Compile Include="Artifical\DraftAlgorithms\Forcing.cs" />
     <Compile Include="Artifical\BlockerEvaluationParameters.cs" />
     <Compile Include="Artifical\BlockStrategyParameters.cs" />
     <Compile Include="Artifical\CombatRules\CombatAbilities.cs" />
@@ -122,8 +123,10 @@
     <Compile Include="Artifical\CombatRules\CombatRules.cs" />
     <Compile Include="Artifical\CombatRules\IncreasePowerAndToughness.cs" />
     <Compile Include="Artifical\CombatRules\Regenerate.cs" />
-    <Compile Include="Artifical\DraftCardPicker.cs" />
-    <Compile Include="Gameplay\Tournaments\IDraftCardPicker.cs" />
+    <Compile Include="Artifical\DraftAlgorithms\IDraftingStrategies.cs" />
+    <Compile Include="Gameplay\Tournaments\DraftPlayer.cs" />
+    <Compile Include="Gameplay\Tournaments\DraftResults.cs" />
+    <Compile Include="Gameplay\Tournaments\IDraftingStrategy.cs" />
     <Compile Include="Artifical\MassRemovalParameterOptimizer.cs" />
     <Compile Include="Artifical\Decisions\ChooseTo.cs" />
     <Compile Include="Artifical\Decisions\OrderCards.cs" />
@@ -1698,6 +1701,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <UsingTask TaskName="Costura.EmbedTask" AssemblyFile="$(SolutionDir)lib\costura\Costura.dll" />
   <Target Name="AfterBuild">

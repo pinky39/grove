@@ -3,27 +3,26 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Artifical;
   using Caliburn.Micro;
   using Gameplay;
   using Gameplay.Tournaments;
   using Infrastructure;
 
-  public class ViewModel : ViewModelBase, IDraftCardPicker
+  public class ViewModel : ViewModelBase, IDraftingStrategy
   {
-    private ThreadBlocker _blocker;
     private readonly BindableCollection<Card> _library = new BindableCollection<Card>();
     private readonly List<TournamentPlayer> _participants = new List<TournamentPlayer>();
+    private ThreadBlocker _blocker;
 
     public ViewModel(IEnumerable<TournamentPlayer> participants)
-    {                        
+    {
       _participants.AddRange(participants.Rotate(
         RandomEx.Next(participants.Count())));
     }
 
     public IEnumerable<TournamentPlayer> Participants { get { return _participants; } }
     public IEnumerable<Card> Library { get { return _library; } }
-    
+
     public virtual IEnumerable<Card> BoosterRow1 { get; protected set; }
     public virtual IEnumerable<Card> BoosterRow2 { get; protected set; }
     public virtual IEnumerable<Card> BoosterRow3 { get; protected set; }
@@ -36,17 +35,17 @@
 
     public int CreatureCount { get { return Library.Count(x => x.Is().Creature); } }
     public int LandCount { get { return Library.Count(x => x.Is().Land); } }
-    public int SpellsCount { get { return Library.Count() - CreatureCount - LandCount; } }    
+    public int SpellsCount { get { return Library.Count() - CreatureCount - LandCount; } }
 
-    public CardInfo PickCard(List<CardInfo> draftedCards, List<CardInfo> booster, int round, CardRatings ratings)
+    public CardInfo PickCard(List<CardInfo> booster, int round)
     {
       Round = round;
-      
+
       BoosterRow1 = CreateCards(booster.Take(5)).ToList();
       BoosterRow2 = CreateCards(booster.Skip(5).Take(5)).ToList();
       BoosterRow3 = CreateCards(booster.Skip(10).Take(5)).ToList();
       Direction = round == 2 ? "Up" : "Down";
-      
+
       CardsLeft = (3 - round)*15 + booster.Count;
 
       _blocker = new ThreadBlocker();

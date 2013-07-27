@@ -3,38 +3,25 @@
   using System.Collections.Generic;
   using System.Linq;
   using Artifical;
+  using Artifical.DraftAlgorithms;
   using UserInterface;
+  using UserInterface.DraftScreen;
 
-  public class Draft
+  public class DraftRunner
   {
-    private readonly IDraftCardPicker _humanPicker;
-    private readonly IDraftCardPicker _machinePicker;
+    private readonly IDraftingStrategies _strategies;
+    private readonly ViewModel _userInterface;
 
-    public Draft(IDraftCardPicker machinePicker, IDraftCardPicker humanPicker)
+    public DraftRunner(IDraftingStrategies strategies, ViewModel userInterface = null)
     {
-      _machinePicker = machinePicker;
-      _humanPicker = humanPicker;
+      _strategies = strategies;
+      _userInterface = userInterface;
     }
 
-    public List<List<CardInfo>> Run(List<TournamentPlayer> players, string[] sets, CardRatings ratings)
+    public DraftResults Run(int playerCount, string[] sets, CardRatings ratings)
     {
-      var libraries = new List<List<CardInfo>>();
-
-      foreach (var player in players)
-      {
-        libraries.Add(new List<CardInfo>());
-      }
-
-      var boosters = new List<List<CardInfo>>();
-
-      foreach (var set in sets)
-      {
-        for (var i = 0; i < players.Count; i++)
-        {
-          var boosterPack = MediaLibrary.GetSet(set).GenerateBoosterPack();
-          boosters.Add(boosterPack);
-        }
-      }
+      var players = CreatePlayers(playerCount, ratings, _userInterface != null);
+      var boosters = CreateBoosters(sets, players);
 
       var round = 1;
       var direction = 1; // clockwise
@@ -55,11 +42,8 @@
             var boosterIndex = (100 + playerIndex + direction*cardCount)%players.Count;
             var player = players[playerIndex];
 
-            var draftedCard = player.IsHuman
-              ? _humanPicker.PickCard(libraries[playerIndex], roundBoosters[boosterIndex], round, ratings)
-              : _machinePicker.PickCard(libraries[playerIndex], roundBoosters[boosterIndex], round, ratings);
-
-            libraries[playerIndex].Add(draftedCard);
+            var draftedCard = player.Strategy.PickCard(roundBoosters[boosterIndex], round);
+            player.Library.Add(draftedCard);
             roundBoosters[boosterIndex].Remove(draftedCard);
           }
 
@@ -70,7 +54,47 @@
         direction = -direction;
       }
 
-      return libraries;
+      return new DraftResults(players);
+    }
+
+    private static IEnumerable<List<CardInfo>> CreateBoosters(string[] sets, List<DraftPlayer> players)
+    {
+      var boosters = new List<List<CardInfo>>();
+
+      foreach (var set in sets)
+      {
+        for (var i = 0; i < players.Count; i++)
+        {
+          var boosterPack = MediaLibrary.GetSet(set).GenerateBoosterPack();
+          boosters.Add(boosterPack);
+        }
+      }
+      return boosters;
+    }
+
+    private List<DraftPlayer> CreatePlayers(int playerCount, CardRatings ratings, bool includeHumanPlayer)
+    {
+      var players = new List<DraftPlayer>();
+
+      for (var i = 0; i < playerCount; i++)
+      {
+        players.Add(new DraftPlayer
+          {
+            Strategy = _strategies.CreateForcingStrategy(ratings)
+          });
+      }
+
+
+      if (includeHumanPlayer)
+      {
+        players[0] = new DraftPlayer
+          {
+            Strategy = _userInterface
+          };
+      }
+
+
+      return players;
     }
   }
 }

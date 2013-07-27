@@ -277,6 +277,11 @@
       return _colors.Contains(color);
     }
 
+    public bool IsColorless()
+    {
+      return _colors.Count == 0 || HasColor(CardColor.Colorless);
+    }
+
     public void InvalidateHash()
     {
       _hash.Value = null;

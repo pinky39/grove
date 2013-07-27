@@ -6,6 +6,7 @@
   using System.ComponentModel;
   using System.Linq;
   using Artifical;
+  using Artifical.DraftAlgorithms;
   using Castle.Core;
   using Castle.Facilities.TypedFactory;
   using Castle.MicroKernel;
@@ -132,7 +133,9 @@
         container.Register(Component(typeof (CardsDictionary), lifestyle: LifestyleType.Singleton));
         container.Register(Component(typeof (DeckBuilder), lifestyle: LifestyleType.Singleton));
         container.Register(Component(typeof (DeckEvaluator), lifestyle: LifestyleType.Singleton));
-        container.Register(Component(typeof (DraftCardPicker), lifestyle: LifestyleType.Singleton));
+        
+        container.Register(Component(typeof (IDraftingStrategy), typeof(Forcing)));
+        container.Register(Component(typeof (IDraftingStrategies)).AsFactory());
       }
 
       public static ComponentRegistration<object> Component(Type service, Type implementation = null,
