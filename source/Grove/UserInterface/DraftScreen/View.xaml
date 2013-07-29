@@ -75,7 +75,22 @@
                         <TextBlock Margin="10,6,0,6" Text="Library" FontSize="20" Foreground="#fff"/>
                     </Border>
                     <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible">
-					    <ItemsControl Margin="15,10,10,10" ItemsSource="{Binding Library}">
+                        <Grid>
+                            <Grid.Resources>
+                                <Style x:Key="Help" TargetType="TextBlock">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>                                                                                
+                                        <DataTrigger Binding="{Binding Library.Count}" Value="0">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                                
+                            </Grid.Resources>
+                            
+                            <TextBlock Text="To draft a card, click on it." VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#fff" FontSize="20"  
+                                       Style="{StaticResource Help}"/>
+                            <ItemsControl Margin="15,10,10,10" ItemsSource="{Binding Library}">
                             <ItemsControl.ItemsPanel>                            
                                 <ItemsPanelTemplate>
                                     <StackPanel Margin="0,280,5,5" />
@@ -89,7 +104,9 @@
 						    </ItemsControl.ItemTemplate>
 
 					    </ItemsControl>
-				    </ScrollViewer>
+                        
+                        </Grid>
+                    </ScrollViewer>
                 </Grid>
             </Border>
 			<!-- End Sidebar -->
@@ -230,13 +247,13 @@
                                     </Grid.ColumnDefinitions>
 
                                     <TextBlock Grid.Column="0" Margin="10,6,0,6" Text="Players" FontSize="20" Foreground="#fff"/>
-                                    <Image Grid.Column="2" Height="15" Margin="0,0,10,0" />
+                                    <Image Grid.Column="2" Height="12" Margin="0,0,10,0" />
                                 </Grid>
                                     
                                     
                                 
                             </Border>
-                            <Border BorderBrush="#44ffffff"  BorderThickness="0,0,0,2" >                            
+                            <Border BorderBrush="#44ffffff"  BorderThickness="0,0,0,1" >                            
                                     <ItemsControl ItemsSource="{Binding Participants}" >
 							            <ItemsControl.ItemTemplate>
 								            <DataTemplate>
@@ -251,8 +268,8 @@
                                         
                                                 </DataTemplate.Resources>
 
-                                                <Border BorderBrush="#44ffffff"  BorderThickness="0,2,0,0">
-										            <TextBlock HorizontalAlignment="Left" Text="{Binding Name}" Margin="10,5,0,5" FontSize="18" Style="{StaticResource Label}" />
+                                                <Border BorderBrush="#33ffffff"  BorderThickness="0,1,0,0">
+										            <TextBlock HorizontalAlignment="Left" Text="{Binding Name}" Margin="13,5,0,5" FontSize="16" Style="{StaticResource Label}" />
 									            </Border>
 								            </DataTemplate>
 							            </ItemsControl.ItemTemplate>
