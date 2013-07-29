@@ -10,12 +10,12 @@
 
   public class BackgroundExtension : MarkupExtension
   {
-    private static readonly List<ImageSource> Backgrounds;    
+    private static readonly List<ImageSource> Backgrounds;
 
     static BackgroundExtension()
     {
       Backgrounds = Directory.EnumerateFiles(MediaLibrary.ImagesFolder, "background*.*")
-        .Select(x => MediaLibrary.GetImageWithPath(x))
+        .Select(MediaLibrary.GetImageWithPath)
         .ToList();
     }
 
