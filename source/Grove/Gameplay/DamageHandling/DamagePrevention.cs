@@ -4,25 +4,17 @@
   using Misc;
   using Modifiers;
 
-  public abstract class DamagePrevention : GameObject, IHashable, ILifetimeDependency
+  public abstract class DamagePrevention : GameObject, IHashable
   {
-    protected DamagePrevention()
-    {
-      EndOfLife = new TrackableEvent(this);
-    }
-
     public abstract int CalculateHash(HashCalculator calc);
-    
-
-    public TrackableEvent EndOfLife { get; set; }
+        
 
     protected Modifier Modifier { get; private set; }
 
     public virtual void Initialize(Modifier modifier, Game game)
     {
       Game = game;
-      Modifier = modifier;
-      EndOfLife.Initialize(game.ChangeTracker);
+      Modifier = modifier;      
 
       Initialize();
     }

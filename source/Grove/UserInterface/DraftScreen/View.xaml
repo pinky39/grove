@@ -68,7 +68,7 @@
                     </ContentControl>
 
                     <ContentControl Grid.Column="2" Margin="0,0,10,0">
-                        <Button Grid.Column="1" x:Name="Quit" Style="{StaticResource RightButton}"  FontSize="18" Foreground="#fff" Content="Quit tournament" />                        
+                        <Button Grid.Column="1" x:Name="Quit" Style="{StaticResource LinkButton}"  FontSize="18" Foreground="#fff" Content="Return to main menu" />                        
 					</ContentControl>
                 </Grid>
 			</Border>

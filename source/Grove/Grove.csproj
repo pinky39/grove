@@ -1142,7 +1142,6 @@
     <Compile Include="Gameplay\Decisions\Results\BooleanResult.cs" />
     <Compile Include="Gameplay\Modifiers\AttachmentLifetime.cs" />
     <Compile Include="Gameplay\Modifiers\EndOfTurnLifetime.cs" />
-    <Compile Include="Gameplay\Modifiers\ILifetimeDependency.cs" />
     <Compile Include="Gameplay\Modifiers\Lifetime.cs" />
     <Compile Include="Infrastructure\PropertyModifier.cs" />
     <Compile Include="Gameplay\Characteristics\CardTypeCharacteristic.cs" />

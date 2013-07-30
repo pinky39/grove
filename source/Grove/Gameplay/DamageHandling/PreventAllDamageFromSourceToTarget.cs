@@ -7,6 +7,7 @@
     private readonly object _creatureOrPlayer;
     private readonly bool _onlyOnce;
     private readonly Card _source;
+    private readonly Trackable<bool> _isDepleted = new Trackable<bool>();
 
     private PreventAllDamageFromSourceToTarget() {}
 
@@ -15,6 +16,11 @@
       _onlyOnce = onlyOnce;
       _source = source;
       _creatureOrPlayer = creatureOrPlayer;
+    }
+
+    protected override void Initialize()
+    {
+      _isDepleted.Initialize(ChangeTracker);
     }
 
     public override int CalculateHash(HashCalculator calc)
@@ -26,11 +32,13 @@
     }
 
     public override int PreventDamage(PreventDamageParameters parameters)
-    {
-      if (parameters.Source == _source && parameters.Target == _creatureOrPlayer)
+    {            
+      if (_isDepleted == false && parameters.Source == _source && parameters.Target == _creatureOrPlayer)
       {
         if (_onlyOnce && !parameters.QueryOnly)
-          EndOfLife.Raise();
+        {
+          _isDepleted.Value = true;
+        }
 
         return parameters.Amount;
       }

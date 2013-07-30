@@ -59,10 +59,25 @@
                 True(P1.Battlefield.Any(x => x == C(confiscate2)));
               })
         );
+      }
 
+      [Fact]
+      public void EchoNeedsToBePaid()
+      {
+        var raptor = C("Shivan Raptor");
+        var confiscate = C("Confiscate");        
 
+        Hand(P1, confiscate);        
+        Battlefield(P2, raptor);
 
-
+        Exec(
+          At(Step.FirstMain)
+            .Cast(confiscate, target: raptor),
+          At(Step.FirstMain, turn: 3)
+            .Verify(() =>
+              {
+                Equal(Zone.Graveyard, C(raptor).Zone);
+              }));
       }
     }
 

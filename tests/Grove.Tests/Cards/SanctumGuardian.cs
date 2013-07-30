@@ -39,23 +39,20 @@
       public void PreventDamageOnlyOnce()
       {
         var guardian = C("Sanctum Guardian");
-        var armodon = C("Trained Armodon");
+        var dragon = C("Shivan Hellkite");
         
-        Battlefield(P1, armodon);
+        Battlefield(P1, dragon);
         Battlefield(P2, guardian);
 
         Exec(
           At(Step.DeclareAttackers)
-            .DeclareAttackers(armodon),
+            .DeclareAttackers(dragon),
           At(Step.DeclareBlockers)
-            .Activate(guardian, new ITarget[] {C(armodon), P2}),
+            .Activate(guardian, new ITarget[] {C(dragon), P2}),
           At(Step.SecondMain)
-            .Verify(() => Equal(20, P2.Life)),
-          At(Step.DeclareAttackers, turn: 3)
-            .DeclareAttackers(armodon),
-          At(Step.SecondMain, turn: 3)
-            .Verify(() => Equal(17, P2.Life))
-        );
+            .Activate(dragon, target: P2)
+            .Verify(() => Equal(19, P2.Life)));          
+        
       }
     }
 

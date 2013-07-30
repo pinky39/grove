@@ -50,7 +50,7 @@
     {
       if (_onlyOnceWhenAfterItComesUnderYourControl && message.Card == Ability.OwningCard)
       {
-        _canTrigger.Value = false;
+        _canTrigger.Value = true;
       }
     }
 
