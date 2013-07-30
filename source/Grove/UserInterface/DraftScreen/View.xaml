@@ -19,7 +19,7 @@
 		<Grid Background="#000">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="32" />
-				<RowDefinition Height="*" />
+				<RowDefinition Height="*" />                
 			</Grid.RowDefinitions>
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="268" />
@@ -43,22 +43,32 @@
                     
                     <ContentControl Grid.Column="0" Margin="0,0,0,0">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Creatures:" />
-                            <TextBlock Margin="10,0,0,0" Text="{Binding CreatureCount}" Foreground="#FFD700" />
-                            <TextBlock Margin="15,0,0,0" Text="Spells:" />
-                            <TextBlock Margin="10,0,0,0" Text="{Binding SpellsCount}" Foreground="#FFD700"/>
-                            <TextBlock Margin="15,0,0,0" Text="Lands:" />
-                            <TextBlock Margin="10,0,0,0" Text="{Binding LandCount}" Foreground="#FFD700"/>
+
+                            <ContentControl Style="{StaticResource Separator}">
+                                <StackPanel Orientation="Horizontal" >
+                                    <TextBlock Text="Booster:" />
+                                    <TextBlock Margin="10,0,0,0" Text="{Binding Round}" Foreground="#FFD700" />
+                                    <TextBlock Text="Cards left:" Margin="15,0,0,0" />
+                                    <TextBlock Margin="10,0,0,0" Text="{Binding CardsLeft}" Foreground="#FFD700"/>
+                                </StackPanel>
+                            </ContentControl>
+
+                            <ContentControl Style="{StaticResource Separator}">
+                                <StackPanel Orientation="Horizontal" Margin="10,0,0,0" >                            
+                                    <TextBlock Text="Creatures:" />
+                                    <TextBlock Margin="10,0,0,0" Text="{Binding CreatureCount}" Foreground="#FFD700" />
+                                    <TextBlock Margin="15,0,0,0" Text="Spells:" />
+                                    <TextBlock Margin="10,0,0,0" Text="{Binding SpellsCount}" Foreground="#FFD700"/>
+                                    <TextBlock Margin="15,0,0,0" Text="Lands:" />
+                                    <TextBlock Margin="10,0,0,0" Text="{Binding LandCount}" Foreground="#FFD700"/>
+                                </StackPanel>
+                            </ContentControl>
                         </StackPanel>
+                    
                     </ContentControl>
 
-                    <ContentControl Grid.Column="2" Margin="0,0,0,0">
-						<StackPanel Orientation="Horizontal">
-							<TextBlock Text="Booster:" />
-                            <TextBlock Margin="10,0,0,0" Text="{Binding Round}" Foreground="#FFD700" />
-							<TextBlock Text="Cards left:" Margin="15,0,0,0" />
-                            <TextBlock Margin="10,0,0,0" Text="{Binding CardsLeft}" Foreground="#FFD700"/>                            
-                        </StackPanel>
+                    <ContentControl Grid.Column="2" Margin="0,0,10,0">
+                        <Button Grid.Column="1" x:Name="Quit" Style="{StaticResource RightButton}"  FontSize="18" Foreground="#fff" Content="Quit tournament" />                        
 					</ContentControl>
                 </Grid>
 			</Border>
@@ -69,7 +79,7 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />                        
                     </Grid.RowDefinitions>
                     <Border Grid.Row="0"  Style="{StaticResource Bar}">
                         <TextBlock Margin="10,6,0,6" Text="Library" FontSize="20" Foreground="#fff"/>
@@ -107,6 +117,7 @@
                         
                         </Grid>
                     </ScrollViewer>
+                    
                 </Grid>
             </Border>
 			<!-- End Sidebar -->
@@ -278,8 +289,7 @@
                         </StackPanel>
                     </Border>
 				</Grid>
-			</Border>
-			
-		</Grid>
+			</Border>            
+        </Grid>
 	</Grid>
 </UserControl>

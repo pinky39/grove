@@ -1,6 +1,5 @@
 ﻿namespace Grove.Artifical.DraftAlgorithms
 {
-  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Gameplay;
@@ -57,7 +56,7 @@
       switch (round)
       {
         case 1:
-          
+
           pickedCard = booster.Count == 15
             ? PickFirstCardOfTheDraft(booster)
             : BlockPrimaryOrSnatchSecondary(booster);
@@ -101,20 +100,11 @@
     private double GetRating(Card card)
     {
       var baseRating = _ratings.GetRating(card.Name);
-      
+
       if (card.Is().Creature && _draftedCards.Count(x => x.Is().Creature) < MinimalCreatures)
         baseRating += CreaturesBonus;
 
       return baseRating;
-    }
-
-    private CardColor[] GetBestInputColors(int count)
-    {
-      return _in
-        .OrderByDescending(x => x.Score)
-        .Take(count)
-        .Select(x => x.Color)
-        .ToArray();
     }
 
     private Card BlockPrimaryOrSnatchSecondary(List<Card> booster)
@@ -254,7 +244,7 @@
         if (boosterScores.ContainsKey(colorScores[i].Color) && boosterScores[colorScores[i].Color] > PlayableThreshold)
         {
           colorScores[i].Score += boosterScores[colorScores[i].Color] - PlayableThreshold;
-        }        
+        }
       }
     }
 

@@ -10,6 +10,6 @@
       Libraries = players.Select(x => x.Library).ToList();
     }
 
-    public List<List<CardInfo>> Libraries { get; private set; }
+    public List<List<CardInfo>> Libraries { get; private set; }    
   }
 }

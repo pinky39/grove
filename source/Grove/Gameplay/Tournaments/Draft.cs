@@ -43,6 +43,10 @@
             var player = players[playerIndex];
 
             var draftedCard = player.Strategy.PickCard(roundBoosters[boosterIndex], round);
+
+            if (_userInterface != null && _userInterface.PlayerLeftDraft)
+              return null;
+            
             player.Library.Add(draftedCard);
             roundBoosters[boosterIndex].Remove(draftedCard);
           }

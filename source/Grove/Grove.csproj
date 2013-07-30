@@ -124,6 +124,7 @@
     <Compile Include="Artifical\CombatRules\IncreasePowerAndToughness.cs" />
     <Compile Include="Artifical\CombatRules\Regenerate.cs" />
     <Compile Include="Artifical\DraftAlgorithms\IDraftingStrategies.cs" />
+    <Compile Include="Cards\RadiantsDragoons.cs" />
     <Compile Include="Gameplay\Tournaments\DraftPlayer.cs" />
     <Compile Include="Gameplay\Tournaments\DraftResults.cs" />
     <Compile Include="Gameplay\Tournaments\IDraftingStrategy.cs" />

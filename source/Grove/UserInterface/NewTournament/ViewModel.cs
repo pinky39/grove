@@ -43,7 +43,7 @@
         _typeOfTournament = value;
                         
         TournamentSize = _typeOfTournament == TournamentType.Sealed ? _sealedTournamentSize : _draftTournamentSize;
-        PlayersCount = TournamentSize[0];
+        PlayersCount = _typeOfTournament == TournamentType.Sealed ? 200 : 8;
       }
     }
 

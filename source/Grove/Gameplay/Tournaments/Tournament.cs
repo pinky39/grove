@@ -16,11 +16,11 @@
 
   public class Tournament
   {
-    private readonly DeckBuilder _deckBuilder;    
+    private readonly DeckBuilder _deckBuilder;
+    private readonly IDraftingStrategies _draftStrategies;
     private readonly MatchRunner _matchRunner;
 
     private readonly MatchSimulator _matchSimulator;
-    private readonly IDraftingStrategies _draftStrategies;
     private readonly TournamentParameters _p;
     private readonly object _resultsLock = new object();
     private readonly IShell _shell;
@@ -120,28 +120,29 @@
           }
         case TournamentType.Draft:
           {
-            var libraries = DraftPlayersLibraries();
-            CreateDraftDecks(libraries);
+            CreateDraftDecks();
           }
           break;
       }
     }
 
-    private List<List<CardInfo>> DraftPlayersLibraries()
+    private void CreateDraftDecks()
     {
       var draftScreen = _viewModels.DraftScreen.Create(_players);
       _shell.ChangeScreen(draftScreen);
 
-      var runner = new DraftRunner(_draftStrategies, draftScreen);      
-      return runner.Run(_players.Count, _p.BoosterPacks, _cardRatings)
-        .Libraries;
-    }
+      var runner = new DraftRunner(_draftStrategies, draftScreen);
+      var results = runner.Run(_players.Count, _p.BoosterPacks, _cardRatings);
 
-    private void CreateDraftDecks(List<List<CardInfo>> libraries)
-    {
+      if (draftScreen.PlayerLeftDraft)
+      {
+        Stop();
+        return;
+      }
+
       var nonHumanPlayers = NonHumanPlayers.ToList();
-      var nonHumanLibraries = libraries.Skip(1).ToList();
-      _humanLibrary = libraries[0];
+      var nonHumanLibraries = results.Libraries.Skip(1).ToList();
+      _humanLibrary = results.Libraries[0];
 
       AggregateException exception = null;
 

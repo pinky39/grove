@@ -32,6 +32,7 @@
     public virtual Card PickedCard { get; set; }
     public virtual Card PreviewCard { get; protected set; }
     public virtual string Direction { get; protected set; }
+    public bool PlayerLeftDraft { get; private set; }
 
     public int CreatureCount { get { return Library.Count(x => x.Is().Creature); } }
     public int LandCount { get { return Library.Count(x => x.Is().Land); } }
@@ -51,6 +52,9 @@
       _blocker = new ThreadBlocker();
       _blocker.BlockUntilCompleted();
 
+      if (PlayerLeftDraft)
+        return null;
+      
       return booster.First(x => x.Name.Equals(PickedCard.Name, StringComparison.InvariantCultureIgnoreCase));
     }
 
@@ -72,6 +76,12 @@
       PickedCard = card;
       _library.Add(card);
 
+      _blocker.Completed();
+    }
+
+    public void Quit()
+    {
+      PlayerLeftDraft = true;
       _blocker.Completed();
     }
 
