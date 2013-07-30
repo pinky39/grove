@@ -12,7 +12,7 @@
 
   public class DraftFacts : Scenario
   {
-    [Fact]
+    //[Fact]
     public void DraftLibraries()
     {
       var sets = new[] {"Urza's Saga", "Urza's Saga", "Urza's Saga"};

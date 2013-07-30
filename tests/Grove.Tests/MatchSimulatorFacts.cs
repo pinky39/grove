@@ -6,7 +6,7 @@
 
   public class MatchSimulatorFacts : Scenario
   {
-    [Fact]
+    //[Fact]
     public void Simulate()
     {
       var deck1 = GetDeck("deck1.dec");

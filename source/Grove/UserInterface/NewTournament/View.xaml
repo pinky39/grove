@@ -36,104 +36,117 @@
                 </Grid>
             </Border>
             <Border Grid.Row="1">
-                <Grid Width="450" HorizontalAlignment="Left" Margin="100,40,0,40">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Border
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />                                                                        
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0" Width="450" HorizontalAlignment="Left" Margin="100,40,0,40">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Border
                   Grid.Row="0"
                   Margin="0,0,0,20"
                  Background="#11ffffff"
                   BorderBrush="#22ffffff"
                   BorderThickness="2">
-                        <Grid Margin="25">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-                            <TextBlock
-                        Grid.Row="0"
-                        Margin="2,0,2,0"
-                        FontSize="20"
-                        Foreground="#FFD700">Your name:
-                            </TextBlock>
-                            <TextBox Grid.Row="1" Margin="0,10,0,0" FontSize="20" Text="{Binding YourName}"/>                            
-                            <TextBlock
-                        Grid.Row="2"
-                        Margin="2,20,2,0"
-                        FontSize="20"
-                        Foreground="#FFD700">Tournament type:
-                            </TextBlock>
-                            <ComboBox Grid.Row="3" 
-                                      SelectedValue="{Binding TypeOfTournament}" 
-                                      ItemsSource="{Binding Source={grove:Enumeration {x:Type Tournaments:TournamentType}}}" 
-                                      DisplayMemberPath="Description" SelectedValuePath="Value"  
-                                      Margin="0,10,0,0" FontSize="20" />                                                            
-                            <TextBlock
-                        Grid.Row="4"
-                        Margin="2,20,2,0"
-                        FontSize="20"
-                        Foreground="#FFD700">Players count:
-                            </TextBlock>
-                            <ComboBox Grid.Row="5" Margin="0,10,0,0" FontSize="20" ItemsSource="{Binding TournamentSize}" SelectedItem="{Binding PlayersCount}" />                                                            
-                        </Grid>
-                    </Border>
-                    <Border
-                  Grid.Row="1"
-                  Background="#11ffffff"
-                  BorderBrush="#22ffffff"
-                  BorderThickness="2">
-                        <Grid Margin="25">
-                            <Grid.Resources>
-                                <Style x:Key="StarterPack" TargetType="StackPanel">
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding TypeOfTournament}" Value="Draft">
-                                            <Setter Property="Visibility" Value="Collapsed"></Setter>                                            
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding TypeOfTournament}" Value="Sealed">
-                                            <Setter Property="Visibility" Value="Visible"></Setter>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                                
-                            </Grid.Resources>
-                            
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-
-                            <StackPanel Style="{StaticResource StarterPack}" >
+                            <Grid Margin="25">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
                                 <TextBlock
                         Grid.Row="0"
                         Margin="2,0,2,0"
                         FontSize="20"
-                        Foreground="#FFD700">Starter pack:
+                        Foreground="#FFD700">Your name:
                                 </TextBlock>
-                                <ComboBox Grid.Row="1" Margin="0,10,0,0" FontSize="20" ItemsSource="{Binding Sets}" SelectedItem="{Binding StarterPack}"/>
-                            </StackPanel>
+                                <TextBox Grid.Row="1" Margin="0,10,0,0" FontSize="20" Text="{Binding YourName}"/>
+                                <TextBlock
+                        Grid.Row="2"
+                        Margin="2,20,2,0"
+                        FontSize="20"
+                        Foreground="#FFD700">Tournament type:
+                                </TextBlock>
+                                <ComboBox Grid.Row="3" 
+                                      SelectedValue="{Binding TypeOfTournament}" 
+                                      ItemsSource="{Binding Source={grove:Enumeration {x:Type Tournaments:TournamentType}}}" 
+                                      DisplayMemberPath="Description" SelectedValuePath="Value"  
+                                      Margin="0,10,0,0" FontSize="20" />
+                                <TextBlock
+                        Grid.Row="4"
+                        Margin="2,20,2,0"
+                        FontSize="20"
+                        Foreground="#FFD700">Players count:
+                                </TextBlock>
+                                <ComboBox Grid.Row="5" Margin="0,10,0,0" FontSize="20" ItemsSource="{Binding TournamentSize}" SelectedItem="{Binding PlayersCount}" />
+                            </Grid>
+                        </Border>
+                        <Border
+                  Grid.Row="1"
+                  Background="#11ffffff"
+                  BorderBrush="#22ffffff"
+                  BorderThickness="2">
+                            <Grid Margin="25">
+                                <Grid.Resources>
+                                    <Style x:Key="StarterPack" TargetType="StackPanel">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding TypeOfTournament}" Value="Draft">
+                                                <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding TypeOfTournament}" Value="Sealed">
+                                                <Setter Property="Visibility" Value="Visible"></Setter>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
 
-                            <TextBlock
+                                </Grid.Resources>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <StackPanel Style="{StaticResource StarterPack}" >
+                                    <TextBlock
+                        Grid.Row="0"
+                        Margin="2,0,2,0"
+                        FontSize="20"
+                        Foreground="#FFD700">Starter pack:
+                                    </TextBlock>
+                                    <ComboBox Grid.Row="1" Margin="0,10,0,0" FontSize="20" ItemsSource="{Binding Sets}" SelectedItem="{Binding StarterPack}"/>
+                                </StackPanel>
+
+                                <TextBlock
                         Grid.Row="2"
                         Margin="2,20,2,0"
                         FontSize="20"
                         Foreground="#FFD700">Booster packs:
-                            </TextBlock>
-                            <StackPanel Grid.Row="3" Margin="0,10,0,10">
-                                <ComboBox Margin="0,3,0,3" FontSize="20" ItemsSource="{Binding Sets}" SelectedItem="{Binding BoosterPack1}"/>
-                                <ComboBox Margin="0,3,0,3" FontSize="20" ItemsSource="{Binding Sets}" SelectedItem="{Binding BoosterPack2}"/>
-                                <ComboBox Margin="0,3,0,3" FontSize="20" ItemsSource="{Binding Sets}" SelectedItem="{Binding BoosterPack3}"/>                                
-                            </StackPanel>
-                        </Grid>
-                    </Border>
+                                </TextBlock>
+                                <StackPanel Grid.Row="3" Margin="0,10,0,10">
+                                    <ComboBox Margin="0,3,0,3" FontSize="20" ItemsSource="{Binding Sets}" SelectedItem="{Binding BoosterPack1}"/>
+                                    <ComboBox Margin="0,3,0,3" FontSize="20" ItemsSource="{Binding Sets}" SelectedItem="{Binding BoosterPack2}"/>
+                                    <ComboBox Margin="0,3,0,3" FontSize="20" ItemsSource="{Binding Sets}" SelectedItem="{Binding BoosterPack3}"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                    <StackPanel Grid.Column="1" Margin="30, 30, 80 , 30">
+                        <TextBlock Foreground="#fff" FontSize="40" Text="{Binding TypeOfTournament}" />
+                        <TextBlock  Foreground="#fff" FontSize="20" Text="{Binding TournamentDescription}" Margin="0,20,0,0"  TextWrapping="Wrap" TextAlignment="Justify" />
+                    </StackPanel>
+                    
                 </Grid>
+                
             </Border>
             <Border
             Grid.Row="2"

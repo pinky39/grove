@@ -1089,6 +1089,7 @@
     <Compile Include="UserInterface\Messages\DeckGenerationError.cs" />
     <Compile Include="UserInterface\Messages\DeckGenerationStatus.cs" />
     <Compile Include="UserInterface\Messages\TournamentMatchFinished.cs" />
+    <Compile Include="UserInterface\NewTournament\TournamentDescriptions.cs" />
     <Compile Include="UserInterface\NewTournament\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>

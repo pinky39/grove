@@ -18,8 +18,8 @@
 
 		<Grid Background="#000">
 			<Grid.RowDefinitions>
-				<RowDefinition Height="32" />
-				<RowDefinition Height="*" />                
+                <RowDefinition Height="*" />
+                <RowDefinition Height="32" />				         
 			</Grid.RowDefinitions>
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="268" />
@@ -27,9 +27,9 @@
 				<ColumnDefinition Width="268" />
 			</Grid.ColumnDefinitions>
             
-			<!-- Topbar -->
-			<Border Grid.ColumnSpan="3" Grid.Row="0" Style="{StaticResource Bar}">
-				<Grid Margin="10,0,10,0">
+			<!-- Bar -->
+			<Border Grid.ColumnSpan="3" Grid.Row="1" Style="{StaticResource Bar}">
+				<Grid Margin="0,0,10,0">
 					<Grid.Resources>
 						<Style BasedOn="{StaticResource Label}" TargetType="TextBlock">
 							<Setter Property="FontSize" Value="17" />
@@ -41,7 +41,7 @@
                         <ColumnDefinition Width="Auto" />
 					</Grid.ColumnDefinitions>
                     
-                    <ContentControl Grid.Column="0" Margin="0,0,0,0">
+                    <ContentControl Grid.Column="0" Margin="10,0,0,0">
                         <StackPanel Orientation="Horizontal">
 
                             <ContentControl Style="{StaticResource Separator}">
@@ -54,7 +54,7 @@
                             </ContentControl>
 
                             <ContentControl Style="{StaticResource Separator}">
-                                <StackPanel Orientation="Horizontal" Margin="10,0,0,0" >                            
+                                <StackPanel Orientation="Horizontal" >                            
                                     <TextBlock Text="Creatures:" />
                                     <TextBlock Margin="10,0,0,0" Text="{Binding CreatureCount}" Foreground="#FFD700" />
                                     <TextBlock Margin="15,0,0,0" Text="Spells:" />
@@ -67,15 +67,15 @@
                     
                     </ContentControl>
 
-                    <ContentControl Grid.Column="2" Margin="0,0,10,0">
-                        <Button Grid.Column="1" x:Name="Quit" Style="{StaticResource LinkButton}"  FontSize="18" Foreground="#fff" Content="Return to main menu" />                        
+                    <ContentControl Grid.Column="2" Margin="10,0,10,0">
+                        <Button Grid.Column="1" x:Name="Quit" Style="{StaticResource LinkButton}"  FontSize="18" Foreground="#fff" Content="Quit to main menu" />                        
 					</ContentControl>
                 </Grid>
 			</Border>
-			<!-- End Topbar -->
+			<!-- End Bar -->
             
 			<!-- Sidebar -->
-			<Border Grid.Column="0" Grid.Row="1" Background="{StaticResource BarBackground}" BorderBrush="#000" BorderThickness="3,0,2,0">
+			<Border Grid.Column="0" Grid.Row="0" Background="{StaticResource BarBackground}" BorderBrush="#000" BorderThickness="3,0,2,0">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -123,7 +123,7 @@
 			<!-- End Sidebar -->
             
 			<!-- Battlefield -->
-            <Border Grid.Column="1" Grid.Row="1" Background="{StaticResource BarBackground}">
+            <Border Grid.Column="1" Grid.Row="0" Background="{StaticResource BarBackground}">
 				<!--<Border.Background>
 					<ImageBrush ImageSource="{UserInterface:Background}" />
 				</Border.Background>-->
@@ -208,7 +208,7 @@
 			<!-- End battlefield -->
             
 			<!-- Sidebar -->
-            <Border Grid.Column="2" Grid.Row="1" Background="{StaticResource BarBackground}" BorderBrush="#000" BorderThickness="2,0,3,0">
+            <Border Grid.Column="2" Grid.Row="0" Background="{StaticResource BarBackground}" BorderBrush="#000" BorderThickness="2,0,3,0">
 				<Grid>
 					<Grid.RowDefinitions>
 						<RowDefinition Height="370" />
