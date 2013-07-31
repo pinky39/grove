@@ -16,6 +16,7 @@
     {
       yield return Card
         .Named("Ring of Gix")
+        .Type("Artifact")        
         .ManaCost("{3}")
         .Text("{Echo} {3}{EOL}{1},{T}: Tap target artifact, creature, or land.")
         .FlavorText("Not every cage is made of bars.")

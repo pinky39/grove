@@ -54,12 +54,17 @@
           Cost = new PayMana(cp.ManaCost ?? Mana.Zero, ManaUsage.Spells, cp.HasXInCost),
           Text = string.Format("Cast {0}.", cp.Name),
           Effect = () => new PutIntoPlay(),
-          Rule = GetDefaultCastingRule(cp.Type),
+          Rule = GetDefaultCastingRule(cp),
         };
     }
 
-    private CastingRule GetDefaultCastingRule(CardType cardType)
+    private CastingRule GetDefaultCastingRule(CardParameters cp)
     {
+      var cardType = cp.Type;
+      
+      if (cardType == null)
+        throw new InvalidOperationException(String.Format("{0}'s card type is not defined.", cp.Name));
+            
       if (cardType.Instant)
         return new Instant();
       if (cardType.Sorcery)
