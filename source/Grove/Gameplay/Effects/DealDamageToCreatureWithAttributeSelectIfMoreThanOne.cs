@@ -2,29 +2,28 @@
 {
   using System;
   using System.Collections.Generic;
-  using System.Linq;  
-  using DamageHandling;
+  using System.Linq;
   using Decisions;
   using Decisions.Results;
   using Zones;
 
-  public class DealDamageToCreatureWithRankSelectIfMoreThanOne : Effect, IProcessDecisionResults<ChosenCards>,
+  public class DealDamageToCreatureWithAttributeSelectIfMoreThanOne : Effect, IProcessDecisionResults<ChosenCards>,
     IChooseDecisionResults<List<Card>, ChosenCards>
   {
     private readonly int _amount;
-    private readonly Func<Game, int?> _calculateRank;
-    private readonly Func<Card, int?, bool> _hasRank;
+    private readonly Func<Game, int?> _getAttribute;
+    private readonly Func<Card, int?, bool> _hasAttribute;
 
-    private DealDamageToCreatureWithRankSelectIfMoreThanOne() {}
+    private DealDamageToCreatureWithAttributeSelectIfMoreThanOne() {}
 
-    public DealDamageToCreatureWithRankSelectIfMoreThanOne(int amount,
-      Func<Card, int?, bool> hasRank, Func<Game, int?> calculateRank)
+    public DealDamageToCreatureWithAttributeSelectIfMoreThanOne(int amount,
+      Func<Card, int?, bool> hasAttribute, Func<Game, int?> getAttribute)
     {
       _amount = amount;
-      _hasRank = hasRank;
-      _calculateRank = calculateRank;
+      _hasAttribute = hasAttribute;
+      _getAttribute = getAttribute;
     }
-    
+
     public ChosenCards ChooseResult(List<Card> candidates)
     {
       var opponents = candidates
@@ -49,18 +48,18 @@
       if (results.Count == 0)
         return;
 
-      Source.OwningCard.DealDamageTo(_amount, results[0], isCombat: false);            
+      Source.OwningCard.DealDamageTo(_amount, results[0], isCombat: false);
     }
 
     public override int CalculateCreatureDamage(Card creature)
     {
-      var rank = _calculateRank(Game);
-      return _hasRank(creature, rank) ? _amount : 0;
+      var rank = _getAttribute(Game);
+      return _hasAttribute(creature, rank) ? _amount : 0;
     }
 
     protected override void ResolveEffect()
     {
-      var rank = _calculateRank(Game);
+      var rank = _getAttribute(Game);
 
       Enqueue<SelectCards>(
         controller: Controller,
@@ -69,7 +68,7 @@
             p.MinCount = 1;
             p.MaxCount = 1;
             p.Text = "Select a creature.";
-            p.Validator(card => card.Is().Creature && _hasRank(card, rank));
+            p.Validator(card => card.Is().Creature && _hasAttribute(card, rank));
             p.CanSelectOnlyCardsControlledByDecisionController = false;
             p.Zone = Zone.Battlefield;
             p.OwningCard = Source.OwningCard;

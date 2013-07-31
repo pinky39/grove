@@ -5,14 +5,16 @@
   using Artifical.Decisions;
   using Decisions;
   using Decisions.Results;
+  using Infrastructure;
 
-  public class ReorderTopCards : Effect, IProcessDecisionResults<Ordering>, IChooseDecisionResults<List<Card>, Ordering>
+  public class LookAtTopCardsPutOneInHandOthersOnBottom : Effect, IProcessDecisionResults<Ordering>,
+    IChooseDecisionResults<List<Card>, Ordering>
   {
     private readonly int _count;
 
-    private ReorderTopCards() {}
+    private LookAtTopCardsPutOneInHandOthersOnBottom() {}
 
-    public ReorderTopCards(int count)
+    public LookAtTopCardsPutOneInHandOthersOnBottom(int count)
     {
       _count = count;
     }
@@ -22,9 +24,21 @@
       return QuickDecisions.OrderTopCards(candidates, Controller);
     }
 
-    public void ProcessResults(Ordering result)
+    public void ProcessResults(Ordering results)
     {
-      Controller.ReorderTopCardsOfLibrary(result.Indices);
+      var cards = Controller.Library
+        .Take(_count)
+        .ToList().ShuffleInPlace(results.Indices);
+
+      if (cards.Count > 0)
+      {
+        Controller.PutCardToHand(cards[0]);
+
+        foreach (var card in cards.Skip(1))
+        {
+          Controller.PutOnBottomOfLibrary(card);
+        }
+      }
     }
 
     protected override void ResolveEffect()
@@ -45,7 +59,7 @@
             p.Cards = cards;
             p.ProcessDecisionResults = this;
             p.ChooseDecisionResults = this;
-            p.Title = "Order cards from top to bottom";
+            p.Title = "Order cards (first card goes to your hand)";
           });
     }
   }

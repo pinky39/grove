@@ -3,28 +3,30 @@
   using System.Collections.Generic;
   using Artifical.TimingRules;
   using Gameplay;
+  using Gameplay.Abilities;
   using Gameplay.Costs;
   using Gameplay.Effects;
   using Gameplay.ManaHandling;
   using Gameplay.Misc;
 
-  public class HorseshoeCrab : CardsSource
+  public class VigilantDrake : CardsSource
   {
     public override IEnumerable<CardFactory> GetCards()
     {
       yield return Card
-        .Named("Horseshoe Crab")
-        .ManaCost("{2}{U}")
-        .Type("Creature - Crab")
-        .Text("{U}: Untap Horseshoe Crab.")
+        .Named("Vigilant Drake")
+        .ManaCost("{4}{U}")
+        .Type("Creature - Drake")
+        .Text("{Flying}{EOL}{2}{U}: Untap Vigilant Drake.")
         .FlavorText(
-          "In the final days before the disaster, all the crabs on Tolaria migrated from inlets, streams, and ponds back to the sea. No one took note.")
-        .Power(1)
+          "Awake and awing in the blink of an eye.")
+        .Power(3)
         .Toughness(3)
+        .SimpleAbilities(Static.Flying)
         .ActivatedAbility(p =>
           {
-            p.Text = "{U}: Untap Horseshoe Crab.";
-            p.Cost = new PayMana(Mana.Blue, ManaUsage.Abilities);
+            p.Text = "{2}{U}: Untap Vigilant Drake.";
+            p.Cost = new PayMana("{2}{U}".Parse(), ManaUsage.Abilities);
             p.Effect = () => new UntapOwner();
 
             p.TimingRule(new Turn(active: true));

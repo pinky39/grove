@@ -27,9 +27,9 @@
               activeTurn: true
               ));
 
-            p.Effect = () => new DealDamageToCreatureWithRankSelectIfMoreThanOne(
+            p.Effect = () => new DealDamageToCreatureWithAttributeSelectIfMoreThanOne(
               amount: 2,
-              calculateRank: g =>
+              getAttribute: g =>
                 {
                   var creatures = g.Players.Permanents()
                     .Where(x => x.Is().Creature)
@@ -38,7 +38,7 @@
 
                   return creatures.Count == 0 ? null : creatures[0].Toughness;
                 },
-              hasRank: (c, r) => c.Toughness == r);
+              hasAttribute: (c, r) => c.Toughness == r);
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });

@@ -124,7 +124,18 @@
     <Compile Include="Artifical\CombatRules\IncreasePowerAndToughness.cs" />
     <Compile Include="Artifical\CombatRules\Regenerate.cs" />
     <Compile Include="Artifical\DraftAlgorithms\IDraftingStrategies.cs" />
+    <Compile Include="Cards\Miscalculation.cs" />
+    <Compile Include="Cards\OpalChampion.cs" />
+    <Compile Include="Cards\Opportunity.cs" />
     <Compile Include="Cards\RadiantsDragoons.cs" />
+    <Compile Include="Artifical\Decisions\QuickDecisions.cs" />
+    <Compile Include="Cards\RavenFamiliar.cs" />
+    <Compile Include="Cards\RingOfGix.cs" />
+    <Compile Include="Cards\SustainerOfTheRealm.cs" />
+    <Compile Include="Cards\ThornwindFaeries.cs" />
+    <Compile Include="Cards\UrzasBlueprints.cs" />
+    <Compile Include="Cards\VigilantDrake.cs" />
+    <Compile Include="Gameplay\Effects\LookAtTopCardsPutOneInHandOthersOnBottom.cs" />
     <Compile Include="Gameplay\Tournaments\DraftPlayer.cs" />
     <Compile Include="Gameplay\Tournaments\DraftResults.cs" />
     <Compile Include="Gameplay\Tournaments\IDraftingStrategy.cs" />
@@ -837,7 +848,7 @@
     <Compile Include="Artifical\DeckEvaluator.cs" />
     <Compile Include="Gameplay\Effects\ApplyModifiersToPlayers.cs" />
     <Compile Include="Gameplay\Effects\CounterTopSpell.cs" />
-    <Compile Include="Gameplay\Effects\DealDamageToCreatureWithRankSelectIfMoreThanOne.cs" />
+    <Compile Include="Gameplay\Effects\DealDamageToCreatureWithAttributeSelectIfMoreThanOne.cs" />
     <Compile Include="Gameplay\Effects\DestroyAllLandsOrCreatures.cs" />
     <Compile Include="Gameplay\Effects\DestroyPermanent.cs" />
     <Compile Include="Gameplay\Effects\DiscardAllCardsOfChosenColor.cs" />
