@@ -1,0 +1,255 @@
+= Adding cards Episode 2 =
+
+Welcome back! In this 2nd tutorial we will investigate:
+
+ * the difference between spells and permanents,
+ * basic mechanics of targeting,
+ * activated abilities and
+ * mana abilities.
+
+We will look at implementations of following cards:
+   
+   * Volcanic Hammer,
+   * Dragon Blood,
+   * Birds of Paradise,      
+
+== An example of a sorcery spell: 'Volcanic Hammer' ==
+
+Volcanic Hammer is a sorcery spell with casting cost of {1}{R}. When we cast the spell we must first pick a target (creature or player). When resolved, the spell deals 3 damage to selected target and is put to graveyard. The following code shows the implementation of the card:
+
+{{{
+  
+namespace Grove.Cards
+{
+  using System.Collections.Generic;
+  using Artifical.TargetingRules;
+  using Gameplay.Effects;
+  using Gameplay.Misc;
+
+  public class VolcanicHammer : CardsSource
+  {
+    public override IEnumerable<CardFactory> GetCards()
+    {
+      yield return Card
+        .Named("Volcanic Hammer")
+        .ManaCost("{1}{R}")
+        .Type("Sorcery")
+        .Text("Volcanic Hammer deals 3 damage to target creature or player.")
+        .FlavorText("Fire finds its form in the heat of the forge.")
+        .Cast(p =>
+          {
+            p.Effect = () => new DealDamageToTargets(3);
+            p.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
+            p.TargetingRule(new DealDamage(3));
+          });
+    }
+  }
+}
+
+}}}
+
+We specify the card type by calling The 'Type' method, the engine knows about the main types available in the game and automaticly selects appropriate CastingRule. Various casting rules are defined in folder Gameplay/CastingRules. Let's look at the casting rule for 'Sorceries':
+
+{{{
+  
+namespace Grove.Gameplay.CastingRules
+{
+  using System;
+  using States;
+
+  public class Sorcery : CastingRule
+  {
+    private readonly Action<Card> _afterResolvePutToZone;
+
+    private Sorcery() {}
+
+    public Sorcery(Action<Card> afterResolvePutToZone = null)
+    {
+      _afterResolvePutToZone = afterResolvePutToZone ?? (card => card.PutToGraveyard());
+    }
+
+    public override bool CanCast()
+    {
+      return Turn.Step.IsMain() &&
+        Card.Controller.IsActive &&
+          Stack.IsEmpty;
+    }
+
+    public override void AfterResolve()
+    {
+      _afterResolvePutToZone(Card);
+    }
+  }
+}
+
+}}}
+
+Method CanCast returns true if the card can be cast at current time. We see that sorceries can only be casted during main phases of the active turn and only when the stack is empty. 
+
+Method AfterResolve controls the zone where the card is put after being successfuly resolved. We can see that our hammer goes straight to the graveyard by default. The class also accepts an optional parameter to override this behaviour. This is used by cards like 'Beacon of Destruction' which are shuffled into library instead.
+
+What happens when a card is cast? This is controlled by parameters of the Cast method. We didn't have to implement this method in our previous tutorial, because the default implementaion for creatures was automaticly used (the creatures is put into play).
+
+Cast method accepts a delegate and we are expected to set the appropriate members of CastInstructionParameters object. Lets look at its members more closely.
+
+{{{
+  .Cast(p =>
+    {
+      p.Effect = () => new DealDamageToTargets(3);
+      p.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
+      p.TargetingRule(new DealDamage(3));
+    });
+}}}
+
+Every card when cast, creates an 'Effect' object, which is then usually put on the stack. To specify which effect the spell will put onto stack we create an EffectFactory delegate object, using lambda syntax:
+
+{{{
+p.Effect = () => new DealDamageToTargets(3);
+}}}
+
+Each time the delegate will be called it will return a new effect of type DealDamageToTargets. When resolved the effect will deal 3 damage to selected targets. Volcanic Hammer requires targets to be specified when the effect is put on the stack, to specify the valid target range we configure the TargetSelector object:
+
+{{{
+p.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
+}}}
+
+The hammer can target a creature on the battlefield or a player.
+
+The number of possible targets can be quite large for some spells, if there are multiple targets the number of states AI must consider on each move becomes so large that the waiting times would make the game unplayable. We know that many of the possible targets are not worth considering anyway. For example one would very rarely want to target themself or their own creatures with 'Volcanic Hammer'. To incorporate this knowledge into the game, the targeting rules are used. These rules further reduce the amount of targets AI has to consider. If the effect requires targets we must specify and configure a targeting rule that will be used. We do this by caling TargetingRule method:
+
+{{{
+p.TargetingRule(new DealDamage(3));
+}}}
+
+If you wish you can checkout the implementation of DealDamage targeting rule.
+
+== Implementing activated ability: 'Dragon Blood' ==
+
+Dragon Blood is an artifact which when activated puts a +1/+1 counter on target creature, its implementation is:
+
+{{{
+namespace Grove.Cards
+{
+  using System.Collections.Generic;
+  using Artifical.TargetingRules;
+  using Artifical.TimingRules;
+  using Gameplay;
+  using Gameplay.Costs;
+  using Gameplay.Counters;
+  using Gameplay.Effects;
+  using Gameplay.ManaHandling;
+  using Gameplay.Misc;
+  using Gameplay.Modifiers;
+
+  public class DragonBlood : CardsSource
+  {
+    public override IEnumerable<CardFactory> GetCards()
+    {
+      yield return Card
+        .Named("Dragon Blood")
+        .ManaCost("{3}")
+        .Type("Artifact")
+        .Text("{3},{T} : Put a +1/+1 counter on target creature.")
+        .FlavorText("Fire in the blood, fire in the belly.")
+        .Cast(p => p.TimingRule(new FirstMain()))
+        .ActivatedAbility(p =>
+          {
+            p.Text = "{3},{T} : Put a +1/+1 counter on target creature.";
+            p.Cost = new AggregateCost(
+              new PayMana(3.Colorless(), ManaUsage.Abilities),
+              new Tap());
+
+            p.Effect = () => new ApplyModifiersToTargets(() => new AddCounters(
+              () => new PowerToughness(1, 1), count: 1));
+
+            p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
+            p.TargetingRule(new IncreasePowerOrToughness(1, 1, untilEot: false));
+          });
+    }
+  }
+}
+}}}
+
+Game rules allow that permanents are cast either during First or Second main phase. Inside the Cast method we restrict that AI is only allowed to cast Dragon Blood during its First main phase. It makes sense to play it before the combat phase since Dragon Blood is a combat spell. This is a performance optimization and if ommited the number of states the AI would need to search would increase and the AI thinking time would be longer. 
+
+Activated abilities are defined by assigning the members of the ActivatedAbilityParameters class which is passed into ActivatedAbility method. All activated abilities must define the following parameters:
+ * text (which is used to create its ui components),
+ * cost (resources needed for activation),
+ * effect (put onto stack when abilitiy is activated)
+
+In order to activate dragon blood we need to pay 3 colorless mana and tap it. If a cost needs more than one resource it's parts are wrapped with AggregateCost object. We specify the amount of mana and the intended usage, this is to support restricted usage mana sources (e.g Thran Turbine).
+
+By adding a +1/+1 counter on target creature, we are modifying the creatures characteristics (the number of counters). We use ApplyModifiersToTargets effect to apply one or more modifiers to the effect's targets. 
+
+The line:
+
+{{{
+() => new AddCounters(..., count: 1)  
+}}}
+
+defines a modifier factory which produces AddCounters modifier when the effect is resolved. When the modifier is applied to target creature it creates +1/+1 counter using a factory:
+
+{{{
+() => new PowerToughness(1, 1)
+}}}
+
+All modifiers in magicgrove have a limited lifetime, the default lifetime for permanent modifiers is as long as the owning permanent stays on the battlefield. In our case this is exactly the needed behaviour.
+
+The activated ability's effect requires targets, we must specify the validator and an appropriate AI targeting rule:
+
+{{{
+p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
+p.TargetingRule(new IncreasePowerOrToughness(1, 1, untilEot: false));
+}}}
+
+IncreasePowerOrToughness targeting rule limits the range of targets considered by the AI, because AI considers different targets at different steps of the game, the AI timing rule is already part of the targeting rule, no explicit timing rules are needed.
+
+== Implementing mana abilities: 'Birds of paradise' ==
+
+On every move AI has to consider one by one every spell in its hand and every ability of each permanent on the table. To treat mana abilities of lands and creatures the same as 'normal' activated abilities would cause the AI to consider its every move for a very long time. 
+We don't realy care in what order and which lands are tapped (as long as they are the same), we also don't want to tap the lands if they can't produce the mana we need for a certain spell, all we wish to know is if we have enough mana or not. This is why mana abilities are treated differently as activated abilities in magicgrove. AI does not consider activating mana abilities directly (although a human player can), they are activated when certain mana is needed by other abilities or spells. Let's look at an example:
+
+{{{ 
+namespace Grove.Cards
+{
+  using System.Collections.Generic;
+  using Gameplay;
+  using Gameplay.Abilities;
+  using Gameplay.Misc;
+
+  public class BirdsOfParadise : CardsSource
+  {
+    public override IEnumerable<CardFactory> GetCards()
+    {
+      yield return Card
+        .Named("Birds of Paradise")
+        .ManaCost("{G}")
+        .Type("Creature - Bird")
+        .Text("{Flying}{EOL}{T}: Add one mana of any color to your mana pool.")
+        .FlavorText("The gods used their feathers to paint all the colors of the world.")
+        .Power(0)
+        .Toughness(1)
+        .SimpleAbilities(Static.Flying)
+        .ManaAbility(p =>
+          {
+            p.Text = "{T}: Add one mana of any color to your mana pool.";
+            p.ManaAmount(Mana.Any);
+          });
+    }
+  }
+} 
+}}}
+
+Birds of Paradise is a creature with flying capable of producing one mana of any color when tapped. Bird's mana ability is defined by calling ManaAbility method on CardFactory class and assigning members of the ManaAbilityParameters object:
+
+{{{
+.ManaAbility(p =>
+  {
+    p.Text = "{T}: Add one mana of any color to your mana pool.";
+    p.ManaAmount(Mana.Any);
+  })
+}}}
+
+The most common way of paying the activation cost of mana abiltiies is to tap the owning card, since this is so common we decided that it would be the default cost and does not need to be explicitly specified.
+Although mana abilities are not put on stack, their text should be specified in case the card contains more than one ability so the player will know which one to select.
+The amount of mana the ability will produce is defined using ManaAmount method.
