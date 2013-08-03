@@ -124,6 +124,12 @@
     <Compile Include="Artifical\CombatRules\IncreasePowerAndToughness.cs" />
     <Compile Include="Artifical\CombatRules\Regenerate.cs" />
     <Compile Include="Artifical\DraftAlgorithms\IDraftingStrategies.cs" />
+    <Compile Include="Cards\Anthroplasm.cs" />
+    <Compile Include="Cards\Archivist.cs" />
+    <Compile Include="Cards\BloatedToad.cs" />
+    <Compile Include="Cards\CloudOfFaeries.cs" />
+    <Compile Include="Cards\DarkwatchElves.cs" />
+    <Compile Include="Cards\FaerieConclave.cs" />
     <Compile Include="Cards\Miscalculation.cs" />
     <Compile Include="Cards\OpalChampion.cs" />
     <Compile Include="Cards\Opportunity.cs" />
@@ -133,9 +139,11 @@
     <Compile Include="Cards\RingOfGix.cs" />
     <Compile Include="Cards\SustainerOfTheRealm.cs" />
     <Compile Include="Cards\ThornwindFaeries.cs" />
+    <Compile Include="Cards\ThranWarMachine.cs" />
     <Compile Include="Cards\UrzasBlueprints.cs" />
     <Compile Include="Cards\VigilantDrake.cs" />
     <Compile Include="Gameplay\Effects\LookAtTopCardsPutOneInHandOthersOnBottom.cs" />
+    <Compile Include="Gameplay\Effects\RemoveAllCountersFromOwner.cs" />
     <Compile Include="Gameplay\Tournaments\DraftPlayer.cs" />
     <Compile Include="Gameplay\Tournaments\DraftResults.cs" />
     <Compile Include="Gameplay\Tournaments\IDraftingStrategy.cs" />
@@ -787,7 +795,7 @@
     <Compile Include="Infrastructure\SetEx.cs" />
     <Compile Include="Persistance\DecisionLog.cs" />
     <Compile Include="Gameplay\Effects\IEffectChoice.cs" />
-    <Compile Include="Gameplay\Effects\RemoveAllCounters.cs" />
+    <Compile Include="Gameplay\Effects\RemoveAllCountersFromPermanents.cs" />
     <Compile Include="Gameplay\Effects\ReorderTopCards.cs" />
     <Compile Include="Persistance\ErrorReportLoader.cs" />
     <Compile Include="Persistance\IdentityManager.cs" />

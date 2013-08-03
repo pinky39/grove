@@ -4,14 +4,14 @@
   using System.Linq;
   using Counters;
 
-  public class RemoveAllCounters : Effect
+  public class RemoveAllCountersFromPermanents : Effect
   {
     private readonly CounterType _counterType;
     private readonly Func<Card, bool> _filter;
 
-    private RemoveAllCounters() {}
+    private RemoveAllCountersFromPermanents() {}
 
-    public RemoveAllCounters(Func<Card, bool> filter, CounterType counterType)
+    public RemoveAllCountersFromPermanents(Func<Card, bool> filter, CounterType counterType)
     {
       _filter = filter;
       _counterType = counterType;

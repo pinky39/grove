@@ -14,7 +14,7 @@
         // spell with no targets, evaluate just
         // one possiblility
 
-        var p = new TimingRuleParameters(c.Card);
+        var p = new TimingRuleParameters(c.Card, x: c.X);
         if (ShouldPlay(p) == false)
         {
           c.CancelActivation = true;

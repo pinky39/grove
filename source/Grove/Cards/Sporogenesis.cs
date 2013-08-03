@@ -69,7 +69,7 @@
           {
             p.Text = "When Sporogenesis leaves the battlefield, remove all fungus counters from all creatures.";
             p.Trigger(new OnZoneChanged(from: Zone.Battlefield, to: Zone.Graveyard));
-            p.Effect = () => new RemoveAllCounters(c => c.Is().Creature, CounterType.Fungus);
+            p.Effect = () => new RemoveAllCountersFromPermanents(c => c.Is().Creature, CounterType.Fungus);
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });
     }

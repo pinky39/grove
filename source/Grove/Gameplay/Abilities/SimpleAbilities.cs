@@ -1,6 +1,5 @@
 ﻿namespace Grove.Gameplay.Abilities
 {
-  using System;
   using System.Linq;
   using Infrastructure;
   using Modifiers;
@@ -11,14 +10,14 @@
     private readonly TrackableList<SimpleAbility> _abilities = new TrackableList<SimpleAbility>();
     private INotifyChangeTracker _changeTracker = new NullTracker();
 
-    public int CalculateHash(HashCalculator calc)
-    {
-      return calc.Calculate(_abilities);
-    }
-
     public void Accept(ICardModifier modifier)
     {
       modifier.Apply(this);
+    }
+
+    public int CalculateHash(HashCalculator calc)
+    {
+      return calc.Calculate(_abilities);
     }
 
     public bool Deathtouch { get { return Has(Static.Deathtouch); } }
@@ -44,9 +43,18 @@
     public bool AssignsDamageAsThoughItWasntBlocked { get { return Has(Static.AssignsDamageAsThoughItWasntBlocked); } }
     public bool CanAttackOnlyIfDefenderHasIslands { get { return Has(Static.CanAttackOnlyIfDefenderHasIslands); } }
     public bool Flash { get { return Has(Static.Flash); } }
-
+    public bool AttacksEachTurnIfAble { get { return Has(Static.AttacksEachTurnIfAble); } }
     public bool DoesNotUntap { get { return Has(Static.DoesNotUntap); } }
-    public bool AnyEvadingAbility { get { return Fear || Flying || Trample || Unblockable || AssignsDamageAsThoughItWasntBlocked || CanOnlyBeBlockedByCreaturesWithFlying || Swampwalk || Mountainwalk || Islandwalk; } }
+
+    public bool AnyEvadingAbility
+    {
+      get
+      {
+        return Fear || Flying || Trample || Unblockable || AssignsDamageAsThoughItWasntBlocked ||
+          CanOnlyBeBlockedByCreaturesWithFlying || Swampwalk || Mountainwalk || Islandwalk;
+      }
+    }
+
     public bool CanOnlyBeBlockedByCreaturesWithFlying { get { return Has(Static.CanOnlyBeBlockedByCreaturesWithFlying); } }
 
     public void Initialize(INotifyChangeTracker changeTracker, IHashDependancy hashDependancy)

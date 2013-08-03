@@ -26,6 +26,7 @@
     AssignsDamageAsThoughItWasntBlocked,
     CanOnlyBeBlockedByCreaturesWithFlying,
     CanAttackOnlyIfDefenderHasIslands,
-    Flash
+    Flash,
+    AttacksEachTurnIfAble
   }
 }

@@ -28,5 +28,6 @@
     bool CanOnlyBeBlockedByCreaturesWithFlying { get; }
     bool CanAttackOnlyIfDefenderHasIslands { get; }
     bool Flash { get; }
+    bool AttacksEachTurnIfAble { get; }
   }
 }

@@ -90,6 +90,8 @@
     <Compile Include="Cards\Anaconda.cs" />
     <Compile Include="Cards\AngelicChorus.cs" />
     <Compile Include="Cards\Antagonism.cs" />
+    <Compile Include="Cards\Anthroplasm.cs" />
+    <Compile Include="Cards\Archivist.cs" />
     <Compile Include="Cards\ArcLightning.cs" />
     <Compile Include="Cards\ArgothianElder.cs" />
     <Compile Include="Cards\ArgothianEnchantress.cs" />
@@ -281,6 +283,7 @@
     <Compile Include="Cards\TaintedAether.cs" />
     <Compile Include="Cards\ThornwindFaeries.cs" />
     <Compile Include="Cards\ThranTurbine.cs" />
+    <Compile Include="Cards\ThranWarMachine.cs" />
     <Compile Include="Cards\TickingGnomes.cs" />
     <Compile Include="Cards\TimeSpiral.cs" />
     <Compile Include="Cards\TimeWarp.cs" />

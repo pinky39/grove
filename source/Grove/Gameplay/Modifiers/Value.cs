@@ -1,6 +1,6 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
-  using System.Diagnostics;
+  using System;
   using Effects;
 
   public class Value
@@ -46,7 +46,10 @@
       if (_type == ValueType.Constant)
         return _value;
 
-      Debug.Assert(x.HasValue);
+      if (x == null)
+      {
+        throw new InvalidOperationException("X was not specified, did you forgot to define the CostRule? Please note that if you use X in timing rules cost rule must be defined before timing rules.");
+      }
 
       return _type == ValueType.MinusX ? -x.Value : x.Value;
     }
