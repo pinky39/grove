@@ -312,6 +312,7 @@
     <Compile Include="Cards\Victimize.cs" />
     <Compile Include="Cards\VividCreek.cs" />
     <Compile Include="Cards\VoltaicKey.cs" />
+    <Compile Include="Cards\WalkingSponge.cs" />
     <Compile Include="Cards\WallOfDenial.cs" />
     <Compile Include="Cards\WallOfJunk.cs" />
     <Compile Include="Cards\WallOfReverence.cs" />

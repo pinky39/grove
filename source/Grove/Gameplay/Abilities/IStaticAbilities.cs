@@ -29,5 +29,6 @@
     bool CanAttackOnlyIfDefenderHasIslands { get; }
     bool Flash { get; }
     bool AttacksEachTurnIfAble { get; }
+    bool Has(Static ability);
   }
 }

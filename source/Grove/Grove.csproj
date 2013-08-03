@@ -124,6 +124,7 @@
     <Compile Include="Artifical\CombatRules\IncreasePowerAndToughness.cs" />
     <Compile Include="Artifical\CombatRules\Regenerate.cs" />
     <Compile Include="Artifical\DraftAlgorithms\IDraftingStrategies.cs" />
+    <Compile Include="Artifical\TargetingRules\LooseEvasion.cs" />
     <Compile Include="Cards\Anthroplasm.cs" />
     <Compile Include="Cards\Archivist.cs" />
     <Compile Include="Cards\BloatedToad.cs" />
@@ -142,8 +143,11 @@
     <Compile Include="Cards\ThranWarMachine.cs" />
     <Compile Include="Cards\UrzasBlueprints.cs" />
     <Compile Include="Cards\VigilantDrake.cs" />
+    <Compile Include="Cards\WalkingSponge.cs" />
     <Compile Include="Gameplay\Effects\LookAtTopCardsPutOneInHandOthersOnBottom.cs" />
     <Compile Include="Gameplay\Effects\RemoveAllCountersFromOwner.cs" />
+    <Compile Include="Gameplay\Effects\TargetLoosesChosenAbility.cs" />
+    <Compile Include="Gameplay\Modifiers\DisableAbility.cs" />
     <Compile Include="Gameplay\Tournaments\DraftPlayer.cs" />
     <Compile Include="Gameplay\Tournaments\DraftResults.cs" />
     <Compile Include="Gameplay\Tournaments\IDraftingStrategy.cs" />
@@ -1009,7 +1013,7 @@
     <Compile Include="Gameplay\Messages\PermanentGetsUntapped.cs" />
     <Compile Include="Gameplay\Misc\ControllerType.cs" />
     <Compile Include="Gameplay\Modifiers\AddDamageRedirection.cs" />
-    <Compile Include="Gameplay\Modifiers\DisableAbilities.cs" />
+    <Compile Include="Gameplay\Modifiers\DisableAllAbilities.cs" />
     <Compile Include="Gameplay\DamageHandling\PreventAllDamageFromSourceToTarget.cs" />
     <Compile Include="Gameplay\DamageHandling\DamageRedirection.cs" />
     <Compile Include="Gameplay\DamageHandling\DamageRedirections.cs" />

@@ -89,7 +89,7 @@
       return true;
     }
 
-    private bool Has(Static ability)
+    public bool Has(Static ability)
     {
       return _abilities.Any(x => x.IsEnabled && x.Value == ability);
     }
@@ -99,6 +99,26 @@
       foreach (var staticAbility in _abilities)
       {
         staticAbility.Disable();
+      }
+    }
+
+    public void Disable(Static ability)
+    {
+      var abilities = _abilities.Where(x => x.Value == ability);
+
+      foreach (var simpleAbility in abilities)
+      {
+        simpleAbility.Disable();
+      }
+    }
+
+    public void Enable(Static ability)
+    {
+      var abilities = _abilities.Where(x => x.Value == ability);
+
+      foreach (var simpleAbility in abilities)
+      {
+        simpleAbility.Enable();
       }
     }
 

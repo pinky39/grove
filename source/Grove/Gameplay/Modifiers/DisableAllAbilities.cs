@@ -1,8 +1,9 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
+  using System;
   using Abilities;
 
-  public class DisableAbilities : Modifier, ICardModifier
+  public class DisableAllAbilities : Modifier, ICardModifier
   {
     private ActivatedAbilities _activatedAbilities;
     private SimpleAbilities _simpleAbilties;
