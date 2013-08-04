@@ -27,7 +27,7 @@
             p.Cost = new PayMana("{1}{U}".Parse(), ManaUsage.Abilities);
             p.Effect = () => new CounterTargetSpell();
             p.TargetSelector.AddEffect(trg => trg
-              .Is.CounterableSpell(c => c.HasColor(CardColor.Red))
+              .Is.CounterableSpell(e => e.HasColor(CardColor.Red))
               .On.Stack());
 
             p.TargetingRule(new Artifical.TargetingRules.Counterspell());

@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Artifical.TargetingRules;
   using Artifical.TimingRules;
@@ -24,7 +23,7 @@
               .Is.Card(card => card.Is().Artifact || card.Is().Enchantment)
               .On.Battlefield());
 
-            p.TargetingRule(new OrderByRank(c => -c.Score, ControlledBy.Opponent));
+            p.TargetingRule(new Destroy());
             p.TimingRule(new TargetRemoval());
           });
     }

@@ -19,7 +19,7 @@
           {
             p.Effect = () => new CounterTargetSpell {Category = EffectCategories.Counterspell};
             p.TargetSelector.AddEffect(t => t
-              .Is.CounterableSpell(card => card.Is().Artifact || card.Is().Enchantment)
+              .Is.CounterableSpell(e => e.Source.OwningCard.Is().Artifact || e.Source.OwningCard.Is().Enchantment)
               .On.Stack());
 
             p.TargetingRule(new Artifical.TargetingRules.Counterspell());

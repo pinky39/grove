@@ -44,7 +44,7 @@
           })
         .Where(x => x.Rank != -1)
         .OrderBy(x => x.Rank)
-        .ThenByDescending(x => x.Card.Score)
+        .ThenByDescending(x => x.Card.Power*2 + x.Card.Toughness)
         .Select(x => x.Card);
 
       return Group(candidates, p.MinTargetCount());

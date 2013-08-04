@@ -1,352 +1,165 @@
-﻿A v2.0 goal is to implement draft tournaments. Urza's saga edition was chosen to be first edition for drafting. Card implementation status is shown below (o before card means the card is already implemented, x means the card won't be implemented for 2.0):
+﻿Urza's saga
+-----------
 
-o Absolute Grace
-o Absolute Law
 Abundance
-o Abyssal Horror
-o Academy Researchers
-o Acidic Soil
-o Acridian
-o Albino Troll
-o Anaconda
-o Angelic Chorus
-o Angelic Page
-o Annul
-o Antagonism
-o Arc Lightning
 Arcane Laboratory
-o Argothian Elder
-o Argothian Enchantress
-o Argothian Swine
-o Argothian Wurm
-o Attunement
-o Back to Basics
-o Barrin, Master Wizard
-o Barrin's Codex
-o Bedlam
-o Befoul
-o Bereavement
-o Blanchwood Armor
-o Blanchwood Treefolk
-o Blasted Landscape
-o Blood Vassal
-o Bog Raiders
-o Brand
-o Bravado
-o Breach
-o Brilliant Halo
-o Bull Hippo
-o Bulwark
-o Cackling Fiend
 Carpet of Flowers
-o Carrion Beetles
-o Catalog
-o Catastrophe
-o Cathodion
-o Cave Tiger
-o Child of Gaea
-o Chimeric Staff
-o Citanul Centaurs
-o Citanul Flute
-o Citanul Hierophants
-o Claws of Gix
-o Clear
-o Cloak of Mists
-o Confiscate
-o Congregate
 Contamination
-o Copper Gnomes
-o Coral Merfolk
-o Corrupt
-o Cradle Guard
-o Crater Hellion
-o Crazed Skirge
-o Crosswinds
-o Crystal Chimes
-o Curfew
-o Dark Hatchling
-o Dark Ritual
-o Darkest Hour
 Defensive Formation
-o Despondency
-o Destructive Urge
-o Diabolic Servitude
-o Disciple of Grace
-o Disciple of Law
-o Discordant Dirge
-o Disenchant
-o Disorder
-o Disruptive Student
-o Douse
-o Dragon Blood
-o Drifting Djinn
-o Drifting Meadow
-o Dromosaur
-o Duress
-o Eastern Paladin
-o Electryte
-o Elite Archers
-o Elvish Herder
-o Elvish Lyrist
 Enchantment Alteration
-o Endless Wurm
-o Endoskeleton
-o Energy Field
-o Exhaustion
-o Exhume
-o Exploration
-o Expunge
-o Faith Healer
-o Falter
-o Fault Line
-o Fecundity
-o Fertile Ground
-o Fiery Mantle
-o Fire Ants
-o Flesh Reaver
 Fluctuator
-o Fog Bank
-o Forest
-o Forest
-o Forest
-o Forest
-o Fortitude
-o Gaea's Bounty
-o Gaea's Cradle
-o Gaea's Embrace
-o Gamble
-o Gilded Drake
-o Glorious Anthem
-o Goblin Cadets
-o Goblin Lackey
-o Goblin Matron
-o Goblin Offensive
-o Goblin Patrol
-o Goblin Raider
-o Goblin Spelunkers
-o Goblin War Buggy
-o Gorilla Warrior
-o Grafted Skullcap
-o Great Whale
-o Greater Good
-o Greener Pastures
-o Guma
-o Hawkeater Moth
-o Headlong Rush
-o Healing Salve
-o Heat Ray
-o Herald of Serra
-o Hermetic Study
-o Hibernation
-o Hidden Ancients
-o Hidden Guerrillas
-o Hidden Herd
-o Hidden Predators
-o Hidden Spider
-o Hidden Stag
-o Hollow Dogs
-o Hopping Automaton
-o Horseshoe Crab
-o Humble
-o Hush
-o Ill-Gotten Gains
-o Imaginary Pet
-o Intrepid Hero
-o Island
-o Island
-o Island
-o Island
-o Jagged Lightning
-o Karn, Silver Golem
-o Launch
-o Lay Waste
 Lifeline
-o Lightning Dragon
-o Lilting Refrain
-o Lingering Mirage
-o Looming Shade
-o Lotus Blossom
-o Lull
-o Lurking Evil
-o Mana Leech
-o Meltdown
 Metrognome
-o Midsummer Revel
-o Mishra's Helix
-o Mobile Fort
-o Monk Idealist
-o Monk Realist
-o Morphling
-o Mountain
-o Mountain
-o Mountain
-o Mountain
-o No Rest for the Wicked
-o Noetic Scales
 Okk
-o Opal Acrolith
-o Opal Archangel
-o Opal Caryatid
-o Opal Gargoyle
-o Opal Titan
-o Oppression
-o Order of Yawgmoth
-o Outmaneuver
-o Pacifism
-o Parasitic Bond
-o Pariah
-o Path of Peace
-o Pegasus Charger
-o Pendrell Drake
-o Pendrell Flux
-o Peregrine Drake
-o Persecute
-o Pestilence
-o Phyrexian Colossus
-o Phyrexian Ghoul
-o Phyrexian Processor
-o Phyrexian Tower
-o Pit Trap
-o Plains
-o Plains
-o Plains
-o Plains
-o Planar Birth
-o Planar Void
-o Polluted Mire
-o Pouncing Jaguar
-o Power Sink
-o Power Taint
-o Presence of the Master
-o Priest of Gix
-o Priest of Titania
-o Purging Scythe
-o Rain of Filth
-o Rain of Salt
-o Ravenous Skirge
-o Raze
-o Recantation
-o Reclusive Wight
-o Redeem
-o Reflexes
-o Rejuvenate
-o Remembrance
-o Remote Isle
-o Reprocess
-o Rescind
-o Retaliation
-o Retromancer
-o Rewind
-o Rumbling Crescendo
-o Rune of Protection: Artifacts
-o Rune of Protection: Black
-o Rune of Protection: Blue
-o Rune of Protection: Green
-o Rune of Protection: Lands
-o Rune of Protection: Red
-o Rune of Protection: White
-o Sanctum Custodian
-o Sanctum Guardian
-o Sandbar Merfolk
-o Sandbar Serpent
-o Sanguine Guard
-o Scald
-o Scoria Wurm
-o Scrap
-o Seasoned Marshal
-o Serra Avatar
-o Serra Zealot
-o Serra's Embrace
 Serra's Hymn
-o Serra's Liturgy
-o Serra's Sanctum
-o Shimmering Barrier
-o Shivan Gorge
-o Shivan Hellkite
-o Shivan Raptor
-o Shiv's Embrace
-o Show and Tell
-o Shower of Sparks
-o Sicken
-o Silent Attendant
-o Skirge Familiar
-o Skittering Skirge
-o Sleeper Agent
-o Slippery Karst
-o Smokestack
-o Smoldering Crater
-o Sneak Attack
-o Somnophore
-o Songstitcher
-o Soul Sculptor
-o Spined Fluke
-o Spire Owl
-o Sporogenesis
-o Spreading Algae
-o Steam Blast
-o Stern Proctor
-o Stroke of Genius
 Sulfuric Vapors
-o Sunder
-o Swamp
-o Swamp
-o Swamp
-o Swamp
-o Symbiosis
-o Tainted Æther
 Telepathy
 Temporal Aperture
-o Thran Quarry
-o Thran Turbine
-o Thundering Giant
-o Time Spiral
-o Titania's Boon
-o Titania's Chosen
-o Tolarian Academy
-o Tolarian Winds
-o Torch Song
-o Treefolk Seedlings
-o Treetop Rangers
-o Turnabout
-o Umbilicus
-o Unnerve
-o Unworthy Dead
-o Urza's Armor
-o Vampiric Embrace
-o Vebulid
-o Veil of Birds
-o Veiled Apparition
-o Veiled Crocodile
-o Veiled Sentry
-o Veiled Serpent
-o Venomous Fangs
-o Vernal Bloom
-o Viashino Outrider
-o Viashino Runner
-o Viashino Sandswimmer
-o Viashino Weaponsmith
-o Victimize
-o Vile Requiem
-o Voice of Grace
-o Voice of Law
-o Voltaic Key
-o Vug Lizard
-o Wall of Junk
-o War Dance
-o Waylay
-o Western Paladin
-o Whetstone
-o Whirlwind
-o Wild Dogs
-o Wildfire
-o Windfall
-o Winding Wurm
 Wirecat
-o Witch Engine
-o Wizard Mentor
-o Worn Powerstone
-o Worship
-o Yawgmoth's Edict
 Yawgmoth's Will
-o Zephid
-o Zephid's Embrace
+
+Urza's Legacy
+-----------
+About Face
+Angelic Curator
+Angel's Trumpet
+Anthroplasm
+Archivist
+Aura Flux
+Avalanche Riders
+Beast of Burden
+Blessed Reversal
+Bloated Toad
+Bone Shredder
+Bouncing Beebles
+Brink of Madness
+Burst of Energy
+Cessation
+Cloud of Faeries
+Crawlspace
+Crop Rotation
+Damping Engine
+Darkwatch Elves
+Defender of Chaos
+Defender of Law
+Defense Grid
+Defense of the Heart
+Delusions of Mediocrity
+Deranged Hermit
+Devout Harpist
+Engineered Plague
+Erase
+Eviscerator
+Expendable Troops
+Faerie Conclave
+Fleeting Image
+Fog of Gnats
+Forbidding Watchtower
+Frantic Search
+Gang of Elk
+Ghitu Encampment
+Ghitu Fire-Eater
+Ghitu Slinger
+Ghitu War Cry
+Giant Cockroach
+Goblin Medics
+Goblin Welder
+Granite Grip
+Grim Monolith
+Harmonic Convergence
+Hidden Gibbons
+Hope and Glory
+Impending Disaster
+Intervene
+Iron Maiden
+Iron Will
+Jhoira's Toolbox
+Karmic Guide
+King Crab
+Knighthood
+Last-Ditch Effort
+Lava Axe
+Levitation
+Lone Wolf
+Lurking Skirge
+Martyr's Cause
+Memory Jar
+Might of Oaks
+Miscalculation
+Molten Hydra
+Mother of Runes
+Multani, Maro-Sorcerer
+Multani's Acolyte
+Multani's Presence
+No Mercy
+Opal Avenger
+Opal Champion
+Opportunity
+Ostracize
+Palinchron
+Parch
+Peace and Quiet
+Phyrexian Broodlings
+Phyrexian Debaser
+Phyrexian Defiler
+Phyrexian Denouncer
+Phyrexian Plaguelord
+Phyrexian Reclamation
+Plague Beetle
+Planar Collapse
+Purify
+Pygmy Pyrosaur
+Pyromancy
+Quicksilver Amulet
+Rack and Ruin
+Radiant, Archangel
+Radiant's Dragoons
+Radiant's Judgment
+Rancor
+Rank and File
+Raven Familiar
+Rebuild
+Repopulate
+Ring of Gix
+Rivalry
+Scrapheap
+Second Chance
+Shivan Phoenix
+Sick and Tired
+Silk Net
+Simian Grunts
+Sleeper's Guile
+Slow Motion
+Sluggishness
+Snap
+Spawning Pool
+Subversion
+Sustainer of the Realm
+Swat
+Tethered Skirge
+Thornwind Faeries
+Thran Lens
+Thran War Machine
+Thran Weaponry
+Ticking Gnomes
+Tinker
+Tragic Poet
+Treacherous Link
+Treefolk Mystic
+Treetop Village
+Unearth
+Urza's Blueprints
+Viashino Bey
+Viashino Cutthroat
+Viashino Heretic
+Viashino Sandscout
+Vigilant Drake
+Walking Sponge
+Weatherseed Elf
+Weatherseed Faeries
+Weatherseed Treefolk
+Wheel of Torture
+Wing Snare
+Yavimaya Granger
+Yavimaya Scion
+Yavimaya Wurm

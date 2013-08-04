@@ -31,7 +31,7 @@
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 
             p.TimingRule(new FirstMain());
-            p.TargetingRule(new Destroy());
+            p.TargetingRule(new CombatDisabler());
           });
     }
   }

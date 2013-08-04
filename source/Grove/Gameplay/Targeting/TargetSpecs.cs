@@ -2,6 +2,7 @@
 {
   using System;
   using Abilities;
+  using Effects;
   using Misc;
 
   public class TargetSpecs
@@ -23,9 +24,9 @@
     {
       _p.IsValidTarget = p => p.Target.IsPlayer() || (p.Target.IsCard() && p.Target.Card().Is().Creature);
       return _p;
-    }
+    }    
 
-    public TargetValidatorParameters CounterableSpell(Func<Card, bool> filter = null)
+    public TargetValidatorParameters CounterableSpell(Func<Effect, bool> filter = null)
     {
       filter = filter ?? delegate { return true; };
 
@@ -34,7 +35,7 @@
           return p.Target.IsEffect() &&
             p.Target.Effect().CanBeCountered &&
               p.Target.Effect().Source is CastInstruction &&
-                filter(p.Target.Effect().Source.OwningCard);
+                filter(p.Target.Effect());
         };
 
       return _p;

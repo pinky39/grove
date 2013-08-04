@@ -156,6 +156,7 @@
     <Compile Include="Cards\FieryMantle.cs" />
     <Compile Include="Cards\FogBank.cs" />
     <Compile Include="Cards\Fortitude.cs" />
+    <Compile Include="Cards\FranticSearch.cs" />
     <Compile Include="Cards\GaeasBounty.cs" />
     <Compile Include="Cards\GaeasCradle.cs" />
     <Compile Include="Cards\Gamble.cs" />
