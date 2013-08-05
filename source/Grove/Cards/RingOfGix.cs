@@ -33,7 +33,7 @@
             p.Effect = () => new TapTargets();
 
             p.TargetSelector.AddEffect(trg => trg.Is.Card(
-              c => c.Is().Creature || c.Is().Land || c.Is().Artifact));
+              c => c.Is().Creature || c.Is().Land || c.Is().Artifact).On.Battlefield());
 
             p.TimingRule(new Steps(Step.BeginningOfCombat));
             p.TargetingRule(new TapCreature());
