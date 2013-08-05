@@ -1,27 +1,27 @@
 ﻿Urza's saga
 -----------
 
-Abundance
-Arcane Laboratory
-Carpet of Flowers
-Contamination
-Defensive Formation
-Enchantment Alteration
-Fluctuator
-Lifeline
-Metrognome
-Okk
-Serra's Hymn
-Sulfuric Vapors
-Telepathy
-Temporal Aperture
-Wirecat
-Yawgmoth's Will
+x Abundance
+x Arcane Laboratory
+x Carpet of Flowers
+x Contamination
+x Defensive Formation
+x Enchantment Alteration
+x Fluctuator
+x Lifeline
+x Metrognome
+x Okk
+x Serra's Hymn
+x Sulfuric Vapors
+x Telepathy
+x Temporal Aperture
+x Wirecat
+x Yawgmoth's Will
 
 Urza's Legacy
 -----------
-About Face
-Angelic Curator
+o About Face
+o Angelic Curator
 Angel's Trumpet
 Anthroplasm
 Archivist

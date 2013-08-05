@@ -1,6 +1,5 @@
 ﻿namespace Grove.Gameplay.Characteristics
 {
-  using System;
   using Infrastructure;
   using Modifiers;
 
@@ -8,8 +7,8 @@
   public class Strenght : IAcceptsCardModifier
   {
     private readonly Characteristic<int?> _power;
+    private readonly Trackable<bool> _switchPowerAndToughness = new Trackable<bool>();
     private readonly Characteristic<int?> _toughness;
-    private IHashDependancy _hashDependancy;
 
     private Strenght() {}
 
@@ -19,8 +18,23 @@
       _toughness = new Characteristic<int?>(toughness);
     }
 
-    public int? Power { get { return _power.Value < 0 ? 0 : _power.Value; } }
-    public int? Toughness { get { return _toughness.Value < 0 ? 0 : _toughness.Value; } }
+    public int? Power
+    {
+      get
+      {
+        var characteristic = _switchPowerAndToughness ? _toughness : _power;                
+        return characteristic.Value < 0 ? 0 : characteristic.Value;
+      }
+    }
+    
+    public int? Toughness
+    {
+      get
+      {
+        var characteristic = _switchPowerAndToughness ? _power : _toughness;                
+        return characteristic.Value < 0 ? 0 : characteristic.Value;
+      }
+    }
 
     public void Accept(ICardModifier modifier)
     {
@@ -31,7 +45,7 @@
     {
       _power.Initialize(game, hashDependancy);
       _toughness.Initialize(game, hashDependancy);
-      _hashDependancy = hashDependancy;
+      _switchPowerAndToughness.Initialize(game.ChangeTracker, hashDependancy);
     }
 
     public void AddPowerModifier(PropertyModifier<int?> modifier)
@@ -52,6 +66,11 @@
     public void RemoveToughnessModifier(PropertyModifier<int?> modifier)
     {
       _toughness.RemoveModifier(modifier);
+    }
+
+    public void SwitchPowerAndToughness()
+    {
+      _switchPowerAndToughness.Value = !_switchPowerAndToughness.Value;
     }
   }
 }
