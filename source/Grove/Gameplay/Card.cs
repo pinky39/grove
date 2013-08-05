@@ -39,16 +39,15 @@
     private readonly Trackable<bool> _isRevealed = new Trackable<bool>();
     private readonly Trackable<bool> _isTapped = new Trackable<bool>();
     private readonly Level _level;
-    private readonly TrackableList<ICardModifier> _modifiers = new TrackableList<ICardModifier>();
-    private readonly Power _power;
+    private readonly TrackableList<ICardModifier> _modifiers = new TrackableList<ICardModifier>();    
     private readonly Protections _protections;
     private readonly SimpleAbilities _simpleAbilities;
-    private readonly StaticAbilities _staticAbilities;
-    private readonly Toughness _toughness;
+    private readonly StaticAbilities _staticAbilities;    
     private readonly TriggeredAbilities _triggeredAbilities;
     private readonly CardTypeCharacteristic _type;
     private readonly Trackable<int> _usageScore = new Trackable<int>();
     private readonly CardZone _zone = new CardZone();
+    private readonly Strenght _strenght;
 
     public TrackableEvent JoinedBattlefield;
     public TrackableEvent LeftBattlefield;
@@ -67,11 +66,10 @@
       Illustration = p.Illustration;
       MayChooseNotToUntap = p.MayChooseToUntap;
       MinimalBlockerCount = p.MinimalBlockerCount;
-
-      _power = new Power(p.Power);
-      _toughness = new Toughness(p.Toughness);
+      
+      _strenght = new Strenght(p.Power, p.Toughness);      
       _level = new Level(p.IsLeveler ? 0 : (int?) null);
-      _counters = new Counters.Counters(_power, _toughness);
+      _counters = new Counters.Counters(_strenght);
       _type = new CardTypeCharacteristic(p.Type);
       _colors = new CardColors(p.Colors);
 
@@ -153,8 +151,7 @@
     {
       get
       {
-        yield return _power;
-        yield return _toughness;
+        yield return _strenght;        
         yield return _level;
         yield return _counters;
         yield return _colors;
@@ -169,7 +166,7 @@
     }
 
     public string Name { get; private set; }
-    public int? Power { get { return _power.Value < 0 ? 0 : _power.Value; } }
+    public int? Power { get { return  _strenght.Power; } }
 
     public int Score
     {
@@ -213,7 +210,7 @@
 
     public CardText Text { get; private set; }
 
-    public int? Toughness { get { return _toughness.Value; } }
+    public int? Toughness { get { return _strenght.Toughness; } }
     public string Type { get { return _type.Value.ToString(); } }
     public Zone Zone { get { return _zone.Current; } }
     public Zone PreviousZone { get { return _zone.Previous; } }
@@ -413,8 +410,7 @@
 
       _controller = new ControllerCharacteristic(owner);
       _controller.Initialize(game, this);
-      _power.Initialize(game, this);
-      _toughness.Initialize(game, this);
+      _strenght.Initialize(game, this);      
       _level.Initialize(game, this);
       _counters.Initialize(ChangeTracker, this);
       _type.Initialize(game, this);

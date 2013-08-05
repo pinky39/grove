@@ -1,15 +1,13 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
-  using System;
   using Characteristics;
-    
+
   public class AddPowerAndToughness : Modifier, ICardModifier
   {
     private readonly Value _power;
     private readonly Value _toughness;
-    private Power _cardPower;
-    private Toughness _cardToughness;
     private IntegerIncrement _powerIntegerIncrement;
+    private Strenght _strenght;
     private IntegerIncrement _toughnessIntegerIncrement;
 
     private AddPowerAndToughness() {}
@@ -18,28 +16,25 @@
     {
       _power = power;
       _toughness = toughness;
-    }    
-
-    public override void Apply(Power power)
-    {
-      _cardPower = power;
-      _powerIntegerIncrement = new IntegerIncrement(_power.GetValue(X));
-      _powerIntegerIncrement.Initialize(ChangeTracker);
-      _cardPower.AddModifier(_powerIntegerIncrement);
     }
 
-    public override void Apply(Toughness toughness)
+    public override void Apply(Strenght strenght)
     {
-      _cardToughness = toughness;
+      _strenght = strenght;
+
+      _powerIntegerIncrement = new IntegerIncrement(_power.GetValue(X));
+      _powerIntegerIncrement.Initialize(ChangeTracker);
+      _strenght.AddPowerModifier(_powerIntegerIncrement);
+
       _toughnessIntegerIncrement = new IntegerIncrement(_toughness.GetValue(X));
       _toughnessIntegerIncrement.Initialize(ChangeTracker);
-      toughness.AddModifier(_toughnessIntegerIncrement);
+      _strenght.AddToughnessModifier(_toughnessIntegerIncrement);
     }
 
     protected override void Unapply()
     {
-      _cardPower.RemoveModifier(_powerIntegerIncrement);
-      _cardToughness.RemoveModifier(_toughnessIntegerIncrement);
+      _strenght.RemovePowerModifier(_powerIntegerIncrement);
+      _strenght.RemoveToughnessModifier(_toughnessIntegerIncrement);
     }
   }
 }

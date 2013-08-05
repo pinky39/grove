@@ -7,8 +7,7 @@
     private readonly Value _power;
     private readonly Value _tougness;
 
-    private Power _cardPower;
-    private Toughness _cardToughness;
+    private Strenght _strenght;    
     private IntegerSetter _powerIntegerSetter;
     private IntegerSetter _toughnessIntegerSetter;
 
@@ -20,26 +19,22 @@
       _tougness = tougness;
     }
 
-    public override void Apply(Power power)
+    public override void Apply(Strenght strenght)
     {
-      _cardPower = power;
+      _strenght = strenght;
       _powerIntegerSetter = new IntegerSetter(_power.GetValue(X));
       _powerIntegerSetter.Initialize(ChangeTracker);
-      _cardPower.AddModifier(_powerIntegerSetter);
-    }
+      _strenght.AddPowerModifier(_powerIntegerSetter);
 
-    public override void Apply(Toughness toughness)
-    {
-      _cardToughness = toughness;
       _toughnessIntegerSetter = new IntegerSetter(_tougness.GetValue(X));
       _toughnessIntegerSetter.Initialize(ChangeTracker);
-      _cardToughness.AddModifier(_toughnessIntegerSetter);
-    }
+      _strenght.AddToughnessModifier(_toughnessIntegerSetter);      
+    }        
 
     protected override void Unapply()
     {
-      _cardPower.RemoveModifier(_powerIntegerSetter);
-      _cardToughness.RemoveModifier(_toughnessIntegerSetter);
+      _strenght.RemovePowerModifier(_powerIntegerSetter);
+      _strenght.RemoveToughnessModifier(_toughnessIntegerSetter);      
     }
   }
 }

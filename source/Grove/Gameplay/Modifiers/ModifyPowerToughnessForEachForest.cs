@@ -7,14 +7,14 @@
   using Messages;
   using Zones;
 
-  public class ModifyPowerToughnessForEachForest : Modifier, IReceive<ZoneChanged>, IReceive<ControllerChanged>, ICardModifier
+  public class ModifyPowerToughnessForEachForest : Modifier, IReceive<ZoneChanged>, IReceive<ControllerChanged>,
+    ICardModifier
   {
-    private readonly int? _modifyPower;    
+    private readonly int? _modifyPower;
     private readonly int? _modifyToughness;
-    private Power _power;
-    private Toughness _tougness;
-    private IntegerModifier _toughnessModifier;
-    private IntegerModifier _powerModifier;
+    private readonly IntegerModifier _powerModifier;
+    private readonly IntegerModifier _toughnessModifier;
+    private Strenght _strenght;
 
     protected ModifyPowerToughnessForEachForest() {}
 
@@ -25,7 +25,21 @@
 
       _toughnessModifier = modifier();
       _powerModifier = modifier();
+    }
 
+    public override void Apply(Strenght strenght)
+    {
+      _strenght = strenght;
+
+      if (_modifyPower.HasValue)
+      {
+        _strenght.AddPowerModifier(_powerModifier);
+      }
+
+      if (_modifyToughness.HasValue)
+      {
+        _strenght.AddToughnessModifier(_toughnessModifier);
+      }
     }
 
     public void Receive(ControllerChanged message)
@@ -62,7 +76,7 @@
       if (_modifyPower == null)
         return;
 
-      _powerModifier.Value = value;        
+      _powerModifier.Value = value;
     }
 
     private void SetToughnessIfModified(int? value)
@@ -70,7 +84,7 @@
       if (_modifyToughness == null)
         return;
 
-      _toughnessModifier.Value = value;      
+      _toughnessModifier.Value = value;
     }
 
     private void IncreasePowerIfModified(int? value)
@@ -90,36 +104,18 @@
     }
 
 
-    public override void Apply(Power power)
-    {
-      if (_modifyPower.HasValue)
-      {
-        _power = power;
-        power.AddModifier(_powerModifier);        
-      }
-    }
-
-    public override void Apply(Toughness toughness)
-    {
-      if (_modifyToughness.HasValue)
-      {
-        _tougness = toughness;
-        toughness.AddModifier(_toughnessModifier);        
-      }
-    }
-
     protected override void Initialize()
     {
       _toughnessModifier.Initialize(ChangeTracker);
       _powerModifier.Initialize(ChangeTracker);
-      
+
       var forestCount = GetForestCount(SourceCard.Controller);
 
       if (_modifyToughness.HasValue)
-        _toughnessModifier.Value = forestCount* _modifyToughness;
-      
+        _toughnessModifier.Value = forestCount*_modifyToughness;
+
       if (_modifyPower.HasValue)
-        _powerModifier.Value = forestCount*_modifyPower;            
+        _powerModifier.Value = forestCount*_modifyPower;
     }
 
 
@@ -127,12 +123,12 @@
     {
       if (_modifyPower.HasValue)
       {
-        _power.RemoveModifier(_powerModifier);
+        _strenght.RemovePowerModifier(_powerModifier);
       }
 
       if (_modifyToughness.HasValue)
       {
-        _tougness.RemoveModifier(_toughnessModifier);        
+        _strenght.RemoveToughnessModifier(_toughnessModifier);
       }
     }
 

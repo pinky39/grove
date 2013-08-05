@@ -69,9 +69,7 @@
     public virtual void Apply(TriggeredAbilities abilities) {}
     public virtual void Apply(SimpleAbilities abilities) {}
     public virtual void Apply(ActivatedAbilities abilities) {}
-    public virtual void Apply(CardColors colors) {}
-    public virtual void Apply(Power power) {}
-    public virtual void Apply(Toughness toughness) {}
+    public virtual void Apply(CardColors colors) {}    
     public virtual void Apply(DamagePreventions damagePreventions) {}
     public virtual void Apply(Protections protections) {}
     public virtual void Apply(CardTypeCharacteristic cardType) {}
@@ -80,6 +78,7 @@
     public virtual void Apply(DamageRedirections damageRedirections) {}
     public virtual void Apply(ContiniousEffects continiousEffects) {}
     public virtual void Apply(LandLimit landLimit) {}
+    public virtual void Apply(Strenght strenght) {}
 
     public void AddLifetime(Lifetime lifetime)
     {

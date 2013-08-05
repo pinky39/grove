@@ -12,13 +12,12 @@
     private readonly Func<Modifier, int> _toughness;
     private readonly Func<Modifier, string> _type;
     private CardColorSetter _cardColorSetter;
-    private CardColors _cardColors;
-    private Power _cardPower;
-    private Toughness _cardToughness;
+    private CardColors _cardColors;    
     private CardTypeCharacteristic _cardType;
     private IntegerSetter _powerIntegerSetter;
     private IntegerSetter _toughnessIntegerSetter;
     private CardTypeSetter _typeSetter;
+    private Strenght _strenght;
 
     private ChangeToCreature() {}
 
@@ -45,22 +44,20 @@
       _cardColors.AddModifier(_cardColorSetter);
     }
 
-    public override void Apply(Power power)
+    public override void Apply(Strenght strenght)
     {
-      _cardPower = power;
+      _strenght = strenght;
+
       _powerIntegerSetter = new IntegerSetter(_power(this));
       _powerIntegerSetter.Initialize(ChangeTracker);
-      _cardPower.AddModifier(_powerIntegerSetter);
-    }
+      _strenght.AddPowerModifier(_powerIntegerSetter);
 
-    public override void Apply(Toughness toughness)
-    {
-      _cardToughness = toughness;
+
       _toughnessIntegerSetter = new IntegerSetter(_toughness(this));
       _toughnessIntegerSetter.Initialize(ChangeTracker);
-      _cardToughness.AddModifier(_toughnessIntegerSetter);
+      _strenght.AddToughnessModifier(_toughnessIntegerSetter);
     }
-
+        
     public override void Apply(CardTypeCharacteristic cardType)
     {
       _cardType = cardType;
@@ -71,8 +68,8 @@
 
     protected override void Unapply()
     {
-      _cardPower.RemoveModifier(_powerIntegerSetter);
-      _cardToughness.RemoveModifier(_toughnessIntegerSetter);
+      _strenght.RemovePowerModifier(_powerIntegerSetter);
+      _strenght.RemoveToughnessModifier(_toughnessIntegerSetter);      
 
       if (_cardColorSetter != null)
         _cardColors.RemoveModifier(_cardColorSetter);

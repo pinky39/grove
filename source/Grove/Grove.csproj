@@ -149,6 +149,7 @@
     <Compile Include="Cards\VigilantDrake.cs" />
     <Compile Include="Cards\WalkingSponge.cs" />
     <Compile Include="Cards\WeatherseedFaeries.cs" />
+    <Compile Include="Gameplay\Characteristics\Strenght.cs" />
     <Compile Include="Gameplay\Effects\LookAtTopCardsPutOneInHandOthersOnBottom.cs" />
     <Compile Include="Gameplay\Effects\RemoveAllCountersFromOwner.cs" />
     <Compile Include="Gameplay\Effects\TargetLoosesChosenAbility.cs" />
@@ -1182,11 +1183,9 @@
     <Compile Include="Gameplay\Modifiers\IAcceptsCardModifier.cs" />
     <Compile Include="Gameplay\Modifiers\IntegerIncrement.cs" />
     <Compile Include="Gameplay\Modifiers\IntegerSetter.cs" />
-    <Compile Include="Gameplay\Characteristics\Power.cs" />
     <Compile Include="Gameplay\Modifiers\CardColorSetter.cs" />
     <Compile Include="Gameplay\Abilities\Static.cs" />
     <Compile Include="Infrastructure\Characteristic.cs" />
-    <Compile Include="Gameplay\Characteristics\Toughness.cs" />
     <Compile Include="Gameplay\DamageHandling\DamagePreventions.cs" />
     <Compile Include="Gameplay\Characteristics\Protections.cs" />
     <Compile Include="Gameplay\Abilities\TriggeredAbilities.cs" />

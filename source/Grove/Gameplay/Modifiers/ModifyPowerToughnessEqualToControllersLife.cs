@@ -4,28 +4,22 @@
   using Infrastructure;
   using Messages;
 
-  public class ModifyPowerToughnessEqualToControllersLife : Modifier, IReceive<PlayerLifeChanged>, IReceive<ControllerChanged>, ICardModifier
-  {    
+  public class ModifyPowerToughnessEqualToControllersLife : Modifier, IReceive<PlayerLifeChanged>,
+    IReceive<ControllerChanged>, ICardModifier
+  {
     private readonly IntegerSetter _strenghtModifier = new IntegerSetter();
-    private Power _power;
-    private Toughness _toughness;
+    private Strenght _strenght;
 
-    public override void Apply(Power power)
+    public override void Apply(Strenght strenght)
     {
-      _power = power;
-      power.AddModifier(_strenghtModifier);
+      _strenght = strenght;
+      _strenght.AddPowerModifier(_strenghtModifier);
+      _strenght.AddToughnessModifier(_strenghtModifier);
     }
 
-    public override void Apply(Toughness toughness)
+    public void Receive(ControllerChanged message)
     {
-      _toughness = toughness;
-      _toughness.AddModifier(_strenghtModifier);
-    }
-    
-    protected override void Unapply()
-    {
-      _toughness.RemoveModifier(_strenghtModifier);
-      _power.RemoveModifier(_strenghtModifier);
+      _strenghtModifier.Value = SourceCard.Controller.Life;
     }
 
     public void Receive(PlayerLifeChanged message)
@@ -36,14 +30,15 @@
       }
     }
 
+    protected override void Unapply()
+    {
+      _strenght.RemovePowerModifier(_strenghtModifier);
+      _strenght.RemoveToughnessModifier(_strenghtModifier);
+    }
+
     protected override void Initialize()
     {
       _strenghtModifier.Initialize(ChangeTracker);
-      _strenghtModifier.Value = SourceCard.Controller.Life;
-    }
-
-    public void Receive(ControllerChanged message)
-    {
       _strenghtModifier.Value = SourceCard.Controller.Life;
     }
   }

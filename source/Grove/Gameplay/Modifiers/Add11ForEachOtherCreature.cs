@@ -10,8 +10,14 @@
     IReceive<TypeChanged>, IReceive<ControllerChanged>
   {
     private IntegerIncrement _integerIncrement = new IntegerIncrement();
-    private Power _power;
-    private Toughness _tougness;
+    private Strenght _strenght;
+
+    public override void Apply(Strenght strenght)
+    {
+      _strenght = strenght;
+      _strenght.AddPowerModifier(_integerIncrement);
+      _strenght.AddToughnessModifier(_integerIncrement);
+    }
 
     public void Receive(ControllerChanged message)
     {
@@ -53,20 +59,8 @@
 
     protected override void Unapply()
     {
-      _power.RemoveModifier(_integerIncrement);
-      _tougness.RemoveModifier(_integerIncrement);
-    }
-
-    public override void Apply(Power power)
-    {
-      _power = power;
-      power.AddModifier(_integerIncrement);
-    }
-
-    public override void Apply(Toughness toughness)
-    {
-      _tougness = toughness;
-      toughness.AddModifier(_integerIncrement);
+      _strenght.RemovePowerModifier(_integerIncrement);
+      _strenght.RemoveToughnessModifier(_integerIncrement);
     }
 
     protected override void Initialize()

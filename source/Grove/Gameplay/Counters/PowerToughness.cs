@@ -7,8 +7,7 @@
   {
     private readonly int _power;
     private readonly int _toughness;
-    private Power _cardPower;
-    private Toughness _cardToughness;
+    private Strenght _strenght;
     private IntegerIncrement _powerIntegerIncrement;
     private IntegerIncrement _toughnessIntegerIncrement;
 
@@ -22,30 +21,25 @@
 
     public override CounterType Type { get { return CounterType.PowerToughnes; } }
 
-    public override void ModifyPower(Power power)
+    public override void ModifyStrenght(Strenght strenght)
     {
-      _cardPower = power;
+      _strenght = strenght;
 
       _powerIntegerIncrement = new IntegerIncrement(_power);
       _powerIntegerIncrement.Initialize(ChangeTracker);
 
-      power.AddModifier(_powerIntegerIncrement);
-    }
-
-    public override void ModifyToughness(Toughness toughness)
-    {
-      _cardToughness = toughness;
+      _strenght.AddPowerModifier(_powerIntegerIncrement);
 
       _toughnessIntegerIncrement = new IntegerIncrement(_toughness);
       _toughnessIntegerIncrement.Initialize(ChangeTracker);
 
-      toughness.AddModifier(_toughnessIntegerIncrement);
-    }
+      _strenght.AddToughnessModifier(_toughnessIntegerIncrement);            
+    }        
 
     public override void Remove()
     {
-      _cardPower.RemoveModifier(_powerIntegerIncrement);
-      _cardToughness.RemoveModifier(_toughnessIntegerIncrement);
+      _strenght.RemovePowerModifier(_powerIntegerIncrement);
+      _strenght.RemoveToughnessModifier(_toughnessIntegerIncrement);      
     }
   }
 }

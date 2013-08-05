@@ -6,7 +6,7 @@
   {
     private readonly Trackable<int?> _value = new Trackable<int?>();
 
-    protected IntegerModifier() {}    
+    protected IntegerModifier() {}
 
     protected IntegerModifier(int? value)
     {
@@ -22,8 +22,6 @@
         NotifyModifierHasChanged();
       }
     }
-
-    
 
     public override void Initialize(INotifyChangeTracker changeTracker)
     {

@@ -9,15 +9,13 @@
   public class Counters : IAcceptsCardModifier
   {
     private readonly TrackableList<Counter> _counters = new TrackableList<Counter>();
-    private readonly Power _power;
-    private readonly Toughness _toughness;
+    private readonly Strenght _strenght;
 
     private Counters() {}
 
-    public Counters(Power power, Toughness toughness)
+    public Counters(Strenght strenght)
     {
-      _power = power;
-      _toughness = toughness;
+      _strenght = strenght;
     }
 
     public int Count { get { return _counters.Count; } }
@@ -39,8 +37,7 @@
 
     public void Add(Counter counter)
     {
-      counter.ModifyPower(_power);
-      counter.ModifyToughness(_toughness);
+      counter.ModifyStrenght(_strenght);
       _counters.Add(counter);
     }
 

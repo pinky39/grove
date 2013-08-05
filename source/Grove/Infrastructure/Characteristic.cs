@@ -4,9 +4,8 @@
   using System.Linq;
   using Gameplay;
   using Gameplay.Misc;
-
-  [Copyable]
-  public abstract class Characteristic<T> : GameObject, ICopyContributor
+  
+  public class Characteristic<T> : GameObject, ICopyContributor
   {
     private readonly T _baseValue;
     private readonly Trackable<T> _currentValue;
@@ -14,7 +13,7 @@
 
     protected Characteristic() {}
 
-    protected Characteristic(T value)
+    public Characteristic(T value)
     {
       _baseValue = value;
       _currentValue = new Trackable<T>(value);
