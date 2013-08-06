@@ -35,8 +35,8 @@
     {
       return new GameParameters
         {
-          Player1 = new PlayerParameters {Name = "Player1", Avatar = "Player1.png", Deck = Deck.CreateUncastable()},
-          Player2 = new PlayerParameters {Name = "Player2", Avatar = "Player2.png", Deck = Deck.CreateUncastable()},
+          Player1 = new PlayerParameters {Name = "Player1", Deck = Deck.CreateUncastable()},
+          Player2 = new PlayerParameters {Name = "Player2", Deck = Deck.CreateUncastable()},
           Player1Controller = player1Controller,
           Player2Controller = player2Controller,
           SearchParameters = new SearchParameters(40, 2, enableMultithreading: true)
@@ -47,8 +47,8 @@
     {
       return new GameParameters
         {
-          Player1 = new PlayerParameters {Name = "Player1", Avatar = "Player1.png", Deck = player1Deck},
-          Player2 = new PlayerParameters {Name = "Player2", Avatar = "Player2.png", Deck = player2Deck},
+          Player1 = new PlayerParameters {Name = "Player1", Deck = player1Deck},
+          Player2 = new PlayerParameters {Name = "Player2", Deck = player2Deck},
           Player1Controller = ControllerType.Machine,
           Player2Controller = ControllerType.Machine,
           SearchParameters = searchParameters

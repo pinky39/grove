@@ -1,5 +1,6 @@
 ﻿namespace Grove.Artifical.TargetingRules
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Gameplay;
@@ -8,10 +9,20 @@
 
   public class CombatEnchantment : TargetingRule
   {
+    private readonly Func<Card, bool> _filter;
+
+    private CombatEnchantment() {}
+
+    public CombatEnchantment(Func<Card, bool> filter = null)
+    {
+      _filter = filter ?? delegate { return true; };
+    }
+
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
     {
       var candidates = p.Candidates<Card>(ControlledBy.SpellOwner)
         .Where(x => x.IsAbleToAttack)
+        .Where(x => _filter(x))
         .Select(x => new
           {
             Card = x.Card(),

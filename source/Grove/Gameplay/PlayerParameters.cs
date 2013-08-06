@@ -6,7 +6,7 @@
   public class PlayerParameters
   {
     public string Name;
-    public string Avatar;
+    public int AvatarId;
     public Deck Deck;
   }
 }

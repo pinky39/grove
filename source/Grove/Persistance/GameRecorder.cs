@@ -61,13 +61,13 @@
           Player1 = new PlayerParameters
             {
               Name = player1.Name,
-              Avatar = player1.Avatar,
+              AvatarId = player1.AvatarId,
               Deck = player1.Deck,
             },
           Player2 = new PlayerParameters
             {
               Name = player2.Name,
-              Avatar = player2.Avatar,
+              AvatarId = player2.AvatarId,
               Deck = player2.Deck,
             },
           RandomSeed = _game.Random.Seed,

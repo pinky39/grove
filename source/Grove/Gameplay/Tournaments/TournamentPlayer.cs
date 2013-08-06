@@ -10,12 +10,14 @@
     {
       Name = name;
       IsHuman = isHuman;
+      AvatarId = RandomEx.Next();
     }
 
     private TournamentPlayer() {}
 
-    public string Name { get; private set; }
+    public string Name { get; private set; }    
     public bool IsHuman { get; private set; }
+    public int AvatarId { get; private set; }
     public int WinCount { get; set; }
     public int DrawCount { get; set; }
     public int LooseCount { get; set; }

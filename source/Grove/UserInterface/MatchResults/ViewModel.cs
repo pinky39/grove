@@ -32,13 +32,13 @@
 
     public bool ShouldRematch { get; set; }
 
-    public string WinningAvatar
+    public int WinningAvatar
     {
       get
       {
         return Players.Player1.HasLost
-          ? Players.Player2.Avatar
-          : Players.Player1.Avatar;
+          ? Players.Player2.AvatarId
+          : Players.Player1.AvatarId;
       }
     }
 

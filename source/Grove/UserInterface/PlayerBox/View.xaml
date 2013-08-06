@@ -41,8 +41,11 @@
 			</i:Interaction.Triggers>
 
 			<StackPanel Orientation="Horizontal">
-				<Image Margin="0,0,15,0" Source="{Binding Player.Avatar, Converter={Ui:Media}}" />
-				<TextBlock Margin="0,0,15,0" FontSize="17" Text="{Binding Player.Name}" />
+                <Border Height="20" Margin="0,0,15,0" BorderBrush="#fff" BorderThickness="1">
+                    <Image  Source="{Binding Player.AvatarId, Converter={x:Static Ui:Converters.AvatarIdToAvatarImage}}"/>
+                </Border>
+                
+                <TextBlock Margin="0,0,15,0" FontSize="17" Text="{Binding Player.Name}" />
 				<TextBlock Text="Life:" />
 				<TextBlock Style="{StaticResource Value}" Text="{Binding Life}" Foreground="{Binding Life,Converter={x:Static Ui:Converters.LifeToColor}}" />
 				<TextBlock Margin="15,0,0,0" Text="Hand:" />

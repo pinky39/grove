@@ -93,7 +93,17 @@
                                         </Grid.ColumnDefinitions>
 
                                         <TextBlock Grid.Column="0" Text="{Binding Place, StringFormat=' {0}.'}" TextAlignment="Right"/>
-                                        <TextBlock Grid.Column="1" Margin="10,0,0,0" Text="{Binding Player.Name}" />
+
+                                        <StackPanel Grid.Column="1" Margin="10,0,0,0" Orientation="Horizontal">
+
+                                            <Border Margin="0,5,10,5" BorderBrush="#fff" BorderThickness="1">
+                                                <Image Height="30" Source="{Binding Player.AvatarId, Converter={x:Static grove:Converters.AvatarIdToAvatarImage}}"/>
+                                            </Border>
+                                            
+                                            <TextBlock Text="{Binding Player.Name}" />
+                                        </StackPanel>
+                                        
+                                        
                                         <TextBlock Grid.Column="3" TextAlignment="Right" Text="{Binding Player.GamesWonPercentage, StringFormat=' {0:F0}%'}"/>
                                         <TextBlock Grid.Column="4" TextAlignment="Right" Margin="20,0,0,0" Text="{Binding Player.MatchPoints}"/>
                                         

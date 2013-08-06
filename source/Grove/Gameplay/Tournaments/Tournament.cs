@@ -321,13 +321,13 @@
         player1: new PlayerParameters
           {
             Name = human.Name,
-            Avatar = "player1.png",
+            AvatarId = human.AvatarId,
             Deck = human.Deck
           },
         player2: new PlayerParameters
           {
             Name = nonHuman.Name,
-            Avatar = "player2.png",
+            AvatarId = nonHuman.AvatarId,
             Deck = nonHuman.Deck
           },
         isTournament: true);

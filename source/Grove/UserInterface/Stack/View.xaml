@@ -60,9 +60,9 @@
 								<ItemsControl.Resources>
 									<DataTemplate DataType="{x:Type Gameplay:Player}">
 										<Viewbox>
-											<Border Width="324" Height="458">
-												<Image Source="{Binding Avatar, Converter={Ui:Media}}" />
-											</Border>
+                                            <Border Width="324" >                                                
+                                                <Image Source="{Binding AvatarId, Converter={x:Static Ui:Converters.AvatarIdToAvatarImage}}"/>                                                
+                                            </Border>
 										</Viewbox>
 									</DataTemplate>
 									<DataTemplate DataType="{x:Type Effects:Effect}">
@@ -78,7 +78,7 @@
 
 								<ItemsControl.ItemTemplate>
 									<DataTemplate>
-										<Border Margin="5,0,0,0" BorderBrush="#000" BorderThickness="15" CornerRadius="4" Background="#cc000000">
+										<Border VerticalAlignment="Center" Margin="10,0,0,0" BorderBrush="#fff" BorderThickness="10" CornerRadius="4" Background="#cc000000">
 											<ContentControl>
 												<ContentControl Content="{Binding}">
 													<i:Interaction.Triggers>

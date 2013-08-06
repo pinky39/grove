@@ -69,13 +69,13 @@
                             player1: new PlayerParameters
                               {
                                 Name = YourName,
-                                Avatar = "player1.png",
+                                AvatarId = RandomEx.Next(),
                                 Deck = deck1
                               },
                             player2: new PlayerParameters
                               {
                                 Name = MediaLibrary.NameGenerator.GenerateName(),
-                                Avatar = "player2.png",
+                                AvatarId = RandomEx.Next(),
                                 Deck = deck2
                               },
                             isTournament: false
@@ -97,7 +97,7 @@
 
       selectDeck1 = ViewModels.SelectDeck.Create(configuration1);
       Shell.ChangeScreen(selectDeck1);
-    }   
+    }
 
     public void PlayRandom()
     {
@@ -112,13 +112,13 @@
           player1: new PlayerParameters
             {
               Name = YourName,
-              Avatar = "player1.png",
+              AvatarId = RandomEx.Next(),
               Deck = firstDeck
             },
           player2: new PlayerParameters
             {
               Name = MediaLibrary.NameGenerator.GenerateName(),
-              Avatar = "player2.png",
+              AvatarId = RandomEx.Next(),
               Deck = secondDeck
             },
           isTournament: false

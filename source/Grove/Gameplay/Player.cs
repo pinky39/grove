@@ -37,7 +37,7 @@
     public Player(PlayerParameters p, ControllerType controllerType)
     {
       Name = p.Name;
-      Avatar = p.Avatar;
+      AvatarId = p.AvatarId;
       Controller = controllerType;
 
       _assignedDamage = new AssignedDamage(this);
@@ -65,7 +65,7 @@
       }
     }
 
-    public string Avatar { get; private set; }
+    public int AvatarId { get; private set; }
     public Deck Deck { get { return _deck; } }
     public IBattlefieldQuery Battlefield { get { return _battlefield; } }
     public IEnumerable<Card> Exile { get { return _exile; } }

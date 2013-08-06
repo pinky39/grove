@@ -21,6 +21,7 @@
     public static CardNameToCardImageConverter CardIllustrationNameToCardImage = new CardNameToCardImageConverter();
     public static CharacterCountToFontSizeConverter CharacterCountToFontSize = new CharacterCountToFontSizeConverter();
     public static LifeToColorConverter LifeToColor = new LifeToColorConverter();
+    public static AvatarIdToAvatarImageConverter AvatarIdToAvatarImage = new AvatarIdToAvatarImageConverter();
 
     public static ManaCostToManaSymbolImagesConverter ManaCostToManaSymbolImages =
       new ManaCostToManaSymbolImagesConverter();
@@ -33,6 +34,19 @@
     public static NonZeroToCollapsedConverter NonZeroToCollapsed = new NonZeroToCollapsedConverter();
     public static RatingConverter Rating = new RatingConverter();
 
+    public class AvatarIdToAvatarImageConverter : IValueConverter
+    {
+      public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+      {
+        var id = (int) value;
+        return MediaLibrary.GetAvatar(id);
+      }
+
+      public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+      {
+        throw new NotImplementedException();
+      }
+    }
 
     public class AutoPassToImageConverter : IValueConverter
     {

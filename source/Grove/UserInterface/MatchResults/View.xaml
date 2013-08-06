@@ -26,8 +26,12 @@
 						<ColumnDefinition Width="Auto" />
 						<ColumnDefinition Width="*" />
 					</Grid.ColumnDefinitions>
-					<Image Height="80" Grid.Column="0" HorizontalAlignment="Center" Margin="10,0,30,0" VerticalAlignment="Center" Source="{Binding WinningAvatar, Converter={grove:Media}}" />
-					<StackPanel Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    
+                    <Border Margin="10,0,30,0" >
+                        <Image Height="80" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Source="{Binding WinningAvatar,  Converter={x:Static grove:Converters.AvatarIdToAvatarImage}}" />
+                    </Border>
+                    
+                    <StackPanel Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">
 
 						<TextBlock Margin="0,0,0,10" FontSize="20" Text="{Binding ResultText}" TextWrapping="Wrap" />
 

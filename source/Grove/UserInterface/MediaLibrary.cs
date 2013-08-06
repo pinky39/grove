@@ -18,9 +18,11 @@
     private const string Sets = @"sets\";
     private const string SavedGames = @"saved\";
     private const string Tournament = @"tournament\";
+    private const string Avatars = @"avatars\";
 
     private static readonly Dictionary<string, ImageSource> ImageDatabase = new Dictionary<string, ImageSource>();
     private static readonly Dictionary<string, MagicSet> SetsDatabase = new Dictionary<string, MagicSet>();
+    private static readonly List<ImageSource> AvatarsDatabase = new List<ImageSource>();
 
     private static readonly Dictionary<int, List<Gameplay.Deck>> LimitedDeckDatabase =
       new Dictionary<int, List<Gameplay.Deck>>();
@@ -35,6 +37,7 @@
 #endif
 
     public static string ImagesFolder { get { return Path.Combine(BasePath, Images); } }
+    public static string AvatarsFolder {get { return Path.Combine(BasePath, Avatars); }}
     public static string DecksFolder { get { return Path.Combine(BasePath, Decks); } }
     public static string SetsFolder { get { return Path.Combine(BasePath, Sets); } }
     public static string TournamentFolder { get { return Path.Combine(BasePath, Tournament); } }
@@ -54,6 +57,7 @@
       LoadSets();
       LoadLimitedDecks();
       LoadPlayerNames();
+      LoadAvatars();
     }
 
     public static void LoadPlayerNames()
@@ -85,6 +89,19 @@
       }
     }
 
+    public static void LoadAvatars()
+    {
+      var files = Directory.EnumerateFiles(AvatarsFolder);
+
+      foreach (var file in files)
+      {
+        var uri = new Uri(file);
+        var bitmapImage = new BitmapImage(uri);
+        bitmapImage.Freeze();
+        AvatarsDatabase.Add(bitmapImage);                
+      }
+    }
+
     public static void LoadImageFolder(string path)
     {
       var fullPath = Path.Combine(BasePath, path);
@@ -106,6 +123,14 @@
     public static ImageSource GetCardImage(string name)
     {
       return GetImage(name, Cards);
+    }
+
+    public static ImageSource GetAvatar(int id)
+    {
+      if (AvatarsDatabase.Count == 0)
+        return MissingImage;
+
+      return AvatarsDatabase[id % AvatarsDatabase.Count];
     }
 
     public static List<string> GetSetsNames()

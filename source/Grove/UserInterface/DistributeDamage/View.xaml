@@ -30,11 +30,9 @@
 								<DataTemplate.Resources>
 
 									<DataTemplate DataType="{x:Type Gameplay:Player}">
-										<Viewbox>
-											<Border Background="#000" Width="324" Height="458">
-												<Image Source="{Binding Avatar, Converter={Ui:Media}}" />
-											</Border>
-										</Viewbox>
+										<Viewbox>                                            
+                                            <Image Source="{Binding AvatarId, Converter={x:Static Ui:Converters.AvatarIdToAvatarImage}}"/>                                            
+                                        </Viewbox>
 									</DataTemplate>
 
 									<DataTemplate DataType="{x:Type Gameplay:Card}">
@@ -51,7 +49,7 @@
 
 								</DataTemplate.Resources>
 
-								<Grid Margin="10,0,0,0">
+								<Grid Margin="10,0,0,0" Width="140">
 									<Interactivity:Interaction.Triggers>
 										<Interactivity:EventTrigger EventName="MouseUp">
 											<cal:ActionMessage MethodName="AssignOne">
@@ -60,7 +58,7 @@
 										</Interactivity:EventTrigger>
 									</Interactivity:Interaction.Triggers>
 
-									<ContentControl Style="{StaticResource SelectableContent}">
+                                    <ContentControl VerticalAlignment="Center" Style="{StaticResource SelectableContent}">
 										<ContentControl Content="{Binding Target}">
 										</ContentControl>
 									</ContentControl>
