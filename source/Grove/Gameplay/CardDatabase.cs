@@ -90,7 +90,7 @@
       {
         query = parser.Parse(searchStr);
       }
-      catch (ParseException ex)
+      catch (ParseException)
       {
         query = parser.Parse("invalidsearchstringreturnsnoresults");
       }

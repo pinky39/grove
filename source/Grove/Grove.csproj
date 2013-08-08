@@ -1137,6 +1137,7 @@
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserInterface\PlayerBox\ViewModel.cs" />
+    <Compile Include="UserInterface\ThinkingMessages.cs" />
     <Compile Include="UserInterface\SelectableCard\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>

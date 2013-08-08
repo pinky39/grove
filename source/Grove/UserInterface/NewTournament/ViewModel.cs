@@ -6,7 +6,7 @@
 
   public class ViewModel : ViewModelBase
   {
-    private readonly int[] _draftTournamentSize = new[] {4, 6, 8, 10, 12};
+    private readonly int[] _draftTournamentSize = new[] {4, 6, 8, 10};
     private readonly object _previousScreen;
     private readonly int[] _sealedTournamentSize = new[] {30, 50, 100, 150, 200, 300, 500};
     private readonly List<string> _sets;

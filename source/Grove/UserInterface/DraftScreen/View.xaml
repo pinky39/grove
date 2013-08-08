@@ -82,7 +82,7 @@
                         <RowDefinition Height="*" />                        
                     </Grid.RowDefinitions>
                     <Border Grid.Row="0"  Style="{StaticResource Bar}">
-                        <TextBlock Margin="10,6,0,6" Text="Your library" FontSize="20" Foreground="#fff"/>
+                        <TextBlock Margin="10,6,0,8" Text="Your library" FontSize="20" Foreground="#fff"/>
                     </Border>
                     <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible">
                         <Grid>
@@ -254,7 +254,7 @@
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
 
-                                    <TextBlock Grid.Column="0" Margin="10,6,0,6" Text="Players" FontSize="20" Foreground="#fff"/>
+                                    <TextBlock Grid.Column="0" Margin="10,6,0,8" Text="Players" FontSize="20" Foreground="#fff"/>
                                     <Image Grid.Column="2" Height="12" Margin="0,0,10,0" />
                                 </Grid>
                                     

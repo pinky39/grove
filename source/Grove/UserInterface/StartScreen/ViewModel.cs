@@ -21,17 +21,23 @@
       LoadResources();
     }
 
-    public string DatabaseInfo
+    public string Version {get
+    {
+      return String.Format("Version {0}",
+        FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion);
+    }}
+    
+    public string CardCount
     {
       get
       {
-        return string.Format("Release {0} ({1} cards)",
-          FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion,
-          CardDatabase.Count);
+        return string.Format("{0} cards", CardDatabase.Count);
       }
     }
 
-    [Updates("DatabaseInfo")]
+    public string LoadingMessage {get { return ThinkingMessages.GetRandom(); }}
+
+    [Updates("CardCount")]
     public virtual bool HasLoaded { get; protected set; }
 
     public void Exit()

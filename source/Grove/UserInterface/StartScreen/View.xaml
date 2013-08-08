@@ -1,42 +1,41 @@
-﻿<UserControl x:Class="Grove.UserInterface.StartScreen.View" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:grove="clr-namespace:Grove.UserInterface" Background="#000">
-	<UserControl.Resources>
-		<Style TargetType="Grid">
-			<Setter Property="Opacity" Value="0.0" />
-			<Style.Triggers>
-				<EventTrigger RoutedEvent="Grid.Loaded">
-					<BeginStoryboard>
-						<Storyboard>
-							<DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.0" To="1.0" Duration="0:0:2" />
-						</Storyboard>
-					</BeginStoryboard>
-				</EventTrigger>
-			</Style.Triggers>
-		</Style>
+﻿<UserControl  x:Class="Grove.UserInterface.StartScreen.View" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:grove="clr-namespace:Grove.UserInterface" Background="{StaticResource StartScreenBackground}">
+	<UserControl.Resources>		
 		<Style TargetType="Button" BasedOn="{StaticResource LinkButton}">
-			<Setter Property="FontSize" Value="24" />
+			<Setter Property="FontSize" Value="34" />
 			<Setter Property="Foreground" Value="#fff" />
 		</Style>
 	</UserControl.Resources>
-	<Grid Background="{StaticResource StartScreenBackground}">
-		<StackPanel HorizontalAlignment="Center" Margin="0,280,0,0">
-			<StackPanel>
-				<Image Source="{grove:Media 'logo.png'}" Width="600" />
-                <TextBlock Foreground="#fff" FontSize="40" HorizontalAlignment="Center" Margin="40,-100,0,0" Visibility="{Binding HasLoaded, Converter={x:Static grove:Converters.BooleanToVisibility}, ConverterParameter=true}">
-                    Loading...
+    <Grid>
+        <Grid  Margin="250,150,250,240" Visibility="{Binding HasLoaded, Converter={x:Static grove:Converters.BooleanToVisibility}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+        
+            <StackPanel Grid.Column="0" VerticalAlignment="Bottom"  HorizontalAlignment="Left" >
+                <Button  x:Name="NewTournament">New tournament</Button>
+                <Button  x:Name="Play">Single match</Button>
+                <Button  x:Name="PlayRandom">Random match</Button>
+                <Button  x:Name="LoadSavedGame">Load saved game</Button>
+                <Button  x:Name="DeckEditor">Deck editor</Button>
+                <Button  x:Name="Exit">Quit</Button>
+            </StackPanel>
+
+            <StackPanel Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Top" >
+			    <StackPanel>
+				    <Image Source="{grove:Media 'logo.png'}" Width="650" />
+                    <TextBlock HorizontalAlignment="Right" Foreground="#fff" FontSize="20"  Style="{StaticResource Label}" Text="{Binding Version}" />
+                    <TextBlock HorizontalAlignment="Right" Foreground="#666" FontSize="13"  Style="{StaticResource Label}" Text="{Binding CardCount}" />                
+			    </StackPanel>
+			
+		    </StackPanel>
+        
+	    </Grid>
+
+        <TextBlock Foreground="#fff" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding LoadingMessage}"
+                   Visibility="{Binding HasLoaded, Converter={x:Static grove:Converters.BooleanToVisibility}, ConverterParameter=true}">                    
                 </TextBlock>
-                <StackPanel HorizontalAlignment="Right" Margin="0,-100,20,0" Visibility="{Binding HasLoaded, Converter={x:Static grove:Converters.BooleanToVisibility}}">
-                    <Button HorizontalAlignment="Right" x:Name="NewTournament">New tournament</Button>
-                    <Button HorizontalAlignment="Right" x:Name="Play">Single match</Button>
-					<Button HorizontalAlignment="Right" x:Name="PlayRandom">Random match</Button>
-                    <Button HorizontalAlignment="Right" x:Name="LoadSavedGame">Load saved game</Button>
-					<Button HorizontalAlignment="Right" x:Name="DeckEditor">Deck editor</Button>
-					<Button HorizontalAlignment="Right" x:Name="Exit">Quit</Button>
-				</StackPanel>
-			</StackPanel>
-			<TextBlock Margin="0,120,0,0" Foreground="#ccc" FontStyle="Italic" FontSize="20" HorizontalAlignment="Center">
-				(press 'F11' to toggle fullscreen)
-			</TextBlock>
-		</StackPanel>
-        <TextBlock HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="16" Margin="10,0,20,10" Foreground="#fff" Text="{Binding DatabaseInfo}" Visibility="{Binding HasLoaded, Converter={x:Static grove:Converters.BooleanToVisibility}}" />
-	</Grid>
+
+    </Grid>
 </UserControl>

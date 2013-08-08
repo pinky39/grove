@@ -49,7 +49,7 @@
 	<SolidColorBrush x:Key="Selected" Color="#66FF0000" />
 
 	<Style x:Key="Label" TargetType="TextBlock">
-		<Setter Property="FontFamily" Value="Myriad Pro" />
+		<Setter Property="FontFamily" Value="Trebuchet MS" />
 		<Setter Property="FontSize" Value="14" />
 		<Setter Property="Foreground" Value="#fff" />
 		<Setter Property="VerticalAlignment" Value="Center" />
