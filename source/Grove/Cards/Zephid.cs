@@ -4,9 +4,9 @@
   using Gameplay.Abilities;
   using Gameplay.Misc;
     
-  public class Zephid : CardsSource
+  public class Zephid : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Zephid")

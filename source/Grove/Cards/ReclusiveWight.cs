@@ -7,9 +7,9 @@
   using Gameplay.States;
   using Gameplay.Triggers;
 
-  public class ReclusiveWight : CardsSource
+  public class ReclusiveWight : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Reclusive Wight")

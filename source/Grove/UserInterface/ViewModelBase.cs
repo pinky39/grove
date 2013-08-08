@@ -14,13 +14,13 @@
     public ViewModelFactories ViewModels { get; set; }
     public IShell Shell { get; set; }
     protected Game CurrentGame { get { return CurrentMatch.Game; } }
-    public CardsDictionary CardsDictionary { get; set; }
+    public CardDatabase CardDatabase { get; set; }
     public MatchRunner MatchRunner { get; set; }
     protected Match CurrentMatch { get { return MatchRunner.Current; } }
     public TournamentRunner TournamentRunner { get; set; }
     protected Tournament CurrentTournament { get { return TournamentRunner.Current; } }
     protected Combat Combat { get { return CurrentGame.Combat; } }
-    public CardsDatabase CardsDatabase { get; set; }
+    public CardFactory CardFactory { get; set; }
 
 
     private static readonly string[] ErrorMessages = new[]

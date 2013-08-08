@@ -14,9 +14,9 @@
   using Gameplay.Triggers;
   using Gameplay.Zones;
 
-  public class Anthroplasm : CardsSource
+  public class Anthroplasm : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Anthroplasm")

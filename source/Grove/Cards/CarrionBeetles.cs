@@ -9,9 +9,9 @@
   using Gameplay.ManaHandling;
   using Gameplay.Misc;
 
-  public class CarrionBeetles : CardsSource
+  public class CarrionBeetles : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Carrion Beetles")

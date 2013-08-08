@@ -6,9 +6,9 @@
   using Gameplay.States;
   using Gameplay.Triggers;
 
-  public class ScoriaWurm : CardsSource
+  public class ScoriaWurm : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Scoria Wurm")

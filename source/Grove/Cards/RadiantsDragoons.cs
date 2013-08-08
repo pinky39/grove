@@ -6,9 +6,9 @@
   using Gameplay.Triggers;
   using Gameplay.Zones;
 
-  public class RadiantsDragoons : CardsSource
+  public class RadiantsDragoons : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Radiant's Dragoons")

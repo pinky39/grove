@@ -5,9 +5,9 @@
   using Gameplay.Abilities;
   using Gameplay.Misc;
 
-  public class FogOfGnats : CardsSource
+  public class FogOfGnats : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Fog of Gnats")

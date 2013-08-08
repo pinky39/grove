@@ -10,9 +10,9 @@
   using Gameplay.Misc;
   using Gameplay.Modifiers;
 
-  public class FiresOfYavimaya : CardsSource
+  public class FiresOfYavimaya : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Fires of Yavimaya")

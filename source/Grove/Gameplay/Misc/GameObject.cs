@@ -22,7 +22,7 @@
     protected Combat Combat { get { return Game.Combat; } }
     protected TurnInfo Turn { get { return Game.Turn; } }
     protected SearchRunner Ai { get { return Game.Ai; } }
-    protected CardsDatabase CardsDatabase { get { return Game.CardsDatabase; } }
+    protected CardFactory CardFactory { get { return Game.CardFactory; } }
 
     protected ChangeTracker ChangeTracker { get { return Game.ChangeTracker; } }
 

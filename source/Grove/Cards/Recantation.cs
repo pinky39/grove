@@ -13,9 +13,9 @@
   using Gameplay.States;
   using Gameplay.Triggers;
 
-  public class Recantation : CardsSource
+  public class Recantation : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Recantation")

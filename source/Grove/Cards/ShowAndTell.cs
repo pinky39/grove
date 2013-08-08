@@ -6,9 +6,9 @@
   using Gameplay.Misc;
   using Gameplay.Zones;
 
-  public class ShowAndTell : CardsSource
+  public class ShowAndTell : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Show and Tell")

@@ -8,9 +8,9 @@
   using Gameplay.Misc;
   using Gameplay.Triggers;
 
-  public class VeiledCrocodile : CardsSource
+  public class VeiledCrocodile : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Veiled Crocodile")

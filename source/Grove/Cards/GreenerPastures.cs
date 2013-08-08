@@ -9,9 +9,9 @@
   using Gameplay.States;
   using Gameplay.Triggers;
 
-  public class GreenerPastures : CardsSource
+  public class GreenerPastures : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Greener Pastures")

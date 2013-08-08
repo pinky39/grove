@@ -7,9 +7,9 @@
   using Gameplay.Misc;
   using Gameplay.Modifiers;
 
-  public class EleshNornGrandCenobite : CardsSource
+  public class EleshNornGrandCenobite : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Elesh Norn, Grand Cenobite")

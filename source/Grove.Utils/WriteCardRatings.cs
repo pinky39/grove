@@ -9,11 +9,11 @@
 
   public class WriteCardRatings : Task
   {
-    private readonly CardsDictionary _cardsDictionary;
+    private readonly CardDatabase _cardDatabase;
 
-    public WriteCardRatings(CardsDictionary cardsDictionary)
+    public WriteCardRatings(CardDatabase cardDatabase)
     {
-      _cardsDictionary = cardsDictionary;
+      _cardDatabase = cardDatabase;
     }
 
     public override void Execute(Arguments arguments)
@@ -21,7 +21,7 @@
       var downloader = new RatingDownloader();
       var filename = arguments["filename"];
 
-      var ratedCards = _cardsDictionary.GetCardNames()
+      var ratedCards = _cardDatabase.GetCardNames()
         .Select(x => new RatedCard {Name = x})
         .ToList();
 

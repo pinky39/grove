@@ -7,9 +7,9 @@
   using Gameplay.Misc;
   using Gameplay.Modifiers;
 
-  public class GraspOfDarkness : CardsSource
+  public class GraspOfDarkness : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Grasp of Darkness")

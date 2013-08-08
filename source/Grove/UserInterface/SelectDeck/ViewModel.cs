@@ -23,8 +23,8 @@
     public virtual UserInterface.Deck.ViewModel Selected { get { return _selected; } set
     {
       _selected = value;
-      _selected.SelectedCardChanged += delegate { SelectedCard = CardsDictionary[_selected.SelectedCard.Name]; };
-      SelectedCard = CardsDictionary[_selected.SelectedCard.Name];
+      _selected.SelectedCardChanged += delegate { SelectedCard = CardDatabase[_selected.SelectedCard.Name]; };
+      SelectedCard = CardDatabase[_selected.SelectedCard.Name];
     } }
 
     public string NextCaption { get { return _configuration.ForwardText; } }

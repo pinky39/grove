@@ -9,9 +9,9 @@
   using Gameplay.Triggers;
   using Gameplay.Zones;
 
-  public class BoneShredder : CardsSource
+  public class BoneShredder : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Bone Shredder")

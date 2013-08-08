@@ -6,18 +6,18 @@
 
   public class WriteCardList : Task
   {
-    private readonly CardsDictionary _cardsDictionary;
+    private readonly CardDatabase _cardDatabase;
 
-    public WriteCardList(CardsDictionary cardsDictionary)
+    public WriteCardList(CardDatabase cardDatabase)
     {
-      _cardsDictionary = cardsDictionary;
+      _cardDatabase = cardDatabase;
     }
 
 
     public override void Execute(Arguments arguments)
     {
       var filename = arguments["filename"];
-      var cardNames = _cardsDictionary.GetCardNames();
+      var cardNames = _cardDatabase.GetCardNames();
 
       Console.WriteLine("Writing {0}...", filename);
       using (var writer = new StreamWriter(filename, append: true))

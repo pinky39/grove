@@ -5,9 +5,9 @@
   using Gameplay.Abilities;
   using Gameplay.Misc;
 
-  public class PegasusCharger : CardsSource
+  public class PegasusCharger : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Pegasus Charger")

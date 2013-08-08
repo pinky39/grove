@@ -9,9 +9,9 @@
   using Gameplay.States;
   using Gameplay.Triggers;
 
-  public class ThranTurbine : CardsSource
+  public class ThranTurbine : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Thran Turbine")

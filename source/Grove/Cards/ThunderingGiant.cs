@@ -4,9 +4,9 @@
   using Gameplay.Abilities;
   using Gameplay.Misc;
 
-  public class ThunderingGiant : CardsSource
+  public class ThunderingGiant : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Thundering Giant")

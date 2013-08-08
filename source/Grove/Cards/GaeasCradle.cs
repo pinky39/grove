@@ -4,9 +4,9 @@
   using Gameplay.ManaHandling;
   using Gameplay.Misc;
 
-  public class GaeasCradle : CardsSource
+  public class GaeasCradle : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Gaea's Cradle")

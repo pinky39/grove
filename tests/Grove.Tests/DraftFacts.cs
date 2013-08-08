@@ -35,20 +35,20 @@
 
         var library = results.Libraries[i];
 
-        Console.WriteLine("White cards: {0}", library.Count(x => CardsDictionary[x.Name].HasColor(CardColor.White)));
-        Console.WriteLine("Blue cards: {0}", library.Count(x => CardsDictionary[x.Name].HasColor(CardColor.Blue)));
-        Console.WriteLine("Black cards: {0}", library.Count(x => CardsDictionary[x.Name].HasColor(CardColor.Black)));
-        Console.WriteLine("Red cards: {0}", library.Count(x => CardsDictionary[x.Name].HasColor(CardColor.Red)));
-        Console.WriteLine("Green cards: {0}", library.Count(x => CardsDictionary[x.Name].HasColor(CardColor.Green)));
+        Console.WriteLine("White cards: {0}", library.Count(x => CardDatabase[x.Name].HasColor(CardColor.White)));
+        Console.WriteLine("Blue cards: {0}", library.Count(x => CardDatabase[x.Name].HasColor(CardColor.Blue)));
+        Console.WriteLine("Black cards: {0}", library.Count(x => CardDatabase[x.Name].HasColor(CardColor.Black)));
+        Console.WriteLine("Red cards: {0}", library.Count(x => CardDatabase[x.Name].HasColor(CardColor.Red)));
+        Console.WriteLine("Green cards: {0}", library.Count(x => CardDatabase[x.Name].HasColor(CardColor.Green)));
         Console.WriteLine("Colorless cards: {0}",
-          library.Count(x => CardsDictionary[x.Name].HasColor(CardColor.Colorless)));
+          library.Count(x => CardDatabase[x.Name].HasColor(CardColor.Colorless)));
 
         var deck = DeckBuilder.BuildDeck(library, ratings);
         Console.WriteLine();
 
         Console.WriteLine("Creatures: {0}, Spells {1}",
-          deck.Count(x => CardsDictionary[x.Name].Is().Creature),
-          deck.Count(x => !CardsDictionary[x.Name].Is().Creature && !CardsDictionary[x.Name].Is().Land));
+          deck.Count(x => CardDatabase[x.Name].Is().Creature),
+          deck.Count(x => !CardDatabase[x.Name].Is().Creature && !CardDatabase[x.Name].Is().Land));
 
         Console.WriteLine("-------------------");
         Console.WriteLine(deck);

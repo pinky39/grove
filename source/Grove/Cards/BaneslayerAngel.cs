@@ -5,9 +5,9 @@
   using Gameplay.Abilities;
   using Gameplay.Misc;
 
-  public class BaneslayerAngel : CardsSource
+  public class BaneslayerAngel : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Baneslayer Angel")

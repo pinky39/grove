@@ -10,9 +10,9 @@
   using Gameplay.Misc;
   using Gameplay.States;
 
-  public class VoltaicKey : CardsSource
+  public class VoltaicKey : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Voltaic Key")

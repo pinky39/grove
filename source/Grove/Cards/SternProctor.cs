@@ -9,9 +9,9 @@
   using Gameplay.Triggers;
   using Gameplay.Zones;
 
-  public class SternProctor : CardsSource
+  public class SternProctor : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Stern Proctor")

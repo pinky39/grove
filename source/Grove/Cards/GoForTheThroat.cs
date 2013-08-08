@@ -6,9 +6,9 @@
   using Gameplay.Effects;
   using Gameplay.Misc;
 
-  public class GoForTheThroat : CardsSource
+  public class GoForTheThroat : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Go for the Throat")

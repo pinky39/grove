@@ -9,9 +9,9 @@
   using Gameplay.Modifiers;
   using Gameplay.Triggers;
 
-  public class OpalArchangel : CardsSource
+  public class OpalArchangel : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Opal Archangel")

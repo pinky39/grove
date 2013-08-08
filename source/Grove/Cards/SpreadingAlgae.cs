@@ -8,9 +8,9 @@
   using Gameplay.Triggers;
   using Gameplay.Zones;
 
-  public class SpreadingAlgae : CardsSource
+  public class SpreadingAlgae : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Spreading Algae")

@@ -10,9 +10,9 @@
   using Gameplay.ManaHandling;
   using Gameplay.Misc;
 
-  public class RuneOfProtectionBlue : CardsSource
+  public class RuneOfProtectionBlue : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Rune of Protection: Blue")

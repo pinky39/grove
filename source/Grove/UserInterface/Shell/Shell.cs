@@ -1,6 +1,5 @@
 ﻿namespace Grove.UserInterface.Shell
 {
-  using System.Threading.Tasks;
   using System.Windows;
   using Caliburn.Micro;
   using Gameplay;
@@ -10,20 +9,20 @@
 
   public class Shell : IShell, IHaveDisplayName
   {
-    private readonly CardsDictionary _cardsDictionary;
+    private readonly CardDatabase _cardDatabase;
+    private readonly CardFactory _cardFactory;
     private readonly Publisher _publisher = new Publisher().Initialize();
     private InteractionState _interactionState = InteractionState.Disabled;
 
-    public Shell(CardsDictionary cardsDictionary)
+    public Shell(CardDatabase cardDatabase, CardFactory cardFactory)
     {
-      _cardsDictionary = cardsDictionary;
+      _cardDatabase = cardDatabase;
+      _cardFactory = cardFactory;
       DisplayName = "magicgrove";
-      LoadResources();
     }
 
     public virtual object Screen { get; protected set; }
     public virtual object Dialog { get; protected set; }
-    public virtual bool HasLoaded { get; protected set; }
     public string DisplayName { get; set; }
 
     public void CloseAllDialogs()
@@ -69,7 +68,7 @@
     public void ShowDialog(object dialog, DialogType type, InteractionState? interactionState = null)
     {
       var dialogHost = Screen as IIsDialogHost;
-      
+
 
       var revert = ChangeMode(interactionState);
 
@@ -92,7 +91,7 @@
           {
             dialogHost.RemoveDialog(dialog);
           }
-          
+
           ChangeMode(revert);
         };
     }
@@ -106,7 +105,7 @@
     }
 
     public void ShowModalDialog(object dialog, DialogType type, InteractionState? interactionState = null)
-    {      
+    {
       var blocker = new ThreadBlocker();
 
       blocker.BlockUntilCompleted(() =>
@@ -123,16 +122,6 @@
         return false;
 
       return dialogHost.HasFocus(dialog);
-    }
-
-    private void LoadResources()
-    {
-      Task.Factory.StartNew(() =>
-        {
-          MediaLibrary.LoadResources();
-          _cardsDictionary.CreateFulltextSearchDatabase();
-          HasLoaded = true;
-        });
     }
 
     private InteractionState? ChangeMode(InteractionState? interactionState)

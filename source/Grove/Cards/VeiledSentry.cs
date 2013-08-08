@@ -8,9 +8,9 @@
   using Gameplay.Misc;
   using Gameplay.Triggers;
 
-  public class VeiledSentry : CardsSource
+  public class VeiledSentry : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Veiled Sentry")

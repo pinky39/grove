@@ -13,9 +13,9 @@
   using Gameplay.Modifiers;
   using Gameplay.Triggers;
 
-  public class SwordOfFeastAndFamine : CardsSource
+  public class SwordOfFeastAndFamine : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Sword of Feast and Famine")

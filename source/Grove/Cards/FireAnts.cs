@@ -6,9 +6,9 @@
   using Gameplay.Effects;
   using Gameplay.Misc;
 
-  public class FireAnts : CardsSource
+  public class FireAnts : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Fire Ants")

@@ -9,9 +9,9 @@
   using Gameplay.Modifiers;
   using Gameplay.Triggers;
 
-  public class HiddenGuerrillas : CardsSource
+  public class HiddenGuerrillas : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Hidden Guerrillas")

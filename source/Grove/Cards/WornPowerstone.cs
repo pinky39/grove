@@ -5,9 +5,9 @@
   using Gameplay.Effects;
   using Gameplay.Misc;
 
-  public class WornPowerstone : CardsSource
+  public class WornPowerstone : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Worn Powerstone")

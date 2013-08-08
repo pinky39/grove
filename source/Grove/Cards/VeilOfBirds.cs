@@ -9,9 +9,9 @@
   using Gameplay.Modifiers;
   using Gameplay.Triggers;
 
-  public class VeilOfBirds : CardsSource
+  public class VeilOfBirds : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Veil of Birds")

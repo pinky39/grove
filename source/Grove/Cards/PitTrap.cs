@@ -10,9 +10,9 @@
   using Gameplay.Misc;
   using Gameplay.States;
 
-  public class PitTrap : CardsSource
+  public class PitTrap : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Pit Trap")

@@ -31,8 +31,8 @@
       Game.Players.Starting = Game.Players.Player1;
     }
 
-    protected CardsDatabase CardsDatabase { get { return Container.Resolve<CardsDatabase>(); } }
-    protected CardsDictionary CardsDictionary { get { return Container.Resolve<CardsDictionary>(); } }
+    protected CardFactory CardFactory { get { return Container.Resolve<CardFactory>(); } }
+    protected CardDatabase CardDatabase { get { return Container.Resolve<CardDatabase>(); } }
     protected MatchSimulator MatchSimulator { get { return Container.Resolve<MatchSimulator>(); } }
     protected Game.IFactory GameFactory { get { return Container.Resolve<Game.IFactory>(); } }    
 
@@ -66,7 +66,7 @@
       {
         scenarioCard.Initialize(name =>
           {
-            var card = CardsDatabase.CreateCard(name);
+            var card = CardFactory.CreateCard(name);
             card.Initialize(player, Game);
             library.AddToFront(card);
 
@@ -91,7 +91,7 @@
       {
         scenarioCard.Initialize(name =>
           {
-            var card = CardsDatabase.CreateCard(name);
+            var card = CardFactory.CreateCard(name);
             card.Initialize(player, Game);
 
             player.PutCardToBattlefield(card);
@@ -104,7 +104,7 @@
             {
               enchantment.Initialize(enchantmentName =>
                 {
-                  var enchantmentCard = CardsDatabase.CreateCard(enchantmentName);
+                  var enchantmentCard = CardFactory.CreateCard(enchantmentName);
                   enchantmentCard.Initialize(player, Game);
                   EnchantCard(card, enchantmentCard);
                   return enchantmentCard;
@@ -115,7 +115,7 @@
             {
               equipment.Initialize(equipmentName =>
                 {
-                  var equipmentCard = CardsDatabase.CreateCard(equipmentName);
+                  var equipmentCard = CardFactory.CreateCard(equipmentName);
                   equipmentCard.Initialize(player, Game);
                   player.PutCardToBattlefield(equipmentCard);
                   EquipCard(card, equipmentCard);
@@ -127,7 +127,7 @@
             {
               tracked.Initialize(trackerName =>
                 {
-                  var tracker = CardsDatabase.CreateCard(trackerName);
+                  var tracker = CardFactory.CreateCard(trackerName);
                   tracker.Initialize(player, Game);
                   player.PutCardToBattlefield(tracker);
                   TrackCard(card, tracker);
@@ -158,7 +158,7 @@
       foreach (var cardName in cardNames)
       {
         var battlefield = (Battlefield) controller.Battlefield;
-        var card = CardsDatabase.CreateCard(cardName);
+        var card = CardFactory.CreateCard(cardName);
         card.Initialize(controller, Game);
         battlefield.Add(card);
         yield return card;
@@ -225,7 +225,7 @@
       {
         scenarioCard.Initialize(name =>
           {
-            var card = CardsDatabase.CreateCard(name);
+            var card = CardFactory.CreateCard(name);
             card.Initialize(player, Game);
             graveyard.Add(card);
 
@@ -242,7 +242,7 @@
       {
         scenarioCard.Initialize(name =>
           {
-            var card = CardsDatabase.CreateCard(name);
+            var card = CardFactory.CreateCard(name);
             card.Initialize(player, Game);
             hand.Add(card);
 

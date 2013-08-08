@@ -11,9 +11,9 @@
   using Gameplay.Triggers;
   using Gameplay.Zones;
 
-  public class VividCrag : CardsSource
+  public class VividCrag : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Vivid Crag")

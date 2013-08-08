@@ -8,9 +8,9 @@
   using Gameplay.Triggers;
   using Gameplay.Zones;
 
-  public class WurmcoilEngine : CardsSource
+  public class WurmcoilEngine : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Wurmcoil Engine")

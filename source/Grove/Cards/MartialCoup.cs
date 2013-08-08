@@ -7,9 +7,9 @@
   using Gameplay.Misc;
   using Gameplay.Modifiers;
 
-  public class MartialCoup : CardsSource
+  public class MartialCoup : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Martial Coup")

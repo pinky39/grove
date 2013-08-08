@@ -6,9 +6,9 @@
   using Gameplay.Misc;
   using Gameplay.Triggers;
 
-  public class GoblinMedics : CardsSource
+  public class GoblinMedics : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Goblin Medics")

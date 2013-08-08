@@ -9,9 +9,9 @@
   using Gameplay.Misc;
   using Gameplay.Modifiers;
 
-  public class LlanowarBehemoth : CardsSource
+  public class LlanowarBehemoth : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Llanowar Behemoth")

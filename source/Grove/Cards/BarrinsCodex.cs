@@ -12,9 +12,9 @@
   using Gameplay.States;
   using Gameplay.Triggers;
 
-  public class BarrinsCodex : CardsSource
+  public class BarrinsCodex : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Barrin's Codex")

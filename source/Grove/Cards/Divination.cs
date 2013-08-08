@@ -5,9 +5,9 @@
   using Gameplay.Effects;
   using Gameplay.Misc;
 
-  public class Divination : CardsSource
+  public class Divination : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Divination")

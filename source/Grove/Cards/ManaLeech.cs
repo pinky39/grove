@@ -10,9 +10,9 @@
   using Gameplay.Modifiers;
   using Gameplay.States;
 
-  public class ManaLeech : CardsSource
+  public class ManaLeech : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Mana Leech")

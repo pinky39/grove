@@ -13,7 +13,6 @@
     private readonly Func<CardInfo, int> _orderBy;
     private readonly Dictionary<string, CardInfo> _cards;
     private readonly Func<CardInfo, object> _transformResult;
-    private string _text = String.Empty;
 
     public ViewModel(IEnumerable<CardInfo> cards, Func<CardInfo, object> transformResult, Func<CardInfo, int> orderBy)
     {
@@ -21,16 +20,11 @@
       _transformResult = transformResult ?? (x => x);
       _cards = cards.ToDictionary(x => x.Name, x => x);
 
-      White = Blue = Black = Red = Green = true;
-      Costs = Enumerable.Range(0, 17).ToArray();
-      MinimumCost = Costs.First();
-      MaximumCost = Costs.Last();
-    }
-
-    public int[] Costs { get; private set; }
+      White = Blue = Black = Red = Green = true;      
+    }    
 
     [Updates("FilteredResult")]
-    public virtual string Text { get { return _text; } set { _text = value.ToLowerInvariant(); } }
+    public virtual string Text { get; set;  }
 
     [Updates("FilteredResult")]
     public virtual bool White { get; set; }
@@ -45,13 +39,7 @@
     public virtual bool Red { get; set; }
 
     [Updates("FilteredResult")]
-    public virtual bool Green { get; set; }
-
-    [Updates("FilteredResult")]
-    public virtual int MinimumCost { get; set; }
-
-    [Updates("FilteredResult")]
-    public virtual int MaximumCost { get; set; }
+    public virtual bool Green { get; set; }    
 
     public IEnumerable<object> FilteredResult { get { return LoadView(); } }
 
@@ -60,25 +48,22 @@
     {
       var view = new BindableCollection<object>();
 
-      var text = _text;
+      var text = Text;
 
-      var task = TaskEx.Delay(300);
+      var task = TaskEx.Delay(500);
 
       task.ContinueWith(delegate
         {
-          if (text != _text)
+          if (text != Text)
             return;
 
-          var cards = CardsDictionary
-            .Query(_text.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries))
+          var cards = CardDatabase
+            .Query(text)
             .Where(x => _cards.ContainsKey(x.Name));
 
           foreach (var card in cards.OrderBy(x => _orderBy(_cards[x.Name])).ThenBy(x => x.Name))
           {            
-            var info = _cards[card.Name];
-
-            if (card.ConvertedCost < MinimumCost || card.ConvertedCost > MaximumCost)
-              continue;
+            var info = _cards[card.Name];         
 
             if (
               (White && card.HasColor(CardColor.White)) ||

@@ -8,9 +8,9 @@
   using Gameplay.Triggers;
   using Gameplay.Zones;
 
-  public class Fecundity : CardsSource
+  public class Fecundity : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Fecundity")

@@ -7,9 +7,9 @@
   using Gameplay.Effects;
   using Gameplay.Misc;
 
-  public class ArgothianElder : CardsSource
+  public class ArgothianElder : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Argothian Elder")

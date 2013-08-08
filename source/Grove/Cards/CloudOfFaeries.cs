@@ -7,9 +7,9 @@
   using Gameplay.Triggers;
   using Gameplay.Zones;
 
-  public class CloudOfFaeries : CardsSource
+  public class CloudOfFaeries : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Cloud of Faeries")

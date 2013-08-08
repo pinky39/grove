@@ -5,6 +5,7 @@
   using System.IO;
   using System.Linq;
   using System.Reflection;
+  using System.Threading.Tasks;
   using System.Windows;
   using Gameplay;
   using Infrastructure;
@@ -15,19 +16,43 @@
   {
     private const string YourName = "You";
 
+    public ViewModel()
+    {
+      LoadResources();
+    }
+
     public string DatabaseInfo
     {
       get
       {
         return string.Format("Release {0} ({1} cards)",
           FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion,
-          CardsDictionary.Count);
+          CardDatabase.Count);
       }
     }
+
+    [Updates("DatabaseInfo")]
+    public virtual bool HasLoaded { get; protected set; }
 
     public void Exit()
     {
       Application.Current.Shutdown();
+    }
+
+    private void LoadResources()
+    {
+      Task.Factory.StartNew(() =>
+        {
+          MediaLibrary.LoadResources();
+          InitializeCardDatabase();
+          HasLoaded = true;
+        });
+    }
+
+    private void InitializeCardDatabase()
+    {
+      var cards = CardFactory.CreateAll();
+      CardDatabase.Initialize(cards);
     }
 
     public void NewTournament()

@@ -7,9 +7,9 @@
   using Gameplay.Misc;
   using Gameplay.Modifiers;
 
-  public class Exhaustion : CardsSource
+  public class Exhaustion : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Exhaustion")

@@ -19,9 +19,9 @@ Volcanic Hammer is a sorcery spell with casting cost of {1}{R}. When we cast the
 
 {{{
 
-public class VolcanicHammer : CardsSource
+public class VolcanicHammer : CardTemplateSource
 {
-  public override IEnumerable<CardFactory> GetCards()
+  public override IEnumerable<CardTemplate> GetCards()
   {
     yield return Card
       .Named("Volcanic Hammer")
@@ -113,9 +113,9 @@ Dragon Blood is an artifact which, when activated, puts a +1/+1 counter on targe
 
 {{{
 
-public class DragonBlood : CardsSource
+public class DragonBlood : CardTemplateSource
 {
-  public override IEnumerable<CardFactory> GetCards()
+  public override IEnumerable<CardTemplate> GetCards()
   {
     yield return Card
       .Named("Dragon Blood")
@@ -182,9 +182,9 @@ Mana abilities are therefore only activated when certain mana is needed by other
 {{{ 
 
 
-public class BirdsOfParadise : CardsSource
+public class BirdsOfParadise : CardTemplateSource
 {
-  public override IEnumerable<CardFactory> GetCards()
+  public override IEnumerable<CardTemplate> GetCards()
   {
     yield return Card
       .Named("Birds of Paradise")
@@ -205,7 +205,7 @@ public class BirdsOfParadise : CardsSource
 
 }}}
 
-Birds of Paradise is a creature with flying, capable of producing one mana of any color when tapped. Bird's mana ability is defined by calling !ManaAbility method on !CardFactory class and assigning members of the !ManaAbilityParameters object:
+Birds of Paradise is a creature with flying, capable of producing one mana of any color when tapped. Bird's mana ability is defined by calling !ManaAbility method on !CardTemplate class and assigning members of the !ManaAbilityParameters object:
 
 {{{
 .ManaAbility(p =>

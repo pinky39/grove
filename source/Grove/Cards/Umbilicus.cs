@@ -6,9 +6,9 @@
   using Gameplay.States;
   using Gameplay.Triggers;
 
-  public class Umbilicus : CardsSource
+  public class Umbilicus : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Umbilicus")

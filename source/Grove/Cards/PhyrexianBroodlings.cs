@@ -12,9 +12,9 @@
   using Gameplay.Misc;
   using Gameplay.Modifiers;
 
-  public class PhyrexianBroodlings : CardsSource
+  public class PhyrexianBroodlings : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Phyrexian Broodlings")

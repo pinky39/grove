@@ -4,9 +4,9 @@
   using Gameplay;
   using Gameplay.Misc;
 
-  public class LlanowarElves : CardsSource
+  public class LlanowarElves : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Llanowar Elves")

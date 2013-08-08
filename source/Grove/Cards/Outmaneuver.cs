@@ -11,9 +11,9 @@
   using Gameplay.Modifiers;
   using Gameplay.States;
 
-  public class Outmaneuver : CardsSource
+  public class Outmaneuver : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Outmaneuver")

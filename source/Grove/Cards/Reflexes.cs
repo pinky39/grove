@@ -9,9 +9,9 @@
   using Gameplay.Misc;
   using Gameplay.Modifiers;
 
-  public class Reflexes : CardsSource
+  public class Reflexes : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Reflexes")

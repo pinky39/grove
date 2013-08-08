@@ -7,9 +7,9 @@
   using Gameplay.Triggers;
   using Gameplay.Zones;
 
-  public class EngineeredPlague : CardsSource
+  public class EngineeredPlague : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Engineered Plague")

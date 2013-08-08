@@ -4,9 +4,9 @@
   using Gameplay.Characteristics;
   using Gameplay.Misc;
 
-  public class DiscipleOfGrace : CardsSource
+  public class DiscipleOfGrace : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Disciple of Grace")

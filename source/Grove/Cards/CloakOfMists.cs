@@ -8,9 +8,9 @@
   using Gameplay.Misc;
   using Gameplay.Modifiers;
 
-  public class CloakOfMists : CardsSource
+  public class CloakOfMists : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Cloak of Mists")

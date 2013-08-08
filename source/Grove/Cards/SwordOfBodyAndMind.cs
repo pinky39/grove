@@ -13,9 +13,9 @@
   using Gameplay.Modifiers;
   using Gameplay.Triggers;
 
-  public class SwordOfBodyAndMind : CardsSource
+  public class SwordOfBodyAndMind : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Sword of Body and Mind")

@@ -8,9 +8,9 @@
   using Gameplay.ManaHandling;
   using Gameplay.Misc;
 
-  public class CelestialPrism : CardsSource
+  public class CelestialPrism : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Celestial Prism")

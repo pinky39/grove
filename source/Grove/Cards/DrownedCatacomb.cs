@@ -6,9 +6,9 @@
   using Gameplay.Misc;
   using Infrastructure;
 
-  public class DrownedCatacomb : CardsSource
+  public class DrownedCatacomb : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Drowned Catacomb")

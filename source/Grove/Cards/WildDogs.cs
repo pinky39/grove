@@ -6,9 +6,9 @@
   using Gameplay.States;
   using Gameplay.Triggers;
 
-  public class WildDogs : CardsSource
+  public class WildDogs : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Wild Dogs")

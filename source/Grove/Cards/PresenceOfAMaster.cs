@@ -7,9 +7,9 @@
   using Gameplay.Misc;
   using Gameplay.Triggers;
 
-  public class PresenceOfTheMaster : CardsSource
+  public class PresenceOfTheMaster : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Presence of the Master")

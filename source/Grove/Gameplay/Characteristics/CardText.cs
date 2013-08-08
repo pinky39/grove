@@ -4,6 +4,7 @@
   using System.Collections;
   using System.Collections.Generic;
   using System.Linq;
+  using System.Text;
   using System.Text.RegularExpressions;
   using System.Windows.Media;
   using UserInterface;
@@ -87,15 +88,20 @@
       return Original;
     }
 
-    public IEnumerable<string> GetTextOnly()
+    public string GetTextOnly()
     {
+      var sb = new StringBuilder();
+      
       foreach (var token in Tokens)
-      {
+      {               
         if (token is TextToken || token is ImportantTextToken)
         {
-          yield return token.Value;
+          sb.Append(token.Value);
+          sb.Append(" ");
         }
       }
+
+      return sb.ToString();
     }
 
     private static Token CreateSpecialToken(string value)

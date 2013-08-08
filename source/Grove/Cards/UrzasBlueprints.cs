@@ -7,9 +7,9 @@
   using Gameplay.Effects;
   using Gameplay.Misc;
 
-  public class UrzasBlueprints : CardsSource
+  public class UrzasBlueprints : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Urza's Blueprints")

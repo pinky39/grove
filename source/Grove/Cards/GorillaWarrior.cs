@@ -3,9 +3,9 @@
   using System.Collections.Generic;
   using Gameplay.Misc;
 
-  public class GorillaWarrior : CardsSource
+  public class GorillaWarrior : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Gorilla Warrior")

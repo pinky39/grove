@@ -4,9 +4,9 @@
   using Gameplay;
   using Gameplay.Misc;
 
-  public class NantukoShade : CardsSource
+  public class NantukoShade : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Nantuko Shade")

@@ -6,9 +6,9 @@
   using Gameplay.Modifiers;
   using Gameplay.Triggers;
 
-  public class ViashinoWeaponsmith : CardsSource
+  public class ViashinoWeaponsmith : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Viashino Weaponsmith")

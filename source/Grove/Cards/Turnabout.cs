@@ -7,9 +7,9 @@
   using Gameplay.Misc;
   using Gameplay.States;
 
-  public class Turnabout : CardsSource
+  public class Turnabout : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Turnabout")

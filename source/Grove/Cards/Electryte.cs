@@ -5,9 +5,9 @@
   using Gameplay.Misc;
   using Gameplay.Triggers;
 
-  public class Electryte : CardsSource
+  public class Electryte : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Electryte")

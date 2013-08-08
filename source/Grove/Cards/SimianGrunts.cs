@@ -7,9 +7,9 @@
   using Gameplay.Misc;
   using Gameplay.States;
 
-  public class SimianGrunts : CardsSource
+  public class SimianGrunts : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Simian Grunts")

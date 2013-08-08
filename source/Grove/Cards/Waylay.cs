@@ -8,9 +8,9 @@
   using Gameplay.States;
   using Gameplay.Triggers;
 
-  public class Waylay : CardsSource
+  public class Waylay : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Waylay")

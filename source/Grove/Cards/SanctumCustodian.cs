@@ -5,9 +5,9 @@
   using Gameplay.Costs;  
   using Gameplay.Misc;
 
-  public class SanctumCustodian : CardsSource
+  public class SanctumCustodian : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Sanctum Custodian")

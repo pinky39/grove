@@ -10,9 +10,9 @@
   using Gameplay.Triggers;
   using Gameplay.Zones;
 
-  public class ManOWar : CardsSource
+  public class ManOWar : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Man-o'-War")

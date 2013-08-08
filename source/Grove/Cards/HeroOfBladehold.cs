@@ -7,9 +7,9 @@
   using Gameplay.Modifiers;
   using Gameplay.Triggers;
 
-  public class HeroOfBladehold : CardsSource
+  public class HeroOfBladehold : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Hero of Bladehold")

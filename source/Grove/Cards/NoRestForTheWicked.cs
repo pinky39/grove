@@ -9,14 +9,14 @@
   using Gameplay.States;
   using Gameplay.Zones;
 
-  public class NoRestForTheWicked : CardsSource
+  public class NoRestForTheWicked : CardTemplateSource
   {
     private static bool WasPutIntoGraveyardThisTurnFromBattlefield(Card card)
     {
       return card.Is().Creature && card.HasChangedZoneThisTurn && card.PreviousZone == Zone.Battlefield;
     }
 
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("No Rest for the Wicked")

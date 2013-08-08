@@ -7,9 +7,9 @@
   using Gameplay.Misc;
   using Gameplay.Triggers;
 
-  public class HiddenStag : CardsSource
+  public class HiddenStag : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Hidden Stag")

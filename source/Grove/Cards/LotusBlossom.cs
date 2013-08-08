@@ -12,9 +12,9 @@
   using Gameplay.States;
   using Gameplay.Triggers;
 
-  public class LotusBlossom : CardsSource
+  public class LotusBlossom : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Lotus Blossom")

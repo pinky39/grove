@@ -5,9 +5,9 @@
   using Gameplay.Characteristics;
   using Gameplay.Misc;
 
-  public class VoiceOfLaw : CardsSource
+  public class VoiceOfLaw : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Voice of Law")

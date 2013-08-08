@@ -4,9 +4,9 @@
   using System.Collections.Generic;
   using Gameplay.Misc;
 
-  public class WindingWurm : CardsSource
+  public class WindingWurm : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Winding Wurm")

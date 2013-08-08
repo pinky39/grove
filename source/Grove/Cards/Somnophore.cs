@@ -10,9 +10,9 @@
   using Gameplay.Targeting;
   using Gameplay.Triggers;
 
-  public class Somnophore : CardsSource
+  public class Somnophore : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Somnophore")

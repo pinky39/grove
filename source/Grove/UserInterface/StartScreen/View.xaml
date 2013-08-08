@@ -21,10 +21,10 @@
 		<StackPanel HorizontalAlignment="Center" Margin="0,280,0,0">
 			<StackPanel>
 				<Image Source="{grove:Media 'logo.png'}" Width="600" />
-                <TextBlock Foreground="#fff" FontSize="40" HorizontalAlignment="Center" Margin="40,-100,0,0" Visibility="{Binding Shell.HasLoaded, Converter={x:Static grove:Converters.BooleanToVisibility}, ConverterParameter=true}">
+                <TextBlock Foreground="#fff" FontSize="40" HorizontalAlignment="Center" Margin="40,-100,0,0" Visibility="{Binding HasLoaded, Converter={x:Static grove:Converters.BooleanToVisibility}, ConverterParameter=true}">
                     Loading...
                 </TextBlock>
-                <StackPanel HorizontalAlignment="Right" Margin="0,-100,20,0" Visibility="{Binding Shell.HasLoaded, Converter={x:Static grove:Converters.BooleanToVisibility}}">
+                <StackPanel HorizontalAlignment="Right" Margin="0,-100,20,0" Visibility="{Binding HasLoaded, Converter={x:Static grove:Converters.BooleanToVisibility}}">
                     <Button HorizontalAlignment="Right" x:Name="NewTournament">New tournament</Button>
                     <Button HorizontalAlignment="Right" x:Name="Play">Single match</Button>
 					<Button HorizontalAlignment="Right" x:Name="PlayRandom">Random match</Button>
@@ -37,6 +37,6 @@
 				(press 'F11' to toggle fullscreen)
 			</TextBlock>
 		</StackPanel>
-		<TextBlock HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="16" Margin="10,0,20,10" Foreground="#fff" Text="{Binding DatabaseInfo}" />
+        <TextBlock HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="16" Margin="10,0,20,10" Foreground="#fff" Text="{Binding DatabaseInfo}" Visibility="{Binding HasLoaded, Converter={x:Static grove:Converters.BooleanToVisibility}}" />
 	</Grid>
 </UserControl>

@@ -8,9 +8,9 @@
   using Gameplay.States;
   using Gameplay.Triggers;
 
-  public class WallOfJunk : CardsSource
+  public class WallOfJunk : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Wall of Junk")

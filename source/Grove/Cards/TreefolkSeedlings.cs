@@ -4,9 +4,9 @@
   using Gameplay.Misc;
   using Gameplay.Modifiers;
 
-  public class TreefolkSeedlings : CardsSource
+  public class TreefolkSeedlings : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Treefolk Seedlings")

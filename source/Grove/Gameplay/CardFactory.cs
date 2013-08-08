@@ -5,47 +5,50 @@
   using System.Linq;
   using Misc;
 
-  public class CardsDatabase
+  public class CardFactory
   {
-    private readonly List<CardFactory> _factories;
+    private readonly List<CardTemplate> _templates;
 
-    public CardsDatabase(IEnumerable<CardsSource> cardSources)
+    public CardFactory(IEnumerable<CardTemplateSource> cardSources)
     {
-      _factories = GetFactories(cardSources);
+      _templates = GetTemplates(cardSources);
     }    
 
     public Card CreateCard(string name)
     {
-      var cardFactory = GetFactory(name);
+      var cardFactory = GetCardTemplate(name);
       return cardFactory.CreateCard();
     }     
 
     public List<Card> CreateAll()
     {
-      return _factories
+      return _templates
         .Select(x => x.CreateCard())
         .Where(x => !x.Is("uncastable"))
         .ToList();
     }
 
-    private CardFactory GetFactory(string name)
+    private CardTemplate GetCardTemplate(string name)
     {
-      var cardFactory = _factories
+      var template = _templates
         .Where(x => x.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase))
         .FirstOrDefault();
 
-      if (cardFactory == null)
+      if (template == null)
+      {
         throw new InvalidOperationException(
           String.Format("Card with name '{0}' was not found in database.", name));
-      return cardFactory;
+      }
+
+      return template;
     }
 
-    private static List<CardFactory> GetFactories(IEnumerable<CardsSource> cardsSources)
+    private static List<CardTemplate> GetTemplates(IEnumerable<CardTemplateSource> sources)
     {
-      var factories = new List<CardFactory>();
-      foreach (var cardSource in cardsSources)
+      var factories = new List<CardTemplate>();
+      foreach (var source in sources)
       {
-        factories.AddRange(cardSource.GetCards());
+        factories.AddRange(source.GetCards());
       }
       return factories;
     }

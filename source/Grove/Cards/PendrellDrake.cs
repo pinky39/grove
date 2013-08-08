@@ -4,9 +4,9 @@
   using Gameplay.Abilities;
   using Gameplay.Misc;
 
-  public class PendrellDrake : CardsSource
+  public class PendrellDrake : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Pendrell Drake")

@@ -14,9 +14,9 @@
   using Gameplay.States;
   using Gameplay.Triggers;
 
-  public class SerrasLiturgy : CardsSource
+  public class SerrasLiturgy : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Serra's Liturgy")

@@ -7,9 +7,9 @@
   using Gameplay.Modifiers;
   using Gameplay.Triggers;
 
-  public class SustainerOfTheRealm : CardsSource
+  public class SustainerOfTheRealm : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Sustainer of the Realm")

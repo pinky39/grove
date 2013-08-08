@@ -8,9 +8,9 @@
   using Gameplay.Misc;
   using Gameplay.Targeting;
 
-  public class FaithHealer : CardsSource
+  public class FaithHealer : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Faith Healer")

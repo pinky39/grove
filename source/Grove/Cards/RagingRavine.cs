@@ -14,9 +14,9 @@
   using Gameplay.Modifiers;
   using Gameplay.Triggers;
 
-  public class RagingRavine : CardsSource
+  public class RagingRavine : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Raging Ravine")

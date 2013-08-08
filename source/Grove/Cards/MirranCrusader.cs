@@ -5,9 +5,9 @@
   using Gameplay.Characteristics;
   using Gameplay.Misc;
 
-  public class MirranCrusader : CardsSource
+  public class MirranCrusader : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Mirran Crusader")

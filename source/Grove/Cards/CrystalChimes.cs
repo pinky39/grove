@@ -8,9 +8,9 @@
   using Gameplay.ManaHandling;
   using Gameplay.Misc;
 
-  public class CrystalChimes : CardsSource
+  public class CrystalChimes : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Crystal Chimes")

@@ -7,9 +7,9 @@
   using Gameplay.Effects;
   using Gameplay.Misc;
 
-  public class SealOfFire : CardsSource
+  public class SealOfFire : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Seal of Fire")

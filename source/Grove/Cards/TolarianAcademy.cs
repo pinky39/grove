@@ -4,9 +4,9 @@
   using Gameplay.ManaHandling;
   using Gameplay.Misc;
 
-  public class TolarianAcademy : CardsSource
+  public class TolarianAcademy : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Tolarian Academy")

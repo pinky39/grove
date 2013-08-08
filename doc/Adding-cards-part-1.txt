@@ -62,9 +62,9 @@ namespace Grove.Cards
   using Gameplay.Characteristics;
   using Gameplay.Misc;
 
-  public class AkromaAngelOfWrath : CardsSource
+  public class AkromaAngelOfWrath : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Akroma, Angel of Wrath")
@@ -86,8 +86,8 @@ namespace Grove.Cards
 Let's look at the code in detail.
  
  # By convention, all card definitions must be in namespace Grove.Cards (the engine only loads cards in this namespace).
- # We see that the code declares a class named !AkromaAngelOfWrath that is derived from a class named !CardsSource. !CardsSource contains an abstract method !GetCards() which all derived classes should implement. This method returns an enumerable of !CardFactory objects. A !CardFactory defines the properties of the card and is used by the engine to produce concrete instances of cards. For example, if a deck contains 4 copies of Akroma, Angel of Wrath, this object would be called 4 times to create 4 Card objects. 
- # A card definition usually starts by specifying card's name, mana cost, type, text and flavor text. This is done by calling corresponding methods on !CardFactory object. Since 'Akroma, Angel of Wrath' is a creature, we also specify its power and toughness. 
+ # We see that the code declares a class named !AkromaAngelOfWrath that is derived from a class named !CardTemplateSource. !CardTemplateSource contains an abstract method !GetCards() which all derived classes should implement. This method returns an enumerable of !CardTemplate objects. A !CardTemplate defines the properties of the card and is used by the engine to produce concrete instances of cards. For example, if a deck contains 4 copies of Akroma, Angel of Wrath, this object would be called 4 times to create 4 Card objects. 
+ # A card definition usually starts by specifying card's name, mana cost, type, text and flavor text. This is done by calling corresponding methods on !CardTemplate object. Since 'Akroma, Angel of Wrath' is a creature, we also specify its power and toughness. 
  # Simple static abilities like flying, first strike ... are defined by calling !SimpleAbilities method.
  # Protections from colors are defined by calling Protections method.
 

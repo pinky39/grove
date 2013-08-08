@@ -5,9 +5,9 @@
   using Gameplay;
   using Gameplay.Misc;
 
-  public class UnworthyDead : CardsSource
+  public class UnworthyDead : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Unworthy Dead")

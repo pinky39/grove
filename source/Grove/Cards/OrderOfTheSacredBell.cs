@@ -3,9 +3,9 @@
   using System.Collections.Generic;
   using Gameplay.Misc;
 
-  public class OrderOfTheSacredBell : CardsSource
+  public class OrderOfTheSacredBell : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Order of the Sacred Bell")

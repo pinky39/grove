@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Artifical;
   using Artifical.TargetingRules;
@@ -11,9 +10,9 @@
   using Gameplay.Triggers;
   using Gameplay.Zones;
 
-  public class AcidicSlime : CardsSource
+  public class AcidicSlime : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Acidic Slime")

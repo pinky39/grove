@@ -8,9 +8,9 @@
   using Gameplay.Misc;
   using Gameplay.Modifiers;
 
-  public class CitanulHierophants : CardsSource
+  public class CitanulHierophants : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Citanul Hierophants")

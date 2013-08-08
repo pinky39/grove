@@ -8,9 +8,9 @@
   using Gameplay.Effects;
   using Gameplay.Misc;
 
-  public class Befoul : CardsSource
+  public class Befoul : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Befoul")

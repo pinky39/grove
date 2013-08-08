@@ -6,9 +6,9 @@
   using Gameplay.Misc;
   using Gameplay.Modifiers;
 
-  public class UrzasArmor : CardsSource
+  public class UrzasArmor : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Urza's Armor")

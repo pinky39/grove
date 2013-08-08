@@ -6,9 +6,9 @@
   using Gameplay.Misc;
   using Gameplay.Triggers;
 
-  public class SkitteringSkirge : CardsSource
+  public class SkitteringSkirge : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Skittering Skirge")

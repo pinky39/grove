@@ -10,9 +10,9 @@
   using Gameplay.Misc;
   using Gameplay.Triggers;
 
-  public class OpalAcrolith : CardsSource
+  public class OpalAcrolith : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Opal Acrolith")

@@ -9,9 +9,9 @@
   using Gameplay.ManaHandling;
   using Gameplay.Misc;
 
-  public class Douse : CardsSource
+  public class Douse : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Douse")

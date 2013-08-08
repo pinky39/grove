@@ -31,11 +31,11 @@
 
     private Game() {}
 
-    public Game(GameParameters p, CardsDatabase cardsDatabase, DecisionSystem decisionSystem)
+    public Game(GameParameters p, CardFactory cardFactory, DecisionSystem decisionSystem)
     {
       ChangeTracker = new ChangeTracker();
       _publisher = new Publisher();
-      CardsDatabase = cardsDatabase;
+      CardFactory = cardFactory;
       Stack = new Stack();
       Turn = new TurnInfo();
       _wasStopped = new Trackable<bool>();
@@ -102,7 +102,7 @@
     }
 
     public ChangeTracker ChangeTracker { get; private set; }
-    public CardsDatabase CardsDatabase { get; private set; }
+    public CardFactory CardFactory { get; private set; }
     public bool WasStopped { get { return _wasStopped.Value; } }
     public Combat Combat { get; private set; }
     public bool IsFinished { get { return Players.AnyHasLost() || _turnLimit < Turn.TurnCount; } }

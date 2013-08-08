@@ -7,9 +7,9 @@
   using Gameplay.States;
   using Gameplay.Triggers;
 
-  public class GraftedSkullcap : CardsSource
+  public class GraftedSkullcap : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Grafted Skullcap")

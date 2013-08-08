@@ -9,9 +9,9 @@
   using Gameplay.Misc;
   using Gameplay.Modifiers;
 
-  public class BlackSunsZenith : CardsSource
+  public class BlackSunsZenith : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Black Sun's Zenith")

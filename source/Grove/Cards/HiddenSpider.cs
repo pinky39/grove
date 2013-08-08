@@ -9,9 +9,9 @@
   using Gameplay.Modifiers;
   using Gameplay.Triggers;
 
-  public class HiddenSpider : CardsSource
+  public class HiddenSpider : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Hidden Spider")

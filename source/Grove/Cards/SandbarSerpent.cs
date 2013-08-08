@@ -3,9 +3,9 @@
   using System.Collections.Generic;
   using Gameplay.Misc;
 
-  public class SandbarSerpent : CardsSource
+  public class SandbarSerpent : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Sandbar Serpent")

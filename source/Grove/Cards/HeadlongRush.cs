@@ -8,9 +8,9 @@
   using Gameplay.Modifiers;
   using Gameplay.States;
 
-  public class HeadlongRush : CardsSource
+  public class HeadlongRush : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Headlong Rush")

@@ -12,9 +12,9 @@
   using Gameplay.States;
   using Gameplay.Triggers;
 
-  public class WarDance : CardsSource
+  public class WarDance : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("War Dance")

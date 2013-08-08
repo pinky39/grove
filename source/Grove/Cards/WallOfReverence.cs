@@ -9,9 +9,9 @@
   using Gameplay.Targeting;
   using Gameplay.Triggers;
 
-  public class WallOfReverence : CardsSource
+  public class WallOfReverence : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Wall of Reverence")

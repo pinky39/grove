@@ -6,9 +6,9 @@
   using Gameplay.Misc;
   using Gameplay.States;
 
-  public class Lull : CardsSource
+  public class Lull : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Lull")

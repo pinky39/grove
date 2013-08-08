@@ -4,9 +4,9 @@
   using Gameplay;
   using Gameplay.Misc;
 
-  public class AlbinoTroll : CardsSource
+  public class AlbinoTroll : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Albino Troll")

@@ -9,9 +9,9 @@
   using Gameplay.Triggers;
   using Gameplay.Zones;
 
-  public class Vebulid : CardsSource
+  public class Vebulid : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Vebulid")

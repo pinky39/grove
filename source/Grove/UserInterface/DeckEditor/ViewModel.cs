@@ -26,7 +26,7 @@
       {
         _deck = value;
 
-        _deck.SelectedCardChanged += delegate { SelectedCard = CardsDictionary[_deck.SelectedCard.Name]; };
+        _deck.SelectedCardChanged += delegate { SelectedCard = CardDatabase[_deck.SelectedCard.Name]; };
       }
     }
 
@@ -35,11 +35,11 @@
 
     public override void Initialize()
     {      
-      _libraryItems = CardsDictionary
+      _libraryItems = CardDatabase
         .GetCardNames()
         .Select(x => new LibraryItem
           {
-            Card = CardsDictionary[x],
+            Card = CardDatabase[x],
             Info = new CardInfo(x)
           })
         .ToDictionary(x => x.Info.Name, x => x);
@@ -50,7 +50,7 @@
         orderBy: x => 0);
 
       Deck = ViewModels.Deck.Create();
-      SelectedCard = CardsDictionary[_libraryItems.First().Value.Info.Name];
+      SelectedCard = CardDatabase[_libraryItems.First().Value.Info.Name];
     }
 
     public void ChangeSelectedCard(LibraryItem libraryItem)

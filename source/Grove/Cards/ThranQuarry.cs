@@ -8,9 +8,9 @@
   using Gameplay.Triggers;
   using Infrastructure;
 
-  public class ThranQuarry : CardsSource
+  public class ThranQuarry : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Thran Quarry")

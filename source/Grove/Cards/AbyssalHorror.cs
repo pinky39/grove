@@ -9,9 +9,9 @@
   using Gameplay.Triggers;
   using Gameplay.Zones;
 
-  public class AbyssalHorror : CardsSource
+  public class AbyssalHorror : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Abyssal Horror")

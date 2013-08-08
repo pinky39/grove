@@ -6,9 +6,9 @@
   using Gameplay.Misc;
   using Gameplay.Targeting;
 
-  public class Intervene : CardsSource
+  public class Intervene : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Intervene")

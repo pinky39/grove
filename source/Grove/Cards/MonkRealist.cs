@@ -8,9 +8,9 @@
   using Gameplay.Triggers;
   using Gameplay.Zones;
 
-  public class MonkRealist : CardsSource
+  public class MonkRealist : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Monk Realist")

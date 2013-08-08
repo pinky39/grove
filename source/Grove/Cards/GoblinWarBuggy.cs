@@ -4,9 +4,9 @@
   using Gameplay.Abilities;
   using Gameplay.Misc;
 
-  public class GoblinWarBuggy : CardsSource
+  public class GoblinWarBuggy : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Goblin War Buggy")

@@ -9,9 +9,9 @@
   using Gameplay.Misc;
   using Gameplay.States;
 
-  public class Whetstone : CardsSource
+  public class Whetstone : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Whetstone")

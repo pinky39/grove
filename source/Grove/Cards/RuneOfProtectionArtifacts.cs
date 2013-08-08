@@ -9,9 +9,9 @@
   using Gameplay.ManaHandling;
   using Gameplay.Misc;
 
-  public class RuneOfProtectionArtifacts : CardsSource
+  public class RuneOfProtectionArtifacts : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Rune of Protection: Artifacts")

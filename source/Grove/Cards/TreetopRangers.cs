@@ -4,9 +4,9 @@
   using Gameplay.Abilities;
   using Gameplay.Misc;
 
-  public class TreetopRangers : CardsSource
+  public class TreetopRangers : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Treetop Rangers")

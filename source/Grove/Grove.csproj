@@ -93,6 +93,12 @@
     <Reference Include="log4net">
       <HintPath>..\..\lib\log4net\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Lucene.Net">
+      <HintPath>..\..\lib\lucene\Lucene.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Lucene.Net.Contrib.Snowball">
+      <HintPath>..\..\lib\lucene\Lucene.Net.Contrib.Snowball.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Windows.Interactivity">
@@ -734,7 +740,7 @@
     <Compile Include="Gameplay\Abilities\StaticAbilityParamaters.cs" />
     <Compile Include="Gameplay\DamageHandling\DamageFromSource.cs" />
     <Compile Include="Gameplay\CardInfo.cs" />
-    <Compile Include="Gameplay\CardsDictionary.cs" />
+    <Compile Include="Gameplay\CardDatabase.cs" />
     <Compile Include="Gameplay\Characteristics\CardColors.cs" />
     <Compile Include="Gameplay\Costs\DiscardTarget.cs" />
     <Compile Include="Gameplay\Counters\CounterType.cs" />
@@ -813,7 +819,7 @@
     <Compile Include="Gameplay\Effects\ReorderTopCards.cs" />
     <Compile Include="Persistance\ErrorReportLoader.cs" />
     <Compile Include="Persistance\IdentityManager.cs" />
-    <Compile Include="Gameplay\Misc\CardFactory.cs" />
+    <Compile Include="Gameplay\Misc\CardTemplate.cs" />
     <Compile Include="Gameplay\CardParameters.cs" />
     <Compile Include="Gameplay\Decisions\ChooseTo.cs" />
     <Compile Include="Gameplay\Decisions\OrderCards.cs" />
@@ -1238,7 +1244,7 @@
     <Compile Include="Gameplay\Messages\AttachmentAttached.cs" />
     <Compile Include="Gameplay\Messages\AttachmentDetached.cs" />
     <Compile Include="Gameplay\CastingRules\CastingRule.cs" />
-    <Compile Include="Gameplay\Misc\CardsSource.cs" />
+    <Compile Include="Gameplay\Misc\CardTemplateSource.cs" />
     <Compile Include="Gameplay\Effects\PutIntoPlay.cs" />
     <Compile Include="Gameplay\Abilities\ActivatedAbility.cs" />
     <Compile Include="Gameplay\Card.cs" />
@@ -1252,7 +1258,7 @@
     <Compile Include="Gameplay\Triggers\OnDamageDealt.cs" />
     <Compile Include="Gameplay\Triggers\OnZoneChanged.cs" />
     <Compile Include="Gameplay\Costs\Cost.cs" />
-    <Compile Include="Gameplay\CardsDatabase.cs" />
+    <Compile Include="Gameplay\CardFactory.cs" />
     <Compile Include="Gameplay\Effects\AddManaToPool.cs" />
     <Compile Include="Gameplay\Effects\ApplyModifiersToPermanents.cs" />
     <Compile Include="Gameplay\Effects\ApplyModifiersToSelfAndToTargets.cs" />
@@ -1737,7 +1743,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <UsingTask TaskName="Costura.EmbedTask" AssemblyFile="$(SolutionDir)lib\costura\Costura.dll" />
   <Target Name="AfterBuild">
-    <Costura.EmbedTask />
+    <Costura.EmbedTask IncludeDebugSymbols="False" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

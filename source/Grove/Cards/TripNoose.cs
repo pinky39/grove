@@ -10,9 +10,9 @@
   using Gameplay.Misc;
   using Gameplay.States;
 
-  public class TripNoose : CardsSource
+  public class TripNoose : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Trip Noose")

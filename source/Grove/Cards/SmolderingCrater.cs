@@ -5,9 +5,9 @@
   using Gameplay.Effects;
   using Gameplay.Misc;
 
-  public class SmolderingCrater : CardsSource
+  public class SmolderingCrater : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Smoldering Crater")

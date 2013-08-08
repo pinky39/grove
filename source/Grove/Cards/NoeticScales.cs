@@ -7,9 +7,9 @@
   using Gameplay.States;
   using Gameplay.Triggers;
 
-  public class NoeticScales : CardsSource
+  public class NoeticScales : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Noetic Scales")

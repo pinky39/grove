@@ -6,9 +6,9 @@
   using Gameplay.Effects;
   using Gameplay.Misc;
 
-  public class Sunder : CardsSource
+  public class Sunder : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Sunder")

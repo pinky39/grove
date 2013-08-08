@@ -7,9 +7,9 @@
   using Gameplay.Effects;
   using Gameplay.Misc;
 
-  public class DarkRitual : CardsSource
+  public class DarkRitual : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Dark Ritual")

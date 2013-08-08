@@ -5,9 +5,9 @@
   using Gameplay.Effects;
   using Gameplay.Misc;
 
-  public class VolcanicFallout : CardsSource
+  public class VolcanicFallout : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Volcanic Fallout")

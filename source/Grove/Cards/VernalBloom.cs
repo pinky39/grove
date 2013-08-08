@@ -6,9 +6,9 @@
   using Gameplay.Misc;
   using Gameplay.Modifiers;
 
-  public class VernalBloom : CardsSource
+  public class VernalBloom : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Vernal Bloom")

@@ -17,7 +17,7 @@
   using Triggers;
   using Zones;
 
-  public class CardFactory
+  public class CardTemplate
   {
     private readonly List<Action<CardParameters>> _init = new List<Action<CardParameters>>();
 
@@ -77,19 +77,19 @@
       return new Permanent();
     }
 
-    public CardFactory HasXInCost()
+    public CardTemplate HasXInCost()
     {
       _init.Add(p => p.HasXInCost = true);
       return this;
     }
 
-    public CardFactory Protections(CardColor color)
+    public CardTemplate Protections(CardColor color)
     {
       _init.Add(p => p.Protections.AddProtectionFromColor(color));
       return this;
     }
 
-    public CardFactory Cast(Action<CastInstructionParameters> set)
+    public CardTemplate Cast(Action<CastInstructionParameters> set)
     {
       _init.Add(cp =>
         {
@@ -111,7 +111,7 @@
       return this;
     }
 
-    public CardFactory CombatRule(Func<CombatRule> combatRule)
+    public CardTemplate CombatRule(Func<CombatRule> combatRule)
     {
       _init.Add(cp => cp.CombatRules.Add(combatRule()));
 
@@ -187,14 +187,14 @@
       }
     }
 
-    public CardFactory Protections(params string[] cardTypes)
+    public CardTemplate Protections(params string[] cardTypes)
     {
       _init.Add(p => p.Protections.AddProtectionFromCards(cardTypes));
 
       return this;
     }
 
-    public CardFactory Echo(string manaCost)
+    public CardTemplate Echo(string manaCost)
     {
       var amount = manaCost.Parse();
 
@@ -210,7 +210,7 @@
       return this;
     }
 
-    public CardFactory Regenerate(IManaAmount cost, string text)
+    public CardTemplate Regenerate(IManaAmount cost, string text)
     {
       return ActivatedAbility(p =>
         {
@@ -223,7 +223,7 @@
         .CombatRule(() => new Artifical.CombatRules.Regenerate(cost));
     }
 
-    public CardFactory Pump(IManaAmount cost, string text, int powerIncrease, int toughnessIncrease)
+    public CardTemplate Pump(IManaAmount cost, string text, int powerIncrease, int toughnessIncrease)
     {
        return ActivatedAbility(p =>
           {
@@ -245,7 +245,7 @@
         .CombatRule(() => new IncreasePowerAndToughness(powerIncrease, toughnessIncrease, cost));
     }
 
-    public CardFactory ActivatedAbility(Action<ActivatedAbilityParameters> set)
+    public CardTemplate ActivatedAbility(Action<ActivatedAbilityParameters> set)
     {
       _init.Add(cp =>
         {
@@ -256,7 +256,7 @@
       return this;
     }
 
-    public CardFactory ManaAbility(Action<ManaAbilityParameters> set)
+    public CardTemplate ManaAbility(Action<ManaAbilityParameters> set)
     {
       _init.Add(cp =>
         {
@@ -282,7 +282,7 @@
       return ManaSourcePriorities.Land;
     }
 
-    public CardFactory StaticAbility(Action<StaticAbilityParamaters> set)
+    public CardTemplate StaticAbility(Action<StaticAbilityParamaters> set)
     {
       _init.Add(cp =>
         {
@@ -293,7 +293,7 @@
       return this;
     }
 
-    public CardFactory TriggeredAbility(Action<TriggeredAbilityParameters> set)
+    public CardTemplate TriggeredAbility(Action<TriggeredAbilityParameters> set)
     {
       _init.Add(cp =>
         {
@@ -304,7 +304,7 @@
       return this;
     }
 
-    public CardFactory SimpleAbilities(params Static[] abilities)
+    public CardTemplate SimpleAbilities(params Static[] abilities)
     {
       _init.Add(cp =>
         {
@@ -316,7 +316,7 @@
       return this;
     }
 
-    public CardFactory ContinuousEffect(Action<ContinuousEffectParameters> set)
+    public CardTemplate ContinuousEffect(Action<ContinuousEffectParameters> set)
     {
       _init.Add(cp =>
         {
@@ -327,38 +327,38 @@
       return this;
     }
 
-    public CardFactory Colors(params CardColor[] colors)
+    public CardTemplate Colors(params CardColor[] colors)
     {
       _init.Add(p => p.Colors.AddRange(colors));
       return this;
     }
 
-    public CardFactory IsLeveler()
+    public CardTemplate IsLeveler()
     {
       _init.Add(p => { p.IsLeveler = true; });
       return this;
     }
 
-    public CardFactory FlavorText(string flavorText)
+    public CardTemplate FlavorText(string flavorText)
     {
       _init.Add(p => { p.FlavorText = flavorText; });
       return this;
     }
 
-    public CardFactory ManaCost(string manaCost)
+    public CardTemplate ManaCost(string manaCost)
     {
       _init.Add(p => { p.ManaCost = manaCost.Parse(); });
       return this;
     }
 
-    public CardFactory Named(string name)
+    public CardTemplate Named(string name)
     {
       Name = name;
       _init.Add(p => { p.Name = name; });
       return this;
     }
 
-    public CardFactory Cycling(string cost)
+    public CardTemplate Cycling(string cost)
     {
       ActivatedAbility(p =>
         {
@@ -372,39 +372,39 @@
       return this;
     }
 
-    public CardFactory Power(int power)
+    public CardTemplate Power(int power)
     {
       _init.Add(p => { p.Power = power; });
       return this;
     }
 
 
-    public CardFactory Text(string text)
+    public CardTemplate Text(string text)
     {
       _init.Add(p => { p.Text = text; });
       return this;
     }
 
 
-    public CardFactory Toughness(int toughness)
+    public CardTemplate Toughness(int toughness)
     {
       _init.Add(p => { p.Toughness = toughness; });
       return this;
     }
 
-    public CardFactory IsUnblockableIfNotBlockedByAtLeast(int count)
+    public CardTemplate IsUnblockableIfNotBlockedByAtLeast(int count)
     {
       _init.Add(p => { p.MinimalBlockerCount = count; });
       return this;
     }
 
-    public CardFactory Type(string type)
+    public CardTemplate Type(string type)
     {
       _init.Add(p => { p.Type = type; });
       return this;
     }
 
-    public CardFactory Leveler(string cost, EffectCategories category,
+    public CardTemplate Leveler(string cost, EffectCategories category,
       params LevelDefinition[] levels)
     {
       ActivatedAbility(p =>
@@ -446,13 +446,13 @@
       return this;
     }
 
-    public CardFactory MayChooseToUntap()
+    public CardTemplate MayChooseToUntap()
     {
       _init.Add(p => p.MayChooseToUntap = true);
       return this;
     }
 
-    public CardFactory OverrideScore(ScoreOverride score)
+    public CardTemplate OverrideScore(ScoreOverride score)
     {
       _init.Add(p => p.OverrideScore = score);
       return this;

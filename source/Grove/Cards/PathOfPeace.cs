@@ -7,9 +7,9 @@
   using Gameplay.Misc;
   using Gameplay.Targeting;
 
-  public class PathOfPeace : CardsSource
+  public class PathOfPeace : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Path of Peace")

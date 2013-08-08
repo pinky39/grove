@@ -67,7 +67,7 @@
 
         foreach (var cardInfo in _deck)
         {
-          var card = CardsDictionary[cardInfo.Name];
+          var card = CardDatabase[cardInfo.Name];
 
           if (card.ManaCost == null)
             continue;
@@ -108,7 +108,7 @@
 
     private IEnumerable<CardInfo> FilterCards(IEnumerable<CardInfo> cards, Func<Card, bool> predicate)
     {
-      return cards.Where(x => predicate(CardsDictionary[x.Name]));
+      return cards.Where(x => predicate(CardDatabase[x.Name]));
     }
 
     public override void Initialize()

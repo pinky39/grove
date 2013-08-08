@@ -8,9 +8,9 @@
   using Gameplay.Misc;
   using Gameplay.Targeting;
 
-  public class GreaterGood : CardsSource
+  public class GreaterGood : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Greater Good")

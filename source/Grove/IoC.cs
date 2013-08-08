@@ -129,8 +129,8 @@
         container.Register(Component(typeof (Game.IFactory)).AsFactory());
         container.Register(Component(typeof (MatchSimulator), lifestyle: LifestyleType.Singleton));
         container.Register(Component(typeof (ErrorReportLoader), lifestyle: LifestyleType.Singleton));
-        container.Register(Component(typeof (CardsDatabase), lifestyle: LifestyleType.Singleton));
-        container.Register(Component(typeof (CardsDictionary), lifestyle: LifestyleType.Singleton));
+        container.Register(Component(typeof (CardFactory), lifestyle: LifestyleType.Singleton));
+        container.Register(Component(typeof (CardDatabase), lifestyle: LifestyleType.Singleton));
         container.Register(Component(typeof (DeckBuilder), lifestyle: LifestyleType.Singleton));
         container.Register(Component(typeof (DeckEvaluator), lifestyle: LifestyleType.Singleton));
         
@@ -192,7 +192,7 @@
       private static void RegisterCardsSources(IWindsorContainer container)
       {
         container.Register(Classes.FromThisAssembly()
-          .BasedOn(typeof (CardsSource))
+          .BasedOn(typeof (CardTemplateSource))
           .WithService.Base()
           .LifestyleTransient());
       }

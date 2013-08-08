@@ -25,12 +25,12 @@
     private static readonly int MinSpellCount = 21;
     private static readonly int MaxSpellCount = DeckCardCount - LandCountRules[0].Count;
 
-    private readonly CardsDictionary _c;
+    private readonly CardDatabase _c;
     private readonly DeckEvaluator _deckEvaluator;
 
-    public DeckBuilder(CardsDictionary cardsDictionary, DeckEvaluator deckEvaluator)
+    public DeckBuilder(CardDatabase cardDatabase, DeckEvaluator deckEvaluator)
     {
-      _c = cardsDictionary;
+      _c = cardDatabase;
       _deckEvaluator = deckEvaluator;
     }
 

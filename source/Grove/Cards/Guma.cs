@@ -5,9 +5,9 @@
   using Gameplay.Characteristics;
   using Gameplay.Misc;
 
-  public class Guma : CardsSource
+  public class Guma : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Guma")

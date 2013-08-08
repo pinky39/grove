@@ -5,9 +5,9 @@
   using Gameplay.Abilities;
   using Gameplay.Misc;
 
-  public class TrollAscetic : CardsSource
+  public class TrollAscetic : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Troll Ascetic")

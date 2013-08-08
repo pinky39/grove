@@ -11,9 +11,9 @@
   using Gameplay.Misc;
   using Gameplay.States;
 
-  public class RingOfGix : CardsSource
+  public class RingOfGix : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Ring of Gix")

@@ -6,9 +6,9 @@
   using Gameplay.States;
   using Gameplay.Triggers;
 
-  public class ImaginaryPet : CardsSource
+  public class ImaginaryPet : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Imaginary Pet")

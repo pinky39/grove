@@ -10,9 +10,9 @@
   using Gameplay.Misc;
   using Gameplay.Modifiers;
 
-  public class LurkingEvil : CardsSource
+  public class LurkingEvil : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Lurking Evil")

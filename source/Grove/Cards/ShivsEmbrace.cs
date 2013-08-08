@@ -14,9 +14,9 @@
   using Gameplay.Misc;
   using Gameplay.Modifiers;
 
-  public class ShivsEmbrace : CardsSource
+  public class ShivsEmbrace : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Shiv's Embrace")

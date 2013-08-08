@@ -6,9 +6,9 @@
   using Gameplay.Effects;
   using Gameplay.Misc;
 
-  public class Unnerve : CardsSource
+  public class Unnerve : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Unnerve")

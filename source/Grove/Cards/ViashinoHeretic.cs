@@ -10,9 +10,9 @@
   using Gameplay.Misc;
   using Gameplay.Targeting;
 
-  public class ViashinoHeretic : CardsSource
+  public class ViashinoHeretic : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Viashino Heretic")

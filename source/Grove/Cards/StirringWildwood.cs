@@ -11,9 +11,9 @@
   using Gameplay.Misc;
   using Gameplay.Modifiers;
 
-  public class StirringWildwood : CardsSource
+  public class StirringWildwood : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Stirring Wildwood")

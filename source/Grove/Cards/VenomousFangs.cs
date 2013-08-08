@@ -8,9 +8,9 @@
   using Gameplay.Misc;
   using Gameplay.Modifiers;
 
-  public class VenomousFangs : CardsSource
+  public class VenomousFangs : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       // original ability is slightly different, but AI understands 
       // deathtouch and the additional code is currently just not worth the effort.

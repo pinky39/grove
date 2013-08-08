@@ -5,9 +5,9 @@
   using Gameplay.Abilities;
   using Gameplay.Misc;
 
-  public class StudentOfWarfare : CardsSource
+  public class StudentOfWarfare : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Student of Warfare")

@@ -502,7 +502,7 @@
     {
       var cards = _deck.Select(cardInfo =>
         {
-          var card = CardsDatabase.CreateCard(cardInfo.Name);
+          var card = CardFactory.CreateCard(cardInfo.Name);
           card.Rarity = cardInfo.Rarity;
           card.Set = cardInfo.Set;
 

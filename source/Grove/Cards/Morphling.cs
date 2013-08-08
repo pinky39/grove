@@ -12,9 +12,9 @@
   using Gameplay.Modifiers;
   using Gameplay.States;
 
-  public class Morphling : CardsSource
+  public class Morphling : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Morphling")

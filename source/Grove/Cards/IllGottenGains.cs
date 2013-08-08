@@ -7,9 +7,9 @@
   using Gameplay.Misc;
   using Gameplay.Zones;
 
-  public class IllGottenGains : CardsSource
+  public class IllGottenGains : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Ill-Gotten Gains")

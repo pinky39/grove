@@ -8,9 +8,9 @@
   using Gameplay.Misc;
   using Gameplay.Triggers;
 
-  public class OrderOfYawgmoth : CardsSource
+  public class OrderOfYawgmoth : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Order of Yawgmoth")

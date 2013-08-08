@@ -10,9 +10,9 @@
   using Gameplay.Triggers;
   using Gameplay.Zones;
 
-  public class Launch : CardsSource
+  public class Launch : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Launch")

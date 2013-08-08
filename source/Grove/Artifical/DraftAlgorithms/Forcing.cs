@@ -11,7 +11,7 @@
     private const double PlayableThreshold = 3.1;
     private const int MinimalCreatures = 12;
     private const double CreaturesBonus = 0.2;
-    private readonly CardsDictionary _c;
+    private readonly CardDatabase _c;
     private readonly List<Card> _draftedCards = new List<Card>();
     private readonly ColorScore[] _in = InitializeScores();
     private readonly ColorScore[] _out = InitializeScores();
@@ -19,7 +19,7 @@
     private CardColor _primaryForcingColor;
     private CardColor? _secondaryForcingColor;
 
-    public Forcing(CardsDictionary c, CardRatings ratings)
+    public Forcing(CardDatabase c, CardRatings ratings)
     {
       _c = c;
       _ratings = ratings;

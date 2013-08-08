@@ -6,9 +6,9 @@
   using Gameplay.Misc;
   using Gameplay.Zones;
 
-  public class Exhume : CardsSource
+  public class Exhume : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Exhume")

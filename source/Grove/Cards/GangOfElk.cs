@@ -6,9 +6,9 @@
   using Gameplay.Modifiers;
   using Gameplay.Triggers;
 
-  public class GangOfElk : CardsSource
+  public class GangOfElk : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Gang of Elk")

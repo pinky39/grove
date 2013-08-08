@@ -6,9 +6,9 @@
   using Gameplay.Costs;
   using Gameplay.Misc;
 
-  public class Swamp : CardsSource
+  public class Swamp : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Swamp")

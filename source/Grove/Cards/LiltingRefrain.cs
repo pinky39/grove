@@ -10,9 +10,9 @@
   using Gameplay.States;
   using Gameplay.Triggers;
 
-  public class LiltingRefrain : CardsSource
+  public class LiltingRefrain : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Lilting Refrain")

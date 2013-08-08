@@ -6,9 +6,9 @@
   using Gameplay.Modifiers;
   using Gameplay.Triggers;
 
-  public class HollowDogs : CardsSource
+  public class HollowDogs : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Hollow Dogs")

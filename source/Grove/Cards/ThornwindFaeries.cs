@@ -8,9 +8,9 @@
   using Gameplay.Effects;
   using Gameplay.Misc;
 
-  public class ThornwindFaeries : CardsSource
+  public class ThornwindFaeries : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Thornwind Faeries")

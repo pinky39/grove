@@ -12,9 +12,9 @@
   using Gameplay.Triggers;
   using Infrastructure;
 
-  public class Pestilence : CardsSource
+  public class Pestilence : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Pestilence")

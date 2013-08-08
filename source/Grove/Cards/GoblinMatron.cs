@@ -6,9 +6,9 @@
   using Gameplay.Triggers;
   using Gameplay.Zones;
 
-  public class GoblinMatron : CardsSource
+  public class GoblinMatron : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Goblin Matron")

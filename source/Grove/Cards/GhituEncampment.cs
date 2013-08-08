@@ -12,9 +12,9 @@
   using Gameplay.Misc;
   using Gameplay.Modifiers;
 
-  public class GhituEncampment : CardsSource
+  public class GhituEncampment : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Ghitu Encampment")

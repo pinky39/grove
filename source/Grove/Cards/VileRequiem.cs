@@ -14,9 +14,9 @@
   using Gameplay.States;
   using Gameplay.Triggers;
 
-  public class VileRequiem : CardsSource
+  public class VileRequiem : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Vile Requiem")

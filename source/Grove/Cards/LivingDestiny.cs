@@ -10,9 +10,9 @@
   using Gameplay.Misc;
   using Gameplay.Targeting;
 
-  public class LivingDestiny : CardsSource
+  public class LivingDestiny : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Living Destiny")

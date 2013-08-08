@@ -5,10 +5,10 @@
   using Abilities;
   using Effects;
 
-  public abstract class CardsSource
+  public abstract class CardTemplateSource
   {
-    public CardFactory Card { get { return new CardFactory(); } }
-    public abstract IEnumerable<CardFactory> GetCards();
+    public CardTemplate Card { get { return new CardTemplate(); } }
+    public abstract IEnumerable<CardTemplate> GetCards();
 
     protected T[] L<T>(params T[] elt)
     {

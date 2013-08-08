@@ -8,13 +8,13 @@
   {
     private readonly Action<Card, Game> _afterTokenComesToPlay;
     private readonly DynParam<int> _count;
-    private readonly Action<Effect, CardFactory> _setTokenParameters = delegate { };
+    private readonly Action<Effect, CardTemplate> _setTokenParameters = delegate { };
     private readonly DynParam<Player> _tokenController;
-    private readonly List<CardFactory> _tokenFactories = new List<CardFactory>();
+    private readonly List<CardTemplate> _tokenFactories = new List<CardTemplate>();
 
     private CreateTokens() {}
 
-    public CreateTokens(params CardFactory[] tokens)
+    public CreateTokens(params CardTemplate[] tokens)
     {
       _tokenFactories.AddRange(tokens);
       _afterTokenComesToPlay = delegate { };
@@ -23,10 +23,10 @@
 
     public CreateTokens(
       DynParam<int> count,
-      CardFactory token,
+      CardTemplate token,
       Action<Card, Game> afterTokenComesToPlay = null,
       DynParam<Player> tokenController = null,
-      Action<Effect, CardFactory> tokenParameters = null)
+      Action<Effect, CardTemplate> tokenParameters = null)
     {
       _afterTokenComesToPlay = afterTokenComesToPlay ?? delegate { };
       _tokenController = tokenController;

@@ -9,9 +9,9 @@
   using Gameplay.ManaHandling;
   using Gameplay.Misc;
 
-  public class ClawsOfGix : CardsSource
+  public class ClawsOfGix : CardTemplateSource
   {
-    public override IEnumerable<CardFactory> GetCards()
+    public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
         .Named("Claws of Gix")
