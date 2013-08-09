@@ -311,11 +311,7 @@
       CreateStep(
         Step.Untap,
         getPriority: false,
-        first: () =>
-          {
-            Turn.TurnCount++;
-            Publish(new TurnStarted {TurnCount = Turn.TurnCount});
-          },
+        first: () => Turn.NextTurn(),
         second: () =>
           {
             foreach (var permanent in Players.Active.Battlefield)
@@ -421,10 +417,7 @@
             DiscardToMaximumHandSize();
             Publish(new EndOfTurn());
           },
-        second: () =>
-          {
-            Players.ChangeActivePlayer();            
-          },
+        second: () => Players.ChangeActivePlayer(),
         nextStep: () => Step.Untap);
     }
 

@@ -23,7 +23,7 @@
       _card = (Card) hashDependancy;
     }
 
-    protected override void OnCharacteristicChanged()
+    protected override void OnCharacteristicChanged(int? oldValue, int? newValue)
     {
       Publish(new LevelChanged
         {

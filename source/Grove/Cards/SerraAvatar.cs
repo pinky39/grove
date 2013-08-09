@@ -18,7 +18,7 @@
         .Text(
           "Serra Avatar's power and toughness are each equal to your life total.{EOL}When Serra Avatar is put into a graveyard from anywhere, shuffle it into its owner's library.")
         .Power(0)
-        .Toughness(0)        
+        .Toughness(0)
         .StaticAbility(p =>
           {
             p.Modifier(() => new ModifyPowerToughnessEqualToControllersLife());

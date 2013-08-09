@@ -1,10 +1,13 @@
 ﻿namespace Grove.Gameplay.States
 {
   using Infrastructure;
+  using Messages;
+  using Misc;
 
   [Copyable]
-  public class TurnInfo : IHashable
+  public class TurnInfo : GameObject, IHashable
   {
+    private readonly Trackable<TurnEvents> _events = new Trackable<TurnEvents>();
     private readonly Trackable<State> _state = new Trackable<State>();
     private readonly Trackable<int> _stateCount = new Trackable<int>();
     private readonly Trackable<Step> _step = new Trackable<Step>();
@@ -28,22 +31,16 @@
       {
         _step.Value = value;
         StepCount++;
+
         LogFile.Debug("Step: {0}", value);
       }
     }
 
+    public TurnEvents Events { get { return _events.Value; } }
     public int StepCount { get { return _stepCount.Value; } private set { _stepCount.Value = value; } }
     public int StateCount { get { return _stateCount.Value; } private set { _stateCount.Value = value; } }
 
-    public int TurnCount
-    {
-      get { return _turnCount.Value; }
-      set
-      {
-        _turnCount.Value = value;
-        LogFile.Debug("Turn: {0}", value);
-      }
-    }
+    public int TurnCount { get { return _turnCount.Value; } }
 
     public int CalculateHash(HashCalculator calc)
     {
@@ -54,6 +51,29 @@
         );
     }
 
+    public void NextTurn()
+    {
+      _turnCount.Value++;
+      LogFile.Debug("Turn: {0}", _turnCount.Value);
+
+      CreateEvents();
+      Publish(new TurnStarted {TurnCount = _turnCount.Value});
+    }
+
+    private void CreateEvents()
+    {
+      var events = new TurnEvents();
+      events.Initialize(Game);
+      Subscribe(events);
+
+      if (_events.Value != null)
+      {
+        Unsubscribe(_events.Value);
+      }
+
+      _events.Value = events;
+    }
+
     public int GetStepCountAtNextTurnCleanup()
     {
       var stepsUntillEot = ((int) Step.CleanUp) - (int) Step;
@@ -62,11 +82,17 @@
 
     public void Initialize(Game game)
     {
-      _step.Initialize(game.ChangeTracker);
-      _turnCount.Initialize(game.ChangeTracker);
-      _stepCount.Initialize(game.ChangeTracker);
-      _state.Initialize(game.ChangeTracker);
-      _stateCount.Initialize(game.ChangeTracker);
+      Game = game;
+
+      _step.Initialize(ChangeTracker);
+      _turnCount.Initialize(ChangeTracker);
+      _stepCount.Initialize(ChangeTracker);
+      _state.Initialize(ChangeTracker);
+      _stateCount.Initialize(ChangeTracker);
+
+      _events.Initialize(ChangeTracker);
+
+      CreateEvents();
     }
 
     public override string ToString()

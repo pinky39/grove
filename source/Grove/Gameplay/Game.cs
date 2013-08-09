@@ -2,11 +2,9 @@
 {
   using System;
   using System.Collections.Generic;
-  using Abilities;
   using Artifical;
   using DamageHandling;
   using Decisions;
-  using Decisions.Playback;
   using Decisions.Scenario;
   using Infrastructure;
   using Modifiers;
@@ -17,7 +15,7 @@
 
   [Copyable]
   public class Game : IModifiable
-  {    
+  {
     private readonly DamagePreventions _damagePreventions;
     private readonly DamageRedirections _damageRedirections;
     private readonly DecisionQueue _decisionQueue;
@@ -48,7 +46,7 @@
       var player1 = new Player(p.Player1, p.Player1Controller);
       var player2 = new Player(p.Player2, p.Player2Controller);
       Players = new Players(player1, player2);
-      
+
       _damagePreventions = new DamagePreventions();
       _damageRedirections = new DamageRedirections();
 
@@ -83,21 +81,21 @@
             {
               return (Turn.StateCount < p.SavedGame.StateCount - p.RollBack) || (_decisionQueue.Count > 0);
             }
-            
+
             return (Turn.StateCount < p.SavedGame.StateCount || Recorder.IsPlayback);
           }, skipPreGame: false, looser: looser);
 
-        Recorder.DiscardUnloadedResults();        
+        Recorder.DiscardUnloadedResults();
         _wasLoaded = true;
       }
-    }  
+    }
 
     private IEnumerable<IAcceptsGameModifier> ModifiableProperties
     {
       get
       {
         yield return _damagePreventions;
-        yield return _damageRedirections;        
+        yield return _damageRedirections;
       }
     }
 
@@ -122,7 +120,7 @@
     public void AddModifier(IGameModifier modifier, ModifierParameters p)
     {
       p.Owner = this;
-      
+
       _modifiers.Add(modifier);
       modifier.Initialize(p, this);
       modifier.Activate();
@@ -165,7 +163,7 @@
       _decisionQueue.Initialize(this);
       _stateMachine.Initialize(this);
       Players.Initialize(this);
-      
+
       _damageRedirections.Initialize(ChangeTracker);
       _damagePreventions.Initialize(ChangeTracker);
       _modifiers.Initialize(ChangeTracker);
@@ -178,7 +176,7 @@
 
       var decision = _decisionSystem.Create(controller, init, this);
       _decisionQueue.Enqueue(decision);
-    }   
+    }
 
     public SavedGame Save()
     {

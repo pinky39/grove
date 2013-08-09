@@ -19,7 +19,7 @@
         .Cast(p =>
           {
             p.Effect = () => new EachPlayerReturnsCardFromZoneToBattlefield(Zone.Graveyard, c => c.Is().Creature);
-            p.TimingRule(new ControllerGravayardCountIs(1, selector: c => c.Is().Creature));
+            p.TimingRule(new ControllerGravayardCountIs(minCount: 1, selector: c => c.Is().Creature));
           });
     }
   }

@@ -21,9 +21,14 @@
       _card = (Card) hashDependancy;
     }
 
-    protected override void OnCharacteristicChanged()
+    protected override void OnCharacteristicChanged(CardType oldValue, CardType newValue)
     {
-      Publish(new TypeChanged {Card = _card});
+      Publish(new TypeChanged
+        {
+          Card = _card,
+          OldValue = oldValue,
+          NewValue = newValue
+        });
     }
   }
 }

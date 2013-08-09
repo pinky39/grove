@@ -1,7 +1,9 @@
 ﻿namespace Grove.Cards
 {
+  using System;
   using System.Collections.Generic;
   using Artifical.TimingRules;
+  using Gameplay.Characteristics;
   using Gameplay.Effects;
   using Gameplay.Messages;
   using Gameplay.Misc;
@@ -25,7 +27,7 @@
               "Whenever a creature enters the battlefield under your control, you gain life equal to its toughness.";
             p.Trigger(new OnZoneChanged(
               to: Zone.Battlefield,
-              filter: (ability, card) => ability.OwningCard.Controller == card.Controller && card.Is().Creature));
+              filter: (c, a, g) => a.OwningCard.Controller == c.Controller && c.Is().Creature));
             p.Effect = () => new ControllerGainsLife(
               amount: P(e => e.TriggerMessage<ZoneChanged>().Card.Toughness.GetValueOrDefault()));
             p.TriggerOnlyIfOwningCardIsInPlay = true;

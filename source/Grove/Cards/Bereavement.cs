@@ -26,7 +26,7 @@
 
             p.Trigger(new OnZoneChanged(
               from: Zone.Battlefield, to: Zone.Graveyard,
-              filter: (ability, card) => card.Is().Creature && card.HasColor(CardColor.Green)));
+              filter: (c, a , g) => c.Is().Creature && c.HasColor(CardColor.Green)));
 
             p.Effect = () => new DiscardCards(
               count: 1,

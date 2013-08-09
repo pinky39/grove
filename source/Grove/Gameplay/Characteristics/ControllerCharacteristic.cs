@@ -19,7 +19,7 @@
       modifier.Apply(this);
     }
 
-    protected override void OnCharacteristicChanged()
+    protected override void OnCharacteristicChanged(Player oldValue, Player newValue)
     {
       if (_card.Zone != Zone.Battlefield)
         return;

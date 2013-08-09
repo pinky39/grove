@@ -8,15 +8,10 @@
   [Copyable]
   public class CardZone : GameObject, IHashable
   {
-    private readonly Trackable<IZone> _current = new Trackable<IZone>(new NullZone());
-    private readonly Trackable<int> _lastZoneChange = new Trackable<int>(0);
-    private readonly Trackable<IZone> _previous = new Trackable<IZone>(new NullZone());
-    private Card _card;
+    private readonly Trackable<IZone> _current = new Trackable<IZone>(new NullZone());        
+    private Card _card;    
 
-    public bool HasChangedZoneThisTurn { get { return _lastZoneChange.Value == Turn.TurnCount; } }
-
-    public Zone Current { get { return _current.Value.Zone; } }
-    public Zone Previous { get { return _previous.Value.Zone; } }
+    public Zone Current { get { return _current.Value.Zone; } }    
 
     public int CalculateHash(HashCalculator calc)
     {
@@ -28,9 +23,7 @@
       Game = game;
       _card = card;
 
-      _current.Initialize(ChangeTracker, card);
-      _previous.Initialize(ChangeTracker);
-      _lastZoneChange.Initialize(ChangeTracker);
+      _current.Initialize(ChangeTracker, card);      
     }
 
     public void ChangeZone(IZone newZone)
@@ -50,11 +43,7 @@
           });
 
 
-        oldZone.AfterRemove(_card);
-
-        _previous.Value = oldZone;
-        _lastZoneChange.Value = Turn.TurnCount;
-
+        oldZone.AfterRemove(_card);        
         newZone.AfterAdd(_card);
       }
     }

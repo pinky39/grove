@@ -18,7 +18,7 @@
         .Type("Enchantment")
         .Text(
           "When Diabolic Servitude enters the battlefield, return target creature card from your graveyard to the battlefield.{EOL}When the creature put onto the battlefield with Diabolic Servitude dies, exile it and return Diabolic Servitude to its owner's hand.{EOL}When Diabolic Servitude leaves the battlefield, exile the creature put onto the battlefield with Diabolic Servitude.")
-        .Cast(p => p.TimingRule(new ControllerGravayardCountIs(1, selector: c => c.Is().Creature)))
+        .Cast(p => p.TimingRule(new ControllerGravayardCountIs(minCount: 1, selector: c => c.Is().Creature)))
         .TriggeredAbility(p =>
           {
             p.Text =
@@ -41,7 +41,7 @@
             p.Trigger(new OnZoneChanged(
               from: Zone.Battlefield,
               to: Zone.Graveyard,
-              filter: (ability, card) => ability.SourceCard.AttachedTo == card));
+              filter: (c, a, g) => a.SourceCard.AttachedTo == c));
 
             p.Effect = () => new CompoundEffect(
               new ExileCard(P(e => e.Source.OwningCard.AttachedTo)),
@@ -54,7 +54,7 @@
 
             p.Trigger(new OnZoneChanged(
               from: Zone.Battlefield,
-              filter: (ability, card) => ability.OwningCard == card && ability.OwningCard.AttachedTo != null));
+              filter: (c, a, g) => a.OwningCard == c && a.OwningCard.AttachedTo != null));
 
             p.Effect = () => new ExileCard(P(e => e.Source.OwningCard.AttachedTo));
           }

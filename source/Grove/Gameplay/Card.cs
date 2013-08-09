@@ -212,16 +212,14 @@
 
     public int? Toughness { get { return _strenght.Toughness; } }
     public string Type { get { return _type.Value.ToString(); } }
-    public Zone Zone { get { return _zone.Current; } }
-    public Zone PreviousZone { get { return _zone.Previous; } }
+    public Zone Zone { get { return _zone.Current; } }    
 
     public int? Level { get { return _level.Value; } }
     public bool CanBeDestroyed { get { return !HasRegenerationShield && !Has().Indestructible; } }
     public ScoreOverride OverrideScore { get; private set; }
     public bool IsVisibleInUi { get { return _isPreview || IsVisibleToPlayer(Players.Human); } }
     public bool IsVisible { get { return IsVisibleToPlayer(Players.Searching); } }
-    public bool IsMultiColored { get { return _colors.Count > 1; } }
-    public bool HasChangedZoneThisTurn { get { return _zone.HasChangedZoneThisTurn; } }
+    public bool IsMultiColored { get { return _colors.Count > 1; } }    
     public string[] Subtypes { get { return _type.Value.Subtypes; } }
 
     public void ReceiveDamage(Damage damage)

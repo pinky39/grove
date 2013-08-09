@@ -27,7 +27,7 @@
             p.Trigger(new OnZoneChanged(
               from: Zone.Battlefield,
               to: Zone.Graveyard,
-              filter: (a, c) => a.OwningCard.Controller == c.Controller && c.Is().Creature && !c.Is().Token));
+              filter: (c, a, g) => a.OwningCard.Controller == c.Controller && c.Is().Creature && !c.Is().Token));
 
             p.Effect = () => new SearchLibraryPutToZone(
               c => c.PutToHand(),

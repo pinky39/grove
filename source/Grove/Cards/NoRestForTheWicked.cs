@@ -11,9 +11,9 @@
 
   public class NoRestForTheWicked : CardTemplateSource
   {
-    private static bool WasPutIntoGraveyardThisTurnFromBattlefield(Card card)
+    private static bool WasPutIntoGraveyardThisTurnFromBattlefield(Card card, Game game)
     {
-      return card.Is().Creature && card.HasChangedZoneThisTurn && card.PreviousZone == Zone.Battlefield;
+      return card.Is().Creature && game.Turn.Events.HasChangedZone(card, from: Zone.Battlefield, to: Zone.Graveyard);
     }
 
     public override IEnumerable<CardTemplate> GetCards()
@@ -31,7 +31,9 @@
             p.Text =
               "Sacrifice No Rest for the Wicked: Return to your hand all creature cards in your graveyard that were put there from the battlefield this turn.";
             p.Cost = new Sacrifice();
+
             p.Effect = () => new ReturnAllCardsInGraveyardToHand(WasPutIntoGraveyardThisTurnFromBattlefield);
+
             p.TimingRule(new Any(new Steps(Step.EndOfTurn), new OwningCardWillBeDestroyed()));
             p.TimingRule(new ControllerGravayardCountIs(minCount: 1,
               selector: WasPutIntoGraveyardThisTurnFromBattlefield));

@@ -8,11 +8,15 @@
   public class ApplyModifiersToSelf : Effect
   {
     private readonly List<CardModifierFactory> _selfModifiers = new List<CardModifierFactory>();
+    private readonly bool _toAttachedTo;
 
     private ApplyModifiersToSelf() {}
 
-    public ApplyModifiersToSelf(params CardModifierFactory[] modifiers)
+    public ApplyModifiersToSelf(params CardModifierFactory[] modifiers) : this(false, modifiers) {}
+
+    public ApplyModifiersToSelf(bool toAttachedTo = false, params CardModifierFactory[] modifiers)
     {
+      _toAttachedTo = toAttachedTo;
       _selfModifiers.AddRange(modifiers);
     }
 
@@ -25,7 +29,7 @@
 
     protected override void ResolveEffect()
     {
-      var target = Source.OwningCard;
+      var target = _toAttachedTo ? Source.OwningCard.AttachedTo : Source.OwningCard;
 
       var p = new ModifierParameters
         {

@@ -10,7 +10,7 @@
     public Func<Trigger, Game, bool> Condition = delegate { return true; };
     public TriggeredAbility Ability { get; private set; }
     public Card OwningCard { get { return Ability.OwningCard; } }
-    protected Player Controller { get { return Ability.OwningCard.Controller; } }
+    public Player Controller { get { return Ability.OwningCard.Controller; } }
 
     public int CalculateHash(HashCalculator calc)
     {

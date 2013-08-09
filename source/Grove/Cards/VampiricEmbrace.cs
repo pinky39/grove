@@ -10,6 +10,7 @@
   using Gameplay.Misc;
   using Gameplay.Modifiers;
   using Gameplay.Triggers;
+  using Gameplay.Zones;
 
   public class VampiricEmbrace : CardTemplateSource
   {
@@ -21,23 +22,24 @@
         .Type("Enchantment Aura")
         .Text(
           "Enchanted creature gets +2/+2 and has flying.{EOL}Whenever a creature dealt damage by enchanted creature this turn dies, put a +1/+1 counter on that creature.")
+        .TriggeredAbility(p =>
+          {
+            p.Text =
+              "Whenever a creature dealt damage by enchanted creature this turn dies, put a +1/+1 counter on that creature.";
+
+            p.Trigger(new OnZoneChanged(from: Zone.Battlefield, to: Zone.Graveyard,
+              filter: (c, a, g) => g.Turn.Events.HasBeenDamagedBy(c, a.OwningCard.AttachedTo)));
+
+            p.Effect = () => new ApplyModifiersToSelf(modifiers: () => new AddCounters(() => new PowerToughness(1, 1), 1), toAttachedTo: true);
+
+            p.TriggerOnlyIfOwningCardIsInPlay = true;
+          })
         .Cast(p =>
           {
             p.Effect = () => new Attach(
               () => new AddPowerAndToughness(2, 2),
-              () => new AddStaticAbility(Static.Flying),
-              () =>
-                {
-                  var tp = new TriggeredAbilityParameters
-                    {
-                      Text = "Whenever a creature dealt damage by enchanted creature this turn dies, put a +1/+1 counter on that creature.",
-                      Effect = () => new ApplyModifiersToSelf(() => new AddCounters(() => new PowerToughness(1, 1), 1))
-                    };
-
-                  tp.Trigger(new OnCreatureDamagedByOwnerWasPutToGraveyard());                  
-                  
-                  return new AddTriggeredAbility(new TriggeredAbility(tp));
-                }) {Category = EffectCategories.ToughnessIncrease};
+              () => new AddStaticAbility(Static.Flying))
+              {Category = EffectCategories.ToughnessIncrease};
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
             p.TimingRule(new FirstMain());

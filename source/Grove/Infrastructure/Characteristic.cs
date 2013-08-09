@@ -60,11 +60,14 @@
       if (!Value.Equals(value))
       {
         Value = value;
-        OnCharacteristicChanged();
+        OnCharacteristicChanged(value, Value);
       }
     }
 
-    protected virtual void OnCharacteristicChanged() {}
+    protected virtual void OnCharacteristicChanged(T oldValue, T newValue)
+    {
+      
+    }
 
     public void RemoveModifier(PropertyModifier<T> propertyModifier)
     {

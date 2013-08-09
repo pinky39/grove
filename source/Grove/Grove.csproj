@@ -135,8 +135,11 @@
     <Compile Include="Artifical\TargetingRules\SwitchPowerAndToughness.cs" />
     <Compile Include="Cards\AboutFace.cs" />
     <Compile Include="Cards\AngelicCurator.cs" />
+    <Compile Include="Cards\AngelsTrumpet.cs" />
     <Compile Include="Cards\Anthroplasm.cs" />
     <Compile Include="Cards\Archivist.cs" />
+    <Compile Include="Cards\AuraFlux.cs" />
+    <Compile Include="Cards\BeastOfBurden.cs" />
     <Compile Include="Cards\BloatedToad.cs" />
     <Compile Include="Cards\CloudOfFaeries.cs" />
     <Compile Include="Cards\DarkwatchElves.cs" />
@@ -161,9 +164,13 @@
     <Compile Include="Gameplay\Characteristics\Strenght.cs" />
     <Compile Include="Gameplay\Effects\LookAtTopCardsPutOneInHandOthersOnBottom.cs" />
     <Compile Include="Gameplay\Effects\RemoveAllCountersFromOwner.cs" />
+    <Compile Include="Gameplay\Effects\TapCreaturesThatDidntAttackDamagePlayer.cs" />
     <Compile Include="Gameplay\Effects\TargetLoosesChosenAbility.cs" />
+    <Compile Include="Gameplay\Messages\TypeChanged.cs" />
     <Compile Include="Gameplay\Modifiers\DisableAbility.cs" />
+    <Compile Include="Gameplay\Modifiers\ModifyPowerToughnessEqualToTotalCreatureCount.cs" />
     <Compile Include="Gameplay\Modifiers\SwitchPowerAndToughness.cs" />
+    <Compile Include="Gameplay\States\TurnEvents.cs" />
     <Compile Include="Gameplay\Tournaments\DraftPlayer.cs" />
     <Compile Include="Gameplay\Tournaments\DraftResults.cs" />
     <Compile Include="Gameplay\Tournaments\IDraftingStrategy.cs" />
@@ -807,8 +814,6 @@
     <Compile Include="Gameplay\Tournaments\TournamentParameters.cs" />
     <Compile Include="Gameplay\Tournaments\TournamentRunner.cs" />
     <Compile Include="Gameplay\Tournaments\TournamentType.cs" />
-    <Compile Include="Gameplay\Triggers\OnCreatureDamagedByOwnerWasPutToGraveyard.cs" />
-    <Compile Include="Gameplay\Triggers\OnEndOfCombatIfAttackedOrBlocked.cs" />
     <Compile Include="Gameplay\Triggers\OnLandPlayed.cs" />
     <Compile Include="Gameplay\Triggers\OnOwnerGetsTapped.cs" />
     <Compile Include="Infrastructure\CastEx.cs" />
@@ -1092,7 +1097,6 @@
     <Compile Include="Gameplay\Targeting\IsValidTargetParam.cs" />
     <Compile Include="Gameplay\Triggers\OnCastedSpell.cs" />
     <Compile Include="Gameplay\Triggers\OnLevelChanged.cs" />
-    <Compile Include="Gameplay\Triggers\OnTurnOpponentWasNotDealtDamage.cs" />
     <Compile Include="Gameplay\Targeting\Zones.cs" />
     <Compile Include="Gameplay\Targeting\IsValidZoneParam.cs" />
     <Compile Include="Gameplay\Zones\IGraveyardQuery.cs" />

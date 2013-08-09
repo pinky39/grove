@@ -22,12 +22,12 @@ Urza's Legacy
 -----------
 o About Face
 o Angelic Curator
-Angel's Trumpet
-Anthroplasm
-Archivist
-Aura Flux
-Avalanche Riders
-Beast of Burden
+o Angel's Trumpet
+o Anthroplasm
+o Archivist
+o Aura Flux
+o Avalanche Riders
+o Beast of Burden
 Blessed Reversal
 Bloated Toad
 Bone Shredder
