@@ -541,6 +541,12 @@
         return false;
       }
 
+      if (Has().UnblockableIfDedenderHasArtifacts && 
+        card.Controller.Battlefield.Any(x => x.Is().Artifact))
+      {
+        return false;
+      }
+
       return true;
     }
 
@@ -678,8 +684,8 @@
       return _type.Value.Is(type);
     }
 
-    public void Regenerate()
-    {
+    private void Regenerate()
+    {            
       Tap();
       ClearDamage();
       HasRegenerationShield = false;
@@ -693,6 +699,9 @@
 
     public void Destroy(bool allowToRegenerate = true)
     {
+      if (!IsPermanent)
+        return;
+      
       if (Has().Indestructible)
       {
         return;
@@ -710,6 +719,9 @@
 
     public void Sacrifice()
     {
+      if (!IsPermanent)
+        return;
+      
       Owner.PutCardToGraveyard(this);
     }
 

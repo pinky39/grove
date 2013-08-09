@@ -1,10 +1,10 @@
 ﻿namespace Grove.Gameplay.Effects
 {
-  public class SacrificeOwner : Effect
+  public class OpponentDiscardsHand : Effect
   {
     protected override void ResolveEffect()
-    {            
-      Source.OwningCard.Sacrifice();
+    {
+      Controller.Opponent.DiscardHand();
     }
   }
 }

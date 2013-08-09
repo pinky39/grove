@@ -6,7 +6,7 @@
 		</Style>
 	</UserControl.Resources>
     <Grid>
-        <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="{Binding HasLoaded, Converter={x:Static grove:Converters.BooleanToVisibility}}" Width="1000" Height="500">
+        <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="{Binding HasLoaded, Converter={x:Static grove:Converters.BooleanToVisibility}}" Width="1100" Height="500">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>

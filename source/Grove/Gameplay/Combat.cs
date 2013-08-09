@@ -11,10 +11,11 @@
   [Copyable]
   public class Combat : GameObject, IHashable
   {
-    private readonly TrackableList<Attacker> _attackers = new TrackableList<Attacker>();    
-    private readonly TrackableList<Blocker> _blockers = new TrackableList<Blocker>();    
+    private readonly TrackableList<Attacker> _attackers = new TrackableList<Attacker>();
+    private readonly TrackableList<Blocker> _blockers = new TrackableList<Blocker>();
 
     public IEnumerable<Attacker> Attackers { get { return _attackers; } }
+    public int AttackerCount { get { return _attackers.Count; } }
     private Player DefendingPlayer { get { return Players.Defending; } }
 
     public int CalculateHash(HashCalculator calc)
@@ -29,7 +30,7 @@
       Game = game;
 
       _attackers.Initialize(game.ChangeTracker);
-      _blockers.Initialize(game.ChangeTracker);           
+      _blockers.Initialize(game.ChangeTracker);
     }
 
     public void AssignCombatDamage(bool firstStrike = false)
@@ -311,6 +312,6 @@
       }
 
       return false;
-    }  
+    }
   }
 }

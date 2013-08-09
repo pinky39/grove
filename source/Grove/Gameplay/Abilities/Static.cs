@@ -27,6 +27,7 @@
     CanOnlyBeBlockedByCreaturesWithFlying,
     CanAttackOnlyIfDefenderHasIslands,
     Flash,
-    AttacksEachTurnIfAble
+    AttacksEachTurnIfAble,
+    UnblockableIfDedenderHasArtifacts
   }
 }

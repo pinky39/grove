@@ -1,5 +1,6 @@
 ﻿namespace Grove.Gameplay.Abilities
 {
+  using System;
   using System.Linq;
   using Infrastructure;
   using Modifiers;
@@ -42,6 +43,8 @@
     public bool Mountainwalk { get { return Has(Static.Mountainwalk); } }
     public bool AssignsDamageAsThoughItWasntBlocked { get { return Has(Static.AssignsDamageAsThoughItWasntBlocked); } }
     public bool CanAttackOnlyIfDefenderHasIslands { get { return Has(Static.CanAttackOnlyIfDefenderHasIslands); } }
+    public bool UnblockableIfDedenderHasArtifacts { get { return Has(Static.UnblockableIfDedenderHasArtifacts); } }
+
     public bool Flash { get { return Has(Static.Flash); } }
     public bool AttacksEachTurnIfAble { get { return Has(Static.AttacksEachTurnIfAble); } }
     public bool DoesNotUntap { get { return Has(Static.DoesNotUntap); } }

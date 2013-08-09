@@ -27,6 +27,7 @@
     bool AnyEvadingAbility { get; }
     bool CanOnlyBeBlockedByCreaturesWithFlying { get; }
     bool CanAttackOnlyIfDefenderHasIslands { get; }
+    bool UnblockableIfDedenderHasArtifacts { get; }
     bool Flash { get; }
     bool AttacksEachTurnIfAble { get; }
     bool Has(Static ability);

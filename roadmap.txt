@@ -28,10 +28,10 @@ o Archivist
 o Aura Flux
 o Avalanche Riders
 o Beast of Burden
-Blessed Reversal
-Bloated Toad
-Bone Shredder
-Bouncing Beebles
+o Blessed Reversal
+o Bloated Toad
+o Bone Shredder
+o Bouncing Beebles
 Brink of Madness
 Burst of Energy
 Cessation

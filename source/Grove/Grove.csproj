@@ -140,7 +140,10 @@
     <Compile Include="Cards\Archivist.cs" />
     <Compile Include="Cards\AuraFlux.cs" />
     <Compile Include="Cards\BeastOfBurden.cs" />
+    <Compile Include="Cards\BlessedReversal.cs" />
     <Compile Include="Cards\BloatedToad.cs" />
+    <Compile Include="Cards\BouncingBeebles.cs" />
+    <Compile Include="Cards\BrinkOfMadness.cs" />
     <Compile Include="Cards\CloudOfFaeries.cs" />
     <Compile Include="Cards\DarkwatchElves.cs" />
     <Compile Include="Cards\FaerieConclave.cs" />
@@ -163,6 +166,7 @@
     <Compile Include="Cards\WeatherseedFaeries.cs" />
     <Compile Include="Gameplay\Characteristics\Strenght.cs" />
     <Compile Include="Gameplay\Effects\LookAtTopCardsPutOneInHandOthersOnBottom.cs" />
+    <Compile Include="Gameplay\Effects\OpponentDiscardsHand.cs" />
     <Compile Include="Gameplay\Effects\RemoveAllCountersFromOwner.cs" />
     <Compile Include="Gameplay\Effects\TapCreaturesThatDidntAttackDamagePlayer.cs" />
     <Compile Include="Gameplay\Effects\TargetLoosesChosenAbility.cs" />
