@@ -14,7 +14,7 @@
   {
     //[Fact]
     public void DraftLibraries()
-    {
+    {            
       var sets = new[] {"Urza's Saga", "Urza's Saga", "Urza's Saga"};
       var ratings = MediaLibrary.GetSet(sets[0]).Ratings;
 
@@ -60,6 +60,7 @@
     public DraftFacts()
     {
       MediaLibrary.LoadSets();
+       CardDatabase.Initialize(CardFactory.CreateAll());
     }
 
     private IDraftingStrategies DraftStrategies { get { return Container.Resolve<IDraftingStrategies>(); } }

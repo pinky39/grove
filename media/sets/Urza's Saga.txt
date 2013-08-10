@@ -93,8 +93,8 @@ Eastern Paladin;R;3.8
 Electryte;R;3.2
 Elite Archers;R;4
 Elvish Herder;C;3.3
-Elvish Lyrist;C;3.6
-Endless Wurm;R;3.5
+Elvish Lyrist;C;3.4
+Endless Wurm;R;3.4
 Endoskeleton;U;3.5
 Energy Field;R;3
 Exhaustion;U;3.8
@@ -111,10 +111,10 @@ Fire Ants;U;4
 Flesh Reaver;U;3.1
 Fog Bank;U;4
 Fortitude;C;3.2
-Gaea's Bounty;C;3.8
+Gaea's Bounty;C;3.5
 Gaea's Cradle;R;3.5
 Gaea's Embrace;U;4
-Gamble;R;3.6
+Gamble;R;3.3
 Gilded Drake;R;3.7
 Glorious Anthem;R;4.2
 Goblin Cadets;U;3
@@ -138,11 +138,11 @@ Heat Ray;C;4
 Herald of Serra;R;4
 Hermetic Study;C;4
 Hibernation;C;3.3
-Hidden Ancients;U;3.8
+Hidden Ancients;U;3.6
 Hidden Guerrillas;U;3.2
 Hidden Herd;R;3
 Hidden Predators;R;3.5
-Hidden Spider;C;3.5
+Hidden Spider;C;3.4
 Hidden Stag;R;3.4
 Hollow Dogs;C;3.4
 Hopping Automaton;U;3.5
@@ -163,7 +163,7 @@ Looming Shade;C;4
 Lotus Blossom;R;2.5
 Lull;C;3.5
 Lurking Evil;R;3.2
-Mana Leech;U;3.1
+Mana Leech;U;3.2
 Meltdown;U;3
 Midsummer Revel;R;3.8
 Mishra's Helix;R;3.5
@@ -248,7 +248,7 @@ Shimmering Barrier;U;3.6
 Shivan Gorge;R;3.8
 Shivan Hellkite;R;4.2
 Shivan Raptor;U;3.9
-Shiv's Embrace;U;4.2
+Shiv's Embrace;U;4
 Show and Tell;R;3
 Shower of Sparks;C;3.2
 Sicken;C;3.3
@@ -304,7 +304,7 @@ Viashino Sandswimmer;R;3.5
 Viashino Weaponsmith;C;3.5
 Victimize;U;3.7
 Vile Requiem;U;3.7
-Voice of Grace;U;3.8
+Voice of Grace;U;3.7
 Voice of Law;U;3.7
 Voltaic Key;U;3
 Vug Lizard;U;3.7

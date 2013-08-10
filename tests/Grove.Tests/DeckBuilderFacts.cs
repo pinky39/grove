@@ -11,11 +11,12 @@
     public DeckBuilderFacts()
     {
       MediaLibrary.LoadSets();
+      CardDatabase.Initialize(CardFactory.CreateAll());
     }
 
     //[Fact]
     public void BuildDecks()
-    {
+    {            
       for (var i = 0; i < 1; i++)
       {
         LogFile.Info("Building deck {0} of 25...", i + 1);

@@ -116,7 +116,7 @@
           container.Register(Component(typeof (Match.IFactory)).AsFactory());
           container.Register(Component(typeof (MatchRunner), lifestyle: LifestyleType.Singleton));
           container.Register(Component(typeof (Tournament)));
-          container.Register(Component(typeof (Tournament.IFactory)).AsFactory());          
+          container.Register(Component(typeof (Tournament.IFactory)).AsFactory());
           container.Register(Component(typeof (TournamentRunner), lifestyle: LifestyleType.Singleton));
           container.Register(Component(typeof (CombatMarkers), lifestyle: LifestyleType.Singleton));
           container.Register(Component(typeof (CardSelector)));
@@ -133,8 +133,14 @@
         container.Register(Component(typeof (CardDatabase), lifestyle: LifestyleType.Singleton));
         container.Register(Component(typeof (DeckBuilder), lifestyle: LifestyleType.Singleton));
         container.Register(Component(typeof (DeckEvaluator), lifestyle: LifestyleType.Singleton));
-        
-        container.Register(Component(typeof (IDraftingStrategy), typeof(Forcing)));
+
+        RegisterDraftStrategies(container);
+      }
+
+      private static void RegisterDraftStrategies(IWindsorContainer container)
+      {
+        container.Register(Component(typeof (IDraftingStrategy), typeof (Forcing)));
+        container.Register(Component(typeof (IDraftingStrategy), typeof (Greedy)));
         container.Register(Component(typeof (IDraftingStrategies)).AsFactory());
       }
 
@@ -224,15 +230,15 @@
             if (registration.Implementation.Implements<IReceive>())
             {
               Game game = null;
-              
+
               var match = kernel.Resolve<MatchRunner>().Current;
               var shell = kernel.Resolve<IShell>();
-              
+
               if (match != null)
               {
                 game = match.Game;
               }
-              
+
               if (game != null) game.Subscribe(instance);
 
               shell.Subscribe(instance);
@@ -281,7 +287,7 @@
 
         container.Register(Configure(IsViewModel, registration =>
           {
-            registration.LifestyleTransient();       
+            registration.LifestyleTransient();
             ImplementUiStuff(registration);
           }));
 

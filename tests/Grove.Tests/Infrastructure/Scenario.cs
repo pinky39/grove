@@ -19,7 +19,7 @@
 
   public abstract class Scenario : IDisposable
   {
-    protected static readonly IoC Container = new IoC(IoC.Configuration.Test);
+    protected static readonly IoC Container = new IoC(IoC.Configuration.Test);    
 
     protected Scenario(bool player1ControlledByScript = true, bool player2ControlledByScript = true)
     {
@@ -28,13 +28,14 @@
 
       var p = GameParameters.Scenario(player1Controller, player2Controller);
       Game = GameFactory.Create(p);
-      Game.Players.Starting = Game.Players.Player1;
+      Game.Players.Starting = Game.Players.Player1;      
     }
 
     protected CardFactory CardFactory { get { return Container.Resolve<CardFactory>(); } }
-    protected CardDatabase CardDatabase { get { return Container.Resolve<CardDatabase>(); } }
+    protected CardDatabase CardDatabase {get {return Container.Resolve<CardDatabase>();}}    
+
     protected MatchSimulator MatchSimulator { get { return Container.Resolve<MatchSimulator>(); } }
-    protected Game.IFactory GameFactory { get { return Container.Resolve<Game.IFactory>(); } }    
+    protected Game.IFactory GameFactory { get { return Container.Resolve<Game.IFactory>(); } }
 
     protected Game Game { get; private set; }
     protected Player P1 { get { return Game.Players.Player1; } }
@@ -77,7 +78,7 @@
 
     protected void ExileLibrary(Player player)
     {
-      var library = (Library)player.Library;
+      var library = (Library) player.Library;
 
       foreach (var card in library.ToList())
       {
@@ -139,12 +140,12 @@
             {
               var p = new ModifierParameters
                 {
-                  SourceCard = card,                  
+                  SourceCard = card,
                 };
 
               var counters = new AddCounters(() => new SimpleCounter(scenarioCard.Counters.Type),
                 scenarioCard.Counters.Count);
-              
+
               card.AddModifier(counters, p);
             }
 

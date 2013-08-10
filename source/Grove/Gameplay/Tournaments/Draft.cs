@@ -1,9 +1,11 @@
 ﻿namespace Grove.Gameplay.Tournaments
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Artifical;
   using Artifical.DraftAlgorithms;
+  using Infrastructure;
   using UserInterface;
   using UserInterface.DraftScreen;
 
@@ -46,7 +48,7 @@
 
             if (_userInterface != null && _userInterface.PlayerLeftDraft)
               return null;
-            
+
             player.Library.Add(draftedCard);
             roundBoosters[boosterIndex].Remove(draftedCard);
           }
@@ -78,16 +80,21 @@
 
     private List<DraftPlayer> CreatePlayers(int playerCount, CardRatings ratings, bool includeHumanPlayer)
     {
+      var strategy = new Func<IDraftingStrategy>[]
+        {
+          () => _strategies.CreateForcingStrategy(ratings),
+          () => _strategies.CreateGreedyStrategy(ratings)
+        };
+
       var players = new List<DraftPlayer>();
 
       for (var i = 0; i < playerCount; i++)
       {
         players.Add(new DraftPlayer
           {
-            Strategy = _strategies.CreateForcingStrategy(ratings)
+            Strategy = strategy[RandomEx.Next(2)]()
           });
       }
-
 
       if (includeHumanPlayer)
       {

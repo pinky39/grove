@@ -121,6 +121,8 @@
     </ApplicationDefinition>
     <Compile Include="Artifical\AttackerEvaluationParameters.cs" />
     <Compile Include="Artifical\AttackStrategyParameters.cs" />
+    <Compile Include="Artifical\DraftAlgorithms\ColorScore.cs" />
+    <Compile Include="Artifical\DraftAlgorithms\DraftingStrategy.cs" />
     <Compile Include="Artifical\DraftAlgorithms\Forcing.cs" />
     <Compile Include="Artifical\BlockerEvaluationParameters.cs" />
     <Compile Include="Artifical\BlockStrategyParameters.cs" />
@@ -129,6 +131,7 @@
     <Compile Include="Artifical\CombatRules\CombatRules.cs" />
     <Compile Include="Artifical\CombatRules\IncreasePowerAndToughness.cs" />
     <Compile Include="Artifical\CombatRules\Regenerate.cs" />
+    <Compile Include="Artifical\DraftAlgorithms\Greedy.cs" />
     <Compile Include="Artifical\DraftAlgorithms\IDraftingStrategies.cs" />
     <Compile Include="Artifical\TargetingRules\CombatDisabler.cs" />
     <Compile Include="Artifical\TargetingRules\LooseEvasion.cs" />

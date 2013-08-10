@@ -32,7 +32,7 @@
             p.TargetSelector.AddCost(trg =>
               {
                 trg
-                  .Is.Card(controlledBy: ControlledBy.SpellOwner)
+                  .Is.Card(x => x.Is().Enchantment, controlledBy: ControlledBy.SpellOwner)
                   .On.Battlefield();
 
                 trg.Message = "Select an enchantment to sacrifice.";
