@@ -136,6 +136,7 @@
     <Compile Include="Artifical\TargetingRules\CombatDisabler.cs" />
     <Compile Include="Artifical\TargetingRules\LooseEvasion.cs" />
     <Compile Include="Artifical\TargetingRules\SwitchPowerAndToughness.cs" />
+    <Compile Include="Artifical\TargetingRules\UntapPermanents.cs" />
     <Compile Include="Cards\AboutFace.cs" />
     <Compile Include="Cards\AngelicCurator.cs" />
     <Compile Include="Cards\AngelsTrumpet.cs" />
@@ -147,6 +148,8 @@
     <Compile Include="Cards\BloatedToad.cs" />
     <Compile Include="Cards\BouncingBeebles.cs" />
     <Compile Include="Cards\BrinkOfMadness.cs" />
+    <Compile Include="Cards\BurstOfEnergy.cs" />
+    <Compile Include="Cards\Cessation.cs" />
     <Compile Include="Cards\CloudOfFaeries.cs" />
     <Compile Include="Cards\DarkwatchElves.cs" />
     <Compile Include="Cards\FaerieConclave.cs" />

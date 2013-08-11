@@ -1,5 +1,6 @@
 ﻿namespace Grove.Cards
 {
+  using System;
   using System.Collections.Generic;
   using Artifical;
   using Artifical.TargetingRules;
@@ -9,6 +10,7 @@
   using Gameplay.Misc;
   using Gameplay.Modifiers;
 
+
   public class Pacifism : CardTemplateSource
   {
     public override IEnumerable<CardTemplate> GetCards()
@@ -17,7 +19,7 @@
         .Named("Pacifism")
         .ManaCost("{1}{W}")
         .Type("Enchantment - Aura")
-        .Text("Enchant creature{EOL}Enchanted creature can't attack or block.")
+        .Text("Enchanted creature can't attack or block.")
         .FlavorText("Fight? I cannot. I do not care if I live or die, so long as I can rest.")
         .Cast(p =>
           {

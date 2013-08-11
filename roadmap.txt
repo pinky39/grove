@@ -33,9 +33,9 @@ o Bloated Toad
 o Bone Shredder
 o Bouncing Beebles
 o Brink of Madness
-Burst of Energy
-Cessation
-Cloud of Faeries
+o Burst of Energy
+o Cessation
+o Cloud of Faeries
 Crawlspace
 Crop Rotation
 Damping Engine
