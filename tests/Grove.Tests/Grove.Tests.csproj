@@ -126,6 +126,7 @@
     <Compile Include="Cards\Confiscate.cs" />
     <Compile Include="Cards\CopperGnomes.cs" />
     <Compile Include="Cards\CreepingTarPit.cs" />
+    <Compile Include="Cards\CropRotation.cs" />
     <Compile Include="Cards\Crosswinds.cs" />
     <Compile Include="Cards\Curfew.cs" />
     <Compile Include="Cards\DarkestHour.cs" />
@@ -135,7 +136,10 @@
     <Compile Include="Cards\DayOfJudgment.cs" />
     <Compile Include="Cards\DeathlessAngel.cs" />
     <Compile Include="Cards\DefenseOfTheHeart.cs" />
+    <Compile Include="Cards\DelusionsOfMediocrity.cs" />
+    <Compile Include="Cards\DerangedHermit.cs" />
     <Compile Include="Cards\DestructiveUrge.cs" />
+    <Compile Include="Cards\DevoutHarpist.cs" />
     <Compile Include="Cards\DiabolicServitude.cs" />
     <Compile Include="Cards\DiscipleOfGrace.cs" />
     <Compile Include="Cards\DiscordantDirge.cs" />
@@ -157,6 +161,7 @@
     <Compile Include="Cards\Evacuation.cs" />
     <Compile Include="Cards\Exhaustion.cs" />
     <Compile Include="Cards\Exhume.cs" />
+    <Compile Include="Cards\ExpendableTroops.cs" />
     <Compile Include="Cards\Exploration.cs" />
     <Compile Include="Cards\Falter.cs" />
     <Compile Include="Cards\Fecundity.cs" />
@@ -168,6 +173,7 @@
     <Compile Include="Cards\GaeasBounty.cs" />
     <Compile Include="Cards\GaeasCradle.cs" />
     <Compile Include="Cards\Gamble.cs" />
+    <Compile Include="Cards\GhituFireEater.cs" />
     <Compile Include="Cards\GildedDrake.cs" />
     <Compile Include="Cards\GoblinCadets.cs" />
     <Compile Include="Cards\GoblinLackey.cs" />

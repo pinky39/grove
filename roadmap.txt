@@ -37,29 +37,29 @@ o Burst of Energy
 o Cessation
 o Cloud of Faeries
 Crawlspace
-Crop Rotation
+o Crop Rotation
 Damping Engine
-Darkwatch Elves
-Defender of Chaos
-Defender of Law
+o Darkwatch Elves
+o Defender of Chaos
+o Defender of Law
 Defense Grid
-Defense of the Heart
-Delusions of Mediocrity
-Deranged Hermit
-Devout Harpist
-Engineered Plague
-Erase
-Eviscerator
-Expendable Troops
-Faerie Conclave
-Fleeting Image
-Fog of Gnats
-Forbidding Watchtower
-Frantic Search
-Gang of Elk
-Ghitu Encampment
-Ghitu Fire-Eater
-Ghitu Slinger
+o Defense of the Heart
+o Delusions of Mediocrity
+o Deranged Hermit
+o Devout Harpist
+o Engineered Plague
+o Erase
+o Eviscerator
+o Expendable Troops
+o Faerie Conclave
+o Fleeting Image
+o Fog of Gnats
+o Forbidding Watchtower
+o Frantic Search
+o Gang of Elk
+o Ghitu Encampment
+o Ghitu Fire-Eater
+o Ghitu Slinger
 Ghitu War Cry
 Giant Cockroach
 Goblin Medics

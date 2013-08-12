@@ -135,6 +135,7 @@
     <Compile Include="Artifical\DraftAlgorithms\IDraftingStrategies.cs" />
     <Compile Include="Artifical\TargetingRules\CombatDisabler.cs" />
     <Compile Include="Artifical\TargetingRules\LooseEvasion.cs" />
+    <Compile Include="Artifical\TargetingRules\SacrificeLand.cs" />
     <Compile Include="Artifical\TargetingRules\SwitchPowerAndToughness.cs" />
     <Compile Include="Artifical\TargetingRules\UntapPermanents.cs" />
     <Compile Include="Cards\AboutFace.cs" />
@@ -151,9 +152,19 @@
     <Compile Include="Cards\BurstOfEnergy.cs" />
     <Compile Include="Cards\Cessation.cs" />
     <Compile Include="Cards\CloudOfFaeries.cs" />
+    <Compile Include="Cards\CropRotation.cs" />
     <Compile Include="Cards\DarkwatchElves.cs" />
+    <Compile Include="Cards\DefenderOfLaw.cs" />
+    <Compile Include="Cards\DelusionsOfMediocrity.cs" />
+    <Compile Include="Cards\DerangedHermit.cs" />
+    <Compile Include="Cards\DevoutHarpist.cs" />
+    <Compile Include="Cards\Eviscerator.cs" />
+    <Compile Include="Cards\ExpendableTroops.cs" />
     <Compile Include="Cards\FaerieConclave.cs" />
+    <Compile Include="Cards\FleetingImage.cs" />
+    <Compile Include="Cards\ForbiddingWatchtower.cs" />
     <Compile Include="Cards\FranticSearch.cs" />
+    <Compile Include="Cards\GhituFireEater.cs" />
     <Compile Include="Cards\Intervene.cs" />
     <Compile Include="Cards\Miscalculation.cs" />
     <Compile Include="Cards\OpalChampion.cs" />

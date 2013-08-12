@@ -1,5 +1,6 @@
 ﻿namespace Grove.Cards
 {
+  using System;
   using System.Collections.Generic;
   using Artifical.TargetingRules;
   using Artifical.TimingRules;
@@ -38,8 +39,7 @@
               .On.Battlefield());
 
             p.TimingRule(new Steps(activeTurn: false, passiveTurn: true, steps: Step.DeclareAttackers));
-            p.TargetingRule(new Destroy());
-            p.TimingRule(new TargetRemoval());
+            p.TargetingRule(new Destroy());            
           });
     }
   }
