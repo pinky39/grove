@@ -60,9 +60,9 @@ o Gang of Elk
 o Ghitu Encampment
 o Ghitu Fire-Eater
 o Ghitu Slinger
-Ghitu War Cry
-Giant Cockroach
-Goblin Medics
+o Ghitu War Cry
+o Giant Cockroach
+o Goblin Medics
 Goblin Welder
 Granite Grip
 Grim Monolith

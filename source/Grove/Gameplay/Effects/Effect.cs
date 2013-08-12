@@ -19,6 +19,7 @@
     private readonly Trackable<bool> _wasResolved = new Trackable<bool>();
 
     public Action<Effect> AfterResolve = delegate { };
+    protected bool AllTargetsMustBeValid = false;
     public Action<Effect> BeforeResolve = delegate { };
     public bool CanBeCountered = true;
     public EffectCategories Category = EffectCategories.Generic;
@@ -68,6 +69,8 @@
       }
     }
 
+    public CardColor[] Colors { get { return Source.OwningCard.Colors; } }
+
     public bool HasColor(CardColor color)
     {
       return Source.OwningCard.HasColor(color);
@@ -84,7 +87,6 @@
     }
 
     public int Id { get; private set; }
-    public CardColor[] Colors { get { return Source.OwningCard.Colors; } }
 
     protected void RegisterDynamicParameters(params IDynamicParameter[] parameters)
     {
@@ -151,8 +153,13 @@
 
     public bool CanBeResolved()
     {
-      return Targets.Effect.None() ||
-        Targets.Effect.Any(IsValid);
+      if (Targets.Effect.None())
+        return true;
+
+      if (AllTargetsMustBeValid == false)
+        return Targets.Effect.Any(IsValid);
+
+      return Targets.Effect.All(IsValid);
     }
 
     public override string ToString()

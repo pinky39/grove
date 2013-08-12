@@ -134,6 +134,7 @@
     <Compile Include="Artifical\DraftAlgorithms\Greedy.cs" />
     <Compile Include="Artifical\DraftAlgorithms\IDraftingStrategies.cs" />
     <Compile Include="Artifical\TargetingRules\CombatDisabler.cs" />
+    <Compile Include="Artifical\TargetingRules\ExchangeCardsInBattlefieldAndGraveyard.cs" />
     <Compile Include="Artifical\TargetingRules\LooseEvasion.cs" />
     <Compile Include="Artifical\TargetingRules\SacrificeLand.cs" />
     <Compile Include="Artifical\TargetingRules\SwitchPowerAndToughness.cs" />
@@ -165,6 +166,8 @@
     <Compile Include="Cards\ForbiddingWatchtower.cs" />
     <Compile Include="Cards\FranticSearch.cs" />
     <Compile Include="Cards\GhituFireEater.cs" />
+    <Compile Include="Cards\GhituWarCry.cs" />
+    <Compile Include="Cards\GoblinWelder.cs" />
     <Compile Include="Cards\Intervene.cs" />
     <Compile Include="Cards\Miscalculation.cs" />
     <Compile Include="Cards\OpalChampion.cs" />
@@ -182,6 +185,7 @@
     <Compile Include="Cards\WalkingSponge.cs" />
     <Compile Include="Cards\WeatherseedFaeries.cs" />
     <Compile Include="Gameplay\Characteristics\Strenght.cs" />
+    <Compile Include="Gameplay\Effects\ExchangeCardsInBattlefieldAndGraveyard.cs" />
     <Compile Include="Gameplay\Effects\LookAtTopCardsPutOneInHandOthersOnBottom.cs" />
     <Compile Include="Gameplay\Effects\OpponentDiscardsHand.cs" />
     <Compile Include="Gameplay\Effects\RemoveAllCountersFromOwner.cs" />

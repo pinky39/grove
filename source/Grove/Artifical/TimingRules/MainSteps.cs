@@ -6,7 +6,7 @@
   {
     public override bool ShouldPlay(TimingRuleParameters p)
     {
-      return Turn.Step == Step.FirstMain || Turn.Step == Step.SecondMain;
+      return (Turn.Step == Step.FirstMain || Turn.Step == Step.SecondMain) && p.Controller.IsActive;
     }
   }
 }

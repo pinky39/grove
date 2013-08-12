@@ -3,7 +3,6 @@
   using System.Collections.Generic;
   using System.Linq;
   using Artifical.TargetingRules;
-  using Artifical.TimingRules;
   using Gameplay.Effects;
   using Gameplay.Misc;
 
@@ -25,8 +24,6 @@
               gainLife: true);
 
             cp.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
-
-            cp.TimingRule(new MainSteps());
 
             cp.TargetingRule(new DealDamage(p =>
               p.Controller.Battlefield.Count(x => x.Is("swamp"))));
