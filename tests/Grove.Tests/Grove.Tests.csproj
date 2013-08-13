@@ -197,8 +197,12 @@
     <Compile Include="Cards\HoppingAutomaton.cs" />
     <Compile Include="Cards\IllGottenGains.cs" />
     <Compile Include="Cards\ImpendingDisaster.cs" />
+    <Compile Include="Cards\IronMaiden.cs" />
     <Compile Include="Cards\JaggedLightning.cs" />
+    <Compile Include="Cards\JhoirasToolbox.cs" />
+    <Compile Include="Cards\KarmicGuide.cs" />
     <Compile Include="Cards\KarnSilverGolem.cs" />
+    <Compile Include="Cards\KingCrab.cs" />
     <Compile Include="Cards\LiltingRefrain.cs" />
     <Compile Include="Cards\LingeringMirage.cs" />
     <Compile Include="Cards\LivingDestiny.cs" />

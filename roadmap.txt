@@ -69,14 +69,14 @@ o Grim Monolith
 o Harmonic Convergence
 o Hidden Gibbons
 o Hope and Glory
-Impending Disaster
-Intervene
-Iron Maiden
-Iron Will
-Jhoira's Toolbox
-Karmic Guide
-King Crab
-Knighthood
+o Impending Disaster
+o Intervene
+o Iron Maiden
+o Iron Will
+o Jhoira's Toolbox
+o Karmic Guide
+o King Crab
+o Knighthood
 Last-Ditch Effort
 Lava Axe
 Levitation

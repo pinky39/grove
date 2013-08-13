@@ -1,10 +1,11 @@
 ﻿namespace Grove.Gameplay.Effects
 {
+  using System;
   using Artifical;
 
-  public class Regenerate : Effect
+  public class RegenerateOwner : Effect
   {
-    public Regenerate()
+    public RegenerateOwner()
     {
       Category = EffectCategories.Protector;
     }

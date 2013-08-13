@@ -46,7 +46,7 @@
                     {
                       Text = "{B}: Regenerate this creature.",
                       Cost = new PayMana(Mana.Black, ManaUsage.Abilities),
-                      Effect = () => new Gameplay.Effects.Regenerate()
+                      Effect = () => new Gameplay.Effects.RegenerateOwner()
                     };
 
                   ap.TimingRule(new Artifical.TimingRules.Regenerate());

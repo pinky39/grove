@@ -216,7 +216,7 @@
         {
           p.Text = text;
           p.Cost = new PayMana(cost, ManaUsage.Abilities);
-          p.Effect = () => new Effects.Regenerate();
+          p.Effect = () => new Effects.RegenerateOwner();
 
           p.TimingRule(new Artifical.TimingRules.Regenerate());
         })

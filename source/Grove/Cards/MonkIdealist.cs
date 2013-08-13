@@ -24,7 +24,7 @@
         .Cast(p =>
           {
             p.TimingRule(new FirstMain());
-            p.TimingRule(new ControllerGravayardCountIs(minCount: 1, selector: c => c.Is().Enchantment));
+            p.TimingRule(new ControllerGraveyardCountIs(minCount: 1, selector: c => c.Is().Enchantment));
           })
         .TriggeredAbility(p =>
           {

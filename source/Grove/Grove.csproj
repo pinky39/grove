@@ -135,7 +135,9 @@
     <Compile Include="Artifical\DraftAlgorithms\IDraftingStrategies.cs" />
     <Compile Include="Artifical\TargetingRules\CombatDisabler.cs" />
     <Compile Include="Artifical\TargetingRules\ExchangeCardsInBattlefieldAndGraveyard.cs" />
+    <Compile Include="Artifical\TargetingRules\GainRegenerate.cs" />
     <Compile Include="Artifical\TargetingRules\LooseEvasion.cs" />
+    <Compile Include="Artifical\TargetingRules\PutOnTopOfLibrary.cs" />
     <Compile Include="Artifical\TargetingRules\SacrificeLand.cs" />
     <Compile Include="Artifical\TargetingRules\SwitchPowerAndToughness.cs" />
     <Compile Include="Artifical\TargetingRules\UntapPermanents.cs" />
@@ -176,6 +178,12 @@
     <Compile Include="Cards\HopeAndGlory.cs" />
     <Compile Include="Cards\ImpendingDisaster.cs" />
     <Compile Include="Cards\Intervene.cs" />
+    <Compile Include="Cards\IronMaiden.cs" />
+    <Compile Include="Cards\IronWill.cs" />
+    <Compile Include="Cards\JhoirasToolbox.cs" />
+    <Compile Include="Cards\KarmicGuide.cs" />
+    <Compile Include="Cards\KingCrab.cs" />
+    <Compile Include="Cards\Knighthood.cs" />
     <Compile Include="Cards\Miscalculation.cs" />
     <Compile Include="Cards\OpalChampion.cs" />
     <Compile Include="Cards\Opportunity.cs" />
@@ -196,6 +204,8 @@
     <Compile Include="Gameplay\Effects\LookAtTopCardsPutOneInHandOthersOnBottom.cs" />
     <Compile Include="Gameplay\Effects\OpponentDiscardsHand.cs" />
     <Compile Include="Gameplay\Effects\PutAllPermanentsOnTopOfLibrary.cs" />
+    <Compile Include="Gameplay\Effects\PutTargetOnTopOfLibrary.cs" />
+    <Compile Include="Gameplay\Effects\RegenerateTarget.cs" />
     <Compile Include="Gameplay\Effects\RemoveAllCountersFromOwner.cs" />
     <Compile Include="Gameplay\Effects\TapCreaturesThatDidntAttackDamagePlayer.cs" />
     <Compile Include="Gameplay\Effects\TargetLoosesChosenAbility.cs" />
@@ -739,7 +749,7 @@
     <Compile Include="Artifical\TimingRules\MinimumCounters.cs" />
     <Compile Include="Artifical\TimingRules\ControllerHasMorePermanents.cs" />
     <Compile Include="Artifical\TimingRules\ControllerHasPermanents.cs" />
-    <Compile Include="Artifical\TimingRules\ControllerGravayardCountIs.cs" />
+    <Compile Include="Artifical\TimingRules\ControllerGraveyardCountIs.cs" />
     <Compile Include="Artifical\TimingRules\ControllerHandCountIs.cs" />
     <Compile Include="Artifical\TimingRules\ControllerNeedsMana.cs" />
     <Compile Include="Artifical\TimingRules\GainHexproof.cs" />
@@ -1256,7 +1266,7 @@
     <Compile Include="Gameplay\Effects\DrawCards.cs" />
     <Compile Include="Gameplay\Effects\ControllerGainsLife.cs" />
     <Compile Include="Gameplay\Effects\IEffectSource.cs" />
-    <Compile Include="Gameplay\Effects\Regenerate.cs" />
+    <Compile Include="Gameplay\Effects\RegenerateOwner.cs" />
     <Compile Include="Gameplay\Effects\ShuffleIntoLibrary.cs" />
     <Compile Include="Gameplay\Effects\UntapAllLands.cs" />
     <Compile Include="Gameplay\DamageHandling\DamagePrevention.cs" />

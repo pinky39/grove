@@ -31,7 +31,7 @@
                   {
                     Text = "{G}: Regenerate enchanted creature.",
                     Cost = new PayMana(Mana.Green, ManaUsage.Abilities),
-                    Effect = () => new Gameplay.Effects.Regenerate()
+                    Effect = () => new Gameplay.Effects.RegenerateOwner()
                   };
 
                 ap.TimingRule(new Artifical.TimingRules.Regenerate());

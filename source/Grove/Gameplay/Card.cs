@@ -358,6 +358,9 @@
 
     public void DealDamageTo(int amount, IDamageable damageable, bool isCombat)
     {
+      if (amount <= 0)
+        return;
+      
       var damage = new Damage(
         amount: amount,
         source: this,

@@ -18,7 +18,7 @@
         .Type("Enchantment")
         .Text(
           "When Diabolic Servitude enters the battlefield, return target creature card from your graveyard to the battlefield.{EOL}When the creature put onto the battlefield with Diabolic Servitude dies, exile it and return Diabolic Servitude to its owner's hand.{EOL}When Diabolic Servitude leaves the battlefield, exile the creature put onto the battlefield with Diabolic Servitude.")
-        .Cast(p => p.TimingRule(new ControllerGravayardCountIs(minCount: 1, selector: c => c.Is().Creature)))
+        .Cast(p => p.TimingRule(new ControllerGraveyardCountIs(minCount: 1, selector: c => c.Is().Creature)))
         .TriggeredAbility(p =>
           {
             p.Text =
@@ -31,7 +31,7 @@
               new Attach());
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().In.YourGraveyard());
-            p.TargetingRule(new OrderByRank(c => -c.Score, ControlledBy.SpellOwner));
+            p.TargetingRule(new OrderByRank(c => -c.Score));
           })
         .TriggeredAbility(p =>
           {

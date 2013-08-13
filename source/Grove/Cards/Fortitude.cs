@@ -29,7 +29,7 @@
                   {
                     Text = "Sacrifice a Forest: Regenerate enchanted creature.",
                     Cost = new Sacrifice(),
-                    Effect = () => new Gameplay.Effects.Regenerate()
+                    Effect = () => new Gameplay.Effects.RegenerateOwner()
                   };
 
                 ap.TargetSelector.AddCost(trg => trg

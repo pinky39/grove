@@ -35,7 +35,7 @@
             p.Effect = () => new ReturnAllCardsInGraveyardToHand(WasPutIntoGraveyardThisTurnFromBattlefield);
 
             p.TimingRule(new Any(new Steps(Step.EndOfTurn), new OwningCardWillBeDestroyed()));
-            p.TimingRule(new ControllerGravayardCountIs(minCount: 1,
+            p.TimingRule(new ControllerGraveyardCountIs(minCount: 1,
               selector: WasPutIntoGraveyardThisTurnFromBattlefield));
           });
     }

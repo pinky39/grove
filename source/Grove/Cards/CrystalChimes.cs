@@ -27,7 +27,7 @@
               new Tap(),
               new Sacrifice());
             p.Effect = () => new ReturnAllCardsInGraveyardToHand(c => c.Is().Enchantment);
-            p.TimingRule(new ControllerGravayardCountIs(minCount: 2, selector: c => c.Is().Enchantment));
+            p.TimingRule(new ControllerGraveyardCountIs(minCount: 2, selector: c => c.Is().Enchantment));
           }
         );
     }

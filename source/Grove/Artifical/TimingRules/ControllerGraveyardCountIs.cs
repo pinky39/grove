@@ -4,18 +4,18 @@
   using System.Linq;
   using Gameplay;
 
-  public class ControllerGravayardCountIs : TimingRule
+  public class ControllerGraveyardCountIs : TimingRule
   {
     private readonly Func<Card, Game, bool> _selector;
     private int? _maxCount;
     private int? _minCount;
 
-    private ControllerGravayardCountIs() {}
+    private ControllerGraveyardCountIs() {}
 
-    public ControllerGravayardCountIs(Func<Card, bool> selector, int? minCount = 1, int? maxCount = null)
+    public ControllerGraveyardCountIs(Func<Card, bool> selector, int? minCount = 1, int? maxCount = null)
       : this(minCount, maxCount, (c, g) => selector(c)) {}
 
-    public ControllerGravayardCountIs(int? minCount = 1, int? maxCount = null, Func<Card, Game, bool> selector = null)
+    public ControllerGraveyardCountIs(int? minCount = 1, int? maxCount = null, Func<Card, Game, bool> selector = null)
     {
       _maxCount = maxCount;
       _selector = selector ?? delegate { return true; };
