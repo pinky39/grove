@@ -139,6 +139,7 @@
     <Compile Include="Artifical\TargetingRules\SacrificeLand.cs" />
     <Compile Include="Artifical\TargetingRules\SwitchPowerAndToughness.cs" />
     <Compile Include="Artifical\TargetingRules\UntapPermanents.cs" />
+    <Compile Include="Artifical\TimingRules\ModifyAttackersAndBlockers.cs" />
     <Compile Include="Cards\AboutFace.cs" />
     <Compile Include="Cards\AngelicCurator.cs" />
     <Compile Include="Cards\AngelsTrumpet.cs" />
@@ -168,6 +169,12 @@
     <Compile Include="Cards\GhituFireEater.cs" />
     <Compile Include="Cards\GhituWarCry.cs" />
     <Compile Include="Cards\GoblinWelder.cs" />
+    <Compile Include="Cards\GraniteGrip.cs" />
+    <Compile Include="Cards\GrimMonolith.cs" />
+    <Compile Include="Cards\HarmonicConvergence.cs" />
+    <Compile Include="Cards\HiddenGibbons.cs" />
+    <Compile Include="Cards\HopeAndGlory.cs" />
+    <Compile Include="Cards\ImpendingDisaster.cs" />
     <Compile Include="Cards\Intervene.cs" />
     <Compile Include="Cards\Miscalculation.cs" />
     <Compile Include="Cards\OpalChampion.cs" />
@@ -188,6 +195,7 @@
     <Compile Include="Gameplay\Effects\ExchangeCardsInBattlefieldAndGraveyard.cs" />
     <Compile Include="Gameplay\Effects\LookAtTopCardsPutOneInHandOthersOnBottom.cs" />
     <Compile Include="Gameplay\Effects\OpponentDiscardsHand.cs" />
+    <Compile Include="Gameplay\Effects\PutAllPermanentsOnTopOfLibrary.cs" />
     <Compile Include="Gameplay\Effects\RemoveAllCountersFromOwner.cs" />
     <Compile Include="Gameplay\Effects\TapCreaturesThatDidntAttackDamagePlayer.cs" />
     <Compile Include="Gameplay\Effects\TargetLoosesChosenAbility.cs" />
@@ -196,6 +204,7 @@
     <Compile Include="Gameplay\Modifiers\ModifyPowerToughnessEqualToTotalCreatureCount.cs" />
     <Compile Include="Gameplay\Modifiers\SwitchPowerAndToughness.cs" />
     <Compile Include="Gameplay\States\TurnEvents.cs" />
+    <Compile Include="Gameplay\Targeting\ValidateTargetDependenciesParam.cs" />
     <Compile Include="Gameplay\Tournaments\DraftPlayer.cs" />
     <Compile Include="Gameplay\Tournaments\DraftResults.cs" />
     <Compile Include="Gameplay\Tournaments\IDraftingStrategy.cs" />
@@ -733,7 +742,6 @@
     <Compile Include="Artifical\TimingRules\ControllerGravayardCountIs.cs" />
     <Compile Include="Artifical\TimingRules\ControllerHandCountIs.cs" />
     <Compile Include="Artifical\TimingRules\ControllerNeedsMana.cs" />
-    <Compile Include="Artifical\TimingRules\DeclareBlockers.cs" />
     <Compile Include="Artifical\TimingRules\GainHexproof.cs" />
     <Compile Include="Artifical\TimingRules\ManaConverter.cs" />
     <Compile Include="Artifical\TimingRules\MinAttackerCount.cs" />
@@ -833,7 +841,7 @@
     <Compile Include="Gameplay\Modifiers\IntegerModifier.cs" />
     <Compile Include="Gameplay\Modifiers\IPlayerModifier.cs" />
     <Compile Include="Gameplay\Modifiers\ModifyPowerToughnessEqualToControllersLife.cs" />
-    <Compile Include="Gameplay\Modifiers\ModifyPowerToughnessForEachForest.cs" />
+    <Compile Include="Gameplay\Modifiers\ModifyPowerToughnessForEachPermanent.cs" />
     <Compile Include="Gameplay\PlayerParameters.cs" />
     <Compile Include="Gameplay\Tournaments\Draft.cs" />
     <Compile Include="Gameplay\Tournaments\TournamentParameters.cs" />

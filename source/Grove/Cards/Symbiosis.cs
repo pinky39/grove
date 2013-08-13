@@ -21,10 +21,8 @@
           "Although the elves of Argoth always considered them a nuisance, the pixies made fine allies during the war against the machines.")
         .Cast(p =>
           {
-            p.Effect =
-              () =>
-                new ApplyModifiersToTargets(() => new AddPowerAndToughness(2, 2) {UntilEot = true})
-                  {Category = EffectCategories.ToughnessIncrease};
+            p.Effect = () => new ApplyModifiersToTargets(() => new AddPowerAndToughness(2, 2) {UntilEot = true})
+              {Category = EffectCategories.ToughnessIncrease};
 
             p.TargetSelector.AddEffect(trg =>
               {

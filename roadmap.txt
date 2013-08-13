@@ -63,12 +63,12 @@ o Ghitu Slinger
 o Ghitu War Cry
 o Giant Cockroach
 o Goblin Medics
-Goblin Welder
-Granite Grip
-Grim Monolith
-Harmonic Convergence
-Hidden Gibbons
-Hope and Glory
+o Goblin Welder
+o Granite Grip
+o Grim Monolith
+o Harmonic Convergence
+o Hidden Gibbons
+o Hope and Glory
 Impending Disaster
 Intervene
 Iron Maiden

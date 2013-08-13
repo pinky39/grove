@@ -7,21 +7,23 @@
   using Messages;
   using Zones;
 
-  public class ModifyPowerToughnessForEachForest : Modifier, IReceive<ZoneChanged>, IReceive<ControllerChanged>,
+  public class ModifyPowerToughnessForEachPermanent : Modifier, IReceive<ZoneChanged>, IReceive<ControllerChanged>,
     ICardModifier
   {
     private readonly int? _modifyPower;
     private readonly int? _modifyToughness;
+    private readonly Func<Card, bool> _filter;
     private readonly IntegerModifier _powerModifier;
     private readonly IntegerModifier _toughnessModifier;
     private Strenght _strenght;
 
-    protected ModifyPowerToughnessForEachForest() {}
+    protected ModifyPowerToughnessForEachPermanent() {}
 
-    public ModifyPowerToughnessForEachForest(int? power, int? toughness, Func<IntegerModifier> modifier)
+    public ModifyPowerToughnessForEachPermanent(int? power, int? toughness, Func<Card, bool> filter,  Func<IntegerModifier> modifier)
     {
       _modifyPower = power;
       _modifyToughness = toughness;
+      _filter = filter;
 
       _toughnessModifier = modifier();
       _powerModifier = modifier();
@@ -46,7 +48,7 @@
     {
       if (message.Card.Is("forest") || message.Card == SourceCard)
       {
-        var forestCount = GetForestCount(SourceCard.Controller);
+        var forestCount = GetPermanentCount(SourceCard.Controller);
 
         SetPowerIfModified(forestCount*_modifyPower);
         SetToughnessIfModified(forestCount*_modifyToughness);
@@ -55,7 +57,7 @@
 
     public void Receive(ZoneChanged message)
     {
-      if (!IsForestControlledBySpellOwner(message.Card))
+      if (!IsPermanentControlledBySpellOwner(message.Card))
         return;
 
       if (message.From == Zone.Battlefield)
@@ -109,7 +111,7 @@
       _toughnessModifier.Initialize(ChangeTracker);
       _powerModifier.Initialize(ChangeTracker);
 
-      var forestCount = GetForestCount(SourceCard.Controller);
+      var forestCount = GetPermanentCount(SourceCard.Controller);
 
       if (_modifyToughness.HasValue)
         _toughnessModifier.Value = forestCount*_modifyToughness;
@@ -132,14 +134,14 @@
       }
     }
 
-    private static int GetForestCount(Player player)
+    private int GetPermanentCount(Player player)
     {
-      return player.Battlefield.Count(x => x.Is("forest"));
+      return player.Battlefield.Count(c => _filter(c));
     }
 
-    private bool IsForestControlledBySpellOwner(Card permanent)
+    private bool IsPermanentControlledBySpellOwner(Card permanent)
     {
-      return permanent.Is("forest") &&
+      return _filter(permanent) &&
         permanent.Controller == SourceCard.Controller;
     }
   }

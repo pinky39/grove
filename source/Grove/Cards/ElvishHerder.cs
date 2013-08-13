@@ -10,6 +10,7 @@
   using Gameplay.ManaHandling;
   using Gameplay.Misc;
   using Gameplay.Modifiers;
+  using Gameplay.States;
 
   public class ElvishHerder : CardTemplateSource
   {
@@ -32,7 +33,7 @@
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 
             p.TimingRule(new Turn(active: true));
-            p.TimingRule(new DeclareBlockers());
+            p.TimingRule(new Steps(activeTurn: true, passiveTurn: false, steps: Step.DeclareBlockers));
             p.TargetingRule(new GainEvasion(x => !x.Has().Trample && x.Power >= 4));
           });
     }

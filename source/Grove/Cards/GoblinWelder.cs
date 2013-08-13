@@ -5,8 +5,8 @@
   using Gameplay.Costs;
   using Gameplay.Effects;
   using Gameplay.Misc;
-
-  // todo could also switch opponents artifacts
+  using Gameplay.Targeting;
+  
   public class GoblinWelder : CardTemplateSource
   {
     public override IEnumerable<CardTemplate> GetCards()
@@ -24,20 +24,26 @@
           {
             p.Text =
               "{T}: Choose target artifact a player controls and target artifact card in that player's graveyard. If both targets are still legal as this ability resolves, that player simultaneously sacrifices the artifact and returns the artifact card to the battlefield.";
+            
             p.Cost = new Tap();
             p.Effect = () => new ExchangeCardsInBattlefieldAndGraveyard();
 
             p.TargetSelector.AddEffect(trg =>
               {
-                trg.Is.Card(c => c.Is().Artifact, ControlledBy.SpellOwner).On.Battlefield();
+                trg.Is.Card(c => c.Is().Artifact).On.Battlefield();
                 trg.Message = "Choose an artifact in play.";
               });
 
             p.TargetSelector.AddEffect(trg =>
               {
-                trg.Is.Card(c => c.Is().Artifact, ControlledBy.SpellOwner).In.Graveyard();
+                trg.Is.Card(c => c.Is().Artifact).In.Graveyard();
                 trg.Message = "Choose an artifact in graveyard.";
               });
+
+            p.TargetSelector.ValidateTargetDependencies = vp =>
+              {
+                return vp.Effect[0].Card().Controller == vp.Effect[1].Card().Controller;
+              };
 
             p.TargetingRule(new Artifical.TargetingRules.ExchangeCardsInBattlefieldAndGraveyard());
             p.TimingRule(new MainSteps());

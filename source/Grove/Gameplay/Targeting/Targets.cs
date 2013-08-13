@@ -29,8 +29,8 @@
     }
 
     public int Count { get { return _effectTargets.Count + _costTargets.Count; } }
-    public IList<ITarget> Effect { get { return _effectTargets; } }
-    public IList<ITarget> Cost { get { return _costTargets; } }
+    public List<ITarget> Effect { get { return _effectTargets; } }
+    public List<ITarget> Cost { get { return _costTargets; } }
 
 
     public IEnumerator<ITarget> GetEnumerator()

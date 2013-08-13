@@ -17,8 +17,10 @@
     public bool RequiresCostTargets { get { return _costValidators.Count > 0; } }
     public bool RequiresEffectTargets { get { return _effectValidators.Count > 0; } }
 
-    public IList<TargetValidator> Effect { get { return _effectValidators; } }
-    public IList<TargetValidator> Cost { get { return _costValidators; } }
+    public List<TargetValidator> Effect { get { return _effectValidators; } }
+    public List<TargetValidator> Cost { get { return _costValidators; } }
+    public Func<ValidateTargetDependenciesParam, bool> ValidateTargetDependencies = delegate { return true; };
+    
 
     public TargetSelector AddEffect(Action<TargetValidatorParameters> set)
     {

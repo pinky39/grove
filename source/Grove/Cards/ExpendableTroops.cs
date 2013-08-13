@@ -1,12 +1,12 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Artifical.TargetingRules;
   using Artifical.TimingRules;
   using Gameplay.Costs;
   using Gameplay.Effects;
   using Gameplay.Misc;
+  using Gameplay.States;
 
   public class ExpendableTroops : CardTemplateSource
   {
@@ -37,8 +37,8 @@
               .On.Battlefield());
 
 
-            p.TimingRule(new DeclareBlockers());
-            p.TargetingRule(new DealDamage(2));            
+            p.TimingRule(new Steps(Step.DeclareBlockers));
+            p.TargetingRule(new DealDamage(2));
           });
     }
   }

@@ -13,7 +13,7 @@
       var battlefieldCandidates = p.Candidates<Card>(ControlledBy.SpellOwner)
         .OrderBy(x => x.Score);        
 
-      var graveyardCandidates = p.Candidates<Card>(ControlledBy.SpellOwner)
+      var graveyardCandidates = p.Candidates<Card>(ControlledBy.SpellOwner, selectorIndex: 1)
         .OrderBy(x => -x.Score);
 
       return Group(battlefieldCandidates, graveyardCandidates);

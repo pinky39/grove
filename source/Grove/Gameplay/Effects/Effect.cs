@@ -157,9 +157,12 @@
         return true;
 
       if (AllTargetsMustBeValid == false)
+      {
         return Targets.Effect.Any(IsValid);
+      }
 
-      return Targets.Effect.All(IsValid);
+      return Targets.Effect.All(IsValid) && 
+        Source.ValidateTargetDependencies(Targets.Cost, Targets.Effect);
     }
 
     public override string ToString()

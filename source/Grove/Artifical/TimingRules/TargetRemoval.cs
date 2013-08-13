@@ -26,13 +26,13 @@
       // remove attackers
       if (p.Controller.IsActive == false && Turn.Step == Step.DeclareAttackers)
       {
-        return target.IsAttacker;        
+        return target.IsAttacker;
       }
 
       if (_combatOnly)
         return false;
 
-       // play as response to some spells
+      // play as response to some spells
       if (Stack.TopSpell != null && Stack.TopSpell.Controller == p.Controller.Opponent &&
         Stack.TopSpell.HasCategory(EffectCategories.Protector | EffectCategories.ToughnessIncrease))
       {
@@ -44,7 +44,7 @@
         // e.g Nantuko Shade gives self a +1/+1 boost
         if (Stack.TopSpell.TargetsEffectSource)
         {
-          return target == Stack.TopSpell.Source.OwningCard;          
+          return target == Stack.TopSpell.Source.OwningCard;
         }
       }
 
@@ -53,11 +53,12 @@
 
     private bool TargetAuraRemoval(Card target, TimingRuleParameters p)
     {
-      // remove combat auras
-      if (Turn.Step == Step.DeclareBlockers && (target.AttachedTo.IsAttacker || target.AttachedTo.IsBlocker))
-        return true;
+      if (p.Controller.IsActive)
+      {
+        return target.AttachedTo.IsBlocker && Turn.Step == Step.DeclareBlockers;
+      }
 
-      return false;
+      return target.AttachedTo.IsAttacker && Turn.Step == Step.DeclareAttackers;
     }
 
     private bool EotRemoval(TimingRuleParameters p)
@@ -80,10 +81,10 @@
         if ((target.Is().Aura || target.Is().Equipment) && target.AttachedTo != null && TargetAuraRemoval(target, p))
         {
           return true;
-        }                
+        }
       }
 
-      return EotRemoval(p);     
+      return EotRemoval(p);
     }
   }
 }

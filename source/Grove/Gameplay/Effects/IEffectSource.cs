@@ -1,5 +1,6 @@
 ﻿namespace Grove.Gameplay.Effects
 {
+  using System.Collections.Generic;
   using Infrastructure;
   using Targeting;
 
@@ -13,5 +14,6 @@
     void EffectResolved();
 
     bool IsTargetStillValid(ITarget target, object triggerMessage = null);
+    bool ValidateTargetDependencies(List<ITarget> costTargets, List<ITarget> effectTargets);
   }
 }

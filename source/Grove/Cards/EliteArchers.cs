@@ -6,6 +6,7 @@
   using Gameplay.Costs;
   using Gameplay.Effects;
   using Gameplay.Misc;
+  using Gameplay.States;
 
   public class EliteArchers : CardTemplateSource
   {
@@ -27,7 +28,7 @@
             p.TargetSelector.AddEffect(trg => trg.Is.AttackerOrBlocker().On.Battlefield());
 
             p.TargetingRule(new DealDamage(3));
-            p.TimingRule(new DeclareBlockers());
+            p.TimingRule(new Steps(Step.DeclareBlockers));
           }
         );
     }

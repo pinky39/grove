@@ -1,5 +1,6 @@
 ﻿namespace Grove.Gameplay.Abilities
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Artifical;
@@ -69,6 +70,15 @@
     public bool IsTargetStillValid(ITarget target, object triggerMessage)
     {
       return _targetSelector.IsValidEffectTarget(target, triggerMessage);
+    }
+
+    public bool ValidateTargetDependencies(List<ITarget> costTargets, List<ITarget> effectTargets)
+    {
+      return _targetSelector.ValidateTargetDependencies(new ValidateTargetDependenciesParam
+      {
+        Cost = costTargets,
+        Effect = effectTargets
+      }); 
     }
 
     public int CalculateHash(HashCalculator calc)

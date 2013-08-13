@@ -282,7 +282,13 @@
         }
       }
 
-      return true;
+      return activator.Prerequisites.Selector.ValidateTargetDependencies(
+        new ValidateTargetDependenciesParam
+          {
+            Cost = parameters.Targets.Cost,
+            Effect = parameters.Targets.Effect
+          }
+        );
     }
 
     private bool SelectX(PlayableActivator playableActivator, ActivationParameters activationParameters)

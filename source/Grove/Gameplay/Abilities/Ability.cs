@@ -1,5 +1,6 @@
 ﻿namespace Grove.Gameplay.Abilities
 {
+  using System;
   using System.Collections.Generic;
   using Artifical;
   using Characteristics;
@@ -49,6 +50,15 @@
     bool IEffectSource.IsTargetStillValid(ITarget target, object triggerMessage)
     {
       return TargetSelector.IsValidEffectTarget(target, triggerMessage);
+    }
+
+    bool IEffectSource.ValidateTargetDependencies(List<ITarget> costTargets, List<ITarget> effectTargets)
+    {
+      return TargetSelector.ValidateTargetDependencies(new ValidateTargetDependenciesParam
+        {
+          Cost = costTargets,
+          Effect = effectTargets
+        });
     }
 
     public void Enable()

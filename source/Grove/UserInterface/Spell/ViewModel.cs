@@ -180,7 +180,13 @@
         parameters.Targets.Distribution = DistributeDamage(parameters.Targets.Effect, prerequisites.DistributeAmount);
       }
 
-      return true;
+      return prerequisites.Selector.ValidateTargetDependencies(
+        new ValidateTargetDependenciesParam
+          {
+            Cost = parameters.Targets.Cost,
+            Effect = parameters.Targets.Effect
+          }
+        );
     }
 
     public List<int> DistributeDamage(IList<ITarget> targets, int damage)

@@ -19,9 +19,10 @@
         .Toughness(0)
         .StaticAbility(p =>
           {
-            p.Modifier(() => new ModifyPowerToughnessForEachForest(
+            p.Modifier(() => new ModifyPowerToughnessForEachPermanent(
               power: null,
               toughness: 1,
+              filter: c => c.Is("forest"),
               modifier: () => new IntegerSetter()));
 
             p.EnabledInAllZones = true;

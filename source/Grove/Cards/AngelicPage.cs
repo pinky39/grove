@@ -30,7 +30,7 @@
             p.Effect = () => new ApplyModifiersToTargets(
               () => new AddPowerAndToughness(1, 1) {UntilEot = true}) {Category = EffectCategories.ToughnessIncrease};
             p.TargetSelector.AddEffect(trg => trg.Is.AttackerOrBlocker().On.Battlefield());
-            p.TimingRule(new DeclareBlockers());
+            p.TimingRule(new ModifyAttackersAndBlockers());
             p.TargetingRule(new PumpAttackerOrBlocker(1, 1));
           }
         );
