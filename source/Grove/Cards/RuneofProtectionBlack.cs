@@ -1,7 +1,6 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Artifical.TargetingRules;
   using Artifical.TimingRules;
   using Gameplay;
   using Gameplay.Characteristics;
@@ -27,7 +26,7 @@
             p.Text =
               "{W}: The next time a black source of your choice would deal damage to you this turn, prevent that damage.";
             p.Cost = new PayMana(Mana.White, ManaUsage.Abilities);
-            p.Effect = () => new Gameplay.Effects.PreventDamageFromSourceToController();
+            p.Effect = () => new PreventDamageFromSourceToController();
 
             p.TargetSelector.AddEffect(trg =>
               {

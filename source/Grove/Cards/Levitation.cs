@@ -1,22 +1,21 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Artifical.TimingRules;
   using Gameplay.Abilities;
   using Gameplay.Misc;
   using Gameplay.Modifiers;
 
-  public class Knighthood : CardTemplateSource
+  public class Levitation : CardTemplateSource
   {
     public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
-        .Named("Knighthood")
-        .ManaCost("{2}{W}")
+        .Named("Levitation")
+        .ManaCost("{2}{U}{U}")
         .Type("Enchantment")
-        .Text("Creatures you control have first strike.")
-        .FlavorText("He has returned. He who brought the dark ones. He who poisoned our paradise. How shall we greet him? With swift and certain death.")
+        .Text("Creatures you control have flying.")
+        .FlavorText("Barrin's pride in his apprentice was diminished somewhat when he had to get the others back down.")
         .Cast(p =>
           {
             p.TimingRule(new FirstMain());
@@ -24,7 +23,7 @@
           })
         .ContinuousEffect(p =>
           {
-            p.Modifier = () => new AddStaticAbility(Static.FirstStrike);
+            p.Modifier = () => new AddStaticAbility(Static.Flying);
             p.CardFilter = (card, effect) => card.Controller == effect.Source.Controller && card.Is().Creature;
           });
     }

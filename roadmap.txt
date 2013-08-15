@@ -77,11 +77,11 @@ o Jhoira's Toolbox
 o Karmic Guide
 o King Crab
 o Knighthood
-Last-Ditch Effort
-Lava Axe
-Levitation
-Lone Wolf
-Lurking Skirge
+o Last-Ditch Effort
+o Lava Axe
+o Levitation
+o Lone Wolf
+o Lurking Skirge
 Martyr's Cause
 Memory Jar
 Might of Oaks

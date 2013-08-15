@@ -184,6 +184,10 @@
     <Compile Include="Cards\KarmicGuide.cs" />
     <Compile Include="Cards\KingCrab.cs" />
     <Compile Include="Cards\Knighthood.cs" />
+    <Compile Include="Cards\LastDitchEffort.cs" />
+    <Compile Include="Cards\LavaAxe.cs" />
+    <Compile Include="Cards\Levitation.cs" />
+    <Compile Include="Cards\LurkingSkirge.cs" />
     <Compile Include="Cards\Miscalculation.cs" />
     <Compile Include="Cards\OpalChampion.cs" />
     <Compile Include="Cards\Opportunity.cs" />
@@ -207,6 +211,7 @@
     <Compile Include="Gameplay\Effects\PutTargetOnTopOfLibrary.cs" />
     <Compile Include="Gameplay\Effects\RegenerateTarget.cs" />
     <Compile Include="Gameplay\Effects\RemoveAllCountersFromOwner.cs" />
+    <Compile Include="Gameplay\Effects\SacrificeCreaturesToDealDamageToTarget.cs" />
     <Compile Include="Gameplay\Effects\TapCreaturesThatDidntAttackDamagePlayer.cs" />
     <Compile Include="Gameplay\Effects\TargetLoosesChosenAbility.cs" />
     <Compile Include="Gameplay\Messages\TypeChanged.cs" />
