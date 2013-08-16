@@ -82,8 +82,8 @@ o Lava Axe
 o Levitation
 o Lone Wolf
 o Lurking Skirge
-Martyr's Cause
-Memory Jar
+o Martyr's Cause
+o Memory Jar
 Might of Oaks
 Miscalculation
 Molten Hydra

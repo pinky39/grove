@@ -217,6 +217,7 @@
     <Compile Include="Cards\MartialCoup.cs" />
     <Compile Include="Cards\MartyrsCause.cs" />
     <Compile Include="Cards\Meltdown.cs" />
+    <Compile Include="Cards\MemoryJar.cs" />
     <Compile Include="Cards\MidsummerRevel.cs" />
     <Compile Include="Cards\MirranCrusader.cs" />
     <Compile Include="Cards\MishrasHelix.cs" />

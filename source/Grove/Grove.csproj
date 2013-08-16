@@ -190,6 +190,7 @@
     <Compile Include="Cards\Levitation.cs" />
     <Compile Include="Cards\LurkingSkirge.cs" />
     <Compile Include="Cards\MartyrsCause.cs" />
+    <Compile Include="Cards\MemoryJar.cs" />
     <Compile Include="Cards\Miscalculation.cs" />
     <Compile Include="Cards\OpalChampion.cs" />
     <Compile Include="Cards\Opportunity.cs" />
@@ -216,6 +217,7 @@
     <Compile Include="Gameplay\Effects\SacrificeCreaturesToDealDamageToTarget.cs" />
     <Compile Include="Gameplay\Effects\TapCreaturesThatDidntAttackDamagePlayer.cs" />
     <Compile Include="Gameplay\Effects\TargetLoosesChosenAbility.cs" />
+    <Compile Include="Gameplay\Effects\PlayersReplaceTheirHandWithNewOneUntilEot.cs" />
     <Compile Include="Gameplay\Messages\TypeChanged.cs" />
     <Compile Include="Gameplay\Modifiers\DisableAbility.cs" />
     <Compile Include="Gameplay\Modifiers\ModifyPowerToughnessEqualToTotalCreatureCount.cs" />
