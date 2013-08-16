@@ -120,9 +120,8 @@
     {
       foreach (var decision in _decisions)
       {
-        if (!decision.HasCompleted)
-          throw new InvalidOperationException(
-            String.Format("Decision {0} was not executed.", decision));
+        Infrastructure.AssertEx.True(
+          decision.HasCompleted, String.Format("Decision {0} was not executed.", decision));                
       }
     }
 

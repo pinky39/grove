@@ -3,6 +3,7 @@
   using System;
   using System.Linq;
   using System.Runtime.Serialization;
+  using Infrastructure;
   using Results;
 
   [Serializable]
@@ -14,8 +15,8 @@
 
     public override bool CanPlay()
     {
-      if (Card == null)
-        throw new InvalidOperationException("Did you forget to add card to players hand?");
+      AssertEx.True(Card != null, 
+        "Did you forget to add card to players hand?");            
 
       var manaCost = Card.GetSpellManaCost(Index);
 

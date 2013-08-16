@@ -259,12 +259,8 @@
     public void Consume(IManaAmount amount, ManaUsage usage)
     {
       var allocated = TryToAllocateAmount(amount, usage);
-
-      if (allocated == null)
-      {
-        throw new InvalidOperationException("Not enough mana available.");
-      }
-
+      AssertEx.True(allocated != null, "Not enough mana available.");      
+      
       var sources = GetSourcesToActivate(allocated);
 
       foreach (var source in sources)

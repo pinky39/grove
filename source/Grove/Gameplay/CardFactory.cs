@@ -3,6 +3,7 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
+  using Infrastructure;
   using Misc;
 
   public class CardFactory
@@ -34,11 +35,8 @@
         .Where(x => x.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase))
         .FirstOrDefault();
 
-      if (template == null)
-      {
-        throw new InvalidOperationException(
-          String.Format("Card with name '{0}' was not found in database.", name));
-      }
+      AssertEx.True(template != null,
+        String.Format("Card with name '{0}' was not found in database.", name));            
 
       return template;
     }

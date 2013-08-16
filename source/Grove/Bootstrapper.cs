@@ -6,6 +6,7 @@
   using System.Reflection;
   using System.Windows;
   using Caliburn.Micro;
+  using Infrastructure;
   using log4net.Config;
   using UserInterface.Shell;
   using UserInterface.StartScreen;
@@ -76,9 +77,7 @@
             ? Assembly.GetExecutingAssembly().GetType(presenter.Namespace + ".View")
             : Assembly.GetExecutingAssembly().GetType(presenter.Namespace + "." + context.ToString());
 
-          if (viewType == null)
-            throw new InvalidOperationException(
-              String.Format("Could not find View for ViewModel: {0}.", presenter));
+          AssertEx.True(viewType != null, String.Format("Could not find View for ViewModel: {0}.", presenter));                    
 
           return ViewLocator.GetOrCreateViewType(viewType);
         };

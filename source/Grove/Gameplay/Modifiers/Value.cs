@@ -2,6 +2,7 @@
 {
   using System;
   using Effects;
+  using Infrastructure;
 
   public class Value
   {
@@ -46,10 +47,8 @@
       if (_type == ValueType.Constant)
         return _value;
 
-      if (x == null)
-      {
-        throw new InvalidOperationException("X was not specified, did you forgot to define the CostRule? Please note that if you use X in timing rules cost rule must be defined before timing rules.");
-      }
+      AssertEx.True(x != null,
+        "X was not specified, did you forgot to define the CostRule? Please note that if you use X in timing rules cost rule must be defined before timing rules.");            
 
       return _type == ValueType.MinusX ? -x.Value : x.Value;
     }

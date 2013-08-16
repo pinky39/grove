@@ -6,6 +6,7 @@
   using Gameplay;
   using Gameplay.Misc;
   using Gameplay.Targeting;
+  using Infrastructure;
 
   public class TargetingRuleParameters : GameObject
   {
@@ -39,12 +40,10 @@
       Func<TargetsCandidates, IList<TargetCandidates>> selector = null)
       where T : ITarget
     {
-      
-      if (!_candidates.HasCost && !_candidates.HasEffect)
-      {
-        throw new InvalidOperationException("No target selectors found, use AddEffect or AddCost to add them!");
-      }      
-      
+
+      AssertEx.True(_candidates.HasCost || _candidates.HasEffect, 
+        "No target selectors found, use AddEffect or AddCost to add them!");
+                  
       TargetCandidates candidates = null;
 
       if (selector == null)

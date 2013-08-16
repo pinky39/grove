@@ -4,17 +4,14 @@
   using System.ComponentModel;
   using System.Linq;
   using System.Windows.Markup;
+  using Infrastructure;
 
   public class EnumerationExtension : MarkupExtension
   {
     private Type _enumType;
 
-
     public EnumerationExtension(Type enumType)
     {
-      if (enumType == null)
-        throw new ArgumentNullException("enumType");
-
       EnumType = enumType;
     }
 
@@ -27,10 +24,7 @@
           return;
 
         var enumType = Nullable.GetUnderlyingType(value) ?? value;
-
-        if (enumType.IsEnum == false)
-          throw new ArgumentException("Type must be an Enum.");
-
+        AssertEx.True(enumType.IsEnum, "Type must be an Enum.");                
         _enumType = value;
       }
     }

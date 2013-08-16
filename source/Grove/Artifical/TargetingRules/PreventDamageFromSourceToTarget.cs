@@ -1,5 +1,6 @@
 ﻿namespace Grove.Artifical.TargetingRules
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Gameplay;
@@ -7,38 +8,49 @@
   using Gameplay.Targeting;
 
   public class PreventDamageFromSourceToTarget : TargetingRule
-  {
+  {    
+    protected class DamageSourceAndDamageTargetCandidates
+    {
+      public List<ITarget> DamageSource = new List<ITarget>();
+      public List<ITarget> DamageTarget = new List<ITarget>();
+    }
+    
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
     {
-      var targetPicks = new List<ITarget>();
-      var sourcePicks = new List<ITarget>();
+      var selectedCandidates = GetDamageSourceAndDamageTargetCandidates(p);
+      return Group(selectedCandidates.DamageSource, selectedCandidates.DamageTarget);
+    }
+
+    protected DamageSourceAndDamageTargetCandidates GetDamageSourceAndDamageTargetCandidates(TargetingRuleParameters p)
+    {
+      var selectedCandidates = new DamageSourceAndDamageTargetCandidates();
 
       if (Stack.IsEmpty == false)
       {
-        PreventDamageTopSpellWillDealToPlayer(p, targetPicks, sourcePicks);
-        PreventDamageTopSpellWillDealToCreature(p, targetPicks, sourcePicks);
+        PreventDamageTopSpellWillDealToPlayer(p, selectedCandidates);
+        PreventDamageTopSpellWillDealToCreature(p, selectedCandidates);
       }
 
       if (Turn.Step == Step.DeclareBlockers)
       {
         if (p.Controller.IsActive == false)
         {
-          PreventDamageAttackerWillDealToPlayer(p, targetPicks, sourcePicks);
-          PreventDamageAttackerWillDealToBlocker(p, targetPicks, sourcePicks);
+          PreventDamageAttackerWillDealToPlayer(p, selectedCandidates);
+          PreventDamageAttackerWillDealToBlocker(p, selectedCandidates);
         }
         else
         {
-          PreventDamageBlockerWillDealToAttacker(p, targetPicks, sourcePicks);
+          PreventDamageBlockerWillDealToAttacker(p, selectedCandidates);
         }
       }
 
-      return Group(sourcePicks, targetPicks);
+      return selectedCandidates;
     }
 
-    private void PreventDamageBlockerWillDealToAttacker(TargetingRuleParameters p, List<ITarget> targetPicks,
-      List<ITarget> sourcePicks)
+    private void PreventDamageBlockerWillDealToAttacker(TargetingRuleParameters p,
+      DamageSourceAndDamageTargetCandidates selectedCandidates)
     {
-      var blockerAttackerPair = p.Candidates<Card>(selectorIndex: 1)
+      var blockerAttackerPair = p.Candidates<Card>(selectorIndex: 1, selector: trgs => trgs.Effect)
         .Where(x => x.IsAttacker)
         .Select(x => new
           {
@@ -54,15 +66,15 @@
 
       if (blockerAttackerPair != null)
       {
-        targetPicks.Add(blockerAttackerPair.Target);
-        sourcePicks.Add(blockerAttackerPair.Source);
+        selectedCandidates.DamageTarget.Add(blockerAttackerPair.Target);
+        selectedCandidates.DamageSource.Add(blockerAttackerPair.Source);
       }
     }
 
-    private void PreventDamageAttackerWillDealToBlocker(TargetingRuleParameters p, List<ITarget> targetPicks,
-      List<ITarget> sourcePicks)
+    private void PreventDamageAttackerWillDealToBlocker(TargetingRuleParameters p, 
+      DamageSourceAndDamageTargetCandidates selectedCandidates)
     {
-      var blockerAttackerPair = p.Candidates<Card>(selectorIndex: 1)
+      var blockerAttackerPair = p.Candidates<Card>(selectorIndex: 1, selector: trgs => trgs.Effect)
         .Where(card => card.IsBlocker)
         .Select(blocker =>
           {
@@ -81,47 +93,47 @@
 
       if (blockerAttackerPair != null)
       {
-        targetPicks.Add(blockerAttackerPair.Target);
-        sourcePicks.Add(blockerAttackerPair.Source);
+        selectedCandidates.DamageTarget.Add(blockerAttackerPair.Target);
+        selectedCandidates.DamageSource.Add(blockerAttackerPair.Source);
       }
     }
 
-    private void PreventDamageAttackerWillDealToPlayer(TargetingRuleParameters p, List<ITarget> targetPicks,
-      List<ITarget> sourcePicks)
+    private void PreventDamageAttackerWillDealToPlayer(TargetingRuleParameters p, 
+      DamageSourceAndDamageTargetCandidates selectedCandidates)
     {
       var attacker = Combat.FindAttackerWhichWillDealGreatestDamageToDefender();
 
       if (attacker != null)
       {
-        targetPicks.Add(p.Controller);
-        sourcePicks.Add(attacker);
+        selectedCandidates.DamageTarget.Add(p.Controller);
+        selectedCandidates.DamageSource.Add(attacker);
       }
     }
 
-    private void PreventDamageTopSpellWillDealToCreature(TargetingRuleParameters p, List<ITarget> targetPicks,
-      List<ITarget> sourcePicks)
+    private void PreventDamageTopSpellWillDealToCreature(TargetingRuleParameters p, 
+      DamageSourceAndDamageTargetCandidates selectedCandidates)
     {
-      var creatureKilledByTopSpell = p.Candidates<Card>(selectorIndex: 1)
+      var creatureKilledByTopSpell = p.Candidates<Card>(selectorIndex: 1, selector: trgs => trgs.Effect)
         .Where(x => Stack.CanBeDealtLeathalDamageByTopSpell(x))
         .OrderByDescending(x => x.Score)
         .FirstOrDefault();
 
       if (creatureKilledByTopSpell != null)
       {
-        targetPicks.Add(creatureKilledByTopSpell);
-        sourcePicks.Add(Stack.TopSpell);
+        selectedCandidates.DamageTarget.Add(creatureKilledByTopSpell);
+        selectedCandidates.DamageSource.Add(Stack.TopSpell);
       }
     }
 
-    private void PreventDamageTopSpellWillDealToPlayer(TargetingRuleParameters p, List<ITarget> targetPicks,
-      List<ITarget> sourcePicks)
+    private void PreventDamageTopSpellWillDealToPlayer(TargetingRuleParameters p, 
+      DamageSourceAndDamageTargetCandidates selectedCandidates)
     {
       var damageToPlayer = Stack.GetDamageTopSpellWillDealToPlayer(p.Controller);
 
       if (damageToPlayer > 0)
       {
-        targetPicks.Add(p.Controller);
-        sourcePicks.Add(Stack.TopSpell);
+        selectedCandidates.DamageTarget.Add(p.Controller);
+        selectedCandidates.DamageSource.Add(Stack.TopSpell);
       }
     }
   }

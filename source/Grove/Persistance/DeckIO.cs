@@ -5,6 +5,7 @@
   using System.Text.RegularExpressions;
   using Gameplay;
   using Gameplay.Sets;
+  using Infrastructure;
 
   public class DeckFile
   {
@@ -98,19 +99,14 @@
         }
       }
     }
-
-    private static void ThrowParsingError(int lineNumber)
-    {
-      throw new InvalidOperationException(String.Format("Error parsing line {0}.", lineNumber));
-    }
-
+    
     private static DeckRow ParseRow(string line, int lineNumber)
     {
       line = line.Trim();
       var match = DeckRowRegex.Match(line);
 
-      if (!match.Success)
-        ThrowParsingError(lineNumber);
+      AssertEx.True(match.Success,
+        String.Format("Error parsing line {0}.", lineNumber));            
 
       var cardCount = int.Parse(match.Groups[1].Value);
       var cardName = match.Groups[2].Value.Trim();

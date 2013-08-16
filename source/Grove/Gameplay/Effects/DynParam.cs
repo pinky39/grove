@@ -38,8 +38,8 @@
     {
       get
       {
-        if (!_isInitialized)
-          throw new InvalidOperationException("Parameter was not initialized, did you forget to register it?");
+        AssertEx.True(_isInitialized,
+          "Parameter was not initialized, did you forget to register it?");                
 
         return _value;
       }

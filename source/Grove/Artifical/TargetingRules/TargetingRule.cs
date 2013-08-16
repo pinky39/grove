@@ -76,7 +76,7 @@
       Action<ITarget, Targets> add1 = null, Action<ITarget, Targets> add2 = null)
     {
       return Group(candidates1.Cast<ITarget>().ToList(), candidates2.Cast<ITarget>().ToList(), add1, add2);
-    }
+    }    
 
     protected IList<Targets> Group(IList<ITarget> candidates1, IList<ITarget> candidates2,
       Action<ITarget, Targets> add1 = null, Action<ITarget, Targets> add2 = null)

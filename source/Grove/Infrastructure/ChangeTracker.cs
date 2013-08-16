@@ -86,20 +86,16 @@
     public Snapshot CreateSnapshot()
     {
       LogFile.Debug("Create snapshot.");
-
-      if (!_isEnabled)
-        throw new InvalidOperationException("Tracker is disabled, did you forget to enable it?");
+      AssertEx.True(_isEnabled, "Tracker is disabled, did you forget to enable it?");            
 
       return new Snapshot(_changeHistory.Count);
     }
 
     public void Disable()
     {
-      if (_changeHistory.Count != 0)
-        throw new InvalidOperationException(
-          String.Format(
-            "Disabling a change tracker with history ({0}) is not allowed. This is a common indication of an incorrect object copy.",
-            _changeHistory.Count));
+      AssertEx.True(_changeHistory.Count == 0, 
+        String.Format("Disabling a change tracker with history ({0}) is not allowed. This is a common indication of an incorrect object copy.",
+            _changeHistory.Count));            
 
       _isEnabled = false;
       _changeHistory.Clear();
@@ -113,19 +109,14 @@
 
     private void AssertNotLocked()
     {
-      if (_isLocked)
-      {
-        throw new InvalidOperationException(
-          "Trying to modify a locked change tracker. This is a common indication of an incorrect object copy.");
-      }
+      AssertEx.True(!_isLocked,
+        "Trying to modify a locked change tracker. This is a common indication of an incorrect object copy.");            
     }
 
     public void RollbackToSnapshot(Snapshot snapshot)
     {
       LogFile.Debug("Restore from snapshot.");
-
-      if (!_isEnabled)
-        throw new InvalidOperationException("Tracker is disabled, did you forget to enable it?");
+      AssertEx.True(_isEnabled, "Tracker is disabled, did you forget to enable it?");                
 
       while (_changeHistory.Count > snapshot.History)
       {

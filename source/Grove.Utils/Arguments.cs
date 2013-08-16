@@ -3,6 +3,7 @@
   using System;
   using System.Collections.Generic;
   using System.Text.RegularExpressions;
+  using Infrastructure;
 
   public class Arguments
   {
@@ -31,8 +32,8 @@
         if (_arguments.ContainsKey(name))
           return _arguments[name];
 
-        throw new InvalidOperationException(
-          String.Format("Required argument '{0}' not specified.", name));
+        AssertEx.Fail(String.Format("Required argument '{0}' not specified.", name));
+        return null;
       }
     }
 

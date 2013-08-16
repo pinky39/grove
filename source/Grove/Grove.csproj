@@ -138,6 +138,7 @@
     <Compile Include="Artifical\TargetingRules\GainRegenerate.cs" />
     <Compile Include="Artifical\TargetingRules\LooseEvasion.cs" />
     <Compile Include="Artifical\TargetingRules\PutOnTopOfLibrary.cs" />
+    <Compile Include="Artifical\TargetingRules\SacrificeACreatureToPreventDamageFromSourceToTarget.cs" />
     <Compile Include="Artifical\TargetingRules\SacrificeLand.cs" />
     <Compile Include="Artifical\TargetingRules\SwitchPowerAndToughness.cs" />
     <Compile Include="Artifical\TargetingRules\UntapPermanents.cs" />
@@ -188,6 +189,7 @@
     <Compile Include="Cards\LavaAxe.cs" />
     <Compile Include="Cards\Levitation.cs" />
     <Compile Include="Cards\LurkingSkirge.cs" />
+    <Compile Include="Cards\MartyrsCause.cs" />
     <Compile Include="Cards\Miscalculation.cs" />
     <Compile Include="Cards\OpalChampion.cs" />
     <Compile Include="Cards\Opportunity.cs" />
@@ -864,6 +866,7 @@
     <Compile Include="Gameplay\Tournaments\TournamentType.cs" />
     <Compile Include="Gameplay\Triggers\OnLandPlayed.cs" />
     <Compile Include="Gameplay\Triggers\OnOwnerGetsTapped.cs" />
+    <Compile Include="Infrastructure\AssertEx.cs" />
     <Compile Include="Infrastructure\CastEx.cs" />
     <Compile Include="Infrastructure\SetEx.cs" />
     <Compile Include="Persistance\DecisionLog.cs" />

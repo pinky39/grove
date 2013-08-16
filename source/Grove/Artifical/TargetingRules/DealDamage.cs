@@ -87,8 +87,7 @@
 
     private IEnumerable<Targets> SelectTargets2Selectors(TargetingRuleParameters p)
     {
-      if (p.EffectTargetTypeCount > 2)
-        throw new NotSupportedException("More than 2 effect selectors currently not supported.");
+      AssertEx.True(p.EffectTargetTypeCount <= 2, "More than 2 effect selectors currently not supported.");
 
       var candidates1 = GetCandidatesByDescendingDamageScore(p, selectorIndex: 0).ToList();
       var candidates2 = GetCandidatesByDescendingDamageScore(p, selectorIndex: 1).ToList();

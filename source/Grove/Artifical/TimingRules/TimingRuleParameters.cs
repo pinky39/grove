@@ -1,10 +1,10 @@
 ﻿namespace Grove.Artifical.TimingRules
 {
-  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Gameplay;
   using Gameplay.Targeting;
+  using Infrastructure;
 
   public class TimingRuleParameters
   {
@@ -28,8 +28,8 @@
 
     public IEnumerable<T> Targets<T>()
     {
-      if (_targets == null)
-        throw new InvalidOperationException("This timing rule requires the targeting rule to be applied first.");
+      AssertEx.True(_targets != null,
+        "This timing rule requires the targeting rule to be applied first.");
 
       return _targets.Where(x => x is T).Select(x => (T) x);
     }

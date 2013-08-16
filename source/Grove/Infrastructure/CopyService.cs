@@ -262,11 +262,8 @@
           {
             ctor = type.GetParameterlessCtor();
 
-            if (ctor == null)
-            {
-              throw new InvalidOperationException(
-                String.Format("Type {0} is marked with [Copyable] but is missing a parameterless constructor.", type));
-            }
+            AssertEx.True(ctor != null,
+              String.Format("Type {0} is marked with [Copyable] but is missing a parameterless constructor.", type));                        
 
             _ctors.Add(type, ctor);
           }

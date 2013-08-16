@@ -11,6 +11,7 @@
   using Characteristics;
   using Costs;
   using Effects;
+  using Infrastructure;
   using ManaHandling;
   using Modifiers;
   using States;
@@ -62,8 +63,8 @@
     {
       var cardType = cp.Type;
       
-      if (cardType == null)
-        throw new InvalidOperationException(String.Format("{0}'s card type is not defined.", cp.Name));
+      AssertEx.True(cardType != null,
+        String.Format("{0}'s card type is not defined.", cp.Name));            
             
       if (cardType.Instant)
         return new Instant();
