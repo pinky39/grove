@@ -84,12 +84,12 @@ o Lone Wolf
 o Lurking Skirge
 o Martyr's Cause
 o Memory Jar
-Might of Oaks
-Miscalculation
-Molten Hydra
-Mother of Runes
-Multani, Maro-Sorcerer
-Multani's Acolyte
+o Might of Oaks
+o Miscalculation
+o Molten Hydra
+o Mother of Runes
+o Multani, Maro-Sorcerer
+o Multani's Acolyte
 Multani's Presence
 No Mercy
 Opal Avenger

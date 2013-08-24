@@ -191,7 +191,10 @@
     <Compile Include="Cards\LurkingSkirge.cs" />
     <Compile Include="Cards\MartyrsCause.cs" />
     <Compile Include="Cards\MemoryJar.cs" />
+    <Compile Include="Cards\MightOfOaks.cs" />
     <Compile Include="Cards\Miscalculation.cs" />
+    <Compile Include="Cards\MultaniMaroSorcerer.cs" />
+    <Compile Include="Cards\MultanisAcolyte.cs" />
     <Compile Include="Cards\OpalChampion.cs" />
     <Compile Include="Cards\Opportunity.cs" />
     <Compile Include="Cards\RadiantsDragoons.cs" />
@@ -221,6 +224,7 @@
     <Compile Include="Gameplay\Messages\TypeChanged.cs" />
     <Compile Include="Gameplay\Modifiers\DisableAbility.cs" />
     <Compile Include="Gameplay\Modifiers\ModifyPowerToughnessEqualToTotalCreatureCount.cs" />
+    <Compile Include="Gameplay\Modifiers\ModifyPowerToughnessEqualToTotalHandsCount.cs" />
     <Compile Include="Gameplay\Modifiers\SwitchPowerAndToughness.cs" />
     <Compile Include="Gameplay\States\TurnEvents.cs" />
     <Compile Include="Gameplay\Targeting\ValidateTargetDependenciesParam.cs" />

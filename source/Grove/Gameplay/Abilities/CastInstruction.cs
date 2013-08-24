@@ -52,14 +52,7 @@
 
     public void EffectPushedOnStack()
     {
-      _card.ChangeZone(Stack);
-
-      Publish(new ZoneChanged
-        {
-          Card = _card,
-          From = Zone.Hand,
-          To = Zone.Stack
-        });
+      _card.ChangeZone(Stack);    
     }
 
     public void EffectResolved()
