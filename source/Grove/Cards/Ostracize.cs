@@ -1,28 +1,27 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Artifical.TimingRules;
   using Gameplay.Effects;
   using Gameplay.Misc;
 
-  public class Duress : CardTemplateSource
+  public class Ostracize : CardTemplateSource
   {
     public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
-        .Named("Duress")
+        .Named("Ostracize")
         .ManaCost("{B}")
         .Type("Sorcery")
         .Text(
-          "Target opponent reveals his or her hand. You choose a noncreature, nonland card from it. That player discards that card.")
-        .FlavorText("We decide who is worthy of our works.")
+          "Target opponent reveals his or her hand. You choose a creature card from it. That player discards that card.")
+        .FlavorText("Kerrick was to find that some borders can never be crossed.")
         .Cast(p =>
           {
             p.Effect = () => new OpponentDiscardsCards(
               selectedCount: 1,
               youChooseDiscardedCards: true,
-              filter: card => !card.Is().Creature && !card.Is().Land);
+              filter: card => card.Is().Creature);
 
             p.TimingRule(new FirstMain());
             p.TimingRule(new OpponentHandCountIs(minCount: 2));

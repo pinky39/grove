@@ -228,8 +228,10 @@
     <Compile Include="Cards\Morphling.cs" />
     <Compile Include="Cards\MotherOfRunes.cs" />
     <Compile Include="Cards\MultaniMaroSorcerer.cs" />
+    <Compile Include="Cards\MultanisPresence.cs" />
     <Compile Include="Cards\NoeticScales.cs" />
     <Compile Include="Cards\NoRestForTheWicked.cs" />
+    <Compile Include="Cards\OpalAvenger.cs" />
     <Compile Include="Cards\OpalCaryatid.cs" />
     <Compile Include="Cards\Oppression.cs" />
     <Compile Include="Cards\Outmaneuver.cs" />

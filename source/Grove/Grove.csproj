@@ -195,8 +195,13 @@
     <Compile Include="Cards\Miscalculation.cs" />
     <Compile Include="Cards\MultaniMaroSorcerer.cs" />
     <Compile Include="Cards\MultanisAcolyte.cs" />
+    <Compile Include="Cards\MultanisPresence.cs" />
+    <Compile Include="Cards\NoMercy.cs" />
+    <Compile Include="Cards\OpalAvenger.cs" />
     <Compile Include="Cards\OpalChampion.cs" />
     <Compile Include="Cards\Opportunity.cs" />
+    <Compile Include="Cards\Ostracize.cs" />
+    <Compile Include="Cards\Palinchron.cs" />
     <Compile Include="Cards\RadiantsDragoons.cs" />
     <Compile Include="Artifical\Decisions\QuickDecisions.cs" />
     <Compile Include="Cards\RavenFamiliar.cs" />
@@ -221,6 +226,7 @@
     <Compile Include="Gameplay\Effects\TapCreaturesThatDidntAttackDamagePlayer.cs" />
     <Compile Include="Gameplay\Effects\TargetLoosesChosenAbility.cs" />
     <Compile Include="Gameplay\Effects\PlayersReplaceTheirHandWithNewOneUntilEot.cs" />
+    <Compile Include="Gameplay\Messages\SpellWasCountered.cs" />
     <Compile Include="Gameplay\Messages\TypeChanged.cs" />
     <Compile Include="Gameplay\Modifiers\DisableAbility.cs" />
     <Compile Include="Gameplay\Modifiers\ModifyPowerToughnessEqualToTotalCreatureCount.cs" />
@@ -870,7 +876,9 @@
     <Compile Include="Gameplay\Tournaments\TournamentParameters.cs" />
     <Compile Include="Gameplay\Tournaments\TournamentRunner.cs" />
     <Compile Include="Gameplay\Tournaments\TournamentType.cs" />
+    <Compile Include="Gameplay\Triggers\OnCounteredSpell.cs" />
     <Compile Include="Gameplay\Triggers\OnLandPlayed.cs" />
+    <Compile Include="Gameplay\Triggers\OnLifepointsLeft.cs" />
     <Compile Include="Gameplay\Triggers\OnOwnerGetsTapped.cs" />
     <Compile Include="Infrastructure\AssertEx.cs" />
     <Compile Include="Infrastructure\CastEx.cs" />

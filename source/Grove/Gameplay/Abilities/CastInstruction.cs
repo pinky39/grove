@@ -1,6 +1,5 @@
 ﻿namespace Grove.Gameplay.Abilities
 {
-  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Artifical;
@@ -14,7 +13,6 @@
   using Messages;
   using Misc;
   using Targeting;
-  using Zones;
 
   public class CastInstruction : GameObject, IEffectSource
   {
@@ -48,11 +46,17 @@
     public void EffectCountered(SpellCounterReason reason)
     {
       _card.PutToGraveyard();
+
+      Publish(new SpellWasCountered
+        {
+          Card = _card,
+          Reason = reason
+        });
     }
 
     public void EffectPushedOnStack()
     {
-      _card.ChangeZone(Stack);    
+      _card.ChangeZone(Stack);
     }
 
     public void EffectResolved()
@@ -68,10 +72,10 @@
     public bool ValidateTargetDependencies(List<ITarget> costTargets, List<ITarget> effectTargets)
     {
       return _targetSelector.ValidateTargetDependencies(new ValidateTargetDependenciesParam
-      {
-        Cost = costTargets,
-        Effect = effectTargets
-      }); 
+        {
+          Cost = costTargets,
+          Effect = effectTargets
+        });
     }
 
     public int CalculateHash(HashCalculator calc)
@@ -147,7 +151,7 @@
         return;
       }
 
-      _castingRule.Cast(effect);      
+      _castingRule.Cast(effect);
     }
 
     public bool CanTarget(ITarget target)

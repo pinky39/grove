@@ -6,14 +6,14 @@
 		</Style>
 	</UserControl.Resources>
     <Grid>
-        <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="{Binding HasLoaded, Converter={x:Static grove:Converters.BooleanToVisibility}}" Width="1100" Height="500">
+        <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,50,0,0" Visibility="{Binding HasLoaded, Converter={x:Static grove:Converters.BooleanToVisibility}}" Width="1200" Height="600">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
         
-            <StackPanel Grid.Column="0" VerticalAlignment="Bottom"  HorizontalAlignment="Left" >
+            <StackPanel Grid.Column="0" VerticalAlignment="Bottom"  HorizontalAlignment="Left" Margin="0,0,0,50" >
                 <Button  x:Name="NewTournament">New tournament</Button>
                 <Button  x:Name="Play">Single match</Button>
                 <Button  x:Name="PlayRandom">Random match</Button>
@@ -24,7 +24,7 @@
 
             <StackPanel Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Top" >
 			    <StackPanel>
-				    <Image Source="{grove:Media 'logo.png'}" Width="600" />
+				    <Image Source="{grove:Media 'logo.png'}" Width="650" />
                     <TextBlock HorizontalAlignment="Right" Foreground="#fff" FontSize="20"  Style="{StaticResource Label}" Text="{Binding Version}" />
                     <TextBlock HorizontalAlignment="Right" Foreground="#666" FontSize="13"  Style="{StaticResource Label}" Text="{Binding CardCount}" />                
 			    </StackPanel>

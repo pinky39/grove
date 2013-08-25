@@ -1,27 +1,21 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
-  using Gameplay.Abilities;
   using Gameplay.Effects;
   using Gameplay.Messages;
   using Gameplay.Misc;
   using Gameplay.Triggers;
-  using Gameplay.Zones;
 
-  public class Dread : CardTemplateSource
+  public class NoMercy : CardTemplateSource
   {
     public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
-        .Named("Dread")
-        .ManaCost("{3}{B}{B}{B}")
-        .Type("Creature - Elemental Incarnation")
-        .Text(
-          "{Fear}{EOL}Whenever a creature deals damage to you, destroy it.{EOL}When Dread is put into a graveyard from anywhere, shuffle it into its owner's library.")
-        .Power(6)
-        .Toughness(6)
-        .SimpleAbilities(Static.Fear)
+        .Named("No Mercy")
+        .ManaCost("{2}{B}{B}")
+        .Type("Enchantment")
+        .Text("Whenever a creature deals damage to you, destroy it.")
+        .FlavorText("We had years to prepare, while they had mere minutes.")
         .TriggeredAbility(p =>
           {
             p.Text = "Whenever a creature deals damage to you, destroy it.";
@@ -35,12 +29,6 @@
               e.TriggerMessage<DamageHasBeenDealt>().Damage.Source));
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;
-          })
-        .TriggeredAbility(p =>
-          {
-            p.Text = "When Dread is put into a graveyard from anywhere, shuffle it into its owner's library.";
-            p.Trigger(new OnZoneChanged(to: Zone.Graveyard));
-            p.Effect = () => new ShuffleIntoLibrary();
           });
     }
   }

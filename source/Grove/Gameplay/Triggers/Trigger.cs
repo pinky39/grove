@@ -25,6 +25,7 @@
     public void Activate()
     {
       Subscribe(this);
+      OnActivate();
     }
 
     public event EventHandler<TriggerEventArgs> Triggered = delegate { };
@@ -44,6 +45,7 @@
     }
 
     protected virtual void Initialize() {}
+    protected virtual void OnActivate() {}
 
     public class TriggerEventArgs : EventArgs
     {
