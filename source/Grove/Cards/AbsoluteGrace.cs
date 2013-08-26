@@ -21,7 +21,7 @@
           "In pursuit of Urza, the Phyrexians sent countless foul legions into Serra's realm. Though beaten back, they left it tainted with uncleansable evil.")
         .Cast(p =>
           {
-            p.TimingRule(new FirstMain());
+            p.TimingRule(new OnFirstMain());
             p.Effect = () => new PutIntoPlay {Category = EffectCategories.Protector};
           })
         .ContinuousEffect(p =>

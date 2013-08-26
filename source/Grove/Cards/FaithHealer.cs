@@ -20,7 +20,7 @@
         .FlavorText("The power of faith is quiet. It is the leaf unmoved by the hurricane.")
         .Power(1)
         .Toughness(1)
-        .Cast(p => p.TimingRule(new FirstMain()))
+        .Cast(p => p.TimingRule(new OnFirstMain()))
         .ActivatedAbility(p =>
           {
             p.Text =
@@ -38,7 +38,7 @@
                 trg.Message = "Select an enchantment to sacrifice.";
               });
 
-            p.TargetingRule(new SacrificeToGainLife());
+            p.TargetingRule(new CostSacrificeToGainLife());
           });
     }
   }

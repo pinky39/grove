@@ -33,8 +33,8 @@
               zone: Zone.Hand,
               validator: card => card.Is().Artifact
               );
-            p.TimingRule(new Any(new OwningCardWillBeDestroyed(), new EndOfTurn()));
-            p.TimingRule(new ControllerHandCountIs(minCount: 1, selector: c => c.Is().Artifact));
+            p.TimingRule(new Any(new WhenOwningCardWillBeDestroyed(), new OnEndOfOpponentsTurn()));
+            p.TimingRule(new WhenYourHandCountIs(minCount: 1, selector: c => c.Is().Artifact));
           }
         );
     }

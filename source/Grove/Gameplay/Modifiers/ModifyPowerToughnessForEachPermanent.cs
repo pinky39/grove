@@ -5,25 +5,29 @@
   using Characteristics;
   using Infrastructure;
   using Messages;
+  using Misc;
   using Zones;
 
-  public class ModifyPowerToughnessForEachPermanent : Modifier, IReceive<ZoneChanged>, IReceive<ControllerChanged>,
+  public class ModifyPowerToughnessForEachPermanent : Modifier, IReceive<ZoneChanged>, IReceive<PermanentWasModified>,
     ICardModifier
   {
+    private readonly ControlledBy _controlledBy;
+    private readonly Func<Card, Modifier, bool> _filter;
     private readonly int? _modifyPower;
     private readonly int? _modifyToughness;
-    private readonly Func<Card, bool> _filter;
     private readonly IntegerModifier _powerModifier;
     private readonly IntegerModifier _toughnessModifier;
     private Strenght _strenght;
 
     protected ModifyPowerToughnessForEachPermanent() {}
 
-    public ModifyPowerToughnessForEachPermanent(int? power, int? toughness, Func<Card, bool> filter,  Func<IntegerModifier> modifier)
+    public ModifyPowerToughnessForEachPermanent(int? power, int? toughness, Func<Card, Modifier, bool> filter,
+      Func<IntegerModifier> modifier, ControlledBy controlledBy = ControlledBy.SpellOwner)
     {
       _modifyPower = power;
       _modifyToughness = toughness;
       _filter = filter;
+      _controlledBy = controlledBy;
 
       _toughnessModifier = modifier();
       _powerModifier = modifier();
@@ -44,33 +48,37 @@
       }
     }
 
-    public void Receive(ControllerChanged message)
+    public void Receive(PermanentWasModified message)
     {
-      if (message.Card.Is("forest") || message.Card == SourceCard)
-      {
-        var forestCount = GetPermanentCount(SourceCard.Controller);
-
-        SetPowerIfModified(forestCount*_modifyPower);
-        SetToughnessIfModified(forestCount*_modifyToughness);
-      }
+      Update();
     }
 
     public void Receive(ZoneChanged message)
     {
-      if (!IsPermanentControlledBySpellOwner(message.Card))
-        return;
-
       if (message.From == Zone.Battlefield)
       {
-        IncreasePowerIfModified(-_modifyPower);
-        IncreaseToughnessIfModified(-_modifyToughness);
+        Update();
       }
 
       else if (message.To == Zone.Battlefield)
       {
+        if (!HasValidController(message.Card) || !_filter(message.Card, this))
+          return;
+
         IncreasePowerIfModified(_modifyPower);
         IncreaseToughnessIfModified(_modifyToughness);
       }
+    }
+
+    private bool HasValidController(Card card)
+    {
+      if (_controlledBy == ControlledBy.Any)
+        return true;
+
+      if (_controlledBy == ControlledBy.SpellOwner)
+        return card.Controller == SourceCard.Controller;
+
+      return card.Controller != SourceCard.Controller;
     }
 
     private void SetPowerIfModified(int? value)
@@ -105,21 +113,13 @@
       _toughnessModifier.Value += value;
     }
 
-
     protected override void Initialize()
     {
       _toughnessModifier.Initialize(ChangeTracker);
       _powerModifier.Initialize(ChangeTracker);
 
-      var forestCount = GetPermanentCount(SourceCard.Controller);
-
-      if (_modifyToughness.HasValue)
-        _toughnessModifier.Value = forestCount*_modifyToughness;
-
-      if (_modifyPower.HasValue)
-        _powerModifier.Value = forestCount*_modifyPower;
+      Update();
     }
-
 
     protected override void Unapply()
     {
@@ -134,15 +134,27 @@
       }
     }
 
-    private int GetPermanentCount(Player player)
+    private int GetPermanentCount()
     {
-      return player.Battlefield.Count(c => _filter(c));
+      if (_controlledBy == ControlledBy.SpellOwner)
+      {
+        return SourceCard.Controller.Battlefield.Count(c => _filter(c, this));
+      }
+
+      if (_controlledBy == ControlledBy.Opponent)
+      {
+        return SourceCard.Controller.Opponent.Battlefield.Count(c => _filter(c, this));
+      }
+
+      return Players.Permanents().Count(c => _filter(c, this));
     }
 
-    private bool IsPermanentControlledBySpellOwner(Card permanent)
+    private void Update()
     {
-      return _filter(permanent) &&
-        permanent.Controller == SourceCard.Controller;
+      var count = GetPermanentCount();
+
+      SetPowerIfModified(count*_modifyPower);
+      SetToughnessIfModified(count*_modifyToughness);
     }
   }
 }

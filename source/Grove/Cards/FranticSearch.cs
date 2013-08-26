@@ -29,7 +29,7 @@
                 )
               );
 
-            p.TimingRule(new Steps(activeTurn: true, passiveTurn: false, steps: Step.FirstMain));
+            p.TimingRule(new OnYourTurn(Step.FirstMain));
           });
     }
   }

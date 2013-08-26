@@ -29,10 +29,9 @@
             p.Text = "{U}: Untap Morphling.";
             p.Cost = new PayMana(Mana.Blue, ManaUsage.Abilities);
             p.Effect = () => new UntapOwner();
-
-            p.TimingRule(new Turn(active: true));
-            p.TimingRule(new SecondMain());
-            p.TimingRule(new OwningCardHas(c => c.IsTapped));
+            
+            p.TimingRule(new OnSecondMain());
+            p.TimingRule(new WhenCardHas(c => c.IsTapped));
           })
         .ActivatedAbility(p =>
           {
@@ -41,8 +40,8 @@
             p.Effect = () => new ApplyModifiersToSelf(
               () => new AddStaticAbility(Static.Flying) {UntilEot = true});
 
-            p.TimingRule(new Steps(Step.BeginningOfCombat));
-            p.TimingRule(new OwningCardHas(c => !c.Has().Flying));
+            p.TimingRule(new OnStep(Step.BeginningOfCombat));
+            p.TimingRule(new WhenCardHas(c => !c.Has().Flying));
           })
         .ActivatedAbility(p =>
           {
@@ -51,26 +50,26 @@
             p.Effect = () => new ApplyModifiersToSelf(
               () => new AddStaticAbility(Static.Shroud) {UntilEot = true});
 
-            p.TimingRule(new OwningCardHas(c => !c.Has().Shroud));
-            p.TimingRule(new GainHexproof());
+            p.TimingRule(new WhenCardHas(c => !c.Has().Shroud));
+            p.TimingRule(new WhenOwningCardWillBeDestroyed(targetOnly: true, considerCombat: false));
           })
         .ActivatedAbility(p =>
           {
             p.Text = "{1}: Morphling gets +1/-1 until end of turn.";
             p.Cost = new PayMana(1.Colorless(), ManaUsage.Abilities, supportsRepetitions: true);
             p.Effect = () => new ApplyModifiersToSelf(() => new AddPowerAndToughness(1, -1) {UntilEot = true});
-            p.TimingRule(new OwningCardHas(c => c.Toughness > 1 && c.Toughness <= 3));
-            p.TimingRule(new IncreaseOwnersPowerOrToughness(1, -1));
-            p.RepetitionRule(new MaxRepetitions(2));
+            p.TimingRule(new WhenCardHas(c => c.Toughness > 1 && c.Toughness <= 3));
+            p.TimingRule(new PumpOwningCardTimingRule(1, -1));
+            p.RepetitionRule(new RepeatMaxTimes(2));
           })
         .ActivatedAbility(p =>
           {
             p.Text = "{1}: Morphling gets -1/+1 until end of turn.";
             p.Cost = new PayMana(1.Colorless(), ManaUsage.Abilities, supportsRepetitions: true);
             p.Effect = () => new ApplyModifiersToSelf(() => new AddPowerAndToughness(-1, 1) {UntilEot = true});
-            p.TimingRule(new OwningCardHas(c => c.Toughness >= 3));
-            p.TimingRule(new IncreaseOwnersPowerOrToughness(-1, 1));
-            p.RepetitionRule(new MaxRepetitions(4));
+            p.TimingRule(new WhenCardHas(c => c.Toughness >= 3));
+            p.TimingRule(new PumpOwningCardTimingRule(-1, 1));
+            p.RepetitionRule(new RepeatMaxTimes(4));
           });
     }
   }

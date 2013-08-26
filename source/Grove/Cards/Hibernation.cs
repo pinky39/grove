@@ -5,6 +5,7 @@
   using Gameplay.Characteristics;
   using Gameplay.Effects;
   using Gameplay.Misc;
+  using Gameplay.States;
 
   public class Hibernation : CardTemplateSource
   {
@@ -20,7 +21,7 @@
         .Cast(p =>
           {
             p.Effect = () => new ReturnAllPermanentsToHand((c) => c.HasColor(CardColor.Green));
-            p.TimingRule(new BounceAll());
+            p.TimingRule(new Any(new OnFirstMain(), new AfterOpponentDeclaresAttackers()));
           });
     }
   }

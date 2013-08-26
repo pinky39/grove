@@ -22,7 +22,7 @@
         /* ritual score must be lowered a bit so ai casts it more eagerly */
         .Cast(p =>
           {
-            p.TimingRule(new ControllerNeedsAdditionalMana(2));
+            p.TimingRule(new WhenYouNeedAdditionalMana(2));
             p.Effect = () => new AddManaToPool("{B}{B}{B}".Parse());
           });
     }

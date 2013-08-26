@@ -1,5 +1,6 @@
 ﻿namespace Grove.Cards
 {
+  using System;
   using System.Collections.Generic;
   using Artifical.TargetingRules;
   using Artifical.TimingRules;
@@ -21,8 +22,8 @@
             p.Effect = () => new DestroyTargetPermanents();
             p.TargetSelector.AddEffect(trg => trg.Is.Enchantment().On.Battlefield());
 
-            p.TargetingRule(new Destroy());
-            p.TimingRule(new TargetRemoval());
+            p.TargetingRule(new EffectDestroy());
+            p.TimingRule(new TargetRemovalTimingRule());
           });
     }
   }

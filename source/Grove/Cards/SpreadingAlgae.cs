@@ -22,8 +22,8 @@
           {
             p.Effect = () => new Attach();
             p.TargetSelector.AddEffect(trg => trg.Is.Card(c => c.Is("swamp")).On.Battlefield());
-            p.TimingRule(new FirstMain());
-            p.TargetingRule(new OrderByRank(x => x.IsTapped ? 1 : 0, ControlledBy.Opponent) {TargetLimit = 1});
+            p.TimingRule(new OnFirstMain());
+            p.TargetingRule(new EffectRankBy(x => x.IsTapped ? 1 : 0, ControlledBy.Opponent) {TargetLimit = 1});
           })
         .TriggeredAbility(p =>
           {

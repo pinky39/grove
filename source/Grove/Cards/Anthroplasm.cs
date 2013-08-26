@@ -45,8 +45,8 @@
               new RemoveAllCountersFromOwner(CounterType.PowerToughnes),
               new ApplyModifiersToSelf(() => new AddCounters(() => new PowerToughness(1, 1), Value.PlusX)));
 
-            p.CostRule(new MaxAvailableMana());
-            p.TimingRule(new Any(new IncreaseOwnersPowerOrToughness(Value.PlusX, Value.PlusX), new EndOfTurn()));            
+            p.CostRule(new XIsAvailableMana());
+            p.TimingRule(new Any(new PumpOwningCardTimingRule(Value.PlusX, Value.PlusX), new OnEndOfOpponentsTurn()));            
           });
     }
   }

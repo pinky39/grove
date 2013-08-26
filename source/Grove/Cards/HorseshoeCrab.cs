@@ -26,11 +26,10 @@
             p.Text = "{U}: Untap Horseshoe Crab.";
             p.Cost = new PayMana(Mana.Blue, ManaUsage.Abilities);
             p.Effect = () => new UntapOwner();
-
-            p.TimingRule(new Turn(active: true));
-            p.TimingRule(new SecondMain());
-            p.TimingRule(new StackIsEmpty());
-            p.TimingRule(new OwningCardHas(c => c.IsTapped));
+            
+            p.TimingRule(new OnSecondMain());
+            p.TimingRule(new WhenStackIsEmpty());
+            p.TimingRule(new WhenCardHas(c => c.IsTapped));
           });
     }
   }

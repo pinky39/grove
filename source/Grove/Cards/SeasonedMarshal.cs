@@ -31,7 +31,7 @@
                 trg.MaxCount = 1;
               });
 
-            p.TargetingRule(new TapCreature());
+            p.TargetingRule(new EffectTapCreature());
           });
     }
   }

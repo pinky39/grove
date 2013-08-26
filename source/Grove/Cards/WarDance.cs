@@ -22,7 +22,7 @@
         .Type("Enchantment")
         .Text(
           "At the beginning of your upkeep, you may put a verse counter on War Dance.{EOL}Sacrifice War Dance: Target creature gets +X/+X until end of turn, where X is the number of verse counters on War Dance.")
-        .Cast(p => p.TimingRule(new SecondMain()))
+        .Cast(p => p.TimingRule(new OnSecondMain()))
         .TriggeredAbility(p =>
           {
             p.Text = "At the beginning of your upkeep, you may put a verse counter on War Dance.";
@@ -42,8 +42,8 @@
             p.Effect = () => new Add11ForEachCounter {Category = EffectCategories.ToughnessIncrease};
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 
-            p.TimingRule(new MinimumCounters(minCount: 3, onlyAtEot: false));
-            p.TargetingRule(new IncreasePowerOrToughness(3, 3));
+            p.TimingRule(new WhenCardHasCounters(minCount: 3, onlyAtEot: false));
+            p.TargetingRule(new EffectPump(3, 3));
           });
     }
   }

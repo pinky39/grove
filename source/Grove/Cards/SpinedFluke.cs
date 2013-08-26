@@ -22,7 +22,7 @@
         .Power(5)
         .Toughness(1)
         .OverrideScore(new ScoreOverride {Battlefield = 500})
-        .Cast(p => p.TimingRule(new SecondMain()))
+        .Cast(p => p.TimingRule(new OnSecondMain()))
         .TriggeredAbility(p =>
           {
             p.Text = "When Spined Fluke enters the battlefield, sacrifice a creature.";

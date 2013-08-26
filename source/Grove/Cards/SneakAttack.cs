@@ -24,7 +24,7 @@
         .Text(
           "{R}: You may put a creature card from your hand onto the battlefield. That creature gains haste. Sacrifice the creature at the beginning of the next end step.")
         .FlavorText("Nothin' beat surprise—'cept rock.")
-        .Cast(p => p.TimingRule(new FirstMain()))
+        .Cast(p => p.TimingRule(new OnFirstMain()))
         .ActivatedAbility(p =>
           {
             p.Text =
@@ -53,8 +53,8 @@
                   return new AddTriggeredAbility(new TriggeredAbility(tp));
                 });
 
-            p.TimingRule(new Steps(passiveTurn: false, activeTurn: true, steps: Step.BeginningOfCombat));
-            p.TimingRule(new ControllerHandCountIs(minCount: 1, selector: c => c.Is().Creature));
+            p.TimingRule(new OnYourTurn(Step.BeginningOfCombat));
+            p.TimingRule(new WhenYourHandCountIs(minCount: 1, selector: c => c.Is().Creature));
           });
     }
   }

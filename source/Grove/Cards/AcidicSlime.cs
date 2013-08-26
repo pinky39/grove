@@ -22,7 +22,7 @@
           "{Deathtouch}{EOL}When Acidic Slime enters the battlefield, destroy target artifact, enchantment, or land.")
         .Power(2)
         .Toughness(2)
-        .Cast(p => p.TimingRule(new FirstMain()))
+        .Cast(p => p.TimingRule(new OnFirstMain()))
         .SimpleAbilities(Static.Deathtouch)
         .TriggeredAbility(p =>
           {
@@ -32,7 +32,7 @@
             p.TargetSelector.AddEffect(trg => trg
               .Is.Card(card => card.Is().Artifact || card.Is().Enchantment || card.Is().Land)
               .On.Battlefield());
-            p.TargetingRule(new OrderByRank(c => -c.Score, ControlledBy.Opponent));
+            p.TargetingRule(new EffectRankBy(c => -c.Score, ControlledBy.Opponent));
           }
         );
     }

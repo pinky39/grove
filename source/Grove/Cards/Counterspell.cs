@@ -1,6 +1,8 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
+  using Artifical.TargetingRules;
+  using Artifical.TimingRules;
   using Gameplay.Effects;
   using Gameplay.Misc;
 
@@ -19,8 +21,8 @@
             p.Effect = () => new CounterTargetSpell();
             p.TargetSelector.AddEffect(trg => trg.Is.CounterableSpell().On.Stack());
 
-            p.TargetingRule(new Artifical.TargetingRules.Counterspell());
-            p.TimingRule(new Artifical.TimingRules.Counterspell());
+            p.TargetingRule(new EffectCounterspell());
+            p.TimingRule(new WhenTopSpellIsCounterable());
           });
     }
   }

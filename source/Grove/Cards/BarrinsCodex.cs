@@ -22,7 +22,7 @@
         .Type("Artifact")
         .Text(
           "At the beginning of your upkeep, put a page counter on Barrin's Codex.{EOL}{4},{T}, Sacrifice Barrin's Codex: Draw X cards, where X is the number of page counters on Barrin's Codex.")
-        .Cast(p => p.TimingRule(new SecondMain()))
+        .Cast(p => p.TimingRule(new OnSecondMain()))
         .TriggeredAbility(p =>
           {
             p.Text = "At the beginning of your upkeep, put a page counter on Barrin's Codex.";
@@ -40,7 +40,7 @@
               new Tap(),
               new Sacrifice());
             p.Effect = () => new DrawCards(count: P(e => e.Source.OwningCard.Counters));
-            p.TimingRule(new MinimumCounters(3));
+            p.TimingRule(new WhenCardHasCounters(3));
           });
     }
   }

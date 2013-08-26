@@ -31,7 +31,7 @@
                 trg.MaxCount = 2;
               });
 
-            p.TargetingRule(new IncreasePowerOrToughness(2, 2));
+            p.TargetingRule(new EffectPump(2, 2));
           });
     }
   }

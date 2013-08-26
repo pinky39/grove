@@ -40,8 +40,8 @@
                 trg.Message = "Select a land to destroy.";
               });
 
-            p.TimingRule(new FirstMain());
-            p.TargetingRule(new SacrificeTargetToDestroyTarget());
+            p.TimingRule(new OnFirstMain());
+            p.TargetingRule(new CostSacrificeEffectDestroy());
           });
     }
   }

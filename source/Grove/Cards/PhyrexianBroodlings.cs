@@ -38,8 +38,8 @@
 
             p.TargetSelector.AddCost(trg => trg.Is.Creature(ControlledBy.SpellOwner).On.Battlefield());
 
-            p.TimingRule(new Any(new IncreaseOwnersPowerOrToughness(1, 1), new EndOfTurn()));
-            p.TargetingRule(new OrderByRank(c => c.Score) {TargetLimit = 1, ConsiderTargetingSelf = false});
+            p.TimingRule(new Any(new PumpOwningCardTimingRule(1, 1), new OnEndOfOpponentsTurn()));
+            p.TargetingRule(new EffectRankBy(c => c.Score) {TargetLimit = 1, ConsiderTargetingSelf = false});
           });
     }
   }

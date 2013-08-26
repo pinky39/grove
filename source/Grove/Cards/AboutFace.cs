@@ -1,7 +1,7 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
+  using Artifical.TargetingRules;
   using Gameplay.Effects;
   using Gameplay.Misc;
   using Gameplay.Modifiers;
@@ -19,10 +19,10 @@
         .Cast(p =>
           {
             p.Effect = () => new ApplyModifiersToTargets(
-              () => new SwitchPowerAndToughness() {UntilEot = true});
+              () => new SwitchPowerAndToughness {UntilEot = true});
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
-            p.TargetingRule(new Artifical.TargetingRules.SwitchPowerAndToughness());
+            p.TargetingRule(new EffectSwitchPowerAndToughness());
           });
     }
   }

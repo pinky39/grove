@@ -26,7 +26,7 @@
                 player.Battlefield.Any(card => card.Is().Creature && card.HasColor(CardColor.White)),
               filterCreature: (e, c) => c.HasColor(CardColor.White));
 
-            p.TimingRule(new OpponentHasPermanents(c => c.Is().Creature && c.HasColor(CardColor.White)));
+            p.TimingRule(new WhenOpponentControllsPermanents(c => c.Is().Creature && c.HasColor(CardColor.White)));
           });
     }
   }

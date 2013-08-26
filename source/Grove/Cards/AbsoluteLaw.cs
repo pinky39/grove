@@ -21,7 +21,7 @@
           "The strength of law is unwavering. It is an iron bar in a world of water.")
         .Cast(p =>
           {
-            p.TimingRule(new FirstMain());
+            p.TimingRule(new OnFirstMain());
             p.Effect = () => new PutIntoPlay {Category = EffectCategories.Protector};
           })
         .ContinuousEffect(p =>

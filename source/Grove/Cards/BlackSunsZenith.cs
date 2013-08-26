@@ -23,12 +23,12 @@
           {
             p.Rule = new Sorcery(c => c.ShuffleIntoLibrary());
             p.Effect = () => new ApplyModifiersToPermanents(
-              permanentFilter: (effect, card) => card.Is().Creature,
+              selector: (effect, card) => card.Is().Creature,
               modifiers: () => new AddCounters(() => new PowerToughness(-1, -1), Value.PlusX))
               {ToughnessReduction = Value.PlusX};
 
-            p.TimingRule(new FirstMain());
-            p.CostRule(new ReduceToughnessOfEachCreature());
+            p.TimingRule(new OnFirstMain());
+            p.CostRule(new XIsOptimalDamage());
           });
     }
   }

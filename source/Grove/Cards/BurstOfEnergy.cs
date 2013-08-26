@@ -5,7 +5,6 @@
   using Artifical.TimingRules;
   using Gameplay.Effects;
   using Gameplay.Misc;
-  using Gameplay.States;
 
   public class BurstOfEnergy : CardTemplateSource
   {
@@ -23,10 +22,10 @@
             p.TargetSelector.AddEffect(trg => trg.Is.Card().On.Battlefield());
 
             p.TimingRule(new Any(
-              new FirstMain(),
-              new Steps(activeTurn: false, passiveTurn: true, steps: Step.DeclareAttackers)));
+              new OnFirstMain(),
+              new AfterOpponentDeclaresAttackers()));
 
-            p.TargetingRule(new UntapPermanents());
+            p.TargetingRule(new EffectUntapPermanent());
           });
     }
   }

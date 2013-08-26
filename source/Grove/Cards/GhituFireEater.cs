@@ -31,7 +31,7 @@
             p.Effect = () => new DealDamageToTargets(P(e => e.Source.OwningCard.Power.GetValueOrDefault()));
             
             p.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
-            p.TargetingRule(new DealDamage(tp => tp.Card.Power.GetValueOrDefault()));
+            p.TargetingRule(new EffectDealDamage(tp => tp.Card.Power.GetValueOrDefault()));
           });
     }
   }

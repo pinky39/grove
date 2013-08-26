@@ -23,7 +23,7 @@
         .Type("Enchantment")
         .Text(
           "At the beginning of your upkeep, you may put a verse counter on Midsummer Revel.{EOL}{G},Sacrifice Midsummer Revel: Put X 3/3 green Beast creature tokens onto the battlefield, where X is the number of verse counters on Midsummer Revel.")
-        .Cast(p => p.TimingRule(new SecondMain()))
+        .Cast(p => p.TimingRule(new OnSecondMain()))
         .TriggeredAbility(p =>
           {
             p.Text = "At the beginning of your upkeep, you may put a verse counter on Midsummer Revel.";
@@ -50,7 +50,7 @@
                 .Type("Creature Token Beast")
                 .Colors(CardColor.Green));
 
-            p.TimingRule(new MinimumCounters(3));
+            p.TimingRule(new WhenCardHasCounters(3));
           });
     }
   }

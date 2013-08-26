@@ -18,16 +18,15 @@
         .Text("{Echo} {6}{EOL}{T}: Draw a card.")
         .FlavorText("From concept to paper to reality.")
         .Echo("{6}")
-        .Cast(p => p.TimingRule(new FirstMain()))
+        .Cast(p => p.TimingRule(new OnFirstMain()))
         .ActivatedAbility(p =>
           {
             p.Text = "{T}: Draw a card.";
             p.Cost = new Tap();
             p.Effect = () => new DrawCards(1);
 
-            p.TimingRule(new Turn(active: true, passive: false));
-            p.TimingRule(new StackIsEmpty());
-            p.TimingRule(new FirstMain());
+            p.TimingRule(new OnFirstMain());
+            p.TimingRule(new WhenStackIsEmpty());            
           });
     }
   }

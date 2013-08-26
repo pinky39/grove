@@ -20,7 +20,7 @@
         .Text("{1}{U}: Counter target red spell.")
         .FlavorText(
           "The academy's libraries were protected by fire-prevention spells. Even after the disaster, the books were intact—though forever sealed in time.")
-        .Cast(p => p.TimingRule(new FirstMain()))
+        .Cast(p => p.TimingRule(new OnFirstMain()))
         .ActivatedAbility(p =>
           {
             p.Text = "{1}{U}: Counter target red spell.";
@@ -30,8 +30,8 @@
               .Is.CounterableSpell(e => e.HasColor(CardColor.Red))
               .On.Stack());
 
-            p.TargetingRule(new Artifical.TargetingRules.Counterspell());
-            p.TimingRule(new Artifical.TimingRules.Counterspell());
+            p.TargetingRule(new Artifical.TargetingRules.EffectCounterspell());
+            p.TimingRule(new Artifical.TimingRules.WhenTopSpellIsCounterable());
           }
         );
     }

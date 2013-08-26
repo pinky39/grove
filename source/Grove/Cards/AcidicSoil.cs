@@ -18,7 +18,7 @@
         .FlavorText("Phyrexia had tried to take Urza's soul. He was relieved that Shiv tried to claim only his soles.")
         .Cast(p =>
           {
-            p.TimingRule(new FirstMain());
+            p.TimingRule(new OnFirstMain());
             p.Effect = () => new DealDamageToCreaturesAndPlayers(
               amountPlayer: (e, player) => player.Battlefield.Lands.Count());
           });

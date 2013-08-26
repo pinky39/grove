@@ -20,7 +20,7 @@
         .Type("Enchantment")
         .Text("Pay half your life, rounded up: Lurking Evil becomes a 4/4 Horror creature with flying.")
         .FlavorText("Ash is our air, darkness our flesh.")
-        .Cast(p => p.TimingRule(new SecondMain()))
+        .Cast(p => p.TimingRule(new OnSecondMain()))
         .ActivatedAbility(p =>
           {
             p.Text = "Pay half your life, rounded up: Lurking Evil becomes a 4/4 Horror creature with flying.";
@@ -33,8 +33,8 @@
                 type: "Creature Horror"),
               () => new AddStaticAbility(Static.Flying));
 
-            p.TimingRule(new OwningCardHas(c => c.Is().Enchantment));
-            p.TimingRule(new Artifical.TimingRules.ChangeToCreature());
+            p.TimingRule(new WhenCardHas(c => c.Is().Enchantment));
+            p.TimingRule(new Artifical.TimingRules.BeforeYouDeclareAttackers());
           });
     }
   }

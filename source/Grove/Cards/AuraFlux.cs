@@ -20,7 +20,7 @@
         .Type("Enchantment")
         .Text("Other enchantments have 'At the beginning of your upkeep, sacrifice this enchantment unless you pay {2}.'")
         .FlavorText("To some, the Tolarian sunrise was a blinding flash; to others, a lingering glow.")
-        .Cast(p => p.TimingRule(new SecondMain()))        
+        .Cast(p => p.TimingRule(new OnSecondMain()))        
         .ContinuousEffect(p =>
           {
             p.Modifier = () =>

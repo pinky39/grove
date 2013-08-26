@@ -33,10 +33,10 @@
       // only one cost target is currently 
       // supported, changes this to support
       // more
-      Pay(targets.Cost.FirstOrDefault(), x, repeat);
+      PayCost(targets, x, repeat);
     }
 
-    protected virtual void Pay(ITarget target, int? x, int repeat) {}
+    protected virtual void PayCost(Targets targets, int? x, int repeat) {}
 
     public virtual IManaAmount GetManaCost()
     {

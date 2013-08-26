@@ -97,52 +97,52 @@ o Opal Champion
 o Opportunity
 o Ostracize
 o Palinchron
-Parch
-Peace and Quiet
-Phyrexian Broodlings
-Phyrexian Debaser
-Phyrexian Defiler
-Phyrexian Denouncer
-Phyrexian Plaguelord
-Phyrexian Reclamation
-Plague Beetle
-Planar Collapse
-Purify
-Pygmy Pyrosaur
-Pyromancy
-Quicksilver Amulet
-Rack and Ruin
-Radiant, Archangel
-Radiant's Dragoons
-Radiant's Judgment
-Rancor
-Rank and File
-Raven Familiar
-Rebuild
-Repopulate
-Ring of Gix
-Rivalry
-Scrapheap
-Second Chance
-Shivan Phoenix
-Sick and Tired
-Silk Net
-Simian Grunts
-Sleeper's Guile
-Slow Motion
-Sluggishness
-Snap
-Spawning Pool
-Subversion
-Sustainer of the Realm
-Swat
-Tethered Skirge
-Thornwind Faeries
-Thran Lens
-Thran War Machine
-Thran Weaponry
-Ticking Gnomes
-Tinker
+o Parch
+o Peace and Quiet
+o Phyrexian Broodlings
+o Phyrexian Debaser
+o Phyrexian Defiler
+o Phyrexian Denouncer
+o Phyrexian Plaguelord
+o Phyrexian Reclamation
+o Plague Beetle
+o Planar Collapse
+o Purify
+o Pygmy Pyrosaur
+o Pyromancy
+o Quicksilver Amulet
+o Rack and Ruin
+o Radiant, Archangel
+o Radiant's Dragoons
+o Radiant's Judgment
+o Rancor
+o Rank and File
+o Raven Familiar
+o Rebuild
+o Repopulate
+o Ring of Gix
+o Rivalry
+o Scrapheap
+o Second Chance
+o Shivan Phoenix
+o Sick and Tired
+o Silk Net
+o Simian Grunts
+o Sleeper's Guile
+o Slow Motion
+o Sluggishness
+o Snap
+o Spawning Pool
+o Subversion
+o Sustainer of the Realm
+o Swat
+o Tethered Skirge
+o Thornwind Faeries
+o Thran Lens
+o Thran War Machine
+o Thran Weaponry
+o Ticking Gnomes
+o Tinker
 Tragic Poet
 Treacherous Link
 Treefolk Mystic

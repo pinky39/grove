@@ -9,6 +9,7 @@
   using Gameplay.Effects;
   using Gameplay.Misc;
   using Gameplay.Modifiers;
+  using Gameplay.States;
 
   public class AngelicPage : CardTemplateSource
   {
@@ -30,8 +31,8 @@
             p.Effect = () => new ApplyModifiersToTargets(
               () => new AddPowerAndToughness(1, 1) {UntilEot = true}) {Category = EffectCategories.ToughnessIncrease};
             p.TargetSelector.AddEffect(trg => trg.Is.AttackerOrBlocker().On.Battlefield());
-            p.TimingRule(new ModifyAttackersAndBlockers());
-            p.TargetingRule(new PumpAttackerOrBlocker(1, 1));
+            p.TimingRule(new OnStep(Step.DeclareBlockers));
+            p.TargetingRule(new EffectPumpAttackerOrBlocker(1, 1));
           }
         );
     }

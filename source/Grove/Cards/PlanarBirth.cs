@@ -17,7 +17,7 @@
         .FlavorText("From womb of nothingness sprang this place of beauty, purity, and hope realized.")
         .Cast(p =>
           {
-            p.TimingRule(new SecondMain());
+            p.TimingRule(new OnSecondMain());
 
             p.Effect = () => new PutAllCardsFromGraveyardToBattlefield(
               c => c.Is().BasicLand, c => c.Tap(), eachPlayer: true);

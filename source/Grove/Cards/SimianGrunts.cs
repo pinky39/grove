@@ -1,11 +1,9 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Artifical.TimingRules;
   using Gameplay.Abilities;
   using Gameplay.Misc;
-  using Gameplay.States;
 
   public class SimianGrunts : CardTemplateSource
   {
@@ -21,7 +19,7 @@
         .Power(3)
         .Toughness(4)
         .SimpleAbilities(Static.Flash)
-        .Cast(p => p.TimingRule(new Steps(activeTurn: false, passiveTurn: true, steps: Step.DeclareAttackers)))
+        .Cast(p => p.TimingRule(new Any(new AfterOpponentDeclaresAttackers(), new OnEndOfOpponentsTurn())))
         .Echo("{2}{G}");
     }
   }

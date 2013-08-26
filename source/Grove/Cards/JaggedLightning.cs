@@ -26,7 +26,7 @@
                 trg.MaxCount = 2;
               });
 
-            p.TargetingRule(new DealDamage(3));
+            p.TargetingRule(new EffectDealDamage(3));
           });
     }
   }

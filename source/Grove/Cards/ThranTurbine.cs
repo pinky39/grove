@@ -20,7 +20,7 @@
         .Text(
           "At the beginning of your upkeep, you may add {1} or {2} to your mana pool. You can't spend this mana to cast spells.")
         .FlavorText("When Urza asked the viashino what it did, they answered: 'It hums.'")
-        .Cast(p => p.TimingRule(new SecondMain()))
+        .Cast(p => p.TimingRule(new OnSecondMain()))
         .TriggeredAbility(p =>
           {
             p.Text =

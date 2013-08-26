@@ -48,7 +48,7 @@
                 trg.Message = "Select a creature to tap.";
               });
 
-            p.TargetingRule(new GainPacifism());
+            p.TargetingRule(new EffectGiveDoesNotUntap());
           }
         );
     }

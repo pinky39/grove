@@ -2,6 +2,8 @@
 {
   using System.Collections.Generic;
   using Artifical;
+  using Artifical.TargetingRules;
+  using Artifical.TimingRules;
   using Gameplay.Effects;
   using Gameplay.Misc;
 
@@ -22,8 +24,8 @@
               .Is.CounterableSpell(e => e.Source.OwningCard.Is().Artifact || e.Source.OwningCard.Is().Enchantment)
               .On.Stack());
 
-            p.TargetingRule(new Artifical.TargetingRules.Counterspell());
-            p.TimingRule(new Artifical.TimingRules.Counterspell());
+            p.TargetingRule(new EffectCounterspell());
+            p.TimingRule(new WhenTopSpellIsCounterable());
           });
     }
   }

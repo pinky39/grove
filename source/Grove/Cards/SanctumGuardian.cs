@@ -36,7 +36,7 @@
                   trg.Is.CreatureOrPlayer().On.Battlefield();
                   trg.Message = "Select creature or player.";
                 });
-            p.TargetingRule(new Artifical.TargetingRules.PreventDamageFromSourceToTarget());
+            p.TargetingRule(new Artifical.TargetingRules.EffectPreventDamageFromSourceToTarget());
           });
     }
   }

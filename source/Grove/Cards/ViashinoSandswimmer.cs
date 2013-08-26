@@ -27,8 +27,8 @@
               "{R}: Flip a coin. If you win the flip, return Viashino Sandswimmer to its owner's hand. If you lose the flip, sacrifice Viashino Sandswimmer.";
             p.Cost = new PayMana(Mana.Red, ManaUsage.Abilities);
             p.Effect = () => new FlipACoinReturnToHandOrSacrifice();
-            p.TimingRule(new OwningCardWillBeDestroyed());
-            p.TimingRule(new SingleInstanceOfSpellOnStack());
+            p.TimingRule(new WhenOwningCardWillBeDestroyed());
+            p.TimingRule(new WhenNoOtherInstanceOfSpellIsOnStack());
           });
     }
   }

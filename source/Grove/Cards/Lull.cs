@@ -19,9 +19,8 @@
         .Cycling("{2}")
         .Cast(p =>
           {
-            p.Effect = () => new PreventCombatDamage();
-            p.TimingRule(new Turn(passive: true));
-            p.TimingRule(new Steps(Step.DeclareBlockers));
+            p.Effect = () => new PreventCombatDamage();            
+            p.TimingRule(new OnOpponentsTurn(Step.DeclareBlockers));
           });
     }
   }

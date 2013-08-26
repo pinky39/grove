@@ -23,8 +23,8 @@
             p.Effect = () => new TargetPlayerDrawsCards(4);
             p.TargetSelector.AddEffect(trg => trg.Is.Player());
 
-            p.TimingRule(new EndOfTurn());
-            p.TargetingRule(new SpellOwner());
+            p.TimingRule(new OnEndOfOpponentsTurn());
+            p.TargetingRule(new EffectYou());
           });
     }
   }

@@ -43,13 +43,11 @@
                   })
               );
 
-            p.TimingRule(new StackIsEmpty());
+            p.TimingRule(new WhenStackIsEmpty());
 
             p.TimingRule(new Any(
-              new EndOfTurn(),
-              new All(
-                new Steps(activeTurn: false, passiveTurn: true, steps: Step.DeclareAttackers),
-                new MinAttackerCount(1))));
+              new OnEndOfOpponentsTurn(),
+              new AfterOpponentDeclaresAttackers()));
           });
     }
   }

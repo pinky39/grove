@@ -293,13 +293,14 @@
       }
     }
 
-    public void DiscardRandomCard()
+    public Card DiscardRandomCard()
     {
       if (_hand.IsEmpty)
-        return;
+        return null;
 
       var card = _hand.RandomCard;
       DiscardCard(card);
+      return card;
     }
 
     public void DrawCard()
@@ -418,6 +419,16 @@
       {
         permanent.HasRegenerationShield = false;
       }
+    }
+
+    public void ShuffleIntoLibrary(IEnumerable<Card> cards)
+    {
+      foreach (var card in cards)
+      {
+        _library.Add(card);
+      }
+
+      _library.Shuffle();
     }
 
     public void ShuffleIntoLibrary(Card card)

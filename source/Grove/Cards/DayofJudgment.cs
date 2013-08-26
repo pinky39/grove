@@ -1,5 +1,6 @@
 ﻿namespace Grove.Cards
 {
+  using System;
   using System.Collections.Generic;
   using Artifical.TimingRules;
   using Gameplay.Effects;
@@ -16,7 +17,7 @@
         .Text("Destroy all creatures.")
         .Cast(p =>
           {
-            p.TimingRule(new SecondMain());
+            p.TimingRule(new OnSecondMain());
             p.Effect = () => new DestroyAllPermanents((e, c) => c.Is().Creature);
           });
     }

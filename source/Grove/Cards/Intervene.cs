@@ -23,8 +23,8 @@
             p.TargetSelector.AddEffect(trg => trg.Is.CounterableSpell(e => 
               e.Targets.Effect.Any(x => x.IsCard() && x.Card().Is().Creature)).On.Stack());            
 
-            p.TimingRule(new Artifical.TimingRules.Counterspell());
-            p.TargetingRule(new Artifical.TargetingRules.Counterspell());
+            p.TimingRule(new Artifical.TimingRules.WhenTopSpellIsCounterable());
+            p.TargetingRule(new Artifical.TargetingRules.EffectCounterspell());
           });
     }
   }

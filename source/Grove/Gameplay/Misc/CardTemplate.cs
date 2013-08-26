@@ -176,15 +176,15 @@
     {
       if (cp.Type.Creature)
       {                
-        p.TimingRule(new Creatures());
+        p.TimingRule(new DefaultCreaturesTimingRule());
       }
       else if (cp.Type.Land)
       {
-        p.TimingRule(new Lands());
+        p.TimingRule(new DefaultLandsTimingRule());
       }
       else if (cp.Type.Artifact)
       {
-        p.TimingRule(new FirstMain());
+        p.TimingRule(new OnFirstMain());
       }
     }
 
@@ -219,9 +219,9 @@
           p.Cost = new PayMana(cost, ManaUsage.Abilities);
           p.Effect = () => new Effects.RegenerateOwner();
 
-          p.TimingRule(new Artifical.TimingRules.Regenerate());
+          p.TimingRule(new Artifical.TimingRules.RegenerateTimingRule());
         })
-        .CombatRule(() => new Artifical.CombatRules.Regenerate(cost));
+        .CombatRule(() => new Artifical.CombatRules.RegenerateCombatRule(cost));
     }
 
     public CardTemplate Pump(IManaAmount cost, string text, int powerIncrease, int toughnessIncrease)
@@ -240,10 +240,10 @@
 
                 return effect;
               };
-            p.TimingRule(new IncreaseOwnersPowerOrToughness(powerIncrease, toughnessIncrease));
-            p.RepetitionRule(new MaxRepetitions());
+            p.TimingRule(new PumpOwningCardTimingRule(powerIncrease, toughnessIncrease));
+            p.RepetitionRule(new RepeatMaxTimes());
           })
-        .CombatRule(() => new IncreasePowerAndToughness(powerIncrease, toughnessIncrease, cost));
+        .CombatRule(() => new PumpCombatRule(powerIncrease, toughnessIncrease, cost));
     }
 
     public CardTemplate ActivatedAbility(Action<ActivatedAbilityParameters> set)
@@ -364,10 +364,10 @@
       ActivatedAbility(p =>
         {
           p.Text = string.Format("Cycling {0} ({0}, Discard this card: Draw a card.)", cost);
-          p.Cost = new AggregateCost(new PayMana(cost.Parse(), ManaUsage.Abilities), new Discard());
+          p.Cost = new AggregateCost(new PayMana(cost.Parse(), ManaUsage.Abilities), new DiscardThis());
           p.Effect = () => new DrawCards(1);
           p.ActivationZone = Zone.Hand;
-          p.TimingRule(new Cycling());
+          p.TimingRule(new DefaultCyclingTimingRule());
         });
 
       return this;
@@ -413,7 +413,7 @@
           p.Text = String.Format("{0}: Put a level counter on this. Level up only as sorcery.", cost);
           p.Cost = new PayMana(cost.Parse(), ManaUsage.Abilities);
           p.Effect = () => new ApplyModifiersToSelf(() => new IncreaseLevel()) {Category = category};
-          p.TimingRule(new LevelUp(cost.Parse(), levels));
+          p.TimingRule(new DefaultLevelUpTimingRule(cost.Parse(), levels));
           p.ActivateAsSorcery = true;
         });
 

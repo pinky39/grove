@@ -1,5 +1,6 @@
 ﻿namespace Grove.Cards
 {
+  using System;
   using System.Collections.Generic;
   using Artifical.TimingRules;
   using Gameplay.Characteristics;
@@ -17,7 +18,7 @@
         .Text("All creatures are black")
         .FlavorText(
           "Yawgmoth spent eons wrapping Phyrexians in human skin. They are the sleeper agents, and they are everywhere.")
-        .Cast(p => p.TimingRule(new FirstMain()))
+        .Cast(p => p.TimingRule(new OnFirstMain()))
         .ContinuousEffect(p =>
           {
             p.Modifier = () => new SetColors(CardColor.Black);

@@ -29,8 +29,8 @@
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
             
-            p.TimingRule(new Steps(activeTurn: false, passiveTurn: true, steps: Step.DeclareAttackers));
-            p.TargetingRule(new GainReach());
+            p.TimingRule(new AfterOpponentDeclaresAttackers());
+            p.TargetingRule(new EffectGiveReach());
           });
     }
   }

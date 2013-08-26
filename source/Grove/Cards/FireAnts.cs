@@ -26,7 +26,7 @@
               amountCreature: 1,
               filterCreature: (e, card) => !card.Has().Flying && e.Source.OwningCard != card);
 
-            p.TimingRule(new MassRemoval());
+            p.TimingRule(new MassRemovalTimingRule());
           });
     }
   }

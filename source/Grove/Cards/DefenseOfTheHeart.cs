@@ -1,5 +1,6 @@
 ﻿namespace Grove.Cards
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Gameplay.Effects;
@@ -27,15 +28,14 @@
                 Condition = (t, g) => t.OwningCard.Controller.Opponent.Battlefield.Count(c => c.Is().Creature) >= 3
               });
 
-            p.Effect = () => new SearchLibraryPutToZone(
-              c => c.PutToBattlefield(),
-              minCount: 0,
-              maxCount: 2,
-              validator: (e, c) => c.Is().Creature,
-              text: "Search your library for up to two creatures.")
-              {
-                BeforeResolve = e => e.Source.OwningCard.Sacrifice()
-              };
+            p.Effect = () => new CompoundEffect(
+              new SacrificeOwner(),
+              new SearchLibraryPutToZone(
+                c => c.PutToBattlefield(),
+                minCount: 0,
+                maxCount: 2,
+                validator: (e, c) => c.Is().Creature,
+                text: "Search your library for up to two creatures."));
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });

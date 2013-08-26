@@ -19,8 +19,8 @@
         .FlavorText("He has returned. He who brought the dark ones. He who poisoned our paradise. How shall we greet him? With swift and certain death.")
         .Cast(p =>
           {
-            p.TimingRule(new FirstMain());
-            p.TimingRule(new ThereCanBeOnlyOne());
+            p.TimingRule(new OnFirstMain());
+            p.TimingRule(new WhenYouDontControlSamePermanent());
           })
         .ContinuousEffect(p =>
           {

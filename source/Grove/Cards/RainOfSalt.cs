@@ -26,8 +26,8 @@
                 trg.MaxCount = 2;
               });
 
-            p.TimingRule(new FirstMain());
-            p.TargetingRule(new Destroy());
+            p.TimingRule(new OnFirstMain());
+            p.TargetingRule(new EffectDestroy());
           });
     }
   }

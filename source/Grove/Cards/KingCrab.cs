@@ -35,8 +35,8 @@
             p.TargetSelector.AddEffect(trg =>
               trg.Is.Card(c => c.Is().Creature && c.HasColor(CardColor.Green)).On.Battlefield());
 
-            p.TargetingRule(new PutOnTopOfLibrary());
-            p.TimingRule(new TargetRemoval());
+            p.TargetingRule(new EffectPutOnTopOfLibrary());
+            p.TimingRule(new TargetRemovalTimingRule());
           });
     }
   }

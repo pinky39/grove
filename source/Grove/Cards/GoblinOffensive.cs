@@ -32,8 +32,8 @@
                 .Colors(CardColor.Red)
               );
 
-            p.TimingRule(new ControllerHasMana(6));
-            p.CostRule(new MaxAvailableMana());
+            p.TimingRule(new WhenYouHaveMana(6));
+            p.CostRule(new XIsAvailableMana());
           });
     }
   }

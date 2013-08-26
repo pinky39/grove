@@ -24,8 +24,8 @@
           "At the beginning of the end step, if no creatures are on the battlefield, sacrifice Pestilence.{EOL}{B}: Pestilence deals 1 damage to each creature and each player.")
         .Cast(p =>
           {
-            p.TimingRule(new FirstMain());
-            p.TimingRule(new ThereCanBeOnlyOne());
+            p.TimingRule(new OnFirstMain());
+            p.TimingRule(new WhenYouDontControlSamePermanent());
           })
         .TriggeredAbility(p =>
           {
@@ -46,8 +46,8 @@
               amountCreature: 1,
               amountPlayer: 1);
 
-            p.RepetitionRule(new PestilenceRepetition());
-            p.TimingRule(new All(new MassRemoval(), new SingleInstanceOfSpellOnStack()));
+            p.RepetitionRule(new RepeatForOptimalMassDamage());
+            p.TimingRule(new All(new MassRemovalTimingRule(), new WhenNoOtherInstanceOfSpellIsOnStack()));
           });
     } 
   }

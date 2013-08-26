@@ -24,8 +24,8 @@
               .Is.Card(c => c.Is().Creature && !c.HasColor(CardColor.Black))
               .On.Battlefield());
 
-            p.TargetingRule(new Destroy());
-            p.TimingRule(new TargetRemoval());
+            p.TargetingRule(new EffectDestroy());
+            p.TimingRule(new TargetRemovalTimingRule());
           });
     }
   }

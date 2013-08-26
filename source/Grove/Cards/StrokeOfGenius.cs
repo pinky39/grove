@@ -24,10 +24,10 @@
             p.Effect = () => new TargetPlayerDrawsCards(cardCount: Value.PlusX);
             p.TargetSelector.AddEffect(trg => trg.Is.Player());
 
-            p.TimingRule(new EndOfTurn());
-            p.TimingRule(new ControllerHasMana(6));
-            p.TargetingRule(new SpellOwner());
-            p.CostRule(new MaxAvailableMana());
+            p.TimingRule(new OnEndOfOpponentsTurn());
+            p.TimingRule(new WhenYouHaveMana(6));
+            p.TargetingRule(new EffectYou());
+            p.CostRule(new XIsAvailableMana());
           });
     }
   }

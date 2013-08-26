@@ -20,7 +20,7 @@
         .Type("Enchantment")
         .Text(
           "Whenever an opponent casts a creature spell, if Opal Acrolith is an enchantment, Opal Acrolith becomes a 2/4 Soldier creature.{EOL}{0}: Opal Acrolith becomes an enchantment.")
-        .Cast(p => p.TimingRule(new SecondMain()))
+        .Cast(p => p.TimingRule(new OnSecondMain()))
         .TriggeredAbility(p =>
           {
             p.Text =
@@ -44,9 +44,9 @@
             p.Cost = new PayMana(Mana.Zero, ManaUsage.Abilities);
             p.Effect = () => new RemoveModifier(typeof (Gameplay.Modifiers.ChangeToCreature));
 
-            p.TimingRule(new OwningCardHas(c => c.Is().Creature));
-            p.TimingRule(new OwningCardWillBeDestroyed());
-            p.TimingRule(new SingleInstanceOfSpellOnStack());
+            p.TimingRule(new WhenCardHas(c => c.Is().Creature));
+            p.TimingRule(new WhenOwningCardWillBeDestroyed());
+            p.TimingRule(new WhenNoOtherInstanceOfSpellIsOnStack());
           });
     }
   }

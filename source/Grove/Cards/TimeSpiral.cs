@@ -23,10 +23,10 @@
               new EachPlayerShufflesHandAndGraveyardIntoLibraryAndDrawsCards(7),
               new UntapSelectedPermanents(0, 6, c => c.Is().Land));
 
-            p.TimingRule(new FirstMain());
+            p.TimingRule(new OnFirstMain());
 
-            p.TimingRule(new ControllerHandCountIs(maxCount: 3));
-            p.TimingRule(new OpponentHandCountIs(minCount: 2));
+            p.TimingRule(new WhenYourHandCountIs(maxCount: 3));
+            p.TimingRule(new WhenOpponentsHandCountIs(minCount: 2));
           });
     }
   }

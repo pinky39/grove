@@ -24,8 +24,8 @@
           {
             p.Effect = () => new Attach(() => new ChangeBasicLand("island"));
             p.TargetSelector.AddEffect(trg => trg.Is.Card(c => c.Is().Land).On.Battlefield());
-            p.TargetingRule(new LandEnchantment(ControlledBy.Opponent));
-            p.TimingRule(new FirstMain());
+            p.TargetingRule(new EffectLandEnchantment(ControlledBy.Opponent));
+            p.TimingRule(new OnFirstMain());
           });
     }
   }

@@ -24,7 +24,7 @@
             p.Cost = new Tap();
             p.Effect = () => new Gameplay.Effects.ReturnToHand(returnOwningCard: true);
             p.TargetSelector.AddEffect(trg => trg.Is.Creature(ControlledBy.SpellOwner).On.Battlefield());
-            p.TargetingRule(new BounceSelfAndTargets());
+            p.TargetingRule(new EffectBounceAlongWithOwningCard());
           }
         );
     }

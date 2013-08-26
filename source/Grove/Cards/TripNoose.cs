@@ -20,7 +20,7 @@
         .Type("Artifact")
         .Text("{2},{T}: Tap target creature.")
         .FlavorText("A taut slipknot trigger is the only thing standing between you and standing.")
-        .Cast(p => p.TimingRule(new FirstMain()))
+        .Cast(p => p.TimingRule(new OnFirstMain()))
         .ActivatedAbility(p =>
           {
             p.Text = "{2},{T}: Tap target creature.";
@@ -29,8 +29,8 @@
               new Tap());
             p.Effect = () => new TapTargets();
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
-            p.TimingRule(new Steps(Step.BeginningOfCombat));
-            p.TargetingRule(new TapCreature());
+            p.TimingRule(new OnStep(Step.BeginningOfCombat));
+            p.TargetingRule(new EffectTapCreature());
           });
     }
   }

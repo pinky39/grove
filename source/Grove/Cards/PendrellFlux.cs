@@ -1,5 +1,6 @@
 ﻿namespace Grove.Cards
 {
+  using System;
   using System.Collections.Generic;
   using Artifical.TargetingRules;
   using Artifical.TimingRules;
@@ -37,9 +38,9 @@
                 return new AddTriggeredAbility(new TriggeredAbility(tp));
               });
 
-            p.TimingRule(new SecondMain());
+            p.TimingRule(new OnSecondMain());
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
-            p.TargetingRule(new OrderByRank(c => -c.Score, ControlledBy.Opponent));
+            p.TargetingRule(new EffectRankBy(c => -c.Score, ControlledBy.Opponent));
           });
     }
   }

@@ -30,9 +30,9 @@
             p.TargetSelector.AddEffect(trg => 
               trg.Is.Card(c => c.Is().Creature && c.Is().Artifact).On.Battlefield());
 
-            p.TargetingRule(new GainRegenerate());
+            p.TargetingRule(new EffectGiveRegenerate());
           })
-        .CombatRule(() => new Regenerate(2.Colorless()));
+        .CombatRule(() => new RegenerateCombatRule(2.Colorless()));
     }
   }
 }

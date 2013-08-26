@@ -23,8 +23,8 @@
               {ToughnessReduction = 4};
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
-            p.TargetingRule(new ReduceToughness(4));
-            p.TimingRule(new TargetRemoval());
+            p.TargetingRule(new EffectReduceToughness(4));
+            p.TimingRule(new TargetRemovalTimingRule());
           });
     }
   }

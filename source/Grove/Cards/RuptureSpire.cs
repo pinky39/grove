@@ -20,8 +20,8 @@
           "Rupture Spire enters the battlefield tapped.{EOL}When Rupture Spire enters a battlefield, sacrifice it unless you pay {1}.{EOL}{T}: Add one mana of any color to your mana pool.")
         .Cast(p =>
           {
-            p.TimingRule(new Lands());
-            p.TimingRule(new ControllerHasMana(1));
+            p.TimingRule(new DefaultLandsTimingRule());
+            p.TimingRule(new WhenYouHaveMana(1));
             p.Effect = () => new PutIntoPlay(tap: true);
           })
         .ManaAbility(p =>

@@ -375,11 +375,14 @@
       _modifiers.Add(modifier);
       ActivateModifier(modifier, p);
 
-      Publish(new PermanentWasModified
-        {
-          Card = this,
-          Modifier = modifier
-        });
+      if (IsPermanent)
+      {
+        Publish(new PermanentWasModified
+          {
+            Card = this,
+            Modifier = modifier
+          });
+      }
     }
 
     private void ActivateModifier(ICardModifier modifier, ModifierParameters p)
@@ -400,7 +403,14 @@
       _modifiers.Remove(modifier);
       modifier.Dispose();
 
-      Publish(new PermanentWasModified {Card = this, Modifier = modifier});
+      if (IsPermanent)
+      {
+        Publish(new PermanentWasModified
+          {
+            Card = this,
+            Modifier = modifier
+          });
+      }
     }
 
     public Card Initialize(Player owner, Game game)

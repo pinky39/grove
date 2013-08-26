@@ -18,7 +18,7 @@
         .Text(
           "At the beginning of each opponent's upkeep, Iron Maiden deals X damage to that player, where X is the number of cards in his or her hand minus 4.")
         .FlavorText("The maiden is a jealous lover.")
-        .Cast(p => p.TimingRule(new SecondMain()))
+        .Cast(p => p.TimingRule(new OnSecondMain()))
         .TriggeredAbility(p =>
           {
             p.Text =

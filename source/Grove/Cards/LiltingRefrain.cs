@@ -20,7 +20,7 @@
         .Type("Enchantment")
         .Text(
           "At the beginning of your upkeep, you may put a verse counter on Lilting Refrain.{EOL}Sacrifice Lilting Refrain: Counter target spell unless its controller pays , where X is the number of verse counters on Lilting Refrain.")
-        .Cast(p => p.TimingRule(new SecondMain()))
+        .Cast(p => p.TimingRule(new OnSecondMain()))
         .TriggeredAbility(p =>
           {
             p.Text = "At the beginning of your upkeep, you may put a verse counter on Lilting Refrain.";
@@ -38,8 +38,8 @@
               doNotCounterCost: P(e => e.Source.OwningCard.Counters));
 
             p.TargetSelector.AddEffect(trg => trg.Is.CounterableSpell().On.Stack());
-            p.TimingRule(new Artifical.TimingRules.Counterspell());
-            p.TargetingRule(new Artifical.TargetingRules.Counterspell());
+            p.TimingRule(new Artifical.TimingRules.WhenTopSpellIsCounterable());
+            p.TargetingRule(new Artifical.TargetingRules.EffectCounterspell());
           });
     }
   }

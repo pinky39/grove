@@ -24,7 +24,7 @@
             p.Text = "{3}: Each player puts the top two cards of his or her library into his or her graveyard.";
             p.Cost = new PayMana(3.Colorless(), ManaUsage.Abilities);
             p.Effect = () => new EachPlayerPutTopCardsFromLibraryToGraveyard(2);
-            p.TimingRule(new Steps(activeTurn: false, passiveTurn: true, steps: Step.Upkeep));
+            p.TimingRule(new OnOpponentsTurn(Step.Upkeep));
           });
     }
   }

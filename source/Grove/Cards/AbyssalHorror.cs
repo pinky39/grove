@@ -29,7 +29,7 @@
             p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
             p.Effect = () => new DiscardCards(2);
             p.TargetSelector.AddEffect(s => s.Is.Player());
-            p.TargetingRule(new Opponent());
+            p.TargetingRule(new EffectOpponent());
           });
     }
   }

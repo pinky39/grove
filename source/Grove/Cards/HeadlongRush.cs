@@ -22,12 +22,10 @@
         .Cast(p =>
           {
             p.Effect = () => new ApplyModifiersToPermanents(
-              permanentFilter: (e, c) => c.IsAttacker,
+              selector: (e, c) => c.IsAttacker,
               modifiers: () => new AddStaticAbility(Static.FirstStrike) {UntilEot = true});
-
-            p.TimingRule(new Turn(active: true));
-            p.TimingRule(new Steps(Step.DeclareBlockers));
-            p.TimingRule(new MinAttackerCount(1));
+            
+            p.TimingRule(new OnYourTurn(Step.DeclareBlockers));            
           });
     }
   }

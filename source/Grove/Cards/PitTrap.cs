@@ -21,7 +21,7 @@
         .Type("Artifact")
         .Text("{2},{T}, Sacrifice Pit Trap: Destroy target attacking creature without flying. It can't be regenerated.")
         .FlavorText("Yotian soldiers were designed to fight, not watch their feet.")
-        .Cast(p => p.TimingRule(new FirstMain()))
+        .Cast(p => p.TimingRule(new OnFirstMain()))
         .ActivatedAbility(p =>
           {
             p.Text =
@@ -38,8 +38,8 @@
               .Card(c => c.Is().Creature && c.IsAttacker && !c.Has().Flying)
               .On.Battlefield());
 
-            p.TimingRule(new Steps(activeTurn: false, passiveTurn: true, steps: Step.DeclareAttackers));
-            p.TargetingRule(new Destroy());            
+            p.TimingRule(new AfterOpponentDeclaresAttackers());
+            p.TargetingRule(new EffectDestroy());            
           });
     }
   }

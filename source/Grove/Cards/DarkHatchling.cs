@@ -23,7 +23,7 @@
           "{Flying}{EOL}When Dark Hatchling enters the battlefield, destroy target nonblack creature. It can't be regenerated.")
         .Power(3)
         .Toughness(3)
-        .Cast(p => p.TimingRule(new OpponentHasPermanents(
+        .Cast(p => p.TimingRule(new WhenOpponentControllsPermanents(
           card => card.Is().Creature &&
             !card.HasColor(CardColor.Black) &&
               !card.HasProtectionFrom(CardColor.Black), minCount: 1))
@@ -41,7 +41,7 @@
               .Is.Card(c => c.Is().Creature && !c.HasColor(CardColor.Black))
               .On.Battlefield());
 
-            p.TargetingRule(new Destroy());
+            p.TargetingRule(new EffectDestroy());
           });
     }
   }

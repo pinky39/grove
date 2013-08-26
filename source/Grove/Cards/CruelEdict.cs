@@ -24,7 +24,7 @@
               text: "Sacrifice a creature."
               );
 
-            p.TimingRule(new NonTargetRemoval(1));
+            p.TimingRule(new NonTargetRemovalTimingRule(1));
           });
     }
   }

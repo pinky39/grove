@@ -18,7 +18,7 @@
         .Type("Enchantment")
         .Text("Whenever a creature dies, that creature's controller may draw a card.")
         .FlavorText("Life is eternal. A lifetime is ephemeral.")
-        .Cast(p => p.TimingRule(new FirstMain()))
+        .Cast(p => p.TimingRule(new OnFirstMain()))
         .TriggeredAbility(p =>
           {
             p.Text = "Whenever a creature dies, that creature's controller may draw a card.";

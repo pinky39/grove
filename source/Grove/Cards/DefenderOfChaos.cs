@@ -1,12 +1,10 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Artifical.TimingRules;
   using Gameplay.Abilities;
   using Gameplay.Characteristics;
   using Gameplay.Misc;
-  using Gameplay.States;
 
   public class DefenderOfChaos : CardTemplateSource
   {
@@ -22,7 +20,7 @@
         .Toughness(1)
         .SimpleAbilities(Static.Flash)
         .Protections(CardColor.White)
-        .Cast(p => p.TimingRule(new Steps(activeTurn: false, passiveTurn: true, steps: Step.DeclareAttackers)));
+        .Cast(p => p.TimingRule(new AfterOpponentDeclaresAttackers()));
     }
   }
 }

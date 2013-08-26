@@ -22,7 +22,7 @@
           {
             p.Effect = () => new Attach(() => new AddPowerAndToughness(-1, -1)) {ToughnessReduction = 1};
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
-            p.TargetingRule(new ReduceToughness(1));
+            p.TargetingRule(new EffectReduceToughness(1));
           });
     }
   }

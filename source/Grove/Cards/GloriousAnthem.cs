@@ -20,7 +20,7 @@
         .FlavorText("Once heard, the battle song of an angel becomes part of the listener forever.")
         .Cast(p =>
           {
-            p.TimingRule(new FirstMain());
+            p.TimingRule(new OnFirstMain());
             p.Effect = () => new PutIntoPlay {Category = EffectCategories.ToughnessIncrease};
           })
         .ContinuousEffect(p =>

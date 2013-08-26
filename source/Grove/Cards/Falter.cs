@@ -33,9 +33,8 @@
 
                   return new AddContiniousEffect(new ContinuousEffect(pr)) {UntilEot = true};
                 });
-
-            p.TimingRule(new Turn(active: true));
-            p.TimingRule(new Steps(Step.BeginningOfCombat));
+            
+            p.TimingRule(new OnYourTurn(Step.BeginningOfCombat));
           });
     }
   }

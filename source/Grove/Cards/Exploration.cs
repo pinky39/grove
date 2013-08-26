@@ -16,7 +16,7 @@
         .Text("You may play an additional land on each of your turns.")
         .FlavorText(
           "The first explorers found Argoth a storehouse of natural wealth—towering forests grown over rich veins of ore.")
-        .Cast(p => p.TimingRule(new FirstMain()))
+        .Cast(p => p.TimingRule(new OnFirstMain()))
         .StaticAbility(p => p.Modifier(() => new IncreaseLandLimit()));
     }
   }

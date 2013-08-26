@@ -23,7 +23,7 @@
         .Type("Enchantment")
         .Text(
           "At the beginning of your upkeep, you may put a verse counter on Recantation.{EOL}{U}, Sacrifice Recantation: Return up to X target permanents to their owners' hands, where X is the number of verse counters on Recantation.")
-        .Cast(p => p.TimingRule(new SecondMain()))
+        .Cast(p => p.TimingRule(new OnSecondMain()))
         .TriggeredAbility(p =>
           {
             p.Text = "At the beginning of your upkeep, you may put a verse counter on Recantation.";
@@ -50,9 +50,9 @@
                 trg.GetMaxCount = cp => cp.OwningCard.CountersCount();
               });
 
-            p.TimingRule(new MinimumCounters(3, onlyAtEot: false));
-            p.TargetingRule(new Bounce());
-            p.TimingRule(new TargetRemoval());
+            p.TimingRule(new WhenCardHasCounters(3, onlyAtEot: false));
+            p.TargetingRule(new EffectBounce());
+            p.TimingRule(new TargetRemovalTimingRule());
           });
     }
   }

@@ -20,7 +20,7 @@
         .Text(
           "When an opponent casts a spell, if Veil of Birds is an enchantment, Veil of Birds becomes a 1/1 Bird creature with flying.")
         .FlavorText("When wind marries sky, even the bride's veil sings her praises.")
-        .Cast(p => p.TimingRule(new FirstMain()))
+        .Cast(p => p.TimingRule(new OnFirstMain()))
         .TriggeredAbility(p =>
           {
             p.Text =

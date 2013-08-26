@@ -36,15 +36,15 @@
                   .Is.Card(x => x.Is("forest"), ControlledBy.SpellOwner)
                   .On.Battlefield());
 
-                ap.TimingRule(new Artifical.TimingRules.Regenerate());
-                ap.TargetingRule(new SacrificeToRegenerate());
+                ap.TimingRule(new Artifical.TimingRules.RegenerateTimingRule());
+                ap.TargetingRule(new CostSacrificeToRegenerate());
 
                 return new AddActivatedAbility(new ActivatedAbility(ap));
               });
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
-            p.TimingRule(new FirstMain());
-            p.TargetingRule(new CombatEnchantment());
+            p.TimingRule(new OnFirstMain());
+            p.TargetingRule(new EffectCombatEnchantment());
           })
         .TriggeredAbility(p =>
           {

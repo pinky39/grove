@@ -24,7 +24,7 @@
         .Type("Enchantment")
         .Text(
           "At the beginning of your upkeep, you may put a verse counter on Serra's Liturgy.{EOL}{W}, Sacrifice Serra's Liturgy: Destroy up to X target artifacts and/or enchantments, where X is the number of verse counters on Serra's Liturgy.")
-        .Cast(p => p.TimingRule(new SecondMain()))
+        .Cast(p => p.TimingRule(new OnSecondMain()))
         .TriggeredAbility(p =>
           {
             p.Text = "At the beginning of your upkeep, you may put a verse counter on Serra's Liturgy.";
@@ -51,9 +51,9 @@
                 trg.GetMaxCount = cp => cp.OwningCard.CountersCount();
               });
 
-            p.TimingRule(new MinimumCounters(3, onlyAtEot: false));
-            p.TimingRule(new Steps(activeTurn: true, passiveTurn: false, steps: Step.FirstMain));
-            p.TargetingRule(new Destroy());
+            p.TimingRule(new WhenCardHasCounters(3, onlyAtEot: false));
+            p.TimingRule(new OnFirstMain());
+            p.TargetingRule(new EffectDestroy());
           });
     }
   }

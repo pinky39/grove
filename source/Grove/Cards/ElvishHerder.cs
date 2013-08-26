@@ -31,10 +31,9 @@
             p.Cost = new PayMana(Mana.Green, ManaUsage.Abilities);
             p.Effect = () => new ApplyModifiersToTargets(() => new AddStaticAbility(Static.Trample) {UntilEot = true});
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
-
-            p.TimingRule(new Turn(active: true));
-            p.TimingRule(new Steps(activeTurn: true, passiveTurn: false, steps: Step.DeclareBlockers));
-            p.TargetingRule(new GainEvasion(x => !x.Has().Trample && x.Power >= 4));
+            
+            p.TimingRule(new OnYourTurn(Step.DeclareBlockers));
+            p.TargetingRule(new EffectBigWithoutEvasions(x => !x.Has().Trample && x.Power >= 4));
           });
     }
   }

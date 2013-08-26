@@ -37,12 +37,27 @@
 #endif
 
     public static string ImagesFolder { get { return Path.Combine(BasePath, Images); } }
-    public static string AvatarsFolder {get { return Path.Combine(BasePath, Avatars); }}
+    public static string AvatarsFolder { get { return Path.Combine(BasePath, Avatars); } }
     public static string DecksFolder { get { return Path.Combine(BasePath, Decks); } }
     public static string SetsFolder { get { return Path.Combine(BasePath, Sets); } }
     public static string TournamentFolder { get { return Path.Combine(BasePath, Tournament); } }
     public static string SavedGamesFolder { get { return Path.Combine(BasePath, SavedGames); } }
-    public static ImageSource MissingImage { get { return ImageDatabase[Path.Combine(ImagesFolder, "missing.png").ToLowerInvariant()]; } }
+
+    public static ImageSource MissingImage
+    {
+      get
+      {
+        var filename = Path.Combine(ImagesFolder, "missing.png");
+
+        ImageSource missingImage = null;
+        if (ImageDatabase.TryGetValue(filename, out missingImage))
+        {
+          return missingImage;
+        }
+
+        return new BitmapImage(new Uri(filename));
+      }
+    }
 
     public static string GetSaveGameFilename()
     {
@@ -98,7 +113,7 @@
         var uri = new Uri(file);
         var bitmapImage = new BitmapImage(uri);
         bitmapImage.Freeze();
-        AvatarsDatabase.Add(bitmapImage);                
+        AvatarsDatabase.Add(bitmapImage);
       }
     }
 
@@ -130,7 +145,7 @@
       if (AvatarsDatabase.Count == 0)
         return MissingImage;
 
-      return AvatarsDatabase[id % AvatarsDatabase.Count];
+      return AvatarsDatabase[id%AvatarsDatabase.Count];
     }
 
     public static List<string> GetSetsNames()

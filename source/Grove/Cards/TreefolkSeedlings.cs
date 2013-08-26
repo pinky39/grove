@@ -22,7 +22,7 @@
             p.Modifier(() => new ModifyPowerToughnessForEachPermanent(
               power: null,
               toughness: 1,
-              filter: c => c.Is("forest"),
+              filter: (c, _) => c.Is("forest"),
               modifier: () => new IntegerSetter()));
 
             p.EnabledInAllZones = true;

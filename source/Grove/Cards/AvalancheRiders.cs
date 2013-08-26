@@ -28,7 +28,7 @@
             p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
             p.Effect = () => new DestroyTargetPermanents();
             p.TargetSelector.AddEffect(trg => trg.Is.Card(c => c.Is().Land).On.Battlefield());
-            p.TargetingRule(new Destroy());
+            p.TargetingRule(new EffectDestroy());
           });
     }
   }

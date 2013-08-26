@@ -30,8 +30,8 @@
                 trg.MinCount = 2;
                 trg.MaxCount = 2;
               });
-            p.TimingRule(new SecondMain());
-            p.TargetingRule(new UntapLands());
+            p.TimingRule(new OnSecondMain());
+            p.TargetingRule(new EffectUntapLand());
           });
     }
   }

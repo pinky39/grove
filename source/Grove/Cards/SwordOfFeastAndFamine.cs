@@ -23,7 +23,7 @@
         .Type("Artifact - Equipment")
         .Text(
           "Equipped creature gets +2/+2 and has protection from black and from green.{EOL}Whenever equipped creature deals combat damage to a player, that player discards a card and you untap all lands you control.{EOL}{Equip} {2}")
-        .Cast(p => p.TimingRule(new FirstMain()))
+        .Cast(p => p.TimingRule(new OnFirstMain()))
         .TriggeredAbility(p =>
           {
             p.Text =
@@ -50,8 +50,8 @@
               };
 
             p.TargetSelector.AddEffect(trg => trg.Is.ValidEquipmentTarget().On.Battlefield());
-            p.TimingRule(new AttachEquipment());
-            p.TargetingRule(new CombatEquipment());
+            p.TimingRule(new OnFirstDetachedOnSecondAttached());
+            p.TargetingRule(new EffectCombatEquipment());
             p.ActivateAsSorcery = true;
           });
     }

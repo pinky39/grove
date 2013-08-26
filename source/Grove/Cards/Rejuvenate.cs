@@ -18,7 +18,7 @@
         .Cast(p =>
           {
             p.Effect = () => new ControllerGainsLife(6);
-            p.TimingRule(new SecondMain());
+            p.TimingRule(new OnSecondMain());
           });
     }
   }

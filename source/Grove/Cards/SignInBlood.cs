@@ -21,8 +21,8 @@
           {
             p.Effect = () => new TargetPlayerDrawsCards(2, lifeLoss: 2);
             p.TargetSelector.AddEffect(trg => trg.Is.Player());
-            p.TimingRule(new FirstMain());
-            p.TargetingRule(new SpellOwner());
+            p.TimingRule(new OnFirstMain());
+            p.TargetingRule(new EffectYou());
           });
     }
   }

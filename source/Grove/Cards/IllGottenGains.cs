@@ -30,8 +30,8 @@
                 text: "Select cards in your graveyard to return to hand."));
 
             p.Rule = new Sorcery(afterResolvePutToZone: c => c.Exile());
-            p.TimingRule(new SecondMain());
-            p.TimingRule(new ControllerHandCountIs(minCount: 0, maxCount: 2));
+            p.TimingRule(new OnSecondMain());
+            p.TimingRule(new WhenYourHandCountIs(minCount: 0, maxCount: 2));
           });
     }
   }

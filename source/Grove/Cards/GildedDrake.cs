@@ -30,7 +30,7 @@
             p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
             p.Effect = () => new ExchangeForOpponentsCreature {Category = EffectCategories.Destruction};
             p.TargetSelector.AddEffect(trg => trg.Is.Creature(ControlledBy.Opponent).On.Battlefield());
-            p.TargetingRule(new GainControl());
+            p.TargetingRule(new EffectGainControl());
           });
     }
   }

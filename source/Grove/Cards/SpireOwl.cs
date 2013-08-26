@@ -21,7 +21,7 @@
           "{Flying}{EOL}When Spire Owl enters the battlefield, look at the top four cards of your library, then put them back in any order.")
         .Power(1)
         .Toughness(1)
-        .Cast(p => p.TimingRule(new FirstMain()))
+        .Cast(p => p.TimingRule(new OnFirstMain()))
         .SimpleAbilities(Static.Flying)
         .TriggeredAbility(p =>
           {

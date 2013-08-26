@@ -21,7 +21,7 @@
         .Type("Artifact")
         .Text("{3},{T} : Put a +1/+1 counter on target creature.")
         .FlavorText("Fire in the blood, fire in the belly.")
-        .Cast(p => p.TimingRule(new FirstMain()))
+        .Cast(p => p.TimingRule(new OnFirstMain()))
         .ActivatedAbility(p =>
           {
             p.Text = "{3},{T} : Put a +1/+1 counter on target creature.";
@@ -33,7 +33,7 @@
               () => new PowerToughness(1, 1), count: 1));
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
-            p.TargetingRule(new IncreasePowerOrToughness(1, 1, untilEot: false));
+            p.TargetingRule(new EffectPump(1, 1, untilEot: false));
           });
     }
   }

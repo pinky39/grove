@@ -28,7 +28,7 @@
             p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
             p.Effect = () => new DealDamageToTargets(2);
             p.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
-            p.TargetingRule(new DealDamage(2));
+            p.TargetingRule(new EffectDealDamage(2));
           });
     }
   }

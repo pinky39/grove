@@ -236,8 +236,10 @@
     <Compile Include="Cards\Oppression.cs" />
     <Compile Include="Cards\Outmaneuver.cs" />
     <Compile Include="Cards\ParasiticBond.cs" />
+    <Compile Include="Cards\Parch.cs" />
     <Compile Include="Cards\Pariah.cs" />
     <Compile Include="Cards\PathOfPeace.cs" />
+    <Compile Include="Cards\PeaceAndQuiet.cs" />
     <Compile Include="Cards\PendrellFlux.cs" />
     <Compile Include="Cards\Persecute.cs" />
     <Compile Include="Cards\Pestilence.cs" />
@@ -252,6 +254,7 @@
     <Compile Include="Cards\PhyrexianTower.cs" />
     <Compile Include="Cards\PitTrap.cs" />
     <Compile Include="Cards\PlanarBirth.cs" />
+    <Compile Include="Cards\PlanarCollapse.cs" />
     <Compile Include="Cards\PlanarVoid.cs" />
     <Compile Include="Cards\PowerSink.cs" />
     <Compile Include="Cards\PowerTaint.cs" />
@@ -259,11 +262,15 @@
     <Compile Include="Cards\PriestOfGix.cs" />
     <Compile Include="Cards\PriestOfTitania.cs" />
     <Compile Include="Cards\PurgingScythe.cs" />
+    <Compile Include="Cards\Pyromancy.cs" />
+    <Compile Include="Cards\QuicksilverAmulet.cs" />
+    <Compile Include="Cards\RadiantArchangel.cs" />
     <Compile Include="Cards\RadiantsJudgment.cs" />
     <Compile Include="Cards\RainOfFilth.cs" />
     <Compile Include="Cards\RainOfSalt.cs" />
     <Compile Include="Cards\RampantGrowth.cs" />
     <Compile Include="Cards\Rancor.cs" />
+    <Compile Include="Cards\RankAndFile.cs" />
     <Compile Include="Cards\RavenFamiliar.cs" />
     <Compile Include="Cards\Raze.cs" />
     <Compile Include="Cards\Recantation.cs" />
@@ -271,6 +278,7 @@
     <Compile Include="Cards\Recoil.cs" />
     <Compile Include="Cards\Redeem.cs" />
     <Compile Include="Cards\Remembrance.cs" />
+    <Compile Include="Cards\Repopulate.cs" />
     <Compile Include="Cards\Reprocess.cs" />
     <Compile Include="Cards\Retaliation.cs" />
     <Compile Include="Cards\Retromancer.cs" />
@@ -281,6 +289,7 @@
     <Compile Include="Cards\SanctumCustodian.cs" />
     <Compile Include="Cards\SanctumGuardian.cs" />
     <Compile Include="Cards\Scald.cs" />
+    <Compile Include="Cards\Scrapheap.cs" />
     <Compile Include="Cards\SealOfFire.cs" />
     <Compile Include="Cards\SeasonedMarshal.cs" />
     <Compile Include="Cards\SerraAvatar.cs" />
@@ -288,6 +297,7 @@
     <Compile Include="Cards\ShivanHellkite.cs" />
     <Compile Include="Cards\ShowAndTell.cs" />
     <Compile Include="Cards\ShowerOfSparks.cs" />
+    <Compile Include="Cards\SickAndTired.cs" />
     <Compile Include="Cards\Sicken.cs" />
     <Compile Include="Cards\SilentAttendant.cs" />
     <Compile Include="Cards\SilkNet.cs" />
@@ -307,6 +317,7 @@
     <Compile Include="Cards\SteamVents.cs" />
     <Compile Include="Cards\StrokeOfGenius.cs" />
     <Compile Include="Cards\StudentOfWarfare.cs" />
+    <Compile Include="Cards\Subversion.cs" />
     <Compile Include="Cards\Sunder.cs" />
     <Compile Include="Cards\SwordOfBodyAndMind.cs" />
     <Compile Include="Cards\SwordsToPlowshares.cs" />
@@ -315,9 +326,11 @@
     <Compile Include="Cards\ThornwindFaeries.cs" />
     <Compile Include="Cards\ThranTurbine.cs" />
     <Compile Include="Cards\ThranWarMachine.cs" />
+    <Compile Include="Cards\ThranWeaponry.cs" />
     <Compile Include="Cards\TickingGnomes.cs" />
     <Compile Include="Cards\TimeSpiral.cs" />
     <Compile Include="Cards\TimeWarp.cs" />
+    <Compile Include="Cards\Tinker.cs" />
     <Compile Include="Cards\TitaniasBoon.cs" />
     <Compile Include="Cards\TitaniasChosen.cs" />
     <Compile Include="Cards\TolarianWinds.cs" />

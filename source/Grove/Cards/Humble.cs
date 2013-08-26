@@ -24,8 +24,8 @@
               () => new SetPowerAndToughness(0, 1) {UntilEot = true});
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
-            p.TargetingRule(new Destroy());
-            p.TimingRule(new TargetRemoval(combatOnly: true));
+            p.TargetingRule(new EffectDestroy());
+            p.TimingRule(new TargetRemovalTimingRule(combatOnly: true));
           });
     }
   }

@@ -23,10 +23,10 @@
           {
             p.Effect = () => new SacrificeCreaturesToDealDamageToTarget();
             p.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
-            p.TargetingRule(new DealDamage(dp => dp.Controller.Battlefield.Creatures.Count()));
+            p.TargetingRule(new EffectDealDamage(dp => dp.Controller.Battlefield.Creatures.Count()));
 
-            p.TimingRule(new ControllerHasPermanents(c => c.Is().Creature, minCount: 1));
-            p.TimingRule(new TargetRemoval());
+            p.TimingRule(new WhenYouHavePermanents(c => c.Is().Creature, minCount: 1));
+            p.TimingRule(new TargetRemovalTimingRule());
           });
     }
   }

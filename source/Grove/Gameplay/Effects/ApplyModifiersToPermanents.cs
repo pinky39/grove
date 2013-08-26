@@ -10,24 +10,24 @@
   {
     private readonly ControlledBy _controlledBy;
     private readonly List<CardModifierFactory> _modifiers = new List<CardModifierFactory>();
-    private readonly Func<ApplyModifiersToPermanents, Card, bool> _permanentFilter;
+    private readonly Func<ApplyModifiersToPermanents, Card, bool> _selector;
 
     private ApplyModifiersToPermanents() {}
 
     public ApplyModifiersToPermanents(params CardModifierFactory[] modifiers) : this(null, modifiers: modifiers) {}
 
-    public ApplyModifiersToPermanents(Func<Effect, Card, bool> permanentFilter,
+    public ApplyModifiersToPermanents(Func<Effect, Card, bool> selector,
       ControlledBy controlledBy = ControlledBy.Any, params CardModifierFactory[] modifiers)
     {
       _controlledBy = controlledBy;
-      _permanentFilter = permanentFilter ?? delegate { return true; };
+      _selector = selector ?? delegate { return true; };
       _modifiers.AddRange(modifiers);
     }
 
 
     public override int CalculateToughnessReduction(Card card)
     {
-      if ((Target == null || card.Controller == Target) && _permanentFilter(this, card))
+      if ((Target == null || card.Controller == Target) && _selector(this, card))
       {
         return ToughnessReduction.GetValue(X);
       }
@@ -65,7 +65,7 @@
     {
       foreach (var permanent in player.Battlefield)
       {
-        if (!_permanentFilter(this, permanent))
+        if (!_selector(this, permanent))
           continue;
 
         foreach (var modifierFactory in _modifiers)

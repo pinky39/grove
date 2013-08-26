@@ -25,7 +25,7 @@
         .Type("Enchantment")
         .Text(
           "At the beginning of your upkeep, you may put a verse counter on Torch Song.{EOL}{2}{R}, Sacrifice Torch Song: Torch Song deals X damage to target creature or player, where X is the number of verse counters on Torch Song.")
-        .Cast(p => p.TimingRule(new SecondMain()))
+        .Cast(p => p.TimingRule(new OnSecondMain()))
         .TriggeredAbility(p =>
           {
             p.Text = "At the beginning of your upkeep, you may put a verse counter on Torch Song.";
@@ -46,9 +46,9 @@
 
             p.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
             
-            p.TargetingRule(new DealDamage(pt => pt.Card.Counters));
-            p.TimingRule(new MinimumCounters(minCount: 2, onlyAtEot: false));
-            p.TimingRule(new TargetRemoval());
+            p.TargetingRule(new EffectDealDamage(pt => pt.Card.Counters));
+            p.TimingRule(new WhenCardHasCounters(minCount: 2, onlyAtEot: false));
+            p.TimingRule(new TargetRemovalTimingRule());
           });
     }
   }

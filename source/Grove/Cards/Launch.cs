@@ -24,8 +24,8 @@
           {
             p.Effect = () => new Attach(() => new AddStaticAbility(Static.Flying));
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
-            p.TimingRule(new FirstMain());
-            p.TargetingRule(new CombatEnchantment(filter: x => !x.Has().Flying));
+            p.TimingRule(new OnFirstMain());
+            p.TargetingRule(new EffectCombatEnchantment(filter: x => !x.Has().Flying));
           })
         .TriggeredAbility(p =>
           {

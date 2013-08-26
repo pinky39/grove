@@ -29,8 +29,8 @@
             p.Effect = () => new AddManaToPool("{B}{B}".Parse());
             p.TargetSelector.AddCost(trg => trg.Is.Creature(ControlledBy.SpellOwner).On.Battlefield());
 
-            p.TimingRule(new ControllerNeedsAdditionalMana(2));
-            p.TargetingRule(new OrderByRank(c => c.Score));
+            p.TimingRule(new WhenYouNeedAdditionalMana(2));
+            p.TargetingRule(new EffectRankBy(c => c.Score));
 
             p.UsesStack = false;
           });

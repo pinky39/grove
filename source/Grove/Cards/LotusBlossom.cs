@@ -22,7 +22,7 @@
         .Type("Artifact")
         .Text(
           "At the beginning of your upkeep, you may put a petal counter on Lotus Blossom.{EOL}{T}, Sacrifice Lotus Blossom: Add X mana of any color to your mana pool, where X is the number of petal counters on Lotus Blossom.")
-        .Cast(p => p.TimingRule(new SecondMain()))
+        .Cast(p => p.TimingRule(new OnSecondMain()))
         .TriggeredAbility(p =>
           {
             p.Text = "At the beginning of your upkeep, you may put a petal counter on Lotus Blossom.";
@@ -43,7 +43,7 @@
             p.Effect = () => new AddManaToPool(P(e =>
               Mana.Colored(ManaColor.Any, e.Source.OwningCard.Counters)));
 
-            p.TimingRule(new ControllerNeedsAdditionalMana());
+            p.TimingRule(new WhenYouNeedAdditionalMana());
           });
     }
   }

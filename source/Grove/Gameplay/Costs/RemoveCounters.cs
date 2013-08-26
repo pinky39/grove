@@ -21,7 +21,7 @@
       result.CanPay = _count == null || Card.CountersCount(_counterType) >= _count;
     }
 
-    protected override void Pay(ITarget target, int? x, int repeat)
+    protected override void PayCost(Targets targets, int? x, int repeat)
     {            
       Card.RemoveCounters(_counterType, _count);
     }

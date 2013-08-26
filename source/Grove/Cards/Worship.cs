@@ -19,8 +19,8 @@
         .FlavorText("Believe in the ideal, not the idol.")
         .Cast(p =>
           {
-            p.TimingRule(new FirstMain());
-            p.TimingRule(new ThereCanBeOnlyOne());
+            p.TimingRule(new OnFirstMain());
+            p.TimingRule(new WhenYouDontControlSamePermanent());
           })
         .StaticAbility(p => p.Modifier(
           () => new AddDamagePrevention(modifier => new PreventLifelossBelowOneToPlayer(modifier.SourceCard.Controller))));

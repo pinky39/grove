@@ -22,8 +22,8 @@
           "When the Brotherhood of Gix dug out the cave of Koilos they found their master's severed hand. They enshrined it, hoping that one day it would point the way to Phyrexia.")
         .Cast(p =>
           {
-            p.TimingRule(new FirstMain());
-            p.TimingRule(new ThereCanBeOnlyOne());
+            p.TimingRule(new OnFirstMain());
+            p.TimingRule(new WhenYouDontControlSamePermanent());
           })
         .ActivatedAbility(p =>
           {
@@ -39,7 +39,7 @@
 
                 trg.Message = "Select a permanent to sacrifice.";
               });
-            p.TargetingRule(new SacrificeToGainLife());
+            p.TargetingRule(new CostSacrificeToGainLife());
           }
         );
     }

@@ -17,7 +17,7 @@
         .Type("Enchantment")
         .Text(
           "When an opponent casts an instant spell, if Hidden Gibbons is an enchantment, Hidden Gibbons becomes a 4/4 Ape creature.")
-        .Cast(p => p.TimingRule(new FirstMain()))
+        .Cast(p => p.TimingRule(new OnFirstMain()))
         .TriggeredAbility(p =>
           {
             p.Text =

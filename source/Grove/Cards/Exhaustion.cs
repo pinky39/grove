@@ -38,7 +38,7 @@
                   return modifier;
                 });
 
-            p.TimingRule(new SecondMain());
+            p.TimingRule(new OnSecondMain());
           });
     }
   }

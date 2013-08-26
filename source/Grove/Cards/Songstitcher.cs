@@ -31,9 +31,8 @@
             p.Cost = new PayMana("{1}{W}".Parse(), ManaUsage.Abilities);
             p.Effect = () => new PreventDamageFromSource();
             p.TargetSelector.AddEffect(trg => trg.Is.Card(c => c.Has().Flying && c.IsAttacker).On.Battlefield());
-            p.TargetingRule(new PreventDamageFromAttackers());
-            p.TimingRule(new Turn(passive: true));
-            p.TimingRule(new Steps(Step.DeclareAttackers));
+            p.TargetingRule(new EffectPreventAttackerDamage());            
+            p.TimingRule(new OnOpponentsTurn(Step.DeclareAttackers));
           });
     }
   }

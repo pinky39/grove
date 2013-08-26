@@ -19,7 +19,7 @@
         .Cast(p =>
           {
             p.Effect = () => new DrawCards(2);
-            p.TimingRule(new FirstMain());
+            p.TimingRule(new OnFirstMain());
           });
     }
   }

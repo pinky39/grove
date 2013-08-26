@@ -32,8 +32,8 @@
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 
-            p.TimingRule(new SecondMain());
-            p.TargetingRule(new CombatDisabler(attackOnly: true));
+            p.TimingRule(new OnSecondMain());
+            p.TargetingRule(new EffectCannotBlockAttack(attackOnly: true));
           })
         .TriggeredAbility(p =>
           {

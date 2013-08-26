@@ -27,8 +27,8 @@
             p.Effect = () => new DealDamageToTargets(3);
             p.TargetSelector.AddEffect(trg => trg.Is.AttackerOrBlocker().On.Battlefield());
 
-            p.TargetingRule(new DealDamage(3));
-            p.TimingRule(new Steps(Step.DeclareBlockers));
+            p.TimingRule(new OnStep(Step.DeclareBlockers));
+            p.TargetingRule(new EffectDealDamage(3));            
           }
         );
     }

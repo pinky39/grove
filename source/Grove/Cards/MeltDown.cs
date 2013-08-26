@@ -22,10 +22,8 @@
             p.Effect = () => new DestroyAllPermanents(
               (e, card) => card.Is().Artifact && card.ConvertedCost <= e.X);
 
-            p.TimingRule(new FirstMain());
-
-            p.CostRule(new DestroyEachPermanent((card, x) =>
-              card.Is().Artifact && card.ConvertedCost <= x));
+            p.TimingRule(new OnFirstMain());
+            p.CostRule(new XIsOptimalConvertedCost(selector: c =>c.Is().Artifact));
           });
     }
   }

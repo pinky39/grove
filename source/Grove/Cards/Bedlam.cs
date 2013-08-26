@@ -16,7 +16,7 @@
         .Type("Enchantment")
         .Text("Creatures can't block.")
         .FlavorText("Sometimes quantity, in the absence of quality, is good enough.")
-        .Cast(p => p.TimingRule(new FirstMain()))
+        .Cast(p => p.TimingRule(new OnFirstMain()))
         .ContinuousEffect(p =>
           {
             p.CardFilter = (card, source) => card.Is().Creature;

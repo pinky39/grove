@@ -28,11 +28,10 @@
             p.Text = "{2}{U}: Untap Vigilant Drake.";
             p.Cost = new PayMana("{2}{U}".Parse(), ManaUsage.Abilities);
             p.Effect = () => new UntapOwner();
-
-            p.TimingRule(new Turn(active: true));
-            p.TimingRule(new SecondMain());
-            p.TimingRule(new StackIsEmpty());
-            p.TimingRule(new OwningCardHas(c => c.IsTapped));
+            
+            p.TimingRule(new OnSecondMain());
+            p.TimingRule(new WhenStackIsEmpty());
+            p.TimingRule(new WhenCardHas(c => c.IsTapped));
           });
     }
   }

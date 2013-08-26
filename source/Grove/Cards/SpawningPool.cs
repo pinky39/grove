@@ -49,14 +49,15 @@
                       Effect = () => new Gameplay.Effects.RegenerateOwner()
                     };
 
-                  ap.TimingRule(new Artifical.TimingRules.Regenerate());
+                  ap.TimingRule(new Artifical.TimingRules.RegenerateTimingRule());
 
                   return new AddActivatedAbility(new ActivatedAbility(ap)) {UntilEot = true};
                 });
 
-            p.TimingRule(new StackIsEmpty());
-            p.TimingRule(new OwningCardHas(c => !c.Is().Creature));
-            p.TimingRule(new Artifical.TimingRules.ChangeToCreature(minAvailableMana: 3));
+            p.TimingRule(new WhenStackIsEmpty());
+            p.TimingRule(new WhenCardHas(c => !c.Is().Creature));
+            p.TimingRule(new WhenYouHaveMana(3));
+            p.TimingRule(new Any(new BeforeYouDeclareAttackers(), new AfterOpponentDeclaresAttackers()));
           });
     }
   }

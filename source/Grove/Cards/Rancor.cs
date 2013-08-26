@@ -1,5 +1,6 @@
 ﻿namespace Grove.Cards
 {
+  using System;
   using System.Collections.Generic;
   using Artifical.TargetingRules;
   using Artifical.TimingRules;
@@ -9,7 +10,7 @@
   using Gameplay.Modifiers;
   using Gameplay.Triggers;
   using Gameplay.Zones;
-    
+
   public class Rancor : CardTemplateSource
   {
     public override IEnumerable<CardTemplate> GetCards()
@@ -28,8 +29,8 @@
               () => new AddStaticAbility(Static.Trample));
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
-            p.TimingRule(new FirstMain());
-            p.TargetingRule(new CombatEnchantment());
+            p.TimingRule(new OnFirstMain());
+            p.TargetingRule(new EffectCombatEnchantment());
           })
         .TriggeredAbility(p =>
           {

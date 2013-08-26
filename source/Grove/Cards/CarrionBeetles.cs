@@ -34,8 +34,8 @@
                 trg.MinCount = 0;
                 trg.MaxCount = 3;
               });
-            p.TimingRule(new EndOfTurn());
-            p.TargetingRule(new OrderByRank(c => -c.Score, ControlledBy.Opponent));
+            p.TimingRule(new OnEndOfOpponentsTurn());
+            p.TargetingRule(new EffectRankBy(c => -c.Score, ControlledBy.Opponent));
           });
     }
   }

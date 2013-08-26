@@ -34,8 +34,8 @@
             p.Cost = new PayMana(4.Colorless(), ManaUsage.Abilities);
             p.Effect = () => new UntapOwner();
 
-            p.TimingRule(new OwningCardHas(c => c.IsTapped));
-            p.TimingRule(new EndOfTurn());
+            p.TimingRule(new WhenCardHas(c => c.IsTapped));
+            p.TimingRule(new OnEndOfOpponentsTurn());
           });
     }
   }

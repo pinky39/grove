@@ -25,7 +25,7 @@
             p.Cost = new Sacrifice();
             p.Effect = () => new ControllerGainsLife(4);
             p.TargetSelector.AddCost(trg => trg.Is.Card(c => c.Is("beast"), ControlledBy.SpellOwner).On.Battlefield());
-            p.TargetingRule(new SacrificeToGainLife());
+            p.TargetingRule(new CostSacrificeToGainLife());
           });
     }
   }

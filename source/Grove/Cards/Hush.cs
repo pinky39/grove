@@ -18,7 +18,7 @@
         .Cast(p =>
           {
             p.Effect = () => new DestroyAllPermanents((e, card) => card.Is().Enchantment);
-            p.TimingRule(new FirstMain());
+            p.TimingRule(new OnFirstMain());
           });
     }
   }

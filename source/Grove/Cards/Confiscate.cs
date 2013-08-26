@@ -25,8 +25,8 @@
               {Category = EffectCategories.Destruction};
 
             p.TargetSelector.AddEffect(trg => trg.Is.Card().On.Battlefield());
-            p.TimingRule(new FirstMain());
-            p.TargetingRule(new GainControl());
+            p.TimingRule(new OnFirstMain());
+            p.TargetingRule(new EffectGainControl());
           });
     }
   }

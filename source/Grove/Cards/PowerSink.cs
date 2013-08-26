@@ -23,9 +23,9 @@
 
             p.TargetSelector.AddEffect(trg => trg.Is.CounterableSpell().On.Stack());
 
-            p.CostRule(new CounterUnlessOpponentPaysX());
-            p.TimingRule(new Artifical.TimingRules.Counterspell());
-            p.TargetingRule(new Artifical.TargetingRules.Counterspell());
+            p.CostRule(new XIsManaAvailableToOpponentPlus1());
+            p.TimingRule(new Artifical.TimingRules.WhenTopSpellIsCounterable());
+            p.TargetingRule(new Artifical.TargetingRules.EffectCounterspell());
           });
     }
   }

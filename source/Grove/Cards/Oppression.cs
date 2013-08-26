@@ -17,7 +17,7 @@
         .Type("Enchantment")
         .Text("Whenever a player casts a spell, that player discards a card.")
         .FlavorText("Do not presume to speak for yourself.")
-        .Cast(p => p.TimingRule(new SecondMain()))
+        .Cast(p => p.TimingRule(new OnSecondMain()))
         .TriggeredAbility(p =>
           {
             p.Text = "Whenever a player casts a spell, that player discards a card.";

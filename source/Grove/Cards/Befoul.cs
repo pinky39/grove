@@ -24,8 +24,8 @@
             p.TargetSelector.AddEffect(trg => trg
               .Is.Card(card => card.Is().Land || (card.Is().Creature && !card.HasColor(CardColor.Black)))
               .On.Battlefield());
-            p.TimingRule(new FirstMain());
-            p.TargetingRule(new Destroy());
+            p.TimingRule(new OnFirstMain());
+            p.TargetingRule(new EffectDestroy());
           });
     }
   }

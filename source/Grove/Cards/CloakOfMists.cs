@@ -23,8 +23,8 @@
           {
             p.Effect = () => new Attach(() => new AddStaticAbility(Static.Unblockable));
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
-            p.TimingRule(new FirstMain());
-            p.TargetingRule(new CombatEnchantment(filter: x => !x.Has().Unblockable));
+            p.TimingRule(new OnFirstMain());
+            p.TargetingRule(new EffectCombatEnchantment(filter: x => !x.Has().Unblockable));
           });
     }
   }

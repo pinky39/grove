@@ -23,7 +23,7 @@
         .Type("Artifact - Equipment")
         .Text(
           "Equipped creature gets +2/+2 and has protection from red and from blue.{EOL}Whenever equipped creature deals combat damage to a player, Sword of Fire and Ice deals 2 damage to target creature or player and you draw a card.{EOL}{Equip} {2}")
-        .Cast(p => p.TimingRule(new FirstMain()))
+        .Cast(p => p.TimingRule(new OnFirstMain()))
         .TriggeredAbility(p =>
           {
             p.Text =
@@ -38,7 +38,7 @@
               new DrawCards(1));
 
             p.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
-            p.TargetingRule(new DealDamage(2));
+            p.TargetingRule(new EffectDealDamage(2));
           })
         .ActivatedAbility(p =>
           {
@@ -51,8 +51,8 @@
                 Category = EffectCategories.ToughnessIncrease | EffectCategories.Protector
               };
             p.TargetSelector.AddEffect(trg => trg.Is.ValidEquipmentTarget().On.Battlefield());
-            p.TimingRule(new AttachEquipment());
-            p.TargetingRule(new CombatEquipment());
+            p.TimingRule(new OnFirstDetachedOnSecondAttached());
+            p.TargetingRule(new EffectCombatEquipment());
             p.ActivateAsSorcery = true;
           });
     }

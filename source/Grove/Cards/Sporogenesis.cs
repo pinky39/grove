@@ -23,7 +23,7 @@
         .Type("Enchantment")
         .Text(
           "At the beginning of your upkeep, you may put a fungus counter on target nontoken creature.{EOL}Whenever a creature with a fungus counter on it dies, put a 1/1 green Saproling creature token onto the battlefield for each fungus counter on that creature.{EOL}When Sporogenesis leaves the battlefield, remove all fungus counters from all creatures.")
-        .Cast(p => p.TimingRule(new SecondMain()))
+        .Cast(p => p.TimingRule(new OnSecondMain()))
         .TriggeredAbility(p =>
           {
             p.Text = "At the beginning of your upkeep, you may put a fungus counter on target nontoken creature.";
@@ -38,7 +38,7 @@
                 trg.MaxCount = 1;
               });
 
-            p.TargetingRule(new OrderByRank(x => x.Score));
+            p.TargetingRule(new EffectRankBy(x => x.Score));
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           })
         .TriggeredAbility(p =>

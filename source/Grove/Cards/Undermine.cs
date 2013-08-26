@@ -18,8 +18,8 @@
           {
             p.Effect = () => new CounterTargetSpell(controllerLifeloss: 3);
             p.TargetSelector.AddEffect(trg => trg.Is.CounterableSpell().On.Stack());
-            p.TimingRule(new Artifical.TimingRules.Counterspell());
-            p.TargetingRule(new Artifical.TargetingRules.Counterspell());
+            p.TimingRule(new Artifical.TimingRules.WhenTopSpellIsCounterable());
+            p.TargetingRule(new Artifical.TargetingRules.EffectCounterspell());
           });
     }
   }

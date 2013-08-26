@@ -37,8 +37,8 @@
               .On.Battlefield());
 
 
-            p.TimingRule(new Steps(Step.DeclareBlockers));
-            p.TargetingRule(new DealDamage(2));
+            p.TimingRule(new OnStep(Step.DeclareBlockers));
+            p.TargetingRule(new EffectDealDamage(2));
           });
     }
   }

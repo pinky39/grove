@@ -22,7 +22,7 @@
               () => new SearchLibraryPutToZone(c => c.PutToHand(), minCount: 1, maxCount: 1, revealCards: false)
                 {AfterResolve = e => e.Controller.DiscardRandomCard()};
 
-            p.TimingRule(new FirstMain());
+            p.TimingRule(new OnFirstMain());
           });
     }
   }

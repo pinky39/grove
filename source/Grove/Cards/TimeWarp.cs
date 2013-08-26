@@ -1,5 +1,6 @@
 ﻿namespace Grove.Cards
 {
+  using System;
   using System.Collections.Generic;
   using Artifical.TargetingRules;
   using Artifical.TimingRules;
@@ -18,10 +19,10 @@
         .FlavorText("Just when you thought you'd survived the first wave.")
         .Cast(p =>
           {
-            p.Effect = () => new TargetPlayerTakesExtraTurns(1);
+            p.Effect = () => new TargetPlayerTakesExtraTurn();
             p.TargetSelector.AddEffect(trg => trg.Is.Player());
-            p.TimingRule(new SecondMain());
-            p.TargetingRule(new SpellOwner());
+            p.TimingRule(new OnSecondMain());
+            p.TargetingRule(new EffectYou());
           });
     }
   }

@@ -33,15 +33,15 @@
                   };
 
                 ap.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
-                ap.TargetingRule(new DealDamage(1));
-                ap.TimingRule(new TargetRemoval());
+                ap.TargetingRule(new EffectDealDamage(1));
+                ap.TimingRule(new TargetRemovalTimingRule());
 
                 return new AddActivatedAbility(new ActivatedAbility(ap));
               });
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
-            p.TimingRule(new SecondMain());
-            p.TargetingRule(new OrderByRank(c => c.Score, ControlledBy.SpellOwner));
+            p.TimingRule(new OnSecondMain());
+            p.TargetingRule(new EffectRankBy(c => c.Score, ControlledBy.SpellOwner));
           });
     }
   }

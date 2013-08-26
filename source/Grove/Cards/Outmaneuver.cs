@@ -35,11 +35,11 @@
               });
 
 
-            p.TimingRule(new Steps(activeTurn: true, passiveTurn: false, steps: Step.DeclareBlockers));
-            p.TimingRule(new ControllerHasPermanents(c => c.HasBlockers));
+            p.TimingRule(new OnYourTurn(Step.DeclareBlockers));
+            p.TimingRule(new WhenYouHavePermanents(selector: c => c.HasBlockers));
 
-            p.CostRule(new ControllersProperty(ctrl => ctrl.Battlefield.Creatures.Count(x => x.HasBlockers)));
-            p.TargetingRule(new GainEvasion());
+            p.CostRule(new XIsNumOfBlockedAttackers());
+            p.TargetingRule(new EffectBigWithoutEvasions());
           });
     }
   }

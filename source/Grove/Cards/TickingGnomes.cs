@@ -27,8 +27,8 @@
             p.Cost = new Sacrifice();
             p.Effect = () => new DealDamageToTargets(1);
             p.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
-            p.TargetingRule(new DealDamage(1));
-            p.TimingRule(new TargetRemoval());
+            p.TargetingRule(new EffectDealDamage(1));
+            p.TimingRule(new TargetRemovalTimingRule());
           });
     }
   }

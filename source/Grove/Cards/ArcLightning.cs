@@ -25,7 +25,7 @@
                 trg.Is.CreatureOrPlayer().On.Battlefield();
                 trg.MaxCount = 3;
               });
-            p.TargetingRule(new DealDamage());
+            p.TargetingRule(new EffectDealDamage());
           });
     }
   }

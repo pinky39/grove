@@ -31,9 +31,9 @@
               () => new AddPowerAndToughness(-1, -1) {UntilEot = true},
               () => new AddStaticAbility(Static.Flying) {UntilEot = true}) {ToughnessReduction = 1};
 
-            p.TimingRule(new Steps(Step.BeginningOfCombat));
-            p.TimingRule(new StackIsEmpty());
-            p.TimingRule(new OwningCardHas(c => c.Toughness > 1 && !c.Has().Flying));
+            p.TimingRule(new OnStep(Step.BeginningOfCombat));
+            p.TimingRule(new WhenStackIsEmpty());
+            p.TimingRule(new WhenCardHas(c => c.Toughness > 1 && !c.Has().Flying));
           });
     }
   }

@@ -25,8 +25,8 @@
             p.Effect = () => new CounterTargetSpell(doNotCounterCost: 1);
             p.TargetSelector.AddEffect(trg => trg.Is.CounterableSpell().On.Stack());
 
-            p.TargetingRule(new Artifical.TargetingRules.Counterspell());
-            p.TimingRule(new Artifical.TimingRules.Counterspell(1));
+            p.TargetingRule(new Artifical.TargetingRules.EffectCounterspell());
+            p.TimingRule(new Artifical.TimingRules.WhenTopSpellIsCounterable(1));
           });
     }
   }

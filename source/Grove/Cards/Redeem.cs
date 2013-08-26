@@ -27,7 +27,7 @@
                 trg.MaxCount = 2;
               });
 
-            p.TargetingRule(new Artifical.TargetingRules.PreventNextDamageToTargets());
+            p.TargetingRule(new Artifical.TargetingRules.EffectPreventNextDamageToTargets());
           });
     }
   }

@@ -36,7 +36,7 @@
 
             p.ActivateOnlyOnceEachTurn = true;
 
-            p.TimingRule(new Steps(steps: Step.BeginningOfCombat, activeTurn: true, passiveTurn: false));
+            p.TimingRule(new OnYourTurn(Step.BeginningOfCombat));
           });
     }
   }

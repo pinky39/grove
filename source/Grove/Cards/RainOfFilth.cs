@@ -24,7 +24,7 @@
         .Cast(p =>
           {
             p.Effect = () => new ApplyModifiersToPermanents(
-              permanentFilter: (e, c) => c.Is().Land,
+              selector: (e, c) => c.Is().Land,
               controlledBy: ControlledBy.SpellOwner,
               modifiers: () =>
                 {
@@ -42,7 +42,7 @@
                   return new AddActivatedAbility(new ManaAbility(mp));
                 });
 
-            p.TimingRule(new Steps(activeTurn: true, passiveTurn: false, steps: Step.Upkeep));
+            p.TimingRule(new OnYourTurn(Step.Upkeep));
           });
     }
   }

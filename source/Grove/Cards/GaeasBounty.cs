@@ -25,7 +25,7 @@
               validator: (e, c) => c.Is("forest"),
               text: "Search you library for up to 2 forest cards.");
 
-            p.TimingRule(new FirstMain());
+            p.TimingRule(new OnFirstMain());
           });
     }
   }

@@ -17,7 +17,7 @@
         .Type("Enchantment")
         .Text("Whenever a player casts an enchantment spell, counter it.")
         .FlavorText("Peace to all. Peace be all.")
-        .Cast(p => p.TimingRule(new SecondMain()))
+        .Cast(p => p.TimingRule(new OnSecondMain()))
         .TriggeredAbility(p =>
           {
             p.Text = "Whenever a player casts an enchantment spell, counter it.";

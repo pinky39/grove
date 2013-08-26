@@ -35,8 +35,8 @@
             p.TargetSelector.AddEffect(trg => trg.Is.Card(
               c => c.Is().Creature || c.Is().Land || c.Is().Artifact).On.Battlefield());
 
-            p.TimingRule(new Steps(Step.BeginningOfCombat));
-            p.TargetingRule(new TapCreature());
+            p.TimingRule(new OnStep(Step.BeginningOfCombat));
+            p.TargetingRule(new EffectTapCreature());
           });
     }
   }

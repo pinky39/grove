@@ -40,7 +40,7 @@
           {
             p.Text = "When Dread is put into a graveyard from anywhere, shuffle it into its owner's library.";
             p.Trigger(new OnZoneChanged(to: Zone.Graveyard));
-            p.Effect = () => new ShuffleIntoLibrary();
+            p.Effect = () => new ShuffleOwningCardIntoLibrary();
           });
     }
   }

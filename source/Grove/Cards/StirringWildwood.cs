@@ -41,9 +41,10 @@
                 type: "Land Creature Elemental") {UntilEot = true},
               () => new AddStaticAbility(Static.Reach) {UntilEot = true});
 
-            p.TimingRule(new StackIsEmpty());
-            p.TimingRule(new OwningCardHas(c => !c.Is().Creature));
-            p.TimingRule(new Artifical.TimingRules.ChangeToCreature(4));
+            p.TimingRule(new WhenStackIsEmpty());
+            p.TimingRule(new WhenCardHas(c => !c.Is().Creature));
+            p.TimingRule(new WhenYouHaveMana(4));
+            p.TimingRule(new Any(new BeforeYouDeclareAttackers(), new AfterOpponentDeclaresAttackers()));
           });
     }
   }

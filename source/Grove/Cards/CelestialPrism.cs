@@ -26,7 +26,7 @@
               new Tap());
 
             p.Effect = () => new AddManaToPool(Mana.Any);
-            p.TimingRule(new ManaConverter(relativeCost: 1));
+            p.TimingRule(new ConvertManaTimingRule(relativeCost: 1));
           });
     }
   }

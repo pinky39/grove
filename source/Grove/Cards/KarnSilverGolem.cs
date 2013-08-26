@@ -43,8 +43,8 @@
               .Is.Card(c => c.Is().Artifact && !c.Is().Creature)
               .On.Battlefield());
 
-            p.TimingRule(new Artifical.TimingRules.ChangeToCreature());
-            p.TargetingRule(new OrderByRank(c => -c.ConvertedCost, ControlledBy.SpellOwner));
+            p.TimingRule(new Artifical.TimingRules.BeforeYouDeclareAttackers());
+            p.TargetingRule(new EffectRankBy(c => -c.ConvertedCost, ControlledBy.SpellOwner));
           });
     }
   }

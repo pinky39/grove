@@ -1,7 +1,6 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using System.Linq;
   using Artifical.CostRules;
   using Artifical.TimingRules;
   using Gameplay;
@@ -36,8 +35,8 @@
               validator: (e, c) => c.Is().Creature && c.ConvertedCost <= e.X,
               text: "Search you library for a creature card.");
 
-            p.TimingRule(new EndOfTurn());
-            p.CostRule(new ControllersProperty(ctrl => ctrl.Library.Where(x => x.Is().Creature).Max(x => x.ConvertedCost)));
+            p.TimingRule(new OnEndOfOpponentsTurn());
+            p.CostRule(new XIsMaxCostInYourLibrary(c => c.Is().Creature));
           });
     }
   }

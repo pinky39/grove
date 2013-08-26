@@ -25,7 +25,7 @@
 
             cp.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
 
-            cp.TargetingRule(new DealDamage(p =>
+            cp.TargetingRule(new EffectDealDamage(p =>
               p.Controller.Battlefield.Count(x => x.Is("swamp"))));
           });
     }

@@ -26,7 +26,7 @@
         .SimpleAbilities(Static.Flying)
         .Protections(CardColor.Black)
         .Echo("{3}{W}{W}")        
-        .Cast(p => p.TimingRule(new ControllerGraveyardCountIs(c => c.Is().Creature, minCount: 1)))
+        .Cast(p => p.TimingRule(new WhenYourGraveyardCountIs(c => c.Is().Creature, minCount: 1)))
         .TriggeredAbility(p =>
           {
             p.Text =
@@ -34,7 +34,7 @@
             p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
             p.Effect = () => new PutTargetsToBattlefield();
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().In.YourGraveyard());
-            p.TargetingRule(new OrderByRank(c => -c.Score));
+            p.TargetingRule(new EffectRankBy(c => -c.Score));
           });
     }
   }

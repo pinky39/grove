@@ -19,8 +19,8 @@
         .Cast(p =>
           {
             p.Effect = () => new EachPlayerDiscardsHandAndDrawsGreatestDiscardedCount();
-            p.TimingRule(new SecondMain());
-            p.TimingRule(new ControllerHasMoreCardsInHand(-2));
+            p.TimingRule(new OnSecondMain());
+            p.TimingRule(new WhenYouHaveBiggerHand(-2));
           });
     }
   }

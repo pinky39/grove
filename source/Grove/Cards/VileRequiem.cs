@@ -24,7 +24,7 @@
         .Type("Enchantment")
         .Text(
           "At the beginning of your upkeep, you may put a verse counter on Vile Requiem.{EOL}{1}{B}, Sacrifice Vile Requiem: Destroy up to X target nonblack creatures, where X is the number of verse counters on Vile Requiem. They can't be regenerated.")
-        .Cast(p => p.TimingRule(new SecondMain()))
+        .Cast(p => p.TimingRule(new OnSecondMain()))
         .TriggeredAbility(p =>
           {
             p.Text = "At the beginning of your upkeep, you may put a verse counter on Vile Requiem.";
@@ -51,9 +51,9 @@
                 trg.GetMaxCount = cp => cp.OwningCard.CountersCount();
               });
 
-            p.TimingRule(new MinimumCounters(1, onlyAtEot: false));                        
-            p.TargetingRule(new Destroy());
-            p.TimingRule(new TargetRemoval());
+            p.TimingRule(new WhenCardHasCounters(1, onlyAtEot: false));                        
+            p.TargetingRule(new EffectDestroy());
+            p.TimingRule(new TargetRemovalTimingRule());
           });
     }
   }

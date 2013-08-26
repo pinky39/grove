@@ -40,8 +40,8 @@
             p.Cost = new PayMana("{2}{U}{U}".Parse(), ManaUsage.Abilities);
             p.Effect = () => new Gameplay.Effects.ReturnToHand(returnOwningCard: true);
 
-            p.TimingRule(new OwningCardWillBeDestroyed());
-            p.TimingRule(new SingleInstanceOfSpellOnStack());
+            p.TimingRule(new WhenOwningCardWillBeDestroyed());
+            p.TimingRule(new WhenNoOtherInstanceOfSpellIsOnStack());
           });
     }
   }

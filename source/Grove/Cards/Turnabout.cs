@@ -24,11 +24,11 @@
             p.TargetSelector.AddEffect(trg => trg.Is.Player());
 
             p.TimingRule(new Any(
-              new Steps(activeTurn: false, passiveTurn: true, steps: Step.DeclareAttackers),
-              new Steps(activeTurn: true, passiveTurn: false, steps: Step.BeginningOfCombat),
-              new Steps(activeTurn: false, passiveTurn: true, steps: Step.Upkeep)));
+              new OnOpponentsTurn(Step.DeclareAttackers),
+              new OnYourTurn(Step.BeginningOfCombat),
+              new OnOpponentsTurn(Step.Upkeep)));
 
-            p.TargetingRule(new SelectPlayer((tp, g) =>
+            p.TargetingRule(new EffectSelectPlayer((tp, g) =>
               {
                 if (g.Turn.Step == Step.DeclareAttackers)
                   return tp.Controller;

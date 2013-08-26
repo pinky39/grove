@@ -1,5 +1,6 @@
 ﻿namespace Grove.Gameplay.Costs
 {
+  using System.Linq;
   using Targeting;
 
   public class Reveal : Cost
@@ -9,9 +10,10 @@
       result.CanPay = Card.Controller.Hand.Count > 0;
     }
 
-    protected override void Pay(ITarget target, int? x, int repeat)
-    {
-      target.Card().Reveal();
+    protected override void PayCost(Targets targets, int? x, int repeat)
+    {      
+      var card = targets.Cost.FirstOrDefault().Card();
+      card.Reveal();
     }
   }
 }

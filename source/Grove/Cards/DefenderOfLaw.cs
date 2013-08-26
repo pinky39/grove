@@ -5,7 +5,6 @@
   using Gameplay.Abilities;
   using Gameplay.Characteristics;
   using Gameplay.Misc;
-  using Gameplay.States;
 
   public class DefenderOfLaw : CardTemplateSource
   {
@@ -21,7 +20,7 @@
         .Toughness(1)
         .SimpleAbilities(Static.Flash)
         .Protections(CardColor.Red)
-        .Cast(p => p.TimingRule(new Steps(activeTurn: false, passiveTurn: true, steps: Step.DeclareAttackers)));
+        .Cast(p => p.TimingRule(new AfterOpponentDeclaresAttackers()));
     }
   }
 }

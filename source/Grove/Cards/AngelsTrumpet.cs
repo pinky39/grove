@@ -21,8 +21,8 @@
           "All creatures have vigilance.{EOL}At the beginning of each player's end step, tap all untapped creatures that player controls that didn't attack this turn. Angel's Trumpet deals damage to the player equal to the number of creatures tapped this way.")
         .Cast(p =>
           {
-            p.TimingRule(new FirstMain());
-            p.TimingRule(new ThereCanBeOnlyOne());
+            p.TimingRule(new OnFirstMain());
+            p.TimingRule(new WhenYouDontControlSamePermanent());
           })
         .ContinuousEffect(p =>
           {

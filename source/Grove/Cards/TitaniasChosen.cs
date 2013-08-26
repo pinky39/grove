@@ -21,7 +21,7 @@
         .FlavorText("What do a hero and an arrow have in common? In times of war are many more made.")
         .Power(1)
         .Toughness(1)
-        .Cast(p => p.TimingRule(new FirstMain()))
+        .Cast(p => p.TimingRule(new OnFirstMain()))
         .TriggeredAbility(p =>
           {
             p.Text = "Whenever a player casts a green spell, put a +1/+1 counter on Titania's Chosen.";

@@ -20,8 +20,8 @@
           {
             p.Effect = () => new DestroyTargetPermanents();
             p.TargetSelector.AddEffect(trg => trg.Is.Card(c => c.Is().Artifact).On.Battlefield());
-            p.TargetingRule(new Destroy());
-            p.TimingRule(new TargetRemoval());
+            p.TargetingRule(new EffectDestroy());
+            p.TimingRule(new TargetRemovalTimingRule());
           });
     }
   }

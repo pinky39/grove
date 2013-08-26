@@ -38,9 +38,9 @@
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 
-            p.TargetingRule(new ReduceToughness());
-            p.CostRule(new TargetsLifepoints());
-            p.TimingRule(new TargetRemoval());
+            p.TargetingRule(new EffectReduceToughness());
+            p.CostRule(new XIsTargetsLifepointsLeft());
+            p.TimingRule(new TargetRemovalTimingRule());
           });
     }
   }

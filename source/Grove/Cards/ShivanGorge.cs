@@ -31,7 +31,7 @@
               new Tap());
 
             p.Effect = () => new DealDamageToPlayer(1, P(e => e.Controller.Opponent));
-            p.TimingRule(new Steps(steps: Step.EndOfTurn, activeTurn: true, passiveTurn: true));
+            p.TimingRule(new OnStep(Step.EndOfTurn));
           });
     }
   }

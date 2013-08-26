@@ -24,15 +24,15 @@
               new ModifyPowerToughnessForEachPermanent(
                 power: 1,
                 toughness: 1,
-                filter: c => c.Is("forest"),
+                filter: (c, _) => c.Is("forest"),
                 modifier: () => new IntegerIncrement()))
               {
                 Category = EffectCategories.ToughnessIncrease
               };
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
-            p.TimingRule(new FirstMain());
-            p.TargetingRule(new CombatEnchantment());
+            p.TimingRule(new OnFirstMain());
+            p.TargetingRule(new EffectCombatEnchantment());
           });
     }
   }

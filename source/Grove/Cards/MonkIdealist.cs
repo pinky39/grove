@@ -23,8 +23,8 @@
         .Toughness(2)
         .Cast(p =>
           {
-            p.TimingRule(new FirstMain());
-            p.TimingRule(new ControllerGraveyardCountIs(minCount: 1, selector: c => c.Is().Enchantment));
+            p.TimingRule(new OnFirstMain());
+            p.TimingRule(new WhenYourGraveyardCountIs(minCount: 1, selector: c => c.Is().Enchantment));
           })
         .TriggeredAbility(p =>
           {
@@ -38,7 +38,7 @@
                 trg.Message = "Select an enchantment in your graveyard.";
               });
 
-            p.TargetingRule(new OrderByRank(c => -c.Score));
+            p.TargetingRule(new EffectRankBy(c => -c.Score));
           });
     }
   }

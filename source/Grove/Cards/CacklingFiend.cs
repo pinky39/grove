@@ -19,7 +19,7 @@
         .FlavorText("Its windpipe is only the first to amplify its maddening laughter.")
         .Power(2)
         .Toughness(1)
-        .Cast(p => p.TimingRule(new FirstMain()))
+        .Cast(p => p.TimingRule(new OnFirstMain()))
         .TriggeredAbility(p =>
           {
             p.Text = "When Cackling Fiend enters the battlefield, each opponent discards a card.";

@@ -24,9 +24,8 @@
             p.Cost = new Tap();
             p.Effect = () => new DrawCards(1);
 
-            p.TimingRule(new Turn(active: true, passive: false));
-            p.TimingRule(new StackIsEmpty());
-            p.TimingRule(new FirstMain());
+            p.TimingRule(new OnFirstMain());
+            p.TimingRule(new WhenStackIsEmpty());            
           });
     }
   }

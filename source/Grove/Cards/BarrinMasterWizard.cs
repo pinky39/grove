@@ -40,8 +40,8 @@
                   trg.Message = "Select a creature to bounce.";
                 });
 
-            p.TargetingRule(new SacrificeToBounce());
-            p.TimingRule(new TargetRemoval());
+            p.TargetingRule(new CostSacrificeEffectBounce());
+            p.TimingRule(new TargetRemovalTimingRule());
           });
     }
   }

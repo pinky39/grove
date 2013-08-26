@@ -28,9 +28,9 @@
             p.Cost = new PayLife(8);
             p.Effect = () => new UntapOwner();
 
-            p.TimingRule(new StackIsEmpty());
-            p.TimingRule(new OwningCardHas(c => c.IsTapped));            
-            p.TimingRule(new Steps(activeTurn: true, passiveTurn: true, steps: Step.BeginningOfCombat));
+            p.TimingRule(new WhenStackIsEmpty());
+            p.TimingRule(new WhenCardHas(c => c.IsTapped));            
+            p.TimingRule(new OnStep(Step.BeginningOfCombat));
           });
     }
   }

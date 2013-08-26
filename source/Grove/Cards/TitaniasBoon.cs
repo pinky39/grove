@@ -21,11 +21,11 @@
         .Cast(p =>
           {
             p.Effect = () => new ApplyModifiersToPermanents(
-              permanentFilter: (e, c) => c.Is().Creature,
+              selector: (e, c) => c.Is().Creature,
               controlledBy: ControlledBy.SpellOwner,
               modifiers: () => new AddCounters(() => new PowerToughness(1, 1), 1));
 
-            p.TimingRule(new FirstMain());
+            p.TimingRule(new OnFirstMain());
           });
     }
   }

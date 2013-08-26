@@ -6,7 +6,6 @@
   using Gameplay.Effects;
   using Gameplay.Misc;
   using Gameplay.Modifiers;
-  using Gameplay.States;
 
   public class HopeAndGlory : CardTemplateSource
   {
@@ -31,8 +30,8 @@
                 trg.MaxCount = 2;
               });
 
-            p.TimingRule(new Steps(passiveTurn: true, activeTurn: false, steps: Step.DeclareAttackers));
-            p.TargetingRule(new UntapPermanents());
+            p.TimingRule(new AfterOpponentDeclaresAttackers());
+            p.TargetingRule(new EffectUntapPermanent());
           });
     }
   }

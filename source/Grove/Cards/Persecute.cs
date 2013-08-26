@@ -21,8 +21,8 @@
             p.Effect = () => new DiscardAllCardsOfChosenColor();
             p.TargetSelector.AddEffect(trg => trg.Is.Player());
 
-            p.TimingRule(new FirstMain());
-            p.TargetingRule(new Opponent());
+            p.TimingRule(new OnFirstMain());
+            p.TargetingRule(new EffectOpponent());
           });
     }
   }

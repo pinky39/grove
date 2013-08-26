@@ -32,8 +32,8 @@
             p.Effect = () => new ApplyModifiersToSelf(() => new AddCounters(
               () => new PowerToughness(1, 1), count: 1)) {Category = EffectCategories.ToughnessIncrease};
             
-            p.TimingRule(new Any(new IncreaseOwnersPowerOrToughness(1, 1), new EndOfTurn()));
-            p.RepetitionRule(new MaxRepetitions());
+            p.TimingRule(new Any(new PumpOwningCardTimingRule(1, 1), new OnEndOfOpponentsTurn()));
+            p.RepetitionRule(new RepeatMaxTimes());
           })
         .ActivatedAbility(p =>
           {
@@ -49,9 +49,9 @@
             
             p.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
             
-            p.TimingRule(new OwningCardHas(c => c.CountersCount(CounterType.PowerToughnes) > 0));
-            p.TargetingRule(new DealDamage(p1 => p1.Card.CountersCount(CounterType.PowerToughnes)));            
-            p.TimingRule(new TargetRemoval());
+            p.TimingRule(new WhenCardHas(c => c.CountersCount(CounterType.PowerToughnes) > 0));
+            p.TargetingRule(new EffectDealDamage(p1 => p1.Card.CountersCount(CounterType.PowerToughnes)));            
+            p.TimingRule(new TargetRemovalTimingRule());
           });
 
     }

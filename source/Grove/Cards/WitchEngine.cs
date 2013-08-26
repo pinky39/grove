@@ -32,7 +32,7 @@
               new AddManaToPool("{B}{B}{B}{B}".Parse()),
               new SwitchController());
 
-            p.TimingRule(new ControllerNeedsAdditionalMana(4));
+            p.TimingRule(new WhenYouNeedAdditionalMana(4));
           });
     }
   }

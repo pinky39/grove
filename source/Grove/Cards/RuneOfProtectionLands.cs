@@ -19,7 +19,7 @@
         .Type("Enchantment")
         .Text(
           "{W}: The next time a land source of your choice would deal damage to you this turn, prevent that damage.{EOL}Cycling {2} ({2}, Discard this card: Draw a card.)")
-        .Cast(p => p.TimingRule(new FirstMain()))
+        .Cast(p => p.TimingRule(new OnFirstMain()))
         .Cycling("{2}")
         .ActivatedAbility(p =>
           {
@@ -34,7 +34,7 @@
                 trg.Message = "Select damage source.";
               });
 
-            p.TargetingRule(new Artifical.TargetingRules.PreventDamageFromSourceToController());
+            p.TargetingRule(new Artifical.TargetingRules.EffectPreventDamageFromSourceToController());
           });
     }
   }

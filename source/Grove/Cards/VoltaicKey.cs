@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Artifical.TargetingRules;
   using Artifical.TimingRules;
@@ -9,7 +8,6 @@
   using Gameplay.Effects;
   using Gameplay.ManaHandling;
   using Gameplay.Misc;
-  using Gameplay.States;
 
   public class VoltaicKey : CardTemplateSource
   {
@@ -32,8 +30,8 @@
             p.Effect = () => new UntapTargetPermanents();
             p.TargetSelector.AddEffect(trg => trg.Is.Card(c => c.Is().Artifact).On.Battlefield());
 
-            p.TimingRule(new Steps(Step.FirstMain, Step.SecondMain));
-            p.TargetingRule(new OrderByRank(c => -c.Score, ControlledBy.SpellOwner) {ConsiderTargetingSelf = false});
+            p.TimingRule(new OnMainStepsOfYourTurn());
+            p.TargetingRule(new EffectRankBy(c => -c.Score, ControlledBy.SpellOwner) {ConsiderTargetingSelf = false});
           });
     }
   }

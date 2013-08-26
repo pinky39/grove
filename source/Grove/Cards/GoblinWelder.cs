@@ -45,8 +45,8 @@
                 return vp.Effect[0].Card().Controller == vp.Effect[1].Card().Controller;
               };
 
-            p.TargetingRule(new Artifical.TargetingRules.ExchangeCardsInBattlefieldAndGraveyard());
-            p.TimingRule(new MainSteps());
+            p.TargetingRule(new Artifical.TargetingRules.EffectExchangeBattlefieldGraveyard());
+            p.TimingRule(new OnMainStepsOfYourTurn());
           });
     }
   }

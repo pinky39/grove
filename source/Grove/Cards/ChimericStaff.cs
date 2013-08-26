@@ -30,10 +30,11 @@
                 power: Value.PlusX, toughness: Value.PlusX,
                 type: "Creature Artifact Construct") {UntilEot = true});
 
-            p.TimingRule(new StackIsEmpty());
-            p.TimingRule(new OwningCardHas(c => !c.Is().Creature));
-            p.TimingRule(new Artifical.TimingRules.ChangeToCreature(minAvailableMana: 3));
-            p.CostRule(new MaxAvailableMana());
+            p.TimingRule(new WhenStackIsEmpty());
+            p.TimingRule(new WhenCardHas(c => !c.Is().Creature));
+            p.TimingRule(new WhenYouHaveMana(3));
+            p.TimingRule(new Any(new BeforeYouDeclareAttackers(), new AfterOpponentDeclaresAttackers()));
+            p.CostRule(new XIsAvailableMana());
           }
         );
     }

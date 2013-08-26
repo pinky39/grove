@@ -23,8 +23,8 @@
               amountCreature: (e, creature) => e.X.GetValueOrDefault(),
               filterCreature: (effect, card) => !card.Has().Flying);
 
-            p.TimingRule(new MassRemoval());
-            p.CostRule(new MaxAvailableMana());
+            p.TimingRule(new MassRemovalTimingRule());
+            p.CostRule(new XIsAvailableMana());
           });
     }
   }

@@ -19,7 +19,7 @@
         .Text("Whenever a creature enters the battlefield, its controller sacrifices a creature or land.")
         .FlavorText(
           "Gix despised the sylvan morass. The gouge that the portal had torn in the forest was the only pleasing sight.")
-        .Cast(p => p.TimingRule(new SecondMain()))
+        .Cast(p => p.TimingRule(new OnSecondMain()))
         .TriggeredAbility(p =>
           {
             p.Text = "Whenever a creature enters the battlefield, its controller sacrifices a creature or land.";

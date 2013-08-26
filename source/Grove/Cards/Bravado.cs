@@ -24,8 +24,8 @@
               {Category = EffectCategories.ToughnessIncrease};
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
-            p.TimingRule(new FirstMain());
-            p.TargetingRule(new CombatEnchantment());
+            p.TimingRule(new OnFirstMain());
+            p.TargetingRule(new EffectCombatEnchantment());
           });
     }
   }

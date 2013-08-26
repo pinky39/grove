@@ -42,9 +42,10 @@
                 colors: L(CardColor.Blue, CardColor.Black)) {UntilEot = true},
               () => new AddStaticAbility(Static.Unblockable) {UntilEot = true});
 
-            p.TimingRule(new StackIsEmpty());
-            p.TimingRule(new OwningCardHas(c => !c.Is().Creature));
-            p.TimingRule(new Artifical.TimingRules.ChangeToCreature(minAvailableMana: 4));
+            p.TimingRule(new WhenStackIsEmpty());
+            p.TimingRule(new WhenCardHas(c => !c.Is().Creature));
+            p.TimingRule(new WhenYouHaveMana(4));
+            p.TimingRule(new Any(new BeforeYouDeclareAttackers(), new AfterOpponentDeclaresAttackers()));
           });
     }
   }

@@ -24,8 +24,8 @@
               .Is.Card(c => c.Is().Creature && c.Has().Flying)
               .On.Battlefield());
 
-            p.TargetingRule(new Destroy());
-            p.TimingRule(new FirstMain());
+            p.TargetingRule(new EffectDestroy());
+            p.TimingRule(new OnFirstMain());
           });
     }
   }

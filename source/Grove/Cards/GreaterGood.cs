@@ -20,8 +20,8 @@
         .FlavorText("We have more sprouts than they have hands.")
         .Cast(p =>
           {
-            p.TimingRule(new FirstMain());
-            p.TimingRule(new ThereCanBeOnlyOne());
+            p.TimingRule(new OnFirstMain());
+            p.TimingRule(new WhenYouDontControlSamePermanent());
           })
         .ActivatedAbility(p =>
           {
@@ -38,7 +38,7 @@
                 trg.Message = "Select a creature to sacrifice.";
               });
 
-            p.TargetingRule(new SacrificeToDrawCards(c => c.Power > 3));
+            p.TargetingRule(new CostSacrificeToDrawCards(c => c.Power > 3));
           }
         );
     }

@@ -4,6 +4,7 @@
   using Artifical.TimingRules;
   using Gameplay.Effects;
   using Gameplay.Misc;
+  using Gameplay.States;
 
   public class HarmonicConvergence : CardTemplateSource
   {
@@ -18,7 +19,11 @@
         .Cast(p =>
           {
             p.Effect = () => new PutAllPermanentsOnTopOfLibrary(c => c.Is().Enchantment);
-            p.TimingRule(new Any(new ModifyAttackersAndBlockers(), new EndOfTurn()));
+            
+            p.TimingRule(new Any(
+              new OnOpponentsTurn(Step.DeclareAttackers), 
+              new OnYourTurn(Step.DeclareBlockers),
+              new OnEndOfOpponentsTurn()));
           });
     }
   }

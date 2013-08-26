@@ -19,8 +19,8 @@
           {
             p.Effect = () => new ExileTargets(controllerGainsLifeEqualToToughness: true);
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
-            p.TargetingRule(new Exile());
-            p.TimingRule(new TargetRemoval());
+            p.TargetingRule(new EffectExileBattlefield());
+            p.TimingRule(new TargetRemovalTimingRule());
           });
     }
   }

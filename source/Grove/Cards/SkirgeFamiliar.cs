@@ -29,8 +29,8 @@
             p.Effect = () => new AddManaToPool(Mana.Black);
             p.TargetSelector.AddCost(trg => trg.Is.Card().In.OwnersHand());
 
-            p.TimingRule(new ControllerNeedsAdditionalMana(1));
-            p.TargetingRule(new OrderByRank(c => c.Score));
+            p.TimingRule(new WhenYouNeedAdditionalMana(1));
+            p.TargetingRule(new EffectRankBy(c => c.Score));
             p.UsesStack = false;
           });
     }

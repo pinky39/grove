@@ -8,7 +8,7 @@
     private readonly Func<Player, int> _selector;
 
     private ControllersProperty() {}
-
+    
     public ControllersProperty(Func<Player, int> selector)
     {
       _selector = selector;

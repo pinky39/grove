@@ -18,7 +18,7 @@
         .Type("Artifact")
         .Text(
           "At the beginning of your upkeep, you may put a soot counter on Smokestack.{EOL}At the beginning of each player's upkeep, that player sacrifices a permanent for each soot counter on Smokestack.")
-        .Cast(p => p.TimingRule(new SecondMain()))
+        .Cast(p => p.TimingRule(new OnSecondMain()))
         .TriggeredAbility(p =>
           {
             p.Text = "At the beginning of your upkeep, you may put a soot counter on Smokestack.";

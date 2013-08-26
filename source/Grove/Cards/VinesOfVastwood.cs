@@ -28,7 +28,7 @@
               {Category = EffectCategories.Protector};
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
-            p.TargetingRule(new GainHexproof());
+            p.TargetingRule(new EffectGiveHexproof());
           })
         .Cast(p =>
           {
@@ -40,7 +40,7 @@
               {Category = EffectCategories.Protector | EffectCategories.ToughnessIncrease};
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
-            p.TargetingRule(new IncreasePowerOrToughness(4, 4));
+            p.TargetingRule(new EffectPump(4, 4));
           });
     }
   }

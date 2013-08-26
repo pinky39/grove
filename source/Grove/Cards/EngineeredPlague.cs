@@ -18,7 +18,7 @@
         .Text(
           "As Engineered Plague enters the battlefield, choose a creature type.{EOL}All creatures of the chosen type get -1/-1.")
         .FlavorText("The admixture of bitterwort in the viral brew has produced most favorable results.")
-        .Cast(p => p.TimingRule(new FirstMain()))
+        .Cast(p => p.TimingRule(new OnFirstMain()))
         .TriggeredAbility(p =>
           {
             p.Trigger(new OnZoneChanged(to: Zone.Battlefield));

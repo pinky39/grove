@@ -27,7 +27,7 @@
               text: "Select creature to return to hand"
               );
 
-            p.TimingRule(new NonTargetRemoval(1));
+            p.TimingRule(new NonTargetRemovalTimingRule(1));
           });
     }
   }

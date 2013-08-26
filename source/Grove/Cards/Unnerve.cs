@@ -19,7 +19,7 @@
         .Cast(p =>
           {
             p.Effect = () => new OpponentDiscardsCards(selectedCount: 2);
-            p.TimingRule(new FirstMain());
+            p.TimingRule(new OnFirstMain());
           });
     }
   }

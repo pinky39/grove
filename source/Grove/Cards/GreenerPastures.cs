@@ -1,5 +1,6 @@
 ﻿namespace Grove.Cards
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Artifical.TimingRules;
@@ -21,8 +22,8 @@
           "At the beginning of each player's upkeep, if that player controls more lands than each other player, the player puts a 1/1 green Saproling creature token onto the battlefield.")
         .Cast(p =>
           {
-            p.TimingRule(new SecondMain());
-            p.TimingRule(new ControllerHasMorePermanents(c => c.Is().Land));
+            p.TimingRule(new OnSecondMain());
+            p.TimingRule(new WhenYouHaveMorePermanents(c => c.Is().Land));
           })
         .TriggeredAbility(p =>
           {

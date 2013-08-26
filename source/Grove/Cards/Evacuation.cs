@@ -1,9 +1,11 @@
 ﻿namespace Grove.Cards
 {
+  using System;
   using System.Collections.Generic;
   using Artifical.TimingRules;
   using Gameplay.Effects;
   using Gameplay.Misc;
+  using Gameplay.States;
 
   public class Evacuation : CardTemplateSource
   {
@@ -18,7 +20,10 @@
         .Cast(p =>
           {
             p.Effect = () => new ReturnAllPermanentsToHand(c => c.Is().Creature);
-            p.TimingRule(new BounceAll());
+            
+            p.TimingRule(new Any(
+              new OnYourTurn(Step.EndOfCombat), 
+              new AfterOpponentDeclaresAttackers()));
           });
     }
   }

@@ -18,7 +18,7 @@
         .Type("Enchantment")
         .Text("Whenever another card is put into a graveyard from anywhere, exile that card.")
         .FlavorText("'Planeswalking isn't about walking. It's about falling and screaming.'")
-        .Cast(p => p.TimingRule(new FirstMain()))
+        .Cast(p => p.TimingRule(new OnFirstMain()))
         .TriggeredAbility(p =>
           {
             p.Text = "Whenever another card is put into a graveyard from anywhere, exile that card.";

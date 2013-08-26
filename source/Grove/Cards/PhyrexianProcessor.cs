@@ -9,7 +9,6 @@
   using Gameplay.Effects;
   using Gameplay.ManaHandling;
   using Gameplay.Misc;
-  using Gameplay.States;
   using Gameplay.Triggers;
   using Gameplay.Zones;
 
@@ -24,7 +23,7 @@
         .Text(
           "As Phyrexian Processor enters the battlefield, pay any amount of life.{EOL}{4},{T}: Put an X/X black Minion creature token onto the battlefield, where X is the life paid as Phyrexian Processor entered the battlefield.")
         .OverrideScore(new ScoreOverride {Hand = 50})
-        .Cast(p => p.TimingRule(new SecondMain()))
+        .Cast(p => p.TimingRule(new OnSecondMain()))
         .TriggeredAbility(p =>
           {
             p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
@@ -54,8 +53,9 @@
                 });
 
             p.TimingRule(new Any(
-              new Steps(passiveTurn: true, activeTurn: false, steps: Step.DeclareAttackers),
-              new OwningCardWillBeDestroyed()));
+              new AfterOpponentDeclaresAttackers(),
+              new WhenOwningCardWillBeDestroyed(),
+              new OnEndOfOpponentsTurn()));
           });
     }
   }

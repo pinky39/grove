@@ -33,7 +33,7 @@
               .Is.Card(c => c.Is().Creature && !c.HasColor(CardColor.Black) && !c.Is().Artifact)
               .On.Battlefield());
 
-            p.TargetingRule(new Destroy());
+            p.TargetingRule(new EffectDestroy());
           });
     }
   }

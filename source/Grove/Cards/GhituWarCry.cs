@@ -30,8 +30,8 @@
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 
-            p.TargetingRule(new IncreasePowerOrToughness(1, 0));
-            p.RepetitionRule(new MaxRepetitions());
+            p.TargetingRule(new EffectPump(1, 0));
+            p.RepetitionRule(new RepeatMaxTimes());
           });
     }
   }

@@ -19,7 +19,13 @@
         .Toughness(0)
         .StaticAbility(p =>
           {
-            p.Modifier(() => new ModifyPowerToughnessEqualToTotalCreatureCount());
+            p.Modifier(() => new ModifyPowerToughnessForEachPermanent(
+              power: 1,
+              toughness:1,
+              filter: (c, _) => c.Is().Creature,
+              modifier: () => new IntegerSetter(),
+              controlledBy: ControlledBy.Any));
+            
             p.EnabledInAllZones = true;
           });
     }

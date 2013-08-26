@@ -21,7 +21,7 @@
         // try to override this by adjusting the score to a very low value, which will cause the discarded cards to contribute
         // enough points so ai will at least activate this when it doesn't have anything better.
         .OverrideScore(new ScoreOverride {Hand = 5, Battlefield = 6, Graveyard = 4})
-        .Cast(p => p.TimingRule(new SecondMain()))
+        .Cast(p => p.TimingRule(new OnSecondMain()))
         .ActivatedAbility(p =>
           {
             p.Text =
@@ -33,8 +33,8 @@
 
             p.Effect = () => new PlayersReplaceTheirHandWithNewOneUntilEot();
 
-            p.TimingRule(new StackIsEmpty());
-            p.TimingRule(new FirstMain());
+            p.TimingRule(new WhenStackIsEmpty());
+            p.TimingRule(new OnFirstMain());
           });
     }
   }

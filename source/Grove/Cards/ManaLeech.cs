@@ -38,10 +38,9 @@
                   return modifier;
                 }));
 
-            p.TargetSelector.AddEffect(trg => trg.Is.Card(c => c.Is().Land).On.Battlefield());
-            p.TimingRule(new Turn(passive: true));
-            p.TimingRule(new Steps(Step.Upkeep));
-            p.TargetingRule(new TapLands());
+            p.TargetSelector.AddEffect(trg => trg.Is.Card(c => c.Is().Land).On.Battlefield());            
+            p.TimingRule(new OnOpponentsTurn(Step.Upkeep));
+            p.TargetingRule(new EffectTapLand());
           });
     }
   }

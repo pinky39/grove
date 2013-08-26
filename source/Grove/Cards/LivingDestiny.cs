@@ -29,8 +29,8 @@
 
             p.Effect = () => new ControllerGainsLife(P(e => e.Target.Card().ManaCost.Converted));
             p.TargetSelector.AddCost(trg => trg.Is.Creature().In.OwnersHand());
-            p.TimingRule(new EndOfTurn());
-            p.TargetingRule(new OrderByRank(c => -c.ConvertedCost));
+            p.TimingRule(new OnEndOfOpponentsTurn());
+            p.TargetingRule(new EffectRankBy(c => -c.ConvertedCost));
           });
     }
   }

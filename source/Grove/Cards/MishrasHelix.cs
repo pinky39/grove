@@ -1,7 +1,6 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using System.Linq;
   using Artifical.CostRules;
   using Artifical.TargetingRules;
   using Artifical.TimingRules;
@@ -23,7 +22,7 @@
         .Type("Artifact")
         .Text("{X},{T}: Tap X target lands.")
         .FlavorText(
-          "The helix was the finest example of Mishra's campaign strategy: if he couldn't have Argoth, no one could.")        
+          "The helix was the finest example of Mishra's campaign strategy: if he couldn't have Argoth, no one could.")
         .ActivatedAbility(p =>
           {
             p.Text = "{X},{T}: Tap X target lands.";
@@ -41,10 +40,10 @@
                 trg.Is.Card(c => c.Is().Land).On.Battlefield();
               });
 
-            p.TimingRule(new Steps(steps: Step.Upkeep, activeTurn: false, passiveTurn: true));
-            p.TimingRule(new OpponentHasPermanents(x => x.Is().Land));
-            p.CostRule(new ControllersProperty(ctrl => ctrl.Opponent.Battlefield.Lands.Count()));
-            p.TargetingRule(new TapLands());
+            p.TimingRule(new OnOpponentsTurn(Step.Upkeep));
+            p.TimingRule(new WhenOpponentControllsPermanents(x => x.Is().Land));
+            p.CostRule(new XIsOpponentsLandCount());
+            p.TargetingRule(new EffectTapLand());
           });
     }
   }

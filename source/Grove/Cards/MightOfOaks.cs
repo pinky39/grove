@@ -24,7 +24,7 @@
               {Category = EffectCategories.ToughnessIncrease};
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
-            p.TargetingRule(new IncreasePowerOrToughness(7, 7));
+            p.TargetingRule(new EffectPump(7, 7));
           });
     }
   }

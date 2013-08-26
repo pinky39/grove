@@ -22,7 +22,7 @@
               amountPlayer: 2,
               amountCreature: 2) {CanBeCountered = false};
 
-            p.TimingRule(new MassRemoval());
+            p.TimingRule(new MassRemovalTimingRule());
           });
     }
   }

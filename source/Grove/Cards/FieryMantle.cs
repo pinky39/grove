@@ -34,15 +34,15 @@
                     Effect = () => new ApplyModifiersToSelf(() => new AddPowerAndToughness(1, 0) {UntilEot = true})
                   };
 
-                ap.TimingRule(new IncreaseOwnersPowerOrToughness(1, 0));
+                ap.TimingRule(new PumpOwningCardTimingRule(1, 0));
 
                 return new AddActivatedAbility(new ActivatedAbility(ap));
               });
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 
-            p.TimingRule(new FirstMain());
-            p.TargetingRule(new CombatEnchantment());
+            p.TimingRule(new OnFirstMain());
+            p.TargetingRule(new EffectCombatEnchantment());
           })
         .TriggeredAbility(p =>
           {

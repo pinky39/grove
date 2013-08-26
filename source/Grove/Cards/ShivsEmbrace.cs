@@ -37,16 +37,16 @@
                       Effect = () => new ApplyModifiersToSelf(() => new AddPowerAndToughness(1, 0) {UntilEot = true})
                     };
 
-                  ap.TimingRule(new IncreaseOwnersPowerOrToughness(1, 0));
-                  ap.RepetitionRule(new MaxRepetitions());
+                  ap.TimingRule(new PumpOwningCardTimingRule(1, 0));
+                  ap.RepetitionRule(new RepeatMaxTimes());
                   return new AddActivatedAbility(new ActivatedAbility(ap));
                 },
               () => new AddPowerAndToughness(2, 2),
               () => new AddStaticAbility(Static.Flying)) {Category = EffectCategories.ToughnessIncrease};
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
-            p.TimingRule(new FirstMain());
-            p.TargetingRule(new CombatEnchantment());
+            p.TimingRule(new OnFirstMain());
+            p.TargetingRule(new EffectCombatEnchantment());
           });
     }
   }

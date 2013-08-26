@@ -18,7 +18,7 @@
         .Cast(p =>
           {
             p.Effect = () => new DrawCards(2, discardCount: 1);
-            p.TimingRule(new EndOfTurn());
+            p.TimingRule(new OnEndOfOpponentsTurn());
           });
     }
   }

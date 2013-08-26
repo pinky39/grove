@@ -35,8 +35,8 @@
                   .Type("Creature Token Soldier")
                   .Colors(CardColor.White)));
 
-            p.TimingRule(new SecondMain());
-            p.CostRule(new Artifical.CostRules.MartialCoup(5));
+            p.TimingRule(new OnSecondMain());
+            p.CostRule(new Artifical.CostRules.XIsGreaterThan4IfOpponentHasBetterCreatures(5));
           });
     }
   }

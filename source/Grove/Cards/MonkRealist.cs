@@ -22,8 +22,8 @@
         .Toughness(1)
         .Cast(p =>
           {
-            p.TimingRule(new FirstMain());
-            p.TimingRule(new OpponentHasPermanents(c => c.Is().Enchantment));
+            p.TimingRule(new OnFirstMain());
+            p.TimingRule(new WhenOpponentControllsPermanents(c => c.Is().Enchantment));
           })
         .TriggeredAbility(p =>
           {
@@ -32,7 +32,7 @@
             p.Effect = () => new DestroyTargetPermanents();
             p.TargetSelector.AddEffect(trg => trg.Is.Enchantment().On.Battlefield());
 
-            p.TargetingRule(new Destroy());
+            p.TargetingRule(new EffectDestroy());
           }
         );
     }

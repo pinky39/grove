@@ -18,7 +18,7 @@
         .Cast(p =>
           {
             p.Effect = () => new DrawCards(count: 3, discardCount: 1);
-            p.TimingRule(new FirstMain());
+            p.TimingRule(new OnFirstMain());
           });
     }
   }

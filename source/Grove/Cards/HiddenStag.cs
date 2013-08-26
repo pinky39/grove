@@ -17,7 +17,7 @@
         .Type("Enchantment")
         .Text(
           "Whenever an opponent plays a land, if Hidden Stag is an enchantment, Hidden Stag becomes a 3/2 Elk Beast creature.{EOL}Whenever you play a land, if Hidden Stag is a creature, Hidden Stag becomes an enchantment.")
-        .Cast(p => p.TimingRule(new SecondMain()))
+        .Cast(p => p.TimingRule(new OnSecondMain()))
         .TriggeredAbility(p =>
           {
             p.Text =

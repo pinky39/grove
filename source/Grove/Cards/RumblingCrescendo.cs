@@ -23,7 +23,7 @@
         .Type("Enchantment")
         .Text(
           "At the beginning of your upkeep, you may put a verse counter on Rumbling Crescendo.{EOL}{R}, Sacrifice Rumbling Crescendo: Destroy up to X target lands, where X is the number of verse counters on Rumbling Crescendo.")
-        .Cast(p => p.TimingRule(new SecondMain()))
+        .Cast(p => p.TimingRule(new OnSecondMain()))
         .TriggeredAbility(p =>
           {
             p.Text = "At the beginning of your upkeep, you may put a verse counter on Rumbling Crescendo.";
@@ -50,9 +50,9 @@
                 trg.GetMaxCount = cp => cp.OwningCard.CountersCount();
               });
 
-            p.TimingRule(new MinimumCounters(3, onlyAtEot: false));
-            p.TimingRule(new Steps(activeTurn: true, passiveTurn: false, steps: Step.FirstMain));
-            p.TargetingRule(new Destroy());
+            p.TimingRule(new WhenCardHasCounters(minCount: 3, onlyAtEot: false));
+            p.TimingRule(new OnFirstMain());
+            p.TargetingRule(new EffectDestroy());
           });
     }
   }

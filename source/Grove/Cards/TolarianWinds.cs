@@ -19,8 +19,8 @@
         .Cast(p =>
           {
             p.Effect = () => new DiscardAndDrawANewHand();
-            p.TimingRule(new EndOfTurn());
-            p.TimingRule(new ControllerHandCountIs(minCount: 2));
+            p.TimingRule(new OnEndOfOpponentsTurn());
+            p.TimingRule(new WhenYourHandCountIs(minCount: 2));
           });
     }
   }

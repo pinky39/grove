@@ -4,7 +4,6 @@
   using Artifical.TimingRules;
   using Gameplay.Effects;
   using Gameplay.Misc;
-  using Gameplay.States;
 
   public class BlessedReversal : CardTemplateSource
   {
@@ -19,10 +18,10 @@
         .Cast(p =>
           {
             p.Effect = () => new ControllerGainsLife(
-              amount: P((e, g) => e.Controller.IsActive ? 0 
-              : g.Combat.AttackerCount*3));
-            
-            p.TimingRule(new Steps(activeTurn: false, passiveTurn: true, steps: Step.DeclareAttackers));
+              amount: P((e, g) => e.Controller.IsActive ? 0
+                : g.Combat.AttackerCount*3));
+
+            p.TimingRule(new AfterOpponentDeclaresAttackers());
           });
     }
   }

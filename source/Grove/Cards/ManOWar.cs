@@ -24,9 +24,9 @@
         .Toughness(2)
         .Cast(p =>
           {
-            p.TimingRule(new OpponentHasPermanents(
+            p.TimingRule(new WhenOpponentControllsPermanents(
               card => card.Is().Creature && card.CanBeTargetBySpellsWithColor(CardColor.Blue)));
-            p.TimingRule(new FirstMain());
+            p.TimingRule(new OnFirstMain());
           })
         .TriggeredAbility(p =>
           {
@@ -34,7 +34,7 @@
             p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
             p.Effect = () => new ReturnToHand {Category = EffectCategories.Bounce};
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
-            p.TargetingRule(new Bounce());
+            p.TargetingRule(new EffectBounce());
           });
     }
   }

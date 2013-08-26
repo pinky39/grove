@@ -39,7 +39,7 @@
                   trg.Message = "Select creature or player.";
                 });
 
-            p.TargetingRule(new SacrificeACreatureToPreventDamageFromSourceToTarget());
+            p.TargetingRule(new CostSacrificeEffectPreventDamageFromSourceToTarget());
           });
     }
   }

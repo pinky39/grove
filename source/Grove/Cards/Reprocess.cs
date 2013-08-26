@@ -22,7 +22,7 @@
               text: "Sacrifice any number of artifacts, creatures, and/or lands.",
               validator: c => c.Is().Land || c.Is().Creature || c.Is().Artifact);
 
-            p.TimingRule(new SecondMain());
+            p.TimingRule(new OnSecondMain());
           });
     }
   }

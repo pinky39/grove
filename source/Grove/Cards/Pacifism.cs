@@ -10,7 +10,6 @@
   using Gameplay.Misc;
   using Gameplay.Modifiers;
 
-
   public class Pacifism : CardTemplateSource
   {
     public override IEnumerable<CardTemplate> GetCards()
@@ -32,8 +31,8 @@
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 
-            p.TimingRule(new FirstMain());
-            p.TargetingRule(new CombatDisabler());
+            p.TimingRule(new OnFirstMain());
+            p.TargetingRule(new EffectCannotBlockAttack());
           });
     }
   }

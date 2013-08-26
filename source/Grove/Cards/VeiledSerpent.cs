@@ -20,7 +20,7 @@
         .Text(
           "When an opponent casts a spell, if Veiled Serpent is an enchantment, Veiled Serpent becomes a 4/4 Serpent creature that can't attack unless defending player controls an Island.{EOL}Cycling {2} ({2}, Discard this card: Draw a card.")
         .Cycling("{2}")
-        .Cast(p => p.TimingRule(new FirstMain()))
+        .Cast(p => p.TimingRule(new OnFirstMain()))
         .TriggeredAbility(p =>
           {
             p.Text =

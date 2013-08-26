@@ -19,7 +19,7 @@
         .Cast(p =>
           {
             p.Effect = () => new DestroyAllLandsOrCreatures();
-            p.TimingRule(new SecondMain());
+            p.TimingRule(new OnSecondMain());
           });
     }
   }

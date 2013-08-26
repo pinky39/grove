@@ -23,8 +23,8 @@
           "Creatures you control have haste.{EOL}Sacrifice Fires of Yavimaya: Target creature gets +2/+2 until end of turn.")
         .Cast(p =>
           {
-            p.TimingRule(new FirstMain());
-            p.TimingRule(new ThereCanBeOnlyOne());
+            p.TimingRule(new OnFirstMain());
+            p.TimingRule(new WhenYouDontControlSamePermanent());
           })
         .ContinuousEffect(p =>
           {
@@ -40,7 +40,7 @@
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 
-            p.TargetingRule(new IncreasePowerOrToughness(2, 2));
+            p.TargetingRule(new EffectPump(2, 2));
           }
         );
     }

@@ -39,8 +39,8 @@
                 trg.Message = "Select a land to sacrifice.";
               });
 
-            p.TimingRule(new FirstMain());
-            p.TargetingRule(new SacrificeLand());
+            p.TimingRule(new OnFirstMain());
+            p.TargetingRule(new CostSacrificeLandToSearchLand());
           });
     }
   }

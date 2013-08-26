@@ -22,7 +22,7 @@
         .Type("Enchantment")
         .Text(
           "At the beginning of your upkeep, you may put a verse counter on Discordant Dirge.{EOL}{B}, Sacrifice Discordant Dirge: Look at target opponent's hand and choose up to X cards from it, where X is the number of verse counters on Discordant Dirge. That player discards those cards.")
-        .Cast(p => p.TimingRule(new SecondMain()))
+        .Cast(p => p.TimingRule(new OnSecondMain()))
         .TriggeredAbility(p =>
           {
             p.Text = "At the beginning of your upkeep, you may put a verse counter on Discordant Dirge.";
@@ -44,7 +44,7 @@
               selectedCount: P(e => e.Source.OwningCard.Counters),
               youChooseDiscardedCards: true);
 
-            p.TimingRule(new MinimumCounters(3));
+            p.TimingRule(new WhenCardHasCounters(3));
           });
     }
   }

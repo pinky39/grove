@@ -25,7 +25,7 @@
         .Text(
           "Sacrifice No Rest for the Wicked: Return to your hand all creature cards in your graveyard that were put there from the battlefield this turn.")
         .FlavorText("The soul? Here, we have no use for such frivolities.")
-        .Cast(p => p.TimingRule(new SecondMain()))
+        .Cast(p => p.TimingRule(new OnSecondMain()))
         .ActivatedAbility(p =>
           {
             p.Text =
@@ -34,8 +34,8 @@
 
             p.Effect = () => new ReturnAllCardsInGraveyardToHand(WasPutIntoGraveyardThisTurnFromBattlefield);
 
-            p.TimingRule(new Any(new Steps(Step.EndOfTurn), new OwningCardWillBeDestroyed()));
-            p.TimingRule(new ControllerGraveyardCountIs(minCount: 1,
+            p.TimingRule(new Any(new OnStep(Step.EndOfTurn), new WhenOwningCardWillBeDestroyed()));
+            p.TimingRule(new WhenYourGraveyardCountIs(minCount: 1,
               selector: WasPutIntoGraveyardThisTurnFromBattlefield));
           });
     }

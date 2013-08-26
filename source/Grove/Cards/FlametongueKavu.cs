@@ -22,7 +22,7 @@
         .FlavorText("For dim-witted, thick-skulled genetic mutants, they have pretty good aim.")
         .Power(4)
         .Toughness(2)
-        .Cast(p => p.TimingRule(new OpponentHasPermanents(
+        .Cast(p => p.TimingRule(new WhenOpponentControllsPermanents(
           card => card.Is().Creature && card.Life <= 4 &&
             card.CanBeTargetBySpellsWithColor(CardColor.Red))))
         .TriggeredAbility(p =>
@@ -31,7 +31,7 @@
             p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
             p.Effect = () => new DealDamageToTargets(4);
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
-            p.TargetingRule(new DealDamage(4));
+            p.TargetingRule(new EffectDealDamage(4));
           });
     }
   }

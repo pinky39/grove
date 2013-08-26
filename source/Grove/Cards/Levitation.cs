@@ -18,8 +18,8 @@
         .FlavorText("Barrin's pride in his apprentice was diminished somewhat when he had to get the others back down.")
         .Cast(p =>
           {
-            p.TimingRule(new FirstMain());
-            p.TimingRule(new ThereCanBeOnlyOne());
+            p.TimingRule(new OnFirstMain());
+            p.TimingRule(new WhenYouDontControlSamePermanent());
           })
         .ContinuousEffect(p =>
           {

@@ -39,9 +39,10 @@
                 colors: L(CardColor.White),
                 type: "Land Creature Soldier") { UntilEot = true });
 
-            p.TimingRule(new StackIsEmpty());
-            p.TimingRule(new OwningCardHas(c => !c.Is().Creature));
-            p.TimingRule(new ChangeToCreature(minAvailableMana: 3));
+            p.TimingRule(new WhenStackIsEmpty());
+            p.TimingRule(new WhenCardHas(c => !c.Is().Creature));
+            p.TimingRule(new WhenYouHaveMana(3));
+            p.TimingRule(new Any(new BeforeYouDeclareAttackers(), new AfterOpponentDeclaresAttackers()));
           });
     }
   }

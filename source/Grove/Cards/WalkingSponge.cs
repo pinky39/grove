@@ -28,8 +28,8 @@
             p.Effect = () => new TargetLoosesChosenAbility(Static.Flying, Static.FirstStrike, Static.Trample);
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 
-            p.TargetingRule(new LooseEvasion(Static.Flying, Static.FirstStrike, Static.Trample));
-            p.TimingRule(new Steps(activeTurn: true, passiveTurn: true, steps: Step.BeginningOfCombat));
+            p.TargetingRule(new EffectLooseEvasion(Static.Flying, Static.FirstStrike, Static.Trample));
+            p.TimingRule(new OnStep(Step.BeginningOfCombat));
           });
     }
   }

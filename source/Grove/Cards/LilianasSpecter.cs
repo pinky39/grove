@@ -20,7 +20,7 @@
         .FlavorText("'The finest minions know what I need without me ever saying a thing.'")
         .Power(2)
         .Toughness(1)
-        .Cast(p => p.TimingRule(new FirstMain()))
+        .Cast(p => p.TimingRule(new OnFirstMain()))
         .SimpleAbilities(Static.Flying)
         .TriggeredAbility(p =>
           {

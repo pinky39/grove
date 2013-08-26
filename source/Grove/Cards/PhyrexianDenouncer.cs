@@ -32,8 +32,8 @@
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 
-            p.TargetingRule(new ReduceToughness(1));
-            p.TimingRule(new Any(new OwningCardWillBeDestroyed(), new TargetRemoval(combatOnly: true)));
+            p.TargetingRule(new EffectReduceToughness(1));
+            p.TimingRule(new Any(new WhenOwningCardWillBeDestroyed(), new TargetRemovalTimingRule(combatOnly: true)));
           });
     }
   }

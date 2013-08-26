@@ -27,7 +27,7 @@
             p.Effect = () => new TargetGainsProtectionFromChosenColor();
             p.TargetSelector.AddEffect(trg => trg.Is.Creature(ControlledBy.SpellOwner).On.Battlefield());
                         
-            p.TargetingRule(new GainProtection());
+            p.TargetingRule(new EffectGiveProtection());
           });
     }
   }

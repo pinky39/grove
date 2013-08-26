@@ -33,7 +33,7 @@
                 trg.MinCount = 0;
                 trg.MaxCount = 1;
               });
-            p.TargetingRule(new AttachTargetToSelf());
+            p.TargetingRule(new EffectAttachToOwningCard());
           }
         );
     }

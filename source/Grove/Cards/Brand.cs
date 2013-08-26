@@ -19,8 +19,8 @@
         .Cast(p =>
           {
             p.Effect = () => new GainControlOfOwnedPermanents();
-            p.TimingRule(new EndOfTurn());
-            p.TimingRule(new OpponentHasPermanents(c => c.Owner != c.Controller));
+            p.TimingRule(new OnEndOfOpponentsTurn());
+            p.TimingRule(new WhenOpponentControllsPermanents(c => c.Owner != c.Controller));
           });
     }
   }

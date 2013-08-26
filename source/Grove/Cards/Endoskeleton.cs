@@ -1,5 +1,6 @@
 ﻿namespace Grove.Cards
 {
+  using System;
   using System.Collections.Generic;
   using Artifical.TargetingRules;
   using Gameplay;
@@ -35,7 +36,7 @@
               });
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
-            p.TargetingRule(new IncreasePowerOrToughness(0, 3, untilEot: false));
+            p.TargetingRule(new EffectPump(0, 3, untilEot: false));
           });
     }
   }

@@ -7,7 +7,6 @@
   using Gameplay.Costs;
   using Gameplay.ManaHandling;
   using Gameplay.Misc;
-  using Gameplay.States;
 
   public class PhyrexianReclamation : CardTemplateSource
   {
@@ -19,7 +18,7 @@
         .Type("Enchantment")
         .Text("{1}{B}, Pay 2 life: Return target creature card from your graveyard to your hand.")
         .FlavorText("Death is no excuse to stop working.")
-        .Cast(p => p.TimingRule(new FirstMain()))
+        .Cast(p => p.TimingRule(new OnFirstMain()))
         .ActivatedAbility(p =>
           {
             p.Text = "{1}{B}, Pay 2 life: Return target creature card from your graveyard to your hand.";
@@ -35,10 +34,10 @@
                 trg.Is.Creature().In.YourGraveyard();
                 trg.Message = "Select a creature from your graveyard.";
               });
-            
-            p.TimingRule(new Steps(activeTurn: true, passiveTurn: false, steps: Step.FirstMain));
-            p.TimingRule(new SingleInstanceOfSpellOnStack());            
-            p.TargetingRule(new OrderByRank(c => -c.Score));
+
+            p.TimingRule(new OnFirstMain());
+            p.TimingRule(new WhenNoOtherInstanceOfSpellIsOnStack());
+            p.TargetingRule(new EffectRankBy(c => -c.Score));
           });
     }
   }

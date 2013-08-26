@@ -24,12 +24,12 @@
               new ModifyPowerToughnessForEachPermanent(
                 power: 1,
                 toughness: 0,
-                filter: c => c.Is("mountain"),
+                filter: (c, _) => c.Is("mountain"),
                 modifier: () => new IntegerIncrement()));
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
-            p.TimingRule(new FirstMain());
-            p.TargetingRule(new CombatEnchantment());
+            p.TimingRule(new OnFirstMain());
+            p.TargetingRule(new EffectCombatEnchantment());
           });
     }
   }

@@ -20,7 +20,7 @@
         .Text(
           "Creatures you control have 'Whenever this creature becomes blocked by a creature, this creature gets +1/+1 until end of turn.'")
         .FlavorText("A foul, metallic stench clogged Urza's senses. It was then he knew his brother was no more.")
-        .Cast(p => p.TimingRule(new FirstMain()))
+        .Cast(p => p.TimingRule(new OnFirstMain()))
         .ContinuousEffect(p =>
           {
             p.Modifier = () =>

@@ -19,7 +19,7 @@
           {
             p.Effect = () => new DealDamageToTargets(3);
             p.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
-            p.TargetingRule(new DealDamage(3));
+            p.TargetingRule(new EffectDealDamage(3));
           });
     }
   }

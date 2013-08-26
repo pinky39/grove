@@ -25,8 +25,8 @@
         .Toughness(2)
         .Cast(p =>
           {
-            p.TimingRule(new FirstMain());
-            p.TimingRule(new OpponentHasPermanents(c => c.Is().Artifact || c.Is().Enchantment));
+            p.TimingRule(new OnFirstMain());
+            p.TimingRule(new WhenOpponentControllsPermanents(c => c.Is().Artifact || c.Is().Enchantment));
           })
         .TriggeredAbility(p =>
           {
@@ -35,7 +35,7 @@
             p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
             p.Effect = () => new ReturnToHand {Category = EffectCategories.Bounce};
             p.TargetSelector.AddEffect(trg => trg.Is.Card(c => c.Is().Artifact || c.Is().Enchantment).On.Battlefield());
-            p.TargetingRule(new Bounce());
+            p.TargetingRule(new EffectBounce());
           });
     }
   }

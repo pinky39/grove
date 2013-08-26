@@ -19,7 +19,7 @@
         .Type("Enchantment")
         .Text("Whenever a green creature dies, its controller discards a card.")
         .FlavorText("Grief is as useless as love.")
-        .Cast(p => p.TimingRule(new FirstMain()))
+        .Cast(p => p.TimingRule(new OnFirstMain()))
         .TriggeredAbility(p =>
           {
             p.Text = "Whenever a green creature dies, its controller discards a card.";

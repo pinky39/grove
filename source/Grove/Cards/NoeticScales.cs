@@ -17,7 +17,7 @@
         .Type("Artifact")
         .Text(
           "At the beginning of each player's upkeep, return to its owner's hand each creature that player controls with power greater than the number of cards in his or her hand.")
-        .Cast(p => p.TimingRule(new SecondMain()))
+        .Cast(p => p.TimingRule(new OnSecondMain()))
         .TriggeredAbility(p =>
           {
             p.Text =

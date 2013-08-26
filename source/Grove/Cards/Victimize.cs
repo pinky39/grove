@@ -27,9 +27,9 @@
                 trg.MaxCount = 2;
               });
 
-            p.TimingRule(new SecondMain());
-            p.TimingRule(new ControllerHasPermanents(c => c.Is().Creature));
-            p.TargetingRule(new OrderByRank(c => -c.Score));
+            p.TimingRule(new OnSecondMain());
+            p.TimingRule(new WhenYouHavePermanents(c => c.Is().Creature));
+            p.TargetingRule(new EffectRankBy(c => -c.Score));
           });
     }
   }

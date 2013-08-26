@@ -1,5 +1,6 @@
 ﻿namespace Grove.Cards
 {
+  using System;
   using System.Collections.Generic;
   using Artifical.TimingRules;
   using Gameplay.Characteristics;
@@ -17,7 +18,7 @@
         .Type("Enchantment")
         .Text("Whenever an opponent casts a white spell, that player loses 1 life and you gain 1 life.")
         .FlavorText("Phyrexia's purity permits no other.")
-        .Cast(p => p.TimingRule(new FirstMain()))
+        .Cast(p => p.TimingRule(new OnFirstMain()))
         .TriggeredAbility(p =>
           {
             p.Text = "Whenever an opponent casts a white spell, that player loses 1 life and you gain 1 life.";

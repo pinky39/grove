@@ -23,8 +23,8 @@
           {
             p.Effect = () => new Attach(() => new AddPowerAndToughness(-2, 0));
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
-            p.TimingRule(new FirstMain());
-            p.TargetingRule(new ReducePower());
+            p.TimingRule(new OnFirstMain());
+            p.TargetingRule(new EffectReducePower());
           })
         .TriggeredAbility(p =>
           {

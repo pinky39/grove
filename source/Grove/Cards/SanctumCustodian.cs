@@ -23,7 +23,7 @@
             p.Cost = new Tap();
             p.Effect = () => new Gameplay.Effects.PreventNextDamageToTargets(2);
             p.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
-            p.TargetingRule(new PreventNextDamageToTargets(2));
+            p.TargetingRule(new EffectPreventNextDamageToTargets(2));
           }
         );
     }

@@ -31,8 +31,8 @@
                   trg.Message = "Select player.";
                 });
 
-            p.TargetingRule(new DealDamage(1));
-            p.TimingRule(new TargetRemoval());
+            p.TargetingRule(new EffectDealDamage(1));
+            p.TimingRule(new TargetRemovalTimingRule());
           });
     }
   }

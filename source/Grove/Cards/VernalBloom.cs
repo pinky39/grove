@@ -16,7 +16,7 @@
         .Type("Enchantment")
         .Text("Whenever a forest is tapped for mana, it produces an additional {G}.")
         .FlavorText("Many cultures have legends of a lush, hidden paradise. The elves of Argoth had no need of such stories.")
-        .Cast(p => p.TimingRule(new FirstMain()))
+        .Cast(p => p.TimingRule(new OnFirstMain()))
         .ContinuousEffect(p =>
           {
             p.Modifier = () => new IncreaseManaOutput(Mana.Green);

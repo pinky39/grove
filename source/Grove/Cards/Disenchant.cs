@@ -23,8 +23,8 @@
               .Is.Card(card => card.Is().Artifact || card.Is().Enchantment)
               .On.Battlefield());
 
-            p.TargetingRule(new Destroy());
-            p.TimingRule(new TargetRemoval());
+            p.TargetingRule(new EffectDestroy());
+            p.TimingRule(new TargetRemovalTimingRule());
           });
     }
   }
