@@ -16,29 +16,26 @@
   {
     private const string YourName = "You";
 
-    public ViewModel()
-    {
-      LoadResources();
-    }
-
-    public string Version {get
-    {
-      return String.Format("Version {0}",
-        FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion);
-    }}
-    
-    public string CardCount
+    public string Version
     {
       get
       {
-        return string.Format("{0} cards", CardDatabase.Count);
+        return String.Format("Version {0}",
+          FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion);
       }
     }
 
-    public string LoadingMessage {get { return ThinkingMessages.GetRandom(); }}
+    public string CardCount { get { return string.Format("{0} cards", CardDatabase.Count); } }
+
+    public string LoadingMessage { get { return ThinkingMessages.GetRandom(); } }
 
     [Updates("CardCount")]
     public virtual bool HasLoaded { get; protected set; }
+
+    public override void Initialize()
+    {
+      LoadResources();
+    }
 
     public void Exit()
     {
