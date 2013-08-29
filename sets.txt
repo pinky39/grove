@@ -1,0 +1,23 @@
+﻿This file tracks the implementation of various sets.
+
+## Urza's saga
+314 of 330 cards implemented (95%)
+
+### Missing cards
+
+- Abundance
+- Arcane Laboratory
+- Carpet of Flowers
+- Contamination
+- Defensive Formation
+- Enchantment Alteration
+- Fluctuator
+- Lifeline
+- Metrognome
+- Okk
+- Serra's Hymn
+- Sulfuric Vapors
+- Telepathy
+- Temporal Aperture
+- Wirecat
+- Yawgmoth's Will

@@ -1,32 +1,90 @@
-Magicgrove - Release notes
+# Release notes
 
-Version 2.0
-=====================================
+## Version 2.0
 
-New cards
--------------------------------------
-Treetop Village, Gang Of Elk, Mother Of Runes, Lone Wolf, Avalanche Riders, Bone Shredder, Defender Of Chaos. Defense of the Heart, Erase, Fog of Gnats, Ghitu Encampment, Ghitu Slinger, Giant Cockroach, Phyrexian Colossus, Radiant's Judgment, Silk Net, Spawning Pool, Ticking Gnomes, Weatherseed Treefolk, Wingsnare, Yavimaya Granger, Yavimaya Scion, Yavimaya Wurm, Viashino Runner, Molten Hydra, Phyrexian Broodlings, Yawgmoth's Edict, Citanul Flute, Phyrexian Debaser, Phyrexian Defiler, Phyrexian Denouncer, Phyrexian Plaguelord, Tethered Skirge, Viashino Cutthroat, Viashino Heretic, Engineered Plague
+### New cards
 
-Bug fixes
--------------------------------------
-- Umbilicus triggers only if in play.
+Treetop Village, Gang Of Elk, Mother Of Runes, Lone Wolf, Avalanche Riders, Bone
+Shredder, Defender Of Chaos. Defense of the Heart, Erase, Fog of Gnats, Ghitu
+Encampment, Ghitu Slinger, Giant Cockroach, Phyrexian Colossus, Radiant's
+Judgment, Silk Net, Spawning Pool, Ticking Gnomes, Weatherseed Treefolk,
+Wingsnare, Yavimaya Granger, Yavimaya Scion, Yavimaya Wurm, Viashino Runner,
+Molten Hydra, Phyrexian Broodlings, Yawgmoth's Edict, Citanul Flute, Phyrexian
+Debaser, Phyrexian Defiler, Phyrexian Denouncer, Phyrexian Plaguelord, Tethered
+Skirge, Viashino Cutthroat, Viashino Heretic, Engineered Plague
+
+### Added booster draft tournament game mode
+
+Players are seated randomly at the table. Each player is given 3 booster packs.
+Every player opens their pack and choose one card from it, then passes the rest
+of the pack to the player on his left. Once everyone has passed their packs,
+pick up the next pack (located on your right), pick the best card for your deck
+from that pack and put it in your pile, and again pass it to the neighbor on
+your left. This process continues until all the cards from the pack have been
+picked. Then each player opens his or her next pack, picks a card, and passes
+the pack to the right (Packs go left, right, left.). Once you have 45 cards in
+your pile, it is time to build your deck. Booster Draft rules allow you to add
+as much basic land as you want to your deck, and require that the deck be at
+least 40 cards.
+
+### New start screen & logo
+
+### Added support for custom avatars
+
+Each player is given a random avatar from media/avatars folder.
+
+### Sets updates
+
+- Added Phyrexian Colossus, Viashino runner, Citanul Flute to Urza's saga
+- Tweaked base card ratings in Urza's saga.
+- Added new set Urza's legacy.
+
+### Bug fixes
+
+- Umbilicus now triggers only if in play.
 
 
-Version 1.9
-=====================================
+## Version 1.9 (2013/06/26)
 
-New cards
--------------------------------------
-Morphling, Nature's Lore, No Rest for the Wicked, Noetic Scales, Opal Archangel, Oppression, Order of Yawgmnoth, Outmaneuver, Parasitic Bond, Path of Peace, Pendrell Flux, Peregrine Drake, Persecute, Phyrexian Processor, Phyrexian Tower, Pit Trap, Planar Birth, Planar Void, Power Taint, Presence of the Master, Priest of Gix, Priest of Titania, Purging Scythe, Rain of Filth, Rain of Salt, Rampant Growth, Ravenous Skirge, Raze, Recantation, Reclusive Wight, Redeem, Reflexes, Rejuvenate, Remebrance, Reprocess, Retaliation, Retromancer, Rewind, Rumbling Crescendo, Rune of Protection: Artifacts, Rune of Protection: Blue, Rune of Protection: Green, Rune of Protection: Lands, Rune of Protection: Red, Rune of Protection: White, Sanguine Guard, Scald, Scoria Wurm, Seasoned Marshal, Serra Avatar, Serra Zealot, Serra's Liturgy, Serra's Sanctum, Shimmering Barrier, Shivan Gorge, Shivan Hellkite, Show and Tell, Skirge Familiar, Skittering Skirge, Sleeper Agent, Smokestack, Sneak Attack, Soul Sculptor, Spined Fluke, Spire Owl, Sporogenesis, Spreading Algae, Steam Blast, Stroke of Genius, Sunder, Tainted Aether, Thran Quarry, Time Spiral, Titania's Boon, Titania's Chosen, Tolarian Academy, Tolarian Winds, Treefolk Seedlings, Treetop Rangers, Umbilicus, Unnerve, Vampiric Embrace, Vebulid, Veil of Birds, Veiled Apparition, Veiled Crocodile, Veiled Sentry, Veiled Serpent, Venomous Fangs, Vernal Bloom, Viashino Outrider, Viashino Sandswimmer, Viashino Weaponsmith, Vile Requiem, Voice of Law, Voltaic Key, Vug Lizard, War Dance, Western Paladin, Whetstone, Whirlwind, Windfall, Winding Wurm, Witch Engine, Worn Powerstone, Zephid, Zephid's Embrace, Wall of Blossoms
+### New cards (108)
 
-Added sealed tournament game mode
--------------------------------------
-Every player is given a random pack of 90 cards from chosen sets (1x tournament pack, 3x booster pack), which he uses to build his deck. Multiple rounds are played on each tournament, the number of rounds depends on the number of players. On the start of every round, players are paired using the Swiss pairing system. Players get 3 points for win and 0 points for loss. The player with most points wins the tournament. In case of a tie game won percentage is compared.
+Morphling, Nature's Lore, No Rest for the Wicked, Noetic Scales, Opal Archangel,
+Oppression, Order of Yawgmnoth, Outmaneuver, Parasitic Bond, Path of Peace,
+Pendrell Flux, Peregrine Drake, Persecute, Phyrexian Processor, Phyrexian Tower,
+Pit Trap, Planar Birth, Planar Void, Power Taint, Presence of the Master, Priest
+of Gix, Priest of Titania, Purging Scythe, Rain of Filth, Rain of Salt, Rampant
+Growth, Ravenous Skirge, Raze, Recantation, Reclusive Wight, Redeem, Reflexes,
+Rejuvenate, Remebrance, Reprocess, Retaliation, Retromancer, Rewind, Rumbling
+Crescendo, Rune of Protection: Artifacts, Rune of Protection: Blue, Rune of
+Protection: Green, Rune of Protection: Lands, Rune of Protection: Red, Rune of
+Protection: White, Sanguine Guard, Scald, Scoria Wurm, Seasoned Marshal, Serra
+Avatar, Serra Zealot, Serra's Liturgy, Serra's Sanctum, Shimmering Barrier,
+Shivan Gorge, Shivan Hellkite, Show and Tell, Skirge Familiar, Skittering
+Skirge, Sleeper Agent, Smokestack, Sneak Attack, Soul Sculptor, Spined Fluke,
+Spire Owl, Sporogenesis, Spreading Algae, Steam Blast, Stroke of Genius, Sunder,
+Tainted Aether, Thran Quarry, Time Spiral, Titania's Boon, Titania's Chosen,
+Tolarian Academy, Tolarian Winds, Treefolk Seedlings, Treetop Rangers,
+Umbilicus, Unnerve, Vampiric Embrace, Vebulid, Veil of Birds, Veiled Apparition,
+Veiled Crocodile, Veiled Sentry, Veiled Serpent, Venomous Fangs, Vernal Bloom,
+Viashino Outrider, Viashino Sandswimmer, Viashino Weaponsmith, Vile Requiem,
+Voice of Law, Voltaic Key, Vug Lizard, War Dance, Western Paladin, Whetstone,
+Whirlwind, Windfall, Winding Wurm, Witch Engine, Worn Powerstone, Zephid,
+Zephid's Embrace, Wall of Blossoms
 
-Save & load
--------------------------------------
-Single matches & tournaments can be saved via the in game menu (alt-q). The games can later be loaded via the Load saved game option.
+### Added sealed tournament game mode
 
-Better AI
--------------------------------------
-Increased game simulation performance. Increased simulation lenght to 40 steps. Combat improvement.
+Every player is given one starter pack and three booster packs. From that pool
+of cards, and adding in as many basic land as desired, each player must build a
+deck of at least 40 cards. Any opened cards not put in the main deck count as
+part of the sideboard. In sealed deck, the skill is making the best out of what
+you're given.
+
+### Save & load
+
+Single matches & tournaments can be saved via the in game menu (alt-q). The
+games can later be loaded via the Load saved game option.
+
+### Better AI
+
+Increased game simulation performance. Increased simulation lenght to 40 steps.
+Combat improvement.

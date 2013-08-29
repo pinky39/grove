@@ -1,25 +1,7 @@
-﻿Urza's saga
------------
+﻿This file is used to track the card implementation progress.
 
-x Abundance
-x Arcane Laboratory
-x Carpet of Flowers
-x Contamination
-x Defensive Formation
-x Enchantment Alteration
-x Fluctuator
-x Lifeline
-x Metrognome
-x Okk
-x Serra's Hymn
-x Sulfuric Vapors
-x Telepathy
-x Temporal Aperture
-x Wirecat
-x Yawgmoth's Will
+## Urza's Legacy
 
-Urza's Legacy
------------
 o About Face
 o Angelic Curator
 o Angel's Trumpet
