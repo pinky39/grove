@@ -12,18 +12,21 @@
   {
     private readonly DeckBuilder _deckBuilder;    
 
-    public GenerateDecks(DeckBuilder deckBuilder)
+    public GenerateDecks(DeckBuilder deckBuilder, CardDatabase cardDatabase, CardFactory cardFactory)
     {
-      _deckBuilder = deckBuilder;      
+      _deckBuilder = deckBuilder;     
+      cardDatabase.Initialize(cardFactory.CreateAll());       
     }
 
     public override void Execute(Arguments arguments)
     {
       var count = int.Parse(arguments["count"]);
-      var starterSet = MediaLibrary.GetSet(arguments["starter"]);
-      var boosterSet1 = MediaLibrary.GetSet(arguments["booster1"]);
-      var boosterSet2 = MediaLibrary.GetSet(arguments["booster2"]);
-      var boosterSet3 = MediaLibrary.GetSet(arguments["booster3"]);
+
+      
+      var starterSet = MediaLibrary.RandomSet();
+      var boosterSet1 = MediaLibrary.RandomSet();
+      var boosterSet2 = MediaLibrary.RandomSet();
+      var boosterSet3 = MediaLibrary.RandomSet();
 
       for (var i = 0; i < count; i++)
       {
@@ -47,6 +50,12 @@
 
         DeckFile.Write(deck, Guid.NewGuid() +".dec");
       }
+    }
+
+    public override void Usage()
+    {
+     Console.WriteLine(
+       "usage: ugrove gen count=1000\n\nGenerates 1000 decks for sealed tournaments taking random tournament\nand booster packs.");
     }
   }
 }

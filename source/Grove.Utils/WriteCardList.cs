@@ -1,32 +1,31 @@
 ﻿namespace Grove.Utils
 {
   using System;
-  using System.IO;
   using Gameplay;
 
   public class WriteCardList : Task
   {
     private readonly CardDatabase _cardDatabase;
 
-    public WriteCardList(CardDatabase cardDatabase)
+    public WriteCardList(CardDatabase cardDatabase, CardFactory cardFactory)
     {
       _cardDatabase = cardDatabase;
+      _cardDatabase.Initialize(cardFactory.CreateAll());
     }
-
 
     public override void Execute(Arguments arguments)
     {
-      var filename = arguments["filename"];
       var cardNames = _cardDatabase.GetCardNames();
 
-      Console.WriteLine("Writing {0}...", filename);
-      using (var writer = new StreamWriter(filename, append: true))
+      foreach (var cardName in cardNames)
       {
-        foreach (var cardName in cardNames)
-        {
-          writer.WriteLine(cardName);
-        }
+        Console.WriteLine(cardName);
       }
+    }
+
+    public override void Usage()
+    {
+      Console.WriteLine("usage: ugrove list\n\nWrites available card names to stdout.");
     }
   }
 }

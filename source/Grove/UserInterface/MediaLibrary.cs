@@ -215,5 +215,11 @@
       var filename = Path.Combine(ImagesFolder, String.Format("{0}-{1}.png", set, rarity));
       return GetImageWithPath(filename);
     }
+
+    public static MagicSet RandomSet()
+    {
+      var sets = SetsDatabase.Values.ToList();
+      return sets[RandomEx.Next(sets.Count)];
+    }
   }
 }

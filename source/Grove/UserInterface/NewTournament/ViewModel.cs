@@ -17,7 +17,7 @@
       _previousScreen = previousScreen;
       _sets = MediaLibrary.GetSetsNames();
 
-      StarterPack = _sets[0];
+      StarterPack = "Urza's Saga";
       BoosterPack1 = _sets[0];
       BoosterPack2 = _sets[0];
       BoosterPack3 = _sets[0];      

@@ -1,1 +1,1 @@
-Grove.Utils.exe generate-decks count=1000 "starter=Urza's Saga" "booster1=Urza's Saga" "booster2=Urza's Saga" "booster3=Urza's Saga"
+Grove.Utils.exe generate-decks count=1000 "starter=Urza's Saga" "booster1=Urza's Legacy" "booster2=Urza's Legacy" "booster3=Urza's Legacy"

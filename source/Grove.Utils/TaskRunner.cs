@@ -6,16 +6,16 @@
   public class TaskRunner
   {
     protected static readonly IoC Container = CreateContainer();
-    private readonly Dictionary<string, Func<Task>> _registrations = new Dictionary<string, Func<Task>>();
+    private readonly Dictionary<string, Func<Task>> commands = new Dictionary<string, Func<Task>>();
 
     public TaskRunner()
     {
-      _registrations = new Dictionary<string, Func<Task>>
+      commands = new Dictionary<string, Func<Task>>
         {
-          {"write-card-list", () => Container.Resolve<WriteCardList>()},
-          {"write-card-ratings", () => Container.Resolve<WriteCardList>()},
-          {"generate-decks", () => Container.Resolve<GenerateDecks>()},
-          {"reproduce-error", () => Container.Resolve<ReproduceError>()},
+          {"list", () => Container.Resolve<WriteCardList>()},
+          {"rate", () => Container.Resolve<WriteCardList>()},
+          {"gen", () => Container.Resolve<GenerateDecks>()},
+          {"debug", () => Container.Resolve<ReproduceError>()},
         };
     }
 
@@ -25,16 +25,48 @@
       return container;
     }
 
-    public void Run(string name, string[] args)
+    public bool Run(string[] args)
     {
-      if (_registrations.ContainsKey(name))
+      if (args.Length < 1)
+        return false;
+
+      if (args[0].Equals("help", StringComparison.InvariantCultureIgnoreCase))
       {
-        _registrations[name]().Execute(new Arguments(args));
-        Console.WriteLine("Task completed successfuly.");
-        return;
+        return ShowCommandUsage(args);
       }
 
-      Console.WriteLine(String.Format("Invalid task name: '{0}'.", name));
+      var command = args[0];
+
+      if (commands.ContainsKey(command))
+      {
+        commands[command]().Execute(new Arguments(args));
+        return true;
+      }
+
+      WriteInvalidCommand(command);
+      return false;
+    }
+
+    private bool ShowCommandUsage(string[] args)
+    {
+      if (args.Length < 2)
+        return false;
+
+      var command = args[1].ToLowerInvariant();
+
+      if (!commands.ContainsKey(command))
+      {
+        WriteInvalidCommand(command);
+        return false;
+      }
+
+      commands[command]().Usage();
+      return true;
+    }
+
+    private void WriteInvalidCommand(string command)
+    {
+      Console.WriteLine(String.Format("Invalid command name: '{0}'.", command));
     }
   }
 }

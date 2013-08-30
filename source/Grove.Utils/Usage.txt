@@ -1,38 +1,8 @@
-﻿usage: Grove.Utils COMMAND [ARGS]
+﻿usage: ugrove <command> [<args>]
 
-write-card-list
-------------------------------------------------------------------------
-Writes all available card names to a file.
+  list    Write available card names to standard output.
+  gen     Generates decks for sealed tournaments.
+  rate    Downloads ratings from gatherer and updates ratings file.
+  debug   Reproduces an error from debug report.
 
--filename	the name of the file to write card list to.
-
-Example:
-Grove.Utils	write-card-list filename=cards.txt
-------------------------------------------------------------------------
-
-write-card-ratings
-------------------------------------------------------------------------
-Downloads ratings for all implemented cards from gather and stores them
-into a file. If the file exists, existing ratings are not overwritten.
-
-filename	
-The name of the file to write ratings to.
-
-Example:
-Grove.Utils	write-card-ratings filename=ratings.txt
-------------------------------------------------------------------------
-
-generate-decks
-------------------------------------------------------------------------
-Generates limited decks from specified card pool.
-
-count
-The number of decks to generate.
-
-starter, booster1, booster2, booster3	
-The name of the magic set.
-
-Example:
-Grove.Utils generate-decks count=100 "starter=Urza's Saga" "booster1=Urza's Saga"
-"booster2=Urza's Saga" "booster3=Urza's Saga"
-------------------------------------------------------------------------
+See 'ugrove help <command>' for more information on specific command.

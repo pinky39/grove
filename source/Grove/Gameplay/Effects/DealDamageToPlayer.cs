@@ -12,7 +12,7 @@
       _amount = amount;
       _player = player;
 
-      RegisterDynamicParameters(player, _amount);
+      RegisterDynamicParameters(player, amount);
     }
 
     public override int CalculatePlayerDamage(Player player)

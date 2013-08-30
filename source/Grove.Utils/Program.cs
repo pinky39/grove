@@ -9,21 +9,17 @@
   internal class Program
   {
     private static void Main(string[] args)
-    {            
-      if (args.Length < 1)
-      {
-        Usage();
-        return;
-      }
-      
+    {                        
       MediaLibrary.LoadResources();
-      var runner = new TaskRunner();
-      
-      LogFile.Info("Starting task...");
+      var runner = new TaskRunner();            
 
       try
       {
-        runner.Run(args[0], args);
+        if (!runner.Run(args))
+        {
+          Usage();
+          return;
+        }
       }
       catch(Exception ex)
       {

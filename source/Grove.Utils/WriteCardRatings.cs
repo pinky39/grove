@@ -19,7 +19,7 @@
     public override void Execute(Arguments arguments)
     {
       var downloader = new RatingDownloader();
-      var filename = arguments["filename"];
+      var filename = arguments["f"];
 
       var ratedCards = _cardDatabase.GetCardNames()
         .Select(x => new RatedCard {Name = x})
@@ -71,6 +71,12 @@
           line = reader.ReadLine();
         }
       }
+    }
+
+    public override void Usage()
+    {
+       Console.WriteLine(
+       "usage: ugrove rate f=ratings.txt\n\nDownloads missing ratings from gatherer and writes them to ratings.txt file.");
     }
   }
 }
