@@ -28,6 +28,7 @@
     CanAttackOnlyIfDefenderHasIslands,
     Flash,
     AttacksEachTurnIfAble,
-    UnblockableIfDedenderHasArtifacts
+    UnblockableIfDedenderHasArtifacts,
+    Forestwalk
   }
 }

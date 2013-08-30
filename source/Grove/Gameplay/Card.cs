@@ -554,6 +554,12 @@
         return false;
       }
 
+      if (Has().Forestwalk && 
+        card.Controller.Battlefield.Any(x => x.Is("forest")))
+      {
+        return false;
+      }
+
       if (Has().UnblockableIfDedenderHasArtifacts && 
         card.Controller.Battlefield.Any(x => x.Is().Artifact))
       {

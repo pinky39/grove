@@ -8,10 +8,10 @@ Welcome back! In this 2nd tutorial we will investigate:
  * mana abilities.
 
 We will look at the implementations of the following cards:
-   
+
    * Volcanic Hammer,
    * Dragon Blood,
-   * Birds of Paradise,      
+   * Birds of Paradise,
 
 == An example of a sorcery spell: 'Volcanic Hammer' ==
 
@@ -23,18 +23,18 @@ public class VolcanicHammer : CardTemplateSource
 {
   public override IEnumerable<CardTemplate> GetCards()
   {
-    yield return Card
-      .Named("Volcanic Hammer")
-      .ManaCost("{1}{R}")
-      .Type("Sorcery")
-      .Text("Volcanic Hammer deals 3 damage to target creature or player.")
-      .FlavorText("Fire finds its form in the heat of the forge.")
-      .Cast(p =>
-        {
-          p.Effect = () => new DealDamageToTargets(3);
-          p.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
-          p.TargetingRule(new DealDamage(3));
-        });
+     yield return Card
+        .Named("Volcanic Hammer")
+        .ManaCost("{1}{R}")
+        .Type("Sorcery")
+        .Text("Volcanic Hammer deals 3 damage to target creature or player.")
+        .FlavorText("Fire finds its form in the heat of the forge.")
+        .Cast(p =>
+          {
+            p.Effect = () => new DealDamageToTargets(3);
+            p.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
+            p.TargetingRule(new EffectDealDamage(3));
+          });
   }
 }
 
@@ -43,7 +43,7 @@ public class VolcanicHammer : CardTemplateSource
 A Casting rule is associated with every card's type. Casting rules define whether a card can be cast at a given time and what happens after it resolves. Let's look at the casting rule for sorceries:
 
 {{{
-  
+
 public class Sorcery : CastingRule
 {
   private readonly Action<Card> _afterResolvePutToZone;
@@ -70,17 +70,17 @@ public class Sorcery : CastingRule
 
 }}}
 
-We see that sorceries can only be cast during the main phases of the active turn and only when the stack is empty. 
+We see that sorceries can only be cast during the main phases of the active turn and only when the stack is empty.
 By inspecting the !AfterResolve method, we can see that the sorceries spells are put into graveyard by default. This can be overridden by afterResolvePutToZone parameter of the constructor (this is used by cards like 'Beacon of Destruction', which are shuffled into library instead of put into graveyard).
 
-What happens when a card is cast? Let's look at the Cast method of our hammer once again. 
+What happens when a card is cast? Let's look at the Cast method of our hammer once again.
 
 {{{
 .Cast(p =>
   {
     p.Effect = () => new DealDamageToTargets(3);
     p.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
-    p.TargetingRule(new DealDamage(3));
+    p.TargetingRule(new EffectDealDamage(3));
   });
 }}}
 
@@ -94,7 +94,7 @@ When cast, most cards create an effect object and put it on top of the stack. Wh
 p.Effect = () => new DealDamageToTargets(3);
 }}}
 
-Each time the factory will be called, it will return a new effect of type !DealDamageToTargets. 
+Each time the factory will be called, it will return a new effect of type !DealDamageToTargets.
 The hammer can target a creature on the battlefield or a player. This is given by the following line of code:
 
 {{{
@@ -104,7 +104,7 @@ p.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
 If AI would consider every legal target, this would waste a lot of time simulating moves a real player would never make. For example, one would very rarely want to target oneself or their own creatures with 'Volcanic Hammer'. To incorporate this knowledge into the game, the targeting rules are used. These rules reduce the amount of targets AI has to consider, enabling deeper search trees. We specify which targeting rule will be used by calling !TargetingRule method:
 
 {{{
-p.TargetingRule(new DealDamage(3));
+p.TargetingRule(new EffectDealDamage(3));
 }}}
 
 == Implementing activated ability: 'Dragon Blood' ==
@@ -117,26 +117,26 @@ public class DragonBlood : CardTemplateSource
 {
   public override IEnumerable<CardTemplate> GetCards()
   {
-    yield return Card
-      .Named("Dragon Blood")
-      .ManaCost("{3}")
-      .Type("Artifact")
-      .Text("{3},{T} : Put a +1/+1 counter on target creature.")
-      .FlavorText("Fire in the blood, fire in the belly.")
-      .Cast(p => p.TimingRule(new FirstMain()))
-      .ActivatedAbility(p =>
-        {
-          p.Text = "{3},{T} : Put a +1/+1 counter on target creature.";
-          p.Cost = new AggregateCost(
-            new PayMana(3.Colorless(), ManaUsage.Abilities),
-            new Tap());
+     yield return Card
+        .Named("Dragon Blood")
+        .ManaCost("{3}")
+        .Type("Artifact")
+        .Text("{3},{T} : Put a +1/+1 counter on target creature.")
+        .FlavorText("Fire in the blood, fire in the belly.")
+        .Cast(p => p.TimingRule(new OnFirstMain()))
+        .ActivatedAbility(p =>
+          {
+            p.Text = "{3},{T} : Put a +1/+1 counter on target creature.";
+            p.Cost = new AggregateCost(
+              new PayMana(3.Colorless(), ManaUsage.Abilities),
+              new Tap());
 
-          p.Effect = () => new ApplyModifiersToTargets(() => new AddCounters(
-            () => new PowerToughness(1, 1), count: 1));
+            p.Effect = () => new ApplyModifiersToTargets(() => new AddCounters(
+              () => new PowerToughness(1, 1), count: 1));
 
-          p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
-          p.TargetingRule(new IncreasePowerOrToughness(1, 1, untilEot: false));
-        });
+            p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
+            p.TargetingRule(new EffectPump(1, 1, untilEot: false));
+          });
   }
 }
 
@@ -152,12 +152,12 @@ Activated abilities are defined by assigning the members of the !ActivatedAbilit
 
 In order to activate Dragon Blood, we need to pay 3 colorless mana and tap it. If a cost needs more than one resource, its parts are wrapped with !AggregateCost object. To support mana sources with restricted usage, we must also specify intended mana usage.
 
-By adding a +1/+1 counter on target creature, we modify the creature's characteristics (the number of counters). We use !ApplyModifiersToTargets effect to apply one or more modifiers to the effect's targets. 
+By adding a +1/+1 counter on target creature, we modify the creature's characteristics (the number of counters). We use !ApplyModifiersToTargets effect to apply one or more modifiers to the effect's targets.
 
 The line:
 
 {{{
-() => new AddCounters(() => new PowerToughness(1, 1), count: 1)  
+() => new AddCounters(() => new PowerToughness(1, 1), count: 1)
 }}}
 
 defines a modifier factory which produces !AddCounters modifier when the effect is resolved. When the modifier is applied to target creature, it creates +1/+1 counter and puts it on the creature.
@@ -168,10 +168,10 @@ Since the activated ability's effect requires targets, we must also specify the 
 
 {{{
 p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
-p.TargetingRule(new IncreasePowerOrToughness(1, 1, untilEot: false));
+p.TargetingRule(new EffectPump(1, 1, untilEot: false));
 }}}
 
-!IncreasePowerOrToughness targeting rule limits the range of targets considered by the AI. As AI considers different targets at different steps of the game, the AI timing rule is already part of the targeting rule, so in this case no explicit timing rules are needed.
+!EffectPump targeting rule limits the range of targets considered by the AI. As AI considers different targets at different steps of the game, the AI timing rule is already part of the targeting rule, so in this case no explicit timing rules are needed.
 
 == Implementing mana abilities: 'Birds of paradise' ==
 
@@ -179,9 +179,7 @@ AI does not 'activate' mana abilities in the same way as activated abilities (al
 
 Mana abilities are therefore only activated when certain mana is needed by other abilities or spells. Let's look an example:
 
-{{{ 
-
-
+{{{
 public class BirdsOfParadise : CardTemplateSource
 {
   public override IEnumerable<CardTemplate> GetCards()
@@ -202,7 +200,6 @@ public class BirdsOfParadise : CardTemplateSource
         });
   }
 }
-
 }}}
 
 Birds of Paradise is a creature with flying, capable of producing one mana of any color when tapped. Bird's mana ability is defined by calling !ManaAbility method on !CardTemplate class and assigning members of the !ManaAbilityParameters object:

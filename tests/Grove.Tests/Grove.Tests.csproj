@@ -334,7 +334,9 @@
     <Compile Include="Cards\TitaniasBoon.cs" />
     <Compile Include="Cards\TitaniasChosen.cs" />
     <Compile Include="Cards\TolarianWinds.cs" />
+    <Compile Include="Cards\TragicPoet.cs" />
     <Compile Include="Cards\TreacherousLink.cs" />
+    <Compile Include="Cards\TreefolkMystic.cs" />
     <Compile Include="Cards\TreefolkSeedlings.cs" />
     <Compile Include="Cards\TreetopRangers.cs" />
     <Compile Include="Cards\TreetopVillage.cs" />
@@ -362,6 +364,7 @@
     <Compile Include="Cards\WallOfReverence.cs" />
     <Compile Include="Cards\WarDance.cs" />
     <Compile Include="Cards\WayLay.cs" />
+    <Compile Include="Cards\WeatherseedElf.cs" />
     <Compile Include="Cards\Whetstone.cs" />
     <Compile Include="Cards\WildDogs.cs" />
     <Compile Include="Cards\Windfall.cs" />

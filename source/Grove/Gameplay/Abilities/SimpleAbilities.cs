@@ -47,6 +47,8 @@
 
     public bool Flash { get { return Has(Static.Flash); } }
     public bool AttacksEachTurnIfAble { get { return Has(Static.AttacksEachTurnIfAble); } }
+    public bool Forestwalk { get { return Has(Static.Forestwalk); } }
+
     public bool DoesNotUntap { get { return Has(Static.DoesNotUntap); } }
 
     public bool AnyEvadingAbility

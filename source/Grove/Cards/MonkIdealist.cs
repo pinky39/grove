@@ -1,9 +1,9 @@
 ﻿namespace Grove.Cards
 {
+  using System;
   using System.Collections.Generic;
   using Artifical.TargetingRules;
   using Artifical.TimingRules;
-  using Gameplay.Effects;
   using Gameplay.Misc;
   using Gameplay.Triggers;
   using Gameplay.Zones;
@@ -31,7 +31,7 @@
             p.Text =
               "When Monk Idealist enters the battlefield, return target enchantment card from your graveyard to your hand.";
             p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
-            p.Effect = () => new ReturnToHand();
+            p.Effect = () => new Gameplay.Effects.ReturnToHand();
             p.TargetSelector.AddEffect(trg =>
               {
                 trg.Is.Enchantment().In.YourGraveyard();

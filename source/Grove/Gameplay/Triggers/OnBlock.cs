@@ -28,13 +28,13 @@
 
         if (_triggerForEveryCreature || _count.Value == 1)
         {
-          Set();
+          Set(message);
         }
       }
 
       else if (_blocks && message.Blocker.Card == Ability.OwningCard)
       {
-        Set();
+        Set(message);
       }
     }
 

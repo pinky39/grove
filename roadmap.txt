@@ -125,23 +125,23 @@ o Thran War Machine
 o Thran Weaponry
 o Ticking Gnomes
 o Tinker
-Tragic Poet
-Treacherous Link
-Treefolk Mystic
-Treetop Village
-Unearth
-Urza's Blueprints
+o Tragic Poet
+o Treacherous Link
+o Treefolk Mystic
+o Treetop Village
+o Unearth
+o Urza's Blueprints
 Viashino Bey
-Viashino Cutthroat
-Viashino Heretic
-Viashino Sandscout
-Vigilant Drake
-Walking Sponge
-Weatherseed Elf
-Weatherseed Faeries
-Weatherseed Treefolk
-Wheel of Torture
-Wing Snare
-Yavimaya Granger
-Yavimaya Scion
-Yavimaya Wurm
+o Viashino Cutthroat
+o Viashino Heretic
+o Viashino Sandscout
+o Vigilant Drake
+o Walking Sponge
+o Weatherseed Elf
+o Weatherseed Faeries
+o Weatherseed Treefolk
+o Wheel of Torture
+o Wing Snare
+o Yavimaya Granger
+o Yavimaya Scion
+o Yavimaya Wurm

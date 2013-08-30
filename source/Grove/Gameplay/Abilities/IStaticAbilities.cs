@@ -30,6 +30,7 @@
     bool UnblockableIfDedenderHasArtifacts { get; }
     bool Flash { get; }
     bool AttacksEachTurnIfAble { get; }
+    bool Forestwalk { get; }
     bool Has(Static ability);
   }
 }

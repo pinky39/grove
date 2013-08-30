@@ -1,0 +1,152 @@
+# Urza's Legacy configuration file.
+
+!Tournament Pack
+Rares: 3
+Uncommons: 10
+Commons: 32
+
+!Booster Pack
+Rares: 1
+Uncommons: 3
+Commons: 11
+
+!Cards
+About Face;C;3.2
+Angelic Curator;C;3.2
+Angel's Trumpet;U;3.3
+Anthroplasm;R;4
+Archivist;R;3.8
+Aura Flux;C;3.3
+Avalanche Riders;U;3.8
+Beast of Burden;R;3.7
+Blessed Reversal;R;3.2
+Bloated Toad;U;3.3
+Bone Shredder;U;4
+Bouncing Beebles;C;3.3
+Brink of Madness;R;3.6
+Burst of Energy;C;3
+Cessation;C;3.6
+Cloud of Faeries;C;3.4
+Crop Rotation;C;3
+Darkwatch Elves;U;3.5
+Defender of Chaos;C;3.4
+Defender of Law;C;3.4
+Defense of the Heart;R;3.8
+Delusions of Mediocrity;R;3.5
+Deranged Hermit;R;4.2
+Devout Harpist;C;3.4
+Engineered Plague;U;3.5
+Erase;C;3.3
+Eviscerator;R;3.7
+Expendable Troops;C;3.5
+Faerie Conclave;U;3.8
+Fleeting Image;R;3.8
+Fog of Gnats;C;3.8
+Forbidding Watchtower;U;3.6
+Frantic Search;C;3.4
+Gang of Elk;U;3.5
+Ghitu Encampment;U;3.7
+Ghitu Fire-Eater;U;3.5
+Ghitu Slinger;C;3.7
+Ghitu War Cry;U;3.6
+Giant Cockroach;C;3.5
+Goblin Medics;C;3.3
+Goblin Welder;R;3.3
+Granite Grip;C;3.2
+Grim Monolith;R;3.6
+Harmonic Convergence;U;3.2
+Hidden Gibbons;R;3.4
+Hope and Glory;U;3.4
+Impending Disaster;R;3.5
+Intervene;C;3.2
+Iron Maiden;R;3.3
+Iron Will;C;3.2
+Jhoira's Toolbox;U;3.6
+Karmic Guide;R;4.2
+King Crab;U;3.8
+Knighthood;U;3.7
+Last-Ditch Effort;U;3.3
+Lava Axe;C;3.5
+Levitation;U;3.8
+Lone Wolf;U;3.5
+Lurking Skirge;R;3.7
+Martyr's Cause;U;3.3
+Memory Jar;R;4
+Might of Oaks;R;4
+Miscalculation;C;3.6
+Molten Hydra;R;3.8
+Mother of Runes;U;3.8
+Multani, Maro-Sorcerer;R;3.6
+Multani's Acolyte;C;3.6
+Multani's Presence;U;3
+No Mercy;R;4
+Opal Avenger;R;3.4
+Opal Champion;C;3.5
+Opportunity;U;4
+Ostracize;C;3.5
+Palinchron;R;3.9
+Parch;C;3.5
+Peace and Quiet;U;3.3
+Phyrexian Broodlings;C;3.5
+Phyrexian Debaser;C;3.6
+Phyrexian Defiler;U;3.6
+Phyrexian Denouncer;C;3.3
+Phyrexian Plaguelord;R;3.9
+Phyrexian Reclamation;U;3.8
+Plague Beetle;C;3
+Planar Collapse;R;3.8
+Purify;R;3.5
+Pygmy Pyrosaur;C;3.5
+Pyromancy;R;3.7
+Quicksilver Amulet;R;3.7
+Rack and Ruin;U;3
+Radiant, Archangel;R;4
+Radiant's Dragoons;U;3.7
+Radiant's Judgment;C;3.6
+Rancor;C;4
+Rank and File;U;3.5
+Raven Familiar;U;3.5
+Rebuild;U;3
+Repopulate;C;3.3
+Ring of Gix;R;3.8
+Rivalry;R;3.4
+Scrapheap;R;3
+Second Chance;R;3.4
+Shivan Phoenix;R;4
+Sick and Tired;C;3.2
+Silk Net;C;3.3
+Simian Grunts;C;3.8
+Sleeper's Guile;C;3.6
+Slow Motion;C;3.4
+Sluggishness;C;3.3
+Snap;C;3.3
+Spawning Pool;U;3.6
+Subversion;R;3.3
+Sustainer of the Realm;U;3.7
+Swat;C;3.3
+Tethered Skirge;U;3.5
+Thornwind Faeries;C;3.6
+Thran Lens;R;3
+Thran War Machine;U;3.6
+Thran Weaponry;R;3.6
+Ticking Gnomes;U;3.5
+Tinker;R;3.3
+Tragic Poet;C;3.4
+Treacherous Link;U;3.6
+Treefolk Mystic;C;3.4
+Treetop Village;U;3.8
+Unearth;C;3.6
+Urza's Blueprints;R;4
+Viashino Cutthroat;U;3.8
+Viashino Heretic;U;3.6
+Viashino Sandscout;C;3.3
+Vigilant Drake;C;3.7
+Walking Sponge;U;3.6
+Weatherseed Elf;C;3.3
+Weatherseed Faeries;C;3.5
+Weatherseed Treefolk;R;4
+Wheel of Torture;R;3.6
+Wing Snare;U;3.5
+Yavimaya Granger;C;3.6
+Yavimaya Scion;C;3.5
+Yavimaya Wurm;C;3.6

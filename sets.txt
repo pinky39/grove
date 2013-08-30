@@ -1,6 +1,6 @@
 ﻿This file tracks the implementation of various sets.
 
-## Urza's saga
+## Urza's Saga
 314 of 330 cards implemented (95%)
 
 ### Missing cards
@@ -21,3 +21,13 @@
 - Temporal Aperture
 - Wirecat
 - Yawgmoth's Will
+
+## Urza's Legacy
+139 of 143 cards implemented (97%)
+
+### Missing cards
+
+- Crawlspace
+- Damping Engine
+- Defense Grid
+- Viashino Bey
