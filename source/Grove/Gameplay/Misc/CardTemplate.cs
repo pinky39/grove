@@ -2,6 +2,7 @@
 {
   using System;
   using System.Collections.Generic;
+  using System.Linq;
   using Abilities;
   using Artifical;
   using Artifical.CombatRules;
@@ -269,6 +270,7 @@
           set(p);
 
           cp.ActivatedAbilities.Add(new ManaAbility(p));
+          cp.ManaColorsThisCardCanProduce.AddRange(p.Colors.Select(i => (CardColor)i));
         });
       return this;
     }

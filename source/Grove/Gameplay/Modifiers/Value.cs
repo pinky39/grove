@@ -56,8 +56,7 @@
     public static implicit operator DynParam<int>(Value value)
     {
       return new DynParam<int>(
-        getter: (e, g) => value.GetValue(e.X),
-        evaluateOnInit: true,
+        getter: (e, g) => value.GetValue(e.X),        
         evaluateOnResolve: false);
     }
 

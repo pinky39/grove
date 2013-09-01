@@ -34,6 +34,20 @@
 
     public int Converted { get; private set; }
 
+    public HashSet<int> Colors
+    {
+      get
+      {
+        var indices = new HashSet<int>();
+
+        foreach (var amount in _groups)
+        {
+          indices.UnionWith(amount.Colors);
+        }
+        return indices;
+      }
+    }
+
     public IManaAmount Add(IManaAmount amount)
     {
       var dictionary = new Dictionary<ManaColor, int>();

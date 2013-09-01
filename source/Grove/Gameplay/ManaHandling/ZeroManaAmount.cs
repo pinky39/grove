@@ -1,5 +1,6 @@
 ﻿namespace Grove.Gameplay.ManaHandling
 {
+  using System;
   using System.Collections;
   using System.Collections.Generic;
 
@@ -16,6 +17,7 @@
     }
 
     public int Converted { get { return 0; } }
+    public HashSet<int> Colors { get { return new HashSet<int>();} }
 
     public IManaAmount Add(IManaAmount amount)
     {

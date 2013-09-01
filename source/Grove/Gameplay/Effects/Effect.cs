@@ -134,6 +134,11 @@
 
     public void EffectWasPushedOnStack()
     {
+      foreach (var parameter in _dynamicParameters)
+      {
+        parameter.EvaluateAfterCost(this, Game);
+      }
+
       Source.EffectPushedOnStack();
       Publish(new EffectPushedOnStack {Effect = this});
     }
@@ -161,7 +166,7 @@
         return Targets.Effect.Any(IsValid);
       }
 
-      return Targets.Effect.All(IsValid) && 
+      return Targets.Effect.All(IsValid) &&
         Source.ValidateTargetDependencies(Targets.Cost, Targets.Effect);
     }
 
@@ -215,7 +220,7 @@
       {
         foreach (var parameter in _dynamicParameters)
         {
-          parameter.EvaluateOnInit(this, Game);
+          parameter.EvaluateBeforeCost(this, Game);
         }
       }
 

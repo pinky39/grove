@@ -1,19 +1,14 @@
 ﻿namespace Grove.Infrastructure
 {
   using System;
-  using System.Diagnostics;
 
   public static class AssertEx
-  {    
+  {
     public static void True(bool condition, string message)
     {
-#if DEBUG
-      Debug.Assert(condition, message);
-#else 
-      if(!condition)
+      if (!condition)
         throw new InvalidOperationException(message);
-#endif
-    }    
+    }
 
     public static void Fail(string message)
     {

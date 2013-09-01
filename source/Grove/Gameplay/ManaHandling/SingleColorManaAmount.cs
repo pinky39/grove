@@ -25,6 +25,7 @@
     }
 
     public int Converted { get { return Count; } }
+    public HashSet<int> Colors { get { return new HashSet<int>(Color.Indices); } }
 
     public IManaAmount Add(IManaAmount amount)
     {

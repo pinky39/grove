@@ -17,6 +17,7 @@
     public readonly SimpleAbilities SimpleAbilities = new SimpleAbilities();
     public readonly TriggeredAbilities TriggeredAbilities = new TriggeredAbilities();
     public List<CardColor> Colors = new List<CardColor>();
+    public List<CardColor> ManaColorsThisCardCanProduce = new List<CardColor>();
     public CardText FlavorText = string.Empty;
     public bool HasXInCost;
     public bool IsLeveler;

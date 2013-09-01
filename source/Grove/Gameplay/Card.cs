@@ -66,6 +66,7 @@
       Illustration = p.Illustration;
       MayChooseNotToUntap = p.MayChooseToUntap;
       MinimalBlockerCount = p.MinimalBlockerCount;
+      ProducableManaColors = p.ManaColorsThisCardCanProduce;
       
       _strenght = new Strenght(p.Power, p.Toughness);      
       _level = new Level(p.IsLeveler ? 0 : (int?) null);
@@ -92,6 +93,7 @@
     public Card AttachedTo { get { return _attachedTo.Value; } private set { _attachedTo.Value = value; } }
     public IEnumerable<Card> Attachments { get { return _attachments.Cards; } }
     public Rarity? Rarity { get; set; }
+    public List<CardColor> ProducableManaColors { get; private set; }
     public string Set { get; set; }
 
     public bool CanAttack

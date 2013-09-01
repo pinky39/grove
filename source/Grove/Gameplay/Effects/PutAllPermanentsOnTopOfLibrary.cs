@@ -31,7 +31,7 @@
         .Where(x => _filter(x))
         .ToList();
 
-      var orderAndPutOnTop = new OrderAndPutOnTopOfLibrary(player);
+      var orderAndPutOnTop = new OrderAndPutOnTopOfLibrary(player, permanents);
 
       Enqueue<Decisions.OrderCards>(
         controller: player,
@@ -53,15 +53,15 @@
 
       private OrderAndPutOnTopOfLibrary() {}
 
-      public OrderAndPutOnTopOfLibrary(Player controller)
+      public OrderAndPutOnTopOfLibrary(Player controller, List<Card> candidates)
       {
         _controller = controller;
+        _candidates = candidates;
       }
 
       public Ordering ChooseResult(List<Card> candidates)
-      {
-        _candidates = candidates;
-        return QuickDecisions.OrderTopCards(candidates, _controller);
+      {        
+        return QuickDecisions.OrderTopCards(_candidates, _controller);
       }
 
       public void ProcessResults(Ordering results)

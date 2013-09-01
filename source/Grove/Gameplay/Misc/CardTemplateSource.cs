@@ -15,14 +15,14 @@
       return elt;
     }
 
-    protected DynParam<T> P<T>(Func<Effect, Game, T> getter, bool evaluateOnInit = true, bool evaluateOnResolve = false)
+    protected DynParam<T> P<T>(Func<Effect, Game, T> getter, bool evaluateOnResolve = false)
     {
-      return new DynParam<T>(getter, evaluateOnInit, evaluateOnResolve);
+      return new DynParam<T>(getter, evaluateOnResolve);
     }
 
-    protected DynParam<T> P<T>(Func<Effect, T> getter, bool evaluateOnInit = true, bool evaluateOnResolve = false)
+    protected DynParam<T> P<T>(Func<Effect, T> getter, bool evaluateOnResolve = false)
     {
-      return new DynParam<T>((e, g) => getter(e), evaluateOnInit, evaluateOnResolve);
+      return new DynParam<T>((e, g) => getter(e), evaluateOnResolve);
     }
 
     public LevelDefinition Level(int min, int power, int toughness, Static ability, int? max = null)

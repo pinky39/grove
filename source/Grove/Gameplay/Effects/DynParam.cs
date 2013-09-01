@@ -6,22 +6,22 @@
   public interface IDynamicParameter
   {
     void EvaluateOnResolve(Effect effect, Game game);
-    void EvaluateOnInit(Effect effect, Game game);
+    void EvaluateBeforeCost(Effect effect, Game game);
+    void EvaluateAfterCost(Effect effect, Game game);
   }
 
+  
   [Copyable]
   public class DynParam<TOut> : IDynamicParameter
-  {
-    private readonly bool _evaluateOnInit;
+  {    
     private readonly bool _evaluateOnResolve;
-    private readonly Func<Effect, Game, TOut> _getter;
+    private readonly Func<Effect, Game, TOut> _getter;    
     private readonly Trackable<TOut> _value;
     private bool _isInitialized;
 
-    public DynParam(Func<Effect, Game, TOut> getter, bool evaluateOnInit = true, bool evaluateOnResolve = false)
+    public DynParam(Func<Effect, Game, TOut> getter, bool evaluateOnResolve = false)
     {
-      _getter = getter;
-      _evaluateOnInit = evaluateOnInit;
+      _getter = getter;      
       _evaluateOnResolve = evaluateOnResolve;
       _value = new Trackable<TOut>();
     }
@@ -30,7 +30,7 @@
 
     public DynParam(TOut value)
     {
-      _value = new Trackable<TOut>(value);
+      _value = new Trackable<TOut>(value);      
       _isInitialized = true;
     }
 
@@ -52,17 +52,29 @@
         Evaluate(effect, game);
     }
 
-    public void EvaluateOnInit(Effect effect, Game game)
+    public void EvaluateBeforeCost(Effect effect, Game game)
     {
-      _value.Initialize(game.ChangeTracker);
+      if (_evaluateOnResolve)
+        return;
+      
+      _value.Initialize(game.ChangeTracker);      
+      Evaluate(effect, game);
+    }
 
-      if (_evaluateOnInit)
+    public void EvaluateAfterCost(Effect effect, Game game)
+    {
+      if (_evaluateOnResolve)
+      {       
+        _value.Initialize(game.ChangeTracker);
         Evaluate(effect, game);
+      }
     }
 
     private void Evaluate(Effect effect, Game game)
     {
-      _value.Value = _getter(effect, game);
+      if (_getter != null)
+        _value.Value = _getter(effect, game);
+      
       _isInitialized = true;
     }
 
