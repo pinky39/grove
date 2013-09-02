@@ -92,7 +92,7 @@
       {
         players.Add(new DraftPlayer
           {
-            Strategy = strategy[RandomEx.Next(2)]()
+            Strategy = strategy[RandomEx.Next(10) >= 3 ? 0 : 1]()
           });
       }
 

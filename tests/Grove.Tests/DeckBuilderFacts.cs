@@ -2,25 +2,17 @@
 {
   using System;
   using Artifical;
-  using Grove.Infrastructure;
   using Infrastructure;
   using UserInterface;
+  using Xunit;
 
   public class DeckBuilderFacts : Scenario
   {
-    public DeckBuilderFacts()
-    {
-      MediaLibrary.LoadSets();
-      CardDatabase.Initialize(CardFactory.CreateAll());
-    }
-
     //[Fact]
     public void BuildDecks()
-    {            
+    {
       for (var i = 0; i < 1; i++)
       {
-        LogFile.Info("Building deck {0} of 25...", i + 1);
-
         var set = MediaLibrary.GetSet("Urza's Saga");
         var pileOfCards = set.GenerateMixedPack(boosterCount: 3, tournamentCount: 1);
 
@@ -40,8 +32,14 @@
         Console.WriteLine("--------------------------------");
 
 
-        Console.WriteLine(bestDeck);        
+        Console.WriteLine(bestDeck);
       }
+    }
+
+    public DeckBuilderFacts()
+    {
+      MediaLibrary.LoadSets();
+      CardDatabase.Initialize(CardFactory.CreateAll());
     }
   }
 }

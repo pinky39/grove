@@ -86,7 +86,7 @@ Disruptive Student;C;3.5
 Douse;U;3
 Dragon Blood;U;4
 Drifting Djinn;R;4
-Drifting Meadow;C;3
+Drifting Meadow;C;3.3
 Dromosaur;C;3.3
 Duress;C;3.8
 Eastern Paladin;R;3.8
@@ -112,7 +112,7 @@ Flesh Reaver;U;3.1
 Fog Bank;U;4
 Fortitude;C;3.2
 Gaea's Bounty;C;3.5
-Gaea's Cradle;R;3.5
+Gaea's Cradle;R;3.6
 Gaea's Embrace;U;4
 Gamble;R;3.3
 Gilded Drake;R;3.7
@@ -198,7 +198,7 @@ Phyrexian Tower;R;3.8
 Pit Trap;U;3.8
 Planar Birth;R;2.8
 Planar Void;U;3
-Polluted Mire;C;3
+Polluted Mire;C;3.3
 Pouncing Jaguar;C;3.4
 Power Sink;C;3.6
 Power Taint;C;3.5
@@ -216,7 +216,7 @@ Redeem;U;3.3
 Reflexes;C;2.8
 Rejuvenate;C;3.3
 Remembrance;R;3.4
-Remote Isle;C;3
+Remote Isle;C;3.3
 Reprocess;R;3.6
 Rescind;C;3.7
 Retaliation;U;3.6
@@ -256,9 +256,9 @@ Silent Attendant;C;3.3
 Skirge Familiar;U;3.6
 Skittering Skirge;C;3.8
 Sleeper Agent;R;3.4
-Slippery Karst;C;3
+Slippery Karst;C;3.3
 Smokestack;R;3.6
-Smoldering Crater;C;3
+Smoldering Crater;C;3.3
 Sneak Attack;R;3.4
 Somnophore;R;4
 Songstitcher;U;3.6

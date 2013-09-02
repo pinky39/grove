@@ -5,6 +5,7 @@
   using System.Linq;
   using Gameplay;
   using Gameplay.Characteristics;
+  using Gameplay.Sets;
   using Infrastructure;
 
   public class DeckBuilder
@@ -34,25 +35,28 @@
       _deckEvaluator = deckEvaluator;
     }
 
-    public Deck BuildDeck(IEnumerable<CardInfo> cardInfos, CardRatings cardRatings)
+    public Deck BuildDeck(IEnumerable<CardInfo> library, CardRatings cardRatings)
     {
-      var cards = cardInfos.Select(x => _cardDatabase[x.Name])
+      var cards = library.Select(x => _cardDatabase[x.Name])
         .ToList();
 
       var candidates = BuildDecks(cards, cardRatings)
-        .Select(x => CreateDeckFromCardList(x, cardInfos))
+        .Select(x => CreateDeckFromCardList(x, library))
         .ToList();
 
       return _deckEvaluator.GetBestDeck(candidates);
     }
 
-    private Deck CreateDeckFromCardList(List<Card> cards, IEnumerable<CardInfo> cardInfos)
+    private static Deck CreateDeckFromCardList(List<Card> cards, IEnumerable<CardInfo> library)
     {
       var deck = new Deck();
 
       foreach (var card in cards)
       {
-        deck.AddCard(cardInfos.First(x => x.Name.Equals(card.Name)));
+        var info = library.FirstOrDefault(x => x.Name.Equals(card.Name)) ??
+          new CardInfo(card.Name, Rarity.C); // basic lands are not included in library
+
+        deck.AddCard(info);
       }
 
       return deck;
@@ -66,7 +70,7 @@
       {
         var cardWithColorI = cards
           .Where(x => x.IsMultiColored == false)
-          .Where(x => x.HasColor(i) || x.HasColor(CardColor.Colorless))
+          .Where(x => x.HasColor(i) || x.HasColor(CardColor.Colorless) || x.Is().Land)
           .ToList();
 
         var monoColoredDeck = TryBuildDeck(cardWithColorI, cardRatings);
@@ -77,7 +81,7 @@
         for (var j = i + 1; j <= CardColor.Green; j++)
         {
           var dual = cards
-            .Where(x => x.HasColor(i) || x.HasColor(j) || x.HasColor(CardColor.Colorless))
+            .Where(x => x.HasColor(i) || x.HasColor(j) || x.HasColor(CardColor.Colorless) || x.Is().Land)
             .ToList();
 
           var firstcolorCount = dual.Count(x => _cardDatabase[x.Name].HasColor(i));
@@ -133,6 +137,7 @@
       var maxCountColor = distribution.IndexOf(distribution.Max());
 
       var cardsToRemoveCount = 0;
+      var landsToReplaceBasic = new List<Card>();
 
       foreach (var land in nonBasicLands)
       {
@@ -152,7 +157,7 @@
           if (deckColors.Contains(landColors[0]))
           {
             distribution[landColors[0]]--;
-            deck.Add(land);
+            landsToReplaceBasic.Add(land);
           }
           else if (landColors[0] == (int) CardColor.Colorless)
           {
@@ -164,7 +169,7 @@
             else
             {
               distribution[maxCountColor]--;
-              deck.Add(land);
+              landsToReplaceBasic.Add(land);
             }
           }
         }
@@ -175,7 +180,7 @@
           if (matchCount >= 2)
           {
             distribution[maxCountColor]--;
-            deck.Add(land);
+            landsToReplaceBasic.Add(land);
           }
         }
       }
@@ -186,9 +191,10 @@
         // e.g if they do not produce mana
         // so spells or creatures need to be removed
         // so that deck count is always 40
-
         RemoveWorstCards(deck, cardsToRemoveCount, cardRatings);
       }
+
+      deck.AddRange(landsToReplaceBasic);
     }
 
     private List<int> GetLandsDistribution(IEnumerable<Card> noLandsDeck, int landCount)

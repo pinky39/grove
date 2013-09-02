@@ -125,10 +125,10 @@
       return scores.Select(x => new ColorScore {Color = x.Color, Score = x.Score}).ToArray();
     }
 
-    protected Card GetBestCardOfSingleColorOrColorless(IEnumerable<Card> cards)
+    protected Card GetBestCardOfSingleColorOrColorless(IEnumerable<Card> cards, CardColor? primaryColor = null)
     {
       return cards
-        .Where(x => x.Colors.Length == 1)
+        .Where(x => x.Colors.Length == 1 || (primaryColor.HasValue && IsUsableNonbasicLand(x, primaryColor.Value)))
         .OrderByDescending(GetRating)
         .FirstOrDefault();
     }
@@ -149,7 +149,7 @@
     {
       if (SecondaryColor == null)
       {
-        var chosen = GetBestCardOfSingleColorOrColorless(booster);
+        var chosen = GetBestCardOfSingleColorOrColorless(booster, PrimaryColor);
 
         if (chosen == null)
           return GetBestCard(booster);
@@ -161,30 +161,71 @@
         return chosen;
       }
 
-      return GetBestCardOfChosenColorsOrColorless(color1: PrimaryColor, color2: SecondaryColor.Value, cards: booster) ??
-        GetBestCard(booster);
+      return GetBestCardOfChosenColorsOrColorless(
+        color1: PrimaryColor,
+        color2: SecondaryColor.Value,
+        cards: booster)
+          ??
+       GetBestCard(booster);
     }
 
-    protected Card GetBestCardOfChosenColorsOrColorless(CardColor color1, IEnumerable<Card> cards, CardColor? color2 = null)
+    protected Card GetBestCardOfChosenColorsOrColorless(CardColor color1, IEnumerable<Card> cards,
+      CardColor? color2 = null)
     {
       return cards
-        .Where(x =>
+        .Where(card =>
           {
-            if (x.IsColorless())
+            if (IsUsableNonbasicLand(card, color1, color2))
+            {
+              return true;
+            }
+
+            if (card.HasColor(CardColor.Colorless))
               return true;
 
-            return x.Colors.All(c =>
+            return card.Colors.All(c =>
               {
                 if (color2 == null)
                 {
                   return c == color1;
                 }
-                
+
                 return c == color1 || c == color2;
               });
           })
         .OrderByDescending(GetRating)
         .FirstOrDefault();
+    }
+
+    private bool IsUsableNonbasicLand(Card card, CardColor color1, CardColor? color2 = null)
+    {
+      if (!card.Is().Land)
+        return false;
+
+      var landColors = card.ProducableManaColors;
+
+      if (landColors.Count == 0)
+        return true;
+
+      if (landColors.Count == 1)
+      {
+        if (landColors[0] == (int) CardColor.Colorless)
+          return true;
+
+        if (landColors[0] == (int) color1)
+          return true;
+
+        if (color2.HasValue && landColors[0] == (int) color2.Value)
+          return true;
+
+        return false;
+      }
+
+      if (!color2.HasValue)
+        return false;
+
+      return landColors.Contains((int) color1) &&
+        landColors.Contains((int) color2.Value);
     }
   }
 }
