@@ -93,7 +93,7 @@
     public Card AttachedTo { get { return _attachedTo.Value; } private set { _attachedTo.Value = value; } }
     public IEnumerable<Card> Attachments { get { return _attachments.Cards; } }
     public Rarity? Rarity { get; set; }
-    public List<CardColor> ProducableManaColors { get; private set; }
+    public List<int> ProducableManaColors { get; private set; }
     public string Set { get; set; }
 
     public bool CanAttack

@@ -270,7 +270,7 @@
           set(p);
 
           cp.ActivatedAbilities.Add(new ManaAbility(p));
-          cp.ManaColorsThisCardCanProduce.AddRange(p.Colors.Select(i => (CardColor)i));
+          cp.ManaColorsThisCardCanProduce.AddRange(p.Colors);
         });
       return this;
     }

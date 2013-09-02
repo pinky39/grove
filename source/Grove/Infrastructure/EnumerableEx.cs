@@ -54,6 +54,25 @@
       return maxElement;
     }
 
+    public static T MinElement<T>(this IEnumerable<T> enumerable, Func<T, int> selector)
+    {
+      var minRank = int.MaxValue;
+      var minElement = default(T);
+
+      foreach (var element in enumerable)
+      {
+        var rank = selector(element);
+
+        if (rank < minRank)
+        {
+          minRank = rank;
+          minElement = element;
+        }
+      }
+
+      return minElement;
+    }
+
     public static IEnumerable<T> ToEnumerable<T>(this T obj)
     {
       yield return obj;
