@@ -187,10 +187,10 @@
 
       if (cardsToRemoveCount > 0)
       {
-        // some lands do not replace existing lands
-        // e.g if they do not produce mana
-        // so spells or creatures need to be removed
-        // so that deck count is always 40
+        // Some lands do not replace existing lands
+        // e.g if they do not produce mana.
+        // For each such land remove worst cards from deck
+        // so that deck count will be 40.
         RemoveWorstCards(deck, cardsToRemoveCount, cardRatings);
       }
 
