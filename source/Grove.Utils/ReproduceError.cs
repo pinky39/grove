@@ -16,7 +16,7 @@
     public override void Execute(Arguments arguments)
     {
       var filename = arguments["f"];
-      var rollback = int.Parse(arguments.TryGet("r") ?? "10");
+      var rollback = int.Parse(arguments.TryGet("r") ?? "15");
 
       Console.WriteLine("Attach the debugger then press any key...");
       Console.ReadKey();

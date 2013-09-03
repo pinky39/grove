@@ -32,7 +32,7 @@
                   ability.OwningCard.Controller != card.Controller && ability.OwningCard.Is().Enchantment));
 
             p.Effect = () => new ApplyModifiersToSelf(
-              () => new Gameplay.Modifiers.ChangeToCreature(
+              () => new ChangeToCreature(
                 power: 3,
                 toughness: 3,
                 type: "Creature Illusion",

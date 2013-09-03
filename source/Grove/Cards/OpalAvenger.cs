@@ -21,7 +21,7 @@
           {
             p.Text =
               "When you have 10 or less life, if Opal Avenger is an enchantment, Opal Avenger becomes a 3/5 Soldier creature.";
-            p.Trigger(new OnLifepointsLeft(ability => ability.OwningCard.Controller.Life <= 10));
+            p.Trigger(new OnLifepointsLeft(ability => ability.OwningCard.Is().Enchantment && ability.OwningCard.Controller.Life <= 10));
 
             p.Effect = () => new ApplyModifiersToSelf(
               () => new Gameplay.Modifiers.ChangeToCreature(
