@@ -1,6 +1,7 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
   using System;
+  using System.Collections.Generic;
   using Abilities;
   using Characteristics;
   using Counters;
@@ -17,7 +18,7 @@
   [Copyable]
   public abstract class Modifier : GameObject, IModifier, ICopyContributor
   {
-    private readonly TrackableList<Lifetime> _lifetimes = new TrackableList<Lifetime>();
+    private readonly List<Lifetime> _lifetimes = new List<Lifetime>();
     public bool UntilEot;
     public Card SourceCard { get; private set; }
     public Effect SourceEffect { get; private set; }
@@ -92,11 +93,8 @@
       foreach (var lifetime in _lifetimes)
       {
         Unsubscribe(lifetime);
-        lifetime.Ended -= RemoveModifier;
-        lifetime.Dispose();
-      }
-
-      _lifetimes.Clear();
+        lifetime.Ended -= RemoveModifier;        
+      }      
     }
 
     private void RemoveModifier(object sender, EventArgs e)
@@ -112,9 +110,7 @@
     protected virtual void Initialize() {}
 
     private void InitializeLifetimes(bool isStatic)
-    {
-      _lifetimes.Initialize(ChangeTracker);
-
+    {      
       if (isStatic == false)
       {
         if (Owner is Card)

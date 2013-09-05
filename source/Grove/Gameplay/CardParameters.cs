@@ -9,13 +9,14 @@
 
   public class CardParameters
   {
-    public readonly ActivatedAbilities ActivatedAbilities = new ActivatedAbilities();
-    public readonly CastInstructions CastInstructions = new CastInstructions();
-    public readonly CombatRules CombatRules = new CombatRules();
-    public readonly ContiniousEffects ContinuousEffects = new ContiniousEffects();
-    public readonly Protections Protections = new Protections();
-    public readonly SimpleAbilities SimpleAbilities = new SimpleAbilities();
-    public readonly TriggeredAbilities TriggeredAbilities = new TriggeredAbilities();
+    public readonly List<ActivatedAbility> ActivatedAbilities = new List<ActivatedAbility>();
+    public readonly List<CastInstruction> CastInstructions = new List<CastInstruction>();
+    public readonly List<CombatRule> CombatRules = new List<CombatRule>();
+    public readonly List<ContinuousEffect> ContinuousEffects = new List<ContinuousEffect>();
+    public readonly List<string> ProtectionsFromTypes = new List<string>();
+    public readonly List<CardColor> ProtectionsFromColors = new List<CardColor>();
+    public readonly List<Static> SimpleAbilities = new List<Static>();
+    public readonly List<TriggeredAbility> TriggeredAbilities = new List<TriggeredAbility>();
     public List<CardColor> Colors = new List<CardColor>();
     public List<int> ManaColorsThisCardCanProduce = new List<int>();
     public CardText FlavorText = string.Empty;
@@ -26,7 +27,7 @@
     public string Name;
     public ScoreOverride OverrideScore = new ScoreOverride();
     public int? Power;
-    public StaticAbilities StaticAbilities = new StaticAbilities();
+    public List<StaticAbility> StaticAbilities = new List<StaticAbility>();
     public CardText Text = string.Empty;
     public int? Toughness;
     public CardType Type;

@@ -58,6 +58,7 @@
       }
 
       _manaPool.Initialize(changeTracker);
+      _removeList.Initialize(changeTracker);
     }
 
     public void AddManaToPool(IManaAmount amount, ManaUsage usage)

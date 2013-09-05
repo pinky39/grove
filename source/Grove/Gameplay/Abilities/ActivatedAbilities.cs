@@ -9,16 +9,23 @@
   [Copyable]
   public class ActivatedAbilities : IAcceptsCardModifier, IHashable
   {
-    private readonly TrackableList<ActivatedAbility> _abilities = new TrackableList<ActivatedAbility>();
+    private readonly TrackableList<ActivatedAbility> _abilities;
 
-    public int CalculateHash(HashCalculator calc)
+    private ActivatedAbilities() {}
+
+    public ActivatedAbilities(IEnumerable<ActivatedAbility> activatedAbilities)
     {
-      return calc.Calculate(_abilities);
+      _abilities = new TrackableList<ActivatedAbility>(activatedAbilities);
     }
 
     public void Accept(ICardModifier modifier)
     {
       modifier.Apply(this);
+    }
+
+    public int CalculateHash(HashCalculator calc)
+    {
+      return calc.Calculate(_abilities);
     }
 
     public void Initialize(Card card, Game game)

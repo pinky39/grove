@@ -15,19 +15,21 @@
       _p = p;
     }
 
-    private IEnumerable<BlockAssignment> AssignEveryBlockerToEachAttacker()
+    private List<BlockAssignment> AssignEveryBlockerToEachAttacker()
     {
-      var attackers = _p.AttackerCandidates.Select(card => new CardWithCombatAbilities
-        {
+      var results = new List<BlockAssignment>();
+      
+      var attackers = _p.AttackerCandidates.Select(card => 
+        new CardWithCombatAbilities {
           Card = card,
           Abilities = card.GetCombatAbilities()
-        });
+        }).ToList();
 
-      var blockers = _p.BlockerCandidates.Select(card => new CardWithCombatAbilities
-        {
+      var blockers = _p.BlockerCandidates.Select(card => 
+        new CardWithCombatAbilities {
           Card = card,
           Abilities = card.GetCombatAbilities()
-        });
+        }).ToList();
 
       foreach (var attacker in attackers)
       {
@@ -38,8 +40,10 @@
           assignment.TryAssignBlocker(blocker);
         }
 
-        yield return assignment;
+        results.Add(assignment);
       }
+
+      return results;
     }
 
     public List<Card> ChooseAttackers()

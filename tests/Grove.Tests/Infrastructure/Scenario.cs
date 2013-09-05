@@ -12,14 +12,13 @@
   using Gameplay.Modifiers;
   using Gameplay.States;
   using Gameplay.Zones;
-  using Grove.Infrastructure;
   using log4net.Config;
   using Persistance;
   using Xunit;
 
   public abstract class Scenario : IDisposable
   {
-    protected static readonly IoC Container = new IoC(IoC.Configuration.Test);    
+    protected static readonly IoC Container = new IoC(IoC.Configuration.Test);
 
     protected Scenario(bool player1ControlledByScript = true, bool player2ControlledByScript = true)
     {
@@ -28,11 +27,11 @@
 
       var p = GameParameters.Scenario(player1Controller, player2Controller);
       Game = GameFactory.Create(p);
-      Game.Players.Starting = Game.Players.Player1;      
+      Game.Players.Starting = Game.Players.Player1;
     }
 
     protected CardFactory CardFactory { get { return Container.Resolve<CardFactory>(); } }
-    protected CardDatabase CardDatabase {get {return Container.Resolve<CardDatabase>();}}    
+    protected CardDatabase CardDatabase { get { return Container.Resolve<CardDatabase>(); } }
 
     protected MatchSimulator MatchSimulator { get { return Container.Resolve<MatchSimulator>(); } }
     protected Game.IFactory GameFactory { get { return Container.Resolve<Game.IFactory>(); } }
@@ -43,11 +42,6 @@
     protected Combat Combat { get { return Game.Combat; } }
 
     public virtual void Dispose() {}
-
-    protected void EnableChangeTrackerChecks()
-    {
-      NullTracker.EnableChangeTrackerChecks();
-    }
 
     protected Deck GetDeck(string name)
     {

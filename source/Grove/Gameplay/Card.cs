@@ -74,15 +74,15 @@
       _type = new CardTypeCharacteristic(p.Type);
       _colors = new CardColors(p.Colors);
 
-      _protections = p.Protections;
+      _protections = new Protections(p.ProtectionsFromColors, p.ProtectionsFromTypes);
 
-      _simpleAbilities = p.SimpleAbilities;
-      _triggeredAbilities = p.TriggeredAbilities;
-      _activatedAbilities = p.ActivatedAbilities;
-      _staticAbilities = p.StaticAbilities;
-      _castInstructions = p.CastInstructions;
-      _combatRules = p.CombatRules;
-      _continuousEffects = p.ContinuousEffects;
+      _simpleAbilities = new SimpleAbilities(p.SimpleAbilities);
+      _triggeredAbilities = new TriggeredAbilities(p.TriggeredAbilities);
+      _activatedAbilities = new ActivatedAbilities(p.ActivatedAbilities);
+      _staticAbilities = new StaticAbilities(p.StaticAbilities);
+      _castInstructions = new CastInstructions(p.CastInstructions);
+      _combatRules = new CombatRules(p.CombatRules);
+      _continuousEffects = new ContiniousEffects(p.ContinuousEffects);
 
       JoinedBattlefield = new TrackableEvent(this);
       LeftBattlefield = new TrackableEvent(this);
@@ -421,6 +421,9 @@
       Owner = owner;
       Id = game.Recorder.CreateId(this);
 
+      JoinedBattlefield.Initialize(ChangeTracker);
+      LeftBattlefield.Initialize(ChangeTracker);
+
       _controller = new ControllerCharacteristic(owner);
       _controller.Initialize(game, this);
       _strenght.Initialize(game, this);      
@@ -453,11 +456,7 @@
       _continuousEffects.Initialize(this, game);
 
 
-      _isPreview = false;
-
-      JoinedBattlefield.Initialize(ChangeTracker);
-      LeftBattlefield.Initialize(ChangeTracker);
-      
+      _isPreview = false;            
       return this;
     }
 

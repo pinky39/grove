@@ -32,7 +32,7 @@
 
     public void GenerateChoices()
     {
-      _declarations = GetAttackersDeclarations().ToList();
+      _declarations = GetAttackersDeclarations();
     }
 
     public void SetResult(int index)
@@ -56,13 +56,13 @@
       Ai.SetBestResult(this);      
     }
     
-    private IEnumerable<List<Card>> GetAttackersDeclarations()
+    private List<List<Card>> GetAttackersDeclarations()
     {
+      var results = new List<List<Card>>();
       
       var noAttackers = new List<Card>();
-
-      // 1. No attackers
-      yield return noAttackers;
+      
+      results.Add(noAttackers);      
 
       var allAttackers = Controller.Battlefield.CreaturesThatCanAttack.ToList();
 
@@ -78,17 +78,17 @@
         var chosenAttackers = new AttackStrategy(parameters).ChooseAttackers();
 
         if (chosenAttackers.Count > 0)
-        {
-          // 2. Chosen attackers
-          yield return chosenAttackers;
+        {          
+          results.Add(chosenAttackers);          
         }
 
         if (chosenAttackers.Count < allAttackers.Count)
-        {
-          // 3. All attackers          
-          yield return allAttackers;
+        {          
+          results.Add(allAttackers);
         }
       }
+
+      return results;
     }
 
     public override string ToString()

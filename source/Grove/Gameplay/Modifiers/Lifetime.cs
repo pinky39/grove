@@ -1,10 +1,9 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
-  using System;
   using Infrastructure;
   using Misc;
 
-  public abstract class Lifetime : GameObject, IDisposable
+  public abstract class Lifetime : GameObject
   {
     protected Lifetime()
     {
@@ -15,7 +14,6 @@
     public Modifier Modifier { get; private set; }
     protected Card OwningCard { get { return Modifier.OwningCard; } }
 
-    public virtual void Dispose() {}
 
     protected void End()
     {

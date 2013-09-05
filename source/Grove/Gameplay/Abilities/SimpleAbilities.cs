@@ -1,6 +1,6 @@
 ﻿namespace Grove.Gameplay.Abilities
 {
-  using System;
+  using System.Collections.Generic;
   using System.Linq;
   using Infrastructure;
   using Modifiers;
@@ -8,8 +8,16 @@
   [Copyable]
   public class SimpleAbilities : IStaticAbilities, IAcceptsCardModifier, IHashable
   {
-    private readonly TrackableList<SimpleAbility> _abilities = new TrackableList<SimpleAbility>();
+    private readonly TrackableList<SimpleAbility> _abilities;
     private INotifyChangeTracker _changeTracker = new NullTracker();
+
+    public SimpleAbilities(IEnumerable<Static> simpleAbilities)
+    {
+      _abilities = new TrackableList<SimpleAbility>(
+        simpleAbilities.Select(x => new SimpleAbility(x)));
+    }
+
+    private SimpleAbilities() {}
 
     public void Accept(ICardModifier modifier)
     {
@@ -62,6 +70,11 @@
 
     public bool CanOnlyBeBlockedByCreaturesWithFlying { get { return Has(Static.CanOnlyBeBlockedByCreaturesWithFlying); } }
 
+    public bool Has(Static ability)
+    {
+      return _abilities.Any(x => x.IsEnabled && x.Value == ability);
+    }
+
     public void Initialize(INotifyChangeTracker changeTracker, IHashDependancy hashDependancy)
     {
       _changeTracker = changeTracker;
@@ -75,7 +88,9 @@
 
     public void Add(Static ability)
     {
-      _abilities.Add(new SimpleAbility(ability).Initialize(_changeTracker));
+      var simpleAbility = new SimpleAbility(ability);
+      simpleAbility.Initialize(_changeTracker);
+      _abilities.Add(simpleAbility);
     }
 
     public bool Remove(Static ability)
@@ -92,11 +107,6 @@
 
       _abilities.Remove(staticAbility);
       return true;
-    }
-
-    public bool Has(Static ability)
-    {
-      return _abilities.Any(x => x.IsEnabled && x.Value == ability);
     }
 
     public void Disable()

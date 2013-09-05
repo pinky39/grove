@@ -10,6 +10,14 @@
   public class CastInstructions
   {
     private readonly List<CastInstruction> _castInstructions = new List<CastInstruction>();
+
+    private CastInstructions() {}
+
+    public CastInstructions(IEnumerable<CastInstruction> castInstructions)
+    {
+      _castInstructions.AddRange(castInstructions);
+    }
+
     public bool HasXInCost { get { return _castInstructions.Any(x => x.HasXInCost); } }
     public int Count { get { return _castInstructions.Count; } }
 
@@ -58,11 +66,6 @@
     public IManaAmount GetManaCost(int index)
     {
       return _castInstructions[index].GetManaCost();
-    }
-
-    public void Add(CastInstruction castInstruction)
-    {
-      _castInstructions.Add(castInstruction);
     }
   }
 }

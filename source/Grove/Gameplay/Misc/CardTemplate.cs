@@ -87,7 +87,7 @@
 
     public CardTemplate Protections(CardColor color)
     {
-      _init.Add(p => p.Protections.AddProtectionFromColor(color));
+      _init.Add(p => p.ProtectionsFromColors.Add(color));
       return this;
     }
 
@@ -189,9 +189,9 @@
       }
     }
 
-    public CardTemplate Protections(params string[] cardTypes)
+    public CardTemplate Protections(string cardType)
     {
-      _init.Add(p => p.Protections.AddProtectionFromCards(cardTypes));
+      _init.Add(p => p.ProtectionsFromTypes.Add(cardType));
 
       return this;
     }

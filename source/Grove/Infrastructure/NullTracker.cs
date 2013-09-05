@@ -31,6 +31,11 @@
       _enableChecks = true;
     }
 
+    public static void DisableChangeTrackerChecks()
+    {
+      _enableChecks = false;
+    }
+
     private static void AssertEnabled()
     {
       Debug.Assert(!_enableChecks, "Usage of a non initialized Trackable or TrackableList detected!");

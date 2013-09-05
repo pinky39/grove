@@ -1,5 +1,6 @@
 ﻿namespace Grove.Gameplay.Characteristics
 {
+  using System.Collections.Generic;
   using Infrastructure;
   using Modifiers;
 
@@ -9,14 +10,22 @@
     private readonly TrackableList<string> _cardTypes = new TrackableList<string>();
     private readonly TrackableList<CardColor> _colors = new TrackableList<CardColor>();
 
-    public int CalculateHash(HashCalculator calc)
+    private Protections() {}
+
+    public Protections(IEnumerable<CardColor> colors, IEnumerable<string> cardTypes)
     {
-      return HashCalculator.Combine(calc.Calculate(_colors), calc.Calculate(_cardTypes));
+      _colors.AddRange(colors);
+      _cardTypes.AddRange(cardTypes);
     }
 
     public void Accept(ICardModifier modifier)
     {
       modifier.Apply(this);
+    }
+
+    public int CalculateHash(HashCalculator calc)
+    {
+      return HashCalculator.Combine(calc.Calculate(_colors), calc.Calculate(_cardTypes));
     }
 
     public void Initialize(ChangeTracker changeTracker, IHashDependancy hashDependancy)

@@ -12,8 +12,7 @@
 
     public PreventNextDamageToTarget(int amount, object creatureOrPlayer)
     {
-      _amount = new Trackable<int>(amount);
-      ;
+      _amount = new Trackable<int>(amount);      
       _creatureOrPlayer = creatureOrPlayer;
     }
 
@@ -23,6 +22,11 @@
         GetType().GetHashCode(),
         _amount.Value,
         calc.Calculate((IHashable)_creatureOrPlayer));
+    }
+
+    protected override void Initialize()
+    {
+      _amount.Initialize(ChangeTracker);
     }
 
     public override int PreventDamage(PreventDamageParameters parameters)

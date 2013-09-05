@@ -4,13 +4,16 @@
 
   public abstract class IntegerModifier : PropertyModifier<int?>
   {
-    private readonly Trackable<int?> _value = new Trackable<int?>();
+    private readonly Trackable<int?> _value;
 
-    protected IntegerModifier() {}
+    protected IntegerModifier()
+    {
+      _value = new Trackable<int?>();
+    }
 
     protected IntegerModifier(int? value)
     {
-      _value.Value = value;
+      _value = new Trackable<int?>(value);
     }
 
     public int? Value

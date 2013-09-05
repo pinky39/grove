@@ -1,5 +1,6 @@
 ﻿namespace Grove.Gameplay.Abilities
 {
+  using System.Collections.Generic;
   using Infrastructure;
   using Misc;
   using Modifiers;
@@ -7,6 +8,13 @@
   public class ContiniousEffects : GameObject, IAcceptsCardModifier, IAcceptsPlayerModifier
   {
     private readonly TrackableList<ContinuousEffect> _continiousEffects = new TrackableList<ContinuousEffect>();
+
+    public ContiniousEffects() {}
+    
+    public ContiniousEffects(IEnumerable<ContinuousEffect> continuousEffects)
+    {
+      _continiousEffects.AddRange(continuousEffects);
+    }
 
     public void Accept(ICardModifier modifier)
     {

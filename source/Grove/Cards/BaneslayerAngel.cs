@@ -17,7 +17,8 @@
         .FlavorText("Some angels protect the meek and innocent. Others seek out and smite evil wherever it lurks.")
         .Power(5)
         .Toughness(5)
-        .Protections("demon", "dragon")
+        .Protections("demon")
+        .Protections("dragon")                
         .SimpleAbilities(
           Static.Flying,
           Static.FirstStrike,

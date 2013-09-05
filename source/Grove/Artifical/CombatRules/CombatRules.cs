@@ -1,5 +1,6 @@
 ﻿namespace Grove.Artifical.CombatRules
 {
+  using System.Collections.Generic;
   using Gameplay;
   using Infrastructure;
 
@@ -7,6 +8,13 @@
   public class CombatRules
   {
     private readonly TrackableList<CombatRule> _combatRules = new TrackableList<CombatRule>();
+
+    private CombatRules() {}
+
+    public CombatRules(IEnumerable<CombatRule> combatRules)
+    {
+      _combatRules.AddRange(combatRules);
+    }
 
     public CombatAbilities GetAbilities()
     {

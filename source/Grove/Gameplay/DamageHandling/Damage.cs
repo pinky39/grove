@@ -5,12 +5,12 @@
   [Copyable]
   public class Damage : IHashable
   {
-    private readonly Trackable<int> _amount = new Trackable<int>();
+    private readonly Trackable<int> _amount;
     private readonly TrackableList<DamageRedirection> _redirections = new TrackableList<DamageRedirection>();
 
     public Damage(int amount, bool isCombat, Card source)
     {
-      Amount = amount;
+      _amount = new Trackable<int>(amount);
       IsCombat = isCombat;
       Source = source;
     }

@@ -1,17 +1,25 @@
 ﻿namespace Grove.Gameplay.Abilities
 {
+  using System.Collections.Generic;
   using Infrastructure;
   using Misc;
 
   public class StaticAbilities : GameObject, IHashable
   {
-    private readonly TrackableList<StaticAbility> _abilities = new TrackableList<StaticAbility>();
+    private readonly TrackableList<StaticAbility> _abilities;
+
+    private StaticAbilities() {}
+
+    public StaticAbilities(IEnumerable<StaticAbility> abilities)
+    {
+      _abilities = new TrackableList<StaticAbility>(abilities);
+    }
 
     public int CalculateHash(HashCalculator calc)
     {
       return calc.Calculate(_abilities);
     }
-    
+
     public void Add(StaticAbility ability)
     {
       _abilities.Add(ability);
