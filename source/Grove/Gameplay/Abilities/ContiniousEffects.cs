@@ -7,13 +7,16 @@
 
   public class ContiniousEffects : GameObject, IAcceptsCardModifier, IAcceptsPlayerModifier
   {
-    private readonly TrackableList<ContinuousEffect> _continiousEffects = new TrackableList<ContinuousEffect>();
+    private readonly TrackableList<ContinuousEffect> _continiousEffects;
 
-    public ContiniousEffects() {}
+    public ContiniousEffects()
+    {
+      _continiousEffects = new TrackableList<ContinuousEffect>();
+    }
     
     public ContiniousEffects(IEnumerable<ContinuousEffect> continuousEffects)
     {
-      _continiousEffects.AddRange(continuousEffects);
+      _continiousEffects = new TrackableList<ContinuousEffect>(continuousEffects);
     }
 
     public void Accept(ICardModifier modifier)

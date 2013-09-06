@@ -10,8 +10,8 @@
   {
     private readonly List<T> _items = new List<T>();
     private readonly bool _orderImpactsHashcode;
-    private INotifyChangeTracker _changeTracker = new NullTracker();
-    private IHashDependancy _hashDependancy = new NullHashDependency();
+    private INotifyChangeTracker _changeTracker = new ChangeTrackerInitializationGuard();
+    private IHashDependancy _hashDependancy = new NoHashDependency();
 
     public TrackableList(IEnumerable<T> items, bool orderImpactsHashcode = false)
       : this(orderImpactsHashcode)

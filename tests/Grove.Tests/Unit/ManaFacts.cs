@@ -92,7 +92,7 @@
       Add("{G}", tapRestriction);
 
       AssertNotAvailable("{2}");
-    }
+    }    
 
     private readonly ManaVault _vault = new ManaVault();
 

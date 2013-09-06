@@ -97,14 +97,15 @@
         String.Format("Disabling a change tracker with history ({0}) is not allowed. This is a common indication of an incorrect object copy.",
             _changeHistory.Count));            
 
-      _isEnabled = false;
+      _isEnabled = false;      
       _changeHistory.Clear();
+      ChangeTrackerInitializationGuard.Disable();
     }
 
-    public ChangeTracker Enable()
+    public void Enable()
     {
       _isEnabled = true;
-      return this;
+      ChangeTrackerInitializationGuard.Enable();      
     }
 
     private void AssertNotLocked()

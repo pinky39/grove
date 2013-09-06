@@ -3,8 +3,8 @@
   [Copyable]
   public class Trackable<T> : ITrackableValue<T>
   {
-    private INotifyChangeTracker _changeTracker = new NullTracker();
-    private IHashDependancy _hashDependency = new NullHashDependency();
+    private INotifyChangeTracker _changeTracker = new ChangeTrackerInitializationGuard();
+    private IHashDependancy _hashDependency = new NoHashDependency();
     private T _value;
 
     public Trackable() : this(default(T)) {}

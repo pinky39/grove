@@ -9,12 +9,12 @@
   public class SimpleAbilities : IStaticAbilities, IAcceptsCardModifier, IHashable
   {
     private readonly TrackableList<SimpleAbility> _abilities;
-    private INotifyChangeTracker _changeTracker = new NullTracker();
+    private INotifyChangeTracker _changeTracker = new ChangeTrackerInitializationGuard();
 
     public SimpleAbilities(IEnumerable<Static> simpleAbilities)
     {
       _abilities = new TrackableList<SimpleAbility>(
-        simpleAbilities.Select(x => new SimpleAbility(x)));
+        simpleAbilities.Select(x => new SimpleAbility(x)));      
     }
 
     private SimpleAbilities() {}

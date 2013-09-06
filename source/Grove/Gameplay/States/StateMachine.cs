@@ -262,8 +262,7 @@
             var effect = Stack.LastResolved;
             if (effect != null)
             {
-              effect.FinishResolve();
-              Players.MoveDeadCreaturesToGraveyard();
+              effect.FinishResolve();              
             }
           },
         next: () => State.Start);

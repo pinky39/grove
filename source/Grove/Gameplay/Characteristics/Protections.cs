@@ -14,8 +14,8 @@
 
     public Protections(IEnumerable<CardColor> colors, IEnumerable<string> cardTypes)
     {
-      _colors.AddRange(colors);
-      _cardTypes.AddRange(cardTypes);
+      _colors = new TrackableList<CardColor>(colors);
+      _cardTypes = new TrackableList<string>(cardTypes);
     }
 
     public void Accept(ICardModifier modifier)

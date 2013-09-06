@@ -11,7 +11,7 @@
   {
     private readonly Assembly _assembly;
     private readonly string _namespace;
-    private INotifyChangeTracker _changeTracker = new NullTracker();
+    private INotifyChangeTracker _changeTracker = new ChangeTrackerInitializationGuard();
     private Dictionary<Type, List<Type>> _handlersByType = new Dictionary<Type, List<Type>>();
     private Dictionary<Type, TrackableList<object>> _subscribers = new Dictionary<Type, TrackableList<object>>();
 

@@ -1,6 +1,6 @@
 ﻿namespace Grove.Infrastructure
 {
-  public class NullHashDependency : IHashDependancy
+  public class NoHashDependency : IHashDependancy
   {
     public void InvalidateHash() {}
   }

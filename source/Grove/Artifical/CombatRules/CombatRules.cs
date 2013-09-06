@@ -7,13 +7,13 @@
   [Copyable]
   public class CombatRules
   {
-    private readonly TrackableList<CombatRule> _combatRules = new TrackableList<CombatRule>();
+    private readonly TrackableList<CombatRule> _combatRules;
 
     private CombatRules() {}
 
     public CombatRules(IEnumerable<CombatRule> combatRules)
     {
-      _combatRules.AddRange(combatRules);
+      _combatRules = new TrackableList<CombatRule>(combatRules);
     }
 
     public CombatAbilities GetAbilities()

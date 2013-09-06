@@ -41,7 +41,12 @@
       Assert.Equal(1, count);
     }
 
-    private readonly ChangeTracker _changeTracker = new ChangeTracker().Enable();
+    private readonly ChangeTracker _changeTracker = new ChangeTracker();
+
+    public TrackableEventFacts()
+    {
+      _changeTracker.Enable();
+    }
 
     private TrackableEvent CreateEvent()
     {

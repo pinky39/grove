@@ -14,5 +14,10 @@
     {
       True(false, message);
     }
+
+    public static void False(bool condition, string message )
+    {
+      True(!condition, message);
+    }
   }
 }

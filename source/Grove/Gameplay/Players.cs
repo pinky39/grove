@@ -143,11 +143,8 @@
 
     public void MoveDeadCreaturesToGraveyard()
     {
-      foreach (var player in this)
-      {
-        player.MoveCreaturesWithLeathalDamageOrZeroTougnessToGraveyard();
-      }
-
+      Active.MoveCreaturesWithLeathalDamageOrZeroTougnessToGraveyard();
+      Passive.MoveCreaturesWithLeathalDamageOrZeroTougnessToGraveyard();                  
       RespectLegendaryRule();
     }
 

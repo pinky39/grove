@@ -1208,8 +1208,8 @@
     <Compile Include="Gameplay\Zones\ZoneChangedEventArgs.cs" />
     <Compile Include="Infrastructure\IHashDependancy.cs" />
     <Compile Include="Infrastructure\INotifyChangeTracker.cs" />
-    <Compile Include="Infrastructure\NullHashDependency.cs" />
-    <Compile Include="Infrastructure\NullTracker.cs" />
+    <Compile Include="Infrastructure\NoHashDependency.cs" />
+    <Compile Include="Infrastructure\ChangeTrackerInitializationGuard.cs" />
     <Compile Include="Infrastructure\Publisher.cs" />
     <Compile Include="UserInterface\CardViewModel.cs" />
     <Compile Include="UserInterface\DeckEditor\LibraryItem.cs" />

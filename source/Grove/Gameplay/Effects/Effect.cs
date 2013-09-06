@@ -150,6 +150,7 @@
         Source.EffectResolved();
 
         Publish(new EffectResolved {Effect = this});
+        Players.MoveDeadCreaturesToGraveyard();
         return;
       }
 

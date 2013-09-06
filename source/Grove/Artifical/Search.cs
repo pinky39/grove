@@ -83,8 +83,6 @@
       // but only the copy is unlocked and can track state.
       _game.ChangeTracker.Enable();
 
-      // enable non initialized changed tracker checks
-      NullTracker.EnableChangeTrackerChecks();
 
       // Copy game state,
       var searchNodeCopy = new CopyService().CopyRoot(searchNode);
@@ -96,8 +94,7 @@
       worker.StartSearch(searchNodeCopy);
 
       RemoveWorker(worker);
-
-      NullTracker.DisableChangeTrackerChecks();      
+      
       _game.ChangeTracker.Disable();
       _game.ChangeTracker.Unlock();      
 
