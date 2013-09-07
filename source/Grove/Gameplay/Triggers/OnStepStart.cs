@@ -4,24 +4,24 @@
   using Messages;
   using States;
 
-  public class OnStepStart : Trigger, IOrderedReceive<StepStarted>, IReceive<ZoneChanged>,
+  public class OnStepStart : Trigger, IOrderedReceive<StepStarted>,
     IReceive<ControllerChanged>
   {
     private readonly bool _activeTurn;
     private readonly Trackable<bool> _canTrigger = new Trackable<bool>(true);
-    private readonly bool _onlyOnceWhenAfterItComesUnderYourControl;
+    private readonly bool _onlyOnceAfterActivated;
     private readonly bool _passiveTurn;
     private readonly Step _step;
 
     private OnStepStart() {}
 
-    public OnStepStart(Step step, bool activeTurn = true, bool onlyOnceWhenAfterItComesUnderYourControl = false,
+    public OnStepStart(Step step, bool activeTurn = true, bool onlyOnceAfterActivated = false,
       bool passiveTurn = false, int order = 0)
     {
       _activeTurn = activeTurn;
       _step = step;
       _passiveTurn = passiveTurn;
-      _onlyOnceWhenAfterItComesUnderYourControl = onlyOnceWhenAfterItComesUnderYourControl;
+      _onlyOnceAfterActivated = onlyOnceAfterActivated;
       Order = order;
     }
 
@@ -39,7 +39,7 @@
       {
         Set();
 
-        if (_onlyOnceWhenAfterItComesUnderYourControl)
+        if (_onlyOnceAfterActivated)
         {
           _canTrigger.Value = false;
         }
@@ -48,18 +48,15 @@
 
     public void Receive(ControllerChanged message)
     {
-      if (_onlyOnceWhenAfterItComesUnderYourControl && message.Card == Ability.OwningCard)
+      if (_onlyOnceAfterActivated && message.Card == Ability.OwningCard)
       {
         _canTrigger.Value = true;
       }
     }
 
-    public void Receive(ZoneChanged message)
+    protected override void OnActivate()
     {
-      if (_onlyOnceWhenAfterItComesUnderYourControl && message.Card == Ability.OwningCard && message.ToBattlefield)
-      {
-        _canTrigger.Value = false;
-      }
+      _canTrigger.Value = true;
     }
 
     protected override void Initialize()
