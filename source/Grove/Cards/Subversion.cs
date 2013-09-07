@@ -24,6 +24,7 @@
 
             p.Trigger(new OnStepStart(Step.Upkeep));
             p.Effect = () => new ControllerGainsLifeOpponentLoosesLife(1, 1);
+            p.TriggerOnlyIfOwningCardIsInPlay = true;
           });
     }
   }

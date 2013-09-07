@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using Artifical.TargetingRules;
+  using Artifical.TimingRules;
   using Gameplay.Abilities;
   using Gameplay.Characteristics;
   using Gameplay.Effects;
@@ -21,6 +22,9 @@
         .Power(1)
         .Toughness(1)
         .Echo("{2}{B}")
+        .Cast(p => p.TimingRule(new WhenOpponentControllsPermanents(
+          card => card.Is().Creature && !card.Is().Artifact && !card.HasColor(CardColor.Black) &&
+            card.CanBeTargetBySpellsWithColor(CardColor.Black))))
         .SimpleAbilities(Static.Flying)
         .TriggeredAbility(p =>
           {

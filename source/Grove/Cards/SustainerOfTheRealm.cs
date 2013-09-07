@@ -23,7 +23,7 @@
         .TriggeredAbility(p =>
           {
             p.Text = "Whenever Sustainer of the Realm blocks, it gets +0/+2 until end of turn.";
-            p.Trigger(new OnBlock(becomesBlocked: true));
+            p.Trigger(new OnBlock(blocks: true));
             p.Effect = () => new ApplyModifiersToSelf(() => new AddPowerAndToughness(0, 2) {UntilEot = true});
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });
