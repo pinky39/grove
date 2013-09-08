@@ -244,5 +244,16 @@
 
       RunGame(2);
     }
+
+      [Fact]
+      public void Num20()
+      {        
+        Hand(P1, "Remote Isle", "Miscalculation");
+        Hand(P2, "Plains");
+        Battlefield(P1, "Swamp", "Island", "Island", "Spawning Pool", "Swamp", "Fog of Gnats", "Island", "Phyrexian Debaser", "Island", "Phyrexian Broodlings", "Swamp", "Phyrexian Broodlings");
+        Battlefield(P2, "Plains", "Tragic Poet", "Plains", C("Expendable Troops").IsEnchantedWith("Brilliant Halo"), "Disciple of Grace", "Mountain", "Songstitcher", "Mountain", "Pyromancy", "Mountain", "Mountain");        
+
+        RunGame(2);
+      } 
   }
 }

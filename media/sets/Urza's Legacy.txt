@@ -66,7 +66,7 @@ Karmic Guide;R;4.2
 King Crab;U;3.8
 Knighthood;U;3.7
 Last-Ditch Effort;U;3.3
-Lava Axe;C;3.5
+Lava Axe;C;3.6
 Levitation;U;3.8
 Lone Wolf;U;3.5
 Lurking Skirge;R;3.7
