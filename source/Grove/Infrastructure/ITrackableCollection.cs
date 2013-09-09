@@ -2,11 +2,10 @@
 {
   using System.Collections.Generic;
 
-  public interface ITrackableCollection<T> : ICollection<T>
+  public interface ITrackableCollection<T> : IEnumerable<T>
   {
     void AddWithoutTracking(T item);
     bool RemoveWithoutTracking(T item);
-    void InsertWithoutTracking(int index, T item);
-    int IndexOf(T item);
+    void InsertWithoutTracking(T item, int index);    
   }
 }

@@ -282,7 +282,7 @@
 
     public void DiscardCard(Card card)
     {
-      _graveyard.Add(card);
+      _graveyard.AddToEnd(card);
     }
 
     public void DiscardHand()
@@ -402,7 +402,7 @@
         return;
       }
 
-      _graveyard.Add(card);
+      _graveyard.AddToEnd(card);
     }
 
     public void RemoveDamageFromPermanents()
@@ -425,7 +425,7 @@
     {
       foreach (var card in cards)
       {
-        _library.Add(card);
+        _library.AddToEnd(card);
       }
 
       _library.Shuffle();
@@ -433,7 +433,7 @@
 
     public void ShuffleIntoLibrary(Card card)
     {
-      _library.Add(card);
+      _library.AddToEnd(card);
       _library.Shuffle();
     }
 
@@ -451,7 +451,7 @@
 
       foreach (var card in Hand.ToList())
       {
-        _library.Add(card);
+        _library.AddToEnd(card);
       }
 
       _library.Shuffle();
@@ -484,18 +484,18 @@
           card.Hide();
         }
 
-        _graveyard.Add(card);
+        _graveyard.AddToEnd(card);
       }
     }
 
     public void PutCardToHand(Card card)
-    {
+    {            
       if (card.Is().Token)
       {
         _exile.Add(card);
         return;
       }
-
+            
       _hand.Add(card);
     }
 
@@ -524,7 +524,7 @@
 
       foreach (var card in cards)
       {
-        _library.Add(card);
+        _library.AddToEnd(card);
       }
     }
 

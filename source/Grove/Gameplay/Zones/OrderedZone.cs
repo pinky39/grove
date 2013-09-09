@@ -74,18 +74,20 @@
       AfterRemove(card);
     }
 
-    public virtual void Add(Card card)
-    {
-      _cards.Add(card);
-      card.ChangeZone(this);
+    public virtual void AddToEnd(Card card)
+    {      
+      card.ChangeZoneTo(this, 
+        onChange: c => _cards.Add(c),
+        onNoChange: c => _cards.MoveToEnd(c));
 
       CardAdded(this, new ZoneChangedEventArgs(card, _cards.Count - 1));
     }
 
     public virtual void AddToFront(Card card)
-    {
-      _cards.AddToFront(card);
-      card.ChangeZone(this);
+    {      
+      card.ChangeZoneTo(this, 
+      onChange: c => _cards.AddToFront(card),
+      onNoChange: c=> _cards.MoveToFront(card));      
 
       CardAdded(this, new ZoneChangedEventArgs(card, _cards.Count));
     }

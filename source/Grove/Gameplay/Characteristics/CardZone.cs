@@ -1,5 +1,6 @@
 ﻿namespace Grove.Gameplay.Characteristics
 {
+  using System;
   using Infrastructure;
   using Messages;
   using Misc;
@@ -8,10 +9,10 @@
   [Copyable]
   public class CardZone : GameObject, IHashable
   {
-    private readonly Trackable<IZone> _current = new Trackable<IZone>(new NullZone());        
-    private Card _card;    
+    private readonly Trackable<IZone> _current = new Trackable<IZone>(new NullZone());
+    private Card _card;
 
-    public Zone Current { get { return _current.Value.Zone; } }    
+    public Zone Current { get { return _current.Value.Zone; } }
 
     public int CalculateHash(HashCalculator calc)
     {
@@ -23,29 +24,40 @@
       Game = game;
       _card = card;
 
-      _current.Initialize(ChangeTracker, card);      
+      _current.Initialize(ChangeTracker, card);
     }
 
-    public void ChangeZone(IZone newZone)
+    public void ChangeZoneTo(IZone zone, Action<Card> onChange, Action<Card> onNoChange)
     {
-      var oldZone = _current.Value;
-      _current.Value = newZone;
+      var oldZone = _current.Value;      
 
-      oldZone.Remove(_card);
-
-      if (oldZone.Zone != newZone.Zone)
+      if (oldZone == zone)
       {
-        Publish(new ZoneChanged
-          {
-            Card = _card,
-            From = oldZone.Zone,
-            To = newZone.Zone
-          });
-
-
-        oldZone.AfterRemove(_card);        
-        newZone.AfterAdd(_card);
+        onNoChange(_card);
+        return;
       }
+      
+      oldZone.Remove(_card);
+      onChange(_card);
+      
+      _current.Value = zone;
+
+      if (oldZone.Zone == zone.Zone)
+      {
+        // change of controller
+        return;
+      }
+
+      Publish(new ZoneChanged
+        {
+          Card = _card,
+          From = oldZone.Zone,
+          To = zone.Zone
+        });
+
+
+      oldZone.AfterRemove(_card);
+      zone.AfterAdd(_card);
     }
   }
 }

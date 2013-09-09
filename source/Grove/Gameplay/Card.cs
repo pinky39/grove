@@ -745,9 +745,11 @@
       Owner.PutCardToGraveyard(this);
     }
 
-    public void ChangeZone(IZone newZone)
+    public void ChangeZoneTo(IZone zone, Action<Card> onChange = null, Action<Card> onNoChange = null)
     {
-      _zone.ChangeZone(newZone);
+      onChange = onChange ?? delegate { };
+      onNoChange = onNoChange ?? delegate { };
+      _zone.ChangeZoneTo(zone, onChange, onNoChange);
     }
 
     public void OnCardLeftBattlefield()

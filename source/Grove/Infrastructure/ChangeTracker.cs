@@ -73,31 +73,42 @@
         return;
       }
 
-      var index = trackableCollection.IndexOf(removed);
+      var list = trackableCollection as IList<T>;
 
-      if (index == -1)
+      if (list != null)
+      {
+        var index = list.IndexOf(removed);
+
+        if (index == -1)
+          return;
+
+        _changeHistory.Push(() => trackableCollection.InsertWithoutTracking(removed, index));
+
         return;
+      }
 
-      _changeHistory.Push(() => trackableCollection.InsertWithoutTracking(index, removed));
-    }
-
-    private void Debug() {}
+      if (trackableCollection.Contains(removed))
+      {
+        _changeHistory.Push(() => trackableCollection.AddWithoutTracking(removed));
+      }
+    }    
 
     public Snapshot CreateSnapshot()
     {
       LogFile.Debug("Create snapshot.");
-      AssertEx.True(_isEnabled, "Tracker is disabled, did you forget to enable it?");            
+      AssertEx.True(_isEnabled, "Tracker is disabled, did you forget to enable it?");
 
       return new Snapshot(_changeHistory.Count);
     }
 
     public void Disable()
     {
-      AssertEx.True(_changeHistory.Count == 0, 
-        String.Format("Disabling a change tracker with history ({0}) is not allowed. This is a common indication of an incorrect object copy.",
-            _changeHistory.Count));            
+      AssertEx.True(_changeHistory.Count == 0,
+        String.Format(
+          "Disabling a change tracker with history ({0}) is not allowed. This is a common indication of an incorrect object copy.",
+          _changeHistory.Count));
 
-      _isEnabled = false;      
+      _isEnabled = false;
       _changeHistory.Clear();
       ChangeTrackerInitializationGuard.Disable();
     }
@@ -105,19 +116,19 @@
     public void Enable()
     {
       _isEnabled = true;
-      ChangeTrackerInitializationGuard.Enable();      
+      ChangeTrackerInitializationGuard.Enable();
     }
 
     private void AssertNotLocked()
     {
       AssertEx.True(!_isLocked,
-        "Trying to modify a locked change tracker. This is a common indication of an incorrect object copy.");            
+        "Trying to modify a locked change tracker. This is a common indication of an incorrect object copy.");
     }
 
     public void RollbackToSnapshot(Snapshot snapshot)
     {
       LogFile.Debug("Restore from snapshot.");
-      AssertEx.True(_isEnabled, "Tracker is disabled, did you forget to enable it?");                
+      AssertEx.True(_isEnabled, "Tracker is disabled, did you forget to enable it?");
 
       while (_changeHistory.Count > snapshot.History)
       {

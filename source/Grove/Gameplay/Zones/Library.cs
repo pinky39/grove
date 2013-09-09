@@ -27,7 +27,7 @@
  
     public void PutOnBottom(Card card)
     {
-      Add(card);
+      AddToEnd(card);
     }
   }
 }

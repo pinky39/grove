@@ -64,15 +64,10 @@
     public bool IsReadOnly { get { return false; } }
 
     public void Add(T item)
-    {
+    {      
       _items.Add(item);
       _changeTracker.NotifyValueAdded(this, item);
       _hashDependancy.InvalidateHash();
-    }
-
-    void ITrackableCollection<T>.AddWithoutTracking(T item)
-    {
-      _items.Add(item);
     }
 
     public void Clear()
@@ -92,6 +87,23 @@
       _items.CopyTo(array, arrayIndex);
     }
 
+    public int IndexOf(T item)
+    {
+      return _items.IndexOf(item);
+    }
+
+    public bool Remove(T item)
+    {
+      _changeTracker.NotifyValueWillBeRemoved(this, item);
+      _hashDependancy.InvalidateHash();
+      return _items.Remove(item);
+    }
+
+    void ITrackableCollection<T>.AddWithoutTracking(T item)
+    {
+      _items.Add(item);
+    }
+
     public IEnumerator<T> GetEnumerator()
     {
       return _items.GetEnumerator();
@@ -102,21 +114,9 @@
       return GetEnumerator();
     }
 
-    public int IndexOf(T item)
-    {
-      return _items.IndexOf(item);
-    }
-
-    void ITrackableCollection<T>.InsertWithoutTracking(int index, T item)
+    void ITrackableCollection<T>.InsertWithoutTracking(T item, int index)
     {
       _items.Insert(index, item);
-    }
-
-    public bool Remove(T item)
-    {
-      _changeTracker.NotifyValueWillBeRemoved(this, item);
-      _hashDependancy.InvalidateHash();
-      return _items.Remove(item);
     }
 
     bool ITrackableCollection<T>.RemoveWithoutTracking(T item)
@@ -157,7 +157,7 @@
     }
 
     public void Shuffle(IList<int> permutation)
-    {      
+    {
       var copy = _items.ToList();
 
       Clear();
@@ -182,9 +182,9 @@
 
       head.ShuffleInPlace(permutation);
 
-      for (int i = head.Count - 1; i >= 0; i--)
+      for (var i = head.Count - 1; i >= 0; i--)
       {
-        AddToFront(head[i]);      
+        AddToFront(head[i]);
       }
     }
 
@@ -197,6 +197,22 @@
       }
 
       _hashDependancy.InvalidateHash();
+    }
+
+    public void MoveToEnd(T item)
+    {
+      if (Remove(item) == false)
+        return;
+
+      Add(item);
+    }
+
+    public void MoveToFront(T item)
+    {
+      if (Remove(item) == false)
+        return;
+
+      AddToFront(item);
     }
   }
 }

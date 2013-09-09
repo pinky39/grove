@@ -86,16 +86,20 @@
 
     public virtual void Add(Card card)
     {
-      _cards.Add(card);
-      card.ChangeZone(this);
-
-      CardAdded(this, new ZoneChangedEventArgs(card));
+      card.ChangeZoneTo(this,
+        onChange: c =>
+          {
+            _cards.Add(c);
+            CardAdded(this, new ZoneChangedEventArgs(card));
+          });
     }
 
     protected virtual void Remove(Card card)
     {
-      _cards.Remove(card);
-      CardRemoved(this, new ZoneChangedEventArgs(card));
+      if (_cards.Remove(card))
+      {
+        CardRemoved(this, new ZoneChangedEventArgs(card));
+      }
     }
 
     public override string ToString()

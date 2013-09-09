@@ -222,7 +222,7 @@
           {
             var card = CardFactory.CreateCard(name);
             card.Initialize(player, Game);
-            graveyard.Add(card);
+            graveyard.AddToEnd(card);
 
             return card;
           });
