@@ -56,7 +56,9 @@
 
     public void EffectPushedOnStack()
     {
-      _card.ChangeZoneTo(Stack);
+      _card.ChangeZone(
+        destination: Stack, 
+        add: delegate {});
     }
 
     public void EffectResolved()

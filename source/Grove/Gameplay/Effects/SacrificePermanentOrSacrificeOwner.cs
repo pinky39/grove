@@ -43,7 +43,7 @@
     public void ProcessResults(ChosenCards results)
     {
       if (results.None())
-      {
+      {        
         Source.OwningCard.Sacrifice();
         return;
       }

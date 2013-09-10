@@ -1,13 +1,14 @@
 ﻿namespace Grove.Gameplay.Effects
 {
-  using System;
   using Infrastructure;
   using Targeting;
+  using Zones;
 
   public class ReturnToHand : Effect
   {
     private readonly int _discard;
     private readonly bool _returnOwningCard;
+    private Zone _owningCardZone;
 
     private ReturnToHand() {}
 
@@ -15,6 +16,11 @@
     {
       _discard = discard;
       _returnOwningCard = returnOwningCard;
+    }
+
+    protected override void Initialize()
+    {
+      _owningCardZone = Source.OwningCard.Zone;
     }
 
     protected override void ResolveEffect()
@@ -26,7 +32,7 @@
 
       if (_returnOwningCard && ValidEffectTargets.None(x => x == Source.OwningCard))
       {
-        Source.OwningCard.PutToHand();
+        Source.OwningCard.PutToHandFrom(_owningCardZone);
       }
 
       if (_discard > 0)

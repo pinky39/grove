@@ -15,6 +15,6 @@
     public int MulliganSize { get { return Count - 1; } }
 
     public int Score { get { return this.Sum(x => x.Score); } }
-    public override Zone Zone { get { return Zone.Hand; } }
+    public override Zone Name { get { return Zone.Hand; } }
   }
 }

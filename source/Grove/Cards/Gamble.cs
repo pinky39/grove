@@ -19,7 +19,11 @@
         .Cast(p =>
           {
             p.Effect =
-              () => new SearchLibraryPutToZone(c => c.PutToHand(), minCount: 1, maxCount: 1, revealCards: false)
+              () => new SearchLibraryPutToZone(
+                c => c.PutToHand(),
+                minCount: 1,
+                maxCount: 1,
+                revealCards: false)
                 {AfterResolve = e => e.Controller.DiscardRandomCard()};
 
             p.TimingRule(new OnFirstMain());

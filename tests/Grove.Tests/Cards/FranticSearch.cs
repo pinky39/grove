@@ -13,7 +13,7 @@
       {
         var faeries = C("Weatherseed Faeries");
         
-        Hand(P1, "Frantic Search", "Island", "Island", "Island", "Island");        
+        Hand(P1, "Frantic Search", "Island", "Island", "Island", "Island", "Island");        
         Library(P1, "Island", faeries);
         
         Battlefield(P1, "Island", "Island");

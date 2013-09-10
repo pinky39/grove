@@ -24,7 +24,7 @@
     protected override void OnEffectCountered(SpellCounterReason reason)
     {
       if (reason == SpellCounterReason.IllegalTarget)
-      {
+      {                                
         Source.SourceCard.Sacrifice();
       }
     }

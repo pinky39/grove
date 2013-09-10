@@ -39,15 +39,15 @@
     private readonly Trackable<bool> _isRevealed = new Trackable<bool>();
     private readonly Trackable<bool> _isTapped = new Trackable<bool>();
     private readonly Level _level;
-    private readonly TrackableList<ICardModifier> _modifiers = new TrackableList<ICardModifier>();    
+    private readonly TrackableList<ICardModifier> _modifiers = new TrackableList<ICardModifier>();
     private readonly Protections _protections;
     private readonly SimpleAbilities _simpleAbilities;
-    private readonly StaticAbilities _staticAbilities;    
+    private readonly StaticAbilities _staticAbilities;
+    private readonly Strenght _strenght;
     private readonly TriggeredAbilities _triggeredAbilities;
     private readonly CardTypeCharacteristic _type;
     private readonly Trackable<int> _usageScore = new Trackable<int>();
-    private readonly CardZone _zone = new CardZone();
-    private readonly Strenght _strenght;
+    private readonly Trackable<IZone> _zone = new Trackable<IZone>(new NullZone());
 
     public TrackableEvent JoinedBattlefield;
     public TrackableEvent LeftBattlefield;
@@ -67,8 +67,8 @@
       MayChooseNotToUntap = p.MayChooseToUntap;
       MinimalBlockerCount = p.MinimalBlockerCount;
       ProducableManaColors = p.ManaColorsThisCardCanProduce;
-      
-      _strenght = new Strenght(p.Power, p.Toughness);      
+
+      _strenght = new Strenght(p.Power, p.Toughness);
       _level = new Level(p.IsLeveler ? 0 : (int?) null);
       _counters = new Counters.Counters(_strenght);
       _type = new CardTypeCharacteristic(p.Type);
@@ -153,7 +153,7 @@
     {
       get
       {
-        yield return _strenght;        
+        yield return _strenght;
         yield return _level;
         yield return _counters;
         yield return _colors;
@@ -168,7 +168,7 @@
     }
 
     public string Name { get; private set; }
-    public int? Power { get { return  _strenght.Power; } }
+    public int? Power { get { return _strenght.Power; } }
 
     public int Score
     {
@@ -183,7 +183,7 @@
             break;
 
           case (Zone.Hand):
-            score = ScoreCalculator.CalculateCardInHandScore(this);
+            score = ScoreCalculator.CalculateCardInHandScore(this, Game.Ai.IsSearchInProgress);
             break;
 
           case (Zone.Graveyard):
@@ -214,14 +214,14 @@
 
     public int? Toughness { get { return _strenght.Toughness; } }
     public string Type { get { return _type.Value.ToString(); } }
-    public Zone Zone { get { return _zone.Current; } }    
+    public Zone Zone { get { return _zone.Value.Name; } }
 
     public int? Level { get { return _level.Value; } }
     public bool CanBeDestroyed { get { return !HasRegenerationShield && !Has().Indestructible; } }
     public ScoreOverride OverrideScore { get; private set; }
     public bool IsVisibleInUi { get { return _isPreview || IsVisibleToPlayer(Players.Human); } }
-    public bool IsVisible { get { return IsVisibleToPlayer(Players.Searching); } }
-    public bool IsMultiColored { get { return _colors.Count > 1; } }    
+    public bool IsVisibleToSearchingPlayer { get { return IsVisibleToPlayer(Players.Searching); } }
+    public bool IsMultiColored { get { return _colors.Count > 1; } }
     public string[] Subtypes { get { return _type.Value.Subtypes; } }
 
     public void ReceiveDamage(Damage damage)
@@ -274,11 +274,6 @@
       return _colors.Contains(color);
     }
 
-    public bool IsColorless()
-    {
-      return _colors.Count == 0 || HasColor(CardColor.Colorless);
-    }
-
     public void InvalidateHash()
     {
       _hash.Value = null;
@@ -304,9 +299,9 @@
 
     public int CalculateHash(HashCalculator calc)
     {
-      if (IsVisible == false)
+      if (Ai.IsSearchInProgress && IsVisibleToSearchingPlayer == false)
       {
-        return calc.Calculate(_zone);
+        return Zone.GetHashCode();
       }
 
       if (_hash.Value.HasValue == false)
@@ -329,6 +324,7 @@
           Level.GetHashCode(),
           Counters.GetHashCode(),
           Type.GetHashCode(),
+          Zone.GetHashCode(),
           _isRevealed.Value.GetHashCode(),
           _isPeeked.Value.GetHashCode(),
           _isHidden.Value.GetHashCode(),
@@ -337,12 +333,46 @@
           calc.Calculate(_activatedAbilities),
           calc.Calculate(_protections),
           calc.Calculate(_attachments),
-          calc.Calculate(_zone),
           calc.Calculate(_colors)
           );
       }
 
       return _hash.Value.GetValueOrDefault();
+    }
+
+    public void ChangeZone(IZone destination, Action<Card> add)
+    {
+      var source = _zone.Value;
+
+      AssertEx.False(destination == source,
+        "Cannot change zones, when source zone and destination zone are the same.");
+
+      _zone.Value.Remove(this);
+      _zone.Value = destination;
+      add(this);
+
+      if (destination.Name != source.Name)
+      {
+        Publish(new ZoneChanged
+          {
+            Card = this,
+            From = source.Name,
+            To = destination.Name
+          });
+
+
+        // triggered abilities which trigger when permanent is in play only 
+        // are removed when AfterRemove is called so
+        // we publish event first and then do the cleanup
+
+        source.AfterRemove(this);
+        destination.AfterAdd(this);
+      }
+    }
+
+    public bool IsColorless()
+    {
+      return _colors.Count == 0 || HasColor(CardColor.Colorless);
     }
 
     public int CountersCount(CounterType? counterType = null)
@@ -362,7 +392,7 @@
     {
       if (amount <= 0)
         return;
-      
+
       var damage = new Damage(
         amount: amount,
         source: this,
@@ -426,13 +456,13 @@
 
       _controller = new ControllerCharacteristic(owner);
       _controller.Initialize(game, this);
-      _strenght.Initialize(game, this);      
+      _strenght.Initialize(game, this);
       _level.Initialize(game, this);
       _counters.Initialize(ChangeTracker, this);
       _type.Initialize(game, this);
       _colors.Initialize(game, this);
       _protections.Initialize(ChangeTracker, this);
-      _zone.Initialize(this, game);
+      _zone.Initialize(ChangeTracker, this);
       _modifiers.Initialize(ChangeTracker);
 
       _isTapped.Initialize(ChangeTracker, this);
@@ -456,7 +486,7 @@
       _continuousEffects.Initialize(this, game);
 
 
-      _isPreview = false;            
+      _isPreview = false;
       return this;
     }
 
@@ -555,13 +585,13 @@
         return false;
       }
 
-      if (Has().Forestwalk && 
+      if (Has().Forestwalk &&
         card.Controller.Battlefield.Any(x => x.Is("forest")))
       {
         return false;
       }
 
-      if (Has().UnblockableIfDedenderHasArtifacts && 
+      if (Has().UnblockableIfDedenderHasArtifacts &&
         card.Controller.Battlefield.Any(x => x.Is().Artifact))
       {
         return false;
@@ -679,13 +709,20 @@
 
     public bool HasProtectionFrom(IEnumerable<CardColor> colors)
     {
-      return colors.Any(x => _protections.HasProtectionFrom(x));
+      return _protections.HasProtectionFromAnyColor() &&      
+        colors.Any(x => _protections.HasProtectionFrom(x));
+    }
+
+    public bool HasProtectionFromTypes(IEnumerable<string> types)
+    {
+      return _protections.HasProtectionFromAnyTypes() &&
+        types.Any(x => _protections.HasProtectionFrom(x));
     }
 
     public bool HasProtectionFrom(Card card)
     {
       return HasProtectionFrom(card._colors) ||
-        _protections.HasProtectionFrom(card._type.Value);
+        HasProtectionFromTypes(card._type.Value);
     }
 
     public void Hide()
@@ -705,7 +742,7 @@
     }
 
     private void Regenerate()
-    {            
+    {
       Tap();
       ClearDamage();
       HasRegenerationShield = false;
@@ -721,7 +758,7 @@
     {
       if (!IsPermanent)
         return;
-      
+
       if (Has().Indestructible)
       {
         return;
@@ -741,15 +778,8 @@
     {
       if (!IsPermanent)
         return;
-      
-      Owner.PutCardToGraveyard(this);
-    }
 
-    public void ChangeZoneTo(IZone zone, Action<Card> onChange = null, Action<Card> onNoChange = null)
-    {
-      onChange = onChange ?? delegate { };
-      onNoChange = onNoChange ?? delegate { };
-      _zone.ChangeZoneTo(zone, onChange, onNoChange);
+      Owner.PutCardToGraveyard(this);
     }
 
     public void OnCardLeftBattlefield()
@@ -881,6 +911,14 @@
       _isPeeked.Value = false;
     }
 
+    public void PutToHandFrom(Zone from)
+    {
+      if (Zone != from)
+        return;
+
+      PutToHand();
+    }
+
     public void PutToHand()
     {
       Owner.PutCardToHand(this);
@@ -896,9 +934,25 @@
       Owner.DiscardCard(this);
     }
 
+    public void ShuffleIntoLibraryFrom(Zone from)
+    {
+      if (Zone != from)
+        return;
+
+      ShuffleIntoLibrary();
+    }
+
     public void ShuffleIntoLibrary()
     {
       Owner.ShuffleIntoLibrary(this);
+    }
+
+    public void PutToBattlefieldFrom(Zone from)
+    {
+      if (Zone != from)
+        return;
+
+      PutToBattlefield();
     }
 
     public void PutToBattlefield()
@@ -930,6 +984,14 @@
         return total*2;
 
       return total;
+    }
+
+    public void PutOnTopOfLibraryFrom(Zone from)
+    {
+      if (Zone != from)
+        return;
+
+      PutOnTopOfLibrary();
     }
   }
 }

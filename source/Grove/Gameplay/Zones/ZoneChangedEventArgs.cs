@@ -4,13 +4,11 @@
 
   public class ZoneChangedEventArgs : EventArgs
   {
-    public ZoneChangedEventArgs(Card card, int? index = null)
+    public ZoneChangedEventArgs(Card card)
     {
-      Card = card;
-      Index = index;
+      Card = card;      
     }
 
-    public Card Card { get; private set; }
-    public int? Index { get; private set; }
+    public Card Card { get; private set; }    
   }
 }

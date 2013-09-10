@@ -2,10 +2,10 @@
 {
   public interface IZone
   {
-    Zone Zone { get; }
+    Zone Name { get; }
 
     void Remove(Card card);
-    void AfterAdd(Card card);
     void AfterRemove(Card card);
+    void AfterAdd(Card card);
   }
 }

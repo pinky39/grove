@@ -24,7 +24,7 @@
     {
       foreach (var card in cards)
       {
-        if (card.IsVisible == false)
+        if (card.IsVisibleToSearchingPlayer == false)
           continue;
 
         var abilitiesPrerequisites = card.CanActivateAbilities(ignoreManaAbilities: true);
@@ -42,7 +42,7 @@
     {
       foreach (var card in cards)
       {
-        if (!card.IsVisible)
+        if (card.IsVisibleToSearchingPlayer == false)
           continue;
 
         var spellsPrerequisites = card.CanCast();

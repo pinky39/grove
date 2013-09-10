@@ -29,7 +29,7 @@
       var attachTo = (Card) Target;
 
       attachTo.Attach(Source.OwningCard);
-
+      
       var p = new ModifierParameters
         {
           SourceEffect = this,
@@ -47,7 +47,7 @@
         {
           Game.AddModifier((IGameModifier) modifier, p);
         }
-      }
+      }      
     }
   }
 }

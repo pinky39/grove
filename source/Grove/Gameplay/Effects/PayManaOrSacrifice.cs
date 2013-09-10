@@ -25,7 +25,7 @@
     {
       if (results.IsTrue)
         return;
-
+      
       Source.OwningCard.Sacrifice();
     }
 

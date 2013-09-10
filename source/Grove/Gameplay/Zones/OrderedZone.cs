@@ -44,7 +44,7 @@
       return calc.Calculate(_cards);
     }
 
-    public abstract Zone Zone { get; }
+    public abstract Zone Name { get; }
 
     public virtual void AfterAdd(Card card) {}
 
@@ -69,27 +69,35 @@
     protected virtual void Remove(Card card)
     {
       _cards.Remove(card);
-
       CardRemoved(this, new ZoneChangedEventArgs(card));
-      AfterRemove(card);
     }
 
     public virtual void AddToEnd(Card card)
-    {      
-      card.ChangeZoneTo(this, 
-        onChange: c => _cards.Add(c),
-        onNoChange: c => _cards.MoveToEnd(c));
+    {
+      card.ChangeZone(
+        destination: this,
+        add: c => _cards.Add(c));
 
-      CardAdded(this, new ZoneChangedEventArgs(card, _cards.Count - 1));
+      CardAdded(this, new ZoneChangedEventArgs(card));
     }
 
     public virtual void AddToFront(Card card)
-    {      
-      card.ChangeZoneTo(this, 
-      onChange: c => _cards.AddToFront(card),
-      onNoChange: c=> _cards.MoveToFront(card));      
+    {
+      card.ChangeZone(
+        destination: this,
+        add: c => _cards.AddToFront(card));
 
-      CardAdded(this, new ZoneChangedEventArgs(card, _cards.Count));
+      CardAdded(this, new ZoneChangedEventArgs(card));
+    }
+
+    protected virtual void MoveToEnd(Card card)
+    {
+      _cards.MoveToEnd(card);
+    }
+
+    protected virtual void MoveToFront(Card card)
+    {
+      _cards.MoveToFront(card);
     }
 
     public bool Contains(Card card)
@@ -113,7 +121,7 @@
     public virtual void ReorderFront(int[] permutation)
     {
       _cards.ReorderFront(permutation);
-      
+
       Shuffled(this, EventArgs.Empty);
     }
 
@@ -125,7 +133,7 @@
 
     public IEnumerable<ITarget> GenerateZoneTargets(Func<Zone, Player, bool> zoneFilter)
     {
-      if (zoneFilter(Zone, Owner))
+      if (zoneFilter(Name, Owner))
       {
         foreach (var card in this)
         {

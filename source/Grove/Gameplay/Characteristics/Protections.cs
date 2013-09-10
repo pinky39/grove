@@ -34,6 +34,16 @@
       _colors.Initialize(changeTracker, hashDependancy);
     }
 
+    public bool HasProtectionFromAnyColor()
+    {
+      return _colors.Count > 0;
+    }
+
+    public bool HasProtectionFromAnyTypes()
+    {
+      return _cardTypes.Count > 0;
+    }
+
     public void AddProtectionFromColor(CardColor color)
     {
       _colors.Add(color);
@@ -44,9 +54,9 @@
       _cardTypes.AddRange(cardTypes);
     }
 
-    public bool HasProtectionFrom(CardType type)
+    public bool HasProtectionFrom(string type)
     {
-      return type.IsAny(_cardTypes);
+      return _cardTypes.Contains(type.ToLowerInvariant());
     }
 
     public bool HasProtectionFrom(CardColor color)

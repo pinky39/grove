@@ -201,17 +201,15 @@
 
     public void MoveToEnd(T item)
     {
-      if (Remove(item) == false)
-        return;
-
+      var removed = Remove(item);
+      AssertEx.True(removed, "Item must be present to move it.");
       Add(item);
     }
 
     public void MoveToFront(T item)
     {
-      if (Remove(item) == false)
-        return;
-
+      var removed = Remove(item);
+      AssertEx.True(removed, "Item must be present to move it.");
       AddToFront(item);
     }
   }

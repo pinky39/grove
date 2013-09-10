@@ -965,7 +965,6 @@
     <Compile Include="Infrastructure\IClosable.cs" />
     <Compile Include="Infrastructure\LogFile.cs" />
     <Compile Include="Artifical\CardRatings.cs" />
-    <Compile Include="Gameplay\Characteristics\CardZone.cs" />
     <Compile Include="Gameplay\CastingRules\Aura.cs" />
     <Compile Include="Gameplay\CastingRules\Permanent.cs" />
     <Compile Include="Gameplay\Abilities\ContiniousEffects.cs" />
@@ -992,7 +991,7 @@
     <Compile Include="Gameplay\Effects\DynParam.cs" />
     <Compile Include="Gameplay\Effects\EachPlayerDiscardsHand.cs" />
     <Compile Include="Gameplay\Effects\ExchangeForOpponentsCreature.cs" />
-    <Compile Include="Gameplay\Effects\FlipACoin.cs" />
+    <Compile Include="Gameplay\Effects\FlipACoinReturnToHand.cs" />
     <Compile Include="Gameplay\Effects\PayManaOrLooseLife.cs" />
     <Compile Include="Gameplay\Effects\PayLifeAddCounters.cs" />
     <Compile Include="Gameplay\Effects\PutAllCardsFromGraveyardToBattlefield.cs" />

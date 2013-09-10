@@ -25,9 +25,9 @@
       if (results.Count == 0)
         return;
 
-      results[0].Sacrifice();
+      results[0].Sacrifice();      
 
-      Source.OwningCard.PutOnTopOfLibrary();
+      Source.OwningCard.PutOnTopOfLibraryFrom(Zone.Battlefield);
     }
 
     protected override void ResolveEffect()

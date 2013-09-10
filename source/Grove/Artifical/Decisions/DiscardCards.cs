@@ -19,7 +19,7 @@
             new
               {
                 Card = card,
-                Score = ScoreCalculator.CalculateDiscardScore(card)
+                Score = ScoreCalculator.CalculateDiscardScore(card, Game.Ai.IsSearchInProgress)
               });
 
       cardsToDiscard = DiscardOpponentsCards

@@ -1,5 +1,7 @@
 ﻿namespace Grove.Gameplay.Effects
 {
+  using Zones;
+
   public class FlipACoinReturnToHandOrSacrifice : Effect
   {
     protected override void ResolveEffect()
@@ -8,7 +10,7 @@
       
       if (result)
       {
-        Source.OwningCard.PutToHand();
+        Source.OwningCard.PutToHandFrom(Zone.Battlefield);
       }
       else
       {

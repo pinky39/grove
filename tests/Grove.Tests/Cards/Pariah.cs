@@ -49,8 +49,8 @@
             .Verify(() =>
               {
                 Equal(20, P1.Life);
-                Equal(Zone.Graveyard, C(pariah).Zone);
                 Equal(Zone.Graveyard, C(baloth).Zone);
+                Equal(Zone.Graveyard, C(pariah).Zone);                
               }));
       }
     }

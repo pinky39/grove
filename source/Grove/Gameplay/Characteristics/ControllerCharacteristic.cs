@@ -30,7 +30,7 @@
       {
         Value.PutCardToBattlefield(_card);
 
-        foreach (var attachment in _card.Attachments.Where(x => x.Is().Aura || x.Is().Equipment))
+        foreach (var attachment in _card.Attachments.Where(x => x.IsPermanent && (x.Is().Aura || x.Is().Equipment)))
         {
           // for auras and equipments just change battlefield
           // do not change the control          

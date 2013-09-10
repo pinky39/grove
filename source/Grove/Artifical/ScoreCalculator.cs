@@ -76,13 +76,16 @@
       return 1;
     }
 
-    public static int CalculateDiscardScore(Card card)
+    public static int CalculateDiscardScore(Card card, bool isSearchInProgress)
     {
-      // the lower the score, the more likely card will be discarded      
+      if (isSearchInProgress && card.IsVisibleToSearchingPlayer == false)
+      {
+        return 220;
+      }
+
+      // the lower the score, the more likely card will be discarded                                    
       var hand = card.Controller.Hand;
       var battlefield = card.Controller.Battlefield;
-
-      var sameCardBattleFieldCount = battlefield.Count(x => x.Name == card.Name);
 
       if (card.Is().Land)
       {
@@ -92,16 +95,13 @@
         if ((landHandCount + landBattlefieldCount) < 4)
           return int.MaxValue;
 
-        if (sameCardBattleFieldCount < 2)
-          return int.MaxValue;
-
         if (landHandCount < 2)
           return int.MaxValue;
 
-        return 0 - 2*sameCardBattleFieldCount;
+        return 0 - 2*landBattlefieldCount;
       }
 
-      return 0 - card.ManaCost.Count();
+      return card.ConvertedCost;
     }
 
     public static int CalculateLifeScore(int life)
@@ -126,7 +126,7 @@
         return permanent.OverrideScore.Battlefield.Value;
 
       if (permanent.Level > 0)
-        score += 10*permanent.Level.Value;      
+        score += 10*permanent.Level.Value;
 
       if (permanent.ManaCost != null)
       {
@@ -186,9 +186,9 @@
       return PowerToughnessToScore[powerToughness];
     }
 
-    public static int CalculateCardInHandScore(Card card)
+    public static int CalculateCardInHandScore(Card card, bool isSearchInProgress)
     {
-      if (!card.IsVisible)
+      if (isSearchInProgress && card.IsVisibleToSearchingPlayer == false)
       {
         return 220;
       }
@@ -205,7 +205,7 @@
     }
 
     public static int CalculateCardInGraveyardScore(Card card)
-    {     
+    {
       if (card.OverrideScore.Graveyard.HasValue)
         return card.OverrideScore.Graveyard.Value;
 

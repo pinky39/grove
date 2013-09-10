@@ -9,17 +9,14 @@
 
   public abstract class UnorderedZone : GameObject, IEnumerable<Card>, IHashable, IZone
   {
-    private readonly TrackableList<Card> _cards = new TrackableList<Card>();
+    private readonly TrackableSet<Card> _cards = new TrackableSet<Card>();
 
     protected UnorderedZone(Player owner)
     {
       Owner = owner;
     }
 
-    protected UnorderedZone()
-    {
-      /* for state copy */
-    }
+    protected UnorderedZone() {}
 
     public Player Owner { get; private set; }
     public int Count { get { return _cards.Count; } }
@@ -55,7 +52,7 @@
 
     public virtual void AfterRemove(Card card) {}
 
-    public abstract Zone Zone { get; }
+    public abstract Zone Name { get; }
 
     void IZone.Remove(Card card)
     {
@@ -73,7 +70,7 @@
 
     public virtual IEnumerable<Card> GenerateZoneTargets(Func<Zone, Player, bool> zoneFilter)
     {
-      if (zoneFilter(Zone, Owner))
+      if (zoneFilter(Name, Owner))
       {
         foreach (var card in this)
         {
@@ -84,22 +81,21 @@
       yield break;
     }
 
+
     public virtual void Add(Card card)
     {
-      card.ChangeZoneTo(this,
-        onChange: c =>
-          {
-            _cards.Add(c);
-            CardAdded(this, new ZoneChangedEventArgs(card));
-          });
+      card.ChangeZone(
+        destination: this,
+        add: c => _cards.Add(c));
+
+      CardAdded(this, new ZoneChangedEventArgs(card));
     }
 
     protected virtual void Remove(Card card)
     {
-      if (_cards.Remove(card))
-      {
-        CardRemoved(this, new ZoneChangedEventArgs(card));
-      }
+      var removed = _cards.Remove(card);
+      AssertEx.True(removed, "Card was not found in zone.");
+      CardRemoved(this, new ZoneChangedEventArgs(card));
     }
 
     public override string ToString()

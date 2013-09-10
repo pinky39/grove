@@ -17,7 +17,7 @@
     public int Score { get { return this.Sum(x => x.Score); } }
 
 
-    public override Zone Zone { get { return Zone.Battlefield; } }
+    public override Zone Name { get { return Zone.Battlefield; } }
     public IEnumerable<Card> Attackers { get { return this.Where(card => card.IsAttacker); } }
     public IEnumerable<Card> Blockers { get { return this.Where(card => card.IsBlocker); } }
     public IEnumerable<Card> CreaturesThatCanAttack { get { return Creatures.Where(x => x.CanAttack); } }

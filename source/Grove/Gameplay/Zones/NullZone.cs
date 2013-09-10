@@ -2,7 +2,7 @@
 {
   public class NullZone : IZone
   {
-    public Zone Zone { get { return Zone.None; } }
+    public Zone Name { get { return Zone.None; } }
 
     public void Remove(Card card) {}
 

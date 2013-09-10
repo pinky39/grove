@@ -1,6 +1,7 @@
 ﻿namespace Grove.Gameplay.Characteristics
 {
   using System;
+  using System.Collections;
   using System.Collections.Generic;
   using System.Linq;
   using System.Text;
@@ -25,7 +26,7 @@
     bool OfType(string type);    
   }
 
-  public class CardType : ITargetType
+  public class CardType : ITargetType, IEnumerable<string>
   {
     private static readonly string[] BasicTypes = new[]
       {
@@ -117,9 +118,27 @@
       get { return _subTypes; }
     }
 
+    public IEnumerator<string> GetEnumerator()
+    {
+      foreach (var basicType in _basicTypes)
+      {
+        yield return basicType;
+      }
+
+      foreach (var subType in _subTypes)
+      {
+        yield return subType;
+      }
+    }
+
     public override string ToString()
     {
       return _displayString;
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+      return GetEnumerator();
     }
 
     private void Initialize(string types)

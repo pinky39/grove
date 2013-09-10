@@ -9,6 +9,6 @@
       /* for state copy */
     }
 
-    public override Zone Zone { get { return Zone.Exile; } }
+    public override Zone Name { get { return Zone.Exile; } }
   }
 }

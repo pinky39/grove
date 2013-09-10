@@ -12,7 +12,7 @@
       /* for state copy */
     }
 
-    public override Zone Zone { get { return Zone.Library; } }
+    public override Zone Name { get { return Zone.Library; } }
     public Card Top { get { return this.FirstOrDefault(); } }
 
     public override int CalculateHash(HashCalculator calc)
@@ -22,12 +22,26 @@
 
     public void PutOnTop(Card card)
     {
-      AddToFront(card);
+      if (card.Zone == Name)
+      {
+        MoveToFront(card);
+      }
+      else
+      {
+        AddToFront(card);
+      }
     }   
  
     public void PutOnBottom(Card card)
     {
-      AddToEnd(card);
+      if (card.Zone == Name)
+      {
+        MoveToEnd(card);
+      }
+      else
+      {
+        AddToEnd(card);
+      }
     }
   }
 }

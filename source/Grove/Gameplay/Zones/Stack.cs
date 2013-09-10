@@ -37,7 +37,7 @@
       return calc.Calculate(_effects);
     }
 
-    public Zone Zone { get { return Zone.Stack; } }
+    public Zone Name { get { return Zone.Stack; } }
 
     public void Remove(Card card) {}
     public void AfterAdd(Card card) {}
@@ -90,7 +90,7 @@
 
     public IEnumerable<ITarget> GenerateTargets(Func<Zone, Player, bool> zoneFilter)
     {
-      if (zoneFilter(Zone, null))
+      if (zoneFilter(Name, null))
       {
         foreach (var effect in _effects)
         {

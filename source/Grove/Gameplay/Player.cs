@@ -244,9 +244,9 @@
 
       LoadLibrary();
     }
-
+    
     public void PutCardToBattlefield(Card card)
-    {
+    {            
       _battlefield.Add(card);
     }
 

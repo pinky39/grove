@@ -10,6 +10,7 @@
   using Misc;
   using Modifiers;
   using Targeting;
+  using Zones;
 
   public delegate Effect EffectFactory();
 
@@ -31,8 +32,8 @@
     public int? X { get; private set; }
     private bool WasResolved { get { return _wasResolved.Value; } set { _wasResolved.Value = value; } }
     public Targets Targets { get; private set; }
-
-    public virtual bool TargetsEffectSource { get { return false; } }
+    
+    public virtual bool TargetsEffectSource { get { return false; } }    
 
     public ITarget Target
     {
@@ -223,10 +224,9 @@
         {
           parameter.EvaluateBeforeCost(this, Game);
         }
-      }
+      }      
 
       Initialize();
-
       return this;
     }
   }
