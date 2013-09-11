@@ -19,11 +19,11 @@
         .Cycling("{2}")
         .Cast(p =>
           {
-            p.Effect = () => new ReturnToHand {Category = EffectCategories.Bounce};
+            p.Effect = () => new ReturnToHand();
             p.TargetSelector.AddEffect(trg => trg.Is.Card().On.Battlefield());
 
             p.TargetingRule(new EffectBounce());
-            p.TimingRule(new TargetRemovalTimingRule());
+            p.TimingRule(new TargetRemovalTimingRule(removalTag: EffectTag.Bounce));
           });
     }
   }

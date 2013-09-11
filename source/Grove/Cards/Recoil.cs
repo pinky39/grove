@@ -19,11 +19,11 @@
         .FlavorText("Anything sent into a plagued world is bound to come back infected.")
         .Cast(p =>
           {
-            p.Effect = () => new ReturnToHand(discard: 1) {Category = EffectCategories.Bounce};
+            p.Effect = () => new ReturnToHand(discard: 1);
             p.TargetSelector.AddEffect(trg => trg.Is.Card().On.Battlefield());
 
             p.TargetingRule(new EffectBounce());
-            p.TimingRule(new TargetRemovalTimingRule());
+            p.TimingRule(new TargetRemovalTimingRule(removalTag: EffectTag.Bounce));
           });
     }
   }

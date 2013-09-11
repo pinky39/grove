@@ -25,11 +25,8 @@
         .Cast(p =>
           {
             p.Effect = () => new Attach(
-              () => new AddStaticAbility(Static.CannotAttack))
-              {
-                Category = EffectCategories.Destruction
-              };
-
+              () => new AddStaticAbility(Static.CannotAttack)).Tags(EffectTag.CombatDisabler);              
+              
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 
             p.TimingRule(new OnSecondMain());

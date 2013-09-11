@@ -12,7 +12,11 @@
     public DestroyTargetPermanents(bool canRegenerate = true)
     {
       _canRegenerate = canRegenerate;
-      Category = EffectCategories.Destruction;
+
+      Tags(EffectTag.Destroy);
+
+      if (!canRegenerate)
+        Tags(EffectTag.CannotRegenerate);
     }
 
     protected override void ResolveEffect()

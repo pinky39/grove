@@ -34,10 +34,10 @@
               new Sacrifice());
 
             p.Effect = () => new ApplyModifiersToSelf(() => new AddCounters(
-              () => new PowerToughness(1, 1), count: 1)) {Category = EffectCategories.ToughnessIncrease};
+              () => new PowerToughness(1, 1), count: 1)).Tags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);
 
             p.TargetSelector.AddCost(trg => trg.Is.Creature(ControlledBy.SpellOwner).On.Battlefield());
-
+            
             p.TimingRule(new PumpOwningCardTimingRule(1, 1));
             p.TargetingRule(new EffectRankBy(c => c.Score) {TargetLimit = 1, ConsiderTargetingSelf = false});
           });

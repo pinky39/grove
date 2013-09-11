@@ -120,7 +120,7 @@
             .Select(x => new
               {
                 Target = (ITarget) x,
-                Score = x.Life <= amount ? x.Score : 0
+                Score = x.Life <= amount && x.CanBeDestroyed ? x.Score : 0
               }))
         .Where(x => x.Score > 0)
         .OrderByDescending(x => x.Score)

@@ -1,5 +1,6 @@
 ﻿namespace Grove.Gameplay.Effects
 {
+  using Artifical;
   using Infrastructure;
   using Targeting;
   using Zones;
@@ -12,10 +13,12 @@
 
     private ReturnToHand() {}
 
-    public ReturnToHand(int discard = 0, bool returnOwningCard = false)
+    public ReturnToHand(int discard = 0, bool returnOwningCard = false, EffectTag tag = EffectTag.Bounce)
     {
       _discard = discard;
       _returnOwningCard = returnOwningCard;
+      
+      Tags(tag);
     }
 
     protected override void Initialize()

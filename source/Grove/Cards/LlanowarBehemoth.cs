@@ -27,9 +27,7 @@
             p.Text = "Tap an untapped creature you control: Llanowar Behemoth gets +1/+1 until end of turn.";
             p.Cost = new Tap();
             p.Effect = () => new ApplyModifiersToSelf(() => new AddPowerAndToughness(1, 1) {UntilEot = true})
-              {
-                Category = EffectCategories.ToughnessIncrease
-              };
+              .Tags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);              
 
             p.TargetSelector.AddCost(trg => trg
               .Is.Card(c => c.Is().Creature && !c.IsTapped, ControlledBy.SpellOwner)

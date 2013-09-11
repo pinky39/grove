@@ -1,6 +1,7 @@
 ﻿namespace Grove.Gameplay.Effects
 {
   using System.Linq;
+  using Artifical;
   using Characteristics;
 
   public class DealDamageToTargets : Effect
@@ -16,6 +17,7 @@
       _gainLife = gainLife;
 
       RegisterDynamicParameters(amount);
+      Tags(EffectTag.DealDamage);
     }
 
     public override int CalculatePlayerDamage(Player player)

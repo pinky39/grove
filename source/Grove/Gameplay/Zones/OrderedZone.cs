@@ -131,17 +131,12 @@
         card => card.ToString()));
     }
 
-    public IEnumerable<ITarget> GenerateZoneTargets(Func<Zone, Player, bool> zoneFilter)
+    public void GenerateZoneTargets(Func<Zone, Player, bool> zoneFilter, List<ITarget> targets)
     {
       if (zoneFilter(Name, Owner))
       {
-        foreach (var card in this)
-        {
-          yield return card;
-        }
-      }
-
-      yield break;
+        targets.AddRange(_cards);                
+      }      
     }
   }
 }

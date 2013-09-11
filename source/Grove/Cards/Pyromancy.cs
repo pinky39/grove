@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using System.Linq;
+  using Artifical;
   using Artifical.TargetingRules;
   using Artifical.TimingRules;
   using Gameplay;
@@ -39,7 +40,7 @@
 
             p.TimingRule(new WhenYourHandCountIs(minCount: 1, selector: c => c.ConvertedCost > 0));
             p.TargetingRule(new EffectDealDamage(getAmount: tp => tp.Controller.Hand.Min(c => c.ConvertedCost)));
-            p.TimingRule(new TargetRemovalTimingRule());
+            p.TimingRule(new TargetRemovalTimingRule(EffectTag.DealDamage));
           });
     }
   }

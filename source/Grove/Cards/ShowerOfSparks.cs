@@ -1,6 +1,7 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
+  using Artifical;
   using Artifical.TargetingRules;
   using Artifical.TimingRules;
   using Gameplay.Effects;
@@ -32,7 +33,7 @@
                 });
 
             p.TargetingRule(new EffectDealDamage(1));
-            p.TimingRule(new TargetRemovalTimingRule());
+            p.TimingRule(new TargetRemovalTimingRule(removalTag: EffectTag.DealDamage));
           });
     }
   }

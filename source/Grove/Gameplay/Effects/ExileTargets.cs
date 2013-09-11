@@ -12,7 +12,7 @@
     public ExileTargets(bool controllerGainsLifeEqualToToughness = false)
     {
       _controllerGainsLifeEqualToToughness = controllerGainsLifeEqualToToughness;
-      Category = EffectCategories.Exile;
+      Kinds = EffectTag.Exile;
     }
 
     protected override void ResolveEffect()

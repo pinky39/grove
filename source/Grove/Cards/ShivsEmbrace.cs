@@ -33,7 +33,8 @@
                     {
                       Text = "{R}: Enchanted creature gets +1/+0 until end of turn.",
                       Cost = new PayMana(Mana.Red, ManaUsage.Abilities, supportsRepetitions: true),
-                      Effect = () => new ApplyModifiersToSelf(() => new AddPowerAndToughness(1, 0) {UntilEot = true})
+                      Effect = () => new ApplyModifiersToSelf(
+                        () => new AddPowerAndToughness(1, 0) {UntilEot = true}).Tags(EffectTag.IncreasePower)
                     };
 
                   ap.TimingRule(new PumpOwningCardTimingRule(1, 0));
@@ -41,7 +42,7 @@
                   return new AddActivatedAbility(new ActivatedAbility(ap));
                 },
               () => new AddPowerAndToughness(2, 2),
-              () => new AddStaticAbility(Static.Flying)) {Category = EffectCategories.ToughnessIncrease};
+              () => new AddStaticAbility(Static.Flying)).Tags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
             p.TimingRule(new OnFirstMain());

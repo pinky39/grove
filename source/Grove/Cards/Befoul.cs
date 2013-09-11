@@ -20,7 +20,9 @@
         .FlavorText("The land putrefied at its touch, turned into an oily bile in seconds.")
         .Cast(p =>
           {
-            p.Effect = () => new DestroyTargetPermanents(canRegenerate: false) {Category = EffectCategories.Destruction};
+            p.Effect = () => new DestroyTargetPermanents(canRegenerate: false)
+              .Tags(EffectTag.Destroy, EffectTag.CannotRegenerate);
+            
             p.TargetSelector.AddEffect(trg => trg
               .Is.Card(card => card.Is().Land || (card.Is().Creature && !card.HasColor(CardColor.Black)))
               .On.Battlefield());

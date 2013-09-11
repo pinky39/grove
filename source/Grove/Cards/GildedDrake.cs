@@ -28,7 +28,7 @@
             p.Text =
               "When Gilded Drake enters the battlefield, exchange control of Gilded Drake and up to one target creature an opponent controls. If you don't make an exchange, sacrifice Gilded Drake. This ability can't be countered except by spells and abilities.";
             p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
-            p.Effect = () => new ExchangeForOpponentsCreature {Category = EffectCategories.Destruction};
+            p.Effect = () => new ExchangeForOpponentsCreature().Tags(EffectTag.ChangeController);
             p.TargetSelector.AddEffect(trg => trg.Is.Creature(ControlledBy.Opponent).On.Battlefield());
             p.TargetingRule(new EffectGainControl());
           });

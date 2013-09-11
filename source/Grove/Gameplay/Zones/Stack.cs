@@ -88,17 +88,12 @@
       return String.Format("{0}", Count);
     }
 
-    public IEnumerable<ITarget> GenerateTargets(Func<Zone, Player, bool> zoneFilter)
+    public void GenerateTargets(Func<Zone, Player, bool> zoneFilter, List<ITarget> targets)
     {
       if (zoneFilter(Name, null))
       {
-        foreach (var effect in _effects)
-        {
-          yield return effect;
-        }
-      }
-
-      yield break;
+        targets.AddRange(_effects);                
+      }      
     }
 
     private void Remove(Effect effect)
@@ -151,7 +146,7 @@
       if (IsEmpty)
         return false;
 
-      if (TopSpell.HasCategory(EffectCategories.Bounce))
+      if (TopSpell.HasTag(EffectTag.Bounce))
       {
         return TopSpell.HasTarget(card);
       }
@@ -167,7 +162,7 @@
       if (!card.CanBeDestroyed)
         return false;
 
-      if (TopSpell.HasCategory(EffectCategories.Destruction))
+      if (TopSpell.HasTag(EffectTag.Destroy))
       {
         if (!TopSpell.Targets.Any())
           return !targetOnly;

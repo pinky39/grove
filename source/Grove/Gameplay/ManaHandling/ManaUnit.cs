@@ -17,11 +17,11 @@
       Source = source;
       TapRestriction = tapRestriction;
       SacRestriction = sacRestriction;
-      CostRestriction = costRestriction;
+      ActivationCostRestriction = costRestriction;
       _usageRestriction = usageRestriction;
     }
 
-    public int CostRestriction { get; private set; }
+    public int ActivationCostRestriction { get; private set; }
     public IManaSource Source { get; private set; }
     public bool HasSource { get { return Source != null; } }
     public ManaColor Color { get; private set; }

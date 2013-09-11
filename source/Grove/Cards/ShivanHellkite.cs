@@ -2,6 +2,7 @@
 {
   using System;
   using System.Collections.Generic;
+  using Artifical;
   using Artifical.RepetitionRules;
   using Artifical.TargetingRules;
   using Artifical.TimingRules;
@@ -34,7 +35,7 @@
             p.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
 
             p.TargetingRule(new EffectDealDamage(p1 => p1.MaxRepetitions));
-            p.TimingRule(new TargetRemovalTimingRule());
+            p.TimingRule(new TargetRemovalTimingRule(removalTag: EffectTag.DealDamage));
             p.RepetitionRule(new RepeatForEachLifepointTargetHasLeft());
           });
     }

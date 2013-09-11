@@ -20,9 +20,9 @@
         .Cast(p =>
           {
             p.Effect = () => new ApplyModifiersToTargets(
-              () => new AddPowerAndToughness(7, 7) {UntilEot = true})
-              {Category = EffectCategories.ToughnessIncrease};
-
+              () => new AddPowerAndToughness(7, 7) {UntilEot = true}).Tags(EffectTag.IncreasePower,
+                EffectTag.IncreaseToughness);
+              
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
             p.TargetingRule(new EffectPump(7, 7));
           });

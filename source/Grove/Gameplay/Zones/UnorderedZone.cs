@@ -6,10 +6,11 @@
   using System.Linq;
   using Infrastructure;
   using Misc;
+  using Targeting;
 
   public abstract class UnorderedZone : GameObject, IEnumerable<Card>, IHashable, IZone
   {
-    private readonly TrackableSet<Card> _cards = new TrackableSet<Card>();
+    private readonly TrackableList<Card> _cards = new TrackableList<Card>();
 
     protected UnorderedZone(Player owner)
     {
@@ -68,19 +69,13 @@
     public event EventHandler<ZoneChangedEventArgs> CardAdded = delegate { };
     public event EventHandler<ZoneChangedEventArgs> CardRemoved = delegate { };
 
-    public virtual IEnumerable<Card> GenerateZoneTargets(Func<Zone, Player, bool> zoneFilter)
+    public void GenerateZoneTargets(Func<Zone, Player, bool> zoneFilter, List<ITarget> targets)
     {
       if (zoneFilter(Name, Owner))
       {
-        foreach (var card in this)
-        {
-          yield return card;
-        }
-      }
-
-      yield break;
+        targets.AddRange(_cards);                  
+      }      
     }
-
 
     public virtual void Add(Card card)
     {

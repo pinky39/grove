@@ -10,7 +10,7 @@
       if (
         Stack.TopSpell != null &&
           Stack.TopSpell.Controller == p.Controller.Opponent &&
-            Stack.TopSpell.HasCategory(EffectCategories.Protector | EffectCategories.ToughnessIncrease))
+            Stack.TopSpell.HasTag(EffectTag.Protect | EffectTag.IncreaseToughness))
       {
         return true;
       }

@@ -39,7 +39,7 @@
             p.Effect = () => new Attach(
               () => new AddPowerAndToughness(2, 2),
               () => new AddStaticAbility(Static.Flying))
-              {Category = EffectCategories.ToughnessIncrease};
+              {Kinds = EffectTag.IncreaseToughness};
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
             p.TimingRule(new OnFirstMain());

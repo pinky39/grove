@@ -1148,7 +1148,7 @@
     <Compile Include="Artifical\LeafResult.cs" />
     <Compile Include="Artifical\SearchResults.cs" />
     <Compile Include="Artifical\SearchWorker.cs" />
-    <Compile Include="Artifical\EffectCategories.cs" />
+    <Compile Include="Artifical\EffectTag.cs" />
     <Compile Include="Gameplay\DamageHandling\AssignedDamage.cs" />
     <Compile Include="Gameplay\Characteristics\Attachment.cs" />
     <Compile Include="Gameplay\Characteristics\Attachments.cs" />

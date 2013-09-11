@@ -54,7 +54,7 @@
             p.Effect = () => new Attach(
               () => new AddPowerAndToughness(2, 2),
               () => new AddProtectionFromColors(L(CardColor.Green, CardColor.Blue)))
-              {Category = EffectCategories.ToughnessIncrease | EffectCategories.Protector};
+              .Tags(EffectTag.IncreasePower, EffectTag.IncreaseToughness, EffectTag.Protection);              
 
             p.TargetSelector.AddEffect(trg => trg.Is.ValidEquipmentTarget().On.Battlefield());
             p.ActivateAsSorcery = true;

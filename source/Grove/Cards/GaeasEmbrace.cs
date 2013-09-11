@@ -26,21 +26,22 @@
         .Cast(p =>
           {
             p.Effect = () => new Attach(
-              () => {
-                var ap = new ActivatedAbilityParameters
-                  {
-                    Text = "{G}: Regenerate enchanted creature.",
-                    Cost = new PayMana(Mana.Green, ManaUsage.Abilities),
-                    Effect = () => new Gameplay.Effects.RegenerateOwner()
-                  };
+              () =>
+                {
+                  var ap = new ActivatedAbilityParameters
+                    {
+                      Text = "{G}: Regenerate enchanted creature.",
+                      Cost = new PayMana(Mana.Green, ManaUsage.Abilities),
+                      Effect = () => new RegenerateOwner()
+                    };
 
-                ap.TimingRule(new Artifical.TimingRules.RegenerateTimingRule());
+                  ap.TimingRule(new RegenerateTimingRule());
 
-                return new AddActivatedAbility(new ActivatedAbility(ap));
-              },
+                  return new AddActivatedAbility(new ActivatedAbility(ap));
+                },
               () => new AddPowerAndToughness(3, 3),
               () => new AddStaticAbility(Static.Trample)
-              ) {Category = EffectCategories.ToughnessIncrease};
+              ).Tags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
             p.TimingRule(new OnFirstMain());

@@ -1,6 +1,7 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
+  using Artifical;
   using Artifical.TargetingRules;
   using Artifical.TimingRules;
   using Gameplay.Costs;
@@ -34,7 +35,7 @@
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 
             p.TargetingRule(new EffectReduceToughness(4));
-            p.TimingRule(new Any(new WhenOwningCardWillBeDestroyed(), new TargetRemovalTimingRule(combatOnly: true)));
+            p.TimingRule(new Any(new WhenOwningCardWillBeDestroyed(), new TargetRemovalTimingRule(removalTag: EffectTag.ReduceToughness, combatOnly: true)));
           })
         .ActivatedAbility(p =>
           {
@@ -53,7 +54,7 @@
               .AddEffect(trg => trg.Is.Creature().On.Battlefield());
 
             p.TargetingRule(new CostSacrificeToReduceToughness(1));
-            p.TimingRule(new TargetRemovalTimingRule(combatOnly: true));
+            p.TimingRule(new TargetRemovalTimingRule(removalTag: EffectTag.ReduceToughness, combatOnly: true));
           });
     }
   }

@@ -30,7 +30,7 @@
             p.Text = "{1}{R}{R}: Put a +1/+1 counter on Molten Hydra.";
             p.Cost = new PayMana("{1}{R}{R}".Parse(), ManaUsage.Abilities, supportsRepetitions: true);
             p.Effect = () => new ApplyModifiersToSelf(() => new AddCounters(
-              () => new PowerToughness(1, 1), count: 1)) {Category = EffectCategories.ToughnessIncrease};
+              () => new PowerToughness(1, 1), count: 1)).Tags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);
             
             p.TimingRule(new Any(new PumpOwningCardTimingRule(1, 1), new OnEndOfOpponentsTurn()));
             p.RepetitionRule(new RepeatMaxTimes());
@@ -51,7 +51,7 @@
             
             p.TimingRule(new WhenCardHas(c => c.CountersCount(CounterType.PowerToughnes) > 0));
             p.TargetingRule(new EffectDealDamage(p1 => p1.Card.CountersCount(CounterType.PowerToughnes)));            
-            p.TimingRule(new TargetRemovalTimingRule());
+            p.TimingRule(new TargetRemovalTimingRule(removalTag: EffectTag.DealDamage));
           });
 
     }

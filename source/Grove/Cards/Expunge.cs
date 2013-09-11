@@ -2,6 +2,7 @@
 {
   using System;
   using System.Collections.Generic;
+  using Artifical;
   using Artifical.TargetingRules;
   using Artifical.TimingRules;
   using Gameplay.Characteristics;
@@ -27,7 +28,7 @@
               .On.Battlefield());
 
             p.TargetingRule(new EffectDestroy());
-            p.TimingRule(new TargetRemovalTimingRule());
+            p.TimingRule(new TargetRemovalTimingRule(removalTag: EffectTag.Destroy));
           });
     }
   }

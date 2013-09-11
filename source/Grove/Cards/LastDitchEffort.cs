@@ -3,6 +3,7 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
+  using Artifical;
   using Artifical.TargetingRules;
   using Artifical.TimingRules;
   using Gameplay.Effects;
@@ -26,7 +27,7 @@
             p.TargetingRule(new EffectDealDamage(dp => dp.Controller.Battlefield.Creatures.Count()));
 
             p.TimingRule(new WhenYouHavePermanents(c => c.Is().Creature, minCount: 1));
-            p.TimingRule(new TargetRemovalTimingRule());
+            p.TimingRule(new TargetRemovalTimingRule(EffectTag.DealDamage));
           });
     }
   }

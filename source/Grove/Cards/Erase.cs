@@ -1,6 +1,7 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
+  using Artifical;
   using Artifical.TargetingRules;
   using Artifical.TimingRules;
   using Gameplay.Effects;
@@ -21,7 +22,7 @@
             p.Effect = () => new ExileTargets();
             p.TargetSelector.AddEffect(trg => trg.Is.Enchantment().On.Battlefield());
             p.TargetingRule(new EffectExileBattlefield());
-            p.TimingRule(new TargetRemovalTimingRule());
+            p.TimingRule(new TargetRemovalTimingRule(EffectTag.Exile));
           });
     }
   }

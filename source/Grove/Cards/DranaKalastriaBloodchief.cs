@@ -1,6 +1,7 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
+  using Artifical;
   using Artifical.CostRules;
   using Artifical.TargetingRules;
   using Artifical.TimingRules;
@@ -40,7 +41,7 @@
 
             p.TargetingRule(new EffectReduceToughness());
             p.CostRule(new XIsTargetsLifepointsLeft());
-            p.TimingRule(new TargetRemovalTimingRule());
+            p.TimingRule(new TargetRemovalTimingRule(removalTag: EffectTag.ReduceToughness));
           });
     }
   }

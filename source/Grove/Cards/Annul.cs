@@ -19,7 +19,7 @@
         .FlavorText("The most effective way to destroy a spell is to ensure it was never cast in the first place.")
         .Cast(p =>
           {
-            p.Effect = () => new CounterTargetSpell {Category = EffectCategories.Counterspell};
+            p.Effect = () => new CounterTargetSpell();
             p.TargetSelector.AddEffect(t => t
               .Is.CounterableSpell(e => e.Source.OwningCard.Is().Artifact || e.Source.OwningCard.Is().Enchantment)
               .On.Stack());

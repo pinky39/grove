@@ -1,6 +1,5 @@
 ﻿namespace Grove.UserInterface.Decisions
 {
-  using System.Linq;
   using Gameplay.Decisions.Results;
   using Gameplay.Targeting;
   using SelectTarget;
@@ -41,7 +40,7 @@
 
     private bool NoValidTargets(TargetValidator validator)
     {
-      foreach (var target in Players.SelectMany(x => x.GetTargets(validator.IsZoneValid)))
+      foreach (var target in GenerateTargets(validator.IsZoneValid))
       {
         if (validator.IsTargetValid(target, TriggerMessage))
           return false;

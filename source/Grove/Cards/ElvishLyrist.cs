@@ -2,6 +2,7 @@
 {
   using System;
   using System.Collections.Generic;
+  using Artifical;
   using Artifical.TargetingRules;
   using Artifical.TimingRules;
   using Gameplay;
@@ -34,7 +35,7 @@
             p.TargetSelector.AddEffect(trg => trg.Is.Enchantment().On.Battlefield());
 
             p.TargetingRule(new EffectDestroy());
-            p.TimingRule(new TargetRemovalTimingRule());
+            p.TimingRule(new TargetRemovalTimingRule(removalTag: EffectTag.Destroy));
           }
         );
     }

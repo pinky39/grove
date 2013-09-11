@@ -237,7 +237,7 @@
                   powerIncrease, toughnessIncrease) {UntilEot = true});
                 
                 if (toughnessIncrease > 0)
-                  effect.Category = EffectCategories.ToughnessIncrease;
+                  effect.Kinds = EffectTag.IncreaseToughness;
 
                 return effect;
               };
@@ -407,14 +407,14 @@
       return this;
     }
 
-    public CardTemplate Leveler(string cost, EffectCategories category,
+    public CardTemplate Leveler(string cost, EffectTag tag,
       params LevelDefinition[] levels)
     {
       ActivatedAbility(p =>
         {
           p.Text = String.Format("{0}: Put a level counter on this. Level up only as sorcery.", cost);
           p.Cost = new PayMana(cost.Parse(), ManaUsage.Abilities);
-          p.Effect = () => new ApplyModifiersToSelf(() => new IncreaseLevel()) {Category = category};
+          p.Effect = () => new ApplyModifiersToSelf(() => new IncreaseLevel()) {Kinds = tag};
           p.TimingRule(new DefaultLevelUpTimingRule(cost.Parse(), levels));
           p.ActivateAsSorcery = true;
         });

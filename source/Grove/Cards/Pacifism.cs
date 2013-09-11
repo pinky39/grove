@@ -24,10 +24,7 @@
           {
             p.Effect = () => new Attach(
               () => new AddStaticAbility(Static.CannotBlock),
-              () => new AddStaticAbility(Static.CannotAttack))
-              {
-                Category = EffectCategories.Destruction
-              };
+              () => new AddStaticAbility(Static.CannotAttack)).Tags(EffectTag.CombatDisabler);              
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 

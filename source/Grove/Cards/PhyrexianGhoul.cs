@@ -27,7 +27,7 @@
             p.Text = "Sacrifice a creature: Phyrexian Ghoul gets +2/+2 until end of turn.";
             p.Cost = new Sacrifice();
             p.Effect = () => new ApplyModifiersToSelf(() => new AddPowerAndToughness(2, 2) {UntilEot = true})
-              {Category = EffectCategories.ToughnessIncrease};
+              .Tags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);
 
             p.TargetSelector.AddCost(trg => trg.Is.Creature(ControlledBy.SpellOwner).On.Battlefield());
 

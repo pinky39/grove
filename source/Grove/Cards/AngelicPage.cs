@@ -29,7 +29,8 @@
             p.Text = "{T}: Target attacking or blocking creature gets +1/+1 until end of turn.";
             p.Cost = new Tap();
             p.Effect = () => new ApplyModifiersToTargets(
-              () => new AddPowerAndToughness(1, 1) {UntilEot = true}) {Category = EffectCategories.ToughnessIncrease};
+              () => new AddPowerAndToughness(1, 1) {UntilEot = true}).Tags(EffectTag.IncreasePower,
+                EffectTag.IncreaseToughness);
             p.TargetSelector.AddEffect(trg => trg.Is.AttackerOrBlocker().On.Battlefield());
             p.TimingRule(new OnStep(Step.DeclareBlockers));
             p.TargetingRule(new EffectPumpAttackerOrBlocker(1, 1));

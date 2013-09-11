@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Artifical;
   using Artifical.TimingRules;
@@ -21,7 +20,7 @@
         .Cast(p =>
           {
             p.TimingRule(new OnFirstMain());
-            p.Effect = () => new PutIntoPlay {Category = EffectCategories.ToughnessIncrease};
+            p.Effect = () => new PutIntoPlay().Tags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);
           })
         .ContinuousEffect(p =>
           {

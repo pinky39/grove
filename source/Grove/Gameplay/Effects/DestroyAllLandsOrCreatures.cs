@@ -9,7 +9,7 @@
   {
     public DestroyAllLandsOrCreatures()
     {
-      Category = EffectCategories.Destruction;
+      Kinds = EffectTag.Destroy;
     }
 
     public override ChosenOptions ChooseResult(List<IEffectChoice> candidates)

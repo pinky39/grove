@@ -83,17 +83,15 @@
       Game.Enqueue(controller, init);
     }
 
-    public IEnumerable<ITarget> GenerateTargets(Func<Zone, Player, bool> zoneFilter)
+    public List<ITarget> GenerateTargets(Func<Zone, Player, bool> zoneFilter)
     {
-      foreach (var target in Players.SelectMany(p => p.GetTargets(zoneFilter)))
-      {
-        yield return target;
-      }
+      var targets = new List<ITarget>();
 
-      foreach (var target in Stack.GenerateTargets(zoneFilter))
-      {
-        yield return target;
-      }
+      Players.Player1.GetTargets(zoneFilter, targets);
+      Players.Player2.GetTargets(zoneFilter, targets);
+      Stack.GenerateTargets(zoneFilter, targets);
+
+      return targets;
     }
   }
 }

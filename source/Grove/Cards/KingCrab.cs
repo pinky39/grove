@@ -1,6 +1,7 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
+  using Artifical;
   using Artifical.TargetingRules;
   using Artifical.TimingRules;
   using Gameplay;
@@ -36,7 +37,7 @@
               trg.Is.Card(c => c.Is().Creature && c.HasColor(CardColor.Green)).On.Battlefield());
 
             p.TargetingRule(new EffectPutOnTopOfLibrary());
-            p.TimingRule(new TargetRemovalTimingRule());
+            p.TimingRule(new TargetRemovalTimingRule(EffectTag.Bounce));
           });
     }
   }

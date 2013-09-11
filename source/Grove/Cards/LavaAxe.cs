@@ -6,7 +6,7 @@
   using Gameplay.Effects;
   using Gameplay.Misc;
 
-  public class LavaAxe :CardTemplateSource
+  public class LavaAxe : CardTemplateSource
   {
     public override IEnumerable<CardTemplate> GetCards()
     {
@@ -21,7 +21,7 @@
             p.Effect = () => new DealDamageToTargets(5);
             p.TargetSelector.AddEffect(trg => trg.Is.Player());
             p.TargetingRule(new EffectDealDamage(5));
-            p.TimingRule(new TargetRemovalTimingRule());
+            p.TimingRule(new OnSecondMain());
           });
     }
   }

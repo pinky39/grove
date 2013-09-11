@@ -1,6 +1,5 @@
 ﻿namespace Grove.Gameplay.Effects
 {
-  using Artifical;
   using Decisions;
   using Decisions.Results;
   using Targeting;
@@ -19,7 +18,6 @@
       _controllerLifeloss = controllerLifeloss;
       _doNotCounterCost = doNotCounterCost;
       _tapLandsAndEmptyManaPool = tapLandsAndEmptyManaPool;
-      Category = EffectCategories.Counterspell;
 
       RegisterDynamicParameters(doNotCounterCost);
     }

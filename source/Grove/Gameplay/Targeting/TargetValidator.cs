@@ -63,7 +63,7 @@
 
     public string Message { get; private set; }
 
-    public virtual void Initialize(Game game, Player controller, Card owningCard = null)
+    public void Initialize(Game game, Player controller, Card owningCard = null)
     {
       Game = game;
 
@@ -71,13 +71,8 @@
       _controller = controller;
     }
 
-    public virtual bool IsTargetValid(ITarget target, object triggerMessage = null)
+    public bool IsTargetValid(ITarget target, object triggerMessage = null)
     {
-      if (!CanBeTargeted(target, _owningCard))
-      {
-        return false;
-      }
-
       var parameters = new IsValidTargetParam
         {
           Game = Game,
@@ -87,11 +82,12 @@
         };
 
       parameters.SetTriggerMessage(triggerMessage);
-
-      return _isValidTarget(parameters);
+      
+      // Perf: Most targets are not valid and most targets can be targeted.     
+      return _isValidTarget(parameters) && CanBeTargeted(target, _owningCard);
     }
 
-    public virtual bool IsZoneValid(Zone zone, Player zoneOwner)
+    public bool IsZoneValid(Zone zone, Player zoneOwner)
     {
       var p = new IsValidZoneParam
         {
@@ -116,7 +112,7 @@
         (owningCard == null || !target.Card().HasProtectionFrom(owningCard));
     }
 
-    public virtual string GetMessage(int targetNumber, int? x)
+    public string GetMessage(int targetNumber, int? x)
     {
       var messageFormat = Message;
 

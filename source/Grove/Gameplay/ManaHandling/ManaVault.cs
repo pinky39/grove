@@ -80,8 +80,9 @@
       var counts = new Dictionary<ManaColor, int>();
 
       var restrictions = new Restrictions {Usage = usage};
-
-      var available = _colorless.GetIf(x => IsAvailable(x, restrictions));
+      
+      List<ManaUnit> available;      
+      _colorless.TryToAllocate(x => IsAvailable(x, restrictions), out available);
 
       foreach (var unit in available)
       {
@@ -174,10 +175,10 @@
     }
 
     private bool IsAvailable(ManaUnit unit, Restrictions restrictions)
-    {
+    {                  
       if (restrictions.Allocated.Contains(unit))
-        return false;
-
+        return false;      
+      
       if (unit.CanActivateSource() == false && _manaPool.Contains(unit) == false)
         return false;
 
@@ -213,20 +214,24 @@
 
       foreach (var colorMana in amount)
       {
-        IEnumerable<ManaUnit> allocatable = null;
+        List<ManaUnit> allocated = null;
 
         foreach (var color in colorMana.Color.Indices)
-        {
-          allocatable = _groups[color].GetIf(colorMana.Count, x => IsAvailable(x, restrictions), ordering);
-
-          if (allocatable != null)
+        {                    
+          if ( _groups[color].TryToAllocate(
+            filter: x => IsAvailable(x, restrictions), 
+            allocated: out allocated, 
+            count: colorMana.Count, 
+            order: ordering))
+          {
             break;
+          }         
         }
 
-        if (allocatable == null)
+        if (allocated == null)
           return null;
 
-        foreach (var unit in allocatable)
+        foreach (var unit in allocated)
         {
           restrictions.Allocated.Add(unit);
 
@@ -238,17 +243,24 @@
         }
       }
 
-      var costRestriction = restrictions.Allocated.Sum(x => x.CostRestriction);
+      var costRestriction = restrictions.Allocated.Sum(x => x.ActivationCostRestriction);
 
       if (costRestriction > 0)
       {
-        var available = _colorless
-          .GetIf(costRestriction, x => x.CostRestriction == 0 && IsAvailable(x, restrictions), ordering);
+        List<ManaUnit> allocated = null;
+        
+        if (
+        _colorless.TryToAllocate(
+          filter: x => x.ActivationCostRestriction == 0 && IsAvailable(x, restrictions), 
+          allocated: out allocated, 
+          count: costRestriction, 
+          order: ordering) == false)
 
-        if (available == null)
+        {
           return null;
-
-        foreach (var unit in available)
+        }        
+                
+        foreach (var unit in allocated)
         {
           restrictions.Allocated.Add(unit);
         }

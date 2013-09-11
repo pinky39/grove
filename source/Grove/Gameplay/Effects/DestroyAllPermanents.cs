@@ -14,7 +14,7 @@
     {
       _allowToRegenerate = allowToRegenerate;
       _filter = filter ?? delegate { return true; };
-      Category = EffectCategories.Destruction;
+      Kinds = EffectTag.Destroy;
     }
 
     protected override void ResolveEffect()

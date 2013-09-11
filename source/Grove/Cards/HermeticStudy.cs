@@ -2,6 +2,7 @@
 {
   using System;
   using System.Collections.Generic;
+  using Artifical;
   using Artifical.TargetingRules;
   using Artifical.TimingRules;
   using Gameplay.Abilities;
@@ -34,7 +35,7 @@
 
                 ap.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
                 ap.TargetingRule(new EffectDealDamage(1));
-                ap.TimingRule(new TargetRemovalTimingRule());
+                ap.TimingRule(new TargetRemovalTimingRule(removalTag: EffectTag.DealDamage));
 
                 return new AddActivatedAbility(new ActivatedAbility(ap));
               });

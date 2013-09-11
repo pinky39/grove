@@ -31,7 +31,7 @@
             p.Cost = new PayMana("{W}{W}".Parse(), ManaUsage.Abilities);
 
             p.Effect = () => new ApplyModifiersToTargets(
-              () => new AddStaticAbility(Static.Indestructible)) {Category = EffectCategories.Protector};
+              () => new AddStaticAbility(Static.Indestructible)).Tags(EffectTag.Indestructible);
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
             p.TargetingRule(new EffectGiveIndestructible());

@@ -11,7 +11,7 @@
     public DestroyPermanent(DynParam<Card> permanent)
     {
       _permanent = permanent;
-      Category = EffectCategories.Destruction;
+      Kinds = EffectTag.Destroy;
 
       RegisterDynamicParameters(permanent);
     }

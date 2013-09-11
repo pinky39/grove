@@ -10,30 +10,41 @@
   using Misc;
   using Modifiers;
   using Targeting;
-  using Zones;
 
   public delegate Effect EffectFactory();
 
   public abstract class Effect : GameObject, ITarget, IHasColors
   {
     private readonly List<IDynamicParameter> _dynamicParameters = new List<IDynamicParameter>();
+    private readonly List<EffectTag> _tags = new List<EffectTag>();
     private readonly Trackable<bool> _wasResolved = new Trackable<bool>();
 
     public Action<Effect> AfterResolve = delegate { };
-    protected bool AllTargetsMustBeValid = false;
+    protected bool AllTargetsMustBeValid;
     public Action<Effect> BeforeResolve = delegate { };
     public bool CanBeCountered = true;
-    public EffectCategories Category = EffectCategories.Generic;
     public Func<Effect, bool> ShouldResolve = delegate { return true; };
-    public Value ToughnessReduction = 0;
+    private Value _toughnessReduction;
+
     private object _triggerMessage;
+
+    public Value ToughnessReduction
+    {
+      get { return _toughnessReduction; }
+      set
+      {
+        _toughnessReduction = value;
+        Tags(EffectTag.ReduceToughness);
+      }
+    }
+
     public Player Controller { get { return Source.OwningCard.Controller; } }
     public IEffectSource Source { get; private set; }
     public int? X { get; private set; }
     private bool WasResolved { get { return _wasResolved.Value; } set { _wasResolved.Value = value; } }
     public Targets Targets { get; private set; }
-    
-    public virtual bool TargetsEffectSource { get { return false; } }    
+
+    public virtual bool TargetsEffectSource { get { return false; } }
 
     public ITarget Target
     {
@@ -88,6 +99,12 @@
     }
 
     public int Id { get; private set; }
+
+    public Effect Tags(params EffectTag[] tags)
+    {
+      _tags.AddRange(tags);
+      return this;
+    }
 
     protected void RegisterDynamicParameters(params IDynamicParameter[] parameters)
     {
@@ -197,9 +214,9 @@
 
     protected abstract void ResolveEffect();
 
-    public bool HasCategory(EffectCategories effectCategories)
+    public bool HasTag(EffectTag effectTag)
     {
-      return ((effectCategories & Category) != EffectCategories.Generic);
+      return _tags.Contains(effectTag);
     }
 
     public bool HasTarget(Card card)
@@ -224,7 +241,7 @@
         {
           parameter.EvaluateBeforeCost(this, Game);
         }
-      }      
+      }
 
       Initialize();
       return this;

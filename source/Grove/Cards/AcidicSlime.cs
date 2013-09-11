@@ -28,7 +28,7 @@
           {
             p.Text = "When Acidic Slime enters the battlefield, destroy target artifact, enchantment, or land.";
             p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
-            p.Effect = () => new DestroyTargetPermanents {Category = EffectCategories.Destruction};
+            p.Effect = () => new DestroyTargetPermanents();
             p.TargetSelector.AddEffect(trg => trg
               .Is.Card(card => card.Is().Artifact || card.Is().Enchantment || card.Is().Land)
               .On.Battlefield());

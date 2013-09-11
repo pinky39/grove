@@ -7,9 +7,9 @@
   {
     public RegenerateTarget()
     {
-      Category = EffectCategories.Protector;
+      Tags(EffectTag.Regenerate);
     }
-    
+
     protected override void ResolveEffect()
     {
       Target.Card().HasRegenerationShield = true;

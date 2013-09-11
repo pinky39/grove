@@ -6,19 +6,28 @@
 
   public class TargetRemovalTimingRule : TimingRule
   {
+    private readonly EffectTag _removalTag;
     private readonly bool _combatOnly;
 
     private TargetRemovalTimingRule() {}
 
-    public TargetRemovalTimingRule(bool combatOnly = false)
+    public TargetRemovalTimingRule(EffectTag removalTag, bool combatOnly = false)
     {
+      _removalTag = removalTag;
       _combatOnly = combatOnly;
     }
 
+    private bool TopSpellRestriction()
+    {
+      
+
+
+    }
+    
     private bool TargetCreatureRemoval(Card target, TimingRuleParameters p)
     {
       // remove blockers
-      if (p.Controller.IsActive && Turn.Step == Step.BeginningOfCombat)
+      if (p.Controller.IsActive && Turn.Step == Step.BeginningOfCombat && Stack.IsEmpty)
       {
         return target.CanBlock();
       }
@@ -34,7 +43,7 @@
 
       // play as response to some spells
       if (Stack.TopSpell != null && Stack.TopSpell.Controller == p.Controller.Opponent &&
-        Stack.TopSpell.HasCategory(EffectCategories.Protector | EffectCategories.ToughnessIncrease))
+        Stack.TopSpell.HasTag(EffectTag.Protect | EffectTag.IncreaseToughness))
       {
         if (Stack.TopSpell.Targets.Count > 0)
         {

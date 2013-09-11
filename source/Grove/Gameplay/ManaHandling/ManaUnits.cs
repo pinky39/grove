@@ -10,22 +10,21 @@
   {
     private readonly TrackableList<ManaUnit> _units = new TrackableList<ManaUnit>();
 
-    public List<ManaUnit> GetIf(Func<ManaUnit, bool> filter, Func<ManaUnit, int> order = null)
+    public int Count { get { return _units.Count; } }
+    
+    public bool TryToAllocate(Func<ManaUnit, bool> filter, out List<ManaUnit> allocated, int? count = null, Func<ManaUnit, int> order = null)
     {
-      var unrestricted = _units
-        .Where(filter);
-
-      if (order != null)
-      {
-        unrestricted = unrestricted.OrderBy(order);
-      }
-
+      allocated = null;
+                 
       var tapRestrictions = new Dictionary<object, IManaSource>();
       var sacRestrictions = new Dictionary<object, IManaSource>();
       var restricted = new List<ManaUnit>();
 
-      foreach (var unit in unrestricted)
+      foreach (var unit in _units)
       {
+        if (filter(unit) == false)
+          continue;
+
         if (unit.TapRestriction != null)
         {
           IManaSource source;
@@ -51,22 +50,31 @@
           {
             sacRestrictions.Add(unit.SacRestriction, unit.Source);
           }
-        }
+        }        
 
         restricted.Add(unit);
       }
 
-      return restricted;
-    }
+      if (count.HasValue && restricted.Count < count)
+      {
+        return false;
+      }
 
-    public IEnumerable<ManaUnit> GetIf(int minCount, Func<ManaUnit, bool> filter, Func<ManaUnit, int> order)
-    {
-      var unlimited = GetIf(filter, order);
+      if (order == null)
+      {
+        allocated = count == null 
+          ? restricted 
+          : restricted.Take(count.Value).ToList();
+      }
+      else
+      {
+        allocated = count == null
+          ? restricted.OrderBy(order).ToList()
+          : restricted.OrderBy(order).Take(count.Value).ToList();
+      }            
 
-      return unlimited.Count >= minCount
-        ? unlimited.Take(minCount)
-        : null;
-    }
+      return true;
+    }    
 
     public void Initialize(INotifyChangeTracker changeTracker)
     {

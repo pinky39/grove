@@ -340,29 +340,13 @@
       _manaVault.EmptyManaPool();
     }
 
-    public IEnumerable<ITarget> GetTargets(Func<Zone, Player, bool> zoneFilter)
+    public void GetTargets(Func<Zone, Player, bool> zoneFilter, List<ITarget> targets)
     {
-      yield return this;
-
-      foreach (var card in _battlefield.GenerateZoneTargets(zoneFilter))
-      {
-        yield return card;
-      }
-
-      foreach (var card in _hand.GenerateZoneTargets(zoneFilter))
-      {
-        yield return card;
-      }
-
-      foreach (var card in _graveyard.GenerateZoneTargets(zoneFilter))
-      {
-        yield return card;
-      }
-
-      foreach (var card in _library.GenerateZoneTargets(zoneFilter))
-      {
-        yield return card;
-      }
+      targets.Add(this);
+      _battlefield.GenerateZoneTargets(zoneFilter, targets);
+      _hand.GenerateZoneTargets(zoneFilter, targets);
+      _graveyard.GenerateZoneTargets(zoneFilter, targets);
+      _library.GenerateZoneTargets(zoneFilter, targets);           
     }
 
     public bool HasMana(int amount, ManaUsage usage = ManaUsage.Any)
