@@ -15,10 +15,21 @@
       _rules = rules.ToList();
     }
 
-    public override bool ShouldPlay(TimingRuleParameters p)
+    public override bool? ShouldPlay2(TimingRuleParameters p)
     {
-      return _rules.Any(x => x.ShouldPlay(p));
-    }
+      // forces everything to be evaluated on 2nd pass
+      
+      bool? result = null;
+      foreach (var rule in _rules)
+      {
+        result = rule.ShouldPlay2(p);
+        
+        if (result == true)
+          return true;
+      }
+
+      return result;           
+    }   
 
     public override void Initialize(Game game)
     {

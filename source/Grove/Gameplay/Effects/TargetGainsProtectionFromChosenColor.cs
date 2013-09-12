@@ -13,11 +13,10 @@
     {
       CardColor? color = null;
 
-      if (!Stack.IsEmpty && !Stack.TopSpell.HasColor(CardColor.Colorless) &&
-        (Stack.CanBeDestroyedByTopSpell(Target.Card()) || Stack.CanBeBouncedByTopSpell(Target.Card())))
+      if (!Stack.IsEmpty && !Stack.TopSpell.HasColor(CardColor.Colorless))
       {
         color = Stack.TopSpell.Colors[0];
-      }     
+      }
 
       color = color ?? Controller.Opponent.Battlefield.GetMostCommonColor();
 

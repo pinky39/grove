@@ -34,10 +34,12 @@
             p.Effect = () => new ApplyModifiersToTargets(
               () => new AddPowerAndToughness(-2, -2) {UntilEot = true}) {ToughnessReduction = 2};
 
-            p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
-                        
+            p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());                        
             p.TargetingRule(new EffectReduceToughness(2));
-            p.TimingRule(new Any(new WhenOwningCardWillBeDestroyed(), new TargetRemovalTimingRule(removalTag: EffectTag.ReduceToughness, combatOnly: true)));
+            
+            p.TimingRule(new Any(
+              new WhenOwningCardWillBeDestroyed(), 
+              new TargetRemovalTimingRule(removalTag: EffectTag.ReduceToughness, combatOnly: true)));
           });
     }
   }

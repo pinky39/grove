@@ -24,7 +24,7 @@
     public Action<Effect> BeforeResolve = delegate { };
     public bool CanBeCountered = true;
     public Func<Effect, bool> ShouldResolve = delegate { return true; };
-    private Value _toughnessReduction;
+    private Value _toughnessReduction = 0;
 
     private object _triggerMessage;
 
@@ -34,7 +34,7 @@
       set
       {
         _toughnessReduction = value;
-        Tags(EffectTag.ReduceToughness);
+        SetTags(EffectTag.ReduceToughness);
       }
     }
 
@@ -100,10 +100,20 @@
 
     public int Id { get; private set; }
 
-    public Effect Tags(params EffectTag[] tags)
+    public bool HasEffectTargets()
+    {
+      return Targets.Effect.Count > 0;
+    }
+
+    public Effect SetTags(params EffectTag[] tags)
     {
       _tags.AddRange(tags);
       return this;
+    }
+
+    public IEnumerable<EffectTag> GetTags()
+    {
+      return _tags;
     }
 
     protected void RegisterDynamicParameters(params IDynamicParameter[] parameters)
@@ -219,9 +229,9 @@
       return _tags.Contains(effectTag);
     }
 
-    public bool HasTarget(Card card)
+    public bool HasEffectTarget(Card card)
     {
-      return Targets.Any(x => x == card);
+      return Targets.Effect.Contains(card);
     }
 
     public virtual Effect Initialize(EffectParameters p, Game game, bool initializeDynamicParameters = true)

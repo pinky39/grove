@@ -4,9 +4,9 @@
 
   public class OnSecondMain : TimingRule
   {
-    public override bool ShouldPlay(TimingRuleParameters p)
+    public override bool? ShouldPlay1(TimingRuleParameters p)
     {
-      return p.Controller.IsActive && Turn.Step == Step.SecondMain;
+      return p.Controller.IsActive && Turn.Step == Step.SecondMain && Stack.IsEmpty;
     }
   }
 }

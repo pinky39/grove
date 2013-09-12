@@ -235,9 +235,12 @@
               {
                 var effect = new ApplyModifiersToSelf(() => new AddPowerAndToughness(
                   powerIncrease, toughnessIncrease) {UntilEot = true});
-                
+
                 if (toughnessIncrease > 0)
-                  effect.Kinds = EffectTag.IncreaseToughness;
+                  effect.SetTags(EffectTag.IncreaseToughness);
+
+                if (powerIncrease > 0)
+                  effect.SetTags(EffectTag.IncreasePower);
 
                 return effect;
               };
@@ -414,7 +417,7 @@
         {
           p.Text = String.Format("{0}: Put a level counter on this. Level up only as sorcery.", cost);
           p.Cost = new PayMana(cost.Parse(), ManaUsage.Abilities);
-          p.Effect = () => new ApplyModifiersToSelf(() => new IncreaseLevel()) {Kinds = tag};
+          p.Effect = () => new ApplyModifiersToSelf(() => new IncreaseLevel()).SetTags(tag);
           p.TimingRule(new DefaultLevelUpTimingRule(cost.Parse(), levels));
           p.ActivateAsSorcery = true;
         });

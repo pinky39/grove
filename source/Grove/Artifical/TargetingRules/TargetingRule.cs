@@ -10,13 +10,25 @@
 
   public abstract class TargetingRule : MachinePlayRule
   {
-    public int? TargetLimit;
     public bool ConsiderTargetingSelf = true;
+    public int? TargetLimit;
 
-    public override void Process(Artifical.ActivationContext c)
+
+    public override bool Process(int pass, Artifical.ActivationContext c)
     {
-      var excludeSelf = ConsiderTargetingSelf ? null : c.Card;      
-      var candidates = c.Selector.GenerateCandidates(c.TriggerMessage, excludeSelf);      
+      if (pass == 2)
+      {
+        Process(c);
+        return true;
+      }
+
+      return false;
+    }
+
+    public void Process(Artifical.ActivationContext c)
+    {
+      var excludeSelf = ConsiderTargetingSelf ? null : c.Card;
+      var candidates = c.Selector.GenerateCandidates(c.TriggerMessage, excludeSelf);
 
       var parameters = new TargetingRuleParameters(candidates, c, Game);
 
@@ -76,7 +88,7 @@
       Action<ITarget, Targets> add1 = null, Action<ITarget, Targets> add2 = null)
     {
       return Group(candidates1.Cast<ITarget>().ToList(), candidates2.Cast<ITarget>().ToList(), add1, add2);
-    }    
+    }
 
     protected IList<Targets> Group(IList<ITarget> candidates1, IList<ITarget> candidates2,
       Action<ITarget, Targets> add1 = null, Action<ITarget, Targets> add2 = null)
@@ -177,14 +189,14 @@
     {
       if (!attacker.CanAttack)
         return -1;
-                  
+
       return Combat.CouldBeBlockedByAny(attacker)
-        ? 2 * attacker.Power.GetValueOrDefault() + attacker.Toughness.GetValueOrDefault() 
-        : 5 * attacker.CalculateCombatDamageAmount(singleDamageStep: false);
+        ? 2*attacker.Power.GetValueOrDefault() + attacker.Toughness.GetValueOrDefault()
+        : 5*attacker.CalculateCombatDamageAmount(singleDamageStep: false);
     }
 
     protected static int CalculateAttackingPotential(Card creature)
-    {            
+    {
       if (!creature.IsAbleToAttack)
         return 0;
 
@@ -206,6 +218,25 @@
       }
 
       return 0;
+    }
+
+    protected IEnumerable<Card> GetCandidatesForProtectionFromTopSpell(TargetingRuleParameters p)
+    {
+      if (Stack.IsEmpty)
+        return None<Card>();
+
+      return p.Candidates<Card>(ControlledBy.SpellOwner)
+        .Where(x =>
+          {
+            if (Stack.IsTargetedByTopSpell(x) == false)
+            {
+              return false;
+            }
+
+            return Stack.CanBeDestroyedByTopSpell(x) ||
+              Stack.TopSpellHas(EffectTag.Bounce) ||
+                Stack.TopSpellHas(EffectTag.ChangeController);
+          });
     }
 
     protected IEnumerable<Card> GetCandidatesForAttackerPowerToughnessIncrease(int? powerIncrease,

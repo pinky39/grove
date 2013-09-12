@@ -1,5 +1,6 @@
 ﻿namespace Grove.Artifical
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Gameplay;
@@ -30,10 +31,9 @@
       MaxRepetitions = prerequisites.MaxRepetitions;
     }
 
-    public int MaxRepetitions { get; private set; }
-
+    public Lazy<int> MaxRepetitions { get; private set; }
     public Card Card { get; private set; }
-    public int? MaxX { get; private set; }
+    public Lazy<int?> MaxX { get; private set; }
     public TargetSelector Selector { get; private set; }
     public int DistributeAmount { get; private set; }
 

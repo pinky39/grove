@@ -219,23 +219,6 @@
       }
 
       [Fact]
-      public void BugGameCrashesWhenBlockedAttackerIsKilled()
-      {
-        Hand(P1, "Angelic Page");
-        Hand(P2, "Pestilence");
-
-        Battlefield(P1, "Drifting Meadow", "Plains", "Plains", "Plains",
-          C("Voice of Grace").IsEnchantedWith("Brilliant Halo").IsEnchantedWith("Serra's Embrace"), "Plains",
-          C("Sanctum Custodian").IsEnchantedWith("Brilliant Halo"), "Dragon Blood", "Plains", "Plains");
-
-        Battlefield(P2, "Drifting Meadow", "Swamp", "Rune of Protection: Black", "Swamp", "Disciple of Grace",
-          "Polluted Mire", "Plains", "Plains", "Urza's Armor", "Plains", "Worship", "Unworthy Dead", "Swamp",
-          "Sanctum Guardian");
-
-        Exec();
-      }
-
-      [Fact]
       public void BugRegenerateCombatDamage()
       {
         var thrun = C("Thrun, the Last Troll");

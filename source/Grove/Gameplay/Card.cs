@@ -545,7 +545,7 @@
     public List<ActivationPrerequisites> CanActivateAbilities(bool ignoreManaAbilities = false)
     {
       return _activatedAbilities.CanActivate(ignoreManaAbilities);
-    }
+    }    
 
     public bool CanBeBlockedBy(Card card)
     {
@@ -628,7 +628,7 @@
     public List<ActivationPrerequisites> CanCast()
     {
       return _castInstructions.CanCast();
-    }
+    }    
 
     public void Cast(int index, ActivationParameters activationParameters)
     {

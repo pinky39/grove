@@ -18,7 +18,7 @@
       _levelDefinitions.AddRange(levelDefinitions);
     }
 
-    public override bool ShouldPlay(TimingRuleParameters p)
+    public override bool? ShouldPlay1(TimingRuleParameters p)
     {
       var level = p.Card.Level ?? 0;
       int? costToNextLevel = null;

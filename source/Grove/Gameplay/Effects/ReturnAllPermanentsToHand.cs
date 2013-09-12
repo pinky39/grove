@@ -15,7 +15,7 @@
     public ReturnAllPermanentsToHand(Func<Effect, Card, bool> filter = null)
     {
       _filter = filter ?? delegate { return true; };
-      Kinds = EffectTag.Bounce;
+      SetTags(EffectTag.Bounce);
     }
 
     protected override void ResolveEffect()

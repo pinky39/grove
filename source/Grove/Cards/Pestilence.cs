@@ -1,6 +1,7 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
+  using Artifical;
   using Artifical.RepetitionRules;
   using Artifical.TimingRules;
   using Gameplay;
@@ -46,9 +47,10 @@
               amountCreature: 1,
               amountPlayer: 1);
 
-            p.RepetitionRule(new RepeatForOptimalMassDamage());
-            p.TimingRule(new All(new MassRemovalTimingRule(), new WhenNoOtherInstanceOfSpellIsOnStack()));
+            p.TimingRule(new MassRemovalTimingRule(removalTag: EffectTag.DealDamage));
+            p.TimingRule(new WhenNoOtherInstanceOfSpellIsOnStack());
+            p.RepetitionRule(new RepeatForOptimalMassDamage());            
           });
-    } 
+    }
   }
 }

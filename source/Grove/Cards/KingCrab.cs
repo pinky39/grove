@@ -37,7 +37,7 @@
               trg.Is.Card(c => c.Is().Creature && c.HasColor(CardColor.Green)).On.Battlefield());
 
             p.TargetingRule(new EffectPutOnTopOfLibrary());
-            p.TimingRule(new TargetRemovalTimingRule(EffectTag.Bounce));
+            p.TimingRule(new TargetRemovalTimingRule().RemovalTags(EffectTag.Bounce, EffectTag.CreaturesOnly));
           });
     }
   }

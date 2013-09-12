@@ -1,7 +1,5 @@
 ﻿namespace Grove.Artifical.TimingRules
 {
-  using Gameplay.States;
-
   public class WhenCardHasCounters : TimingRule
   {
     private readonly int _minCount;
@@ -15,18 +13,21 @@
       _onlyAtEot = onlyAtEot;
     }
 
-    public override bool ShouldPlay(TimingRuleParameters p)
+    public override bool? ShouldPlay2(TimingRuleParameters p)
     {
-      if (p.Card.Counters >= _minCount)
-      {
-        if (_onlyAtEot && (p.Controller.IsActive || Turn.Step != Step.EndOfTurn))
-          return false;
-
-        return true;
-      }
-
       if (p.Card.Counters > 0 && CanBeDestroyed(p))
         return true;
+      
+      if (p.Card.Counters >= _minCount)
+      {
+        if (IsEndOfOpponentsTurn(p.Controller))
+          return true;
+
+        if (_onlyAtEot) 
+          return false;
+
+        return Stack.IsEmpty;
+      }      
 
       return false;
     }

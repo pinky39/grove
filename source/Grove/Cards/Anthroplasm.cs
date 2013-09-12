@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Artifical.CostRules;
   using Artifical.TimingRules;
@@ -46,7 +45,7 @@
               new ApplyModifiersToSelf(() => new AddCounters(() => new PowerToughness(1, 1), Value.PlusX)));
 
             p.CostRule(new XIsAvailableMana());
-            p.TimingRule(new Any(new PumpOwningCardTimingRule(Value.PlusX, Value.PlusX), new OnEndOfOpponentsTurn()));            
+            p.TimingRule(new Any(new PumpOwningCardTimingRule(Value.PlusX, Value.PlusX), new OnEndOfOpponentsTurn()));
           });
     }
   }

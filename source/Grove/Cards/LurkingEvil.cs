@@ -34,7 +34,7 @@
               () => new AddStaticAbility(Static.Flying));
 
             p.TimingRule(new WhenCardHas(c => c.Is().Enchantment));
-            p.TimingRule(new Artifical.TimingRules.BeforeYouDeclareAttackers());
+            p.TimingRule(new BeforeYouDeclareAttackers());
           });
     }
   }

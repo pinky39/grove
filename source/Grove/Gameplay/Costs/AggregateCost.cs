@@ -39,17 +39,52 @@
 
     protected override void CanPay(CanPayResult result)
     {
+      var childResults = new List<CanPayResult>();
+
       foreach (var cost in _costs)
       {
-        var childResult = cost.CanPay();
-
-        result.CanPay = childResult.CanPay;
-        result.MaxX = result.MaxX ?? childResult.MaxX;
-        result.MaxRepetitions = childResult.MaxRepetitions;
-
-        if (!result.CanPay)
-          return;
+        childResults.Add(cost.CanPay());
       }
+
+      result.CanPay(() =>
+        {
+          foreach (var childResult in childResults)
+          {
+            if (!childResult.CanPay().Value)
+              return false;
+          }
+
+          return true;
+        });
+
+      result.MaxX(() =>
+        {
+          int? maxX = null;
+
+          foreach (var childResult in childResults)
+          {
+            maxX = childResult.MaxX().Value;
+
+            if (maxX.HasValue)
+            {
+              break;
+            }
+          }
+
+          return maxX;
+        });
+
+      result.MaxRepetitions(() =>
+        {
+          var maxRepetitions = 1;
+
+          foreach (var childResult in childResults)
+          {
+            maxRepetitions = childResult.MaxRepetitions().Value;
+          }
+
+          return maxRepetitions;
+        });
     }
 
     public override void Pay(Targets targets, int? x, int repeat = 1)

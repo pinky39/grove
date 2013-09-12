@@ -26,7 +26,7 @@
                 toughness: 1,
                 filter: (c, _) => c.Is("forest"),
                 modifier: () => new IntegerIncrement()))
-              .Tags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);              
+              .SetTags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);              
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
             p.TimingRule(new OnFirstMain());

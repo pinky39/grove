@@ -36,7 +36,7 @@
             p.Text = "Sacrifice Fires of Yavimaya: Target creature gets +2/+2 until end of turn.";
             p.Cost = new Sacrifice();
             p.Effect = () => new ApplyModifiersToTargets(() => new AddPowerAndToughness(2, 2) {UntilEot = true})
-              .Tags(EffectTag.IncreaseToughness, EffectTag.IncreasePower);
+              .SetTags(EffectTag.IncreaseToughness, EffectTag.IncreasePower);
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 

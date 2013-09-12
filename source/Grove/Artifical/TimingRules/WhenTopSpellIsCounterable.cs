@@ -11,7 +11,7 @@
       _counterCost = counterCost;
     }
 
-    public override bool ShouldPlay(TimingRuleParameters p)
+    public override bool? ShouldPlay2(TimingRuleParameters p)
     {
       if (Stack.IsEmpty)
         return false;

@@ -11,7 +11,7 @@
       _converted = converted;
     }
 
-    public override bool ShouldPlay(TimingRuleParameters p)
+    public override bool? ShouldPlay2(TimingRuleParameters p)
     {
       return p.Controller.HasMana(_converted);
     }

@@ -47,7 +47,7 @@
     {
       _abilities[abilityIndex].Activate(activationParameters);
     }
-
+        
     public List<ActivationPrerequisites> CanActivate(bool ignoreManaAbilities)
     {
       var result = new List<ActivationPrerequisites>();
@@ -70,7 +70,7 @@
       }
 
       return result;
-    }
+    }    
 
     public IManaAmount GetManaCost(int index)
     {

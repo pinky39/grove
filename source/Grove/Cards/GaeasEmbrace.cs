@@ -41,7 +41,7 @@
                 },
               () => new AddPowerAndToughness(3, 3),
               () => new AddStaticAbility(Static.Trample)
-              ).Tags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);
+              ).SetTags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
             p.TimingRule(new OnFirstMain());

@@ -13,7 +13,7 @@
       _relativeCost = relativeCost;
     }
 
-    public override bool ShouldPlay(TimingRuleParameters p)
+    public override bool? ShouldPlay1(TimingRuleParameters p)
     {
       // currently somehow limited because of performance reasons      
       if (Turn.Step != Step.FirstMain && Turn.Step != Step.SecondMain)

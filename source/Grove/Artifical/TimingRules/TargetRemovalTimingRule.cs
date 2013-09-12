@@ -1,39 +1,58 @@
 ﻿namespace Grove.Artifical.TimingRules
 {
-  using System.Linq;
+  using System.Collections.Generic;
   using Gameplay;
-  using Gameplay.States;
 
   public class TargetRemovalTimingRule : TimingRule
   {
-    private readonly EffectTag _removalTag;
     private readonly bool _combatOnly;
+    private readonly List<EffectTag> _removalTags = new List<EffectTag>();
 
     private TargetRemovalTimingRule() {}
 
-    public TargetRemovalTimingRule(EffectTag removalTag, bool combatOnly = false)
+    public TargetRemovalTimingRule(EffectTag? removalTag = null, bool combatOnly = false)
     {
-      _removalTag = removalTag;
+      if (removalTag.HasValue)
+      {
+        _removalTags.Add(removalTag.Value);
+      }
+
       _combatOnly = combatOnly;
     }
 
-    private bool TopSpellRestriction()
+    public TargetRemovalTimingRule RemovalTags(params EffectTag[] removalTags)
     {
-      
-
-
+      _removalTags.AddRange(removalTags);
+      return this;
     }
-    
+
+    private bool RemovalDependsOnToughness()
+    {
+      return _removalTags.Contains(EffectTag.DealDamage) || _removalTags.Contains(EffectTag.ReduceToughness);
+    }
+
+    private bool StackHasInterestingSpells()
+    {
+      if (Stack.TopSpellHas(EffectTag.Shroud))
+        return true;
+
+      if (Stack.TopSpellHas(EffectTag.IncreaseToughness) && RemovalDependsOnToughness())
+        return true;
+
+      return false;
+    }
+
     private bool TargetCreatureRemoval(Card target, TimingRuleParameters p)
     {
-      // remove blockers
-      if (p.Controller.IsActive && Turn.Step == Step.BeginningOfCombat && Stack.IsEmpty)
+      if (!target.Is().Creature)
+        return false;
+
+      if (IsBeforeYouDeclareAttackers(p.Controller))
       {
         return target.CanBlock();
       }
 
-      // remove attackers
-      if (p.Controller.IsActive == false && Turn.Step == Step.DeclareAttackers)
+      if (IsBeforeYouDeclareBlockers(p.Controller))
       {
         return target.IsAttacker;
       }
@@ -41,13 +60,11 @@
       if (_combatOnly)
         return false;
 
-      // play as response to some spells
-      if (Stack.TopSpell != null && Stack.TopSpell.Controller == p.Controller.Opponent &&
-        Stack.TopSpell.HasTag(EffectTag.Protect | EffectTag.IncreaseToughness))
+      if (StackHasInterestingSpells())
       {
-        if (Stack.TopSpell.Targets.Count > 0)
+        if (Stack.TopSpell.HasEffectTargets())
         {
-          return Stack.TopSpell.Targets.Any(trg => trg == target);
+          return Stack.TopSpell.HasEffectTarget(target);
         }
 
         // e.g Nantuko Shade gives self a +1/+1 boost
@@ -62,32 +79,60 @@
 
     private bool TargetAuraRemoval(Card target, TimingRuleParameters p)
     {
-      if (p.Controller.IsActive)
+      if ((!target.Is().Aura && !target.Is().Equipment) || target.AttachedTo == null)
+        return false;
+
+      if (IsAfterOpponentDeclaresBlockers(p.Controller))
       {
-        return target.AttachedTo.IsBlocker && Turn.Step == Step.DeclareBlockers;
+        return target.AttachedTo.IsBlocker;
       }
 
-      return target.AttachedTo.IsAttacker && Turn.Step == Step.DeclareAttackers;
-    }
-
-    private bool EotRemoval(TimingRuleParameters p)
-    {
-      if (!p.Controller.IsActive && Turn.Step == Step.EndOfTurn && !_combatOnly)
-        return true;
+      if (IsAfterOpponentDeclaresAttackers(p.Controller))
+      {
+        return target.AttachedTo.IsAttacker;
+      }
 
       return false;
     }
 
-    public override bool ShouldPlay(TimingRuleParameters p)
+    private bool EotRemoval(TimingRuleParameters p)
+    {
+      if (_combatOnly)
+        return false;
+
+      return IsEndOfOpponentsTurn(p.Controller);
+    }
+
+    public override bool? ShouldPlay1(TimingRuleParameters p)
+    {
+      // quick check before target generation      
+      if (Stack.IsEmpty)
+      {
+        if (_removalTags.Contains(EffectTag.DealDamage) || _removalTags.Contains(EffectTag.CreaturesOnly) ||
+          _removalTags.Contains(EffectTag.ReduceToughness) || _removalTags.Contains(EffectTag.Humble) || _removalTags.Contains(EffectTag.CombatDisabler))
+        {
+          return IsBeforeYouDeclareAttackers(p.Controller) || IsBeforeYouDeclareBlockers(p.Controller) ||
+            IsEndOfOpponentsTurn(p.Controller);
+        }
+
+        return IsBeforeYouDeclareAttackers(p.Controller) || IsBeforeYouDeclareBlockers(p.Controller) ||
+          IsAfterOpponentDeclaresAttackers(p.Controller) || IsAfterOpponentDeclaresAttackers(p.Controller) ||
+            IsEndOfOpponentsTurn(p.Controller);
+      }
+
+      return StackHasInterestingSpells();
+    }
+
+    public override bool? ShouldPlay2(TimingRuleParameters p)
     {
       foreach (var target in p.Targets<Card>())
       {
-        if (target.Is().Creature && TargetCreatureRemoval(target, p))
+        if (TargetCreatureRemoval(target, p))
         {
           return true;
         }
 
-        if ((target.Is().Aura || target.Is().Equipment) && target.AttachedTo != null && TargetAuraRemoval(target, p))
+        if (TargetAuraRemoval(target, p))
         {
           return true;
         }

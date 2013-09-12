@@ -18,7 +18,7 @@
 
     protected override void CanPay(CanPayResult result)
     {
-      result.CanPay = _getAmount(Card) <= Card.Controller.Life;
+      result.CanPay(() => _getAmount(Card) <= Card.Controller.Life);
     }
 
 

@@ -803,7 +803,6 @@
     <Compile Include="Artifical\TargetingRules\EffectTapLand.cs" />
     <Compile Include="Artifical\TargetingRules\TargetingRuleParameters.cs" />
     <Compile Include="Artifical\TargetingRules\EffectUntapLand.cs" />
-    <Compile Include="Artifical\TimingRules\All.cs" />
     <Compile Include="Artifical\TimingRules\Any.cs" />
     <Compile Include="Artifical\TimingRules\OnFirstDetachedOnSecondAttached.cs" />
     <Compile Include="Artifical\TimingRules\WhenCardHasCounters.cs" />

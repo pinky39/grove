@@ -24,7 +24,7 @@
         manaCost = manaCost.Add(ActivationParameters.X.Value.Colorless());
 
       Controller.AddManaToManaPool(manaCost);
-      var prerequisites = Card.CanCast();
+      var prerequisites = Card.CanCast().Where(x => x.CanPay.Value);
 
       return prerequisites.Any(x => x.Index == Index);
     }

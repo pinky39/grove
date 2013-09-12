@@ -19,7 +19,7 @@
       _minCount = minCount;
     }
 
-    public override bool ShouldPlay(TimingRuleParameters p)
+    public override bool? ShouldPlay2(TimingRuleParameters p)
     {
       var result = true;
 

@@ -11,7 +11,7 @@
       IEnumerable<TargetingRule> rules)
     {
       var activation = new ActivationContext(owningCard, selector);
-
+      
       foreach (var rule in rules)
       {
         rule.Process(activation);

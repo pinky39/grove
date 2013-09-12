@@ -32,7 +32,7 @@
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 
             p.TargetingRule(new EffectBounce());
-            p.TimingRule(new TargetRemovalTimingRule(EffectTag.Bounce));
+            p.TimingRule(new TargetRemovalTimingRule().RemovalTags(EffectTag.Bounce, EffectTag.CreaturesOnly));
           });
     }
   }

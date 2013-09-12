@@ -4,34 +4,29 @@
   using System.Linq;
   using Gameplay;
   using Gameplay.Misc;
-  using Gameplay.States;
   using Gameplay.Targeting;
 
   public class EffectGiveProtection : TargetingRule
   {
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
     {
-      var candidates = p.Candidates<Card>(ControlledBy.SpellOwner)
-        .Where(x => Stack.CanBeDestroyedByTopSpell(x, targetOnly: true) || Stack.CanBeBouncedByTopSpell(x))
+      var candidates = GetCandidatesForProtectionFromTopSpell(p)
         .OrderByDescending(x => x.Score)
         .ToList();
 
-      if (Turn.Step == Step.BeginningOfCombat)
+      if (IsBeforeYouDeclareAttackers(p.Controller))
       {
-        if (p.Controller.IsActive)
-        {
-          candidates.AddRange(
-            p.Candidates<Card>(ControlledBy.SpellOwner)            
+        candidates.AddRange(
+          p.Candidates<Card>(ControlledBy.SpellOwner)
             .Where(x => x.CanAttack)
             .OrderByDescending(CalculateAttackerScoreForThisTurn));
-        }
-        else
-        {
-          candidates.AddRange(
-            p.Candidates<Card>(ControlledBy.SpellOwner)
+      }
+      else if (IsBeforeYouDeclareBlockers(p.Controller))
+      {
+        candidates.AddRange(
+          p.Candidates<Card>(ControlledBy.SpellOwner)
             .Where(x => x.CanBlock())
             .OrderByDescending(x => x.Power));
-        }
       }
 
       return Group(candidates, p.MinTargetCount());

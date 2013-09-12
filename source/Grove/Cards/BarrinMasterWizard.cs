@@ -42,7 +42,7 @@
                 });
 
             p.TargetingRule(new CostSacrificeEffectBounce());
-            p.TimingRule(new TargetRemovalTimingRule(removalTag: EffectTag.Bounce));
+            p.TimingRule(new TargetRemovalTimingRule().RemovalTags(EffectTag.Bounce, EffectTag.CreaturesOnly));
           });
     }
   }

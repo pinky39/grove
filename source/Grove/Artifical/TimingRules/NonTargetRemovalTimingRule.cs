@@ -14,7 +14,7 @@
       _count = count;
     }
 
-    public override bool ShouldPlay(TimingRuleParameters p)
+    public override bool? ShouldPlay1(TimingRuleParameters p)
     {
       return p.Card.IsPermanent || p.Card.Is().Instant
         ? Instant(p)
@@ -30,14 +30,13 @@
 
       if (opponentCreatureCount == 1)
       {
-        return (!p.Controller.IsActive && Turn.Step == Step.DeclareBlockers) ||
-          (p.Controller.IsActive && Turn.Step == Step.DeclareAttackers);
+        return (IsBeforeYouDeclareBlockers(p.Controller) || IsBeforeYouDeclareAttackers(p.Controller));
       }
 
       if (opponentCreatureCount > 2*_count + 1)
         return false;
 
-      return !p.Controller.IsActive && Turn.Step == Step.EndOfTurn;
+      return IsEndOfOpponentsTurn(p.Controller);
     }
 
 

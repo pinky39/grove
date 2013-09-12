@@ -17,7 +17,7 @@
       _minCount = minCount;
     }
 
-    public override bool ShouldPlay(TimingRuleParameters p)
+    public override bool? ShouldPlay2(TimingRuleParameters p)
     {
       return Players.Permanents().Count(x => _selector(x)) >= _minCount;
     }

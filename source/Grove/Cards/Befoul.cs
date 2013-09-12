@@ -21,7 +21,7 @@
         .Cast(p =>
           {
             p.Effect = () => new DestroyTargetPermanents(canRegenerate: false)
-              .Tags(EffectTag.Destroy, EffectTag.CannotRegenerate);
+              .SetTags(EffectTag.Destroy, EffectTag.CannotRegenerate);
             
             p.TargetSelector.AddEffect(trg => trg
               .Is.Card(card => card.Is().Land || (card.Is().Creature && !card.HasColor(CardColor.Black)))

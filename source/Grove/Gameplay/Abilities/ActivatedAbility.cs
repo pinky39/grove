@@ -33,13 +33,13 @@
       _lastActivation.Value = Turn.TurnCount;
 
       var effects = new List<Effect>();
-      
+
       for (var i = 0; i < p.Repeat; i++)
       {
         // create effect first, since some cost e.g Sacrifice can
         // put owning card to graveyard which will alter some card
         // properties e.g counters, power, toughness ...             
-        effects.Add(CreateEffect(p));                        
+        effects.Add(CreateEffect(p));
       }
 
       Pay(p);
@@ -103,21 +103,19 @@
       {
         var result = CanPay();
 
-        if (result.CanPay)
-        {
-          activationPrerequisites = new ActivationPrerequisites
-            {
-              Card = OwningCard,
-              Description = Text,
-              Selector = TargetSelector,
-              DistributeAmount = DistributeAmount,
-              MaxX = result.MaxX,
-              Rules = Rules,
-              MaxRepetitions = result.MaxRepetitions
-            };
+        activationPrerequisites = new ActivationPrerequisites
+          {
+            CanPay = result.CanPay(),
+            Card = OwningCard,
+            Description = Text,
+            Selector = TargetSelector,
+            DistributeAmount = DistributeAmount,
+            MaxX = result.MaxX(),
+            Rules = Rules,
+            MaxRepetitions = result.MaxRepetitions(),
+          };
 
-          return true;
-        }
+        return true;
       }
       return false;
     }

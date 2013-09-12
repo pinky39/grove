@@ -15,7 +15,7 @@
       _selector = selector ?? delegate { return true; };
     }
 
-    public override bool ShouldPlay(TimingRuleParameters p)
+    public override bool? ShouldPlay2(TimingRuleParameters p)
     {
       var controllerCount = p.Controller.Battlefield.Count(_selector);
       var opponentCount = p.Controller.Opponent.Battlefield.Count(_selector);

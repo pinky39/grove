@@ -1,34 +1,49 @@
 ﻿namespace Grove.Artifical.TimingRules
 {
   using System.Linq;
-  using Gameplay.States;
 
   public class MassRemovalTimingRule : TimingRule
   {
-    public override bool ShouldPlay(TimingRuleParameters p)
+    private readonly EffectTag _removalTag;
+
+    private MassRemovalTimingRule() {}
+
+    public MassRemovalTimingRule(EffectTag removalTag)
     {
-      if (
-        Stack.TopSpell != null &&
-          Stack.TopSpell.Controller == p.Controller.Opponent &&
-            Stack.TopSpell.HasTag(EffectTag.Protect | EffectTag.IncreaseToughness))
+      _removalTag = removalTag;
+    }
+
+    private bool RemovalDependsOnToughness()
+    {
+      return _removalTag == EffectTag.DealDamage || _removalTag == EffectTag.ReduceToughness;
+    }
+    
+    private bool StackHasInterestingSpells()
+    {
+      return Stack.TopSpellHas(EffectTag.IncreaseToughness) && RemovalDependsOnToughness();
+    }
+
+    public override bool? ShouldPlay1(TimingRuleParameters p)
+    {
+      if (StackHasInterestingSpells())
       {
         return true;
       }
 
-      // remove potential blockers
-      if (p.Controller.IsActive && Turn.Step == Step.BeginningOfCombat && Stack.IsEmpty)
+      if (IsBeforeYouDeclareAttackers(p.Controller))
       {
         return p.Controller.Opponent.Battlefield.CreaturesThatCanBlock.Count() > 0;
       }
 
-      // damage attackers
-      if (!p.Controller.IsActive && Turn.Step == Step.DeclareAttackers && Stack.IsEmpty)
+      if (IsAfterOpponentDeclaresAttackers(p.Controller))
       {
         return Combat.Attackers.Count() > 0;
       }
 
-      // eot or when owner of ability is in trouble
-      if ((!p.Controller.IsActive && Turn.Step == Step.EndOfTurn && Stack.IsEmpty) || Stack.CanBeDestroyedByTopSpell(p.Card))
+      if (Stack.CanBeDestroyedByTopSpell(p.Card))
+        return true;
+
+      if (IsEndOfOpponentsTurn(p.Controller))
       {
         return true;
       }

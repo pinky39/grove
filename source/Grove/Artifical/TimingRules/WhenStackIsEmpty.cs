@@ -1,10 +1,8 @@
 ﻿namespace Grove.Artifical.TimingRules
 {
-  using System;
-
   public class WhenStackIsEmpty : TimingRule
   {
-    public override bool ShouldPlay(TimingRuleParameters p)
+    public override bool? ShouldPlay2(TimingRuleParameters p)
     {
       return Stack.IsEmpty;
     }

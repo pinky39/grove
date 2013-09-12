@@ -6,7 +6,37 @@
 
   public abstract class TimingRule : MachinePlayRule
   {
-    public override void Process(ActivationContext c)
+    public override bool Process(int pass, ActivationContext c)
+    {
+      if (pass == 1)
+      {
+        Process1(c);
+        return false;
+      }
+
+      if (pass == 2)
+      {
+        Process2(c);
+        return true;
+      }
+
+      return false;
+    }
+
+
+    public void Process1(ActivationContext c)
+    {
+      var p = new TimingRuleParameters(c.Card);
+      var result = ShouldPlay1(p);
+
+      if (result == false)
+      {
+        c.CancelActivation = true;
+      }
+      return;
+    }
+
+    public void Process2(ActivationContext c)
     {
       if (c.HasTargets == false)
       {
@@ -15,7 +45,9 @@
         // one possiblility
 
         var p = new TimingRuleParameters(c.Card, x: c.X);
-        if (ShouldPlay(p) == false)
+        var result = ShouldPlay2(p);
+
+        if (result == false)
         {
           c.CancelActivation = true;
         }
@@ -27,13 +59,12 @@
       // the target otherwise remove it
 
       var targetsCombinations = c.TargetsCombinations().ToList();
-
-
       foreach (var targetsCombination in targetsCombinations)
       {
         var p = new TimingRuleParameters(c.Card, targetsCombination.Targets, targetsCombination.X);
 
-        if (ShouldPlay(p) == false)
+        var result = ShouldPlay2(p);
+        if (result == false)
         {
           c.RemoveTargetCombination(targetsCombination);
         }
@@ -46,7 +77,15 @@
       }
     }
 
-    public abstract bool ShouldPlay(TimingRuleParameters p);
+    public virtual bool? ShouldPlay2(TimingRuleParameters p)
+    {
+      return ShouldPlay1(p);
+    }
+
+    public virtual bool? ShouldPlay1(TimingRuleParameters p)
+    {
+      return null;
+    }
 
     protected bool CanBeDestroyed(TimingRuleParameters p, bool targetOnly = false, bool considerCombat = true)
     {

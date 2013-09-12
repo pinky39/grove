@@ -33,7 +33,7 @@
             p.Text =
               "When Stern Proctor enters the battlefield, return target artifact or enchantment to its owner's hand.";
             p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
-            p.Effect = () => new ReturnToHand().Tags(EffectTag.Bounce);
+            p.Effect = () => new ReturnToHand().SetTags(EffectTag.Bounce);
             p.TargetSelector.AddEffect(trg => trg.Is.Card(c => c.Is().Artifact || c.Is().Enchantment).On.Battlefield());
             p.TargetingRule(new EffectBounce());
           });

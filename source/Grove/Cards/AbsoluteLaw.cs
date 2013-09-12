@@ -22,7 +22,7 @@
         .Cast(p =>
           {
             p.TimingRule(new OnFirstMain());
-            p.Effect = () => new PutIntoPlay().Tags(EffectTag.Protection);
+            p.Effect = () => new PutIntoPlay().SetTags(EffectTag.Protection);
           })
         .ContinuousEffect(p =>
           {

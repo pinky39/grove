@@ -1,6 +1,5 @@
 ﻿namespace Grove.Gameplay.Costs
 {
-  using System.Linq;
   using Infrastructure;
   using ManaHandling;
   using Misc;

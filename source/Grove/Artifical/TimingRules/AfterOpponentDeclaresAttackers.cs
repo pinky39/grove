@@ -4,7 +4,7 @@
   
   public class AfterOpponentDeclaresAttackers : TimingRule
   {
-    public override bool ShouldPlay(TimingRuleParameters p)
+    public override bool? ShouldPlay1(TimingRuleParameters p)
     {
       if (p.Controller.IsActive)
         return false;

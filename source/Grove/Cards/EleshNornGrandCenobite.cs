@@ -25,7 +25,7 @@
             p.Effect = () => new PutIntoPlay
               {
                 ToughnessReduction = 2,
-              }.Tags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);
+              }.SetTags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);
           })
         .SimpleAbilities(Static.Vigilance)
         .ContinuousEffect(p =>

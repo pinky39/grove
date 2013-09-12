@@ -1,15 +1,10 @@
 ﻿namespace Grove.Artifical.TimingRules
 {
-  using Gameplay.States;
-
   public class OnEndOfOpponentsTurn : TimingRule
   {
-    public override bool ShouldPlay(TimingRuleParameters p)
+    public override bool? ShouldPlay2(TimingRuleParameters p)
     {
-      if (!p.Controller.IsActive && Turn.Step == Step.EndOfTurn)
-        return true;
-
-      return false;
+      return IsEndOfOpponentsTurn(p.Controller);
     }
   }
 }

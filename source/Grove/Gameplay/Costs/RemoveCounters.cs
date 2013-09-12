@@ -17,12 +17,12 @@
     }
 
     protected override void CanPay(CanPayResult result)
-    {            
-      result.CanPay = _count == null || Card.CountersCount(_counterType) >= _count;
+    {
+      result.CanPay(() => _count == null || Card.CountersCount(_counterType) >= _count);
     }
 
     protected override void PayCost(Targets targets, int? x, int repeat)
-    {            
+    {
       Card.RemoveCounters(_counterType, _count);
     }
   }

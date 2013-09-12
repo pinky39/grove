@@ -2,6 +2,7 @@
 {
   using System;
   using System.Collections.Generic;
+  using Artifical;
   using Artifical.TargetingRules;
   using Artifical.TimingRules;
   using Gameplay;
@@ -48,7 +49,7 @@
             
             p.TargetingRule(new EffectDealDamage(pt => pt.Card.Counters));
             p.TimingRule(new WhenCardHasCounters(minCount: 2, onlyAtEot: false));
-            p.TimingRule(new TargetRemovalTimingRule());
+            p.TimingRule(new TargetRemovalTimingRule(removalTag: EffectTag.DealDamage));
           });
     }
   }

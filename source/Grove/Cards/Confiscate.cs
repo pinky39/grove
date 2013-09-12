@@ -22,7 +22,7 @@
         .Cast(p =>
           {
             p.Effect = () => new Attach(() => new ChangeController(m => m.SourceCard.Controller))
-              .Tags(EffectTag.ChangeController);
+              .SetTags(EffectTag.ChangeController);
 
             p.TargetSelector.AddEffect(trg => trg.Is.Card().On.Battlefield());
             p.TimingRule(new OnFirstMain());

@@ -25,7 +25,7 @@
         .Cast(p =>
           {
             p.Effect = () => new ApplyModifiersToTargets(() => new AddStaticAbility(Static.Hexproof) {UntilEot = true})
-              {Kinds = EffectTag.Protect};
+              .SetTags(EffectTag.Shroud);
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
             p.TargetingRule(new EffectGiveHexproof());
@@ -37,7 +37,7 @@
             p.Effect = () => new ApplyModifiersToTargets(
               () => new AddStaticAbility(Static.Hexproof) {UntilEot = true},
               () => new AddPowerAndToughness(4, 4) {UntilEot = true})
-              {Kinds = EffectTag.Protect | EffectTag.IncreaseToughness};
+              .SetTags(EffectTag.Shroud, EffectTag.IncreasePower, EffectTag.IncreaseToughness);
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
             p.TargetingRule(new EffectPump(4, 4));

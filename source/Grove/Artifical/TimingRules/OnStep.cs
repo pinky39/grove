@@ -13,9 +13,9 @@
       _step = step;
     }
 
-    public override bool ShouldPlay(TimingRuleParameters p)
+    public override bool? ShouldPlay1(TimingRuleParameters p)
     {
-      return Turn.Step == _step;
+      return Turn.Step == _step && Stack.IsEmpty;
     }
   }
 }

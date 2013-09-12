@@ -31,9 +31,14 @@
 
         foreach (var prerequisites in abilitiesPrerequisites)
         {
-          var playables = GeneratePlayables(prerequisites, () => new PlayableAbility());
+          var playables = GeneratePlayables(prerequisites, () => new PlayableAbility())
+            .ToList();
 
-          allPlayables.AddRange(playables);
+          // lazy cost evaluation
+          if (playables.Count > 0 && prerequisites.CanPay.Value)
+          {
+            allPlayables.AddRange(playables);
+          }
         }
       }
     }
@@ -49,9 +54,14 @@
 
         foreach (var prerequisites in spellsPrerequisites)
         {
-          var playables = GeneratePlayables(prerequisites, () => new PlayableSpell());
+          var playables = GeneratePlayables(prerequisites, () => new PlayableSpell())
+            .ToList();
 
-          allPlayables.AddRange(playables);
+          // lazy cost evaluation
+          if (playables.Count > 0 && prerequisites.CanPay.Value)
+          {
+            allPlayables.AddRange(playables);
+          }
         }
       }
     }
@@ -60,14 +70,29 @@
     {
       var context = new ActivationContext(prerequisites);
 
-      foreach (var rule in prerequisites.Rules)
+      var work = prerequisites.Rules.ToList();
+      
+      var pass = 1;
+      while (work.Count > 0)
       {
-        rule.Process(context);
+        var newWork = new List<MachinePlayRule>();
+        
+        foreach (var rule in work)
+        {
+          var isFinished = rule.Process(pass, context);
+          
+          if (context.CancelActivation)
+            yield break;
 
-        if (context.CancelActivation)
-          yield break;
+          if (!isFinished)
+          {
+            newWork.Add(rule);
+          }
+            
+        }
+        pass++;
+        work = newWork;
       }
-
 
       if (context.HasTargets == false)
       {

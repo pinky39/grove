@@ -254,6 +254,17 @@
         Battlefield(P2, "Plains", "Tragic Poet", "Plains", C("Expendable Troops").IsEnchantedWith("Brilliant Halo"), "Disciple of Grace", "Mountain", "Songstitcher", "Mountain", "Pyromancy", "Mountain", "Mountain");        
 
         RunGame(2);
-      } 
+      }
+
+      [Fact]
+      public void Num21()
+      {
+        Hand(P1, "Swamp", "Swamp");
+        Hand(P2, "Befoul", "Pestilence", "Ravenous Skirge", "Angelic Page");
+        Battlefield(P1, "Blasted Landscape", "Island", "Swamp", "Phyrexian Ghoul", "Island", "Phyrexian Debaser", "Swamp", "Peregrine Drake", "Pit Trap", "Ravenous Skirge");
+        Battlefield(P2, "Plains", "Mother of Runes", "Swamp", "Swamp", "Swamp", "Phyrexian Debaser", "Swamp", "Skirge Familiar");
+
+        RunGame(2);
+      }  
   }
 }

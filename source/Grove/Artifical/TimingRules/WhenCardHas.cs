@@ -14,7 +14,7 @@
       _predicate = predicate;
     }
 
-    public override bool ShouldPlay(TimingRuleParameters p)
+    public override bool? ShouldPlay2(TimingRuleParameters p)
     {
       return _predicate(p.Card);
     }

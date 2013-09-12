@@ -17,7 +17,7 @@
       _selector = selector ?? delegate { return true; };
     }
 
-    public override bool ShouldPlay(TimingRuleParameters p)
+    public override bool? ShouldPlay2(TimingRuleParameters p)
     {
       return Players.Permanents().Count(x => _selector(x) && x.Controller != p.Controller) >= _minCount;
     }

@@ -2,7 +2,7 @@
 {
   public class RegenerateTimingRule : TimingRule
   {
-    public override bool ShouldPlay(TimingRuleParameters p)
+    public override bool? ShouldPlay1(TimingRuleParameters p)
     {
       if (p.Card.Has().Indestructible)
         return false;
@@ -10,7 +10,7 @@
       if (Stack.CanBeDestroyedByTopSpell(p.Card))
         return true;
 
-      return Combat.CanBeDealtLeathalCombatDamage(p.Card);
+      return Stack.IsEmpty && Combat.CanBeDealtLeathalCombatDamage(p.Card);
     }
   }
 }

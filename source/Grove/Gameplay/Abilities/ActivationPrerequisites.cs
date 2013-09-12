@@ -1,5 +1,6 @@
 ﻿namespace Grove.Gameplay.Abilities
 {
+  using System;
   using System.Collections.Generic;
   using Artifical;
   using Characteristics;
@@ -11,11 +12,11 @@
     public CardText Description;
     public int DistributeAmount;
     public int Index;
-    public int MaxRepetitions = 1;
-    public int? MaxX;
+    public Lazy<int> MaxRepetitions;
+    public Lazy<int?> MaxX;
     public List<MachinePlayRule> Rules;
     public TargetSelector Selector;
-
-    public bool HasXInCost { get { return MaxX.HasValue; } }
+    public Lazy<bool> CanPay;
+    public bool HasXInCost { get { return MaxX.Value.HasValue; } }
   }
 }

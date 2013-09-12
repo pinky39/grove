@@ -110,18 +110,14 @@
         return false;
       }
 
-      var result = _cost.CanPay();
-
-      if (result.CanPay == false)
-      {
-        return false;
-      }
+      var result = _cost.CanPay();      
 
       prerequisites = new ActivationPrerequisites
         {
+          CanPay = result.CanPay(),
           Description = _description,
           Selector = _targetSelector,
-          MaxX = result.MaxX,
+          MaxX = result.MaxX(),
           DistributeAmount = _distributeAmount,
           Card = _card,
           Rules = _rules

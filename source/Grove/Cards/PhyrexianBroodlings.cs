@@ -34,7 +34,7 @@
               new Sacrifice());
 
             p.Effect = () => new ApplyModifiersToSelf(() => new AddCounters(
-              () => new PowerToughness(1, 1), count: 1)).Tags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);
+              () => new PowerToughness(1, 1), count: 1)).SetTags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);
 
             p.TargetSelector.AddCost(trg => trg.Is.Creature(ControlledBy.SpellOwner).On.Battlefield());
             

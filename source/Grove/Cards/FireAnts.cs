@@ -1,6 +1,7 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
+  using Artifical;
   using Artifical.TimingRules;
   using Gameplay.Costs;
   using Gameplay.Effects;
@@ -26,7 +27,7 @@
               amountCreature: 1,
               filterCreature: (e, card) => !card.Has().Flying && e.Source.OwningCard != card);
 
-            p.TimingRule(new MassRemovalTimingRule());
+            p.TimingRule(new MassRemovalTimingRule(removalTag: EffectTag.DealDamage));
           });
     }
   }

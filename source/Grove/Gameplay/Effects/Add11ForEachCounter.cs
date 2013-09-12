@@ -1,5 +1,6 @@
 ﻿namespace Grove.Gameplay.Effects
 {
+  using Artifical;
   using Modifiers;
 
   public class Add11ForEachCounter : Effect
@@ -9,8 +10,8 @@
     protected override void Initialize()
     {
       _countersCount = Source.OwningCard.Counters;
+      SetTags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);
     }
-
 
     protected override void ResolveEffect()
     {

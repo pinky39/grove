@@ -33,7 +33,12 @@
       foreach (var effect in _childEffects)
       {
         effect.Initialize(p, game, initializeParameters);
-        Kinds = Kinds | effect.Kinds;
+
+        foreach (var effectTag in effect.GetTags())
+        {
+          SetTags(effectTag);
+        }
+
         toughnessReduction = toughnessReduction + effect.ToughnessReduction.GetValue(X);
       }
 

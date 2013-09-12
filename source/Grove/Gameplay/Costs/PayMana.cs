@@ -1,5 +1,6 @@
 ﻿namespace Grove.Gameplay.Costs
 {
+  using System;
   using ManaHandling;
   using Targeting;
 
@@ -33,37 +34,17 @@
 
     protected override void CanPay(CanPayResult result)
     {
-      if (!Card.Controller.HasMana(_amount, _manaUsage))
-        return;
+      // mana checking is an expensive operation
+      // so it should only be done when nessesery
+      // the following lazy evaluation allows ai
+      // to only check mana costs when all the cheaper
+      // timing tests are successful
+      
+      var evaluator = new PayManaEvaluator(this);
 
-      result.CanPay = true;
-
-      if (_hasX)
-      {
-        result.MaxX = Card.Controller.GetConvertedMana(_manaUsage) - _amount.Converted;
-      }
-
-      if (_supportsRepetitions)
-      {
-        var count = 1;
-        var amount = _amount;
-
-        while (true)
-        {
-          amount = amount.Add(_amount);
-
-          if (!Card.Controller.HasMana(amount, _manaUsage))
-          {
-            break;
-          }
-
-          count++;
-        }
-
-        result.MaxRepetitions = count;
-      }
-
-      return;
+      result.CanPay(evaluator.CanPay);
+      result.MaxX(evaluator.MaxX);
+      result.MaxRepetitions(evaluator.MaxRepetitions);
     }
 
     protected override void PayCost(Targets targets, int? x, int repeat)
@@ -75,13 +56,106 @@
 
       if (_supportsRepetitions)
       {
-        for (int i = 1; i < repeat; i++)
+        for (var i = 1; i < repeat; i++)
         {
           amount = amount.Add(_amount);
         }
       }
 
       Card.Controller.Consume(amount, _manaUsage);
+    }
+
+    private class PayManaEvaluator
+    {
+      private readonly PayMana _payMana;
+      private bool _canPay;
+      private bool _isEvaluated;
+      private int _maxRepetitions = 1;
+      private int? _maxX;
+
+      public PayManaEvaluator(PayMana payMana)
+      {
+        _payMana = payMana;
+      }
+
+      public Func<bool> CanPay
+      {
+        get
+        {
+          return () =>
+            {
+              Evaluate();
+              return _canPay;
+            };
+        }
+      }
+
+      public Func<int?> MaxX
+      {
+        get
+        {
+          return () =>
+            {
+              if (!_payMana._hasX)
+                return null;
+              
+              Evaluate();
+              return _maxX;
+            };
+        }
+      }
+
+      public Func<int> MaxRepetitions
+      {
+        get
+        {
+          return () =>
+            {
+              if (!_payMana._supportsRepetitions)
+                return 1;
+              
+              Evaluate();
+              return _maxRepetitions;
+            };
+        }
+      }
+
+      private void Evaluate()
+      {
+        if (_isEvaluated)
+          return;
+
+        _canPay = _payMana.Card.Controller.HasMana(_payMana._amount, _payMana._manaUsage);
+
+        if (_canPay)
+        {
+          if (_payMana._hasX)
+          {
+            _maxX = _payMana.Card.Controller.GetConvertedMana(_payMana._manaUsage) - _payMana._amount.Converted;
+          }
+
+          if (_payMana._supportsRepetitions)
+          {
+            var count = 1;
+            var amount = _payMana._amount;
+
+            while (true)
+            {
+              amount = amount.Add(_payMana._amount);
+
+              if (!_payMana.Card.Controller.HasMana(amount, _payMana._manaUsage))
+              {
+                break;
+              }
+              count++;
+            }
+
+            _maxRepetitions = count;
+          }
+        }
+
+        _isEvaluated = true;
+      }
     }
   }
 }

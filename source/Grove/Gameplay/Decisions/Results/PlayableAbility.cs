@@ -7,8 +7,7 @@
   public class PlayableAbility : Playable
   {
     public PlayableAbility()
-    {
-      
+    {      
     }
     
     protected PlayableAbility(SerializationInfo info, StreamingContext context) : base(info, context) {}

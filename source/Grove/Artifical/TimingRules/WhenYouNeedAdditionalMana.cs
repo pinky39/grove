@@ -14,7 +14,7 @@
       _amount = amount;
     }
 
-    public override bool ShouldPlay(TimingRuleParameters p)
+    public override bool? ShouldPlay2(TimingRuleParameters p)
     {
       if (!(Turn.Step == Step.FirstMain || Turn.Step == Step.SecondMain || Turn.Step == Step.EndOfTurn))
         return false;

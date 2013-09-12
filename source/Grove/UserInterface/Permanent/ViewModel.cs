@@ -40,7 +40,13 @@
       else if (Combat.IsBlocker(Card))
       {
         var attacker = Combat.GetAttacker(Card);        
-        Marker = _combatMarkers.GenerateMarker(attacker);
+
+        // attacker could be killed e.g when blocker has first
+        // strike and this is a loaded game.
+        if (attacker != null)
+        {
+          Marker = _combatMarkers.GenerateMarker(attacker);
+        }
       }
     }
 
@@ -145,7 +151,7 @@
         case (InteractionState.PlaySpellsOrAbilities):
           {
             _select = Activate;
-            IsPlayable = Card.Controller.IsHuman ? Card.CanActivateAbilities().Count > 0 : false;
+            IsPlayable = Card.Controller.IsHuman ? Card.CanActivateAbilities().Count(x => x.CanPay.Value) > 0 : false;
             break;
           }
         case (InteractionState.SelectTarget):
@@ -210,6 +216,7 @@
     private PlayableActivator SelectAbility()
     {
       var playableActivators = Card.CanActivateAbilities()
+        .Where(x => x.CanPay.Value)
         .Select(prerequisites => new PlayableActivator
           {
             Prerequisites = prerequisites,
@@ -295,7 +302,7 @@
     {
       if (playableActivator.Prerequisites.HasXInCost)
       {
-        var dialog = ViewModels.SelectXCost.Create(playableActivator.Prerequisites.MaxX.Value);
+        var dialog = ViewModels.SelectXCost.Create(playableActivator.Prerequisites.MaxX.Value.Value);
         Shell.ShowModalDialog(dialog, DialogType.Small, InteractionState.Disabled);
 
         if (dialog.WasCanceled)

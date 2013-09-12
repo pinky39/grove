@@ -21,8 +21,7 @@
 
       Card.Controller.AddManaToManaPool(manaCost);
 
-      var prerequisites = Card.CanActivateAbilities();
-
+      var prerequisites = Card.CanActivateAbilities().Where(x => x.CanPay.Value);
       return prerequisites.Any(x => x.Index == Index);
     }
   }

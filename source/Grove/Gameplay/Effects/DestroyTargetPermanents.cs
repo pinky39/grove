@@ -13,10 +13,10 @@
     {
       _canRegenerate = canRegenerate;
 
-      Tags(EffectTag.Destroy);
+      SetTags(EffectTag.Destroy);
 
       if (!canRegenerate)
-        Tags(EffectTag.CannotRegenerate);
+        SetTags(EffectTag.CannotRegenerate);
     }
 
     protected override void ResolveEffect()

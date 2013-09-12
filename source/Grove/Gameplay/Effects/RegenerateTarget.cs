@@ -7,7 +7,7 @@
   {
     public RegenerateTarget()
     {
-      Tags(EffectTag.Regenerate);
+      SetTags(EffectTag.Regenerate);
     }
 
     protected override void ResolveEffect()

@@ -6,7 +6,7 @@
   {
     public RegenerateOwner()
     {
-      Tags(EffectTag.Regenerate);
+      SetTags(EffectTag.Regenerate);
     }
 
     protected override void ResolveEffect()

@@ -18,7 +18,7 @@
       _discard = discard;
       _returnOwningCard = returnOwningCard;
       
-      Tags(tag);
+      SetTags(tag);
     }
 
     protected override void Initialize()

@@ -1,24 +1,21 @@
 ﻿namespace Grove.Artifical.TimingRules
 {
-  using System;
   using Gameplay.States;
 
   public class OnYourTurn : TimingRule
   {
     private readonly Step _step;
 
-    private OnYourTurn()
-    {      
-    }
+    private OnYourTurn() {}
 
     public OnYourTurn(Step step)
     {
       _step = step;
     }
 
-    public override bool ShouldPlay(TimingRuleParameters p)
+    public override bool? ShouldPlay1(TimingRuleParameters p)
     {
-      return p.Controller.IsActive && Turn.Step == _step;
+      return p.Controller.IsActive && Turn.Step == _step && Stack.IsEmpty;
     }
   }
 }

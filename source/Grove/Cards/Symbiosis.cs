@@ -22,7 +22,7 @@
         .Cast(p =>
           {
             p.Effect = () => new ApplyModifiersToTargets(() => new AddPowerAndToughness(2, 2) {UntilEot = true})
-              .Tags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);              
+              .SetTags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);              
 
             p.TargetSelector.AddEffect(trg =>
               {

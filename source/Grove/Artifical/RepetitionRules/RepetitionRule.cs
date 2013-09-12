@@ -5,11 +5,22 @@
 
   public abstract class RepetitionRule : MachinePlayRule
   {
-    public override void Process(Artifical.ActivationContext c)
+    public override bool Process(int pass, Artifical.ActivationContext c)
+    {
+      if (pass == 2)
+      {
+        Process(c);
+        return true;
+      }
+
+      return false;
+    }
+    
+    public void Process(Artifical.ActivationContext c)
     {
       if (c.HasTargets == false)
       {
-        var p = new RepetitionRuleParameters(c.Card, c.MaxRepetitions);
+        var p = new RepetitionRuleParameters(c.Card, c.MaxRepetitions.Value);
         c.Repeat = Math.Min(p.MaxRepetitions, GetRepetitionCount(p));
 
         if (c.Repeat == 0)
@@ -22,7 +33,7 @@
 
       foreach (var targetsCombination in targetsCombinations)
       {
-        var p = new RepetitionRuleParameters(c.Card, c.MaxRepetitions, targetsCombination.Targets);
+        var p = new RepetitionRuleParameters(c.Card, c.MaxRepetitions.Value, targetsCombination.Targets);
         targetsCombination.Repeat = Math.Min(p.MaxRepetitions, GetRepetitionCount(p));
 
         if (targetsCombination.Repeat == 0)

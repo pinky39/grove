@@ -1,6 +1,7 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
+  using Artifical;
   using Artifical.TimingRules;
   using Gameplay.Effects;
   using Gameplay.Misc;
@@ -22,7 +23,7 @@
               amountPlayer: 2,
               amountCreature: 2) {CanBeCountered = false};
 
-            p.TimingRule(new MassRemovalTimingRule());
+            p.TimingRule(new MassRemovalTimingRule(removalTag: EffectTag.DealDamage));
           });
     }
   }

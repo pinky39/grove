@@ -17,7 +17,7 @@
       _gainLife = gainLife;
 
       RegisterDynamicParameters(amount);
-      Tags(EffectTag.DealDamage);
+      SetTags(EffectTag.DealDamage);
     }
 
     public override int CalculatePlayerDamage(Player player)

@@ -123,7 +123,7 @@
       if (TopSpell == null)
         return 0;
 
-      if (!TopSpell.Targets.Any() && targetOnly)
+      if (!TopSpell.HasEffectTargets() && targetOnly)
         return 0;
 
       var total = TopSpell.CalculateCreatureDamage(card);
@@ -140,18 +140,13 @@
       var dealtAmount = GetDamageTopSpellWillDealToCreature(card, targetOnly);
       return card.Life <= dealtAmount;
     }
-
-    public bool CanBeBouncedByTopSpell(Card card)
+    
+    public bool IsTargetedByTopSpell(Card card)
     {
       if (IsEmpty)
         return false;
-
-      if (TopSpell.HasTag(EffectTag.Bounce))
-      {
-        return TopSpell.HasTarget(card);
-      }
-
-      return false;
+      
+      return TopSpell.HasEffectTarget(card);
     }
 
     public bool CanBeDestroyedByTopSpell(Card card, bool targetOnly = false)
@@ -159,15 +154,14 @@
       if (IsEmpty)
         return false;
 
-      if (!card.CanBeDestroyed)
+      if (card.CanBeDestroyed == false)
         return false;
 
       if (TopSpell.HasTag(EffectTag.Destroy))
       {
-        if (!TopSpell.Targets.Any())
-          return !targetOnly;
-
-        return TopSpell.HasTarget(card);
+        return TopSpell.HasEffectTargets()
+          ? TopSpell.HasEffectTarget(card)
+          : !targetOnly;                
       }
 
       if (card.Is().Creature == false)
@@ -178,11 +172,8 @@
 
     private bool CanThougnessBeReducedToLeathalByTopSpell(Card card)
     {
-      if (TopSpell == null)
-        return false;
-
-      return card.Life <=
-        TopSpell.CalculateToughnessReduction(card);
+      if (IsEmpty) return false;
+      return card.Life <= TopSpell.CalculateToughnessReduction(card);
     }
 
     public bool CanTopSpellReducePlayersLifeToZero(Player player)
@@ -192,6 +183,11 @@
 
       var damage = TopSpell.CalculatePlayerDamage(player);
       return damage >= player.Life;
+    }
+
+    public bool TopSpellHas(EffectTag tag)
+    {
+      return !IsEmpty && TopSpell.HasTag(tag);
     }
 
     public bool HasSpellWithSource(Card card)

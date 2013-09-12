@@ -18,6 +18,7 @@
     GainReach,
     ChangeController,
     Indestructible,
-    Humble
+    Humble,
+    CreaturesOnly
   }
 }
