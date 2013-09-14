@@ -25,17 +25,17 @@
 
     protected bool IsBeforeYouDeclareBlockers(Player controller)
     {
-      return Stack.IsEmpty && Turn.Step == Step.DeclareAttackers && controller.IsActive == false;
+      return IsAfterOpponentDeclaresAttackers(controller);
     }
 
     protected bool IsAfterYouDeclareAttackers(Player controller)
     {
-      return Stack.IsEmpty && Turn.Step == Step.DeclareAttackers && controller.IsActive;
+      return Stack.IsEmpty && Turn.Step == Step.DeclareAttackers && controller.IsActive && Combat.AttackerCount > 0;
     }
 
     protected bool IsAfterYouDeclareBlockers(Player controller)
     {
-      return Stack.IsEmpty && Turn.Step == Step.DeclareBlockers && controller.IsActive == false;
+      return Stack.IsEmpty && Turn.Step == Step.DeclareBlockers && controller.IsActive == false && Combat.BlockersCount > 0;
     }
 
     protected bool IsAfterOpponentDeclaresBlockers(Player controller)
@@ -45,7 +45,7 @@
 
     protected bool IsAfterOpponentDeclaresAttackers(Player controller)
     {
-      return Stack.IsEmpty && Turn.Step == Step.DeclareAttackers && controller.IsActive == false;
+      return Stack.IsEmpty && Turn.Step == Step.DeclareAttackers && controller.IsActive == false && Combat.AttackerCount > 0;
     }
   }
 }

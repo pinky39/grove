@@ -82,14 +82,14 @@
       if ((!target.Is().Aura && !target.Is().Equipment) || target.AttachedTo == null)
         return false;
 
-      if (IsAfterOpponentDeclaresBlockers(p.Controller))
+      if (IsAfterOpponentDeclaresBlockers(p.Controller) && target.AttachedTo.IsBlocker)
       {
-        return target.AttachedTo.IsBlocker;
+        return true;
       }
 
-      if (IsAfterOpponentDeclaresAttackers(p.Controller))
+      if (IsAfterOpponentDeclaresAttackers(p.Controller) && target.AttachedTo.IsAttacker)
       {
-        return target.AttachedTo.IsAttacker;
+        return true;
       }
 
       return false;

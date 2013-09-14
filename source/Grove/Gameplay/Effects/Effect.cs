@@ -43,6 +43,7 @@
     public int? X { get; private set; }
     private bool WasResolved { get { return _wasResolved.Value; } set { _wasResolved.Value = value; } }
     public Targets Targets { get; private set; }
+    public bool IsOnStack {get { return Stack.Contains(this); }}
 
     public virtual bool TargetsEffectSource { get { return false; } }
 

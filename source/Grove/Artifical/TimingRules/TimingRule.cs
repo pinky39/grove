@@ -89,7 +89,7 @@
 
     protected bool CanBeDestroyed(TimingRuleParameters p, bool targetOnly = false, bool considerCombat = true)
     {
-      if (considerCombat && Turn.Step == Step.DeclareBlockers)
+      if (considerCombat && Turn.Step == Step.DeclareBlockers && Stack.IsEmpty)
       {
         return Combat.CanBeDealtLeathalCombatDamage(p.Card);
       }

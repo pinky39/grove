@@ -17,7 +17,8 @@
     public IEnumerable<Attacker> Attackers { get { return _attackers; } }
     public int AttackerCount { get { return _attackers.Count; } }
     private Player DefendingPlayer { get { return Players.Defending; } }
-
+    public int BlockersCount { get { return _blockers.Count; }}
+      
     public int CalculateHash(HashCalculator calc)
     {
       return HashCalculator.Combine(

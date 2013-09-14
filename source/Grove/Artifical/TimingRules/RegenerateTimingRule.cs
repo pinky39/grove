@@ -1,5 +1,7 @@
 ﻿namespace Grove.Artifical.TimingRules
 {
+  using Gameplay.States;
+
   public class RegenerateTimingRule : TimingRule
   {
     public override bool? ShouldPlay1(TimingRuleParameters p)
@@ -10,7 +12,7 @@
       if (Stack.CanBeDestroyedByTopSpell(p.Card))
         return true;
 
-      return Stack.IsEmpty && Combat.CanBeDealtLeathalCombatDamage(p.Card);
+      return Stack.IsEmpty && Turn.Step == Step.DeclareBlockers && Combat.CanBeDealtLeathalCombatDamage(p.Card);
     }
   }
 }

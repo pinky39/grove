@@ -245,26 +245,44 @@
       RunGame(2);
     }
 
-      [Fact]
-      public void Num20()
-      {        
-        Hand(P1, "Remote Isle", "Miscalculation");
-        Hand(P2, "Plains");
-        Battlefield(P1, "Swamp", "Island", "Island", "Spawning Pool", "Swamp", "Fog of Gnats", "Island", "Phyrexian Debaser", "Island", "Phyrexian Broodlings", "Swamp", "Phyrexian Broodlings");
-        Battlefield(P2, "Plains", "Tragic Poet", "Plains", C("Expendable Troops").IsEnchantedWith("Brilliant Halo"), "Disciple of Grace", "Mountain", "Songstitcher", "Mountain", "Pyromancy", "Mountain", "Mountain");        
+    [Fact]
+    public void Num20()
+    {
+      Hand(P1, "Remote Isle", "Miscalculation");
+      Hand(P2, "Plains");
+      Battlefield(P1, "Swamp", "Island", "Island", "Spawning Pool", "Swamp", "Fog of Gnats", "Island",
+        "Phyrexian Debaser", "Island", "Phyrexian Broodlings", "Swamp", "Phyrexian Broodlings");
+      Battlefield(P2, "Plains", "Tragic Poet", "Plains", C("Expendable Troops").IsEnchantedWith("Brilliant Halo"),
+        "Disciple of Grace", "Mountain", "Songstitcher", "Mountain", "Pyromancy", "Mountain", "Mountain");
 
-        RunGame(2);
-      }
+      RunGame(2);
+    }
 
-      [Fact]
-      public void Num21()
-      {
-        Hand(P1, "Swamp", "Swamp");
-        Hand(P2, "Befoul", "Pestilence", "Ravenous Skirge", "Angelic Page");
-        Battlefield(P1, "Blasted Landscape", "Island", "Swamp", "Phyrexian Ghoul", "Island", "Phyrexian Debaser", "Swamp", "Peregrine Drake", "Pit Trap", "Ravenous Skirge");
-        Battlefield(P2, "Plains", "Mother of Runes", "Swamp", "Swamp", "Swamp", "Phyrexian Debaser", "Swamp", "Skirge Familiar");
+    [Fact]
+    public void Num21()
+    {
+      Hand(P1, "Swamp", "Swamp");
+      Hand(P2, "Befoul", "Pestilence", "Ravenous Skirge", "Angelic Page");
+      Battlefield(P1, "Blasted Landscape", "Island", "Swamp", "Phyrexian Ghoul", "Island", "Phyrexian Debaser", "Swamp",
+        "Peregrine Drake", "Pit Trap", "Ravenous Skirge");
+      Battlefield(P2, "Plains", "Mother of Runes", "Swamp", "Swamp", "Swamp", "Phyrexian Debaser", "Swamp",
+        "Skirge Familiar");
 
-        RunGame(2);
-      }  
+      RunGame(2);
+    }
+
+
+    [Fact]
+    public void Num22()
+    {
+      Hand(P1, "Forest", "Opal Champion", "Simian Grunts", "Forest");
+      Hand(P2, "Beast of Burden", "Island");
+      Battlefield(P1, "Forbidding Watchtower", "Forest", "Jhoira's Toolbox", "Plains", "Plains", "Forest",
+        "Sustainer of the Realm");
+      Battlefield(P2, "Island", "Swamp", C("Walking Sponge").IsEnchantedWith("Cessation"), "Island", "Jhoira's Toolbox",
+        "Island", "Phyrexian Debaser", "Endoskeleton", "Swamp", "Phyrexian Reclamation");
+
+      RunGame(2);
+    }    
   }
 }

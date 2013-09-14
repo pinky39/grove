@@ -15,10 +15,25 @@
       _rules = rules.ToList();
     }
 
-    public override bool? ShouldPlay2(TimingRuleParameters p)
+    public override bool? ShouldPlay1(TimingRuleParameters p)
     {
-      // forces everything to be evaluated on 2nd pass
-      
+      bool? result = null;
+      foreach (var rule in _rules)
+      {
+        result = rule.ShouldPlay1(p);
+        
+        if (result == true)
+          return true;
+
+        if (result == null)
+          return null;
+      }
+
+      return result;           
+    }
+        
+    public override bool? ShouldPlay2(TimingRuleParameters p)
+    {            
       bool? result = null;
       foreach (var rule in _rules)
       {

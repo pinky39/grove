@@ -12,7 +12,7 @@
 
     public EffectReduceToughness(int? amount = null)
     {
-      _amount = amount;
+      _amount = amount;      
     }
 
     private EffectReduceToughness() {}
@@ -27,6 +27,7 @@
             Target = x,
             Score = x.Life <= amount ? x.Score : 0
           })
+        .Where(x => x.Score > 0)        
         .OrderByDescending(x => x.Score)
         .Select(x => x.Target);
 

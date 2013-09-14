@@ -23,7 +23,9 @@
 
       if (target.IsEffect())
       {
-        return Gameplay.Zones.Zone.Stack;
+        return target.Effect().IsOnStack
+          ? Gameplay.Zones.Zone.Stack
+          : Gameplay.Zones.Zone.None;
       }
 
       return target.Card().Zone;

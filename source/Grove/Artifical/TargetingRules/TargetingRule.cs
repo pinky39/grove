@@ -6,6 +6,7 @@
   using Gameplay;
   using Gameplay.Effects;
   using Gameplay.Misc;
+  using Gameplay.States;
   using Gameplay.Targeting;
 
   public abstract class TargetingRule : MachinePlayRule
@@ -287,7 +288,7 @@
       Func<TargetsCandidates, IList<TargetCandidates>> selector = null)
     {
       return p.Candidates<Card>(ControlledBy.SpellOwner, selector: selector)
-        .Where(x => Stack.CanBeDestroyedByTopSpell(x.Card()) || Combat.CanBeDealtLeathalCombatDamage(x.Card()));
+        .Where(x => Stack.CanBeDestroyedByTopSpell(x.Card()) || (Stack.IsEmpty && Turn.Step == Step.DeclareBlockers && Combat.CanBeDealtLeathalCombatDamage(x.Card())));
     }
 
     protected static IEnumerable<Card> GetBounceCandidates(TargetingRuleParameters p,

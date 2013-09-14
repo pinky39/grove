@@ -36,7 +36,6 @@
               });
 
             p.TimingRule(new OnFirstMain());
-            p.TimingRule(new WhenNoOtherInstanceOfSpellIsOnStack());
             p.TargetingRule(new EffectRankBy(c => -c.Score));
           });
     }

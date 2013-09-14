@@ -146,6 +146,7 @@
     <Compile Include="Artifical\TargetingRules\CostSacrificeLandToSearchLand.cs" />
     <Compile Include="Artifical\TargetingRules\EffectSwitchPowerAndToughness.cs" />
     <Compile Include="Artifical\TargetingRules\EffectUntapPermanent.cs" />
+    <Compile Include="Artifical\TimingRules\AfterYouDeclareAttackers.cs" />
     <Compile Include="Artifical\TimingRules\OnOpponentsTurn.cs" />
     <Compile Include="Artifical\TimingRules\AfterOpponentDeclaresAttackers.cs" />
     <Compile Include="Artifical\TimingRules\OnYourTurn.cs" />

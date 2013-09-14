@@ -7,7 +7,6 @@
   using Gameplay.Costs;
   using Gameplay.Effects;
   using Gameplay.Misc;
-  using Gameplay.States;
 
   public class WalkingSponge : CardTemplateSource
   {
@@ -28,8 +27,8 @@
             p.Effect = () => new TargetLoosesChosenAbility(Static.Flying, Static.FirstStrike, Static.Trample);
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 
+            p.TimingRule(new Any(new AfterOpponentDeclaresAttackers(), new BeforeYouDeclareAttackers()));
             p.TargetingRule(new EffectLooseEvasion(Static.Flying, Static.FirstStrike, Static.Trample));
-            p.TimingRule(new OnStep(Step.BeginningOfCombat));
           });
     }
   }

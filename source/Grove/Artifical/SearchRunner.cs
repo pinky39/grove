@@ -34,7 +34,7 @@
       if (IsSearchInProgress == false)
         return;
 
-      if (_currentSearch.Duration.TotalSeconds > 5)
+      if (_currentSearch.Duration.TotalSeconds > 6)
       {
         GenearateScenario();
       }

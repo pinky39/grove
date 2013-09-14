@@ -9,12 +9,15 @@
   public class EffectCounterspell : TargetingRule
   {
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
-    {
-      // top spell only
-      var candidates = p.Candidates<Effect>(ControlledBy.Opponent)
-        .Take(1);
+    {      
+      var candidates = p.Candidates<Effect>(ControlledBy.Opponent);
 
-      return Group(candidates, 1);
+      if (!candidates.Contains(Stack.TopSpell))
+      {
+        return None<Targets>();
+      }
+
+      return new[] {new Targets().AddEffect(Stack.TopSpell)};
     }
   }
 }

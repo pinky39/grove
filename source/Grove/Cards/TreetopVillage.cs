@@ -35,7 +35,7 @@
             p.Cost = new PayMana("{1}{G}".Parse(), ManaUsage.Abilities);
 
             p.Effect = () => new ApplyModifiersToSelf(
-              () => new Gameplay.Modifiers.ChangeToCreature(
+              () => new ChangeToCreature(
                 power: 3,
                 toughness: 3,
                 colors: L(CardColor.Green),

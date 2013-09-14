@@ -21,7 +21,7 @@
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
     {
       var candidates = p.Candidates<Card>(ControlledBy.Opponent)
-        .Where(c => c.CanAttack || c.CanBlock())
+        .Where(c => c.IsAttacker || c.CanBlock())
         .Select(c =>
           {
             for (var i = 0; i < _abilities.Count; i++)
