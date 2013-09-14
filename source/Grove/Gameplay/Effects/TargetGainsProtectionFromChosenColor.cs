@@ -13,7 +13,8 @@
     {
       CardColor? color = null;
 
-      if (!Stack.IsEmpty && !Stack.TopSpell.HasColor(CardColor.Colorless))
+      if (!Stack.IsEmpty && !Stack.TopSpell.HasColor(CardColor.Colorless) && 
+          !Stack.TopSpell.HasColor(CardColor.None))
       {
         color = Stack.TopSpell.Colors[0];
       }

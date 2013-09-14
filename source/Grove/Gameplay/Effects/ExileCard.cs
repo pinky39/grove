@@ -1,20 +1,24 @@
 ﻿namespace Grove.Gameplay.Effects
 {
+  using Zones;
+
   public class ExileCard : Effect
   {
     private readonly DynParam<Card> _card;
+    private readonly Zone _from;
 
     private ExileCard() {}
 
-    public ExileCard(DynParam<Card> card)
+    public ExileCard(DynParam<Card> card, Zone from)
     {
       _card = card;
+      _from = from;
       RegisterDynamicParameters(card);
     }
 
     protected override void ResolveEffect()
     {
-      _card.Value.Exile();
+      _card.Value.ExileFrom(_from);
     }
   }
 }

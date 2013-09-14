@@ -2,9 +2,10 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Artifical.TimingRules;
   using Infrastructure;
+  using Messages;
   using Misc;
+  using Zones;
 
   public class PlayersReplaceTheirHandWithNewOneUntilEot : Effect
   {
@@ -28,7 +29,7 @@
     }
 
     [Copyable]
-    public class ReturnExiledCardsToHand : GameObject, IReceive<Messages.EndOfTurn>
+    public class ReturnExiledCardsToHand : GameObject, IReceive<EndOfTurn>
     {
       private readonly Player _controller;
       private readonly List<Card> _exiledCards;
@@ -42,7 +43,7 @@
         _exiledCards = exiledCards;
       }
 
-      public void Receive(Messages.EndOfTurn message)
+      public void Receive(EndOfTurn message)
       {
         _controller.DiscardHand();
 

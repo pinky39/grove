@@ -44,7 +44,7 @@
               filter: (c, a, g) => a.SourceCard.AttachedTo == c));
 
             p.Effect = () => new CompoundEffect(
-              new ExileCard(P(e => e.Source.OwningCard.AttachedTo)),
+              new ExileCard(P(e => e.Source.OwningCard.AttachedTo), Zone.Graveyard),
               new ReturnToHand(returnOwningCard: true));
           })
         .TriggeredAbility(p =>
@@ -56,7 +56,7 @@
               from: Zone.Battlefield,
               filter: (c, a, g) => a.OwningCard == c && a.OwningCard.AttachedTo != null));
 
-            p.Effect = () => new ExileCard(P(e => e.Source.OwningCard.AttachedTo));
+            p.Effect = () => new ExileCard(P(e => e.Source.OwningCard.AttachedTo), Zone.Battlefield);
           }
         );
     }

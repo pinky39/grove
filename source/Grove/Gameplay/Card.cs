@@ -849,6 +849,14 @@
     {
       Owner.PutCardToExile(this);
     }
+    
+    public void ExileFrom(Zone from)
+    {
+      if (from != Zone)
+        return;
+      
+      Exile();
+    }
 
     public void RemoveModifier(Type type)
     {

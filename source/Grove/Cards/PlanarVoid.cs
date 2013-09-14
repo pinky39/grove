@@ -27,7 +27,7 @@
               to: Zone.Graveyard,
               filter: delegate { return true; }));
 
-            p.Effect = () => new ExileCard(P(e => e.TriggerMessage<ZoneChanged>().Card));
+            p.Effect = () => new ExileCard(P(e => e.TriggerMessage<ZoneChanged>().Card), Zone.Graveyard);
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });
     }
