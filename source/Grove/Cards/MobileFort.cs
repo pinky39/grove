@@ -36,7 +36,7 @@
 
             p.ActivateOnlyOnceEachTurn = true;
 
-            p.TimingRule(new OnYourTurn(Step.BeginningOfCombat));
+            p.TimingRule(new BeforeYouDeclareAttackers());
           });
     }
   }

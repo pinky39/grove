@@ -30,7 +30,7 @@
             p.TargetSelector.AddCost(trg => trg.Is.Creature(ControlledBy.SpellOwner).On.Battlefield());
 
             p.TimingRule(new WhenYouNeedAdditionalMana(2));
-            p.TargetingRule(new EffectRankBy(c => c.Score));
+            p.TargetingRule(new EffectRankBy(c => c.Score) {TargetLimit = 1} );
 
             p.UsesStack = false;
           });

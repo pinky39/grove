@@ -4,7 +4,6 @@
   using System.Linq;
   using Gameplay;
   using Gameplay.Misc;
-  using Gameplay.States;
   using Gameplay.Targeting;
 
   public class EffectPump : TargetingRule
@@ -29,24 +28,24 @@
 
       var candidates = new List<Card>();
 
-      if (p.Controller.IsActive && Turn.Step == Step.DeclareBlockers)
+      if (IsAfterOpponentDeclaresBlockers(p.Controller))
       {
         candidates.AddRange(GetCandidatesForAttackerPowerToughnessIncrease(power, toughness, p));
       }
 
-      else if (!p.Controller.IsActive && Turn.Step == Step.DeclareBlockers)
+      else if (IsAfterYouDeclareBlockers(p.Controller))
       {
         candidates.AddRange(GetCandidatesForBlockerPowerToughnessIncrease(power, toughness, p));
       }
 
-      if (toughness > 0)
+      else if (toughness > 0)
       {
         candidates.AddRange(p.Candidates<Card>(ControlledBy.SpellOwner)
           .Where(x => Stack.CanBeDealtLeathalDamageByTopSpell(x.Card())));
       }
 
       if ((_untilEot == false) &&
-        (p.Controller.IsActive == false && Turn.Step == Step.EndOfTurn ||
+        (IsEndOfOpponentsTurn(p.Controller) ||
           p.Card.IsPermanent && Stack.CanBeDestroyedByTopSpell(p.Card)))
       {
         candidates.AddRange(p.Candidates<Card>(ControlledBy.SpellOwner)

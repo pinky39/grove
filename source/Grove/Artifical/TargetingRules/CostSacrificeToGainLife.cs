@@ -20,7 +20,7 @@
 
       var candidates = new List<Card>();
 
-      if (Turn.Step == Step.DeclareBlockers)
+      if (Turn.Step == Step.DeclareBlockers && Stack.IsEmpty)
       {
         candidates.AddRange(
           p.Candidates<Card>()

@@ -28,7 +28,7 @@
           Card = _card,
           OldValue = oldValue,
           NewValue = newValue
-        });
+        });      
     }
   }
 }

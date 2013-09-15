@@ -6,6 +6,6 @@
   {
     public Card Card { get; set; }
     public CardType OldValue { get; set; }
-    public CardType NewValue { get; set; }
+    public CardType NewValue { get; set; }    
   }
 }

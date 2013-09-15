@@ -35,7 +35,7 @@
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 
             p.TargetingRule(new EffectReduceToughness(4));
-            p.TimingRule(new Any(new WhenOwningCardWillBeDestroyed(), new TargetRemovalTimingRule(removalTag: EffectTag.ReduceToughness, combatOnly: true)));
+            p.TimingRule(new WhenOwningCardWillBeDestroyed(considerCombat: false));
           })
         .ActivatedAbility(p =>
           {
@@ -53,8 +53,8 @@
                 })
               .AddEffect(trg => trg.Is.Creature().On.Battlefield());
 
-            p.TargetingRule(new CostSacrificeToReduceToughness(1));
-            p.TimingRule(new TargetRemovalTimingRule(removalTag: EffectTag.ReduceToughness, combatOnly: true));
+            p.TimingRule(new Any(new BeforeYouDeclareAttackers(), new WhenStackIsNotEmpty() ));
+            p.TargetingRule(new CostSacrificeToReduceToughness(1) {ConsiderTargetingSelf = false} );            
           });
     }
   }

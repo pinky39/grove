@@ -34,9 +34,9 @@
       if (IsSearchInProgress == false)
         return;
 
-      if (_currentSearch.Duration.TotalSeconds > 6)
+      if (_currentSearch.Duration.TotalSeconds > 10)
       {
-        GenearateScenario();
+        GenerateScenario();
       }
     }
 
@@ -164,7 +164,7 @@
     }
 
     [Conditional("DEBUG")]
-    private void GenearateScenario()
+    private void GenerateScenario()
     {
       var scenarioGenerator = new ScenarioGenerator(_game);
       LogFile.Info(scenarioGenerator.WriteScenarioToString());

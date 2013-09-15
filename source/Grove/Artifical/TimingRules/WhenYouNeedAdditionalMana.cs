@@ -16,7 +16,13 @@
 
     public override bool? ShouldPlay2(TimingRuleParameters p)
     {
-      if (!(Turn.Step == Step.FirstMain || Turn.Step == Step.SecondMain || Turn.Step == Step.EndOfTurn))
+      if (!Stack.IsEmpty)
+        return false;
+
+      if (!p.Controller.IsActive)
+        return false;
+      
+      if (Turn.Step != Step.SecondMain)
         return false;
 
       var availableMana = p.Controller.GetConvertedMana();

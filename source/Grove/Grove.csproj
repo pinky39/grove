@@ -150,6 +150,7 @@
     <Compile Include="Artifical\TimingRules\OnOpponentsTurn.cs" />
     <Compile Include="Artifical\TimingRules\AfterOpponentDeclaresAttackers.cs" />
     <Compile Include="Artifical\TimingRules\OnYourTurn.cs" />
+    <Compile Include="Artifical\TimingRules\WhenStackIsNotEmpty.cs" />
     <Compile Include="Cards\AboutFace.cs" />
     <Compile Include="Cards\AngelicCurator.cs" />
     <Compile Include="Cards\AngelsTrumpet.cs" />

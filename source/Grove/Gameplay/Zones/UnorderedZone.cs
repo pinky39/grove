@@ -4,13 +4,13 @@
   using System.Collections;
   using System.Collections.Generic;
   using System.Linq;
-  using Infrastructure;
+  using Infrastructure;  
   using Misc;
   using Targeting;
 
   public abstract class UnorderedZone : GameObject, IEnumerable<Card>, IHashable, IZone
   {
-    private readonly TrackableList<Card> _cards = new TrackableList<Card>();
+    private readonly TrackableList<Card> _cards = new TrackableList<Card>();    
 
     protected UnorderedZone(Player owner)
     {
@@ -63,7 +63,7 @@
     public virtual void Initialize(Game game)
     {
       Game = game;
-      _cards.Initialize(ChangeTracker);
+      _cards.Initialize(ChangeTracker);            
     }
 
     public event EventHandler<ZoneChangedEventArgs> CardAdded = delegate { };
@@ -82,16 +82,17 @@
       card.ChangeZone(
         destination: this,
         add: c => _cards.Add(c));
-
+      
       CardAdded(this, new ZoneChangedEventArgs(card));
     }
 
     protected virtual void Remove(Card card)
     {
       var removed = _cards.Remove(card);
-      AssertEx.True(removed, "Card was not found in zone.");
+      AssertEx.True(removed, "Card was not found in zone.");      
+
       CardRemoved(this, new ZoneChangedEventArgs(card));
-    }
+    }    
 
     public override string ToString()
     {

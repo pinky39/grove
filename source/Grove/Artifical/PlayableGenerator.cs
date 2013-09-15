@@ -44,12 +44,12 @@
     }
 
     private void FindPlayableSpells(IEnumerable<Card> cards, List<IPlayable> allPlayables)
-    {
+    {            
       foreach (var card in cards)
       {
         if (card.IsVisibleToSearchingPlayer == false)
           continue;
-
+        
         var spellsPrerequisites = card.CanCast();
 
         foreach (var prerequisites in spellsPrerequisites)

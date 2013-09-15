@@ -283,6 +283,33 @@
         "Island", "Phyrexian Debaser", "Endoskeleton", "Swamp", "Phyrexian Reclamation");
 
       RunGame(2);
-    }    
+    }
+
+    [Fact]
+    public void Num23()
+    {
+      Hand(P1, "Swamp", "Plains", "Plains");
+      Hand(P2, "Opal Champion", "Thran Weaponry", "Cessation", "Path of Peace", "Forest");
+      Battlefield(P1, "Plains", "Swamp", "Swamp", "Phyrexian Broodlings", "Plains", "Phyrexian Debaser", "Swamp",
+        "Phyrexian Plaguelord", "Fog of Gnats");
+      Battlefield(P2, "Plains", C("Mother of Runes").IsEnchantedWith("Rancor").IsEnchantedWith("Cessation"), "Forest",
+        "Forest", "Yavimaya Granger", "Forest", "Ticking Gnomes", "Plains", "Expendable Troops");
+
+      RunGame(2);
+    }
+
+    [Fact]
+    public void Num24()
+    {
+      Hand(P1, "Mobile Fort", "Angelic Page", "Plains", "Sanctum Custodian");
+      Hand(P2, "Karn, Silver Golem", "Symbiosis", "Island");
+      Battlefield(P1, "Phyrexian Tower", "Swamp", "Plains", "Phyrexian Ghoul", "Forbidding Watchtower",
+        "Hopping Automaton", "Plains", "Karn, Silver Golem");
+      Battlefield(P2, "Forest", "Island", "Island",
+        C("Walking Sponge").IsEnchantedWith("Cloak of Mists").IsEnchantedWith("Launch"), "Island", "Forest",
+        "Hopping Automaton");
+
+      RunGame(2);
+    }   
   }
 }
