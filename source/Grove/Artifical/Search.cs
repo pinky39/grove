@@ -28,7 +28,7 @@
       _game = game;
       _root = new InnerResult(_game.CalculateHash(), searchingPlayer.IsMax, 0);      
     }
-
+    
     public int TargetCount { get { return _p.TargetCount; } }
     public int Result { get { return _root.BestMove.GetValueOrDefault(); } }
     public int SearchUntilDepth { get { return _game.Turn.StepCount + _p.SearchDepth; } }
@@ -38,18 +38,18 @@
     {
       return new SearchStatistics
         {
-          NodeCount = GetSearchTreeSize(),
+          SearchTreeSize = GetSearchTreeSize(),
           NumOfWorkersCreated = _numWorkersCreated,
           SubtreesPrunned = _subtreesPrunned,
           Elapsed = _stopwatch.Elapsed
         };
     }
 
-    private NodeCount GetSearchTreeSize()
+    private TreeSize GetSearchTreeSize()
     {
-      var count = new NodeCount();
-      _root.CountNodes(count);
-      return count;
+      var treeSize = new TreeSize();
+      _root.CountNodes(treeSize);
+      return treeSize;
     }
 
     public int GetCurrentDepthInSteps(int currentStepCount)

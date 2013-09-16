@@ -55,13 +55,15 @@
         node.Controller.IsMax,
         SearchDepth,
         out rootResult);
-      
-      
+
+
       if (isNew || !ParentResult.HasChildrenWithIndex(ResultIndex))
+      {
         ParentResult.AddChild(ResultIndex, rootResult);
-      
+      }
+
       if (isNew)
-      {        
+      {
         EvaluateBranches(node, rootResult);
       }
       else
@@ -120,7 +122,7 @@
           rootNode: searchNode,
           rootResult: rootResult,
           moveIndex: i);
-        
+
         if (task != null)
           tasks.Add(task);
       }

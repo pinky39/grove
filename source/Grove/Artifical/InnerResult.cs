@@ -11,7 +11,7 @@
     private readonly int _id;
     private readonly bool _isMax;
     private Edge _bestEdge;
-    private bool _isVisited;
+    private int _color;
 
     public InnerResult(int id, bool isMax, int stepCount)
     {
@@ -29,13 +29,13 @@
 
     public void EvaluateSubtree()
     {
-      _isVisited = true;
+      _color = 1;
 
       foreach (var child in _children.ToList())
       {
         if (!child.Result.Score.HasValue)
         {
-          if (child.Result.IsVisited)
+          if (child.Result.Color == 1)
           {
             // cycle detected remove this child
             _children.Remove(child);
@@ -60,7 +60,7 @@
       }
     }
 
-    public bool IsVisited { get { return _isVisited; } }
+    public int Color { get { return _color; } }
 
     public StringBuilder OutputBestPath(StringBuilder sb = null)
     {
@@ -69,13 +69,18 @@
       return _bestEdge.Result.OutputBestPath(sb);
     }
 
-    public void CountNodes(NodeCount count)
+    public void CountNodes(TreeSize treeSize)
     {
-      count[StepCount]++;
+      if (_color == 2)
+        return;
+
+      _color = 2;
+
+      treeSize[StepCount]++;
 
       foreach (var child in _children)
       {
-        child.Result.CountNodes(count);
+        child.Result.CountNodes(treeSize);
       }
     }
 

@@ -761,7 +761,7 @@
     <Compile Include="Artifical\CostRules\ControllersProperty.cs" />
     <Compile Include="Artifical\CostRules\XIsOptimalDamage.cs" />
     <Compile Include="Artifical\CostRules\XIsTargetsLifepointsLeft.cs" />
-    <Compile Include="Artifical\NodeCount.cs" />
+    <Compile Include="Artifical\TreeSize.cs" />
     <Compile Include="Artifical\QuickCombat.cs" />
     <Compile Include="Artifical\RepetitionRules\RepeatMaxTimes.cs" />
     <Compile Include="Artifical\RepetitionRules\RepetitionRule.cs" />

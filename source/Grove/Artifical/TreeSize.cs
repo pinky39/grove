@@ -4,7 +4,7 @@
   using System.Linq;
   using System.Text;
 
-  public class NodeCount
+  public class TreeSize
   {
     private readonly Dictionary<int, int> _countByStep = new Dictionary<int, int>();
 

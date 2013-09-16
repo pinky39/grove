@@ -18,6 +18,7 @@
         {
           _measurements.Add(new Measurement
             {
+              TreeSize = Game.Ai.LastSearchStatistics.SearchTreeSize,
               NodeCount = Game.Ai.LastSearchStatistics.NodeCount,
               WorkerCount = Game.Ai.LastSearchStatistics.NumOfWorkersCreated,
               SubtreesPrunned = Game.Ai.LastSearchStatistics.SubtreesPrunned,
@@ -26,29 +27,44 @@
         };
     }
 
-    protected int AvarageNodeCount { get { return SearchCount > 0 ? TotalNodesCount/SearchCount : 0; } }
+    protected int AvarageTreeSize { get { return SearchCount > 0 ? TotalTreeSize/SearchCount : 0; } }
 
-    protected double AvarageSpeed { get { return TotalNodesCount > 0 ? TotalNodesCount/TotalElapsedTime : 0; } }
+    protected double AvarageSpeed { get { return TotalNodeCount > 0 ? TotalNodeCount/TotalElapsedTime : 0; } }
 
     protected int AvarageWorkerCount { get { return SearchCount > 0 ? TotalWorkerCount/SearchCount : 0; } }
 
-    protected NodeCount MaxNodeCount
+    protected TreeSize MaxTreeSize
     {
       get
       {
-        var max = new NodeCount();
+        var max = new TreeSize();
 
 
         foreach (var measurement in _measurements)
         {
-          if (measurement.NodeCount.Total > max.Total)
+          if (measurement.TreeSize.Total > max.Total)
           {
-            max = measurement.NodeCount;
+            max = measurement.TreeSize;
           }
         }
 
         return max;
       }
+    }
+
+    protected int MaxNodeCount
+    {
+      get { return _measurements.Any() ? _measurements.Max(x => x.NodeCount) : 0; }
+    }
+
+    protected int TotalNodeCount
+    {
+      get { return _measurements.Sum(x => x.NodeCount); }
+    }
+
+    protected double AvarageNodeCount
+    {
+      get { return _measurements.Any() ? _measurements.Average(x => x.NodeCount) : 0; }
     }
 
     protected double MaxSearchTime { get { return _measurements.Any() ? _measurements.Max(x => x.ElapsedTime)/1000.0d : 0; } }
@@ -59,7 +75,7 @@
 
     protected double TotalElapsedTime { get { return _measurements.Sum(x => x.ElapsedTime)/1000.0d; } }
 
-    protected int TotalNodesCount { get { return _measurements.Sum(x => x.NodeCount.Total); } }
+    protected int TotalTreeSize { get { return _measurements.Sum(x => x.TreeSize.Total); } }
 
     protected int MaxSubtreesPrunned { get { return _measurements.Any() ? _measurements.Max(x => x.SubtreesPrunned) : 0; } }
 
@@ -84,13 +100,16 @@
     {      
       Console.WriteLine(@"Search count: {0}", SearchCount);
       Console.WriteLine(@"Total search time: {0:f2} seconds", TotalElapsedTime);
-      Console.WriteLine(@"Total node count: {0}", TotalNodesCount);
+      Console.WriteLine(@"Total tree size: {0}", TotalTreeSize);
+      Console.WriteLine(@"Total node count: {0}", TotalNodeCount);
       Console.WriteLine(@"Total subtrees prunned: {0}", TotalSubtreesPrunned);
       Console.WriteLine(@"Max subtrees prunned: {0}", MaxSubtreesPrunned);
       Console.WriteLine(@"Total worker count: {0}", TotalWorkerCount);
+      Console.WriteLine(@"Max tree size: {0}", MaxTreeSize);
       Console.WriteLine(@"Max node count: {0}", MaxNodeCount);
       Console.WriteLine(@"Max worker count: {0}", MaxWorkerCount);
       Console.WriteLine(@"Max search time: {0:f2} seconds", MaxSearchTime);
+      Console.WriteLine(@"Avarage tree size: {0}", AvarageTreeSize);
       Console.WriteLine(@"Avarage node count: {0}", AvarageNodeCount);
       Console.WriteLine(@"Avarage worker count: {0}", AvarageWorkerCount);
       Console.WriteLine(@"Avarage speed: {0:f2} nodes/second", AvarageSpeed);
@@ -98,8 +117,9 @@
 
     private class Measurement
     {
+      public int NodeCount { get; set; }
       public double ElapsedTime { get; set; }
-      public NodeCount NodeCount { get; set; }
+      public TreeSize TreeSize { get; set; }
       public int WorkerCount { get; set; }
       public int SubtreesPrunned { get; set; }
     }

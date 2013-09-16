@@ -6,11 +6,11 @@
   {
     int? BestMove { get; }
     int? Score { get; }
-    bool IsVisited { get; }
+    int Color { get; }
     int ChildrenCount { get;  }
     void EvaluateSubtree();
 
     StringBuilder OutputBestPath(StringBuilder sb = null);
-    void CountNodes(NodeCount count);
+    void CountNodes(TreeSize treeSize);
   }
 }

@@ -17,6 +17,7 @@
     private readonly Queue<int> _searchDurations = new Queue<int>(new[] {0});
     private readonly SearchParameters _searchParameters;
     private Search _currentSearch;
+    private int _nodeCount;
 
     public SearchRunner(SearchParameters searchParameters, Game game)
     {
@@ -44,11 +45,15 @@
     public event EventHandler SearchFinished = delegate { };
 
     public void SetBestResult(ISearchNode searchNode)
-    {      
+    {
+      Interlocked.Increment(ref _nodeCount);
+      
       // set searching player the first time
       if (!IsSearchInProgress)
+      {
         searchNode.Game.Players.Searching = searchNode.Controller;
-      
+      }
+
       // ask search node to generate all choices
       searchNode.GenerateChoices();
 
@@ -132,6 +137,8 @@
           TargetCountLimit = _searchParameters.TargetCount
         });
 
+      _nodeCount = 0;
+
       using (new Timer(SearchMonitor, null, 0, 2000))
       {
         LastSearchStatistics = _currentSearch.Start(searchNode);
@@ -139,8 +146,9 @@
 
       var result = _currentSearch.Result;
 
+      LastSearchStatistics.NodeCount = _nodeCount;
       UpdateSearchDurations();
-
+      
       _game.Publish(new SearchFinished());
       SearchFinished(this, EventArgs.Empty);
 

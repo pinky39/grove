@@ -3,6 +3,7 @@
   using System.Collections.Generic;
   using Artifical.TimingRules;
   using Gameplay;
+  using Gameplay.Abilities;
   using Gameplay.Costs;
   using Gameplay.Effects;
   using Gameplay.ManaHandling;
@@ -29,12 +30,21 @@
               new PayMana(2.Colorless(), ManaUsage.Abilities),
               new Tap());
 
-            p.Effect = () => new ApplyModifiersToPermanents(
-              selector: (e, c) => c.Is().Creature,
+            p.Effect = () => new ApplyModifiersToPlayer(
+              selector: e => e.Controller,
               modifiers: () =>
                 {
-                  var modifier = new AddPowerAndToughness(2, 2);
+                  var cp = new ContinuousEffectParameters
+                    {
+                      Modifier = () => new AddPowerAndToughness(2, 2),
+                      CardFilter = (card, _) => card.Is().Creature
+                    };
+                  
+                  var effect = new ContinuousEffect(cp);
+
+                  var modifier = new AddContiniousEffect(effect);
                   modifier.AddLifetime(new ModifierSourceGetsUntapedLifetime());
+                  
                   return modifier;
                 });
             

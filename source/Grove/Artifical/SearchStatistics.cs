@@ -4,15 +4,16 @@
 
   public class SearchStatistics
   {
-    public NodeCount NodeCount;
+    public TreeSize SearchTreeSize;
     public int NumOfWorkersCreated;
     public int SubtreesPrunned;
     public TimeSpan Elapsed;
+    public int NodeCount;
 
     public override string ToString()
     {
-      return String.Format("Time elapsed: {0}\nNode count: {1}\nNum of workers: {2}\nSubtrees prunned: {3}", Elapsed,
-        NodeCount, NumOfWorkersCreated, SubtreesPrunned);
+      return String.Format("Time elapsed: {0}\nNode count: {1}\nTree size: {2}\nNum of workers: {3}\nSubtrees prunned: {4}", Elapsed, NodeCount,
+        SearchTreeSize, NumOfWorkersCreated, SubtreesPrunned);
     }
   }
 }

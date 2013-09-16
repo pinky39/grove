@@ -1,6 +1,5 @@
 ﻿namespace Grove.Artifical
 {
-  using System;
   using System.Text;
 
   public class LeafResult : ISearchResult
@@ -17,10 +16,10 @@
 
     public void EvaluateSubtree()
     {
-      IsVisited = true;
+      Color = 1;
     }
 
-    public bool IsVisited { get; private set; }
+    public int Color { get; private set; }
 
     public StringBuilder OutputBestPath(StringBuilder sb)
     {
@@ -28,9 +27,13 @@
       return sb;
     }
 
-    public void CountNodes(NodeCount count)
-    {
-      count[_depth]++;
+    public void CountNodes(TreeSize treeSize)
+    {      
+      if (Color == 2)
+        return;
+      
+      Color = 2;
+      treeSize[_depth]++;      
     }
 
     public int? BestMove { get { return 0; } }
