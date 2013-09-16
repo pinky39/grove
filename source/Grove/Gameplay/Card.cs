@@ -520,7 +520,12 @@
       // to avoid useless moves every move lowers the score a bit
       // this factor increases linearily with elapsed turns
       // AI will prefer playing spells as soon as possible
-      UsageScore += Turn.TurnCount;
+
+      var increase = Turn.TurnCount;      
+      if (Turn.Step < Step.SecondMain)
+        increase += 1;
+
+      UsageScore += increase;
     }
 
     public void Attach(Card attachment)

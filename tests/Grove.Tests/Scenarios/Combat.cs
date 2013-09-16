@@ -12,6 +12,23 @@
     public class Ai : AiScenario
     {
       [Fact]
+      public void TryCastAt2NdMain()
+      {
+        var toolbox = C("Jhoira's Toolbox");
+        
+        Hand(P1, "Simian Grunts");
+        Hand(P2, "Order of Yawgmoth");
+
+        Battlefield(P1, "Forest", "Forest", "Forest");
+        
+        Battlefield(P2, toolbox, "Swamp", "Swamp", "Swamp", "Swamp");
+
+        RunGame(2);
+
+        Equal(Zone.Battlefield, C(toolbox).Zone);
+      }
+      
+      [Fact]
       public void AttackWithAllCreatures()
       {
         Battlefield(P1, C("Grizzly Bears"), C("Llanowar Elves"), C("Elvish Warrior"));
