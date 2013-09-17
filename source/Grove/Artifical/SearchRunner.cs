@@ -3,6 +3,7 @@
   using System;
   using System.Collections.Generic;
   using System.Diagnostics;
+  using System.IO;
   using System.Threading;
   using Gameplay;
   using Gameplay.Messages;
@@ -19,6 +20,7 @@
     private Search _currentSearch;
     private int _nodeCount;
 
+
     public SearchRunner(SearchParameters searchParameters, Game game)
     {
       _game = game;
@@ -30,24 +32,13 @@
     public int PlaySpellsUntilDepth { get { return _game.Turn.GetStepCountAtNextTurnCleanup(); } }
     public SearchStatistics LastSearchStatistics { get; private set; }
 
-    private void SearchMonitor(object state)
-    {
-      if (IsSearchInProgress == false)
-        return;
-
-      if (_currentSearch.Duration.TotalSeconds > 10)
-      {
-        GenerateScenario();
-      }
-    }
-
     public event EventHandler SearchStarted = delegate { };
     public event EventHandler SearchFinished = delegate { };
 
     public void SetBestResult(ISearchNode searchNode)
     {
       Interlocked.Increment(ref _nodeCount);
-      
+
       // set searching player the first time
       if (!IsSearchInProgress)
       {
@@ -87,21 +78,21 @@
       // If no results are found start a new search.            
       var cachedResults = GetCachedResults(searchNode.Controller);
       var cached = cachedResults.GetResult(searchNode.Game.CalculateHash());
-                  
+
       if (cached == null)
       {
         bestChoice = StartNewSearch(searchNode, cachedResults);
-      }      
+      }
       else
-      {        
+      {
         bestChoice = cached.BestMove.GetValueOrDefault();
 
         if (cached.ChildrenCount != searchNode.ResultCount)
         {
           // cache is not ok, try to recover by new search
           // write debug report, so this error can be reproduced.          
-          
-          LogFile.Debug("Invalid cached result, cached result count is {0} node's is {1}.", 
+
+          LogFile.Debug("Invalid cached result, cached result count is {0} node's is {1}.",
             cached.ChildrenCount, searchNode.ResultCount);
 
           GenerateDebugReport();
@@ -139,7 +130,7 @@
 
       _nodeCount = 0;
 
-      using (new Timer(SearchMonitor, null, 0, 2000))
+      using (new SearchMonitor(this))
       {
         LastSearchStatistics = _currentSearch.Start(searchNode);
       }
@@ -148,7 +139,7 @@
 
       LastSearchStatistics.NodeCount = _nodeCount;
       UpdateSearchDurations();
-      
+
       _game.Publish(new SearchFinished());
       SearchFinished(this, EventArgs.Empty);
 
@@ -179,9 +170,68 @@
     }
 
     [Conditional("DEBUG")]
-    private void GenerateDebugReport()
+    private void GenerateDebugReport(string filename = null)
     {
-      _game.WriteDebugReport();
+      _game.WriteDebugReport(filename);
+    }
+
+    private class SearchMonitor : IDisposable
+    {
+      private readonly SearchRunner _runner;
+      private readonly string _stackOverflowReport;
+      private readonly Timer _timer;
+      private readonly object _writeFile = new object();
+      private bool _isDisposed;
+      private bool _isFirstTime = true;
+
+      public SearchMonitor(SearchRunner runner)
+      {
+        _runner = runner;
+        _stackOverflowReport = String.Format("debug-so-report-{0}.report", Guid.NewGuid());        
+        _timer = new Timer(Monitor, null, 0, 2000);        
+      }
+
+      public void Dispose()
+      {
+        lock (_writeFile)
+        {
+          _isDisposed = true;
+          _timer.Dispose();
+
+          if (File.Exists(_stackOverflowReport))
+          {
+            File.Delete(_stackOverflowReport);
+          }
+        }
+      }
+
+      private void Monitor(object state)
+      {
+        lock (_writeFile)
+        {
+          if (_isDisposed)
+            return;
+
+          if (_runner.IsSearchInProgress == false)
+            return;
+
+          if (_isFirstTime)
+          {
+            // stackoverflow exception will not be caught
+            // save current game state to file
+            // if stackoverflow occurs this file will not be deleted
+            // and error can later be reproduced.
+
+            _runner.GenerateDebugReport(_stackOverflowReport);
+            _isFirstTime = false;
+          }
+
+          if (_runner._currentSearch.Duration.TotalSeconds > 10)
+          {
+            _runner.GenerateScenario();
+          }
+        }
+      }
     }
   }
 }

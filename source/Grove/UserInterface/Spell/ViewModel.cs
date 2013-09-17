@@ -92,6 +92,7 @@
               }
           })
         .Concat(Card.CanActivateAbilities()
+          .Where(x => x.CanPay.Value)
           .Select(prerequisites => new PlayableActivator
             {
               Prerequisites = prerequisites,

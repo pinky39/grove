@@ -70,7 +70,7 @@
     {
       IDecision decision;
 
-      if (game.Recorder.IsPlayback)
+      if (!game.Ai.IsSearchInProgress && game.Recorder.IsPlayback)
       {
         decision = GetPlayback<TDecision>();
       }

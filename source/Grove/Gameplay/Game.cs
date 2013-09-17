@@ -249,11 +249,10 @@
       }
     }
 
-    public void WriteDebugReport()
+    public void WriteDebugReport(string filename = null)
     {
-      var header = new SaveFileHeader {Description = "Debug information to reproduce a bug which caused the error."};
-      var filename = String.Format("debug-report-{0}.report", Guid.NewGuid());
-
+      filename = filename ?? String.Format("debug-report-{0}.report", Guid.NewGuid());      
+      var header = new SaveFileHeader {Description = "Debug information to reproduce a bug which caused the error."};      
       var savedGame = Save();
       SaveLoadHelper.WriteToDisk(header, savedGame, filename);
     }
