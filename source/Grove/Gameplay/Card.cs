@@ -341,13 +341,13 @@
     }
 
     public void ChangeZone(IZone destination, Action<Card> add)
-    {
+    {      
       var source = _zone.Value;
 
       AssertEx.False(destination == source,
-        "Cannot change zones, when source zone and destination zone are the same.");
-
-      _zone.Value.Remove(this);
+        "Cannot change zones, when source zone and destination zone are the same.");                   
+            
+      source.Remove(this);      
       _zone.Value = destination;
       add(this);
 
@@ -364,10 +364,9 @@
         // triggered abilities which trigger when permanent is in play only 
         // are removed when AfterRemove is called so
         // we publish event first and then do the cleanup
-
         source.AfterRemove(this);
         destination.AfterAdd(this);
-      }
+      }      
     }
 
     public bool IsColorless()

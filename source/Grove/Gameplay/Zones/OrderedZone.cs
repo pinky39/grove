@@ -74,20 +74,21 @@
 
     public virtual void AddToEnd(Card card)
     {
+      Add(card, c => _cards.Add(c));
+    }
+
+    private void Add(Card card, Action<Card> add)
+    {      
       card.ChangeZone(
         destination: this,
-        add: c => _cards.Add(c));
+        add: add);
 
       CardAdded(this, new ZoneChangedEventArgs(card));
     }
 
     public virtual void AddToFront(Card card)
     {
-      card.ChangeZone(
-        destination: this,
-        add: c => _cards.AddToFront(card));
-
-      CardAdded(this, new ZoneChangedEventArgs(card));
+      Add(card, c => _cards.AddToFront(c));
     }
 
     protected virtual void MoveToEnd(Card card)
@@ -135,8 +136,8 @@
     {
       if (zoneFilter(Name, Owner))
       {
-        targets.AddRange(_cards);                
-      }      
+        targets.AddRange(_cards);
+      }
     }
   }
 }

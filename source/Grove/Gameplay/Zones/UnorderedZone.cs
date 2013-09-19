@@ -78,7 +78,7 @@
     }
 
     public virtual void Add(Card card)
-    {
+    {      
       card.ChangeZone(
         destination: this,
         add: c => _cards.Add(c));

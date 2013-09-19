@@ -379,13 +379,13 @@
     }
 
     public void PutCardToGraveyard(Card card)
-    {
+    {     
       if (card.Is().Token)
       {
-        _exile.Add(card);
+        PutCardToExile(card);
         return;
       }
-
+      
       _graveyard.AddToEnd(card);
     }
 
@@ -409,7 +409,7 @@
     {
       foreach (var card in cards)
       {
-        _library.AddToEnd(card);
+        PutOnBottomOfLibrary(card);
       }
 
       _library.Shuffle();
@@ -417,7 +417,7 @@
 
     public void ShuffleIntoLibrary(Card card)
     {
-      _library.AddToEnd(card);
+      PutOnBottomOfLibrary(card);
       _library.Shuffle();
     }
 
@@ -435,7 +435,7 @@
 
       foreach (var card in Hand.ToList())
       {
-        _library.AddToEnd(card);
+        _library.PutOnBottom(card);
       }
 
       _library.Shuffle();
@@ -476,20 +476,32 @@
     {            
       if (card.Is().Token)
       {
-        _exile.Add(card);
+        PutCardToExile(card);
         return;
       }
-            
+      
       _hand.Add(card);
     }
 
     public void PutCardOnTopOfLibrary(Card card)
     {
+      if (card.Is().Token)
+      {
+        PutCardToExile(card);
+        return;
+      }
+      
       _library.PutOnTop(card);
     }
 
     public void PutOnBottomOfLibrary(Card card)
     {
+      if (card.Is().Token)
+      {
+        PutCardToExile(card);
+        return;
+      }
+      
       _library.PutOnBottom(card);
     }
 
@@ -508,7 +520,7 @@
 
       foreach (var card in cards)
       {
-        _library.AddToEnd(card);
+        _library.PutOnBottom(card);
       }
     }
 

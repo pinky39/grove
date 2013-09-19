@@ -15,5 +15,6 @@
     public override Zone Name { get { return Zone.Graveyard; } }
     public int Score { get { return this.Sum(x => x.Score); } }
     public IEnumerable<Card> Creatures { get { return this.Where(x => x.Is().Creature); } }
+    
   }
 }

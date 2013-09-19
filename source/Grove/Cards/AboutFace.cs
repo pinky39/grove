@@ -4,8 +4,8 @@
   using Artifical.TargetingRules;
   using Gameplay.Effects;
   using Gameplay.Misc;
-  using Gameplay.Modifiers;
-
+  using Gameplay.Modifiers;  
+  
   public class AboutFace : CardTemplateSource
   {
     public override IEnumerable<CardTemplate> GetCards()

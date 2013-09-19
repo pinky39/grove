@@ -27,8 +27,8 @@
 
     public ChosenCards ChooseResult(List<Card> candidates)
     {
-      return candidates
-        .OrderBy(x => -x.Score)
+      return candidates        
+        .OrderBy(x => x.IsTapped ? -x.Score : x.Score)
         .Take(_maxCount)
         .ToList();
     }
