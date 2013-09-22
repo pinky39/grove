@@ -310,6 +310,7 @@
         "Hopping Automaton");
 
       RunGame(2);
-    }   
+    } 
+               
   }
 }

@@ -21,7 +21,6 @@
     public override void Execute(Arguments arguments)
     {
       var count = int.Parse(arguments["count"]);
-
       
       var starterSet = MediaLibrary.RandomSet();
       var boosterSet1 = MediaLibrary.RandomSet();

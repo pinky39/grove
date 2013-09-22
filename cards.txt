@@ -1,7 +1,8 @@
-MAGICGROVE v 1.9: Card List
+MAGICGROVE v 2.0: Card List
 =====================================
 The following cards can be used to construct new decks:
 
+About Face
 Absolute Grace
 Absolute Law
 Abyssal Horror
@@ -12,22 +13,29 @@ Acridian
 Albino Troll
 Anaconda
 Angelic Chorus
+Angelic Curator
 Angelic Page
 Angelic Wall
+Angel's Trumpet
 Annul
 Antagonism
+Anthroplasm
 Arc Lightning
+Archivist
 Argothian Elder
 Argothian Enchantress
 Argothian Swine
 Argothian Wurm
 Attunement
+Aura Flux
+Avalanche Riders
 Back to Basics
 Baneslayer Angel
 Barrin, Master Wizard
 Barrin's Codex
 Basilisk Collar
 Beacon of Destruction
+Beast of Burden
 Bedlam
 Befoul
 Bereavement
@@ -37,15 +45,21 @@ Blanchwood Armor
 Blanchwood Treefolk
 Blasted Landscape
 Blaze
+Blessed Reversal
+Bloated Toad
 Blood Vassal
 Bog Raiders
+Bone Shredder
+Bouncing Beebles
 Brand
 Bravado
 Breach
 Brilliant Halo
+Brink of Madness
 Bull Hippo
 Bulwark
 Burst Lightning
+Burst of Energy
 Cackling Fiend
 Carrion Beetles
 Catalog
@@ -53,13 +67,16 @@ Catastrophe
 Cathodion
 Cave Tiger
 Celestial Prism
+Cessation
 Child of Gaea
 Chimeric Staff
 Citanul Centaurs
+Citanul Flute
 Citanul Hierophants
 Claws of Gix
 Clear
 Cloak of Mists
+Cloud of Faeries
 Confiscate
 Congregate
 Copper Gnomes
@@ -71,6 +88,7 @@ Cradle Guard
 Crater Hellion
 Crazed Skirge
 Creeping Tar Pit
+Crop Rotation
 Crosswinds
 Cruel Edict
 Crystal Chimes
@@ -80,10 +98,17 @@ Dark Ritual
 Darkest Hour
 Darkslick Drake
 Darksteel Gargoyle
+Darkwatch Elves
 Day of Judgment
 Deathless Angel
+Defender of Chaos
+Defender of Law
+Defense of the Heart
+Delusions of Mediocrity
+Deranged Hermit
 Despondency
 Destructive Urge
+Devout Harpist
 Diabolic Servitude
 Disciple of Grace
 Disciple of Law
@@ -112,11 +137,16 @@ Elvish Warrior
 Endless Wurm
 Endoskeleton
 Energy Field
+Engineered Plague
+Erase
 Evacuation
+Eviscerator
 Exhaustion
 Exhume
+Expendable Troops
 Exploration
 Expunge
+Faerie Conclave
 Faith Healer
 Falter
 Fault Line
@@ -127,34 +157,49 @@ Fire Ants
 Fires of Yavimaya
 Flame Slash
 Flametongue Kavu
+Fleeting Image
 Flesh Reaver
 Fog Bank
+Fog of Gnats
+Forbidding Watchtower
 Forest
 Fortitude
+Frantic Search
 Gaea's Bounty
 Gaea's Cradle
 Gaea's Embrace
 Gamble
+Gang of Elk
+Ghitu Encampment
+Ghitu Fire-Eater
+Ghitu Slinger
+Ghitu War Cry
+Giant Cockroach
 Gilded Drake
 Glorious Anthem
 Go for the Throat
 Goblin Cadets
 Goblin Lackey
 Goblin Matron
+Goblin Medics
 Goblin Offensive
 Goblin Patrol
 Goblin Raider
 Goblin Spelunkers
 Goblin War Buggy
+Goblin Welder
 Gorilla Warrior
 Grafted Skullcap
+Granite Grip
 Grasp of Darkness
 Grave Titan
 Great Whale
 Greater Good
 Greener Pastures
+Grim Monolith
 Grizzly Bears
 Guma
+Harmonic Convergence
 Hawkeater Moth
 Headlong Rush
 Healing Salve
@@ -164,12 +209,14 @@ Hermetic Study
 Hero of Bladehold
 Hibernation
 Hidden Ancients
+Hidden Gibbons
 Hidden Guerrillas
 Hidden Herd
 Hidden Predators
 Hidden Spider
 Hidden Stag
 Hollow Dogs
+Hope and Glory
 Hopping Automaton
 Horseshoe Crab
 Humble
@@ -177,13 +224,24 @@ Hush
 Hypnotic Specter
 Ill-Gotten Gains
 Imaginary Pet
+Impending Disaster
+Intervene
 Intrepid Hero
+Iron Maiden
+Iron Will
 Island
 Jagged Lightning
+Jhoira's Toolbox
+Karmic Guide
 Karn, Silver Golem
+King Crab
+Knighthood
+Last-Ditch Effort
 Launch
+Lava Axe
 Lay Waste
 Leatherback Baloth
+Levitation
 Lightning Bolt
 Lightning Dragon
 Liliana's Specter
@@ -192,41 +250,60 @@ Lingering Mirage
 Living Destiny
 Llanowar Behemoth
 Llanowar Elves
+Lone Wolf
 Looming Shade
 Lotus Blossom
 Lull
 Lurking Evil
+Lurking Skirge
 Mana Leak
 Mana Leech
 Man-o'-War
 Marsh Casualties
 Martial Coup
+Martyr's Cause
 Meltdown
+Memory Jar
 Midsummer Revel
+Might of Oaks
 Mirran Crusader
+Miscalculation
 Mishra's Helix
 Mobile Fort
+Molten Hydra
 Monk Idealist
 Monk Realist
 Morphling
+Mother of Runes
 Mountain
+Multani, Maro-Sorcerer
+Multani's Acolyte
+Multani's Presence
 Nantuko Shade
 Nature's Lore
+No Mercy
 No Rest for the Wicked
 Noetic Scales
 Opal Acrolith
 Opal Archangel
+Opal Avenger
 Opal Caryatid
+Opal Champion
 Opal Gargoyle
 Opal Titan
+Opportunity
 Oppression
 Order of the Sacred Bell
 Order of Yawgmoth
+Ostracize
 Outmaneuver
 Pacifism
+Palinchron
 Parasitic Bond
+Parch
 Pariah
 Path of Peace
+Peace and Quiet
 Pegasus Charger
 Pendrell Drake
 Pendrell Flux
@@ -234,12 +311,21 @@ Peregrine Drake
 Persecute
 Pestilence
 Phyrexian Arena
+Phyrexian Broodlings
+Phyrexian Colossus
+Phyrexian Debaser
+Phyrexian Defiler
+Phyrexian Denouncer
 Phyrexian Ghoul
+Phyrexian Plaguelord
 Phyrexian Processor
+Phyrexian Reclamation
 Phyrexian Tower
 Pit Trap
+Plague Beetle
 Plains
 Planar Birth
+Planar Collapse
 Planar Void
 Polluted Mire
 Pouncing Jaguar
@@ -249,15 +335,26 @@ Presence of the Master
 Priest of Gix
 Priest of Titania
 Purging Scythe
+Purify
+Pygmy Pyrosaur
+Pyromancy
+Quicksilver Amulet
+Rack and Ruin
+Radiant, Archangel
+Radiant's Dragoons
+Radiant's Judgment
 Raging Ravine
 Rain of Filth
 Rain of Salt
 Rampant Growth
 Rancor
+Rank and File
+Raven Familiar
 Ravenous Baloth
 Ravenous Skirge
 Raze
 Razorverge Thicket
+Rebuild
 Recantation
 Reclusive Wight
 Recoil
@@ -266,11 +363,14 @@ Reflexes
 Rejuvenate
 Remembrance
 Remote Isle
+Repopulate
 Reprocess
 Rescind
 Retaliation
 Retromancer
 Rewind
+Ring of Gix
+Rivalry
 Rootbound Crag
 Rumbling Crescendo
 Rumbling Slum
@@ -291,8 +391,10 @@ Savannah Lions
 Scald
 Scoria Wurm
 Scrap
+Scrapheap
 Seal of Fire
 Seasoned Marshal
+Second Chance
 Serra Avatar
 Serra Zealot
 Serra's Embrace
@@ -302,25 +404,34 @@ Shimmering Barrier
 Shivan Dragon
 Shivan Gorge
 Shivan Hellkite
+Shivan Phoenix
 Shivan Raptor
 Shiv's Embrace
 Shock
 Show and Tell
 Shower of Sparks
+Sick and Tired
 Sicken
 Sift
 Sign in Blood
 Silent Attendant
+Silk Net
+Simian Grunts
 Skirge Familiar
 Skittering Skirge
 Sleeper Agent
+Sleeper's Guile
 Slippery Karst
+Slow Motion
+Sluggishness
 Smokestack
 Smoldering Crater
+Snap
 Sneak Attack
 Somnophore
 Songstitcher
 Soul Sculptor
+Spawning Pool
 Spined Fluke
 Spire Owl
 Sporogenesis
@@ -332,37 +443,53 @@ Stirring Wildwood
 Stroke of Genius
 Student of Warfare
 Stupor
+Subversion
 Sunder
 Sunpetal Grove
+Sustainer of the Realm
 Swamp
+Swat
 Sword of Body and Mind
 Sword of Feast and Famine
 Sword of Fire and Ice
 Swords to Plowshares
 Symbiosis
 Tainted Aether
+Tethered Skirge
+Thornwind Faeries
+Thran Lens
 Thran Quarry
 Thran Turbine
+Thran War Machine
+Thran Weaponry
 Thrun, the Last Troll
 Thundering Giant
+Ticking Gnomes
 Time Spiral
 Time Warp
+Tinker
 Titania's Boon
 Titania's Chosen
 Tolarian Academy
 Tolarian Winds
 Torch Song
+Tragic Poet
 Trained Armodon
+Treacherous Link
+Treefolk Mystic
 Treefolk Seedlings
 Treetop Rangers
+Treetop Village
 Trip Noose
 Troll Ascetic
 Turnabout
 Umbilicus
 Undermine
+Unearth
 Unnerve
 Unworthy Dead
 Urza's Armor
+Urza's Blueprints
 Vampire Nighthawk
 Vampiric Embrace
 Vebulid
@@ -374,10 +501,15 @@ Veiled Serpent
 Venomous Fangs
 Verdant Force
 Vernal Bloom
+Viashino Cutthroat
+Viashino Heretic
 Viashino Outrider
+Viashino Runner
+Viashino Sandscout
 Viashino Sandswimmer
 Viashino Weaponsmith
 Victimize
+Vigilant Drake
 Vigor
 Vile Requiem
 Vines of Vastwood
@@ -389,13 +521,18 @@ Volcanic Fallout
 Volcanic Hammer
 Voltaic Key
 Vug Lizard
+Walking Sponge
 Wall of Blossoms
 Wall of Denial
 Wall of Junk
 Wall of Reverence
 War Dance
 Waylay
+Weatherseed Elf
+Weatherseed Faeries
+Weatherseed Treefolk
 Western Paladin
+Wheel of Torture
 Whetstone
 Whirlwind
 White Knight
@@ -403,10 +540,15 @@ Wild Dogs
 Wildfire
 Windfall
 Winding Wurm
+Wing Snare
 Witch Engine
 Wizard Mentor
 Worn Powerstone
 Worship
 Wurmcoil Engine
+Yavimaya Granger
+Yavimaya Scion
+Yavimaya Wurm
+Yawgmoth's Edict
 Zephid
 Zephid's Embrace

@@ -497,6 +497,7 @@
             var player = nonHumanPlayers[count + preconstructed.Count];
             var library = GenerateLibrary();
             var deck = _deckBuilder.BuildDeck(library, _cardRatings);
+            deck.LimitedCode = limitedCode;
             player.Deck = deck;
 
             // write generated deck to tournament folder so it can be reused in future tournaments

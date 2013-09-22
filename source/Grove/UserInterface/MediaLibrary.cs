@@ -157,7 +157,7 @@
     {
       return SetsDatabase[name];
     }
-
+    
     public static IEnumerable<Gameplay.Deck> GetDecks(int limitedCode)
     {
       if (LimitedDeckDatabase.ContainsKey(limitedCode))

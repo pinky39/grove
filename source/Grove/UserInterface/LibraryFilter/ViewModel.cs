@@ -50,7 +50,7 @@
 
       var text = Text;
 
-      var task = TaskEx.Delay(500);
+      var task = TaskEx.Delay(1000);
 
       task.ContinueWith(delegate
         {

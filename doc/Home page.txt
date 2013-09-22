@@ -1,33 +1,97 @@
 = magicgrove =
 
-Magicgrove is computer implementation of a [http://en.wikipedia.org/wiki/Magic:_The_Gathering popular trading card game] written in C#. The goal of the project is to implement ai algorithms which can perform at the same level as a casual human player. A short term goal (version 2.0) is to implement most of the cards available in Urza's block and to add support for limited tournaments (sealed & draft). Currently there are more than 400 unique cards available. When compared to [http://www.slightlymagic.net/wiki/List_of_MTG_Engines similar projects] the game excels at:
+Magicgrove is computer implementation of a
+[http://en.wikipedia.org/wiki/Magic:_The_Gathering popular trading card game]
+written in C#. The goal of the project is to implement ai algorithms which can
+perform at the same level as a casual human player. A short term goal (version
+2.0) is to implement most of the cards available in Urza's block and to add
+support for limited tournaments (sealed & draft). Currently there are more than
+500 unique cards available. When compared to
+[http://www.slightlymagic.net/wiki/List_of_MTG_Engines similar projects] the
+game excels at:
 
  * great user interface,
  * good 40-step lookahead ai with intelligent pruning algorithms,
- * massive sealed tournaments (up to 500 computer players),
- * save & load support, 
+ * sealed tournaments (up to 500 computer players),
+ * draft tournaments,
+ * save & load support,
  * easy & quick installation,
  * active development,
  * robustness.
 
 == Contributing to the project ==
-The easiest way to get familiar with source is to try to add some new cards. Check out the 'Adding cards tutorial' series:
+The easiest way to get familiar with source is
+to try to add some new cards. Check out the 'Adding cards tutorial' series:
 
  # [AddingCardsEpisode1 Adding cards Episode 1]
+ # [AddingCardsEpisode2 Adding cards Episode 2]
 
 == Screen shots ==
 http://magicgrove.googlecode.com/git/doc/screnshots.jpg
 
-== Latest release (1.9) ==
+== Latest release (2.0) ==
 
-=== New cards ===
-Morphling, Nature's Lore, No Rest for the Wicked, Noetic Scales, Opal Archangel, Oppression, Order of Yawgmnoth, Outmaneuver, Parasitic Bond, Path of Peace, Pendrell Flux, Peregrine Drake, Persecute, Phyrexian Processor, Phyrexian Tower, Pit Trap, Planar Birth, Planar Void, Power Taint, Presence of the Master, Priest of Gix, Priest of Titania, Purging Scythe, Rain of Filth, Rain of Salt, Rampant Growth, Ravenous Skirge, Raze, Recantation, Reclusive Wight, Redeem, Reflexes, Rejuvenate, Remebrance, Reprocess, Retaliation, Retromancer, Rewind, Rumbling Crescendo, Rune of Protection: Artifacts, Rune of Protection: Blue, Rune of Protection: Green, Rune of Protection: Lands, Rune of Protection: Red, Rune of Protection: White, Sanguine Guard, Scald, Scoria Wurm, Seasoned Marshal, Serra Avatar, Serra Zealot, Serra's Liturgy, Serra's Sanctum, Shimmering Barrier, Shivan Gorge, Shivan Hellkite, Show and Tell, Skirge Familiar, Skittering Skirge, Sleeper Agent, Smokestack, Sneak Attack, Soul Sculptor, Spined Fluke, Spire Owl, Sporogenesis, Spreading Algae, Steam Blast, Stroke of Genius, Sunder, Tainted Aether, Thran Quarry, Time Spiral, Titania's Boon, Titania's Chosen, Tolarian Academy, Tolarian Winds, Treefolk Seedlings, Treetop Rangers, Umbilicus, Unnerve, Vampiric Embrace, Vebulid, Veil of Birds, Veiled Apparition, Veiled Crocodile, Veiled Sentry, Veiled Serpent, Venomous Fangs, Vernal Bloom, Viashino Outrider, Viashino Sandswimmer, Viashino Weaponsmith, Vile Requiem, Voice of Law, Voltaic Key, Vug Lizard, War Dance, Western Paladin, Whetstone, Whirlwind, Windfall, Winding Wurm, Witch Engine, Worn Powerstone, Zephid, Zephid's Embrace, Wall of Blossoms
+=== New cards (142) ===
+Phyrexian Colossus, Viashino runner, Citanul Flute, About Face, Angelic Curator,
+Angel's Trumpet, Anthroplasm, Archivist, Aura Flux, Avalanche Riders, Beast of
+Burden Blessed Reversal, Bloated Toad, Bone Shredder, Bouncing Beebles, Brink of
+Madness, Burst of Energy, Cessation, Cloud of Faeries, Crop Rotation, Darkwatch
+Elves, Defender of Chaos, Defender of Law, Defense of the Heart, Delusions of
+Mediocrity, Deranged Hermit, Devout Harpist, Engineered Plague, Erase,
+Eviscerator, Expendable Troops, Faerie Conclave, Fleeting Image, Fog of Gnats,
+Forbidding Watchtower, Frantic Search, Gang of Elk, Ghitu Encampment, Ghitu
+Fire-Eater, Ghitu Slinger, Ghitu War Cry, Giant Cockroach, Goblin Medics, Goblin
+Welder, Granite Grip, Grim Monolith, Harmonic Convergence, Hidden Gibbons, Hope
+and Glory, Impending Disaster, Intervene, Iron Maiden, Iron Will, Jhoira's
+Toolbox, Karmic Guide, King Crab, Knighthood, Last-Ditch Effort, Lava Axe,
+Levitation, Lone Wolf, Lurking Skirge, Martyr's Cause, Memory Jar, Might of
+Oaks, Miscalculation, Molten Hydra, Mother of Runes, Multani, Maro-Sorcerer,
+Multani's Acolyte, Multani's Presence, No Mercy, Opal Avenger, Opal Champion,
+Opportunity, Ostracize, Palinchron, Parch, Peace and Quiet, Phyrexian
+Broodlings, Phyrexian Debaser, Phyrexian Defiler, Phyrexian Denouncer, Phyrexian
+Plaguelord, Phyrexian Reclamation, Plague Beetle, Planar Collapse, Purify, Pygmy
+Pyrosaur, Pyromancy, Quicksilver Amulet, Rack and Ruin, Radiant, Archangel,
+Radiant's Dragoons, Radiant's Judgment, Rancor, Rank and File, Raven Familiar,
+Rebuild, Repopulate, Ring of Gix, Rivalry, Scrapheap, Second Chance, Shivan
+Phoenix, Sick and Tired, Silk Net, Simian Grunts, Sleeper's Guile, Slow Motion,
+Sluggishness, Snap, Spawning Pool, Subversion, Sustainer of the Realm, Swat,
+Tethered Skirge, Thornwind Faeries, Thran Lens, Thran War Machine, Thran
+Weaponry, Ticking Gnomes, Tinker, Tragic Poet, Treacherous Link, Treefolk
+Mystic, Treetop Village, Unearth, Urza's Blueprints, Viashino Cutthroat,
+Viashino Heretic, Viashino Sandscout, Vigilant Drake, Walking Sponge,
+Weatherseed Elf, Weatherseed Faeries, Weatherseed Treefolk, Wheel of Torture,
+Wing Snare, Yavimaya Granger, Yavimaya Scion, Yavimaya Wurm
 
-=== Sealed tournament game mode ===
-Every player is given a random pack of 90 cards from chosen sets (1x tournament pack, 3x booster pack), which he uses to build his deck. Multiple rounds are played on each tournament, the number of rounds depends on the number of players. On the start of every round, players are paired using the Swiss pairing system. Players get 3 points for win and 0 points for loss. The player with most points wins the tournament. In case of a tie game won percentage is compared.
+=== Added booster draft tournament game mode ===
 
-=== Save & load support ===
-Single matches & tournaments can be saved via the in game menu (alt-q). The games can later be loaded via the Load saved game option.
+Players are seated randomly at the table. Each player is given 3 booster packs.
+Every player opens their pack and choose one card from it, then passes the rest
+of the pack to the player on his left. Once everyone has passed their packs,
+pick up the next pack (located on your right), pick the best card for your deck
+from that pack and put it in your pile, and again pass it to the neighbor on
+your left. This process continues until all the cards from the pack have been
+picked. Then each player opens his or her next pack, picks a card, and passes
+the pack to the right (Packs go left, right, left.). Once you have 45 cards
+in your pile, it is time to build your deck. Booster Draft rules allow you to
+add as much basic land as you want to your deck, and require that the deck be at
+least 40 cards.
 
-=== Improved Ai ===
-Increased game simulation performance. Increased simulation length to 40 steps. Combat improvement.
+=== Full text search available in deck editor ===
+Users can use lucene search syntax to search various card fields: name, text,
+flavor, power, tougness and type.
+
+=== New start screen & logo ===
+
+=== Added support for custom avatars ===
+Each player is given a random avatar from media/avatars folder.
+
+=== Sets updates ===
+ * Added Phyrexian Colossus, Viashino runner, Citanul Flute to Urza's saga
+ * Tweaked base card ratings in Urza's saga.
+ * Added new set Urza's legacy.
+
+=== AI Performance improvements ===
+Slowest scenarios were profiled and vastly improved.
+
+=== Bug fixes ===
+ * Umbilicus now triggers only if in play.
