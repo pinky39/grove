@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using Artifical.TimingRules;
+  using Gameplay.Characteristics;
   using Gameplay.Costs;
   using Gameplay.Counters;
   using Gameplay.Effects;
@@ -18,8 +19,9 @@
         .Named("Lilting Refrain")
         .ManaCost("{1}{U}")
         .Type("Enchantment")
+        .OverrideScore(new ScoreOverride {Battlefield = 300})
         .Text(
-          "At the beginning of your upkeep, you may put a verse counter on Lilting Refrain.{EOL}Sacrifice Lilting Refrain: Counter target spell unless its controller pays , where X is the number of verse counters on Lilting Refrain.")
+          "At the beginning of your upkeep, you may put a verse counter on Lilting Refrain.{EOL}Sacrifice Lilting Refrain: Counter target spell unless its controller pays X, where X is the number of verse counters on Lilting Refrain.")
         .Cast(p => p.TimingRule(new OnSecondMain()))
         .TriggeredAbility(p =>
           {
@@ -32,7 +34,7 @@
         .ActivatedAbility(p =>
           {
             p.Text =
-              "Sacrifice Lilting Refrain: Counter target spell unless its controller pays , where X is the number of verse counters on Lilting Refrain.";
+              "Sacrifice Lilting Refrain: Counter target spell unless its controller pays {X}, where {X} is the number of verse counters on Lilting Refrain.";
             p.Cost = new Sacrifice();
             p.Effect = () => new CounterTargetSpell(
               doNotCounterCost: P(e => e.Source.OwningCard.Counters));

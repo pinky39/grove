@@ -39,8 +39,7 @@
 
       if (commands.ContainsKey(command))
       {
-        commands[command]().Execute(new Arguments(args));
-        return true;
+        return commands[command]().Execute(new Arguments(args));        
       }
 
       WriteInvalidCommand(command);

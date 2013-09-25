@@ -18,14 +18,35 @@
       cardDatabase.Initialize(cardFactory.CreateAll());       
     }
 
-    public override void Execute(Arguments arguments)
-    {
-      var count = int.Parse(arguments["count"]);
+    public override bool Execute(Arguments arguments)
+    {            
+      if (arguments.Count != 1 && arguments.Count != 5)
+        return false;
       
-      var starterSet = MediaLibrary.RandomSet();
-      var boosterSet1 = MediaLibrary.RandomSet();
-      var boosterSet2 = MediaLibrary.RandomSet();
-      var boosterSet3 = MediaLibrary.RandomSet();
+      var count = int.Parse(arguments["count"]);
+
+      MagicSet starterSet;
+      MagicSet boosterSet1;
+      MagicSet boosterSet2;
+      MagicSet boosterSet3;
+      
+      if (arguments.Count == 1) 
+      {
+        starterSet = MediaLibrary.RandomSet();
+        boosterSet1 = MediaLibrary.RandomSet();
+        boosterSet2 = MediaLibrary.RandomSet();
+        boosterSet3 = MediaLibrary.RandomSet();
+      }
+      else
+      {
+        starterSet = MediaLibrary.GetSet(arguments["s"]);
+        boosterSet1 = MediaLibrary.GetSet(arguments["b1"]);
+        boosterSet2 = MediaLibrary.GetSet(arguments["b2"]);
+        boosterSet3 = MediaLibrary.GetSet(arguments["b3"]);
+      }
+
+      Console.WriteLine("Starter: {0}\nBooster1: {1}\nBooster2: {2}\nBooster3: {3}\n", 
+        starterSet.Name, boosterSet1.Name, boosterSet2.Name, boosterSet3.Name);
 
       for (var i = 0; i < count; i++)
       {
@@ -49,12 +70,14 @@
 
         DeckFile.Write(deck, Guid.NewGuid() +".dec");
       }
+
+      return true;
     }
 
     public override void Usage()
     {
      Console.WriteLine(
-       "usage: ugrove gen count=1000\n\nGenerates 1000 decks for sealed tournaments taking random tournament\nand booster packs.");
+       "usage:ugrove gen count=1000 [s=set b1=set b2=set b3=set]\n\nGenerates 1000 decks for sealed tournaments taking random \nor specified tournament and booster packs.");
     }
   }
 }

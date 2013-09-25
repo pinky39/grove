@@ -13,7 +13,7 @@
       _errorReportLoader = errorReportLoader;
     }
 
-    public override void Execute(Arguments arguments)
+    public override bool Execute(Arguments arguments)
     {
       var filename = arguments["f"];
       var rollback = int.Parse(arguments.TryGet("r") ?? "15");
@@ -31,10 +31,11 @@
       catch(Exception ex)
       {
         Console.WriteLine(ex.ToString());
-        return;
+        return true;
       }
 
       Console.WriteLine("Everything was fine :)");
+      return true;
     }
 
     public override void Usage()

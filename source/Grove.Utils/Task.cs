@@ -2,7 +2,7 @@
 {
   public abstract class Task
   {
-    public abstract void Execute(Arguments arguments);
+    public abstract bool Execute(Arguments arguments);
     public abstract void Usage();
   }
 }

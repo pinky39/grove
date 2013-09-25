@@ -16,7 +16,7 @@
       _cardDatabase = cardDatabase;
     }
 
-    public override void Execute(Arguments arguments)
+    public override bool Execute(Arguments arguments)
     {
       var downloader = new RatingDownloader();
       var filename = arguments["f"];
@@ -45,6 +45,8 @@
               .ToString("f", CultureInfo.InvariantCulture), ratedCard.Name);
         }
       }
+
+      return true;
     }
 
     private static void ReadExistingRatings(string filename, IEnumerable<RatedCard> ratedCards)

@@ -13,7 +13,7 @@
       _cardDatabase.Initialize(cardFactory.CreateAll());
     }
 
-    public override void Execute(Arguments arguments)
+    public override bool Execute(Arguments arguments)
     {
       var cardNames = _cardDatabase.GetCardNames();
 
@@ -21,6 +21,8 @@
       {
         Console.WriteLine(cardName);
       }
+
+      return true;
     }
 
     public override void Usage()

@@ -10,6 +10,11 @@
     private static readonly Regex NamedArgument = new Regex(@"(.+)=(.+)", RegexOptions.Compiled);
     private Dictionary<string, string> _arguments = new Dictionary<string, string>();
 
+    public int Count
+    {
+      get { return _arguments.Count; }
+    }
+    
     public Arguments(string[] args)
     {
       foreach (var arg in args)

@@ -1,6 +1,7 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
+  using Gameplay.Characteristics;
   using Gameplay.Effects;
   using Gameplay.Misc;
   using Gameplay.Triggers;
@@ -14,6 +15,7 @@
         .Named("Yavimaya Granger")
         .ManaCost("{2}{G}")
         .Type("Creature Elf")
+        .OverrideScore(new ScoreOverride {Battlefield = 200})
         .Text(
           "{Echo} {2}{G}{EOL}When Yavimaya Granger enters the battlefield, you may search your library for a basic land card, put that card onto the battlefield tapped, then shuffle your library.")
         .Power(2)
