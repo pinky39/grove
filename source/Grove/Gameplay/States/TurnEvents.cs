@@ -67,7 +67,7 @@
 
     public bool HasChangedZone(Card card, Zone from, Zone to)
     {
-      return _changedZone.Any(x => x.From == from && x.To == to);
+      return _changedZone.Any(x => x.Card == card && x.From == from && x.To == to);
     }
   }
 }

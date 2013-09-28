@@ -7,10 +7,10 @@
 
   public class NoRestForTheWicked
   {
-    public class PredefinedAi : PredefinedAiScenario
+    public class Predefined : PredefinedScenario
     {
       [Fact]
-      public void Return2Creatures()
+      public void Return1Creature()
       {
         var force1 = C("Verdant Force");
         var force2 = C("Verdant Force");
@@ -22,17 +22,18 @@
         Hand(P1, blade1, blade2);
 
         Exec(
-          At(Step.FirstMain)
-            .Cast(blade1, target: force1)
-            .Cast(blade2, target: force2),
+          At(Step.FirstMain, 1)
+            .Cast(blade1, target: force1),
           At(Step.FirstMain, 2)
+            .Cast(blade2, target: force2),
+          At(Step.SecondMain, 2)
+            .Activate(rest)
             .Verify(() =>
               {
-                Equal(Zone.Hand, C(force1).Zone);
+                Equal(Zone.Graveyard, C(force1).Zone);
                 Equal(Zone.Hand, C(force2).Zone);
                 Equal(Zone.Graveyard, C(rest).Zone);
-              })
-          );
+              }));          
       }
     }
   }
