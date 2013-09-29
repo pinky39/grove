@@ -65,22 +65,22 @@
 								<Setter Property="Template">
 									<Setter.Value>
 										<ControlTemplate TargetType="{x:Type ListBoxItem}">
-											<Border Name="Border" SnapsToDevicePixels="true" Background="#11000000" BorderThickness="0,0,0,1" BorderBrush="#33ffffff" Cursor="Hand">
+                                            <Border Visibility="{Binding Path=IsVisible, Converter={x:Static grove:Converters.BooleanToVisibility}}" Name="Border" SnapsToDevicePixels="true" Background="#11000000" BorderThickness="0,0,0,1" BorderBrush="#33ffffff" Cursor="Hand">
 												<ContentPresenter />
                                                 <i:Interaction.Triggers>
                                                     <i:EventTrigger EventName="MouseEnter">
                                                         <cal:ActionMessage MethodName="ChangeSelectedCard">
-                                                            <cal:Parameter Value="{Binding }" />
+                                                            <cal:Parameter Value="{Binding View}" />
                                                         </cal:ActionMessage>
                                                     </i:EventTrigger>
                                                     <i:EventTrigger EventName="MouseLeftButtonDown">
                                                         <cal:ActionMessage MethodName="AddCard">
-                                                            <cal:Parameter Value="{Binding }" />
+                                                            <cal:Parameter Value="{Binding View}" />
                                                         </cal:ActionMessage>
                                                     </i:EventTrigger>
                                                     <i:EventTrigger EventName="MouseRightButtonDown">
                                                         <cal:ActionMessage MethodName="RemoveCard">
-                                                            <cal:Parameter Value="{Binding }" />
+                                                            <cal:Parameter Value="{Binding View}" />
                                                         </cal:ActionMessage>
                                                     </i:EventTrigger>
                                                 </i:Interaction.Triggers>
@@ -98,7 +98,7 @@
                         <ListBox ItemsSource="{Binding Path=LibraryFilter.FilteredResult}">
 							<ListBox.ItemTemplate>
 								<DataTemplate>
-									<ContentControl>
+                                    <ContentControl >
 										<Grid Margin="10,5,10,5">
 
 											<Grid.ColumnDefinitions>
@@ -107,12 +107,12 @@
 												<ColumnDefinition Width="Auto" />
 											</Grid.ColumnDefinitions>
 
-											<TextBlock FontSize="15" Foreground="#fff" Text="{Binding Card.Name}" />
+											<TextBlock FontSize="15" Foreground="#fff" Text="{Binding View.Card.Name}" />
 
 
-											<Image Source="{grove:Media 'x.png'}" Height="20" Grid.Column="1" Margin="0,3,2,0" Visibility="{Binding Path=Card.HasXInCost, Converter={x:Static grove:Converters.BooleanToVisibility}}" />
+                                            <Image Source="{grove:Media 'x.png'}" Height="20" Grid.Column="1" Margin="0,3,2,0" Visibility="{Binding Path=View.Card.HasXInCost, Converter={x:Static grove:Converters.BooleanToVisibility}}" />
 
-											<ItemsControl Grid.Column="2" Margin="0,3,10,0" ItemsSource="{Binding Path=Card.ManaCost, Converter={x:Static grove:Converters.ManaCostToManaSymbolImages}}">
+                                            <ItemsControl Grid.Column="2" Margin="0,3,10,0" ItemsSource="{Binding Path=View.Card.ManaCost, Converter={x:Static grove:Converters.ManaCostToManaSymbolImages}}">
 
 												<ItemsControl.ItemsPanel>
 													<ItemsPanelTemplate>

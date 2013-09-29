@@ -187,7 +187,12 @@
 
     private bool OnRemove(CardInfo cardInfo)
     {
+      var count = _library.Count(x => x.Name.Equals(cardInfo.Name));
       var cardsLeft = _libraryItems[cardInfo.Name];
+
+      if (cardsLeft.Count >= count)
+        return false;
+      
       cardsLeft.Count++;
       return true;
     }

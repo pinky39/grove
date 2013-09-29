@@ -1,5 +1,7 @@
 ﻿namespace Grove.Gameplay
 {
+  using System;
+  using System.Collections;
   using System.Collections.Generic;
   using System.Linq;
   using Lucene.Net.Analysis.Standard;
@@ -8,11 +10,10 @@
   using Lucene.Net.QueryParsers;
   using Lucene.Net.Search;
   using Lucene.Net.Store;
-  using Lucene.Net.Util;
 
   public class CardDatabase
   {
-    private readonly StandardAnalyzer _analyzer = new StandardAnalyzer(Version.LUCENE_30);
+    private readonly StandardAnalyzer _analyzer = new StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_30);
     private readonly Dictionary<string, Card> _cards = new Dictionary<string, Card>();
     private readonly RAMDirectory _directory = new RAMDirectory();
 
@@ -55,7 +56,7 @@
       }
     }
 
-    public IEnumerable<Card> Query(string searchStr)
+    public IEnumerable<Card> Query(string searchStr = null)
     {
       if (string.IsNullOrEmpty(searchStr))
       {
@@ -83,7 +84,7 @@
 
     private Query CreateQuery(string searchStr)
     {
-      var parser = new QueryParser(Version.LUCENE_30, "name", _analyzer);
+      var parser = new QueryParser(Lucene.Net.Util.Version.LUCENE_30, "name", _analyzer);
 
       Query query;
       try
@@ -100,6 +101,6 @@
     public List<string> GetCardNames()
     {
       return _cards.Values.Select(x => x.Name).OrderBy(x => x).ToList();
-    }
+    }    
   }
 }

@@ -310,7 +310,19 @@
         "Hopping Automaton");
 
       RunGame(2);
-    } 
-               
+    }
+
+    [Fact]
+    public void Num25()
+    {
+      Hand(P1, "Plains");
+      Hand(P2, "Yavimaya Scion", "Ostracize", "Treefolk Mystic", "Unworthy Dead", "Forest", "Deranged Hermit");
+      Battlefield(P1, "Plains", "Mother of Runes", "Plains", "Plains", "Plains", "Angelic Curator", "Expendable Troops",
+        "Plains", "Opal Avenger", "Mother of Runes", "Devout Harpist");
+      Battlefield(P2, "Swamp", "Swamp", C("Fog of Gnats").IsEnchantedWith("Cessation"), "Forest", "Phyrexian Ghoul",
+        "Forest", "Phyrexian Debaser", "Swamp");
+
+      RunGame(2);
+    }
   }
 }
