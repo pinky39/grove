@@ -1,6 +1,6 @@
 # Release notes
 
-## Version 2.0
+## Version 2.0 (2013/09/29)
 
 ### New cards (142)
 
@@ -48,27 +48,30 @@ your pile, it is time to build your deck. Booster Draft rules allow you to add
 as much basic land as you want to your deck, and require that the deck be at
 least 40 cards.
 
-### Full text search available in deck editor
+### Deck editor enchantments
 
 Users can use lucene search syntax to search various card fields: name, text,
 flavor, power, tougness and type.
 
-### New start screen & logo
+Filters in deck editor are applied almost instantly.
 
-### Added support for custom avatars
+### Custom avatars
 
 Each player is given a random avatar from media/avatars folder.
 
-### Sets updates
+### New start screen & logo
 
-- Added Phyrexian Colossus, Viashino runner, Citanul Flute to Urza's saga
-- Tweaked base card ratings in Urza's saga.
-- Added new set Urza's legacy.
+### New sets & updates
 
-### Bug fixes
+Added new set Urza's legacy.
+Added Phyrexian Colossus, Viashino runner, Citanul Flute to Urza's saga
+Tweaked base card ratings in Urza's saga.
 
-- Umbilicus now triggers only if in play.
+### AI performance
 
+In some situations AI took a very long time to consider its moves. Search tree
+pruning and AI performance was improved to keep search time at tolerable
+levels.
 
 ## Version 1.9 (2013/06/26)
 
