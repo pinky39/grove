@@ -3,10 +3,8 @@
 Magicgrove is computer implementation of a
 [http://en.wikipedia.org/wiki/Magic:_The_Gathering popular trading card game]
 written in C#. The goal of the project is to implement ai algorithms which can
-perform at the same level as a casual human player. A short term goal (version
-2.0) is to implement most of the cards available in Urza's block and to add
-support for limited tournaments (sealed & draft). Currently there are more than
-500 unique cards available. When compared to
+perform at the same level as a casual human player. Currently there are 550
+unique cards available. When compared to
 [http://www.slightlymagic.net/wiki/List_of_MTG_Engines similar projects] the
 game excels at:
 
@@ -29,7 +27,38 @@ to try to add some new cards. Check out the 'Adding cards tutorial' series:
 == Screen shots ==
 http://magicgrove.googlecode.com/git/doc/screnshots.jpg
 
-== Latest release (2.0) ==
+== Release 2.0 (2013/09/29) ==
+
+=== Added booster draft tournament game mode ===
+
+Players are seated randomly at the table. Each player is given 3 booster packs.
+Every player opens their pack and choose one card from it, then passes the rest
+of the pack to the player on his left. Once everyone has passed their packs,
+pick up the next pack (located on your right), pick the best card for your deck
+from that pack and put it in your pile, and again pass it to the neighbor on
+your left. This process continues until all the cards from the pack have been
+picked. Then each player opens his or her next pack, picks a card, and passes
+the pack to the right (Packs go left, right, left.). Once you have 45 cards
+in your pile, it is time to build your deck. Booster Draft rules allow you to
+add as much basic land as you want to your deck, and require that the deck be at
+least 40 cards.
+
+=== Deck editor enchantments ===
+Users can use lucene search syntax to search various card fields: name, text,
+flavor, power, toughness and type.
+
+=== Custom avatars ===
+Each player is given a random avatar from media/avatars folder.
+
+=== New sets & updates ===
+Added new set Urza's legacy.
+Added Phyrexian Colossus, Viashino runner, Citanul Flute to Urza's saga
+Tweaked base card ratings in Urza's saga.
+
+=== AI performance ===
+In some situations AI took a very long time to consider its moves. Search tree
+pruning and AI performance was improved to keep search time at tolerable
+levels.
 
 === New cards (142) ===
 Phyrexian Colossus, Viashino runner, Citanul Flute, About Face, Angelic Curator,
@@ -61,37 +90,3 @@ Mystic, Treetop Village, Unearth, Urza's Blueprints, Viashino Cutthroat,
 Viashino Heretic, Viashino Sandscout, Vigilant Drake, Walking Sponge,
 Weatherseed Elf, Weatherseed Faeries, Weatherseed Treefolk, Wheel of Torture,
 Wing Snare, Yavimaya Granger, Yavimaya Scion, Yavimaya Wurm
-
-=== Added booster draft tournament game mode ===
-
-Players are seated randomly at the table. Each player is given 3 booster packs.
-Every player opens their pack and choose one card from it, then passes the rest
-of the pack to the player on his left. Once everyone has passed their packs,
-pick up the next pack (located on your right), pick the best card for your deck
-from that pack and put it in your pile, and again pass it to the neighbor on
-your left. This process continues until all the cards from the pack have been
-picked. Then each player opens his or her next pack, picks a card, and passes
-the pack to the right (Packs go left, right, left.). Once you have 45 cards
-in your pile, it is time to build your deck. Booster Draft rules allow you to
-add as much basic land as you want to your deck, and require that the deck be at
-least 40 cards.
-
-=== Full text search available in deck editor ===
-Users can use lucene search syntax to search various card fields: name, text,
-flavor, power, tougness and type.
-
-=== New start screen & logo ===
-
-=== Added support for custom avatars ===
-Each player is given a random avatar from media/avatars folder.
-
-=== Sets updates ===
- * Added Phyrexian Colossus, Viashino runner, Citanul Flute to Urza's saga
- * Tweaked base card ratings in Urza's saga.
- * Added new set Urza's legacy.
-
-=== AI Performance improvements ===
-Slowest scenarios were profiled and vastly improved.
-
-=== Bug fixes ===
- * Umbilicus now triggers only if in play.
