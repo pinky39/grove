@@ -53,7 +53,7 @@
 						</i:Interaction.Triggers>
 					</ContentControl>
 
-					<Border Width="125" Height="80" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,40,20,0">
+					<Border Width="125" Height="80" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,50,20,0">
 						<Viewbox VerticalAlignment="Center" HorizontalAlignment="Right">
 							<ItemsControl ItemsSource="{Binding Targets.Effect}">
 
@@ -106,7 +106,7 @@
 				</Grid>
 			</DataTemplate>
 		</Border.Resources>
-		<Grid Width="200">
+		<Grid Width="240">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="36" />
 				<RowDefinition Height="Auto" />
@@ -124,14 +124,14 @@
 				<ItemsControl ItemsSource="{Binding Effects}">
 					<ItemsControl.ItemsPanel>
 						<ItemsPanelTemplate>
-							<StackPanel Margin="15,235,15,20" />
+							<StackPanel Margin="15,290,15,20" />
 						</ItemsPanelTemplate>
 					</ItemsControl.ItemsPanel>
 
 					<ItemsControl.ItemTemplate>
 						<DataTemplate>
 
-							<ContentControl Style="{StaticResource SelectableContent}" Margin="0,-220,0,0">
+							<ContentControl Style="{StaticResource SelectableContent}" Margin="0,-275,0,0">
 								<ContentControl Content="{Binding}" />
 							</ContentControl>
 

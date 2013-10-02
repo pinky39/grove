@@ -1,4 +1,4 @@
-﻿namespace Grove.UserInterface.Turn
+﻿namespace Grove.UserInterface.Steps
 {
   using System.Windows.Controls;
 

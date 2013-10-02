@@ -10,14 +10,7 @@
          </Style>
       </Border.Resources>
       <StackPanel Orientation="Horizontal">
-   <!-- Turn number -->
-         <ContentControl Style="{StaticResource Separator}">
-         <StackPanel Margin="6,0,4,0" Orientation="Horizontal">
-            <TextBlock Text="Turn:"/>
-            <TextBlock Text="4"/>
-         </StackPanel>
-         </ContentControl>
-   <!-- End Turn number -->
+ 
    <!-- Turn steps -->
          <StackPanel Orientation="Horizontal">
             <StackPanel.Resources>

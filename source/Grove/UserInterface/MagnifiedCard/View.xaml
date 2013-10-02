@@ -36,7 +36,7 @@
 			<Image Source="{UserInterface:Media 'card-back.png'}" />
 		</Border>
 
-		<Border Margin="5" BorderBrush="#000" BorderThickness="3" CornerRadius="2" Visibility="{Binding Visual, Converter={x:Static UserInterface:Converters.NullToCollapsed}}">
+		<Border Margin="5" BorderBrush="#000" BorderThickness="4,6,4,6" CornerRadius="4" Visibility="{Binding Visual, Converter={x:Static UserInterface:Converters.NullToCollapsed}}">
 			<ContentControl Content="{Binding Visual}" />
 		</Border>
 	</Grid>

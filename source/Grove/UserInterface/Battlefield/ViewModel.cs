@@ -20,7 +20,6 @@
           LandSlot(),
           LandSlot(),
           LandSlot(),
-          LandSlot(),
           LandSlot()),
         new Row(
           CreatureSlot(),
@@ -29,8 +28,7 @@
           CreatureSlot(),
           CreatureSlot(),
           MiscSlot(),
-          MiscSlot(),
-          MiscSlot()
+          MiscSlot()          
           ),
       };
 

@@ -517,11 +517,12 @@
 	</Style>
 
 	<Style x:Key="Zone" TargetType="ItemsControl">
-
+                 
+        
 		<Setter Property="ItemsPanel">
 			<Setter.Value>
 				<ItemsPanelTemplate>
-					<StackPanel Margin="0,260,5,5" />
+					<StackPanel Margin="8,295,10,5" />
 				</ItemsPanelTemplate>
 			</Setter.Value>
 		</Setter>

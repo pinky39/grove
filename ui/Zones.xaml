@@ -18,7 +18,8 @@
       </Border.Resources>
       <TabControl>
         <TabControl.Resources>
-          <Style x:Key="ZoneName" TargetType="TextBlock" BasedOn="{StaticResource Label}"/>
+          <Style x:Key="ZoneName" TargetType="TextBlock" BasedOn="{StaticResource Label}">            
+          </Style>
           <Style x:Key="ZoneCount" TargetType="TextBlock" BasedOn="{StaticResource NormalData}">            
             <Setter Property="Margin" Value="5,0,0,0"/>
             <Setter Property="FontSize" Value="12" />
@@ -27,7 +28,15 @@
          <TabItem>
           <TabItem.Header>
             <StackPanel Orientation="Horizontal">
-              <TextBlock Style="{StaticResource ZoneName}" Text="Stack"/>
+              <TextBlock Style="{StaticResource ZoneName}" Text="Lib."/>
+              <TextBlock Style="{StaticResource ZoneCount}" Text="10" />
+            </StackPanel>
+          </TabItem.Header>
+         </TabItem>
+         <TabItem>
+          <TabItem.Header>
+            <StackPanel Orientation="Horizontal">
+              <TextBlock Style="{StaticResource ZoneName}" Text="Hand"/>
               <TextBlock Style="{StaticResource ZoneCount}" Text="2" />
             </StackPanel>
           </TabItem.Header>
@@ -35,7 +44,7 @@
          <TabItem >
           <TabItem.Header>
             <StackPanel Orientation="Horizontal">
-              <TextBlock Style="{StaticResource ZoneName}" Text="Opponent's graveyard"/>
+              <TextBlock Style="{StaticResource ZoneName}" Text="Grav."/>
               <TextBlock Style="{StaticResource ZoneCount}" Text="12" />
             </StackPanel>
           </TabItem.Header>
@@ -43,7 +52,15 @@
          <TabItem>
           <TabItem.Header>
             <StackPanel Orientation="Horizontal">
-              <TextBlock Style="{StaticResource ZoneName}" Text="Graveyard"/>
+              <TextBlock Style="{StaticResource ZoneName}" Text="Lib."/>
+              <TextBlock Style="{StaticResource ZoneCount}" Text="10" />
+            </StackPanel>
+          </TabItem.Header>
+         </TabItem>
+         <TabItem>
+          <TabItem.Header>
+            <StackPanel Orientation="Horizontal">
+              <TextBlock Style="{StaticResource ZoneName}" Text="Grav."/>
               <TextBlock Style="{StaticResource ZoneCount}" Text="10" />
             </StackPanel>
           </TabItem.Header>
@@ -56,11 +73,11 @@
             </StackPanel>
           </TabItem.Header>
             <ScrollViewer VerticalScrollBarVisibility="Visible">             
-               <StackPanel Margin="5,10,10,10">                     
+               <StackPanel Margin="10,5,10,5">                     
                      <Border>
                       <ContentControl Content="{StaticResource 'Forest'}"/>
                      </Border>
-                     <Border Margin="0,-240,0,0">
+                     <Border Margin="0,-295,0,0">
                       <ContentControl Content="{StaticResource 'Llanowar Elves'}" />
                      </Border>
                </StackPanel>

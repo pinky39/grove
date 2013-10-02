@@ -28,7 +28,8 @@
     public virtual string SearchInProgressMessage { get; set; }
     public object SmallDialog { get { return _smallDialogs.FirstOrDefault(); } }
     public Stack.ViewModel StackVm { get; set; }
-    public Turn.ViewModel TurnVm { get; set; }
+    public Steps.ViewModel Steps { get; set; }
+    public TurnNumber.ViewModel TurnNumber { get; set; }
     public MessageLog.ViewModel MessageLog { get; set; }
     public Battlefield.ViewModel YourBattlefield { get; private set; }
     public Zones.ViewModel Zones { get; set; }

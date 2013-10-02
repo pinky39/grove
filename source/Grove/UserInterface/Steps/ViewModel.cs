@@ -1,10 +1,10 @@
-﻿namespace Grove.UserInterface.Turn
+﻿namespace Grove.UserInterface.Steps
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Gameplay.Messages;
-  using Gameplay.States;
-  using Infrastructure;
+  using Grove.Gameplay.Messages;
+  using Grove.Gameplay.States;
+  using Grove.Infrastructure;
 
   public class ViewModel : ViewModelBase, IReceive<TurnStarted>
   {
@@ -39,13 +39,13 @@
       yield return ViewModels.Step.Create("Untap", Step.Untap);
       yield return ViewModels.Step.Create("Upkeep", Step.Upkeep);
       yield return ViewModels.Step.Create("Draw", Step.Draw);
-      yield return ViewModels.Step.Create("First main", Step.FirstMain);
+      yield return ViewModels.Step.Create("1st main", Step.FirstMain);
       yield return ViewModels.Step.Create("Beg. of combat", Step.BeginningOfCombat);
       yield return ViewModels.Step.Create("Dec. attackers", Step.DeclareAttackers);
       yield return ViewModels.Step.Create("Dec. blockers", Step.DeclareBlockers);
       yield return ViewModels.Step.Create("Combat damage", Step.CombatDamage, Step.FirstStrikeCombatDamage);
       yield return ViewModels.Step.Create("End of combat", Step.EndOfCombat);
-      yield return ViewModels.Step.Create("Second main", Step.SecondMain);
+      yield return ViewModels.Step.Create("2nd main", Step.SecondMain);
       yield return ViewModels.Step.Create("End of turn", Step.EndOfTurn);
       yield return ViewModels.Step.Create("Clean up", Step.CleanUp);
     }

@@ -12,6 +12,7 @@
           <Style BasedOn="{StaticResource Label}" TargetType="TextBlock" x:Key="Life">
             <Setter Property="Margin" Value="6,0,0,0"/>
             <Setter Property="Foreground" Value="#B1FF00" />                         
+            <Setter Property="FontSize" Value="17" />                         
          </Style>
          <Style BasedOn="{StaticResource Separator}" TargetType="Button">
             <Setter Property="Background" Value="#00000000"/>
@@ -32,31 +33,17 @@
          <Border Background="{StaticResource SelectedBarBackground}">
            <Button>
               <StackPanel Orientation="Horizontal">
-                 <Image Margin="0,0,20,0" Source="..\media\images\player1.png"/>
-                 <TextBlock Margin="0,0,15,0" FontSize="17" Text="You"/>                 
-                 <TextBlock Text="Life:"/>
-                 <TextBlock Style="{StaticResource Life}" Text="20"/>
-                 <TextBlock Margin="15,0,0,0" Text="Hand:"/>
-                 <TextBlock Text="5"/>
-                 <TextBlock Text="Library:"/>
-                 <TextBlock Text="45"/>
-                 <TextBlock Text="Graveyard:"/>
-                 <TextBlock Text="5"/>
+                 <Image Margin="0,0,10,0" Source="..\media\avatars\a2.png"/>
+                 <TextBlock Margin="0,0,5,0" FontSize="17" Text="You"/>                                  
+                 <TextBlock Style="{StaticResource Life}" Text="20"/>                 
               </StackPanel>
            </Button>         
          </Border>                  
          <Button IsEnabled="False">
             <StackPanel Orientation="Horizontal">
-               <Image Margin="0,0,20,0" Source="..\media\images\player2.png"/>
-               <TextBlock Margin="0,0,15,0" FontSize="17" Text="Mateja"/>
-               <TextBlock Text="Life:"/>
-               <TextBlock Text="20"/>
-               <TextBlock Margin="15,0,0,0" Text="Hand:"/>
-               <TextBlock Text="5"/>
-               <TextBlock Text="Library:"/>
-               <TextBlock Text="45"/>
-               <TextBlock Text="Graveyard:"/>
-               <TextBlock Text="5"/>
+               <Image Margin="0,0,10,0" Source="..\media\avatars\a1.png"/>
+               <TextBlock Margin="0,0,5,0" FontSize="17" Text="Mateja"/>               
+               <TextBlock Style="{StaticResource Life}" Text="20"/>    
             </StackPanel>
          </Button>
          

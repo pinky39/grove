@@ -64,6 +64,70 @@
          </StackPanel>
       </Border>
    </Viewbox>
+      <Viewbox x:Key="Llanowar Elves 2" Stretch="Uniform">
+      <Border Width="324" Height="458">
+         <StackPanel>
+            <StackPanel.Background>
+               <ImageBrush ImageSource="..\media\images\green-card.png"/>
+            </StackPanel.Background>
+            <DockPanel>
+               <TextBlock
+                  Margin="10,4,0,0"
+                  FontFamily="Arial"
+                  FontSize="17"
+                  Foreground="White"
+                  Text="Llanowar Elves"/>
+               <StackPanel HorizontalAlignment="Right" Margin="0,3,10,0" Orientation="Horizontal">
+                  <Image Height="20" Source="..\media\images\g.png"/>
+               </StackPanel>
+            </DockPanel>
+            <Image
+               Width="274"
+               Height="220"
+               Margin="0,6,0,0"
+               Source="llanowar-elves.jpg"
+               Stretch="Fill"/>
+            <TextBlock
+               Margin="20,6,0,0"
+               FontFamily="Arial"
+               FontSize="16"
+               Foreground="White"
+               Text="Creature - Elf Druid"/>
+            <Border Margin="30,7,30,0" BorderBrush="Black" BorderThickness="0">
+               <Viewbox Height="132" HorizontalAlignment="Left" Stretch="Uniform">
+                  <StackPanel MaxHeight="132" MaxWidth="240" HorizontalAlignment="Left">
+                     <WrapPanel>
+                        <Image Height="18" Margin="0,0,5,0" Source="..\media\images\t.png"/>
+                        <TextBlock Margin="0,0,5,0" FontSize="15">: Add
+                        </TextBlock>
+                        <Image Height="18" Margin="0,0,5,0" Source="..\media\images\g.png"/>
+                        <TextBlock Margin="0,0,5,0" FontSize="15">to your mana pool.
+                        </TextBlock>
+                     </WrapPanel>
+                     <WrapPanel Width="240" Margin="0,5,0,0">
+                        <TextBlock FontSize="12" FontStyle="Italic">One bone broken for every twig snapped
+                        </TextBlock>
+                        <TextBlock FontSize="12" FontStyle="Italic">underfoot.
+                        </TextBlock>
+                     </WrapPanel>
+                  </StackPanel>
+               </Viewbox>
+            </Border>
+            <StackPanel HorizontalAlignment="Right" Margin="0,12,15,0" Orientation="Horizontal">
+               <TextBlock
+                  FontFamily="Arial"
+                  FontSize="22"
+                  Foreground="White"
+                  Text="1"/>
+               <TextBlock
+                  FontFamily="Arial"
+                  FontSize="22"
+                  Foreground="White"
+                  Text="/1"/>
+            </StackPanel>
+         </StackPanel>
+      </Border>
+   </Viewbox>
    <Viewbox x:Key="llanowar-elves-ability" Stretch="Uniform">
       <Border
          Width="324"

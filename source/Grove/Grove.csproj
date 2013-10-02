@@ -1469,6 +1469,10 @@
     <Compile Include="UserInterface\PlayableActivator.cs" />
     <Compile Include="UserInterface\SelectTarget\SelectTargetParameters.cs" />
     <Compile Include="UserInterface\TournamentResults\ViewModel.cs" />
+    <Compile Include="UserInterface\TurnNumber\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterface\TurnNumber\ViewModel.cs" />
     <Compile Include="UserInterface\ViewModelBase.cs" />
     <Compile Include="UserInterface\Messages\UiInteractionChanged.cs" />
     <Compile Include="UserInterface\Spell\View.xaml.cs">
@@ -1546,10 +1550,10 @@
     </Compile>
     <Compile Include="UserInterface\Stack\ViewModel.cs" />
     <Compile Include="UserInterface\Step\ViewModel.cs" />
-    <Compile Include="UserInterface\Turn\View.xaml.cs">
+    <Compile Include="UserInterface\Steps\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserInterface\Turn\ViewModel.cs" />
+    <Compile Include="UserInterface\Steps\ViewModel.cs" />
     <Compile Include="Infrastructure\INotifyPropertyChangedRaiser.cs" />
     <Compile Include="Infrastructure\NotifyPropertyChangedInterceptor.cs" />
     <Compile Include="Infrastructure\UpdatesAttribute.cs" />
@@ -1802,7 +1806,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserInterface\Turn\View.xaml">
+    <Page Include="UserInterface\Steps\View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterface\TurnNumber\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

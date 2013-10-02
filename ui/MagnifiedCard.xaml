@@ -4,6 +4,6 @@
       <ResourceDictionary Source="Cards.xaml"/>
    </ResourceDictionary.MergedDictionaries>
   
-    <ContentControl x:Key="MagnifiedCard" Content="{StaticResource 'Llanowar Elves'}" Margin="5" />
+    <ContentControl x:Key="MagnifiedCard" Content="{StaticResource 'Llanowar Elves 2'}" Margin="5" />
     
 </ResourceDictionary>

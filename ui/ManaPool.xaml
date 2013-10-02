@@ -11,7 +11,7 @@
             <Style BasedOn="{StaticResource Icon}" TargetType="Image" >
               <Setter Property="Margin" Value="0,0,5,0"/>
             </Style>
-         </StackPanel.Resources>         
+         </StackPanel.Resources>                  
          <Image Source="..\media\images\w.png"/>
          <TextBlock Text="0"/>
          <Image Source="..\media\images\u.png"/>
@@ -24,7 +24,7 @@
          <TextBlock Text="4"/>
          <Image Source="..\media\images\c.png"/>
          <TextBlock Text="0"/>
-         <Image Source="..\media\images\any.png"/>
+         <Image Source="..\media\images\multi.png"/>
          <TextBlock Text="0"/>
       </StackPanel>
    </ContentControl>

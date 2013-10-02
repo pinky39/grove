@@ -54,7 +54,7 @@
                 </Setter>
             </Style>
       </Border.Resources>
-       <Expander Width="700" VerticalAlignment="Bottom" FontSize="15" Foreground="#FFD700" Header="This is your last message">            
+       <Expander Width="600" VerticalAlignment="Bottom" FontSize="15" Foreground="#FFD700" Header="This is your last message">            
                <Grid>
                   <Grid.RowDefinitions>
                      <RowDefinition Height="Auto"/>
