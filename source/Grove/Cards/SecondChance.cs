@@ -30,6 +30,8 @@
             p.Effect = () => new CompoundEffect(
               new SacrificeOwner(),
               new TakeExtraTurn());
+
+            p.TriggerOnlyIfOwningCardIsInPlay = true;
           });
     }
   }
