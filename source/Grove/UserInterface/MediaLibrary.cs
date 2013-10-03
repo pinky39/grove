@@ -24,9 +24,8 @@
     private static readonly Dictionary<string, MagicSet> SetsDatabase = new Dictionary<string, MagicSet>();
     private static readonly List<ImageSource> AvatarsDatabase = new List<ImageSource>();
 
-    private static readonly Dictionary<int, List<Gameplay.Deck>> LimitedDeckDatabase =
-      new Dictionary<int, List<Gameplay.Deck>>();
-
+    private static readonly Lazy<Dictionary<int, List<Gameplay.Deck>>> LimitedDeckDatabase =
+      new Lazy<Dictionary<int, List<Gameplay.Deck>>>(LoadLimitedDecks);
 
     public static NameGenerator NameGenerator { get; private set; }
 
@@ -80,17 +79,13 @@
       NameGenerator = new NameGenerator(Path.Combine(BasePath, "player-names.txt"));
     }
 
-    public static void LoadLimitedDecks()
+    public static Dictionary<int, List<Gameplay.Deck>> LoadLimitedDecks()
     {
-      var group = Directory.GetFiles(TournamentFolder, "*.dec")
+      return Directory.GetFiles(TournamentFolder, "*.dec")
         .Select(DeckFile.Read).ToList()
         .Where(x => x.LimitedCode.HasValue)
-        .GroupBy(x => x.LimitedCode);
-
-      foreach (var grouping in group)
-      {
-        LimitedDeckDatabase.Add(grouping.Key.Value, grouping.ToList());
-      }
+        .GroupBy(x => x.LimitedCode)
+        .ToDictionary(x => x.Key.Value, x => x.ToList());
     }
 
     public static void LoadSets()
@@ -157,12 +152,12 @@
     {
       return SetsDatabase[name];
     }
-    
+
     public static IEnumerable<Gameplay.Deck> GetDecks(int limitedCode)
     {
-      if (LimitedDeckDatabase.ContainsKey(limitedCode))
+      if (LimitedDeckDatabase.Value.ContainsKey(limitedCode))
       {
-        return LimitedDeckDatabase[limitedCode];
+        return LimitedDeckDatabase.Value[limitedCode];
       }
 
       return Enumerable.Empty<Gameplay.Deck>();

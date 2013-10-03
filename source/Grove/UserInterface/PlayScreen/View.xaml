@@ -27,19 +27,21 @@
 				<ColumnDefinition Width="*" />
 			</Grid.ColumnDefinitions>
 			<!-- Topbar -->
-			<Border Grid.Column="1" Grid.Row="0" Style="{StaticResource Bar}">
+			<Border Grid.ColumnSpan="2" Grid.Row="0" Style="{StaticResource Bar}">
 				<Grid>
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="Auto" />
+						<ColumnDefinition Width="Auto" />
 						<ColumnDefinition Width="*" />
 					</Grid.ColumnDefinitions>
-                    <ContentControl x:Name="TurnNumber" Grid.Column="0" Margin="0,0,0,0" />
-                    <ContentControl x:Name="Steps" Grid.Column="1" Margin="0,0,0,0" />
+                    <ContentControl x:Name="ManaPool" Grid.Column="0" Margin="10,0,0,0" />               
+                    <ContentControl x:Name="TurnNumber" Grid.Column="1" Margin="0,0,0,0" />
+                    <ContentControl x:Name="Steps" Grid.Column="2" Margin="0,0,0,0" />
 				</Grid>
 			</Border>
 			<!-- End Topbar -->
 			<!-- Sidebar -->
-			<Border Grid.Column="0" Grid.RowSpan="3" Background="{StaticResource BarBackground}">
+			<Border Grid.Row="1" Background="{StaticResource BarBackground}">
 				<Grid>
 					<Grid.RowDefinitions>
 						<RowDefinition Height="420" />
@@ -81,7 +83,7 @@
 			</Border>
 			<!-- End battlefield -->
 			<!-- Bottom bar -->
-			<Grid Grid.Column="1" Grid.Row="2" Background="{StaticResource BarBackground}">
+			<Grid Grid.ColumnSpan="2" Grid.Row="2" Background="{StaticResource BarBackground}">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="Auto" />
 					<ColumnDefinition Width="Auto" />					
@@ -91,7 +93,7 @@
 					<ContentControl x:Name="Opponent" />                    
 				</StackPanel>
                 
-                <!--<ContentControl x:Name="ManaPool" Grid.Column="2" Margin="0,0,0,0" />                -->
+                
 			</Grid>
 		</Grid>
 

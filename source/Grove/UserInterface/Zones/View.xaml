@@ -61,7 +61,7 @@
 				<TabItem.Header>
 					<StackPanel Orientation="Horizontal">
 						<TextBlock Style="{StaticResource OpponentZoneName}" Text="Library" />
-						<TextBlock Style="{StaticResource ZoneCount}" Text="{Binding OpponentsLibrary.Cards.Count}" />
+						<!--<TextBlock Style="{StaticResource ZoneCount}" Text="{Binding OpponentsLibrary.Cards.Count}" />-->
 					</StackPanel>
 				</TabItem.Header>
 				<ScrollViewer VerticalScrollBarVisibility="Visible" CanContentScroll="True">
@@ -74,7 +74,7 @@
 				<TabItem.Header>
 					<StackPanel Orientation="Horizontal">
 						<TextBlock Style="{StaticResource OpponentZoneName}" Text="Hand" />
-						<TextBlock Style="{StaticResource ZoneCount}" Text="{Binding OpponentsHand.Cards.Count}" />
+						<!--<TextBlock Style="{StaticResource ZoneCount}" Text="{Binding OpponentsHand.Cards.Count}" />-->
 					</StackPanel>
 				</TabItem.Header>
 				<ScrollViewer VerticalScrollBarVisibility="Visible">
@@ -86,7 +86,7 @@
 				<TabItem.Header>
 					<StackPanel Orientation="Horizontal">
 						<TextBlock Style="{StaticResource OpponentZoneName}" Text="Graveyard" />
-						<TextBlock Style="{StaticResource ZoneCount}" Text="{Binding OpponentsGraveyard.Cards.Count}" />
+						<!--<TextBlock Style="{StaticResource ZoneCount}" Text="{Binding OpponentsGraveyard.Cards.Count}" />-->
 					</StackPanel>
 				</TabItem.Header>
 				<ScrollViewer VerticalScrollBarVisibility="Visible">
@@ -99,7 +99,7 @@
 				<TabItem.Header>
 					<StackPanel Orientation="Horizontal">
 						<TextBlock Style="{StaticResource ZoneName}" Text="Library" />
-						<TextBlock Style="{StaticResource ZoneCount}" Text="{Binding YourLibrary.Cards.Count}" />
+						<!--<TextBlock Style="{StaticResource ZoneCount}" Text="{Binding YourLibrary.Cards.Count}" />-->
 					</StackPanel>
 				</TabItem.Header>
 				<ScrollViewer VerticalScrollBarVisibility="Visible" CanContentScroll="True">
@@ -111,7 +111,7 @@
 				<TabItem.Header>
 					<StackPanel Orientation="Horizontal">
 						<TextBlock Style="{StaticResource ZoneName}" Text="Graveyard" />
-						<TextBlock Style="{StaticResource ZoneCount}" Text="{Binding YourGraveyard.Cards.Count}" />
+						<!--<TextBlock Style="{StaticResource ZoneCount}" Text="{Binding YourGraveyard.Cards.Count}" />-->
 					</StackPanel>
 				</TabItem.Header>
 				<ScrollViewer VerticalScrollBarVisibility="Visible">
@@ -123,7 +123,7 @@
 				<TabItem.Header>
 					<StackPanel Orientation="Horizontal">
 						<TextBlock Style="{StaticResource ZoneName}" Text="Hand" />
-						<TextBlock Style="{StaticResource ZoneCount}" Text="{Binding YourHand.Cards.Count}" />
+						<!--<TextBlock Style="{StaticResource ZoneCount}" Text="{Binding YourHand.Cards.Count}" />-->
 					</StackPanel>
 				</TabItem.Header>
 				<ScrollViewer VerticalScrollBarVisibility="Visible">
