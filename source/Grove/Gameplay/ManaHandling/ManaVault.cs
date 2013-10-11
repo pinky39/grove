@@ -11,8 +11,8 @@
     private readonly ManaUnits _colorless = new ManaUnits();
     private readonly List<ManaUnits> _groups;
     private readonly TrackableList<ManaUnit> _manaPool = new TrackableList<ManaUnit>();
-    private readonly TrackableList<ManaUnit> _removeList = new TrackableList<ManaUnit>();
     private readonly object _manaPoolCountLock = new object();
+    private readonly TrackableList<ManaUnit> _removeList = new TrackableList<ManaUnit>();
 
     public ManaVault()
     {
@@ -38,15 +38,15 @@
         lock (_manaPoolCountLock)
         {
           return new ManaCounts(
-          white: _manaPool.Count(x => !x.Color.IsMulti && x.Color.IsWhite),
-          blue: _manaPool.Count(x => !x.Color.IsMulti && x.Color.IsBlue),
-          black: _manaPool.Count(x => !x.Color.IsMulti && x.Color.IsBlack),
-          red: _manaPool.Count(x => !x.Color.IsMulti && x.Color.IsRed),
-          green: _manaPool.Count(x => !x.Color.IsMulti && x.Color.IsGreen),
-          multi: _manaPool.Count(x => x.Color.IsMulti),
-          colorless: _manaPool.Count(x => x.Color.IsColorless)
-          );  
-        }                
+            white: _manaPool.Count(x => !x.Color.IsMulti && x.Color.IsWhite),
+            blue: _manaPool.Count(x => !x.Color.IsMulti && x.Color.IsBlue),
+            black: _manaPool.Count(x => !x.Color.IsMulti && x.Color.IsBlack),
+            red: _manaPool.Count(x => !x.Color.IsMulti && x.Color.IsRed),
+            green: _manaPool.Count(x => !x.Color.IsMulti && x.Color.IsGreen),
+            multi: _manaPool.Count(x => x.Color.IsMulti),
+            colorless: _manaPool.Count(x => x.Color.IsColorless)
+            );
+        }
       }
     }
 
@@ -63,14 +63,17 @@
 
     public void AddManaToPool(IManaAmount amount, ManaUsage usage)
     {
-      foreach (var mana in amount)
+      lock (_manaPoolCountLock)
       {
-        for (var i = 0; i < mana.Count; i++)
+        foreach (var mana in amount)
         {
-          var unit = new ManaUnit(mana.Color, 0, usageRestriction: usage);
-          Add(unit);
+          for (var i = 0; i < mana.Count; i++)
+          {
+            var unit = new ManaUnit(mana.Color, 0, usageRestriction: usage);
+            Add(unit);
 
-          _manaPool.Add(unit);
+            _manaPool.Add(unit);
+          }
         }
       }
     }
@@ -80,8 +83,8 @@
       var counts = new Dictionary<ManaColor, int>();
 
       var restrictions = new Restrictions {Usage = usage};
-      
-      List<ManaUnit> available;      
+
+      List<ManaUnit> available;
       _colorless.TryToAllocate(x => IsAvailable(x, restrictions), out available);
 
       foreach (var unit in available)
@@ -106,9 +109,12 @@
 
     public void AddManaToPool(IEnumerable<ManaUnit> units)
     {
-      foreach (var unit in units)
+      lock (_manaPoolCountLock)
       {
-        _manaPool.Add(unit);
+        foreach (var unit in units)
+        {
+          _manaPool.Add(unit);
+        }
       }
     }
 
@@ -118,7 +124,7 @@
       {
         RemovePermanently(unit);
       }
-      
+
       lock (_manaPoolCountLock)
       {
         _manaPool.Clear();
@@ -157,10 +163,11 @@
       {
         RemovePermanently(unit);
       }
-      _removeList.Clear();      
+      _removeList.Clear();
     }
 
-    private void RemovePermanently(ManaUnit unit) {
+    private void RemovePermanently(ManaUnit unit)
+    {
       foreach (var colorIndex in unit.Color.Indices)
       {
         _groups[colorIndex].Remove(unit);
@@ -175,10 +182,10 @@
     }
 
     private bool IsAvailable(ManaUnit unit, Restrictions restrictions)
-    {                  
+    {
       if (restrictions.Allocated.Contains(unit))
-        return false;      
-      
+        return false;
+
       if (unit.CanActivateSource() == false && _manaPool.Contains(unit) == false)
         return false;
 
@@ -217,15 +224,15 @@
         List<ManaUnit> allocated = null;
 
         foreach (var color in colorMana.Color.Indices)
-        {                    
-          if ( _groups[color].TryToAllocate(
-            filter: x => IsAvailable(x, restrictions), 
-            allocated: out allocated, 
-            count: colorMana.Count, 
+        {
+          if (_groups[color].TryToAllocate(
+            filter: x => IsAvailable(x, restrictions),
+            allocated: out allocated,
+            count: colorMana.Count,
             order: ordering))
           {
             break;
-          }         
+          }
         }
 
         if (allocated == null)
@@ -248,18 +255,18 @@
       if (costRestriction > 0)
       {
         List<ManaUnit> allocated = null;
-        
+
         if (
-        _colorless.TryToAllocate(
-          filter: x => x.ActivationCostRestriction == 0 && IsAvailable(x, restrictions), 
-          allocated: out allocated, 
-          count: costRestriction, 
-          order: ordering) == false)
+          _colorless.TryToAllocate(
+            filter: x => x.ActivationCostRestriction == 0 && IsAvailable(x, restrictions),
+            allocated: out allocated,
+            count: costRestriction,
+            order: ordering) == false)
 
         {
           return null;
-        }        
-                
+        }
+
         foreach (var unit in allocated)
         {
           restrictions.Allocated.Add(unit);
@@ -272,23 +279,29 @@
     public void Consume(IManaAmount amount, ManaUsage usage)
     {
       var allocated = TryToAllocateAmount(amount, usage);
-      AssertEx.True(allocated != null, "Not enough mana available.");      
-      
+      AssertEx.True(allocated != null, "Not enough mana available.");
+
       var sources = GetSourcesToActivate(allocated);
 
       foreach (var source in sources)
       {
-        foreach (var unit in source.GetUnits())
+        lock (_manaPoolCountLock)
         {
-          _manaPool.Add(unit);
+          foreach (var unit in source.GetUnits())
+          {
+            _manaPool.Add(unit);
+          }
         }
-        
-        source.PayActivationCost();        
+
+        source.PayActivationCost();
       }
 
-      foreach (var unit in allocated)
+      lock (_manaPoolCountLock)
       {
-        _manaPool.Remove(unit);
+        foreach (var unit in allocated)
+        {
+          _manaPool.Remove(unit);
+        }
       }
 
       foreach (var unit in allocated.Where(x => !x.HasSource))
@@ -310,8 +323,8 @@
     private class Restrictions
     {
       public readonly HashSet<ManaUnit> Allocated = new HashSet<ManaUnit>();
-      public readonly Dictionary<object, IManaSource> Tap = new Dictionary<object, IManaSource>();      
-      public readonly Dictionary<object, IManaSource> Sac = new Dictionary<object, IManaSource>();      
+      public readonly Dictionary<object, IManaSource> Sac = new Dictionary<object, IManaSource>();
+      public readonly Dictionary<object, IManaSource> Tap = new Dictionary<object, IManaSource>();
       public ManaUsage Usage;
     }
   }
