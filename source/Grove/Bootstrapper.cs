@@ -9,7 +9,7 @@
   using Infrastructure;
   using log4net.Config;
   using UserInterface.Shell;
-  using UserInterface.StartScreen;
+  using UserInterface.LoadScreen;
 
   public class Bootstrapper : Bootstrapper<IShell>
   {
@@ -28,9 +28,9 @@
     protected override void DisplayRootView()
     {
       var shell = Container.Resolve<Shell>();
-      var start = Container.Resolve<ViewModel>();
+      var loadScreen = Container.Resolve<ViewModel>();
 
-      shell.ChangeScreen(start);
+      shell.ChangeScreen(loadScreen);
       new WindowManager().ShowWindow(shell);
     }
 

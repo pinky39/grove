@@ -1231,6 +1231,10 @@
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserInterface\LoadSavedGame\ViewModel.cs" />
+    <Compile Include="UserInterface\LoadScreen\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterface\LoadScreen\ViewModel.cs" />
     <Compile Include="UserInterface\Messages\DeckGenerationError.cs" />
     <Compile Include="UserInterface\Messages\DeckGenerationStatus.cs" />
     <Compile Include="UserInterface\Messages\TournamentMatchFinished.cs" />
@@ -1659,6 +1663,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserInterface\LoadSavedGame\View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterface\LoadScreen\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

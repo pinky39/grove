@@ -5,7 +5,6 @@
   using System.IO;
   using System.Linq;
   using System.Reflection;
-  using System.Threading.Tasks;
   using System.Windows;
   using Gameplay;
   using Infrastructure;
@@ -25,37 +24,11 @@
       }
     }
 
-    public string CardCount { get { return string.Format("{0} cards", CardDatabase.Count); } }
-
-    public string LoadingMessage { get { return ThinkingMessages.GetRandom(); } }
-
-    [Updates("CardCount")]
-    public virtual bool HasLoaded { get; protected set; }
-
-    public override void Initialize()
-    {
-      LoadResources();
-    }
+    public string CardCount { get { return string.Format("{0} cards", CardDatabase.Count); } }    
 
     public void Exit()
     {
       Application.Current.Shutdown();
-    }
-
-    private void LoadResources()
-    {
-      Task.Factory.StartNew(() =>
-        {
-          MediaLibrary.LoadResources();
-          InitializeCardDatabase();
-          HasLoaded = true;
-        });
-    }
-
-    private void InitializeCardDatabase()
-    {
-      var cards = CardFactory.CreateAll();
-      CardDatabase.Initialize(cards);
     }
 
     public void NewTournament()
