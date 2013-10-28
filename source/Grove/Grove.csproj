@@ -146,6 +146,7 @@
     <Compile Include="Artifical\TargetingRules\CostSacrificeLandToSearchLand.cs" />
     <Compile Include="Artifical\TargetingRules\EffectSwitchPowerAndToughness.cs" />
     <Compile Include="Artifical\TargetingRules\EffectUntapPermanent.cs" />
+    <Compile Include="Artifical\TimingRules\AfterOpponentDeclaresBlockers.cs" />
     <Compile Include="Artifical\TimingRules\AfterYouDeclareAttackers.cs" />
     <Compile Include="Artifical\TimingRules\OnOpponentsTurn.cs" />
     <Compile Include="Artifical\TimingRules\AfterOpponentDeclaresAttackers.cs" />
@@ -160,6 +161,7 @@
     <Compile Include="Cards\BeastOfBurden.cs" />
     <Compile Include="Cards\BlessedReversal.cs" />
     <Compile Include="Cards\BloatedToad.cs" />
+    <Compile Include="Cards\BodySnatcher.cs" />
     <Compile Include="Cards\BouncingBeebles.cs" />
     <Compile Include="Cards\BrinkOfMadness.cs" />
     <Compile Include="Cards\BurstOfEnergy.cs" />
@@ -171,6 +173,7 @@
     <Compile Include="Cards\DelusionsOfMediocrity.cs" />
     <Compile Include="Cards\DerangedHermit.cs" />
     <Compile Include="Cards\DevoutHarpist.cs" />
+    <Compile Include="Cards\DiseaseCarriers.cs" />
     <Compile Include="Cards\Eviscerator.cs" />
     <Compile Include="Cards\ExpendableTroops.cs" />
     <Compile Include="Cards\FaerieConclave.cs" />
@@ -197,6 +200,7 @@
     <Compile Include="Cards\LavaAxe.cs" />
     <Compile Include="Cards\Levitation.cs" />
     <Compile Include="Cards\LurkingSkirge.cs" />
+    <Compile Include="Cards\MantisEngine.cs" />
     <Compile Include="Cards\MartyrsCause.cs" />
     <Compile Include="Cards\MemoryJar.cs" />
     <Compile Include="Cards\MightOfOaks.cs" />
@@ -258,6 +262,7 @@
     <Compile Include="Gameplay\Costs\DiscardRandom.cs" />
     <Compile Include="Gameplay\Effects\DestroyAttachedAuras.cs" />
     <Compile Include="Gameplay\Effects\ExchangeCardsInBattlefieldAndGraveyard.cs" />
+    <Compile Include="Gameplay\Effects\ExileOwnerUnlessYouDiscardCreatureCard.cs" />
     <Compile Include="Gameplay\Effects\LookAtTopCardsPutOneInHandOthersOnBottom.cs" />
     <Compile Include="Gameplay\Effects\OpponentDiscardsHand.cs" />
     <Compile Include="Gameplay\Effects\PutAllPermanentsOnTopOfLibrary.cs" />

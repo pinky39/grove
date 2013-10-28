@@ -10,7 +10,6 @@
   using Gameplay.ManaHandling;
   using Gameplay.Misc;
   using Gameplay.Modifiers;
-  using Gameplay.States;
 
   public class Morphling : CardTemplateSource
   {
@@ -29,7 +28,7 @@
             p.Text = "{U}: Untap Morphling.";
             p.Cost = new PayMana(Mana.Blue, ManaUsage.Abilities);
             p.Effect = () => new UntapOwner();
-            
+
             p.TimingRule(new OnSecondMain());
             p.TimingRule(new WhenCardHas(c => c.IsTapped));
           })
@@ -40,7 +39,10 @@
             p.Effect = () => new ApplyModifiersToSelf(
               () => new AddStaticAbility(Static.Flying) {UntilEot = true});
 
-            p.TimingRule(new OnStep(Step.BeginningOfCombat));
+            p.TimingRule(new Any(
+              new BeforeYouDeclareAttackers(),
+              new AfterOpponentDeclaresAttackers()));
+
             p.TimingRule(new WhenCardHas(c => !c.Has().Flying));
           })
         .ActivatedAbility(p =>

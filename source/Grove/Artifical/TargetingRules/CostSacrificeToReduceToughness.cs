@@ -4,7 +4,6 @@
   using System.Linq;
   using Gameplay;
   using Gameplay.Misc;
-  using Gameplay.States;
   using Gameplay.Targeting;
 
   public class CostSacrificeToReduceToughness : TargetingRule
@@ -19,10 +18,10 @@
     }
 
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
-    {      
+    {
       var costCandidates = new List<Card>();
       var effectCandidates = new List<Card>();
-      
+
       if (IsBeforeYouDeclareAttackers(p.Controller))
       {
         costCandidates = p.Candidates<Card>(selector: s => s.Cost)
@@ -41,7 +40,7 @@
           .Select(x => x.Target)
           .Take(1)
           .ToList();
-      }            
+      }
       else if (!Stack.IsEmpty)
       {
         costCandidates = p.Candidates<Card>(selector: s => s.Cost)

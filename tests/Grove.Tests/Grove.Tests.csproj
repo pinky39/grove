@@ -109,6 +109,7 @@
     <Compile Include="Cards\Blaze.cs" />
     <Compile Include="Cards\BlessedReversal.cs" />
     <Compile Include="Cards\BloodVassal.cs" />
+    <Compile Include="Cards\BodySnatcher.cs" />
     <Compile Include="Cards\BouncingBeebles.cs" />
     <Compile Include="Cards\Brand.cs" />
     <Compile Include="Cards\Bravado.cs" />
@@ -144,6 +145,7 @@
     <Compile Include="Cards\DiabolicServitude.cs" />
     <Compile Include="Cards\DiscipleOfGrace.cs" />
     <Compile Include="Cards\DiscordantDirge.cs" />
+    <Compile Include="Cards\DiseaseCarriers.cs" />
     <Compile Include="Cards\Disorder.cs" />
     <Compile Include="Cards\Douse.cs" />
     <Compile Include="Cards\DragonBlood.cs" />
@@ -215,6 +217,7 @@
     <Compile Include="Cards\ManaLeak.cs" />
     <Compile Include="Cards\ManaLeech.cs" />
     <Compile Include="Cards\ManOWar.cs" />
+    <Compile Include="Cards\MantisEngine.cs" />
     <Compile Include="Cards\MartialCoup.cs" />
     <Compile Include="Cards\MartyrsCause.cs" />
     <Compile Include="Cards\Meltdown.cs" />
