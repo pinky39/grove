@@ -1,5 +1,6 @@
 ﻿namespace Grove.Artifical.TargetingRules
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Gameplay;
@@ -8,18 +9,20 @@
 
   public class EffectReduceToughness : TargetingRule
   {
-    private readonly int? _amount;
+    private readonly Func<TargetingRuleParameters, int> _getAmount;
 
-    public EffectReduceToughness(int? amount = null)
+    public EffectReduceToughness(int? amount = null) : this(p => amount ?? p.MaxX) {}
+
+    public EffectReduceToughness(Func<TargetingRuleParameters, int> getAmount)
     {
-      _amount = amount;      
+      _getAmount = getAmount;
     }
 
     private EffectReduceToughness() {}
 
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
     {
-      var amount = _amount ?? p.MaxX;
+      var amount = _getAmount(p);
 
       var candidates = p.Candidates<Card>(ControlledBy.Opponent)
         .Select(x => new
@@ -27,7 +30,7 @@
             Target = x,
             Score = x.Life <= amount ? x.Score : 0
           })
-        .Where(x => x.Score > 0)        
+        .Where(x => x.Score > 0)
         .OrderByDescending(x => x.Score)
         .Select(x => x.Target);
 

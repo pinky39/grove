@@ -208,6 +208,7 @@
     <Compile Include="Cards\MultaniMaroSorcerer.cs" />
     <Compile Include="Cards\MultanisAcolyte.cs" />
     <Compile Include="Cards\MultanisPresence.cs" />
+    <Compile Include="Cards\NightshadeSeer.cs" />
     <Compile Include="Cards\NoMercy.cs" />
     <Compile Include="Cards\OpalAvenger.cs" />
     <Compile Include="Cards\OpalChampion.cs" />
@@ -260,6 +261,7 @@
     <Compile Include="Cards\WheelOfTorture.cs" />
     <Compile Include="Gameplay\Characteristics\Strenght.cs" />
     <Compile Include="Gameplay\Costs\DiscardRandom.cs" />
+    <Compile Include="Gameplay\Effects\CreatureGetsM1M1ForEachRevealedCard.cs" />
     <Compile Include="Gameplay\Effects\DestroyAttachedAuras.cs" />
     <Compile Include="Gameplay\Effects\ExchangeCardsInBattlefieldAndGraveyard.cs" />
     <Compile Include="Gameplay\Effects\ExileOwnerUnlessYouDiscardCreatureCard.cs" />
