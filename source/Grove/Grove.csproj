@@ -218,6 +218,7 @@
     <Compile Include="Cards\Parch.cs" />
     <Compile Include="Cards\PeaceAndQuiet.cs" />
     <Compile Include="Cards\PlagueBeetle.cs" />
+    <Compile Include="Cards\PlagueDogs.cs" />
     <Compile Include="Cards\PlanarCollapse.cs" />
     <Compile Include="Cards\Purify.cs" />
     <Compile Include="Cards\PygmyPyrosaur.cs" />
@@ -229,6 +230,7 @@
     <Compile Include="Artifical\Decisions\QuickDecisions.cs" />
     <Compile Include="Cards\RankAndFile.cs" />
     <Compile Include="Cards\RavenFamiliar.cs" />
+    <Compile Include="Cards\RavenousRats.cs" />
     <Compile Include="Cards\Rebuild.cs" />
     <Compile Include="Cards\Repopulate.cs" />
     <Compile Include="Cards\RingOfGix.cs" />
@@ -238,9 +240,11 @@
     <Compile Include="Cards\ShivanPhoenix.cs" />
     <Compile Include="Cards\SickAndTired.cs" />
     <Compile Include="Cards\SleepersGuile.cs" />
+    <Compile Include="Cards\SlinkingSkirge.cs" />
     <Compile Include="Cards\SlowMotion.cs" />
     <Compile Include="Cards\Sluggishness.cs" />
     <Compile Include="Cards\Snap.cs" />
+    <Compile Include="Cards\SquirmingMass.cs" />
     <Compile Include="Cards\Subversion.cs" />
     <Compile Include="Cards\SustainerOfTheRealm.cs" />
     <Compile Include="Cards\Swat.cs" />

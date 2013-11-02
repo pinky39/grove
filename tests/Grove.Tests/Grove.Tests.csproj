@@ -258,6 +258,7 @@
     <Compile Include="Cards\PhyrexianReclamation.cs" />
     <Compile Include="Cards\PhyrexianTower.cs" />
     <Compile Include="Cards\PitTrap.cs" />
+    <Compile Include="Cards\PlagueDogs.cs" />
     <Compile Include="Cards\PlanarBirth.cs" />
     <Compile Include="Cards\PlanarCollapse.cs" />
     <Compile Include="Cards\PlanarVoid.cs" />
