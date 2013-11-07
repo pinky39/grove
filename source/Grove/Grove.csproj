@@ -235,6 +235,7 @@
     <Compile Include="Cards\Repopulate.cs" />
     <Compile Include="Cards\RingOfGix.cs" />
     <Compile Include="Cards\Rivalry.cs" />
+    <Compile Include="Cards\ScentOfNightShade.cs" />
     <Compile Include="Cards\Scrapheap.cs" />
     <Compile Include="Cards\SecondChance.cs" />
     <Compile Include="Cards\ShivanPhoenix.cs" />
