@@ -161,6 +161,7 @@
     <Compile Include="Cards\Endoskeleton.cs" />
     <Compile Include="Cards\EnergyField.cs" />
     <Compile Include="Cards\EngineeredPlague.cs" />
+    <Compile Include="Cards\Eradicate.cs" />
     <Compile Include="Cards\Evacuation.cs" />
     <Compile Include="Cards\Exhaustion.cs" />
     <Compile Include="Cards\Exhume.cs" />
@@ -316,6 +317,7 @@
     <Compile Include="Cards\SneakAttack.cs" />
     <Compile Include="Cards\Somnophore.cs" />
     <Compile Include="Cards\Songstitcher.cs" />
+    <Compile Include="Cards\SoulFeast.cs" />
     <Compile Include="Cards\SoulSculptor.cs" />
     <Compile Include="Cards\SpinedFluke.cs" />
     <Compile Include="Cards\SpireOwl.cs" />

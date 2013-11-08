@@ -174,6 +174,7 @@
     <Compile Include="Cards\DerangedHermit.cs" />
     <Compile Include="Cards\DevoutHarpist.cs" />
     <Compile Include="Cards\DiseaseCarriers.cs" />
+    <Compile Include="Cards\Eradicate.cs" />
     <Compile Include="Cards\Eviscerator.cs" />
     <Compile Include="Cards\ExpendableTroops.cs" />
     <Compile Include="Cards\FaerieConclave.cs" />
@@ -245,6 +246,7 @@
     <Compile Include="Cards\SlowMotion.cs" />
     <Compile Include="Cards\Sluggishness.cs" />
     <Compile Include="Cards\Snap.cs" />
+    <Compile Include="Cards\SoulFeast.cs" />
     <Compile Include="Cards\SquirmingMass.cs" />
     <Compile Include="Cards\Subversion.cs" />
     <Compile Include="Cards\SustainerOfTheRealm.cs" />
@@ -270,6 +272,7 @@
     <Compile Include="Gameplay\Effects\DestroyAttachedAuras.cs" />
     <Compile Include="Gameplay\Effects\ExchangeCardsInBattlefieldAndGraveyard.cs" />
     <Compile Include="Gameplay\Effects\ExileOwnerUnlessYouDiscardCreatureCard.cs" />
+    <Compile Include="Gameplay\Effects\ExileTargetAndCardsWithSameNameFromAllZones.cs" />
     <Compile Include="Gameplay\Effects\LookAtTopCardsPutOneInHandOthersOnBottom.cs" />
     <Compile Include="Gameplay\Effects\OpponentDiscardsHand.cs" />
     <Compile Include="Gameplay\Effects\PutAllPermanentsOnTopOfLibrary.cs" />
@@ -282,6 +285,7 @@
     <Compile Include="Gameplay\Effects\TapCreaturesThatDidntAttackDamagePlayer.cs" />
     <Compile Include="Gameplay\Effects\TargetLoosesChosenAbility.cs" />
     <Compile Include="Gameplay\Effects\PlayersReplaceTheirHandWithNewOneUntilEot.cs" />
+    <Compile Include="Gameplay\Effects\TargetPlayerLoosesLife.cs" />
     <Compile Include="Gameplay\Messages\SpellWasCountered.cs" />
     <Compile Include="Gameplay\Messages\TypeChanged.cs" />
     <Compile Include="Gameplay\Modifiers\DisableAbility.cs" />
