@@ -10,6 +10,7 @@
     Verse,
     Petal,
     Soot,
-    Fake
+    Fake,
+    Infection
   }
 }

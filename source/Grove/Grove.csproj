@@ -157,6 +157,7 @@
     <Compile Include="Cards\AngelsTrumpet.cs" />
     <Compile Include="Cards\Anthroplasm.cs" />
     <Compile Include="Cards\Archivist.cs" />
+    <Compile Include="Cards\Attrition.cs" />
     <Compile Include="Cards\AuraFlux.cs" />
     <Compile Include="Cards\BeastOfBurden.cs" />
     <Compile Include="Cards\BlessedReversal.cs" />
@@ -174,10 +175,12 @@
     <Compile Include="Cards\DerangedHermit.cs" />
     <Compile Include="Cards\DevoutHarpist.cs" />
     <Compile Include="Cards\DiseaseCarriers.cs" />
+    <Compile Include="Cards\DyingWail.cs" />
     <Compile Include="Cards\Eradicate.cs" />
     <Compile Include="Cards\Eviscerator.cs" />
     <Compile Include="Cards\ExpendableTroops.cs" />
     <Compile Include="Cards\FaerieConclave.cs" />
+    <Compile Include="Cards\FesteringWound.cs" />
     <Compile Include="Cards\FleetingImage.cs" />
     <Compile Include="Cards\ForbiddingWatchtower.cs" />
     <Compile Include="Cards\FranticSearch.cs" />

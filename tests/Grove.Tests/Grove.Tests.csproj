@@ -98,6 +98,7 @@
     <Compile Include="Cards\ArgothianElder.cs" />
     <Compile Include="Cards\ArgothianEnchantress.cs" />
     <Compile Include="Cards\ArgothianWurm.cs" />
+    <Compile Include="Cards\Attrition.cs" />
     <Compile Include="Cards\AuraFlux.cs" />
     <Compile Include="Cards\AvalancheRiders.cs" />
     <Compile Include="Cards\BaneslayerAngel.cs" />
@@ -151,6 +152,7 @@
     <Compile Include="Cards\DragonBlood.cs" />
     <Compile Include="Cards\Dread.cs" />
     <Compile Include="Cards\Duress.cs" />
+    <Compile Include="Cards\DyingWail.cs" />
     <Compile Include="Cards\EasternPaladin.cs" />
     <Compile Include="Cards\Electryte.cs" />
     <Compile Include="Cards\EleshNornGrandCenobite.cs" />
@@ -170,6 +172,7 @@
     <Compile Include="Cards\Falter.cs" />
     <Compile Include="Cards\Fecundity.cs" />
     <Compile Include="Cards\FertileGround.cs" />
+    <Compile Include="Cards\FesteringWound.cs" />
     <Compile Include="Cards\FieryMantle.cs" />
     <Compile Include="Cards\FogBank.cs" />
     <Compile Include="Cards\Fortitude.cs" />
