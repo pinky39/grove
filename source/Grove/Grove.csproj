@@ -938,6 +938,7 @@
     <Compile Include="Gameplay\Triggers\OnOwnerGetsTapped.cs" />
     <Compile Include="Infrastructure\AssertEx.cs" />
     <Compile Include="Infrastructure\CastEx.cs" />
+    <Compile Include="Infrastructure\Profiler.cs" />
     <Compile Include="Infrastructure\SetEx.cs" />
     <Compile Include="Infrastructure\TrackableSet.cs" />
     <Compile Include="Persistance\DecisionLog.cs" />

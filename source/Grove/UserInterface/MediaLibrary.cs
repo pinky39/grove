@@ -24,8 +24,8 @@
     private static readonly Dictionary<string, MagicSet> SetsDatabase = new Dictionary<string, MagicSet>();
     private static readonly List<ImageSource> AvatarsDatabase = new List<ImageSource>();
 
-    private static readonly Lazy<Dictionary<int, List<Gameplay.Deck>>> LimitedDeckDatabase =
-      new Lazy<Dictionary<int, List<Gameplay.Deck>>>(LoadLimitedDecks);
+    private static readonly Dictionary<int, List<Gameplay.Deck>> LimitedDeckDatabase =
+      new Dictionary<int, List<Gameplay.Deck>>();
 
     public static NameGenerator NameGenerator { get; private set; }
 
@@ -66,12 +66,18 @@
 
     public static void LoadResources()
     {
-      LoadImageFolder(Images);
-      LoadImageFolder(Cards);
-      LoadSets();
-      LoadLimitedDecks();
-      LoadPlayerNames();
-      LoadAvatars();
+      var elapsed = new[]
+        {
+          Profiler.Benchmark(() => LoadImageFolder(Images)),            
+          Profiler.Benchmark(() => LoadImageFolder(Cards)), 
+          Profiler.Benchmark(() => LoadSets()), 
+          Profiler.Benchmark(() => LoadLimitedDecks()),
+          Profiler.Benchmark(() => LoadPlayerNames()),
+          Profiler.Benchmark(() => LoadAvatars())
+        };           
+      
+      LogFile.Info("Startup benchmark:\nImages:{0:n}\nCards:{1:n}\nSets:{2:n}\nSealed decks:{3:n}\nPlayer names:{4:n}\nAvatars{5:n}",
+        elapsed[0], elapsed[1], elapsed[2], elapsed[3], elapsed[4], elapsed[5]);
     }
 
     public static void LoadPlayerNames()
@@ -79,18 +85,31 @@
       NameGenerator = new NameGenerator(Path.Combine(BasePath, "player-names.txt"));
     }
 
-    public static Dictionary<int, List<Gameplay.Deck>> LoadLimitedDecks()
+    public static void LoadLimitedDecks()
     {
-      return Directory.GetFiles(TournamentFolder, "*.dec")
-        .Select(DeckFile.Read).ToList()
-        .Where(x => x.LimitedCode.HasValue)
-        .GroupBy(x => x.LimitedCode)
-        .ToDictionary(x => x.Key.Value, x => x.ToList());
+      var files = Directory.EnumerateFiles(TournamentFolder, "*.dec");
+
+      foreach (var file in files)
+      {
+        var deck = DeckFile.Read(file);
+
+        if (deck.LimitedCode.HasValue)
+        {
+          List<Gameplay.Deck> groupedByCode;
+          if (!LimitedDeckDatabase.TryGetValue(deck.LimitedCode.Value, out groupedByCode))
+          {
+            groupedByCode = new List<Gameplay.Deck>();
+            LimitedDeckDatabase.Add(deck.LimitedCode.Value, groupedByCode);
+          }
+
+          groupedByCode.Add(deck);
+        }
+      }
     }
 
     public static void LoadSets()
     {
-      var setsFilenames = Directory.GetFiles(SetsFolder, "*.txt");
+      var setsFilenames = Directory.EnumerateFiles(SetsFolder, "*.txt");
 
       foreach (var filename in setsFilenames)
       {
@@ -155,9 +174,9 @@
 
     public static IEnumerable<Gameplay.Deck> GetDecks(int limitedCode)
     {
-      if (LimitedDeckDatabase.Value.ContainsKey(limitedCode))
+      if (LimitedDeckDatabase.ContainsKey(limitedCode))
       {
-        return LimitedDeckDatabase.Value[limitedCode];
+        return LimitedDeckDatabase[limitedCode];
       }
 
       return Enumerable.Empty<Gameplay.Deck>();
