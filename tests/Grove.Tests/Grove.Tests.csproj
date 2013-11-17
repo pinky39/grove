@@ -185,6 +185,7 @@
     <Compile Include="Cards\GildedDrake.cs" />
     <Compile Include="Cards\GoblinCadets.cs" />
     <Compile Include="Cards\GoblinLackey.cs" />
+    <Compile Include="Cards\GoblinMarshal.cs" />
     <Compile Include="Cards\GoblinMatron.cs" />
     <Compile Include="Cards\GoblinMedics.cs" />
     <Compile Include="Cards\GoblinOffensive.cs" />
@@ -335,6 +336,7 @@
     <Compile Include="Cards\SwordsToPlowshares.cs" />
     <Compile Include="Cards\Symbiosis.cs" />
     <Compile Include="Cards\TaintedAether.cs" />
+    <Compile Include="Cards\ThievingMagpie.cs" />
     <Compile Include="Cards\ThornwindFaeries.cs" />
     <Compile Include="Cards\ThranTurbine.cs" />
     <Compile Include="Cards\ThranWarMachine.cs" />
@@ -353,6 +355,7 @@
     <Compile Include="Cards\TreetopRangers.cs" />
     <Compile Include="Cards\TreetopVillage.cs" />
     <Compile Include="Cards\TripNoose.cs" />
+    <Compile Include="Cards\TrumpetBlast.cs" />
     <Compile Include="Cards\Turnabout.cs" />
     <Compile Include="Cards\Umbilicus.cs" />
     <Compile Include="Cards\UnworthyDead.cs" />

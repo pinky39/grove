@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Gameplay.Abilities;
   using Gameplay.Effects;
@@ -8,22 +7,22 @@
   using Gameplay.Triggers;
   using Gameplay.Zones;
 
-  public class DarkslickDrake : CardTemplateSource
+  public class Kingfisher : CardTemplateSource
   {
     public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
-        .Named("Darkslick Drake")
-        .ManaCost("{2}{U}{U}")
-        .Type("Creature - Drake")
-        .Text("{Flying}{EOL}When Darkslick Drake is put into a graveyard from the battlefield, draw a card.")
-        .FlavorText("At the edge of the Mephidross, Phyrexia's influence seeps into life and land.")
+        .Named("Kingfisher")
+        .ManaCost("{3}{U}")
+        .Type("Creature - Bird")
+        .Text("{Flying}{EOL}When Kingfisher dies, draw a card.")
+        .FlavorText("It's tastiest when served with the fish it stole.")
         .Power(2)
-        .Toughness(4)
+        .Toughness(2)
         .SimpleAbilities(Static.Flying)
         .TriggeredAbility(p =>
           {
-            p.Text = "When Darkslick Drake is put into a graveyard from the battlefield, draw a card.";
+            p.Text = "When Kingfisher dies, draw a card.";
             p.Trigger(new OnZoneChanged(from: Zone.Battlefield, to: Zone.Graveyard));
             p.Effect = () => new DrawCards(1);            
           });

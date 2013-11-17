@@ -186,6 +186,8 @@
     <Compile Include="Cards\FranticSearch.cs" />
     <Compile Include="Cards\GhituFireEater.cs" />
     <Compile Include="Cards\GhituWarCry.cs" />
+    <Compile Include="Cards\GoblinBerserker.cs" />
+    <Compile Include="Cards\GoblinMarshal.cs" />
     <Compile Include="Cards\GoblinWelder.cs" />
     <Compile Include="Cards\GraniteGrip.cs" />
     <Compile Include="Cards\GrimMonolith.cs" />
@@ -198,7 +200,9 @@
     <Compile Include="Cards\IronWill.cs" />
     <Compile Include="Cards\JhoirasToolbox.cs" />
     <Compile Include="Cards\KarmicGuide.cs" />
+    <Compile Include="Cards\KeldonChampion.cs" />
     <Compile Include="Cards\KingCrab.cs" />
+    <Compile Include="Cards\Kingfisher.cs" />
     <Compile Include="Cards\Knighthood.cs" />
     <Compile Include="Cards\LastDitchEffort.cs" />
     <Compile Include="Cards\LavaAxe.cs" />
@@ -254,6 +258,7 @@
     <Compile Include="Cards\Subversion.cs" />
     <Compile Include="Cards\SustainerOfTheRealm.cs" />
     <Compile Include="Cards\Swat.cs" />
+    <Compile Include="Cards\ThievingMagpie.cs" />
     <Compile Include="Cards\ThornwindFaeries.cs" />
     <Compile Include="Cards\ThranLens.cs" />
     <Compile Include="Cards\ThranWarMachine.cs" />
@@ -261,6 +266,7 @@
     <Compile Include="Cards\Tinker.cs" />
     <Compile Include="Cards\TragicPoet.cs" />
     <Compile Include="Cards\TreefolkMystic.cs" />
+    <Compile Include="Cards\TrumpetBlast.cs" />
     <Compile Include="Cards\Unearth.cs" />
     <Compile Include="Cards\UrzasBlueprints.cs" />
     <Compile Include="Cards\ViashinoSandscout.cs" />
@@ -269,6 +275,7 @@
     <Compile Include="Cards\WeatherseedElf.cs" />
     <Compile Include="Cards\WeatherseedFaeries.cs" />
     <Compile Include="Cards\WheelOfTorture.cs" />
+    <Compile Include="Cards\WildColos.cs" />
     <Compile Include="Gameplay\Characteristics\Strenght.cs" />
     <Compile Include="Gameplay\Costs\DiscardRandom.cs" />
     <Compile Include="Gameplay\Effects\CreatureGetsM1M1ForEachRevealedCard.cs" />
