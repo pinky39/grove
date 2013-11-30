@@ -8,13 +8,13 @@
   public class TurnInfo : GameObject, IHashable
   {
     private readonly Trackable<TurnEvents> _events = new Trackable<TurnEvents>();
-    private readonly Trackable<State> _state = new Trackable<State>();
+    private readonly Trackable<int> _state = new Trackable<int>();
     private readonly Trackable<int> _stateCount = new Trackable<int>();
     private readonly Trackable<Step> _step = new Trackable<Step>();
     private readonly Trackable<int> _stepCount = new Trackable<int>();
     private readonly Trackable<int> _turnCount = new Trackable<int>(0);
 
-    public State State
+    public int State
     {
       get { return _state.Value; }
       set

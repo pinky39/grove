@@ -2,6 +2,7 @@
 {
   using System;
   using System.Collections.Generic;
+  using System.Linq;
   using Decisions;
   using Infrastructure;
   using Messages;
@@ -11,41 +12,33 @@
   {
     private readonly Trackable<IDecision> _curentDecision = new Trackable<IDecision>();
     private readonly DecisionQueue _decisionQueue;
-    private readonly Trackable<int> _passesCount = new Trackable<int>();
+    private Trackable<StateNode> _currentState = new Trackable<StateNode>();
+    private Trackable<StepNode> _currentStep = new Trackable<StepNode>();
     private Player _previousLooser;
-    private Dictionary<State, StepState> _states;
-    private Dictionary<Step, StepDefinition> _steps;
+    private List<StepNode> _steps;
 
     private StateMachine() {}
 
     public StateMachine(DecisionQueue decisionQueue)
     {
       _decisionQueue = decisionQueue;
-
-      InitializeStepStates();
-      InitializeSteps();
     }
 
     private IDecision CurrentDecision { get { return _curentDecision.Value; } set { _curentDecision.Value = value; } }
-
-    private State State
-    {
-      get { return Turn.State; }
-      set
-      {
-        Turn.State = value;
-        LogFile.Debug("State: {0}", value);
-      }
-    }
-
-    private Step Step { get { return Turn.Step; } set { Turn.Step = value; } }
-
-    private bool WasPriorityPassed { get { return CurrentDecision.WasPriorityPassed; } }
+    public bool WasPriorityPassed { get { return CurrentDecision.IsPass; } }
 
     void ICopyContributor.AfterMemberCopy(object original)
     {
-      InitializeStepStates();
-      InitializeSteps();
+      _steps = CreateStepNodes();
+
+      var currentStep = _steps.First(x => x.Step == Turn.Step);
+      var currentState = currentStep.States.First(x => x.Id == Turn.State);
+
+      _currentStep = new Trackable<StepNode>(currentStep);
+      _currentState = new Trackable<StateNode>(currentState);
+
+      _currentStep.Initialize(ChangeTracker);
+      _currentState.Initialize(ChangeTracker);
     }
 
     public void Initialize(Game game)
@@ -53,15 +46,31 @@
       Game = game;
 
       _curentDecision.Initialize(ChangeTracker);
-      _passesCount.Initialize(ChangeTracker);
+      _currentStep.Initialize(ChangeTracker);
+      _currentState.Initialize(ChangeTracker);
+      _steps = CreateStepNodes();
     }
 
     public void Resume(Func<bool> shouldContinue)
     {
       while (ExecutePendingDecisions(shouldContinue))
-      {        
-        State = _states[State].Next;
-        _states[State].Execute();
+      {
+        var nextState = _currentState.Value.Next();
+
+        if (nextState == null)
+        {
+          var nextStep = _currentStep.Value.Next();
+
+          _currentStep.Value = nextStep;
+          nextState = nextStep.Start;
+
+          Turn.Step = nextStep.Step;
+        }
+
+        _currentState.Value = nextState;
+        Turn.State = nextState.Id;
+
+        nextState.Execute();
       }
 
       LogFile.Debug("Game is finished.");
@@ -69,34 +78,22 @@
 
     public void Start(Func<bool> shouldContinue, bool skipPreGame, Player looser = null)
     {
-      Step = Step.GameStart;
+      Turn.Step = Step.GameStart;
 
       if (skipPreGame)
       {
-        Step = Step.Untap;
+        Turn.Step = Step.Untap;
       }
 
-      State = State.Begin;
+      Turn.State = 0;
       _previousLooser = looser;
 
-      _states[State].Execute();
+      _currentStep.Value = _steps.First(x => x.Step == Turn.Step);
+      _currentState.Value = _currentStep.Value.Start;
+
+      _currentState.Value.Execute();
+
       Resume(shouldContinue);
-    }
-
-    private void CreateState(State name, Action proc, Func<State> next)
-    {
-      _states[name] = new StepState(name, proc, next);
-    }
-
-    private void CreateStep(
-      Step step,
-      Func<Step> nextStep,
-      bool getPriority = true,
-      Action first = null,
-      Action second = null,
-      Action third = null)
-    {
-      _steps[step] = new StepDefinition(step, nextStep, getPriority, first, second, third);
     }
 
     private void DeclareAttackers()
@@ -131,7 +128,7 @@
       var resultsToSave = new List<IDecision>();
 
       var should = false;
-      
+
       while (shouldContinue())
       {
         if (CurrentDecision == null || CurrentDecision.HasCompleted)
@@ -145,9 +142,8 @@
           CurrentDecision = _decisionQueue.Dequeue();
         }
 
-        CurrentDecision.Execute();        
-        resultsToSave.Add(CurrentDecision);                
-        
+        CurrentDecision.Execute();
+        resultsToSave.Add(CurrentDecision);
       }
 
       // it's important to save the results only when decision queue is empty
@@ -155,280 +151,220 @@
       // executed, can not be saved properly
       foreach (var decision in resultsToSave)
       {
-        decision.SaveDecisionResults();        
+        decision.SaveDecisionResults();
       }
-      
+
       return should;
     }
 
-    private void InitializeStepStates()
+    private List<StepNode> CreateStepNodes()
     {
-      _states = new Dictionary<State, StepState>();
+      StepNode gameStart = null,
+               mulligan = null,
+               untap = null,
+               upkeep = null,
+               draw = null,
+               firstMain = null,
+               beginOfCombat = null,
+               declareAttackers = null,
+               declareBlockers = null,
+               firstStrikeCombatDamage = null,
+               combatDamage = null,
+               endofCombat = null,
+               secondMain = null,
+               endOfTurn = null,
+               cleanup = null;
 
-      CreateState(
-        name: State.Begin,
-        proc: () => Publish(new StepStarted(Step)),
-        next: () => State.First);
-
-      CreateState(
-        name: State.First,
-        proc: () => _steps[Step].First(),
-        next: () => State.Second);
-
-      CreateState(
-        name: State.Second,
-        proc: () => _steps[Step].Second(),
-        next: () => State.Third);
-
-      CreateState(
-        name: State.Third,
-        proc: () => _steps[Step].Third(),
-        next: () => _steps[Step].GetPriority ? State.Start : State.After
-        );
-
-      CreateState(
-        name: State.Start,
-        proc: () => Enqueue<PlaySpellOrAbility>(Players.Active),
-        next: () =>
+      gameStart = NewStep(Step.GameStart,
+        new Action[]
           {
-            if (WasPriorityPassed)
-            {
-              _passesCount.Value++;
-              return State.Passive;
-            }
-
-            return State.Active;
-          });
-
-      CreateState(
-        name: State.Active,
-        proc: () => Enqueue<PlaySpellOrAbility>(Players.Active),
-        next: () =>
-          {
-            if (WasPriorityPassed)
-            {
-              _passesCount.Value++;
-
-              if (_passesCount.Value == 2)
-              {
-                _passesCount.Value = 0;
-
-                return Stack.IsEmpty
-                  ? State.After
-                  : State.BeginResolve;
-              }
-
-              return State.Passive;
-            }
-
-            _passesCount.Value = 0;
-            return State.Active;
-          });
-
-      CreateState(
-        name: State.Passive,
-        proc: () => Enqueue<PlaySpellOrAbility>(Players.Passive),
-        next: () =>
-          {
-            if (WasPriorityPassed)
-            {
-              _passesCount.Value++;
-
-              if (_passesCount.Value == 2)
-              {
-                _passesCount.Value = 0;
-
-                return Stack.IsEmpty
-                  ? State.After
-                  : State.BeginResolve;
-              }
-
-              return State.Active;
-            }
-
-            _passesCount.Value = 0;
-            return State.Passive;
-          });
-
-      CreateState(
-        name: State.BeginResolve,
-        proc: () => Stack.Resolve(),
-        next: () => State.FinishResolve);
-
-      CreateState(
-        name: State.FinishResolve,
-        proc: () =>
-          {
-            var effect = Stack.LastResolved;
-            if (effect != null)
-            {
-              effect.FinishResolve();              
-            }
+            SelectStartingPlayer,
+            ShuffleLibraries,
+            DrawStartingHands,
           },
-        next: () => State.Start);
+        next: () => mulligan,
+        getsPriority: false);
 
-      CreateState(
-        name: State.After,
-        proc: () =>
+      mulligan = NewStep(Step.Mulligan,
+        new Action[] {TakeMulligans},
+        next: () => Players.AnotherMulliganRound ? mulligan : untap,
+        getsPriority: false);
+
+      untap = NewStep(Step.Untap,
+        new Action[]
           {
-            Players.Player1.EmptyManaPool();
-            Players.Player2.EmptyManaPool();
-
-            Publish(new StepFinished
+            () => Turn.NextTurn(),
+            () =>
               {
-                Step = Step
-              });
-          },
-        next: () => State.End
-        );
+                foreach (var permanent in Players.Active.Battlefield)
+                {
+                  permanent.HasSummoningSickness = false;
 
-      CreateState(
-        name: State.End,
-        proc: () => { Step = _steps[Step].Next; },
-        next: () => State.Begin);
+                  if (permanent.Has().DoesNotUntap)
+                    continue;
+
+                  if (permanent.MayChooseNotToUntap)
+                  {
+                    var permanentCopy = permanent;
+                    Enqueue<ChooseToUntap>(
+                      controller: Players.Active,
+                      init: p => p.Permanent = permanentCopy);
+                  }
+                  else
+                  {
+                    permanent.Untap();
+                  }
+                }
+
+                Players.Active.LandsPlayedCount = 0;
+              }
+          },
+        next: () => upkeep,
+        getsPriority: false);
+
+      upkeep = NewStep(Step.Upkeep,
+        next: () => draw,
+        getsPriority: true);
+
+
+      draw = NewStep(Step.Draw,
+        new Action[]
+          {
+            () =>
+              {
+                if (Turn.TurnCount != 1)
+                {
+                  Players.Active.DrawCard();
+                }
+              }
+          },
+        next: () => firstMain,
+        getsPriority: true);
+
+      firstMain = NewStep(Step.FirstMain,
+        next: () => beginOfCombat,
+        getsPriority: true);
+
+      beginOfCombat = NewStep(Step.BeginningOfCombat,
+        next: () => declareAttackers,
+        getsPriority: true);
+
+      declareAttackers = NewStep(Step.DeclareAttackers,
+        new Action[]
+          {
+            DeclareAttackers
+          },
+        next: () => declareBlockers,
+        getsPriority: true);
+
+      declareBlockers = NewStep(Step.DeclareBlockers,
+        new Action[]
+          {
+            DeclareBlockers,
+            SetDamageAssignmentOrder,
+          },
+        next: () => Combat.AnyCreaturesWithFirstStrike()
+          ? firstStrikeCombatDamage
+          : combatDamage,
+        getsPriority: true);
+
+
+      firstStrikeCombatDamage = NewStep(Step.FirstStrikeCombatDamage,
+        new Action[]
+          {
+            () => Combat.AssignCombatDamage(firstStrike: true),
+            DealAssignedCombatDamage,
+            () => Players.MoveDeadCreaturesToGraveyard()
+          },
+        next: () => Combat.AnyCreaturesWithNormalStrike()
+          ? combatDamage
+          : endofCombat,
+        getsPriority: true);
+
+      combatDamage = NewStep(Step.CombatDamage,
+        new Action[]
+          {
+            () => Combat.AssignCombatDamage(),
+            DealAssignedCombatDamage,
+            () => Players.MoveDeadCreaturesToGraveyard()
+          },
+        next: () => endofCombat,
+        getsPriority: true);
+
+      endofCombat = NewStep(Step.EndOfCombat,
+        new Action[]
+          {
+            () => Combat.RemoveAll()
+          },
+        next: () => secondMain,
+        getsPriority: true);
+
+      secondMain = NewStep(Step.SecondMain,
+        next: () => endOfTurn,
+        getsPriority: true);
+
+      endOfTurn = NewStep(Step.EndOfTurn,
+        next: () => cleanup,
+        getsPriority: true);
+
+      cleanup = NewStep(Step.CleanUp,
+        new Action[]
+          {
+            () =>
+              {
+                Players.RemoveDamageFromPermanents();
+                Players.RemoveRegenerationFromPermanents();
+
+                DiscardToMaximumHandSize();
+                Publish(new EndOfTurn());
+              },
+            () => Players.ChangeActivePlayer(),
+          },
+        next: () => untap,
+        getsPriority: false);
+
+
+      var all = new List<StepNode>
+        {
+          gameStart,
+          mulligan,
+          untap,
+          upkeep,
+          draw,
+          firstMain,
+          beginOfCombat,
+          declareAttackers,
+          declareBlockers,
+          firstStrikeCombatDamage,
+          combatDamage,
+          endofCombat,
+          secondMain,
+          endOfTurn,
+          cleanup
+        };
+
+      return all;
     }
 
-
-    private void InitializeSteps()
+    private StepNode NewStep(Step step, IEnumerable<Action> before, bool getsPriority, Func<StepNode> next)
     {
-      _steps = new Dictionary<Step, StepDefinition>();
+      return new StepNode(step, CreateStates(before, getsPriority), next);
+    }
 
-      CreateStep(
-        Step.GameStart,
-        getPriority: false,
-        first: SelectStartingPlayer,
-        second: ShuffleLibraries,
-        third: DrawStartingHands,
-        nextStep: () => Step.Mulligan);
-
-      CreateStep(
-        Step.Mulligan,
-        getPriority: false,
-        first: TakeMulligans,
-        nextStep: () => Players.AnotherMulliganRound ? Step.Mulligan : Step.Untap);
-
-      CreateStep(
-        Step.Untap,
-        getPriority: false,
-        first: () => Turn.NextTurn(),
-        second: () =>
-          {
-            foreach (var permanent in Players.Active.Battlefield)
-            {
-              permanent.HasSummoningSickness = false;
-
-              if (permanent.Has().DoesNotUntap)
-                continue;
-
-              if (permanent.MayChooseNotToUntap)
-              {
-                var permanentCopy = permanent;
-                Enqueue<ChooseToUntap>(
-                  controller: Players.Active,
-                  init: p => p.Permanent = permanentCopy);
-              }
-              else
-              {
-                permanent.Untap();
-              }
-            }
-
-            Players.Active.LandsPlayedCount = 0;
-          },
-        nextStep: () => Step.Upkeep);
-
-      CreateStep(
-        Step.Upkeep,
-        nextStep: () => Step.Draw);
-
-      CreateStep(
-        Step.Draw,
-        first: () =>
-          {
-            if (Turn.TurnCount != 1)
-            {
-              Players.Active.DrawCard();
-            }
-          },
-        nextStep: () => Step.FirstMain);
-
-      CreateStep(
-        Step.FirstMain,
-        nextStep: () => Step.BeginningOfCombat
-        );
-
-      CreateStep(
-        Step.BeginningOfCombat,
-        nextStep: () => Step.DeclareAttackers
-        );
-
-      CreateStep(
-        Step.DeclareAttackers,
-        first: DeclareAttackers,
-        nextStep: () => Step.DeclareBlockers
-        );
-
-      CreateStep(
-        Step.DeclareBlockers,
-        first: DeclareBlockers,
-        second: SetDamageAssignmentOrder,
-        nextStep: () => Combat.AnyCreaturesWithFirstStrike()
-          ? Step.FirstStrikeCombatDamage
-          : Step.CombatDamage);
-
-      CreateStep(
-        Step.FirstStrikeCombatDamage,
-        first: () => Combat.AssignCombatDamage(firstStrike: true),
-        second: DealAssignedCombatDamage,
-        third: () => Players.MoveDeadCreaturesToGraveyard(),
-        nextStep: () => Combat.AnyCreaturesWithNormalStrike()
-          ? Step.CombatDamage
-          : Step.EndOfCombat);
-
-      CreateStep(
-        Step.CombatDamage,
-        first: () => Combat.AssignCombatDamage(),
-        second: DealAssignedCombatDamage,
-        third: () => Players.MoveDeadCreaturesToGraveyard(),
-        nextStep: () => Step.EndOfCombat);
-
-      CreateStep(
-        Step.EndOfCombat,
-        first: () => Combat.RemoveAll(),
-        nextStep: () => Step.SecondMain);
-
-      CreateStep(
-        Step.SecondMain,
-        nextStep: () => Step.EndOfTurn);
-
-      CreateStep(
-        Step.EndOfTurn,
-        nextStep: () => Step.CleanUp);
-
-      CreateStep(
-        Step.CleanUp,
-        getPriority: false,
-        first: () =>
-          {
-            Players.RemoveDamageFromPermanents();
-            Players.RemoveRegenerationFromPermanents();
-
-            DiscardToMaximumHandSize();
-            Publish(new EndOfTurn());
-          },
-        second: () => Players.ChangeActivePlayer(),
-        nextStep: () => Step.Untap);
+    private StepNode NewStep(Step step, bool getsPriority, Func<StepNode> next)
+    {
+      return new StepNode(step, CreateStates(new Action[] {}, getsPriority), next);
     }
 
     private void DealAssignedCombatDamage()
     {
       Combat.DealAssignedDamage();
 
-      if (Combat.AnyCreaturesWithFirstStrike() && Step == Step.FirstStrikeCombatDamage)
-        Publish(new AssignedCombatDamageWasDealt(Step));
+      if (Combat.AnyCreaturesWithFirstStrike() && Turn.Step == Step.FirstStrikeCombatDamage)
+        Publish(new AssignedCombatDamageWasDealt(Turn.Step));
 
-      if (Combat.AnyCreaturesWithNormalStrike() && Step == Step.CombatDamage)
-        Publish(new AssignedCombatDamageWasDealt(Step));
+      if (Combat.AnyCreaturesWithNormalStrike() && Turn.Step == Step.CombatDamage)
+        Publish(new AssignedCombatDamageWasDealt(Turn.Step));
     }
 
     private Player RollDice()
@@ -478,98 +414,174 @@
       Enqueue<TakeMulligan>(nonStarting);
     }
 
-
-    private class StepDefinition
+    private List<StateNode> CreateStates(IEnumerable<Action> before, bool getsPriority)
     {
-      private readonly Action _first;
-      private readonly Func<Step> _next;
-      private readonly Action _second;
-      private readonly Action _third;
+      var nodes = new List<StateNode>();
 
-      public StepDefinition(
-        Step step,
-        Func<Step> nextStep,
-        bool getPriority = true,
-        Action first = null,
-        Action second = null,
-        Action third = null)
+      StateNode startOfStep = null,
+                priorityActiveStart = null,
+                priorityPassiveStart = null,
+                priorityActive = null,
+                priorityPassive = null,
+                priorityAfter = null,
+                priorityBeginResolve = null,
+                priorityFinishResolve = null;
+
+      if (getsPriority)
       {
-        Step = step;
-        GetPriority = getPriority;
+        priorityActiveStart = new StateNode(
+          100,
+          () => Enqueue<PlaySpellOrAbility>(Players.Active),
+          () =>
+            {
+              if (WasPriorityPassed)
+              {
+                return priorityPassive;
+              }
 
-        _next = nextStep;
-        _third = third ?? delegate { };
-        _first = first ?? delegate { };
-        _second = second ?? delegate { };
+              return priorityActiveStart;
+            }
+          );
+
+        nodes.Add(priorityActiveStart);
+
+        priorityActive = new StateNode(
+          101,
+          () => Enqueue<PlaySpellOrAbility>(Players.Active),
+          () =>
+            {
+              if (WasPriorityPassed)
+              {
+                return priorityBeginResolve;
+              }
+
+              return priorityActiveStart;
+            });
+
+        nodes.Add(priorityActive);
+
+        priorityPassive = new StateNode(
+          102,
+          () => Enqueue<PlaySpellOrAbility>(Players.Passive),
+          () =>
+            {
+              if (WasPriorityPassed)
+              {
+                return Stack.IsEmpty
+                  ? priorityAfter
+                  : priorityBeginResolve;
+              }
+
+              return priorityPassiveStart;
+            }
+          );
+
+        nodes.Add(priorityPassive);
+
+        priorityPassiveStart = new StateNode(
+          103,
+          () => Enqueue<PlaySpellOrAbility>(Players.Passive),
+          () =>
+            {
+              if (WasPriorityPassed)
+              {
+                return priorityActive;
+              }
+
+              return priorityPassiveStart;
+            }
+          );
+
+        nodes.Add(priorityPassiveStart);
+
+        priorityBeginResolve = new StateNode(
+          104,
+          () => Stack.Resolve(),
+          () => priorityFinishResolve);
+
+        nodes.Add(priorityBeginResolve);
+
+        priorityFinishResolve = new StateNode(
+          105,
+          () =>
+            {
+              var effect = Stack.LastResolved;
+              if (effect != null)
+              {
+                effect.FinishResolve();
+              }
+            },
+          () => priorityActiveStart);
+
+        nodes.Add(priorityFinishResolve);
       }
 
-      public bool GetPriority { get; private set; }
+      priorityAfter = new StateNode(
+        106,
+        () =>
+          {
+            Players.Player1.EmptyManaPool();
+            Players.Player2.EmptyManaPool();
 
-      public Step Next { get { return _next(); } }
+            Publish(new StepFinished
+              {
+                Step = Turn.Step
+              });
+          },
+        () => null);
+      
+      nodes.Add(priorityAfter);
+      var nextNode = getsPriority ? priorityActiveStart : priorityAfter;
 
-      public Step Step { get; private set; }
-
-      public void First()
+      // create and connect step custom statenodes
+      var id = 1;
+      foreach (var action in before.Reverse())
       {
-        _first();
+        var currentNextNode = nextNode;
+        nextNode = new StateNode(id, action, () => currentNextNode);
+
+        nodes.Add(nextNode);
+        id++;
       }
 
-      public void Second()
-      {
-        _second();
-      }
+      startOfStep = new StateNode(
+        0,
+        () => Publish(new StepStarted(Turn.Step)),
+        () => nextNode);
 
-      public void Third()
-      {
-        _third();
-      }
+      nodes.Add(startOfStep);
 
-      public override string ToString()
-      {
-        return Step.ToString();
-      }
-    }
-
-    private class StepState
-    {
-      private readonly State _id;
-      private readonly Func<State> _next;
-      private readonly Action _proc;
-
-      public StepState(State id, Action proc, Func<State> next)
-      {
-        _proc = proc;
-        _next = next;
-        _id = id;
-      }
-
-
-      public State Next { get { return _next(); } }
-
-      public void Execute()
-      {
-        _proc();
-      }
-
-      public override string ToString()
-      {
-        return _id.ToString();
-      }
+      return nodes;
     }
   }
 
-  public enum State
+  public class StateNode
   {
-    Begin,
-    First,
-    Second,
-    Third,
-    Start,
-    Active,
-    Passive,
-    BeginResolve,
-    After,
-    End,
-    FinishResolve
+    public readonly Action Execute;
+    public readonly int Id;
+    public readonly Func<StateNode> Next;
+
+    public StateNode(int id, Action action, Func<StateNode> next)
+    {
+      Id = id;
+      Execute = action;
+      Next = next;
+    }
+  }
+
+  public class StepNode
+  {
+    public readonly Func<StepNode> Next;
+    public readonly List<StateNode> States;
+    public readonly Step Step;
+
+    public StepNode(Step step, List<StateNode> states, Func<StepNode> next)
+    {
+      Step = step;
+      Next = next;
+      States = states;
+    }
+
+    public StateNode Start { get { return States[States.Count - 1]; } }
   }
 }

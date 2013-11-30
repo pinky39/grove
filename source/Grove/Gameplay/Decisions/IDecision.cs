@@ -3,7 +3,7 @@
   public interface IDecision
   {
     bool HasCompleted { get; }
-    bool WasPriorityPassed { get; }    
+    bool IsPass { get; }    
     void Initialize(Player controller, Game game);
     void Execute();
     void SaveDecisionResults();

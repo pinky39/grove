@@ -18,7 +18,12 @@
         player1Controller: ControllerType.Machine,
         player2Controller: ControllerType.Machine,
         savedGame: savedGame));
-
+            
+      // 2 games will be equal only if game is in exact same state      
+      // load game only loads the game up to the last decision recorded
+      // resume the game until state count is equal
+      game1.Simulate(() => game1.Turn.StateCount < game.Turn.StateCount);      
+      
       // hash depends on card visibility, visibility depends
       // on who the searching player is.      
       game.Players.Searching = game.Players.Player1;

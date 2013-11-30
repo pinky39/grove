@@ -10,7 +10,7 @@
     public Player Controller { get; private set; }
 
     public virtual bool HasCompleted { get { return _hasCompleted; } }
-    public virtual bool WasPriorityPassed { get { return false; } }
+    public virtual bool IsPass { get { return false; } }
 
     public virtual void Initialize(Player controller, Game game)
     {

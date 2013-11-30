@@ -81,8 +81,8 @@
             {
               return (Turn.StateCount < p.SavedGame.StateCount - p.RollBack) || (_decisionQueue.Count > 0);
             }
-
-            return (Turn.StateCount < p.SavedGame.StateCount || Recorder.IsPlayback);
+            
+            return Recorder.IsPlayback;
           }, skipPreGame: false, looser: looser);
 
         Recorder.DiscardUnloadedResults();
@@ -220,6 +220,11 @@
     public object CreateSnapshot()
     {
       return ChangeTracker.CreateSnapshot();
+    }
+
+    public void Simulate(Func<bool> shouldContinue)
+    {
+      _stateMachine.Resume(shouldContinue);
     }
 
     public void Simulate(int maxStepCount)
