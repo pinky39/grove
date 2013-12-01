@@ -61,9 +61,13 @@
         {
           var nextStep = _currentStep.Value.Next();
 
+          while (Players.Active.ShouldSkipStep(nextStep.Step))
+          {
+            nextStep = nextStep.Next();
+          }
+
           _currentStep.Value = nextStep;
           nextState = nextStep.Start;
-
           Turn.Step = nextStep.Step;
         }
 
@@ -71,9 +75,7 @@
         Turn.State = nextState.Id;
 
         nextState.Execute();
-      }
-
-      LogFile.Debug("Game is finished.");
+      }      
     }
 
     public void Start(Func<bool> shouldContinue, bool skipPreGame, Player looser = null)

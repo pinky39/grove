@@ -6,6 +6,7 @@
   using Gameplay.Effects;
   using Gameplay.Misc;
   using Gameplay.Modifiers;
+  using Gameplay.States;
 
   public class Exhaustion : CardTemplateSource
   {
@@ -34,7 +35,10 @@
 
                   var modifier = new AddContiniousEffect(new ContinuousEffect(cp));
 
-                  modifier.AddLifetime(new EndOfUntapStep(l => l.Modifier.SourceCard.Controller.IsActive));
+                  modifier.AddLifetime(new EndOfStep(
+                    Step.Untap, 
+                    l => l.Modifier.SourceCard.Controller.IsActive));
+                  
                   return modifier;
                 });
 

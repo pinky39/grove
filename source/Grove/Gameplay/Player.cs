@@ -11,6 +11,7 @@
   using Messages;
   using Misc;
   using Modifiers;
+  using States;
   using Targeting;
   using Zones;
 
@@ -26,6 +27,7 @@
     private readonly Trackable<bool> _hasMulligan = new Trackable<bool>(true);
     private readonly Trackable<bool> _hasPriority = new Trackable<bool>();
     private readonly Trackable<bool> _isActive = new Trackable<bool>();
+    private readonly SkipSteps _skipSteps = new SkipSteps();
     private readonly LandLimit _landLimit = new LandLimit(1);
     private readonly Trackable<int> _landsPlayedCount = new Trackable<int>(0);
     private readonly Library _library;
@@ -62,6 +64,7 @@
       {
         yield return _landLimit;
         yield return _continiousEffects;
+        yield return _skipSteps;
       }
     }
 
@@ -241,6 +244,7 @@
       _graveyard.Initialize(Game);
       _library.Initialize(Game);
       _exile.Initialize(Game);
+      _skipSteps.Initialize(ChangeTracker);
 
       LoadLibrary();
     }
@@ -548,6 +552,11 @@
     public void ReorderTopCardsOfLibrary(int[] permutation)
     {
       _library.ReorderFront(permutation);
+    }
+
+    public bool ShouldSkipStep(Step step)
+    {
+      return _skipSteps.Contains(step);
     }
   }
 }

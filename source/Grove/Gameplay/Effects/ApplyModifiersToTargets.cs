@@ -3,16 +3,23 @@
   using System.Collections.Generic;
   using System.Linq;
   using Modifiers;
+  using Targeting;
 
   public class ApplyModifiersToTargets : Effect
   {
-    private readonly List<CardModifierFactory> _modifiers = new List<CardModifierFactory>();
+    private readonly List<CardModifierFactory> _cardModifiers = new List<CardModifierFactory>();
+    private readonly List<PlayerModifierFactory> _playerModifiers = new List<PlayerModifierFactory>();
 
     private ApplyModifiersToTargets() {}
 
-    public ApplyModifiersToTargets(params CardModifierFactory[] modifiers)
+    public ApplyModifiersToTargets(params CardModifierFactory[] cardModifiers)
     {
-      _modifiers.AddRange(modifiers);
+      _cardModifiers.AddRange(cardModifiers);
+    }
+
+    public ApplyModifiersToTargets(params PlayerModifierFactory[] playerModifiers)
+    {
+      _playerModifiers.AddRange(playerModifiers);
     }
 
     public override int CalculateToughnessReduction(Card card)
@@ -37,11 +44,22 @@
           X = X
         };
 
-      foreach (Card target in ValidEffectTargets)
+      foreach (var target in ValidEffectTargets)
       {
-        foreach (var modifier in _modifiers.Select(factory => factory()))
+        if (target.IsCard())
         {
-          target.AddModifier(modifier, p);
+          foreach (var modifier in _cardModifiers.Select(factory => factory()))
+          {
+            target.Card().AddModifier(modifier, p);
+          }
+        }
+
+        else if (target.IsPlayer())
+        {
+          foreach (var modifier in _playerModifiers.Select(factory => factory()))
+          {
+            target.Player().AddModifier(modifier, p);
+          }
         }
       }
     }

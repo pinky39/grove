@@ -170,6 +170,7 @@
     <Compile Include="Cards\ExpendableTroops.cs" />
     <Compile Include="Cards\Exploration.cs" />
     <Compile Include="Cards\Falter.cs" />
+    <Compile Include="Cards\Fatigue.cs" />
     <Compile Include="Cards\Fecundity.cs" />
     <Compile Include="Cards\FertileGround.cs" />
     <Compile Include="Cards\FesteringWound.cs" />

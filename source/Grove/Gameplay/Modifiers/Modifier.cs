@@ -80,6 +80,7 @@
     public virtual void Apply(ContiniousEffects continiousEffects) {}
     public virtual void Apply(LandLimit landLimit) {}
     public virtual void Apply(Strenght strenght) {}
+    public virtual void Apply(SkipSteps skipSteps) {}
 
     public void AddLifetime(Lifetime lifetime)
     {

@@ -180,6 +180,7 @@
     <Compile Include="Cards\Eviscerator.cs" />
     <Compile Include="Cards\ExpendableTroops.cs" />
     <Compile Include="Cards\FaerieConclave.cs" />
+    <Compile Include="Cards\Fatigue.cs" />
     <Compile Include="Cards\FesteringWound.cs" />
     <Compile Include="Cards\FleetingImage.cs" />
     <Compile Include="Cards\ForbiddingWatchtower.cs" />
@@ -276,6 +277,7 @@
     <Compile Include="Cards\WeatherseedFaeries.cs" />
     <Compile Include="Cards\WheelOfTorture.cs" />
     <Compile Include="Cards\WildColos.cs" />
+    <Compile Include="Gameplay\Characteristics\SkipSteps.cs" />
     <Compile Include="Gameplay\Characteristics\Strenght.cs" />
     <Compile Include="Gameplay\Costs\DiscardRandom.cs" />
     <Compile Include="Gameplay\Effects\CreatureGetsM1M1ForEachRevealedCard.cs" />
@@ -300,6 +302,7 @@
     <Compile Include="Gameplay\Messages\TypeChanged.cs" />
     <Compile Include="Gameplay\Modifiers\DisableAbility.cs" />
     <Compile Include="Gameplay\Modifiers\ModifyPowerToughnessEqualToTotalHandsCount.cs" />
+    <Compile Include="Gameplay\Modifiers\SkipStep.cs" />
     <Compile Include="Gameplay\Modifiers\SwitchPowerAndToughness.cs" />
     <Compile Include="Gameplay\States\TurnEvents.cs" />
     <Compile Include="Gameplay\Targeting\ValidateTargetDependenciesParam.cs" />
@@ -1086,7 +1089,7 @@
     <Compile Include="Artifical\Decisions\SelectCards.cs" />
     <Compile Include="Gameplay\Characteristics\LandLimit.cs" />
     <Compile Include="Gameplay\Modifiers\AddContiniousEffect.cs" />
-    <Compile Include="Gameplay\Modifiers\EndOfUntapStep.cs" />
+    <Compile Include="Gameplay\Modifiers\EndOfStep.cs" />
     <Compile Include="Gameplay\Decisions\ChooseEffectOptions.cs" />
     <Compile Include="UserInterface\Decisions\CardSelector.cs" />
     <Compile Include="UserInterface\Decisions\ChooseEffectOptions.cs" />
