@@ -35,7 +35,7 @@
     protected override void CanPay(CanPayResult result)
     {
       // mana checking is an expensive operation
-      // so it should only be done when nessesery
+      // so it should only be done when nessesary
       // the following lazy evaluation allows ai
       // to only check mana costs when all the cheaper
       // timing tests are successful
@@ -48,8 +48,8 @@
     }
 
     protected override void PayCost(Targets targets, int? x, int repeat)
-    {
-      var amount = _amount;
+    {      
+      var amount = Game.GetActualCost(_amount, _manaUsage, Card);
 
       if (x.HasValue)
         amount = amount.Add(x.Value.Colorless());
@@ -124,26 +124,30 @@
       {
         if (_isEvaluated)
           return;
+        
+        var manaUsage = _payMana._manaUsage;
+        var controller = _payMana.Card.Controller;
 
-        _canPay = _payMana.Card.Controller.HasMana(_payMana._amount, _payMana._manaUsage);
+        var actualCost = _payMana.Game.GetActualCost(_payMana._amount, manaUsage, _payMana.Card);        
+        _canPay = controller.HasMana(actualCost, manaUsage);
 
         if (_canPay)
         {
           if (_payMana._hasX)
           {
-            _maxX = _payMana.Card.Controller.GetConvertedMana(_payMana._manaUsage) - _payMana._amount.Converted;
+            _maxX = controller.GetConvertedMana(manaUsage) - actualCost.Converted;
           }
 
           if (_payMana._supportsRepetitions)
           {
             var count = 1;
-            var amount = _payMana._amount;
+            var amount = actualCost;
 
             while (true)
             {
-              amount = amount.Add(_payMana._amount);
+              amount = amount.Add(actualCost);
 
-              if (!_payMana.Card.Controller.HasMana(amount, _payMana._manaUsage))
+              if (!controller.HasMana(amount, manaUsage))
               {
                 break;
               }

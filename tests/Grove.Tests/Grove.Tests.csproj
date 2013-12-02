@@ -88,6 +88,7 @@
     <Compile Include="Cards\AbyssalHorror.cs" />
     <Compile Include="Cards\AcademyResearchers.cs" />
     <Compile Include="Cards\Acridian.cs" />
+    <Compile Include="Cards\AetherSting.cs" />
     <Compile Include="Cards\Anaconda.cs" />
     <Compile Include="Cards\AngelicChorus.cs" />
     <Compile Include="Cards\AngelsTrumpet.cs" />
@@ -361,6 +362,7 @@
     <Compile Include="Cards\Umbilicus.cs" />
     <Compile Include="Cards\UnworthyDead.cs" />
     <Compile Include="Cards\UrzasArmor.cs" />
+    <Compile Include="Cards\UrzasIncubator.cs" />
     <Compile Include="Cards\VampiricEmbrace.cs" />
     <Compile Include="Cards\Vebulid.cs" />
     <Compile Include="Cards\VeiledCrocodile.cs" />

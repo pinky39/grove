@@ -15,7 +15,7 @@
     {
       _damagePrevention = damagePrevention;
     }
-    
+
     public AddDamagePrevention(Func<Modifier, DamagePrevention> damagePreventionFactory)
     {
       _damagePreventionFactory = damagePreventionFactory;

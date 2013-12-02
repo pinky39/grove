@@ -153,6 +153,7 @@
     <Compile Include="Artifical\TimingRules\OnYourTurn.cs" />
     <Compile Include="Artifical\TimingRules\WhenStackIsNotEmpty.cs" />
     <Compile Include="Cards\AboutFace.cs" />
+    <Compile Include="Cards\AetherSting.cs" />
     <Compile Include="Cards\AngelicCurator.cs" />
     <Compile Include="Cards\AngelsTrumpet.cs" />
     <Compile Include="Cards\Anthroplasm.cs" />
@@ -210,6 +211,7 @@
     <Compile Include="Cards\Levitation.cs" />
     <Compile Include="Cards\LurkingSkirge.cs" />
     <Compile Include="Cards\MantisEngine.cs" />
+    <Compile Include="Cards\MarkOfFury.cs" />
     <Compile Include="Cards\MartyrsCause.cs" />
     <Compile Include="Cards\MemoryJar.cs" />
     <Compile Include="Cards\MightOfOaks.cs" />
@@ -270,6 +272,7 @@
     <Compile Include="Cards\TrumpetBlast.cs" />
     <Compile Include="Cards\Unearth.cs" />
     <Compile Include="Cards\UrzasBlueprints.cs" />
+    <Compile Include="Cards\UrzasIncubator.cs" />
     <Compile Include="Cards\ViashinoSandscout.cs" />
     <Compile Include="Cards\VigilantDrake.cs" />
     <Compile Include="Cards\WalkingSponge.cs" />
@@ -279,8 +282,12 @@
     <Compile Include="Cards\WildColos.cs" />
     <Compile Include="Gameplay\Characteristics\SkipSteps.cs" />
     <Compile Include="Gameplay\Characteristics\Strenght.cs" />
+    <Compile Include="Gameplay\Costs\CostModifier.cs" />
+    <Compile Include="Gameplay\Costs\CostModifiers.cs" />
+    <Compile Include="Gameplay\Costs\SpellCostModifier.cs" />
     <Compile Include="Gameplay\Costs\DiscardRandom.cs" />
     <Compile Include="Gameplay\Effects\CreatureGetsM1M1ForEachRevealedCard.cs" />
+    <Compile Include="Gameplay\Effects\CreaturesOfChosenTypeCostLess.cs" />
     <Compile Include="Gameplay\Effects\DestroyAttachedAuras.cs" />
     <Compile Include="Gameplay\Effects\ExchangeCardsInBattlefieldAndGraveyard.cs" />
     <Compile Include="Gameplay\Effects\ExileOwnerUnlessYouDiscardCreatureCard.cs" />
@@ -300,6 +307,7 @@
     <Compile Include="Gameplay\Effects\TargetPlayerLoosesLife.cs" />
     <Compile Include="Gameplay\Messages\SpellWasCountered.cs" />
     <Compile Include="Gameplay\Messages\TypeChanged.cs" />
+    <Compile Include="Gameplay\Modifiers\AddCostModifier.cs" />
     <Compile Include="Gameplay\Modifiers\DisableAbility.cs" />
     <Compile Include="Gameplay\Modifiers\ModifyPowerToughnessEqualToTotalHandsCount.cs" />
     <Compile Include="Gameplay\Modifiers\SkipStep.cs" />

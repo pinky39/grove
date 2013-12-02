@@ -4,6 +4,7 @@
   using System.Collections.Generic;
   using Abilities;
   using Characteristics;
+  using Costs;
   using Counters;
   using DamageHandling;
   using Effects;
@@ -81,6 +82,7 @@
     public virtual void Apply(LandLimit landLimit) {}
     public virtual void Apply(Strenght strenght) {}
     public virtual void Apply(SkipSteps skipSteps) {}
+    public virtual void Apply(CostModifiers costModifiers) {}
 
     public void AddLifetime(Lifetime lifetime)
     {

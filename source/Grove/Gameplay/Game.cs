@@ -3,10 +3,12 @@
   using System;
   using System.Collections.Generic;
   using Artifical;
+  using Costs;
   using DamageHandling;
   using Decisions;
   using Decisions.Scenario;
   using Infrastructure;
+  using ManaHandling;
   using Modifiers;
   using Persistance;
   using States;
@@ -18,6 +20,7 @@
   {
     private readonly DamagePreventions _damagePreventions;
     private readonly DamageRedirections _damageRedirections;
+    private readonly CostModifiers _costModifiers;
     private readonly DecisionQueue _decisionQueue;
     private readonly DecisionSystem _decisionSystem;
     private readonly TrackableList<IGameModifier> _modifiers = new TrackableList<IGameModifier>();
@@ -49,6 +52,7 @@
 
       _damagePreventions = new DamagePreventions();
       _damageRedirections = new DamageRedirections();
+      _costModifiers = new CostModifiers();
 
       if (p.IsSavedGame)
       {
@@ -96,6 +100,7 @@
       {
         yield return _damagePreventions;
         yield return _damageRedirections;
+        yield return _costModifiers;
       }
     }
 
@@ -166,6 +171,7 @@
 
       _damageRedirections.Initialize(ChangeTracker);
       _damagePreventions.Initialize(ChangeTracker);
+      _costModifiers.Initialize(ChangeTracker);
       _modifiers.Initialize(ChangeTracker);
     }
 
@@ -285,6 +291,11 @@
     public interface IFactory
     {
       Game Create(GameParameters p);
+    }
+
+    public IManaAmount GetActualCost(IManaAmount amount, ManaUsage usage, Card card)
+    {
+      return _costModifiers.GetActualCost(amount, usage, card);
     }
   }
 }

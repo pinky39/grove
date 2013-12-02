@@ -7,6 +7,7 @@
   using Gameplay.Misc;
   using Gameplay.States;
   using Gameplay.Triggers;
+  using Gameplay.Zones;
 
   public class ViashinoCutthroat : CardTemplateSource
   {
