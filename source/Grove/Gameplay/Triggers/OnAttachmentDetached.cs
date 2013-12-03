@@ -1,5 +1,6 @@
 ﻿namespace Grove.Gameplay.Triggers
 {
+  using System;
   using Infrastructure;
   using Messages;
 
@@ -7,7 +8,7 @@
   {
     public void Receive(AttachmentDetached message)
     {
-      if (message.Attachment == Ability.SourceCard)
+      if (message.AttachedTo == Ability.SourceCard)
         Set(message);
     }
   }

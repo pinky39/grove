@@ -183,6 +183,7 @@
     <Compile Include="Cards\FaerieConclave.cs" />
     <Compile Include="Cards\Fatigue.cs" />
     <Compile Include="Cards\FesteringWound.cs" />
+    <Compile Include="Cards\FledglingOsprey.cs" />
     <Compile Include="Cards\FleetingImage.cs" />
     <Compile Include="Cards\ForbiddingWatchtower.cs" />
     <Compile Include="Cards\FranticSearch.cs" />
@@ -214,6 +215,7 @@
     <Compile Include="Cards\MarkOfFury.cs" />
     <Compile Include="Cards\MartyrsCause.cs" />
     <Compile Include="Cards\MemoryJar.cs" />
+    <Compile Include="Cards\MetathranElite.cs" />
     <Compile Include="Cards\MightOfOaks.cs" />
     <Compile Include="Cards\Miscalculation.cs" />
     <Compile Include="Cards\MultaniMaroSorcerer.cs" />
@@ -950,6 +952,7 @@
     <Compile Include="Gameplay\Tournaments\TournamentParameters.cs" />
     <Compile Include="Gameplay\Tournaments\TournamentRunner.cs" />
     <Compile Include="Gameplay\Tournaments\TournamentType.cs" />
+    <Compile Include="Gameplay\Triggers\OnAttachmentAttached.cs" />
     <Compile Include="Gameplay\Triggers\OnCounteredSpell.cs" />
     <Compile Include="Gameplay\Triggers\OnLandPlayed.cs" />
     <Compile Include="Gameplay\Triggers\OnLifepointsLeft.cs" />

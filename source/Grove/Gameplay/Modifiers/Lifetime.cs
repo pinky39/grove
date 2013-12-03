@@ -14,7 +14,6 @@
     public Modifier Modifier { get; private set; }
     protected Card OwningCard { get { return Modifier.OwningCard; } }
 
-
     protected void End()
     {
       Ended.Raise();

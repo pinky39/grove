@@ -176,6 +176,7 @@
     <Compile Include="Cards\FertileGround.cs" />
     <Compile Include="Cards\FesteringWound.cs" />
     <Compile Include="Cards\FieryMantle.cs" />
+    <Compile Include="Cards\FledglingOsprey.cs" />
     <Compile Include="Cards\FogBank.cs" />
     <Compile Include="Cards\Fortitude.cs" />
     <Compile Include="Cards\FranticSearch.cs" />
