@@ -286,6 +286,7 @@
     <Compile Include="Cards\Rancor.cs" />
     <Compile Include="Cards\RankAndFile.cs" />
     <Compile Include="Cards\RavenFamiliar.cs" />
+    <Compile Include="Cards\RayneAcademyChancellor.cs" />
     <Compile Include="Cards\Raze.cs" />
     <Compile Include="Cards\Recantation.cs" />
     <Compile Include="Cards\ReclusiveWight.cs" />

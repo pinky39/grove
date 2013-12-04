@@ -701,6 +701,11 @@
       return _simpleAbilities;
     }
 
+    public bool IsEnchanted
+    {
+      get { return _attachments.Cards.Any(x => x.Is().Aura); }
+    }
+
     public bool HasAttachment(Card card)
     {
       return _attachments.Contains(card);

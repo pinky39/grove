@@ -244,6 +244,7 @@
     <Compile Include="Cards\RankAndFile.cs" />
     <Compile Include="Cards\RavenFamiliar.cs" />
     <Compile Include="Cards\RavenousRats.cs" />
+    <Compile Include="Cards\RayneAcademyChancellor.cs" />
     <Compile Include="Cards\Rebuild.cs" />
     <Compile Include="Cards\Repopulate.cs" />
     <Compile Include="Cards\RingOfGix.cs" />
