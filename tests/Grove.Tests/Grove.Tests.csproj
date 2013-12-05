@@ -342,6 +342,7 @@
     <Compile Include="Cards\TaintedAether.cs" />
     <Compile Include="Cards\ThievingMagpie.cs" />
     <Compile Include="Cards\ThornwindFaeries.cs" />
+    <Compile Include="Cards\ThranGolem.cs" />
     <Compile Include="Cards\ThranTurbine.cs" />
     <Compile Include="Cards\ThranWarMachine.cs" />
     <Compile Include="Cards\ThranWeaponry.cs" />
