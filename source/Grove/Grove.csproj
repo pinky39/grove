@@ -271,6 +271,7 @@
     <Compile Include="Cards\ThranWarMachine.cs" />
     <Compile Include="Cards\ThranWeaponry.cs" />
     <Compile Include="Cards\Tinker.cs" />
+    <Compile Include="Cards\TormentedAngel.cs" />
     <Compile Include="Cards\TragicPoet.cs" />
     <Compile Include="Cards\TreefolkMystic.cs" />
     <Compile Include="Cards\TrumpetBlast.cs" />
@@ -1286,6 +1287,10 @@
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserInterface\NewTournament\ViewModel.cs" />
+    <Compile Include="UserInterface\NextTurn\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterface\NextTurn\ViewModel.cs" />
     <Compile Include="UserInterface\PlayerBox\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
@@ -1714,6 +1719,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserInterface\NewTournament\View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterface\NextTurn\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

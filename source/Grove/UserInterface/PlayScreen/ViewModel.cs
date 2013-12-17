@@ -4,6 +4,7 @@
   using System.Collections.Generic;
   using System.Linq;
   using System.Threading;
+  using System.Windows.Media;
   using Gameplay.Messages;
   using Infrastructure;
   using Persistance;
@@ -12,10 +13,10 @@
     IReceive<PlayerHasActivatedAbility>,
     IReceive<SearchStarted>, IReceive<SearchFinished>, IReceive<DamageHasBeenDealt>,
     IReceive<AssignedCombatDamageWasDealt>, IReceive<CardWasRevealed>, IReceive<PlayerHasFlippedACoin>,
-    IReceive<EffectOptionsWereChosen>, IDisposable
+    IReceive<EffectOptionsWereChosen>, IReceive<TurnStarted>, IDisposable
   {
     private readonly List<object> _largeDialogs = new List<object>();
-    private readonly List<object> _smallDialogs = new List<object>();          
+    private readonly List<object> _smallDialogs = new List<object>();
 
     private ScenarioGenerator _scenarioGenerator;
 
@@ -33,7 +34,7 @@
     public MessageLog.ViewModel MessageLog { get; set; }
     public Battlefield.ViewModel YourBattlefield { get; private set; }
     public Zones.ViewModel Zones { get; set; }
-    public virtual QuitGame.ViewModel QuitGameDialog { get; protected set; }
+    public virtual QuitGame.ViewModel QuitGameDialog { get; protected set; }    
 
     public void Dispose()
     {
@@ -146,6 +147,16 @@
         });
     }
 
+    public void Receive(TurnStarted message)
+    {
+      var dialog = ViewModels.NextTurn.Create();
+      Shell.ShowDialog(dialog);
+
+      // sync delay
+      Thread.Sleep(1500);
+      dialog.Close();                  
+    }
+
     public override void Initialize()
     {
       _scenarioGenerator = new ScenarioGenerator(CurrentGame);
@@ -159,6 +170,8 @@
     {
       _scenarioGenerator.WriteScenario();
     }
+
+    
 
     public void QuitGame()
     {

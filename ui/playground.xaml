@@ -22,18 +22,33 @@
          <ColumnDefinition Width="*"/>
       </Grid.ColumnDefinitions>
    <!-- Topbar -->
-      <Border  Grid.Column="1" Grid.Row="0" Style="{StaticResource Bar}">
+      <Border  Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Style="{StaticResource Bar}">
         <Grid>
            <Grid.ColumnDefinitions>
               <ColumnDefinition Width="Auto"/>
+              <ColumnDefinition Width="Auto"/>
               <ColumnDefinition Width="*"/>            
            </Grid.ColumnDefinitions>           
-           <ContentControl Grid.Column="1" Content="{StaticResource TurnInfo}" Margin="0,0,0,0"/>         
+           <ContentControl Grid.Column="0" Content="{StaticResource ManaPool}" Margin="0,0,0,0"/>           
+           <ContentControl Grid.Column="2" Content="{StaticResource TurnInfo}" Margin="0,0,0,0"/>
+             <ContentControl Grid.Column="1" Style="{StaticResource Separator}">
+         <StackPanel Margin="6,0,4,0" Orientation="Horizontal">
+            <StackPanel.Resources>
+               <Style BasedOn="{StaticResource Label}" TargetType="TextBlock">
+                  <Setter Property="Margin" Value="0,0,4,0"/>
+                  <Setter Property="FontSize" Value="15"/>
+                </Style>
+            </StackPanel.Resources>
+            <TextBlock Text="Turn:" />
+            <TextBlock Text="4" />
+         </StackPanel>
+         </ContentControl>   
+           
         </Grid>
       </Border>
    <!-- End Topbar -->
    <!-- Sidebar -->
-      <Border Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Background="{StaticResource BarBackground}" >
+      <Border Grid.Column="0" Grid.Row="1" Background="{StaticResource BarBackground}" >
       <Grid>
          <Grid.RowDefinitions>
             <RowDefinition Height="420"/>
@@ -74,20 +89,7 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>                        
          </Grid.ColumnDefinitions>         
-         <ContentControl Grid.Column="0" Content="{StaticResource PlayerBox}" Margin="15,0,0,0"/>                     
-         <ContentControl Grid.Column="2" Content="{StaticResource ManaPool}" Margin="0,0,15,0"/>           
-        <ContentControl Grid.Column="1" Style="{StaticResource Separator}">
-         <StackPanel Margin="6,0,4,0" Orientation="Horizontal">
-            <StackPanel.Resources>
-               <Style BasedOn="{StaticResource Label}" TargetType="TextBlock">
-                  <Setter Property="Margin" Value="0,0,4,0"/>
-                  <Setter Property="FontSize" Value="16"/>
-                </Style>
-            </StackPanel.Resources>
-            <TextBlock Text="Turn:" />
-            <TextBlock Text="4" />
-         </StackPanel>
-         </ContentControl>   
+         <ContentControl Grid.Column="0" Content="{StaticResource PlayerBox}" Margin="15,0,0,0"/>                                    
       </Grid>
            
    </Grid>    

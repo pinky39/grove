@@ -44,7 +44,7 @@
             <ContentControl Style="{StaticResource Separator}" Background="{StaticResource SelectedBarBackground}">
                <StackPanel Orientation="Horizontal">
                   <Image Source="..\media\images\Circle-Green.png"/>
-                  <TextBlock Foreground="{StaticResource HighlightColor}" Text="First main"/>
+                  <TextBlock Foreground="{StaticResource HighlightColor}" Text="1st main"/>
                </StackPanel>
             </ContentControl>
             <ContentControl Style="{StaticResource Separator}">
@@ -80,7 +80,7 @@
             <ContentControl Style="{StaticResource Separator}">
                <StackPanel Orientation="Horizontal">
                   <Image Source="..\media\images\Circle-Red.png"/>
-                  <TextBlock Text="Second main"/>
+                  <TextBlock Text="2nd main"/>
                </StackPanel>
             </ContentControl>
             <ContentControl Style="{StaticResource Separator}">
@@ -92,7 +92,7 @@
             <ContentControl Style="{StaticResource Separator}">
                <StackPanel Orientation="Horizontal">
                   <Image Source="..\media\images\Circle-Transparent.png"/>
-                  <TextBlock Text="End of turn"/>
+                  <TextBlock Text="Eot"/>
                </StackPanel>
             </ContentControl>
              <ContentControl Style="{StaticResource Separator}"/>

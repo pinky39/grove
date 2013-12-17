@@ -6,6 +6,7 @@
       <ResourceDictionary.MergedDictionaries>                
         <ResourceDictionary Source="playground.xaml" />
         <ResourceDictionary Source="MessageBox.xaml" />        
+        <ResourceDictionary Source="NextTurn.xaml" />   
         <ResourceDictionary Source="SelectAbility.xaml" />  
         <ResourceDictionary Source="SelectXCost.xaml" />  
         <ResourceDictionary Source="SelectAttackers.xaml" />        
@@ -23,13 +24,11 @@
       <Grid>
         <!--<ContentControl Content="{StaticResource StartScreen}" />-->
         <ContentControl Content="{StaticResource Playground}" />
-       <ContentControl Content="{StaticResource Stack}" />
-       <ContentControl Style="{StaticResource Dialog}" Content="{StaticResource DamageDistribution}" />
-        <!--<ContentControl Style="{StaticResource Dialog}" Content="{StaticResource MessageBox}" />-->        
+       <!--<ContentControl Content="{StaticResource Stack}" />-->
+       <!--<ContentControl Style="{StaticResource Dialog}" Content="{StaticResource DamageDistribution}" />-->
+        <ContentControl Style="{StaticResource Dialog}" Content="{StaticResource NextTurn}" />
         <!--<ContentControl Style="{StaticResource Dialog}" Content="{StaticResource SelectAbility}" />-->
-        <!--<ContentControl Style="{StaticResource DialogSmall}" Content="{StaticResource SelectAttackers}" />-->
-        <!--<ContentControl Style="{StaticResource Dialog}" Content="{StaticResource CastWithoutTarget}" />-->
-        <!--<ContentControl Style="{StaticResource Dialog}" Content="{StaticResource CastWithTarget}" />-->
+        <!--<ContentControl Style="{StaticResource DialogSmall}" Content="{StaticResource SelectAttackers}" />-->        
         <!--<ContentControl Style="{StaticResource Dialog}" Content="{StaticResource DamageAssignmentOrder}" />-->
         <!--<ContentControl Style="{StaticResource Dialog}" Content="{StaticResource EndOfGame}" />-->
         <!--<ContentControl Style="{StaticResource Dialog}" Content="{StaticResource EndOfMatch}" />-->        

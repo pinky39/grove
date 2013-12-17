@@ -6,10 +6,10 @@
       <StackPanel Orientation="Horizontal">
          <StackPanel.Resources>
             <Style BasedOn="{StaticResource Label}" TargetType="TextBlock" >
-              <Setter Property="Margin" Value="0,0,5,0"/> 
+              <Setter Property="Margin" Value="0,0,8,0"/> 
             </Style>
             <Style BasedOn="{StaticResource Icon}" TargetType="Image" >
-              <Setter Property="Margin" Value="0,0,5,0"/>
+              <Setter Property="Margin" Value="0,0,8,0"/>
             </Style>
          </StackPanel.Resources>                  
          <Image Source="..\media\images\w.png"/>

@@ -1,5 +1,6 @@
 ﻿namespace Grove.UserInterface
 {
+  using System;
   using LoadSavedGame;
 
   public class ViewModelFactories
@@ -32,5 +33,6 @@
     public PlayScreen.ViewModel.IFactory PlayScreen { get; set; }
     public Leaderboard.ViewModel.IFactory LeaderBoard { get; set; }
     public ViewModel.IFactory LoadSavedGame { get; set; }
+    public NextTurn.ViewModel.IFactory NextTurn { get; set; }
   }
 }

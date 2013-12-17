@@ -9,9 +9,9 @@
 		<GradientStop Offset="0.0" Color="#cc000000" />
 		<GradientStop Offset="0.1" Color="#dd000000" />
 		<GradientStop Offset="0.2" Color="#f0000000" />
-	</LinearGradientBrush>
+	</LinearGradientBrush>    
 
-	<LinearGradientBrush x:Key="StartScreenBackground" StartPoint="0.5,0" EndPoint="0.5,1">
+    <LinearGradientBrush x:Key="StartScreenBackground" StartPoint="0.5,0" EndPoint="0.5,1">
 		<GradientStop Offset="0.0" Color="#222" />
 		<GradientStop Offset="0.2" Color="#111" />
 		<GradientStop Offset="0.4" Color="#000" />

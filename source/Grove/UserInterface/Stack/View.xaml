@@ -5,7 +5,17 @@
 				<DataTrigger Binding="{Binding Effects.Count}" Value="0">
 					<Setter Property="Visibility" Value="Collapsed" />
 				</DataTrigger>
-			</Style.Triggers>
+
+                <Trigger Property="IsVisible" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.0" To="1.0" Duration="0:0:0.2" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                </Trigger>
+            </Style.Triggers>
 		</Style>
 	</UserControl.Resources>
 
@@ -53,14 +63,14 @@
 						</i:Interaction.Triggers>
 					</ContentControl>
 
-					<Border Width="125" Height="80" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,50,20,0">
+					<Border Width="140" Height="120" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,30,20,0">
 						<Viewbox VerticalAlignment="Center" HorizontalAlignment="Right">
 							<ItemsControl ItemsSource="{Binding Targets.Effect}">
 
 								<ItemsControl.Resources>
 									<DataTemplate DataType="{x:Type Gameplay:Player}">
 										<Viewbox>
-                                            <Border Width="324" >                                                
+                                            <Border Width="290" >                                                
                                                 <Image Source="{Binding AvatarId, Converter={x:Static Ui:Converters.AvatarIdToAvatarImage}}"/>                                                
                                             </Border>
 										</Viewbox>
