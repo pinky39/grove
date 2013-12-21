@@ -53,8 +53,8 @@
     }
 
     public bool Remove(Permanent.ViewModel viewModel)
-    {
-      return _permanents.Remove(viewModel);
+    {                  
+      return _permanents.Remove(viewModel);      
     }
 
     private int? GetEnchantmentOrEquipmentPosition(Card card)

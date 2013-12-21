@@ -28,7 +28,7 @@
           CreatureSlot(),
           CreatureSlot(),
           MiscSlot(),
-          MiscSlot()          
+          MiscSlot()
           ),
       };
 
@@ -41,6 +41,14 @@
     public Row Row1 { get { return SwitchRows ? _rows[1] : _rows[0]; } }
     public Row Row2 { get { return SwitchRows ? _rows[0] : _rows[1]; } }
     public bool SwitchRows { get { return _owner == Players.Player2; } }
+
+    public void Dispose()
+    {
+      foreach (var row in _rows)
+      {
+        row.Dispose();
+      }
+    }
 
     public void Receive(AttachmentAttached message)
     {
@@ -76,9 +84,11 @@
 
     private void OnCardRemoved(object sender, ZoneChangedEventArgs e)
     {
-      var viewModel = Remove(e.Card);
-      viewModel.Close();
+      var viewModel = GetPermanent(e.Card);
+      viewModel.OnPermanentLeftBattlefield();
       ViewModels.Permanent.Destroy(viewModel);
+
+      Remove(viewModel);
     }
 
     private void OnCardAdded(object sender, ZoneChangedEventArgs e)
@@ -115,7 +125,8 @@
 
     private void Attach(Card attachment)
     {
-      var viewModel = Remove(attachment);
+      var viewModel = GetPermanent(attachment);
+      Remove(viewModel);
 
       foreach (var row in _rows)
       {
@@ -129,13 +140,16 @@
 
     private void Detach(Card equipment)
     {
-      var viewModel = Remove(equipment);
+      var viewModel = GetPermanent(equipment);
 
       if (viewModel != null)
+      {
+        Remove(viewModel);
         Add(viewModel);
+      }
     }
 
-    private Permanent.ViewModel Remove(Card card)
+    private Permanent.ViewModel GetPermanent(Card card)
     {
       foreach (var row in _rows)
       {
@@ -143,7 +157,6 @@
 
         if (viewModel != null)
         {
-          row.Remove(viewModel);
           return viewModel;
         }
       }
@@ -151,17 +164,20 @@
       return null;
     }
 
-    public interface IFactory
-    {
-      ViewModel Create(Player owner);
-    }
-
-    public void Dispose()
+    private void Remove(Permanent.ViewModel permanent)
     {
       foreach (var row in _rows)
       {
-        row.Dispose();
+        var removed = row.Remove(permanent);
+
+        if (removed)
+          break;
       }
+    }
+
+    public interface IFactory
+    {
+      ViewModel Create(Player owner);
     }
   }
 }

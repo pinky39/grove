@@ -46,7 +46,7 @@
     public string Set { get { return Card.Set; } }
     public Rarity? Rarity { get { return Card.Rarity; } }
 
-    public void Dispose()
+    public virtual void Dispose()
     {
       _timer.Dispose();
     }

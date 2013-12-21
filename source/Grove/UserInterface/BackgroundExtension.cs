@@ -7,7 +7,7 @@
   using System.Windows.Markup;
   using System.Windows.Media;
   using Infrastructure;
-
+    
   public class BackgroundExtension : MarkupExtension
   {
     private static readonly List<ImageSource> Backgrounds;

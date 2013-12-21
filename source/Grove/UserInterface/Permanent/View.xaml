@@ -2,22 +2,31 @@
 	<UserControl.Resources>
 
 		<Style TargetType="Button" x:Key="TapUntap" BasedOn="{StaticResource SelectableContent}">
-			<Style.Triggers>
-				<DataTrigger Binding="{Binding IsTapped}" Value="True">
+            
+            <Style.Triggers>
+				
+                <DataTrigger Binding="{Binding IsTapped}" Value="True">
 					<Setter Property="LayoutTransform">
 						<Setter.Value>
 							<RotateTransform Angle="90" />
 						</Setter.Value>
 					</Setter>
-				</DataTrigger>
+				</DataTrigger>                                       
 
 			</Style.Triggers>
 		</Style>
 
 	</UserControl.Resources>
 
-	<Button Style="{StaticResource TapUntap}" Width="110">
-		<i:Interaction.Triggers>
+	<Button x:Name="CardControl" Style="{StaticResource TapUntap}" Width="110" VerticalAlignment="Center" HorizontalAlignment="Center">
+        
+        <Button.Resources>
+            <Storyboard x:Key="RemovePermanentStoryboard">
+                <DoubleAnimation Storyboard.TargetName="CardControl" Storyboard.TargetProperty="Opacity" From="1.0" To="0.0" Duration="0:0:0.5" />                                    
+            </Storyboard>
+        </Button.Resources>
+                        
+        <i:Interaction.Triggers>
 			<i:EventTrigger EventName="MouseEnter">
 				<cal:ActionMessage MethodName="ChangePlayersInterest" />
 			</i:EventTrigger>
@@ -25,7 +34,12 @@
 				<cal:ActionMessage MethodName="Select" />
 			</i:EventTrigger>
 		</i:Interaction.Triggers>
-		<Grid>
+
+        <i:Interaction.Behaviors>
+            <UserInterface:AnimationBehaviour Story="{StaticResource RemovePermanentStoryboard}" Animation="{Binding RemoveAnimation}" />
+        </i:Interaction.Behaviors>
+
+        <Grid>
 			<ContentControl Content="{Binding }" Style="{StaticResource Card}" />
 
 			<Border Background="{StaticResource TargetOfSpell}" Visibility="{Binding IsTargetOfSpell, Converter={x:Static UserInterface:Converters.BooleanToVisibility}}" />

@@ -16,44 +16,21 @@
     IReceive<RemovedFromCombat>, IReceive<AttackerJoinedCombat>, IReceive<BlockerJoinedCombat>, IReceive<TargetSelected>,
     IReceive<TargetUnselected>
   {
-    private readonly CombatMarkers _combatMarkers;
+    private readonly CombatMarkers _combatMarkers;    
 
     private Action _select = delegate { };
 
     public ViewModel(Card card, CombatMarkers combatMarkers) : base(card)
     {
-      _combatMarkers = combatMarkers;      
-    }
-
-    public override void Initialize()
-    {
-      base.Initialize();
-      InitializeMarker();
-    }
-
-    private void InitializeMarker()
-    {
-      if (Combat.IsAttacker(Card))
-      {
-        Marker = _combatMarkers.GenerateMarker(Card);
-      }
-      else if (Combat.IsBlocker(Card))
-      {
-        var attacker = Combat.GetAttacker(Card);        
-
-        // attacker could be killed e.g when blocker has first
-        // strike and this is a loaded game.
-        if (attacker != null)
-        {
-          Marker = _combatMarkers.GenerateMarker(attacker);
-        }
-      }
+      _combatMarkers = combatMarkers;
+      RemoveAnimation = Animation.Create();
     }
 
     public virtual bool IsPlayable { get; protected set; }
     public virtual bool IsTargetOfSpell { get; protected set; }
     public virtual int Marker { get; protected set; }
     public virtual bool IsSelected { get; protected set; }
+    public Animation RemoveAnimation { get; private set; }
 
     public void Receive(AttackerJoinedCombat message)
     {
@@ -171,16 +148,42 @@
       IsSelected = false;
     }
 
+    public override void Initialize()
+    {
+      base.Initialize();
+      InitializeMarker();
+    }
+
+    private void InitializeMarker()
+    {
+      if (Combat.IsAttacker(Card))
+      {
+        Marker = _combatMarkers.GenerateMarker(Card);
+      }
+      else if (Combat.IsBlocker(Card))
+      {
+        var attacker = Combat.GetAttacker(Card);
+
+        // attacker could be killed e.g when blocker has first
+        // strike and this is a loaded game.
+        if (attacker != null)
+        {
+          Marker = _combatMarkers.GenerateMarker(attacker);
+        }
+      }
+    }
+
     public void ChangePlayersInterest()
     {
       ChangePlayersInterest(this);
     }
 
-    public virtual void Close()
+    public void OnPermanentLeftBattlefield()
     {
       _combatMarkers.ReleaseMarker(Card);
+      RemoveAnimation.Start();
     }
-
+    
     public void Select()
     {
       _select();
@@ -318,7 +321,7 @@
     {
       Shell.Publish(new SelectionChanged {Selection = Card});
     }
-
+    
     public interface IFactory
     {
       ViewModel Create(Card card);

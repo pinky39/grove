@@ -10,6 +10,7 @@
     public View()
     {
       InitializeComponent();
-    }
+      
+    }   
   }
 }

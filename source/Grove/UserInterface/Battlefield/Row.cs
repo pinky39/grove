@@ -53,14 +53,16 @@
       return null;
     }
 
-    public void Remove(Permanent.ViewModel viewModel)
+    public bool Remove(Permanent.ViewModel viewModel)
     {
       foreach (var slot in Slots)
       {
         var removed = slot.Remove(viewModel);
         if (removed)
-          break;
+          return true;
       }
+
+      return false;
     }
 
     public void Clear()
