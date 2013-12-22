@@ -22,7 +22,13 @@
         
         <Button.Resources>
             <Storyboard x:Key="RemovePermanentStoryboard">
-                <DoubleAnimation Storyboard.TargetName="CardControl" Storyboard.TargetProperty="Opacity" From="1.0" To="0.0" Duration="0:0:0.5" />                                    
+                
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="CardControl" Storyboard.TargetProperty="Width" Duration="0:0:0.4">
+                    <LinearDoubleKeyFrame Value="120" KeyTime="0:0:0.2"/>
+                    <LinearDoubleKeyFrame Value="110" KeyTime="0:0:0.4"/>
+                </DoubleAnimationUsingKeyFrames>
+                
+                <DoubleAnimation Storyboard.TargetName="CardControl" Storyboard.TargetProperty="Opacity" From="1.0" To="0.0" Duration="0:0:0.4" />                                    
             </Storyboard>
         </Button.Resources>
                         

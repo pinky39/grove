@@ -34,6 +34,32 @@
 
 	<Border>
 		<Button Focusable="False">
+            <Button.Resources>
+
+                <Storyboard x:Key="IncreaseLifeStoryboard">
+
+                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="LifeIncrease" Storyboard.TargetProperty="FontSize" Duration="0:0:1">
+                        <DiscreteDoubleKeyFrame Value="50" KeyTime="0:0:0.0"/>
+                        <LinearDoubleKeyFrame Value="17" KeyTime="0:0:1"/>
+                    </DoubleAnimationUsingKeyFrames>
+
+                    <DoubleAnimation Storyboard.TargetName="LifeIncrease" Storyboard.TargetProperty="Opacity" From="1.0" To="0.0"  Duration="0:0:1" />
+                                                                                    
+                </Storyboard>
+
+                <Storyboard x:Key="DecreaseLifeStoryboard">
+
+                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="LifeDecrease" Storyboard.TargetProperty="FontSize" Duration="0:0:1">
+                        <DiscreteDoubleKeyFrame Value="50" KeyTime="0:0:0.0"/>
+                        <LinearDoubleKeyFrame Value="17" KeyTime="0:0:1"/>
+                    </DoubleAnimationUsingKeyFrames>
+
+                    <DoubleAnimation Storyboard.TargetName="LifeDecrease" Storyboard.TargetProperty="Opacity" From="1.0" To="0.0"  Duration="0:0:1" />
+
+                </Storyboard>
+
+            </Button.Resources>
+            
 			<i:Interaction.Triggers>
 				<i:EventTrigger EventName="Click">
 					<cal:ActionMessage MethodName="ChangeSelection" />
@@ -45,14 +71,29 @@
                     <Image  Source="{Binding Player.AvatarId, Converter={x:Static Ui:Converters.AvatarIdToAvatarImage}}"/>
                 </Border>
                 
-                <TextBlock Margin="0,0,5,0" FontSize="17" Text="{Binding Player.Name}" />				
-				<TextBlock Style="{StaticResource Value}" FontSize="17" Text="{Binding Life}" Foreground="{Binding Life,Converter={x:Static Ui:Converters.LifeToColor}}" />
+                <TextBlock Margin="0,0,5,0" FontSize="17" Text="{Binding Player.Name}" />
+
+                
+                <Grid>
+                    <TextBlock x:Name="LifeIncrease" Text="{Binding LifeChange, StringFormat=+{0}}" Opacity="0.0" Foreground="#ffb1FF00" />
+                    <TextBlock x:Name="LifeDecrease" Text="{Binding LifeChange, StringFormat=-{0}}" Opacity="0.0" Foreground="#ffE30000" />
+
+                    <TextBlock Style="{StaticResource Value}" FontSize="17" Text="{Binding Life}" 
+                           Foreground="{Binding Life,Converter={x:Static Ui:Converters.LifeToColor}}" />
+                </Grid>
+                                                
                 <TextBlock Margin="15,0,0,0" Text="Hand:" />                
                 <TextBlock Style="{StaticResource Value}" Text="{Binding HandCount}" />                
                 <TextBlock Text="Library:" />                
                 <TextBlock Style="{StaticResource Value}" Text="{Binding LibraryCount}" />                
                 <TextBlock Text="Graveyard:" />                
                 <TextBlock Style="{StaticResource Value}" Text="{Binding GraveyardCount}" />
+
+                <i:Interaction.Behaviors>
+                    <Ui:AnimationBehaviour Story="{StaticResource IncreaseLifeStoryboard}" Animation="{Binding IncreaseLifeAnimation}" />
+                    <Ui:AnimationBehaviour Story="{StaticResource DecreaseLifeStoryboard}" Animation="{Binding DecreaseLifeAnimation}" />
+                </i:Interaction.Behaviors>
+                
             </StackPanel>
 		</Button>
 	</Border>
