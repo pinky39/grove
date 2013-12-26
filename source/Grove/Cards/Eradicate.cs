@@ -17,9 +17,12 @@
           "Exile target nonblack creature. Search its controller's graveyard, hand, and library for all cards with the same name as that creature and exile them. Then that player shuffles his or her library.")
         .Cast(p =>
           {
-            p.Effect = () => new ExileTargetAndCardsWithSameNameFromAllZones();
+            p.Effect = () => new CompoundEffect(
+              new ExileTargets(),
+              new ExileCardsWithSameNameAsTargetFromGhl());
+
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
-            p.TargetingRule(new EffectExileBattlefield());            
+            p.TargetingRule(new EffectExileBattlefield());
           });
     }
   }

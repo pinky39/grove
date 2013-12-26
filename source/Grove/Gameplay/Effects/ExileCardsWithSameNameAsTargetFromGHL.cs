@@ -3,15 +3,25 @@
   using System.Linq;
   using Targeting;
 
-  public class ExileTargetAndCardsWithSameNameFromAllZones : Effect
+  public class ExileCardsWithSameNameAsTargetFromGhl : Effect
   {
     protected override void ResolveEffect()
-    {
-      var target = Target.Card();
-      var targetName = target.Name;
-      var controller = target.Controller;      
-            
-      target.Exile();
+    {      
+      string targetName = string.Empty;
+      Player controller = null;
+      
+      if (Target.IsCard())
+      {
+        targetName = Target.Card().Name;
+        controller = Target.Card().Controller;
+      }
+      else if (Target.IsEffect())
+      {
+        var owningCard = Target.Effect().Source.OwningCard;
+        
+        targetName = owningCard.Name;
+        controller = owningCard.Controller;
+      }      
 
       foreach (var card in controller.Hand.ToList())
       {

@@ -157,6 +157,7 @@
     <Compile Include="Cards\AngelicCurator.cs" />
     <Compile Include="Cards\AngelsTrumpet.cs" />
     <Compile Include="Cards\Anthroplasm.cs" />
+    <Compile Include="Cards\ArcheryTraining.cs" />
     <Compile Include="Cards\Archivist.cs" />
     <Compile Include="Cards\Attrition.cs" />
     <Compile Include="Cards\AuraFlux.cs" />
@@ -236,6 +237,7 @@
     <Compile Include="Cards\Purify.cs" />
     <Compile Include="Cards\PygmyPyrosaur.cs" />
     <Compile Include="Cards\Pyromancy.cs" />
+    <Compile Include="Cards\Quash.cs" />
     <Compile Include="Cards\QuicksilverAmulet.cs" />
     <Compile Include="Cards\RackAndRuin.cs" />
     <Compile Include="Cards\RadiantArchangel.cs" />
@@ -295,8 +297,8 @@
     <Compile Include="Gameplay\Effects\CreaturesOfChosenTypeCostLess.cs" />
     <Compile Include="Gameplay\Effects\DestroyAttachedAuras.cs" />
     <Compile Include="Gameplay\Effects\ExchangeCardsInBattlefieldAndGraveyard.cs" />
+    <Compile Include="Gameplay\Effects\ExileCardsWithSameNameAsTargetFromGHL.cs" />
     <Compile Include="Gameplay\Effects\ExileOwnerUnlessYouDiscardCreatureCard.cs" />
-    <Compile Include="Gameplay\Effects\ExileTargetAndCardsWithSameNameFromAllZones.cs" />
     <Compile Include="Gameplay\Effects\LookAtTopCardsPutOneInHandOthersOnBottom.cs" />
     <Compile Include="Gameplay\Effects\OpponentDiscardsHand.cs" />
     <Compile Include="Gameplay\Effects\PutAllPermanentsOnTopOfLibrary.cs" />

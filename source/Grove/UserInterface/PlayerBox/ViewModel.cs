@@ -59,7 +59,10 @@
           Life = Player.Life;
 
           LifeChange = Math.Abs(oldLife - Life);
-
+          
+          // at the time ctor is called
+          // animations are not yet ready 
+          // to be executed so disable them
           if (enableAnimations)
             AnimateLifeChange(oldLife, Player.Life);
         });

@@ -11,6 +11,7 @@
     Petal,
     Soot,
     Fake,
-    Infection
+    Infection,
+    Arrow
   }
 }
