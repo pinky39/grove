@@ -15,7 +15,7 @@
 
     public override bool? ShouldPlay2(TimingRuleParameters p)
     {
-      if (p.Card.Counters > 0 && CanBeDestroyed(p))
+      if (p.Card.Counters > 0 && CanBeDestroyed(p.Card))
         return true;
       
       if (p.Card.Counters >= _minCount)

@@ -15,7 +15,7 @@
 
     public override bool? ShouldPlay1(TimingRuleParameters p)
     {
-      return CanBeDestroyed(p, _targetOnly, _considerCombat);
+      return CanBeDestroyed(p.Card, _targetOnly, _considerCombat);
     }
   }
 }

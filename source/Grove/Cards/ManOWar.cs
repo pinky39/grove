@@ -1,7 +1,6 @@
 ﻿namespace Grove.Cards
 {
   using System.Collections.Generic;
-  using Artifical;
   using Artifical.TargetingRules;
   using Artifical.TimingRules;
   using Gameplay.Characteristics;

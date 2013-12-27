@@ -119,6 +119,7 @@
     <Compile Include="Cards\Breach.cs" />
     <Compile Include="Cards\BrinkOfMadness.cs" />
     <Compile Include="Cards\BurstOfEnergy.cs" />
+    <Compile Include="Cards\CapashenStandard.cs" />
     <Compile Include="Cards\CarrionBeetles.cs" />
     <Compile Include="Cards\Catastrophe.cs" />
     <Compile Include="Cards\Cathodion.cs" />
@@ -276,6 +277,7 @@
     <Compile Include="Cards\PresenceOfTheMaster.cs" />
     <Compile Include="Cards\PriestOfGix.cs" />
     <Compile Include="Cards\PriestOfTitania.cs" />
+    <Compile Include="Cards\PrivateResearch.cs" />
     <Compile Include="Cards\PurgingScythe.cs" />
     <Compile Include="Cards\Pyromancy.cs" />
     <Compile Include="Cards\QuicksilverAmulet.cs" />
@@ -316,6 +318,7 @@
     <Compile Include="Cards\ShowerOfSparks.cs" />
     <Compile Include="Cards\SickAndTired.cs" />
     <Compile Include="Cards\Sicken.cs" />
+    <Compile Include="Cards\SigilOfSleep.cs" />
     <Compile Include="Cards\SilentAttendant.cs" />
     <Compile Include="Cards\SilkNet.cs" />
     <Compile Include="Cards\SimianGrunts.cs" />

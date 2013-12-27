@@ -1,6 +1,7 @@
 ﻿namespace Grove.Artifical.TimingRules
 {
   using System.Linq;
+  using Gameplay;
   using Gameplay.States;
   using Infrastructure;
 
@@ -87,17 +88,17 @@
       return null;
     }
 
-    protected bool CanBeDestroyed(TimingRuleParameters p, bool targetOnly = false, bool considerCombat = true)
+    protected bool CanBeDestroyed(Card card, bool targetOnly = false, bool considerCombat = true)
     {
       if (considerCombat && Turn.Step == Step.DeclareBlockers && Stack.IsEmpty)
       {
-        return Combat.CanBeDealtLeathalCombatDamage(p.Card);
+        return Combat.CanBeDealtLeathalCombatDamage(card);
       }
 
       if (Stack.IsEmpty)
         return false;
 
-      return Stack.CanBeDestroyedByTopSpell(p.Card, targetOnly);
+      return Stack.CanBeDestroyedByTopSpell(card, targetOnly);
     }
   }
 }

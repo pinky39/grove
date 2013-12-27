@@ -2,16 +2,20 @@
 {
   public class IsValidTargetParam
   {
-    public Player Controller;
-    public Game Game;
-    public Card OwningCard;
-    public ITarget Target;
-
-    private object _message;
-
-    public void SetTriggerMessage(object message)
+    public readonly Player Controller;
+    public readonly Game Game;
+    public readonly Card OwningCard;
+    public readonly ITarget Target;
+    private readonly object _message;
+    
+    public IsValidTargetParam(Player controller, Game game, Card owningCard, ITarget target, 
+      object triggerMessage = null)
     {
-      _message = message;
+      Controller = controller;
+      Game = game;
+      OwningCard = owningCard;
+      Target = target;
+      _message = triggerMessage;
     }
 
     public T TriggerMessage<T>()

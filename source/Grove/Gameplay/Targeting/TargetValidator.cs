@@ -73,15 +73,8 @@
 
     public bool IsTargetValid(ITarget target, object triggerMessage = null)
     {
-      var parameters = new IsValidTargetParam
-        {
-          Game = Game,
-          OwningCard = _owningCard,
-          Controller = _controller,
-          Target = target
-        };
-
-      parameters.SetTriggerMessage(triggerMessage);
+      var parameters = new IsValidTargetParam(_controller,
+        Game, _owningCard, target, triggerMessage);        
       
       // Perf: Most targets are not valid and most targets can be targeted.     
       return _isValidTarget(parameters) && CanBeTargeted(target, _owningCard);
@@ -89,15 +82,8 @@
 
     public bool IsZoneValid(Zone zone, Player zoneOwner)
     {
-      var p = new IsValidZoneParam
-        {
-          Zone = zone,
-          ZoneOwner = zoneOwner,
-          Controller = _controller,
-          OwningCard = _owningCard
-        };
-
-      return _isValidZone(p);
+      return _isValidZone(new IsValidZoneParam(zone, zoneOwner, 
+        _owningCard, _controller));
     }
 
     private bool CanBeTargeted(ITarget target, Card owningCard)
@@ -147,15 +133,8 @@
       if (zone == null)
         return true;
 
-      var p = new IsValidZoneParam
-        {
-          Zone = zone.Value,
-          ZoneOwner = target.Controller(),
-          Controller = _controller,
-          OwningCard = _owningCard
-        };
-
-      return _isValidZone(p);
+      return _isValidZone(new IsValidZoneParam(zone.Value, target.Controller(), 
+        _owningCard, _controller));
     }
   }
 }

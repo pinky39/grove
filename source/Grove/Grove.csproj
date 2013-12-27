@@ -151,6 +151,7 @@
     <Compile Include="Artifical\TimingRules\OnOpponentsTurn.cs" />
     <Compile Include="Artifical\TimingRules\AfterOpponentDeclaresAttackers.cs" />
     <Compile Include="Artifical\TimingRules\OnYourTurn.cs" />
+    <Compile Include="Artifical\TimingRules\WhenAttachedToCardWillBeDestroyed.cs" />
     <Compile Include="Artifical\TimingRules\WhenStackIsNotEmpty.cs" />
     <Compile Include="Cards\AboutFace.cs" />
     <Compile Include="Cards\AetherSting.cs" />
@@ -168,6 +169,7 @@
     <Compile Include="Cards\BouncingBeebles.cs" />
     <Compile Include="Cards\BrinkOfMadness.cs" />
     <Compile Include="Cards\BurstOfEnergy.cs" />
+    <Compile Include="Cards\CapashenStandard.cs" />
     <Compile Include="Cards\Cessation.cs" />
     <Compile Include="Cards\CloudOfFaeries.cs" />
     <Compile Include="Cards\CropRotation.cs" />
@@ -215,6 +217,7 @@
     <Compile Include="Cards\MantisEngine.cs" />
     <Compile Include="Cards\MarkOfFury.cs" />
     <Compile Include="Cards\MartyrsCause.cs" />
+    <Compile Include="Cards\MaskOfLawAndGrace.cs" />
     <Compile Include="Cards\MemoryJar.cs" />
     <Compile Include="Cards\MetathranElite.cs" />
     <Compile Include="Cards\MightOfOaks.cs" />
@@ -234,6 +237,7 @@
     <Compile Include="Cards\PlagueBeetle.cs" />
     <Compile Include="Cards\PlagueDogs.cs" />
     <Compile Include="Cards\PlanarCollapse.cs" />
+    <Compile Include="Cards\PrivateResearch.cs" />
     <Compile Include="Cards\Purify.cs" />
     <Compile Include="Cards\PygmyPyrosaur.cs" />
     <Compile Include="Cards\Pyromancy.cs" />
@@ -256,6 +260,7 @@
     <Compile Include="Cards\SecondChance.cs" />
     <Compile Include="Cards\ShivanPhoenix.cs" />
     <Compile Include="Cards\SickAndTired.cs" />
+    <Compile Include="Cards\SigilOfSleep.cs" />
     <Compile Include="Cards\SleepersGuile.cs" />
     <Compile Include="Cards\SlinkingSkirge.cs" />
     <Compile Include="Cards\SlowMotion.cs" />

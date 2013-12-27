@@ -4,9 +4,17 @@
 
   public class IsValidZoneParam
   {
-    public Zone Zone { get; set; }
-    public Player ZoneOwner { get; set; }
-    public Card OwningCard { get; set; }
-    public Player Controller { get; set; }
+    public readonly Zone Zone;
+    public readonly Player ZoneOwner;
+    public readonly Card OwningCard;
+    public readonly Player Controller;
+    
+    public IsValidZoneParam(Zone zone, Player zoneOwner, Card owningCard, Player controller)
+    {
+      Zone = zone;
+      ZoneOwner = zoneOwner;
+      OwningCard = owningCard;
+      Controller = controller;
+    }
   }
 }
