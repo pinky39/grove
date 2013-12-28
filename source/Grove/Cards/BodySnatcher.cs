@@ -32,8 +32,8 @@
           {
             p.Text =
               "When Body Snatcher dies, exile Body Snatcher and return target creature card from your graveyard to the battlefield.";
-            
-            p.Trigger(new OnZoneChanged(from: Zone.Battlefield, to: Zone.Graveyard));            
+
+            p.Trigger(new OnZoneChanged(from: Zone.Battlefield, to: Zone.Graveyard));
 
             p.Effect = () => new CompoundEffect(
               new ExileOwner(),

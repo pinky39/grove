@@ -185,6 +185,7 @@
     <Compile Include="Cards\GaeasBounty.cs" />
     <Compile Include="Cards\GaeasCradle.cs" />
     <Compile Include="Cards\Gamble.cs" />
+    <Compile Include="Cards\Gamekeeper.cs" />
     <Compile Include="Cards\GhituFireEater.cs" />
     <Compile Include="Cards\GhituWarCry.cs" />
     <Compile Include="Cards\GildedDrake.cs" />
