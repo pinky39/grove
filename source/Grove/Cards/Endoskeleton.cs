@@ -36,7 +36,7 @@
               });
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
-            p.TargetingRule(new EffectPump(0, 3, untilEot: false));
+            p.TargetingRule(new EffectPumpInstant(0, 3, untilEot: false));
           });
     }
   }

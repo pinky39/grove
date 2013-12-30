@@ -209,6 +209,7 @@
     <Compile Include="Cards\HiddenPredators.cs" />
     <Compile Include="Cards\HopeAndGlory.cs" />
     <Compile Include="Cards\HoppingAutomaton.cs" />
+    <Compile Include="Cards\HuntingMoa.cs" />
     <Compile Include="Cards\IllGottenGains.cs" />
     <Compile Include="Cards\ImpendingDisaster.cs" />
     <Compile Include="Cards\IronMaiden.cs" />
@@ -229,6 +230,7 @@
     <Compile Include="Cards\ManaLeech.cs" />
     <Compile Include="Cards\ManOWar.cs" />
     <Compile Include="Cards\MantisEngine.cs" />
+    <Compile Include="Cards\MarkerBeetles.cs" />
     <Compile Include="Cards\MartialCoup.cs" />
     <Compile Include="Cards\MartyrsCause.cs" />
     <Compile Include="Cards\Meltdown.cs" />
@@ -396,6 +398,7 @@
     <Compile Include="Cards\Windfall.cs" />
     <Compile Include="Cards\WizardMentor.cs" />
     <Compile Include="Cards\Worship.cs" />
+    <Compile Include="Cards\YavimayaElder.cs" />
     <Compile Include="Cards\YawgmothsEdict.cs" />
     <Compile Include="DeckBuilderFacts.cs" />
     <Compile Include="DraftFacts.cs" />

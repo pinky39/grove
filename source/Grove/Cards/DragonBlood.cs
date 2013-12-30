@@ -33,7 +33,7 @@
               () => new PowerToughness(1, 1), count: 1));
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
-            p.TargetingRule(new EffectPump(1, 1, untilEot: false));
+            p.TargetingRule(new EffectPumpInstant(1, 1, untilEot: false));
           });
     }
   }

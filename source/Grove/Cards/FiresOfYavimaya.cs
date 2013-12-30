@@ -40,7 +40,7 @@
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 
-            p.TargetingRule(new EffectPump(2, 2));
+            p.TargetingRule(new EffectPumpInstant(2, 2));
           }
         );
     }

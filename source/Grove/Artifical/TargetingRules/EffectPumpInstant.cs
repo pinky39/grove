@@ -6,20 +6,20 @@
   using Gameplay.Misc;
   using Gameplay.Targeting;
 
-  public class EffectPump : TargetingRule
+  public class EffectPumpInstant : TargetingRule
   {
     private readonly int? _power;
     private readonly int? _toughness;
     private readonly bool _untilEot;
 
-    public EffectPump(int? power, int? toughness, bool untilEot = true)
+    public EffectPumpInstant(int? power, int? toughness, bool untilEot = true)
     {
       _power = power;
       _untilEot = untilEot;
       _toughness = toughness;
     }
 
-    private EffectPump() {}
+    private EffectPumpInstant() {}
 
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
     {

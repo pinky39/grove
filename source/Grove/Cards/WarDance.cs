@@ -43,7 +43,7 @@
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 
             p.TimingRule(new WhenCardHasCounters(minCount: 3, onlyAtEot: false));
-            p.TargetingRule(new EffectPump(3, 3));
+            p.TargetingRule(new EffectPumpInstant(3, 3));
           });
     }
   }

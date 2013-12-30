@@ -3,7 +3,7 @@
   using Gameplay.Zones;
   using Infrastructure;
   using Xunit;
-
+    
   public class Gamekeeper
   {
     public class Ai : AiScenario

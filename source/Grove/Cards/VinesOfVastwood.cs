@@ -40,7 +40,7 @@
               .SetTags(EffectTag.Shroud, EffectTag.IncreasePower, EffectTag.IncreaseToughness);
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
-            p.TargetingRule(new EffectPump(4, 4));
+            p.TargetingRule(new EffectPumpInstant(4, 4));
           });
     }
   }

@@ -10,7 +10,6 @@
   using Gameplay.Modifiers;
   using Gameplay.Triggers;
 
-
   public class HiddenSpider : CardTemplateSource
   {
     public override IEnumerable<CardTemplate> GetCards()

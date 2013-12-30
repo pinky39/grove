@@ -34,5 +34,28 @@
 
       return Group(candidates, 1);
     }
+
+    protected override IEnumerable<Targets> ForceSelectTargets(TargetingRuleParameters p)
+    {
+      var candidates = p.Candidates<Card>(ControlledBy.SpellOwner)
+        .Where(x => _filter(x))
+        .Select(x => new
+          {
+            Card = x.Card(),
+            Score = CalculateAttackingPotential(x)
+          })
+        .OrderByDescending(x => x.Score)
+        .Select(x => x.Card)
+        .ToList();
+
+      if (candidates.Count == 0)
+      {
+        candidates.AddRange(
+          p.Candidates<Card>(ControlledBy.Opponent)
+            .OrderBy(x => x.Score));
+      }
+
+      return Group(candidates, 1);
+    }
   }
 }

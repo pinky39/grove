@@ -197,11 +197,14 @@
     <Compile Include="Cards\GoblinBerserker.cs" />
     <Compile Include="Cards\GoblinMarshal.cs" />
     <Compile Include="Cards\GoblinWelder.cs" />
+    <Compile Include="Cards\GoliathBeetle.cs" />
     <Compile Include="Cards\GraniteGrip.cs" />
     <Compile Include="Cards\GrimMonolith.cs" />
     <Compile Include="Cards\HarmonicConvergence.cs" />
+    <Compile Include="Cards\HeartWarden.cs" />
     <Compile Include="Cards\HiddenGibbons.cs" />
     <Compile Include="Cards\HopeAndGlory.cs" />
+    <Compile Include="Cards\HuntingMoa.cs" />
     <Compile Include="Cards\ImpendingDisaster.cs" />
     <Compile Include="Cards\Intervene.cs" />
     <Compile Include="Cards\IronMaiden.cs" />
@@ -217,6 +220,7 @@
     <Compile Include="Cards\Levitation.cs" />
     <Compile Include="Cards\LurkingSkirge.cs" />
     <Compile Include="Cards\MantisEngine.cs" />
+    <Compile Include="Cards\MarkerBeetles.cs" />
     <Compile Include="Cards\MarkOfFury.cs" />
     <Compile Include="Cards\MartyrsCause.cs" />
     <Compile Include="Cards\MaskOfLawAndGrace.cs" />
@@ -236,9 +240,11 @@
     <Compile Include="Cards\Palinchron.cs" />
     <Compile Include="Cards\Parch.cs" />
     <Compile Include="Cards\PeaceAndQuiet.cs" />
+    <Compile Include="Cards\PhyrexianMonitor.cs" />
     <Compile Include="Cards\PlagueBeetle.cs" />
     <Compile Include="Cards\PlagueDogs.cs" />
     <Compile Include="Cards\PlanarCollapse.cs" />
+    <Compile Include="Cards\PlatedSpider.cs" />
     <Compile Include="Cards\PrivateResearch.cs" />
     <Compile Include="Cards\Purify.cs" />
     <Compile Include="Cards\PygmyPyrosaur.cs" />
@@ -269,6 +275,7 @@
     <Compile Include="Cards\Sluggishness.cs" />
     <Compile Include="Cards\Snap.cs" />
     <Compile Include="Cards\SoulFeast.cs" />
+    <Compile Include="Cards\Splinter.cs" />
     <Compile Include="Cards\SquirmingMass.cs" />
     <Compile Include="Cards\Subversion.cs" />
     <Compile Include="Cards\SustainerOfTheRealm.cs" />
@@ -294,6 +301,7 @@
     <Compile Include="Cards\WeatherseedFaeries.cs" />
     <Compile Include="Cards\WheelOfTorture.cs" />
     <Compile Include="Cards\WildColos.cs" />
+    <Compile Include="Cards\YavimayaElder.cs" />
     <Compile Include="Gameplay\Characteristics\SkipSteps.cs" />
     <Compile Include="Gameplay\Characteristics\Strenght.cs" />
     <Compile Include="Gameplay\Costs\CostModifier.cs" />
@@ -834,7 +842,7 @@
     <Compile Include="Artifical\TargetingRules\EffectGiveHexproof.cs" />
     <Compile Include="Artifical\TargetingRules\EffectGiveIndestructible.cs" />
     <Compile Include="Artifical\TargetingRules\EffectGiveDoesNotUntap.cs" />
-    <Compile Include="Artifical\TargetingRules\EffectPump.cs" />
+    <Compile Include="Artifical\TargetingRules\EffectPumpInstant.cs" />
     <Compile Include="Artifical\TargetingRules\EffectLandEnchantment.cs" />
     <Compile Include="Artifical\TargetingRules\EffectOpponent.cs" />
     <Compile Include="Artifical\TargetingRules\EffectRankBy.cs" />

@@ -3,29 +3,32 @@
   using System.Collections.Generic;
   using Artifical.TimingRules;
   using Gameplay;
-  using Gameplay.Abilities;
   using Gameplay.Costs;
   using Gameplay.Effects;
   using Gameplay.ManaHandling;
   using Gameplay.Misc;
 
-  public class SlinkingSkirge : CardTemplateSource
+  public class HeartWarden : CardTemplateSource
   {
     public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
-        .Named("Slinking Skirge")
-        .ManaCost("{3}{B}")
-        .Type("Creature Imp")
-        .Text("{Flying}{EOL}{2}, Sacrifice Slinking Skirge: Draw a card.")
+        .Named("Heart Warden")
+        .ManaCost("{1}{G}")
+        .Type("Creature Elf Druid")
+        .Text("{T}: Add {G} to your mana pool.{EOL}{2}, Sacrifice Heart Warden: Draw a card.")
         .FlavorText(
-          "Davvol encouraged the skirges; they made excellent sentries and were quite edible if properly seasoned.")
-        .Power(2)
+          "In Llanowar, we tend the forest's boughs and branches. In Yavimaya, we are a part of them.")
+        .Power(1)
         .Toughness(1)
-        .SimpleAbilities(Static.Flying)
+        .ManaAbility(p =>
+          {
+            p.Text = "{T}: Add {G} to your mana pool.";
+            p.ManaAmount(Mana.Green);
+          })
         .ActivatedAbility(p =>
           {
-            p.Text = "{2}, Sacrifice Slinking Skirge: Draw a card.";
+            p.Text = "{2}, Sacrifice Heart Warden: Draw a card.";
 
             p.Cost = new AggregateCost(
               new PayMana(2.Colorless(), ManaUsage.Abilities),
