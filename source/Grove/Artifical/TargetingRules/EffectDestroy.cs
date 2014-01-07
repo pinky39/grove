@@ -15,5 +15,13 @@
 
       return Group(candidates, p.MinTargetCount(), p.MaxTargetCount());
     }
+
+    protected override IEnumerable<Targets> ForceSelectTargets(TargetingRuleParameters p)
+    {
+      var candidates = p.Candidates<Card>(ControlledBy.SpellOwner)
+        .OrderBy(x => x.Score);
+
+      return Group(candidates, p.MinTargetCount(), p.MaxTargetCount());
+    }
   }
 }

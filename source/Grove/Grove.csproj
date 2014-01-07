@@ -172,6 +172,7 @@
     <Compile Include="Cards\BurstOfEnergy.cs" />
     <Compile Include="Cards\CapashenStandard.cs" />
     <Compile Include="Cards\Cessation.cs" />
+    <Compile Include="Cards\ChimeOfNight.cs" />
     <Compile Include="Cards\CloudOfFaeries.cs" />
     <Compile Include="Cards\CropRotation.cs" />
     <Compile Include="Cards\DarkwatchElves.cs" />
