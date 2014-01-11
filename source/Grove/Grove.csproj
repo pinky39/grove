@@ -168,6 +168,7 @@
     <Compile Include="Cards\BloatedToad.cs" />
     <Compile Include="Cards\BodySnatcher.cs" />
     <Compile Include="Cards\BouncingBeebles.cs" />
+    <Compile Include="Cards\BraidwoodCup.cs" />
     <Compile Include="Cards\BrinkOfMadness.cs" />
     <Compile Include="Cards\BurstOfEnergy.cs" />
     <Compile Include="Cards\CapashenStandard.cs" />
@@ -240,6 +241,7 @@
     <Compile Include="Cards\Ostracize.cs" />
     <Compile Include="Cards\Palinchron.cs" />
     <Compile Include="Cards\Parch.cs" />
+    <Compile Include="Cards\PatternOfRebirth.cs" />
     <Compile Include="Cards\PeaceAndQuiet.cs" />
     <Compile Include="Cards\PhyrexianMonitor.cs" />
     <Compile Include="Cards\PlagueBeetle.cs" />
@@ -292,6 +294,7 @@
     <Compile Include="Cards\TragicPoet.cs" />
     <Compile Include="Cards\TreefolkMystic.cs" />
     <Compile Include="Cards\TrumpetBlast.cs" />
+    <Compile Include="Cards\TwistedExperiment.cs" />
     <Compile Include="Cards\Unearth.cs" />
     <Compile Include="Cards\UrzasBlueprints.cs" />
     <Compile Include="Cards\UrzasIncubator.cs" />

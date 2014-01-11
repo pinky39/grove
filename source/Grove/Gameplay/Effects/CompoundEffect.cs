@@ -24,7 +24,7 @@
       return _childEffects.Sum(x => x.CalculatePlayerDamage(player));
     }
 
-    public override Effect Initialize(EffectParameters p, Game game, bool initializeParameters = true)
+    public override Effect Initialize(EffectParameters p, Game game, bool evaluateParameters = true)
     {
       base.Initialize(p, game);
 
@@ -32,7 +32,7 @@
 
       foreach (var effect in _childEffects)
       {
-        effect.Initialize(p, game, initializeParameters);
+        effect.Initialize(p, game, evaluateParameters);
 
         foreach (var effectTag in effect.GetTags())
         {

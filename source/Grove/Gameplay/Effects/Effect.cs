@@ -43,7 +43,7 @@
     public int? X { get; private set; }
     private bool WasResolved { get { return _wasResolved.Value; } set { _wasResolved.Value = value; } }
     public Targets Targets { get; private set; }
-    public bool IsOnStack {get { return Stack.Contains(this); }}
+    public bool IsOnStack { get { return Stack.Contains(this); } }
 
     public virtual bool TargetsEffectSource { get { return false; } }
 
@@ -235,7 +235,7 @@
       return Targets.Effect.Contains(card);
     }
 
-    public virtual Effect Initialize(EffectParameters p, Game game, bool initializeDynamicParameters = true)
+    public virtual Effect Initialize(EffectParameters p, Game game, bool evaluateDynamicParameters = true)
     {
       Game = game;
       Source = p.Source;
@@ -246,7 +246,12 @@
 
       _wasResolved.Initialize(game.ChangeTracker);
 
-      if (initializeDynamicParameters)
+      foreach (var parameter in _dynamicParameters)
+      {
+        parameter.Initialize(ChangeTracker);
+      }
+
+      if (evaluateDynamicParameters)
       {
         foreach (var parameter in _dynamicParameters)
         {

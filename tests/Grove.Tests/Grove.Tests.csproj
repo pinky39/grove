@@ -258,6 +258,7 @@
     <Compile Include="Cards\Parch.cs" />
     <Compile Include="Cards\Pariah.cs" />
     <Compile Include="Cards\PathOfPeace.cs" />
+    <Compile Include="Cards\PatternOfRebirth.cs" />
     <Compile Include="Cards\PeaceAndQuiet.cs" />
     <Compile Include="Cards\PendrellFlux.cs" />
     <Compile Include="Cards\Persecute.cs" />

@@ -15,20 +15,26 @@
     private readonly int _minCount;
     private readonly Action<Card> _putToZone;
     private readonly bool _revealCards;
+    private readonly DynParam<Player> _player;
+
     private readonly string _text;
     private readonly Func<Effect, Card, bool> _validator;
 
     private SearchLibraryPutToZone() {}
 
     public SearchLibraryPutToZone(Action<Card> putToZone, int maxCount = 1, int minCount = 0,
-      Func<Effect, Card, bool> validator = null, string text = null, bool revealCards = true)
+      Func<Effect, Card, bool> validator = null, string text = null, bool revealCards = true,
+      DynParam<Player> player = null)
     {
       _validator = validator ?? delegate { return true; };
+      _player = player ?? new DynParam<Player>((e, g) => e.Controller, evaluateOnResolve: true);
       _text = text ?? "Search your library for a card.";
       _putToZone = putToZone;
-      _revealCards = revealCards;
+      _revealCards = revealCards;      
       _maxCount = maxCount;
       _minCount = minCount;
+
+      RegisterDynamicParameters(_player);
     }
 
     public bool IsValidCard(Card card)
@@ -64,11 +70,11 @@
     }
 
     protected override void ResolveEffect()
-    {
-      Controller.RevealLibrary();
+    {            
+      _player.Value.RevealLibrary();
 
       Enqueue<SelectCards>(
-        controller: Controller,
+        controller: _player.Value,
         init: p =>
           {
             p.MinCount = _minCount;

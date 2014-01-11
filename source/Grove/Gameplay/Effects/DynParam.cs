@@ -8,8 +8,8 @@
     void EvaluateOnResolve(Effect effect, Game game);
     void EvaluateBeforeCost(Effect effect, Game game);
     void EvaluateAfterCost(Effect effect, Game game);
+    void Initialize(ChangeTracker changeTracker);
   }
-
   
   [Copyable]
   public class DynParam<TOut> : IDynamicParameter
@@ -45,27 +45,31 @@
       }
     }
 
+    public void Initialize(ChangeTracker changeTracker)
+    {
+      _value.Initialize(changeTracker);
+    }
 
     public void EvaluateOnResolve(Effect effect, Game game)
     {
       if (_evaluateOnResolve)
+      {        
         Evaluate(effect, game);
+      }
     }
 
     public void EvaluateBeforeCost(Effect effect, Game game)
     {
       if (_evaluateOnResolve)
         return;
-      
-      _value.Initialize(game.ChangeTracker);      
+            
       Evaluate(effect, game);
     }
 
     public void EvaluateAfterCost(Effect effect, Game game)
     {
       if (_evaluateOnResolve)
-      {       
-        _value.Initialize(game.ChangeTracker);
+      {               
         Evaluate(effect, game);
       }
     }

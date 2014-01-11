@@ -27,7 +27,7 @@
       var effect = EffectFactory();
       if (Result.HasTargets == false)
       {
-        effect.Initialize(effectParameters, Game, initializeDynamicParameters: false);
+        effect.Initialize(effectParameters, Game, evaluateDynamicParameters: false);
         effect.EffectCountered(SpellCounterReason.IllegalTarget);
         return;
       }
