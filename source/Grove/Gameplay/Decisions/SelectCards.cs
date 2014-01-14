@@ -14,6 +14,7 @@
     public string Instructions;
     public int? MaxCount;
     public int MinCount;
+    public bool AurasNeedTarget;
     public Card OwningCard;
     public IProcessDecisionResults<ChosenCards> ProcessDecisionResults;
     public string Text;
@@ -48,9 +49,8 @@
       {
         if (MaxCount == 0)
           return false;
-        
-        var count = ValidTargets.Count;
-        return count > MinCount;
+
+        return true;                
       }
     }
 

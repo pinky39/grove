@@ -1145,7 +1145,7 @@
     <Compile Include="Gameplay\Effects\CustomizableEffect.cs" />
     <Compile Include="Gameplay\Effects\DealDamageToOpponentEqualToCardDifference.cs" />
     <Compile Include="Gameplay\Effects\DistributeDamageToTargets.cs" />
-    <Compile Include="Gameplay\Effects\EachPlayerReturnsCardFromZoneToBattlefield.cs" />
+    <Compile Include="Gameplay\Effects\EachPlayerPutsCardToBattlefield.cs" />
     <Compile Include="Gameplay\Effects\EachPlayerReturnsCardsToHand.cs" />
     <Compile Include="Gameplay\Effects\DiscreteEffectChoice.cs" />
     <Compile Include="Gameplay\Effects\EffectOption.cs" />

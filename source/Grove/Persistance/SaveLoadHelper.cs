@@ -32,7 +32,7 @@
 
       using (var file = new FileStream(filename, FileMode.Open))
       {
-        var header = (SaveFileHeader) formatter.Deserialize(file);
+        var header = (SaveFileHeader) formatter.Deserialize(file);                
         return header;
       }
     }

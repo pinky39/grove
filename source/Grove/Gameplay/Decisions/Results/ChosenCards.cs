@@ -15,6 +15,11 @@
 
     public ChosenCards() {}
 
+    public ChosenCards(Card card)
+    {
+      _cards.Add(card);
+    }
+    
     public ChosenCards(IEnumerable<Card> cards)
     {
       _cards.AddRange(cards);
@@ -23,8 +28,8 @@
     public ChosenCards(SerializationInfo info, StreamingContext context)
     {
       var ctx = (SerializationContext) context.Context;
-      var cardIds = (List<int>) info.GetValue("cards", typeof (List<int>));
-
+      var cardIds = (List<int>) info.GetValue("cards", typeof (List<int>));      
+      
       _cards.AddRange(cardIds.Select(x => (Card) ctx.Recorder.GetObject(x)));
     }
 

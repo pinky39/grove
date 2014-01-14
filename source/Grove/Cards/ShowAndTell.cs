@@ -19,11 +19,10 @@
         .FlavorText("At the academy, 'show and tell' too often becomes 'run and hide.'")
         .Cast(p =>
           {
-            p.Effect =
-              () =>
-                new EachPlayerReturnsCardFromZoneToBattlefield(Zone.Hand,
-                  c => (c.Is().Creature || c.Is().Artifact || c.Is().Enchantment || c.Is().Land) && !c.Is().Aura);
-              // auras are not currently supported
+            p.Effect = () => new EachPlayerPutsCardToBattlefield(
+              zone: Zone.Hand,
+              filter: c => c.Is().Creature || c.Is().Artifact || c.Is().Enchantment || c.Is().Land);              
+            
             p.TimingRule(new WhenYourHandCountIs(1,
               selector: c => c.ConvertedCost >= 6 && (c.Is().Creature || c.Is().Artifact || c.Is().Enchantment)));
           });
