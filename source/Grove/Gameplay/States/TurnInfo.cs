@@ -3,8 +3,7 @@
   using Infrastructure;
   using Messages;
   using Misc;
-
-  [Copyable]
+  
   public class TurnInfo : GameObject, IHashable
   {
     private readonly Trackable<TurnEvents> _events = new Trackable<TurnEvents>();
@@ -12,7 +11,7 @@
     private readonly Trackable<int> _stateCount = new Trackable<int>();
     private readonly Trackable<Step> _step = new Trackable<Step>();
     private readonly Trackable<int> _stepCount = new Trackable<int>();
-    private readonly Trackable<int> _turnCount = new Trackable<int>(0);
+    private readonly Trackable<int> _turnCount = new Trackable<int>(0);    
 
     public int State
     {
@@ -88,7 +87,7 @@
       _turnCount.Initialize(ChangeTracker);
       _stepCount.Initialize(ChangeTracker);
       _state.Initialize(ChangeTracker);
-      _stateCount.Initialize(ChangeTracker);
+      _stateCount.Initialize(ChangeTracker);      
 
       _events.Initialize(ChangeTracker);
 

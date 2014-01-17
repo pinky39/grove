@@ -809,7 +809,7 @@
     <Compile Include="Cards\YawgmothsEdict.cs" />
     <Compile Include="Cards\Zephid.cs" />
     <Compile Include="Cards\ZephidsEmbrace.cs" />
-    <Compile Include="Configuration.cs" />
+    <Compile Include="UserInterface\Configuration.cs" />
     <Compile Include="Gameplay\Abilities\AbilityOrCastParameters.cs" />
     <Compile Include="Gameplay\Abilities\AbilityParameters.cs" />
     <Compile Include="Gameplay\Abilities\ActivatedAbilityParameters.cs" />
@@ -982,6 +982,7 @@
     <Compile Include="Gameplay\Triggers\OnLandPlayed.cs" />
     <Compile Include="Gameplay\Triggers\OnLifepointsLeft.cs" />
     <Compile Include="Gameplay\Triggers\OnOwnerGetsTapped.cs" />
+    <Compile Include="Gameplay\Zones\ZoneHelpers.cs" />
     <Compile Include="Infrastructure\AssertEx.cs" />
     <Compile Include="Infrastructure\CastEx.cs" />
     <Compile Include="Infrastructure\Profiler.cs" />

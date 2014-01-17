@@ -26,8 +26,7 @@
       var selectParameters = new SelectTargetParameters
         {
           Validator = validator,
-          CanCancel = false,
-          Instructions = "(Press Spacebar when done.)",
+          CanCancel = false,          
           TargetSelected = target => Shell.Publish(
             new AttackerSelected
               {

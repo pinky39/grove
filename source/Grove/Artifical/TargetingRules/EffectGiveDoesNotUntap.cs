@@ -14,8 +14,8 @@
         .Select(x => new
           {
             Card = x,
-            Score = CalculateAttackingPotential(x)
-          })
+            Score =  x.Has().DoesNotUntap ? 0 : CalculateAttackingPotential(x)
+          })        
         .OrderByDescending(x => x.Score)
         .Select(x => x.Card)
         .ToList();

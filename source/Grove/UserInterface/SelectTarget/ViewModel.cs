@@ -19,12 +19,13 @@
     public ViewModel(SelectTargetParameters p)
     {
       TargetValidator = p.Validator;
-      Instructions = p.Instructions;
       _canCancel = p.CanCancel;
       _targetSelected = p.TargetSelected ?? DefaultTargetSelected;
       _targetUnselected = p.TargetUnselected ?? DefaultTargetUnselected;
       _triggerMessage = p.TriggerMessage;
       _x = p.X;
+
+      Instructions = p.Instructions ?? GetDefaultInstructions();
     }
 
     private bool CanAutoComplete
@@ -68,6 +69,23 @@
 
       if (CanAutoComplete)
         Done();
+    }
+
+    private string GetDefaultInstructions()
+    {
+      if (TargetValidator.MaxCount == null ||
+        TargetValidator.MinCount.GetValue(_x) < TargetValidator.MaxCount.GetValue(_x))
+      {
+        if (_canCancel)
+          return "(Press Enter when done. Press Esc to cancel.)";
+
+        return "(Press Enter when done.)";
+      }
+
+      if (_canCancel)
+        return "(Press Esc to cancel.)";
+
+      return null;
     }
 
     private void DefaultTargetSelected(ITarget target)

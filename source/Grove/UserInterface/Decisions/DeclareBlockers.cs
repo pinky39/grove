@@ -36,7 +36,7 @@
           {
             Validator = blockerValidator,
             CanCancel = false,
-            Instructions = result.IsValid() ? "(Press Spacebar to finish.)" : "(Additional blockers required.)"
+            Instructions = result.IsValid() ? null : "(Additional blockers required.)"
           });
 
         Shell.ShowModalDialog(selectBlocker, DialogType.Small, InteractionState.SelectTarget);

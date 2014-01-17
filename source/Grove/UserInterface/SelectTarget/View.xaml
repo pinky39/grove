@@ -2,7 +2,7 @@
 	<i:Interaction.Triggers>
 		<grove:InputBindingTrigger>
 			<grove:InputBindingTrigger.InputBinding>
-				<KeyBinding Key="Space" />
+				<KeyBinding Key="Enter" />
 			</grove:InputBindingTrigger.InputBinding>
 			<cl:ActionMessage MethodName="Done" />
 		</grove:InputBindingTrigger>

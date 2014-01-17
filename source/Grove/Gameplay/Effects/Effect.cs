@@ -168,8 +168,7 @@
         parameter.EvaluateAfterCost(this, Game);
       }
 
-      Source.EffectPushedOnStack();
-      Publish(new EffectPushedOnStack {Effect = this});
+      Source.EffectPushedOnStack();      
     }
 
     public void FinishResolve()

@@ -28,8 +28,8 @@
             p.Effect = () => new SacrificePermanentOrSacrificeOwner(
               validator: c => c.Is().Enchantment,
               shouldPayAi: (controller, card) => card.IsAbleToAttack,
-              text: "Select an enchantment.",
-              instructions: "(Press spacebar to sacrifice Endless wurm.)");
+              text: "Select an enchantment to sacrifice.",
+              instructions: "(Press Enter to sacrifice Endless wurm.)");
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });
     }

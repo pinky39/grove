@@ -205,8 +205,9 @@
 
       private void RegisterConfiguration(IWindsorContainer container)
       {
-        var registration = Component(typeof (Grove.Configuration), lifestyle: LifestyleType.Singleton);
-        container.Register(registration);
+        var registration = Component(typeof (UserInterface.Configuration), lifestyle: LifestyleType.Singleton);
+        ImplementUiStuff(registration);
+        container.Register(registration);        
       }
 
       private void ImplementUiStuff(ComponentRegistration<object> registration)

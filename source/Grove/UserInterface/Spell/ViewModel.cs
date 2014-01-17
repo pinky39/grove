@@ -209,8 +209,7 @@
       var selectTargetParameters = new SelectTargetParameters
         {
           Validator = validator,
-          CanCancel = true,
-          Instructions = "(Press Spacebar when done, press Esc to cancel.)",
+          CanCancel = true,          
           X = x
         };
 

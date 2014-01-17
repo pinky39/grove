@@ -4,7 +4,6 @@
   using System.Collections.Generic;
   using System.Linq;
   using System.Threading;
-  using System.Windows.Media;
   using Gameplay.Messages;
   using Infrastructure;
   using Persistance;
@@ -13,7 +12,8 @@
     IReceive<PlayerHasActivatedAbility>,
     IReceive<SearchStarted>, IReceive<SearchFinished>, IReceive<DamageHasBeenDealt>,
     IReceive<AssignedCombatDamageWasDealt>, IReceive<CardWasRevealed>, IReceive<PlayerHasFlippedACoin>,
-    IReceive<EffectOptionsWereChosen>, IReceive<TurnStarted>, IDisposable
+    IReceive<EffectOptionsWereChosen>, IReceive<TurnStarted>, IReceive<ZoneChanged>, IReceive<PlayerLifeChanged>,
+    IDisposable
   {
     private readonly List<object> _largeDialogs = new List<object>();
     private readonly List<object> _smallDialogs = new List<object>();
@@ -34,7 +34,7 @@
     public MessageLog.ViewModel MessageLog { get; set; }
     public Battlefield.ViewModel YourBattlefield { get; private set; }
     public Zones.ViewModel Zones { get; set; }
-    public virtual QuitGame.ViewModel QuitGameDialog { get; protected set; }    
+    public virtual QuitGame.ViewModel QuitGameDialog { get; protected set; }
 
     public void Dispose()
     {
@@ -132,6 +132,11 @@
       MessageLog.AddMessage(message.ToString());
     }
 
+    public void Receive(PlayerLifeChanged message)
+    {
+      MessageLog.AddMessage(message.ToString());
+    }
+
     public void Receive(SearchFinished message)
     {
       SearchInProgressMessage = null;
@@ -154,7 +159,15 @@
 
       // sync delay
       Thread.Sleep(1500);
-      dialog.Close();                  
+      dialog.Close();
+    }
+
+    public void Receive(ZoneChanged message)
+    {
+      if (message.DisplayInformationInUi())
+      {
+        MessageLog.AddMessage(message.ToString());
+      }
     }
 
     public override void Initialize()
@@ -171,7 +184,6 @@
       _scenarioGenerator.WriteScenario();
     }
 
-    
 
     public void QuitGame()
     {

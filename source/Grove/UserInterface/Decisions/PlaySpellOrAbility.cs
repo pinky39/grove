@@ -8,11 +8,11 @@
   {
     public Configuration Configuration { get; set; }
     public ViewModel.IFactory DialogFactory { get; set; }
-    public IShell Shell { get; set; }    
-    
+    public IShell Shell { get; set; }
+
     protected override void ExecuteQuery()
     {
-      if (Configuration.ShouldAutoPass(Turn.Step, Controller.IsActive) && Stack.IsEmpty)
+      if (Configuration.ShouldAutoPass())
       {
         Result = new ChosenPlayable {Playable = new Pass()};
         return;

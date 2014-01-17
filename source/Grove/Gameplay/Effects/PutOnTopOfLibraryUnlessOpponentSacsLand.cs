@@ -36,7 +36,7 @@
         {
           p.Validator(c => c.Is().Land);
           p.Zone = Zone.Battlefield;
-          p.Text = "Select a land to sacrifice or press spacebar.";          
+          p.Text = "Select a land to sacrifice or press enter.";          
           p.ChooseDecisionResults = this;
           p.ProcessDecisionResults = this;
           p.MinCount = 0;

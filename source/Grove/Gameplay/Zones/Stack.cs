@@ -7,10 +7,11 @@
   using Artifical;
   using Effects;
   using Infrastructure;
+  using Messages;
+  using Misc;
   using Targeting;
-
-  [Copyable]
-  public class Stack : IEnumerable<Effect>, IHashable, IZone
+  
+  public class Stack : GameObject, IEnumerable<Effect>, IHashable, IZone
   {
     private readonly TrackableList<Effect> _effects = new TrackableList<Effect>(orderImpactsHashcode: true);
     private readonly Trackable<Effect> _lastResolved = new Trackable<Effect>();
@@ -45,6 +46,8 @@
 
     public void Initialize(Game game)
     {
+      Game = game;
+      
       _effects.Initialize(game.ChangeTracker);
       _lastResolved.Initialize(game.ChangeTracker);
     }
@@ -61,10 +64,9 @@
     {
       _effects.Add(effect);
       effect.EffectWasPushedOnStack();
-
-      EffectAdded(this, new StackChangedEventArgs(effect));
-
-
+      
+      EffectAdded(this, new StackChangedEventArgs(effect));      
+      Publish(new EffectPushedOnStack {Effect = effect});      
       LogFile.Debug("Effect pushed on stack: {0}.", effect);
     }
 
