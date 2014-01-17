@@ -4,6 +4,7 @@
   using Artifical.TimingRules;
   using Gameplay.Effects;
   using Gameplay.Misc;
+  using Gameplay.Zones;
 
   public class Gamble : CardTemplateSource
   {
@@ -20,7 +21,7 @@
           {
             p.Effect =
               () => new SearchLibraryPutToZone(
-                c => c.PutToHand(),
+                zone: Zone.Hand,
                 minCount: 1,
                 maxCount: 1,
                 revealCards: false)

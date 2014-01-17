@@ -1,12 +1,12 @@
 ﻿This file is used to track the card implementation progress.
 
-## Urza's Desti
-Academy Rector
-Æther Sting
-Ancient Silverback
-Apprentice Necromancer
-Archery Training
-Attrition
+## Urza's Destiny
+o Academy Rector
+o Æther Sting
+o Ancient Silverback
+o Apprentice Necromancer
+o Archery Training
+o Attrition
 Aura Thief
 Blizzard Elemental
 Bloodshot Cyclops

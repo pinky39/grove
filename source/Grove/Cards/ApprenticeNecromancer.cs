@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Artifical.TimingRules;
   using Gameplay;
@@ -14,28 +13,32 @@
   using Gameplay.Triggers;
   using Gameplay.Zones;
 
-  public class SneakAttack : CardTemplateSource
+  public class ApprenticeNecromancer : CardTemplateSource
   {
     public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
-        .Named("Sneak Attack")
-        .ManaCost("{3}{R}")
-        .Type("Enchantment")
+        .Named("Apprentice Necromancer")
+        .ManaCost("{1}{B}")
+        .Type("Creature Zombie Wizard")
         .Text(
-          "{R}: You may put a creature card from your hand onto the battlefield. That creature gains haste. Sacrifice the creature at the beginning of the next end step.")
-        .FlavorText("Nothin' beat surprise—'cept rock.")
-        .Cast(p => p.TimingRule(new OnFirstMain()))
+          "{B},{T}, Sacrifice Apprentice Necromancer: Return target creature card from your graveyard to the battlefield. That creature gains haste. At the beginning of the next end step, sacrifice it.")        
+        .Power(1)
+        .Toughness(1)        
         .ActivatedAbility(p =>
           {
             p.Text =
-              "{R}: You may put a creature card from your hand onto the battlefield. That creature gains haste. Sacrifice the creature at the beginning of the next end step.";
-            p.Cost = new PayMana(Mana.Red, ManaUsage.Abilities);
+              "{B},{T},Sacrifice Apprentice Necromancer: Return target creature card from your graveyard to the battlefield. That creature gains haste. At the beginning of the next end step, sacrifice it.";
+            
+            p.Cost = new AggregateCost(
+              new PayMana(Mana.Black, ManaUsage.Abilities),
+              new Tap(),
+              new Sacrifice());
 
             p.Effect = () => new PutSelectedCardToBattlefield(
-              "Select a creature card in your hand.",
+              "Select a creature card in your graveyard.",
               c => c.Is().Creature,
-              Zone.Hand,
+              Zone.Graveyard,
               () => new AddStaticAbility(Static.Haste) {UntilEot = true},
               () =>
                 {
@@ -55,7 +58,7 @@
                 });
 
             p.TimingRule(new OnYourTurn(Step.BeginningOfCombat));
-            p.TimingRule(new WhenYourHandCountIs(minCount: 1, selector: c => c.Is().Creature));
+            p.TimingRule(new WhenYourGraveyardCountIs(minCount: 1, selector: c => c.Is().Creature));
           });
     }
   }

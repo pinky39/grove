@@ -86,6 +86,7 @@
   <ItemGroup>
     <Compile Include="Cards\AboutFace.cs" />
     <Compile Include="Cards\AbyssalHorror.cs" />
+    <Compile Include="Cards\AcademyRector.cs" />
     <Compile Include="Cards\AcademyResearchers.cs" />
     <Compile Include="Cards\Acridian.cs" />
     <Compile Include="Cards\AetherSting.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="Cards\AngelsTrumpet.cs" />
     <Compile Include="Cards\Antagonism.cs" />
     <Compile Include="Cards\Anthroplasm.cs" />
+    <Compile Include="Cards\ApprenticeNecromancer.cs" />
     <Compile Include="Cards\ArcheryTraining.cs" />
     <Compile Include="Cards\Archivist.cs" />
     <Compile Include="Cards\ArcLightning.cs" />

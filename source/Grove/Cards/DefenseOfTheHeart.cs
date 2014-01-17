@@ -8,6 +8,7 @@
   using Gameplay.Misc;
   using Gameplay.States;
   using Gameplay.Triggers;
+  using Gameplay.Zones;
 
   public class DefenseOfTheHeart : CardTemplateSource
   {
@@ -32,7 +33,7 @@
             p.Effect = () => new CompoundEffect(
               new SacrificeOwner(),
               new SearchLibraryPutToZone(
-                c => c.PutToBattlefield(),
+                zone: Zone.Battlefield,
                 minCount: 0,
                 maxCount: 2,
                 validator: (e, c) => c.Is().Creature,

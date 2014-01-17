@@ -3,6 +3,7 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
+  using Artifical;
   using Decisions;
   using Decisions.Results;
   using Zones;
@@ -23,31 +24,7 @@
 
     public ChosenCards ChooseResult(List<Card> candidates)
     {
-      var ordered = candidates
-        .OrderBy(x => -x.Score)        
-        .ToList();
-
-      foreach (var card in ordered)
-      {
-        // not an aura just choose the card
-        if (!card.Is().Aura)
-          return new ChosenCards(card);
-
-        
-        // find something to attach aura to
-        // or skip to next best card
-        var bestAuraTarget = card.Controller.Battlefield
-          .Where(target => card.CanTarget(target) && card.IsGoodTarget(target))
-          .OrderBy(x => -x.Score)
-          .FirstOrDefault();
-        
-        if (bestAuraTarget != null)
-        {
-          return new ChosenCards(new[] {card, bestAuraTarget});
-        }
-      }
-
-      return ChosenCards.None;
+      return CardPicker.ChooseBestCards(candidates, count: 1, aurasNeedTarget: true);
     }
 
     public void ProcessResults(ChosenCards results)

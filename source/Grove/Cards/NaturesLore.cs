@@ -3,6 +3,7 @@
   using System.Collections.Generic;
   using Gameplay.Effects;
   using Gameplay.Misc;
+  using Gameplay.Zones;
 
   public class NaturesLore : CardTemplateSource
   {
@@ -18,7 +19,7 @@
         .Cast(p =>
           {
             p.Effect = () => new SearchLibraryPutToZone(
-              c => c.PutToBattlefield(),
+              zone: Zone.Battlefield,
               minCount: 0,
               maxCount: 1,
               validator: (e, c) => c.Is("forest"),

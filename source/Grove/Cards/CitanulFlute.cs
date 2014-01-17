@@ -8,6 +8,7 @@
   using Gameplay.Effects;
   using Gameplay.ManaHandling;
   using Gameplay.Misc;
+  using Gameplay.Zones;
 
   public class CitanulFlute : CardTemplateSource
   {
@@ -29,7 +30,7 @@
               new Tap());
 
             p.Effect = () => new SearchLibraryPutToZone(
-              c => c.PutToHand(),
+              zone: Zone.Hand,
               minCount: 0,
               maxCount: 1,
               validator: (e, c) => c.Is().Creature && c.ConvertedCost <= e.X,

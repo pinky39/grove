@@ -4,6 +4,7 @@
   using System.Collections.Generic;
   using Gameplay.Effects;
   using Gameplay.Misc;
+  using Gameplay.Zones;
 
   public class RampantGrowth : CardTemplateSource
   {
@@ -19,11 +20,8 @@
         .Cast(p =>
           {
             p.Effect = () => new SearchLibraryPutToZone(
-              c =>
-                {
-                  c.PutToBattlefield();
-                  c.Tap();
-                },
+              zone: Zone.Battlefield,
+              afterPutToZone: c => c.Tap(),
               minCount: 0,
               maxCount: 1,
               validator: (e, c) => c.Is().BasicLand,

@@ -30,7 +30,7 @@
               filter: (c, a, g) => a.OwningCard.Controller == c.Controller && c.Is().Creature && !c.Is().Token));
 
             p.Effect = () => new SearchLibraryPutToZone(
-              c => c.PutToHand(),
+              zone: Zone.Hand,
               minCount: 0,
               maxCount: 1,
               validator: (e, c) => e.TriggerMessage<ZoneChanged>().Card.Name == c.Name);

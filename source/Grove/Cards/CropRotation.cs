@@ -8,6 +8,7 @@
   using Gameplay.Effects;
   using Gameplay.ManaHandling;
   using Gameplay.Misc;
+  using Gameplay.Zones;
 
   public class CropRotation : CardTemplateSource
   {
@@ -27,7 +28,7 @@
               new Sacrifice());
 
             p.Effect = () => new SearchLibraryPutToZone(
-              c => c.PutToBattlefield(),
+              zone: Zone.Battlefield,
               minCount: 0,
               maxCount: 1,
               validator: (e, c) => c.Is().Land,

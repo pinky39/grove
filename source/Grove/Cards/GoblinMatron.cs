@@ -25,7 +25,7 @@
               "When Goblin Matron enters the battlefield, you may search your library for a Goblin card, reveal that card, and put it into your hand. If you do, shuffle your library.";
             p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
             p.Effect = () => new SearchLibraryPutToZone(
-              c => c.PutToHand(),
+              zone: Zone.Hand,
               minCount: 0,
               maxCount: 1,
               validator: (e, c) => c.Is("goblin"),

@@ -7,6 +7,7 @@
   using Gameplay.Effects;
   using Gameplay.ManaHandling;
   using Gameplay.Misc;
+  using Gameplay.Zones;
 
   public class Tinker : CardTemplateSource
   {
@@ -29,7 +30,7 @@
               trg.Is.Card(c => c.Is().Artifact).On.Battlefield());
 
             p.Effect = () => new SearchLibraryPutToZone(
-              c => c.PutToBattlefield(),
+              zone: Zone.Battlefield,
               minCount: 0,
               maxCount: 1,
               validator: (e, c) => c.Is().Artifact,

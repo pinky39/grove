@@ -37,7 +37,7 @@
               filter: (c, a, g) => a.OwningCard.AttachedTo == c));
 
             p.Effect = () => new SearchLibraryPutToZone(
-              c => c.PutToBattlefield(),
+              zone: Zone.Battlefield,
               minCount: 0,
               maxCount: 1,
               validator: (e, c) => c.Is().Creature,

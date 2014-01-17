@@ -121,6 +121,7 @@
     </ApplicationDefinition>
     <Compile Include="Artifical\AttackerEvaluationParameters.cs" />
     <Compile Include="Artifical\AttackStrategyParameters.cs" />
+    <Compile Include="Artifical\CardPicker.cs" />
     <Compile Include="Artifical\CostRules\XIsMaxCostInYourLibrary.cs" />
     <Compile Include="Artifical\CostRules\XIsNumOfBlockedAttackers.cs" />
     <Compile Include="Artifical\CostRules\XIsOpponentsLandCount.cs" />
@@ -154,11 +155,13 @@
     <Compile Include="Artifical\TimingRules\WhenAttachedToCardWillBeDestroyed.cs" />
     <Compile Include="Artifical\TimingRules\WhenStackIsNotEmpty.cs" />
     <Compile Include="Cards\AboutFace.cs" />
+    <Compile Include="Cards\AcademyRector.cs" />
     <Compile Include="Cards\AetherSting.cs" />
     <Compile Include="Cards\AncientSilverback.cs" />
     <Compile Include="Cards\AngelicCurator.cs" />
     <Compile Include="Cards\AngelsTrumpet.cs" />
     <Compile Include="Cards\Anthroplasm.cs" />
+    <Compile Include="Cards\ApprenticeNecromancer.cs" />
     <Compile Include="Cards\ArcheryTraining.cs" />
     <Compile Include="Cards\Archivist.cs" />
     <Compile Include="Cards\Attrition.cs" />

@@ -26,7 +26,7 @@
             p.Text = "When Yavimaya Elder dies, you may search your library for up to two basic land cards, reveal them, and put them into your hand. If you do, shuffle your library.";
             p.Trigger(new OnZoneChanged(from: Zone.Battlefield, to: Zone.Graveyard));
             p.Effect = () => new SearchLibraryPutToZone(
-              c => c.PutToHand(),
+              zone: Zone.Hand,
               minCount: 0,
               maxCount: 2,
               validator: (e, c) => c.Is().BasicLand,

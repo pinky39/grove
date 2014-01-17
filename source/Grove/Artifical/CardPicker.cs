@@ -1,0 +1,51 @@
+﻿namespace Grove.Artifical
+{
+  using System.Collections.Generic;
+  using System.Linq;
+  using Gameplay;
+  using Gameplay.Decisions.Results;
+
+  public static class CardPicker
+  {
+    public static ChosenCards ChooseBestCards(IEnumerable<Card> candidates, int count, bool aurasNeedTarget)
+    {
+       var ordered = candidates
+        .OrderBy(x => -x.Score)        
+        .ToList();
+
+      var chosenCards = new List<Card>();
+
+      int currentCount = 0;
+
+      foreach (var card in ordered)
+      {
+        if (currentCount >= count)
+          break;
+        
+        // not an aura just choose the card
+        if (!card.Is().Aura)
+        {
+          chosenCards.Add(card);
+          currentCount++;
+          continue;  
+        }
+                        
+        // find something to attach aura to
+        // or skip to next best card
+        var bestAuraTarget = card.Controller.Battlefield
+          .Where(target => card.CanTarget(target) && card.IsGoodTarget(target))
+          .OrderBy(x => -x.Score)
+          .FirstOrDefault();
+        
+        if (bestAuraTarget != null)
+        {
+          chosenCards.Add(card);
+          chosenCards.Add(bestAuraTarget);
+          currentCount++;
+        }
+      }
+
+      return new ChosenCards(chosenCards);
+    }    
+  }
+}

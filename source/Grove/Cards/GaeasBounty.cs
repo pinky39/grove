@@ -4,6 +4,7 @@
   using Artifical.TimingRules;
   using Gameplay.Effects;
   using Gameplay.Misc;
+  using Gameplay.Zones;
 
   public class GaeasBounty : CardTemplateSource
   {
@@ -19,7 +20,7 @@
         .Cast(p =>
           {
             p.Effect = () => new SearchLibraryPutToZone(
-              c => c.PutToHand(),
+              zone: Zone.Hand,
               minCount: 0,
               maxCount: 2,
               validator: (e, c) => c.Is("forest"),
