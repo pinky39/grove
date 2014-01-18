@@ -166,6 +166,7 @@
     <Compile Include="Cards\Archivist.cs" />
     <Compile Include="Cards\Attrition.cs" />
     <Compile Include="Cards\AuraFlux.cs" />
+    <Compile Include="Cards\AuraThief.cs" />
     <Compile Include="Cards\BeastOfBurden.cs" />
     <Compile Include="Cards\BlessedReversal.cs" />
     <Compile Include="Cards\BloatedToad.cs" />
@@ -1156,7 +1157,7 @@
     <Compile Include="Gameplay\Effects\EnchantOwnerWithTarget.cs" />
     <Compile Include="Gameplay\Effects\ExileCard.cs" />
     <Compile Include="Gameplay\Effects\ExileOwner.cs" />
-    <Compile Include="Gameplay\Effects\GainControlOfOwnedPermanents.cs" />
+    <Compile Include="Gameplay\Effects\GainControlOfAllPermanents.cs" />
     <Compile Include="Gameplay\Effects\PutSelectedCardToBattlefield.cs" />
     <Compile Include="Gameplay\Effects\ReturnAllCardsInGraveyardToHand.cs" />
     <Compile Include="Gameplay\Effects\SacrificePermanentOrSacrificeOwner.cs" />

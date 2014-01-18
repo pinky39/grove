@@ -1,6 +1,5 @@
 ﻿namespace Grove.Cards
 {
-  using System;
   using System.Collections.Generic;
   using Gameplay.Abilities;
   using Gameplay.Effects;
@@ -25,7 +24,7 @@
           {
             p.Text = "When Darkslick Drake is put into a graveyard from the battlefield, draw a card.";
             p.Trigger(new OnZoneChanged(from: Zone.Battlefield, to: Zone.Graveyard));
-            p.Effect = () => new DrawCards(1);            
+            p.Effect = () => new DrawCards(1);
           });
     }
   }

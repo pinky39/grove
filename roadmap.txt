@@ -7,7 +7,7 @@ o Ancient Silverback
 o Apprentice Necromancer
 o Archery Training
 o Attrition
-Aura Thief
+o Aura Thief
 Blizzard Elemental
 Bloodshot Cyclops
 Body Snatcher

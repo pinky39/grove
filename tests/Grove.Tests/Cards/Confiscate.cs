@@ -37,6 +37,26 @@
       }
 
       [Fact]
+      public void ConfiscateUrzasArmor()
+      {
+        var armor = C("Urza's armor");
+        var confiscate = C("Confiscate");
+        var shock = C("Shock");
+
+        Hand(P1, confiscate);
+        Hand(P2, shock);
+        Battlefield(P2, armor);
+
+        Exec(
+          At(Step.FirstMain)
+            .Cast(confiscate, target: armor),
+          At(Step.SecondMain)
+            .Cast(shock, target: P1)
+            .Verify(() => Equal(19, P1.Life))          
+        );
+      }
+
+      [Fact]
       public void ConfiscateConfiscate()
       {
         var confiscate1 = C("Confiscate");

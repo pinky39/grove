@@ -18,7 +18,7 @@
         .FlavorText("By this glyph I affirm your role.")
         .Cast(p =>
           {
-            p.Effect = () => new GainControlOfOwnedPermanents();
+            p.Effect = () => new GainControlOfAllPermanents((c, e) => c.Owner == e.Controller);
             p.TimingRule(new OnEndOfOpponentsTurn());
             p.TimingRule(new WhenOpponentControllsPermanents(c => c.Owner != c.Controller));
           });

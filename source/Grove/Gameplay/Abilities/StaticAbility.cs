@@ -4,10 +4,12 @@
   using System.Collections.Generic;
   using System.Linq;
   using Infrastructure;
+  using Messages;
   using Misc;
   using Modifiers;
 
-  public class StaticAbility : GameObject, IDisposable, ICopyContributor, IHashable
+  public class StaticAbility : GameObject, IReceive<ControllerChanged>, 
+    IDisposable, ICopyContributor, IHashable
   {
     private readonly bool _enabledInAllZones;
     private readonly Trackable<bool> _isEnabled = new Trackable<bool>();
@@ -35,6 +37,8 @@
     public void Dispose()
     {
       Disable();
+      
+      Unsubscribe(this);
       UnsubscribeFromEvents();
     }
 
@@ -106,13 +110,13 @@
     private void SubscribeToEvents()
     {
       OwningCard.JoinedBattlefield += OnOwningCardJoinedBattlefield;
-      OwningCard.LeftBattlefield += OnOwningCardLeftBattlefield;
+      OwningCard.LeftBattlefield += OnOwningCardLeftBattlefield;      
     }
 
     private void UnsubscribeFromEvents()
     {
       OwningCard.JoinedBattlefield -= OnOwningCardJoinedBattlefield;
-      OwningCard.LeftBattlefield -= OnOwningCardLeftBattlefield;
+      OwningCard.LeftBattlefield -= OnOwningCardLeftBattlefield;      
     }
 
     public void Initialize(Card owningCard, Game game)
@@ -125,7 +129,17 @@
       if (_enabledInAllZones)
         Enable();
 
+      Subscribe(this);
       SubscribeToEvents();
+    }
+
+    public void Receive(ControllerChanged message)
+    {
+      if (message.Card == OwningCard)
+      {
+        Disable();
+        Enable();
+      }
     }
   }
 }
