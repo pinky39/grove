@@ -115,8 +115,10 @@
     <Compile Include="Cards\Blaze.cs" />
     <Compile Include="Cards\BlessedReversal.cs" />
     <Compile Include="Cards\BloodVassal.cs" />
+    <Compile Include="Cards\BlooshotCyclops.cs" />
     <Compile Include="Cards\BodySnatcher.cs" />
     <Compile Include="Cards\BouncingBeebles.cs" />
+    <Compile Include="Cards\BraidwoodSextant.cs" />
     <Compile Include="Cards\Brand.cs" />
     <Compile Include="Cards\Bravado.cs" />
     <Compile Include="Cards\Breach.cs" />

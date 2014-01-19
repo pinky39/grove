@@ -137,6 +137,7 @@
     <Compile Include="Artifical\CombatRules\RegenerateCombatRule.cs" />
     <Compile Include="Artifical\DraftAlgorithms\Greedy.cs" />
     <Compile Include="Artifical\DraftAlgorithms\IDraftingStrategies.cs" />
+    <Compile Include="Artifical\TargetingRules\CostSacrificeEffectDealDamageEqualToPower.cs" />
     <Compile Include="Artifical\TargetingRules\EffectAnyPlayer.cs" />
     <Compile Include="Artifical\TargetingRules\EffectCannotBlockAttack.cs" />
     <Compile Include="Artifical\TargetingRules\EffectExchangeBattlefieldGraveyard.cs" />
@@ -169,10 +170,14 @@
     <Compile Include="Cards\AuraThief.cs" />
     <Compile Include="Cards\BeastOfBurden.cs" />
     <Compile Include="Cards\BlessedReversal.cs" />
+    <Compile Include="Cards\BlizzardElemental.cs" />
     <Compile Include="Cards\BloatedToad.cs" />
+    <Compile Include="Cards\BloodshotCyclops.cs" />
     <Compile Include="Cards\BodySnatcher.cs" />
     <Compile Include="Cards\BouncingBeebles.cs" />
     <Compile Include="Cards\BraidwoodCup.cs" />
+    <Compile Include="Cards\BraidwoodSextant.cs" />
+    <Compile Include="Cards\BrassSecretary.cs" />
     <Compile Include="Cards\BrinkOfMadness.cs" />
     <Compile Include="Cards\BurstOfEnergy.cs" />
     <Compile Include="Cards\CapashenStandard.cs" />
@@ -316,6 +321,7 @@
     <Compile Include="Gameplay\Costs\CostModifiers.cs" />
     <Compile Include="Gameplay\Costs\SpellCostModifier.cs" />
     <Compile Include="Gameplay\Costs\DiscardRandom.cs" />
+    <Compile Include="Gameplay\Costs\TapOwner.cs" />
     <Compile Include="Gameplay\Effects\CreatureGetsM1M1ForEachRevealedCard.cs" />
     <Compile Include="Gameplay\Effects\CreaturesOfChosenTypeCostLess.cs" />
     <Compile Include="Gameplay\Effects\DestroyAttachedAuras.cs" />

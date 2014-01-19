@@ -1,4 +1,4 @@
-﻿This file is used to track the card implementation progress.
+This file is used to track the card implementation progress.
 
 ## Urza's Destiny
 o Academy Rector
@@ -8,12 +8,12 @@ o Apprentice Necromancer
 o Archery Training
 o Attrition
 o Aura Thief
-Blizzard Elemental
-Bloodshot Cyclops
-Body Snatcher
-Braidwood Cup
-Braidwood Sextant
-Brass Secretary
+o Blizzard Elemental
+o Bloodshot Cyclops
+o Body Snatcher
+o Braidwood Cup
+o Braidwood Sextant
+o Brass Secretary
 Brine Seer
 Bubbling Beebles
 Bubbling Muck

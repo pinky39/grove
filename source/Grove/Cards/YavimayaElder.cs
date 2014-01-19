@@ -1,5 +1,6 @@
 ﻿namespace Grove.Cards
 {
+  using System;
   using System.Collections.Generic;
   using Artifical.TimingRules;
   using Gameplay;
@@ -44,9 +45,7 @@
 
             p.TimingRule(new Any(
               new WhenOwningCardWillBeDestroyed(),              
-              new OnEndOfOpponentsTurn()));
-
-            p.TimingRule(new WhenNoOtherInstanceOfSpellIsOnStack());
+              new OnEndOfOpponentsTurn()));            
           });
     }
   }

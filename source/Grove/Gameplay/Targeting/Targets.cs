@@ -14,7 +14,19 @@
     private readonly List<ITarget> _costTargets = new List<ITarget>();
     private readonly List<ITarget> _effectTargets = new List<ITarget>();
     public List<int> Distribution;
+    
     public Targets() {}
+
+    public Targets(ITarget effect)
+    {
+      _effectTargets.Add(effect);
+    }
+    
+    public Targets(ITarget cost, ITarget effect)
+    {
+      _costTargets.Add(cost);
+      _effectTargets.Add(effect);
+    }
 
     protected Targets(SerializationInfo info, StreamingContext context)
     {
@@ -31,7 +43,6 @@
     public int Count { get { return _effectTargets.Count + _costTargets.Count; } }
     public List<ITarget> Effect { get { return _effectTargets; } }
     public List<ITarget> Cost { get { return _costTargets; } }
-
 
     public IEnumerator<ITarget> GetEnumerator()
     {

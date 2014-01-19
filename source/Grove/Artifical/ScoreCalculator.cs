@@ -9,6 +9,9 @@
 
   public static class ScoreCalculator
   {
+    public const int LandOnBattlefieldScore = 150;
+    public const int LandInHandCost = 90;
+    
     private static readonly Dictionary<int, int> LifeToScore = new Dictionary<int, int>
       {
         {20, 0},
@@ -119,7 +122,6 @@
 
     public static int CalculatePermanentScore(Card permanent)
     {
-      const int landValue = 150;
       var score = 0;
 
       if (permanent.OverrideScore.Battlefield.HasValue)
@@ -146,7 +148,7 @@
       }
       else if (permanent.Is().Land)
       {
-        score += landValue;
+        score += LandOnBattlefieldScore;
 
         if (!permanent.Is().BasicLand)
           score += 10;
@@ -198,7 +200,7 @@
 
       if (card.ManaCost == null || card.ManaCost.Converted == 0)
       {
-        return 90;
+        return LandInHandCost;
       }
 
       return CalculateCardInHandScoreFromManaCost(card.ManaCost);

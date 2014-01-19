@@ -51,7 +51,7 @@
       var assignments = AssignEveryBlockerToEachAttacker();
 
       return (from blockAssignment in assignments
-              where blockAssignment.Score >= 0
+              where blockAssignment.Score > 0
               select blockAssignment.Attacker.Card).ToList();
     }
 

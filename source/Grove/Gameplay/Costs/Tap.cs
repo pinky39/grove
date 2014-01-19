@@ -1,10 +1,11 @@
 ﻿namespace Grove.Gameplay.Costs
 {
+  using System;
   using System.Linq;
   using Targeting;
 
   public class Tap : Cost
-  {
+  {        
     protected override void CanPay(CanPayResult result)
     {
       if (Validator != null)
