@@ -3,7 +3,6 @@
   using System;
   using System.Collections.Generic;
   using System.Globalization;
-  using System.IO;
   using System.Linq;
   using Artifical;
   using Infrastructure;
@@ -17,10 +16,10 @@
     private readonly Dictionary<string, int> _tournamentPack = new Dictionary<string, int>();
     private readonly List<string> _uncommons = new List<string>();
 
-    public MagicSet(string filename)
+    public MagicSet(string name, string content)
     {
-      Name = Path.GetFileNameWithoutExtension(filename);
-      LoadFromFile(filename);
+      Name = name;
+      Load(content.Split(new[]{'\n'}));
     }
 
     public CardRatings Ratings { get { return new CardRatings(_ratings); } }
@@ -66,10 +65,8 @@
       storage[tokens[0].Trim()] = int.Parse(tokens[1].Trim());
     }
 
-    private void LoadFromFile(string filename)
+    private void Load(string[] rows)
     {
-      var rows = File.ReadAllLines(filename);
-
       var sections = new Dictionary<string, Action<string>>
         {
           {"!Cards", ParseCard},

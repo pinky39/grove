@@ -10,7 +10,7 @@
     {
       Task.Factory.StartNew(() =>
         {
-          MediaLibrary.LoadResources();
+          ResourceManager.LoadResources();
           InitializeCardDatabase();
         })
         .ContinueWith(tsk =>

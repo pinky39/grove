@@ -155,14 +155,14 @@
 
     public virtual void Save()
     {
-      DeckFile.Write(_deck, MediaLibrary.GetDeckPath(_deck.Name));
+      ResourceManager.SaveDeck(_deck);      
       IsSaved = true;
     }
 
     public virtual void SaveAs(string name)
     {
       _deck.Name = name;
-      DeckFile.Write(_deck, MediaLibrary.GetDeckPath(_deck.Name));
+      ResourceManager.SaveDeck(_deck);
 
       IsSaved = true;
       IsNew = false;

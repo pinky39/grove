@@ -453,7 +453,7 @@
 
       foreach (var setName in boosterPacks)
       {
-        var ratings = MediaLibrary.GetSet(setName).Ratings;
+        var ratings = ResourceManager.GetSet(setName).Ratings;
         if (merged == null)
         {
           merged = ratings;
@@ -467,7 +467,7 @@
       if (tournamentPack == null)
         return merged;
 
-      return CardRatings.Merge(merged, MediaLibrary.GetSet(tournamentPack).Ratings);
+      return CardRatings.Merge(merged, ResourceManager.GetSet(tournamentPack).Ratings);
     }
 
     private void CreateSealedDecks()
@@ -475,7 +475,7 @@
       const int minNumberOfGeneratedDecks = 5;
       var limitedCode = MagicSet.GetLimitedCode(_p.TournamentPack, _p.BoosterPacks);
 
-      var preconstructed = MediaLibrary.GetDecks(limitedCode)
+      var preconstructed = ResourceManager.GetDecks(limitedCode)
         .OrderBy(x => RandomEx.Next())
         .Take(NonHumanPlayers.Count() - minNumberOfGeneratedDecks)
         .ToList();
@@ -500,9 +500,8 @@
             deck.LimitedCode = limitedCode;
             player.Deck = deck;
 
-            // write generated deck to tournament folder so it can be reused in future tournaments
-            var filename = Path.Combine(MediaLibrary.TournamentFolder, Guid.NewGuid() + ".dec");
-            DeckFile.Write(deck, filename);
+            // save generated deck so it can be reused in future tournaments
+            ResourceManager.SaveGeneratedDeck(deck);                                    
 
             _shell.Publish(new DeckGenerationStatus
               {
@@ -532,7 +531,7 @@
     {
       var players = new List<TournamentPlayer>();
 
-      var names = MediaLibrary.NameGenerator.GenerateNames(playersCount - 1);
+      var names = ResourceManager.NameGenerator.GenerateNames(playersCount - 1);
       players.Add(new TournamentPlayer(playerName, isHuman: true));
 
       for (var i = 0; i < playersCount - 1; i++)
@@ -549,12 +548,12 @@
 
       foreach (var setName in _p.BoosterPacks)
       {
-        library.AddRange(MediaLibrary
+        library.AddRange(ResourceManager
           .GetSet(setName)
           .GenerateBoosterPack());
       }
 
-      library.AddRange(MediaLibrary
+      library.AddRange(ResourceManager
         .GetSet(_p.TournamentPack)
         .GenerateTournamentPack());
 

@@ -15,7 +15,7 @@
     public ViewModel(object previousScreen)
     {
       _previousScreen = previousScreen;
-      _sets = MediaLibrary.GetSetsNames();
+      _sets = ResourceManager.GetSetsNames();
 
       StarterPack = "Urza's Saga";
       BoosterPack1 = _sets[0];

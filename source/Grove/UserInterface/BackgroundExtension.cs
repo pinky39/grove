@@ -2,20 +2,18 @@
 {
   using System;
   using System.Collections.Generic;
-  using System.IO;
   using System.Linq;
   using System.Windows.Markup;
   using System.Windows.Media;
   using Infrastructure;
-    
+
   public class BackgroundExtension : MarkupExtension
   {
     private static readonly List<ImageSource> Backgrounds;
 
     static BackgroundExtension()
     {
-      Backgrounds = Directory.EnumerateFiles(MediaLibrary.ImagesFolder, "background*.*")
-        .Select(MediaLibrary.GetImageWithPath)
+      Backgrounds = ResourceManager.GetImages(filename => filename.StartsWith("background"))
         .ToList();
     }
 

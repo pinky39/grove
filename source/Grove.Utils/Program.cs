@@ -10,7 +10,7 @@
   {
     private static void Main(string[] args)
     {                        
-      MediaLibrary.LoadResources();
+      ResourceManager.LoadResources();
       var runner = new TaskRunner();            
 
       try

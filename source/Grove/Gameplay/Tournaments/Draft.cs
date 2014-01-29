@@ -71,7 +71,7 @@
       {
         for (var i = 0; i < players.Count; i++)
         {
-          var boosterPack = MediaLibrary.GetSet(set).GenerateBoosterPack();
+          var boosterPack = ResourceManager.GetSet(set).GenerateBoosterPack();
           boosters.Add(boosterPack);
         }
       }

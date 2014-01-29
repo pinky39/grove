@@ -1,21 +1,38 @@
 ﻿namespace Grove.Persistance
 {
+  using System;
   using System.IO;
   using System.Runtime.Serialization.Formatters;
   using System.Runtime.Serialization.Formatters.Binary;
-  using UserInterface;
+
+  public class SaveGameFile
+  {
+    public readonly object Data;    
+    public readonly SaveFileHeader Header;
+    public readonly DateTime ModifiedAt;
+    public readonly string Name;
+
+    public SaveGameFile(string name, SaveFileHeader header, object data, DateTime modifiedAt)
+    {
+      Header = header;
+      Data = data;
+      ModifiedAt = modifiedAt;
+      Name = name;
+    }
+  }
 
   public static class SaveLoadHelper
   {
-    public static void WriteToDisk(SaveFileHeader header, object saveGameData, string filename = null)
+    public static byte[] Serialize(SaveFileHeader header, object saveGameData)
     {
-      filename = filename ?? MediaLibrary.GetSaveGameFilename();
       var formatter = CreateFormatter();
 
-      using (var file = new FileStream(filename, FileMode.Create))
+      using (var stream = new MemoryStream())
       {
-        formatter.Serialize(file, header);
-        formatter.Serialize(file, saveGameData);
+        formatter.Serialize(stream, header);
+        formatter.Serialize(stream, saveGameData);
+
+        return stream.ToArray();
       }
     }
 
@@ -26,26 +43,12 @@
       return formatter;
     }
 
-    public static SaveFileHeader ReadHeader(string filename)
+    public static SaveGameFile ReadFile(string name, Stream stream, DateTime modifiedAt)
     {
       var formatter = CreateFormatter();
-
-      using (var file = new FileStream(filename, FileMode.Open))
-      {
-        var header = (SaveFileHeader) formatter.Deserialize(file);                
-        return header;
-      }
+      var header = (SaveFileHeader) formatter.Deserialize(stream);
+      var data = formatter.Deserialize(stream);
+      return new SaveGameFile(name, header, data, modifiedAt);
     }
-
-    public static object ReadData(string filename)
-    {
-      var formatter = CreateFormatter();
-
-      using (var file = new FileStream(filename, FileMode.Open))
-      {
-        formatter.Deserialize(file);
-        return formatter.Deserialize(file);
-      }
-    }   
   }
 }

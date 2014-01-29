@@ -37,7 +37,7 @@
 
     private static object CreateAsset(string name)
     {
-      return MediaLibrary.GetImage(name);
+      return ResourceManager.GetImage(name);
     }
   }
 }

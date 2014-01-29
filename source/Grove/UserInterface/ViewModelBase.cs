@@ -70,8 +70,8 @@
         saveFileHeader.Description = string.Format("Single match, {0}", CurrentMatch.Description);
         gameData = CurrentMatch.Save();
       }
-
-      SaveLoadHelper.WriteToDisk(saveFileHeader, gameData);
+      
+      ResourceManager.SaveGame(saveFileHeader, gameData);
     }
 
     protected void HandleException(Exception ex)

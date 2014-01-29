@@ -75,7 +75,7 @@
                               },
                             player2: new PlayerParameters
                               {
-                                Name = MediaLibrary.NameGenerator.GenerateName(),
+                                Name = ResourceManager.NameGenerator.GenerateName(),
                                 AvatarId = RandomEx.Next(),
                                 Deck = deck2
                               },
@@ -102,10 +102,7 @@
 
     public void PlayRandom()
     {
-      Deck firstDeck;
-      Deck secondDeck;
-
-      ChooseRandomDecks(out firstDeck, out secondDeck);
+      var decks = ChooseRandomDecks();
 
       try
       {
@@ -114,13 +111,13 @@
             {
               Name = YourName,
               AvatarId = RandomEx.Next(),
-              Deck = firstDeck
+              Deck = decks[0]
             },
           player2: new PlayerParameters
             {
-              Name = MediaLibrary.NameGenerator.GenerateName(),
+              Name = ResourceManager.NameGenerator.GenerateName(),
               AvatarId = RandomEx.Next(),
-              Deck = secondDeck
+              Deck = decks[1]
             },
           isTournament: false
           );
@@ -140,15 +137,10 @@
       Shell.ChangeScreen(deckEditorScreen);
     }
 
-    private void ChooseRandomDecks(out Deck firstDeck, out Deck secondDeck)
+    private Deck[] ChooseRandomDecks()
     {
-      var deckFiles = Directory
-        .EnumerateFiles(MediaLibrary.DecksFolder, "*.dec");
-
-      var decks = deckFiles
-        .Select(DeckFile.Read)
-        .ToList();
-
+      var decks = ResourceManager.ReadDecks().ToList();
+            
       var first = decks[RandomEx.Next(0, decks.Count)];
 
       var decksWithSameRating = decks
@@ -157,8 +149,7 @@
 
       var second = decksWithSameRating[RandomEx.Next(0, decksWithSameRating.Count)];
 
-      firstDeck = first;
-      secondDeck = second;
+      return new[] {first, second};      
     }
 
     public interface IFactory

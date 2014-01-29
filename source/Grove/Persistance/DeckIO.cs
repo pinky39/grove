@@ -12,19 +12,19 @@
     private static readonly Regex DescriptionRegex = new Regex(@"#.*Description\:\s*(.+)", RegexOptions.Compiled);
     private static readonly Regex RatingRegex = new Regex(@"#.*Rating\:\s*(.+)", RegexOptions.Compiled);
     private static readonly Regex LimitedCodeRegex = new Regex(@"#.*Limited\:\s*(.+)", RegexOptions.Compiled);
+
     private static readonly Regex DeckRowRegex = new Regex(@"([0-9]+)\s+([^()]+)\s*(?:\((.)\,\s+(.+)\))*",
       RegexOptions.Compiled);
 
-
-    public static Deck Read(string filename)
+    public static Deck Read(string name, byte[] content)
     {
-      using (var reader = new StreamReader(filename))
+      using (var reader = new StreamReader(new MemoryStream(content)))
       {
         string line;
         var lineNumber = 0;
 
         var deck = new Deck();
-        deck.Name = Path.GetFileNameWithoutExtension(filename);
+        deck.Name = name;
 
         while ((line = reader.ReadLine()) != null)
         {
@@ -72,41 +72,50 @@
       }
     }
 
-
-    public static void Write(Deck deck, string filename)
+    public static Deck Read(string filename)
     {
-      using (var writer = new StreamWriter(filename))
+      return Read(Path.GetFileNameWithoutExtension(filename), File.ReadAllBytes(filename));
+    }
+
+
+    public static byte[] Write(Deck deck)
+    {
+      using (var stream = new MemoryStream())
       {
-        if (!String.IsNullOrEmpty(deck.Description))
-          writer.WriteLine("# Description: {0}", deck.Description);
-
-        if (deck.Rating.HasValue)
-          writer.WriteLine("# Rating: {0}", deck.Rating);
-
-        if (deck.LimitedCode.HasValue)
-          writer.WriteLine("# Limited: {0}", deck.LimitedCode);
-
-        foreach (var row in DeckRow.Group(deck))
+        using (var writer = new StreamWriter(stream))
         {
-          if (string.IsNullOrEmpty(row.Card.Set))
+          if (!String.IsNullOrEmpty(deck.Description))
+            writer.WriteLine("# Description: {0}", deck.Description);
+
+          if (deck.Rating.HasValue)
+            writer.WriteLine("# Rating: {0}", deck.Rating);
+
+          if (deck.LimitedCode.HasValue)
+            writer.WriteLine("# Limited: {0}", deck.LimitedCode);
+
+          foreach (var row in DeckRow.Group(deck))
           {
-            writer.WriteLine("{0} {1}", row.Count, row.Card.Name);
-          }
-          else
-          {
-            writer.WriteLine("{0} {1} ({2}, {3})", row.Count, row.Card.Name, row.Card.Rarity, row.Card.Set);
+            if (string.IsNullOrEmpty(row.Card.Set))
+            {
+              writer.WriteLine("{0} {1}", row.Count, row.Card.Name);
+            }
+            else
+            {
+              writer.WriteLine("{0} {1} ({2}, {3})", row.Count, row.Card.Name, row.Card.Rarity, row.Card.Set);
+            }
           }
         }
+        return stream.ToArray();
       }
     }
-    
+
     private static DeckRow ParseRow(string line, int lineNumber)
     {
       line = line.Trim();
       var match = DeckRowRegex.Match(line);
 
       AssertEx.True(match.Success,
-        String.Format("Error parsing line {0}.", lineNumber));            
+        String.Format("Error parsing line {0}.", lineNumber));
 
       var cardCount = int.Parse(match.Groups[1].Value);
       var cardName = match.Groups[2].Value.Trim();

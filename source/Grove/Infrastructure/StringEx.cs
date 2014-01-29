@@ -12,6 +12,15 @@
       return new string(chars);
     }
 
+    public static string CapitalizeEachWord(this string str)
+    {
+      var words = str.Split(new[] {' '},
+        StringSplitOptions.RemoveEmptyEntries)
+        .Select(x => x.Capitalize());
+
+      return String.Join(" ", words);
+    }
+
     public static string ToPascalCase(this string sentence)
     {
       var words = sentence.Split(new[] {' '},

@@ -13,6 +13,7 @@
   using Persistance;
   using States;
   using Targeting;
+  using UserInterface;
   using Zones;
 
   [Copyable]
@@ -261,11 +262,11 @@
     }
 
     public void WriteDebugReport(string filename = null)
-    {
-      filename = filename ?? String.Format("debug-report-{0}.report", Guid.NewGuid());      
+    {            
       var header = new SaveFileHeader {Description = "Debug information to reproduce a bug which caused the error."};      
       var savedGame = Save();
-      SaveLoadHelper.WriteToDisk(header, savedGame, filename);
+
+      ResourceManager.SaveDebugReport(header, savedGame);      
     }
 
     public void Stop()

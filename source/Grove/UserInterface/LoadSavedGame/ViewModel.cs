@@ -2,7 +2,6 @@
 {
   using System;
   using System.Collections.Generic;
-  using System.IO;
   using System.Linq;
   using Gameplay;
   using Gameplay.Tournaments;
@@ -15,19 +14,19 @@
     public ViewModel(object previousScreen)
     {
       _previousScreen = previousScreen;
-      var filenames = MediaLibrary.GetSavedGamesFilenames();
 
-      if (filenames.Length == 0)
-        return;
-
-      SavedGames = filenames.Select((x, i) => new SavedGameViewModel
+      SavedGames = ResourceManager.ReadSavedGames().Select(saveGameFile => new SavedGameViewModel
         {
-          Filename = x,
-          Description = GetDescription(x),
-          LastSave = new FileInfo(x).LastWriteTime,
+          Filename = saveGameFile.Name,
+          Description = saveGameFile.Header.Description,
+          LastSave = saveGameFile.ModifiedAt,
+          Data = saveGameFile.Data
         })
         .OrderByDescending(x => x.LastSave)
         .ToList();
+
+      if (SavedGames.Count == 0)
+        return;
 
       Selected = SavedGames[0];
     }
@@ -64,20 +63,13 @@
 
     public bool CanLoad { get { return Selected != null; } }
 
-    private static string GetDescription(string filename)
-    {
-      return SaveLoadHelper.ReadHeader(filename).Description;
-    }
-
     public void Load()
     {
-      var data = SaveLoadHelper.ReadData(Selected.Filename);
-
       try
       {
         foreach (var loadGame in Handlers)
         {
-          if (loadGame(data)) break;
+          if (loadGame(Selected.Data)) break;
         }
       }
       catch (Exception ex)

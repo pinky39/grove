@@ -13,7 +13,7 @@
     {
       for (var i = 0; i < 1; i++)
       {
-        var set = MediaLibrary.GetSet("Urza's Saga");
+        var set = ResourceManager.GetSet("Urza's Saga");
         var pileOfCards = set.GenerateMixedPack(boosterCount: 3, tournamentCount: 1);
 
         Console.WriteLine("Card list:");
@@ -38,7 +38,7 @@
 
     public DeckBuilderFacts()
     {
-      MediaLibrary.LoadSets();
+      ResourceManager.LoadSets();
       CardDatabase.Initialize(CardFactory.CreateAll());
     }
   }

@@ -5,27 +5,30 @@
   using Castle.Core;
   using Gameplay;
   using Infrastructure;
-  using Persistance;
 
   public class ViewModel : ViewModelBase
   {
     private readonly Configuration _configuration;
     private readonly List<UserInterface.Deck.ViewModel> _decks = new List<UserInterface.Deck.ViewModel>();
 
+    private UserInterface.Deck.ViewModel _selected;
+
     public ViewModel(Configuration configuration)
     {
       _configuration = configuration;
     }
 
-    private UserInterface.Deck.ViewModel _selected;
-
     [DoNotWire]
-    public virtual UserInterface.Deck.ViewModel Selected { get { return _selected; } set
+    public virtual UserInterface.Deck.ViewModel Selected
     {
-      _selected = value;
-      _selected.SelectedCardChanged += delegate { SelectedCard = CardDatabase[_selected.SelectedCard.Name]; };
-      SelectedCard = CardDatabase[_selected.SelectedCard.Name];
-    } }
+      get { return _selected; }
+      set
+      {
+        _selected = value;
+        _selected.SelectedCardChanged += delegate { SelectedCard = CardDatabase[_selected.SelectedCard.Name]; };
+        SelectedCard = CardDatabase[_selected.SelectedCard.Name];
+      }
+    }
 
     public string NextCaption { get { return _configuration.ForwardText; } }
     public virtual Card SelectedCard { get; protected set; }
@@ -46,25 +49,24 @@
 
     private void LoadDecks()
     {
-      var deckFiles = MediaLibrary.GetDeckFilenames();
+      var decks = ResourceManager.ReadDecks();
 
-      foreach (var fileName in deckFiles)
+      foreach (var deck in decks)
       {
-        var deck = CreateReadonlyDeck(fileName);
-        _decks.Add(deck);
+        var deckVm = CreateReadonlyDeckVm(deck);
+        _decks.Add(deckVm);
       }
 
       Selected = _decks.FirstOrDefault();
     }
 
-    private UserInterface.Deck.ViewModel CreateReadonlyDeck(string fileName)
+    private UserInterface.Deck.ViewModel CreateReadonlyDeckVm(Deck deck)
     {
-      var deck = ViewModels.Deck.Create(
-        DeckFile.Read(fileName));
+      var deckVm = ViewModels.Deck.Create(deck);
 
-      deck.OnAdd = delegate { return false; };
-      deck.OnRemove = delegate { return false; };
-      return deck;
+      deckVm.OnAdd = delegate { return false; };
+      deckVm.OnRemove = delegate { return false; };
+      return deckVm;
     }
 
 

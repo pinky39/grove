@@ -90,6 +90,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\castle.windsor\Castle.Windsor.dll</HintPath>
     </Reference>
+    <Reference Include="Ionic.Zip">
+      <HintPath>..\..\lib\zip\Ionic.Zip.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>..\..\lib\log4net\log4net.dll</HintPath>
     </Reference>
@@ -1646,7 +1649,7 @@
     <Compile Include="Infrastructure\UpdatesAttribute.cs" />
     <Compile Include="UserInterface\Battlefield\Slot.cs" />
     <Compile Include="UserInterface\Battlefield\Row.cs" />
-    <Compile Include="UserInterface\MediaLibrary.cs" />
+    <Compile Include="UserInterface\ResourceManager.cs" />
     <Compile Include="UserInterface\MediaExtension.cs" />
     <Compile Include="UserInterface\Converters.cs" />
     <Compile Include="Infrastructure\Bindable.cs" />

@@ -39,7 +39,7 @@
       public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
       {
         var id = (int) value;
-        return MediaLibrary.GetAvatar(id);
+        return ResourceManager.GetAvatar(id);
       }
 
       public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -61,7 +61,7 @@
       public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
       {
         var pass = (Pass) value;
-        return MediaLibrary.GetImage(_imageNames[pass]);
+        return ResourceManager.GetImage(_imageNames[pass]);
       }
 
       public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -106,7 +106,7 @@
 
       public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
       {
-        return MediaLibrary.GetImage(
+        return ResourceManager.GetImage(
           GetTemplateName((CardColor[]) value) + ".png");
       }
 
@@ -148,9 +148,8 @@
     {
       public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
       {
-        var cardName = (string) value;
-        const string extension = ".jpg";                
-        return MediaLibrary.GetCardImage(GetCardImageName(cardName) + extension);
+        var cardName = (string) value;                     
+        return ResourceManager.GetCardImage(GetCardImageName(cardName));
       }
 
       public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -251,7 +250,7 @@
           return new ImageSource[] {};
 
         if (manaAmount.Converted == 0)
-          return new[] {MediaLibrary.GetImage("0.png")};
+          return new[] {ResourceManager.GetImage("0.png")};
 
         var images = new List<string>();
 
@@ -275,7 +274,7 @@
         if (colorless != null)
           images.Insert(0, colorless.ToString());
 
-        return images.Select(x => MediaLibrary.GetImage(x + ".png"));
+        return images.Select(x => ResourceManager.GetImage(x + ".png"));
       }
 
       public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -299,7 +298,7 @@
         if (symbols.None())
           return new ImageSource[] {};
 
-        return symbols.Select(symbolName => MediaLibrary.GetImage(symbolName + ".png"));
+        return symbols.Select(symbolName => ResourceManager.GetImage(symbolName + ".png"));
       }
 
       public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -349,7 +348,7 @@
 
         for (var i = 0; i < rating; i++)
         {
-          stars.Add(MediaLibrary.GetImage("star.png"));
+          stars.Add(ResourceManager.GetImage("star.png"));
         }
 
         return stars;
@@ -371,7 +370,7 @@
         var set = (string) values[0];
         var rarity = (Rarity?) values[1];
 
-        return MediaLibrary.GetSetImage(set, rarity);
+        return ResourceManager.GetSetImage(set, rarity);
       }
 
       public object[] ConvertBack(object values, Type[] targetType, object parameter, CultureInfo culture)

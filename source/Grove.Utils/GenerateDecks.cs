@@ -2,6 +2,7 @@
 {
   using System;
   using System.Collections.Generic;
+  using System.IO;
   using Artifical;
   using Gameplay;
   using Gameplay.Sets;
@@ -32,17 +33,17 @@
       
       if (arguments.Count == 1) 
       {
-        starterSet = MediaLibrary.RandomSet();
-        boosterSet1 = MediaLibrary.RandomSet();
-        boosterSet2 = MediaLibrary.RandomSet();
-        boosterSet3 = MediaLibrary.RandomSet();
+        starterSet = ResourceManager.RandomSet();
+        boosterSet1 = ResourceManager.RandomSet();
+        boosterSet2 = ResourceManager.RandomSet();
+        boosterSet3 = ResourceManager.RandomSet();
       }
       else
       {
-        starterSet = MediaLibrary.GetSet(arguments["s"]);
-        boosterSet1 = MediaLibrary.GetSet(arguments["b1"]);
-        boosterSet2 = MediaLibrary.GetSet(arguments["b2"]);
-        boosterSet3 = MediaLibrary.GetSet(arguments["b3"]);
+        starterSet = ResourceManager.GetSet(arguments["s"]);
+        boosterSet1 = ResourceManager.GetSet(arguments["b1"]);
+        boosterSet2 = ResourceManager.GetSet(arguments["b2"]);
+        boosterSet3 = ResourceManager.GetSet(arguments["b3"]);
       }
 
       Console.WriteLine("Starter: {0}\nBooster1: {1}\nBooster2: {2}\nBooster3: {3}\n", 
@@ -66,9 +67,9 @@
           CardRatings.Merge(starterSet.Ratings, boosterSet1.Ratings));
 
         var deck = _deckBuilder.BuildDeck(library, ratings);        
-        deck.LimitedCode = MagicSet.GetLimitedCode(starterSet.Name, new[]{boosterSet1.Name, boosterSet2.Name, boosterSet3.Name});                
+        deck.LimitedCode = MagicSet.GetLimitedCode(starterSet.Name, new[]{boosterSet1.Name, boosterSet2.Name, boosterSet3.Name});
 
-        DeckFile.Write(deck, Guid.NewGuid() +".dec");
+        File.WriteAllBytes(Guid.NewGuid() + ".dec", DeckFile.Write(deck));
       }
 
       return true;
