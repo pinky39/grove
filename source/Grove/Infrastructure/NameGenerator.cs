@@ -1,38 +1,11 @@
 ﻿namespace Grove.Infrastructure
 {
-  using System;
   using System.Collections.Generic;
-  using System.IO;
   using System.Linq;
 
-  public class NameGenerator
-  {    
-    private List<string> _unitNames = new List<string>();
-
-    public NameGenerator(string filename)
-    {
-      LoadFromFile(filename);
-    }
-
-    private void LoadFromFile(string filename)
-    {
-      var rows = File.ReadAllLines(filename);
-
-      foreach (var row in rows)
-      {
-        var trimmed = row.Trim();
-
-        if (trimmed.StartsWith("#"))
-          continue;
-
-        if (String.IsNullOrEmpty(trimmed))
-          continue;
-
-        _unitNames.Add(trimmed);
-      }
-    }
-
-    public string[] GenerateNames(int count)
+  public static class NameGenerator
+  {       
+    public static string[] GenerateRandomNames(IList<string> unitNames, int count)
     {
       var generated = new HashSet<string>();
 
@@ -40,7 +13,7 @@
       {
         while (true)
         {
-          var name = GenerateName();
+          var name = GenerateRandomName(unitNames);
 
           if (generated.Contains(name) == false)
           {
@@ -53,10 +26,10 @@
       return generated.ToArray();
     }
 
-    public string GenerateName()
+    public static string GenerateRandomName(IList<string> unitNames)
     {
-      var first = _unitNames[RandomEx.Next(_unitNames.Count)];
-      var second = _unitNames[RandomEx.Next(_unitNames.Count)];
+      var first = unitNames[RandomEx.Next(unitNames.Count)];
+      var second = unitNames[RandomEx.Next(unitNames.Count)];
 
       return first + " " + second;
     }

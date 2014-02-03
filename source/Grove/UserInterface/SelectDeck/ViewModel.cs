@@ -5,6 +5,7 @@
   using Castle.Core;
   using Gameplay;
   using Infrastructure;
+  using Persistance;
 
   public class ViewModel : ViewModelBase
   {
@@ -49,7 +50,7 @@
 
     private void LoadDecks()
     {
-      var decks = ResourceManager.ReadDecks();
+      var decks = DeckLibrary.ReadDecks();
 
       foreach (var deck in decks)
       {

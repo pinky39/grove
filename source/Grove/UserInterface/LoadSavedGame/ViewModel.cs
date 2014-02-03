@@ -15,12 +15,11 @@
     {
       _previousScreen = previousScreen;
 
-      SavedGames = ResourceManager.ReadSavedGames().Select(saveGameFile => new SavedGameViewModel
+      SavedGames = Persistance.SavedGames.GetDescriptions().Select(info => new SavedGameViewModel
         {
-          Filename = saveGameFile.Name,
-          Description = saveGameFile.Header.Description,
-          LastSave = saveGameFile.ModifiedAt,
-          Data = saveGameFile.Data
+          Filename = info.Name,
+          Description = info.Description,
+          LastSave = info.CreatedAt,
         })
         .OrderByDescending(x => x.LastSave)
         .ToList();
@@ -31,13 +30,14 @@
       Selected = SavedGames[0];
     }
 
-    private IEnumerable<Func<object, bool>> Handlers
+    private IEnumerable<Func<string, bool>> Handlers
     {
       get
       {
-        yield return (data) =>
+        yield return (filename) =>
           {
-            var savedMatch = data as SavedMatch;
+            var file = Persistance.SavedGames.Read(filename);
+            var savedMatch = file.Data as SavedMatch;
             if (savedMatch == null) return false;
 
             MatchRunner.Start(MatchParameters.Load(
@@ -46,9 +46,10 @@
             return true;
           };
 
-        yield return (data) =>
+        yield return (filename) =>
           {
-            var savedTournament = data as SavedTournament;
+            var file = Persistance.SavedGames.Read(filename);
+            var savedTournament = file.Data as SavedTournament;
             if (savedTournament == null) return false;
 
             TournamentRunner.Start(TournamentParameters.Load(savedTournament));
@@ -58,7 +59,6 @@
     }
 
     public SavedGameViewModel Selected { get; set; }
-
     public List<SavedGameViewModel> SavedGames { get; private set; }
 
     public bool CanLoad { get { return Selected != null; } }
@@ -69,7 +69,7 @@
       {
         foreach (var loadGame in Handlers)
         {
-          if (loadGame(Selected.Data)) break;
+          if (loadGame(Selected.Filename)) break;
         }
       }
       catch (Exception ex)

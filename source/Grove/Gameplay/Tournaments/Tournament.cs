@@ -2,7 +2,6 @@
 {
   using System;
   using System.Collections.Generic;
-  using System.IO;
   using System.Linq;
   using System.Threading.Tasks;
   using Artifical;
@@ -68,6 +67,55 @@
       }
     }
 
+    public void Start()
+    {
+      if (_p.IsSavedTournament)
+      {
+        LoadTournament();
+      }
+      else
+      {
+        NewTournament();
+      }
+
+      RunTournament();
+    }
+
+    public SavedTournament Save()
+    {
+      List<TournamentMatch> matches = null;
+      List<TournamentPlayer> players;
+
+      lock (_resultsLock)
+      {
+        // obtain a thread safe copy of current state        
+        if (_matches != null)
+        {
+          matches = new CopyService().CopyRoot(_matches);
+          players = matches.SelectMany(x => new[] {x.Player1, x.Player2}).ToList();
+        }
+        else
+        {
+          players = new CopyService().CopyRoot(_players);
+        }
+      }
+
+      return new SavedTournament
+        {
+          RoundsToGo = _roundsLeft,
+          CurrentRoundMatches = matches,
+          Players = players,
+          SavedMatch = MatchInProgress ? CurrentMatch.Save() : null,
+          HumanLibrary = _humanLibrary,
+          Type = _type
+        };
+    }
+
+    public void Stop()
+    {
+      _shouldStop = true;
+    }
+
     private TournamentMatch GetHumanMatch()
     {
       if (_matches == null)
@@ -88,20 +136,6 @@
 
       if (exception != null)
         throw new AggregateException(exception.InnerExceptions);
-    }
-
-    public void Start()
-    {
-      if (_p.IsSavedTournament)
-      {
-        LoadTournament();
-      }
-      else
-      {
-        NewTournament();
-      }
-
-      RunTournament();
     }
 
     private void NewTournament()
@@ -245,36 +279,6 @@
         if (exception != null)
           throw new AggregateException(exception.InnerExceptions);
       }
-    }
-
-    public SavedTournament Save()
-    {
-      List<TournamentMatch> matches = null;
-      List<TournamentPlayer> players;
-
-      lock (_resultsLock)
-      {
-        // obtain a thread safe copy of current state        
-        if (_matches != null)
-        {
-          matches = new CopyService().CopyRoot(_matches);
-          players = matches.SelectMany(x => new[] {x.Player1, x.Player2}).ToList();
-        }
-        else
-        {
-          players = new CopyService().CopyRoot(_players);
-        }
-      }
-
-      return new SavedTournament
-        {
-          RoundsToGo = _roundsLeft,
-          CurrentRoundMatches = matches,
-          Players = players,
-          SavedMatch = MatchInProgress ? CurrentMatch.Save() : null,
-          HumanLibrary = _humanLibrary,
-          Type = _type
-        };
     }
 
     private void ShowResults()
@@ -453,7 +457,7 @@
 
       foreach (var setName in boosterPacks)
       {
-        var ratings = ResourceManager.GetSet(setName).Ratings;
+        var ratings = MediaLibrary.GetSet(setName).Ratings;
         if (merged == null)
         {
           merged = ratings;
@@ -467,41 +471,41 @@
       if (tournamentPack == null)
         return merged;
 
-      return CardRatings.Merge(merged, ResourceManager.GetSet(tournamentPack).Ratings);
+      return CardRatings.Merge(merged, MediaLibrary.GetSet(tournamentPack).Ratings);
     }
 
     private void CreateSealedDecks()
     {
-      const int minNumberOfGeneratedDecks = 5;
-      var limitedCode = MagicSet.GetLimitedCode(_p.TournamentPack, _p.BoosterPacks);
-
-      var preconstructed = ResourceManager.GetDecks(limitedCode)
-        .OrderBy(x => RandomEx.Next())
-        .Take(NonHumanPlayers.Count() - minNumberOfGeneratedDecks)
-        .ToList();
-
-      var nonHumanPlayers = NonHumanPlayers.ToList();
-      var decksToGenerate = NonHumanPlayers.Count() - preconstructed.Count;
-
-      for (var i = 0; i < preconstructed.Count; i++)
-      {
-        nonHumanPlayers[i].Deck = preconstructed[i];
-      }
-
       AggregateException exception = null;
 
       Task.Factory.StartNew(() =>
         {
+          const int minNumberOfGeneratedDecks = 5;
+          var limitedCode = MagicSet.GetLimitedCode(_p.TournamentPack, _p.BoosterPacks);
+          var pregeneratedCount = NonHumanPlayers.Count() - minNumberOfGeneratedDecks;
+
+          var pregenerated = PregeneratedDecks
+            .GetRandom(limitedCode, pregeneratedCount);            
+
+          var nonHumanPlayers = NonHumanPlayers.ToList();
+          var decksToGenerate = NonHumanPlayers.Count() - pregenerated.Count;
+
+          for (var i = 0; i < pregenerated.Count; i++)
+          {
+            nonHumanPlayers[i].Deck = pregenerated[i];
+          }
+
+
           for (var count = 0; count < decksToGenerate; count++)
           {
-            var player = nonHumanPlayers[count + preconstructed.Count];
+            var player = nonHumanPlayers[count + pregenerated.Count];
             var library = GenerateLibrary();
             var deck = _deckBuilder.BuildDeck(library, _cardRatings);
             deck.LimitedCode = limitedCode;
             player.Deck = deck;
 
             // save generated deck so it can be reused in future tournaments
-            ResourceManager.SaveGeneratedDeck(deck);                                    
+            PregeneratedDecks.Write(deck);
 
             _shell.Publish(new DeckGenerationStatus
               {
@@ -531,7 +535,7 @@
     {
       var players = new List<TournamentPlayer>();
 
-      var names = ResourceManager.NameGenerator.GenerateNames(playersCount - 1);
+      var names = NameGenerator.GenerateRandomNames(MediaLibrary.GetPlayerUnitNames(), playersCount - 1);
       players.Add(new TournamentPlayer(playerName, isHuman: true));
 
       for (var i = 0; i < playersCount - 1; i++)
@@ -548,21 +552,16 @@
 
       foreach (var setName in _p.BoosterPacks)
       {
-        library.AddRange(ResourceManager
+        library.AddRange(MediaLibrary
           .GetSet(setName)
           .GenerateBoosterPack());
       }
 
-      library.AddRange(ResourceManager
+      library.AddRange(MediaLibrary
         .GetSet(_p.TournamentPack)
         .GenerateTournamentPack());
 
       return library;
-    }
-
-    public void Stop()
-    {
-      _shouldStop = true;
     }
 
     public interface IFactory

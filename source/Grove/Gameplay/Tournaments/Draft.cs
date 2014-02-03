@@ -6,6 +6,7 @@
   using Artifical;
   using Artifical.DraftAlgorithms;
   using Infrastructure;
+  using Persistance;
   using UserInterface;
   using UserInterface.DraftScreen;
 
@@ -71,7 +72,7 @@
       {
         for (var i = 0; i < players.Count; i++)
         {
-          var boosterPack = ResourceManager.GetSet(set).GenerateBoosterPack();
+          var boosterPack = MediaLibrary.GetSet(set).GenerateBoosterPack();
           boosters.Add(boosterPack);
         }
       }

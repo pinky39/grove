@@ -4,6 +4,7 @@
   using System.Globalization;
   using System.Windows.Data;
   using System.Windows.Markup;
+  using Persistance;
 
   public class MediaExtension : MarkupExtension, IValueConverter
   {
@@ -37,7 +38,7 @@
 
     private static object CreateAsset(string name)
     {
-      return ResourceManager.GetImage(name);
+      return MediaLibrary.GetImage(name);
     }
   }
 }

@@ -2,6 +2,7 @@
 {
   using System.IO;
   using System.Runtime.Serialization;
+  using System.Runtime.Serialization.Formatters;
   using System.Runtime.Serialization.Formatters.Binary;
   using Gameplay;
 
@@ -14,11 +15,13 @@
     {
       _stream = savedDecisions ?? new MemoryStream();
 
-      _formatter = SaveLoadHelper.CreateFormatter();
-
-      _formatter.Context = new StreamingContext(
-        StreamingContextStates.All,
-        new SerializationContext {Game = game});
+      _formatter = new BinaryFormatter
+        {
+          AssemblyFormat = FormatterAssemblyStyle.Simple,
+          Context = new StreamingContext(
+            StreamingContextStates.All,
+            new SerializationContext {Game = game})
+        };
     }
 
     public bool IsAtTheEnd { get { return _stream.Position == _stream.Length; } }

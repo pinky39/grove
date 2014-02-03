@@ -114,19 +114,19 @@ II.2.12 <HandlesEvent />
   <Pattern RemoveAllRegions="true">
 
     <!-- Xunit -->
-	<Entry>
+    <Entry>
       <Match>
         <And>
           <Kind Is="method"/>
-		  <HasAttribute CLRName="Xunit.FactAttribute"/>          
+          <HasAttribute CLRName="Xunit.FactAttribute"/>          
         </And>
       </Match>      
     </Entry>
-	
-	<!--public delegate-->
+   
+    <!--public delegate-->
     <Entry>
       <Match>
-        <And Weight="100">
+          <And Weight="100">
           <Access Is="public"/>
           <Kind Is="delegate"/>
         </And>
@@ -214,6 +214,16 @@ II.2.12 <HandlesEvent />
       </Sort>      
     </Entry>
     
+    <!--Public methods -->
+    <Entry>
+      <Match>
+      <And>
+       <Kind Is="method"/>
+       <Access Is="public"/>
+        </And>
+      </Match>   
+    </Entry>
+
     <!--all other members-->
     <Entry/>
     

@@ -822,6 +822,14 @@
     <Compile Include="Cards\YawgmothsEdict.cs" />
     <Compile Include="Cards\Zephid.cs" />
     <Compile Include="Cards\ZephidsEmbrace.cs" />
+    <Compile Include="Persistance\DeckLibrary.cs" />
+    <Compile Include="Persistance\Resource.cs" />
+    <Compile Include="Persistance\ResourceFolder.cs" />
+    <Compile Include="Persistance\SaveFileInfo.cs" />
+    <Compile Include="Persistance\SaveGameFile.cs" />
+    <Compile Include="Persistance\SaveGameIndex.cs" />
+    <Compile Include="Persistance\PregeneratedDecks.cs" />
+    <Compile Include="Persistance\SealedDeckIndex.cs" />
     <Compile Include="UserInterface\Configuration.cs" />
     <Compile Include="Gameplay\Abilities\AbilityOrCastParameters.cs" />
     <Compile Include="Gameplay\Abilities\AbilityParameters.cs" />
@@ -1035,7 +1043,7 @@
     <Compile Include="Persistance\SavedGame.cs" />
     <Compile Include="Persistance\SavedMatch.cs" />
     <Compile Include="Persistance\SavedTournament.cs" />
-    <Compile Include="Persistance\SaveLoadHelper.cs" />
+    <Compile Include="Persistance\SavedGames.cs" />
     <Compile Include="Persistance\SerializationContext.cs" />
     <Compile Include="Gameplay\Tournaments\TournamentMatch.cs" />
     <Compile Include="Infrastructure\ListEx.cs" />
@@ -1649,7 +1657,7 @@
     <Compile Include="Infrastructure\UpdatesAttribute.cs" />
     <Compile Include="UserInterface\Battlefield\Slot.cs" />
     <Compile Include="UserInterface\Battlefield\Row.cs" />
-    <Compile Include="UserInterface\ResourceManager.cs" />
+    <Compile Include="Persistance\MediaLibrary.cs" />
     <Compile Include="UserInterface\MediaExtension.cs" />
     <Compile Include="UserInterface\Converters.cs" />
     <Compile Include="Infrastructure\Bindable.cs" />

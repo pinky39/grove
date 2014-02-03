@@ -75,7 +75,7 @@
                               },
                             player2: new PlayerParameters
                               {
-                                Name = ResourceManager.NameGenerator.GenerateName(),
+                                Name = NameGenerator.GenerateRandomName(MediaLibrary.GetPlayerUnitNames()),
                                 AvatarId = RandomEx.Next(),
                                 Deck = deck2
                               },
@@ -115,7 +115,7 @@
             },
           player2: new PlayerParameters
             {
-              Name = ResourceManager.NameGenerator.GenerateName(),
+              Name = NameGenerator.GenerateRandomName(MediaLibrary.GetPlayerUnitNames()),
               AvatarId = RandomEx.Next(),
               Deck = decks[1]
             },
@@ -139,7 +139,7 @@
 
     private Deck[] ChooseRandomDecks()
     {
-      var decks = ResourceManager.ReadDecks().ToList();
+      var decks = DeckLibrary.ReadDecks().ToList();
             
       var first = decks[RandomEx.Next(0, decks.Count)];
 

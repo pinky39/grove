@@ -4,14 +4,14 @@
   using System.IO;
   using System.Reflection;
   using Infrastructure;
-  using UserInterface;
+  using Persistance;
 
   internal class Program
   {
     private static void Main(string[] args)
-    {                        
-      ResourceManager.LoadResources();
-      var runner = new TaskRunner();            
+    {
+      MediaLibrary.LoadAll();
+      var runner = new TaskRunner();
 
       try
       {
@@ -21,7 +21,7 @@
           return;
         }
       }
-      catch(Exception ex)
+      catch (Exception ex)
       {
         LogFile.Error(ex.ToString());
       }
@@ -30,7 +30,7 @@
     private static void Usage()
     {
       var usageText =
-       Assembly.GetExecutingAssembly().GetManifestResourceStream("Grove.Utils.Usage.txt");
+        Assembly.GetExecutingAssembly().GetManifestResourceStream("Grove.Utils.Usage.txt");
 
       using (var reader = new StreamReader(usageText))
       {

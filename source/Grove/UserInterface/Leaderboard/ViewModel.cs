@@ -94,7 +94,7 @@
         };
 
       var savedTournament = CurrentTournament.Save();
-      ResourceManager.SaveGame(saveFileHeader, savedTournament);
+      SavedGames.Write(saveFileHeader, savedTournament);      
     }
 
     public interface IFactory

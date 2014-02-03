@@ -17,8 +17,6 @@
 
     public ViewModel() {}
 
-    public event EventHandler SelectedCardChanged = delegate { };
-
     public ViewModel(Deck deck)
     {
       _deck = deck;
@@ -101,16 +99,6 @@
 
     public Deck Deck { get { return _deck; } }
 
-    private IEnumerable<DeckRow> FilterRows(IEnumerable<CardInfo> cards, Func<Card, bool> predicate)
-    {
-      return DeckRow.Group(FilterCards(cards, predicate)).OrderBy(x => x.Card.Name);
-    }
-
-    private IEnumerable<CardInfo> FilterCards(IEnumerable<CardInfo> cards, Func<Card, bool> predicate)
-    {
-      return cards.Where(x => predicate(CardDatabase[x.Name]));
-    }
-
     public override void Initialize()
     {
       IsSaved = true;
@@ -144,7 +132,7 @@
 
     [Updates("Creatures", "Spells", "Lands", "CreatureCount", "LandCount", "SpellCount", "CardCount")]
     public virtual bool RemoveCard(CardInfo cardInfo)
-    {            
+    {
       if (!OnRemove(cardInfo))
         return false;
 
@@ -155,17 +143,29 @@
 
     public virtual void Save()
     {
-      ResourceManager.SaveDeck(_deck);      
+      DeckLibrary.Write(_deck);
       IsSaved = true;
     }
 
     public virtual void SaveAs(string name)
     {
       _deck.Name = name;
-      ResourceManager.SaveDeck(_deck);
+      DeckLibrary.Write(_deck);
 
       IsSaved = true;
       IsNew = false;
+    }
+
+    public event EventHandler SelectedCardChanged = delegate { };
+
+    private IEnumerable<DeckRow> FilterRows(IEnumerable<CardInfo> cards, Func<Card, bool> predicate)
+    {
+      return DeckRow.Group(FilterCards(cards, predicate)).OrderBy(x => x.Card.Name);
+    }
+
+    private IEnumerable<CardInfo> FilterCards(IEnumerable<CardInfo> cards, Func<Card, bool> predicate)
+    {
+      return cards.Where(x => predicate(CardDatabase[x.Name]));
     }
 
     public interface IFactory

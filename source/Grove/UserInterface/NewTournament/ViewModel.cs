@@ -3,6 +3,7 @@
   using System;
   using System.Collections.Generic;
   using Gameplay.Tournaments;
+  using Persistance;
 
   public class ViewModel : ViewModelBase
   {
@@ -15,7 +16,7 @@
     public ViewModel(object previousScreen)
     {
       _previousScreen = previousScreen;
-      _sets = ResourceManager.GetSetsNames();
+      _sets = MediaLibrary.GetSetsNames();
 
       StarterPack = "Urza's Saga";
       BoosterPack1 = _sets[0];

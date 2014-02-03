@@ -7,6 +7,7 @@
   using Gameplay.Characteristics;
   using Gameplay.Tournaments;
   using Infrastructure;
+  using Persistance;
   using UserInterface;
   using Xunit;
 
@@ -16,7 +17,7 @@
     public void DraftLibraries()
     {            
       var sets = new[] {"Urza's Saga", "Urza's Saga", "Urza's Saga"};
-      var ratings = ResourceManager.GetSet(sets[0]).Ratings;
+      var ratings = MediaLibrary.GetSet(sets[0]).Ratings;
 
       var runner = new DraftRunner(DraftStrategies);
 
@@ -59,7 +60,7 @@
 
     public DraftFacts()
     {
-      ResourceManager.LoadSets();
+      MediaLibrary.LoadSets();
        CardDatabase.Initialize(CardFactory.CreateAll());
     }
 

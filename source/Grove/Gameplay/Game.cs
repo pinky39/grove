@@ -2,6 +2,7 @@
 {
   using System;
   using System.Collections.Generic;
+  using System.IO;
   using Artifical;
   using Costs;
   using DamageHandling;
@@ -13,15 +14,14 @@
   using Persistance;
   using States;
   using Targeting;
-  using UserInterface;
   using Zones;
 
   [Copyable]
   public class Game : IModifiable
   {
+    private readonly CostModifiers _costModifiers;
     private readonly DamagePreventions _damagePreventions;
     private readonly DamageRedirections _damageRedirections;
-    private readonly CostModifiers _costModifiers;
     private readonly DecisionQueue _decisionQueue;
     private readonly DecisionSystem _decisionSystem;
     private readonly TrackableList<IGameModifier> _modifiers = new TrackableList<IGameModifier>();
@@ -86,7 +86,7 @@
             {
               return (Turn.StateCount < p.SavedGame.StateCount - p.RollBack) || (_decisionQueue.Count > 0);
             }
-            
+
             return Recorder.IsPlayback;
           }, skipPreGame: false, looser: looser);
 
@@ -262,11 +262,15 @@
     }
 
     public void WriteDebugReport(string filename = null)
-    {            
-      var header = new SaveFileHeader {Description = "Debug information to reproduce a bug which caused the error."};      
+    {
+      var header = new SaveFileHeader {Description = "Debug information to reproduce a bug which caused the error."};
       var savedGame = Save();
 
-      ResourceManager.SaveDebugReport(header, savedGame);      
+      filename = filename ?? String.Format("debug-report-{0}.report", Guid.NewGuid());
+      using (var stream = new FileStream(filename, FileMode.Create))
+      {
+        SavedGames.WriteToStream(header, savedGame, stream);
+      }
     }
 
     public void Stop()
@@ -289,14 +293,14 @@
       _decisionSystem.AddScenarioDecisions(prerecordedDecisions);
     }
 
-    public interface IFactory
-    {
-      Game Create(GameParameters p);
-    }
-
     public IManaAmount GetActualCost(IManaAmount amount, ManaUsage usage, Card card)
     {
       return _costModifiers.GetActualCost(amount, usage, card);
+    }
+
+    public interface IFactory
+    {
+      Game Create(GameParameters p);
     }
   }
 }

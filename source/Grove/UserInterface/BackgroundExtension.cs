@@ -6,6 +6,7 @@
   using System.Windows.Markup;
   using System.Windows.Media;
   using Infrastructure;
+  using Persistance;
 
   public class BackgroundExtension : MarkupExtension
   {
@@ -13,7 +14,7 @@
 
     static BackgroundExtension()
     {
-      Backgrounds = ResourceManager.GetImages(filename => filename.StartsWith("background"))
+      Backgrounds = MediaLibrary.GetImages(filename => filename.StartsWith("background"))
         .ToList();
     }
 

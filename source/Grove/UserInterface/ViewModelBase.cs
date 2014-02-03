@@ -71,7 +71,7 @@
         gameData = CurrentMatch.Save();
       }
       
-      ResourceManager.SaveGame(saveFileHeader, gameData);
+      SavedGames.Write(saveFileHeader, gameData);      
     }
 
     protected void HandleException(Exception ex)

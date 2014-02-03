@@ -7,6 +7,7 @@
   using System.Text;
   using System.Text.RegularExpressions;
   using System.Windows.Media;
+  using Persistance;
   using UserInterface;
 
   public class CardText : IEnumerable<Token>
@@ -204,6 +205,6 @@
   {
     public ManaSymbolToken(string value) : base(value) {}
 
-    public ImageSource Image { get { return ResourceManager.GetImage(Value + ".png"); } }
+    public ImageSource Image { get { return MediaLibrary.GetImage(Value + ".png"); } }
   }
 }

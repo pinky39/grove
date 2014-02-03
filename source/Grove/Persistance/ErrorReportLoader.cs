@@ -18,7 +18,7 @@
     {
       using (var stream = new FileStream(filename, FileMode.Open))
       {
-        var saveGameFile = SaveLoadHelper.ReadFile(filename, stream, new FileInfo(filename).LastWriteTime);
+        var saveGameFile = SavedGames.ReadFromStream(stream);
 
         var game = _gameFactory.Create(GameParameters.Load(
           player1Controller: ControllerType.Machine,
