@@ -16,6 +16,7 @@
         <ResourceDictionary Source="Stack.xaml" />
         <ResourceDictionary Source="QuitGame.xaml" />
         <ResourceDictionary Source="DamageDistribution.xaml"/>        
+        <ResourceDictionary Source="CastSpell.xaml"/>
       </ResourceDictionary.MergedDictionaries> 
     </ResourceDictionary>
   </Page.Resources>
@@ -26,7 +27,7 @@
         <ContentControl Content="{StaticResource Playground}" />
        <!--<ContentControl Content="{StaticResource Stack}" />-->
        <!--<ContentControl Style="{StaticResource Dialog}" Content="{StaticResource DamageDistribution}" />-->
-        <ContentControl Style="{StaticResource Dialog}" Content="{StaticResource NextTurn}" />
+        <ContentControl Style="{StaticResource Dialog}" Content="{StaticResource CastSpell}" />
         <!--<ContentControl Style="{StaticResource Dialog}" Content="{StaticResource SelectAbility}" />-->
         <!--<ContentControl Style="{StaticResource DialogSmall}" Content="{StaticResource SelectAttackers}" />-->        
         <!--<ContentControl Style="{StaticResource Dialog}" Content="{StaticResource DamageAssignmentOrder}" />-->

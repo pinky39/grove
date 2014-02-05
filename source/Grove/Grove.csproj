@@ -830,6 +830,10 @@
     <Compile Include="Persistance\SaveGameIndex.cs" />
     <Compile Include="Persistance\PregeneratedDecks.cs" />
     <Compile Include="Persistance\SealedDeckIndex.cs" />
+    <Compile Include="UserInterface\CardActivation\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterface\CardActivation\ViewModel.cs" />
     <Compile Include="UserInterface\Configuration.cs" />
     <Compile Include="Gameplay\Abilities\AbilityOrCastParameters.cs" />
     <Compile Include="Gameplay\Abilities\AbilityParameters.cs" />
@@ -1745,6 +1749,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserInterface\DraftScreen\View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterface\CardActivation\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

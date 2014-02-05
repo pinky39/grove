@@ -34,5 +34,6 @@
     public Leaderboard.ViewModel.IFactory LeaderBoard { get; set; }
     public ViewModel.IFactory LoadSavedGame { get; set; }
     public NextTurn.ViewModel.IFactory NextTurn { get; set; }
+    public CardActivation.ViewModel.IFactory EffectActivation { get; set; }
   }
 }

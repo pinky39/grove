@@ -124,6 +124,11 @@
 
     public void Receive(PlayerHasCastASpell message)
     {
+      var dialog = ViewModels.EffectActivation.Create(message);        
+      Shell.ShowDialog(dialog);      
+      Thread.Sleep(2000);
+      dialog.Close();
+      
       MessageLog.AddMessage(message.ToString());
     }
 
