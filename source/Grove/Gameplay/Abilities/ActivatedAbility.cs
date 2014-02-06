@@ -45,7 +45,7 @@
       Pay(p);
 
       foreach (var effect in effects)
-      {
+      {        
         Resolve(effect, p.SkipStack);
         Publish(new PlayerHasActivatedAbility(this, p.Targets));
       }

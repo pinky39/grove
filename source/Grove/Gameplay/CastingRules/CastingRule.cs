@@ -11,9 +11,9 @@
     public abstract bool CanCast();
 
     public virtual void Cast(Effect effect)
-    {      
+    {            
+      Stack.Push(effect);
       Publish(new PlayerHasCastASpell(effect.Source.OwningCard, effect.Targets));
-      Stack.Push(effect);            
     }
 
     public abstract void AfterResolve();

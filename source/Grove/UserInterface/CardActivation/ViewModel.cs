@@ -1,18 +1,18 @@
 ﻿namespace Grove.UserInterface.CardActivation
 {
+  using Gameplay.Messages;
   using Gameplay.Targeting;
   using Messages;
 
   public class ViewModel : ViewModelBase
   {
-    public ViewModel(object activation)
+    public ViewModel(ICardActivationMessage activation)
     {
       Activation = activation;
     }
 
-    public object Activation { get; private set; }
-
-    public string Message { get { return Activation.ToString(); } }
+    public ICardActivationMessage Activation { get; private set; }
+    public string Title { get { return Activation.GetTitle(); } }
 
     public void ChangePlayersInterestTarget(ITarget target, bool hasLostInterest)
     {
@@ -32,7 +32,7 @@
 
     public interface IFactory
     {
-      ViewModel Create(object activation);
+      ViewModel Create(ICardActivationMessage activation);
     }
   }
 }

@@ -1,10 +1,11 @@
 ﻿namespace Grove.Gameplay.Messages
 {
+  using System;
   using System.Collections.Generic;
   using System.Text;
   using Targeting;
 
-  public class PlayerHasCastASpell
+  public class PlayerHasCastASpell : ICardActivationMessage
   {
     private readonly List<ITarget> _targets = new List<ITarget>();
 
@@ -15,8 +16,15 @@
     }
 
     public bool HasTargets { get { return _targets.Count > 0; } }
-    public Card Card { get; private set; }
     public List<ITarget> Targets { get { return _targets; } }
+    public Player Controller { get { return Card.Controller; } }
+    
+    public string GetTitle()
+    {
+      return String.Format("{0} casts...", Controller);
+    }
+
+    public Card Card { get; private set; }
 
     public override string ToString()
     {

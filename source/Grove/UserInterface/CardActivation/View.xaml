@@ -24,14 +24,9 @@
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseEnter">
                             <cal:ActionMessage MethodName="ChangePlayersInterest">
-                                <cal:Parameter Value="{Binding}" />                                
+                                <cal:Parameter Value="{Binding Ability.OwningCard}" />                                
                             </cal:ActionMessage>
-                        </i:EventTrigger>                       
-                        <i:EventTrigger EventName="MouseDown">
-                            <cal:ActionMessage MethodName="Select">
-                                <cal:Parameter Value="{Binding}" />
-                            </cal:ActionMessage>
-                        </i:EventTrigger>
+                        </i:EventTrigger>                                           
                     </i:Interaction.Triggers>
                 </ContentControl>                           
         </DataTemplate>
@@ -40,20 +35,15 @@
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseEnter">
                             <cal:ActionMessage MethodName="ChangePlayersInterest">
-                                <cal:Parameter Value="{Binding}" />
+                                <cal:Parameter Value="{Binding Card}" />
                             </cal:ActionMessage>
-                        </i:EventTrigger>
-                        <i:EventTrigger EventName="MouseDown">
-                            <cal:ActionMessage MethodName="Select">
-                                <cal:Parameter Value="{Binding}" />
-                            </cal:ActionMessage>
-                        </i:EventTrigger>
+                        </i:EventTrigger>                        
                     </i:Interaction.Triggers>
                 </ContentControl>
             </DataTemplate>
         </Border.Resources>
 
-        <Grid Width="400">
+        <Grid Width="300">
             <Grid.RowDefinitions>
                 <RowDefinition Height="36" />
                 <RowDefinition Height="Auto" />
@@ -67,7 +57,7 @@
                         </Style>
                     </StackPanel.Resources>
                     <Image Margin="0,0,10,0" Style="{StaticResource DialogIcon}" />                    
-                    <TextBlock Text="{Binding Message}" />                                            
+                    <TextBlock Text="{Binding Title}" />                                            
                 </StackPanel>
             </Border>
             <Border Grid.Row="1" Background="#333">

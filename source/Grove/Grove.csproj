@@ -345,6 +345,7 @@
     <Compile Include="Gameplay\Effects\TargetLoosesChosenAbility.cs" />
     <Compile Include="Gameplay\Effects\PlayersReplaceTheirHandWithNewOneUntilEot.cs" />
     <Compile Include="Gameplay\Effects\TargetPlayerLoosesLife.cs" />
+    <Compile Include="Gameplay\Messages\ICardActivationMessage.cs" />
     <Compile Include="Gameplay\Messages\SpellWasCountered.cs" />
     <Compile Include="Gameplay\Messages\TypeChanged.cs" />
     <Compile Include="Gameplay\Modifiers\AddCostModifier.cs" />

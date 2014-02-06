@@ -118,17 +118,14 @@
     }
 
     public void Receive(PlayerHasActivatedAbility message)
-    {
+    {      
+      ShowActivationDialog(message);      
       MessageLog.AddMessage(message.ToString());
     }
 
     public void Receive(PlayerHasCastASpell message)
-    {
-      var dialog = ViewModels.EffectActivation.Create(message);        
-      Shell.ShowDialog(dialog);      
-      Thread.Sleep(2000);
-      dialog.Close();
-      
+    {     
+      ShowActivationDialog(message);     
       MessageLog.AddMessage(message.ToString());
     }
 
@@ -196,6 +193,17 @@
       ((IClosable) dialog).Closed += delegate { QuitGameDialog = null; };
 
       QuitGameDialog = dialog;
+    }
+
+    private void ShowActivationDialog(ICardActivationMessage activation)
+    {
+      if (activation.Controller.IsHuman) 
+        return;
+      
+      var dialog = ViewModels.EffectActivation.Create(activation);
+      Shell.ShowDialog(dialog);
+      Thread.Sleep(2000);
+      dialog.Close();
     }
 
     public interface IFactory

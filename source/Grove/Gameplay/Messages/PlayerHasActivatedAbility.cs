@@ -1,11 +1,12 @@
 ﻿namespace Grove.Gameplay.Messages
 {
+  using System;
   using System.Collections.Generic;
   using System.Text;
   using Abilities;
   using Targeting;
 
-  public class PlayerHasActivatedAbility
+  public class PlayerHasActivatedAbility : ICardActivationMessage
   {
     private readonly List<ITarget> _targets = new List<ITarget>();
 
@@ -19,6 +20,13 @@
 
     public ActivatedAbility Ability { get; private set; }
     public List<ITarget> Targets { get { return _targets; } }
+
+    public Player Controller { get { return Ability.SourceCard.Controller; } }
+    
+    public string GetTitle()
+    {
+      return String.Format("{0} activates...", Controller);
+    }
 
     public override string ToString()
     {
