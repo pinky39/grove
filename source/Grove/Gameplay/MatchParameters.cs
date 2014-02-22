@@ -1,7 +1,5 @@
 ﻿namespace Grove.Gameplay
 {
-  using Persistance;
-
   public class MatchParameters
   {
     public PlayerParameters Player1 { get; private set; }

@@ -6,11 +6,11 @@
   using System.Threading.Tasks;
   using Caliburn.Micro;
   using Gameplay;
-  using Gameplay.Characteristics;
   using Infrastructure;
 
   public class ViewModel : ViewModelBase
   {
+    private static readonly CardsSearch _cardsSearch = new CardsSearch();
     private readonly Dictionary<string, CardInfo> _cards;
     private readonly Func<CardInfo, int> _orderBy;
     private readonly BindableCollection<Result> _results = new BindableCollection<Result>();
@@ -56,7 +56,7 @@
     {
       Task.Factory.StartNew(() =>
         {
-          var cards = CardDatabase.Query().Where(x => _cards.ContainsKey(x.Name));
+          var cards = _cardsSearch.Query().Where(x => _cards.ContainsKey(x.Name));
 
           foreach (var card in cards.OrderBy(x => _orderBy(_cards[x.Name])).ThenBy(x => x.Name))
           {
@@ -80,7 +80,7 @@
 
       Task.Factory.StartNew(() =>
         {
-          var cards = CardDatabase
+          var cards = _cardsSearch
             .Query(Text)
             .Where(x => _cards.ContainsKey(x.Name));
 
@@ -89,10 +89,10 @@
             if (
               (White && card.HasColor(CardColor.White)) ||
                 (Blue && card.HasColor(CardColor.Blue)) ||
-                  (Black && card.HasColor(CardColor.Black)) ||
-                    (Red && card.HasColor(CardColor.Red)) ||
-                      (Green && card.HasColor(CardColor.Green)) ||
-                        (card.HasColor(CardColor.Colorless) || card.ManaCost == null)
+                (Black && card.HasColor(CardColor.Black)) ||
+                (Red && card.HasColor(CardColor.Red)) ||
+                (Green && card.HasColor(CardColor.Green)) ||
+                (card.HasColor(CardColor.Colorless) || card.ManaCost == null)
               )
             {
               results.Add(card.Name);

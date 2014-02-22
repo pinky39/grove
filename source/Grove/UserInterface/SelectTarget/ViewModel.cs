@@ -3,7 +3,7 @@
   using System;
   using System.Collections.Generic;
   using Caliburn.Micro;
-  using Gameplay.Targeting;
+  using Gameplay;
   using Infrastructure;
   using Messages;
 
@@ -90,12 +90,12 @@
 
     private void DefaultTargetSelected(ITarget target)
     {
-      Shell.Publish(new TargetSelected {Target = target});
+      Publisher.Publish(new TargetSelected { Target = target });
     }
 
     private void DefaultTargetUnselected(ITarget target)
     {
-      Shell.Publish(new TargetUnselected {Target = target});
+      Publisher.Publish(new TargetUnselected { Target = target });
     }
 
     public void Cancel()

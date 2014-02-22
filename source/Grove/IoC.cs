@@ -5,8 +5,6 @@
   using System.Collections.Specialized;
   using System.ComponentModel;
   using System.Linq;
-  using Artifical;
-  using Artifical.DraftAlgorithms;
   using Castle.Core;
   using Castle.Facilities.TypedFactory;
   using Castle.MicroKernel;
@@ -17,14 +15,8 @@
   using Castle.MicroKernel.SubSystems.Configuration;
   using Castle.Windsor;
   using Gameplay;
-  using Gameplay.Decisions;
-  using Gameplay.Misc;
-  using Gameplay.Tournaments;
   using Infrastructure;
-  using Persistance;
   using UserInterface;
-  using UserInterface.Decisions;
-  using UserInterface.Permanent;
   using UserInterface.Shell;
 
   public class IoC
@@ -83,7 +75,9 @@
       return container;
     }
 
-    protected virtual void Install(IWindsorContainer container) {}
+    protected virtual void Install(IWindsorContainer container)
+    {
+    }
 
     private class Registration : IWindsorInstaller
     {
@@ -109,39 +103,9 @@
         {
           RegisterViewModels(container);
           RegisterShell(container);
-          RegisterConfiguration(container);
 
-          container.Register(Component(typeof (ViewModelFactories), lifestyle: LifestyleType.Singleton));
-          container.Register(Component(typeof (Match)));
-          container.Register(Component(typeof (Match.IFactory)).AsFactory());
-          container.Register(Component(typeof (MatchRunner), lifestyle: LifestyleType.Singleton));
-          container.Register(Component(typeof (Tournament)));
-          container.Register(Component(typeof (Tournament.IFactory)).AsFactory());
-          container.Register(Component(typeof (TournamentRunner), lifestyle: LifestyleType.Singleton));
-          container.Register(Component(typeof (CombatMarkers), lifestyle: LifestyleType.Singleton));
-          container.Register(Component(typeof (CardSelector)));
+          container.Register(Component(typeof (Dialogs), lifestyle: LifestyleType.Singleton));
         }
-
-        RegisterCardsSources(container);
-        RegisterDecisions(container);
-
-        container.Register(Component(typeof (Game)));
-        container.Register(Component(typeof (Game.IFactory)).AsFactory());
-        container.Register(Component(typeof (MatchSimulator), lifestyle: LifestyleType.Singleton));
-        container.Register(Component(typeof (ErrorReportLoader), lifestyle: LifestyleType.Singleton));
-        container.Register(Component(typeof (CardFactory), lifestyle: LifestyleType.Singleton));
-        container.Register(Component(typeof (CardDatabase), lifestyle: LifestyleType.Singleton));
-        container.Register(Component(typeof (DeckBuilder), lifestyle: LifestyleType.Singleton));
-        container.Register(Component(typeof (DeckEvaluator), lifestyle: LifestyleType.Singleton));
-
-        RegisterDraftStrategies(container);
-      }
-
-      private static void RegisterDraftStrategies(IWindsorContainer container)
-      {
-        container.Register(Component(typeof (IDraftingStrategy), typeof (Forcing)));
-        container.Register(Component(typeof (IDraftingStrategy), typeof (Greedy)));
-        container.Register(Component(typeof (IDraftingStrategies)).AsFactory());
       }
 
       public static ComponentRegistration<object> Component(Type service, Type implementation = null,
@@ -161,19 +125,9 @@
         return registration.LifeStyle.Is(lifestyle);
       }
 
-      private void RegisterDecisions(IWindsorContainer container)
+      public static bool IsViewModel(Type type)
       {
-        container.Register(Component(typeof (DecisionSystem)));
-        container.Register(Component(typeof (IDecisionFactory), lifestyle: LifestyleType.Singleton).AsFactory());
-
-        container.Register(Classes.FromThisAssembly()
-          .Where(x =>
-            (
-              x.Namespace.Equals(typeof (UserInterface.Decisions.TakeMulligan).Namespace)
-              ) &&
-                x.Implements<IDecision>())
-          .WithServiceSelect((type, baseTypes) => new[] {type.BaseType})
-          .LifestyleTransient());
+        return type.Name == "ViewModel";
       }
 
       private static BasedOnDescriptor Configure(Predicate<Type> predicate, Action<ComponentRegistration> configurer)
@@ -184,30 +138,10 @@
           .Configure(configurer);
       }
 
-      public static bool IsViewModel(Type type)
-      {
-        return type.Name == "ViewModel";
-      }
-
       private static bool IsViewModelFactory(Type type)
       {
         return type.Name == "IFactory" && type.IsInterface &&
           type.Namespace.StartsWith(typeof (ViewModelBase).Namespace);
-      }
-
-      private static void RegisterCardsSources(IWindsorContainer container)
-      {
-        container.Register(Classes.FromThisAssembly()
-          .BasedOn(typeof (CardTemplateSource))
-          .WithService.Base()
-          .LifestyleTransient());
-      }
-
-      private void RegisterConfiguration(IWindsorContainer container)
-      {
-        var registration = Component(typeof (UserInterface.Configuration), lifestyle: LifestyleType.Singleton);
-        ImplementUiStuff(registration);
-        container.Register(registration);        
       }
 
       private void ImplementUiStuff(ComponentRegistration<object> registration)
@@ -223,7 +157,7 @@
             typeof (IClosable))
           .Interceptors(
             typeof (NotifyPropertyChangedInterceptor),
-            typeof (ClosedInterceptor));
+            typeof (CloseInterceptor));
 
 
         registration.OnCreate((kernel, instance) =>
@@ -232,23 +166,21 @@
             {
               Game game = null;
 
-              var match = kernel.Resolve<MatchRunner>().Current;
-              var shell = kernel.Resolve<IShell>();
-
-              if (match != null)
+              if (Ui.Match != null)
               {
-                game = match.Game;
+                game = Ui.Match.Game;
+                game.Subscribe(instance);
               }
 
-              if (game != null) game.Subscribe(instance);
-
-              shell.Subscribe(instance);
+              Ui.Publisher.Subscribe(instance);
 
               var disposed = (IClosable) instance;
               disposed.Closed += delegate
                 {
-                  if (game != null) game.Unsubscribe(instance);
-                  shell.Unsubscribe(instance);
+                  if (game != null)
+                    game.Unsubscribe(instance);
+
+                  Ui.Publisher.Unsubscribe(instance);
                 };
             }
 
@@ -280,8 +212,8 @@
           );
 
         container.Register(
-          Castle.MicroKernel.Registration.Component.For(typeof (ClosedInterceptor))
-            .ImplementedBy(typeof (ClosedInterceptor))
+          Castle.MicroKernel.Registration.Component.For(typeof (CloseInterceptor))
+            .ImplementedBy(typeof (CloseInterceptor))
             .LifeStyle.Is(LifestyleType.Transient)
           );
 

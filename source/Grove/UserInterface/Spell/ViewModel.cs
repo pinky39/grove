@@ -4,9 +4,7 @@
   using System.Collections.Generic;
   using System.Linq;
   using Gameplay;
-  using Gameplay.Abilities;
-  using Gameplay.Decisions.Results;
-  using Gameplay.Targeting;
+  using Gameplay.Decisions;
   using Infrastructure;
   using Messages;
   using SelectTarget;
@@ -137,7 +135,7 @@
 
       var playable = activation.GetPlayable(activationParameters);
 
-      Shell.Publish(new PlayableSelected {Playable = playable});
+      Publisher.Publish(new PlayableSelected {Playable = playable});
     }
 
     private bool SelectTargets(ActivationPrerequisites prerequisites, ActivationParameters parameters)
@@ -237,7 +235,7 @@
 
     private void ChangeSelection()
     {
-      Shell.Publish(new SelectionChanged {Selection = Card});
+      Publisher.Publish(new SelectionChanged {Selection = Card});
     }
 
     public interface IFactory

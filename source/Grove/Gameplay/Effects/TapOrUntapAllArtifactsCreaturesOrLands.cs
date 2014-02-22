@@ -3,9 +3,7 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Decisions.Results;
-  using States;
-  using Targeting;
+  using Decisions;
 
   public class TapOrUntapAllArtifactsCreaturesOrLands : CustomizableEffect
   {

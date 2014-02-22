@@ -1,7 +1,5 @@
 ﻿namespace Grove.Gameplay.Effects
 {
-  using ManaHandling;
-
   public class AddManaToPool : Effect
   {
     private readonly DynParam<IManaAmount> _amount;

@@ -7,11 +7,25 @@
   using Castle.DynamicProxy;
   using UserInterface;
 
+  public interface IReceive
+  {
+  }
+
+  public interface IReceive<in T> : IReceive
+  {
+    void Receive(T message);
+  }
+
+  public interface IOrderedReceive<in T> : IReceive<T>
+  {
+    int Order { get; }
+  }
+
   public class Publisher : ICopyable
   {
     private readonly Assembly _assembly;
     private readonly string _namespace;
-    private INotifyChangeTracker _changeTracker = new ChangeTrackerInitializationGuard();
+    private INotifyChangeTracker _changeTracker = new ChangeTracker.Guard();
     private Dictionary<Type, List<Type>> _handlersByType = new Dictionary<Type, List<Type>>();
     private Dictionary<Type, TrackableList<object>> _subscribers = new Dictionary<Type, TrackableList<object>>();
 
@@ -21,7 +35,9 @@
       _namespace = ns;
     }
 
-    public Publisher() : this(Assembly.GetExecutingAssembly()) {}
+    public Publisher() : this(Assembly.GetExecutingAssembly())
+    {
+    }
 
     public void Copy(object original, CopyService copyService)
     {
@@ -56,7 +72,7 @@
     private void MapHandlersToTypes()
     {
       var types = _assembly.GetTypes()
-        .Where(x => _namespace == null ||  Equals(x.Namespace, _namespace))
+        .Where(x => _namespace == null || Equals(x.Namespace, _namespace))
         .Where(x => x.Implements<IReceive>())
         .ToList();
 
@@ -156,7 +172,7 @@
     private static bool IsUiComponent(object target)
     {
       var targetType = ProxyUtil.GetUnproxiedType(target);
-      var isUi = targetType.Namespace.StartsWith(typeof(ViewModelBase).Namespace);
+      var isUi = targetType.Namespace.StartsWith(typeof (ViewModelBase).Namespace);
 
       return isUi;
     }

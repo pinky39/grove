@@ -1,6 +1,5 @@
 ﻿namespace Grove.Gameplay.Effects
 {
-  using DamageHandling;
   using Modifiers;
 
   public class PreventCombatDamage : Effect

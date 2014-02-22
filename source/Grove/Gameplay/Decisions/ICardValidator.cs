@@ -19,6 +19,6 @@
     public bool IsValidCard(Card card)
     {
       return _validator(card);
-    }
+    }    
   }
 }

@@ -5,16 +5,16 @@
 
   public class ViewModel : ViewModelBase
   {
-    public bool CanRematch { get { return !CurrentMatch.IsTournament; } }
+    public bool CanRematch { get { return !Match.IsTournament; } }
 
     public void QuitToMainMenu()
     {
-      CurrentMatch.Stop();
+      Match.Stop();
     }
 
     public void QuitToOperatingSystem()
     {
-      CurrentMatch.Stop();
+      Match.Stop();
       Application.Current.Shutdown();
     }
 
@@ -25,7 +25,7 @@
 
     public void Rematch()
     {
-      MatchRunner.ForceRematch();
+      Ui.Match.Rematch();
     }
 
     public void Save()

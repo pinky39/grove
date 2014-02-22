@@ -89,7 +89,7 @@
 
     public void ChangeSelection()
     {
-      Shell.Publish(
+      Publisher.Publish(
         new SelectionChanged {Selection = Player});
     }
 

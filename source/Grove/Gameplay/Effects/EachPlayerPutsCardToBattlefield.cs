@@ -3,10 +3,8 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Artifical;
+  using AI;
   using Decisions;
-  using Decisions.Results;
-  using Zones;
 
   public class EachPlayerPutsCardToBattlefield : Effect, IProcessDecisionResults<ChosenCards>,
     IChooseDecisionResults<List<Card>, ChosenCards>
@@ -43,21 +41,21 @@
 
     private void ChooseCardToPutIntoPlay(Player player)
     {
-      Enqueue<SelectCards>(
-        controller: player,
-        init: p =>
+      Enqueue(new SelectCards(
+        player,
+        p =>
           {
             p.MinCount = 1;
             p.MaxCount = 1;
             p.Text = "Select a card.";
-            p.Validator(_selector);
+            p.SetValidator(_selector);
             p.Zone = _zone;
             p.OwningCard = Source.OwningCard;
             p.ProcessDecisionResults = this;
             p.ChooseDecisionResults = this;
             p.AurasNeedTarget = true;
           }
-        );
+        ));
     }
 
     protected override void ResolveEffect()

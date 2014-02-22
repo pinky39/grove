@@ -1,4 +1,5 @@
-﻿<UserControl x:Class="Grove.UserInterface.MagnifiedCard.View" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Gameplay="clr-namespace:Grove.Gameplay" xmlns:Abilities="clr-namespace:Grove.Gameplay.Abilities" xmlns:UserInterface="clr-namespace:Grove.UserInterface">
+﻿<UserControl x:Class="Grove.UserInterface.MagnifiedCard.View" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Gameplay="clr-namespace:Grove.Gameplay"
+             xmlns:UserInterface="clr-namespace:Grove.UserInterface">
 	<UserControl.Resources>
 		<DataTemplate DataType="{x:Type Gameplay:Card}">
             <ContentControl Content="{Binding}" Style="{StaticResource AlwaysVisibleCard}" />
@@ -8,18 +9,18 @@
             <ContentControl Content="{Binding}" Style="{StaticResource AlwaysVisibleCard}" />
 		</DataTemplate>
 
-		<DataTemplate DataType="{x:Type Abilities:CastInstruction}">
+		<DataTemplate DataType="{x:Type Gameplay:CastInstruction}">
             <ContentControl Content="{Binding SourceCard}" Style="{StaticResource AlwaysVisibleCard}" />
 		</DataTemplate>
 
-		<DataTemplate DataType="{x:Type Abilities:ActivatedAbility}">
+		<DataTemplate DataType="{x:Type Gameplay:ActivatedAbility}">
 
 			<ContentControl Content="{Binding}" ContentTemplate="{StaticResource Ability}" />
 
 
 		</DataTemplate>
 
-		<DataTemplate DataType="{x:Type Abilities:TriggeredAbility}">
+		<DataTemplate DataType="{x:Type Gameplay:TriggeredAbility}">
 
 			<ContentControl Content="{Binding}" ContentTemplate="{StaticResource Ability}" />
 		</DataTemplate>

@@ -14,10 +14,5 @@
 
     bool HasFocus(object dialog);
     void CloseAllDialogs();
-
-    void Publish<T>(T message);
-
-    void Subscribe(object instance);
-    void Unsubscribe(object instance);
   }
 }

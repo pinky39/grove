@@ -5,7 +5,6 @@
   using Castle.Core;
   using Gameplay;
   using Infrastructure;
-  using Persistance;
 
   public class ViewModel : ViewModelBase
   {
@@ -26,8 +25,8 @@
       set
       {
         _selected = value;
-        _selected.SelectedCardChanged += delegate { SelectedCard = CardDatabase[_selected.SelectedCard.Name]; };
-        SelectedCard = CardDatabase[_selected.SelectedCard.Name];
+        _selected.SelectedCardChanged += delegate { SelectedCard = Cards.All[_selected.SelectedCard.Name]; };
+        SelectedCard = Cards.All[_selected.SelectedCard.Name];
       }
     }
 

@@ -2,9 +2,7 @@
 {
   using System;
   using System.Collections.Generic;
-  using Misc;
   using Modifiers;
-  using Targeting;
 
   public class ApplyModifiersToPermanents : Effect
   {

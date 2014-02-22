@@ -1,7 +1,6 @@
 ﻿namespace Grove.Gameplay.Effects
 {
   using System;
-  using Targeting;
 
   public class DiscardCards : Effect
   {
@@ -22,9 +21,9 @@
     {
       var player = _player ?? Target.Player();
 
-      Enqueue<Decisions.DiscardCards>(
-        controller: player.Value,
-        init: p => p.Count = _count);
+      Enqueue(new Decisions.DiscardCards(
+        player.Value,
+        p => p.Count = _count));
     }
   }
 }

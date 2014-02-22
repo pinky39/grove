@@ -1,7 +1,6 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
   using Infrastructure;
-  using Misc;
 
   public abstract class Lifetime : GameObject
   {

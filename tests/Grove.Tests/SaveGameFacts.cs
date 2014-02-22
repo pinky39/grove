@@ -1,8 +1,7 @@
 ﻿namespace Grove.Tests
 {
-  using Artifical;
   using Gameplay;
-  using Gameplay.Misc;
+  using Gameplay.AI;
   using Infrastructure;
   using Xunit;
 
@@ -14,16 +13,18 @@
       var game = SimulateGame();
       var savedGame = game.Save();
 
-      var game1 = GameFactory.Create(GameParameters.Load(
+      var gameParameters = GameParameters.Load(
         player1Controller: ControllerType.Machine,
         player2Controller: ControllerType.Machine,
-        savedGame: savedGame));
-            
+        savedGame: savedGame);
+
+      var game1 = new Game(gameParameters);
+
       // 2 games will be equal only if game is in exact same state      
       // load game only loads the game up to the last decision recorded
       // resume the game until state count is equal
-      game1.Simulate(() => game1.Turn.StateCount < game.Turn.StateCount);      
-      
+      game1.Simulate(() => game1.Turn.StateCount < game.Turn.StateCount);
+
       // hash depends on card visibility, visibility depends
       // on who the searching player is.      
       game.Players.Searching = game.Players.Player1;
@@ -37,8 +38,7 @@
       var p = GameParameters.Simulation(GetDeck("deck1.dec"), GetDeck("deck2.dec"),
         new SearchParameters(maxSearchDepth: 15, maxTargetCount: 2, enableMultithreading: true));
 
-      var game = GameFactory.Create(p);
-
+      var game = new Game(p);
       game.Start(numOfTurns: 5);
       return game;
     }

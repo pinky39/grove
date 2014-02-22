@@ -1,6 +1,6 @@
 ﻿namespace Grove.UserInterface.Priority
 {
-  using Gameplay.Decisions.Results;
+  using Gameplay.Decisions;
   using Infrastructure;
   using Messages;
 

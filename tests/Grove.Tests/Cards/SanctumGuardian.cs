@@ -1,8 +1,6 @@
 ﻿namespace Grove.Tests.Cards
 {
-  using Gameplay.States;
-  using Gameplay.Targeting;
-  using Gameplay.Zones;
+  using Gameplay;
   using Infrastructure;
   using Xunit;
 
@@ -26,6 +24,7 @@
               {
                 p.Card = guardian;
                 p.Targets(E(bolt), P2);
+                p.StackShouldBeEmpty = false;
               })
             .Verify(() =>
               {

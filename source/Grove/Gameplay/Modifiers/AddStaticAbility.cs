@@ -1,7 +1,5 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
-  using Abilities;
-
   public class AddStaticAbility : Modifier, ICardModifier
   {
     private readonly Static _staticAbility;

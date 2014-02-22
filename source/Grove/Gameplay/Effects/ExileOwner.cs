@@ -2,7 +2,6 @@
 {
   using System;
   using System.Linq;
-  using Zones;
 
   public class ExileOwner : Effect
   {

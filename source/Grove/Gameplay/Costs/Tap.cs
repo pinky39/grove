@@ -2,7 +2,6 @@
 {
   using System;
   using System.Linq;
-  using Targeting;
 
   public class Tap : Cost
   {        

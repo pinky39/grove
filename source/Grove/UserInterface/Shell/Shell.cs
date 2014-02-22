@@ -2,22 +2,16 @@
 {
   using System.Windows;
   using Caliburn.Micro;
-  using Gameplay;
   using Infrastructure;
   using MessageBox;
   using Messages;
 
   public class Shell : IShell, IHaveDisplayName
   {
-    private readonly CardDatabase _cardDatabase;
-    private readonly CardFactory _cardFactory;
-    private readonly Publisher _publisher = new Publisher().Initialize();
     private InteractionState _interactionState = InteractionState.Disabled;
 
-    public Shell(CardDatabase cardDatabase, CardFactory cardFactory)
+    public Shell()
     {
-      _cardDatabase = cardDatabase;
-      _cardFactory = cardFactory;
       DisplayName = "magicgrove";
     }
 
@@ -48,21 +42,6 @@
 
       var blocker = new ThreadBlocker();
       blocker.BlockUntilCompleted(() => { ((IClosable) screen).Closed += delegate { blocker.Completed(); }; });
-    }
-
-    public void Publish<T>(T message)
-    {
-      _publisher.Publish(message);
-    }
-
-    public void Subscribe(object instance)
-    {
-      _publisher.Subscribe(instance);
-    }
-
-    public void Unsubscribe(object instance)
-    {
-      _publisher.Unsubscribe(instance);
     }
 
     public void ShowDialog(object dialog, DialogType type, InteractionState? interactionState = null)
@@ -131,7 +110,7 @@
         var revert = _interactionState;
         _interactionState = interactionState.Value;
 
-        Publish(new UiInteractionChanged
+        Ui.Publisher.Publish(new UiInteractionChanged
           {
             State = interactionState.Value
           });

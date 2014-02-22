@@ -3,13 +3,10 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Artifical;
-  using Characteristics;
+  using AI;
   using Infrastructure;
   using Messages;
-  using Misc;
   using Modifiers;
-  using Targeting;
 
   public delegate Effect EffectFactory();
 

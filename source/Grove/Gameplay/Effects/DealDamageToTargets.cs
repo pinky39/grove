@@ -1,8 +1,7 @@
 ﻿namespace Grove.Gameplay.Effects
 {
   using System.Linq;
-  using Artifical;
-  using Characteristics;
+  using AI;
 
   public class DealDamageToTargets : Effect
   {

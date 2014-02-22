@@ -1,7 +1,5 @@
 ﻿namespace Grove.Gameplay.Effects
 {
-  using DamageHandling;
-
   public class DealExistingDamageToController : Effect
   {
     private readonly DynParam<Damage> _damage;

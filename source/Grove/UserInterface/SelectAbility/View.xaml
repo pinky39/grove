@@ -1,4 +1,5 @@
-﻿<UserControl x:Class="Grove.UserInterface.SelectAbility.View" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Characteristics="clr-namespace:Grove.Gameplay.Characteristics" xmlns:grove="clr-namespace:Grove.UserInterface">
+﻿<UserControl x:Class="Grove.UserInterface.SelectAbility.View" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:grove="clr-namespace:Grove.UserInterface" xmlns:Characteristics="clr-namespace:Grove.Gameplay">
 	<UserControl.Resources>
 		<Style TargetType="{x:Type ListBox}">
 			<Setter Property="SnapsToDevicePixels" Value="true" />

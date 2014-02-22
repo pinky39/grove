@@ -2,9 +2,7 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Characteristics;
   using Decisions;
-  using Decisions.Results;
 
   public abstract class CustomizableEffect : Effect, IProcessDecisionResults<ChosenOptions>,
     IChooseDecisionResults<List<IEffectChoice>, ChosenOptions>
@@ -25,13 +23,13 @@
 
     protected override void ResolveEffect()
     {
-      Enqueue<ChooseEffectOptions>(Controller, p =>
+      Enqueue(new ChooseEffectOptions(Controller, p =>
         {
           p.ProcessDecisionResults = this;
           p.ChooseDecisionResults = this;
           p.Text = GetText();
           p.Choices = GetChoices().ToList();
-        });
+        }));            
     }
 
     protected class ChoiceToColor

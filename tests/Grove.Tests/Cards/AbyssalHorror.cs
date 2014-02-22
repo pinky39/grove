@@ -1,6 +1,6 @@
 ﻿namespace Grove.Tests.Cards
 {
-  using Gameplay.States;
+  using Gameplay;
   using Infrastructure;
   using Xunit;
 
@@ -19,7 +19,7 @@
         Exec(
           At(Step.FirstMain)
             .Cast(horror)
-            .Target(P2)
+            .Target(P2)          
             .Verify(() => Equal(0, P2.Hand.Count))
           );
       }

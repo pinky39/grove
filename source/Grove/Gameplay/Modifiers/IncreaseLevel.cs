@@ -1,7 +1,5 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
-  using Characteristics;
-
   public class IncreaseLevel : Modifier, ICardModifier
   {
     private readonly IntegerIncrement _levelIntegerIncrement = new IntegerIncrement(1);

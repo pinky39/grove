@@ -1,7 +1,6 @@
 ﻿namespace Grove.Tests.Cards
 {
-  using Gameplay.States;
-  using Gameplay.Zones;
+  using Gameplay;
   using Infrastructure;
   using Xunit;
 
@@ -45,7 +44,7 @@
           At(Step.FirstMain)
             .Cast(shock1, target: thrun)
             .Cast(shock2, target: thrun)
-            .Activate(thrun)
+            .Activate(thrun, stackShouldBeEmpty: false)
             .Verify(() =>
               {
                 Equals(Zone.Battlefield, C(thrun).Zone);

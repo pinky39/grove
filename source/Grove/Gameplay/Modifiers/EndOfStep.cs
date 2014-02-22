@@ -3,7 +3,6 @@
   using System;
   using Infrastructure;
   using Messages;
-  using States;
 
   public class EndOfStep : Lifetime, IReceive<StepFinished>
   {

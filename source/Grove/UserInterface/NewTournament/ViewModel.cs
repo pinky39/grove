@@ -2,8 +2,7 @@
 {
   using System;
   using System.Collections.Generic;
-  using Gameplay.Tournaments;
-  using Persistance;
+  using Gameplay;
 
   public class ViewModel : ViewModelBase
   {
@@ -62,7 +61,8 @@
 
       try
       {
-        TournamentRunner.Start(p);
+        Ui.Tournament = new Tournament(p);
+        Ui.Tournament.Start();                
       }
       catch (Exception ex)
       {

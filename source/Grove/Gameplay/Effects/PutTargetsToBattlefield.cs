@@ -3,9 +3,6 @@
   using System.Collections.Generic;
   using System.Linq;
   using Decisions;
-  using Decisions.Results;
-  using Targeting;
-  using Zones;
 
   public class PutTargetsToBattlefield : Effect, IProcessDecisionResults<ChosenCards>,
     IChooseDecisionResults<List<Card>, ChosenCards>
@@ -55,17 +52,17 @@
 
     private void SacCreatureAndPutValidTargetsToBattlefield()
     {
-      Enqueue<SelectCards>(Controller, p =>
+      Enqueue(new SelectCards(Controller, p =>
         {
           p.MinCount = 1;
           p.MaxCount = 1;
-          p.Validator(card => card.Is().Creature);
+          p.SetValidator(card => card.Is().Creature);
           p.Zone = Zone.Battlefield;
           p.Text = "Select a creature to sacrifice";
           p.ProcessDecisionResults = this;
           p.ChooseDecisionResults = this;
           p.OwningCard = Source.OwningCard;
-        });
+        }));
     }
 
     private void PutValidTargetsToBattlefield()

@@ -4,8 +4,6 @@
   using System.Collections.Generic;
   using System.Linq;
   using Decisions;
-  using Decisions.Results;
-  using Zones;
 
   public class PlayerSacrificePermanents : Effect,
     IProcessDecisionResults<ChosenCards>, IChooseDecisionResults<List<Card>, ChosenCards>
@@ -45,19 +43,19 @@
 
     protected override void ResolveEffect()
     {
-      Enqueue<SelectCards>(
-        controller: _player.Value,
-        init: p =>
+      Enqueue(new SelectCards(
+        _player.Value,
+        p =>
           {
             p.MinCount = _count;
             p.MaxCount = _count;
-            p.Validator(_filter);
+            p.SetValidator(_filter);
             p.Zone = Zone.Battlefield;
             p.Text = _text;
             p.OwningCard = Source.OwningCard;
             p.ProcessDecisionResults = this;
             p.ChooseDecisionResults = this;
-          });
+          }));
     }
   }
 }

@@ -37,7 +37,7 @@
         if (_arguments.ContainsKey(name))
           return _arguments[name];
 
-        AssertEx.Fail(String.Format("Required argument '{0}' not specified.", name));
+        Asrt.Fail(String.Format("Required argument '{0}' not specified.", name));
         return null;
       }
     }

@@ -2,9 +2,8 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Artifical.Decisions;
+  using AI;
   using Decisions;
-  using Decisions.Results;
   using Infrastructure;
 
   public class LookAtTopCardsPutOneInHandOthersOnBottom : Effect, IProcessDecisionResults<Ordering>,
@@ -52,15 +51,15 @@
         card.Peek();
       }
 
-      Enqueue<Decisions.OrderCards>(
-        controller: Controller,
-        init: p =>
+      Enqueue(new OrderCards(
+        Controller,
+        p =>
           {
             p.Cards = cards;
             p.ProcessDecisionResults = this;
             p.ChooseDecisionResults = this;
             p.Title = "Order cards (first card goes to your hand)";
-          });
+          }));
     }
   }
 }

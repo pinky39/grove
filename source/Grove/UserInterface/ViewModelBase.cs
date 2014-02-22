@@ -3,26 +3,12 @@
   using System;
   using System.Windows;
   using Gameplay;
-  using Gameplay.Tournaments;
   using Infrastructure;
   using Messages;
-  using Persistance;
   using Shell;
 
   public abstract class ViewModelBase
   {
-    public ViewModelFactories ViewModels { get; set; }
-    public IShell Shell { get; set; }
-    protected Game CurrentGame { get { return CurrentMatch.Game; } }
-    public CardDatabase CardDatabase { get; set; }
-    public MatchRunner MatchRunner { get; set; }
-    protected Match CurrentMatch { get { return MatchRunner.Current; } }
-    public TournamentRunner TournamentRunner { get; set; }
-    protected Tournament CurrentTournament { get { return TournamentRunner.Current; } }
-    protected Combat Combat { get { return CurrentGame.Combat; } }
-    public CardFactory CardFactory { get; set; }
-
-
     private static readonly string[] ErrorMessages = new[]
       {
         "Errors have occurred.\nWe won't tell you where or why.\nLazy programmers.",
@@ -34,11 +20,49 @@
         "I just ate your data with some fava beans and a nice chianti."
       };
 
-    protected Players Players { get { return CurrentGame.Players; } }
+    public Dialogs ViewModels
+    {
+      get { return Ui.Dialogs; }
+    }
+
+    public Publisher Publisher
+    {
+      get { return Ui.Publisher; }
+    }
+
+    public IShell Shell
+    {
+      get { return Ui.Shell; }
+    }
+
+    protected Game Game
+    {
+      get { return Match.Game; }
+    }
+
+    protected Match Match
+    {
+      get { return Ui.Match; }
+    }
+
+    protected Tournament Tournament
+    {
+      get { return Ui.Tournament; }
+    }
+
+    protected Combat Combat
+    {
+      get { return Game.Combat; }
+    }
+
+    protected Players Players
+    {
+      get { return Game.Players; }
+    }
 
     public void ChangePlayersInterest(Card card)
     {
-      Shell.Publish(new PlayersInterestChanged
+      Ui.Publisher.Publish(new PlayersInterestChanged
         {
           Visual = card
         });
@@ -46,7 +70,7 @@
 
     public void ChangePlayersInterest(CardViewModel card)
     {
-      Shell.Publish(new PlayersInterestChanged
+      Ui.Publisher.Publish(new PlayersInterestChanged
         {
           Visual = card
         });
@@ -54,24 +78,24 @@
 
     protected void SaveGame()
     {
-      if (CurrentMatch == null)
+      if (Match == null)
         return;
 
       var saveFileHeader = new SaveFileHeader();
       object gameData;
 
-      if (CurrentMatch.IsTournament)
+      if (Match.IsTournament)
       {
-        saveFileHeader.Description = CurrentTournament.Description;
-        gameData = CurrentTournament.Save();
+        saveFileHeader.Description = Tournament.Description;
+        gameData = Tournament.Save();
       }
       else
       {
-        saveFileHeader.Description = string.Format("Single match, {0}", CurrentMatch.Description);
-        gameData = CurrentMatch.Save();
+        saveFileHeader.Description = string.Format("Single match, {0}", Match.Description);
+        gameData = Match.Save();
       }
-      
-      SavedGames.Write(saveFileHeader, gameData);      
+
+      SavedGames.Write(saveFileHeader, gameData);
     }
 
     protected void HandleException(Exception ex)
@@ -85,6 +109,8 @@
         MessageBoxButton.OK, DialogType.Large, title: "Enraged Monkey Error", icon: MessageBoxImage.Error);
     }
 
-    public virtual void Initialize() {}
+    public virtual void Initialize()
+    {
+    }
   }
 }

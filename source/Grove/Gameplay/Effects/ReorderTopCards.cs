@@ -2,9 +2,8 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Artifical.Decisions;
+  using AI;
   using Decisions;
-  using Decisions.Results;
 
   public class ReorderTopCards : Effect, IProcessDecisionResults<Ordering>, IChooseDecisionResults<List<Card>, Ordering>
   {
@@ -38,15 +37,15 @@
         card.Peek();
       }
 
-      Enqueue<Decisions.OrderCards>(
-        controller: Controller,
-        init: p =>
+      Enqueue(new OrderCards(
+        Controller,
+        p =>
           {
             p.Cards = cards;
             p.ProcessDecisionResults = this;
             p.ChooseDecisionResults = this;
             p.Title = "Order cards from top to bottom";
-          });
+          }));
     }
   }
 }

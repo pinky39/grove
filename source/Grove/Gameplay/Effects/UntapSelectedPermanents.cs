@@ -4,8 +4,6 @@
   using System.Collections.Generic;
   using System.Linq;
   using Decisions;
-  using Decisions.Results;
-  using Zones;
 
   public class UntapSelectedPermanents : Effect, IProcessDecisionResults<ChosenCards>,
     IChooseDecisionResults<List<Card>, ChosenCards>
@@ -27,7 +25,7 @@
 
     public ChosenCards ChooseResult(List<Card> candidates)
     {
-      return candidates        
+      return candidates
         .OrderBy(x => x.IsTapped ? -x.Score : x.Score)
         .Take(_maxCount)
         .ToList();
@@ -43,10 +41,10 @@
 
     protected override void ResolveEffect()
     {
-      Enqueue<SelectCards>(Controller,
+      Enqueue(new SelectCards(Controller,
         p =>
           {
-            p.Validator(_validator);
+            p.SetValidator(_validator);
             p.Zone = Zone.Battlefield;
             p.MinCount = _minCount;
             p.MaxCount = _maxCount;
@@ -55,7 +53,7 @@
             p.ProcessDecisionResults = this;
             p.ChooseDecisionResults = this;
           }
-        );
+        ));
     }
   }
 }

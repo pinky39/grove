@@ -1,10 +1,8 @@
 ﻿namespace Grove.Gameplay.Triggers
 {
   using System;
-  using Abilities;
   using Infrastructure;
   using Messages;
-  using Zones;
 
   public class OnZoneChanged : Trigger, IReceive<ZoneChanged>
   {

@@ -38,7 +38,7 @@
     {
       get
       {
-        AssertEx.True(_isInitialized,
+        Asrt.True(_isInitialized,
           "Parameter was not initialized, did you forget to register it?");                
 
         return _value;

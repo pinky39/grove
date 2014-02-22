@@ -1,7 +1,6 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
   using Costs;
-  using DamageHandling;
 
   public interface IGameModifier : IModifier
   {

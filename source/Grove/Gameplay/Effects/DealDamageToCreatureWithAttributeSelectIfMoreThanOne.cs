@@ -4,8 +4,6 @@
   using System.Collections.Generic;
   using System.Linq;
   using Decisions;
-  using Decisions.Results;
-  using Zones;
 
   public class DealDamageToCreatureWithAttributeSelectIfMoreThanOne : Effect, IProcessDecisionResults<ChosenCards>,
     IChooseDecisionResults<List<Card>, ChosenCards>
@@ -61,21 +59,21 @@
     {
       var rank = _getAttribute(Game);
 
-      Enqueue<SelectCards>(
-        controller: Controller,
-        init: p =>
+      Enqueue(new SelectCards(
+        Controller,
+        p =>
           {
             p.MinCount = 1;
             p.MaxCount = 1;
             p.Text = "Select a creature.";
-            p.Validator(card => card.Is().Creature && _hasAttribute(card, rank));
+            p.SetValidator(card => card.Is().Creature && _hasAttribute(card, rank));
             p.CanSelectOnlyCardsControlledByDecisionController = false;
             p.Zone = Zone.Battlefield;
             p.OwningCard = Source.OwningCard;
             p.ProcessDecisionResults = this;
             p.ChooseDecisionResults = this;
           }
-        );
+        ));
     }
   }
 }

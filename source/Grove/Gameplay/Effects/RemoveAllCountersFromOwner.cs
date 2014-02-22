@@ -1,7 +1,5 @@
 ﻿namespace Grove.Gameplay.Effects
 {
-  using Counters;
-
   public class RemoveAllCountersFromOwner : Effect
   {
     private readonly CounterType _counterType;

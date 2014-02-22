@@ -1,7 +1,6 @@
 ﻿namespace Grove.Gameplay.Effects
 {
-  using Artifical;
-  using Targeting;
+  using AI;
 
   public class DestroyTargetPermanents : Effect
   {

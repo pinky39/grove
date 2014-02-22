@@ -2,11 +2,8 @@
 {
   using System;
   using System.Linq;
-  using Characteristics;
   using Infrastructure;
   using Messages;
-  using Misc;
-  using Zones;
 
   public class ModifyPowerToughnessForEachPermanent : Modifier, IReceive<ZoneChanged>, IReceive<PermanentWasModified>,
     ICardModifier

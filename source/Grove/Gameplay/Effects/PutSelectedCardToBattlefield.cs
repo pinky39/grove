@@ -4,9 +4,7 @@
   using System.Collections.Generic;
   using System.Linq;
   using Decisions;
-  using Decisions.Results;
   using Modifiers;
-  using Zones;
 
   public class PutSelectedCardToBattlefield : Effect, IProcessDecisionResults<ChosenCards>,
     IChooseDecisionResults<List<Card>, ChosenCards>
@@ -58,10 +56,10 @@
 
     protected override void ResolveEffect()
     {
-      Enqueue<SelectCards>(Controller,
+      Enqueue(new SelectCards(Controller,
         p =>
           {
-            p.Validator(_validator);
+            p.SetValidator(_validator);
             p.Zone = _zone;
             p.MinCount = 0;
             p.MaxCount = 1;
@@ -70,7 +68,7 @@
             p.ProcessDecisionResults = this;
             p.ChooseDecisionResults = this;
           }
-        );
+        ));
     }
   }
 }

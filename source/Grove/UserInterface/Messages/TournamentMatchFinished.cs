@@ -1,6 +1,6 @@
 ﻿namespace Grove.UserInterface.Messages
 {
-  using Gameplay.Tournaments;
+  using Gameplay;
 
   public class TournamentMatchFinished
   {

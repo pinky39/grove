@@ -2,43 +2,130 @@
 {
   using System;
   using System.Linq;
-  using Results;
+  using AI;
+  using UserInterface;
+  using UserInterface.SelectTarget;
 
-  public abstract class DiscardCards : Decision<ChosenCards>
+  public class DiscardCards : Decision
   {
-    public Func<Card, bool> Filter = delegate { return true; };
-    public int Count { get; set; }
-    public bool DiscardOpponentsCards { get; set; }
+    private readonly Params _p = new Params();
 
-    protected Player CardsOwner
+    private DiscardCards() {}
+
+    public DiscardCards(Player controller, Action<Params> setParameters)
+      : base(controller, () => new UiHandler(), () => new MachineHandler(), () => new MachineHandler(), () => new PlaybackHandler())
     {
-      get
+      setParameters(_p);
+    }
+
+    private abstract class Handler : DecisionHandler<DiscardCards, ChosenCards>
+    {
+      protected Player CardsOwner
       {
-        return DiscardOpponentsCards
-          ? Controller.Opponent
-          : Controller;
+        get
+        {
+          return D._p.DiscardOpponentsCards
+            ? D.Controller.Opponent
+            : D.Controller;
+        }
+      }
+
+      protected override bool ShouldExecuteQuery
+      {
+        get
+        {
+          return D._p.Count > 0 &&
+            CardsOwner.Hand.Where(D._p.Filter).Count() > D._p.Count;
+        }
+      }
+
+      public override void ProcessResults()
+      {
+        foreach (var card in Result)
+        {
+          card.Discard();
+        }
+      }
+
+      protected override void SetResultNoQuery()
+      {
+        Result = new ChosenCards(CardsOwner.Hand.Where(D._p.Filter).Take(D._p.Count));
       }
     }
 
-    protected override bool ShouldExecuteQuery
+    private class MachineHandler : Handler
     {
-      get
+      public MachineHandler()
       {
-        return Count > 0 &&
-          CardsOwner.Hand.Where(Filter).Count() > Count;
+        Result = new ChosenCards();
+      }
+
+      protected override void ExecuteQuery()
+      {
+        var cardsToDiscard = CardsOwner.Hand
+          .Where(D._p.Filter)
+          .Select(
+            card =>
+              new
+                {
+                  Card = card,
+                  Score = ScoreCalculator.CalculateDiscardScore(card, Game.Ai.IsSearchInProgress)
+                });
+
+        cardsToDiscard = D._p.DiscardOpponentsCards
+          ? cardsToDiscard.OrderByDescending(x => x.Score)
+          : cardsToDiscard.OrderBy(x => x.Score);
+
+        Result = cardsToDiscard
+          .Take(D._p.Count)
+          .Select(x => x.Card)
+          .ToList();
       }
     }
 
-    protected override void SetResultNoQuery()
+    public class Params
     {
-      Result = new ChosenCards(CardsOwner.Hand.Where(Filter).Take(Count));
+      public int Count;
+      public bool DiscardOpponentsCards;
+      public Func<Card, bool> Filter = delegate { return true; };
     }
 
-    public override void ProcessResults()
-    {     
-      foreach (var card in Result)
+    private class PlaybackHandler : Handler
+    {
+      protected override bool ShouldExecuteQuery { get { return true; } }
+
+      public override void SaveDecisionResults() {}
+
+      protected override void ExecuteQuery()
       {
-        card.Discard();
+        Result = (ChosenCards) Game.Recorder.LoadDecisionResult();
+      }
+    }
+
+    private class UiHandler : Handler
+    {
+      protected override void ExecuteQuery()
+      {
+        var parameters = new TargetValidatorParameters
+          {
+            MinCount = D._p.Count,
+            MaxCount = D._p.Count,
+            Message = String.Format("Select {0} card(s) to discard.", D._p.Count),
+            IsValidTarget = p => D._p.Filter(p.Target.Card()),
+            IsValidZone = p => p.ZoneOwner == CardsOwner && p.Zone == Zone.Hand
+          };
+
+        var targetValidator = new TargetValidator(parameters);
+        targetValidator.Initialize(Game, D.Controller);
+
+        var dialog = Ui.Dialogs.SelectTarget.Create(new SelectTargetParameters
+          {
+            CanCancel = false,
+            Validator = targetValidator
+          });
+
+        Ui.Shell.ShowModalDialog(dialog, DialogType.Small, InteractionState.SelectTarget);
+        Result = dialog.Selection.ToList();
       }
     }
   }

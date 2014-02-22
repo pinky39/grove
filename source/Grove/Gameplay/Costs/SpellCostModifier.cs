@@ -1,7 +1,6 @@
 ﻿namespace Grove.Gameplay.Costs
 {
   using System;
-  using ManaHandling;
 
   public class SpellCostModifier : CostModifier
   {

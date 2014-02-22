@@ -155,7 +155,7 @@
       _cardsWithSetAndRarity = uniqueCards
         .Select(x =>
           {
-            var card = CardFactory.CreateCard(x.Name);
+            var card = Cards.Create(x.Name);
             card.Rarity = x.Rarity;
             card.Set = x.Set;
 

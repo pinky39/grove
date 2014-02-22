@@ -1,7 +1,5 @@
 ﻿namespace Grove.Gameplay.Effects
 {
-  using Zones;
-
   public class FlipACoinReturnToHand : Effect
   {
     protected override void ResolveEffect()

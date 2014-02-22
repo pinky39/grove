@@ -4,8 +4,6 @@
   using System.Collections.Generic;
   using System.Linq;
   using Decisions;
-  using Decisions.Results;
-  using Zones;
 
   public class DrawCardsEqualToSacrificedPermanentsCount : Effect, IProcessDecisionResults<ChosenCards>,
     IChooseDecisionResults<List<Card>, ChosenCards>
@@ -59,10 +57,10 @@
 
     protected override void ResolveEffect()
     {
-      Enqueue<SelectCards>(Controller,
+      Enqueue(new SelectCards(Controller,
         p =>
           {
-            p.Validator(_validator);
+            p.SetValidator(_validator);
             p.Zone = Zone.Battlefield;
             p.MinCount = 0;
             p.MaxCount = null;
@@ -71,7 +69,7 @@
             p.ProcessDecisionResults = this;
             p.ChooseDecisionResults = this;
           }
-        );
+        ));
     }
   }
 }

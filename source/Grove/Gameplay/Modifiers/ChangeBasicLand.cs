@@ -1,7 +1,5 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
-  using Abilities;
-  using Characteristics;
   using Costs;
   using Infrastructure;
 

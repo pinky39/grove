@@ -1,7 +1,5 @@
 ﻿namespace Grove.Gameplay.Messages
 {
-  using States;
-
   public class StepStarted
   {
     public StepStarted(Step step)

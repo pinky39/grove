@@ -4,16 +4,11 @@
   using System.Collections.Generic;
   using System.Linq;
   using System.Reflection;
-  using Artifical;
   using Gameplay;
-  using Gameplay.Counters;
-  using Gameplay.Decisions.Scenario;
-  using Gameplay.Misc;
+  using Gameplay.Decisions;
   using Gameplay.Modifiers;
-  using Gameplay.States;
-  using Gameplay.Zones;
   using log4net.Config;
-  using Persistance;
+  using UserInterface;
   using Xunit;
 
   public abstract class Scenario : IDisposable
@@ -26,16 +21,10 @@
       var player2Controller = player2ControlledByScript ? ControllerType.Scenario : ControllerType.Machine;
 
       var p = GameParameters.Scenario(player1Controller, player2Controller);
-      Game = GameFactory.Create(p);
+      Game = new Game(p);
       Game.Players.Starting = Game.Players.Player1;
     }
-
-    protected CardFactory CardFactory { get { return Container.Resolve<CardFactory>(); } }
-    protected CardDatabase CardDatabase { get { return Container.Resolve<CardDatabase>(); } }
-
-    protected MatchSimulator MatchSimulator { get { return Container.Resolve<MatchSimulator>(); } }
-    protected Game.IFactory GameFactory { get { return Container.Resolve<Game.IFactory>(); } }
-
+            
     protected Game Game { get; private set; }
     protected Player P1 { get { return Game.Players.Player1; } }
     protected Player P2 { get { return Game.Players.Player2; } }
@@ -48,9 +37,9 @@
       return DeckFile.Read(@".\" + name);
     }
 
-    protected DecisionsForOneStep At(Step step, int turn = 1)
+    protected ScenarioStep At(Step step, int turn = 1)
     {
-      return new DecisionsForOneStep(step, turn, Game);
+      return new ScenarioStep(step, turn, Game);
     }
 
     protected void Library(Player player, params ScenarioCard[] cards)
@@ -61,7 +50,7 @@
       {
         scenarioCard.Initialize(name =>
           {
-            var card = CardFactory.CreateCard(name);
+            var card = Cards.Create(name);
             card.Initialize(player, Game);
             library.AddToFront(card);
 
@@ -86,7 +75,7 @@
       {
         scenarioCard.Initialize(name =>
           {
-            var card = CardFactory.CreateCard(name);
+            var card = Cards.Create(name);
             card.Initialize(player, Game);
 
             player.PutCardToBattlefield(card);
@@ -99,7 +88,7 @@
             {
               enchantment.Initialize(enchantmentName =>
                 {
-                  var enchantmentCard = CardFactory.CreateCard(enchantmentName);
+                  var enchantmentCard = Cards.Create(enchantmentName);
                   enchantmentCard.Initialize(player, Game);
                   EnchantCard(card, enchantmentCard);
                   return enchantmentCard;
@@ -110,7 +99,7 @@
             {
               equipment.Initialize(equipmentName =>
                 {
-                  var equipmentCard = CardFactory.CreateCard(equipmentName);
+                  var equipmentCard = Cards.Create(equipmentName);
                   equipmentCard.Initialize(player, Game);
                   player.PutCardToBattlefield(equipmentCard);
                   EquipCard(card, equipmentCard);
@@ -122,7 +111,7 @@
             {
               tracked.Initialize(trackerName =>
                 {
-                  var tracker = CardFactory.CreateCard(trackerName);
+                  var tracker = Cards.Create(trackerName);
                   tracker.Initialize(player, Game);
                   player.PutCardToBattlefield(tracker);
                   TrackCard(card, tracker);
@@ -153,7 +142,7 @@
       foreach (var cardName in cardNames)
       {
         var battlefield = (Battlefield) controller.Battlefield;
-        var card = CardFactory.CreateCard(cardName);
+        var card = Cards.Create(cardName);
         card.Initialize(controller, Game);
         battlefield.Add(card);
         yield return card;
@@ -199,12 +188,12 @@
       card.Attach(tracker);
     }
 
-    protected void Exec(params DecisionsForOneStep[] decisions)
+    protected void Exec(params ScenarioStep[] steps)
     {
       const int untilTurn = 5;
-      Game.AddScenarioDecisions(decisions);
+      Game.Scenario.Define(steps);
       RunGame(untilTurn);
-      AssertAllCommandsHaveRun(decisions);
+      AssertAllStepsHaveRun(steps);
     }
 
     protected void False(bool condition, string message = null)
@@ -220,7 +209,7 @@
       {
         scenarioCard.Initialize(name =>
           {
-            var card = CardFactory.CreateCard(name);
+            var card = Cards.Create(name);
             card.Initialize(player, Game);
             graveyard.AddToEnd(card);
 
@@ -237,7 +226,7 @@
       {
         scenarioCard.Initialize(name =>
           {
-            var card = CardFactory.CreateCard(name);
+            var card = Cards.Create(name);
             card.Initialize(player, Game);
             hand.Add(card);
 
@@ -266,9 +255,9 @@
       card.Detach(equipment);
     }
 
-    private static void AssertAllCommandsHaveRun(IEnumerable<DecisionsForOneStep> commands)
+    private static void AssertAllStepsHaveRun(IEnumerable<ScenarioStep> steps)
     {
-      foreach (var stepCommands in commands)
+      foreach (var stepCommands in steps)
       {
         stepCommands.AssertAllWereExecuted();
       }

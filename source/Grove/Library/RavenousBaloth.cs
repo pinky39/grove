@@ -1,0 +1,32 @@
+﻿namespace Grove.Library
+{
+  using System.Collections.Generic;
+  using Gameplay;
+  using Gameplay.AI.TargetingRules;
+  using Grove.Gameplay.Costs;
+  using Grove.Gameplay.Effects;
+
+  public class RavenousBaloth : CardTemplateSource
+  {
+    public override IEnumerable<CardTemplate> GetCards()
+    {
+      yield return Card
+        .Named("Ravenous Baloth")
+        .ManaCost("{2}{G}{G}")
+        .Type("Creature - Beast")
+        .Text("Sacrifice a Beast: You gain 4 life.")
+        .FlavorText(
+          "All we know about the Krosan Forest we have learned from those few who made it out alive.")
+        .Power(4)
+        .Toughness(4)
+        .ActivatedAbility(p =>
+          {
+            p.Text = "Sacrifice a Beast: You gain 4 life.";
+            p.Cost = new Sacrifice();
+            p.Effect = () => new ControllerGainsLife(4);
+            p.TargetSelector.AddCost(trg => trg.Is.Card(c => c.Is("beast"), ControlledBy.SpellOwner).On.Battlefield());
+            p.TargetingRule(new CostSacrificeToGainLife());
+          });
+    }
+  }
+}

@@ -1,7 +1,5 @@
 ﻿namespace Grove.Gameplay.Messages
 {
-  using Characteristics;
-
   public class TypeChanged
   {
     public Card Card { get; set; }

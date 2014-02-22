@@ -1,7 +1,6 @@
 ﻿namespace Grove.Gameplay.Effects
 {
   using Modifiers;
-  using Targeting;
 
   public class TargetPlayerDrawsCards : Effect
   {

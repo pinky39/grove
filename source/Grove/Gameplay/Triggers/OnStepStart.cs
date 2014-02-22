@@ -2,7 +2,6 @@
 {
   using Infrastructure;
   using Messages;
-  using States;
 
   public class OnStepStart : Trigger, IOrderedReceive<StepStarted>,
     IReceive<ControllerChanged>

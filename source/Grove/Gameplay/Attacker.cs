@@ -2,13 +2,10 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Artifical;
-  using DamageHandling;
+  using AI;
   using Decisions;
-  using Decisions.Results;
   using Infrastructure;
   using Messages;
-  using Misc;
 
   public class Attacker : GameObject, IHashable
   {
@@ -76,9 +73,9 @@
 
     public void DistributeDamageToBlockers()
     {
-      Enqueue<AssignCombatDamage>(
-        controller: _card.Controller,
-        init: p => p.Attacker = this);
+      Enqueue(new AssignCombatDamage(
+        _card.Controller,
+        this));
     }
 
     public void DistributeDamageToBlockers(DamageDistribution distribution)

@@ -2,8 +2,8 @@
 {
   using System.Collections.Generic;
   using System.Linq;
+  using Gameplay;
   using Grove.Gameplay.Messages;
-  using Grove.Gameplay.States;
   using Grove.Infrastructure;
 
   public class ViewModel : ViewModelBase, IReceive<TurnStarted>
@@ -22,13 +22,13 @@
     public override void Initialize()
     {
       _steps.AddRange(CreateStepViewModels());
-      TurnNumber = CurrentGame.Turn.TurnCount;
+      TurnNumber = Game.Turn.TurnCount;
 
       SetCurrentStep();
     }
 
     private void SetCurrentStep() {
-      var currentStep = _steps.SingleOrDefault(x => x.IsStep(CurrentGame.Turn.Step));
+      var currentStep = _steps.SingleOrDefault(x => x.IsStep(Game.Turn.Step));
       
       if (currentStep != null)  // pre untap steps are not shown (e.g Mulligan step)
         currentStep.IsCurent = true;

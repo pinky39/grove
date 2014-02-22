@@ -1,7 +1,5 @@
 ﻿namespace Grove.Gameplay.Effects
 {
-  using Targeting;
-
   public class EnchantOwnerWithTarget : Effect
   {
     protected override void ResolveEffect()

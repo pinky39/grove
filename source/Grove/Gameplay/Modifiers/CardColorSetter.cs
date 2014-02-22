@@ -1,7 +1,6 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
   using System.Collections.Generic;
-  using Characteristics;
   using Infrastructure;
 
   public class CardColorSetter : PropertyModifier<List<CardColor>>

@@ -2,12 +2,10 @@
 {
   using System;
   using System.Collections.Generic;
-  using Artifical;
+  using AI;
   using Decisions;
-  using Decisions.Results;
   using Infrastructure;
   using Messages;
-  using Zones;
 
   public class SearchLibraryPutToZone : Effect, IProcessDecisionResults<ChosenCards>,
     IChooseDecisionResults<List<Card>, ChosenCards>, ICardValidator
@@ -111,7 +109,7 @@
           }
         default:
           {
-            AssertEx.Fail(
+            Asrt.Fail(
               String.Format("Zone not supported: {0}.", _zone));
             break;
           }
@@ -124,20 +122,20 @@
     {
       _player.Value.RevealLibrary();
 
-      Enqueue<SelectCards>(
-        controller: _player.Value,
-        init: p =>
+      Enqueue(new SelectCards(
+        _player.Value,
+        p =>
           {
             p.MinCount = _minCount;
             p.MaxCount = _maxCount;
-            p.Validator(this);
+            p.Validator = this;
             p.Zone = Zone.Library;
             p.Text = _text;
             p.ProcessDecisionResults = this;
             p.ChooseDecisionResults = this;
             p.OwningCard = Source.OwningCard;
             p.AurasNeedTarget = _zone == Zone.Battlefield;
-          });
+          }));
     }
   }
 }

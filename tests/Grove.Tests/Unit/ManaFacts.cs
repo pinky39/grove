@@ -1,7 +1,6 @@
 ﻿namespace Grove.Tests.Unit
 {
   using Gameplay;
-  using Gameplay.ManaHandling;
   using Xunit;
 
   public class ManaFacts

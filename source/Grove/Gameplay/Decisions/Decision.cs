@@ -1,45 +1,59 @@
 ﻿namespace Grove.Gameplay.Decisions
 {
-  using Misc;
+  using System;
+  using Infrastructure;
 
-  public abstract class Decision<TResult> : GameObject, IDecision
+  [Copyable]
+  public abstract class Decision
   {
-    private bool _hasCompleted;
-    public TResult Result { get; set; }
-    protected virtual bool ShouldExecuteQuery { get { return true; } }
+    private readonly Func<IDecisionHandler> _machine;
+    private readonly Func<IDecisionHandler> _playback;
+    private readonly Func<IDecisionHandler> _scenario;
+    private readonly Func<IDecisionHandler> _ui;
+
+    protected Decision()
+    {
+      /* copyable */
+    }
+
+    protected Decision(Player controller, Func<IDecisionHandler> ui, Func<IDecisionHandler> machine,
+      Func<IDecisionHandler> scenario, Func<IDecisionHandler> playback)
+    {
+      _ui = ui;
+      _machine = machine;
+      _scenario = scenario;
+      _playback = playback;
+
+      Controller = controller;
+    }
+
     public Player Controller { get; private set; }
 
-    public virtual bool HasCompleted { get { return _hasCompleted; } }
-    public virtual bool IsPass { get { return false; } }
-
-    public virtual void Initialize(Player controller, Game game)
+    public IDecisionHandler CreateHandler(Game game)
     {
-      Controller = controller;
-      Game = game;
+      var handler = GetHandler(game);
+      return handler.Initialize(this, game);
     }
 
-    public virtual void Execute()
+    private IDecisionHandler GetHandler(Game game)
     {
-      if (ShouldExecuteQuery)
+      if (game.Ai.IsSearchInProgress)
+        return _machine();
+
+      if (game.Recorder.IsPlayback)
       {
-        ExecuteQuery();
-      }
-      else
-      {
-        SetResultNoQuery();
+        return _playback();
       }
 
-      ProcessResults();
-      _hasCompleted = true;
+      switch (Controller.Type)
+      {
+        case (ControllerType.Human):
+          return _ui();
+        case (ControllerType.Scenario):
+          return _scenario();
+        default:
+          return _machine();
+      }
     }
-
-    public virtual void SaveDecisionResults()
-    {
-      SaveDecisionResult(Result);
-    }
-
-    public abstract void ProcessResults();
-    protected abstract void ExecuteQuery();
-    protected virtual void SetResultNoQuery() {}
   }
 }

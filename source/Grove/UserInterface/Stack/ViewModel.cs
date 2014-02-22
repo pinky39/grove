@@ -3,9 +3,8 @@
   using System;
   using System.Collections.Generic;
   using Caliburn.Micro;
+  using Gameplay;
   using Gameplay.Effects;
-  using Gameplay.Targeting;
-  using Gameplay.Zones;
   using Infrastructure;
   using Messages;
 
@@ -35,13 +34,13 @@
 
     public override void Initialize()
     {
-      foreach (var effect in CurrentGame.Stack)
+      foreach (var effect in Game.Stack)
       {
         _effects.Add(effect);
       }
             
-      CurrentGame.Stack.EffectAdded += OnEffectAdded;
-      CurrentGame.Stack.EffectRemoved += OnEffectRemoved;
+      Game.Stack.EffectAdded += OnEffectAdded;
+      Game.Stack.EffectRemoved += OnEffectRemoved;
     }
 
     private void OnEffectRemoved(object sender, StackChangedEventArgs e)
@@ -72,7 +71,7 @@
           HasLostInterest = hasLostInterest,
         };
 
-      Shell.Publish(message);
+      Publisher.Publish(message);
     }
 
     public void ChangePlayersInterest(Effect effect, bool hasLostInterest)
@@ -84,12 +83,12 @@
           Target = effect.Target
         };
 
-      Shell.Publish(message);
+      Publisher.Publish(message);
     }
 
     private void ChangeSelection(Effect effect)
     {
-      Shell.Publish(
+      Publisher.Publish(
         new SelectionChanged {Selection = effect});
     }
   }

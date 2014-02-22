@@ -1,8 +1,6 @@
 ﻿namespace Grove.Gameplay.Effects
 {
-  using DamageHandling;
   using Modifiers;
-  using Targeting;
 
   public class PreventDamageFromSource : Effect
   {

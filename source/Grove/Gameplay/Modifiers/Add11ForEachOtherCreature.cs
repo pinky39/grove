@@ -1,10 +1,8 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
   using System.Linq;
-  using Characteristics;
   using Infrastructure;
   using Messages;
-  using Zones;
 
   public class Add11ForEachOtherCreature : Modifier, ICardModifier, IReceive<ZoneChanged>,
     IReceive<TypeChanged>, IReceive<ControllerChanged>

@@ -1,7 +1,6 @@
 ﻿namespace Grove.Gameplay
 {
   using System;
-  using Sets;
 
   [Serializable]
   public class CardInfo : IEquatable<CardInfo>

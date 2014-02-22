@@ -1,7 +1,6 @@
 ﻿namespace Grove.Tests.Cards
 {
-  using Gameplay.States;
-  using Gameplay.Zones;
+  using Gameplay;
   using Infrastructure;
   using Xunit;
   using System.Linq;
@@ -29,7 +28,7 @@
       
     }
     
-    public class Predefined : PredefinedAiScenario
+    public class Predefined : PredefinedScenario
     {
       [Fact]
       public void EchoAfterReanimate()

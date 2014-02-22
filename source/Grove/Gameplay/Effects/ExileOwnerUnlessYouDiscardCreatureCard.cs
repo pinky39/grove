@@ -3,8 +3,6 @@
   using System.Collections.Generic;
   using System.Linq;
   using Decisions;
-  using Decisions.Results;
-  using Zones;
 
   public class ExileOwnerUnlessYouDiscardCreatureCard : Effect, IProcessDecisionResults<ChosenCards>,
     IChooseDecisionResults<List<Card>, ChosenCards>
@@ -28,17 +26,17 @@
 
     protected override void ResolveEffect()
     {
-      Enqueue<SelectCards>(Controller, p =>
+      Enqueue(new SelectCards(Controller, p =>
         {
           p.MinCount = 0;
           p.MaxCount = 1;
-          p.Validator(card => card.Is().Creature);
+          p.SetValidator(card => card.Is().Creature);
           p.Zone = Zone.Hand;
           p.Text = "Select a creature to discard";
           p.ProcessDecisionResults = this;
           p.ChooseDecisionResults = this;
           p.OwningCard = Source.OwningCard;
-        });
+        }));
     }
   }
 }

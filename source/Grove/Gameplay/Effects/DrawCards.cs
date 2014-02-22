@@ -30,9 +30,11 @@
         player.Life -= _lifeloss;
 
       if (_discardCount > 0)
-        Enqueue<Decisions.DiscardCards>(
-          controller: player,
-          init: p => p.Count = _discardCount);
+      {
+        Enqueue(new Decisions.DiscardCards(
+          player,
+          p => p.Count = _discardCount));
+      }
     }
   }
 }

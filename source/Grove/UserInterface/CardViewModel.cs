@@ -4,9 +4,6 @@
   using System.Linq;
   using System.Threading;
   using Gameplay;
-  using Gameplay.Characteristics;
-  using Gameplay.ManaHandling;
-  using Gameplay.Sets;
 
   public class CardViewModel : ViewModelBase, IDisposable
   {

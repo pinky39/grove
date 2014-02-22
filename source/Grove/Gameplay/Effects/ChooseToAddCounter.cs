@@ -1,16 +1,14 @@
 ﻿namespace Grove.Gameplay.Effects
 {
   using System;
-  using Counters;
   using Decisions;
-  using Decisions.Results;
   using Modifiers;
 
   public class ChooseToAddCounter : Effect, IChooseDecisionResults<BooleanResult>,
     IProcessDecisionResults<BooleanResult>
   {
-    private readonly CounterType _counterType;
     private readonly Func<Effect, bool> _chooseAi;
+    private readonly CounterType _counterType;
 
     private ChooseToAddCounter() {}
 
@@ -30,24 +28,24 @@
       if (results.IsTrue)
       {
         var p = new ModifierParameters
-          {            
+          {
             SourceCard = Source.OwningCard,
             SourceEffect = this,
           };
 
-        var addCounter = new AddCounters(() => new SimpleCounter(_counterType), 1);        
+        var addCounter = new AddCounters(() => new SimpleCounter(_counterType), 1);
         Source.OwningCard.AddModifier(addCounter, p);
       }
     }
 
     protected override void ResolveEffect()
     {
-      Enqueue<ChooseTo>(Controller, p =>
+      Enqueue(new ChooseTo(Controller, p =>
         {
           p.Text = string.Format("{0}: Add a counter?", Source.OwningCard.Name);
           p.ProcessDecisionResults = this;
           p.ChooseDecisionResults = this;
-        });
+        }));
     }
   }
 }

@@ -1,7 +1,5 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
-  using Characteristics;
-
   public class SetPowerAndToughness : Modifier, ICardModifier
   {
     private readonly Value _power;

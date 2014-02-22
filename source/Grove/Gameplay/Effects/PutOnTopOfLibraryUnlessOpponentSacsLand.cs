@@ -3,8 +3,6 @@
   using System.Collections.Generic;
   using System.Linq;
   using Decisions;
-  using Decisions.Results;
-  using Zones;
 
   public class PutOnTopOfLibraryUnlessOpponentSacsLand : Effect,
     IProcessDecisionResults<ChosenCards>, IChooseDecisionResults<List<Card>, ChosenCards>
@@ -25,24 +23,24 @@
       if (results.Count == 0)
         return;
 
-      results[0].Sacrifice();      
+      results[0].Sacrifice();
 
       Source.OwningCard.PutOnTopOfLibraryFrom(Zone.Battlefield);
     }
 
     protected override void ResolveEffect()
     {
-      Enqueue<SelectCards>(Controller.Opponent, p =>
+      Enqueue(new SelectCards(Controller.Opponent, p =>
         {
-          p.Validator(c => c.Is().Land);
+          p.SetValidator(c => c.Is().Land);
           p.Zone = Zone.Battlefield;
-          p.Text = "Select a land to sacrifice or press enter.";          
+          p.Text = "Select a land to sacrifice or press enter.";
           p.ChooseDecisionResults = this;
           p.ProcessDecisionResults = this;
           p.MinCount = 0;
           p.MaxCount = 1;
           p.OwningCard = Source.OwningCard;
-        });
+        }));
     }
   }
 }

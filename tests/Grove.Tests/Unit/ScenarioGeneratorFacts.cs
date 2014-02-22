@@ -1,7 +1,7 @@
 ﻿namespace Grove.Tests.Unit
 {
+  using Gameplay;
   using Infrastructure;
-  using Persistance;
   using Xunit;
 
   public class ScenarioGeneratorFacts : Scenario

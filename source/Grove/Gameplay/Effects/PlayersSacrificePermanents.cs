@@ -4,8 +4,6 @@
   using System.Collections.Generic;
   using System.Linq;
   using Decisions;
-  using Decisions.Results;
-  using Zones;
 
   public class PlayersSacrificePermanents : Effect, IProcessDecisionResults<ChosenCards>,
     IChooseDecisionResults<List<Card>, ChosenCards>
@@ -31,7 +29,7 @@
     public ChosenCards ChooseResult(List<Card> candidates)
     {
       var count = _count.Value;
-      
+
       return candidates
         .OrderBy(x => x.Score)
         .Take(count)
@@ -58,19 +56,19 @@
 
     private void SelectCardsToSacrifice(Player player)
     {
-      Enqueue<SelectCards>(
-        controller: player,
-        init: p =>
+      Enqueue(new SelectCards(
+        player,
+        p =>
           {
             p.MinCount = _count;
             p.MaxCount = _count;
-            p.Validator(_validator);
+            p.SetValidator(_validator);
             p.Text = _text;
             p.Zone = Zone.Battlefield;
             p.OwningCard = Source.OwningCard;
             p.ProcessDecisionResults = this;
             p.ChooseDecisionResults = this;
-          });
+          }));
     }
   }
 }

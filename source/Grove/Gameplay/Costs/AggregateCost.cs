@@ -1,8 +1,6 @@
 ﻿namespace Grove.Gameplay.Costs
 {
   using System.Collections.Generic;
-  using ManaHandling;
-  using Targeting;
 
   public class AggregateCost : Cost
   {

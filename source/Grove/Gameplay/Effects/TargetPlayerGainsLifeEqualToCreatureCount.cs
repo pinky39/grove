@@ -1,7 +1,6 @@
 ﻿namespace Grove.Gameplay.Effects
 {
   using System.Linq;
-  using Targeting;
 
   public class TargetPlayerGainsLifeEqualToCreatureCount : Effect
   {

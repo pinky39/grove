@@ -3,8 +3,7 @@
   using System.Collections.Generic;
   using System.Linq;
   using Costs;
-  using Decisions.Results;
-  using ManaHandling;
+  using Decisions;
   using Modifiers;
 
   public class CreaturesOfChosenTypeCostLess : CustomizableEffect

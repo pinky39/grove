@@ -1,6 +1,6 @@
 ﻿namespace Grove.Tests.Infrastructure
 {
-  using Gameplay.Counters;
+  using Gameplay;
 
   public class Counters
   {

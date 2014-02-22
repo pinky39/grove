@@ -5,7 +5,6 @@
   using System.Collections.Generic;
   using System.Linq;
   using Infrastructure;
-  using Misc;
 
   public class Players : GameObject, IEnumerable<Player>, IHashable
   {

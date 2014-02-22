@@ -3,7 +3,7 @@
   using System.Collections.Generic;
   using System.Linq;
   using Gameplay;
-  using Gameplay.Decisions.Results;
+  using Gameplay.Decisions;
   using Infrastructure;
 
   public class ViewModel : ViewModelBase

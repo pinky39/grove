@@ -3,10 +3,8 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Abilities;
-  using Decisions.Results;
+  using Decisions;
   using Modifiers;
-  using Targeting;
 
   public class TargetLoosesChosenAbility : CustomizableEffect
   {

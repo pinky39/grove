@@ -1,7 +1,5 @@
 ﻿namespace Grove.Gameplay.Effects
 {
-  using Targeting;
-
   public class TapTargets : Effect
   {
     protected override void ResolveEffect()

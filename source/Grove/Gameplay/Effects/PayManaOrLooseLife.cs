@@ -1,8 +1,6 @@
 ﻿namespace Grove.Gameplay.Effects
 {
   using Decisions;
-  using Decisions.Results;
-  using ManaHandling;
 
   public class PayManaOrLooseLife : Effect, IProcessDecisionResults<BooleanResult>
   {
@@ -31,12 +29,12 @@
 
     protected override void ResolveEffect()
     {
-      Enqueue<PayOr>(_player.Value, p =>
+      Enqueue(new PayOr(_player.Value, p =>
         {
           p.ManaAmount = _manaAmount;
           p.Text = "Pay mana?";
           p.ProcessDecisionResults = this;
-        });
+        }));
     }
   }
 }

@@ -2,8 +2,7 @@
 {
   using System;
   using System.Collections.Generic;
-  using Counters;
-  using Decisions.Results;
+  using Decisions;
   using Modifiers;
 
   public class PayLifeAddCounters : CustomizableEffect

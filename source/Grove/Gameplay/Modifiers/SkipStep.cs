@@ -1,8 +1,5 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
-  using Characteristics;
-  using States;
-
   public class SkipStep : Modifier, IPlayerModifier
   {
     private readonly Step _step;

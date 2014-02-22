@@ -1,8 +1,5 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
-  using Abilities;
-  using ManaHandling;
-
   public class IncreaseManaOutput : Modifier, ICardModifier
   {
     private readonly IManaAmount _amount;

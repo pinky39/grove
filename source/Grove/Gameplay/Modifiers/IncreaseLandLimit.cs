@@ -1,7 +1,5 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
-  using Characteristics;
-
   public class IncreaseLandLimit : Modifier, IPlayerModifier
   {
     private readonly IntegerIncrement _integerIncrement;

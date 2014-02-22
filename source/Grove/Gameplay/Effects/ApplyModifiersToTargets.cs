@@ -3,7 +3,6 @@
   using System.Collections.Generic;
   using System.Linq;
   using Modifiers;
-  using Targeting;
 
   public class ApplyModifiersToTargets : Effect
   {

@@ -3,8 +3,6 @@
   using System;
   using System.Linq;
   using Decisions;
-  using Decisions.Results;
-  using ManaHandling;
 
   public class PayLifeOrTapLand : Effect, IProcessDecisionResults<BooleanResult>, IChooseDecisionResults<BooleanResult>
   {
@@ -48,13 +46,13 @@
 
     protected override void ResolveEffect()
     {
-      Enqueue<PayOr>(Controller, p =>
+      Enqueue(new PayOr(Controller, p =>
         {
           p.Life = _life;
           p.Text = String.Format("Pay {0} life?", _life);
           p.ChooseDecisionResults = this;
           p.ProcessDecisionResults = this;
-        });
+        }));
     }
   }
 }

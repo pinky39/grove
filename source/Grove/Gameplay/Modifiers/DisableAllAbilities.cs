@@ -1,7 +1,6 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
   using System;
-  using Abilities;
 
   public class DisableAllAbilities : Modifier, ICardModifier
   {

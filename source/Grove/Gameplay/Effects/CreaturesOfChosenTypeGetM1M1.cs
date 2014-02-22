@@ -2,8 +2,7 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Abilities;
-  using Decisions.Results;
+  using Decisions;
   using Modifiers;
 
   public class CreaturesOfChosenTypeGetM1M1 : CustomizableEffect

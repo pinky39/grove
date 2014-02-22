@@ -3,10 +3,8 @@
   using System;
   using System.Linq;
   using Gameplay;
-  using Gameplay.Abilities;
-  using Gameplay.Decisions.Results;
+  using Gameplay.Decisions;
   using Gameplay.Messages;
-  using Gameplay.Targeting;
   using Infrastructure;
   using Messages;
   using SelectTarget;
@@ -15,14 +13,12 @@
     IReceive<AttackerSelected>, IReceive<AttackerUnselected>, IReceive<BlockerSelected>, IReceive<BlockerUnselected>,
     IReceive<RemovedFromCombat>, IReceive<AttackerJoinedCombat>, IReceive<BlockerJoinedCombat>, IReceive<TargetSelected>,
     IReceive<TargetUnselected>
-  {
-    private readonly CombatMarkers _combatMarkers;    
+  {     
 
     private Action _select = delegate { };
 
-    public ViewModel(Card card, CombatMarkers combatMarkers) : base(card)
-    {
-      _combatMarkers = combatMarkers;
+    public ViewModel(Card card) : base(card)
+    {      
       RemoveAnimation = Animation.Create();
     }
 
@@ -41,23 +37,22 @@
       if (Card.Controller.IsHuman && message.WasDeclared)
         return;
 
-      Marker = _combatMarkers.GenerateMarker(message.Attacker);
-    }
+      Marker = message.Attacker.Card.Id;
+    }    
 
     public void Receive(AttackerSelected message)
     {
       if (message.Attacker != Card)
         return;
 
-      Marker = _combatMarkers.GenerateMarker(message.Attacker);
+      Marker = message.Attacker.Id;
     }
 
     public void Receive(AttackerUnselected message)
     {
       if (message.Attacker != Card)
         return;
-
-      _combatMarkers.ReleaseMarker(message.Attacker);
+      
       Marker = 0;
     }
 
@@ -69,7 +64,7 @@
       if (Card.Controller.IsHuman)
         return;
 
-      Marker = _combatMarkers.GenerateMarker(message.Attacker);
+      Marker = message.Attacker.Card.Id;
     }
 
     public void Receive(BlockerSelected message)
@@ -77,7 +72,7 @@
       if (message.Blocker != Card)
         return;
 
-      Marker = _combatMarkers.GenerateMarker(message.Attacker);
+      Marker = message.Attacker.Id;
     }
 
     public void Receive(BlockerUnselected message)
@@ -100,8 +95,7 @@
     {
       if (message.Card != Card)
         return;
-
-      _combatMarkers.ReleaseMarker(message.Card);
+      
       Marker = 0;
     }
 
@@ -158,7 +152,7 @@
     {
       if (Combat.IsAttacker(Card))
       {
-        Marker = _combatMarkers.GenerateMarker(Card);
+        Marker = Card.Id;
       }
       else if (Combat.IsBlocker(Card))
       {
@@ -168,7 +162,7 @@
         // strike and this is a loaded game.
         if (attacker != null)
         {
-          Marker = _combatMarkers.GenerateMarker(attacker);
+          Marker = attacker.Id;
         }
       }
     }
@@ -179,8 +173,7 @@
     }
 
     public void OnPermanentLeftBattlefield()
-    {
-      _combatMarkers.ReleaseMarker(Card);
+    {      
       RemoveAnimation.Start();
     }
     
@@ -210,7 +203,7 @@
 
       var ability = playableActivator.GetPlayable(activationParameters);
 
-      Shell.Publish(new PlayableSelected
+      Publisher.Publish(new PlayableSelected
         {
           Playable = ability
         });
@@ -318,7 +311,7 @@
 
     private void ChangeSelection()
     {
-      Shell.Publish(new SelectionChanged {Selection = Card});
+      Publisher.Publish(new SelectionChanged {Selection = Card});
     }
     
     public interface IFactory

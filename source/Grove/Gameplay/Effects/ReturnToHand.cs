@@ -1,9 +1,7 @@
 ﻿namespace Grove.Gameplay.Effects
 {
-  using Artifical;
+  using AI;
   using Infrastructure;
-  using Targeting;
-  using Zones;
 
   public class ReturnToHand : Effect
   {
@@ -40,9 +38,9 @@
 
       if (_discard > 0)
       {
-        Enqueue<Decisions.DiscardCards>(
-          controller: Target.Card().Controller,
-          init: p => p.Count = _discard);
+        Enqueue(new Decisions.DiscardCards(
+          Target.Card().Controller,
+          p => p.Count = _discard));
       }
     }
   }

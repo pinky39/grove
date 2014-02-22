@@ -1,9 +1,7 @@
 ﻿namespace Grove.Gameplay.Triggers
 {
   using System;
-  using Abilities;
   using Infrastructure;
-  using Misc;
 
   public abstract class Trigger : GameObject, IHashable
   {

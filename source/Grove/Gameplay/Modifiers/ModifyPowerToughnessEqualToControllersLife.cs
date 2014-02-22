@@ -1,7 +1,6 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
   using System;
-  using Characteristics;
   using Infrastructure;
   using Messages;
 

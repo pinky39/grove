@@ -1,6 +1,6 @@
 ﻿namespace Grove.Tests.Cards
 {
-  using Gameplay.States;
+  using Gameplay;
   using Infrastructure;
   using Xunit;
 
@@ -27,7 +27,7 @@
             .Cast(worship),
           At(Step.SecondMain)
             .Cast(shock, P1)
-            .Cast(disenchant, worship));
+            .Cast(disenchant, worship, stackShouldBeEmpty: false));
 
         Equal(-1, P1.Life);
       }

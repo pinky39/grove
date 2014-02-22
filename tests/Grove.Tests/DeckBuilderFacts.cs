@@ -1,15 +1,19 @@
 ﻿namespace Grove.Tests
 {
   using System;
-  using Artifical;
+  using Gameplay;
+  using Gameplay.AI;
   using Infrastructure;
-  using Persistance;
-  using UserInterface;
-  using Xunit;
 
   public class DeckBuilderFacts : Scenario
   {
     //[Fact]
+
+    public DeckBuilderFacts()
+    {
+      MediaLibrary.LoadSets();
+    }
+
     public void BuildDecks()
     {
       for (var i = 0; i < 1; i++)
@@ -26,8 +30,7 @@
 
         Console.WriteLine();
 
-        var builder = new DeckBuilder(CardDatabase, new DeckEvaluator(MatchSimulator));
-        var bestDeck = builder.BuildDeck(pileOfCards, set.Ratings);
+        var bestDeck = DeckBuilder.BuildDeck(pileOfCards, set.Ratings);
 
         Console.WriteLine("Best deck:");
         Console.WriteLine("--------------------------------");
@@ -35,12 +38,6 @@
 
         Console.WriteLine(bestDeck);
       }
-    }
-
-    public DeckBuilderFacts()
-    {
-      MediaLibrary.LoadSets();
-      CardDatabase.Initialize(CardFactory.CreateAll());
     }
   }
 }

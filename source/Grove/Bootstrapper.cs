@@ -7,9 +7,9 @@
   using System.Windows;
   using Caliburn.Micro;
   using Infrastructure;
-  using log4net.Config;
+  using UserInterface;
   using UserInterface.Shell;
-  using UserInterface.LoadScreen;
+  using log4net.Config;
 
   public class Bootstrapper : Bootstrapper<IShell>
   {
@@ -27,11 +27,12 @@
 
     protected override void DisplayRootView()
     {
-      var shell = Container.Resolve<Shell>();
-      var loadScreen = Container.Resolve<ViewModel>();
+      Ui.Shell = Container.Resolve<Shell>();
+      Ui.Dialogs = Container.Resolve<Dialogs>();
+      Ui.Configuration = Configuration.Default;
 
-      shell.ChangeScreen(loadScreen);
-      new WindowManager().ShowWindow(shell);
+      Ui.Shell.ChangeScreen(Ui.Dialogs.LoadScreen.Create());
+      new WindowManager().ShowWindow(Ui.Shell);
     }
 
 
@@ -77,7 +78,7 @@
             ? Assembly.GetExecutingAssembly().GetType(presenter.Namespace + ".View")
             : Assembly.GetExecutingAssembly().GetType(presenter.Namespace + "." + context.ToString());
 
-          AssertEx.True(viewType != null, String.Format("Could not find View for ViewModel: {0}.", presenter));                    
+          Asrt.True(viewType != null, String.Format("Could not find View for ViewModel: {0}.", presenter));
 
           return ViewLocator.GetOrCreateViewType(viewType);
         };

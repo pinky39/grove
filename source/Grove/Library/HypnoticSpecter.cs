@@ -1,0 +1,30 @@
+﻿namespace Grove.Library
+{
+  using System.Collections.Generic;
+  using Gameplay;
+  using Grove.Gameplay.Effects;
+  using Grove.Gameplay.Triggers;
+
+  public class HypnoticSpecter : CardTemplateSource
+  {
+    public override IEnumerable<CardTemplate> GetCards()
+    {
+      yield return Card
+        .Named("Hypnotic Specter")
+        .ManaCost("{1}{B}{B}")
+        .Type("Creature - Specter")
+        .Text(
+          "{Flying}{EOL}Whenever Hypnotic Specter deals damage to an opponent, that player discards a card at random.")
+        .FlavorText("'Its victims are known by their eyes shattered vessels leaking broken dreams.")
+        .Power(2)
+        .Toughness(2)
+        .SimpleAbilities(Static.Flying)
+        .TriggeredAbility(p =>
+          {
+            p.Text = "Whenever Hypnotic Specter deals damage to an opponent, that player discards a card at random.";
+            p.Trigger(new OnDamageDealt(playerFilter: (player, e, dmg) => player == e.Controller.Opponent));
+            p.Effect = () => new OpponentDiscardsCards(randomCount: 1);
+          });
+    }
+  }
+}

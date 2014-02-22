@@ -6,7 +6,6 @@
   using Decisions;
   using Infrastructure;
   using Messages;
-  using Misc;
 
   [Copyable]
   public class Combat : GameObject, IHashable
@@ -17,8 +16,8 @@
     public IEnumerable<Attacker> Attackers { get { return _attackers; } }
     public int AttackerCount { get { return _attackers.Count; } }
     private Player DefendingPlayer { get { return Players.Defending; } }
-    public int BlockersCount { get { return _blockers.Count; }}
-      
+    public int BlockersCount { get { return _blockers.Count; } }
+
     public int CalculateHash(HashCalculator calc)
     {
       return HashCalculator.Combine(
@@ -82,16 +81,6 @@
       }
 
       DefendingPlayer.DealAssignedDamage();
-    }
-
-    private Attacker CreateAttacker(Card card)
-    {
-      return new Attacker(card, Game);
-    }
-
-    private Blocker CreateBlocker(Card blocker, Attacker attacker)
-    {
-      return new Blocker(blocker, attacker, Game);
     }
 
     public void JoinAttack(Card card, bool wasDeclared = false)
@@ -182,17 +171,10 @@
     {
       foreach (var attacker in _attackers)
       {
-        var attackerCopy = attacker;
-
-        Enqueue<SetDamageAssignmentOrder>(
-          controller: attacker.Controller,
-          init: p => p.Attacker = attackerCopy);
+        Enqueue(new SetDamageAssignmentOrder(
+          attacker.Controller,
+          attacker));
       }
-    }
-
-    private Attacker FindAttacker(Card cardAttacker)
-    {
-      return _attackers.FirstOrDefault(a => a.Card == cardAttacker);
     }
 
     public Blocker FindBlocker(Card cardBlocker)
@@ -313,6 +295,21 @@
       }
 
       return false;
+    }
+
+    private Attacker CreateAttacker(Card card)
+    {
+      return new Attacker(card, Game);
+    }
+
+    private Blocker CreateBlocker(Card blocker, Attacker attacker)
+    {
+      return new Blocker(blocker, attacker, Game);
+    }
+
+    private Attacker FindAttacker(Card cardAttacker)
+    {
+      return _attackers.FirstOrDefault(a => a.Card == cardAttacker);
     }
   }
 }

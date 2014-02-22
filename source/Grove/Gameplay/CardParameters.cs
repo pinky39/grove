@@ -1,11 +1,8 @@
 ﻿namespace Grove.Gameplay
 {
   using System.Collections.Generic;
-  using Abilities;
-  using Artifical.CombatRules;
-  using Characteristics;
+  using AI.CombatRules;
   using Infrastructure;
-  using ManaHandling;
 
   public class CardParameters
   {

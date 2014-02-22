@@ -1,11 +1,10 @@
 ﻿namespace Grove.Gameplay.Triggers
 {
   using System;
-  using Abilities;
   using Infrastructure;
   using Messages;
 
-  public class OnCastedSpell : Trigger, IReceive<PlayerHasCastASpell>
+  public class OnCastedSpell : Trigger, IReceive<AfterSpellWasPutOnStack>
   {
     private readonly Func<TriggeredAbility, Card, bool> _filter;
 
@@ -16,7 +15,7 @@
       _filter = filter ?? delegate { return true; };
     }
 
-    public void Receive(PlayerHasCastASpell message)
+    public void Receive(AfterSpellWasPutOnStack message)
     {
       if (_filter(Ability, message.Card))
       {

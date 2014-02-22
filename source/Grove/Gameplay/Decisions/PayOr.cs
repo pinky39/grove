@@ -1,62 +1,122 @@
 ﻿namespace Grove.Gameplay.Decisions
 {
-  using ManaHandling;
-  using Results;
+  using System;
+  using System.Windows;
+  using UserInterface;
 
-  public abstract class PayOr : Decision<BooleanResult>
+  public class PayOr : Decision
   {
-    public ManaUsage ManaUsage = ManaUsage.Any;
-    public IManaAmount ManaAmount { get; set; }
-    public int? Life { get; set; }
-    public string Text { get; set; }
+    private readonly Params _p = new Params();
 
-    public IChooseDecisionResults<BooleanResult> ChooseDecisionResults { get; set; }
-    public IProcessDecisionResults<BooleanResult> ProcessDecisionResults { get; set; }
+    private PayOr() {}
 
-    protected override bool ShouldExecuteQuery { get { return CanPay(); } }
-
-    private bool CanPay()
+    public PayOr(Player controller, Action<Params> setParameters)
+      : base(controller, () => new UiHandler(), () => new MachineHandler(), () => new MachineHandler(), () => new PlaybackHandler())
     {
-      if (ManaAmount != null)
-      {
-        return Controller.HasMana(ManaAmount, ManaUsage);
-      }
-
-      if (Life.HasValue)
-      {
-        return true;
-      }
-
-      return false;
+      setParameters(_p);
     }
 
-    protected override void SetResultNoQuery()
+    private abstract class Handler : DecisionHandler<PayOr, BooleanResult>
     {
-      Result = false;
-    }
+      protected override bool ShouldExecuteQuery { get { return CanPay(); } }
 
-    public override void ProcessResults()
-    {      
-      if (Result.IsTrue)
+      public override void ProcessResults()
       {
-        Pay();
+        if (Result.IsTrue)
+        {
+          Pay();
+        }
+
+        if (D._p.ProcessDecisionResults != null)
+          D._p.ProcessDecisionResults.ProcessResults(Result);
       }
 
-      if (ProcessDecisionResults != null)
-        ProcessDecisionResults.ProcessResults(Result);
-    }
-
-    private void Pay()
-    {
-      if (ManaAmount != null)
+      private bool CanPay()
       {
-        Controller.Consume(ManaAmount, ManaUsage);
-        return;
+        if (D._p.ManaAmount != null)
+        {
+          return D.Controller.HasMana(D._p.ManaAmount, D._p.ManaUsage);
+        }
+
+        if (D._p.Life.HasValue)
+        {
+          return true;
+        }
+
+        return false;
       }
 
-      if (Life.HasValue)
+      protected override void SetResultNoQuery()
       {
-        Controller.Life -= Life.Value;
+        Result = false;
+      }
+
+      private void Pay()
+      {
+        if (D._p.ManaAmount != null)
+        {
+          D.Controller.Consume(D._p.ManaAmount, D._p.ManaUsage);
+          return;
+        }
+
+        if (D._p.Life.HasValue)
+        {
+          D.Controller.Life -= D._p.Life.Value;
+        }
+      }
+    }
+
+    private class MachineHandler : Handler
+    {
+      public MachineHandler()
+      {
+        Result = false;
+      }
+
+      protected override void ExecuteQuery()
+      {
+        if (D._p.ChooseDecisionResults != null)
+        {
+          Result = D._p.ChooseDecisionResults.ChooseResult();
+          return;
+        }
+
+        Result = true;
+      }
+    }
+
+    public class Params
+    {
+      public IChooseDecisionResults<BooleanResult> ChooseDecisionResults;
+      public int? Life;
+      public IManaAmount ManaAmount;
+      public ManaUsage ManaUsage = ManaUsage.Any;
+      public IProcessDecisionResults<BooleanResult> ProcessDecisionResults;
+      public string Text;
+    }
+
+    private class PlaybackHandler : Handler
+    {
+      protected override bool ShouldExecuteQuery { get { return true; } }
+
+      public override void SaveDecisionResults() {}
+
+      protected override void ExecuteQuery()
+      {
+        Result = (BooleanResult) Game.Recorder.LoadDecisionResult();
+      }
+    }
+
+    private class UiHandler : Handler
+    {
+      protected override void ExecuteQuery()
+      {
+        var result = Ui.Shell.ShowMessageBox(
+          message: D._p.Text,
+          buttons: MessageBoxButton.YesNo,
+          type: DialogType.Small);
+
+        Result = result == MessageBoxResult.Yes;
       }
     }
   }

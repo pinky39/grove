@@ -1,7 +1,5 @@
 ﻿namespace Grove.Gameplay
 {
-  using ManaHandling;
-
   public static class Mana
   {
     public static readonly IManaAmount Zero = new ZeroManaAmount();

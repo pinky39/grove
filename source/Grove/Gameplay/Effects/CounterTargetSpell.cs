@@ -1,8 +1,6 @@
 ﻿namespace Grove.Gameplay.Effects
 {
   using Decisions;
-  using Decisions.Results;
-  using Targeting;
 
   public class CounterTargetSpell : Effect, IProcessDecisionResults<BooleanResult>
   {
@@ -40,12 +38,12 @@
         return;
       }
 
-      Enqueue<PayOr>(targetSpellController, p =>
+      Enqueue(new PayOr(targetSpellController, p =>
         {
           p.ManaAmount = _doNotCounterCost.Value.Colorless();
           p.Text = string.Format("Pay {0}?", _doNotCounterCost);
           p.ProcessDecisionResults = this;
-        });
+        }));
       return;
     }
 

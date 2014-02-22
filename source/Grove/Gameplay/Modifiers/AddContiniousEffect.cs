@@ -1,7 +1,5 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
-  using Abilities;
-
   public class AddContiniousEffect : Modifier, ICardModifier, IPlayerModifier
   {
     private readonly ContinuousEffect _continiousEffect;

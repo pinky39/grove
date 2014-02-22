@@ -5,6 +5,11 @@
   using Caliburn.Micro;
   using Castle.DynamicProxy;
 
+  public interface INotifyPropertyChangedRaiser
+  {
+    void RaisePropertyChanged(string propertyName);
+  }
+
   public class NotifyPropertyChangedInterceptor : IInterceptor
   {
     private PropertyChangedEventHandler _propertyChangedSubscribers = delegate { };
@@ -35,7 +40,7 @@
       }
 
       var memberToInspect = invocation.Method.IsSetter()
-        ? (MemberInfo)invocation.Method.GetProperty()
+        ? (MemberInfo) invocation.Method.GetProperty()
         : invocation.Method;
 
       if (memberToInspect.HasAttribute<UpdatesAttribute>())

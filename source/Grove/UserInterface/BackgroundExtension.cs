@@ -5,8 +5,8 @@
   using System.Linq;
   using System.Windows.Markup;
   using System.Windows.Media;
+  using Gameplay;
   using Infrastructure;
-  using Persistance;
 
   public class BackgroundExtension : MarkupExtension
   {

@@ -31,14 +31,14 @@
       {
         opponent.RevealHand();
 
-        Enqueue<Decisions.DiscardCards>(
-          controller: Controller,
-          init: p =>
+        Enqueue(new Decisions.DiscardCards(
+          Controller,
+          p =>
             {
               p.Count = _selectedCount.Value;
               p.Filter = _filter;
               p.DiscardOpponentsCards = true;
-            });
+            }));
 
         return;
       }
@@ -51,13 +51,13 @@
       if (_selectedCount.Value == 0)
         return;
 
-      Enqueue<Decisions.DiscardCards>(
-        controller: opponent,
-        init: p =>
+      Enqueue(new Decisions.DiscardCards(
+        opponent,
+        p =>
           {
             p.Count = _selectedCount.Value;
             p.Filter = _filter;
-          });
+          }));
     }
   }
 }

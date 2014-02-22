@@ -1,7 +1,5 @@
 ﻿namespace Grove.Gameplay.Effects
 {
-  using Zones;
-
   public class ExileCard : Effect
   {
     private readonly DynParam<Card> _card;

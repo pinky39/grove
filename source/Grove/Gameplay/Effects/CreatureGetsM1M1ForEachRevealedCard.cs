@@ -2,12 +2,8 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Characteristics;
   using Decisions;
-  using Decisions.Results;
   using Modifiers;
-  using Targeting;
-  using Zones;
 
   public class CreatureGetsM1M1ForEachRevealedCard : Effect,
     IProcessDecisionResults<ChosenCards>, IChooseDecisionResults<List<Card>, ChosenCards>
@@ -38,18 +34,16 @@
 
     protected override void ResolveEffect()
     {
-      Enqueue<SelectCards>(Controller,
-        p =>
-          {
-            p.Validator(c => c.HasColor(CardColor.Black));
-            p.Zone = Zone.Hand;
-            p.MinCount = 0;
-            p.Text = "Choose any number of black cards in your hand.";
-            p.OwningCard = Source.OwningCard;
-            p.ProcessDecisionResults = this;
-            p.ChooseDecisionResults = this;
-          }
-        );
+      Enqueue(new SelectCards(Controller, p =>
+        {
+          p.SetValidator(c => c.HasColor(CardColor.Black));
+          p.Zone = Zone.Hand;
+          p.MinCount = 0;
+          p.Text = "Choose any number of black cards in your hand.";
+          p.OwningCard = Source.OwningCard;
+          p.ProcessDecisionResults = this;
+          p.ChooseDecisionResults = this;
+        }));
     }
   }
 }

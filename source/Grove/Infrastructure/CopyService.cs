@@ -7,6 +7,18 @@
   using System.Reflection;
   using Castle.DynamicProxy;
 
+  public interface ICopyable
+  {
+    void Copy(object original, CopyService copyService);
+  }
+
+  public class CopyableAttribute : Attribute { }
+
+  public interface ICopyContributor
+  {
+    void AfterMemberCopy(object original);
+  }
+  
   public class CopyService
   {
     private static readonly TypeCache Cache = new TypeCache();
@@ -262,7 +274,7 @@
           {
             ctor = type.GetParameterlessCtor();
 
-            AssertEx.True(ctor != null,
+            Asrt.True(ctor != null,
               String.Format("Type {0} is marked with [Copyable] but is missing a parameterless constructor.", type));                        
 
             _ctors.Add(type, ctor);

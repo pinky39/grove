@@ -4,34 +4,31 @@
   using System.Threading.Tasks;
   using System.Windows;
   using Infrastructure;
-  using Misc;
-  using Persistance;
   using UserInterface;
-  using UserInterface.Shell;
 
   public class Match
   {
-    private readonly Game.IFactory _gameFactory;
     private readonly MatchParameters _p;
-    private readonly IShell _shell;
-    private readonly ViewModelFactories _viewModels;
     private int? _looser;
     private bool _playerLeftMatch;
     private bool _rematch;
     private bool _skipNextScoreUpdate;
 
-    public Match(MatchParameters p, IShell shell, ViewModelFactories viewModels, Game.IFactory gameFactory)
+    public Match(MatchParameters p)
     {
       _p = p;
-      _shell = shell;
-      _viewModels = viewModels;
-      _gameFactory = gameFactory;
-
       Application.Current.Exit += delegate { Stop(); };
     }
 
-    public bool IsTournament { get { return _p.IsTournament; } }
-    public bool WasStopped { get { return Game != null && Game.WasStopped; } }
+    public bool IsTournament
+    {
+      get { return _p.IsTournament; }
+    }
+
+    public bool WasStopped
+    {
+      get { return Game != null && Game.WasStopped; }
+    }
 
     public Game Game { get; private set; }
 
@@ -59,7 +56,10 @@
       }
     }
 
-    public bool InProgress { get { return Game != null && !IsFinished; } }
+    public bool InProgress
+    {
+      get { return Game != null && !IsFinished; }
+    }
 
     public string Description
     {
@@ -70,36 +70,22 @@
       }
     }
 
-    private void DisplayGameResults()
-    {
-      var viewModel = _viewModels.GameResults.Create();
-      _shell.ShowModalDialog(viewModel);
-      _playerLeftMatch = viewModel.PlayerLeftMatch;
-    }
-
-    private void DisplayMatchResults()
-    {
-      var viewModel = _viewModels.MatchResults.Create(canRematch: !IsTournament);
-      _shell.ShowModalDialog(viewModel);
-      _rematch = viewModel.ShouldRematch;
-    }
-
     public void Start()
     {
-      Game game;   
+      Game game;
 
       if (_p.IsSavedMatch)
-      {                
-        game = _gameFactory.Create(GameParameters.Load(
+      {
+        game = new Game(GameParameters.Load(
           player1Controller: ControllerType.Human,
           player2Controller: ControllerType.Machine,
           savedGame: _p.SavedMatch.SavedGame,
-          looser: _p.SavedMatch.Looser));        
+          looser: _p.SavedMatch.Looser));
 
         Player1WinCount = _p.SavedMatch.Player1WinCount;
         Player2WinCount = _p.SavedMatch.Player2WinCount;
         _looser = _p.SavedMatch.Looser;
-        
+
         if (game.IsFinished)
         {
           // if the game was saved when it was already finished
@@ -109,7 +95,7 @@
       }
       else
       {
-        game = _gameFactory.Create(GameParameters.Default(
+        game = new Game(GameParameters.Default(
           _p.Player1, _p.Player2));
       }
 
@@ -125,19 +111,64 @@
           _looser = null;
         }
 
-        game = _gameFactory.Create(GameParameters.Default(
+        game = new Game(GameParameters.Default(
           _p.Player1, _p.Player2));
 
         shouldPlayAnotherGame = RunGame(game);
       }
     }
 
+    public void Rematch()
+    {
+      Stop();
+      _rematch = true;
+    }
+
+    public void Stop()
+    {
+      _rematch = false;
+
+      if (Game != null)
+      {
+        Game.Stop();
+      }
+
+      Ui.Shell.CloseAllDialogs();
+    }
+
+    public SavedMatch Save()
+    {
+      var savedMatch = new SavedMatch
+        {
+          Player1WinCount = Player1WinCount,
+          Player2WinCount = Player2WinCount,
+          SavedGame = Game.Save(),
+          Looser = _looser
+        };
+
+      return savedMatch;
+    }
+
+    private void DisplayGameResults()
+    {
+      var viewModel = Ui.Dialogs.GameResults.Create();
+      Ui.Shell.ShowModalDialog(viewModel);
+      _playerLeftMatch = viewModel.PlayerLeftMatch;
+    }
+
+    private void DisplayMatchResults()
+    {
+      var viewModel = Ui.Dialogs.MatchResults.Create(canRematch: !IsTournament);
+      Ui.Shell.ShowModalDialog(viewModel);
+      _rematch = viewModel.ShouldRematch;
+    }
+
     private bool RunGame(Game game)
     {
       Game = game;
 
-      var playScreen = _viewModels.PlayScreen.Create();
-      _shell.ChangeScreen(playScreen);
+      var playScreen = Ui.Dialogs.PlayScreen.Create();
+      Ui.Shell.ChangeScreen(playScreen);
 
       var blocker = new ThreadBlocker();
 
@@ -159,7 +190,7 @@
       if (Game.WasStopped)
         return false;
 
-      var looser = UpdateScore() ?? _looser;      
+      var looser = UpdateScore() ?? _looser;
 
       if (Game.WasStopped)
         return false;
@@ -179,7 +210,7 @@
         return false;
       }
 
-      DisplayGameResults();      
+      DisplayGameResults();
 
       if (Game.WasStopped)
         return false;
@@ -207,48 +238,12 @@
         _skipNextScoreUpdate = false;
         return 0;
       }
-      
+
       if (!_skipNextScoreUpdate)
         Player1WinCount++;
 
       _skipNextScoreUpdate = false;
       return 1;
-    }
-
-    public void Rematch()
-    {
-      Stop();
-      _rematch = true;
-    }
-
-    public void Stop()
-    {
-      _rematch = false;
-
-      if (Game != null)
-      {
-        Game.Stop();
-      }
-
-      _shell.CloseAllDialogs();
-    }
-
-    public SavedMatch Save()
-    {                        
-      var savedMatch = new SavedMatch
-        {
-          Player1WinCount = Player1WinCount,
-          Player2WinCount = Player2WinCount,
-          SavedGame = Game.Save(),
-          Looser = _looser
-        };
-
-      return savedMatch;
-    }
-
-    public interface IFactory
-    {
-      Match Create(MatchParameters p);
     }
   }
 }

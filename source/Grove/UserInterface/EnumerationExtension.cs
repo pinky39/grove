@@ -24,7 +24,7 @@
           return;
 
         var enumType = Nullable.GetUnderlyingType(value) ?? value;
-        AssertEx.True(enumType.IsEnum, "Type must be an Enum.");                
+        Asrt.True(enumType.IsEnum, "Type must be an Enum.");                
         _enumType = value;
       }
     }

@@ -1,23 +1,13 @@
-﻿namespace Grove.Utils
-{
-  using System;
-  using Gameplay;
+﻿using System;
+using System.Linq;
 
+namespace Grove.Utils
+{
   public class WriteCardList : Task
   {
-    private readonly CardDatabase _cardDatabase;
-
-    public WriteCardList(CardDatabase cardDatabase, CardFactory cardFactory)
-    {
-      _cardDatabase = cardDatabase;
-      _cardDatabase.Initialize(cardFactory.CreateAll());
-    }
-
     public override bool Execute(Arguments arguments)
     {
-      var cardNames = _cardDatabase.GetCardNames();
-
-      foreach (var cardName in cardNames)
+      foreach (var cardName in Gameplay.Cards.All.Select(x => x.Name))
       {
         Console.WriteLine(cardName);
       }

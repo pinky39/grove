@@ -1,8 +1,7 @@
 ﻿namespace Grove.Tests.Cards
 {
   using System.Linq;
-  using Gameplay.States;
-  using Gameplay.Zones;
+  using Gameplay;
   using Infrastructure;
   using Xunit;
 
@@ -28,33 +27,7 @@
     }
 
     public class PredefinedAi : PredefinedAiScenario
-    {
-      [Fact]
-      public void BounceSelf()
-      {
-        var engine = C("Wurmcoil Engine");
-        var manOWar = C("Man-o'-War");
-        var vines = C("Vines of Vastwood");
-
-        Hand(P1, vines);
-        Battlefield(P1, engine, "Forest");
-        Battlefield(P2, "Island", "Island", "Island");
-        Hand(P2, manOWar);
-
-        Exec(
-          At(Step.FirstMain, turn: 2)
-            .Cast(vines, target: engine, condition: (g) => { return g.Stack.HasSpellWithName("Man-o'-War"); }),
-          At(Step.SecondMain, turn: 2)
-            .Verify(() =>
-              {
-                Equal(Zone.Battlefield, C(engine).Zone);
-                Equal(Zone.Graveyard, C(vines).Zone);
-                Equal(Zone.Hand, C(manOWar).Zone);
-                Equal(3, P2.Battlefield.Lands.Count(c => c.IsTapped));
-              })
-          );
-      }
-
+    {     
       [Fact]
       public void BounceNoOne()
       {

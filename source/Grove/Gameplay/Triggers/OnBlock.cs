@@ -2,7 +2,6 @@
 {
   using Infrastructure;
   using Messages;
-  using States;
 
   public class OnBlock : Trigger, IReceive<BlockerJoinedCombat>, IReceive<StepStarted>
   {

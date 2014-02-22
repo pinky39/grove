@@ -2,14 +2,9 @@
 {
   using System;
   using System.Collections.Generic;
-  using Abilities;
-  using Characteristics;
   using Costs;
-  using Counters;
-  using DamageHandling;
   using Effects;
   using Infrastructure;
-  using Misc;
 
   public delegate IModifier ModifierFactory();
   public delegate ICardModifier CardModifierFactory();
@@ -23,7 +18,7 @@
     public bool UntilEot;
     public Card SourceCard { get; private set; }
     public Effect SourceEffect { get; private set; }
-    public Card OwningCard { get { return Owner.As<Card>(); } }
+    public Card OwningCard { get { return  (Card)Owner; } }
     public int? X { get; private set; }
 
     void ICopyContributor.AfterMemberCopy(object original)

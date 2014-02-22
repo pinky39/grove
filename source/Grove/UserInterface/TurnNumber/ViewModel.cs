@@ -14,7 +14,7 @@
 
     public override void Initialize()
     {
-      Number = CurrentGame.Turn.TurnCount;
+      Number = Game.Turn.TurnCount;
     }
   }
 }

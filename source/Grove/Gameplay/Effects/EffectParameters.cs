@@ -1,7 +1,5 @@
 ﻿namespace Grove.Gameplay.Effects
 {
-  using Targeting;
-
   public class EffectParameters
   {
     public IEffectSource Source;

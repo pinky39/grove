@@ -49,7 +49,7 @@
 
     private void ChangeSelection()
     {
-      Shell.Publish(
+      Ui.Publisher.Publish(
         new SelectionChanged {Selection = Card});
     }
 

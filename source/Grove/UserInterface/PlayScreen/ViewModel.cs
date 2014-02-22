@@ -4,12 +4,12 @@
   using System.Collections.Generic;
   using System.Linq;
   using System.Threading;
+  using Gameplay;
   using Gameplay.Messages;
   using Infrastructure;
-  using Persistance;
 
-  public class ViewModel : ViewModelBase, IIsDialogHost, IReceive<PlayerHasCastASpell>,
-    IReceive<PlayerHasActivatedAbility>,
+  public class ViewModel : ViewModelBase, IIsDialogHost, IReceive<BeforeSpellWasPutOnStack>,
+    IReceive<BeforeActivatedAbilityWasPutOnStack>,
     IReceive<SearchStarted>, IReceive<SearchFinished>, IReceive<DamageHasBeenDealt>,
     IReceive<AssignedCombatDamageWasDealt>, IReceive<CardWasRevealed>, IReceive<PlayerHasFlippedACoin>,
     IReceive<EffectOptionsWereChosen>, IReceive<TurnStarted>, IReceive<ZoneChanged>, IReceive<PlayerLifeChanged>,
@@ -23,17 +23,17 @@
     public object LargeDialog { get { return _largeDialogs.FirstOrDefault(); } }
     public MagnifiedCard.ViewModel MagnifiedCard { get; set; }
     public ManaPool.ViewModel ManaPool { get; set; }
-    public Battlefield.ViewModel OpponentsBattlefield { get; private set; }
+    public UserInterface.Battlefield.ViewModel OpponentsBattlefield { get; private set; }
     public PlayerBox.ViewModel You { get; private set; }
     public PlayerBox.ViewModel Opponent { get; private set; }
     public virtual string SearchInProgressMessage { get; set; }
     public object SmallDialog { get { return _smallDialogs.FirstOrDefault(); } }
-    public Stack.ViewModel StackVm { get; set; }
+    public UserInterface.Stack.ViewModel StackVm { get; set; }
     public Steps.ViewModel Steps { get; set; }
     public TurnNumber.ViewModel TurnNumber { get; set; }
     public MessageLog.ViewModel MessageLog { get; set; }
-    public Battlefield.ViewModel YourBattlefield { get; private set; }
-    public Zones.ViewModel Zones { get; set; }
+    public UserInterface.Battlefield.ViewModel YourBattlefield { get; private set; }
+    public UserInterface.Zones.ViewModel Zones { get; set; }
     public virtual QuitGame.ViewModel QuitGameDialog { get; protected set; }
 
     public void Dispose()
@@ -102,6 +102,18 @@
       Thread.Sleep(500);
     }
 
+    public void Receive(BeforeActivatedAbilityWasPutOnStack message)
+    {
+      ShowActivationDialog(message);
+      MessageLog.AddMessage(message.ToString());
+    }
+
+    public void Receive(BeforeSpellWasPutOnStack message)
+    {
+      ShowActivationDialog(message);
+      MessageLog.AddMessage(message.ToString());
+    }
+
     public void Receive(CardWasRevealed message)
     {
       MessageLog.AddMessage(message.ToString());
@@ -115,18 +127,6 @@
     public void Receive(EffectOptionsWereChosen message)
     {
       MessageLog.AddMessage(message.Text);
-    }
-
-    public void Receive(PlayerHasActivatedAbility message)
-    {      
-      ShowActivationDialog(message);      
-      MessageLog.AddMessage(message.ToString());
-    }
-
-    public void Receive(PlayerHasCastASpell message)
-    {     
-      ShowActivationDialog(message);     
-      MessageLog.AddMessage(message.ToString());
     }
 
     public void Receive(PlayerHasFlippedACoin message)
@@ -147,7 +147,7 @@
     public void Receive(SearchStarted message)
     {
       SearchInProgressMessage = String.Empty;
-      TaskEx.Delay(500).ContinueWith((t) =>
+      TaskUtils.Delay(500).ContinueWith((t) =>
         {
           if (SearchInProgressMessage == String.Empty)
             SearchInProgressMessage = ThinkingMessages.GetRandom();
@@ -174,7 +174,7 @@
 
     public override void Initialize()
     {
-      _scenarioGenerator = new ScenarioGenerator(CurrentGame);
+      _scenarioGenerator = new ScenarioGenerator(Game);
       OpponentsBattlefield = ViewModels.Battlefield.Create(Players.Computer);
       YourBattlefield = ViewModels.Battlefield.Create(Players.Human);
       You = ViewModels.PlayerBox.Create(Players.Human);
@@ -197,9 +197,9 @@
 
     private void ShowActivationDialog(ICardActivationMessage activation)
     {
-      if (activation.Controller.IsHuman) 
+      if (activation.Controller.IsHuman)
         return;
-      
+
       var dialog = ViewModels.EffectActivation.Create(activation);
       Shell.ShowDialog(dialog);
       Thread.Sleep(2000);

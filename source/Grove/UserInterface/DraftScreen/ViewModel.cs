@@ -5,7 +5,6 @@
   using System.Linq;
   using Caliburn.Micro;
   using Gameplay;
-  using Gameplay.Tournaments;
   using Infrastructure;
 
   public class ViewModel : ViewModelBase, IDraftingStrategy
@@ -62,7 +61,7 @@
     {
       return infos.Select(x =>
         {
-          var card = CardFactory.CreateCard(x.Name);
+          var card = Cards.Create(x.Name);
           card.Rarity = x.Rarity;
           card.Set = x.Set;
 

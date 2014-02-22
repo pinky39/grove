@@ -8,11 +8,8 @@
   using System.Windows;
   using System.Windows.Data;
   using System.Windows.Media;
-  using Gameplay.Characteristics;
-  using Gameplay.ManaHandling;
-  using Gameplay.Sets;
+  using Gameplay;
   using Infrastructure;
-  using Persistance;
 
   public static class Converters
   {

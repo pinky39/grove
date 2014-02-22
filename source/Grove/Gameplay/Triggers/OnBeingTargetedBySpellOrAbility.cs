@@ -5,7 +5,6 @@
   using Effects;
   using Infrastructure;
   using Messages;
-  using Targeting;
 
   public class OnBeingTargetedBySpellOrAbility : Trigger, IReceive<EffectPushedOnStack>
   {

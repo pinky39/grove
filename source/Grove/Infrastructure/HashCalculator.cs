@@ -2,6 +2,21 @@
 {
   using System.Collections.Generic;
 
+  public interface IHashable
+  {
+    int CalculateHash(HashCalculator calc);
+  }
+
+  public interface IHashDependancy
+  {
+    void InvalidateHash();
+  }
+
+  public class NoHashDependency : IHashDependancy
+  {
+    public void InvalidateHash() { }
+  }
+
   public class HashCalculator
   {
     private readonly Dictionary<object, int> _hashCache = new Dictionary<object, int>();

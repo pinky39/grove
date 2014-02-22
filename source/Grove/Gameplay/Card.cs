@@ -3,21 +3,11 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Abilities;
-  using Artifical;
-  using Artifical.CombatRules;
-  using Characteristics;
-  using Counters;
-  using DamageHandling;
+  using AI;
+  using AI.CombatRules;
   using Infrastructure;
-  using ManaHandling;
   using Messages;
-  using Misc;
   using Modifiers;
-  using Sets;
-  using States;
-  using Targeting;
-  using Zones;
 
   public class Card : GameObject, ITarget, IDamageable, IHashDependancy, IHasColors, IHasLife, IModifiable
   {
@@ -28,7 +18,7 @@
     private readonly CardColors _colors;
     private readonly CombatRules _combatRules;
     private readonly ContiniousEffects _continuousEffects;
-    private readonly Counters.Counters _counters;
+    private readonly Counters _counters;
     private readonly Trackable<int> _damage = new Trackable<int>();
     private readonly Trackable<bool> _hasLeathalDamage = new Trackable<bool>();
     private readonly Trackable<bool> _hasRegenerationShield = new Trackable<bool>();
@@ -70,7 +60,7 @@
 
       _strenght = new Strenght(p.Power, p.Toughness);
       _level = new Level(p.IsLeveler ? 0 : (int?) null);
-      _counters = new Counters.Counters(_strenght);
+      _counters = new Counters(_strenght);
       _type = new CardTypeCharacteristic(p.Type);
       _colors = new CardColors(p.Colors);
 
@@ -344,7 +334,7 @@
     {      
       var source = _zone.Value;
 
-      AssertEx.False(destination == source,
+      Asrt.False(destination == source,
         "Cannot change zones, when source zone and destination zone are the same.");                   
             
       source.Remove(this);      
@@ -477,7 +467,7 @@
       _isPeeked.Initialize(ChangeTracker, this);
       _usageScore.Initialize(ChangeTracker, this);
       _castInstructions.Initialize(this, game);
-      _simpleAbilities.Initialize(ChangeTracker, this);
+      _simpleAbilities.Initialize(this, game);
       _triggeredAbilities.Initialize(this, game);
       _activatedAbilities.Initialize(this, game);
       _staticAbilities.Initialize(this, game);

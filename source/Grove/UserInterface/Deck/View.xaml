@@ -1,4 +1,5 @@
-﻿<UserControl x:Class="Grove.UserInterface.Deck.View" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro" xmlns:Persistance="clr-namespace:Grove.Persistance" xmlns:Misc="clr-namespace:Grove.Gameplay.Misc" xmlns:UserInterface="clr-namespace:Grove.UserInterface">
+﻿<UserControl x:Class="Grove.UserInterface.Deck.View" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
+             xmlns:UserInterface="clr-namespace:Grove.UserInterface" xmlns:Persistance="clr-namespace:Grove.Gameplay">
 	<ScrollViewer VerticalScrollBarVisibility="Auto">
 		<ScrollViewer.Resources>
 			<DataTemplate DataType="{x:Type Persistance:DeckRow}">

@@ -1,7 +1,5 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
-  using Characteristics;
-
   public class SwitchPowerAndToughness : Modifier, ICardModifier
   {
     private Strenght _strenght;

@@ -1,10 +1,8 @@
-﻿namespace Grove.UserInterface
-{
-  using System.Collections.Generic;
-  using System.Linq;
-  using Gameplay.Messages;
-  using Infrastructure;
+﻿using System.Collections.Generic;
+using System.Linq;
 
+namespace Grove.UserInterface
+{
   public enum Pass
   {
     Always = 0,
@@ -13,49 +11,39 @@
     Never = 3,
   }
 
-  public class Configuration : ViewModelBase, IReceive<StepStarted>, IReceive<EffectPushedOnStack>
+  public class Configuration
   {
     private readonly List<AutoPass> _autoPassConfiguration = new List<AutoPass>
       {
-        new AutoPass {Step = Gameplay.States.Step.Untap, Pass = Pass.Always},
-        new AutoPass {Step = Gameplay.States.Step.Upkeep, Pass = Pass.Always},
-        new AutoPass {Step = Gameplay.States.Step.Draw, Pass = Pass.Always},
-        new AutoPass {Step = Gameplay.States.Step.FirstMain, Pass = Pass.Passive},
-        new AutoPass {Step = Gameplay.States.Step.BeginningOfCombat, Pass = Pass.Always},
-        new AutoPass {Step = Gameplay.States.Step.DeclareAttackers, Pass = Pass.Always},
-        new AutoPass {Step = Gameplay.States.Step.DeclareBlockers, Pass = Pass.Never},
-        new AutoPass {Step = Gameplay.States.Step.CombatDamage, Pass = Pass.Always},
-        new AutoPass {Step = Gameplay.States.Step.FirstStrikeCombatDamage, Pass = Pass.Always},
-        new AutoPass {Step = Gameplay.States.Step.EndOfCombat, Pass = Pass.Always},
-        new AutoPass {Step = Gameplay.States.Step.SecondMain, Pass = Pass.Passive},
-        new AutoPass {Step = Gameplay.States.Step.EndOfTurn, Pass = Pass.Always},
-        new AutoPass {Step = Gameplay.States.Step.CleanUp, Pass = Pass.Always},
+        new AutoPass {Step = Gameplay.Step.Untap, Pass = Pass.Always},
+        new AutoPass {Step = Gameplay.Step.Upkeep, Pass = Pass.Always},
+        new AutoPass {Step = Gameplay.Step.Draw, Pass = Pass.Always},
+        new AutoPass {Step = Gameplay.Step.FirstMain, Pass = Pass.Passive},
+        new AutoPass {Step = Gameplay.Step.BeginningOfCombat, Pass = Pass.Always},
+        new AutoPass {Step = Gameplay.Step.DeclareAttackers, Pass = Pass.Always},
+        new AutoPass {Step = Gameplay.Step.DeclareBlockers, Pass = Pass.Never},
+        new AutoPass {Step = Gameplay.Step.CombatDamage, Pass = Pass.Always},
+        new AutoPass {Step = Gameplay.Step.FirstStrikeCombatDamage, Pass = Pass.Always},
+        new AutoPass {Step = Gameplay.Step.EndOfCombat, Pass = Pass.Always},
+        new AutoPass {Step = Gameplay.Step.SecondMain, Pass = Pass.Passive},
+        new AutoPass {Step = Gameplay.Step.EndOfTurn, Pass = Pass.Always},
+        new AutoPass {Step = Gameplay.Step.CleanUp, Pass = Pass.Always},
       };
 
-    private bool _hasAnyPlayerPlayedSpellOnThisStep = false;
-
-    public void Receive(EffectPushedOnStack message)
+    public static Configuration Default
     {
-      _hasAnyPlayerPlayedSpellOnThisStep = true;
+      get { return new Configuration(); }
     }
 
-    public void Receive(StepStarted message)
-    {
-      _hasAnyPlayerPlayedSpellOnThisStep = false;
-    }
-
-    public Pass GetAutoPassConfiguration(Gameplay.States.Step step)
+    public Pass GetAutoPassConfiguration(Gameplay.Step step)
     {
       return GetAutoPass(step).Pass;
     }
 
-    public bool ShouldAutoPass()
+    public bool ShouldAutoPass(Gameplay.Step step, bool isActiveTurn, bool anyPlayerPlayedSomething)
     {
-      if (_hasAnyPlayerPlayedSpellOnThisStep)
+      if (anyPlayerPlayedSomething)
         return false;
-
-      var step = CurrentGame.Turn.Step;
-      var isActiveTurn = CurrentGame.Players.Active.IsHuman;
 
       var config = GetAutoPass(step);
 
@@ -63,17 +51,17 @@
         return true;
 
       return isActiveTurn
-        ? config.Pass == Pass.Active
-        : config.Pass == Pass.Passive;
+               ? config.Pass == Pass.Active
+               : config.Pass == Pass.Passive;
     }
 
-    public void ToggleAutoPass(Gameplay.States.Step step)
+    public void ToggleAutoPass(Gameplay.Step step)
     {
       var config = GetAutoPass(step);
       config.Toggle();
     }
 
-    private AutoPass GetAutoPass(Gameplay.States.Step step)
+    private AutoPass GetAutoPass(Gameplay.Step step)
     {
       return _autoPassConfiguration.Single(x => x.Step == step);
     }
@@ -81,7 +69,7 @@
     private class AutoPass
     {
       public Pass Pass { get; set; }
-      public Gameplay.States.Step Step { get; set; }
+      public Gameplay.Step Step { get; set; }
 
       public void Toggle()
       {

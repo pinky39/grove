@@ -4,9 +4,7 @@
   using System.Collections.Generic;
   using System.Linq;
   using Decisions;
-  using Decisions.Results;
   using Infrastructure;
-  using Zones;
 
   public class SacrificePermanentOrSacrificeOwner : Effect,
     IProcessDecisionResults<ChosenCards>, IChooseDecisionResults<List<Card>, ChosenCards>
@@ -43,7 +41,7 @@
     public void ProcessResults(ChosenCards results)
     {
       if (results.None())
-      {        
+      {
         Source.OwningCard.Sacrifice();
         return;
       }
@@ -53,9 +51,9 @@
 
     protected override void ResolveEffect()
     {
-      Enqueue<SelectCards>(Controller, p =>
+      Enqueue(new SelectCards(Controller, p =>
         {
-          p.Validator(_validator);
+          p.SetValidator(_validator);
           p.Zone = Zone.Battlefield;
           p.MinCount = 0;
           p.MaxCount = 1;
@@ -64,7 +62,7 @@
           p.ProcessDecisionResults = this;
           p.ChooseDecisionResults = this;
           p.OwningCard = Source.OwningCard;
-        });
+        }));
     }
   }
 }

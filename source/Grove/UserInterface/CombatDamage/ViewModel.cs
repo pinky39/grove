@@ -2,9 +2,8 @@
 {
   using System;
   using System.Linq;
-  using Artifical;
   using Gameplay;
-  using Gameplay.Decisions.Results;
+  using Gameplay.Decisions;
   using Infrastructure;
 
   public class ViewModel : ViewModelBase

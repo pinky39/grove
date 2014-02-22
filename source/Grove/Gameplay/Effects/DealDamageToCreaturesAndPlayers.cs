@@ -1,7 +1,6 @@
 ﻿namespace Grove.Gameplay.Effects
 {
   using System;
-  using DamageHandling;
 
   public class DealDamageToCreaturesAndPlayers : Effect
   {

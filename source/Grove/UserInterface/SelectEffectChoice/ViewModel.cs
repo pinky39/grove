@@ -3,7 +3,7 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Gameplay.Decisions.Results;
+  using Gameplay.Decisions;
   using Gameplay.Effects;
   using Infrastructure;
 

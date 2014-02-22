@@ -2,7 +2,7 @@
 {
   using System;
   using System.Linq;
-  using Artifical;
+  using AI;
 
   public class ReturnAllPermanentsToHand : Effect
   {

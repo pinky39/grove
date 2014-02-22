@@ -5,7 +5,6 @@
   using System.Linq;
   using Caliburn.Micro;
   using Gameplay;
-  using Gameplay.Zones;
   using Infrastructure;
 
   public class ViewModel : ViewModelBase, IDisposable

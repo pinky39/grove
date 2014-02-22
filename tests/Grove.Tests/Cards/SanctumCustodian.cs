@@ -1,7 +1,6 @@
 ﻿namespace Grove.Tests.Cards
 {
-  using Gameplay.States;
-  using Gameplay.Zones;
+  using Gameplay;
   using Infrastructure;
   using Xunit;
 
@@ -23,7 +22,7 @@
         Exec(
           At(Step.FirstMain, 2)
             .Cast(shock1, target: bear)
-            .Activate(custodian, target: bear)
+            .Activate(custodian, target: bear, stackShouldBeEmpty: false)
             .Verify(() =>
               {
                 Equal(Zone.Battlefield, C(bear).Zone);

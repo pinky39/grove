@@ -3,17 +3,9 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Abilities;
-  using Characteristics;
-  using DamageHandling;
   using Infrastructure;
-  using ManaHandling;
   using Messages;
-  using Misc;
   using Modifiers;
-  using States;
-  using Targeting;
-  using Zones;
 
   public class Player : GameObject, ITarget, IDamageable, IHasLife, IModifiable
   {
@@ -40,7 +32,7 @@
     {
       Name = p.Name;
       AvatarId = p.AvatarId;
-      Controller = controllerType;
+      Type = controllerType;
 
       _assignedDamage = new AssignedDamage(this);
       _battlefield = new Battlefield(this);
@@ -52,7 +44,7 @@
     }
 
     private Player() {}
-    public ControllerType Controller { get; private set; }
+    public ControllerType Type { get; private set; }
     public string Name { get; private set; }
     public Player Opponent { get { return Players.GetOpponent(this); } }
     public int LandsPlayedCount { get { return _landsPlayedCount.Value; } set { _landsPlayedCount.Value = value; } }
@@ -80,9 +72,9 @@
     public bool HasMulligan { get { return _hasMulligan.Value; } set { _hasMulligan.Value = value; } }
     public bool HasPriority { get { return _hasPriority.Value; } set { _hasPriority.Value = value; } }
     public virtual bool IsActive { get { return _isActive.Value; } set { _isActive.Value = value; } }
-    public bool IsHuman { get { return Controller == ControllerType.Human; } }
-    public bool IsMachine { get { return Controller == ControllerType.Machine; } }
-    public bool IsScenario { get { return Controller == ControllerType.Scenario; } }
+    public bool IsHuman { get { return Type == ControllerType.Human; } }
+    public bool IsMachine { get { return Type == ControllerType.Machine; } }
+    public bool IsScenario { get { return Type == ControllerType.Scenario; } }
     public bool IsMax { get; set; }
     public ILibraryQuery Library { get { return _library; } }
 
@@ -513,7 +505,7 @@
     {
       var cards = _deck.Select(cardInfo =>
         {
-          var card = CardFactory.CreateCard(cardInfo.Name);
+          var card = Cards.Create(cardInfo.Name);
           card.Rarity = cardInfo.Rarity;
           card.Set = cardInfo.Set;
 

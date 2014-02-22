@@ -1,8 +1,6 @@
 ﻿namespace Grove.Gameplay.Costs
 {
   using System;
-  using ManaHandling;
-  using Targeting;
 
   public class PayMana : Cost
   {

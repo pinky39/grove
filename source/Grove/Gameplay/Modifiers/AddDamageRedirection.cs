@@ -1,7 +1,6 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
   using System;
-  using DamageHandling;
 
   public class AddDamageRedirection : Modifier, IGameModifier
   {

@@ -1,18 +1,11 @@
 ﻿namespace Grove.Utils
 {
   using System;
-  using Artifical;
-  using Persistance;
+  using Gameplay;
+  using Gameplay.AI;
 
   public class ReproduceError : Task
-  {
-    private readonly ErrorReportLoader _errorReportLoader;
-
-    public ReproduceError(ErrorReportLoader errorReportLoader)
-    {
-      _errorReportLoader = errorReportLoader;
-    }
-
+  {        
     public override bool Execute(Arguments arguments)
     {
       var filename = arguments["f"];
@@ -21,7 +14,7 @@
       Console.WriteLine("Attach the debugger then press any key...");
       Console.ReadKey();
 
-      var game = _errorReportLoader.LoadReport(filename, rollback, 
+      var game = ErrorReportLoader.LoadReport(filename, rollback, 
         new SearchParameters(10, 1, enableMultithreading: false));
 
       try

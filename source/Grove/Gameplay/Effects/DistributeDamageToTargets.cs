@@ -1,7 +1,5 @@
 ﻿namespace Grove.Gameplay.Effects
 {
-  using Characteristics;
-
   public class DistributeDamageToTargets : Effect
   {
     public override int CalculatePlayerDamage(Player player)

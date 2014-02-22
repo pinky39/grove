@@ -1,27 +1,19 @@
-﻿namespace Grove.Utils
-{
-  using System;
-  using System.Collections.Generic;
-  using System.Globalization;
-  using System.IO;
-  using System.Linq;
-  using Gameplay;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
 
+namespace Grove.Utils
+{
   public class WriteCardRatings : Task
   {
-    private readonly CardDatabase _cardDatabase;
-
-    public WriteCardRatings(CardDatabase cardDatabase)
-    {
-      _cardDatabase = cardDatabase;
-    }
-
     public override bool Execute(Arguments arguments)
     {
       var downloader = new RatingDownloader();
       var filename = arguments["f"];
 
-      var ratedCards = _cardDatabase.GetCardNames()
+      var ratedCards = Gameplay.Cards.All.Select(x => x.Name)
         .Select(x => new RatedCard {Name = x})
         .ToList();
 
@@ -77,8 +69,8 @@
 
     public override void Usage()
     {
-       Console.WriteLine(
-       "usage: ugrove rate f=ratings.txt\n\nDownloads missing ratings from gatherer and writes them to ratings.txt file.");
+      Console.WriteLine(
+        "usage: ugrove rate f=ratings.txt\n\nDownloads missing ratings from gatherer and writes them to ratings.txt file.");
     }
   }
 }

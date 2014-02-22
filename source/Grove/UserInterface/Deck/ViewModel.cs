@@ -4,9 +4,7 @@
   using System.Collections.Generic;
   using System.Linq;
   using Gameplay;
-  using Gameplay.ManaHandling;
   using Infrastructure;
-  using Persistance;
 
   public class ViewModel : ViewModelBase
   {
@@ -65,7 +63,7 @@
 
         foreach (var cardInfo in _deck)
         {
-          var card = CardDatabase[cardInfo.Name];
+          var card = Cards.All[cardInfo.Name];
 
           if (card.ManaCost == null)
             continue;
@@ -165,7 +163,7 @@
 
     private IEnumerable<CardInfo> FilterCards(IEnumerable<CardInfo> cards, Func<Card, bool> predicate)
     {
-      return cards.Where(x => predicate(CardDatabase[x.Name]));
+      return cards.Where(x => predicate(Cards.All[x.Name]));
     }
 
     public interface IFactory

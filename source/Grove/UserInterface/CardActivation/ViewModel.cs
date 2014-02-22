@@ -1,7 +1,7 @@
 ﻿namespace Grove.UserInterface.CardActivation
 {
+  using Gameplay;
   using Gameplay.Messages;
-  using Gameplay.Targeting;
   using Messages;
 
   public class ViewModel : ViewModelBase
@@ -27,7 +27,7 @@
           HasLostInterest = hasLostInterest,
         };
 
-      Shell.Publish(message);
+      Publisher.Publish(message);
     }
 
     public interface IFactory

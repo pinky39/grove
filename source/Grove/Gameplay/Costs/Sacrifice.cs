@@ -1,7 +1,6 @@
 ﻿namespace Grove.Gameplay.Costs
 {
   using System.Linq;
-  using Targeting;
 
   public class Sacrifice : Cost
   {

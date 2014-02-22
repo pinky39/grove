@@ -1,8 +1,7 @@
 ﻿namespace Grove.Tests.Cards
 {
   using System.Linq;
-  using Gameplay.States;
-  using Gameplay.Zones;
+  using Gameplay;
   using Infrastructure;
   using Xunit;
 
@@ -22,7 +21,7 @@
         Exec(
           At(Step.FirstMain)
             .Cast(force)
-            .Cast(manaLeak, target: E(force))
+            .Cast(manaLeak, target: E(force), stackShouldBeEmpty: false)
             .Verify(() =>
               {
                 Equal(1, P1.Graveyard.Count());

@@ -1,6 +1,6 @@
 ﻿namespace Grove.Gameplay.Effects
 {
-  using Artifical;
+  using AI;
   using Modifiers;
 
   public class Add11ForEachCounter : Effect

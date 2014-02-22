@@ -3,9 +3,8 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Artifical.Decisions;
+  using AI;
   using Decisions;
-  using Decisions.Results;
   using Infrastructure;
 
   public class PutAllPermanentsOnTopOfLibrary : Effect
@@ -33,15 +32,15 @@
 
       var orderAndPutOnTop = new OrderAndPutOnTopOfLibrary(player, permanents);
 
-      Enqueue<Decisions.OrderCards>(
-        controller: player,
-        init: p =>
+      Enqueue(new OrderCards(
+        player,
+        p =>
           {
             p.Cards = permanents;
             p.ProcessDecisionResults = orderAndPutOnTop;
             p.ChooseDecisionResults = orderAndPutOnTop;
             p.Title = "Order cards from top to bottom";
-          });
+          }));
     }
 
     [Copyable]

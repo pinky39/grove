@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using Infrastructure;
-  using Targeting;
 
   public interface IEffectSource : IHashable
   {

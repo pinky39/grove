@@ -8,19 +8,19 @@
 
   public class Slot : IDisposable
   {
-    private readonly Func<Permanent.ViewModel, bool> _accepts;
-    private readonly BindableCollection<Permanent.ViewModel> _permanents = new BindableCollection<Permanent.ViewModel>();
+    private readonly Func<UserInterface.Permanent.ViewModel, bool> _accepts;
+    private readonly BindableCollection<UserInterface.Permanent.ViewModel> _permanents = new BindableCollection<UserInterface.Permanent.ViewModel>();
 
-    public Slot(Func<Permanent.ViewModel, bool> accepts)
+    public Slot(Func<UserInterface.Permanent.ViewModel, bool> accepts)
     {
       _accepts = accepts;
     }
 
     public int Count { get { return _permanents.Count; } }
 
-    public IEnumerable<Permanent.ViewModel> Permanents { get { return _permanents; } }
+    public IEnumerable<UserInterface.Permanent.ViewModel> Permanents { get { return _permanents; } }
 
-    public void Add(Permanent.ViewModel viewModel)
+    public void Add(UserInterface.Permanent.ViewModel viewModel)
     {
       if (viewModel.Card.IsAttached && viewModel.Card.Is().Attachment)
       {
@@ -37,12 +37,12 @@
       _permanents.Clear();
     }
 
-    public bool CanAdd(Permanent.ViewModel viewModel)
+    public bool CanAdd(UserInterface.Permanent.ViewModel viewModel)
     {
       return viewModel.Card.Is().Aura ? ContainsAttachmentTarget(viewModel.Card) : _accepts(viewModel);
     }
 
-    public Permanent.ViewModel GetPermanentViewModel(Card card)
+    public UserInterface.Permanent.ViewModel GetPermanentViewModel(Card card)
     {
       return _permanents.FirstOrDefault(x => x.Card == card);
     }
@@ -52,7 +52,7 @@
       return _permanents.Any(x => x.Card == attachment.AttachedTo);
     }
 
-    public bool Remove(Permanent.ViewModel viewModel)
+    public bool Remove(UserInterface.Permanent.ViewModel viewModel)
     {                  
       return _permanents.Remove(viewModel);      
     }

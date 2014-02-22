@@ -5,7 +5,7 @@
   [Copyable]
   public class DecisionQueue : IHashable
   {
-    private readonly TrackableList<IDecision> _queue = new TrackableList<IDecision>(orderImpactsHashcode: true);
+    private readonly TrackableList<Decision> _queue = new TrackableList<Decision>(orderImpactsHashcode: true);
 
     public int Count { get { return _queue.Count; } }
 
@@ -19,14 +19,14 @@
       _queue.Initialize(game.ChangeTracker);
     }
 
-    public IDecision Dequeue()
+    public Decision Dequeue()
     {
       var next = _queue[0];
       _queue.Remove(next);
       return next;
     }
 
-    public void Enqueue(IDecision decision)
+    public void Enqueue(Decision decision)
     {
       _queue.Add(decision);
     }

@@ -1,7 +1,6 @@
 ﻿namespace Grove.Gameplay.Costs
 {
   using System;
-  using Targeting;
 
   public class DiscardThis : Cost
   {

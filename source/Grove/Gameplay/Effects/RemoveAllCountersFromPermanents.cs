@@ -2,7 +2,6 @@
 {
   using System;
   using System.Linq;
-  using Counters;
 
   public class RemoveAllCountersFromPermanents : Effect
   {

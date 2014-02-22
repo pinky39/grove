@@ -1,7 +1,5 @@
 ﻿namespace Grove.Gameplay.Costs
 {
-  using Targeting;
-
   public class NoCost : Cost
   {
     protected override void CanPay(CanPayResult result)

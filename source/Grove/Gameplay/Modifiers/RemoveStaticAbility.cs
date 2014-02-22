@@ -1,6 +1,5 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
-  using Abilities;
   using Infrastructure;
 
   public class RemoveStaticAbility : Modifier, ICardModifier

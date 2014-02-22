@@ -1,7 +1,6 @@
 ﻿namespace Grove.Tests.Cards
 {
-  using Gameplay.States;
-  using Gameplay.Zones;
+  using Gameplay;
   using Infrastructure;
   using Xunit;
 
@@ -43,7 +42,7 @@
           At(Step.FirstMain)
             .Cast(guide)
             .Target(titan)
-            .Activate(beetles, target: titan),
+            .Activate(beetles, target: titan, stackShouldBeEmpty: false),
           At(Step.SecondMain)
             .Verify(() => Equal(Zone.Exile, C(titan).Zone))
         );
@@ -64,7 +63,7 @@
         Exec(
           At(Step.FirstMain)
             .Cast(guide)
-            .Activate(beetles, target: titan),
+            .Activate(beetles, target: titan, stackShouldBeEmpty: false),                        
           At(Step.SecondMain)
             .Verify(() => Equal(Zone.Exile, C(titan).Zone)));
       }

@@ -2,11 +2,7 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Characteristics;
   using Decisions;
-  using Decisions.Results;
-  using Targeting;
-  using Zones;
 
   public class SacrificeCreaturesToDealDamageToTarget : Effect, IProcessDecisionResults<ChosenCards>,
     IChooseDecisionResults<List<Card>, ChosenCards>
@@ -33,10 +29,10 @@
 
     protected override void ResolveEffect()
     {
-      Enqueue<SelectCards>(Controller,
+      Enqueue(new SelectCards(Controller,
         p =>
           {
-            p.Validator(c => c.Is().Creature);
+            p.SetValidator(c => c.Is().Creature);
             p.Zone = Zone.Battlefield;
             p.MinCount = 0;
             p.MaxCount = null;
@@ -45,7 +41,7 @@
             p.ProcessDecisionResults = this;
             p.ChooseDecisionResults = this;
           }
-        );
+        ));
     }
   }
 }

@@ -4,15 +4,14 @@
   using System.Linq;
   using System.Windows;
   using Gameplay;
-  using Infrastructure;
   using SelectDeck;
 
   public class ViewModel : ViewModelBase
   {
     private readonly object _previousScreen;
-    private Dictionary<string, LibraryItem> _libraryItems;
 
     private UserInterface.Deck.ViewModel _deck;
+    private Dictionary<string, LibraryItem> _libraryItems;
 
     public ViewModel(object previousScreen)
     {
@@ -26,31 +25,30 @@
       {
         _deck = value;
 
-        _deck.SelectedCardChanged += delegate { SelectedCard = CardDatabase[_deck.SelectedCard.Name]; };
+        _deck.SelectedCardChanged += delegate { SelectedCard = Cards.All[_deck.SelectedCard.Name]; };
       }
     }
 
-    public LibraryFilter.ViewModel LibraryFilter { get; private set; }    
-    public virtual Card SelectedCard { get; protected set; }    
+    public LibraryFilter.ViewModel LibraryFilter { get; private set; }
+    public virtual Card SelectedCard { get; protected set; }
 
     public override void Initialize()
-    {      
-      _libraryItems = CardDatabase
-        .GetCardNames()
+    {
+      _libraryItems = Cards.All
         .Select(x => new LibraryItem
           {
-            Card = CardDatabase[x],
-            Info = new CardInfo(x)
+            Card = x,
+            Info = new CardInfo(x.Name)
           })
         .ToDictionary(x => x.Info.Name, x => x);
 
       LibraryFilter = ViewModels.LibraryFilter.Create(
-        cards: _libraryItems.Values.Select(x => x.Info), 
-        transformResult:  x => _libraryItems[x.Name],
+        cards: _libraryItems.Values.Select(x => x.Info),
+        transformResult: x => _libraryItems[x.Name],
         orderBy: x => 0);
 
       Deck = ViewModels.Deck.Create();
-      SelectedCard = CardDatabase[_libraryItems.First().Value.Info.Name];
+      SelectedCard = Cards.All[_libraryItems.First().Value.Info.Name];
     }
 
     public void ChangeSelectedCard(LibraryItem libraryItem)

@@ -1,9 +1,6 @@
 ﻿namespace Grove.Gameplay.Costs
 {
   using Infrastructure;
-  using ManaHandling;
-  using Misc;
-  using Targeting;
 
   public abstract class Cost : GameObject, IHashable
   {

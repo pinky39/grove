@@ -4,8 +4,6 @@
   using System.Collections.Generic;
   using System.Linq;
   using Decisions;
-  using Decisions.Results;
-  using Zones;
 
   public class ActivePlayerPaysLifeOrReturnSelectedPermanentToHand : Effect, IProcessDecisionResults<BooleanResult>,
     IChooseDecisionResults<BooleanResult>, IProcessDecisionResults<ChosenCards>,
@@ -35,19 +33,19 @@
 
     public void ProcessResults(BooleanResult results)
     {
-      Enqueue<SelectCards>(
-        controller: Players.Active,
-        init: p =>
+      Enqueue(new SelectCards(
+        Players.Active,
+        p =>
           {
             p.MinCount = 1;
             p.MaxCount = 1;
-            p.Validator(delegate { return true; });
+            p.SetValidator(delegate { return true; });
             p.Zone = Zone.Battlefield;
             p.Text = "Select a permanent to return to hand.";
             p.OwningCard = Source.OwningCard;
             p.ProcessDecisionResults = this;
             p.ChooseDecisionResults = this;
-          });
+          }));
     }
 
     public void ProcessResults(ChosenCards results)
@@ -60,13 +58,13 @@
 
     protected override void ResolveEffect()
     {
-      Enqueue<PayOr>(Players.Active, p =>
+      Enqueue(new PayOr(Players.Active, p =>
         {
           p.Life = _life;
           p.Text = String.Format("Pay {0} life?", _life);
           p.ChooseDecisionResults = this;
           p.ProcessDecisionResults = this;
-        });
+        }));
     }
   }
 }

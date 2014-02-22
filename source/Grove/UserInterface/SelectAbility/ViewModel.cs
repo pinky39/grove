@@ -1,7 +1,7 @@
 ﻿namespace Grove.UserInterface.SelectAbility
 {
   using System.Collections.Generic;
-  using Gameplay.Characteristics;
+  using Gameplay;
   using Infrastructure;
 
   public class ViewModel

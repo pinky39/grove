@@ -1,8 +1,6 @@
 ﻿namespace Grove.Gameplay
 {
-  using Artifical;
-  using Misc;
-  using Persistance;
+  using AI;
 
   public class GameParameters
   {

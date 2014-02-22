@@ -3,10 +3,8 @@
   using System.Collections.Generic;
   using System.Linq;
   using Gameplay;
-  using Gameplay.Tournaments;
   using Infrastructure;
   using Messages;
-  using Persistance;
 
   public class ViewModel : ViewModelBase, IReceive<TournamentMatchFinished>
   {
@@ -90,10 +88,10 @@
     {
       var saveFileHeader = new SaveFileHeader
         {
-          Description = CurrentTournament.Description
+          Description = Tournament.Description
         };
 
-      var savedTournament = CurrentTournament.Save();
+      var savedTournament = Tournament.Save();
       SavedGames.Write(saveFileHeader, savedTournament);      
     }
 

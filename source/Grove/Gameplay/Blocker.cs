@@ -1,11 +1,9 @@
 ﻿namespace Grove.Gameplay
 {
   using System.Linq;
-  using Artifical;
-  using DamageHandling;
+  using AI;
   using Infrastructure;
   using Messages;
-  using Misc;
 
   public class Blocker : GameObject, IHashable
   {

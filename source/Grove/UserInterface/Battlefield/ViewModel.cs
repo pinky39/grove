@@ -4,7 +4,6 @@
   using System.Linq;
   using Gameplay;
   using Gameplay.Messages;
-  using Gameplay.Zones;
   using Infrastructure;
 
   public class ViewModel : ViewModelBase, IReceive<AttachmentAttached>, IReceive<AttachmentDetached>, IDisposable
@@ -117,7 +116,7 @@
       Add(viewModel);
     }
 
-    private void Add(Permanent.ViewModel viewModel)
+    private void Add(UserInterface.Permanent.ViewModel viewModel)
     {
       var row = _rows.First(r => r.CanAdd(viewModel));
       row.Add(viewModel);
@@ -149,7 +148,7 @@
       }
     }
 
-    private Permanent.ViewModel GetPermanent(Card card)
+    private UserInterface.Permanent.ViewModel GetPermanent(Card card)
     {
       foreach (var row in _rows)
       {
@@ -164,7 +163,7 @@
       return null;
     }
 
-    private void Remove(Permanent.ViewModel permanent)
+    private void Remove(UserInterface.Permanent.ViewModel permanent)
     {
       foreach (var row in _rows)
       {

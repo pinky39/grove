@@ -2,13 +2,11 @@
 {
   using System;
   using System.Diagnostics;
-  using System.IO;
   using System.Linq;
   using System.Reflection;
   using System.Windows;
   using Gameplay;
   using Infrastructure;
-  using Persistance;
   using SelectDeck;
 
   public class ViewModel : ViewModelBase
@@ -24,7 +22,10 @@
       }
     }
 
-    public string CardCount { get { return string.Format("{0} cards", CardDatabase.Count); } }    
+    public string CardCount
+    {
+      get { return string.Format("{0} cards", Cards.Count); }
+    }
 
     public void Exit()
     {
@@ -66,7 +67,7 @@
                       {
                         try
                         {
-                          MatchRunner.Start(
+                          var mp = MatchParameters.Default(
                             player1: new PlayerParameters
                               {
                                 Name = YourName,
@@ -79,8 +80,10 @@
                                 AvatarId = RandomEx.Next(),
                                 Deck = deck2
                               },
-                            isTournament: false
-                            );
+                            isTournament: false);
+
+                          Ui.Match = new Match(mp);
+                          Ui.Match.Start();
                         }
                         catch (Exception ex)
                         {
@@ -106,7 +109,7 @@
 
       try
       {
-        MatchRunner.Start(
+        var mp = MatchParameters.Default(
           player1: new PlayerParameters
             {
               Name = YourName,
@@ -121,6 +124,9 @@
             },
           isTournament: false
           );
+
+        Ui.Match = new Match(mp);
+        Ui.Match.Start();        
       }
       catch (Exception ex)
       {
@@ -140,7 +146,7 @@
     private Deck[] ChooseRandomDecks()
     {
       var decks = DeckLibrary.ReadDecks().ToList();
-            
+
       var first = decks[RandomEx.Next(0, decks.Count)];
 
       var decksWithSameRating = decks
@@ -149,7 +155,7 @@
 
       var second = decksWithSameRating[RandomEx.Next(0, decksWithSameRating.Count)];
 
-      return new[] {first, second};      
+      return new[] {first, second};
     }
 
     public interface IFactory

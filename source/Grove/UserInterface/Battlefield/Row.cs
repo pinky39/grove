@@ -16,7 +16,7 @@
 
     public IEnumerable<Slot> Slots { get { return _slots; } }
 
-    public void Add(Permanent.ViewModel viewModel)
+    public void Add(UserInterface.Permanent.ViewModel viewModel)
     {
       Slot candidate;
 
@@ -35,12 +35,12 @@
       candidate.Add(viewModel);
     }
 
-    public bool CanAdd(Permanent.ViewModel viewModel)
+    public bool CanAdd(UserInterface.Permanent.ViewModel viewModel)
     {
       return _slots.Any(slot => slot.CanAdd(viewModel));
     }
 
-    public Permanent.ViewModel GetPermanent(Card card)
+    public UserInterface.Permanent.ViewModel GetPermanent(Card card)
     {
       foreach (var slot in Slots)
       {
@@ -53,7 +53,7 @@
       return null;
     }
 
-    public bool Remove(Permanent.ViewModel viewModel)
+    public bool Remove(UserInterface.Permanent.ViewModel viewModel)
     {
       foreach (var slot in Slots)
       {

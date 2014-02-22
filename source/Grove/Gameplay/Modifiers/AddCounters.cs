@@ -2,7 +2,6 @@
 {
   using System;
   using System.Collections.Generic;
-  using Counters;
 
   public class AddCounters : Modifier, ICardModifier
   {

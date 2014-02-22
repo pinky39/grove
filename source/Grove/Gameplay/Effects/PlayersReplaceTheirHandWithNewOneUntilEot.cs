@@ -4,8 +4,6 @@
   using System.Linq;
   using Infrastructure;
   using Messages;
-  using Misc;
-  using Zones;
 
   public class PlayersReplaceTheirHandWithNewOneUntilEot : Effect
   {

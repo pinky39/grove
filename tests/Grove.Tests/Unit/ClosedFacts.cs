@@ -28,7 +28,7 @@
       return (T) ProxyGenerator.CreateClassProxy(typeof (T), new[]
         {
           typeof (IClosable),
-        }, ProxyGenerationOptions.Default, new object[] {}, new ClosedInterceptor());
+        }, ProxyGenerationOptions.Default, new object[] {}, new CloseInterceptor());
     }
 
     public class Garbage {}

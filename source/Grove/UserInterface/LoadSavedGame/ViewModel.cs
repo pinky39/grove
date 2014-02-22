@@ -4,8 +4,6 @@
   using System.Collections.Generic;
   using System.Linq;
   using Gameplay;
-  using Gameplay.Tournaments;
-  using Persistance;
 
   public class ViewModel : ViewModelBase
   {
@@ -15,7 +13,7 @@
     {
       _previousScreen = previousScreen;
 
-      SavedGames = Persistance.SavedGames.GetDescriptions().Select(info => new SavedGameViewModel
+      SavedGames = Gameplay.SavedGames.GetDescriptions().Select(info => new SavedGameViewModel
         {
           Filename = info.Name,
           Description = info.Description,
@@ -36,23 +34,29 @@
       {
         yield return (filename) =>
           {
-            var file = Persistance.SavedGames.Read(filename);
+            var file = Gameplay.SavedGames.Read(filename);
             var savedMatch = file.Data as SavedMatch;
             if (savedMatch == null) return false;
 
-            MatchRunner.Start(MatchParameters.Load(
-              savedMatch, isTournament: false));
+            Ui.Match = new Match(
+              MatchParameters.Load(
+                savedMatch,
+                isTournament: false));
 
+            Ui.Match.Start();
             return true;
           };
 
         yield return (filename) =>
           {
-            var file = Persistance.SavedGames.Read(filename);
+            var file = Gameplay.SavedGames.Read(filename);
             var savedTournament = file.Data as SavedTournament;
             if (savedTournament == null) return false;
 
-            TournamentRunner.Start(TournamentParameters.Load(savedTournament));
+            Ui.Tournament = new Tournament(
+              TournamentParameters.Load(savedTournament));
+            
+            Ui.Tournament.Start();
             return true;
           };
       }
@@ -61,7 +65,10 @@
     public SavedGameViewModel Selected { get; set; }
     public List<SavedGameViewModel> SavedGames { get; private set; }
 
-    public bool CanLoad { get { return Selected != null; } }
+    public bool CanLoad
+    {
+      get { return Selected != null; }
+    }
 
     public void Load()
     {

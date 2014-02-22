@@ -1,7 +1,5 @@
 ﻿namespace Grove.Gameplay.Modifiers
 {
-  using Abilities;
-
   public class AddTriggeredAbility : Modifier, ICardModifier
   {
     private readonly TriggeredAbility _triggeredAbility;

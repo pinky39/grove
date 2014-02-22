@@ -1,7 +1,7 @@
 ﻿namespace Grove.Tests.Cards
 {
   using System.Linq;
-  using Gameplay.States;
+  using Gameplay;
   using Infrastructure;
   using Xunit;
 
@@ -85,7 +85,7 @@
         Exec(
           At(Step.FirstMain)
             .Cast(armor, target: bear)
-            .Cast(shock, target: bear),
+            .Cast(shock, target: bear, stackShouldBeEmpty: false),
           At(Step.SecondMain)
             .Verify(() =>
               {
@@ -122,7 +122,7 @@
           At(Step.FirstMain)
             .Cast(shock1, target: behemoth)
             .Cast(shock2, target: behemoth)
-            .Activate(behemoth, costTarget: behemoth)
+            .Activate(behemoth, costTarget: behemoth, stackShouldBeEmpty: false)
             .Verify(() =>
               Equal(1, P2.Battlefield.Count()))
           );

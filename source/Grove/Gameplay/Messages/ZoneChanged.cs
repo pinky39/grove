@@ -1,7 +1,6 @@
 ﻿namespace Grove.Gameplay.Messages
 {
   using System;
-  using Zones;
 
   public class ZoneChanged
   {
