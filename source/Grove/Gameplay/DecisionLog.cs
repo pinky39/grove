@@ -19,31 +19,20 @@
           AssemblyFormat = FormatterAssemblyStyle.Simple,
           Context = new StreamingContext(
             StreamingContextStates.All,
-            new SerializationContext {Game = game})
+            new SerializationContext {Game = game}),
+          Binder = new RenameBinder()
         };
     }
 
     public bool IsAtTheEnd { get { return _stream.Position == _stream.Length; } }
 
-    public void SetStream(MemoryStream stream)
-    {
-      _stream = stream;
-    }
+    public void SetStream(MemoryStream stream) { _stream = stream; }
 
-    public void SaveResult(object result)
-    {
-      _formatter.Serialize(_stream, result);
-    }
+    public void SaveResult(object result) { _formatter.Serialize(_stream, result); }
 
-    public object LoadResult()
-    {
-      return _formatter.Deserialize(_stream);
-    }
+    public object LoadResult() { return _formatter.Deserialize(_stream); }
 
-    public void DiscardUnloadedResults()
-    {
-      _stream.SetLength(_stream.Position);      
-    }
+    public void DiscardUnloadedResults() { _stream.SetLength(_stream.Position); }
 
     public void WriteTo(Stream stream)
     {

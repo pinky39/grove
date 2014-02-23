@@ -82,7 +82,8 @@
     {
       return new BinaryFormatter
         {
-          AssemblyFormat = FormatterAssemblyStyle.Simple
+          AssemblyFormat = FormatterAssemblyStyle.Simple,
+          Binder = new RenameBinder()
         };
     }
 

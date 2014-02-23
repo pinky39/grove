@@ -1,12 +1,12 @@
 ﻿namespace Grove.Gameplay
 {
   using System;
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   [Serializable, Copyable]
   public class TournamentMatch
   {
-    private TournamentMatch() {}
+    private TournamentMatch() { }
 
     public TournamentMatch(TournamentPlayer player1, TournamentPlayer player2)
     {
@@ -21,8 +21,8 @@
     public TournamentPlayer NonHumanPlayer { get { return Player1.IsHuman ? Player2 : Player1; } }
 
     public bool IsSimulated { get { return !Player1.IsHuman && !Player2.IsHuman; } }
-    public bool IsFinished { get; set; }       
-    
+    public bool IsFinished { get; set; }
+
     public int Player1WinCount { get; set; }
     public int Player2WinCount { get; set; }
   }

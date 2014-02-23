@@ -157,6 +157,7 @@
     <Compile Include="Gameplay\AI\TimingRules\OnYourTurn.cs" />
     <Compile Include="Gameplay\AI\TimingRules\WhenAttachedToCardWillBeDestroyed.cs" />
     <Compile Include="Gameplay\AI\TimingRules\WhenStackIsNotEmpty.cs" />
+    <Compile Include="Gameplay\RenameBinder.cs" />
     <Compile Include="Library\AboutFace.cs" />
     <Compile Include="Library\AcademyRector.cs" />
     <Compile Include="Library\AetherSting.cs" />
