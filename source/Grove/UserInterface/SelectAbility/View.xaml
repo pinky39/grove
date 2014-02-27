@@ -1,5 +1,6 @@
 ﻿<UserControl x:Class="Grove.UserInterface.SelectAbility.View" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:grove="clr-namespace:Grove.UserInterface" xmlns:Characteristics="clr-namespace:Grove.Gameplay">
+             xmlns:grove="clr-namespace:Grove.UserInterface"
+             xmlns:grove2="clr-namespace:Grove">
 	<UserControl.Resources>
 		<Style TargetType="{x:Type ListBox}">
 			<Setter Property="SnapsToDevicePixels" Value="true" />
@@ -25,18 +26,18 @@
 			</Setter>
 		</Style>
 
-		<DataTemplate DataType="{x:Type Characteristics:CardText}">
+		<DataTemplate DataType="{x:Type grove2:CardText}">
 			<DataTemplate.Resources>
-				<DataTemplate DataType="{x:Type Characteristics:TextToken}">
+				<DataTemplate DataType="{x:Type grove2:TextToken}">
 					<TextBlock FontSize="16" Margin="0,0,5,0" Text="{Binding Path=.}" />
 				</DataTemplate>
-				<DataTemplate DataType="{x:Type Characteristics:ManaSymbolGroupStartToken}">
+				<DataTemplate DataType="{x:Type grove2:ManaSymbolGroupStartToken}">
 					<TextBlock FontSize="16" Margin="2,0,0,0" />
 				</DataTemplate>
-				<DataTemplate DataType="{x:Type Characteristics:ManaSymbolGroupEndToken}">
+				<DataTemplate DataType="{x:Type grove2:ManaSymbolGroupEndToken}">
 					<TextBlock FontSize="16" Margin="0,0,6,0" />
 				</DataTemplate>
-				<DataTemplate DataType="{x:Type Characteristics:ManaSymbolToken}">
+				<DataTemplate DataType="{x:Type grove2:ManaSymbolToken}">
 					<Image Source="{Binding Path=Image}" Height="18" Margin="0,0,0,0" />
 				</DataTemplate>
 			</DataTemplate.Resources>

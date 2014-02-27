@@ -3,7 +3,6 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Gameplay;
 
   public class ViewModel : ViewModelBase
   {
@@ -13,7 +12,7 @@
     {
       _previousScreen = previousScreen;
 
-      SavedGames = Gameplay.SavedGames.GetDescriptions().Select(info => new SavedGameViewModel
+      SavedGames = Grove.SavedGames.GetDescriptions().Select(info => new SavedGameViewModel
         {
           Filename = info.Name,
           Description = info.Description,
@@ -34,7 +33,7 @@
       {
         yield return (filename) =>
           {
-            var file = Gameplay.SavedGames.Read(filename);
+            var file = Grove.SavedGames.Read(filename);
             var savedMatch = file.Data as SavedMatch;
             if (savedMatch == null) return false;
 
@@ -49,7 +48,7 @@
 
         yield return (filename) =>
           {
-            var file = Gameplay.SavedGames.Read(filename);
+            var file = Grove.SavedGames.Read(filename);
             var savedTournament = file.Data as SavedTournament;
             if (savedTournament == null) return false;
 

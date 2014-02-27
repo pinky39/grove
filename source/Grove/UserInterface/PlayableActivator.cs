@@ -1,8 +1,7 @@
 ﻿namespace Grove.UserInterface
 {
   using System;
-  using Gameplay;
-  using Gameplay.Decisions;
+  using Decisions;
 
   public class PlayableActivator
   {

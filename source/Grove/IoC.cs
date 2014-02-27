@@ -14,7 +14,6 @@
   using Castle.MicroKernel.Resolvers.SpecializedResolvers;
   using Castle.MicroKernel.SubSystems.Configuration;
   using Castle.Windsor;
-  using Gameplay;
   using Infrastructure;
   using UserInterface;
   using UserInterface.Shell;

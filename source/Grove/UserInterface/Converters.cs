@@ -8,8 +8,8 @@
   using System.Windows;
   using System.Windows.Data;
   using System.Windows.Media;
-  using Gameplay;
   using Infrastructure;
+  using Media;
 
   public static class Converters
   {

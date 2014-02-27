@@ -13,7 +13,7 @@ namespace Grove.Utils
       var downloader = new RatingDownloader();
       var filename = arguments["f"];
 
-      var ratedCards = Gameplay.Cards.All.Select(x => x.Name)
+      var ratedCards = Cards.All.Select(x => x.Name)
         .Select(x => new RatedCard {Name = x})
         .ToList();
 

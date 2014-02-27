@@ -1,7 +1,6 @@
 ﻿namespace Grove.UserInterface.SelectTarget
 {
   using System;
-  using Gameplay;
 
   public class SelectTargetParameters
   {

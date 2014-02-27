@@ -2,7 +2,6 @@
 {
   using System;
   using System.Windows;
-  using Gameplay;
   using Infrastructure;
   using Messages;
   using Shell;

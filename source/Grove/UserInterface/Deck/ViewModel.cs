@@ -3,8 +3,8 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Gameplay;
   using Infrastructure;
+  using Deck = Grove.Deck;
 
   public class ViewModel : ViewModelBase
   {

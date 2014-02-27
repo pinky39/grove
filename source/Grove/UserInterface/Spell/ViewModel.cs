@@ -3,8 +3,7 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Gameplay;
-  using Gameplay.Decisions;
+  using Decisions;
   using Infrastructure;
   using Messages;
   using SelectTarget;

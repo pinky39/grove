@@ -1,7 +1,6 @@
 ﻿namespace Grove.Tests
 {
-  using Gameplay;
-  using Gameplay.AI;
+  using AI;
   using Infrastructure;
   using Xunit;
 
@@ -13,12 +12,12 @@
       var game = SimulateGame();
       var savedGame = game.Save();
 
-      var gameParameters = GameParameters.Load(
-        player1Controller: ControllerType.Machine,
-        player2Controller: ControllerType.Machine,
+      var p = Game.Parameters.Load(
+        player1Controller: PlayerType.Machine,
+        player2Controller: PlayerType.Machine,
         savedGame: savedGame);
 
-      var game1 = new Game(gameParameters);
+      var game1 = new Game(p);
 
       // 2 games will be equal only if game is in exact same state      
       // load game only loads the game up to the last decision recorded
@@ -35,7 +34,7 @@
 
     private Game SimulateGame()
     {
-      var p = GameParameters.Simulation(GetDeck("deck1.dec"), GetDeck("deck2.dec"),
+      var p = Game.Parameters.Simulation(GetDeck("deck1.dec"), GetDeck("deck2.dec"),
         new SearchParameters(maxSearchDepth: 15, maxTargetCount: 2, enableMultithreading: true));
 
       var game = new Game(p);

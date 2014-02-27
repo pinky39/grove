@@ -3,7 +3,7 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Gameplay.AI;
+  using AI;
   using Grove.Infrastructure;
 
   public abstract class AiScenario : Scenario

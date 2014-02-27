@@ -1,6 +1,6 @@
 ﻿namespace Grove.UserInterface.SelectEffectChoice
 {
-  using Gameplay.Effects;
+  using Effects;
 
   public class EffectChoiceViewModel
   {

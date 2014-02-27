@@ -1,4 +1,5 @@
-﻿<UserControl x:Class="Grove.UserInterface.DistributeDamage.View" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Interactivity="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro" xmlns:Gameplay="clr-namespace:Grove.Gameplay" xmlns:Ui="clr-namespace:Grove.UserInterface">
+﻿<UserControl x:Class="Grove.UserInterface.DistributeDamage.View" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Interactivity="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
+             xmlns:Ui="clr-namespace:Grove.UserInterface" xmlns:Gameplay="clr-namespace:Grove">
 	<Border>
 		<Border.Resources>
 			<Style BasedOn="{StaticResource ScrollBar}" TargetType="{x:Type ScrollBar}" />

@@ -1,6 +1,6 @@
 ﻿namespace Grove.UserInterface.TurnNumber
 {
-  using Gameplay.Messages;
+  using Events;
   using Infrastructure;
 
   public class ViewModel : ViewModelBase, IReceive<TurnStarted>

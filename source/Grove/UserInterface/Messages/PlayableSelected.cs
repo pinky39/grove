@@ -1,6 +1,6 @@
 ﻿namespace Grove.UserInterface.Messages
 {
-  using Gameplay.Decisions;
+  using Decisions;
 
   public class PlayableSelected
   {

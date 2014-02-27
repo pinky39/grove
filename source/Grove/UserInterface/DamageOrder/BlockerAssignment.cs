@@ -1,7 +1,5 @@
 ﻿namespace Grove.UserInterface.DamageOrder
 {
-  using Gameplay;
-
   public class BlockerAssignment
   {
     public BlockerAssignment(Blocker blocker)

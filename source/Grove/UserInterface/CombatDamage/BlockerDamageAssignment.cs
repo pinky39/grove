@@ -1,7 +1,5 @@
 ﻿namespace Grove.UserInterface.CombatDamage
 {
-  using Gameplay;
-
   public class BlockerDamageAssignment
   {
     public BlockerDamageAssignment(Blocker blocker)

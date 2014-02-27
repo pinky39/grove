@@ -3,8 +3,8 @@
   using System;
   using System.Collections.Generic;
   using System.IO;
-  using Gameplay;
-  using Gameplay.AI;
+  using AI;
+  using Media;
 
   public class GenerateDecks : Task
   {

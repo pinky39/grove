@@ -15,19 +15,19 @@ namespace Grove.UserInterface
   {
     private readonly List<AutoPass> _autoPassConfiguration = new List<AutoPass>
       {
-        new AutoPass {Step = Gameplay.Step.Untap, Pass = Pass.Always},
-        new AutoPass {Step = Gameplay.Step.Upkeep, Pass = Pass.Always},
-        new AutoPass {Step = Gameplay.Step.Draw, Pass = Pass.Always},
-        new AutoPass {Step = Gameplay.Step.FirstMain, Pass = Pass.Passive},
-        new AutoPass {Step = Gameplay.Step.BeginningOfCombat, Pass = Pass.Always},
-        new AutoPass {Step = Gameplay.Step.DeclareAttackers, Pass = Pass.Always},
-        new AutoPass {Step = Gameplay.Step.DeclareBlockers, Pass = Pass.Never},
-        new AutoPass {Step = Gameplay.Step.CombatDamage, Pass = Pass.Always},
-        new AutoPass {Step = Gameplay.Step.FirstStrikeCombatDamage, Pass = Pass.Always},
-        new AutoPass {Step = Gameplay.Step.EndOfCombat, Pass = Pass.Always},
-        new AutoPass {Step = Gameplay.Step.SecondMain, Pass = Pass.Passive},
-        new AutoPass {Step = Gameplay.Step.EndOfTurn, Pass = Pass.Always},
-        new AutoPass {Step = Gameplay.Step.CleanUp, Pass = Pass.Always},
+        new AutoPass {Step = Grove.Step.Untap, Pass = Pass.Always},
+        new AutoPass {Step = Grove.Step.Upkeep, Pass = Pass.Always},
+        new AutoPass {Step = Grove.Step.Draw, Pass = Pass.Always},
+        new AutoPass {Step = Grove.Step.FirstMain, Pass = Pass.Passive},
+        new AutoPass {Step = Grove.Step.BeginningOfCombat, Pass = Pass.Always},
+        new AutoPass {Step = Grove.Step.DeclareAttackers, Pass = Pass.Always},
+        new AutoPass {Step = Grove.Step.DeclareBlockers, Pass = Pass.Never},
+        new AutoPass {Step = Grove.Step.CombatDamage, Pass = Pass.Always},
+        new AutoPass {Step = Grove.Step.FirstStrikeCombatDamage, Pass = Pass.Always},
+        new AutoPass {Step = Grove.Step.EndOfCombat, Pass = Pass.Always},
+        new AutoPass {Step = Grove.Step.SecondMain, Pass = Pass.Passive},
+        new AutoPass {Step = Grove.Step.EndOfTurn, Pass = Pass.Always},
+        new AutoPass {Step = Grove.Step.CleanUp, Pass = Pass.Always},
       };
 
     public static Configuration Default
@@ -35,12 +35,12 @@ namespace Grove.UserInterface
       get { return new Configuration(); }
     }
 
-    public Pass GetAutoPassConfiguration(Gameplay.Step step)
+    public Pass GetAutoPassConfiguration(Grove.Step step)
     {
       return GetAutoPass(step).Pass;
     }
 
-    public bool ShouldAutoPass(Gameplay.Step step, bool isActiveTurn, bool anyPlayerPlayedSomething)
+    public bool ShouldAutoPass(Grove.Step step, bool isActiveTurn, bool anyPlayerPlayedSomething)
     {
       if (anyPlayerPlayedSomething)
         return false;
@@ -55,13 +55,13 @@ namespace Grove.UserInterface
                : config.Pass == Pass.Passive;
     }
 
-    public void ToggleAutoPass(Gameplay.Step step)
+    public void ToggleAutoPass(Grove.Step step)
     {
       var config = GetAutoPass(step);
       config.Toggle();
     }
 
-    private AutoPass GetAutoPass(Gameplay.Step step)
+    private AutoPass GetAutoPass(Grove.Step step)
     {
       return _autoPassConfiguration.Single(x => x.Step == step);
     }
@@ -69,7 +69,7 @@ namespace Grove.UserInterface
     private class AutoPass
     {
       public Pass Pass { get; set; }
-      public Gameplay.Step Step { get; set; }
+      public Grove.Step Step { get; set; }
 
       public void Toggle()
       {

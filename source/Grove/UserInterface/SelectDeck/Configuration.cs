@@ -1,7 +1,7 @@
 ﻿namespace Grove.UserInterface.SelectDeck
 {
   using System;
-  using Gameplay;
+  using Deck = Grove.Deck;
 
   public class Configuration
   {

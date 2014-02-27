@@ -5,9 +5,10 @@
   using System.Linq;
   using System.Reflection;
   using System.Windows;
-  using Gameplay;
   using Infrastructure;
+  using Media;
   using SelectDeck;
+  using Deck = Grove.Deck;
 
   public class ViewModel : ViewModelBase
   {

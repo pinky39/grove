@@ -4,9 +4,8 @@
   using System.Collections.Generic;
   using System.Linq;
   using System.Reflection;
-  using Gameplay;
-  using Gameplay.Decisions;
-  using Gameplay.Modifiers;
+  using Decisions;
+  using Modifiers;
   using log4net.Config;
   using UserInterface;
   using Xunit;
@@ -17,10 +16,10 @@
 
     protected Scenario(bool player1ControlledByScript = true, bool player2ControlledByScript = true)
     {
-      var player1Controller = player1ControlledByScript ? ControllerType.Scenario : ControllerType.Machine;
-      var player2Controller = player2ControlledByScript ? ControllerType.Scenario : ControllerType.Machine;
+      var player1Controller = player1ControlledByScript ? PlayerType.Scenario : PlayerType.Machine;
+      var player2Controller = player2ControlledByScript ? PlayerType.Scenario : PlayerType.Machine;
 
-      var p = GameParameters.Scenario(player1Controller, player2Controller);
+      var p = Game.Parameters.Scenario(player1Controller, player2Controller);
       Game = new Game(p);
       Game.Players.Starting = Game.Players.Player1;
     }
@@ -50,7 +49,7 @@
       {
         scenarioCard.Initialize(name =>
           {
-            var card = Cards.Create(name);
+            var card = Grove.Cards.Create(name);
             card.Initialize(player, Game);
             library.AddToFront(card);
 
@@ -75,7 +74,7 @@
       {
         scenarioCard.Initialize(name =>
           {
-            var card = Cards.Create(name);
+            var card = Grove.Cards.Create(name);
             card.Initialize(player, Game);
 
             player.PutCardToBattlefield(card);
@@ -88,7 +87,7 @@
             {
               enchantment.Initialize(enchantmentName =>
                 {
-                  var enchantmentCard = Cards.Create(enchantmentName);
+                  var enchantmentCard = Grove.Cards.Create(enchantmentName);
                   enchantmentCard.Initialize(player, Game);
                   EnchantCard(card, enchantmentCard);
                   return enchantmentCard;
@@ -99,7 +98,7 @@
             {
               equipment.Initialize(equipmentName =>
                 {
-                  var equipmentCard = Cards.Create(equipmentName);
+                  var equipmentCard = Grove.Cards.Create(equipmentName);
                   equipmentCard.Initialize(player, Game);
                   player.PutCardToBattlefield(equipmentCard);
                   EquipCard(card, equipmentCard);
@@ -111,7 +110,7 @@
             {
               tracked.Initialize(trackerName =>
                 {
-                  var tracker = Cards.Create(trackerName);
+                  var tracker = Grove.Cards.Create(trackerName);
                   tracker.Initialize(player, Game);
                   player.PutCardToBattlefield(tracker);
                   TrackCard(card, tracker);
@@ -142,7 +141,7 @@
       foreach (var cardName in cardNames)
       {
         var battlefield = (Battlefield) controller.Battlefield;
-        var card = Cards.Create(cardName);
+        var card = Grove.Cards.Create(cardName);
         card.Initialize(controller, Game);
         battlefield.Add(card);
         yield return card;
@@ -209,7 +208,7 @@
       {
         scenarioCard.Initialize(name =>
           {
-            var card = Cards.Create(name);
+            var card = Grove.Cards.Create(name);
             card.Initialize(player, Game);
             graveyard.AddToEnd(card);
 
@@ -226,7 +225,7 @@
       {
         scenarioCard.Initialize(name =>
           {
-            var card = Cards.Create(name);
+            var card = Grove.Cards.Create(name);
             card.Initialize(player, Game);
             hand.Add(card);
 

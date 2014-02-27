@@ -2,8 +2,7 @@
 {
   using System;
   using System.Linq;
-  using Gameplay;
-  using Gameplay.Messages;
+  using Events;
   using Infrastructure;
 
   public class ViewModel : ViewModelBase, IReceive<AttachmentAttached>, IReceive<AttachmentDetached>, IDisposable

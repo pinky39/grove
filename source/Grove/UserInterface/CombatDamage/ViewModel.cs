@@ -2,8 +2,7 @@
 {
   using System;
   using System.Linq;
-  using Gameplay;
-  using Gameplay.Decisions;
+  using Decisions;
   using Infrastructure;
 
   public class ViewModel : ViewModelBase

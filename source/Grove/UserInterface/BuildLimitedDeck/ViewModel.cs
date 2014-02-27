@@ -3,9 +3,9 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Gameplay;
   using Infrastructure;
   using Messages;
+  using Deck = Grove.Deck;
 
   public class ViewModel : ViewModelBase, IReceive<DeckGenerationStatus>, IReceive<DeckGenerationError>
   {

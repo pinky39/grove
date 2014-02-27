@@ -7,7 +7,7 @@ namespace Grove.Utils
   {
     public override bool Execute(Arguments arguments)
     {
-      foreach (var cardName in Gameplay.Cards.All.Select(x => x.Name))
+      foreach (var cardName in Cards.All.Select(x => x.Name))
       {
         Console.WriteLine(cardName);
       }

@@ -3,8 +3,8 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Gameplay.Decisions;
-  using Gameplay.Effects;
+  using Decisions;
+  using Effects;
   using Infrastructure;
 
   public class ViewModel

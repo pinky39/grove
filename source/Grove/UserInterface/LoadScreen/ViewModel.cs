@@ -2,7 +2,7 @@
 
 namespace Grove.UserInterface.LoadScreen
 {
-  using Gameplay;
+  using Media;
 
   public class ViewModel : ViewModelBase
   {

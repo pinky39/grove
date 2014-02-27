@@ -1,7 +1,6 @@
 ﻿namespace Grove.Tests.Scenarios
 {
   using System.Linq;
-  using Gameplay;
   using Infrastructure;
   using Xunit;
 

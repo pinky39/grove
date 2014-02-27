@@ -5,7 +5,6 @@
   using System.Linq;
   using System.Threading.Tasks;
   using Caliburn.Micro;
-  using Gameplay;
   using Infrastructure;
 
   public class ViewModel : ViewModelBase

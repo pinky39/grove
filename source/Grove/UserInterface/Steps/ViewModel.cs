@@ -2,9 +2,9 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Gameplay;
-  using Grove.Gameplay.Messages;
+  using Events;
   using Grove.Infrastructure;
+  using Step = Grove.Step;
 
   public class ViewModel : ViewModelBase, IReceive<TurnStarted>
   {

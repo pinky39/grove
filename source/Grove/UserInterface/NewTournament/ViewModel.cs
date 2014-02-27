@@ -2,7 +2,7 @@
 {
   using System;
   using System.Collections.Generic;
-  using Gameplay;
+  using Media;
 
   public class ViewModel : ViewModelBase
   {

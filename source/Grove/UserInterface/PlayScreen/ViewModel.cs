@@ -4,8 +4,8 @@
   using System.Collections.Generic;
   using System.Linq;
   using System.Threading;
-  using Gameplay;
-  using Gameplay.Messages;
+  using Debug;
+  using Events;
   using Infrastructure;
 
   public class ViewModel : ViewModelBase, IIsDialogHost, IReceive<BeforeSpellWasPutOnStack>,

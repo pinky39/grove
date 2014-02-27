@@ -1,9 +1,9 @@
 ﻿namespace Grove.UserInterface.Step
 {
   using System.Linq;
-  using Gameplay;
-  using Gameplay.Messages;
+  using Events;
   using Infrastructure;
+  using Step = Grove.Step;
 
   public class ViewModel : IReceive<StepStarted>
   {    

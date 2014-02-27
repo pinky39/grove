@@ -3,7 +3,6 @@
   using System;
   using System.Collections.Generic;
   using Caliburn.Micro;
-  using Gameplay;
   using Infrastructure;
   using Messages;
 

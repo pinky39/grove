@@ -1,9 +1,9 @@
 ﻿namespace Grove.Tests
 {
   using System;
-  using Gameplay;
-  using Gameplay.AI;
+  using AI;
   using Infrastructure;
+  using Media;
 
   public class DeckBuilderFacts : Scenario
   {

@@ -2,7 +2,6 @@
 {
   using System;
   using System.Collections.Generic;
-  using Gameplay;
   using Grove.Infrastructure;
 
   [Copyable]

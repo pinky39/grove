@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Gameplay;
   using Infrastructure;
 
   public class ViewModel : ViewModelBase

@@ -2,9 +2,8 @@
 {
   using System;
   using System.Linq;
-  using Gameplay;
-  using Gameplay.Decisions;
-  using Gameplay.Messages;
+  using Decisions;
+  using Events;
   using Infrastructure;
   using Messages;
   using SelectTarget;

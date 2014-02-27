@@ -1,7 +1,7 @@
 ﻿namespace Grove.Tests
 {
   using System;
-  using Gameplay.AI;
+  using AI;
   using Infrastructure;
   using Xunit;
 

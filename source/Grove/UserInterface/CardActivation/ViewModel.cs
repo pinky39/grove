@@ -1,7 +1,6 @@
 ﻿namespace Grove.UserInterface.CardActivation
 {
-  using Gameplay;
-  using Gameplay.Messages;
+  using Events;
   using Messages;
 
   public class ViewModel : ViewModelBase

@@ -3,7 +3,6 @@
   using System.Collections.Generic;
   using System.Linq;
   using System.Windows;
-  using Gameplay;
   using SelectDeck;
 
   public class ViewModel : ViewModelBase

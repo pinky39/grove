@@ -4,7 +4,6 @@
   using System.Collections.Generic;
   using System.Linq;
   using Caliburn.Micro;
-  using Gameplay;
 
   public class Slot : IDisposable
   {

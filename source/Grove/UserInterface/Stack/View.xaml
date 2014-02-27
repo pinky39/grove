@@ -1,5 +1,6 @@
-﻿<UserControl x:Class="Grove.UserInterface.Stack.View" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro" xmlns:Effects="clr-namespace:Grove.Gameplay.Effects"
-             xmlns:Gameplay="clr-namespace:Grove.Gameplay" xmlns:Ui="clr-namespace:Grove.UserInterface">
+﻿<UserControl x:Class="Grove.UserInterface.Stack.View" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
+             xmlns:Ui="clr-namespace:Grove.UserInterface"
+             xmlns:grove="clr-namespace:Grove">
 	<UserControl.Resources>
 		<Style TargetType="Border" x:Key="StackChrome">
 			<Style.Triggers>
@@ -23,23 +24,23 @@
 	<Border Style="{StaticResource StackChrome}" BorderBrush="#000" BorderThickness="2" CornerRadius="4">
 		<Border.Resources>
 
-			<DataTemplate DataType="{x:Type Gameplay:CastInstruction}">
+			<DataTemplate DataType="{x:Type grove:CastRule}">
                 <ContentControl Content="{Binding SourceCard}" Style="{StaticResource AlwaysVisibleCard}" />
 			</DataTemplate>
 
-			<DataTemplate DataType="{x:Type Gameplay:Card}">
+			<DataTemplate DataType="{x:Type grove:Card}">
                 <ContentControl Content="{Binding }" Style="{StaticResource AlwaysVisibleCard}" />
 			</DataTemplate>
 
-			<DataTemplate DataType="{x:Type Gameplay:ActivatedAbility}">
+			<DataTemplate DataType="{x:Type grove:ActivatedAbility}">
 				<ContentControl Content="{Binding}" ContentTemplate="{StaticResource Ability}" />
 			</DataTemplate>
 
-			<DataTemplate DataType="{x:Type Gameplay:TriggeredAbility}">
+			<DataTemplate DataType="{x:Type grove:TriggeredAbility}">
 				<ContentControl Content="{Binding}" ContentTemplate="{StaticResource Ability}" />
 			</DataTemplate>
 
-			<DataTemplate DataType="{x:Type Effects:Effect}">
+			<DataTemplate DataType="{x:Type grove:Effect}">
 				<Grid>
 
 					<ContentControl Content="{Binding Source}">
@@ -69,14 +70,14 @@
 							<ItemsControl ItemsSource="{Binding Targets.Effect}">
 
 								<ItemsControl.Resources>
-									<DataTemplate DataType="{x:Type Gameplay:Player}">
+									<DataTemplate DataType="{x:Type grove:Player}">
 										<Viewbox>
                                             <Border Width="290" >                                                
                                                 <Image Source="{Binding AvatarId, Converter={x:Static Ui:Converters.AvatarIdToAvatarImage}}"/>                                                
                                             </Border>
 										</Viewbox>
 									</DataTemplate>
-									<DataTemplate DataType="{x:Type Effects:Effect}">
+									<DataTemplate DataType="{x:Type grove:Effect}">
 										<ContentControl Content="{Binding Source}" />
 									</DataTemplate>
 								</ItemsControl.Resources>

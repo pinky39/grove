@@ -1,7 +1,5 @@
 ﻿namespace Grove.UserInterface.CardOrder
 {
-  using Gameplay;
-
   public class OrderedCard
   {
     public OrderedCard(Card card)
