@@ -1,6 +1,5 @@
 ﻿namespace Grove.AI
 {
-  using System;
   using System.Collections.Generic;
   using System.Linq;
   using CombatRules;
@@ -16,33 +15,14 @@
 
     private List<BlockAssignment> AssignEveryBlockerToEachAttacker()
     {
-      var results = new List<BlockAssignment>();
-      
-      var attackers = _p.AttackerCandidates.Select(card => 
-        new CardWithCombatAbilities {
-          Card = card,
-          Abilities = card.GetCombatAbilities()
-        }).ToList();
-
-      var blockers = _p.BlockerCandidates.Select(card => 
-        new CardWithCombatAbilities {
-          Card = card,
-          Abilities = card.GetCombatAbilities()
-        }).ToList();
-
-      foreach (var attacker in attackers)
-      {
-        var assignment = new BlockAssignment(attacker, _p.DefendingPlayersLife);
-
-        foreach (var blocker in blockers)
-        {
-          assignment.TryAssignBlocker(blocker);
-        }
-
-        results.Add(assignment);
-      }
-
-      return results;
+      return _p.AttackerCandidates
+        .Select(attacker => new BlockAssignment(
+          attacker,
+          _p.BlockerCandidates
+            .Where(attacker.CanBeBlockedBy)
+            .ToList(),
+          _p.DefendingPlayersLife))
+        .ToList();
     }
 
     public List<Card> ChooseAttackers()
@@ -51,98 +31,41 @@
 
       return (from blockAssignment in assignments
               where blockAssignment.Score > 0
-              select blockAssignment.Attacker.Card).ToList();
+              select blockAssignment.Attacker).ToList();
     }
 
     private class BlockAssignment
     {
-      private readonly List<CardWithCombatAbilities> _blockers = new List<CardWithCombatAbilities>();
-      private readonly int _defendersLife;
-      private readonly Lazy<int> _score;
+      public readonly Card Attacker;
+      public readonly int Score;
 
-
-      public BlockAssignment(CardWithCombatAbilities attacker, int defendersLife)
+      public BlockAssignment(Card attacker, List<Card> blockers, int defendersLife)
       {
         Attacker = attacker;
-        _defendersLife = defendersLife;
-        _score = new Lazy<int>(CalculateScore);
-      }
+        Score = CalculateScore(new EvaluationParameters(attacker, blockers, defendersLife));
+      }       
 
-      public CardWithCombatAbilities Attacker { get; private set; }
-
-      private int AttackerScore
+      private static BlockerEvaluationParameters GetBlockerParameters(CardWithCombatAbilities atttacker,
+        CardWithCombatAbilities blocker)
       {
-        get
-        {
-          if (Attacker.Card.Has().Deathtouch)
-            return 0;
-
-          if (CanAttackerBeKilled && !Attacker.Abilities.CanRegenerate)
-            return Attacker.Card.Score;
-
-          return 0;
-        }
-      }
-
-      private int BlockersScore
-      {
-        get
-        {
-          if (_blockers.Count == 0)
-            return 0;
-
-          var maxAttackerDamage = Attacker.Card.CalculateCombatDamageAmount(
-            singleDamageStep: false, powerIncrease: Attacker.Abilities.PowerIncrease);
-
-          var score = 0;
-          var blockers = _blockers.OrderByDescending(x =>
-            {
-              if (x.Abilities.CanRegenerate)
-                return 0;
-
-              return x.Card.Score;
-            });
-
-          foreach (var blocker in blockers)
+        return new BlockerEvaluationParameters
           {
-            var p = new BlockerEvaluationParameters
-              {
-                Attacker = Attacker.Card,
-                Blocker = blocker.Card,
-                AttackerPowerIncrease = Attacker.Abilities.PowerIncrease,
-                AttackerToughnessIncrease = Attacker.Abilities.ToughnessIncrease,
-                BlockerPowerIncrease = blocker.Abilities.PowerIncrease,
-                BlockerToughnessIncrease = blocker.Abilities.ToughnessIncrease
-              };
-
-            if (QuickCombat.CanBlockerBeDealtLeathalCombatDamage(p))
-            {
-              maxAttackerDamage -= Attacker.Card.Has().Deathtouch ? 1 : blocker.Card.Life;
-              
-              if (!blocker.Abilities.CanRegenerate)
-                score += blocker.Card.Score;
-            }
-
-            if (maxAttackerDamage <= 0)
-              break;
-          }
-
-          return score;
-        }
+            Attacker = atttacker.Card,
+            Blocker = blocker.Card,
+            AttackerPowerIncrease = atttacker.Abilities.PowerIncrease,
+            AttackerToughnessIncrease = atttacker.Abilities.ToughnessIncrease,
+            BlockerPowerIncrease = blocker.Abilities.PowerIncrease,
+            BlockerToughnessIncrease = blocker.Abilities.ToughnessIncrease
+          };
       }
 
-      private bool CanAttackerBeKilled { get { return QuickCombat.CanAttackerBeDealtLeathalDamage(GetAttackerEvaluationParameters()); } }
-
-      private int DefendersLifeloss { get { return QuickCombat.CalculateDefendingPlayerLifeloss(GetAttackerEvaluationParameters()); } }
-
-      public int Score { get { return _score.Value; } }
-
-      private AttackerEvaluationParameters GetAttackerEvaluationParameters()
+      private static AttackerEvaluationParameters GetAttackerParamers(CardWithCombatAbilities attacker,
+        IEnumerable<CardWithCombatAbilities> blockers)
       {
-        var p = new AttackerEvaluationParameters(Attacker.Card, Attacker.Abilities.PowerIncrease,
-          Attacker.Abilities.ToughnessIncrease);
+        var p = new AttackerEvaluationParameters(attacker.Card, attacker.Abilities.PowerIncrease,
+          attacker.Abilities.ToughnessIncrease);
 
-        foreach (var blocker in _blockers)
+        foreach (var blocker in blockers)
         {
           p.AddBlocker(blocker.Card, blocker.Abilities.PowerIncrease,
             blocker.Abilities.ToughnessIncrease);
@@ -151,27 +74,93 @@
         return p;
       }
 
-      public void TryAssignBlocker(CardWithCombatAbilities blocker)
+
+      private int CalculateAttackerScore(EvaluationParameters p)
       {
-        if (Attacker.Card.CanBeBlockedBy(blocker.Card))
-          _blockers.Add(blocker);
+        if (p.Attacker.Card.Has().Deathtouch)
+          return 0;
+
+        var attackerParamers = GetAttackerParamers(p.Attacker, p.Blockers);
+
+        if (QuickCombat.CanAttackerBeDealtLeathalDamage(attackerParamers) && !p.Attacker.Abilities.CanRegenerate)
+          return p.Attacker.Card.Score;
+
+        return 0;
       }
 
-      private int CalculateScore()
+      private int CalculateBlockersScore(EvaluationParameters p)
       {
-        return BlockersScore + LifelossScore(_defendersLife) - AttackerScore;
+        if (p.Blockers.Count == 0)
+          return 0;
+
+        var blockersRanks = p.Blockers.Select(blocker =>
+          {
+            var blockerParameters = GetBlockerParameters(p.Attacker, blocker);
+            var attackerParameters = GetAttackerParamers(p.Attacker, new[] {blocker});
+
+            return new
+              {
+                Blocker = blocker,
+                CanBeKilled = QuickCombat.CanBlockerBeDealtLeathalCombatDamage(blockerParameters),
+                CanKill = QuickCombat.CanAttackerBeDealtLeathalDamage(attackerParameters)
+              };
+          })
+          .ToList();
+
+        if (blockersRanks.Any(x => !x.CanBeKilled))
+          return 0;
+
+        var leastValuedBlockerWhoCanKill = blockersRanks.Where(x => x.CanKill)
+          .OrderBy(x => x.Blocker.Card.Score)
+          .FirstOrDefault();
+
+        if (leastValuedBlockerWhoCanKill != null)
+        {
+          return leastValuedBlockerWhoCanKill.Blocker.Card.Score;
+        }
+
+        return blockersRanks.OrderBy(x => x.Blocker.Card.Score).First().Blocker.Card.Score;
       }
 
-      private int LifelossScore(int defendersLife)
+      private int CalculateScore(EvaluationParameters p)
       {
-        return ScoreCalculator.CalculateLifelossScore(defendersLife, DefendersLifeloss);
+        return CalculateBlockersScore(p)
+          + CalculateLifelossScore(p)
+          - CalculateAttackerScore(p);
       }
-    }
 
-    private class CardWithCombatAbilities
-    {
-      public CombatAbilities Abilities;
-      public Card Card;
+      private int CalculateLifelossScore(EvaluationParameters p)
+      {
+        var attackerParameters = GetAttackerParamers(p.Attacker, p.Blockers);
+        return ScoreCalculator.CalculateLifelossScore(p.DefendersLife,
+          QuickCombat.CalculateDefendingPlayerLifeloss(attackerParameters));
+      }
+
+      private class CardWithCombatAbilities
+      {
+        public readonly CombatAbilities Abilities;
+        public readonly Card Card;
+
+        public CardWithCombatAbilities(Card card)
+        {
+          Card = card;
+          Abilities = card.GetCombatAbilities();
+        }
+      }
+
+      private class EvaluationParameters
+      {
+        public readonly CardWithCombatAbilities Attacker;
+        public readonly List<CardWithCombatAbilities> Blockers;
+        public readonly int DefendersLife;
+
+        public EvaluationParameters(Card attacker, IEnumerable<Card> blockers, int defendersLife)
+        {
+          DefendersLife = defendersLife;
+          Attacker = new CardWithCombatAbilities(attacker);
+          Blockers = blockers.Select(x => new CardWithCombatAbilities(x)).ToList();
+        }
+      }
     }
   }
 }

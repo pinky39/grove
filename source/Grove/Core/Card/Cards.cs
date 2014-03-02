@@ -63,12 +63,12 @@
     {
       private static Dictionary<string, Card> _cards;
 
-      public CachedCards(IEnumerable<Card> cards) { _cards = cards.ToDictionary(x => x.Name, x => x); }
+      public CachedCards(IEnumerable<Card> cards) { _cards = cards.ToDictionary(x => x.Name.ToLowerInvariant(), x => x); }
 
       public int Count { get { return _cards.Count; } }
       public IEnumerable<string> Names { get { return _cards.Values.Select(x => x.Name); } }
 
-      public Card this[string name] { get { return _cards[name]; } }
+      public Card this[string name] { get { return _cards[name.ToLowerInvariant()]; } }
 
       public IEnumerator<Card> GetEnumerator() { return _cards.Values.GetEnumerator(); }
 

@@ -109,7 +109,15 @@
     {
       using (var file = new ZipFile(_zipFile))
       {
-        file.AddEntry(name, data);
+        if (file.ContainsEntry(name))
+        {
+          file.UpdateEntry(name, data);
+        }
+        else
+        {
+          file.AddEntry(name, data);
+        }        
+        
         file.Save();
       }
     }

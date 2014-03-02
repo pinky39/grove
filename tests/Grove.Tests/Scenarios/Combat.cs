@@ -13,19 +13,31 @@
       public void TryCastAt2NdMain()
       {
         var toolbox = C("Jhoira's Toolbox");
-        
+
         Hand(P1, "Simian Grunts");
         Hand(P2, "Order of Yawgmoth");
 
         Battlefield(P1, "Forest", "Forest", "Forest");
-        
+
         Battlefield(P2, toolbox, "Swamp", "Swamp", "Swamp", "Swamp");
 
         RunGame(2);
 
         Equal(Zone.Battlefield, C(toolbox).Zone);
       }
-      
+
+      [Fact]
+      public void DoNotAttackWithDevout()
+      {
+        Battlefield(P1, "Devout Harpist", "Sustainer of the Realm");
+        Battlefield(P2, "Goblin Patrol", "Grizzly Bears");
+        
+        P2.Life = 2;
+
+        RunGame(1);
+        Equal(1, P1.Battlefield.Creatures.Count(x => x.IsTapped));
+      }
+
       [Fact]
       public void AttackWithAllCreatures()
       {
@@ -51,7 +63,8 @@
       [Fact]
       public void DoNotAttack()
       {
-        Battlefield(P1, C("Elvish Lyrist").IsEnchantedWith("Blanchwood Armor"), "Forest", "Forest", "Forest", "Treefolk Seedlings");
+        Battlefield(P1, C("Elvish Lyrist").IsEnchantedWith("Blanchwood Armor"), "Forest", "Forest", "Forest",
+          "Treefolk Seedlings");
         Battlefield(P2, "Blanchwood Treefolk", C("Sanguine Guard").Tap());
 
         P2.Life = 10;
@@ -238,7 +251,7 @@
 
     public class PredefinedAi : PredefinedAiScenario
     {
-      [Fact(Skip="Currently this always fails, since only one blocking strategy is considered.")]
+      [Fact(Skip = "Currently this always fails, since only one blocking strategy is considered.")]
       public void ShouldBlockWithUndeadInsteadOfReaver()
       {
         Battlefield(P2, "Unworthy Dead", "Unworthy Dead", "Flesh Reaver", "Swamp", "Swamp");
@@ -253,7 +266,7 @@
 
         Equal(3, P2.Life);
       }
-      
+
       [Fact]
       public void PlayerShouldAttack()
       {

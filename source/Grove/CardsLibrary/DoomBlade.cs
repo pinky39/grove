@@ -11,7 +11,7 @@
     public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
-        .Named("Doom blade")
+        .Named("Doom Blade")
         .ManaCost("{1}{B}")
         .Type("Instant")
         .Text("Destroy target nonblack creature.")

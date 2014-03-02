@@ -118,7 +118,7 @@
     {
       LoadResources(Folders.Clipart, r =>
         {
-          Clipart.Add(r.Name, CreateBitmap(r.Content));
+          Clipart.Add(r.Name.ToLowerInvariant(), CreateBitmap(r.Content));
           showProgress(r.Content.Length);
         });
     }

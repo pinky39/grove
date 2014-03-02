@@ -18,7 +18,7 @@
     private readonly List<object> _largeDialogs = new List<object>();
     private readonly List<object> _smallDialogs = new List<object>();
 
-    private ScenarioGenerator _scenarioGenerator;
+    private ScenarioGenerator _scenarioGenerator;    
 
     public object LargeDialog { get { return _largeDialogs.FirstOrDefault(); } }
     public MagnifiedCard.ViewModel MagnifiedCard { get; set; }
@@ -104,7 +104,12 @@
 
     public void Receive(BeforeActivatedAbilityWasPutOnStack message)
     {
-      ShowActivationDialog(message);
+      // do not show repeated activation of same ability
+      if (Game.Stack.IsEmpty || message.Ability != Game.Stack.TopSpell.Source)
+      {
+        ShowActivationDialog(message);
+      }
+      
       MessageLog.AddMessage(message.ToString());
     }
 
@@ -199,7 +204,7 @@
     {
       if (activation.Controller.IsHuman)
         return;
-
+      
       var dialog = ViewModels.EffectActivation.Create(activation);
       Shell.ShowDialog(dialog);
       Thread.Sleep(2000);

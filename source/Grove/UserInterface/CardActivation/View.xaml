@@ -64,7 +64,10 @@
             </Border>
             <Border Grid.Row="1" Background="#333">
                 <Grid Margin="20,15,20,15">
-                    <ContentControl  Content="{Binding Activation}" />
+                    
+                    <Border BorderBrush="#000" BorderThickness="4" CornerRadius="4">
+                        <ContentControl  Content="{Binding Activation}" />
+                    </Border>
                     
                     <Border Width="180" Height="150" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,40,30,0">
                         <Viewbox VerticalAlignment="Center" HorizontalAlignment="Right">

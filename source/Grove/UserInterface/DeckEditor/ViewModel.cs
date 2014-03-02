@@ -9,15 +9,12 @@
   {
     private readonly object _previousScreen;
 
-    private UserInterface.Deck.ViewModel _deck;
+    private Deck.ViewModel _deck;
     private Dictionary<string, LibraryItem> _libraryItems;
 
-    public ViewModel(object previousScreen)
-    {
-      _previousScreen = previousScreen;
-    }
+    public ViewModel(object previousScreen) { _previousScreen = previousScreen; }
 
-    public virtual UserInterface.Deck.ViewModel Deck
+    public virtual Deck.ViewModel Deck
     {
       get { return _deck; }
       set
@@ -50,10 +47,7 @@
       SelectedCard = Cards.All[_libraryItems.First().Value.Info.Name];
     }
 
-    public void ChangeSelectedCard(LibraryItem libraryItem)
-    {
-      SelectedCard = libraryItem.Card;
-    }
+    public void ChangeSelectedCard(LibraryItem libraryItem) { SelectedCard = libraryItem.Card; }
 
     public void Open()
     {
@@ -105,15 +99,9 @@
       Deck.SaveAs(deckName);
     }
 
-    public void AddCard(LibraryItem libraryItem)
-    {
-      Deck.AddCard(libraryItem.Info);
-    }
+    public void AddCard(LibraryItem libraryItem) { Deck.AddCard(libraryItem.Info); }
 
-    public void RemoveCard(LibraryItem libraryItem)
-    {
-      Deck.RemoveCard(libraryItem.Info);
-    }
+    public void RemoveCard(LibraryItem libraryItem) { Deck.RemoveCard(libraryItem.Info); }
 
     private string GetDeckName()
     {
