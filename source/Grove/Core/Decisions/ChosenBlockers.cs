@@ -5,13 +5,14 @@
   using System.Collections.Generic;
   using System.Linq;
   using System.Runtime.Serialization;
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   [Copyable, Serializable]
   public class ChosenBlockers : IEnumerable<ChosenBlockers.AttackerBlockerPair>
   {
     private readonly List<AttackerBlockerPair> _pairs = new List<AttackerBlockerPair>();
     public static ChosenBlockers None { get { return new ChosenBlockers(); } }
+    public int Count { get { return _pairs.Count; } }
 
     public IEnumerator<AttackerBlockerPair> GetEnumerator()
     {
@@ -56,7 +57,9 @@
     [Copyable, Serializable]
     public class AttackerBlockerPair : ISerializable
     {
-      public AttackerBlockerPair() {}
+      public AttackerBlockerPair()
+      {
+      }
 
       private AttackerBlockerPair(SerializationInfo info, StreamingContext context)
       {

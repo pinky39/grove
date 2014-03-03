@@ -1,17 +1,23 @@
 ﻿namespace Grove.Decisions
 {
+  using System.Collections.Generic;
   using System.Linq;
-  using Grove.AI;
-  using Grove.UserInterface;
-  using Grove.UserInterface.Messages;
-  using Grove.UserInterface.SelectTarget;
+  using AI;
+  using UserInterface;
+  using UserInterface.Messages;
+  using UserInterface.SelectTarget;
 
   public class DeclareBlockers : Decision
   {
-    private DeclareBlockers() {}
+    private DeclareBlockers()
+    {
+    }
 
     public DeclareBlockers(Player controller)
-      : base(controller, () => new UiHandler(), () => new MachineHandler(), () => new ScenarioHandler(), () => new PlaybackHandler()) {}
+      : base(controller, () => new UiHandler(), () => new MachineHandler(),
+        () => new ScenarioHandler(), () => new PlaybackHandler())
+    {
+    }
 
     private abstract class Handler : DecisionHandler<DeclareBlockers, ChosenBlockers>
     {
@@ -38,23 +44,76 @@
       }
     }
 
-    private class MachineHandler : Handler
+    private class MachineHandler : Handler, IMachineExecutionPlan, ISearchNode
     {
+      private readonly MachinePlanExecutor _executor;
+      private List<ChosenBlockers> _declarations;
+
       public MachineHandler()
       {
         Result = new ChosenBlockers();
+        _executor = new MachinePlanExecutor(this);
       }
 
-      protected override void ExecuteQuery()
+      public override bool HasCompleted { get { return _executor.HasCompleted; } }
+
+      bool IMachineExecutionPlan.ShouldExecuteQuery { get { return ShouldExecuteQuery; } }
+
+      void IMachineExecutionPlan.ExecuteQuery()
       {
-        var p = new BlockStrategyParameters
+        ExecuteQuery();
+      }
+
+      Game ISearchNode.Game { get { return Game; } }
+      public Player Controller { get { return D.Controller; } }
+      public int ResultCount { get { return _declarations.Count; } }
+
+      public void SetResult(int index)
+      {
+        Result = _declarations[index];
+      }
+
+      public void GenerateChoices()
+      {
+        _declarations = GetBlockersDeclarations();
+      }
+
+      protected override void Initialize()
+      {
+        _executor.Initialize(ChangeTracker);
+      }
+
+      private List<ChosenBlockers> GetBlockersDeclarations()
+      {
+        var results = new List<ChosenBlockers>();
+
+        // 1. Strategy, no blockers
+        results.Add(ChosenBlockers.None);
+
+        // 2. Strategy, try assign some blockers via shallow strategy
+        var strategy1 = BlockStrategy.ChooseBlockers(new BlockStrategyParameters
           {
             Attackers = Combat.Attackers.Select(x => x.Card).ToList(),
             BlockerCandidates = D.Controller.Battlefield.CreaturesThatCanBlock.ToList(),
             DefendersLife = D.Controller.Life
-          };
+          });
 
-        Result = new BlockStrategy(p).ChooseBlockers();
+        if (strategy1.Count > 0)
+        {
+          results.Add(strategy1);
+        }
+
+        return results;
+      }
+
+      protected override void ExecuteQuery()
+      {
+        Ai.SetBestResult(this);
+      }
+
+      public override void Execute()
+      {
+        _executor.Execute();
       }
     }
 
@@ -62,7 +121,9 @@
     {
       protected override bool ShouldExecuteQuery { get { return true; } }
 
-      public override void SaveDecisionResults() {}
+      public override void SaveDecisionResults()
+      {
+      }
 
       protected override void ExecuteQuery()
       {
