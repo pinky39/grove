@@ -13,7 +13,7 @@
   public class CardsSearch
   {
     private readonly StandardAnalyzer _analyzer = new StandardAnalyzer(Version.LUCENE_30);
-    private readonly Dictionary<string, Card> _cards = Enumerable.ToDictionary<Card, string, Card>(Cards.All, x => x.Name, x => x);
+    private readonly Dictionary<string, Card> _cards = Cards.All.ToDictionary(x => x.Name.ToLowerInvariant(), x => x);
     private readonly RAMDirectory _directory = new RAMDirectory();
 
     public CardsSearch()
