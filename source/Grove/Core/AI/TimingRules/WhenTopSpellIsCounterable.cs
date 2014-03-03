@@ -1,12 +1,21 @@
 ﻿namespace Grove.AI.TimingRules
 {
+  using System;
+
   public class WhenTopSpellIsCounterable : TimingRule
   {
-    private int? _counterCost;
+    private readonly Func<TimingRuleParameters, int?> _counterCost;
 
-    private WhenTopSpellIsCounterable() {}
+    private WhenTopSpellIsCounterable()
+    {
+    }
 
     public WhenTopSpellIsCounterable(int? counterCost = null)
+    {
+      _counterCost = delegate { return counterCost; };
+    }
+
+    public WhenTopSpellIsCounterable(Func<TimingRuleParameters, int?> counterCost)
     {
       _counterCost = counterCost;
     }
@@ -19,8 +28,10 @@
       if (Stack.TopSpell.Controller == p.Controller)
         return false;
 
-      return !_counterCost.HasValue ||
-        !p.Controller.Opponent.HasMana(_counterCost.Value);
+      var counterCost = _counterCost(p);
+
+      return !counterCost.HasValue ||
+        !p.Controller.Opponent.HasMana(counterCost.Value);
     }
   }
 }

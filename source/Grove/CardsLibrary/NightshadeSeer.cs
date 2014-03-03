@@ -2,11 +2,11 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Grove.Costs;
-  using Grove.Effects;
-  using Grove.AI;
-  using Grove.AI.TargetingRules;
-  using Grove.AI.TimingRules;
+  using AI;
+  using AI.TargetingRules;
+  using AI.TimingRules;
+  using Costs;
+  using Effects;
 
   public class NightshadeSeer : CardTemplateSource
   {
@@ -32,7 +32,7 @@
             p.Effect = () => new CreatureGetsM1M1ForEachRevealedCard();
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
-            
+
             p.TargetingRule(new EffectReduceToughness(
               getAmount: tp => tp.Controller.Hand.Count(c => c.HasColor(CardColor.Black))));
 

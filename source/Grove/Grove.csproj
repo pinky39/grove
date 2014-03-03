@@ -122,6 +122,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CardsLibrary\BrineSeer.cs" />
     <Compile Include="Core\AI\AttackerEvaluationParameters.cs" />
     <Compile Include="Core\AI\AttackStrategyParameters.cs" />
     <Compile Include="Core\AI\CardPicker.cs" />
@@ -157,6 +158,7 @@
     <Compile Include="Core\AI\TimingRules\OnYourTurn.cs" />
     <Compile Include="Core\AI\TimingRules\WhenAttachedToCardWillBeDestroyed.cs" />
     <Compile Include="Core\AI\TimingRules\WhenStackIsNotEmpty.cs" />
+    <Compile Include="Core\Effects\CounterTargetSpellUnlessControllerPays1ForEachRevealedCard.cs" />
     <Compile Include="Core\SaveLoad\RenameBinder.cs" />
     <Compile Include="CardsLibrary\AboutFace.cs" />
     <Compile Include="CardsLibrary\AcademyRector.cs" />

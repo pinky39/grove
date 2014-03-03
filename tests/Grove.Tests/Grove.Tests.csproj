@@ -122,6 +122,7 @@
     <Compile Include="Cards\Brand.cs" />
     <Compile Include="Cards\Bravado.cs" />
     <Compile Include="Cards\Breach.cs" />
+    <Compile Include="Cards\BrineSeer.cs" />
     <Compile Include="Cards\BrinkOfMadness.cs" />
     <Compile Include="Cards\BurstOfEnergy.cs" />
     <Compile Include="Cards\CapashenStandard.cs" />
