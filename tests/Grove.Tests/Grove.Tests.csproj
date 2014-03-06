@@ -124,7 +124,9 @@
     <Compile Include="Cards\Breach.cs" />
     <Compile Include="Cards\BrineSeer.cs" />
     <Compile Include="Cards\BrinkOfMadness.cs" />
+    <Compile Include="Cards\BubblingMuck.cs" />
     <Compile Include="Cards\BurstOfEnergy.cs" />
+    <Compile Include="Cards\Caltrops.cs" />
     <Compile Include="Cards\CapashenStandard.cs" />
     <Compile Include="Cards\CarrionBeetles.cs" />
     <Compile Include="Cards\Catastrophe.cs" />

@@ -1,8 +1,8 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.AI.TimingRules;
-  using Grove.Modifiers;
+  using AI.TimingRules;
+  using Modifiers;
 
   public class VernalBloom : CardTemplateSource
   {
@@ -13,12 +13,13 @@
         .ManaCost("{3}{G}")
         .Type("Enchantment")
         .Text("Whenever a forest is tapped for mana, it produces an additional {G}.")
-        .FlavorText("Many cultures have legends of a lush, hidden paradise. The elves of Argoth had no need of such stories.")
+        .FlavorText(
+          "Many cultures have legends of a lush, hidden paradise. The elves of Argoth had no need of such stories.")
         .Cast(p => p.TimingRule(new OnFirstMain()))
         .ContinuousEffect(p =>
           {
             p.Modifier = () => new IncreaseManaOutput(Mana.Green);
-            p.CardFilter = (card, effect) => card.Is("forest");            
+            p.CardFilter = (card, effect) => card.Is("forest");
           });
     }
   }

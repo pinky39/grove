@@ -1,16 +1,32 @@
 ﻿namespace Grove.Triggers
 {
-  using Grove.Events;
-  using Grove.Infrastructure;
+  using Events;
+  using Infrastructure;
 
   public class OnAttack : Trigger, IReceive<AttackerJoinedCombat>
   {
+    private readonly bool _onlyWhenDeclared;
+    private readonly bool _triggerForEveryCreature;
+
+    private OnAttack()
+    {
+    }
+
+    public OnAttack(bool triggerForEveryCreature = false, bool onlyWhenDeclared = true)
+    {
+      _triggerForEveryCreature = triggerForEveryCreature;
+      _onlyWhenDeclared = onlyWhenDeclared;
+    }
+
     public void Receive(AttackerJoinedCombat message)
     {
-      if (message.WasDeclared && message.Attacker.Card == Ability.OwningCard)
-      {
-        Set();
-      }
+      if (!message.WasDeclared && _onlyWhenDeclared)
+        return;
+
+      if (!_triggerForEveryCreature && message.Attacker.Card != Ability.OwningCard)
+        return;
+
+      Set(message);
     }
   }
 }

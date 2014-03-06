@@ -1,16 +1,18 @@
 ﻿namespace Grove.Triggers
 {
-  using Grove.Events;
-  using Grove.Infrastructure;
+  using Events;
+  using Infrastructure;
 
   public class OnBlock : Trigger, IReceive<BlockerJoinedCombat>, IReceive<StepStarted>
   {
     private readonly bool _becomesBlocked;
     private readonly bool _blocks;
-    private readonly bool _triggerForEveryCreature;
     private readonly Trackable<int> _count = new Trackable<int>();
+    private readonly bool _triggerForEveryCreature;
 
-    private OnBlock() {}
+    private OnBlock()
+    {
+    }
 
     public OnBlock(bool becomesBlocked = false, bool blocks = false, bool triggerForEveryCreature = false)
     {

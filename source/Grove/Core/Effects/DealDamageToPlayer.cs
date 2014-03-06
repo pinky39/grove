@@ -5,7 +5,9 @@
     private readonly DynParam<int> _amount;
     private readonly DynParam<Player> _player;
 
-    private DealDamageToPlayer() {}
+    private DealDamageToPlayer()
+    {
+    }
 
     public DealDamageToPlayer(DynParam<int> amount, DynParam<Player> player)
     {
@@ -19,12 +21,7 @@
     {
       return player == _player.Value ? _amount.Value : 0;
     }
-
-    public override int CalculateCreatureDamage(Card creature)
-    {
-      return 0;
-    }
-
+    
     protected override void ResolveEffect()
     {
       Source.OwningCard.DealDamageTo(

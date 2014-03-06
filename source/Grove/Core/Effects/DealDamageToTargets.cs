@@ -1,14 +1,16 @@
 ﻿namespace Grove.Effects
 {
   using System.Linq;
-  using Grove.AI;
+  using AI;
 
   public class DealDamageToTargets : Effect
   {
     private readonly DynParam<int> _amount;
     private readonly bool _gainLife;
 
-    private DealDamageToTargets() {}
+    private DealDamageToTargets()
+    {
+    }
 
     public DealDamageToTargets(DynParam<int> amount, bool gainLife = false)
     {
@@ -35,7 +37,7 @@
       {
         Source.OwningCard.DealDamageTo(
           _amount.Value,
-          (IDamageable) target, 
+          (IDamageable) target,
           isCombat: false);
 
 
