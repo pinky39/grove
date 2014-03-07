@@ -1,16 +1,28 @@
 ﻿namespace Grove.Effects
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Grove.Decisions;
+  using Decisions;
   using Modifiers;
 
   public class CreatureGetsM1M1ForEachRevealedCard : Effect,
     IProcessDecisionResults<ChosenCards>, IChooseDecisionResults<List<Card>, ChosenCards>
   {
+    private readonly Func<Card, bool> _filter;
+
+    private CreatureGetsM1M1ForEachRevealedCard()
+    {
+    }
+
+    public CreatureGetsM1M1ForEachRevealedCard(Func<Card, bool> filter = null)
+    {
+      _filter = filter ?? delegate { return true; };
+    }
+
     public ChosenCards ChooseResult(List<Card> candidates)
     {
-      var cardsToReveal = Target.Card().Toughness.GetValueOrDefault();
+      var cardsToReveal = Target.Card().Life;
       return candidates.OrderBy(x => x.Score).Take(cardsToReveal).ToList();
     }
 
@@ -36,10 +48,10 @@
     {
       Enqueue(new SelectCards(Controller, p =>
         {
-          p.SetValidator(c => c.HasColor(CardColor.Black));
+          p.SetValidator(_filter);
           p.Zone = Zone.Hand;
           p.MinCount = 0;
-          p.Text = "Choose any number of black cards in your hand.";
+          p.Text = "Choose any number of cards in your hand.";
           p.OwningCard = Source.OwningCard;
           p.ProcessDecisionResults = this;
           p.ChooseDecisionResults = this;

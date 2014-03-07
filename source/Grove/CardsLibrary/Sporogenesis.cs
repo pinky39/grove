@@ -1,12 +1,12 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Effects;
-  using Grove.Events;
-  using Grove.AI.TargetingRules;
-  using Grove.AI.TimingRules;
-  using Grove.Modifiers;
-  using Grove.Triggers;
+  using AI.TargetingRules;
+  using AI.TimingRules;
+  using Effects;
+  using Events;
+  using Modifiers;
+  using Triggers;
 
   public class Sporogenesis : CardTemplateSource
   {

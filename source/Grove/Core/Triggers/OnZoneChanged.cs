@@ -1,8 +1,8 @@
 ﻿namespace Grove.Triggers
 {
   using System;
-  using Grove.Events;
-  using Grove.Infrastructure;
+  using Events;
+  using Infrastructure;
 
   public class OnZoneChanged : Trigger, IReceive<ZoneChanged>
   {
@@ -10,7 +10,9 @@
     private readonly Zone _from;
     private readonly Zone _to;
 
-    private OnZoneChanged() {}
+    private OnZoneChanged()
+    {
+    }
 
     public OnZoneChanged(Zone @from = Zone.None, Zone to = Zone.None,
       Func<Card, TriggeredAbility, Game, bool> filter = null)

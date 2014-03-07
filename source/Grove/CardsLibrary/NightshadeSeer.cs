@@ -29,10 +29,8 @@
               new PayMana("{2}{B}".Parse(), ManaUsage.Abilities),
               new Tap());
 
-            p.Effect = () => new CreatureGetsM1M1ForEachRevealedCard();
-
+            p.Effect = () => new CreatureGetsM1M1ForEachRevealedCard(c => c.HasColor(CardColor.Black));
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
-
             p.TargetingRule(new EffectReduceToughness(
               getAmount: tp => tp.Controller.Hand.Count(c => c.HasColor(CardColor.Black))));
 

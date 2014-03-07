@@ -17,14 +17,14 @@ o Brass Secretary
 o Brine Seer
 o Bubbling Beebles
 o Bubbling Muck
-Caltrops
-Capashen Knight
-Capashen Standard
-Capashen Templar
-Carnival of Souls
-Chime of Night
-Cinder Seer
-Colos Yearling
+o Caltrops
+o Capashen Knight
+o Capashen Standard
+o Capashen Templar
+o Carnival of Souls
+o Chime of Night
+o Cinder Seer
+o Colos Yearling
 Compost
 Covetous Dragon
 Disappear

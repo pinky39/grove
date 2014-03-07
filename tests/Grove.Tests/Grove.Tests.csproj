@@ -128,12 +128,14 @@
     <Compile Include="Cards\BurstOfEnergy.cs" />
     <Compile Include="Cards\Caltrops.cs" />
     <Compile Include="Cards\CapashenStandard.cs" />
+    <Compile Include="Cards\CarnivalOfSouls.cs" />
     <Compile Include="Cards\CarrionBeetles.cs" />
     <Compile Include="Cards\Catastrophe.cs" />
     <Compile Include="Cards\Cathodion.cs" />
     <Compile Include="Cards\CaveTiger.cs" />
     <Compile Include="Cards\CelestialPrism.cs" />
     <Compile Include="Cards\ChimeOfNight.cs" />
+    <Compile Include="Cards\CinderCeer.cs" />
     <Compile Include="Cards\CitanulFlute.cs" />
     <Compile Include="Cards\CitanulHierophants.cs" />
     <Compile Include="Cards\ClawsOfGix.cs" />
