@@ -19,6 +19,25 @@
       _filter = filter ?? delegate { return true; };
     }
 
+    public ChosenCards ChooseResult(List<Card> candidates)
+    {
+      var cardsToReveal = Target.Is().Creature ? Target.Card().Life : int.MaxValue;
+      return candidates.OrderBy(x => x.Score).Take(cardsToReveal).ToList();
+    }
+
+    public void ProcessResults(ChosenCards results)
+    {
+      foreach (var chosenCard in results)
+      {
+        chosenCard.Reveal();
+      }
+
+      Source.OwningCard.DealDamageTo(
+        results.Count,
+        (IDamageable) Target,
+        isCombat: false);
+    }
+
     protected override void ResolveEffect()
     {
       Enqueue(new SelectCards(Controller, p =>
@@ -31,25 +50,6 @@
           p.ProcessDecisionResults = this;
           p.ChooseDecisionResults = this;
         }));
-    }
-
-    public void ProcessResults(ChosenCards results)
-    {
-      foreach (var chosenCard in results)
-      {
-        chosenCard.Reveal();
-      }
-
-      Source.OwningCard.DealDamageTo(
-        results.Count,
-        (IDamageable)Target,
-        isCombat: false);
-    }
-
-    public ChosenCards ChooseResult(List<Card> candidates)
-    {
-      var cardsToReveal = Target.Is().Creature ? Target.Card().Life : int.MaxValue;
-      return candidates.OrderBy(x => x.Score).Take(cardsToReveal).ToList();
     }
   }
 }

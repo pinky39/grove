@@ -130,6 +130,7 @@
     <Compile Include="CardsLibrary\CarnivalOfSouls.cs" />
     <Compile Include="CardsLibrary\CinderSeer.cs" />
     <Compile Include="CardsLibrary\ColosYearling.cs" />
+    <Compile Include="CardsLibrary\Compost.cs" />
     <Compile Include="Core\AI\AttackerEvaluationParameters.cs" />
     <Compile Include="Core\AI\AttackStrategyParameters.cs" />
     <Compile Include="Core\AI\CardPicker.cs" />

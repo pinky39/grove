@@ -1,9 +1,9 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Effects;
-  using Grove.AI.TimingRules;
-  using Grove.Triggers;
+  using AI.TimingRules;
+  using Effects;
+  using Triggers;
 
   public class Scrapheap : CardTemplateSource
   {

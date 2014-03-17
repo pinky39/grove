@@ -140,6 +140,7 @@
     <Compile Include="Cards\CitanulHierophants.cs" />
     <Compile Include="Cards\ClawsOfGix.cs" />
     <Compile Include="Cards\ClousOfFaeries.cs" />
+    <Compile Include="Cards\Compost.cs" />
     <Compile Include="Cards\Confiscate.cs" />
     <Compile Include="Cards\CopperGnomes.cs" />
     <Compile Include="Cards\CreepingTarPit.cs" />
