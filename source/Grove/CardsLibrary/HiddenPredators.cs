@@ -2,10 +2,10 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Grove.Effects;
-  using Grove.AI.TimingRules;
-  using Grove.Modifiers;
-  using Grove.Triggers;
+  using AI.TimingRules;
+  using Effects;
+  using Modifiers;
+  using Triggers;
 
   public class HiddenPredators : CardTemplateSource
   {

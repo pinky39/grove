@@ -143,6 +143,7 @@
     <Compile Include="Cards\Compost.cs" />
     <Compile Include="Cards\Confiscate.cs" />
     <Compile Include="Cards\CopperGnomes.cs" />
+    <Compile Include="Cards\CovetousDragon.cs" />
     <Compile Include="Cards\CreepingTarPit.cs" />
     <Compile Include="Cards\CropRotation.cs" />
     <Compile Include="Cards\Crosswinds.cs" />
