@@ -1,9 +1,9 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Costs;
-  using Grove.Effects;
-  using Grove.AI.TimingRules;
+  using AI.TimingRules;
+  using Costs;
+  using Effects;
 
   public class CopperGnomes : CardTemplateSource
   {

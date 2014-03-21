@@ -16,7 +16,7 @@
         .FlavorText("Even an enemy is a valuable resource.")
         .Cast(p =>
           {
-            p.Effect = () => new ControllerGainsLife(
+            p.Effect = () => new YouGainLife(
               amount: P((e, g) => e.Controller.IsActive ? 0
                 : g.Combat.AttackerCount*3));
 

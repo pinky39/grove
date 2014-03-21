@@ -1,11 +1,11 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Costs;
-  using Grove.Effects;
-  using Grove.AI.TargetingRules;
-  using Grove.AI.TimingRules;
-  using Grove.Modifiers;
+  using AI.TargetingRules;
+  using AI.TimingRules;
+  using Costs;
+  using Effects;
+  using Modifiers;
 
   public class ElvishHerder : CardTemplateSource
   {
@@ -26,7 +26,7 @@
             p.Cost = new PayMana(Mana.Green, ManaUsage.Abilities);
             p.Effect = () => new ApplyModifiersToTargets(() => new AddStaticAbility(Static.Trample) {UntilEot = true});
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
-            
+
             p.TimingRule(new OnYourTurn(Step.DeclareBlockers));
             p.TargetingRule(new EffectBigWithoutEvasions(x => !x.Has().Trample && x.Power >= 4));
           });

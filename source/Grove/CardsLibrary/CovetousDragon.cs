@@ -22,7 +22,7 @@
           {
             p.Text = "When you control no artifacts, sacrifice Covetous Dragon.";
             p.Trigger(new OnEffectResolved(
-              filter: (ability, game) => ability.OwningCard.Controller.Opponent
+              filter: (ability, game) => ability.OwningCard.Controller
                 .Battlefield.None(x => x.Is().Artifact)));
 
             p.Effect = () => new SacrificeOwner();

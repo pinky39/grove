@@ -26,7 +26,7 @@
               to: Zone.Graveyard,
               filter: (c, a, _) => c.Owner == a.OwningCard.Controller && (c.Is().Artifact || c.Is().Enchantment)));
 
-            p.Effect = () => new ControllerGainsLife(1);
+            p.Effect = () => new YouGainLife(1);
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });

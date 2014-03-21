@@ -1,11 +1,11 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Effects;
-  using Grove.AI;
-  using Grove.AI.TargetingRules;
-  using Grove.AI.TimingRules;
-  using Grove.Modifiers;
+  using AI;
+  using AI.TargetingRules;
+  using AI.TimingRules;
+  using Effects;
+  using Modifiers;
 
   public class Confiscate : CardTemplateSource
   {

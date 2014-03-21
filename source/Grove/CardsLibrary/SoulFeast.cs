@@ -18,7 +18,7 @@
           {
             p.Effect = () => new CompoundEffect(
               new TargetPlayerLoosesLife(4),
-              new ControllerGainsLife(4));
+              new YouGainLife(4));
 
             p.TargetSelector.AddEffect(trg => trg.Is.Player());
             p.TargetingRule(new EffectOpponent());

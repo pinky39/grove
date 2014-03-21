@@ -1,7 +1,7 @@
 ﻿namespace Grove.Effects
 {
-  using Grove.AI;
-  using Grove.Infrastructure;
+  using AI;
+  using Infrastructure;
 
   public class ReturnToHand : Effect
   {
@@ -9,13 +9,15 @@
     private readonly bool _returnOwningCard;
     private Zone _owningCardZone;
 
-    private ReturnToHand() {}
+    private ReturnToHand()
+    {
+    }
 
     public ReturnToHand(int discard = 0, bool returnOwningCard = false, EffectTag tag = EffectTag.Bounce)
     {
       _discard = discard;
       _returnOwningCard = returnOwningCard;
-      
+
       SetTags(tag);
     }
 

@@ -132,6 +132,12 @@
     <Compile Include="CardsLibrary\ColosYearling.cs" />
     <Compile Include="CardsLibrary\Compost.cs" />
     <Compile Include="CardsLibrary\CovetousDragon.cs" />
+    <Compile Include="CardsLibrary\Disappear.cs" />
+    <Compile Include="CardsLibrary\Donate.cs" />
+    <Compile Include="CardsLibrary\ElvishLookout.cs" />
+    <Compile Include="CardsLibrary\ElvishPiper.cs" />
+    <Compile Include="CardsLibrary\EmperorCrocodile.cs" />
+    <Compile Include="CardsLibrary\Encroach.cs" />
     <Compile Include="Core\AI\AttackerEvaluationParameters.cs" />
     <Compile Include="Core\AI\AttackStrategyParameters.cs" />
     <Compile Include="Core\AI\CardPicker.cs" />
@@ -170,6 +176,7 @@
     <Compile Include="Core\Effects\CounterTargetSpellUnlessControllerPays1ForEachRevealedCard.cs" />
     <Compile Include="Core\Effects\DealDamageToCreature.cs" />
     <Compile Include="Core\Effects\DealDamageToTargetForEachRevealedCard.cs" />
+    <Compile Include="Core\Effects\ReturnOwnerAndAttachedToHand.cs" />
     <Compile Include="Core\SaveLoad\RenameBinder.cs" />
     <Compile Include="CardsLibrary\AboutFace.cs" />
     <Compile Include="CardsLibrary\AcademyRector.cs" />
@@ -964,7 +971,7 @@
     <Compile Include="Core\Effects\Add11ForEachCounter.cs" />
     <Compile Include="Core\Effects\ApplyModifiersToGame.cs" />
     <Compile Include="Core\Effects\ControllerGainsLifeOpponentLoosesLife.cs" />
-    <Compile Include="Core\Effects\ControllerLoosesLife.cs" />
+    <Compile Include="Core\Effects\YouLooseLife.cs" />
     <Compile Include="Core\Effects\CreaturesOfChosenTypeGetM1M1.cs" />
     <Compile Include="Core\Effects\DestroyOwner.cs" />
     <Compile Include="Core\Effects\DiscardAndDrawANewHand.cs" />
@@ -1371,7 +1378,7 @@
     <Compile Include="Core\Effects\CompoundEffect.cs" />
     <Compile Include="Core\Effects\DealDamageToCreaturesAndPlayers.cs" />
     <Compile Include="Core\Effects\DrawCards.cs" />
-    <Compile Include="Core\Effects\ControllerGainsLife.cs" />
+    <Compile Include="Core\Effects\YouGainLife.cs" />
     <Compile Include="Core\Effects\IEffectSource.cs" />
     <Compile Include="Core\Effects\RegenerateOwner.cs" />
     <Compile Include="Core\Effects\ShuffleOwningCardIntoLibrary.cs" />

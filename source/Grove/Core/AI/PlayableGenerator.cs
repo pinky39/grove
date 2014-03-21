@@ -9,7 +9,9 @@
   {
     private readonly Player _player;
 
-    private PlayableGenerator() {}
+    private PlayableGenerator()
+    {
+    }
 
     public PlayableGenerator(Player player, Game game)
     {
@@ -17,9 +19,9 @@
       Game = game;
     }
 
-    private void FindPlayableAbilities(IEnumerable<Card> cards, List<IPlayable> allPlayables)
+    private void FindPlayableAbilities(IEnumerable<Card> searchSpace, List<IPlayable> result)
     {
-      foreach (var card in cards)
+      foreach (var card in searchSpace)
       {
         if (card.IsVisibleToSearchingPlayer == false)
           continue;
@@ -34,19 +36,19 @@
           // lazy cost evaluation
           if (playables.Count > 0 && prerequisites.CanPay.Value)
           {
-            allPlayables.AddRange(playables);
+            result.AddRange(playables);
           }
         }
       }
     }
 
-    private void FindPlayableSpells(IEnumerable<Card> cards, List<IPlayable> allPlayables)
-    {            
-      foreach (var card in cards)
+    private void FindPlayableSpells(List<IPlayable> result)
+    {
+      foreach (var card in _player.Hand)
       {
         if (card.IsVisibleToSearchingPlayer == false)
           continue;
-        
+
         var spellsPrerequisites = card.CanCast();
 
         foreach (var prerequisites in spellsPrerequisites)
@@ -57,7 +59,7 @@
           // lazy cost evaluation
           if (playables.Count > 0 && prerequisites.CanPay.Value)
           {
-            allPlayables.AddRange(playables);
+            result.AddRange(playables);
           }
         }
       }
@@ -68,16 +70,16 @@
       var context = new ActivationContext(prerequisites);
 
       var work = prerequisites.Rules.ToList();
-      
+
       var pass = 1;
       while (work.Count > 0)
       {
         var newWork = new List<MachinePlayRule>();
-        
+
         foreach (var rule in work)
         {
           var isFinished = rule.Process(pass, context);
-          
+
           if (context.CancelActivation)
             yield break;
 
@@ -85,7 +87,6 @@
           {
             newWork.Add(rule);
           }
-            
         }
         pass++;
         work = newWork;
@@ -123,12 +124,23 @@
 
     public List<IPlayable> GetPlayables()
     {
-      var all = new List<IPlayable>();
+      var result = new List<IPlayable>();
 
-      FindPlayableSpells(_player.Hand, all);
-      FindPlayableAbilities(_player.Battlefield.Concat(_player.Hand), all);
+      FindPlayableSpells(result);
 
-      return all;
+      FindPlayableAbilities(
+        searchSpace: _player.Battlefield.Where(x => x.Controller == _player),
+        result: result);
+
+      FindPlayableAbilities(
+        searchSpace: _player.Opponent.Battlefield.Where(x => x.Controller == _player),
+        result: result);
+
+      FindPlayableAbilities(
+        searchSpace: _player.Hand,
+        result: result);
+
+      return result;
     }
   }
 }

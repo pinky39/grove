@@ -27,15 +27,15 @@ o Cinder Seer
 o Colos Yearling
 o Compost
 o Covetous Dragon
-Disappear
-Disease Carriers
-Donate
-Dying Wail
-Elvish Lookout
-Elvish Piper
-Emperor Crocodile
-Encroach
-Eradicate
+o Disappear
+o Disease Carriers
+o Donate
+o Dying Wail
+o Elvish Lookout
+o Elvish Piper
+o Emperor Crocodile
+o Encroach
+o Eradicate
 Extruder
 False Prophet
 Fatigue

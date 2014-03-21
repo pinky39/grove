@@ -160,10 +160,12 @@
     <Compile Include="Cards\DestructiveUrge.cs" />
     <Compile Include="Cards\DevoutHarpist.cs" />
     <Compile Include="Cards\DiabolicServitude.cs" />
+    <Compile Include="Cards\Disappear.cs" />
     <Compile Include="Cards\DiscipleOfGrace.cs" />
     <Compile Include="Cards\DiscordantDirge.cs" />
     <Compile Include="Cards\DiseaseCarriers.cs" />
     <Compile Include="Cards\Disorder.cs" />
+    <Compile Include="Cards\Donate.cs" />
     <Compile Include="Cards\Douse.cs" />
     <Compile Include="Cards\DragonBlood.cs" />
     <Compile Include="Cards\Dread.cs" />
@@ -175,6 +177,7 @@
     <Compile Include="Cards\EliteArchers.cs" />
     <Compile Include="Cards\ElvishHerder.cs" />
     <Compile Include="Cards\ElvishLyrist.cs" />
+    <Compile Include="Cards\ElvishPiper.cs" />
     <Compile Include="Cards\EndlessWurm.cs" />
     <Compile Include="Cards\Endoskeleton.cs" />
     <Compile Include="Cards\EnergyField.cs" />

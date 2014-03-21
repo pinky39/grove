@@ -19,13 +19,13 @@
           {
             p.Text = "When Delusions of Mediocrity enters the battlefield, you gain 10 life.";
             p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
-            p.Effect = () => new ControllerGainsLife(10);
+            p.Effect = () => new YouGainLife(10);
           })
         .TriggeredAbility(p =>
           {
             p.Text = "When Delusions of Mediocrity leaves the battlefield, you lose 10 life.";
             p.Trigger(new OnZoneChanged(@from: Zone.Battlefield));
-            p.Effect = () => new ControllerLoosesLife(10);
+            p.Effect = () => new YouLooseLife(10);
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });
     }
