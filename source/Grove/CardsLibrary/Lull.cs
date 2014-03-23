@@ -1,8 +1,8 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Effects;
-  using Grove.AI.TimingRules;
+  using AI.TimingRules;
+  using Effects;
 
   public class Lull : CardTemplateSource
   {
@@ -17,7 +17,7 @@
         .Cycling("{2}")
         .Cast(p =>
           {
-            p.Effect = () => new PreventCombatDamage();            
+            p.Effect = () => new PreventAllCombatDamage();
             p.TimingRule(new OnOpponentsTurn(Step.DeclareBlockers));
           });
     }

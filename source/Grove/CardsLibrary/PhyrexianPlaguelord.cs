@@ -52,7 +52,7 @@
               .AddEffect(trg => trg.Is.Creature().On.Battlefield());
 
             p.TimingRule(new Any(new BeforeYouDeclareAttackers(), new WhenStackIsNotEmpty() ));
-            p.TargetingRule(new CostSacrificeToReduceToughness(1) {ConsiderTargetingSelf = false} );            
+            p.TargetingRule(new CostSacrificeEffectReduceToughness(1) {ConsiderTargetingSelf = false} );            
           });
     }
   }

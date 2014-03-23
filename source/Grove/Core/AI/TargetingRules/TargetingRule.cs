@@ -237,9 +237,9 @@
     }
 
     protected IEnumerable<Card> GetCandidatesForAttackerPowerToughnessIncrease(int? powerIncrease,
-      int? toughnessIncrease, TargetingRuleParameters p)
+      int? toughnessIncrease, IEnumerable<Card> candidates)
     {
-      return p.Candidates<Card>(ControlledBy.SpellOwner)
+      return candidates
         .Where(x => x.IsAttacker)
         .Select(
           x =>
@@ -259,9 +259,9 @@
     }
 
     protected IEnumerable<Card> GetCandidatesForBlockerPowerToughnessIncrease(int? powerIncrease,
-      int? toughnessIncrease, TargetingRuleParameters p)
+      int? toughnessIncrease, IEnumerable<Card> candidates)
     {
-      return p.Candidates<Card>(ControlledBy.SpellOwner)
+      return candidates
         .Where(x => x.IsBlocker)
         .Select(
           x =>

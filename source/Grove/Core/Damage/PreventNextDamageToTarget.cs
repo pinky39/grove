@@ -29,14 +29,14 @@
       _amount.Initialize(ChangeTracker);
     }
 
-    public override int PreventDamage(PreventDamageParameters parameters)
+    public override int PreventDamage(PreventDamageParameters p)
     {
-      if (parameters.Target != _creatureOrPlayer)
+      if (p.Target != _creatureOrPlayer)
         return 0;
 
-      var prevented = Math.Min(_amount, parameters.Amount);
+      var prevented = Math.Min(_amount, p.Amount);
 
-      if (!parameters.QueryOnly)
+      if (!p.QueryOnly)
         _amount.Value -= prevented;
 
       return prevented;

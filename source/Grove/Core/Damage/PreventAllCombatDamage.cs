@@ -1,6 +1,6 @@
 ﻿namespace Grove
 {
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   public class PreventAllCombatDamage : DamagePrevention
   {
@@ -9,10 +9,10 @@
       return GetType().GetHashCode();
     }
 
-    public override int PreventDamage(PreventDamageParameters parameters)
+    public override int PreventDamage(PreventDamageParameters p)
     {
-      if (parameters.IsCombat)
-        return parameters.Amount;
+      if (p.IsCombat)
+        return p.Amount;
 
       return 0;
     }

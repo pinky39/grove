@@ -23,30 +23,34 @@
       var power = _power ?? p.MaxX;
       var toughness = _toughness ?? p.MaxX;
 
-      var candidates = new List<Card>();
+      var candidates = p.Candidates<Card>(ControlledBy.SpellOwner);
 
       if (IsAfterOpponentDeclaresBlockers(p.Controller))
       {
-        candidates.AddRange(GetCandidatesForAttackerPowerToughnessIncrease(power, toughness, p));
+        candidates = GetCandidatesForAttackerPowerToughnessIncrease(power, toughness, candidates);
       }
 
       else if (IsAfterYouDeclareBlockers(p.Controller))
       {
-        candidates.AddRange(GetCandidatesForBlockerPowerToughnessIncrease(power, toughness, p));
+        candidates = GetCandidatesForBlockerPowerToughnessIncrease(power, toughness, candidates);
+      }     
+
+      else if (_untilEot == false && IsEndOfOpponentsTurn(p.Controller))
+      {
+        candidates = candidates
+          .OrderBy(x => x.Toughness);
+      }
+
+      else if (_untilEot == false && Stack.CanBeDestroyedByTopSpell(p.Card))
+      {
+        candidates = candidates
+          .OrderBy(x => x.Toughness);
       }
 
       else if (toughness > 0)
       {
-        candidates.AddRange(p.Candidates<Card>(ControlledBy.SpellOwner)
-          .Where(x => Stack.CanBeDealtLeathalDamageByTopSpell(x.Card())));
-      }
-
-      if ((_untilEot == false) &&
-        (IsEndOfOpponentsTurn(p.Controller) ||
-          p.Card.IsPermanent && Stack.CanBeDestroyedByTopSpell(p.Card)))
-      {
-        candidates.AddRange(p.Candidates<Card>(ControlledBy.SpellOwner)
-          .OrderBy(x => x.Toughness));
+        candidates = candidates
+          .Where(x => Stack.CanBeDealtLeathalDamageByTopSpell(x.Card()));
       }
 
       return Group(candidates, p.MinTargetCount());

@@ -1,6 +1,7 @@
 ﻿namespace Grove.Effects
 {
   using System;
+  using System.Linq;
   using Grove.AI;
 
   public class DestroyAllPermanents : Effect
@@ -19,7 +20,12 @@
 
     protected override void ResolveEffect()
     {
-      Players.DestroyPermanents(x => _filter(this, x), _allowToRegenerate);
+      var permanents = Players.Permanents().Where(c => _filter(this, c)).ToList();
+
+      foreach (var permanent in permanents)
+      {
+        permanent.Destroy(_allowToRegenerate);
+      }            
     }
   }
 }

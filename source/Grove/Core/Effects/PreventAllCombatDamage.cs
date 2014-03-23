@@ -2,7 +2,7 @@
 {
   using Modifiers;
 
-  public class PreventCombatDamage : Effect
+  public class PreventAllCombatDamage : Effect
   {
     protected override void ResolveEffect()
     {
@@ -12,7 +12,7 @@
           SourceEffect = this,        
         };
 
-      var prevention = new PreventAllCombatDamage();
+      var prevention = new Grove.PreventAllCombatDamage();
       var modifier = new AddDamagePrevention(prevention) {UntilEot = true};      
       Game.AddModifier(modifier, mp);
     }

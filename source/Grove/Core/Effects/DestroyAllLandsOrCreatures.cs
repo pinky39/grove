@@ -1,9 +1,10 @@
 ﻿namespace Grove.Effects
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Grove.AI;
-  using Grove.Decisions;
+  using AI;
+  using Decisions;
 
   public class DestroyAllLandsOrCreatures : CustomizableEffect
   {
@@ -24,14 +25,23 @@
 
     public override void ProcessResults(ChosenOptions results)
     {
+      Func<Card, bool> filter;
+
       if (results.Options[0].Equals(EffectOption.Lands))
       {
-        Players.DestroyPermanents(card => card.Is().Land);
-        return;
+        filter = c => c.Is().Land;
+      }
+      else
+      {
+        filter = c => c.Is().Creature;
       }
 
-      Players.DestroyPermanents(
-        card => card.Is().Creature, allowToRegenerate: false);
+      var permanents = Players.Permanents().Where(filter).ToList();
+
+      foreach (var permanent in permanents)
+      {
+        permanent.Destroy(allowToRegenerate: false);
+      }
     }
 
     public override string GetText()

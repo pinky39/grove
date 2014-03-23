@@ -173,19 +173,6 @@
       {
         legend.Sacrifice();
       }
-    }
-
-    public void DestroyPermanents(Func<Card, bool> filter = null, bool allowToRegenerate = true)
-    {
-      filter = filter ?? delegate { return true; };
-
-      foreach (var permanent in Permanents().ToList())
-      {
-        if (filter(permanent))
-        {
-          permanent.Destroy(allowToRegenerate);
-        }
-      }
-    }
+    }    
   }
 }

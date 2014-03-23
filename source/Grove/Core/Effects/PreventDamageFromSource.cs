@@ -4,6 +4,15 @@
 
   public class PreventDamageFromSource : Effect
   {
+    private readonly bool _preventCombatOnly;
+
+    private PreventDamageFromSource() {}
+
+    public PreventDamageFromSource(bool preventCombatOnly)
+    {
+      _preventCombatOnly = preventCombatOnly;
+    }
+
     protected override void ResolveEffect()
     {
       var source = Target.IsEffect()
@@ -18,9 +27,9 @@
         };
 
       var prevention = new PreventAllDamageFromSource(
-        source: source);
+        source, _preventCombatOnly);
 
-      var modifier = new AddDamagePrevention(prevention) {UntilEot = true};      
+      var modifier = new AddDamagePrevention(prevention) {UntilEot = true};
       Game.AddModifier(modifier, mp);
     }
   }

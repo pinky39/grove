@@ -20,16 +20,15 @@
       var power = _power ?? p.MaxX;
       var toughness = _toughness ?? p.MaxX;
 
-      var candidates = None<Card>();
+      var candidates = p.Candidates<Card>(ControlledBy.SpellOwner);;
 
       if (p.Controller.IsActive && Turn.Step == Step.DeclareBlockers)
       {
-        candidates = GetCandidatesForAttackerPowerToughnessIncrease(power, toughness, p);
+        candidates = GetCandidatesForAttackerPowerToughnessIncrease(power, toughness, candidates);
       }
-
       else if (!p.Controller.IsActive && Turn.Step == Step.DeclareBlockers)
       {
-        candidates = GetCandidatesForBlockerPowerToughnessIncrease(power, toughness, p);
+        candidates = GetCandidatesForBlockerPowerToughnessIncrease(power, toughness, candidates);
       }
 
       return Group(candidates, p.MinTargetCount(), p.MaxTargetCount());

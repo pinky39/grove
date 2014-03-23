@@ -36,11 +36,11 @@ o Elvish Piper
 o Emperor Crocodile
 o Encroach
 o Eradicate
-Extruder
-False Prophet
-Fatigue
-Fend Off
-Festering Wound
+o Extruder
+o False Prophet
+o Fatigue
+o Fend Off
+o Festering Wound
 Field Surgeon
 Flame Jet
 Fledgling Osprey

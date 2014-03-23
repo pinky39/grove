@@ -1,10 +1,10 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Costs;
-  using Grove.Effects;
-  using Grove.AI.TargetingRules;
-  using Grove.AI.TimingRules;
+  using AI.TargetingRules;
+  using AI.TimingRules;
+  using Costs;
+  using Effects;
 
   public class Songstitcher : CardTemplateSource
   {
@@ -25,10 +25,10 @@
               "{1}{W}: Prevent all combat damage that would be dealt this turn by target attacking creature with flying.";
 
             p.Cost = new PayMana("{1}{W}".Parse(), ManaUsage.Abilities);
-            p.Effect = () => new PreventDamageFromSource();
+            p.Effect = () => new PreventDamageFromSource(preventCombatOnly: true);
             p.TargetSelector.AddEffect(trg => trg.Is.Card(c => c.Has().Flying && c.IsAttacker).On.Battlefield());
-            p.TargetingRule(new EffectPreventAttackerDamage());            
-            p.TimingRule(new OnOpponentsTurn(Step.DeclareAttackers));
+            p.TargetingRule(new EffectPreventCombatDamage());
+            p.TimingRule(new AfterOpponentDeclaresAttackers());
           });
     }
   }

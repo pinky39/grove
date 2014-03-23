@@ -3,13 +3,13 @@
   using System.Collections.Generic;
   using System.Linq;
 
-  public class CostSacrificeToReduceToughness : TargetingRule
+  public class CostSacrificeEffectReduceToughness : TargetingRule
   {
     private readonly int _amount;
 
-    private CostSacrificeToReduceToughness() {}
+    private CostSacrificeEffectReduceToughness() {}
 
-    public CostSacrificeToReduceToughness(int amount)
+    public CostSacrificeEffectReduceToughness(int amount)
     {
       _amount = amount;
     }

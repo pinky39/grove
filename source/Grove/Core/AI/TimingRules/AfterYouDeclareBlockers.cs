@@ -1,10 +1,10 @@
 ﻿namespace Grove.AI.TimingRules
 {
-  public class AfterOpponentDeclaresBlockers : TimingRule
+  public class AfterYouDeclareBlockers : TimingRule
   {
     public override bool? ShouldPlay1(TimingRuleParameters p)
     {
-      return IsAfterOpponentDeclaresBlockers(p.Controller);
+      return IsAfterYouDeclareBlockers(p.Controller);
     }
   }
 }

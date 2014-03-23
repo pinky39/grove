@@ -28,15 +28,15 @@
        calc.Calculate((IHashable)_creatureOrPlayer));
     }
 
-    public override int PreventDamage(PreventDamageParameters parameters)
+    public override int PreventDamage(PreventDamageParameters p)
     {
-      if (parameters.Target != _creatureOrPlayer)
+      if (p.Target != _creatureOrPlayer)
         return 0;
 
-      if (!_sourceFilter(parameters.Source))
+      if (!_sourceFilter(p.Source))
         return 0;
 
-      return Math.Min(parameters.Amount, _maxAmount);
+      return Math.Min(p.Amount, _maxAmount);
     }
   }
 }

@@ -22,16 +22,16 @@
         calc.Calculate(_creature));
     }
 
-    public override int PreventDamage(PreventDamageParameters parameters)
+    public override int PreventDamage(PreventDamageParameters p)
     {
-      if (_combatOnly && !parameters.IsCombat)
+      if (_combatOnly && !p.IsCombat)
         return 0;
       
-      if (parameters.Source == Modifier.SourceCard)
-        return parameters.Amount;
+      if (p.Source == Modifier.SourceCard)
+        return p.Amount;
 
-      if (parameters.Target == Modifier.SourceCard)
-        return parameters.Amount;
+      if (p.Target == Modifier.SourceCard)
+        return p.Amount;
 
       return 0;
     }

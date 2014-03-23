@@ -31,16 +31,16 @@
         calc.Calculate((IHashable) _creatureOrPlayer));
     }
 
-    public override int PreventDamage(PreventDamageParameters parameters)
+    public override int PreventDamage(PreventDamageParameters p)
     {            
-      if (_isDepleted == false && parameters.Source == _source && parameters.Target == _creatureOrPlayer)
+      if (_isDepleted == false && p.Source == _source && p.Target == _creatureOrPlayer)
       {
-        if (_onlyOnce && !parameters.QueryOnly)
+        if (_onlyOnce && !p.QueryOnly)
         {
           _isDepleted.Value = true;
         }
 
-        return parameters.Amount;
+        return p.Amount;
       }
 
       return 0;

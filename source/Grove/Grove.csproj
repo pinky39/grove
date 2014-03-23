@@ -138,6 +138,9 @@
     <Compile Include="CardsLibrary\ElvishPiper.cs" />
     <Compile Include="CardsLibrary\EmperorCrocodile.cs" />
     <Compile Include="CardsLibrary\Encroach.cs" />
+    <Compile Include="CardsLibrary\Extruder.cs" />
+    <Compile Include="CardsLibrary\FalseProphet.cs" />
+    <Compile Include="CardsLibrary\FendOff.cs" />
     <Compile Include="Core\AI\AttackerEvaluationParameters.cs" />
     <Compile Include="Core\AI\AttackStrategyParameters.cs" />
     <Compile Include="Core\AI\CardPicker.cs" />
@@ -156,6 +159,7 @@
     <Compile Include="Core\AI\CombatRules\RegenerateCombatRule.cs" />
     <Compile Include="Core\AI\DraftAlgorithms\Greedy.cs" />
     <Compile Include="Core\AI\TargetingRules\CostSacrificeEffectDealDamageEqualToPower.cs" />
+    <Compile Include="Core\AI\TargetingRules\CostSacrificeEffectPump.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectAnyPlayer.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectCannotBlockAttack.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectExchangeBattlefieldGraveyard.cs" />
@@ -168,6 +172,7 @@
     <Compile Include="Core\AI\TargetingRules\EffectUntapPermanent.cs" />
     <Compile Include="Core\AI\TimingRules\AfterOpponentDeclaresBlockers.cs" />
     <Compile Include="Core\AI\TimingRules\AfterYouDeclareAttackers.cs" />
+    <Compile Include="Core\AI\TimingRules\AfterYouDeclareBlockers.cs" />
     <Compile Include="Core\AI\TimingRules\OnOpponentsTurn.cs" />
     <Compile Include="Core\AI\TimingRules\AfterOpponentDeclaresAttackers.cs" />
     <Compile Include="Core\AI\TimingRules\OnYourTurn.cs" />
@@ -176,6 +181,7 @@
     <Compile Include="Core\Effects\CounterTargetSpellUnlessControllerPays1ForEachRevealedCard.cs" />
     <Compile Include="Core\Effects\DealDamageToCreature.cs" />
     <Compile Include="Core\Effects\DealDamageToTargetForEachRevealedCard.cs" />
+    <Compile Include="Core\Effects\ExileAllPermanents.cs" />
     <Compile Include="Core\Effects\ReturnOwnerAndAttachedToHand.cs" />
     <Compile Include="Core\SaveLoad\RenameBinder.cs" />
     <Compile Include="CardsLibrary\AboutFace.cs" />
@@ -394,7 +400,7 @@
     <Compile Include="Core\AI\TargetingRules\EffectGiveReach.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectGiveProtection.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectRedirectDamageToControllerEnchantment.cs" />
-    <Compile Include="Core\AI\TargetingRules\CostSacrificeToReduceToughness.cs" />
+    <Compile Include="Core\AI\TargetingRules\CostSacrificeEffectReduceToughness.cs" />
     <Compile Include="Core\AI\TimingRules\WhenYouHaveBiggerHand.cs" />
     <Compile Include="Core\AI\TimingRules\WhenNoOtherInstanceOfSpellIsOnStack.cs" />
     <Compile Include="Core\AI\TimingRules\WhenStackIsEmpty.cs" />
@@ -897,7 +903,7 @@
     <Compile Include="Core\AI\TargetingRules\EffectLandEnchantment.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectOpponent.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectRankBy.cs" />
-    <Compile Include="Core\AI\TargetingRules\EffectPreventAttackerDamage.cs" />
+    <Compile Include="Core\AI\TargetingRules\EffectPreventCombatDamage.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectPreventDamageFromSourceToController.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectPreventDamageFromSourceToTarget.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectPreventNextDamageToTargets.cs" />
@@ -980,7 +986,7 @@
     <Compile Include="Core\Effects\EachPlayerShufflesHandAndGraveyardIntoLibraryAndDrawsCards.cs" />
     <Compile Include="Core\Effects\ActivePlayerPaysLifeOrReturnSelectedPermanentToHand.cs" />
     <Compile Include="Core\Effects\FlipACoinReturnToHandOrSacrifice.cs" />
-    <Compile Include="Core\Effects\PreventCombatDamage.cs" />
+    <Compile Include="Core\Effects\PreventAllCombatDamage.cs" />
     <Compile Include="Core\Effects\PreventDamageFromSource.cs" />
     <Compile Include="Core\Effects\PreventAllDamageToTargets.cs" />
     <Compile Include="Core\Effects\PreventNextDamageToTargets.cs" />

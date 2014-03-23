@@ -71,9 +71,7 @@
           }
       }
 
-      return candidates
-        .Where(x => x is T)
-        .Select(x => (T) x);
+      return candidates.OfType<T>();
     }
 
     public int MinTargetCount()

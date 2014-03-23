@@ -26,12 +26,12 @@
         calc.Calculate(_player));
     }
 
-    public override int PreventDamage(PreventDamageParameters parameters)
+    public override int PreventDamage(PreventDamageParameters p)
     {
-      if (parameters.Target.IsPlayer())
+      if (p.Target.IsPlayer())
         return 0;
 
-      var targetCard = parameters.Target.Card();
+      var targetCard = p.Target.Card();
             
       if (targetCard.Controller != _player)
         return 0;
@@ -39,18 +39,18 @@
       if (_filter(targetCard) == false)
         return 0;
       
-      if (parameters.QueryOnly)
-        return parameters.Amount;      
+      if (p.QueryOnly)
+        return p.Amount;      
 
       var mp = new ModifierParameters
         {
           SourceCard = targetCard,          
         };
 
-      var modifier = new AddCounters(_counter, parameters.Amount);      
+      var modifier = new AddCounters(_counter, p.Amount);      
       targetCard.AddModifier(modifier, mp);
 
-      return parameters.Amount;
+      return p.Amount;
     }
   }
 }

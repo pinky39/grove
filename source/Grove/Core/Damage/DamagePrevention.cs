@@ -19,7 +19,7 @@
 
     protected virtual void Initialize() {}
 
-    public virtual int PreventDamage(PreventDamageParameters parameters)
+    public virtual int PreventDamage(PreventDamageParameters p)
     {
       return 0;
     }
