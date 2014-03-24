@@ -51,21 +51,24 @@
 
     public static int GetAmountOfDamageThatNeedsToBePreventedToSafeAttackerFromDying(Card attacker,
       IEnumerable<Card> blockers)
-    {
-      var leathalAmount = 0;
+    {      
       var p = new AttackerEvaluationParameters(attacker, blockers);
-      var evaluation = new AttackerEvaluation(p);
-      evaluation.BlockerHasDealtLeathalDamage = ((_, amount) => leathalAmount += amount);
-      var results = evaluation.Evaluate();
-      var prevented = results.DamageDealt - attacker.Life;
-      return Math.Max(leathalAmount, prevented);
+      var results = new AttackerEvaluation(p).Evaluate();
+      
+      if (!results.ReceivesLeathalDamage)
+        return 0;
+
+      if (results.DeathTouchDamage > 0)
+        return results.DeathTouchDamage;
+      
+      var prevented = results.TotalDamage - attacker.Life + 1;
+      return prevented;
     }
 
     public static int GetAmountOfDamageThatWillBeDealtToAttacker(AttackerEvaluationParameters p)
     {
-      var attackerEvaluation = new AttackerEvaluation(p);
-      var results = attackerEvaluation.Evaluate();
-      return results.DamageDealt;
+      var results = new AttackerEvaluation(p).Evaluate();
+      return results.TotalDamage;
     }
 
     public static int CalculateTrampleDamage(Card attacker, IEnumerable<Card> blockers)

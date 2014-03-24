@@ -141,6 +141,9 @@
     <Compile Include="CardsLibrary\Extruder.cs" />
     <Compile Include="CardsLibrary\FalseProphet.cs" />
     <Compile Include="CardsLibrary\FendOff.cs" />
+    <Compile Include="CardsLibrary\FieldSurgeon.cs" />
+    <Compile Include="CardsLibrary\FlameJet.cs" />
+    <Compile Include="CardsLibrary\Flicker.cs" />
     <Compile Include="Core\AI\AttackerEvaluationParameters.cs" />
     <Compile Include="Core\AI\AttackStrategyParameters.cs" />
     <Compile Include="Core\AI\CardPicker.cs" />
@@ -160,9 +163,11 @@
     <Compile Include="Core\AI\DraftAlgorithms\Greedy.cs" />
     <Compile Include="Core\AI\TargetingRules\CostSacrificeEffectDealDamageEqualToPower.cs" />
     <Compile Include="Core\AI\TargetingRules\CostSacrificeEffectPump.cs" />
+    <Compile Include="Core\AI\TargetingRules\CostTapEffectPreventNextDamageToTargets.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectAnyPlayer.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectCannotBlockAttack.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectExchangeBattlefieldGraveyard.cs" />
+    <Compile Include="Core\AI\TargetingRules\EffectFlicker.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectGiveRegenerate.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectLooseEvasion.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectPutOnTopOfLibrary.cs" />
@@ -170,6 +175,7 @@
     <Compile Include="Core\AI\TargetingRules\CostSacrificeLandToSearchLand.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectSwitchPowerAndToughness.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectUntapPermanent.cs" />
+    <Compile Include="Core\AI\TargetingRules\PreventNextDamage.cs" />
     <Compile Include="Core\AI\TimingRules\AfterOpponentDeclaresBlockers.cs" />
     <Compile Include="Core\AI\TimingRules\AfterYouDeclareAttackers.cs" />
     <Compile Include="Core\AI\TimingRules\AfterYouDeclareBlockers.cs" />
@@ -182,6 +188,7 @@
     <Compile Include="Core\Effects\DealDamageToCreature.cs" />
     <Compile Include="Core\Effects\DealDamageToTargetForEachRevealedCard.cs" />
     <Compile Include="Core\Effects\ExileAllPermanents.cs" />
+    <Compile Include="Core\Effects\ExileTargetThenPutIntoPlayUnderOwnersControl.cs" />
     <Compile Include="Core\Effects\ReturnOwnerAndAttachedToHand.cs" />
     <Compile Include="Core\SaveLoad\RenameBinder.cs" />
     <Compile Include="CardsLibrary\AboutFace.cs" />

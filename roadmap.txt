@@ -41,10 +41,10 @@ o False Prophet
 o Fatigue
 o Fend Off
 o Festering Wound
-Field Surgeon
-Flame Jet
-Fledgling Osprey
-Flicker
+o Field Surgeon
+o Flame Jet
+o Fledgling Osprey
+o Flicker
 Fodder Cannon
 Gamekeeper
 Goblin Berserker
