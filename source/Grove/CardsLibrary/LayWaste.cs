@@ -1,9 +1,9 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Effects;
-  using Grove.AI.TargetingRules;
-  using Grove.AI.TimingRules;
+  using AI.TargetingRules;
+  using AI.TimingRules;
+  using Effects;
 
   public class LayWaste : CardTemplateSource
   {

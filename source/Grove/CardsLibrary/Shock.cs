@@ -5,7 +5,7 @@
   using AI.TargetingRules;
   using AI.TimingRules;
   using Effects;
-    
+
   public class Shock : CardTemplateSource
   {
     public override IEnumerable<CardTemplate> GetCards()

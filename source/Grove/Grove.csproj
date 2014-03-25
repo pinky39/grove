@@ -144,6 +144,12 @@
     <Compile Include="CardsLibrary\FieldSurgeon.cs" />
     <Compile Include="CardsLibrary\FlameJet.cs" />
     <Compile Include="CardsLibrary\Flicker.cs" />
+    <Compile Include="CardsLibrary\FodderCannon.cs" />
+    <Compile Include="CardsLibrary\GoblinFestival.cs" />
+    <Compile Include="CardsLibrary\GoblinGardener.cs" />
+    <Compile Include="CardsLibrary\GoblinMasons.cs" />
+    <Compile Include="CardsLibrary\HulkingOgre.cs" />
+    <Compile Include="CardsLibrary\IlluminatedWings.cs" />
     <Compile Include="Core\AI\AttackerEvaluationParameters.cs" />
     <Compile Include="Core\AI\AttackStrategyParameters.cs" />
     <Compile Include="Core\AI\CardPicker.cs" />
@@ -161,6 +167,7 @@
     <Compile Include="Core\AI\CombatRules\PumpCombatRule.cs" />
     <Compile Include="Core\AI\CombatRules\RegenerateCombatRule.cs" />
     <Compile Include="Core\AI\DraftAlgorithms\Greedy.cs" />
+    <Compile Include="Core\AI\TargetingRules\CostSacrificeEffectDealDamage.cs" />
     <Compile Include="Core\AI\TargetingRules\CostSacrificeEffectDealDamageEqualToPower.cs" />
     <Compile Include="Core\AI\TargetingRules\CostSacrificeEffectPump.cs" />
     <Compile Include="Core\AI\TargetingRules\CostTapEffectPreventNextDamageToTargets.cs" />
@@ -189,6 +196,7 @@
     <Compile Include="Core\Effects\DealDamageToTargetForEachRevealedCard.cs" />
     <Compile Include="Core\Effects\ExileAllPermanents.cs" />
     <Compile Include="Core\Effects\ExileTargetThenPutIntoPlayUnderOwnersControl.cs" />
+    <Compile Include="Core\Effects\FlipACoinOpponentGainsControl.cs" />
     <Compile Include="Core\Effects\ReturnOwnerAndAttachedToHand.cs" />
     <Compile Include="Core\SaveLoad\RenameBinder.cs" />
     <Compile Include="CardsLibrary\AboutFace.cs" />

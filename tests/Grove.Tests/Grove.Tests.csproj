@@ -199,6 +199,7 @@
     <Compile Include="Cards\FieryMantle.cs" />
     <Compile Include="Cards\FledglingOsprey.cs" />
     <Compile Include="Cards\Flicker.cs" />
+    <Compile Include="Cards\FodderCannon.cs" />
     <Compile Include="Cards\FogBank.cs" />
     <Compile Include="Cards\Fortitude.cs" />
     <Compile Include="Cards\FranticSearch.cs" />
@@ -210,6 +211,7 @@
     <Compile Include="Cards\GhituWarCry.cs" />
     <Compile Include="Cards\GildedDrake.cs" />
     <Compile Include="Cards\GoblinCadets.cs" />
+    <Compile Include="Cards\GoblinFestival.cs" />
     <Compile Include="Cards\GoblinLackey.cs" />
     <Compile Include="Cards\GoblinMarshal.cs" />
     <Compile Include="Cards\GoblinMatron.cs" />

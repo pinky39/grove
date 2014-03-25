@@ -45,18 +45,18 @@ o Field Surgeon
 o Flame Jet
 o Fledgling Osprey
 o Flicker
-Fodder Cannon
-Gamekeeper
-Goblin Berserker
-Goblin Festival
-Goblin Gardener
-Goblin Marshal
-Goblin Masons
-Goliath Beetle
-Heart Warden
-Hulking Ogre
-Hunting Moa
-Illuminated Wings
+o Fodder Cannon
+o Gamekeeper
+o Goblin Berserker
+o Goblin Festival
+o Goblin Gardener
+o Goblin Marshal
+o Goblin Masons
+o Goliath Beetle
+o Heart Warden
+o Hulking Ogre
+o Hunting Moa
+o Illuminated Wings
 Impatience
 Incendiary
 Iridescent

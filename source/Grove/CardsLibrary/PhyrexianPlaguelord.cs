@@ -1,11 +1,11 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Costs;
-  using Grove.Effects;
-  using Grove.AI.TargetingRules;
-  using Grove.AI.TimingRules;
-  using Grove.Modifiers;
+  using AI.TargetingRules;
+  using AI.TimingRules;
+  using Costs;
+  using Effects;
+  using Modifiers;
 
   public class PhyrexianPlaguelord : CardTemplateSource
   {
@@ -51,8 +51,8 @@
                 })
               .AddEffect(trg => trg.Is.Creature().On.Battlefield());
 
-            p.TimingRule(new Any(new BeforeYouDeclareAttackers(), new WhenStackIsNotEmpty() ));
-            p.TargetingRule(new CostSacrificeEffectReduceToughness(1) {ConsiderTargetingSelf = false} );            
+            p.TimingRule(new Any(new BeforeYouDeclareAttackers(), new WhenStackIsNotEmpty()));
+            p.TargetingRule(new CostSacrificeEffectReduceToughness(1) {ConsiderTargetingSelf = false});
           });
     }
   }

@@ -1,11 +1,11 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Effects;
-  using Grove.AI.TargetingRules;
-  using Grove.AI.TimingRules;
-  using Grove.Modifiers;
-  using Grove.Triggers;
+  using AI.TargetingRules;
+  using AI.TimingRules;
+  using Effects;
+  using Modifiers;
+  using Triggers;
 
   public class PrivateResearch : CardTemplateSource
   {
@@ -15,7 +15,8 @@
         .Named("Private Research")
         .ManaCost("{U}")
         .Type("Enchantment Aura")
-        .Text("At the beginning of your upkeep, you may put a page counter on Private Research.{EOL}When enchanted creature dies, draw a card for each page counter on Private Research.")
+        .Text(
+          "At the beginning of your upkeep, you may put a page counter on Private Research.{EOL}When enchanted creature dies, draw a card for each page counter on Private Research.")
         .Cast(p =>
           {
             p.Effect = () => new Attach();
@@ -35,10 +36,10 @@
         .TriggeredAbility(p =>
           {
             p.Text = "When enchanted creature dies, draw a card for each page counter on Private Research.";
-            p.Trigger(new OnZoneChanged(@from: Zone.Battlefield, to: Zone.Graveyard, 
+            p.Trigger(new OnZoneChanged(@from: Zone.Battlefield, to: Zone.Graveyard,
               filter: (c, a, _) => c == a.OwningCard.AttachedTo));
 
-            p.Effect = () => new DrawCards(P(e => e.Source.OwningCard.CountersCount(CounterType.Page)));            
+            p.Effect = () => new DrawCards(P(e => e.Source.OwningCard.CountersCount(CounterType.Page)));
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });
     }

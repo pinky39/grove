@@ -7,29 +7,26 @@
   using Effects;
   using Modifiers;
 
-  public class CapashenStandard : CardTemplateSource
+  public class IlluminatedWings : CardTemplateSource
   {
     public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
-        .Named("Capashen Standard")
-        .ManaCost("{W}")
+        .Named("Illuminated Wings")
+        .ManaCost("{1}{U}")
         .Type("Enchantment Aura")
-        .Text("Enchanted creature gets +1/+1.{EOL}{2}, Sacrifice Capashen Standard: Draw a card.")
-        .FlavorText(
-          "Benalia has no need for peacocks to serve as symbols of vanity. The Capashens strut more proudly than any bird.")
+        .Text("Enchanted creature has flying.{EOL}{2},Sacrifice Illuminated Wings: Draw a card.")
+        .FlavorText("For a moment, Urza thought not of war and destruction, but of the freedom of the skies.")
         .Cast(p =>
           {
-            p.Effect = () => new Attach(
-              () => new AddPowerAndToughness(1, 1));
-
+            p.Effect = () => new Attach(() => new AddStaticAbility(Static.Flying));
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
             p.TimingRule(new OnFirstMain());
-            p.TargetingRule(new EffectCombatEnchantment());
+            p.TargetingRule(new EffectCombatEnchantment(filter: x => !x.Has().Flying));
           })
         .ActivatedAbility(p =>
           {
-            p.Text = "{2}, Sacrifice Capashen Standard: Draw a card.";
+            p.Text = "{2},Sacrifice Illuminated Wings: Draw a card.";
 
             p.Cost = new AggregateCost(
               new PayMana(2.Colorless(), ManaUsage.Abilities),
