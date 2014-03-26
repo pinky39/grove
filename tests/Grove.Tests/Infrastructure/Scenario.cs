@@ -90,6 +90,7 @@
                   var enchantmentCard = Grove.Cards.Create(enchantmentName);
                   enchantmentCard.Initialize(player, Game);
                   EnchantCard(card, enchantmentCard);
+                  AddCounters(enchantment, enchantmentCard);
                   return enchantmentCard;
                 });
             }
@@ -102,6 +103,7 @@
                   equipmentCard.Initialize(player, Game);
                   player.PutCardToBattlefield(equipmentCard);
                   EquipCard(card, equipmentCard);
+                  AddCounters(equipment, equipmentCard);
                   return equipmentCard;
                 });
             }
@@ -118,21 +120,26 @@
                 });
             }
 
-            if (scenarioCard.HasCounters)
-            {
-              var p = new ModifierParameters
-                {
-                  SourceCard = card,
-                };
-
-              var counters = new AddCounters(() => new SimpleCounter(scenarioCard.Counters.Type),
-                scenarioCard.Counters.Count);
-
-              card.AddModifier(counters, p);
-            }
+            AddCounters(scenarioCard, card);
 
             return card;
           });
+      }
+    }
+
+    private static void AddCounters(ScenarioCard scenarioCard, Card card)
+    {
+      if (scenarioCard.HasCounters)
+      {
+        var p = new ModifierParameters
+          {
+            SourceCard = card,
+          };
+
+        var counters = new AddCounters(() => new SimpleCounter(scenarioCard.Counters.Type),
+          scenarioCard.Counters.Count);
+
+        card.AddModifier(counters, p);
       }
     }
 

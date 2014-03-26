@@ -23,7 +23,7 @@
     {
       return _childEffects.Sum(x => x.CalculatePlayerDamage(player));
     }
-
+    
     public override Effect Initialize(EffectParameters p, Game game, bool evaluateParameters = true)
     {
       base.Initialize(p, game);
@@ -45,6 +45,14 @@
       ToughnessReduction = toughnessReduction;
 
       return this;
+    }
+
+    public override void SetTriggeredAbilityTargets(Targets targets)
+    {
+      foreach (var childEffect in _childEffects)
+      {
+        childEffect.SetTriggeredAbilityTargets(targets);
+      }
     }
 
     protected override void ResolveEffect()

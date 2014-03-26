@@ -42,7 +42,7 @@
               text: "Search your library for a creature.",
               player: P(
                 e => e.TriggerMessage<ZoneChanged>().Controller,
-                evaluateOnResolve: true));
+                EvaluateAt.OnResolve));
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });

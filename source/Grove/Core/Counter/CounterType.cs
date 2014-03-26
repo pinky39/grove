@@ -12,6 +12,7 @@
     Soot,
     Fake,
     Infection,
-    Arrow
+    Arrow,
+    Fuse
   }
 }

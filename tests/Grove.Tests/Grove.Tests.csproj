@@ -233,7 +233,9 @@
     <Compile Include="Cards\HoppingAutomaton.cs" />
     <Compile Include="Cards\HuntingMoa.cs" />
     <Compile Include="Cards\IllGottenGains.cs" />
+    <Compile Include="Cards\Impatience.cs" />
     <Compile Include="Cards\ImpendingDisaster.cs" />
+    <Compile Include="Cards\Incendiary.cs" />
     <Compile Include="Cards\IronMaiden.cs" />
     <Compile Include="Cards\JaggedLightning.cs" />
     <Compile Include="Cards\JhoirasToolbox.cs" />

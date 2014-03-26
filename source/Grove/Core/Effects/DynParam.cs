@@ -1,28 +1,38 @@
 ﻿namespace Grove.Effects
 {
   using System;
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   public interface IDynamicParameter
   {
     void EvaluateOnResolve(Effect effect, Game game);
-    void EvaluateBeforeCost(Effect effect, Game game);
+    void EvaluateOnInit(Effect effect, Game game);
     void EvaluateAfterCost(Effect effect, Game game);
+    void EvaluateAfterTriggeredAbilityTargets(Effect effect, Game game);
     void Initialize(ChangeTracker changeTracker);
   }
-  
+
+  public enum EvaluateAt
+  {
+    OnResolve,
+    OnInit,
+    AfterTriggeredAbilityTargets,
+    AfterCost
+  }
+
   [Copyable]
   public class DynParam<TOut> : IDynamicParameter
   {    
-    private readonly bool _evaluateOnResolve;
-    private readonly Func<Effect, Game, TOut> _getter;    
+    private readonly Func<Effect, Game, TOut> _getter;
+    private readonly EvaluateAt _evaluateAt;
     private readonly Trackable<TOut> _value;
     private bool _isInitialized;
 
-    public DynParam(Func<Effect, Game, TOut> getter, bool evaluateOnResolve = false)
+    public DynParam(Func<Effect, Game, TOut> getter, EvaluateAt evaluateAt = EvaluateAt.OnInit)
     {
-      _getter = getter;      
-      _evaluateOnResolve = evaluateOnResolve;
+      _getter = getter;
+      _evaluateAt = evaluateAt;
+
       _value = new Trackable<TOut>();
     }
 
@@ -30,7 +40,7 @@
 
     public DynParam(TOut value)
     {
-      _value = new Trackable<TOut>(value);      
+      _value = new Trackable<TOut>(value);
       _isInitialized = true;
     }
 
@@ -39,9 +49,17 @@
       get
       {
         Asrt.True(_isInitialized,
-          "Parameter was not initialized, did you forget to register it?");                
+          "Parameter was not initialized, did you forget to register it?");
 
         return _value;
+      }
+    }
+
+    public void EvaluateAfterTriggeredAbilityTargets(Effect effect, Game game)
+    {
+      if (_evaluateAt == EvaluateAt.AfterTriggeredAbilityTargets)
+      {
+        Evaluate(effect, game);
       }
     }
 
@@ -52,24 +70,24 @@
 
     public void EvaluateOnResolve(Effect effect, Game game)
     {
-      if (_evaluateOnResolve)
-      {        
+      if (_evaluateAt == EvaluateAt.OnResolve)
+      {
         Evaluate(effect, game);
       }
     }
 
-    public void EvaluateBeforeCost(Effect effect, Game game)
+    public void EvaluateOnInit(Effect effect, Game game)
     {
-      if (_evaluateOnResolve)
-        return;
-            
-      Evaluate(effect, game);
+      if (_evaluateAt == EvaluateAt.OnInit)
+      {
+        Evaluate(effect, game);
+      }
     }
 
     public void EvaluateAfterCost(Effect effect, Game game)
     {
-      if (_evaluateOnResolve)
-      {               
+      if (_evaluateAt == EvaluateAt.AfterCost)
+      {
         Evaluate(effect, game);
       }
     }
@@ -78,7 +96,7 @@
     {
       if (_getter != null)
         _value.Value = _getter(effect, game);
-      
+
       _isInitialized = true;
     }
 

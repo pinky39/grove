@@ -29,8 +29,8 @@
               new DiscardRandom());
 
             p.Effect = () => new DealDamageToTargets(
-              amount: P(e => e.Targets.Cost.First().Card().ConvertedCost,                
-              evaluateOnResolve: true));
+              amount: P(e => e.Targets.Cost.First().Card().ConvertedCost,
+              EvaluateAt.AfterCost));
 
             p.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
 

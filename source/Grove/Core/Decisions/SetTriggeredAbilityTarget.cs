@@ -3,20 +3,18 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
+  using AI;
+  using AI.TargetingRules;
   using Effects;
-  using Grove.AI;
-  using Grove.AI.TargetingRules;
-  using Grove.Infrastructure;
-  using Grove.UserInterface;
-  using Grove.UserInterface.SelectTarget;
+  using Infrastructure;
+  using UserInterface;
+  using UserInterface.SelectTarget;
 
   public class SetTriggeredAbilityTarget : Decision
   {
     private readonly Params _p = new Params();
 
-    private SetTriggeredAbilityTarget()
-    {
-    }
+    private SetTriggeredAbilityTarget() {}
 
     public SetTriggeredAbilityTarget(Player controller, Action<Params> setParameters) : base(controller,
       () => new UiHandler(), () => new MachineHandler(), () => new ScenarioHandler(), () => new PlaybackHandler())
@@ -28,22 +26,16 @@
     {
       public override void ProcessResults()
       {
-        var effectParameters = new EffectParameters
-          {
-            Source = D._p.Source,
-            Targets = Result.Targets,
-            TriggerMessage = D._p.TriggerMessage
-          };
+        
+        var effect = D._p.Effect;        
 
-        var effect = D._p.EffectFactory();
         if (Result.HasTargets == false)
-        {
-          effect.Initialize(effectParameters, Game, evaluateDynamicParameters: false);
+        {          
           effect.EffectCountered(SpellCounterReason.IllegalTarget);
           return;
         }
 
-        effect.Initialize(effectParameters, Game);
+        effect.SetTriggeredAbilityTargets(Result.Targets);
         Stack.Push(effect);
       }
     }
@@ -59,40 +51,22 @@
         _executor = new MachinePlanExecutor(this);
       }
 
-      public override bool HasCompleted
-      {
-        get { return _executor.HasCompleted; }
-      }
+      public override bool HasCompleted { get { return _executor.HasCompleted; } }
 
-      public bool IsMax
-      {
-        get { return Controller.IsMax; }
-      }
+      public bool IsMax { get { return Controller.IsMax; } }
 
-      bool IMachineExecutionPlan.ShouldExecuteQuery
-      {
-        get { return ShouldExecuteQuery; }
-      }
+      bool IMachineExecutionPlan.ShouldExecuteQuery { get { return ShouldExecuteQuery; } }
 
       void IMachineExecutionPlan.ExecuteQuery()
       {
         ExecuteQuery();
       }
 
-      Game ISearchNode.Game
-      {
-        get { return Game; }
-      }
+      Game ISearchNode.Game { get { return Game; } }
 
-      public Player Controller
-      {
-        get { return D.Controller; }
-      }
+      public Player Controller { get { return D.Controller; } }
 
-      public int ResultCount
-      {
-        get { return _targets.Count; }
-      }
+      public int ResultCount { get { return _targets.Count; } }
 
       public void GenerateChoices()
       {
@@ -127,11 +101,11 @@
       private IEnumerable<Targets> GenerateTargets()
       {
         var targetsCandidates = TargetingHelper.GenerateTargets(
-          D._p.Source.OwningCard,
+          D._p.Effect.Source.OwningCard,
           D._p.TargetSelector,
           D._p.MachineRules.Where(x => x is TargetingRule).Cast<TargetingRule>(),
           force: true,
-          triggerMessage: D._p.TriggerMessage);
+          triggerMessage: D._p.Effect.TriggerMessage<object>());
 
         return targetsCandidates.Take(Ai.Parameters.TargetCount);
       }
@@ -140,23 +114,16 @@
     [Copyable]
     public class Params
     {
-      public EffectFactory EffectFactory;
+      public Effect Effect;      
       public List<MachinePlayRule> MachineRules;
-      public TriggeredAbility Source;
       public TargetSelector TargetSelector;
-      public object TriggerMessage;
     }
 
     private class PlaybackHandler : Handler
     {
-      protected override bool ShouldExecuteQuery
-      {
-        get { return true; }
-      }
+      protected override bool ShouldExecuteQuery { get { return true; } }
 
-      public override void SaveDecisionResults()
-      {
-      }
+      public override void SaveDecisionResults() {}
 
       protected override void ExecuteQuery()
       {
@@ -187,7 +154,7 @@
             {
               Validator = validator,
               CanCancel = false,
-              TriggerMessage = D._p.TriggerMessage
+              TriggerMessage = D._p.Effect.TriggerMessage<object>()
             };
 
           var dialog = Ui.Dialogs.SelectTarget.Create(selectTargetParameters);
@@ -206,7 +173,7 @@
       {
         foreach (var target in GenerateTargets(validator.IsZoneValid))
         {
-          if (validator.IsTargetValid(target, D._p.TriggerMessage))
+          if (validator.IsTargetValid(target, D._p.Effect.TriggerMessage<object>()))
             return false;
         }
 

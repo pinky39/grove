@@ -5,15 +5,18 @@
   using System.Linq;
   using Decisions;
   using Effects;
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Triggers;
 
   public class TriggeredAbility : Ability, IDisposable, ICopyContributor
   {
     private readonly Parameters _p;
-    private TriggeredAbility() { }
+    private TriggeredAbility() {}
 
-    public TriggeredAbility(Parameters p) : base(p) { _p = p; }
+    public TriggeredAbility(Parameters p) : base(p)
+    {
+      _p = p;
+    }
 
     void ICopyContributor.AfterMemberCopy(object original)
     {
@@ -101,34 +104,36 @@
       if (!IsEnabled)
         return;
 
+      var effectParameters = new EffectParameters
+      {
+        Source = this,
+        TriggerMessage = triggerMessage
+      };
+
+      var effect = _p.Effect().Initialize(effectParameters, Game);
+      
       if (_p.TargetSelector.Count > 0)
       {
         Enqueue(new SetTriggeredAbilityTarget(
           OwningCard.Controller,
           p =>
             {
-              p.Source = this;
-              p.EffectFactory = _p.Effect;
-              p.TriggerMessage = triggerMessage;
+              p.Effect = effect;              
               p.TargetSelector = _p.TargetSelector;
               p.MachineRules = _p.Rules;
             }));
 
         return;
       }
-
-      var effectParameters = new EffectParameters
-        {
-          Source = this,
-          TriggerMessage = triggerMessage
-        };
-
-
-      var effect = _p.Effect().Initialize(effectParameters, Game);
+      
+      
       Resolve(effect, skipStack: false);
     }
 
-    private void RegisterTriggerListener(Trigger trigger) { trigger.Triggered += (o, e) => Execute(e.TriggerMessage); }
+    private void RegisterTriggerListener(Trigger trigger)
+    {
+      trigger.Triggered += (o, e) => Execute(e.TriggerMessage);
+    }
 
     public new class Parameters : Ability.Parameters
     {
@@ -137,7 +142,10 @@
       public bool TriggerOnlyIfOwningCardIsInPlay;
       public List<Trigger> Triggers { get { return _triggers; } }
 
-      public void Trigger(Trigger trigger) { _triggers.Add(trigger); }
+      public void Trigger(Trigger trigger)
+      {
+        _triggers.Add(trigger);
+      }
     }
   }
 }

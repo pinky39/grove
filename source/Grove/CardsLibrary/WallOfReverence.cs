@@ -1,9 +1,9 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Effects;
-  using Grove.AI.TargetingRules;
-  using Grove.Triggers;
+  using AI.TargetingRules;
+  using Effects;
+  using Triggers;
 
   public class WallOfReverence : CardTemplateSource
   {
@@ -25,7 +25,7 @@
             p.Text =
               "At the beginning of your end step, you may gain life equal to the power of target creature you control.";
             p.Trigger(new OnStepStart(step: Step.EndOfTurn));
-            p.Effect = () => new YouGainLife(P(e => e.Target.Card().Power.GetValueOrDefault()));
+            p.Effect = () => new YouGainLife(P(e => e.Target.Card().Power.GetValueOrDefault(), EvaluateAt.AfterTriggeredAbilityTargets));
             p.TargetSelector.AddEffect(trg => trg.Is.Creature(ControlledBy.SpellOwner).On.Battlefield());
             p.TargetingRule(new EffectRankBy(c => -c.Power.GetValueOrDefault()));
             p.TriggerOnlyIfOwningCardIsInPlay = true;

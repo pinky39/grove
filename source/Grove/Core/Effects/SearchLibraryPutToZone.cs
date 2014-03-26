@@ -27,7 +27,7 @@
       string text = null, bool revealCards = true, DynParam<Player> player = null)
     {
       _validator = validator ?? delegate { return true; };
-      _player = player ?? new DynParam<Player>((e, g) => e.Controller, evaluateOnResolve: true);
+      _player = player ?? new DynParam<Player>((e, g) => e.Controller, EvaluateAt.OnResolve);
       _text = text ?? "Search your library for a card.";
       _zone = zone;
       _afterPutToZone = afterPutToZone ?? delegate { };

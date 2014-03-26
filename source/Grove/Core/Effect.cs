@@ -3,11 +3,11 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Grove.AI;
-  using Grove.Events;
-  using Grove.Effects;
-  using Grove.Modifiers;
-  using Grove.Infrastructure;
+  using AI;
+  using Effects;
+  using Events;
+  using Infrastructure;
+  using Modifiers;
 
   public delegate Effect EffectFactory();
 
@@ -166,7 +166,7 @@
         parameter.EvaluateAfterCost(this, Game);
       }
 
-      Source.EffectPushedOnStack();      
+      Source.EffectPushedOnStack();
     }
 
     public void QuickResolve()
@@ -174,7 +174,7 @@
       BeginResolve();
       FinishResolve();
     }
-    
+
     public void FinishResolve()
     {
       if (WasResolved)
@@ -206,7 +206,7 @@
     public override string ToString()
     {
       return Source.ToString();
-    }    
+    }
 
     public void BeginResolve()
     {
@@ -258,12 +258,22 @@
       {
         foreach (var parameter in _dynamicParameters)
         {
-          parameter.EvaluateBeforeCost(this, Game);
+          parameter.EvaluateOnInit(this, Game);
         }
       }
 
       Initialize();
       return this;
+    }
+
+    public virtual void SetTriggeredAbilityTargets(Targets targets)
+    {
+      Targets = targets;
+
+      foreach (var parameter in _dynamicParameters)
+      {
+        parameter.EvaluateAfterTriggeredAbilityTargets(this, Game);
+      }
     }
   }
 }

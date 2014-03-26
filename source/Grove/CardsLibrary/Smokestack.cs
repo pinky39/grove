@@ -32,7 +32,7 @@
             p.Trigger(new OnStepStart(Step.Upkeep, activeTurn: true, passiveTurn: true, order: 5));
 
             p.Effect = () => new PlayersSacrificePermanents(
-              count: P(e => e.Source.OwningCard.CountersCount(), evaluateOnResolve: true),
+              count: P(e => e.Source.OwningCard.CountersCount(), EvaluateAt.OnResolve),
               text: "Sacrifice a permanent for each soot counter on Smokestack.",
               playerFilter: (_, player) => player.IsActive);
 

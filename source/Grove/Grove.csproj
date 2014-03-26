@@ -150,6 +150,8 @@
     <Compile Include="CardsLibrary\GoblinMasons.cs" />
     <Compile Include="CardsLibrary\HulkingOgre.cs" />
     <Compile Include="CardsLibrary\IlluminatedWings.cs" />
+    <Compile Include="CardsLibrary\Impatience.cs" />
+    <Compile Include="CardsLibrary\Incendiary.cs" />
     <Compile Include="Core\AI\AttackerEvaluationParameters.cs" />
     <Compile Include="Core\AI\AttackStrategyParameters.cs" />
     <Compile Include="Core\AI\CardPicker.cs" />

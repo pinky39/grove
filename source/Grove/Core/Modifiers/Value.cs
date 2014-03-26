@@ -1,7 +1,7 @@
 ﻿namespace Grove.Modifiers
 {
-  using Grove.Effects;
-  using Grove.Infrastructure;
+  using Effects;
+  using Infrastructure;
 
   public class Value
   {
@@ -47,7 +47,7 @@
         return _value;
 
       Asrt.True(x != null,
-        "X was not specified, did you forgot to define the CostRule? Please note that if you use X in timing rules cost rule must be defined before timing rules.");            
+        "X was not specified, did you forgot to define the CostRule? Please note that if you use X in timing rules cost rule must be defined before timing rules.");
 
       return _type == ValueType.MinusX ? -x.Value : x.Value;
     }
@@ -55,8 +55,7 @@
     public static implicit operator DynParam<int>(Value value)
     {
       return new DynParam<int>(
-        getter: (e, g) => value.GetValue(e.X),        
-        evaluateOnResolve: false);
+        getter: (e, g) => value.GetValue(e.X));
     }
 
     private enum ValueType

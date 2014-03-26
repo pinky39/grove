@@ -3,7 +3,7 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   public class EffectDealDamage : TargetingRule
   {
@@ -103,7 +103,7 @@
 
     private IEnumerable<ITarget> GetCandidatesByDescendingDamageScore(TargetingRuleParameters p, int selectorIndex = 0)
     {
-      var amount = _getAmount(p);
+      var amount = _getAmount(p);      
 
       var candidates = p.Candidates<Player>(selectorIndex: selectorIndex)
         .Where(x => x == p.Controller.Opponent)
@@ -125,6 +125,5 @@
 
       return candidates;
     }
-
   }
 }

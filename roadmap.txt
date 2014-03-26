@@ -57,9 +57,9 @@ o Heart Warden
 o Hulking Ogre
 o Hunting Moa
 o Illuminated Wings
-Impatience
-Incendiary
-Iridescent
+o Impatience
+o Incendiary
+Iridescent Drake
 Ivy Seer
 Jasmine Seer
 Junk Diver

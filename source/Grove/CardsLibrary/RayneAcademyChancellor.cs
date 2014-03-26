@@ -40,7 +40,7 @@
                   return 2;
 
                 return 1;
-              }, evaluateOnResolve: true));
+              }, EvaluateAt.OnResolve));
               
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });

@@ -3,17 +3,17 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Grove.Infrastructure;
-  using ActivationContext = AI.ActivationContext;
+  using Infrastructure;
+  
 
   public class TargetingRuleParameters : GameObject
   {
     private readonly TargetsCandidates _candidates;
-    private readonly ActivationContext _context;
+    private readonly AI.ActivationContext _context;
 
     private TargetingRuleParameters() {}
 
-    public TargetingRuleParameters(TargetsCandidates candidates, ActivationContext context, Game game)
+    public TargetingRuleParameters(TargetsCandidates candidates, AI.ActivationContext context, Game game)
     {
       _candidates = candidates;
       _context = context;
@@ -38,10 +38,9 @@
       Func<TargetsCandidates, IList<TargetCandidates>> selector = null)
       where T : ITarget
     {
-
-      Asrt.True(_candidates.HasCost || _candidates.HasEffect, 
+      Asrt.True(_candidates.HasCost || _candidates.HasEffect,
         "No target selectors found, use AddEffect or AddCost to add them!");
-                  
+
       TargetCandidates candidates = null;
 
       if (selector == null)

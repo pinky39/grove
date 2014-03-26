@@ -25,7 +25,7 @@
             p.Trigger(new OnStepStart(Step.Upkeep, activeTurn: false, passiveTurn: true));
 
             p.Effect = () => new DealDamageToPlayer(
-              amount: P(e => 3 - e.Controller.Opponent.Hand.Count,  evaluateOnResolve: true),
+              amount: P(e => 3 - e.Controller.Opponent.Hand.Count, EvaluateAt.OnResolve),
               player: P(e => e.Controller.Opponent));
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;

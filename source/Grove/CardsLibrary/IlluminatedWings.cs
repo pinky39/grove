@@ -15,7 +15,7 @@
         .Named("Illuminated Wings")
         .ManaCost("{1}{U}")
         .Type("Enchantment Aura")
-        .Text("Enchanted creature has flying.{EOL}{2},Sacrifice Illuminated Wings: Draw a card.")
+        .Text("Enchanted creature has flying.{EOL}{2}, Sacrifice Illuminated Wings: Draw a card.")
         .FlavorText("For a moment, Urza thought not of war and destruction, but of the freedom of the skies.")
         .Cast(p =>
           {
@@ -26,7 +26,7 @@
           })
         .ActivatedAbility(p =>
           {
-            p.Text = "{2},Sacrifice Illuminated Wings: Draw a card.";
+            p.Text = "{2}, Sacrifice Illuminated Wings: Draw a card.";
 
             p.Cost = new AggregateCost(
               new PayMana(2.Colorless(), ManaUsage.Abilities),

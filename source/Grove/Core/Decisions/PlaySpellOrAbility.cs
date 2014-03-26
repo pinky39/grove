@@ -121,7 +121,7 @@
         if (Ui.Configuration.ShouldAutoPass(
             step:  Game.Turn.Step, 
             isActiveTurn: D.Controller.IsActive, 
-            anyPlayerPlayedSomething: Game.Turn.Events.HasSpellsBeenPlayedDuringThisStep))
+            anyPlayerPlayedSomething: Game.Turn.Events.HasAnythingBeenPlayedOrActivatedDuringThisStep))
         {
           Result = new ChosenPlayable {Playable = new Pass()};
           return;
