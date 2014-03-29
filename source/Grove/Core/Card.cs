@@ -576,7 +576,10 @@
     public bool CanBeTargetBySpellsOwnedBy(Player player) { return !Has().Shroud && (player == Controller || !Has().Hexproof); }
     public bool CanBlock() { return IsPermanent && !IsTapped && Is().Creature && !Has().CannotBlock; }
     public bool CanTarget(ITarget target) { return _castRules.CanTarget(target); }
-    public bool IsGoodTarget(ITarget target) { return _castRules.IsGoodTarget(target); }
+    public bool IsGoodTarget(ITarget target)
+    {
+      return _castRules.IsGoodTarget(target);
+    }
     public List<ActivationPrerequisites> CanCast() { return _castRules.CanCast(); }
 
     public void Cast(int index, ActivationParameters activationParameters)
@@ -954,7 +957,7 @@
     public Lazy<int> MaxRepetitions;
     public Lazy<int?> MaxX;
     public List<MachinePlayRule> Rules;
-    public TargetSelector Selector;
+    public TargetSelector Selector;    
     public bool HasXInCost { get { return MaxX.Value.HasValue; } }
   }
 

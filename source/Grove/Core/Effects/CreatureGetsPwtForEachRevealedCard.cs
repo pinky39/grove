@@ -6,24 +6,34 @@
   using Decisions;
   using Modifiers;
 
-  public class CreatureGetsM1M1ForEachRevealedCard : Effect,
+  public class CreatureGetsPwtForEachRevealedCard : Effect,
     IProcessDecisionResults<ChosenCards>, IChooseDecisionResults<List<Card>, ChosenCards>
   {
     private readonly Func<Card, bool> _filter;
+    private readonly int _power;
+    private readonly int _toughness;
 
-    private CreatureGetsM1M1ForEachRevealedCard()
-    {
-    }
+    private CreatureGetsPwtForEachRevealedCard() {}
 
-    public CreatureGetsM1M1ForEachRevealedCard(Func<Card, bool> filter = null)
+    public CreatureGetsPwtForEachRevealedCard(int power, int toughness,
+      Func<Card, bool> filter = null)
     {
+      _power = power;
+      _toughness = toughness;
       _filter = filter ?? delegate { return true; };
     }
 
     public ChosenCards ChooseResult(List<Card> candidates)
     {
-      var cardsToReveal = Target.Card().Life;
-      return candidates.OrderBy(x => x.Score).Take(cardsToReveal).ToList();
+      if (_toughness < 0)
+      {
+        var targetLife = (double) Target.Card().Life;
+        var cardsToReveal = (int) Math.Ceiling(targetLife/-_toughness);
+        return candidates.OrderBy(x => x.Score).Take(cardsToReveal).ToList();
+      }
+
+      // all
+      return candidates;
     }
 
     public void ProcessResults(ChosenCards results)
@@ -37,10 +47,10 @@
         {
           SourceEffect = this,
           SourceCard = Source.OwningCard,
-          X = X
+          X = X,
         };
 
-      var modifier = new AddPowerAndToughness(-results.Count, -results.Count);
+      var modifier = new AddPowerAndToughness(_power*results.Count, _toughness*results.Count) {UntilEot = true};
       Target.Card().AddModifier(modifier, p);
     }
 

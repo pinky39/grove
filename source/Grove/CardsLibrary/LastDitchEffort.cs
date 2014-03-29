@@ -2,10 +2,10 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Grove.Effects;
-  using Grove.AI;
-  using Grove.AI.TargetingRules;
-  using Grove.AI.TimingRules;
+  using AI;
+  using AI.TargetingRules;
+  using AI.TimingRules;
+  using Effects;
 
   public class LastDitchEffort : CardTemplateSource
   {
@@ -20,7 +20,7 @@
         .FlavorText("If you're gonna lose, at least make sure they don't win as much.")
         .Cast(p =>
           {
-            p.Effect = () => new SacrificeCreaturesToDealDamageToTarget();
+            p.Effect = () => new SacrificeToDealDamageToTarget(c => c.Is().Creature);
             p.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
             p.TargetingRule(new EffectDealDamage(dp => dp.Controller.Battlefield.Creatures.Count()));
 

@@ -22,12 +22,12 @@
 
       if (IsAfterOpponentDeclaresBlockers(p.Controller))
       {
-        effectCanidates = GetCandidatesForAttackerPowerToughnessIncrease(_power, _toughness, effectCanidates);
+        effectCanidates = GetBestAttackersForPTGain(_power, _toughness, effectCanidates);
       }
 
       else if (IsAfterYouDeclareBlockers(p.Controller))
       {
-        effectCanidates = GetCandidatesForBlockerPowerToughnessIncrease(_power, _toughness, effectCanidates);
+        effectCanidates = GetBestBlockersForPTGain(_power, _toughness, effectCanidates);
       }
 
       var costCandidates = p.Candidates<Card>(selectorIndex: 0, selector: c => c.Cost)

@@ -24,11 +24,11 @@
 
       if (p.Controller.IsActive && Turn.Step == Step.DeclareBlockers)
       {
-        candidates = GetCandidatesForAttackerPowerToughnessIncrease(power, toughness, candidates);
+        candidates = GetBestAttackersForPTGain(power, toughness, candidates);
       }
       else if (!p.Controller.IsActive && Turn.Step == Step.DeclareBlockers)
       {
-        candidates = GetCandidatesForBlockerPowerToughnessIncrease(power, toughness, candidates);
+        candidates = GetBestBlockersForPTGain(power, toughness, candidates);
       }
 
       return Group(candidates, p.MinTargetCount(), p.MaxTargetCount());

@@ -19,7 +19,7 @@
           "Reveal any number of black cards in your hand. Target creature gets -X/-X until end of turn, where X is the number of cards revealed this way.")
         .Cast(p =>
           {
-            p.Effect = () => new CreatureGetsM1M1ForEachRevealedCard(c => c.HasColor(CardColor.Black));
+            p.Effect = () => new CreatureGetsPwtForEachRevealedCard(-1, -1, c => c.HasColor(CardColor.Black));
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
             p.TargetingRule(new EffectReduceToughness(
               getAmount: tp => tp.Controller.Hand.Count(c => c.HasColor(CardColor.Black))));

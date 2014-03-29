@@ -67,7 +67,7 @@
 
     private IEnumerable<Playable> GeneratePlayables(ActivationPrerequisites prerequisites, Func<Playable> createPlayable)
     {
-      var context = new ActivationContext(prerequisites);
+      var context = new ActivationContext(_player, prerequisites);
 
       var work = prerequisites.Rules.ToList();
 

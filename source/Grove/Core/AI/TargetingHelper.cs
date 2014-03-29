@@ -5,10 +5,10 @@
 
   public class TargetingHelper
   {
-    public static bool IsGoodTarget(ITarget target, Card owningCard, TargetSelector selector,
-      IEnumerable<TargetingRule> rules)
+    public static bool IsGoodTarget(ITarget target, Card owningCard, 
+      TargetSelector selector, IEnumerable<TargetingRule> rules)
     {
-      var activation = new ActivationContext(owningCard, selector);
+      var activation = new ActivationContext(target.Controller(), owningCard, selector);
       
       foreach (var rule in rules)
       {
@@ -24,11 +24,11 @@
       return false;
     }
 
-    public static IEnumerable<Targets> GenerateTargets(Card owningCard, TargetSelector selector,
-      IEnumerable<TargetingRule> rules,
-      bool force = false, object triggerMessage = null)
+    public static IEnumerable<Targets> GenerateTargets(Card owningCard, 
+      TargetSelector selector, IEnumerable<TargetingRule> rules, bool force = false, 
+      object triggerMessage = null)
     {
-      var activation = new ActivationContext(owningCard, selector);
+      var activation = new ActivationContext(owningCard.Controller, owningCard, selector);
       activation.CanCancel = !force;
       activation.TriggerMessage = triggerMessage;
 

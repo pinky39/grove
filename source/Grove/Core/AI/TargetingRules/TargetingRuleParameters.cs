@@ -21,7 +21,7 @@
       Game = game;
     }
 
-    public Player Controller { get { return _context.Card.Controller; } }
+    public Player Controller { get { return _context.Controller; } }
     public int? X { get { return _context.X; } }
     public int MaxX { get { return _context.MaxX.Value.GetValueOrDefault(); } }
     public int EffectTargetTypeCount { get { return _context.Selector.Effect.Count; } }

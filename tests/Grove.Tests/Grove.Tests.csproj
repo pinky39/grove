@@ -236,12 +236,16 @@
     <Compile Include="Cards\Impatience.cs" />
     <Compile Include="Cards\ImpendingDisaster.cs" />
     <Compile Include="Cards\Incendiary.cs" />
+    <Compile Include="Cards\IridescentDrake.cs" />
     <Compile Include="Cards\IronMaiden.cs" />
+    <Compile Include="Cards\IvySeer.cs" />
     <Compile Include="Cards\JaggedLightning.cs" />
+    <Compile Include="Cards\JasmineSeer.cs" />
     <Compile Include="Cards\JhoirasToolbox.cs" />
     <Compile Include="Cards\KarmicGuide.cs" />
     <Compile Include="Cards\KarnSilverGolem.cs" />
     <Compile Include="Cards\KingCrab.cs" />
+    <Compile Include="Cards\Landslide.cs" />
     <Compile Include="Cards\LastDitchEffort.cs" />
     <Compile Include="Cards\LiltingRefrain.cs" />
     <Compile Include="Cards\LingeringMirage.cs" />

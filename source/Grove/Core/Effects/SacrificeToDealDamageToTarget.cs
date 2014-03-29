@@ -1,12 +1,22 @@
 ﻿namespace Grove.Effects
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Grove.Decisions;
+  using Decisions;
 
-  public class SacrificeCreaturesToDealDamageToTarget : Effect, IProcessDecisionResults<ChosenCards>,
+  public class SacrificeToDealDamageToTarget : Effect, IProcessDecisionResults<ChosenCards>,
     IChooseDecisionResults<List<Card>, ChosenCards>
   {
+    private readonly Func<Card, bool> _filter;
+
+    private SacrificeToDealDamageToTarget() {}
+
+    public SacrificeToDealDamageToTarget(Func<Card, bool> filter)
+    {
+      _filter = filter;
+    }
+
     public ChosenCards ChooseResult(List<Card> candidates)
     {
       var maxCount = Target.Life();
@@ -32,7 +42,7 @@
       Enqueue(new SelectCards(Controller,
         p =>
           {
-            p.SetValidator(c => c.Is().Creature);
+            p.SetValidator(_filter);
             p.Zone = Zone.Battlefield;
             p.MinCount = 0;
             p.MaxCount = null;

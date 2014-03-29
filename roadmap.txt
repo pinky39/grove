@@ -59,14 +59,14 @@ o Hunting Moa
 o Illuminated Wings
 o Impatience
 o Incendiary
-Iridescent Drake
-Ivy Seer
-Jasmine Seer
-Junk Diver
-Keldon Champion
-Keldon Vandals
-Kingfisher
-Landslide
+o Iridescent Drake
+o Ivy Seer
+o Jasmine Seer
+o Junk Diver
+o Keldon Champion
+o Keldon Vandals
+o Kingfisher
+o Landslide
 Lurking Jackals
 Magnify Michael
 Mantis Engine

@@ -152,6 +152,12 @@
     <Compile Include="CardsLibrary\IlluminatedWings.cs" />
     <Compile Include="CardsLibrary\Impatience.cs" />
     <Compile Include="CardsLibrary\Incendiary.cs" />
+    <Compile Include="CardsLibrary\IridescentDrake.cs" />
+    <Compile Include="CardsLibrary\IvySeer.cs" />
+    <Compile Include="CardsLibrary\JasmineSeer.cs" />
+    <Compile Include="CardsLibrary\JunkDiver.cs" />
+    <Compile Include="CardsLibrary\KeldonVandals.cs" />
+    <Compile Include="CardsLibrary\Landslide.cs" />
     <Compile Include="Core\AI\AttackerEvaluationParameters.cs" />
     <Compile Include="Core\AI\AttackStrategyParameters.cs" />
     <Compile Include="Core\AI\CardPicker.cs" />
@@ -199,6 +205,7 @@
     <Compile Include="Core\Effects\ExileAllPermanents.cs" />
     <Compile Include="Core\Effects\ExileTargetThenPutIntoPlayUnderOwnersControl.cs" />
     <Compile Include="Core\Effects\FlipACoinOpponentGainsControl.cs" />
+    <Compile Include="Core\Effects\GainLifeForEachRevealedCard.cs" />
     <Compile Include="Core\Effects\ReturnOwnerAndAttachedToHand.cs" />
     <Compile Include="Core\SaveLoad\RenameBinder.cs" />
     <Compile Include="CardsLibrary\AboutFace.cs" />
@@ -370,7 +377,7 @@
     <Compile Include="Core\Costs\TapOwner.cs" />
     <Compile Include="Core\Decisions\DecisionHandler.cs" />
     <Compile Include="Core\Decisions\IDecisionHandler.cs" />
-    <Compile Include="Core\Effects\CreatureGetsM1M1ForEachRevealedCard.cs" />
+    <Compile Include="Core\Effects\CreatureGetsPwtForEachRevealedCard.cs" />
     <Compile Include="Core\Effects\CreaturesOfChosenTypeCostLess.cs" />
     <Compile Include="Core\Effects\DestroyAttachedAuras.cs" />
     <Compile Include="Core\Effects\ExchangeCardsInBattlefieldAndGraveyard.cs" />
@@ -383,7 +390,7 @@
     <Compile Include="Core\Effects\PutTargetOnTopOfLibrary.cs" />
     <Compile Include="Core\Effects\RegenerateTarget.cs" />
     <Compile Include="Core\Effects\RemoveAllCountersFromOwner.cs" />
-    <Compile Include="Core\Effects\SacrificeCreaturesToDealDamageToTarget.cs" />
+    <Compile Include="Core\Effects\SacrificeToDealDamageToTarget.cs" />
     <Compile Include="Core\Effects\ShuffleTargetGraveyardIntoLibrary.cs" />
     <Compile Include="Core\Effects\TakeExtraTurn.cs" />
     <Compile Include="Core\Effects\TapCreaturesThatDidntAttackDamagePlayer.cs" />

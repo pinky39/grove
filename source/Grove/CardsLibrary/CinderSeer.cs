@@ -29,6 +29,8 @@
 
             p.Effect = () => new DealDamageToTargetForEachRevealedCard(c => c.HasColor(CardColor.Red));
             p.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
+            
+            p.TimingRule(new WhenYourHandCountIs(minCount: 1, selector: c => c.HasColor(CardColor.Red)));
             p.TargetingRule(new EffectDealDamage(tp => tp.Controller.Hand.Count(c => c.HasColor(CardColor.Red))));
             p.TimingRule(new TargetRemovalTimingRule(removalTag: EffectTag.DealDamage));
           });

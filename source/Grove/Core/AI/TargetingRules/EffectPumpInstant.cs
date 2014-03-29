@@ -1,39 +1,56 @@
 ﻿namespace Grove.AI.TargetingRules
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
 
   public class EffectPumpInstant : TargetingRule
   {
-    private readonly int? _power;
-    private readonly int? _toughness;
+    private readonly Func<TargetingRuleParameters, int?> _power;
+    private readonly Func<TargetingRuleParameters, int?> _toughness;
     private readonly bool _untilEot;
 
-    public EffectPumpInstant(int? power, int? toughness, bool untilEot = true)
+    public EffectPumpInstant(Func<TargetingRuleParameters, int?> power,
+      Func<TargetingRuleParameters, int?> toughness, bool untilEot = true)
     {
       _power = power;
-      _untilEot = untilEot;
       _toughness = toughness;
+      _untilEot = untilEot;
     }
+
+    public EffectPumpInstant(int? power, int? toughness, bool untilEot = true) : this(
+      delegate { return power; }, delegate { return toughness; }, untilEot) {}
 
     private EffectPumpInstant() {}
 
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
     {
-      var power = _power ?? p.MaxX;
-      var toughness = _toughness ?? p.MaxX;
+      var power = _power(p) ?? p.MaxX;
+      var toughness = _toughness(p) ?? p.MaxX;
 
       var candidates = p.Candidates<Card>(ControlledBy.SpellOwner);
 
-      if (IsAfterOpponentDeclaresBlockers(p.Controller))
+      if (IsBeforeYouDeclareAttackers(p.Controller))
       {
-        candidates = GetCandidatesForAttackerPowerToughnessIncrease(power, toughness, candidates);
+        candidates = candidates.Select(x => new
+          {
+            Card = x.Card(),
+            Score = CalculateAttackingPotential(x)
+          })
+          .OrderByDescending(x => x.Score)
+          .Select(x => x.Card)
+          .ToList();
+      }
+
+      else if (IsAfterOpponentDeclaresBlockers(p.Controller))
+      {
+        candidates = GetBestAttackersForPTGain(power, toughness, candidates);
       }
 
       else if (IsAfterYouDeclareBlockers(p.Controller))
       {
-        candidates = GetCandidatesForBlockerPowerToughnessIncrease(power, toughness, candidates);
-      }     
+        candidates = GetBestBlockersForPTGain(power, toughness, candidates);
+      }
 
       else if (_untilEot == false && IsEndOfOpponentsTurn(p.Controller))
       {

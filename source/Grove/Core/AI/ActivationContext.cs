@@ -13,14 +13,16 @@
     public object TriggerMessage;
     public int? X;
 
-    public ActivationContext(Card card, TargetSelector selector)
+    public ActivationContext(Player controller, Card card, TargetSelector selector)
     {
+      Controller =controller;
       Card = card;
       Selector = selector;
     }
 
-    public ActivationContext(ActivationPrerequisites prerequisites)
+    public ActivationContext(Player controller, ActivationPrerequisites prerequisites)
     {
+      Controller = controller;
       Card = prerequisites.Card;
       MaxX = prerequisites.MaxX;
       Selector = prerequisites.Selector;
@@ -29,6 +31,7 @@
     }
 
     public Lazy<int> MaxRepetitions { get; private set; }
+    public Player Controller { get; private set; }
     public Card Card { get; private set; }
     public Lazy<int?> MaxX { get; private set; }
     public TargetSelector Selector { get; private set; }

@@ -236,7 +236,7 @@
           });
     }
 
-    protected IEnumerable<Card> GetCandidatesForAttackerPowerToughnessIncrease(int? powerIncrease,
+    protected IEnumerable<Card> GetBestAttackersForPTGain(int? powerIncrease,
       int? toughnessIncrease, IEnumerable<Card> candidates)
     {
       return candidates
@@ -258,7 +258,7 @@
         .Select(x => x.Card);
     }
 
-    protected IEnumerable<Card> GetCandidatesForBlockerPowerToughnessIncrease(int? powerIncrease,
+    protected IEnumerable<Card> GetBestBlockersForPTGain(int? powerIncrease,
       int? toughnessIncrease, IEnumerable<Card> candidates)
     {
       return candidates

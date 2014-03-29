@@ -1,9 +1,9 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Effects;
-  using Grove.AI.TargetingRules;
-  using Grove.Triggers;
+  using AI.TargetingRules;
+  using Effects;
+  using Triggers;
 
   public class AcademyResearchers : CardTemplateSource
   {
@@ -25,8 +25,9 @@
             p.Effect = () => new EnchantOwnerWithTarget();
             p.TargetSelector.AddEffect(trg =>
               {
-                trg.Is.Card(p1 => p1.Target.Card().Is().Aura && p1.Target.Card().CanTarget(p1.OwningCard)).In.OwnersHand
-                  ();
+                trg.Is.Card(p1 => p1.Target.Card().Is().Aura &&
+                  p1.Target.Card().CanTarget(p1.OwningCard)).In.OwnersHand();
+
                 trg.MinCount = 0;
                 trg.MaxCount = 1;
               });
