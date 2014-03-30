@@ -1,8 +1,8 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Effects;
-  using Grove.Triggers;
+  using Effects;
+  using Triggers;
 
   public class EndlessWurm : CardTemplateSource
   {

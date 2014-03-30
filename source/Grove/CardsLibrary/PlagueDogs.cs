@@ -1,11 +1,11 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Costs;
-  using Grove.Effects;
-  using Grove.AI.TimingRules;
-  using Grove.Modifiers;
-  using Grove.Triggers;
+  using AI.TimingRules;
+  using Costs;
+  using Effects;
+  using Modifiers;
+  using Triggers;
 
   public class PlagueDogs : CardTemplateSource
   {

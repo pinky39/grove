@@ -1,9 +1,9 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Effects;
-  using Grove.AI.TimingRules;
-  using Grove.Modifiers;
+  using AI.TimingRules;
+  using Effects;
+  using Modifiers;
 
   public class TrumpetBlast : CardTemplateSource
   {
@@ -20,8 +20,8 @@
             p.Effect = () => new ApplyModifiersToPermanents(
               selector: (e, c) => c.IsAttacker,
               modifiers: () => new AddPowerAndToughness(2, 0) {UntilEot = true});
-            
-            p.TimingRule(new OnYourTurn(Step.DeclareBlockers));            
+
+            p.TimingRule(new OnYourTurn(Step.DeclareBlockers));
           });
     }
   }

@@ -67,14 +67,14 @@ o Keldon Champion
 o Keldon Vandals
 o Kingfisher
 o Landslide
-Lurking Jackals
-Magnify Michael
-Mantis Engine
-Mark of Fury
-Marker Beetles
-Mask of Law and Grace
-Master Healer
-Masticore
+o Lurking Jackals
+o Magnify
+o Mantis Engine
+o Mark of Fury
+o Marker Beetles
+o Mask of Law and Grace
+o Master Healer
+o Masticore
 Mental Discipline
 Metalworker
 Metathran Elite

@@ -158,6 +158,10 @@
     <Compile Include="CardsLibrary\JunkDiver.cs" />
     <Compile Include="CardsLibrary\KeldonVandals.cs" />
     <Compile Include="CardsLibrary\Landslide.cs" />
+    <Compile Include="CardsLibrary\LurkingJackals.cs" />
+    <Compile Include="CardsLibrary\Magnify.cs" />
+    <Compile Include="CardsLibrary\MasterHealer.cs" />
+    <Compile Include="CardsLibrary\Masticore.cs" />
     <Compile Include="Core\AI\AttackerEvaluationParameters.cs" />
     <Compile Include="Core\AI\AttackStrategyParameters.cs" />
     <Compile Include="Core\AI\CardPicker.cs" />
@@ -202,6 +206,7 @@
     <Compile Include="Core\Effects\CounterTargetSpellUnlessControllerPays1ForEachRevealedCard.cs" />
     <Compile Include="Core\Effects\DealDamageToCreature.cs" />
     <Compile Include="Core\Effects\DealDamageToTargetForEachRevealedCard.cs" />
+    <Compile Include="Core\Effects\DiscardCardOrSacrificeOwner.cs" />
     <Compile Include="Core\Effects\ExileAllPermanents.cs" />
     <Compile Include="Core\Effects\ExileTargetThenPutIntoPlayUnderOwnersControl.cs" />
     <Compile Include="Core\Effects\FlipACoinOpponentGainsControl.cs" />

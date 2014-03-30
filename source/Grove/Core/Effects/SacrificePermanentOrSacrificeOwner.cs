@@ -3,8 +3,8 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Grove.Decisions;
-  using Grove.Infrastructure;
+  using Decisions;
+  using Infrastructure;
 
   public class SacrificePermanentOrSacrificeOwner : Effect,
     IProcessDecisionResults<ChosenCards>, IChooseDecisionResults<List<Card>, ChosenCards>
