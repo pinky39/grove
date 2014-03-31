@@ -1,8 +1,8 @@
 ﻿namespace Grove.Modifiers
 {
   using System.Linq;
-  using Grove.Events;
-  using Grove.Infrastructure;
+  using Events;
+  using Infrastructure;
 
   public class ModifyPowerToughnessEqualToTotalHandsCount : Modifier, IReceive<ZoneChanged>, ICardModifier
   {

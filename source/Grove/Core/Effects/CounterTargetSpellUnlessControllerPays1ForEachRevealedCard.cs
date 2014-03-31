@@ -46,7 +46,7 @@
           p.SetValidator(c => c.HasColor(CardColor.Blue));
           p.Zone = Zone.Hand;
           p.MinCount = 0;
-          p.Text = "Choose any number of blue cards in your hand.";
+          p.Text = "Choose any number of cards in your hand.";
           p.OwningCard = Source.OwningCard;
           p.ProcessDecisionResults = this;
           p.ChooseDecisionResults = this;

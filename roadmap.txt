@@ -75,10 +75,10 @@ o Marker Beetles
 o Mask of Law and Grace
 o Master Healer
 o Masticore
-Mental Discipline
-Metalworker
-Metathran Elite
-Metathran Soldier
+o Mental Discipline
+o Metalworker
+o Metathran Elite
+o Metathran Soldier
 Momentum
 Multani's Decree
 Nightshade Seer

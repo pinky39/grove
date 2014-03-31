@@ -1,6 +1,7 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
+  using AI;
   using Grove.Costs;
   using Grove.Effects;
   using Grove.AI.TargetingRules;
@@ -27,7 +28,7 @@
             p.TargetSelector.AddCost(trg => trg.Is.Card().In.OwnersHand());
 
             p.TimingRule(new WhenYouNeedAdditionalMana(1));
-            p.TargetingRule(new EffectRankBy(c => c.Score));
+            p.TargetingRule(new CostDiscardCard());
             p.UsesStack = false;
           });
     }

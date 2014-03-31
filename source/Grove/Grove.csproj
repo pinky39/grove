@@ -162,6 +162,9 @@
     <Compile Include="CardsLibrary\Magnify.cs" />
     <Compile Include="CardsLibrary\MasterHealer.cs" />
     <Compile Include="CardsLibrary\Masticore.cs" />
+    <Compile Include="CardsLibrary\MentalDiscipline.cs" />
+    <Compile Include="CardsLibrary\Metalworker.cs" />
+    <Compile Include="CardsLibrary\MetathranSoldier.cs" />
     <Compile Include="Core\AI\AttackerEvaluationParameters.cs" />
     <Compile Include="Core\AI\AttackStrategyParameters.cs" />
     <Compile Include="Core\AI\CardPicker.cs" />
@@ -179,6 +182,7 @@
     <Compile Include="Core\AI\CombatRules\PumpCombatRule.cs" />
     <Compile Include="Core\AI\CombatRules\RegenerateCombatRule.cs" />
     <Compile Include="Core\AI\DraftAlgorithms\Greedy.cs" />
+    <Compile Include="Core\AI\TargetingRules\CostDiscardCard.cs" />
     <Compile Include="Core\AI\TargetingRules\CostSacrificeEffectDealDamage.cs" />
     <Compile Include="Core\AI\TargetingRules\CostSacrificeEffectDealDamageEqualToPower.cs" />
     <Compile Include="Core\AI\TargetingRules\CostSacrificeEffectPump.cs" />
@@ -203,6 +207,7 @@
     <Compile Include="Core\AI\TimingRules\OnYourTurn.cs" />
     <Compile Include="Core\AI\TimingRules\WhenAttachedToCardWillBeDestroyed.cs" />
     <Compile Include="Core\AI\TimingRules\WhenStackIsNotEmpty.cs" />
+    <Compile Include="Core\Effects\AddManaForEachRevealedCard.cs" />
     <Compile Include="Core\Effects\CounterTargetSpellUnlessControllerPays1ForEachRevealedCard.cs" />
     <Compile Include="Core\Effects\DealDamageToCreature.cs" />
     <Compile Include="Core\Effects\DealDamageToTargetForEachRevealedCard.cs" />

@@ -1,10 +1,10 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Effects;
-  using Grove.Events;
-  using Grove.Modifiers;
-  using Grove.Triggers;
+  using Effects;
+  using Events;
+  using Modifiers;
+  using Triggers;
 
   public class MetathranElite : CardTemplateSource
   {
@@ -21,17 +21,17 @@
         .TriggeredAbility(p =>
           {
             p.Trigger(new OnAttachmentAttached(c => c.Is().Aura));
-            
+
             p.Effect = () => new ApplyModifiersToSelf(() =>
               {
                 var modifier = new AddStaticAbility(Static.Unblockable);
-                
-                modifier.AddLifetime(new AttachmentLifetime(self => 
+
+                modifier.AddLifetime(new AttachmentLifetime(self =>
                   self.Modifier.SourceEffect.TriggerMessage<AttachmentAttached>().Attachment));
 
                 return modifier;
               });
-            
+
             p.UsesStack = false;
           });
     }

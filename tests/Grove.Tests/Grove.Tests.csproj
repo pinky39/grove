@@ -265,6 +265,8 @@
     <Compile Include="Cards\Masticore.cs" />
     <Compile Include="Cards\Meltdown.cs" />
     <Compile Include="Cards\MemoryJar.cs" />
+    <Compile Include="Cards\MentalDiscipline.cs" />
+    <Compile Include="Cards\Metalworker.cs" />
     <Compile Include="Cards\MidsummerRevel.cs" />
     <Compile Include="Cards\MirranCrusader.cs" />
     <Compile Include="Cards\MishrasHelix.cs" />
