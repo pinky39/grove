@@ -1,14 +1,15 @@
 ﻿namespace Grove
 {
   using System.Linq;
-  using Grove.Infrastructure;
+  using Events;
+  using Infrastructure;
   using Modifiers;
 
-  [Copyable]
-  public class Counters : IAcceptsCardModifier
+  public class Counters : GameObject, IAcceptsCardModifier
   {
     private readonly TrackableList<Counter> _counters = new TrackableList<Counter>();
     private readonly Strenght _strenght;
+    private Card _owningCard;
 
     private Counters() {}
 
@@ -17,16 +18,21 @@
       _strenght = strenght;
     }
 
-    public int Count { get { return _counters.Count; } }
+    public int Count
+    {
+      get { return _counters.Count; }
+    }
 
     public void Accept(ICardModifier modifier)
     {
       modifier.Apply(this);
     }
 
-    public void Initialize(ChangeTracker changeTracker, IHashDependancy hashDependancy)
+    public void Initialize(Card owningCard, Game game)
     {
-      _counters.Initialize(changeTracker, hashDependancy);
+      Game = game;
+      _owningCard = owningCard;
+      _counters.Initialize(ChangeTracker, owningCard);
     }
 
     public int CountSpecific(CounterType counterType)
@@ -38,6 +44,8 @@
     {
       counter.ModifyStrenght(_strenght);
       _counters.Add(counter);
+
+      Publish(new CounterAdded(counter, _owningCard));
     }
 
     public void Remove(Counter counter)
@@ -46,6 +54,8 @@
       {
         counter.Remove();
       }
+
+      Publish(new CounterRemoved(counter, _owningCard));
     }
 
     public void Remove(CounterType counterType, int? count = null)

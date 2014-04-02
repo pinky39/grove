@@ -13,6 +13,7 @@
     Fake,
     Infection,
     Arrow,
-    Fuse
+    Fuse,
+    Growth
   }
 }

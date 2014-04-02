@@ -4,7 +4,8 @@
   using Events;
   using Infrastructure;
 
-  public class ModifyPowerToughnessEqualToTotalHandsCount : Modifier, IReceive<ZoneChanged>, ICardModifier
+  public class ModifyPowerToughnessEqualToTotalHandsCount : Modifier, IReceive<ZoneChanged>,
+    ICardModifier
   {
     private readonly IntegerSetter _strenghtModifier = new IntegerSetter();
     private Strenght _strenght;

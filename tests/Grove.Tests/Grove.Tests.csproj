@@ -272,6 +272,7 @@
     <Compile Include="Cards\MishrasHelix.cs" />
     <Compile Include="Cards\MobileFort.cs" />
     <Compile Include="Cards\MoltenHydra.cs" />
+    <Compile Include="Cards\Momentum.cs" />
     <Compile Include="Cards\MonkIdealist.cs" />
     <Compile Include="Cards\MonkRealist.cs" />
     <Compile Include="Cards\Morphling.cs" />

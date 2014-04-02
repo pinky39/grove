@@ -165,6 +165,7 @@
     <Compile Include="CardsLibrary\MentalDiscipline.cs" />
     <Compile Include="CardsLibrary\Metalworker.cs" />
     <Compile Include="CardsLibrary\MetathranSoldier.cs" />
+    <Compile Include="CardsLibrary\Momentum.cs" />
     <Compile Include="Core\AI\AttackerEvaluationParameters.cs" />
     <Compile Include="Core\AI\AttackStrategyParameters.cs" />
     <Compile Include="Core\AI\CardPicker.cs" />
@@ -217,6 +218,9 @@
     <Compile Include="Core\Effects\FlipACoinOpponentGainsControl.cs" />
     <Compile Include="Core\Effects\GainLifeForEachRevealedCard.cs" />
     <Compile Include="Core\Effects\ReturnOwnerAndAttachedToHand.cs" />
+    <Compile Include="Core\Events\CounterAdded.cs" />
+    <Compile Include="Core\Events\CounterRemoved.cs" />
+    <Compile Include="Core\Modifiers\IncreasePowerToughnessEqualToAttachedCounterCount.cs" />
     <Compile Include="Core\SaveLoad\RenameBinder.cs" />
     <Compile Include="CardsLibrary\AboutFace.cs" />
     <Compile Include="CardsLibrary\AcademyRector.cs" />

@@ -2,11 +2,11 @@
 {
   using System;
   using System.Linq;
-  using Grove.Events;
-  using Grove.Infrastructure;
+  using Events;
+  using Infrastructure;
 
-  public class ModifyPowerToughnessForEachPermanent : Modifier, IReceive<ZoneChanged>, IReceive<PermanentWasModified>,
-    ICardModifier
+  public class ModifyPowerToughnessForEachPermanent : Modifier, IReceive<ZoneChanged>, 
+    IReceive<PermanentWasModified>, ICardModifier
   {
     private readonly ControlledBy _controlledBy;
     private readonly Func<Card, Modifier, bool> _filter;
