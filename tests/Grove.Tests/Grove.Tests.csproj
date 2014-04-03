@@ -278,6 +278,7 @@
     <Compile Include="Cards\Morphling.cs" />
     <Compile Include="Cards\MotherOfRunes.cs" />
     <Compile Include="Cards\MultaniMaroSorcerer.cs" />
+    <Compile Include="Cards\MultanisDecree.cs" />
     <Compile Include="Cards\MultanisPresence.cs" />
     <Compile Include="Cards\NightshadeSeer.cs" />
     <Compile Include="Cards\NoeticScales.cs" />

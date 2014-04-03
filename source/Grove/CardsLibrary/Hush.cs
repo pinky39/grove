@@ -1,13 +1,13 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Effects;
-  using Grove.AI.TimingRules;
+  using AI.TimingRules;
+  using Effects;
 
   public class Hush : CardTemplateSource
   {
     public override IEnumerable<CardTemplate> GetCards()
-    {
+    {      
       yield return Card
         .Named("Hush")
         .ManaCost("{3}{G}")
