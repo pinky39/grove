@@ -1,9 +1,9 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Effects;
-  using Grove.Events;
-  using Grove.Triggers;
+  using Effects;
+  using Events;
+  using Triggers;
 
   public class FleshReaver : CardTemplateSource
   {
@@ -27,7 +27,8 @@
               creatureFilter: delegate { return true; },
               playerFilter: (player, tr, _) => tr.Ability.OwningCard.Controller != player));
 
-            p.Effect = () => new DealExistingDamageToController(P(e => e.TriggerMessage<DamageHasBeenDealt>().Damage));
+            p.Effect = () => new DealExistingDamageToController(
+              P(e => e.TriggerMessage<DamageHasBeenDealt>().Damage));
           });
     }
   }

@@ -1,8 +1,8 @@
 ﻿namespace Grove.Triggers
 {
   using System;
-  using Grove.Events;
-  using Grove.Infrastructure;
+  using Events;
+  using Infrastructure;
 
   public class OnDamageDealt : Trigger, IReceive<DamageHasBeenDealt>
   {

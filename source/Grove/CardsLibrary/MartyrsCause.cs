@@ -1,9 +1,9 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Costs;
-  using Grove.Effects;
-  using Grove.AI.TargetingRules;
+  using AI.TargetingRules;
+  using Costs;
+  using Effects;
 
   public class MartyrsCause : CardTemplateSource
   {

@@ -18,7 +18,8 @@
         .Power(6)
         .Toughness(6)
         .SimpleAbilities(Static.Trample)
-        .StaticAbility(p => p.Modifier(() => new AddDamagePrevention(modifier => new ReplaceDamageToPlayersCreaturesWithCounters(
+        .StaticAbility(p => p.Modifier(() => new AddDamagePrevention(
+          modifier => new ReplaceDamageToPlayersCreaturesWithCounters(
             player: modifier.SourceCard.Controller, 
             counter: () => new PowerToughness(1, 1),
             filter: card => card.Name != "Vigor"))))                

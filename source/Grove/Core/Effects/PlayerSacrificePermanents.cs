@@ -8,21 +8,22 @@
   public class PlayerSacrificePermanents : Effect,
     IProcessDecisionResults<ChosenCards>, IChooseDecisionResults<List<Card>, ChosenCards>
   {
-    private readonly int _count;
+    private readonly DynParam<int> _count;
     private readonly DynParam<Player> _player;
     private readonly Func<Card, bool> _filter;
     private readonly string _text;
 
     private PlayerSacrificePermanents() {}
 
-    public PlayerSacrificePermanents(int count, DynParam<Player> player, Func<Card, bool> filter, string text)
+    public PlayerSacrificePermanents(DynParam<int> count, DynParam<Player> player, 
+      Func<Card, bool> filter, string text)
     {
       _count = count;
       _player = player;
       _filter = filter;
       _text = text;
 
-      RegisterDynamicParameters(_player);
+      RegisterDynamicParameters(_player, _count);
     }
 
     public ChosenCards ChooseResult(List<Card> candidates)

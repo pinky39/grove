@@ -167,6 +167,9 @@
     <Compile Include="CardsLibrary\MetathranSoldier.cs" />
     <Compile Include="CardsLibrary\Momentum.cs" />
     <Compile Include="CardsLibrary\MultanisDecree.cs" />
+    <Compile Include="CardsLibrary\Opalescence.cs" />
+    <Compile Include="CardsLibrary\Opposition.cs" />
+    <Compile Include="CardsLibrary\PhyrexianNegator.cs" />
     <Compile Include="Core\AI\AttackerEvaluationParameters.cs" />
     <Compile Include="Core\AI\AttackStrategyParameters.cs" />
     <Compile Include="Core\AI\CardPicker.cs" />
@@ -189,6 +192,7 @@
     <Compile Include="Core\AI\TargetingRules\CostSacrificeEffectDealDamageEqualToPower.cs" />
     <Compile Include="Core\AI\TargetingRules\CostSacrificeEffectPump.cs" />
     <Compile Include="Core\AI\TargetingRules\CostTapEffectPreventNextDamageToTargets.cs" />
+    <Compile Include="Core\AI\TargetingRules\CostTapEffectTap.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectAnyPlayer.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectCannotBlockAttack.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectExchangeBattlefieldGraveyard.cs" />

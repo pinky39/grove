@@ -285,6 +285,8 @@
     <Compile Include="Cards\NoRestForTheWicked.cs" />
     <Compile Include="Cards\OpalAvenger.cs" />
     <Compile Include="Cards\OpalCaryatid.cs" />
+    <Compile Include="Cards\Opalescence.cs" />
+    <Compile Include="Cards\Opposition.cs" />
     <Compile Include="Cards\Oppression.cs" />
     <Compile Include="Cards\Outmaneuver.cs" />
     <Compile Include="Cards\ParasiticBond.cs" />
@@ -301,6 +303,7 @@
     <Compile Include="Cards\PhyrexianColossus.cs" />
     <Compile Include="Cards\PhyrexianDebaser.cs" />
     <Compile Include="Cards\PhyrexianGhoul.cs" />
+    <Compile Include="Cards\PhyrexianNegator.cs" />
     <Compile Include="Cards\PhyrexianPlaguelord.cs" />
     <Compile Include="Cards\PhyrexianProcessor.cs" />
     <Compile Include="Cards\PhyrexianReclamation.cs" />

@@ -82,13 +82,13 @@ o Metathran Soldier
 o Momentum
 o Multani's Decree
 o Nightshade Seer
-Opalescence
-Opposition
-Pattern of Rebirth
-Phyrexian Monitor
-Phyrexian Negator
-Plague Dogs
-Plated Spider
+o Opalescence
+o Opposition
+o Pattern of Rebirth
+o Phyrexian Monitor
+o Phyrexian Negator
+o Plague Dogs
+o Plated Spider
 Plow Under
 Powder Keg
 Private Research
