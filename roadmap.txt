@@ -89,7 +89,7 @@ o Phyrexian Monitor
 o Phyrexian Negator
 o Plague Dogs
 o Plated Spider
-Plow Under
+o Plow Under
 Powder Keg
 Private Research
 Quash

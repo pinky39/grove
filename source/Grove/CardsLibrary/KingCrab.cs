@@ -1,11 +1,11 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Costs;
-  using Grove.Effects;
-  using Grove.AI;
-  using Grove.AI.TargetingRules;
-  using Grove.AI.TimingRules;
+  using AI;
+  using AI.TargetingRules;
+  using AI.TimingRules;
+  using Costs;
+  using Effects;
 
   public class KingCrab : CardTemplateSource
   {
@@ -27,7 +27,7 @@
               new PayMana("{1}{U}".Parse(), ManaUsage.Abilities),
               new Tap());
 
-            p.Effect = () => new PutTargetOnTopOfLibrary();
+            p.Effect = () => new PutTargetsOnTopOfLibrary();
 
             p.TargetSelector.AddEffect(trg =>
               trg.Is.Card(c => c.Is().Creature && c.HasColor(CardColor.Green)).On.Battlefield());

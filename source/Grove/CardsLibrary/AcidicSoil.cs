@@ -2,8 +2,8 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Grove.Effects;
-  using Grove.AI.TimingRules;
+  using AI.TimingRules;
+  using Effects;
 
   public class AcidicSoil : CardTemplateSource
   {
