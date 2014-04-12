@@ -1,13 +1,13 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Costs;
-  using Grove.Effects;
-  using Grove.AI;
-  using Grove.AI.TargetingRules;
-  using Grove.AI.TimingRules;
-  using Grove.Modifiers;
-  using Grove.Triggers;
+  using AI;
+  using AI.TargetingRules;
+  using AI.TimingRules;
+  using Costs;
+  using Effects;
+  using Modifiers;
+  using Triggers;
 
   public class TorchSong : CardTemplateSource
   {
@@ -39,7 +39,7 @@
               amount: P(e => e.Source.OwningCard.Counters));
 
             p.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
-            
+
             p.TargetingRule(new EffectDealDamage(pt => pt.Card.Counters));
             p.TimingRule(new WhenCardHasCounters(minCount: 2, onlyAtEot: false));
             p.TimingRule(new TargetRemovalTimingRule(removalTag: EffectTag.DealDamage));

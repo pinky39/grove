@@ -314,6 +314,7 @@
     <Compile Include="Cards\PlanarCollapse.cs" />
     <Compile Include="Cards\PlanarVoid.cs" />
     <Compile Include="Cards\PlowUnder.cs" />
+    <Compile Include="Cards\PowderKeg.cs" />
     <Compile Include="Cards\PowerSink.cs" />
     <Compile Include="Cards\PowerTaint.cs" />
     <Compile Include="Cards\PresenceOfTheMaster.cs" />

@@ -171,6 +171,8 @@
     <Compile Include="CardsLibrary\Opposition.cs" />
     <Compile Include="CardsLibrary\PhyrexianNegator.cs" />
     <Compile Include="CardsLibrary\PlowUnder.cs" />
+    <Compile Include="CardsLibrary\PowderKeg.cs" />
+    <Compile Include="CardsLibrary\RapidDecay.cs" />
     <Compile Include="Core\AI\AttackerEvaluationParameters.cs" />
     <Compile Include="Core\AI\AttackStrategyParameters.cs" />
     <Compile Include="Core\AI\CardPicker.cs" />

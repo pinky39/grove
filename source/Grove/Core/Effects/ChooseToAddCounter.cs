@@ -1,7 +1,7 @@
 ﻿namespace Grove.Effects
 {
   using System;
-  using Grove.Decisions;
+  using Decisions;
   using Modifiers;
 
   public class ChooseToAddCounter : Effect, IChooseDecisionResults<BooleanResult>,

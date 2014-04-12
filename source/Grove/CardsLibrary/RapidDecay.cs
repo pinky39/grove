@@ -3,27 +3,21 @@
   using System.Collections.Generic;
   using AI.TargetingRules;
   using AI.TimingRules;
-  using Costs;
   using Effects;
 
-  public class CarrionBeetles : CardTemplateSource
+  public class RapidDecay : CardTemplateSource
   {
     public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
-        .Named("Carrion Beetles")
-        .ManaCost("{B}")
-        .Type("Creature Insect")
-        .Text("{2}{B},{T}: Exile up to three target cards from a single graveyard.")
-        .FlavorText("It's all fun and games until someone loses an eye.")
-        .Power(1)
-        .Toughness(1)
-        .ActivatedAbility(p =>
-          {
-            p.Text = "{2}{B},{T}: Exile up to three target cards from a single graveyard.";
-            p.Cost = new AggregateCost(
-              new PayMana("{2}{B}".Parse(), ManaUsage.Abilities),
-              new Tap());
+        .Named("Rapid Decay")
+        .ManaCost("{1}{B}")
+        .Type("Instant")
+        .Text("Exile up to three target cards from a single graveyard.{EOL}Cycling {2} ({2}, Discard this card: Draw a card.)")
+        .FlavorText("The grave robbers arrived the day after the burial. They were a day too late.")
+        .Cycling("{2}")
+        .Cast(p =>
+          {          
             p.Effect = () => new ExileTargets();
             p.TargetSelector.AddEffect(trg =>
               {

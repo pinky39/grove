@@ -90,12 +90,12 @@ o Phyrexian Negator
 o Plague Dogs
 o Plated Spider
 o Plow Under
-Powder Keg
-Private Research
-Quash
-Rapid Decay
-Ravenous Rats
-Rayne, Academy Chancellor
+o Powder Keg
+o Private Research
+o Quash
+o Rapid Decay
+o Ravenous Rats
+o Rayne, Academy Chancellor
 Reckless Abandon
 Reliquary Monk
 Repercussion

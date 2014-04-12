@@ -15,8 +15,8 @@
   {
     private readonly List<IDynamicParameter> _dynamicParameters = new List<IDynamicParameter>();
     private readonly List<EffectTag> _tags = new List<EffectTag>();
-    private readonly Trackable<bool> _wasResolved = new Trackable<bool>();
-
+    private readonly Trackable<bool> _wasResolved = new Trackable<bool>();    
+    
     public Action<Effect> AfterResolve = delegate { };
     protected bool AllTargetsMustBeValid;
     public Action<Effect> BeforeResolve = delegate { };

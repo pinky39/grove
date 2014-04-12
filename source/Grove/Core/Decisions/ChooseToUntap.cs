@@ -1,8 +1,8 @@
 ﻿namespace Grove.Decisions
 {
   using System.Windows;
-  using Grove.AI;
-  using Grove.UserInterface;
+  using AI;
+  using UserInterface;
 
   public class ChooseToUntap : Decision
   {
@@ -11,14 +11,19 @@
     private ChooseToUntap() {}
 
     public ChooseToUntap(Player controller, Card card)
-      : base(controller, () => new UiHandler(), () => new MachineHandler(), () => new ScenarioHandler(), () => new PlaybackHandler())
+      : base(
+        controller, () => new UiHandler(), () => new MachineHandler(), () => new ScenarioHandler(),
+        () => new PlaybackHandler())
     {
       _card = card;
     }
 
     private abstract class Handler : DecisionHandler<ChooseToUntap, BooleanResult>
     {
-      protected override bool ShouldExecuteQuery { get { return D._card.IsTapped; } }
+      protected override bool ShouldExecuteQuery
+      {
+        get { return D._card.IsTapped; }
+      }
 
       public override void ProcessResults()
       {
@@ -44,18 +49,35 @@
         Result = false;
       }
 
-      public override bool HasCompleted { get { return _executor.HasCompleted; } }
-      bool IMachineExecutionPlan.ShouldExecuteQuery { get { return ShouldExecuteQuery; } }
+      public override bool HasCompleted
+      {
+        get { return _executor.HasCompleted; }
+      }
+
+      bool IMachineExecutionPlan.ShouldExecuteQuery
+      {
+        get { return ShouldExecuteQuery; }
+      }
 
       void IMachineExecutionPlan.ExecuteQuery()
       {
         ExecuteQuery();
       }
 
-      Game ISearchNode.Game { get { return Game; } }
-      public Player Controller { get { return D.Controller; } }
+      Game ISearchNode.Game
+      {
+        get { return Game; }
+      }
 
-      public int ResultCount { get { return 2; } }
+      public Player Controller
+      {
+        get { return D.Controller; }
+      }
+
+      public int ResultCount
+      {
+        get { return 2; }
+      }
 
       public void SetResult(int index)
       {
@@ -83,7 +105,10 @@
 
     private class PlaybackHandler : Handler
     {
-      protected override bool ShouldExecuteQuery { get { return true; } }
+      protected override bool ShouldExecuteQuery
+      {
+        get { return true; }
+      }
 
       public override void SaveDecisionResults() {}
 
