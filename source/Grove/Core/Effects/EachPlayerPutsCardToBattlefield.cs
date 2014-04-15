@@ -2,8 +2,8 @@
 {
   using System;
   using System.Collections.Generic;
-  using Grove.AI;
-  using Grove.Decisions;
+  using AI;
+  using Decisions;
 
   public class EachPlayerPutsCardToBattlefield : Effect, IProcessDecisionResults<ChosenCards>,
     IChooseDecisionResults<List<Card>, ChosenCards>
@@ -27,7 +27,7 @@
     public void ProcessResults(ChosenCards results)
     {
       if (results.Count == 0)
-       return;
+        return;
 
       if (results.Count == 1)
       {
@@ -35,7 +35,7 @@
         return;
       }
 
-      results[0].EnchantWithoutPayingCost(results[1]);      
+      results[0].EnchantWithoutPayingCost(results[1]);
     }
 
     private void ChooseCardToPutIntoPlay(Player player)

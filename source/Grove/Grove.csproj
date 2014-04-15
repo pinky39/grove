@@ -173,6 +173,9 @@
     <Compile Include="CardsLibrary\PlowUnder.cs" />
     <Compile Include="CardsLibrary\PowderKeg.cs" />
     <Compile Include="CardsLibrary\RapidDecay.cs" />
+    <Compile Include="CardsLibrary\RecklessAbandon.cs" />
+    <Compile Include="CardsLibrary\ReliquaryMonk.cs" />
+    <Compile Include="CardsLibrary\Repercussion.cs" />
     <Compile Include="Core\AI\AttackerEvaluationParameters.cs" />
     <Compile Include="Core\AI\AttackStrategyParameters.cs" />
     <Compile Include="Core\AI\CardPicker.cs" />
@@ -1279,7 +1282,7 @@
     <Compile Include="Core\Counter\Counters.cs" />
     <Compile Include="Core\Effects\CounterTargetSpell.cs" />
     <Compile Include="Core\Effects\DealDamageToPlayer.cs" />
-    <Compile Include="Core\Effects\DealExistingDamageToController.cs" />
+    <Compile Include="Core\Effects\DealExistingDamageToPlayer.cs" />
     <Compile Include="Core\Effects\DestroyAllPermanents.cs" />
     <Compile Include="Core\Effects\ExileTargets.cs" />
     <Compile Include="Core\Effects\OpponentPutsTopCardsFromLibraryToGraveyard.cs" />

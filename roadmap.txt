@@ -96,9 +96,9 @@ o Quash
 o Rapid Decay
 o Ravenous Rats
 o Rayne, Academy Chancellor
-Reckless Abandon
-Reliquary Monk
-Repercussion
+o Reckless Abandon
+o Reliquary Monk
+o Repercussion
 Replenish
 Rescue
 Rofellos, Llanowar Emissary

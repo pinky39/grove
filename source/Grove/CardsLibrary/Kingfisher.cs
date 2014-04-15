@@ -1,8 +1,8 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Effects;
-  using Grove.Triggers;
+  using Effects;
+  using Triggers;
 
   public class Kingfisher : CardTemplateSource
   {
@@ -21,7 +21,7 @@
           {
             p.Text = "When Kingfisher dies, draw a card.";
             p.Trigger(new OnZoneChanged(@from: Zone.Battlefield, to: Zone.Graveyard));
-            p.Effect = () => new DrawCards(1);            
+            p.Effect = () => new DrawCards(1);
           });
     }
   }

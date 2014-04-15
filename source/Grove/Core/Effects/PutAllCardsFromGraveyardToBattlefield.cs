@@ -11,8 +11,8 @@
 
     private PutAllCardsFromGraveyardToBattlefield() {}
 
-    public PutAllCardsFromGraveyardToBattlefield(Func<Card, bool> filter, Action<Card> modify = null,
-      bool eachPlayer = false)
+    public PutAllCardsFromGraveyardToBattlefield(Func<Card, bool> filter, 
+      Action<Card> modify = null, bool eachPlayer = false)
     {
       _filter = filter;
       _modify = modify ?? delegate { };

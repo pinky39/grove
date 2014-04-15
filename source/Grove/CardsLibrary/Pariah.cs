@@ -1,10 +1,10 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Effects;
-  using Grove.AI.TargetingRules;
-  using Grove.AI.TimingRules;
-  using Grove.Modifiers;
+  using AI.TargetingRules;
+  using AI.TimingRules;
+  using Effects;
+  using Modifiers;
 
   public class Pariah : CardTemplateSource
   {
@@ -19,7 +19,7 @@
           "'It is not sad', Radiant chided the lesser angel. 'It is right. Every society must have its outcasts.'")
         .Cast(p =>
           {
-            p.Effect = () => new Attach(              
+            p.Effect = () => new Attach(
               modifiers: () => new AddDamageRedirection(modifier => new RedirectDamageFromTargetToTarget(
                 @from: modifier.SourceCard.Controller,
                 to: modifier.SourceCard.AttachedTo)));
