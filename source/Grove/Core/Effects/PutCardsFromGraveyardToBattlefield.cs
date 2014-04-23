@@ -86,6 +86,7 @@
       {
         var target = results[0];
         aura.EnchantWithoutPayingCost(target);
+        _modify(aura);
       }
 
       _aurasQueue.Remove(aura);

@@ -1,10 +1,10 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Effects;
-  using Grove.AI;
-  using Grove.AI.TargetingRules;
-  using Grove.AI.TimingRules;
+  using AI;
+  using AI.TargetingRules;
+  using AI.TimingRules;
+  using Effects;
 
   public class Parch : CardTemplateSource
   {
@@ -19,7 +19,7 @@
         .FlavorText("Your porous flesh betrays you.")
         .Cast(p =>
           {
-            p.Text = "Parch deals 2 damage to target creature or player";
+            p.Text = "Parch deals 2 damage to target creature or player.";
             p.Effect = () => new DealDamageToTargets(2);
             p.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
             p.TargetingRule(new EffectDealDamage(2));

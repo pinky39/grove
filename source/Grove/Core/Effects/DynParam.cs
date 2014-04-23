@@ -78,7 +78,7 @@
 
     public void EvaluateOnInit(Effect effect, Game game)
     {
-      if (_evaluateAt == EvaluateAt.OnInit)
+      if (_evaluateAt == EvaluateAt.OnInit || _evaluateAt == EvaluateAt.OnResolve)
       {
         Evaluate(effect, game);
       }
