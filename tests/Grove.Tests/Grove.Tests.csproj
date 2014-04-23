@@ -341,6 +341,7 @@
     <Compile Include="Cards\Redeem.cs" />
     <Compile Include="Cards\Remembrance.cs" />
     <Compile Include="Cards\Repercussion.cs" />
+    <Compile Include="Cards\Replenish.cs" />
     <Compile Include="Cards\Repopulate.cs" />
     <Compile Include="Cards\Reprocess.cs" />
     <Compile Include="Cards\Retaliation.cs" />

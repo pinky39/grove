@@ -2,10 +2,10 @@
 {
   using System;
   using System.Collections.Generic;
+  using AI;
+  using Decisions;
   using Events;
-  using Grove.AI;
-  using Grove.Decisions;
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   public class SearchLibraryPutToZone : Effect, IProcessDecisionResults<ChosenCards>,
     IChooseDecisionResults<List<Card>, ChosenCards>, ICardValidator
@@ -47,8 +47,9 @@
     {
       return CardPicker
         .ChooseBestCards(
-          candidates,
-          _maxCount,
+          controller: _player.Value,
+          candidates: candidates,
+          count: _maxCount,
           aurasNeedTarget: _zone == Zone.Battlefield);
     }
 

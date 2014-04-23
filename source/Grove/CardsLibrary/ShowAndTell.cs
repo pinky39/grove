@@ -1,8 +1,8 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Effects;
-  using Grove.AI.TimingRules;
+  using AI.TimingRules;
+  using Effects;
 
   public class ShowAndTell : CardTemplateSource
   {
@@ -17,10 +17,10 @@
         .FlavorText("At the academy, 'show and tell' too often becomes 'run and hide.'")
         .Cast(p =>
           {
-            p.Effect = () => new EachPlayerPutsCardToBattlefield(
+            p.Effect = () => new EachPlayerPutsACardToBattlefield(
               zone: Zone.Hand,
-              filter: c => c.Is().Creature || c.Is().Artifact || c.Is().Enchantment || c.Is().Land);              
-            
+              filter: c => c.Is().Creature || c.Is().Artifact || c.Is().Enchantment || c.Is().Land);
+
             p.TimingRule(new WhenYourHandCountIs(1,
               selector: c => c.ConvertedCost >= 6 && (c.Is().Creature || c.Is().Artifact || c.Is().Enchantment)));
           });

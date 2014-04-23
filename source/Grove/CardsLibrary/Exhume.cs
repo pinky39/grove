@@ -16,7 +16,7 @@
         .FlavorText("Death—an outmoded concept. We sleep, and we change.")
         .Cast(p =>
           {
-            p.Effect = () => new EachPlayerPutsCardToBattlefield(Zone.Graveyard, c => c.Is().Creature);
+            p.Effect = () => new EachPlayerPutsACardToBattlefield(Zone.Graveyard, c => c.Is().Creature);
             p.TimingRule(new WhenYourGraveyardCountIs(minCount: 1, selector: c => c.Is().Creature));
           });
     }

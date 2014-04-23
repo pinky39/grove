@@ -5,10 +5,14 @@
 
   public class TargetingHelper
   {
-    public static bool IsGoodTarget(ITarget target, Card owningCard, 
-      TargetSelector selector, IEnumerable<TargetingRule> rules)
-    {
-      var activation = new ActivationContext(target.Controller(), owningCard, selector);
+    public static bool IsGoodTargetForSpell(
+      ITarget target, 
+      Card spell, 
+      Player controller,
+      TargetSelector selector, 
+      IEnumerable<TargetingRule> rules)
+    {      
+      var activation = new ActivationContext(controller, spell, selector);
       
       foreach (var rule in rules)
       {

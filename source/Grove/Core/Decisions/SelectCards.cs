@@ -3,10 +3,10 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Grove.Infrastructure;
-  using Grove.UserInterface;
-  using Grove.UserInterface.SelectTarget;
+  using Infrastructure;
   using Modifiers;
+  using UserInterface;
+  using UserInterface.SelectTarget;  
 
   public class SelectCards : Decision
   {
@@ -15,7 +15,8 @@
     private SelectCards() {}
 
     public SelectCards(Player controller, Action<Params> setParameters)
-      : base(controller, () => new UiHandler(), () => new MachineHandler(), () => new MachineHandler(), () => new PlaybackHandler())
+      : base(controller, () => new UiHandler(), () => new MachineHandler(),
+        () => new MachineHandler(), () => new PlaybackHandler())
     {
       setParameters(_p);
     }
@@ -47,7 +48,7 @@
       {
         get
         {
-          if (D._p.MaxCount == 0)
+          if (ValidTargets.Count == 0)
             return false;
 
           return true;
@@ -107,7 +108,10 @@
 
     private class PlaybackHandler : Handler
     {
-      protected override bool ShouldExecuteQuery { get { return true; } }
+      protected override bool ShouldExecuteQuery
+      {
+        get { return true; }
+      }
 
       public override void SaveDecisionResults() {}
 

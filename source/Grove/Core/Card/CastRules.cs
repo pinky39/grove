@@ -45,7 +45,7 @@
 
     public void Cast(int index, ActivationParameters activationParameters) { _castRules[index].Cast(activationParameters); }
     public bool CanTarget(ITarget target) { return _castRules.Any(x => x.CanTarget(target)); }
-    public bool IsGoodTarget(ITarget target) { return _castRules.Any(x => x.IsGoodTarget(target)); }
+    public bool IsGoodTarget(ITarget target, Player controller) { return _castRules.Any(x => x.IsGoodTarget(target, controller)); }
     public IManaAmount GetManaCost(int index) { return _castRules[index].GetManaCost(); }
   }
 }

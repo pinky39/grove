@@ -99,7 +99,7 @@ o Rayne, Academy Chancellor
 o Reckless Abandon
 o Reliquary Monk
 o Repercussion
-Replenish
+o Replenish
 Rescue
 Rofellos, Llanowar Emissary
 Rofellos's Gift

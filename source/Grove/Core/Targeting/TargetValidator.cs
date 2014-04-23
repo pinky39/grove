@@ -80,8 +80,7 @@
 
     public bool IsZoneValid(Zone zone, Player zoneOwner)
     {
-      return _isValidZone(new IsValidZoneParam(zone, zoneOwner, 
-        _owningCard, _controller));
+      return _isValidZone(new IsValidZoneParam(zone, zoneOwner, _controller));
     }
 
     private bool CanBeTargeted(ITarget target, Card owningCard)
@@ -131,8 +130,7 @@
       if (zone == null)
         return true;
 
-      return _isValidZone(new IsValidZoneParam(zone.Value, target.Controller(), 
-        _owningCard, _controller));
+      return _isValidZone(new IsValidZoneParam(zone.Value, target.Controller(), _controller));
     }
   }
 }

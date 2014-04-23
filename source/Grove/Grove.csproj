@@ -176,6 +176,7 @@
     <Compile Include="CardsLibrary\RecklessAbandon.cs" />
     <Compile Include="CardsLibrary\ReliquaryMonk.cs" />
     <Compile Include="CardsLibrary\Repercussion.cs" />
+    <Compile Include="CardsLibrary\Replenish.cs" />
     <Compile Include="Core\AI\AttackerEvaluationParameters.cs" />
     <Compile Include="Core\AI\AttackStrategyParameters.cs" />
     <Compile Include="Core\AI\CardPicker.cs" />
@@ -1131,7 +1132,7 @@
     <Compile Include="Core\Effects\FlipACoinReturnToHand.cs" />
     <Compile Include="Core\Effects\PayManaOrLooseLife.cs" />
     <Compile Include="Core\Effects\PayLifeAddCounters.cs" />
-    <Compile Include="Core\Effects\PutAllCardsFromGraveyardToBattlefield.cs" />
+    <Compile Include="Core\Effects\PutCardsFromGraveyardToBattlefield.cs" />
     <Compile Include="Core\Effects\RangeEffectChoice.cs" />
     <Compile Include="Core\Effects\SearchLibraryPutToZone.cs" />
     <Compile Include="Core\Effects\TapOrUntapAllArtifactsCreaturesOrLands.cs" />
@@ -1202,7 +1203,7 @@
     <Compile Include="Core\Effects\CustomizableEffect.cs" />
     <Compile Include="Core\Effects\DealDamageToOpponentEqualToCardDifference.cs" />
     <Compile Include="Core\Effects\DistributeDamageToTargets.cs" />
-    <Compile Include="Core\Effects\EachPlayerPutsCardToBattlefield.cs" />
+    <Compile Include="Core\Effects\EachPlayerPutsACardToBattlefield.cs" />
     <Compile Include="Core\Effects\EachPlayerReturnsCardsToHand.cs" />
     <Compile Include="Core\Effects\DiscreteEffectChoice.cs" />
     <Compile Include="Core\Effects\EffectOption.cs" />

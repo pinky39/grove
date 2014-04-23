@@ -8,7 +8,7 @@
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
     {
       var candidates = p.Candidates<Card>()
-        .Where(x => x.IsGoodTarget(p.Card))
+        .Where(x => x.IsGoodTarget(p.Card, p.Card.Controller))
         .OrderByDescending(x => x.Score)
         .ToList();
 

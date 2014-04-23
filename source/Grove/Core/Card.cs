@@ -765,9 +765,9 @@
       return _castRules.CanTarget(target);
     }
 
-    public bool IsGoodTarget(ITarget target)
+    public bool IsGoodTarget(ITarget target, Player controller)
     {
-      return _castRules.IsGoodTarget(target);
+      return _castRules.IsGoodTarget(target, controller);
     }
 
     public List<ActivationPrerequisites> CanCast()

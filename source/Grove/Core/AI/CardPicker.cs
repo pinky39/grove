@@ -6,7 +6,7 @@
 
   public static class CardPicker
   {
-    public static ChosenCards ChooseBestCards(IEnumerable<Card> candidates, int count, bool aurasNeedTarget)
+    public static ChosenCards ChooseBestCards(Player controller, IEnumerable<Card> candidates, int count, bool aurasNeedTarget)
     {
        var ordered = candidates
         .OrderBy(x => -x.Score)        
@@ -32,7 +32,7 @@
         // find something to attach aura to
         // or skip to next best card
         var bestAuraTarget = card.Controller.Battlefield
-          .Where(target => card.CanTarget(target) && card.IsGoodTarget(target))
+          .Where(target => card.CanTarget(target) && card.IsGoodTarget(target, controller))
           .OrderBy(x => -x.Score)
           .FirstOrDefault();
         

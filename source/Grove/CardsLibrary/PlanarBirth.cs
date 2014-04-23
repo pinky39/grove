@@ -18,7 +18,7 @@
           {
             p.TimingRule(new OnSecondMain());
 
-            p.Effect = () => new PutAllCardsFromGraveyardToBattlefield(
+            p.Effect = () => new PutCardsFromGraveyardToBattlefield(
               c => c.Is().BasicLand, c => c.Tap(), eachPlayer: true);
           });
     }

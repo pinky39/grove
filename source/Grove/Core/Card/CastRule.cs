@@ -167,10 +167,10 @@
 
     public bool CanTarget(ITarget target) { return _p.TargetSelector.Effect[0].IsTargetValid(target, _card); }
 
-    public bool IsGoodTarget(ITarget target)
+    public bool IsGoodTarget(ITarget target, Player controller)
     {
-      return TargetingHelper.IsGoodTarget(
-        target, OwningCard, _p.TargetSelector,
+      return TargetingHelper.IsGoodTargetForSpell(
+        target, OwningCard, controller, _p.TargetSelector,
         _p.Rules.Where(r => r is TargetingRule).Cast<TargetingRule>());
     }
 
