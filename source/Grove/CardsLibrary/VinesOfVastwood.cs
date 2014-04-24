@@ -23,7 +23,7 @@
               .SetTags(EffectTag.Shroud);
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
-            p.TargetingRule(new EffectGiveHexproof());
+            p.TargetingRule(new EffectProtect());
           })
         .Cast(p =>
           {

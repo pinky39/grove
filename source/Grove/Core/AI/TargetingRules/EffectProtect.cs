@@ -3,7 +3,7 @@
   using System.Collections.Generic;
   using System.Linq;
 
-  public class EffectGiveHexproof : TargetingRule
+  public class EffectProtect : TargetingRule
   {
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
     {

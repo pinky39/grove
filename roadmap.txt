@@ -100,8 +100,8 @@ o Reckless Abandon
 o Reliquary Monk
 o Repercussion
 o Replenish
-Rescue
-Rofellos, Llanowar Emissary
+o Rescue
+o Rofellos, Llanowar Emissary
 Rofellos's Gift
 Sanctimony
 Scent of Brine

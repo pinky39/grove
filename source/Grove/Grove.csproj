@@ -177,6 +177,8 @@
     <Compile Include="CardsLibrary\ReliquaryMonk.cs" />
     <Compile Include="CardsLibrary\Repercussion.cs" />
     <Compile Include="CardsLibrary\Replenish.cs" />
+    <Compile Include="CardsLibrary\Rescue.cs" />
+    <Compile Include="CardsLibrary\RofellosLlanowarEmissary.cs" />
     <Compile Include="Core\AI\AttackerEvaluationParameters.cs" />
     <Compile Include="Core\AI\AttackStrategyParameters.cs" />
     <Compile Include="Core\AI\CardPicker.cs" />
@@ -946,7 +948,7 @@
     <Compile Include="Core\AI\TargetingRules\EffectExileGraveyard.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectGainControl.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectBigWithoutEvasions.cs" />
-    <Compile Include="Core\AI\TargetingRules\EffectGiveHexproof.cs" />
+    <Compile Include="Core\AI\TargetingRules\EffectProtect.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectGiveIndestructible.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectGiveDoesNotUntap.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectPumpInstant.cs" />
