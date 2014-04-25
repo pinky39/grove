@@ -4,23 +4,22 @@
   using Effects;
   using Triggers;
 
-  public class SkitteringSkirge : CardTemplateSource
+  public class SkitteringHorror : CardTemplateSource
   {
     public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
-        .Named("Skittering Skirge")
-        .ManaCost("{B}{B}")
-        .Type("Creature Imp")
-        .Text("{Flying}{EOL}When you cast a creature spell, sacrifice Skittering Skirge.")
+        .Named("Skittering Horror")
+        .ManaCost("{2}{B}")
+        .Type("Creature Horror")
+        .Text("When you cast a creature spell, sacrifice Skittering Horror.")
         .FlavorText(
-          "The imps' warbling cries echo through Phyrexia's towers like those of mourning doves in a cathedral.")
-        .Power(3)
-        .Toughness(2)
-        .SimpleAbilities(Static.Flying)
+          "This monstrosity will do—for now.")
+        .Power(4)
+        .Toughness(3)        
         .TriggeredAbility(p =>
           {
-            p.Text = "When you cast a creature spell, sacrifice Skittering Skirge.";
+            p.Text = "When you cast a creature spell, sacrifice Skittering Horror.";
             p.Trigger(new OnCastedSpell((a, c) =>
               a.OwningCard.Controller == c.Controller && c.Is().Creature));
 

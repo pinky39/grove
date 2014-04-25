@@ -11,7 +11,8 @@
     public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
-        .Named("{1}{R}")
+        .Named("Scent of Cinder")
+        .ManaCost("{1}{R}")
         .Type("Sorcery")
         .Text(
           "Reveal any number of red cards in your hand. Scent of Cinder deals X damage to target creature or player, where X is the number of cards revealed this way.")

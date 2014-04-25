@@ -1,11 +1,11 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Effects;
-  using Grove.Events;
-  using Grove.AI.TargetingRules;
-  using Grove.AI.TimingRules;
-  using Grove.Triggers;
+  using AI.TargetingRules;
+  using AI.TimingRules;
+  using Effects;
+  using Events;
+  using Triggers;
 
   public class SigilOfSleep : CardTemplateSource
   {

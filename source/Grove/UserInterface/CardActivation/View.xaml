@@ -22,11 +22,11 @@
         </DataTemplate>
 
         <DataTemplate DataType="{x:Type Messages:AbilityActivated}">
-                <ContentControl Content="{Binding Ability.OwningCard}">
+                <ContentControl Content="{Binding Ability}">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseEnter">
                             <cal:ActionMessage MethodName="ChangePlayersInterest">
-                                <cal:Parameter Value="{Binding Ability.OwningCard}" />                                
+                                <cal:Parameter Value="{Binding Ability}" />                                
                             </cal:ActionMessage>
                         </i:EventTrigger>                                           
                     </i:Interaction.Triggers>

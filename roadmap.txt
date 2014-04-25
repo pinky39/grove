@@ -106,15 +106,15 @@ o Rofellos's Gift
 o Sanctimony
 o Scent of Brine
 o Scent of Cinder
-Scent of Ivy
-Scent of Jasmine
-Scent of Nightshade
-Scour
-Scrying Glass
-Serra Advocate
-Sigil of Sleep
-Skittering Horror
-Slinking Skirge
+o Scent of Ivy
+o Scent of Jasmine
+o Scent of Nightshade
+o Scour
+x Scrying Glass
+o Serra Advocate
+o Sigil of Sleep
+o Skittering Horror
+o Slinking Skirge
 Solidarity
 Soul Feast
 Sowing Salt

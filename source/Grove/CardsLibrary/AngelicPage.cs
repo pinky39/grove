@@ -1,12 +1,12 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Costs;
-  using Grove.Effects;
-  using Grove.AI;
-  using Grove.AI.TargetingRules;
-  using Grove.AI.TimingRules;
-  using Grove.Modifiers;
+  using AI;
+  using AI.TargetingRules;
+  using AI.TimingRules;
+  using Costs;
+  using Effects;
+  using Modifiers;
 
   public class AngelicPage : CardTemplateSource
   {

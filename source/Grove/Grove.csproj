@@ -184,6 +184,10 @@
     <Compile Include="CardsLibrary\ScentOfBrine.cs" />
     <Compile Include="CardsLibrary\ScentOfCinder.cs" />
     <Compile Include="CardsLibrary\ScentOfIvy.cs" />
+    <Compile Include="CardsLibrary\ScentOfJasmine.cs" />
+    <Compile Include="CardsLibrary\Scour.cs" />
+    <Compile Include="CardsLibrary\SerraAdvocate.cs" />
+    <Compile Include="CardsLibrary\SkitteringHorror.cs" />
     <Compile Include="Core\AI\AttackerEvaluationParameters.cs" />
     <Compile Include="Core\AI\AttackStrategyParameters.cs" />
     <Compile Include="Core\AI\CardPicker.cs" />
