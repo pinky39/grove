@@ -29,8 +29,7 @@
               new Tap());
 
             p.Effect = () => new CounterTargetSpellUnlessControllerPays1ForEachRevealedCard();
-            p.TargetSelector.AddEffect(trg => trg.Is.CounterableSpell().On.Stack());
-            
+            p.TargetSelector.AddEffect(trg => trg.Is.CounterableSpell().On.Stack());            
             
             p.TimingRule(new WhenTopSpellIsCounterable(tp => tp.Controller.Hand.Count(x => x.HasColor(CardColor.Blue))));
             p.TargetingRule(new EffectCounterspell());

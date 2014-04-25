@@ -179,6 +179,11 @@
     <Compile Include="CardsLibrary\Replenish.cs" />
     <Compile Include="CardsLibrary\Rescue.cs" />
     <Compile Include="CardsLibrary\RofellosLlanowarEmissary.cs" />
+    <Compile Include="CardsLibrary\RofellossGift.cs" />
+    <Compile Include="CardsLibrary\Sanctimony.cs" />
+    <Compile Include="CardsLibrary\ScentOfBrine.cs" />
+    <Compile Include="CardsLibrary\ScentOfCinder.cs" />
+    <Compile Include="CardsLibrary\ScentOfIvy.cs" />
     <Compile Include="Core\AI\AttackerEvaluationParameters.cs" />
     <Compile Include="Core\AI\AttackStrategyParameters.cs" />
     <Compile Include="Core\AI\CardPicker.cs" />
@@ -231,6 +236,7 @@
     <Compile Include="Core\Effects\ExileTargetThenPutIntoPlayUnderOwnersControl.cs" />
     <Compile Include="Core\Effects\FlipACoinOpponentGainsControl.cs" />
     <Compile Include="Core\Effects\GainLifeForEachRevealedCard.cs" />
+    <Compile Include="Core\Effects\ReturnCardsFromGraveyardToHandForEachRevealedCard.cs" />
     <Compile Include="Core\Effects\ReturnOwnerAndAttachedToHand.cs" />
     <Compile Include="Core\Events\CounterAdded.cs" />
     <Compile Include="Core\Events\CounterRemoved.cs" />
@@ -1077,7 +1083,7 @@
     <Compile Include="Core\Effects\IEffectChoice.cs" />
     <Compile Include="Core\Effects\RemoveAllCountersFromPermanents.cs" />
     <Compile Include="Core\Effects\ReorderTopCards.cs" />
-    <Compile Include="Core\Debug\ErrorReportLoader.cs" />
+    <Compile Include="Core\Diagnostics\ErrorReportLoader.cs" />
     <Compile Include="Core\SaveLoad\IdentityManager.cs" />
     <Compile Include="Core\Card\CardTemplate.cs" />
     <Compile Include="Core\Decisions\ChooseTo.cs" />
@@ -1478,7 +1484,7 @@
     <Compile Include="Core\Effects\PlayerSacrificePermanents.cs" />
     <Compile Include="Core\Effects\TargetPlayerDrawsCards.cs" />
     <Compile Include="Core\Modifiers\AddPowerAndToughness.cs" />
-    <Compile Include="Core\Debug\ScenarioGenerator.cs" />
+    <Compile Include="Core\Diagnostics\ScenarioGenerator.cs" />
     <Compile Include="Infrastructure\Snapshot.cs" />
     <Compile Include="Core\Card\TriggeredAbility.cs" />
     <Compile Include="Core\Events\ZoneChanged.cs" />

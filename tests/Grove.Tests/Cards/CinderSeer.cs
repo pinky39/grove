@@ -3,7 +3,7 @@
   using Infrastructure;
   using Xunit;
 
-  public class CinderCeer
+  public class CinderSeer
   {
     public class Ai : AiScenario
     {

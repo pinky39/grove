@@ -1,6 +1,6 @@
 ﻿namespace Grove.Tests.Unit
 {
-  using Debug;
+  using Diagnostics;
   using Infrastructure;
   using Xunit;
 

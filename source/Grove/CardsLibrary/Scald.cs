@@ -1,9 +1,9 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Effects;
-  using Grove.Events;
-  using Grove.Triggers;
+  using Effects;
+  using Events;
+  using Triggers;
 
   public class Scald : CardTemplateSource
   {

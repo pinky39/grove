@@ -135,7 +135,7 @@
     <Compile Include="Cards\CaveTiger.cs" />
     <Compile Include="Cards\CelestialPrism.cs" />
     <Compile Include="Cards\ChimeOfNight.cs" />
-    <Compile Include="Cards\CinderCeer.cs" />
+    <Compile Include="Cards\CinderSeer.cs" />
     <Compile Include="Cards\CitanulFlute.cs" />
     <Compile Include="Cards\CitanulHierophants.cs" />
     <Compile Include="Cards\ClawsOfGix.cs" />
@@ -347,9 +347,11 @@
     <Compile Include="Cards\Retaliation.cs" />
     <Compile Include="Cards\Retromancer.cs" />
     <Compile Include="Cards\Rewind.cs" />
+    <Compile Include="Cards\RofellossGift.cs" />
     <Compile Include="Cards\RumblingCrescendo.cs" />
     <Compile Include="Cards\RuneOfProtectionBlack.cs" />
     <Compile Include="Cards\RuptureSpire.cs" />
+    <Compile Include="Cards\Sanctimony.cs" />
     <Compile Include="Cards\SanctumCustodian.cs" />
     <Compile Include="Cards\SanctumGuardian.cs" />
     <Compile Include="Cards\Scald.cs" />

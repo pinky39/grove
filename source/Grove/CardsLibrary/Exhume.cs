@@ -1,8 +1,8 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Effects;
-  using Grove.AI.TimingRules;
+  using AI.TimingRules;
+  using Effects;
 
   public class Exhume : CardTemplateSource
   {

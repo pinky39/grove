@@ -5,7 +5,7 @@
   using System.Diagnostics;
   using System.IO;
   using System.Threading;
-  using Debug;
+  using Diagnostics;
   using Events;
   using Grove.Infrastructure;
 

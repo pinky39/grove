@@ -102,10 +102,10 @@ o Repercussion
 o Replenish
 o Rescue
 o Rofellos, Llanowar Emissary
-Rofellos's Gift
-Sanctimony
-Scent of Brine
-Scent of Cinder
+o Rofellos's Gift
+o Sanctimony
+o Scent of Brine
+o Scent of Cinder
 Scent of Ivy
 Scent of Jasmine
 Scent of Nightshade

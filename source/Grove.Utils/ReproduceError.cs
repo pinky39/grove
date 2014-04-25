@@ -2,7 +2,7 @@
 {
   using System;
   using AI;
-  using Debug;
+  using Diagnostics;
 
   public class ReproduceError : Task
   {        

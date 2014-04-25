@@ -4,7 +4,7 @@
   using System.Collections.Generic;
   using System.Linq;
   using System.Threading;
-  using Debug;
+  using Diagnostics;
   using Events;
   using Infrastructure;
 
