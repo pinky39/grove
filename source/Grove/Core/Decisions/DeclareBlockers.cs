@@ -299,9 +299,9 @@
             .Is.Card(c =>
               {
                 // if any attacker has lure, we must block it
-                if (lureAttackers.Any(x => x.CanBeBlockedBy(blocker)))
+                if (lureAttackers.Any(x => x.CanBeBlockedBy(blocker)) && !c.Has().Lure)
                 {
-                  return c.Has().Lure && c.CanBeBlockedBy(blocker);
+                  return false;
                 }
 
                 return c.IsAttacker && c.CanBeBlockedBy(blocker);
