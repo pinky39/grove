@@ -38,21 +38,7 @@
     {
       var pair = _pairs.First(x => x.Blocker == blocker);
       _pairs.Remove(pair);
-    }
-
-    public bool IsValid()
-    {
-      var attackers = _pairs
-        .GroupBy(x => x.Attacker)
-        .Select(x => new
-          {
-            Card = x.Key,
-            BlockerCount = x.Count()
-          })
-        .ToList();
-
-      return attackers.All(attacker => attacker.Card.MinimalBlockerCount <= attacker.BlockerCount);
-    }
+    }    
 
     [Copyable, Serializable]
     public class AttackerBlockerPair : ISerializable

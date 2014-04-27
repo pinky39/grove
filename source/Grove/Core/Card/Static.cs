@@ -29,6 +29,7 @@
     Flash,
     AttacksEachTurnIfAble,
     UnblockableIfDedenderHasArtifacts,
-    Forestwalk
+    Forestwalk,
+    Lure
   }
 }

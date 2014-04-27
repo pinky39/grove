@@ -375,6 +375,7 @@
     <Compile Include="Cards\SleeperAgent.cs" />
     <Compile Include="Cards\Smokestack.cs" />
     <Compile Include="Cards\SneakAttack.cs" />
+    <Compile Include="Cards\Solidarity.cs" />
     <Compile Include="Cards\Somnophore.cs" />
     <Compile Include="Cards\Songstitcher.cs" />
     <Compile Include="Cards\SoulFeast.cs" />
@@ -392,6 +393,7 @@
     <Compile Include="Cards\SwordsToPlowshares.cs" />
     <Compile Include="Cards\Symbiosis.cs" />
     <Compile Include="Cards\TaintedAether.cs" />
+    <Compile Include="Cards\TauntingElf.cs" />
     <Compile Include="Cards\ThievingMagpie.cs" />
     <Compile Include="Cards\ThornwindFaeries.cs" />
     <Compile Include="Cards\ThranGolem.cs" />

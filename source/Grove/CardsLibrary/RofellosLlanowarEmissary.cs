@@ -8,6 +8,7 @@
     {
       yield return Card
         .Named("Rofellos, Llanowar Emissary")
+        .ManaCost("{G}{G}")
         .Type("Legendary Creature Elf Druid")
         .Text("{T}: Add {G} to your mana pool for each Forest you control.")
         .Power(2)

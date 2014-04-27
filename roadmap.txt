@@ -115,14 +115,14 @@ o Serra Advocate
 o Sigil of Sleep
 o Skittering Horror
 o Slinking Skirge
-Solidarity
-Soul Feast
-Sowing Salt
-Splinter
-Squirming Mass
-Storage Matrix
-Taunting Elf
-Telepathic Spies
+o Solidarity
+o Soul Feast
+o Sowing Salt
+o Splinter
+o Squirming Mass
+x Storage Matrix
+o Taunting Elf
+o Telepathic Spies
 Temporal Adept
 Tethered Griffin
 Thieving Magpie

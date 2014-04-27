@@ -31,6 +31,7 @@
     bool Flash { get; }
     bool AttacksEachTurnIfAble { get; }
     bool Forestwalk { get; }
+    bool Lure { get; }
     bool Has(Static ability);
   }
 }

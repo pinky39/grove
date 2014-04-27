@@ -188,6 +188,10 @@
     <Compile Include="CardsLibrary\Scour.cs" />
     <Compile Include="CardsLibrary\SerraAdvocate.cs" />
     <Compile Include="CardsLibrary\SkitteringHorror.cs" />
+    <Compile Include="CardsLibrary\Solidarity.cs" />
+    <Compile Include="CardsLibrary\SowingSalt.cs" />
+    <Compile Include="CardsLibrary\TauntingElf.cs" />
+    <Compile Include="CardsLibrary\TelepathicSpies.cs" />
     <Compile Include="Core\AI\AttackerEvaluationParameters.cs" />
     <Compile Include="Core\AI\AttackStrategyParameters.cs" />
     <Compile Include="Core\AI\CardPicker.cs" />
@@ -240,6 +244,7 @@
     <Compile Include="Core\Effects\ExileTargetThenPutIntoPlayUnderOwnersControl.cs" />
     <Compile Include="Core\Effects\FlipACoinOpponentGainsControl.cs" />
     <Compile Include="Core\Effects\GainLifeForEachRevealedCard.cs" />
+    <Compile Include="Core\Effects\OpponentRevealsHand.cs" />
     <Compile Include="Core\Effects\ReturnCardsFromGraveyardToHandForEachRevealedCard.cs" />
     <Compile Include="Core\Effects\ReturnOwnerAndAttachedToHand.cs" />
     <Compile Include="Core\Events\CounterAdded.cs" />

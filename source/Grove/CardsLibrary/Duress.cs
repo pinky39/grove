@@ -3,7 +3,7 @@
   using System.Collections.Generic;
   using AI.TimingRules;
   using Effects;
-
+    
   public class Duress : CardTemplateSource
   {
     public override IEnumerable<CardTemplate> GetCards()

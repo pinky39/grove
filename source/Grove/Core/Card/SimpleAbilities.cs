@@ -2,7 +2,7 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Modifiers;
 
   public class SimpleAbilities : GameObject, IStaticAbilities, IAcceptsCardModifier, IHashable
@@ -18,9 +18,7 @@
       _active = new TrackableSet<Static>(simpleAbilities);
     }
 
-    private SimpleAbilities()
-    {
-    }
+    private SimpleAbilities() {}
 
     public void Accept(ICardModifier modifier)
     {
@@ -160,6 +158,11 @@
     public bool Forestwalk
     {
       get { return Has(Static.Forestwalk); }
+    }
+
+    public bool Lure
+    {
+      get { return Has(Static.Lure); }
     }
 
     public bool DoesNotUntap
