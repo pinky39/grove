@@ -5,7 +5,7 @@
   using Grove.Events;
   using Grove.Infrastructure;
 
-  public class OnBeingTargetedBySpellOrAbility : Trigger, IReceive<EffectPushedOnStack>
+  public class OnBeingTargetedBySpellOrAbility : Trigger, IReceive<EffectPutOnStackEvent>
   {
     private readonly Func<ITarget, Effect, Trigger, bool> _predicate;
 
@@ -16,7 +16,7 @@
       _predicate = predicate ?? ((target, effect, trigger) => target == trigger.Ability.OwningCard);
     }
 
-    public void Receive(EffectPushedOnStack message)
+    public void Receive(EffectPutOnStackEvent message)
     {
       var validTargets = message.Effect.Targets.Where(target => _predicate(target, message.Effect, this));
 

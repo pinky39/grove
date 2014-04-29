@@ -1,7 +1,7 @@
 ﻿namespace Grove
 {
   using Events;
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Modifiers;
 
   public class Level : Characteristic<int?>, IAcceptsCardModifier
@@ -25,10 +25,7 @@
 
     protected override void OnCharacteristicChanged(int? oldValue, int? newValue)
     {
-      Publish(new LevelChanged
-        {
-          Card = _card
-        });
+      Publish(new LevelChangedEvent(_card));
     }
   }
 }

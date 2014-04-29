@@ -6,7 +6,7 @@
   using Infrastructure;
 
   public class IncreasePowerToughnessEqualToAttachedCounterCount : Modifier,
-    IReceive<CounterAdded>, IReceive<CounterRemoved>, ICardModifier
+    IReceive<CounterAddedEvent>, IReceive<CounterRemovedEvent>, ICardModifier
   {
     private readonly CounterType _counterType;
     private readonly IntegerIncrement _strenghtModifier = new IntegerIncrement();
@@ -19,7 +19,7 @@
       _counterType = counterType;      
     }
 
-    public void Receive(CounterAdded message)
+    public void Receive(CounterAddedEvent message)
     {
       if (OwningCard.Attachments.Contains(message.OwningCard) && message.Counter.Type == _counterType)
       {
@@ -27,7 +27,7 @@
       }
     }
 
-    public void Receive(CounterRemoved message)
+    public void Receive(CounterRemovedEvent message)
     {
       if (OwningCard.Attachments.Contains(message.OwningCard) && message.Counter.Type == _counterType)
       {

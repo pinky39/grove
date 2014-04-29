@@ -27,7 +27,7 @@
               creatureFilter: (c, s, _) => c == s.Ability.SourceCard));
 
             p.Effect = () => new PlayerSacrificePermanents(
-              count: P(e => e.TriggerMessage<DamageHasBeenDealt>().Damage.Amount),
+              count: P(e => e.TriggerMessage<DamageDealtEvent>().Damage.Amount),
               player: P(e => e.Controller),
               filter: c => true,
               text: "Select permanents to sacrifice.");

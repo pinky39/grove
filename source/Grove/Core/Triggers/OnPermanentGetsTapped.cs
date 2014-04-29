@@ -4,7 +4,7 @@
   using Events;
   using Infrastructure;
 
-  public class OnPermanentGetsTapped : Trigger, IReceive<PermanentGetsTapped>
+  public class OnPermanentGetsTapped : Trigger, IReceive<PermanentTappedEvent>
   {
     private readonly Func<TriggeredAbility, Card, bool> _filter;
 
@@ -15,9 +15,9 @@
       _filter = filter;
     }
 
-    public void Receive(PermanentGetsTapped message)
+    public void Receive(PermanentTappedEvent message)
     {
-      if (!_filter(Ability, message.Permanent))
+      if (!_filter(Ability, message.Card))
         return;
 
       Set(message);

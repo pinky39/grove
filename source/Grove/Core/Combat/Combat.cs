@@ -5,7 +5,7 @@
   using System.Linq;
   using Decisions;
   using Events;
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   [Copyable]
   public class Combat : GameObject, IHashable
@@ -91,11 +91,7 @@
       if (!card.Has().Vigilance)
         card.Tap();
 
-      Publish(new AttackerJoinedCombat
-        {
-          Attacker = attacker,
-          WasDeclared = wasDeclared
-        });
+      Publish(new AttackerJoinedCombatEvent(attacker, wasDeclared));
     }
 
     public void DeclareAttacker(Card card)
@@ -114,11 +110,7 @@
       attacker.AddBlocker(blocker);
       _blockers.Add(blocker);
 
-      Publish(new BlockerJoinedCombat
-        {
-          Blocker = blocker,
-          Attacker = attacker
-        });
+      Publish(new BlockerJoinedCombatEvent(blocker, attacker));
     }
 
     public bool IsAttacker(Card card)

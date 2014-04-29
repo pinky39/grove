@@ -3,11 +3,11 @@
   using Grove.Events;
   using Grove.Infrastructure;
 
-  public class OnOwnerGetsTapped : Trigger, IReceive<PermanentGetsTapped>
+  public class OnOwnerGetsTapped : Trigger, IReceive<PermanentTappedEvent>
   {
-    public void Receive(PermanentGetsTapped message)
+    public void Receive(PermanentTappedEvent message)
     {
-      if (message.Permanent != OwningCard)
+      if (message.Card != OwningCard)
         return;
 
       Set(message);

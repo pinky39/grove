@@ -10,7 +10,7 @@
     {
       var landsInPlay = controller.Battlefield.Lands.Count();
 
-      var needsLands = controller.Hand.Lands.Count() == 0 &&
+      var needsLands = !controller.Hand.Lands.Any() &&
         landsInPlay <= 5;
 
       var indices = Enumerable.Repeat(0, candidates.Count)

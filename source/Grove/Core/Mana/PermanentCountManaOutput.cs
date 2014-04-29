@@ -5,7 +5,7 @@
   using Grove.Events;
   using Grove.Infrastructure;
 
-  public class PermanentCountManaOutput : ManaOutput, IReceive<ZoneChanged>
+  public class PermanentCountManaOutput : ManaOutput, IReceive<ZoneChangedEvent>
   {
     private readonly ManaColor _color;
     private readonly ControlledBy _controlledBy;
@@ -21,7 +21,7 @@
       _controlledBy = controlledBy;
     }
 
-    public void Receive(ZoneChanged message)
+    public void Receive(ZoneChangedEvent message)
     {
       if (_controlledBy == ControlledBy.SpellOwner && message.Controller != ManaAbility.SourceCard.Controller)
       {

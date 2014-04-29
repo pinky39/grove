@@ -10,7 +10,7 @@
 
   public class ViewModel : CardViewModel, IReceive<UiInteractionChanged>, IReceive<PlayersInterestChanged>,
     IReceive<AttackerSelected>, IReceive<AttackerUnselected>, IReceive<BlockerSelected>, IReceive<BlockerUnselected>,
-    IReceive<RemovedFromCombat>, IReceive<AttackerJoinedCombat>, IReceive<BlockerJoinedCombat>, IReceive<TargetSelected>,
+    IReceive<RemovedFromCombatEvent>, IReceive<AttackerJoinedCombatEvent>, IReceive<BlockerJoinedCombatEvent>, IReceive<TargetSelected>,
     IReceive<TargetUnselected>
   {     
 
@@ -27,7 +27,7 @@
     public virtual bool IsSelected { get; protected set; }
     public Animation RemoveAnimation { get; private set; }
 
-    public void Receive(AttackerJoinedCombat message)
+    public void Receive(AttackerJoinedCombatEvent message)
     {
       if (message.Attacker.Card != Card)
         return;
@@ -55,7 +55,7 @@
       Marker = 0;
     }
 
-    public void Receive(BlockerJoinedCombat message)
+    public void Receive(BlockerJoinedCombatEvent message)
     {
       if (message.Blocker.Card != Card)
         return;
@@ -90,7 +90,7 @@
       IsTargetOfSpell = !message.HasLostInterest;
     }
 
-    public void Receive(RemovedFromCombat message)
+    public void Receive(RemovedFromCombatEvent message)
     {
       if (message.Card != Card)
         return;

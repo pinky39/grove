@@ -7,46 +7,29 @@
   using Castle.DynamicProxy;
   using UserInterface;
 
-  public interface IReceive
-  {
-  }
-
-  public interface IReceive<in T> : IReceive
-  {
-    void Receive(T message);
-  }
-
-  public interface IOrderedReceive<in T> : IReceive<T>
-  {
-    int Order { get; }
-  }
-
   public class Publisher : ICopyable
   {
-    private readonly Assembly _assembly;
-    private readonly string _namespace;
-    private INotifyChangeTracker _changeTracker = new ChangeTracker.Guard();
-    private Dictionary<Type, List<Type>> _handlersByType = new Dictionary<Type, List<Type>>();
-    private Dictionary<Type, TrackableList<object>> _subscribers = new Dictionary<Type, TrackableList<object>>();
+    private INotifyChangeTracker _changeTracker;
+    private EventsCache _eventsCache;
+    private Dictionary<Type, TrackableList<object>> _subscribersByEvent = new Dictionary<Type, TrackableList<object>>();
 
-    public Publisher(Assembly assembly, string ns = null)
+    public Publisher(Assembly assembly = null, INotifyChangeTracker changeTracker = null, string ns = null)
     {
-      _assembly = assembly;
-      _namespace = ns;
+      assembly = assembly ?? Assembly.GetExecutingAssembly();
+      _eventsCache = new EventsCache(assembly, ns);
+      _changeTracker = changeTracker ?? new ChangeTracker.Guard();
     }
 
-    public Publisher() : this(Assembly.GetExecutingAssembly())
-    {
-    }
+    private Publisher() {}
 
     public void Copy(object original, CopyService copyService)
     {
       var org = (Publisher) original;
       _changeTracker = copyService.Copy(org._changeTracker);
-      _handlersByType = org._handlersByType;
-      _subscribers = new Dictionary<Type, TrackableList<object>>();
+      _eventsCache = org._eventsCache;
+      _subscribersByEvent = new Dictionary<Type, TrackableList<object>>();
 
-      foreach (var subscriber in org._subscribers)
+      foreach (var subscriber in org._subscribersByEvent)
       {
         var subscribers = subscriber.Value
           .Where(x => IsUiComponent(x) == false)
@@ -54,127 +37,99 @@
 
         var trackableSubscribers = new TrackableList<object>(subscribers);
         trackableSubscribers.Initialize(_changeTracker);
-        _subscribers.Add(subscriber.Key, trackableSubscribers);
-      }
-    }
-
-    public Publisher Initialize(INotifyChangeTracker changeTracker = null)
-    {
-      if (changeTracker != null)
-      {
-        _changeTracker = changeTracker;
-      }
-
-      MapHandlersToTypes();
-      return this;
-    }
-
-    private void MapHandlersToTypes()
-    {
-      var types = _assembly.GetTypes()
-        .Where(x => _namespace == null || Equals(x.Namespace, _namespace))
-        .Where(x => x.Implements<IReceive>())
-        .ToList();
-
-      foreach (var type in types)
-      {
-        var handlers = type.GetInterfaces()
-          .Where(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof (IReceive<>))
-          .ToList();
-
-        foreach (var handler in handlers)
-        {
-          var messageType = handler.GetGenericArguments()[0];
-
-          List<Type> allHandlers;
-          if (!_handlersByType.TryGetValue(type, out allHandlers))
-          {
-            allHandlers = new List<Type>();
-            _handlersByType[type] = allHandlers;
-          }
-
-          if (!_subscribers.ContainsKey(messageType))
-          {
-            var trackableSubscribers = new TrackableList<object>();
-            trackableSubscribers.Initialize(_changeTracker);
-            _subscribers.Add(messageType, trackableSubscribers);
-          }
-
-          allHandlers.Add(messageType);
-        }
+        _subscribersByEvent.Add(subscriber.Key, trackableSubscribers);
       }
     }
 
     public void Publish<TMessage>(TMessage message)
     {
       TrackableList<object> subscribers;
-      if (!_subscribers.TryGetValue(typeof (TMessage), out subscribers))
+      if (!_subscribersByEvent.TryGetValue(typeof (TMessage), out subscribers))
+      {
         return;
+      }
 
-      var subscribersCopy = subscribers.ToList();
-
-      if (subscribersCopy.Count == 0)
+      if (subscribers.Count == 0)
         return;
-
-      var orderedSubscribers = new List<IOrderedReceive<TMessage>>();
+      
+      var subscribersCopy = subscribers.ToList();      
 
       foreach (IReceive<TMessage> subscriber in subscribersCopy)
       {
-        var orderered = subscriber as IOrderedReceive<TMessage>;
-        if (orderered != null)
-        {
-          orderedSubscribers.Add(orderered);
-          continue;
-        }
-
         subscriber.Receive(message);
-      }
-
-      foreach (var orderedSubscriber in orderedSubscribers.OrderBy(x => x.Order))
-      {
-        orderedSubscriber.Receive(message);
       }
     }
 
     public void Subscribe(object instance)
     {
-      var handlers = GetHandlers(instance);
+      var events = _eventsCache.GetEvents(instance);
 
-      if (handlers == null)
+      if (events == null)
         return;
 
-      foreach (var handler in handlers)
+      foreach (var @event in events)
       {
-        _subscribers[handler].Add(instance);
-      }
-    }
+        TrackableList<object> subscribers;
 
-    private List<Type> GetHandlers(object instance)
-    {
-      List<Type> handlers;
-      _handlersByType.TryGetValue(ProxyUtil.GetUnproxiedType(instance), out handlers);
-      return handlers;
+        if (!_subscribersByEvent.TryGetValue(@event, out subscribers))
+        {
+          subscribers = new TrackableList<object>().Initialize(_changeTracker);
+          _subscribersByEvent[@event] = subscribers;
+        }
+
+        subscribers.Add(instance);
+      }
     }
 
     public void Unsubscribe(object instance)
     {
-      var handlers = GetHandlers(instance);
+      var events = _eventsCache.GetEvents(instance);
 
-      if (handlers == null)
+      if (events == null)
         return;
 
-      foreach (var handler in handlers)
+      foreach (var @event in events)
       {
-        _subscribers[handler].Remove(instance);
+        _subscribersByEvent[@event].Remove(instance);
       }
     }
 
     private static bool IsUiComponent(object target)
     {
-      var targetType = ProxyUtil.GetUnproxiedType(target);
-      var isUi = targetType.Namespace.StartsWith(typeof (ViewModelBase).Namespace);
+      return ProxyUtil.GetUnproxiedType(target)
+        .Namespace.StartsWith(typeof (ViewModelBase).Namespace);
+    }
 
-      return isUi;
+    private class EventsCache
+    {
+      private readonly Dictionary<Type, List<Type>> _typesToEvents;
+
+      public EventsCache(Assembly assembly, string @namespace)
+      {
+        var typesAndTheirEvents = assembly.GetTypes()
+          .Where(type => (@namespace == null || Equals(type.Namespace, @namespace)) && type.Implements<IReceive>())
+          .Select(type => new
+            {
+              Type = type,
+              Events = GetEventsForType(type).ToList()
+            });
+
+        _typesToEvents = typesAndTheirEvents.ToDictionary(x => x.Type, x => x.Events);
+      }
+
+      public List<Type> GetEvents(object instance)
+      {
+        List<Type> result;
+        _typesToEvents.TryGetValue(ProxyUtil.GetUnproxiedType(instance), out result);
+        return result;
+      }
+
+      private IEnumerable<Type> GetEventsForType(Type type)
+      {
+        return type.GetInterfaces()
+          .Where(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof (IReceive<>))
+          .Select(handlerInterface => handlerInterface.GetGenericArguments()[0]);
+      }
     }
   }
 }

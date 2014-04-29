@@ -45,7 +45,7 @@
       counter.ModifyStrenght(_strenght);
       _counters.Add(counter);
 
-      Publish(new CounterAdded(counter, _owningCard));
+      Publish(new CounterAddedEvent(counter, _owningCard));
     }
 
     public void Remove(Counter counter)
@@ -55,7 +55,7 @@
         counter.Remove();
       }
 
-      Publish(new CounterRemoved(counter, _owningCard));
+      Publish(new CounterRemovedEvent(counter, _owningCard));
     }
 
     public void Remove(CounterType counterType, int? count = null)

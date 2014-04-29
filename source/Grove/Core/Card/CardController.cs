@@ -36,7 +36,7 @@
 
       _card.HasSummoningSickness = true;
 
-      Publish(new ControllerChanged(_card));
+      Publish(new ControllerChangedEvent(_card));
     }
 
     public override void Initialize(Game game, IHashDependancy hashDependancy)

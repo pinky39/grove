@@ -39,7 +39,7 @@
               {
                 trg
                   .Is.Card(tp => tp.Target.Card().Is().Creature &&
-                    tp.TriggerMessage<DamageHasBeenDealt>().Receiver == tp.Target.Controller())
+                    tp.TriggerMessage<DamageDealtEvent>().Receiver == tp.Target.Controller())
                   .On.Battlefield();
 
                 trg.Message = "Select a creature to tap.";

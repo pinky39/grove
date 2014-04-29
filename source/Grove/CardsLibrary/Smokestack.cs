@@ -29,12 +29,15 @@
             p.Text =
               "At the beginning of each player's upkeep, that player sacrifices a permanent for each soot counter on Smokestack.";
 
-            p.Trigger(new OnStepStart(Step.Upkeep, activeTurn: true, passiveTurn: true, order: 5));
+            p.Trigger(new OnStepStart(Step.Upkeep, activeTurn: true, passiveTurn: true));
 
             p.Effect = () => new PlayersSacrificePermanents(
               count: P(e => e.Source.OwningCard.CountersCount(), EvaluateAt.OnResolve),
               text: "Sacrifice a permanent for each soot counter on Smokestack.",
-              playerFilter: (_, player) => player.IsActive);
+              playerFilter: (_, player) => player.IsActive)
+              {
+                TriggerOrderRule = TriggerOrder.High
+              };
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });

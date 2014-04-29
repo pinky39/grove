@@ -3,7 +3,7 @@
   using Events;
   using Infrastructure;
 
-  public class OnAttack : Trigger, IReceive<AttackerJoinedCombat>
+  public class OnAttack : Trigger, IReceive<AttackerJoinedCombatEvent>
   {
     private readonly bool _onlyWhenDeclared;
     private readonly bool _triggerForEveryCreature;
@@ -18,7 +18,7 @@
       _onlyWhenDeclared = onlyWhenDeclared;
     }
 
-    public void Receive(AttackerJoinedCombat message)
+    public void Receive(AttackerJoinedCombatEvent message)
     {
       if (!message.WasDeclared && _onlyWhenDeclared)
         return;

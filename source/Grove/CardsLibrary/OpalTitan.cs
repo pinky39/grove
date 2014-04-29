@@ -1,11 +1,11 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Effects;
-  using Grove.Events;
-  using Grove.AI.TimingRules;
-  using Grove.Modifiers;
-  using Grove.Triggers;
+  using AI.TimingRules;
+  using Effects;
+  using Events;
+  using Modifiers;
+  using Triggers;
 
   public class OpalTitan : CardTemplateSource
   {
@@ -34,7 +34,7 @@
                 type: "Creature Giant",
                 colors: L(CardColor.White)),
               () => new AddProtectionFromColors(m =>
-                m.SourceEffect.TriggerMessage<AfterSpellWasPutOnStack>().Card.Colors));
+                m.SourceEffect.TriggerMessage<SpellPutOnStackEvent>().Card.Colors));
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });

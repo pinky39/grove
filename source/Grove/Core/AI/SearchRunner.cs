@@ -121,12 +121,7 @@
 
       SearchStarted(this, EventArgs.Empty);
 
-      _game.Publish(new SearchStarted
-        {
-          SearchDepthLimit = _searchParameters.SearchDepth,
-          TargetCountLimit = _searchParameters.TargetCount
-        });
-
+      _game.Publish(new SearchStartedEvent(_searchParameters));
       _nodeCount = 0;
 
       using (new SearchMonitor(this))
@@ -139,7 +134,7 @@
       LastSearchStatistics.NodeCount = _nodeCount;
       UpdateSearchDurations();
 
-      _game.Publish(new SearchFinished());
+      _game.Publish(new SearchFinishedEvent());
       SearchFinished(this, EventArgs.Empty);
 
       _currentSearch = null;

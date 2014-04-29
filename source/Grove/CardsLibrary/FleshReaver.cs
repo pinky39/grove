@@ -28,7 +28,7 @@
               playerFilter: (player, tr, _) => tr.Ability.OwningCard.Controller != player));
 
             p.Effect = () => new DealExistingDamageToPlayer(
-              P(e => e.TriggerMessage<DamageHasBeenDealt>().Damage),
+              P(e => e.TriggerMessage<DamageDealtEvent>().Damage),
               P(e => e.Controller));
           });
     }

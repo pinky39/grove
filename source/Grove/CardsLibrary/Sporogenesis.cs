@@ -48,7 +48,7 @@
                 filter: (c, a, g) => c.CountersCount(CounterType.Fungus) > 0));
 
             p.Effect = () => new CreateTokens(
-              count: P(e => e.TriggerMessage<ZoneChanged>().Card.CountersCount(CounterType.Fungus)),
+              count: P(e => e.TriggerMessage<ZoneChangedEvent>().Card.CountersCount(CounterType.Fungus)),
               token: Card
                 .Named("Saproling Token")
                 .FlavorText(

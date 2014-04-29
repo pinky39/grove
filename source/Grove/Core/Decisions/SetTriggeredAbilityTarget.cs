@@ -25,8 +25,7 @@
     private abstract class Handler : DecisionHandler<SetTriggeredAbilityTarget, ChosenTargets>
     {
       public override void ProcessResults()
-      {
-        
+      {        
         var effect = D._p.Effect;        
 
         if (Result.HasTargets == false)
@@ -36,7 +35,7 @@
         }
 
         effect.SetTriggeredAbilityTargets(Result.Targets);
-        Stack.Push(effect);
+        Stack.QueueTriggered(effect);
       }
     }
 

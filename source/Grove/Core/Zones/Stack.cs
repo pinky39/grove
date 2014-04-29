@@ -4,15 +4,17 @@
   using System.Collections;
   using System.Collections.Generic;
   using System.Linq;
-  using Grove.AI;
-  using Grove.Events;
-  using Grove.Effects;
-  using Grove.Infrastructure;
+  using AI;
+  using Decisions;
+  using Effects;
+  using Events;
+  using Infrastructure;
 
   public class Stack : GameObject, IEnumerable<Effect>, IHashable, IZone
   {
     private readonly TrackableList<Effect> _effects = new TrackableList<Effect>(orderImpactsHashcode: true);
     private readonly Trackable<Effect> _lastResolved = new Trackable<Effect>();
+    private readonly TrackableList<Effect> _triggeredEffects = new TrackableList<Effect>();
 
     public int Count { get { return _effects.Count; } }
     public bool IsEmpty { get { return _effects.Count == 0; } }
@@ -20,31 +22,77 @@
     private Effect LastResolved { get { return _lastResolved.Value; } set { _lastResolved.Value = value; } }
     public Effect TopSpell { get { return _effects.LastOrDefault(); } }
     public Player TopSpellOwner { get { return TopSpell == null ? null : TopSpell.Controller; } }
+    public bool HasTriggered { get { return _triggeredEffects.Count > 0; } }
 
-    public IEnumerator<Effect> GetEnumerator() { return _effects.GetEnumerator(); }
+    public IEnumerator<Effect> GetEnumerator()
+    {
+      return _effects.GetEnumerator();
+    }
 
-    IEnumerator IEnumerable.GetEnumerator() { return GetEnumerator(); }
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+      return GetEnumerator();
+    }
 
-    public int CalculateHash(HashCalculator calc) { return calc.Calculate(_effects); }
+    public int CalculateHash(HashCalculator calc)
+    {
+      return calc.Calculate(_effects);
+    }
 
     public Zone Name { get { return Zone.Stack; } }
 
-    public void Remove(Card card) { }
-    public void AfterAdd(Card card) { }
-    public void AfterRemove(Card card) { }
+    public void Remove(Card card) {}
+    public void AfterAdd(Card card) {}
+    public void AfterRemove(Card card) {}
 
     public void Initialize(Game game)
     {
       Game = game;
 
-      _effects.Initialize(game.ChangeTracker);
-      _lastResolved.Initialize(game.ChangeTracker);
+      _effects.Initialize(ChangeTracker);
+      _lastResolved.Initialize(ChangeTracker);
+      _triggeredEffects.Initialize(ChangeTracker);
     }
 
-    public event EventHandler<StackChangedEventArgs> EffectAdded = delegate { };
-    public event EventHandler<StackChangedEventArgs> EffectRemoved = delegate { };
+    public bool HasOnlySpellsOwnedBy(Player player)
+    {
+      return _effects.All(x => x.Controller == player);
+    }
 
-    public bool HasOnlySpellsOwnedBy(Player player) { return _effects.All(x => x.Controller == player); }
+    public void QueueTriggered(Effect effect)
+    {
+      _triggeredEffects.Add(effect);
+    }
+
+    public void PushTriggered()
+    {
+      if (_triggeredEffects.Count == 0)
+        return;
+      
+      var active = _triggeredEffects
+        .Where(x => x.Controller == Players.Active)
+        .ToList();
+
+      var passive = _triggeredEffects
+        .Where(x => x.Controller == Players.Passive)
+        .ToList();
+
+      _triggeredEffects.Clear();
+
+      if (active.Count > 0)
+      {
+        Enqueue(new PushTriggeredEffects(
+          Players.Active,
+          active));
+      }
+
+      if (passive.Count > 0)
+      {
+        Enqueue(new PushTriggeredEffects(
+          Players.Passive,
+          passive));
+      }
+    }
 
     public void Push(Effect effect)
     {
@@ -52,7 +100,7 @@
       effect.EffectWasPushedOnStack();
 
       EffectAdded(this, new StackChangedEventArgs(effect));
-      Publish(new EffectPushedOnStack {Effect = effect});
+      Publish(new EffectPutOnStackEvent(effect));
       LogFile.Debug("Effect pushed on stack: {0}.", effect);
     }
 
@@ -80,7 +128,10 @@
       }
     }
 
-    public override string ToString() { return String.Format("{0}", Count); }
+    public override string ToString()
+    {
+      return String.Format("{0}", Count);
+    }
 
     public void GenerateTargets(Func<Zone, Player, bool> zoneFilter, List<ITarget> targets)
     {
@@ -88,14 +139,6 @@
       {
         targets.AddRange(_effects);
       }
-    }
-
-    private void Remove(Effect effect)
-    {
-      _effects.Remove(effect);
-      EffectRemoved(this, new StackChangedEventArgs(effect));
-
-      LogFile.Debug("Effect removed from stack: {0}. (count: {1})", effect, _effects.Count);
     }
 
     public void Counter(Effect effect)
@@ -164,12 +207,6 @@
       return CanThougnessBeReducedToLeathalByTopSpell(card) || CanBeDealtLeathalDamageByTopSpell(card);
     }
 
-    private bool CanThougnessBeReducedToLeathalByTopSpell(Card card)
-    {
-      if (IsEmpty) return false;
-      return card.Life <= TopSpell.CalculateToughnessReduction(card);
-    }
-
     public bool CanTopSpellReducePlayersLifeToZero(Player player)
     {
       if (TopSpell == null)
@@ -179,10 +216,36 @@
       return damage >= player.Life;
     }
 
-    public bool TopSpellHas(EffectTag tag) { return !IsEmpty && TopSpell.HasTag(tag); }
+    public bool TopSpellHas(EffectTag tag)
+    {
+      return !IsEmpty && TopSpell.HasTag(tag);
+    }
 
-    public bool HasSpellWithSource(Card card) { return _effects.Any(x => x.Source.OwningCard == card); }
+    public bool HasSpellWithSource(Card card)
+    {
+      return _effects.Any(x => x.Source.OwningCard == card);
+    }
 
-    public bool HasSpellWithName(string name) { return _effects.Any(x => x.Source.OwningCard.Name.Equals(name)); }
+    public bool HasSpellWithName(string name)
+    {
+      return _effects.Any(x => x.Source.OwningCard.Name.Equals(name));
+    }
+
+    public event EventHandler<StackChangedEventArgs> EffectAdded = delegate { };
+    public event EventHandler<StackChangedEventArgs> EffectRemoved = delegate { };
+
+    private void Remove(Effect effect)
+    {
+      _effects.Remove(effect);
+      EffectRemoved(this, new StackChangedEventArgs(effect));
+
+      LogFile.Debug("Effect removed from stack: {0}. (count: {1})", effect, _effects.Count);
+    }
+
+    private bool CanThougnessBeReducedToLeathalByTopSpell(Card card)
+    {
+      if (IsEmpty) return false;
+      return card.Life <= TopSpell.CalculateToughnessReduction(card);
+    }
   }
 }

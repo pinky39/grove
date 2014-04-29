@@ -21,7 +21,7 @@
             <ContentControl Content="{Binding}" ContentTemplate="{StaticResource Ability}" />
         </DataTemplate>
 
-        <DataTemplate DataType="{x:Type Messages:AbilityActivated}">
+        <DataTemplate DataType="{x:Type Messages:AbilityActivatedEvent}">
                 <ContentControl Content="{Binding Ability}">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseEnter">
@@ -32,7 +32,7 @@
                     </i:Interaction.Triggers>
                 </ContentControl>                           
         </DataTemplate>
-            <DataTemplate DataType="{x:Type Messages:SpellWasCast}">
+            <DataTemplate DataType="{x:Type Messages:SpellCastEvent}">
                 <ContentControl Content="{Binding Card}">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseEnter">

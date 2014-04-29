@@ -2,9 +2,9 @@
 {
   using System;
   using System.Linq;
-  using Grove.AI;
-  using Grove.UserInterface;
-  using Grove.UserInterface.SelectTarget;
+  using AI;
+  using UserInterface;
+  using UserInterface.SelectTarget;
 
   public class DiscardCards : Decision
   {
@@ -13,7 +13,9 @@
     private DiscardCards() {}
 
     public DiscardCards(Player controller, Action<Params> setParameters)
-      : base(controller, () => new UiHandler(), () => new MachineHandler(), () => new MachineHandler(), () => new PlaybackHandler())
+      : base(
+        controller, () => new UiHandler(), () => new MachineHandler(), () => new MachineHandler(),
+        () => new PlaybackHandler())
     {
       setParameters(_p);
     }

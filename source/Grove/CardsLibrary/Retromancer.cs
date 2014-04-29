@@ -27,7 +27,7 @@
 
             p.Effect = () => new DealDamageToPlayer(
               amount: 3,
-              player: P(e => e.TriggerMessage<EffectPushedOnStack>().Effect.Controller));
+              player: P(e => e.TriggerMessage<EffectPutOnStackEvent>().Effect.Controller));
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });

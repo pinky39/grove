@@ -4,7 +4,7 @@
   using System.Collections.Generic;
   using Effects;
   using Events;
-  using Grove.UserInterface;
+  using UserInterface;
 
   public class ChooseEffectOptions : Decision
   {
@@ -39,11 +39,8 @@
       {
         Result = D._p.ChooseDecisionResults.ChooseResult(D._p.Choices);
 
-        Publish(new EffectOptionsWereChosen
-          {
-            Text =
-              string.Format("{0} chose {1}.", D.Controller, string.Join(", ", Result.Options))
-          });
+        Publish(new OptionsChosenEvent(string.Format("{0} chose {1}.",
+          D.Controller, string.Join(", ", Result.Options))));
       }
     }
 

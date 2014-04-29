@@ -26,11 +26,7 @@
     {
       _card.PutToGraveyard();
 
-      Publish(new SpellWasCountered
-        {
-          Card = _card,
-          Reason = reason
-        });
+      Publish(new SpellCounteredEvent(_card, reason));
     }
 
     public void EffectPushedOnStack()
@@ -155,14 +151,16 @@
         _card.Controller.LandsPlayedCount++;
 
         effect.QuickResolve();
-        Publish(new PlayerPlayedALand(effect.Source.OwningCard));
+        Publish(new LandPlayedEvent(effect.Source.OwningCard));
 
         return;
       }
-
-      Publish(new BeforeSpellWasPutOnStack(_card, p.Targets));
-      Stack.Push(effect);
-      Publish(new AfterSpellWasPutOnStack(_card, p.Targets));
+      
+      Publish(new SpellCastEvent(_card, p.Targets));
+            
+      
+      Stack.Push(effect);      
+      Publish(new SpellPutOnStackEvent(_card, p.Targets));
     }
 
     public bool CanTarget(ITarget target) { return _p.TargetSelector.Effect[0].IsTargetValid(target, _card); }

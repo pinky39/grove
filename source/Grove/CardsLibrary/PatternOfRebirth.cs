@@ -41,7 +41,7 @@
               validator: (e, c) => c.Is().Creature,
               text: "Search your library for a creature.",
               player: P(
-                e => e.TriggerMessage<ZoneChanged>().Controller,
+                e => e.TriggerMessage<ZoneChangedEvent>().Controller,
                 EvaluateAt.OnResolve));
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;

@@ -25,7 +25,7 @@
                 ply == trg.OwningCard.Controller && dmg.Source.Is().Creature));
 
             p.Effect = () => new DestroyPermanent(P(e =>
-              e.TriggerMessage<DamageHasBeenDealt>().Damage.Source));
+              e.TriggerMessage<DamageDealtEvent>().Damage.Source));
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });

@@ -3,7 +3,7 @@
   using Grove.Events;
   using Grove.Infrastructure;
 
-  public class OnLevelChanged : Trigger, IReceive<LevelChanged>
+  public class OnLevelChanged : Trigger, IReceive<LevelChangedEvent>
   {
     private readonly int _level;
 
@@ -14,7 +14,7 @@
       _level = level;
     }
 
-    public void Receive(LevelChanged message)
+    public void Receive(LevelChangedEvent message)
     {
       if (message.Card == Ability.OwningCard)
       {

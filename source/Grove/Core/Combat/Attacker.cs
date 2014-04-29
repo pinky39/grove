@@ -117,7 +117,7 @@
 
     public void RemoveFromCombat()
     {
-      Publish(new RemovedFromCombat {Card = Card});
+      Publish(new RemovedFromCombatEvent(Card));
 
       foreach (var blocker in _blockers)
       {

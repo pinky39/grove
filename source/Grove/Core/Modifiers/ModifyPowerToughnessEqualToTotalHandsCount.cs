@@ -4,7 +4,7 @@
   using Events;
   using Infrastructure;
 
-  public class ModifyPowerToughnessEqualToTotalHandsCount : Modifier, IReceive<ZoneChanged>,
+  public class ModifyPowerToughnessEqualToTotalHandsCount : Modifier, IReceive<ZoneChangedEvent>,
     ICardModifier
   {
     private readonly IntegerSetter _strenghtModifier = new IntegerSetter();
@@ -17,7 +17,7 @@
       _strenght.AddToughnessModifier(_strenghtModifier);
     }
 
-    public void Receive(ZoneChanged message)
+    public void Receive(ZoneChangedEvent message)
     {
       if (message.ToHand)
       {

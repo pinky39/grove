@@ -26,7 +26,7 @@
 
             p.Effect = () => new PlayerSacrificePermanents(
               count: 1,
-              player: P(e => e.TriggerMessage<ZoneChanged>().Controller),
+              player: P(e => e.TriggerMessage<ZoneChangedEvent>().Controller),
               filter: c => c.Is().Creature || c.Is().Land,
               text: "Sacrifice a creature or a land.");
           });

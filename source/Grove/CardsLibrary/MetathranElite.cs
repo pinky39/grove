@@ -27,7 +27,7 @@
                 var modifier = new AddStaticAbility(Static.Unblockable);
 
                 modifier.AddLifetime(new AttachmentLifetime(self =>
-                  self.Modifier.SourceEffect.TriggerMessage<AttachmentAttached>().Attachment));
+                  self.Modifier.SourceEffect.TriggerMessage<AttachmentAttachedEvent>().Attachment));
 
                 return modifier;
               });

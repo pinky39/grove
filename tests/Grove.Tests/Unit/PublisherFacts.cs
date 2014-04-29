@@ -10,8 +10,9 @@
     [Fact]
     public void HandleEvent()
     {
-      var publisher = new Publisher(Assembly.GetExecutingAssembly(), typeof (PublisherTest.Person).Namespace);
-      publisher.Initialize(new ChangeTracker());
+      var publisher = new Publisher(
+        assembly: Assembly.GetExecutingAssembly(), 
+        ns: typeof (PublisherTest.Person).Namespace);      
 
       var aunt1 = new Aunt();
       var aunt2 = new Aunt();

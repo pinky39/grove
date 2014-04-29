@@ -3,9 +3,9 @@
   using Grove.Events;
   using Grove.Infrastructure;
 
-  public class PlayerCastsCreatureLifetime : Lifetime, IReceive<AfterSpellWasPutOnStack>
+  public class PlayerCastsCreatureLifetime : Lifetime, IReceive<SpellPutOnStackEvent>
   {
-    public void Receive(AfterSpellWasPutOnStack message)
+    public void Receive(SpellPutOnStackEvent message)
     {
       if (message.Card.Is().Creature)
       {

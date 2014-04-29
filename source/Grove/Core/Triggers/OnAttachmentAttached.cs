@@ -4,7 +4,7 @@
   using Grove.Events;
   using Grove.Infrastructure;
 
-  public class OnAttachmentAttached : Trigger, IReceive<AttachmentAttached>
+  public class OnAttachmentAttached : Trigger, IReceive<AttachmentAttachedEvent>
   {
     private readonly Func<Card, bool> _filter;
 
@@ -15,7 +15,7 @@
       _filter = filter ?? delegate { return true; };
     }
 
-    public void Receive(AttachmentAttached message)
+    public void Receive(AttachmentAttachedEvent message)
     {
       if (message.AttachedTo == Ability.SourceCard && _filter(message.Attachment))
         Set(message);

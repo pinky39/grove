@@ -6,19 +6,19 @@
 
   public class ViewModel : ViewModelBase
   {
-    private readonly List<OrderedCard> _cards;
+    private readonly List<OrderedObject> _objects;
     private int _currentIndex = 1;
 
-    public ViewModel(IEnumerable<Card> cards, string title)
+    public ViewModel(IEnumerable<object> objects, string title)
     {
       Title = title;
-      _cards = cards.Select(x => Bindable.Create<OrderedCard>(x)).ToList();
+      _objects = objects.Select(x => Bindable.Create<OrderedObject>(x)).ToList();
     }
 
     public string Title { get; private set; }
-    public int[] Ordering { get { return _cards.Select(x => x.Order.Value - 1).ToArray(); } }
-    public virtual bool CanAccept { get { return _cards.All(x => x.Order.HasValue); } }
-    public IEnumerable<OrderedCard> Cards { get { return _cards; } }
+    public int[] Ordering { get { return _objects.Select(x => x.Order.Value - 1).ToArray(); } }
+    public virtual bool CanAccept { get { return _objects.All(x => x.Order.HasValue); } }
+    public IEnumerable<OrderedObject> Objects { get { return _objects; } }
 
     public void Accept()
     {
@@ -28,7 +28,7 @@
     [Updates("CanAccept")]
     public virtual void Clear()
     {
-      foreach (var orderedCard in _cards)
+      foreach (var orderedCard in _objects)
       {
         orderedCard.Order = null;
       }
@@ -37,18 +37,18 @@
     }
 
     [Updates("CanAccept")]
-    public virtual void AssignNext(OrderedCard orderedCard)
+    public virtual void AssignNext(OrderedObject orderedCard)
     {
       if (orderedCard.Order.HasValue)
         return;
 
       orderedCard.Order = _currentIndex;
       _currentIndex++;
-    }    
+    }   
 
     public interface IFactory
     {
-      ViewModel Create(IEnumerable<Card> cards, string title);
+      ViewModel Create(IEnumerable<object> objects, string title);
     }
   }
 }

@@ -8,32 +8,32 @@
   using Events;
   using Infrastructure;
 
-  public class ViewModel : ViewModelBase, IIsDialogHost, IReceive<BeforeSpellWasPutOnStack>,
-    IReceive<BeforeActivatedAbilityWasPutOnStack>,
-    IReceive<SearchStarted>, IReceive<SearchFinished>, IReceive<DamageHasBeenDealt>,
-    IReceive<AssignedCombatDamageWasDealt>, IReceive<CardWasRevealed>, IReceive<PlayerHasFlippedACoin>,
-    IReceive<EffectOptionsWereChosen>, IReceive<TurnStarted>, IReceive<ZoneChanged>, IReceive<PlayerLifeChanged>,
+  public class ViewModel : ViewModelBase, IIsDialogHost, IReceive<SpellCastEvent>,
+    IReceive<AbilityActivatedEvent>, IReceive<SearchStartedEvent>, IReceive<SearchFinishedEvent>, IReceive<DamageDealtEvent>,
+    IReceive<AssignedDamageDealtEvent>, IReceive<CardWasRevealedEvent>, IReceive<PlayerFlippedCoinEvent>,
+    IReceive<OptionsChosenEvent>, IReceive<TurnStartedEvent>, IReceive<ZoneChangedEvent>, IReceive<LifeChangedEvent>,
+    IReceive<PlayerTookMulliganEvent>,
     IDisposable
   {
     private readonly List<object> _largeDialogs = new List<object>();
     private readonly List<object> _smallDialogs = new List<object>();
 
-    private ScenarioGenerator _scenarioGenerator;    
+    private ScenarioGenerator _scenarioGenerator;
 
     public object LargeDialog { get { return _largeDialogs.FirstOrDefault(); } }
     public MagnifiedCard.ViewModel MagnifiedCard { get; set; }
     public ManaPool.ViewModel ManaPool { get; set; }
-    public UserInterface.Battlefield.ViewModel OpponentsBattlefield { get; private set; }
+    public Battlefield.ViewModel OpponentsBattlefield { get; private set; }
     public PlayerBox.ViewModel You { get; private set; }
     public PlayerBox.ViewModel Opponent { get; private set; }
     public virtual string SearchInProgressMessage { get; set; }
     public object SmallDialog { get { return _smallDialogs.FirstOrDefault(); } }
-    public UserInterface.Stack.ViewModel StackVm { get; set; }
+    public Stack.ViewModel StackVm { get; set; }
     public Steps.ViewModel Steps { get; set; }
     public TurnNumber.ViewModel TurnNumber { get; set; }
     public MessageLog.ViewModel MessageLog { get; set; }
-    public UserInterface.Battlefield.ViewModel YourBattlefield { get; private set; }
-    public UserInterface.Zones.ViewModel Zones { get; set; }
+    public Battlefield.ViewModel YourBattlefield { get; private set; }
+    public Zones.ViewModel Zones { get; set; }
     public virtual QuitGame.ViewModel QuitGameDialog { get; protected set; }
 
     public void Dispose()
@@ -95,61 +95,60 @@
       _largeDialogs.Remove(dialog);
     }
 
-    public void Receive(AssignedCombatDamageWasDealt message)
-    {
-      // pause the game a bit after dealing combat damage
-      // before creatures go to graveyards
-      Thread.Sleep(500);
-    }
-
-    public void Receive(BeforeActivatedAbilityWasPutOnStack message)
+    public void Receive(AbilityActivatedEvent message)
     {
       // do not show repeated activation of same ability
       if (Game.Stack.IsEmpty || message.Ability != Game.Stack.TopSpell.Source)
       {
         ShowActivationDialog(message);
       }
-      
+
       MessageLog.AddMessage(message.ToString());
     }
 
-    public void Receive(BeforeSpellWasPutOnStack message)
+    public void Receive(AssignedDamageDealtEvent message)
     {
-      ShowActivationDialog(message);
-      MessageLog.AddMessage(message.ToString());
+      // pause the game a bit after dealing combat damage
+      // before creatures go to graveyards
+      Thread.Sleep(500);
     }
 
-    public void Receive(CardWasRevealed message)
-    {
-      MessageLog.AddMessage(message.ToString());
-    }
-
-    public void Receive(DamageHasBeenDealt message)
+    public void Receive(CardWasRevealedEvent message)
     {
       MessageLog.AddMessage(message.ToString());
     }
 
-    public void Receive(EffectOptionsWereChosen message)
+    public void Receive(DamageDealtEvent message)
+    {
+      MessageLog.AddMessage(message.ToString());
+    }
+
+    public void Receive(OptionsChosenEvent message)
     {
       MessageLog.AddMessage(message.Text);
     }
 
-    public void Receive(PlayerHasFlippedACoin message)
+    public void Receive(PlayerFlippedCoinEvent message)
     {
       MessageLog.AddMessage(message.ToString());
     }
 
-    public void Receive(PlayerLifeChanged message)
+    public void Receive(LifeChangedEvent message)
     {
       MessageLog.AddMessage(message.ToString());
     }
 
-    public void Receive(SearchFinished message)
+    public void Receive(PlayerTookMulliganEvent message)
+    {
+      MessageLog.AddMessage(String.Format("{0} took mulligan."));
+    }
+
+    public void Receive(SearchFinishedEvent message)
     {
       SearchInProgressMessage = null;
     }
 
-    public void Receive(SearchStarted message)
+    public void Receive(SearchStartedEvent message)
     {
       SearchInProgressMessage = String.Empty;
       TaskUtils.Delay(500).ContinueWith((t) =>
@@ -159,7 +158,13 @@
         });
     }
 
-    public void Receive(TurnStarted message)
+    public void Receive(SpellCastEvent message)
+    {
+      ShowActivationDialog(message);
+      MessageLog.AddMessage(message.ToString());
+    }
+
+    public void Receive(TurnStartedEvent message)
     {
       var dialog = ViewModels.NextTurn.Create();
       Shell.ShowDialog(dialog);
@@ -169,7 +174,7 @@
       dialog.Close();
     }
 
-    public void Receive(ZoneChanged message)
+    public void Receive(ZoneChangedEvent message)
     {
       if (message.DisplayInformationInUi())
       {
@@ -200,11 +205,11 @@
       QuitGameDialog = dialog;
     }
 
-    private void ShowActivationDialog(ICardActivationMessage activation)
+    private void ShowActivationDialog(ICardActivationEvent activation)
     {
       if (activation.Controller.IsHuman)
         return;
-      
+
       var dialog = ViewModels.EffectActivation.Create(activation);
       Shell.ShowDialog(dialog);
       Thread.Sleep(2000);

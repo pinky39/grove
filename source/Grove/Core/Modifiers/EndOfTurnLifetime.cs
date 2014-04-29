@@ -3,9 +3,9 @@
   using Grove.Events;
   using Grove.Infrastructure;
 
-  public class EndOfTurnLifetime : Lifetime, IReceive<EndOfTurn>
+  public class EndOfTurnLifetime : Lifetime, IReceive<EndOfTurnEvent>
   {
-    public void Receive(EndOfTurn message)
+    public void Receive(EndOfTurnEvent message)
     {
       End();
     }

@@ -5,14 +5,14 @@
   using Costs;
   using Effects;
   using Events;
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   public class ActivatedAbility : Ability
   {
-    private readonly Parameters _p;
     private readonly Trackable<int> _lastActivation = new Trackable<int>();
+    private readonly Parameters _p;
 
-    protected ActivatedAbility() { }
+    protected ActivatedAbility() {}
 
     public ActivatedAbility(Parameters p)
       : base(p)
@@ -44,15 +44,20 @@
           continue;
         }
 
-        Publish(new BeforeActivatedAbilityWasPutOnStack(this, p.Targets));
+        Publish(new AbilityActivatedEvent(this, p.Targets));
+        
         Resolve(effect, false);
-        Publish(new AfterActivatedAbiltyWasPutOnStack(this, p.Targets));
+        Publish(new ActivatedAbilityPutOnStackEvent(this, p.Targets));
       }
     }
 
-    public virtual void OnAbilityRemoved() { }
-    public virtual void OnAbilityAdded() { }
-    public IManaAmount GetManaCost() { return _p.Cost.GetManaCost(); }
+    public virtual void OnAbilityRemoved() {}
+    public virtual void OnAbilityAdded() {}
+
+    public IManaAmount GetManaCost()
+    {
+      return _p.Cost.GetManaCost();
+    }
 
     public override int CalculateHash(HashCalculator calc)
     {
@@ -116,7 +121,10 @@
       }
     }
 
-    protected CanPayResult CanPay() { return _p.Cost.CanPay(); }
+    protected CanPayResult CanPay()
+    {
+      return _p.Cost.CanPay();
+    }
 
     private bool CanBeActivatedAtThisTime()
     {
@@ -145,5 +153,5 @@
       public Zone ActivationZone = Zone.Battlefield;
       public Cost Cost;
     }
-  }  
+  }
 }

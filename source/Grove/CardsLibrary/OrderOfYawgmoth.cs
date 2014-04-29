@@ -21,7 +21,7 @@
           {
             p.Text = "Whenever Order of Yawgmoth deals damage to a player, that player discards a card.";
             p.Trigger(new OnDamageDealt(playerFilter: delegate { return true; }));
-            p.Effect = () => new DiscardCards(1, P(e => (Player) e.TriggerMessage<DamageHasBeenDealt>().Receiver));
+            p.Effect = () => new DiscardCards(1, P(e => (Player) e.TriggerMessage<DamageDealtEvent>().Receiver));
           });
     }
   }

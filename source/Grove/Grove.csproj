@@ -235,6 +235,7 @@
     <Compile Include="Core\AI\TimingRules\OnYourTurn.cs" />
     <Compile Include="Core\AI\TimingRules\WhenAttachedToCardWillBeDestroyed.cs" />
     <Compile Include="Core\AI\TimingRules\WhenStackIsNotEmpty.cs" />
+    <Compile Include="Core\Decisions\PushTriggeredEffects.cs" />
     <Compile Include="Core\Effects\AddManaForEachRevealedCard.cs" />
     <Compile Include="Core\Effects\CounterTargetSpellUnlessControllerPays1ForEachRevealedCard.cs" />
     <Compile Include="Core\Effects\DealDamageToCreature.cs" />
@@ -247,8 +248,9 @@
     <Compile Include="Core\Effects\OpponentRevealsHand.cs" />
     <Compile Include="Core\Effects\ReturnCardsFromGraveyardToHandForEachRevealedCard.cs" />
     <Compile Include="Core\Effects\ReturnOwnerAndAttachedToHand.cs" />
-    <Compile Include="Core\Events\CounterAdded.cs" />
-    <Compile Include="Core\Events\CounterRemoved.cs" />
+    <Compile Include="Core\Events\CounterAddedEvent.cs" />
+    <Compile Include="Core\Events\CounterRemovedEvent.cs" />
+    <Compile Include="Core\Events\SpellPutOnStackEvent.cs" />
     <Compile Include="Core\Modifiers\IncreasePowerToughnessEqualToAttachedCounterCount.cs" />
     <Compile Include="Core\SaveLoad\RenameBinder.cs" />
     <Compile Include="CardsLibrary\AboutFace.cs" />
@@ -440,13 +442,11 @@
     <Compile Include="Core\Effects\TargetLoosesChosenAbility.cs" />
     <Compile Include="Core\Effects\PlayersReplaceTheirHandWithNewOneUntilEot.cs" />
     <Compile Include="Core\Effects\TargetPlayerLoosesLife.cs" />
-    <Compile Include="Core\Events\AbilityActivated.cs" />
-    <Compile Include="Core\Events\BeforeActivatedAbilityWasPutOnStack.cs" />
-    <Compile Include="Core\Events\BeforeSpellWasPutOnStack.cs" />
-    <Compile Include="Core\Events\ICardActivationMessage.cs" />
-    <Compile Include="Core\Events\SpellWasCast.cs" />
-    <Compile Include="Core\Events\SpellWasCountered.cs" />
-    <Compile Include="Core\Events\TypeChanged.cs" />
+    <Compile Include="Core\Events\AbilityActivatedEvent.cs" />
+    <Compile Include="Core\Events\ICardActivationEvent.cs" />
+    <Compile Include="Core\Events\SpellCastEvent.cs" />
+    <Compile Include="Core\Events\SpellCounteredEvent.cs" />
+    <Compile Include="Core\Events\TypeChangedEvent.cs" />
     <Compile Include="Core\Modifiers\AddCostModifier.cs" />
     <Compile Include="Core\Modifiers\DisableAbility.cs" />
     <Compile Include="Core\Modifiers\ModifyPowerToughnessEqualToTotalHandsCount.cs" />
@@ -928,6 +928,7 @@
     <Compile Include="Core\SaveLoad\SaveGameIndex.cs" />
     <Compile Include="Core\PlayModes\PregeneratedDecks.cs" />
     <Compile Include="Core\PlayModes\SealedDeckIndex.cs" />
+    <Compile Include="Infrastructure\IReceive.cs" />
     <Compile Include="UserInterface\CardActivation\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
@@ -1060,11 +1061,11 @@
     <Compile Include="Core\Effects\TargetGainsProtectionFromChosenColor.cs" />
     <Compile Include="Core\Card\IModifiable.cs" />
     <Compile Include="Core\PlayModes\MatchParameters.cs" />
-    <Compile Include="Core\Events\EffectOptionsWereChosen.cs" />
-    <Compile Include="Core\Events\EffectPushedOnStack.cs" />
-    <Compile Include="Core\Events\PermanentWasModified.cs" />
-    <Compile Include="Core\Events\PlayerLifeChanged.cs" />
-    <Compile Include="Core\Events\PlayerPlayedALand.cs" />
+    <Compile Include="Core\Events\OptionsChosenEvent.cs" />
+    <Compile Include="Core\Events\EffectPutOnStackEvent.cs" />
+    <Compile Include="Core\Events\PermanentModifiedEvent.cs" />
+    <Compile Include="Core\Events\LifeChangedEvent.cs" />
+    <Compile Include="Core\Events\LandPlayedEvent.cs" />
     <Compile Include="Core\Modifiers\ManualLifetime.cs" />
     <Compile Include="Core\Modifiers\OwningCardLifetime.cs" />
     <Compile Include="Core\Modifiers\IAcceptsGameModifier.cs" />
@@ -1175,8 +1176,8 @@
     <Compile Include="Core\Mana\ManaVault.cs" />
     <Compile Include="Core\Mana\PermanentCountManaOutput.cs" />
     <Compile Include="Core\Mana\ZeroManaAmount.cs" />
-    <Compile Include="Core\Events\PermanentGetsTapped.cs" />
-    <Compile Include="Core\Events\PlayerHasFlippedACoin.cs" />
+    <Compile Include="Core\Events\PermanentTappedEvent.cs" />
+    <Compile Include="Core\Events\PlayerFlippedCoinEvent.cs" />
     <Compile Include="Core\Modifiers\ChangeBasicLand.cs" />
     <Compile Include="Core\Modifiers\ModifierParameters.cs" />
     <Compile Include="Core\Modifiers\RemoveStaticAbility.cs" />
@@ -1195,7 +1196,7 @@
     <Compile Include="Infrastructure\TaskUtils.cs" />
     <Compile Include="UserInterface\AnimationBehaviour.cs" />
     <Compile Include="UserInterface\BuildLimitedDeck\ButtonNames.cs" />
-    <Compile Include="UserInterface\CardOrder\OrderedCard.cs" />
+    <Compile Include="UserInterface\CardOrder\OrderedObject.cs" />
     <Compile Include="UserInterface\CardOrder\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
@@ -1247,12 +1248,12 @@
     <Compile Include="Core\Triggers\TriggerOrder.cs" />
     <Compile Include="Core\Mana\ManaUsage.cs" />
     <Compile Include="Core\AI\MatchSimulator.cs" />
-    <Compile Include="Core\Events\CardWasRevealed.cs" />
-    <Compile Include="Core\Events\EffectResolved.cs" />
+    <Compile Include="Core\Events\CardWasRevealedEvent.cs" />
+    <Compile Include="Core\Events\EffectResolvedEvent.cs" />
     <Compile Include="Core\Card\CastRule.cs" />
     <Compile Include="Core\Card\IHasColors.cs" />
     <Compile Include="Core\Card\IHasLife.cs" />
-    <Compile Include="Core\Events\ControllerChanged.cs" />
+    <Compile Include="Core\Events\ControllerChangedEvent.cs" />
     <Compile Include="Core\Decisions\ChooseToUntap.cs" />
     <Compile Include="Core\Card\Ability.cs" />
     <Compile Include="Core\Costs\DiscardThis.cs" />
@@ -1270,8 +1271,8 @@
     <Compile Include="Core\Effects\SacrificeOwner.cs" />
     <Compile Include="Core\Card\IStaticAbilities.cs" />
     <Compile Include="Core\Mana\ManaSourcePriorities.cs" />
-    <Compile Include="Core\Events\AssignedCombatDamageWasDealt.cs" />
-    <Compile Include="Core\Events\PermanentGetsUntapped.cs" />
+    <Compile Include="Core\Events\AssignedDamageDealtEvent.cs" />
+    <Compile Include="Core\Events\PermanentUntappedEvent.cs" />
     <Compile Include="Core\Player\PlayerType.cs" />
     <Compile Include="Core\Modifiers\AddDamageRedirection.cs" />
     <Compile Include="Core\Modifiers\DisableAllAbilities.cs" />
@@ -1313,10 +1314,10 @@
     <Compile Include="Core\Effects\TargetPlayerTakesExtraTurn.cs" />
     <Compile Include="Core\Card\Level.cs" />
     <Compile Include="Core\Card\Life.cs" />
-    <Compile Include="Core\Events\LevelChanged.cs" />
-    <Compile Include="Core\Events\AfterActivatedAbiltyWasPutOnStack.cs" />
-    <Compile Include="Core\Events\SearchFinished.cs" />
-    <Compile Include="Core\Events\SearchStarted.cs" />
+    <Compile Include="Core\Events\LevelChangedEvent.cs" />
+    <Compile Include="Core\Events\ActivatedAbilityPutOnStackEvent.cs" />
+    <Compile Include="Core\Events\SearchFinishedEvent.cs" />
+    <Compile Include="Core\Events\SearchStartedEvent.cs" />
     <Compile Include="Core\Modifiers\AddCounters.cs" />
     <Compile Include="Core\Counter\PowerToughness.cs" />
     <Compile Include="Core\Targeting\ITarget.cs" />
@@ -1465,8 +1466,8 @@
     <Compile Include="Core\Modifier.cs" />
     <Compile Include="Core\Modifiers\AddDamagePrevention.cs" />
     <Compile Include="Core\Triggers\OnAttack.cs" />
-    <Compile Include="Core\Events\AttachmentAttached.cs" />
-    <Compile Include="Core\Events\AttachmentDetached.cs" />
+    <Compile Include="Core\Events\AttachmentAttachedEvent.cs" />
+    <Compile Include="Core\Events\AttachmentDetachedEvent.cs" />
     <Compile Include="Core\Card\CardTemplateSource.cs" />
     <Compile Include="Core\Effects\PutIntoPlay.cs" />
     <Compile Include="Core\Card\ActivatedAbility.cs" />
@@ -1496,9 +1497,8 @@
     <Compile Include="Core\Diagnostics\ScenarioGenerator.cs" />
     <Compile Include="Infrastructure\Snapshot.cs" />
     <Compile Include="Core\Card\TriggeredAbility.cs" />
-    <Compile Include="Core\Events\ZoneChanged.cs" />
-    <Compile Include="Core\Events\DamageHasBeenDealt.cs" />
-    <Compile Include="Core\Events\AfterSpellWasPutOnStack.cs" />
+    <Compile Include="Core\Events\ZoneChangedEvent.cs" />
+    <Compile Include="Core\Events\DamageDealtEvent.cs" />
     <Compile Include="Core\Zones\OrderedZone.cs" />
     <Compile Include="Core\Zones\UnorderedZone.cs" />
     <Compile Include="Infrastructure\CloseInterceptor.cs" />
@@ -1538,18 +1538,18 @@
     <Compile Include="UserInterface\InputBindingTrigger.cs" />
     <Compile Include="UserInterface\Messages\PlayableSelected.cs" />
     <Compile Include="UserInterface\Messages\PlayersInterestChanged.cs" />
-    <Compile Include="Core\Events\TurnStarted.cs" />
+    <Compile Include="Core\Events\TurnStartedEvent.cs" />
     <Compile Include="Core\AI\AttackStrategy.cs" />
     <Compile Include="Core\AI\PlayableGenerator.cs" />
     <Compile Include="Core\AI\ScoreCalculator.cs" />
     <Compile Include="Core\Game.cs" />
     <Compile Include="Core\Damage\IDamageable.cs" />
     <Compile Include="Core\PlayModes\Match.cs" />
-    <Compile Include="Core\Events\AttackerJoinedCombat.cs" />
-    <Compile Include="Core\Events\BlockerJoinedCombat.cs" />
-    <Compile Include="Core\Events\EndOfTurn.cs" />
-    <Compile Include="Core\Events\PlayerHasTakenMulligan.cs" />
-    <Compile Include="Core\Events\RemovedFromCombat.cs" />
+    <Compile Include="Core\Events\AttackerJoinedCombatEvent.cs" />
+    <Compile Include="Core\Events\BlockerJoinedCombatEvent.cs" />
+    <Compile Include="Core\Events\EndOfTurnEvent.cs" />
+    <Compile Include="Core\Events\PlayerTookMulliganEvent.cs" />
+    <Compile Include="Core\Events\RemovedFromCombatEvent.cs" />
     <Compile Include="UserInterface\QuitGame\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
@@ -1590,8 +1590,8 @@
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserInterface\Messages\SelectionChanged.cs" />
-    <Compile Include="Core\Events\StepFinished.cs" />
-    <Compile Include="Core\Events\StepStarted.cs" />
+    <Compile Include="Core\Events\StepFinishedEvent.cs" />
+    <Compile Include="Core\Events\StepStartedEvent.cs" />
     <Compile Include="Core\Player.cs" />
     <Compile Include="Core\Player\Players.cs" />
     <Compile Include="Core\State\Step.cs" />

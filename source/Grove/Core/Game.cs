@@ -24,7 +24,7 @@
     private readonly Trackable<bool> _wasStopped;
     private int _turnLimit = int.MaxValue;
 
-    private Game() { }
+    private Game() {}
 
     public Game(Parameters p)
     {
@@ -35,7 +35,7 @@
       Combat = new Combat();
 
       _decisionQueue = new DecisionQueue();
-      _publisher = new Publisher();
+      _publisher = new Publisher(changeTracker: ChangeTracker);
       _wasStopped = new Trackable<bool>();
       _stateMachine = new StateMachine();
 
@@ -111,7 +111,10 @@
     public RandomGenerator Random { get; private set; }
     public GameRecorder Recorder { get; private set; }
 
-    public void RemoveModifier(IModifier modifier) { RemoveModifier((IGameModifier) modifier); }
+    public void RemoveModifier(IModifier modifier)
+    {
+      RemoveModifier((IGameModifier) modifier);
+    }
 
     public void AddModifier(IGameModifier modifier, ModifierParameters p)
     {
@@ -133,14 +136,45 @@
       modifier.Dispose();
     }
 
-    public int PreventDamage(PreventDamageParameters p) { return _damagePreventions.PreventDamage(p); }
-    public int PreventLifeloss(int amount, Player player, bool queryOnly) { return _damagePreventions.PreventLifeloss(amount, player, queryOnly); }
-    public bool RedirectDamage(Damage damage, ITarget target) { return _damageRedirections.RedirectDamage(damage, target); }
-    public void Enqueue(Decision decision) { _stateMachine.Enqueue(decision); }
-    public SavedGame Save() { return Recorder.SaveGame(); }
-    public void Publish<TMessage>(TMessage message) { _publisher.Publish(message); }
-    public void Unsubscribe(object instance) { _publisher.Unsubscribe(instance); }
-    public void Subscribe(object instance) { _publisher.Subscribe(instance); }
+    public int PreventDamage(PreventDamageParameters p)
+    {
+      return _damagePreventions.PreventDamage(p);
+    }
+
+    public int PreventLifeloss(int amount, Player player, bool queryOnly)
+    {
+      return _damagePreventions.PreventLifeloss(amount, player, queryOnly);
+    }
+
+    public bool RedirectDamage(Damage damage, ITarget target)
+    {
+      return _damageRedirections.RedirectDamage(damage, target);
+    }
+
+    public void Enqueue(Decision decision)
+    {
+      _stateMachine.Enqueue(decision);
+    }
+
+    public SavedGame Save()
+    {
+      return Recorder.SaveGame();
+    }
+
+    public void Publish<TMessage>(TMessage message)
+    {
+      _publisher.Publish(message);
+    }
+
+    public void Unsubscribe(object instance)
+    {
+      _publisher.Unsubscribe(instance);
+    }
+
+    public void Subscribe(object instance)
+    {
+      _publisher.Subscribe(instance);
+    }
 
     public int CalculateHash()
     {
@@ -156,10 +190,25 @@
         calc.Calculate(_decisionQueue));
     }
 
-    public void RollbackToSnapshot(object snaphost) { ChangeTracker.RollbackToSnapshot((Snapshot) snaphost); }
-    public object CreateSnapshot() { return ChangeTracker.CreateSnapshot(); }
-    public void Simulate(Func<bool> shouldContinue) { _stateMachine.Resume(shouldContinue); }
-    public void Simulate(int maxStepCount) { _stateMachine.Resume(() => Turn.StepCount < maxStepCount && ShouldContinue()); }
+    public void RollbackToSnapshot(object snaphost)
+    {
+      ChangeTracker.RollbackToSnapshot((Snapshot) snaphost);
+    }
+
+    public object CreateSnapshot()
+    {
+      return ChangeTracker.CreateSnapshot();
+    }
+
+    public void Simulate(Func<bool> shouldContinue)
+    {
+      _stateMachine.Resume(shouldContinue);
+    }
+
+    public void Simulate(int maxStepCount)
+    {
+      _stateMachine.Resume(() => Turn.StepCount < maxStepCount && ShouldContinue());
+    }
 
     public void Start(int numOfTurns = int.MaxValue, bool skipPreGame = false, Player looser = null)
     {
@@ -195,14 +244,23 @@
       }
     }
 
-    public void Stop() { _wasStopped.Value = true; }
-    public override string ToString() { return Turn.ToString(); }
-    public IManaAmount GetActualCost(IManaAmount amount, ManaUsage usage, Card card) { return _costModifiers.GetActualCost(amount, usage, card); }
+    public void Stop()
+    {
+      _wasStopped.Value = true;
+    }
+
+    public override string ToString()
+    {
+      return Turn.ToString();
+    }
+
+    public IManaAmount GetActualCost(IManaAmount amount, ManaUsage usage, Card card)
+    {
+      return _costModifiers.GetActualCost(amount, usage, card);
+    }
 
     private void Initialize()
-    {
-      _publisher.Initialize(ChangeTracker);
-
+    {      
       Stack.Initialize(this);
       Turn.Initialize(this);
       _wasStopped.Initialize(ChangeTracker);
@@ -217,11 +275,14 @@
       _modifiers.Initialize(ChangeTracker);
     }
 
-    private bool ShouldContinue() { return !_wasStopped.Value && !IsFinished; }
+    private bool ShouldContinue()
+    {
+      return !_wasStopped.Value && !IsFinished;
+    }
 
     public class Parameters
     {
-      private Parameters() { }
+      private Parameters() {}
 
       public PlayerParameters Player1 { get; private set; }
       public PlayerParameters Player2 { get; private set; }

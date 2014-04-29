@@ -3,7 +3,7 @@
   using Grove.Events;
   using Grove.Infrastructure;
 
-  public class LevelLifetime : Lifetime, IReceive<LevelChanged>
+  public class LevelLifetime : Lifetime, IReceive<LevelChangedEvent>
   {
     private readonly int? _maxLevel;
     private readonly int _minLevel;
@@ -16,7 +16,7 @@
       _maxLevel = maxLevel;
     }
 
-    public void Receive(LevelChanged message)
+    public void Receive(LevelChangedEvent message)
     {
       if (message.Card != OwningCard)
         return;

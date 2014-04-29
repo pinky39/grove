@@ -21,7 +21,7 @@
           {
             p.Text = "Whenever a player casts a spell, that player discards a card.";
             p.Trigger(new OnCastedSpell());
-            p.Effect = () => new DiscardCards(1, P(e => e.TriggerMessage<AfterSpellWasPutOnStack>().Card.Controller));
+            p.Effect = () => new DiscardCards(1, P(e => e.TriggerMessage<SpellPutOnStackEvent>().Card.Controller));
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });
     }

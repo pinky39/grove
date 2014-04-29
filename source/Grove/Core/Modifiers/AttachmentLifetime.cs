@@ -4,7 +4,7 @@
   using Grove.Events;
   using Grove.Infrastructure;
 
-  public class AttachmentLifetime : Lifetime, IReceive<AttachmentDetached>
+  public class AttachmentLifetime : Lifetime, IReceive<AttachmentDetachedEvent>
   {
     private readonly Func<Lifetime, Card> _selector;
 
@@ -15,7 +15,7 @@
       _selector = selector ?? (self => self.Modifier.SourceCard);
     }
 
-    public void Receive(AttachmentDetached message)
+    public void Receive(AttachmentDetachedEvent message)
     {
       var attachment = _selector(this);
 

@@ -5,7 +5,7 @@
   using Events;
   using Infrastructure;
 
-  public class ViewModel : ViewModelBase, IReceive<AttachmentAttached>, IReceive<AttachmentDetached>, IDisposable
+  public class ViewModel : ViewModelBase, IReceive<AttachmentAttachedEvent>, IReceive<AttachmentDetachedEvent>, IDisposable
   {
     private readonly Player _owner;
 
@@ -48,7 +48,7 @@
       }
     }
 
-    public void Receive(AttachmentAttached message)
+    public void Receive(AttachmentAttachedEvent message)
     {
       if (message.Attachment.Controller == _owner && message.Attachment.Is().Equipment)
       {
@@ -56,7 +56,7 @@
       }
     }
 
-    public void Receive(AttachmentDetached message)
+    public void Receive(AttachmentDetachedEvent message)
     {
       if (message.Attachment.Controller == _owner && message.Attachment.Zone == Zone.Battlefield)
       {

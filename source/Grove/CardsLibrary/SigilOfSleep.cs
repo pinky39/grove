@@ -41,7 +41,7 @@
               {
                 trg
                   .Is.Card(tp => tp.Target.Card().Is().Creature &&
-                    tp.TriggerMessage<DamageHasBeenDealt>().Receiver == tp.Target.Controller())
+                    tp.TriggerMessage<DamageDealtEvent>().Receiver == tp.Target.Controller())
                   .On.Battlefield();
 
                 p.TargetingRule(new EffectBounce());

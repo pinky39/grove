@@ -55,7 +55,7 @@
       LogFile.Debug("Turn: {0}", _turnCount.Value);
 
       CreateEvents();
-      Publish(new TurnStarted {TurnCount = _turnCount.Value});
+      Publish(new TurnStartedEvent(_turnCount.Value));
     }
 
     private void CreateEvents()

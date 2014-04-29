@@ -94,7 +94,7 @@
 
     public void RemoveFromCombat()
     {
-      Publish(new RemovedFromCombat {Card = Card});
+      Publish(new RemovedFromCombatEvent(Card));
 
       if (HasAttacker)
       {

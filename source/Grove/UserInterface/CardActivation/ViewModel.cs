@@ -5,12 +5,12 @@
 
   public class ViewModel : ViewModelBase
   {
-    public ViewModel(ICardActivationMessage activation)
+    public ViewModel(ICardActivationEvent activation)
     {
       Activation = activation;
     }
 
-    public ICardActivationMessage Activation { get; private set; }
+    public ICardActivationEvent Activation { get; private set; }
     public string Title { get { return Activation.GetTitle(); } }
 
     public void ChangePlayersInterestTarget(ITarget target, bool hasLostInterest)
@@ -31,7 +31,7 @@
 
     public interface IFactory
     {
-      ViewModel Create(ICardActivationMessage activation);
+      ViewModel Create(ICardActivationEvent activation);
     }
   }
 }

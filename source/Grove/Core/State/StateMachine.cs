@@ -3,19 +3,19 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Grove.Decisions;
-  using Grove.Events;
-  using Grove.Infrastructure;
+  using Decisions;
+  using Events;
+  using Infrastructure;
 
   public class StateMachine : GameObject, ICopyContributor
   {
     private readonly Trackable<IDecisionHandler> _currentHandler = new Trackable<IDecisionHandler>();
-    private DecisionQueue _decisionQueue;  
     private Trackable<StateNode> _currentState = new Trackable<StateNode>();
     private Trackable<StepNode> _currentStep = new Trackable<StepNode>();
+    private DecisionQueue _decisionQueue;
     private Player _previousLooser;
     private List<StepNode> _steps;
-    
+
     private IDecisionHandler CurrentHandler { get { return _currentHandler.Value; } set { _currentHandler.Value = value; } }
     public bool WasPriorityPassed { get { return CurrentHandler.IsPass; } }
     public bool HasPendingDecisions { get { return _decisionQueue.Count > 0; } }
@@ -38,12 +38,11 @@
     {
       Game = game;
       _decisionQueue = decisionQueue;
-      
+
       _currentHandler.Initialize(ChangeTracker);
       _currentStep.Initialize(ChangeTracker);
       _currentState.Initialize(ChangeTracker);
       _steps = CreateStepNodes();
-      
     }
 
     public void Resume(Func<bool> shouldContinue)
@@ -70,7 +69,7 @@
         Turn.State = nextState.Id;
 
         nextState.Execute();
-      }      
+      }
     }
 
     public void Start(Func<bool> shouldContinue, bool skipPreGame, Player looser = null)
@@ -93,7 +92,7 @@
       Resume(shouldContinue);
     }
 
-    public new void Enqueue(Decision decision)      
+    public new void Enqueue(Decision decision)
     {
       _decisionQueue.Enqueue(decision);
     }
@@ -101,7 +100,7 @@
     private void DeclareAttackers()
     {
       Enqueue(new DeclareAttackers(
-        Players.Attacking));        
+        Players.Attacking));
     }
 
     private void DeclareBlockers()
@@ -112,7 +111,7 @@
     private void DiscardToMaximumHandSize()
     {
       var discardCount = Players.Active.NumberOfCardsAboveMaximumHandSize;
-      
+
       Enqueue(new DiscardCards(
         Players.Active,
         p => p.Count = discardCount));
@@ -125,7 +124,7 @@
         player.DrawStartingHand();
       }
     }
-      
+
     private bool ExecutePendingDecisions(Func<bool> shouldContinue)
     {
       var resultsToSave = new List<IDecisionHandler>();
@@ -143,7 +142,7 @@
           }
 
           var decision = _decisionQueue.Dequeue();
-          CurrentHandler = decision.CreateHandler(Game);            
+          CurrentHandler = decision.CreateHandler(Game);
         }
 
         CurrentHandler.Execute();
@@ -208,7 +207,7 @@
                     continue;
 
                   if (permanent.MayChooseNotToUntap)
-                  {                                        
+                  {
                     Enqueue(new ChooseToUntap(
                       Players.Active,
                       permanent));
@@ -319,7 +318,7 @@
                 Players.RemoveRegenerationFromPermanents();
 
                 DiscardToMaximumHandSize();
-                Publish(new EndOfTurn());
+                Publish(new EndOfTurnEvent());
               },
             () => Players.ChangeActivePlayer(),
           },
@@ -364,10 +363,10 @@
       Combat.DealAssignedDamage();
 
       if (Combat.AnyCreaturesWithFirstStrike() && Turn.Step == Step.FirstStrikeCombatDamage)
-        Publish(new AssignedCombatDamageWasDealt(Turn.Step));
+        Publish(new AssignedDamageDealtEvent(Turn.Step));
 
       if (Combat.AnyCreaturesWithNormalStrike() && Turn.Step == Step.CombatDamage)
-        Publish(new AssignedCombatDamageWasDealt(Turn.Step));
+        Publish(new AssignedDamageDealtEvent(Turn.Step));
     }
 
     private Player RollDice()
@@ -414,7 +413,7 @@
       var nonStarting = starting.Opponent;
 
       Enqueue(new TakeMulligan(starting));
-      Enqueue(new TakeMulligan(nonStarting));      
+      Enqueue(new TakeMulligan(nonStarting));
     }
 
     private List<StateNode> CreateStates(IEnumerable<Action> before, bool getsPriority)
@@ -428,7 +427,10 @@
                 priorityPassive = null,
                 priorityAfter = null,
                 priorityBeginResolve = null,
-                priorityFinishResolve = null;
+                priorityFinishResolve = null,
+                pushTriggeredActive = null,
+                pushTriggeredPassive = null;
+      
 
       if (getsPriority)
       {
@@ -442,7 +444,7 @@
                 return priorityPassive;
               }
 
-              return priorityActiveStart;
+              return pushTriggeredActive;
             }
           );
 
@@ -458,7 +460,7 @@
                 return priorityBeginResolve;
               }
 
-              return priorityActiveStart;
+              return pushTriggeredActive;
             });
 
         nodes.Add(priorityActive);
@@ -475,7 +477,7 @@
                   : priorityBeginResolve;
               }
 
-              return priorityPassiveStart;
+              return pushTriggeredPassive;
             }
           );
 
@@ -491,11 +493,12 @@
                 return priorityActive;
               }
 
-              return priorityPassiveStart;
+              return pushTriggeredPassive;
             }
           );
 
-        nodes.Add(priorityPassiveStart);
+        nodes.Add(priorityPassiveStart);        
+
 
         priorityBeginResolve = new StateNode(
           104,
@@ -519,15 +522,43 @@
             Players.Player1.EmptyManaPool();
             Players.Player2.EmptyManaPool();
 
-            Publish(new StepFinished
-              {
-                Step = Turn.Step
-              });
+            Publish(new StepFinishedEvent(Turn.Step));
           },
         () => null);
-      
+
       nodes.Add(priorityAfter);
-      var nextNode = getsPriority ? priorityActiveStart : priorityAfter;
+
+      pushTriggeredActive = new StateNode(
+          107,
+          () => Stack.PushTriggered(),
+          () =>
+          {
+            if (Stack.HasTriggered)
+            {
+              return pushTriggeredActive;
+            }
+
+            return priorityActiveStart;
+          });
+      
+      nodes.Add(pushTriggeredActive);
+
+      pushTriggeredPassive = new StateNode(
+          108,
+          () => Stack.PushTriggered(),
+          () =>
+          {
+            if (Stack.HasTriggered)
+            {
+              return pushTriggeredPassive;
+            }
+
+            return priorityPassiveStart;
+          });
+
+      nodes.Add(pushTriggeredPassive);
+      
+      var nextNode = getsPriority ? pushTriggeredActive : priorityAfter;
 
       // create and connect step custom statenodes
       var id = 1;
@@ -542,7 +573,7 @@
 
       startOfStep = new StateNode(
         0,
-        () => Publish(new StepStarted(Turn.Step)),
+        () => Publish(new StepStartedEvent(Turn.Step)),
         () => nextNode);
 
       nodes.Add(startOfStep);

@@ -4,7 +4,7 @@
   using Events;
   using Infrastructure;
 
-  public class OnEffectResolved : Trigger, IReceive<EffectResolved>
+  public class OnEffectResolved : Trigger, IReceive<EffectResolvedEvent>
   {
     private readonly Func<TriggeredAbility, Game, bool> _filter;
 
@@ -15,7 +15,7 @@
       _filter = filter;
     }
 
-    public void Receive(EffectResolved message)
+    public void Receive(EffectResolvedEvent message)
     {
       if (!_filter(Ability, Game))
         return;

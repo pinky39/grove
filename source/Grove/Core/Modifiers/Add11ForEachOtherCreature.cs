@@ -4,8 +4,8 @@
   using Grove.Events;
   using Grove.Infrastructure;
 
-  public class Add11ForEachOtherCreature : Modifier, ICardModifier, IReceive<ZoneChanged>,
-    IReceive<TypeChanged>, IReceive<ControllerChanged>
+  public class Add11ForEachOtherCreature : Modifier, ICardModifier, IReceive<ZoneChangedEvent>,
+    IReceive<TypeChangedEvent>, IReceive<ControllerChangedEvent>
   {
     private IntegerIncrement _integerIncrement = new IntegerIncrement();
     private Strenght _strenght;
@@ -17,7 +17,7 @@
       _strenght.AddToughnessModifier(_integerIncrement);
     }
 
-    public void Receive(ControllerChanged message)
+    public void Receive(ControllerChangedEvent message)
     {
       if (message.Card.Is().Creature || message.Card == SourceCard)
       {
@@ -25,7 +25,7 @@
       }
     }
 
-    public void Receive(TypeChanged message)
+    public void Receive(TypeChangedEvent message)
     {
       if (message.Card.Controller != SourceCard.Controller ||
         !message.Card.Is().Creature)
@@ -36,7 +36,7 @@
       _integerIncrement.Value = GetCreatureCount();
     }
 
-    public void Receive(ZoneChanged message)
+    public void Receive(ZoneChangedEvent message)
     {
       if (message.Card.Controller != SourceCard.Controller ||
         !message.Card.Is().Creature)

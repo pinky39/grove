@@ -4,7 +4,7 @@
   using Grove.Events;
   using Grove.Infrastructure;
 
-  public class OnLandPlayed : Trigger, IReceive<PlayerPlayedALand>
+  public class OnLandPlayed : Trigger, IReceive<LandPlayedEvent>
   {
     private readonly Func<TriggeredAbility, Card, bool> _filter;
 
@@ -15,7 +15,7 @@
       _filter = filter;
     }
 
-    public void Receive(PlayerPlayedALand message)
+    public void Receive(LandPlayedEvent message)
     {
       if (_filter(Ability, message.Card))
       {

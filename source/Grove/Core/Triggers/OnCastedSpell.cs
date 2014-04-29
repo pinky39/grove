@@ -4,7 +4,7 @@
   using Grove.Events;
   using Grove.Infrastructure;
 
-  public class OnCastedSpell : Trigger, IReceive<AfterSpellWasPutOnStack>
+  public class OnCastedSpell : Trigger, IReceive<SpellPutOnStackEvent>
   {
     private readonly Func<TriggeredAbility, Card, bool> _filter;
 
@@ -15,7 +15,7 @@
       _filter = filter ?? delegate { return true; };
     }
 
-    public void Receive(AfterSpellWasPutOnStack message)
+    public void Receive(SpellPutOnStackEvent message)
     {
       if (_filter(Ability, message.Card))
       {

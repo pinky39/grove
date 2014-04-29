@@ -4,7 +4,7 @@
   using Grove.Events;
   using Grove.Infrastructure;
 
-  public class EndOfStep : Lifetime, IReceive<StepFinished>
+  public class EndOfStep : Lifetime, IReceive<StepFinishedEvent>
   {
     private readonly Step _step;
     private readonly Func<EndOfStep, bool> _filter;
@@ -17,7 +17,7 @@
       _filter = filter ?? delegate { return true; };
     }
 
-    public void Receive(StepFinished message)
+    public void Receive(StepFinishedEvent message)
     {
       if (message.Step == _step)
       {

@@ -38,7 +38,7 @@
               count: 1,
               validator: c => c.Is().Land,
               text: "Select a land to sacrifice.",
-              playerFilter: (e, player) => e.TriggerMessage<DamageHasBeenDealt>().Receiver == player);
+              playerFilter: (e, player) => e.TriggerMessage<DamageDealtEvent>().Receiver == player);
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });

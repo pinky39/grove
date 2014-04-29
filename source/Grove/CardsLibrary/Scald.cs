@@ -22,7 +22,7 @@
 
             p.Effect = () => new DealDamageToPlayer(
               amount: 1,
-              player: P(e => e.TriggerMessage<PermanentGetsTapped>().Permanent.Controller));
+              player: P(e => e.TriggerMessage<PermanentTappedEvent>().Card.Controller));
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });

@@ -27,7 +27,7 @@
             
             p.Effect = () => new DestroyAttachedAuras(P((e =>
               {
-                var message = e.TriggerMessage<BlockerJoinedCombat>();
+                var message = e.TriggerMessage<BlockerJoinedCombatEvent>();
 
                 return message.Attacker.Card == e.Source.OwningCard
                   ? message.Blocker.Card

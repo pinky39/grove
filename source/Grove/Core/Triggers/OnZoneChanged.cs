@@ -4,7 +4,7 @@
   using Events;
   using Infrastructure;
 
-  public class OnZoneChanged : Trigger, IReceive<ZoneChanged>
+  public class OnZoneChanged : Trigger, IReceive<ZoneChangedEvent>
   {
     private readonly Func<Card, TriggeredAbility, Game, bool> _filter;
     private readonly Zone _from;
@@ -22,7 +22,7 @@
       _filter = filter ?? ((card, ability, game) => ability.OwningCard == card);
     }
 
-    public void Receive(ZoneChanged message)
+    public void Receive(ZoneChangedEvent message)
     {
       if (!_filter(message.Card, Ability, Game))
         return;

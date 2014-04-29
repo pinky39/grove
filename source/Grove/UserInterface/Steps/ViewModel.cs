@@ -6,7 +6,7 @@
   using Grove.Infrastructure;
   using Step = Grove.Step;
 
-  public class ViewModel : ViewModelBase, IReceive<TurnStarted>
+  public class ViewModel : ViewModelBase, IReceive<TurnStartedEvent>
   {
     private readonly List<UserInterface.Step.ViewModel> _steps = new List<UserInterface.Step.ViewModel>();
 
@@ -14,7 +14,7 @@
 
     public virtual int TurnNumber { get; protected set; }
 
-    public void Receive(TurnStarted message)
+    public void Receive(TurnStartedEvent message)
     {
       TurnNumber = message.TurnCount;
     }

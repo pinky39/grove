@@ -5,8 +5,8 @@
   using Events;
   using Infrastructure;
 
-  public class ModifyPowerToughnessForEachPermanent : Modifier, IReceive<ZoneChanged>, 
-    IReceive<PermanentWasModified>, ICardModifier
+  public class ModifyPowerToughnessForEachPermanent : Modifier, IReceive<ZoneChangedEvent>, 
+    IReceive<PermanentModifiedEvent>, ICardModifier
   {
     private readonly ControlledBy _controlledBy;
     private readonly Func<Card, Modifier, bool> _filter;
@@ -45,12 +45,12 @@
       }
     }
 
-    public void Receive(PermanentWasModified message)
+    public void Receive(PermanentModifiedEvent message)
     {
       Update();
     }
 
-    public void Receive(ZoneChanged message)
+    public void Receive(ZoneChangedEvent message)
     {
       if (message.From == Zone.Battlefield)
       {

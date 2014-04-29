@@ -124,10 +124,20 @@
             }));
 
         return;
+      }            
+      Resolve(effect);
+    }
+
+    private void Resolve(Effect e)
+    {
+      if (_p.UsesStack == false)
+      {
+        e.BeginResolve();
+        e.FinishResolve();
+        return;
       }
-      
-      
-      Resolve(effect, skipStack: false);
+
+      Stack.QueueTriggered(e);
     }
 
     private void RegisterTriggerListener(Trigger trigger)

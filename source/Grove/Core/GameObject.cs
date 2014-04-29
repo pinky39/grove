@@ -48,13 +48,8 @@
     protected bool FlipACoin(Player who)
     {
       // in search always consider winning the coin flip
-      var hasWon = Ai.IsSearchInProgress ? true : Game.Random.FlipACoin();
-
-      Publish(new PlayerHasFlippedACoin
-        {
-          Player = who,
-          HasWon = hasWon
-        });
+      var hasWon = Ai.IsSearchInProgress || Game.Random.FlipACoin();
+      Publish(new PlayerFlippedCoinEvent(who, hasWon));
 
       return hasWon;
     }

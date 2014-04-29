@@ -402,7 +402,7 @@
         controller.Life += damage.Amount;
       }
 
-      Publish(new DamageHasBeenDealt(this, damage));
+      Publish(new DamageDealtEvent(this, damage));
     }
 
     public bool HasColor(CardColor color)
@@ -494,13 +494,7 @@
 
       if (destination.Name != source.Name)
       {
-        Publish(new ZoneChanged
-          {
-            Card = this,
-            From = source.Name,
-            To = destination.Name
-          });
-
+        Publish(new ZoneChangedEvent(this, source.Name, destination.Name));
 
         // triggered abilities which trigger when permanent is in play only 
         // are removed when AfterRemove is called so
@@ -549,11 +543,7 @@
 
       if (IsPermanent)
       {
-        Publish(new PermanentWasModified
-          {
-            Card = this,
-            Modifier = modifier
-          });
+        Publish(new PermanentModifiedEvent(this, modifier));
       }
     }
 
@@ -577,11 +567,7 @@
 
       if (IsPermanent)
       {
-        Publish(new PermanentWasModified
-          {
-            Card = this,
-            Modifier = modifier
-          });
+        Publish(new PermanentModifiedEvent(this, modifier));
       }
     }
 
@@ -684,7 +670,7 @@
 
       attachment.AttachedTo = this;
       _attachments.Add(attachment);
-      Publish(new AttachmentAttached {Attachment = attachment});
+      Publish(new AttachmentAttachedEvent(attachment));
     }
 
     public List<ActivationPrerequisites> CanActivateAbilities(bool ignoreManaAbilities = false)
@@ -792,11 +778,7 @@
       _attachments.Remove(card);
       card.AttachedTo = null;
 
-      Publish(new AttachmentDetached
-        {
-          AttachedTo = this,
-          Attachment = card
-        });
+      Publish(new AttachmentDetachedEvent(attachment: card, attachedTo: this));        
     }
 
     public void EnchantWithoutPayingCost(Card target)
@@ -944,7 +926,7 @@
       IsTapped = true;
       UsageScore += ScoreCalculator.CalculateTapPenalty(this, Turn);
 
-      Publish(new PermanentGetsTapped {Permanent = this});
+      Publish(new PermanentTappedEvent(this));
     }
 
     public override string ToString()
@@ -961,7 +943,7 @@
         UsageScore -= ScoreCalculator.CalculateTapPenalty(this, Turn);
       }
 
-      Publish(new PermanentGetsUntapped {Permanent = this});
+      Publish(new PermanentUntappedEvent(this));
     }
 
     public void DetachAttachments()

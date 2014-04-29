@@ -8,6 +8,7 @@
   using Events;
   using Infrastructure;
   using Modifiers;
+  using Triggers;
 
   public delegate Effect EffectFactory();
 
@@ -23,6 +24,7 @@
     public bool CanBeCountered = true;
     public Func<Effect, bool> ShouldResolve = delegate { return true; };
     private Value _toughnessReduction = 0;
+    public int TriggerOrderRule = TriggerOrder.Normal;
 
     private object _triggerMessage;
 
@@ -181,7 +183,7 @@
       {
         Source.EffectResolved();
 
-        Publish(new EffectResolved {Effect = this});
+        Publish(new EffectResolvedEvent(this));
         Players.MoveDeadCreaturesToGraveyard();
         return;
       }

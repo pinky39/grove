@@ -6,7 +6,7 @@
   public class ThranTurbine
   {
     public class Ai : AiScenario
-    {
+    {      
       [Fact]
       public void PayEcho()
       {

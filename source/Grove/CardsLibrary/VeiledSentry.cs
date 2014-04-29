@@ -29,8 +29,8 @@
 
             p.Effect = () => new ApplyModifiersToSelf(
               () => new ChangeToCreature(
-                power: self => self.SourceEffect.TriggerMessage<AfterSpellWasPutOnStack>().Card.ConvertedCost,
-                toughness: self => self.SourceEffect.TriggerMessage<AfterSpellWasPutOnStack>().Card.ConvertedCost,
+                power: self => self.SourceEffect.TriggerMessage<SpellPutOnStackEvent>().Card.ConvertedCost,
+                toughness: self => self.SourceEffect.TriggerMessage<SpellPutOnStackEvent>().Card.ConvertedCost,
                 type: self => "Creature Illusion",
                 colors: L(CardColor.Blue)));
 

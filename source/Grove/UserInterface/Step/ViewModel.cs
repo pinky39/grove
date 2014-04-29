@@ -5,7 +5,7 @@
   using Infrastructure;
   using Step = Grove.Step;
 
-  public class ViewModel : IReceive<StepStarted>
+  public class ViewModel : IReceive<StepStartedEvent>
   {    
     private readonly Step[] _steps;
 
@@ -20,7 +20,7 @@
     public string DisplayName { get; set; }
     public virtual bool IsCurent { get; set; }
 
-    public void Receive(StepStarted message)
+    public void Receive(StepStartedEvent message)
     {
       if (IsCurent)
         IsCurent = false;

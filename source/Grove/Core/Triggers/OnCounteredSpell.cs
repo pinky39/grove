@@ -4,7 +4,7 @@
   using Grove.Events;
   using Grove.Infrastructure;
 
-  public class OnCounteredSpell : Trigger, IReceive<SpellWasCountered>
+  public class OnCounteredSpell : Trigger, IReceive<SpellCounteredEvent>
   {
     private readonly Func<TriggeredAbility, Card, bool> _filter;
 
@@ -15,7 +15,7 @@
       _filter = filter ?? delegate { return true; };
     }
 
-    public void Receive(SpellWasCountered message)
+    public void Receive(SpellCounteredEvent message)
     {
       if (_filter(Ability, message.Card))
       {

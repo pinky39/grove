@@ -7,7 +7,7 @@
   using Grove.Infrastructure;
   using Modifiers;
 
-  public class StaticAbility : GameObject, IReceive<ControllerChanged>, 
+  public class StaticAbility : GameObject, IReceive<ControllerChangedEvent>, 
     IDisposable, ICopyContributor, IHashable
   {
     private readonly bool _enabledInAllZones;
@@ -132,7 +132,7 @@
       SubscribeToEvents();
     }
 
-    public void Receive(ControllerChanged message)
+    public void Receive(ControllerChangedEvent message)
     {
       if (message.Card == OwningCard)
       {

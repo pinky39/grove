@@ -3,9 +3,9 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Grove.Events;
-  using Grove.Modifiers;
-  using Grove.Infrastructure;
+  using Events;
+  using Infrastructure;
+  using Modifiers;
 
   public class Player : GameObject, ITarget, IDamageable, IHasLife, IModifiable
   {
@@ -43,7 +43,7 @@
       _deck = p.Deck;
     }
 
-    private Player() { }
+    private Player() {}
     public PlayerType Type { get; private set; }
     public string Name { get; private set; }
     public Player Opponent { get { return Players.GetOpponent(this); } }
@@ -131,7 +131,7 @@
         controller.Life += damage.Amount;
       }
 
-      Publish(new DamageHasBeenDealt(this, damage));
+      Publish(new DamageDealtEvent(this, damage));
     }
 
     public int Life
@@ -144,11 +144,14 @@
         if (Life <= 0)
           HasLost = true;
 
-        Publish(new PlayerLifeChanged {Player = this});
+        Publish(new LifeChangedEvent(this));
       }
     }
 
-    void IModifiable.RemoveModifier(IModifier modifier) { RemoveModifier((IPlayerModifier) modifier); }
+    void IModifiable.RemoveModifier(IModifier modifier)
+    {
+      RemoveModifier((IPlayerModifier) modifier);
+    }
 
     public int Id { get; private set; }
 
@@ -202,9 +205,15 @@
       modifier.Dispose();
     }
 
-    public void AddManaSource(ManaUnit unit) { _manaVault.Add(unit); }
+    public void AddManaSource(ManaUnit unit)
+    {
+      _manaVault.Add(unit);
+    }
 
-    public void RemoveManaSource(ManaUnit unit) { _manaVault.Remove(unit); }
+    public void RemoveManaSource(ManaUnit unit)
+    {
+      _manaVault.Remove(unit);
+    }
 
     public void Initialize(Game game)
     {
@@ -232,21 +241,45 @@
       LoadLibrary();
     }
 
-    public void PutCardToBattlefield(Card card) { _battlefield.Add(card); }
+    public void PutCardToBattlefield(Card card)
+    {
+      _battlefield.Add(card);
+    }
 
-    public int GetConvertedMana(ManaUsage usage = ManaUsage.Any) { return _manaVault.GetAvailableMana(usage).Converted; }
+    public int GetConvertedMana(ManaUsage usage = ManaUsage.Any)
+    {
+      return _manaVault.GetAvailableMana(usage).Converted;
+    }
 
-    public IManaAmount GetAvailableMana(ManaUsage usage = ManaUsage.Any) { return _manaVault.GetAvailableMana(usage); }
+    public IManaAmount GetAvailableMana(ManaUsage usage = ManaUsage.Any)
+    {
+      return _manaVault.GetAvailableMana(usage);
+    }
 
-    public void AddManaToManaPool(IManaAmount manaAmount, ManaUsage usageRestriction = ManaUsage.Any) { _manaVault.AddManaToPool(manaAmount, usageRestriction); }
+    public void AddManaToManaPool(IManaAmount manaAmount, ManaUsage usageRestriction = ManaUsage.Any)
+    {
+      _manaVault.AddManaToPool(manaAmount, usageRestriction);
+    }
 
-    public void AssignDamage(DamageFromSource damage) { _assignedDamage.Assign(damage); }
+    public void AssignDamage(DamageFromSource damage)
+    {
+      _assignedDamage.Assign(damage);
+    }
 
-    public void Consume(IManaAmount amount, ManaUsage usage) { _manaVault.Consume(amount, usage); }
+    public void Consume(IManaAmount amount, ManaUsage usage)
+    {
+      _manaVault.Consume(amount, usage);
+    }
 
-    public void DealAssignedDamage() { _assignedDamage.Deal(); }
+    public void DealAssignedDamage()
+    {
+      _assignedDamage.Deal();
+    }
 
-    public void DiscardCard(Card card) { _graveyard.AddToEnd(card); }
+    public void DiscardCard(Card card)
+    {
+      _graveyard.AddToEnd(card);
+    }
 
     public void DiscardHand()
     {
@@ -298,7 +331,10 @@
       HasMulligan = true;
     }
 
-    public void EmptyManaPool() { _manaVault.EmptyManaPool(); }
+    public void EmptyManaPool()
+    {
+      _manaVault.EmptyManaPool();
+    }
 
     public void GetTargets(Func<Zone, Player, bool> zoneFilter, List<ITarget> targets)
     {
@@ -309,9 +345,15 @@
       _library.GenerateZoneTargets(zoneFilter, targets);
     }
 
-    public bool HasMana(int amount, ManaUsage usage = ManaUsage.Any) { return _manaVault.Has(amount.Colorless(), usage); }
+    public bool HasMana(int amount, ManaUsage usage = ManaUsage.Any)
+    {
+      return _manaVault.Has(amount.Colorless(), usage);
+    }
 
-    public bool HasMana(IManaAmount amount, ManaUsage usage = ManaUsage.Any) { return _manaVault.Has(amount, usage); }
+    public bool HasMana(IManaAmount amount, ManaUsage usage = ManaUsage.Any)
+    {
+      return _manaVault.Has(amount, usage);
+    }
 
     public void MoveCreaturesWithLeathalDamageOrZeroTougnessToGraveyard()
     {
@@ -375,7 +417,10 @@
       _library.Shuffle();
     }
 
-    public void ShuffleLibrary() { _library.Shuffle(); }
+    public void ShuffleLibrary()
+    {
+      _library.Shuffle();
+    }
 
     public void TakeMulligan()
     {
@@ -397,9 +442,13 @@
       }
 
       HasMulligan = true;
+      Publish(new PlayerTookMulliganEvent(this));
     }
 
-    public void PutCardToExile(Card card) { _exile.Add(card); }
+    public void PutCardToExile(Card card)
+    {
+      _exile.Add(card);
+    }
 
     public void Mill(int count)
     {
@@ -453,6 +502,37 @@
       _library.PutOnBottom(card);
     }
 
+    public override string ToString()
+    {
+      return Name;
+    }
+
+    public void RevealHand()
+    {
+      foreach (var card in _hand)
+      {
+        card.Reveal();
+      }
+    }
+
+    public void RevealLibrary()
+    {
+      foreach (var card in _library)
+      {
+        card.Reveal();
+      }
+    }
+
+    public void ReorderTopCardsOfLibrary(int[] permutation)
+    {
+      _library.ReorderFront(permutation);
+    }
+
+    public bool ShouldSkipStep(Step step)
+    {
+      return _skipSteps.Contains(step);
+    }
+
     private void LoadLibrary()
     {
       var cards = _deck.Select(cardInfo =>
@@ -472,40 +552,33 @@
       }
     }
 
-    public override string ToString() { return Name; }
-
-    public void RevealHand()
-    {
-      foreach (var card in _hand)
-      {
-        card.Reveal();
-      }
-    }
-
-    public void RevealLibrary()
-    {
-      foreach (var card in _library)
-      {
-        card.Reveal();
-      }
-    }
-
-    public void ReorderTopCardsOfLibrary(int[] permutation) { _library.ReorderFront(permutation); }
-
-    public bool ShouldSkipStep(Step step) { return _skipSteps.Contains(step); }
-
     [Copyable]
     private class AssignedDamage : IHashable
     {
       private readonly TrackableList<DamageFromSource> _assigned = new TrackableList<DamageFromSource>();
       private readonly Player _player;
 
-      private AssignedDamage() { }
+      private AssignedDamage() {}
 
-      public AssignedDamage(Player player) { _player = player; }
-      public int CalculateHash(HashCalculator calc) { return calc.Calculate(_assigned); }
-      public void Initialize(ChangeTracker changeTracker) { _assigned.Initialize(changeTracker); }
-      public void Assign(DamageFromSource damage) { _assigned.Add(damage); }
+      public AssignedDamage(Player player)
+      {
+        _player = player;
+      }
+
+      public int CalculateHash(HashCalculator calc)
+      {
+        return calc.Calculate(_assigned);
+      }
+
+      public void Initialize(ChangeTracker changeTracker)
+      {
+        _assigned.Initialize(changeTracker);
+      }
+
+      public void Assign(DamageFromSource damage)
+      {
+        _assigned.Add(damage);
+      }
 
       public void Deal()
       {
@@ -516,7 +589,10 @@
         _assigned.Clear();
       }
 
-      public override string ToString() { return _assigned.Sum(x => x.Amount).ToString(); }
+      public override string ToString()
+      {
+        return _assigned.Sum(x => x.Amount).ToString();
+      }
     }
   }
 }

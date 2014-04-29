@@ -59,6 +59,14 @@
       get { return Game.Players; }
     }
 
+    public void ChangePlayersInterest(object visual)
+    {
+      Ui.Publisher.Publish(new PlayersInterestChanged
+      {
+        Visual = visual
+      });
+    }
+    
     public void ChangePlayersInterest(Card card)
     {
       Ui.Publisher.Publish(new PlayersInterestChanged

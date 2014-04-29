@@ -21,7 +21,7 @@
             <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden">
 
                 <Border Grid.Row="0" BorderBrush="#000" BorderThickness="0,1,0,0" Background="#222" Height="245">
-                    <ItemsControl ItemsSource="{Binding Cards}">
+                    <ItemsControl ItemsSource="{Binding Objects}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <StackPanel Margin="10,20,10,20" Orientation="Horizontal" />
@@ -33,6 +33,18 @@
                                 <DataTemplate.Resources>                                    
                                     <DataTemplate DataType="{x:Type Gameplay:Card}">
                                         <ContentControl Content="{Binding}" Style="{StaticResource Card}">
+                                            <Interactivity:Interaction.Triggers>
+                                                <Interactivity:EventTrigger EventName="MouseEnter">
+                                                    <cal:ActionMessage MethodName="ChangePlayersInterest">
+                                                        <cal:Parameter Value="{Binding .}" />
+                                                    </cal:ActionMessage>
+                                                </Interactivity:EventTrigger>
+                                            </Interactivity:Interaction.Triggers>
+                                        </ContentControl>
+                                    </DataTemplate>
+
+                                    <DataTemplate DataType="{x:Type Gameplay:TriggeredAbility}">
+                                        <ContentControl Content="{Binding}" ContentTemplate="{StaticResource Ability}" >
                                             <Interactivity:Interaction.Triggers>
                                                 <Interactivity:EventTrigger EventName="MouseEnter">
                                                     <cal:ActionMessage MethodName="ChangePlayersInterest">
@@ -55,7 +67,7 @@
                                     </Interactivity:Interaction.Triggers>
 
                                     <ContentControl Style="{StaticResource SelectableContent}">
-                                        <ContentControl Content="{Binding Card}">
+                                        <ContentControl Content="{Binding Object}">
                                         </ContentControl>
                                     </ContentControl>
 

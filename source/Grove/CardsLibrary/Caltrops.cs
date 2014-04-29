@@ -21,7 +21,7 @@
           {
             p.Text = "Whenever a creature attacks, Caltrops deals 1 damage to it.";
             p.Trigger(new OnAttack(triggerForEveryCreature: true, onlyWhenDeclared: false));
-            p.Effect = () => new DealDamageToCreature(1, P(e => e.TriggerMessage<AttackerJoinedCombat>().Attacker.Card));
+            p.Effect = () => new DealDamageToCreature(1, P(e => e.TriggerMessage<AttackerJoinedCombatEvent>().Attacker.Card));
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });
     }

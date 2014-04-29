@@ -27,7 +27,7 @@
     }
 
     [Copyable]
-    public class ReturnExiledCardsToHand : GameObject, IReceive<EndOfTurn>
+    public class ReturnExiledCardsToHand : GameObject, IReceive<EndOfTurnEvent>
     {
       private readonly Player _controller;
       private readonly List<Card> _exiledCards;
@@ -41,7 +41,7 @@
         _exiledCards = exiledCards;
       }
 
-      public void Receive(EndOfTurn message)
+      public void Receive(EndOfTurnEvent message)
       {
         _controller.DiscardHand();
 

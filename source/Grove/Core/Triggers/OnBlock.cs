@@ -3,7 +3,7 @@
   using Events;
   using Infrastructure;
 
-  public class OnBlock : Trigger, IReceive<BlockerJoinedCombat>, IReceive<StepStarted>
+  public class OnBlock : Trigger, IReceive<BlockerJoinedCombatEvent>, IReceive<StepStartedEvent>
   {
     private readonly bool _becomesBlocked;
     private readonly bool _blocks;
@@ -21,7 +21,7 @@
       _triggerForEveryCreature = triggerForEveryCreature;
     }
 
-    public void Receive(BlockerJoinedCombat message)
+    public void Receive(BlockerJoinedCombatEvent message)
     {
       if (_becomesBlocked && message.Attacker.Card == Ability.OwningCard)
       {
@@ -39,7 +39,7 @@
       }
     }
 
-    public void Receive(StepStarted message)
+    public void Receive(StepStartedEvent message)
     {
       if (message.Step == Step.EndOfCombat)
         _count.Value = 0;

@@ -4,7 +4,7 @@
   using Events;
   using Infrastructure;
 
-  public class OnDamageDealt : Trigger, IReceive<DamageHasBeenDealt>
+  public class OnDamageDealt : Trigger, IReceive<DamageDealtEvent>
   {
     private readonly bool _combatOnly;
     private readonly Func<Card, OnDamageDealt, Damage, bool> _creatureFilter;
@@ -26,7 +26,7 @@
       _playerFilter = playerFilter ?? delegate { return false; };
     }
 
-    public void Receive(DamageHasBeenDealt message)
+    public void Receive(DamageDealtEvent message)
     {
       if (_combatOnly && !message.Damage.IsCombat)
         return;
@@ -40,7 +40,7 @@
         Set(message);
     }
 
-    private bool IsValid(DamageHasBeenDealt message)
+    private bool IsValid(DamageDealtEvent message)
     {
       var player = message.Receiver as Player;
 

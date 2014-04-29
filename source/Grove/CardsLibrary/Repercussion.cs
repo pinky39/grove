@@ -27,10 +27,10 @@
               onlyByTriggerSource: false));
 
             p.Effect = () => new DealExistingDamageToPlayer(
-              P(e => e.TriggerMessage<DamageHasBeenDealt>().Damage),
+              P(e => e.TriggerMessage<DamageDealtEvent>().Damage),
               P(e =>
                 {
-                  var creature = (Card) e.TriggerMessage<DamageHasBeenDealt>().Receiver;
+                  var creature = (Card) e.TriggerMessage<DamageDealtEvent>().Receiver;
                   return creature.Controller;
                 }));
 

@@ -3,9 +3,9 @@
   using Grove.Events;
   using Grove.Infrastructure;
 
-  public class OwningCardLifetime : Lifetime, IReceive<ZoneChanged>
+  public class OwningCardLifetime : Lifetime, IReceive<ZoneChangedEvent>
   {
-    public void Receive(ZoneChanged message)
+    public void Receive(ZoneChangedEvent message)
     {
       if (message.Card != Modifier.Owner)
         return;

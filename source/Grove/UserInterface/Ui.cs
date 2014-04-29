@@ -10,6 +10,6 @@
     public static Tournament Tournament;
     public static Dialogs Dialogs;
     public static Configuration Configuration;
-    public static Publisher Publisher = new Publisher().Initialize();    
+    public static Publisher Publisher = new Publisher();
   }
 }

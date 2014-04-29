@@ -4,17 +4,17 @@
   using Grove.Infrastructure;
 
   public class ModifierSourceGetsUntapedLifetime : Lifetime,
-    IReceive<PermanentGetsUntapped>, IReceive<ZoneChanged>
+    IReceive<PermanentUntappedEvent>, IReceive<ZoneChangedEvent>
   {
-    public void Receive(PermanentGetsUntapped message)
+    public void Receive(PermanentUntappedEvent message)
     {
-      if (message.Permanent == Modifier.SourceCard)
+      if (message.Card == Modifier.SourceCard)
       {
         End();
       }
     }
 
-    public void Receive(ZoneChanged message)
+    public void Receive(ZoneChangedEvent message)
     {
       if (message.Card == Modifier.SourceCard && message.FromBattlefield)
       {

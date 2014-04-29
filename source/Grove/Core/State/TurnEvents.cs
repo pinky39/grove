@@ -5,14 +5,14 @@
   using Grove.Infrastructure;
 
   [Copyable]
-  public class TurnEvents : GameObject, IReceive<AttackerJoinedCombat>, IReceive<DamageHasBeenDealt>,
-    IReceive<ZoneChanged>, IReceive<BlockerJoinedCombat>, IReceive<StepStarted>,
-    IReceive<EffectPushedOnStack>, IReceive<AfterSpellWasPutOnStack>
+  public class TurnEvents : GameObject, IReceive<AttackerJoinedCombatEvent>, IReceive<DamageDealtEvent>,
+    IReceive<ZoneChangedEvent>, IReceive<BlockerJoinedCombatEvent>, IReceive<StepStartedEvent>,
+    IReceive<EffectPutOnStackEvent>, IReceive<SpellPutOnStackEvent>
   {
     private readonly TrackableList<Card> _attackers = new TrackableList<Card>();
     private readonly TrackableList<Card> _blockers = new TrackableList<Card>();
-    private readonly TrackableList<ZoneChanged> _changedZone = new TrackableList<ZoneChanged>();
-    private readonly TrackableList<DamageHasBeenDealt> _damaged = new TrackableList<DamageHasBeenDealt>();
+    private readonly TrackableList<ZoneChangedEvent> _changedZone = new TrackableList<ZoneChangedEvent>();
+    private readonly TrackableList<DamageDealtEvent> _damaged = new TrackableList<DamageDealtEvent>();
     private readonly Trackable<bool> _hasAnythingBeenPlayedOrActivatedDuringThisStep = new Trackable<bool>();
     private readonly Trackable<bool> _hasActivePlayerPlayedAnySpell = new Trackable<bool>();
 
@@ -26,32 +26,32 @@
       get { return _hasActivePlayerPlayedAnySpell.Value; }
     }
 
-    public void Receive(AttackerJoinedCombat message)
+    public void Receive(AttackerJoinedCombatEvent message)
     {
       _attackers.Add(message.Attacker.Card);
     }
 
-    public void Receive(BlockerJoinedCombat message)
+    public void Receive(BlockerJoinedCombatEvent message)
     {
       _blockers.Add(message.Blocker.Card);
     }
 
-    public void Receive(DamageHasBeenDealt message)
+    public void Receive(DamageDealtEvent message)
     {
       _damaged.Add(message);
     }
 
-    public void Receive(EffectPushedOnStack message)
+    public void Receive(EffectPutOnStackEvent message)
     {
       _hasAnythingBeenPlayedOrActivatedDuringThisStep.Value = true;
     }
 
-    public void Receive(StepStarted message)
+    public void Receive(StepStartedEvent message)
     {
       _hasAnythingBeenPlayedOrActivatedDuringThisStep.Value = false;
     }
 
-    public void Receive(ZoneChanged message)
+    public void Receive(ZoneChangedEvent message)
     {
       _changedZone.Add(message);
     }
@@ -93,7 +93,7 @@
       return _changedZone.Any(x => x.Card == card && x.From == from && x.To == to);
     }
 
-    public void Receive(AfterSpellWasPutOnStack message)
+    public void Receive(SpellPutOnStackEvent message)
     {
       if (message.Controller.IsActive)
       {

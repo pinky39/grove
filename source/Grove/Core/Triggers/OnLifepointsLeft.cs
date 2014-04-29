@@ -4,7 +4,7 @@
   using Events;
   using Infrastructure;
 
-  public class OnLifepointsLeft : Trigger, IReceive<PlayerLifeChanged>
+  public class OnLifepointsLeft : Trigger, IReceive<LifeChangedEvent>
   {
     private readonly Func<TriggeredAbility, bool> _predicate;
 
@@ -15,7 +15,7 @@
       _predicate = predicate;
     }
 
-    public void Receive(PlayerLifeChanged message)
+    public void Receive(LifeChangedEvent message)
     {
       if (_predicate(Ability))
       {

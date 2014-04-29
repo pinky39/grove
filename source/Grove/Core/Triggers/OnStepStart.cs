@@ -1,10 +1,9 @@
 ﻿namespace Grove.Triggers
 {
-  using Grove.Events;
-  using Grove.Infrastructure;
+  using Events;
+  using Infrastructure;
 
-  public class OnStepStart : Trigger, IOrderedReceive<StepStarted>,
-    IReceive<ControllerChanged>
+  public class OnStepStart : Trigger, IReceive<StepStartedEvent>, IReceive<ControllerChangedEvent>
   {
     private readonly bool _activeTurn;
     private readonly Trackable<bool> _canTrigger = new Trackable<bool>(true);
@@ -15,18 +14,23 @@
     private OnStepStart() {}
 
     public OnStepStart(Step step, bool activeTurn = true, bool onlyOnceAfterActivated = false,
-      bool passiveTurn = false, int order = 0)
+      bool passiveTurn = false)
     {
       _activeTurn = activeTurn;
       _step = step;
       _passiveTurn = passiveTurn;
       _onlyOnceAfterActivated = onlyOnceAfterActivated;
-      Order = order;
     }
 
-    public int Order { get; private set; }
+    public void Receive(ControllerChangedEvent message)
+    {
+      if (_onlyOnceAfterActivated && message.Card == Ability.OwningCard)
+      {
+        _canTrigger.Value = true;
+      }
+    }
 
-    public void Receive(StepStarted message)
+    public void Receive(StepStartedEvent message)
     {
       if (!_canTrigger)
         return;
@@ -42,14 +46,6 @@
         {
           _canTrigger.Value = false;
         }
-      }
-    }
-
-    public void Receive(ControllerChanged message)
-    {
-      if (_onlyOnceAfterActivated && message.Card == Ability.OwningCard)
-      {
-        _canTrigger.Value = true;
       }
     }
 

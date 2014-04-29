@@ -71,7 +71,7 @@
 
         if (_revealCards)
         {
-          Publish(new CardWasRevealed {Card = card});
+          Publish(new CardWasRevealedEvent(card));
         }
         else
         {
