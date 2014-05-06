@@ -9,6 +9,8 @@
   {
     private readonly List<Effect> _effects;
 
+    private PushTriggeredEffects() {}
+
     public PushTriggeredEffects(Player controller, List<Effect> effects) : base(controller, () => new UiHandler(),
       () => new MachineHandler(), () => new MachineHandler(), () => new PlaybackHandler())
     {
@@ -17,7 +19,10 @@
 
     private abstract class Handler : DecisionHandler<PushTriggeredEffects, Ordering>
     {
-      protected override bool ShouldExecuteQuery { get { return D._effects.Count > 1; } }
+      protected override bool ShouldExecuteQuery
+      {
+        get { return D._effects.Count > 1; }
+      }
 
       public override void ProcessResults()
       {
@@ -66,7 +71,10 @@
 
     private class PlaybackHandler : Handler
     {
-      protected override bool ShouldExecuteQuery { get { return true; } }
+      protected override bool ShouldExecuteQuery
+      {
+        get { return true; }
+      }
 
       public override void SaveDecisionResults() {}
 

@@ -22,15 +22,13 @@
     }
 
     public Verify GetVerify()
-    {
+    {     
       return GetResult<Verify>(null);
     }
 
     public TResult GetResult<TResult>(Player controller) where TResult : class
     {
-      var results = _steps
-        .Where(x => x.Step == _game.Turn.Step && x.Turn == _game.Turn.TurnCount)
-        .SingleOrDefault();
+      var results = GetResults();
 
       if (results == null)
       {
@@ -38,6 +36,12 @@
       }
 
       return results.PopNext<TResult>(controller);
+    }
+
+    private ScenarioStep GetResults() 
+    {
+      return _steps.SingleOrDefault(x => 
+        x.Step == _game.Turn.Step && x.Turn == _game.Turn.TurnCount);
     }
   }
 }

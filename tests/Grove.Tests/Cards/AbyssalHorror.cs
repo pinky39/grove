@@ -18,7 +18,7 @@
         Exec(
           At(Step.FirstMain)
             .Cast(horror)
-            .Target(P2)          
+            .Target(P2)
             .Verify(() => Equal(0, P2.Hand.Count))
           );
       }

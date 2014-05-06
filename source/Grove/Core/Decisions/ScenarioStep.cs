@@ -18,7 +18,7 @@
       Turn = turn;
 
       _game = game;
-    }
+    }    
 
     public ScenarioStep Activate(Card card, Card target, Card costTarget = null,
       int? x = null, int abilityIndex = 0, bool stackShouldBeEmpty = true)

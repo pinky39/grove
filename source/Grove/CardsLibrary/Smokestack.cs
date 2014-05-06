@@ -20,7 +20,10 @@
           {
             p.Text = "At the beginning of your upkeep, you may put a soot counter on Smokestack.";
             p.Trigger(new OnStepStart(Step.Upkeep));
-            p.Effect = () => new ChooseToAddCounter(CounterType.Soot, e => e.Source.OwningCard.Counters <= 3);
+            p.Effect = () => new ChooseToAddCounter(CounterType.Soot, e => e.Source.OwningCard.Counters <= 3)
+              {
+                TriggerOrderRule = TriggerOrder.High - 1 // ensure it triggers before sac, so it is resolved later
+              };
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           })

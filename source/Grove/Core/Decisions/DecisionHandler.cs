@@ -38,9 +38,9 @@
       return this;
     }
 
-    public TResult ExecuteAssertionsAndGetNextScenarioResult()
+    public void ExecuteAssertions()
     {
-      if (Stack.IsEmpty)
+      if (Stack.IsEmpty && !Stack.HasTriggered)
       {
         var verify = Game.Scenario.GetVerify();
         if (verify != null)
@@ -48,7 +48,10 @@
           verify.Assertion();
         }
       }
-
+    }
+    
+    public TResult GetNextScenarioResult()
+    {      
       return Game.Scenario.GetResult<TResult>(D.Controller);
     }
 

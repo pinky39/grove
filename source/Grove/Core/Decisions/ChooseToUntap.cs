@@ -122,7 +122,7 @@
     {
       protected override void ExecuteQuery()
       {
-        Result = ExecuteAssertionsAndGetNextScenarioResult()
+        Result = GetNextScenarioResult()
           ?? false;
       }
     }

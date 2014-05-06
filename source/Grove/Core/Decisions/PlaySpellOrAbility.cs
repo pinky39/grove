@@ -109,8 +109,8 @@
     {
       protected override void ExecuteQuery()
       {
-        Result = ExecuteAssertionsAndGetNextScenarioResult()
-          ?? ChosenPlayable.Pass;
+        ExecuteAssertions();        
+        Result = GetNextScenarioResult() ?? ChosenPlayable.Pass;
       }
     }
 

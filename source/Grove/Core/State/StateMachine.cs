@@ -510,7 +510,7 @@
         priorityFinishResolve = new StateNode(
           105,
           () => Stack.FinishResolve(),
-          () => priorityActiveStart);
+          () => pushTriggeredActive);
 
         nodes.Add(priorityFinishResolve);
       }

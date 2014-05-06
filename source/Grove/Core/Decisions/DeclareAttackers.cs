@@ -201,7 +201,7 @@
 
       protected override void ExecuteQuery()
       {
-        Result = ExecuteAssertionsAndGetNextScenarioResult()
+        Result = GetNextScenarioResult()
           ?? ChosenCards.None;
       }
     }

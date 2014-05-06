@@ -134,7 +134,7 @@
     {
       protected override void ExecuteQuery()
       {
-        Result = ExecuteAssertionsAndGetNextScenarioResult() ?? ChosenTargets.None();
+        Result = GetNextScenarioResult() ?? ChosenTargets.None();
       }
     }
 

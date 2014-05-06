@@ -200,7 +200,7 @@
 
       protected override void ExecuteQuery()
       {
-        Result = ExecuteAssertionsAndGetNextScenarioResult()
+        Result = GetNextScenarioResult()
           ?? ChosenBlockers.None;
       }
     }
