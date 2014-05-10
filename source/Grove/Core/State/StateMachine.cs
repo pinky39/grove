@@ -48,7 +48,7 @@
     public void Resume(Func<bool> shouldContinue)
     {
       while (ExecutePendingDecisions(shouldContinue))
-      {
+      {        
         var nextState = _currentState.Value.Next();
 
         if (nextState == null)
@@ -510,7 +510,15 @@
         priorityFinishResolve = new StateNode(
           105,
           () => Stack.FinishResolve(),
-          () => pushTriggeredActive);
+          () =>
+            {
+              // this executes after all decisions are processed
+              // e.g after creature type for engineered plague has been
+              // selected
+              
+              Players.MoveDeadCreaturesToGraveyard();
+              return pushTriggeredActive;
+            });
 
         nodes.Add(priorityFinishResolve);
       }

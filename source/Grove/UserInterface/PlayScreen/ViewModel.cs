@@ -140,7 +140,7 @@
 
     public void Receive(PlayerTookMulliganEvent message)
     {
-      MessageLog.AddMessage(String.Format("{0} took mulligan."));
+      MessageLog.AddMessage(String.Format("{0} took mulligan.", message.Player.Name));
     }
 
     public void Receive(SearchFinishedEvent message)

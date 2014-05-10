@@ -5,8 +5,8 @@
 
   public class AbilityActivatedEvent : ICardActivationEvent
   {
-    public readonly ActivatedAbility Ability;
-    public readonly Targets Targets;
+    public ActivatedAbility Ability { get; private set; }
+    public Targets Targets { get; private set; }
 
     public AbilityActivatedEvent(ActivatedAbility ability, Targets targets)
     {

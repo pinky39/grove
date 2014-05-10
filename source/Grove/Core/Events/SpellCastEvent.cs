@@ -5,8 +5,8 @@
 
   public class SpellCastEvent : ICardActivationEvent
   {
-    public readonly Card Card;
-    public readonly Targets Targets;
+    public Card Card { get; private set; }
+    public Targets Targets { get; private set; }
 
     public SpellCastEvent(Card card, Targets targets)
     {

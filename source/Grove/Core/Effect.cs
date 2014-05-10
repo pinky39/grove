@@ -183,8 +183,7 @@
       {
         Source.EffectResolved();
 
-        Publish(new EffectResolvedEvent(this));
-        Players.MoveDeadCreaturesToGraveyard();
+        Publish(new EffectResolvedEvent(this));        
         return;
       }
 
