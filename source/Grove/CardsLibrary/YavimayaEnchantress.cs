@@ -3,25 +3,24 @@
   using System.Collections.Generic;
   using Modifiers;
 
-  public class RadiantArchangel : CardTemplateSource
+  public class YavimayaEnchantress : CardTemplateSource
   {
     public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
-        .Named("Radiant, Archangel")
-        .ManaCost("{3}{W}{W}")
-        .Type("Legendary Creature Angel")
-        .Text(
-          "{Flying}, {vigilance}{EOL}Radiant, Archangel gets +1/+1 for each other creature with flying on the battlefield.")
-        .Power(3)
-        .Toughness(3)
-        .SimpleAbilities(Static.Flying, Static.Vigilance)
+        .Named("Yavimaya Enchantress")
+        .ManaCost("{2}{G}")
+        .Type("Creature Human Druid")
+        .Text("Yavimaya Enchantress gets +1/+1 for each enchantment on the battlefield.")
+        .FlavorText("From each seed, a world. From each world, a thousand seeds.")
+        .Power(2)
+        .Toughness(2)
         .StaticAbility(p =>
           {
             p.Modifier(() => new ModifyPowerToughnessForEachPermanent(
               power: 1,
               toughness: 1,
-              filter: (c, m) => c.Is().Creature && c.Has().Flying && c != m.OwningCard,
+              filter: (c, m) => c.Is().Enchantment,
               modifier: () => new IntegerIncrement(),
               controlledBy: ControlledBy.Any
               ));

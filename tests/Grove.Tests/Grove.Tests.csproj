@@ -433,6 +433,7 @@
     <Compile Include="Cards\Victimize.cs" />
     <Compile Include="Cards\VividCreek.cs" />
     <Compile Include="Cards\VoltaicKey.cs" />
+    <Compile Include="Cards\WakeofDestruction.cs" />
     <Compile Include="Cards\WalkingSponge.cs" />
     <Compile Include="Cards\WallOfDenial.cs" />
     <Compile Include="Cards\WallOfJunk.cs" />
@@ -446,6 +447,7 @@
     <Compile Include="Cards\WizardMentor.cs" />
     <Compile Include="Cards\Worship.cs" />
     <Compile Include="Cards\YavimayaElder.cs" />
+    <Compile Include="Cards\YawgmothsBargain.cs" />
     <Compile Include="Cards\YawgmothsEdict.cs" />
     <Compile Include="DeckBuilderFacts.cs" />
     <Compile Include="DraftFacts.cs" />

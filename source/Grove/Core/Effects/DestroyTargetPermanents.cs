@@ -1,6 +1,7 @@
 ﻿namespace Grove.Effects
 {
-  using Grove.AI;
+  using System;
+  using AI;
 
   public class DestroyTargetPermanents : Effect
   {

@@ -28,6 +28,10 @@
       _filter = filter;
 
       SetTags(EffectTag.Destroy);
+      
+      if (!allowToRegenerate)
+        SetTags(EffectTag.CannotRegenerate);
+      
       RegisterDynamicParameters(countOnInit);
     }
 

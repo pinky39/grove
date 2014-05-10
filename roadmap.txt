@@ -123,24 +123,24 @@ o Squirming Mass
 x Storage Matrix
 o Taunting Elf
 o Telepathic Spies
-Temporal Adept
-Tethered Griffin
-Thieving Magpie
-Thorn Elemental
-Thran Dynamo
-Thran Foundry
-Thran Golem
-Tormented Angel
-Treachery
-Trumpet Blast
-Twisted Experiment
-Urza's Incubator
-Voice of Duty
-Voice of Reason
-Wake of Destruction
-Wall of Glare
-Wild Colos
-Yavimaya Elder
-Yavimaya Enchantress
-Yavimaya Hollow
-Yawgmoth's Bargain
+o Temporal Adept
+o Tethered Griffin
+o Thieving Magpie
+o Thorn Elemental
+o Thran Dynamo
+o Thran Foundry
+o Thran Golem
+o Tormented Angel
+o Treachery
+o Trumpet Blast
+o Twisted Experiment
+o Urza's Incubator
+o Voice of Duty
+o Voice of Reason
+o Wake of Destruction
+x Wall of Glare
+o Wild Colos
+o Yavimaya Elder
+o Yavimaya Enchantress
+o Yavimaya Hollow
+o Yawgmoth's Bargain

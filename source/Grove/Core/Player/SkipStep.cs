@@ -1,6 +1,6 @@
 ﻿namespace Grove
 {
-  using Grove.Modifiers;
+  using Modifiers;
 
   public class SkipStep : Modifier, IPlayerModifier
   {

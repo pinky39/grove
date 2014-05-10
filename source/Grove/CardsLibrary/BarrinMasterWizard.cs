@@ -1,11 +1,10 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Costs;
-  using Grove.AI;
-  using Grove.AI.TargetingRules;
-  using Grove.AI.TimingRules;
-  using ReturnToHand = Effects.ReturnToHand;
+  using AI;
+  using AI.TargetingRules;
+  using AI.TimingRules;
+  using Costs;
 
   public class BarrinMasterWizard : CardTemplateSource
   {
@@ -26,7 +25,7 @@
             p.Cost = new AggregateCost(
               new PayMana(2.Colorless(), ManaUsage.Abilities),
               new Sacrifice());
-            p.Effect = () => new ReturnToHand();
+            p.Effect = () => new Effects.ReturnToHand();
             p.TargetSelector
               .AddCost(trg =>
                 {

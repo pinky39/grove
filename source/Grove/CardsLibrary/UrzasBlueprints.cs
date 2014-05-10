@@ -1,9 +1,9 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Costs;
-  using Grove.Effects;
-  using Grove.AI.TimingRules;
+  using AI.TimingRules;
+  using Costs;
+  using Effects;
 
   public class UrzasBlueprints : CardTemplateSource
   {
@@ -24,7 +24,7 @@
             p.Effect = () => new DrawCards(1);
 
             p.TimingRule(new OnFirstMain());
-            p.TimingRule(new WhenStackIsEmpty());            
+            p.TimingRule(new WhenStackIsEmpty());
           });
     }
   }

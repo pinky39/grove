@@ -1,10 +1,10 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Costs;
-  using Grove.Effects;
-  using Grove.AI.CombatRules;
-  using Grove.AI.TargetingRules;
+  using AI.CombatRules;
+  using AI.TargetingRules;
+  using Costs;
+  using Effects;
 
   public class JhoirasToolbox : CardTemplateSource
   {
@@ -23,7 +23,7 @@
             p.Text = "{2}: Regenerate target artifact creature.";
             p.Cost = new PayMana(2.Colorless(), ManaUsage.Abilities);
             p.Effect = () => new RegenerateTarget();
-            p.TargetSelector.AddEffect(trg => 
+            p.TargetSelector.AddEffect(trg =>
               trg.Is.Card(c => c.Is().Creature && c.Is().Artifact).On.Battlefield());
 
             p.TargetingRule(new EffectGiveRegenerate());

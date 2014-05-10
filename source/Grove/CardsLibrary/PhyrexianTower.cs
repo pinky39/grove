@@ -1,10 +1,10 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Costs;
-  using Grove.Effects;
-  using Grove.AI.TargetingRules;
-  using Grove.AI.TimingRules;
+  using AI.TargetingRules;
+  using AI.TimingRules;
+  using Costs;
+  using Effects;
 
   public class PhyrexianTower : CardTemplateSource
   {
@@ -28,7 +28,7 @@
             p.TargetSelector.AddCost(trg => trg.Is.Creature(ControlledBy.SpellOwner).On.Battlefield());
 
             p.TimingRule(new WhenYouNeedAdditionalMana(2));
-            p.TargetingRule(new EffectRankBy(c => c.Score) {TargetLimit = 1} );
+            p.TargetingRule(new EffectRankBy(c => c.Score) {TargetLimit = 1});
 
             p.UsesStack = false;
           });

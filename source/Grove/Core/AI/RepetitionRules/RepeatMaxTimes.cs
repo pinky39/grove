@@ -4,21 +4,27 @@
 
   public class RepeatMaxTimes : RepetitionRule
   {
-    private readonly int? _max;
+    private readonly Func<RepetitionRuleParameters, int?> _max;
 
     private RepeatMaxTimes() {}
 
-    public RepeatMaxTimes(int? max = null)
+    public RepeatMaxTimes(Func<RepetitionRuleParameters, int?> max)
     {
       _max = max;
+    }
+    
+    public RepeatMaxTimes(int? max = null)
+    {
+      _max = delegate { return max; };
     }
 
     public override int GetRepetitionCount(RepetitionRuleParameters p)
     {
-      if (_max.HasValue)
-        return Math.Min(_max.Value, p.MaxRepetitions);
-
-      return p.MaxRepetitions;
+      var max = _max(p);
+      
+      return max.HasValue 
+        ? Math.Min(max.Value, p.MaxRepetitions) 
+        : p.MaxRepetitions;
     }
   }
 }

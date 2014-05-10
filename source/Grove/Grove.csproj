@@ -192,6 +192,18 @@
     <Compile Include="CardsLibrary\SowingSalt.cs" />
     <Compile Include="CardsLibrary\TauntingElf.cs" />
     <Compile Include="CardsLibrary\TelepathicSpies.cs" />
+    <Compile Include="CardsLibrary\TemporalAdept.cs" />
+    <Compile Include="CardsLibrary\TetheredGriffin.cs" />
+    <Compile Include="CardsLibrary\ThornElemental.cs" />
+    <Compile Include="CardsLibrary\ThranDynamo.cs" />
+    <Compile Include="CardsLibrary\ThranFoundry.cs" />
+    <Compile Include="CardsLibrary\Treachery.cs" />
+    <Compile Include="CardsLibrary\VoiceOfDuty.cs" />
+    <Compile Include="CardsLibrary\VoiceOfReason.cs" />
+    <Compile Include="CardsLibrary\WakeofDestruction.cs" />
+    <Compile Include="CardsLibrary\YavimayaEnchantress.cs" />
+    <Compile Include="CardsLibrary\YavimayaHollow.cs" />
+    <Compile Include="CardsLibrary\YawgmothsBargain.cs" />
     <Compile Include="Core\AI\AttackerEvaluationParameters.cs" />
     <Compile Include="Core\AI\AttackStrategyParameters.cs" />
     <Compile Include="Core\AI\CardPicker.cs" />
@@ -217,6 +229,7 @@
     <Compile Include="Core\AI\TargetingRules\CostTapEffectTap.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectAnyPlayer.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectCannotBlockAttack.cs" />
+    <Compile Include="Core\AI\TargetingRules\EffectDestroyMostCommon.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectExchangeBattlefieldGraveyard.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectFlicker.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectGiveRegenerate.cs" />
@@ -235,6 +248,7 @@
     <Compile Include="Core\AI\TimingRules\OnYourTurn.cs" />
     <Compile Include="Core\AI\TimingRules\WhenAttachedToCardWillBeDestroyed.cs" />
     <Compile Include="Core\AI\TimingRules\WhenStackIsNotEmpty.cs" />
+    <Compile Include="Core\Costs\Exile.cs" />
     <Compile Include="Core\Decisions\PushTriggeredEffects.cs" />
     <Compile Include="Core\Effects\AddManaForEachRevealedCard.cs" />
     <Compile Include="Core\Effects\CounterTargetSpellUnlessControllerPays1ForEachRevealedCard.cs" />
