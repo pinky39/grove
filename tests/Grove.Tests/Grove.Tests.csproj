@@ -453,6 +453,9 @@
     <Compile Include="DraftFacts.cs" />
     <Compile Include="Infrastructure\Counters.cs" />
     <Compile Include="MatchSimulatorFacts.cs" />
+    <Compile Include="Performance\Benchmark.cs" />
+    <Compile Include="Performance\Scenarios.cs" />
+    <Compile Include="Performance\BenchmarkRunConfiguration.cs" />
     <Compile Include="SaveGameFacts.cs" />
     <Compile Include="Unit\PublisherFacts.cs" />
     <Compile Include="Unit\ActivationFacts.cs" />
@@ -465,7 +468,7 @@
     <Compile Include="Cards\NantukoShade.cs" />
     <Compile Include="Cards\VampireNightHawk.cs" />
     <Compile Include="Scenarios\Bugs.cs" />
-    <Compile Include="Scenarios\Performance.cs" />
+    <Compile Include="Performance\BenchmarkRunResult.cs" />
     <Compile Include="Unit\CardTypeFacts.cs" />
     <Compile Include="Cards\AcidicSlime.cs" />
     <Compile Include="Cards\BirdsOfParadise.cs" />

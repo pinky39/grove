@@ -1,11 +1,9 @@
-﻿namespace Grove.Tests.Scenarios
+﻿namespace Grove.Tests.Performance
 {
   using Infrastructure;
-  using Xunit;
 
-  public class Performance : AiScenario
+  public class Scenarios : AiScenario
   {
-    [Fact]
     public void Num1()
     {
       Hand(P1, C("Llanowar Elves"), C("Volcanic hammer"), C("Forest"));
@@ -16,7 +14,6 @@
       RunGame(maxTurnCount: 2);
     }
 
-    [Fact]
     public void Num2()
     {
       Hand(P1, C("Llanowar Elves"), C("Volcanic hammer"), C("Forest"), C("Mountain"));
@@ -26,7 +23,6 @@
       RunGame(maxTurnCount: 2);
     }
 
-    [Fact]
     public void Num3()
     {
       Battlefield(P2, C("Swamp"), C("Swamp"), C("Swamp"), C("Swamp"), C("Nantuko shade"),
@@ -36,7 +32,6 @@
       RunGame(maxTurnCount: 2);
     }
 
-    [Fact]
     public void Num4()
     {
       Hand(P1, C("Swamp"), C("Stupor"), C("Nantuko Shade"), C("Cruel Edict"));
@@ -49,7 +44,6 @@
       RunGame(maxTurnCount: 1);
     }
 
-    [Fact]
     public void Num5()
     {
       Hand(P1, C("Volcanic Fallout"), C("Volcanic Fallout"), C("Vigor"), C("Rumbling Slum"));
@@ -63,7 +57,6 @@
       RunGame(maxTurnCount: 1);
     }
 
-    [Fact]
     public void Num6()
     {
       Hand(P1, "Grasp of Darkness", "Wurmcoil Engine");
@@ -74,7 +67,6 @@
       RunGame(maxTurnCount: 1);
     }
 
-    [Fact]
     public void Num7()
     {
       Hand(P1, "Sift", "Darksteel Gargoyle", "Divination", "Mana Leak", "Darksteel Gargoyle", "Blaze", "Mana Leak");
@@ -87,7 +79,6 @@
       RunGame(maxTurnCount: 2);
     }
 
-    [Fact]
     public void Num8()
     {
       Hand(P1, "Marsh Casualties", "Marsh Casualties", "Cruel Edict", "Marsh Casualties");
@@ -100,7 +91,6 @@
       RunGame(maxTurnCount: 2);
     }
 
-    [Fact]
     public void Num9()
     {
       Hand(P1, "Plains", "Plains", "Deathless Angel", "Baneslayer Angel");
@@ -112,7 +102,6 @@
       RunGame(maxTurnCount: 1);
     }
 
-    [Fact]
     public void Num10()
     {
       Hand(P1, "Plains", "Plains", "Deathless Angel", "Baneslayer Angel");
@@ -126,7 +115,6 @@
       RunGame(maxTurnCount: 1);
     }
 
-    [Fact]
     public void Num11()
     {
       Hand(P1, "Plains", "Forest", "Sword of Feast and Famine", "Sword of Body and Mind");
@@ -142,7 +130,6 @@
       RunGame(maxTurnCount: 1);
     }
 
-    [Fact]
     public void Num12()
     {
       Hand(P1, "Pestilence", "Voice of Grace", "Corrupt", "Rune of Protection: Black");
@@ -154,7 +141,6 @@
       RunGame(maxTurnCount: 2);
     }
 
-    [Fact]
     public void Num13()
     {
       Hand(P1, "Cloak of Mists", "Annul");
@@ -168,7 +154,6 @@
     }
 
 
-    [Fact]
     public void Num14()
     {
       Hand(P1, "Fires of Yavimaya");
@@ -182,7 +167,6 @@
       RunGame(2);
     }
 
-    [Fact]
     public void Num15()
     {
       Hand(P1, "Plains", "Mountain", "Thundering Giant", "Disciple of Grace");
@@ -194,7 +178,6 @@
       RunGame(2);
     }
 
-    [Fact]
     public void Num16()
     {
       Hand(P1, "Exhume", "Pestilence", "Phyrexian Ghoul", "Blood Vassal", "Swamp");
@@ -206,7 +189,6 @@
       RunGame(1);
     }
 
-    [Fact]
     public void Num17()
     {
       Hand(P1, "Annul", "Corrupt", "Abyssal Horror", "Pestilence");
@@ -219,7 +201,6 @@
       RunGame(1);
     }
 
-    [Fact]
     public void Num18()
     {
       Hand(P1, "Pegasus Charger", "Congregate", "Plains");
@@ -232,7 +213,6 @@
       RunGame(4);
     }
 
-    [Fact]
     public void Num19()
     {
       Hand(P1, "Tolarian Winds", "Windfall", "Imaginary Pet");
@@ -245,7 +225,6 @@
       RunGame(2);
     }
 
-    [Fact]
     public void Num20()
     {
       Hand(P1, "Remote Isle", "Miscalculation");
@@ -258,7 +237,6 @@
       RunGame(2);
     }
 
-    [Fact]
     public void Num21()
     {
       Hand(P1, "Swamp", "Swamp");
@@ -271,8 +249,6 @@
       RunGame(2);
     }
 
-
-    [Fact]
     public void Num22()
     {
       Hand(P1, "Forest", "Opal Champion", "Simian Grunts", "Forest");
@@ -285,7 +261,6 @@
       RunGame(2);
     }
 
-    [Fact]
     public void Num23()
     {
       Hand(P1, "Swamp", "Plains", "Plains");
@@ -298,7 +273,6 @@
       RunGame(2);
     }
 
-    [Fact]
     public void Num24()
     {
       Hand(P1, "Mobile Fort", "Angelic Page", "Plains", "Sanctum Custodian");
@@ -312,7 +286,6 @@
       RunGame(2);
     }
 
-    [Fact]
     public void Num25()
     {
       Hand(P1, "Plains");
