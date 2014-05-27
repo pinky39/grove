@@ -4,26 +4,28 @@
   using System.Collections.Generic;
   using System.Linq;
   using System.Reflection;
+  using AI;
   using Decisions;
   using Modifiers;
-  using log4net.Config;
-  using UserInterface;
   using Xunit;
+  using log4net.Config;
 
   public abstract class Scenario : IDisposable
   {
     protected static readonly IoC Container = new IoC(IoC.Configuration.Test);
 
-    protected Scenario(bool player1ControlledByScript = true, bool player2ControlledByScript = true)
+    protected Scenario(bool player1ControlledByScript = true, bool player2ControlledByScript = true,
+      SearchParameters searchParameters = null)
     {
       var player1Controller = player1ControlledByScript ? PlayerType.Scenario : PlayerType.Machine;
       var player2Controller = player2ControlledByScript ? PlayerType.Scenario : PlayerType.Machine;
+      searchParameters = searchParameters ?? SearchParameters.Default;
 
-      var p = Game.Parameters.Scenario(player1Controller, player2Controller);
+      var p = Game.Parameters.Scenario(player1Controller, player2Controller, searchParameters);
       Game = new Game(p);
       Game.Players.Starting = Game.Players.Player1;
     }
-            
+
     protected Game Game { get; private set; }
     protected Player P1 { get { return Game.Players.Player1; } }
     protected Player P2 { get { return Game.Players.Player2; } }

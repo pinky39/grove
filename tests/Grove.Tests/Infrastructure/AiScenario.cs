@@ -10,9 +10,10 @@
   {
     private readonly List<Measurement> _measurements = new List<Measurement>();
 
-    protected AiScenario() : base(
+    protected AiScenario(SearchParameters searchParameters = null) : base(
       player1ControlledByScript: false,
-      player2ControlledByScript: false)
+      player2ControlledByScript: false,
+      searchParameters: searchParameters)
     {
       Game.Ai.SearchFinished += delegate
         {
@@ -52,20 +53,11 @@
       }
     }
 
-    protected int MaxNodeCount
-    {
-      get { return _measurements.Any() ? _measurements.Max(x => x.NodeCount) : 0; }
-    }
+    protected int MaxNodeCount { get { return _measurements.Any() ? _measurements.Max(x => x.NodeCount) : 0; } }
 
-    protected int TotalNodeCount
-    {
-      get { return _measurements.Sum(x => x.NodeCount); }
-    }
+    protected int TotalNodeCount { get { return _measurements.Sum(x => x.NodeCount); } }
 
-    protected double AvarageNodeCount
-    {
-      get { return _measurements.Any() ? _measurements.Average(x => x.NodeCount) : 0; }
-    }
+    protected double AvarageNodeCount { get { return _measurements.Any() ? _measurements.Average(x => x.NodeCount) : 0; } }
 
     protected double MaxSearchTime { get { return _measurements.Any() ? _measurements.Max(x => x.ElapsedTime)/1000.0d : 0; } }
 
@@ -83,21 +75,8 @@
 
     protected int TotalWorkerCount { get { return _measurements.Sum(x => x.WorkerCount); } }
 
-    protected override void RunGame(int maxTurnCount)
-    {
-      InitializeCopyCache();
-      base.RunGame(maxTurnCount);
-    }
-
-    private void InitializeCopyCache()
-    {
-      // this is done to get more accurate performance measurements
-      var copyService = new CopyService();
-      copyService.CopyRoot(Game);
-    }
-
     public override void Dispose()
-    {      
+    {
       Console.WriteLine(@"Search count: {0}", SearchCount);
       Console.WriteLine(@"Total search time: {0:f2} seconds", TotalElapsedTime);
       Console.WriteLine(@"Total tree size: {0}", TotalTreeSize);
@@ -113,6 +92,19 @@
       Console.WriteLine(@"Avarage node count: {0}", AvarageNodeCount);
       Console.WriteLine(@"Avarage worker count: {0}", AvarageWorkerCount);
       Console.WriteLine(@"Avarage speed: {0:f2} nodes/second", AvarageSpeed);
+    }
+
+    protected override void RunGame(int maxTurnCount)
+    {
+      InitializeCopyCache();
+      base.RunGame(maxTurnCount);
+    }
+
+    private void InitializeCopyCache()
+    {
+      // this is done to get more accurate performance measurements
+      var copyService = new CopyService();
+      copyService.CopyRoot(Game);
     }
 
     private class Measurement

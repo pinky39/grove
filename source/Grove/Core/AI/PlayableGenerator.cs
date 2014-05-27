@@ -9,9 +9,7 @@
   {
     private readonly Player _player;
 
-    private PlayableGenerator()
-    {
-    }
+    private PlayableGenerator() {}
 
     public PlayableGenerator(Player player, Game game)
     {
@@ -29,10 +27,10 @@
         var abilitiesPrerequisites = card.CanActivateAbilities(ignoreManaAbilities: true);
 
         foreach (var prerequisites in abilitiesPrerequisites)
-        {
-          var playables = GeneratePlayables(prerequisites, () => new PlayableAbility())
-            .ToList();
-
+        {          
+          var playables = GeneratePlayables(prerequisites,
+            () => new PlayableAbility()).ToList();
+          
           // lazy cost evaluation
           if (playables.Count > 0 && prerequisites.CanPay.Value)
           {
@@ -53,8 +51,8 @@
 
         foreach (var prerequisites in spellsPrerequisites)
         {
-          var playables = GeneratePlayables(prerequisites, () => new PlayableSpell())
-            .ToList();
+          var playables = GeneratePlayables(prerequisites,
+            () => new PlayableSpell()).ToList();
 
           // lazy cost evaluation
           if (playables.Count > 0 && prerequisites.CanPay.Value)
@@ -105,7 +103,7 @@
         yield break;
       }
 
-      foreach (var targetsCombination in context.TargetsCombinations().Take(Ai.Parameters.TargetCount))
+      foreach (var targetsCombination in context.TargetsCombinations().Take(Ai.CurrentTargetCount))
       {
         var playable = createPlayable();
 

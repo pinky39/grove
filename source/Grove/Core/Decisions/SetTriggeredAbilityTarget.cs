@@ -106,7 +106,7 @@
           force: true,
           triggerMessage: D._p.Effect.TriggerMessage<object>());
 
-        return targetsCandidates.Take(Ai.Parameters.TargetCount);
+        return targetsCandidates.Take(Ai.CurrentTargetCount);
       }
     }
 

@@ -454,6 +454,8 @@
     <Compile Include="Infrastructure\Counters.cs" />
     <Compile Include="MatchSimulatorFacts.cs" />
     <Compile Include="Performance\Benchmark.cs" />
+    <Compile Include="Performance\BenchmarkResult.cs" />
+    <Compile Include="Performance\ScenarioRunResult.cs" />
     <Compile Include="Performance\Scenarios.cs" />
     <Compile Include="Performance\BenchmarkRunConfiguration.cs" />
     <Compile Include="SaveGameFacts.cs" />

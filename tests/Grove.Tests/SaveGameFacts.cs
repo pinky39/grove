@@ -35,7 +35,7 @@
     private Game SimulateGame()
     {
       var p = Game.Parameters.Simulation(GetDeck("deck1.dec"), GetDeck("deck2.dec"),
-        new SearchParameters(maxSearchDepth: 15, maxTargetCount: 2, enableMultithreading: true));
+        new SearchParameters(15, 2, SearchPartitioningStrategies.SingleThreaded));
 
       var game = new Game(p);
       game.Start(numOfTurns: 5);

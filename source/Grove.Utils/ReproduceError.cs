@@ -15,7 +15,7 @@
       Console.ReadKey();
 
       var game = ErrorReportLoader.LoadReport(filename, rollback, 
-        new SearchParameters(10, 1, enableMultithreading: false));
+        new SearchParameters(10, 1, SearchPartitioningStrategies.SingleThreaded));
 
       try
       {

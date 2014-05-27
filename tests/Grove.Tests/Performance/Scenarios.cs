@@ -1,9 +1,14 @@
 ﻿namespace Grove.Tests.Performance
 {
+  using AI;
   using Infrastructure;
 
   public class Scenarios : AiScenario
   {
+    public Scenarios() {}
+
+    public Scenarios(SearchParameters searchParameters) : base(searchParameters) {}    
+
     public void Num1()
     {
       Hand(P1, C("Llanowar Elves"), C("Volcanic hammer"), C("Forest"));

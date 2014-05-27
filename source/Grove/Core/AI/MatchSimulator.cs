@@ -30,8 +30,8 @@
     {
       var stopwatch = new Stopwatch();
 
-      var game = new Game(Game.Parameters.Simulation(
-        deck1, deck2, new SearchParameters(maxSearchDepth, maxTargetsCount, enableMultithreading: false)));
+      var game = new Game(Game.Parameters.Simulation(deck1, deck2, 
+        new SearchParameters(maxSearchDepth, maxTargetsCount, SearchPartitioningStrategies.SingleThreaded)));
 
       game.Ai.SearchStarted += delegate
         {

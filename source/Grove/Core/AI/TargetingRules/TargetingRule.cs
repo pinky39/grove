@@ -43,7 +43,7 @@
         }
 
         targetsCombinations = ForceSelectTargets(parameters)
-          .Take(Ai.Parameters.TargetCount)
+          .Take(Ai.CurrentTargetCount)
           .ToList();
       }
 

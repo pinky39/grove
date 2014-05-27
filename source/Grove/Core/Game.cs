@@ -260,7 +260,7 @@
     }
 
     private void Initialize()
-    {      
+    {
       Stack.Initialize(this);
       Turn.Initialize(this);
       _wasStopped.Initialize(ChangeTracker);
@@ -301,13 +301,14 @@
           {
             Player1 = player1,
             Player2 = player2,
-            SearchParameters = new SearchParameters(40, 2, enableMultithreading: true),
+            SearchParameters = SearchParameters.Default,
             Player1Controller = PlayerType.Human,
             Player2Controller = PlayerType.Machine
           };
       }
 
-      public static Parameters Scenario(PlayerType player1Controller, PlayerType player2Controller)
+      public static Parameters Scenario(PlayerType player1Controller, PlayerType player2Controller,
+        SearchParameters searchParameters)
       {
         return new Parameters
           {
@@ -315,7 +316,7 @@
             Player2 = new PlayerParameters {Name = "Player2", Deck = Deck.CreateUncastable()},
             Player1Controller = player1Controller,
             Player2Controller = player2Controller,
-            SearchParameters = new SearchParameters(40, 2, enableMultithreading: true)
+            SearchParameters = searchParameters
           };
       }
 
@@ -340,7 +341,7 @@
             Player2 = savedGame.Player2,
             Player1Controller = player1Controller,
             Player2Controller = player2Controller,
-            SearchParameters = searchParameters ?? new SearchParameters(40, 2, enableMultithreading: true),
+            SearchParameters = searchParameters ?? SearchParameters.Default,
             SavedGame = savedGame,
             RollBack = rollback,
             Looser = looser

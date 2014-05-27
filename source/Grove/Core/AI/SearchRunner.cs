@@ -4,10 +4,11 @@
   using System.Collections.Generic;
   using System.Diagnostics;
   using System.IO;
+  using System.Linq;
   using System.Threading;
   using Diagnostics;
   using Events;
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   public class SearchRunner
   {
@@ -16,23 +17,25 @@
     private readonly SearchResults _player2Results = new SearchResults();
     private readonly Queue<int> _searchDurations = new Queue<int>(new[] {0});
     private readonly SearchParameters _searchParameters;
-    private Search _currentSearch;
-    private int _nodeCount;
+    public Search CurrentSearch;
 
+    private int _nodeCount;
 
     public SearchRunner(SearchParameters searchParameters, Game game)
     {
       _game = game;
       _searchParameters = searchParameters;
+
+      CurrentDepth = _searchParameters.SearchDepth;
+      CurrentTargetCount = _searchParameters.TargetCount;
     }
 
-    public bool IsSearchInProgress { get { return _currentSearch != null; } }
-    public SearchParameters Parameters { get { return _searchParameters; } }
+    public int CurrentDepth { get; private set; }
+    public int CurrentTargetCount { get; private set; }
+
+    public bool IsSearchInProgress { get { return CurrentSearch != null; } }
     public int PlaySpellsUntilDepth { get { return _game.Turn.GetStepCountAtNextTurnCleanup(); } }
     public SearchStatistics LastSearchStatistics { get; private set; }
-
-    public event EventHandler SearchStarted = delegate { };
-    public event EventHandler SearchFinished = delegate { };
 
     public void SetBestResult(ISearchNode searchNode)
     {
@@ -66,7 +69,7 @@
       {
         // More than one choice, and the search is already in progress.
         // Expand the tree by evaluating each branch.
-        _currentSearch.EvaluateNode(searchNode);
+        CurrentSearch.EvaluateNode(searchNode);
         return;
       }
 
@@ -103,6 +106,30 @@
       searchNode.SetResult(bestChoice);
     }
 
+    private void AdjustPerformance()
+    {
+      if (_searchDurations.Last() > 4000)
+      {
+        if (CurrentTargetCount > 1)
+        {
+          CurrentTargetCount--;
+        }
+        if (CurrentDepth > 1)
+        {
+          CurrentDepth -= Math.Min(4, CurrentDepth - 1);
+        }
+      }
+
+      if (_searchDurations.None(x => x > 1500))
+      {
+        CurrentTargetCount = _searchParameters.TargetCount;
+        CurrentDepth = _searchParameters.SearchDepth;
+      }
+    }
+
+    public event EventHandler SearchStarted = delegate { };
+    public event EventHandler SearchFinished = delegate { };
+
     private SearchResults GetCachedResults(Player player)
     {
       if (player == _game.Players.Player1)
@@ -113,10 +140,13 @@
 
     private int StartNewSearch(ISearchNode searchNode, SearchResults cachedResults)
     {
-      _searchParameters.AdjustPerformance(_searchDurations);
+      AdjustPerformance();
       ClearResultCache();
 
-      _currentSearch = new Search(_searchParameters,
+      var parameters = new SearchParameters(CurrentDepth, CurrentTargetCount,
+        _searchParameters.SearchPartitioningStrategy);
+
+      CurrentSearch = new Search(parameters,
         searchNode.Controller, cachedResults, _game);
 
       SearchStarted(this, EventArgs.Empty);
@@ -126,10 +156,10 @@
 
       using (new SearchMonitor(this))
       {
-        LastSearchStatistics = _currentSearch.Start(searchNode);
+        LastSearchStatistics = CurrentSearch.Start(searchNode);
       }
 
-      var result = _currentSearch.Result;
+      var result = CurrentSearch.Result;
 
       LastSearchStatistics.NodeCount = _nodeCount;
       UpdateSearchDurations();
@@ -137,7 +167,7 @@
       _game.Publish(new SearchFinishedEvent());
       SearchFinished(this, EventArgs.Empty);
 
-      _currentSearch = null;
+      CurrentSearch = null;
       return result;
     }
 
@@ -181,8 +211,8 @@
       public SearchMonitor(SearchRunner runner)
       {
         _runner = runner;
-        _stackOverflowReport = String.Format("debug-so-report-{0}.report", Guid.NewGuid());        
-        _timer = new Timer(Monitor, null, 0, 2000);        
+        _stackOverflowReport = String.Format("debug-so-report-{0}.report", Guid.NewGuid());
+        _timer = new Timer(Monitor, null, 0, 2000);
       }
 
       public void Dispose()
@@ -220,7 +250,7 @@
             _isFirstTime = false;
           }
 
-          if (_runner._currentSearch.Duration.TotalSeconds > 10)
+          if (_runner.CurrentSearch.Duration.TotalSeconds > 10)
           {
             _runner.GenerateScenario();
           }

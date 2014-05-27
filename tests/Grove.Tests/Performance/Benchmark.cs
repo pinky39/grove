@@ -11,39 +11,46 @@
 
   public class Benchmark
   {
-    private static string BenchmarkBaseFilename
-    {
-      get { return "benchmarkbase.bin"; }
-    }
-
     [Fact]
-    public void CompareToBase()
+    public void RunAndCompareWithXUnit()
     {
-      var result = RunAndCompare(BenchmarkRunConfiguration.Base());
+      var result = RunAndCompare(
+        run: BenchmarkRunConfiguration.D40T2MT2(),
+        compareTo: BenchmarkRunConfiguration.D40T2MT1());
+
       Console.WriteLine(result.PrettyPrint());
     }
 
     [Fact]
-    public void Record()
+    public void RecordWithXUnit()
     {
-      RecordBase();
+      var configurations = new[]
+        {
+          BenchmarkRunConfiguration.D40T2ST(),
+          BenchmarkRunConfiguration.D40T2MT1(),
+          BenchmarkRunConfiguration.D40T2MT2(),          
+        };
+
+      foreach (var configuration in configurations)
+      {
+        Record(configuration);
+      }
     }
 
-    public static void RecordBase(BenchmarkRunConfiguration configuration = null)
-    {
-      configuration = configuration ?? BenchmarkRunConfiguration.Base();
-
+    public static void Record(BenchmarkRunConfiguration configuration)
+    {      
       var results = Run(configuration);
-      results.WriteToFile(BenchmarkBaseFilename);
+      results.WriteToFile(configuration.GetBenchmarkBaseFilename());
     }
 
-    public static BenchmarkResult RunAndCompare(BenchmarkRunConfiguration configuration)
+    public static BenchmarkResult RunAndCompare(BenchmarkRunConfiguration run,
+      BenchmarkRunConfiguration compareTo)
     {
-      Asrt.True(File.Exists(BenchmarkBaseFilename),
-        "Benchmark base file is missing! Please call RecordBase() to record a base benchmark file for this computer.");
+      Asrt.True(File.Exists(compareTo.GetBenchmarkBaseFilename()),
+        "Benchmark recording file is missing! Please record a benchmark to compare to, before running a comparision.");
 
-      var baseResults = BenchmarkRunResult.ReadFromFile(BenchmarkBaseFilename);
-      var results = Run(configuration);
+      var baseResults = BenchmarkRunResult.ReadFromFile(compareTo.GetBenchmarkBaseFilename());
+      var results = Run(run);
 
       return new BenchmarkResult(results, baseResults);
     }
@@ -59,7 +66,7 @@
 
       foreach (var methodInfo in tests)
       {
-        var benchmark = new Scenarios();
+        var benchmark = new Scenarios(configuration.SearchParameters);
 
         stopwatch.Start();
         methodInfo.Invoke(benchmark, new object[] {});
@@ -72,7 +79,7 @@
         stopwatch.Reset();
       }
 
-      return new BenchmarkRunResult(configuration.Description, runs);
+      return new BenchmarkRunResult(configuration.Name, configuration.Description, runs);
     }
   }
 }
