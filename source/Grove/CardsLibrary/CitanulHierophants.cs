@@ -23,11 +23,9 @@
             p.Modifier = () =>
               {
                 var mp = new ManaAbility.Parameters
-                  {
-                    Cost = new Tap(),
+                  {                    
                     Text = "{T}:  Add {G} to your mana pool.",
-                    Priority = ManaSourcePriorities.Creature,
-                    TapRestriction = true
+                    Priority = ManaSourcePriorities.Creature,                    
                   };
 
                 mp.ManaAmount(Mana.Green);

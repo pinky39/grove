@@ -9,6 +9,8 @@
 
   public class Player : GameObject, ITarget, IDamageable, IHasLife, IModifiable
   {
+    public readonly ManaCache ManaCache = new ManaCache();
+
     private readonly AssignedDamage _assignedDamage;
     private readonly Battlefield _battlefield;
     private readonly ContiniousEffects _continiousEffects = new ContiniousEffects();
@@ -24,7 +26,6 @@
     private readonly Trackable<int> _landsPlayedCount = new Trackable<int>(0);
     private readonly Library _library;
     private readonly Life _life = new Life(20);
-    private readonly ManaVault _manaVault = new ManaVault();
     private readonly TrackableList<IPlayerModifier> _modifiers = new TrackableList<IPlayerModifier>();
     private readonly SkipSteps _skipSteps = new SkipSteps();
 
@@ -48,7 +49,6 @@
     public string Name { get; private set; }
     public Player Opponent { get { return Players.GetOpponent(this); } }
     public int LandsPlayedCount { get { return _landsPlayedCount.Value; } set { _landsPlayedCount.Value = value; } }
-    public ManaCounts ManaPool { get { return _manaVault.ManaPool; } }
 
     private IEnumerable<IAcceptsPlayerModifier> ModifiableProperties
     {
@@ -205,16 +205,6 @@
       modifier.Dispose();
     }
 
-    public void AddManaSource(ManaUnit unit)
-    {
-      _manaVault.Add(unit);
-    }
-
-    public void RemoveManaSource(ManaUnit unit)
-    {
-      _manaVault.Remove(unit);
-    }
-
     public void Initialize(Game game)
     {
       Game = game;
@@ -226,7 +216,7 @@
       _hasLost.Initialize(ChangeTracker);
       _isActive.Initialize(ChangeTracker);
       _hasPriority.Initialize(ChangeTracker);
-      _manaVault.Initialize(ChangeTracker);
+      ManaCache.Initialize(ChangeTracker);
       _modifiers.Initialize(ChangeTracker);
       _assignedDamage.Initialize(ChangeTracker);
       _continiousEffects.Initialize(null, Game);
@@ -246,19 +236,14 @@
       _battlefield.Add(card);
     }
 
-    public int GetConvertedMana(ManaUsage usage = ManaUsage.Any)
+    public int GetAvailableConvertedMana(ManaUsage usage = ManaUsage.Any)
     {
-      return _manaVault.GetAvailableMana(usage).Converted;
-    }
-
-    public IManaAmount GetAvailableMana(ManaUsage usage = ManaUsage.Any)
-    {
-      return _manaVault.GetAvailableMana(usage);
-    }
+      return ManaCache.GetAvailableConvertedMana(usage);
+    }    
 
     public void AddManaToManaPool(IManaAmount manaAmount, ManaUsage usageRestriction = ManaUsage.Any)
     {
-      _manaVault.AddManaToPool(manaAmount, usageRestriction);
+      ManaCache.AddManaToPool(manaAmount, usageRestriction);
     }
 
     public void AssignDamage(DamageFromSource damage)
@@ -268,7 +253,7 @@
 
     public void Consume(IManaAmount amount, ManaUsage usage)
     {
-      _manaVault.Consume(amount, usage);
+      ManaCache.Consume(amount, usage);
     }
 
     public void DealAssignedDamage()
@@ -333,7 +318,7 @@
 
     public void EmptyManaPool()
     {
-      _manaVault.EmptyManaPool();
+      ManaCache.EmptyManaPool();
     }
 
     public void GetTargets(Func<Zone, Player, bool> zoneFilter, List<ITarget> targets)
@@ -347,12 +332,12 @@
 
     public bool HasMana(int amount, ManaUsage usage = ManaUsage.Any)
     {
-      return _manaVault.Has(amount.Colorless(), usage);
+      return ManaCache.Has(amount.Colorless(), usage);
     }
 
     public bool HasMana(IManaAmount amount, ManaUsage usage = ManaUsage.Any)
     {
-      return _manaVault.Has(amount, usage);
+      return ManaCache.Has(amount, usage);
     }
 
     public void MoveCreaturesWithLeathalDamageOrZeroTougnessToGraveyard()

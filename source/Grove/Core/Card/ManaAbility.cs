@@ -3,25 +3,78 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
+  using Costs;
   using Effects;
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   public class ManaAbility : ActivatedAbility, IManaSource, ICopyContributor
   {
     private readonly Parameters _p;
+    private ManaCache _manaCache;
     private readonly TrackableList<ManaUnit> _units = new TrackableList<ManaUnit>();
 
-    private ManaAbility() { }
+    private ManaAbility() {}
 
-    public ManaAbility(Parameters p) : base(p) { _p = p; }
+    public ManaAbility(Parameters p) : base(p)
+    {
+      _p = p;
+    }
 
-    public void AfterMemberCopy(object original) { SubscribeToEvents(); }
+    public void AfterMemberCopy(object original)
+    {
+      SubscribeToEvents();
+    }
 
-    bool IManaSource.CanActivate() { return IsEnabled && CanPay().CanPay().Value; }
+    bool IManaSource.CanActivate()
+    {
+      return IsEnabled && CanPay().CanPay().Value;
+    }
 
-    void IManaSource.PayActivationCost() { Pay(); }
+    void IManaSource.PayActivationCost()
+    {
+      Pay();
+    }
 
-    public IEnumerable<ManaUnit> GetUnits() { return _units; }
+    public IEnumerable<ManaUnit> GetUnits()
+    {
+      return _units;
+    }
+
+    public override void OnAbilityRemoved()
+    {
+      DeactivateSource();
+    }
+
+    public override void OnAbilityAdded()
+    {
+      if (OwningCard != null && OwningCard.Zone == Zone.Battlefield)
+      {
+        ActivateSource();
+      }
+    }
+
+    public override void Initialize(Card owningCard, Game game)
+    {
+      base.Initialize(owningCard, game);
+
+      _p.ManaOutput.Initialize(this, game);
+      _units.Initialize(ChangeTracker);
+      _manaCache = owningCard.Controller.ManaCache;
+
+      SubscribeToEvents();
+    }
+
+    public void AddAditionalAmountAbilityWillProduce(IManaAmount amount)
+    {
+      AddUnits(amount);
+      _p.ManaOutput.AddAditional(amount);
+    }
+
+    public void RemoveAdditionalAmountAbilityWillProduce(IManaAmount amount)
+    {
+      RemoveUnits(amount);
+      _p.ManaOutput.RemoveAdditional(amount);
+    }
 
     protected override Effect CreateEffect(ActivationParameters p)
     {
@@ -44,26 +97,14 @@
       OwningCard.LeftBattlefield += delegate { DeactivateSource(); };
     }
 
-    public override void OnAbilityRemoved() { DeactivateSource(); }
-
-    public override void OnAbilityAdded()
+    private void OnOutputIncreased(IManaAmount amount)
     {
-      if (OwningCard != null && OwningCard.Zone == Zone.Battlefield)
-        ActivateSource();
+      AddUnits(amount);
     }
 
-    private void OnOutputIncreased(IManaAmount amount) { AddUnits(amount); }
-
-    private void OnOutputDecreased(IManaAmount amount) { RemoveUnits(amount); }
-
-    public override void Initialize(Card owningCard, Game game)
+    private void OnOutputDecreased(IManaAmount amount)
     {
-      base.Initialize(owningCard, game);
-
-      _p.ManaOutput.Initialize(this, game);
-      _units.Initialize(ChangeTracker);
-
-      SubscribeToEvents();
+      RemoveUnits(amount);
     }
 
     private void ActivateSource()
@@ -78,17 +119,11 @@
     {
       foreach (var unit in _units)
       {
-        OwningCard.Controller.RemoveManaSource(unit);
+        _manaCache.Remove(unit);        
       }
 
       _units.Clear();
       Unsubscribe(_p.ManaOutput);
-    }
-
-    public void AddAditionalAmountAbilityWillProduce(IManaAmount amount)
-    {
-      AddUnits(amount);
-      _p.ManaOutput.AddAditional(amount);
     }
 
     private void AddUnits(IManaAmount amount)
@@ -100,7 +135,7 @@
           var unit = CreateManaUnit(singleColor.Color);
 
           _units.Add(unit);
-          OwningCard.Controller.AddManaSource(unit);
+          _manaCache.Add(unit);          
         }
       }
     }
@@ -119,15 +154,9 @@
             break;
 
           _units.Remove(unit);
-          OwningCard.Controller.RemoveManaSource(unit);
+          _manaCache.Remove(unit);          
         }
       }
-    }
-
-    public void RemoveAdditionalAmountAbilityWillProduce(IManaAmount amount)
-    {
-      RemoveUnits(amount);
-      _p.ManaOutput.RemoveAdditional(amount);
     }
 
 
@@ -136,22 +165,20 @@
       return new ManaUnit(
         color,
         _p.Priority,
-        this,
-        _p.TapRestriction ? OwningCard : null,
-        _p.SacRestriction ? OwningCard : null,
-        _p.CostRestriction,
+        this,        
         _p.UsageRestriction);
     }
 
     public new class Parameters : ActivatedAbility.Parameters
     {
-      public int CostRestriction;
       public int Priority = ManaSourcePriorities.Land;
-      public bool SacRestriction;
-      public bool TapRestriction;
       public ManaUsage UsageRestriction = ManaUsage.Any;
 
-      public Parameters() { UsesStack = false; }
+      public Parameters()
+      {
+        UsesStack = false;
+        Cost = new TapOwner();
+      }
 
       public List<int> Colors { get; private set; }
       public ManaOutput ManaOutput { get; private set; }

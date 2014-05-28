@@ -7,9 +7,9 @@
   {
     public Scenarios() {}
 
-    public Scenarios(SearchParameters searchParameters) : base(searchParameters) {}    
+    public Scenarios(SearchParameters searchParameters) : base(searchParameters) {}
 
-    public void Num1()
+    public void Num01()
     {
       Hand(P1, C("Llanowar Elves"), C("Volcanic hammer"), C("Forest"));
       Battlefield(P1, C("Grizzly Bears"), C("Forest"), C("Mountain"), C("Llanowar Behemoth"));
@@ -19,7 +19,7 @@
       RunGame(maxTurnCount: 2);
     }
 
-    public void Num2()
+    public void Num02()
     {
       Hand(P1, C("Llanowar Elves"), C("Volcanic hammer"), C("Forest"), C("Mountain"));
       Battlefield(P1, C("Grizzly Bears"), C("Forest"), C("Mountain"), C("Mountain"), C("Shivan Dragon"));
@@ -28,7 +28,7 @@
       RunGame(maxTurnCount: 2);
     }
 
-    public void Num3()
+    public void Num03()
     {
       Battlefield(P2, C("Swamp"), C("Swamp"), C("Swamp"), C("Swamp"), C("Nantuko shade"),
         C("Drana, Kalastria Bloodchief"));
@@ -37,7 +37,7 @@
       RunGame(maxTurnCount: 2);
     }
 
-    public void Num4()
+    public void Num04()
     {
       Hand(P1, C("Swamp"), C("Stupor"), C("Nantuko Shade"), C("Cruel Edict"));
       Hand(P2, C("Mountain"), C("Raging Ravine"), C("Thrun, the Last Troll"));
@@ -49,7 +49,7 @@
       RunGame(maxTurnCount: 1);
     }
 
-    public void Num5()
+    public void Num05()
     {
       Hand(P1, C("Volcanic Fallout"), C("Volcanic Fallout"), C("Vigor"), C("Rumbling Slum"));
       Hand(P2, C("Lightning Bolt"), C("Burst Lightning"), C("Fires of Yavimaya"));
@@ -62,7 +62,7 @@
       RunGame(maxTurnCount: 1);
     }
 
-    public void Num6()
+    public void Num06()
     {
       Hand(P1, "Grasp of Darkness", "Wurmcoil Engine");
       Battlefield(P2, "Forest", "Rootbound Crag", "Forest", "Forest", "Fires of Yavimaya", "Forest", "Rootbound Crag",
@@ -72,7 +72,7 @@
       RunGame(maxTurnCount: 1);
     }
 
-    public void Num7()
+    public void Num07()
     {
       Hand(P1, "Sift", "Darksteel Gargoyle", "Divination", "Mana Leak", "Darksteel Gargoyle", "Blaze", "Mana Leak");
       Hand(P2, "Vines of Vastwood", "Volcanic Fallout", "Volcanic Fallout");
@@ -84,7 +84,7 @@
       RunGame(maxTurnCount: 2);
     }
 
-    public void Num8()
+    public void Num08()
     {
       Hand(P1, "Marsh Casualties", "Marsh Casualties", "Cruel Edict", "Marsh Casualties");
       Hand(P2, "Lightning Bolt", "Darksteel Gargoyle", "Beacon of Destruction", "Seal of Fire");
@@ -96,7 +96,7 @@
       RunGame(maxTurnCount: 2);
     }
 
-    public void Num9()
+    public void Num09()
     {
       Hand(P1, "Plains", "Plains", "Deathless Angel", "Baneslayer Angel");
       Hand(P2, "Volcanic Fallout", "Leatherback Baloth");

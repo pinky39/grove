@@ -16,7 +16,7 @@
 
         Exec(
           At(Step.FirstMain)
-            .Verify(() => Equal(2, P1.GetConvertedMana()))
+            .Verify(() => Equal(2, P1.GetAvailableConvertedMana()))
           );
       }
 
@@ -29,7 +29,7 @@
 
         Exec(
           At(Step.FirstMain)
-            .Verify(() => Equal(2, P1.GetConvertedMana()))
+            .Verify(() => Equal(2, P1.GetAvailableConvertedMana()))
           );
       }
 
@@ -45,7 +45,7 @@
         Exec(
           At(Step.FirstMain)
             .Cast(clear, target: ground)
-            .Verify(() => Equal(1, P1.GetConvertedMana()))
+            .Verify(() => Equal(1, P1.GetAvailableConvertedMana()))
           );
       }
     }

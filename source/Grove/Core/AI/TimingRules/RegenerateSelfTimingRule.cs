@@ -1,6 +1,6 @@
 ﻿namespace Grove.AI.TimingRules
 {
-  public class RegenerateTimingRule : TimingRule
+  public class RegenerateSelfTimingRule : TimingRule
   {
     public override bool? ShouldPlay1(TimingRuleParameters p)
     {

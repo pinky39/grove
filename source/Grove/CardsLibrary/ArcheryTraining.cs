@@ -2,12 +2,12 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Grove.Costs;
-  using Grove.Effects;
-  using Grove.AI.TargetingRules;
-  using Grove.AI.TimingRules;
-  using Grove.Modifiers;
-  using Grove.Triggers;
+  using AI.TargetingRules;
+  using AI.TimingRules;
+  using Costs;
+  using Effects;
+  using Modifiers;
+  using Triggers;
 
   public class ArcheryTraining : CardTemplateSource
   {
@@ -35,12 +35,9 @@
 
                 ap.TargetSelector.AddEffect(trg => trg.Is.AttackerOrBlocker().On.Battlefield());
                 ap.TimingRule(new OnStep(Step.DeclareBlockers));
-                ap.TargetingRule(new EffectDealDamage(tp =>
-                  {
-                    return tp.Card.Attachments
-                      .First(x => x.Name == "Archery Training")
-                      .CountersCount(CounterType.Arrow);
-                  }));
+                ap.TargetingRule(new EffectDealDamage(tp => tp.Card.Attachments
+                  .First(x => x.Name == "Archery Training")
+                  .CountersCount(CounterType.Arrow)));
 
                 return new AddActivatedAbility(new ActivatedAbility(ap));
               });

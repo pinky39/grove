@@ -24,7 +24,7 @@
       if (Turn.Step != Step.SecondMain)
         return false;
 
-      var availableMana = p.Controller.GetConvertedMana();
+      var availableMana = p.Controller.GetAvailableConvertedMana();
 
       return SpellsNeedMana(p, availableMana) || AbilitiesNeedMana(p, availableMana);
     }

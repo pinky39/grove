@@ -248,6 +248,7 @@
     <Compile Include="Core\AI\TimingRules\OnOpponentsTurn.cs" />
     <Compile Include="Core\AI\TimingRules\AfterOpponentDeclaresAttackers.cs" />
     <Compile Include="Core\AI\TimingRules\OnYourTurn.cs" />
+    <Compile Include="Core\AI\TimingRules\RegenerateTargetTimingRule.cs" />
     <Compile Include="Core\AI\TimingRules\WhenAttachedToCardWillBeDestroyed.cs" />
     <Compile Include="Core\AI\TimingRules\WhenStackIsNotEmpty.cs" />
     <Compile Include="Core\Costs\Exile.cs" />
@@ -944,6 +945,7 @@
     <Compile Include="Core\SaveLoad\SaveGameIndex.cs" />
     <Compile Include="Core\PlayModes\PregeneratedDecks.cs" />
     <Compile Include="Core\PlayModes\SealedDeckIndex.cs" />
+    <Compile Include="Infrastructure\DictionaryEx.cs" />
     <Compile Include="Infrastructure\IReceive.cs" />
     <Compile Include="UserInterface\CardActivation\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
@@ -1034,7 +1036,7 @@
     <Compile Include="Core\AI\TimingRules\MassRemovalTimingRule.cs" />
     <Compile Include="Core\AI\TimingRules\NonTargetRemovalTimingRule.cs" />
     <Compile Include="Core\AI\TimingRules\WhenPermanentCountIs.cs" />
-    <Compile Include="Core\AI\TimingRules\RegenerateTimingRule.cs" />
+    <Compile Include="Core\AI\TimingRules\RegenerateSelfTimingRule.cs" />
     <Compile Include="Core\AI\TimingRules\OnSecondMain.cs" />
     <Compile Include="Core\AI\TimingRules\OnStep.cs" />
     <Compile Include="Core\AI\TargetingRules\TargetingRule.cs" />
@@ -1186,10 +1188,9 @@
     <Compile Include="Core\Mana\ManaColor.cs" />
     <Compile Include="Core\Mana\ManaParser.cs" />
     <Compile Include="Core\Mana\SingleColorManaAmount.cs" />
-    <Compile Include="Core\Mana\ManaUnits.cs" />
     <Compile Include="Core\Mana\ManaOutput.cs" />
     <Compile Include="Core\Mana\ManaUnit.cs" />
-    <Compile Include="Core\Mana\ManaVault.cs" />
+    <Compile Include="Core\Mana\ManaCache.cs" />
     <Compile Include="Core\Mana\PermanentCountManaOutput.cs" />
     <Compile Include="Core\Mana\ZeroManaAmount.cs" />
     <Compile Include="Core\Events\PermanentTappedEvent.cs" />

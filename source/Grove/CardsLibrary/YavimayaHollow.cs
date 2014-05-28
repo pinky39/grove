@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using AI.TargetingRules;
+  using AI.TimingRules;
   using Costs;
   using Effects;
 
@@ -30,6 +31,7 @@
             p.TargetSelector.AddEffect(trg =>
               trg.Is.Card(c => c.Is().Creature));
 
+            p.TimingRule(new RegenerateTargetTimingRule());
             p.TargetingRule(new EffectGiveRegenerate());
           });
     }

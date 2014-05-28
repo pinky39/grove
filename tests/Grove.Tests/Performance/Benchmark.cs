@@ -16,7 +16,7 @@
     {
       var result = RunAndCompare(
         run: BenchmarkRunConfiguration.D40T2MT2(),
-        compareTo: BenchmarkRunConfiguration.D40T2MT1());
+        compareTo: BenchmarkRunConfiguration.D40T2MT2());
 
       Console.WriteLine(result.PrettyPrint());
     }
@@ -26,8 +26,8 @@
     {
       var configurations = new[]
         {
-          BenchmarkRunConfiguration.D40T2ST(),
-          BenchmarkRunConfiguration.D40T2MT1(),
+          //BenchmarkRunConfiguration.D40T2ST(),
+          //BenchmarkRunConfiguration.D40T2MT1(),
           BenchmarkRunConfiguration.D40T2MT2(),          
         };
 

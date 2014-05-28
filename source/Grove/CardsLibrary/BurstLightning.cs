@@ -1,11 +1,11 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Costs;
-  using Grove.Effects;
-  using Grove.AI;
-  using Grove.AI.TargetingRules;
-  using Grove.AI.TimingRules;
+  using AI;
+  using AI.TargetingRules;
+  using AI.TimingRules;
+  using Costs;
+  using Effects;
 
   public class BurstLightning : CardTemplateSource
   {

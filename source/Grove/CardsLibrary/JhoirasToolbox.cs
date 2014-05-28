@@ -3,6 +3,7 @@
   using System.Collections.Generic;
   using AI.CombatRules;
   using AI.TargetingRules;
+  using AI.TimingRules;
   using Costs;
   using Effects;
 
@@ -26,6 +27,7 @@
             p.TargetSelector.AddEffect(trg =>
               trg.Is.Card(c => c.Is().Creature && c.Is().Artifact).On.Battlefield());
 
+            p.TimingRule(new RegenerateTargetTimingRule());
             p.TargetingRule(new EffectGiveRegenerate());
           })
         .CombatRule(() => new RegenerateCombatRule(2.Colorless()));

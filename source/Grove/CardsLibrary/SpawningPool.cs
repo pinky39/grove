@@ -44,7 +44,7 @@
                       Effect = () => new RegenerateOwner()
                     };
 
-                  ap.TimingRule(new RegenerateTimingRule());
+                  ap.TimingRule(new RegenerateSelfTimingRule());
 
                   return new AddActivatedAbility(new ActivatedAbility(ap)) {UntilEot = true};
                 });

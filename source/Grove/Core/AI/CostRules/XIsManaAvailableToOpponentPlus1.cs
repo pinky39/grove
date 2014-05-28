@@ -7,7 +7,7 @@
       if (Stack.IsEmpty || Stack.TopSpellOwner == p.Controller)
         return int.MaxValue;
 
-      return p.Controller.Opponent.GetConvertedMana() + 1;
+      return p.Controller.Opponent.GetAvailableConvertedMana() + 1;
     }
   }
 }

@@ -1,6 +1,8 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
+  using AI.TimingRules;
+  using Effects;
   using Grove.Costs;
 
   public class BloodVassal : CardTemplateSource
@@ -15,14 +17,14 @@
         .FlavorText("They are bred to suffer and born to die. Much like humans.")
         .Power(2)
         .Toughness(2)
-        .ManaAbility(p =>
-          {
+        .ActivatedAbility(p =>
+          {            
             p.Text = "Sacrifice Blood Vassal: Add {B}{B} to your mana pool.";
             p.Cost = new Sacrifice();
-            p.ManaAmount("{B}{B}".Parse());
-            p.Priority = ManaSourcePriorities.OnlyIfNecessary;
-            p.TapRestriction = false;
-          });
+            p.Effect = () => new AddManaToPool("{B}{B}".Parse());
+            p.TimingRule(new WhenYouNeedAdditionalMana(2));
+            p.UsesStack = false;
+          });      
     }
   }
 }

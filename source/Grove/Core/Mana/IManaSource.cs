@@ -6,6 +6,8 @@
   {
     bool CanActivate();
     void PayActivationCost();
+    Card OwningCard { get; }
+
     IEnumerable<ManaUnit> GetUnits();
   }
 }

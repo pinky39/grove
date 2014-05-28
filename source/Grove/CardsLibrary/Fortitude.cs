@@ -34,7 +34,7 @@
                   .Is.Card(x => x.Is("forest"), ControlledBy.SpellOwner)
                   .On.Battlefield());
 
-                ap.TimingRule(new RegenerateTimingRule());
+                ap.TimingRule(new RegenerateSelfTimingRule());
                 ap.TargetingRule(new CostSacrificeToRegenerate());
 
                 return new AddActivatedAbility(new ActivatedAbility(ap));

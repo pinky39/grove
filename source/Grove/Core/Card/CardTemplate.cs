@@ -192,7 +192,7 @@
           p.Cost = new PayMana(cost, ManaUsage.Abilities);
           p.Effect = () => new RegenerateOwner();
 
-          p.TimingRule(new RegenerateTimingRule());
+          p.TimingRule(new RegenerateSelfTimingRule());
         })
         .CombatRule(() => new RegenerateCombatRule(cost));
     }
@@ -238,10 +238,8 @@
       _init.Add(cp =>
         {
           var p = new ManaAbility.Parameters
-            {
-              Cost = new Tap(),
-              Priority = GetDefaultManaSourcePriority(cp),
-              TapRestriction = true
+            {              
+              Priority = GetDefaultManaSourcePriority(cp),              
             };
 
           set(p);

@@ -133,7 +133,7 @@
         {
           if (_payMana._hasX)
           {
-            _maxX = controller.GetConvertedMana(manaUsage) - actualCost.Converted;
+            _maxX = controller.GetAvailableConvertedMana(manaUsage) - actualCost.Converted;
           }
 
           if (_payMana._supportsRepetitions)

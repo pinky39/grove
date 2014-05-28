@@ -1,8 +1,8 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Effects;
-  using Grove.AI.TargetingRules;
+  using AI.TargetingRules;
+  using Effects;
 
   public class ArcLightning : CardTemplateSource
   {

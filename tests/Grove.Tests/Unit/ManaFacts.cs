@@ -79,58 +79,35 @@
     {
       Add("{R}");
       AssertAvailable("{1}");
-    }
+    }   
 
-    [Fact]
-    public void TapRestriction1()
-    {
-      var tapRestriction = new object();
-
-      Add("{R}", tapRestriction);
-      Add("{G}", tapRestriction);
-
-      AssertNotAvailable("{2}");
-    }    
-
-    private readonly ManaVault _vault = new ManaVault();
+    private readonly ManaCache _cache = new ManaCache();
 
     private void Add(string manaAmount)
     {
-      _vault.AddManaToPool(manaAmount.Parse(), ManaUsage.Any);
-    }
-
-    private void Add(string manaAmount, object tapRestriction)
-    {
-      foreach (var sameColor in manaAmount.Parse())
-      {
-        for (var i = 0; i < sameColor.Count; i++)
-        {
-          var unit = new ManaUnit(sameColor.Color, 1, tapRestriction: tapRestriction);
-          _vault.Add(unit);
-        }
-      }
-    }
+      _cache.AddManaToPool(manaAmount.Parse(), ManaUsage.Any);
+    }    
 
     private void Consume(string manaAmount)
     {
-      _vault.Consume(manaAmount.Parse(), ManaUsage.Any);
+      _cache.Consume(manaAmount.Parse(), ManaUsage.Any);
     }
 
     private void AssertHas(int count)
     {
-      var amount = _vault.GetAvailableMana(ManaUsage.Any);
-      Assert.Equal(count, amount.Converted);
+      var amount = _cache.GetAvailableConvertedMana(ManaUsage.Any);
+      Assert.Equal(count, amount);
     }
 
     private void AssertAvailable(string amount)
     {
-      var has = _vault.Has(amount.Parse(), ManaUsage.Any);
+      var has = _cache.Has(amount.Parse(), ManaUsage.Any);
       Assert.True(has);
     }
 
     private void AssertNotAvailable(string amount)
     {
-      var has = _vault.Has(amount.Parse(), ManaUsage.Any);
+      var has = _cache.Has(amount.Parse(), ManaUsage.Any);
       Assert.False(has);
     }
   }

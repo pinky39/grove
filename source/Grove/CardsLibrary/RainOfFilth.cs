@@ -23,18 +23,17 @@
               controlledBy: ControlledBy.SpellOwner,
               modifiers: () =>
                 {
-                  var mp = new ManaAbility.Parameters
+                  var mp = new ActivatedAbility.Parameters
                     {
                       Cost = new Sacrifice(),
                       Text = "Sacrifice this land: Add {B} to your mana pool.",
-                      Priority = ManaSourcePriorities.Restricted,
-                      TapRestriction = false,
-                      SacRestriction = true
+                      Effect = () => new AddManaToPool("{B}".Parse()),
+                      UsesStack = false,
                     };
 
-                  mp.ManaAmount(Mana.Black);
-
-                  return new AddActivatedAbility(new ManaAbility(mp));
+                  mp.TimingRule(new WhenYouNeedAdditionalMana());
+                  
+                  return new AddActivatedAbility(new ActivatedAbility(mp));
                 });
 
             p.TimingRule(new OnYourTurn(Step.Upkeep));

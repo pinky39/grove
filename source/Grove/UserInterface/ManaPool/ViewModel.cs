@@ -29,7 +29,7 @@
 
     private void Update()
     {
-      var pool = Players.Human.ManaPool;
+      var pool = Players.Human.ManaCache.ManaPool;
 
       Update(() => WhiteCount != pool.White, () => WhiteCount = pool.White);
       Update(() => BlueCount != pool.Blue, () => BlueCount = pool.Blue);

@@ -10,7 +10,7 @@
   {
     public ChosenCards ChooseResult(List<Card> candidates)
     {
-      var cardsToReveal = Controller.Opponent.GetAvailableMana(ManaUsage.Spells).Converted + 1;
+      var cardsToReveal = Controller.Opponent.GetAvailableConvertedMana(ManaUsage.Spells) + 1;
       return candidates.OrderBy(x => x.Score).Take(cardsToReveal).ToList();
     }
 

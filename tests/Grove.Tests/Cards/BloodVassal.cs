@@ -18,19 +18,7 @@
 
         RunGame(2);
         Equal(Zone.Battlefield, C(engine).Zone);
-      }
-
-      [Fact]
-      public void BugManaNotAvailableForRegeneration()
-      {
-        Hand(P1, "Doom Blade");
-        Battlefield(P1, "Unworthy dead", "Blood Vassal");
-        Battlefield(P2, "Llanowar Elves", "Llanowar Elves" );
-
-        RunGame(2);
-
-        Equal(17, P2.Life);
-      }
+      }    
     }
   }
 }

@@ -3,7 +3,6 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using ActivationContext = AI.ActivationContext;
 
   public abstract class TargetingRule : MachinePlayRule
   {
@@ -11,7 +10,7 @@
     public int? TargetLimit;
 
 
-    public override bool Process(int pass, ActivationContext c)
+    public override bool Process(int pass, AI.ActivationContext c)
     {
       if (pass == 2)
       {
@@ -22,7 +21,7 @@
       return false;
     }
 
-    public void Process(ActivationContext c)
+    public void Process(AI.ActivationContext c)
     {
       var excludeSelf = ConsiderTargetingSelf ? null : c.Card;
       var candidates = c.Selector.GenerateCandidates(c.TriggerMessage, excludeSelf);
@@ -232,7 +231,7 @@
 
             return Stack.CanBeDestroyedByTopSpell(x) ||
               Stack.TopSpellHas(EffectTag.Bounce) ||
-                Stack.TopSpellHas(EffectTag.ChangeController);
+              Stack.TopSpellHas(EffectTag.ChangeController);
           });
     }
 
@@ -284,7 +283,8 @@
       Func<TargetsCandidates, IList<TargetCandidates>> selector = null)
     {
       return p.Candidates<Card>(ControlledBy.SpellOwner, selector: selector)
-        .Where(x => Stack.CanBeDestroyedByTopSpell(x.Card()) || (Stack.IsEmpty && Turn.Step == Step.DeclareBlockers && Combat.CanBeDealtLeathalCombatDamage(x.Card())));
+        .Where(x => Stack.CanBeDestroyedByTopSpell(x.Card()) ||
+            (Stack.IsEmpty && Turn.Step == Step.DeclareBlockers && Combat.CanBeDealtLeathalCombatDamage(x.Card())));
     }
 
     protected static IEnumerable<Card> GetBounceCandidates(TargetingRuleParameters p,
