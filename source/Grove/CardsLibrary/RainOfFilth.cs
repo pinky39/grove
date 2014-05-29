@@ -23,7 +23,7 @@
               controlledBy: ControlledBy.SpellOwner,
               modifiers: () =>
                 {
-                  var mp = new ActivatedAbility.Parameters
+                  var mp = new ActivatedAbilityParameters
                     {
                       Cost = new Sacrifice(),
                       Text = "Sacrifice this land: Add {B} to your mana pool.",

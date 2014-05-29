@@ -45,7 +45,7 @@
 
     protected Card() {}
 
-    public Card(Parameters p)
+    public Card(CardParameters p)
     {
       Name = p.Name;
       ManaCost = p.ManaCost;
@@ -1126,75 +1126,5 @@
 
       PutOnTopOfLibrary();
     }
-
-    public class Parameters
-    {
-      public readonly List<ActivatedAbility> ActivatedAbilities = new List<ActivatedAbility>();
-      public readonly List<CastRule> CastInstructions = new List<CastRule>();
-      public readonly List<CombatRule> CombatRules = new List<CombatRule>();
-      public readonly List<ContinuousEffect> ContinuousEffects = new List<ContinuousEffect>();
-      public readonly List<CardColor> ProtectionsFromColors = new List<CardColor>();
-      public readonly List<string> ProtectionsFromTypes = new List<string>();
-      public readonly List<Static> SimpleAbilities = new List<Static>();
-      public readonly List<TriggeredAbility> TriggeredAbilities = new List<TriggeredAbility>();
-      public List<CardColor> Colors = new List<CardColor>();
-      public CardText FlavorText = string.Empty;
-      public bool HasXInCost;
-      public bool IsLeveler;
-      public List<int> ManaColorsThisCardCanProduce = new List<int>();
-      public IManaAmount ManaCost;
-      public bool MayChooseToUntap;
-      public int MinimalBlockerCount = 1;
-      public string Name;
-      public ScoreOverride OverrideScore = new ScoreOverride();
-      public int? Power;
-      public List<StaticAbility> StaticAbilities = new List<StaticAbility>();
-      public CardText Text = string.Empty;
-      public int? Toughness;
-      public CardType Type;
-
-      public string Illustration
-      {
-        get
-        {
-          const int basicLandVersions = 4;
-
-          if (Type.BasicLand)
-          {
-            return Name + RandomEx.Next(1, basicLandVersions + 1);
-          }
-
-          return Name;
-        }
-      }
-    }
-  }
-
-  public class ActivationPrerequisites
-  {
-    public Lazy<bool> CanPay;
-    public Card Card;
-    public CardText Description;
-    public int DistributeAmount;
-    public int Index;
-    public Lazy<int> MaxRepetitions;
-    public Lazy<int?> MaxX;
-    public List<MachinePlayRule> Rules;
-    public TargetSelector Selector;
-
-    public bool HasXInCost
-    {
-      get { return MaxX.Value.HasValue; }
-    }
-  }
-
-  [Copyable, Serializable]
-  public class ActivationParameters
-  {
-    public bool PayCost = true;
-    public int Repeat = 1;
-    public bool SkipStack;
-    public Targets Targets = new Targets();
-    public int? X;
   }
 }

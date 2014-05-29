@@ -28,8 +28,9 @@
 
         foreach (var prerequisites in abilitiesPrerequisites)
         {          
-          var playables = GeneratePlayables(prerequisites,
-            () => new PlayableAbility()).ToList();
+          var playables = GeneratePlayables(
+            prerequisites,
+            () => new PlayableAbility());
           
           // lazy cost evaluation
           if (playables.Count > 0 && prerequisites.CanPay.Value)
@@ -51,8 +52,9 @@
 
         foreach (var prerequisites in spellsPrerequisites)
         {
-          var playables = GeneratePlayables(prerequisites,
-            () => new PlayableSpell()).ToList();
+          var playables = GeneratePlayables(
+            prerequisites,
+            () => new PlayableSpell());
 
           // lazy cost evaluation
           if (playables.Count > 0 && prerequisites.CanPay.Value)
@@ -63,9 +65,10 @@
       }
     }
 
-    private IEnumerable<Playable> GeneratePlayables(ActivationPrerequisites prerequisites, Func<Playable> createPlayable)
+    private List<Playable> GeneratePlayables(ActivationPrerequisites prerequisites, Func<Playable> createPlayable)
     {
       var context = new ActivationContext(_player, prerequisites);
+      var result = new List<Playable>();
 
       var work = prerequisites.Rules.ToList();
 
@@ -79,8 +82,10 @@
           var isFinished = rule.Process(pass, context);
 
           if (context.CancelActivation)
-            yield break;
-
+          {
+            return result;
+          }
+            
           if (!isFinished)
           {
             newWork.Add(rule);
@@ -99,8 +104,8 @@
         playable.ActivationParameters.X = context.X;
         playable.ActivationParameters.Repeat = context.Repeat;
 
-        yield return playable;
-        yield break;
+        result.Add(playable);
+        return result;        
       }
 
       foreach (var targetsCombination in context.TargetsCombinations().Take(Ai.CurrentTargetCount))
@@ -113,10 +118,10 @@
         playable.ActivationParameters.X = targetsCombination.X;
         playable.ActivationParameters.Repeat = targetsCombination.Repeat;
 
-        yield return playable;
+        result.Add(playable);        
       }
 
-      yield break;
+      return result;
     }
 
 

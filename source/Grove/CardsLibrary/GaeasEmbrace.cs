@@ -24,7 +24,7 @@
             p.Effect = () => new Attach(
               () =>
                 {
-                  var ap = new ActivatedAbility.Parameters
+                  var ap = new ActivatedAbilityParameters
                     {
                       Text = "{G}: Regenerate enchanted creature.",
                       Cost = new PayMana(Mana.Green, ManaUsage.Abilities),

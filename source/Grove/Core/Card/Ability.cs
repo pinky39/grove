@@ -1,24 +1,18 @@
 ﻿namespace Grove
 {
   using System.Collections.Generic;
-  using System.Linq;
   using Effects;
-  using Grove.AI;
-  using Grove.AI.CostRules;
-  using Grove.AI.RepetitionRules;
-  using Grove.AI.TargetingRules;
-  using Grove.AI.TimingRules;
   using Grove.Infrastructure;
 
   public abstract class Ability : GameObject, IEffectSource
   {
-    private readonly Parameters _p;
+    private readonly AbilityParameters _p;
     private readonly Trackable<bool> _isEnabled = new Trackable<bool>(true);
     private Card _owner;
 
     protected Ability() { }
 
-    protected Ability(Parameters parameters)
+    protected Ability(AbilityParameters parameters)
     {
       _p = parameters;
       Text = parameters.Text;
@@ -71,25 +65,5 @@
     }
 
     public override string ToString() { return string.Format("{0}'s ability", OwningCard); }
-
-    [Copyable]
-    public abstract class Parameters
-    {
-      public readonly List<MachinePlayRule> Rules = new List<MachinePlayRule>();
-      public int DistributeAmount;
-      public EffectFactory Effect;
-      public TargetSelector TargetSelector = new TargetSelector();
-      public string Text;
-      public bool UsesStack = true;
-
-      public bool HasTimingRules { get { return Rules.Any(x => x is TimingRule); } }
-
-      public void TimingRule(TimingRule rule) { Rules.Add(rule); }
-      public void RepetitionRule(RepetitionRule rule) { Rules.Add(rule); }
-      public void TargetingRule(TargetingRule rule) { Rules.Add(rule); }
-      public void CostRule(CostRule rule) { Rules.Add(rule); }
-    }
   }
-
-  
 }

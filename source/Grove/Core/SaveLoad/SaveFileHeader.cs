@@ -11,7 +11,7 @@
 
     public SaveFileHeader()
     {
-      Version = 2;
+      Version = 3;
     }
 
     public SaveFileHeader(SerializationInfo info, StreamingContext context)

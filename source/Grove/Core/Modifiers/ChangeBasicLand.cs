@@ -29,10 +29,9 @@
 
       var basicLandMana = Mana.GetBasicLandMana(_changeTo);
 
-      var ap = new ManaAbility.Parameters
+      var ap = new ManaAbilityParameters
         {
-          Text = "{{T}}: Add {0} to your mana pool.",
-          Cost = new Tap(),
+          Text = "{{T}}: Add {0} to your mana pool.",          
         };
 
       ap.ManaAmount(basicLandMana);

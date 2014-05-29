@@ -25,7 +25,7 @@
             p.Effect = () => new Attach(
               () =>
                 {
-                  var ap = new ActivatedAbility.Parameters
+                  var ap = new ActivatedAbilityParameters
                     {
                       Text = "{R}: Enchanted creature gets +1/+0 until end of turn.",
                       Cost = new PayMana(Mana.Red, ManaUsage.Abilities, supportsRepetitions: true),

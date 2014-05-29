@@ -14,5 +14,10 @@
       Data = data;
       CreatedAt = createdAt;
     }
+    
+    public bool CanLoadMatch
+    {
+      get { return Header.Version >= 3; }
+    }
   }
 }

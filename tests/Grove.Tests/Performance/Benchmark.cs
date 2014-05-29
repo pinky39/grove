@@ -11,7 +11,7 @@
 
   public class Benchmark
   {
-    [Fact]
+    //[Fact]
     public void RunAndCompareWithXUnit()
     {
       var result = RunAndCompare(
@@ -21,7 +21,7 @@
       Console.WriteLine(result.PrettyPrint());
     }
 
-    [Fact]
+    //[Fact]
     public void RecordWithXUnit()
     {
       var configurations = new[]

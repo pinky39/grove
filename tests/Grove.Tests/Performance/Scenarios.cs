@@ -2,6 +2,7 @@
 {
   using AI;
   using Infrastructure;
+  using Xunit;
 
   public class Scenarios : AiScenario
   {
@@ -253,7 +254,7 @@
 
       RunGame(2);
     }
-
+    
     public void Num22()
     {
       Hand(P1, "Forest", "Opal Champion", "Simian Grunts", "Forest");

@@ -1,6 +1,7 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
+  using AI.TimingRules;
   using Grove.Costs;
   using Grove.Effects;
   using Grove.AI.TargetingRules;
@@ -32,6 +33,7 @@
               });
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
+            p.TimingRule(new PumpTargetCardTimingRule(untilEot: false));
             p.TargetingRule(new EffectPumpInstant(0, 3, untilEot: false));
           });
     }

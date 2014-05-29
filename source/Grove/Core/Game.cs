@@ -65,22 +65,21 @@
       {
         p.SavedGame.Decisions.Position = 0;
 
-
         Player looser = null;
 
         if (p.Looser != null)
         {
           looser = p.Looser == 0 ? player1 : player2;
         }
-
+        
         _stateMachine.Start(() =>
-          {
+          {                                    
             if (p.RollBack > 0)
             {
               return (Turn.StateCount < p.SavedGame.StateCount - p.RollBack) || (_stateMachine.HasPendingDecisions);
             }
 
-            return Recorder.IsPlayback;
+            return (Turn.StateCount < p.SavedGame.StateCount || Recorder.IsPlayback);
           }, skipPreGame: false, looser: looser);
 
         Recorder.DiscardUnloadedResults();

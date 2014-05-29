@@ -1,21 +1,19 @@
 ﻿namespace Grove
 {
-  using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Costs;
   using Effects;
   using Infrastructure;
 
   public class ManaAbility : ActivatedAbility, IManaSource, ICopyContributor
   {
-    private readonly Parameters _p;
-    private ManaCache _manaCache;
+    private readonly ManaAbilityParameters _p;
     private readonly TrackableList<ManaUnit> _units = new TrackableList<ManaUnit>();
+    private ManaCache _manaCache;
 
     private ManaAbility() {}
 
-    public ManaAbility(Parameters p) : base(p)
+    public ManaAbility(ManaAbilityParameters p) : base(p)
     {
       _p = p;
     }
@@ -43,6 +41,11 @@
     public override void OnAbilityRemoved()
     {
       DeactivateSource();
+    }
+
+    protected override Effect CreateEffect()
+    {
+      return new AddManaToPool(_p.ManaOutput.GetAmount(), _p.UsageRestriction);
     }
 
     public override void OnAbilityAdded()
@@ -76,17 +79,6 @@
       _p.ManaOutput.RemoveAdditional(amount);
     }
 
-    protected override Effect CreateEffect(ActivationParameters p)
-    {
-      var effectParameters = new EffectParameters
-        {
-          Source = this,
-          X = p.X
-        };
-
-      return new AddManaToPool(_p.ManaOutput.GetAmount(), _p.UsageRestriction)
-        .Initialize(effectParameters, Game);
-    }
 
     private void SubscribeToEvents()
     {
@@ -119,7 +111,7 @@
     {
       foreach (var unit in _units)
       {
-        _manaCache.Remove(unit);        
+        _manaCache.Remove(unit);
       }
 
       _units.Clear();
@@ -135,7 +127,7 @@
           var unit = CreateManaUnit(singleColor.Color);
 
           _units.Add(unit);
-          _manaCache.Add(unit);          
+          _manaCache.Add(unit);
         }
       }
     }
@@ -154,7 +146,7 @@
             break;
 
           _units.Remove(unit);
-          _manaCache.Remove(unit);          
+          _manaCache.Remove(unit);
         }
       }
     }
@@ -165,36 +157,8 @@
       return new ManaUnit(
         color,
         _p.Priority,
-        this,        
+        this,
         _p.UsageRestriction);
-    }
-
-    public new class Parameters : ActivatedAbility.Parameters
-    {
-      public int Priority = ManaSourcePriorities.Land;
-      public ManaUsage UsageRestriction = ManaUsage.Any;
-
-      public Parameters()
-      {
-        UsesStack = false;
-        Cost = new TapOwner();
-      }
-
-      public List<int> Colors { get; private set; }
-      public ManaOutput ManaOutput { get; private set; }
-
-      public void ManaAmount(IManaAmount amount)
-      {
-        ManaOutput = new FixedManaOutput(amount);
-        Colors = amount.Colors.ToList();
-      }
-
-      public void ManaAmount(ManaColor color, Func<Card, bool> filter,
-        ControlledBy controlledBy = ControlledBy.SpellOwner)
-      {
-        ManaOutput = new PermanentCountManaOutput(color, filter, controlledBy);
-        Colors = color.Indices;
-      }
     }
   }
 }

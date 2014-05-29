@@ -204,6 +204,8 @@
     <Compile Include="CardsLibrary\YavimayaEnchantress.cs" />
     <Compile Include="CardsLibrary\YavimayaHollow.cs" />
     <Compile Include="CardsLibrary\YawgmothsBargain.cs" />
+    <Compile Include="Core\ActivationParameters.cs" />
+    <Compile Include="Core\ActivationPrerequisites.cs" />
     <Compile Include="Core\AI\AttackerEvaluationParameters.cs" />
     <Compile Include="Core\AI\AttackStrategyParameters.cs" />
     <Compile Include="Core\AI\CardPicker.cs" />
@@ -248,9 +250,14 @@
     <Compile Include="Core\AI\TimingRules\OnOpponentsTurn.cs" />
     <Compile Include="Core\AI\TimingRules\AfterOpponentDeclaresAttackers.cs" />
     <Compile Include="Core\AI\TimingRules\OnYourTurn.cs" />
+    <Compile Include="Core\AI\TimingRules\PumpTargetCardTimingRule.cs" />
     <Compile Include="Core\AI\TimingRules\RegenerateTargetTimingRule.cs" />
     <Compile Include="Core\AI\TimingRules\WhenAttachedToCardWillBeDestroyed.cs" />
     <Compile Include="Core\AI\TimingRules\WhenStackIsNotEmpty.cs" />
+    <Compile Include="Core\CardParameters.cs" />
+    <Compile Include="Core\Card\AbilityParameters.cs" />
+    <Compile Include="Core\Card\ActivatedAbilityParameters.cs" />
+    <Compile Include="Core\Card\ManaAbilityParameters.cs" />
     <Compile Include="Core\Costs\Exile.cs" />
     <Compile Include="Core\Decisions\PushTriggeredEffects.cs" />
     <Compile Include="Core\Effects\AddManaForEachRevealedCard.cs" />

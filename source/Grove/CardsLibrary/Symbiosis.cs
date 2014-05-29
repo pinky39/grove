@@ -1,6 +1,7 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
+  using AI.TimingRules;
   using Grove.Effects;
   using Grove.AI;
   using Grove.AI.TargetingRules;
@@ -29,6 +30,7 @@
                 trg.MaxCount = 2;
               });
 
+            p.TimingRule(new PumpTargetCardTimingRule());
             p.TargetingRule(new EffectPumpInstant(2, 2));
           });
     }

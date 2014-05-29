@@ -23,7 +23,7 @@
           {
             p.Effect = () => new Attach(() =>
               {
-                var ap = new ActivatedAbility.Parameters
+                var ap = new ActivatedAbilityParameters
                   {
                     Text =
                       "{T}: This creature deals X damage to target attacking or blocking creature, where X is the number of arrow counters on Archery Training.",

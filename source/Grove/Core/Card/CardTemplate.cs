@@ -13,13 +13,13 @@
 
   public class CardTemplate
   {
-    private readonly List<Action<Card.Parameters>> _init = new List<Action<Card.Parameters>>();
+    private readonly List<Action<CardParameters>> _init = new List<Action<CardParameters>>();
 
     public string Name { get; private set; }
 
     public Card CreateCard()
     {
-      var p = new Card.Parameters();
+      var p = new CardParameters();
 
       foreach (var action in _init)
       {
@@ -41,7 +41,7 @@
       return new Card(p);
     }
 
-    private CastRule.Parameters GetDefaultCastInstructionParameters(Card.Parameters cp)
+    private CastRule.Parameters GetDefaultCastInstructionParameters(CardParameters cp)
     {
       return new CastRule.Parameters
         {
@@ -145,7 +145,7 @@
         yield return CardColor.Colorless;
     }
 
-    private static void SetDefaultTimingRules(Card.Parameters cp, CastRule.Parameters p)
+    private static void SetDefaultTimingRules(CardParameters cp, CastRule.Parameters p)
     {
       if (cp.Type.Creature)
       {
@@ -222,22 +222,22 @@
         .CombatRule(() => new PumpCombatRule(powerIncrease, toughnessIncrease, cost));
     }
 
-    public CardTemplate ActivatedAbility(Action<ActivatedAbility.Parameters> set)
+    public CardTemplate ActivatedAbility(Action<ActivatedAbilityParameters> set)
     {
       _init.Add(cp =>
         {
-          var p = new ActivatedAbility.Parameters();
+          var p = new ActivatedAbilityParameters();
           set(p);
           cp.ActivatedAbilities.Add(new ActivatedAbility(p));
         });
       return this;
     }
 
-    public CardTemplate ManaAbility(Action<ManaAbility.Parameters> set)
+    public CardTemplate ManaAbility(Action<ManaAbilityParameters> set)
     {
       _init.Add(cp =>
         {
-          var p = new ManaAbility.Parameters
+          var p = new ManaAbilityParameters
             {              
               Priority = GetDefaultManaSourcePriority(cp),              
             };
@@ -250,7 +250,7 @@
       return this;
     }
 
-    private int GetDefaultManaSourcePriority(Card.Parameters cp)
+    private int GetDefaultManaSourcePriority(CardParameters cp)
     {
       if (cp.Type.Creature)
         return ManaSourcePriorities.Creature;

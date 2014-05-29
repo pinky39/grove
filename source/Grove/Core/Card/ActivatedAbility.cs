@@ -10,11 +10,11 @@
   public class ActivatedAbility : Ability
   {
     private readonly Trackable<int> _lastActivation = new Trackable<int>();
-    private readonly Parameters _p;
+    private readonly ActivatedAbilityParameters _p;
 
     protected ActivatedAbility() {}
 
-    public ActivatedAbility(Parameters p)
+    public ActivatedAbility(ActivatedAbilityParameters p)
       : base(p)
     {
       _p = p;
@@ -31,7 +31,17 @@
         // create effect first, since some cost e.g Sacrifice can
         // put owning card to graveyard which will alter some card
         // properties e.g counters, power, toughness ...             
-        effects.Add(CreateEffect(p));
+        var effect = CreateEffect();
+
+        var effectParameters = new EffectParameters
+        {
+          Source = this,
+          Targets = p.Targets,
+          X = p.X
+        };
+
+        effect.Initialize(effectParameters, Game);                
+        effects.Add(effect);
       }
 
       Pay(p);
@@ -99,16 +109,9 @@
       _lastActivation.Initialize(ChangeTracker);
     }
 
-    protected virtual Effect CreateEffect(ActivationParameters p)
+    protected virtual Effect CreateEffect()
     {
-      var effectParameters = new EffectParameters
-        {
-          Source = this,
-          Targets = p.Targets,
-          X = p.X
-        };
-
-      return _p.Effect().Initialize(effectParameters, Game);
+      return _p.Effect();            
     }
 
     protected void Pay(ActivationParameters p = null)
@@ -144,14 +147,6 @@
       }
 
       return true;
-    }
-
-    public new class Parameters : Ability.Parameters
-    {
-      public bool ActivateAsSorcery;
-      public bool ActivateOnlyOnceEachTurn;
-      public Zone ActivationZone = Zone.Battlefield;
-      public Cost Cost;
     }
   }
 }

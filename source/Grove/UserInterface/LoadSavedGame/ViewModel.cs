@@ -3,6 +3,7 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
+  using System.Windows;
 
   public class ViewModel : ViewModelBase
   {
@@ -35,7 +36,18 @@
           {
             var file = Grove.SavedGames.Read(filename);
             var savedMatch = file.Data as SavedMatch;
-            if (savedMatch == null) return false;
+            if (savedMatch == null)
+            {
+              return false;
+            }
+
+            if (!file.CanLoadMatch)
+            {
+              Shell.ShowMessageBox("This is an unsupported version of save game file and cannot be loaded.",
+                MessageBoxButton.OK, DialogType.Large, title: "Unsupported version", icon: MessageBoxImage.Information);
+              
+              return true;
+            }
 
             Ui.Match = new Match(
               MatchParameters.Load(
@@ -50,7 +62,20 @@
           {
             var file = Grove.SavedGames.Read(filename);
             var savedTournament = file.Data as SavedTournament;
-            if (savedTournament == null) return false;
+            if (savedTournament == null)
+            {
+              return false;
+            }            
+
+            if (!file.CanLoadMatch)
+            {
+              Shell.ShowMessageBox("This is an old version of save game file, only tournament progress will be loaded.",
+                MessageBoxButton.OK, DialogType.Large, title: "Old version", icon: MessageBoxImage.Information);
+              
+              // discard incompatible match data
+              // load tournament only
+              savedTournament.SavedMatch = null;
+            }
 
             Ui.Tournament = new Tournament(
               TournamentParameters.Load(savedTournament));
@@ -73,10 +98,14 @@
     {
       try
       {
+        
         foreach (var loadGame in Handlers)
         {
-          if (loadGame(Selected.Filename)) break;
-        }
+          if (loadGame(Selected.Filename))
+          {            
+            break;
+          }
+        }        
       }
       catch (Exception ex)
       {

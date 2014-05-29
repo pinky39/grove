@@ -175,7 +175,7 @@
     public IManaAmount GetManaCost() { return _p.Cost.GetManaCost(); }
     public override string ToString() { return _card.ToString(); }
 
-    public class Parameters : Ability.Parameters
+    public class Parameters : AbilityParameters
     {
       public Cost Cost;
       public string KickerDescription = "Cast {0} with kicker.";

@@ -37,7 +37,7 @@
                 type: "Land Creature Skeleton") {UntilEot = true},
               () =>
                 {
-                  var ap = new ActivatedAbility.Parameters
+                  var ap = new ActivatedAbilityParameters
                     {
                       Text = "{B}: Regenerate this creature.",
                       Cost = new PayMana(Mana.Black, ManaUsage.Abilities),

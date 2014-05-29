@@ -22,7 +22,7 @@
             p.CardFilter = (card, effect) => card.Controller == effect.Source.Controller && card.Is().Creature;
             p.Modifier = () =>
               {
-                var mp = new ManaAbility.Parameters
+                var mp = new ManaAbilityParameters
                   {                    
                     Text = "{T}:  Add {G} to your mana pool.",
                     Priority = ManaSourcePriorities.Creature,                    

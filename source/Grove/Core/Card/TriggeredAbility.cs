@@ -145,7 +145,7 @@
       trigger.Triggered += (o, e) => Execute(e.TriggerMessage);
     }
 
-    public new class Parameters : Ability.Parameters
+    public new class Parameters : AbilityParameters
     {
       private readonly List<Trigger> _triggers = new List<Trigger>();
 

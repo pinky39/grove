@@ -23,7 +23,7 @@
           {
             p.Effect = () => new Attach(() =>
               {
-                var ap = new ActivatedAbility.Parameters
+                var ap = new ActivatedAbilityParameters
                   {
                     Text = "Sacrifice a Forest: Regenerate enchanted creature.",
                     Cost = new Sacrifice(),

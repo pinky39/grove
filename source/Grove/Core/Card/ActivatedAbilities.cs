@@ -2,7 +2,7 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Modifiers;
 
   [Copyable]
@@ -10,11 +10,22 @@
   {
     private readonly TrackableList<ActivatedAbility> _abilities;
 
-    private ActivatedAbilities() { }
+    private ActivatedAbilities() {}
 
-    public ActivatedAbilities(IEnumerable<ActivatedAbility> activatedAbilities) { _abilities = new TrackableList<ActivatedAbility>(activatedAbilities); }
-    public void Accept(ICardModifier modifier) { modifier.Apply(this); }
-    public int CalculateHash(HashCalculator calc) { return calc.Calculate(_abilities); }
+    public ActivatedAbilities(IEnumerable<ActivatedAbility> activatedAbilities)
+    {
+      _abilities = new TrackableList<ActivatedAbility>(activatedAbilities);
+    }
+
+    public void Accept(ICardModifier modifier)
+    {
+      modifier.Apply(this);
+    }
+
+    public int CalculateHash(HashCalculator calc)
+    {
+      return calc.Calculate(_abilities);
+    }
 
     public void Initialize(Card card, Game game)
     {
@@ -26,8 +37,15 @@
       }
     }
 
-    public IEnumerable<ManaAbility> GetManaAbilities() { return _abilities.OfType<ManaAbility>(); }
-    public void Activate(int abilityIndex, ActivationParameters activationParameters) { _abilities[abilityIndex].Activate(activationParameters); }
+    public IEnumerable<ManaAbility> GetManaAbilities()
+    {
+      return _abilities.OfType<ManaAbility>();
+    }
+
+    public void Activate(int abilityIndex, ActivationParameters activationParameters)
+    {
+      _abilities[abilityIndex].Activate(activationParameters);
+    }
 
     public List<ActivationPrerequisites> CanActivate(bool ignoreManaAbilities)
     {
@@ -53,8 +71,15 @@
       return result;
     }
 
-    public IManaAmount GetManaCost(int index) { return _abilities[index].GetManaCost(); }
-    public IEnumerable<IManaAmount> GetManaCost() { return _abilities.Select(x => x.GetManaCost()); }
+    public IManaAmount GetManaCost(int index)
+    {
+      return _abilities[index].GetManaCost();
+    }
+
+    public IEnumerable<IManaAmount> GetManaCost()
+    {
+      return _abilities.Select(x => x.GetManaCost());
+    }
 
     public void EnableAll()
     {

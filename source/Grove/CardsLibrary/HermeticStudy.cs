@@ -23,7 +23,7 @@
           {
             p.Effect = () => new Attach(() =>
               {
-                var ap = new ActivatedAbility.Parameters
+                var ap = new ActivatedAbilityParameters
                   {
                     Text = "{T}: This creature deals 1 damage to target creature or player.",
                     Cost = new Tap(),

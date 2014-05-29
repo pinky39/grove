@@ -1,6 +1,7 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
+  using AI.TimingRules;
   using Grove.Costs;
   using Grove.Effects;
   using Grove.AI.RepetitionRules;
@@ -26,6 +27,7 @@
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 
+            p.TimingRule(new PumpTargetCardTimingRule());
             p.TargetingRule(new EffectPumpInstant(1, 0));
             p.RepetitionRule(new RepeatMaxTimes());
           });

@@ -1,10 +1,10 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Costs;
-  using Grove.Effects;
-  using Grove.Modifiers;
-  using Grove.Triggers;
+  using Costs;
+  using Effects;
+  using Modifiers;
+  using Triggers;
 
   public class VividCreek : CardTemplateSource
   {
