@@ -21,7 +21,7 @@
       var player2Controller = player2ControlledByScript ? PlayerType.Scenario : PlayerType.Machine;
       searchParameters = searchParameters ?? SearchParameters.Default;
 
-      var p = Game.Parameters.Scenario(player1Controller, player2Controller, searchParameters);
+      var p = GameParameters.Scenario(player1Controller, player2Controller, searchParameters);
       Game = new Game(p);
       Game.Players.Starting = Game.Players.Player1;
     }

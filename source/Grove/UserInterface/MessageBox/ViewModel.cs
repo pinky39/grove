@@ -12,7 +12,20 @@
       Title = title;
       DialogType = dialogType;
       Buttons = buttons;
-      Icon  = icon == MessageBoxImage.Error ? "error.png" : "question.png";
+      Icon  = GetIconName(icon);
+    }
+
+    private static string GetIconName(MessageBoxImage icon)
+    {
+      switch (icon)
+      {
+        case (MessageBoxImage.Error):
+          return "error.png";
+        case (MessageBoxImage.Question):
+          return "question.png";
+        default:
+          return "information.png";
+      }            
     }
 
 

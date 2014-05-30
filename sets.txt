@@ -31,3 +31,12 @@
 - Damping Engine
 - Defense Grid
 - Viashino Bey
+
+## Urza's Destiny
+140 of 143 cards implemented (98%)
+
+### Missing cards
+
+- Wall of Glare
+- Storage Matrix
+- Scrying Glass

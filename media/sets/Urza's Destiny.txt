@@ -1,0 +1,153 @@
+# Urza's Destiny configuration file.
+
+!Tournament Pack
+Rares: 3
+Uncommons: 10
+Commons: 32
+
+!Booster Pack
+Rares: 1
+Uncommons: 3
+Commons: 11
+
+!Cards
+Academy Rector;R;3.6
+Aether Sting;U;3.4
+Ancient Silverback;R;4
+Apprentice Necromancer;R;3.4
+Archery Training;U;3.5
+Attrition;R;4
+Aura Thief;R;3.7
+Blizzard Elemental;R;4
+Bloodshot Cyclops;R;4
+Body Snatcher;R;3.8
+Braidwood Cup;U;3.2
+Braidwood Sextant;U;3.4
+Brass Secretary;U;3.3
+Brine Seer;U;3.6
+Bubbling Beebles;C;3.6
+Bubbling Muck;C;3.2
+Caltrops;U;3.5
+Capashen Knight;C;3.5
+Capashen Standard;C;3.3
+Capashen Templar;C;3.4
+Carnival of Souls;R;3
+Chime of Night;C;3.4
+Cinder Seer;U;3.8
+Colos Yearling;C;3.3
+Compost;U;3.3
+Covetous Dragon;R;3.6
+Disappear;U;3.5
+Disease Carriers;C;3.4
+Donate;R;3
+Dying Wail;C;3.2
+Elvish Lookout;C;3
+Elvish Piper;R;3.8
+Emperor Crocodile;R;3.8
+Encroach;U;3
+Eradicate;U;3.8
+Extruder;U;3.7
+False Prophet;R;4
+Fatigue;C;3.3
+Fend Off;C;3.2
+Festering Wound;U;3.8
+Field Surgeon;C;3.5
+Flame Jet;C;3.4
+Fledgling Osprey;C;3.2
+Flicker;R;3.5
+Fodder Cannon;U;4
+Gamekeeper;U;3.6
+Goblin Berserker;U;3.5
+Goblin Festival;R;3.5
+Goblin Gardener;C;3.4
+Goblin Marshal;R;3.8
+Goblin Masons;C;3.2
+Goliath Beetle;C;3.3
+Heart Warden;C;3.7
+Hulking Ogre;C;3.5
+Hunting Moa;U;3.8
+Illuminated Wings;C;3.2
+Impatience;R;3.4
+Incendiary;U;3.5
+Iridescent Drake;U;3.7
+Ivy Seer;U;3.4
+Jasmine Seer;U;3.5
+Junk Diver;R;3.4
+Keldon Champion;U;3.8
+Keldon Vandals;C;3.5
+Kingfisher;C;3.6
+Landslide;U;3.4
+Lurking Jackals;U;3.3
+Magnify;C;3.3
+Mantis Engine;U;3.6
+Mark of Fury;C;3.6
+Marker Beetles;C;3.5
+Mask of Law and Grace;C;3.4
+Master Healer;R;3.6
+Masticore;R;4
+Mental Discipline;C;3.4
+Metalworker;R;3.5
+Metathran Elite;U;3.3
+Metathran Soldier;C;3.3
+Momentum;U;3.5
+Multani's Decree;C;3.3
+Nightshade Seer;U;3.8
+Opalescence;R;3.4
+Opposition;R;3.8
+Pattern of Rebirth;R;3.8
+Phyrexian Monitor;C;3.5
+Phyrexian Negator;R;3.3
+Plague Dogs;U;3.6
+Plated Spider;C;3.6
+Plow Under;R;4
+Powder Keg;R;3.7
+Private Research;U;3.6
+Quash;U;3.6
+Rapid Decay;R;3.2
+Ravenous Rats;C;3.5
+Rayne, Academy Chancellor;R;4
+Reckless Abandon;C;3.6
+Reliquary Monk;C;3.4
+Repercussion;R;3.8
+Replenish;R;3.4
+Rescue;C;3.2
+Rofellos, Llanowar Emissary;R;4
+Rofellos's Gift;C;3.3
+Sanctimony;U;3
+Scent of Brine;C;3.2
+Scent of Cinder;C;3.5
+Scent of Ivy;C;3.2
+Scent of Jasmine;C;3.2
+Scent of Nightshade;C;3.4
+Scour;U;3.4
+Serra Advocate;U;3.7
+Sigil of Sleep;C;3.8
+Skittering Horror;C;3.6
+Slinking Skirge;C;3.5
+Solidarity;C;3.3
+Soul Feast;U;3.7
+Sowing Salt;U;3
+Splinter;U;3.3
+Squirming Mass;C;3.2
+Taunting Elf;C;3.6
+Telepathic Spies;C;3.3
+Temporal Adept;R;3.7
+Tethered Griffin;R;3.4
+Thieving Magpie;U;3.8
+Thorn Elemental;R;4.1
+Thran Dynamo;U;3.7
+Thran Foundry;U;3.3
+Thran Golem;R;3.9
+Tormented Angel;C;3.5
+Treachery;R;4
+Trumpet Blast;C;3.5
+Twisted Experiment;C;3.5
+Urza's Incubator;R;3.3
+Voice of Duty;U;3.6
+Voice of Reason;U;3.5
+Wake of Destruction;R;4
+Wild Colos;C;3.5
+Yavimaya Elder;C;3.8
+Yavimaya Enchantress;U;3.6
+Yavimaya Hollow;R;4
+Yawgmoth's Bargain;R;4

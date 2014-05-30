@@ -11,7 +11,7 @@
       {
         var saveGameFile = SavedGames.ReadFromStream(stream);
 
-        var gameParameters = Game.Parameters.Load(
+        var gameParameters = GameParameters.Load(
           player1Controller: PlayerType.Machine,
           player2Controller: PlayerType.Machine,
           savedGame: (SavedGame) saveGameFile.Data,

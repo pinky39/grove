@@ -76,7 +76,7 @@
 
       if (_p.IsSavedMatch)
       {
-        game = new Game(Game.Parameters.Load(
+        game = new Game(GameParameters.Load(
           player1Controller: PlayerType.Human,
           player2Controller: PlayerType.Machine,
           savedGame: _p.SavedMatch.SavedGame,
@@ -95,7 +95,7 @@
       }
       else
       {
-        game = new Game(Game.Parameters.Default(
+        game = new Game(GameParameters.Default(
           _p.Player1, _p.Player2));
       }
 
@@ -111,7 +111,7 @@
           _looser = null;
         }
 
-        game = new Game(Game.Parameters.Default(
+        game = new Game(GameParameters.Default(
           _p.Player1, _p.Player2));
 
         shouldPlayAnotherGame = RunGame(game);

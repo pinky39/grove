@@ -145,6 +145,11 @@
       get { return Has(Static.UnblockableIfDedenderHasArtifacts); }
     }
 
+    public bool UnblockableIfDedenderHasEnchantments
+    {
+      get { return Has(Static.UnblockableIfDedenderHasEnchantments); }
+    }
+
     public bool Flash
     {
       get { return Has(Static.Flash); }

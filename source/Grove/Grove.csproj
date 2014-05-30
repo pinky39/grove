@@ -123,6 +123,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CardsLibrary\BrineSeer.cs" />
+    <Compile Include="CardsLibrary\BubblingBeebles.cs" />
     <Compile Include="CardsLibrary\BubblingMuck.cs" />
     <Compile Include="CardsLibrary\Caltrops.cs" />
     <Compile Include="CardsLibrary\CapashenKnight.cs" />
@@ -275,6 +276,7 @@
     <Compile Include="Core\Events\CounterAddedEvent.cs" />
     <Compile Include="Core\Events\CounterRemovedEvent.cs" />
     <Compile Include="Core\Events\SpellPutOnStackEvent.cs" />
+    <Compile Include="Core\GameParameters.cs" />
     <Compile Include="Core\Modifiers\IncreasePowerToughnessEqualToAttachedCounterCount.cs" />
     <Compile Include="Core\SaveLoad\RenameBinder.cs" />
     <Compile Include="CardsLibrary\AboutFace.cs" />

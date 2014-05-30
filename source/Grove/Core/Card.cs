@@ -728,6 +728,12 @@
         return false;
       }
 
+      if (Has().UnblockableIfDedenderHasEnchantments &&
+        card.Controller.Battlefield.Any(x => x.Is().Enchantment))
+      {
+        return false;
+      }
+
       return true;
     }
 

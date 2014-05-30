@@ -28,6 +28,7 @@
     bool CanOnlyBeBlockedByCreaturesWithFlying { get; }
     bool CanAttackOnlyIfDefenderHasIslands { get; }
     bool UnblockableIfDedenderHasArtifacts { get; }
+    bool UnblockableIfDedenderHasEnchantments { get; }
     bool Flash { get; }
     bool AttacksEachTurnIfAble { get; }
     bool Forestwalk { get; }

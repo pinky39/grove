@@ -12,8 +12,7 @@
       public void PutCounterOnBear()
       {
         var bears = C("Grizzly Bears");
-        Battlefield(P1, bears, "Sporogenesis");
-        Battlefield(P2, "Trained Armodon");
+        Battlefield(P1, bears, "Sporogenesis");        
                 
         RunGame(1);
 

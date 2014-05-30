@@ -67,14 +67,21 @@
               return false;
             }            
 
-            if (!file.CanLoadMatch)
+            if (savedTournament.HasMatchInProgress && !file.CanLoadMatch)
             {
-              Shell.ShowMessageBox("This is an old version of save game file, only tournament progress will be loaded.",
+              Shell.ShowMessageBox("This is an old version of save game file. Only tournament progress will be loaded.",
                 MessageBoxButton.OK, DialogType.Large, title: "Old version", icon: MessageBoxImage.Information);
               
               // discard incompatible match data
               // load tournament only
               savedTournament.SavedMatch = null;
+              
+              var humanMatch = savedTournament
+                .CurrentRoundMatches
+                .First(x => !x.IsSimulated);
+
+              humanMatch.SetMatchResults(2, 0); 
+              humanMatch.IsFinished = true;                                          
             }
 
             Ui.Tournament = new Tournament(

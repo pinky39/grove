@@ -4,11 +4,11 @@
   using System.Collections.Generic;
   using System.Linq;
   using System.Threading.Tasks;
-  using Grove.AI;
-  using Grove.Infrastructure;
-  using Grove.UserInterface;
-  using Grove.UserInterface.Messages;
-  using Grove.Media;
+  using AI;
+  using Infrastructure;
+  using Media;
+  using UserInterface;
+  using UserInterface.Messages;
 
   public class Tournament
   {
@@ -235,16 +235,19 @@
         {
           if (humanMatch.Player1.IsHuman)
           {
-            humanMatch.Player1WinCount = Ui.Match.Player1WinCount;
-            humanMatch.Player2WinCount = Ui.Match.Player2WinCount;
+            humanMatch.SetMatchResults(
+              player1WinCount: Ui.Match.Player1WinCount,
+              player2WinCount: Ui.Match.Player2WinCount);
           }
           else
           {
-            humanMatch.Player2WinCount = Ui.Match.Player1WinCount;
-            humanMatch.Player1WinCount = Ui.Match.Player2WinCount;
+            humanMatch.SetMatchResults(
+              player1WinCount: Ui.Match.Player2WinCount,
+              player2WinCount: Ui.Match.Player1WinCount
+              );
           }
 
-          UpdatePlayersWithMatchResults(humanMatch);
+
           humanMatch.IsFinished = true;
         }
       }
@@ -340,16 +343,17 @@
       {
         if (tournamentMatch.Player1.IsHuman)
         {
-          tournamentMatch.Player1WinCount = Ui.Match.Player1WinCount;
-          tournamentMatch.Player2WinCount = Ui.Match.Player2WinCount;
+          tournamentMatch.SetMatchResults(
+            player1WinCount: Ui.Match.Player1WinCount,
+            player2WinCount: Ui.Match.Player2WinCount);
         }
         else
         {
-          tournamentMatch.Player2WinCount = Ui.Match.Player1WinCount;
-          tournamentMatch.Player1WinCount = Ui.Match.Player2WinCount;
+          tournamentMatch.SetMatchResults(
+            player1WinCount: Ui.Match.Player2WinCount,
+            player2WinCount: Ui.Match.Player1WinCount);
         }
 
-        UpdatePlayersWithMatchResults(tournamentMatch);
         tournamentMatch.IsFinished = true;
       }
     }
@@ -369,10 +373,8 @@
 
             lock (_resultsLock)
             {
-              simulatedMatch.Player1WinCount = result.Deck1WinCount;
-              simulatedMatch.Player2WinCount = result.Deck2WinCount;
-
-              UpdatePlayersWithMatchResults(simulatedMatch);
+              simulatedMatch.SetMatchResults(result.Deck1WinCount,
+                result.Deck2WinCount);
               simulatedMatch.IsFinished = true;
             }
 
@@ -385,31 +387,6 @@
             }
           }
         }, TaskCreationOptions.LongRunning);
-    }
-
-    private void UpdatePlayersWithMatchResults(TournamentMatch match)
-    {
-      match.Player1.GamesWon += match.Player1WinCount;
-      match.Player2.GamesWon += match.Player2WinCount;
-
-      match.Player1.GamesLost += match.Player2WinCount;
-      match.Player2.GamesLost += match.Player1WinCount;
-
-      if (match.Player1WinCount > match.Player2WinCount)
-      {
-        match.Player1.WinCount++;
-        match.Player2.LooseCount++;
-      }
-      else if (match.Player1WinCount < match.Player2WinCount)
-      {
-        match.Player2.WinCount++;
-        match.Player1.LooseCount++;
-      }
-      else
-      {
-        match.Player1.DrawCount++;
-        match.Player2.DrawCount++;
-      }
     }
 
     private List<TournamentMatch> CreateSwissPairings()

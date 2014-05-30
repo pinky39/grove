@@ -23,7 +23,35 @@
     public bool IsSimulated { get { return !Player1.IsHuman && !Player2.IsHuman; } }
     public bool IsFinished { get; set; }
 
-    public int Player1WinCount { get; set; }
-    public int Player2WinCount { get; set; }
+    public int Player1WinCount { get; private set; }
+    public int Player2WinCount { get; private set; }
+
+    public void SetMatchResults(int player1WinCount, int player2WinCount)
+    {
+      Player1WinCount = player1WinCount;
+      Player2WinCount = player2WinCount;
+      
+      Player1.GamesWon += Player1WinCount;
+      Player2.GamesWon += Player2WinCount;
+
+      Player1.GamesLost += Player2WinCount;
+      Player2.GamesLost += Player1WinCount;
+
+      if (Player1WinCount > Player2WinCount)
+      {
+        Player1.WinCount++;
+        Player2.LooseCount++;
+      }
+      else if (Player1WinCount < Player2WinCount)
+      {
+        Player2.WinCount++;
+        Player1.LooseCount++;
+      }
+      else
+      {
+        Player1.DrawCount++;
+        Player2.DrawCount++;
+      }
+    }
   }
 }

@@ -12,7 +12,7 @@
       var game = SimulateGame();
       var savedGame = game.Save();
 
-      var p = Game.Parameters.Load(
+      var p = GameParameters.Load(
         player1Controller: PlayerType.Machine,
         player2Controller: PlayerType.Machine,
         savedGame: savedGame);
@@ -34,7 +34,7 @@
 
     private Game SimulateGame()
     {
-      var p = Game.Parameters.Simulation(GetDeck("deck1.dec"), GetDeck("deck2.dec"),
+      var p = GameParameters.Simulation(GetDeck("deck1.dec"), GetDeck("deck2.dec"),
         new SearchParameters(15, 2, SearchPartitioningStrategies.SingleThreaded));
 
       var game = new Game(p);
