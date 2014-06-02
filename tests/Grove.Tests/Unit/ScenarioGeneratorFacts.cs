@@ -14,11 +14,8 @@
 
       Battlefield(P1, C("Grizzly Bears"), C("Forest"));
       Battlefield(P2, C("Llanowar Elves").IsEnchantedWith(C("Blanchwood Armor")));
-
-      var scenarioGenerator = new ScenarioGenerator(Game);
-      var scenario = scenarioGenerator.WriteScenarioToString();
-
-      Assert.NotNull(scenario);
+      
+      ScenarioGenerator.WriteScenarioToString(Game);      
     }
   }
 }

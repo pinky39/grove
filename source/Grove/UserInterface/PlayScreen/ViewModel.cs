@@ -16,9 +16,7 @@
     IDisposable
   {
     private readonly List<object> _largeDialogs = new List<object>();
-    private readonly List<object> _smallDialogs = new List<object>();
-
-    private ScenarioGenerator _scenarioGenerator;
+    private readonly List<object> _smallDialogs = new List<object>();    
 
     public object LargeDialog { get { return _largeDialogs.FirstOrDefault(); } }
     public MagnifiedCard.ViewModel MagnifiedCard { get; set; }
@@ -183,8 +181,7 @@
     }
 
     public override void Initialize()
-    {
-      _scenarioGenerator = new ScenarioGenerator(Game);
+    {      
       OpponentsBattlefield = ViewModels.Battlefield.Create(Players.Computer);
       YourBattlefield = ViewModels.Battlefield.Create(Players.Human);
       You = ViewModels.PlayerBox.Create(Players.Human);
@@ -193,7 +190,7 @@
 
     public void GenerateTestScenario()
     {
-      _scenarioGenerator.WriteScenario();
+      ScenarioGenerator.WriteScenario(Game);
     }
 
 

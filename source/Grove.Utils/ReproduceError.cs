@@ -15,11 +15,11 @@
       Console.ReadKey();
 
       var game = ErrorReportLoader.LoadReport(filename, rollback, 
-        new SearchParameters(10, 1, SearchPartitioningStrategies.SingleThreaded));
+        new SearchParameters(40, 2, SearchPartitioningStrategies.SingleThreaded));
 
       try
       {
-        game.Start(numOfTurns: 30);
+        game.Start(numOfTurns: 100);
       }
       catch(Exception ex)
       {

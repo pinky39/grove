@@ -7,7 +7,7 @@
   public class Bugs
   {
     public class Ai : AiScenario
-    {      
+    {
       [Fact]
       public void BugRepeatedPayWithBloodVasal()
       {
@@ -30,17 +30,18 @@
 
       [Fact]
       public void IndexOutOfRange()
-      {        
+      {
         // todo find a bug
 
         Hand(P1, "Urza's Armor", "Skittering Skirge", "Island", "Bog Raiders");
         Hand(P2, "Hollow Dogs", "Swamp", "Swamp");
-        
+
         Battlefield(P1, "Island", "Swamp", "Swamp", "Island", "Blood Vassal");
-        Battlefield(P2, "Mountain", "Swamp", "Wall of Junk", "Mountain", C("Bog Raiders").IsEnchantedWith("Parasitic Bond"), "Mountain");             
+        Battlefield(P2, "Mountain", "Swamp", "Wall of Junk", "Mountain",
+          C("Bog Raiders").IsEnchantedWith("Parasitic Bond"), "Mountain");
 
         RunGame(2);
-      }    
+      }
 
       [Fact]
       public void BugDoAttackWithTrollsAndWildwood()
@@ -377,6 +378,18 @@
         P2.Life = 17;
 
         RunGame(3);
+      }
+
+      [Fact]
+      public void BugStackOverflowDueToJunkDiverExtruder()
+      {
+        Battlefield(P2, "Forest", "Forest", "Island", "Junk Diver", "Forest", "Extruder");
+        
+
+        P1.Life = 19;
+        P2.Life = 14;
+        
+        RunGame(2);
       }
     }
   }

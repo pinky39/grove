@@ -188,9 +188,8 @@
 
     [Conditional("DEBUG")]
     private void GenerateScenario()
-    {
-      var scenarioGenerator = new ScenarioGenerator(_game);
-      LogFile.Info(scenarioGenerator.WriteScenarioToString());
+    {      
+      LogFile.Info(ScenarioGenerator.WriteScenarioToString(_game));
     }
 
     [Conditional("DEBUG")]

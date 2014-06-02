@@ -5,48 +5,47 @@
   using System.IO;
   using System.Text;
 
-  public class ScenarioGenerator
+  public static class ScenarioGenerator
   {
     private const string ScenarioTemplate =
-      @"
-      [Fact]
-      public void Scenario#()
-      {        
-        [P1Hand]
-        [P2Hand]
-        [P1Battlefield]
-        [P2Battlefield]        
-      }    
-    ";
+@"
+[Fact]
+public void Scenario()
+{{        
+{0}   
+}}
+";
 
-    private readonly string _fileName;
-    private readonly Game _game;
-    private int _scenarioNumber = 1;
-
-    public ScenarioGenerator(Game game)
+    public static void WriteScenario(Game game)
     {
-      _game = game;
-      _fileName = String.Format("generatedscenario{0}.txt", Guid.NewGuid());
-    }
-
-    public void WriteScenario()
-    {
-      using (var writer = new StreamWriter(_fileName, append: true))
+      var fileName = String.Format("generated-scenario-{0}.txt", Guid.NewGuid());
+      using (var writer = new StreamWriter(fileName, append: true))
       {
-        writer.WriteLine(CreateScenario());
-        _scenarioNumber++;
+        writer.WriteLine(WriteScenarioToString(game));
       }
     }
 
-    public string WriteScenarioToString()
-    {
-      return CreateScenario();
-    }
+    public static string WriteScenarioToString(Game game)
+    {            
+      var inner = new StringBuilder();
 
-    private static string CreateBattlefield(IEnumerable<Card> cards, int playerId)
+      inner = inner.AppendLine(CreateZone("Hand", game.Players.Player1.Hand, 1));
+      inner = inner.AppendLine(CreateZone("Hand", game.Players.Player2.Hand, 2));
+      inner = inner.AppendLine(CreateBattlefield(game.Players.Player1.Battlefield, 1));
+      inner = inner.AppendLine(CreateBattlefield(game.Players.Player2.Battlefield, 2));
+      inner = inner.AppendLine(CreateZone("Library", game.Players.Player1.Library, 1));
+      inner = inner.AppendLine(CreateZone("Library", game.Players.Player2.Library, 2));
+      inner = inner.AppendLine(String.Format("P1.Life={0};", game.Players.Player1.Life));
+      inner = inner.AppendLine(String.Format("P2.Life={0};", game.Players.Player2.Life));
+      inner = inner.AppendLine("RunGame(1);");
+      
+      return String.Format(ScenarioTemplate, inner);
+    }    
+    
+    private static string CreateBattlefield(IEnumerable<Card> cards, int player)
     {
       var sb = new StringBuilder();
-      sb.AppendFormat("Battlefield(P{0}, ", playerId);
+      sb.AppendFormat("Battlefield(P{0}, ", player);
 
       foreach (var card in cards)
       {
@@ -86,10 +85,10 @@
       return String.Format("\"{0}\"", card.Name);
     }
 
-    private static string CreateHand(IEnumerable<Card> cards, int playerId)
+    private static string CreateZone(string zone, IEnumerable<Card> cards, int player)
     {
       var sb = new StringBuilder();
-      sb.AppendFormat("Hand(P{0}, ", playerId);
+      sb.AppendFormat("{0}(P{1}, ", zone, player);
 
       foreach (var card in cards)
       {
@@ -100,19 +99,6 @@
       sb.Append(");");
 
       return sb.ToString();
-    }
-
-    private string CreateScenario()
-    {
-      var scenario = new StringBuilder(ScenarioTemplate);
-
-      scenario = scenario.Replace("Scenario#", "Scenario" + _scenarioNumber);
-      scenario = scenario.Replace("[P1Hand]", CreateHand(_game.Players.Player1.Hand, 1));
-      scenario = scenario.Replace("[P2Hand]", CreateHand(_game.Players.Player2.Hand, 2));
-      scenario = scenario.Replace("[P1Battlefield]", CreateBattlefield(_game.Players.Player1.Battlefield, 1));
-      scenario = scenario.Replace("[P2Battlefield]", CreateBattlefield(_game.Players.Player2.Battlefield, 2));
-
-      return scenario.ToString();
     }
   }
 }

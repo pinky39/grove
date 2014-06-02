@@ -22,8 +22,12 @@
           {
             p.Text = "When Junk Diver dies, return another target artifact card from your graveyard to your hand.";
             p.Trigger(new OnZoneChanged(@from: Zone.Battlefield, to: Zone.Graveyard));
-            p.Effect = () => new PutTargetsToBattlefield();
-            p.TargetSelector.AddEffect(trg => trg.Is.Card(c => c.Is().Artifact).In.YourGraveyard());
+            p.Effect = () => new ReturnToHand();
+            
+            p.TargetSelector.AddEffect(trg => trg.Is
+              .Card(p1 => p1.Target.Is().Artifact && p1.OwningCard != p1.Target)
+              .In.YourGraveyard());
+            
             p.TargetingRule(new EffectRankBy(c => -c.Score));
           });
     }
