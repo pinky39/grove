@@ -297,7 +297,7 @@
 
 
         // auras controlled by other player are added to their score
-        if (IsPermanent && Is().Aura && AttachedTo.Controller != Controller)
+        if (IsPermanent && Is().Aura && AttachedTo != null && AttachedTo.Controller != Controller)
         {
           return -score;
         }
