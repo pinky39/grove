@@ -384,11 +384,9 @@
       public void BugStackOverflowDueToJunkDiverExtruder()
       {
         Battlefield(P2, "Forest", "Forest", "Island", "Junk Diver", "Forest", "Extruder");
-        
-
         P1.Life = 19;
         P2.Life = 14;
-        
+
         RunGame(2);
       }
     }

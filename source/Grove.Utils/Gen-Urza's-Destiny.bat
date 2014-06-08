@@ -1,0 +1,1 @@
+ugrove gen count=1000 "s=Urza's Saga" "b1=Urza's Destiny" "b2=Urza's Destiny" "b3=Urza's Destiny"

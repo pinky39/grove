@@ -16,8 +16,13 @@
 
     public override int CalculateX(CostRuleParameters p)
     {
-      var maxConverted = p.Controller.Library.Where(_filter)
-        .Max(x => x.ConvertedCost);
+      var cards = p.Controller.Library
+        .Where(_filter)
+        .ToList();
+
+      var maxConverted = cards.Count > 0
+        ? cards.Max(x => x.ConvertedCost)
+        : 0;      
 
       return Math.Min(maxConverted, p.MaxX);
     }
