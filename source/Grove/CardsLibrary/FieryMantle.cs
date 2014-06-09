@@ -1,6 +1,7 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
+  using AI.RepetitionRules;
   using Grove.Costs;
   using Grove.Effects;
   using Grove.AI.TargetingRules;
@@ -31,6 +32,7 @@
                   };
 
                 ap.TimingRule(new PumpOwningCardTimingRule(1, 0));
+                ap.RepetitionRule(new RepeatMaxTimes());                
 
                 return new AddActivatedAbility(new ActivatedAbility(ap));
               });

@@ -1028,6 +1028,8 @@
       _isRevealed.Value = true;
       _isPeeked.Value = true;
       _isHidden.Value = false;
+
+      Publish(new CardWasRevealedEvent(this));
     }
 
     public void Peek()

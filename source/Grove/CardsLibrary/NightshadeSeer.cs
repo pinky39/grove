@@ -17,13 +17,13 @@
         .ManaCost("{3}{B}")
         .Type("Creature Human Wizard")
         .Text(
-          "{2}{B},{T}:Reveal any number of black cards in your hand. Target creature gets -X/-X until end of turn, where X is the number of cards revealed this way.")
+          "{2}{B},{T}: Reveal any number of black cards in your hand. Target creature gets -X/-X until end of turn, where X is the number of cards revealed this way.")
         .Power(1)
         .Toughness(1)
         .ActivatedAbility(p =>
           {
             p.Text =
-              "{2}{B},{T}:Reveal any number of black cards in your hand. Target creature gets -X/-X until end of turn, where X is the number of cards revealed this way.";
+              "{2}{B},{T}: Reveal any number of black cards in your hand. Target creature gets -X/-X until end of turn, where X is the number of cards revealed this way.";
 
             p.Cost = new AggregateCost(
               new PayMana("{2}{B}".Parse(), ManaUsage.Abilities),
