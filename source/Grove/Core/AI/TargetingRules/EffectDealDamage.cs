@@ -49,20 +49,37 @@
           value: x.Score))
         .ToList();
 
-      targets.AddRange(p.Candidates<Player>(ControlledBy.Opponent)
+      targets.AddRange(
+        p.Candidates<Player>(ControlledBy.Opponent)
         .SelectMany(x =>
           {
-            var items = new List<KnapsackItem<ITarget>>();
+            var items = new List<KnapsackItem<ITarget>>();            
+            var life = x.Player().Life;
 
-            const int decrementSoPlayerAtMostOnce = 1;
-
-            for (var i = 1; i <= amount; i++)
+            if (life <= amount)
             {
+              // if killing blow is dealt add only one option
+              
               items.Add(
                 new KnapsackItem<ITarget>(
                   item: x,
-                  weight: i,
-                  value: ScoreCalculator.CalculateLifelossScore(x.Player().Life, i) - decrementSoPlayerAtMostOnce));
+                  weight: amount,
+                  value: ScoreCalculator.CalculateLifelossScore(life, amount)));
+            }
+            else
+            {
+              const int decrementSoPlayerAtMostOnce = 1;
+
+              // add each combination of damage
+              // 1 damage, 2 damage, 3 damage ... amount damage
+              for (var i = 1; i <= amount; i++)
+              {
+                items.Add(
+                  new KnapsackItem<ITarget>(
+                    item: x,
+                    weight: i,
+                    value: ScoreCalculator.CalculateLifelossScore(life, i) - decrementSoPlayerAtMostOnce));
+              }
             }
 
             return items;

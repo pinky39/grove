@@ -112,7 +112,9 @@
         return score + (life - 20)*40;
 
       if (life <= 0)
+      {
         return -1000 + life;
+      }
 
       return score + LifeToScore[life];
     }
@@ -218,7 +220,7 @@
     }
 
     public static int CalculateLifelossScore(int life, int loss)
-    {
+    {            
       return CalculateLifeScore(life) - CalculateLifeScore(life - loss);
     }
 
