@@ -11,7 +11,8 @@
 
     public override string ToString()
     {
-      return string.Format("{0} life is now {1}.", Player.Name, Player.Life);
+      var name = Player.Name == "You" ? "Your" : Player.Name;      
+      return string.Format("{0} life total is {1}.", name, Player.Life);
     }
   }
 }
