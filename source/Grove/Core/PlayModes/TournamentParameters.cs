@@ -3,6 +3,7 @@
   public class TournamentParameters
   {
     public string PlayerName { get; private set; }
+    public int AvatarId { get; private set; }
     public int PlayersCount { get; private set; }
     public string[] BoosterPacks { get; private set; }
     public string TournamentPack { get; private set; }
@@ -11,7 +12,7 @@
 
     public TournamentType Type { get; private set; }
 
-    public static TournamentParameters Default(string playerName, int playersCount, string[] boosterPacks,
+    public static TournamentParameters Default(string playerName, int avatarId, int playersCount, string[] boosterPacks,
       string tournamentPack, TournamentType type)
     {
       return new TournamentParameters
@@ -20,7 +21,8 @@
           PlayersCount = playersCount,
           BoosterPacks = boosterPacks,
           TournamentPack = tournamentPack,
-          Type = type
+          Type = type,
+          AvatarId = avatarId
         };
     }
 

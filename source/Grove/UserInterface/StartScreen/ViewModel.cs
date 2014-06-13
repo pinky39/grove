@@ -17,9 +17,9 @@
     public string Version
     {
       get
-      {
-        return String.Format("Version {0}",
-          FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion);
+      {        
+       return  FileVersionInfo.GetVersionInfo(
+         Assembly.GetExecutingAssembly().Location).ProductVersion;
       }
     }
 

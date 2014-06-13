@@ -129,9 +129,9 @@
 
     private void NewTournament()
     {
-      _cardRatings = LoadCardRatings(_p.BoosterPacks, _p.TournamentPack);
-      _roundsLeft = CalculateRoundCount(_p.PlayersCount);
-      _players = CreatePlayers(_p.PlayersCount, _p.PlayerName);
+      _cardRatings = LoadCardRatings();
+      _roundsLeft = CalculateRoundCount();
+      _players = CreatePlayers();
       _type = _p.Type;
 
       switch (_type)
@@ -287,23 +287,23 @@
       }
     }
 
-    private int CalculateRoundCount(int playersCount)
+    private int CalculateRoundCount()
     {
-      if (playersCount <= 8)
+      if (_p.PlayersCount <= 8)
         return 3;
-      if (playersCount <= 16)
+      if (_p.PlayersCount <= 16)
         return 4;
-      if (playersCount <= 32)
+      if (_p.PlayersCount <= 32)
         return 5;
-      if (playersCount <= 32)
+      if (_p.PlayersCount <= 32)
         return 5;
-      if (playersCount <= 64)
+      if (_p.PlayersCount <= 64)
         return 6;
-      if (playersCount <= 128)
+      if (_p.PlayersCount <= 128)
         return 7;
-      if (playersCount <= 226)
+      if (_p.PlayersCount <= 226)
         return 8;
-      if (playersCount <= 409)
+      if (_p.PlayersCount <= 409)
         return 9;
 
       return 10;
@@ -422,11 +422,11 @@
       HumanPlayer.Deck = screen.Result;
     }
 
-    private static CardRatings LoadCardRatings(string[] boosterPacks, string tournamentPack = null)
+    private CardRatings LoadCardRatings()
     {
       CardRatings merged = null;
 
-      foreach (var setName in boosterPacks)
+      foreach (var setName in _p.BoosterPacks)
       {
         var ratings = MediaLibrary.GetSet(setName).Ratings;
         if (merged == null)
@@ -439,10 +439,10 @@
         }
       }
 
-      if (tournamentPack == null)
+      if (_p.TournamentPack == null)
         return merged;
 
-      return CardRatings.Merge(merged, MediaLibrary.GetSet(tournamentPack).Ratings);
+      return CardRatings.Merge(merged, MediaLibrary.GetSet(_p.TournamentPack).Ratings);
     }
 
     private void CreateSealedDecks()
@@ -502,14 +502,14 @@
         throw new AggregateException(exception.InnerExceptions);
     }
 
-    private static List<TournamentPlayer> CreatePlayers(int playersCount, string playerName)
+    private List<TournamentPlayer> CreatePlayers()
     {
       var players = new List<TournamentPlayer>();
 
-      var names = NameGenerator.GenerateRandomNames(MediaLibrary.GetPlayerUnitNames(), playersCount - 1);
-      players.Add(new TournamentPlayer(playerName, isHuman: true));
+      var names = NameGenerator.GenerateRandomNames(MediaLibrary.GetPlayerUnitNames(), _p.PlayersCount - 1);
+      players.Add(new TournamentPlayer(_p.PlayerName, isHuman: true, avatarId: _p.AvatarId));
 
-      for (var i = 0; i < playersCount - 1; i++)
+      for (var i = 0; i < _p.PlayersCount - 1; i++)
       {
         players.Add(new TournamentPlayer(names[i], isHuman: false));
       }

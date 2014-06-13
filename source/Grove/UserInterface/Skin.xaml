@@ -12,8 +12,8 @@
 	</LinearGradientBrush>    
 
     <LinearGradientBrush x:Key="StartScreenBackground" StartPoint="0.5,0" EndPoint="0.5,1">
-		<GradientStop Offset="0.0" Color="#222" />
-		<GradientStop Offset="0.2" Color="#111" />
+		<GradientStop Offset="0.0" Color="#111" />
+		<GradientStop Offset="0.2" Color="#000" />
 		<GradientStop Offset="0.4" Color="#000" />
 	</LinearGradientBrush>    
 

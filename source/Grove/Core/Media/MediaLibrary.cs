@@ -46,11 +46,11 @@
       var totalBytes = Folders.GetSize();
       var updateProgress = Progress(showProgress, totalBytes);
 
+      LoadPlayerNames();
       LoadClipart(updateProgress);
       LoadCardImages(updateProgress);
       LoadSets(updateProgress);
-      LoadAvatars(updateProgress);
-      LoadPlayerNames();
+      LoadAvatars(updateProgress);      
     }
 
     private static Action<long> Progress(ProgressIndicator showProgress, long totalBytes)

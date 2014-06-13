@@ -10,7 +10,7 @@
     private readonly object _previousScreen;
     private readonly int[] _sealedTournamentSize = new[] {30, 50, 100, 150, 200, 300, 500};
     private readonly List<string> _sets;
-    private TournamentType _typeOfTournament;    
+    private TournamentType _typeOfTournament;
 
     public ViewModel(object previousScreen)
     {
@@ -20,18 +20,23 @@
       StarterPack = "Urza's Saga";
       BoosterPack1 = _sets[0];
       BoosterPack2 = _sets[0];
-      BoosterPack3 = _sets[0];      
+      BoosterPack3 = _sets[0];
       YourName = "You";
       TypeOfTournament = TournamentType.Sealed;
       TournamentDescription = TournamentDescriptions.Sealed;
     }
 
-    public IEnumerable<string> Sets { get { return _sets; } }
+    public IEnumerable<string> Sets
+    {
+      get { return _sets; }
+    }
+
     public virtual int[] TournamentSize { get; protected set; }
     public virtual string TournamentDescription { get; protected set; }
 
     public virtual int PlayersCount { get; set; }
     public string YourName { get; set; }
+    public virtual int Avatar { get; protected set; }
     public string StarterPack { get; set; }
     public string BoosterPack1 { get; set; }
     public string BoosterPack2 { get; set; }
@@ -43,17 +48,30 @@
       set
       {
         _typeOfTournament = value;
-                        
+
         TournamentSize = _typeOfTournament == TournamentType.Sealed ? _sealedTournamentSize : _draftTournamentSize;
         PlayersCount = _typeOfTournament == TournamentType.Sealed ? 200 : 8;
-        TournamentDescription = _typeOfTournament == TournamentType.Sealed ? TournamentDescriptions.Sealed : TournamentDescriptions.Draft;
+        TournamentDescription = _typeOfTournament == TournamentType.Sealed
+          ? TournamentDescriptions.Sealed
+          : TournamentDescriptions.Draft;
       }
+    }
+
+    public void PreviousAvatar()
+    {
+      Avatar--;
+    }
+
+    public void NextAvatar()
+    {
+      Avatar++;
     }
 
     public void Start()
     {
       var p = TournamentParameters.Default(
         YourName,
+        Avatar,
         PlayersCount,
         new[] {BoosterPack1, BoosterPack2, BoosterPack3},
         StarterPack,
@@ -62,7 +80,7 @@
       try
       {
         Ui.Tournament = new Tournament(p);
-        Ui.Tournament.Start();                
+        Ui.Tournament.Start();
       }
       catch (Exception ex)
       {

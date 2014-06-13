@@ -26,7 +26,11 @@
         <StackPanel Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Top" >
             <StackPanel>
                 <Image Source="{grove:Media 'logo.png'}" Width="650" />
-                <TextBlock HorizontalAlignment="Right" Foreground="#fff" FontSize="20"  Style="{StaticResource Label}" Text="{Binding Version}" />
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <TextBlock HorizontalAlignment="Right" Foreground="#fff" FontSize="20"  Style="{StaticResource Label}" Text="Version" />
+                    <TextBlock Margin="10,0,0,0"  Foreground="#FFD700" FontSize="20"  Style="{StaticResource Label}" Text="{Binding Version}" />    
+                </StackPanel>
+                
                 <TextBlock HorizontalAlignment="Right" Foreground="#666" FontSize="13"  Style="{StaticResource Label}" Text="{Binding CardCount}" />
             </StackPanel>
 
