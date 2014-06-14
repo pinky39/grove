@@ -2,7 +2,7 @@
 {
   using Infrastructure;
   using Xunit;
-  
+
   public class AboutFace
   {
     public class Ai : AiScenario

@@ -136,7 +136,7 @@
         return CalculateDefendingPlayerLifeloss(attacker, blockers) > 0 ? 2 : 0;
       }
 
-      if (toughnessIncrease < 1)
+      if (toughnessIncrease < 1 && !attacker.Has().FirstStrike)
         return 0;
 
       var p = new AttackerEvaluationParameters(attacker, blockers);

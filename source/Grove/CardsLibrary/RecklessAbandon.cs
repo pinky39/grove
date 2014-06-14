@@ -24,7 +24,11 @@
 
             p.Effect = () => new DealDamageToTargets(4);
             p.TargetSelector
-              .AddCost(trg => trg.Is.Creature(ControlledBy.SpellOwner).On.Battlefield())
+              .AddCost(trg =>
+                {
+                  trg.Is.Creature(ControlledBy.SpellOwner).On.Battlefield();
+                  trg.Message = "Select a creature to sacrifice.";
+                })
               .AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
 
             p.TargetingRule(new CostSacrificeEffectDealDamage(4));

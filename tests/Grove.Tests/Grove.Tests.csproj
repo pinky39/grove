@@ -127,6 +127,7 @@
     <Compile Include="Cards\BubblingMuck.cs" />
     <Compile Include="Cards\BurstOfEnergy.cs" />
     <Compile Include="Cards\Caltrops.cs" />
+    <Compile Include="Cards\CapashenKnight.cs" />
     <Compile Include="Cards\CapashenStandard.cs" />
     <Compile Include="Cards\CarnivalOfSouls.cs" />
     <Compile Include="Cards\CarrionBeetles.cs" />
