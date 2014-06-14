@@ -35,7 +35,7 @@
     {
       get
       {
-        const int basicLandVersions = 4;
+        const int basicLandVersions = 15;
 
         if (Type.BasicLand)
         {

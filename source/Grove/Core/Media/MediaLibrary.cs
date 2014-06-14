@@ -163,6 +163,13 @@
       if (Avatars.Count == 0)
         return MissingImage;
 
+      if (id < 0)
+      {
+        id = -id;
+        id = id % Avatars.Count;
+        return Avatars[Avatars.Count - id - 1];        
+      }
+      
       return Avatars[id%Avatars.Count];
     }
 

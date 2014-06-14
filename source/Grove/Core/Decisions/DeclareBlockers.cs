@@ -209,10 +209,21 @@
     {
       private bool IsLureAbilitySatisfied(ChosenBlockers chosen, List<Card> lureAttackers)
       {
-        return lureAttackers.Count == 0 ||
-          D.Controller.Battlefield.All(c =>
-            lureAttackers.None(a => a.CanBeBlockedBy(c)) ||
-              chosen.ContainsBlocker(c));
+        if (lureAttackers.Count == 0)
+          return true;
+        
+        return D.Controller.Battlefield.Creatures.All(creature =>
+          {
+            
+            if (lureAttackers.Any(attacker => attacker.CanBeBlockedBy(creature)))
+            {
+              return chosen.Any(
+                x => x.Blocker == creature && 
+                  lureAttackers.Any(y => y == x.Attacker));
+            }
+
+            return true;
+          });
       }
 
       private bool IsMinimumBlockerCountSatisfied(ChosenBlockers chosen)

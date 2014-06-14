@@ -309,13 +309,20 @@
     {
       private readonly SolidColorBrush[] _brushes = new[]
         {
-          new SolidColorBrush(Color.FromArgb(0x66, 0xff, 0x00, 0x00)), // #ddFF0000
-          new SolidColorBrush(Color.FromArgb(0x66, 0xff, 0xa5, 0x00)), // #ddFFA500
-          new SolidColorBrush(Color.FromArgb(0x66, 0xff, 0x00, 0xff)), // #ddFF00FF
-          new SolidColorBrush(Color.FromArgb(0x66, 0x0f, 0xff, 0xff)), // #dd0FFF00
-          new SolidColorBrush(Color.FromArgb(0x66, 0xff, 0xef, 0xff)), // #ddFFEF00
-          new SolidColorBrush(Color.FromArgb(0x66, 0x00, 0xff, 0xef)), // #dd00FFEF
-          new SolidColorBrush(Color.FromArgb(0x66, 0x00, 0x7b, 0xff)), // #dd007BFF
+          new SolidColorBrush(Color.FromArgb(0xaa, 0xff, 0x00, 0x00)),
+          new SolidColorBrush(Color.FromArgb(0xaa, 0xff, 0xa5, 0x00)),
+          new SolidColorBrush(Color.FromArgb(0xaa, 0xff, 0x00, 0xff)),
+          new SolidColorBrush(Color.FromArgb(0xaa, 0xca, 0xff, 0xff)),
+          new SolidColorBrush(Color.FromArgb(0xaa, 0xff, 0xef, 0xff)),
+          new SolidColorBrush(Color.FromArgb(0xaa, 0x00, 0xff, 0xef)),
+          new SolidColorBrush(Color.FromArgb(0xaa, 0x00, 0x7b, 0x00)),
+          new SolidColorBrush(Color.FromArgb(0xaa, 0x33, 0x00, 0xcc)),
+          new SolidColorBrush(Color.FromArgb(0xaa, 0x00, 0x7b, 0xff)),
+          new SolidColorBrush(Color.FromArgb(0xaa, 0x00, 0x00, 0x22)),
+          new SolidColorBrush(Color.FromArgb(0xaa, 0xaa, 0xdd, 0x22)),
+          new SolidColorBrush(Color.FromArgb(0xaa, 0xbb, 0x33, 0x00)),
+          new SolidColorBrush(Color.FromArgb(0xaa, 0x66, 0x66, 0x66)),
+          new SolidColorBrush(Color.FromArgb(0xaa, 0x00, 0x33, 0x55)),
         };
 
       private readonly SolidColorBrush _default = new SolidColorBrush(Color.FromArgb(0x00, 0x00, 0x00, 0x00));
