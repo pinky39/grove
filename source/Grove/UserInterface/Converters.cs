@@ -32,20 +32,6 @@
     public static NonZeroToCollapsedConverter NonZeroToCollapsed = new NonZeroToCollapsedConverter();
     public static RatingConverter Rating = new RatingConverter();
 
-    public class AvatarIdToAvatarImageConverter : IValueConverter
-    {
-      public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-      {
-        var id = (int) value;
-        return MediaLibrary.GetAvatar(id);
-      }
-
-      public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-      {
-        throw new NotImplementedException();
-      }
-    }
-
     public class AutoPassToImageConverter : IValueConverter
     {
       private readonly Dictionary<Pass, string> _imageNames = new Dictionary<Pass, string>
@@ -68,6 +54,20 @@
       }
     }
 
+    public class AvatarIdToAvatarImageConverter : IValueConverter
+    {
+      public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+      {
+        var id = (int) value;
+        return MediaLibrary.GetAvatar(id);
+      }
+
+      public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+      {
+        throw new NotImplementedException();
+      }
+    }
+
     public class BooleanToVisibilityConverter : IValueConverter
     {
       public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -82,7 +82,8 @@
         var booleanValue = (bool) value;
 
         return ((booleanValue && !invert) || (!booleanValue && invert))
-          ? Visibility.Visible : Visibility.Collapsed;
+          ? Visibility.Visible
+          : Visibility.Collapsed;
       }
 
       public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -146,7 +147,7 @@
     {
       public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
       {
-        var cardName = (string) value;                     
+        var cardName = (string) value;
         return MediaLibrary.GetCardImage(GetCardImageName(cardName));
       }
 
@@ -307,24 +308,9 @@
 
     public class MarkerBrushConverter : IValueConverter
     {
-      private readonly SolidColorBrush[] _brushes = new[]
-        {
-          new SolidColorBrush(Color.FromArgb(0xaa, 0xff, 0x00, 0x00)),
-          new SolidColorBrush(Color.FromArgb(0xaa, 0xff, 0xa5, 0x00)),
-          new SolidColorBrush(Color.FromArgb(0xaa, 0xff, 0x00, 0xff)),
-          new SolidColorBrush(Color.FromArgb(0xaa, 0xca, 0xff, 0xff)),
-          new SolidColorBrush(Color.FromArgb(0xaa, 0xff, 0xef, 0xff)),
-          new SolidColorBrush(Color.FromArgb(0xaa, 0x00, 0xff, 0xef)),
-          new SolidColorBrush(Color.FromArgb(0xaa, 0x00, 0x7b, 0x00)),
-          new SolidColorBrush(Color.FromArgb(0xaa, 0x33, 0x00, 0xcc)),
-          new SolidColorBrush(Color.FromArgb(0xaa, 0x00, 0x7b, 0xff)),
-          new SolidColorBrush(Color.FromArgb(0xaa, 0x00, 0x00, 0x22)),
-          new SolidColorBrush(Color.FromArgb(0xaa, 0xaa, 0xdd, 0x22)),
-          new SolidColorBrush(Color.FromArgb(0xaa, 0xbb, 0x33, 0x00)),
-          new SolidColorBrush(Color.FromArgb(0xaa, 0x66, 0x66, 0x66)),
-          new SolidColorBrush(Color.FromArgb(0xaa, 0x00, 0x33, 0x55)),
-        };
-
+      private const float GoldenRatioConjugate = 0.618033988749895f;
+      private readonly Dictionary<int, int> _idToMarker = new Dictionary<int, int>();
+      private int _nextMarker = 1;
       private readonly SolidColorBrush _default = new SolidColorBrush(Color.FromArgb(0x00, 0x00, 0x00, 0x00));
 
       public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -334,7 +320,17 @@
         if (state == 0)
           return _default;
 
-        return _brushes[(state - 1)%_brushes.Length];
+        int marker;        
+        if (!_idToMarker.TryGetValue(state, out marker))
+        {
+          marker = _nextMarker++;
+          _idToMarker.Add(state, marker);          
+        }
+        
+        var h = (GoldenRatioConjugate * marker)%1;
+        var rgb = ColorUtils.HsvToRgb(h, 0.7f, 0.95f);
+
+        return new SolidColorBrush(Color.FromArgb(0xcc, rgb[0], rgb[1], rgb[2]));
       }
 
       public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -368,10 +364,10 @@
     public class SetAndRarityToSetImageConverter : IMultiValueConverter
     {
       public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
-      {                
+      {
         if (values.Any(x => DependencyProperty.UnsetValue.Equals(x)))
           return DependencyProperty.UnsetValue;
-        
+
         var set = (string) values[0];
         var rarity = (Rarity?) values[1];
 

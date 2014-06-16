@@ -954,6 +954,7 @@
     <Compile Include="Core\SaveLoad\SaveGameIndex.cs" />
     <Compile Include="Core\PlayModes\PregeneratedDecks.cs" />
     <Compile Include="Core\PlayModes\SealedDeckIndex.cs" />
+    <Compile Include="Infrastructure\ColorUtils.cs" />
     <Compile Include="Infrastructure\DictionaryEx.cs" />
     <Compile Include="Infrastructure\IReceive.cs" />
     <Compile Include="UserInterface\CardActivation\View.xaml.cs">
