@@ -500,11 +500,11 @@
       }
     }
 
-    public void RevealLibrary()
+    public void PeekLibrary()
     {
       foreach (var card in _library)
       {
-        card.Reveal();
+        card.Peek();
       }
     }
 

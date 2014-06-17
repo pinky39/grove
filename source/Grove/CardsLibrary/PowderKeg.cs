@@ -47,7 +47,7 @@
               new Sacrifice());
 
             p.Effect = () => new DestroyAllPermanents(
-              filter: (e, count, c) => c.ConvertedCost == count,
+              filter: (e, count, c) => c.ConvertedCost == count && (c.Is().Artifact || c.Is().Creature),
               countOnInit: P(e => e.Source.OwningCard.CountersCount(CounterType.Fuse)));
 
             p.TimingRule(new MassRemovalTimingRule(EffectTag.Destroy));

@@ -121,7 +121,7 @@
 
     protected override void ResolveEffect()
     {
-      _player.Value.RevealLibrary();
+      _player.Value.PeekLibrary();
 
       Enqueue(new SelectCards(
         _player.Value,
