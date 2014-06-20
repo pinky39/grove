@@ -2,7 +2,7 @@
 {
   using System.Collections.Generic;
   using AI.TargetingRules;
-  using Effects;
+  using Effects;  
 
   public class Eradicate : CardTemplateSource
   {
@@ -20,7 +20,7 @@
               new ExileTargets(),
               new ExileCardsWithSameNameAsTargetFromGhl());
 
-            p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
+            p.TargetSelector.AddEffect(trg => trg.Is.Card(c => c.Is().Creature && !c.HasColor(CardColor.Black)).On.Battlefield());
             p.TargetingRule(new EffectExileBattlefield());
           });
     }
