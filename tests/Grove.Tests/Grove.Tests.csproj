@@ -248,6 +248,7 @@
     <Compile Include="Cards\KingCrab.cs" />
     <Compile Include="Cards\Landslide.cs" />
     <Compile Include="Cards\LastDitchEffort.cs" />
+    <Compile Include="Cards\LayWaste.cs" />
     <Compile Include="Cards\LiltingRefrain.cs" />
     <Compile Include="Cards\LingeringMirage.cs" />
     <Compile Include="Cards\LivingDestiny.cs" />

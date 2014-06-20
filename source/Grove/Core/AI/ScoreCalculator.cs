@@ -5,8 +5,7 @@
   using System.Linq;
 
   public static class ScoreCalculator
-  {
-    public const int LandOnBattlefieldScore = 150;
+  {    
     public const int LandInHandCost = 90;
     
     private static readonly Dictionary<int, int> LifeToScore = new Dictionary<int, int>
@@ -147,19 +146,28 @@
       }
       else if (permanent.Is().Land)
       {
-        score += LandOnBattlefieldScore;
-
+        score += GetLandOnBattlefieldScore(permanent);
         if (!permanent.Is().BasicLand)
-          score += 10;
-
-        var landCount = permanent.Controller.Battlefield.Lands.Count();
-        if (landCount < 7)
-        {
-          score += 20*(7 - landCount);
-        }
+          score += 10;                                     
       }
 
       return score;
+    }
+
+    private static readonly Dictionary<int, int> LandsOnBattlefieldToLandScore = new Dictionary<int, int>
+      {        
+        {1, 600},
+        {2, 500},
+        {3, 450},
+        {4, 425},
+        {5, 400},
+        {6, 375},        
+      };
+
+    private static int GetLandOnBattlefieldScore(Card land)
+    {
+      var landCount = land.Controller.Battlefield.Lands.Count();
+      return landCount > 6 ? 350 : LandsOnBattlefieldToLandScore[landCount];
     }
 
     private static int CalculatePermanentScoreFromManaCost(IManaAmount mana)

@@ -16,6 +16,7 @@
         .Type("Sorcery")
         .Text("As an additional cost to cast Raze, sacrifice a land.{EOL}Destroy target land.")
         .FlavorText("The viashino believe that the oldest mountains hate everyone equally.")
+        .OverrideScore(new ScoreOverride {Hand = 50})
         .Cast(p =>
           {
             p.Cost = new AggregateCost(

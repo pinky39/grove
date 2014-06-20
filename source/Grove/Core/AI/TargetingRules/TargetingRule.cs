@@ -145,8 +145,11 @@
     {
       var results = new List<Targets>();
 
+      if (candidates.Count < minTargetCount)
+        return results;
+      
       var targetCount = candidates.Count < maxTargetCount
-        ? minTargetCount
+        ? candidates.Count
         : maxTargetCount ?? minTargetCount;
 
       if (targetCount == 0)
