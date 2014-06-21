@@ -24,7 +24,7 @@
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="268" />
 				<ColumnDefinition Width="*" />
-				<ColumnDefinition Width="268" />
+				<ColumnDefinition Width="302" />
 			</Grid.ColumnDefinitions>
             
 			<!-- Bar -->
@@ -208,7 +208,7 @@
             <Border Grid.Column="2" Grid.Row="0" Background="{StaticResource BarBackground}" BorderBrush="#000" BorderThickness="2,0,3,0">
 				<Grid>
 					<Grid.RowDefinitions>
-						<RowDefinition Height="370" />
+						<RowDefinition Height="420" />
 						<RowDefinition Height="*" />
 					</Grid.RowDefinitions>
 
@@ -279,8 +279,8 @@
                                                 <Border BorderBrush="#22ffffff"  BorderThickness="0,1,0,0">
                                                     <StackPanel Orientation="Horizontal">
 
-                                                    <Border Margin="15,5,0,5" BorderBrush="#fff" BorderThickness="1">
-                                                        <Image  Height="35" Source="{Binding AvatarId, Converter={x:Static UserInterface:Converters.AvatarIdToAvatarImage}}"/>
+                                                    <Border Margin="15,3,0,5" BorderBrush="#fff" BorderThickness="1">
+                                                        <Image  Height="30" Source="{Binding AvatarId, Converter={x:Static UserInterface:Converters.AvatarIdToAvatarImage}}"/>
                                                     </Border>
                                                         
                                                         
