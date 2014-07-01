@@ -50,7 +50,8 @@
 
 			<Border Background="{StaticResource TargetOfSpell}" Visibility="{Binding IsTargetOfSpell, Converter={x:Static UserInterface:Converters.BooleanToVisibility}}" />
 			<Border BorderBrush="{StaticResource Playable}" Visibility="{Binding IsPlayable, Converter={x:Static UserInterface:Converters.BooleanToVisibility}}" BorderThickness="0,1,0,0" />
-			<Border Background="{Binding Marker, Converter={x:Static UserInterface:Converters.MarkerBrush}}" />
+            <Border BorderBrush="{Binding Marker, Converter={x:Static UserInterface:Converters.MarkerBrush}}" BorderThickness="3" CornerRadius="2" />
+            <Border Background="{Binding Marker, Converter={x:Static UserInterface:Converters.MarkerBrush}}" BorderBrush="{Binding Marker, Converter={x:Static UserInterface:Converters.MarkerBrush}}" BorderThickness="3" CornerRadius="2"/>
 			<Border Background="{StaticResource Selected}" Visibility="{Binding IsSelected, Converter={x:Static UserInterface:Converters.BooleanToVisibility}}" />
 		</Grid>
 	</Button>
