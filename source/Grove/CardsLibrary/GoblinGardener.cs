@@ -1,6 +1,7 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
+  using AI;
   using AI.TargetingRules;
   using Effects;
   using Triggers;
@@ -15,6 +16,7 @@
         .Type("Creature Goblin")
         .Text("When Goblin Gardener dies, destroy target land.")
         .FlavorText("Grow food in dirt? Save time—eat dirt.")
+        .OverrideScore(p => p.Battlefield = Scores.ManaCostToScore[2])
         .Power(2)
         .Toughness(1)
         .TriggeredAbility(p =>

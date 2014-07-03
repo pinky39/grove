@@ -1,6 +1,7 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
+  using AI;
   using Grove.Effects;
   using Grove.AI.TimingRules;
   using Grove.Triggers;
@@ -15,6 +16,7 @@
         .Type("Creature - Specter")
         .Text("{Flying}{EOL}When Liliana's Specter enters the battlefield, each opponent discards a card.")
         .FlavorText("'The finest minions know what I need without me ever saying a thing.'")
+        .OverrideScore(p => p.Battlefield = Scores.ManaCostToScore[3])
         .Power(2)
         .Toughness(1)
         .Cast(p => p.TimingRule(new OnFirstMain()))

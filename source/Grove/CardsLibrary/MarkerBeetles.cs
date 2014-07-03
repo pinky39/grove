@@ -1,12 +1,12 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Costs;
-  using Grove.Effects;
-  using Grove.AI.TargetingRules;
-  using Grove.AI.TimingRules;
-  using Grove.Modifiers;
-  using Grove.Triggers;
+  using AI.TargetingRules;
+  using AI.TimingRules;
+  using Costs;
+  using Effects;
+  using Modifiers;
+  using Triggers;
 
   public class MarkerBeetles : CardTemplateSource
   {
@@ -16,7 +16,8 @@
         .Named("Marker Beetles")
         .ManaCost("{1}{G}{G}")
         .Type("Creature Insect")
-        .Text("When Marker Beetles dies, target creature gets +1/+1 until end of turn.{EOL}{2}, Sacrifice Marker Beetles: Draw a card.")
+        .Text(
+          "When Marker Beetles dies, target creature gets +1/+1 until end of turn.{EOL}{2}, Sacrifice Marker Beetles: Draw a card.")
         .FlavorText("In case of emergency, crush bug.")
         .Power(2)
         .Toughness(3)
@@ -28,7 +29,7 @@
             p.Trigger(new OnZoneChanged(
               @from: Zone.Battlefield,
               to: Zone.Graveyard));
-         
+
             p.Effect = () => new ApplyModifiersToTargets(() => new AddPowerAndToughness(1, 1)
               {
                 UntilEot = true
@@ -48,7 +49,7 @@
             p.Effect = () => new DrawCards(1);
 
             p.TimingRule(new Any(
-              new WhenOwningCardWillBeDestroyed(),              
+              new WhenOwningCardWillBeDestroyed(),
               new OnStep(Step.DeclareBlockers)));
 
             p.TimingRule(new WhenNoOtherInstanceOfSpellIsOnStack());

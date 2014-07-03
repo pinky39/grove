@@ -13,16 +13,15 @@
         var anaconda = C("Anaconda");
         var rancor = C("Rancor");
 
-        Battlefield(P1, "Academy Rector", anaconda);        
-        Library(P1, rancor);
-        
-        Hand(P2, "Shock");
-        Battlefield(P2, "Mountain");
+        Battlefield(P1, "Academy Rector", anaconda);  
+        Battlefield(P2, "Grizzly Bears", "Grizzly Bears");
+        Library(P1, rancor);                
 
-        P2.Life = 4;
+        P2.Life = 1;
 
         RunGame(1);
 
+        Equal(1, P2.Life);
         Equal(C(anaconda), C(rancor).AttachedTo);
       }
     }

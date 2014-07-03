@@ -1,10 +1,11 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Effects;
-  using Grove.AI.TargetingRules;
-  using Grove.AI.TimingRules;
-  using Grove.Triggers;
+  using AI;
+  using AI.TargetingRules;
+  using AI.TimingRules;
+  using Effects;
+  using Triggers;
 
   public class BodySnatcher : CardTemplateSource
   {
@@ -16,6 +17,7 @@
         .Type("Creature Minion")
         .Text(
           "When Body Snatcher enters the battlefield, exile it unless you discard a creature card.{EOL}When Body Snatcher dies, exile Body Snatcher and return target creature card from your graveyard to the battlefield.")
+        .OverrideScore(p => p.Battlefield = Scores.ManaCostToScore[2])
         .Power(2)
         .Toughness(2)
         .Cast(p => p.TimingRule(new WhenYourHandCountIs(minCount: 1, selector: c => c.Is().Creature)))

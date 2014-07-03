@@ -1,9 +1,9 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Effects;
-  using Grove.Modifiers;
-  using Grove.Triggers;
+  using Effects;
+  using Modifiers;
+  using Triggers;
 
   public class DerangedHermit : CardTemplateSource
   {

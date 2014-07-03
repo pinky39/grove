@@ -1,10 +1,10 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Costs;
-  using Grove.Effects;
-  using Grove.AI;
-  using Grove.AI.TimingRules;
+  using AI;
+  using AI.TimingRules;
+  using Costs;
+  using Effects;
 
   public class BraidwoodSextant : CardTemplateSource
   {
@@ -16,8 +16,11 @@
         .Type("Artifact")
         .Text(
           "{2},{T}, Sacrifice Braidwood Sextant: Search your library for a basic land card, reveal that card, and put it into your hand. Then shuffle your library.")
-        .OverrideScore(new ScoreOverride
-          {Hand = ScoreCalculator.LandInHandCost - 20, Battlefield = ScoreCalculator.LandInHandCost - 10})
+        .OverrideScore(p =>
+          {
+            p.Hand = Scores.LandInHandCost - 20;
+            p.Battlefield = Scores.LandInHandCost - 10;
+          })
         .Cast(p => p.TimingRule(new OnFirstMain()))
         .ActivatedAbility(p =>
           {

@@ -1,6 +1,7 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
+  using AI;
   using Effects;
   using Triggers;
 
@@ -14,6 +15,7 @@
         .Type("Creature Human Cleric")
         .Text(
           "When Academy Rector dies, you may exile it. If you do, search your library for an enchantment card, put that card onto the battlefield, then shuffle your library.")
+        .OverrideScore(p => p.Battlefield = Scores.ManaCostToScore[2])
         .Power(1)
         .Toughness(2)
         .TriggeredAbility(p =>

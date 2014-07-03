@@ -1,9 +1,10 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Effects;
-  using Grove.AI.TargetingRules;
-  using Grove.Triggers;
+  using AI;
+  using AI.TargetingRules;
+  using Effects;
+  using Triggers;
 
   public class GhituSlinger : CardTemplateSource
   {
@@ -16,6 +17,7 @@
         .Text(
           "{Echo} {2}{R}{EOL}When Ghitu Slinger enters the battlefield, it deals 2 damage to target creature or player.")
         .FlavorText("If you survive a slinger attack, the slinger wished you to live.")
+        .OverrideScore(p => p.Battlefield = Scores.ManaCostToScore[2])
         .Power(2)
         .Toughness(2)
         .Echo("{2}{R}")

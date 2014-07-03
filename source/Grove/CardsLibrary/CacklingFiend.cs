@@ -1,9 +1,10 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Effects;
-  using Grove.AI.TimingRules;
-  using Grove.Triggers;
+  using AI;
+  using AI.TimingRules;
+  using Effects;
+  using Triggers;
 
   public class CacklingFiend : CardTemplateSource
   {
@@ -15,6 +16,7 @@
         .Type("Creature - Zombie")
         .Text("When Cackling Fiend enters the battlefield, each opponent discards a card.")
         .FlavorText("Its windpipe is only the first to amplify its maddening laughter.")
+        .OverrideScore(p => p.Battlefield = Scores.ManaCostToScore[2])
         .Power(2)
         .Toughness(1)
         .Cast(p => p.TimingRule(new OnFirstMain()))

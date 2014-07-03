@@ -1,6 +1,7 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
+  using AI;
   using Grove.Effects;
   using Grove.AI.TimingRules;
   using Grove.Triggers;
@@ -15,6 +16,7 @@
         .Type("Creature Rat")
         .Text("When Ravenous Rats enters the battlefield, target opponent discards a card.")
         .FlavorText("For all the priceless tomes they have destroyed, one would think they would taste better.")
+        .OverrideScore(p => p.Battlefield = Scores.ManaCostToScore[1])
         .Power(1)
         .Toughness(1)
         .Cast(p => p.TimingRule(new OnFirstMain()))

@@ -1,9 +1,10 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Effects;
-  using Grove.AI.TimingRules;
-  using Grove.Triggers;
+  using AI;
+  using AI.TimingRules;
+  using Effects;
+  using Triggers;
 
   public class SpinedFluke : CardTemplateSource
   {
@@ -17,7 +18,7 @@
         .FlavorText("Its spines are prized as writing quills by the priests of Gix.")
         .Power(5)
         .Toughness(1)
-        .OverrideScore(new ScoreOverride {Battlefield = 500})
+        .OverrideScore(p => p.Battlefield = Scores.ManaCostToScore[5])
         .Cast(p => p.TimingRule(new OnSecondMain()))
         .TriggeredAbility(p =>
           {

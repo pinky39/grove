@@ -25,7 +25,7 @@
                 .FlavorText("'You reek of corruption,' spat the knight. 'Why are you even here?'")
                 .Power(2)
                 .Toughness(2)
-                .OverrideScore(new ScoreOverride {Battlefield = 20})
+                .OverrideScore(p1 => p1.Battlefield = 20)
                 .Type("Creature - Token - Knight")
                 .Colors(CardColor.White)
                 .TriggeredAbility(tp =>

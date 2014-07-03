@@ -1,10 +1,10 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Effects;
-  using Grove.Events;
-  using Grove.AI.TimingRules;
-  using Grove.Triggers;
+  using AI.TimingRules;
+  using Effects;
+  using Events;
+  using Triggers;
 
   public class Bereavement : CardTemplateSource
   {
@@ -23,7 +23,7 @@
 
             p.Trigger(new OnZoneChanged(
               @from: Zone.Battlefield, to: Zone.Graveyard,
-              filter: (c, a , g) => c.Is().Creature && c.HasColor(CardColor.Green)));
+              filter: (c, a, g) => c.Is().Creature && c.HasColor(CardColor.Green)));
 
             p.Effect = () => new DiscardCards(
               count: 1,

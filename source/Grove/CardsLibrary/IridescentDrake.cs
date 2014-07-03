@@ -1,6 +1,7 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
+  using AI;
   using AI.TargetingRules;
   using Effects;
   using Triggers;
@@ -15,6 +16,7 @@
         .Type("Creature Drake")
         .Text(
           "{Flying}{EOL}When Iridescent Drake enters the battlefield, put target Aura card from a graveyard onto the battlefield under your control attached to Iridescent Drake.")
+        .OverrideScore(p => p.Battlefield = Scores.ManaCostToScore[3])
         .Power(2)
         .Toughness(2)
         .SimpleAbilities(Static.Flying)

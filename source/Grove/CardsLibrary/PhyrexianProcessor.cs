@@ -1,10 +1,10 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Costs;
-  using Grove.Effects;
-  using Grove.AI.TimingRules;
-  using Grove.Triggers;
+  using AI.TimingRules;
+  using Costs;
+  using Effects;
+  using Triggers;
 
   public class PhyrexianProcessor : CardTemplateSource
   {
@@ -16,7 +16,7 @@
         .Type("Artifact")
         .Text(
           "As Phyrexian Processor enters the battlefield, pay any amount of life.{EOL}{4},{T}: Put an X/X black Minion creature token onto the battlefield, where X is the life paid as Phyrexian Processor entered the battlefield.")
-        .OverrideScore(new ScoreOverride {Hand = 50})
+        .OverrideScore(p => p.Hand = 50)
         .Cast(p => p.TimingRule(new OnSecondMain()))
         .TriggeredAbility(p =>
           {

@@ -1,9 +1,10 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Effects;
-  using Grove.AI.TargetingRules;
-  using Grove.Triggers;
+  using AI;
+  using AI.TargetingRules;
+  using Effects;
+  using Triggers;
 
   public class KeldonChampion : CardTemplateSource
   {
@@ -13,7 +14,9 @@
         .Named("Keldon Champion")
         .ManaCost("{2}{R}{R}")
         .Type("Creature Human Barbarian")
-        .Text("{Echo} {2}{R}{R}, {haste}{EOL}When Keldon Champion enters the battlefield, it deals 3 damage to target player.")
+        .Text(
+          "{Echo} {2}{R}{R}, {haste}{EOL}When Keldon Champion enters the battlefield, it deals 3 damage to target player.")
+        .OverrideScore(p => p.Battlefield = Scores.ManaCostToScore[3])
         .Power(3)
         .Toughness(2)
         .SimpleAbilities(Static.Haste)

@@ -16,7 +16,7 @@
           "When Sleeper Agent enters the battlefield, target opponent gains control of it.{EOL}At the beginning of your upkeep, Sleeper Agent deals 2 damage to you.")
         .Power(3)
         .Toughness(3)
-        .OverrideScore(new ScoreOverride {Battlefield = 10})
+        .OverrideScore(p => p.Battlefield = 10)
         .TriggeredAbility(p =>
           {
             p.Text = "When Sleeper Agent enters the battlefield, target opponent gains control of it.";

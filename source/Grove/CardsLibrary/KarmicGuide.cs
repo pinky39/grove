@@ -1,10 +1,11 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Effects;
-  using Grove.AI.TargetingRules;
-  using Grove.AI.TimingRules;
-  using Grove.Triggers;
+  using AI;
+  using AI.TargetingRules;
+  using AI.TimingRules;
+  using Effects;
+  using Triggers;
 
   public class KarmicGuide : CardTemplateSource
   {
@@ -16,11 +17,12 @@
         .Type("Creature Angel Spirit")
         .Text(
           "{Flying}, {protection from black}{EOL}When Karmic Guide enters the battlefield, return target creature card from your graveyard to the battlefield.{EOL}{Echo} {3}{W}{W}")
+        .OverrideScore(p => p.Battlefield = Scores.ManaCostToScore[3])
         .Power(2)
         .Toughness(2)
         .SimpleAbilities(Static.Flying)
         .Protections(CardColor.Black)
-        .Echo("{3}{W}{W}")        
+        .Echo("{3}{W}{W}")
         .Cast(p => p.TimingRule(new WhenYourGraveyardCountIs(c => c.Is().Creature, minCount: 1)))
         .TriggeredAbility(p =>
           {

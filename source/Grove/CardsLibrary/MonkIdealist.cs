@@ -1,10 +1,11 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Effects;
-  using Grove.AI.TargetingRules;
-  using Grove.AI.TimingRules;
-  using Grove.Triggers;
+  using AI;
+  using AI.TargetingRules;
+  using AI.TimingRules;
+  using Effects;
+  using Triggers;
 
   public class MonkIdealist : CardTemplateSource
   {
@@ -17,6 +18,7 @@
         .Text(
           "When Monk Idealist enters the battlefield, return target enchantment card from your graveyard to your hand.")
         .FlavorText("Belief is the strongest mortar.")
+        .OverrideScore(p => p.Battlefield = Scores.ManaCostToScore[2])
         .Power(2)
         .Toughness(2)
         .Cast(p =>

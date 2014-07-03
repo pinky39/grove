@@ -1,10 +1,11 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Effects;
-  using Grove.AI.TargetingRules;
-  using Grove.AI.TimingRules;
-  using Grove.Triggers;
+  using AI;
+  using AI.TargetingRules;
+  using AI.TimingRules;
+  using Effects;
+  using Triggers;
 
   public class FlametongueKavu : CardTemplateSource
   {
@@ -16,6 +17,7 @@
         .Type("Creature Kavu")
         .Text("When Flametongue Kavu enters the battlefield, it deals 4 damage to target creature.")
         .FlavorText("For dim-witted, thick-skulled genetic mutants, they have pretty good aim.")
+        .OverrideScore(p => p.Battlefield = Scores.ManaCostToScore[3])
         .Power(4)
         .Toughness(2)
         .Cast(p => p.TimingRule(new WhenOpponentControllsPermanents(

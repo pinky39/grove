@@ -16,7 +16,7 @@
         .Named("Lilting Refrain")
         .ManaCost("{1}{U}")
         .Type("Enchantment")
-        .OverrideScore(new ScoreOverride {Battlefield = 300})
+        .OverrideScore(p => p.Battlefield = 300)
         .Text(
           "At the beginning of your upkeep, you may put a verse counter on Lilting Refrain.{EOL}Sacrifice Lilting Refrain: Counter target spell unless its controller pays X, where X is the number of verse counters on Lilting Refrain.")
         .Cast(p => p.TimingRule(new OnSecondMain()))

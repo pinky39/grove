@@ -17,7 +17,7 @@
         .Text("{Enchant land}{EOL}Enchanted land is an Island.{EOL}Cycling {2} ({2}, Discard this card: Draw a card.)")
         .FlavorText("Birds frozen in flight. Sea turned to glass. Tolaria hidden in a mirror.")
         .Cycling("{2}")
-        .OverrideScore(new ScoreOverride {Battlefield = 250})
+        .OverrideScore(p => p.Battlefield = 250)
         .Cast(p =>
           {
             p.Effect = () => new Attach(() => new ChangeBasicLand("island"));

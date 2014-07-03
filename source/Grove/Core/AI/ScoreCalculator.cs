@@ -1,64 +1,10 @@
 ﻿namespace Grove.AI
 {
   using System;
-  using System.Collections.Generic;
   using System.Linq;
 
   public static class ScoreCalculator
-  {    
-    public const int LandInHandCost = 90;
-    
-    private static readonly Dictionary<int, int> LifeToScore = new Dictionary<int, int>
-      {
-        {20, 0},
-        {19, -40},
-        {18, -80},
-        {17, -120},
-        {16, -160},
-        {15, -200},
-        {14, -250},
-        {13, -300},
-        {12, -350},
-        {11, -420},
-        {10, -490},
-        {9, -590},
-        {8, -690},
-        {7, -790},
-        {6, -850},
-        {5, -1000},
-        {4, -1150},
-        {3, -1400},
-        {2, -1750},
-        {1, -2300},
-      };
-
-    private static readonly Dictionary<int, int> ManaCostToScore = new Dictionary<int, int>
-      {
-        {0, 140},
-        {1, 150},
-        {2, 200},
-        {3, 250},
-        {4, 300},
-        {5, 350},
-        {6, 400},
-        {7, 450},
-      };
-
-    private static readonly Dictionary<int, int> PowerToughnessToScore = new Dictionary<int, int>
-      {
-        {0, 0},
-        {1, 140},
-        {2, 160},
-        {3, 180},
-        {4, 200},
-        {5, 220},
-        {6, 240},
-        {7, 260},
-        {8, 280},
-        {9, 300},
-        {10, 320},
-      };
-
+  {
     public static int CalculateTapPenalty(Card card, TurnInfo turnInfo)
     {
       if (card.Is().Land)
@@ -115,7 +61,7 @@
         return -1000 + life;
       }
 
-      return score + LifeToScore[life];
+      return score + Scores.LifeToScore[life];
     }
 
     public static int CalculatePermanentScore(Card permanent)
@@ -130,7 +76,7 @@
 
       if (permanent.ManaCost != null)
       {
-        score += CalculatePermanentScoreFromManaCost(permanent.ManaCost);
+        score += CalculatePermanentScoreFromManaCost(permanent);
 
         if (permanent.Is().Creature)
         {
@@ -148,38 +94,36 @@
       {
         score += GetLandOnBattlefieldScore(permanent);
         if (!permanent.Is().BasicLand)
-          score += 10;                                     
+          score += 10;
       }
 
       return score;
     }
 
-    private static readonly Dictionary<int, int> LandsOnBattlefieldToLandScore = new Dictionary<int, int>
-      {        
-        {1, 600},
-        {2, 500},
-        {3, 450},
-        {4, 425},
-        {5, 400},
-        {6, 375},        
-      };
-
     private static int GetLandOnBattlefieldScore(Card land)
     {
       var landCount = land.Controller.Battlefield.Lands.Count();
-      return landCount > 6 ? 350 : LandsOnBattlefieldToLandScore[landCount];
+      return landCount > 6 ? 350 : Scores.LandsOnBattlefieldToLandScore[landCount];
     }
 
-    private static int CalculatePermanentScoreFromManaCost(IManaAmount mana)
+    private static int CalculatePermanentScoreFromManaCost(Card permanent)
     {
-      var converted = Math.Min(7, mana.Converted);
-      return ManaCostToScore[converted];
+      var converted = Math.Min(7, permanent.ManaCost.Converted);
+
+      if (permanent.Has().Haste)
+      {
+        converted--;
+      }
+
+      return permanent.Has().Echo
+        ? Scores.ManaCostToScoreEcho[converted]
+        : Scores.ManaCostToScore[converted];
     }
 
     private static int CalculateCardInHandScoreFromManaCost(IManaAmount mana)
     {
       var converted = Math.Min(7, mana.Converted);
-      var score = ManaCostToScore[converted] - 100;
+      var score = Scores.ManaCostToScore[converted] - 100;
       return score > 120 ? score : 120;
     }
 
@@ -192,7 +136,7 @@
       else if (powerToughness > 10)
         powerToughness = 10;
 
-      return PowerToughnessToScore[powerToughness];
+      return Scores.PowerToughnessToScore[powerToughness];
     }
 
     public static int CalculateCardInHandScore(Card card, bool isSearchInProgress)
@@ -207,7 +151,7 @@
 
       if (card.ManaCost == null || card.ManaCost.Converted == 0)
       {
-        return LandInHandCost;
+        return Scores.LandInHandCost;
       }
 
       return CalculateCardInHandScoreFromManaCost(card.ManaCost);
@@ -228,7 +172,7 @@
     }
 
     public static int CalculateLifelossScore(int life, int loss)
-    {            
+    {
       return CalculateLifeScore(life) - CalculateLifeScore(life - loss);
     }
 

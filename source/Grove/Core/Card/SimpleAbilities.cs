@@ -170,6 +170,11 @@
       get { return Has(Static.Lure); }
     }
 
+    public bool Echo
+    {
+      get { return Has(Static.Echo); }
+    }
+
     public bool DoesNotUntap
     {
       get { return Has(Static.DoesNotUntap); }

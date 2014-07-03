@@ -31,6 +31,7 @@
     UnblockableIfDedenderHasArtifacts,
     UnblockableIfDedenderHasEnchantments,
     Forestwalk,
-    Lure
+    Lure,
+    Echo
   }
 }

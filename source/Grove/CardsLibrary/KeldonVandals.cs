@@ -1,6 +1,7 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
+  using AI;
   using AI.TargetingRules;
   using AI.TimingRules;
   using Effects;
@@ -16,6 +17,7 @@
         .Type("Creature Human Rogue")
         .Text("{Echo} {2}{R}{EOL}When Keldon Vandals enters the battlefield, destroy target artifact.")
         .FlavorText("Keldons divide all their spoils into two groups: trophies and catapult ammunition.")
+        .OverrideScore(p => p.Battlefield = Scores.ManaCostToScore[3])
         .Power(4)
         .Toughness(1)
         .Echo("{2}{R}")

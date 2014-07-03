@@ -1,6 +1,7 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
+  using AI;
   using Effects;
   using Triggers;
 
@@ -14,6 +15,7 @@
         .Type("Creature - Bird")
         .Text("{Flying}{EOL}When Kingfisher dies, draw a card.")
         .FlavorText("It's tastiest when served with the fish it stole.")
+        .OverrideScore(p => p.Battlefield = Scores.ManaCostToScore[3])
         .Power(2)
         .Toughness(2)
         .SimpleAbilities(Static.Flying)

@@ -1,8 +1,9 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Effects;
-  using Grove.Triggers;
+  using AI;
+  using Effects;
+  using Triggers;
 
   public class YavimayaGranger : CardTemplateSource
   {
@@ -12,9 +13,9 @@
         .Named("Yavimaya Granger")
         .ManaCost("{2}{G}")
         .Type("Creature Elf")
-        .OverrideScore(new ScoreOverride {Battlefield = 200})
         .Text(
           "{Echo} {2}{G}{EOL}When Yavimaya Granger enters the battlefield, you may search your library for a basic land card, put that card onto the battlefield tapped, then shuffle your library.")
+        .OverrideScore(p => p.Battlefield = Scores.ManaCostToScore[2])
         .Power(2)
         .Toughness(2)
         .Echo("{2}{G}")
@@ -24,8 +25,8 @@
               "When Yavimaya Granger enters the battlefield, you may search your library for a basic land card, put that card onto the battlefield tapped, then shuffle your library.";
             p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
             p.Effect = () => new SearchLibraryPutToZone(
-             zone: Zone.Battlefield,
-             afterPutToZone:  c => c.Tap(),
+              zone: Zone.Battlefield,
+              afterPutToZone: c => c.Tap(),
               minCount: 0,
               maxCount: 1,
               validator: (e, c) => c.Is().BasicLand,

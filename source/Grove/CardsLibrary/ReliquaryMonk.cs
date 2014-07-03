@@ -1,6 +1,7 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
+  using AI;
   using AI.TargetingRules;
   using Effects;
   using Triggers;
@@ -15,6 +16,7 @@
         .Type("Creature Human Monk Cleric")
         .Text("When Reliquary Monk dies, destroy target artifact or enchantment.")
         .FlavorText("A thing of Serra's realm exists only by the grace of her followers' faith.")
+        .OverrideScore(p => p.Battlefield = Scores.ManaCostToScore[2])
         .Power(2)
         .Toughness(2)
         .TriggeredAbility(p =>

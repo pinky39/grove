@@ -1,10 +1,11 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Effects;
-  using Grove.AI.TargetingRules;
-  using Grove.AI.TimingRules;
-  using Grove.Triggers;
+  using AI;
+  using AI.TargetingRules;
+  using AI.TimingRules;
+  using Effects;
+  using Triggers;
 
   public class MonkRealist : CardTemplateSource
   {
@@ -16,6 +17,7 @@
         .Type("Creature Human Monk Cleric")
         .Text("When Monk Realist enters the battlefield, destroy target enchantment.")
         .FlavorText("We plant the seeds of doubt to harvest the crop of wisdom.")
+        .OverrideScore(p => p.Battlefield = Scores.ManaCostToScore[1])
         .Power(1)
         .Toughness(1)
         .Cast(p =>

@@ -1,12 +1,12 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Effects;
-  using Grove.AI;
-  using Grove.AI.TargetingRules;
-  using Grove.AI.TimingRules;
-  using Grove.Modifiers;
-  using Grove.Triggers;
+  using AI;
+  using AI.TargetingRules;
+  using AI.TimingRules;
+  using Effects;
+  using Modifiers;
+  using Triggers;
 
   public class Cessation : CardTemplateSource
   {
@@ -22,8 +22,8 @@
         .Cast(p =>
           {
             p.Effect = () => new Attach(
-              () => new AddStaticAbility(Static.CannotAttack)).SetTags(EffectTag.CombatDisabler);              
-              
+              () => new AddStaticAbility(Static.CannotAttack)).SetTags(EffectTag.CombatDisabler);
+
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 
             p.TimingRule(new OnSecondMain());

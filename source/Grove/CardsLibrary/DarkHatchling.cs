@@ -1,10 +1,11 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Effects;
-  using Grove.AI.TargetingRules;
-  using Grove.AI.TimingRules;
-  using Grove.Triggers;
+  using AI;
+  using AI.TargetingRules;
+  using AI.TimingRules;
+  using Effects;
+  using Triggers;
 
   public class DarkHatchling : CardTemplateSource
   {
@@ -16,12 +17,13 @@
         .Type("Creature Horror")
         .Text(
           "{Flying}{EOL}When Dark Hatchling enters the battlefield, destroy target nonblack creature. It can't be regenerated.")
+        .OverrideScore(p => p.Battlefield = Scores.ManaCostToScore[4])
         .Power(3)
         .Toughness(3)
         .Cast(p => p.TimingRule(new WhenOpponentControllsPermanents(
           card => card.Is().Creature &&
             !card.HasColor(CardColor.Black) &&
-              !card.HasProtectionFrom(CardColor.Black), minCount: 1))
+            !card.HasProtectionFrom(CardColor.Black), minCount: 1))
         )
         .SimpleAbilities(Static.Flying)
         .TriggeredAbility(p =>

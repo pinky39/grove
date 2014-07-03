@@ -1,10 +1,10 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Costs;
-  using Grove.Effects;
-  using Grove.AI.TimingRules;
-  using Grove.Triggers;
+  using AI.TimingRules;
+  using Costs;
+  using Effects;
+  using Triggers;
   using ReturnToHand = Effects.ReturnToHand;
 
   public class Palinchron : CardTemplateSource
@@ -15,7 +15,8 @@
         .Named("Palinchron")
         .ManaCost("{5}{U}{U}")
         .Type("Creature Illusion")
-        .Text("{Flying}{EOL}When Palinchron enters the battlefield, untap up to seven lands.{EOL}{2}{U}{U}: Return Palinchron to its owner's hand.")        
+        .Text(
+          "{Flying}{EOL}When Palinchron enters the battlefield, untap up to seven lands.{EOL}{2}{U}{U}: Return Palinchron to its owner's hand.")        
         .Power(4)
         .Toughness(5)
         .SimpleAbilities(Static.Flying)

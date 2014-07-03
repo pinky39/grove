@@ -1,6 +1,7 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
+  using AI;
   using AI.TargetingRules;
   using Effects;
   using Triggers;
@@ -15,6 +16,7 @@
         .Type("Artifact Creature Bird")
         .Text("{Flying}{EOL}When Junk Diver dies, return another target artifact card from your graveyard to your hand.")
         .FlavorText("Garbage in, treasure out.")
+        .OverrideScore(p => p.Battlefield = Scores.ManaCostToScore[2])
         .Power(1)
         .Toughness(1)
         .SimpleAbilities(Static.Flying)

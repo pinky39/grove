@@ -1,6 +1,7 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
+  using AI;
   using Grove.Effects;
   using Grove.Triggers;
 
@@ -15,6 +16,7 @@
         .Text(
           "When Goblin Matron enters the battlefield, you may search your library for a Goblin card, reveal that card, and put it into your hand. If you do, shuffle your library.")
         .FlavorText("There's always room for one more.")
+        .OverrideScore(p => p.Battlefield = Scores.ManaCostToScore[1])
         .Power(1)
         .Toughness(1)
         .TriggeredAbility(p =>

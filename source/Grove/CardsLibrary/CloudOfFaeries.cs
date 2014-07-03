@@ -1,8 +1,8 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Effects;
-  using Grove.Triggers;
+  using Effects;
+  using Triggers;
 
   public class CloudOfFaeries : CardTemplateSource
   {
@@ -12,7 +12,8 @@
         .Named("Cloud of Faeries")
         .Type("Creature Faerie")
         .ManaCost("{1}{U}")
-        .Text("{Flying}{EOL}When Cloud of Faeries enters the battlefield, untap up to two lands.{EOL}Cycling {2} ({2}, Discard this card: Draw a card.)")
+        .Text(
+          "{Flying}{EOL}When Cloud of Faeries enters the battlefield, untap up to two lands.{EOL}Cycling {2} ({2}, Discard this card: Draw a card.)")
         .Power(1)
         .Toughness(1)
         .Cycling("{2}")

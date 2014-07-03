@@ -1,6 +1,7 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
+  using AI;
   using AI.TargetingRules;
   using AI.TimingRules;
   using Effects;
@@ -16,6 +17,7 @@
         .Type("Creature Ooze")
         .Text(
           "{Deathtouch}{EOL}When Acidic Slime enters the battlefield, destroy target artifact, enchantment, or land.")
+        .OverrideScore(p => p.Battlefield = Scores.ManaCostToScore[3])
         .Power(2)
         .Toughness(2)
         .Cast(p => p.TimingRule(new OnFirstMain()))

@@ -181,6 +181,8 @@
           p.TriggerOnlyIfOwningCardIsInPlay = true;
         });
 
+      SimpleAbilities(Static.Echo);
+
       return this;
     }
 
@@ -429,10 +431,12 @@
       _init.Add(p => p.MayChooseToUntap = true);
       return this;
     }
-
-    public CardTemplate OverrideScore(ScoreOverride score)
+            
+    public CardTemplate OverrideScore(Action<ScoreOverride> setOverride)
     {
-      _init.Add(p => p.OverrideScore = score);
+      var scoreOverride = new ScoreOverride();
+      setOverride(scoreOverride);
+      _init.Add(p => p.OverrideScore = scoreOverride);
       return this;
     }
   }

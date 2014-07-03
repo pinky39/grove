@@ -1,6 +1,7 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
+  using AI;
   using Grove.Effects;
   using Grove.AI.TargetingRules;
   using Grove.Triggers;
@@ -18,7 +19,7 @@
         .Power(2)
         .Toughness(2)
         .SimpleAbilities(Static.Flying)
-        .OverrideScore(new ScoreOverride {Battlefield = 300})
+        .OverrideScore(p => p.Battlefield = Scores.ManaCostToScore[3])
         .TriggeredAbility(p =>
           {
             p.Text = "When Abyssal Horror enters the battlefield, target player discards two cards.";

@@ -1,10 +1,10 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Costs;
-  using Grove.Effects;
-  using Grove.AI.TargetingRules;
-  using Grove.AI.TimingRules;
+  using AI.TargetingRules;
+  using AI.TimingRules;
+  using Costs;
+  using Effects;
 
   public class Raze : CardTemplateSource
   {
@@ -16,7 +16,7 @@
         .Type("Sorcery")
         .Text("As an additional cost to cast Raze, sacrifice a land.{EOL}Destroy target land.")
         .FlavorText("The viashino believe that the oldest mountains hate everyone equally.")
-        .OverrideScore(new ScoreOverride {Hand = 50})
+        .OverrideScore(p => p.Hand = 50)
         .Cast(p =>
           {
             p.Cost = new AggregateCost(

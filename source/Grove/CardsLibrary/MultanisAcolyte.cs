@@ -1,8 +1,9 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Effects;
-  using Grove.Triggers;
+  using AI;
+  using Effects;
+  using Triggers;
 
   public class MultanisAcolyte : CardTemplateSource
   {
@@ -13,6 +14,7 @@
         .ManaCost("{G}{G}")
         .Type("Creature Elf")
         .Text("{Echo} {G}{G}{EOL}When Multani's Acolyte enters the battlefield, draw a card.")
+        .OverrideScore(p => p.Battlefield = Scores.ManaCostToScore[2])
         .Power(2)
         .Toughness(1)
         .Echo("{G}{G}")

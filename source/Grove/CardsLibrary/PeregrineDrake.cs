@@ -1,6 +1,7 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
+  using AI;
   using Grove.Effects;
   using Grove.Triggers;
 
@@ -14,6 +15,7 @@
         .Type("Creature Drake")
         .Text("{Flying}{EOL}When Peregrine Drake enters the battlefield, untap up to five lands.")
         .FlavorText("That the Tolarian mists parted for the drakes was warning enough to stay away.")
+        .OverrideScore(p => p.Battlefield = Scores.ManaCostToScore[4])
         .Power(2)
         .Toughness(3)
         .SimpleAbilities(Static.Flying)

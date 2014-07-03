@@ -33,6 +33,7 @@
     bool AttacksEachTurnIfAble { get; }
     bool Forestwalk { get; }
     bool Lure { get; }
+    bool Echo { get; }
     bool Has(Static ability);
   }
 }

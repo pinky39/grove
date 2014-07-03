@@ -224,6 +224,7 @@
     <Compile Include="Core\AI\CombatRules\PumpCombatRule.cs" />
     <Compile Include="Core\AI\CombatRules\RegenerateCombatRule.cs" />
     <Compile Include="Core\AI\DraftAlgorithms\Greedy.cs" />
+    <Compile Include="Core\AI\Scores.cs" />
     <Compile Include="Core\AI\SearchPartitioningStrategies.cs" />
     <Compile Include="Core\AI\SearchPartitioningStrategyParameters.cs" />
     <Compile Include="Core\AI\TargetingRules\CostDiscardCard.cs" />
