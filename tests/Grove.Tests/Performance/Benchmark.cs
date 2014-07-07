@@ -15,7 +15,7 @@
     public void RunAndCompareWithXUnit()
     {
       var result = RunAndCompare(
-        run: BenchmarkRunConfiguration.D40T2MT2(),
+        run: BenchmarkRunConfiguration.D60T2MT2(),
         compareTo: BenchmarkRunConfiguration.D40T2MT2());
 
       Console.WriteLine(result.PrettyPrint());

@@ -23,7 +23,7 @@
             p.Effect = () => new Attach();
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
             p.TimingRule(new OnFirstMain());
-            p.TargetingRule(new EffectCombatEnchantment());
+            p.TargetingRule(new EffectAttackerWithEvasion());
           })
         .TriggeredAbility(p =>
           {

@@ -37,6 +37,17 @@
           searchPartitioningStrategy: SearchPartitioningStrategies.MultiThreaded1));
     }
 
+    public static BenchmarkRunConfiguration D60T2MT2()
+    {
+      return new BenchmarkRunConfiguration(
+        "D40T2MT2",
+        "Search depth: 60, Targets: 2, Multi threaded (2)",
+        new SearchParameters(
+          searchDepth: 60,
+          targetCount: 2,
+          searchPartitioningStrategy: SearchPartitioningStrategies.MultiThreaded2));
+    }
+
     public static BenchmarkRunConfiguration D40T2MT2()
     {
       return new BenchmarkRunConfiguration(

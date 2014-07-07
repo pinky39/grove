@@ -27,7 +27,7 @@
                 var ap = new ActivatedAbilityParameters
                   {
                     Text = "{R}: Enchanted creature gets +1/+0 until end of turn.",
-                    Cost = new PayMana(Mana.Red, ManaUsage.Abilities),
+                    Cost = new PayMana(Mana.Red, ManaUsage.Abilities, supportsRepetitions: true),
                     Effect = () => new ApplyModifiersToSelf(() => new AddPowerAndToughness(1, 0) {UntilEot = true})
                   };
 

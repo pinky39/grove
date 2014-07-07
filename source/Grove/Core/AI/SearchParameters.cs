@@ -15,9 +15,9 @@
     }
 
 #if DEBUG
-    public static SearchParameters Default = new SearchParameters(40, 2, SearchPartitioningStrategies.SingleThreaded);
+    public static SearchParameters Default = new SearchParameters(60, 2, SearchPartitioningStrategies.SingleThreaded);
 #else 
-    public static SearchParameters Default = new SearchParameters(40, 2, SearchPartitioningStrategies.DefaultMultithreaded);
+    public static SearchParameters Default = new SearchParameters(60, 2, SearchPartitioningStrategies.DefaultMultithreaded);
 #endif
   }
 }
