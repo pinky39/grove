@@ -104,6 +104,15 @@
     <EmbeddedResource Include="Usage.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Gen-Urza%27s-Legacy-Destiny.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Gen-Urza%27s-Destiny-Legacy.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Gen-Urza%27s-Legacy.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Gen-Urza%27s-Destiny.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
