@@ -1,8 +1,249 @@
-MAGICGROVE v 2.0: Card List
+MAGICGROVE v 3.0: Card List
 =====================================
 The following cards can be used to construct new decks:
 
+Brine Seer
+Bubbling Beebles
+Bubbling Muck
+Caltrops
+Capashen Knight
+Capashen Templar
+Carnival of Souls
+Cinder Seer
+Colos Yearling
+Compost
+Covetous Dragon
+Disappear
+Donate
+Elvish Lookout
+Elvish Piper
+Emperor Crocodile
+Encroach
+Extruder
+False Prophet
+Fend Off
+Field Surgeon
+Flame Jet
+Flicker
+Fodder Cannon
+Goblin Festival
+Goblin Gardener
+Goblin Masons
+Hulking Ogre
+Illuminated Wings
+Impatience
+Incendiary
+Iridescent Drake
+Ivy Seer
+Jasmine Seer
+Junk Diver
+Keldon Vandals
+Landslide
+Lurking Jackals
+Magnify
+Master Healer
+Masticore
+Mental Discipline
+Metalworker
+Metathran Soldier
+Momentum
+Multani's Decree
+Opalescence
+Opposition
+Phyrexian Negator
+Plow Under
+Powder Keg
+Rapid Decay
+Reckless Abandon
+Reliquary Monk
+Repercussion
+Replenish
+Rescue
+Rofellos, Llanowar Emissary
+Rofellos's Gift
+Sanctimony
+Scent of Brine
+Scent of Cinder
+Scent of Ivy
+Scent of Jasmine
+Scour
+Serra Advocate
+Skittering Horror
+Solidarity
+Sowing Salt
+Taunting Elf
+Telepathic Spies
+Temporal Adept
+Tethered Griffin
+Thorn Elemental
+Thran Dynamo
+Thran Foundry
+Treachery
+Voice of Duty
+Voice of Reason
+Wake of Destruction
+Yavimaya Enchantress
+Yavimaya Hollow
+Yawgmoth's Bargain
 About Face
+Academy Rector
+Aether Sting
+Ancient Silverback
+Angelic Curator
+Angel's Trumpet
+Anthroplasm
+Apprentice Necromancer
+Archery Training
+Archivist
+Attrition
+Aura Flux
+Aura Thief
+Beast of Burden
+Blessed Reversal
+Blizzard Elemental
+Bloated Toad
+Bloodshot Cyclops
+Body Snatcher
+Bouncing Beebles
+Braidwood Cup
+Braidwood Sextant
+Brass Secretary
+Brink of Madness
+Burst of Energy
+Capashen Standard
+Cessation
+Chime of Night
+Cloud of Faeries
+Crop Rotation
+Darkwatch Elves
+Defender of Law
+Delusions of Mediocrity
+Deranged Hermit
+Devout Harpist
+Disease Carriers
+Dying Wail
+Eradicate
+Eviscerator
+Expendable Troops
+Faerie Conclave
+Fatigue
+Festering Wound
+Fledgling Osprey
+Fleeting Image
+Forbidding Watchtower
+Frantic Search
+Gamekeeper
+Ghitu Fire-Eater
+Ghitu War Cry
+Goblin Berserker
+Goblin Marshal
+Goblin Welder
+Goliath Beetle
+Granite Grip
+Grim Monolith
+Harmonic Convergence
+Heart Warden
+Hidden Gibbons
+Hope and Glory
+Hunting Moa
+Impending Disaster
+Intervene
+Iron Maiden
+Iron Will
+Jhoira's Toolbox
+Karmic Guide
+Keldon Champion
+King Crab
+Kingfisher
+Knighthood
+Last-Ditch Effort
+Lava Axe
+Levitation
+Lurking Skirge
+Mantis Engine
+Marker Beetles
+Mark of Fury
+Martyr's Cause
+Mask of Law and Grace
+Memory Jar
+Metathran Elite
+Might of Oaks
+Miscalculation
+Multani, Maro-Sorcerer
+Multani's Acolyte
+Multani's Presence
+Nightshade Seer
+No Mercy
+Opal Avenger
+Opal Champion
+Opportunity
+Ostracize
+Palinchron
+Parch
+Pattern of Rebirth
+Peace and Quiet
+Phyrexian Monitor
+Plague Beetle
+Plague Dogs
+Planar Collapse
+Plated Spider
+Private Research
+Purify
+Pygmy Pyrosaur
+Pyromancy
+Quash
+Quicksilver Amulet
+Rack and Ruin
+Radiant, Archangel
+Radiant's Dragoons
+Rank and File
+Raven Familiar
+Ravenous Rats
+Rayne, Academy Chancellor
+Rebuild
+Repopulate
+Ring of Gix
+Rivalry
+Scent of Nightshade
+Scrapheap
+Second Chance
+Shivan Phoenix
+Sick and Tired
+Sigil of Sleep
+Sleeper's Guile
+Slinking Skirge
+Slow Motion
+Sluggishness
+Snap
+Soul Feast
+Splinter
+Squirming Mass
+Subversion
+Sustainer of the Realm
+Swat
+Thieving Magpie
+Thornwind Faeries
+Thran Golem
+Thran Lens
+Thran War Machine
+Thran Weaponry
+Tinker
+Tormented Angel
+Tragic Poet
+Treefolk Mystic
+Trumpet Blast
+Twisted Experiment
+Unearth
+Urza's Blueprints
+Urza's Incubator
+Viashino Sandscout
+Vigilant Drake
+Walking Sponge
+Weatherseed Elf
+Weatherseed Faeries
+Wheel of Torture
+Wild Colos
+Yavimaya Elder
 Absolute Grace
 Absolute Law
 Abyssal Horror
@@ -13,102 +254,111 @@ Acridian
 Albino Troll
 Anaconda
 Angelic Chorus
-Angelic Curator
 Angelic Page
 Angelic Wall
-Angel's Trumpet
 Annul
 Antagonism
-Anthroplasm
 Arc Lightning
-Archivist
 Argothian Elder
 Argothian Enchantress
 Argothian Swine
 Argothian Wurm
 Attunement
-Aura Flux
 Avalanche Riders
 Back to Basics
 Baneslayer Angel
 Barrin, Master Wizard
 Barrin's Codex
 Basilisk Collar
-Beacon of Destruction
-Beast of Burden
 Bedlam
 Befoul
 Bereavement
-Birds of Paradise
-Black Sun's Zenith
-Blanchwood Armor
 Blanchwood Treefolk
 Blasted Landscape
-Blaze
-Blessed Reversal
-Bloated Toad
 Blood Vassal
 Bog Raiders
 Bone Shredder
-Bouncing Beebles
 Brand
 Bravado
 Breach
 Brilliant Halo
-Brink of Madness
 Bull Hippo
 Bulwark
 Burst Lightning
-Burst of Energy
+Beacon of Destruction
+Birds of Paradise
+Black Sun's Zenith
+Blanchwood Armor
+Blaze
 Cackling Fiend
 Carrion Beetles
 Catalog
 Catastrophe
 Cathodion
 Cave Tiger
+Citanul Flute
+Defender of Chaos
+Defense of the Heart
+Engineered Plague
+Erase
+Fog of Gnats
+Gang of Elk
+Ghitu Encampment
+Ghitu Slinger
+Giant Cockroach
+Goblin Medics
+Lone Wolf
+Molten Hydra
+Mother of Runes
+Phyrexian Broodlings
+Phyrexian Colossus
+Phyrexian Debaser
+Phyrexian Defiler
+Phyrexian Denouncer
+Phyrexian Plaguelord
+Phyrexian Reclamation
+Radiant's Judgment
+Silk Net
+Simian Grunts
+Spawning Pool
+Tethered Skirge
+Ticking Gnomes
+Treacherous Link
+Treetop Village
+Viashino Cutthroat
+Viashino Heretic
+Viashino Runner
+Viashino Weaponsmith
 Celestial Prism
-Cessation
 Child of Gaea
 Chimeric Staff
 Citanul Centaurs
-Citanul Flute
 Citanul Hierophants
 Claws of Gix
 Clear
 Cloak of Mists
-Cloud of Faeries
 Confiscate
 Congregate
 Copper Gnomes
-Copperline Gorge
 Coral Merfolk
 Corrupt
 Counterspell
+Copperline Gorge
 Cradle Guard
 Crater Hellion
 Crazed Skirge
 Creeping Tar Pit
-Crop Rotation
 Crosswinds
 Cruel Edict
 Crystal Chimes
 Curfew
+Darkest Hour
 Dark Hatchling
 Dark Ritual
-Darkest Hour
-Darkslick Drake
-Darksteel Gargoyle
-Darkwatch Elves
 Day of Judgment
 Deathless Angel
-Defender of Chaos
-Defender of Law
-Defense of the Heart
-Delusions of Mediocrity
-Deranged Hermit
 Despondency
 Destructive Urge
-Devout Harpist
 Diabolic Servitude
 Disciple of Grace
 Disciple of Law
@@ -116,16 +366,18 @@ Discordant Dirge
 Disenchant
 Disorder
 Disruptive Student
-Divination
-Doom blade
 Douse
 Dragon Blood
-Drana, Kalastria Bloodchief
-Dread
 Drifting Djinn
 Drifting Meadow
 Dromosaur
 Drowned Catacomb
+Darkslick Drake
+Darksteel Gargoyle
+Divination
+Doom Blade
+Drana, Kalastria Bloodchief
+Dread
 Duress
 Eastern Paladin
 Electryte
@@ -137,16 +389,11 @@ Elvish Warrior
 Endless Wurm
 Endoskeleton
 Energy Field
-Engineered Plague
-Erase
 Evacuation
-Eviscerator
 Exhaustion
 Exhume
-Expendable Troops
 Exploration
 Expunge
-Faerie Conclave
 Faith Healer
 Falter
 Fault Line
@@ -154,52 +401,37 @@ Fecundity
 Fertile Ground
 Fiery Mantle
 Fire Ants
+Flesh Reaver
+Fog Bank
+Forest
 Fires of Yavimaya
 Flame Slash
 Flametongue Kavu
-Fleeting Image
-Flesh Reaver
-Fog Bank
-Fog of Gnats
-Forbidding Watchtower
-Forest
 Fortitude
-Frantic Search
 Gaea's Bounty
 Gaea's Cradle
 Gaea's Embrace
 Gamble
-Gang of Elk
-Ghitu Encampment
-Ghitu Fire-Eater
-Ghitu Slinger
-Ghitu War Cry
-Giant Cockroach
 Gilded Drake
 Glorious Anthem
-Go for the Throat
 Goblin Cadets
 Goblin Lackey
 Goblin Matron
-Goblin Medics
 Goblin Offensive
 Goblin Patrol
 Goblin Raider
 Goblin Spelunkers
 Goblin War Buggy
-Goblin Welder
 Gorilla Warrior
 Grafted Skullcap
-Granite Grip
+Greater Good
+Great Whale
+Greener Pastures
+Grizzly Bears
+Go for the Throat
 Grasp of Darkness
 Grave Titan
-Great Whale
-Greater Good
-Greener Pastures
-Grim Monolith
-Grizzly Bears
 Guma
-Harmonic Convergence
 Hawkeater Moth
 Headlong Rush
 Healing Salve
@@ -209,14 +441,12 @@ Hermetic Study
 Hero of Bladehold
 Hibernation
 Hidden Ancients
-Hidden Gibbons
 Hidden Guerrillas
 Hidden Herd
 Hidden Predators
 Hidden Spider
 Hidden Stag
 Hollow Dogs
-Hope and Glory
 Hopping Automaton
 Horseshoe Crab
 Humble
@@ -224,86 +454,56 @@ Hush
 Hypnotic Specter
 Ill-Gotten Gains
 Imaginary Pet
-Impending Disaster
-Intervene
 Intrepid Hero
-Iron Maiden
-Iron Will
 Island
 Jagged Lightning
-Jhoira's Toolbox
-Karmic Guide
 Karn, Silver Golem
-King Crab
-Knighthood
-Last-Ditch Effort
 Launch
-Lava Axe
 Lay Waste
-Leatherback Baloth
-Levitation
-Lightning Bolt
 Lightning Dragon
-Liliana's Specter
 Lilting Refrain
 Lingering Mirage
 Living Destiny
-Llanowar Behemoth
 Llanowar Elves
-Lone Wolf
+Leatherback Baloth
+Lightning Bolt
+Liliana's Specter
+Llanowar Behemoth
 Looming Shade
 Lotus Blossom
 Lull
 Lurking Evil
-Lurking Skirge
-Mana Leak
 Mana Leech
 Man-o'-War
-Marsh Casualties
 Martial Coup
-Martyr's Cause
 Meltdown
-Memory Jar
 Midsummer Revel
-Might of Oaks
 Mirran Crusader
-Miscalculation
 Mishra's Helix
 Mobile Fort
-Molten Hydra
 Monk Idealist
 Monk Realist
 Morphling
-Mother of Runes
 Mountain
-Multani, Maro-Sorcerer
-Multani's Acolyte
-Multani's Presence
+Mana Leak
+Marsh Casualties
 Nantuko Shade
 Nature's Lore
-No Mercy
-No Rest for the Wicked
 Noetic Scales
+No Rest for the Wicked
 Opal Acrolith
 Opal Archangel
-Opal Avenger
 Opal Caryatid
-Opal Champion
 Opal Gargoyle
 Opal Titan
-Opportunity
 Oppression
 Order of the Sacred Bell
 Order of Yawgmoth
-Ostracize
 Outmaneuver
 Pacifism
-Palinchron
 Parasitic Bond
-Parch
 Pariah
 Path of Peace
-Peace and Quiet
 Pegasus Charger
 Pendrell Drake
 Pendrell Flux
@@ -311,21 +511,12 @@ Peregrine Drake
 Persecute
 Pestilence
 Phyrexian Arena
-Phyrexian Broodlings
-Phyrexian Colossus
-Phyrexian Debaser
-Phyrexian Defiler
-Phyrexian Denouncer
 Phyrexian Ghoul
-Phyrexian Plaguelord
 Phyrexian Processor
-Phyrexian Reclamation
 Phyrexian Tower
 Pit Trap
-Plague Beetle
 Plains
 Planar Birth
-Planar Collapse
 Planar Void
 Polluted Mire
 Pouncing Jaguar
@@ -335,45 +526,26 @@ Presence of the Master
 Priest of Gix
 Priest of Titania
 Purging Scythe
-Purify
-Pygmy Pyrosaur
-Pyromancy
-Quicksilver Amulet
-Rack and Ruin
-Radiant, Archangel
-Radiant's Dragoons
-Radiant's Judgment
-Raging Ravine
 Rain of Filth
 Rain of Salt
 Rampant Growth
 Rancor
-Rank and File
-Raven Familiar
-Ravenous Baloth
 Ravenous Skirge
 Raze
 Razorverge Thicket
-Rebuild
 Recantation
 Reclusive Wight
-Recoil
 Redeem
 Reflexes
 Rejuvenate
 Remembrance
 Remote Isle
-Repopulate
 Reprocess
 Rescind
 Retaliation
 Retromancer
 Rewind
-Ring of Gix
-Rivalry
-Rootbound Crag
 Rumbling Crescendo
-Rumbling Slum
 Rune of Protection: Artifacts
 Rune of Protection: Black
 Rune of Protection: Blue
@@ -382,6 +554,11 @@ Rune of Protection: Lands
 Rune of Protection: Red
 Rune of Protection: White
 Rupture Spire
+Raging Ravine
+Ravenous Baloth
+Recoil
+Rootbound Crag
+Rumbling Slum
 Sanctum Custodian
 Sanctum Guardian
 Sandbar Merfolk
@@ -391,148 +568,110 @@ Savannah Lions
 Scald
 Scoria Wurm
 Scrap
-Scrapheap
-Seal of Fire
 Seasoned Marshal
-Second Chance
 Serra Avatar
-Serra Zealot
 Serra's Embrace
 Serra's Liturgy
 Serra's Sanctum
+Serra Zealot
 Shimmering Barrier
-Shivan Dragon
 Shivan Gorge
 Shivan Hellkite
-Shivan Phoenix
 Shivan Raptor
 Shiv's Embrace
-Shock
 Show and Tell
 Shower of Sparks
-Sick and Tired
 Sicken
-Sift
-Sign in Blood
 Silent Attendant
-Silk Net
-Simian Grunts
 Skirge Familiar
 Skittering Skirge
 Sleeper Agent
-Sleeper's Guile
 Slippery Karst
-Slow Motion
-Sluggishness
 Smokestack
 Smoldering Crater
-Snap
 Sneak Attack
 Somnophore
 Songstitcher
 Soul Sculptor
-Spawning Pool
 Spined Fluke
 Spire Owl
 Sporogenesis
 Spreading Algae
 Steam Blast
-Steam Vents
 Stern Proctor
 Stirring Wildwood
 Stroke of Genius
 Student of Warfare
-Stupor
-Subversion
 Sunder
 Sunpetal Grove
-Sustainer of the Realm
-Swamp
-Swat
 Sword of Body and Mind
-Sword of Feast and Famine
 Sword of Fire and Ice
+Seal of Fire
+Shivan Dragon
+Shock
+Sift
+Sign in Blood
+Steam Vents
+Stupor
+Swamp
+Sword of Feast and Famine
 Swords to Plowshares
 Symbiosis
 Tainted Aether
-Tethered Skirge
-Thornwind Faeries
-Thran Lens
 Thran Quarry
 Thran Turbine
-Thran War Machine
-Thran Weaponry
-Thrun, the Last Troll
 Thundering Giant
-Ticking Gnomes
 Time Spiral
-Time Warp
-Tinker
 Titania's Boon
 Titania's Chosen
 Tolarian Academy
 Tolarian Winds
 Torch Song
-Tragic Poet
 Trained Armodon
-Treacherous Link
-Treefolk Mystic
+Thrun, the Last Troll
+Time Warp
 Treefolk Seedlings
 Treetop Rangers
-Treetop Village
 Trip Noose
 Troll Ascetic
 Turnabout
 Umbilicus
 Undermine
-Unearth
 Unnerve
 Unworthy Dead
 Urza's Armor
-Urza's Blueprints
-Vampire Nighthawk
 Vampiric Embrace
 Vebulid
-Veil of Birds
 Veiled Apparition
 Veiled Crocodile
 Veiled Sentry
 Veiled Serpent
+Veil of Birds
 Venomous Fangs
-Verdant Force
 Vernal Bloom
-Viashino Cutthroat
-Viashino Heretic
 Viashino Outrider
-Viashino Runner
-Viashino Sandscout
 Viashino Sandswimmer
-Viashino Weaponsmith
 Victimize
-Vigilant Drake
-Vigor
 Vile Requiem
+Voice of Grace
+Voice of Law
+Volcanic Hammer
+Vampire Nighthawk
+Verdant Force
+Vigor
 Vines of Vastwood
 Vivid Crag
 Vivid Creek
-Voice of Grace
-Voice of Law
 Volcanic Fallout
-Volcanic Hammer
 Voltaic Key
 Vug Lizard
-Walking Sponge
 Wall of Blossoms
-Wall of Denial
 Wall of Junk
 Wall of Reverence
 War Dance
 Waylay
-Weatherseed Elf
-Weatherseed Faeries
 Weatherseed Treefolk
 Western Paladin
-Wheel of Torture
 Whetstone
 Whirlwind
 White Knight
@@ -546,6 +685,7 @@ Wizard Mentor
 Worn Powerstone
 Worship
 Wurmcoil Engine
+Wall of Denial
 Yavimaya Granger
 Yavimaya Scion
 Yavimaya Wurm

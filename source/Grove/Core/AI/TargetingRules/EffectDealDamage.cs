@@ -42,7 +42,7 @@
       // 0-1 knapsack optimization problem
 
       var targets = p.Candidates<Card>(ControlledBy.Opponent)
-        .Where(x => x.Is().Creature && x.Life <= amount)
+        .Where(x => x.Is().Creature && x.Life > 0 &&  x.Life <= amount)        
         .Select(x => new KnapsackItem<ITarget>(
           item: x,
           weight: x.Life,
@@ -51,6 +51,7 @@
 
       targets.AddRange(
         p.Candidates<Player>(ControlledBy.Opponent)
+        .Where(x => x.Life > 0)
         .SelectMany(x =>
           {
             var items = new List<KnapsackItem<ITarget>>();            

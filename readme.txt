@@ -1,9 +1,10 @@
-# MAGICGROVE v 2.0
+# MAGICGROVE
 
-Magicgrove is a 2 player fantasy card game. You and computer are each given a
-deck of cards which you use as best as you can to win the game. The most common
-way to win is to reduce your opponent life to 0. There are currently 550 unique
-cards available.
+Magicgrove is a computer implementation of a trading card game: Magic: The
+Gathering. The goal of the project is to implement ai algorithms which can play
+the game at the same level as a casual human player. Currently there are 690
+unique cards implemented, mostly from Urza's block (593 out of 616 cards are
+available).
 
 ## Requirements & Installation
 
@@ -14,46 +15,16 @@ game  can run on single core machines a multiple core machine is recommended.
 To install, unzip to a folder of your choice. Run grove.exe to play the
 game.
 
-## Game types
+## Gameplay and features
 
-### Single match
+You can play either
 
-You select a preconstructed deck for you and your opponent. Whoever wins 2 games
-first wins the match.
+ * a single match,
+ * a sealed tournament or
+ * a draft tournament.
 
-### Single random match
-
-You and your opponent are given 2 random decks with same ratings. Whoever wins 2
-games first wins the match.
-
-### Sealed tournament
-
-Every player is given one starter pack and three booster packs. From that pool
-of cards, and adding in as many basic land as desired, each player must build a
-deck of at least 40 cards. Any opened cards not put in the main deck count as
-part of the sideboard. In sealed deck, the skill is making the best out of what
-you're given.
-
-### Booster draft
-
-Players are seated randomly at the table. Each player is given 3 booster  packs.
-Every player opens their pack and choose one card from it, then  passes the rest
-of the pack to the player on his left. Once everyone has  passed their packs,
-pick up the next pack (located on your right), pick the  best card for your deck
-from that pack and put it in your pile, and again  pass it to the neighbor on
-your left. This process continues until all the  cards from the pack have been
-picked. Then each player opens his or her  next pack, picks a card, and passes
-the pack to the right (Packs go left,  right, left.). Once you have 45 cards in
-your pile, it is time to build your deck.  Booster Draft rules allow you to add
-as much basic land as you want to your  deck, and require that the deck be at
-least 40 cards.
-
-## Gameplay
-
-### Saving & Loading
-
-Every game can be saved via the in game menu (alt-q). Games can be loaded via
-the Load saved game screen.
+You can save the game at any time by pressing alt-q and choosing Save game
+menu option.
 
 ### Deck editor
 
@@ -62,12 +33,12 @@ can be filtered by mana color or by searching for specific text in the cards.
 Card names are searched by default. To search other parts of the card specify
 field name followed by a colon. The following field names are supported:
 
- - name
- - text
- - flavor
- - type
- - power
- - toughness
+ * name
+ * text
+ * flavor
+ * type
+ * power
+ * toughness
 
 Conditions can be joined by using AND or OR (note the uppercase).
 For example:
@@ -94,29 +65,30 @@ Declare blockers (active & passive turns).
 You can change defaults by clicking on corresponding step's button.
 A button has 4 states:
 
-Transparent - priority is automatically passed on active & passive turns.
-Green       - priority is automatically passed on passive turns.
-Yellow      - priority is automatically passed on active turn.
-Red         - priority is never automatically passed.
+ * Transparent - priority is automatically passed on active & passive turns.
+ * Green       - priority is automatically passed on passive turns.
+ * Yellow      - priority is automatically passed on active turn.
+ * Red         - priority is never automatically passed.
 
 When an opponent plays a spell auto priority passing is disabled.
 
 ### Shortcuts
 
-Spacebar    - moves to next step (passes priority)
-Alt+q       - displays in game menu screen.
-F11         - toggle between window and full screen mode
+ * Spacebar    - moves to next step (passes priority)
+ * Enter       - confirms attackers or blockers selection
+ * Alt+q       - displays in game menu screen.
+ * F11         - toggle between window and full screen mode
 
 ## Themes
 
 Game visuals can be tweaked by modifying the contents of the media folder.
 
-If you wish you can add your own card pictures to the /media/cards folder.
-Picture size has to be 410x326 pixels, their names must match corresponding
-card names. Basic lands have 4 versions eg. forest1.jpg, ... , forest4.jpg.
+If you wish you can add your own card pictures to the /media/cards folder or to
+the cards.zip file. Picture size has to be 410x326 pixels, their names must
+match corresponding card names. Basic lands have 15 versions eg. forest1.jpg,
+... , forest15.jpg.
 
-If you wish you can add your custom avatars to the media/avatars folder. Each
-player is given a random avatar from this folder.
+If you wish you can add your custom avatars to the media/avatars folder.
 
 Additional battlefield backgrounds can be added to /media/images folder.
 The filename must start with the word 'battlefield' e.g 'battlefield-1.jpg',
@@ -126,14 +98,34 @@ is chosen amongst all available.
 Other images can also be replaced, as long as they have the same size as the
 originals.
 
-## Adding new cards
+## How AI is implemented
 
-Currently new cards can only be added by modifying the program source code.
-Check project home page for tutorials: http://code.google.com/p/magicgrove/.
+Magic: The Gathering is a game with hidden state. On every move, computer
+simulates future moves and builds the game tree. Hidden information is not
+available during simulation (computer is not cheating). Every leaf node is
+scored and the best move is chosen according to min/max rule. Because the
+unpruned game tree would take too long to evaluate, heuristics are used to
+choose if the branch is expanded or not. Ai uses special rules for:
 
-## Source code
+ * target selection,
+ * timing of spells and abilities,
+ * X cost calculation,
+ * combat simulation,
+ * mana payments,
+ * repeated activations of abilities,
+ * special card decisions
 
-The source code is available at http://code.google.com/p/magicgrove/
+The game currently uses 60 steps look ahead, the search time rarely exceeds 5
+seconds (on quad core machine).
+
+### Deck generation
+Limited decks are automatically generated from given starter and booster packs.
+Computer first creates multiple decks for various color combinations, and then
+chooses the one which wins a simulated tournament.
+
+### Draft
+Drafting AI is based on drafting strategies described here:
+http://archive.wizards.com/Magic/magazine/article.aspx?x=mtgcom/academy/39.
 
 ## License
 
@@ -141,14 +133,18 @@ The project source code is licensed under GPL-3 License.
 
 ## Credits
 
-The project uses the following libraries with corresponding licenses:
+Magic: The Gathering was created by Richard Garfield and is published and
+developed by Wizards of the Coast.
 
-- log4net library (Apache Software Foundation)
-- caliburn.micro library (Blue Spire Consulting)
-- castle.windsor (Castle Project)
-- xunit
-- psake (by James Kovacs)
-- costura (http://code.google.com/p/costura/)
+This project uses the following open source libraries:
+
+* log4net library (Apache Software Foundation)
+* caliburn.micro library (Blue Spire Consulting)
+* castle.windsor (Castle Project)
+* xunit
+* psake (by James Kovacs)
+* costura (http://code.google.com/p/costura/)
+* lucene.net (http://lucenenet.apache.org/)
 
 In game menu quote: 'Is it a mistake to think you can solve any major problems
 just with potatoes?' is by Douglas Adams.
