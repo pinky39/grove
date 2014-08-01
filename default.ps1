@@ -57,20 +57,23 @@ task DoReleaseTest -depends Test {
 
 task DoRelease -depends Compile {
 
-	cp "$build_dir\grove.exe" $release_dir
+  $zip = "$tools_dir\\7za.exe"
+
+  cp "$build_dir\grove.exe" $release_dir
   cp "$base_dir\readme.txt" $release_dir
   cp "$base_dir\license.txt" $release_dir
 	cp "$base_dir\release notes.txt" $release_dir
 	cp "$base_dir\cards.txt" $release_dir
-	cp -recurse "$media_dir" $release_dir
 
-	$old = pwd
-	cd $release_dir
+  cp -recurse "$media_dir\decks" "$release_dir\media\decks"
+  new-item "$release_dir\media\logs" -itemType directory
+  new-item "$release_dir\media\saved" -itemType directory
+  cp -recurse "$media_dir\sets" "$release_dir\media\sets"
+  cp "$media_dir\*.*" "$release_dir\media"
 
-	& $tools_dir\zip.exe -9 -A -R $release_dir\magicgrove-$humanReadableversion.zip *
+  & $zip a "$release_dir\media\avatars.zip" "$media_dir\avatars\*"
+  & $zip a "$release_dir\media\tournament.zip" "$media_dir\tournament\*"
+  & $zip a "$release_dir\media\images.zip" "$media_dir\images\*"
 
-	if ($lastExitCode -ne 0) {
-        throw "Error: Failed to execute ZIP command"
-    }
-	cd $old
+	& $zip a "$release_dir\magicgrove-$humanReadableversion.zip" "$release_dir\*"
 }
