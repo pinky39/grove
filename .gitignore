@@ -10,3 +10,4 @@ build/
 *.sln.cache
 _ReSharper.*/
 *.user
+/.project
