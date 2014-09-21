@@ -209,6 +209,7 @@
     <Compile Include="CardsLibrary\MultanisDecree.cs" />
     <Compile Include="CardsLibrary\Naturalize.cs" />
     <Compile Include="CardsLibrary\Negate.cs" />
+    <Compile Include="CardsLibrary\NightfireGiant.cs" />
     <Compile Include="CardsLibrary\Opalescence.cs" />
     <Compile Include="CardsLibrary\Opposition.cs" />
     <Compile Include="CardsLibrary\OreskosSwiftclaw.cs" />
@@ -366,6 +367,7 @@
     <Compile Include="Core\Events\SpellPutOnStackEvent.cs" />
     <Compile Include="Core\GameParameters.cs" />
     <Compile Include="Core\Modifiers\IncreasePowerToughnessEqualToAttachedCounterCount.cs" />
+    <Compile Include="Core\Modifiers\ModifyPowerToughnessIfPlayerControls.cs" />
     <Compile Include="Core\SaveLoad\RenameBinder.cs" />
     <Compile Include="CardsLibrary\AboutFace.cs" />
     <Compile Include="CardsLibrary\AcademyRector.cs" />
