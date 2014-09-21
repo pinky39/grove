@@ -433,6 +433,7 @@
     <Compile Include="Cards\StaffOfTheDeathMagus.cs" />
     <Compile Include="Cards\StaffOfTheSunMagus.cs" />
     <Compile Include="Cards\SteamVents.cs" />
+    <Compile Include="Cards\StormtideLeviathan.cs" />
     <Compile Include="Cards\StrokeOfGenius.cs" />
     <Compile Include="Cards\StudentOfWarfare.cs" />
     <Compile Include="Cards\Subversion.cs" />

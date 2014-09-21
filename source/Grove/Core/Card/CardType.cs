@@ -213,5 +213,17 @@
         .Replace("Island", basicLandType)
         .Replace("Swamp", basicLandType);
     }
+
+    public CardType AddBasicLandType(string basicLanfType)
+    {
+        var type = ToString();
+
+        if (type.Contains(basicLanfType))
+            return type;
+
+        type += " " + basicLanfType;
+
+        return type;
+    }
   }
 }
