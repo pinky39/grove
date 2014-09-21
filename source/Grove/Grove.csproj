@@ -161,6 +161,7 @@
     <Compile Include="CardsLibrary\FendOff.cs" />
     <Compile Include="CardsLibrary\Festergloom.cs" />
     <Compile Include="CardsLibrary\FieldSurgeon.cs" />
+    <Compile Include="CardsLibrary\FirstResponse.cs" />
     <Compile Include="CardsLibrary\FlameJet.cs" />
     <Compile Include="CardsLibrary\FleshToDust.cs" />
     <Compile Include="CardsLibrary\Flicker.cs" />
@@ -177,6 +178,7 @@
     <Compile Include="CardsLibrary\HornetQueen.cs" />
     <Compile Include="CardsLibrary\HulkingOgre.cs" />
     <Compile Include="CardsLibrary\IlluminatedWings.cs" />
+    <Compile Include="CardsLibrary\IllusoryAngel.cs" />
     <Compile Include="CardsLibrary\Impatience.cs" />
     <Compile Include="CardsLibrary\Incendiary.cs" />
     <Compile Include="CardsLibrary\IntoTheVoid.cs" />

@@ -1,185 +1,192 @@
 ﻿namespace Grove
 {
-  using System;
-  using System.Collections.Generic;
-  using System.Linq;
-  using Costs;
-  using Effects;
-  using Events;
-  using Grove.AI;
-  using Grove.AI.TargetingRules;
-  using Grove.Infrastructure;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Costs;
+    using Effects;
+    using Events;
+    using Grove.AI;
+    using Grove.AI.TargetingRules;
+    using Grove.Infrastructure;
 
-  public class CastRule : GameObject, IEffectSource
-  {
-    private readonly Parameters _p;
-    private Card _card;
-
-    private CastRule() { }
-
-    public CastRule(Parameters p) { _p = p; }
-    public bool HasXInCost { get { return _p.Cost.HasX; } }
-    public Card OwningCard { get { return _card; } }
-    public Card SourceCard { get { return _card; } }
-
-    public void EffectCountered(SpellCounterReason reason)
+    public class CastRule : GameObject, IEffectSource
     {
-      _card.PutToGraveyard();
+        private readonly Parameters _p;
+        private Card _card;
 
-      Publish(new SpellCounteredEvent(_card, reason));
-    }
+        private CastRule() { }
 
-    public void EffectPushedOnStack()
-    {
-      _card.ChangeZone(
-        destination: Stack,
-        add: delegate { });
-    }
+        public CastRule(Parameters p) { _p = p; }
+        public bool HasXInCost { get { return _p.Cost.HasX; } }
+        public Card OwningCard { get { return _card; } }
+        public Card SourceCard { get { return _card; } }
 
-    public void EffectResolved()
-    {
-      var putToZone = _p.PutToZoneAfterResolve ?? PutToZoneAfterResolve;
-      putToZone(_card);
-    }
-
-    public bool IsTargetStillValid(ITarget target, object triggerMessage) { return _p.TargetSelector.IsValidEffectTarget(target, triggerMessage); }
-
-    public bool ValidateTargetDependencies(List<ITarget> costTargets, List<ITarget> effectTargets)
-    {
-      return _p.TargetSelector.ValidateTargetDependencies(new ValidateTargetDependenciesParam
+        public void EffectCountered(SpellCounterReason reason)
         {
-          Cost = costTargets,
-          Effect = effectTargets
-        });
-    }
+            _card.PutToGraveyard();
 
-    public int CalculateHash(HashCalculator calc) { return 0; }
+            Publish(new SpellCounteredEvent(_card, reason));
+        }
 
-    private void PutToZoneAfterResolve(Card card)
-    {
-      if (card.Is().Sorcery || card.Is().Instant)
-      {
-        card.PutToGraveyard();
-        return;
-      }
-
-      if (card.Is().Aura)
-      {
-        var attachedCardController = card.GetControllerOfACardThisIsAttachedTo();
-        attachedCardController.PutCardToBattlefield(card);
-        return;
-      }
-
-      card.PutToBattlefield();
-    }
-
-    public void Initialize(Card card, Game game)
-    {
-      Game = game;
-      _card = card;
-
-      _p.TargetSelector.Initialize(card, game);
-
-      foreach (var aiInstruction in _p.Rules)
-      {
-        aiInstruction.Initialize(game);
-      }
-
-      _p.Cost.Initialize(card, game, _p.TargetSelector.Cost.FirstOrDefault());
-    }
-
-    private bool CanCastCardType()
-    {
-      if (_card.Is().Instant || _card.Has().Flash)
-        return true;
-
-      if (!_card.Controller.IsActive || !Turn.Step.IsMain() || !Stack.IsEmpty)
-        return false;
-
-      return !_card.Is().Land || _card.Controller.CanPlayLands;
-    }
-
-    public bool CanCast(out ActivationPrerequisites prerequisites)
-    {
-      prerequisites = null;
-
-      if (CanCastCardType() == false)
-      {
-        return false;
-      }
-
-      var result = _p.Cost.CanPay();
-
-      prerequisites = new ActivationPrerequisites
+        public void EffectPushedOnStack()
         {
-          CanPay = result.CanPay(),
-          Description = _p.Text,
-          Selector = _p.TargetSelector,
-          MaxX = result.MaxX(),
-          DistributeAmount = _p.DistributeAmount,
-          Card = _card,
-          Rules = _p.Rules
-        };
+            _card.ChangeZone(
+              destination: Stack,
+              add: delegate { });
+        }
 
-      return true;
-    }
-
-    public void Cast(ActivationParameters p)
-    {
-      var parameters = new EffectParameters
+        public void EffectResolved()
         {
-          Source = this,
-          Targets = p.Targets,
-          X = p.X
-        };
+            var putToZone = _p.PutToZoneAfterResolve ?? PutToZoneAfterResolve;
+            putToZone(_card);
+        }
 
-      var effect = _p.Effect().Initialize(parameters, Game);
+        public bool IsTargetStillValid(ITarget target, object triggerMessage) { return _p.TargetSelector.IsValidEffectTarget(target, triggerMessage); }
 
-      if (p.PayCost)
-      {
-        _p.Cost.Pay(p.Targets, p.X);
-      }
+        public bool ValidateTargetDependencies(List<ITarget> costTargets, List<ITarget> effectTargets)
+        {
+            return _p.TargetSelector.ValidateTargetDependencies(new ValidateTargetDependenciesParam
+            {
+                Cost = costTargets,
+                Effect = effectTargets
+            });
+        }
 
-      if (p.SkipStack)
-      {
-        effect.QuickResolve();
-        return;
-      }
+        public int CalculateHash(HashCalculator calc) { return 0; }
 
-      if (_card.Is().Land)
-      {
-        _card.Controller.LandsPlayedCount++;
+        private void PutToZoneAfterResolve(Card card)
+        {
+            if (card.Is().Sorcery || card.Is().Instant)
+            {
+                card.PutToGraveyard();
+                return;
+            }
 
-        effect.QuickResolve();
-        Publish(new LandPlayedEvent(effect.Source.OwningCard));
+            if (card.Is().Aura)
+            {
+                var attachedCardController = card.GetControllerOfACardThisIsAttachedTo();
+                attachedCardController.PutCardToBattlefield(card);
+                return;
+            }
 
-        return;
-      }
-      
-      Publish(new SpellCastEvent(_card, p.Targets));
-            
-      
-      Stack.Push(effect);      
-      Publish(new SpellPutOnStackEvent(_card, p.Targets));
+            card.PutToBattlefield();
+        }
+
+        public void Initialize(Card card, Game game)
+        {
+            Game = game;
+            _card = card;
+
+            _p.TargetSelector.Initialize(card, game);
+
+            foreach (var aiInstruction in _p.Rules)
+            {
+                aiInstruction.Initialize(game);
+            }
+
+            _p.Cost.Initialize(card, game, _p.TargetSelector.Cost.FirstOrDefault());
+        }
+
+        private bool CanCastCardType()
+        {
+            if (_card.Is().Instant || _card.Has().Flash)
+                return true;
+
+            if (!_card.Controller.IsActive || !Turn.Step.IsMain() || !Stack.IsEmpty)
+                return false;
+
+            return !_card.Is().Land || _card.Controller.CanPlayLands;
+        }
+
+        public bool CanCast(out ActivationPrerequisites prerequisites)
+        {
+            prerequisites = null;
+
+            if (CanCastCardType() == false)
+            {
+                return false;
+            }
+
+            if (_p.Condition(_card.Controller, Game) == false)
+            {
+                return false;
+            }
+
+            var result = _p.Cost.CanPay();
+
+            prerequisites = new ActivationPrerequisites
+            {
+                CanPay = result.CanPay(),
+                Description = _p.Text,
+                Selector = _p.TargetSelector,
+                MaxX = result.MaxX(),
+                DistributeAmount = _p.DistributeAmount,
+                Card = _card,
+                Rules = _p.Rules
+            };
+
+            return true;
+        }
+
+        public void Cast(ActivationParameters p)
+        {
+            var parameters = new EffectParameters
+            {
+                Source = this,
+                Targets = p.Targets,
+                X = p.X
+            };
+
+            var effect = _p.Effect().Initialize(parameters, Game);
+
+            if (p.PayCost)
+            {
+                _p.Cost.Pay(p.Targets, p.X);
+            }
+
+            if (p.SkipStack)
+            {
+                effect.QuickResolve();
+                return;
+            }
+
+            if (_card.Is().Land)
+            {
+                _card.Controller.LandsPlayedCount++;
+
+                effect.QuickResolve();
+                Publish(new LandPlayedEvent(effect.Source.OwningCard));
+
+                return;
+            }
+
+            Publish(new SpellCastEvent(_card, p.Targets));
+
+
+            Stack.Push(effect);
+            Publish(new SpellPutOnStackEvent(_card, p.Targets));
+        }
+
+        public bool CanTarget(ITarget target) { return _p.TargetSelector.Effect[0].IsTargetValid(target, _card); }
+
+        public bool IsGoodTarget(ITarget target, Player controller)
+        {
+            return TargetingHelper.IsGoodTargetForSpell(
+              target, OwningCard, controller, _p.TargetSelector,
+              _p.Rules.Where(r => r is TargetingRule).Cast<TargetingRule>());
+        }
+
+        public IManaAmount GetManaCost() { return _p.Cost.GetManaCost(); }
+        public override string ToString() { return _card.ToString(); }
+
+        public class Parameters : AbilityParameters
+        {
+            public Cost Cost;
+            public string KickerDescription = "Cast {0} with kicker.";
+            public Action<Card> PutToZoneAfterResolve;
+
+            public Func<Player, Game, bool> Condition = delegate { return true; };
+        }
     }
-
-    public bool CanTarget(ITarget target) { return _p.TargetSelector.Effect[0].IsTargetValid(target, _card); }
-
-    public bool IsGoodTarget(ITarget target, Player controller)
-    {
-      return TargetingHelper.IsGoodTargetForSpell(
-        target, OwningCard, controller, _p.TargetSelector,
-        _p.Rules.Where(r => r is TargetingRule).Cast<TargetingRule>());
-    }
-
-    public IManaAmount GetManaCost() { return _p.Cost.GetManaCost(); }
-    public override string ToString() { return _card.ToString(); }
-
-    public class Parameters : AbilityParameters
-    {
-      public Cost Cost;
-      public string KickerDescription = "Cast {0} with kicker.";
-      public Action<Card> PutToZoneAfterResolve;
-    }
-  }
 }

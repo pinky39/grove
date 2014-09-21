@@ -1,104 +1,120 @@
 ﻿namespace Grove
 {
-  using System.Linq;
-  using Grove.Events;
-  using Grove.Infrastructure;
+    using System.Linq;
+    using Grove.Events;
+    using Grove.Infrastructure;
 
-  [Copyable]
-  public class TurnEvents : GameObject, IReceive<AttackerJoinedCombatEvent>, IReceive<DamageDealtEvent>,
-    IReceive<ZoneChangedEvent>, IReceive<BlockerJoinedCombatEvent>, IReceive<StepStartedEvent>,
-    IReceive<EffectPutOnStackEvent>, IReceive<SpellPutOnStackEvent>
-  {
-    private readonly TrackableList<Card> _attackers = new TrackableList<Card>();
-    private readonly TrackableList<Card> _blockers = new TrackableList<Card>();
-    private readonly TrackableList<ZoneChangedEvent> _changedZone = new TrackableList<ZoneChangedEvent>();
-    private readonly TrackableList<DamageDealtEvent> _damaged = new TrackableList<DamageDealtEvent>();
-    private readonly Trackable<bool> _hasAnythingBeenPlayedOrActivatedDuringThisStep = new Trackable<bool>();
-    private readonly Trackable<bool> _hasActivePlayerPlayedAnySpell = new Trackable<bool>();
-
-    public bool HasAnythingBeenPlayedOrActivatedDuringThisStep
+    [Copyable]
+    public class TurnEvents : GameObject, IReceive<AttackerJoinedCombatEvent>, IReceive<DamageDealtEvent>,
+      IReceive<ZoneChangedEvent>, IReceive<BlockerJoinedCombatEvent>, IReceive<StepStartedEvent>,
+      IReceive<EffectPutOnStackEvent>, IReceive<SpellPutOnStackEvent>, IReceive<LifeChangedEvent>
     {
-      get { return _hasAnythingBeenPlayedOrActivatedDuringThisStep.Value; }
-    }
+        private readonly TrackableList<Card> _attackers = new TrackableList<Card>();
+        private readonly TrackableList<Card> _blockers = new TrackableList<Card>();
 
-    public bool HasActivePlayerPlayedAnySpell
-    {
-      get { return _hasActivePlayerPlayedAnySpell.Value; }
-    }
+        private readonly TrackableList<ZoneChangedEvent> _changedZone = new TrackableList<ZoneChangedEvent>();
+        private readonly TrackableList<DamageDealtEvent> _damaged = new TrackableList<DamageDealtEvent>();
+        private readonly TrackableList<LifeChangedEvent> _lifeChanged = new TrackableList<LifeChangedEvent>();
 
-    public void Receive(AttackerJoinedCombatEvent message)
-    {
-      _attackers.Add(message.Attacker.Card);
-    }
+        private readonly Trackable<bool> _hasAnythingBeenPlayedOrActivatedDuringThisStep = new Trackable<bool>();
+        private readonly Trackable<bool> _hasActivePlayerPlayedAnySpell = new Trackable<bool>();
 
-    public void Receive(BlockerJoinedCombatEvent message)
-    {
-      _blockers.Add(message.Blocker.Card);
-    }
+        public bool HasAnythingBeenPlayedOrActivatedDuringThisStep
+        {
+            get { return _hasAnythingBeenPlayedOrActivatedDuringThisStep.Value; }
+        }
 
-    public void Receive(DamageDealtEvent message)
-    {
-      _damaged.Add(message);
-    }
+        public bool HasActivePlayerPlayedAnySpell
+        {
+            get { return _hasActivePlayerPlayedAnySpell.Value; }
+        }
 
-    public void Receive(EffectPutOnStackEvent message)
-    {
-      _hasAnythingBeenPlayedOrActivatedDuringThisStep.Value = true;
-    }
+        public void Receive(AttackerJoinedCombatEvent message)
+        {
+            _attackers.Add(message.Attacker.Card);
+        }
 
-    public void Receive(StepStartedEvent message)
-    {
-      _hasAnythingBeenPlayedOrActivatedDuringThisStep.Value = false;
-    }
+        public void Receive(BlockerJoinedCombatEvent message)
+        {
+            _blockers.Add(message.Blocker.Card);
+        }
 
-    public void Receive(ZoneChangedEvent message)
-    {
-      _changedZone.Add(message);
-    }
+        public void Receive(DamageDealtEvent message)
+        {
+            _damaged.Add(message);
+        }
 
-    public void Initialize(Game game)
-    {
-      Game = game;
+        public void Receive(LifeChangedEvent message)
+        {
+            _lifeChanged.Add(message);
+        }
 
-      _attackers.Initialize(ChangeTracker);
-      _blockers.Initialize(ChangeTracker);
-      _changedZone.Initialize(ChangeTracker);
-      _damaged.Initialize(ChangeTracker);
-      _hasAnythingBeenPlayedOrActivatedDuringThisStep.Initialize(ChangeTracker);
-      _hasActivePlayerPlayedAnySpell.Initialize(ChangeTracker);
-    }
+        public void Receive(EffectPutOnStackEvent message)
+        {
+            _hasAnythingBeenPlayedOrActivatedDuringThisStep.Value = true;
+        }
 
-    public bool HasAttacked(Card card)
-    {
-      return _attackers.Contains(card);
-    }
+        public void Receive(StepStartedEvent message)
+        {
+            _hasAnythingBeenPlayedOrActivatedDuringThisStep.Value = false;
+        }
 
-    public bool HasBlocked(Card card)
-    {
-      return _blockers.Contains(card);
-    }
+        public void Receive(ZoneChangedEvent message)
+        {
+            _changedZone.Add(message);
+        }
 
-    public bool HasBeenDamaged(object receiver)
-    {
-      return _damaged.Any(x => x.Receiver == receiver);
-    }
+        public void Receive(SpellPutOnStackEvent message)
+        {
+            if (message.Controller.IsActive)
+            {
+                _hasActivePlayerPlayedAnySpell.Value = true;
+            }
+        }
 
-    public bool HasBeenDamagedBy(object receiver, Card damageSource)
-    {
-      return _damaged.Any(x => x.Receiver == receiver && x.Damage.Source == damageSource);
-    }
+        public void Initialize(Game game)
+        {
+            Game = game;
 
-    public bool HasChangedZone(Card card, Zone from, Zone to)
-    {
-      return _changedZone.Any(x => x.Card == card && x.From == from && x.To == to);
-    }
+            _attackers.Initialize(ChangeTracker);
+            _blockers.Initialize(ChangeTracker);
 
-    public void Receive(SpellPutOnStackEvent message)
-    {
-      if (message.Controller.IsActive)
-      {
-        _hasActivePlayerPlayedAnySpell.Value = true;
-      }
+            _changedZone.Initialize(ChangeTracker);
+            _damaged.Initialize(ChangeTracker);
+            _lifeChanged.Initialize(ChangeTracker);
+
+            _hasAnythingBeenPlayedOrActivatedDuringThisStep.Initialize(ChangeTracker);
+            _hasActivePlayerPlayedAnySpell.Initialize(ChangeTracker);
+        }
+
+        public bool HasAttacked(Card card)
+        {
+            return _attackers.Contains(card);
+        }
+
+        public bool HasBlocked(Card card)
+        {
+            return _blockers.Contains(card);
+        }
+
+        public bool HasBeenDamaged(object receiver)
+        {
+            return _damaged.Any(x => x.Receiver == receiver);
+        }
+
+        public bool HasBeenDamagedBy(object receiver, Card damageSource)
+        {
+            return _damaged.Any(x => x.Receiver == receiver && x.Damage.Source == damageSource);
+        }
+
+        public bool HasChangedZone(Card card, Zone from, Zone to)
+        {
+            return _changedZone.Any(x => x.Card == card && x.From == from && x.To == to);
+        }
+
+        public bool HasLostLifeFor(Player player)
+        {
+            return _lifeChanged.Any(x => x.Player == player && x.OldValue > x.NewValue);
+        }
     }
-  }
 }
