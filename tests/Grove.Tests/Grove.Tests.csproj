@@ -341,6 +341,7 @@
     <Compile Include="Cards\PhyrexianProcessor.cs" />
     <Compile Include="Cards\PhyrexianReclamation.cs" />
     <Compile Include="Cards\PhyrexianTower.cs" />
+    <Compile Include="Cards\Phytotitan.cs" />
     <Compile Include="Cards\PillarOfLight.cs" />
     <Compile Include="Cards\PitTrap.cs" />
     <Compile Include="Cards\PlagueDogs.cs" />
