@@ -276,7 +276,9 @@
     <Compile Include="CardsLibrary\VoiceOfDuty.cs" />
     <Compile Include="CardsLibrary\VoiceOfReason.cs" />
     <Compile Include="CardsLibrary\WakeofDestruction.cs" />
+    <Compile Include="CardsLibrary\WallOfEssence.cs" />
     <Compile Include="CardsLibrary\WallOfFire.cs" />
+    <Compile Include="CardsLibrary\WallOfLimbs.cs" />
     <Compile Include="CardsLibrary\WallOfMulch.cs" />
     <Compile Include="CardsLibrary\WelkinTern.cs" />
     <Compile Include="CardsLibrary\WitchsFamiliar.cs" />

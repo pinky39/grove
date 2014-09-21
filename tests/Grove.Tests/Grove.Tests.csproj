@@ -489,7 +489,9 @@
     <Compile Include="Cards\WakeofDestruction.cs" />
     <Compile Include="Cards\WalkingSponge.cs" />
     <Compile Include="Cards\WallOfDenial.cs" />
+    <Compile Include="Cards\WallOfEssence.cs" />
     <Compile Include="Cards\WallOfJunk.cs" />
+    <Compile Include="Cards\WallOfLimbs.cs" />
     <Compile Include="Cards\WallOfReverence.cs" />
     <Compile Include="Cards\WarDance.cs" />
     <Compile Include="Cards\WayLay.cs" />

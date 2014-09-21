@@ -1,19 +1,33 @@
 ﻿namespace Grove.Effects
 {
-  public class TargetPlayerLoosesLife : Effect
-  {
-    private readonly int _amount;
+    using System.Linq;
 
-    private TargetPlayerLoosesLife() {}
-
-    public TargetPlayerLoosesLife(int amount)
+    public class TargetPlayerLoosesLife : Effect
     {
-      _amount = amount;
-    }
+        private readonly DynParam<int> _amount;
 
-    protected override void ResolveEffect()
-    {
-      Target.Player().Life -= _amount;
+        private TargetPlayerLoosesLife() { }
+
+        public TargetPlayerLoosesLife(DynParam<int> amount)
+        {
+            _amount = amount;
+
+            RegisterDynamicParameters(amount);
+        }
+
+        public override int CalculatePlayerDamage(Player player)
+        {
+            return Targets.Effect.Any(x => x == player) ? _amount.Value : 0;
+        }
+
+        public override int CalculateCreatureDamage(Card creature)
+        {
+            return 0;
+        }
+
+        protected override void ResolveEffect()
+        {
+            Target.Player().Life -= _amount.Value;
+        }
     }
-  }
 }
