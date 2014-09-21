@@ -299,7 +299,7 @@
       return new Blocker(blocker, attacker, Game);
     }
 
-    private Attacker FindAttacker(Card cardAttacker)
+    public Attacker FindAttacker(Card cardAttacker)
     {
       return _attackers.FirstOrDefault(a => a.Card == cardAttacker);
     }

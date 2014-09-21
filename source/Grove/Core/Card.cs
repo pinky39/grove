@@ -228,6 +228,19 @@
       get { return Combat.IsBlocker(this); }
     }
 
+    public bool BlockedBy(Card card)
+    {
+        var attacker = Combat.FindAttacker(this);
+        var blocker = Combat.FindBlocker(card);
+
+        if (blocker == null || attacker == null)
+        {
+            return false;
+        }
+
+        return blocker.Attacker == attacker;
+    }
+
     public bool IsTapped
     {
       get { return _isTapped.Value; }
