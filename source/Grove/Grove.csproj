@@ -155,6 +155,7 @@
     <Compile Include="CardsLibrary\ElvishPiper.cs" />
     <Compile Include="CardsLibrary\EmperorCrocodile.cs" />
     <Compile Include="CardsLibrary\Encroach.cs" />
+    <Compile Include="CardsLibrary\Encrust.cs" />
     <Compile Include="CardsLibrary\EnsoulArtifact.cs" />
     <Compile Include="CardsLibrary\Extruder.cs" />
     <Compile Include="CardsLibrary\FalseProphet.cs" />
