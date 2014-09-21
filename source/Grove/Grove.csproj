@@ -226,6 +226,7 @@
     <Compile Include="CardsLibrary\Replenish.cs" />
     <Compile Include="CardsLibrary\Rescue.cs" />
     <Compile Include="CardsLibrary\ResearchAssistant.cs" />
+    <Compile Include="CardsLibrary\ResoluteArchangel.cs" />
     <Compile Include="CardsLibrary\Restock.cs" />
     <Compile Include="CardsLibrary\RoaringPrimadox.cs" />
     <Compile Include="CardsLibrary\RofellosLlanowarEmissary.cs" />
@@ -353,6 +354,7 @@
     <Compile Include="Core\Effects\OpponentRevealsHand.cs" />
     <Compile Include="Core\Effects\ReturnCardsFromGraveyardToHandForEachRevealedCard.cs" />
     <Compile Include="Core\Effects\ReturnOwnerAndAttachedToHand.cs" />
+    <Compile Include="Core\Effects\YourLifeBecomesEqual.cs" />
     <Compile Include="Core\Events\CounterAddedEvent.cs" />
     <Compile Include="Core\Events\CounterRemovedEvent.cs" />
     <Compile Include="Core\Events\SpellPutOnStackEvent.cs" />
