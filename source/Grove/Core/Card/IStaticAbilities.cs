@@ -9,6 +9,7 @@
     bool Haste { get; }
     bool Hexproof { get; }
     bool Indestructible { get; }
+    bool Intimidate { get; }
     bool Lifelink { get; }
     bool Shroud { get; }
     bool Trample { get; }
@@ -26,6 +27,8 @@
     bool AssignsDamageAsThoughItWasntBlocked { get; }
     bool AnyEvadingAbility { get; }
     bool CanOnlyBeBlockedByCreaturesWithFlying { get; }
+    bool CanBlockOnlyCreaturesWithFlying { get; }
+    bool CannotBeBlockedByWalls { get; }
     bool CanAttackOnlyIfDefenderHasIslands { get; }
     bool UnblockableIfDedenderHasArtifacts { get; }
     bool UnblockableIfDedenderHasEnchantments { get; }

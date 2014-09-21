@@ -689,11 +689,20 @@
       if (Has().Flying && !card.Has().Flying && !card.Has().Reach)
         return false;
 
+      if (!Has().Flying && card.Has().CanBlockOnlyCreaturesWithFlying)
+          return false;
+
       if (Has().CanOnlyBeBlockedByCreaturesWithFlying && !card.Has().Flying)
         return false;
 
+      if (Has().CannotBeBlockedByWalls && card.Is().OfType("Wall"))
+          return false;
+
       if (Has().Fear && !card.HasColor(CardColor.Black) && !card.Is().Artifact)
         return false;
+
+      if (Has().Intimidate && !Colors.Any(card.HasColor) && !card.Is().Artifact)
+          return false;
 
       if (HasProtectionFrom(card))
         return false;

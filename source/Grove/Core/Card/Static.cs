@@ -32,6 +32,9 @@
     UnblockableIfDedenderHasEnchantments,
     Forestwalk,
     Lure,
-    Echo
+    Echo,
+    Intimidate,
+    CanBlockOnlyCreaturesWithFlying,
+    CannotBeBlockedByWalls,
   }
 }

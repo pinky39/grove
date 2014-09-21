@@ -122,6 +122,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CardsLibrary\AccursedSpirit.cs" />
     <Compile Include="CardsLibrary\BlastfireBolt.cs" />
     <Compile Include="CardsLibrary\BloodHost.cs" />
     <Compile Include="CardsLibrary\BrawlersPlate.cs" />
@@ -182,10 +183,12 @@
     <Compile Include="CardsLibrary\IridescentDrake.cs" />
     <Compile Include="CardsLibrary\IvySeer.cs" />
     <Compile Include="CardsLibrary\JasmineSeer.cs" />
+    <Compile Include="CardsLibrary\Juggernaut.cs" />
     <Compile Include="CardsLibrary\JunkDiver.cs" />
     <Compile Include="CardsLibrary\KapshoKitefins.cs" />
     <Compile Include="CardsLibrary\KeldonVandals.cs" />
     <Compile Include="CardsLibrary\KinsbaileSkirmisher.cs" />
+    <Compile Include="CardsLibrary\KrenkosEnforcer.cs" />
     <Compile Include="CardsLibrary\Landslide.cs" />
     <Compile Include="CardsLibrary\LightningStrike.cs" />
     <Compile Include="CardsLibrary\LurkingJackals.cs" />
@@ -273,6 +276,7 @@
     <Compile Include="CardsLibrary\WakeofDestruction.cs" />
     <Compile Include="CardsLibrary\WallOfFire.cs" />
     <Compile Include="CardsLibrary\WallOfMulch.cs" />
+    <Compile Include="CardsLibrary\WelkinTern.cs" />
     <Compile Include="CardsLibrary\WitchsFamiliar.cs" />
     <Compile Include="CardsLibrary\YavimayaEnchantress.cs" />
     <Compile Include="CardsLibrary\YavimayaHollow.cs" />

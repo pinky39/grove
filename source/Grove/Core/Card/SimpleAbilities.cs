@@ -189,9 +189,24 @@
       }
     }
 
+    public bool CanBlockOnlyCreaturesWithFlying
+    {
+        get { return Has(Static.CanBlockOnlyCreaturesWithFlying); }
+    }
+
     public bool CanOnlyBeBlockedByCreaturesWithFlying
     {
-      get { return Has(Static.CanOnlyBeBlockedByCreaturesWithFlying); }
+        get { return Has(Static.CanOnlyBeBlockedByCreaturesWithFlying); }
+    }
+
+    public bool CannotBeBlockedByWalls
+    {
+        get { return Has(Static.CannotBeBlockedByWalls); }
+    }
+
+    public bool Intimidate
+    {
+        get { return Has(Static.Intimidate); }
     }
 
     public bool Has(Static ability)
