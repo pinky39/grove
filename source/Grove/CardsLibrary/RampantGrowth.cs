@@ -18,7 +18,7 @@
           {
             p.Effect = () => new SearchLibraryPutToZone(
               zone: Zone.Battlefield,
-              afterPutToZone: c => c.Tap(),
+              afterPutToZone: (c, g) => c.Tap(),
               minCount: 0,
               maxCount: 1,
               validator: (e, c) => c.Is().BasicLand,

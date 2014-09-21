@@ -248,6 +248,7 @@
     <Compile Include="Cards\HeroOfBladeHold.cs" />
     <Compile Include="Cards\HiddenHerd.cs" />
     <Compile Include="Cards\HiddenPredators.cs" />
+    <Compile Include="Cards\HoardingDragon.cs" />
     <Compile Include="Cards\HopeAndGlory.cs" />
     <Compile Include="Cards\HoppingAutomaton.cs" />
     <Compile Include="Cards\HornetQueen.cs" />
