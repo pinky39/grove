@@ -123,6 +123,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CardsLibrary\AccursedSpirit.cs" />
+    <Compile Include="CardsLibrary\AjanisPridemate.cs" />
     <Compile Include="CardsLibrary\BlastfireBolt.cs" />
     <Compile Include="CardsLibrary\BloodHost.cs" />
     <Compile Include="CardsLibrary\BrawlersPlate.cs" />
@@ -1033,6 +1034,7 @@
     <Compile Include="Core\SaveLoad\SaveGameIndex.cs" />
     <Compile Include="Core\PlayModes\PregeneratedDecks.cs" />
     <Compile Include="Core\PlayModes\SealedDeckIndex.cs" />
+    <Compile Include="Core\Triggers\OnLifeChanged.cs" />
     <Compile Include="Infrastructure\ColorUtils.cs" />
     <Compile Include="Infrastructure\DictionaryEx.cs" />
     <Compile Include="Infrastructure\IReceive.cs" />

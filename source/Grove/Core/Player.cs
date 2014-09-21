@@ -136,16 +136,18 @@
 
     public int Life
     {
-      get { return _life.Value; }
-      set
-      {
-        _life.Value = value;
+        get { return _life.Value; }
+        set
+        {
+            int oldValue = _life.Value;
 
-        if (Life <= 0)
-          HasLost = true;
+            _life.Value = value;
 
-        Publish(new LifeChangedEvent(this));
-      }
+            if (Life <= 0)
+                HasLost = true;
+
+            Publish(new LifeChangedEvent(this, oldValue));
+        }
     }
 
     void IModifiable.RemoveModifier(IModifier modifier)

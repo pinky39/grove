@@ -90,6 +90,7 @@
     <Compile Include="Cards\AcademyResearchers.cs" />
     <Compile Include="Cards\Acridian.cs" />
     <Compile Include="Cards\AetherSting.cs" />
+    <Compile Include="Cards\AjanisPridemate.cs" />
     <Compile Include="Cards\Anaconda.cs" />
     <Compile Include="Cards\AngelicChorus.cs" />
     <Compile Include="Cards\AngelsTrumpet.cs" />
