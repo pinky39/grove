@@ -243,6 +243,7 @@
     <Compile Include="CardsLibrary\SacredArmory.cs" />
     <Compile Include="CardsLibrary\SanctifiedCharge.cs" />
     <Compile Include="CardsLibrary\Sanctimony.cs" />
+    <Compile Include="CardsLibrary\SatyrWayfinder.cs" />
     <Compile Include="CardsLibrary\ScentOfBrine.cs" />
     <Compile Include="CardsLibrary\ScentOfCinder.cs" />
     <Compile Include="CardsLibrary\ScentOfIvy.cs" />
@@ -362,6 +363,7 @@
     <Compile Include="Core\Effects\ExileTargetThenPutIntoPlayUnderOwnersControl.cs" />
     <Compile Include="Core\Effects\FlipACoinOpponentGainsControl.cs" />
     <Compile Include="Core\Effects\GainLifeForEachRevealedCard.cs" />
+    <Compile Include="Core\Effects\RevealTopCardsPutLandInHandOthersOnGraveyard.cs" />
     <Compile Include="Core\Effects\OpponentRevealsHand.cs" />
     <Compile Include="Core\Effects\PlayerLosesLife.cs" />
     <Compile Include="Core\Effects\ReturnCardsFromGraveyardToHandForEachRevealedCard.cs" />
