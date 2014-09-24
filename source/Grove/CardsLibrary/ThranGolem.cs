@@ -1,6 +1,7 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
+  using System.Linq;
   using Grove.Effects;
   using Grove.Events;
   using Grove.Modifiers;
@@ -26,7 +27,11 @@
         .Toughness(3)
         .TriggeredAbility(p =>
           {
-            p.Trigger(new OnAttachmentAttached(c => c.Is().Aura));
+            p.Trigger(new OnAttachmentAttached(c => c.Is().Aura)
+            {
+                Condition = (t, g) => t.OwningCard.Attachments.Count() == 1
+            });
+
             p.Effect = () =>
               {
                 return new ApplyModifiersToSelf(
