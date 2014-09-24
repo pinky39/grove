@@ -1,1 +1,26 @@
 This file is used to track the card implementation progress.
+
+- Add record & replay option for games (similar to feature from Age of Empires)
+
+- Add cards from the M15 set
+
+- Add new game mode. Maybe a quest mode (as in Forge) or a constructed tournament mode.
+
+- Add icons for static abilities (flying, trample, etc.). Content is to be free and not copyrighted.
+
+- New feature: Change the color of the P/T text, when a card has effects of increase/decrease/combat damage. 
+Possible colors: green for +/+, purple for -/-, and red for combat damages. (see DotP)
+
+- New feature: sort lands by type on the battlefield automatically
+
+- New feature: show cards in Exile zones
+
+- Add a set filter by the card sets into the deck editor mode
+
+- Implement Convoke
+
+- Fix cards: Mercurial Pretender, Cone of Flame, Indulgent Tormentor
+
+- Create new project to delivery the copyrighted content into MagicGrove (fonts, card frames, mana symbols)
+
+- Refactoring: replace the groups effects (e.g TargetPlayerGainsLife, TargetPlayerLoosesLife, YouGainLife, YouLooseLife) with one effect
