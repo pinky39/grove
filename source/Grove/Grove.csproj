@@ -250,6 +250,7 @@
     <Compile Include="CardsLibrary\ScentOfIvy.cs" />
     <Compile Include="CardsLibrary\ScentOfJasmine.cs" />
     <Compile Include="CardsLibrary\Scour.cs" />
+    <Compile Include="CardsLibrary\ScrapyardMongrel.cs" />
     <Compile Include="CardsLibrary\SelflessCathar.cs" />
     <Compile Include="CardsLibrary\SerraAdvocate.cs" />
     <Compile Include="CardsLibrary\ShadowcloakVampire.cs" />

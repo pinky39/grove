@@ -402,6 +402,7 @@
     <Compile Include="Cards\Scald.cs" />
     <Compile Include="Cards\ScentOfNightshade.cs" />
     <Compile Include="Cards\Scrapheap.cs" />
+    <Compile Include="Cards\ScrapyardMongrel.cs" />
     <Compile Include="Cards\SealOfFire.cs" />
     <Compile Include="Cards\SeasonedMarshal.cs" />
     <Compile Include="Cards\SerraAvatar.cs" />
