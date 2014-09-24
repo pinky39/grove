@@ -27,7 +27,20 @@
               return new ManaSymbolToken(token);
             }
             return null;
-          }
+          },
+
+          token =>
+          {
+              token = token.ToLowerInvariant();
+
+              if(token == "i")
+                  return new ReminderTextOpenToken();
+
+              if(token == "/i")
+                  return new ReminderTextCloseToken();
+
+              return null;
+          },
       };
 
     private static readonly Regex Tokenizer = new Regex("( )|({[^}]*})", RegexOptions.Compiled);
@@ -90,18 +103,18 @@
 
     public string GetTextOnly()
     {
-      var sb = new StringBuilder();
-      
-      foreach (var token in Tokens)
-      {               
-        if (token is TextToken || token is ImportantTextToken)
-        {
-          sb.Append(token.Value);
-          sb.Append(" ");
-        }
-      }
+        var sb = new StringBuilder();
 
-      return sb.ToString();
+        foreach (var token in Tokens)
+        {
+            if (token is TextToken || token is ImportantTextToken || token is ReminderTextToken)
+            {
+                sb.Append(token.Value);
+                sb.Append(" ");
+            }
+        }
+
+        return sb.ToString();
     }
 
     private static Token CreateSpecialToken(string value)
@@ -127,26 +140,39 @@
 
     private static List<Token> MarkManaSymbolGroups(List<Token> tokens)
     {
-      Token previous = null;
-      var marked = new List<Token>();
+        Token previous = null;
+        var marked = new List<Token>();
+        bool isReminderText = false;
 
-      foreach (var token in tokens)
-      {
-        if ((token is ManaSymbolToken) && (previous is TextToken))
+        foreach (var t in tokens)
         {
-          marked.Add(new ManaSymbolGroupStartToken());
+            var token = t;
+
+            if ((token is ManaSymbolToken) && (previous is TextToken))
+            {
+                marked.Add(new ManaSymbolGroupStartToken());
+            }
+
+            if ((token is TextToken) && (previous is ManaSymbolToken))
+            {
+                marked.Add(new ManaSymbolGroupEndToken());
+            }
+
+            if (token is TextToken && (isReminderText || previous is ReminderTextOpenToken))
+            {
+                isReminderText = true;
+                token = new ReminderTextToken(token.Value);
+            }
+            if (token is ReminderTextCloseToken)
+            {
+                isReminderText = false;
+            }
+
+            marked.Add(token);
+            previous = token;
         }
 
-        if ((token is TextToken) && (previous is ManaSymbolToken))
-        {
-          marked.Add(new ManaSymbolGroupEndToken());
-        }
-
-        marked.Add(token);
-        previous = token;
-      }
-
-      return marked;
+        return marked;
     }
 
     public static implicit operator CardText(string source)
@@ -183,6 +209,21 @@
   public class ImportantTextToken : Token
   {
     public ImportantTextToken(string value) : base(value) {}
+  }
+
+  public class ReminderTextOpenToken : Token
+  {
+      public ReminderTextOpenToken() : base(String.Empty) { }
+  }
+
+  public class ReminderTextCloseToken : Token
+  {
+      public ReminderTextCloseToken() : base(String.Empty) { }
+  }
+
+  public class ReminderTextToken : Token
+  {
+      public ReminderTextToken(string value) : base(value) { }
   }
 
   public class EolToken : Token
