@@ -89,6 +89,7 @@
     <Compile Include="Cards\AcademyRector.cs" />
     <Compile Include="Cards\AcademyResearchers.cs" />
     <Compile Include="Cards\Acridian.cs" />
+    <Compile Include="Cards\AeronautTinkerer.cs" />
     <Compile Include="Cards\AetherSting.cs" />
     <Compile Include="Cards\AjanisPridemate.cs" />
     <Compile Include="Cards\Anaconda.cs" />
