@@ -145,6 +145,7 @@
     <Compile Include="CardsLibrary\ClearAPath.cs" />
     <Compile Include="CardsLibrary\ColosYearling.cs" />
     <Compile Include="CardsLibrary\Compost.cs" />
+    <Compile Include="CardsLibrary\ConeOfFlame.cs" />
     <Compile Include="CardsLibrary\CoralBarrier.cs" />
     <Compile Include="CardsLibrary\CovetousDragon.cs" />
     <Compile Include="CardsLibrary\CripplingBlight.cs" />
@@ -360,6 +361,7 @@
     <Compile Include="Core\Effects\CounterTargetSpellUnlessControllerPays1ForEachRevealedCard.cs" />
     <Compile Include="Core\Effects\DealDamageToCreature.cs" />
     <Compile Include="Core\Effects\DealDamageToTargetForEachRevealedCard.cs" />
+    <Compile Include="Core\Effects\DealIncrementalDamagesToTargets.cs" />
     <Compile Include="Core\Effects\DiscardCardOrSacrificeOwner.cs" />
     <Compile Include="Core\Effects\ExileAllPermanents.cs" />
     <Compile Include="Core\Effects\ExileTargetThenPutIntoPlayUnderOwnersControl.cs" />
