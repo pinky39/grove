@@ -1,13 +1,31 @@
 ﻿namespace Grove.CardsLibrary
 {
     using System.Collections.Generic;
+    using System.Linq;
     using AI.TargetingRules;
     using Costs;
     using Effects;
     using Modifiers;
+    using Triggers;
 
     public class NightfireGiant : CardTemplateSource
     {
+        private static Lifetime UntilControls()
+        {
+            return new OwnerControlsPermamentsLifetime(c => c.Is().OfType("Mountain"));
+        }
+
+        private static Effect GetEffect()
+        {
+            return new ApplyModifiersToSelf(
+                () =>
+                {
+                    var modifier = new AddPowerAndToughness(1, 1);
+                    modifier.AddLifetime(UntilControls());
+                    return modifier;
+                });
+        }
+
         public override IEnumerable<CardTemplate> GetCards()
         {
             yield return Card
@@ -18,16 +36,29 @@
                 .FlavorText("Nightfire turns the greatest weakness of the undead into formidable strength.")
                 .Power(4)
                 .Toughness(3)
-                .StaticAbility(p =>
+                .TriggeredAbility(p =>
                 {
-                    p.Modifier(() => new ModifyPowerToughnessIfPlayerControls(
-                      power: 1,
-                      toughness: 1,
-                      filter: (c, m) => c.Is().OfType("Mountain"),
-                      modifier: () => new IntegerIncrement()
-                      ));
+                    p.Trigger(new OnZoneChanged(to: Zone.Battlefield)
+                    {
+                        Condition = (t, g) => t.OwningCard.Controller.Battlefield.Count(c => c.Is().OfType("Mountain")) > 0
+                    });
 
-                    p.EnabledInAllZones = false;
+                    p.Effect = GetEffect;
+                    p.UsesStack = false;
+                })
+                .TriggeredAbility(p =>
+                {
+                    p.Trigger(new OnZoneChanged(
+                        to: Zone.Battlefield,
+                        filter: (card, ability, game) => card.Is().Artifact)
+                    {
+                        Condition = (t, g) => t.OwningCard.Controller.Battlefield.Count(c => c.Is().OfType("Mountain")) == 1
+                    });
+
+                    p.Effect = GetEffect;
+
+                    p.UsesStack = false;
+                    p.TriggerOnlyIfOwningCardIsInPlay = true;
                 })
                 .ActivatedAbility(p =>
                 {
