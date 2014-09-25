@@ -31,7 +31,6 @@
                 .ManaCost("{4}{U}{U}")
                 .Type("Creature — Elemental")
                 .Text("{Trample}{I}(If this creature would assign enough damage to its blockers to destroy them, you may have it assign the rest of its damage to defending player or planeswalker.){/I}{EOL}Glacial Crasher can't attack unless there is a Mountain on the battlefield.")
-                .FlavorText("\"All tinkerers have their heads in the clouds. I don't intend to stop there.\"")
                 .Power(5)
                 .Toughness(5)
                 .TriggeredAbility(p =>
