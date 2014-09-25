@@ -1,6 +1,7 @@
 ﻿namespace Grove
 {
-  using Costs;
+    using System;
+    using Costs;
 
   public class ActivatedAbilityParameters : AbilityParameters
   {
@@ -8,5 +9,6 @@
     public bool ActivateOnlyOnceEachTurn;
     public Zone ActivationZone = Zone.Battlefield;
     public Cost Cost;
+    public Action<Card> PutToZoneAfterActivation = delegate { };
   }
 }

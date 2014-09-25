@@ -43,10 +43,14 @@
     private CardController _controller;
     private bool _isPreview = true;
 
+    private readonly CardParameters _cardParameters;
+
     protected Card() {}
 
     public Card(CardParameters p)
     {
+        _cardParameters = p;
+
       Name = p.Name;
       ManaCost = p.ManaCost;
       OverrideScore = p.OverrideScore;
@@ -1142,6 +1146,11 @@
         return;
 
       PutOnTopOfLibrary();
+    }
+
+    public Card Clone()
+    {
+        return new Card(_cardParameters);
     }
   }
 }

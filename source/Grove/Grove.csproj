@@ -205,6 +205,7 @@
     <Compile Include="CardsLibrary\MasterHealer.cs" />
     <Compile Include="CardsLibrary\Masticore.cs" />
     <Compile Include="CardsLibrary\MentalDiscipline.cs" />
+    <Compile Include="CardsLibrary\MercurialPretender.cs" />
     <Compile Include="CardsLibrary\Metalworker.cs" />
     <Compile Include="CardsLibrary\MetathranSoldier.cs" />
     <Compile Include="CardsLibrary\Meteorite.cs" />
@@ -360,6 +361,7 @@
     <Compile Include="Core\Decisions\PushTriggeredEffects.cs" />
     <Compile Include="Core\Effects\AddManaForEachRevealedCard.cs" />
     <Compile Include="Core\Effects\CounterTargetSpellUnlessControllerPays1ForEachRevealedCard.cs" />
+    <Compile Include="Core\Effects\CreateCopyOfTargetCreature.cs" />
     <Compile Include="Core\Effects\DealDamageToCreature.cs" />
     <Compile Include="Core\Effects\DealDamageToTargetForEachRevealedCard.cs" />
     <Compile Include="Core\Effects\DealIncrementalDamagesToTargets.cs" />

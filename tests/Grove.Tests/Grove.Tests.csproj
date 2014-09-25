@@ -298,6 +298,7 @@
     <Compile Include="Cards\Meltdown.cs" />
     <Compile Include="Cards\MemoryJar.cs" />
     <Compile Include="Cards\MentalDiscipline.cs" />
+    <Compile Include="Cards\MercurialPretender.cs" />
     <Compile Include="Cards\Metalworker.cs" />
     <Compile Include="Cards\Meteorite.cs" />
     <Compile Include="Cards\MidsummerRevel.cs" />
