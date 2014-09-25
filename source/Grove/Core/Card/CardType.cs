@@ -160,7 +160,7 @@
           basicTypes.Add(basicType);          
           types = types.Remove(index, basicType.Length);
 
-          displayString.Append(basicType.Capitalize());
+          displayString.Append(basicType.CapitalizeEachWord());
           displayString.Append(" ");
         }
       }
