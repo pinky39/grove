@@ -173,6 +173,7 @@
     <Compile Include="CardsLibrary\FugitiveWizard.cs" />
     <Compile Include="CardsLibrary\GargoyleSentinel.cs" />
     <Compile Include="CardsLibrary\GeistOfTheMoors.cs" />
+    <Compile Include="CardsLibrary\GlacialCrasher.cs" />
     <Compile Include="CardsLibrary\GoblinFestival.cs" />
     <Compile Include="CardsLibrary\GoblinGardener.cs" />
     <Compile Include="CardsLibrary\GoblinMasons.cs" />
@@ -378,6 +379,7 @@
     <Compile Include="Core\Events\SpellPutOnStackEvent.cs" />
     <Compile Include="Core\GameParameters.cs" />
     <Compile Include="Core\Modifiers\IncreasePowerToughnessEqualToAttachedCounterCount.cs" />
+    <Compile Include="Core\Modifiers\NoPermamentsOnBattlefieldLifetime.cs" />
     <Compile Include="Core\Modifiers\OwnerControlsPermamentsLifetime.cs" />
     <Compile Include="Core\SaveLoad\RenameBinder.cs" />
     <Compile Include="CardsLibrary\AboutFace.cs" />

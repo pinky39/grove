@@ -229,6 +229,7 @@
     <Compile Include="Cards\GhituFireEater.cs" />
     <Compile Include="Cards\GhituWarCry.cs" />
     <Compile Include="Cards\GildedDrake.cs" />
+    <Compile Include="Cards\GlacialCrasher.cs" />
     <Compile Include="Cards\GoblinCadets.cs" />
     <Compile Include="Cards\GoblinFestival.cs" />
     <Compile Include="Cards\GoblinLackey.cs" />

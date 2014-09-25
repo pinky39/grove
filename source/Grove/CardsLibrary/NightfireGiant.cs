@@ -50,7 +50,7 @@
                 {
                     p.Trigger(new OnZoneChanged(
                         to: Zone.Battlefield,
-                        filter: (card, ability, game) => card.Is().Artifact)
+                        filter: (card, ability, game) => card.Is().OfType("Mountain"))
                     {
                         Condition = (t, g) => t.OwningCard.Controller.Battlefield.Count(c => c.Is().OfType("Mountain")) == 1
                     });
