@@ -228,6 +228,7 @@
     <Compile Include="Cards\Gamble.cs" />
     <Compile Include="Cards\Gamekeeper.cs" />
     <Compile Include="Cards\GargoyleSentinel.cs" />
+    <Compile Include="Cards\GatherCourage.cs" />
     <Compile Include="Cards\GhituFireEater.cs" />
     <Compile Include="Cards\GhituWarCry.cs" />
     <Compile Include="Cards\GildedDrake.cs" />
@@ -298,6 +299,7 @@
     <Compile Include="Cards\MartyrsCause.cs" />
     <Compile Include="Cards\MassCalcify.cs" />
     <Compile Include="Cards\Masticore.cs" />
+    <Compile Include="Cards\MeditationPuzzle.cs" />
     <Compile Include="Cards\Meltdown.cs" />
     <Compile Include="Cards\MemoryJar.cs" />
     <Compile Include="Cards\MentalDiscipline.cs" />
@@ -319,6 +321,7 @@
     <Compile Include="Cards\MultanisPresence.cs" />
     <Compile Include="Cards\Negate.cs" />
     <Compile Include="Cards\NightshadeSeer.cs" />
+    <Compile Include="Cards\NissasExpedition.cs" />
     <Compile Include="Cards\NoeticScales.cs" />
     <Compile Include="Cards\NoRestForTheWicked.cs" />
     <Compile Include="Cards\OpalAvenger.cs" />
@@ -327,6 +330,7 @@
     <Compile Include="Cards\Opposition.cs" />
     <Compile Include="Cards\Oppression.cs" />
     <Compile Include="Cards\Outmaneuver.cs" />
+    <Compile Include="Cards\Overwhelm.cs" />
     <Compile Include="Cards\ParasiticBond.cs" />
     <Compile Include="Cards\Parch.cs" />
     <Compile Include="Cards\Pariah.cs" />
