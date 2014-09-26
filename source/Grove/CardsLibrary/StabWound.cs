@@ -25,7 +25,7 @@
                     
                     p.TimingRule(new OnFirstMain());
 
-                    p.TargetingRule(new EffectRankBy(c => -c.Score, ControlledBy.Opponent));
+                    p.TargetingRule(new EffectOrCostRankBy(c => -c.Score, ControlledBy.Opponent));
                 })
                 .TriggeredAbility(p =>
                 {

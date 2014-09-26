@@ -38,7 +38,7 @@
                 trg.Message = "Select an enchantment in your graveyard.";
               });
 
-            p.TargetingRule(new EffectRankBy(c => -c.Score));
+            p.TargetingRule(new EffectOrCostRankBy(c => -c.Score));
           });
     }
   }

@@ -21,7 +21,7 @@
             p.Effect = () => new Attach();
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
             p.TimingRule(new OnFirstMain());
-            p.TargetingRule(new EffectRankBy(c => c.Score, ControlledBy.SpellOwner));
+            p.TargetingRule(new EffectOrCostRankBy(c => c.Score, ControlledBy.SpellOwner));
           })
         .TriggeredAbility(p =>
           {

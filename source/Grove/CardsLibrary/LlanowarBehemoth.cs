@@ -32,7 +32,7 @@
               .Is.Card(c => c.Is().Creature && !c.IsTapped, ControlledBy.SpellOwner)
               .On.Battlefield());
 
-            p.TargetingRule(new EffectRankBy(c => c.Score));
+            p.TargetingRule(new EffectOrCostRankBy(c => c.Score));
             p.TimingRule(new PumpOwningCardTimingRule(1, 1));
           });
     }

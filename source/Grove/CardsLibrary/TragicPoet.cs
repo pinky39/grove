@@ -34,7 +34,7 @@
               });
 
             p.TimingRule(new Any(new OnFirstMain(), new OnOpponentsTurn(Step.DeclareBlockers)));            
-            p.TargetingRule(new EffectRankBy(c => -c.Score));
+            p.TargetingRule(new EffectOrCostRankBy(c => -c.Score));
           });
     }
   }

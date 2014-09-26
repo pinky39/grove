@@ -28,7 +28,7 @@
 
             p.TimingRule(new OnSecondMain());
             p.TimingRule(new WhenYouHavePermanents(c => c.Is().Creature));
-            p.TargetingRule(new EffectRankBy(c => -c.Score));
+            p.TargetingRule(new EffectOrCostRankBy(c => -c.Score));
           });
     }
   }

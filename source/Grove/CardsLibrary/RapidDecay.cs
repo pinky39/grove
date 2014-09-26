@@ -26,7 +26,7 @@
                 trg.MaxCount = 3;
               });
             p.TimingRule(new OnEndOfOpponentsTurn());
-            p.TargetingRule(new EffectRankBy(c => -c.Score, ControlledBy.Opponent));
+            p.TargetingRule(new EffectOrCostRankBy(c => -c.Score, ControlledBy.Opponent));
           });
     }
   }

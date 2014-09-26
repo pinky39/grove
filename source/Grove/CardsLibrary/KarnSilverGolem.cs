@@ -42,7 +42,7 @@
               .On.Battlefield());
 
             p.TimingRule(new BeforeYouDeclareAttackers());
-            p.TargetingRule(new EffectRankBy(c => -c.ConvertedCost, ControlledBy.SpellOwner));
+            p.TargetingRule(new EffectOrCostRankBy(c => -c.ConvertedCost, ControlledBy.SpellOwner));
           });
     }
   }

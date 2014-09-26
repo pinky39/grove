@@ -23,7 +23,7 @@
             p.TargetSelector.AddEffect(trg => trg.Is
               .Card(controlledBy: ControlledBy.SpellOwner).On.Battlefield());
 
-            p.TargetingRule(new EffectRankBy(x => x.Is().Land ? 100 : -x.Score));
+            p.TargetingRule(new EffectOrCostRankBy(x => x.Is().Land ? 100 : -x.Score));
           });
     }
   }

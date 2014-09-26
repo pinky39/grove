@@ -29,7 +29,7 @@
               new Attach());
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().In.YourGraveyard());
-            p.TargetingRule(new EffectRankBy(c => -c.Score));
+            p.TargetingRule(new EffectOrCostRankBy(c => -c.Score));
           })
         .TriggeredAbility(p =>
           {

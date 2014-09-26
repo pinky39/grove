@@ -34,7 +34,7 @@
 
                   p.TimingRule(new WhenOpponentControllsPermanents(c => c.Is().Artifact || c.Is().Enchantment));
                   p.TargetingRule(new EffectDestroy());
-//                  p.TargetingRule(new EffectRankBy(c => -c.Score, ControlledBy.Opponent));
+//                  p.TargetingRule(new EffectOrCostRankBy(c => -c.Score, ControlledBy.Opponent));
               });
         }
     }

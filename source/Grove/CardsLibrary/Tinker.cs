@@ -32,7 +32,7 @@
               validator: (e, c) => c.Is().Artifact,
               text: "Search your library for an artifact.");
 
-            p.TargetingRule(new EffectRankBy(c => c.Score));
+            p.TargetingRule(new EffectOrCostRankBy(c => c.Score));
           });
     }
   }

@@ -43,7 +43,7 @@
               });            
 
             p.TimingRule(new PumpOwningCardTimingRule(1, 1));
-            p.TargetingRule(new EffectRankBy(c => c.Score) {TargetLimit = 1});
+            p.TargetingRule(new EffectOrCostRankBy(c => c.Score) {TargetLimit = 1});
           });
     }
   }

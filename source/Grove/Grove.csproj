@@ -1118,7 +1118,7 @@
     <Compile Include="Core\AI\TargetingRules\EffectPumpInstant.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectLandEnchantment.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectOpponent.cs" />
-    <Compile Include="Core\AI\TargetingRules\EffectRankBy.cs" />
+    <Compile Include="Core\AI\TargetingRules\EffectOrCostRankBy.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectPreventCombatDamage.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectPreventDamageFromSourceToController.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectPreventDamageFromSourceToTarget.cs" />

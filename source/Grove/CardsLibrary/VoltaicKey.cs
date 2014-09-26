@@ -28,7 +28,7 @@
             p.TargetSelector.AddEffect(trg => trg.Is.Card(c => c.Is().Artifact).On.Battlefield());
 
             p.TimingRule(new OnMainStepsOfYourTurn());
-            p.TargetingRule(new EffectRankBy(c => -c.Score, ControlledBy.SpellOwner) {ConsiderTargetingSelf = false});
+            p.TargetingRule(new EffectOrCostRankBy(c => -c.Score, ControlledBy.SpellOwner) {ConsiderTargetingSelf = false});
           });
     }
   }

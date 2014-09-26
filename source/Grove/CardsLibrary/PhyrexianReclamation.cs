@@ -34,7 +34,7 @@
               });
 
             p.TimingRule(new OnFirstMain());
-            p.TargetingRule(new EffectRankBy(c => -c.Score));
+            p.TargetingRule(new EffectOrCostRankBy(c => -c.Score));
           });
     }
   }

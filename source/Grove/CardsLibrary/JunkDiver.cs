@@ -30,7 +30,7 @@
               .Card(p1 => p1.Target.Is().Artifact && p1.OwningCard != p1.Target)
               .In.YourGraveyard());
             
-            p.TargetingRule(new EffectRankBy(c => -c.Score));
+            p.TargetingRule(new EffectOrCostRankBy(c => -c.Score));
           });
     }
   }

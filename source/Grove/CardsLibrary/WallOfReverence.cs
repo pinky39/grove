@@ -27,7 +27,7 @@
             p.Trigger(new OnStepStart(step: Step.EndOfTurn));
             p.Effect = () => new YouGainLife(P(e => e.Target.Card().Power.GetValueOrDefault(), EvaluateAt.AfterTriggeredAbilityTargets));
             p.TargetSelector.AddEffect(trg => trg.Is.Creature(ControlledBy.SpellOwner).On.Battlefield());
-            p.TargetingRule(new EffectRankBy(c => -c.Power.GetValueOrDefault()));
+            p.TargetingRule(new EffectOrCostRankBy(c => -c.Power.GetValueOrDefault()));
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });
     }

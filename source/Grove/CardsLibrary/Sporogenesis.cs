@@ -33,7 +33,7 @@
                 trg.MaxCount = 1;
               });
 
-            p.TargetingRule(new EffectRankBy(x => x.Score));
+            p.TargetingRule(new EffectOrCostRankBy(x => x.Score));
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           })
         .TriggeredAbility(p =>

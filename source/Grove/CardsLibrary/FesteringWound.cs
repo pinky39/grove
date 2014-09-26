@@ -22,7 +22,7 @@
             p.Effect = () => new Attach();
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
             p.TimingRule(new OnSecondMain());
-            p.TargetingRule(new EffectRankBy(c => -c.Toughness.GetValueOrDefault(), ControlledBy.Opponent));
+            p.TargetingRule(new EffectOrCostRankBy(c => -c.Toughness.GetValueOrDefault(), ControlledBy.Opponent));
           })
         .TriggeredAbility(p =>
           {

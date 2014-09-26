@@ -20,7 +20,7 @@
             p.Effect = () => new PutTargetsToBattlefield();
             p.TargetSelector.AddEffect(
               trg => trg.Is.Card(c => c.Is().Creature && c.ConvertedCost <= 3).In.YourGraveyard());
-            p.TargetingRule(new EffectRankBy(c => -c.Score));
+            p.TargetingRule(new EffectOrCostRankBy(c => -c.Score));
           });
     }
   }

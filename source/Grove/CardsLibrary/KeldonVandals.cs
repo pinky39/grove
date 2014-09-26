@@ -34,7 +34,7 @@
             p.TargetSelector.AddEffect(trg => trg
               .Is.Card(card => card.Is().Artifact)
               .On.Battlefield());
-            p.TargetingRule(new EffectRankBy(c => -c.Score, ControlledBy.Opponent));
+            p.TargetingRule(new EffectOrCostRankBy(c => -c.Score, ControlledBy.Opponent));
           }
         );
         

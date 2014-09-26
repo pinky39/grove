@@ -30,7 +30,7 @@
             p.TargetSelector.AddCost(trg => trg.Is.Creature(ControlledBy.SpellOwner).On.Battlefield());
 
             p.TimingRule(new PumpOwningCardTimingRule(2, 2));
-            p.TargetingRule(new EffectRankBy(c => c.Score) {TargetLimit = 1, ConsiderTargetingSelf = false} );
+            p.TargetingRule(new EffectOrCostRankBy(c => c.Score) {TargetLimit = 1, ConsiderTargetingSelf = false} );
           });
     }
   }

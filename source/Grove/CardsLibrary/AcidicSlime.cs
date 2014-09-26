@@ -30,7 +30,7 @@
             p.TargetSelector.AddEffect(trg => trg
               .Is.Card(card => card.Is().Artifact || card.Is().Enchantment || card.Is().Land)
               .On.Battlefield());
-            p.TargetingRule(new EffectRankBy(c => -c.Score, ControlledBy.Opponent));
+            p.TargetingRule(new EffectOrCostRankBy(c => -c.Score, ControlledBy.Opponent));
           }
         );
     }

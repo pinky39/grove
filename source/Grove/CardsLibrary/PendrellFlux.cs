@@ -36,7 +36,7 @@
 
             p.TimingRule(new OnSecondMain());
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
-            p.TargetingRule(new EffectRankBy(c => -c.Score, ControlledBy.Opponent));
+            p.TargetingRule(new EffectOrCostRankBy(c => -c.Score, ControlledBy.Opponent));
           });
     }
   }

@@ -28,7 +28,7 @@
 
                     p.TargetSelector.AddEffect(trg => trg.Is.Creature().In.YourGraveyard());
 
-                    p.TargetingRule(new EffectRankBy(c => -c.Score));
+                    p.TargetingRule(new EffectOrCostRankBy(c => -c.Score));
                     p.TimingRule(new WhenYourGraveyardCountIs(c => c.Is().Creature));
                 });
         }
