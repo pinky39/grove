@@ -98,7 +98,7 @@
         }
 
         if (manaColors.Count == 0)
-            return 1.Colorless();
+            return Zero;
 
         if (manaColors.Count > 1)
             return new MultiColorManaAmount(manaColors);
