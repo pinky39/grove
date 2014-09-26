@@ -170,6 +170,7 @@
     <Compile Include="Cards\DelusionsOfMediocrity.cs" />
     <Compile Include="Cards\DerangedHermit.cs" />
     <Compile Include="Cards\DestructiveUrge.cs" />
+    <Compile Include="Cards\DevouringLight.cs" />
     <Compile Include="Cards\DevoutHarpist.cs" />
     <Compile Include="Cards\DiabolicServitude.cs" />
     <Compile Include="Cards\Disappear.cs" />
