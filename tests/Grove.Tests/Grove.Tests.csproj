@@ -408,6 +408,7 @@
     <Compile Include="Cards\ScrapyardMongrel.cs" />
     <Compile Include="Cards\SealOfFire.cs" />
     <Compile Include="Cards\SeasonedMarshal.cs" />
+    <Compile Include="Cards\SeraphOfTheMasses.cs" />
     <Compile Include="Cards\SerraAvatar.cs" />
     <Compile Include="Cards\ShadowcloakVampire.cs" />
     <Compile Include="Cards\ShamanOfSpring.cs" />

@@ -257,6 +257,7 @@
     <Compile Include="CardsLibrary\Scour.cs" />
     <Compile Include="CardsLibrary\ScrapyardMongrel.cs" />
     <Compile Include="CardsLibrary\SelflessCathar.cs" />
+    <Compile Include="CardsLibrary\SeraphOfTheMasses.cs" />
     <Compile Include="CardsLibrary\SerraAdvocate.cs" />
     <Compile Include="CardsLibrary\ShadowcloakVampire.cs" />
     <Compile Include="CardsLibrary\ShamanOfSpring.cs" />
