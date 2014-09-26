@@ -275,6 +275,7 @@
     <Compile Include="CardsLibrary\StaffOfTheMindMagus.cs" />
     <Compile Include="CardsLibrary\StaffOfTheSunMagus.cs" />
     <Compile Include="CardsLibrary\StormtideLeviathan.cs" />
+    <Compile Include="CardsLibrary\SunbladeElf.cs" />
     <Compile Include="CardsLibrary\SungracePegasus.cs" />
     <Compile Include="CardsLibrary\TauntingElf.cs" />
     <Compile Include="CardsLibrary\TelepathicSpies.cs" />
