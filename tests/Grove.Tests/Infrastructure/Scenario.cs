@@ -186,7 +186,7 @@
       Assert.Equal(expected, actual);
     }
 
-    protected void EquipCard(Card card, Card equipment)
+    private void EquipCard(Card card, Card equipment)
     {
       equipment.EquipWithoutPayingCost(card);
     }
