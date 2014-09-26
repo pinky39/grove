@@ -1,32 +1,24 @@
 ﻿namespace Grove.Tests.Cards
 {
-    using System.Linq;
-    using Infrastructure;
-    using Xunit;
+  using System.Linq;
+  using Infrastructure;
+  using Xunit;
 
-    public class BloodHost
+  public class BloodHost
+  {
+    public class Ai : AiScenario
     {
-        public class Predefined : PredefinedAiScenario
-        {
-            [Fact]
-            public void Sacrifice()
-            {
-                var bloodHost = C("Blood Host");
-                var wall = C("Grizzly Bears");
+      [Fact]
+      public void AttackToKill()
+      {
+        Battlefield(P1, "Wall of Blossoms", "Blood Host", "Swamp", "Swamp");
+        P2.Life = 4;
 
-                Battlefield(P1, bloodHost, wall);
-
-                Exec(
-                  At(Step.FirstMain)
-                    .Activate(bloodHost, costTarget: wall)
-                    .Verify(() =>
-                    {
-                        Equal(1, P1.Battlefield.Creatures.Count());
-                        Equal(22, P1.Life);
-                        Equal(4, C(bloodHost).Power);
-                        Equal(4, C(bloodHost).Toughness);                                                
-                    }));               
-            }
-        }
+        RunGame(1);
+        
+        Equal(0, P2.Life);
+        Equal(22, P1.Life);
+      }
     }
+  }
 }

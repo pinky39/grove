@@ -69,12 +69,17 @@
       return _p;
     }
 
-    public TargetValidatorParameters Card(Func<Card, bool> filter = null, ControlledBy? controlledBy = null)
+    public TargetValidatorParameters Card(Func<Card, bool> filter = null, ControlledBy? controlledBy = null, bool canTargetSelf = true)
     {
       filter = filter ?? delegate { return true; };
-
+        
       _p.IsValidTarget = p =>
         {
+          if (p.Target == p.OwningCard && !canTargetSelf)
+          {
+            return false;
+          }
+          
           var hasValidController = controlledBy == null || HasValidController(
             p.Target.Controller(),
             p.Controller,
@@ -112,9 +117,9 @@
       return true;
     }
 
-    public TargetValidatorParameters Creature(ControlledBy? controlledBy = null)
+    public TargetValidatorParameters Creature(ControlledBy? controlledBy = null, bool canTargetSelf = true)
     {
-      return Card(x => x.Is().Creature, controlledBy);
+      return Card(x => x.Is().Creature, controlledBy, canTargetSelf);
     }
 
     public TargetValidatorParameters Enchantment()
