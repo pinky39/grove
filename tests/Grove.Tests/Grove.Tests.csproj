@@ -281,6 +281,7 @@
     <Compile Include="Cards\LiltingRefrain.cs" />
     <Compile Include="Cards\LingeringMirage.cs" />
     <Compile Include="Cards\LivingDestiny.cs" />
+    <Compile Include="Cards\LivingTotem.cs" />
     <Compile Include="Cards\LoomingShade.cs" />
     <Compile Include="Cards\LotusBlossom.cs" />
     <Compile Include="Cards\Lull.cs" />
