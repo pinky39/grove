@@ -186,6 +186,7 @@
     <Compile Include="CardsLibrary\IllusoryAngel.cs" />
     <Compile Include="CardsLibrary\Impatience.cs" />
     <Compile Include="CardsLibrary\Incendiary.cs" />
+    <Compile Include="CardsLibrary\IndulgentTormentor.cs" />
     <Compile Include="CardsLibrary\IntoTheVoid.cs" />
     <Compile Include="CardsLibrary\InvasiveSpecies.cs" />
     <Compile Include="CardsLibrary\IridescentDrake.cs" />
@@ -375,6 +376,7 @@
     <Compile Include="Core\Effects\PlayerLosesLife.cs" />
     <Compile Include="Core\Effects\ReturnCardsFromGraveyardToHandForEachRevealedCard.cs" />
     <Compile Include="Core\Effects\ReturnOwnerAndAttachedToHand.cs" />
+    <Compile Include="Core\Effects\SacrificeCreatureOrPayLifeOrOpponentDrawsCard.cs" />
     <Compile Include="Core\Effects\YourLifeBecomesEqual.cs" />
     <Compile Include="Core\Events\CounterAddedEvent.cs" />
     <Compile Include="Core\Events\CounterRemovedEvent.cs" />
