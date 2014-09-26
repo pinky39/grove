@@ -60,6 +60,7 @@
       MayChooseNotToUntap = p.MayChooseToUntap;
       MinimalBlockerCount = p.MinimalBlockerCount;
       ProducableManaColors = p.ManaColorsThisCardCanProduce;
+        HasConvoke = p.HasConvoke;
 
       _strenght = new Strenght(p.Power, p.Toughness);
       _level = new Level(p.IsLeveler ? 0 : (int?) null);
@@ -95,7 +96,9 @@
       get { return _attachments; }
     }
 
-    public Rarity? Rarity { get; set; }
+    public bool HasConvoke { get; private set; }
+
+      public Rarity? Rarity { get; set; }
     public List<int> ProducableManaColors { get; private set; }
     public string Set { get; set; }
 

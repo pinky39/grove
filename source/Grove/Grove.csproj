@@ -261,6 +261,7 @@
     <Compile Include="CardsLibrary\ShamanOfSpring.cs" />
     <Compile Include="CardsLibrary\ShrapnelBlast.cs" />
     <Compile Include="CardsLibrary\SiegeDragon.cs" />
+    <Compile Include="CardsLibrary\SiegeWurm.cs" />
     <Compile Include="CardsLibrary\SkitteringHorror.cs" />
     <Compile Include="CardsLibrary\SolemnOffering.cs" />
     <Compile Include="CardsLibrary\Solidarity.cs" />

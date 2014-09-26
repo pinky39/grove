@@ -132,12 +132,52 @@
       if (!proceed)
         return;
 
-      var playable = activation.GetPlayable(activationParameters);
+        if (Card.HasConvoke && !SelectCreaturesToTapForConvoke())
+        {
+            return;
+        }
+
+        var playable = activation.GetPlayable(activationParameters);
 
       Publisher.Publish(new PlayableSelected {Playable = playable});
     }
 
-    private bool SelectTargets(ActivationPrerequisites prerequisites, ActivationParameters parameters)
+      private bool SelectCreaturesToTapForConvoke()
+      {
+          var tp = new TargetValidatorParameters { MinCount = 0, MaxCount = null, Message = "Select creatures to tap for the convoke cost." }
+          .Is.Card(c => c.CanBeTapped && c.Is().Creature && c.Controller == Card.Controller)
+          .On.Battlefield();
+
+          tp.MustBeTargetable = false;
+
+          var validator = new TargetValidator(tp);
+          validator.Initialize(Game, Card.Controller);
+
+          var dialog = ShowSelectorDialog(validator, null);
+
+          if (dialog.WasCanceled)
+              return false;
+
+          foreach (var target in dialog.Selection)
+          {
+              var manaAmount = Mana.ParseCardColors(target.Card().Colors);
+
+              target.Card().Tap();
+
+              Card.Controller.AddManaToManaPool(manaAmount, ManaUsage.Spells);
+          }
+
+          // If user selects creatures not enough
+          if (!Card.Controller.HasMana(Card.ManaCost, ManaUsage.Spells))
+          {
+              dialog.Selection.ToList().ForEach(target => target.Card().Untap());
+              return false;
+          }
+
+          return true;
+      }
+
+      private bool SelectTargets(ActivationPrerequisites prerequisites, ActivationParameters parameters)
     {
       if (prerequisites.Selector.RequiresCostTargets)
       {

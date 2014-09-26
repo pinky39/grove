@@ -99,6 +99,31 @@
             return !_card.Is().Land || _card.Controller.CanPlayLands;
         }
 
+        private bool CanCastWithConvoke(IManaAmount amount)
+        {
+            var actualCost = Game.GetActualCost(amount, ManaUsage.Spells, _card);
+
+            var cards = _card.Controller.Battlefield.Where(
+                x => x.Is().Creature && x.CanBeTapped);
+
+            foreach (var card in cards)
+            {
+                var mana = Mana.ParseCardColors(card.Colors);
+
+                // Try remove colored mana first. If not, the card reduces colorless cost
+                var currentCost = actualCost.Remove(mana);
+                if (currentCost.Converted == actualCost.Converted)
+                    currentCost = currentCost.Remove(new SingleColorManaAmount(ManaColor.Colorless, 1));
+
+                actualCost = currentCost;
+
+                if (actualCost.Converted == 0)
+                    break;
+            }
+            
+            return _card.Controller.HasMana(actualCost, ManaUsage.Spells);
+        }
+
         public bool CanCast(out ActivationPrerequisites prerequisites)
         {
             prerequisites = null;
@@ -111,9 +136,9 @@
             if (_p.Condition(_card.Controller, Game) == false)
             {
                 return false;
-            }
+            }            
 
-            var result = _p.Cost.CanPay();
+            var result = _p.Cost.CanPay();            
 
             prerequisites = new ActivationPrerequisites
             {
@@ -125,6 +150,12 @@
                 Card = _card,
                 Rules = _p.Rules
             };
+
+            // TODO: Add support of an aggregated cost and 'X' in costs
+            if (_card.HasConvoke)
+            {
+                prerequisites.CanPay = new Lazy<bool>(() => CanCastWithConvoke(_card.ManaCost));
+            }
 
             return true;
         }
@@ -142,6 +173,11 @@
 
             if (p.PayCost)
             {
+                if (_card.Controller.IsMachine && _card.HasConvoke)
+                {
+                    PayConvoke(_card.Controller);
+                }
+
                 _p.Cost.Pay(p.Targets, p.X);
             }
 
@@ -166,6 +202,46 @@
 
             Stack.Push(effect);
             Publish(new SpellPutOnStackEvent(_card, p.Targets));
+        }
+
+        private void PayConvoke(Player player)
+        {
+            var candidates = player.Battlefield.Creatures
+                .Where(c => c.CanBeTapped)
+                .OrderBy(x =>
+                {
+                    if (x.HasSummoningSickness)
+                        return 1;
+
+                    if (!x.CanAttack && !x.CanBlock())
+                        return 2;
+
+                    if (!x.CanAttack)
+                        return 3;
+
+                    return 4;
+                })
+                .Take(_card.ManaCost.Converted)
+                .ToList();
+
+            // TODO: Additionally order candidates by color to play the relevant manacost mana at first
+            // Example: Convoke: RU, creatures to tap: green, red, lands: island. Only red creatures has to be tapped
+
+            var amount = Game.GetActualCost(_card.ManaCost, ManaUsage.Spells, _card);
+
+            foreach (var card in candidates)
+            {
+                // All selected card can be tapped for convoke even through the mana cost was be reduced to zero,
+                // but for AI player it is difficult, so he taps creatures only while he does not have mana
+                if (player.HasMana(amount, ManaUsage.Spells))
+                    break;
+
+                var mana = Mana.ParseCardColors(card.Colors);
+
+                card.Tap();
+
+                player.AddManaToManaPool(mana, ManaUsage.Spells);
+            }
         }
 
         public bool CanTarget(ITarget target) { return _p.TargetSelector.Effect[0].IsTargetValid(target, _card); }

@@ -319,6 +319,12 @@
       return this;
     }
 
+    public CardTemplate Convoke()
+    {
+        _init.Add(p => { p.HasConvoke = true; });
+        return this;
+    }
+
     public CardTemplate FlavorText(string flavorText)
     {
       _init.Add(p => { p.FlavorText = flavorText; });
