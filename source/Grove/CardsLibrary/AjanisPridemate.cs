@@ -1,6 +1,7 @@
 ﻿namespace Grove.CardsLibrary
 {
     using System.Collections.Generic;
+    using AI;
     using Effects;
     using Modifiers;
     using Triggers;
@@ -23,7 +24,8 @@
                   
                   p.Trigger(new OnLifeChanged((ability, player) => ability.OwningCard.Controller == player));
 
-                  p.Effect = () => new ApplyModifiersToSelf(() => new AddCounters(() => new PowerToughness(1, 1), 1));
+                  p.Effect = () => new ApplyModifiersToSelf(() => new AddCounters(() => new PowerToughness(1, 1), count: 1))
+                    .SetTags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);
 
                   p.TriggerOnlyIfOwningCardIsInPlay = true;
               });
