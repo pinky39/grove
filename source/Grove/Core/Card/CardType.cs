@@ -166,11 +166,11 @@
       }
 
       _basicTypes = basicTypes.ToArray();
-      _subTypes = types.Split(new[] {' ', '-'}, StringSplitOptions.RemoveEmptyEntries);
+      _subTypes = types.Split(new[] { ' ', '-', '—' }, StringSplitOptions.RemoveEmptyEntries);
       
       if (_subTypes.Length != 0)
       {
-        displayString.Append("- ");
+        displayString.Append("— ");
         displayString.Append(String.Join(" ", _subTypes));
       }
 
