@@ -1,6 +1,8 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
+  using AI;
+  using AI.RepetitionRules;
   using AI.TimingRules;
   using Costs;
   using Effects;
@@ -21,12 +23,14 @@
         .ActivatedAbility(p =>
         {
           p.Text = "Put a +1/+1 counter on Carnivorous Moss-Beast.";
-          p.Cost = new PayMana("{5}{G}{G}".Parse(), ManaUsage.Abilities);
+          p.Cost = new PayMana("{5}{G}{G}".Parse(), ManaUsage.Abilities, supportsRepetitions: true);
 
           p.Effect = () => new ApplyModifiersToSelf(
-            () => new AddCounters(() => new PowerToughness(1, 1), count: 1));
+            () => new AddCounters(() => new PowerToughness(1, 1), count: 1))
+            .SetTags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);
 
-          p.TimingRule(new PumpOwningCardTimingRule(1, 1));
+          p.TimingRule(new Any(new PumpOwningCardTimingRule(1, 1), new OnEndOfOpponentsTurn()));                    
+          p.RepetitionRule(new RepeatMaxTimes());
         });
     }
   }

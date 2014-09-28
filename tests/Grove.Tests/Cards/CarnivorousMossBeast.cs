@@ -1,23 +1,23 @@
 ﻿namespace Grove.Tests.Cards
 {
-    using Infrastructure;
-    using Xunit;
+  using Infrastructure;
+  using Xunit;
 
-    public class CarnivorousMossBeast
+  public class CarnivorousMossBeast
+  {
+    public class Ai : AiScenario
     {
-        public class Ai : AiScenario
-        {
-            [Fact]
-            public void AddCounter()
-            {
-                Battlefield(P1, "Carnivorous Moss-Beast", "Forest", "Forest", "Forest", "Forest", "Forest", "Forest", "Forest");
+      [Fact]
+      public void AddCounter()
+      {
+        Battlefield(P1, "Carnivorous Moss-Beast", "Forest", "Forest", "Forest", "Forest",
+          "Forest", "Forest", "Forest");
+        P2.Life = 5;
 
-                P2.Life = 5;
+        RunGame(1);
 
-                RunGame(1);
-
-                Equal(0, P2.Life);
-            }
-        }
+        Equal(0, P2.Life);
+      }
     }
+  }
 }
