@@ -20,7 +20,7 @@
                 .Toughness(1)
                 .ActivatedAbility(p =>
                 {
-                    p.Text = "T}, Discard a card: Draw a card.";
+                    p.Text = "{T}, Discard a card: Draw a card.";
                     p.Cost = new AggregateCost(
                       new TapOwner(),
                       new DiscardTarget());
