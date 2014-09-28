@@ -485,6 +485,7 @@
     <Compile Include="Cards\TripNoose.cs" />
     <Compile Include="Cards\TrumpetBlast.cs" />
     <Compile Include="Cards\Turnabout.cs" />
+    <Compile Include="Cards\TurnToFrog.cs" />
     <Compile Include="Cards\TyrantsMachine.cs" />
     <Compile Include="Cards\Ulcerate.cs" />
     <Compile Include="Cards\Umbilicus.cs" />
