@@ -26,7 +26,7 @@
                   
                   p.Effect = () => new ReturnToHand();
                   
-                  p.TargetSelector.AddEffect(trg => trg.Is.Card(controlledBy: ControlledBy.SpellOwner).On.Battlefield());
+                  p.TargetSelector.AddEffect(trg => trg.Is.Card(controlledBy: ControlledBy.SpellOwner, canTargetSelf: false).On.Battlefield());
 
                   p.TargetingRule(new EffectBounce());
                   p.TimingRule(new OnSecondMain());
