@@ -26,21 +26,20 @@
                   {
                     Text = "{T}: This creature deals damage equal to its power to target creature or player.",
                     Cost = new Tap(),
-                    Effect = () => new DealDamageToTargets(P(e => e.Source.OwningCard.Power.Value))
+                    Effect = () => new DealDamageToTargets(P(e => e.Source.OwningCard.Power.GetValueOrDefault()))
                   };
 
                 ap.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
-
-                ap.TargetingRule(new EffectDealDamage(tp => tp.Card.Power.Value));
+                ap.TargetingRule(new EffectDealDamage(tp => tp.Card.Power.GetValueOrDefault()));
 
                 return new AddActivatedAbility(new ActivatedAbility(ap));
               });
 
             p.TargetSelector.AddEffect(
-              trg => trg.Is.Card(c => c.Is().Creature && c.Power.HasValue && c.Power.Value > 0).On.Battlefield());
+              trg => trg.Is.Creature().On.Battlefield());
 
             p.TimingRule(new OnFirstMain());
-            p.TargetingRule(new EffectCombatEnchantment());
+            p.TargetingRule(new EffectOrCostRankBy(x => -x.Power.GetValueOrDefault(), ControlledBy.SpellOwner));
           });
     }
   }

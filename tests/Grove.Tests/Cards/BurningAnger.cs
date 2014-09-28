@@ -1,25 +1,25 @@
 ﻿namespace Grove.Tests.Cards
 {
-    using Infrastructure;
-    using Xunit;
+  using Infrastructure;
+  using Xunit;
 
-    public class BurningAnger
+  public class BurningAnger
+  {
+    public class Ai : AiScenario
     {
-        public class Ai : AiScenario
-        {
-            [Fact]
-            public void DealDamageEqualPower()
-            {
-                Battlefield(P1, "Grizzly Bears", "Mountain", "Mountain", "Mountain", "Mountain", "Mountain");
-                Hand(P1, "Burning Anger");
-                
-                Battlefield(P2, "Wall of Fire");
-                P2.Life = 2;
+      [Fact]
+      public void DealDamageEqualPower()
+      {
+        Battlefield(P1, "Grizzly Bears", "Mountain", "Mountain", "Mountain", "Mountain", "Mountain");
+        Hand(P1, "Burning Anger");
 
-                RunGame(1);
+        Battlefield(P2, "Wall of Fire");
+        P2.Life = 2;
 
-                Equal(0, P2.Life);
-            }
-        }
+        RunGame(1);
+
+        Equal(0, P2.Life);
+      }
     }
+  }
 }
