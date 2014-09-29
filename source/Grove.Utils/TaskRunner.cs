@@ -13,7 +13,7 @@
       commands = new Dictionary<string, Func<Task>>
         {
           {"list", () => Container.Resolve<WriteCardList>()},
-          {"rate", () => Container.Resolve<WriteCardList>()},
+          {"rate", () => Container.Resolve<WriteCardRatings>()},
           {"gen", () => Container.Resolve<GenerateDecks>()},
           {"debug", () => Container.Resolve<ReproduceError>()},
           {"images", () => Container.Resolve<DownloadImages>()},
