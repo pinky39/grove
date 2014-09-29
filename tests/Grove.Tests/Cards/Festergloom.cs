@@ -1,27 +1,24 @@
 ﻿namespace Grove.Tests.Cards
 {
-    using Infrastructure;
-    using Xunit;
+  using Infrastructure;
+  using Xunit;
 
-    public class Festergloom
+  public class Festergloom
+  {
+    public class Ai : AiScenario
     {
-        public class Predefined : PredefinedScenario
-        {
-            [Fact]
-            public void CastFestergloom()
-            {
-                var fiend = C("Torch Fiend");
-                var festergloom = C("Festergloom");
+      [Fact]
+      public void ReduceToughnessAndAttack()
+      {
+        Hand(P1, "Festergloom");
+        Battlefield(P1, "Trained Armodon", "Swamp", "Swamp", "Swamp");
+        Battlefield(P2, "Llanowar Elves");
+        P2.Life = 2;
 
-                Hand(P1, festergloom);
-                Battlefield(P2, fiend);                
+        RunGame(1);
 
-                Exec(
-                  At(Step.FirstMain)
-                    .Cast(festergloom)
-                    .Verify(() => { Equal(0, P2.Battlefield.Count); })
-                  );
-            }
-        }
+        Equal(0, P2.Life);
+      }
     }
+  }
 }
