@@ -24,7 +24,8 @@
               .On.Battlefield());
 
             p.TargetingRule(new EffectDestroy());
-            p.TimingRule(new TargetRemovalTimingRule().RemovalTags(EffectTag.Destroy, EffectTag.CreaturesOnly));
+            p.TimingRule(new TargetRemovalTimingRule()
+              .RemovalTags(EffectTag.Destroy, EffectTag.CreaturesOnly));
           });
     }
   }

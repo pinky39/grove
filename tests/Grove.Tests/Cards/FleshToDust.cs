@@ -1,27 +1,25 @@
 ﻿namespace Grove.Tests.Cards
 {
-    using Infrastructure;
-    using Xunit;
+  using Infrastructure;
+  using Xunit;
 
-    public class FleshToDust
+  public class FleshToDust
+  {
+    public class Ai : AiScenario
     {
-        public class Predefined : PredefinedScenario
-        {
-            [Fact]
-            public void SacrificeToDestroyArtifact()
-            {
-                var flesh = C("Flesh To Dust");
-                var bear = C("Grizzly Bears");
+      [Fact]
+      public void DestroyDragon()
+      {
+        Hand(P1, "Flesh To Dust");
+        Battlefield(P1, "Swamp", "Swamp", "Swamp", "Swamp", "Swamp", "Trained Armodon");
+        Battlefield(P2, "Shivan Dragon");
 
-                Hand(P1, flesh);
-                Battlefield(P2, bear);
-
-                Exec(
-                  At(Step.FirstMain)
-                  .Cast(flesh, target: bear)
-                    .Verify(() => { Equal(0, P2.Battlefield.Count); })
-                  );
-            }
-        }
+        P2.Life = 3;
+                
+        RunGame(1);
+        
+        Equal(0, P2.Life);
+      }
     }
+  }
 }
