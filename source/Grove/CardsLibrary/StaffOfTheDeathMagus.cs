@@ -18,7 +18,7 @@
                 {
                     p.Text = "Whenever you cast a black spell or a Swamp enters the battlefield under your control, you gain 1 life.";
 
-                    p.Trigger(new OnCastedSpell((ability, card) => card.HasColor(CardColor.Black)));
+                    p.Trigger(new OnCastedSpell((ability, card) => card.HasColor(CardColor.Black) && card.Controller == ability.OwningCard.Controller));
                     p.Trigger(new OnZoneChanged(
                         to: Zone.Battlefield, 
                         filter: (card, ability, game) => card.Is().Land && card.Type.Contains("Swamp") && card.Controller == ability.OwningCard.Controller

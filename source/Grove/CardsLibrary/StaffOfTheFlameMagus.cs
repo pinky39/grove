@@ -18,7 +18,7 @@
                 {
                     p.Text = "Whenever you cast a red spell or a Mountain enters the battlefield under your control, you gain 1 life.";
 
-                    p.Trigger(new OnCastedSpell((ability, card) => card.HasColor(CardColor.Red)));
+                    p.Trigger(new OnCastedSpell((ability, card) => card.HasColor(CardColor.Red) && card.Controller == ability.OwningCard.Controller));
                     p.Trigger(new OnZoneChanged(
                         to: Zone.Battlefield,
                         filter: (card, ability, game) => card.Is().Land && card.Type.Contains("Mountain") && card.Controller == ability.OwningCard.Controller

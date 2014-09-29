@@ -18,7 +18,7 @@
                 {
                     p.Text = "Whenever you cast a blue spell or an Island enters the battlefield under your control, you gain 1 life.";
 
-                    p.Trigger(new OnCastedSpell((ability, card) => card.HasColor(CardColor.Blue)));
+                    p.Trigger(new OnCastedSpell((ability, card) => card.HasColor(CardColor.Blue) && card.Controller == ability.OwningCard.Controller));
                     p.Trigger(new OnZoneChanged(
                         to: Zone.Battlefield,
                         filter: (card, ability, game) => card.Is().Land && card.Type.Contains("Island") && card.Controller == ability.OwningCard.Controller
