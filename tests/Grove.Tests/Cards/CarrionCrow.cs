@@ -1,23 +1,23 @@
 ﻿namespace Grove.Tests.Cards
 {
-    using System.Linq;
-    using Infrastructure;
-    using Xunit;
+  using System.Linq;
+  using Infrastructure;
+  using Xunit;
 
-    public class CarrionCrow
+  public class CarrionCrow
+  {
+    public class Ai : AiScenario
     {
-        public class Ai : AiScenario
-        {
-            [Fact]
-            public void PutIntoPlay()
-            {
-                Hand(P1, "Carrion Crow");
-                Battlefield(P1, "Swamp", "Swamp", "Swamp");
+      [Fact]
+      public void PutIntoPlay()
+      {
+        Hand(P1, "Carrion Crow");
+        Battlefield(P1, "Swamp", "Swamp", "Swamp");
 
-                RunGame(1);
+        RunGame(1);
 
-                Equal(1, P1.Battlefield.Creatures.Count(c => c.IsTapped));
-            }
-        }
+        Equal(1, P1.Battlefield.Creatures.Count(c => c.IsTapped));
+      }
     }
+  }
 }

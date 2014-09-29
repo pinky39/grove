@@ -30,7 +30,7 @@
 
             p.TargetSelector.AddEffect(trg => trg.Is.Card(c => c.Is().Artifact).On.Battlefield());
 
-            p.TimingRule(new WhenPermanentCountIs(c => c.Is().Artifact));
+            p.TimingRule(new WhenPermanentCountIs(1, c => c.Is().Artifact));
             p.TargetingRule(new EffectDestroy());
           });
     }

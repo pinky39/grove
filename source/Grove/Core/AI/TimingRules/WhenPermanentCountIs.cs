@@ -10,7 +10,7 @@
 
     private WhenPermanentCountIs() {}
 
-    public WhenPermanentCountIs(Func<Card, bool> selector = null, int minCount = 1)
+    public WhenPermanentCountIs(int minCount, Func<Card, bool> selector = null)
     {
       _selector = selector ?? delegate { return true; };
       _minCount = minCount;

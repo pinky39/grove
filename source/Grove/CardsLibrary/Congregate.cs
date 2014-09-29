@@ -21,7 +21,7 @@
             p.Effect = () => new TargetPlayerGainsLifeEqualToCreatureCount(multiplier: 2);
             p.TargetSelector.AddEffect(trg => trg.Is.Player());
             p.TimingRule(new OnEndOfOpponentsTurn());
-            p.TimingRule(new WhenPermanentCountIs(c => c.Is().Creature, 3));
+            p.TimingRule(new WhenPermanentCountIs(3, c => c.Is().Creature));
             p.TargetingRule(new EffectYou());
           });
     }
