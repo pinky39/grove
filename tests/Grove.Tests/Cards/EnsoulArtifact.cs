@@ -1,27 +1,22 @@
 ﻿namespace Grove.Tests.Cards
 {
-    using Infrastructure;
-    using Xunit;
+  using Infrastructure;
+  using Xunit;
 
-    public class EnsoulArtifact
+  public class EnsoulArtifact
+  {
+    public class Ai : AiScenario
     {
-        public class Predefined : PredefinedScenario
-        {
-            [Fact]
-            public void EnchantWithEnsoulArtifact()
-            {
-                var aura = C("Ensoul Artifact");
-                var artifact = C("Profane Memento");
+      [Fact]
+      public void EnchantWithEnsoulArtifact()
+      {
+        Hand(P1, "Ensoul Artifact");
+        Battlefield(P1, "Profane Memento", "Island", "Island");
 
-                Hand(P1, aura);
-                Battlefield(P1, artifact);
+        RunGame(1);
 
-                Exec(
-                  At(Step.FirstMain)
-                  .Cast(aura, target: artifact)
-                    .Verify(() => { True(C(artifact).Is().Creature); })
-                  );
-            }
-        }
+        Equal(15, P2.Life());
+      }
     }
+  }
 }
