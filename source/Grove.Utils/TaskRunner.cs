@@ -16,6 +16,7 @@
           {"rate", () => Container.Resolve<WriteCardList>()},
           {"gen", () => Container.Resolve<GenerateDecks>()},
           {"debug", () => Container.Resolve<ReproduceError>()},
+          {"images", () => Container.Resolve<DownloadImages>()},
         };
     }
 
