@@ -10,16 +10,22 @@
   using System.Windows.Media;
   using Infrastructure;
   using Media;
+  using Properties;
 
   public static class Converters
   {
     public static AutoPassToImageConverter AutoPassToImage = new AutoPassToImageConverter();
     public static BooleanToVisibilityConverter BooleanToVisibility = new BooleanToVisibilityConverter();
     public static CardColorToCardTemplateConverter CardColorToCardTemplate = new CardColorToCardTemplateConverter();
+    public static CardColorToCardPTBoxImageConverter CardColorToCardPtBoxImage = new CardColorToCardPTBoxImageConverter();
     public static CardNameToCardImageConverter CardIllustrationNameToCardImage = new CardNameToCardImageConverter();
     public static CharacterCountToFontSizeConverter CharacterCountToFontSize = new CharacterCountToFontSizeConverter();
     public static LifeToColorConverter LifeToColor = new LifeToColorConverter();
     public static AvatarIdToAvatarImageConverter AvatarIdToAvatarImage = new AvatarIdToAvatarImageConverter();
+    public static CardTypeToVisibilityConverter CardTypeToVisibility = new CardTypeToVisibilityConverter();
+    public static CardColorAndTypeToCardFrameConverter CardTypeAndColorToCardFrame = new CardColorAndTypeToCardFrameConverter();
+    public static CardTypeToCardTextVisibilityConverter CardTypeToCardTextVisibility = new CardTypeToCardTextVisibilityConverter();
+
 
     public static ManaCostToManaSymbolImagesConverter ManaCostToManaSymbolImages =
       new ManaCostToManaSymbolImagesConverter();
@@ -31,6 +37,41 @@
     public static ZeroToCollapsedConverter ZeroToCollapsed = new ZeroToCollapsedConverter();
     public static NonZeroToCollapsedConverter NonZeroToCollapsed = new NonZeroToCollapsedConverter();
     public static RatingConverter Rating = new RatingConverter();
+
+    public static CardTemplateConverter CardTemplateSelector = new CardTemplateConverter();
+
+    public class CardTemplateConverter : IValueConverter
+    {
+      public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+      {
+        var stylePath = Path.Combine(MediaLibrary.BasePath, "m15");
+
+        var template = Directory.Exists(stylePath)
+            ? Application.Current.Resources.MergedDictionaries[2]["M15CardTemplate"]
+            : Application.Current.Resources.MergedDictionaries[2]["CardTemplate"];
+
+        return template;
+      }
+
+      public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+      {
+        throw new NotImplementedException();
+      }
+    }
+
+    public class CardTypeToVisibilityConverter : IValueConverter
+    {
+      public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+      {
+        var type = (string)value;
+        return type.Contains("Creature") ? Visibility.Visible : Visibility.Collapsed;
+      }
+
+      public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+      {
+        throw new NotImplementedException();
+      }
+    }
 
     public class AutoPassToImageConverter : IValueConverter
     {
@@ -44,7 +85,7 @@
 
       public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
       {
-        var pass = (Pass) value;
+        var pass = (Pass)value;
         return MediaLibrary.GetImage(_imageNames[pass]);
       }
 
@@ -58,7 +99,7 @@
     {
       public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
       {
-        var id = (int) value;
+        var id = (int)value;
         return MediaLibrary.GetAvatar(id);
       }
 
@@ -79,7 +120,7 @@
           invert = Boolean.Parse(parameter.ToString());
         }
 
-        var booleanValue = (bool) value;
+        var booleanValue = (bool)value;
 
         return ((booleanValue && !invert) || (!booleanValue && invert))
           ? Visibility.Visible
@@ -87,6 +128,75 @@
       }
 
       public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+      {
+        throw new NotImplementedException();
+      }
+    }
+
+    public class CardTypeToCardTextVisibilityConverter : IValueConverter
+    {
+
+      public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+      {
+        var type = value as string;
+
+        if (type == null)
+          return null;
+
+        if (type.Contains("Basic") && type.Contains("Land"))
+          return Visibility.Collapsed;
+
+        return Visibility.Visible;
+      }
+
+      public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+      {
+        throw new NotImplementedException();
+      }
+    }
+
+    public class CardColorAndTypeToCardFrameConverter : IMultiValueConverter
+    {
+      public const string Swamp = "swamp-card";
+      public const string Island = "island-card";
+      public const string Forest = "forest-card";
+      public const string Mountain = "mountain-card";
+      public const string Plains = "plains-card";
+      public const string Land = "land-card";
+
+      public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+      {
+        var type = values[0] as string;
+
+        if (type == null)
+          return null;
+
+        if (type.Contains("Land"))
+        {
+          return MediaLibrary.GetImage(
+              GetTemplateName(type) + ".png");
+        }
+
+        return CardColorToCardTemplate.Convert(values[1], targetType, parameter, culture);
+      }
+
+      private string GetTemplateName(string type)
+      {
+        if (type.Contains("Forest"))
+          return Forest;
+        if (type.Contains("Island"))
+          return Island;
+        if (type.Contains("Mountain"))
+          return Mountain;
+        if (type.Contains("Plains"))
+          return Plains;
+        if (type.Contains("Swamp"))
+          return Swamp;
+
+        return Land;
+      }
+
+      public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
       {
         throw new NotImplementedException();
       }
@@ -106,7 +216,7 @@
       public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
       {
         return MediaLibrary.GetImage(
-          GetTemplateName((CardColor[]) value) + ".png");
+          GetTemplateName((CardColor[])value) + ".png");
       }
 
       public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -143,11 +253,62 @@
       }
     }
 
+    public class CardColorToCardPTBoxImageConverter : IValueConverter
+    {
+      public const string Artifact = "ca";
+      public const string Black = "cb";
+      public const string Blue = "cu";
+      public const string Green = "cg";
+      //        public const string Land = "land-box";
+      public const string Multi = "cz";
+      public const string Red = "cr";
+      public const string White = "cw";
+
+      public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+      {
+        return MediaLibrary.GetImage(
+          GetTemplateName((CardColor[])value) + ".png");
+      }
+
+      public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+      {
+        throw new NotImplementedException();
+      }
+
+      public string GetTemplateName(CardColor[] colors)
+      {
+        if (colors.Length > 1)
+          return Multi;
+
+        var color = colors[0];
+
+        if (color == CardColor.White)
+          return White;
+
+        if (color == CardColor.Blue)
+          return Blue;
+
+        if (color == CardColor.Black)
+          return Black;
+
+        if (color == CardColor.Red)
+          return Red;
+
+        if (color == CardColor.Green)
+          return Green;
+
+        if (color == CardColor.Colorless)
+          return Artifact;
+
+        return null;
+      }
+    }
+
     public class CardNameToCardImageConverter : IValueConverter
     {
       public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
       {
-        var cardName = (string) value;
+        var cardName = (string)value;
         return MediaLibrary.GetCardImage(GetCardImageName(cardName));
       }
 
@@ -174,7 +335,7 @@
     {
       public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
       {
-        var characterCount = (int) value;
+        var characterCount = (int)value;
 
         if (characterCount < 40)
           return 18;
@@ -219,7 +380,7 @@
 
       public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
       {
-        var life = (int) value;
+        var life = (int)value;
 
         return life > 9 ? _highLife : _lowLife;
       }
@@ -243,13 +404,13 @@
 
       public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
       {
-        var manaAmount = (IManaAmount) value;
+        var manaAmount = (IManaAmount)value;
 
         if (manaAmount == null)
-          return new ImageSource[] {};
+          return new ImageSource[] { };
 
         if (manaAmount.Converted == 0)
-          return new[] {MediaLibrary.GetImage("0.png")};
+          return new[] { MediaLibrary.GetImage("0.png") };
 
         var images = new List<string>();
 
@@ -292,10 +453,10 @@
     {
       public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
       {
-        var symbols = (IEnumerable<string>) value;
+        var symbols = (IEnumerable<string>)value;
 
         if (symbols.None())
-          return new ImageSource[] {};
+          return new ImageSource[] { };
 
         return symbols.Select(symbolName => MediaLibrary.GetImage(symbolName + ".png"));
       }
@@ -315,19 +476,19 @@
 
       public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
       {
-        var state = (int) value;
+        var state = (int)value;
 
         if (state == 0)
           return _default;
 
-        int marker;        
+        int marker;
         if (!_idToMarker.TryGetValue(state, out marker))
         {
           marker = _nextMarker++;
-          _idToMarker.Add(state, marker);          
+          _idToMarker.Add(state, marker);
         }
-        
-        var h = (GoldenRatioConjugate * marker)%1;
+
+        var h = (GoldenRatioConjugate * marker) % 1;
         var rgb = ColorUtils.HsvToRgb(h, 0.7f, 0.95f);
 
         return new SolidColorBrush(Color.FromArgb(0xcc, rgb[0], rgb[1], rgb[2]));
@@ -343,7 +504,7 @@
     {
       public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
       {
-        var rating = (int) value;
+        var rating = (int)value;
 
         var stars = new List<ImageSource>();
 
@@ -368,8 +529,8 @@
         if (values.Any(x => DependencyProperty.UnsetValue.Equals(x)))
           return DependencyProperty.UnsetValue;
 
-        var set = (string) values[0];
-        var rarity = (Rarity?) values[1];
+        var set = (string)values[0];
+        var rarity = (Rarity?)values[1];
 
         return MediaLibrary.GetSetImage(set, rarity);
       }
