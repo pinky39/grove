@@ -29,6 +29,12 @@
     {
       var tokens = line.Split(new[] {";"}, StringSplitOptions.RemoveEmptyEntries);
 
+      if (tokens.Count() < 3)
+      {
+        LogFile.Error("Incorrect card description in the ser file. Set: {0}. Card: {1}.", Name, line);
+        return;
+      }
+
       var name = tokens[0].Trim();
       var rarity = (Rarity) Enum.Parse(typeof (Rarity), tokens[1].Trim());
       var rating = double.Parse(tokens[2].Trim(), CultureInfo.InvariantCulture);

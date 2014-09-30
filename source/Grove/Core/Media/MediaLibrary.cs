@@ -101,10 +101,17 @@
       
       LoadResources(Folders.Sets, r =>
         {
-          var setName = Path.GetFileNameWithoutExtension(r.Name);
-          var set = new MagicSet(setName, Encoding.UTF8.GetString(r.Content));
-          Sets[setName.ToLowerInvariant()] = set;
-          showProgress(r.Content.Length);
+          try
+          {
+            var setName = Path.GetFileNameWithoutExtension(r.Name);
+            var set = new MagicSet(setName, Encoding.UTF8.GetString(r.Content));
+            Sets[setName.ToLowerInvariant()] = set;
+            showProgress(r.Content.Length);
+          }
+          catch (Exception ex)
+          {
+            LogFile.Error("Cannot load set {0}", r.Name);
+          }
         });
     }
 

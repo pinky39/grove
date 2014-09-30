@@ -1,0 +1,125 @@
+# Magic 2015 Core Set configuration file.
+
+!Tournament Pack
+Rares: 3
+Uncommons: 10
+Commons: 32
+
+!Booster Pack
+Rares: 1
+Uncommons: 3
+Commons: 11
+
+!Cards
+Accursed Spirit;C;3.07
+Aeronaut Tinkerer;C;3.08
+Ajani's Pridemate;U;3.67
+Avacyn, Guardian Angel;R;3.83
+Battle Mastery;U;2.60
+Blastfire Bolt;C;2.07
+Blood Host;U;3.00
+Boonweaver Giant;U;3.00
+Brawler's Plate;U;1.86
+Bronze Sable;C;1.57
+Burning Anger;R;3.36
+Carnivorous Moss-Beast;C;2.14
+Carrion Crow;C;2.07
+Caustic Tar;U;2.50
+Child of Night;C;2.40
+Clear a Path;C;1.75
+Cone of Flame;U;3.43
+Coral Barrier;C;2.60
+Crippling Blight;C;2.33
+Darksteel Citadel;U;4.06
+Dauntless River Marshal;U;3.67
+Devouring Light;U;3.88
+Divine Favor;C;2.17
+Encrust;C;2.70
+Ensoul Artifact;U;3.70
+Ephemeral Shields;C;2.86
+Feral Incarnation;U;3.50
+Festergloom;C;2.30
+First Response;U;2.58
+Flesh to Dust;C;2.81
+Frost Lynx;C;3.29
+Fugitive Wizard;C;0.60
+Gargoyle Sentinel;U;2.80
+Gather Courage;U;3.50
+Geist of the Moors;U;2.92
+Glacial Crasher;C;2.43
+Goblin Roughrider;C;2.00
+Gravedigger;U;3.20
+Hoarding Dragon;R;3.80
+Hornet Queen;R;3.81
+Illusory Angel;U;3.89
+Indulgent Tormentor;R;4.00
+Into the Void;U;3.10
+Invasive Species;C;2.75
+Juggernaut;U;3.00
+Kapsho Kitefins;U;2.92
+Kinsbaile Skirmisher;C;3.08
+Krenko's Enforcer;C;3.25
+Lightning Strike;C;3.75
+Living Totem;C;2.43
+Mass Calcify;R;3.36
+Meditation Puzzle;C;1.14
+Mercurial Pretender;R;2.58
+Meteorite;U;2.92
+Midnight Guard;C;2.75
+Naturalize;C;3.75
+Negate;C;4.25
+Nightfire Giant;U;3.50
+Nissa's Expedition;U;3.17
+Oreskos Swiftclaw;C;2.50
+Ornithopter;C;3.44
+Overwhelm;U;3.00
+Peel from Reality;C;3.00
+Phytotitan;R;3.44
+Pillar of Light;C;2.90
+Plummet;C;2.40
+Profane Memento;U;2.67
+Raise the Alarm;C;3.92
+Research Assistant;C;2.07
+Resolute Archangel;R;3.50
+Restock;U;3.20
+Roaring Primadox;U;3.38
+Rogue's Gloves;U;2.58
+Rummaging Goblin;C;2.07
+Runeclaw Bear;C;1.92
+Sacred Armory;U;2.83
+Satyr Wayfinder;C;3.08
+Scrapyard Mongrel;C;3.17
+Selfless Cathar;C;2.83
+Seraph of the Masses;U;3.20
+Shadowcloak Vampire;C;2.14
+Shaman of Spring;C;3.08
+Shrapnel Blast;U;3.67
+Siege Dragon;R;2.92
+Siege Wurm;C;3.33
+Solemn Offering;C;2.83
+Soulmender;C;2.20
+Stab Wound;U;3.60
+Staff of the Death Magus;U;1.70
+Staff of the Flame Magus;U;1.42
+Staff of the Mind Magus;U;1.40
+Staff of the Sun Magus;U;1.33
+Stormtide Leviathan;R;3.88
+Sunblade Elf;U;3.95
+Sungrace Pegasus;C;3.08
+Tireless Missionaries;C;0.57
+Titanic Growth;C;2.30
+Torch Fiend;C;3.61
+Triplicate Spirits;C;3.75
+Turn to Frog;U;3.40
+Typhoid Rats;C;3.40
+Tyrant's Machine;C;1.50
+Ulcerate;U;4.17
+Wall of Essence;U;3.00
+Wall of Fire;C;1.90
+Wall of Frost;U;3.21
+Wall of Limbs;U;2.58
+Wall of Mulch;U;3.00
+Welkin Tern;C;3.08
+Will-Forged Golem;C;2.50
+Witch's Familiar;C;1.93
+Zof Shade;C;2.08
