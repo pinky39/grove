@@ -25,16 +25,19 @@ namespace Grove.Utils
 
       foreach (var ratedCard in ratedCards)
       {
-        ratedCard.Rating = ratedCard.Rating ?? downloader.TryDownloadRating(ratedCard.Name) ?? 3.0m;
+        string rarity = "";
+        ratedCard.Rating = ratedCard.Rating ?? downloader.TryDownloadRating(ratedCard.Name, out rarity) ?? 3.0m;
+        ratedCard.Rarity = rarity;
       }
 
       using (var writer = new StreamWriter(filename))
       {
         foreach (var ratedCard in ratedCards)
         {
-          writer.WriteLine("{0};{1}",
+          writer.WriteLine("{0};{1};{2}",
+            ratedCard.Name, ratedCard.Rarity,
             ratedCard.Rating.GetValueOrDefault()
-              .ToString("f", CultureInfo.InvariantCulture), ratedCard.Name);
+              .ToString("f", CultureInfo.InvariantCulture));
         }
       }
 

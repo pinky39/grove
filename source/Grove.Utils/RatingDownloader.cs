@@ -9,10 +9,11 @@
 
   public class RatingDownloader
   {
-    private static readonly Regex RatingPattern = new Regex(@"textRatingValue.*>(\d\.\d*)</span>", RegexOptions.Compiled);    
-    
+    private static readonly Regex RatingPattern = new Regex(@"textRatingValue.*>(\d\.\d*)</span>", RegexOptions.Compiled);
+    private static readonly Regex RarityPattern = new Regex(@">(Common|Rare|Uncommon)</span></div>", RegexOptions.Compiled);
 
-    public Decimal? TryDownloadRating(string cardName)
+
+    public Decimal? TryDownloadRating(string cardName, out string rarity)
     {
       Console.Write("Downloading rating for: {0}...", cardName);
       var encodedCardName = EncodeCardName(cardName);
@@ -27,6 +28,8 @@
       {
         var content = reader.ReadToEnd();
         var rating = TryParseRating(content);
+        
+        rarity = TryParseRarity(content);
 
         if (rating.HasValue)
         {
@@ -52,7 +55,18 @@
       }
 
       return null;
-    }   
+    }
+
+    private static string TryParseRarity(string content)
+    {
+      var match = RarityPattern.Match(content);
+      if (match.Success)
+      {
+        return match.Groups[1].Value[0].ToString();
+      }
+
+      return null;
+    }
 
     private HttpWebRequest CreateRequest(string url)
     {

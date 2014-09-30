@@ -11,7 +11,8 @@
       var cardName = "Drana, Kalastria Bloodchief";
 
       var downloader = new RatingDownloader();
-      var rating = downloader.TryDownloadRating(cardName);
+      string rarity;
+      var rating = downloader.TryDownloadRating(cardName, out rarity);
 
       Assert.True(rating > 4);
     }
