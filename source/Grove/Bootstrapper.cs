@@ -4,6 +4,7 @@
   using System.Collections.Generic;
   using System.Linq;
   using System.Reflection;
+  using System.Threading.Tasks;
   using System.Windows;
   using Caliburn.Micro;
   using Infrastructure;
@@ -16,9 +17,22 @@
     public static IoC Container;
 
     protected override void Configure()
-    {
+    {                        
       AppDomain.CurrentDomain.UnhandledException +=
-        (s, a) => MessageBox.Show(a.ExceptionObject.ToString(), "BUUUUU :(");
+        (s, a) =>
+          {
+            var message = a.ExceptionObject.ToString();
+            
+            LogFile.Error(message);
+
+            MessageBox.Show(
+              message,
+              "An error has occured",
+              MessageBoxButton.OK,
+              MessageBoxImage.Error);
+            
+            Application.Current.Shutdown();
+          };
 
       ConfigureLogger();
       Container = new IoC(IoC.Configuration.Ui);

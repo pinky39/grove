@@ -7,7 +7,7 @@
   using System.Text;
   using System.Windows.Media;
   using System.Windows.Media.Imaging;
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   public static class MediaLibrary
   {
@@ -40,7 +40,10 @@
     private static readonly List<ImageSource> Avatars = new List<ImageSource>();
     private static readonly List<string> PlayerNames = new List<string>();
 
-    private static ImageSource MissingImage { get { return Clipart["missing.png"]; } }
+    private static ImageSource MissingImage
+    {
+      get { return Clipart["missing.png"]; }
+    }
 
     public static void LoadAll(ProgressIndicator showProgress = null)
     {
@@ -59,7 +62,7 @@
     private static Action<long> Progress(ProgressIndicator showProgress, long totalBytes)
     {
       long loaded = 0;
-      
+
       return chunkSize =>
         {
           loaded += chunkSize;
@@ -98,20 +101,13 @@
     public static void LoadSets(Action<long> showProgress = null)
     {
       showProgress = showProgress ?? delegate { };
-      
+
       LoadResources(Folders.Sets, r =>
         {
-          try
-          {
-            var setName = Path.GetFileNameWithoutExtension(r.Name);
-            var set = new MagicSet(setName, Encoding.UTF8.GetString(r.Content));
-            Sets[setName.ToLowerInvariant()] = set;
-            showProgress(r.Content.Length);
-          }
-          catch (Exception ex)
-          {
-            LogFile.Error("Cannot load set {0}", r.Name);
-          }
+          var setName = Path.GetFileNameWithoutExtension(r.Name);
+          var set = new MagicSet(setName, Encoding.UTF8.GetString(r.Content));
+          Sets[setName.ToLowerInvariant()] = set;
+          showProgress(r.Content.Length);
         });
     }
 
@@ -127,10 +123,10 @@
     private static void LoadM15(Action<long> showProgress)
     {
       LoadResources(Folders.M15, r =>
-      {
-        M15.Add(r.Name.ToLowerInvariant(), CreateBitmap(r.Content));
-        showProgress(r.Content.Length);
-      });
+        {
+          M15.Add(r.Name.ToLowerInvariant(), CreateBitmap(r.Content));
+          showProgress(r.Content.Length);
+        });
     }
 
     private static void LoadClipart(Action<long> showProgress)
@@ -185,10 +181,10 @@
       if (id < 0)
       {
         id = -id;
-        id = id % Avatars.Count;
-        return Avatars[Avatars.Count - id - 1];        
+        id = id%Avatars.Count;
+        return Avatars[Avatars.Count - id - 1];
       }
-      
+
       return Avatars[id%Avatars.Count];
     }
 
