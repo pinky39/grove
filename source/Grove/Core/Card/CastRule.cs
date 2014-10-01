@@ -103,8 +103,8 @@
         {
             var actualCost = Game.GetActualCost(amount, ManaUsage.Spells, _card);
 
-            var cards = _card.Controller.Battlefield.Where(
-                x => x.Is().Creature && x.CanBeTapped);
+            var cards = _card.Controller.Battlefield.Creatures
+                .Where(c => c.CanBeTapped);
 
             foreach (var card in cards)
             {
@@ -156,7 +156,7 @@
             {
                 prerequisites.CanPay = new Lazy<bool>(() => CanCastWithConvoke(_card.ManaCost));
             }
-
+            
             return true;
         }
 
@@ -221,6 +221,20 @@
 
                     return 4;
                 })
+                .ThenBy(x =>
+                {
+                    var mana = Mana.ParseCardColors(x.Colors);
+
+                    var manaCost = Game.GetActualCost(_card.ManaCost, ManaUsage.Spells, _card);
+                    manaCost = manaCost.Remove(mana);
+
+                    // XXX: manaCost can be lower as _card.ManaCost without removing mana. Ex. if there is some cards reduce manacost.
+
+                    if (_card.ManaCost.Converted - manaCost.Converted == 1)
+                        return 1;
+
+                    return 2;
+                })
                 .Take(_card.ManaCost.Converted)
                 .ToList();
 
@@ -242,6 +256,8 @@
 
                 player.AddManaToManaPool(mana, ManaUsage.Spells);
             }
+
+            Asrt.True(player.HasMana(_card.ManaCost, ManaUsage.Spells), "Convoke worked incorrect.");
         }
 
         public bool CanTarget(ITarget target) { return _p.TargetSelector.Effect[0].IsTargetValid(target, _card); }
