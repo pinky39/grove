@@ -210,6 +210,24 @@
                 .Where(c => c.CanBeTapped)
                 .OrderBy(x =>
                 {
+                    var mana = Mana.ParseCardColors(x.Colors);
+
+                    var manaCost = Game.GetActualCost(_card.ManaCost, ManaUsage.Spells, _card);
+                    var result = manaCost.Remove(mana); // Try remove color mana
+                    
+                    if (result.Converted < manaCost.Converted)
+                    {
+                        if (!player.HasMana(mana, ManaUsage.Spells))
+                            return 1;
+
+                        if (!player.HasMana(result, ManaUsage.Spells))
+                            return 2;
+                    }
+                    
+                    return 3;
+                })
+                .ThenBy(x =>
+                {
                     if (x.HasSummoningSickness)
                         return 1;
 
@@ -221,25 +239,8 @@
 
                     return 4;
                 })
-                .ThenBy(x =>
-                {
-                    var mana = Mana.ParseCardColors(x.Colors);
-
-                    var manaCost = Game.GetActualCost(_card.ManaCost, ManaUsage.Spells, _card);
-                    manaCost = manaCost.Remove(mana);
-
-                    // XXX: manaCost can be lower as _card.ManaCost without removing mana. Ex. if there is some cards reduce manacost.
-
-                    if (_card.ManaCost.Converted - manaCost.Converted == 1)
-                        return 1;
-
-                    return 2;
-                })
                 .Take(_card.ManaCost.Converted)
                 .ToList();
-
-            // TODO: Additionally order candidates by color to play the relevant manacost mana at first
-            // Example: Convoke: RU, creatures to tap: green, red, lands: island. Only red creatures has to be tapped
 
             var amount = Game.GetActualCost(_card.ManaCost, ManaUsage.Spells, _card);
 
@@ -257,7 +258,7 @@
                 player.AddManaToManaPool(mana, ManaUsage.Spells);
             }
 
-            Asrt.True(player.HasMana(_card.ManaCost, ManaUsage.Spells), "Convoke worked incorrect.");
+            Asrt.True(player.HasMana(_card.ManaCost, ManaUsage.Spells), "Convoke has worked incorrect.");
         }
 
         public bool CanTarget(ITarget target) { return _p.TargetSelector.Effect[0].IsTargetValid(target, _card); }

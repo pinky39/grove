@@ -24,7 +24,7 @@ Carrion Crow;C;2.07
 Caustic Tar;U;2.50
 Child of Night;C;2.40
 Clear a Path;C;1.75
-Cone of Flame;U;3.43
+# Cone of Flame;U;3.43
 Coral Barrier;C;2.60
 Crippling Blight;C;2.33
 Darksteel Citadel;U;4.06
