@@ -20,10 +20,12 @@
         {
           p.Effect = () => new ApplyModifiersToTargets(
             () => new ChangeToCreature(
-              power: 1,
-              toughness: 1,
+              power: m => 1,
+              toughness: m => 1,
               colors: L(CardColor.Blue),
-              type: "Creature - Frog") { UntilEot = true },
+              type: m => m.OwningCard.Is().Token 
+                  ? "Creature - Token Frog" 
+                  : "Creature - Frog") { UntilEot = true },
             () => new DisableAllAbilities { UntilEot = true });
 
           p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
