@@ -1,7 +1,8 @@
-﻿using System.Threading.Tasks;
-
-namespace Grove.UserInterface.LoadScreen
+﻿namespace Grove.UserInterface.LoadScreen
 {
+  using System.Threading.Tasks;
+  using System.Windows;
+  using Infrastructure;
   using Media;
 
   public class ViewModel : ViewModelBase
@@ -15,12 +16,29 @@ namespace Grove.UserInterface.LoadScreen
 
     public override void Initialize()
     {
-      Task.Factory.StartNew(() => MediaLibrary.LoadAll(ShowProgress))
-          .ContinueWith(tsk =>
+      Task.Factory
+        .StartNew(() => MediaLibrary.LoadAll(ShowProgress))
+        .ContinueWith(tsk =>
+          {
+            if (tsk.IsFaulted)
             {
-              var startScreen = ViewModels.StartScreen.Create();
-              Shell.ChangeScreen(startScreen);
-            }, TaskScheduler.FromCurrentSynchronizationContext());
+              var message = tsk.Exception.GetBaseException().Message;
+              
+              MessageBox.Show(
+                message, 
+                "Initialization error", 
+                MessageBoxButton.OK, 
+                MessageBoxImage.Error);
+
+              LogFile.Error(message);
+              
+              Application.Current.Shutdown();
+              return;
+            }
+
+            var startScreen = ViewModels.StartScreen.Create();
+            Shell.ChangeScreen(startScreen);
+          }, TaskScheduler.FromCurrentSynchronizationContext());
     }
 
     private void ShowProgress(long current, long total)

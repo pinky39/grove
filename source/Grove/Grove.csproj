@@ -1327,7 +1327,6 @@
     <Compile Include="Core\Events\PlayerFlippedCoinEvent.cs" />
     <Compile Include="Core\Modifiers\ChangeBasicLand.cs" />
     <Compile Include="Core\Modifiers\ModifierParameters.cs" />
-    <Compile Include="Core\Modifiers\RemoveStaticAbility.cs" />
     <Compile Include="Core\Sets\Rarity.cs" />
     <Compile Include="Core\Card\ScoreOverride.cs" />
     <Compile Include="Core\Effects\SpellCounterReason.cs" />

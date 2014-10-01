@@ -4,8 +4,8 @@
   using System.Collections.Generic;
   using System.Globalization;
   using System.Linq;
-  using Grove.AI;
-  using Grove.Infrastructure;
+  using AI;
+  using Infrastructure;
 
   public class MagicSet
   {
@@ -19,10 +19,14 @@
     public MagicSet(string name, string content)
     {
       Name = name;
-      Load(content.Split(new[]{'\n'}));
+      Load(content.Split(new[] {'\n'}));
     }
 
-    public CardRatings Ratings { get { return new CardRatings(_ratings); } }
+    public CardRatings Ratings
+    {
+      get { return new CardRatings(_ratings); }
+    }
+
     public string Name { get; private set; }
 
     private void ParseCard(string line)
@@ -82,26 +86,40 @@
 
       Action<string> currentSection = null;
 
+      int lineNum = 0;
       foreach (var row in rows)
       {
+        lineNum++;
         var trimmed = row.Trim();
+        try
+        {          
+          if (trimmed.StartsWith("#"))
+            continue;
 
-        if (trimmed.StartsWith("#"))
-          continue;
+          if (String.IsNullOrEmpty(trimmed))
+            continue;
 
-        if (String.IsNullOrEmpty(trimmed))
-          continue;
+          if (sections.ContainsKey(trimmed))
+          {
+            currentSection = sections[trimmed];
+            continue;
+          }
 
-        if (sections.ContainsKey(trimmed))
-        {
-          currentSection = sections[trimmed];
-          continue;
+          if (currentSection == null)
+            continue;
+
+          currentSection(trimmed);
+
+          
         }
-
-        if (currentSection == null)
-          continue;
-
-        currentSection(trimmed);
+        catch (Exception ex)
+        {
+          var message = String.Format(
+            "Could not load set '{0}' due to error on line {1}:\n\n{2}.",
+            Name, lineNum, trimmed);
+          
+          throw new InvalidOperationException(message, ex);
+        }
       }
     }
 
