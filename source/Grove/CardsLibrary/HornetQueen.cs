@@ -27,7 +27,7 @@
                        .Named("Insect")
                        .Power(1)
                        .Toughness(1)
-                       .Type("Creature - Token - Insect")
+                       .Type("Token Creature - Insect")
                        .Text("{Flying}, {Deathtouch}")
                        .Colors(CardColor.Green)
                        .SimpleAbilities(Static.Flying, Static.Deathtouch));

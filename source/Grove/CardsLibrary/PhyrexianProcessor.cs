@@ -36,9 +36,9 @@
             p.Effect = () => new CreateTokens(
               count: 1,
               token: Card
-                .Named("Minion Token")
+                .Named("Minion")
                 .FlavorText("A minion given over to Tevesh Szat is a stronger minion gained.")
-                .Type("Creature - Token - Minion")
+                .Type("Token Creature - Minion")
                 .Colors(CardColor.Black),
               tokenParameters: (e, token) =>
                 {

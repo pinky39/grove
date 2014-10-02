@@ -25,7 +25,7 @@
                             .Named("Beast")
                             .Power(3)
                             .Toughness(3)
-                            .Type("Creature - Token Beast")
+                            .Type("Token Creature - Beast")
                             .Colors(CardColor.Green));
                 });
         }

@@ -40,12 +40,12 @@
               count: 1,
               tokenController: P((e, g) => g.Players.Active),
               token: Card
-                .Named("Saproling Token")
+                .Named("Saproling")
                 .FlavorText(
                   "The nauseating wriggling of a saproling is exceeded only by the nauseating wriggling of its prey.")
                 .Power(1)
                 .Toughness(1)
-                .Type("Creature - Token - Saproling")
+                .Type("Token Creature - Saproling")
                 .Colors(CardColor.Green));
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;

@@ -26,12 +26,12 @@
               new CreateTokens(
                 count: Value.PlusX,
                 token: Card
-                  .Named("Soldier Token")
+                  .Named("Soldier")
                   .FlavorText(
                     "If you need an example to lead others to the front lines, consider the precedent set.")
                   .Power(1)
                   .Toughness(1)
-                  .Type("Creature Token Soldier")
+                  .Type("Token Creature - Soldier")
                   .Colors(CardColor.White)));
 
             p.TimingRule(new OnSecondMain());

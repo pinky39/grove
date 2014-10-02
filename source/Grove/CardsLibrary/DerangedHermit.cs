@@ -28,12 +28,12 @@
             p.Effect = () => new CreateTokens(
               count: 4,
               token: Card
-                .Named("Squirrel Token")
+                .Named("Squirrel")
                 .FlavorText(
                   "And the ignorant shall fall to the squirrels.")
                 .Power(1)
                 .Toughness(1)
-                .Type("Creature - Token - Squirrel")
+                .Type("Token Creature - Squirrel")
                 .Colors(CardColor.Green));
           })
         .ContinuousEffect(p =>

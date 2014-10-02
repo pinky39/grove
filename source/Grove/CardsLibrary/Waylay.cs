@@ -21,12 +21,12 @@
             p.Effect = () => new CreateTokens(
               count: 3,
               token: Card
-                .Named("Knight Token")
+                .Named("Knight")
                 .FlavorText("'You reek of corruption,' spat the knight. 'Why are you even here?'")
                 .Power(2)
                 .Toughness(2)
                 .OverrideScore(p1 => p1.Battlefield = 20)
-                .Type("Creature - Token - Knight")
+                .Type("Token Creature - Knight")
                 .Colors(CardColor.White)
                 .TriggeredAbility(tp =>
                   {

@@ -1,5 +1,6 @@
 ﻿namespace Grove.CardsLibrary
 {
+  using System;
   using System.Collections.Generic;
   using AI.TargetingRules;
   using AI.TimingRules;
@@ -23,9 +24,8 @@
               power: m => 1,
               toughness: m => 1,
               colors: L(CardColor.Blue),
-              type: m => m.OwningCard.Is().Token 
-                  ? "Creature - Token Frog" 
-                  : "Creature - Frog") { UntilEot = true },
+              type: m => m.OwningCard.Type.Split(new[] { '-', '—' }, StringSplitOptions.RemoveEmptyEntries)[0] + " - Frog"
+                  ) { UntilEot = true },
             () => new DisableAllAbilities { UntilEot = true });
 
           p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());

@@ -35,12 +35,12 @@
               new CreateTokens(
                 count: 1,
                 token: Card
-                  .Named("Wolf Token")
+                  .Named("Wolf")
                   .FlavorText(
                     "No matter where we cat warriors go in the world, those stupid slobberers find us.")
                   .Power(2)
                   .Toughness(2)
-                  .Type("Creature Token Wolf")
+                  .Type("Token Creature - Wolf")
                   .Colors(CardColor.Green)));
           })
         .ActivatedAbility(p =>

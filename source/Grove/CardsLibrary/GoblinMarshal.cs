@@ -33,12 +33,12 @@
 
             p.Effect = () => new CreateTokens(count: 2,
               token: Card
-                .Named("Goblin Token")
+                .Named("Goblin")
                 .FlavorText(
                   "When you're a goblin, you don't have to step forward to be a hero—everyone else just has to step back.")
                 .Power(1)
                 .Toughness(1)
-                .Type("Creature Token Goblin")
+                .Type("Token Creature - Goblin")
                 .Colors(CardColor.Red));
           });
     }

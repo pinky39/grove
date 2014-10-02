@@ -36,12 +36,12 @@
             p.Effect = () => new CreateTokens(
               count: P(e => e.Source.OwningCard.Counters),
               token: Card
-                .Named("Beast Token")
+                .Named("Beast")
                 .FlavorText(
                   "All we know about the Krosan Forest we have learned from those few who made it out alive.")
                 .Power(3)
                 .Toughness(3)
-                .Type("Creature Token Beast")
+                .Type("Token Creature - Beast")
                 .Colors(CardColor.Green));
 
             p.TimingRule(new WhenCardHasCounters(3));

@@ -28,21 +28,21 @@
 
             p.Effect = () => new CreateTokens(
               Card
-                .Named("Wurm Token")
+                .Named("Wurm")
                 .Text("{Deathtouch}")
                 .FlavorText("When wurms aren't hungry.{EOL}—Nantuko expression meaning 'never'")
                 .Power(3)
                 .Toughness(3)
-                .Type("Artifact Creature - Wurm Token")
+                .Type("Token Artifact Creature - Wurm")
                 .Colors(CardColor.Colorless)
                 .SimpleAbilities(Static.Deathtouch),
               Card
-                .Named("Wurm Token")
+                .Named("Wurm")
                 .Text("{Lifelink}")
                 .FlavorText("When wurms aren't hungry.{EOL}—Nantuko expression meaning 'never'")
                 .Power(3)
                 .Toughness(3)
-                .Type("Artifact Creature - Wurm Token")
+                .Type("Token Artifact Creature - Wurm")
                 .Colors(CardColor.Colorless)
                 .SimpleAbilities(Static.Lifelink));
           });

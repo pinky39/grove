@@ -17,10 +17,10 @@
         Exec(
           At(Step.FirstMain)
             .Verify(() =>
-              Equal(1, P1.Battlefield.Count(x => x.Name == "Saproling Token"))),
+              Equal(1, P1.Battlefield.Count(x => x.Is().Token))),
           At(Step.FirstMain, turn: 2)
             .Verify(() =>
-              Equal(2, P1.Battlefield.Count(x => x.Name == "Saproling Token")))
+              Equal(2, P1.Battlefield.Count(x => x.Is().Token)))
           );
       }
     }

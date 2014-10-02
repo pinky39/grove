@@ -29,12 +29,12 @@
               count: 2,
               token:
                 Card
-                  .Named("Zombie Token")
+                  .Named("Zombie")
                   .FlavorText(
                     "Your brain is rotting? ...enough?")
                   .Power(2)
                   .Toughness(2)
-                  .Type("Creature - Token - Zombie")
+                  .Type("Token Creature - Zombie")
                   .Colors(CardColor.Black));
           });
     }

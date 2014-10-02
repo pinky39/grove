@@ -32,7 +32,7 @@
                 .Named("Squid")
                 .Power(1)
                 .Toughness(1)
-                .Type("Creature Token Squid")
+                .Type("Token Creature - Squid")
                 .Text("{Islandwalk}")
                 .Colors(CardColor.Blue)
                 .SimpleAbilities(Static.Islandwalk));

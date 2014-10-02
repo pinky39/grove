@@ -26,10 +26,10 @@
                     p.Effect = () => new CreateTokens(
                       count: 1,
                       token: Card
-                        .Named("Soldier Token")
+                        .Named("Soldier")
                         .Power(1)
                         .Toughness(1)
-                        .Type("Creature - Token - Soldier")
+                        .Type("Token Creature - Soldier")
                         .Colors(CardColor.White));
 
                     p.TriggerOnlyIfOwningCardIsInPlay = true;
