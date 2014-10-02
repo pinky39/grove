@@ -49,6 +49,7 @@
             p.TimingRule(new OnFirstDetachedOnSecondAttached());
             p.TargetingRule(new EffectCombatEquipment());
             p.ActivateAsSorcery = true;
+            p.IsEquip = true;
           });
     }
   }

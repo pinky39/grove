@@ -10,5 +10,6 @@
     public Zone ActivationZone = Zone.Battlefield;
     public Cost Cost;
     public Action<Card> PutToZoneAfterActivation = delegate { };
+    public bool IsEquip = false;
   }
 }

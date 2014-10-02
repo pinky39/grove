@@ -1,5 +1,6 @@
 ﻿namespace Grove
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Infrastructure;
@@ -19,6 +20,8 @@
     }
 
     private SimpleAbilities() {}
+
+
 
     public void Accept(ICardModifier modifier)
     {
@@ -257,6 +260,11 @@
         _active.Remove(ability);
       }
       return true;
+    }
+
+    public IEnumerable<SimpleAbility> GetFiltered(Func<SimpleAbility, bool> filter)
+    {
+      return _all.Where(filter);
     }
 
     public void Disable()

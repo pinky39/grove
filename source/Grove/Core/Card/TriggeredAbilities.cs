@@ -1,6 +1,8 @@
 ﻿namespace Grove
 {
+  using System;
   using System.Collections.Generic;
+  using System.Linq;
   using Grove.Infrastructure;
   using Modifiers;
 
@@ -31,6 +33,11 @@
       {
         triggeredAbility.Initialize(card, game);
       }
+    }
+
+    public IEnumerable<TriggeredAbility> GetFiltered(Func<TriggeredAbility, bool> filter)
+    {
+      return _abilities.Where(filter);
     }
 
     public void DisableAll()

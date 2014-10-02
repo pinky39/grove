@@ -26,7 +26,14 @@
                 toughness: m => 5,
                 type: m => m.OwningCard.Is().Creature 
                   ? m.OwningCard.Type 
-                  : m.OwningCard.Type + " Creature"));
+                  : m.OwningCard.Type + " Creature"),
+              () =>
+              {
+                var modifier  = new DisableAllAbilities(a => a.IsEquip, s => false, t => false);
+                modifier.AddLifetime(new OwningCardLifetime());
+                return modifier;
+              }
+              );
 
             p.TargetSelector.AddEffect(trg => trg.Is.Card(c => c.Is().Artifact).On.Battlefield());
 

@@ -1,5 +1,6 @@
 ﻿namespace Grove
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Infrastructure;
@@ -40,6 +41,11 @@
     public IEnumerable<ManaAbility> GetManaAbilities()
     {
       return _abilities.OfType<ManaAbility>();
+    }
+
+    public IEnumerable<ActivatedAbility> GetFiltered(Func<ActivatedAbility, bool> filter)
+    {
+      return _abilities.Where(filter);
     }
 
     public void Activate(int abilityIndex, ActivationParameters activationParameters)

@@ -20,6 +20,11 @@
       _p = p;
     }
 
+    public bool IsEquip
+    {
+      get { return _p.IsEquip; }
+    }
+
     public void Activate(ActivationParameters p)
     {
       _lastActivation.Value = Turn.TurnCount;
