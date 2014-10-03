@@ -519,6 +519,7 @@
     <Compile Include="Cards\WelkinTern.cs" />
     <Compile Include="Cards\Whetstone.cs" />
     <Compile Include="Cards\WildDogs.cs" />
+    <Compile Include="Cards\WillForgedGolem.cs" />
     <Compile Include="Cards\Windfall.cs" />
     <Compile Include="Cards\WizardMentor.cs" />
     <Compile Include="Cards\Worship.cs" />

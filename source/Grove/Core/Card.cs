@@ -872,6 +872,14 @@
         HasProtectionFromTypes(card._type.Value);
     }
 
+    public bool HasManaAbilities
+    {
+      get
+      {
+        return _activatedAbilities.GetManaAbilities().Any();
+      }
+    }
+
     public void Hide()
     {
       _isHidden.Value = true;

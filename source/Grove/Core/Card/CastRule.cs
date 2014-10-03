@@ -104,7 +104,7 @@
             var actualCost = Game.GetActualCost(amount, ManaUsage.Spells, _card);
 
             var cards = _card.Controller.Battlefield.Creatures
-                .Where(c => c.CanBeTapped);
+                .Where(c => c.CanBeTapped && !c.HasManaAbilities);
 
             foreach (var card in cards)
             {
