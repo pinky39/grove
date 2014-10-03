@@ -207,7 +207,7 @@
         private void PayConvoke(Player player)
         {
             var candidates = player.Battlefield.Creatures
-                .Where(c => c.CanBeTapped)
+                .Where(c => c.CanBeTapped && !c.HasManaAbilities)
                 .OrderBy(x =>
                 {
                     var mana = Mana.ParseCardColors(x.Colors);
