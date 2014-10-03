@@ -149,6 +149,7 @@
     <Compile Include="CardsLibrary\ColosYearling.cs" />
     <Compile Include="CardsLibrary\Compost.cs" />
     <Compile Include="CardsLibrary\ConeOfFlame.cs" />
+    <Compile Include="CardsLibrary\ConstrictingSliver.cs" />
     <Compile Include="CardsLibrary\CoralBarrier.cs" />
     <Compile Include="CardsLibrary\CovetousDragon.cs" />
     <Compile Include="CardsLibrary\CripplingBlight.cs" />

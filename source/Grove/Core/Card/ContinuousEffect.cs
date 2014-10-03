@@ -18,6 +18,7 @@
     private readonly Trackable<bool> _isActive = new Trackable<bool>();
     private readonly CardModifierFactory _modifierFactory;
     private readonly TrackableList<IModifier> _modifiers = new TrackableList<IModifier>();
+    private readonly bool _applyOnlyToPermaments;
 
     private ContinuousEffect() {}
 
@@ -25,6 +26,7 @@
     {
       _modifierFactory = p.Modifier;
       _cardFilter = p.CardFilter;
+      _applyOnlyToPermaments = p.ApplyOnlyToPermaments;
     }
 
     public Card Source { get; private set; }
@@ -139,6 +141,25 @@
     public void Activate()
     {
       ApplyModifierToPermanents();
+
+      if (!_applyOnlyToPermaments)
+      {
+        var cards = Players.Player1.Library.Where(card => _cardFilter(card, this))
+            .Union(Players.Player1.Hand.Where(card => _cardFilter(card, this)))
+            .Union(Players.Player1.Graveyard.Where(card => _cardFilter(card, this)))
+
+            .Union(Players.Player2.Library.Where(card => _cardFilter(card, this)))
+            .Union(Players.Player2.Hand.Where(card => _cardFilter(card, this)))
+            .Union(Players.Player2.Graveyard.Where(card => _cardFilter(card, this)))
+
+            .ToList();
+
+        foreach (var card in cards)
+        {
+          AddModifier(card);
+        }
+      }
+
       _isActive.Value = true;
     }
 
