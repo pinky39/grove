@@ -105,6 +105,7 @@
     <EmbeddedResource Include="Usage.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Scripts\Gen-M15-Urza%27s-Destiny.bat" />
     <None Include="Scripts\Gen-M15.bat" />
     <None Include="Scripts\Gen-Urza%27s-Legacy-Destiny.bat" />
     <None Include="Scripts\Gen-Urza%27s-Destiny-Legacy.bat" />
