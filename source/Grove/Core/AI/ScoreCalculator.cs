@@ -110,7 +110,7 @@
     {
       var converted = Math.Min(7, permanent.ManaCost.Converted);
 
-      if (permanent.Has().Haste)
+      if (permanent.Has().Haste && converted > 0)
       {
         converted--;
       }
