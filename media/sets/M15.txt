@@ -14,8 +14,11 @@ Commons: 11
 Accursed Spirit;C;3.07
 Aeronaut Tinkerer;C;3.08
 Ajani's Pridemate;U;3.67
+Avacyn, Guardian Angel;R;3.83
+Battle Mastery;U;2.60
 Blastfire Bolt;C;2.07
 Blood Host;U;3.00
+Boonweaver Giant;U;3.00
 Brawler's Plate;U;1.86
 Bronze Sable;C;1.57
 Burning Anger;R;3.36
@@ -25,13 +28,16 @@ Caustic Tar;U;2.50
 Child of Night;C;2.40
 Clear a Path;C;1.75
 # Cone of Flame;U;3.43
+Constricting Sliver;U;3.69
 Coral Barrier;C;2.60
 Crippling Blight;C;2.33
 Darksteel Citadel;U;4.06
+Dauntless River Marshal;U;3.67
 Devouring Light;U;3.88
 Divine Favor;C;2.17
 Encrust;C;2.70
 Ensoul Artifact;U;3.70
+Ephemeral Shields;C;2.86
 Feral Incarnation;U;3.50
 Festergloom;C;2.30
 First Response;U;2.58
@@ -44,8 +50,10 @@ Geist of the Moors;U;2.92
 Glacial Crasher;C;2.43
 Goblin Roughrider;C;2.00
 Gravedigger;U;3.20
+Heliod's Pilgrim;C;3.58
 Hoarding Dragon;R;3.80
 Hornet Queen;R;3.81
+Hushwing Gryff;R;3.81
 Illusory Angel;U;3.89
 Indulgent Tormentor;R;4.00
 Into the Void;U;3.10
