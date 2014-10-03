@@ -165,6 +165,7 @@
     <Compile Include="CardsLibrary\Encroach.cs" />
     <Compile Include="CardsLibrary\Encrust.cs" />
     <Compile Include="CardsLibrary\EnsoulArtifact.cs" />
+    <Compile Include="CardsLibrary\EphemeralShields.cs" />
     <Compile Include="CardsLibrary\Extruder.cs" />
     <Compile Include="CardsLibrary\FalseProphet.cs" />
     <Compile Include="CardsLibrary\FendOff.cs" />
