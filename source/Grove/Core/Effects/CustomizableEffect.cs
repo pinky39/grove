@@ -16,6 +16,13 @@
         new ChoiceToColor {Color = CardColor.Green, Choice = EffectOption.Green},
       };
 
+    protected static readonly List<ChoiceToZone> ChoiceToZoneMap = new List<ChoiceToZone>
+      {
+          new ChoiceToZone(){Zone = Zone.Library, Choice = EffectOption.Library},
+          new ChoiceToZone(){Zone = Zone.Graveyard, Choice = EffectOption.Graveyard},
+          new ChoiceToZone(){Zone = Zone.Hand, Choice = EffectOption.Hand},
+      };
+
     public abstract ChosenOptions ChooseResult(List<IEffectChoice> candidates);
     public abstract void ProcessResults(ChosenOptions results);
     public abstract string GetText();
@@ -36,6 +43,12 @@
     {
       public EffectOption Choice;
       public CardColor Color;
+    }
+
+    protected class ChoiceToZone
+    {
+      public EffectOption Choice;
+      public Zone Zone;
     }
   }
 }

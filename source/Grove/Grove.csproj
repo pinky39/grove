@@ -129,6 +129,7 @@
     <Compile Include="CardsLibrary\BattleMastery.cs" />
     <Compile Include="CardsLibrary\BlastfireBolt.cs" />
     <Compile Include="CardsLibrary\BloodHost.cs" />
+    <Compile Include="CardsLibrary\BoonweaverGiant.cs" />
     <Compile Include="CardsLibrary\BrawlersPlate.cs" />
     <Compile Include="CardsLibrary\BrineSeer.cs" />
     <Compile Include="CardsLibrary\BronzeSable.cs" />
@@ -375,6 +376,7 @@
     <Compile Include="Core\Costs\Exile.cs" />
     <Compile Include="Core\Decisions\PushTriggeredEffects.cs" />
     <Compile Include="Core\Effects\AddManaForEachRevealedCard.cs" />
+    <Compile Include="Core\Effects\ChangeZoneForSelectedCard.cs" />
     <Compile Include="Core\Effects\CounterTargetSpellUnlessControllerPays1ForEachRevealedCard.cs" />
     <Compile Include="Core\Effects\CreateCopyOfTargetCreature.cs" />
     <Compile Include="Core\Effects\DealDamageToCreature.cs" />

@@ -11,6 +11,9 @@
     Blue,
     Black,
     Red,
-    Green
+    Green,
+    Library,
+    Graveyard,
+    Hand,
   }
 }
