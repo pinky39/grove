@@ -42,7 +42,8 @@
         "sorcery",
         "tribal",
         "vanguard",
-        "creature"
+        "token",
+        "creature"        
       };
 
     private string[] _basicTypes;
