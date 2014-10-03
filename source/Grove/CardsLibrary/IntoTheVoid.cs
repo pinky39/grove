@@ -1,33 +1,34 @@
 ﻿namespace Grove.CardsLibrary
 {
-    using System.Collections.Generic;
-    using AI.TargetingRules;
-    using Effects;
+  using System.Collections.Generic;
+  using AI.TargetingRules;
+  using Effects;
 
-    public class IntoTheVoid : CardTemplateSource
+  public class IntoTheVoid : CardTemplateSource
+  {
+    public override IEnumerable<CardTemplate> GetCards()
     {
-        public override IEnumerable<CardTemplate> GetCards()
-        {
-            yield return Card
-              .Named("Into the Void")
-              .ManaCost("{3}{U}")
-              .Type("Sorcery")
-              .Text("Return up to two target creatures to their owners' hands.")
-              .FlavorText("\"The cathars have their swords, the inquisitors their axes. I prefer the ‘diplomatic' approach.\"{EOL}—Terhold, archmage of Drunau")
-              .Cast(p =>
+      yield return Card
+        .Named("Into the Void")
+        .ManaCost("{3}{U}")
+        .Type("Sorcery")
+        .Text("Return up to two target creatures to their owners' hands.")
+        .FlavorText(
+          "\"The cathars have their swords, the inquisitors their axes. I prefer the ‘diplomatic' approach.\"{EOL}—Terhold, archmage of Drunau")
+        .Cast(p =>
+          {
+            p.Text = "Return up to two target creatures to their owners' hands.";
+            p.Effect = () => new ReturnToHand();
+
+            p.TargetSelector.AddEffect(trg =>
               {
-                  p.Text = "Return up to two target creatures to their owners' hands.";
-                  p.Effect = () => new ReturnToHand();
-
-                  p.TargetSelector.AddEffect(trg =>
-                  {
-                      trg.Is.Creature().On.Battlefield();
-                      trg.MinCount = 1;
-                      trg.MaxCount = 2;
-                  });
-
-                  p.TargetingRule(new EffectBounce());
+                trg.Is.Creature().On.Battlefield();
+                trg.MinCount = 1;
+                trg.MaxCount = 2;
               });
-        }
+
+            p.TargetingRule(new EffectBounce());
+          });
     }
+  }
 }
