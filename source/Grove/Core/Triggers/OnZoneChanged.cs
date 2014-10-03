@@ -14,6 +14,11 @@
     {
     }
 
+    public Zone To
+    {
+      get { return _to; }
+    }
+
     public OnZoneChanged(Zone @from = Zone.None, Zone to = Zone.None,
       Func<Card, TriggeredAbility, Game, bool> filter = null)
     {

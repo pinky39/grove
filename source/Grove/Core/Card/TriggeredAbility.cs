@@ -18,6 +18,11 @@
       _p = p;
     }
 
+    public IEnumerable<Trigger> Triggers
+    {
+      get { return _p.Triggers; }
+    }
+
     void ICopyContributor.AfterMemberCopy(object original)
     {
       foreach (var trigger in _p.Triggers)

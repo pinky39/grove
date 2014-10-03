@@ -192,6 +192,7 @@
     <Compile Include="CardsLibrary\HoardingDragon.cs" />
     <Compile Include="CardsLibrary\HornetQueen.cs" />
     <Compile Include="CardsLibrary\HulkingOgre.cs" />
+    <Compile Include="CardsLibrary\HushwingGryff.cs" />
     <Compile Include="CardsLibrary\IlluminatedWings.cs" />
     <Compile Include="CardsLibrary\IllusoryAngel.cs" />
     <Compile Include="CardsLibrary\Impatience.cs" />
