@@ -35,7 +35,7 @@
     {
         _simpleAbilties = new SimpleAbilities(abilities.GetFiltered(_simple).Select(x => x.Value));
         _simpleAbilties.Initialize(OwningCard, Game);
-        _simpleAbilties.Disable();
+        _simpleAbilties.DisableAll();
     }
 
     public override void Apply(TriggeredAbilities abilities)

@@ -267,7 +267,7 @@
       return _all.Where(filter);
     }
 
-    public void Disable()
+    public void DisableAll()
     {
       foreach (var staticAbility in _all)
       {
