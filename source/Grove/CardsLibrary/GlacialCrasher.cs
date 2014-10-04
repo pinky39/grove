@@ -1,62 +1,50 @@
 ﻿namespace Grove.CardsLibrary
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using Effects;
-    using Modifiers;
-    using Triggers;
+  using System.Collections.Generic;
+  using System.Linq;
+  using Effects;
+  using Modifiers;
+  using Triggers;
 
-    public class GlacialCrasher : CardTemplateSource
+  public class GlacialCrasher : CardTemplateSource
+  {
+    public override IEnumerable<CardTemplate> GetCards()
     {
-        private static Lifetime UntilControls()
+      yield return Card
+        .Named("Glacial Crasher")
+        .ManaCost("{4}{U}{U}")
+        .Type("Creature — Elemental")
+        .Text(
+          "{Trample}{I}(If this creature would assign enough damage to its blockers to destroy them, you may have it assign the rest of its damage to defending player or planeswalker.){/I}{EOL}Glacial Crasher can't attack unless there is a Mountain on the battlefield.")
+        .Power(5)
+        .Toughness(5)
+        .SimpleAbilities(Static.CannotAttack)
+        .TriggeredAbility(p =>
         {
-            return new NoPermamentsOnBattlefieldLifetime(c => c.Is().OfType("Mountain"));
-        }
+          p.Trigger(new OnZoneChanged(
+            to: Zone.Battlefield,
+            filter: (card, ability, _) =>
+            {
+              var count = ability.OwningCard.Controller.Battlefield.Count(c => c.Is().OfType("Mountain"));
 
-        private static Effect GetEffect()
-        {
-            return new ApplyModifiersToSelf(
-                () =>
-                {
-                    var modifier = new AddStaticAbility(Static.CannotAttack);
-                    modifier.AddLifetime(UntilControls());
-                    return modifier;
-                });
-        }
+              // Glacial Crasher comes into battlefield
+              if (ability.OwningCard == card && count > 0)
+                return true;
 
-        public override IEnumerable<CardTemplate> GetCards()
-        {
-            yield return Card
-                .Named("Glacial Crasher")
-                .ManaCost("{4}{U}{U}")
-                .Type("Creature — Elemental")
-                .Text("{Trample}{I}(If this creature would assign enough damage to its blockers to destroy them, you may have it assign the rest of its damage to defending player or planeswalker.){/I}{EOL}Glacial Crasher can't attack unless there is a Mountain on the battlefield.")
-                .Power(5)
-                .Toughness(5)
-                .TriggeredAbility(p =>
-                {
-                    p.Trigger(new OnZoneChanged(to: Zone.Battlefield)
-                    {
-                        Condition = (t, g) => t.OwningCard.Controller.Battlefield.Count(c => c.Is().OfType("Mountain")) == 0
-                    });
+              return ability.OwningCard.Zone == Zone.Battlefield &&
+                     ability.OwningCard.Controller == card.Controller && card.Is().OfType("Mountain") && count == 1;
+            }));
 
-                    p.Effect = GetEffect;
-                    p.UsesStack = false;
-                })
-                .TriggeredAbility(p =>
-                {
-                    p.Trigger(new OnZoneChanged(
-                        from: Zone.Battlefield,
-                        filter: (card, ability, game) => card.Is().OfType("Mountain"))
-                    {
-                        Condition = (t, g) => t.OwningCard.Controller.Battlefield.Count(c => c.Is().OfType("Mountain")) == 0
-                    });
+          p.UsesStack = false;
 
-                    p.Effect = GetEffect;
-
-                    p.UsesStack = false;
-                    p.TriggerOnlyIfOwningCardIsInPlay = true;
-                });
-        }
+          p.Effect = () => new ApplyModifiersToSelf(
+            () =>
+            {
+              var modifier = new DisableAbility(Static.CannotAttack);
+              modifier.AddLifetime(new OwnerControlsPermamentsLifetime(c => c.Is().OfType("Mountain")));
+              return modifier;
+            });
+        });
     }
+  }
 }
