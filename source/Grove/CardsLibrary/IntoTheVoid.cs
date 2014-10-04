@@ -23,7 +23,7 @@
             p.TargetSelector.AddEffect(trg =>
               {
                 trg.Is.Creature().On.Battlefield();
-                trg.MinCount = 1;
+                trg.MinCount = 0;
                 trg.MaxCount = 2;
               });
 
