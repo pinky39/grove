@@ -26,7 +26,7 @@
               {
                 var count = ability.OwningCard.Controller.Battlefield.Count(c => c.Is().Artifact);
 
-                // Aeronaut Tinkerer comes into battlefield
+                // Scrapyard Mongrel comes into battlefield
                 if (ability.OwningCard == card && count > 0)
                   return true;
 
