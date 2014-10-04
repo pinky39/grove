@@ -190,6 +190,7 @@
     <Compile Include="CardsLibrary\Gravedigger.cs" />
     <Compile Include="CardsLibrary\HeliodsPilgrim.cs" />
     <Compile Include="CardsLibrary\HoardingDragon.cs" />
+    <Compile Include="CardsLibrary\HorizonChimera.cs" />
     <Compile Include="CardsLibrary\HornetQueen.cs" />
     <Compile Include="CardsLibrary\HulkingOgre.cs" />
     <Compile Include="CardsLibrary\HushwingGryff.cs" />
@@ -404,6 +405,7 @@
     <Compile Include="Core\Effects\YourLifeBecomesEqual.cs" />
     <Compile Include="Core\Events\CounterAddedEvent.cs" />
     <Compile Include="Core\Events\CounterRemovedEvent.cs" />
+    <Compile Include="Core\Events\PlayerDrawsCardEvent.cs" />
     <Compile Include="Core\Events\SpellPutOnStackEvent.cs" />
     <Compile Include="Core\GameParameters.cs" />
     <Compile Include="Core\Modifiers\IncreasePowerToughnessEqualToAttachedCounterCount.cs" />
@@ -1085,6 +1087,7 @@
     <Compile Include="Core\PlayModes\PregeneratedDecks.cs" />
     <Compile Include="Core\PlayModes\SealedDeckIndex.cs" />
     <Compile Include="Core\Triggers\OnLifeChanged.cs" />
+    <Compile Include="Core\Triggers\OnPlayerDrawsCard.cs" />
     <Compile Include="Infrastructure\ColorUtils.cs" />
     <Compile Include="Infrastructure\DictionaryEx.cs" />
     <Compile Include="Infrastructure\IReceive.cs" />

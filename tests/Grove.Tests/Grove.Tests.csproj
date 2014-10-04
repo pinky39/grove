@@ -258,6 +258,7 @@
     <Compile Include="Cards\HoardingDragon.cs" />
     <Compile Include="Cards\HopeAndGlory.cs" />
     <Compile Include="Cards\HoppingAutomaton.cs" />
+    <Compile Include="Cards\HorizonChimera.cs" />
     <Compile Include="Cards\HornetQueen.cs" />
     <Compile Include="Cards\HuntingMoa.cs" />
     <Compile Include="Cards\HushwingGryff.cs" />

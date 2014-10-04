@@ -298,6 +298,8 @@
 
       _hand.Add(card);
 
+      Publish(new PlayerDrawsCardEvent(this));
+
       if (Ai.IsSearchInProgress)
       {
         card.Hide();
