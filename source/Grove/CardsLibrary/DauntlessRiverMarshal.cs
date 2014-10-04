@@ -11,22 +11,6 @@
 
   public class DauntlessRiverMarshal : CardTemplateSource
   {
-    private static Lifetime UntilControls()
-    {
-      return new OwnerControlsPermamentsLifetime(c => c.Is().OfType("Island"));
-    }
-
-    private static Effect GetEffect()
-    {
-      return new ApplyModifiersToSelf(
-          () =>
-          {
-            var modifier = new AddPowerAndToughness(1, 1);
-            modifier.AddLifetime(UntilControls());
-            return modifier;
-          });
-    }
-
     public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
@@ -39,27 +23,29 @@
           .Toughness(1)
           .TriggeredAbility(p =>
           {
-            p.Trigger(new OnZoneChanged(to: Zone.Battlefield)
-            {
-              Condition = (t, g) => t.OwningCard.Controller.Battlefield.Count(c => c.Is().OfType("Island")) > 0
-            });
-
-            p.Effect = GetEffect;
-            p.UsesStack = false;
-          })
-          .TriggeredAbility(p =>
-          {
             p.Trigger(new OnZoneChanged(
-                to: Zone.Battlefield,
-                filter: (card, ability, game) => card.Is().OfType("Island"))
-            {
-              Condition = (t, g) => t.OwningCard.Controller.Battlefield.Count(c => c.Is().OfType("Island")) == 1
-            });
+              to: Zone.Battlefield,
+              filter: (card, ability, _) =>
+              {
+                var count = ability.OwningCard.Controller.Battlefield.Count(c => c.Is().OfType("Island"));
 
-            p.Effect = GetEffect;
+                // Dauntless River Marshal comes into battlefield
+                if (ability.OwningCard == card && count > 0)
+                  return true;
+
+                return ability.OwningCard.Zone == Zone.Battlefield &&
+                  ability.OwningCard.Controller == card.Controller && card.Is().OfType("Island") && count == 1;
+              }));
 
             p.UsesStack = false;
-            p.TriggerOnlyIfOwningCardIsInPlay = true;
+
+            p.Effect = () => new ApplyModifiersToSelf(
+              () =>
+              {
+                var modifier = new AddPowerAndToughness(1, 1);
+                modifier.AddLifetime(new OwnerControlsPermamentsLifetime(c => c.Is().OfType("Island")));
+                return modifier;
+              });
           })
           .ActivatedAbility(p =>
           {

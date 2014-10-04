@@ -11,22 +11,6 @@
 
   public class SunbladeElf : CardTemplateSource
   {
-    private static Lifetime UntilControls()
-    {
-      return new OwnerControlsPermamentsLifetime(c => c.Is().OfType("Plains"));
-    }
-
-    private static Effect GetEffect()
-    {
-      return new ApplyModifiersToSelf(
-          () =>
-          {
-            var modifier = new AddPowerAndToughness(1, 1);
-            modifier.AddLifetime(UntilControls());
-            return modifier;
-          });
-    }
-
     public override IEnumerable<CardTemplate> GetCards()
     {
       yield return Card
@@ -39,27 +23,29 @@
           .Toughness(1)
           .TriggeredAbility(p =>
           {
-            p.Trigger(new OnZoneChanged(to: Zone.Battlefield)
-            {
-              Condition = (t, g) => t.OwningCard.Controller.Battlefield.Count(c => c.Is().OfType("Plains")) > 0
-            });
-
-            p.Effect = GetEffect;
-            p.UsesStack = false;
-          })
-          .TriggeredAbility(p =>
-          {
             p.Trigger(new OnZoneChanged(
-                to: Zone.Battlefield,
-                filter: (card, ability, game) => card.Is().OfType("Plains"))
-            {
-              Condition = (t, g) => t.OwningCard.Controller.Battlefield.Count(c => c.Is().OfType("Plains")) == 1
-            });
+              to: Zone.Battlefield,
+              filter: (card, ability, _) =>
+              {
+                var count = ability.OwningCard.Controller.Battlefield.Count(c => c.Is().OfType("Plains"));
 
-            p.Effect = GetEffect;
+                // Sunblade Elf comes into battlefield
+                if (ability.OwningCard == card && count > 0)
+                  return true;
+
+                return ability.OwningCard.Zone == Zone.Battlefield &&
+                  ability.OwningCard.Controller == card.Controller && card.Is().OfType("Plains") && count == 1;
+              }));
 
             p.UsesStack = false;
-            p.TriggerOnlyIfOwningCardIsInPlay = true;
+
+            p.Effect = () => new ApplyModifiersToSelf(
+              () =>
+              {
+                var modifier = new AddPowerAndToughness(1, 1);
+                modifier.AddLifetime(new OwnerControlsPermamentsLifetime(c => c.Is().OfType("Plains")));
+                return modifier;
+              });
           })
           .ActivatedAbility(p =>
           {

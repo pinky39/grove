@@ -323,6 +323,7 @@
     <Compile Include="Cards\MultanisDecree.cs" />
     <Compile Include="Cards\MultanisPresence.cs" />
     <Compile Include="Cards\Negate.cs" />
+    <Compile Include="Cards\NightfireGiant.cs" />
     <Compile Include="Cards\NightshadeSeer.cs" />
     <Compile Include="Cards\NissasExpedition.cs" />
     <Compile Include="Cards\NoeticScales.cs" />
