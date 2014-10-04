@@ -208,6 +208,7 @@
     <Compile Include="CardsLibrary\KapshoKitefins.cs" />
     <Compile Include="CardsLibrary\KeldonVandals.cs" />
     <Compile Include="CardsLibrary\KinsbaileSkirmisher.cs" />
+    <Compile Include="CardsLibrary\KiorasFollower.cs" />
     <Compile Include="CardsLibrary\KrenkosEnforcer.cs" />
     <Compile Include="CardsLibrary\Landslide.cs" />
     <Compile Include="CardsLibrary\LightningStrike.cs" />
