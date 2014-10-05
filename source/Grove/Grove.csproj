@@ -235,6 +235,7 @@
     <Compile Include="CardsLibrary\NissasExpedition.cs" />
     <Compile Include="CardsLibrary\Opalescence.cs" />
     <Compile Include="CardsLibrary\Opposition.cs" />
+    <Compile Include="CardsLibrary\OppressiveRays.cs" />
     <Compile Include="CardsLibrary\OreskosSwiftclaw.cs" />
     <Compile Include="CardsLibrary\Ornithopter.cs" />
     <Compile Include="CardsLibrary\Overwhelm.cs" />
@@ -382,6 +383,7 @@
     <Compile Include="Core\Card\AbilityParameters.cs" />
     <Compile Include="Core\Card\ActivatedAbilityParameters.cs" />
     <Compile Include="Core\Card\ManaAbilityParameters.cs" />
+    <Compile Include="Core\Costs\AbilityCostModifier.cs" />
     <Compile Include="Core\Costs\Exile.cs" />
     <Compile Include="Core\Decisions\PushTriggeredEffects.cs" />
     <Compile Include="Core\Effects\AddManaForEachRevealedCard.cs" />
@@ -396,6 +398,7 @@
     <Compile Include="Core\Effects\ExileTargetThenPutIntoPlayUnderOwnersControl.cs" />
     <Compile Include="Core\Effects\FlipACoinOpponentGainsControl.cs" />
     <Compile Include="Core\Effects\GainLifeForEachRevealedCard.cs" />
+    <Compile Include="Core\Effects\PayManaApplyToCard.cs" />
     <Compile Include="Core\Effects\PreventAllDamagesToTargetsFromChosenColor.cs" />
     <Compile Include="Core\Effects\RevealTopCardsPutLandInHandOthersOnGraveyard.cs" />
     <Compile Include="Core\Effects\OpponentRevealsHand.cs" />

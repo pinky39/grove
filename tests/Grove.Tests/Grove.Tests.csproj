@@ -335,6 +335,7 @@
     <Compile Include="Cards\Opalescence.cs" />
     <Compile Include="Cards\Opposition.cs" />
     <Compile Include="Cards\Oppression.cs" />
+    <Compile Include="Cards\OppressiveRays.cs" />
     <Compile Include="Cards\Outmaneuver.cs" />
     <Compile Include="Cards\Overwhelm.cs" />
     <Compile Include="Cards\ParasiticBond.cs" />
