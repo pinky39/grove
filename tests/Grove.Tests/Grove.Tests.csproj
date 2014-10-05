@@ -298,6 +298,7 @@
     <Compile Include="Cards\ManaLeech.cs" />
     <Compile Include="Cards\ManOWar.cs" />
     <Compile Include="Cards\MantisEngine.cs" />
+    <Compile Include="Cards\MarkedByHonor.cs" />
     <Compile Include="Cards\MarkerBeetles.cs" />
     <Compile Include="Cards\MartialCoup.cs" />
     <Compile Include="Cards\MartyrsCause.cs" />
