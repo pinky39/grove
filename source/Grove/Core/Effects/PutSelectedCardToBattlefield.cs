@@ -13,16 +13,21 @@
     private readonly string _text;
     private readonly Func<Card, bool> _validator;
     private readonly Zone _zone;
+    private readonly Action<Card, Game> _afterCardPutToBattlefield;
 
     private PutSelectedCardToBattlefield() {}
 
     public PutSelectedCardToBattlefield(string text, Func<Card, bool> validator, Zone zone,
+      params CardModifierFactory[] modifiers) : this(text, validator, zone, null, modifiers) {}
+
+    public PutSelectedCardToBattlefield(string text, Func<Card, bool> validator, Zone zone, Action<Card, Game> afterCardPutToBattlefield, 
       params CardModifierFactory[] modifiers)
     {
       _text = text;
       _zone = zone;
       _validator = validator;
       _modifiers.AddRange(modifiers);
+      _afterCardPutToBattlefield = afterCardPutToBattlefield ?? delegate { };
     }
 
     public ChosenCards ChooseResult(List<Card> candidates)
@@ -51,6 +56,8 @@
           var modifier = modifierFactory();          
           card.AddModifier(modifier, p);
         }
+
+        _afterCardPutToBattlefield(card, Game);
       }
     }
 
