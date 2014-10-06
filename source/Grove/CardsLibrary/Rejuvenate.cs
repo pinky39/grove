@@ -16,7 +16,7 @@
         .Cycling("{2}")
         .Cast(p =>
           {
-            p.Effect = () => new YouGainLife(6);
+            p.Effect = () => new ChangeLife(amount: 6, forYou: true);
             p.TimingRule(new OnSecondMain());
           });
     }

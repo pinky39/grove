@@ -25,7 +25,7 @@
             p.Text =
               "At the beginning of your end step, you may gain life equal to the power of target creature you control.";
             p.Trigger(new OnStepStart(step: Step.EndOfTurn));
-            p.Effect = () => new YouGainLife(P(e => e.Target.Card().Power.GetValueOrDefault(), EvaluateAt.AfterTriggeredAbilityTargets));
+            p.Effect = () => new ChangeLife(amount: P(e => e.Target.Card().Power.GetValueOrDefault(), EvaluateAt.AfterTriggeredAbilityTargets), forYou: true);
             p.TargetSelector.AddEffect(trg => trg.Is.Creature(ControlledBy.SpellOwner).On.Battlefield());
             p.TargetingRule(new EffectOrCostRankBy(c => -c.Power.GetValueOrDefault()));
             p.TriggerOnlyIfOwningCardIsInPlay = true;

@@ -24,7 +24,7 @@
                         filter: (card, ability, game) => card.Is().Land && card.Type.Contains("Plains") && card.Controller == ability.OwningCard.Controller
                         ));
 
-                    p.Effect = () => new YouGainLife(1);
+                    p.Effect = () => new ChangeLife(amount: 1, forYou: true);
 
                     p.TriggerOnlyIfOwningCardIsInPlay = true;
                 });

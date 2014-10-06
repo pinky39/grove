@@ -28,7 +28,7 @@
             p.Cost = new AggregateCost(
               new PayMana(1.Colorless(), ManaUsage.Abilities),
               new Sacrifice());
-            p.Effect = () => new YouGainLife(1);
+            p.Effect = () => new ChangeLife(amount: 1, forYou: true);
             p.TargetSelector.AddCost(trg =>
               {
                 trg.Is.Card(controlledBy: ControlledBy.SpellOwner)

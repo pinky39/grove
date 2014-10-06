@@ -39,7 +39,7 @@
                       new PayMana("{5}{B}{B}".Parse(), ManaUsage.Abilities),
                       new Sacrifice());
 
-                    p.Effect = () => new TargetPlayerLoosesLife(P(e => e.Source.OwningCard.Power.GetValueOrDefault()));
+                    p.Effect = () => new ChangeLife(P(e => -e.Source.OwningCard.Power.GetValueOrDefault()), forTargetPlayer: true);
 
                     p.TargetSelector.AddEffect(trg => trg.Is.Player());
 

@@ -16,9 +16,9 @@
         .FlavorText("Even an enemy is a valuable resource.")
         .Cast(p =>
           {
-            p.Effect = () => new YouGainLife(
+            p.Effect = () => new ChangeLife(
               amount: P((e, g) => e.Controller.IsActive ? 0
-                : g.Combat.AttackerCount*3));
+                : g.Combat.AttackerCount*3), forYou: true);
 
             p.TimingRule(new AfterOpponentDeclaresAttackers());
           });

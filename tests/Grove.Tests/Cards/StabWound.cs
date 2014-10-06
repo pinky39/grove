@@ -18,6 +18,7 @@
                 RunGame(2);
 
                 Equal(0, P1.Hand.Count);
+                Equal(20, P1.Life);
                 Equal(18, P2.Life);
             }
 

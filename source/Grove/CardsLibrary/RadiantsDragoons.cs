@@ -20,7 +20,7 @@
           {
             p.Text = "When Radiant's Dragoons enters the battlefield, you gain 5 life.";
             p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
-            p.Effect = () => new YouGainLife(5);
+            p.Effect = () => new ChangeLife(amount: 5, forYou: true);
           });
     }
   }

@@ -23,7 +23,7 @@
 
                   p.Cost = new Tap();
 
-                  p.Effect = () => new YouGainLife(1);
+                  p.Effect = () => new ChangeLife(amount: 1, forYou: true);
 
                   p.TimingRule(new OnSecondMain());
               });

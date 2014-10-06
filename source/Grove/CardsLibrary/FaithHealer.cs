@@ -25,7 +25,7 @@
               "Sacrifice an enchantment: You gain life equal to the sacrificed enchantment's converted mana cost.";
 
             p.Cost = new Sacrifice();
-            p.Effect = () => new YouGainLife(P(e => e.Target.Card().ConvertedCost));
+            p.Effect = () => new ChangeLife(amount: P(e => e.Target.Card().ConvertedCost), forYou: true);
 
             p.TargetSelector.AddCost(trg =>
               {

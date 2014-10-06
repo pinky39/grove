@@ -22,7 +22,7 @@
           {
             p.Text = "Sacrifice a Beast: You gain 4 life.";
             p.Cost = new Sacrifice();
-            p.Effect = () => new YouGainLife(4);
+            p.Effect = () => new ChangeLife(amount: 4, forYou: true);
             p.TargetSelector.AddCost(trg => trg.Is.Card(c => c.Is("beast"), ControlledBy.SpellOwner).On.Battlefield());
             p.TargetingRule(new CostSacrificeToGainLife());
           });

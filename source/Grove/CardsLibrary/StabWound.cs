@@ -39,9 +39,7 @@
                         }
                     });
 
-                    p.Effect = () => new PlayerLosesLife(
-                      player: P((e, g) => g.Players.Active),
-                      amount: 2);
+                    p.Effect = () => new ChangeLife(-2, forYou: true, useAttachedToAsYouSource: true);
 
                     p.TriggerOnlyIfOwningCardIsInPlay = true;
                 });

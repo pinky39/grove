@@ -390,6 +390,7 @@
     <Compile Include="Core\Costs\Exile.cs" />
     <Compile Include="Core\Decisions\PushTriggeredEffects.cs" />
     <Compile Include="Core\Effects\AddManaForEachRevealedCard.cs" />
+    <Compile Include="Core\Effects\ChangeLife.cs" />
     <Compile Include="Core\Effects\ChangeZoneForSelectedCard.cs" />
     <Compile Include="Core\Effects\CounterTargetSpellUnlessControllerPays1ForEachRevealedCard.cs" />
     <Compile Include="Core\Effects\CreateCopyOfTargetCreature.cs" />
@@ -405,7 +406,6 @@
     <Compile Include="Core\Effects\PreventAllDamagesToTargetsFromChosenColor.cs" />
     <Compile Include="Core\Effects\RevealTopCardsPutLandInHandOthersOnGraveyard.cs" />
     <Compile Include="Core\Effects\OpponentRevealsHand.cs" />
-    <Compile Include="Core\Effects\PlayerLosesLife.cs" />
     <Compile Include="Core\Effects\ReturnCardsFromGraveyardToHandForEachRevealedCard.cs" />
     <Compile Include="Core\Effects\ReturnOwnerAndAttachedToHand.cs" />
     <Compile Include="Core\Effects\SacrificeCreatureOrPayLifeOrOpponentDrawsCard.cs" />
@@ -606,7 +606,6 @@
     <Compile Include="Core\Effects\TapCreaturesThatDidntAttackDamagePlayer.cs" />
     <Compile Include="Core\Effects\TargetLoosesChosenAbility.cs" />
     <Compile Include="Core\Effects\PlayersReplaceTheirHandWithNewOneUntilEot.cs" />
-    <Compile Include="Core\Effects\TargetPlayerLoosesLife.cs" />
     <Compile Include="Core\Events\AbilityActivatedEvent.cs" />
     <Compile Include="Core\Events\ICardActivationEvent.cs" />
     <Compile Include="Core\Events\SpellCastEvent.cs" />
@@ -1214,7 +1213,6 @@
     <Compile Include="Core\Effects\Add11ForEachCounter.cs" />
     <Compile Include="Core\Effects\ApplyModifiersToGame.cs" />
     <Compile Include="Core\Effects\ControllerGainsLifeOpponentLoosesLife.cs" />
-    <Compile Include="Core\Effects\YouLooseLife.cs" />
     <Compile Include="Core\Effects\CreaturesOfChosenTypeGetM1M1.cs" />
     <Compile Include="Core\Effects\DestroyOwner.cs" />
     <Compile Include="Core\Effects\DiscardAndDrawANewHand.cs" />
@@ -1323,7 +1321,6 @@
     <Compile Include="Core\Effects\RangeEffectChoice.cs" />
     <Compile Include="Core\Effects\SearchLibraryPutToZone.cs" />
     <Compile Include="Core\Effects\TapOrUntapAllArtifactsCreaturesOrLands.cs" />
-    <Compile Include="Core\Effects\TargetPlayerGainsLife.cs" />
     <Compile Include="Core\Effects\UntapOwner.cs" />
     <Compile Include="Core\Effects\UntapSelectedPermanents.cs" />
     <Compile Include="Core\AI\MachinePlayRule.cs" />
@@ -1619,7 +1616,6 @@
     <Compile Include="Core\Effects\CompoundEffect.cs" />
     <Compile Include="Core\Effects\DealDamageToCreaturesAndPlayers.cs" />
     <Compile Include="Core\Effects\DrawCards.cs" />
-    <Compile Include="Core\Effects\YouGainLife.cs" />
     <Compile Include="Core\Effects\IEffectSource.cs" />
     <Compile Include="Core\Effects\RegenerateOwner.cs" />
     <Compile Include="Core\Effects\ShuffleOwningCardIntoLibrary.cs" />

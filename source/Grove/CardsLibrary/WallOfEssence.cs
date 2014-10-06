@@ -27,8 +27,7 @@
                         onlyByTriggerSource: false,
                         creatureFilter: (c, s, _) => c == s.Ability.SourceCard));
 
-                    p.Effect = () => new YouGainLife(
-                        P(e => e.TriggerMessage<DamageDealtEvent>().Damage.Amount));
+                    p.Effect = () => new ChangeLife(amount: P(e => e.TriggerMessage<DamageDealtEvent>().Damage.Amount), forYou: true);
 
                     p.TriggerOnlyIfOwningCardIsInPlay = true;
                 });

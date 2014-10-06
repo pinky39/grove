@@ -24,8 +24,8 @@
             p.Trigger(new OnZoneChanged(
               to: Zone.Battlefield,
               filter: (c, a, g) => a.OwningCard.Controller == c.Controller && c.Is().Creature));
-            p.Effect = () => new YouGainLife(
-              amount: P(e => e.TriggerMessage<ZoneChangedEvent>().Card.Toughness.GetValueOrDefault()));
+            p.Effect = () => new ChangeLife(
+              amount: P(e => e.TriggerMessage<ZoneChangedEvent>().Card.Toughness.GetValueOrDefault()), forYou: true);
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           }
         );
