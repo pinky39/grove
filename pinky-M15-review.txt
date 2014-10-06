@@ -32,8 +32,8 @@ o Peel from Reality
 o Pillar of Light
 o Plummet
 o Profane Memento
-Reclamation Sage
-Research Assistant
+o Reclamation Sage
+o Research Assistant
 Roaring Primadox
 Rummaging Goblin
 Sacred Armory
