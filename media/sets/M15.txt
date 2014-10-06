@@ -64,6 +64,7 @@ Kinsbaile Skirmisher;C;3.08
 Krenko's Enforcer;C;3.25
 Lightning Strike;C;3.75
 Living Totem;C;2.43
+Marked by Honor;C;2.00
 Mass Calcify;R;3.36
 Meditation Puzzle;C;1.14
 Mercurial Pretender;R;2.58
@@ -73,15 +74,19 @@ Naturalize;C;3.75
 Negate;C;4.25
 Nightfire Giant;U;3.50
 Nissa's Expedition;U;3.17
+Oppressive Rays;C;2.71
 Oreskos Swiftclaw;C;2.50
 Ornithopter;C;3.44
 Overwhelm;U;3.00
+Paragon of New Dawns;U;3.50
 Peel from Reality;C;3.00
 Phytotitan;R;3.44
 Pillar of Light;C;2.90
 Plummet;C;2.40
+Preeminent Captain;R;3.60
 Profane Memento;U;2.67
 Raise the Alarm;C;3.92
+Razorfoot Griffin;C;2.25
 Research Assistant;C;2.07
 Resolute Archangel;R;3.50
 Restock;U;3.20

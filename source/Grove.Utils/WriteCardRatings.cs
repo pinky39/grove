@@ -54,14 +54,15 @@ namespace Grove.Utils
 
         while (line != null)
         {
-          var ratingAndName = line.Split(new[] {";"}, 2, StringSplitOptions.RemoveEmptyEntries);
+          var cardInfo = line.Split(new[] {";"}, 3, StringSplitOptions.RemoveEmptyEntries);
 
-          if (ratingAndName.Length == 2)
+          if (cardInfo.Length == 3)
           {
-            if (ratedCardsDictionary.ContainsKey(ratingAndName[1]))
+            if (ratedCardsDictionary.ContainsKey(cardInfo[0]))
             {
-              ratedCardsDictionary[ratingAndName[1]].Rating = Decimal.Parse(ratingAndName[0],
-                CultureInfo.InvariantCulture);
+              var card = ratedCardsDictionary[cardInfo[0]];
+              card.Rarity = cardInfo[1];
+              card.Rating = Decimal.Parse(cardInfo[2], CultureInfo.InvariantCulture);              
             }
           }
 
