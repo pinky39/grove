@@ -290,6 +290,7 @@
     <Compile Include="CardsLibrary\SolemnOffering.cs" />
     <Compile Include="CardsLibrary\Solidarity.cs" />
     <Compile Include="CardsLibrary\Soulmender.cs" />
+    <Compile Include="CardsLibrary\SoulOfTheros.cs" />
     <Compile Include="CardsLibrary\SowingSalt.cs" />
     <Compile Include="CardsLibrary\StabWound.cs" />
     <Compile Include="CardsLibrary\StaffOfTheDeathMagus.cs" />
