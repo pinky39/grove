@@ -140,6 +140,10 @@
         result: result);
 
       FindPlayableAbilities(
+        searchSpace: _player.Graveyard,
+        result: result);
+
+      FindPlayableAbilities(
         searchSpace: _player.Hand,
         result: result);
 

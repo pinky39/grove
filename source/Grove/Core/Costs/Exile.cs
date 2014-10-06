@@ -4,17 +4,41 @@
 
   public class Exile : Cost
   {
+    private readonly bool _fromGraveyard;
+
+    private Exile() {}
+
+    public Exile(bool fromGraveyard = false)
+    {
+      _fromGraveyard = fromGraveyard;
+    }
+
     protected override void CanPay(CanPayResult result)
     {
       if (Validator != null)
       {
-        result.CanPay(Card.Controller.Battlefield.Any(
-          permanent => Validator.IsTargetValid(permanent, Card)));
+        if (_fromGraveyard)
+        {
+          result.CanPay(Card.Controller.Graveyard.Any(
+            card => Validator.IsTargetValid(card, Card)));
+        }
+        else
+        {
+          result.CanPay(Card.Controller.Battlefield.Any(
+            permanent => Validator.IsTargetValid(permanent, Card)));
+        }        
 
         return;
       }
 
-      result.CanPay(() => Card.IsPermanent);
+      if (_fromGraveyard)
+      {
+        result.CanPay(() => Card.Zone == Zone.Graveyard);
+      }
+      else
+      {
+        result.CanPay(() => Card.IsPermanent);
+      }      
     }
 
     protected override void PayCost(Targets targets, int? x, int repeat)
