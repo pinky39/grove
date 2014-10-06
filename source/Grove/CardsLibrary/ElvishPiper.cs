@@ -24,7 +24,7 @@
             p.Cost = new AggregateCost(
               new PayMana(Mana.Green, ManaUsage.Abilities),
               new Tap());
-            p.Effect = () => new PutSelectedCardToBattlefield(
+            p.Effect = () => new PutSelectedCardsToBattlefield(
               text: "Select a creature in your hand.",
               zone: Zone.Hand,
               validator: card => card.Is().Creature);

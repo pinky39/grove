@@ -405,6 +405,7 @@
     <Compile Include="Cards\ResoluteArchangel.cs" />
     <Compile Include="Cards\Retaliation.cs" />
     <Compile Include="Cards\Retromancer.cs" />
+    <Compile Include="Cards\ReturnToTheRanks.cs" />
     <Compile Include="Cards\Rewind.cs" />
     <Compile Include="Cards\RoaringPrimadox.cs" />
     <Compile Include="Cards\RofellossGift.cs" />

@@ -22,7 +22,7 @@
             p.Text =
               "Whenever Goblin Lackey successfully deals damage to a player, you may choose a Goblin card in your hand and put that Goblin into play.";
             p.Trigger(new OnDamageDealt(playerFilter: delegate { return true; }));
-            p.Effect = () => new PutSelectedCardToBattlefield(
+            p.Effect = () => new PutSelectedCardsToBattlefield(
               text: "Select a goblin in your hand.",
               validator: card => card.Is("goblin"),
               zone: Zone.Hand

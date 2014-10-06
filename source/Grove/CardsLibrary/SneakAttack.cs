@@ -25,7 +25,7 @@
               "{R}: You may put a creature card from your hand onto the battlefield. That creature gains haste. Sacrifice the creature at the beginning of the next end step.";
             p.Cost = new PayMana(Mana.Red, ManaUsage.Abilities);
 
-            p.Effect = () => new PutSelectedCardToBattlefield(
+            p.Effect = () => new PutSelectedCardsToBattlefield(
               "Select a creature card in your hand.",
               c => c.Is().Creature,
               Zone.Hand,

@@ -24,7 +24,7 @@
             p.Cost = new AggregateCost(
               new PayMana(4.Colorless(), ManaUsage.Abilities),
               new Sacrifice());
-            p.Effect = () => new PutSelectedCardToBattlefield(
+            p.Effect = () => new PutSelectedCardsToBattlefield(
               text: "Select an artifact in your hand.",
               zone: Zone.Hand,
               validator: card => card.Is().Artifact

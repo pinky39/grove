@@ -29,7 +29,7 @@
               new Tap(),
               new Sacrifice());
 
-            p.Effect = () => new PutSelectedCardToBattlefield(
+            p.Effect = () => new PutSelectedCardsToBattlefield(
               "Select a creature card in your graveyard.",
               c => c.Is().Creature,
               Zone.Graveyard,

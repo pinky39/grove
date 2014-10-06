@@ -23,7 +23,7 @@
               new PayMana(4.Colorless(), ManaUsage.Abilities),
               new Tap());
 
-            p.Effect = () => new PutSelectedCardToBattlefield(
+            p.Effect = () => new PutSelectedCardsToBattlefield(
               text: "Select a creature in your hand.",
               zone: Zone.Hand,
               validator: card => card.Is().Creature);

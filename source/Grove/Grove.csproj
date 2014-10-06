@@ -261,6 +261,7 @@
     <Compile Include="CardsLibrary\ResearchAssistant.cs" />
     <Compile Include="CardsLibrary\ResoluteArchangel.cs" />
     <Compile Include="CardsLibrary\Restock.cs" />
+    <Compile Include="CardsLibrary\ReturnToTheRanks.cs" />
     <Compile Include="CardsLibrary\RoaringPrimadox.cs" />
     <Compile Include="CardsLibrary\RofellosLlanowarEmissary.cs" />
     <Compile Include="CardsLibrary\RofellossGift.cs" />
@@ -1393,7 +1394,7 @@
     <Compile Include="Core\Effects\ExileCard.cs" />
     <Compile Include="Core\Effects\ExileOwner.cs" />
     <Compile Include="Core\Effects\GainControlOfAllPermanents.cs" />
-    <Compile Include="Core\Effects\PutSelectedCardToBattlefield.cs" />
+    <Compile Include="Core\Effects\PutSelectedCardsToBattlefield.cs" />
     <Compile Include="Core\Effects\ReturnAllCardsInGraveyardToHand.cs" />
     <Compile Include="Core\Effects\SacrificePermanentOrSacrificeOwner.cs" />
     <Compile Include="Core\Effects\TargetPlayerGainsLifeEqualToCreatureCount.cs" />
