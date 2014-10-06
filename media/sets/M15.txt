@@ -90,11 +90,13 @@ Razorfoot Griffin;C;2.25
 Research Assistant;C;2.07
 Resolute Archangel;R;3.50
 Restock;U;3.20
+Return to the Ranks;R;3.36
 Roaring Primadox;U;3.38
 Rogue's Gloves;U;2.58
 Rummaging Goblin;C;2.07
 Runeclaw Bear;C;1.92
 Sacred Armory;U;2.83
+Sanctified Charge;C;2.57
 Satyr Wayfinder;C;3.08
 Scrapyard Mongrel;C;3.17
 Selfless Cathar;C;2.83

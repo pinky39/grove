@@ -27,7 +27,7 @@ namespace Grove.Utils
       {
         string rarity = "";
         ratedCard.Rating = ratedCard.Rating ?? downloader.TryDownloadRating(ratedCard.Name, out rarity) ?? 3.0m;
-        ratedCard.Rarity = rarity;
+        ratedCard.Rarity = string.IsNullOrEmpty(ratedCard.Rarity) ? rarity : ratedCard.Rarity;
       }
 
       using (var writer = new StreamWriter(filename))
