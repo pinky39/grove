@@ -29,9 +29,9 @@ o Meteorite
 o Negate
 o Ornithopter
 o Peel from Reality
-Pillar of Light
-Plummet
-Profane Memento
+o Pillar of Light
+o Plummet
+o Profane Memento
 Reclamation Sage
 Research Assistant
 Roaring Primadox

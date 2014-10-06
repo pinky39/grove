@@ -1,25 +1,26 @@
 ﻿namespace Grove.Tests.Cards
 {
-    using Infrastructure;
-    using Xunit;
+  using Infrastructure;
+  using Xunit;
 
-    public class Plummet
+  public class Plummet
+  {
+    public class Ai : AiScenario
     {
-        public class Ai : AiScenario
-        {
-            [Fact]
-            public void DestroyCreatureWithFlying()
-            {
-                P1.Life = 6;
-                Hand(P1, "Plummet");
-                Battlefield(P1, "Forest", "Forest");
+      [Fact]
+      public void DestroyKitefins()
+      {
+        var kitefins = C("Kapsho Kitefins");
 
-                Battlefield(P2, "Kapsho Kitefins", "Blood Host");
+        Hand(P2, "Plummet");
+        Battlefield(P2, "Forest", "Forest");
+        Battlefield(P1, kitefins, "Blood Host");
 
-                RunGame(2);
+        P2.Life = 6;
+        RunGame(1);
 
-                Equal(3, P1.Life);
-            }
-        }
+        Equal(Zone.Graveyard, C(kitefins).Zone);
+      }
     }
+  }
 }
