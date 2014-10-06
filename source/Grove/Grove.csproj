@@ -292,6 +292,7 @@
     <Compile Include="CardsLibrary\Soulmender.cs" />
     <Compile Include="CardsLibrary\SoulOfTheros.cs" />
     <Compile Include="CardsLibrary\SowingSalt.cs" />
+    <Compile Include="CardsLibrary\SpectraWard.cs" />
     <Compile Include="CardsLibrary\StabWound.cs" />
     <Compile Include="CardsLibrary\StaffOfTheDeathMagus.cs" />
     <Compile Include="CardsLibrary\StaffOfTheFlameMagus.cs" />
