@@ -1,27 +1,29 @@
 ﻿namespace Grove.Tests.Cards
 {
-    using System.Linq;
-    using Infrastructure;
-    using Xunit;
+  using Infrastructure;
+  using Xunit;
 
-    public class PillarOfLight
+  public class PillarOfLight
+  {
+    public class Ai : AiScenario
     {
-        public class Ai : AiScenario
-        {
-            [Fact]
-            public void Exile()
-            {
-                Hand(P1, "Pillar of Light");
-                Battlefield(P1, "Kinsbaile Skirmisher", "Plains", "Plains", "Plains");
+      [Fact]
+      public void ExileAngel()
+      {
+        var angel = C("Baneslayer Angel");
 
-                P2.Life = 2;
-                Battlefield(P2, "Baneslayer Angel");
+        Hand(P1, "Pillar of Light");
+        Battlefield(P1, "Kinsbaile Skirmisher", "Plains", "Plains", "Plains");
 
-                RunGame(1);
+        P2.Life = 2;
 
-                Equal(0, P2.Life);
-                Equal(1, P2.Exile.Count());
-            }
-        }
+        Battlefield(P2, angel);
+
+        RunGame(1);
+
+        Equal(0, P2.Life);
+        Equal(Zone.Exile, C(angel).Zone);
+      }
     }
+  }
 }
