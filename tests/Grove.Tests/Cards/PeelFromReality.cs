@@ -1,27 +1,29 @@
 ﻿namespace Grove.Tests.Cards
 {
-    using System.Linq;
-    using Infrastructure;
-    using Xunit;
+  using Infrastructure;
+  using Xunit;
 
-    public class PeelFromReality
+  public class PeelFromReality
+  {
+    public class Ai : AiScenario
     {
-        public class Ai : AiScenario
-        {
-            [Fact]
-            public void ReturnCreatures()
-            {
-                P1.Life = 2;
-                Hand(P1, "Peel from Reality");
-                Battlefield(P1, "Island", "Island", "Island", "Island", "Grizzly Bears");
+      [Fact]
+      public void ReturnBearAndDragon()
+      {
+        var dragon = C("Shivan Dragon");
+        var bears = C("Grizzly Bears");
 
-                Battlefield(P2, "Blood Host");
+        Battlefield(P1, dragon);
+        Hand(P2, "Peel from Reality");
+        Battlefield(P2, "Island", "Island", "Island", "Island", bears, "Verdant Force");
 
-                RunGame(2);
+        P2.Life = 5;
 
-                Equal(0, P1.Battlefield.Creatures.Count());
-                Equal(2, P1.Life);
-            }
-        }
+        RunGame(1);
+
+        Equal(Zone.Hand, C(bears).Zone);
+        Equal(Zone.Hand, C(dragon).Zone);
+      }
     }
+  }
 }

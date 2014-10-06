@@ -3,6 +3,7 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
+  using ActivationContext = AI.ActivationContext;
 
   public abstract class TargetingRule : MachinePlayRule
   {
@@ -10,7 +11,7 @@
     public int? TargetLimit;
 
 
-    public override bool Process(int pass, AI.ActivationContext c)
+    public override bool Process(int pass, ActivationContext c)
     {
       if (pass == 2)
       {
@@ -21,7 +22,7 @@
       return false;
     }
 
-    public void Process(AI.ActivationContext c)
+    public void Process(ActivationContext c)
     {
       var excludeSelf = ConsiderTargetingSelf ? null : c.Card;
       var candidates = c.Selector.GenerateCandidates(c.TriggerMessage, excludeSelf);
@@ -147,7 +148,7 @@
 
       if (candidates.Count < minTargetCount)
         return results;
-      
+
       var targetCount = candidates.Count < maxTargetCount
         ? candidates.Count
         : maxTargetCount ?? minTargetCount;
@@ -266,17 +267,16 @@
       return candidates
         .Where(x => x.IsBlocker)
         .Select(
-          x =>
-            new
-              {
-                Card = x,
-                Gain =
-                  QuickCombat.CalculateGainBlockerWouldGetIfPowerAndThougnessWouldIncrease(
-                    blocker: x,
-                    attacker: Combat.GetAttacker(x),
-                    powerIncrease: powerIncrease.Value,
-                    toughnessIncrease: toughnessIncrease.Value)
-              })
+          x => new
+            {
+              Card = x,
+              Gain =
+                QuickCombat.CalculateGainBlockerWouldGetIfPowerAndThougnessWouldIncrease(
+                  blocker: x,
+                  attacker: Combat.GetAttacker(x),
+                  powerIncrease: powerIncrease.Value,
+                  toughnessIncrease: toughnessIncrease.Value)
+            })
         .Where(x => x.Gain > 0)
         .OrderByDescending(x => x.Gain)
         .Select(x => x.Card);
@@ -287,13 +287,13 @@
     {
       return p.Candidates<Card>(ControlledBy.SpellOwner, selector: selector)
         .Where(x => Stack.CanBeDestroyedByTopSpell(x.Card()) ||
-            (Stack.IsEmpty && Turn.Step == Step.DeclareBlockers && Combat.CanBeDealtLeathalCombatDamage(x.Card())));
+          (Stack.IsEmpty && Turn.Step == Step.DeclareBlockers && Combat.CanBeDealtLeathalCombatDamage(x.Card())));
     }
 
     protected static IEnumerable<Card> GetBounceCandidates(TargetingRuleParameters p,
-      Func<TargetsCandidates, IList<TargetCandidates>> selector = null)
+      Func<TargetsCandidates, IList<TargetCandidates>> selector = null, int selectorIndex = 0)
     {
-      return p.Candidates<Card>(ControlledBy.Opponent, selector: selector)
+      return p.Candidates<Card>(ControlledBy.Opponent, selectorIndex: selectorIndex, selector: selector)
         .Select(x => new
           {
             Card = x,

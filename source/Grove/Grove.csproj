@@ -366,6 +366,7 @@
     <Compile Include="Core\AI\TargetingRules\CostTapEffectTap.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectAnyPlayer.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectAttackerWithEvasion.cs" />
+    <Compile Include="Core\AI\TargetingRules\EffectBounceOwnAndOpponents.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectCannotBlockAttack.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectDestroyMostCommon.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectExchangeBattlefieldGraveyard.cs" />

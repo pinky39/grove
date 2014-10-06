@@ -126,6 +126,9 @@
     {
       foreach (var target in p.Targets<Card>())
       {
+        if (target.Controller == p.Controller)
+          continue;
+        
         if (TargetCreatureRemoval(target, p))
         {
           return true;
