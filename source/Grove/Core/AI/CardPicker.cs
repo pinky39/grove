@@ -35,11 +35,16 @@
           .Where(target => card.CanTarget(target) && card.IsGoodTarget(target, controller))
           .OrderBy(x => -x.Score)
           .FirstOrDefault();
-        
+
         if (bestAuraTarget != null)
         {
           chosenCards.Add(card);
-          chosenCards.Add(bestAuraTarget);
+
+          if (aurasNeedTarget)
+          {
+            chosenCards.Add(bestAuraTarget);
+          }
+
           currentCount++;
         }
       }

@@ -29,7 +29,6 @@ namespace Grove.CardsLibrary
                             validator: c => c.Is().Aura,
                             text: "Search your #0 for an Aura card.",
                             aurasNeedTarget: false);
-//                            afterPutToZone: (card, effect) => card.EnchantWithoutPayingCost(effect.Source.OwningCard));
                 });
         }
     }

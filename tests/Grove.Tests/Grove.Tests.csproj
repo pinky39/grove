@@ -121,6 +121,7 @@
     <Compile Include="Cards\BloodVassal.cs" />
     <Compile Include="Cards\BlooshotCyclops.cs" />
     <Compile Include="Cards\BodySnatcher.cs" />
+    <Compile Include="Cards\BoonweaverGiant.cs" />
     <Compile Include="Cards\BouncingBeebles.cs" />
     <Compile Include="Cards\BraidwoodSextant.cs" />
     <Compile Include="Cards\Brand.cs" />
