@@ -1,26 +1,29 @@
 ﻿namespace Grove.Tests.Cards
 {
-    using Infrastructure;
-    using Xunit;
+  using Infrastructure;
+  using Xunit;
 
-    public class Negate
+  public class Negate
+  {
+    public class Ai : AiScenario
     {
-        public class Ai : AiScenario
-        {
-            [Fact]
-            public void Counterspell()
-            {
-                P1.Life = 2;
-                Hand(P1, "Negate");
-                Battlefield(P1, "Island", "Island");
+      [Fact]
+      public void CounterMeteorite()
+      {
+        var meteorite = C("Meteorite");
+        
+        Hand(P1, meteorite);
+        Hand(P2, "Negate");
+        
+        Battlefield(P1, "Island", "Island", "Island", "Island", "Island", "Island");
+        Battlefield(P2, "Island", "Island");
 
-                Hand(P2, "Meteorite");
-                Battlefield(P2, "Island", "Island", "Island", "Island", "Island", "Island");
-
-                RunGame(2);
-
-                Equal(2, P1.Life);
-            }
-        }
+        P1.Life = 2;
+        
+        RunGame(1);
+        Equal(2, P1.Life);
+        Equal(Zone.Graveyard, C(meteorite).Zone);
+      }
     }
+  }
 }

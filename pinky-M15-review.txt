@@ -1,0 +1,150 @@
+o Blastfire Bolt
+o Blood Host
+o Brawler's Plate
+o Bronze Sable
+o Burning Anger
+o Carnivorous Moss-Beast
+o Carrion Crow
+o Child of Night
+o Clear a Path
+o Coral Barrier
+o Crippling Blight
+o Divine Favor
+o Ensoul Artifact
+o Festergloom
+o Flesh to Dust
+o Frost Lynx
+o Gargoyle Sentinel
+o Geist of the Moors
+o Goblin Roughrider
+o Gravedigger
+o Hornet Queen
+o Into the Void
+o Invasive Species
+o Kapsho Kitefins
+o Kinsbaile Skirmisher
+o Lightning Strike
+o Mass Calcify
+o Meteorite
+o Negate
+Ornithopter
+Peel from Reality
+Pillar of Light
+Plummet
+Profane Memento
+Reclamation Sage
+Research Assistant
+Roaring Primadox
+Rummaging Goblin
+Sacred Armory
+Sanctified Charge
+Shadowcloak Vampire
+Shaman of Spring
+Shrapnel Blast
+Siege Dragon
+Solemn Offering
+Soulmender
+Staff of the Death Magus
+Staff of the Sun Magus
+Sungrace Pegasus
+Tireless Missionaries
+Torch Fiend
+Typhoid Rats
+Tyrant's Machine
+Ulcerate
+Witch's Familiar
+Zof Shade
+
+Blastfire Bolt
+Blood Host
+Brawler's Plate
+Bronze Sable
+Burning Anger
+Carnivorous Moss-Beast
+Carrion Crow
+Child of Night
+Clear a Path
+Coral Barrier
+Crippling Blight
+Divine Favor
+Ensoul Artifact
+Festergloom
+Flesh to Dust
+Frost Lynx
+Gargoyle Sentinel
+Geist of the Moors
+Goblin Roughrider
+Gravedigger
+Hornet Queen
+Into the Void
+Invasive Species
+Kapsho Kitefins
+Kinsbaile Skirmisher
+Lightning Strike
+Mass Calcify
+Meteorite
+Negate
+Ornithopter
+Peel from Reality
+Pillar of Light
+Plummet
+Profane Memento
+Reclamation Sage
+Research Assistant
+Roaring Primadox
+Rummaging Goblin
+Sacred Armory
+Sanctified Charge
+Shadowcloak Vampire
+Shaman of Spring
+Shrapnel Blast
+Siege Dragon
+Solemn Offering
+Soulmender
+Staff of the Death Magus
+Staff of the Sun Magus
+Sungrace Pegasus
+Tireless Missionaries
+Torch Fiend
+Typhoid Rats
+Tyrant's Machine
+Ulcerate
+Witch's Familiar
+Zof Shade
+
+Caustic Tar
+Darksteel Citadel
+Fugitive Wizard
+Midnight Guard
+Naturalize
+Oreskos Swiftclaw
+Raise the Alarm
+Restock
+Rogue's Gloves
+Runeclaw Bear
+Selfless Cathar
+Staff of the Flame Magus
+Staff of the Mind Magus
+Titanic Growth
+Turn to Frog
+Wall of Fire
+Wall of Mulch
+
+Caustic Tar
+Darksteel Citadel
+Fugitive Wizard
+Midnight Guard
+Naturalize
+Oreskos Swiftclaw
+Raise the Alarm
+Restock
+Rogue's Gloves
+Runeclaw Bear
+Selfless Cathar
+Staff of the Flame Magus
+Staff of the Mind Magus
+Titanic Growth
+Turn to Frog
+Wall of Fire
+Wall of Mulch
+...
