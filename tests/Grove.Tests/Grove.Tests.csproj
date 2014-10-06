@@ -457,6 +457,7 @@
     <Compile Include="Cards\SpectraWard.cs" />
     <Compile Include="Cards\SpinedFluke.cs" />
     <Compile Include="Cards\SpireOwl.cs" />
+    <Compile Include="Cards\SpiritBonds.cs" />
     <Compile Include="Cards\Sporogenesis.cs" />
     <Compile Include="Cards\SpreadingAlgae.cs" />
     <Compile Include="Cards\StabWound.cs" />
