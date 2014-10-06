@@ -262,9 +262,9 @@
       return true;
     }
 
-    public IEnumerable<SimpleAbility> GetFiltered(Func<SimpleAbility, bool> filter)
+    public IEnumerable<Static> GetFiltered(Func<Static, bool> filter)
     {
-      return _all.Where(filter);
+      return _active.Where(filter);
     }
 
     public void DisableAll()
