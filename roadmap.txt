@@ -8,7 +8,7 @@ This file is used to track the card implementation progress.
 
 - Add icons for static abilities (flying, trample, etc.). Content is to be free and not copyrighted.
 
-- New feature: Change the color of the P/T text, when a card has effects of increase/decrease/combat damage. 
+- New feature: Change the color of the P/T text, when a card has effects of increase/decrease/combat damage.
 Possible colors: green for +/+, purple for -/-, and red for combat damages. (see DotP)
 
 - New feature: sort lands by type on the battlefield automatically
@@ -24,3 +24,13 @@ Possible colors: green for +/+, purple for -/-, and red for combat damages. (see
 - Create new project to delivery the copyrighted content into MagicGrove (fonts, card frames, mana symbols)
 
 - Refactoring: replace the groups effects (e.g TargetPlayerGainsLife, TargetPlayerLoosesLife, YouGainLife, YouLooseLife) with one effect
+
+
+Release 3.1
+
+- Implement M15 set (what is done, what needs to be done?). (Sandmann)
+- Review implemented cards. (pinky)
+- Review scores in M15.txt (pinky)
+- Generate sealed decks for tournament play (at least 2000 M15 decks, 4000 combined decks) (pinky & sandmann)
+- Fix all bugs found (pinky & sanmann)
+- Anything else?
