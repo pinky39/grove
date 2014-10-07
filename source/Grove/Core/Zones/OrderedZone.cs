@@ -89,6 +89,14 @@
       Add(card, c => _cards.AddToFront(c));
     }
 
+    public virtual void AddToFront(Card card, int skipCount)
+    {
+      if (skipCount > _cards.Count)
+        skipCount = _cards.Count;
+
+      Add(card, c => _cards.Insert(skipCount, c));
+    }
+
     protected virtual void MoveToEnd(Card card)
     {
       _cards.MoveToEnd(card);

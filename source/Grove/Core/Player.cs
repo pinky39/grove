@@ -480,6 +480,17 @@
       _library.PutOnTop(card);
     }
 
+    public void PutCardOnTopOfLibrary(Card card, int skipCount)
+    {
+      if (card.Is().Token)
+      {
+        PutCardToExile(card);
+        return;
+      }
+
+      _library.AddToFront(card, skipCount);
+    }
+
     public void PutOnBottomOfLibrary(Card card)
     {
       if (card.Is().Token)
