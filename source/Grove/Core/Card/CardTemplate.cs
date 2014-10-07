@@ -321,7 +321,7 @@
 
     public CardTemplate Convoke()
     {
-        _init.Add(p => { p.HasConvoke = true; });
+      SimpleAbilities(Static.Convoke);
         return this;
     }
 

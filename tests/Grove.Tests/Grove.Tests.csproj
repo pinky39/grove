@@ -147,6 +147,7 @@
     <Compile Include="Cards\CaveTiger.cs" />
     <Compile Include="Cards\CelestialPrism.cs" />
     <Compile Include="Cards\ChasmSkulker.cs" />
+    <Compile Include="Cards\ChiefEngineer.cs" />
     <Compile Include="Cards\ChimeOfNight.cs" />
     <Compile Include="Cards\CinderSeer.cs" />
     <Compile Include="Cards\CitanulFlute.cs" />

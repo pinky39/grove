@@ -2,6 +2,7 @@
 {
   public interface IStaticAbilities
   {
+    bool Convoke { get; }
     bool Deathtouch { get; }
     bool Defender { get; }
     bool Fear { get; }

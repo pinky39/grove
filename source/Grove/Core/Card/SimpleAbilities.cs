@@ -33,6 +33,11 @@
       return calc.Calculate(_all);
     }
 
+    public bool Convoke
+    {
+      get { return Has(Static.Convoke); }
+    }
+
     public bool Deathtouch
     {
       get { return Has(Static.Deathtouch); }

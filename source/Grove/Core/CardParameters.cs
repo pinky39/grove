@@ -30,7 +30,6 @@
     public CardText Text = String.Empty;
     public int? Toughness;
     public CardType Type;
-      public bool HasConvoke;
 
     public string Illustration
     {
