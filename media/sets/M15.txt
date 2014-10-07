@@ -53,7 +53,7 @@ Gravedigger;U;3.20
 Heliod's Pilgrim;C;3.58
 Hoarding Dragon;R;3.80
 Hornet Queen;R;3.81
-Hushwing Gryff;R;3.81
+# Hushwing Gryff;R;3.81
 Illusory Angel;U;3.89
 Indulgent Tormentor;R;4.00
 Into the Void;U;3.10
@@ -108,6 +108,9 @@ Siege Dragon;R;2.92
 Siege Wurm;C;3.33
 Solemn Offering;C;2.83
 Soulmender;C;2.20
+Soul of Theros;R;4.00
+Spectra Ward;R;3.50
+Spirit Bonds;R;3.50
 Stab Wound;U;3.60
 Staff of the Death Magus;U;1.70
 Staff of the Flame Magus;U;1.42
@@ -129,6 +132,7 @@ Wall of Fire;C;1.90
 Wall of Frost;U;3.21
 Wall of Limbs;U;2.58
 Wall of Mulch;U;3.00
+Warden of the Beyond;U;3.07
 Welkin Tern;C;3.08
 Will-Forged Golem;C;2.50
 Witch's Familiar;C;1.93
