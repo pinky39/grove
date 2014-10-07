@@ -93,6 +93,7 @@
     <Compile Include="Cards\Aetherspouts.cs" />
     <Compile Include="Cards\AetherSting.cs" />
     <Compile Include="Cards\AjanisPridemate.cs" />
+    <Compile Include="Cards\AmphinPathmage.cs" />
     <Compile Include="Cards\Anaconda.cs" />
     <Compile Include="Cards\AngelicChorus.cs" />
     <Compile Include="Cards\AngelsTrumpet.cs" />
