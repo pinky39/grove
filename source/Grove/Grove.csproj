@@ -124,6 +124,7 @@
     </ApplicationDefinition>
     <Compile Include="CardsLibrary\AccursedSpirit.cs" />
     <Compile Include="CardsLibrary\AeronautTinkerer.cs" />
+    <Compile Include="CardsLibrary\Aetherspouts.cs" />
     <Compile Include="CardsLibrary\AjanisPridemate.cs" />
     <Compile Include="CardsLibrary\AvacynGuardianAngel.cs" />
     <Compile Include="CardsLibrary\BattleMastery.cs" />
@@ -412,6 +413,7 @@
     <Compile Include="Core\Effects\PayManaApplyToCard.cs" />
     <Compile Include="Core\Effects\PayManaCreateTokens.cs" />
     <Compile Include="Core\Effects\PreventAllDamagesToTargetsFromChosenColor.cs" />
+    <Compile Include="Core\Effects\PutSelectedAttackersOnTopRestOnBottom.cs" />
     <Compile Include="Core\Effects\RevealTopCardsPutLandInHandOthersOnGraveyard.cs" />
     <Compile Include="Core\Effects\OpponentRevealsHand.cs" />
     <Compile Include="Core\Effects\ReturnCardsFromGraveyardToHandForEachRevealedCard.cs" />
