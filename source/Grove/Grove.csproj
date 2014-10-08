@@ -215,6 +215,7 @@
     <Compile Include="CardsLibrary\JacesIngenuity.cs" />
     <Compile Include="CardsLibrary\JaliraMasterPolymorphist.cs" />
     <Compile Include="CardsLibrary\JasmineSeer.cs" />
+    <Compile Include="CardsLibrary\JorubaiMurkLurker.cs" />
     <Compile Include="CardsLibrary\Juggernaut.cs" />
     <Compile Include="CardsLibrary\JunkDiver.cs" />
     <Compile Include="CardsLibrary\KapshoKitefins.cs" />
