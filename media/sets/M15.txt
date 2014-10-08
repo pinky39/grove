@@ -13,7 +13,9 @@ Commons: 11
 !Cards
 Accursed Spirit;C;3.07
 Aeronaut Tinkerer;C;3.08
+AEtherspouts;R;3.50
 Ajani's Pridemate;U;3.67
+Amphin Pathmage;C;3.07
 Avacyn, Guardian Angel;R;3.83
 Battle Mastery;U;2.60
 Blastfire Bolt;C;2.07
@@ -25,7 +27,10 @@ Burning Anger;R;3.36
 Carnivorous Moss-Beast;C;2.14
 Carrion Crow;C;2.07
 Caustic Tar;U;2.50
+Chasm Skulker;R;4.00
+Chief Engineer;R;3.56
 Child of Night;C;2.40
+Chronostutter;C;2.00
 Clear a Path;C;1.75
 # Cone of Flame;U;3.43
 Constricting Sliver;U;3.69
