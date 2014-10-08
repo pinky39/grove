@@ -161,6 +161,7 @@
     <Compile Include="CardsLibrary\DarksteelCitadel.cs" />
     <Compile Include="CardsLibrary\DauntlessRiverMarshal.cs" />
     <Compile Include="CardsLibrary\DevouringLight.cs" />
+    <Compile Include="CardsLibrary\DiffusionSliver.cs" />
     <Compile Include="CardsLibrary\Disappear.cs" />
     <Compile Include="CardsLibrary\DivineFavor.cs" />
     <Compile Include="CardsLibrary\Donate.cs" />

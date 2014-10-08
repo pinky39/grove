@@ -108,6 +108,9 @@
     {
       LastResolved = null;
 
+      if(TopSpell == null)
+        return;
+
       var effect = TopSpell;
       Remove(effect);
 

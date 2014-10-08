@@ -179,6 +179,7 @@
     <Compile Include="Cards\DevouringLight.cs" />
     <Compile Include="Cards\DevoutHarpist.cs" />
     <Compile Include="Cards\DiabolicServitude.cs" />
+    <Compile Include="Cards\DiffusionSliver.cs" />
     <Compile Include="Cards\Disappear.cs" />
     <Compile Include="Cards\DiscipleOfGrace.cs" />
     <Compile Include="Cards\DiscordantDirge.cs" />
