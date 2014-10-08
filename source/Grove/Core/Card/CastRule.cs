@@ -101,7 +101,7 @@
 
     private bool CanCastWithConvoke(IManaAmount amount)
     {
-      var actualCost = Game.GetActualCost(amount, ManaUsage.Spells, _card);
+      var actualCost = Game.GetActualCost(amount, ManaUsage.Spells, _card);      
 
       var cards = _card.Controller.Battlefield.Creatures
           .Where(c => c.CanBeTapped && !c.HasManaAbilities);
@@ -152,7 +152,8 @@
       };
 
       // TODO: Add support of an aggregated cost and 'X' in costs
-      if (_card.HasConvoke)
+      // If land with convoke ability (gained from spells or effects, e.g. Chief Engineer and Darksteel Citadel)
+      if (_card.HasConvoke && _card.ManaCost != null)
       {
         prerequisites.CanPay = new Lazy<bool>(() => CanCastWithConvoke(_card.ManaCost));
       }
@@ -173,7 +174,7 @@
 
       if (p.PayCost)
       {
-        if (_card.Controller.IsMachine && _card.HasConvoke)
+        if (_card.Controller.IsMachine && _card.HasConvoke && _card.ManaCost != null)
         {
           PayConvoke(_card.Controller);
         }

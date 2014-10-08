@@ -10,8 +10,8 @@
       [Fact]
       public void CastJuggernautForConvoke()
       {
-        Hand(P1, "Juggernaut");
-        Battlefield(P1, "Chief Engineer", "Island", "Island", "Island");
+        Hand(P1, "Juggernaut", "Darksteel Citadel");
+        Battlefield(P1, "Chief Engineer", "Island", "Island");
 
         Battlefield(P2, "Grizzly Bears");
 
