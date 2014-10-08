@@ -163,6 +163,7 @@
     <Compile Include="CardsLibrary\DevouringLight.cs" />
     <Compile Include="CardsLibrary\DiffusionSliver.cs" />
     <Compile Include="CardsLibrary\Disappear.cs" />
+    <Compile Include="CardsLibrary\Dissipate.cs" />
     <Compile Include="CardsLibrary\DivineFavor.cs" />
     <Compile Include="CardsLibrary\Donate.cs" />
     <Compile Include="CardsLibrary\ElvishLookout.cs" />
