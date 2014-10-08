@@ -212,6 +212,7 @@
     <Compile Include="CardsLibrary\Invisibility.cs" />
     <Compile Include="CardsLibrary\IridescentDrake.cs" />
     <Compile Include="CardsLibrary\IvySeer.cs" />
+    <Compile Include="CardsLibrary\JacesIngenuity.cs" />
     <Compile Include="CardsLibrary\JasmineSeer.cs" />
     <Compile Include="CardsLibrary\Juggernaut.cs" />
     <Compile Include="CardsLibrary\JunkDiver.cs" />
