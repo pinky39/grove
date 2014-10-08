@@ -193,7 +193,7 @@
       get
       {
         return Fear || Flying || Trample || Unblockable || AssignsDamageAsThoughItWasntBlocked ||
-          CanOnlyBeBlockedByCreaturesWithFlying || Swampwalk || Mountainwalk || Islandwalk;
+          CanOnlyBeBlockedByCreaturesWithFlying || CanOnlyBeBlockedByWalls || Swampwalk || Mountainwalk || Islandwalk;
       }
     }
 
@@ -205,6 +205,11 @@
     public bool CanOnlyBeBlockedByCreaturesWithFlying
     {
         get { return Has(Static.CanOnlyBeBlockedByCreaturesWithFlying); }
+    }
+
+    public bool CanOnlyBeBlockedByWalls 
+    {
+      get { return Has(Static.CanOnlyBeBlockedByWalls); }
     }
 
     public bool CannotBeBlockedByWalls

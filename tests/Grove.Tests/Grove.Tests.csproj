@@ -275,6 +275,7 @@
     <Compile Include="Cards\Incendiary.cs" />
     <Compile Include="Cards\IntoTheVoid.cs" />
     <Compile Include="Cards\InvasiveSpecies.cs" />
+    <Compile Include="Cards\Invisibility.cs" />
     <Compile Include="Cards\IridescentDrake.cs" />
     <Compile Include="Cards\IronMaiden.cs" />
     <Compile Include="Cards\IvySeer.cs" />

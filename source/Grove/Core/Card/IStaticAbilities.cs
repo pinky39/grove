@@ -28,6 +28,7 @@
     bool AssignsDamageAsThoughItWasntBlocked { get; }
     bool AnyEvadingAbility { get; }
     bool CanOnlyBeBlockedByCreaturesWithFlying { get; }
+    bool CanOnlyBeBlockedByWalls { get; }
     bool CanBlockOnlyCreaturesWithFlying { get; }
     bool CannotBeBlockedByWalls { get; }
     bool CanAttackOnlyIfDefenderHasIslands { get; }

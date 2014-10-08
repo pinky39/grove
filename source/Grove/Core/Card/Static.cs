@@ -26,6 +26,7 @@
     Mountainwalk,
     AssignsDamageAsThoughItWasntBlocked,
     CanOnlyBeBlockedByCreaturesWithFlying,
+    CanOnlyBeBlockedByWalls,
     CanAttackOnlyIfDefenderHasIslands,
     Flash,
     AttacksEachTurnIfAble,

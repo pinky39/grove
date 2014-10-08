@@ -209,6 +209,7 @@
     <Compile Include="CardsLibrary\IndulgentTormentor.cs" />
     <Compile Include="CardsLibrary\IntoTheVoid.cs" />
     <Compile Include="CardsLibrary\InvasiveSpecies.cs" />
+    <Compile Include="CardsLibrary\Invisibility.cs" />
     <Compile Include="CardsLibrary\IridescentDrake.cs" />
     <Compile Include="CardsLibrary\IvySeer.cs" />
     <Compile Include="CardsLibrary\JasmineSeer.cs" />
