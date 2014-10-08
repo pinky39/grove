@@ -213,6 +213,7 @@
     <Compile Include="CardsLibrary\IridescentDrake.cs" />
     <Compile Include="CardsLibrary\IvySeer.cs" />
     <Compile Include="CardsLibrary\JacesIngenuity.cs" />
+    <Compile Include="CardsLibrary\JaliraMasterPolymorphist.cs" />
     <Compile Include="CardsLibrary\JasmineSeer.cs" />
     <Compile Include="CardsLibrary\Juggernaut.cs" />
     <Compile Include="CardsLibrary\JunkDiver.cs" />
@@ -616,7 +617,7 @@
     <Compile Include="Core\Effects\LookAtTopCardsPutOneInHandOthersOnBottom.cs" />
     <Compile Include="Core\Effects\OpponentDiscardsHand.cs" />
     <Compile Include="Core\Effects\PutAllPermanentsOnTopOfLibrary.cs" />
-    <Compile Include="Core\Effects\PutFirstCreatureInPlayPutOtherCardsInGraveyard.cs" />
+    <Compile Include="Core\Effects\PutFirstCardInPlayPutOtherCardsInZone.cs" />
     <Compile Include="Core\Effects\PutTargetsOnTopOfLibrary.cs" />
     <Compile Include="Core\Effects\RegenerateTarget.cs" />
     <Compile Include="Core\Effects\RemoveAllCountersFromOwner.cs" />
