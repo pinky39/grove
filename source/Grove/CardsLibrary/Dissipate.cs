@@ -14,7 +14,7 @@
         .ManaCost("{1}{U}{U}")
         .Type("Instant")
         .Text("Counter target spell. If that spell is countered this way, exile it instead of putting it into its owner's graveyard.")
-        .FlavorText("\"This abomination never belonged in our world. I'm merely setting it free.\"—Dierk, geistmage ")
+        .FlavorText("\"This abomination never belonged in our world. I'm merely setting it free.\"{EOL}—Dierk, geistmage")
         .Cast(p =>
         {
           p.Text = "Counter target spell. If that spell is countered this way, exile it instead of putting it into its owner's graveyard.";

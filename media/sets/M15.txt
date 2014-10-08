@@ -72,7 +72,7 @@ Living Totem;C;2.43
 Marked by Honor;C;2.00
 Mass Calcify;R;3.36
 Meditation Puzzle;C;1.14
-Mercurial Pretender;R;2.58
+# Mercurial Pretender;R;2.58
 Meteorite;U;2.92
 Midnight Guard;C;2.75
 Naturalize;C;3.75

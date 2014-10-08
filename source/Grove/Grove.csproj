@@ -201,6 +201,7 @@
     <Compile Include="CardsLibrary\HornetQueen.cs" />
     <Compile Include="CardsLibrary\HulkingOgre.cs" />
     <Compile Include="CardsLibrary\HushwingGryff.cs" />
+    <Compile Include="CardsLibrary\Hydrosurge.cs" />
     <Compile Include="CardsLibrary\IlluminatedWings.cs" />
     <Compile Include="CardsLibrary\IllusoryAngel.cs" />
     <Compile Include="CardsLibrary\Impatience.cs" />
