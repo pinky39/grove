@@ -263,6 +263,7 @@
     <Compile Include="CardsLibrary\PillarOfLight.cs" />
     <Compile Include="CardsLibrary\PlowUnder.cs" />
     <Compile Include="CardsLibrary\Plummet.cs" />
+    <Compile Include="CardsLibrary\PolymorphistsJest.cs" />
     <Compile Include="CardsLibrary\PowderKeg.cs" />
     <Compile Include="CardsLibrary\PreeminentCaptain.cs" />
     <Compile Include="CardsLibrary\ProfaneMemento.cs" />
