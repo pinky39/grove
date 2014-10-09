@@ -255,6 +255,7 @@
     <Compile Include="CardsLibrary\OreskosSwiftclaw.cs" />
     <Compile Include="CardsLibrary\Ornithopter.cs" />
     <Compile Include="CardsLibrary\Overwhelm.cs" />
+    <Compile Include="CardsLibrary\ParagonOfGatheringMists.cs" />
     <Compile Include="CardsLibrary\ParagonOfNewDawns.cs" />
     <Compile Include="CardsLibrary\PeelFromReality.cs" />
     <Compile Include="CardsLibrary\PhyrexianNegator.cs" />
