@@ -319,6 +319,7 @@
     <Compile Include="CardsLibrary\StaffOfTheFlameMagus.cs" />
     <Compile Include="CardsLibrary\StaffOfTheMindMagus.cs" />
     <Compile Include="CardsLibrary\StaffOfTheSunMagus.cs" />
+    <Compile Include="CardsLibrary\StatuteOfDenial.cs" />
     <Compile Include="CardsLibrary\StormtideLeviathan.cs" />
     <Compile Include="CardsLibrary\SunbladeElf.cs" />
     <Compile Include="CardsLibrary\SungracePegasus.cs" />
