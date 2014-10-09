@@ -389,6 +389,7 @@
     <Compile Include="Cards\ProfaneMemento.cs" />
     <Compile Include="Cards\PurgingScythe.cs" />
     <Compile Include="Cards\Pyromancy.cs" />
+    <Compile Include="Cards\Quickling.cs" />
     <Compile Include="Cards\QuicksilverAmulet.cs" />
     <Compile Include="Cards\RadiantArchangel.cs" />
     <Compile Include="Cards\RadiantsJudgment.cs" />

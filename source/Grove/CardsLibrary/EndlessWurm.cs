@@ -22,8 +22,9 @@
           {
             p.Text = "At the beginning of your upkeep, sacrifice Endless Wurm unless you sacrifice an enchantment.";
             p.Trigger(new OnStepStart(Step.Upkeep));
-            p.Effect = () => new SacrificePermanentOrSacrificeOwner(
+            p.Effect = () => new ApplyActionToPermanentOrApplyActionToOwner(
               validator: c => c.Is().Enchantment,
+              actionToOwner: (player, card) => card.Sacrifice(),
               shouldPayAi: (controller, card) => card.IsAbleToAttack,
               text: "Select an enchantment to sacrifice.",
               instructions: "(Press Enter to sacrifice Endless wurm.)");

@@ -267,6 +267,7 @@
     <Compile Include="CardsLibrary\PowderKeg.cs" />
     <Compile Include="CardsLibrary\PreeminentCaptain.cs" />
     <Compile Include="CardsLibrary\ProfaneMemento.cs" />
+    <Compile Include="CardsLibrary\Quickling.cs" />
     <Compile Include="CardsLibrary\RaiseTheAlarm.cs" />
     <Compile Include="CardsLibrary\RapidDecay.cs" />
     <Compile Include="CardsLibrary\RazorfootGriffin.cs" />
@@ -1425,7 +1426,7 @@
     <Compile Include="Core\Effects\GainControlOfAllPermanents.cs" />
     <Compile Include="Core\Effects\PutSelectedCardsToBattlefield.cs" />
     <Compile Include="Core\Effects\ReturnAllCardsInGraveyardToHand.cs" />
-    <Compile Include="Core\Effects\SacrificePermanentOrSacrificeOwner.cs" />
+    <Compile Include="Core\Effects\ApplyActionToPermanentOrApplyActionToOwner.cs" />
     <Compile Include="Core\Effects\TargetPlayerGainsLifeEqualToCreatureCount.cs" />
     <Compile Include="Core\Effects\PlayersSacrificePermanents.cs" />
     <Compile Include="Core\Effects\PutTargetsToBattlefield.cs" />
