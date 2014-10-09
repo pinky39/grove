@@ -129,6 +129,7 @@
     <Compile Include="CardsLibrary\AmphinPathmage.cs" />
     <Compile Include="CardsLibrary\AvacynGuardianAngel.cs" />
     <Compile Include="CardsLibrary\BattleMastery.cs" />
+    <Compile Include="CardsLibrary\BlackCat.cs" />
     <Compile Include="CardsLibrary\BlastfireBolt.cs" />
     <Compile Include="CardsLibrary\BloodHost.cs" />
     <Compile Include="CardsLibrary\BoonweaverGiant.cs" />
