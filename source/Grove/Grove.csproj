@@ -231,6 +231,7 @@
     <Compile Include="CardsLibrary\MarkedByHonor.cs" />
     <Compile Include="CardsLibrary\MassCalcify.cs" />
     <Compile Include="CardsLibrary\MasterHealer.cs" />
+    <Compile Include="CardsLibrary\MasterOfPredicaments.cs" />
     <Compile Include="CardsLibrary\Masticore.cs" />
     <Compile Include="CardsLibrary\MeditationPuzzle.cs" />
     <Compile Include="CardsLibrary\MentalDiscipline.cs" />
@@ -409,6 +410,7 @@
     <Compile Include="Core\Costs\Exile.cs" />
     <Compile Include="Core\Decisions\PushTriggeredEffects.cs" />
     <Compile Include="Core\Effects\AddManaForEachRevealedCard.cs" />
+    <Compile Include="Core\Effects\BooleanEffectChoice.cs" />
     <Compile Include="Core\Effects\ChangeLife.cs" />
     <Compile Include="Core\Effects\ChangeZoneForSelectedCard.cs" />
     <Compile Include="Core\Effects\CounterTargetSpellUnlessControllerPays1ForEachRevealedCard.cs" />
@@ -424,6 +426,7 @@
     <Compile Include="Core\Effects\PayManaApplyToCard.cs" />
     <Compile Include="Core\Effects\PayManaCreateTokens.cs" />
     <Compile Include="Core\Effects\PreventAllDamagesToTargetsFromChosenColor.cs" />
+    <Compile Include="Core\Effects\PutSelectedCardIntoPlayIfOpponentGuessedWrong.cs" />
     <Compile Include="Core\Effects\PutSelectedAttackersOnTopRestOnBottom.cs" />
     <Compile Include="Core\Effects\RevealTopCardsPutLandInHandOthersOnGraveyard.cs" />
     <Compile Include="Core\Effects\OpponentRevealsHand.cs" />
