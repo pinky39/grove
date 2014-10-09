@@ -263,7 +263,6 @@
         player.AddManaToManaPool(mana, ManaUsage.Spells);
       }
 
-      var canPlay = player.HasMana(_card.ManaCost, ManaUsage.Spells);
       Asrt.True(player.HasMana(_card.ManaCost, ManaUsage.Spells), "Convoke has worked incorrect for " + _card.Name);
     }
 

@@ -240,6 +240,7 @@
     <Compile Include="CardsLibrary\MetathranSoldier.cs" />
     <Compile Include="CardsLibrary\Meteorite.cs" />
     <Compile Include="CardsLibrary\MidnightGuard.cs" />
+    <Compile Include="CardsLibrary\MilitaryIntelligence.cs" />
     <Compile Include="CardsLibrary\Momentum.cs" />
     <Compile Include="CardsLibrary\MultanisDecree.cs" />
     <Compile Include="CardsLibrary\Naturalize.cs" />
