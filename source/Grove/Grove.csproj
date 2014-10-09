@@ -157,6 +157,7 @@
     <Compile Include="CardsLibrary\ConeOfFlame.cs" />
     <Compile Include="CardsLibrary\ConstrictingSliver.cs" />
     <Compile Include="CardsLibrary\CoralBarrier.cs" />
+    <Compile Include="CardsLibrary\CovenantOfBlood.cs" />
     <Compile Include="CardsLibrary\CovetousDragon.cs" />
     <Compile Include="CardsLibrary\CripplingBlight.cs" />
     <Compile Include="CardsLibrary\DarksteelCitadel.cs" />
