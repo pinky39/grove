@@ -247,6 +247,7 @@
     <Compile Include="CardsLibrary\Naturalize.cs" />
     <Compile Include="CardsLibrary\Negate.cs" />
     <Compile Include="CardsLibrary\NightfireGiant.cs" />
+    <Compile Include="CardsLibrary\NimbusOfTheIsles.cs" />
     <Compile Include="CardsLibrary\NissasExpedition.cs" />
     <Compile Include="CardsLibrary\Opalescence.cs" />
     <Compile Include="CardsLibrary\Opposition.cs" />
