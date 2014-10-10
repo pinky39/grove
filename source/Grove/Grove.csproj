@@ -257,6 +257,7 @@
     <Compile Include="CardsLibrary\Necrobite.cs" />
     <Compile Include="CardsLibrary\NecrogenScudder.cs" />
     <Compile Include="CardsLibrary\NecromancersAssistant.cs" />
+    <Compile Include="CardsLibrary\NecromancersStockpile.cs" />
     <Compile Include="CardsLibrary\Negate.cs" />
     <Compile Include="CardsLibrary\NightfireGiant.cs" />
     <Compile Include="CardsLibrary\NimbusOfTheIsles.cs" />
@@ -440,6 +441,7 @@
     <Compile Include="Core\Effects\DealDamageToTargetForEachRevealedCard.cs" />
     <Compile Include="Core\Effects\DealIncrementalDamagesToTargets.cs" />
     <Compile Include="Core\Effects\DiscardCardOrSacrificeOwner.cs" />
+    <Compile Include="Core\Effects\DrawCardsCreateTokens.cs" />
     <Compile Include="Core\Effects\ExileAllPermanents.cs" />
     <Compile Include="Core\Effects\ExileTargetThenPutIntoPlayUnderOwnersControl.cs" />
     <Compile Include="Core\Effects\FlipACoinOpponentGainsControl.cs" />
