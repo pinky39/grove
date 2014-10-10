@@ -78,25 +78,32 @@ Lightning Strike;C;3.75
 Living Totem;C;2.43
 Marked by Honor;C;2.00
 Mass Calcify;R;3.36
+# Master of Predicaments;R;3.58
 Meditation Puzzle;C;1.14
 # Mercurial Pretender;R;2.58
 Meteorite;U;2.92
 Midnight Guard;C;2.75
+Military Intelligence;U;3.40
+Mind Sculpt;C;3.00
 Naturalize;C;3.75
 Negate;C;4.25
 Nightfire Giant;U;3.50
+Nimbus of the Isles;C;1.71
 Nissa's Expedition;U;3.17
 Oppressive Rays;C;2.71
 Oreskos Swiftclaw;C;2.50
 Ornithopter;C;3.44
 Overwhelm;U;3.00
+Paragon of Gathering Mists;U;3.17
 Paragon of New Dawns;U;3.50
 Peel from Reality;C;3.00
 Phytotitan;R;3.44
 Pillar of Light;C;2.90
 Plummet;C;2.40
+Polymorphist's Jest;R;3.77
 Preeminent Captain;R;3.60
 Profane Memento;U;2.67
+Quickling;U;3.63
 Raise the Alarm;C;3.92
 Razorfoot Griffin;C;2.25
 Research Assistant;C;2.07
@@ -120,6 +127,7 @@ Siege Dragon;R;2.92
 Siege Wurm;C;3.33
 Solemn Offering;C;2.83
 Soulmender;C;2.20
+Soul of Ravnica;R;3.46
 Soul of Theros;R;4.00
 Spectra Ward;R;3.50
 Spirit Bonds;R;3.50
