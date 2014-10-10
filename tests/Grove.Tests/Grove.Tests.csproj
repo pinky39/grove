@@ -337,6 +337,7 @@
     <Compile Include="Cards\MultaniMaroSorcerer.cs" />
     <Compile Include="Cards\MultanisDecree.cs" />
     <Compile Include="Cards\MultanisPresence.cs" />
+    <Compile Include="Cards\NecromancersAssistant.cs" />
     <Compile Include="Cards\Negate.cs" />
     <Compile Include="Cards\NightfireGiant.cs" />
     <Compile Include="Cards\NightshadeSeer.cs" />

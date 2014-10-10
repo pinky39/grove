@@ -256,6 +256,7 @@
     <Compile Include="CardsLibrary\Naturalize.cs" />
     <Compile Include="CardsLibrary\Necrobite.cs" />
     <Compile Include="CardsLibrary\NecrogenScudder.cs" />
+    <Compile Include="CardsLibrary\NecromancersAssistant.cs" />
     <Compile Include="CardsLibrary\Negate.cs" />
     <Compile Include="CardsLibrary\NightfireGiant.cs" />
     <Compile Include="CardsLibrary\NimbusOfTheIsles.cs" />
@@ -1513,7 +1514,7 @@
     <Compile Include="Core\Effects\DealExistingDamageToPlayer.cs" />
     <Compile Include="Core\Effects\DestroyAllPermanents.cs" />
     <Compile Include="Core\Effects\ExileTargets.cs" />
-    <Compile Include="Core\Effects\OpponentPutsTopCardsFromLibraryToGraveyard.cs" />
+    <Compile Include="Core\Effects\PlayerPutsTopCardsFromLibraryToGraveyard.cs" />
     <Compile Include="Core\Effects\PayLifeOrTapLand.cs" />
     <Compile Include="Core\Effects\PayManaOrSacrifice.cs" />
     <Compile Include="Core\Effects\ReturnAllPermanentsToHand.cs" />

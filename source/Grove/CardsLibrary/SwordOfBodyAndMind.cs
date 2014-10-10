@@ -31,7 +31,7 @@
               playerFilter: delegate { return true; }));
 
             p.Effect = () => new CompoundEffect(
-              new OpponentPutsTopCardsFromLibraryToGraveyard(10),
+              new PlayerPutsTopCardsFromLibraryToGraveyard(P(e => e.Controller.Opponent), count: 10),
               new CreateTokens(
                 count: 1,
                 token: Card

@@ -15,7 +15,7 @@
         .FlavorText("\"Your mind was a curious mix of madness and genius. I just took away the genius.\"{EOL}—Jace Beleren")
         .Cast(p =>
         {
-          p.Effect = () => new OpponentPutsTopCardsFromLibraryToGraveyard(7);;
+          p.Effect = () => new PlayerPutsTopCardsFromLibraryToGraveyard(P(e => e.Controller.Opponent), count: 7);;
         });
     }
   }
