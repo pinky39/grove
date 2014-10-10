@@ -32,7 +32,7 @@
 
               tp.Trigger(new OnZoneChanged(
                 from: Zone.Battlefield, to: Zone.Graveyard, 
-                filter: (card, ability, _) => card.Controller != ability.OwningCard.Controller));
+                filter: (card, ability, _) => card.Is().Creature && card.Controller != ability.OwningCard.Controller));
 
               return new AddTriggeredAbility(new TriggeredAbility(tp));
             });
