@@ -167,6 +167,7 @@
     <Compile Include="CardsLibrary\CovetousDragon.cs" />
     <Compile Include="CardsLibrary\CripplingBlight.cs" />
     <Compile Include="CardsLibrary\CrowdsFavor.cs" />
+    <Compile Include="CardsLibrary\CrucibleOfFire.cs" />
     <Compile Include="CardsLibrary\CruelSadist.cs" />
     <Compile Include="CardsLibrary\DarksteelCitadel.cs" />
     <Compile Include="CardsLibrary\DauntlessRiverMarshal.cs" />
