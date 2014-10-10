@@ -262,6 +262,7 @@
     <Compile Include="CardsLibrary\NightfireGiant.cs" />
     <Compile Include="CardsLibrary\NimbusOfTheIsles.cs" />
     <Compile Include="CardsLibrary\NissasExpedition.cs" />
+    <Compile Include="CardsLibrary\ObNixilisUnshackled.cs" />
     <Compile Include="CardsLibrary\Opalescence.cs" />
     <Compile Include="CardsLibrary\Opposition.cs" />
     <Compile Include="CardsLibrary\OppressiveRays.cs" />
@@ -460,6 +461,7 @@
     <Compile Include="Core\Events\CounterAddedEvent.cs" />
     <Compile Include="Core\Events\CounterRemovedEvent.cs" />
     <Compile Include="Core\Events\PlayerDrawsCardEvent.cs" />
+    <Compile Include="Core\Events\PlayerSearchesLibrary.cs" />
     <Compile Include="Core\Events\SpellPutOnStackEvent.cs" />
     <Compile Include="Core\GameParameters.cs" />
     <Compile Include="Core\Modifiers\IncreasePowerToughnessEqualToAttachedCounterCount.cs" />
@@ -1142,6 +1144,7 @@
     <Compile Include="Core\PlayModes\SealedDeckIndex.cs" />
     <Compile Include="Core\Triggers\OnLifeChanged.cs" />
     <Compile Include="Core\Triggers\OnPlayerDrawsCard.cs" />
+    <Compile Include="Core\Triggers\OnPlayerSearchesLibrary.cs" />
     <Compile Include="Infrastructure\ColorUtils.cs" />
     <Compile Include="Infrastructure\DictionaryEx.cs" />
     <Compile Include="Infrastructure\IReceive.cs" />

@@ -1,6 +1,7 @@
 ﻿namespace Grove.Effects
 {
   using System.Linq;
+  using Events;
 
   public class ExileCardsWithSameNameAsTargetFromGhl : Effect
   {
@@ -41,6 +42,8 @@
           card.Exile();
         }
       }
+
+      Publish(new PlayerSearchesLibrary(controller));
 
       foreach (var card in controller.Library.ToList())
       {
