@@ -266,6 +266,8 @@
     public void DiscardCard(Card card)
     {
       _graveyard.AddToEnd(card);
+
+      Publish(new PlayerDiscardsCardEvent(this, card));
     }
 
     public void DiscardHand()

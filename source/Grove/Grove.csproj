@@ -368,6 +368,7 @@
     <Compile Include="CardsLibrary\WallOfLimbs.cs" />
     <Compile Include="CardsLibrary\WallOfMulch.cs" />
     <Compile Include="CardsLibrary\WardenOfTheBeyond.cs" />
+    <Compile Include="CardsLibrary\WasteNot.cs" />
     <Compile Include="CardsLibrary\WelkinTern.cs" />
     <Compile Include="CardsLibrary\WillForgedGolem.cs" />
     <Compile Include="CardsLibrary\WitchsFamiliar.cs" />
@@ -464,6 +465,7 @@
     <Compile Include="Core\Effects\YourLifeBecomesEqual.cs" />
     <Compile Include="Core\Events\CounterAddedEvent.cs" />
     <Compile Include="Core\Events\CounterRemovedEvent.cs" />
+    <Compile Include="Core\Events\PlayerDiscardsCardEvent.cs" />
     <Compile Include="Core\Events\PlayerDrawsCardEvent.cs" />
     <Compile Include="Core\Events\PlayerSearchesLibrary.cs" />
     <Compile Include="Core\Events\SpellPutOnStackEvent.cs" />
@@ -1147,6 +1149,7 @@
     <Compile Include="Core\PlayModes\PregeneratedDecks.cs" />
     <Compile Include="Core\PlayModes\SealedDeckIndex.cs" />
     <Compile Include="Core\Triggers\OnLifeChanged.cs" />
+    <Compile Include="Core\Triggers\OnPlayerDiscardsCard.cs" />
     <Compile Include="Core\Triggers\OnPlayerDrawsCard.cs" />
     <Compile Include="Core\Triggers\OnPlayerSearchesLibrary.cs" />
     <Compile Include="Infrastructure\ColorUtils.cs" />
