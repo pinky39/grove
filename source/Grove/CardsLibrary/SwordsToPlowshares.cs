@@ -17,7 +17,7 @@
         .Text("Exile target creature. Its controller gains life equal to its power.")
         .Cast(p =>
           {
-            p.Effect = () => new ExileTargets(controllerGainsLifeEqualToToughness: true);
+            p.Effect = () => new ExileTargets(targetControllerGainsLifeEqualToToughness: true);
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
             p.TargetingRule(new EffectExileBattlefield());
             p.TimingRule(new TargetRemovalTimingRule().RemovalTags(EffectTag.Exile, EffectTag.CreaturesOnly));

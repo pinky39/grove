@@ -300,6 +300,7 @@
     <Compile Include="CardsLibrary\RofellosLlanowarEmissary.cs" />
     <Compile Include="CardsLibrary\RofellossGift.cs" />
     <Compile Include="CardsLibrary\RoguesGloves.cs" />
+    <Compile Include="CardsLibrary\RotfeasterMaggot.cs" />
     <Compile Include="CardsLibrary\RummagingGoblin.cs" />
     <Compile Include="CardsLibrary\RuneclawBear.cs" />
     <Compile Include="CardsLibrary\SacredArmory.cs" />
