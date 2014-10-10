@@ -295,6 +295,7 @@
     <Compile Include="Cards\Landslide.cs" />
     <Compile Include="Cards\LastDitchEffort.cs" />
     <Compile Include="Cards\LayWaste.cs" />
+    <Compile Include="Cards\LeechingSliver.cs" />
     <Compile Include="Cards\LightningStrike.cs" />
     <Compile Include="Cards\LiltingRefrain.cs" />
     <Compile Include="Cards\LingeringMirage.cs" />

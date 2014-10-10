@@ -33,8 +33,9 @@
           
             return false;
           }));
-          
+
           p.UsesStack = false;
+          p.TriggerOnlyIfOwningCardIsInPlay = true;          
           
           p.Effect = () => new CounterTopSpell(doNotCounterCost: 2);
         });

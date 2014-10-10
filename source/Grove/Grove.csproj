@@ -231,6 +231,7 @@
     <Compile Include="CardsLibrary\KiorasFollower.cs" />
     <Compile Include="CardsLibrary\KrenkosEnforcer.cs" />
     <Compile Include="CardsLibrary\Landslide.cs" />
+    <Compile Include="CardsLibrary\LeechingSliver.cs" />
     <Compile Include="CardsLibrary\LightningStrike.cs" />
     <Compile Include="CardsLibrary\LivingTotem.cs" />
     <Compile Include="CardsLibrary\LurkingJackals.cs" />

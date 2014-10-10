@@ -1,20 +1,21 @@
 ﻿namespace Grove.Triggers
 {
+  using System;
   using Events;
   using Infrastructure;
 
   public class OnAttack : Trigger, IReceive<AttackerJoinedCombatEvent>
   {
     private readonly bool _onlyWhenDeclared;
-    private readonly bool _triggerForEveryCreature;
+    private readonly Func<Card, Trigger, bool> _triggerForCreature;
 
     private OnAttack()
     {
     }
 
-    public OnAttack(bool triggerForEveryCreature = false, bool onlyWhenDeclared = true)
+    public OnAttack(Func<Card, Trigger, bool> triggerForCreature = null, bool onlyWhenDeclared = true)
     {
-      _triggerForEveryCreature = triggerForEveryCreature;
+      _triggerForCreature = triggerForCreature ?? ( (card, trigger) => card == Ability.OwningCard);
       _onlyWhenDeclared = onlyWhenDeclared;
     }
 
@@ -23,10 +24,8 @@
       if (!message.WasDeclared && _onlyWhenDeclared)
         return;
 
-      if (!_triggerForEveryCreature && message.Attacker.Card != Ability.OwningCard)
-        return;
-
-      Set(message);
+      if (_triggerForCreature(message.Attacker.Card, this))
+        Set(message);      
     }
   }
 }

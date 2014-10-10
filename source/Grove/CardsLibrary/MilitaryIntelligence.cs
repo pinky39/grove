@@ -21,7 +21,7 @@
         {
           p.Text = "Whenever you attack with two or more creatures, draw a card.";
 
-          p.Trigger(new OnAttack(triggerForEveryCreature: true)
+          p.Trigger(new OnAttack(triggerForCreature: (c, t) => true)
           {
             Condition = (trigger, game) => trigger.Controller.IsActive && trigger.Controller.Battlefield.Attackers.Count() == 2
           });
