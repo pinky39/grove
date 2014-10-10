@@ -180,6 +180,7 @@
     <Compile Include="CardsLibrary\EternalThirst.cs" />
     <Compile Include="CardsLibrary\Extruder.cs" />
     <Compile Include="CardsLibrary\FalseProphet.cs" />
+    <Compile Include="CardsLibrary\FeastOnTheFallen.cs" />
     <Compile Include="CardsLibrary\FendOff.cs" />
     <Compile Include="CardsLibrary\FeralIncarnation.cs" />
     <Compile Include="CardsLibrary\Festergloom.cs" />
