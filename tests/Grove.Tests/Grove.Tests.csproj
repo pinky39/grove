@@ -92,6 +92,7 @@
     <Compile Include="Cards\AeronautTinkerer.cs" />
     <Compile Include="Cards\Aetherspouts.cs" />
     <Compile Include="Cards\AetherSting.cs" />
+    <Compile Include="Cards\AggressiveMining.cs" />
     <Compile Include="Cards\AjanisPridemate.cs" />
     <Compile Include="Cards\AmphinPathmage.cs" />
     <Compile Include="Cards\Anaconda.cs" />

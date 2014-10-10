@@ -125,6 +125,7 @@
     <Compile Include="CardsLibrary\AccursedSpirit.cs" />
     <Compile Include="CardsLibrary\AeronautTinkerer.cs" />
     <Compile Include="CardsLibrary\Aetherspouts.cs" />
+    <Compile Include="CardsLibrary\AggressiveMining.cs" />
     <Compile Include="CardsLibrary\AjanisPridemate.cs" />
     <Compile Include="CardsLibrary\AmphinPathmage.cs" />
     <Compile Include="CardsLibrary\AvacynGuardianAngel.cs" />
