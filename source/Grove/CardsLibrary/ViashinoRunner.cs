@@ -1,6 +1,7 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
+  using Modifiers;
 
   public class ViashinoRunner : CardTemplateSource
   {
@@ -15,7 +16,7 @@
           "It moved this way, an' that way, an' then before I could stick it, it jumped over my head an' was gone.")
         .Power(3)
         .Toughness(2)
-        .IsUnblockableIfNotBlockedByAtLeast(2);
+        .StaticAbility(p => p.Modifier(() => new IncreaseMinBlockerCount()));
     }
   }
 }

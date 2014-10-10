@@ -42,6 +42,7 @@
     public TrackableEvent LeftBattlefield;
     private CardController _controller;
     private bool _isPreview = true;
+    private readonly MinBlockerCount _minBlockerCount = new MinBlockerCount(1);
 
     private readonly CardParameters _cardParameters;
 
@@ -58,7 +59,6 @@
       FlavorText = p.FlavorText;
       Illustration = p.Illustration;
       MayChooseNotToUntap = p.MayChooseToUntap;
-      MinimalBlockerCount = p.MinimalBlockerCount;
       ProducableManaColors = p.ManaColorsThisCardCanProduce;
 
       _strenght = new Strenght(p.Power, p.Toughness);
@@ -82,7 +82,10 @@
     }
 
     public bool MayChooseNotToUntap { get; private set; }
-    public int MinimalBlockerCount { get; private set; }
+    public int MinimalBlockerCount 
+    {
+      get { return _minBlockerCount.Value.GetValueOrDefault(); }
+    }
 
     public Card AttachedTo
     {
@@ -254,6 +257,7 @@
     {
       get
       {
+        yield return _minBlockerCount;
         yield return _strenght;
         yield return _level;
         yield return _counters;
@@ -620,6 +624,7 @@
       _combatRules.Initialize(this, game);
       _continuousEffects.Initialize(this, game);
 
+      _minBlockerCount.Initialize(Game, null);
 
       _isPreview = false;
       return this;

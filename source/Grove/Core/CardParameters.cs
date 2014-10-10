@@ -22,7 +22,6 @@
     public List<int> ManaColorsThisCardCanProduce = new List<int>();
     public IManaAmount ManaCost;
     public bool MayChooseToUntap;
-    public int MinimalBlockerCount = 1;
     public string Name;
     public ScoreOverride OverrideScore = new ScoreOverride();
     public int? Power;

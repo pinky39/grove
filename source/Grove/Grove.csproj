@@ -131,6 +131,7 @@
     <Compile Include="CardsLibrary\AmphinPathmage.cs" />
     <Compile Include="CardsLibrary\AvacynGuardianAngel.cs" />
     <Compile Include="CardsLibrary\BattleMastery.cs" />
+    <Compile Include="CardsLibrary\BelligerentSliver.cs" />
     <Compile Include="CardsLibrary\BlackCat.cs" />
     <Compile Include="CardsLibrary\BlastfireBolt.cs" />
     <Compile Include="CardsLibrary\BloodHost.cs" />
@@ -437,6 +438,7 @@
     <Compile Include="Core\Card\AbilityParameters.cs" />
     <Compile Include="Core\Card\ActivatedAbilityParameters.cs" />
     <Compile Include="Core\Card\ManaAbilityParameters.cs" />
+    <Compile Include="Core\Card\MinBlockerCount.cs" />
     <Compile Include="Core\Costs\AbilityCostModifier.cs" />
     <Compile Include="Core\Costs\Exile.cs" />
     <Compile Include="Core\Decisions\PushTriggeredEffects.cs" />
@@ -473,6 +475,7 @@
     <Compile Include="Core\Events\PlayerSearchesLibrary.cs" />
     <Compile Include="Core\Events\SpellPutOnStackEvent.cs" />
     <Compile Include="Core\GameParameters.cs" />
+    <Compile Include="Core\Modifiers\IncreaseMinBlockerCount.cs" />
     <Compile Include="Core\Modifiers\IncreasePowerToughnessEqualToAttachedCounterCount.cs" />
     <Compile Include="Core\Modifiers\OwnerControlsPermamentsLifetime.cs" />
     <Compile Include="Core\Modifiers\OwnerHasCardsInExile.cs" />

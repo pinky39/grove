@@ -378,12 +378,6 @@
       return this;
     }
 
-    public CardTemplate IsUnblockableIfNotBlockedByAtLeast(int count)
-    {
-      _init.Add(p => { p.MinimalBlockerCount = count; });
-      return this;
-    }
-
     public CardTemplate Type(string type)
     {
       _init.Add(p => { p.Type = type; });

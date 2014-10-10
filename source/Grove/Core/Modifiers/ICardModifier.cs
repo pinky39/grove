@@ -13,5 +13,6 @@
     void Apply(Level level);
     void Apply(ContiniousEffects continiousEffects);
     void Apply(Strenght strenght);
+    void Apply(MinBlockerCount count);
   }
 }

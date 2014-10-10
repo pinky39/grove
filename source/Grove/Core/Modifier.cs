@@ -78,6 +78,7 @@
     public virtual void Apply(Strenght strenght) {}
     public virtual void Apply(SkipSteps skipSteps) {}
     public virtual void Apply(CostModifiers costModifiers) {}
+    public virtual void Apply(MinBlockerCount count) { }
 
     public void AddLifetime(Lifetime lifetime)
     {
