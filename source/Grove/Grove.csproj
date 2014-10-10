@@ -372,6 +372,7 @@
     <Compile Include="CardsLibrary\WelkinTern.cs" />
     <Compile Include="CardsLibrary\WillForgedGolem.cs" />
     <Compile Include="CardsLibrary\WitchsFamiliar.cs" />
+    <Compile Include="CardsLibrary\XathridSlyblade.cs" />
     <Compile Include="CardsLibrary\YavimayaEnchantress.cs" />
     <Compile Include="CardsLibrary\YavimayaHollow.cs" />
     <Compile Include="CardsLibrary\YawgmothsBargain.cs" />
