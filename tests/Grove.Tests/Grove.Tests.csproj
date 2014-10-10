@@ -200,6 +200,7 @@
     <Compile Include="Cards\ElvishLyrist.cs" />
     <Compile Include="Cards\ElvishPiper.cs" />
     <Compile Include="Cards\Encrust.cs" />
+    <Compile Include="Cards\EndlessObedience.cs" />
     <Compile Include="Cards\EndlessWurm.cs" />
     <Compile Include="Cards\Endoskeleton.cs" />
     <Compile Include="Cards\EnergyField.cs" />
