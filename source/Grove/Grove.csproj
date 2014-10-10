@@ -255,6 +255,7 @@
     <Compile Include="CardsLibrary\MultanisDecree.cs" />
     <Compile Include="CardsLibrary\Naturalize.cs" />
     <Compile Include="CardsLibrary\Necrobite.cs" />
+    <Compile Include="CardsLibrary\NecrogenScudder.cs" />
     <Compile Include="CardsLibrary\Negate.cs" />
     <Compile Include="CardsLibrary\NightfireGiant.cs" />
     <Compile Include="CardsLibrary\NimbusOfTheIsles.cs" />
