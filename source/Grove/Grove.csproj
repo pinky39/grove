@@ -356,6 +356,7 @@
     <Compile Include="CardsLibrary\TyphoidRats.cs" />
     <Compile Include="CardsLibrary\TyrantsMachine.cs" />
     <Compile Include="CardsLibrary\Ulcerate.cs" />
+    <Compile Include="CardsLibrary\UnmakeTheGraves.cs" />
     <Compile Include="CardsLibrary\Vaporkin.cs" />
     <Compile Include="CardsLibrary\VoiceOfDuty.cs" />
     <Compile Include="CardsLibrary\VoiceOfReason.cs" />
