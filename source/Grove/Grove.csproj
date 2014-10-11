@@ -209,6 +209,7 @@
     <Compile Include="CardsLibrary\GlacialCrasher.cs" />
     <Compile Include="CardsLibrary\GoblinFestival.cs" />
     <Compile Include="CardsLibrary\GoblinGardener.cs" />
+    <Compile Include="CardsLibrary\GoblinKaboomist.cs" />
     <Compile Include="CardsLibrary\GoblinMasons.cs" />
     <Compile Include="CardsLibrary\GoblinRoughrider.cs" />
     <Compile Include="CardsLibrary\Gravedigger.cs" />
@@ -464,6 +465,7 @@
     <Compile Include="Core\Effects\ExileAllPermanents.cs" />
     <Compile Include="Core\Effects\ExileTargetThenPutIntoPlayUnderOwnersControl.cs" />
     <Compile Include="Core\Effects\FlipACoinOpponentGainsControl.cs" />
+    <Compile Include="Core\Effects\FlipCoinDealDamageToItself.cs" />
     <Compile Include="Core\Effects\GainLifeForEachRevealedCard.cs" />
     <Compile Include="Core\Effects\PayManaApplyToCard.cs" />
     <Compile Include="Core\Effects\PayManaCreateTokens.cs" />
