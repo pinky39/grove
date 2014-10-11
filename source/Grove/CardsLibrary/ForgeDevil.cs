@@ -24,7 +24,7 @@
 
             p.Effect = () => new CompoundEffect(
               new DealDamageToTargets(1),
-              new DealDamageToPlayer(1, P(e => e.Source.OwningCard.Controller)));
+              new DealDamageToPlayer(1, P(e => e.Controller)));
             p.TargetSelector.AddEffect(trg =>
             {
               trg.Message = "Select a target creature";
