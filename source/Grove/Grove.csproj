@@ -264,6 +264,7 @@
     <Compile Include="CardsLibrary\MetathranSoldier.cs" />
     <Compile Include="CardsLibrary\Meteorite.cs" />
     <Compile Include="CardsLibrary\MidnightGuard.cs" />
+    <Compile Include="CardsLibrary\MightMakesRight.cs" />
     <Compile Include="CardsLibrary\MilitaryIntelligence.cs" />
     <Compile Include="CardsLibrary\MindRot.cs" />
     <Compile Include="CardsLibrary\MindSculpt.cs" />
