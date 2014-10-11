@@ -238,6 +238,7 @@
     <Compile Include="Cards\ForgeDevil.cs" />
     <Compile Include="Cards\Fortitude.cs" />
     <Compile Include="Cards\FranticSearch.cs" />
+    <Compile Include="Cards\FrenziedGoblin.cs" />
     <Compile Include="Cards\FrostLynx.cs" />
     <Compile Include="Cards\GaeasBounty.cs" />
     <Compile Include="Cards\GaeasCradle.cs" />

@@ -15,7 +15,7 @@
 
     public OnAttack(Func<Card, Trigger, bool> triggerForCreature = null, bool onlyWhenDeclared = true)
     {
-      _triggerForCreature = triggerForCreature ?? ( (card, trigger) => card == Ability.OwningCard);
+      _triggerForCreature = triggerForCreature ?? ( (card, trigger) => card == trigger.Ability.OwningCard);
       _onlyWhenDeclared = onlyWhenDeclared;
     }
 

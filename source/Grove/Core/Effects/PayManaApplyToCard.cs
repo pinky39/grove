@@ -35,7 +35,11 @@
         X = X
       };
 
-      Source.OwningCard.AddModifier(_modifier(), p);
+      var card = (Target == null || Target.Card() == null)
+        ? Source.OwningCard
+        : Target.Card();
+
+      card.AddModifier(_modifier(), p);
     }
 
     protected override void ResolveEffect()

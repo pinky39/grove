@@ -200,6 +200,7 @@
     <Compile Include="CardsLibrary\FodderCannon.cs" />
     <Compile Include="CardsLibrary\ForgeDevil.cs" />
     <Compile Include="CardsLibrary\FoundryStreetDenizen.cs" />
+    <Compile Include="CardsLibrary\FrenziedGoblin.cs" />
     <Compile Include="CardsLibrary\FrostLynx.cs" />
     <Compile Include="CardsLibrary\FugitiveWizard.cs" />
     <Compile Include="CardsLibrary\GargoyleSentinel.cs" />
