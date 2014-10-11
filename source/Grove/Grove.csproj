@@ -227,6 +227,7 @@
     <Compile Include="CardsLibrary\Impatience.cs" />
     <Compile Include="CardsLibrary\Incendiary.cs" />
     <Compile Include="CardsLibrary\IndulgentTormentor.cs" />
+    <Compile Include="CardsLibrary\InfernoFist.cs" />
     <Compile Include="CardsLibrary\InGarruksWake.cs" />
     <Compile Include="CardsLibrary\IntoTheVoid.cs" />
     <Compile Include="CardsLibrary\InvasiveSpecies.cs" />
