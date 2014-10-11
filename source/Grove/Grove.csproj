@@ -211,6 +211,7 @@
     <Compile Include="CardsLibrary\GoblinGardener.cs" />
     <Compile Include="CardsLibrary\GoblinKaboomist.cs" />
     <Compile Include="CardsLibrary\GoblinMasons.cs" />
+    <Compile Include="CardsLibrary\GoblinRabblemaster.cs" />
     <Compile Include="CardsLibrary\GoblinRoughrider.cs" />
     <Compile Include="CardsLibrary\Gravedigger.cs" />
     <Compile Include="CardsLibrary\HeliodsPilgrim.cs" />

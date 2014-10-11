@@ -257,6 +257,7 @@
     <Compile Include="Cards\GoblinMatron.cs" />
     <Compile Include="Cards\GoblinMedics.cs" />
     <Compile Include="Cards\GoblinOffensive.cs" />
+    <Compile Include="Cards\GoblinRabblemaster.cs" />
     <Compile Include="Cards\GoblinWelder.cs" />
     <Compile Include="Cards\Gravedigger.cs" />
     <Compile Include="Cards\GraveTitan.cs" />
