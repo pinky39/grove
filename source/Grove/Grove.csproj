@@ -198,6 +198,7 @@
     <Compile Include="CardsLibrary\FleshToDust.cs" />
     <Compile Include="CardsLibrary\Flicker.cs" />
     <Compile Include="CardsLibrary\FodderCannon.cs" />
+    <Compile Include="CardsLibrary\ForgeDevil.cs" />
     <Compile Include="CardsLibrary\FrostLynx.cs" />
     <Compile Include="CardsLibrary\FugitiveWizard.cs" />
     <Compile Include="CardsLibrary\GargoyleSentinel.cs" />

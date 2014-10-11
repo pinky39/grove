@@ -235,6 +235,7 @@
     <Compile Include="Cards\Flicker.cs" />
     <Compile Include="Cards\FodderCannon.cs" />
     <Compile Include="Cards\FogBank.cs" />
+    <Compile Include="Cards\ForgeDevil.cs" />
     <Compile Include="Cards\Fortitude.cs" />
     <Compile Include="Cards\FranticSearch.cs" />
     <Compile Include="Cards\FrostLynx.cs" />
