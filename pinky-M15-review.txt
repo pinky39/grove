@@ -39,8 +39,8 @@ o Rummaging Goblin
 o Sacred Armory
 o Sanctified Charge
 o Shadowcloak Vampire
-Shaman of Spring
-Shrapnel Blast
+o Shaman of Spring
+o Shrapnel Blast
 Siege Dragon
 Solemn Offering
 Soulmender
