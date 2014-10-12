@@ -1,32 +1,26 @@
 ﻿namespace Grove.Tests.Cards
 {
-    using Infrastructure;
-    using Xunit;
+  using System.Linq;
+  using Infrastructure;
+  using Xunit;
 
-    public class RummagingGoblin
+  public class RummagingGoblin
+  {
+    public class Ai : AiScenario
     {
-        public class Predefined : PredefinedScenario
-        {
-            [Fact]
-            public void DiscardIsland()
-            {
-                var goblin = C("Rummaging Goblin");
-                var land = C("Island");
+      [Fact]
+      public void DiscardIsland()
+      {
+        Hand(P1, "Island", "Island");
+        Battlefield(P1, "Island", "Island", "Island", "Island", "Island", "Island",
+          "Island", "Rummaging Goblin");
 
-                Hand(P1, land);
-                Battlefield(P1, goblin);
+        Battlefield(P2, "Wall of Blossoms");
 
-                Exec(
-                  At(Step.FirstMain)
-                    .Activate(goblin, costTarget: land)
-                    .Verify(() =>
-                    {
-                        True(C(goblin).IsTapped);
-                        Equal(1, P1.Hand.Count);
-                        Equal(1, P1.Graveyard.Count);
-                    })
-                  );
-            }
-        }
+        RunGame(2);
+
+        Equal(1, P1.Graveyard.Count(x => x.Is("island")));
+      }
     }
+  }
 }

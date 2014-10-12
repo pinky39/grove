@@ -34,8 +34,8 @@ o Plummet
 o Profane Memento
 o Reclamation Sage
 o Research Assistant
-Roaring Primadox
-Rummaging Goblin
+o Roaring Primadox
+o Rummaging Goblin
 Sacred Armory
 Sanctified Charge
 Shadowcloak Vampire
