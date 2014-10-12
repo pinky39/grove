@@ -27,14 +27,14 @@
               to: Zone.Battlefield,
               filter: (card, ability, _) =>
               {
-                var count = ability.OwningCard.Controller.Battlefield.Count(c => c.Is().OfType("Island"));
+                var count = ability.OwningCard.Controller.Battlefield.Count(c => c.Is("Island"));
 
                 // Dauntless River Marshal comes into battlefield
                 if (ability.OwningCard == card && count > 0)
                   return true;
 
                 return ability.OwningCard.Zone == Zone.Battlefield &&
-                  ability.OwningCard.Controller == card.Controller && card.Is().OfType("Island") && count == 1;
+                  ability.OwningCard.Controller == card.Controller && card.Is("Island") && count == 1;
               }));
 
             p.UsesStack = false;
@@ -43,7 +43,7 @@
               () =>
               {
                 var modifier = new AddPowerAndToughness(1, 1);
-                modifier.AddLifetime(new OwnerControlsPermamentsLifetime(c => c.Is().OfType("Island")));
+                modifier.AddLifetime(new OwnerControlsPermamentsLifetime(c => c.Is("Island")));
                 return modifier;
               });
           })

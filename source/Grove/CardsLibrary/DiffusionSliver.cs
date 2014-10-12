@@ -26,7 +26,7 @@
             if (effect.Controller == trigger.Controller)
               return false;
           
-            if (target.IsCard() && target.Card().Is().OfType("Sliver") && target.Card().Controller == trigger.Controller)
+            if (target.IsCard() && target.Card().Is("Sliver") && target.Card().Controller == trigger.Controller)
             {
               return true;
             }

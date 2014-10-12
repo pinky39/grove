@@ -25,14 +25,14 @@
               to: Zone.Battlefield,
               filter: (card, ability, _) =>
               {
-                var count = ability.OwningCard.Controller.Battlefield.Count(c => c.Is().OfType("Swamp"));
+                var count = ability.OwningCard.Controller.Battlefield.Count(c => c.Is("Swamp"));
 
                 // Jorubai Murk Lurker comes into battlefield
                 if (ability.OwningCard == card && count > 0)
                   return true;
 
                 return ability.OwningCard.Zone == Zone.Battlefield &&
-                  ability.OwningCard.Controller == card.Controller && card.Is().OfType("Swamp") && count == 1;
+                  ability.OwningCard.Controller == card.Controller && card.Is("Swamp") && count == 1;
               }));
 
             p.UsesStack = false;
@@ -41,7 +41,7 @@
               () =>
               {
                 var modifier = new AddPowerAndToughness(1, 1);
-                modifier.AddLifetime(new OwnerControlsPermamentsLifetime(c => c.Is().OfType("Swamp")));
+                modifier.AddLifetime(new OwnerControlsPermamentsLifetime(c => c.Is("Swamp")));
                 return modifier;
               });
           })

@@ -709,10 +709,10 @@
       if (Has().CanOnlyBeBlockedByCreaturesWithFlying && !card.Has().Flying)
         return false;
 
-      if (Has().CanOnlyBeBlockedByWalls && !card.Is().OfType("Wall"))
+      if (Has().CanOnlyBeBlockedByWalls && !card.Is("Wall"))
         return false;
 
-      if (Has().CannotBeBlockedByWalls && card.Is().OfType("Wall"))
+      if (Has().CannotBeBlockedByWalls && card.Is("Wall"))
           return false;
 
       if (Has().Fear && !card.HasColor(CardColor.Black) && !card.Is().Artifact)

@@ -49,7 +49,7 @@
 
           p.TargetSelector.AddCost(trg =>
           {
-            trg.Is.Card(c => c.Is().OfType("Spirit"), ControlledBy.SpellOwner).On.Battlefield();
+            trg.Is.Card(c => c.Is("Spirit"), ControlledBy.SpellOwner).On.Battlefield();
             trg.Message = "Select a Spirit to sacrifice.";
           });
 

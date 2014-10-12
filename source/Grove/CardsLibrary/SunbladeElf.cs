@@ -27,14 +27,14 @@
               to: Zone.Battlefield,
               filter: (card, ability, _) =>
               {
-                var count = ability.OwningCard.Controller.Battlefield.Count(c => c.Is().OfType("Plains"));
+                var count = ability.OwningCard.Controller.Battlefield.Count(c => c.Is("Plains"));
 
                 // Sunblade Elf comes into battlefield
                 if (ability.OwningCard == card && count > 0)
                   return true;
 
                 return ability.OwningCard.Zone == Zone.Battlefield &&
-                  ability.OwningCard.Controller == card.Controller && card.Is().OfType("Plains") && count == 1;
+                  ability.OwningCard.Controller == card.Controller && card.Is("Plains") && count == 1;
               }));
 
             p.UsesStack = false;
@@ -43,7 +43,7 @@
               () =>
               {
                 var modifier = new AddPowerAndToughness(1, 1);
-                modifier.AddLifetime(new OwnerControlsPermamentsLifetime(c => c.Is().OfType("Plains")));
+                modifier.AddLifetime(new OwnerControlsPermamentsLifetime(c => c.Is("Plains")));
                 return modifier;
               });
           })

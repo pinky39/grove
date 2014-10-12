@@ -27,14 +27,14 @@
             to: Zone.Battlefield,
             filter: (card, ability, _) =>
             {
-              var count = ability.OwningCard.Controller.Battlefield.Count(c => c.Is().OfType("Forest"));
+              var count = ability.OwningCard.Controller.Battlefield.Count(c => c.Is("Forest"));
 
               // Kird Chieftain comes into battlefield
               if (ability.OwningCard == card && count > 0)
                 return true;
 
               return ability.OwningCard.Zone == Zone.Battlefield &&
-                ability.OwningCard.Controller == card.Controller && card.Is().OfType("Forest") && count == 1;
+                ability.OwningCard.Controller == card.Controller && card.Is("Forest") && count == 1;
             }));
 
           p.UsesStack = false;
@@ -43,7 +43,7 @@
             () =>
             {
               var modifier = new AddPowerAndToughness(1, 1);
-              modifier.AddLifetime(new OwnerControlsPermamentsLifetime(c => c.Is().OfType("Forest")));
+              modifier.AddLifetime(new OwnerControlsPermamentsLifetime(c => c.Is("Forest")));
               return modifier;
             });
         })

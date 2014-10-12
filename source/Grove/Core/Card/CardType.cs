@@ -21,9 +21,7 @@
     bool Sorcery { get; }
     bool Token { get; }
     bool Aura { get; }
-    bool NonBasicLand { get; }
-
-    bool OfType(string type);    
+    bool NonBasicLand { get; }    
   }
 
   public class CardType : ITargetType, IEnumerable<string>

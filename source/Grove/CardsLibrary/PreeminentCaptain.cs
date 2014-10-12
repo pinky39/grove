@@ -24,7 +24,7 @@
 
           p.Effect = () => new PutSelectedCardsToBattlefield(
               "Select a Soldier creature card in your hand.",
-              c => c.Is().Creature && c.Is().OfType("Soldier"),
+              c => c.Is().Creature && c.Is("soldier"),
               Zone.Hand,
               afterCardPutToBattlefield: (card, game) => game.Combat.JoinAttack(card), count: 1);
         });
