@@ -26,11 +26,9 @@
           p.Effect = () => new ReturnToHand();
           p.TargetSelector.AddEffect(trg => trg.Is.Creature(ControlledBy.SpellOwner).On.Battlefield());
 
-          p.TargetingRule(new EffectBounce());
-          p.TimingRule(new TargetRemovalTimingRule(removalTag: EffectTag.Bounce));
+          p.TargetingRule(new EffectOrCostRankBy(x => x.Score));          
 
-          p.TriggerOnlyIfOwningCardIsInPlay = true;
-          p.UsesStack = false;
+          p.TriggerOnlyIfOwningCardIsInPlay = true;          
         });
     }
   }

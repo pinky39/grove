@@ -1,21 +1,21 @@
 ﻿namespace Grove.Tests.Cards
 {
-    using Infrastructure;
-    using Xunit;
+  using Infrastructure;
+  using Xunit;
 
-    public class RoaringPrimadox
+  public class RoaringPrimadox
+  {
+    public class Ai : AiScenario
     {
-        public class Ai : AiScenario
-        {
-            [Fact]
-            public void ReturnCreature()
-            {
-                Battlefield(P1, "Roaring Primadox", "Grizzly Bears");
+      [Fact]
+      public void ReturnBear()
+      {
+        var bear = C("Grizzly Bears");
+        Battlefield(P1, "Roaring Primadox", bear);
 
-                RunGame(1);
-
-                Equal(1, P1.Battlefield.Count);
-            }
-        }
+        RunGame(1);
+        Equal(Zone.Hand, C(bear).Zone);
+      }
     }
+  }
 }
