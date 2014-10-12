@@ -1,24 +1,31 @@
 ﻿namespace Grove.Tests.Cards
 {
-    using System.Linq;
-    using Infrastructure;
-    using Xunit;
+  using Infrastructure;
+  using Xunit;
 
-    public class SanctifiedCharge
+  public class SanctifiedCharge
+  {
+    public class Ai : AiScenario
     {
-        public class Ai : AiScenario
-        {
-            [Fact]
-            public void CastSanctifiedCharge()
-            {
-                Hand(P1, "Sanctified Charge");
-                Battlefield(P1, "Grizzly Bears", "Oreskos Swiftclaw", "Plains", "Mountain", "Mountain", "Mountain", "Mountain", "Forest", "Mountain", "Mountain", "Mountain", "Mountain");
+      [Fact]
+      public void CastChargeToKill()
+      {
+        var lions = C("Savannah Lions");
+        
+        Hand(P1, "Sanctified Charge");        
+        Battlefield(P1, "Grizzly Bears", lions, "Plains", "Mountain", "Mountain", 
+          "Mountain", "Mountain", "Forest", "Mountain", "Mountain", "Mountain", "Mountain");
 
-                P2.Life = 9;
-                RunGame(1);
+        Battlefield(P2, "Skittering Skirge");
 
-                Equal(0, P2.Life);
-            }
-        }
+        P1.Life = 3;
+        P2.Life = 8;
+        
+        RunGame(2);
+
+        Equal(0, P2.Life);
+        True(C(lions).Has().FirstStrike);
+      }
     }
+  }
 }
