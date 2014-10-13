@@ -80,11 +80,6 @@
     public bool Aura { get { return _isAura; } }
     public bool NonBasicLand { get { return Land && !BasicLand; } }
 
-    public bool OfType(string type)
-    {
-      return Is(type);
-    }
-
     public bool Is(string type)
     {
       if (_basicTypes.Any(x => x.Equals(type, StringComparison.OrdinalIgnoreCase)))

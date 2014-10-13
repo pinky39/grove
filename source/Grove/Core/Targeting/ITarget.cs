@@ -121,11 +121,6 @@
       public bool Token { get { return false; } }
       public bool Aura { get { return false; } }
       public bool NonBasicLand { get { return false; } }
-
-      public bool OfType(string type)
-      {
-        return false;
-      }
     }
   }
 }

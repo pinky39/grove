@@ -346,6 +346,7 @@
     <Compile Include="CardsLibrary\Soulmender.cs" />
     <Compile Include="CardsLibrary\SoulOfInnistrad.cs" />
     <Compile Include="CardsLibrary\SoulOfRavnica.cs" />
+    <Compile Include="CardsLibrary\SoulOfShandalar.cs" />
     <Compile Include="CardsLibrary\SoulOfTheros.cs" />
     <Compile Include="CardsLibrary\SowingSalt.cs" />
     <Compile Include="CardsLibrary\SpectraWard.cs" />
