@@ -1,5 +1,6 @@
 ﻿namespace Grove.Triggers
 {
+  using System;
   using Events;
   using Infrastructure;
 
@@ -9,16 +10,20 @@
     private readonly bool _blocks;
     private readonly Trackable<int> _count = new Trackable<int>();
     private readonly bool _triggerForEveryCreature;
+    private readonly Func<Card, bool> _attackerFilter;
 
     private OnBlock()
     {
     }
 
-    public OnBlock(bool becomesBlocked = false, bool blocks = false, bool triggerForEveryCreature = false)
+    public OnBlock(bool becomesBlocked = false, bool blocks = false, bool triggerForEveryCreature = false,
+      Func<Card, bool> attackerFilter = null)
     {
       _becomesBlocked = becomesBlocked;
       _blocks = blocks;
       _triggerForEveryCreature = triggerForEveryCreature;
+
+      _attackerFilter = attackerFilter ?? delegate { return true; };
     }
 
     public void Receive(BlockerJoinedCombatEvent message)
@@ -33,7 +38,7 @@
         }
       }
 
-      else if (_blocks && message.Blocker.Card == Ability.OwningCard)
+      else if (_blocks && message.Blocker.Card == Ability.OwningCard && _attackerFilter(message.Attacker.Card))
       {
         Set(message);
       }

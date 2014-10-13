@@ -284,6 +284,7 @@
     <Compile Include="CardsLibrary\NecromancersAssistant.cs" />
     <Compile Include="CardsLibrary\NecromancersStockpile.cs" />
     <Compile Include="CardsLibrary\Negate.cs" />
+    <Compile Include="CardsLibrary\NetcasterSpider.cs" />
     <Compile Include="CardsLibrary\NightfireGiant.cs" />
     <Compile Include="CardsLibrary\NimbusOfTheIsles.cs" />
     <Compile Include="CardsLibrary\NissasExpedition.cs" />

@@ -350,6 +350,7 @@
     <Compile Include="Cards\NecromancersAssistant.cs" />
     <Compile Include="Cards\NecromancersStockpile.cs" />
     <Compile Include="Cards\Negate.cs" />
+    <Compile Include="Cards\NetcasterSpider.cs" />
     <Compile Include="Cards\NightfireGiant.cs" />
     <Compile Include="Cards\NightshadeSeer.cs" />
     <Compile Include="Cards\NissasExpedition.cs" />
