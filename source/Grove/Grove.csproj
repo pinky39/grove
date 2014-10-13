@@ -245,6 +245,7 @@
     <Compile Include="CardsLibrary\JorubaiMurkLurker.cs" />
     <Compile Include="CardsLibrary\Juggernaut.cs" />
     <Compile Include="CardsLibrary\JunkDiver.cs" />
+    <Compile Include="CardsLibrary\KalonianTwingrove.cs" />
     <Compile Include="CardsLibrary\KapshoKitefins.cs" />
     <Compile Include="CardsLibrary\KeldonVandals.cs" />
     <Compile Include="CardsLibrary\KinsbaileSkirmisher.cs" />
