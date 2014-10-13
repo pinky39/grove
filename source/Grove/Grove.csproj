@@ -155,6 +155,7 @@
     <Compile Include="CardsLibrary\ChasmSkulker.cs" />
     <Compile Include="CardsLibrary\ChiefEngineer.cs" />
     <Compile Include="CardsLibrary\ChildOfNight.cs" />
+    <Compile Include="CardsLibrary\ChordOfCalling.cs" />
     <Compile Include="CardsLibrary\Chronostutter.cs" />
     <Compile Include="CardsLibrary\CinderSeer.cs" />
     <Compile Include="CardsLibrary\CircleOfFlame.cs" />
