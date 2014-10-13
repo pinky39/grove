@@ -391,6 +391,7 @@
     <Compile Include="CardsLibrary\UnmakeTheGraves.cs" />
     <Compile Include="CardsLibrary\Vaporkin.cs" />
     <Compile Include="CardsLibrary\VenomSliver.cs" />
+    <Compile Include="CardsLibrary\VerdantHaven.cs" />
     <Compile Include="CardsLibrary\VoiceOfDuty.cs" />
     <Compile Include="CardsLibrary\VoiceOfReason.cs" />
     <Compile Include="CardsLibrary\VoidSnare.cs" />
