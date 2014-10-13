@@ -180,6 +180,7 @@
     <Compile Include="CardsLibrary\DivineFavor.cs" />
     <Compile Include="CardsLibrary\Donate.cs" />
     <Compile Include="CardsLibrary\ElvishLookout.cs" />
+    <Compile Include="CardsLibrary\ElvishMystic.cs" />
     <Compile Include="CardsLibrary\ElvishPiper.cs" />
     <Compile Include="CardsLibrary\EmperorCrocodile.cs" />
     <Compile Include="CardsLibrary\Encroach.cs" />
