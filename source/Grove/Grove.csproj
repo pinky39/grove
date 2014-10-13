@@ -411,6 +411,7 @@
     <Compile Include="CardsLibrary\YavimayaEnchantress.cs" />
     <Compile Include="CardsLibrary\YavimayaHollow.cs" />
     <Compile Include="CardsLibrary\YawgmothsBargain.cs" />
+    <Compile Include="CardsLibrary\YisanTheWandererBard.cs" />
     <Compile Include="CardsLibrary\ZofShade.cs" />
     <Compile Include="Core\ActivationParameters.cs" />
     <Compile Include="Core\ActivationPrerequisites.cs" />
