@@ -458,6 +458,7 @@
     <Compile Include="Cards\SerraAvatar.cs" />
     <Compile Include="Cards\ShadowcloakVampire.cs" />
     <Compile Include="Cards\ShamanOfSpring.cs" />
+    <Compile Include="Cards\ShieldOfTheAvatar.cs" />
     <Compile Include="Cards\ShivanGorge.cs" />
     <Compile Include="Cards\ShivanHellkite.cs" />
     <Compile Include="Cards\ShowAndTell.cs" />

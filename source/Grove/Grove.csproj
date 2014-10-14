@@ -354,6 +354,7 @@
     <Compile Include="CardsLibrary\SerraAdvocate.cs" />
     <Compile Include="CardsLibrary\ShadowcloakVampire.cs" />
     <Compile Include="CardsLibrary\ShamanOfSpring.cs" />
+    <Compile Include="CardsLibrary\ShieldOfTheAvatar.cs" />
     <Compile Include="CardsLibrary\ShrapnelBlast.cs" />
     <Compile Include="CardsLibrary\SiegeDragon.cs" />
     <Compile Include="CardsLibrary\SiegeWurm.cs" />

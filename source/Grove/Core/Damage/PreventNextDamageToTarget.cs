@@ -7,13 +7,15 @@
   {
     private readonly Trackable<int> _amount;
     private readonly object _creatureOrPlayer;
+    private readonly bool _eachTurn;
 
     private PreventNextDamageToTarget() {}
 
-    public PreventNextDamageToTarget(int amount, object creatureOrPlayer)
+    public PreventNextDamageToTarget(int amount, object creatureOrPlayer, bool eachTurn = false)
     {
       _amount = new Trackable<int>(amount);      
       _creatureOrPlayer = creatureOrPlayer;
+      _eachTurn = eachTurn;
     }
 
     public override int CalculateHash(HashCalculator calc)
@@ -36,7 +38,7 @@
 
       var prevented = Math.Min(_amount, p.Amount);
 
-      if (!p.QueryOnly)
+      if (!p.QueryOnly && !_eachTurn)
         _amount.Value -= prevented;
 
       return prevented;
