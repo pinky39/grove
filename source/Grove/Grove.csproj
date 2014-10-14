@@ -407,6 +407,7 @@
     <Compile Include="CardsLibrary\TyrantsMachine.cs" />
     <Compile Include="CardsLibrary\Ulcerate.cs" />
     <Compile Include="CardsLibrary\UnmakeTheGraves.cs" />
+    <Compile Include="CardsLibrary\UrborgTombOfYawgmoth.cs" />
     <Compile Include="CardsLibrary\Vaporkin.cs" />
     <Compile Include="CardsLibrary\VenomSliver.cs" />
     <Compile Include="CardsLibrary\VerdantHaven.cs" />
