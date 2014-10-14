@@ -57,6 +57,12 @@
       return this;
     }
 
+    public CardTemplate MinBlockerPower(int power)
+    {
+      _init.Add(p => p.MinBlockerPower = power);
+      return this;
+    }
+
     public CardTemplate Protections(CardColor color)
     {
       _init.Add(p => p.ProtectionsFromColors.Add(color));

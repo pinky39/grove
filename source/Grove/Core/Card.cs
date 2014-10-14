@@ -43,6 +43,7 @@
     private CardController _controller;
     private bool _isPreview = true;
     private readonly MinBlockerCount _minBlockerCount = new MinBlockerCount(1);
+    private readonly int? _minBlockerPower;
 
     private readonly CardParameters _cardParameters;
 
@@ -76,6 +77,8 @@
       _castRules = new CastRules(p.CastInstructions);
       _combatRules = new CombatRules(p.CombatRules);
       _continuousEffects = new ContiniousEffects(p.ContinuousEffects);
+
+      _minBlockerPower = p.MinBlockerPower;
 
       JoinedBattlefield = new TrackableEvent(this);
       LeftBattlefield = new TrackableEvent(this);
@@ -758,6 +761,11 @@
         card.Controller.Battlefield.Any(x => x.Is().Enchantment))
       {
         return false;
+      }
+
+      if (_minBlockerPower.HasValue)
+      {
+        return card.Power.GetValueOrDefault(0) >= _minBlockerPower;
       }
 
       return true;

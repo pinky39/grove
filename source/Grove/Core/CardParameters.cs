@@ -30,6 +30,8 @@
     public int? Toughness;
     public CardType Type;
 
+    public int? MinBlockerPower = null;
+
     public string Illustration
     {
       get
