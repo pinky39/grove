@@ -243,6 +243,7 @@
     <Compile Include="CardsLibrary\IndulgentTormentor.cs" />
     <Compile Include="CardsLibrary\InfernoFist.cs" />
     <Compile Include="CardsLibrary\InGarruksWake.cs" />
+    <Compile Include="CardsLibrary\InspiredCharge.cs" />
     <Compile Include="CardsLibrary\IntoTheVoid.cs" />
     <Compile Include="CardsLibrary\InvasiveSpecies.cs" />
     <Compile Include="CardsLibrary\Invisibility.cs" />
