@@ -377,6 +377,7 @@
     <Compile Include="CardsLibrary\StaffOfTheFlameMagus.cs" />
     <Compile Include="CardsLibrary\StaffOfTheMindMagus.cs" />
     <Compile Include="CardsLibrary\StaffOfTheSunMagus.cs" />
+    <Compile Include="CardsLibrary\StaffOfTheWildMagus.cs" />
     <Compile Include="CardsLibrary\StatuteOfDenial.cs" />
     <Compile Include="CardsLibrary\StokeTheFlames.cs" />
     <Compile Include="CardsLibrary\StormtideLeviathan.cs" />

@@ -21,7 +21,7 @@
                     p.Trigger(new OnCastedSpell((ability, card) => card.HasColor(CardColor.Red) && card.Controller == ability.OwningCard.Controller));
                     p.Trigger(new OnZoneChanged(
                         to: Zone.Battlefield,
-                        filter: (card, ability, game) => card.Is().Land && card.Type.Contains("Mountain") && card.Controller == ability.OwningCard.Controller
+                        filter: (card, ability, game) => card.Is().Land && card.Is("Mountain") && card.Controller == ability.OwningCard.Controller
                         ));
 
                     p.Effect = () => new ChangeLife(amount: 1, forYou: true);
