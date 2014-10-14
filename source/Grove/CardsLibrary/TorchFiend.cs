@@ -1,6 +1,7 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
+  using AI;
   using AI.TargetingRules;
   using AI.TimingRules;
   using Costs;
@@ -27,11 +28,12 @@
               new Sacrifice());
 
             p.Effect = () => new DestroyTargetPermanents();
-
             p.TargetSelector.AddEffect(trg => trg.Is.Card(c => c.Is().Artifact).On.Battlefield());
-
-            p.TimingRule(new WhenPermanentCountIs(1, c => c.Is().Artifact));
+            
             p.TargetingRule(new EffectDestroy());
+            p.TimingRule(new Any(
+              new WhenOwningCardWillBeDestroyed(),
+              new TargetRemovalTimingRule(removalTag: EffectTag.Destroy)));
           });
     }
   }

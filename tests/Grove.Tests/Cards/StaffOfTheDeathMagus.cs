@@ -8,18 +8,14 @@
     public class Ai : AiScenario
     {
       [Fact]
-      public void GetLives()
-      {
+      public void Gain2Life()
+      {                
         Hand(P1, "Swamp", "Child of Night");
-        Battlefield(P1, "Swamp");
+        Battlefield(P1, "Staff of the Death Magus", "Swamp");
 
-        Library(P2, "Swamp");
-        Hand(P2, "Swamp", "Child of Night");
-        Battlefield(P2, "Staff of the Death Magus", "Swamp");
+        RunGame(1);
 
-        RunGame(2);
-
-        Equal(22, P2.Life);
+        Equal(22, P1.Life);
       }
     }
   }

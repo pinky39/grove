@@ -43,12 +43,12 @@ o Shaman of Spring
 o Shrapnel Blast
 o Siege Dragon
 o Solemn Offering
-Soulmender
-Staff of the Death Magus
-Staff of the Sun Magus
-Sungrace Pegasus
-Tireless Missionaries
-Torch Fiend
+o Soulmender
+o Staff of the Death Magus
+o Staff of the Sun Magus
+o Sungrace Pegasus
+o Tireless Missionaries
+o Torch Fiend
 Typhoid Rats
 Tyrant's Machine
 Ulcerate

@@ -1,27 +1,26 @@
 ﻿namespace Grove.Tests.Cards
 {
-    using Infrastructure;
-    using Xunit;
+  using Infrastructure;
+  using Xunit;
 
-    public class TorchFiend
+  public class TorchFiend
+  {
+    public class Ai : AiScenario
     {
-        public class Predefined : PredefinedScenario
-        {
-            [Fact]
-            public void SacrificeToDestroyArtifact()
-            {
-                var fiend = C("Torch Fiend");
-                var cathodion = C("Cathodion");
-                
-                Battlefield(P1, fiend);
-                Battlefield(P2, cathodion);
+      [Fact]
+      public void DestroyCathodion()
+      {
+        var torchFiend = C("Torch Fiend");
+        var cathodion = C("Cathodion");
 
-                Exec(
-                  At(Step.FirstMain)
-                    .Activate(fiend, target: cathodion)
-                    .Verify(() => { Equal(0, P2.Battlefield.Count); })
-                  );
-            }
-        }
+        Battlefield(P1, torchFiend, "Mountain");
+        Battlefield(P2, cathodion);
+
+        RunGame(2);
+
+        Equal(Zone.Graveyard, C(torchFiend).Zone);
+        Equal(Zone.Graveyard, C(cathodion).Zone);
+      }
     }
+  }
 }
