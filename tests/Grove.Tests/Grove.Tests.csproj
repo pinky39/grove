@@ -111,6 +111,7 @@
     <Compile Include="Cards\AuraFlux.cs" />
     <Compile Include="Cards\AuraThief.cs" />
     <Compile Include="Cards\AvalancheRiders.cs" />
+    <Compile Include="Cards\AvariceAmulet.cs" />
     <Compile Include="Cards\BaneslayerAngel.cs" />
     <Compile Include="Cards\BarrinMasterWizard.cs" />
     <Compile Include="Cards\BarrinsCodex.cs" />
