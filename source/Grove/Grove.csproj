@@ -220,6 +220,7 @@
     <Compile Include="CardsLibrary\Gravedigger.cs" />
     <Compile Include="CardsLibrary\Grindclock.cs" />
     <Compile Include="CardsLibrary\Hammerhand.cs" />
+    <Compile Include="CardsLibrary\HauntedPlateMail.cs" />
     <Compile Include="CardsLibrary\HeliodsPilgrim.cs" />
     <Compile Include="CardsLibrary\HoardingDragon.cs" />
     <Compile Include="CardsLibrary\HorizonChimera.cs" />

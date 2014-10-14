@@ -144,6 +144,11 @@
         return false;
       }
 
+      if (!_p.Condition(this))
+      {
+        return false;
+      }
+
       if (_p.ActivateAsSorcery)
       {
         return Turn.Step.IsMain() &&
