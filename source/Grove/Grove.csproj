@@ -149,6 +149,7 @@
     <Compile Include="CardsLibrary\BubblingMuck.cs" />
     <Compile Include="CardsLibrary\BurningAnger.cs" />
     <Compile Include="CardsLibrary\Caltrops.cs" />
+    <Compile Include="CardsLibrary\Cancel.cs" />
     <Compile Include="CardsLibrary\CapashenKnight.cs" />
     <Compile Include="CardsLibrary\CapashenTemplar.cs" />
     <Compile Include="CardsLibrary\CarnivalOfSouls.cs" />
