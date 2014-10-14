@@ -299,6 +299,7 @@
     <Compile Include="CardsLibrary\Negate.cs" />
     <Compile Include="CardsLibrary\NetcasterSpider.cs" />
     <Compile Include="CardsLibrary\NightfireGiant.cs" />
+    <Compile Include="CardsLibrary\Nightmare.cs" />
     <Compile Include="CardsLibrary\NimbusOfTheIsles.cs" />
     <Compile Include="CardsLibrary\NissasExpedition.cs" />
     <Compile Include="CardsLibrary\ObeliskOfUrd.cs" />

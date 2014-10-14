@@ -13,7 +13,8 @@
         .Text("{Flying} {I}(This creature can't be blocked except by creatures with flying or reach.){/I}")
         .FlavorText("Of royal blood among the spirits of the air, the Mahamoti djinn rides on the wings of the winds. As dangerous in the gambling hall as he is in battle, he is a master of trickery and misdirection.")
         .Power(5)
-        .Toughness(6);
+        .Toughness(6)
+        .SimpleAbilities(Static.Flying);
     }
   }
 }
