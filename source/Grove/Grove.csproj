@@ -213,6 +213,7 @@
     <Compile Include="CardsLibrary\FrenziedGoblin.cs" />
     <Compile Include="CardsLibrary\FrostLynx.cs" />
     <Compile Include="CardsLibrary\FugitiveWizard.cs" />
+    <Compile Include="CardsLibrary\FurnaceWhelp.cs" />
     <Compile Include="CardsLibrary\GargoyleSentinel.cs" />
     <Compile Include="CardsLibrary\GatherCourage.cs" />
     <Compile Include="CardsLibrary\GeistOfTheMoors.cs" />
