@@ -321,6 +321,7 @@
     <Compile Include="CardsLibrary\PreeminentCaptain.cs" />
     <Compile Include="CardsLibrary\ProfaneMemento.cs" />
     <Compile Include="CardsLibrary\Quickling.cs" />
+    <Compile Include="CardsLibrary\RadiantFountain.cs" />
     <Compile Include="CardsLibrary\RaiseTheAlarm.cs" />
     <Compile Include="CardsLibrary\RangersGuile.cs" />
     <Compile Include="CardsLibrary\RapidDecay.cs" />
