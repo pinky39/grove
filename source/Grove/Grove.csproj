@@ -123,6 +123,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CardsLibrary\AccursedSpirit.cs" />
+    <Compile Include="CardsLibrary\AegisAngel.cs" />
     <Compile Include="CardsLibrary\AeronautTinkerer.cs" />
     <Compile Include="CardsLibrary\Aetherspouts.cs" />
     <Compile Include="CardsLibrary\AggressiveMining.cs" />
