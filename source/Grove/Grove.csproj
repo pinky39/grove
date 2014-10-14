@@ -360,6 +360,7 @@
     <Compile Include="CardsLibrary\SelflessCathar.cs" />
     <Compile Include="CardsLibrary\SeraphOfTheMasses.cs" />
     <Compile Include="CardsLibrary\SerraAdvocate.cs" />
+    <Compile Include="CardsLibrary\SerraAngel.cs" />
     <Compile Include="CardsLibrary\ShadowcloakVampire.cs" />
     <Compile Include="CardsLibrary\ShamanOfSpring.cs" />
     <Compile Include="CardsLibrary\ShieldOfTheAvatar.cs" />
