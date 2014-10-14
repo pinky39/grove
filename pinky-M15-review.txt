@@ -59,26 +59,8 @@ o Caustic Tar
 o Darksteel Citadel
 o Fugitive Wizard
 o Midnight Guard
-Naturalize
-Oreskos Swiftclaw
-Raise the Alarm
-Restock
-Rogue's Gloves
-Runeclaw Bear
-Selfless Cathar
-Staff of the Flame Magus
-Staff of the Mind Magus
-Titanic Growth
-Turn to Frog
-Wall of Fire
-Wall of Mulch
-
-Caustic Tar
-Darksteel Citadel
-Fugitive Wizard
-Midnight Guard
-Naturalize
-Oreskos Swiftclaw
+o Naturalize
+o Oreskos Swiftclaw
 Raise the Alarm
 Restock
 Rogue's Gloves
