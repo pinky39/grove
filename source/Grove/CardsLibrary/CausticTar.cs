@@ -1,44 +1,50 @@
 ﻿namespace Grove.CardsLibrary
 {
-    using System.Collections.Generic;
-    using AI.TargetingRules;
-    using AI.TimingRules;
-    using Costs;
-    using Effects;
-    using Modifiers;
+  using System.Collections.Generic;
+  using AI.TargetingRules;
+  using AI.TimingRules;
+  using Costs;
+  using Effects;
+  using Modifiers;
 
-    public class CausticTar : CardTemplateSource
+  public class CausticTar : CardTemplateSource
+  {
+    public override IEnumerable<CardTemplate> GetCards()
     {
-        public override IEnumerable<CardTemplate> GetCards()
-        {
-            yield return Card
-                .Named("Caustic Tar")
-                .ManaCost("{4}{B}{B}")
-                .Type("Enchantment — Aura")
-                .Text("Enchant land{EOL}Enchanted land has \"{T}: Target player loses 3 life.\"")
-                .FlavorText("A forest fire can rejuvenate the land, but the tar's vile consumption leaves the land forever ruined.")
-                .Cast(p =>
-                {
-                    p.Effect = () => new Attach(() =>
-                    {
-                        var ap = new ActivatedAbilityParameters
-                        {
-                            Text = "{T}: Target player loses 3 life.",
-                            Cost = new Tap(),
-                            Effect = () => new ChangeLife(-3, forTargetPlayer: true)
-                        };
+      yield return Card
+        .Named("Caustic Tar")
+        .ManaCost("{4}{B}{B}")
+        .Type("Enchantment — Aura")
+        .Text("Enchant land{EOL}Enchanted land has \"{T}: Target player loses 3 life.\"")
+        .FlavorText(
+          "A forest fire can rejuvenate the land, but the tar's vile consumption leaves the land forever ruined.")
+        .Cast(p =>
+          {
+            p.Effect = () => new Attach(() =>
+              {
+                var ap = new ActivatedAbilityParameters
+                  {
+                    Text = "{T}: Target player loses 3 life.",
+                    Cost = new Tap(),
+                    Effect = () => new ChangeLife(-3, forTargetPlayer: true)
+                  };
 
-                        ap.TargetSelector.AddEffect(trg => trg.Is.Player());
-                        ap.TargetingRule(new EffectOpponent());
+                ap.TargetSelector.AddEffect(trg => trg.Is.Player());
 
-                        return new AddActivatedAbility(new ActivatedAbility(ap));
-                    });
+                ap.TimingRule(new Any(
+                  new OnEndOfOpponentsTurn(),
+                  new WhenOwningCardWillBeDestroyed()));
+                
+                ap.TargetingRule(new EffectOpponent());
 
-                    p.TargetSelector.AddEffect(trg => trg.Is.Card(c => c.Is().Land).On.Battlefield());
+                return new AddActivatedAbility(new ActivatedAbility(ap));
+              });
 
-                    p.TimingRule(new OnFirstMain());
-                    p.TargetingRule(new EffectLandEnchantment(ControlledBy.SpellOwner));
-                });
-        }
+            p.TargetSelector.AddEffect(trg => trg.Is.Card(c => c.Is().Land).On.Battlefield());
+
+            p.TimingRule(new OnFirstMain());
+            p.TargetingRule(new EffectLandEnchantment(ControlledBy.SpellOwner));
+          });
     }
+  }
 }

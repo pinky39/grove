@@ -1,6 +1,7 @@
 ﻿namespace Grove.AI.TargetingRules
 {
   using System.Collections.Generic;
+  using System.Linq;
 
   public class EffectLandEnchantment : TargetingRule
   {
@@ -15,7 +16,9 @@
 
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
     {
-      var candidates = p.Candidates<Card>(_controlledBy);
+      var candidates = p.Candidates<Card>(_controlledBy)
+        .OrderBy(c => c.IsTapped ? 1 : 0);
+        
       return Group(candidates, 1);
     }
   }

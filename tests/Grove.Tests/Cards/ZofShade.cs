@@ -1,25 +1,25 @@
 ﻿namespace Grove.Tests.Cards
 {
-    using Infrastructure;
-    using Xunit;
+  using Infrastructure;
+  using Xunit;
 
-    public class ZofShade
+  public class ZofShade
+  {
+    public class Ai : AiScenario
     {
-        public class Ai : AiScenario
-        {
-            [Fact]
-            public void PumpToKillBear()
-            {
-                Battlefield(P1, "Zof Shade", "Plains", "Plains", "Swamp");
-                Battlefield(P2, "Grizzly Bears");
+      [Fact]
+      public void PumpToKillBear()
+      {
+        Battlefield(P1, "Zof Shade", "Plains", "Plains", "Swamp");
+        Battlefield(P2, "Grizzly Bears");
 
-                P2.Life = 2;
+        P2.Life = 2;
 
-                RunGame(1);
+        RunGame(1);
 
-                Equal(0, P1.Graveyard.Count);
-                Equal(1, P2.Graveyard.Count);
-            }
-        }
+        Equal(0, P1.Graveyard.Count);
+        Equal(1, P2.Graveyard.Count);
+      }
     }
+  }
 }

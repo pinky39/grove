@@ -148,6 +148,7 @@
     <Compile Include="Cards\CarrionCrow.cs" />
     <Compile Include="Cards\Catastrophe.cs" />
     <Compile Include="Cards\Cathodion.cs" />
+    <Compile Include="Cards\CausticTar.cs" />
     <Compile Include="Cards\CaveTiger.cs" />
     <Compile Include="Cards\CelestialPrism.cs" />
     <Compile Include="Cards\ChasmSkulker.cs" />
@@ -335,6 +336,7 @@
     <Compile Include="Cards\MercurialPretender.cs" />
     <Compile Include="Cards\Metalworker.cs" />
     <Compile Include="Cards\Meteorite.cs" />
+    <Compile Include="Cards\MidnightGuard.cs" />
     <Compile Include="Cards\MidsummerRevel.cs" />
     <Compile Include="Cards\MilitaryIntelligence.cs" />
     <Compile Include="Cards\MirranCrusader.cs" />

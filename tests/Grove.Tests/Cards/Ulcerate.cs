@@ -1,32 +1,25 @@
 ﻿namespace Grove.Tests.Cards
 {
-    using System.Linq;
-    using Infrastructure;
-    using Xunit;
+  using Infrastructure;
+  using Xunit;
 
-    public class Ulcerate
+  public class Ulcerate
+  {
+    public class Ai : AiScenario
     {
-        public class Predefined : PredefinedScenario
-        {
-            [Fact]
-            public void Cast()
-            {
-                var ulcerate = C("Ulcerate");
-                var bear = C("Grizzly Bears");
+      [Fact]
+      public void KillHorror()
+      {
+        var horror = C("Skittering Horror");
+        Battlefield(P1, horror);
+        Hand(P2, "Ulcerate");
+        Battlefield(P2, "Swamp");
 
-                Hand(P1, ulcerate);
-                Battlefield(P2, bear);
 
-                Exec(
-                  At(Step.FirstMain)
-                    .Cast(ulcerate, target: bear)
-                    .Verify(() =>
-                    {
-                        Equal(0, P2.Battlefield.Count());
-                        Equal(17, P1.Life);
-                    })
-                  );
-            }
-        }
+        RunGame(1);
+        Equal(Zone.Graveyard, C(horror).Zone);
+        Equal(17, P2.Life);
+      }
     }
+  }
 }
