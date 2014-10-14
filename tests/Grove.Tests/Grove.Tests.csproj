@@ -434,6 +434,7 @@
     <Compile Include="Cards\Repopulate.cs" />
     <Compile Include="Cards\Reprocess.cs" />
     <Compile Include="Cards\ResoluteArchangel.cs" />
+    <Compile Include="Cards\Restock.cs" />
     <Compile Include="Cards\Retaliation.cs" />
     <Compile Include="Cards\Retromancer.cs" />
     <Compile Include="Cards\ReturnToTheRanks.cs" />
