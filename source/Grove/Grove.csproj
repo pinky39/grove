@@ -216,6 +216,7 @@
     <Compile Include="CardsLibrary\FugitiveWizard.cs" />
     <Compile Include="CardsLibrary\FurnaceWhelp.cs" />
     <Compile Include="CardsLibrary\GargoyleSentinel.cs" />
+    <Compile Include="CardsLibrary\GarruksPackleader.cs" />
     <Compile Include="CardsLibrary\GatherCourage.cs" />
     <Compile Include="CardsLibrary\GeistOfTheMoors.cs" />
     <Compile Include="CardsLibrary\GlacialCrasher.cs" />
