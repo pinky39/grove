@@ -192,6 +192,7 @@
     <Compile Include="CardsLibrary\EnsoulArtifact.cs" />
     <Compile Include="CardsLibrary\EphemeralShields.cs" />
     <Compile Include="CardsLibrary\EternalThirst.cs" />
+    <Compile Include="CardsLibrary\EvolvingWilds.cs" />
     <Compile Include="CardsLibrary\Extruder.cs" />
     <Compile Include="CardsLibrary\FalseProphet.cs" />
     <Compile Include="CardsLibrary\FeastOnTheFallen.cs" />
