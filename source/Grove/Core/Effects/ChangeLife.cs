@@ -6,18 +6,16 @@
   public class ChangeLife : Effect
   {
     private readonly DynParam<int> _amount;
-    private Player _you;
-
-    private readonly bool _forYou;
     private readonly bool _forOpponent;
     private readonly bool _forTargetPlayer;
+    private readonly bool _forYou;
     private readonly bool _useAttachedToAsYouSource;
+    private Player _you;
 
-    private ChangeLife()
-    {
-    }
+    private ChangeLife() {}
 
-    public ChangeLife(DynParam<int> amount, bool forYou = false, bool forOpponent = false, bool forTargetPlayer = false, bool useAttachedToAsYouSource = false)
+    public ChangeLife(DynParam<int> amount, bool forYou = false, bool forOpponent = false, bool forTargetPlayer = false,
+      bool useAttachedToAsYouSource = false)
     {
       _amount = amount;
 
@@ -31,8 +29,8 @@
 
     protected override void Initialize()
     {
-      _you = _useAttachedToAsYouSource 
-        ? Source.OwningCard.AttachedTo.Controller 
+      _you = _useAttachedToAsYouSource
+        ? Source.OwningCard.AttachedTo.Controller
         : Source.OwningCard.Controller;
     }
 

@@ -41,8 +41,8 @@ o Sanctified Charge
 o Shadowcloak Vampire
 o Shaman of Spring
 o Shrapnel Blast
-Siege Dragon
-Solemn Offering
+o Siege Dragon
+o Solemn Offering
 Soulmender
 Staff of the Death Magus
 Staff of the Sun Magus

@@ -1,29 +1,22 @@
 ﻿namespace Grove.Tests.Cards
 {
-    using System.Linq;
-    using Infrastructure;
-    using Xunit;
+  using Infrastructure;
+  using Xunit;
 
-    public class Soulmender
+  public class Soulmender
+  {
+    public class Ai : AiScenario
     {
-        public class Predefined : PredefinedAiScenario
-        {
-            [Fact]
-            public void GetLife()
-            {
-                var soulmender = C("Soulmender");
+      [Fact]
+      public void GainLife()
+      {
+        Battlefield(P1, "Soulmender");
+        Battlefield(P2, "Wall of Blossoms");
+        
+        RunGame(2);
 
-                Battlefield(P1, soulmender);
-
-                Exec(
-                  At(Step.FirstMain)
-                    .Activate(soulmender)
-                    .Verify(() =>
-                    {
-                        Equal(true, C(soulmender).IsTapped);
-                        Equal(21, P1.Life);
-                    }));
-            }
-        }
+        Equal(21, P1.Life);
+      }
     }
+  }
 }
