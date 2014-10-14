@@ -226,6 +226,7 @@
     <Compile Include="CardsLibrary\HorizonChimera.cs" />
     <Compile Include="CardsLibrary\HornetNest.cs" />
     <Compile Include="CardsLibrary\HornetQueen.cs" />
+    <Compile Include="CardsLibrary\HotSoup.cs" />
     <Compile Include="CardsLibrary\HulkingOgre.cs" />
     <Compile Include="CardsLibrary\HuntersAmbush.cs" />
     <Compile Include="CardsLibrary\HushwingGryff.cs" />
