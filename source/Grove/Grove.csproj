@@ -271,6 +271,7 @@
     <Compile Include="CardsLibrary\LlanowarWastes.cs" />
     <Compile Include="CardsLibrary\LurkingJackals.cs" />
     <Compile Include="CardsLibrary\Magnify.cs" />
+    <Compile Include="CardsLibrary\MahamotiDjinn.cs" />
     <Compile Include="CardsLibrary\MarkedByHonor.cs" />
     <Compile Include="CardsLibrary\MassCalcify.cs" />
     <Compile Include="CardsLibrary\MasterHealer.cs" />
