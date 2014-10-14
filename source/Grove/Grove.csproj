@@ -132,6 +132,7 @@
     <Compile Include="CardsLibrary\AvacynGuardianAngel.cs" />
     <Compile Include="CardsLibrary\AvariceAmulet.cs" />
     <Compile Include="CardsLibrary\BackToNature.cs" />
+    <Compile Include="CardsLibrary\BattlefieldForge.cs" />
     <Compile Include="CardsLibrary\BattleMastery.cs" />
     <Compile Include="CardsLibrary\BelligerentSliver.cs" />
     <Compile Include="CardsLibrary\BlackCat.cs" />
