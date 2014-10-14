@@ -393,6 +393,7 @@
     <Compile Include="CardsLibrary\TirelessMissionaries.cs" />
     <Compile Include="CardsLibrary\TitanicGrowth.cs" />
     <Compile Include="CardsLibrary\TorchFiend.cs" />
+    <Compile Include="CardsLibrary\TormodsCrypt.cs" />
     <Compile Include="CardsLibrary\Treachery.cs" />
     <Compile Include="CardsLibrary\TriplicateSpirits.cs" />
     <Compile Include="CardsLibrary\TurnToFrog.cs" />
@@ -497,7 +498,7 @@
     <Compile Include="Core\Effects\DealIncrementalDamagesToTargets.cs" />
     <Compile Include="Core\Effects\DiscardCardOrSacrificeOwner.cs" />
     <Compile Include="Core\Effects\DrawCardsCreateTokens.cs" />
-    <Compile Include="Core\Effects\ExileAllPermanents.cs" />
+    <Compile Include="Core\Effects\ExileAllCards.cs" />
     <Compile Include="Core\Effects\ExileTargetThenPutIntoPlayUnderOwnersControl.cs" />
     <Compile Include="Core\Effects\FlipACoinOpponentGainsControl.cs" />
     <Compile Include="Core\Effects\FlipCoinDealDamageToItself.cs" />

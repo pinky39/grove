@@ -22,7 +22,7 @@
             new Tap(),
             new Exile());
 
-          p.Effect = () => new ExileAllPermanents(filter: (effect, card) => !card.Is().Land);
+          p.Effect = () => new ExileAllCards(filter: (effect, card) => !card.Is().Land);
 
           p.TimingRule(new WhenOpponentControllsPermanents(selector: card => !card.Is().Land));
         });

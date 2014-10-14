@@ -24,7 +24,7 @@
               @from: Zone.Battlefield,
               to: Zone.Graveyard));
 
-            p.Effect = () => new ExileAllPermanents((e, c) => c.Is().Creature);
+            p.Effect = () => new ExileAllCards(filter: (e, c) => c.Is().Creature);
           });
     }
   }
