@@ -154,6 +154,7 @@
     <Compile Include="CardsLibrary\CarnivorousMossBeast.cs" />
     <Compile Include="CardsLibrary\CarrionCrow.cs" />
     <Compile Include="CardsLibrary\CausticTar.cs" />
+    <Compile Include="CardsLibrary\CavesOfKoilos.cs" />
     <Compile Include="CardsLibrary\ChasmSkulker.cs" />
     <Compile Include="CardsLibrary\ChiefEngineer.cs" />
     <Compile Include="CardsLibrary\ChildOfNight.cs" />
@@ -262,6 +263,7 @@
     <Compile Include="CardsLibrary\LifesLegacy.cs" />
     <Compile Include="CardsLibrary\LightningStrike.cs" />
     <Compile Include="CardsLibrary\LivingTotem.cs" />
+    <Compile Include="CardsLibrary\LlanowarWastes.cs" />
     <Compile Include="CardsLibrary\LurkingJackals.cs" />
     <Compile Include="CardsLibrary\Magnify.cs" />
     <Compile Include="CardsLibrary\MarkedByHonor.cs" />
@@ -356,6 +358,7 @@
     <Compile Include="CardsLibrary\ShadowcloakVampire.cs" />
     <Compile Include="CardsLibrary\ShamanOfSpring.cs" />
     <Compile Include="CardsLibrary\ShieldOfTheAvatar.cs" />
+    <Compile Include="CardsLibrary\ShivanReef.cs" />
     <Compile Include="CardsLibrary\ShrapnelBlast.cs" />
     <Compile Include="CardsLibrary\SiegeDragon.cs" />
     <Compile Include="CardsLibrary\SiegeWurm.cs" />
@@ -421,6 +424,7 @@
     <Compile Include="CardsLibrary\WillForgedGolem.cs" />
     <Compile Include="CardsLibrary\WitchsFamiliar.cs" />
     <Compile Include="CardsLibrary\XathridSlyblade.cs" />
+    <Compile Include="CardsLibrary\YavimayaCoast.cs" />
     <Compile Include="CardsLibrary\YavimayaEnchantress.cs" />
     <Compile Include="CardsLibrary\YavimayaHollow.cs" />
     <Compile Include="CardsLibrary\YawgmothsBargain.cs" />
