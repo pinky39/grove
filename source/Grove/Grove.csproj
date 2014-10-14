@@ -157,6 +157,7 @@
     <Compile Include="CardsLibrary\CarrionCrow.cs" />
     <Compile Include="CardsLibrary\CausticTar.cs" />
     <Compile Include="CardsLibrary\CavesOfKoilos.cs" />
+    <Compile Include="CardsLibrary\CentaurCourser.cs" />
     <Compile Include="CardsLibrary\ChasmSkulker.cs" />
     <Compile Include="CardsLibrary\ChiefEngineer.cs" />
     <Compile Include="CardsLibrary\ChildOfNight.cs" />
