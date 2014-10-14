@@ -292,6 +292,7 @@
     <Compile Include="CardsLibrary\NightfireGiant.cs" />
     <Compile Include="CardsLibrary\NimbusOfTheIsles.cs" />
     <Compile Include="CardsLibrary\NissasExpedition.cs" />
+    <Compile Include="CardsLibrary\ObeliskOfUrd.cs" />
     <Compile Include="CardsLibrary\ObNixilisUnshackled.cs" />
     <Compile Include="CardsLibrary\Opalescence.cs" />
     <Compile Include="CardsLibrary\Opposition.cs" />
@@ -1316,7 +1317,7 @@
     <Compile Include="Core\Effects\Add11ForEachCounter.cs" />
     <Compile Include="Core\Effects\ApplyModifiersToGame.cs" />
     <Compile Include="Core\Effects\ControllerGainsLifeOpponentLoosesLife.cs" />
-    <Compile Include="Core\Effects\CreaturesOfChosenTypeGetM1M1.cs" />
+    <Compile Include="Core\Effects\CreaturesOfChosenTypeGainPT.cs" />
     <Compile Include="Core\Effects\DestroyOwner.cs" />
     <Compile Include="Core\Effects\DiscardAndDrawANewHand.cs" />
     <Compile Include="Core\Effects\EachPlayerDiscardsHandAndDrawsGreatestDiscardedCount.cs" />

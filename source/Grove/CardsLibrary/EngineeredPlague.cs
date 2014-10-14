@@ -20,7 +20,7 @@
         .TriggeredAbility(p =>
           {
             p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
-            p.Effect = () => new CreaturesOfChosenTypeGetM1M1();
+            p.Effect = () => new CreaturesOfChosenTypeGainPT(-1, -1);
             p.UsesStack = false;
           });
     }
