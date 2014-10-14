@@ -182,6 +182,7 @@
     <Compile Include="CardsLibrary\Disappear.cs" />
     <Compile Include="CardsLibrary\Dissipate.cs" />
     <Compile Include="CardsLibrary\DivineFavor.cs" />
+    <Compile Include="CardsLibrary\DivineVerdict.cs" />
     <Compile Include="CardsLibrary\Donate.cs" />
     <Compile Include="CardsLibrary\ElvishLookout.cs" />
     <Compile Include="CardsLibrary\ElvishMystic.cs" />
