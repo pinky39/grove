@@ -218,6 +218,7 @@
     <Compile Include="CardsLibrary\GoblinRabblemaster.cs" />
     <Compile Include="CardsLibrary\GoblinRoughrider.cs" />
     <Compile Include="CardsLibrary\Gravedigger.cs" />
+    <Compile Include="CardsLibrary\Grindclock.cs" />
     <Compile Include="CardsLibrary\Hammerhand.cs" />
     <Compile Include="CardsLibrary\HeliodsPilgrim.cs" />
     <Compile Include="CardsLibrary\HoardingDragon.cs" />
