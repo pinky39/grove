@@ -364,6 +364,7 @@
     <Compile Include="CardsLibrary\Solidarity.cs" />
     <Compile Include="CardsLibrary\Soulmender.cs" />
     <Compile Include="CardsLibrary\SoulOfInnistrad.cs" />
+    <Compile Include="CardsLibrary\SoulOfNewPhyrexia.cs" />
     <Compile Include="CardsLibrary\SoulOfRavnica.cs" />
     <Compile Include="CardsLibrary\SoulOfShandalar.cs" />
     <Compile Include="CardsLibrary\SoulOfTheros.cs" />
