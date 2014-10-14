@@ -361,6 +361,7 @@
     <Compile Include="CardsLibrary\Scour.cs" />
     <Compile Include="CardsLibrary\ScrapyardMongrel.cs" />
     <Compile Include="CardsLibrary\ScuttlingDoomEngine.cs" />
+    <Compile Include="CardsLibrary\SeismicStrike.cs" />
     <Compile Include="CardsLibrary\SelflessCathar.cs" />
     <Compile Include="CardsLibrary\SengirVampire.cs" />
     <Compile Include="CardsLibrary\SeraphOfTheMasses.cs" />
