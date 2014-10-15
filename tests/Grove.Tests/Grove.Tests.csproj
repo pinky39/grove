@@ -288,6 +288,7 @@
     <Compile Include="Cards\Impatience.cs" />
     <Compile Include="Cards\ImpendingDisaster.cs" />
     <Compile Include="Cards\Incendiary.cs" />
+    <Compile Include="Cards\InfernoFist.cs" />
     <Compile Include="Cards\IntoTheVoid.cs" />
     <Compile Include="Cards\InvasiveSpecies.cs" />
     <Compile Include="Cards\Invisibility.cs" />

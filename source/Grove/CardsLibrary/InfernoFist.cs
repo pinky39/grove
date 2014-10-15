@@ -37,7 +37,7 @@
 
           p.Effect = () => new DealDamageToTargets(2);
           p.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
-          p.TargetingRule(new CostSacrificeEffectDealDamage(2));
+          p.TargetingRule(new EffectDealDamage(2));
         });
     }
   }
