@@ -66,9 +66,9 @@ o Restock
 o Rogue's Gloves
 o Runeclaw Bear
 o Selfless Cathar
-Staff of the Flame Magus
-Staff of the Mind Magus
-Titanic Growth
+o Staff of the Flame Magus
+o Staff of the Mind Magus
+o Titanic Growth
 Turn to Frog
 Wall of Fire
 Wall of Mulch
