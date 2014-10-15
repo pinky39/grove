@@ -63,9 +63,9 @@ o Naturalize
 o Oreskos Swiftclaw
 o Raise the Alarm
 o Restock
-Rogue's Gloves
-Runeclaw Bear
-Selfless Cathar
+o Rogue's Gloves
+o Runeclaw Bear
+o Selfless Cathar
 Staff of the Flame Magus
 Staff of the Mind Magus
 Titanic Growth
