@@ -511,6 +511,7 @@
     <Compile Include="Cards\Symbiosis.cs" />
     <Compile Include="Cards\TaintedAether.cs" />
     <Compile Include="Cards\TauntingElf.cs" />
+    <Compile Include="Cards\TerraStomper.cs" />
     <Compile Include="Cards\ThievingMagpie.cs" />
     <Compile Include="Cards\ThornwindFaeries.cs" />
     <Compile Include="Cards\ThranGolem.cs" />

@@ -29,7 +29,6 @@
                     {
                         var tp = new TriggeredAbility.Parameters
                         {
-                            Text = "Sacrifice the creature at the beginning of the next end step.",
                             Effect = () => new PutIntoPlay(tap: true, putIntoBattlefield: true),
                         };
 
