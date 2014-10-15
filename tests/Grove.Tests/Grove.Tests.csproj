@@ -442,6 +442,7 @@
     <Compile Include="Cards\Rewind.cs" />
     <Compile Include="Cards\RoaringPrimadox.cs" />
     <Compile Include="Cards\RofellossGift.cs" />
+    <Compile Include="Cards\RoguesGloves.cs" />
     <Compile Include="Cards\RumblingCrescendo.cs" />
     <Compile Include="Cards\RummagingGoblin.cs" />
     <Compile Include="Cards\RuneOfProtectionBlack.cs" />

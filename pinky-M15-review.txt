@@ -62,7 +62,7 @@ o Midnight Guard
 o Naturalize
 o Oreskos Swiftclaw
 o Raise the Alarm
-Restock
+o Restock
 Rogue's Gloves
 Runeclaw Bear
 Selfless Cathar

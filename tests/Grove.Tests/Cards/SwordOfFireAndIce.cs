@@ -4,6 +4,7 @@
   using Infrastructure;
   using Xunit;
 
+
   public class SwordOfFireAndIce
   {
     public class Ai : AiScenario
