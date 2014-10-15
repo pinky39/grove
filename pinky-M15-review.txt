@@ -74,19 +74,8 @@ Wall of Fire
 Wall of Mulch
 
 Accursed Spirit
-
 Krenko's Enforcer
-
 Juggernaut
-
-Welkin Tern
-
-Accursed Spirit
-
-Krenko's Enforcer
-
-Juggernaut
-
 Welkin Tern
 
 Ajani's Pridemate
@@ -108,40 +97,6 @@ Satyr Wayfinder
 Aeronaut Tinkerer
 Scrapyard Mongrel
 Cone of Flame (has bug: three target selectors are not supported)
-Glacial Crasher
-Mercurial Pretender
-Indulgent Tormentor
-Siege Wurm
-Living Totem
-Seraph of the Masses
-Sunblade Elf
-Will-Forged Golem
-Devouring Light
-Feral Incarnation
-Gather Courage
-Meditation Puzzle
-Nissa's Expedition
-Overwhelm
-Triplicate Spirits
-
-Ajani's Pridemate
-Resolute Archangel
-
-Illusory Angel
-Wall of Essence
-
-Wall of Limbs
-Stormtide Leviathan
-Encrust
-Nightfire Giant
-Hoarding Dragon
-Stab Wound
-Wall of Frost
-Phytotitan
-Satyr Wayfinder
-Aeronaut Tinkerer
-Scrapyard Mongrel
-Cone of Flame
 Glacial Crasher
 Mercurial Pretender
 Indulgent Tormentor

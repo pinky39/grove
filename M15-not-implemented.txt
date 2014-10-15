@@ -1,0 +1,14 @@
+Master of Predicaments
+Stain the Mind
+Act on Impulse
+Generator Servant
+Kurkesh, Onakke Ancient
+Charging Rhino 	// add maxCount to DeclareBlockers and BlockStrategy
+Genesis Hydra 	// modify SelectCards? take x cards, then pick x targets, then rest put to zone
+Hunt the Weak	// new effect or compound effect
+Undergrowth Scavenger	// allow to play 0/0 creatures or new effect ModifyCounterCount?
+The Chain Veil	// support planeswalkers
+Phyrexian Revoker	// new effect as ChooseType of creature?
+Sliver Hive
+
+// All planeswalker cards

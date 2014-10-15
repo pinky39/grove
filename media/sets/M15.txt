@@ -12,6 +12,7 @@ Commons: 11
 
 !Cards
 Accursed Spirit;C;3.07
+Aegis Angel;R;3.21
 Aeronaut Tinkerer;C;3.08
 AEtherspouts;R;3.50
 Aggressive Mining;R;2.64
@@ -19,6 +20,9 @@ Ajani's Pridemate;U;3.67
 Altac Bloodseeker;U;3.20
 Amphin Pathmage;C;3.07
 Avacyn, Guardian Angel;R;3.83
+Avarice Amulet;R;3.00
+Back to Nature;U;3.85
+Battlefield Forge;R;4.10
 Battle Mastery;U;2.60
 Belligerent Sliver;U;3.40
 Black Cat;C;3.13
@@ -30,12 +34,16 @@ Brawler's Plate;U;1.86
 Bronze Sable;C;1.57
 Brood Keeper;U;3.30
 Burning Anger;R;3.36
+Cancel;C;2.63
 Carnivorous Moss-Beast;C;2.14
 Carrion Crow;C;2.07
 Caustic Tar;U;2.50
+Caves of Koilos;R;4.06
+Centaur Courser;C;2.17
 Chasm Skulker;R;4.00
 Chief Engineer;R;3.56
 Child of Night;C;2.40
+Chord of Calling;R;3.78
 Chronostutter;C;2.00
 Circle of Flame;U;2.30
 Clear a Path;C;1.75
@@ -53,11 +61,14 @@ Devouring Light;U;3.88
 Diffusion Sliver;U;3.17
 Dissipate;U;4.00
 Divine Favor;C;2.17
+Divine Verdict;C;2.40
+Elvish Mystic;C;3.88
 Endless Obedience;U;3.17
 Encrust;C;2.70
 Ensoul Artifact;U;3.70
 Ephemeral Shields;C;2.86
 Eternal Thirst;C;2.75
+Evolving Wilds;C;3.00
 Feast on the Fallen;U;2.43
 Feral Incarnation;U;3.50
 Festergloom;C;2.30
@@ -68,7 +79,9 @@ Foundry Street Denizen;C;3.25
 Frenzied Goblin;U;3.00
 Frost Lynx;C;3.29
 Fugitive Wizard;C;0.60
+Furnace Whelp;U;2.70
 Gargoyle Sentinel;U;2.80
+Garruk's Packleader;U;3.40
 Gather Courage;U;3.50
 Geist of the Moors;U;2.92
 Glacial Crasher;C;2.43
@@ -76,16 +89,22 @@ Goblin Kaboomist;R;2.86
 Goblin Rabblemaster;R;4.14
 Goblin Roughrider;C;2.00
 Gravedigger;U;3.20
+Grindclock;R;2.50
 Hammerhand;C;2.75
+Haunted Plate Mail;R;3.40
 Heliod's Pilgrim;C;3.58
 Hoarding Dragon;R;3.80
+Hornet Nest;R;3.86
 Hornet Queen;R;3.81
+Hot Soup;U;3.29
+Hunter's Ambush;C;2.25
 # Hushwing Gryff;R;3.81
 Hydrosurge;C;1.50
 Illusory Angel;U;3.89
 Indulgent Tormentor;R;4.00
 Inferno Fist;C;3.30
 In Garruk's Wake;R;3.07
+Inspired Charge;C;1.75
 Into the Void;U;3.10
 Invasive Species;C;2.75
 Invisibility;C;3.00
@@ -93,13 +112,17 @@ Jace's Ingenuity;U;3.08
 Jalira, Master Polymorphist;R;3.56
 Jorubai Murk Lurker;U;3.33
 Juggernaut;U;3.00
+Kalonian Twingrove;R;3.08
 Kapsho Kitefins;U;2.92
 Kinsbaile Skirmisher;C;3.08
 Kird Chieftain;U;3.00
 Krenko's Enforcer;C;3.25
 Leeching Sliver;U;2.50
+Life's Legacy;R;2.75
 Lightning Strike;C;3.75
 Living Totem;C;2.43
+Llanowar Wastes;R;4.11
+Mahamoti Djinn;R;3.17
 Marked by Honor;C;2.00
 Mass Calcify;R;3.36
 # Master of Predicaments;R;3.58
@@ -118,19 +141,24 @@ Necrogen Scudder;U;3.50
 Necromancer's Assistant;C;1.57
 Necromancer's Stockpile;R;2.81
 Negate;C;4.25
+Netcaster Spider;C;3.25
 Nightfire Giant;U;3.50
+Nightmare;R;3.00
 Nimbus of the Isles;C;1.71
 Nissa's Expedition;U;3.17
+Obelisk of Urd;R;3.17
 Ob Nixilis, Unshackled;R;3.60
 Oppressive Rays;C;2.71
 Oreskos Swiftclaw;C;2.50
 Ornithopter;C;3.44
 Overwhelm;U;3.00
+Paragon of Eternal Wilds;U;3.33
 Paragon of Fierce Defiance;U;3.38
 Paragon of Gathering Mists;U;3.17
 Paragon of New Dawns;U;3.50
 Paragon of Open Graves;U;3.40
 Peel from Reality;C;3.00
+Perilous Vault;R;3.29
 Phytotitan;R;3.44
 Pillar of Light;C;2.90
 Plummet;C;2.40
@@ -138,7 +166,9 @@ Polymorphist's Jest;R;3.77
 Preeminent Captain;R;3.60
 Profane Memento;U;2.67
 Quickling;U;3.63
+Radiant Fountain;C;3.45
 Raise the Alarm;C;3.92
+Ranger's Guile;C;2.70
 Razorfoot Griffin;C;2.25
 Research Assistant;C;2.07
 Resolute Archangel;R;3.50
@@ -153,18 +183,28 @@ Sacred Armory;U;2.83
 Sanctified Charge;C;2.57
 Satyr Wayfinder;C;3.08
 Scrapyard Mongrel;C;3.17
+Scuttling Doom Engine;R;4.00
+Seismic Strike;C;2.40
 Selfless Cathar;C;2.83
+Sengir Vampire;U;3.21
 Seraph of the Masses;U;3.20
+Serra Angel;U;3.00
 Shadowcloak Vampire;C;2.14
 Shaman of Spring;C;3.08
+Shield of the Avatar;R;3.21
+Shivan Reef;R;3.95
 Shrapnel Blast;U;3.67
 Siege Dragon;R;2.92
 Siege Wurm;C;3.33
+Sliver Hivelord;R;3.81
 Solemn Offering;C;2.83
 Soulmender;C;2.20
 Soul of Innistrad;R;3.69
+Soul of New Phyrexia;R;4.00
 Soul of Ravnica;R;3.46
+Soul of Shandalar;R;3.71
 Soul of Theros;R;4.00
+Soul of Zendikar;R;3.79
 Spectra Ward;R;3.50
 Spirit Bonds;R;3.50
 Stab Wound;U;3.60
@@ -172,20 +212,29 @@ Staff of the Death Magus;U;1.70
 Staff of the Flame Magus;U;1.42
 Staff of the Mind Magus;U;1.40
 Staff of the Sun Magus;U;1.33
+Staff of the Wild Magus;U;0.93
 Statute of Denial;C;1.71
+Stoke the Flames;U;3.63
 Stormtide Leviathan;R;3.88
 Sunblade Elf;U;3.95
 Sungrace Pegasus;C;3.08
+Terra Stomper;R;3.31
 Tireless Missionaries;C;0.57
 Titanic Growth;C;2.30
 Torch Fiend;C;3.61
+Tormod's Crypt;U;3.85
 Triplicate Spirits;C;3.75
 Turn to Frog;U;3.40
 Typhoid Rats;C;3.40
 Tyrant's Machine;C;1.50
 Ulcerate;U;4.17
 Unmake the Graves;C;2.79
+Urborg, Tomb of Yawgmoth;R;4.46
+Venom Sliver;U;3.78
+Verdant Haven;C;2.60
+Vineweft;C;1.92
 Void Snare;C;3.72
+Walking Corpse;C;2.00
 Wall of Essence;U;3.00
 Wall of Fire;C;1.90
 Wall of Frost;U;3.21
@@ -197,4 +246,6 @@ Welkin Tern;C;3.08
 Will-Forged Golem;C;2.50
 Witch's Familiar;C;1.93
 Xathrid Slyblade;U;3.08
+Yavimaya Coast;R;4.11
+Yisan, the Wanderer Bard;R;3.50
 Zof Shade;C;2.08
