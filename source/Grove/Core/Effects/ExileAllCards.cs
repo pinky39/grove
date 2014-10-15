@@ -15,7 +15,7 @@
     public ExileAllCards(Zone from = Zone.Battlefield, Func<Effect, Card, bool> filter = null)
     {
       _from = from;
-      _filter = filter;
+      _filter = filter ?? delegate { return true; };
       SetTags(EffectTag.Exile);
     }
 

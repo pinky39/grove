@@ -526,6 +526,7 @@
     <Compile Include="Cards\TitaniasChosen.cs" />
     <Compile Include="Cards\TolarianWinds.cs" />
     <Compile Include="Cards\TorchFiend.cs" />
+    <Compile Include="Cards\TormodsCrypt.cs" />
     <Compile Include="Cards\TragicPoet.cs" />
     <Compile Include="Cards\TreacherousLink.cs" />
     <Compile Include="Cards\TreefolkMystic.cs" />
