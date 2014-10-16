@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using AI;
-  using AI.RepetitionRules;
   using AI.TargetingRules;
   using AI.TimingRules;
   using Costs;
@@ -48,9 +47,8 @@
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 
+            p.TargetingRule(new EffectDealDamage(p1 => p1.Card.CountersCount(CounterType.PowerToughnes)));
             p.TimingRule(new TargetRemovalTimingRule(removalTag: EffectTag.DealDamage));
-            p.TimingRule(new WhenCardHas(c => c.CountersCount(CounterType.PowerToughnes) > 0));
-            p.TargetingRule(new EffectDealDamage(p1 => p1.Card.CountersCount(CounterType.PowerToughnes)));            
           });
     }
   }
