@@ -43,7 +43,7 @@ Centaur Courser;C;2.17
 Chasm Skulker;R;4.00
 Chief Engineer;R;3.56
 Child of Night;C;2.40
-Chord of Calling;R;3.78
+# Chord of Calling;R;3.78
 Chronostutter;C;2.00
 Circle of Flame;U;2.30
 Clear a Path;C;1.75
