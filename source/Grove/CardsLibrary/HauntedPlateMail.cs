@@ -2,6 +2,8 @@
 {
   using System.Collections.Generic;
   using AI;
+  using AI.TargetingRules;
+  using AI.TimingRules;
   using Costs;
   using Effects;
   using Infrastructure;
@@ -24,9 +26,14 @@
 
           p.Effect = () => new Attach(
             () => new AddPowerAndToughness(4, 4)).SetTags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);
-
-          p.IsEquip = true;
+          
+          p.TargetSelector.AddEffect(trg => trg.Is.ValidEquipmentTarget().On.Battlefield());
+          
+          p.IsEquip = true;          
           p.ActivateAsSorcery = true;
+
+          p.TargetingRule(new EffectCombatEquipment());
+          p.TimingRule(new OnFirstDetachedOnSecondAttached());
         })
         .ActivatedAbility(p =>
         {
@@ -39,7 +46,8 @@
               power: 4, 
               toughness: 4, 
               type: "Artifact Creature - Spirit",
-              colors: L(CardColor.Colorless)));
+              colors: L(CardColor.Colorless)){UntilEot = true},
+            () => new DisableAllAbilities(a => a.IsEquip, s => false, t => false){UntilEot = true});
 
           p.Condition = ability => ability.OwningCard.Controller.Battlefield.Creatures.None();
         });

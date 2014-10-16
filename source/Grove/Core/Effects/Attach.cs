@@ -47,7 +47,7 @@
         {
           Game.AddModifier((IGameModifier) modifier, p);
         }
-      }      
+      }
     }
   }
 }
