@@ -38,6 +38,8 @@
           });
 
           p.TargetingRule(new EffectOrCostRankBy(x => -x.Score));
+
+          p.TriggerOnlyIfOwningCardIsInPlay = true;
         });
     }
   }
