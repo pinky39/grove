@@ -25,8 +25,7 @@
   public class CardType : ITargetType
   {
     private static readonly HashSet<string> BasicTypes = new HashSet<string>(new[]
-      {
-        "legendary",
+      {        
         "artifact",
         "land",
         "enchantment",
@@ -88,7 +87,7 @@
       {
         if (BasicTypes.Contains(type))
         {
-          active = _superTypes;
+          active = _subTypes;
           _mainTypes.Add(type);
         }
         else
@@ -193,13 +192,13 @@
         .Concat(_mainTypes.OrderBy(x => x))
         .Select(x => x.Capitalize()));
 
-      if (_superTypes.Count > 0)
+      if (_subTypes.Count > 0)
       {
-        var super = String.Join(" ", _subTypes
+        var sub = String.Join(" ", _subTypes
           .OrderBy(x => x)
           .Select(x => x.Capitalize()));
 
-        _display = String.Format("{0} — {1}", superAndMain, super);
+        _display = String.Format("{0} — {1}", superAndMain, sub);
       }
       else
       {
