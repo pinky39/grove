@@ -23,20 +23,6 @@
         Equal(2, P1.Battlefield.Count);
         Equal(1, P1.Battlefield.Creatures.Count());
       }
-
-      [Fact]
-      public void Scenario()
-      {
-//        var bear = C("Grizzly Bears").IsEquipedWith("Avarice Amulet");        
-//        Battlefield(P1, bear);
-        Battlefield(P1, C("Grizzly Bears").IsEquipedWith("Avarice Amulet"), "Grizzly Bears");
-
-        Battlefield(P2, "Shivan Dragon", "Might Makes Right");
-
-        RunGame(2);
-
-//        True(C(bear).Controller == P2);
-      }
     }
   }
 }

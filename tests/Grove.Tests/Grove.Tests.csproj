@@ -339,6 +339,7 @@
     <Compile Include="Cards\Meteorite.cs" />
     <Compile Include="Cards\MidnightGuard.cs" />
     <Compile Include="Cards\MidsummerRevel.cs" />
+    <Compile Include="Cards\MightMakesRight.cs" />
     <Compile Include="Cards\MilitaryIntelligence.cs" />
     <Compile Include="Cards\MirranCrusader.cs" />
     <Compile Include="Cards\MishrasHelix.cs" />

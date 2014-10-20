@@ -37,7 +37,7 @@
             trg.Is.Creature(controlledBy: ControlledBy.Opponent).On.Battlefield();
           });
 
-          p.TargetingRule(new EffectOrCostRankBy(x => -x.Score));
+          p.TargetingRule(new EffectGainControl());
 
           p.TriggerOnlyIfOwningCardIsInPlay = true;
         });

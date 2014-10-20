@@ -23,15 +23,13 @@
       Combat.Remove(_card);
 
       if (!_card.IsAttached)
-      {
-        Value.PutCardToBattlefield(_card);
-
-        foreach (var attachment in _card.Attachments.Where(x => x.IsPermanent && (x.Is().Aura || x.Is().Equipment)))
+      {     
+        foreach (var attachment in _card.Attachments.Where(x => x.IsPermanent && (x.Is().Aura || x.Is().Equipment)).ToList())
         {
-          // for auras and equipments just change battlefield
-          // do not change the control          
-          Value.PutCardToBattlefield(attachment);
+          _card.Detach(attachment);
         }
+
+        Value.PutCardToBattlefield(_card);
       }
 
       _card.HasSummoningSickness = true;
