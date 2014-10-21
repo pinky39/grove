@@ -33,7 +33,7 @@
                 power: 3,
                 toughness: 4,
                 colors: L(CardColor.Green, CardColor.White),
-                type: "Land Creature Elemental") {UntilEot = true},
+                type: t => t.Add(baseTypes: "creature", subTypes: "elemental")) { UntilEot = true },
               () => new AddStaticAbility(Static.Reach) {UntilEot = true});
 
             p.TimingRule(new WhenStackIsEmpty());

@@ -9,18 +9,18 @@
     private readonly List<CardColor> _colors;
     private readonly Func<Modifier, int> _power;
     private readonly Func<Modifier, int> _toughness;
-    private readonly Func<Modifier, string> _type;
+    private readonly Func<Modifier, CardType> _type;
     private CardColorSetter _cardColorSetter;
-    private CardColors _cardColors;    
+    private CardColors _cardColors;
     private CardTypeCharacteristic _cardType;
     private IntegerSetter _powerIntegerSetter;
+    private Strenght _strenght;
     private IntegerSetter _toughnessIntegerSetter;
     private CardTypeSetter _typeSetter;
-    private Strenght _strenght;
 
     private ChangeToCreature() {}
 
-    public ChangeToCreature(Func<Modifier, int> power, Func<Modifier, int> toughness, Func<Modifier, string> type,
+    public ChangeToCreature(Func<Modifier, int> power, Func<Modifier, int> toughness, Func<Modifier, CardType> type,
       IEnumerable<CardColor> colors = null)
     {
       _power = power;
@@ -29,8 +29,8 @@
       _colors = colors == null ? null : colors.ToList();
     }
 
-    public ChangeToCreature(Value power, Value toughness, string type, IEnumerable<CardColor> colors = null) : this(
-      m => power.GetValue(m.X), m => toughness.GetValue(m.X), m => type, colors) {}
+    public ChangeToCreature(Value power, Value toughness, Func<CardType, CardType> type, IEnumerable<CardColor> colors = null) : this(
+      m => power.GetValue(m.X), m => toughness.GetValue(m.X), m => type(m.OwningCard.Type), colors) { }
 
     public override void Apply(CardColors color)
     {
@@ -56,7 +56,7 @@
       _toughnessIntegerSetter.Initialize(ChangeTracker);
       _strenght.AddToughnessModifier(_toughnessIntegerSetter);
     }
-        
+
     public override void Apply(CardTypeCharacteristic cardType)
     {
       _cardType = cardType;
@@ -68,7 +68,7 @@
     protected override void Unapply()
     {
       _strenght.RemovePowerModifier(_powerIntegerSetter);
-      _strenght.RemoveToughnessModifier(_toughnessIntegerSetter);      
+      _strenght.RemoveToughnessModifier(_toughnessIntegerSetter);
 
       if (_cardColorSetter != null)
         _cardColors.RemoveModifier(_cardColorSetter);

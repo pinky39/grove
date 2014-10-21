@@ -30,7 +30,7 @@
               () => new ChangeToCreature(
                 power: 5,
                 toughness: 3,
-                type: "Creature Soldier",
+                type: t => t.Change(baseTypes: "creature", subTypes: "soldier"),
                 colors: L(CardColor.Green)),
               () => new AddStaticAbility(Static.Trample));
 

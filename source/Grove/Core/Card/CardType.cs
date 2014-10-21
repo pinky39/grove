@@ -20,12 +20,12 @@
     bool Token { get; }
     bool Aura { get; }
     bool NonBasicLand { get; }
-  }
+  }  
 
   public class CardType : ITargetType
   {
     private static readonly HashSet<string> BasicTypes = new HashSet<string>(new[]
-      {        
+      {
         "artifact",
         "land",
         "enchantment",
@@ -41,14 +41,9 @@
         "creature"
       });
 
-    private static readonly HashSet<string> BasicLandTypes = new HashSet<string>(new[]
-      {
-        "plains",
-        "island",
-        "swamp",
-        "mountain",
-        "forest",
-      });
+    private readonly HashSet<string> _baseTypes = new HashSet<string>();
+    private readonly HashSet<string> _subTypes = new HashSet<string>();
+    private readonly HashSet<string> _superTypes = new HashSet<string>();
 
     private string _display;
 
@@ -64,14 +59,10 @@
     private bool _isSorcery;
     private bool _isToken;
 
-    private HashSet<string> _mainTypes = new HashSet<string>();
-    private HashSet<string> _subTypes = new HashSet<string>();
-    private HashSet<string> _superTypes = new HashSet<string>();
-
-    private CardType(HashSet<string> superTypes, HashSet<string> mainTypes, HashSet<string> subTypes)
+    private CardType(HashSet<string> superTypes, HashSet<string> baseTypes, HashSet<string> subTypes)
     {
       _superTypes = superTypes;
-      _mainTypes = mainTypes;
+      _baseTypes = baseTypes;
       _subTypes = subTypes;
 
       Init();
@@ -79,7 +70,6 @@
 
     public CardType(string typeString)
     {
-      typeString = typeString.ToLowerInvariant();
       var types = ParseTypeString(typeString);
       var active = _superTypes;
 
@@ -88,7 +78,7 @@
         if (BasicTypes.Contains(type))
         {
           active = _subTypes;
-          _mainTypes.Add(type);
+          _baseTypes.Add(type);
         }
         else
         {
@@ -100,9 +90,9 @@
     }
 
 
-    public IEnumerable<string> MainTypes
+    public IEnumerable<string> BaseTypes
     {
-      get { return _mainTypes; }
+      get { return _baseTypes; }
     }
 
     public IEnumerable<string> SubTypes
@@ -189,7 +179,7 @@
     {
       var superAndMain = String.Join(" ", _superTypes
         .OrderBy(x => x)
-        .Concat(_mainTypes.OrderBy(x => x))
+        .Concat(_baseTypes.OrderBy(x => x))
         .Select(x => x.Capitalize()));
 
       if (_subTypes.Count > 0)
@@ -220,10 +210,10 @@
 
     private static string[] ParseTypeString(string typeString)
     {
-      var types = typeString.Split(
-        new[] {' ', '-', '—'},
-        StringSplitOptions.RemoveEmptyEntries);
-      return types;
+      return typeString
+        .Split(new[] {' ', '-', '—'}, StringSplitOptions.RemoveEmptyEntries)
+        .Select(x => x.ToLowerInvariant())
+        .ToArray();
     }
 
     public bool Is(string typeString)
@@ -235,7 +225,7 @@
         if (_superTypes.Contains(type))
           continue;
 
-        if (_mainTypes.Contains(type))
+        if (_baseTypes.Contains(type))
           continue;
 
         if (_subTypes.Contains(type))
@@ -267,30 +257,45 @@
       return new CardType(cardTypes);
     }
 
-    public CardType ReplaceLandTypeWith(string type)
+    public CardType Change(string superTypes = null, string baseTypes = null, string subTypes = null)
     {
-      var superTypes = new HashSet<string>(_superTypes);
-      var subTypes = new HashSet<string>(_subTypes);
-      var mainTypes = new HashSet<string>(_mainTypes);
+      var super = superTypes == null
+        ? new HashSet<string>(_superTypes)
+        : new HashSet<string>(ParseTypeString(superTypes));
 
-      subTypes.ExceptWith(BasicLandTypes);
-      superTypes.Add(type);
+      var baseT = baseTypes == null
+        ? new HashSet<string>(_baseTypes)
+        : new HashSet<string>(ParseTypeString(baseTypes));
 
-      return new CardType(superTypes, mainTypes, subTypes);
+      var sub = subTypes == null
+        ? new HashSet<string>(_subTypes)
+        : new HashSet<string>(ParseTypeString(subTypes));
+
+      return new CardType(super, baseT, sub);
     }
 
-    public CardType AddBasicLandType(string type)
+    public CardType Add(string superTypes = null, string baseTypes = null, string subTypes = null)
     {
-      var superTypes = new HashSet<string>(_superTypes);
-      var subTypes = new HashSet<string>(_subTypes);
-      var mainTypes = new HashSet<string>(_mainTypes);
+      var super = new HashSet<string>(_superTypes);
+      var sub = new HashSet<string>(_subTypes);
+      var baseT = new HashSet<string>(_baseTypes);
 
-      if (!superTypes.Contains(type))
+      if (superTypes != null)
       {
-        superTypes.Add(type);
+        super.UnionWith(ParseTypeString(superTypes));
       }
 
-      return new CardType(superTypes, mainTypes, subTypes);
+      if (baseTypes != null)
+      {
+        baseT.UnionWith(ParseTypeString(baseTypes));
+      }
+
+      if (superTypes != null)
+      {
+        sub.UnionWith(ParseTypeString(superTypes));
+      }
+
+      return new CardType(super, baseT, sub);
     }
   }
 }

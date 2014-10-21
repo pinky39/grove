@@ -1,7 +1,7 @@
 ﻿namespace Grove.CardsLibrary
 {
-  using System;
   using System.Collections.Generic;
+  using AI;
   using AI.TargetingRules;
   using AI.TimingRules;
   using Effects;
@@ -15,24 +15,24 @@
         .Named("Turn to Frog")
         .ManaCost("{1}{U}")
         .Type("Instant")
-        .Text("Until end of turn, target creature loses all abilities and becomes a blue Frog with base power and toughness 1/1.")
+        .Text(
+          "Until end of turn, target creature loses all abilities and becomes a blue Frog with base power and toughness 1/1.")
         .FlavorText("\"Ribbit.\"")
         .Cast(p =>
-        {
-          p.Effect = () => new ApplyModifiersToTargets(
-            () => new ChangeToCreature(
-              power: m => 1,
-              toughness: m => 1,
-              colors: L(CardColor.Blue),
-              type: m => m.OwningCard.Type.Split(new[] { '-', '—' }, StringSplitOptions.RemoveEmptyEntries)[0] + " - Frog"
-                  ) { UntilEot = true },
-            () => new DisableAllAbilities { UntilEot = true });
+          {
+            p.Effect = () => new ApplyModifiersToTargets(
+              () => new ChangeToCreature(
+                power: 1,
+                toughness: 1,
+                colors: L(CardColor.Blue),
+                type: t => t.Change(subTypes: "frog")) {UntilEot = true},
+              () => new DisableAllAbilities {UntilEot = true});
 
-          p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
+            p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 
-          p.TargetingRule(new EffectBounce());
-          p.TimingRule(new Any(new BeforeYouDeclareAttackers(), new AfterOpponentDeclaresAttackers()));
-        });
+            p.TargetingRule(new EffectDestroy());
+            p.TimingRule(new TargetRemovalTimingRule(removalTag: EffectTag.Humble, combatOnly: true));
+          });
     }
   }
 }

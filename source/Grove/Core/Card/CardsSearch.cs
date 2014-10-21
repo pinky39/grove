@@ -74,7 +74,7 @@
           document.Add(new Field("id", card.Name.ToLowerInvariant(), Field.Store.YES, Field.Index.NO));
           document.Add(new Field("text", card.Text.GetTextOnly(), Field.Store.YES, Field.Index.ANALYZED));
           document.Add(new Field("name", card.Name, Field.Store.YES, Field.Index.ANALYZED));
-          document.Add(new Field("type", card.Type, Field.Store.YES, Field.Index.ANALYZED));
+          document.Add(new Field("type", card.Type.ToString(), Field.Store.YES, Field.Index.ANALYZED));
           document.Add(new Field("flavor", card.FlavorText.GetTextOnly(), Field.Store.YES, Field.Index.ANALYZED));
           document.Add(new Field("power", card.Power.GetValueOrDefault().ToString(), Field.Store.YES,
                                  Field.Index.NOT_ANALYZED));

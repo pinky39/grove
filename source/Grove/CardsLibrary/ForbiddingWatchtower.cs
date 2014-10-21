@@ -34,7 +34,7 @@
                 power: 1,
                 toughness: 5,
                 colors: L(CardColor.White),
-                type: "Land Creature Soldier") { UntilEot = true });
+                type: t => t.Add(baseTypes: "creature", subTypes: "soldier")) { UntilEot = true });
             
             p.TimingRule(new WhenCardHas(c => !c.Is().Creature));
             p.TimingRule(new WhenYouHaveMana(3));

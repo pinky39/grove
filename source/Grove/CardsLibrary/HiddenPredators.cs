@@ -35,7 +35,7 @@
             p.Effect = () => new ApplyModifiersToSelf(() => new ChangeToCreature(
               power: 4,
               toughness: 4,
-              type: "Creature Beast",
+              type: t => t.Change(baseTypes: "creature", subTypes: "beast"),
               colors: L(CardColor.Green)
               ));
 

@@ -30,7 +30,7 @@
               (() => new ChangeToCreature(
                 power: 3,
                 toughness: 3,
-                type: "Creature Knight",
+                type: t => t.Change(baseTypes: "creature", subTypes: "knight"),
                 colors: L(CardColor.White)),
                 () => new AddStaticAbility(Static.FirstStrike));
 

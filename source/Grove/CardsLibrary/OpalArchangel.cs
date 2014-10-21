@@ -30,7 +30,7 @@
               () => new ChangeToCreature(
                 power: 5,
                 toughness: 5,
-                type: "Creature Angel",
+                type: t => t.Change(baseTypes: "creature", subTypes: "angel"),
                 colors: L(CardColor.White)),
               () => new AddStaticAbility(Static.Flying),
               () => new AddStaticAbility(Static.Vigilance));

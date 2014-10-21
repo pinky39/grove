@@ -45,7 +45,7 @@
             () => new ChangeToCreature(
               power: 4, 
               toughness: 4, 
-              type: "Artifact Creature - Spirit",
+              type: t => t.Change(baseTypes: "artifact creature", subTypes: "spirit"),
               colors: L(CardColor.Colorless)){UntilEot = true},
             () => new DisableAllAbilities(a => a.IsEquip, s => false, t => false){UntilEot = true});
 

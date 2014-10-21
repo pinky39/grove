@@ -31,7 +31,7 @@
               () => new ChangeToCreature(
                 power: 4,
                 toughness: 4,
-                type: "Creature Giant",
+                type: t => t.Change(baseTypes: "creature", subTypes: "giant"),
                 colors: L(CardColor.White)),
               () => new AddProtectionFromColors(m =>
                 m.SourceEffect.TriggerMessage<SpellPutOnStackEvent>().Card.Colors));

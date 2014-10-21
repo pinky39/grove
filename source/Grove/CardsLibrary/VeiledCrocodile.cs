@@ -33,7 +33,7 @@
             p.Effect = () => new ApplyModifiersToSelf(() => new ChangeToCreature(
               power: 4,
               toughness: 4,
-              type: "Creature Crocodile",
+              type: t => t.Change(baseTypes: "creature", subTypes: "crocodile"),
               colors: L(CardColor.Blue)
               ));
 

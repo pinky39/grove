@@ -34,7 +34,7 @@
                 power: 2,
                 toughness: 1,
                 colors: L(CardColor.Blue),
-                type: "Land Creature Faerie") {UntilEot = true},
+                type: t => t.Add(baseTypes: "creature", subTypes: "faerie")) { UntilEot = true },
               () => new AddStaticAbility(Static.Flying) {UntilEot = true});
 
             p.TimingRule(new WhenStackIsEmpty());

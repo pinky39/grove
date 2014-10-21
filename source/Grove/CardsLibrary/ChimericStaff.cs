@@ -25,7 +25,7 @@
             p.Effect = () => new ApplyModifiersToSelf(() =>
               new ChangeToCreature(
                 power: Value.PlusX, toughness: Value.PlusX,
-                type: "Creature Artifact Construct") {UntilEot = true});
+                type: t => t.Add(baseTypes: "artifact creature", subTypes: "construct")) {UntilEot = true});
 
             p.TimingRule(new WhenStackIsEmpty());
             p.TimingRule(new WhenCardHas(c => !c.Is().Creature));

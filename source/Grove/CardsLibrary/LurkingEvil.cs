@@ -27,7 +27,7 @@
                 power: 4,
                 toughness: 4,
                 colors: L(CardColor.Black),
-                type: "Creature Horror"),
+                type: t => t.Change(baseTypes: "creature", subTypes: "horror")),
               () => new AddStaticAbility(Static.Flying));
 
             p.TimingRule(new WhenCardHas(c => c.Is().Enchantment));

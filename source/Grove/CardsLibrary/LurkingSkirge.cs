@@ -33,7 +33,7 @@
               () => new ChangeToCreature(
                 power: 3,
                 toughness: 2,
-                type: "Creature Imp",
+                type: t => t.Change(baseTypes: "creature", subTypes: "imp"),
                 colors: L(CardColor.Black)),
               () => new AddStaticAbility(Static.Flying));
 

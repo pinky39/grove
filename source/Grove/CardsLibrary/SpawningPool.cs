@@ -34,7 +34,7 @@
                 power: 1,
                 toughness: 1,
                 colors: L(CardColor.Black),
-                type: "Land Creature Skeleton") {UntilEot = true},
+                type: t => t.Add(baseTypes: "creature", subTypes: "skeleton")) { UntilEot = true },
               () =>
                 {
                   var ap = new ActivatedAbilityParameters

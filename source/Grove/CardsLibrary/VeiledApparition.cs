@@ -30,7 +30,7 @@
               () => new ChangeToCreature(
                 power: 3,
                 toughness: 3,
-                type: "Creature Illusion",
+                type: t => t.Change(baseTypes: "creature", subTypes: "illusion"),
                 colors: L(CardColor.Blue)),
               () => new AddStaticAbility(Static.Flying),
               () =>

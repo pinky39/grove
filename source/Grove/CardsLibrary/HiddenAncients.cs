@@ -30,7 +30,7 @@
             p.Effect = () => new ApplyModifiersToSelf(() => new ChangeToCreature(
               power: 5,
               toughness: 5,
-              type: "Creature Treefolk",
+              type: t => t.Change(baseTypes: "creature", subTypes: "treefolk"),
               colors: L(CardColor.Green)));
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;
