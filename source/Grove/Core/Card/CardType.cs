@@ -1,11 +1,9 @@
 ﻿namespace Grove
 {
   using System;
-  using System.Collections;
   using System.Collections.Generic;
   using System.Linq;
-  using System.Text;
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   public interface ITargetType
   {
@@ -21,16 +19,15 @@
     bool Sorcery { get; }
     bool Token { get; }
     bool Aura { get; }
-    bool NonBasicLand { get; }    
+    bool NonBasicLand { get; }
   }
 
-  public class CardType : ITargetType, IEnumerable<string>
+  public class CardType : ITargetType
   {
-    private static readonly string[] BasicTypes = new[]
-      {
-        "legendary",
+    private static readonly HashSet<string> BasicTypes = new HashSet<string>(new[]
+      {        
         "artifact",
-        "basic land",
+        "land",
         "enchantment",
         "instant",
         "land",
@@ -41,10 +38,19 @@
         "tribal",
         "vanguard",
         "token",
-        "creature"        
-      };
+        "creature"
+      });
 
-    private string[] _basicTypes;
+    private static readonly HashSet<string> BasicLandTypes = new HashSet<string>(new[]
+      {
+        "plains",
+        "island",
+        "swamp",
+        "mountain",
+        "forest",
+      });
+
+    private string _display;
 
     private bool _isArtifact;
     private bool _isAura;
@@ -52,134 +58,153 @@
     private bool _isCreature;
     private bool _isEnchantment;
     private bool _isEquipment;
+    private bool _isInstant;
     private bool _isLand;
     private bool _isLegendary;
-    private string[] _subTypes;
-    private string _displayString;
-    private bool _isInstant;
     private bool _isSorcery;
     private bool _isToken;
 
+    private HashSet<string> _mainTypes = new HashSet<string>();
+    private HashSet<string> _subTypes = new HashSet<string>();
+    private HashSet<string> _superTypes = new HashSet<string>();
+
+    private CardType(HashSet<string> superTypes, HashSet<string> mainTypes, HashSet<string> subTypes)
+    {
+      _superTypes = superTypes;
+      _mainTypes = mainTypes;
+      _subTypes = subTypes;
+
+      Init();
+    }
+
     public CardType(string typeString)
     {
-      Initialize(typeString);      
-    }
+      typeString = typeString.ToLowerInvariant();
+      var types = ParseTypeString(typeString);
+      var active = _superTypes;
 
-    public static CardType None { get { return new CardType(String.Empty); } }
-    public bool Artifact { get { return _isArtifact; } }
-    public bool Attachment { get { return Aura || Equipment; } }
-    public bool BasicLand { get { return _isBasicLand; } }
-    public bool Creature { get { return _isCreature; } }
-    public bool Enchantment { get { return _isEnchantment; } }
-    public bool Equipment { get { return _isEquipment; } }
-    public bool Instant { get { return _isInstant; } }
-    public bool Land { get { return _isLand; } }
-    public bool Legendary { get { return _isLegendary; } }
-    public bool Sorcery { get { return _isSorcery; } }
-    public bool Token { get { return _isToken; } }
-    public bool Aura { get { return _isAura; } }
-    public bool NonBasicLand { get { return Land && !BasicLand; } }
-
-    public bool Is(string type)
-    {
-      if (_basicTypes.Any(x => x.Equals(type, StringComparison.OrdinalIgnoreCase)))
-        return true;
-
-      if (_subTypes.Any(x => x.Equals(type, StringComparison.OrdinalIgnoreCase)))
-        return true;
-
-      return false;
-    }
-
-    public bool IsAny(params string[] types)
-    {
-      return IsAny(types.AsEnumerable());
-    }
-
-    public bool IsAny(IEnumerable<string> types)
-    {
       foreach (var type in types)
       {
-        if (Is(type))
-          return true;
+        if (BasicTypes.Contains(type))
+        {
+          active = _subTypes;
+          _mainTypes.Add(type);
+        }
+        else
+        {
+          active.Add(type);
+        }
       }
 
-      return false;
+      Init();
     }
 
-    public string[] Subtypes
+
+    public IEnumerable<string> MainTypes
+    {
+      get { return _mainTypes; }
+    }
+
+    public IEnumerable<string> SubTypes
     {
       get { return _subTypes; }
     }
 
-    public IEnumerator<string> GetEnumerator()
+    public IEnumerable<string> SuperTypes
     {
-      foreach (var basicType in _basicTypes)
+      get { return _superTypes; }
+    }
+
+    public static CardType None
+    {
+      get { return new CardType(String.Empty); }
+    }
+
+    public bool Artifact
+    {
+      get { return _isArtifact; }
+    }
+
+    public bool Attachment
+    {
+      get { return Aura || Equipment; }
+    }
+
+    public bool BasicLand
+    {
+      get { return _isBasicLand; }
+    }
+
+    public bool Creature
+    {
+      get { return _isCreature; }
+    }
+
+    public bool Enchantment
+    {
+      get { return _isEnchantment; }
+    }
+
+    public bool Equipment
+    {
+      get { return _isEquipment; }
+    }
+
+    public bool Instant
+    {
+      get { return _isInstant; }
+    }
+
+    public bool Land
+    {
+      get { return _isLand; }
+    }
+
+    public bool Legendary
+    {
+      get { return _isLegendary; }
+    }
+
+    public bool Sorcery
+    {
+      get { return _isSorcery; }
+    }
+
+    public bool Token
+    {
+      get { return _isToken; }
+    }
+
+    public bool Aura
+    {
+      get { return _isAura; }
+    }
+
+    public bool NonBasicLand
+    {
+      get { return Land && !BasicLand; }
+    }
+
+    private void Init()
+    {
+      var superAndMain = String.Join(" ", _superTypes
+        .OrderBy(x => x)
+        .Concat(_mainTypes.OrderBy(x => x))
+        .Select(x => x.Capitalize()));
+
+      if (_subTypes.Count > 0)
       {
-        yield return basicType;
+        var sub = String.Join(" ", _subTypes
+          .OrderBy(x => x)
+          .Select(x => x.Capitalize()));
+
+        _display = String.Format("{0} — {1}", superAndMain, sub);
+      }
+      else
+      {
+        _display = superAndMain;
       }
 
-      foreach (var subType in _subTypes)
-      {
-        yield return subType;
-      }
-    }
-
-    public override string ToString()
-    {
-      return _displayString;
-    }
-
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-      return GetEnumerator();
-    }
-
-    private void Initialize(string types)
-    {
-      var basicTypes = new List<string>();
-      var displayString = new StringBuilder();
-            
-      foreach (var basicType in BasicTypes)
-      {
-        var index = types.IndexOf(basicType, StringComparison.OrdinalIgnoreCase);
-
-        if ((index != -1) && IsWholeWord(types, basicType, index))
-        {                              
-          if (basicType.Equals("basic land", StringComparison.OrdinalIgnoreCase))
-          {
-            basicTypes.Add("land");
-          }
-
-          basicTypes.Add(basicType);          
-          types = types.Remove(index, basicType.Length);
-
-          displayString.Append(basicType.CapitalizeEachWord());
-          displayString.Append(" ");
-        }
-      }
-
-      _basicTypes = basicTypes.ToArray();
-      _subTypes = types.Split(new[] { ' ', '-', '—' }, StringSplitOptions.RemoveEmptyEntries);
-      
-      if (_subTypes.Length != 0)
-      {
-        displayString.Append("— ");
-        displayString.Append(String.Join(" ", _subTypes));
-      }
-
-      _displayString = displayString.ToString().Trim();
-
-      InitializeCommonTypes();
-    }
-
-    private bool IsWholeWord(string types, string basicType, int index)
-    {
-      return ( (index == 0 || types[index - 1] == ' ') && (index + basicType.Length == types.Length || types[index + basicType.Length] == ' ') );
-    }
-
-    private void InitializeCommonTypes()
-    {
       _isCreature = Is("creature");
       _isLand = Is("land");
       _isBasicLand = Is("basic land");
@@ -193,31 +218,79 @@
       _isToken = Is("token");
     }
 
+    private static string[] ParseTypeString(string typeString)
+    {
+      var types = typeString.Split(
+        new[] {' ', '-', '—'},
+        StringSplitOptions.RemoveEmptyEntries);
+      return types;
+    }
+
+    public bool Is(string typeString)
+    {
+      var types = ParseTypeString(typeString);
+
+      foreach (var type in types)
+      {
+        if (_superTypes.Contains(type))
+          continue;
+
+        if (_mainTypes.Contains(type))
+          continue;
+
+        if (_subTypes.Contains(type))
+          continue;
+
+        return false;
+      }
+
+      return true;
+    }
+
+    public bool IsAny(params string[] types)
+    {
+      return IsAny(types.AsEnumerable());
+    }
+
+    public bool IsAny(IEnumerable<string> types)
+    {
+      return types.Any(Is);
+    }
+
+    public override string ToString()
+    {
+      return _display;
+    }
+
     public static implicit operator CardType(string cardTypes)
     {
       return new CardType(cardTypes);
-    }   
-
-    public CardType ReplaceBasicLandTypeWith(string basicLandType)
-    {
-      return ToString()
-        .Replace("Forest", basicLandType)
-        .Replace("Mountain", basicLandType)
-        .Replace("Plains", basicLandType)
-        .Replace("Island", basicLandType)
-        .Replace("Swamp", basicLandType);
     }
 
-    public CardType AddBasicLandType(string basicLanfType)
+    public CardType ReplaceLandTypeWith(string type)
     {
-        var type = ToString();
+      var superTypes = new HashSet<string>(_superTypes);
+      var subTypes = new HashSet<string>(_subTypes);
+      var mainTypes = new HashSet<string>(_mainTypes);
 
-        if (type.Contains(basicLanfType))
-            return type;
+      subTypes.ExceptWith(BasicLandTypes);
+      superTypes.Add(type);
 
-        type += " " + basicLanfType;
+      return new CardType(superTypes, mainTypes, subTypes);
+    }
 
-        return type;
+    public CardType AddBasicLandType(string type)
+    {
+      var superTypes = new HashSet<string>(_superTypes);
+      var subTypes = new HashSet<string>(_subTypes);
+      var mainTypes = new HashSet<string>(_mainTypes);
+
+      if (!superTypes.Contains(type))
+      {
+        superTypes.Add(type);
+      }
+
+      return new CardType(superTypes, mainTypes, subTypes);
     }
   }
 }

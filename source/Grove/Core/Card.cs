@@ -366,9 +366,9 @@
       get { return _colors.Count > 1; }
     }
 
-    public string[] Subtypes
+    public IEnumerable<string> Subtypes
     {
-      get { return _type.Value.Subtypes; }
+      get { return _type.Value.SubTypes; }
     }
 
     public bool IsEnchanted
@@ -887,7 +887,8 @@
     public bool HasProtectionFrom(Card card)
     {
       return HasProtectionFrom(card._colors) ||
-        HasProtectionFromTypes(card._type.Value);
+        HasProtectionFromTypes(card._type.Value.MainTypes) ||
+        HasProtectionFromTypes(card._type.Value.SubTypes);
     }
 
     public bool HasManaAbilities
