@@ -22,7 +22,7 @@
     bool NonBasicLand { get; }
   }  
 
-  public class CardType : ITargetType
+  public class CardType : IHashable, ITargetType
   {
     private static readonly HashSet<string> BasicTypes = new HashSet<string>(new[]
       {
@@ -250,6 +250,11 @@
     public override string ToString()
     {
       return _display;
+    }
+
+    public int CalculateHash(HashCalculator calc)
+    {
+      return _display.GetHashCode();
     }
 
     public static implicit operator CardType(string cardTypes)

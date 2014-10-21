@@ -480,7 +480,7 @@
           Toughness.GetHashCode(),
           Level.GetHashCode(),
           Counters.GetHashCode(),
-          Type.GetHashCode(),
+          calc.Calculate(_type.Value),
           Zone.GetHashCode(),
           _isRevealed.Value.GetHashCode(),
           _isPeeked.Value.GetHashCode(),
