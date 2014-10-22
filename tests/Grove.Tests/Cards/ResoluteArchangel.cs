@@ -1,30 +1,35 @@
 ﻿namespace Grove.Tests.Cards
 {
-    using System.Linq;
-    using Infrastructure;
-    using Xunit;
+  using Infrastructure;
+  using Xunit;
 
-    public class ResoluteArchangel
+  public class ResoluteArchangel
+  {
+    public class Ai : AiScenario
     {
-        public class Predefined : PredefinedAiScenario
-        {
-            [Fact]
-            public void SetLife()
-            {
-                var angel = C("Resolute Archangel");
+      [Fact]
+      public void LifeBecomes20()
+      {
+        Hand(P1, "Resolute Archangel");
+        Battlefield(P1, "Plains", "Plains", "Plains", "Plains", "Plains", "Plains", "Plains");
 
-                P1.Life = 10;
-                Hand(P1, angel);
+        P1.Life = 10;
 
-                Exec(
-                  At(Step.FirstMain)
-                    .Cast(angel)
-                    .Verify(() =>
-                    {
-                        Equal(1, P1.Battlefield.Creatures.Count());
-                        Equal(20, P1.Life);
-                    }));              
-            }
-        }
+        RunGame(1);
+        Equal(20, P1.Life);
+      }
+
+      [Fact]
+      public void LifeDoesNotChange()
+      {
+        Hand(P1, "Resolute Archangel");
+        Battlefield(P1, "Plains", "Plains", "Plains", "Plains", "Plains", "Plains", "Plains");
+
+        P1.Life = 22;
+
+        RunGame(1);
+        Equal(22, P1.Life);
+      }
     }
+  }
 }
