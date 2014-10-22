@@ -726,7 +726,7 @@
       if (Has().Fear && !card.HasColor(CardColor.Black) && !card.Is().Artifact)
         return false;
 
-      if (Has().Intimidate && !Colors.Any(card.HasColor) && !card.Is().Artifact)
+      if (Has().Intimidate && !card.Is().Artifact && _colors.None(card.HasColor))
         return false;
 
       if (HasProtectionFrom(card))
