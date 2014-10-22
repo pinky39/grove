@@ -35,7 +35,7 @@
     public virtual CardColor[] Colors { get; protected set; }
     public virtual int Counters { get; protected set; }
     public virtual int? Level { get; protected set; }
-    public virtual string Type { get; protected set; }
+    public virtual CardType Type { get; protected set; }
     public virtual int Damage { get; protected set; }
     public virtual bool IsTapped { get; protected set; }
     public virtual bool HasSummoningSickness { get; protected set; }

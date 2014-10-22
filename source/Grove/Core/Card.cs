@@ -14,6 +14,7 @@
     private readonly ActivatedAbilities _activatedAbilities;
     private readonly Trackable<Card> _attachedTo = new Trackable<Card>();
     private readonly TrackableList<Card> _attachments = new TrackableList<Card>();
+    private readonly CardParameters _cardParameters;
     private readonly CastRules _castRules;
     private readonly CardColors _colors;
     private readonly CombatRules _combatRules;
@@ -29,6 +30,8 @@
     private readonly Trackable<bool> _isRevealed = new Trackable<bool>();
     private readonly Trackable<bool> _isTapped = new Trackable<bool>();
     private readonly Level _level;
+    private readonly MinBlockerCount _minBlockerCount = new MinBlockerCount(1);
+    private readonly int? _minBlockerPower;
     private readonly TrackableList<ICardModifier> _modifiers = new TrackableList<ICardModifier>();
     private readonly Protections _protections;
     private readonly SimpleAbilities _simpleAbilities;
@@ -42,16 +45,12 @@
     public TrackableEvent LeftBattlefield;
     private CardController _controller;
     private bool _isPreview = true;
-    private readonly MinBlockerCount _minBlockerCount = new MinBlockerCount(1);
-    private readonly int? _minBlockerPower;
-
-    private readonly CardParameters _cardParameters;
 
     protected Card() {}
 
     public Card(CardParameters p)
     {
-        _cardParameters = p;
+      _cardParameters = p;
 
       Name = p.Name;
       ManaCost = p.ManaCost;
@@ -85,7 +84,8 @@
     }
 
     public bool MayChooseNotToUntap { get; private set; }
-    public int MinimalBlockerCount 
+
+    public int MinimalBlockerCount
     {
       get { return _minBlockerCount.Value.GetValueOrDefault(); }
     }
@@ -101,12 +101,12 @@
       get { return _attachments; }
     }
 
-    public bool HasConvoke 
+    public bool HasConvoke
     {
-      get { return Has().Convoke; } 
+      get { return Has().Convoke; }
     }
 
-      public Rarity? Rarity { get; set; }
+    public Rarity? Rarity { get; set; }
     public List<int> ProducableManaColors { get; private set; }
     public string Set { get; set; }
 
@@ -329,9 +329,9 @@
       get { return _strenght.Toughness; }
     }
 
-    public string Type
+    public CardType Type
     {
-      get { return _type.Value.ToString(); }
+      get { return _type.Value; }
     }
 
     public Zone Zone
@@ -374,6 +374,11 @@
     public bool IsEnchanted
     {
       get { return _attachments.Any(x => x.Is().Aura); }
+    }
+
+    public bool HasManaAbilities
+    {
+      get { return _activatedAbilities.GetManaAbilities().Any(); }
     }
 
     public void ReceiveDamage(Damage damage)
@@ -475,7 +480,7 @@
           Toughness.GetHashCode(),
           Level.GetHashCode(),
           Counters.GetHashCode(),
-          Type.GetHashCode(),
+          calc.Calculate(_type.Value),
           Zone.GetHashCode(),
           _isRevealed.Value.GetHashCode(),
           _isPeeked.Value.GetHashCode(),
@@ -707,7 +712,7 @@
         return false;
 
       if (!Has().Flying && card.Has().CanBlockOnlyCreaturesWithFlying)
-          return false;
+        return false;
 
       if (Has().CanOnlyBeBlockedByCreaturesWithFlying && !card.Has().Flying)
         return false;
@@ -716,13 +721,13 @@
         return false;
 
       if (Has().CannotBeBlockedByWalls && card.Is("Wall"))
-          return false;
+        return false;
 
       if (Has().Fear && !card.HasColor(CardColor.Black) && !card.Is().Artifact)
         return false;
 
       if (Has().Intimidate && !Colors.Any(card.HasColor) && !card.Is().Artifact)
-          return false;
+        return false;
 
       if (HasProtectionFrom(card))
         return false;
@@ -818,7 +823,7 @@
       _attachments.Remove(card);
       card.AttachedTo = null;
 
-      Publish(new AttachmentDetachedEvent(attachment: card, attachedTo: this));        
+      Publish(new AttachmentDetachedEvent(attachment: card, attachedTo: this));
     }
 
     public void EnchantWithoutPayingCost(Card target)
@@ -887,16 +892,8 @@
     public bool HasProtectionFrom(Card card)
     {
       return HasProtectionFrom(card._colors) ||
-        HasProtectionFromTypes(card._type.Value.MainTypes) ||
+        HasProtectionFromTypes(card._type.Value.BaseTypes) ||
         HasProtectionFromTypes(card._type.Value.SubTypes);
-    }
-
-    public bool HasManaAbilities
-    {
-      get
-      {
-        return _activatedAbilities.GetManaAbilities().Any();
-      }
     }
 
     public void Hide()
@@ -1180,7 +1177,7 @@
 
     public Card Clone()
     {
-        return new Card(_cardParameters);
+      return new Card(_cardParameters);
     }
   }
 }

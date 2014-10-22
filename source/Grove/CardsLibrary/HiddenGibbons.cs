@@ -30,7 +30,7 @@
               () => new ChangeToCreature(
                 power: 4,
                 toughness: 4,
-                type: "Creature Ape",
+                type: t => t.Change(baseTypes: "creature", subTypes: "ape"),
                 colors: L(CardColor.Green)));
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;

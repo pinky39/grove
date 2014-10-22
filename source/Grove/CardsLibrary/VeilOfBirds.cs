@@ -31,7 +31,7 @@
               () => new ChangeToCreature(
                 power: 1,
                 toughness: 1,
-                type: "Creature Bird",
+                type: t => t.Change(baseTypes: "creature", subTypes: "bird"),
                 colors: L(CardColor.Blue)),
               () => new AddStaticAbility(Static.Flying));
 

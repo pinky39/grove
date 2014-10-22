@@ -35,7 +35,7 @@
                 power: 3,
                 toughness: 3,
                 colors: L(CardColor.Red, CardColor.Green),
-                type: "Land Creature Elemental") {UntilEot = true},
+                type: t => t.Add(baseTypes: "creature", subTypes: "elemental")) { UntilEot = true },
               () =>
                 {
                   var tp = new TriggeredAbility.Parameters

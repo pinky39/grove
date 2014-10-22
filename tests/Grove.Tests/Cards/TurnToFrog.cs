@@ -8,7 +8,7 @@
     public class Ai : AiScenario
     {
       [Fact]
-      public void CastTurnToFrog()
+      public void TurnJuggernautThenBlockWithBear()
       {
         var juggernaut = C("Juggernaut");
         Battlefield(P1, juggernaut);
@@ -19,8 +19,7 @@
 
         RunGame(1);
 
-        Equal(0, P1.Battlefield.Count);
-        Equal(3, P2.Battlefield.Count);
+        Equal(Zone.Graveyard, C(juggernaut).Zone);       
       }
     }
 

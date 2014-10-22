@@ -35,7 +35,7 @@
             p.Effect = () => new ApplyModifiersToTargets(() => new ChangeToCreature(
               power: m => m.OwningCard.ConvertedCost,
               toughness: m => m.OwningCard.ConvertedCost,
-              type: m => m.OwningCard.Type + " Creature") {UntilEot = true});
+              type: m => m.OwningCard.Type.Add(baseTypes: "creature")) {UntilEot = true});
 
             p.TargetSelector.AddEffect(trg => trg
               .Is.Card(c => c.Is().Artifact && !c.Is().Creature)

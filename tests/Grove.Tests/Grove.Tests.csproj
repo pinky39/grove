@@ -567,6 +567,7 @@
     <Compile Include="Cards\WallOfFrost.cs" />
     <Compile Include="Cards\WallOfJunk.cs" />
     <Compile Include="Cards\WallOfLimbs.cs" />
+    <Compile Include="Cards\WallOfMulch.cs" />
     <Compile Include="Cards\WallOfReverence.cs" />
     <Compile Include="Cards\WarDance.cs" />
     <Compile Include="Cards\WardenOfTheBeyond.cs" />

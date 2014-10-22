@@ -30,7 +30,7 @@
               () => new ChangeToCreature(
                 power: 2,
                 toughness: 2,
-                type: "Creature Gargoyle",
+                type: t => t.Change(baseTypes: "creature", subTypes: "gargoyle"),
                 colors: L(CardColor.White)),
               () => new AddStaticAbility(Static.Flying));
 

@@ -24,7 +24,7 @@
             p.Modifier = () => new ChangeToCreature(
               power: m => m.OwningCard.ConvertedCost,
               toughness: m => m.OwningCard.ConvertedCost,
-              type: m => m.OwningCard.Type + " Creature");
+              type: m => m.OwningCard.Type.Add(baseTypes: "creature"));
 
             p.CardFilter = (card, effect) => card != effect.Source && card.Is().Enchantment && !card.Is().Aura;
           });

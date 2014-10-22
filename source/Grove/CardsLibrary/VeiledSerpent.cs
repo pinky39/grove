@@ -29,7 +29,7 @@
               () => new ChangeToCreature(
                 power: 4,
                 toughness: 4,
-                type: "Creature Serpent",
+                type: t => t.Change(baseTypes: "creature", subTypes: "serpent"),
                 colors: L(CardColor.Blue)),
               () => new AddStaticAbility(Static.CanAttackOnlyIfDefenderHasIslands));      
 

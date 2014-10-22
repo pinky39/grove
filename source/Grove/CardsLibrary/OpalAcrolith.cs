@@ -30,7 +30,7 @@
             p.Effect = () => new ApplyModifiersToSelf(() => new ChangeToCreature(
               power: 2,
               toughness: 4,
-              type: "Creature Soldier",
+              type: t => t.Change(baseTypes: "creature", subTypes: "soldier"),
               colors: L(CardColor.White)));
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;

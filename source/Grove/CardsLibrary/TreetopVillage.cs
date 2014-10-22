@@ -34,7 +34,7 @@
                 power: 3,
                 toughness: 3,
                 colors: L(CardColor.Green),
-                type: "Land Creature Ape") {UntilEot = true},
+                type: t => t.Add(baseTypes: "creature", subTypes: "ape")) {UntilEot = true},
               () => new AddStaticAbility(Static.Trample) {UntilEot = true});
 
             p.TimingRule(new WhenStackIsEmpty());

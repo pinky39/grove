@@ -32,7 +32,7 @@
             p.Effect = () => new ApplyModifiersToSelf(() => new ChangeToCreature(
               power: 3,
               toughness: 5,
-              type: "Creature Spider",
+              type: t => t.Change(baseTypes: "creature", subTypes: "spider"),
               colors: L(CardColor.Green)),
               () => new AddStaticAbility(Static.Reach));
 

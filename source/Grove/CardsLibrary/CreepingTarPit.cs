@@ -33,7 +33,7 @@
               () => new ChangeToCreature(
                 power: 3,
                 toughness: 2,
-                type: "Land Creature Elemental",
+                type: t => t.Add(baseTypes: "creature", subTypes: "elemental"),
                 colors: L(CardColor.Blue, CardColor.Black)) {UntilEot = true},
               () => new AddStaticAbility(Static.Unblockable) {UntilEot = true});
 
